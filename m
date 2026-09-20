@@ -1,122 +1,89 @@
-Received: from mail-ed2-f30.google.com (mail-ed2-f30.google.com [74.125.228.94])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B00BC3D3D11
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:21:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49830394496;
+	Sun, 20 Sep 2026 21:21:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789939297; cv=none; b=if1/Zc+zYDJ5pXhZWxQCspJJ3MXhc8MmpFdX7IPtK1Bwavgack3ynn1euThnt0Q/T+XKVRc8JENxT2vQdhlcg43T4kUQB44PXA4mtFeKKFkhMnC7Z+9bxnNKlM1mEjbdGYR98JMnVQSD8UzOoWaE+Mc1tIMP+kOAo+hludRtisM=
+	t=1789939316; cv=none; b=YLPVRRXh/VSJK6fleyxOfNFNN6S5/kMes2HQl8PkGCGb/nPTN0P54dfbisEcTNr8k7jwRlWAgJZAbCBFXOvfaSGt2DsUJ3h3+0JFZUlVTajAAIRuO3pmZmsQWRS52n1E6LGciPknTXgmBXYu2zc5+BfH0a5A7mDUDeIgQ0x0oyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789939297; c=relaxed/simple;
-	bh=qoKr8F73jXZwuLTCYhGa0Hp+b6lJiLywfTbygYS4GYo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gmPUUD0xALB8zIAOrRAxrg2UZRixfoPtNY+IE5PQtas27FtZQZoHqUaOSQDwZo1/6oyL9oDUaeo48JoFIVGQUptB7yykXsNECIPrPIVe1SAR5fEu2DlvAyrwJJKAuNqSGVi5o1BvAyZRQhyhxHoi6jIMhQ/7fyiz2PzRVXPCze0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=u9wPDC94; arc=none smtp.client-ip=74.125.228.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789939316; c=relaxed/simple;
+	bh=sCqdG5tITi+sEKmQe9DaKyTZUt8EyLeQx0yjxQY2mvo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tTd+bJIpe4qQxwI/kY6GnW5bUolt/cHIiKwQJTcHPfix3JkUbd3MeRq7p+idlPnPmwvgCJWiviR1ToarVH2MU8qK/EybAjzYA8wA5H1oKwJJWTP2lwdWIvHH3UslAGjJJpLBO1JTuk94qwdAO6MH+s0bsATVuCnSa0Uryedww6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=0iaJtTrE; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="u9wPDC94"
-Received: by mail-ed2-f30.google.com with SMTP id 4fb4d7f45d1cf-6aa06e51bc3so3862322a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:21:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789939294; x=1790544094; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bHL0bqzjiVcWZ4wR3C4oOtKMYoG1Qe+r8qIwvuj52cY=;
-        b=u9wPDC94k93C89cV8kHPTS7s6kfPnF6GFUD++1XUV8QXjWXUty5xJ1Bp3DsznbitbU
-         JLZPyogRvCqN9XhnZGHiFWveOHMQd3MIl0eMFIAcTw61QdZEKL1Cyf8+9OKGY5frrbwo
-         8Ht5qjvtf7vvmB9Y7Pq9dd/57B3Pn4rg61n5oZgHiLcheEvuXforkZNbyeTmwK8OR2rU
-         aLNDpgcokBV2tJwhM0YjD8gwnvLiNdWDGTj8EI6rcwL2vgjqnWy7SpdaNGcHi4zW6WAy
-         A+09nEqJaJnyuUyitvs2VX0YWufWSQblrEMVQP8Sdev6JxkTXAw9LNFGT9avVJtkhAzo
-         /2Yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789939294; x=1790544094;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bHL0bqzjiVcWZ4wR3C4oOtKMYoG1Qe+r8qIwvuj52cY=;
-        b=hKhIP6DbPN1XDXzzLiQAsQS6Tlc2+k15YKlZJ4p7fptOuKNUN0EWXhaC7tmpUr4jiq
-         IoMPZiweFkrUa6M3uMEwfVSKV3bV7sr7oZRz5RE/b8/SFnjtjBjcs6QSxjZabkxyxbjZ
-         Jq6trfvz+G7OVIYPVlGBY6ArNiTaGuUJTO/xrYBZwulfIgJwFV/JkuD+ypLLwygbS947
-         7zNXJ9S1svkYIsoQ84qjJcJVt3RuUIZYDYNvmOIvr5GNmuGeYHh+RK0at7gPd2uLYaEv
-         Ee3WGHs8ThyC1v2vMlis0mmHMnoDXA8CjqsojBVwQgWgGUfWlcA5FatceH+DTbN0kKQA
-         gB3w==
-X-Forwarded-Encrypted: i=1; AKwUvByQMEnejZHvDu3rT2rBlPbz8hOh1sYgoAbZI/Qkv8kF/yw44plhoM560b2/bx0IEw0rJ02gQyx9uGDrC3w=@vger.kernel.org
-X-Gm-Message-State: AFuF++ll6gS0SFwluUGobecOvfqoHrGPKU9shfLp0idf9IVPDTDHSjWP
-	1BmAHVrqXU5CwBhcZy9Vv5onhVcCm3k63F4PdaKzmN6wgArUgbE5puWQj9Dyf2A9iTk=
-X-Gm-Gg: AYBFou3poxqmQO95nSBocbYHoW7y75OZ01TeMEPL4iJDkrg3UvsDRVdGwNuoAWo00gL
-	R6muSuesHc2Lsa6Lmyg2EeQ9gU3AguwqsSxnHGOAm74TRYoMDgwSRQuh42+fp/FkHjoLv4M3Cu7
-	LBsJTX4JJFE3TQJ4S6EU325xXq9UpWDXye3rYl/zKw3Q1hOJgzWUkUUO9UhBcQrglKa5kn/zgNV
-	DrMKRVNkvLoSypn47ldwUELzjtm488+xxG7ejYh+VghwlsXQtL2mQ4QRagx+sx78dI+A3Uj/oew
-	PDleMkuXsMTWZ73aSdQjGtkB4UU8AZ3vtbfe3thyApMaXW5iHMxfqK5kL7Vy/9p0/qiSBrdH1Vw
-	6a7TmHjqCidOx6nh+lOX9SPHcd9120Ux/7ZjDzaHAyNueA4nm0GFYoQBQ9F4H1z2ezYFamrkkzS
-	T2+Y2h0a3UQYoCm2RFCFKko6xPq1ttR9LXjzalvYXsIu7r0YLT/ZNX3D4aMSl2YF0jz95SVF9h8
-	kUwof0qVi8=
-X-Received: by 2002:a05:6402:23d2:b0:6a9:f874:6de8 with SMTP id 4fb4d7f45d1cf-6aa559cd4dcmr5546423a12.0.1789939293867;
-        Sun, 20 Sep 2026 14:21:33 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.73.189])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67dd0000sm3062351a12.17.2026.09.20.14.21.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 20 Sep 2026 14:21:32 -0700 (PDT)
-Message-ID: <95cc550d-8eac-4d1e-a61e-60595afa9ce8@linaro.org>
-Date: Sun, 20 Sep 2026 22:21:29 +0100
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="0iaJtTrE"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=FB0KgZnHO+5TeXbVP5m2pN484ljj1MT+O70LAuAOPFk=; b=0i
+	aJtTrEr8Cou6guI+SGDZ0ioW/Zsjy9PtA351tz1XKeFyop0N97odAxrO2gywy7f0l8xG9p6UTx4eS
+	colNvFndUPwAWOxL1qWCasBjeqf+Ocg58ZFqZKtwgTw2pFsstkwB2k2ZEQ5l3oSppMsJVTkGTGFNV
+	UCGXzaDq4QmCicI=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x8Oyh-006Ctb-Ti; Sun, 20 Sep 2026 23:21:39 +0200
+Date: Sun, 20 Sep 2026 23:21:39 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: =?iso-8859-1?Q?Nicol=F2_Giuliani_-_nicolo=2Egiuliani6=40studio=2Eunibo?=
+	=?iso-8859-1?B?Lml0?= <nicolo.giuliani6@studio.unibo.it>
+Cc: Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: R: R: [PATCH net] net: dsa: mv88e6xxx: continue without PTP if
+ the TAI period is invalid
+Message-ID: <f5d30e0b-9b10-45b4-a158-19c946c0c8bd@lunn.ch>
+References: <20260919-send-net-v1-1-4355c72465ee@studio.unibo.it>
+ <66937bde-51a0-49d2-9ae7-f27fb4f8ecde@lunn.ch>
+ <DU4PR01MB12163870875DEF21E5C39DD2D80852@DU4PR01MB12163.eurprd01.prod.exchangelabs.com>
+ <fde8b48a-10ed-46fd-b477-18ac57df8a88@lunn.ch>
+ <DU4PR01MB12163D71C8AF5C7695B2FB8BD80852@DU4PR01MB12163.eurprd01.prod.exchangelabs.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dt-bindings: usb: qcom,pmic-types: make example use
- generic VBUS property
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260920-fix-tcpm-vbus-bis-v1-0-cc9347bbe81a@oss.qualcomm.com>
- <20260920-fix-tcpm-vbus-bis-v1-2-cc9347bbe81a@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260920-fix-tcpm-vbus-bis-v1-2-cc9347bbe81a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <DU4PR01MB12163D71C8AF5C7695B2FB8BD80852@DU4PR01MB12163.eurprd01.prod.exchangelabs.com>
 
-On 20/09/2026 15:37, Dmitry Baryshkov wrote:
-> The commit fe2195b019f6 ("dt-bindings: usb: qcom,pmic-typec: deprecate
-> device-specific VBUS") switched the schema to use generic vbus-supply
-> property, however the example continued to use the old, deprecated one.
-> Update example to use the expected style of specifying the VBUS.
+On Sun, Sep 20, 2026 at 07:08:57PM +0000, Nicolò Giuliani - nicolo.giuliani6@studio.unibo.it wrote:
+> Hi Andrew,
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->   Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml b/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
-> index db487562cec4..dd56dc8afe03 100644
-> --- a/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
-> +++ b/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
-> @@ -176,7 +176,6 @@ examples:
->                                 "msg-rx-discarded",
->                                 "fr-swap";
->   
-> -            vdd-vbus-supply = <&pm8150b_vbus>;
->               vdd-pdphy-supply = <&vreg_l2a_3p1>;
->   
->               connector {
-> @@ -186,6 +185,8 @@ examples:
->                   data-role = "dual";
->                   self-powered;
->   
-> +                vbus-supply = <&pm8150b_vbus>;
-> +
->                   source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_DUAL_ROLE |
->                                  PDO_FIXED_USB_COMM | PDO_FIXED_DATA_SWAP)>;
->   
-> 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+
+> Thanks, that is what I needed. I checked it on the board (chip ID
+> 0x1930, so the driver entry is the 88E6193X, family 6393, which uses
+> mv88e6390_avb_ops and mv88e6352_ptp_ops):
+
+Marvell names all there devices 88e6xyz. The x indicates the model
+within the family y. The lower the value of x, the less features the
+device has.
+
+So i could well be the 88E6193X does not have avb, tsn and ptp.
+
+Marvell has a vendor driver for these devices called UMSD. It has an
+open source licence, but it is well hidden.
+
+include/driver/msdSysConfig.h:	MSD_88E6193X = 0x193,   /* 88E6193X  - BGA package - No AVB, No Routing, No Cut-through*/
+
+So i would say PTP is not available on this device. Please could you
+submit a patch removing the mv88e6390_avb_ops and mv88e6352_ptp_ops.
+
+There is also:
+
+        MSD_88E6191X = 0x192,  /* Amethyst 88E6191X  - BGA package - No AVB, No Routing, No Cut-through, No TCAM, No 802.1BR*/
+
+Maybe you can review that entry as well.
+
+       Andrew
