@@ -1,63 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A0A3ED5BB;
-	Sun, 20 Sep 2026 10:21:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF0283E63A3
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 10:21:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789899670; cv=none; b=Jne/5LmD+qnPQ++v+6POGLNjpS1a6Z5Xn4flqBVfs+s4VdGV/p2SJluJzLawapj4yfhRgbaf3eCu5449zPqr4a8w0slKbvVKkbOAFHa3wE4MeqMQfVRoJfkVmZ/Z+uKXsRWPL0fTuNRs/LX3Oe0o9YCDcUOkRXG8XM+DWjbBmPQ=
+	t=1789899673; cv=none; b=rRUpbomRV1AYghGpxg3GRbOIsL4ZWv09EaapkyHcq938IxEdyHldFnb5ZAwwXRnla/C6qcsEgoKl7DkSwdM0cat7ivWD0P8zoyQlELbqOu6sqtUhjM1XjNfeiDOODCb3z+oE4rnqvabNe85p2K74gv2HSnmoao9FOO2pVQ0cX04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789899670; c=relaxed/simple;
-	bh=Voce/lFCdTRcJBOz+PzC499UMedgZyBd36VrILiD3yk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cpB31UJ0jkgBvjvkN9nVtQLRuuOMvjGJAs9WOypuXPZeFB8S1d4syaFZH8qEA/0EgDiytNStx/edD+iwiSRnLK/3W4Q0/xCQjOUl0nrkkVpoPmgnDcU9SpSN3I6pJzlO+3nYImn5M0y3b2hfXa5A3QRexT4NS67zEZWUdo2UkQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DrJ85rcj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789899673; c=relaxed/simple;
+	bh=DXs70q+uj0fOTubAL/yj2nRY1q+Sd8JFHOY3sHHBGhE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IKQN4uR8Oc+WN5E1XTNGSN+nl5gjeVpVzEheNNRzEPghKGvtrkQa3IVinnljQZfYnzEkBU9gB4DHQsBp/n9tXjeVzEG/SV1bBFKqFHS290YAjlMkv0ezFSte7GDYQAnq9iQdqu48Ak8NpBFdIz7wSNgzdfv3mXJGP4B++pCSkHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R9m/wlJc; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DrJ85rcj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0A361F000FF;
-	Sun, 20 Sep 2026 10:21:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789899668;
-	bh=jMzLV3kGdoPOUL/f0tlElCHPgt1qK0SveX9Obruno+8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DrJ85rcjB5RUFNWfz0e6CklakGVbPwmO/ru+6tBsrA+gS1eEM+JstE5j4MP3kMEau
-	 VNNFYUwSg8Zc9ge8JuRnWvyA9mRa8zRceqtFHjeasm4nWumyjV7L/z8xlFqp2XLbb5
-	 tkfSiwIssRK9BWWpyD4pUHPu8hSMGjkzE74rLQJ4=
-Date: Sun, 20 Sep 2026 12:20:09 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: =?utf-8?B?5p6X5r+s5ZOy?= <m18667909625@163.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org, linux-api@vger.kernel.org,
-	luto@kernel.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, hpa@zytor.com
-Subject: Re: [PATCH] kernel: add system_energy_efficiency syscall (nr 337)
-Message-ID: <2026092041-foster-eradicate-822b@gregkh>
-References: <20260920100714.46206-1-m18667909625@163.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R9m/wlJc"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so1820679a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:21:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789899671; x=1790504471; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DXs70q+uj0fOTubAL/yj2nRY1q+Sd8JFHOY3sHHBGhE=;
+        b=R9m/wlJcx2ZyuYnkIdwDaRDO8ThzohwKv7zrxAqJNj+JDAdHYoApbOWFMPXc0SvQMb
+         z+A5maB1IKu6z94MXl+r0cO3h8Cpfz+1m7u6aMaoIcC384ffE8ZfJaw4f7Eq0NYDbbY3
+         ARJKpWu1J+8CM9g5YhG0t05S4n0Q5Iu0e0QrR+6/1Hi50LZPjpPCQcNDQ4u1dm3wsrIy
+         Euo3zuVgRV8KyvNlUJvLF60El9U0HYYIK38QR+9z3w7/3o1ZQYswleml0bs8KDxnZBTy
+         +33mVF9dFIucWCD1UGhM3fnETViUvmXBTqIrKvt4ijx/NOtUrLyAAOINWOqg/CwqzOTk
+         HlFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789899671; x=1790504471;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DXs70q+uj0fOTubAL/yj2nRY1q+Sd8JFHOY3sHHBGhE=;
+        b=g+wn3cLuusjOcx6QdQ3cfd7/J7uM4pXJyDnuv3hVzK0XWsjvynRdzJZP1gL5WMyd4r
+         0gCY719nJtzqMnKLkg/F/2f9N5GTiWbu4gtWqCYYbu4P09aIiWY8GX3QZw0MKxaay0eG
+         RBvGQnP+CcjTXxXO3XZ+NNDynZcYR1Clucu8eosALAUJH0WF24vWRLs54Cvdjdpm0/pX
+         Zsa8DFhvUVkFq9jyNY3l0aHSoDaljE3MYtkyww/JBbLEbzCG1tiRWyKjW1S8RPannAOj
+         SH67BcOTetBmK+vHTjrF9DOTeFmU3UWP3/WlIXR2e3OhPPSnRP7voUE0Z+xqXY5cmria
+         /kxw==
+X-Forwarded-Encrypted: i=1; AKwUvBzXo6GWLcsWrlB4qWN7KEaxlVra028BJy/VymLUPZGq0nxJWv09LKJvq1UKPynokDvF3OaIqQf0tkKtAbw=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5xh9nAu+KG03QlRhVr5DAUQkQeEC0SFlvvjSOYU0rn8HVUuLv
+	dsMkwKskCTp0zLM6yXju/m6Q3QTYpB3xNfgEzbH9oNbIjFKSk+Ns/qY=
+X-Gm-Gg: AYBFou1aNEJ3kERVc4h/SJG52gGrsURPKCzf3LpnZ9ne1NoXlcPPYcEtTMOBDpTJ7Cm
+	KYYLcj9Q8w3B7faJj7xzDTH/Nf02/G9MrGZx/FGldAIiFO/MEf2SrZonW3VZkWxH94/qe43t4Qr
+	a9Wc467m3qLL2bdwJxezApyfmvx18J0q5YCjZHVvA8n3+sOuG59c+G2CtkRVviWLBG30OOOxufq
+	rvAw9L7zmCBdnPJ6K8SSEanIVKhwD5J9A4I35hPXVYo8uIvvHke6LGGzxyEK2s17DVfZGOplMgU
+	cMY7jO1tYCeQiI1m7TOGZ4e2AAK38nD46pFvOGEMBx0xqRntkc/5f+dV01dccUOZDsyJnae+qmC
+	971jab/9pV0HWTmB46HflLaO4R0ArQkkbRKZQGehpcHpW4iFmaX5GYXA4dA/PXWZQNh9idLd/h2
+	/62y3v5XN+3PH/ooN5CVwiHn6ZEAbrfa4YFDNDQZC6E8j6jRQKn27kQXW2yeYkyvnLLF3zL6kEM
+	tDLITgfbd2Rx2vWTVCue6J8sDk=
+X-Received: by 2002:a17:90b:3a43:b0:39e:6c68:c778 with SMTP id 98e67ed59e1d1-39e6c68ca12mr6544339a91.46.1789899671224;
+        Sun, 20 Sep 2026 03:21:11 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:e0d6:4b87:c472:c9ae])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c37a88csm8550850a91.8.2026.09.20.03.21.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 03:21:10 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: sashiko-reviews@lists.linux.dev,
+	bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	donggeunyoo.kernel@gmail.com
+Subject: Re: [PATCH bpf 2/2] selftests/bpf: Test per-cpu initialization of a BPF_F_CPU created element
+Date: Sun, 20 Sep 2026 19:21:05 +0900
+Message-ID: <20260920102105.445051-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260920095859.635921F000FF@smtp.kernel.org>
+References: <20260920093153.439743-1-donggeunyoo.kernel@gmail.com> <20260920093153.439743-3-donggeunyoo.kernel@gmail.com> <20260920095859.635921F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260920100714.46206-1-m18667909625@163.com>
 
-On Sun, Sep 20, 2026 at 06:07:13PM +0800, 林濬哲 wrote:
-> Add a new syscall that reports GPU presence and system-wide
-> energy information:
-> 
-> - mode 0: returns the number of display devices found on the PCI bus
-> - mode 1: returns an energy efficiency metric; prefers the real GPU
->   power reported through hwmon, falls back to runtime PM status
->   weights, plus the online CPU count
-> - mode 2: returns the real-time GPU power in milliwatts read from
->   the hwmon power1_input channel exposed by GPU drivers
->   (amdgpu/nouveau/radeon/nvidia); returns 0 if not reported
+On Sun, 20 Sep 2026 09:58:58 +0000, sashiko-bot@kernel.org wrote:
+> [Severity: Medium]
+> Does this force a hard failure on uniprocessor systems instead of correctly
+> skipping the test?
+>
+> Since UP is a valid hardware configuration for running selftests, if a test
+> requires multiple CPUs, shouldn't it gracefully skip using test__skip()
+> rather than asserting a failure?
 
-Cute, but you missed a bunch of other gpu drivers, AND all of this can
-be done today from userspace, no syscall is needed, right?
+Right, that is a bug in the test. With one possible CPU there is no second
+CPU that could hold a stale value, so the case this subtest exists for
+cannot occur; booted with -smp 1, all three of the new subtests fail rather
+than skip. I will use test__skip() in v2.
 
-thanks,
+> [Severity: Low]
+> This isn't a bug, but the BPF subsystem strictly requires multi-line comments
+> to have the opening /* on its own line. Could this be reformatted to match
+> the required style?
 
-greg k-h
+It is not a requirement, but it is the documented preference, so I will
+follow it. Commit 82b8000c28b5 ("net: drop special comment style") removed
+the netdev comment rule, which leaves the general preference in
+Documentation/process/coding-style.rst, and that is the form you describe.
+checkpatch checks neither form. I will reformat the comment in v2.
+
+Thanks,
+Donggeun
