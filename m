@@ -1,207 +1,201 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAFB426980F
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 20:58:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789937935; cv=pass; b=sfh5YAEPLNmwFqdsdoDm2IkSRoz+lWlEx6nPcCEjb6C6ssx7BIxnTzoAlXi49Y6hdcQwh6p7etAbUYIExsUY6O7cwvCPTAC3MKsgraANlqfbIUeQtv9Cs93lb2q0+1esLiWtSyPr42NgWaCYosmw3VEeMPCn20b1gUYth3U6Ksw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789937935; c=relaxed/simple;
-	bh=Zxi7xlkDCo6GTtTUUP4ICLSQEG0dNKp2i5/MzUy/KOI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=POvHWlUwNZWSpVGOC+e559t+E9ZEyjusqEc/0DuvVlcpr2ij7Cbgh35AhWT0P8ShHv5VVr8AlwJ62Y936lNKpiOuoYbmRsBQVcXP/VSjn2Jiy4iyaJosDtJUez3BqrZWUTCI1+FptACRLMCnAtvGjslyLBv/k2ftLPsxmQXOY4s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jm+wKdO+; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 519A13515FD;
+	Sun, 20 Sep 2026 21:01:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789938081; cv=none; b=rhZ3pwam0Ll9kA/7wjGKEsEKvWvR7MgKv4zCekS5WdQW2hLAKTPCi9PRMgJoWfrrzCC171eDFV/FUi9j6uPQSufp9i+xx59gg1b2dTPUjoWOlMhOuSVzNgKmTorp3x3SPRPkjj7ctDEQN6SMT5UWq1XezeYgRCXPoK4P+E5SrAw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789938081; c=relaxed/simple;
+	bh=g6cPWX7j/9o5MxNW1pkqfk/LmUuv8uZGyZ3e4yRRcC0=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=qs6bh/Nksr+onPa460F/sA7AMmi5k64xZqkvOCN5+J0Lrst3Jy78Fsaia8NK5GY8Y4h0fTDmf8IzroNc108WbDQ04xNLN/lzqExCc9rGR2FntYKTUjoOfu/bx7Ajz03N3OC2E4vWtoZCVI4sS233ZWoJ9Rx4J1Mfx7LLN990Lpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LukJCmoc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jm+wKdO+"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb766bfd6so23732811cf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 13:58:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789937932; cv=none;
-        d=google.com; s=arc-20260327;
-        b=D7gJ6M61YV2pA+l0XKE+Z8dvFBa85e1pwtttQI6oNh9ZJ+T40REkkbH2ZkIMQ5rSdp
-         Yp/6RKCmIC6OAWMmfOULhsHpIgWEwu3yLBwSczq/8o6Rt33MNwGZ/wY/OvvtqPhhUesY
-         fuB4DCy/Xo3c6nNy4VTFTvvC+GWPAB+DH4qVtAaBlkh47tbINC8O7P22SJej1zkkLtzh
-         gB7yen4gMkabWMtC8cW50D2AtXVHndU+tOf27qOqaaiGb+PSdrcoZ68ws9/Qggnv5uRr
-         eEPcRVehMwm3FovHnVxwaNDKu3GVdtroIV3QYgfT4akS76LbAruOgwbQP7VmVpfoJnVb
-         ou1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pgbYq9WZp1wLB/tLd6hSmJb2hGfdZ+kAb6DF4bI/cVw=;
-        fh=SQwcl7TWVrahdJJJxzq82hh0e3FPGbQ8xPxE6RfaFNs=;
-        b=aS+OvtH7ClufvfR/ZyAOXkR3qIW5ssFEP+3+H1BPCttEi4d8kGFWH+ApW/vu01zKQ4
-         8sgsSXY1IE1KAp5tL2fhQ0QqzCKWje6kr2xqmjCLkEkoTFm4M48BnOMyXCHe3LNrUUl3
-         ObAZmpmqL5ISF3e6jHQp60AxayzUNeUyW9db0VcTUcvVJdpmXfmb8+l/XeMiqAYwlRrO
-         a7bVBCeoj5wwPO3Xfvidj7o5QU4bN9VHEkfFR6ooQXzIsdBjsh2inT4jy5aiaz+DrbjB
-         m1Mzq/tIyhEDYVRgfWP7to2AZDWEuf31FETN4v9cPdK8+V5lfOzJAb35fxP4PJY8NdzN
-         xzGA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789937932; x=1790542732; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pgbYq9WZp1wLB/tLd6hSmJb2hGfdZ+kAb6DF4bI/cVw=;
-        b=jm+wKdO+r0y06y+mZJQEIvtHPOXYgGFyyAKcNqHqQ3megpg89QMVwEaUi8kf/Rsbp0
-         v5FGnN7sjMuBBHaSkAJyoQqjC8/5KhHFuIoZGMPS31FgcmlQrCfYsb9yTeS5ByD/AXYa
-         Ru4B8nAzzlNJaOVvKpHvkaTXczV9Af3yhzCiJPsC93BhtpXHS7xG8U7gXP1P9bf2JB0O
-         ulc2UbeawJ2iJAX3YMRveNxdtRRHxUVM7Lkz/D5cmIgFUd72bhOdHJamMASXRrSEELrA
-         clgkpx2PPPJ/hAkMi4D5m+SNewFhtFf51bdkV7SSf850jBZGwrGm8omiQAcZK7e8dC36
-         s6Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789937932; x=1790542732;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pgbYq9WZp1wLB/tLd6hSmJb2hGfdZ+kAb6DF4bI/cVw=;
-        b=rDXEFJyvB0Ju3loXpXGBJ7B7on6/mcXuYR3Pv8b6QG64qJV4o+rolVOnNsm+xq0PAe
-         ovlnQiRIaSGF9tDU1JdaN8QTDVP7UUHcGrRDKst1UZXyyTtKMHESNWBp9dm6JBP2IKkF
-         sJADbezvlm3VCIyMo04ILbEXYS9J+JUMpQToMrYvfk+YjJnGCUp3pfMmetWMFxxRpjB9
-         7VxWGWcpxjFlIHELFTBPFzRmDgpMja1hD1vYEN11t8ixYmjjj9onr/hPpt55G2UeJLti
-         cKera33Xk0AzJpXQ1yAnnlKB7r3y6x3xCjtFG75hCgltxNtLnLKpCEDCQMFY3IOuRNaB
-         12jg==
-X-Forwarded-Encrypted: i=1; AKwUvBxFs+/SkLoWWZAy71p+gVuY0Hj3+6YPqab6VAM1UunI/85gYkXgteI6VG60DU5o5qpd9DYj0LuHzcNQ5VY=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2vf1jycXUiUzrhBHKP7DKR/mui1urq9/N/4KBwwTTuc2XDCCv
-	6B5a8C6qySOU4ycMGLl16adfc85Nclh2ft/iSQNAPivcD5ebJz4luat5XI7aCKqblbZAV8RmW74
-	9qyTFg7IzsF0Rvn+GZSMKKnibIjPSn/kW7zXyDB3duw==
-X-Gm-Gg: AYBFou2QgdmOtONGb53OxtaHIHboUCfo6SH76eI6EsfKEGKdHW1Yd5PyYvgrKOCWqgp
-	mzRrUp8UZfawymZROf39o7bJ1pVvaM9GztuhnyN08FtrgzBZzklJ2YcoyL/lkvLaZ0gDuZUih9K
-	oWqyVA0o8jcGc4Xx1xrAjjRq49Xj1xp/AfuBev2TvOw90dDsEQcxJfSq8cvRIHiZGSKQXAyJbmO
-	8HWJGMGmTZf8gXq2d8I0kqYT2uJnMrVw0kT0Cd6NshFsXK2q3gfXeVrPQ33lUK3U3kCBbMKfNFB
-	n6S+7M8VAhq1CPNw4tDsOprzmeROYv5bak/UdPj52g4CI3Ok/XPi0HrL3w==
-X-Received: by 2002:a05:622a:1650:b0:532:9adc:63a1 with SMTP id
- d75a77b69052e-532b7405127mr73553621cf.69.1789937932639; Sun, 20 Sep 2026
- 13:58:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LukJCmoc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F6281F00898;
+	Sun, 20 Sep 2026 21:01:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789938080;
+	bh=5I+T/Z99HkjtvA11SNCZ2Ec833d07YGNRal7u+qd1EU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=LukJCmocX9F09FNymFVQjbxZI0ckTVaehneWkJcf/WAfmSMn78B2K700BiHR9pBtK
+	 a/ijpprovcmoOuRcrqXwdCQP7/Vwbtm8ekIeyx/0SSXLEtQphte/bskDrA200SwQ/B
+	 cK0wzDS5Kj6Zj5Ab+oiujCp9H9bLz6Lm0CQn501TRAbmnywPF6LWMIxB+OTHCSYLLj
+	 G400hiwK4j/g7rdroTwaMC3x1jgghL8aW4i3SgDJDaZLoXokiwtcMhBFRilp5DBiSC
+	 SrsvGq0WJH0JUmPzHRY5U94Y4kKHNucBZKz9pIiI7xarb6m+zZDZmSlQqkMh7GwscD
+	 A0RwmbgrxWfdw==
+Subject:
+ Re: [PATCH net-next v3 2/3] net: devmem: embed net_iov_area in binding
+From: netdev-bot+sashiko@kernel.org
+To: sdf.kernel@gmail.com
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, sdf@fomichev.me,
+ bobbyeshleman@meta.com, almasrymina@google.com, linux-kernel@vger.kernel.org
+Date: Sun, 20 Sep 2026 21:01:19 +0000
+Message-ID: <178993807923.2160803.4802601925465816308@kernel.org>
+In-Reply-To: <20260917181116.3319017-3-sdf@fomichev.me>
+References: <20260917181116.3319017-3-sdf@fomichev.me>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918235351.398269-1-cyrozap@gmail.com>
-In-Reply-To: <20260918235351.398269-1-cyrozap@gmail.com>
-From: Forest Crossman <cyrozap@gmail.com>
-Date: Sun, 20 Sep 2026 15:58:40 -0500
-X-Gm-Features: AcwNN1Uwqpqv9Dxa8GL84fQ3gyPZRWEAowqxxoidYtNKJmtJS66HC0S395w6bVw
-Message-ID: <CAO3ALPxvFghs8UOckRVDp=Y6taWE-gWVhwbck9AN_pZPS1oqdA@mail.gmail.com>
-Subject: Re: [PATCH] drm/gm12u320: fix system freeze on surprise unplug
-To: hansg@kernel.org
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
-	airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 18, 2026 at 6:54=E2=80=AFPM Forest Crossman <cyrozap@gmail.com>=
- wrote:
->
-> Unplugging (or deauthorizing) a GM12U320 device while it is driving an
-> output causes the system to freeze. When this happens, other screens
-> stop updating and USB input (keyboard and mouse) stops working, but
-> non-USB storage, audio, network and ACPI events are unaffected. Because
-> the unplug never completes, the only way out is a reboot.
->
-> The kernel log shows a NULL pointer dereference on every such unplug:
->
->   BUG: kernel NULL pointer dereference, address: 0000000000000030
->   RIP: 0010:drm_mode_object_put+0x9/0x20
->   Call Trace:
->    drm_atomic_helper_commit_crtc_disable
->    drm_atomic_helper_commit_tail
->    commit_tail
->    drm_atomic_helper_commit
->    drm_atomic_commit
->    drm_atomic_helper_disable_all
->    drm_atomic_helper_shutdown
->    gm12u320_usb_disconnect
->    usb_unbind_interface
->    ...
->    usb_set_configuration
->    usb_deauthorize_device
->    authorized_store
->
-> The call trace above was caused by triggering a deauthorization, but a
-> physical unplug reaches the same gm12u320_usb_disconnect() path through
-> hub_event/usb_disconnect().
->
-> The task faults while holding the USB device mutex
-> (usb_set_configuration()) and the DRM modeset locks taken by
-> drm_atomic_helper_shutdown(). Mutexes are not released when a task dies
-> in an oops, so they stay locked forever, with the USB hub workqueue
-> (hub_event) and the DRM framebuffer-removal worker both blocking on
-> them. This is what freezes the system when the driver crashes.
->
-> gm12u320_stop_fb_update() drops the cached upload framebuffer
-> unconditionally:
->
->   old_fb =3D gm12u320->fb_update.fb;
->   gm12u320->fb_update.fb =3D NULL;
->   ...
->   drm_framebuffer_put(old_fb);
->
-> gm12u320->fb_update.fb is legitimately NULL when no update is queued,
-> for example when the update was already stopped, and
-> drm_framebuffer_put() does not accept NULL. On unplug,
-> gm12u320_usb_disconnect() calls drm_atomic_helper_shutdown(), which
-> commits a CRTC disable and reaches gm12u320_stop_fb_update() with a NULL
-> fb.
->
-> The NULL check was lost in commit 8f2cb9379fb4 ("drm/gm12u320: Simplify
-> upload work"). That commit moved the reference release out of
-> fb_update.lock (so the framebuffer destructor does not run under the
-> lock), but the previous form guarded the call with "if
-> (gm12u320->fb_update.fb)" and that check was dropped in the rewrite.
-> gm12u320_fb_mark_dirty() still has the same guard.
->
-> To fix the crash, restore the NULL check before calling
-> drm_framebuffer_put(). With this, the CRTC disable completes, no locks
-> are leaked, and unplugging the GM12U320 device while it is in use no
-> longer freezes the system. Tested by surprise-unplugging the device as
-> the active output--before the change the kernel oopsed and wedged on
-> every attempt, after it there is no oops and no stuck task.
->
-> Fixes: 8f2cb9379fb4 ("drm/gm12u320: Simplify upload work")
-> Cc: stable@vger.kernel.org
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Apologies, all, I've just learned I should have added an "Assisted-by:
-LLM" tag here.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-I used an LLM to debug the issue, identify the root cause, write the
-fix, and to write the first draft of the commit message (which I then
-edited significantly before submission).
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-If you need me to re-send the patch with the tag added, please let me know.
+- [Medium] net_devmem_bind_dmabuf() (net/core/devmem.c) sizes all three
+  per-binding arrays from dmabuf->size (`binding->area.num_niovs =…
 
-Thanks,
-Forest
+--
 
-> Signed-off-by: Forest Crossman <cyrozap@gmail.com>
-> ---
->  drivers/gpu/drm/tiny/gm12u320.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/tiny/gm12u320.c b/drivers/gpu/drm/tiny/gm12u=
-320.c
-> index 4ad074337af0..5bb6488556de 100644
-> --- a/drivers/gpu/drm/tiny/gm12u320.c
-> +++ b/drivers/gpu/drm/tiny/gm12u320.c
-> @@ -446,7 +446,8 @@ static void gm12u320_stop_fb_update(struct gm12u320_d=
-evice *gm12u320)
->         iosys_map_clear(&gm12u320->fb_update.src_map);
->         mutex_unlock(&gm12u320->fb_update.lock);
->
-> -       drm_framebuffer_put(old_fb);
-> +       if (old_fb)
-> +               drm_framebuffer_put(old_fb);
->  }
->
->  static int gm12u320_set_ecomode(struct gm12u320_device *gm12u320)
->
-> base-commit: 1717fcc5be575d4768279148ae9465a8b13d4339
-> --
-> 2.55.0
->
+net: devmem: embed net_iov_area in binding
+
+The chunk owner object is dropped and the single net_iov_area is stored
+directly in struct net_devmem_dmabuf_binding.  net_devmem_iov_binding()
+now derives the binding with container_of() on net_iov_owner(), and the
+dmabuf_genpool_chunk_owner wrapper plus its alloc/free path are removed.
+
+> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> index 2ac9d74010a9f..7cac0dab8ea87 100644
+> --- a/net/core/devmem.c
+> +++ b/net/core/devmem.c
+
+[ ... ]
+
+> @@ -52,12 +43,11 @@ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
+>  	struct net_devmem_dmabuf_binding *binding = container_of(wq, typeof(*binding), unbind_w);
+>  
+>  	if (binding->freelist)
+> -		WARN(binding->free_count != binding->chunk_owner->area.num_niovs,
+> +		WARN(binding->free_count != binding->area.num_niovs,
+>  		     "destroying dmabuf binding with outstanding net_iovs: total=%zu, free=%zu",
+> -		     binding->chunk_owner->area.num_niovs,
+> -		     binding->free_count);
+> +		     binding->area.num_niovs, binding->free_count);
+
+[ ... ]
+
+> @@ -241,16 +228,18 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
+>  		goto err_unmap;
+>  	}
+>  
+> -	total_niovs = dmabuf->size >> niov_shift;
+> +	binding->area.base_virtual = 0;
+> +	binding->area.num_niovs = dmabuf->size >> niov_shift;
+>  	if (direction == DMA_TO_DEVICE) {
+> -		binding->tx_vec = kvmalloc_objs(struct net_iov *, total_niovs);
+> +		binding->tx_vec = kvmalloc_objs(struct net_iov *,
+> +						binding->area.num_niovs);
+>  		if (!binding->tx_vec) {
+>  			err = -ENOMEM;
+>  			goto err_unmap;
+>  		}
+>  	} else {
+>  		spin_lock_init(&binding->freelist_lock);
+> -		binding->freelist = kvmalloc_array(total_niovs,
+> +		binding->freelist = kvmalloc_array(binding->area.num_niovs,
+>  						   sizeof(binding->freelist[0]),
+>  						   GFP_KERNEL);
+>  		if (!binding->freelist) {
+
+[ ... ]
+
+> @@ -289,13 +267,13 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
+>  		nr_niovs = len >> niov_shift;
+>  		for (i = 0; i < nr_niovs; i++, niov_idx++) {
+> -			niov = &owner->area.niovs[niov_idx];
+> -			net_iov_init(niov, &owner->area, NET_IOV_DMABUF);
+> +			niov = &binding->area.niovs[niov_idx];
+> +			net_iov_init(niov, &binding->area, NET_IOV_DMABUF);
+>  			page_pool_set_dma_addr_netmem(net_iov_to_netmem(niov),
+>  						      dma_addr);
+>  			if (direction == DMA_TO_DEVICE)
+
+[Severity: Medium]
+Can this loop in net_devmem_bind_dmabuf() write past
+binding->area.niovs[], binding->freelist[] and binding->tx_vec[]?
+
+All three arrays are now sized from the dmabuf size:
+
+	binding->area.num_niovs = dmabuf->size >> niov_shift;
+
+but the fill loop advances niov_idx (and binding->free_count) purely from
+the mapped scatter-gather lengths, with no comparison against
+binding->area.num_niovs:
+
+	nr_niovs = len >> niov_shift;
+	for (i = 0; i < nr_niovs; i++, niov_idx++) {
+		niov = &binding->area.niovs[niov_idx];
+		...
+		if (direction == DMA_TO_DEVICE)
+			binding->tx_vec[niov_idx] = niov;
+		else
+			binding->freelist[binding->free_count++] = niov;
+
+The only per-entry check before this is
+IS_ALIGNED(dma_addr, niov_size) / IS_ALIGNED(len, niov_size), which
+constrains neither the total nor the index, and nothing sums
+sg_dma_len() over binding->sgt to confirm it equals dmabuf->size.  If an
+exporter's mapped sgt describes more bytes than dmabuf->size, does this
+store net_iov contents, DMA addresses and net_iov pointers beyond the end
+of the three allocations?
+
+In the other direction, if the sgt describes fewer bytes than
+dmabuf->size, the tail of tx_vec[] stays uninitialized (kvmalloc, not
+zeroed), while net_devmem_get_niov_at() bounds the user-supplied offset
+only against the dmabuf size:
+
+	if (virt_addr >= binding->dmabuf->size)
+		return NULL;
+	...
+	return binding->tx_vec[virt_addr / PAGE_SIZE];
+
+Can that return a garbage pointer that is then used as a struct net_iov?
+For the RX case the same shortfall would leave free_count below
+area.num_niovs, so the teardown WARN in
+__net_devmem_dmabuf_binding_free() quoted above would fire on every
+unbind.
+
+Before this series the RX niovs were sized per scatter-gather entry
+(owner->area.num_niovs = len >> niov_shift), so an sgt/size mismatch
+could not overrun them; the count is now derived from dmabuf->size with
+no bound check added.
+
+The io_uring zcrx code this series says it mirrors performs both checks -
+io_import_dmabuf() sums sg_dma_len() and rejects a mismatch:
+
+	for_each_sgtable_dma_sg(mem->sgt, sg, i)
+		total_size += sg_dma_len(sg);
+
+	if (total_size != len) {
+		ret = -EINVAL;
+		goto err;
+	}
+
+and io_populate_area_dma() bounds its fill loop with
+while (sg_len && niov_idx < area->nia.num_niovs).  Would it make sense to
+do the same here, either by validating the sg total against dmabuf->size
+or by capping niov_idx at binding->area.num_niovs?
+
+I could not identify an in-tree exporter that provably returns an sgt
+whose total differs from dmabuf->size, so this may not be reachable
+today; the gap does still appear to be present at the end of the series
+(0942efb741d9 does not touch net_devmem_bind_dmabuf()).
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917181116.3319017-1-sdf%40fomichev.me
