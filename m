@@ -1,256 +1,329 @@
-Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D01379EDA
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:57:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F090C2F7EE4;
+	Sun, 20 Sep 2026 07:58:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789891072; cv=none; b=oQeUbVmyZk2KxwkW/Pa/xfn15IwemjW6ZBhsd+xJQ0Mi1MWcUePd6XBFJypbBAoE58KJvd3LGyRCJhsKXAEqU/GCSdeeQuACP0dmVwy7GgbFRXEEZvYnBQBlNU5Bi8Ra8yXFJA2YKfhF6xpOi/3Qr5nJl+009Bn09/2o5oCCwXU=
+	t=1789891090; cv=none; b=Ll65e0e72yBbhwMnnqJhvn5W/8oN15ebygXQL1rpJc2sktBppmhBuatPTfo6SYOvlcpeir6ozaof9CCSuy+kqTgB4lTZ2hVqPGVNBomczo/19TnYfOMa+UwFNnCDhxODkZMXoxCN3wvECy69uLs7QEg+61X9V8y/DjQFwOqvJy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789891072; c=relaxed/simple;
-	bh=uHAOQLm1Kg1IHj2EEI5dk1gSmNIcJFd4GqRVN00dsW4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kbgoKt2h8Q6pmaiOURCnwGpzU3Nl9vWnYnz6+FeJF60Rar/vtQGqUxUovCapMXzce0LOLV7byn4y6egRwkYj5RW1pTVEo2Ma5/IWlAuGR3RXcF7OojQ+LEEG7jZ3saoHR2wWGA+rnU/2xgaWz3aYbEgwa9ttqb1eilIM1FYV+XU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=RbXmjHs8; arc=none smtp.client-ip=185.70.43.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1789891090; c=relaxed/simple;
+	bh=UT6inVBwynblFYlbe6CpL5/Iwkg9DDQnwCzVjcLcUUg=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=l4FuVoMo6Wcb3VFIKcX3gll1eEvW3HkbuO0fkkOr8VFQv1PD8PfxMWp5OSJLAxeFeT5aqJlHaVJf58EX+JLHso8k/gCXZc5Y+Hy5jWTCM+nIgC6uoIEP0VeL5U2BeZbQTzeL2VG/lCQGDQFzrHh8Lllaiduh5WcWMbwGYsEy7MU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ig8cVr94; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="RbXmjHs8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1789891062; x=1790150262;
-	bh=J+/vFVdHnJkGa/5kQWsiXyK5CSZFgvCBW3lvo/IlH2M=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=RbXmjHs8c7B31QnmY2mwZLHFZqpMJQUoUX17ydNVfS4inbQVAwx6AWtkazcEeNaun
-	 nrn1xzJnVfpHad0GFEKQjef+Tw0NM4fuF5IvFEmT0I81yU2LZ4toNYk2lmn5sjmh/l
-	 za4xGVHmodal6lXqHnF9liZwU4QG3N5FRtqy+5lR+08UFITmmtNb/c9+zbMQniIDgl
-	 Uu3LIZu4+U3/vLzrfN3AK5wfwN6KVrQ8yfHbNA2lXB5DPrSOrJQ1afy3ltH8wmWCUA
-	 FUmhgNk5JiDlbKxSohlOcqTJtlhZLYc9kJctKj8ltO3Ccu9FprViUo89EhFvOzVZyx
-	 WHgSkxq01Yy3w==
-Date: Sun, 20 Sep 2026 07:57:35 +0000
-To: Ravindra <ravindra@intel.com>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Marcel Holtmann <marcel@holtmann.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: "Vladimir V . Kondratyev" <vladimirkondratyev2@gmail.com>, Ferenc Lengyel <dev@lengyelf.eu>, Chethan Tumkur Narayan <chethan.tumkur.narayan@intel.com>, Ravishankar Srivatsa <ravishankar.srivatsa@intel.com>, Paul Menzel <pmenzel@molgen.mpg.de>, Kiran K <kiran.k@intel.com>, Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>, Mahalingeshwara Chambarakatta <mahalingeshwara.chambarakatta@intel.com>, Arnd Bergmann <arnd@arndb.de>, linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] Bluetooth: btintel_pcie: fix PM flow for S0ix, S3 and S4
-Message-ID: <20260920075720.7004-1-lsa.uz@pm.me>
-In-Reply-To: <IA1PR11MB786999FA8FCC7E7B8752F7A4DA852@IA1PR11MB7869.namprd11.prod.outlook.com>
-References: <20260909123416.71919-1-lsa.uz@pm.me> <20260909123416.71919-3-lsa.uz@pm.me> <CABBYNZJfH4F1-Hy1eiOrzuU1nzTbMbue3EqMT5gfHs60wFw9QA@mail.gmail.com> <20260909204654.91282-1-lsa.uz@pm.me> <IA1PR11MB786999FA8FCC7E7B8752F7A4DA852@IA1PR11MB7869.namprd11.prod.outlook.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 46d2228082e433d536a953fab13d1981df6963d2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ig8cVr94"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7CBD1F000FF;
+	Sun, 20 Sep 2026 07:58:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789891088;
+	bh=0EyLD0n0lzgtuzYWbeAQDB6+6wN+W+bRt+Kx71uHc5w=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Ig8cVr94HCorS9Duii1U3EczWF1NF4tJGbLzx8Wgm5QKePB+yqJjL99fDpBfUe6Yc
+	 g1f7YeV3Nh10s+HoKs7TJungwkGMah97pi7oqYe+dP5qU7U6pGm/VHBLgGxh9N5UKO
+	 AOxliqVbDoleJOw+mJTVLwckWN4ZhgEoXXKW+5H63GEs4pHguTvf9p1iABggp8hWui
+	 mas8AJdFo9W5rL0qwbPD619CQ9nyNehodqcYF9fXmdmPptjnZAREqOHVD2iFI8cGYV
+	 vD3+iwsxyTwAmjZZLl7mIRpQPMh+SDu/8l7uDPZ51MweCzdVxmmccpOGUl+hPWjq6F
+	 PRFSRC0iFXAtA==
+Subject: Re: [PATCH net] llc: stop connection timers before dropping sap ref
+ on release
+From: netdev-bot+sashiko@kernel.org
+To: miguelgarciaroman8@gmail.com
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+44efda9647c52be29d9c@syzkaller.appspotmail.com
+Date: Sun, 20 Sep 2026 07:58:07 +0000
+Message-ID: <178989108743.2160803.13247969206014444151@kernel.org>
+In-Reply-To: <20260916074158.3375909-1-miguelgarciaroman8@gmail.com>
+References: <20260916074158.3375909-1-miguelgarciaroman8@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Thank you - and for taking the third finding, which I had written off as
-not this series' business.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Where this stands, and what I need from you
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 1
 
-A v3 is assembled and ready: 1/2 and 2/2 unchanged, plus a third patch for
-the one path the fold does not close. It applies to today's bluetooth-next
-with no adjustment, checkpatch --strict gives 0 errors and 0 checks, and th=
-e
-third patch is measured rather than argued - 3 of 3 injected cycles failed
-without it, 3 of 3 were clean with it, plus four uninjected controls.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-I am not sending it. Four things are not mine to settle, and I would rather
-ask than guess:
+- [High] Incomplete fix: the new `llc_sk_stop_all_timers(sk, true)` in
+  `llc_ui_release()` (net/llc/af_llc.c:225) cannot guarantee that no…
+- [Low] The comment added by this patch (net/llc/af_llc.c:221-223) and
+  the corresponding commit-message sentence ("timer_delete_sync() must…
 
-  1. Is 1/2 still a separate commit in your tree? The diff you sent reads
-     either way, and the answer decides whether v3 is three patches or two.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but it is in the
+  code the patch touches and is a hard out-of-bounds access:…
 
-  2. Can btintel_pcie_set_dxstate() race the gp0 handler? The new patch
-     guards on alive_intr_ctxt so that RX is not armed twice, and that guar=
-d
-     is only sound if it cannot. You know that path; I have only read it.
+--
 
-  3. Which tree is your hunk against? It sits at 5193, while bluetooth-next
-     has set_dxstate() at 4169 and nothing inside it has moved since the
-     series went out.
+llc: stop connection timers before dropping sap ref on release
 
-  4. Where do you want the W1C clear? It is your fix and pre-existing, and
-     neither patch touched that line, so it reads better as its own commit
-     with its own Fixes: than inside a PM patch. Say the word and v3 carrie=
-s
-     it as a fourth patch with your Signed-off-by; say nothing and I leave
-     it out for you to send.
+The patch adds a synchronous connection-timer cancel in llc_ui_release()
+after release_sock() and before the final llc_sap_put(), so that the ack /
+P / REJ / busy timers are stopped while the sap reference is still held.
+It targets a syzbot slab-use-after-free of the RCU-freed llc_sap from the
+timer softirq path.
 
-An answer to any of them - or "hold, I will carry it myself" - and I will
-act on it the same day. Everything below is the evidence behind them.
+Closes: https://syzkaller.appspot.com/bug?extid=44efda9647c52be29d9c
 
-Whose commit 1/2 is
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> diff --git a/net/llc/af_llc.c b/net/llc/af_llc.c
+> index b0447c33dbf09..4fc397fad4d2e 100644
+> --- a/net/llc/af_llc.c
+> +++ b/net/llc/af_llc.c
+> @@ -215,6 +215,14 @@ static int llc_ui_release(struct socket *sock)
+>  		llc_sap_hold(sap);
+>  		llc_sap_remove_socket(llc->sap, sk);
+>  		release_sock(sk);
+> +		/*
+> +		 * Timers dereference llc->sap.  Cancel them while the sap is
+> +		 * still held; llc_sk_free() runs after the final sap put and
+> +		 * would otherwise race with kfree_rcu(sap).  Must run after
+> +		 * release_sock() to avoid deadlock with bh_lock_sock() in the
+> +		 * timer callbacks.
+> +		 */
 
-The diff applies to a tree without 1/2: its minus side carries the old
-comment, its plus side carries Vladimir's re-read word for word. So either
-the two commits are now one, or it was taken against the pre-series base.
-I cannot tell from here.
+[Severity: Low]
+This isn't a bug, but is the stated deadlock rationale accurate?  The same
+claim appears in the changelog:
 
-If they are one, please keep his From: and Signed-off-by, or add
-Co-developed-by: and Signed-off-by: if it has to stay a single commit. His
-one condition for letting me carry his patch was authorship, and I answered
-him on-list that it was already safe - so this part is mine to ask about
-rather than his. His two Link: tags are worth keeping either way.
+    timer_delete_sync() must not run under lock_sock() (timer callbacks take
+    bh_lock_sock()), so stopping after release_sock() is required.
 
-Ferenc Lengyel's Tested-by is a different matter: it was given for the patc=
-h
-as posted, so dropping it from a modified one is fair. He is on Cc, so I am
-saying it here rather than letting it go quietly.
+lock_sock() does not hold sk->sk_lock.slock across its critical section.
+lock_sock_nested() in net/core/sock.c takes the slock only to set the
+ownership flag and drops it again:
 
-The flag means less than it says
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D
+	spin_lock_bh(&sk->sk_lock.slock);
+	if (unlikely(sock_owned_by_user_nocheck(sk)))
+		__lock_sock(sk);
+	sk->sk_lock.owned = 1;
+	spin_unlock_bh(&sk->sk_lock.slock);
 
-I argued the opposite to you on 9 September - that moving gp0_received out
-of the retry loop rescues a late interrupt, and that your comment stated th=
-e
-invariant well. That was wrong, and I would rather say so than switch sides
-quietly.
+Since bh_lock_sock() is just spin_lock(&((__sk)->sk_lock.slock)), a timer
+callback can take it while another thread owns the socket lock, and
+llc_process_tmr_ev() then defers rather than blocking:
 
-data->gp0_received =3D true is set at 1968 unconditionally, before a switch
-that may match no case at all. The comment at 1940 says the same thing from
-the other side: gp0 is raised for three causes and it is not easy to know
-which one fired. So the flag means a gp0 arrived, not that the controller
-moved.
+net/llc/llc_c_ac.c:llc_process_tmr_ev() {
+	...
+		if (!sock_owned_by_user(sk))
+			llc_conn_state_process(sk, skb);
+		else {
+			llc_set_backlog_type(skb, LLC_EVENT);
+			__sk_add_backlog(sk, skb);
+		}
+	...
+}
 
-"if (status) return 0;" at 4182 has no register read behind it. Together
-those two let set_dxstate() report success while alive_intr_ctxt is stale
-and the RX rings were never re-armed.
+So timer_delete_sync() under lock_sock() would not deadlock on
+bh_lock_sock().  Placing the cancel after release_sock() still looks
+desirable for a different reason (a callback firing while the socket is
+owned pushes an LLC_EVENT onto the backlog, and release_sock() processing
+of that event can re-arm timers).  Could the comment and changelog be
+reworded to describe that instead?
 
-That needs no late interrupt and no second attempt: it happens inside one
-pass, and it is in bluetooth-next today. Moving the flag out of the loop
-widens it to a later attempt as well. The fold closes neither, because it
-sits on the timeout path and this returns above it.
+> +		llc_sk_stop_all_timers(sk, true);
+>  		llc_sap_put(sap);
 
-Measured
-=3D=3D=3D=3D=3D=3D=3D=3D
+[Severity: High]
+Can a timer still be pending here when llc_sap_put() drops the last
+reference and queues kfree_rcu(sap)?
 
-Fixture: the gp0 handler returns after data->gp0_received =3D true and befo=
-re
-the switch, once, while alive_intr_ctxt is D3. That is not a delayed
-interrupt - it is what a gp0 that matches no case does on its own. s2idle,
-rtcwake -m freeze -s 45, SP11, BE201 8086:a876 rev 10, kernel 7.0.0-30.
+Two things differ from the other caller of this helper.  llc_sk_free()
+marks the connection dead first:
 
-  build                                     injected    result
-  ---------------------------------------------------------------
-  set_dxstate() byte-identical to bt-next    3 of 3     failed
-  1/2 + 2/2 + your fold                      3 of 3     failed
-  the same plus the diff below               3 of 3     clean
-  the same, no injection                     4 of 4     clean
+net/llc/llc_conn.c:llc_sk_free() {
+	llc->state = LLC_CONN_OUT_OF_SVC;
+	/* Stop all (possibly) running timers */
+	llc_sk_stop_all_timers(sk, true);
+	...
+}
 
-Failure is the same every time:
+and LLC_CONN_OUT_OF_SVC is the only thing that stops an expiring timer from
+re-entering the state machine:
 
-    Bluetooth: hci0: Received hw exception interrupt
-    Bluetooth: hci0: Controller in error state
-    Bluetooth: hci0: command 0x0c01 tx timeout
-    Bluetooth: hci0: Opcode 0x0c1a failed: -110
-    btintel_pcie 0000:00:14.7: resetting
+net/llc/llc_c_ac.c:llc_process_tmr_ev() {
+	if (llc_sk(sk)->state == LLC_CONN_OUT_OF_SVC) {
+	...
+}
 
-and the controller returns under a new hci index, so every paired device is
-gone. In one of the six the FLR did not recover it either: it came back at
-00:00:00:00:00:00 and needed btintel_pcie and btintel both unloaded.
+The new call site does not set that state, and the helper uses
+timer_delete_sync() rather than timer_shutdown_sync(), so a mod_timer()
+from a callback is not neutralised.
 
-The part I did not expect is how quiet it is. "Timeout (200 ms) on alive
-interrupt" appears in none of the six, because the function returns above
-it. Nothing in the log says the resume went wrong - the first sign is the
-firmware exception a second later.
+The first re-arm path is inside the helper itself, which deletes in a fixed
+order:
 
-The diff
-=3D=3D=3D=3D=3D=3D=3D=3D
+net/llc/llc_conn.c:llc_sk_stop_all_timers() {
+	if (sync) {
+		timer_delete_sync(&llc->pf_cycle_timer.timer);
+		timer_delete_sync(&llc->ack_timer.timer);
+		timer_delete_sync(&llc->rej_sent_timer.timer);
+		timer_delete_sync(&llc->busy_state_timer.timer);
+	...
+}
 
-This is v3's third patch, shown against your folded version so the change i=
-s
-visible rather than the whole function. It moves the verification above the
-success return rather than adding anything, and does the handler's work onl=
-y
-when the handler has not.
+An ack-timer callback running concurrently takes bh_lock_sock() (free,
+because release_sock() already ran), sees state != LLC_CONN_OUT_OF_SVC, and
+runs the NORMAL state transition whose action list contains:
 
-  @@ -1,31 +1,36 @@
-   =09=09status =3D wait_event_timeout(data->gp0_wait_q, data->gp0_received=
-,
-   =09=09=09msecs_to_jiffies(dx_intr_timeout_ms));
+net/llc/llc_c_st.c:llc_normal_actions_20a[] {
+	[3] = llc_conn_ac_start_p_timer,
+}
 
-  -=09=09if (status)
-  -=09=09=09return 0;
-  +=09=09if (!status) {
-  +=09=09=09bt_dev_warn(data->hdev,
-  +=09=09=09=09   "Timeout (%u ms) on alive interrupt for D%d entry, retry =
-count %d",
-  +=09=09=09=09   dx_intr_timeout_ms, dxstate, retry);
+net/llc/llc_c_ac.c:llc_conn_ac_start_p_timer() {
+	mod_timer(&llc->pf_cycle_timer.timer,
+		  jiffies + llc->pf_cycle_timer.expire);
+}
 
-  -=09=09bt_dev_warn(data->hdev,
-  -=09=09=09   "Timeout (%u ms) on alive interrupt for D%d entry, retry cou=
-nt %d",
-  -=09=09=09   dx_intr_timeout_ms, dxstate, retry);
-  +=09=09=09/* clear gp0 cause; MSIX_HW_INT_CAUSES is W1C, so write only
-  +=09=09=09 * this bit to avoid acking other pending causes
-  +=09=09=09 */
-  +=09=09=09btintel_pcie_wr_reg32(data, BTINTEL_PCIE_CSR_MSIX_HW_INT_CAUSES=
-,
-  +=09=09=09=09=09      BTINTEL_PCIE_MSIX_HW_INT_CAUSES_GP0);
-  +=09=09}
+pf_cycle was already deleted first, so timer_delete_sync(&ack) only waits
+for that callback and returns with pf_cycle armed again.  The symmetric case
+exists in the other direction, where busy-timer expiry (deleted last)
+re-arms the ack timer (deleted second):
 
-  -=09=09/* clear gp0 cause; MSIX_HW_INT_CAUSES is W1C, so write only
-  -=09=09 * this bit to avoid acking other pending causes
-  +=09=09/* gp0_received only says a gp0 arrived. It is raised for three
-  +=09=09 * causes and the handler sets the flag before a switch that may
-  +=09=09 * match none of them, so it does not mean the target state was
-  +=09=09 * reached; a hardware bug may also drop the interrupt outright.
-  +=09=09 * Either way only the register knows, and only the handler
-  +=09=09 * refreshes the cache. Refresh it here and retry only if the
-  +=09=09 * state check still fails.
-   =09=09 */
-  -=09=09btintel_pcie_wr_reg32(data, BTINTEL_PCIE_CSR_MSIX_HW_INT_CAUSES,
-  -=09=09=09=09      BTINTEL_PCIE_MSIX_HW_INT_CAUSES_GP0);
-  -
-  -=09=09/* A hardware bug may cause the alive interrupt to be missed. Refr=
-esh
-  -=09=09 * boot_stage_cache from hardware, since only the interrupt handle=
-r
-  -=09=09 * updates it. Finally retry only if the state check still fails.
-  -=09=09 */
-   =09=09data->boot_stage_cache =3D btintel_pcie_rd_reg32(data,
-   =09=09=09=09BTINTEL_PCIE_CSR_BOOT_STAGE_REG);
+net/llc/llc_c_st.c:llc_common_actions_11d[] {
+	[1] = llc_conn_ac_start_ack_timer,
+}
 
-   =09=09if (dxstate =3D=3D BTINTEL_PCIE_STATE_D0) {
-   =09=09=09if (btintel_pcie_in_d0(data)) {
-  -=09=09=09=09/* GP0 handler never ran to do this: keep the
-  -=09=09=09=09 * state tracker in sync and resubmit RX.
-  +=09=09=09=09/* Do what the handler's D3 -> D0 branch would
-  +=09=09=09=09 * have done, unless it already did it.
-   =09=09=09=09 */
-  +=09=09=09=09if (data->alive_intr_ctxt =3D=3D BTINTEL_PCIE_D0)
-  +=09=09=09=09=09return 0;
-   =09=09=09=09data->alive_intr_ctxt =3D BTINTEL_PCIE_D0;
-   =09=09=09=09btintel_pcie_reset_ia(data);
-   =09=09=09=09btintel_pcie_start_rx(data);
+The second re-arm path is an in-flight receive softirq.
+llc_sap_remove_socket() only unhashes the socket; a lookup that already
+succeeded holds a socket reference via refcount_inc_not_zero() under
+rcu_read_lock(), and after release_sock() the socket is no longer owned:
 
-That guard - "if alive_intr_ctxt is already D0, the handler did it" - is
-question 2 above. The handler is threaded (2779) and the gp0 dispatch at
-2736 runs after irq_lock is dropped at 2697, so it can set gp0_received on
-one CPU and reach submit_rx at 2030 while set_dxstate() is reading the
-context on another. If that window is real the guard is wrong, and the rest
-of the patch stands without it. It bears on your fold the same way.
+net/llc/llc_conn.c:llc_conn_handler() {
+	...
+	if (!sock_owned_by_user(sk))
+		llc_conn_rcv(sk, skb);
+	...
+}
 
-Fifty clean S4 cycles cannot reach any of this - the path runs only when th=
-e
-alive interrupt is missing or unactionable, so a healthy controller never
-enters it. That makes your run a no-regression result on the normal path,
-which is worth having. Send me whatever you settle on and I will put it
-through the same fixture.
+llc_conn_rcv() -> llc_conn_state_process() can mod_timer() any of the four
+timers after the new cancel pass has completed.
 
-Whichever way this goes, please post it to the list rather than pushing it
-straight - then Vladimir, Ferenc and Luiz all see the trailers before it
-lands.
+Both look reachable when the connection is still active at close time, for
+example when llc_send_disc() returns non-zero:
 
-Thanks,
-Sergey
+net/llc/llc_if.c:llc_send_disc() {
+	...
+	skb = alloc_skb(0, GFP_ATOMIC);
+	if (!skb)
+		goto out;
+	...
+}
 
+or when sk->sk_state != TCP_ESTABLISHED, e.g. a connect that timed out and
+left the socket in setup state with the ack timer armed.  The socket is not
+SOCK_ZAPPED in that case, so this branch is taken with live timers and a
+live state machine.
+
+The changelog says:
+
+    llc_sk_free() still stops timers again; a second sync delete is
+    harmless.
+
+Can that second pass restore the guarantee?  It runs after the final sap
+put, and its llc->state = LLC_CONN_OUT_OF_SVC is a plain store that a
+concurrent state machine can overwrite via llc->state = trans->next_state
+in llc_conn_service().  If so, the original UAF (a timer action touching
+sap->laddr.lsap in llc_conn_ac_send_sabme_cmd_p_set_x() /
+llc_conn_ac_send_rr_cmd_p_set_1() after the sap was RCU-freed) still looks
+reachable.
+
+Would it work better to make re-arming impossible before the sap reference
+is dropped, by marking the connection out of service under the socket lock
+and/or using timer_shutdown_sync(), or alternatively to keep the extra sap
+reference until after llc_sk_free()?
+
+As a smaller point, the trailing plain stores in the helper:
+
+	llc->ack_must_be_send = 0;
+	llc->ack_pf = 0;
+
+now execute with the socket unlocked while it is still reachable from an
+in-flight softirq.  Is that a new data race on connection state?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but it is in the teardown code
+the patch touches and interacts with any fix for the above, so it seems
+worth raising.
+
+llc_conn_service() validates only the upper bound of llc->state:
+
+net/llc/llc_conn.c:llc_conn_service() {
+	if (llc->state > NBR_CONN_STATES)
+		goto out;
+	...
+}
+
+and llc_qualify_conn_ev() then indexes with state - 1:
+
+net/llc/llc_conn.c:llc_qualify_conn_ev() {
+	struct llc_conn_state *curr_state =
+					&llc_conn_state_table[llc->state - 1];
+	...
+	for (next_trans = curr_state->transitions +
+		llc_find_offset(llc->state - 1, ev->type);
+	     (*next_trans)->ev; next_trans++) {
+	...
+}
+
+With llc->state == LLC_CONN_OUT_OF_SVC (which is 0) both become index -1,
+reading the memory before llc_conn_state_table[] and before
+llc_offset_table[][].  The resulting transitions pointer is then walked and
+its members are invoked as function pointers (ev, ev_qualifiers,
+ev_actions).
+
+Is state 0 reachable from received frames alone?  llc_conn_handler()
+creates and hashes an incoming socket for a frame that reaches a listener,
+then runs the state machine on it.  In ADM state any frame that is not
+SABME/DISC/xxx_cmd_Pbit_1 matches:
+
+net/llc/llc_c_ev.c:llc_conn_ev_rx_any_frame() {
+	return 0;
+}
+
+which selects the transition whose next state is 0:
+
+net/llc/llc_c_st.c:llc_adm_state_trans_5 {
+	.ev	       = llc_conn_ev_rx_any_frame,
+	.next_state    = LLC_CONN_OUT_OF_SVC,
+}
+
+llc_conn_service() writes that into llc->state.  The socket stays hashed,
+and the established lookup filters only on netns and addresses:
+
+net/llc/llc_conn.c:llc_estab_match() {
+	return net_eq(sock_net(sk), net) &&
+		llc->laddr.lsap == laddr->lsap &&
+		llc->daddr.lsap == daddr->lsap &&
+		ether_addr_equal(llc->laddr.mac, laddr->mac) &&
+		ether_addr_equal(llc->daddr.mac, daddr->mac);
+}
+
+so a second frame from the same source MAC/SSAP reaches
+__llc_lookup_established() -> llc_conn_rcv() -> llc_conn_state_process() ->
+llc_conn_service() with state 0.  Unlike llc_backlog_rcv() (which checks
+llc->state > 1) and llc_process_tmr_ev() (explicit OUT_OF_SVC check), the
+direct receive path has no state guard.
+
+llc_sk_free() is the second producer of state 0, and it runs while an
+in-flight receive softirq holding a pre-removal socket reference can still
+drive that unguarded path.  Should llc_conn_service() also reject state 0,
+particularly if the timer fix ends up marking the connection out of service
+earlier while it is still hashed?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260916074158.3375909-1-miguelgarciaroman8%40gmail.com
