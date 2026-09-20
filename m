@@ -1,69 +1,69 @@
-Received: from mail-pj2-f14.google.com (mail-pj2-f14.google.com [74.125.227.142])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C8A3803D7
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:55:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A42B175A95
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:55:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789880130; cv=none; b=tuaKee2/4jM2j29SOFnoGVb9ctJDDAI+XDQ+5CWDqoPy818HPAUpL5QoEqKPwdv7LUyyTYqBvrzhcllPiCLKzHs93XEWMnvdqpSThCyumorszPVgFqpr0PY1s3BZubtxlGWjcaZd3Tjsgui/2iiRaIjZLes2MzYsdJSyKGVqzHg=
+	t=1789880138; cv=none; b=s9tX7u4blCcZx7EWpvp2jU8h4B2h0ejZ4j4rudelhAx+xPXGb2j1dxOl/5kPmu3tCBk6AikJfa2R+6sGY+l7sZgP2qjJu5D9KIHis8x2auNPBxPcR+BBBojwstfemfkoDPzBK4u3CWKeQkItf+KAJySk2OJx7dfLe1FB4CQ0hys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789880130; c=relaxed/simple;
-	bh=pv2gkAEIZ5zw2KW9xVGxwYIrZhPA6WLMHSM1zupGGAk=;
+	s=arc-20240116; t=1789880138; c=relaxed/simple;
+	bh=vjc8kzENgz6iKNAy+aA+ET9iiFQ96+MVJmNToH4ibVY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PyFVZeaZNqfuxFJWRIeqEdy3ywemzQg9kcKHPSFGR+DM/28fW/DoCG1gmN0ZxSKYtYo93H1Nw5gNmAj/tzWeoReVqopsXJiAaNs2ndFJgVvh8mSEv4tO8PIdLWVxRKDGcRMD1yjDg3jB/4+LnGnIeZD8PCJDnU5c+Xf/65IJH3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KbTojVNN; arc=none smtp.client-ip=74.125.227.142
+	 In-Reply-To:To:Cc; b=q4oH/irlK4nZs+OfbJD1p7ot0NLxKBeLGUu4cKzAQj4803tOiKdyGHnNSO2rEhLKtBU2IWwDWIvRAEsdprlyXLx8JZzcowk5U1FYWtpz6cxCFQXYbIQHgxguVSRAtlBRPQB3b7WUkZJ8yYBPfdlpz8Km6vD5JIHtiK1890z0by8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YhNsfMsK; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KbTojVNN"
-Received: by mail-pj2-f14.google.com with SMTP id d9443c01a7336-2d747f0135fso19124835ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:55:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YhNsfMsK"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f066d8so6961885ad.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:55:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789880128; x=1790484928; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789880137; x=1790484937; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6GkASic1hpzs9f+gvFBpKnk1ih+SNPRQduHprBjjh18=;
-        b=KbTojVNNZE/32Iw95SaFTeRqi2OGv0TOdAZf1sqN3OcIPpz02uM2dskTokK7we47w+
-         F59m2gNBUuV3NwLvLAdViqFfuGYvtzOXcu01TQVIEmLbMi3aaKWObgUwPdFJd9/6aBb6
-         aoDRD5RMoyWf5q7pvWzIXQcKQbSeo86YzLWt9AWouRVkKg7D0T1L50znJVTLWSEw1rYm
-         1VX9xtU1m9bUffY/Y/aI26duSpa6jSEcJkT8MuzoDsXVz7Xo8C3M0extUuWA0DEQp3ON
-         PdBj1wmV66wn/Rznx5mu3foeKQVhsYaAuam21vYr/OI21gR63mMSmt+NUiYdY+gOOIoQ
-         RUNg==
+        bh=guh9SUKBNUNAFe1CPJL5pC07OGZIVIcs9iIVSylPf+8=;
+        b=YhNsfMsK0qk6onzsVi58+SzI9I3WoyBfqN4CqEjUIBImnWEhhFpsM0ryqMru1niaN/
+         TtBpZo/vEaOmhVFIp+tzkY4D9aJt6pwTlv0iEFtgCTEnXIX2aRPQuVph9lfLhLDf09Qh
+         rEnips7XyrbCo8HIRrawhZBA2wkgrEohk1ILg0/RSsG2t5hky4HLwVJu4qCYTdis+XbL
+         9f88hWyjeJkiN7qJSPxDZcuigFbPnSUU9rWpHr6oKgKO2qZRXIT3lNY7ErKCWY+zKQo5
+         nHKEUpYaPbdBg26ozTzWt3LaHhDqJusFr0DtsSvAND35I0+Nhx/by8XPxbw32ppfI0KI
+         7E2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789880128; x=1790484928;
+        d=1e100.net; s=20260707; t=1789880137; x=1790484937;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6GkASic1hpzs9f+gvFBpKnk1ih+SNPRQduHprBjjh18=;
-        b=FqT2bF8evCtWBLy3qqPJzEJIWCxHTHAAnU4GYSnwG6OX6lXdXyKjDw8qTrb0RTdmtX
-         nUu4c/+wjw4ZbBEFf4AXk+pbX0apieuCYIzOL/8FhsVLpMqmZmb5yCiFGcA6nJDVBu1V
-         gCKH2YF68sPBHL8sZj+Plv29OZvnCAKikqmpmy6y5MckMViakhWcaKQj6AsxppbBuglB
-         +g1XlmH+1KaMaW8RNi6BtVWpw4HyY6k0UT83pELg3gE9xpB+4yaQd1URQi1c/YKlyCNa
-         pE2EUdTCJ0CSdmJTKesRwAzUYZL2e3d2ZqZyTrAjW3GpJoV97/GGQ1N/zRahxcdzC+/7
-         hW5A==
-X-Forwarded-Encrypted: i=1; AKwUvBwVhu4e7mcGaIM5cSE+dCUzb3vR3l754+fDDP3hCko8/zdJftY+8kG4jxnfkfLsVhEZxRFwVGA+JjNnFuQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUMjHybY62vQ5UfXKKFsLSQ7wU6PrGNah/H5o7bIDoyt8DL0zG
-	tEbB6BHNpJQyg+hjjlxMFxbpLHsZTMPOMU5CUIbNu4xbgycI2iz5SdcC
-X-Gm-Gg: AYBFou1mBzs17aOdVC51AAh133E70ZXYWmchPOEgFmVSTa4Ra3kAxs1lK8A2iav7NFB
-	rpFd1jKJJpl9rFsQlp+BbD1GEUdVCShF/W2yoGgcKIdjavUUo08H2XD7Tqi4m2aGfwfk6tG/DjP
-	/Rcfgc5lbUdW23VxEnL4LBO9XTH/U0f9dyStoRyQf1Cw9ve9ph8q4v1h2TcG+5h8fZVqVW+WppB
-	G+kqs/vtlIgglXC/fdazFV1j2KKRrw/eBIOjHwDC8nDeF3IkaWi18mXOwx7JteQf5lmY+O4eOIC
-	9HBaWAgNmJYpk3o0yTquP681A+UIJfaILRyKr+8+ViZfpESbghis7FaxXv2Gpo8IH99WWLyACXT
-	REMAv/Tc2BNQeH97QwtSeVmtbtUs+Bw7ZU17amBekRkktLQr2OL+tvMTVmQJyxCynDuoyS2ALEv
-	VyWnzVBPuzyeFico9QAhwtH7bWUiElGqr30jOsh73SYRWJZC2BG4t5+ZHSR+FWIo85JGXMRJi4q
-	9UFo95YtGxONsXBFJLD2RBvBYUy9WhIJdnUtwVepyIvVbihgCI7p7RHuNZ+j1bu1uFbrmI/MHdH
-	QNGQOsIDxn98zUKv0bsAKXe/as+f6ZqHj27+CE9wsHqx+1183g3Dy0crSA==
-X-Received: by 2002:a17:903:1246:b0:2dd:ad74:ac81 with SMTP id d9443c01a7336-2ddb1bbfe2dmr111629155ad.28.1789880127792;
-        Sat, 19 Sep 2026 21:55:27 -0700 (PDT)
+        bh=guh9SUKBNUNAFe1CPJL5pC07OGZIVIcs9iIVSylPf+8=;
+        b=yHDwICutokNNnEmTth6ySSJzrCmP+jeHMtrWXeTgkCCA3vNRShqipECL0nLbT99Dxj
+         TBjTDpRVpuZdLBKpJnn/NIVMz0baFbmYdng814OKWqvEMJrT+wrgQWgtB5sQ4XJ1Nccf
+         jgoYHlYyCr+sdbC2Puk7PN42ksOot8QGXXOuhSXttZjEDA82S14IibzecNg6PC+WxAVj
+         5wn34hQC3I2HEHFvauyIT7ELvwiTOGOaATgD4AhEV/tYsRw7WWAbyiaE9+HZxoQ6CaSD
+         iwR5xVcGuA7Y7bT23G+UjkZvS2y5RDYmR7YUe1ZjEv6si5kHxJOjickUKgFYO2UylL5E
+         OpwA==
+X-Forwarded-Encrypted: i=1; AKwUvBzSezcv8SjxYNFnJ2cyMzCQTiHkKJUQTOzuNZUsdkLMVwD6fAB3e0rZTinUdSYeE/jj0ehdrEfggU0mwb0=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2LQnIYEFu+y2qo0wSQnt7HO2fN1l+MnLlfCYDkvBk3gZMI0o1
+	xl5SUYEdAGmdgcQQBtmTE8LKctBkcNIBDlVHGkYC0yZVhl15HFM7jGO8
+X-Gm-Gg: AYBFou2wtQywyIftEACLfdMyk+1ykiHMQQquff29A6EKP090yDhTFu5N8Q9pTdJbrT7
+	onco+zO2afLufJ1yA1RsOr/scm3rquLWYSFMWcRs5uc5ddb0GvRbOINn4YwcxBs31bHPI+d0a9S
+	EHHizW5OcgAsvi8fnQ9S2fbesHH+jjqpE2YLdNje8qRZ0cFmrKlrdxqMm90ZPEyuZlVAssvGMj/
+	rG63svrYu2U4AWZjLky1FWOjdI7dNR1COExRJGNd9sw0YPExZVFFfOgrVozxi5z6I7mZcLGOn/u
+	3RMXOlgcfStMHnsvzBKGBMOhmqGirbTXGab8wVtbKGWOFV7CzY9l2ezVtNUfknHn2kTE5yX/aDr
+	LSx5ek39YC5dfqapyJ8v1AiZ5pP1PUGPYPXaUryreFxShyLXfW9gE7l3HA8mHvyFxOS65BU6MEI
+	+fkbhdxus4CPoHFwnT7CGhhELr3EFyOlhTAtH2regpEAt9LsO7w8J229sFPiu2hspLYlLxPw4Bo
+	ZM41DMoVvZ4je5WT5kqMDpfWSpSDqm5KuVaHTRIGIqhQ3I9OIBFC4JuoaVRTLVtCcctcbJrT5Q8
+	VGRV6uETqfvuS9UuLvYWZh1+C1PhGMeKbicvHptjkNg0k9c=
+X-Received: by 2002:a17:903:3b90:b0:2dd:c100:251c with SMTP id d9443c01a7336-2ddc1002582mr42342795ad.37.1789880136783;
+        Sat, 19 Sep 2026 21:55:36 -0700 (PDT)
 Received: from [192.168.2.3] ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17d712dsm16026765ad.64.2026.09.19.21.55.19
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17d712dsm16026765ad.64.2026.09.19.21.55.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 21:55:27 -0700 (PDT)
+        Sat, 19 Sep 2026 21:55:36 -0700 (PDT)
 From: James Calligeros <jcalligeros99@gmail.com>
-Date: Sun, 20 Sep 2026 14:53:41 +1000
-Subject: [PATCH 02/28] ASoC: cs42l42: Fix typo
+Date: Sun, 20 Sep 2026 14:53:42 +1000
+Subject: [PATCH 03/28] ASoC: cs42l42: Set a faster digital ramp-up rate
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,8 +71,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260920-macaudio-v1-2-741cc20a74e5@gmail.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260920-macaudio-v1-3-741cc20a74e5@gmail.com>
 References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
 In-Reply-To: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
 To: =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
@@ -96,40 +96,73 @@ Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com, 
  Takashi Iwai <tiwai@suse.de>, linux-mediatek@lists.infradead.org, 
- =?utf-8?q?Martin_Povi=C5=A1er?= <povik@protonmail.com>
+ Hector Martin <marcan@marcan.st>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=847;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2168;
  i=jcalligeros99@gmail.com; h=from:subject:message-id;
- bh=RKZhvpz4A2rORIqdl27bjjryHeuUXe6kyHBpGORO8M0=;
- b=owGbwMvMwCV2xczoYuD3ygTG02pJDFnr0+U3+zQnhu+zaJQKbtE55GvuMdeJjUP0Xn+D6iO1s
- kfcag4dE1kYxLgYLMUUWTY0CXnMNmK72S9SuRdmDisTyBBpkQYGIGBh4MtNzCs10jHSM9U21DM0
- 0jHWMWLg4hSAqRZxZvjv09Fj/vVMx40H1RefGF4ryvsty2485Ub2Gn7jwwt+e7WcZmR4oruqv/L
- X3j3Zqp6fA2dZMNX5TDt+qnrCrGgbgfol+he5AA==
+ bh=OmSPjK7SUuOGMGgXmxuIo+R2IFqwguXc6h4eMDL7B9Y=;
+ b=owGbwMvMwCV2xczoYuD3ygTG02pJDFnr0+UPyfalrpv1r+xTfu2HLE4JBaWJnIbuCs4xLr/5f
+ j7JPX+yYyILgxgXg6WYIsuGJiGP2UZsN/tFKvfCzGFlAhkiLdLAAAQsDHy5iXmlRjpGeqbahnqG
+ RjrGOkYMXJwCMNU3NBj+6VWfZumKncEUeYQh9bx1/ZJCiWl7v/0OePDm0bym69Z1Oxn+F3iHLD6
+ yt/urYQ8zk7cEo0T99E9aWpIxG7Ysk69699SeDQA=
 X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
  fpr=B08212489B3206D98F1479BDD43632D151F77960
 
-From: Martin Povišer <povik@protonmail.com>
+From: Hector Martin <marcan@marcan.st>
+
+With the default ramp-up rate, there is a noticeable fade-in when
+streams start. This can be undesirable with aggressive muting for power
+saving, since the beginning of the stream is lost.
+
+Lower the digital output ramp-up time from 8 samples per period to 2
+samples per period. This still leaves some fade-in to avoid pops, but it
+is a lot less noticeable and no longer feels like the stream is fading
+in.
 
 Fixes: 2c394ca79604 ("ASoC: Add support for CS42L42 codec")
-Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
+Signed-off-by: Hector Martin <marcan@marcan.st>
 Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
 ---
- sound/soc/codecs/cs42l42.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/sound/cs42l42.h    |  4 ++++
+ sound/soc/codecs/cs42l42.c | 10 ++++++++++
+ 2 files changed, 14 insertions(+)
 
+diff --git a/include/sound/cs42l42.h b/include/sound/cs42l42.h
+index 1bd8eee54f66..b3657965d491 100644
+--- a/include/sound/cs42l42.h
++++ b/include/sound/cs42l42.h
+@@ -62,6 +62,10 @@
+ #define CS42L42_INTERNAL_FS_MASK	(1 << CS42L42_INTERNAL_FS_SHIFT)
+ 
+ #define CS42L42_SFTRAMP_RATE		(CS42L42_PAGE_10 + 0x0A)
++#define CS42L42_SFTRAMP_ASR_RATE_MASK	GENMASK(7, 4)
++#define CS42L42_SFTRAMP_ASR_RATE_SHIFT	4
++#define CS42L42_SFTRAMP_DSR_RATE_MASK	GENMASK(3, 0)
++#define CS42L42_SFTRAMP_DSR_RATE_SHIFT	0
+ #define CS42L42_SLOW_START_ENABLE	(CS42L42_PAGE_10 + 0x0B)
+ #define CS42L42_SLOW_START_EN_MASK	GENMASK(6, 4)
+ #define CS42L42_SLOW_START_EN_SHIFT	4
 diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-index 9e40c03ada4e..b5d69d5516a6 100644
+index b5d69d5516a6..c40e8da8f6eb 100644
 --- a/sound/soc/codecs/cs42l42.c
 +++ b/sound/soc/codecs/cs42l42.c
-@@ -1682,7 +1682,7 @@ irqreturn_t cs42l42_irq_thread(int irq, void *data)
- 	if (cs42l42->suspended || !cs42l42->init_done)
- 		return IRQ_NONE;
+@@ -2422,6 +2422,16 @@ int cs42l42_init(struct cs42l42_private *cs42l42)
+ 			(1 << CS42L42_ADC_PDN_SHIFT) |
+ 			(0 << CS42L42_PDN_ALL_SHIFT));
  
--	/* Read sticky registers to clear interurpt */
-+	/* Read sticky registers to clear interrupt */
- 	for (i = 0; i < ARRAY_SIZE(stickies); i++) {
- 		regmap_read(cs42l42->regmap, irq_params_table[i].status_addr,
- 				&(stickies[i]));
++	/*
++	 * Configure a faster digital ramp time, to avoid an audible
++	 * fade-in when streams start.
++	 */
++	regmap_update_bits(cs42l42->regmap, CS42L42_SFTRAMP_RATE,
++			   CS42L42_SFTRAMP_ASR_RATE_MASK |
++			   CS42L42_SFTRAMP_DSR_RATE_MASK,
++			   (10 << CS42L42_SFTRAMP_ASR_RATE_SHIFT) |
++			   (1 << CS42L42_SFTRAMP_DSR_RATE_SHIFT));
++
+ 	ret = cs42l42_handle_device_data(cs42l42->dev, cs42l42);
+ 	if (ret != 0)
+ 		goto err_shutdown;
 
 -- 
 2.55.0
