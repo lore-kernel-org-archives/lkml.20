@@ -1,115 +1,84 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6247B3515E6
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 10:29:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779621C84A2;
+	Sun, 20 Sep 2026 10:31:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789900172; cv=none; b=byZaLU7ED9ZcWk06gfVtNUup+WMSmg7TVgupmhODHb7J5vJVPNbevwgyGA2vIupM743nmwES/6Kj+tdNw/eHs0+UPlysQYqgz4srcVP7HWMC5n6RFacuwrZjeCkPM57CJXeSba9m8CzLsCcVnD+me2/tlwLgWCwRVMMeWXyGOeE=
+	t=1789900268; cv=none; b=gp6rMg7IOoNCueSjLHUPquuq0aAWLL0X4XEFkv0tq/3wUfdQ+5sGj26wSYpjXlutUn//Vu6PL+UFMKq59Eyfi+zMb42LlSiaoJu0E3VgN1k/sGCa3EGggBXV/jVOWJNuCbxSymbaUVn3YI44aMYtXs5FQpw+QEbiLCaho51GS+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789900172; c=relaxed/simple;
-	bh=4BQzVeanwVtXbuFPAfnsnMd1d3bi+yl+uv6Kg2oGZKU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e3tkeeYFvQZqjYI+YKVzC2j29qrYCV8hGekiBnMSByd0alD3sGiJeZfz9JxouGOS9sLHbSuj7stRphUO/O/sXmSLq2eojdqOsc7QCVHMIg2wIjKKEYXjYao1VMeguDoIG1hcdtzOLXYJs+kw+iqMzxgGhDspCKexHAvQ0ps7heQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dl8DSgqV; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789900268; c=relaxed/simple;
+	bh=bV5pgsM5t3O+8DvlLoBGaMdQrxZ2V8X3oC/YkNqn4CU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e+HvZRuXrtpt2VB4nacErz557/OjbpaHsj0PGepuIwq7GVJ5r0TRix+xQDZyiCwBt0Eojtn1qPlrd239xGHt3jeF9z0K4RWAHn6HxZhm/Q/F97H3Q6qHdrAQk8cB3+tnE8/ch8zQt11xk+72j9wtieWbkyKXf9ABs8urgN4GB2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K6SDOMxw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dl8DSgqV"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db18fe433fso18091305ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:29:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789900171; x=1790504971; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O8eOaouCq4BZ2q/2gl/vLSyGwMVXimj9oVClFLBXxtU=;
-        b=Dl8DSgqVoU3P0YI+GebN72zguYlXcnRF8Ybq4+FtIAFLvtK85Bscpx61Hpp27QVKip
-         4bxIqF8DMsy/SptQz5anx7wTojmTBSXGR+ko538YVvd6Ks7cp14gw7G4cU5Ue6lrTDes
-         whFS8afyKW2jSMavW+UTQsnnTLiVWssQD3UCpJdF0EwEBfndFa83A+h5HpcLHVfncDdG
-         iPPVsvOumeY3kuK25sai8pmq1x2GwnaRmI6f0eMcQ3iZZRpHfXYucFjAUwu15AbIdzcD
-         oHbzQitPK6RW2WzwT6xuajA9aTCh98Iaa/U7DbuIetkPWv4i46fCUBNerRmr4dOaoBhP
-         m9+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789900171; x=1790504971;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O8eOaouCq4BZ2q/2gl/vLSyGwMVXimj9oVClFLBXxtU=;
-        b=r1JCrTyuY0Ex/tnfZVQegpsxKtjIB3CIm+kuGK951N73uw5Fcd9scibOz8y97I2tNk
-         JHA11t3WGphZaTxUw6/RvBXEwB297KwsQjdPVir07YYaW4uh4NqvQ3LblBMD6jUByo+0
-         pcvIMaNfyK0U6vmQdabvO79pgoWiUgdvI59KYPMv+sQcOCQAaELS5R4EbU+wj+GmkSPJ
-         5AAZS6ujSvEe/o33Gx/1172mEKrPHqgA2qRE8rXmRiHcGupjX0oiGOvS655cT0poRo3h
-         807ZxTMYLdcuwfJC+SBjNhIKpv/ZPXu7fWfQ9LsujS2shwBMSfoLC6Uqp1HFCoOfQD+X
-         yIWg==
-X-Forwarded-Encrypted: i=1; AKwUvBwUYFJbAkEKqJxLXIdckvg9RLna2WVI3LxvL3vX+qxwKmF5G5XhsaUqu6ZslqjK6fok9bjJ2vtVXoiACao=@vger.kernel.org
-X-Gm-Message-State: AFuF++liN+I8LfMJp4nXUPQC305qPLqouEpz6Bz+L4IBt8Tj8Zkr/e0I
-	YdhjUoAxdaLKehvLLBxwNzVbomWDzcAOlGvN0/Kk7h6Vg7LTlNUXKzc=
-X-Gm-Gg: AYBFou16ZdME+uFhZAro9rU+hp/HrIqlFZ/JCzL+H/19pu6B2IsG/1fEgnbVvE6whoj
-	j+jXHvz4NnBTGk+CLsPjC/huG8o5X+8g3BLeIdXSnFwrlgBhE/EiEnswengrCSwQcIq1qg8zWaf
-	yNI5LSb8otGVFkwAbzaq75bZRfXR2cpHdG8M6AOkNY9XBSnqDve2/N88iyVeHRb9gih11mFRBoB
-	+orgLDibZBQE41FgS1IQ26V/2hpTPxzhchEXqJ6DzufubqEGZfXM1qmHCDuy2LRpII8f/o28447
-	u9vmuBEQX/RkZXAvytxe9DIASahf/lEdGItJdCIx88Cwe4lw3WMm4AceJpDnXJbE80dNZcoBCev
-	akbxyYeRHP7XSlanwFwcKjeVwP2uhCpFVesrjG6uiqq+7jNRMNEmNG4H63PXIn82wBX3lqBK6iF
-	kcy+GZWZQ+r4yIBYUvddJX+3OT6c0fI0/P6l3Yx6ThI4Qbjhx6RVwywEGzeaXMXTI+wpV25xVPx
-	ZUj/wfPmKWdlP/0xlXdGgqKhWo=
-X-Received: by 2002:a17:903:2349:b0:2dd:c100:b2c6 with SMTP id d9443c01a7336-2ddc100b360mr62001525ad.49.1789900170830;
-        Sun, 20 Sep 2026 03:29:30 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:e0d6:4b87:c472:c9ae])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17da543sm18500155ad.69.2026.09.20.03.29.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 03:29:30 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: bot+bpf-ci@kernel.org,
-	bpf@vger.kernel.org
-Cc: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	martin.lau@kernel.org,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	mason@kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: Re: [PATCH bpf 1/2] bpf: Zero-fill other CPUs when BPF_F_CPU creates a per-cpu hash element
-Date: Sun, 20 Sep 2026 19:29:23 +0900
-Message-ID: <20260920102923.445964-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <eeaf9112a1ba86d1cbfbd5287cc67bcc13adb07861cced93eb4c51167758b3fe@mail.kernel.org>
-References: <20260920093153.439743-1-donggeunyoo.kernel@gmail.com> <20260920093153.439743-2-donggeunyoo.kernel@gmail.com> <eeaf9112a1ba86d1cbfbd5287cc67bcc13adb07861cced93eb4c51167758b3fe@mail.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K6SDOMxw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63B3C1F000FF;
+	Sun, 20 Sep 2026 10:31:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789900265;
+	bh=lxhA0eACSdWo4aOttrFwtziIlarFVMJZSAckjMYOgiw=;
+	h=From:To:Cc:Subject:Date;
+	b=K6SDOMxw/a2pttRIlbfaAE5lTsioQT6vViKMILGR8VsTKchwXJ+EnbdDyGvycu7/x
+	 Vl0XVyLWvfq5ynOdvz3txiPB/7O/2SA00vXNlXi76GHmYVLGLFx90XPVHZHQ63B028
+	 XuTwEPtK0wHrk+7Eb8+ZKAdxSKBiGLQdZ67AFT9XXQA9R9n1rEjGXusYpmuAE9Ca2X
+	 zzXxPjt+Nmf8hKJ4DYHaeguy1LHOwzLnAo+MOEkomkWISTp7DwsJBLDOvpdzhCm//r
+	 Sg/0+1dC5bDB6SrNH/NYxNWbrLUjiLNMAS+glubsQeuaqe7z2UCYFOtb8ITnoAgabr
+	 Bzjcmu/PdFnoQ==
+From: Thorsten Blum <blum@kernel.org>
+To: Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Thorsten Blum <blum@kernel.org>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] platform/x86: think-lmi: Use snprintf() in new_password_store()
+Date: Sun, 20 Sep 2026 12:30:36 +0200
+Message-ID: <20260920103035.281573-2-blum@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1590; i=blum@kernel.org; h=from:subject; bh=bV5pgsM5t3O+8DvlLoBGaMdQrxZ2V8X3oC/YkNqn4CU=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnrt55mXRlsPUeJ94XvNJUZea5XsxvkP79Z/f7opkXb1 hn0TTuxsaOUhUGMi0FWTJHlwawfM3xLayo3mUTshJnDygQyhIGLUwAmkmXIyPB23vxcnhWzH4YI iOTMu8z1wd9tSsB2oc/+mpKcx3Z1/hdl+MPdzFN/bcPqE37vHCuUVltw9dTFvHJK7X3IUeq7480 5Rl4A
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
 
-On Sun, 20 Sep 2026 10:19:00 +0000 (UTC), bot+bpf-ci@kernel.org wrote:
-> Does the block comment above this condition need updating? It says the value
-> goes to the "current one" and explains the whole branch with "onallcpus=false
-> always when coming from bpf prog."
-[...]
-> Could the comment be updated to cover both entry conditions?
+While the current code works correctly, replace unbounded sprintf()
+calls with the safer snprintf() in new_password_store() to follow secure
+coding best practices.
 
-Yes, it should. What is there stays correct for the !onallcpus arm, where the
-value does go to the current cpu and the reason is the one given, so v2 adds
-the second arm rather than rewording the first:
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ drivers/platform/x86/lenovo/think-lmi.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-	/* When not setting the initial value on all cpus, zero-fill element
-	 * values for other cpus. Otherwise, bpf program has no way to ensure
-	 * known initial values for cpus other than current one
-	 * (onallcpus=false always when coming from bpf prog).  A BPF_F_CPU
-	 * update also sets a single cpu, and the element may be recycled, so
-	 * the other cpus must not keep what the previous key left there.
-	 */
-
-Thanks,
-Donggeun
+diff --git a/drivers/platform/x86/lenovo/think-lmi.c b/drivers/platform/x86/lenovo/think-lmi.c
+index a0e3fa766e37..3ddc1f5cec19 100644
+--- a/drivers/platform/x86/lenovo/think-lmi.c
++++ b/drivers/platform/x86/lenovo/think-lmi.c
+@@ -487,16 +487,16 @@ static ssize_t new_password_store(struct kobject *kobj,
+ 		/* Special handling required for HDD and NVMe passwords */
+ 		if (setting == tlmi_priv.pwd_hdd) {
+ 			if (setting->level == TLMI_LEVEL_USER)
+-				sprintf(pwd_type, "uhdp%d", setting->index);
++				snprintf(pwd_type, sizeof(pwd_type), "uhdp%d", setting->index);
+ 			else
+-				sprintf(pwd_type, "mhdp%d", setting->index);
++				snprintf(pwd_type, sizeof(pwd_type), "mhdp%d", setting->index);
+ 		} else if (setting == tlmi_priv.pwd_nvme) {
+ 			if (setting->level == TLMI_LEVEL_USER)
+-				sprintf(pwd_type, "udrp%d", setting->index);
++				snprintf(pwd_type, sizeof(pwd_type), "udrp%d", setting->index);
+ 			else
+-				sprintf(pwd_type, "adrp%d", setting->index);
++				snprintf(pwd_type, sizeof(pwd_type), "adrp%d", setting->index);
+ 		} else {
+-			sprintf(pwd_type, "%s", setting->pwd_type);
++			snprintf(pwd_type, sizeof(pwd_type), "%s", setting->pwd_type);
+ 		}
+ 
+ 		ret = tlmi_opcode_setting("WmiOpcodePasswordType", pwd_type);
