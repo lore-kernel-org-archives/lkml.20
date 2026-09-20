@@ -1,157 +1,95 @@
-Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39BD61C8604
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 01:10:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF7D261B8A;
+	Sun, 20 Sep 2026 01:11:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789866632; cv=none; b=Vhy4HHS8fWH081m0qFXRYkjh+ZZzq488hgT82fwDSSw3aIVC6ZFonkPMVywjrLv5neeRGrgnOd8paWk8w95yqdQS7JaBHP7unIqOF9H0UQ8o6/rbZx+vUqUrWkMmKggQBBQZ3Sz9C4aJfNC4J5VtVinzJN4er6Zb5a1Q7H33H6Q=
+	t=1789866712; cv=none; b=PnrfHSoEtrK3QxmStkI76myA52HY8hX9fyd8rD9uLDl2r/QjkkBxAhWN27B1bJGWUjtfRJ69VQfZlw3hw2RA2VaQIfAix7uVRr72BpVq7ADzYgVPKG2BpSPPnjM3WgzJ0S/MaY/mq0fsl4IhGUQM5SsZmdUeLFwSk1hnyRRu2lQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789866632; c=relaxed/simple;
-	bh=J4fGPYdbU1vyqMW4j4VL0zWFiRawM4Pn+sjLC1OmvfY=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=K/5Z3cutmom5PSxyTspuI67DZdrWhxECVvBm7WuitUEr4KFirvtA6icwwjGhBh0UJUil+ffT3ZeemKqe73ijkrqKIxpOZowb4R5A2kHCrAH5HTU1EZgONqeMj0aizCrqcY+ZxToXa1enL9WorrFj10DgTdLvB88E7ElZwsHsxEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f5.google.com with SMTP id 006d021491bc7-6c17d3bdc70so709523eaf.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:10:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789866628; x=1790471428;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PF45CuBTojQyukx9jI6xau1zxJKpu3tO8/fDW5FRIMM=;
-        b=2ZsC537/wC2VbAHQlypeLhXbWavkDOKSFB15u+6Qrtw3P7TwxDKyRZg7870t1C1CPy
-         5IY1/ot1cqvrSiv8D4Ik6gvlt3T/Ih9XCKCJjMc0XE8i5WfwIsi+UG6wJKTxwkfL9fOB
-         GJ1T/BZgOvSOuXhuGqJ0p9PXXe0Xu5aaQ2BZpf2zwMit1dosbUH7xmvtEZ5C1ys+Ezp5
-         PIuQJ+BIjamBi1xTPVp2RlR/tsSpePyY0c5Hj88q+AB9bWLEVq70NmZRaLUk2YjKqvv6
-         xfSwOQSDc+XwvqzeM0OuFfwmjjSWi8mWguRgZgP4jNwyCREMHQS6x9eVFpOeDFHDNhoQ
-         TEcA==
-X-Gm-Message-State: AFuF++lTCUxAITPPWXG3SB5Sel5lYB/JIDuH9/KRaW/iPZDNyRQ6UgnL
-	Xcd1SE8WIssOla7uXfzqNuse92dKX6z7zOaFpBJeLWgiFH6DUjSvkAz9YVz8YnGvbcBuk1q94jZ
-	6q/orsvPGhzgqbT32nEC+XVV893BmOSyoczmYouLl4aUdq5KgJLvCQfcGoNn6Cg==
+	s=arc-20240116; t=1789866712; c=relaxed/simple;
+	bh=Rbf2UmQoZ8cJlkDTRBORUinT+eLFmTrkJ9pA6ZKUQUE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lNgL6PJ/5svxABdjO0aAlsBBfu4YxNxdmkmjTm7Zev5X6nSS6qO+hwQdg0e8qL3WUJBqlmbOloBDmKz4wwiTmB1YaCmYkK69eiHUfacm265y991hJ5f2ucMlKJD/RJfL/WaUb37EIYVxVNHE6Q5Mqm/G7Z0wRk4072kbT/rO1e8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oCoZaL+q; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oCoZaL+q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 232191F000FF;
+	Sun, 20 Sep 2026 01:11:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789866710;
+	bh=HIAamHxIBpjT0eTh6Hn/5Zhy4OkAadXKJpZOxIwIEDo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=oCoZaL+qiC30HjKuEVWqtdnI2gUEf+mhSu/+urJZOxTgzlo5fLh9ljQBQfwxcFOrU
+	 tdCabMd42xZsBDhsC8hZlZchkFVkmwumZSAxA7Rpv3rsZWoAnhXYLnfclpdAAtHB3b
+	 /l/j9whc/Ng6GtJpsrTcSYYq7U3l+gc+VlNEy0bdgNhnuvM+Un45/ZnLb0znvTRTN9
+	 rdxzvcVnvzRZ59iTfnUGBiPWU6RcoAw1fFVTAI4jMLeh3SLdo8MkPxa3jYp/XXp4QQ
+	 LjqcbCKuvwoXUG06ckomOtys8ew0MFrPz2RMiFKCA9Xl8v6jG7Skx0fjIZAwmoswWP
+	 GEgX54hcSrG+w==
+Message-ID: <05fed577-a9c9-4574-8d21-8c455a585e65@kernel.org>
+Date: Sat, 19 Sep 2026 19:11:49 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:7093:10b0:6cd:3ffc:ad08 with SMTP id
- 006d021491bc7-6cd3ffcb687mr2390033eaf.88.1789866628349; Sat, 19 Sep 2026
- 18:10:28 -0700 (PDT)
-Date: Sat, 19 Sep 2026 18:10:28 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aaf3284.514bccd6.255447.0003.GAE@google.com>
-Subject: [syzbot] [raid?] WARNING: kobject bug in bind_rdev_to_array
-From: syzbot <syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
-	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
-	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v4 1/2] net: validate virtio checksum start after
+ network header
+Content-Language: en-US
+To: Paulos Yibelo <habte.yibelo@gmail.com>, netdev@vger.kernel.org
+Cc: mst@redhat.com, jasowangio@gmail.com, eperezma@redhat.com,
+ xuanzhuo@linux.alibaba.com, virtualization@lists.linux.dev,
+ idosch@nvidia.com, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, willemb@google.com,
+ hannes@stressinduktion.org, linux-kernel@vger.kernel.org
+References: <20260920004733.6473-1-habte.yibelo@gmail.com>
+ <20260920004733.6473-2-habte.yibelo@gmail.com>
+From: David Ahern <dsahern@kernel.org>
+In-Reply-To: <20260920004733.6473-2-habte.yibelo@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On 9/19/26 6:47 PM, Paulos Yibelo wrote:
+> __virtio_net_hdr_to_skb() rejects a CHECKSUM_PARTIAL start smaller than an
+> estimated minimum network-header length. The comparison currently uses the
+> offset from skb->data rather than the offset from skb_network_header().
+> 
+> For an AF_PACKET frame, skb->data can still point at the Ethernet header
+> while skb_network_header() points past nested link-layer headers. A
+> checksum start at the network header can therefore pass, then target byte
+> zero after those headers are removed.
+> 
+> This does not require a virtual-machine guest. A TUN device with
+> virtio-net header support can supply the same checksum metadata.
+> 
+> Keep the existing data-relative lower bound and also require checksum
+> start to follow the estimated minimum relative to skb_network_header().
+> 
+> Fixes: 49d14b54a527 ("net: test for not too small csum_start in virtio_net_hdr_to_skb()")
+> Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Paulos Yibelo <habte.yibelo@gmail.com>
+> Acked-by: Michael S. Tsirkin <mst@redhat.com>
+> ---
+> Changes in v4:
+> - State explicitly that a TUN device is sufficient and no guest is required,
+>   as noted by Michael S. Tsirkin. No code changes.
+> 
+> Changes in v3:
+> - Keep the network-relative comparison on one line for readability, as
+>   requested by David Ahern.
+> 
+> Changes in v2:
+> - Make nh_min_len an int and remove the casts, as suggested by Michael S.
+>   Tsirkin.
+> 
+>  include/linux/virtio_net.h | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
 
-syzbot found the following issue on:
-
-HEAD commit:    518e5b794c06 Merge tag 'for-7.3-rc3-tag' of git://git.kern..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=12345ff9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c3bddd52b22c2498
-dashboard link: https://syzkaller.appspot.com/bug?extid=95eeb4ada2349a2170ea
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-518e5b79.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/5307a29f916b/vmlinux-518e5b79.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/7d4c698a99b1/bzImage-518e5b79.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-kobject: '(null)' (ffff8880120640f0): is not initialized, yet kobject_get() is being called.
-WARNING: lib/kobject.c:642 at kobject_get lib/kobject.c:640 [inline], CPU#0: syz.0.0/5330
-WARNING: lib/kobject.c:642 at kobject_add_internal+0xea/0xcd0 lib/kobject.c:225, CPU#0: syz.0.0/5330
-Modules linked in:
-CPU: 0 UID: 0 PID: 5330 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:kobject_get lib/kobject.c:640 [inline]
-RIP: 0010:kobject_add_internal+0x113/0xcd0 lib/kobject.c:225
-Code: 04 4c 89 e0 48 c1 e8 03 48 b9 00 00 00 00 00 fc ff df 80 3c 08 00 74 08 4c 89 e7 e8 57 11 5b f6 49 8b 34 24 4c 89 f7 4c 89 e2 <67> 48 0f b9 3a e9 e4 00 00 00 e8 fe 6a e9 f5 b8 fe ff ff ff e9 fb
-RSP: 0018:ffffc9000f1f78a8 EFLAGS: 00010246
-RAX: 1ffff1100240c81e RBX: ffff888052836080 RCX: dffffc0000000000
-RDX: ffff8880120640f0 RSI: 0000000000000000 RDI: ffffffff908d7cc0
-RBP: 0000000000000000 R08: ffff888000b14b00 R09: 0000000000000008
-R10: 0000000000000007 R11: 0000000000000002 R12: ffff8880120640f0
-R13: dffffc0000000000 R14: ffffffff908d7cc0 R15: dffffc0000000000
-FS:  00007ffbef2886c0(0000) GS:ffff88808c2c2000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f208abad1bc CR3: 000000000e910000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- kobject_add_varg lib/kobject.c:374 [inline]
- kobject_add+0x163/0x240 lib/kobject.c:426
- bind_rdev_to_array+0x80c/0xdd0 drivers/md/md.c:2621
- md_add_new_disk+0xe3b/0x1850 drivers/md/md.c:7684
- md_ioctl+0x200a/0x2610 drivers/md/md.c:8499
- blkdev_ioctl+0x5e3/0x740 block/ioctl.c:798
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7ffbee39e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffbef287fe8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007ffbee626090 RCX: 00007ffbee39e159
-RDX: 0000200000000420 RSI: 0000000040140921 RDI: 0000000000000004
-RBP: 00007ffbee43506b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007ffbee626128 R14: 00007ffbee626090 R15: 00007ffe703ff368
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	04 4c                	add    $0x4c,%al
-   2:	89 e0                	mov    %esp,%eax
-   4:	48 c1 e8 03          	shr    $0x3,%rax
-   8:	48 b9 00 00 00 00 00 	movabs $0xdffffc0000000000,%rcx
-   f:	fc ff df
-  12:	80 3c 08 00          	cmpb   $0x0,(%rax,%rcx,1)
-  16:	74 08                	je     0x20
-  18:	4c 89 e7             	mov    %r12,%rdi
-  1b:	e8 57 11 5b f6       	call   0xf65b1177
-  20:	49 8b 34 24          	mov    (%r12),%rsi
-  24:	4c 89 f7             	mov    %r14,%rdi
-  27:	4c 89 e2             	mov    %r12,%rdx
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	e9 e4 00 00 00       	jmp    0x118
-  34:	e8 fe 6a e9 f5       	call   0xf5e96b37
-  39:	b8 fe ff ff ff       	mov    $0xfffffffe,%eax
-  3e:	e9                   	.byte 0xe9
-  3f:	fb                   	sti
+Reviewed-by: David Ahern <dsahern@kernel.org>
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
