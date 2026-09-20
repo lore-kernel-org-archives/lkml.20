@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4F43E9C3C
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 08:32:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6BA12F8E8F
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 08:32:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789893139; cv=none; b=Zy05niIsPzENzfkD7SamM4Kd5pm7hPEg662qx2Ek7F9Hurr/CGbZ5dSmj3G6LmbNuT8EhXZYSjbqMG74Kw9U1YtgyZo0PSTdI0aj+g6ueTkaI62FCb1Fu+Na/ZFJsIk7G7bCe4MaE7QDRN7sBPZEcOxuXhzcuHnEdy1xEJaE0sA=
+	t=1789893139; cv=none; b=tPpMlCQ4JyNuRKhXtuFMb5XYbF61+RhI8hgS9REueOsNSddadTNXJBwlcc82M1CZXnF1ufNyjtSEgavBDVQU1+yZvwoKRk+Eo3NIaydBVeAEQQEnczPM+TSNEypDbLnfotrEWECE4ibet/hUTUzKNgqMIiLBHRul4rkFKHVkrko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789893139; c=relaxed/simple;
-	bh=FNasp7qn5/aS/FD+KLe5fFnz3qQTxwRqsjG1qhfs2hI=;
+	bh=hEj7I8IgfGqJ/cTL1OJazCZCq/g+2hBc263juLIj6/Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NgSAa4RbvzH1rmgOgFVsrVbIcA6qed8u8Kp4mCXgtEmGsyGB5T8iCJTWqgqhx9uXaADIKZpJjo+mf2rFTtqeUAHvCQ49UsoEVEQUqeSUyFu7LCMWGROwyCj+A/5b4fdhT/wYTKak206mPJq8xDX6OD7sNPljg1yWFvnxtCa4iuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=OvWCcME1; arc=none smtp.client-ip=220.197.31.5
+	 MIME-Version; b=JAw2fir6rQXM0raI1Oq57cycWDjRHlcl4OzmnKKZU3IldIvOt2P5sMxf+u5CaDfbj7DvVO8FE6VGiKIuABX/9Lw5+bGKp4xg0jnzggm8+D3sjsVtxjjk/FaUKPSihcPpU5l5YNe6oZxe9fhRdiyRKxBljJcq8hY5PLL72XBn0d0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SMytY0MS; arc=none smtp.client-ip=220.197.31.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="OvWCcME1"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SMytY0MS"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=j5
-	HjGAHMTWSY12pij/fAtgg5ecT4GvjimQP4EK5oNPo=; b=OvWCcME1TQ/Maj0bwa
-	B2QqmQUPk6G4FIZ2todkm6feDBCAgwPVr/vj5vAFlGbx6LHSmazau1tgogu2Vyzk
-	0Npg6ao/2e3zNYdkqxn4CQvmDuY2449YIK/CvjQHLmlvqKTmymCrmYcx8h13eMjb
-	mCdWeF35G73nnfs7UyID6qdjU=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=0i
+	phEToKxwJp7tGqiPSTQxmduIvvdFiWOZBziqAo1yc=; b=SMytY0MSI1SEczfIRU
+	C71P34GIrUkrJL13jYOsqpzq1lOrbEbJT5lUovGavi8CogY/rKoS2HVXTpnpcnB2
+	ZWxKpDUDb3+IpDOQdbFpYnsJBNoOLScLcC6CIwXbpIOjXMkdx9CPENEb7wMfAv2Z
+	XQiJpT5S4ZXEimmS6K4CpDTOM=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgB3m07lma9qs7GbAQ--.54162S6;
-	Sun, 20 Sep 2026 16:31:43 +0800 (CST)
+	by gzsmtp4 (Coremail) with SMTP id PygvCgB3m07lma9qs7GbAQ--.54162S11;
+	Sun, 20 Sep 2026 16:31:52 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
@@ -32,9 +32,9 @@ Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	chenxiaosong@chenxiaosong.com,
 	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v2 04/10] ntfs: preserve EA attribute lookup errors
-Date: Sun, 20 Sep 2026 16:31:25 +0800
-Message-ID: <20260920083131.1880061-5-liubaolin12138@163.com>
+Subject: [PATCH v2 09/10] ntfs: persist append-only in the $LXFLAGS EA
+Date: Sun, 20 Sep 2026 16:31:30 +0800
+Message-ID: <20260920083131.1880061-10-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260920083131.1880061-1-liubaolin12138@163.com>
 References: <20260920083131.1880061-1-liubaolin12138@163.com>
@@ -45,129 +45,135 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgB3m07lma9qs7GbAQ--.54162S6
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuryxurWxtr4UXr13Aw18Krg_yoW5tw45pF
-	yfGry3twsxX3ZxKFs2yw1DX3WYvas7GryUKr9rK3Z2kr1rt34Dtw15KF9Y9FyFyrWrJ340
-	gF4UKay7Cr47Xr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07URE__UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwQ8o8mqvme8L5QAA3J
+X-CM-TRANSID:PygvCgB3m07lma9qs7GbAQ--.54162S11
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCrW5Zw47KF18Jryxtw4kCrg_yoW7JF4xpF
+	Z3JFyIg3yrWFyjgrZ2kF4q93WFvws3XF4UArWvgw18AasxJw1ftF1rtF4rGa48CryfC342
+	qF45trWUXrW3Z37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jU18PUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwRgr9WqvmfgMswAA3c
 
 From: Baolin Liu <liubaolin@kylinos.cn>
 
-ntfs_attr_exist() treats lookup failures as absence. Using it while
-updating EAs can select creation or removal paths after an allocation
-or I/O failure.
+Extend the persistent fileattr interface to append-only using bit 1
+of LXFLAGS. Restore S_APPEND on inode load and update it after successful
+EA writes. Include append in the known-bit mask while retaining all other
+unknown bits. Reuse the existing VFS capability checks and EA safeguards.
 
-Use an EA-local lookup helper that preserves errors from mapping the
-MFT record, allocating the search context and looking up the attribute.
-Check both EA attributes before modifying either and return EUCLEAN if
-only one exists. Keep the known presence state for the final update.
+Document append-only alongside immutable. Both flags now survive inode
+reclaim and remount without changing the NTFS attribute format.
 
 Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
 ---
- fs/ntfs/ea.c | 51 ++++++++++++++++++++++++++++++++++++---------------
- 1 file changed, 36 insertions(+), 15 deletions(-)
+ Documentation/filesystems/ntfs.rst | 10 +++++-----
+ fs/ntfs/ea.c                       |  2 ++
+ fs/ntfs/ea.h                       |  4 +++-
+ fs/ntfs/file.c                     | 13 ++++++-------
+ 4 files changed, 16 insertions(+), 13 deletions(-)
 
+diff --git a/Documentation/filesystems/ntfs.rst b/Documentation/filesystems/ntfs.rst
+index ced164216a5b..f00b618a3911 100644
+--- a/Documentation/filesystems/ntfs.rst
++++ b/Documentation/filesystems/ntfs.rst
+@@ -38,21 +38,21 @@ The project is available at:
+ Linux file attributes
+ =====================
+ 
+-The driver supports lsattr(1) and setting immutable with chattr(1).
+-Immutable is stored in bit 0 of a private ``$LXFLAGS`` extended attribute
++The driver supports lsattr(1) and setting immutable and append-only with chattr(1).
++Immutable is stored in bit 0 and append-only in bit 1 of a private ``$LXFLAGS`` extended attribute
+ within the standard NTFS ``$EA``/``$EA_INFORMATION`` attributes. Its value
+ is a 32-bit little-endian bitmask. Unknown bits are preserved; the entry
+-is removed when the entire value becomes zero. The setting survives
++is removed when the entire value becomes zero. These settings survive
+ inode eviction, unmount and reboot. Direct writes or removal through
+ xattr interfaces are rejected; use chattr(1) instead.
+ 
+ System metadata files and files protected by ``sys_immutable`` cannot
+ have their immutable protection cleared. Protection derived solely from
+-that policy is not stored in the EA. Compression, encryption, append-only
++that policy is not stored in the EA. Compression, encryption
+ and mount-wide case folding are reported but cannot be changed through
+ chattr(1).
+ 
+-Windows does not enforce the Linux immutable flag stored in this EA.
++Windows does not enforce the Linux immutable and append-only flags stored in this EA.
+ 
+ Supported mount options
+ =======================
 diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index 5c6facae4ed5..f5a112495fc9 100644
+index 1e9b66e88655..ddac912de78c 100644
 --- a/fs/ntfs/ea.c
 +++ b/fs/ntfs/ea.c
-@@ -181,6 +181,29 @@ static inline int ea_packed_size(const struct ea_attr *p_ea)
- 	return 5 + p_ea->ea_name_length + le16_to_cpu(p_ea->ea_value_length);
+@@ -500,6 +500,8 @@ int ntfs_ea_get_lxflags(struct inode *inode)
+ 	ni->lxflags = le32_to_cpu(value);
+ 	if (ni->lxflags & NTFS_LXFLAGS_IMMUTABLE)
+ 		inode->i_flags |= S_IMMUTABLE;
++	if (ni->lxflags & NTFS_LXFLAGS_APPEND)
++		inode->i_flags |= S_APPEND;
+ 	return 0;
  }
  
-+/* Unlike ntfs_attr_exist(), preserve lookup errors. */
-+static int ntfs_ea_attr_lookup(struct ntfs_inode *ni, __le32 type)
-+{
-+	struct ntfs_attr_search_ctx *ctx;
-+	struct mft_record *mrec;
-+	int err;
-+
-+	mrec = map_mft_record(ni);
-+	if (IS_ERR(mrec))
-+		return PTR_ERR(mrec);
-+	ctx = ntfs_attr_get_search_ctx(ni, mrec);
-+	if (!ctx) {
-+		err = -ENOMEM;
-+		goto out;
-+	}
-+	err = ntfs_attr_lookup(type, AT_UNNAMED, 0, CASE_SENSITIVE,
-+			       0, NULL, 0, ctx);
-+	ntfs_attr_put_search_ctx(ctx);
-+out:
-+	unmap_mft_record(ni);
-+	return err;
-+}
-+
- /*
-  * Set a new EA, and set EA_INFORMATION accordingly
-  *
-@@ -198,7 +221,8 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+diff --git a/fs/ntfs/ea.h b/fs/ntfs/ea.h
+index 19aea162b909..eac5ab4da44a 100644
+--- a/fs/ntfs/ea.h
++++ b/fs/ntfs/ea.h
+@@ -9,7 +9,9 @@
+ 
+ /* $LXFLAGS stores these bits in a single little-endian 32-bit value. */
+ #define NTFS_LXFLAGS_IMMUTABLE	BIT(0)
+-#define NTFS_LXFLAGS_MASK	NTFS_LXFLAGS_IMMUTABLE
++#define NTFS_LXFLAGS_APPEND	BIT(1)
++#define NTFS_LXFLAGS_MASK	(NTFS_LXFLAGS_IMMUTABLE | \
++				 NTFS_LXFLAGS_APPEND)
+ 
+ extern const struct xattr_handler *const ntfs_xattr_handlers[];
+ 
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index 882d33b67560..5b2a31790275 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -190,7 +190,7 @@ int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
  {
- 	struct ntfs_inode *ni = NTFS_I(inode);
- 	struct ea_information *p_ea_info = NULL;
--	int ea_packed, err = 0;
-+	int ea_packed, err = 0, ea_err;
-+	bool has_ea;
- 	struct ea_attr *p_ea;
- 	u32 ea_info_qsize = 0;
- 	char *ea_buf = NULL;
-@@ -211,7 +235,16 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 	if (name_len > 255)
- 		return -ENAMETOOLONG;
+ 	struct inode *vi = d_inode(dentry);
+ 	struct ntfs_inode *ni = NTFS_I(vi);
+-	u32 allowed = FS_IMMUTABLE_FL;
++	u32 allowed = FS_IMMUTABLE_FL | FS_APPEND_FL;
+ 	u32 readonly = 0;
+ 	u32 lxflags = ni->lxflags & ~NTFS_LXFLAGS_MASK;
+ 	unsigned int new_fl = 0;
+@@ -203,11 +203,6 @@ int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
+ 	if (fileattr_has_fsx(fa))
+ 		return -EOPNOTSUPP;
  
--	if (ntfs_attr_exist(ni, AT_EA_INFORMATION, AT_UNNAMED, 0)) {
-+	err = ntfs_ea_attr_lookup(ni, AT_EA_INFORMATION);
-+	if (err && err != -ENOENT)
-+		return err;
-+	ea_err = ntfs_ea_attr_lookup(ni, AT_EA);
-+	if (ea_err && ea_err != -ENOENT)
-+		return ea_err;
-+	if (!err != !ea_err)
-+		return -EUCLEAN;
-+	has_ea = !err;
-+	if (has_ea) {
- 		p_ea_info = ntfs_attr_readall(ni, AT_EA_INFORMATION, NULL, 0,
- 						&ea_info_size);
- 		if (IS_ERR(p_ea_info)) {
-@@ -230,15 +263,9 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 			ea_buf = NULL;
- 			goto out;
- 		}
--		if (!ea_buf) {
--			ea_info_qsize = 0;
--			kvfree(p_ea_info);
--			goto create_ea_info;
--		}
- 
- 		ea_info_qsize = le32_to_cpu(p_ea_info->ea_query_length);
- 	} else {
--create_ea_info:
- 		p_ea_info = kzalloc_obj(struct ea_information, GFP_NOFS);
- 		if (!p_ea_info)
- 			return -ENOMEM;
-@@ -249,12 +276,6 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 		if (err)
- 			goto out;
- 
--		if (ntfs_attr_exist(ni, AT_EA, AT_UNNAMED, 0)) {
--			err = ntfs_attr_remove(ni, AT_EA, AT_UNNAMED, 0);
--			if (err)
--				goto out;
--		}
+-	if ((fa->flags & FS_APPEND_FL) !=
+-	    (IS_APPEND(vi) ? FS_APPEND_FL : 0))
+-		return -EOPNOTSUPP;
+-	allowed |= fa->flags & FS_APPEND_FL;
 -
- 		goto alloc_new_ea;
+ 	/* chattr passes the unchanged read-only flags back to us too. */
+ 	if (NInoCompressed(ni) || NInoWofCompressed(ni))
+ 		readonly |= FS_COMPR_FL;
+@@ -234,6 +229,10 @@ int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		    (ni->lxflags & NTFS_LXFLAGS_IMMUTABLE))
+ 			lxflags |= NTFS_LXFLAGS_IMMUTABLE;
  	}
++	if (fa->flags & FS_APPEND_FL) {
++		new_fl |= S_APPEND;
++		lxflags |= NTFS_LXFLAGS_APPEND;
++	}
  
-@@ -404,7 +425,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 	/*
- 	 * no EA or EA_INFORMATION : add them
- 	 */
--	if (!ntfs_attr_exist(ni, AT_EA, AT_UNNAMED, 0)) {
-+	if (!has_ea) {
- 		err = ntfs_attr_add(ni, AT_EA, AT_UNNAMED, 0, ea_buf,
- 				ea_info_qsize + new_ea_size);
- 		if (err)
+ 	mutex_lock(&ni->mrec_lock);
+ 	err = ntfs_ea_set_lxflags(vi, lxflags);
+@@ -241,7 +240,7 @@ int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
+ 	if (err)
+ 		return err;
+ 
+-	inode_set_flags(vi, new_fl, S_IMMUTABLE);
++	inode_set_flags(vi, new_fl, S_IMMUTABLE | S_APPEND);
+ 	inode_set_ctime_current(vi);
+ 	mark_inode_dirty(vi);
+ 	return 0;
 -- 
 2.51.0
 
