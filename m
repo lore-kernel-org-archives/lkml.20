@@ -1,164 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FE0333A014;
-	Sun, 20 Sep 2026 18:21:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789928496; cv=none; b=orkWNfUSfpmOpqhPJ/q9WR5e89ams5gdQNgmhxCKoQG6GGPozRKwyNVL7VQT7XpX6BvUIoHil/RMQKIEt1wN+iie4jJWeaiIr786nr7eLnOcV/szYxpMv0FIITGk5jGu1ihSRLUbQwFwFZRcofAlanl0ATYgzwzac2ExPC98ltY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789928496; c=relaxed/simple;
-	bh=oqLqZEXOp993eRGRX5QrOw+njfG+kUjvHBFxyQ8khMc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y9xuK9sT1pcLOJeVniRC+ZkyNfQFb599KhkVJ97WGPl9dU1tgO+Z8Xrj/izMXEXWzonjMp/fYEyDqr8jIOWA5ijSszr9AbM3dkS6AI1pY2i78qlu0FZrK9ytO5QI+/C269PJI/M3ZO1jxge3T4fp4/IjOJEFoUMW7ycDxbJJpi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HwHXWUL8; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D401C45A297
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 18:21:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789928520; cv=pass; b=j8FBsrAhejOBe/y8TmuuioKg9T88URixBckiYEh42ZusR7CUVcHC+F9lHrupMVm/I9MZIcSNtLR1eW1r2VEMaaDyTc+pLjrQ9YMun3qD2NLUm1/TNhvT3OaoYCv+ZeJBK7fCMPZ5bVNCtZgqstJKumxSYRL9zcQ7saNaEyJl9S0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789928520; c=relaxed/simple;
+	bh=WM3JEjO7oP95R1Fj4ZAxWVpcZewYOpswmDAYuzqhTk0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=L9OYirFTwRChNyzjfSupYX+k9qqS6+I24T0oF8s2R4DsllsbO69mZXo8sEkw80RSIOMYGu290W8Dlm5yp4Sf/NVxIE78Y9GN3ELXndRgDMTMl/rShNrIzEzURcngqbBKQpbGPipumk3yA/8PV0GVJudYrHpEjXboBjDw5JYBy/4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=SAe+UfBd; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HwHXWUL8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 428B71F000FF;
-	Sun, 20 Sep 2026 18:21:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789928494;
-	bh=5g79bEpYNdEBFfwM1CZ+5KAYmu+AdIKJVtVBe1RyNzE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HwHXWUL8/gey82ZrxlUXzmOEpJJtkTQenE3+tef1ubFteKm08N3xq4/3bhAIcB/jl
-	 EabB6ROOh8md63hOGfosDbzpjHZSTtExx+VPGA384V2PCUAungwfRrc0p73z6bbdN8
-	 hNzxRi+KfooguYEqHkVFtMz/R7TKbU9vwPlYzihQS1KyKMry6zLQi2Marez7YZk/SA
-	 GLcVlugUWXSQ4G/YYomYHeicI5Cvsoo68tCrJNQc6Pw+0yl615MQuVAGyPhaELkSjh
-	 U2Ieg4gdWqkp1YuEBM4itrjmwYRbHKXQIUCGo6E8i8xzjnuF0lUi25G6rZJfRiDdoV
-	 HUCbZVjLNkKpg==
-Date: Sun, 20 Sep 2026 20:21:32 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org, 
-	andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org, kees@kernel.org, 
-	gustavoars@kernel.org, p.zabel@pengutronix.de, daniel@riscstar.com, 
-	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, mfd@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] dt-bindings: clock: introduce
- toshiba,tc9564-clock.yaml
-Message-ID: <20260920-messy-successful-caracara-fcdbcd@quoll>
-References: <20260918165234.687224-1-elder@riscstar.com>
- <20260918165234.687224-3-elder@riscstar.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="SAe+UfBd"
+ARC-Seal: i=1; a=rsa-sha256; t=1789928485; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=lUlkXpHTZK71fC6adAoRybM+BBoS5eyU0r701RO/ZUIO1WqaJbgWoHU2VOO08JNp/qFJtpsdRFOoWdjI5LpRHGaSrZTsY/mRdfzxWpkpZGhqY2zAdGmGgDhwv7aID1odWeEO58yjr0777cOmLnXoihdmKT/IOdIJEa8kNi7Xk1Q=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789928485; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=GQB4tEOzvmCfe1Lypm5ywpmGud1PivSR7o+w6DKvYRM=; 
+	b=Mz/l12B8XN3FFQ4DJ/5vDwTVKv2RRM2UNtbb+j9rE0ITeYl9wSqQwUaxDJ4qd/aZ3cMU+S2eirYymFzrU2CrXNQ4i6YfrwK+cDQK4trftF5ccfAsjcHIVR32xLExMTu5xMu3sZiA3X4fAa+hoAeKJW1HD6KA+/jNhugbzLzu8Ng=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789928485;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=GQB4tEOzvmCfe1Lypm5ywpmGud1PivSR7o+w6DKvYRM=;
+	b=SAe+UfBdfx8Ll80vIkWF3o3tKMYg14p/mlMs4mhIX+VQrPcTLjqMEDbhcwJrm2RL
+	OEL7BPIPVB2sraLUlD5YVfEp9Ifzky7iNvpKr5g0LW4lzLLxsfmHgBuvDDQemSn/UvO
+	UDPL+ze9m2INmxE+QrEudyCi2A9to2eiwDVrYeCY=
+Received: by smtp.zohomail.com with SMTPS id 1789928483182297.9289853779717;
+	Sun, 20 Sep 2026 11:21:23 -0700 (PDT)
+Message-ID: <c627ced6-1bdb-4508-b010-46df53eab2b3@collabora.com>
+Date: Sun, 20 Sep 2026 21:21:18 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260918165234.687224-3-elder@riscstar.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/virtio: Add pixel blend mode property to cursor plane
+To: oushixiong1025@163.com, David Airlie <airlied@redhat.com>
+Cc: Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Shixiong Ou <oushixiong@kylinos.cn>, Ye Liu <liuye@kylinos.cn>
+References: <20260828090123.784944-1-oushixiong1025@163.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20260828090123.784944-1-oushixiong1025@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On Fri, Sep 18, 2026 at 11:52:31AM -0500, Alex Elder wrote:
-> +description: |
-> +  The Toshiba TC9564 is an SoC accessed by a host system through the
-> +  upstream PCIe port on the PCIe switch it implements.  The switch
-> +  includes an embedded PCIe endpoint that provides access to various
-> +  SoC peripherals (including a clock/reset controller) via its BARs.
-> +
-> +  The SoC is represented using a devicetree PCI endpoint bus, so the
-> +  clock controller is bound to its driver using a platform driver
-
-Do not mention drivers here. Just say that host can access clocks etc
-via PCI.
-
-But then more questions. This is PCI, yes? So how are the clocks from
-PCI routed BACK to the main soc, which would justify having this in DTS
-in the first place?
-
-
-> +  compatible string.  All of the clocks are simple gate clocks.
-> +
-> +  A total of 21 clocks are implemented, though two of these are not
-> +  controllable.  Access to the clock controller relies on PCIe being
-> +  functional, so the PCIe clock is assumed to be always on.  Similarly,
-> +  the PCIe controller relies on I2C, so the I2C clock is also assumed
-> +  to be always on.
-> +
-> +  In addition, 13 resets are implemented.  Similar to clocks, the PCIe
-> +  and I2C resets are assumed to be deasserted and cannot be controlled.
-> +
-> +  Clock and reset ids are defined in <dt-bindings/clock/toshiba,tc9564.h>.
-> +
-> +properties:
-> +  compatible:
-> +    const: toshiba,tc9564-clock
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  "#clock-cells":
-> +    const: 1
-> +
-> +  "#reset-cells":
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - "#clock-cells"
-> +  - "#reset-cells"
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/toshiba,tc9564.h>
-> +
-> +    clock@1004 {
-> +        compatible = "toshiba,tc9564-clock";
-> +        reg = <0x1004 0x20>;
-> +        #clock-cells = <1>;
-> +        #reset-cells = <1>;
-
-No resources except small address space, so does not look like a
-separate device and should be folded into the parent node.
-
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index b2d3257b8f892..66d0e7e65adcb 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -27670,6 +27670,13 @@ F:	Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt
->  F:	drivers/media/i2c/tc358743*
->  F:	include/media/i2c/tc358743.h
+On 8/28/26 12:01, oushixiong1025@163.com wrote:
+> From: Shixiong Ou <oushixiong@kylinos.cn>
+> 
+> The cursor plane exposes a format with an alpha channel
+> (DRM_FORMAT_ARGB8888) without a pixel blend mode property. Since
+> commit 860e748bddcc ("drm: ensure blend mode supported if pixel
+> format with alpha exposed") this triggers a warning during
+> drm_mode_config_validate():
+> 
+> [    0.649020] ------------[ cut here ]------------
+> [    0.649040] [PLANE:36:plane-1] pixel format with alpha exposed but blend mode not setup
+> [    0.649081] WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate
+> ......
+> [    0.649761] Call trace:
+> [    0.649764]  drm_mode_config_validate+0x398/0x558 [drm] (P)
+> [    0.649912]  drm_dev_register+0x1cc/0x2a0 [drm]
+> [    0.650058]  virtio_gpu_probe+0xd4/0x1c0 [virtio_gpu]
+> [    0.650088]  virtio_dev_probe+0x1c8/0x310
+> ......
+> [    0.650261] ---[ end trace 0000000000000000 ]---
+> 
+> 
+> Create the property with the only supported blend mode,
+> DRM_MODE_BLEND_PREMULTI, which is also the property's default and
+> matches what userspace had to assume before the property existed.
+> 
+> Reported-by: Ye Liu <liuye@kylinos.cn>
+> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_plane.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
+> index 1d1b27ece62a..11771c943ea6 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_plane.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
+> @@ -24,6 +24,7 @@
+>   */
 >  
-> +TOSHIBA TC9564 CLOCK DRIVER
-> +M:	Alex Elder <elder@kernel.org>
-> +M:	Daniel Thompson <danielt@kernel.org>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
-> +F:	include/dt-bindings/clock/toshiba,tc9564.h
+>  #include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_blend.h>
+>  #include <drm/drm_damage_helper.h>
+>  #include <drm/drm_fourcc.h>
+>  #include <drm/drm_gem_atomic_helper.h>
+> @@ -588,6 +589,7 @@ struct drm_plane *virtio_gpu_plane_init(struct virtio_gpu_device *vgdev,
+>  	struct drm_plane *plane;
+>  	const uint32_t *formats;
+>  	int nformats;
+> +	int ret;
+>  
+>  	if (type == DRM_PLANE_TYPE_CURSOR) {
+>  		formats = virtio_gpu_cursor_formats;
+> @@ -610,5 +612,17 @@ struct drm_plane *virtio_gpu_plane_init(struct virtio_gpu_device *vgdev,
+>  	if (type == DRM_PLANE_TYPE_PRIMARY)
+>  		drm_plane_enable_fb_damage_clips(plane);
+>  
+> +	if (type == DRM_PLANE_TYPE_CURSOR) {
+> +		/*
+> +		 * The cursor plane exposes a format with an alpha channel,
+> +		 * which requires a blend mode property. The host blends
+> +		 * premultiplied alpha, matching the property's default.
+> +		 */
+> +		ret = drm_plane_create_blend_mode_property(plane,
+> +							   BIT(DRM_MODE_BLEND_PREMULTI));
+> +		if (ret)
+> +			return ERR_PTR(ret);
+> +	}
 > +
->  TOSHIBA TC9564 PCI DRIVER
->  M:	Alex Elder <elder@kernel.org>
->  M:	Daniel Thompson <danielt@kernel.org>
-> diff --git a/include/dt-bindings/clock/toshiba,tc9564.h b/include/dt-bindings/clock/toshiba,tc9564.h
-> new file mode 100644
-> index 0000000000000..75732fddd3025
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/toshiba,tc9564.h
-> @@ -0,0 +1,54 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +
-> +/*
-> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
-> + */
-> +
-> +#ifndef __ClOCK_TOSHIBA_TC9564_H__
-> +#define __ClOCK_TOSHIBA_TC9564_H__
-> +
-> +/* Clock IDs */
-> +
-> +#define CLOCK_MCU		0
-> +#define CLOCK_INTC		1
-> +/* #define CLOCK_PCIE		2 */
-> +/* #define CLOCK_I2C		3 */
+>  	return plane;
+>  }
 
-Drop both, and SRAM is number 2. Or enable and implement them.
+Applied to misc-fixes, thanks!
 
+-- 
 Best regards,
-Krzysztof
-
+Dmitry
