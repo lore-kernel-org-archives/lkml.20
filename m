@@ -1,212 +1,143 @@
-Received: from mta0.migadu.com (out-115.mta0.migadu.com [91.218.175.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A2A432E60
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 13:21:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7E8440629;
+	Sun, 20 Sep 2026 13:22:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789910468; cv=none; b=POladn/K1Yyj2pIeBaF6zFgs2qrqtlCAwcnag+3mDVI2UlqQanL+62PDXlpQ7lNm5iUfn4XANwCNsQm2bJrToBkb+7OmY0/BvWOckZu1x/V0HYMAwmZSgmf5VxmGrZSf8MlEXnzL6XeIn6EsWHqFBdfAOopAfiFcx1cSxtFbvY8=
+	t=1789910542; cv=none; b=iLXff5n1bysn7Vv1qDgL3UThTjMvP1sT650zFEe2EmuWX+d4difIn0Ptq3k1xBZboA2FEtZXHS/9+QcZ+G+GOp+KT2ZxiPEm9oXCn88YuAxRc8g0pLQvwVeI7wyV2xrJH8hvUw17VgkgDdfBY00jQZ00t2JpSCvvnNp2mph6EH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789910468; c=relaxed/simple;
-	bh=+qiJEwOkGGHEtLddlrncV+pPVsmFD1CLTG+vezQeo6I=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FuTk06pcPiQ1T+S7TDWBsdpBL0bFpEdO8RvyOKW75f6N223xQULiZiONt5VBQyWSmvg3bjEAC8UViFYek80NCyqssdhdQQpa3nir0pc4PA8i7TLxeA71H22EPKLYI8FMEak+kt2rxJoBpMrfj09hQ7OIdHWUgnh1C2SNLjkh3nw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fPmhodVG; arc=none smtp.client-ip=91.218.175.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789910542; c=relaxed/simple;
+	bh=POlJBh9KNY1x3GbA33ud9kjtlw6cq5NbZpK+tcXj3sc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iSF9uh1MjCBYnEWXjKJd/WEGCp5GxLjkb/jxPIKFNtAEsb0uRPsq7Ic0S2hwBRqhL7NCMD8PJHaw2RK/ZLsXAHYz0gC+NwN72m1thO4tFdbCTccTd6p2VcSTFjD84kpO/yKbpa4bDNCV3258iRATE91O+V6bGrNSuJqKW1n6j2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c0ka+f6R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fPmhodVG"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+qiJEwOkGGHEtLddlrncV+pPVsmFD1CLTG+vezQeo6I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789910460; v=1; x=1790515260;
- b=fPmhodVGLHdcbBRlp9aG+KPnsL7ayNDoxcZH25X/xPfHOrWuuU+Q3ombPIO5Fjuu/NBteBlT
- Zw7aVtBeW0QIwiT5gQSMsQ9Kw4LVRIvWaD5H64sLotSGkJe3GEBnkYxkLP6RX+3xgx5ZTy+W1HL
- oUgvthiyMx6W3uhhN2rHzwLw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2fa7e308769992a5;
-	Sun, 20 Sep 2026 13:20:50 +0000
-X-Mizu-Trace-ID: 2fa7e308769992a5
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>
-Cc: David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH] mm: vmscan: put rotation-missed folios at the LRU tail
-Date: Sun, 20 Sep 2026 21:20:30 +0800
-Message-Id: <20260920132030.3368138-1-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c0ka+f6R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED7931F000FF;
+	Sun, 20 Sep 2026 13:22:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789910539;
+	bh=IgMdXzKyeuuhHNtFLFYrbZ8KZpxyweXgFtDLYNoIkw4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=c0ka+f6RjQ6ejFKxKSXAW+Q7GDWgOFdDDXGFUbhNC52Zb2CFvv+EghgnGDSeoFHnX
+	 wSvuMYaG7rd1wzBrvkWH2iRs3XuGjVi+fsK236+LH5qjucOTS0D4Os4XZxsxnM4f3F
+	 5V6Z3iz6g0MssFsyIwZ7feUA+byFKkFbySlSgImKLO+ZijSJ3oPNc/8jgk0BdLiVOP
+	 zdB969w1PUWziaGlZnGBaLxGqWab/c0N5xp568CLGQwJ5pzcp6DqwyAU8cndIv1ZQW
+	 H0Aw127TexajIyZZXHiUoOBETYFkwhm9yX/r7Vsb5BcOIjlvTCtSyCCZt0acAXJjur
+	 Xc8oW8LdtRimA==
+Message-ID: <ea6cf31e-0acd-4248-9359-5864bf8f6f94@kernel.org>
+Date: Sun, 20 Sep 2026 15:22:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] staging: greybus: change mutexes to guard macros
+To: Omer PALA <palaomer100@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Vaibhav Hiremath <hvaibhav.linux@gmail.com>,
+ Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+ Vaibhav Agarwal <vaibhav.sr@gmail.com>, Mark Greer <mgreer@animalcreek.com>,
+ Viresh Kumar <vireshk@kernel.org>, Rui Miguel Silva <rmfrfs@gmail.com>,
+ Bryan O'Donoghue <pure.logic@nexus-software.ie>, David Lin
+ <dtwlin@gmail.com>,
+ "moderated list:GREYBUS SUBSYSTEM" <greybus-dev@lists.linaro.org>,
+ "open list:STAGING SUBSYSTEM" <linux-staging@lists.linux.dev>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20260920094058.9664-1-palaomer100@gmail.com>
+ <2026092039-greedily-jailer-80e5@gregkh>
+ <DLK2TDB5QIUL.1X53SKJTROLDK@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <DLK2TDB5QIUL.1X53SKJTROLDK@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Ridong Chen <chenridong@xiaomi.com>
+On 20/09/2026 12:37, Omer PALA wrote:
+> Hi Greg,
+> 
+> I thought someone (not you) can allow this.
 
-The page reclaim isolates a batch of folios from the tail of an LRU list
-and works on them one by one.  For a suitable swap-backed folio on an
-async swap device, it queues the folio for writeback and, after finishing
-the batch, puts the folio back to the head of the original LRU list.
+So you received feedback from Greg, but tried on different part, hoping
+this time it will get accepted?
 
-Meanwhile the page writeback flushes the queued folios in its own,
-independent batches.  For each folio it writes back it calls
-folio_rotate_reclaimable(), which tries to rotate the folio to the LRU
-tail.  But folio_rotate_reclaimable() only takes effect once the folio has
-been put back by reclaim.  If the async swap device is fast enough, the
-writeback can complete a folio while reclaim is still working on the rest
-of the batch that contains it.  In that case the folio stays near the head
-and reclaim will not revisit it before wrapping around, causing a cold/hot
-inversion: a clean, written-back folio that should be a prime reclaim
-candidate is kept ahead of hotter folios.
+This looks similar to you previous approaches, e.g. for DT bindings,
+where you received comments and repeated the same thing immediately.
+Three or four time.
 
-commit 359a5e1416ca ("mm: multi-gen LRU: retry folios written back while
-isolated") addressed this for MGLRU only.  The traditional active/inactive
-LRU has the same problem, reported at [1].  A reproducer is available at
-[2].
+> 
+> I want to contribute kernel but i dont know what should i do.
 
-Rather than re-reclaiming those folios (which would drop the swap cache
-that may still be useful for a future hit [4]), restore the rotation that
-was missed: when move_folios_to_lru() puts a folio back, add it to the LRU
-tail if it looks like it missed folio_rotate_reclaimable() (inactive, not
-mapped, not dirty and not under writeback).  A referenced folio is left at
-the head so it still gets a second chance, and a folio with an unexpected
-reference (e.g. a GUP or speculative pin) is left at the head because it
-cannot be reclaimed yet anyway.  A new do_rotate parameter gates this so
-it only applies on the reclaim put-back path (shrink_inactive_list()), not
-on shrink_active_list() where the list order is already deliberate.  This
-approach was suggested by Barry Song [3].
+I suggest spend some time to actually read the archives when people
+point it.
 
-Only the traditional LRU is handled here.  MGLRU already retries such
-folios via its own clean-list retry pass in evict_folios(), so it is left
-unchanged.  The same do_rotate scheme could later replace that retry pass
-to unify both LRUs, which is left for a follow-up.
 
-Test result with [2]:
+> 
+> I wrote 3 devicetree schemas, 2 performance fixes, 2 mutex/spinlock
+> fixes and 1 syntax fix.
+> 
+> All of my work got NAK.
 
-  Without patch:
-    cat memory.usage_in_bytes
-    1073700864
-    cat memory.memsw.usage_in_bytes
-    1413124096
+One was pure AI slop, so what did you expect exactly? In all channels,
+fediverse, some technological news, open source projects complain about
+sent slop, they reject it and treat it as one of biggest time wasting
+thing contributor could do. It is not like we hide it, right? Actually
+opposite, everywhere we scream - don't send vibe coded stuff. And for
+learning or beginning this is even unacceptable waste of your time,
+because you will learn nothing. I was raising it for GSoC for example
+more than once and it is documented in their rules.
 
-    free -h
-                  total        used        free
-    Mem:           1.6Gi       1.2Gi       299Mi
-    Swap:          1.0Gi       678Mi       346Mi
+> 
+> Can you explain me what should i do?
 
-  With patch:
-    cat memory.usage_in_bytes
-    1071140864
-    cat memory.memsw.usage_in_bytes
-    1413423104
+One idea would be to read more before you actually contribute.
 
-    free -h
-                  total        used        free
-    Mem:           1.6Gi       1.2Gi       322Mi
-    Swap:          1.0Gi       328Mi       695Mi
 
-After applying the patch, the difference between
-memory.memsw.usage_in_bytes and memory.usage_in_bytes is close to the swap
-"used" value reported by 'free -h'.
-
-[1] https://lore.kernel.org/linux-kernel/20241010081802.290893-1-chenridong@huaweicloud.com/
-[2] https://lore.kernel.org/lkml/46037a37-4cf6-448e-a94b-30a4d16e8814@linux.dev/
-[3] https://lore.kernel.org/lkml/CAGsJ_4zwP3_+EYY5Ug9EJ+yD1UdxsBSGr25u8s1K3u_i7LH3Zg@mail.gmail.com/
-[4] https://lore.kernel.org/linux-mm/20260911121341.178028-1-alex@ghiti.fr/
-
-Suggested-by: Barry Song <baohua@kernel.org>
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
-
-v1 -> v2:
- - skip referenced folios (FOLIOREF_KEEP) and unexpectedly pinned folios
-   when rotating to the LRU tail.
- - add test result to the commit message.
-
- mm/vmscan.c | 24 ++++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
-
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index e200ce3eb056..91295070ca33 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -1971,7 +1971,7 @@ static bool too_many_isolated(struct pglist_data *pgdat, int file,
-  *
-  * Note: The caller must not hold any lruvec lock.
-  */
--static unsigned int move_folios_to_lru(struct list_head *list)
-+static unsigned int move_folios_to_lru(struct list_head *list, bool do_rotate)
- {
- 	int nr_pages, nr_moved = 0;
- 	struct lruvec *lruvec = NULL;
-@@ -2018,7 +2018,19 @@ static unsigned int move_folios_to_lru(struct list_head *list)
- 			continue;
- 		}
- 
--		lruvec_add_folio(lruvec, folio);
-+		/*
-+		 * Put clean, unreferenced and unpinned folios that may have
-+		 * missed folio_rotate_reclaimable() at the tail to avoid
-+		 * cold/hot inversion.
-+		 */
-+		if (do_rotate && !folio_test_active(folio) && !folio_mapped(folio) &&
-+		    !folio_test_dirty(folio) && !folio_test_writeback(folio) &&
-+		    !folio_test_referenced(folio) &&
-+		    folio_ref_count(folio) == folio_expected_ref_count(folio))
-+			lruvec_add_folio_tail(lruvec, folio);
-+		else
-+			lruvec_add_folio(lruvec, folio);
-+
- 		nr_pages = folio_nr_pages(folio);
- 		nr_moved += nr_pages;
- 		if (folio_test_active(folio))
-@@ -2135,7 +2147,7 @@ static unsigned long shrink_inactive_list(unsigned long nr_to_scan,
- 	nr_reclaimed = shrink_folio_list(&folio_list, pgdat, sc, &stat, false,
- 					 lruvec_memcg(lruvec));
- 
--	move_folios_to_lru(&folio_list);
-+	move_folios_to_lru(&folio_list, true);
- 
- 	mod_lruvec_state(lruvec, PGDEMOTE_KSWAPD + reclaimer_offset(sc),
- 					stat.nr_demoted);
-@@ -2246,8 +2258,8 @@ static void shrink_active_list(unsigned long nr_to_scan,
- 	/*
- 	 * Move folios back to the lru list.
- 	 */
--	nr_activate = move_folios_to_lru(&l_active);
--	nr_deactivate = move_folios_to_lru(&l_inactive);
-+	nr_activate = move_folios_to_lru(&l_active, false);
-+	nr_deactivate = move_folios_to_lru(&l_inactive, false);
- 
- 	count_vm_events(PGDEACTIVATE, nr_deactivate);
- 	count_memcg_events(lruvec_memcg(lruvec), PGDEACTIVATE, nr_deactivate);
-@@ -5115,7 +5127,7 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 			folio_set_active(folio);
- 	}
- 
--	move_folios_to_lru(&list);
-+	move_folios_to_lru(&list, false);
- 
- 	walk = current->reclaim_state->mm_walk;
- 	if (walk && walk->batched) {
--- 
-2.34.1
-
+Best regards,
+Krzysztof
