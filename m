@@ -1,62 +1,64 @@
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D302BE656
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:29:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E063EC802
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:29:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789896548; cv=none; b=ZplQFyNphIavbUidj0EKL2Ar5kx7AkO2B9+4b7COwO+mIVRAn4sSBTJX5XwOR3IYJH0YPMel42gRpKPJlJ6mCSD2vlYJju+bVcZ7Ps/RbJTNfDF2ARAUSAFRBxVbg/PR4zr5UXUWL0rb/pDAKWhbvl3cHfuIgbJVTDOfIsjc1ao=
+	t=1789896552; cv=none; b=KfRxNUUfanGKPPsaTroYA/CvQIzg4EEIc4CT4qp9vGxcV/HJI5zuel8Xsk0geuoNei4/1RQm6HsrkAtyYZN11FRMk0uxXr/59uPxuXXEL+eaSAirPPTR0EKHKVi5UN5b2C3in8+3JUxBJ8e/j7BDhoK9Mg+fcXfO2CYsIeoRwac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789896548; c=relaxed/simple;
-	bh=3yQCwusPM2SFsjUJl+L+In1OgkFCb7jzGEJa/DftI/k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rbSDTepdCCqDpu1Jg7XnODvauq9NDJEWqDs2TNWKgHACZytM3kvN2b1kJD6ejaIca16RXbEYJfQQMrvw6hf4J0+ra4vvyxQ8BQSvHMsxlBjSSGna8hTunXBJoL1hmAR588bBr2JzAZmyajgaovXtYD3N1/QtJjhX9GpNId93m/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SlTynOSj; arc=none smtp.client-ip=74.125.227.138
+	s=arc-20240116; t=1789896552; c=relaxed/simple;
+	bh=HLAKvhJkzr2wMQTL4lMwFebMpdVfGJZuNPiX3c2LAO4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=svpjZhXTwK5oi/GDwIAj/XmHtq/0bbYAYT6UB9vh65jN5fD23g8oFN44AAj4UoC/U0J5nSALjOxn7zX+S3fJl5jU/PJ6/wtMfAFvlWnvz7TmsIzL5Q0tGdwbtwdcV3Ykel1QSGRcDRx8mrqPa02a4RrcS0v94pNvVHJDQL24tcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RwmiRQ3o; arc=none smtp.client-ip=74.125.227.136
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SlTynOSj"
-Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-39e249c766bso876835a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:29:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RwmiRQ3o"
+Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-398b9f722abso1158477a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:29:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789896544; x=1790501344; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PUf2wiOoUG9R7t6MRcmAciYWufgeLE7ixeOR2Gw9uJA=;
-        b=SlTynOSjtBk4LHlj41DfXo53Jtq92JMWvdmWrpmn8I3cSRYE1kqewZ9VjkVwk5N5Zj
-         AQxvGw48heKbkqgF6khn9xxpZkv9ZJLwJQbCMdU6PDDLc6wUcrdAqJ472PzQHhdIHEXU
-         7cRpvmkEhpumD7YZmrgLEAbnY0H4cAFv68hCMFWK0uKSRS1ZjnenhE4m7UYk14635hn0
-         sV921tmiaLorkP5OLtT2ICRhodhfmdwDVwTlu6O/GttGzay4onAqUjE2+ulbTP++NZFj
-         HURtF0nw7qsTt/auH2wOF6K6W8YPZ1m+yzDpJgGSF9SRe7Pf0l7R6yj2/alZmxDLdPbb
-         /6ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789896544; x=1790501344;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789896550; x=1790501350; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PUf2wiOoUG9R7t6MRcmAciYWufgeLE7ixeOR2Gw9uJA=;
-        b=r0DJSU3k+PxF/x9iRFey+SVLxRWMmgPLNSz6xhqMZItSQ69awQYl5GtKh7fv7Dmf8b
-         v1PmJEM2j4doitqzYx3vm1Zbe91ZAw24ET07gLqT1NgQUaixYeOHsNZryjMNPKXhZ3M/
-         mTevFBlUfZQFazCo26TcdvMZcBN7tIU0XPfhxaWdr0r6nBK5ET+SBMPWVsivfIQjR56q
-         STSduJHWnk19IscevIutccB4YQ6vQxWJyrsYRNdx7F/rdqkqEPSuhMqN/Q+rDiffvqIH
-         6X7EM6cU5TACy7Dq9EYBQ1YQZPs1FHrIHtd1IgH4m7ilfWOJgavKA5lgcTZds8v5ggcj
-         Nqnw==
-X-Forwarded-Encrypted: i=1; AKwUvBzXzkOWgmjiNt1wANo84r2b8pkQ59SndsprUAxy+qNAD/LbaXfvEroOhIf/GqtM0lwaVMG83aYvElAVdx0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFS1bp2E1P0DnBZ1aCxLd3PPLqOMVkkhPBLeRgVcOgZcC5X6C2
-	83LhqupRxmGMIU1js97k1ua9sTnE6xtMbAI7DpAjYzHrlvlloWutnSE+uTHKp0GgT8w=
-X-Gm-Gg: AYBFou18QlLNFvhGxdOW7JJa/CeEZ42tmsxK/J6FvkLvO32FXUO/D8++mOUPSGbF7FN
-	kTzJ5lWZm/h82C93FGuO6IQyDSSl+e8oYDIas0Xv1MVjU539RiW5aVRTJQzvBlggmEYi5RBrYv8
-	NbFbWrOxSCylqqhW1R+W1eveyAT3hldfkPlu3dUrwFgjucNF2wn3A+Ci+kDUZn24xR/HfIUoUz1
-	AVIGoSAUoEaNWbQjoMUeXqI1e7lBVupftew1njl56KV7hK9BddoVtrcT6Pg7YC+lUl2FMvhzqiQ
-	iu1qV52U0SCUwyg+Lsg4O6U2KaxmhaAEBIy9uSU0Gt/zrQYgljAekMnFTQK2+kEhftWpomnc4NU
-	jBklDe75r1dZlkuOM/SDCWV2zHwgjr61EXaP0xMVtgT5mTUs7A++a3uGA94KVUSw2OOINxhh4on
-	5+9n1QVgbuAdbT/FpgOBWxznx+/RxVKMbjnqs3UTfLtub4ZPvnllz6urciUhS07m5Z0dnUaJG/b
-	o5U/1hvWtU=
-X-Received: by 2002:a17:90b:448e:b0:3a0:22bd:6ee5 with SMTP id 98e67ed59e1d1-3a022bd8582mr4720656a91.14.1789896544491;
-        Sun, 20 Sep 2026 02:29:04 -0700 (PDT)
+        bh=Hr//weXOOHxuEsChSdCH6E1epplNkMkMoIIsD/MpGSM=;
+        b=RwmiRQ3oS+nI+MC/PGwh2+OfOmGABNSPzqt4f6i+RlD9znKWwRMJhBlw3dR8KXm5w4
+         Yr0cPtrp1MOQVhF+qNIY3ajZzWKjjX+eUpGawvxpF26iTzb0zmDYKwHwaiuoQWvRbSVy
+         xxMbmHteTL1u/ZAEVBaV1K8NtpfJWbJT5TZSHMnmaJDEyBU/t8RFyNPRUVIQFocKObhu
+         T+ov6XhLivsJSpo8T5DwTt94/aZxEtEeDzcYx9CqifPzvwFzFxVa9n0Wq9QOV5tDbfVc
+         noF5/tJ0Bi0tcd4oJwt/zajaRDQp2fHJjYZucOgPMlz8k9O+FIcH9CAO2ZOx6lJ8mPD3
+         uYXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789896550; x=1790501350;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Hr//weXOOHxuEsChSdCH6E1epplNkMkMoIIsD/MpGSM=;
+        b=WBiEXrFd9YqDm6JVG1ueYNYIpo7tfSPKTEan34lUPUpCIfuGblVoqGpFrRWum0chZt
+         fLxs2NvNNVbCKFO4c1CeaST1hNL9trR+NzfskgiGFLnDw6A9jqLwGpP7o5eHJJP4CQBf
+         9AYiZYZA92D7qQlWfHIWJqjYj5TFNFra3RdTUtQbiesCo6TRr5Qr+UOvE+9ohcwQNuy9
+         EbjCiNHQrZqyDkN0zUdN2UK21msUkwZRUBbguyhgSI8oS8/EyQy+IsppUd52TTNGDFfT
+         I/hjqzEm8/NFTyU6pdzmj/HoLNwT54VOjTySbhjGAnvkgi9w77Mc31d4aapbwWQuFynL
+         RNHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz87+oELqz5+q26EyrqQzZsDbKAOCsSu27i7IAqNyYHfh1UUYwqqoeOkh5k8S1rNvOP2J/cFKjxGNu3RgQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTOIfC7uUK51IfBe+GqW6H54U6GUfUjE+cPYhqTfbgFR0k1cjp
+	ICe/qfGGbVBrlxVEsDFznH4iNFxaFrWmQcBcnaJ476vV26PCa/zlyc88
+X-Gm-Gg: AYBFou14KgDCOUt8yiIplw3Gta0tV6f3Fn1woWXQpX38zihCo/S1iGv2LNjF/u6ku8D
+	gXLLmuPCwYdb+vl9Keml79v0bEoRCmDGMNz/Km0eQcPjftdwft/kOo2ka3+ImekvnYSgwHKhiED
+	gquAeGDc0+mijtYS7NyfNtzF23g+Edh0oWeh9HrV7YfWkG+HOOmIkD+kYJh/rez4BI7WU9B7V4d
+	wxtOhbEz1eG75NKu+vhQqUX1ZScMllBy+kkGdXaXxQX3wbMirRWTIGmCAObP6kC/uNgVOdbbe91
+	OOq4OsHAtCX4ESCXyJxNwtVK0+qjhthz3qGfF4UVIRsGSDxLuBheWszXCT4nDVPGIvONUQfVbyk
+	JL5TEWNnaHa52s/Q2X++XzXpoeeo5Bp1QHU6d/ieUEX1SGwV8M1Q5NxO7lRH7+2tSfL1DF+BPUX
+	oBckDxOIQf8/JhSqZONaxLPyjc04tNAItKu+BCDie16wSI5lDKa2/RuTf2xYjDgE+s6D0Sr2+ow
+	eFPdmFnTC4=
+X-Received: by 2002:a17:90a:d648:b0:39e:6c6a:4b70 with SMTP id 98e67ed59e1d1-39e6c6a5518mr5665139a91.58.1789896549933;
+        Sun, 20 Sep 2026 02:29:09 -0700 (PDT)
 Received: from intel.company.local ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c37c64csm8154917a91.10.2026.09.20.02.28.57
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c37c64csm8154917a91.10.2026.09.20.02.29.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 02:29:02 -0700 (PDT)
+        Sun, 20 Sep 2026 02:29:09 -0700 (PDT)
 From: Wandun Chen <chenwandun1@gmail.com>
 To: robh@kernel.org,
 	saravanak@kernel.org,
@@ -66,10 +68,12 @@ To: robh@kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
 Cc: akpm@linux-foundation.org
-Subject: [PATCH v3 0/5] of: reserved_mem: several fixes about reserved memory
-Date: Sun, 20 Sep 2026 17:28:47 +0800
-Message-ID: <20260920092852.614973-1-chenwandun1@gmail.com>
+Subject: [PATCH v3 1/5] of: reserved_mem: release dynamically allocated no-map region on init failure
+Date: Sun, 20 Sep 2026 17:28:48 +0800
+Message-ID: <20260920092852.614973-2-chenwandun1@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260920092852.614973-1-chenwandun1@gmail.com>
+References: <20260920092852.614973-1-chenwandun1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,66 +84,84 @@ Content-Transfer-Encoding: 8bit
 
 From: Wandun Chen <chenwandun@lixiang.com>
 
-This series fixes several error-handling issues in the reserved-memory
-initialization paths.
+Dynamically reserved-memory regions are added to memblock.reserved by
+memblock_phys_alloc_range() during __reserved_mem_alloc_size(). When a
+reserved-memory region's driver initialization fails,
+fdt_init_reserved_mem_node() cleans up the reservation. For no-map
+regions it only calls memblock_clear_nomap(), leaving the range in
+memblock.reserved and unavailable for normal memory use.
 
-The first two patches fix cleanup of no-map regions after driver
-initialization failure.
+Fix it by freeing the region on init failure when it was dynamically
+allocated.
 
-Static reserved-memory nodes are reserved during the early DT scan but
-initialized later. The third patch tags regions whose early reservation
-succeeded, so the late scan can skip the nodes whose early reservation
-failed.
+Sashiko found this issue in [1].
 
-The last two patches reject overlapping static regions. Without
-these checks, overlapping nodes can be initialized over the same
-physical memory, result in data corrupt.
+Fixes: 7b25995f5319 ("of: of_reserved_mem: mark nomap memory instead of removing")
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+Link: https://sashiko.dev/#/message/20260806100605.2C2C01F000E9%40smtp.kernel.org [1]
+---
+ drivers/of/of_reserved_mem.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-Sashiko reported these issues in [1] [2] [3].
-
-[1] https://sashiko.dev/#/message/20260814090305.4C8741F00A3D%40smtp.kernel.org
-[2] https://sashiko.dev/#/message/20260814084718.29C341F000E9%40smtp.kernel.org
-[3] https://sashiko.dev/#/message/20260806100605.2C2C01F000E9%40smtp.kernel.org
-
-v2 --> v3:
-1. Rework the mechanism that checks in the late scan whether the early
-   reservation succeeded (patches 3-5, suggested by Marek, thanks).
-
-   Patch 3 adds a new memblock flag MEMBLOCK_RSRV_RMEM, which is set when
-   the early reservation of a static region succeeds and checked in the
-   late scan.
-
-   Patches 4 and 5 are reworked to reject regions that overlap or are
-   contained by an existing reservation. The code makes a little different
-   from what was acked in v2, so the Acked-by tags for these patches are not
-   carried over.
-
-2. Reorder the patches: the two cleanup fixes in v2 now come first.
-   In v3, the first patch now introduces the 'dynamic' distinction in
-   fdt_init_reserved_mem_node(), which the following patche 3 build on,
-   so the series reads more fluently.
-
-v1 --> v2:
-1. Rework failed-node tracking in patch 1: do not track zero-sized nodes,
-   and keep a reserved_mem slot when tracking overflows.
-2. Reject static reserved regions overlapping existing no-map regions.
-3. Keep MEMBLOCK_NOMAP flag for static no-map regions when init failure.
-
-
-Wandun Chen (5):
-  of: reserved_mem: release dynamically allocated no-map region on init
-    failure
-  of: reserved_mem: retain static no-map memory on init failure
-  of: reserved_mem: skip init for regions whose early reservation failed
-  of: reserved_mem: reject static regions overlapping no-map memory
-  of: reserved_mem: reject static mapped regions overlapping existing
-    reservations
-
- drivers/of/of_reserved_mem.c | 86 +++++++++++++++++++++++++-------
- include/linux/memblock.h     |  7 +++
- mm/memblock.c                | 95 ++++++++++++++++++++++++++++++++++++
- 3 files changed, 170 insertions(+), 18 deletions(-)
-
+diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+index 8c9d6395d6a3..f55ed3b5aaa4 100644
+--- a/drivers/of/of_reserved_mem.c
++++ b/drivers/of/of_reserved_mem.c
+@@ -112,7 +112,8 @@ static int __init alloc_reserved_mem_array(void)
+ }
+ 
+ static void fdt_init_reserved_mem_node(unsigned long node, const char *uname,
+-				       phys_addr_t base, phys_addr_t size);
++				       phys_addr_t base, phys_addr_t size,
++				       bool dynamic);
+ static int fdt_validate_reserved_mem_node(unsigned long node,
+ 					  phys_addr_t *align);
+ static int fdt_fixup_reserved_mem_node(unsigned long node,
+@@ -308,7 +309,7 @@ void __init fdt_scan_reserved_mem_late(void)
+ 
+ 		if (size) {
+ 			uname = fdt_get_name(fdt, child, NULL);
+-			fdt_init_reserved_mem_node(child, uname, base, size);
++			fdt_init_reserved_mem_node(child, uname, base, size, false);
+ 		}
+ 	}
+ 
+@@ -518,7 +519,7 @@ static int __init __reserved_mem_alloc_size(unsigned long node, const char *unam
+ 	}
+ 
+ 	fdt_fixup_reserved_mem_node(node, base, size);
+-	fdt_init_reserved_mem_node(node, uname, base, size);
++	fdt_init_reserved_mem_node(node, uname, base, size, true);
+ 
+ 	return 0;
+ }
+@@ -627,13 +628,15 @@ static int __init __reserved_mem_init_node(struct reserved_mem *rmem,
+  * @uname: name of the reserved memory node
+  * @base: base address of the reserved memory region
+  * @size: size of the reserved memory region
++ * @dynamic: whether the region was dynamically allocated
+  *
+  * This function calls the region-specific initialization function for a
+  * reserved memory region and saves all region-specific data to the
+  * reserved_mem array to allow of_reserved_mem_lookup() to find it.
+  */
+ static void __init fdt_init_reserved_mem_node(unsigned long node, const char *uname,
+-					      phys_addr_t base, phys_addr_t size)
++					      phys_addr_t base, phys_addr_t size,
++					      bool dynamic)
+ {
+ 	int err = 0;
+ 	bool nomap;
+@@ -659,7 +662,7 @@ static void __init fdt_init_reserved_mem_node(unsigned long node, const char *un
+ 
+ 		if (nomap)
+ 			memblock_clear_nomap(rmem->base, rmem->size);
+-		else
++		if (dynamic || !nomap)
+ 			memblock_phys_free(rmem->base, rmem->size);
+ 		return;
+ 	} else {
 -- 
 2.43.0
 
