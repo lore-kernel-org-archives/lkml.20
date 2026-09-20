@@ -1,68 +1,129 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B93A3D3CEA
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 13:01:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8083439F90;
+	Sun, 20 Sep 2026 13:05:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789909308; cv=none; b=ezdKrTCadpvV2Wq2Vqoff8aXnP78y/Kqe8oKs5A5WQ9Yf9tz5YUBvidL7HOuMUPFUcjd0uMI9V7geie/0mvGZcsMmPLAqrHDwY7p1n42tFIgXT5JVolHXWEAKwrgJa216waA2v4owuiL7/WRh93RzUTmkFRRMS4PKBOKhzWyb24=
+	t=1789909548; cv=none; b=KXgg35Yi/HIe0IQ1b7r7Y0hGpFBbsCKRbeGNIM4I7bY99iCFbsKK+ENjoEAAkn0HavCW5AoXaSPGToFoNnb0YIOxQ3HdWfZJ4mTumlHh4+pxwUB+Hh26tOwzg+PFgStdUSWqhl2T0kg2Unn6O6g5B3qL0xDbowStkOguIP5nw3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789909308; c=relaxed/simple;
-	bh=NRPSdmAxs42vuKkUCkWoekBy34b6+JlJs8n7dne7H4I=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=m0iLRWtRwiUO61QIqdw04I0Hi93nD96QWOfCA6JXBg+6kbWgE501qhI3BzCzC3gev+HHyaENi5vhRuRFSfBil5bbhDO52MsgDoLxHld5Iof2ZeRjwCzJxGRBEuY+TC5Mx5GIwZIals85JbIlXM5knR/aiZdE43sbtEApH19Wj7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GvceU5c4; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789909548; c=relaxed/simple;
+	bh=ZTHt8r94NwQORVlte17HZplgrMW03hoLoc6gYPagC3E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Z9V2Q8OuYc7SbHGheV4fCfD9ICzeQYjbFI+j6c33iDHbupn2VI00CeX9giQeb32t7KzFUfmc6f974u/BLeXW8esjjdHeA12+16xxjq3P/W/dPWYdJqVXU+R7nZqxPwV3TiLsGZOy4T4ddPhiZLvQRza5eU5HRu1+LlOBSrNbxqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lkQjLEIT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GvceU5c4"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 5F26AC5CD5C;
-	Sun, 20 Sep 2026 13:02:18 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A9330604C9;
-	Sun, 20 Sep 2026 13:01:32 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 69EB11032829C;
-	Sun, 20 Sep 2026 15:01:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789909291; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=NRPSdmAxs42vuKkUCkWoekBy34b6+JlJs8n7dne7H4I=;
-	b=GvceU5c4KTnMX4PzxP+CKRHc2m4KjfXkpI8U+H7cZfuG19pUoq8MrreX+Bmoaeia3ZQUV4
-	2L6LsN8zD7+vUD2G2o/+S7nfFpWZKU2wfug6p32I429nOby+EYExokiqj2a9CpIY+HKc5y
-	Dc7As2nwf80BFqG/74ZlEhU3kw5cJojnsCsxbonve3lCog1vpw3604j8rfo9WUuncvIiiQ
-	XQ70RdNxnOsDmcOdCpejfr2ttwbLo/faHEmRh+5R6oe2jlyJHgr1QPfDhnHY6TQwqM1IVx
-	/BfUl9G5cO/mvlQmEtoasxd5+bpHDUZuoVWt7j3QZO6sYVH2/uckzaWH9gu3Ug==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Hui Peng <benquike@gmail.com>
-Cc: alex.aring@gmail.com,  stefan@datenfreihafen.org,  davem@davemloft.net,
-  edumazet@google.com,  kuba@kernel.org,  pabeni@redhat.com,
-  linux-wpan@vger.kernel.org,  netdev@vger.kernel.org,
-  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ieee802154: hwsim: fix edge allocation leak and netlink
- attribute validation
-In-Reply-To: <20260919223434.3882824-1-benquike@gmail.com> (Hui Peng's message
-	of "Sat, 19 Sep 2026 22:34:34 +0000")
-References: <20260919223434.3882824-1-benquike@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Sun, 20 Sep 2026 15:01:29 +0200
-Message-ID: <87v7809ivq.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lkQjLEIT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 698361F000FF;
+	Sun, 20 Sep 2026 13:05:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789909540;
+	bh=+SjbZKx6P7kIRCcq+eSTpMee1k+WiMLultWwuId1V5Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lkQjLEITfzrXiDUAtGcj+PFDKT2gumNRyfmJuvG27o5ndHIrmKLTXn+QcgcsikPND
+	 3MQKl+IQo4kao9vUllzbsIXKgGDkFXLJj+S7qcOuZWKeb6CcmbI8j4xqBBplBuZsVC
+	 jeVAhvIkQVLeGPS3M70WrGlu/W6/e/Ug/QGXwGDKRkd7YSx1wHdNtGqE6Ha0AK5M9h
+	 ECSLE/cJMGHhMjMz4nqJdVgKDNTgEs2T9cOg+gDdFlGRqL5/7nS6mGuhNfBOvkHbV4
+	 8/PDmGVHIxvOcceLmcr8Y7S3u3uxoPZXk2hNW4GoZosUb7cjZ8CiGXiROUJIMCQQq8
+	 /DNzNf46WKJaw==
+Message-ID: <58c3ea87-b7df-4c68-b22b-5102c158d5f7@kernel.org>
+Date: Sun, 20 Sep 2026 15:05:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 3/4] regulator: rts490x: Add driver for on-die
+ regulators
+To: zain_zhou@realsil.com.cn,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Vikash Bansal <vikash.bansal@nxp.com>,
+ Aman Kumar Pandey <aman.kumarpandey@nxp.com>,
+ Lakshay Piplani <lakshay.piplani@nxp.com>
+Cc: devicetree@vger.kernel.org, linux-i3c@lists.infradead.org,
+ linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+ Wei Wang <wei_wang@realsil.com.cn>
+References: <20260920100501.4091351-1-zain_zhou@realsil.com.cn>
+ <20260920100501.4091351-4-zain_zhou@realsil.com.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260920100501.4091351-4-zain_zhou@realsil.com.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 19/09/2026 at 22:34:34 GMT, Hui Peng <benquike@gmail.com> wrote:
+On 20/09/2026 12:05, zain_zhou@realsil.com.cn wrote:
+> +
+> +	regulators = of_get_available_child_by_name(pdev->dev.of_node, "regulators");
+> +	if (!regulators)
+> +		return 0;
+> +
+> +	config.dev = &pdev->dev;
+> +	config.regmap = rts490x->regmap;
+> +	config.driver_data = priv;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(rts490x_regulators); i++) {
+> +		struct device_node *node __free(device_node) = NULL;
+> +		const char *name = rts490x_regulators[i].of_match;
+> +
+> +		node = of_get_available_child_by_name(regulators, name);
+> +		if (!node)
+> +			continue;
+> +
+> +		config.of_node = node;
+> +		rdev = devm_regulator_register(&pdev->dev, &rts490x_regulators[i],
+> +					       &config);
+> +		if (IS_ERR(rdev))
 
-> In drivers/net/ieee802154/mac802154_hwsim.c, clean up allocated edges
-> and phys on error paths and validate netlink attribute bounds.
->
-> Fixes: f25da51fdc38 ("ieee802154: hwsim: add replacement for fakelb")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
+You leak OF nodes.
 
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-
+Best regards,
+Krzysztof
