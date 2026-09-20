@@ -1,180 +1,138 @@
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022110.outbound.protection.outlook.com [52.101.101.110])
+Received: from outbound.pv.icloud.com (pv-2001j-snip4-1.eps.apple.com [57.103.64.94])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0171425F7A9;
-	Sun, 20 Sep 2026 14:46:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.110
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789915612; cv=fail; b=AS+w92hnkz7hZQ4nQCMKJiUc6JpCmsJeYtPHezmC6G1od1nYXrk3B4Kp6sQao3rjR+w8H2dDxYUOiD7VrjD9kJAxwuchk8zbIycOrOQpjtPMcNzhLjsRJAlBiT2MeDktTjNswiVReyzDdwOEzQpzh63pUSNJ8wlxl5OpJ6ip9hY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789915612; c=relaxed/simple;
-	bh=Gy/yjGhdlo9M+QnaFL+ZAM1QU+gFEWojRrQCQoZnLlg=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=azf4Nt9e8QLlkOlTGBcmswX1UApRIkIIr9FpFkGrEmHmtsAEkkwcGaqaR40kfiH1MMnEIbsneMLOkO25DkpO/1KhGQGNSzqbiI5gzyHArdhFy4a3ceQrHt/IdunxTNkO1bwT6ajw3tydbx/ZHZIqMiDg+6UII11YmiBREKJylro=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=ChULMga7; arc=fail smtp.client-ip=52.101.101.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0306833E348
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:47:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.64.94
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789915629; cv=none; b=os2qyPVVNMvPWGRXhrSO2Pv7oKQc3z7abF3tTsQUX/hCmF9FohuK1g3xj5DzRnM8YJEXlwXWj+D1Fuv1eTRdzeTgPEcxnYwOMzMRuNIYy+hSxEgqVZArQ2nyleOKROumbT2L7rIYiS6AbBV5ITjgjxmdiuMPGn6hIydattOVxM0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789915629; c=relaxed/simple;
+	bh=9QI8/6eDLyBcGPBNmX7kguyI2uiQ4PHzLcxMB/ujd4E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=eZtQeuJcwyb4yM0Ke9HbPZiEoGD7mZt7lpRfpvTNhDAEkeQYl1qlGfluGEK29aSSyp8zXRLpvD8tbCd2I1Hn4mJDeMaEjIQoYXO30qvSs6FHydpOcQv571wFP5XfCacBZllTsFWuVUqh75l9pgmGGf+CGnovzzL9wisFAYWWOJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=B9Z8hwmp; arc=none smtp.client-ip=57.103.64.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="ChULMga7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jw+auePq1/C2i1pccsHFycVlLe+/S2lRTetB2y0oXy+zGK2FbmFGYh30w3OEQorZntvcBxVkhC9Gm3zJUPa2wTEYX9fkMil1j11a/Zab+/6yOIxjcFqJ07UibDKHJQBxS/+DeHHqpvJEPFS2eGr7OcEc0T2H/EwjUNKqyE3bI918V1hEV7tQnlJL8ArUomdcmw7xPbv0ZnYvOXU8TQo161iU+YQCxnzkn+aotfMN8ncJrHzLgc90vJtX94/busBpc/AC3+iIjlY+Qv6bvGHNDcz58PVtN3PSb5fRl1y28j2xEih67h2o2zGELBsR0oj4Oy41Y/x6DBOtNVl2UDH70A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+KsV/oOmuye2IwLspLDljrtXnW+4r0qhF+OUsgK4g9A=;
- b=Geg40MI/1e2TTGhjO/3duHmE9ttWzKqyC/l/QvF7xfeCdKZh+N3WbmUzMNS1nT7Y/9TlnOooaPs7iWWnq3Mx90bJ8/dGqWrQVHfxqGAuU3bsQvDOHkqfDfFEyAf1R3lc9R/Ws21HRKuMsQV1HmhwVtAUg2zaG/0IdPTrfuh0RQjgILK7vspvKKfmMxjDJZJT7v6cOii/2HRtNxmAUBMxVZTlFEQi3d/q3De+6PAETln6DEjpXM0xfzqeFHwaLZ+azbB8cJ/62QKLm+STe0afhUFGMEvzNRXOTKrD12RMlvWoKYoVTNHum/+vPvuGhBnUhod5e9C/KdAOQl0OL7+yrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+KsV/oOmuye2IwLspLDljrtXnW+4r0qhF+OUsgK4g9A=;
- b=ChULMga7Mx8UlQSqqKrPG/6iPIljFORvmTZP/6UnmSUZpdHZx7k/ZPU+3WTwOYRvBzmBdLVGw3tR2jEipO0oWweQJie5dsiGQ4H4DkSxUvCruSOerM3NYljC24ZSm8jy8nnA9vePREClNlFF5e+K6x0lXHcGZMXJn3MhFoXGLY8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b4::24)
- by LO4P265MB6413.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2e1::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Sun, 20 Sep
- 2026 14:46:45 +0000
-Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- ([fe80::c07d:488c:d4aa:2a4a]) by LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- ([fe80::c07d:488c:d4aa:2a4a%4]) with mapi id 15.21.0428.011; Sun, 20 Sep 2026
- 14:46:45 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 20 Sep 2026 15:46:44 +0100
-Message-Id: <DLK84KYP9NRK.2254MY7D9AU11@garyguo.net>
-Cc: <kernel-team@meta.com>, "Mathieu Desnoyers"
- <mathieu.desnoyers@efficios.com>, "Boqun Feng" <boqun@kernel.org>, "Steven
- Rostedt" <rostedt@goodmis.org>, <lkmm@lists.linux.dev>, "Zqiang"
- <qiang.zhang@linux.dev>, "Wang Lian" <lianux.mm@gmail.com>, "Kunwu Chan"
- <kunwu.chan@gmail.com>, "Bradley Morgan" <brads@mainlining.org>, "Bradley
- Morgan" <include@grrlz.net>
-Subject: Re: [PATCH 26/28] hazptr: Implement two-phase wildcard scan
-From: "Gary Guo" <gary@garyguo.net>
-To: "Paul E. McKenney" <paulmck@kernel.org>, <rcu@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.22.0
-References: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop>
- <20260919000056.3132131-26-paulmck@kernel.org>
-In-Reply-To: <20260919000056.3132131-26-paulmck@kernel.org>
-X-ClientProxiedBy: LO4P265CA0049.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ac::12) To LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4b4::24)
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="B9Z8hwmp"
+Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-1a-20-percent-0 (Postfix) with ESMTPS id 7C5BA18001B6;
+	Sun, 20 Sep 2026 14:47:02 +0000 (UTC)
+X-ICL-RepId: 01a0bf48-ec0a-7a7f-a463-1916823a79c0
+X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhKB0MGWQReCEsEQwFbEhVdRUkERxtXAlQXXQZSEnIZWhRcGFNFUR9UWFUJCgJRHFYNV0NUBF9QSxsOXwZLWhVVFw4CQh9QH0wWV0NHHRwZWhRcGFNFUR9UWEMZRVZpQQtPHV0ZWxxCZFhXCQoCURxWDVdDVARfUFQRV1ALWQJCD0gKXwdaBkQPTARDA1gBQwpVAkBNAkIAXApeAlkAVwl5EVABWB5WXloXXlMXH0sAXEVaDlsERxQ=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789915625; x=1792507625; bh=09jiLbzpb1veArtuXhL84Hxo7NJy/m+yRETm/PTbJXM=; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=B9Z8hwmp9+SQ7EaHjGu4O3EE4TOO56BGpkmOlXmH8xPLmgxy9uPR2l3S4tbtpkkzle5PetrDmfi1gcFLkcvKx3xTfHXbj9E7GWe6EgbONyuGb/QOKw4N/i8pfNM2GzNui+qEET3o1jAR9ppf+jRVdHs5Cxun+RwFCBFZrG62ZJx2m6EtmcoTG5iEC1vbs3I2lpVAMn1lBJ31V04GdCWjj+7bC7mhcc0s//rLPb7K3joWZjsjkKzI4m1vtaN6PfiPBNAUZC6V3BZUVpL/5rW7AETjcGJs5LUJ5xafiGz2INhwvq6rXDcFH9V5G5+U3P39/5XD9qXAjE1IkpbC6bBwpA==
+Received: from BRUZZHANG-MC1.tencent.com (unknown [17.156.192.29])
+	by p00-icloudmta-asmtp-us-west-1a-20-percent-0 (Postfix) with ESMTPSA id 695811800207;
+	Sun, 20 Sep 2026 14:46:56 +0000 (UTC)
+From: Zhang Peng <zippermonkey@icloud.com>
+To: Barry Song <baohua@kernel.org>
+Cc: Zhang Peng <zippermonkey@icloud.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Kairui Song <kasong@tencent.com>,
+	Zhang Peng <bruzzhang@tencent.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 3/5] mm/vmscan: extract pageout_one() from shrink_folio_list()
+Date: Sun, 20 Sep 2026 22:46:46 +0800
+Message-ID: <20260920144647.43333-1-zippermonkey@icloud.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To:  <CAGsJ_4zOfR3Rn5tk_RcOWUDmREO1JyRwXA15Vr3aeUs=+ybMMA@mail.gmail.com>
+References: <20260720-batch-tlb-flush-v5-0-db943a0d0d6b@icloud.com> <20260720-batch-tlb-flush-v5-3-db943a0d0d6b@icloud.com> <CAGsJ_4zOfR3Rn5tk_RcOWUDmREO1JyRwXA15Vr3aeUs=+ybMMA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOZP265MB8551:EE_|LO4P265MB6413:EE_
-X-MS-Office365-Filtering-Correlation-Id: 50e6209b-f347-4a55-e144-08df1725fdc0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|366016|1800799024|7416014|376014|23010399003|56012099006|4143699003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	RK3a94A5bc4itwwDh3QLr5PE5m7iBDMIUac4tORXRYtY99sU/VodSbpNuXZZYyQRCMpD8jIBRxCGPqgFFOrXE5iYWWpKtE4YwfotvLVUZlztd4/D74nL30dPE8DMMxJsVBe3j9F0nUuBQXKl0cndjtMwB3I29cD2cTT80OR+f2vRguBye9Myi34CJ0bNnG5GwQs+SwBdbEqT0X4EMtpDUyad1izTEDhJOrQcTvGn76ccuaf03z1HV6W9UNggDZyIQoXbMOGIU9GsludblgpbQ5Nb6vc1AqaJUS8KFLGj03YJ00NiulG+oa+T/LlJFon1w62RT9T1soKoXb176cGbpXpoQO3Bk2vq/1Y2MzF4Jh8P5kkjIBtphZb3XT6rYl5kvC6R/vffbgAArA+WcDoNONqZGbOh61t20+xQt8G6x+IefqZRgerF3ZTKd5Djwv67RCHl+Rc0BychVWWSPnnEDGwQh19PZdhRXmcCCkY46b3M99BYIZwyLQUFIpr8z3nL22Eb4tuRNbuUESs1FASupLyqUtQjQ8KGsrhQ8Uy+HuFWj19sIjuUr0QSxfZwyHS8iCLo1erGA5JOX1vB/A/OHlxkfM34atfs7J9W79yJHoY8qgWCY4TPKKy8yYg0PNWP/wcJMvOGkf8cR7ktYdr6Y87JnfTw1kr63nfAgn+6cq4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(1800799024)(7416014)(376014)(23010399003)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V2QvUnh3endHTXNyWHBRbjdNVldRUXBUWUx2bDNYN28xL1l3R2RYM0FyallL?=
- =?utf-8?B?K1F3dndpQkNILzR5V285NHpUZ2hBVWcwdDI2QjlYODZ0OXA4blVJVVNkcVY4?=
- =?utf-8?B?Q2E1c21XMWFwbEtOQTFCb2R0djBJMEpjTVpBS3RzUFUwVE5vZkRzVk13MlVW?=
- =?utf-8?B?OWdBUUZZbGtSUmo1OE9XTkM4MDVrMGZtRzZZQjQwRXd6Z1FWTkxsOGdOa1Jw?=
- =?utf-8?B?VzFWN0QzT3VKbE1UOE4vYktLekhWU1VzekV1R2srN3pieTNoS25DK1pWY0pl?=
- =?utf-8?B?RjFTWW5YMms3QlUrU1l4cXBHZkgxaVNwSE1oSEJnU0U2bHV3K1hOR083ckpp?=
- =?utf-8?B?RXdxMG9PSUcvNFdmQlY3R1pDamhUWGMvVWhtRUdSeDQ1Ym16T3FDbWpXTi9v?=
- =?utf-8?B?akxIYjRRTjJrQzBJWVNlaFJkQWRMK0tBOEJoWnBURWdpcXlOY1p0YUtrVWlQ?=
- =?utf-8?B?WnRNOFpFZDJQN3h0TWwzdzVxNWxxb0V1RW4yZDRvTWtPbUZyb1E4bGFaWG1G?=
- =?utf-8?B?WkhUTUlSTXh5MG1kVzUwRUhHL3c1T1p3aUdqRkdBbnYwWXAvV0dDU2txVlFF?=
- =?utf-8?B?Q3R6ZVY5ZnFxdHJOYXlxdzJudUtJZ240U2drRTFmajN2N3ZIeDBGSWlTWEQ5?=
- =?utf-8?B?VzVyeEVteUxreTdSOGNWVjhxMHQ3Sk9TeDJ2c0dJTFdKeENUS2hvM082dUo3?=
- =?utf-8?B?bkhPQnhwQlM2VEhnQTY1RE5NMXE1VDdjSHdGdFNPb3ovT1N4bkJPMGN1aTlt?=
- =?utf-8?B?MHBCaUUzbG1ZdnVaODhGK3NyK3JVaTlySTNvT1JWdk05OGFFT0MzeStyYlZW?=
- =?utf-8?B?cFhOd1prUTBlL1I1akV3ZkJzV25XdlllUjczeTdQY2NxbGVHOGg3eDVRSS8z?=
- =?utf-8?B?R3lxZ2wybFBpWVNTdStldEFnUnRGWXh6T2g0NVBlNGpWc2ZzeUFmUFFLY2hm?=
- =?utf-8?B?VmxjTG1waENwVktxQUVCWDZLcnE2aGdyMHFPdy8rbkZ6TmRZWXpNQlhYR2k0?=
- =?utf-8?B?dk5SWklLN3RkbXVnUDJxU3IvYUlHZG45WkFPZGVkTmduY1NhYlkyTlhFdkcv?=
- =?utf-8?B?clplaGR4d2xJYU9md2t2VE5uMGtvWnF2UXdDaFowQU9VWHZlbTB6NldrRC9u?=
- =?utf-8?B?cDBEZHBoQXhpZmx2bVQ5QjRnaTlxZ29RczRpZmk2Y0hSVGJNelh2TWdyL29a?=
- =?utf-8?B?eTk2dG9ibHdGczZEVktwTHE4OFl0UDRsRzh5TC9lRnFhemZjSC9wNEVDKzdX?=
- =?utf-8?B?emhRbkFrdCs5c2RUUVRmUFFUN1JrdEdSSnZoRlNhdllxeFBZMi9SdWQxT04w?=
- =?utf-8?B?R1ZoUVhJTWx2disrKzJuVi9tK1MwNy9HY0MwSlhUUDhkUDIwK3ZtWTJSTDE2?=
- =?utf-8?B?TkJOaFF5MU1YREp5SnFDc1BURGVkTzFuaC9NZ2U1RHVacTZLQTRKaWgvNUp4?=
- =?utf-8?B?ZnpKYkpaeXdNbm10ckRaN0Y3OUc2NG4zcDZHaVR0RXF4UDgyWENtbkhjbE1Y?=
- =?utf-8?B?VEVJVWIxUU1YZDNYSi9Fc2J4QnZtUDVzMmZTSE1YQ2dEUkMrSHlheVp4b0oz?=
- =?utf-8?B?L1VPMG9DM3FXcWVpVTlreVBHS2dVVzQzOTNNNEgyUkxaTVd4UW9HcjRabWlx?=
- =?utf-8?B?U2M5N2hBTS9EcUIvektIcldPTktQdjRCR00xOFVwT1NlNGlhTWROL2Y2MmF4?=
- =?utf-8?B?azdEN3JFaWwySUtTTkxuMENSdlU4bFlOcGtLY1hHaFFTczVXQXRzN3RVT1ZE?=
- =?utf-8?B?TFBVL0YrWTZKSCtjRWhRUnVsZ2JlWUtzSGY0cm1mZk5Jb00weUQ3Rm9YeEFR?=
- =?utf-8?B?VDU4MGMzSEJoaTdQdGk4RzZtc0RPeXpXbzZUaWQ4ak1Bemh3STBLazBiSm5D?=
- =?utf-8?B?RkU5eTdQbVlYdnpyc2YrdlVrMWRuZi9ERTBRSnp2SlBRWFlYWm9nN2c2MW80?=
- =?utf-8?B?R29TSnlic01ZSVA0VWtrVEM5SjRLSDlmcWt5WWphUFo0cjJnWEpJYzZ2RHZx?=
- =?utf-8?B?SDB0SWRwcDlpM0VyMC9QbmVzQXA5RjBTV3lvTlY3SjFpY2JoZ2NjdHRGRW9u?=
- =?utf-8?B?RnFWbTNRaUNHNG80bjNLNU9iRTVMaklPZGF3VnV1enFwUG42alJtRUxEeE5y?=
- =?utf-8?B?WmdIVW1OWUFPaTlBUzdwd0o3OGFRZm5qaVordCtLS3Jobml1Z2cyamJmU0w0?=
- =?utf-8?B?YlBVMGplcHh1aVo3bGtUeDRhSkQrSEtWaFp3cnRSNW4xMnpMZFVkcVhmeE53?=
- =?utf-8?B?SXo2cWNkTWg3K3Y0YlRObkR5K3JNdklBK1R1dWNyODlOS1BaNGpONFNqTG42?=
- =?utf-8?B?OWJtR1ptMHVsd0JDS01RZ284RlhPbkZDOTNJakJGdjYvUlpsd3B5Zz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50e6209b-f347-4a55-e144-08df1725fdc0
-X-MS-Exchange-CrossTenant-AuthSource: LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 14:46:44.9499
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jFsGBO0ZFkQONjYavXwCuqEZnh2S/YVZTBjFtaayPamLCMZ185DqsQpRA//ulNmwYv0UQe1joGZci6hHjFKTLg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6413
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: fy9rEMDQMrPKHRWHN-6yUqk-6O7WW-7b
+X-Proofpoint-ORIG-GUID: fy9rEMDQMrPKHRWHN-6yUqk-6O7WW-7b
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDIxNSBTYWx0ZWRfX8gI4cbZRMWuI
+ KcCjj6CThf8vLJmvMDeWXV/ybMzoNi96Ux+hL+qNHgUTCKLL1tuYe/jr55yOHUqBYAzGeV1YlAi
+ VW316FN6iHrDMhFSuO44EyXS90cSq1Ck+RWOkaRLL5BCTDHAx0gs1EQsPhXzg0ZhekbUUsv0nEa
+ UWdT592jHkFC2V9nosNzFLaeHPxqTFd7zRg4KtWmPUDjol+ICw9Oc3tbJc/Z8oH36STkA9fCycP
+ 3pPD1xR3vZ5CvdhwSlmHwdCiG3dKc38li0j/hfWjgWfm2kpHQD1ALeV2Eap3LnibDpE/rNqP+T2
+ toJ/6S26n2AyFXK0Mq0UShDf0CFZNPWr2sMPr184Vsrvo3Gbfmn3yy/6elfkM0=
+X-Authority-Info-Out: v=2.4 cv=RrvI7SmK c=1 sm=1 tr=0 ts=6aaff1e8
+ cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
+ a=aW9mcIavGNWWFvFFKOxBSA==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=x7bEGLp0ZPQA:10 a=YE32fvk_ji8A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=v3ZZPjhaAAAA:8 a=_kJJyzcaNiJmjTfxGhgA:9 a=QEXdDO2ut3YA:10
+ a=J82S1U87d15UFHHUFZS8:22 a=kKg27zqgtulLWh45kPDF:22
+X-JNJ: AAAAAAAB1nRey5oJZ5F0KLj/9N0cLRbSJoEF39yyVxr75/6La6rO40JosQD394aQDfSDJ3l3H/mMOBI3LcEcOFejkhBB4zmEoHX7h34F5la8K45IEG6slCWkklQn3s2PDsYCWIW7poavcSrlgLg3Qgo56AL7xmyCV1dmh9W4ELAPgNpG7pvKQ3FaZeSvPiyMEaZ39D+9lKRLhbpBgqKvHV0+15SOFVS5Te+QOxHuOwhGiLbUtcsLpIJL8UB+J61U/k1EN+54kIAvmZ+wS0RxAChmpYxRrSphfkYlStZg1vfCvAbyycRP7P0R0UYoe2acnhn66iQprqMOmDoSM4pmW0N4yXWq6pwUbsW9OJf2qcvxVqgpooWj8+5Sjrx/mD0HNbW345EFkeek72TzVBAk9w3WWXrHMq5H4ApY6BghjdJOpJ813aRo9o6gDKMNJ8Qpw4DP6KjmodQuLCoN7SnFbdJLXSbdjl2ldeKjJd+8rdkJMrYYxM4hnXRYlSbco3GqfTIxGy4LCfY3DPo3XEPpnHfNzpq8QQCUfq7sEfJPPZtWjVMfbEEC/DHmGGR+iwTc9zt44ht9IXIYo1RCtrX0WoRTXxdLjWz8cn/uuBix4HL1BMjtoxPjGTs3HwCA9kwj5K4hzym5rtmf27RE0QsyNDvAXNVMcZ69BPoyhHQeCYw+A5qTWzgaxePZa5ZSLyhaCLdPBadPGt6HqHO8R2DzRLyjN4a49VoAyAwQZxbifELRt5Rrk00hkM6yy8ob6JMHlcYKOP3C/RBdOdSXqysvRjDB7mBY97CFhJglm3Sinr+qdh2SUxsEGaH+XYQP++u9jDHCZ5JPw/Y1vdKgAuphOqxjEhR96Y9LAAfsGUjobBGUDuEt7q/qI0rTf9F6utbk9Xu0uSyFdxuEAX9ZdULfT9NU9MryhF1JrFR2zGR8AgX1NJ3DXagRrgs/XVrVxItF+TcIuqPALFX7sKxov3IkLkZB6bta+vN
+ gmf0hbLDOrb+dcB6NJVQESsPHmhSSvERtls2lwTlqzkJLMy1by4aoxi2RASv4uXNLZ8RrI/BlnMaW8O0bonKhc9UiF+cnez6pPR13TORw+CqIBr6hM62/ig3KzjPLDYkri1KIaUy3jTwC7fp2WpwNdINj2RH69ZBSqQNlMlqKA4RE1KsXjiP/B+DZBkFeeg2EsunPMoW5hFUtjP6u1BcNExnwGHTXmO7B43UXBfH4lfa/zB5dOPZ4P4zq3wPFCPJENg2nPedFQh6IWz0BQqM5uOw5JJdfo7y8dmPFPsEwdbGo17ih/5z25s6hBpX4HxP0yp86S65SG9FwzK4HlY2TsLUZr/dM6Q+KhO3mmTFTIb0iR/MDpuiSPD15qWw9XKbFsxgxFFikXHBEQRkGKC+fp0CoXNjl5PkuhuTuNfWXu7qrL9x1k+1OyJ1Zw7hSgbpHGpbCKMKtC5uRr4Tdd6tCCu4i24GoOypYNci3E/eylVjTAHKsrGpq1BNLkbxqalwwwAJ3ERs/RFukvNgiZlRpjIM=
 
-On Sat Sep 19, 2026 at 1:00 AM BST, Paul E. McKenney wrote:
-> From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
->
-> Implement a two-phase wildcard scan to guarantee forward progress of
-> synchronize_hazptr() even if there is a steady stream of ill-timed
-> readers which populate wildcards into per-CPU slots.
+[Resending this one on its own - my first attempt accidentally sent
+all four replies concatenated into a single mail, see
+https://lore.kernel.org/all/20260920143816.39827-1-zippermonkey@icloud.com/
+Sorry for the noise.]
 
-Hmm, I am not sure that I understand the problem here. The per-CPU slot is
-scanned only once per CPU, and patch 1 already introduces flipping of the
-overflow list. What prevents the forward progress?
+On Fri, Aug 14, 2026 at 5:49 AM Barry Song <baohua@kernel.org> wrote:
+>
+> Also, this patch looks basically good, just like the previous one.
+> Could we also avoid hiding the activation semantics in the inner
+> function? It would be clearer to make the activation semantics
+> explicit at the outer level, so readers don't have to dig into a
+> deep internal function to realize that a folio may take the
+> activation path.
+>
+> In LRU, we have two distinct possibilities: activate a folio or just
+> keep it. This is an important semantic distinction in the LRU logic.
+> Hiding the activation decision so deep in an inner function makes
+> that semantic much less obvious.
 
-I think having a shared global read by all CPUs sounds really undesirable,
-especially that it gets flipped for each hazptr_synchronize -- this means t=
-hat
-in the pathological case where there are a steady stream of hazptr_synchron=
-ize
-calls, each fast-path hazptr_acquire will have a cache miss reading
-hazptr_wildcard.
+Done, same treatment as 2/5 - the helper reports the decision and the
+caller acts on it:
 
-Best,
-Gary
+	enum folio_pageout_result {
+		FOLIO_PAGEOUT_KEEP_LOCKED,
+		FOLIO_PAGEOUT_KEEP_UNLOCKED,
+		FOLIO_PAGEOUT_ACTIVATE,
+		FOLIO_PAGEOUT_FREE,	/* folio is locked, hand it to
+					   folio_try_reclaim_free() */
+	};
 
->
-> This is performed by flipping between two wildcard values (1UL and 2UL),
-> and alternatively scanning for the opposite wildcard while newcoming
-> readers use the other one.
->
-> There is no possibility to miss a reader because all slots for all
-> wildcards are accounted for during a synchronize.
->
-> As a simplification, use this period flip to drive the hazptr overflow
-> list selection as well, since there is really no point is making the
-> overflow list flip use a different state.
->
-> Protect the wildcard flip with a mutex.
->
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
-> Cc: Boqun Feng <boqun@kernel.org>
-> Reviewed-by: Bradley Morgan <include@grrlz.net>
-> ---
->  include/linux/hazptr.h |  6 ++-
->  kernel/hazptr.c        | 98 ++++++++++++++++++++++++++++++------------
->  2 files changed, 74 insertions(+), 30 deletions(-)
+	switch (folio_try_pageout(folio, sc, &ctx, folio_list)) {
+	case FOLIO_PAGEOUT_ACTIVATE:
+		goto activate_locked;
+	case FOLIO_PAGEOUT_KEEP_LOCKED:
+		goto keep_locked;
+	case FOLIO_PAGEOUT_KEEP_UNLOCKED:
+		goto keep;
+	case FOLIO_PAGEOUT_FREE:
+		break;	/* folio is locked; try to free it below */
+	}
 
+Two things beyond what you asked for, both because pageout() has more
+outcomes than the freeing path does:
+
+ - "keep" is split into KEEP_LOCKED and KEEP_UNLOCKED. pageout() can
+   return with the folio either still locked or already unlocked, and
+   previously the caller had to know which internal branch it came
+   from to pick between the keep_locked and keep labels. Now the
+   result says so.
+
+ - FOLIO_PAGEOUT_FREE keeps the "and now try to free it" step at the
+   outer level too, instead of chaining into folio_try_reclaim_free()
+   from inside folio_try_pageout().
+
+This patch is in the cleanup-only series, see my reply on 5/5.
+
+Thanks
+Zhang Peng
