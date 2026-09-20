@@ -1,176 +1,180 @@
-Received: from outbound.st.icloud.com (st-2005k-snip4-8.eps.apple.com [57.103.79.71])
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 808EF37CD20
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:25:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.79.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A152C375F7B;
+	Sun, 20 Sep 2026 14:26:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789914354; cv=none; b=gdM6aD2VpOGHLBWlX9COlIeqAz47RQ8e1WKCgUJTHsaiiu4nc5/yRKqBtayfBeMVAyYiv3GiplMclzNz9TsedFCJ1h1VVZjlhX7xgPZ0wEqTdMuVlt2fWDiD6mBJ2U4iWfUno/RW7jw9/S890tCfPScCEAeOrO9MC3KIKckn6K4=
+	t=1789914409; cv=none; b=jxJ9UUWyGP/XM+R8wSPu6IoNdMJCUwvhtPE58CdLhpRxNAjWxm2xA+9JShRjRZEiLo9sllKGjZCtCE+g1g3SZlakK3dcwoeREE+8+5ib3ukZNHKH4Clh2WqVVpufmNVor7YCR/Zyed2ekX7WAKQ15YNb2C+cAammi+SpuH9kqWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789914354; c=relaxed/simple;
-	bh=tEo6bVXi8ijmfaQJGFgnvFbO3uAtkG5mOc5M7f9AKhw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GYwO2fmn9clNrxJwBzw2rm8zz7CJMUmVkmTx/cSPyYecRfGaluGV2mZi2s0RsIQagDtW4Ng5g3ZHuHA2MEPs2iGrl8ZPNU6Xw3Z4iywQRPxGjaWv+tpa4jPiz1TIRltU5OnO0DT5bMXivmPAgBu1L6CT4sGlxrg1onHp5FHnMLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=0DjttDuk; arc=none smtp.client-ip=57.103.79.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	s=arc-20240116; t=1789914409; c=relaxed/simple;
+	bh=pLxv4XzGTP6A2hwd+UTRK/B7f1I7CeNJE0ZqLRUOou0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pollQNuC7N4noMQIQyHRIWbDKFbZHC10W3tlXWveZHuu6WoLvQGo+wg83Is7v2p91gVfG0K0hG1xCwbVTuDFEiUm640zw546sRnYixYYI/bhoEf/IK359d6N8wnj22JAebozJs8XOXxr63C7wL8Xjr4JD1lRIq1q04WzvGaOG8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=D3PvOlU0; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=l7xmx2Ob; arc=none smtp.client-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="0DjttDuk"
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-7 (Postfix) with ESMTPS id DAFC81800298;
-	Sun, 20 Sep 2026 14:25:51 +0000 (UTC)
-X-ICL-RepId: 01a0bf35-88f9-7723-a13b-ddac2a20e3f7
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhKB0MGWQReCEsEQwFbEhVdRUkERxtXAlQXXQZSEnIZWhRcGFNFUR9UWFUJCgJRHFYNV0NUBF9QSxsOXABLWhVVFw4CQh9QH0wWV0NEHxwZWhRcGFNFUR9UWEMZRVZpQQtPHV0ZWxxCZFhXCQoCURxWDVdDVARfUFQRV1ALWQJCD0gKXwdGRB1KG1IDGhlXFlgbRwJFRkRBFEweCFRbBhQOSVAPAF0DME0dXQ5SBUZeWhdeUxcfSwBcRVoOWwRHFA==
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789914352; x=1792506352; bh=y+4LxcE0ZNzlIfE6jsP/r+Z9z994JbQce9sXcvnyNA8=; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:x-icloud-hme; b=0DjttDukd+i3mo1A1I2YF7SyteZe/7bum5j+GBddC5P0ROkasuWaAkywRCpHku72oPNSZz2SGxUjajVIRh7JommRICypJYrbZNZG3lfJOGAm9fUQOLwfUv5LaWMD31LtCShooxE0IuBz7ckhptCUtDuH7wCV/fMflXMKwWwN1zLbXTR6wDnVtYgvsLzKaon53p5qhDBy0tJYFvhmydaSPJ9I2CuaP6snHI4NwiXOMe7Ao0m0PMLSs6/Q58OVs8Zwmy7LRHlJN+1z+WcZyERmm9OmloBj59F4LQI+gA+zCCcwUqhtWlNONp0gIDxZTvp9NBiLOwdKyBcnWJRk8t+IlA==
-Received: from [127.0.0.1] (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-7 (Postfix) with ESMTPSA id AE6C618002AE;
-	Sun, 20 Sep 2026 14:25:41 +0000 (UTC)
-From: Zhang Peng <zippermonkey@icloud.com>
-Date: Sun, 20 Sep 2026 22:24:17 +0800
-Subject: [PATCH 4/4] mm/vmscan: extract folio unmap logic into
- folio_try_unmap()
+	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="D3PvOlU0";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="l7xmx2Ob"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.phl.internal (Postfix) with ESMTP id C7667EC00CC;
+	Sun, 20 Sep 2026 10:26:44 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Sun, 20 Sep 2026 10:26:44 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789914404;
+	 x=1790000804; bh=ZZ9WhfGrBQCdKD1w2c0K2pd4Pn9iwIa5Ab+S7w7mvac=; b=
+	D3PvOlU00ItPjefagyMs/LskoD9o2h9hLqW3sgtFz/QxipZ3eBuxi5KizNTBBuxQ
+	vP0TKOOap22KQnPPo8I/ZmDlH2+G8IjrYtLhMEbB0sVgLzo54yR9At8kKxyOUlBa
+	NA8dbXENvWjrCwtp9aUQmjyQ6OW76HKk/FWD92LSqKJRTZSZ+cANDeTAj9O5oYBN
+	Qw6PlkfXDb1uRQb0ila+4RvO/PfIvPcY82baxQp170os0CDplO4y8IpfzNNU8fv6
+	YoPOYI65e4Yz2ez6zkN9Tso4/PnuUxF3pruIoeskzLH4ex5EDeDt2+hinpeFjPhN
+	5xcOmf2z3QcIw7zZOBFK3w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789914404; x=
+	1790000804; bh=ZZ9WhfGrBQCdKD1w2c0K2pd4Pn9iwIa5Ab+S7w7mvac=; b=l
+	7xmx2ObjlE54jD2v9nSy51HqZ2g14GJ9U3HBTLZOVa0aQcKXemN10VdmLjpZTddP
+	cA6/Q5Q+Q1XYtUoNGoARWWvWB8CnP+k9U6oTNDff45WU+OZlkGTuniSxNQ8s64kP
+	vT07bvhAsZyj4Igku/TqMK56yvUAgKQI8CWKN27DvP1lSiG1+O9/VUl3WGB+Cn/f
+	2LgPDRsFMfwdi6FD58uiA2FmYe6XT789X8a+PJiG2fcZIeiYK3hQeyX13uM0I9gL
+	pg5L97sGihQADu0aGLn+yh1vBLh3yTkLeaFch4cOxMftLEJf63jx833WYNawHu8V
+	19X4g9m47cDrhEQKbresQ==
+X-ME-Sender: <xms:JO2vatQPq5_PUMUR9OAZf-ln3aI9XedtW5XBvw0vRGXBX3-tyuuMLg>
+    <xme:JO2vagGla_84GiBdqwQFA04egMJjtDkmKTJRF6fcjPU_wpR78VShslZTVYT0NnyMx
+    48pG_U_B9j2H5ej-t9Yxp3_5HzjLR61rFn4h4DF4-elSGPOEU9xVA>
+X-ME-Received: <xmr:JO2vaqH2ddiILJrntabZxMOu4cpca6AnjjNXhc_jDc0GS_ZbotQISQjPK5GGWg>
+X-ME-Proxy-Cause: dmFkZTE1p7SKTICFtOQTXEJqa4o9j4y3CC92KP87/SfBi+SVgiV2Idp33XejySp20EJpj3
+    iW7vP1Qlb8yIWEhuajflvwn/yxcdlTicL3yVRAgLSCj62ph1smor9e3WVRiwAXCxfniCPU
+    TmH8NpH4eXHmEqC+v7Zkao1oF7E/kKULKhdR6TjLw+Ma33mJsYHC+d75XoGbnk2/4+ggVo
+    /qBXg8088yvrVSS3AMCWqXpIqfjf15Z+yo8EeKvmT0Vis+Wp3S2PZkUZOq77KAMQVEV/VV
+    FkI1/ieldFcuMGBAA7qynuKgXIMtGI+RKgD2Ocon0t2ygghfUJfnimhzuBt/39W2YXbrnP
+    tVmpmU+bGgXs0JNIrJkAHxQtYyiEEq7dZSDrKc/0qc6cZoWKNcB3KChJmO40wInOzlLAvK
+    pvKoPy/wZmWxmLpHv/pmdjm3Eidxyn4XIBzh2ascBc+mQLoktrGOuJiKU8eSPOH+pXFbfb
+    9kACPmmJ5RdMyux45zEKSc7Jx8ZmgoHmnxgIxLuNkkiLyndpkbeQT/cwc11RUUhlyTHBFd
+    3PrK4ndYEJEnNwQItiUn+eStlu5cWVifCTBnbynGllhsSlgmbZa/uk6HFOXwqna5ju53r8
+    AiFzclMptVL3LfpsS4DWFu8z5J1jngXppRxDAOtnHQ0WXZ92shyX4BKALsFg
+X-ME-Proxy: <xmx:JO2vamTHaq_-2RfhaTfgGjb3zLzrxTmxWvBOZgQES-oHkDN-AdPCeg>
+    <xmx:JO2vajI00zUBKCNpcDcQW2Leyb7oaBdfWqvgNZQSEIc9I6e0y6hC7A>
+    <xmx:JO2vapYpuCR6mbC8tOxOqXfnatNgCMaWigdDcQUmOD7oUIYmMnsYjg>
+    <xmx:JO2vat9UUm3jcsbv0u8kEUabawhkqRJ4OgbZvRh2qVYTyl2FXHi-pw>
+    <xmx:JO2vandBSjJn3EhxUlOarpiXTtMW2Vb1KjjiKsMXOvKflFHaJNyT8Hqp>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 20 Sep 2026 10:26:43 -0400 (EDT)
+Date: Sun, 20 Sep 2026 08:26:41 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Longfang Liu <liulongfang@huawei.com>
+Cc: <alex.williamson@redhat.com>, <jgg@nvidia.com>, <kvm@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, alex@shazbot.org
+Subject: Re: [PATCH v4 1/2] hisi_acc_vfio_pci: fix NULL dereference in
+ reset_prepare on PF passthrough
+Message-ID: <20260920082641.64d66616@shazbot.org>
+In-Reply-To: <20260918084244.1485837-2-liulongfang@huawei.com>
+References: <20260918084244.1485837-1-liulongfang@huawei.com>
+	<20260918084244.1485837-2-liulongfang@huawei.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-vmscan-refactor-v1-4-ec04d71cb761@tencent.com>
-References: <20260920-vmscan-refactor-v1-0-ec04d71cb761@tencent.com>
-In-Reply-To: <20260920-vmscan-refactor-v1-0-ec04d71cb761@tencent.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, 
- Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Zhang Peng <bruzzhang@tencent.com>
-X-Mailer: b4 0.16.0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDIxMCBTYWx0ZWRfX7qNKLx881oKO
- Bp+LChKGf2VW5KvHE+LIrzqNhgkEFk+8+IT8an4O1FJ7uX+mrx7XS3BSa9pvZZrRFo0ujF3KTr7
- PfYqGylSL61VuAq1uHGnPvG8GJVhl9cTlTs3h1rNsx3KDgyXy9eAQ8g5Y8IQhH1DXKZhWGgRfkh
- wnqHg1ZriRyjUdeHm/1FtRTUHY6jfPg1d6PFEdpCxFkIEfnPZ6ME+r1boiadHkzu6yVr7F8DAx2
- 7yePeiwa+eH5ONJJRiVMrpblmeQKWgtVeWcJADZbQDqDOg8dsRQydpYTYyp46SOg5bTMTkzE/dz
- LD1EjemTVVxJkwLMAgI4un8rxYU/d/N2WNQ7wssnZrkpHx6ZpN3X/mK0g8XBNk=
-X-Proofpoint-GUID: hsmcGXTx_XoKWvLdLUk8nhQZ7yr68fs8
-X-Proofpoint-ORIG-GUID: hsmcGXTx_XoKWvLdLUk8nhQZ7yr68fs8
-X-Authority-Info-Out: v=2.4 cv=aOr9aL9m c=1 sm=1 tr=0 ts=6aafecf0
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=x7bEGLp0ZPQA:10 a=YE32fvk_ji8A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=GvQkQWPkAAAA:8 a=VwQbUJbxAAAA:8 a=Oe3AU6d8b7fpH-gKf6sA:9 a=QEXdDO2ut3YA:10
- a=J82S1U87d15UFHHUFZS8:22 a=J6hPbylVjWXjVQVODqME:22
-X-JNJ: AAAAAAABexOQ5G1UmVTm5NChbqSVvjY4dKgF+1/+LdvMSuutUNKOVn8DqWDfmzPGkYwCgcYUrOXT1Zy/EUORdYYUYEV1GN5Rhh/0Sh02N+/PV12GIHCgjZcr4DQx8cUi32GomQIUICU6YR2OVOy7coC8/rEX3AmQS3WV62G+EGBQjP1lY3rO/solOdeBJyyPZBBBSktw7jjhGkSJpXm5G1Cogosjl3kDnbRRYMUeVXtJvVIkhO6P12Onk76bZD0LK04/9Atv2qGO1hbAnTJmGr+iQqPDLOTTmUfxX+4qsMGPHFLaSIlylxdYTQ/9fuKmnvVVdhddWZMx8ZR5PRH1RQE4crSD7oa81BgtUolF0pLrnMJ1KaYo6gwr4zj0ChxqQFyvskztMJ+BOmRXdHp6J2YYuQ/e9quypXxktlpwLghBzV8z3cvXwBwhWdC6i08ixkMB5ciyFILygON0h7NWockcRamEEiDBw+UZKQdVloz5+jBfBM0xb1BgAfXPWjCa6cSy+dcnCiL+CXtoxrM5ggNQG34oOsEcuA5kz80kGcpnf0Ynj0/mq+QQTkPeHem4xQiQ/JBffPCXW5q0UA6GnMOvfpS2qNxMx8+qN8dSJ8n0FPkqQX0yVrjSRQjvk9USiSzUqswCSKJDxvSqUwAmQZCiYioAwaYbGo6N4aAhhe+RmBPDldebg6O2nuzyM9kzr6HhaJWBC8LJpRw7MnXsPlrZrZw2rHgqzmdu7E+E6uHd/Mi+HXyNOloE8cKthcuI12xpTu8vvbKrRuNHyMbUcybvC/LSdBmdS7Ons+Auduerqu7BQxUeeNYNMIHprLp7BV1AYALfnQNfp1K831zocdUElwxySKmJvm1+pmUqQKfONVJX6gf0g0NUJDwH8zJlszWn/wYb3L5kNbVgP9EViUve1L3ZpEs=
 
-From: Zhang Peng <bruzzhang@tencent.com>
+On Fri, 18 Sep 2026 16:42:43 +0800
+Longfang Liu <liulongfang@huawei.com> wrote:
 
-shrink_folio_list() contains a self-contained block that sets up
-TTU flags and calls try_to_unmap(), accounting for failures via
-reclaim_stat. Extract it into folio_try_unmap() to reduce the size
-of shrink_folio_list() and make the unmap step independently readable.
+> When a PF is bound to the driver via driver_override and passed
+> through to a VM, its pf_qm stays NULL. The PCI error handler
+> reset_prepare() runs during open_device through
+> pci_try_reset_function(), before the mig_ops gate, and dereferences
+> the NULL pf_qm for the timeout log, crashing the kernel.
+> 
+> Move the mig_ops check to the entry of reset_prepare() and
+> aer_reset_done() so non-migration devices skip the QM_RESETTING
+> coordination. Also clear set_reset_flag together with QM_RESETTING
+> in aer_reset_done(); the flag was never cleared before, so a later
+> timed-out reset could release a foreign lock. Replace
+> pci_iov_vf_id() >= 0 with pdev->is_virtfn in probe() for clearer
+> on-VF gating.
+> 
+> Fixes: b0eed085903e ("hisi_acc_vfio_pci: Add support for VFIO live migration")
+> Fixes: a22099ed7936f ("hisi_acc_vfio_pci: fix VF reset timeout issue")
+> Signed-off-by: Longfang Liu <liulongfang@huawei.com>
+> ---
+>  .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    | 19 ++++++++++++-------
+>  1 file changed, 12 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+> index 86362ec424a5..8ff69c8d1ff7 100644
+> --- a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+> +++ b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+> @@ -1154,9 +1154,14 @@ static void hisi_acc_vf_pci_reset_prepare(struct pci_dev *pdev)
+>  {
+>  	struct hisi_acc_vf_core_device *hisi_acc_vdev = hisi_acc_drvdata(pdev);
+>  	struct hisi_qm *qm = hisi_acc_vdev->pf_qm;
+> -	struct device *dev = &qm->pdev->dev;
+> +	struct device *dev = &pdev->dev;
+>  	u32 delay = 0;
+>  
+> +	if (!hisi_acc_vdev->core_device.vdev.mig_ops) {
+> +		dev_err(dev, "device not support migration\n");
+> +		return;
+> +	}
 
-folio_try_unmap() is only called when the folio is actually mapped;
-the !folio_mapped() check stays in the caller, keeping the function's
-semantics clear: it tries to unmap a mapped folio and returns whether
-the unmap succeeded.
+Why is not supporting migration worthy of a dev_err()?!  Resets are a
+normal operation.  Generating a log to nag the lack of migration
+support on every reset is unacceptable.
 
-No functional change.
+> +
+>  	/* All reset requests need to be queued for processing */
+>  	while (test_and_set_bit(QM_RESETTING, &qm->misc_ctl)) {
+>  		msleep(1);
+> @@ -1174,12 +1179,14 @@ static void hisi_acc_vf_pci_aer_reset_done(struct pci_dev *pdev)
+>  	struct hisi_acc_vf_core_device *hisi_acc_vdev = hisi_acc_drvdata(pdev);
+>  	struct hisi_qm *qm = hisi_acc_vdev->pf_qm;
+>  
+> -	if (hisi_acc_vdev->set_reset_flag)
+> -		clear_bit(QM_RESETTING, &qm->misc_ctl);
+> -
+>  	if (!hisi_acc_vdev->core_device.vdev.mig_ops)
+>  		return;
+>  
+> +	if (hisi_acc_vdev->set_reset_flag) {
+> +		clear_bit(QM_RESETTING, &qm->misc_ctl);
+> +		hisi_acc_vdev->set_reset_flag = false;
+> +	}
+> +
+>  	mutex_lock(&hisi_acc_vdev->state_mutex);
+>  	hisi_acc_vf_reset(hisi_acc_vdev);
+>  	mutex_unlock(&hisi_acc_vdev->state_mutex);
+> @@ -1670,13 +1677,11 @@ static int hisi_acc_vfio_pci_probe(struct pci_dev *pdev, const struct pci_device
+>  	struct hisi_acc_vf_core_device *hisi_acc_vdev;
+>  	const struct vfio_device_ops *ops = &hisi_acc_vfio_pci_ops;
+>  	struct hisi_qm *pf_qm;
+> -	int vf_id;
+>  	int ret;
+>  
+>  	pf_qm = hisi_acc_get_pf_qm(pdev);
+>  	if (pf_qm && pf_qm->ver >= QM_HW_V3) {
+> -		vf_id = pci_iov_vf_id(pdev);
+> -		if (vf_id >= 0)
+> +		if (pdev->is_virtfn)
+>  			ops = &hisi_acc_vfio_pci_migrn_ops;
+>  		else
+>  			pci_warn(pdev, "migration support failed, continue with generic interface\n");
 
-Reviewed-by: Barry Song <baohua@kernel.org>
-Signed-off-by: Zhang Peng <bruzzhang@tencent.com>
----
- mm/vmscan.c | 65 +++++++++++++++++++++++++++++++++----------------------------
- 1 file changed, 35 insertions(+), 30 deletions(-)
+I still reject the redundant is_virtfn check here.  I don't find
+support for the claim that it's a convention among variant drivers, nor
+does it do anything here or to the next patch.  pf_qm is
+deterministically NULL for pdev->is_virtfn.  Thanks,
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 3bce7ff89293..71b507011603 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -1318,6 +1318,38 @@ static enum folio_pageout_result folio_try_pageout(struct folio *folio,
- 	unreachable();
- }
- 
-+static bool folio_try_unmap(struct folio *folio, struct reclaim_stat *stat,
-+		unsigned int nr_pages)
-+{
-+	enum ttu_flags flags = TTU_BATCH_FLUSH;
-+	const bool was_swapbacked = folio_test_swapbacked(folio);
-+
-+	if (folio_test_pmd_mappable(folio))
-+		flags |= TTU_SPLIT_HUGE_PMD;
-+	/*
-+	 * Without TTU_SYNC, try_to_unmap will only begin to hold PTL
-+	 * from the first present PTE within a large folio. Some
-+	 * initial PTEs might be skipped due to races with parallel
-+	 * PTE writes in which PTEs can be cleared temporarily before
-+	 * being written new present values. This will lead to a large
-+	 * folio is still mapped while some subpages have been
-+	 * partially unmapped after try_to_unmap; TTU_SYNC helps
-+	 * try_to_unmap acquire PTL from the first PTE, eliminating the
-+	 * influence of temporary PTE values.
-+	 */
-+	if (folio_test_large(folio))
-+		flags |= TTU_SYNC;
-+
-+	try_to_unmap(folio, flags);
-+	if (folio_mapped(folio)) {
-+		stat->nr_unmap_fail += nr_pages;
-+		if (!was_swapbacked && folio_test_swapbacked(folio))
-+			stat->nr_lazyfree_fail += nr_pages;
-+		return false;
-+	}
-+	return true;
-+}
-+
- /*
-  * Reclaimed folios are counted in the return value.
-  */
-@@ -1596,36 +1628,9 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
- 		 * The folio is mapped into the page tables of one or more
- 		 * processes. Try to unmap it here.
- 		 */
--		if (folio_mapped(folio)) {
--			enum ttu_flags flags = TTU_BATCH_FLUSH;
--			bool was_swapbacked = folio_test_swapbacked(folio);
--
--			if (folio_test_pmd_mappable(folio))
--				flags |= TTU_SPLIT_HUGE_PMD;
--			/*
--			 * Without TTU_SYNC, try_to_unmap will only begin to
--			 * hold PTL from the first present PTE within a large
--			 * folio. Some initial PTEs might be skipped due to
--			 * races with parallel PTE writes in which PTEs can be
--			 * cleared temporarily before being written new present
--			 * values. This will lead to a large folio is still
--			 * mapped while some subpages have been partially
--			 * unmapped after try_to_unmap; TTU_SYNC helps
--			 * try_to_unmap acquire PTL from the first PTE,
--			 * eliminating the influence of temporary PTE values.
--			 */
--			if (folio_test_large(folio))
--				flags |= TTU_SYNC;
--
--			try_to_unmap(folio, flags);
--			if (folio_mapped(folio)) {
--				stat->nr_unmap_fail += nr_pages;
--				if (!was_swapbacked &&
--				    folio_test_swapbacked(folio))
--					stat->nr_lazyfree_fail += nr_pages;
--				goto activate_locked;
--			}
--		}
-+		if (folio_mapped(folio) &&
-+		    !folio_try_unmap(folio, stat, nr_pages))
-+			goto activate_locked;
- 
- 		/*
- 		 * Folio is unmapped now so it cannot be newly pinned anymore.
-
--- 
-2.55.0
-
+Alex
