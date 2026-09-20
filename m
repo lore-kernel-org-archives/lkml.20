@@ -1,73 +1,46 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0753637E5EC
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 06:47:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC195B21A;
+	Sun, 20 Sep 2026 06:48:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789886865; cv=none; b=Wi7PaNDyRrvGFYO5wb0V9rnAuaen2OEpnGQQr8m/L+37biiNW6lOYairmaNGL4+Ud4ZJ0ZPPKRbAhv4MRKroH7CD5GNjcP4JLvfxlWGqSpdA37ousMz188l+Jhao0jZfn4Wxx+q3CxF8S7NIIvdkf/rY6lgqZt7BWYIRyoB0+eg=
+	t=1789886941; cv=none; b=c55GYkB+vMM+PpGvgnN2CDAar2SJGOy/a02VmtKpcZrw3EiJfMV7HN4RZ3niwPmNCLlcZCmqlBsuBnB4SL0lMIcBVs3Xqu08BOfWKIS7FRc9EDh+JDvJf7SsYj3zusGQTXe62NSD3HbuDgtnuULmnkaGgQMZtztLkaUHREi9I6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789886865; c=relaxed/simple;
-	bh=gTmgzrtRTNi0pnoGcGCYY2OCjhKa0mHfPxUgmpCGYoE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AVMTdkduEsfnTl1emE0tu8vXbraxuDGWlZ/5N0ggX9IUQ3pujEqu1TS3lk20z1L9uZcQOXMGIqxl03WVxc6Hp42l7FsVT9RKR0btaPsVWv3uqQ/EI68aStzX/Ltaufbkoym7yIcITA7riVYmsR3v8Ch0wiCZK1ySMwvi1vMmqI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OfFE2SU+; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789886941; c=relaxed/simple;
+	bh=66LM1I859EyKcyh8gaB21EwTKfleaw/RiwJGDIUIio0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ssULpTYllhx6C41pPZihwldJ2hpeuztq+nIYpxKsGGyJ6aa0S4PtYD/3WdhGqFqX2d+6uDsXJa+wgsMjffScepS3eqME0YqrBbxTZc4v1htfMxl4RJvqiM15e8p5z732V2myMk6Th5Wv3peABbT1MpEPYUwnoItL/3vqB+lB9AE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=bDeDEz6o; arc=none smtp.client-ip=220.197.31.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OfFE2SU+"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b965f447cso16447715e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 23:47:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789886862; x=1790491662; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mUx2kd5N+hlzcFFuusyp2pQWQI+Tq5GjSNNKvVMy28w=;
-        b=OfFE2SU+SLj4d3hv89jWrTN5o1kT1PEGR7GXY0X86n+d8IE+voYQdZgNAsAZmCJZGh
-         BHRuXQeziHlZvZ5snDnNqrPuCg8Sg/+TlCGjwt2x0ewmthEv7E8uzKwwajyDJAjfI247
-         re8zONmxfEoequSfBI1WQjnWThsVbcnhJa944babLZRBD/1A6EdAJO9+RMoN96H1WSoo
-         Cne1zw1w1bKS/grVwyXnhTYZcsArP5Py1BzJ/nA+WYmjVwmjb8CYxlmFnDD62kCPmvui
-         HvmrWXEBsAHao8OUp8gKN8NOTkybgun+MoQExeZIyWu9oe7kxqeboK09MeTe+GRc5Ktx
-         Jf+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789886862; x=1790491662;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mUx2kd5N+hlzcFFuusyp2pQWQI+Tq5GjSNNKvVMy28w=;
-        b=i8kFck3FDP5rdDtXTz3Ksa3GX0dLOusiHOOZiahcWgW/J4SVIH697XI1Pkcjjvz9SC
-         pAhsJ9XVvae6d1tVFaaJiJjlCoJ3anXB4ZLNdIE9Ydd8tsRNko+Yb1mGGSf4yKv1yyfg
-         iCck4YHt5Eu8ZbpQoNBBMWXVbDuVlYV2KpaE651Kp/4ALOu0dkpYipaW8SLTNKyUhkKC
-         8imIbkvJURjvS+2kflwTc/kjcEcYicV+xaTbs9vpNAo/41jdM2vQxD/Hrvu0dlrwaN0S
-         kcNq85r2e76S8cQlw6PG1jU8YJtvHjTk0Um99tej+K3ngpidx7a4Qh9tc85SJqfvkfne
-         QSmg==
-X-Forwarded-Encrypted: i=1; AKwUvBz0/VQBXXvWL3wIUm0CmE0Ypt5PzcMJ/0LPNMPlJERPPvUT8wI5K5ki+cHdJyDWWvmXGdZH1YSJQGDgMYI=@vger.kernel.org
-X-Gm-Message-State: AFuF++moQLuv6vqxkulJIbz47ur3uul6e2oXh0S0f0Vig+tP4U53QGLW
-	uplvkCNsiMzX+sNTx9OMnz6Xf6uCnc3HBwev7cJ6FLzFJKjk4WEheuox
-X-Gm-Gg: AYBFou10o+imZS4oOdG//DEyNkyyAwzuSXMfFI71dlcQsHbbPgBF21/rWz/kVQwoEl+
-	fPIK519MYfywcLf2c/BWt7hxQpfFH4Spc8at4R7QZLT1dq70FBleTp+FjW64B4X9ksa0Sk6R3Zf
-	9Xn6sbkJf2EcaRhfTnc6V6x5nm6U1v/IjTCjv1LOm4uyVmopZe80lFMhHt4eGLiff9wnRst65zy
-	EhM4khSZE5HmQA8N5SWTXNBTnUf3uYFfzFn4ec9gEkYBvFU1OMvDw7WT6Mx7oHQSZt/09vmzyYw
-	mDXbvq1J3YJ3PLgmVyvyzZUMEHuU5TrFEkkqWQsQO5KK5OLbHW0wkQMorpmBRrd+g0i6ai01AQU
-	A5ZdWzQQcEcI4AKSGmJjIv+DePpHORTwAu8301FFMWabAaqutJjDMjsR/zAk0jkHb9TKfMXASsd
-	hcRs4bvjhDxMdm3xlKRXs+5PHs17yNbgHAoPyhTD+47l2ox8g+voGbQL8YJtK0G0dpBI22UF3AV
-	M14dhvCt14ROUoGr9XYda/VLZW3ozl8wAdrSKW8Z3ZmGsiys05kgtIk
-X-Received: by 2002:a05:600c:35c9:b0:49f:bcce:13f5 with SMTP id 5b1f17b1804b1-49fc5736229mr113604215e9.24.1789886862139;
-        Sat, 19 Sep 2026 23:47:42 -0700 (PDT)
-Received: from voyt-laptop-dell ([92.115.55.221])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc58a1176sm141442235e9.2.2026.09.19.23.47.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 23:47:41 -0700 (PDT)
-From: Dmitry Voytik <voytikd@gmail.com>
-To: Nicolas Schier <nsc@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>
-Cc: Rong Zhang <i@rong.moe>,
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="bDeDEz6o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=xn
+	nrjYHteaJiELISGRVvsK99/RZqA1Xfx28O81X6+Is=; b=bDeDEz6oGiGVgjsWkd
+	n4s2Ilyj6sRYaNugFzc6W2sq1M15z5Z1nGuLnXuGpW/iGGccEsUQN0MZOeHsLb69
+	KHLzwvwV4Gszrzuedp6ZTnXfLMnfi//5k9EYFGOnll+4Bpyl/25131c/Whc3dsqa
+	hU5EPdmljeksYdW2D+fbQIeh0=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3j5Kbga9q9QbHBw--.42328S2;
+	Sun, 20 Sep 2026 14:47:56 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	Dmitry Voytik <voytikd@gmail.com>
-Subject: [PATCH] scripts/config: honor $KBUILD_OUTPUT by default
-Date: Sun, 20 Sep 2026 08:43:50 +0200
-Message-ID: <20260920064350.17999-1-voytikd@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	Linkui Xiao <xiaolinkui@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [Intel-wired-lan] [PATCH net] ice: roll back the port VLAN when ice_eswitch_br_set_pvid() fails
+Date: Sun, 20 Sep 2026 14:47:54 +0800
+Message-Id: <20260920064754.1935818-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,37 +48,79 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3j5Kbga9q9QbHBw--.42328S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAFWruryUuw1UAr15ArW5Jrb_yoW5Xry7pF
+	WqkF90krWkXF4Ygw1qga10yr45Jay8ZrW0gr97K395Aw45Ar9aqrW7KF9FvryUZr1xJa4a
+	vw1DCr1DCwn8Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UlhFsUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlR0O5GqvgZ10xQAA3K
 
-If $KBUILD_OUTPUT is set, use it by default if --file is not passed.
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-Fix the issue when the script silently updates a stale .config in
-the root directory, while the user expects ${KBUILD_OUTPUT}/.config
-to be updated.
-The problem can be worked around with --file, but this is easy to miss,
-and is inconsistent with how the Makefile and other tools work
-(e.g., scripts/diffconfig).
+ice_eswitch_br_set_pvid() puts the VF VSI into port VLAN mode with
+ice_vf_vsi_enable_port_vlan() before it programs the port VLAN itself.
+Both error paths below that point return the error code straight away,
+so nothing is undone when set_port_vlan() or add_vlan() fails.
 
-Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
+The stale port VLAN is the more visible half of the problem.
+set_port_vlan() turns on Rx VLAN pruning in the VSI context and relies
+on the add_vlan() call right after it to install the matching prune
+filter, so a failing add_vlan() leaves the VF VSI pruning away every
+packet it receives, while port->pvid stays 0 and the bridge is told the
+VLAN was not offloaded.
+
+The VLAN ops table is never restored either.
+ice_vf_vsi_disable_port_vlan() is only ever called from
+ice_eswitch_br_clear_pvid(), which is reached from
+ice_eswitch_br_vlan_cleanup() only when port->pvid matches the VLAN
+being removed. Neither the failed VLAN, which was never inserted into
+port->vlans, nor a port->pvid value ever got that far, so the VSI keeps
+the port VLAN flavour of its inner and outer vlan_ops until the VF VSI 
+is rebuilt:
+dis_rx_filtering() turns into a no-op and, in Double VLAN Mode, the
+inner add_vlan() and del_vlan() stop doing anything.
+
+Unwind both steps the way ice_eswitch_br_clear_pvid() does: clear the
+port VLAN from the VSI context when it was already programmed, then
+hand the VLAN ops back to ice_port_vlan_off().
+
+Fixes: 2946204b3fa8 ("ice: implement bridge port vlan")
+Cc: stable@vger.kernel.org
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
 ---
- scripts/config | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/net/ethernet/intel/ice/ice_eswitch_br.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/scripts/config b/scripts/config
-index 32428ea909c2..f52ba5e6e27e 100755
---- a/scripts/config
-+++ b/scripts/config
-@@ -130,6 +130,11 @@ on_exit() {
- trap on_exit EXIT
+diff --git a/drivers/net/ethernet/intel/ice/ice_eswitch_br.c b/drivers/net/ethernet/intel/ice/ice_eswitch_br.c
+index 1d8a6b95ccda..53ce98ba7007 100644
+--- a/drivers/net/ethernet/intel/ice/ice_eswitch_br.c
++++ b/drivers/net/ethernet/intel/ice/ice_eswitch_br.c
+@@ -679,16 +679,23 @@ ice_eswitch_br_set_pvid(struct ice_esw_br_port *port,
+ 	vlan_ops = ice_get_compat_vsi_vlan_ops(port->vsi);
+ 	err = vlan_ops->set_port_vlan(port->vsi, &port_vlan);
+ 	if (err)
+-		return err;
++		goto err_disable_port_vlan;
  
- FN=.config
-+if [ -n "${KBUILD_OUTPUT}" ]; then
-+	FN=${KBUILD_OUTPUT}/${FN}
-+	echo "Using ${FN}"
-+fi
+ 	err = vlan_ops->add_vlan(port->vsi, &port_vlan);
+ 	if (err)
+-		return err;
++		goto err_clear_port_vlan;
+ 
+ 	ice_eswitch_br_port_vlans_flush(port);
+ 	port->pvid = vlan->vid;
+ 
+ 	return 0;
 +
- CMDS=()
- while [[ $# -gt 0 ]]; do
- 	if [ "$1" = "--file" ]; then
++err_clear_port_vlan:
++	vlan_ops->clear_port_vlan(port->vsi);
++err_disable_port_vlan:
++	ice_vf_vsi_disable_port_vlan(port->vsi);
++
++	return err;
+ }
+ 
+ static struct ice_esw_br_vlan *
 -- 
-2.55.0
+2.25.1
 
