@@ -1,56 +1,56 @@
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE5B03E1694
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:23:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E943E3D98
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:23:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789881819; cv=none; b=JTPpHuku+80suthcRcdpRFiO4Ftapw/0IsmmEyh/KjQtsASNRQ6APdreduDVO1GqRDprJOLosNaFtrRXMMBFBt1Sz25yYrkWoOjJu2TyjV6g/bccLDwrB3SGTsKjPSSBQHXXP1D0wATZL9XUQsk7IuHF1qhMiO9FU8fE8f0lHVc=
+	t=1789881823; cv=none; b=G/6ljwPCPhOm/vXIJdqtQxwuTHoNnFtoDdDdxsB6A8+9iVYc9w7dP/O4HoHjYyEN+Tzj8DF7u3AR/ZsaYPfYZnM0wYGiBGySA+n4TVVYazqZJZcBTQSCG0vJWgeqcabMULdSbqp8u8aoTn5KIcOBTU9za8LskPcEQfTjdzAI87k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789881819; c=relaxed/simple;
-	bh=tuuV7nbMUw6yRO98JshTVNSJS7+8lzcZk1WE2X/F1ZY=;
+	s=arc-20240116; t=1789881823; c=relaxed/simple;
+	bh=XdjbGnMXfOEhTa0d2bRRYHz6u0dWkpYL1XUnsAeorgU=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=YC134WgyCjmCYecQs4fjvloDPYluhOLzKn91f2ce5XGWULkV+gC05Kg4VlVAI499OxZMYHZ+P5d/f5fWFIQlij4XD4qWSSHIx/1V32mbDI8a3eJgKTQrQzFkvuAST8pTAxG/n2OUPwA2IgRoD9CZNsaFHIIJD7Ddvn8CLqpZ5FA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=avOTmHhj; arc=none smtp.client-ip=209.85.216.69
+	 To:Cc:Content-Type; b=aV1g8X+krQq74A92QZIIiEFZ0/IWKc48BJNKBN4KIX1Zw6n5jc2d8KXb/bRVd2K2f0GGmr3fWCJkgoo+ptpRdMFSFYLMjnvFuroVhingJaeLtYS7qZP6l/sXzOlJ7F77UDhDTXYfoddRNijilt45AYQ0Ud7AF6IYyRejpAlW/P8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=j0/oQies; arc=none smtp.client-ip=209.85.216.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="avOTmHhj"
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39b6416441eso3446922a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:23:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="j0/oQies"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3968bb86fb7so2474331a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:23:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789881816; x=1790486616; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789881821; x=1790486621; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Sp2SbXy4NblgzqmzthzVGTgo4M6+g83biwF7oIdehSk=;
-        b=avOTmHhjYgNfcDnK0GQn5m+QspjBEbrjv4ZFFMKsN7/baZDIsfF+pZQMGQmcQgQ2nH
-         jDx9ZfkxzVW1D2U1Xke+M2bDaYqLbw5YHtYAAp/VxNNQc6vwfRYxPDQKEbbkLuOPoe1/
-         xLS6qKtAX2npy9eTrSnfktFW8ErF+sXrGxg/vQh6Nh6HKL+KKidkZVUCieFweYIfiYb/
-         jVKa31mdglVI1RvlxMpYVMXjjY0j7Upk/K4BDV8CUVCY17fbn/EALOEiCt3OBxQLov/5
-         FxHr9Jjf6ZdXwzbX4Y7OhC1KwSMYyLbzMJ8G82LjpePAoBzERr1t9UL7MwGvnX1eBrjt
-         wfag==
+        bh=uVD8B8Ts+MVoA+Gjehn8847ZeP0/q+QqV4JN7YawL/M=;
+        b=j0/oQies+o09mzbksN4i3oqfGw6CNlQrxHRQL6HWtNv6XRRwfmF84CvwPhn4PrFPjd
+         0zzKTbErK/P3ijOkc8sbER5eW3LuYXRgl7FZX7+n6SxJEgwk9lAEsjh8cXY406ms1AsE
+         gXonOV9SScqrFDjXZwv8grNQyd98ZeBx9YD7S26XC/+GBbHHI4VNIiZaizhWkc/X4Y1i
+         zlPCvzX5UZbUFuv6mmEvDSX+aZfTLV7UKdxxBb6CFElhmg+L6qDMnBdZBTrYDaPkyHa/
+         wdAgVxsycnFN5An45sZgt7i6BeJGzPkhOSP1+bs0H5Dtnq2AKCTyosrOQXl91+h8VLsZ
+         xmsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789881816; x=1790486616;
+        d=1e100.net; s=20260707; t=1789881821; x=1790486621;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Sp2SbXy4NblgzqmzthzVGTgo4M6+g83biwF7oIdehSk=;
-        b=o0zmdCT8Gr2zm+RrD1PqhsiXR/t0Lk6IEAnSo9K82v9rxr+rcEQV/bOni++Fj5zqAH
-         aBXyvWRY5Bot9RlZQSS9O0kaHbtzty4DLoSfkwbmmtimFxuXHgrxbvu96Sm6qi46oeYP
-         6DBiQOwsH3oyuoZPKmOQR4qXkpNjed7jU464jCfCwr+LyudF5qyzsXk7MTgy4ITBfwNU
-         09K0USHSRhQDmhIlWlyYKRsS2Bc6JOjtYJZW2+5wk9Ou5LlBvIB2maUMKPUnjE0/S2+G
-         c23oyYskKmQ1ZYaMS/mf+jjIBbzlyckEzgf7nXJ568blgMlUMHLogIx1S2gdsDthqhHr
-         zTUg==
-X-Forwarded-Encrypted: i=1; AKwUvBxBZfIIisXRhtUAM4Xg4xj3xSG7DHnaOfki93MTvqF5pi3zbE6gxIQ+sCO5lef1UptZUgJ+v5ZeaFRLWpY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/cXR3MB8aFHGmYRADtc1A5mrkyrVy61FvnwuKryeVaxkSMcE8
-	PNAtM+e/BwF1twGZi/2LondVw1kDolFhkjmk5V9l8HG2JvrFgO/XjsyP0JxVeNX1f5eMrAbeQRN
-	LxBTPuPgy2Q==
-X-Received: from dlbrj21.prod.google.com ([2002:a05:7022:f415:b0:144:bba4:7daa])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4d91:b0:39e:6c68:c782
- with SMTP id 98e67ed59e1d1-39e6c68c9f1mr5867250a91.56.1789881815929; Sat, 19
- Sep 2026 22:23:35 -0700 (PDT)
-Date: Sat, 19 Sep 2026 22:21:24 -0700
+        bh=uVD8B8Ts+MVoA+Gjehn8847ZeP0/q+QqV4JN7YawL/M=;
+        b=ATV4wTq+PfP7JR68G9XlAnI02EJXrw1+kqcYCoiCmkVdgbwO8yLCmrBuVdIaXu/A9P
+         o2PqF6Vq9RuaUdIBALbAWOUQ6h+Q/YMk8TLkhbVSWb/IS13RCRhRE2Kb/CtIqucHlwZf
+         Op5vje1A5yqNt8lphWHdniXP2RwFryNhOc2M5oLUOTwjgMfVhu30faNgFCs1COLKsANv
+         Wum8gL6fdRHV8o6poYnOndiHpbPCAEHpJSevL1wlXPxviHgZqa0LE2BQXDMKVA9nXrvJ
+         azw3bgjMNPtxi0mbivYel+YvjCQafLtjSqp6c/oBgutoGvGaq4NFXpX8gc+4Tu5U8OWi
+         HG8A==
+X-Forwarded-Encrypted: i=1; AKwUvBzDFFNUwR6FR15khHQTDkF4IBC6pWhzsp4EmJ7NlxB0SeE9cqrfG0bG19GHraWPXKCeX5FHzY5Aezjlpj8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOrcCG6tU2UbQOH1yaQanl+6Ig/Oe+c/nSHZM/GuUclSLHjezl
+	SI79+c9vOZghGfFL3+MaimRTFVAF0l+h1Cs74CIoVgkBmb11GY2ObgxgKft68GAkKzkGYxFdZUD
+	lLpocNl6CPg==
+X-Received: from dlbpv7.prod.google.com ([2002:a05:7023:907:b0:144:bbd4:62e0])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:c88d:b0:39e:4c80:f67f
+ with SMTP id 98e67ed59e1d1-39e54f3aa58mr11789991a91.30.1789881820851; Sat, 19
+ Sep 2026 22:23:40 -0700 (PDT)
+Date: Sat, 19 Sep 2026 22:21:27 -0700
 In-Reply-To: <cover.1789880842.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789880842.git.irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <3e492b07bf1597c5bc0fb26eb081b84b96c05790.1789880842.git.irogers@google.com>
-Subject: [PATCH v1 32/49] perf python: Port sched-migration and SchedGui to
- perf module
+Message-ID: <3a269ced8b8514db66c664d40a1750c779d8e64d.1789880842.git.irogers@google.com>
+Subject: [PATCH v1 35/49] perf python: Port net_dropmonitor to perf module
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, adrian.hunter@intel.com, 
 	alice.mei.rogers@gmail.com, james.clark@linaro.org, 
@@ -72,784 +71,200 @@ Cc: dapeng1.mi@linux.intel.com, leo.yan@linux.dev,
 	tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Port sched-migration.py and SchedGui.py from tools/perf/scripts/python/
-to standalone modules in tools/perf/python/:
-- Refactor sched-migration.py into a SchedMigrationAnalyzer class using
-  perf.session for event processing and add argparse CLI support
-  (-i/--input, -v/--verbose, --gui, --no-gui).
-- Port SchedGui.py to tools/perf/python/ as a local module dependency.
-- Load wxPython dynamically via importlib only when GUI mode (--gui) is
-  requested so text-mode analysis, testing on headless systems, and
-  static analysis (mypy/pylint) succeed without wx installed.
+Port net_dropmonitor.py from tools/perf/scripts/python/ to a standalone
+script in tools/perf/python/:
+- Refactor the script into a DropMonitor class with full type
+  annotations to encapsulate state.
+- Use perf.session for skb:kfree_skb event processing and add argparse
+  CLI support (-i/--input and -k/--kallsyms).
+- Resolve kernel drop addresses via perf.session symbols/callchains and
+  binary search over /proc/kallsyms, ignoring zeroed kptr_restrict
+  addresses with graceful fallback when kallsyms is unavailable.
 - Remove Python 2 compatibility code.
 
-Add a shell test (test_sched_migration_python.sh) to verify the
+Add a shell test (test_net_dropmonitor_python.sh) to verify the
 standalone script.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/python/SchedGui.py                 | 246 +++++++++
- tools/perf/python/sched-migration.py          | 486 ++++++++++++++++++
- .../shell/test_sched_migration_python.sh      |  69 +++
- 3 files changed, 801 insertions(+)
- create mode 100755 tools/perf/python/SchedGui.py
- create mode 100755 tools/perf/python/sched-migration.py
- create mode 100755 tools/perf/tests/shell/test_sched_migration_python.sh
+ tools/perf/python/net_dropmonitor.py          | 156 ++++++++++++++++++
+ .../shell/test_net_dropmonitor_python.sh      | 103 ++++++++++++
+ 2 files changed, 259 insertions(+)
+ create mode 100755 tools/perf/python/net_dropmonitor.py
+ create mode 100755 tools/perf/tests/shell/test_net_dropmonitor_python.sh
 
-diff --git a/tools/perf/python/SchedGui.py b/tools/perf/python/SchedGui.py
+diff --git a/tools/perf/python/net_dropmonitor.py b/tools/perf/python/net_dropmonitor.py
 new file mode 100755
-index 000000000000..fa0d010fe528
+index 000000000000..3e0ef656e5dc
 --- /dev/null
-+++ b/tools/perf/python/SchedGui.py
-@@ -0,0 +1,246 @@
-+#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0
-+# SchedGui.py - Python extension for perf script, basic GUI code for
-+#		traces drawing and overview.
-+#
-+# Copyright (C) 2010 by Frederic Weisbecker <fweisbec@gmail.com>
-+#
-+# Ported to modern directory structure.
-+
-+"""SchedGui.py - Python extension for perf script, basic GUI code for traces drawing and overview."""
-+from __future__ import annotations
-+
-+import importlib
-+from typing import Any
-+
-+class _DummyWx:
-+    """Dummy wx module fallback when wxPython is not installed."""
-+    Frame = object
-+
-+
-+try:
-+    wx: Any = importlib.import_module("wx")
-+    WX_AVAILABLE = True
-+except ImportError:
-+    wx = _DummyWx
-+    WX_AVAILABLE = False
-+
-+
-+class RootFrame(wx.Frame):
-+    """Main window frame for scheduling trace visualization."""
-+    Y_OFFSET = 100
-+    RECT_HEIGHT = 100
-+    RECT_SPACE = 50
-+    EVENT_MARKING_WIDTH = 5
-+
-+    def __init__(self, sched_tracer, title, parent=None, win_id=-1):
-+        if not WX_AVAILABLE:
-+            raise ImportError("You need to install the wxpython lib for this script")
-+        wx.Frame.__init__(self, parent, win_id, title)
-+
-+        self.dc = None
-+        (self.screen_width, self.screen_height) = wx.GetDisplaySize()
-+        self.screen_width -= 10
-+        self.screen_height -= 10
-+        self.zoom = 0.5
-+        self.scroll_scale = 20
-+        self.sched_tracer = sched_tracer
-+        self.sched_tracer.set_root_win(self)
-+        (self.ts_start, self.ts_end) = sched_tracer.interval()
-+        self.update_width_virtual()
-+        self.nr_rects = sched_tracer.nr_rectangles() + 1
-+        self.height_virtual = RootFrame.Y_OFFSET + \
-+            (self.nr_rects * (RootFrame.RECT_HEIGHT + RootFrame.RECT_SPACE))
-+
-+        # whole window panel
-+        self.panel = wx.Panel(self, size=(self.screen_width, self.screen_height))
-+
-+        # scrollable container
-+        # Create SplitterWindow
-+        self.splitter = wx.SplitterWindow(self.panel, style=wx.SP_3D)
-+
-+        # scrollable container (Top)
-+        self.scroll = wx.ScrolledWindow(self.splitter)
-+        self.scroll.SetScrollbars(self.scroll_scale, self.scroll_scale,
-+                                  int(self.width_virtual // self.scroll_scale),
-+                                  int(self.height_virtual // self.scroll_scale))
-+        self.scroll.EnableScrolling(True, True)
-+        self.scroll.SetFocus()
-+
-+        # scrollable drawing area
-+        self.scroll_panel = wx.Panel(self.scroll,
-+                                     size=(self.screen_width - 15, self.screen_height // 2))
-+        self.scroll_panel.Bind(wx.EVT_PAINT, self.on_paint)
-+        self.scroll_panel.Bind(wx.EVT_KEY_DOWN, self.on_key_press)
-+        self.scroll_panel.Bind(wx.EVT_LEFT_DOWN, self.on_mouse_down)
-+        self.scroll.Bind(wx.EVT_KEY_DOWN, self.on_key_press)
-+        self.scroll.Bind(wx.EVT_LEFT_DOWN, self.on_mouse_down)
-+
-+        self.scroll_panel.SetSize(int(self.width_virtual), int(self.height_virtual))
-+
-+        # Create a separate panel for text (Bottom)
-+        self.text_panel = wx.Panel(self.splitter)
-+        self.text_sizer = wx.BoxSizer(wx.VERTICAL)
-+        self.txt = wx.TextCtrl(self.text_panel, -1, "Click a bar to see details",
-+                               style=wx.TE_MULTILINE)
-+        self.text_sizer.Add(self.txt, 1, wx.EXPAND | wx.ALL, 5)
-+        self.text_panel.SetSizer(self.text_sizer)
-+
-+        # Split the window
-+        self.splitter.SplitHorizontally(self.scroll, self.text_panel, (self.screen_height * 3) // 4)
-+
-+        # Main sizer to layout splitter
-+        self.main_sizer = wx.BoxSizer(wx.VERTICAL)
-+        self.main_sizer.Add(self.splitter, 1, wx.EXPAND)
-+        self.panel.SetSizer(self.main_sizer)
-+
-+        self.scroll.Fit()
-+        self.Fit()
-+
-+        self.Show(True)
-+
-+    def us_to_px(self, val):
-+        """Convert microseconds to pixels."""
-+        return val / (10 ** 3) * self.zoom
-+
-+    def px_to_us(self, val):
-+        """Convert pixels to microseconds."""
-+        return (val / self.zoom) * (10 ** 3)
-+
-+    def scroll_start(self):
-+        """Get scroll start position in pixels."""
-+        (x, y) = self.scroll.GetViewStart()
-+        return (x * self.scroll_scale, y * self.scroll_scale)
-+
-+    def scroll_start_us(self):
-+        """Get scroll start position in microseconds."""
-+        (x, _) = self.scroll_start()
-+        return self.px_to_us(x)
-+
-+    def paint_rectangle_zone(self, nr, color, top_color, start, end):
-+        """Draw a rectangle zone for a CPU."""
-+        offset_px = self.us_to_px(start - self.ts_start)
-+        width_px = self.us_to_px(end - start)
-+
-+        offset_py = RootFrame.Y_OFFSET + (nr * (RootFrame.RECT_HEIGHT + RootFrame.RECT_SPACE))
-+        width_py = RootFrame.RECT_HEIGHT
-+
-+        dc = self.dc
-+
-+        if top_color is not None:
-+            (r, g, b) = top_color
-+            top_color = wx.Colour(r, g, b)
-+            brush = wx.Brush(top_color, wx.SOLID)
-+            dc.SetBrush(brush)
-+            dc.DrawRectangle(int(offset_px), int(offset_py),
-+                             int(width_px), RootFrame.EVENT_MARKING_WIDTH)
-+            width_py -= RootFrame.EVENT_MARKING_WIDTH
-+            offset_py += RootFrame.EVENT_MARKING_WIDTH
-+
-+        (r, g, b) = color
-+        color = wx.Colour(r, g, b)
-+        brush = wx.Brush(color, wx.SOLID)
-+        dc.SetBrush(brush)
-+        dc.DrawRectangle(int(offset_px), int(offset_py), int(width_px), int(width_py))
-+
-+    def update_rectangles(self, start, end):
-+        """Update rectangles in the given time window."""
-+        start += self.ts_start
-+        end += self.ts_start
-+        self.sched_tracer.fill_zone(start, end)
-+
-+    def on_paint(self, event):
-+        """Handle paint event."""
-+        window = event.GetEventObject()
-+        dc = wx.PaintDC(window)
-+
-+        # Clear background to avoid ghosting
-+        dc.SetBackground(wx.Brush(window.GetBackgroundColour()))
-+        dc.Clear()
-+
-+        self.dc = dc
-+        try:
-+            width = min(self.width_virtual, self.screen_width)
-+            (x, _) = self.scroll_start()
-+            start = self.px_to_us(x)
-+            end = self.px_to_us(x + width)
-+            self.update_rectangles(start, end)
-+
-+            # Draw CPU labels at the left edge of the visible area
-+            (x_scroll, _) = self.scroll_start()
-+            for nr in range(self.nr_rects):
-+                offset_py = RootFrame.Y_OFFSET + (nr * (RootFrame.RECT_HEIGHT + RootFrame.RECT_SPACE))
-+                dc.DrawText(f"CPU {nr}", x_scroll + 10, offset_py + 10)
-+        finally:
-+            self.dc = None
-+
-+    def rect_from_ypixel(self, y):
-+        y -= RootFrame.Y_OFFSET
-+        rect = y // (RootFrame.RECT_HEIGHT + RootFrame.RECT_SPACE)
-+        height = y % (RootFrame.RECT_HEIGHT + RootFrame.RECT_SPACE)
-+
-+        if rect < 0 or rect > self.nr_rects - 1 or height > RootFrame.RECT_HEIGHT:
-+            return -1
-+
-+        return rect
-+
-+    def update_summary(self, txt):
-+        self.txt.SetValue(txt)
-+        self.text_panel.Layout()
-+        self.splitter.Layout()
-+        self.text_panel.Refresh()
-+
-+    def on_mouse_down(self, event):
-+        pos = event.GetPosition()
-+        x, y = pos.x, pos.y
-+        rect = self.rect_from_ypixel(y)
-+        if rect == -1:
-+            return
-+
-+        t = self.px_to_us(x) + self.ts_start
-+
-+        self.sched_tracer.mouse_down(rect, t)
-+
-+    def update_width_virtual(self):
-+        self.width_virtual = self.us_to_px(self.ts_end - self.ts_start)
-+
-+    def __zoom(self, x):
-+        self.update_width_virtual()
-+        (xpos, ypos) = self.scroll.GetViewStart()
-+        xpos = int(self.us_to_px(x) // self.scroll_scale)
-+        self.scroll_panel.SetSize((int(self.width_virtual), int(self.height_virtual)))
-+        self.scroll.SetScrollbars(self.scroll_scale, self.scroll_scale,
-+                                  int(self.width_virtual // self.scroll_scale),
-+                                  int(self.height_virtual // self.scroll_scale),
-+                                  xpos, ypos)
-+        self.Refresh()
-+
-+    def zoom_in(self):
-+        x = self.scroll_start_us()
-+        self.zoom *= 2
-+        self.__zoom(x)
-+
-+    def zoom_out(self):
-+        x = self.scroll_start_us()
-+        self.zoom /= 2
-+        self.__zoom(x)
-+
-+    def on_key_press(self, event):
-+        key = event.GetRawKeyCode()
-+        if key == ord("+"):
-+            self.zoom_in()
-+            return
-+        if key == ord("-"):
-+            self.zoom_out()
-+            return
-+
-+        key = event.GetKeyCode()
-+        (x, y) = self.scroll.GetViewStart()
-+        if key == wx.WXK_RIGHT:
-+            self.scroll.Scroll(x + 1, y)
-+        elif key == wx.WXK_LEFT:
-+            self.scroll.Scroll(x - 1, y)
-+        elif key == wx.WXK_DOWN:
-+            self.scroll.Scroll(x, y + 1)
-+        elif key == wx.WXK_UP:
-+            self.scroll.Scroll(x, y - 1)
-diff --git a/tools/perf/python/sched-migration.py b/tools/perf/python/sched-migration.py
-new file mode 100755
-index 000000000000..0684b2876ed7
---- /dev/null
-+++ b/tools/perf/python/sched-migration.py
-@@ -0,0 +1,486 @@
++++ b/tools/perf/python/net_dropmonitor.py
+@@ -0,0 +1,156 @@
 +#!/usr/bin/env python3
 +# SPDX-License-Identifier: GPL-2.0
 +"""
-+Cpu task migration overview toy
-+
-+Copyright (C) 2010 Frederic Weisbecker <fweisbec@gmail.com>
-+Ported to modern directory structure and refactored to use class.
++Monitor the system for dropped packets and produce a report of drop locations and counts.
++Ported from tools/perf/scripts/python/net_dropmonitor.py
 +"""
 +from __future__ import annotations
 +
 +import argparse
-+from collections import defaultdict, UserList
-+import importlib
++from collections import defaultdict
++import os
 +import sys
-+from typing import Any
++from typing import Tuple
 +import perf
 +
 +
-+# Global threads dictionary
-+threads = defaultdict(lambda: "unknown")
-+threads[0] = "idle"
++class DropMonitor:
++    """Monitors dropped packets and aggregates counts by location."""
 +
-+
-+def thread_name(pid: int) -> str:
-+    """Return thread name formatted with pid."""
-+    return f"{threads[pid]}:{pid}"
-+
-+
-+def task_state(state: int) -> str:
-+    """Map task state integer to string."""
-+    states = {
-+        0: "R",
-+        1: "S",
-+        2: "D",
-+        64: "DEAD"
-+    }
-+    return states.get(state, "Unknown")
-+
-+
-+class RunqueueEventUnknown:
-+    """Unknown runqueue event."""
-+    @staticmethod
-+    def color():
-+        """Return color for event."""
-+        return None
-+
-+    def __repr__(self):
-+        return "unknown"
-+
-+
-+class RunqueueEventSleep:
-+    """Sleep runqueue event."""
-+    @staticmethod
-+    def color():
-+        """Return color for event."""
-+        return 0, 0, 0xff
-+
-+    def __init__(self, sleeper: int):
-+        self.sleeper = sleeper
-+
-+    def __repr__(self):
-+        return f"{thread_name(self.sleeper)} gone to sleep"
-+
-+
-+class RunqueueEventWakeup:
-+    """Wakeup runqueue event."""
-+    @staticmethod
-+    def color():
-+        """Return color for event."""
-+        return 0xff, 0xff, 0
-+
-+    def __init__(self, wakee: int):
-+        self.wakee = wakee
-+
-+    def __repr__(self):
-+        return f"{thread_name(self.wakee)} woke up"
-+
-+
-+class RunqueueEventFork:
-+    """Fork runqueue event."""
-+    @staticmethod
-+    def color():
-+        """Return color for event."""
-+        return 0, 0xff, 0
-+
-+    def __init__(self, child: int):
-+        self.child = child
-+
-+    def __repr__(self):
-+        return f"new forked task {thread_name(self.child)}"
-+
-+
-+class RunqueueMigrateIn:
-+    """Migrate in runqueue event."""
-+    @staticmethod
-+    def color():
-+        """Return color for event."""
-+        return 0, 0xf0, 0xff
-+
-+    def __init__(self, new: int):
-+        self.new = new
-+
-+    def __repr__(self):
-+        return f"task migrated in {thread_name(self.new)}"
-+
-+
-+class RunqueueMigrateOut:
-+    """Migrate out runqueue event."""
-+    @staticmethod
-+    def color():
-+        """Return color for event."""
-+        return 0xff, 0, 0xff
-+
-+    def __init__(self, old: int):
-+        self.old = old
-+
-+    def __repr__(self):
-+        return f"task migrated out {thread_name(self.old)}"
-+
-+
-+class RunqueueSnapshot:
-+    """Snapshot of runqueue state."""
-+
-+    def __init__(self, tasks=None, event=None):
-+        if tasks is None:
-+            tasks = (0,)
-+        if event is None:
-+            event = RunqueueEventUnknown()
-+        self.tasks = tuple(tasks)
-+        self.event = event
-+
-+    def sched_switch(self, prev: int, prev_state: int, next_pid: int):
-+        """Handle sched switch in snapshot."""
-+        if task_state(prev_state) == "R" and next_pid in self.tasks \
-+                and prev in self.tasks:
-+            return self
-+
-+        event = (
-+            RunqueueEventSleep(prev)
-+            if task_state(prev_state) != "R"
-+            else RunqueueEventUnknown()
++    def __init__(self, kallsyms_path: str | None = None) -> None:
++        self.drop_log: dict[int, int] = defaultdict(int)
++        self.kallsyms: list[Tuple[int, str]] = []
++        self.resolved_syms: dict[int, Tuple[str, int]] = {}
++        self.callchain_syms: dict[int, str] = {}
++        self.kallsyms_path = (
++            kallsyms_path
++            or os.environ.get("PERF_SYMBOL_KALLSYMS")
++            or "/proc/kallsyms"
 +        )
 +
-+        next_tasks = list(self.tasks[:])
-+        if prev in self.tasks:
-+            if task_state(prev_state) != "R":
-+                next_tasks.remove(prev)
-+        elif task_state(prev_state) == "R":
-+            next_tasks.append(prev)
++    def _parse_kallsyms(self) -> None:
++        """Parse the kallsyms file and map kernel addresses to function symbols."""
++        try:
++            with open(self.kallsyms_path, "r", encoding="utf-8") as f:
++                for line in f:
++                    parts = line.split()
++                    if len(parts) >= 3 and parts[1] in ('t', 'T', 'w', 'W'):
++                        addr = int(parts[0], 16)
++                        if addr > 0:
++                            self.kallsyms.append((addr, parts[2]))
++            self.kallsyms.sort(key=lambda x: x[0])
++        except (FileNotFoundError, PermissionError):
++            print(f"Failed to read {self.kallsyms_path}. Symbols will not be resolved.")
 +
-+        if next_pid not in next_tasks:
-+            next_tasks.append(next_pid)
++    def _get_sym(self, loc: int) -> Tuple[str, int]:
++        """Resolve a memory location using session symbols or the kallsyms map."""
++        if loc in self.resolved_syms:
++            return self.resolved_syms[loc]
++        if not self.kallsyms:
++            if loc in self.callchain_syms:
++                return self.callchain_syms[loc], 0
++            return str(loc), 0
 +
-+        return RunqueueSnapshot(next_tasks, event)
-+
-+    def migrate_out(self, old: int):
-+        """Handle task migrate out in snapshot."""
-+        if old not in self.tasks:
-+            return self
-+        next_tasks = [task for task in self.tasks if task != old]
-+
-+        return RunqueueSnapshot(next_tasks, RunqueueMigrateOut(old))
-+
-+    def __migrate_in(self, new: int, event):
-+        if new in self.tasks:
-+            return RunqueueSnapshot(self.tasks, event)
-+        next_tasks = self.tasks + tuple([new])
-+
-+        return RunqueueSnapshot(next_tasks, event)
-+
-+    def migrate_in(self, new: int):
-+        """Handle task migrate in snapshot."""
-+        return self.__migrate_in(new, RunqueueMigrateIn(new))
-+
-+    def wake_up(self, new: int):
-+        """Handle task wakeup in snapshot."""
-+        return self.__migrate_in(new, RunqueueEventWakeup(new))
-+
-+    def wake_up_new(self, new: int):
-+        """Handle task fork in snapshot."""
-+        return self.__migrate_in(new, RunqueueEventFork(new))
-+
-+    def load(self) -> int:
-+        """Provide the number of tasks on the runqueue. Don't count idle"""
-+        return len(self.tasks) - 1
-+
-+    def __repr__(self):
-+        return self.tasks.__repr__()
-+
-+
-+class TimeSlice:
-+    """Represents a time slice of execution."""
-+
-+    def __init__(self, start: int, prev):
-+        self.start = start
-+        self.prev = prev
-+        self.end = start
-+        # cpus that triggered the event
-+        self.event_cpus: list[int] = []
-+        if prev is not None:
-+            self.total_load = prev.total_load
-+            self.rqs = prev.rqs.copy()
-+        else:
-+            self.rqs = defaultdict(RunqueueSnapshot)
-+            self.total_load = 0
-+
-+    def __update_total_load(self, old_rq: RunqueueSnapshot, new_rq: RunqueueSnapshot):
-+        diff = new_rq.load() - old_rq.load()
-+        self.total_load += diff
-+
-+    def sched_switch(self, ts_list, prev: int, prev_state: int, next_pid: int, cpu: int):
-+        """Process sched_switch in time slice."""
-+        old_rq = self.prev.rqs[cpu]
-+        new_rq = old_rq.sched_switch(prev, prev_state, next_pid)
-+
-+        if old_rq is new_rq:
-+            return
-+
-+        self.rqs[cpu] = new_rq
-+        self.__update_total_load(old_rq, new_rq)
-+        ts_list.append(self)
-+        self.event_cpus = [cpu]
-+
-+    def migrate(self, ts_list, new: int, old_cpu: int, new_cpu: int):
-+        """Process task migration in time slice."""
-+        if old_cpu == new_cpu:
-+            return
-+        old_rq = self.prev.rqs[old_cpu]
-+        out_rq = old_rq.migrate_out(new)
-+        self.rqs[old_cpu] = out_rq
-+        self.__update_total_load(old_rq, out_rq)
-+
-+        new_rq = self.prev.rqs[new_cpu]
-+        in_rq = new_rq.migrate_in(new)
-+        self.rqs[new_cpu] = in_rq
-+        self.__update_total_load(new_rq, in_rq)
-+
-+        ts_list.append(self)
-+
-+        if old_rq is not out_rq:
-+            self.event_cpus.append(old_cpu)
-+        self.event_cpus.append(new_cpu)
-+
-+    def wake_up(self, ts_list, pid: int, cpu: int, fork: bool):
-+        """Process wakeup in time slice."""
-+        old_rq = self.prev.rqs[cpu]
-+        if fork:
-+            new_rq = old_rq.wake_up_new(pid)
-+        else:
-+            new_rq = old_rq.wake_up(pid)
-+
-+        if new_rq is old_rq:
-+            return
-+        self.rqs[cpu] = new_rq
-+        self.__update_total_load(old_rq, new_rq)
-+        ts_list.append(self)
-+        self.event_cpus = [cpu]
-+
-+    def next(self, t: int):
-+        """Create next time slice."""
-+        self.end = t
-+        return TimeSlice(t, self)
-+
-+
-+class TimeSliceList(UserList):
-+    """List of time slices with search capabilities."""
-+
-+    def __init__(self, arg=None):
-+        super().__init__(arg if arg is not None else [])
-+        self.root_win = None
-+
-+    def get_time_slice(self, ts: int) -> TimeSlice:
-+        """Get or create time slice for timestamp."""
-+        if len(self.data) == 0:
-+            ts_slice = TimeSlice(ts, TimeSlice(-1, None))
-+        else:
-+            ts_slice = self.data[-1].next(ts)
-+        return ts_slice
-+
-+    def find_time_slice(self, ts: int) -> int:
-+        """Binary search for time slice containing timestamp."""
-+        if not self.data:
-+            return -1
 +        start = 0
-+        end = len(self.data)
-+        found = -1
-+        searching = True
-+        while searching:
-+            if start in (end, end - 1):
-+                searching = False
-+
-+            i = (end + start) // 2
-+            if self.data[i].start <= ts <= self.data[i].end:
-+                found = i
++        end = len(self.kallsyms) - 1
++        while start < end:
++            mid = (start + end) // 2
++            if self.kallsyms[mid][0] <= loc < self.kallsyms[mid+1][0]:
++                start = mid
 +                break
++            if loc < self.kallsyms[mid][0]:
++                end = mid - 1
++            else:
++                start = mid + 1
 +
-+            if self.data[i].end < ts:
-+                start = i
-+            elif self.data[i].start > ts:
-+                end = i
++        sym_addr, sym_name = self.kallsyms[start]
++        if loc >= sym_addr:
++            return sym_name, loc - sym_addr
++        if loc in self.callchain_syms:
++            return self.callchain_syms[loc], 0
++        return str(loc), 0
 +
-+        return found
-+
-+    def set_root_win(self, win):
-+        """Set root window for GUI."""
-+        self.root_win = win
-+
-+    def mouse_down(self, cpu: int, t: int):
-+        """Handle mouse down event from GUI."""
-+        idx = self.find_time_slice(t)
-+        if idx == -1:
++    def print_drop_table(self) -> None:
++        """Print aggregated results."""
++        if not self.drop_log:
++            print(f"{'LOCATION':>25} {'OFFSET':>25} {'COUNT':>25}")
 +            return
 +
-+        ts = self[idx]
-+        rq = ts.rqs[cpu]
-+        raw = f"CPU: {cpu}\n"
-+        raw += f"Last event : {repr(rq.event)}\n"
-+        raw += f"Timestamp : {ts.start // (10 ** 9)}.{ts.start % (10 ** 9) // 1000:06d}\n"
-+        raw += f"Duration : {(ts.end - ts.start) // (10 ** 3):6d} us\n"
-+        raw += f"Load = {rq.load()}\n"
-+        for task in rq.tasks:
-+            raw += f"{thread_name(task)} \n"
++        if len(self.resolved_syms) < len(self.drop_log):
++            print("Gathering kallsyms data")
++            self._parse_kallsyms()
 +
-+        if self.root_win:
-+            self.root_win.update_summary(raw)
-+
-+    def update_rectangle_cpu(self, slice_obj: TimeSlice, cpu: int):
-+        """Update rectangle for CPU in GUI."""
-+        rq = slice_obj.rqs[cpu]
-+
-+        if slice_obj.total_load != 0:
-+            load_rate = rq.load() / float(slice_obj.total_load)
-+        else:
-+            load_rate = 0
-+
-+        red_power = int(0xff - (0xff * load_rate))
-+        color = (0xff, red_power, red_power)
-+
-+        top_color = None
-+        if cpu in slice_obj.event_cpus:
-+            top_color = rq.event.color()
-+
-+        if self.root_win:
-+            self.root_win.paint_rectangle_zone(cpu, color, top_color,
-+                                               slice_obj.start, slice_obj.end)
-+
-+    def fill_zone(self, start: int, end: int):
-+        """Fill zone in GUI."""
-+        i = self.find_time_slice(start)
-+        if i == -1:
-+            return
-+
-+        for idx in range(i, len(self.data)):
-+            timeslice = self.data[idx]
-+            if timeslice.start > end:
-+                return
-+
-+            for cpu in timeslice.rqs:
-+                self.update_rectangle_cpu(timeslice, cpu)
-+
-+    def interval(self) -> tuple[int, int]:
-+        """Return start and end timestamps."""
-+        if len(self.data) == 0:
-+            return 0, 0
-+        return self.data[0].start, self.data[-1].end
-+
-+    def nr_rectangles(self) -> int:
-+        """Return maximum CPU number."""
-+        if not self.data:
-+            return 0
-+        last_ts = self.data[-1]
-+        max_cpu = 0
-+        for cpu in last_ts.rqs:
-+            max_cpu = max(max_cpu, cpu)
-+        return max_cpu
-+
-+
-+class SchedMigrationAnalyzer:
-+    """Analyzes task migrations and manages time slices."""
-+
-+    def __init__(self):
-+        self.current_tsk = defaultdict(lambda: -1)
-+        self.timeslices = TimeSliceList()
-+
-+    def sched_switch(self, time: int, cpu: int, prev_comm: str, prev_pid: int, prev_state: int,
-+                     next_comm: str, next_pid: int):
-+        """Handle sched_switch event."""
-+        on_cpu_task = self.current_tsk[cpu]
-+
-+        if on_cpu_task not in (-1, prev_pid):
-+            print(f"Sched switch event rejected ts: {time} cpu: {cpu} "
-+                  f"prev: {prev_comm}({prev_pid}) next: {next_comm}({next_pid})")
-+            threads[prev_pid] = prev_comm
-+            threads[next_pid] = next_comm
-+            self.current_tsk[cpu] = next_pid
-+            return
-+
-+        threads[prev_pid] = prev_comm
-+        threads[next_pid] = next_comm
-+        self.current_tsk[cpu] = next_pid
-+
-+        ts = self.timeslices.get_time_slice(time)
-+        ts.sched_switch(self.timeslices, prev_pid, prev_state, next_pid, cpu)
-+
-+    def migrate(self, time: int, pid: int, orig_cpu: int, dest_cpu: int):
-+        """Handle sched_migrate_task event."""
-+        ts = self.timeslices.get_time_slice(time)
-+        ts.migrate(self.timeslices, pid, orig_cpu, dest_cpu)
-+
-+    def wake_up(self, time: int, pid: int, success: int, target_cpu: int, fork: bool):
-+        """Handle wakeup event."""
-+        if success == 0:
-+            return
-+        ts = self.timeslices.get_time_slice(time)
-+        ts.wake_up(self.timeslices, pid, target_cpu, fork)
++        print(f"{'LOCATION':>25} {'OFFSET':>25} {'COUNT':>25}")
++        sorted_keys = sorted(self.drop_log.keys())
++        for sloc in sorted_keys:
++            sym, off = self._get_sym(sloc)
++            print(f"{sym:>25} {off:>25d} {self.drop_log[sloc]:>25d}")
 +
 +    def process_event(self, sample: perf.sample_event) -> None:
-+        """Collect events and pass to analyzer."""
-+        name = str(sample.evsel)
-+        time = sample.sample_time
-+        cpu = sample.sample_cpu
-+        _pid = sample.sample_pid
-+        _comm = "Unknown"
-+
-+        if name == "evsel(sched:sched_switch)":
-+            prev_comm = getattr(sample, "prev_comm", "Unknown")
-+            prev_pid = getattr(sample, "prev_pid", -1)
-+            prev_state = getattr(sample, "prev_state", 0)
-+            next_comm = getattr(sample, "next_comm", "Unknown")
-+            next_pid = getattr(sample, "next_pid", -1)
-+            self.sched_switch(time, cpu, prev_comm, prev_pid, prev_state, next_comm, next_pid)
-+        elif name == "evsel(sched:sched_migrate_task)":
-+            task_pid = getattr(sample, "pid", -1)
-+            orig_cpu = getattr(sample, "orig_cpu", -1)
-+            dest_cpu = getattr(sample, "dest_cpu", -1)
-+            self.migrate(time, task_pid, orig_cpu, dest_cpu)
-+        elif name == "evsel(sched:sched_wakeup)":
-+            task_pid = getattr(sample, "pid", -1)
-+            success = getattr(sample, "success", 1)
-+            target_cpu = getattr(sample, "target_cpu", -1)
-+            self.wake_up(time, task_pid, success, target_cpu, False)
-+        elif name == "evsel(sched:sched_wakeup_new)":
-+            task_pid = getattr(sample, "pid", -1)
-+            success = getattr(sample, "success", 1)
-+            target_cpu = getattr(sample, "target_cpu", -1)
-+            self.wake_up(time, task_pid, success, target_cpu, True)
-+
-+    def run_gui(self):
-+        """Start wxPython GUI."""
-+        try:
-+            wx_mod: Any = importlib.import_module("wx")
-+            sched_gui: Any = importlib.import_module("SchedGui")
-+        except ImportError:
-+            print("wxPython is not available. Cannot start GUI.")
++        """Process a single sample event."""
++        if "skb:kfree_skb" not in str(sample.evsel):
 +            return
-+        app = wx_mod.App(False)
-+        _frame = sched_gui.RootFrame(self.timeslices, "Migration")
-+        app.MainLoop()
++
++        location = getattr(sample, "location", None)
++        if location is not None:
++            self.drop_log[location] += 1
++            if location not in self.resolved_syms:
++                if getattr(sample, "sample_ip", 0) == location and getattr(sample, "symbol", None):
++                    self.resolved_syms[location] = (
++                        sample.symbol,
++                        getattr(sample, "sym_offset", 0) or 0,
++                    )
++                else:
++                    for entry in getattr(sample, "callchain", []) or []:
++                        if isinstance(entry, dict):
++                            entry_ip = entry.get("ip")
++                            entry_sym = entry.get("sym")
++                            sym_name = (
++                                entry_sym.get("name") if isinstance(entry_sym, dict) else None
++                            )
++                            sym_start = (
++                                entry_sym.get("start")
++                                if isinstance(entry_sym, dict)
++                                else None
++                            )
++                        else:
++                            entry_ip = getattr(entry, "ip", None)
++                            entry_sym = getattr(entry, "sym", None)
++                            sym_name = (
++                                getattr(entry_sym, "name", None)
++                                or getattr(entry, "symbol", None)
++                            )
++                            sym_start = getattr(entry_sym, "start", None)
++                        if entry_ip == location and sym_name:
++                            if sym_start is not None:
++                                self.resolved_syms[location] = (
++                                    sym_name,
++                                    max(0, location - sym_start),
++                                )
++                            else:
++                                self.callchain_syms[location] = sym_name
++                            break
 +
 +
 +if __name__ == "__main__":
-+    ap = argparse.ArgumentParser(description="Cpu task migration overview toy")
++    ap = argparse.ArgumentParser(
++        description="Monitor the system for dropped packets and produce a "
++                    "report of drop locations and counts.")
 +    ap.add_argument("-i", "--input", default="perf.data", help="Input file name")
-+    ap.add_argument("-v", "--verbose", action="store_true",
-+                    help="Print parsed migration summary")
-+    ap.add_argument("--gui", action="store_true", default=True,
-+                    help="Start the GUI (default)")
-+    ap.add_argument("--no-gui", action="store_true", help="Do not start the GUI")
++    ap.add_argument("-k", "--kallsyms", default=None,
++                    help="Path to kallsyms file for offline symbol resolution")
 +    args = ap.parse_args()
 +
-+    analyzer = SchedMigrationAnalyzer()
++    monitor = DropMonitor(kallsyms_path=args.kallsyms)
 +
 +    try:
-+        session = perf.session(perf.data(args.input), sample=analyzer.process_event)
++        session = perf.session(perf.data(args.input), sample=monitor.process_event,
++                               kallsyms=args.kallsyms)
 +        session.process_events()
-+        if args.verbose:
-+            start_ts, end_ts = analyzer.timeslices.interval()
-+            print(f"Timeslices: {len(analyzer.timeslices.data)} "
-+                  f"(interval: {start_ts}..{end_ts})")
-+        if args.gui and not args.no_gui:
-+            analyzer.run_gui()
 +    except KeyboardInterrupt:
-+        pass
-+    except OSError as e:
++        print("\nStopping trace...")
++    except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError) as e:
 +        print(f"Error processing events: {e}")
 +        sys.exit(1)
-diff --git a/tools/perf/tests/shell/test_sched_migration_python.sh b/tools/perf/tests/shell/test_sched_migration_python.sh
++
++    monitor.print_drop_table()
+diff --git a/tools/perf/tests/shell/test_net_dropmonitor_python.sh b/tools/perf/tests/shell/test_net_dropmonitor_python.sh
 new file mode 100755
-index 000000000000..e5d0be5d626a
+index 000000000000..41497f9837cf
 --- /dev/null
-+++ b/tools/perf/tests/shell/test_sched_migration_python.sh
-@@ -0,0 +1,69 @@
++++ b/tools/perf/tests/shell/test_net_dropmonitor_python.sh
+@@ -0,0 +1,103 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
-+# sched-migration python test
++# net_dropmonitor python test
 +
 +set -e
 +
@@ -863,7 +278,7 @@ index 000000000000..e5d0be5d626a
 +fi
 +
 +script_dir="$(dirname "$0")/../../python"
-+script_path="${script_dir}/sched-migration.py"
++script_path="${script_dir}/net_dropmonitor.py"
 +
 +if ! perf check feature -q libtraceevent > /dev/null 2>&1; then
 +	echo "Skipping test, libtraceevent is disabled"
@@ -872,7 +287,7 @@ index 000000000000..e5d0be5d626a
 +
 +
 +if [ ! -f "$script_path" ]; then
-+	echo "Skipping test, sched-migration.py not found at $script_path"
++	echo "Skipping test, net_dropmonitor.py not found at $script_path"
 +	exit 2
 +fi
 +
@@ -883,35 +298,69 @@ index 000000000000..e5d0be5d626a
 +cleanup() {
 +	rm -f "${temp_data}" "${temp_out}"
 +}
-+trap 'cleanup' EXIT TERM INT
++trap 'cleanup' EXIT
++trap 'cleanup; exit 1' TERM INT
 +
 +temp_data=$(mktemp /tmp/perf.data.XXXXXX)
 +temp_out=$(mktemp /tmp/perf.out.XXXXXX)
 +
-+echo "Testing sched-migration.py..."
++echo "Testing net_dropmonitor.py..."
 +
 +# Create a perf.data file. Force dropping a packet if tracepoint is available!
-+ev="sched:sched_switch,sched:sched_migrate_task"
-+ev="${ev},sched:sched_wakeup_new,sched:sched_wakeup"
-+if ! perf record -e "$ev" -a -o "${temp_data}" \
-+	-- sleep 0.1 >/dev/null 2>&1; then
-+	perf record -e cycles -o "${temp_data}" \
-+		-- perf test -w noploop >/dev/null 2>&1 || \
-+		{ echo "Skipping test, perf record failed"; exit 2; }
++if ! perf record -e skb:kfree_skb -o "${temp_data}" -a \
++	-- ping -c 1 255.255.255.255 >/dev/null 2>&1; then
++	if ! perf record -e skb:kfree_skb -o "${temp_data}" \
++		-- sleep 0.1 >/dev/null 2>&1; then
++		if ! perf record -o "${temp_data}" -- uname >/dev/null 2>&1; then
++			echo "Skipping test, cannot record perf events"
++			exit 2
++		fi
++	fi
 +fi
-+
 +
 +if [ ! -s "${temp_data}" ]; then
 +	echo "Skipping test, perf record failed to create data"
 +	exit 2
 +fi
 +
-+# Check that the script executes
-+if ! "$PYTHON" "$script_path" -v --no-gui -i "${temp_data}" > "${temp_out}"; then
-+	echo "sched-migration.py test failed"
++# Check that the script executes and outputs table header
++if ! "$PYTHON" "$script_path" -i "${temp_data}" > "${temp_out}"; then
++	echo "net_dropmonitor.py test failed"
 +	err=1
 +else
-+	echo "sched-migration test passed."
++	if ! grep -q "LOCATION.*OFFSET.*COUNT" "${temp_out}"; then
++		echo "Failed to find the metrics table header"
++		err=1
++	fi
++fi
++
++# Verify DropMonitor event processing and symbol resolution
++if [ $err -eq 0 ]; then
++	if ! "$PYTHON" -c "
++import sys
++sys.path.insert(0, '${script_dir}')
++import net_dropmonitor
++
++class DummySample:
++    evsel = 'skb:kfree_skb'
++    location = 0xffffffff81001010
++    sample_ip = 0xffffffff81001010
++    symbol = 'ip_rcv_finish'
++    sym_offset = 16
++    callchain = []
++
++dm = net_dropmonitor.DropMonitor()
++dm.process_event(DummySample())
++dm.print_drop_table()
++" > "${temp_out}"; then
++		echo "net_dropmonitor.py unit test failed"
++		err=1
++	elif ! grep -q "ip_rcv_finish.*16.*1" "${temp_out}"; then
++		echo "Failed to find expected symbol resolution in net_dropmonitor.py"
++		err=1
++	else
++		echo "net_dropmonitor test passed."
++	fi
 +fi
 +rm -f "${temp_out}"
 +
