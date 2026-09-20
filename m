@@ -1,56 +1,56 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27CF53D6673
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:23:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D36673D45C3
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:23:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789881790; cv=none; b=IAz0Mr+cpH2EGiMRRx2G0COiQxL+LvC5M4H96pox0BO7u2j/R69qpwM1jXyEExUwssN9mZJFMsORJgytm9KRvPb83NQ3peWFLHEJ2iNKrhJ54mXo7dZXBbsLOIEvIOS89P46Uf1CRT+AGgL+mdhoCOMUuqnb4sFx4a6EitTPQhU=
+	t=1789881788; cv=none; b=dNHOwWCM9dtUmkC7QLOPM3b2NizIa9eEJ7e2Wbt7eqo7TS5HoY92iQJsW3lyEjjuazlhtXK7HL+2YST/kgLxmBeuRunNhHYnMwy0NwilWlUSUgJ18LXhharzMFZqQh3ghdalYOQLqfCL/720j9v21Z1WFjeIB+PEex0/9madUcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789881790; c=relaxed/simple;
-	bh=JRTXo2E8jFVEXlXw7AIXOq03MTkdQZiAGpnIawYA3DQ=;
+	s=arc-20240116; t=1789881788; c=relaxed/simple;
+	bh=zDyCgKElJnJf2Xw0CW6H3IhwBe3zvdoC6phXFcQxMUc=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=M1dQhkJQP/1s/3W6uuG5cfgfpYuhgLvvxH7scLMhR930bIHWhUdcKHNX3cJrg1xfvlrwyOUYkwZD615ZbT8W9EGS8U/ItDEx6K3Dma3HtfNXThZ2rcKeL3wXgcvY5FY3AdwoGYuByHv1DkNut+BwWYuIbV1Yul//VhYdPhHKSm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Gsb7s0Je; arc=none smtp.client-ip=209.85.216.72
+	 To:Cc:Content-Type; b=fPFEJEyNGcw6aLGmPQgmD1W49cZ+qKl7G+DysZrFcyU8p14NY+nY5hm2ZLh0XDJYmmu9hi5x9gV2XStb0BYiqqlOF/wqlmrGeaXfd9vhtV1vL4kjDyC8THxtry8HMMn0C9JYiwk2uoDo+BIguCpJ3/bexIqBOGMLEp4RJ9lfqcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZYCaje2S; arc=none smtp.client-ip=209.85.216.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Gsb7s0Je"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39de4e72b33so3762599a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:23:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZYCaje2S"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39e3f521346so2491190a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:23:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789881786; x=1790486586; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789881780; x=1790486580; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ej7QDiS47m4vr4kmsblaOmtUjIeH9D89WtrFQEr6rRk=;
-        b=Gsb7s0Je3R7oHKCPIKlACRHFJ313D8Ronw7XsB4aTY04uV5nzSRi0wfsdWK3+he6K4
-         +N9ACZza6QZ7O7sGl8ruNhEvxTfjGN1bCF2yXZr4/TLTuyfYy5qQCf78LgYvjbCylVEp
-         que+7B7jz7ujH+hdzRBXPznX4MmuTqkXt6XvoW16ITkzZA6HIyRX4NmEJrQxF3az1udT
-         O+GZmJnpG5IwOOL57bSekTGRx1HBvIknXg/4YHfqljeGEllgqPZkir5GvcpEnoVGMlCM
-         i0W+KC74G+qWOLi0NpFJXkqS9ElbK1b+YjIQpjw6F+fbhWcMxrxYNfWPzmlkEW8U6mcu
-         8/zw==
+        bh=5UJvx6m7Q3V8RaoRGo2HpSBYRSVuVzAgTOi+hsx2xco=;
+        b=ZYCaje2SnaL/IW3BGfTWuli6sN+Mr6inT0R2HyhW4ed/x+fGh5Ot3W4uIuiaLRNkKV
+         XyScdNJYaa+BAyxrekePYcQSqbD0r3YW2aOTtOzMz179HhVl1RXyOuouNGocY90j81vq
+         YcryaAfMMCXPba+7obqkEVdJ93Ptb02xWTHSFauV6ukbNSBJ1+9F0YnkPHAFQXtCLf65
+         wtbvqU0updnEU/WG1uJHUggkOiNhiLF9UhJfcebx3dPICM1SPNPsj5pZNdu3g/0Khxdd
+         cqz0+dbbXEQLPXFzrdLNnfXmwesZApIQ98Ofil7TBVymRvVhAsr/z++NZluek0n2wxo9
+         RYkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789881786; x=1790486586;
+        d=1e100.net; s=20260707; t=1789881780; x=1790486580;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ej7QDiS47m4vr4kmsblaOmtUjIeH9D89WtrFQEr6rRk=;
-        b=lmC/kBZZ5gOwIafTFOWSaPE9PP3emah5A/xCaxozR/3RUGXDf1G2Pu7i8fVdR8V3Nw
-         Ww7MQjJjS2yKMaj0a9SryRJvxRl88nZOHJeQ9DDZkdBbUJefjWuEl5WebC83fZmWy4cI
-         OpVsrd2uNRgNZ8vOJXaA/c0hu6yEU4qXV5ZV1Q95ztSWFP6gglIW3lu1WjCNx0t+090L
-         5iNPHrpoqER6E0N+RH+tabIGr/k8M/OzLXGHYaBfLomcDGviIiCZMdXf34cL+S4A8gYf
-         9+xDy00OrFf6mbP3wX6G23cHP9DYHJrKUvjabwd6lJcCpI0s+n4GvwNRzB5MaP1vDfGg
-         CkrA==
-X-Forwarded-Encrypted: i=1; AKwUvBy/IoSxhN0fMI8O94H98Zi0usqwTt5Pll4A/7nFeT0hpTCAx4ST0DaKt19dbSddD37A4jmjq1mY+4X54iE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nyWE95D7nt9WlVu9w45o7clbqvNslnH8uERbI42vRCFAqEg/4r
-	f/MkahIYD2qEoJiT/FUPKxHLOfkrT7Qsw5uKTU0YD/JOznO4JZ/baFwPZgylSFrcAjokIOgqh/h
-	rLTIfy5f53w==
-X-Received: from dldz18-n2.prod.google.com ([2002:a05:701b:4192:20b0:144:c2b6:8f47])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2784:b0:39e:6a80:b797
- with SMTP id 98e67ed59e1d1-39e6a80b874mr6436355a91.39.1789881786485; Sat, 19
- Sep 2026 22:23:06 -0700 (PDT)
-Date: Sat, 19 Sep 2026 22:21:08 -0700
+        bh=5UJvx6m7Q3V8RaoRGo2HpSBYRSVuVzAgTOi+hsx2xco=;
+        b=ZwY/BDIVEJuKtmM/szUsgrbNnQycCtaiPW4i0/riAk+JTP5TzxIz0vtwMfzG4/t6jA
+         Q7GNM+2Ei/JX/B7a0ZMVysc4L02BMPAywwJ+JnAwUG6ouMYbTzY+BIR8NazPMSYQIwu+
+         A26so9cbVAxa+ZTyXfQy40f3DAyb1Iina3xk9+3YgyAxCXaEWqOLnNrD9WmwaFnD7CiX
+         dd40kyQJIkKR1okR10ve6zoxJIOdmg4noLVrimf9O8J13eqmOAMm3T3txXkBkwD5bE4E
+         VctBM+RVX09e9eDkBpv3eSx49kOQLzsUHX5VJHqk3dwXV8X+EMtSQwHx/78x4yicyZk2
+         5ITA==
+X-Forwarded-Encrypted: i=1; AKwUvBw4+EyaHf/dOftL5phJXyYQNweSAuAd0t3Fx2IqEpdxvxEEz0OTorhC7eVUsY91PdmQxdI2pqu55McR75Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9L4WycaKPmlNayL2N6DBe8kQ5ICeHAEc9xD9aQt/DX/NXQvFh
+	QAM928gGwuPrFH7zZZlQnEcW8LXxvCXZNGA5xxKX8dnvnSdT3vxNQ1pek+5dPH8HI4sXr4oUbqm
+	L0VSpPwFBgQ==
+X-Received: from dyaz17-n2.prod.google.com ([2002:a05:693c:6391:20b0:33c:a5ec:92cd])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:35d0:b0:39e:4c81:6c65
+ with SMTP id 98e67ed59e1d1-39e54dc0ce3mr12334658a91.32.1789881779681; Sat, 19
+ Sep 2026 22:22:59 -0700 (PDT)
+Date: Sat, 19 Sep 2026 22:21:04 -0700
 In-Reply-To: <cover.1789880842.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789880842.git.irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <95294f05467e0c96f2dc4ea605f1c3ab1a2e3f71.1789880842.git.irogers@google.com>
-Subject: [PATCH v1 16/49] perf python: Port stat-cpi to perf module
+Message-ID: <5d059447398953037600359260868821d7cb250c.1789880842.git.irogers@google.com>
+Subject: [PATCH v1 12/49] perf test: Clean up mypy and pylint issues in shell
+ test libraries
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, adrian.hunter@intel.com, 
 	alice.mei.rogers@gmail.com, james.clark@linaro.org, 
@@ -71,364 +72,531 @@ Cc: dapeng1.mi@linux.intel.com, leo.yan@linux.dev,
 	tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Port stat-cpi.py from the legacy embedded scripting framework to a
-standalone Python script in tools/perf/python/ to calculate Cycles Per
-Instruction (CPI) per interval per CPU or thread.
-
-Improvements compared to the legacy script:
-- Support both perf.data file mode (via perf.session stat callbacks)
-  and live counter collection mode (using perf.parse_events,
-  evlist.open, and evsel.read across intervals), with automatic fallback
-  to user-space (:u) and self-process monitoring when perf_event_paranoid
-  restricts system-wide events (EACCES).
-- Compute per-interval counter deltas (val, ena, run) keyed by raw event
-  name so cumulative PERF_RECORD_STAT snapshots and hybrid PMU events
-  (e.g. cpu_core/cycles/, cpu_atom/cycles/) are accumulated accurately,
-  and scale counts by time_enabled / time_running when multiplexed.
-- Replace hard-coded CPU ([0, 1]) and thread ([0]) arrays with dynamic
-  CPU and thread discovery so arbitrary system topologies work
-  automatically.
-- Add CLI option handling (-i, -I, -p) via argparse and type annotations
-  passing mypy and pylint.
-
-Add a shell test (test_stat_cpi_python.sh) to verify the standalone
-script.
+Clean up mypy type errors and pylint errors/warnings in
+tools/perf/tests/shell/lib/ (attr.py, perf_json_output_lint.py, and
+perf_metric_validation.py):
+- Fix E0606 (possibly-used-before-assignment) in perf_metric_validation.py
+  by importing sys at module level.
+- Add type annotations for stack, second_results, collectlist,
+  get_bounds(),
+  and main() in perf_metric_validation.py.
+- Avoid assigning -1 to list[int] expected_items in
+  perf_json_output_lint.py,
+  rename shadowing variables, and remove redundant lambdas.
+- Remove unnecessary semicolons, use lazy logging arguments, specify
+  exception types and file encodings, and initialize module-level logger
+  in attr.py.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/python/stat-cpi.py                 | 208 ++++++++++++++++++
- .../perf/tests/shell/test_stat_cpi_python.sh  | 106 +++++++++
- 2 files changed, 314 insertions(+)
- create mode 100755 tools/perf/python/stat-cpi.py
- create mode 100755 tools/perf/tests/shell/test_stat_cpi_python.sh
+ tools/perf/tests/shell/lib/attr.py            | 86 ++++++++++---------
+ .../tests/shell/lib/perf_json_output_lint.py  | 36 ++++----
+ .../tests/shell/lib/perf_metric_validation.py | 47 +++++-----
+ 3 files changed, 85 insertions(+), 84 deletions(-)
 
-diff --git a/tools/perf/python/stat-cpi.py b/tools/perf/python/stat-cpi.py
-new file mode 100755
-index 000000000000..87df5ad279a0
---- /dev/null
-+++ b/tools/perf/python/stat-cpi.py
-@@ -0,0 +1,208 @@
-+#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0
-+"""Calculate CPI from perf stat data or live."""
-+from __future__ import annotations
+diff --git a/tools/perf/tests/shell/lib/attr.py b/tools/perf/tests/shell/lib/attr.py
+index bfccc727d9b2..7f3d5b64b00d 100644
+--- a/tools/perf/tests/shell/lib/attr.py
++++ b/tools/perf/tests/shell/lib/attr.py
+@@ -12,6 +12,8 @@ import re
+ import shutil
+ import subprocess
+ 
++log = logging.getLogger('test')
 +
-+import argparse
-+import os
-+import signal
-+import sys
-+import time
-+from typing import Any, Optional
-+import perf
-+
-+class StatCpiAnalyzer:
-+    """Accumulates cycles and instructions and calculates CPI."""
-+
-+    def __init__(self, args: argparse.Namespace) -> None:
-+        self.args = args
-+        self.data: dict[str, tuple[int, int, int]] = {}
-+        self.prev_data: dict[str, tuple[int, int, int]] = {}
-+        self.recorded_pairs: set[tuple[int, int]] = set()
-+
-+    def get_key(self, event: str, cpu: int, thread: int) -> str:
-+        """Get key for data dictionary."""
-+        return f"{event}-{cpu}-{thread}"
-+
-+    def store_key(self, cpu: int, thread: int) -> None:
-+        """Store CPU and thread IDs."""
-+        self.recorded_pairs.add((cpu, thread))
-+
-+    def store(self, event: str, cpu: int, thread: int,
-+              counts: tuple[int, int, int], is_delta: bool = False,
-+              raw_name: Optional[str] = None) -> None:
-+        """Store counter values, computing difference from previous
-+        absolute values if not already deltas."""
-+        self.store_key(cpu, thread)
-+        key = self.get_key(event, cpu, thread)
-+        prev_key = self.get_key(raw_name or event, cpu, thread)
-+
-+        val, ena, run = counts
-+        if is_delta:
-+            # counts are already deltas
-+            cur_val = val
-+            cur_ena = ena
-+            cur_run = run
-+        else:
-+            if prev_key in self.prev_data:
-+                prev_val, prev_ena, prev_run = self.prev_data[prev_key]
-+                cur_val = val - prev_val
-+                cur_ena = ena - prev_ena
-+                cur_run = run - prev_run
-+            else:
-+                cur_val = val
-+                cur_ena = ena
-+                cur_run = run
-+            self.prev_data[prev_key] = counts  # Store absolute value for next time
-+
-+        if key in self.data:
-+            old_val, old_ena, old_run = self.data[key]
-+            self.data[key] = (old_val + cur_val, old_ena + cur_ena, old_run + cur_run)
-+        else:
-+            self.data[key] = (cur_val, cur_ena, cur_run)
-+
-+    def get(self, event: str, cpu: int, thread: int) -> float:
-+        """Get scaled counter value."""
-+        key = self.get_key(event, cpu, thread)
-+        if key not in self.data:
-+            return 0.0
-+        val, ena, run = self.data[key]
-+        if run > 0:
-+            return val * (ena / float(run))
-+        return float(val)
-+
-+    def process_stat_event(self, event: Any, name: Optional[str] = None) -> None:
-+        """Process PERF_RECORD_STAT and PERF_RECORD_STAT_ROUND events."""
-+        if event.type == perf.RECORD_STAT:
-+            if name:
-+                if "cycles" in name:
-+                    event_name = "cycles"
-+                elif "instructions" in name:
-+                    event_name = "instructions"
-+                else:
-+                    return
-+                self.store(event_name, event.cpu, event.thread,
-+                           (event.val, event.ena, event.run), raw_name=name)
-+        elif event.type == perf.RECORD_STAT_ROUND:
-+            timestamp = getattr(event, "time", 0)
-+            self.print_interval(timestamp)
-+            self.data.clear()
-+            self.recorded_pairs.clear()
-+
-+    def print_interval(self, timestamp: int) -> None:
-+        """Print CPI for the current interval."""
-+        for cpu, thread in sorted(self.recorded_pairs):
-+            cyc = self.get("cycles", cpu, thread)
-+            ins = self.get("instructions", cpu, thread)
-+            cpi = 0.0
-+            if ins != 0:
-+                cpi = cyc / float(ins)
-+            t_sec = timestamp / 1000000000.0
-+            print(f"{t_sec:15f}: cpu {cpu}, thread {thread} -> cpi {cpi:f} ({cyc:.0f}/{ins:.0f})")
-+
-+    def read_counters(self, evlist: Any) -> None:
-+        """Read counters live."""
-+        for evsel in evlist:
-+            name = str(evsel)
-+            if "cycles" in name:
-+                event_name = "cycles"
-+            elif "instructions" in name:
-+                event_name = "instructions"
-+            else:
+ def data_equal(a, b):
+     # Allow multiple values in assignment separated by '|'
+     a_list = a.split('|')
+@@ -89,19 +91,19 @@ class Event(dict):
+ 
+     def add(self, data):
+         for key, val in data:
+-            log.debug("      %s = %s" % (key, val))
++            log.debug("      %s = %s", key, val)
+             self[key] = val
+ 
+     def __init__(self, name, data, base):
+-        log.debug("    Event %s" % name);
+-        self.name  = name;
++        log.debug("    Event %s", name)
++        self.name  = name
+         self.group = ''
+         self.add(base)
+         self.add(data)
+ 
+     def equal(self, other):
+         for t in Event.terms:
+-            log.debug("      [%s] %s %s" % (t, self[t], other[t]));
++            log.debug("      [%s] %s %s", t, self[t], other[t])
+             if t not in self or t not in other:
+                 return False
+             if not data_equal(self[t], other[t]):
+@@ -118,7 +120,7 @@ class Event(dict):
+             if t not in self or t not in other:
+                 continue
+             if not data_equal(self[t], other[t]):
+-                log.warning("expected %s=%s, got %s" % (t, self[t], other[t]))
++                log.warning("expected %s=%s, got %s", t, self[t], other[t])
+ 
+ def parse_version(version):
+     if not version:
+@@ -149,7 +151,7 @@ class Test(object):
+         parser = configparser.ConfigParser()
+         parser.read(path)
+ 
+-        log.warning("running '%s'" % path)
++        log.warning("running '%s'", path)
+ 
+         self.path     = path
+         self.test_dir = options.test_dir
+@@ -159,15 +161,15 @@ class Test(object):
+ 
+         try:
+             self.ret  = parser.get('config', 'ret')
+-        except:
++        except Exception:
+             self.ret  = 0
+ 
+         self.test_ret = parser.getboolean('config', 'test_ret', fallback=False)
+ 
+         try:
+             self.arch  = parser.get('config', 'arch')
+-            log.warning("test limitation '%s'" % self.arch)
+-        except:
++            log.warning("test limitation '%s'", self.arch)
++        except Exception:
+             self.arch  = ''
+ 
+         self.auxv = parser.get('config', 'auxv', fallback=None)
+@@ -175,7 +177,7 @@ class Test(object):
+         self.kernel_until = parse_version(parser.get('config', 'kernel_until', fallback=None))
+         self.expect   = {}
+         self.result   = {}
+-        log.debug("  loading expected events");
++        log.debug("  loading expected events")
+         self.load_events(path, self.expect)
+ 
+     def is_event(self, name):
+@@ -203,7 +205,7 @@ class Test(object):
+             else:
+                 try:
+                     value = int(items[-1], 0)
+-                except:
++                except ValueError:
+                     value = items[-1]
+             return (items[0], value)
+ 
+@@ -227,7 +229,7 @@ class Test(object):
+         # Handle negated list such as !s390x,ppc
+         if arch_list[0][0] == '!':
+             arch_list[0] = arch_list[0][1:]
+-            log.warning("excluded architecture list %s" % arch_list)
++            log.warning("excluded architecture list %s", arch_list)
+             for arch_item in arch_list:
+                 # log.warning("test for %s arch is %s" % (arch_item, myarch))
+                 if arch_item == myarch:
+@@ -243,19 +245,19 @@ class Test(object):
+     def restore_sample_rate(self, value=10000):
+         try:
+             # Check value of sample_rate
+-            with open("/proc/sys/kernel/perf_event_max_sample_rate", "r") as fIn:
++            with open("/proc/sys/kernel/perf_event_max_sample_rate", "r", encoding="utf-8") as fIn:
+                 curr_value = fIn.readline()
+             # If too low restore to reasonable value
+             if not curr_value or int(curr_value) < int(value):
+-                with open("/proc/sys/kernel/perf_event_max_sample_rate", "w") as fOut:
++                with open("/proc/sys/kernel/perf_event_max_sample_rate", "w", encoding="utf-8") as fOut:
+                     fOut.write(str(value))
+ 
+         except IOError as e:
+-            log.warning("couldn't restore sample_rate value: I/O error %s" % e)
++            log.warning("couldn't restore sample_rate value: I/O error %s", e)
+         except ValueError as e:
+-            log.warning("couldn't restore sample_rate value: Value error %s" % e)
++            log.warning("couldn't restore sample_rate value: Value error %s", e)
+         except TypeError as e:
+-            log.warning("couldn't restore sample_rate value: Type error %s" % e)
++            log.warning("couldn't restore sample_rate value: Type error %s", e)
+ 
+     def load_events(self, path, events):
+         parser_event = configparser.ConfigParser()
+@@ -266,7 +268,7 @@ class Test(object):
+         # event' first as a base
+         for section in filter(self.is_event, parser_event.sections()):
+ 
+-            parser_items = parser_event.items(section);
++            parser_items = parser_event.items(section)
+             base_items   = {}
+ 
+             # Read parent event if there's any
+@@ -280,7 +282,7 @@ class Test(object):
+             events[section] = e
+ 
+     def run_cmd(self, tempdir):
+-        junk1, junk2, junk3, junk4, myarch = (os.uname())
++        _junk1, _junk2, _junk3, _junk4, myarch = (os.uname())
+ 
+         if self.skip_test_arch(myarch):
+             raise Notest(self, myarch)
+@@ -299,7 +301,7 @@ class Test(object):
+               self.perf, self.command, tempdir, self.args)
+         ret = os.WEXITSTATUS(os.system(cmd))
+ 
+-        log.info("  '%s' ret '%s', expected '%s'" % (cmd, str(ret), str(self.ret)))
++        log.info("  '%s' ret '%s', expected '%s'", cmd, str(ret), str(self.ret))
+ 
+         if not data_equal(str(ret), str(self.ret)):
+             if self.test_ret:
+@@ -310,34 +312,34 @@ class Test(object):
+     def compare(self, expect, result):
+         match = {}
+ 
+-        log.debug("  compare");
++        log.debug("  compare")
+ 
+         # For each expected event find all matching
+         # events in result. Fail if there's not any.
+         for exp_name, exp_event in expect.items():
+             exp_list = []
+             res_event = {}
+-            log.debug("    matching [%s]" % exp_name)
++            log.debug("    matching [%s]", exp_name)
+             for res_name, res_event in result.items():
+-                log.debug("      to [%s]" % res_name)
++                log.debug("      to [%s]", res_name)
+                 if (exp_event.equal(res_event)):
+                     exp_list.append(res_name)
+                     log.debug("    ->OK")
+                 else:
+-                    log.debug("    ->FAIL");
++                    log.debug("    ->FAIL")
+ 
+-            log.debug("    match: [%s] matches %s" % (exp_name, str(exp_list)))
++            log.debug("    match: [%s] matches %s", exp_name, str(exp_list))
+ 
+             # we did not any matching event - fail
+             if not exp_list:
+                 if exp_event.optional():
+-                    log.debug("    %s does not match, but is optional" % exp_name)
++                    log.debug("    %s does not match, but is optional", exp_name)
+                 else:
+                     if not res_event:
+-                        log.debug("    res_event is empty");
++                        log.debug("    res_event is empty")
+                     else:
+                         exp_event.diff(res_event)
+-                    raise Fail(self, 'match failure');
++                    raise Fail(self, 'match failure')
+ 
+             match[exp_name] = exp_list
+ 
+@@ -354,38 +356,38 @@ class Test(object):
+                 if res_group not in match[group]:
+                     raise Fail(self, 'group failure')
+ 
+-                log.debug("    group: [%s] matches group leader %s" %
+-                         (exp_name, str(match[group])))
++                log.debug("    group: [%s] matches group leader %s",
++                          exp_name, str(match[group]))
+ 
+         log.debug("  matched")
+ 
+     def resolve_groups(self, events):
+         for name, event in events.items():
+-            group_fd = event['group_fd'];
++            group_fd = event['group_fd']
+             if group_fd == '-1':
+-                continue;
 +                continue
-+
-+            for cpu in evsel.cpus():
-+                for thread in evsel.threads():
-+                    try:
-+                        counts = evsel.read(cpu, thread)
-+                        self.store(event_name, cpu, thread,
-+                                   (counts.val, counts.ena, counts.run),
-+                                   is_delta=True, raw_name=name)
-+                    except OSError:
-+                        pass
-+
-+    def run_file(self) -> None:
-+        """Process events from file."""
-+        session = perf.session(perf.data(self.args.input), stat=self.process_stat_event)
-+        session.process_events()
-+
-+    def _open_live_evlist(self) -> Any:
-+        """Open evlist for live mode, falling back to user-space or process scope on EACCES."""
-+        threads = perf.thread_map(self.args.pid) if self.args.pid else None
-+        candidates = [
-+            ("cycles,instructions", threads),
-+            ("cycles:u,instructions:u", threads),
-+        ]
-+        if threads is None:
-+            self_threads = perf.thread_map(os.getpid())
-+            candidates.append(("cycles,instructions", self_threads))
-+            candidates.append(("cycles:u,instructions:u", self_threads))
-+
-+        last_err: Optional[OSError] = None
-+        for events, tmap in candidates:
-+            try:
-+                evlist = perf.parse_events(events, None, tmap)
-+                for evsel in evlist:
-+                    evsel.read_format |= (
-+                        perf.FORMAT_TOTAL_TIME_ENABLED | perf.FORMAT_TOTAL_TIME_RUNNING
-+                    )
-+                evlist.open()
-+                evlist.enable()
-+                return evlist
-+            except PermissionError as e:
-+                last_err = e
-+            except OSError as e:
-+                if e.errno == 13:
-+                    last_err = e
-+                else:
-+                    raise
-+        if last_err is not None:
-+            raise last_err
-+        raise RuntimeError("Failed to open events")
-+
-+    def run_live(self) -> None:
-+        """Read counters live."""
-+        try:
-+            evlist = self._open_live_evlist()
-+        except OSError as e:
-+            print(f"Failed to open events: {e}", file=sys.stderr)
+ 
+             for iname, ievent in events.items():
+                 if (ievent['fd'] == group_fd):
+                     event.group = iname
+-                    log.debug('[%s] has group leader [%s]' % (name, iname))
+-                    break;
++                    log.debug('[%s] has group leader [%s]', name, iname)
++                    break
+ 
+     def run(self):
+-        tempdir = tempfile.mkdtemp();
++        tempdir = tempfile.mkdtemp()
+ 
+         try:
+             # run the test script
+-            self.run_cmd(tempdir);
++            self.run_cmd(tempdir)
+ 
+             # load events expectation for the test
+-            log.debug("  loading result events");
++            log.debug("  loading result events")
+             for f in glob.glob(tempdir + '/event*'):
+-                self.load_events(f, self.result);
++                self.load_events(f, self.result)
+ 
+             # resolve group_fd to event names
+-            self.resolve_groups(self.expect);
+-            self.resolve_groups(self.result);
++            self.resolve_groups(self.expect)
++            self.resolve_groups(self.result)
+ 
+             # do the expectation - results matching - both ways
+             self.compare(self.expect, self.result)
+@@ -401,9 +403,9 @@ def run_tests(options):
+         try:
+             Test(f, options).run()
+         except Unsup as obj:
+-            log.warning("unsupp  %s" % obj.getMsg())
++            log.warning("unsupp  %s", obj.getMsg())
+         except Notest as obj:
+-            log.warning("skipped %s" % obj.getMsg())
++            log.warning("skipped %s", obj.getMsg())
+ 
+ def setup_log(verbose):
+     global log
+diff --git a/tools/perf/tests/shell/lib/perf_json_output_lint.py b/tools/perf/tests/shell/lib/perf_json_output_lint.py
+index dafbde56cc76..8cde22ac9d97 100644
+--- a/tools/perf/tests/shell/lib/perf_json_output_lint.py
++++ b/tools/perf/tests/shell/lib/perf_json_output_lint.py
+@@ -46,46 +46,46 @@ def is_counter_value(num):
+ def is_metric_value(num):
+   return isfloat(num) or num == 'none'
+ 
+-def check_json_output(expected_items):
++def check_json_output(expected_count):
+   checks = {
+-      'counters': lambda x: isfloat(x),
++      'counters': isfloat,
+       'core': lambda x: True,
+-      'counter-value': lambda x: is_counter_value(x),
++      'counter-value': is_counter_value,
+       'cgroup': lambda x: True,
+-      'cpu': lambda x: isint(x),
++      'cpu': isint,
+       'cache': lambda x: True,
+       'cluster': lambda x: True,
+       'die': lambda x: True,
+       'event': lambda x: True,
+-      'event-runtime': lambda x: isfloat(x),
+-      'interval': lambda x: isfloat(x),
++      'event-runtime': isfloat,
++      'interval': isfloat,
+       'metric-unit': lambda x: True,
+-      'metric-value': lambda x: is_metric_value(x),
++      'metric-value': is_metric_value,
+       'metric-threshold': lambda x: x in ['unknown', 'good', 'less good', 'nearly bad', 'bad'],
+       'metricgroup': lambda x: True,
+       'node': lambda x: True,
+-      'pcnt-running': lambda x: isfloat(x),
++      'pcnt-running': isfloat,
+       'socket': lambda x: True,
+       'thread': lambda x: True,
+       'unit': lambda x: True,
+   }
+-  input = '[\n' + ','.join(Lines) + '\n]'
+-  for item in json.loads(input):
+-    if expected_items != -1:
++  json_input = '[\n' + ','.join(Lines) + '\n]'
++  for item in json.loads(json_input):
++    if expected_count:
+       count = len(item)
+-      if count not in expected_items and count >= 1 and count <= 7 and 'metric-value' in item:
++      if count not in expected_count and count >= 1 and count <= 7 and 'metric-value' in item:
+         # Events that generate >1 metric may have isolated metric
+         # values and possibly other prefixes like interval, core,
+         # counters, or event-runtime/pcnt-running from multiplexing.
+         pass
+-      elif count not in expected_items and count >= 1 and count <= 5 and 'metricgroup' in item:
++      elif count not in expected_count and count >= 1 and count <= 5 and 'metricgroup' in item:
+         pass
+-      elif count - 1 in expected_items and 'metric-threshold' in item:
++      elif count - 1 in expected_count and 'metric-threshold' in item:
+           pass
+-      elif count in expected_items and 'insn per cycle' in item:
++      elif count in expected_count and 'insn per cycle' in item:
+           pass
+-      elif count not in expected_items:
+-        raise RuntimeError(f'wrong number of fields. counted {count} expected {expected_items}'
++      elif count not in expected_count:
++        raise RuntimeError(f'wrong number of fields. counted {count} expected {expected_count}'
+                            f' in \'{item}\'')
+     for key, value in item.items():
+       if key not in checks:
+@@ -107,7 +107,7 @@ try:
+     expected_items = [1, 2]
+   else:
+     # If no option is specified, don't check the number of items.
+-    expected_items = -1
++    expected_items = []
+   check_json_output(expected_items)
+ except:
+   print('Test failed for input:\n' + '\n'.join(Lines))
+diff --git a/tools/perf/tests/shell/lib/perf_metric_validation.py b/tools/perf/tests/shell/lib/perf_metric_validation.py
+index 3d52f94f22b9..0508c98d84fd 100644
+--- a/tools/perf/tests/shell/lib/perf_metric_validation.py
++++ b/tools/perf/tests/shell/lib/perf_metric_validation.py
+@@ -1,10 +1,10 @@
+ # SPDX-License-Identifier: GPL-2.0
+-import re
+-import csv
+-import json
+ import argparse
++import json
+ from pathlib import Path
+ import subprocess
++import sys
++from typing import Any
+ 
+ 
+ class TestError:
+@@ -77,11 +77,11 @@ class Validator:
+ 
+     def read_json(self, filename: str) -> dict:
+         try:
+-            with open(Path(filename).resolve(), "r") as f:
++            with open(Path(filename).resolve(), "r", encoding="utf-8") as f:
+                 data = json.loads(f.read())
+         except OSError as e:
+             print(f"Error when reading file {e}")
+-            sys.exit()
 +            sys.exit(1)
+ 
+         return data
+ 
+@@ -90,16 +90,16 @@ class Validator:
+         if not parent.exists():
+             parent.mkdir(parents=True)
+ 
+-        with open(output_file, "w+") as output_file:
++        with open(output_file, "w+", encoding="utf-8") as out_f:
+             json.dump(data,
+-                      output_file,
++                      out_f,
+                       ensure_ascii=True,
+                       indent=4)
+ 
+     def get_results(self, idx: int = 0):
+         return self.results.get(idx)
+ 
+-    def get_bounds(self, lb, ub, error, alias={}, ridx: int = 0) -> list:
++    def get_bounds(self, lb, ub, error, alias=None, ridx: int = 0) -> tuple:
+         """
+         Get bounds and tolerance from lb, ub, and error.
+         If missing lb, use 0.0; missing ub, use float('inf); missing error, use self.tolerance.
+@@ -111,6 +111,9 @@ class Validator:
+                   upper bound, return -1 if the upper bound is a metric value and is not collected
+                   tolerance, denormalized base on upper bound value
+         """
++        if alias is None:
++            alias = {}
 +
-+        def handle_signal(_signum: int, _frame: Any) -> None:
-+            raise KeyboardInterrupt
-+
-+        signal.signal(signal.SIGINT, signal.default_int_handler)
-+        signal.signal(signal.SIGTERM, handle_signal)
-+
-+        print("Live mode started. Press Ctrl+C to stop.")
-+        try:
-+            while True:
-+                time.sleep(self.args.interval)
-+                timestamp = time.time_ns()
-+                self.read_counters(evlist)
-+                self.print_interval(timestamp)
-+                self.data.clear()
-+                self.recorded_pairs.clear()
-+        except KeyboardInterrupt:
-+            print("\nStopped.")
-+        finally:
-+            evlist.close()
-+
-+def main() -> None:
-+    """Main function."""
-+    ap = argparse.ArgumentParser(description="Calculate CPI from perf stat data or live")
-+    ap.add_argument("-i", "--input", help="Input file name (enables file mode)")
-+    ap.add_argument("-I", "--interval", type=float, default=1.0,
-+                    help="Interval in seconds for live mode")
-+    ap.add_argument("-p", "--pid", type=int,
-+                    help="Monitor specific process ID in live mode")
-+    args = ap.parse_args()
-+
-+    analyzer = StatCpiAnalyzer(args)
-+    if args.input:
-+        analyzer.run_file()
-+    else:
-+        analyzer.run_live()
-+
-+if __name__ == "__main__":
-+    main()
-diff --git a/tools/perf/tests/shell/test_stat_cpi_python.sh b/tools/perf/tests/shell/test_stat_cpi_python.sh
-new file mode 100755
-index 000000000000..8579f9f552a8
---- /dev/null
-+++ b/tools/perf/tests/shell/test_stat_cpi_python.sh
-@@ -0,0 +1,106 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+# stat-cpi python test
-+
-+set -e
-+
-+shelldir=$(dirname "$0")
-+# shellcheck source=lib/setup_python.sh
-+. "${shelldir}"/lib/setup_python.sh
-+
-+# If we don't have the perf python module, we can't test
-+if ! "$PYTHON" -c 'import perf' > /dev/null 2>&1; then
-+	echo "Skipping test, perf python module not found"
-+	return 2 2>/dev/null || exit 2
-+fi
-+
-+script_dir="$(dirname "$0")/../../python"
-+script_path="${script_dir}/stat-cpi.py"
-+
-+if [ ! -f "$script_path" ]; then
-+	echo "Skipping test, stat-cpi.py not found at $script_path"
-+	return 2 2>/dev/null || exit 2
-+fi
-+
-+err=0
-+ran=0
-+temp_data=""
-+temp_out=""
-+
-+cleanup() {
-+	[ -n "${pid}" ] && kill "$pid" 2>/dev/null || true
-+	[ -n "${workload_pid}" ] && kill "$workload_pid" 2>/dev/null || true
-+	rm -f "${temp_data}" "${temp_out}"
-+	trap - exit term int
-+}
-+
-+trap_cleanup() {
-+	cleanup
-+	exit 1
-+}
-+trap trap_cleanup exit term int
-+
-+temp_data=$(mktemp /tmp/perf.data.XXXXXX)
-+temp_out=$(mktemp /tmp/perf.out.XXXXXX)
-+
-+test_live_mode() {
-+	echo "Testing stat-cpi.py live mode..."
-+	if ! perf stat -e cycles,instructions -- sleep 0.1 2>/dev/null; then
-+		echo "perf stat failed (permissions?), skipping live mode test."
-+		return 0
-+	fi
-+	ran=1
-+
-+	perf test -w noploop &
-+	workload_pid=$!
-+
-+	# Run live mode for 1 interval in the background, give it a tiny sleep, then interrupt
-+	"$PYTHON" "$script_path" -I 0.1 -p "$workload_pid" > "${temp_out}" &
-+	pid=$!
-+	sleep 0.5
-+	kill -INT "$pid" 2>/dev/null || true
-+	set +e
-+	wait "$pid"
-+	res=$?
-+	set -e
-+	pid=""
-+	kill "$workload_pid" 2>/dev/null || true
-+	workload_pid=""
-+	if [ $res -ne 0 ] && [ $res -ne 130 ] && [ $res -ne 143 ]; then
-+		echo "Live mode failed or crashed"
-+		err=1
-+	elif ! grep -q "cpi" "${temp_out}"; then
-+		echo "Live mode produced no cpi output"
-+		err=1
-+	else
-+		echo "Live mode test passed."
-+	fi
-+}
-+
-+test_file_mode() {
-+	echo "Testing stat-cpi.py file mode..."
-+	# Generate some stat events - perf stat -I represents interval reporting
-+	if ! perf stat -e cycles,instructions -I 100 record -o "${temp_data}" \
-+		-- sleep 0.5 2>/dev/null; then
-+		echo "perf stat failed (permissions?), skipping file mode test."
-+		return
-+	fi
-+	ran=1
-+
-+	out=$("$PYTHON" "$script_path" -i "${temp_data}")
-+	if ! echo "$out" | grep -q "cpi"; then
-+		echo "File mode test failed."
-+		err=1
-+	else
-+		echo "File mode test passed."
-+	fi
-+}
-+
-+test_live_mode
-+test_file_mode
-+
-+cleanup
-+if [ $ran -eq 0 ]; then
-+	exit 2
-+fi
-+exit $err
+         # init ubv and lbv to invalid values
+         def get_bound_value(bound, initval, ridx):
+             val = initval
+@@ -213,7 +216,7 @@ class Validator:
+         @param alias: the dict has alias to metric name mapping
+         @returns: value of the formula is success; -1 if the one or more metric value not provided
+         """
+-        stack = []
++        stack: list[Any] = []
+         b = 0
+         errs = []
+         sign = "+"
+@@ -263,7 +266,7 @@ class Validator:
+             alias[m['Alias']] = m['Name']
+         lbv, ubv, t = self.get_bounds(
+             rule['RangeLower'], rule['RangeUpper'], rule['ErrorThreshold'], alias, ridx=rule['RuleIndex'])
+-        val, f = self.evaluate_formula(
++        val, _ = self.evaluate_formula(
+             rule['Formula'], alias, ridx=rule['RuleIndex'])
+ 
+         lb = rule['RangeLower']
+@@ -316,7 +319,7 @@ class Validator:
+                 rerun.append(m['Name'])
+ 
+         if len(rerun) > 0 and len(rerun) < 20:
+-            second_results = dict()
++            second_results: dict[Any, Any] = dict()
+             self.second_test(rerun, second_results)
+             for name, val in second_results.items():
+                 if name not in failures:
+@@ -373,7 +376,7 @@ class Validator:
+                     name = result["metric-unit"].split("  ")[1] if len(result["metric-unit"].split("  ")) > 1 \
+                         else result["metric-unit"]
+                     metricvalues[name.lower()] = float(result["metric-value"])
+-            except ValueError as error:
++            except ValueError:
+                 continue
+         return
+ 
+@@ -383,7 +386,7 @@ class Validator:
+         wl = workload.split()
+         command.extend(wl)
+         print(" ".join(command))
+-        cmd = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
++        cmd = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8', check=False)
+         lines = cmd.stderr.splitlines() + cmd.stdout.splitlines()
+         data = []
+         for line in lines:
+@@ -397,9 +400,9 @@ class Validator:
+         Collect metric data with "perf stat -M" on given workload with -a and -j.
+         """
+         self.results = dict()
+-        print(f"Starting perf collection")
++        print("Starting perf collection")
+         print(f"Long workload: {workload}")
+-        collectlist = dict()
++        collectlist: dict[int, Any] = dict()
+         if self.collectlist != "":
+             collectlist[0] = {x for x in self.collectlist.split(",")}
+         else:
+@@ -441,7 +444,7 @@ class Validator:
+         """
+         command = ['perf', 'list', '-j', '--details', 'metrics']
+         cmd = subprocess.run(command, stdout=subprocess.PIPE,
+-                             stderr=subprocess.PIPE, encoding='utf-8')
++                             stderr=subprocess.PIPE, encoding='utf-8', check=False)
+         try:
+             data = json.loads(cmd.stdout)
+             for m in data:
+@@ -454,9 +457,9 @@ class Validator:
+                 self.metrics.add(name)
+                 if 'ScaleUnit' in m and (m['ScaleUnit'] == '1%' or m['ScaleUnit'] == '100%'):
+                     self.pctgmetrics.add(name.lower())
+-        except ValueError as error:
+-            print(f"Error when parsing metric data")
+-            sys.exit()
++        except ValueError:
++            print("Error when parsing metric data")
++            sys.exit(1)
+ 
+         return
+ 
+@@ -519,9 +522,6 @@ class Validator:
+ 
+     # Initialize data structures before data validation of each workload
+     def _init_data(self):
+-
+-        testtypes = ['PositiveValueTest',
+-                     'RelationshipTest', 'SingleMetricTest']
+         self.results = dict()
+         self.ignoremetrics = set()
+         self.errlist = list()
+@@ -572,7 +572,7 @@ class Validator:
+ # End of Class Validator
+ 
+ 
+-def main() -> None:
++def main() -> int:
+     parser = argparse.ArgumentParser(
+         description="Launch metric value validation")
+ 
+@@ -602,5 +602,4 @@ def main() -> None:
+ 
+ 
+ if __name__ == "__main__":
+-    import sys
+     sys.exit(main())
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
