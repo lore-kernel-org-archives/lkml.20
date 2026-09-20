@@ -1,166 +1,346 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from outbound.qs.icloud.com (qs-2002f-snip4-8.eps.apple.com [57.103.87.189])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D6D3AAF51
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:38:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F8B3A7F7E
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.87.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789915097; cv=none; b=nOHAbhIdZQVjKjADGVg8aUXm/RqO22RKcjyeDzLIWf1uC79TLCMDVuX086q4Pxbu/zNdCMj9inp9+iMU0wtLb6cowVlWH4a8wMGCt6qtxLbmFOnRrihRD2KOt86vEeBCIwGgflpzCOV6yRuWyYcWZdLVTDa4daMBgUQ0iKcHzIY=
+	t=1789915134; cv=none; b=sPb4l4QyeRDV9LC0Z/g6WP3g6FYxcToSHpSE+Nyma4kWQy/pObS5VvyztMOBv430eT8yaZFUApfQ4HScqc+vZKVz+nbXMVSsutyf1FX91+iJpdCGpC1MeOYWY1KbwR6uXDXRNLA4wKo0x9VjJ+zEdNtr7wsgUzEwNoGU906zZj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789915097; c=relaxed/simple;
-	bh=k1/vPVWmelbquYNhQm4hxjmelpN8EQ1ipSIQo45GnjE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ssdku/8yMlPSVXaWu5JjLTnwCrmplVcyIf8Npt7IYjDT7EkTHy4kVf1t5OavLk3Mu0nS+zS1iJn6eQx2uHQ//RrzicvZF82r0P4bnpTtXHNBuoiI2Mes6gqeUp1SgiKPWsWtcf5DeMD+Szsre/HcdhAStCe45wICzt9r/vdbbho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=S0G2RYTG; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789915134; c=relaxed/simple;
+	bh=+Fid17GjFx6IqwAsq/Pg5izAm0kq/fAT7trdZmM9MeE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GMi5b7qpPU7680iI8ntCVDiWlitHYxLH+AKpUoZA89TNtpGIeYC/LMAqhwPYH0l1F3nb6eGyiiut8WLQkygjOR0pU5GxRYxMvhTQ+zVFSFmdS4KInmzlf+BI0LiJ1ZMHGZQ5SHnShZpkMeeYMl0TCWt9W97GAH0dvHq6EGouCHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=U7lcF8oj; arc=none smtp.client-ip=57.103.87.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="S0G2RYTG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789915091;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZRsIrsnLE8Ff1LkbGdy9r/zXAFT8DSmXUcXQS9CgO18=;
-	b=S0G2RYTGN608pKe8x7iWYqvb4PiZtSz/YoCBCufMjIaJlLvTkiqcJaB//+CS7wts0d3eV5
-	0Zlkx2CoDwOEVQZ6KJP0gSNrLdLfq+eGCkW7DizxVTgL92ssvzus94FzOjELxWgQDjI9T/
-	V1hX3xGXYMTklvY1p1DdK7zRUFp6eQc=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-55-DThqWn-2N_KoQGPNCu824A-1; Sun,
- 20 Sep 2026 10:38:07 -0400
-X-MC-Unique: DThqWn-2N_KoQGPNCu824A-1
-X-Mimecast-MFC-AGG-ID: DThqWn-2N_KoQGPNCu824A_1789915085
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1DAD1180A9E5;
-	Sun, 20 Sep 2026 14:38:05 +0000 (UTC)
-Received: from fedora (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 33B851956095;
-	Sun, 20 Sep 2026 14:38:00 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Sun, 20 Sep 2026 16:38:04 +0200 (CEST)
-Date: Sun, 20 Sep 2026 16:38:00 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Adriano Cordova <adrianox@gmail.com>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Andrii Nakryiko <andrii@kernel.org>
-Subject: Re: [PATCH 2/2] uprobes: Hide unprepared uprobes from the breakpoint
- paths
-Message-ID: <aq_vyA_eIfvpCuj1@redhat.com>
-References: <20260918143209.709291-1-adrianox@gmail.com>
- <20260918143209.709291-2-adrianox@gmail.com>
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="U7lcF8oj"
+Received: from outbound.qs.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-2d-100-percent-7 (Postfix) with ESMTPS id CBA951801661;
+	Sun, 20 Sep 2026 14:38:45 +0000 (UTC)
+X-ICL-RepId: 01a0bf41-57c8-7523-aa73-7c26d5ba53af
+X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhKB0MGWQReCEsEQwFbEhVdRUkERxtXAlQXXQZSEnIZWhRcGFNFUR9UWFUJCgJRHFYNV0NUBF9QSxsOXwZLWhVVFw4CQh9QH0wWV0NGGBwZWhRcGFNFUR9UWEMZRVZpQQtPHV0ZWxxCZFhXCQoCURxWDVdDVARfUFQRV1ALWQJCD0gKXwdaBkMBSQVDBFIKQg5VAkBNAkIAXApeAlkAVwl5EVABWB5WXloXXlMXH0sAXEVaDlsERxQ=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789915131; x=1792507131; bh=raqOTO9AIqyOAzGm1P0sVDeq4KzwqUFbcRya30XSdns=; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=U7lcF8ojfNvZkmMm++JxYz2+hV3ZUmQUbV1CZ9XvjWIsv/nw6yyUmR1yeL/TZg5SzJ4/0cGKR7JV17FvDDCBC1LgJQ5T8mGzWb9dk7lk5T+xtBRboGwPTAxo/ERr0y+TG9isAKs2uESw1cHtZNhpXDjT4ReNsDr/dsg0iEgxlydcI7vs6lVRXJOC+xHuZxO6bB7seMTEZWk5W8CPHDDf6xD2ptdWy4bdmDGochtmkvolooAHPCVA08g6i85I5XB3m8ImgF5bXIGHOvVoDtao4gkXAB6mu5USeJz5e9zrNXfVCbsimmIhYudIwD5Iyo1jmFyD5NrNQNGRdxLMJ9v3LA==
+Received: from BRUZZHANG-MC1.tencent.com (unknown [17.57.155.37])
+	by p00-icloudmta-asmtp-us-east-2d-100-percent-7 (Postfix) with ESMTPSA id 4548B1801665;
+	Sun, 20 Sep 2026 14:38:34 +0000 (UTC)
+From: Zhang Peng <zippermonkey@icloud.com>
+To: Barry Song <baohua@kernel.org>
+Cc: Zhang Peng <zippermonkey@icloud.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Kairui Song <kasong@tencent.com>,
+	Zhang Peng <bruzzhang@tencent.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 1/5] mm/vmscan: introduce folio_activate_locked() helper
+Date: Sun, 20 Sep 2026 22:38:15 +0800
+Message-ID: <20260920143816.39827-1-zippermonkey@icloud.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CAGsJ_4x7W3Tgr_VNY+RLK_pXnFdehGGbjaVH29JsYipXGf7Z9g@mail.gmail.com>
+References: <20260720-batch-tlb-flush-v5-0-db943a0d0d6b@icloud.com> <20260720-batch-tlb-flush-v5-1-db943a0d0d6b@icloud.com> <CAGsJ_4x7W3Tgr_VNY+RLK_pXnFdehGGbjaVH29JsYipXGf7Z9g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918143209.709291-2-adrianox@gmail.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: L66WQfMMSDzz0EPgFzcAF2TcZ7jB_kNU
+X-Authority-Info-Out: v=2.4 cv=Ve/6/Vp9 c=1 sm=1 tr=0 ts=6aafeff8
+ cx=c_apl:c_pps:t_out a=bsP7O+dXZ5uKcj+dsLqiMw==:117
+ a=bsP7O+dXZ5uKcj+dsLqiMw==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=x7bEGLp0ZPQA:10 a=YE32fvk_ji8A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=GvQkQWPkAAAA:8 a=v3ZZPjhaAAAA:8 a=Z4Rwk6OoAAAA:8
+ a=1XWaLZrsAAAA:8 a=iox4zFpeAAAA:8 a=ufHFDILaAAAA:8 a=JfrnYn6hAAAA:8
+ a=37rDS-QxAAAA:8 a=pGLkceISAAAA:8 a=3THdtwnjks2O2M9xHaAA:9 a=QEXdDO2ut3YA:10
+ a=HkZW87K1Qel5hWWM3VKY:22 a=WzC6qhA0u3u7Ye7llzcV:22 a=ZmIg1sZ3JBWsdXgziEIF:22
+ a=1CNFftbPRP8L7MoqJWF3:22 a=k1Nq6YrhK2t884LQW06G:22 a=J82S1U87d15UFHHUFZS8:22
+ a=kKg27zqgtulLWh45kPDF:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDIxMyBTYWx0ZWRfX6MKzHBPz7M7w
+ 9HAYdkOpIc6od+lKkGgItSCO0BIEftsaA5Ex56jsIqCJVvCf1IptW+YB9ejjGevtOAwGu3ccvJ5
+ zlGCHpfWOwRTkf+jUkqXe8Aq3kgGtPmcPgxjlnhswE/U/E0CF2op0kzuHRZiDRebhbg4GfPzcvJ
+ LGewZ43xYkTFIDCp4VCECuiyyCmPF+tW9lJfjH9lGSKUx9qtlrm3bVrZgs97/pWibnlqYyOclx8
+ MFTD8UHSMtHUX2uYiIcHrCf2OrlseuV2sdh2i/fGSAn1V1iYkmjTWOmAxjVlePi99AAhV//Ilzd
+ Gm9GmnuQsRYbEPJoUJknqec80af3pNAh1hefhfAHfAsn7awRAV1ycgl7MjOs1k=
+X-Proofpoint-GUID: L66WQfMMSDzz0EPgFzcAF2TcZ7jB_kNU
+X-JNJ: AAAAAAABNK4/+tL72JzeBEVIE6yCotX61SAVQQHQGF/oRsTT7+hDj9fFNeueoAvgGq1nTaOHcwx/ogZU1KSkJ1FMjYEiifmDt/nzXPH1FjwWrDLZu3TJ4eUoGtW7yI7dHEYV3jjHSyDyao4MJPSq9uQ4nOXFgjuc5zTHDTKZJ+iUW1uHgZx42wbgSTX1SjDYPoWG/J6w/uxO2pNstFwNIMQdTjI7zdhvTuJKBMLc+Uqn4gNdmeniaVtFihHdmI5cMPV5eO1nnfwYanxa7RPITGcWOZja2v67/GBgxpQMbcwlvgDq26exMht9MmkIEEb4bknq2WJaNQ3R0kX85IRiaA7Y5BdtWbxpigY50V9XB40KD4FJO5vFqZnESAD7IXq8rzzZE7sb37tbIHoT7VsLri4R+1ne8Yo509ljSes7mZvYJXokwF7OW1Z7IUcONBhUy9ZfHww2USbklOY8hqnJLMbErgbXptFHoHhMnE4jdaXTi9e0ZmIv28Pymfwm2PAOkBPXMJOXA1PddztFB9bQEdCnCejZFwbLFFX17iUdP0+E4HJ5VJv1HYij9tqBEq4Hfo6lDMGUaboHRc9KTUEd0/km7xItWH54Q8EhX1qNkWeC8/ksKH7Jsv9Rvc3rosUBJp5/+7jxP0LcELkk6kkUnBrM4sdG9fJcXCMLO4vmDGuMeGLJnMSxEGdi8nnLtdseS5aNo/KKkDMVtssKNZuPyBVWsfjANuinNOjlBqFbRUmguBK0gcb+Hxvc1dnS+195zjbKyPQpihPGhP5/tD/yCwwUvEDRR9q/GWTIKz9pJMTaBXW5Oo2Q4Sp4ReFRJ9We78Fc4XcnW6zyu6DNmXFZbH3jLG+QTktpQMN7CgqgGIAIFt0OESWYPDDrtG9YDlzG7NE8XtO04Bx4H4A90ZLLIsXKp+CzrO6Oc6THoqurM+vMwrPSDCEkAiSQAD5scpAMYno0cu8p+3mO1+Hyy5l1TG0m94IwKzw
+ k6P86ww8RiH16KtRLY8QaYfo2Db+SxBYCZZDxFNnH7ZhAplgS3fyU6owLisx0mxxk7JPU9+A0cw2G8tCzqubHYIZvqWhm1OUT3lkKnKqwV7PWmRZikvQggaP6wFHxXrVlR0iNML5zsS1IkGPHsV0cu8WDMH8VFSAOwO8B3kk9/uL5Hay+9N1eH+b5rTvzGtJjQGyES02t2vTtMx6HnKRU/fqYwjfMC7LO0urLv+mizquRD2wO/6mebBypYyNLBTMs/yhbKURBV0dZ/OH4014/xK74OQDAeKIwpyMkVu/ahJlFV3cg1aYGzizhkkqDOnn6qXlyji0x2cbZJUxKq1YRtK3uKty8YYZ9DShI9UO1sb809xg6q2jAMxtDQ4y76/mX/4M0T0yoV/cL4vTHOB67MXBEbgcTx796nWX1zeXHZdwn9m6Zrj/oETj3RJ5xbXyQxTk8O8XgwXe8hFQ5gzPeLurDOs82XSXq3PD/uHABgFpnh+JDZzzFevoP8SFFETBOjV9ku5DC1hYDCVXv6Idx2MHwdBkfMsOuIJM=
 
-On 09/18, Adriano Cordova wrote:
+On Mon, Aug 10, 2026 at 4:36 PM Barry Song <baohua@kernel.org> wrote:
 >
-> find_uprobe_rcu() backs handle_swbp() and handle_syscall_uprobe(). Make
-> it skip a uprobe whose instruction has not been analyzed yet, so neither
-> path can use an uninitialized ->arch. An unprepared uprobe has no
-> breakpoint installed (install_breakpoint() prepares before set_swbp()),
-> so the trap path treats it as not registered yet. This also gives
-> handle_syscall_uprobe() the check it was missing.
+> Reviewed-by: Barry Song <baohua@kernel.org>
 
-Sorry, I am confused.
+Thanks for the review!
 
-Can you explain in more details what problem(s) this series tries to fix?
+> > + * Prepare a locked folio to be kept active rather than reclaimed.
+> > + * Reclaims its swap slot if it will not be swapped, then marks it
+>
+> I'm not quite sure whether this should be "if". Because, it seems
+> to always be true up to this point. BTW, if we really want to use
+> "if", shouldn't we use it to check whether swap is full?
 
-handle_swbp() checks UPROBE_COPY_INSN.
+You're right, the wording was misleading: the condition that actually
+guards folio_free_swap() is the swapcache/swap-full/mlocked test right
+below it, not anything about whether the folio "will be swapped".
 
-handle_syscall_uprobe() is only called by sys_uprobe() which checks
-in_uprobe_trampoline(). So it can only be called after the probed insn
-has been analyzed and optimized.
+Rather than try to restate that in prose, I dropped the paragraph and
+left a single line, since the code below is already explicit:
 
-Oleg.
+	/* Activate an isolated, locked folio and account the activation. */
+	static void folio_activate_locked(struct folio *folio,
+			struct reclaim_stat *stat)
 
-> Signed-off-by: Adriano Cordova <adrianox@gmail.com>
-> ---
->  kernel/events/uprobes.c | 35 +++++++++++++++--------------------
->  1 file changed, 15 insertions(+), 20 deletions(-)
-> 
-> diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
-> index 686585539ebf..bdc05fdce0a0 100644
-> --- a/kernel/events/uprobes.c
-> +++ b/kernel/events/uprobes.c
-> @@ -924,8 +924,20 @@ static struct uprobe *find_uprobe_rcu(struct inode *inode, loff_t offset)
->  		 * try again as we might have missed the element (false
->  		 * negative). If seqcount is unchanged, search truly failed.
->  		 */
-> -		if (node)
-> -			return __node_2_uprobe(node);
-> +		if (node) {
-> +			struct uprobe *uprobe = __node_2_uprobe(node);
-> +
-> +			/*
-> +			 * A uprobe is inserted before it is prepared; do
-> +			 * not hand it out until ->arch is usable.
-> +			 */
-> +			if (!test_bit(UPROBE_COPY_INSN, &uprobe->flags))
-> +				return NULL;
-> +
-> +			/* Pairs with the smp_wmb() in prepare_uprobe(). */
-> +			smp_rmb();
-> +			return uprobe;
-> +		}
->  	} while (read_seqcount_retry(&uprobes_seqcount, seq));
->  
->  	return NULL;
-> @@ -1123,7 +1135,7 @@ static int prepare_uprobe(struct uprobe *uprobe, struct file *file,
->  	if (ret)
->  		goto out;
->  
-> -	smp_wmb(); /* pairs with the smp_rmb() in handle_swbp() */
-> +	smp_wmb(); /* pairs with the smp_rmb() in find_uprobe_rcu() */
->  	set_bit(UPROBE_COPY_INSN, &uprobe->flags);
->  
->   out:
-> @@ -2743,23 +2755,6 @@ static void handle_swbp(struct pt_regs *regs)
->  	/* change it in advance for ->handler() and restart */
->  	instruction_pointer_set(regs, bp_vaddr);
->  
-> -	/*
-> -	 * TODO: move copy_insn/etc into _register and remove this hack.
-> -	 * After we hit the bp, _unregister + _register can install the
-> -	 * new and not-yet-analyzed uprobe at the same address, restart.
-> -	 */
-> -	if (unlikely(!test_bit(UPROBE_COPY_INSN, &uprobe->flags)))
-> -		goto out;
-> -
-> -	/*
-> -	 * Pairs with the smp_wmb() in prepare_uprobe().
-> -	 *
-> -	 * Guarantees that if we see the UPROBE_COPY_INSN bit set, then
-> -	 * we must also see the stores to &uprobe->arch performed by the
-> -	 * prepare_uprobe() call.
-> -	 */
-> -	smp_rmb();
-> -
->  	/* Tracing handlers use ->utask to communicate with fetch methods */
->  	if (!get_utask())
->  		goto out;
-> -- 
-> 2.51.0
-> 
+One thing I should flag, since it is not just a comment change: the
+VM_BUG_ON_FOLIO(folio_test_active(folio)) that used to sit at the
+activate_locked label is now a VM_WARN_ON_ONCE_FOLIO(), so a caller
+that gets this wrong is reported rather than taking the machine down.
+Both are CONFIG_DEBUG_VM-only, and no non-debug behaviour changes, but
+it is a deliberate change rather than a pure move, and the changelog
+now says so.
+
+I kept your Reviewed-by on that basis - please let me know if you'd
+rather I dropped it, or if you'd prefer the BUG_ON left alone.
+
+This patch is now part of a smaller cleanup-only series, see my reply
+on 5/5.
+
+Thanks
+Zhang Peng
+
+From nobody Sun Sep 20 00:00:00 2026
+From: Zhang Peng <zippermonkey@icloud.com>
+To: Barry Song <baohua@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Kairui Song <kasong@tencent.com>,
+	Zhang Peng <bruzzhang@tencent.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/5] mm/vmscan: extract folio_free() from shrink_folio_list()
+Date: Sun, 20 Sep 2026 14:14:37 +0800
+References: <20260720-batch-tlb-flush-v5-0-db943a0d0d6b@icloud.com>
+ <20260720-batch-tlb-flush-v5-2-db943a0d0d6b@icloud.com>
+ <CAGsJ_4ykbJKVqEv6uGNKZaQhtV1UxxV-MWt7D1jx6SpdMN+cqA@mail.gmail.com>
+In-Reply-To: <CAGsJ_4ykbJKVqEv6uGNKZaQhtV1UxxV-MWt7D1jx6SpdMN+cqA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+On Fri, Aug 14, 2026 at 5:40 AM Barry Song <baohua@kernel.org> wrote:
+>
+> Could we avoid hiding the activate semantics inside
+> folio_try_reclaim_free()? It makes the logic harder to read and
+> can be confusing.
+>
+> Could we pull this out so that the three possible outcomes are
+> explicit?
+>
+> 1. activate
+> 2. keep
+> 3. free
+[...]
+> I mean, this is confusing because an activated folio ends up in the
+> "keep" path. Can we make the activation semantics explicit at the
+> outer level?
+
+Agreed, and thanks - the bool return was the root of it. The helper
+now returns exactly the three outcomes you listed, and the caller,
+not the helper, decides what to do with each:
+
+	enum folio_reclaim_result {
+		FOLIO_RECLAIM_KEEP,
+		FOLIO_RECLAIM_ACTIVATE,
+		FOLIO_RECLAIM_SUCCESS,
+	};
+
+	switch (folio_try_reclaim_free(folio, &free_folios, sc,
+				       &nr_reclaimed)) {
+	case FOLIO_RECLAIM_ACTIVATE:
+		goto activate_locked;
+	case FOLIO_RECLAIM_KEEP:
+		goto keep_locked;
+	case FOLIO_RECLAIM_SUCCESS:
+		continue;
+	}
+
+So there is no longer a folio_activate_locked() call inside the
+helper at all, and an activated folio no longer disappears into the
+"keep" path.
+
+The patch has been respun on that basis and posted in a cleanup-only
+series, see my reply on 5/5.
+
+Thanks
+Zhang Peng
+
+From nobody Sun Sep 20 00:00:00 2026
+From: Zhang Peng <zippermonkey@icloud.com>
+To: Barry Song <baohua@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Kairui Song <kasong@tencent.com>,
+	Zhang Peng <bruzzhang@tencent.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 3/5] mm/vmscan: extract pageout_one() from shrink_folio_list()
+Date: Sun, 20 Sep 2026 14:16:52 +0800
+References: <20260720-batch-tlb-flush-v5-0-db943a0d0d6b@icloud.com>
+ <20260720-batch-tlb-flush-v5-3-db943a0d0d6b@icloud.com>
+ <CAGsJ_4zOfR3Rn5tk_RcOWUDmREO1JyRwXA15Vr3aeUs=+ybMMA@mail.gmail.com>
+In-Reply-To: <CAGsJ_4zOfR3Rn5tk_RcOWUDmREO1JyRwXA15Vr3aeUs=+ybMMA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+On Fri, Aug 14, 2026 at 5:49 AM Barry Song <baohua@kernel.org> wrote:
+>
+> Also, this patch looks basically good, just like the previous one.
+> Could we also avoid hiding the activation semantics in the inner
+> function? It would be clearer to make the activation semantics
+> explicit at the outer level, so readers don't have to dig into a
+> deep internal function to realize that a folio may take the
+> activation path.
+>
+> In LRU, we have two distinct possibilities: activate a folio or just
+> keep it. This is an important semantic distinction in the LRU logic.
+> Hiding the activation decision so deep in an inner function makes
+> that semantic much less obvious.
+
+Done, same treatment as 2/5 - the helper reports the decision and the
+caller acts on it:
+
+	enum folio_pageout_result {
+		FOLIO_PAGEOUT_KEEP_LOCKED,
+		FOLIO_PAGEOUT_KEEP_UNLOCKED,
+		FOLIO_PAGEOUT_ACTIVATE,
+		FOLIO_PAGEOUT_FREE,	/* folio is locked, hand it to
+					   folio_try_reclaim_free() */
+	};
+
+	switch (folio_try_pageout(folio, sc, &ctx, folio_list)) {
+	case FOLIO_PAGEOUT_ACTIVATE:
+		goto activate_locked;
+	case FOLIO_PAGEOUT_KEEP_LOCKED:
+		goto keep_locked;
+	case FOLIO_PAGEOUT_KEEP_UNLOCKED:
+		goto keep;
+	case FOLIO_PAGEOUT_FREE:
+		break;	/* folio is locked; try to free it below */
+	}
+
+Two things beyond what you asked for, both because pageout() has more
+outcomes than the freeing path does:
+
+ - "keep" is split into KEEP_LOCKED and KEEP_UNLOCKED. pageout() can
+   return with the folio either still locked or already unlocked, and
+   previously the caller had to know which internal branch it came
+   from to pick between the keep_locked and keep labels. Now the
+   result says so.
+
+ - FOLIO_PAGEOUT_FREE keeps the "and now try to free it" step at the
+   outer level too, instead of chaining into folio_try_reclaim_free()
+   from inside folio_try_pageout().
+
+This patch is in the cleanup-only series, see my reply on 5/5.
+
+Thanks
+Zhang Peng
+
+From nobody Sun Sep 20 00:00:00 2026
+From: Zhang Peng <zippermonkey@icloud.com>
+To: Barry Song <baohua@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Kairui Song <kasong@tencent.com>,
+	Zhang Peng <bruzzhang@tencent.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 5/5] mm/vmscan: flush TLB for every 31 folios evictions
+Date: Sun, 20 Sep 2026 14:19:08 +0800
+References: <20260720-batch-tlb-flush-v5-0-db943a0d0d6b@icloud.com>
+ <20260720-batch-tlb-flush-v5-5-db943a0d0d6b@icloud.com>
+ <CAGsJ_4wrQRGjqavMzWgi2+PrRr1ztf4QRZEb6HKm02OF8nEBUQ@mail.gmail.com>
+In-Reply-To: <CAGsJ_4wrQRGjqavMzWgi2+PrRr1ztf4QRZEb6HKm02OF8nEBUQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+On Fri, Aug 14, 2026 at 5:58 AM Barry Song <baohua@kernel.org> wrote:
+>
+> Yes, I think batching the dirty flush is a great idea. I can clearly
+> see that IPIs for dirty flushes (smp_call) on x86 take up a
+> significant part of the flame graph when building the kernel in a
+> memcg, so I think this is something we should pursue. Could we
+> revisit this patch after we clean up the previous ones?
+
+Sounds good, and thanks for confirming the workload - useful to know
+the dirty-flush IPIs show up that clearly in a memcg kernel build.
+
+I've split the series accordingly. The four cleanup patches, with the
+explicit-outcome rework you asked for in 2/5 and 3/5, are posted on
+their own as:
+
+  [PATCH 0/4] mm/vmscan: refactor shrink_folio_list()
+  https://lore.kernel.org/all/20260920-vmscan-refactor-v1-0-ec04d71cb761@tencent.com/
+
+No functional change intended there. I'll repost the TLB batching on
+top once that has settled.
+
+Thanks
+Zhang Peng
 
