@@ -1,182 +1,77 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C2C53F44FC
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 23:52:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F2F3CC7EA;
+	Sun, 20 Sep 2026 23:54:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789948373; cv=none; b=f3jQHFGzVtqD7RGrdaYYzKM8DC1XlA3EbufPD4HsoWB167VnyCf+nrPu3k+iaIFS81wdF/utwZ0OGPM6xWp4FwJ/+1rkMo3Ls2Xqzp9OrlwB8+Y1Z5YPrk5+Wx3xvw9scwA2QheH8R43n0FyaJ9tyS6RF7AVh3iyMsqLXdWeLeQ=
+	t=1789948467; cv=none; b=rUaZU6Nmv8sDOrfgrXIQrXWeZNc9gwrpr1NqxmCXttP+HOIvDpXhiT4v0airpb3GXkwViV81MqKtGnxzA3f69Y+CWeLN2bGxy/jiRc2S/P38gVhjqctEpCvE+AYPCCcLLDNtIjMDvUE8IW51eiASOP81wCkDAaSaM11J8DZ0o1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789948373; c=relaxed/simple;
-	bh=DdpNXSidQFvpDfBnNgiQM+SzaBF2RjrrqFZBe/ypr34=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JE77qykKn2g08yI+hlOpB1ttw99we3fuCYRc6mCnXuSF7j4o8h1ENjUaCUB20y4+qHStRtmOzI46Bwf+lLNqI/0e3XD2f9VcK2NQfuWwtipev4fUjLnqZdjE+dt9f1bUYbCMfCREM64uA8NR12bovHp8T1EYyzwRbLCc+0pxdPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nLv2VGgm; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789948467; c=relaxed/simple;
+	bh=28ZjMnGUiJvaUgnYDfqrqJS5aHYgCp0mAXN26FU/aZc=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=G3aUcB6aaslNWElpBFyUoydGQa2+APTwRK+S2NddWab3Q88U1C2t4WtepZNolbFbU1QsQwqeAa9WpRaPqJlG5GQOmhKn5c0oMFCpcGh5X9lx1Il2R5xbGboVNkpysmYUBrB0JFqZOrfBN+zTR1N/1XSUa6ZMcA2VLXNBFoG3FO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=VCCAtqw2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nLv2VGgm"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f01363so19941205ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 16:52:51 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="VCCAtqw2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50E221F000FF;
+	Sun, 20 Sep 2026 23:54:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789948371; x=1790553171; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EhakzEdE29nOvUv7Mc+RF2KlaAe5CVApdx8H1znJCcg=;
-        b=nLv2VGgmk6Q6nXxfqY7Ao+KrEk825hmRWaoLUbtWv6u5xhgHMoqMuf5HOfhqeppUQ8
-         A4XN3ipB4tj1lEhSz94rw7UvnRTXtySFTqVY09FlNPVnOqJjFvVHl+qCW884RfynCZVS
-         8cuaCi0q7AT5pOcLUflSA3JdlAYWv0YajB6AfPYwivD158DDG1OPRAQLCE8lhyzbdT9x
-         djQUVGWfTS0sO9GqbYsYjdDuZCt1xuIqgC423QaW/T3d5TzIrRrBMdfsnKGnAPQscmX8
-         HbystK3PXtI2ygYKPWd8yznqj/ZwGKFlV9gk+/8TYRmWITCRkJbsC8PTIwo8JEx1/6Xf
-         UqqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789948371; x=1790553171;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EhakzEdE29nOvUv7Mc+RF2KlaAe5CVApdx8H1znJCcg=;
-        b=gyN0rjUanY33ap7DQcylzUKiwQfMB5sxiRNppLdfYTtRZE5XAmFdmmIwrAYaJSA6zG
-         HF7BD4AWNdcoO1rT96sjkUSUdxNVu3g5eor6npwFFB28WfKeNxRdDNCNW7SLDy9V3J3u
-         aLW9j+bXV64aJX4PAg0T0D6vmiE7VYCUKCCt3r2eGHQuaCjfiCbtI5uAxTMxeKwgjh2F
-         TfwIShB25WvlMap3jwTgb0+SwjAKyabhWEIfBFjsfZrn4PuyG3ibdoPIo4JQs3gDJOeo
-         uYjClvmb7A9d4JzRG5en6GtRRpq8ceHFkoIY33UZP/Un+SG1KVxMKJZlQuBlz6d/et21
-         9v3A==
-X-Forwarded-Encrypted: i=1; AKwUvBzqzUCUNNvyM5/2nCoC5kJqfMiDibbFEbDGnNdDdy5DhjDUm9RKFCEdRskdPRtMmmYbShS+McaqmqJAfik=@vger.kernel.org
-X-Gm-Message-State: AFuF++nVGWlynnaZ79AySD9tII6wFlUTeoP719SdA210D0tJ6f5Z9AVs
-	zBsZyKv5f2v7aNxAqZU1VWYMcn576q4pCxjy/xMcEKBiDgIcH+OnI4gQQ2yPY8zO
-X-Gm-Gg: AYBFou2XEyctc0BN0aa675xCSPB1EIwu4AynJ/jF4mge8ehcNKIdiCyzFUwUbYmLe2f
-	TZwsumsIB3mSwYVyBkSiJFczDIa0Pdrw4rrvEFLDfX+2HJ1sZF1+n8x7bWa2lqeol3z4xlpH6Hm
-	Okf2SwHlPfztrbhbgY+7I5sGzhCEnLExrtj7Q2gTN1saDymQ9XoBPgCTS4QLhV1IbgO590R0GHS
-	caolyDcGAS11Hi00JMhUKBrdsOdBHhaTek8uJ+i5OLVzvbWs+xjqXeT1HLVJfAmG62SRgn3VgVi
-	AbwhQLZ8wxaYSTAUwQHfihquUwZ3OrytVdQuDCPqdIRNFFLzG0rOE2aqRjI8oSuKOyszeuxaZs4
-	zt0Qtnpq0WO32g67XGVvLlpV4pw3yxrFZbSEr/u5PqmweNse8km5AebpY09M3uE9ZX8dmoaI66O
-	XHSGa/XQ0SXxClbw1ZHVlh7nTb/iHreVi0cjjlmGXrR+9l5xNBWL9aTh288QHP3BbQL8+ZRxgsl
-	iToj/DOIds9OzAEymppsMaPoeeLq+zGed5oGQ79/Fzvcs4t9K4m1XwUw2bdyW8MxdmcEj1KS+jm
-	CMo3hpAl7zE1MYUd9mhL
-X-Received: by 2002:a17:903:2c0c:b0:2dd:b3e0:850 with SMTP id d9443c01a7336-2ddb3e008d2mr126436425ad.17.1789948370862;
-        Sun, 20 Sep 2026 16:52:50 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc1788173sm24228375ad.19.2026.09.20.16.52.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 16:52:50 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: David Howells <dhowells@redhat.com>,
-	Lukas Wunner <lukas@wunner.de>,
-	Ignat Korchagin <ignat@linux.win>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
-	Paul Moore <paul@paul-moore.com>,
-	keyrings@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] certs: x509: duplicate cert->tbs when sig->algo_takes_data is set
-Date: Sun, 20 Sep 2026 23:52:49 +0000
-Message-ID: <20260920235249.260530-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <CAHC9VhS7sZQaPaRswKQ1ETrReEPB2f5buNAMGSXqZ1iBKTs+bg@mail.gmail.com>
-References: <20260919223438.3883567-1-benquike@gmail.com> <CAHC9VhS7sZQaPaRswKQ1ETrReEPB2f5buNAMGSXqZ1iBKTs+bg@mail.gmail.com>
+	d=linux-foundation.org; s=korg; t=1789948466;
+	bh=iS4LQFnsJmlvJPHkPjXPa4amCgBnl2XHspJTXkSxb8w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VCCAtqw2MeukxIzYrka53zfuZGq0IiY7H/UF9D6LJhE5JQuxgezRG3Oxq+CZDlEkB
+	 kaW3KpymCyJSES5Ri+Xi0+v4Ex6Tac3CSrpCT6cNgsGgKydR/0T89LCU/NnFAmf36i
+	 nA1LJTwBGecjbDsaVD0QzqoXA7Nw3dbGMruqxSbA=
+Date: Sun, 20 Sep 2026 16:54:24 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, "Lorenzo Stoakes (ARM)"
+ <ljs@kernel.org>, Mike Rapoport <rppt@kernel.org>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, "Nico Pache (Red Hat)"
+ <nico.pache@linux.dev>, Zi Yan <ziy@nvidia.com>, Barry Song
+ <baohua@kernel.org>, Dev Jain <dev.jain@arm.com>, Hugh Dickins
+ <hughd@google.com>, Lance Yang <lance.yang@linux.dev>, "Liam R. Howlett"
+ <liam@infradead.org>, Michal Hocko <mhocko@suse.com>, Ryan Roberts
+ <ryan.roberts@arm.com>, Shuah Khan <shuah@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, kernel-team@meta.com
+Subject: Re: [PATCH v6 00/19] selftests/mm: improve khugepaged coverage
+Message-Id: <20260920165424.adbd45ccfc6162ffb0e4b424@linux-foundation.org>
+In-Reply-To: <20260919002451.496763-1-kirill@shutemov.name>
+References: <20260919002451.496763-1-kirill@shutemov.name>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-In x509_get_sig_params(), when sig->algo_takes_data is true, sig->m is
-assigned (u8 *)cert->tbs with sig->m_free = false. However, cert->tbs
-points into the temporary ASN.1 buffer (prep->data) passed to
-x509_cert_parse(), while cert->sig is retained in
-prep->payload.data[asym_auth] by x509_key_preparse() after prep->data
-is freed by the caller. Subsequent signature verification on the key's
-public_key_signature dereferences the freed TBS buffer.
+On Sat, 19 Sep 2026 01:24:30 +0100 Kiryl Shutsemau <kirill@shutemov.name> wrote:
 
-Duplicate cert->tbs with kmemdup() and set sig->m_free = true so sig->m
-remains valid for the lifetime of struct public_key_signature.
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> 
+> khugepaged collapses to mTHP orders since 7.2, and 7.3 added three
+> selftest cases for it: the generic collapse cases run at one order named
+> by -c, with the result detected by counting folios of that order.
+> 
+> That leaves the collapse path largely untested.  The suite does not run
+> where a PMD is 512M.  A folio count cannot say where a collapse landed.
+> Fixed sleeps cannot tell "not collapsed" from "not scanned yet".  And
+> nothing exercises collapse under contention.
+> 
+> Close those gaps in order:
+> 
 
-Tested in QEMU against Linux 7.3.0-rc3 with KASAN enabled by adding an
-ML-DSA-44 (OID 2.16.840.1.101.3.4.3.17) X.509 certificate via
-add_key("asymmetric", ...) and linking it into a signature-restricted
-keyring via keyctl(KEYCTL_LINK), which triggers the following KASAN
-slab-use-after-free before this patch:
+Thanks, I've added this to mm-new.
 
-  BUG: KASAN: slab-use-after-free in mldsa_verify+0x95/0xa0 [mldsa]
-  Read of size 1 at addr ffff88800108c004 by task init/1
+I'd previous added v5 but it never really got testing exposure due to a
+messy interaction with other changes which I didn't get onto fixing.
 
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x70/0xa0
-   print_report+0x153/0x4c6
-   kasan_report+0xf1/0x120
-   mldsa_verify+0x95/0xa0 [mldsa]
-   public_key_verify_signature+0x5cb/0x8e0
-   verify_signature+0xe4/0x130
-   key_or_keyring_common+0x428/0x850
-   key_link+0x22e/0x360
-   keyctl_keyring_link+0x6b/0xc0
-   __do_sys_keyctl+0x146/0x4f0
-   do_syscall_64+0xda/0x4b0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
-
-  Allocated by task 1:
-   kasan_save_stack+0x30/0x50
-   kasan_save_track+0x14/0x30
-   __kasan_kmalloc+0x7f/0x90
-   __kvmalloc_node_noprof+0x1c2/0x5b0
-   __do_sys_add_key+0x1c2/0x390
-   do_syscall_64+0xda/0x4b0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-  Freed by task 1:
-   kasan_save_stack+0x30/0x50
-   kasan_save_track+0x14/0x30
-   kasan_save_free_info+0x3b/0x70
-   __kasan_slab_free+0x47/0x70
-   kfree+0x159/0x420
-   __do_sys_add_key+0x2b3/0x390
-   do_syscall_64+0xda/0x4b0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-  The buggy address belongs to the object at ffff88800108c000
-   which belongs to the cache kmalloc-4k of size 4096
-  The buggy address is located 4 bytes inside of
-   freed 4096-byte region [ffff88800108c000, ffff88800108d000)
-
-Fixes: f3eccecd782d ("pkcs7: Allow the signing algo to do whatever digestion it wants itself")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
----
-Changes in v2:
-- Dropped the net/netlabel/netlabel_calipso.c change, keeping only the
-  crypto/asymmetric_keys/x509_public_key.c fix.
-- Added the KASAN slab-use-after-free report and test description to the
-  commit message.
-
- crypto/asymmetric_keys/x509_public_key.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/crypto/asymmetric_keys/x509_public_key.c b/crypto/asymmetric_keys/x509_public_key.c
-index 25cf8ac7f257..5c9165a83f91 100644
---- a/crypto/asymmetric_keys/x509_public_key.c
-+++ b/crypto/asymmetric_keys/x509_public_key.c
-@@ -53,9 +53,11 @@ int x509_get_sig_params(struct x509_certificate *cert)
- 
- 	if (sig->algo_takes_data) {
- 		/* The signature algorithm does whatever passes for hashing. */
--		sig->m = (u8 *)cert->tbs;
-+		sig->m = kmemdup(cert->tbs, cert->tbs_size, GFP_KERNEL);
-+		if (!sig->m)
-+			return -ENOMEM;
- 		sig->m_size = cert->tbs_size;
--		sig->m_free = false;
-+		sig->m_free = true;
- 		goto out;
- 	}
- 
--- 
-2.47.3
