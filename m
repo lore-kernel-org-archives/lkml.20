@@ -1,29 +1,29 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580FB19CD0A
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:02:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A50358399
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:02:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789880537; cv=none; b=hjmPgaM1gxrqUV6gQrPVvn4KPYyQrKggXu5frH56hIuGEwQ3IghoOLX5Aqmb6xGCW+qCT94lR+H/84IzGKdlvfRsiPV/+aNLSV5l49Q2ZE7BNdCI8F5DIMQMSpOolCQtGL74fHGE9uZ0OSlLSQPkcLVz4C0nkQJXH+gAX1ZSTog=
+	t=1789880575; cv=none; b=n03YwXJr/Rc54xoRXHkZRita+ccOvZ3pXvHfWhug/DbIcV95XONRr0sa/3q3CxS+05ILazpkYJ/VM20Cm7Jz4h+YC5zGOrSQgJmjVomF3h+JffnfTWQS6/vmOFddoYvN5roJ78Cr3jdku3M2WAFMEBWzG/OqktX6KQJUNSSXo1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789880537; c=relaxed/simple;
-	bh=p1pFH9Rsa6fo05912jWcJrgxg0GMpSJNmChgTCkre4g=;
+	s=arc-20240116; t=1789880575; c=relaxed/simple;
+	bh=RNQmpC2r6qpR7Bc1aDSuS7BJ12p1mR1rNyt5i8UpQwQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ltcVVVf0w4Ewln+2WWNTPt8XD3KjIbBpl9iv2tUHO1JeoapJikXRyGQixkK3krmKjI8MMyJY+AH3n7JGU9vvuLgta02+YSYvL3JhM8GKiGxqn/7PZfpWUmEYaduMBnaVz+q+J5tgag93FgWp54NMCrOKEywYlKWjjJqSlEzS/4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lbqj7cTE; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=FmWSVpjdwABUREHaV+TybwdQkRfDCoRwcjROcBHZwQgqNr/so9Xm2yJ5+o/sUtc7rK/PZaUgCq9W54/8m0FfSWUx/fo3QjAMV9R2521bi8li9/peVmdO+0ZMJn0PLbs3I/RZLgHFQM4U3HgAaRncFwevA5gUdv07E9JoKDw4LWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AY4zCvw9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lbqj7cTE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37B321F000FF;
-	Sun, 20 Sep 2026 05:02:02 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AY4zCvw9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B08F61F000FF;
+	Sun, 20 Sep 2026 05:02:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789880522;
-	bh=Yv3YgZjAaC1TXq8/RRpVIkFxT1BQJM0XPVQLC3Y0x7o=;
+	s=korg; t=1789880574;
+	bh=wiGcf8f13yaP1zm0T6jJI4g/SWgvg/LRApQuiTeqk+k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lbqj7cTE0TperEQxL63L6soPnXULLthRw3hozCXZThQC9WYjL+Cvc0IceP7qShN6b
-	 k+dBd2zNLtOlSn9wzj4dLjtTeW8jBIpp6Om50aMJ/iZCIlA12RpHNHdPhqktVpYNfE
-	 Q0KDtlBsdFjdoisEYKCk+MsXXy69sl3Tx9S6akmU=
-Date: Sun, 20 Sep 2026 06:00:04 +0100
+	b=AY4zCvw9Yw3PdoM8GOId/DdTqUbAW1XhT3bdOiqIF67eb8PZsoAcaJC9hZbY8gjYX
+	 qZXUG/tEKB6Gslb2vScdVkeqxogzsDNKXxsxhWCXCAKYjiCaiP2U/Ev9sj6hMutHH3
+	 jOUU4fNll8n2USolP55M8xoZGenPDSc9Negz7ZQY=
+Date: Sun, 20 Sep 2026 06:00:56 +0100
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Hui Peng <benquike@gmail.com>
 Cc: arve@android.com, tkjos@android.com, brauner@kernel.org,
@@ -31,7 +31,7 @@ Cc: arve@android.com, tkjos@android.com, brauner@kernel.org,
 	linux-kernel@vger.kernel.org
 Subject: Re: [PATCH] binder: fix sender fd 0 close and file refcount leak on
  TF_UPDATE_TXN
-Message-ID: <2026092022-wad-vertigo-3361@gregkh>
+Message-ID: <2026092016-sphinx-turkey-1be6@gregkh>
 References: <20260919213648.3316566-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -67,47 +67,11 @@ On Sat, Sep 19, 2026 at 09:36:48PM +0000, Hui Peng wrote:
 > 
 > Pass `is_failure = true` to `binder_release_entire_buffer()` and call
 > `binder_free_txn_fixups(t_outdated)` before freeing `t_outdated`.
-> 
-> Fixes: 9864bb480133 ("Binder: add TF_UPDATE_TXN to replace outdated txn")
-> Fixes: bdc1c5fac982 ("binder: fix UAF caused by faulty buffer cleanup")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
 
-
-Hi,
-
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
-
-You are receiving this message because of the following common error(s)
-as indicated below:
-
-- You sent multiple patches, yet no indication of which ones should be
-  applied in which order.  Greg could just guess, but if you are
-  receiving this email, he guessed wrong and the patches didn't apply.
-  Please read the section entitled "The canonical patch format" in the
-  kernel file, Documentation/process/submitting-patches.rst for a
-  description of how to do this so that Greg has a chance to apply these
-  correctly.
-
-- You have marked a patch with a "Fixes:" tag for a commit that is in an
-  older released kernel, yet you do not have a cc: stable line in the
-  signed-off-by area at all, which means that the patch will not be
-  applied to any older kernel releases.  To properly fix this, please
-  follow the documented rules in the
-  Documentation/process/stable-kernel-rules.rst file for how to resolve
-  this.
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
+Please delete all LLM-generated changelog text and rewrite it in your
+own words to explain the problem and why this patch is needed (same for
+your other 6 patches).  Also, how were these all tested?
 
 thanks,
 
-greg k-h's patch email bot
+greg k-h
