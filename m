@@ -1,78 +1,105 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB593D3D07
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:54:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11FAD43E074;
+	Sun, 20 Sep 2026 12:54:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789908862; cv=none; b=quGkZ+FdMi8MPZVIKPxEeH4R0sJ2DJNcKUe0zUOi7MXWWBsYphAj9H2kKA2s3IFlnccl0b9q3aWryE9hT5daqJC7CJTlRCscGgi2QpeZ5lHor0o/oTrzp9KljRoxlloHEGEBDXejddz/QRwqkPLZG+D5pTzwnBWDuiCJ/IgJCkg=
+	t=1789908903; cv=none; b=TpEVL9EUlosfsAKQ1+/6BIoO0x31k0xKzECmDR5DK21+muY8TSpwQYmZVpFJaZpnXZmwDMB3qaOiRZHLvIrKW4alQ4qKE3O4iQbIFFHBrUpzNScDD02z9tJIx2LGXayMqZd4srKdqOhRBSvdEvQ6NH9YxmifgkvMGTLxMsg36ak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789908862; c=relaxed/simple;
-	bh=ZS2+IvBBT15ZJvDAnXaWqW4MEGSQ/lzz7KbGhZDMVuU=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=krbxM4yT/IcsbCBEE130xXD/VQAvnoYOB0Nehj2OlRsGkjha5B0A4BSdwkFOosJ4R2Hpo4h01w5r/aB0G4bPr96NQiTw07IcVs9mp5iRWD+izhCKlAMLguxuPk6i0B3BzkvRFeiMkPJWyIthhNcTaSlKbQlq+czNzj6Kx20b0gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7e99ff505c2so3518538a34.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:54:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789908845; x=1790513645;
-        h=content-transfer-encoding:content-type:to:from:subject:message-id
-         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XpWYgal4ydz2PJkTN57WgxprdPt/80QvaAQrT/n8idI=;
-        b=WEdhWAYLnXifVm4627vKBbsfBfHWtvpMdG6WoSQrddJAeAvYEbmPMA7v+L2P9Zp0Z/
-         oUpaD+1xtAKlacIJ84mUSpC8mRBdk39l6xoj7vOzhYPbfsfhkSLutKvpRuhbvjdThi21
-         bfNs0q6BNSABi1xgi/uCqA1fR+r1JOkdbt51KJpG56okVQVrgG/POC3wfU8HJveZzztY
-         WqJY52YUiP9p9ZUix5KJl1Oe4k6e3MS/WIMcAWsSHoYT/FnKS3i9DSRnG36ApqgwNZLG
-         Y2j1onNRqJR8IGuzDRl2JZtJEE0XCeUPR2dncM4Ulv1GY5hbg0VNgj5ptfw14NsmW0wU
-         xv/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzsvhmt0VpULi6Cvo7XzHAFX2+MZjfjXbZ6ajW2TvVfKageFrqz7LPX0Hen5Joz96xbti1ijxwZSdfMrCo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLtJ2kSzbJxMXrvW18R8IMjJVb8gsHhIWa+FHNVAnRNXkaTYbO
-	so/HDXpx3OJgFgypdVOINDCPiZrCHMgcZU3rkodmLCFJp/SGVAq/pTxzG4uG3FutlfL5D28gJcx
-	TvWsEFYYCRhhBf/fVxSp3zKJM3yj9K+dCQ6Ri7Nh3Q28PR9Vegr+tlQS6ORU=
+	s=arc-20240116; t=1789908903; c=relaxed/simple;
+	bh=o/cKM876TX9eiQRBeaAvXxN4Mv+kMLn7zpTqzr5nFMc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=kv1aUNlTXsFtsgBKrvnYbKFAW6s3EJUWzp9Ad6pC9G7qncbJMMML3O2pcndoORp/QMHtHADqku1I0xGq3WDbXxDThf3pcu9vCzD1SO9WvayMbQkthFKvhKgnpTMNEmOskyUFt4i6ZOCd9sfli12fw6vgBj+mqIKvGfKGxKvAcoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rdt2s3Q0; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rdt2s3Q0"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 19C611A0997;
+	Sun, 20 Sep 2026 12:54:37 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D44FF604C9;
+	Sun, 20 Sep 2026 12:54:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0A40B1032829C;
+	Sun, 20 Sep 2026 14:54:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789908875; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=qYf5sfpsF5+ikP3rz8etRrzQyPAwoJCwt6EL+6o1iu8=;
+	b=rdt2s3Q0OH1e32XrUcArMpHns6GKnGqYJNDmJvABuzVvT5IgWZdLlcaZqolvsrBS2EYuud
+	mHd/b1O2gISgOl5GV0E97xY/yc2XDlKI08ReUzgiivLP7uN097I9c793dYEtaGqMM6kEXH
+	u7xJg4q1iJfRt6Nou0fPPfDGDEGLkfetMcBJMr9jkyVaJt0DKNH04SJz9tVgncUjijutnc
+	XfpZnO3MNlSSlM5PcNaD1jVdAXoEVN1jnsq7FHJ3Mtc20hDDZu3icsIqPp4FiDKSwMIGyQ
+	VCeOqWZX4s8lZwocN4Wsx7stN4IzP2me7hzzHboBN51lP69ra0p+uVp1gEy9Mw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Hui Peng <benquike@gmail.com>
+Cc: alex.aring@gmail.com,  stefan@datenfreihafen.org,  davem@davemloft.net,
+  edumazet@google.com,  kuba@kernel.org,  pabeni@redhat.com,
+  linux-wpan@vger.kernel.org,  netdev@vger.kernel.org,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ieee802154: cc2520, mcr20a: reject invalid RX frame
+ lengths from SPI FIFO
+In-Reply-To: <20260919223437.3883127-1-benquike@gmail.com> (Hui Peng's message
+	of "Sat, 19 Sep 2026 22:34:37 +0000")
+References: <20260919223437.3883127-1-benquike@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Sun, 20 Sep 2026 14:54:31 +0200
+Message-ID: <877bkgaxrs.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4b8f:b0:6c9:80d9:5e7 with SMTP id
- 006d021491bc7-6ca9bf53e03mr5767662eaf.40.1789908845287; Sun, 20 Sep 2026
- 05:54:05 -0700 (PDT)
-Date: Sun, 20 Sep 2026 05:54:05 -0700
-In-Reply-To: <20260920125248.93589-1-adarshdas950@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aafd76d.e548f532.1ca396.000a.GAE@google.com>
-Subject: Re: [syzbot] [ntfs3?] WARNING in ntfs_evict_inode
-From: syzbot <syzbot+3db654d91b471c4d7a7d@syzkaller.appspotmail.com>
-To: adarshdas950@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hello,
+On 19/09/2026 at 22:34:37 GMT, Hui Peng <benquike@gmail.com> wrote:
 
-syzbot tried to test the proposed patch but the build/boot failed:
+> In drivers/net/ieee802154/cc2520.c and drivers/net/ieee802154/mcr20a.c,
+> validate the RX frame length byte read from the radio FIFO before
+> subtracting the 2-byte FCS or allocating/trimming the skb so len < 2
+> cannot underflow.
+>
+> Fixes: 0da6bc8cc341 ("ieee802154: cc2520: adds driver for TI CC2520 radio=
+")
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> diff --git a/drivers/net/ieee802154/cc2520.c b/drivers/net/ieee802154/cc2=
+520.c
+> index abfcfe07246a..d2c8484d8fea 100644
+> --- a/drivers/net/ieee802154/cc2520.c
+> +++ b/drivers/net/ieee802154/cc2520.c
+> @@ -482,8 +482,14 @@ cc2520_tx(struct ieee802154_hw *hw, struct sk_buff *=
+skb)
+>  	 * values on RX. This means we need to manually add the CRC on TX.
+>  	 */
+>  	if (priv->promiscuous) {
+> -		u16 crc =3D crc_ccitt(0, skb->data, skb->len);
+> +		u16 crc;
+>=20=20
+> +		if (skb_tailroom(skb) < 2 &&
+> +		    pskb_expand_head(skb, 0, 2, GFP_KERNEL)) {
+> +			rc =3D -ENOMEM;
+> +			goto err_tx;
+> +		}
+> +		crc =3D crc_ccitt(0, skb->data, skb->len);
+>  		put_unaligned_le16(crc, skb_put(skb, 2));
+>  		pkt_len =3D skb->len;
+>  	} else {
+> @@ -1147,8 +1153,8 @@ static int cc2520_probe(struct spi_device *spi)
+>  	return 0;
+>=20=20
+>  err_hw_init:
+> -	mutex_destroy(&priv->buffer_mutex);
+>  	flush_work(&priv->fifop_irqwork);
+> +	mutex_destroy(&priv->buffer_mutex);
 
-failed to checkout kernel repo git://git.kernel.org/pub/scm/linux/kernel/gi=
-t/torvalds/linux.git on commit 518e5b794c06: failed to run ["git" "-c" "cor=
-e.hooksPath=3D/dev/null" "fetch" "--force" "--tags" "f569e972c8e9057ee9c286=
-220c83a480ebf30cc5"]: exit status 128
+What about this?
 
-
-Tested on:
-
-commit:         [unknown=20
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linu=
-x.git 518e5b794c06
-kernel config:  https://syzkaller.appspot.com/x/.config?x=3Db454dc6b1b7acd3=
-0
-dashboard link: https://syzkaller.appspot.com/bug?extid=3D3db654d91b471c4d7=
-a7d
-compiler:      =20
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=3D14fbdff95800=
-00
-
+Thanks,
+Miqu=C3=A8l
