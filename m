@@ -1,131 +1,123 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D0B1D5CFE
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:34:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C861D5CFE;
+	Sun, 20 Sep 2026 02:34:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789871661; cv=none; b=WOoy2O18bfK39DvxhYuvODVM9bEFUs/YQteKrVm3NFjmXepj041I+s/wlpjx3xjuYeDxwP9gy2FjA/cKoEZd9n0QuU9gqVSEGjlBRQNZ04E6bZktwarR1hnm+uKDCzmUqw+DpoYOfGGzxZ9cuGrgZR9IDF7TIAqblaN5lXEWsj0=
+	t=1789871673; cv=none; b=CX83MbwOvdrVnd6/BGO9jEUfD2LDx19T6QTMFoDiY0qfLQ3143rZgadkLP+nOloaN/fvvThOz2mosICSOKs/ySiCBfd/NmVBuGQ/adBYeORtEvvI6YacVibu4NGzR8LstBG+lnH8s+9B/Obq6C8s0nO7/95pT8Y3zb808Bh+vKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789871661; c=relaxed/simple;
-	bh=Fzgv+nvZ+4+OGBtA0LANbeAB7bkAOU+2uKJwOc/JXL0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VyxlLOAM7rqjNgUgDDwM7d85FbDNcPQreEyfAdK+bDQAYy32q4ypAP5CCSmRvDvfOxdP9GmNrT0qFpx6jDYWfwsRfub7dysh8BJxpLHFgA2NXsn8tsZ6HcvB/2gQaKEoqneDBMZHtEAke7X9QyS4gzFWZ4ar/CBw7x+E7si44m4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=uEoy4IBz; arc=none smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1789871673; c=relaxed/simple;
+	bh=8R6TBAR7F78A55XcG8gJNCyOLkrXNYeRBGRE59YA2gw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=KBN6VmPILBavVDAaXlIE179c8g286W1APiGY5/B+9aaOA3EjVZ32JM5jNfZjRWPB5N1WIxmzLuhB7TZ8iCWVwlgiWWJ8cQUlBCgIJpkq41MIUqBIAYEHpgGT7CWZYK/O1bI7WPWbt207uUPRAsa652115++eqQsUiUOCy1moBR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LLZKHa4d; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="uEoy4IBz"
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93a2dea320fso205179885a.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 19:34:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1789871658; x=1790476458; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LkCkftG+yeHdNoHYIJ4SF/P+dVcP8n47VYh5wG/1Abs=;
-        b=uEoy4IBzhuOOcFJKEJB5oY7lk/BEarXflY7iQpbDOG8T4nnrFchMkrmyfA7cV0Wkl3
-         UcoCZLUZs6oSmHWQ7Dw9rK5NmrjPe/4VzjUSHTcz6umGw+e6+q/4jj5tKg/x6pXMYfvO
-         FceKW/m7R67O6avLBzS761jrAvp+ZwkgFkyAtl0d7uUdjroKoTMz8s6vqLOQddMUZ5fa
-         7HirufBVRee+mkBaS8rGTQPJsaZ+0qi+subfYziDZGaT7XepXnL9VtLl1O3ECNriwEV+
-         5tTonx3E7+A5a6koR4++isCwgrGVWMLN4L/TnN1Epfmk2gO5hYKlXV2kq5PX6OXj0ZJn
-         aTAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789871658; x=1790476458;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LkCkftG+yeHdNoHYIJ4SF/P+dVcP8n47VYh5wG/1Abs=;
-        b=tiNQcvpyYM+lN/uTVvx8czwtTALOFQUK8CesBrm5zX2PYIugJA9MiRt1dSwWa7fkUI
-         P+i8ShnPV5RDdYwzfRg9Vcg039+zkzZQ63rHwqQm48Wg5WRGASg/OLL/tVn4tn7+QVMv
-         NeItD1o0SUs5e9jmg/6BW1eS+AQfbveWRRBvxLsJHmnkhqq0/NG3rOgSdijR/kuabbd8
-         gT/mAU2LqxbYYiiZ7Il20eX/KT0+HKBIWxOYq14D7oSjcJ0+O7vLfLkLGTx/EOOUs3xH
-         gWiLBAotltP5iDPEpI1xUrxe9wU1pKLsseWQWpq5tSJVECBmk/kgxLBgiVPdQBVgt1zK
-         E0iA==
-X-Forwarded-Encrypted: i=1; AKwUvBz/LH7VHCoSb9UfCk8LDrF8+6HAs7OHBDoiXJ4rRtT6dm1hk89q/cQn7QcGK6JsZbIYlOZ1pb82rGSZpv4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kfeWFdy5EVDLWYVqcCPvNwhkWm/aMfI4OSi5pFJY45Xzfb16qH
-	alfICmTCIGM2uLviC76nuteElq+vXk8niNHha9fb9lZjcTrK7VpGvlCAX8inn0xgRmTRhpWyExs
-	XgGzrJw==
-X-Gm-Gg: AYBFou2iQN/cRN+HAxn1wYyY4BEFaOKUr4ob586u5d+wbV6wcKeCmahhj05z7HlNcFR
-	uWOkaAscZ+NS2cb7ikRDcELolkj7BZo4M0ezvaMlVyf6kPyUkgeW+eiBSBi9buxSgbyOwnVjUGD
-	GVNSBfRgTfrWIfiHROBVN0gho6YiAVnlpuYdGE0RiDKX+aDWWnBe7kABMlirPcQWL9G1FZvAFDN
-	OHBo+U6wez8ntWJl1Q8MCa20N7PhH8kNFjVQZRkLT533vPVinkMyvUEOeouvMQfWkkN5XhijlRp
-	r8P4IAhICFfWvHEcPei9GEubHWV9XXCQns3MMCjMICh+csOeLqwejvUYKWwbhs6IH6BvUfGLbI/
-	i/GzvL8UaNq6I72twLcBJ7DlqHO3PTWQ2OZG+LV+CVIkcCgsoXfLBQTocaLdR0x7Y7CBduijvRO
-	apkcVNd/CYvPN5t7Gnl6mAzZjMhWvmC5zyBJ5vF0j+J3tygQVYA73BIKxZ9Y1BrY4FIWXBFia3
-X-Received: by 2002:a05:620a:43a7:b0:939:6de6:9516 with SMTP id af79cd13be357-93bf571799cmr418996885a.45.1789871658556;
-        Sat, 19 Sep 2026 19:34:18 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93bedaef96csm316488585a.29.2026.09.19.19.34.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 19:34:18 -0700 (PDT)
-Date: Sat, 19 Sep 2026 22:34:15 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Jiayi Li <lijiayi@kylinos.cn>
-Cc: Oliver Neukum <oneukum@suse.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-scsi@vger.kernel.org,
-	usb-storage@lists.one-eyed-alien.net, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH] usb: uas: quiesce SCSI before stopping endpoints on
- driver unbind
-Message-ID: <98374a38-eb18-44c7-8da4-d5e34944e72f@rowland.harvard.edu>
-References: <20260920012358.3362053-1-lijiayi@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LLZKHa4d"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3386CC2BCB9;
+	Sun, 20 Sep 2026 02:34:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789871673;
+	bh=8R6TBAR7F78A55XcG8gJNCyOLkrXNYeRBGRE59YA2gw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=LLZKHa4dZb8/g6nzmrWFirDIPEJryYPk7iQv1cIb9LAiEKNNaYfAKY2Kx1kKNBFsw
+	 B2Zz0pDtZ8UvTex0QyOz59WoLz5onBKmdfAO1DPDJ9awAvlIUbg7f6UoTgwihx2SAR
+	 oryVKRcY5mlcb7yqV0SC+5JW0fOqjgaAuDrwtnlWDC4xDoO/1GumtrdVhHx5oCRaRH
+	 uwTXBxxBo/urgMZAp0Vxk1/4/RQNoQMKgN6A4sXId0MvYGKk4tDu3hHnUscR8f7nbB
+	 oOMwHeJiIYJ6D8PpvRZoN6r4VpLLEBgjH3eMdMCkNqCjELgi887ity7815I92R0BOG
+	 Ewi+jBnr1PPoQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D02FC982DF;
+	Sun, 20 Sep 2026 02:34:33 +0000 (UTC)
+From: Alireza Haghdoost via B4 Relay <devnull+haghdoost.uber.com@kernel.org>
+Date: Sat, 19 Sep 2026 19:33:56 -0700
+Subject: [PATCH v2 1/4] perf symbols: Fix broken ELF_C_READ_MMAP fallback
+ guard
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260920012358.3362053-1-lijiayi@kylinos.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260919-perf-symbol-memory-send-v2-1-495b8f00ad7c@uber.com>
+References: <20260919-perf-symbol-memory-send-v2-0-495b8f00ad7c@uber.com>
+In-Reply-To: <20260919-perf-symbol-memory-send-v2-0-495b8f00ad7c@uber.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Andrii Nakryiko <andriin@fb.com>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Alireza Haghdoost <haghdoost@uber.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1452; i=haghdoost@uber.com;
+ h=from:subject:message-id;
+ bh=jwkKCZxWR8rzu5laHR8MpSUN65pL8rVjbdfQdF2AFOU=;
+ b=owEBiQJ2/ZANAwAIAVNlBDxl2ALYAcsmYgBqr0Y30TXneuFp2Nqnsn7P9GUk0jF1J+LJFPOvL
+ YZDQxyXx2+JAk8EAAEIADkWIQS5+sFL3gX/8PrA0S1TZQQ8ZdgC2AUCaq9GNxsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwwLDMACgkQU2UEPGXYAthhjA//fIXxYnl9RjKMgZTfBqkYrtJiatXJEfR
+ kCyv0E3yuhbBn671Hwa8dZiaep3w+eRj6FigzAH19N5Ybe1of1eRWHRr3pmQKlIn8ExpiWySV0C
+ f4Mb8VkKE3FIYJ01GyKREH6P2aVMex6UyOiU8wEeS6S1pV40bBhryDYXbG1ExejnbeB54BQmY2k
+ gceJP+C82QuujAYoAbqXVjwBeIIg11byip0t2toPJHN7I1U7KNEEKLYOZ/wGRTHKx8K+4ii5Op0
+ h3LLMNFiaNYySOIJjIBNDRDANg4RN2H6Gn+6++cYvUBGlSwzJ5H3h+iih4tYQ4BCah1Xh8cj8ln
+ cmNvSSPLJtkQJJ3Mwk7i+30UnClWJvO5C/lvVpUzt7OsUFUi/Hodf6TS/H94W6L2q5USwNLIhGy
+ l44UIqyaPXMI5OzCvCtNrIpS89xMv/Oi6SP/tIy6KD6Isf1l7oHAvIjxcQn3ayf40NGc9CSKiEt
+ KpPZmtpAppW3Ka6GUsgbjrdT8401eVq7tc7tP8Rwi1AIOasHmBhXmUUVXGY3VoxUoLPVjCgBWdA
+ Husc6fqGHji/HVX740iFsVbyoVbJoAYMrIyf5BTArlBU2yn3CP4Gs+RhIqz2SGEt7gKvm92Gr0H
+ lWtc0NgeTmyhfZTKIbHL3AmF9WxYm3fQUqdSsQoOJUd9wFI6bGOU=
+X-Developer-Key: i=haghdoost@uber.com; a=openpgp;
+ fpr=B9FAC14BDE05FFF0FAC0D12D5365043C65D802D8
+X-Endpoint-Received: by B4 Relay for haghdoost@uber.com/default with
+ auth_id=764
+X-Original-From: Alireza Haghdoost <haghdoost@uber.com>
+Reply-To: haghdoost@uber.com
 
-On Sun, Sep 20, 2026 at 09:23:58AM +0800, Jiayi Li wrote:
-> What this patch does:
-> 
->   - set soft_unbind so endpoints remain available during driver-only
->     unbind;
->   - cancel pending scanning before removing the SCSI host;
->   - for driver-only unbind, remove the SCSI host before setting resetting,
->     killing the anchored URBs and freeing streams;
->   - for physical disconnect, retain the existing kill-first order because
->     the endpoints are no longer usable.
-> 
-> This follows the broad ordering used by usb-storage, which sets
-> soft_unbind and removes its SCSI host before releasing transport
-> resources.
+From: Alireza Haghdoost <haghdoost@uber.com>
 
-> Open questions for RFC discussion:
-> 
-> The change above fixes the reproduced failure, but it is not clear whether
-> this is the best way to handle driver-only unbind in uas.
-> 
->   1. Is enabling soft_unbind and moving scsi_remove_host() ahead of URB
->      teardown acceptable for driver-only unbind?
+Commit 22dd1ac91a77 ("tools: Remove feature-libelf-mmap feature
+detection") replaced perf's compile-time feature test with an #ifdef on
+ELF_C_READ_MMAP. ELF_C_READ_MMAP is an Elf_Cmd enumerator rather than a
+preprocessor macro, so the condition is always false and perf silently
+uses ELF_C_READ.
 
-Not speaking for the uas maintainers, I should think it is both 
-acceptable and necessary for any USB mass-storage driver.
+Perf already requires a sufficiently recent elfutils version that
+provides ELF_C_READ_MMAP. Use the enumerator directly instead of
+restoring a feature probe or retaining an unreachable fallback.
 
->   2. Is there a more appropriate way to quiesce SCSI commands and UAS
->      streams before endpoint teardown?
+Fixes: 22dd1ac91a77 ("tools: Remove feature-libelf-mmap feature detection")
+Signed-off-by: Alireza Haghdoost <haghdoost@uber.com>
+---
+ tools/perf/util/symbol.h | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
 
-Not that I know of.  If you don't tell it to remove the host, the SCSI 
-subsystem will simply continue to try sending commands to the driver.
+diff --git a/tools/perf/util/symbol.h b/tools/perf/util/symbol.h
+index d0bac824c79c..46b1649c64fc 100644
+--- a/tools/perf/util/symbol.h
++++ b/tools/perf/util/symbol.h
+@@ -57,15 +57,7 @@ static inline bool is_livepatch_symbol(const char *str)
+ 	return strstarts(str, KLP_SYM_PREFIX);
+ }
+ 
+-/*
+- * libelf 0.8.x and earlier do not support ELF_C_READ_MMAP;
+- * for newer versions we can use mmap to reduce memory usage:
+- */
+-#ifdef ELF_C_READ_MMAP
+-# define PERF_ELF_C_READ_MMAP ELF_C_READ_MMAP
+-#else
+-# define PERF_ELF_C_READ_MMAP ELF_C_READ
+-#endif
++#define PERF_ELF_C_READ_MMAP ELF_C_READ_MMAP
+ 
+ #ifdef HAVE_LIBELF_SUPPORT
+ Elf_Scn *elf_section_by_name(Elf *elf, GElf_Ehdr *ep,
 
->   3. If this ordering is acceptable, does the driver-only unbind path need
->      a bounded fallback when scsi_remove_host() encounters a nonresponsive
->      device or ongoing SCSI error handling?
+-- 
+Git-157)
 
-In general, a class driver like uas shouldn't care whether an unbind is 
-what you call "driver-only".  It should take the same steps whether it 
-can communicate with the device or not.  (Note that the patch's test for 
-USB_STATE_NOTATTACHED isn't fully reliable -- there is a window after a 
-device is unplugged before the state gets updated.)
 
-But to answer your question: No.  Rely on the SCSI subsystem to handle 
-its own host removal properly.  If, in your opinion, it's not doing a 
-good job then you can submit patches to the SCSI maintainers to improve 
-the situation.
-
-Alan Stern
