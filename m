@@ -1,107 +1,90 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from linkmauve.fr (linkmauve.fr [82.65.109.163])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D393CC32E;
-	Sun, 20 Sep 2026 17:34:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A04233937F
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:35:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.65.109.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789925672; cv=none; b=jPZnTGOVZfaoTSssmlfZevbGR5CBiXk+ohtolKhaOxA8iMJJXGjLIHqFn1vCJQBA6w7uznDUVTqtU3w7R+TlKgifKXzvOQnCQHOBi+m7mxVQS6znqL8cN6h/zm93UCeJUQK/1FAOgL5OSJ3GbKu99g6Sp02YztTDeTYLW4dpZ6k=
+	t=1789925713; cv=none; b=sV2vBwe4Pas4vDQz20mNEcvxLRizJpIY7RY6w6tLmT3Kk4wKH1/oI9W7pPd8arlEnGEDb2Wz8lf4SurBkLt5coBvg+LB7eZtiVOSESlXoe8Y8od0BWZwFesn3xWZD3B8GiKbofGRexjkZIqtTEJxakJi5+W07e8BZ/Z04Oub1+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789925672; c=relaxed/simple;
-	bh=5HFqtoGeqEFzAN0Xt6cBYRixpGFmFQcGVMvp4LZ6mik=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iyoiqg96ih4gory1owmwspVCxoDBrGHmDoYGVx8VqOMPApaMGHipVd/4z7Tr23lYhe8y8smnS7g/PeQrEj10AM3yNoM8d7LLe+wvgr/XxLEHUqVcBorZQLzrwSaOkg/mkzn9UJlU2kHrzekyaa/TjahXwcCYZXxCI14/nUN7Zz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=TxbGVqvX; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="TxbGVqvX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Pq
-	s01ndKj6y1lD+L1Yf4ulzg1U6wRZaJ7n4bKVekpvI=; b=TxbGVqvXN5KisiEFDQ
-	3aQ3puzp2ferm/fkU1bIsfR+7LeGLjPAQL5W8NANCaLHr6SFKd++06T3RkSWNS9p
-	rO+XvrG/UbgjpEcBfD1gEWJhz7A5C2zTXELcAyC2hGL+DsLoa+7erowY+7ijbEvU
-	lLymsmgLOn7syO/UfD9UT8vis=
-Received: from pc.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgDnD4gHGbBqoErcAQ--.25297S2;
-	Mon, 21 Sep 2026 01:34:00 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Chas Williams <3chas3@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	=?UTF-8?q?fran=C3=A7ois=20romieu?= <romieu@fr.zoreil.com>,
-	linux-atm-general@lists.sourceforge.net,
-	netdev@vger.kernel.org,
+	s=arc-20240116; t=1789925713; c=relaxed/simple;
+	bh=24EbtVMuLmkk30vPdxrZdYyqcSDV6OkqMEyet0mL0Dw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l7+5cJJCBy/AjhV6Ue2oYfliTeEzSEegeEuaXOdrJE7AU4fyUGdkLoF2cWh4c3Hi7XRWlLl0d6CKGHD2/W3eSzglGU3Q2xCA6CNkrA+JLkd2Uun6ppTGc5Yrjc80ECsCl8O/jwqKGAze5O2pTvAgNuIHiVjrgcAtPe+rn2yZdi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr; spf=pass smtp.mailfrom=linkmauve.fr; arc=none smtp.client-ip=82.65.109.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linkmauve.fr
+Received: by linkmauve.fr (Postfix, from userid 1000)
+	id BD5587189D4C; Sun, 20 Sep 2026 19:35:09 +0200 (CEST)
+Date: Sun, 20 Sep 2026 19:35:09 +0200
+From: Link Mauve <linkmauve@linkmauve.fr>
+To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: Link Mauve <linkmauve@linkmauve.fr>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	techflashYT <officialTechflashYT@gmail.com>,
+	Ash Logan <ash@heyquark.com>,
+	Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH] atm: eni: stop IRQ tasklet during device removal
-Date: Mon, 21 Sep 2026 01:33:58 +0800
-Message-Id: <20260920173358.2125807-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+Subject: Re: [PATCH v2 0/2] powerpc/sstep: Fix compilation on 32-bit PowerPC
+Message-ID: <arAZTed4p3FYnUgU@desktop>
+References: <20260730065007.964703-1-linkmauve@linkmauve.fr>
+ <3c39b0e5-8265-4d39-ab39-196ccf560a05@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgDnD4gHGbBqoErcAQ--.25297S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KFWruFyruF47Gr13WF4xXrb_yoW8ArWDpa
-	yFga95KrW8trWUJwnrtw1UXa4rWrZ2q3yFkrWUCw12g34FyFyvqr1SkFyjkws7ZFZ7uF47
-	JF1DXw4rWF4q9w7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_miiUUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wkPSWqwGQmINQAA3X
+In-Reply-To: <3c39b0e5-8265-4d39-ab39-196ccf560a05@kernel.org>
+Jabber-ID: linkmauve@linkmauve.fr
 
-eni_int() schedules eni_dev->task, but eni_remove_one() frees the
-device state without unregistering the IRQ or draining the tasklet. An
-interrupt during device unbind or hot unplug can therefore leave work
-that runs after eni_dev has been freed.
+Hi,
 
-Mask device interrupts, free the IRQ, and kill the tasklet before
-releasing its resources. Apply the same ordering to the initialization
-error path after the tasklet has been initialized.
+On Thu, Jul 30, 2026 at 09:01:10AM +0200, Christophe Leroy (CS GROUP) wrote:
+> 
+> 
+> Le 30/07/2026 à 08:50, Link Mauve a écrit :
+> > Two local variables were only set but never read on 32-bit PowerPC,
+> > which causes an error during compilation with W=1.
+> > 
+> > This series first makes the 64-bit guards consistent by converting all
+> > uses of __powerpc64__ to use CONFIG_PPC64 instead, and then guard the
+> > two variables rc and suffix behind CONFIG_PPC64 checks.
+> > 
+> 
+> For the two patches,
+> 
+> Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
 
-Fixes: 126a3fd251b2 ("eni: fix driver remove function and driver probe error path.")
+None of these two patches have made it to any kernel, do I need to ping
+someone?  I was originally expecting it to reach 7.3, now I guess 7.4
+will do.
 
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/atm/eni.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+> 
+> > Link Mauve (2):
+> >    powerpc/sstep: Consistently use one define to check arch bit width
+> >    powerpc/sstep: Don’t define variables we won’t be using
+> > 
+> >   arch/powerpc/lib/sstep.c | 111 ++++++++++++++++++++-------------------
+> >   1 file changed, 58 insertions(+), 53 deletions(-)
+> > 
+> > Changes since v1:
+> > - Link to v1:
+> >    https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Flinuxppc-dev%2Famrpdv0g__ELifId%40desktop%2FT%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C69210bfbc364426c4ce108deee06d0f2%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639209910199709261%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=%2B%2BdoT%2FTkFxUUy63ED%2B5Kb5dfCSI8hQpjWGfpndI%2Fn0c%3D&reserved=0
+> > - Switch from __powerpc64__ to CONFIG_PPC64, as it is the preferred
+> >    check.
+> > - Document that the build error was only occurring with W=1.
+> > - Declare both variables on the same line.
+> > 
+> > base-commit: 78bc8af4affb9a732504eb22eeac7d1e50883853
+> 
 
-diff --git a/drivers/atm/eni.c b/drivers/atm/eni.c
-index 3011cf1a84a9..44e6b3ceaf11 100644
---- a/drivers/atm/eni.c
-+++ b/drivers/atm/eni.c
-@@ -1881,7 +1881,11 @@ static int eni_start(struct atm_dev *dev)
- 	return 0;
- 
- free_list:
-+	eni_out(0, MID_IE);
-+	free_irq(eni_dev->irq, dev);
-+	tasklet_kill(&eni_dev->task);
- 	kfree(eni_dev->free_list);
-+	goto out;
- 
- free_irq:
- 	free_irq(eni_dev->irq, dev);
-@@ -2287,13 +2291,16 @@ MODULE_DEVICE_TABLE(pci,eni_pci_tbl);
- static void eni_remove_one(struct pci_dev *pdev)
- {
- 	struct atm_dev *dev = pci_get_drvdata(pdev);
--	struct eni_dev *ed = ENI_DEV(dev);
--	struct eni_zero *zero = &ed->zero;
-+	struct eni_dev *eni_dev = ENI_DEV(dev);
-+	struct eni_zero *zero = &eni_dev->zero;
- 
-+	eni_out(0, MID_IE);
-+	free_irq(eni_dev->irq, dev);
-+	tasklet_kill(&eni_dev->task);
- 	eni_do_release(dev);
- 	atm_dev_deregister(dev);
- 	dma_free_coherent(&pdev->dev, ENI_ZEROES_SIZE, zero->addr, zero->dma);
--	kfree(ed);
-+	kfree(eni_dev);
- 	pci_disable_device(pdev);
- }
- 
+Thanks,
+
 -- 
-2.34.1
-
+Link Mauve
