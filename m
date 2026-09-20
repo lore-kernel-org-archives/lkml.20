@@ -1,44 +1,39 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F0AA343D75;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A3134B1A2;
 	Sun, 20 Sep 2026 10:00:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789898434; cv=none; b=MjowhUyoUahsRnyMiaJam0g56Cpglwty5BuBR6ajJisPTToF90w8UxQ+BNvvFL/2zKOlytkDCqQ/b5QrJglaMBxr0EJitKWotyFibJYz/HlQWt2IkXfupY3xQCcv2NQu0itmp+vhwDsmp7B1v1vUADlZs9rmX1hfdYS5YALd67o=
+	t=1789898438; cv=none; b=poHGad4Ye/pGsQblOZJj4J+VgYFWHz567KACDmBhZmfdJ7A/SegFSb5Eb8x8N0pvIWmg0ceIMotuhNsI50gCvaxHE+98D2UfPZWN2UPxQOTBTfA+ZfB7xEcbdB+7my/XVzz/PHQqt3c/LMLjvg9YxcoEJ1n6wKB0ZSuF58NfRP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789898434; c=relaxed/simple;
-	bh=i/f+ltDwE+0pDEfrDUwL+taMO+IjvxPZcpSA4mM/NlY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K3dUa4E7kXhktJQ23VlqJzEp7ajwoo68vZp5/Fn3S1EDbBBB5/dzl0ZK43/RJ3Ikp9kdsyJ51uPSWABeY1jzoyNZQaYJYD0PUHv6FgCyRmsbz9+TUQ6jE0cMpI+J1aHYqv0ToqFAlCA1JSh/knVvckaoi1pEdM2weqLirHVSEzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TwfVX3I9; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TwfVX3I9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67AB1F000FF;
-	Sun, 20 Sep 2026 10:00:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789898432;
-	bh=eNOkuOvBgpaeImx4XytamWlsHw1NNr1OL5vpKYxF3rg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TwfVX3I9FP2+Cj8IDi6JXuS9zcovsK5gEevP9S2LkyW/wd5gFw4QKgVFahXizcQjY
-	 qH4BLljpWsAnohK8aOSwE+js0ywxcy+ai1wUDHEvJMlt+oNdr3FqYp+0ZMw5TPjYbi
-	 AAJsz6+hfTCUiW6DHcDxu2kYQ417eL+TfLrfTTQxp9lOLpFfXomF82B0VIAANbMJNA
-	 P4oOsP03EK2aVn4CpUXsw33vXDjncp1USqz9FrbGWz+39T/IdK508cpC+b+qnF8wJO
-	 FbJfhNBUejmQPS95Z2oRaye0VqUvWyKk+RDojqKBipgw+BuanvfgbiBz4w9rWEryAJ
-	 00B04w9Wg3DQg==
-From: SJ Park <sj@kernel.org>
-To: Zenghui Yu <zenghui.yu@linux.dev>
-Cc: SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
+	s=arc-20240116; t=1789898438; c=relaxed/simple;
+	bh=Pa/kThhCijMFi8BDye7+rFM1nK7NtTDPDRSHSp6ffQs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gaMu001/MLnEjUf+ZxcNIBtB6XKPQcwVIUce40IjPD9QPB3Cd4KG1uoc8GPIjd/LzippnkGI3AqiDyQ141uVSMcUKIcEf/FSVLTLdHw89TGcHk2sNrXG5z0tTz6rXkV7D/s33rvtczKCkTmZfCPnsK88NYgfMp+7236+QcCgFE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
+Received: from Vostro-3710.. (unknown [14.220.232.127])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4e715e30a;
+	Sun, 20 Sep 2026 18:00:28 +0800 (GMT+08:00)
+From: Chukun Pan <amadeus@jmu.edu.cn>
+To: Yixun Lan <dlan@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org
-Subject: Re: [PATCH] mm/damon/api: remove unused NR_DAMOS_* enumerators
-Date: Sun, 20 Sep 2026 03:00:28 -0700
-Message-ID: <20260920100029.46849-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260920012028.9565-1-zenghui.yu@linux.dev>
-References: 
+	devicetree@vger.kernel.org,
+	spacemit@lists.linux.dev,
+	Chukun Pan <amadeus@jmu.edu.cn>
+Subject: [PATCH 1/1] riscv: dts: spacemit: set ETH MAC from eeprom for OrangePi
+Date: Sun, 20 Sep 2026 18:00:00 +0800
+Message-Id: <20260920100000.3888256-1-amadeus@jmu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,36 +41,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0be42903c03a2kunm0b30d86444d90c
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZThhCVkMeSkJPSh4ZTEpLTFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVUpJTFlXWRYaDxIVHRRZQVlPS0hVSktISk
+	5MTlVKS0tVSkJLS1kG
 
-On Sun, 20 Sep 2026 09:20:28 +0800 Zenghui Yu <zenghui.yu@linux.dev> wrote:
+The EEPROM on the OrangePi R2S and OrangePi RV2 stores the MAC address.
+Assign it to Ethernet, with eth1 having a MAC offset of 1. Remove the
+Ethernet alias to avoid U-Boot patching incorrect MAC addresses.
 
-> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
-> 
-> NR_DAMOS_ACTIONS, NR_DAMOS_QUOTA_GOAL_METRICS, and NR_DAMOS_WMARK_METRICS
+Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
+---
+ arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts | 8 +++++---
+ arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 8 +++++---
+ 2 files changed, 10 insertions(+), 6 deletions(-)
 
-More than 72 columns.
+diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
+index 7125f2882ce8..073cc975135f 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
+@@ -16,8 +16,6 @@ aliases {
+ 		i2c2 = &i2c2;
+ 		i2c8 = &i2c8;
+ 		serial0 = &uart0;
+-		ethernet0 = &eth0;
+-		ethernet1 = &eth1;
+ 	};
+ 
+ 	chosen {
+@@ -66,6 +64,8 @@ &emmc {
+ };
+ 
+ &eth0 {
++	nvmem-cells = <&mac_address 0>;
++	nvmem-cell-names = "mac-address";
+ 	phy-handle = <&rgmii0>;
+ 	phy-mode = "rgmii-id";
+ 	pinctrl-names = "default";
+@@ -90,6 +90,8 @@ rgmii0: phy@1 {
+ };
+ 
+ &eth1 {
++	nvmem-cells = <&mac_address 1>;
++	nvmem-cell-names = "mac-address";
+ 	phy-handle = <&rgmii1>;
+ 	phy-mode = "rgmii-id";
+ 	pinctrl-names = "default";
+@@ -129,7 +131,7 @@ eeprom@50 {
+ 		nvmem-layout {
+ 			compatible = "onie,tlv-layout";
+ 
+-			mac-address {
++			mac_address: mac-address {
+ 				#nvmem-cell-cells = <1>;
+ 			};
+ 
+diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+index 837616255464..609c4755775d 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+@@ -15,8 +15,6 @@ / {
+ 
+ 	aliases {
+ 		serial0 = &uart0;
+-		ethernet0 = &eth0;
+-		ethernet1 = &eth1;
+ 		i2c2 = &i2c2;
+ 		i2c8 = &i2c8;
+ 		mmc0 = &emmc;
+@@ -93,6 +91,8 @@ &emmc {
+ };
+ 
+ &eth0 {
++	nvmem-cells = <&mac_address 0>;
++	nvmem-cell-names = "mac-address";
+ 	phy-handle = <&rgmii0>;
+ 	phy-mode = "rgmii-id";
+ 	pinctrl-names = "default";
+@@ -117,6 +117,8 @@ rgmii0: phy@1 {
+ };
+ 
+ &eth1 {
++	nvmem-cells = <&mac_address 1>;
++	nvmem-cell-names = "mac-address";
+ 	phy-handle = <&rgmii1>;
+ 	phy-mode = "rgmii-id";
+ 	pinctrl-names = "default";
+@@ -156,7 +158,7 @@ eeprom@50 {
+ 		nvmem-layout {
+ 			compatible = "onie,tlv-layout";
+ 
+-			mac-address {
++			mac_address: mac-address {
+ 				#nvmem-cell-cells = <1>;
+ 			};
+ 
+-- 
+2.34.1
 
-> are not referenced by any code.  Remove them.
-> 
-> They can be reintroduced if a real user comes up.
-> 
-> Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
-
-Other than the above too trivial thing,
-
-Reviewed-by: SJ Park <sj@kernel.org>
-
-This patch is applied to damon/next [1] tree with the fix of the trivial commit
-message length issue.  If this patch is not added to mm.git in short term
-(~1 week?) with the fix, I will ask mm.git maintainer (Andrew Morton) to pick
-this.  So, no action from your side is needed for now.  If it seems I also
-forgot doing that or you cannot wait for my action, please feel free to ping me
-or Andrew.
-
-[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
-
-
-Thanks,
-SJ
-
-[...]
