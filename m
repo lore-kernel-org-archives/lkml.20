@@ -1,222 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3E9136351;
-	Sun, 20 Sep 2026 01:27:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789867663; cv=none; b=L46bYt4gIj0IkHZ8ktH7/fnDgnvAXapekf/2M5t7bpKKdmYJZ9P8Q68qycO6wPy+RZONHv+yEqtRD3NYRCXkmawHSJFssO2ZD87dFrcSwQC5zHBePNzSK/y04CTg3Fcbu0urjKrhH4eMVxsIOX1wWRa2x1+nitKj7dFh06PibEg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789867663; c=relaxed/simple;
-	bh=hSixfOcSOH718RKyF42SBNi+d4rYgSdKn03sbGKClVI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qCGmeXMSSV950i2k63UPUENeqUUSxWsS7Hz0XMf3t5EAGiBpn6r0T5OmEiNyO7Xv7C8aeRGhHzXyl7E493Wnq9wR6pEgAhJH/lzFBppjiwti3SQKfl5hIca3Ew/b54S778dysBl45YrxgwE3ezFYcvHLLIJVGSq41KghhJ0WeUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eHmIqVJD; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7304D3451CE
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 01:28:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789867686; cv=pass; b=akh4jJe/NlacOhEInrCYnGHuZNaU4tCLKMlkxdUahLW4ow7QQ+f2UXRYhqmev4tf6Ead1nudd3l/74l54QpsereBb6+LW4yXmGK7nb6ZOv/goXst8ZpD2YYhi51jFLi4E+TnpVbev6cfwx/0zukfy2AYLSJq3iQkd8gSBBXVBRw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789867686; c=relaxed/simple;
+	bh=58SYG8u0pc/53nUlC52jnU/rC2SgxqQAeHb7MZSbjZU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YAd9fbugdgKsr1MM4Fr27F2SvnZHSrCTO33kaiq+5pX2hgCuamtaPQlEjjWh4kIa8hv8qqjAWvmfeyJX4IRwQ4JoaD33n1foA0DrD8n2LFWX+WWmDJITba5akErw/GFiSw0ehLvAbig4Uv1gxlvbR8JJDFlnzMyPcDPLvQFwYU8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=Oye3jcMX; arc=pass smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eHmIqVJD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0AF71F000FF;
-	Sun, 20 Sep 2026 01:27:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789867662;
-	bh=Iuz4uAh99RAU1UDPY/s09AD7260WayUVZGFc1NHzpB4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=eHmIqVJDZKzSX3NtRudB5uCdgHr5zT9q/3fWS8HoX5RlLFxMlJux2NP/nuosZvqo4
-	 rCSNg7bojlcfXgRuaO+DWhysyPTO0GvX5lhud2MhdxWnBkp74HT9TKd5Ei3adVNlBR
-	 JDS9LIVmkkWjatuB37nsmZNGTvc8rIQRxwwXF9O7d88iyvsDPfPBQHyzu7w2pJUBeY
-	 aWTlq2LVOBZo6x14F0cejiI9w58JRy218PHELW2VhMoLqVSw7oIALh2YdzjqP34dCT
-	 Tso4WGbARdmBBInD9Fd5zff8zZSpanBmJdMIwQHpt3Bg8o4PuhTMZj4oihx9Q83uwT
-	 G7g1iiZAW5UnA==
-Date: Sun, 20 Sep 2026 02:27:37 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jinseob Kim <kimjinseob88@gmail.com>
-Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andriy.shevchenko@intel.com, linux-kernel@vger.kernel.org,
- rdunlap@infradead.org, joshua.crofts1@gmail.com,
- u.kleine-koenig@baylibre.com, julianbraha@gmail.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v10 3/8] iio: osf: add protocol decoding
-Message-ID: <20260920022737.4403fc6d@jic23-hlaptop>
-In-Reply-To: <a00b004a7ac283e1d6e307421292757004f09e62.1789753020.git.kimjinseob88@gmail.com>
-References: <cover.1789753020.git.kimjinseob88@gmail.com>
-	<a00b004a7ac283e1d6e307421292757004f09e62.1789753020.git.kimjinseob88@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="Oye3jcMX"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cbedd5aece4so2224515a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:28:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789867685; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rMK56RZYO9hEGEGLvLpWVp5B3Fl1YaDhdXO5mrdiWqF3g0TIl5Kr8PiEGynoFqZhI/
+         xgrOWYZDRsHS+mG03xeIeUKglXxeFLtNfz65xHltGItQrx6jMlIUS4Kdhm+QHYSl9Q/z
+         hMlZaAT0ohT8xpqhHu+kDMuxgti6YGwajxRLVQj8T/TyY8k/wQgVTWkLWb3LKuThJNAS
+         xriPmxcYwtdF6Ck8W76oXN/p9ORnGxAEpdeQGr7/L/kcjrjt5+evLwruUiVbc6GdMTgC
+         1eAZ02aqIrWlQza7kGvRr5RJ1JwgGgJfaJSzrK0QC3JUNCsDQPcRARibzvtbfNN4hv12
+         VpoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=REeNKeU2w+4sUIJzVcJdRnI84oWXH0Weq6lkeZd2jWQ=;
+        fh=xXrexFdcGuFbV/XlcFaEe2ghB9rVLZHA9fYSKNYhsrM=;
+        b=EdCwzTw2OiQyUI9OhefZq3d4ix8n1gX+jxbp2+uhx8ClZ9nz/5OlE1B8+52Vb1o2xl
+         CIoEhpiwwxu9Lcu2CT+EZZdg9lc9Fq+eB/F+9YjQiNCqvi4hqxfJ0uOCzExhmYCOkVqN
+         UkyeDR37Ydcqealsz5igwBuLh09oW+kQEb07qfaTfkyO3ybYlnnBG2D7rU/2XhbbNxuG
+         kbtSFX1cNVNoXcnmHQCqPoT3koDUCgdqy120S8qMIDCz88z2hsRoj7r1SrfYVaDOElBD
+         hu1BxFpTCuDnqc6FdRXT87Q2yGTVHudEJNAgtdd211vjgzUrSF+XA+EEtoaozvVuO2Tg
+         Tkaw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1789867685; x=1790472485; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=REeNKeU2w+4sUIJzVcJdRnI84oWXH0Weq6lkeZd2jWQ=;
+        b=Oye3jcMXOo+JxGG8lg0tyo01cPzFsTzFwSPst9BvLEqGSGa10jiZlNKw79qgxxXa2k
+         FI9TdJpfbNUX38lw6WTLltiufg7psbg6ZhkN9+GE+846FFKTSoEId/ybZ2apmxSgMMPy
+         LE0W8gEqHSzp0XDoi1x8HsmzbmaaCelra3DFxYhN3neBAb+PEMRuYjgD8zCe057sWJ1B
+         Y4GAduW19STxRo5cwliyVd/iDZJejl7gDPX4fsWHXqAF6ldjFQaRevoZCJVuHUz1+k31
+         EDUaRNJrocKF7nWOUz6G6BjlQpgPUhvK3h5mSgDAnFPhNCY0opQYbm3BwV19mw19547R
+         rO9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789867685; x=1790472485;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=REeNKeU2w+4sUIJzVcJdRnI84oWXH0Weq6lkeZd2jWQ=;
+        b=EAqX7sD4Czz2uscuSvdrb6tXAyJ0tjaFilZNAi5voy/K5hvo5bW9Za/jTwems6MbM9
+         1TOskCV/Ays4THx8ccGrjjYOZ+NOwIma7mK6tlu4Np7EA3BrJYQZIGfr9yo3p4mdOUgs
+         CY3LVYPFNAN1enI47PkPRYQpXnfko6Q2ep7OjCBo2ThZfHygFNJsAQvKMGEXTJnEiXT6
+         ErxAxEFA841rHx247Hko5qnAqfWuulvUonvgPwFNk429y9ntapYnFiT8Oe0fDps3pEXx
+         OPjs4PjaCbt1rof0nEhe+jUWrd0WnXWz+gAUbcBZoAXZPuEMqt5MAN+pU9mIkUSQTWDM
+         05tQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw4WrOwK2jGgfOsnHwsdAJJNKbbx9uTS9iz//oEBfTFETve4yY3amOI/PnIJ8i06ABic3rXaGHEFGwZ3Xo=@vger.kernel.org
+X-Gm-Message-State: AFuF++m1e90gn1maULa2DzV7FDw6e5rzPZkk5If/x0/7jkKgmIwz6PT9
+	SOqJWkjfZy0m0p74Xnmyq6OJ0FkwrKBFwrLIHhqOkwPDgsv8M+ohs20XdREt8H/EDaDq8GgH+dd
+	ChTty2b4gnXaR0dMX4vgWpGkgwZKxxj/WyhbG9t7M
+X-Gm-Gg: AYBFou18/qySqsz18fnbu2XB68wtQgjN0tNw4PfbewsxhdhXpCD6x/4h2YL6U+ukLmL
+	8h7Vck3e57ILFZIiQpv5GdAh9s8ccGulT3Jeld9hKHpwh0sPMnS8wQrR+jrjWVMDjoV8FrFPLNZ
+	mehJPrOF7XvivKRLlxflc6leSmHXySV2brLcQiPjXS1D0hFuXziO+jWLj+YCLfoap5YLWSBXFcr
+	dvtZtHU8krZcB1H+ItV6SOuTs6Qs2PBG0uGdVIqtnWRNx7nHHL7ZmL7WPgAjBJ1dQAxsxAjD82H
+	53ktK8+jywy5fyEOEoINECw2y0LypYBij/DMuITP2G6aPrBhDRc+ERFMmC84Zs6p4Mca2I8mpWO
+	s2ta51l2TeGI=
+X-Received: by 2002:a05:6a21:6b18:b0:3da:e57d:4a79 with SMTP id
+ adf61e73a8af0-3dd7263a307mr14783301637.13.1789867684717; Sat, 19 Sep 2026
+ 18:28:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260919210621.3029744-1-benquike@gmail.com>
+In-Reply-To: <20260919210621.3029744-1-benquike@gmail.com>
+From: Paul Moore <paul@paul-moore.com>
+Date: Sat, 19 Sep 2026 21:27:51 -0400
+X-Gm-Features: AcwNN1VaFHIGGaQ5NtAlsPyN6fZLotOP8OtOjiPI2lLmpI72SuzrZttUCiuI84A
+Message-ID: <CAHC9VhT426aweDqPhBWz+16b9zWGj5GsEdn3Jv9dJUnaz5wdyw@mail.gmail.com>
+Subject: Re: [PATCH] ipv6: calipso: fix 8-bit hdrlen overflow and missing
+ pskb_may_pull() in hop-by-hop options
+To: Hui Peng <benquike@gmail.com>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 19 Sep 2026 03:24:41 +0900
-Jinseob Kim <kimjinseob88@gmail.com> wrote:
-
-> Add helpers for decoding Open Sensor Fusion frame headers and supported
-> message payloads.
-> 
-> Validate the fixed OSF0 envelope, payload bounds and CRC before exposing
-> decoded frame contents. Require exact known payload lengths and decode
-> capability entries structurally so the core can apply support policy.
-> Tolerate reserved padding as required by the fixed protocol contract.
-> 
-> Use explicit little-endian wire storage sizes and designated
-> initializers for decoded output structures.
-> 
+On Sat, Sep 19, 2026 at 5:06=E2=80=AFPM Hui Peng <benquike@gmail.com> wrote=
+:
+>
+> Two bugs exist in the CALIPSO hop-by-hop option handling in
+> net/ipv6/calipso.c:
+>
+> 1. When inserting a CALIPSO option into an existing Hop-by-Hop extension
+>    header in calipso_opt_insert() or calipso_skbuff_setattr(), the
+>    resulting header length `buf_len` (or `ipv6_optlen(hop) + len_delta`)
+>    can exceed the maximum size representable by the 8-bit `hdrlen` field
+>    (256 * 8 =3D 2048 bytes). When `buf_len > 2048`, `new->hdrlen =3D buf_=
+len
+>    / 8 - 1` (or `hop->hdrlen =3D ...`) truncates modulo 256, causing
+>    `ipv6_optlen()` to under-report the allocated header size and
+>    mismatch `opt->opt_nflen` or `skb->len`.
+> 2. In calipso_skbuff_setattr(), when `ip6_hdr->nexthdr =3D=3D NEXTHDR_HOP=
+`,
+>    `hop` is dereferenced at `(struct ipv6_opt_hdr *)(ip6_hdr + 1)` and
+>    scanned by `calipso_opt_find(hop, &start, &end)` without ensuring
+>    that the Hop-by-Hop header resides in the linear data area of `skb`
+>    via `pskb_may_pull()`, risking an out-of-bounds read past `skb->tail`
+>    on non-linear skbs.
+>
+> Reject Hop-by-Hop headers that would exceed `8 * 256` bytes with
+> `-ENOSPC`, and ensure `pskb_may_pull()` linearizes `hop` before
+> inspecting it in calipso_skbuff_setattr().
+>
+> Fixes: ceba1832b1b2 ("calipso: Set the calipso socket label to match the =
+secattr.")
+> Fixes: 2917f57b6bc1 ("calipso: Allow the lsm to label the skbuff directly=
+.")
 > Assisted-by: LLM
-> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
-Hi Jinseob
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+>
+> ---
+>  net/ipv6/calipso.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
 
-A few things inline. Some are about what I'd kind of expect from
-how specs are often defined to leave a bit of flexibility and reduce
-the need to update drivers for new stuff being added.
+Similar to my comment on your other patch, since you are fixing two
+potential issues in this patch, please break this up into two patches
+and resubmit.
 
-If you don't want to go that way I don't really mind.
+Thank you.
 
-Otherwise main thing here is why carry reserved data to next layer
-given it is meant to be ignored. Drop it down here in the protocol decode.
-
-Thanks,
-
-Jonathan
-
-> diff --git a/drivers/iio/opensensorfusion/osf_protocol.c b/drivers/iio/opensensorfusion/osf_protocol.c
-> new file mode 100644
-> index 000000000000..e0d7c7a9ebd7
-> --- /dev/null
-> +++ b/drivers/iio/opensensorfusion/osf_protocol.c
-
-> +
-> +int osf_protocol_decode_frame(const u8 *buf, size_t len,
-> +			      struct osf_frame *frame, size_t *frame_len)
-> +{
-> +	u32 expected_crc;
-> +	u32 actual_crc;
-> +	u32 payload_len;
-> +	size_t total_len;
-> +
-> +	if (!buf || !frame || !frame_len)
-> +		return -EINVAL;
-> +
-> +	if (len < OSF_FRAME_MIN_LEN)
-> +		return -EMSGSIZE;
-> +
-> +	if (get_unaligned_le32(buf) != OSF_FRAME_MAGIC)
-> +		return -EPROTO;
-> +
-> +	if (get_unaligned_le16(buf + 6) != OSF_FRAME_HEADER_LEN)
-> +		return -EPROTO;
-> +
-> +	payload_len = get_unaligned_le32(buf + 10);
-> +	if (payload_len > len - OSF_FRAME_MIN_LEN)
-> +		return -EMSGSIZE;
-> +
-> +	total_len = OSF_FRAME_HEADER_LEN + payload_len + OSF_FRAME_CRC_LEN;
-> +	expected_crc = osf_crc32_ieee(buf, OSF_FRAME_HEADER_LEN + payload_len);
-> +	actual_crc = get_unaligned_le32(buf + OSF_FRAME_HEADER_LEN + payload_len);
-> +
-> +	if (actual_crc != expected_crc)
-> +		return -EBADMSG;
-> +
-> +	frame->protocol_major = buf[4];
-> +	frame->protocol_minor = buf[5];
-> +	frame->message_type = get_unaligned_le16(buf + 8);
-> +	frame->payload_len = payload_len;
-> +	frame->sequence = get_unaligned_le64(buf + 14);
-> +	frame->timestamp_us = get_unaligned_le64(buf + 22);
-> +	frame->flags = get_unaligned_le32(buf + 30);
-> +	frame->reserved = get_unaligned_le32(buf + 34);
-
-As below. I'm not sure what benefit of keeping reserved around is.
-
-> +	frame->payload = buf + OSF_FRAME_HEADER_LEN;
-> +	frame->crc = actual_crc;
-
-The above fully assigns frame so I'd do similar to you have elsewhere
-	*frame = (struct osf_frame) {
-		.protocol_major = ...
-...
-	};
-Both makes it more readable and makes it clear you aren't leaving
-any existing data in place.
+> diff --git a/net/ipv6/calipso.c b/net/ipv6/calipso.c
+> index c6a34334e657..b8b7451a16ed 100644
+> --- a/net/ipv6/calipso.c
+> +++ b/net/ipv6/calipso.c
+> @@ -944,6 +944,10 @@ calipso_opt_insert(struct ipv6_opt_hdr *hop,
+>                 memcpy((char *)new + buf_len, (char *)hop + end, hop_len =
+- end);
+>                 buf_len +=3D hop_len - end;
+>         }
+> +       if (buf_len > 8 * 256) {
+> +               kfree(new);
+> +               return ERR_PTR(-ENOSPC);
+> +       }
+>         new->nexthdr =3D 0;
+>         new->hdrlen =3D buf_len / 8 - 1;
+>
+> @@ -1323,6 +1327,13 @@ static int calipso_skbuff_setattr(struct sk_buff *=
+skb,
+>
+>         ip6_hdr =3D ipv6_hdr(skb);
+>         if (ip6_hdr->nexthdr =3D=3D NEXTHDR_HOP) {
+> +               if (!pskb_may_pull(skb, sizeof(*ip6_hdr) + sizeof(*hop)))
+> +                       return -EINVAL;
+> +               ip6_hdr =3D ipv6_hdr(skb);
+> +               hop =3D (struct ipv6_opt_hdr *)(ip6_hdr + 1);
+> +               if (!pskb_may_pull(skb, sizeof(*ip6_hdr) + ipv6_optlen(ho=
+p)))
+> +                       return -EINVAL;
+> +               ip6_hdr =3D ipv6_hdr(skb);
+>                 hop =3D (struct ipv6_opt_hdr *)(ip6_hdr + 1);
+>                 ret_val =3D calipso_opt_find(hop, &start, &end);
+>                 if (ret_val && ret_val !=3D -ENOENT)
+> @@ -1341,6 +1352,8 @@ static int calipso_skbuff_setattr(struct sk_buff *s=
+kb,
+>         /* At this point new_end aligns to 4n, so (new_end & 4) pads to 8=
+n */
+>         pad =3D ((new_end & 4) + (end & 7)) & 7;
+>         len_delta =3D new_end - (int)end + pad;
+> +       if (start && (int)ipv6_optlen(hop) + len_delta > 8 * 256)
+> +               return -ENOSPC;
+>         ret_val =3D skb_cow(skb,
+>                           skb_headroom(skb) + (len_delta > 0 ? len_delta =
+: 0));
+>         if (ret_val < 0)
+> --
+> 2.55.0.1082.g2b9226bbc0-goog
+>
 
 
-> +	*frame_len = total_len;
-> +
-> +	return 0;
-> +}
-
-> +
-> +int osf_protocol_decode_capability_report(const struct osf_frame *frame,
-> +					  struct osf_capability_report *report)
-> +{
-> +	u16 capability_count;
-> +	size_t expected_len;
-> +	const u8 *payload;
-> +
-> +	if (!frame || !report || !frame->payload)
-> +		return -EINVAL;
-> +
-> +	if (frame->message_type != OSF_MSG_CAPABILITY_REPORT)
-> +		return -EPROTO;
-> +
-> +	if (frame->payload_len < OSF_CAP_REPORT_BASE_LEN)
-> +		return -EMSGSIZE;
-> +
-> +	payload = frame->payload;
-> +	capability_count = get_unaligned_le16(payload);
-> +
-> +	expected_len = OSF_CAP_REPORT_BASE_LEN +
-> +		       capability_count * OSF_CAP_SENSOR_ENTRY_LEN;
-> +	if (frame->payload_len != expected_len)
-
-I don't hugely mind as it's your code + spec to maintain but generally
-for a spec with records like this I'd expect it to be possible to extend
-the structure without it being a breaking spec change.   As such
-I'd kind of expect the check to be that the payload_len was at least
-as big as expected len. Larger would be fine but we'd ignore anything
-there.
-
-> +		return -EMSGSIZE;
-> +
-> +	*report = (struct osf_capability_report) {
-> +		.capability_count = capability_count,
-> +		.entries = payload + OSF_CAP_REPORT_BASE_LEN,
-> +	};
-> +
-> +	return 0;
-> +}
-> +
-> +int osf_protocol_decode_capability_entry(const struct osf_capability_report
-> +					 *report, u16 index,
-> +					 struct osf_capability_entry *entry)
-> +{
-> +	const u8 *payload;
-> +
-> +	if (!report || !report->entries || !entry)
-> +		return -EINVAL;
-> +
-> +	if (index >= report->capability_count)
-> +		return -ERANGE;
-> +
-> +	payload = report->entries + index * OSF_CAP_SENSOR_ENTRY_LEN;
-> +	*entry = (struct osf_capability_entry) {
-> +		.sensor_type = get_unaligned_le16(payload),
-> +		.sensor_index = get_unaligned_le16(payload + 2),
-> +		.channel_count = get_unaligned_le16(payload + 4),
-> +		.sample_format = get_unaligned_le16(payload + 6),
-> +		.scale_nano = get_unaligned_le32(payload + 8),
-> +		.flags = get_unaligned_le32(payload + 12),
-> +		.reserved = get_unaligned_le32(payload + 16),
-
-Entirely correctly I think you don't do any checks or reads of reserved values.
-As such why copy them around?  I'd just drop that field from your decoded
-structures.  Not a huge saving but why carry irrelevant data around!
-
-Jonathan
-
-> +	};
-> +
-> +	return 0;
-> +}
+--=20
+paul-moore.com
