@@ -1,42 +1,42 @@
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 333E9448B8F
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:00:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FA1844AB78
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:00:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789912859; cv=none; b=TsujrPRTSxUioV6E9D0q0aeW1d6z2dwacHnloZAgPaSn9qOVXsYExah10v5SRmpgqHJGMocYyoSFYnEtJ3kuCG2Rh/JYaNty4yYMLOIHNQZwE5etDynzFaBpWNEmb7EmC7MesXI6qcHNYVJP2u6c5hunlxkrMF9uJF33hE8d8NQ=
+	t=1789912860; cv=none; b=LqXboqTkRl4hKzknBUGXJzgp3J0UyAIwalYm0pQGc5HE83TKQuhX/d6Q4xc9tU2f5jYAAypFJvbl09MAhoog1oSGx/U+FndQJaS8kOnv4G6GS7xaHib8SneG88nlCGMLcI3zyf2ETuwJtfJlWXQ8UziV+e0wimZXSoeKNQWyCEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789912859; c=relaxed/simple;
-	bh=Nun300RwQnZksLzRvNqoPHXDt1RAK/iUIi5qvomWc4A=;
+	s=arc-20240116; t=1789912860; c=relaxed/simple;
+	bh=3w8k1meOfsNi/Obul4wc/aV5Nh0ReYiuObVcp2+exrA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UlJXbg8SKqkfSaqO1Q1PtVUPkVofqkqPBsLp44YC+6PDLEdghg/qRoJ9AZCovmna7MfstNK0a3ARvtVC+/tVpbyH7CX36jvmiNlU90hUSlfsnJceSNE1a5PxGIFZZJuOi6nOr0zwFLOeSw1shIGh6H6pdKgFHpysW5a9fKM7OIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=lAzEajqa; arc=none smtp.client-ip=185.246.85.4
+	 In-Reply-To:To:Cc; b=YnOMtNL6t+nmN06lIMdK6mO94BODFxHxYp1YtuH/tF84sbWczP6mhHkW0furfXRpStLgTRj0EqgFzyJqEzZX3FSkjsKQwZbfYBSPAxHdrFhXxSz7CxZv9rwrPOj+IMA7hrKnFhdE81yGOfAOmgO4+wCMo0pahDf2LPKsgp5a0E4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=JXtx1Azf; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="lAzEajqa"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="JXtx1Azf"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id AFC8C4E4092A;
-	Sun, 20 Sep 2026 14:00:50 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id DE0D94E404FF;
+	Sun, 20 Sep 2026 14:00:53 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 851596033F;
-	Sun, 20 Sep 2026 14:00:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5E971103286A4;
-	Sun, 20 Sep 2026 16:00:47 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A26BC6033F;
+	Sun, 20 Sep 2026 14:00:53 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3E4981032906C;
+	Sun, 20 Sep 2026 16:00:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789912849; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1789912852; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=JX145afNqmwx7gx0nctZs7OY5qzDSHefsh4nXWmrx18=;
-	b=lAzEajqarAZndx4d3hJRHLAtdq+dnpFisUDKuuGCXcw+SvoHGt5SU7H8+VxeHiHmnNAmE9
-	RRborJfmpf1dA9wF3olECPJEYCoHHIQhR1ML68HY6JCyyVyYQt3jBXg89KZEJzRdxK2cn7
-	q7EHD6NS3ZkZX5IjnNfTKpdA6yREb5sG12x+HqA0NZsorwjfYMrAQicrEE8nmB1EgtW2zx
-	8FXnSk30qKdbyUWoRNc45hhwAJIzUed+3Y46QkyfYNn3SyeB2XSyr0OAlcFBWuczhR1hCN
-	2U4lRllMqQUoBtyyzRW6aVZXlYyGVvvSQBjH+Dd066n0/yQsCYkg6H4FVvEy7Q==
+	bh=3BlwM7DkGk4m7JeGFpFivlQgZ5cyR6Z3082muigsVKg=;
+	b=JXtx1AzfRH+HsIFrMgY11t3FSXXqVYaqhevVvsitKjoDi9vrtSdgoEPXBoKAgbz93iYzmE
+	C7xqOc7Gdi9Gkcp6tpFVo/BCZyadKf+1Yu7JyPSDMIpmvuSygQeyNuH+cSS38LxWobAdnf
+	z1Xf+vHT/kY+0oVdH8awJPfR2Huj+orpSStZPEvuwU3Rr87FfM48CW1e2vT1IBWsu6aoue
+	T5LMHuR3X/CMCVOyhUXquG3mIiqi0cIEWcI7/Dtb/y+ZRoW1JuyiLHrVsdplIp0YsY4/yB
+	W1/9jn/JSmkXKuHv1unqQ+0DjcBwdCRWbw5Ns1WqzDM1cfj4QHOboZVOTBKu3g==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Sun, 20 Sep 2026 16:00:18 +0200
-Subject: [PATCH v2 09/25] mtd: spi-nor: winbond: W25Q256JW-Q/N/M: Fill
- locking information
+Date: Sun, 20 Sep 2026 16:00:19 +0200
+Subject: [PATCH v2 10/25] mtd: spi-nor: winbond: W25Q32JW-Q/N: Add quad
+ page program capability
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-winbond-master-spi-nor-jw-cleanup-pw-addition-v2-9-ab9c9688d071@bootlin.com>
+Message-Id: <20260920-winbond-master-spi-nor-jw-cleanup-pw-addition-v2-10-ab9c9688d071@bootlin.com>
 References: <20260920-winbond-master-spi-nor-jw-cleanup-pw-addition-v2-0-ab9c9688d071@bootlin.com>
 In-Reply-To: <20260920-winbond-master-spi-nor-jw-cleanup-pw-addition-v2-0-ab9c9688d071@bootlin.com>
 To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
@@ -57,41 +57,73 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-I do not have any W25Q256JW-Q/N/M in hand, but since all the other chips
-from this family have the same locking pattern, we can reasonably expect
-that these chips follow the exact same rules.
+The benefit is not massive @25MHz, yet it is a supported feature
+of the chip which is already handled by a flag, so let's enable it and
+earn a few % write throughput.
 
-Add the missing CMP flags.
+Before:
+$ flash_speed /dev/mtd0 -dc10
+eraseblock write speed is 393 KiB/s
+page write speed is 391 KiB/s
+2 page write speed is 391 KiB/s
+
+After:
+$ flash_speed /dev/mtd0 -dc10
+eraseblock write speed is 402 KiB/s
+page write speed is 400 KiB/s
+2 page write speed is 400 KiB/s
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/mtd/spi-nor/winbond.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
++ cat /sys/kernel/debug/spi-nor/spi0.0/capabilities
+Supported read modes by the flash
+ 1S-1S-1S
+  opcode	0x03
+  mode cycles	0
+  dummy cycles	0
+ 1S-1S-2S
+  opcode	0x3b
+  mode cycles	0
+  dummy cycles	8
+ 1S-2S-2S
+  opcode	0xbb
+  mode cycles	2
+  dummy cycles	2
+ 1S-1S-4S
+  opcode	0x6b
+  mode cycles	0
+  dummy cycles	8
+ 1S-4S-4S
+  opcode	0xeb
+  mode cycles	2
+  dummy cycles	4
+ 4S-4S-4S
+  opcode	0xeb
+  mode cycles	2
+  dummy cycles	0
+
+Supported page program modes by the flash
+ 1S-1S-1S
+  opcode	0x02
+ 1S-1S-4S
+  opcode	0x32
+---
+ drivers/mtd/spi-nor/winbond.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/mtd/spi-nor/winbond.c b/drivers/mtd/spi-nor/winbond.c
-index 4ffc7a39ac6d..62f69e868d7d 100644
+index 62f69e868d7d..022fcfd05da2 100644
 --- a/drivers/mtd/spi-nor/winbond.c
 +++ b/drivers/mtd/spi-nor/winbond.c
-@@ -348,7 +348,8 @@ static const struct flash_info winbond_nor_parts[] = {
- 		.id = SNOR_ID(0xef, 0x60, 0x19),
- 		.name = "w25q256jw",
- 		.size = SZ_32M,
--		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6 | SPI_NOR_4BIT_BP,
-+		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6 |
-+			 SPI_NOR_4BIT_BP | SPI_NOR_HAS_CMP,
+@@ -326,7 +326,7 @@ static const struct flash_info winbond_nor_parts[] = {
+ 		.id = SNOR_ID(0xef, 0x60, 0x16),
+ 		.name = "w25q32dw",
+ 		.size = SZ_4M,
+-		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_HAS_CMP,
++		.flags = SPI_NOR_QUAD_PP | SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_HAS_CMP,
  		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
+ 		.otp = SNOR_OTP(256, 3, 0x1000, 0x1000),
  	}, {
- 		/* W25Q512NW-Q/N */
-@@ -441,7 +442,8 @@ static const struct flash_info winbond_nor_parts[] = {
- 		.id = SNOR_ID(0xef, 0x80, 0x19),
- 		.name = "w25q256jwm",
- 		.size = SZ_32M,
--		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6 | SPI_NOR_4BIT_BP,
-+		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6 |
-+			 SPI_NOR_4BIT_BP | SPI_NOR_HAS_CMP,
- 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 	}, {
- 		/* W25Q512NW-M */
 
 -- 
 2.54.0
