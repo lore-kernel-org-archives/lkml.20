@@ -1,265 +1,255 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 526273E7159;
-	Sun, 20 Sep 2026 09:24:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAE073932D5
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:25:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789896275; cv=none; b=DgH322Mv7H0vqU1gKToHqkf7F+FEohlDqO2KLXRoLfM9Pk1W1yMXSmxhgqJtIKN2g04uFp50iUYuwMVXX/8MU15AsYdCtROpVZauU+DjrVhmcprwcGY/RxItuBKyAZEuuLpwZPYBIQikQ1i9PSUlA/4O4H6tFWAC0rjj6XAeLDQ=
+	t=1789896303; cv=none; b=GRz9j6gBXdPzyLt9bQxJ4Fo91hlxSYPMFDDcWCQXYJHHqNDOUn7R8eM2NU+uHjt2ldMuEygpi/O/mrho1T8P5T3OTgk3ZqMDw4orNZPVm8tmFCSzY9sGJWe6nggafX5Z+OPgcQz9glCdK2S3WffTZoNilrQCewX8i1o43yhYRko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789896275; c=relaxed/simple;
-	bh=on3mcQJpUjaDa2vebdVenVdHz0bZf2V2o53bti4YqtI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ufhUsLLiNAZHLF9dD407KvjaqxpQChhAwdvECe28+k6Ueaos/VqJEGVxYixwoE/9r7DmiC6cgV0GnRP+4OmQGqwAftYm9EuhJxhtSubSRsdupeg5JAU6rS1zoO/SDZzvgTxciVlkScKhDsHzEPKHVHJbahvD9OXBGlXMHeAfMqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OopB1Mkw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789896303; c=relaxed/simple;
+	bh=PI6otOpH25mLtd+yCK9nITg5ays8EVaRZEfJmZO2bzk=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=jjcNXRgzTkULINjTaWC6ulaT3lSmQzdzJWv8T739yORC4hrGPGfS2wN8jpfNuOohp9meKuZIrmp1WoI194xSsgzSSQpdEVlu1L+dxnxEDSDaV4stOKk44oGh9m+8nHhQhwLC9pU78/mg5OA5OFDC09ORinsn/uM83LVm5vN340w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Yy4MB5cF; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OopB1Mkw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71A5C1F00898;
-	Sun, 20 Sep 2026 09:24:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789896274;
-	bh=P0bHm3iAFJ2FAvo7Q79lhKrYFqfJ7Dsy6ioYDke8xPA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OopB1MkwmNP66l97NW/PpwUHNZl0w89lNP+o8JrKcD0jQOFEmM8f8vVum5nGuwlcM
-	 mpqlUqXrBg1gI0RYbkRVlNDpN6ERIxKgGGcoiAjp9hgJ0Tr+mXYSP8YgrP6P/dG3Cf
-	 RhpOPbP27LY3xqL56uGr7NrVWRslUPx6Dh8lrYyMxncsAaZc3NXDv23pw4cT8gRgOd
-	 u/1jXOUn3dnsUcxxKmN6ZyzQ31N9Rl0ZkbmowGsWBH+MfVB/iAYeLdV330E/ZINe+e
-	 J3wZFse1QIMTaeYcqqtZbfr47zVmw5NbxvS4EF4X6xFgBmBNcJ+vtR7GIo5kiMKbZF
-	 fp6CfuBLNutcA==
-From: Yu Kuai <yukuai@kernel.org>
-To: Jens Axboe <axboe@kernel.dk>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Coly Li <colyli@fygo.io>,
-	Kent Overstreet <kent.overstreet@linux.dev>,
-	Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Song Liu <song@kernel.org>,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	Andreas Gruenbacher <agruenba@redhat.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>
-Cc: Yu Kuai <yukuai@fygo.io>,
-	Christoph Hellwig <hch@lst.de>,
-	Nilay Shroff <nilay@linux.ibm.com>,
-	Tao Cui <cuitao@kylinos.cn>,
-	linux-block@vger.kernel.org,
-	cgroups@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-bcache@vger.kernel.org,
-	dm-devel@lists.linux.dev,
-	linux-raid@vger.kernel.org,
-	gfs2@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	llvm@lists.linux.dev
-Subject: [PATCH v4 3/3] blk-cgroup: move async bio punt state to blkcg
-Date: Sun, 20 Sep 2026 17:23:51 +0800
-Message-ID: <20260920092351.2434283-4-yukuai@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260920092351.2434283-1-yukuai@kernel.org>
-References: <20260920092351.2434283-1-yukuai@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Yy4MB5cF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789896302; x=1821432302;
+  h=date:from:to:cc:subject:message-id;
+  bh=PI6otOpH25mLtd+yCK9nITg5ays8EVaRZEfJmZO2bzk=;
+  b=Yy4MB5cFsd3uQVaCKDP/v+Xh6ArXI91SQB82bj5EaVa35M2JLytpMtMG
+   2zCx8OmlnZT70SwXl2uRzStleg3jYF9N4vaC9//UGHT456bP5OkPoMbdf
+   vtvDCA+yk0j7Tfm6tLV5kMmH3NTvhRKjeDIWS4Iw+LXEHmTREvWNqA/cF
+   mOV1zJbu4M8vRuBvebpcPZQCFnfyQGEHdepkcdfhWBVN3oIvBmTW+FeF8
+   hd/Fzix4gnSvJ4XVtmzUlX9dOeJx3ws5CkmvpW4prMcQdK+Q7chbK79VB
+   G6FvLRJsCmZAfep8LWCcH4K5Nokn82YkQOKjKJmoJ3sQErdOyQRCDjrpr
+   Q==;
+X-CSE-ConnectionGUID: DjWQEj40TCSaH9cTXV/G4w==
+X-CSE-MsgGUID: k+dOhpiUR5WooctPs+sz/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11910"; a="115933111"
+X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
+   d="scan'208";a="115933111"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Sep 2026 02:25:01 -0700
+X-CSE-ConnectionGUID: L7WgcNtpRrOOvM9IYncRzA==
+X-CSE-MsgGUID: HKF8sAjAR86Kjua9u/e+QQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
+   d="scan'208";a="277020719"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa004.fm.intel.com with ESMTP; 20 Sep 2026 02:25:00 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x8Dn7-00000000CDu-2oRu;
+	Sun, 20 Sep 2026 09:24:57 +0000
+Date: Sun, 20 Sep 2026 17:24:45 +0800
+From: kernel test robot <lkp@intel.com>
+To: "x86-ml" <x86@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [tip:sched:urgent] BUILD SUCCESS
+ fe3c73d7bc769e7afc252f867a3421fe168b898d
+Message-ID: <202609201741.NLli0TP7-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Yu Kuai <yukuai@fygo.io>
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git sched/urgent
+branch HEAD: fe3c73d7bc769e7afc252f867a3421fe168b898d  sched/core: Avoid false migration warning for proxy donors
 
-blkcg_punt_bio_submit() currently queues punted bios on blkg->async_bios,
-so it has to call bio_blkg() to find or create a queue-local blkg.  Bios
-now carry and pin the blkcg css, so punted bio lifetime no longer needs to
-be anchored by a blkg.
+elapsed time: 1100m
 
-Keeping the punt state in blkg can instantiate a blkg even when no blkcg
-policy is enabled, just to bounce submission from a shared kthread.  Move
-async_bio_lock, async_bios and async_bio_work to struct blkcg, and queue
-punted bios on bio_blkcg() for non-root cgroups.  Root or unassociated bios
-are submitted directly.
+configs tested: 178
+configs skipped: 10
 
-This preserves the priority-inversion avoidance while preventing
-blkcg_punt_bio_submit() from creating blkgs that are not needed by any
-policy.
+The following configs have been built successfully.
+More configs may be tested in the coming days.
 
-Signed-off-by: Yu Kuai <yukuai@fygo.io>
-Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
----
- block/blk-cgroup.c | 40 +++++++++++++++++-----------------------
- block/blk-cgroup.h | 14 ++++++--------
- 2 files changed, 23 insertions(+), 31 deletions(-)
+tested configs:
+alpha                              allnoconfig    gcc-16.1.0
+alpha                             allyesconfig    gcc-16.1.0
+alpha                                defconfig    gcc-16.1.0
+arc                               allmodconfig    gcc-16.1.0
+arc                                allnoconfig    gcc-16.1.0
+arc                                  defconfig    gcc-16.1.0
+arc                   randconfig-1000-20260920    gcc-8.5.0
+arc                   randconfig-1001-20260920    gcc-8.5.0
+arm                                allnoconfig    clang-17
+arm                               allyesconfig    gcc-16.1.0
+arm                        aspeed_g5_defconfig    gcc-16.1.0
+arm                         clps711x_defconfig    clang-24
+arm                                  defconfig    clang-24
+arm                             mmp2_defconfig    gcc-16.1.0
+arm                   randconfig-1000-20260920    gcc-10.5.0
+arm                   randconfig-1001-20260920    gcc-12.5.0
+arm                   randconfig-1002-20260920    clang-20
+arm                   randconfig-1003-20260920    gcc-16.1.0
+arm                  randconfig-r1304-20260920    gcc-10.5.0 sparse
+arm                  randconfig-r1309-20260920    clang-24   sparse
+arm                         spear3xx_defconfig    clang-24
+arm                            spitz_defconfig    gcc-16.1.0
+arm64                              allnoconfig    gcc-16.1.0
+arm64                                defconfig    gcc-16.1.0
+arm64                 randconfig-1000-20260920    gcc-15.2.0
+arm64                 randconfig-1001-20260920    clang-24
+arm64                 randconfig-1002-20260920    gcc-8.5.0
+arm64                 randconfig-1003-20260920    clang-24
+csky                              allmodconfig    gcc-16.1.0
+csky                               allnoconfig    gcc-16.1.0
+csky                                 defconfig    gcc-16.1.0
+csky                  randconfig-1000-20260920    gcc-12.5.0
+csky                  randconfig-1001-20260920    gcc-14.3.0
+csky                 randconfig-r1308-20260920    gcc-16.1.0 sparse
+hexagon                           alldefconfig    clang-19
+hexagon                           allmodconfig    clang-24
+hexagon                            allnoconfig    clang-24
+hexagon                              defconfig    clang-24
+hexagon               randconfig-1000-20260920    clang-17
+hexagon               randconfig-1001-20260920    clang-19
+hexagon              randconfig-r1306-20260920    clang-24   sparse
+i386                              allmodconfig    gcc-14
+i386                               allnoconfig    gcc-14
+i386        buildonly-randconfig-1000-20260920    clang-22
+i386        buildonly-randconfig-1001-20260920    clang-22
+i386        buildonly-randconfig-1002-20260920    clang-22
+i386        buildonly-randconfig-1003-20260920    gcc-14
+i386        buildonly-randconfig-1004-20260920    clang-22
+i386        buildonly-randconfig-1005-20260920    clang-22
+i386                                 defconfig    clang-22
+i386                  randconfig-1000-20260920    clang-22
+i386                  randconfig-1001-20260920    gcc-14
+i386                  randconfig-1002-20260920    gcc-14
+i386                  randconfig-1003-20260920    clang-22
+i386                  randconfig-1004-20260920    gcc-14
+i386                  randconfig-1005-20260920    gcc-14
+i386                  randconfig-1006-20260920    clang-22
+i386                  randconfig-1007-20260920    gcc-12
+i386                  randconfig-1008-20260920    gcc-14
+i386                  randconfig-1009-20260920    clang-22
+i386                  randconfig-1010-20260920    clang-22
+i386                  randconfig-1011-20260920    gcc-14
+i386                  randconfig-1012-20260920    gcc-14
+i386                  randconfig-1013-20260920    clang-22
+i386                  randconfig-1300-20260920    clang-22   sparse
+i386                  randconfig-1301-20260920    clang-22   sparse
+i386                  randconfig-1302-20260920    clang-22   sparse
+i386                 randconfig-r1303-20260920    gcc-14     sparse
+loongarch                          allnoconfig    clang-20
+loongarch                            defconfig    clang-24
+loongarch             randconfig-1000-20260919    clang-24
+loongarch             randconfig-1000-20260920    gcc-16.1.0
+loongarch             randconfig-1001-20260920    gcc-16.1.0
+m68k                              allmodconfig    gcc-16.1.0
+m68k                               allnoconfig    gcc-16.1.0
+m68k                              allyesconfig    gcc-16.1.0
+m68k                                 defconfig    gcc-16.1.0
+m68k                        m5275evb_defconfig    gcc-16.1.0
+microblaze                         allnoconfig    gcc-16.1.0
+microblaze                        allyesconfig    gcc-16.1.0
+microblaze                           defconfig    gcc-16.1.0
+mips                              allmodconfig    gcc-16.1.0
+mips                               allnoconfig    gcc-16.1.0
+mips                              allyesconfig    gcc-16.1.0
+nios2                             allmodconfig    gcc-11.5.0
+nios2                              allnoconfig    gcc-11.5.0
+nios2                                defconfig    gcc-11.5.0
+nios2                 randconfig-1000-20260920    gcc-8.5.0
+nios2                 randconfig-1001-20260920    gcc-8.5.0
+openrisc                          allmodconfig    gcc-16.1.0
+openrisc                           allnoconfig    gcc-16.1.0
+openrisc                             defconfig    gcc-16.1.0
+parisc                            allmodconfig    gcc-16.1.0
+parisc                             allnoconfig    gcc-16.1.0
+parisc                            allyesconfig    gcc-16.1.0
+parisc                               defconfig    gcc-16.1.0
+parisc                randconfig-1000-20260920    gcc-14.3.0
+parisc                randconfig-1001-20260920    gcc-8.5.0
+parisc64                             defconfig    gcc-16.1.0
+powerpc                           allmodconfig    gcc-16.1.0
+powerpc                            allnoconfig    gcc-16.1.0
+powerpc                       ep88xc_defconfig    gcc-16.1.0
+powerpc               randconfig-1000-20260920    gcc-8.5.0
+powerpc               randconfig-1001-20260920    clang-24
+powerpc64             randconfig-1000-20260920    clang-24
+powerpc64             randconfig-1001-20260920    clang-22
+powerpc64            randconfig-r1307-20260920    clang-17   sparse
+riscv                             allmodconfig    clang-24
+riscv                              allnoconfig    gcc-16.1.0
+riscv                             allyesconfig    clang-24
+riscv                                defconfig    clang-24
+riscv                 randconfig-1000-20260920    gcc-13.4.0
+riscv                 randconfig-1001-20260920    gcc-15.2.0
+riscv                randconfig-r1301-20260920    gcc-11.5.0 sparse
+s390                               allnoconfig    clang-24
+s390                              allyesconfig    gcc-16.1.0
+s390                                 defconfig    clang-18
+s390                  randconfig-1000-20260920    gcc-8.5.0
+s390                  randconfig-1001-20260920    clang-20
+sh                                allmodconfig    gcc-16.1.0
+sh                                 allnoconfig    gcc-16.1.0
+sh                                allyesconfig    gcc-16.1.0
+sh                                   defconfig    gcc-16.1.0
+sh                    randconfig-1000-20260920    gcc-16.1.0
+sh                    randconfig-1001-20260920    gcc-10.5.0
+sh                   randconfig-r1300-20260920    gcc-16.1.0 sparse
+sparc                              allnoconfig    gcc-16.1.0
+sparc                                defconfig    gcc-16.1.0
+sparc                 randconfig-1000-20260920    gcc-12.5.0
+sparc                 randconfig-1001-20260920    gcc-14.3.0
+sparc64                           allmodconfig    clang-20
+sparc64                              defconfig    clang-24
+sparc64               randconfig-1000-20260920    gcc-13.4.0
+sparc64               randconfig-1001-20260920    clang-24
+um                                 allnoconfig    clang-17
+um                                allyesconfig    gcc-14
+um                                   defconfig    clang-24
+um                              i386_defconfig    gcc-14
+um                    randconfig-1000-20260920    clang-21
+um                    randconfig-1001-20260920    clang-17
+um                   randconfig-r1302-20260920    gcc-14     sparse
+um                   randconfig-r1305-20260920    gcc-14     sparse
+um                            x86_64_defconfig    clang-24
+x86_64                             allnoconfig    clang-22
+x86_64      buildonly-randconfig-1000-20260920    gcc-14
+x86_64      buildonly-randconfig-1001-20260920    gcc-14
+x86_64      buildonly-randconfig-1002-20260920    gcc-14
+x86_64      buildonly-randconfig-1003-20260920    clang-22
+x86_64      buildonly-randconfig-1004-20260920    clang-22
+x86_64      buildonly-randconfig-1005-20260920    gcc-14
+x86_64                               defconfig    gcc-14
+x86_64                randconfig-1000-20260920    clang-22
+x86_64                randconfig-1001-20260920    gcc-14
+x86_64                randconfig-1002-20260920    clang-22
+x86_64                randconfig-1003-20260920    gcc-14
+x86_64                randconfig-1004-20260920    gcc-14
+x86_64                randconfig-1005-20260920    clang-22
+x86_64                randconfig-1006-20260920    gcc-14
+x86_64                randconfig-1007-20260920    gcc-14
+x86_64                randconfig-1008-20260920    gcc-14
+x86_64                randconfig-1009-20260919    gcc-14
+x86_64                randconfig-1009-20260920    gcc-14
+x86_64                randconfig-1010-20260920    gcc-14
+x86_64                randconfig-1011-20260920    gcc-14
+x86_64                randconfig-1012-20260920    clang-22
+x86_64                randconfig-1013-20260920    gcc-14
+x86_64                randconfig-1014-20260920    gcc-14
+x86_64                randconfig-1015-20260920    clang-22
+x86_64                randconfig-1016-20260920    clang-22
+x86_64                randconfig-1017-20260920    clang-22
+x86_64                randconfig-1300-20260920    clang-22   sparse
+x86_64                randconfig-1301-20260920    clang-22   sparse
+x86_64                randconfig-1302-20260920    gcc-14     sparse
+x86_64                           rhel-9.4-rust    clang-22
+xtensa                             allnoconfig    gcc-16.1.0
+xtensa                            allyesconfig    gcc-16.1.0
+xtensa                randconfig-1000-20260920    gcc-10.5.0
+xtensa                randconfig-1001-20260920    gcc-8.5.0
 
-diff --git a/block/blk-cgroup.c b/block/blk-cgroup.c
-index aa84b603d4ce..43bd682f91a1 100644
---- a/block/blk-cgroup.c
-+++ b/block/blk-cgroup.c
-@@ -180,14 +180,10 @@ static void blkg_free(struct blkcg_gq *blkg)
- 
- static void __blkg_release(struct rcu_head *rcu)
- {
- 	struct blkcg_gq *blkg = container_of(rcu, struct blkcg_gq, rcu_head);
- 
--#ifdef CONFIG_BLK_CGROUP_PUNT_BIO
--	WARN_ON(!bio_list_empty(&blkg->async_bios));
--#endif
--
- 	blkg_free(blkg);
- }
- 
- /*
-  * A group is RCU protected, but having an rcu lock does not mean that one
-@@ -226,23 +222,22 @@ static void blkg_release(struct percpu_ref *ref)
- }
- 
- #ifdef CONFIG_BLK_CGROUP_PUNT_BIO
- static struct workqueue_struct *blkcg_punt_bio_wq;
- 
--static void blkg_async_bio_workfn(struct work_struct *work)
-+static void blkcg_async_bio_workfn(struct work_struct *work)
- {
--	struct blkcg_gq *blkg = container_of(work, struct blkcg_gq,
--					     async_bio_work);
-+	struct blkcg *blkcg = container_of(work, struct blkcg, async_bio_work);
- 	struct bio_list bios = BIO_EMPTY_LIST;
- 	struct bio *bio;
- 	struct blk_plug plug;
- 	bool need_plug = false;
- 
--	/* as long as there are pending bios, @blkg can't go away */
--	spin_lock(&blkg->async_bio_lock);
--	bio_list_merge_init(&bios, &blkg->async_bios);
--	spin_unlock(&blkg->async_bio_lock);
-+	/* as long as there are pending bios, @blkcg can't go away */
-+	spin_lock(&blkcg->async_bio_lock);
-+	bio_list_merge_init(&bios, &blkcg->async_bios);
-+	spin_unlock(&blkcg->async_bio_lock);
- 
- 	/* start plug only when bio_list contains at least 2 bios */
- 	if (bios.head && bios.head->bi_next) {
- 		need_plug = true;
- 		blk_start_plug(&plug);
-@@ -259,19 +254,19 @@ static void blkg_async_bio_workfn(struct work_struct *work)
-  * cgroup.  Use this helper instead of submit_bio to punt the actual issuing to
-  * a dedicated per-blkcg work item to avoid such priority inversions.
-  */
- void blkcg_punt_bio_submit(struct bio *bio)
- {
--	struct blkcg_gq *blkg = bio_blkg(bio);
-+	struct blkcg *blkcg = bio_blkcg(bio);
- 
--	if (blkg && blkg->parent) {
--		spin_lock(&blkg->async_bio_lock);
--		bio_list_add(&blkg->async_bios, bio);
--		spin_unlock(&blkg->async_bio_lock);
--		queue_work(blkcg_punt_bio_wq, &blkg->async_bio_work);
-+	if (blkcg && cgroup_parent(blkcg->css.cgroup)) {
-+		spin_lock(&blkcg->async_bio_lock);
-+		bio_list_add(&blkcg->async_bios, bio);
-+		spin_unlock(&blkcg->async_bio_lock);
-+		queue_work(blkcg_punt_bio_wq, &blkcg->async_bio_work);
- 	} else {
--		/* Never bounce if there is no non-root blkg to queue on. */
-+		/* Never bounce if there is no non-root blkcg to queue on. */
- 		submit_bio(bio);
- 	}
- }
- EXPORT_SYMBOL_GPL(blkcg_punt_bio_submit);
- 
-@@ -350,15 +345,10 @@ static struct blkcg_gq *blkg_alloc(struct blkcg *blkcg, struct gendisk *disk,
- 	blkg->q = disk->queue;
- 	INIT_LIST_HEAD(&blkg->q_node);
- 	blkg->blkcg = blkcg;
- 	blkg->blkcg_id = blkcg->css.id;
- 	blkg->iostat.blkg = blkg;
--#ifdef CONFIG_BLK_CGROUP_PUNT_BIO
--	spin_lock_init(&blkg->async_bio_lock);
--	bio_list_init(&blkg->async_bios);
--	INIT_WORK(&blkg->async_bio_work, blkg_async_bio_workfn);
--#endif
- 
- 	u64_stats_init(&blkg->iostat.sync);
- 	for_each_possible_cpu(cpu) {
- 		u64_stats_init(&per_cpu_ptr(blkg->iostat_cpu, cpu)->sync);
- 		per_cpu_ptr(blkg->iostat_cpu, cpu)->blkg = blkg;
-@@ -1447,10 +1437,14 @@ blkcg_css_alloc(struct cgroup_subsys_state *parent_css)
- 	}
- 
- 	spin_lock_init(&blkcg->lock);
- 	refcount_set(&blkcg->online_pin, 1);
- 	INIT_HLIST_HEAD(&blkcg->blkg_list);
-+#ifdef CONFIG_BLK_CGROUP_PUNT_BIO
-+	spin_lock_init(&blkcg->async_bio_lock);
-+	INIT_WORK(&blkcg->async_bio_work, blkcg_async_bio_workfn);
-+#endif
- #ifdef CONFIG_CGROUP_WRITEBACK
- 	INIT_LIST_HEAD(&blkcg->cgwb_list);
- #endif
- 	list_add_tail(&blkcg->all_blkcgs_node, &all_blkcgs);
- 
-diff --git a/block/blk-cgroup.h b/block/blk-cgroup.h
-index f68ea21958f5..7fee8555e713 100644
---- a/block/blk-cgroup.h
-+++ b/block/blk-cgroup.h
-@@ -75,18 +75,11 @@ struct blkcg_gq {
- 
- 	struct blkg_iostat_set __percpu	*iostat_cpu;
- 	struct blkg_iostat_set		iostat;
- 
- 	struct blkg_policy_data		*pd[BLKCG_MAX_POLS];
--#ifdef CONFIG_BLK_CGROUP_PUNT_BIO
--	spinlock_t			async_bio_lock;
--	struct bio_list			async_bios;
--#endif
--	union {
--		struct work_struct	async_bio_work;
--		struct work_struct	free_work;
--	};
-+	struct work_struct		free_work;
- 
- 	atomic_t			use_delay;
- 	atomic64_t			delay_nsec;
- 	atomic64_t			delay_start;
- 	u64				last_delay;
-@@ -111,10 +104,15 @@ struct blkcg {
- 	/*
- 	 * List of updated percpu blkg_iostat_set's since the last flush.
- 	 */
- 	struct llist_head __percpu	*lhead;
- 
-+#ifdef CONFIG_BLK_CGROUP_PUNT_BIO
-+	spinlock_t			async_bio_lock;
-+	struct bio_list			async_bios __guarded_by(&async_bio_lock);
-+	struct work_struct		async_bio_work;
-+#endif
- #ifdef CONFIG_BLK_CGROUP_FC_APPID
- 	char                            fc_app_id[FC_APPID_LEN];
- #endif
- #ifdef CONFIG_CGROUP_WRITEBACK
- 	struct list_head		cgwb_list;
--- 
-2.51.0
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
