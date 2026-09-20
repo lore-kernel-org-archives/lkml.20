@@ -1,118 +1,120 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mta0.migadu.com (out-114.mta0.migadu.com [91.218.175.114])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44FA710F0
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:08:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D543D891B
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:09:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789888092; cv=none; b=Y5U+1aLaSLt03w7osIlNGQu9fJrYtw/qtwYPAN2tmE8WNbhpx2fAAsMBBVdykKOVcIfItChsi58bdOQco5yOzVzJ052XOjCEFP67G7gclANw9Qwg9f8lhRxvJrq7VU2gMQYArbic98bm4pZmwmYf9+SW/J0hAkRc/ofl2wXph3o=
+	t=1789888143; cv=none; b=bmBrNNkOsNuTwonfTKMhCiUbHHQjwnElIBIAS4+11/jprgIkwFzD7DIYdUOKgwNoYyka3kSLeha0N/G1ogb0AFHfkIqx0dk8GU7nJk7W/KBDi2MyhIaKY//pvyUpN7H7P0r75A7DjeYndBkn/0C8bimbyjy1eCbv1+ELYOqpEd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789888092; c=relaxed/simple;
-	bh=1B0V8T4ktuc79cxDoRF6PqS6cRvCeIaed92X3FxIr9M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NlKv2whjw+mi7T7dbudulxVOCaRiQGEEjTsQessXIRLqF1tMevQCpKhUiHw2xUuJ5dghFOX7KWONa9ZO/o3UBPslLT3YRz6u3BKFEUDIAsxXlI3kAhUHsgZin9tN8u4x6cflZ8T54JD+xM7tNM16uAMxO1c7tcWI1ixYiCnTMWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bl+pRrz7; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789888143; c=relaxed/simple;
+	bh=VgeBjtVfHDvoQqBuILT+p6c6cwhxbzBnIRRxf84zUQc=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=ErVI7Crh0WOhNk5dE375BUHdCihFChDjZeaRDLV8HV6al3lN4eSrmDxQlplP+pLcSgWC2Tb2o0cSQ7utSpDveC9AFcXf1l/5iK27TXsAkqmSF5YKMkmW6BkpzWZFRuKCcYWOPkbe6cXfh3s02+3BjNV7dNlYnFvyIMgsoRp8+xE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=j19dSBIc; arc=none smtp.client-ip=91.218.175.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bl+pRrz7"
-Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2df36461d63so4392555ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 00:08:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789888090; x=1790492890; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6a5bAZPuUCh9F1dtEQIfloO2fyihCQk+5QE8nkYOx1w=;
-        b=Bl+pRrz7LCa6p1MbER5rebW1XLI+oOuSRU0XAX5oslTTtWgVeamVtS5NpVXvxzZyeN
-         2fHcW9fQJRPe/+lFRk2hOBlsQVW9JyngG1wVwWAr940zCgB3B2s4S4HweSdwrch2ztmm
-         muZN0O7hnfapw7hnsphqr0k//k6WihsX61V1bxNkn5FEhdZ+7UfoZpNv55BZtgey+WKK
-         5HUvweBAtVrvdYoa+4eoZYGOI5v5wSQGKL7zOfLBf85oO38ErMBflMSdJ9mtgwNvnE7V
-         AAlFAfhadbEe1//m7Dkqx0a9Ur3skt0WUmlpX67/ABgIOp5dcXigXkFT+aDs5tyAvY9W
-         8+1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789888090; x=1790492890;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6a5bAZPuUCh9F1dtEQIfloO2fyihCQk+5QE8nkYOx1w=;
-        b=n6RJioxYFzgCnjeDbbJ47cW9364pJ2WxXiPmt3+AhKobTGNWWtHJlDlczs1r2idtJe
-         dXjq7gW+5ac7mqHRlEe3EVE7oSNinM9dreRK0sG3kUWx+BhWIsoMnK73/5nT449NrHYC
-         lIC2R8cOBf9xZhXh6J50XyxWX4gD4rcRYZl3QJJfAF5sB/sWLb85xb/FeyVkjZFjDqSj
-         6E1GM0UC+Sz72qW0VX/29MHdjar7WVjuWeRPpcB2lbxhQkWXIMvn1du3YkjpOv+yMEmo
-         VM4OKgzgxgDaceMKwJP5nskV0rq5kYaQ+QMJRWufT4hVZcU4mGNG6KXAFpu2cTzojrK1
-         BrXQ==
-X-Gm-Message-State: AFuF++lsjhzvFct2zOZkEhkjdoZBnu/HO94pHZeg5/5YyUwAWxOzmL6e
-	x0fYSPw2ET5K69UGBJupnL1FLlhKrpBs/u7nEtELneLXwJ+A68YdL/OS
-X-Gm-Gg: AYBFou2ZY30M95fSK80z10dn6VBnvb3crIkRQ2DaglT7ew6RW9f4AFkvRqLqG7nC63T
-	bglSe2gDPIWWs8ZCKzGlSL6De7rQU1/mGSNRsCDKmZ4FpgZyhj22/WseL7GizimpVsLRxuyl5+S
-	r54+vp/GhTPvONd8JlOI3NXM9xAmr8j5wF9yxx8DhnhBLN+MALKrGuYqXB1jdp2vNJW/SZOObpw
-	/n2BgN6ZY+a9aZ/VDRXKR91khv9gdmlEVQVqsEbg/xuni8WMwGkN5Ldl0K9qAJeGUUw0CBcfCiB
-	OuVWqRTdQZlCoHmO0GV0B/nspMY859TRBGbbVNecqjS5IKc0LznLVme2wY9Eihd34hZudoypk8E
-	yBoOHylQPv4sjKhNWEDUbFiVUk0usjBs9NoXYFhqNUoHMbp4GbqPYDIrtb8D3isQSWDOW2pqxNB
-	3hPq29tQjp885BG7YL5HNR6hNe0k1xaixF1IxnTROYeE5IZ7kb94B7T6Tav5RqRgWNrDmPQWK9W
-	scl6CJ/VTXSx/Pj/GcSwRLsn6j9
-X-Received: by 2002:a17:903:124b:b0:2dd:ad73:c981 with SMTP id d9443c01a7336-2ddb1ba2dcdmr102512425ad.25.1789888089877;
-        Sun, 20 Sep 2026 00:08:09 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c3311a6e5sm10517519eec.7.2026.09.20.00.08.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 00:08:09 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: frederic@kernel.org,
-	longman@redhat.com,
-	juri.lelli@redhat.com,
-	peterz@infradead.org,
-	kees+treewide@kernel.org,
-	brauner@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	paulmck@kernel.org,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: [PATCH] kthread: Annotate lockless to_kthread() flags access
-Date: Sun, 20 Sep 2026 15:07:50 +0800
-Message-ID: <20260920070750.2871923-1-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="j19dSBIc"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VgeBjtVfHDvoQqBuILT+p6c6cwhxbzBnIRRxf84zUQc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789888139; v=1; x=1790492939;
+ b=j19dSBIcYF/FfClW4UyntiOwbTP1RxAWh+hHdeXCSMEq8BjQcWVrnOnrHcZTT1trc71DPRVT
+ haf/m9zbHJxcQoD5KCxwWr1O3bAZgvs/jLI6b5CAPdccqJW2zNXaNPSthYmgN6fScdGNrsjdPsj
+ gdhFbMcYqNZwRAT1zoLev27E=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b40f69e8e1eff5f6;
+	Sun, 20 Sep 2026 07:08:59 +0000
+X-Mizu-Trace-ID: b40f69e8e1eff5f6
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <ab72a564-108c-4b74-adf3-1eadbbf01084@linux.dev>
+Date: Sun, 20 Sep 2026 15:08:54 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, Josef Bacik <josef@toxicpanda.com>,
+ josef@toxicopanda.com, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@infradead.org>, cgroups@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, cuitao@kylinos.cn
+Subject: Re: [PATCH v2 1/4] blk-iocost: charge flushes as pageless random
+ writes
+To: Tejun Heo <tj@kernel.org>
+References: <20260916085304.1080271-1-cui.tao@linux.dev>
+ <20260916085304.1080271-2-cui.tao@linux.dev>
+ <9575357186118be214d6377dd80a21e8@kernel.org>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <9575357186118be214d6377dd80a21e8@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-do_exit() calls synchronize_group_exit(), which modifies task->flags
-under sighand->siglock:
+Hello Tejun,
 
-	tsk->flags |= PF_POSTCOREDUMP;
+在 2026/9/19 22:59, Tejun Heo 写道:
+> Hello, Tao.
+> 
+> On Wed, Sep 16, 2026 at 04:53:01PM +0800, Tao Cui wrote:
+>> Charge the flush component of any REQ_PREFLUSH bio on top of its data
+>> cost, priced as a pageless random write (LCOEF_WRANDIO), which provides
+>> an approximation of the device time consumed by a flush.  For profiles
+>> where WRANDIO clamps to zero (ssd_dfl / ssd_fast), use a one-page floor
+>> (LCOEF_WPAGE).
+> 
+> Pricing a flush as a random write, or as a page where that comes out to
+> zero, is as arbitrary as pricing it at zero, and it changes what existing
+> setups get charged. 013adcbef165 ("blk-iocost: skip empty flush bio in
+> iocost") zeroed them because the flush machinery coalesces flushes and the
+> write coefficients don't say anything about what a flush costs.
+> 
 
-The sanity check in to_kthread() reads the same flags word without
-holding that lock:
+Understood.  The write-coefficient pricing was only an approximation and
+would change the accounting behavior for existing setups, so I'll drop it
+and rework the series around a dedicated flush cost.
 
-	WARN_ON(!(k->flags & PF_KTHREAD));
+> Can you instead add the flushiops parameter you mentioned in the v1 thread
+> to the linear model? A flush costs VTIME_PER_SEC / flushiops, and zero when
+> the parameter isn't set, including in the builtin profiles, so nothing
+> changes until it's configured or the profiles are regenerated with a flush
+> measurement.
+> 
 
-PF_KTHREAD is set once when the task becomes a kthread and is never
-cleared for the lifetime of the task.  Since PF_KTHREAD is immutable,
-the check does not depend on synchronization with updates to other
-bits in task->flags.
+Will do.  I'll add flushiops to the linear model using the same conversion
+as the other iops coefficients:
 
-Use READ_ONCE() to annotate the intentional lockless access.
+- add a flushiops=%u token for io.cost.model and translate it to
+  LCOEF_FLUSH = VTIME_PER_SEC / flushiops
+- keep flushiops zero in builtin profiles, with no fallback, so existing
+  profiles keep their current behavior
+- account REQ_PREFLUSH and REQ_FUA consistently with the flush machinery:
+  PREFLUSH charges one flush, and FUA adds another flush when the device
+  does not support native FUA
 
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
----
- kernel/kthread.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The rest of the series (zone append charging, latency accounting, and the
+comment fix) remains unchanged.
 
-diff --git a/kernel/kthread.c b/kernel/kthread.c
-index a3f95c90456b..cc8cb5d3eab7 100644
---- a/kernel/kthread.c
-+++ b/kernel/kthread.c
-@@ -81,7 +81,7 @@ enum KTHREAD_BITS {
- 
- static inline struct kthread *to_kthread(struct task_struct *k)
- {
--	WARN_ON(!(k->flags & PF_KTHREAD));
-+	WARN_ON(!(READ_ONCE(k->flags) & PF_KTHREAD));
- 	return k->worker_private;
- }
- 
--- 
-2.43.0
+> The same charge should cover REQ_FUA the way the flush machinery does: one
+> flush for PREFLUSH, and one for FUA on a device without FUA support, which
+> is when a post-flush gets issued.
+> 
+> Please also drop the Fixes tag on this patch. With the parameter, this is
+> an extension rather than a fix.
+> 
+
+Done.  v3 will position this as a cost model extension.
+
+One remaining question is whether builtin profiles should eventually carry
+measured flushiops values, or whether flushiops is expected to remain
+user-configured.  This series leaves it at zero because I don't have
+reliable measurements for the existing profiles.
+
+Thanks,
+Tao
+
+> Thanks.
+> 
 
