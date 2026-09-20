@@ -1,174 +1,373 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2129.outbound.protection.partner.outlook.cn [139.219.17.129])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3DC1A6806;
-	Sun, 20 Sep 2026 06:23:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.129
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789885392; cv=fail; b=s0tH13xnVQwfYtATF2i6wmrUzo3X+3d095mYbwDxQPDQ3MwmnNkjrEI5gm1fELFMSYeHEsRCplzbK4hGyixtEQTS285dEKrkea4M0jodW4kKfkg4z7TXdXuENPDojMFRm1ifHF6pJmKSuv9xA1blYgYJFw5ztWX7tt4yWn18bEA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789885392; c=relaxed/simple;
-	bh=hPj/fjN1Kz75aqhGtGVmzhj3V4RZw9BFSnBBDrruFAk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=SajGuYGHwR6NyLnS8E7Ix0Dwpl8nzGIP7nAK/cipHtGvbvgnCHB93/DjKPkwrRK2ZZg6KHto9OFH2y7g9RT2j7ARbR7ltb8p3sVbRoPKvHnOly6gZGEN6ftuRhrC53cEDxIXfY71egNb8CI84u6zoqWOI+JuvRrDudNBMkZdFhE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dvwwji7F3bAkYrlxFet5zfcziG5WhvGnM5MeKWw/4SZMC/54p0YpRzD/TdUOsSGQlDtNV1yRCSFvnAdDV1OsKzG6GlOto8sIwo5ZGyrLvQEJiQm8bJRMHqnyZ6hFTm9IF412fqFhM8/bz8lCj4ldtmztGXdKfsvDwqBdPynIVJ8xDuFdGqwh9EU1+aWmMOanDk0xkjMeVXGZqqXJnMoQ8gTsnQXtPaJXy2JCKzzhJR4NyqcmXJcgr21WhLsYIbX69+SWzQI/IYvwHBz4pYtgLEKERdRGjsJtHU5BhhIj9VUdq75ZS3yurdmfPUXHFOdWoqKjDRK5uEtnk7scvHkkzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hPj/fjN1Kz75aqhGtGVmzhj3V4RZw9BFSnBBDrruFAk=;
- b=AYxE+k2lBuQBo2OGJAdJQ7gaFhPpU4ZZ8Qytp/PuMgFDoJskPizKMwGODlpoPSGdLxD29UQDEhXb/5wEmBRnjmTBaRW+SyMXm67MGkSyoOGB4h2HqyeW7WZk0OnvOM8YwFxh33isrYRTFLcnfjK8gw5t31JS5U7TxBbY+0PAh5QxO8VA4Z6wCaoSYIiV8fDV/tkq0fv+jfpV+mifp7IZU9GnX8A5BQ24lB/hc+AkUXonMncIy0NETav3tR6puBWhUF0mcj2uozvzw7bOzqHBiate/NY8i6UovqLW8Gh3ngSCIwY1r4LSz73qCJn7LwGj2Ay7R0IKu4PbSj3H3//sUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:18::6) by ZQ0PR01MB1237.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:1a::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.14; Sun, 20 Sep
- 2026 06:22:52 +0000
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570]) by ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570%4]) with mapi id 15.21.0428.014; Sun, 20 Sep 2026
- 06:22:52 +0000
-From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-CC: Olivia Mackall <olivia@selenic.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, "linux-crypto@vger.kernel.org"
-	<linux-crypto@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject:
- =?gb2312?B?u9i4tDogW1BBVENIIHY4IDIvMl0gaHdybmc6IHN0YXJmaXZlOiByZXdvcmsg?=
- =?gb2312?Q?clk/reset_teardown_order_for_JHB100?=
-Thread-Topic: [PATCH v8 2/2] hwrng: starfive: rework clk/reset teardown order
- for JHB100
-Thread-Index: AQHdPnc9LZrr1btr0kuIoVF4D3Ad/LbT00QAgANATxA=
-Date: Sun, 20 Sep 2026 06:22:52 +0000
-Message-ID:
- <ZQ0PR01MB126919F96070E84987907EE382852@ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn>
-References: <20260907031603.188483-1-lianfeng.ouyang@starfivetech.com>
- <20260907031603.188483-3-lianfeng.ouyang@starfivetech.com>
- <aqzBMBaXnIZZMX70@gondor.apana.org.au>
-In-Reply-To: <aqzBMBaXnIZZMX70@gondor.apana.org.au>
-Accept-Language: en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ0PR01MB1269:EE_|ZQ0PR01MB1237:EE_
-x-ms-office365-filtering-correlation-id: f5abe3a6-2848-4215-fd11-08df16df99dd
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|38070700021|56012099006|6133799003|10067099003|4143699003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- E+4WyIxFycMEjL5uJG8e1b6zD7sZgiRoyaXyrJXC+WgiXCWocylyVHdOzxMa5k29j8jMnyfdi5qxwISVGBZmhM80HKyusg4YU4jCtFFFp9JflJOgs4YwXBUisrQe5MRkvoaoREDgSqUZX6VvaCO+/qVDeT6SaQb0LkW4cRc3WHbXq9X2Tk7FT9p+0arICGK5+E+pQbP4qjqIU0MOsKWvOD8lV4S0B6W5IUPQ2Kuab3ugedr6RjykztMgm/XPyerBLRjW19mesi6pn1d4hr13ojgyCMC3JOkkmlLxz2N8ygjvoV7ANxgMXdNNIPvvbJG5C/sWKaIXdSAGfbEeIVDLCGE57QfEjPbOH9wmEjPiqcNOOKED7Ia2YnuSAnggpQJes8jWqMCydlotDuJ+dVsL2EhWRDeo7CPXucV7gawHgcVkLBmGVJxhD3uDDvP8ij6/aes85punOalJLq8Cw7euqWQgFpVUTeXItbxc4TocE0uZBlTf43Uc3LYbbrSCRHwxI7V6NpWkMLIhBJ7vRPvX6hZlhCjPfHJ8qZxPnNibh4xhwoMcocTC6Xwke4bQRhUT
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(38070700021)(56012099006)(6133799003)(10067099003)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?gb2312?B?dG9rZU9teE85RE5KOWVxZmxhUldNRFpTaXVPdTVNTzMxSGI1Y3UyOXd5VzRP?=
- =?gb2312?B?WUxLdlBSMlZwdW9qa0hjazVYT04wMlN2U3dFYmNoK1k0R1hXeHZ4b0Q3VEhV?=
- =?gb2312?B?NkNnZWpyRmhPTDNOWHZROWRtREQ2MDJpeUxlcjFiRzMwdTBZUkFmeG03VzBL?=
- =?gb2312?B?VmlvR05hVW1FQzE3Q2JXeGNGVmI5NGlDSFhxRjlZZVlIa0krL0FaZExCMlJQ?=
- =?gb2312?B?OFlQci9LcmorMTBHd2s1UnVHWm5EK1IwQzJjdFdESWxqZGJYNkgvK0IzVUow?=
- =?gb2312?B?K2ZiQ0RtL213Tk1abFB4aHdLNkpsMkFOc3NzOHlvSU9qMzlmeTZqSEMzY3VI?=
- =?gb2312?B?a0ovL0swRVkrVEROSEI5eDd3NzR0eE8ySkFiRWYyOGhRQzFKSlJhcEM1MFBx?=
- =?gb2312?B?ZTNiVHBMb0NZUDNoWkFheTJzakhGMGFoSjdLdGFzTnNZc0lhdGlDL2VkN3pS?=
- =?gb2312?B?VEFzazR6b2E0Y0d3V3NqOWpwSElva09ycWdsakx2QXVEYXdUTGJ1ekRXUlBM?=
- =?gb2312?B?bDNWLzV0QWMwVmNSbCtBK0l6bFUrcGJZQzI3eks3anAvV1NFa2djdmUvWDNO?=
- =?gb2312?B?a00yRW1memxjUGEraDcwNWt5dFJFdWFmZDZiTWVuamxtZmJucWdTMHYreUFB?=
- =?gb2312?B?Z2tHMndzNEFwbkJBSWg5V2ZjU3h0cHVOMHFxbVgrZmovM1lHdFoxSnFaR01m?=
- =?gb2312?B?ZERvWk9tSHEzb2JhblZqTW9xbC92NlNFS1A5WUJ1UkI4Ujlkc0V3cStMQnA4?=
- =?gb2312?B?cjF2eWxuKzQ3dkZVSldSbkRLUHFVQUhrZHB0ZGEwdzJoRGF1c1l1QjNManN5?=
- =?gb2312?B?NkhHMHduTVFaYXJIZUhmeG5qck5pY1U3UktHQ2ZjN2U0a3B3UTFOV1g4MGpR?=
- =?gb2312?B?SlgwWDhkQ2RMZVdRM2tUYk1tOW41REJNUm1Kb3BLRHdNcjl4ZWNnWUxsMTZ3?=
- =?gb2312?B?TnAwUHd4YWhlNU1MQ25BZ2xPN1phUHkraUlscTBqdzk0ZXRtWUltNjF5SHZl?=
- =?gb2312?B?RVpqWkROSytQSzllclNnUmdVMzNFN2pEY3ZKdU1XWU9SUVgxRUlrYjkrOU5j?=
- =?gb2312?B?UCtXODZ4ZUFyMG5sOC84dm1aemRjY2d4SCtxdlhGY0NuYlNQRUh2UWQ4c2lx?=
- =?gb2312?B?Ni9nTVBwRGNwdzFVbVpZREpyNzh3NU1iTmtBUEwrblZmS1FKcDl0b0s4YnlL?=
- =?gb2312?B?emduSEd4enhsbCswb2NqdG54bnc4SVFzdDFLMTNSc3RYRGdtSlBqNERlU3FH?=
- =?gb2312?B?VEgvcWt4aERWNG9tTHdtL3hscUJDMXVxdjVFKzRPZUZLTDMwOWlYZlhHcGhv?=
- =?gb2312?B?SDFTUWZUMkRUMlFpSnhrb0NnNTFwbG5Gbi8rcjBTWmdqa2dHdXp5dVEyMkNj?=
- =?gb2312?B?QkxaQ2lnN0pick9DSUlMUmd1bWxPSWFmQTZVRElsYzZ1TWd4MDJoOUsvWUYx?=
- =?gb2312?B?MmI1T0xYdGtyTnNEeTEzVThpdVRDWXh6U2dNVFhaSmpNZmNJY0ZEUjQwcHdO?=
- =?gb2312?B?SGlmQVJrcWxjMzB6Mlhvclovbm4vMmNwdnQ4RzZVQXNDSkcweUo0dm9LZWpS?=
- =?gb2312?B?TnNpNDNmL2s3YndDUElENlBDTlNMZDJGVHdtbFZEN3hhZ1RjZHZ3K1gzWFBC?=
- =?gb2312?B?UjhxUjRZZGhGcDVBZ3lkeUd0NFZ2VkZqbTZCQlp1THc0ZHF2c1V6RzhEQXVN?=
- =?gb2312?B?V0FDNWlPSVVsVHVlS0FPdWE3Q0RZU1VHR2xTRGRSYkExN3ZUUVo3dGhtWlZB?=
- =?gb2312?B?bnVhTEsydGcySERjc2tyZ0F2dmlMdjhwYVk4SmdNMnpTL3AwNXFYWkRsS2lZ?=
- =?gb2312?B?SGVpMTNUUkZ0TnNCUE1IM0RxdGtaamFKY01XcUk1aERkNnc1a2JqK1ZkMFZu?=
- =?gb2312?B?MFVnbWQrTGkzaUpYbitkeVExN0N0UkZSVEhQUEdNaHg0UTR5U1l0RmwvMDgx?=
- =?gb2312?B?QjZCZUNHQXZNNWdCS2JaRUdJV1hKWTJzZEUzQWZMU3VLbnVrZDNFZEpkYWhs?=
- =?gb2312?B?ZjZZR2FFR2xyLzQyby9wUWVCQjBJVWNCeG9tNVdWaFNaZWpiQmx3UGtCZHFa?=
- =?gb2312?B?U0xhWExhYUpCVEpLbFhTSnhFN1UvcHdtcjRaS0VVK3NFNGxiOVNyN0ZxcGxm?=
- =?gb2312?B?ZjZpVWNGMHg5YnlDYnJab3JNN1VDSHZEYjBtRnNuRGJVSitGUUM4Q3lEdHEx?=
- =?gb2312?B?VnMvdjQyNnhicWVOQWI5SWxHcmdzbzFtL25SV3pmSHNlRVBWU2Z3RUNUOE1L?=
- =?gb2312?B?Q3krQzhDeDdkQlFwcDc3bjJKTi9qdE5wVDhtSDhXeUF0SVJ1UFdQSlF3ZlRY?=
- =?gb2312?B?YkcweTVUTUhCSXpjeFdOMEFickhDVVNVVVBPWXFMVHhuQ1M1Z3BCTWR4MHB5?=
- =?gb2312?Q?OyiqXNt4b6tIkXCQ=3D?=
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E682D3D9DC8;
+	Sun, 20 Sep 2026 06:23:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789885411; cv=none; b=Z+tLck/ZUEv+kmei2Ee/xTZWY8WZL0/C7srAmM6rzdG6Dq1636AUJabiU05HwWxFPma2R61VzqSmUx7/keb99ghN504vBkHXrjBIED8GnIP5UfrwyjpoWRakhA04kAl69gIxt3BmuZ6i1Iqo2z7FVSBmbRMxqDj5njQ4wfuJpKk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789885411; c=relaxed/simple;
+	bh=sJO9lQZ4/Q6Mok3iszyshajIU+4BflgauPr7goHmX2g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JH7e7ak0Cvg635rxbvFVKv7iTdysSZ6jaM5EJS0UPom7ESiSu3KznY5queV2/6iyMPx/OomneyDs5/c863iXb1WeFOPRunkIXl5609WMHeh2H9HjRJrdG5ML/9cTzgA34hqa/WQ35TbtF/6ccLiym9Zd7623wFBOYgDSo02Jn90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Xt0J7QVS; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Xt0J7QVS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=jD
+	A0153HZVxYP06owGcB219WmufMyyvpQZruDFFuloU=; b=Xt0J7QVSJR6BVddOHd
+	qKdi6J7avDMosbqr+GHNwn6g1lSsPADUilLSjfyoa8WQktSpxIib1VkDpq1EOk6i
+	HVPEiO/E1KUWB9MlXTnch9UQoOTscBLHJPJWhCDAaHLUc/Y8Nh17cLdh9Ff1wMoG
+	Z5klcgJi23SRWCO+CTBeoDoI0=
+Received: from debian.lenovo.com (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wBX5l+oe69q2VvwBg--.62082S2;
+	Sun, 20 Sep 2026 14:22:32 +0800 (CST)
+From: Kean Ren <rh_king@163.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-hwmon@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kean Ren <rh_king@163.com>
+Subject: [PATCH 1/1] hwmon: (spd5118) support write protected devices
+Date: Sun, 20 Sep 2026 14:22:24 +0800
+Message-ID: <20260920062230.2437291-1-rh_king@163.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5abe3a6-2848-4215-fd11-08df16df99dd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Sep 2026 06:22:52.4681
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Irx3rEmKszItAQU/owangEJA4EARaSD3rWniABpi6JIICerR6Nrk33pXgqA4rgutDPgKk6e5Az/LCSlb0j2JZL//5iuxLiyj5kyyMx0hnXmPsUfdKSzKz8eKgsoF1xw5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1237
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBX5l+oe69q2VvwBg--.62082S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3ur15ZFWxuw1fKFWrZry7Wrg_yoWkZFWfpF
+	WUGFW3trsrtr43u3yDtF4vga45Kr1Iy3yay348K3sYvFn8Kryv9Fy5XFW0vas5Ar93Kay8
+	Cw4DtayUCw4UJrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUrHUfUUUUU=
+X-CM-SenderInfo: 5ukbyxlqj6il2tof0z/xtbC+wmPPmqve6nQUgAA3W
 
-DQoNCj4gLS0tLS3Tyrz+1K28/i0tLS0tDQo+ILeivP7IyzogSGVyYmVydCBYdSA8aGVyYmVydEBn
-b25kb3IuYXBhbmEub3JnLmF1Pg0KPiC3osvNyrG85DogMjAyNsTqOdTCMTjI1SAxMjo0Mg0KPiDK
-1bz+yMs6IExpYW5mZW5nIE91eWFuZyA8bGlhbmZlbmcub3V5YW5nQHN0YXJmaXZldGVjaC5jb20+
-DQo+ILOty806IE9saXZpYSBNYWNrYWxsIDxvbGl2aWFAc2VsZW5pYy5jb20+OyBSb2IgSGVycmlu
-ZyA8cm9iaEBrZXJuZWwub3JnPjsNCj4gS3J6eXN6dG9mIEtvemxvd3NraSA8a3J6aytkdEBrZXJu
-ZWwub3JnPjsgQ29ub3IgRG9vbGV5DQo+IDxjb25vcitkdEBrZXJuZWwub3JnPjsgUGhpbGlwcCBa
-YWJlbCA8cC56YWJlbEBwZW5ndXRyb25peC5kZT47DQo+IGxpbnV4LWNyeXB0b0B2Z2VyLmtlcm5l
-bC5vcmc7IGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnOw0KPiBsaW51eC1rZXJuZWxAdmdlci5r
-ZXJuZWwub3JnDQo+INb3zOI6IFJlOiBbUEFUQ0ggdjggMi8yXSBod3JuZzogc3RhcmZpdmU6IHJl
-d29yayBjbGsvcmVzZXQgdGVhcmRvd24gb3JkZXIgZm9yDQo+IEpIQjEwMA0KPiANCj4gT24gTW9u
-LCBTZXAgMDcsIDIwMjYgYXQgMTE6MTY6MDNBTSArMDgwMCwgbGlhbmZlbmcub3V5YW5nIHdyb3Rl
-Og0KPiA+IEZyb206IExpYW5mZW5nIE91eWFuZyA8bGlhbmZlbmcub3V5YW5nQHN0YXJmaXZldGVj
-aC5jb20+DQo+ID4NCj4gPiBSZXdvcmsgdGhlIFN0YXJGaXZlIFRSTkcgZHJpdmVyIHRvIGFkZHJl
-c3MgaGFyZHdhcmUtc3BlY2lmaWMgcmVxdWlyZW1lbnRzDQo+ID4gICBmb3IgSkhCMTAwIFNvQy4g
-VG8gYXZvaWQgcmVzZXQtZG9tYWluIGNyb3NzaW5nIGdsaXRjaGVzLCB0aGUgZHJpdmVyIG5vdw0K
-PiA+ICAgZW5zdXJlcyBjbG9ja3MgYXJlIGdhdGVkIGJlZm9yZSBhc3NlcnRpbmcgcmVzZXQgZHVy
-aW5nIHRlYXJkb3duIGZvcg0KPiA+ICAgSkhCMTAwLCB3aGlsZSBKSDcxMTAgcmV0YWlucyB0aGUg
-b3JpZ2luYWwgcmVzZXQtZmlyc3Qgc2VxdWVuY2UuDQo+ID4NCj4gPiBBZGQgcGVyLWNvbXBhdGli
-bGUgbWF0Y2ggZGF0YSAoc3RydWN0IHN0YXJmaXZlX3RybmdfZGF0YSkgZGVzY3JpYmluZyB0aGUN
-Cj4gPiAgIGNsb2NrL3Jlc2V0IHRlYXJkb3duIG9yZGVyLCBhIG5ldyAic3RhcmZpdmUsamhiMTAw
-LXRybmciIGNvbXBhdGlibGUsIGFuZA0KPiA+ICAgc2VsZWN0IHRoZSBvcmRlcmluZyBmcm9tIGl0
-Lg0KPiA+DQo+ID4gRml4IHRoZSBydW50aW1lLVBNIGdldC9wdXQgYmFsYW5jaW5nIGFjcm9zcyB0
-aGUgaW5pdC9yZWFkL3Jlc2VlZC9jbGVhbnVwDQo+ID4gICBwYXRocywgbWFuYWdlIFBNIGFuZCB0
-aGUgY2xrL3Jlc2V0IHRlYXJkb3duIHZpYSBkZXZtIHNvIGFsbCBlcnJvciBwYXRocw0KPiA+ICAg
-dW53aW5kIGNvcnJlY3RseSwgcnVuIHRoZSBTRVUtdHJpZ2dlcmVkIHJlc2VlZCBmcm9tIGEgd29y
-a3F1ZXVlIGluc3RlYWQNCj4gPiAgIG9mIGhhcmQgSVJRLCBhbmQgc2VyaWFsaXNlIHRoZSBjb21t
-YW5kIHNlcXVlbmNlcyB3aXRoIGEgbXV0ZXguDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBMaWFu
-ZmVuZyBPdXlhbmcgPGxpYW5mZW5nLm91eWFuZ0BzdGFyZml2ZXRlY2guY29tPg0KPiA+IC0tLQ0K
-PiA+ICBNQUlOVEFJTkVSUyAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgIDIgKy0NCj4gPiAg
-ZHJpdmVycy9jaGFyL2h3X3JhbmRvbS9qaDcxMTAtdHJuZy5jIHwgMjk3DQo+ICsrKysrKysrKysr
-KysrKysrKysrKy0tLS0tLQ0KPiA+ICAyIGZpbGVzIGNoYW5nZWQsIDIzOSBpbnNlcnRpb25zKCsp
-LCA2MCBkZWxldGlvbnMoLSkNCj4gDQo+IFBsZWFzZSB0YWtlIGEgbG9vayBhdA0KPiANCj4gaHR0
-cHM6Ly9zYXNoaWtvLmRldi8jL3BhdGNoc2V0LzIwMjYwOTA3MDMxNjAzLjE4ODQ4My0xLWxpYW5m
-ZW5nLm91eWFuZyU0DQo+IDBzdGFyZml2ZXRlY2guY29tDQo+IA0KPiBUaGFua3MsDQoNClRoYW5r
-IHlvdSBmb3IgZm9sbG93aW5nIHVwLiBJIGFtIGN1cnJlbnRseSBtYWtpbmcgcmV2aXNpb25zIGJh
-c2VkIG9uIFNhc2hpa28ncyBzdWdnZXN0aW9ucy4NCg0KQmVzdCBSZWdhcmRzLA0KTGlhbmZlbmcg
-T3V5YW5nDQoNCj4gLS0NCj4gRW1haWw6IEhlcmJlcnQgWHUgPGhlcmJlcnRAZ29uZG9yLmFwYW5h
-Lm9yZy5hdT4NCj4gSG9tZSBQYWdlOiBodHRwOi8vZ29uZG9yLmFwYW5hLm9yZy5hdS9+aGVyYmVy
-dC8NCj4gUEdQIEtleTogaHR0cDovL2dvbmRvci5hcGFuYS5vcmcuYXUvfmhlcmJlcnQvcHVia2V5
-LnR4dA0K
+Some systems do not allow writes to SPD devices. On the i801 SMBus
+controller family this happens when the BIOS sets SPD Write Disable, in
+which case the controller refuses writes to addresses 0x50-0x57; other
+platforms may enforce the same in firmware. There is no way for the driver
+to query this.
+
+spd5118 assumes that it can write to the device, which does not hold on
+such systems:
+
+  - writes to the hwmon attributes always fail with -ENXIO
+  - the temperature sensor disable in spd5118_suspend() fails silently
+  - spd5118_resume() fails in regcache_sync(), and the system reports
+
+  spd5118 0-0050: Failed to write b = 0: -6
+  spd5118 0-0050: PM: failed to resume async: error -6
+
+Register 0xb in that message is the page selector register, which regmap
+writes back from its cache at the end of regcache_sync(). The write of the
+saved configuration register before that fails as well, but the cache code
+does not report that error.
+
+Detect write protection once at probe time by writing the page selector
+register back with the value just read from it. This is a no-op on a device
+which accepts writes, and it fails if writes are blocked.
+
+If writes are not possible, run the device read-only: drop the register
+cache so that regcache_sync() cannot attempt any write, skip the writes in
+the suspend and resume callbacks, and make the writable attributes read
+only. Alarm attributes are read only already; stop clearing a latched
+status from them, since that requires a write, and report the condition as
+the device presents it.
+
+Reading the SPD NVRAM beyond the first page requires switching pages, which
+is itself a write. Restrict the 'eeprom' attribute to the page which can be
+read in that case, instead of returning errors for the accessible part.
+
+The temperature sensor remains fully usable; only its configuration
+becomes read-only. Document that, and leave the shared regmap
+configuration alone by selecting a separate one without a register
+cache.
+
+Signed-off-by: Kean Ren <rh_king@163.com>
+---
+ Documentation/hwmon/spd5118.rst |  10 ++++
+ drivers/hwmon/spd5118.c         | 110 +++++++++++++++++++++++++++++++++++-----
+ 2 files changed, 108 insertions(+), 12 deletions(-)
+
+diff --git a/Documentation/hwmon/spd5118.rst b/Documentation/hwmon/spd5118.rst
+index ef7338f46575..dc5a464372d7 100644
+--- a/Documentation/hwmon/spd5118.rst
++++ b/Documentation/hwmon/spd5118.rst
+@@ -54,6 +54,12 @@ temp1_crit_alarm	Temperature critical alarm
+ Alarm attributes are sticky until read and will be cleared afterwards
+ unless the alarm condition still applies.
+ 
++If the chip cannot be written to, for example because the SMBus controller has
++SPD Write Disable set or because the firmware protects the SPD, the driver runs
++the chip read-only. The writable attributes listed above are read-only then, and
++latched alarm conditions are reported as presented by the chip because clearing
++them requires a write.
++
+ 
+ SPD (Serial Presence Detect) support
+ ------------------------------------
+@@ -61,3 +67,7 @@ SPD (Serial Presence Detect) support
+ The driver also supports reading the SPD NVRAM on SPD5118 compatible chips.
+ SPD data is available from the 'eeprom' binary attribute file attached to the
+ chip's I2C device.
++
++On write protected chips only the first SPD page can be read, because selecting
++another page requires a write. The 'eeprom' attribute is limited to that page in
++this case.
+diff --git a/drivers/hwmon/spd5118.c b/drivers/hwmon/spd5118.c
+index 9724cf70b61d..0f70f28b92f7 100644
+--- a/drivers/hwmon/spd5118.c
++++ b/drivers/hwmon/spd5118.c
+@@ -76,6 +76,7 @@ static const unsigned short normal_i2c[] = {
+ struct spd5118_data {
+ 	struct regmap *regmap;
+ 	struct mutex nvmem_lock;
++	bool write_protected;
+ };
+ 
+ /* hwmon */
+@@ -129,8 +130,9 @@ static int spd5118_read_temp(struct regmap *regmap, u32 attr, long *val)
+ 	return 0;
+ }
+ 
+-static int spd5118_read_alarm(struct regmap *regmap, u32 attr, long *val)
++static int spd5118_read_alarm(struct spd5118_data *data, u32 attr, long *val)
+ {
++	struct regmap *regmap = data->regmap;
+ 	unsigned int mask, regval;
+ 	int err;
+ 
+@@ -155,7 +157,12 @@ static int spd5118_read_alarm(struct regmap *regmap, u32 attr, long *val)
+ 	if (err < 0)
+ 		return err;
+ 	*val = !!(regval & mask);
+-	if (*val)
++	/*
++	 * Clearing a latched alarm condition requires a register write. If the
++	 * device is write protected, leave the status bit alone and report the
++	 * condition as the device presents it.
++	 */
++	if (*val && !data->write_protected)
+ 		return regmap_write(regmap, SPD5118_REG_TEMP_CLR, mask);
+ 	return 0;
+ }
+@@ -175,7 +182,8 @@ static int spd5118_read_enable(struct regmap *regmap, long *val)
+ static int spd5118_read(struct device *dev, enum hwmon_sensor_types type,
+ 			u32 attr, int channel, long *val)
+ {
+-	struct regmap *regmap = dev_get_drvdata(dev);
++	struct spd5118_data *data = dev_get_drvdata(dev);
++	struct regmap *regmap = data->regmap;
+ 
+ 	if (type != hwmon_temp)
+ 		return -EOPNOTSUPP;
+@@ -191,7 +199,7 @@ static int spd5118_read(struct device *dev, enum hwmon_sensor_types type,
+ 	case hwmon_temp_min_alarm:
+ 	case hwmon_temp_crit_alarm:
+ 	case hwmon_temp_lcrit_alarm:
+-		return spd5118_read_alarm(regmap, attr, val);
++		return spd5118_read_alarm(data, attr, val);
+ 	case hwmon_temp_enable:
+ 		return spd5118_read_enable(regmap, val);
+ 	default:
+@@ -257,7 +265,8 @@ static int spd5118_temp_write(struct regmap *regmap, u32 attr, long val)
+ static int spd5118_write(struct device *dev, enum hwmon_sensor_types type,
+ 			 u32 attr, int channel, long val)
+ {
+-	struct regmap *regmap = dev_get_drvdata(dev);
++	struct spd5118_data *data = dev_get_drvdata(dev);
++	struct regmap *regmap = data->regmap;
+ 
+ 	switch (type) {
+ 	case hwmon_temp:
+@@ -270,6 +279,8 @@ static int spd5118_write(struct device *dev, enum hwmon_sensor_types type,
+ static umode_t spd5118_is_visible(const void *_data, enum hwmon_sensor_types type,
+ 				  u32 attr, int channel)
+ {
++	const struct spd5118_data *data = _data;
++
+ 	if (type != hwmon_temp)
+ 		return 0;
+ 
+@@ -281,7 +292,7 @@ static umode_t spd5118_is_visible(const void *_data, enum hwmon_sensor_types typ
+ 	case hwmon_temp_lcrit:
+ 	case hwmon_temp_crit:
+ 	case hwmon_temp_enable:
+-		return 0644;
++		return data->write_protected ? 0444 : 0644;
+ 	case hwmon_temp_min_alarm:
+ 	case hwmon_temp_max_alarm:
+ 	case hwmon_temp_crit_alarm:
+@@ -401,6 +412,14 @@ static int spd5118_nvmem_init(struct device *dev, struct spd5118_data *data)
+ 	};
+ 	struct nvmem_device *nvmem;
+ 
++	/*
++	 * Selecting another SPD page writes the page selector register, which
++	 * fails if the device is write protected, so only the currently
++	 * selected page is readable then. Do not advertise the others.
++	 */
++	if (data->write_protected)
++		nvmem_config.size = SPD5118_PAGE_SIZE;
++
+ 	nvmem = devm_nvmem_register(dev, &nvmem_config);
+ 	return PTR_ERR_OR_ZERO(nvmem);
+ }
+@@ -465,6 +484,24 @@ static const struct regmap_config spd5118_regmap8_config = {
+ 	.num_ranges = ARRAY_SIZE(spd5118_i2c_regmap_range_cfg),
+ };
+ 
++/*
++ * Variant for write protected devices. Since no write can succeed, there is
++ * nothing to cache and nothing to restore on resume; dropping the cache also
++ * keeps regcache_sync() from attempting writes, which would otherwise make the
++ * system fail to resume.
++ */
++static const struct regmap_config spd5118_regmap8_ro_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = 0x7ff,
++	.writeable_reg = spd5118_writeable_reg,
++	.volatile_reg = spd5118_volatile_reg,
++	.cache_type = REGCACHE_NONE,
++
++	.ranges = spd5118_i2c_regmap_range_cfg,
++	.num_ranges = ARRAY_SIZE(spd5118_i2c_regmap_range_cfg),
++};
++
+ /*
+  * SPD5118 2-byte register address format (JESD300-5, Tables 7 & 20):
+  *   Byte 1 (on wire first):  MemReg | BlkAddr[0] | Address[5:0]
+@@ -493,6 +530,15 @@ static int spd5118_suspend(struct device *dev)
+ 	u32 regval;
+ 	int err;
+ 
++	/*
++	 * Disabling the temperature sensor means writing to the device, and
++	 * syncing back the register cache on resume means writing as well.
++	 * Neither is possible if the device is write protected, so leave the
++	 * device alone in that case.
++	 */
++	if (data->write_protected)
++		return 0;
++
+ 	/*
+ 	 * Make sure the configuration register in the regmap cache is current
+ 	 * before bypassing it.
+@@ -517,13 +563,18 @@ static int spd5118_resume(struct device *dev)
+ 	struct spd5118_data *data = dev_get_drvdata(dev);
+ 	struct regmap *regmap = data->regmap;
+ 
++	/* Nothing was changed on suspend, and writes are not possible */
++	if (data->write_protected)
++		return 0;
++
+ 	regcache_cache_only(regmap, false);
+ 	return regcache_sync(regmap);
+ }
+ 
+ static DEFINE_SIMPLE_DEV_PM_OPS(spd5118_pm_ops, spd5118_suspend, spd5118_resume);
+ 
+-static int spd5118_common_probe(struct device *dev, struct regmap *regmap)
++static int spd5118_common_probe(struct device *dev, struct regmap *regmap,
++				bool write_protected)
+ {
+ 	unsigned int capability, revision, vendor, bank;
+ 	struct spd5118_data *data;
+@@ -554,6 +605,7 @@ static int spd5118_common_probe(struct device *dev, struct regmap *regmap)
+ 		return -ENODEV;
+ 
+ 	data->regmap = regmap;
++	data->write_protected = write_protected;
+ 	mutex_init(&data->nvmem_lock);
+ 	dev_set_drvdata(dev, data);
+ 
+@@ -565,7 +617,7 @@ static int spd5118_common_probe(struct device *dev, struct regmap *regmap)
+ 	}
+ 
+ 	hwmon_dev = devm_hwmon_device_register_with_info(dev, "spd5118",
+-							 regmap, &spd5118_chip_info,
++							 data, &spd5118_chip_info,
+ 							 NULL);
+ 	if (IS_ERR(hwmon_dev))
+ 		return PTR_ERR(hwmon_dev);
+@@ -681,21 +733,51 @@ static int spd5118_i2c_init(struct i2c_client *client)
+ 	return 0;
+ }
+ 
++/*
++ * Writes to SPD devices can be blocked, either by the SMBus controller (SPD
++ * Write Disable, as set by the BIOS on many systems) or by firmware. There is
++ * no generic way to query this, so probe for it by writing the page selector
++ * register back with the value just read from it. That is a no-op on a device
++ * which supports writes.
++ */
++static bool spd5118_write_protected(struct i2c_client *client, int mode)
++{
++	int err;
++
++	err = i2c_smbus_write_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE, mode);
++	if (err >= 0)
++		return false;
++
++	dev_info(&client->dev,
++		 "SPD writes are blocked (%d), sensor will be read-only\n", err);
++	return true;
++}
++
+ static int spd5118_i2c_probe(struct i2c_client *client)
+ {
++	const struct regmap_config *config = &spd5118_regmap8_config;
+ 	struct device *dev = &client->dev;
+ 	struct regmap *regmap;
+-	int err;
++	int err, mode;
++	bool write_protected;
+ 
+ 	err = spd5118_i2c_init(client);
+ 	if (err)
+ 		return err;
+ 
+-	regmap = devm_regmap_init_i2c(client, &spd5118_regmap8_config);
++	mode = i2c_smbus_read_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE);
++	if (mode < 0)
++		return mode;
++
++	write_protected = spd5118_write_protected(client, mode);
++	if (write_protected)
++		config = &spd5118_regmap8_ro_config;
++
++	regmap = devm_regmap_init_i2c(client, config);
+ 	if (IS_ERR(regmap))
+ 		return dev_err_probe(dev, PTR_ERR(regmap), "regmap init failed\n");
+ 
+-	return spd5118_common_probe(dev, regmap);
++	return spd5118_common_probe(dev, regmap, write_protected);
+ }
+ 
+ static const struct i2c_device_id spd5118_i2c_id[] = {
+@@ -743,7 +825,11 @@ static int spd5118_i3c_probe(struct i3c_device *i3cdev)
+ 	if (regval[0] != 0x51 || regval[1] != 0x18)
+ 		return -ENODEV;
+ 
+-	return spd5118_common_probe(dev, regmap);
++	/*
++	 * SPD Write Disable is an SMBus controller feature and does not apply
++	 * to I3C transfers.
++	 */
++	return spd5118_common_probe(dev, regmap, false);
+ }
+ 
+ static struct i3c_driver spd5118_i3c_driver = {
+-- 
+2.53.0
+
