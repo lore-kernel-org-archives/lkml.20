@@ -1,347 +1,213 @@
-Received: from smtp10.goneo.de (smtp10.goneo.de [85.220.189.106])
+Received: from YT5PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11021083.outbound.protection.outlook.com [40.107.192.83])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33B4E3AA1BF;
-	Sun, 20 Sep 2026 15:44:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.220.189.106
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789919062; cv=none; b=YTAY8na2TbnECISns/32arXOBnPlwIRBH8nUNFAd9kwB5FMe+21noH9hwtCUk7Jzge0Ty8wYVfBXxx+IobkRuumXVhunlKXmK9Fte4eOSaJW0DrZrERDJzlipioNORiybgke3abBHw10oVvfXxUrC/yZgipxW6ESekTYpfFRtSE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789919062; c=relaxed/simple;
-	bh=NXcvxngyirprKDf9xt5cFxOxuDfXXH/UxbKlRb7nn0U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Jlr2eDbLSesRS/OYs0G2S/Y7VHXTUGpfctdmkFarv+edEi8xDUguz+Gt7GMoFPqSn6Y1aNDjUisjDat0JE2kQKjGW+TWnWUgsgImI2eKlF0XSzgiCc4GPBQpyHNwxg0nud3B6kNi6Ci83ODdg4NYl0ctApTc2wa321hIwJvaWss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de; spf=pass smtp.mailfrom=tk154.de; dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b=IHf43IOK; arc=none smtp.client-ip=85.220.189.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tk154.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D86B3E6DE7;
+	Sun, 20 Sep 2026 15:44:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.192.83
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789919070; cv=fail; b=brzYDSGkxDFduwGzlHPN8wrr1BTfuP86tUJdgjnUGbTZMO6H7LWPtNyPhateREnZW9hjBDRBpIZEeEvcq/aEt3rtgxUyXH+ua3cOE0J5Nh+6H6mb1HeNxRD73M3OOGMvMZFA8kRYsybIg86AjDQknNeOe7xpl1jn6a0zzXc0vaE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789919070; c=relaxed/simple;
+	bh=CGA7C/ReyLtWz0WW+9bgkWrf7a4OM6Kf1reCDIsM3aw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=hOoMuB6way/QFSvr0j6+SBOsU9oDOh/XDHJT72vo/G9W+6VhUS4eHwlU7TWD3X713F+pZeClC4I6PM1QgQTHNNmLzVgBEp9TtoXyuLQ7rStLkhmJwvumg0/tkxMU1UvDBI8DeJXhSdR8Nri81pJuFfXgcl+MzG7U5DH4O8T5xbo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=mBldj1wY; arc=fail smtp.client-ip=40.107.192.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b="IHf43IOK"
-Received: from hub2.goneo.de (hub2.goneo.de [IPv6:2001:1640:5::8:53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by smtp10.goneo.de (Postfix) with ESMTPS id D3F9F240875;
-	Sun, 20 Sep 2026 17:44:14 +0200 (CEST)
-Received: from hub2.goneo.de (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by hub2.goneo.de (Postfix) with ESMTPS id 9822F24046F;
-	Sun, 20 Sep 2026 17:44:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tk154.de; s=DKIM001;
-	t=1789919052;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AecNapTxF362oY8rExZxZezRuqvp1u2dtTLC2cyGOGo=;
-	b=IHf43IOKsxj6P1o2SIUddEo/Cckd8cLCRycpgDVjDrjv5WRVZCeIUt4wUHTHFZRIl5nMkj
-	pX/2PjUJcfHFktbABB01Jeiu9Wemam/gFyzgr1Qaau/Bbo3Z1ouKeuGoVxB3jQHSKeN3Hn
-	vibJXJPpmmL+nnH2uf/jTMEOozuxzrW5q2Tei5kzal9Om+TPOKqTOmtD5hud1dc/6f9joo
-	WC6wojI6BCXc6438Uj+NijGEzR8nWHrj49NaWEoxicg8XKV4sM3ZwZCugBIl7DA0P7Kjxk
-	Vi9kW9Hi7mB5xvuAhqU5YY4bO0wO8BINmaroYWnwBagDjhoRd1lb0D+PehnfWg==
-Received: from Til-Notebook.lan (unknown [IPv6:2a00:1f:5743:bc00::d0f])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hub2.goneo.de (Postfix) with ESMTPSA id 63596240350;
-	Sun, 20 Sep 2026 17:44:08 +0200 (CEST)
-From: Til Kaiser <mail@tk154.de>
-To: netdev@vger.kernel.org
-Cc: lorenzo@kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Til Kaiser <mail@tk154.de>
-Subject: [PATCH net-next 2/2] net: airoha: Add XDP statistics
-Date: Sun, 20 Sep 2026 17:43:29 +0200
-Message-ID: <20260920154329.161755-3-mail@tk154.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260920154329.161755-1-mail@tk154.de>
-References: <20260920154329.161755-1-mail@tk154.de>
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="mBldj1wY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CEJziD1XuW1pDE0xE+DoC+UDfbm80fS4IcAjn6t5VWha8B2rUyIvc7XDbC6qP+R7RIZdDllotQgPyZxUjPEUoTc35vVpEJncROiJ275gHQc1PkJ1vo/yl0DtC3KciS1oJjX0B6aETClwrxDz4+IKGDt4/zS7FaTnVCpCAWdW4tDQlY1PwQS8FmPXvtDLyMSZw4Mfk7dzhjb8V5K/R4hpi2QjAx56aG51j6KGQ9rH4ZAkIqpMjytefsyK9g26krWBwZJnPt/DxbJiT97aSldM1jz8/gnt2AJ3RdY/1h4/95/uvhClwufXQSfU4k1CmnWXEDIuK2pRgEr0QmCz0krMnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gcyaibZEX5lwgq9vO141ibnFruaeYL2y1tvI0VSQ0dc=;
+ b=Cq6TA3jP8K9uMrRVw1KlzfpGFNCljJ/42eJSwvEyP/OKSQGCxzS08LeWJqJSZG1XfS+pztTGUT/svGgRua0V7jMeUJPW5gPbLIYqEdhB/3Em44fIGW7894r8B5C2fzozSUkKX/L45Ipqojf64bRfiXa5DtY4f4muO6miO2ng8M9EJuAjWS59W8byl6cSctYZ3n2Z1akrRKNcx21sFHQ/5YRvJ6X8qDvA8I2goYz85jodLBfdbE5LAVBDrC2+cKP6EXfQPGUHqSqWZ26XrxI+80Q5t5WloiT5eTff254ATpV0yaVwQLf/Dnnu/NDTL9cByTVyD70kyzo+PStvxJmP4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gcyaibZEX5lwgq9vO141ibnFruaeYL2y1tvI0VSQ0dc=;
+ b=mBldj1wYhe9z02yPwn2Izc9A/0ASC84lYgbFN1Sih3X+xHFS3bKsZO/sVJhtSPMhgdn4/KbR1CMo+Wu/pYnKaiIroSmirg5MH3FV+oL6QcZe+wgW40NhJIlyeamLSomTYiymiuyYWLG2vJSFYyn3u7mF8bgiUbdZpKo7FiWYihpWtdqw/Sbdgq9sRf3rDGVUj++O5ebK+R0u1Q4PwzXcNqKbRz5H/LYIqhc23vZd5ft2CdQr8nbEw5Gp0Csjj61jUxG67JtZqj+B59b5+/Hi8UnKue2sjh4dhEY/BVfEGokTdgSfsSvMNCzq+OH4l2I/JSN/BeOF9W9ITqwKzR9kyg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by QB1PPFBF71136B4.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c08::289) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Sun, 20 Sep
+ 2026 15:44:22 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0428.014; Sun, 20 Sep 2026
+ 15:44:21 +0000
+Message-ID: <51044724-7c3d-4200-b0d3-540a31d95804@efficios.com>
+Date: Sun, 20 Sep 2026 11:44:20 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 26/28] hazptr: Implement two-phase wildcard scan
+To: Gary Guo <gary@garyguo.net>, "Paul E. McKenney" <paulmck@kernel.org>,
+ rcu@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: kernel-team@meta.com, Boqun Feng <boqun@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>, lkmm@lists.linux.dev,
+ Zqiang <qiang.zhang@linux.dev>, Wang Lian <lianux.mm@gmail.com>,
+ Kunwu Chan <kunwu.chan@gmail.com>, Bradley Morgan <brads@mainlining.org>,
+ Bradley Morgan <include@grrlz.net>
+References: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop>
+ <20260919000056.3132131-26-paulmck@kernel.org>
+ <DLK84KYP9NRK.2254MY7D9AU11@garyguo.net>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <DLK84KYP9NRK.2254MY7D9AU11@garyguo.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQZPR01CA0021.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:85::8) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-UID: 6e5446
-X-Rspamd-UID: 047c72
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|QB1PPFBF71136B4:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b7887ea-7326-4c72-6160-08df172e0a42
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|22082099003|18002099003|56012099006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	Rf8J8TfN941KFniI5MCEHknHBEOXtnlJ8ujkZMpOECyQmrh7X4WT6tYrLoYAx2zgGDE3+Yi9a2fyr+j9BwrIEdWvvvEMUtTeJVlnVHqiqRJMjC4JKbAcEN3tIzmvL/em/ncdEhnqLCAvl5dolRnPN39L6CiG20l2sicQLlXB75j+0/GOwKKQE4DR5HWsaufJGAK+oqbqpUDBXgg7p1RXoGNvFxK1AoQzo2G9cD55oaoCNSl/wrNaMQTi4LWrRIeqNp3qoOLmnujPaMG1mhaLLlZxRFzAIEbQHcerMt7HGXOA6nfVoSUtAn2F3ABfJjxSr0TrB//HLGem61xcVX5oPMa7hN0JIsZzM/6gW3pP6/yhAs5V08aTnvhJ2tTqf2MAEKwCrd/C0cwLzi4geEdd828xj6ETXWPErdLgPj1nzmmOuNFZ4EJUH6DutB5ET5+urfT5IwTAZiw5PSxhLipVuAY/8pOmdQRPJmj2zchmdYLPRhoeCi/y25HfPWMXJJ4Q2zUQrYngkmIXf8BZ+3aabumKNtgjkE6sZ0p7+HUBpTMkAwsi82d5zs+ODgovh2ZSFOEYtT1Z8z0IRWXaOt4Y55N/9r8swU1y1BPNdVze/ZQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(22082099003)(18002099003)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NVZRYUsrenRPa1hZdGJ3WUJLQ2xnVmdaVkFrM3RVTkVyWEdPUUFWT1E1ZlZh?=
+ =?utf-8?B?RURDQVNBYS9iSW1IYXNqc1NDcHc4cDNnU1JvQysvZlJwQnA5cjJRYzBnTjBG?=
+ =?utf-8?B?cUd2aXZPUy9jS1U0d0NoRGkyT3AvaGUvYUhCcmlNVmJEdDBkUVQzcmFhQndC?=
+ =?utf-8?B?Y1hoRE5LdWZmMC9EUVdoeFVrc2lWRTczenNXemhBMzZQL2lwNkdZa0xHS1k2?=
+ =?utf-8?B?bVcyOEpkZHBkQkJOL1hZQndNc0E3aTFqeEk0c1MvbXVvUURSSzJwa2tQY2Fh?=
+ =?utf-8?B?YTFBWHFGWnYzMGxFZXRPaEpocC9CTHlwNjg3UXRpNWJKc3BBcy9lOXBIVkd5?=
+ =?utf-8?B?V1Y2RXQ1WkEzMHdVRFhCVlYzVWI2YjB0QlZhRW5PeHg4SXludXNraCtnZitw?=
+ =?utf-8?B?RU9PeDBOL0ZnN0wyalc1T2RFQ2NOYlR2ZHJoZWVXS3g1K2M4Wi9jUnpud0Q3?=
+ =?utf-8?B?M1ZwSFIvVGNwcnQ1eGhnNVByWnRhNVR2SThsTzU5NDJ6NkxON3dad1l4cElR?=
+ =?utf-8?B?UjVVYUJXOE11Y3Y3QUROTk5jVGZLRXhZQVAzQjV0bkwxWXJteitqRFlXNXNL?=
+ =?utf-8?B?UHU5K2dZT1VHcVBGUUtwZGtQd0RQaDkxZ251a2tTeU5lT0dxWHdQeTc1c0lY?=
+ =?utf-8?B?a25sSW1OYTVUYzg1d21WR1F1K1dIZmFFSjNlam5NWXA0TWttUGpuSFNBc0dO?=
+ =?utf-8?B?dHd2UHdJZ1NjUXpIWDdzdmhLV29kVHNvcmlnM2grNFc0Kytrekp5SVZacE5I?=
+ =?utf-8?B?U0E1WGhMV2VsRUhsb1lGVERxdHBoRE02L0ZHb1crc2xSaFNNYnVlcWpsQ0V4?=
+ =?utf-8?B?ZVJjTjZBc3RabU9DdHVGdUM4QlpBVWxub00zRVJYWU9iTjA3ZC9WV1haU3ZH?=
+ =?utf-8?B?cExIeDhRU2orMnVjSXZPVEludkRpbko5eDIyTmpOdTl6NHhCL1JYMVMxYld1?=
+ =?utf-8?B?ajUvMkNCajVFSmpYL25rL0YwcWVCOGpiNkRsWTZFZkdqOWdYMzlUMk00bC8r?=
+ =?utf-8?B?STN1dGtVRjF3bkJ2ekJaMnlXaFpPSyszckFFZXJwY0JFcGFiRjFZcXB2MmZp?=
+ =?utf-8?B?eitQMkw3cmY4b1daYnUvNWZBbVg1ODgyTmdIU3NuZWhUMXdhRndYM1NYOFpH?=
+ =?utf-8?B?elpmUWQwTHp1YThNNFZuazNjTFlxWngrdHFhRHV2Szl2WDg1enVmNW1wbHR1?=
+ =?utf-8?B?eENBUVUvTUxySU5ITTQzRnlScnNlUW1OUjFHeThhTHJObGk1Nm1TTkZ6VjYx?=
+ =?utf-8?B?SytDS3hpempEYVNvemROeU9leEczc2lvQURJb2MxVm9LK2IwK2c4Q0Z4Vmc0?=
+ =?utf-8?B?UHlTSjVCaml1ZG9rWlQxZldZZlZENm5KSTVkUHpnMjZlemxQT0FMem1qSDdX?=
+ =?utf-8?B?dFZaOUhoNGwrTGJDWFdhRnh1eitnRXVDemxuYmlXOW1HNmlQb2lnZTlHY0FU?=
+ =?utf-8?B?a1V0OGx5WU83bU9PZ1JZVExCWFJyK3lYcFRxOG9rRTJKVFNROXc4Y3V2UzVG?=
+ =?utf-8?B?TmhMQmxoN1Bab3F5ZWpTVEhQSUhoY2ZIVU5LYWRsT0pqWi9Icy9pMEErRFVj?=
+ =?utf-8?B?ZHlOZk8yOWRwcUdUY3phR1hHM1FlazhSS2RqckFqdVZRbDRCQWV6eEpRbGJG?=
+ =?utf-8?B?b2VtRm1Wakg0cHR4Y1JHZVF2T0xrZmtDK3piem5zMlJsRzVlczRpZVJ5NWIw?=
+ =?utf-8?B?OG41bkJPa2dYdnJmMks3dkZsbTZYVzYxWXRFQ3pyQkpPTmYwRUJRYlltUS9t?=
+ =?utf-8?B?Qjh1SmRUbm1QL3dhUHhyTDAveWNVR28xZmk2cEVRS08yRHhRT0VrR0l4aXZk?=
+ =?utf-8?B?dFF3eWdSNXFiT29HOUwzYXE4TWkxTFVlQ0dYYkUrWkRwSlFyVHhPQ0tpdDBh?=
+ =?utf-8?B?RW51SmQxM1JmU2htR1R4SENHeGx2Wkp0Z0xEQ1MzYXlENlFrRlo1bjZZamQz?=
+ =?utf-8?B?QW9iK0xDd1hMUFUzZ0NEK0NDVWdZNVVqYndqY3lZSHo3NFNZZ0NJQ1YzSTZL?=
+ =?utf-8?B?N3NEU2plSkxrZlZiMndEZjFzVmNRQ0wxYWdYQ2FaZ0wvODJkbUw4c3ppTEJC?=
+ =?utf-8?B?YkVaYVhLWDJRV2EzNnFieitxZmFMZUd2ckpaTWJUVEZvRjZtUkI5YlZ2aHlw?=
+ =?utf-8?B?alhVUWwwY09kVGNjZjZ1THc0RytSR2VOTExKazN4cjNZS0l4aVB4cGp1WXlF?=
+ =?utf-8?B?WlJIOFBLOVVteDd1eTY3bDZiV1M0dFF5UjNxTVpEZGUxMHNjSThXNlp2SFdq?=
+ =?utf-8?B?S1o5Yklpd0NjTDVIUGpqMHQ4VVVVNHVOTmxzZFdVVnFyWEwxazN1NlJVeFJp?=
+ =?utf-8?B?SHFBSlpWVk9vQytySmhtd2ZUcklGdDhlaU1DWVR3QjM1Y0xjZThyMzNCTmpQ?=
+ =?utf-8?Q?/SzCTNhUSUj0Kbz4=3D?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b7887ea-7326-4c72-6160-08df172e0a42
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 15:44:21.8951
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: k7jv7wkZ/2SCtjAG2yL8h1pfHZif/+sm3GFbiqDTzN+X4nuWU4Dx5t3swcVLNHCQ9RuqOE69QtMUrHKypaWPKlB+7YkBJUW7EMW65Qo4/ww=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: QB1PPFBF71136B4
 
-Track and expose per-device XDP statistics via ethtool, covering both
-the RX and TX sides of the XDP data path.
+On 2026-09-20 10:46, Gary Guo wrote:
+> On Sat Sep 19, 2026 at 1:00 AM BST, Paul E. McKenney wrote:
+>> From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+>>
+>> Implement a two-phase wildcard scan to guarantee forward progress of
+>> synchronize_hazptr() even if there is a steady stream of ill-timed
+>> readers which populate wildcards into per-CPU slots.
+> 
+> Hmm, I am not sure that I understand the problem here. The per-CPU slot is
+> scanned only once per CPU, and patch 1 already introduces flipping of the
+> overflow list. What prevents the forward progress?
 
-A new struct airoha_xdp_stats is introduced and embedded in the existing
-struct airoha_hw_stats. It contains the following counters, all protected
-by the existing u64_stats_sync:
+A steady stream of readers acquiring and releasing various hazard
+pointers happening concurrently with the percpu slots checks, being
+unlucky enough that each of the slot is constantly in a "wildcard"
+state, thus preventing forward progress of the synchronize, just with
+a steady stream of individually time-bound readers.
 
-  rx_xdp_pass            - frames passed to the networking stack
-  rx_xdp_aborted         - frames with XDP_ABORTED or unknown action
-  rx_xdp_drop            - frames dropped by the BPF program or on error
-  rx_xdp_tx              - frames sent back out via XDP_TX
-  rx_xdp_tx_errors       - XDP_TX failures
-  rx_xdp_redirect        - frames successfully redirected
-  rx_xdp_redirect_errors - XDP_REDIRECT failures
-  tx_xdp_xmit            - frames successfully submitted via ndo_xdp_xmit
-  tx_xdp_xmit_errors     - frames dropped in ndo_xdp_xmit
+> 
+> I think having a shared global read by all CPUs sounds really undesirable,
+> especially that it gets flipped for each hazptr_synchronize -- this means that
+> in the pathological case where there are a steady stream of hazptr_synchronize
+> calls, each fast-path hazptr_acquire will have a cache miss reading
+> hazptr_wildcard.
 
-The airoha_run_xdp() function is reworked to update the appropriate
-counter after each XDP action. The airoha_xdp_xmit() ndo_xdp_xmit handler
-is updated to record the number of successfully transmitted and dropped
-frames.
+There is a straightforward optimization we can do if this happen to
+cause performance issues: only do the flip when the synchronize
+encounters a wildcard retry delay beyond a specified threshold.
+So we ensure synchronize observe the absence of both wildcard
+values in each cpu slots, and only flip the current wildcard on retry
+delay.
 
-The ethtool interface is extended with three new callbacks:
+This would prevent the common "frequent" synchronize case you
+mention from causing cache misses on the read-side.
 
-- get_strings: emits the XDP counter names followed by the page pool
-  stat strings obtained from page_pool_ethtool_stats_get_strings().
-- get_sset_count: returns the combined count of XDP and page pool stats.
-- get_ethtool_stats: reads the XDP counters under the u64_stats_sync
-  seqcount and appends page pool stats collected from all active RX
-  queues via page_pool_get_stats().
+But I preferred to keep it simple and wait until we hit this
+level of synchronize call throughput until adding that extra
+complexity.
 
-PAGE_POOL_STATS is selected in Kconfig to enable the page pool statistics
-infrastructure required by the ethtool callbacks.
+Thanks,
 
-Signed-off-by: Til Kaiser <mail@tk154.de>
----
- drivers/net/ethernet/airoha/Kconfig      |   1 +
- drivers/net/ethernet/airoha/airoha_eth.c | 131 ++++++++++++++++++++---
- drivers/net/ethernet/airoha/airoha_eth.h |  14 +++
- 3 files changed, 133 insertions(+), 13 deletions(-)
+Mathieu
 
-diff --git a/drivers/net/ethernet/airoha/Kconfig b/drivers/net/ethernet/airoha/Kconfig
-index 1f6640a15fc9..3fa7683a79e9 100644
---- a/drivers/net/ethernet/airoha/Kconfig
-+++ b/drivers/net/ethernet/airoha/Kconfig
-@@ -20,6 +20,7 @@ config NET_AIROHA
- 	depends on NET_DSA || !NET_DSA
- 	select NET_AIROHA_NPU
- 	select PAGE_POOL
-+	select PAGE_POOL_STATS
- 	help
- 	  This driver supports the gigabit ethernet MACs in the
- 	  Airoha SoC family.
-diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ethernet/airoha/airoha_eth.c
-index 71b25f225a8a..29b837204842 100644
---- a/drivers/net/ethernet/airoha/airoha_eth.c
-+++ b/drivers/net/ethernet/airoha/airoha_eth.c
-@@ -864,6 +864,11 @@ static int airoha_xdp_xmit(struct net_device *netdev, int n,
- 	spin_unlock(&q->lock);
- 	rcu_read_unlock();
- 
-+	u64_stats_update_begin(&dev->stats.syncp);
-+	dev->stats.xdp_stats.tx_xdp_xmit += n - drops;
-+	dev->stats.xdp_stats.tx_xdp_xmit_errors += drops;
-+	u64_stats_update_end(&dev->stats.syncp);
-+
- 	return n - drops;
- }
- 
-@@ -871,40 +876,56 @@ static bool airoha_run_xdp(struct net_device *netdev, struct bpf_prog *prog,
- 			   struct xdp_buff *xdp, struct airoha_queue *q,
- 			   struct airoha_queue_entry *e, struct page *page)
- {
-+	struct airoha_gdm_dev *dev = netdev_priv(netdev);
-+	struct airoha_hw_stats *hw_stats = &dev->stats;
- 	u32 act = bpf_prog_run_xdp(prog, xdp);
-+	u64 *count;
- 
- 	switch (act) {
- 	case XDP_PASS:
--		return false;
-+		count = &hw_stats->xdp_stats.rx_xdp_pass;
-+		goto update_stats;
- 	case XDP_TX:
- 		if (unlikely(airoha_xdp_xmit_back(netdev, xdp, q->qdma) < 0)) {
-+			count = &hw_stats->xdp_stats.rx_xdp_tx_errors;
- 			trace_xdp_exception(netdev, prog, act);
--			page_pool_put_full_page(q->page_pool, page, true);
--		} else {
--			e->buf = NULL;
-+			break;
- 		}
--		break;
-+
-+		e->buf = NULL;
-+		count = &hw_stats->xdp_stats.rx_xdp_tx;
-+		goto update_stats;
- 	case XDP_REDIRECT:
- 		if (unlikely(xdp_do_redirect(netdev, xdp, prog) < 0)) {
-+			count = &hw_stats->xdp_stats.rx_xdp_redirect_errors;
- 			trace_xdp_exception(netdev, prog, act);
--			page_pool_put_full_page(q->page_pool, page, true);
--		} else {
--			q->xdp_flush = true;
--			e->buf = NULL;
-+			break;
- 		}
--		break;
-+
-+		e->buf = NULL;
-+		q->xdp_flush = true;
-+		count = &hw_stats->xdp_stats.rx_xdp_redirect;
-+		goto update_stats;
- 	default:
- 		bpf_warn_invalid_xdp_action(netdev, prog, act);
- 		fallthrough;
- 	case XDP_ABORTED:
-+		count = &hw_stats->xdp_stats.rx_xdp_aborted;
- 		trace_xdp_exception(netdev, prog, act);
--		fallthrough;
-+		break;
- 	case XDP_DROP:
--		page_pool_put_full_page(q->page_pool, page, true);
-+		count = &hw_stats->xdp_stats.rx_xdp_drop;
- 		break;
- 	}
- 
--	return true;
-+	page_pool_put_full_page(q->page_pool, page, true);
-+
-+update_stats:
-+	u64_stats_update_begin(&hw_stats->syncp);
-+	*count = *count + 1;
-+	u64_stats_update_end(&hw_stats->syncp);
-+
-+	return act != XDP_PASS;
- }
- 
- static int airoha_qdma_rx_process(struct airoha_queue *q, int budget)
-@@ -3676,12 +3697,96 @@ static const struct net_device_ops airoha_netdev_ops = {
- 	.ndo_xdp_xmit		= airoha_xdp_xmit,
- };
- 
-+#define AIROHA_ETHTOOL_XDP_STAT(x) { #x, \
-+				  offsetof(struct airoha_hw_stats, xdp_stats.x) / \
-+				  sizeof(u64) }
-+
-+static const struct {
-+	const char name[ETH_GSTRING_LEN];
-+	u32 offset;
-+} airoha_ethtool_xdp_stats[] = {
-+	AIROHA_ETHTOOL_XDP_STAT(rx_xdp_redirect),
-+	AIROHA_ETHTOOL_XDP_STAT(rx_xdp_redirect_errors),
-+	AIROHA_ETHTOOL_XDP_STAT(rx_xdp_pass),
-+	AIROHA_ETHTOOL_XDP_STAT(rx_xdp_aborted),
-+	AIROHA_ETHTOOL_XDP_STAT(rx_xdp_drop),
-+	AIROHA_ETHTOOL_XDP_STAT(rx_xdp_tx),
-+	AIROHA_ETHTOOL_XDP_STAT(rx_xdp_tx_errors),
-+	AIROHA_ETHTOOL_XDP_STAT(tx_xdp_xmit),
-+	AIROHA_ETHTOOL_XDP_STAT(tx_xdp_xmit_errors),
-+};
-+
-+static void airoha_ethtool_get_strings(struct net_device *netdev, u32 stringset, u8 *data)
-+{
-+	int i;
-+
-+	switch (stringset) {
-+	case ETH_SS_STATS:
-+		for (i = 0; i < ARRAY_SIZE(airoha_ethtool_xdp_stats); i++) {
-+			strscpy(data, airoha_ethtool_xdp_stats[i].name, ETH_GSTRING_LEN);
-+			data += ETH_GSTRING_LEN;
-+		}
-+		page_pool_ethtool_stats_get_strings(data);
-+		break;
-+	}
-+}
-+
-+static int airoha_ethtool_get_sset_count(struct net_device *netdev, int stringset)
-+{
-+	switch (stringset) {
-+	case ETH_SS_STATS:
-+		return ARRAY_SIZE(airoha_ethtool_xdp_stats) + page_pool_ethtool_stats_get_count();
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static void airoha_ethtool_get_ethtool_stats(struct net_device *netdev,
-+					     struct ethtool_stats *stats,
-+					     u64 *data)
-+{
-+	struct airoha_gdm_dev *dev = netdev_priv(netdev);
-+	struct airoha_hw_stats *hw_stats = &dev->stats;
-+	u64 *hw_stats_base = (u64 *)hw_stats;
-+	struct page_pool_stats pp_stats = {};
-+	struct airoha_qdma *qdma;
-+	unsigned int start;
-+	int i;
-+
-+	if (netif_running(netdev))
-+		airoha_update_hw_stats(dev);
-+
-+	do {
-+		start = u64_stats_fetch_begin(&hw_stats->syncp);
-+		for (i = 0; i < ARRAY_SIZE(airoha_ethtool_xdp_stats); i++)
-+			data[i] = hw_stats_base[airoha_ethtool_xdp_stats[i].offset];
-+	} while (u64_stats_fetch_retry(&hw_stats->syncp, start));
-+
-+	rcu_read_lock();
-+	qdma = rcu_dereference(dev->qdma);
-+	if (qdma) {
-+		for (i = 0; i < ARRAY_SIZE(qdma->q_rx); i++) {
-+			struct airoha_queue *q = &qdma->q_rx[i];
-+
-+			if (q->page_pool)
-+				page_pool_get_stats(q->page_pool, &pp_stats);
-+		}
-+	}
-+	rcu_read_unlock();
-+
-+	page_pool_ethtool_stats_get(data + ARRAY_SIZE(airoha_ethtool_xdp_stats),
-+				    &pp_stats);
-+}
-+
- static const struct ethtool_ops airoha_ethtool_ops = {
- 	.get_drvinfo		= airoha_ethtool_get_drvinfo,
- 	.get_eth_mac_stats      = airoha_ethtool_get_mac_stats,
- 	.get_rmon_stats		= airoha_ethtool_get_rmon_stats,
- 	.get_link_ksettings	= phy_ethtool_get_link_ksettings,
- 	.get_link		= ethtool_op_get_link,
-+	.get_strings		= airoha_ethtool_get_strings,
-+	.get_sset_count		= airoha_ethtool_get_sset_count,
-+	.get_ethtool_stats	= airoha_ethtool_get_ethtool_stats,
- };
- 
- static int airoha_metadata_dst_alloc(struct airoha_gdm_port *port)
-diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/ethernet/airoha/airoha_eth.h
-index cfbc0b8f5bf9..d2ac295c49e9 100644
---- a/drivers/net/ethernet/airoha/airoha_eth.h
-+++ b/drivers/net/ethernet/airoha/airoha_eth.h
-@@ -236,6 +236,18 @@ struct airoha_tx_irq_queue {
- 	u32 *q;
- };
- 
-+struct airoha_xdp_stats {
-+	u64 rx_xdp_redirect;
-+	u64 rx_xdp_redirect_errors;
-+	u64 rx_xdp_pass;
-+	u64 rx_xdp_aborted;
-+	u64 rx_xdp_drop;
-+	u64 rx_xdp_tx;
-+	u64 rx_xdp_tx_errors;
-+	u64 tx_xdp_xmit;
-+	u64 tx_xdp_xmit_errors;
-+};
-+
- struct airoha_hw_stats {
- 	struct u64_stats_sync syncp;
- 
-@@ -259,6 +271,8 @@ struct airoha_hw_stats {
- 	u64 rx_jabber;
- 	u64 rx_len[7];
- 
-+	struct airoha_xdp_stats xdp_stats;
-+
- 	struct {
- 		/* Previous HW register values for 32-bit counter delta
- 		 * tracking. Storing the last seen value and accumulating
+> 
+> Best,
+> Gary
+> 
+>>
+>> This is performed by flipping between two wildcard values (1UL and 2UL),
+>> and alternatively scanning for the opposite wildcard while newcoming
+>> readers use the other one.
+>>
+>> There is no possibility to miss a reader because all slots for all
+>> wildcards are accounted for during a synchronize.
+>>
+>> As a simplification, use this period flip to drive the hazptr overflow
+>> list selection as well, since there is really no point is making the
+>> overflow list flip use a different state.
+>>
+>> Protect the wildcard flip with a mutex.
+>>
+>> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+>> Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+>> Cc: Boqun Feng <boqun@kernel.org>
+>> Reviewed-by: Bradley Morgan <include@grrlz.net>
+>> ---
+>>   include/linux/hazptr.h |  6 ++-
+>>   kernel/hazptr.c        | 98 ++++++++++++++++++++++++++++++------------
+>>   2 files changed, 74 insertions(+), 30 deletions(-)
+> 
+
+
 -- 
-2.55.0
-
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
