@@ -1,1018 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010045.outbound.protection.outlook.com [52.101.201.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935223F12C6;
-	Sun, 20 Sep 2026 10:25:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789899907; cv=none; b=aTrHO+o0pijf0hozXS2fIUbum64qSXS0cujCUmrIpUqgLK6fRk5Wu614VLgbFHei5Eq5dKuGaTprBgWrWyEvVHHR0uGIZ/K2mGQOdtvtvY9vIv6smdQGo/fB25s423Qd1fl4rmtUY0QoLvB9PbUfWsfvoX36KCWFLmHE/LsIjnA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789899907; c=relaxed/simple;
-	bh=1bBobLG64TKEFx2PhVwktvyYdDmB4ZmCC0tUWYpYvyo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bvG/+xDos55AZGB1Gl03BAaIswWPBHUUer2tCGUBWUSvEPD8hqK4UOt+GUqF9SipUTYuJdv2rDVUALpLOrX9P8HPmgZT7rKA7y3eSQUjQTAsE0gqfQGjXOfEFNSi6l3DGBc1wMpkWcKXCmcmyQei24X4FPtkkutJxrQfRiCW0rQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FKZAIVE3; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81313E558A;
+	Sun, 20 Sep 2026 10:27:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789900040; cv=fail; b=DgYwk0Bw6Joz+0r1I3zeFy11RZ9lAy37sWCeULkN14HzUpjL//B4LCsE8FzdGWxq3mO0lFpNmlehYaE+Bw976/BeTKcdAQd31i1m81X/9L76RhwYpE8jTbCIxpjUEjx4NIrASSCMbwGjpnVVYPGM8VTtaIsojCtGzKcbQSAQSsc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789900040; c=relaxed/simple;
+	bh=VxNyVdk8QTqbLjnrZO6AJsYFKq8EoHM+Axzbe8Ip/yc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=HYPbSDTTDMiyHq96t/YlbzHRWeGHuk1K8+Zk3LSpxov0EAjkFcnC0Ir9MIfPdfq3OqsnAEQggAyNzL0slo/IlcQw/ipK5mPWZR1CkUGw4xUx9M3pxNMvSGbyP16YI99Fiao1QBJQwmOQj0rJHPAs31fP4xwyIGg0JSxodY3+Rlc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=O/yZN2Ou; arc=fail smtp.client-ip=52.101.201.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FKZAIVE3"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 41B4CC2BCFC;
-	Sun, 20 Sep 2026 10:25:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789899907;
-	bh=1bBobLG64TKEFx2PhVwktvyYdDmB4ZmCC0tUWYpYvyo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=FKZAIVE3/hHRWuQ2pipUHWIaHl0DtDH1yt8ORjhcPFLy6gmfOp7m5CxHk+l0GWp+y
-	 CsKMk7zzAQGZccKn0rWmSkNypRVKMZLNjbUSE7WV/0HJNPq5ORWCKoXNN5cHlPXXuy
-	 nzsMvIDpuGxgRU8Uuo1aD3KqZIDD5mAOrrlDOr2H8RlCOd9w7ePgi3gZTJRUzvvhu2
-	 8eeXEmxJuNQv6PcoidvQAsD4nlX/fKMakykIO7U/swqP63o9CX158FAx2qlpTNGhUz
-	 qkcGjCK+iHpFS+9JscpUl/cQM2TQHxPWJ/IshSIu/hVwgq7Qf5/ukLgI4jyizi98W6
-	 bgG+duE67AiZg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F359C982CC;
-	Sun, 20 Sep 2026 10:25:07 +0000 (UTC)
-From: Chuan Liu via B4 Relay <devnull+chuan.liu.amlogic.com@kernel.org>
-Date: Sun, 20 Sep 2026 18:25:07 +0800
-Subject: [PATCH v2 05/12] soc: amlogic: clk-measure: Add support for more
- SoCs
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="O/yZN2Ou"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Fr11Xb+ERVgw75Qcu7L8HA2nTbvTYlq/RDIk1CdE5jkn+0YZQiJynU1s4kfMHRR61eexGwJhavuudl2QXZtgc9/UzvKAipvmeRL0jHMIpZZjC1Md1JEKr6NHWY51C5sf0cvirw+HTeunAq9BKZiU5elzfbWoS08RO8qssZI4s5QAebkTU6yXMRCpMXZF0fQjQWTmxgX0As24M3deTubV05RimmCIa4/Td9rHj6EUznH5y2+tZ/CuFUAQrWZ5cYtgyL4b10mtfabsguoB2f0NfNXmCz9odsOhXpk6gHSgQMJNL/fDDBwGYjrS+gOvDN/EoNlrv8QRnZa9d6EZxrMXAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l3oWYgZ9Zat7Z5w/veLmPuIYGfyRF012urYtkkw8aLw=;
+ b=bl4S9Ss/gdAwW0k3wbtzXrg1Yb2GHR+RRqMtAs3rTvWpjH9eJbfKy3NfQdiwmpNPw7L2j9oJhhBwZmVsEq7gXFvt/I7MB2onmo95sRk2CnWzM73kHxB/StsaGW6w4zuFWDe5DCZfBRTdyrGwGa5sJNzHdGRD+omfgTo+xiUYmy9iTa1YxXrUOy43+2a+cZikBnPugDev6GTxxZqKCvfJLTXeVpdlWzcrTDLDUjSM5nvtUc6xSZ1OxPuo6ntK7vFwm1ton7WHJFqoqHVIQb0k0EMeX61nKWt60vujmSVjAhpulGXs8DhobVhI+VDo2KprMljQJmnln3mIrFv96sNL/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l3oWYgZ9Zat7Z5w/veLmPuIYGfyRF012urYtkkw8aLw=;
+ b=O/yZN2Ou6GYO1Gac6+/+3SglnfRaN5jm1FGhqq0PapTu9JAZdK40XeeMe6IEwDSjgMz0yXsczRWPRtwE7kRf/zCgE/KTAO3ubScSnRU4AsMxOkGTGayBNAUHWnEA9Qt1pRAvEUsS6QBGMWPjYjaB+s5JtNHUK2x/HvFOCX4sLGNdWLR8L46FwtI+EV0R8FiLsl3aHa9HWZFODZRBCVxg9a5VLD9wk3aaO024rIeEfNVezP3KjpQ4YTmwQtfKsxzVLUFNHjGAhtycCjhMn/mkNKoMYlr/iGidqmJRrxyVWqbAJZfgsyMOeHFSP1EeuSxxWJ4/RkqS8ZJpJ2yhN/WfWQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by MN0PR12MB5713.namprd12.prod.outlook.com (2603:10b6:208:370::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.14; Sun, 20 Sep
+ 2026 10:27:11 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0406.007; Sun, 20 Sep 2026
+ 10:27:10 +0000
+Date: Sun, 20 Sep 2026 13:26:59 +0300
+From: Ido Schimmel <idosch@nvidia.com>
+To: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, tgraf@suug.ch, pshelar@nicira.com,
+	linux-kernel@vger.kernel.org,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Subject: Re: [PATCH net v1] ip_gre: Reject enabling collect metadata through
+ changelink
+Message-ID: <20260920102659.GA1897785@shredder>
+References: <20260917095016.71937-1-xuanqiang.luo@linux.dev>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917095016.71937-1-xuanqiang.luo@linux.dev>
+X-ClientProxiedBy: FR0P281CA0012.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:15::17) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-more-socs-to-support-clk_measure-v2-5-224382a429e8@amlogic.com>
-References: <20260920-more-socs-to-support-clk_measure-v2-0-224382a429e8@amlogic.com>
-In-Reply-To: <20260920-more-socs-to-support-clk_measure-v2-0-224382a429e8@amlogic.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Chuan Liu <chuan.liu@amlogic.com>
-X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789899904; l=33682;
- i=chuan.liu@amlogic.com; s=20240902; h=from:subject:message-id;
- bh=RToDY3ddvXUu2DYbPtYat5Wyfxu+ZmVouzKYkYUHhs4=;
- b=ss69lILyth4Dq4hcxFmf+8VMwMwDSdJyHED50PHKHPAzUxC7oGB/InoZjW/ui8ZIkSDCTEaTz
- GFU4mtb++yOCd3MPdfOpwP6HKPlP06dexBB8aQ7Ce9oDBEwegDKz+AQ
-X-Developer-Key: i=chuan.liu@amlogic.com; a=ed25519;
- pk=fnKDB+81SoWGKW2GJNFkKy/ULvsDmJZRGBE7pR5Xcpo=
-X-Endpoint-Received: by B4 Relay for chuan.liu@amlogic.com/20240902 with
- auth_id=203
-X-Original-From: Chuan Liu <chuan.liu@amlogic.com>
-Reply-To: chuan.liu@amlogic.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|MN0PR12MB5713:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc6dba3a-72e8-4e15-897f-08df1701bab3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|10067099003|11063799006|6133799003|5023799004|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	LSOfct1/1odarlStL4vBNb7FH309ayAM4QAKeKS/KVrUGeH4Baj7990Kn7gcocKL8APJ8S6Y6Wv9u6lfkFXkbWIz5pyUL9Y72LPX0nLINT32q6FeOWPxd5h6dqOb/dz6rnJReBUsRUzJq5Pv4PqKTLy/pSSYsk8hFjgJn/kbdb7ZrF8Tm3JI/qvsBx7njmL9d8b8zVS8VnGKcrsI+2gnDh4kUwYz2KcO6aWh6h5/OSXZYGIWkBLuarykhfRxWQZi3OOKrcI0B2rsJ2RsZCrvI5qDoKtOSwN/+93TUJvFgMWLqYVhJuuPem3i3JfirdqLo9+aSw0AQog34SabkJAN2PP4NfSuUbzXv8nicDOsVO79fjTo2qn9tcqPNEokilw/kQ+sRIIzKSIzjZdTJaUcqapTU9ionhQ2BYeRYNW60yQmZLE1E/Bv7wDNR3VwbFo0QS+ZG2JbEXAovUzcXs93tgyLfxeCERt1FGAfBPAs+o7cxEQio5bpBv39An86r+caaAf/yR4WLkLK1Ex3yGMY0dOY12zzU52+jsikfg1iDa11l/JbVHyuqw4rjK0/Yw86JSV8smiAyXR3yJ/FRqDhjPL0ZpRtMJdH71K/mw3hBWZGg8vjh45rxd26asoUVRqZj84B6i2JPd9s9q70836ljCG5MOHz98gKrY9wyBRl8ZM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(10067099003)(11063799006)(6133799003)(5023799004)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?rQCbmv8wFinxF3S0m5ozu3RUjF+YwKBqFw6bIJVJVryQspbK82qD91zzdfju?=
+ =?us-ascii?Q?tPolSy4HoyN6W+v7qV25mfs7blaX2f4Kmi3hFqIuh6Hj0kzHN/iK12EMvATs?=
+ =?us-ascii?Q?QtLRTYEW9hIyh+WN4tkPyWWjRHFg1cerQ6pDQtMj+l30CAQlhbsr9+Cu9RH6?=
+ =?us-ascii?Q?B8QWB4bK/yJn/kXvNVC+TVecYiAdqN9/a9hx+mTW7w3GblxXJ9au1jBSfl7U?=
+ =?us-ascii?Q?18LEbLQFbdATH7QBPZFR6UyOHJBujBObelRJ1pOnwrunvsxwRv7EZbkcRkhV?=
+ =?us-ascii?Q?vikuTY3p4jLqZvEb5Ox5RJQGwYi4be18F0p6xOca1jjkPlF3+cqqdnRz1Aah?=
+ =?us-ascii?Q?5XqLuVrWKszhzoYfrFngl6PRjab6AWhI5q9YQCYKUaFkJaVR73xVLjyJm6GM?=
+ =?us-ascii?Q?BWyTuP56ik00UWw0N9GrITm5gxyeZ2U8EzDi+O+FTAJ1+KpORqD7qvWAq6Er?=
+ =?us-ascii?Q?bG6lkbrEJSnaPgQX2hVE1AiUcQ2hyj1gwjL9cDc/r/AYB14h/doNJpwcjebQ?=
+ =?us-ascii?Q?tQsLjqmFM3VuDz/gxvMPvYQPWmlSy1IcMcz3davyX2bnafaO53CfOthgfUiw?=
+ =?us-ascii?Q?WT1pK30h50SXOD0L6Y9ZQxhLQ+vWSrditn2QhUms59Skogu5yjIu0Wpz4rdW?=
+ =?us-ascii?Q?u3ql+cYHoJRlVFVonhQe6kvV3M7Byex0ZPcwuiXj1siSftc+abojz9TOcwLG?=
+ =?us-ascii?Q?px3kWKtJEzwASnu02ySRnjOVQbx0X/70E3inCZCxZmsHSgyCujbxknn01xiX?=
+ =?us-ascii?Q?OF28gdMHmqKH8aSSSpd0sPVDxiCFCt/B3biUStCeds5i+4AFKmLzy/ukKYdE?=
+ =?us-ascii?Q?7QG/2ty9U4pD84k+CwCI9TU5WsBlGYpu7gP5Xqoq4usdxbVefVaaVMyg1fBO?=
+ =?us-ascii?Q?QBr4gA7W5g5+POeLkptZ2h7d+u8g8DvY9LiEuNu//6e9cedIa0XrGtfrjjSS?=
+ =?us-ascii?Q?2fGkb1+td+l3u5qB8iQnicIVJdYN0mE+SDUMR3oYzmRiGEVvCgp30RUENBGO?=
+ =?us-ascii?Q?rCKuvP6nvu55yKpxeKglMDvHm7nQJLiFH+9bl8oqj6AmmB6pcnOuJJ4jPK6U?=
+ =?us-ascii?Q?7YqxA7M5S1045Bb7tX44u9o+S9+77fDpt9mtkTABXO817uhmfVmnWTroLsYn?=
+ =?us-ascii?Q?H4ltffus16l5xn8TN3QnR5rfsBsRd79NA/uF+OobrGkonO4epNFTLC7htrg9?=
+ =?us-ascii?Q?fm9Mrz5y+JshoM4FIrz3ODh/6isvILeEDaD8iMAcZBt16KTHUqHEN5DzuCSr?=
+ =?us-ascii?Q?d8FFENf6KWTlXDUSNiJIAsN7zQTyQgM46g4q72aob/8MPzPpXrUMsynm4mRa?=
+ =?us-ascii?Q?3kAWWMYRLD77ztxfzaFZywvKi0W2zw+1ueDCT3lJzUYzB14FkKyFeP060ybj?=
+ =?us-ascii?Q?yJnsJp0VtYYHKtT20rm/LF+U9rvBY9jHq1QBeFKI1aCgzpR9ivMkyc/FuEU5?=
+ =?us-ascii?Q?v1tGBETYeO8BZpthpaiy3NZMJoydFgew/kyNFMHXHu8fy1gerlFnEWkp840l?=
+ =?us-ascii?Q?n9Un6F3jP7kLzRx1gx6Mo7c6tbLmV6+k35bX5JdJvgLCuyAiooPdROEU0qpw?=
+ =?us-ascii?Q?CJEKU4nPopRHTZSdgACOZ1x+KfbP1558+gZ3RZ+axeo3Ce9y8IbtTw8USvLv?=
+ =?us-ascii?Q?19LRxcoMDttR0on0uwOGiaf/F+jPcJXz0dP2ILRsgnfJMvd8FmZQn9VgDJhp?=
+ =?us-ascii?Q?g+WMFE6Ik8u1TtCNkau4yfNGqro3xVnsoV4TPbvYapUyA1XOb1usgpq5Mnay?=
+ =?us-ascii?Q?sHdpIa6Kkg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc6dba3a-72e8-4e15-897f-08df1701bab3
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 10:27:10.8257
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rzFpltQok4egT6yDIPQyGzdvjgAmxy7/cqClyvGGGBC1oZlGecDQxY4nUWr2EpsX8AlAPDbm3WyJkHwpqf8r4w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5713
 
-From: Chuan Liu <chuan.liu@amlogic.com>
+On Thu, Sep 17, 2026 at 05:50:16PM +0800, Xuanqiang Luo wrote:
+> diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
+> index 82309efd417e0..7b1b0f17f60b9 100644
+> --- a/net/ipv4/ip_gre.c
+> +++ b/net/ipv4/ip_gre.c
+> @@ -1464,6 +1464,9 @@ static int ipgre_changelink(struct net_device *dev, struct nlattr *tb[],
+>  	if (!rtnl_dev_link_net_capable(dev, t->net))
+>  		return -EPERM;
+>  
+> +	if (data && data[IFLA_GRE_COLLECT_METADATA] && !t->collect_md)
+> +		return -EOPNOTSUPP;
+> +
+>  	err = ipgre_newlink_encap_setup(dev, data);
+>  	if (err)
+>  		return err;
+> @@ -1496,6 +1499,9 @@ static int erspan_changelink(struct net_device *dev, struct nlattr *tb[],
+>  	if (!rtnl_dev_link_net_capable(dev, t->net))
+>  		return -EPERM;
+>  
+> +	if (data && data[IFLA_GRE_COLLECT_METADATA] && !t->collect_md)
+> +		return -EOPNOTSUPP;
 
-Add clk-measure driver support for Amlogic A5, A4, S7, S7D, S6 and A9
-SoCs.
+Both functions have extack, so please add a rejection message to make it
+clear to user space. Something like:
 
-Signed-off-by: Chuan Liu <chuan.liu@amlogic.com>
----
- drivers/soc/amlogic/meson-clk-measure.c | 897 ++++++++++++++++++++++++++++++++
- 1 file changed, 897 insertions(+)
+"Enabling collect_md on an existing device is not supported"
 
-diff --git a/drivers/soc/amlogic/meson-clk-measure.c b/drivers/soc/amlogic/meson-clk-measure.c
-index d58c8d9629ea..50928ac14f86 100644
---- a/drivers/soc/amlogic/meson-clk-measure.c
-+++ b/drivers/soc/amlogic/meson-clk-measure.c
-@@ -1041,6 +1041,843 @@ static const struct meson_msr_id clk_msr_t7[] = {
- 	CLK_MSR_ID(222, "enc0")
- };
- 
-+static const struct meson_msr_id clk_msr_a4[] = {
-+	CLK_MSR_ID(0, "sys_clk"),
-+	CLK_MSR_ID(1, "axi_clk"),
-+	CLK_MSR_ID(2, "rtc_clk"),
-+	CLK_MSR_ID(3, "p22_usb2_ckout"),
-+	CLK_MSR_ID(4, "p21_usb2_ckout"),
-+	CLK_MSR_ID(5, "p20_usb2_ckout"),
-+	CLK_MSR_ID(6, "cpu_clk_div16"),
-+	CLK_MSR_ID(8, "eth_mpll_test"),
-+	CLK_MSR_ID(10, "fclk_div5"),
-+	CLK_MSR_ID(15, "fclk_50m"),
-+	CLK_MSR_ID(16, "sys_oscin32k_i"),
-+	CLK_MSR_ID(17, "rtc_pll"),
-+	CLK_MSR_ID(19, "hifi_pll"),
-+	CLK_MSR_ID(20, "gp0_pll"),
-+	CLK_MSR_ID(21, "gp1_pll"),
-+	CLK_MSR_ID(22, "eth_mppll_50m_ckout"),
-+	CLK_MSR_ID(23, "sys_pll_div16"),
-+	CLK_MSR_ID(24, "ddr_dpll_pt_clk"),
-+	CLK_MSR_ID(27, "rtc_sec_pulse_out"),
-+	CLK_MSR_ID(28, "rtc_osc_clk_out"),
-+	CLK_MSR_ID(30, "mod_eth_phy_ref_clk"),
-+	CLK_MSR_ID(31, "mod_eth_tx_clk"),
-+	CLK_MSR_ID(32, "eth_125m"),
-+	CLK_MSR_ID(33, "eth_rmii"),
-+	CLK_MSR_ID(34, "co_clkin_to_mac"),
-+	CLK_MSR_ID(35, "mod_eth_rx_clk_rmii"),
-+	CLK_MSR_ID(36, "co_rx_clk"),
-+	CLK_MSR_ID(37, "co_tx_clk"),
-+	CLK_MSR_ID(38, "eth_phy_rxclk"),
-+	CLK_MSR_ID(39, "eth_phy_plltxclk"),
-+	CLK_MSR_ID(40, "ephy_test_clk"),
-+	CLK_MSR_ID(41, "audio_core"),
-+	CLK_MSR_ID(51, "cts_vout_venc_clk_ph"),
-+	CLK_MSR_ID(52, "cts_vout_venc_clk"),
-+	CLK_MSR_ID(106, "deskew_pll_test_clk"),
-+	CLK_MSR_ID(111, "sar_adc"),
-+	CLK_MSR_ID(112, "ts"),
-+	CLK_MSR_ID(113, "sd_emmc_c"),
-+	CLK_MSR_ID(115, "sd_emmc_a"),
-+	CLK_MSR_ID(116, "gpio_msr_clk"),
-+	CLK_MSR_ID(117, "spicc1"),
-+	CLK_MSR_ID(118, "spicc0"),
-+	CLK_MSR_ID(119, "o_mst_sclk_vad"),
-+	CLK_MSR_ID(120, "o_mst_mclk_vad"),
-+	CLK_MSR_ID(121, "o_pdm_sysclk"),
-+	CLK_MSR_ID(122, "mod_audio_pdm_dclk_o"),
-+	CLK_MSR_ID(123, "o_vad_clk"),
-+	CLK_MSR_ID(124, "earcrx_dmac_clk"),
-+	CLK_MSR_ID(125, "earcrx_cmdc_clk"),
-+	CLK_MSR_ID(126, "earctx_dmac_clk"),
-+	CLK_MSR_ID(127, "earctx_cmdc_clk"),
-+	CLK_MSR_ID(128, "tohdmitx_bclk"),
-+	CLK_MSR_ID(129, "tohdmitx_mclk"),
-+	CLK_MSR_ID(130, "tohdmitx_spdif_clk"),
-+	CLK_MSR_ID(131, "toacodec_bclk"),
-+	CLK_MSR_ID(132, "toacodec_mclk"),
-+	CLK_MSR_ID(133, "spdifout_b_mst_clk"),
-+	CLK_MSR_ID(134, "spdifout_mst_clk"),
-+	CLK_MSR_ID(135, "spdifin_mst_clk"),
-+	CLK_MSR_ID(136, "audio_mclk"),
-+	CLK_MSR_ID(137, "vad_clk"),
-+	CLK_MSR_ID(138, "tdmout_d_sclk"),
-+	CLK_MSR_ID(139, "tdmout_c_sclk"),
-+	CLK_MSR_ID(140, "tdmout_b_sclk"),
-+	CLK_MSR_ID(141, "tdmout_a_sclk"),
-+	CLK_MSR_ID(142, "tdminb_lb_sclk"),
-+	CLK_MSR_ID(143, "tdmin_lb_sclk"),
-+	CLK_MSR_ID(144, "tdmin_d_sclk"),
-+	CLK_MSR_ID(145, "tdmin_c_sclk"),
-+	CLK_MSR_ID(146, "tdmin_b_sclk"),
-+	CLK_MSR_ID(147, "tdmin_a_sclk"),
-+	CLK_MSR_ID(148, "resampleb_clk"),
-+	CLK_MSR_ID(149, "resamplea_clk"),
-+	CLK_MSR_ID(150, "pdmb_sysclk"),
-+	CLK_MSR_ID(151, "pdmb_dclk"),
-+	CLK_MSR_ID(152, "pdm_sysclk"),
-+	CLK_MSR_ID(153, "pdm_dclk"),
-+	CLK_MSR_ID(154, "alockerb_out_clk"),
-+	CLK_MSR_ID(155, "alockerb_in_clk"),
-+	CLK_MSR_ID(156, "alocker_out_clk"),
-+	CLK_MSR_ID(157, "alocker_in_clk"),
-+	CLK_MSR_ID(158, "audio_mst_clk[34]"),
-+	CLK_MSR_ID(159, "audio_mst_clk[35]"),
-+	CLK_MSR_ID(162, "pwm_h"),
-+	CLK_MSR_ID(163, "pwm_g"),
-+	CLK_MSR_ID(164, "pwm_f"),
-+	CLK_MSR_ID(165, "pwm_e"),
-+	CLK_MSR_ID(166, "pwm_d"),
-+	CLK_MSR_ID(167, "pwm_c"),
-+	CLK_MSR_ID(168, "pwm_b"),
-+	CLK_MSR_ID(169, "pwm_a"),
-+	CLK_MSR_ID(170, "AU_ADC_CLK_G128X"),
-+	CLK_MSR_ID(171, "AU_ADC_CLK_TO_GPIO"),
-+	CLK_MSR_ID(172, "AU_DAC1_CLK_G128X"),
-+	CLK_MSR_ID(173, "AU_DAC1_CLK_TO_GPIO"),
-+	CLK_MSR_ID(176, "rng_ring_osc_clk[0]"),
-+	CLK_MSR_ID(177, "rng_ring_osc_clk[1]"),
-+	CLK_MSR_ID(178, "rng_ring_osc_clk[2]"),
-+	CLK_MSR_ID(179, "rng_ring_osc_clk[3]"),
-+	CLK_MSR_ID(180, "sys_cpu_osc_ring[0](ULVT16)"),
-+	CLK_MSR_ID(181, "sys_cpu_osc_ring[1](ULVT20)"),
-+	CLK_MSR_ID(182, "sys_cpu_osc_ring[2](ULVT16)"),
-+	CLK_MSR_ID(183, "sys_cpu_osc_ring[3](ULVT16)"),
-+	CLK_MSR_ID(184, "sys_cpu_osc_ring[4](ULVT16)"),
-+	CLK_MSR_ID(185, "am_ring_osc_clk_out_top[0](SVT16)"),
-+	CLK_MSR_ID(186, "am_ring_osc_clk_out_top[1](LVT20)"),
-+};
-+
-+static const struct meson_msr_id clk_msr_a5[] = {
-+	CLK_MSR_ID(0, "sys_clk"),
-+	CLK_MSR_ID(1, "axi_clk"),
-+	CLK_MSR_ID(2, "rtc_clk"),
-+	CLK_MSR_ID(3, "dspa"),
-+	CLK_MSR_ID(6, "cpu_clk_div16"),
-+	CLK_MSR_ID(10, "fclk_div5"),
-+	CLK_MSR_ID(11, "mpll0"),
-+	CLK_MSR_ID(12, "mpll1"),
-+	CLK_MSR_ID(13, "mpll2"),
-+	CLK_MSR_ID(14, "mpll3"),
-+	CLK_MSR_ID(15, "fclk_50m"),
-+	CLK_MSR_ID(16, "sys_oscin32k_i"),
-+	CLK_MSR_ID(17, "rtc_pll"),
-+	CLK_MSR_ID(18, "mpll_clk_test_out"),
-+	CLK_MSR_ID(19, "hifi_pll"),
-+	CLK_MSR_ID(20, "gp0_pll"),
-+	CLK_MSR_ID(21, "gp1_pll"),
-+	CLK_MSR_ID(23, "sys_pll_div16"),
-+	CLK_MSR_ID(24, "ddr_dpll_pt_clk"),
-+	CLK_MSR_ID(25, "nna_axi"),
-+	CLK_MSR_ID(26, "nna_core"),
-+	CLK_MSR_ID(27, "rtc_sec_pulse_out"),
-+	CLK_MSR_ID(28, "rtc_osc_clk_out"),
-+	CLK_MSR_ID(30, "mod_eth_phy_ref_clk"),
-+	CLK_MSR_ID(31, "mod_eth_tx_clk"),
-+	CLK_MSR_ID(35, "mod_eth_rx_clk_rmii"),
-+	CLK_MSR_ID(79, "rama_clk"),
-+	CLK_MSR_ID(106, "deskew_pll_clk_div32_out"),
-+	CLK_MSR_ID(111, "sar_adc"),
-+	CLK_MSR_ID(112, "ts"),
-+	CLK_MSR_ID(113, "sd_emmc_c"),
-+	CLK_MSR_ID(115, "sd_emmc_a"),
-+	CLK_MSR_ID(116, "gpio_msr_clk"),
-+	CLK_MSR_ID(117, "spicc1"),
-+	CLK_MSR_ID(118, "spicc0"),
-+	CLK_MSR_ID(119, "o_mst_sclk_vad"),
-+	CLK_MSR_ID(120, "o_mst_mclk_vad"),
-+	CLK_MSR_ID(121, "o_pdm_sysclk"),
-+	CLK_MSR_ID(122, "mod_audio_pdm_dclk_o"),
-+	CLK_MSR_ID(123, "o_vad_clk"),
-+	CLK_MSR_ID(124, "earcrx_dmac_clk"),
-+	CLK_MSR_ID(125, "earcrx_cmdc_clk"),
-+	CLK_MSR_ID(126, "earctx_dmac_clk"),
-+	CLK_MSR_ID(127, "earctx_cmdc_clk"),
-+	CLK_MSR_ID(128, "tohdmitx_bclk"),
-+	CLK_MSR_ID(129, "tohdmitx_mclk"),
-+	CLK_MSR_ID(130, "tohdmitx_spdif_clk"),
-+	CLK_MSR_ID(131, "toacodec_bclk"),
-+	CLK_MSR_ID(132, "toacodec_mclk"),
-+	CLK_MSR_ID(133, "spdifout_b_mst_clk"),
-+	CLK_MSR_ID(134, "spdifout_mst_clk"),
-+	CLK_MSR_ID(135, "spdifin_mst_clk"),
-+	CLK_MSR_ID(136, "audio_mclk"),
-+	CLK_MSR_ID(137, "vad_clk"),
-+	CLK_MSR_ID(138, "tdmout_d_sclk"),
-+	CLK_MSR_ID(139, "tdmout_c_sclk"),
-+	CLK_MSR_ID(140, "tdmout_b_sclk"),
-+	CLK_MSR_ID(141, "tdmout_a_sclk"),
-+	CLK_MSR_ID(142, "tdminb_lb_sclk"),
-+	CLK_MSR_ID(143, "tdmin_lb_sclk"),
-+	CLK_MSR_ID(144, "tdmin_d_sclk"),
-+	CLK_MSR_ID(145, "tdmin_c_sclk"),
-+	CLK_MSR_ID(146, "tdmin_b_sclk"),
-+	CLK_MSR_ID(147, "tdmin_a_sclk"),
-+	CLK_MSR_ID(148, "resampleb_clk"),
-+	CLK_MSR_ID(149, "resamplea_clk"),
-+	CLK_MSR_ID(150, "pdmb_sysclk"),
-+	CLK_MSR_ID(151, "pdmb_dclk"),
-+	CLK_MSR_ID(152, "pdm_sysclk"),
-+	CLK_MSR_ID(153, "pdm_dclk"),
-+	CLK_MSR_ID(154, "alockerb_out_clk"),
-+	CLK_MSR_ID(155, "alockerb_in_clk"),
-+	CLK_MSR_ID(156, "alocker_out_clk"),
-+	CLK_MSR_ID(157, "alocker_in_clk"),
-+	CLK_MSR_ID(158, "audio_mst_clk[34]"),
-+	CLK_MSR_ID(159, "audio_mst_clk[35]"),
-+	CLK_MSR_ID(162, "pwm_h"),
-+	CLK_MSR_ID(163, "pwm_g"),
-+	CLK_MSR_ID(164, "pwm_f"),
-+	CLK_MSR_ID(165, "pwm_e"),
-+	CLK_MSR_ID(166, "pwm_d"),
-+	CLK_MSR_ID(167, "pwm_c"),
-+	CLK_MSR_ID(168, "pwm_b"),
-+	CLK_MSR_ID(169, "pwm_a"),
-+	CLK_MSR_ID(176, "rng_ring_osc_clk[0]"),
-+	CLK_MSR_ID(177, "rng_ring_osc_clk[1]"),
-+	CLK_MSR_ID(178, "rng_ring_osc_clk[2]"),
-+	CLK_MSR_ID(179, "rng_ring_osc_clk[3]"),
-+	CLK_MSR_ID(180, "dmc_osc_ring(LVT16)"),
-+	CLK_MSR_ID(181, "dsp_osc_ring(SVT16)"),
-+	CLK_MSR_ID(182, "axi_srama_osc_ring(SVT16)"),
-+	CLK_MSR_ID(183, "nna_osc_ring[0](ULVT20)"),
-+	CLK_MSR_ID(184, "nna_osc_ring[1](LVT16)"),
-+	CLK_MSR_ID(185, "sys_cpu_osc_ring[0](ULVT16)"),
-+	CLK_MSR_ID(186, "sys_cpu_osc_ring[1](ULVT20)"),
-+	CLK_MSR_ID(187, "sys_cpu_osc_ring[2](ULVT16)"),
-+	CLK_MSR_ID(188, "sys_cpu_osc_ring[3](LVT16)"),
-+	CLK_MSR_ID(189, "axi_sramb_osc_ring(SVT16)"),
-+};
-+
-+static const struct meson_msr_id clk_msr_a9[] = {
-+	CLK_MSR_ID(0,  "sys_clk"),
-+	CLK_MSR_ID(1,  "axi_clk"),
-+	CLK_MSR_ID(2,  "rtc_clk"),
-+	CLK_MSR_ID(3,  "dspa"),
-+	CLK_MSR_ID(4,  "mali_stack"),
-+	CLK_MSR_ID(5,  "mali"),
-+	CLK_MSR_ID(6,  "cpu_clk_div16"),
-+	CLK_MSR_ID(7,  "a78_clk_div16"),
-+	CLK_MSR_ID(8,  "dsu_clk_div16"),
-+	CLK_MSR_ID(9,  "isp"),
-+	CLK_MSR_ID(10, "gp2_pll"),
-+	CLK_MSR_ID(11, "fclk_div5"),
-+	CLK_MSR_ID(12, "u2drd_usb2_ckout"),
-+	CLK_MSR_ID(13, "pre0_hdmirx_aud_pll_clk"),
-+	CLK_MSR_ID(14, "hrx20_pll_clk_test"),
-+	CLK_MSR_ID(15, "u2h_usb2_ckout"),
-+	CLK_MSR_ID(16, "fclk_50m"),
-+	CLK_MSR_ID(17, "u3drd_b_usb2_ckout"),
-+	CLK_MSR_ID(18, "gp1_pll"),
-+	CLK_MSR_ID(19, "hifi_pll"),
-+	CLK_MSR_ID(20, "gp0_pll"),
-+	CLK_MSR_ID(21, "hifi1_pll"),
-+	CLK_MSR_ID(22, "csi_phy"),
-+	CLK_MSR_ID(23, "sys_pll_div16"),
-+	CLK_MSR_ID(24, "ddr_dpll_pt_clk"),
-+	CLK_MSR_ID(25, "mod_Tsin_A_CLK_IN"),
-+	CLK_MSR_ID(26, "ext_Tsin_B_CLK_IN"),
-+	CLK_MSR_ID(27, "u3p2pll1_0_clk_div16"),
-+	CLK_MSR_ID(28, "u3p2pll1_1_clk_div16"),
-+	CLK_MSR_ID(29, "upcrx0_cdrclk"),
-+	CLK_MSR_ID(30, "upcrx1_cdrclk"),
-+	CLK_MSR_ID(31, "hdmirx_aud_sck"),
-+	CLK_MSR_ID(32, "uptx0_clk_sync_b20"),
-+	CLK_MSR_ID(33, "uptx1_clk_sync_b20"),
-+	CLK_MSR_ID(34, "lp_pll_clk0"),
-+	CLK_MSR_ID(35, "lp_pll_clk1"),
-+	CLK_MSR_ID(36, "u3hsg_PCIE_PIPE_PCLK"),
-+	CLK_MSR_ID(37, "u3hsg_upcrx_cdrclk"),
-+	CLK_MSR_ID(38, "u3hsg_upctx_clk_sync_b20"),
-+	CLK_MSR_ID(39, "u3hsg_upcrxpll_clk_test"),
-+	CLK_MSR_ID(40, "hdmirx_acr_lclk"),
-+	CLK_MSR_ID(41, "i3c"),
-+	CLK_MSR_ID(42, "hdmirx_aud_pll"),
-+	CLK_MSR_ID(43, "hdmirx_acr_ref"),
-+	CLK_MSR_ID(44, "hdmirx_meter"),
-+	CLK_MSR_ID(45, "hdmirx_hdcp2x"),
-+	CLK_MSR_ID(46, "hdmirx_5m"),
-+	CLK_MSR_ID(47, "hdmirx_2m"),
-+	CLK_MSR_ID(48, "hdmirx_cfg"),
-+	CLK_MSR_ID(49, "hdmi_vx1_pix_clk"),
-+	CLK_MSR_ID(50, "vid_pll"),
-+	CLK_MSR_ID(51, "encoder0_if_clk"),
-+	CLK_MSR_ID(52, "encoder1"),
-+	CLK_MSR_ID(53, "encoder0"),
-+	CLK_MSR_ID(54, "vdac"),
-+	CLK_MSR_ID(55, "mali_aclkm"),
-+	CLK_MSR_ID(56, "vid1_pll"),
-+	CLK_MSR_ID(57, "lcd_an_ph2"),
-+	CLK_MSR_ID(58, "lcd_an_ph3"),
-+	CLK_MSR_ID(59, "hdmitx_pixel"),
-+	CLK_MSR_ID(60, "vdin_meas"),
-+	CLK_MSR_ID(61, "vpu"),
-+	CLK_MSR_ID(62, "vpu_clkb"),
-+	CLK_MSR_ID(63, "vpu_clkb_tmp"),
-+	CLK_MSR_ID(64, "u3p2_upcrxpll_fst_pll_clk"),
-+	CLK_MSR_ID(65, "vid_lock"),
-+	CLK_MSR_ID(66, "vapb"),
-+	CLK_MSR_ID(67, "ge2d"),
-+	CLK_MSR_ID(68, "cve"),
-+	CLK_MSR_ID(69, "vge"),
-+	CLK_MSR_ID(70, "dsi0_meas"),
-+	CLK_MSR_ID(71, "dsi1_meas"),
-+	CLK_MSR_ID(72, "mipi_csi_phy_clk_out[0]"),
-+	CLK_MSR_ID(73, "mipi_csi_phy_clk_out[1]"),
-+	CLK_MSR_ID(74, "mipi_csi_phy_clk_out[2]"),
-+	CLK_MSR_ID(75, "mipi_csi_phy_clk_out[3]"),
-+	CLK_MSR_ID(76, "hdmitx_tmds"),
-+	CLK_MSR_ID(77, "hdmitx_sys"),
-+	CLK_MSR_ID(78, "hdmitx_fe"),
-+	CLK_MSR_ID(80, "hdmitx_prif"),
-+	CLK_MSR_ID(81, "hdmitx_200m"),
-+	CLK_MSR_ID(82, "hdmitx_aud"),
-+	CLK_MSR_ID(83, "hdmitx1_pixel"),
-+	CLK_MSR_ID(84, "hdmitx1_fe"),
-+	CLK_MSR_ID(85, "gic"),
-+	CLK_MSR_ID(86, "lvds0_fifo_clk"),
-+	CLK_MSR_ID(87, "lvds1_fifo_clk"),
-+	CLK_MSR_ID(88, "htx_aes_clk"),
-+	CLK_MSR_ID(89, "amfc"),
-+	CLK_MSR_ID(90, "a_clk_sync_dig"),
-+	CLK_MSR_ID(91, "b_clk_sync_dig"),
-+	CLK_MSR_ID(92, "u3dp_upcrx_cdrclk"),
-+	CLK_MSR_ID(93, "u3dp_upctx_clk_sync_b20"),
-+	CLK_MSR_ID(94, "u3dp_upcrxpll_clk_test"),
-+	CLK_MSR_ID(95, "u3dp_upcrpll_fst_pll_clk"),
-+	CLK_MSR_ID(96, "u3dp_usb2_ckout"),
-+	CLK_MSR_ID(97, "hcodec"),
-+	CLK_MSR_ID(99, "hevcf"),
-+	CLK_MSR_ID(104, "spisg2"),
-+	CLK_MSR_ID(105, "spisg1"),
-+	CLK_MSR_ID(106, "deskew_pll_clk_div32_out"),
-+	CLK_MSR_ID(108, "cmpr"),
-+	CLK_MSR_ID(109, "dewarpa"),
-+	CLK_MSR_ID(110, "sc"),
-+	CLK_MSR_ID(111, "sar_adc"),
-+	CLK_MSR_ID(112, "glb"),
-+	CLK_MSR_ID(113, "sd_emmc_c"),
-+	CLK_MSR_ID(114, "sd_emmc_b"),
-+	CLK_MSR_ID(115, "sd_emmc_a"),
-+	CLK_MSR_ID(116, "gpio_msr_clk"),
-+	CLK_MSR_ID(117, "aux_clk_o"),
-+	CLK_MSR_ID(118, "spisg0"),
-+	CLK_MSR_ID(121, "ts"),
-+	CLK_MSR_ID(122, "usb_48m"),
-+	CLK_MSR_ID(123, "usb_250m"),
-+	CLK_MSR_ID(124, "eth_125m"),
-+	CLK_MSR_ID(125, "eth_rmii"),
-+	CLK_MSR_ID(126, "hrx20_tmds20_clk"),
-+	CLK_MSR_ID(127, "hrx20_cable_clk"),
-+	CLK_MSR_ID(128, "hdmirx_vid_clk"),
-+	CLK_MSR_ID(129, "hdmirx_aud_clk"),
-+	CLK_MSR_ID(130, "dptx_apb2"),
-+	CLK_MSR_ID(131, "dptx_aud"),
-+	CLK_MSR_ID(132, "audio_todptx_bclk"),
-+	CLK_MSR_ID(133, "audio_txhdmitx_bclk"),
-+	CLK_MSR_ID(134, "audio_txhdmitx_mclk"),
-+	CLK_MSR_ID(135, "audio_txhdmitx_spdif_clk"),
-+	CLK_MSR_ID(136, "mclk_0_pre"),
-+	CLK_MSR_ID(137, "mclk1_0_pre"),
-+	CLK_MSR_ID(138, "pixel0_pll_clkout"),
-+	CLK_MSR_ID(139, "pixel1_pll_clkout"),
-+	CLK_MSR_ID(140, "tcon_clk_out0"),
-+	CLK_MSR_ID(141, "tcon_clk_out1"),
-+	CLK_MSR_ID(142, "audio_todptx_spdif_clk"),
-+	CLK_MSR_ID(143, "audio_todptx_mclk"),
-+	CLK_MSR_ID(144, "dptx_lnk_clk"),
-+	CLK_MSR_ID(145, "edptx_lnk_clk_tx"),
-+	CLK_MSR_ID(146, "mod_audio_pdm_dclk_o_ao"),
-+	CLK_MSR_ID(147, "vid2_pll"),
-+	CLK_MSR_ID(151, "can1_filter"),
-+	CLK_MSR_ID(152, "can0_filter"),
-+	CLK_MSR_ID(153, "can1_pe"),
-+	CLK_MSR_ID(154, "can0_pe"),
-+	CLK_MSR_ID(155, "o_sed_clk"),
-+	CLK_MSR_ID(156, "pwm_n"),
-+	CLK_MSR_ID(157, "pwm_m"),
-+	CLK_MSR_ID(158, "pwm_l"),
-+	CLK_MSR_ID(159, "pwm_k"),
-+	CLK_MSR_ID(160, "pwm_j"),
-+	CLK_MSR_ID(161, "pwm_i"),
-+	CLK_MSR_ID(162, "pwm_h"),
-+	CLK_MSR_ID(170, "rng_ring_osc_clk[0]"),
-+	CLK_MSR_ID(171, "rng_ring_osc_clk[1]"),
-+	CLK_MSR_ID(172, "rng_ring_osc_clk[2]"),
-+	CLK_MSR_ID(173, "rng_ring_osc_clk[3]"),
-+	CLK_MSR_ID(174, "rng_ring_osc_clk[4]"),
-+	CLK_MSR_ID(175, "sys_cpu_osc_ring_clk[0]"),
-+	CLK_MSR_ID(176, "sys_cpu_osc_ring_clk[1]"),
-+	CLK_MSR_ID(177, "sys_cpu_osc_ring_clk[2]"),
-+	CLK_MSR_ID(178, "sys_cpu_osc_ring_clk[3]"),
-+	CLK_MSR_ID(179, "sys_cpu_osc_ring_clk[4]"),
-+	CLK_MSR_ID(180, "sys_cpu_osc_ring_clk[5]"),
-+	CLK_MSR_ID(181, "sys_cpu_osc_ring_clk[6]"),
-+	CLK_MSR_ID(182, "sys_cpu_osc_ring_clk[7]"),
-+	CLK_MSR_ID(183, "sys_cpu_osc_ring_clk[8]"),
-+	CLK_MSR_ID(184, "sys_cpu_osc_ring_clk[9]"),
-+	CLK_MSR_ID(185, "osc_ring_clk_gpu[0]"),
-+	CLK_MSR_ID(186, "osc_ring_clk_gpu[1]"),
-+	CLK_MSR_ID(187, "osc_ring_clk_vpu"),
-+	CLK_MSR_ID(188, "osc_ring_clk_dos[0]"),
-+	CLK_MSR_ID(189, "osc_ring_clk_dos[1]"),
-+	CLK_MSR_ID(190, "osc_ring_clk_vge"),
-+	CLK_MSR_ID(191, "osc_ring_clk_nna[0]"),
-+	CLK_MSR_ID(192, "osc_ring_clk_nna[1]"),
-+	CLK_MSR_ID(193, "osc_ring_clk_top[0]"),
-+	CLK_MSR_ID(194, "osc_ring_clk_top[1]"),
-+	CLK_MSR_ID(195, "nna"),
-+	CLK_MSR_ID(200, "pcie1_tl"),
-+	CLK_MSR_ID(201, "pcie0_tl"),
-+	CLK_MSR_ID(202, "pp"),
-+	CLK_MSR_ID(203, "pwm_a(ao)"),
-+	CLK_MSR_ID(204, "pwm_b(ao)"),
-+	CLK_MSR_ID(205, "pwm_c(ao)"),
-+	CLK_MSR_ID(206, "pwm_d(ao)"),
-+	CLK_MSR_ID(207, "pwm_e(ao)"),
-+	CLK_MSR_ID(208, "pwm_f(ao)"),
-+	CLK_MSR_ID(209, "pwm_g(ao)"),
-+	CLK_MSR_ID(210, "ao_cec"),
-+	CLK_MSR_ID(211, "sec_pulse_out"),
-+	CLK_MSR_ID(212, "osc_clk_out"),
-+	CLK_MSR_ID(213, "earcrx_pll_clk_out"),
-+	CLK_MSR_ID(215, "o_pd_sysclk"),
-+	CLK_MSR_ID(216, "o_earcrx_dmac_clk"),
-+	CLK_MSR_ID(217, "o_earcrx_cmdc_clk"),
-+	CLK_MSR_ID(218, "o_earctx_dmac_clk"),
-+	CLK_MSR_ID(219, "o_earctx_cmdc_clk"),
-+	CLK_MSR_ID(220, "o_earctx_ana_dmac_clk_a2d"),
-+	CLK_MSR_ID(221, "o_tohdmi_dp_tx_a_bclk"),
-+	CLK_MSR_ID(222, "o_tohdmi_dp_tx_a_mclk"),
-+	CLK_MSR_ID(223, "o_tohdmi_dp_tx_a_spdif_clk"),
-+	CLK_MSR_ID(224, "o_tohdmi_dp_tx_b_bclk"),
-+	CLK_MSR_ID(225, "o_tohdmi_dp_tx_b_mclk"),
-+	CLK_MSR_ID(226, "o_tohdmi_dp_tx_b_spdif_clk"),
-+	CLK_MSR_ID(227, "o_toacodec_dac_bclk"),
-+	CLK_MSR_ID(228, "o_toacodec_dac_mclk"),
-+	CLK_MSR_ID(229, "o_spdifout_b_mst_clk"),
-+	CLK_MSR_ID(230, "o_spdifout_mst_clk"),
-+	CLK_MSR_ID(231, "o_spdifin_mst_clk"),
-+	CLK_MSR_ID(232, "o_audio_mclk"),
-+	CLK_MSR_ID(233, "o_vad_clk"),
-+	CLK_MSR_ID(234, "o_tdmout_d_sclk"),
-+	CLK_MSR_ID(235, "o_tdmout_c_sclk"),
-+	CLK_MSR_ID(236, "o_tdmout_b_sclk"),
-+	CLK_MSR_ID(237, "o_tdmout_a_sclk"),
-+	CLK_MSR_ID(238, "o_tdminb_lb_sclk"),
-+	CLK_MSR_ID(239, "o_tdmin_lb_sclk"),
-+	CLK_MSR_ID(240, "o_tdmin_d_sclk"),
-+	CLK_MSR_ID(241, "o_tdmin_c_sclk"),
-+	CLK_MSR_ID(242, "o_tdmin_b_sclk"),
-+	CLK_MSR_ID(243, "o_tdmin_a_sclk"),
-+	CLK_MSR_ID(244, "o_resampleb_clk"),
-+	CLK_MSR_ID(245, "o_resamplea_clk"),
-+	CLK_MSR_ID(246, "o_pdmb_sysclk"),
-+	CLK_MSR_ID(247, "o_pdmb_dclk"),
-+	CLK_MSR_ID(248, "o_pdm_sysclk"),
-+	CLK_MSR_ID(249, "o_pdm_dclk"),
-+	CLK_MSR_ID(250, "c_alockerb_out_clk"),
-+	CLK_MSR_ID(251, "c_alockerb_in_clk"),
-+	CLK_MSR_ID(252, "c_alocker_out_clk"),
-+	CLK_MSR_ID(253, "c_alocker_in_clk"),
-+	CLK_MSR_ID(254, "o_resample_c_clk")
-+};
-+
-+static const struct meson_msr_id clk_msr_s6[] = {
-+	CLK_MSR_ID(0, "sys_clk"),
-+	CLK_MSR_ID(1, "axi_clk"),
-+	CLK_MSR_ID(2, "rtc_clk"),
-+	CLK_MSR_ID(3, "dspa"),
-+	CLK_MSR_ID(4, "mali_stack"),
-+	CLK_MSR_ID(5, "mali"),
-+	CLK_MSR_ID(6, "cpu_clk_div16"),
-+	CLK_MSR_ID(7, "mali_aclkm"),
-+	CLK_MSR_ID(8, "cecb"),
-+	CLK_MSR_ID(9, "gp2_pll"),
-+	CLK_MSR_ID(10, "fclk_div5"),
-+	CLK_MSR_ID(11, "p21_usb2_ckout"),
-+	CLK_MSR_ID(12, "p20_usb2_ckout"),
-+	CLK_MSR_ID(13, "eth_mpll_test"),
-+	CLK_MSR_ID(15, "fclk_50m"),
-+	CLK_MSR_ID(18, "gp1_pll"),
-+	CLK_MSR_ID(19, "hifi_pll"),
-+	CLK_MSR_ID(20, "gp0_pll"),
-+	CLK_MSR_ID(21, "hifi1_pll"),
-+	CLK_MSR_ID(22, "eth_mppll_50m_ckout"),
-+	CLK_MSR_ID(23, "sys_pll_div16"),
-+	CLK_MSR_ID(24, "ddr_dpll_pt_clk"),
-+	CLK_MSR_ID(25, "mod_Tsin_A_CLK_IN"),
-+	CLK_MSR_ID(26, "ext_Tsin_B_CLK_IN"),
-+	CLK_MSR_ID(27, "mod_Tsin_C_CLK_IN"),
-+	CLK_MSR_ID(28, "mod_Tsin_D_CLK_IN"),
-+	CLK_MSR_ID(29, "dsi_pll_div_clk_out"),
-+	CLK_MSR_ID(30, "dsi_pll_clk"),
-+	CLK_MSR_ID(32, "eth_125m"),
-+	CLK_MSR_ID(33, "eth_rmii"),
-+	CLK_MSR_ID(34, "co_clkin_to_mac"),
-+	CLK_MSR_ID(36, "co_rx_clk"),
-+	CLK_MSR_ID(37, "co_tx_clk"),
-+	CLK_MSR_ID(38, "eth_phy_rxclk"),
-+	CLK_MSR_ID(39, "eth_phy_plltxclk"),
-+	CLK_MSR_ID(40, "ephy_test_clk"),
-+	CLK_MSR_ID(49, "hdmi_vx1_pix_clk"),
-+	CLK_MSR_ID(50, "vid_pll"),
-+	CLK_MSR_ID(51, "enci"),
-+	CLK_MSR_ID(52, "encp"),
-+	CLK_MSR_ID(53, "encl"),
-+	CLK_MSR_ID(54, "vdac"),
-+	CLK_MSR_ID(55, "cdac"),
-+	CLK_MSR_ID(57, "lcd_an_clk_ph2"),
-+	CLK_MSR_ID(58, "lcd_an_clk_ph3"),
-+	CLK_MSR_ID(59, "hdmitx_pixel"),
-+	CLK_MSR_ID(60, "vdin_meas"),
-+	CLK_MSR_ID(61, "vpu"),
-+	CLK_MSR_ID(62, "vpu_clkb"),
-+	CLK_MSR_ID(63, "vpu_clkb_tmp"),
-+	CLK_MSR_ID(64, "vpu_clkc"),
-+	CLK_MSR_ID(65, "vid_lock"),
-+	CLK_MSR_ID(66, "vapb"),
-+	CLK_MSR_ID(67, "ge2d"),
-+	CLK_MSR_ID(70, "mipi_dsi_meas"),
-+	CLK_MSR_ID(71, "mipi_dsi_phy"),
-+	CLK_MSR_ID(72, "mipi_csi_phy"),
-+	CLK_MSR_ID(73, "csi2_adapt"),
-+	CLK_MSR_ID(74, "cts_csi2_data"),
-+	CLK_MSR_ID(75, "mipi_csi_phy_out"),
-+	CLK_MSR_ID(76, "hdmitx_tmds"),
-+	CLK_MSR_ID(77, "hdmitx_sys"),
-+	CLK_MSR_ID(78, "hdmitx_fe"),
-+	CLK_MSR_ID(79, "rama_clk"),
-+	CLK_MSR_ID(80, "hdmitx_prif"),
-+	CLK_MSR_ID(81, "hdmitx_200m"),
-+	CLK_MSR_ID(82, "hdmitx_aud"),
-+	CLK_MSR_ID(84, "audio_tohdmitx_mclk"),
-+	CLK_MSR_ID(85, "audio_tohdmitx_bclk"),
-+	CLK_MSR_ID(86, "audio_tohdmitx_lrclk"),
-+	CLK_MSR_ID(87, "audio_tohdmitx_spdif_clk"),
-+	CLK_MSR_ID(88, "htx_aes_clk"),
-+	CLK_MSR_ID(89, "amfc"),
-+	CLK_MSR_ID(93, "vdec"),
-+	CLK_MSR_ID(99, "hevcf"),
-+	CLK_MSR_ID(106, "deskew_pll_clk_div32_out"),
-+	CLK_MSR_ID(108, "cmpr"),
-+	CLK_MSR_ID(109, "dewarpa"),
-+	CLK_MSR_ID(110, "sc"),
-+	CLK_MSR_ID(111, "sar_adc"),
-+	CLK_MSR_ID(113, "sd_emmc_c"),
-+	CLK_MSR_ID(114, "sd_emmc_b"),
-+	CLK_MSR_ID(115, "sd_emmc_a"),
-+	CLK_MSR_ID(116, "gpio_msr_clk"),
-+	CLK_MSR_ID(117, "aux_clk_o"),
-+	CLK_MSR_ID(118, "spicc"),
-+	CLK_MSR_ID(121, "ts"),
-+	CLK_MSR_ID(130, "o_vad_clk"),
-+	CLK_MSR_ID(132, "audio_locker_in_clk"),
-+	CLK_MSR_ID(133, "audio_locker_out_clk"),
-+	CLK_MSR_ID(134, "audio_tdmout_c_sclk"),
-+	CLK_MSR_ID(135, "audio_tdmout_b_sclk"),
-+	CLK_MSR_ID(136, "audio_tdmout_a_sclk"),
-+	CLK_MSR_ID(137, "audio_tdmin_lb_sclk"),
-+	CLK_MSR_ID(138, "audio_tdmin_c_sclk"),
-+	CLK_MSR_ID(139, "audio_tdmin_b_sclk"),
-+	CLK_MSR_ID(140, "audio_tdmin_a_sclk"),
-+	CLK_MSR_ID(141, "audio_resamplea_clk"),
-+	CLK_MSR_ID(142, "audio_pdm_sysclk"),
-+	CLK_MSR_ID(143, "audio_spdifout_b_mst_clk"),
-+	CLK_MSR_ID(144, "audio_spdifout_mst_clk"),
-+	CLK_MSR_ID(145, "audio_spdifin_mst_clk"),
-+	CLK_MSR_ID(147, "audio_resampleb_clk"),
-+	CLK_MSR_ID(148, "pcie_pipe_clk"),
-+	CLK_MSR_ID(149, "pcie_ref_clk"),
-+	CLK_MSR_ID(150, "pcie_upcrx_cdrclk"),
-+	CLK_MSR_ID(151, "pcie_upcrx_clk_sync_b20"),
-+	CLK_MSR_ID(152, "pcie_u3p2pll1_clk_div16"),
-+	CLK_MSR_ID(153, "pcie_u3p2pll0_clkout"),
-+	CLK_MSR_ID(154, "pcie_ref_clk_p"),
-+	CLK_MSR_ID(160, "pwm_j"),
-+	CLK_MSR_ID(161, "pwm_i"),
-+	CLK_MSR_ID(162, "pwm_h"),
-+	CLK_MSR_ID(163, "pwm_g"),
-+	CLK_MSR_ID(164, "pwm_f"),
-+	CLK_MSR_ID(165, "pwm_e"),
-+	CLK_MSR_ID(166, "pwm_d"),
-+	CLK_MSR_ID(167, "pwm_c"),
-+	CLK_MSR_ID(168, "pwm_b"),
-+	CLK_MSR_ID(169, "pwm_a"),
-+	CLK_MSR_ID(175, "rng_ring_clk[0]"),
-+	CLK_MSR_ID(176, "rng_ring_clk[1]"),
-+	CLK_MSR_ID(177, "rng_ring_clk[2]"),
-+	CLK_MSR_ID(178, "rng_ring_clk[3]"),
-+	CLK_MSR_ID(179, "rng_ring_clk[4]"),
-+	CLK_MSR_ID(180, "am_ring_osc_clk_out[0]"),
-+	CLK_MSR_ID(181, "am_ring_osc_clk_out[1]"),
-+	CLK_MSR_ID(182, "am_ring_osc_clk_out[2]"),
-+	CLK_MSR_ID(183, "am_ring_osc_clk_out[3]"),
-+	CLK_MSR_ID(184, "am_ring_osc_clk_out[4]"),
-+	CLK_MSR_ID(185, "am_ring_osc_clk_out[5]"),
-+	CLK_MSR_ID(186, "am_ring_osc_clk_out[6]"),
-+	CLK_MSR_ID(187, "am_ring_osc_clk_out[7]"),
-+	CLK_MSR_ID(188, "am_ring_osc_clk_out[8]"),
-+	CLK_MSR_ID(189, "am_ring_osc_clk_out[9]"),
-+	CLK_MSR_ID(190, "am_ring_osc_clk_out[10]"),
-+	CLK_MSR_ID(191, "am_ring_osc_clk_out[11]"),
-+	CLK_MSR_ID(192, "am_ring_osc_clk_out[12]"),
-+	CLK_MSR_ID(193, "am_ring_osc_clk_out[13]"),
-+	CLK_MSR_ID(194, "am_ring_osc_clk_out[14]"),
-+	CLK_MSR_ID(195, "am_ring_osc_clk_out[15]"),
-+	CLK_MSR_ID(196, "am_ring_osc_clk_out[16]"),
-+	CLK_MSR_ID(197, "nna"),
-+	CLK_MSR_ID(198, "vc9000e_axi"),
-+	CLK_MSR_ID(199, "vc9000e_core"),
-+	CLK_MSR_ID(201, "pcie_tl"),
-+	CLK_MSR_ID(204, "u3p2pll1_clk_div16"),
-+	CLK_MSR_ID(205, "u3p2pll0_clkout"),
-+	CLK_MSR_ID(206, "upctx_clk_sync_b20"),
-+	CLK_MSR_ID(207, "upcrx_carclk"),
-+	CLK_MSR_ID(208, "usb_pipe_clk"),
-+	CLK_MSR_ID(209, "earcrx_pll_out"),
-+	CLK_MSR_ID(210, "mclk_pll_clk")
-+};
-+
-+static const struct meson_msr_id clk_msr_s7[] = {
-+	CLK_MSR_ID(0, "sys_clk"),
-+	CLK_MSR_ID(1, "axi_clk"),
-+	CLK_MSR_ID(2, "rtc_clk"),
-+	CLK_MSR_ID(5, "mali"),
-+	CLK_MSR_ID(6, "cpu_clk_div16"),
-+	CLK_MSR_ID(8, "cecb"),
-+	CLK_MSR_ID(10, "fclk_div5"),
-+	CLK_MSR_ID(11, "p21_usb2_ckout"),
-+	CLK_MSR_ID(12, "p20_usb2_ckout"),
-+	CLK_MSR_ID(13, "eth_mpll_test"),
-+	CLK_MSR_ID(15, "fclk_50m"),
-+	CLK_MSR_ID(18, "gp1_pll"),
-+	CLK_MSR_ID(19, "hifi_pll"),
-+	CLK_MSR_ID(20, "gp0_pll"),
-+	CLK_MSR_ID(21, "hifi1_pll"),
-+	CLK_MSR_ID(22, "eth_mppll_50m_ckout"),
-+	CLK_MSR_ID(23, "sys_pll_div16"),
-+	CLK_MSR_ID(24, "ddr_dpll_pt_clk"),
-+	CLK_MSR_ID(25, "mod_Tsin_A_CLK_IN"),
-+	CLK_MSR_ID(32, "eth_125m"),
-+	CLK_MSR_ID(33, "eth_rmii"),
-+	CLK_MSR_ID(34, "co_clkin_to_mac"),
-+	CLK_MSR_ID(36, "co_rx_clk"),
-+	CLK_MSR_ID(37, "co_tx_clk"),
-+	CLK_MSR_ID(38, "eth_phy_rxclk"),
-+	CLK_MSR_ID(39, "eth_phy_plltxclk"),
-+	CLK_MSR_ID(40, "ephy_test_clk"),
-+	CLK_MSR_ID(49, "hdmi_vx1_pix_clk"),
-+	CLK_MSR_ID(50, "vid_pll"),
-+	CLK_MSR_ID(51, "enci"),
-+	CLK_MSR_ID(52, "encp"),
-+	CLK_MSR_ID(53, "encl"),
-+	CLK_MSR_ID(54, "vdac"),
-+	CLK_MSR_ID(55, "cdac"),
-+	CLK_MSR_ID(57, "lcd_an_clk_ph2"),
-+	CLK_MSR_ID(58, "lcd_an_clk_ph3"),
-+	CLK_MSR_ID(59, "hdmitx_pixel"),
-+	CLK_MSR_ID(60, "vdin_meas"),
-+	CLK_MSR_ID(61, "vpu"),
-+	CLK_MSR_ID(62, "vpu_clkb"),
-+	CLK_MSR_ID(63, "vpu_clkb_tmp"),
-+	CLK_MSR_ID(64, "vpu_clkc"),
-+	CLK_MSR_ID(65, "vid_lock"),
-+	CLK_MSR_ID(66, "vapb"),
-+	CLK_MSR_ID(67, "ge2d"),
-+	CLK_MSR_ID(76, "hdmitx_tmds"),
-+	CLK_MSR_ID(77, "hdmitx_sys"),
-+	CLK_MSR_ID(78, "hdmitx_fe"),
-+	CLK_MSR_ID(80, "hdmitx_prif"),
-+	CLK_MSR_ID(81, "hdmitx_200m"),
-+	CLK_MSR_ID(82, "hdmitx_aud"),
-+	CLK_MSR_ID(84, "audio_tohdmitx_mclk"),
-+	CLK_MSR_ID(85, "audio_tohdmitx_bclk"),
-+	CLK_MSR_ID(86, "audio_tohdmitx_lrclk"),
-+	CLK_MSR_ID(87, "audio_tohdmitx_spdif_clk"),
-+	CLK_MSR_ID(88, "htx_aes_clk"),
-+	CLK_MSR_ID(93, "vdec"),
-+	CLK_MSR_ID(99, "hevcf"),
-+	CLK_MSR_ID(106, "deskew_pll_clk_div32_out"),
-+	CLK_MSR_ID(110, "sc"),
-+	CLK_MSR_ID(111, "sar_adc"),
-+	CLK_MSR_ID(113, "sd_emmc_c"),
-+	CLK_MSR_ID(114, "sd_emmc_b"),
-+	CLK_MSR_ID(115, "sd_emmc_a"),
-+	CLK_MSR_ID(116, "gpio_msr_clk"),
-+	CLK_MSR_ID(118, "spicc"),
-+	CLK_MSR_ID(121, "ts"),
-+	CLK_MSR_ID(130, "o_vad_clk"),
-+	CLK_MSR_ID(131, "au_dac_clk_x128"),
-+	CLK_MSR_ID(132, "audio_locker_in_clk"),
-+	CLK_MSR_ID(133, "audio_locker_out_clk"),
-+	CLK_MSR_ID(134, "audio_tdmout_c_sclk"),
-+	CLK_MSR_ID(135, "audio_tdmout_b_sclk"),
-+	CLK_MSR_ID(136, "audio_tdmout_a_sclk"),
-+	CLK_MSR_ID(137, "audio_tdmin_lb_sclk"),
-+	CLK_MSR_ID(138, "audio_tdmin_c_sclk"),
-+	CLK_MSR_ID(139, "audio_tdmin_b_sclk"),
-+	CLK_MSR_ID(140, "audio_tdmin_a_sclk"),
-+	CLK_MSR_ID(141, "audio_resamplea_clk"),
-+	CLK_MSR_ID(142, "audio_pdm_sysclk"),
-+	CLK_MSR_ID(143, "audio_spdifout_b_mst_clk"),
-+	CLK_MSR_ID(144, "audio_spdifout_mst_clk"),
-+	CLK_MSR_ID(145, "audio_spdifin_mst_clk"),
-+	CLK_MSR_ID(147, "audio_resampleb_clk"),
-+	CLK_MSR_ID(160, "pwm_j"),
-+	CLK_MSR_ID(161, "pwm_i"),
-+	CLK_MSR_ID(162, "pwm_h"),
-+	CLK_MSR_ID(163, "pwm_g"),
-+	CLK_MSR_ID(164, "pwm_f"),
-+	CLK_MSR_ID(165, "pwm_e"),
-+	CLK_MSR_ID(166, "pwm_d"),
-+	CLK_MSR_ID(167, "pwm_c"),
-+	CLK_MSR_ID(168, "pwm_b"),
-+	CLK_MSR_ID(169, "pwm_a"),
-+	CLK_MSR_ID(176, "rng_ring_clk[0]"),
-+	CLK_MSR_ID(177, "rng_ring_clk[1]"),
-+	CLK_MSR_ID(178, "rng_ring_clk[2]"),
-+	CLK_MSR_ID(179, "rng_ring_clk[3]"),
-+	CLK_MSR_ID(180, "osc_ring_clk[0](a55 core0 14_slvt)"),
-+	CLK_MSR_ID(181, "osc_ring_clk[1](a55 core1 14_slvt)"),
-+	CLK_MSR_ID(182, "osc_ring_clk[2](a55 core2 14_slvt)"),
-+	CLK_MSR_ID(183, "osc_ring_clk[3](a55 core3 14_slvt)"),
-+	CLK_MSR_ID(184, "osc_ring_clk[4](a55_pwr[0] 16_slvt)"),
-+	CLK_MSR_ID(185, "osc_ring_clk[5](a55_pwr[1] 14_lvt)"),
-+	CLK_MSR_ID(186, "osc_ring_clk[6](a55_pwr[2] 14_rvt)"),
-+	CLK_MSR_ID(187, "osc_ring_clk[7](mali[1] 14_lvt)"),
-+	CLK_MSR_ID(188, "osc_ring_clk[8](mali[1] 14_rvt)"),
-+	CLK_MSR_ID(189, "osc_ring_clk[9](dos[0] 16_lvt)"),
-+	CLK_MSR_ID(190, "osc_ring_clk[10](dos[1] 14_rvt)"),
-+	CLK_MSR_ID(191, "osc_ring_clk[11](ddr[0] 9t_14_lvt)"),
-+	CLK_MSR_ID(192, "osc_ring_clk[12](top[0] 16_rvt)"),
-+};
-+
-+static const struct meson_msr_id clk_msr_s7d[] = {
-+	CLK_MSR_ID(0, "sys_clk"),
-+	CLK_MSR_ID(1, "axi_clk"),
-+	CLK_MSR_ID(2, "rtc_clk"),
-+	CLK_MSR_ID(4, "mali_stack"),
-+	CLK_MSR_ID(5, "mali"),
-+	CLK_MSR_ID(6, "cpu_clk_div16"),
-+	CLK_MSR_ID(8, "cecb"),
-+	CLK_MSR_ID(9, "mali_aclkm"),
-+	CLK_MSR_ID(10, "fclk_div5"),
-+	CLK_MSR_ID(11, "p21_usb2_ckout"),
-+	CLK_MSR_ID(12, "p20_usb2_ckout"),
-+	CLK_MSR_ID(13, "eth_mpll_test"),
-+	CLK_MSR_ID(15, "fclk_50m"),
-+	CLK_MSR_ID(18, "gp1_pll"),
-+	CLK_MSR_ID(19, "hifi_pll"),
-+	CLK_MSR_ID(20, "gp0_pll"),
-+	CLK_MSR_ID(21, "hifi1_pll"),
-+	CLK_MSR_ID(22, "eth_mppll_50m_ckout"),
-+	CLK_MSR_ID(23, "sys_pll_div16"),
-+	CLK_MSR_ID(24, "ddr_dpll_pt_clk"),
-+	CLK_MSR_ID(25, "mod_Tsin_A_CLK_IN"),
-+	CLK_MSR_ID(26, "mod_Tsin_B_CLK_IN"),
-+	CLK_MSR_ID(31, "earcrx_pll_clk_out"),
-+	CLK_MSR_ID(32, "eth_125m"),
-+	CLK_MSR_ID(33, "eth_rmii"),
-+	CLK_MSR_ID(34, "co_clkin_to_mac"),
-+	CLK_MSR_ID(36, "co_rx_clk"),
-+	CLK_MSR_ID(37, "co_tx_clk"),
-+	CLK_MSR_ID(38, "eth_phy_rxclk"),
-+	CLK_MSR_ID(39, "eth_phy_plltxclk"),
-+	CLK_MSR_ID(40, "ephy_test_clk"),
-+	CLK_MSR_ID(49, "hdmi_vx1_pix_clk"),
-+	CLK_MSR_ID(50, "vid_pll"),
-+	CLK_MSR_ID(51, "enci"),
-+	CLK_MSR_ID(52, "encp"),
-+	CLK_MSR_ID(53, "encl"),
-+	CLK_MSR_ID(54, "vdac"),
-+	CLK_MSR_ID(55, "cdac"),
-+	CLK_MSR_ID(57, "lcd_an_clk_ph2"),
-+	CLK_MSR_ID(58, "lcd_an_clk_ph3"),
-+	CLK_MSR_ID(59, "hdmitx_pixel"),
-+	CLK_MSR_ID(60, "vdin_meas"),
-+	CLK_MSR_ID(61, "vpu"),
-+	CLK_MSR_ID(62, "vpu_clkb"),
-+	CLK_MSR_ID(63, "vpu_clkb_tmp"),
-+	CLK_MSR_ID(64, "vpu_clkc"),
-+	CLK_MSR_ID(65, "vid_lock"),
-+	CLK_MSR_ID(66, "vapb"),
-+	CLK_MSR_ID(67, "ge2d"),
-+	CLK_MSR_ID(76, "hdmitx_tmds"),
-+	CLK_MSR_ID(77, "hdmitx_sys"),
-+	CLK_MSR_ID(78, "hdmitx_fe"),
-+	CLK_MSR_ID(80, "hdmitx_prif"),
-+	CLK_MSR_ID(81, "hdmitx_200m"),
-+	CLK_MSR_ID(82, "hdmitx_aud"),
-+	CLK_MSR_ID(84, "audio_tohdmitx_mclk"),
-+	CLK_MSR_ID(85, "audio_tohdmitx_bclk"),
-+	CLK_MSR_ID(86, "audio_tohdmitx_lrclk"),
-+	CLK_MSR_ID(87, "audio_tohdmitx_spdif_clk"),
-+	CLK_MSR_ID(88, "htx_aes_clk"),
-+	CLK_MSR_ID(89, "amfc"),
-+	CLK_MSR_ID(93, "vdec"),
-+	CLK_MSR_ID(97, "hcodec"),
-+	CLK_MSR_ID(99, "hevcf"),
-+	CLK_MSR_ID(106, "deskew_pll_clk_div32_out"),
-+	CLK_MSR_ID(110, "sc"),
-+	CLK_MSR_ID(111, "sar_adc"),
-+	CLK_MSR_ID(112, "aux_adc_clk_to_gpio"),
-+	CLK_MSR_ID(113, "sd_emmc_c"),
-+	CLK_MSR_ID(114, "sd_emmc_b"),
-+	CLK_MSR_ID(115, "sd_emmc_a"),
-+	CLK_MSR_ID(116, "gpio_msr_clk"),
-+	CLK_MSR_ID(117, "aux_clk_o"),
-+	CLK_MSR_ID(118, "spicc"),
-+	CLK_MSR_ID(121, "ts"),
-+	CLK_MSR_ID(130, "o_vad_clk"),
-+	CLK_MSR_ID(131, "au_dac_clk_x128"),
-+	CLK_MSR_ID(132, "audio_locker_in_clk"),
-+	CLK_MSR_ID(133, "audio_locker_out_clk"),
-+	CLK_MSR_ID(134, "audio_tdmout_c_sclk"),
-+	CLK_MSR_ID(135, "audio_tdmout_b_sclk"),
-+	CLK_MSR_ID(136, "audio_tdmout_a_sclk"),
-+	CLK_MSR_ID(137, "audio_tdmin_lb_sclk"),
-+	CLK_MSR_ID(138, "audio_tdmin_c_sclk"),
-+	CLK_MSR_ID(139, "audio_tdmin_b_sclk"),
-+	CLK_MSR_ID(140, "audio_tdmin_a_sclk"),
-+	CLK_MSR_ID(141, "audio_resamplea_clk"),
-+	CLK_MSR_ID(142, "audio_pdm_sysclk"),
-+	CLK_MSR_ID(143, "audio_spdifout_b_mst_clk"),
-+	CLK_MSR_ID(144, "audio_spdifout_mst_clk"),
-+	CLK_MSR_ID(145, "audio_spdifin_mst_clk"),
-+	CLK_MSR_ID(146, "mod_audio_pdm_dclk_o"),
-+	CLK_MSR_ID(147, "audio_resampleb_clk"),
-+	CLK_MSR_ID(160, "pwm_j"),
-+	CLK_MSR_ID(161, "pwm_i"),
-+	CLK_MSR_ID(162, "pwm_h"),
-+	CLK_MSR_ID(163, "pwm_g"),
-+	CLK_MSR_ID(164, "pwm_f"),
-+	CLK_MSR_ID(165, "pwm_e"),
-+	CLK_MSR_ID(166, "pwm_d"),
-+	CLK_MSR_ID(167, "pwm_c"),
-+	CLK_MSR_ID(168, "pwm_b"),
-+	CLK_MSR_ID(169, "pwm_a"),
-+	CLK_MSR_ID(176, "rng_ring_clk[0]"),
-+	CLK_MSR_ID(177, "rng_ring_clk[1]"),
-+	CLK_MSR_ID(178, "rng_ring_clk[2]"),
-+	CLK_MSR_ID(179, "rng_ring_clk[3]"),
-+	CLK_MSR_ID(180, "osc_ring_clk[0](a55 core0 14_slvt)"),
-+	CLK_MSR_ID(181, "osc_ring_clk[1](a55 core1 14_slvt)"),
-+	CLK_MSR_ID(182, "osc_ring_clk[2](a55 core2 14_slvt)"),
-+	CLK_MSR_ID(183, "osc_ring_clk[3](a55 core3 14_slvt)"),
-+	CLK_MSR_ID(184, "osc_ring_clk[4](a55_pwr[0] 16_slvt)"),
-+	CLK_MSR_ID(185, "osc_ring_clk[5](a55_pwr[1] 14_lvt)"),
-+	CLK_MSR_ID(186, "osc_ring_clk[6](a55_pwr[2] 14_rvt)"),
-+	CLK_MSR_ID(187, "osc_ring_clk[7](mali[1] 14_lvt)"),
-+	CLK_MSR_ID(188, "osc_ring_clk[8](mali[1] 14_rvt)"),
-+	CLK_MSR_ID(189, "osc_ring_clk[9](dos[0] 16_lvt)"),
-+	CLK_MSR_ID(190, "osc_ring_clk[10](dos[1] 14_rvt)"),
-+	CLK_MSR_ID(191, "osc_ring_clk[11](ddr[0] 9t_14_lvt)"),
-+	CLK_MSR_ID(192, "osc_ring_clk[12](top[0] 16_rvt)"),
-+};
-+
- static int meson_measure_id(struct meson_msr_id *clk_msr_id,
- 			    unsigned int duration)
- {
-@@ -1285,6 +2122,24 @@ static const struct meson_msr_data clk_msr_a1_data = {
- 	.reg = &msr_reg_offset_v2,
- };
- 
-+static const struct meson_msr_data clk_msr_a4_data = {
-+	.msr_table = (void *)clk_msr_a4,
-+	.msr_count = ARRAY_SIZE(clk_msr_a4),
-+	.reg = &msr_reg_offset_v2,
-+};
-+
-+static const struct meson_msr_data clk_msr_a5_data = {
-+	.msr_table = (void *)clk_msr_a5,
-+	.msr_count = ARRAY_SIZE(clk_msr_a5),
-+	.reg = &msr_reg_offset_v2,
-+};
-+
-+static const struct meson_msr_data clk_msr_a9_data = {
-+	.msr_table = (void *)clk_msr_a9,
-+	.msr_count = ARRAY_SIZE(clk_msr_a9),
-+	.reg = &msr_reg_offset_v2,
-+};
-+
- static const struct meson_msr_data clk_msr_c3_data = {
- 	.msr_table = (void *)clk_msr_c3,
- 	.msr_count = ARRAY_SIZE(clk_msr_c3),
-@@ -1297,6 +2152,24 @@ static const struct meson_msr_data clk_msr_s4_data = {
- 	.reg = &msr_reg_offset_v2,
- };
- 
-+static const struct meson_msr_data clk_msr_s6_data = {
-+	.msr_table = (void *)clk_msr_s6,
-+	.msr_count = ARRAY_SIZE(clk_msr_s6),
-+	.reg = &msr_reg_offset_v2,
-+};
-+
-+static const struct meson_msr_data clk_msr_s7_data = {
-+	.msr_table = (void *)clk_msr_s7,
-+	.msr_count = ARRAY_SIZE(clk_msr_s7),
-+	.reg = &msr_reg_offset_v2,
-+};
-+
-+static const struct meson_msr_data clk_msr_s7d_data = {
-+	.msr_table = (void *)clk_msr_s7d,
-+	.msr_count = ARRAY_SIZE(clk_msr_s7d),
-+	.reg = &msr_reg_offset_v2,
-+};
-+
- static const struct meson_msr_data clk_msr_t7_data = {
- 	.msr_table = (void *)clk_msr_t7,
- 	.msr_count = ARRAY_SIZE(clk_msr_t7),
-@@ -1308,6 +2181,18 @@ static const struct of_device_id meson_msr_match_table[] = {
- 		.compatible = "amlogic,a1-clk-measure",
- 		.data = &clk_msr_a1_data,
- 	},
-+	{
-+		.compatible = "amlogic,a4-clk-measure",
-+		.data = &clk_msr_a4_data,
-+	},
-+	{
-+		.compatible = "amlogic,a5-clk-measure",
-+		.data = &clk_msr_a5_data,
-+	},
-+	{
-+		.compatible = "amlogic,a9-clk-measure",
-+		.data = &clk_msr_a9_data,
-+	},
- 	{
- 		.compatible = "amlogic,c3-clk-measure",
- 		.data = &clk_msr_c3_data,
-@@ -1340,6 +2225,18 @@ static const struct of_device_id meson_msr_match_table[] = {
- 		.compatible = "amlogic,s4-clk-measure",
- 		.data = &clk_msr_s4_data,
- 	},
-+	{
-+		.compatible = "amlogic,s6-clk-measure",
-+		.data = &clk_msr_s6_data,
-+	},
-+	{
-+		.compatible = "amlogic,s7-clk-measure",
-+		.data = &clk_msr_s7_data,
-+	},
-+	{
-+		.compatible = "amlogic,s7d-clk-measure",
-+		.data = &clk_msr_s7d_data,
-+	},
- 	{
- 		.compatible = "amlogic,t7-clk-measure",
- 		.data = &clk_msr_t7_data,
+Also, I assume you audited other tunnels and confirmed that they don't
+suffer from this problem?
 
--- 
-2.42.0
-
-
+> +
+>  	err = ipgre_newlink_encap_setup(dev, data);
+>  	if (err)
+>  		return err;
+> 
+> base-commit: c9151088f1674fd29ff26a20f5fc687acf53a2f0
+> -- 
+> 2.43.0
