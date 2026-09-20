@@ -1,196 +1,123 @@
-Received: from mail-oi2-f5.google.com (mail-oi2-f5.google.com [74.125.231.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.st.icloud.com (st-2006d-snip4-11.eps.apple.com [57.103.76.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5393537E0
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:21:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B3BD2F7EFE
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:25:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.76.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789914094; cv=none; b=G9fxB6BZAQeXHoIiSf5y1nCfrW5LiQBrZF5tvF2vQJsx5mtc292gcDTBJTAjROBTa+rfdEgX8UrScJLdHPTLDkIX4uLsodwBODwDh0sYLj93iVqoOOgnqh21aqgt3EnA0rR9syk8cL2R1LOPEhIpzwNoyt84IGe+71q6KOEX1/I=
+	t=1789914325; cv=none; b=PrEg+gCn9bYFAUpBYF8fdInckja5rYq5xlOKb5GriXVcnfaCmm4TbFFvsgviKMRatmvOD7kUn8+1ZWkPTWmwb5p0UMKoqbsEQw4QNxno1s6U2we9r778EQdBb7pQW6eb1WjKmzpdBAutxr6N++rlDpxA63h9JOWYtspuPf3CwEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789914094; c=relaxed/simple;
-	bh=Qs/AXDOMNVTVn/TaIRq5aMfQWNud2BuOIl1r8c5ZrJk=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=GBDrUDviecv1SQ55YBKkxDQ0c5wDSmDtO1cJzZM1PQBoLycqI4lN5YtF+1equNmNsu3yzbiRaq2/fwce/kMcVmBe7YZ+xRzLPmYPV1oNshhg06l9a+atSSRuXGS8MUIc0f3hxD9hUP2WwcmQic/UTGCe0+iTXtoXZGRwnTUYueg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f5.google.com with SMTP id 46e09a7af769-7f4e2118db8so1007393a34.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:21:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789914092; x=1790518892;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SDF2KQTDPjG+jnet065vgzr3F9yXwCMJD8HQVg75NCQ=;
-        b=npRG1AUhnw2+XPenbNIX1AWDzcjH+Fb3Cn/0rsAjxK3VZSv1ylALxQAUywposz25bU
-         gm/8/hUAC3VR9B9s330zcsiY22vfBjLvKyT2+TYXBwgau7Bz+Jv5JCWoOI6ONKd2QMoq
-         uilbYFK4/2LdhdwcMP0Zr9MeLmycqRaPFPDP6s23+wKAGTxwuctYBcZCUxDgvJut5obF
-         18nBFswAKGCLJpdNfBonZwb0riT9th3U0de7W8i4O2h68YsBuSSLCM+SflNwDW0EDp6d
-         y1gzbY188jMjOPuHxe6Ru3c0FOSdtrRPKJaQLq57YWebYNW2lKEGR9Bfmx90AAIAn6lo
-         sIZw==
-X-Gm-Message-State: AFuF++lvw0cdOAiBryeyT6NVnekv/d3LjiTH+A/ap2B+nw62mahw1Akr
-	6xZJsR7XwUCWLmHhKNoBIGYFu6G/9XqaTKW4gUDZ047nIsTKgjNko4T0FHToPKzs49/BEGC5BMX
-	cl3psoJv6Qz50mwFhDR8it6f+ffDehE1DQ3CD9p/V9SP+Asc46V4qoHeovU6IXA==
+	s=arc-20240116; t=1789914325; c=relaxed/simple;
+	bh=ox2PSEQeSA9Ohakaac6za0uuyUcyYPrNgHvbF1nZwuk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JIM+9+D2LtM4G2QTQyXq6/VMdMNiTWpcsts6LmcoIJMxvD4dEkXSM665gzctIcb9YICYrqbO1dr02+gz/uR0Sfh7L+aPxDDLUbk9bFxXzlbx9xHgWLCoF9juJuWRhFWUMawj+2Okk720ZYFYJ/V+03TzA9IPQ9jn/ugHFzB6S3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=QsPb7t1m; arc=none smtp.client-ip=57.103.76.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="QsPb7t1m"
+Received: from outbound.st.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-7 (Postfix) with ESMTPS id 7012618005BA;
+	Sun, 20 Sep 2026 14:25:20 +0000 (UTC)
+X-ICL-RepId: 01a0bf35-0db6-7e8a-8873-a940380b9cf1
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhKB0MGWQReCEsEQwFbEhVdRUkERxtXAlQXXQZSEnIZWhRcGFNFUR9UWFUJCgJRHFYNV0NUBF9QSxsOXABLWhVVFw4CQh9QH0wWV0NEHxwZWhRcGFNFUR9UWEMZRVZpQQtPHV0ZWxxCZFhXCQoCURxWDVdDVARfUFQRV1ALWQJCD0gKXwdGRB1KG1IDGhlXFlgbRwJFRkRBFEgeCFRbBhQOSVAPAF0DME0dXQ5SBUZeWhdeUxcfSwBcRVoOWwRHFA==
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789914323; x=1792506323; bh=/aGXQmdJS7KdJOcSMq/QTimLokk6ifZyP8kn3JnRhoI=; h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:x-icloud-hme; b=QsPb7t1mVVpvVrCiLYhVVI01x5NXWpcpXjFBXh+PMhsMrDlu5GPTUeFZaB06NYcNj9DF2XWQNRMQO2QBTZd0/dCLY0J+K3BnSau5ZpnwuyARDDZLcghds4strDGK2tW66+QR5Ii7jPAzLhb8BttfoTHwJiojw97TFMfcDm5cTcZKW5b/88rOCN/UUBiWHF2cgZyf3QZJOnucijFWACmc2I+AXrc2GWQdFnIN5A4E2QgWbJwnT3ClL2V2e9fxobhLzjQ/i1PpHGYNqdtAljgUpFuxfg8dU08eJhbWYgrpI8fVptiv8dtnK9MjP43tTCYQ5yxAJ4eEEinnzZzOVwhnMg==
+Received: from [127.0.0.1] (unknown [17.156.216.30])
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-7 (Postfix) with ESMTPSA id DD063180028A;
+	Sun, 20 Sep 2026 14:25:13 +0000 (UTC)
+From: Zhang Peng <zippermonkey@icloud.com>
+Subject: [PATCH 0/4] mm/vmscan: refactor shrink_folio_list()
+Date: Sun, 20 Sep 2026 22:24:13 +0800
+Message-Id: <20260920-vmscan-refactor-v1-0-ec04d71cb761@tencent.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1f03:b0:6b1:ba66:6998 with SMTP id
- 006d021491bc7-6ca9a1343a0mr7442248eaf.14.1789914092082; Sun, 20 Sep 2026
- 07:21:32 -0700 (PDT)
-Date: Sun, 20 Sep 2026 07:21:32 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aafebec.a6af0033.177e91.000d.GAE@google.com>
-Subject: [syzbot] [trace?] WARNING in check_buffer
-From: syzbot <syzbot+eb74dca0d1eb3ec227a7@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	mathieu.desnoyers@efficios.com, mhiramat@kernel.org, rostedt@goodmis.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAI7sr2oC/yXM0QpAMBTG8VfRubayacKryMXMwVFGOyMl7264/
+ PX1/S9g9IQMdXKBx4OYVhch0wTsZNyIgvpoUJkqskpW4ljYGic8DsaG1QvZ5ah1WZpBK4ivLS5
+ 0fsWm/c17N6MNbwbu+wFYYMt/cwAAAA==
+X-Change-ID: 20260919-vmscan-refactor-1b3e5588af52
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, 
+ Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Zhang Peng <bruzzhang@tencent.com>
+X-Mailer: b4 0.16.0
+X-Proofpoint-GUID: Pp_TAklIRdDoxsJKa3qFpIShYd1VUFJq
+X-Proofpoint-ORIG-GUID: Pp_TAklIRdDoxsJKa3qFpIShYd1VUFJq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDIxMCBTYWx0ZWRfX2fDrlNzfFnBo
+ rYEggZHiqtZjYbJRdNLwbEZnth5cQmeVaEGK97/dCWL0/8anKTbrHuit1APojiSe1xi0PUjRLUU
+ upboS6K2JWyW08MajfKgIIA5zr9y6zuW4CRFNwd4aj2X805f4u0vjH1kvNmnhW+4ggNUK1+0pOR
+ 0FyzGWDZjNe2VbsPRHRvmdt93cBDrB/VkMqGpz23XeQSmOCvNzc34zY3PPvCDo0DXdgSIKtcIwf
+ zv2ra1BfoRLXvf2iDxxDR6qGL53twrx3L73a5WVKHCApMZTxPZokmMftJQgIrr05RHH3LZSHTeN
+ qBHv5v3y+0vBpZyTWjbERtS2u54vXNXc8tXwzwVekioCyPJcmZQgsHrL64EaXk=
+X-Authority-Info-Out: v=2.4 cv=RrvI7SmK c=1 sm=1 tr=0 ts=6aafecd1
+ cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
+ a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=x7bEGLp0ZPQA:10 a=YE32fvk_ji8A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=GvQkQWPkAAAA:8 a=CCUvzCZDDOCMfV_14LEA:9
+ a=QEXdDO2ut3YA:10 a=J82S1U87d15UFHHUFZS8:22 a=J6hPbylVjWXjVQVODqME:22
+X-JNJ: AAAAAAABwL4AaH1E1ATes9luJBLe3HgtTJASrFZxhazEFDFuM5fhRTEhRSQmH7kBn7XDI+oXuawgFrxIoKc18M2Ws7A1ituRTMlzOKdzURhcXNsWEn6zGaEkLdhHWmnV31J3bCJdF1R3NVDR+zW/CdUiVXfeKP3eUp7I3cw4tSJ78ppobWSPzmsTRjjBxN6fST1W+WP+MSTTV1/GNVcsBKj6GM/D6QjLPeJyDDbHscZxVIiJIf7UdmDB2ghj4HDsCDn4Fizr4cj5p6MeTBT2zjCa4+grA7+MbEvjlYoXOHwIMFAZwU5smB0t/9Shk4WYGDnLudHnShfgB3LR5uU+lH3OZyE7ttwoxt9I7FwuZZwSJrK9ArJbdUw9RiQDVnqCzA+scQYhoEikDM4N7YT1ezTmmlPx6KTXpagThhgeo3ykA5m7haNpcO2wtzLb4DbuWcbTRL1mWSv9y0AHyCuVSEJb5AXrtcjRgv1ozdIEAMQotsBG+Dg/xW7pp2cM18jDiHwbI2AnbTVWwD9yEsbOus4ef/0rf51EQ/2EHb/zCvu4+i/O4DYK79Q5t0DN+s8+qTRsdJf+sUcSX2JgqUuSfccwR20krKlpEldNJO6Y/25V+0NmOhLU3q8dcNbGO3h5uiObDR/N/zQGfOz4jlMJaXNGb1hx2mv6PjaWGNinx0csznUsegS0pHmjs/Vx9yzc4uLlKS9SrQGKnZRKoX8hlQuxKhYFUz0bFexjj1UkD9eT5DUbo7OirhPSrr5cobmW32szfrIcHMPMi+mPCvW9zIYpB0UCswnAG+BVXarqCEKYLCUnMYTUd1NZtGVCh6c5wiQdT8eTx/uthBUfa6H+G1+uOie7PbhqY+PQ1n5Y8Z6R/9R84IhwBUrhqqPWI3W0AIaYyE12lIUdqYypa5V9U4dpm1zG9aFd+Or8gVoMMX/eCVuaXW9yvc3rjzPUDNCWYOcBSr+N6MUOROtBIDuhSreWEpae3qQ
+ 0crRHKZZND0WcvAKGHWmg9yvhBRClf0TPyx0UWvcarx6rKOee7Y9L18gX4Ly6fDux10coQv/go/3m68tmNAqO4eVhYqGSdPqLoW7D1wYxgGE6qmVpFRW0JSLuYJkSeYJalyDbfmwJhfnqJCQtbBAzUOgnI9icWTqzGpRd9X8VHjhN9sQmvSLoC2a1e8uqlhjbPqoctGZlRut/FiLtmfZcSfoIGDB1BovSI2irmgEXkQLR02ojnA0auAjVGCOyGdDnQs4c6zQDq9VdVJX1zM2K9TYZQd/llikR8RP7OW1WRoBK36zHRmm8QL8UBQx/mMwCrVYCUYmwjMtvVeTkCqhgeP01r5+wwrxyL1iA56Ct7SFhgByWOiIUHuZxBJH+cl8BEXyn0wGkEVCwdJOzmcxQkHmLf4Xl6YiCb/PXto0Aesu/7QtJZlJmxvy5rMd515CpZH4HgMZ6b+GdX9OJiYG7gV28mJyeVCM=
 
-Hello,
+shrink_folio_list() has grown into a very long function whose body mixes
+several independent concerns: folio activation, the pageout() dispatch
+state machine, the unmap step, and the final freeing path.  The control
+flow between them is expressed entirely through a chain of goto labels
+(activate_locked, activate_locked_split, keep_locked, keep), which makes
+it hard to see which decision each block actually reaches.
 
-syzbot found the following issue on:
+This series extracts four self-contained blocks into helpers, without
+changing behaviour:
 
-HEAD commit:    40288c9206c1 Merge tag 'drm-fixes-2026-09-19' of https://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=12daa525580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=84649d3ff8d550cb
-dashboard link: https://syzkaller.appspot.com/bug?extid=eb74dca0d1eb3ec227a7
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+  Patch 1: the activation block at activate_locked, into
+           folio_activate_locked().
+  Patch 2: the freeing path (buffer release, lazyfree, __remove_mapping,
+           folio_batch drain), into folio_try_reclaim_free().
+  Patch 3: the pageout() dispatch state machine, into
+           folio_try_pageout().
+  Patch 4: the TTU setup and try_to_unmap() block, into
+           folio_try_unmap().
 
-Unfortunately, I don't have any reproducer for this issue yet.
+Rather than returning a boolean, the extracted helpers return an explicit
+result enum, so the reclaim decisions the caller has to make - activate,
+keep, or reclaimed - stay visible at the call site instead of being
+buried in the helper.  Where a folio may be returned either locked or
+unlocked, the result also records which, so the caller does not have to
+infer the lock state from an invisible internal decision.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/96e6db480769/disk-40288c92.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/d8cb5ded77e9/vmlinux-40288c92.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/c127cac2df37/bzImage-40288c92.xz
+This is preparation for batching the dirty TLB flush before pageout,
+which needs to call the pageout path from a second place.  That change
+will be posted separately once this cleanup has landed [1].
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+eb74dca0d1eb3ec227a7@syzkaller.appspotmail.com
+No functional change intended.
 
- 0xe74:  [135187] delta:1 PADDING
- 0xe98:  [135188] delta:1 hd
-expected end:0xea8 last event actually ended at:0xea8
-------------[ cut here ]------------
-system_state != SYSTEM_BOOTING
-WARNING: kernel/trace/ring_buffer.c:4783 at check_buffer.cold+0x1a2/0x1ef kernel/trace/ring_buffer.c:4783, CPU#0: syz.6.3124/18331
-Modules linked in:
-CPU: 0 UID: 0 PID: 18331 Comm: syz.6.3124 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-RIP: 0010:check_buffer.cold+0x1a2/0x1ef kernel/trace/ring_buffer.c:4783
-Code: 03 0f b6 14 11 38 d0 7c 04 84 d2 75 5c 8b 2d 1c ce 21 10 31 ff 89 ee e8 af f2 e8 00 85 ed 0f 84 c8 8d eb 00 e8 32 f8 e8 00 90 <0f> 0b 90 e9 73 8b eb 00 49 c7 c7 c0 5e f6 8b e9 51 fe ff ff e8 88
-RSP: 0018:ffffc900000078d0 EFLAGS: 00010046
-RAX: 8000000001000003 RBX: 1ffff92000000f20 RCX: 0000000001000003
-RDX: ffff88802d9c4b00 RSI: ffffffff8123277e RDI: ffff88802d9c4b00
-RBP: 0000000000000003 R08: 0000000000000005 R09: 0000000000000000
-R10: 0000000000000003 R11: 0000000000000001 R12: 0000000000021015
-R13: ffff88801c095000 R14: ffff88805713c000 R15: ffffffff8bf65a60
-FS:  00007ff5dabbc6c0(0000) GS:ffff888123b56000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000001b32508ff8 CR3: 0000000084816000 CR4: 00000000003526f0
-Call Trace:
- <IRQ>
- __rb_reserve_next.constprop.0+0x486/0x1640 kernel/trace/ring_buffer.c:4873
- rb_reserve_next_event kernel/trace/ring_buffer.c:5010 [inline]
- ring_buffer_lock_reserve+0x49a/0x1220 kernel/trace/ring_buffer.c:5069
- __trace_buffer_lock_reserve kernel/trace/trace.h:1677 [inline]
- trace_event_buffer_lock_reserve+0x123/0x6f0 kernel/trace/trace.c:1924
- trace_event_buffer_reserve+0x1f9/0x350 kernel/trace/trace_events.c:715
- __eprobe_trace_func kernel/trace/trace_eprobe.c:443 [inline]
- eprobe_trigger_func+0x558/0x1450 kernel/trace/trace_eprobe.c:487
- data_ops_trigger kernel/trace/trace_events_trigger.c:154 [inline]
- event_triggers_call+0x29e/0x4d0 kernel/trace/trace_events_trigger.c:209
- __event_trigger_test_discard kernel/trace/trace.h:1738 [inline]
- trace_event_buffer_commit+0x66b/0xa80 kernel/trace/trace.c:2014
- do_trace_event_raw_event_msr_trace_class arch/x86/include/asm/msr-trace.h:21 [inline]
- trace_event_raw_event_msr_trace_class+0x17d/0x270 arch/x86/include/asm/msr-trace.h:21
- __do_trace_read_msr arch/x86/include/asm/msr-trace.h:40 [inline]
- trace_read_msr+0x160/0x1f0 arch/x86/include/asm/msr-trace.h:40
- native_read_msr_safe arch/x86/include/asm/msr.h:127 [inline]
- rdmsrq_safe arch/x86/include/asm/msr.h:220 [inline]
- __rdmsr_safe_on_cpu+0xc8/0xf0 arch/x86/lib/msr-smp.c:124
- csd_do_func kernel/smp.c:143 [inline]
- __flush_smp_call_function_queue+0x43a/0x8c0 kernel/smp.c:632
- __sysvec_call_function_single+0x81/0x420 arch/x86/kernel/smp.c:272
- instr_sysvec_call_function_single arch/x86/kernel/smp.c:267 [inline]
- sysvec_call_function_single+0x9e/0xc0 arch/x86/kernel/smp.c:267
- </IRQ>
- <TASK>
- asm_sysvec_call_function_single+0x1a/0x20 arch/x86/include/asm/idtentry.h:681
-RIP: 0010:__vmcs_writel arch/x86/kvm/vmx/vmx_ops.h:224 [inline]
-RIP: 0010:vmcs_write32 arch/x86/kvm/vmx/vmx_ops.h:242 [inline]
-RIP: 0010:vmx_set_constant_host_state+0x1d4/0x740 arch/x86/kvm/vmx/vmx.c:4498
-Code: e8 71 ed 6b 00 b9 74 01 00 00 0f 32 48 c1 e2 20 48 89 d3 48 09 c3 e9 ba 01 00 00 e8 56 ed 6b 00 89 db b8 00 4c 00 00 0f 79 c3 <0f> 86 f5 01 00 00 e8 41 ed 6b 00 b9 76 01 00 00 0f 32 48 c1 e2 20
-RSP: 0018:ffffc90003d97828 EFLAGS: 00000202
-RAX: 0000000000004c00 RBX: 0000000000000010 RCX: ffffc9000ebc9000
-RDX: 0000000000080000 RSI: ffffffff81a0325a RDI: ffff88802d9c4b00
-RBP: 00000000003526f0 R08: 0000000000000001 R09: 0000000000000000
-R10: 0000000000000001 R11: 0000000000000000 R12: ffff88807e391f78
-R13: ffff88807e391ed8 R14: ffff888051ff8000 R15: ffff88807e391f78
- init_vmcs arch/x86/kvm/vmx/vmx.c:4946 [inline]
- __vmx_vcpu_reset arch/x86/kvm/vmx/vmx.c:5014 [inline]
- vmx_vcpu_reset+0x117b/0x3160 arch/x86/kvm/vmx/vmx.c:5047
- kvm_vcpu_reset+0x9d1/0x1ae0 arch/x86/kvm/x86.c:9615
- kvm_arch_vcpu_create+0x70c/0xab0 arch/x86/kvm/x86.c:9415
- kvm_vm_ioctl_create_vcpu virt/kvm/kvm_main.c:4213 [inline]
- kvm_vm_ioctl+0x7e3/0x42d0 virt/kvm/kvm_main.c:5178
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7ff5d9d9e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ff5dabbc028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007ff5da026090 RCX: 00007ff5d9d9e159
-RDX: 0000000000000000 RSI: 000000000000ae41 RDI: 0000000000000005
-RBP: 00007ff5d9e3506b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007ff5da026128 R14: 00007ff5da026090 R15: 00007fff730b6718
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	e8 71 ed 6b 00       	call   0x6bed76
-   5:	b9 74 01 00 00       	mov    $0x174,%ecx
-   a:	0f 32                	rdmsr
-   c:	48 c1 e2 20          	shl    $0x20,%rdx
-  10:	48 89 d3             	mov    %rdx,%rbx
-  13:	48 09 c3             	or     %rax,%rbx
-  16:	e9 ba 01 00 00       	jmp    0x1d5
-  1b:	e8 56 ed 6b 00       	call   0x6bed76
-  20:	89 db                	mov    %ebx,%ebx
-  22:	b8 00 4c 00 00       	mov    $0x4c00,%eax
-  27:	0f 79 c3             	vmwrite %rbx,%rax
-* 2a:	0f 86 f5 01 00 00    	jbe    0x225 <-- trapping instruction
-  30:	e8 41 ed 6b 00       	call   0x6bed76
-  35:	b9 76 01 00 00       	mov    $0x176,%ecx
-  3a:	0f 32                	rdmsr
-  3c:	48 c1 e2 20          	shl    $0x20,%rdx
+[1] https://lore.kernel.org/all/CAGsJ_4wrQRGjqavMzWgi2+PrRr1ztf4QRZEb6HKm02OF8nEBUQ@mail.gmail.com/
 
-
+Suggested-by: Kairui Song <kasong@tencent.com>
+Signed-off-by: Zhang Peng <bruzzhang@tencent.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Zhang Peng (4):
+      mm/vmscan: introduce folio_activate_locked() helper
+      mm/vmscan: extract folio reclaim freeing from shrink_folio_list()
+      mm/vmscan: extract folio pageout from shrink_folio_list()
+      mm/vmscan: extract folio unmap logic into folio_try_unmap()
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+ mm/vmscan.c | 376 +++++++++++++++++++++++++++++++++++-------------------------
+ 1 file changed, 217 insertions(+), 159 deletions(-)
+---
+base-commit: 498ee28e5ec4727f829507c4a1bde3ab1b7704cd
+change-id: 20260919-vmscan-refactor-1b3e5588af52
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+Best regards,
+--  
+bruzzhang <bruzzhang@tencent.com>
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
