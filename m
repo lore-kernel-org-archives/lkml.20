@@ -1,561 +1,318 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08F848A2C3
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:40:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789933253; cv=none; b=t+xihK/oVO/z48U8uR7XAr1C/+hkFnnnq2Kdone89C0SBix2tk7nH4bELE2QuflwDUDBue9ZBWQaKf2yc5Lf/hIoUIMVFsZB8pk3XwQM4D7Vne5fJ601+2iUqKalL5z8lRj7qXu0tIXlKzyCKuobVJ857ym1oEjULoY/W8UuyjM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789933253; c=relaxed/simple;
-	bh=OqE4NGOzg8RMlLq3uxKh4S9QJ/wR9RdtbS1nxkkZHO0=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EYL9ezlJk/RQeOsKiYelCwLHQ1IidEk9MSC0LliXwdP3OBQ8BoWv/NGRk6a6hWUG3AODNAAQdjJaCj/LbAo1XhPm93ZTC7sEgiW7mLj3AY1pCb+jByZG5pCdxRybHNsQ25qLxeH4dZip22TocUEwPIKV6u3J3ZBpMZzn8pq27zU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=RTMSzxzn; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC1846F4B8;
+	Sun, 20 Sep 2026 19:41:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789933292; cv=pass; b=VgspzDMLvNKhKDD1xzfYjR/h2iaND7xoEtQk3T0JHPgWM+AY8JOfoqrqRcwjsplor6c6tW6VJqpKAWu+uAx9dNyFb/jsCkTUoiqws1Vm5eP2cvG+9/urK3+Y9JQxJ+Z+k1PqBACfaX1ZTnFhAa0ORsS+ACXdWigjCkUP9D0FR0g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789933292; c=relaxed/simple;
+	bh=mauiSdjOeEpD8dIDuxTvQjuGXWV77WBxtg0mwzPjNLo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TCn8h+TunF79uhFk1twZthJ8EQf/2iShXJapn5ElUQeGZ8TxKUFvzlFwZMVObEVMhSSe0PVtT8wr6L36UzkV3TkJe2KRvorUUr0umBBLENfE+VzwJ9BxszEdVBkWbHobuISVqiznlv0hYw2uHUwuiCDVZlBlWwbdRoR2wY9+DGw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=YnlxX88K; arc=pass smtp.client-ip=165.173.180.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="RTMSzxzn"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-670fee39d73so2191775d50.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:40:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1789933249; x=1790538049; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=k5hDLFKTi0Cs1ZiX/XYeG+c49YMslw+nL6Py3nD0h7s=;
-        b=RTMSzxznFguBBgd83+5t/pj3f1FlgcQZDDKLUQVNJu1945ilruktGSwluG5lcWx+IF
-         VUNDhJ6JKCBoXmGg6knQwfj+UO3fRvqxSoYfgyx83sfnFD0H7EqxNgH24rgLmficOYZw
-         liLWfJUlRIU80wDR0S4sTSsnFkXY6wWWBy+Dv0XucDmexUp+fSRucdIGKSJnfBUNDVPI
-         pCxLsr1F7Lf1agM7Tz+1jOZio/0ljuhmD5isavLl/bJguDzOPjkuHoXP08eGhvM6e4np
-         LjkXK1es3pkqZKwvtOOsnOP4EHB/Z3B9mkMJEghcpjWWKWn/QLnj+yPyvlp2k/xtiOgU
-         1Ufg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789933249; x=1790538049;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=k5hDLFKTi0Cs1ZiX/XYeG+c49YMslw+nL6Py3nD0h7s=;
-        b=mguOcxGCS/e2tAUaMxGYXI2tXk9rAT79/eedc3DdxNroTsGKWF2nTxC9ztDl3OkaRx
-         8JGbvuytH7DXSpRj2s3MSm3oRckwFUVJ/pRsXJ+Wi6lqDh7EOrIUtQrMTok/8ZIjJA9y
-         GMcoPBUugndx5/k0872f8FzrtbCsqbT+4LZ8lJpPQdXv/HeDNdpx6ho2aVKHlKy56Qit
-         NBbIEZDS6kZ3KKFN1d66hilQmgRPd0NcA7uX1yLl2ZUWr9fEVY1D6SypKkmRvP+uODcq
-         7VtZ6QoDcbbBd1tcyeZIpQthMd8ezu5xGpgoq/EUpNRBkZF7roUZDZi8U/Wlx2IR3Eak
-         wqBg==
-X-Forwarded-Encrypted: i=1; AKwUvBxrhXq1SodAP/t0TnKnrR1P54/XaJyfNdmreDqcXavdVrweIT2qbn246RgPfEmTsZE3WkFZkAM68JvX8u4=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7hhcPw7ESe1cxSGjJHDo5KXiacXy7M2Oe0mbkj530lQ2PPuwV
-	OzJksU6g1Ck8AdJzb/h6N4Qd0rI5kauzKCNF0gJQGsRF/C6LndHkjjGzHKfk24fzncI=
-X-Gm-Gg: AYBFou1Tf5Ob+jAr0RvmTKezDCl2UNqHVnBvHlAHVLU3D1ALAsJsguYrw1pW3n37Im6
-	mBG/YrgePVVTu1wMyDCb3JIZWW2vV6PvCCVYNjuSffGD5aG+uXSqtzI8+5t+tUueiO9bXnojtr7
-	RLo+GU86i11+nCry05gwiT4vh+uYKQtkZFDQs7Zb3kgByBZJL+gQDlt4fPhI7wnFq3PPQRWtm2d
-	P+MJbo/A4UgJ8XVYhy0A8UJjFtm/Pu5ejFghVVNQHB8m9qBd1cxHaEJm+lanXGU/cNa4+fwyKm7
-	+PQdQx2Gyy0exUa/vD4q9WcwvB6DQMBbt9MdLvC9pEVDX77eMU4wpCxoNwPuhPhUrwuokUfJuvR
-	KGWB2OELU0K/iQK5GXb8O9ucq1vKmOYqASjnTWGLzQ9YC8I3cEwAR/bL6I12uQklXaekem8UsO3
-	j6IRP7irIpmRuypZ8R5B+N+tPqTdEK+tuILXnb+FL9Ti5swJ8Tk5KAvpoj5iPaaILJA8bOR2pcS
-	4onue4vHww6qYdpWPothG1WJJ6MYG+bBhVCGS7a8QpWrNd5gy6MJwb/VmaOibTNU9kQT9NjKw6W
-	+4PpcKJ/M7H+pngHVU7oqxXNoL8nmg==
-X-Received: by 2002:a05:690e:4085:b0:671:5653:8564 with SMTP id 956f58d0204a3-6717fe32f3dmr3086661d50.91.1789933249448;
-        Sun, 20 Sep 2026 12:40:49 -0700 (PDT)
-Received: from soleen.c.googlers.com.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67298d74ef4sm2650188d50.0.2026.09.20.12.40.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 12:40:48 -0700 (PDT)
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: linux-kselftest@vger.kernel.org,
-	legion@kernel.org,
-	kees@kernel.org,
-	will@kernel.org,
-	ruanjinjie@huawei.com,
-	atomlin@atomlin.com,
-	rppt@kernel.org,
-	jani.nikula@intel.com,
-	hamzamahfooz@linux.microsoft.com,
-	joey.gouly@arm.com,
-	tglx@kernel.org,
-	nsc@kernel.org,
-	alexandre.chartre@oracle.com,
-	james.morse@arm.com,
-	dianders@chromium.org,
-	bp@alien8.de,
-	jpoimboe@kernel.org,
-	shuah@kernel.org,
-	catalin.marinas@arm.com,
-	linux-kbuild@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	jaredwhite@microsoft.com,
-	johan@kernel.org,
-	pbonzini@redhat.com,
-	mingo@redhat.com,
-	linux-mm@kvack.org,
-	seanjc@google.com,
-	mark.rutland@arm.com,
-	vdonnefort@google.com,
-	tarunsahu@google.com,
-	gshan@redhat.com,
-	skhan@linuxfoundation.org,
-	linux-doc@vger.kernel.org,
-	xur@google.com,
-	djbw@kernel.org,
-	oupton@kernel.org,
-	nogikh@google.com,
-	sumitg@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	zengheng4@huawei.com,
-	peterz@infradead.org,
-	corbet@lwn.net,
-	suzuki.poulose@arm.com,
-	luto@kernel.org,
-	hpa@zytor.com,
-	zhangpengjie2@huawei.com,
-	x86@kernel.org,
-	yuzenghui@huawei.com,
-	jic23@kernel.org,
-	ardb@kernel.org,
-	pasha.tatashin@soleen.com,
-	petr.pavlu@suse.com,
-	ryan.roberts@arm.com,
-	kexec@lists.infradead.org,
-	pratyush@kernel.org,
-	dave.hansen@linux.intel.com,
-	rdunlap@infradead.org,
-	kvm@vger.kernel.org,
-	fuad.tabba@linux.dev,
-	maz@kernel.org,
-	mbenes@suse.cz,
-	jgross@suse.com,
-	seiden@linux.ibm.com,
-	pierre.gondois@arm.com,
-	song@kernel.org,
-	nathan@kernel.org,
-	pmladek@suse.com,
-	graf@amazon.com,
-	chao.gao@intel.com,
-	zhenglifeng1@huawei.com,
-	arnd@arndb.de,
-	sidnayyar@google.com,
-	linux-arm-kernel@lists.infradead.org,
-	vladimir.murzin@arm.com,
-	kas@kernel.org
-Subject: [RFC PATCH 39/46] KVM: VMX: Integrate Caretaker VMX detach serialization and KVM registration
-Date: Sun, 20 Sep 2026 15:36:43 -0400
-Message-ID: <20260920193650.3373435-40-pasha.tatashin@soleen.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <20260920193650.3373435-1-pasha.tatashin@soleen.com>
-References: <20260920193650.3373435-1-pasha.tatashin@soleen.com>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="YnlxX88K"
+ARC-Seal: i=1; a=rsa-sha256; t=1789933224; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=b4T9GnOi6/0npYkaVS5M5rSdQt+HoOgrAGOX+YgcLXFEkHoQ6zr2AxPrqSOJCY0yEOvUk6lAfinCUd2CbsdStWcqWAmLiBCFYSpYeHiWJLuhKPYzx2qvDs7htlCR6y2s3X41lytd+8t+/ESqdMs5I2qufdBEMwh2c3eoV1H0uEs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789933224; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=XCfUpcAEWIBQZd2qGaQPf9DzhbMgTwS/5DowjCTEoM4=; 
+	b=cgw4qNqG70xI0EXbGJKTfwDqrGSm4385hVcRWdUFoQIfnp2bwtUK85HuvcRNmZCzjUVwJvZta0Two7+f1W8ccOlhT2a5CH2qrAvJQJ0viYawy+rpaXImUnCUuDtCVzXv3IQejhMkLhkW7x1rVPEluzgCpguxuIrc0OJecRlGd8E=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789933224;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+	bh=XCfUpcAEWIBQZd2qGaQPf9DzhbMgTwS/5DowjCTEoM4=;
+	b=YnlxX88KPI/FUbk2mAUAtXfk9A1vjCR8tTSwEaPRsl7b82RQCP3/qhGkm49WIU59
+	oUISaKgA7o38LcPWJfja5cOQ7mI64cT2RzaCQh75A0rvl/bYLO+E+bCnBwsbsSEVwZY
+	BIvi7Yb/bbfVZTq+lHI2nwAAvqyabRWWg10ywWRwFpP7zU+NuyoQa+7gY4h8r2Wjuhc
+	JEi6222Efh0eLbHWxm8MZW9pEXmUVdy8TQYJLVRpaOdzAXNcOe/EhryqNExsFJ6MsKF
+	8LdXc4T+pBvBNmOFI3BwT2ZfDi+Ni7WWfx6NZECqkoeJ6GAN0hWdQgdauPsTXX0sepg
+	d3/KPH4D5w==
+Received: by smtp.zohomail.com with SMTPS id 1789933223615730.014236065983;
+	Sun, 20 Sep 2026 12:40:23 -0700 (PDT)
+From: Rong Zhang <i@rong.moe>
+Subject: [PATCH v7 00/13] leds: Add support for hardware-initiated hardware
+ control trigger transition
+Date: Mon, 21 Sep 2026 03:40:14 +0800
+Message-Id: <20260921-leds-trigger-hw-changed-v7-0-fe3cdb6dec51@rong.moe>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33RwU7EIBAG4FfZcBZDoQywJ9/DeGhhaDHaKnSrZ
+ tN3F7Ym3TSpx0mG7x/yX0nCGDCR8+lKIs4hhXHIg3o4Eds3Q4c0uDwTzjgwyYC+oUt0iqHrMNL
+ +i65bjhpogFda29Z5kl9/RPTh+yY/v6xzurSvaKfClY0+pGmMP7fomZe9NQUqfZgyc8qo5drWN
+ ZPCevEUx6F7fB+RlJBZbIyqzDEjMiN9K6XiHAXgjqk3RjN+zNSZ8UYht41R4PeMvGN4dczIzAh
+ kzIGtGyNgx8DGmP+ugfIpCUZYp7RW6o5Z1gYifl5yxdNfLcvyC0+Q9KgAAgAA
+X-Change-ID: 20260506-leds-trigger-hw-changed-96a62188cbdf
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
+ Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
+ =?utf-8?q?Marek_Beh=C3=BAn?= <kabel@kernel.org>, 
+ Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Ike Panhc <ikepanhc@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>, 
+ Vishnu Sankar <vishnuocv@gmail.com>, Vishnu Sankar <vsankar@lenovo.com>, 
+ linux-leds@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ chrome-platform@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ Rong Zhang <i@rong.moe>
+X-Mailer: b4 0.17-dev-1f2f7
+X-ZohoMailClient: External
 
-Complete Intel VMX Caretaker detach-time serialization, vCPU sync,
-and ops registration in arch/x86/kvm/vmx/caretaker.c.
+Some laptops can tune their keyboard backlight according to ambient
+light sensors (auto mode). This capability is essentially a hardware
+control trigger. Meanwhile, such laptops also offer a shrotcut for
+cycling through brightness levels and auto mode. For example, on
+ThinkBook, pressing Fn+Space ("shortcut") cycles keyboard backlight
+levels in the following sequence:
 
-Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+  1 => 2 => 0 => auto => 1 ...
+
+Recent ThinkPad models should have similar sequence too.
+
+However, there are some issues preventing us from using a private
+hardware control trigger:
+
+1. We want a mechanism to tell userspace which trigger is the hardware
+   control one, so that userspace can determine if auto mode is on/off,
+   as well as turing it on/off programmatically without obtaining the
+   trigger's name via other channels
+2. Writing brightness has the side effect of disabling hardware control,
+   but the hardware control trigger remains active, resulting in the
+   software and hardware being out of sync. Most LED drivers that
+   supports hardware control also suffer from the same issue
+3. Turing on/off auto mode via the shortcut cannot activate/deactivate
+   the corresponding hardware control trigger, making the software state
+   out of sync
+4. Even with #3 solved, deactivating the hardware control trigger has
+   the side effect of emitting LED_OFF, breaking the shortcut cycle,
+   especially "auto => 1"
+
+This series tries to demonstrate a path on solving these issues:
+
+- Introduce an attribute "trigger_may_offload_to_hw", so that userspace
+  can determine:
+  - if the LED device supports hardware control (supported => visible)
+  - which trigger is the hardware control trigger selected by the LED
+    device and offloaded to hardware ("[foo_trigger]")
+    - A callback hw_offloaded() is added so that LED triggers can report
+      their hardware control state
+- Remove hardware control trigger when writing brightness
+- Add led_trigger_notify_hw_control_changed() interface, so that LED
+  drivers can notify the LED core about hardware-initiated hardware
+  control transitions. The LED core will then determine if the
+  transition is allowed and switching between "none" (i.e., no trigger)
+  and the device's private trigger accordingly
+  - This capability is restricted to the device's private trigger. If
+    the current trigger is neither the private trigger nor "none", no
+    transition will be made
+  - This interface is gated behind Kconfig LEDS_TRIGGERS_HW_CHANGED and
+    LED device flag LED_TRIG_HW_CHANGED
+- Tune the logic of trigger deactivation so that it won't emit LED_OFF
+  when the deactivation is triggered by hardware
+
+The last three patches are included in the series to demonstrate how
+these interfaces are supposed to be utilized, so that ideapad-laptop
+can expose the auto mode of ThinkBook's keyboard backlight. They can be
+submitted separately once the dust settles, if preferred.
+
+[ Summary of other approaches ]
+
+< custom attribute >
+
+Pros:
+- simplicity, KISS
+- no need to touch the LED core
+- extensible as long as it has a sensor-neutral name
+  - a sensor-related name could potentially lead to a mess if a future
+    device implements auto mode based on multiple different sensors
+
+Cons:
+- must have zero influence on brightness_set[_blocking] callbacks
+  in order not to break triggers
+  - potential interference with triggers and the brightness attribute,
+    can't solve #2
+- weird semantic (an attribute other than "brightness" and "trigger"
+  changes the brightness)
+
+< private hardware control trigger (this series) >
+
+Pros:
+- mutually exclusive with other triggers and the brightness attribute
+  (hence less chaos)
+- semantic correctness
+- acts as an aggregate switch to turn on/off auto mode even a future
+  device implements auto mode based on multiple different sensors
+  - extensibility (through trigger attributes)
+
+Cons:
+- complexity
+
+[ Previous discussion threads ]
+
+https://lore.kernel.org/r/08580ec5-1d7b-4612-8a3f-75bc2f40aad2@app.fastmail.com
+https://lore.kernel.org/r/1dbfcf656cdb4af0299f90d7426d2ec7e2b8ac9e.camel@rong.moe
+
+Acked-by: Ike Panhc <ikepanhc@gmail.com>
+Signed-off-by: Rong Zhang <i@rong.moe>
 ---
- arch/x86/kvm/Makefile        |   9 +
- arch/x86/kvm/vmx/caretaker.c | 322 ++++++++++++++++++++++++++++++++++-
- arch/x86/kvm/vmx/vmx.c       |   4 +
- 3 files changed, 333 insertions(+), 2 deletions(-)
+Changes in v7:
+- Add a new patch to the series to collect existing trigger attribute
+  stuff together into led-triggers.c (thanks Lee Jones)
+- Leave all new attribute stuff at led-triggers.c (ditto)
+- Rename the offloaded() callback to hw_offloaded() (ditto)
+- Rename the trigger_may_offload attribute to
+  trigger_may_offload_to_hw (ditto)
+- Use "[foo_trigger]" to represent a selected and offloaded trigger, and
+  no longer use a dedicated container to represent selected but not
+  offloaded ones (ditto)
+- Remove messages mainly for debugging (ditto)
+- Inline led_trigger_{init,destroy}_hw_changed() into led-class.c by
+  exporting led_trigger_hw_control_changed_worker() (ditto)
+- Rephrase some comments and messages (ditto)
+- Constify device attribute trigger_may_offload_to_hw
+- Address a concern from Sashiko
+  - Fix printf format string
+  - https://sashiko.dev/#/patchset/20260902-leds-trigger-hw-changed-v6-0-55693cd78877@rong.moe?part=11
+- Link to v6: https://patch.msgid.link/20260902-leds-trigger-hw-changed-v6-0-55693cd78877@rong.moe
 
-diff --git a/arch/x86/kvm/Makefile b/arch/x86/kvm/Makefile
-index 11e67c072258..b550a3fd0708 100644
---- a/arch/x86/kvm/Makefile
-+++ b/arch/x86/kvm/Makefile
-@@ -18,6 +18,8 @@ kvm-$(CONFIG_KVM_SMM)	+= smm.o
- 
- kvm-intel-y		+= vmx/vmx.o vmx/vmenter.o vmx/pmu_intel.o vmx/vmcs12.o \
- 			   vmx/nested.o vmx/posted_intr.o vmx/main.o
-+kvm-intel-$(CONFIG_KVM_CARETAKER) += vmx/caretaker.o vmx/caretaker_vmenter.o
-+
- 
- kvm-intel-$(CONFIG_X86_SGX_KVM)	+= vmx/sgx.o
- kvm-intel-$(CONFIG_KVM_HYPERV)	+= vmx/hyperv.o vmx/hyperv_evmcs.o
-@@ -44,6 +46,13 @@ $(obj)/svm/vmenter.o: $(obj)/kvm-asm-offsets.h
- AFLAGS_vmx/vmenter.o    := -iquote $(obj)
- $(obj)/vmx/vmenter.o: $(obj)/kvm-asm-offsets.h
- 
-+AFLAGS_vmx/caretaker_vmenter.o := -iquote $(obj)
-+$(obj)/vmx/caretaker_vmenter.o: $(obj)/kvm-asm-offsets.h
-+
-+CFLAGS_REMOVE_vmx/caretaker.o = $(CC_FLAGS_FTRACE)
-+CFLAGS_vmx/caretaker.o := -fno-stack-protector
-+
-+
- $(obj)/kvm-asm-offsets.h: $(obj)/kvm-asm-offsets.s FORCE
- 	$(call filechk,offsets,__KVM_ASM_OFFSETS_H__)
- 
-diff --git a/arch/x86/kvm/vmx/caretaker.c b/arch/x86/kvm/vmx/caretaker.c
-index 47b4743650e5..efef1c30c0d1 100644
---- a/arch/x86/kvm/vmx/caretaker.c
-+++ b/arch/x86/kvm/vmx/caretaker.c
-@@ -49,8 +49,8 @@ static int vmx_caretaker_init_page(struct caretaker_vmx_page *cvp,
- 	u64 basic_msr, misc_msr;
- 	int ret;
- 
--	if (!vmx->vmcs01.vmcs)
--		return -EINVAL;
-+	if (!vmx->vmcs01.vmcs || is_guest_mode(vcpu))
-+		return -EOPNOTSUPP;
- 
- 	ret = kvm_x86_caretaker_init_common_page(&cvp->common, vcpu, sizeof(*cvp));
- 	if (ret)
-@@ -336,5 +336,323 @@ vmx_caretaker_init_host_vmcs(struct caretaker_vmx_page *cvp)
- 		vmx_vmwrite(PLE_WINDOW, 4096);
- 	}
- 	vmx_vmwrite(CPU_BASED_VM_EXEC_CONTROL, cpu_ctl);
-+
-+	/*
-+	 * Disable hardware MSR autoload lists while running in Caretaker so
-+	 * VM-entry/VM-exit do not dereference unpreserved host vmx->msr_autoload
-+	 * memory after kexec.
-+	 */
-+	vmx_vmwrite(VM_EXIT_MSR_LOAD_COUNT, 0);
-+	vmx_vmwrite(VM_EXIT_MSR_STORE_COUNT, 0);
-+	vmx_vmwrite(VM_ENTRY_MSR_LOAD_COUNT, 0);
-+}
-+
-+/*
-+ * Guest-visible VMCS fields carried from the VMCS the caretaker ran the vCPU
-+ * on to the VMCS the new kernel allocated for it.
-+ *
-+ * The new kernel does not adopt the old VMCS: it belongs to the previous
-+ * kernel's struct loaded_vmcs, whose layout is not part of any handover ABI,
-+ * and the VMCS region itself is opaque and implementation defined.  So the
-+ * architecturally defined guest state is copied field by field instead.
-+ *
-+ * GUEST_IA32_EFER is handled separately because it is only written back when
-+ * the caretaker actually recorded a value for it.
-+ */
-+static const u16 vmx_caretaker_guest_fields[] = {
-+	GUEST_CS_SELECTOR,	GUEST_CS_LIMIT,
-+	GUEST_CS_AR_BYTES,	GUEST_CS_BASE,
-+	GUEST_SS_SELECTOR,	GUEST_SS_LIMIT,
-+	GUEST_SS_AR_BYTES,	GUEST_SS_BASE,
-+	GUEST_DS_SELECTOR,	GUEST_DS_LIMIT,
-+	GUEST_DS_AR_BYTES,	GUEST_DS_BASE,
-+	GUEST_ES_SELECTOR,	GUEST_ES_LIMIT,
-+	GUEST_ES_AR_BYTES,	GUEST_ES_BASE,
-+	GUEST_FS_SELECTOR,	GUEST_FS_LIMIT,
-+	GUEST_FS_AR_BYTES,	GUEST_FS_BASE,
-+	GUEST_GS_SELECTOR,	GUEST_GS_LIMIT,
-+	GUEST_GS_AR_BYTES,	GUEST_GS_BASE,
-+	GUEST_TR_SELECTOR,	GUEST_TR_LIMIT,
-+	GUEST_TR_AR_BYTES,	GUEST_TR_BASE,
-+	GUEST_LDTR_SELECTOR,	GUEST_LDTR_LIMIT,
-+	GUEST_LDTR_AR_BYTES,	GUEST_LDTR_BASE,
-+	GUEST_GDTR_LIMIT,	GUEST_GDTR_BASE,
-+	GUEST_IDTR_LIMIT,	GUEST_IDTR_BASE,
-+	GUEST_INTERRUPTIBILITY_INFO,
-+	GUEST_ACTIVITY_STATE,
-+	GUEST_IA32_DEBUGCTL,
-+	GUEST_SYSENTER_CS,
-+	GUEST_SYSENTER_ESP,
-+	GUEST_SYSENTER_EIP,
-+};
-+
-+static void
-+vmx_caretaker_sync_vcpu(struct kvm_vcpu *vcpu, void *vcpu_data)
-+{
-+	struct kvm_caretaker_arch_ser *abi = vcpu_data;
-+	struct vcpu_vmx *vmx = to_vmx(vcpu);
-+	phys_addr_t cur_vmcs_pa = vmx->loaded_vmcs ? virt_to_phys(vmx->loaded_vmcs->vmcs) : 0;
-+	struct vmcs *prev_vmcs;
-+
-+	guard(preempt)();
-+	prev_vmcs = this_cpu_read(current_vmcs);
-+
-+	if (abi->vmcs_pa && cur_vmcs_pa && abi->vmcs_pa != cur_vmcs_pa) {
-+		/* 42 * 8 bytes; this runs on the host stack, not a preserved one. */
-+		unsigned long val[ARRAY_SIZE(vmx_caretaker_guest_fields)];
-+		unsigned long guest_efer;
-+		int i;
-+
-+		asm volatile("vmptrld %0" : : "m" (abi->vmcs_pa) : "memory", "cc");
-+
-+		for (i = 0; i < ARRAY_SIZE(vmx_caretaker_guest_fields); i++)
-+			val[i] = vmx_vmread(vmx_caretaker_guest_fields[i]);
-+		guest_efer = vmx_caretaker_read_efer();
-+
-+		asm volatile("vmclear %0" : : "m" (abi->vmcs_pa) : "memory", "cc");
-+		asm volatile("vmptrld %0" : : "m" (cur_vmcs_pa) : "memory", "cc");
-+
-+		for (i = 0; i < ARRAY_SIZE(vmx_caretaker_guest_fields); i++)
-+			vmx_vmwrite(vmx_caretaker_guest_fields[i], val[i]);
-+		if (guest_efer)
-+			vmx_vmwrite(GUEST_IA32_EFER, guest_efer);
-+
-+		abi->vmcs_pa = cur_vmcs_pa;
-+	} else if (cur_vmcs_pa) {
-+		asm volatile("vmptrld %0" : : "m" (cur_vmcs_pa) : "memory", "cc");
-+	}
-+
-+	kvm_x86_caretaker_sync_vcpu_common(vcpu);
-+
-+	if (vmx->loaded_vmcs) {
-+		pin_controls_clearbit(vmx, PIN_BASED_VMX_PREEMPTION_TIMER);
-+		vmcs_write32(PIN_BASED_VM_EXEC_CONTROL, pin_controls_get(vmx));
-+		vmcs_write32(CPU_BASED_VM_EXEC_CONTROL, exec_controls_get(vmx));
-+		vmcs_write32(VMX_PREEMPTION_TIMER_VALUE, 0);
-+		vmcs_write32(VM_EXIT_MSR_LOAD_COUNT, vmx->msr_autoload.host.nr);
-+		vmcs_write32(VM_ENTRY_MSR_LOAD_COUNT, vmx->msr_autoload.guest.nr);
-+		memset(&vmx->loaded_vmcs->host_state, 0,
-+		       sizeof(struct vmcs_host_state));
-+		list_del_init(&vmx->loaded_vmcs->loaded_vmcss_on_cpu_link);
-+		vmx->loaded_vmcs->cpu = -1;
-+		vmx->loaded_vmcs->launched = 0;
-+	}
-+	vmx_segment_cache_clear(vmx);
-+	vmx->vt.guest_state_loaded = false;
-+	vmx->guest_uret_msrs_loaded = false;
-+
-+	vmcs_write32(VM_ENTRY_INTR_INFO_FIELD, 0);
-+	vmcs_write32(GUEST_INTERRUPTIBILITY_INFO, 0);
-+	vmcs_write32(GUEST_ACTIVITY_STATE, GUEST_ACTIVITY_ACTIVE);
-+	vmcs_writel(GUEST_PENDING_DBG_EXCEPTIONS, 0);
-+
-+	vmcs_writel(GUEST_RIP, kvm_rip_read(vcpu));
-+	vmcs_writel(GUEST_RSP, kvm_rsp_read(vcpu));
-+	vmcs_writel(GUEST_RFLAGS, kvm_get_rflags(vcpu));
-+	vmx_set_cr0(vcpu, vcpu->arch.cr0);
-+	vmcs_writel(GUEST_CR3, vcpu->arch.cr3);
-+	vmx_set_cr4(vcpu, vcpu->arch.cr4);
-+	vmx_set_efer(vcpu, vcpu->arch.efer);
-+
-+	if (vmx->loaded_vmcs)
-+		vmx_set_constant_host_state(vmx);
-+
-+	if (cur_vmcs_pa)
-+		asm volatile("vmclear %0" : : "m" (cur_vmcs_pa) : "memory", "cc");
-+
-+	if (prev_vmcs && (!vmx->loaded_vmcs || prev_vmcs != vmx->loaded_vmcs->vmcs)) {
-+		vmcs_load(prev_vmcs);
-+		this_cpu_write(current_vmcs, prev_vmcs);
-+	} else {
-+		this_cpu_write(current_vmcs, NULL);
-+	}
-+}
-+
-+static __cpu_preserved_text void
-+vmx_caretaker_detach_serialize(void *page, struct kvm_vcpu_arch_ser *state)
-+{
-+	struct caretaker_vmx_page *cvp = page;
-+
-+	kvm_x86_caretaker_detach_serialize_common(&cvp->common, state);
-+	kvm_x86_caretaker_update_msr(state, MSR_STAR, cvp->star);
-+	kvm_x86_caretaker_update_msr(state, MSR_LSTAR, cvp->lstar);
-+	kvm_x86_caretaker_update_msr(state, MSR_SYSCALL_MASK, cvp->fmask);
-+	kvm_x86_caretaker_update_msr(state, MSR_KERNEL_GS_BASE,
-+				     cvp->common.kernel_gs_base);
-+}
-+
-+static __cpu_preserved_text void vmx_caretaker_arm_timer(void *page, u64 deadline_ticks)
-+{
-+	struct caretaker_vmx_page *cvp = page;
-+	u32 shift = (cvp && cvp->timer_shift) ? cvp->timer_shift : VMX_PREEMPTION_TIMER_SHIFT;
-+	u32 timer_value = 0;
-+	u32 pin;
-+
-+	if (deadline_ticks) {
-+		u64 now = arch_oncore_read_counter();
-+
-+		if (deadline_ticks > now) {
-+			u64 remaining = deadline_ticks - now;
-+
-+			timer_value = (u32)(remaining >> shift);
-+			if (timer_value == 0)
-+				timer_value = 1;
-+		} else {
-+			timer_value = 1;
-+		}
-+	}
-+
-+	if (timer_value > 0) {
-+		vmx_vmwrite(VMX_PREEMPTION_TIMER_VALUE, timer_value);
-+		pin = (u32)vmx_vmread(PIN_BASED_VM_EXEC_CONTROL);
-+		pin |= PIN_BASED_VMX_PREEMPTION_TIMER;
-+		vmx_vmwrite(PIN_BASED_VM_EXEC_CONTROL, pin);
-+	} else {
-+		vmx_caretaker_disarm_timer(page);
-+	}
- }
- 
-+static __cpu_preserved_text void
-+vmx_caretaker_advance_rip(void *page, u64 rip)
-+{
-+	struct caretaker_vmx_page *cvp = page;
-+
-+	cvp->common.last_exit_rip = rip;
-+	vmx_vmwrite(GUEST_RIP, rip);
-+}
-+
-+static __cpu_preserved_text void vmx_caretaker_pre_enter(void *page)
-+{
-+	struct caretaker_vmx_page *cvp = page;
-+
-+	/* Ensure VMX is active on this core */
-+	if (!(__read_cr4() & X86_CR4_VMXE)) {
-+		asm volatile("mov %0, %%cr4" : : "r" (__read_cr4() | X86_CR4_VMXE) : "memory");
-+		if (cvp->vmxon_pa) {
-+			asm volatile("1: vmxon %[vmxon_pa]\n\t"
-+				     "2:\n\t"
-+				     _ASM_EXTABLE(1b, 2b)
-+				     : : [vmxon_pa] "m" (cvp->vmxon_pa)
-+				     : "memory", "cc");
-+		}
-+	}
-+
-+	/* Activate VMCS on this pCPU */
-+	asm volatile("vmptrld %0" : : "m" (cvp->common.abi.vmcs_pa) : "memory", "cc");
-+
-+	/* Configure Caretaker host VMCS */
-+	vmx_caretaker_init_host_vmcs(cvp);
-+
-+	if (cvp->common.arch_state)
-+		native_write_cr2(cvp->common.arch_state->sregs.cr2);
-+
-+	native_wrmsrq(MSR_STAR, cvp->star);
-+	native_wrmsrq(MSR_LSTAR, cvp->lstar);
-+	native_wrmsrq(MSR_SYSCALL_MASK, cvp->fmask);
-+}
-+
-+static __cpu_preserved_text void
-+vmx_caretaker_read_seg(struct kvm_segment *var, u16 sel_field,
-+		       u16 base_field, u16 limit_field, u16 ar_field)
-+{
-+	u32 ar = (u32)vmx_vmread(ar_field);
-+
-+	var->base = vmx_vmread(base_field);
-+	var->limit = (u32)vmx_vmread(limit_field);
-+	var->selector = (u16)vmx_vmread(sel_field);
-+	var->unusable = (ar >> 16) & 1;
-+	var->type = ar & 15;
-+	var->s = (ar >> 4) & 1;
-+	var->dpl = (ar >> 5) & 3;
-+	var->present = !var->unusable;
-+	var->avl = (ar >> 12) & 1;
-+	var->l = (ar >> 13) & 1;
-+	var->db = (ar >> 14) & 1;
-+	var->g = (ar >> 15) & 1;
-+}
-+
-+static __cpu_preserved_text void vmx_caretaker_post_exit(void *page)
-+{
-+	struct caretaker_vmx_page *cvp = page;
-+	struct kvm_vcpu_arch_ser *state = cvp->common.arch_state;
-+	u64 efer;
-+
-+	cvp->star = native_rdmsrq(MSR_STAR);
-+	cvp->lstar = native_rdmsrq(MSR_LSTAR);
-+	cvp->fmask = native_rdmsrq(MSR_SYSCALL_MASK);
-+
-+	cvp->common.cr0 = vmx_caretaker_read_cr0();
-+	cvp->common.cr3 = vmx_vmread(GUEST_CR3);
-+	cvp->common.cr4 = vmx_caretaker_read_cr4();
-+	efer = vmx_caretaker_read_efer();
-+	if (efer)
-+		cvp->common.efer = efer;
-+	cvp->common.last_exit_rip = vmx_vmread(GUEST_RIP);
-+	cvp->common.last_exit_rsp = vmx_vmread(GUEST_RSP);
-+	cvp->common.last_exit_rflags = vmx_vmread(GUEST_RFLAGS);
-+
-+	if (state) {
-+		state->sregs.cr2 = native_read_cr2();
-+		vmx_caretaker_read_seg(&state->sregs.cs, GUEST_CS_SELECTOR,
-+				       GUEST_CS_BASE, GUEST_CS_LIMIT, GUEST_CS_AR_BYTES);
-+		vmx_caretaker_read_seg(&state->sregs.ds, GUEST_DS_SELECTOR,
-+				       GUEST_DS_BASE, GUEST_DS_LIMIT, GUEST_DS_AR_BYTES);
-+		vmx_caretaker_read_seg(&state->sregs.es, GUEST_ES_SELECTOR,
-+				       GUEST_ES_BASE, GUEST_ES_LIMIT, GUEST_ES_AR_BYTES);
-+		vmx_caretaker_read_seg(&state->sregs.fs, GUEST_FS_SELECTOR,
-+				       GUEST_FS_BASE, GUEST_FS_LIMIT, GUEST_FS_AR_BYTES);
-+		vmx_caretaker_read_seg(&state->sregs.gs, GUEST_GS_SELECTOR,
-+				       GUEST_GS_BASE, GUEST_GS_LIMIT, GUEST_GS_AR_BYTES);
-+		vmx_caretaker_read_seg(&state->sregs.ss, GUEST_SS_SELECTOR,
-+				       GUEST_SS_BASE, GUEST_SS_LIMIT, GUEST_SS_AR_BYTES);
-+		vmx_caretaker_read_seg(&state->sregs.tr, GUEST_TR_SELECTOR,
-+				       GUEST_TR_BASE, GUEST_TR_LIMIT, GUEST_TR_AR_BYTES);
-+		vmx_caretaker_read_seg(&state->sregs.ldt, GUEST_LDTR_SELECTOR,
-+				       GUEST_LDTR_BASE, GUEST_LDTR_LIMIT, GUEST_LDTR_AR_BYTES);
-+		state->sregs.gdt.base = vmx_vmread(GUEST_GDTR_BASE);
-+		state->sregs.gdt.limit = (u16)vmx_vmread(GUEST_GDTR_LIMIT);
-+		state->sregs.idt.base = vmx_vmread(GUEST_IDTR_BASE);
-+		state->sregs.idt.limit = (u16)vmx_vmread(GUEST_IDTR_LIMIT);
-+
-+		kvm_x86_caretaker_update_msr(state, MSR_IA32_SYSENTER_CS,
-+					     vmx_vmread(GUEST_SYSENTER_CS));
-+		kvm_x86_caretaker_update_msr(state, MSR_IA32_SYSENTER_ESP,
-+					     vmx_vmread(GUEST_SYSENTER_ESP));
-+		kvm_x86_caretaker_update_msr(state, MSR_IA32_SYSENTER_EIP,
-+					     vmx_vmread(GUEST_SYSENTER_EIP));
-+	}
-+
-+	/* Flush VMCS cache so host and incoming kernel see latest guest state */
-+	asm volatile("vmclear %0" : : "m" (cvp->common.abi.vmcs_pa) : "memory", "cc");
-+}
-+
-+static const struct kvm_x86_caretaker_runtime_ops vmx_caretaker_runtime_ops __cpu_preserved_data = {
-+	.detach_serialize = vmx_caretaker_detach_serialize,
-+	.common = {
-+		.enter_guest = vmx_caretaker_enter,
-+		.decode_exit = vmx_caretaker_decode_exit,
-+		.handle_arch_exit = kvm_x86_caretaker_handle_exit,
-+		.advance_rip = vmx_caretaker_advance_rip,
-+		.arm_timer = vmx_caretaker_arm_timer,
-+		.disarm_timer = vmx_caretaker_disarm_timer,
-+		.pre_run = vmx_caretaker_pre_enter,
-+		.post_run = vmx_caretaker_post_exit,
-+	},
-+};
-+
-+static const struct kvm_x86_caretaker_ops vmx_caretaker_ops = {
-+	.name = "vmx",
-+	.init = vmx_caretaker_init,
-+	.sync_vcpu = vmx_caretaker_sync_vcpu,
-+	.runtime = &vmx_caretaker_runtime_ops,
-+};
-+
-+void vmx_caretaker_register(void)
-+{
-+	kvm_x86_caretaker_register_ops(&vmx_caretaker_ops);
-+}
-+
-+void vmx_caretaker_unregister(void)
-+{
-+	kvm_x86_caretaker_unregister_ops(&vmx_caretaker_ops);
-+}
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 48b6e69f99bf..817623f7429a 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -54,6 +54,7 @@
- #include <trace/events/ipi.h>
- 
- #include "capabilities.h"
-+#include "caretaker.h"
- #include "common.h"
- #include "cpuid.h"
- #include "hyperv.h"
-@@ -8548,6 +8549,7 @@ void vmx_migrate_timers(struct kvm_vcpu *vcpu)
- 
- void vmx_hardware_unsetup(void)
- {
-+	vmx_caretaker_unregister();
- 	kvm_set_posted_intr_wakeup_handler(NULL);
- 
- 	if (nested)
-@@ -8855,6 +8857,8 @@ __init int vmx_hardware_setup(void)
- 
- 	kvm_caps.inapplicable_quirks &= ~KVM_X86_QUIRK_IGNORE_GUEST_PAT;
- 
-+	vmx_caretaker_register();
-+
- 	return 0;
- }
- 
--- 
-2.55.0.1082.g2b9226bbc0-goog
+Changes in v6:
+- New patch in the series to address a concern from Sashiko
+  - [PATCH 1] leds: class: Always protect brightness_show() with led_access
+  - https://sashiko.dev/#/patchset/20260821-leds-trigger-hw-changed-v5-0-3e00d6c4a936@rong.moe?part=7
+- Update Date: and KernelVersion: for the document of
+  /sys/class/leds/<led>/trigger_may_offload
+- Implement workqueue deferal mechanism
+  - Protects ideapad_kbd_bl_led_cdev_brightness_set() with the new mutex
+    as well
+  - No longer convert last_hw_brightness into atomic_t as it's not
+    required now
+  - https://msgid.link/e2b081dfd8f96511a73b86ab3ec75e5cd759b79b.camel@rong.moe
+- Simplify the auto mode state preservation logic by converting
+  `priv->kbd_bl.initialized' into a tristate integer
+- Link to v5: https://patch.msgid.link/20260821-leds-trigger-hw-changed-v5-0-3e00d6c4a936@rong.moe
+
+Changes in v5:
+- Address a concern from Sashiko:
+  - Non-atomic update of led_cdev->flags causes a data race that can
+    drop the LED_UNREGISTERING flag
+  - Fix it by synchronize the update with trigger_lock
+  - https://sashiko.dev/#/patchset/20260802-leds-trigger-hw-changed-v4-0-f97e2ca976fe@rong.moe?part=8
+- Address a concern from Sashiko:
+  - led_trigger_notify_hw_control_changed() might sleep, but without any
+    internal deferral mechanism or annotation
+  - Annotate the method with might_sleep(), since the very first users
+    of the interface, i.e., ideapad-laptop and (supposedly)
+    thinkpad_acpi, will call the interface from work contexts. It does
+    not deserve the overhead of internal deferral mechanism
+  - https://sashiko.dev/#/patchset/20260802-leds-trigger-hw-changed-v4-0-f97e2ca976fe@rong.moe?part=9
+- Update "Changes in v4" to include more details
+- Link to v4: https://patch.msgid.link/20260802-leds-trigger-hw-changed-v4-0-f97e2ca976fe@rong.moe
+
+Changes in v4:
+- Drop the RFC prefix
+- Add a new patch in the series to address a concern from Sashiko
+  - [PATCH v4 08/12] leds: trigger: Do not attach trigger to a removing LED
+  - Without it, the following patch may expose a race condition if a
+    future LED driver synchronizes led_classdev_unregister() and
+    led_trigger_notify_hw_control_changed() poorly. The ideapad-laptop
+    patches in the series doesn't expose the race condition though
+  - In theory, the race condition can also be triggered by a userspace
+    program writing to the "trigger" attribute right before
+    device_unregister() is called
+  - https://sashiko.dev/#/patchset/20260719-leds-trigger-hw-changed-v3-0-5fb55722e36e@rong.moe
+- Address other concerns from Sashiko
+  - Reject insane hardware brightness
+  - Do not notify the LED trigger core when the registration of the
+    private trigger has failed
+- Enable LEDS_TRIGGERS_HW_CHANGED by default when
+  LEDS_BRIGHTNESS_HW_CHANGED is enabled
+- Add missing #include (Thanks Ilpo Järvinen)
+- Remove needless #include (ditto)
+- Remove needless code alignment (ditto)
+- Link to v3: https://patch.msgid.link/20260719-leds-trigger-hw-changed-v3-0-5fb55722e36e@rong.moe
+
+Changes in v3:
+- Integrate https://lore.kernel.org/all/20260712-leds-hw-control-brightness-set-v1-1-1de593b09d26@rong.moe/
+  into the series
+  - Adopt __led_trigger_is_hw_controlled() in the rest of the series
+- Rearrange the series so that the code using the offloaded() callback is
+  introduced before the driver implementation (thanks Thomas Weißschuh)
+- Reword documentations and commit messages (ditto)
+- Adopt guard() and lockdep (ditto)
+- Address concerns from Sashiko
+  - Fix a race condition in ideapad_kbd_bl_led_cdev_brightness_set()
+  - Fix trigger re-registration of ideapad_kbd_bl_auto_trigger
+  - https://sashiko.dev/#/patchset/20260618-leds-trigger-hw-changed-v2-0-c28c44053cf3%40rong.moe
+- Make registration failures of ideapad_kbd_bl_auto_trigger non-fatal
+- Link to v2: https://patch.msgid.link/20260618-leds-trigger-hw-changed-v2-0-c28c44053cf3@rong.moe
+
+Changes in v2:
+- Restrict the led_trigger_notify_hw_control_changed() interface to
+  private triggers only
+  - Drop PATCH v1 1/9 ("leds: Load trigger modules on-demand if used as
+    hw control trigger"), not relavant any more
+- Gate the led_trigger_notify_hw_control_changed() interface behind
+  Kconfig LEDS_TRIGGERS_HW_CHANGED and LED device flag
+  LED_TRIG_HW_CHANGED
+- Fix lock ordering inversion
+- ideapad-laptop:
+  - Only call led_trigger_notify_hw_control_changed() when needed
+  - Serialize keyboard backlight notifications
+- Reword commit messages and documentations
+- Link to v1: https://patch.msgid.link/20260227190617.271388-1-i@rong.moe
+
+---
+Rong Zhang (13):
+      leds: class: Always protect brightness_show() with led_access
+      leds: trigger: Move led_trigger_is_hw_controlled() to the right place
+      leds: class: Remove hardware control trigger when writing brightness
+      leds: trigger: Move led_trigger_group to the right place
+      leds: trigger: Add hw_offloaded() callback and provide trigger_may_offload_to_hw attribute
+      leds: cros_ec: Implement hw_offloaded() trigger callback
+      leds: turris-omnia: Implement hw_offloaded() trigger callback and declare hw_control_trigger
+      leds: trigger: netdev: Implement hw_offloaded() callback
+      leds: trigger: Enforce strict checks in led_trigger_is_hw_controlled()
+      leds: trigger: Add led_trigger_notify_hw_control_changed() interface
+      platform/x86: ideapad-laptop: Serialize keyboard backlight tracking
+      platform/x86: ideapad-laptop: Decouple hardware & classdev brightness for keyboard backlight
+      platform/x86: ideapad-laptop: Fully support auto keyboard backlight
+
+ Documentation/ABI/testing/sysfs-class-led          |  28 ++-
+ .../ABI/testing/sysfs-class-led-trigger-netdev     |   3 +
+ Documentation/leds/leds-class.rst                  |  72 ++++++
+ drivers/leds/led-class.c                           |  46 ++--
+ drivers/leds/led-triggers.c                        | 177 ++++++++++++-
+ drivers/leds/leds-cros_ec.c                        |   6 +
+ drivers/leds/leds-turris-omnia.c                   |   7 +
+ drivers/leds/leds.h                                |   8 +-
+ drivers/leds/trigger/Kconfig                       |  10 +
+ drivers/leds/trigger/ledtrig-netdev.c              |   8 +
+ drivers/platform/x86/lenovo/Kconfig                |   1 +
+ drivers/platform/x86/lenovo/ideapad-laptop.c       | 279 +++++++++++++++++----
+ include/linux/leds.h                               |  24 ++
+ 13 files changed, 570 insertions(+), 99 deletions(-)
+---
+base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
+change-id: 20260506-leds-trigger-hw-changed-96a62188cbdf
+
+Thanks,
+Rong
 
