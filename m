@@ -1,146 +1,309 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9573175A95
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:56:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789876605; cv=none; b=FHsDYwDzce1KON+9drTYYa8Od7uDYpzfD7UvBNf6GnMLBcLDl+8UZCcUvCbXl9oLh11VJvys06RPzs6wtem7kZ2O0MNeE1Ck2QP3dPKvvVRWf+NhYBH0Al/IVrvtXpfOut4hAjLJw243UAIrKmMh8VirJvIIQ6nYH+uQoNKX4Wo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789876605; c=relaxed/simple;
-	bh=5xtl8vECwI7N2hTr71DbOthQhLvmhRGN/CfVoklgn3k=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Qwu28JfePLtvD4XWkTKtsW1PA7Aw3wo8AEy67ViKvNnP67SDFe/pFddfDFsFVUumFOCd9fVgwBn1bPc08jEYoFM3z3IOHkNj8n2neNWS1asl32JVok9aORY8WrsFtBLLTfDQm4UYDpr5p7o93H8kAgZOTWCISwhkfsJQszAxDGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E56QnhEb; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88108175A95
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:57:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789876660; cv=pass; b=VxJ4fSDt+YPNFBj5MkJJeEUbwW+Za4XC1sE1Z8yqndgjBag1xOt23cMmMfhX9YX/g//xd5lVt5s/xqU6T6bLVs91vBNHhUZ1lWEJEbUZFatO2SRW9KLYCHumlJfna/YD3uQZddyOwYZ3nVf/ANeaQ0OZk5YVvBdaHLfEXpwCrcc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789876660; c=relaxed/simple;
+	bh=01GZU/jLIcXtdAKaeOdDyvEN/rN3WyW3iNdMo3ImlIo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BgPnfT0tDqYUkHAi0L8Oq0qCWmaN99qCccRXlmkNRYi9ldfx/KMF81Npm+mFjiiGdqxjdkrM4lv/BjvOgWLgJf4xiFiOHN13xLKgfb62tQd21TAsyrmQXldTH15aQp/s/y/qj+neYoWVjfH1rMxlUYgTzTWC0EXl5dz8fmXUtQ8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XbGFvAwk; arc=pass smtp.client-ip=209.85.216.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E56QnhEb"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747eb79f6so12330065ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:56:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XbGFvAwk"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3a02551822eso573144a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:57:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789876658; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oB+A0dJ+2DKyjshJRNPW9EWve7KHdSUkfNT3aDE7rzfSwWbgTOfmwIltgb/dGRYMIv
+         dV5Sf9Of7EAt7igwJSs4+cTFUIHtkNLuyj9b/NH3sPnLMCAVTrGWDXONRGuqBOyxJvTy
+         kSPzo5sdUqfaRkpD/nrPpHLj8jCtwR7tb9BVvOCYQLwOSa94k+iHjpG9pZHbyeNdBfD/
+         1ltWMhftthPfe3ogZi9Xo4ug3m++6dVvkP2401LSw78Bkla8pHqGuaQ7y3mCMoDw33nW
+         r1OwJTr0SCd2YEK+0xt3pZaCWjVzzg8Jm340ereirexSjMBZ65w9KY7O7Nzc2LuzuPHc
+         OeIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=znS7PwEw/HPsC2fBiIZ8UstZ+J7E6Fo1CbQIj0vmESY=;
+        fh=dCdM2KNCs8EY6EG09+tQoDgVZNZT3ICISGppP0GGKQM=;
+        b=RZ9N47mvTjvwOdLT5CW1OIstordtFq38T15a3cc8ci4Kh9Vt2vduA33Ey4FEYfWxjO
+         acPINY55yUq/pkOZzhwzFAVJsP4VzJIIh14HOotGJ2y7sY7ApfOAJGa5N3TkwQaSSHc1
+         Fg3LVKtxHg4qO72QVzBUmAjKyjS4nBAXUFczjnvuLGo91rSvhejxn1Mt3lNM6T2Awl8E
+         636WdfoQuTZJB/AfoJgSyOgaZGgoXkKs+fSL7tLApdtBdOmOkIxjLmV79eWr/XYeZuM1
+         GB25HV0pr4bCcWnMh33P2z/8BSf4Cen+brmvT+dzRbTm5d/kJMoI5jSi1kscPMJ3TWi0
+         gOqQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789876603; x=1790481403; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F4hmql1IX0BfyhMHnyF3zu0V+uINNkKnUB2MDx+f0d0=;
-        b=E56QnhEbiTcs9Unli4lDyRv1RtmsbHVW6B1Ey3/ZOvY3bgddKSK9YY8LXKhTcyhqCZ
-         i0p5sXxWnU860dbbaY0/2oboV8HkMHlqW0MooWrqQH6hHVxoqDaJ2oIJc5LHimB2703p
-         wjH1oP1Xjz1KqBKK+DcGPr1URb7NtiIrLN0KEO1pqING4bKGjnnImIgTQ1rvswd1wFaB
-         WBL1aM+Fw03rymtmwirCtVIV4HnVUirk6Pzm3oZd+Yo9kJf9B3me/KNEOaMiMbRXfcpU
-         8hw7tP59rN3Nk9qR1gFbI5DwkZOyQNrsF8Ac7QOD+8GZGbY70wxo4p9sMsuNInMPyecx
-         vjow==
+        d=gmail.com; s=20251104; t=1789876658; x=1790481458; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=znS7PwEw/HPsC2fBiIZ8UstZ+J7E6Fo1CbQIj0vmESY=;
+        b=XbGFvAwk9TRvZypSbLtmQsdoVmpqESaeipr+sawUw9u+h4rVgjIFr2ClEtGMGEhKjx
+         3B+PmYX/4XykJNm/cgFF0JPdn6hqFV7wJvvdK5XwgXJFP3rZL5MpNOQtOKF2hQhxlZBa
+         ZDEmpDIUV61CreuLupw6kFzrkUAsVQo/hKVq9F1ig1crgh6S4o0peodCbxNV6smrq4DS
+         1nzHBeGf4miPzcOgXy5IUlOmQJc9njWLqseSE+SmPFGTiw6o7z3K8/stUpxDgo+J0bTx
+         gr2Y7HAxpaVkPuRuj16PDo4MTfXbxoPYFc70vJjW0u9r3ewmS/iwDqrKHyySvw1HMNSj
+         qSBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789876603; x=1790481403;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F4hmql1IX0BfyhMHnyF3zu0V+uINNkKnUB2MDx+f0d0=;
-        b=YX0zMho/8qmjAB8UUEG8U+XT3IjCc2tuP257Jupn9K9CpNM24xCcrhZDma5kBc0x4O
-         dZOu0CzBTP+rpvidqh4zF8Ru6Lx106JeQZdkMj2u4qrdspX2U/qZHG13r3wVtJhjukf+
-         c42E0BTEA1SRPycuQiewhg+0XfCz6KhvzeF9zaeWK77Vd449hfku4/B+PmBn8oDhg2I5
-         Q5IvlZ/TyV+texFFqy0B0BMvelr2uZdjGf4WZ6E7kY58zRN+aGHFR3noKh4r04/Cs3W6
-         0dN/Q/tB6ZoGndagpgsU4YS9WhuW4kA0JtExfn2xq1H0lBTbJpI4DcfBcFH78XNSyN1r
-         xuOg==
-X-Forwarded-Encrypted: i=1; AKwUvBwwuhiQn6ES46Lwgk2zPCpGmg17IjipkeT2Z9JhUI1J1x8kvCf/lxahbp/egxECaeaXn6wEUcNIkROXK5s=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhIGWyijWlOnx8rfOyiXUxEdoN7v+kxam24qAdv8cn4IFVuUT1
-	oSSKVJNKgGtnO1g/eyZd1uRR0QN2iygI/d9CEpzbTCJeEx4mq+GwEbuc
-X-Gm-Gg: AYBFou1cMSzmJ7nFzc8oU9Bku9TWJigc51q4pI3HnFiT6RaAKs8gwX8HZCuYxu0WVWa
-	nOfDil5DS9ramItbS5HFfbnDB9Cc8Ztj3HfHMnFPzQO674EjOUVNGW6aAnV/iy4Zo6fy1ansUJF
-	6cgQL8xD/2PgFmfJTK9jE2EIg4w8xhvrNzpoetxkOin6mmLlUBq5YAK5MO47lCfluJqnuDOYY2A
-	TCwFV2zduFn84Fl77zSXOb7QNtZWQEVLsIhdO5rmpuJiRA8QUsx4RLLhcJTYtKvgjj5bhMoM5Ze
-	H72Y7qAbvR4G52tGiQ1DrDx7bL/7UFK/s+EcGnm26tD0UHmX2TsUAlmghWWItzqF/Jugk2T5R4X
-	msQ8LWvpERaVHsaDdrrqMEJoMgbpuAkF9rxwjzpAt6QsFcy/YMPX5UHBkeRZPq488gLUYYvbXE8
-	0ClySFxenI5oFcpOVZnkgNohmCgVriCSJ2pgFoJOYH4G3hW0TZVMSngpA+PPUBpM/aAqC7MrkO7
-	YSrxHKpEybowomwpqFHqoPUgGE=
-X-Received: by 2002:a17:903:1b03:b0:2dd:c0ff:e725 with SMTP id d9443c01a7336-2ddc0ffe981mr49870745ad.55.1789876602819;
-        Sat, 19 Sep 2026 20:56:42 -0700 (PDT)
-Received: from csl-conti-dell7859.ntu.edu.sg ([155.69.199.57])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2de217b3a97sm14689445ad.31.2026.09.19.20.56.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 20:56:41 -0700 (PDT)
-From: Kaixuan Li <kaixuanli0131@gmail.com>
-To: Oliver Hartkopp <socketcan@hartkopp.net>,
-	Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: Kaixuan Li <kaixuanli0131@gmail.com>,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] can: isotp: check the frame type, not just the length
-Date: Sun, 20 Sep 2026 11:56:26 +0800
-Message-Id: <20260920035626.2581040-1-kaixuanli0131@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20260707; t=1789876658; x=1790481458;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=znS7PwEw/HPsC2fBiIZ8UstZ+J7E6Fo1CbQIj0vmESY=;
+        b=uC1Cy+qI5eBlHv64oRvQp9PDa3mX4JskEAV3lTBXkTZP+aEYeeX1zfT5dhGi63Pq/5
+         YFM6ZIkvItsR4I3lF4Pz/Lc4EqTxm2xAlUxZXDjjAV/8jx5aldSQYlpxdK34DTIC76EO
+         tbSIfqMeD0yHeGbRGYamUMObecC+t/Q0dYXN+zyt4UTCx7iycxAWT7wvKVXw3O6at+HN
+         JrKdXZfOCFmEM1nCh3uMKNy+y73IYpxHj39g2/AAhsB7NnXg2bTZla0alp28qmQ+qck/
+         NbUQntNYjCeC7+yrEfHi72x9TaOC+KxkXVLfxchptfN15vc9qycIL2KwfmE1nM7Qz4TT
+         IvvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx/3ht4BAkkM5Y3zZnzormxsBfdr6fKhHbl1rrKY9823oDxyUV7nmXj60FPgK48XA4vSkCLqf7h6CtbCBA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mS//a7cYDk1nRKo9uUtYWK6hk0mgsIx3V0mCHzePnqxUJ1FEls
+	HHzWUZVdkJX1hKe2ipdt341YNrDInRwRV6Yogzg3u+8TLebo2i/59gUgLB17TehJOEk4XHxPFNG
+	TrkcqOpDJoWe8L+kRY/HPskcb2yKb72I=
+X-Gm-Gg: AYBFou2j/TKUrwlDmDQsr5LGi30RBzX6j05I50YcITrCVNMqq52i+stpwXF1VMQ6O7t
+	MKy2rnToVYyfd9Q/dxGWb00qUrWW2EkeBIDqgsfFRx6ybKnkBxM+be+07QZp8++NwNDCifIPIxM
+	9CJa041xj6fDdLzZ+fHkg9IKPtG8T20N4/A0baievtpYahd20rbYyz1jCvLWSB1G22FtBKM1Rep
+	PmTY6EiftAdk1ap6Ap24IvNlicV319A0akZwKDMkIIy0+uOEKiKtjSRBxYh3ddtIpQzwO4GK2pp
+	VDdTRRPzjGkDQmBTYbbWNVE7Gz5fTAAHzKB/aa4uu1XwIPNeyu47LHJkJa0PGTJFKIQlXrZfKEr
+	eALGMCrEKyaHyDaTVwKCY68nov/CoZaYtGN14aTot
+X-Received: by 2002:a17:90a:e7c7:b0:3a0:25f0:d89b with SMTP id
+ 98e67ed59e1d1-3a025f0de30mr3043839a91.50.1789876657661; Sat, 19 Sep 2026
+ 20:57:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1789753020.git.kimjinseob88@gmail.com> <9fdbc924bf3387a4d33d1258ea21ac33abef65bb.1789753020.git.kimjinseob88@gmail.com>
+ <20260920021238.6d4ff353@jic23-hlaptop>
+In-Reply-To: <20260920021238.6d4ff353@jic23-hlaptop>
+From: Kim Jinseob <kimjinseob88@gmail.com>
+Date: Sun, 20 Sep 2026 12:57:28 +0900
+X-Gm-Features: AcwNN1WtBlzfWX0n4kCCth-9RIkby4yGdvgGCxFz3ox1yJaRl3ZK2zZ0hMZoeTg
+Message-ID: <CALMSewJqj6UseoMg-Cpi4C1kd7E83SinE_WJj=nMEVhy1hNgSQ@mail.gmail.com>
+Subject: Re: [PATCH v10 2/8] Documentation: iio: add Open Sensor Fusion driver overview
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com, 
+	andriy.shevchenko@intel.com, linux-kernel@vger.kernel.org, 
+	rdunlap@infradead.org, joshua.crofts1@gmail.com, u.kleine-koenig@baylibre.com, 
+	julianbraha@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, devicetree@vger.kernel.org, corbet@lwn.net, 
+	skhan@linuxfoundation.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-isotp_rcv() separates Classic CAN from CAN FD by skb->len alone:
+Hi Jonathan,
 
-	if (skb->len != so->ll.mtu)
-		return;
+both points make sense.
 
-	cf = (struct canfd_frame *)skb->data;
+The capability reports are complete inventory snapshots rather than
+incremental fragments. An empty or unsupported-only initial report
+does not establish a supported inventory, so discovery remains open.
+Once a complete report with supported descriptors establishes the
+inventory for the host session, later reports are still processed:
+equivalent inventories are idempotent, while a supported key
+appearing/disappearing or changing its shape, format, or scale is
+treated as an inventory change and faults the session.
 
-A CAN XL frame with cxl->len 4 is CAN_MTU bytes, so it passes, and is then
-read as a canfd_frame whose len comes out of canxl_frame.flags: at least
-0x80.
+I'll clarify that distinction in the next revision, and also change
+=E2=80=9CUnsupported majors=E2=80=9D to =E2=80=9CUnsupported major versions=
+=E2=80=9D.
 
-Of the paths that follow, only the flow control one uses that length
-without bounding it first, so check_pad() walks to 255 over a 16-byte
-frame and the caller reports EBADMSG on an unrelated socket.
+Thanks,
 
-bcm_rx_handler(), j1939_can_recv(), can_can_gw_rcv() and raw_rcv() check
-the frame type here, and can_dropped_invalid_skb() switches on
-skb->protocol on the transmit side. isotp_rcv() is the gap.
+Jinseob
 
-Fixes: fb08cba12b52 ("can: canxl: update CAN infrastructure for CAN XL frames")
-Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
-Reviewed-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Acked-by: Oliver Hartkopp <socketcan@hartkopp.net>
----
-v2: shorten the comment above the new check to say what it does; the
-    reasoning stays in the description (Oliver Hartkopp). Add Oliver's
-    Reviewed-by and Acked-by. No code change.
-
-v1: https://lore.kernel.org/linux-can/20260919122852.1868961-1-kaixuanli0131@gmail.com/
-
-Reproduced on v7.2.4 over vcan, one isotp socket per case bound rx 0x123
-with RX_PADDING|CHK_PAD_DATA and rxpad_content 0xAA, a first frame in
-flight, and one frame injected from a CAN_RAW socket.
-
-	case                            stock     patched
-	A CAN XL, cxl->len 4, flags ff  EBADMSG   none
-	B Classic FC, padded 0xAA       none      none
-	C Classic FC, padded 0x00       EBADMSG   EBADMSG
-	D as A, with CHK_PAD_LEN on     EBADMSG   none
-
-C bounds the impact: a malformed Classic FC frame from any sender on the
-bus gives the same EBADMSG, so nothing becomes reachable that was not
-already. D differs only in which branch of check_pad() returns.
-
-No memory safety issue. KASAN was on for all eight runs and reported
-nothing.
----
- net/can/isotp.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
---- a/net/can/isotp.c
-+++ b/net/can/isotp.c
-@@ -754,8 +754,16 @@ static void isotp_rcv(struct sk_buff *skb, void *data)
- 	 */
- 	if (skb->len != so->ll.mtu)
- 		return;
- 
-+	/* check for correct CAN CC/FD frame content */
-+	if (so->ll.mtu == CAN_MTU) {
-+		if (!can_is_can_skb(skb))
-+			return;
-+	} else if (!can_is_canfd_skb(skb)) {
-+		return;
-+	}
-+
- 	cf = (struct canfd_frame *)skb->data;
- 
- 	/* if enabled: check reception of my configured extended address */
- 	if (ae && cf->data[0] != so->opt.rx_ext_address)
+2026=EB=85=84 9=EC=9B=94 20=EC=9D=BC (=EC=9D=BC) =EC=98=A4=EC=A0=84 10:12, =
+Jonathan Cameron <jic23@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> On Sat, 19 Sep 2026 03:24:40 +0900
+> Jinseob Kim <kimjinseob88@gmail.com> wrote:
+>
+> > Document the supported OSF receiver profile, runtime sensor discovery,
+> > IIO channel units, scale validation and session lifetime.
+> >
+> > Link the project-maintained fixed wire specification instead of
+> > duplicating its layouts and compatibility policy. Explain host IIO
+> > timestamps and the explicit rebind needed after a changed inventory.
+> >
+> > Assisted-by: LLM
+> > Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
+>
+> Hi Jinseob,
+>
+> Just a couple of minor things inline.
+>
+> Thanks,
+>
+> Jonathan
+>
+> > ---
+> >  Documentation/iio/index.rst              |  1 +
+> >  Documentation/iio/open-sensor-fusion.rst | 77 ++++++++++++++++++++++++
+> >  MAINTAINERS                              |  1 +
+> >  3 files changed, 79 insertions(+)
+> >  create mode 100644 Documentation/iio/open-sensor-fusion.rst
+> >
+> > diff --git a/Documentation/iio/index.rst b/Documentation/iio/index.rst
+> > index b02b879b053a..c2b7963348fd 100644
+> > --- a/Documentation/iio/index.rst
+> > +++ b/Documentation/iio/index.rst
+> > @@ -40,4 +40,5 @@ Industrial I/O Kernel Drivers
+> >     adxl345
+> >     bno055
+> >     ep93xx_adc
+> > +   open-sensor-fusion
+> >     opt4060
+> > diff --git a/Documentation/iio/open-sensor-fusion.rst b/Documentation/i=
+io/open-sensor-fusion.rst
+> > new file mode 100644
+> > index 000000000000..03ab36aca5f8
+> > --- /dev/null
+> > +++ b/Documentation/iio/open-sensor-fusion.rst
+> > @@ -0,0 +1,77 @@
+> > +.. SPDX-License-Identifier: GPL-2.0-only
+> > +
+> > +Open Sensor Fusion
+> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > +
+> > +Open Sensor Fusion is a sensor aggregation hub interface. The Linux II=
+O driver
+> > +receives device-to-host frames over UART and discovers sensor channels=
+ from
+> > +capability reports. Device Tree describes the hub using the
+> > +``opensensorfusion,osf`` compatible; individual sensors are discovered=
+ at
+> > +runtime. See the binding in
+> > +``Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml``.
+> > +
+> > +The OSF Device-to-Host 0.0 specification is maintained by the Open Sen=
+sor Fusion
+> > +project. The canonical specification_ defines the wire layout, compati=
+bility
+> > +rules, reserved fields and physical units. This document describes the=
+ Linux
+> > +receiver profile and its mapping to IIO.
+> > +
+> > +.. _specification: https://github.com/opensensorfusion/opensensorfusio=
+n-protocol/blob/ca9cdea1ae550c2b4d6f29f87877adae99470744/spec/osf-d2h-0.0.m=
+d
+> > +
+> > +Supported receive profile
+> > +-------------------------
+> > +
+> > +The driver supports the fixed OSF0 frame layout with protocol major ve=
+rsion 0.
+> > +Compatible minor versions use the same known message layouts. The deco=
+der
+> > +requires exact lengths for known messages, validates CRC and bounds be=
+fore
+> > +interpreting payloads, and tolerates reserved padding. Unsupported maj=
+ors and
+>
+> If you spin again "Unsupported major versions and.."
+>
+> > +unknown message types are ignored. Unsupported capability entries are =
+skipped
+> > +individually. A CRC-valid application rejection consumes the complete =
+frame;
+> > +an invalid frame candidate is resynchronized without trusting its payl=
+oad length.
+> > +
+> > +The receive path handles sensor samples, complete capability reports a=
+nd
+> > +device status. Its limits are 4096 bytes per frame and 16 supported se=
+nsor
+> > +descriptors. These are implementation limits, not protocol-wide maxima=
+.
+> > +
+> > +IIO mapping
+> > +-----------
+> > +
+> > +The supported sensor classes map to:
+> > +
+> > +* accelerometer: ``IIO_ACCEL`` X/Y/Z, in m/s^2;
+> > +* gyroscope: ``IIO_ANGL_VEL`` X/Y/Z, in rad/s;
+> > +* magnetometer: ``IIO_MAGN`` X/Y/Z, in gauss;
+> > +* temperature: ``IIO_TEMP``, in millidegrees Celsius.
+> > +
+> > +Each registered channel exposes signed ``RAW`` data and descriptor-der=
+ived
+> > +``SCALE``. Multiplying RAW by SCALE gives a value in the channel's IIO=
+ unit.
+> > +Buffered samples use signed 32-bit values with native CPU endianness. =
+Active
+> > +channels are packed into the scan, with initialized padding before an =
+optional
+> > +64-bit timestamp.
+> > +
+> > +Discovery and session lifetime
+> > +------------------------------
+> > +
+> > +The driver validates all supported descriptors before registering IIO =
+devices.
+> > +An empty or entirely unsupported initial report leaves discovery open =
+for a
+> > +later supported report.
+>
+> So if the device can send multiple discovery reports, this implies if we
+> recognise something in the first one we will stop looking at later ones?
+> That seems odd given if we don't recognise anything we keep looking.
+> If I'm reading too much into this text, then please tweak it to make
+> it clear why this doesn't matter.
+>
+> > Supported descriptors must advertise a nonzero scale.
+> > +A sample's channel count, format and scale must match its registered d=
+escriptor
+> > +before it can update the latest RAW cache or be published to a buffer.=
+ A
+> > +rejected sample preserves previously accepted data.
+> > +
+> > +Repeated reports are compared by sensor type and index, independently =
+of entry
+> > +order. Reserved padding, advisory flags and unsupported additions do n=
+ot change
+> > +the supported inventory. A supported key appearing or disappearing, or=
+ a
+> > +change in its channel count, format or scale, faults the bound session=
+.
+> > +
+> > +After a session fault, new cache updates and buffer publication stop, =
+and
+> > +direct RAW reads fail. Existing IIO devices remain until driver teardo=
+wn.
+> > +An equivalent report does not clear the fault; explicit unbind/rebind =
+starts
+> > +fresh discovery. No fault-specific userspace ABI is exposed.
+> > +
+> > +Timestamps
+> > +----------
+> > +
+> > +Buffered samples use the selected IIO host clock when they are pushed =
+into
+> > +the buffer. The device timestamp is not correlated with that clock and=
+ is not
+> > +used as the IIO buffer timestamp. Device timestamp or sequence discont=
+inuities
+> > +alone do not start a new host session.
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 9463b8111d52..26b9b2862724 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -20515,6 +20515,7 @@ OPEN SENSOR FUSION
+> >  M:   Jinseob Kim <kimjinseob88@gmail.com>
+> >  S:   Maintained
+> >  F:   Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml
+> > +F:   Documentation/iio/open-sensor-fusion.rst
+> >  K:   opensensorfusion
+> >
+> >  OPENCOMPUTE PTP CLOCK DRIVER
+>
