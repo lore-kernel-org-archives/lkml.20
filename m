@@ -1,119 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F2F2367DF;
-	Sun, 20 Sep 2026 12:38:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4848243956;
+	Sun, 20 Sep 2026 12:40:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789907905; cv=none; b=Gjv5S/LlQy0kZ1zCHyH17nkbkyuuZZc/Pqx6TZbysU1W5S3ifvuAekGC6AGam6lJVuQvneEtnzXthYVJX0t5FM8XhOKMp/iDz71P6XvVh6MTUt5tUasTIGGr7EtDAa9/mbxoDSm4+J4tGbqPKIitfLSmzmBugjiPCQShyPj8GX0=
+	t=1789908021; cv=none; b=m6/FM04hp0QfBE4aqi3+HgLZauqKfkmQeQzniFfpvtCQs75PrdSqXiTt7Hl4PQqe8UdiKXwQS9l3/kvKA4tdOd832K2tmKDBgL7vLstca2QjoQXyQzaxQf12r54QM6iPjpdk/esEtIdSr5IYxxY7E32W1XFIxEO8392l9omDGkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789907905; c=relaxed/simple;
-	bh=F9irZJ9iiXbkD2B+ufb3Czj8bFKUPpXkRK8Y2Rf+XKE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=nHiQI3rfR2Eg9zICc70CAdea8janlf+I6P3EY8r+GsJw6gJxHhdQpqvhyei0LehfV2Hmdt4jWr8RNlLfjPqBpecidsDFylBw7QSW/KJ61rOQVtd9COqyXMR0xqIguj4otfsFBNjXKoQ9Q2gn2dWcZUtWBssbj4mq9+XbGI22YsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hbrKBqD0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789908021; c=relaxed/simple;
+	bh=2lZ0FNhKn7cEubtY88TaOXEdpfCwGad+8ytGFvIbZwE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uBsdLDN9Hr/2kYl9hJYZ+rB3Txi2ZuqdFG94wJSeYC1axj1VR9dwEM8OtCAovKmq8ggABeUpyMDwRImDDzGMZv++iOmssCB6e5GgrpHqOfWMbOQaTWNMGhWy8Gt/hGq4pekaDDdrReU5NcyTyygb3szHslRSFgyXTwDiOX7bd80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L5YMptaF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hbrKBqD0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 289931F00898;
-	Sun, 20 Sep 2026 12:38:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L5YMptaF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD8D71F000FF;
+	Sun, 20 Sep 2026 12:40:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789907895;
-	bh=F9irZJ9iiXbkD2B+ufb3Czj8bFKUPpXkRK8Y2Rf+XKE=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=hbrKBqD0FhxIZQE/81wfWKKswIsiTJiNLjz343PELPZNqOAucEk3T4u+zqA0G34gg
-	 9NINa1MukOV238d0vd77TbKhJ6t/jPEbBWNaEU5KDtHAlryk8UZ5nms4nQKkdzB90+
-	 FtfhlPIm7x2OFLOxhB2QmTFHIIlDE+3P3rLZNbZLtU5Pgq0/B/ckJDdvlqlrqBeyq/
-	 +8iOKPGB6V9vnYAUxzQZPoptEeg3YIcBNgmirfRVV8aSue+G4Mq8iGI9hFucVZm0Ow
-	 Xcakz0ulk6EhWeh2bz+VEOwIxZAHTxU6ZlXtNZ9BFHbnpXbIRgjzkeW/ij0shBKq/r
-	 XR83fl/13SxwQ==
+	s=k20260515; t=1789908003;
+	bh=peWjRymtPXmQsQX1GH6pRekwMOJX0iwDy1XFg+jsg+Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=L5YMptaFKqtjqb/NeHqaLdXDE4x29W47jZaXTWjpzv8Av3q54uaohccVT8h5yrkJD
+	 nwsWht7XBncvpuIUYBEJFeq4HOacwNJbTaSq2qnvOephOf9USt43zi+cTCpvE3ZdQj
+	 8VPxgytE5wpLkHED58YBEfBnv5P8uha5wfykYAnevijU85TlVK31KTW9SploSwvPmP
+	 wwUw4JdDZl5NPYe9RfPGDyLjxSu+G78P+wDe/AjBOTqrJSFx0p0qtrm8DkfFzdmu/i
+	 7aBSdawx3CEV8JSsamd4+qoQFbjgm/ZzWutE8+4APSvQpOcD+OLte6QsW86NAvOr78
+	 taZhW/dIKKX2w==
+From: SJ Park <sj@kernel.org>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] mm/damon/core: prevent size quota overflow in the temporal goal tuner
+Date: Sun, 20 Sep 2026 05:39:58 -0700
+Message-ID: <20260920123959.48279-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260920122430.610257-1-donggeunyoo.kernel@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 20 Sep 2026 14:38:09 +0200
-Message-Id: <DLK5E4VWQNU7.1K3YYYCZO2WRY@kernel.org>
-Subject: Re: [PATCH v3 1/3] rust: num: add cv! macro to create values from
- constant expressions
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260902-cv-v3-0-0f90659e711d@nvidia.com>
- <20260902-cv-v3-1-0f90659e711d@nvidia.com>
- <DLFPWSS3LZSN.12G96EM0FI18C@nvidia.com>
- <DLHGQN9VQ3TE.JYI851RVF7VD@garyguo.net>
- <DLIN1ZH244ZA.3JVCE0YKWAQ6B@nvidia.com>
- <DLK50D524P11.3CZN924YW8HHQ@garyguo.net>
-In-Reply-To: <DLK50D524P11.3CZN924YW8HHQ@garyguo.net>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sun Sep 20, 2026 at 2:20 PM CEST, Gary Guo wrote:
-> On Fri Sep 18, 2026 at 7:03 PM BST, Alexandre Courbot wrote:
->> On Thu Sep 17, 2026 at 9:53 AM BST, Gary Guo wrote:
->>> On Tue Sep 15, 2026 at 8:39 AM BST, Alexandre Courbot wrote:
->>>> On Wed Sep 2, 2026 at 6:16 PM JST, Eliot Courtney wrote:
->>>>> Currently, using NonZero/Bounded constants is quite verbose. It's
->>>>> unfortunate because it disincentivizes using it in interface boundari=
-es.
->>>>> Introduce a macro to make it nicer to use. The macro `cv!` (for const=
-ant
->>>>> value) takes a const integer expression and widens it to i128 (at bui=
-ld
->>>>> time only) before passing it as a const generic value to a new trait
->>>>> `FromConst`. The value is then converted and appears in the
->>>>> associated constant `FromConst::VALUE`. The trait is implemented by
->>>>> NonZero, Bounded, and Alignment and lets values of each be constructe=
-d
->>>>> from constants without a verbose turbofish syntax.
->>>>> For example, `const { NonZero::new(1).unwrap() }` can be written as
->>>>> `cv!(1)`.
->>>>>
->>>>> Suggested-by: Gary Guo <gary@garyguo.net>
->>>>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->>>>
->>>> I don't think we have any user but nova-core at the moment, and it
->>>> benefits from this in several series (patch 3 here, but also ID pool a=
-nd
->>>> later r000). Miguel, is this ok if we take it (i.e. the next revision)
->>>> through drm-rust-next?
->>>
->>> How about a topic tag shared between Rust and drm-rust-next? We could a=
-lso
->>> remove the old num casts API as part of topic tag and fix all existing =
-users as
->>> part of merge.
->>
->> Not opposed to the idea but IIRC there was already some pushback to the
->> idea. There doesn't seem to be an urgency to remove the old num casts
->> API that justifies doing it now with a more complicated merge path.=20
->
-> Sorry, what pushbacks? I thought that `cv!` is what everyone agrees on. I=
- see no
-> downside of this compared to the turbofish const conversion APIs.
->
-> I am not opposed to delaying removal for the next cycle, but IMO the `cv!=
-` macro
-> should be present on Rust tree so it's visible and improvements can be ma=
-de from
-> there, so I think we should do a topic tag regardless whether the old API
-> removal happens or not.
+On Sun, 20 Sep 2026 21:24:30 +0900 Donggeun Yoo <donggeunyoo.kernel@gmail.com> wrote:
 
-I think Alex refers to this thread [1]; there's was some more context to th=
-is
-though.
+> Thank you for the detailed review.
+> 
+> On Sun, 20 Sep 2026 03:37:13 -0700 SJ Park <sj@kernel.org> wrote:
+> > Let's break commit message lines with 72 columns limit.
+> 
+> Done in v3, here and in 2/3.
 
-[1] https://lore.kernel.org/all/DL0KDAXUZOXD.I8FBZZ51EIIF@kernel.org/
+Don't post a new version without ensuring the discussion on the current version
+is completed.  Also give time for others to chime in.  As a rule of thumbs,
+ensure all questions on the thread are answered, and give at least ~1 day since
+the last comment on the thread before posting a new version.
+
+I will not review the v3.
+
+> 
+> > Why 256 MiB, not 429,496 bytes?
+> 
+> They are two different numbers.  429496 is where the multiply starts
+> to wrap, and every size above it is wrong.  256 MiB is where the
+> wrapped value lands on exactly zero: 256 MiB * 10000 is 625 * 2^32, so
+> on 32-bit the product wraps around 625 times and ends at zero.
+
+So 256 MiB means nothing special, isn't it?  Why you mention it?
+
+> 
+> > So, the way to work around is updating the size quota to smaller value,
+> > correct?
+> 
+> Correct.  v3 says so.
+> 
+> > But why a sane user would set such huge number?
+> 
+> They would not, which is why v3 no longer argues the 64-bit case in its
+> own paragraph.  The threshold is now stated once, as part of what it
+> takes to reach the bug: above ULONG_MAX / 10000, which is 429496 bytes
+> on 32-bit and 1844674407370955 on 64-bit.
+> 
+> > Because this patch Cc stable@, let's make super clear about the user
+> > impact [...]
+> 
+> v3:
+> 
+>   Triggering this needs a scheme with a quota goal, the temporal goal
+>   tuner, and a size quota above ULONG_MAX / 10000 -- 429496 bytes on
+>   32-bit, 1844674407370955 on 64-bit -- so it is unlikely to be hit on
+>   a tested setup.  Nothing is corrupted and nothing leaks.  The scheme
+>   makes no progress for as long as the goal is unachieved, which is
+>   easy to notice, and writing a smaller size quota restores it.
+
+Let's put "The scheme makes no progress ..." before "so it is unlikely ...".
+
+> 
+> > > Bound the conversion, so a size quota it cannot represent falls to the
+> > > ULONG_MAX the function already writes for a scheme with no size quota.
+> >
+> > I don't understand the above sentence.  Is the grammar correct?
+> 
+> You are right that it is hard to read.  The sentence was too long and
+> tried to say two things at once.  v3:
+> 
+>   Bound the multiply.  A size quota too large to convert now takes the
+>   same ULONG_MAX branch as a scheme with no size quota, so the
+>   effective quota becomes ULONG_MAX / 10000 instead of a wrapped value.
+
+Seems unnecessarily verbose.  I'd suggest keeping only the first sentence.
+
+> 
+> > > Widening esz_bp instead would reach the consist tuner [...]
+> >
+> > I don't quite understand above.  could you please elaborate?
+> 
+> Sorry, that paragraph was not clear.  It was meant to explain why I did
+> not simply widen the type.
+> 
+> The other way to fix the overflow is to make esz_bp wider than unsigned
+> long, u64 for example.  But esz_bp is not used only here.  The consist
+> tuner keeps its own value in the same field, and
+> damos_goal_tune_esz_bp_consist() passes it to
+> damon_feed_loop_next_input(), which takes unsigned long and returns
+> unsigned long.  So widening esz_bp means widening that function too,
+> and the consist tuner would change for a problem it does not have.
+> Bounding the multiply is one line, and only the temporal tuner is
+> touched.
+> 
+> I dropped the paragraph in v3.  It argues against a fix nobody
+> proposed, so it only makes the changelog harder to read.
+
+Yes, let's drop it.
+
+
+Thanks,
+SJ
+
+[...]
