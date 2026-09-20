@@ -1,126 +1,86 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF9746E005;
-	Sun, 20 Sep 2026 17:07:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CCDA46EF9E;
+	Sun, 20 Sep 2026 17:09:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789924061; cv=none; b=ioQYfqSNKCB9SJ2tmaUXr1jgT+NMalrmreWxWdVRjjacExqpld3O/5PzNbzzJtyuUjykPu/y0JPpL5uud11eFq7ECKRl6VSrcx+Q7EIJA9dr7QYpShe6J6LlvdCMpLWPw/NZ/lBLGLgzmzrgQcCj1l+7zXMuBuOPwnx3dfCTgGc=
+	t=1789924142; cv=none; b=PzJc+5j8fVBVxV0x5hEc6oaWCLNzyeo2FcWgivCYY60uhCRCbvWFeeuc4qcSOqYk5CrleMi9hni0UeKsthep6HJq/yVxVf0ExcJyOaeVdpBjSQJI857ywQ4e0C1FO49PsRE6QLwgd0P5R7g4Pl449uVDDtHx52SudBi92WHbNRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789924061; c=relaxed/simple;
-	bh=++7cKn5dPLEoCOGhGWoB/T8i+KYlJXPfpJyNEaynf8g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N6pXj6xHJUcMeoz3fNeHN0LDQo+dHy7EWitRleDhQa79rbAmWoQaEvwyVCETQOxi9Wlz6W+5QwbS3L2Dyxa0tLpWzbXxbr2Y5I5pEUxrKTNSktj/n2dYgZy46UdjppeHnbwEwuSKZPVc+wFnW82qg6nT9D3XkhmREVtpozk1E+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=LswdCCLG; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789924142; c=relaxed/simple;
+	bh=Cz8aAEHCET7PDGGZmUWTpZ615Ysgq5x24VBlftyT804=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Yj9ikXysrAV2dRh16uMZSV6wGPSBM6KeyvTIWUdlw8KyAaY/PdKDSmfBcD5gY+S0F5dy2d64pm/Y+jqdZeID4NGWYaOcdWK8baboYXly3HY2kikYQYBrHpuPMktG8E3ou0139dC0ZHmtgeLnWBTrxcFLfPmcn5fzvlLbIISUPco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fn6OROla; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="LswdCCLG"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=SRR6GWm8VvaCpKgQykY2MiSoqyYUd1GFMV1rrWkJ4JI=; b=LswdCCLGZ/fMTQ3fP37RE0xKmP
-	tWLPS26CI1aHU7OSJLo4czeq1buGrq1SP4843QH/8q7GydxdJRJ5FarpIzBqSKJ98gU2TQc0oQwGy
-	FY+BYRxWt7Lee6y7s9AFMUxX5aVGPlNmmDATqZIjBxpHEmBB2Dit1Azv1/G9/Qn+g4cQ=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x8L0d-006BGL-FN; Sun, 20 Sep 2026 19:07:23 +0200
-Date: Sun, 20 Sep 2026 19:07:23 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: jan.petrous@oss.nxp.com
-Cc: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Bogdan Hamciuc <bogdan.hamciuc@nxp.com>,
-	Ionut Vicovan <ionut.vicovan@nxp.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Clark Wang <xiaoning.wang@nxp.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Chester Lin <chester62515@gmail.com>,
-	Matthias Brugger <mbrugger@suse.com>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	imx@lists.linux.dev, linux-pci@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Alexandru-Catalin Ionita <alexandru-catalin.ionita@nxp.com>,
-	Bogdan Roman <bogdan-gabriel.roman@nxp.com>
-Subject: Re: [PATCH RFC v3 05/12] net: pcs: Add NXP S32G XPCS driver
-Message-ID: <c2c4dbc4-e6b4-47a0-9852-d116c6d21f89@lunn.ch>
-References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
- <20260919-s32g_serdes-v3-5-9d68868c1e89@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fn6OROla"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9D291F000FF;
+	Sun, 20 Sep 2026 17:08:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789924140;
+	bh=G0AIexTylDQKGyj0LYzgTbOpm1KgvzAAkXzvOx31f2g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Fn6OROla21N5vjU8yxB0ipK+L2QWLIs+pLIPLYjCgzSWZcnru7Ced/fczNV7D/yfM
+	 ntMcDxlhN23If1SiIAUFvoUa6H2YCoK33Q8VXDpUgFZwD7CaBtv+gJVGePod51Tu5O
+	 g1xboPxdzICBnC3n7AjHu5pBqOprJtyT6vxmMY71Z8j/IxRIQXB84t7M9t2S/1Z+pa
+	 DkC8LMDCoFVrie9BJA86PWHj6Msnyx2OBohJ4CffuiyOmEJ2sc1n/vMY7c+NJQ62G9
+	 /0xWHvbmM+CyrOvBOLA5R0PBqU7EZlI38sv0OKNVr4fdiYXoL5cXEpZw4MjAs2vcL4
+	 8ypTpYg2EwvNg==
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Sam Protsenko <semen.protsenko@linaro.org>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Alexey Klimov <alexey.klimov@linaro.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-samsung-soc@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] Initial support for Exynos850 SoC in ACPM clk driver
+Date: Sun, 20 Sep 2026 19:08:51 +0200
+Message-ID: <178992412361.36366.5238549762792308688.b4-ty@b4>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260915-exynos850-acpm-clk-v2-0-ffad4a6b3fb1@linaro.org>
+References: <20260915-exynos850-acpm-clk-v2-0-ffad4a6b3fb1@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260919-s32g_serdes-v3-5-9d68868c1e89@oss.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=858; i=krzk@kernel.org; h=from:subject:message-id; bh=7wplxD/oR2Nq2GI6TJ66Ky2oI7HWOdnf/PCgl2pYFVU=; b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqsBMkGN/1aHzqtAW7baGS4zy9XIqjJ5RNw4WEP hLIY3IhFoOJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCarATJAAKCRDBN2bmhouD 18RTEACCH5yxwdL9EGbg/5CYuO1NCNu4dDHyK42Gz0UpK2qh/KOiwbgMm3u0rj60fAvFizsDMga ntr0bAtKphpEG6Yjue2+5Zga+eq8aqAEVEr1u6RxwRA6YsG7b9PJz5fuCWNeiSaMdxR6lCf0g2C NkrOOpgrVnrx7cG6NuzuJuKIGXRw4UkvbQeWfJ3/1HAx/8M39a+7r1Po0xAqM24Y8UApbCcq0Kt B/Sh8Nt/Ph9RWlpGS2JnfilHfrx1q49ybout397QMeyRQiqrXw4Tvk392L4ShhT6FjuWJYWG2uz VUWrL7SneWNrvzAZQI60T7CNFdMUezGlfpML7K+EmPgQsJITMZxAx3U8AacCOtj0AXbMiya4UKO uVuhRaPp6go2LRiJy+mbwEUxTrPWHE22XwNMQvMxWyuMXJgMMfXrrcmcKconZKS2pqMpZtwrEYK a9Do2lfb3/+9ZWuZwuLQJKfAGkhiwAUXse8uY8uNVupqTvWWn6O638cw8IgruW1TVzAfbKPivub ynKk5G1cuMLjiqllOc7AtKAyJHTnNdl2IjRACBxSa4gLzKNiEXVdCZCmOfzaSeqLLDkRRomgh7f Qzi3HTb/cqEnRB/bV71QkVkpWYwkHfqvRpjr0v+BbSm/yYxujN4GZChVsAkcBR3//5SaKxlxpM3 Gwv9GEzqSopgwL
+ w==
+X-Developer-Key: i=krzk@kernel.org; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
 
-> +#define SR_MII_CTRL				0x1f0000
 
-This is 0x1f0000 + MII_BMCR
+On Tue, 15 Sep 2026 00:05:42 +0100, Alexey Klimov wrote:
+> This series adds support for the Exynos850 SoC to the Samsung ACPM clock
+> driver.
+> 
+> Currently, the driver hardcodes the GS101 clock variants directly within
+> its probe() routine. To cleanly support Exynos850 (and potentially other
+> SoCs that utilize the ACPM protocol in future), this series first
+> refactors the driver a little bit to be SoC-agnostic, and then wires up
+> the new Exynos850 data.
+> 
+> [...]
 
-> +#define   SS13					BIT(13)
+Applied, thanks!
 
-#define BMCR_SPEED100           0x2000  /* Select 100Mbps              */
+[1/2] clk: samsung: acpm: introduce driver data for SoC-specific clocks
+      https://git.kernel.org/krzk/linux/c/802a1a97c41dff82a557223f7a43655fc02920bd
+[2/2] clk: samsung: acpm: add Exynos850 support
+      https://git.kernel.org/krzk/linux/c/13634cde9771811488847ef76cd64a785599fdb5
 
-> +#define   AN_ENABLE				BIT(12)
-
-#define BMCR_ANENABLE           0x1000  /* Enable auto negotiation     */
-
-> +#define   RESTART_AN				BIT(9)
-
-#define BMCR_ANRESTART          0x0200  /* Auto negotiation restart    */
-
-> +#define   DUPLEX_MODE				BIT(8)
-
-#define BMCR_FULLDPLX           0x0100  /* Full duplex                 */
-
-> +#define   SS6					BIT(6)
-
-#define BMCR_SPEED1000          0x0040  /* MSB of Speed (1000)         */
-
-> +#define SR_MII_STS				0x1f0001
-
-This is 0x1f0000 + MII_BMSR
-
-> +#define   LINK_STS				BIT(2)
-
-#define BMSR_LSTATUS            0x0004  /* Link status                 */
-
-Please go through all these register definitions and throw out all the
-ones which follow 801.3 and use the values from include/uapi/linux/mii.h
-
-    Andrew
-
----
-pw-bot: cr
+Best regards,
+-- 
+Krzysztof Kozlowski <krzk@kernel.org>
