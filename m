@@ -1,121 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-243.mta0.migadu.com [91.218.175.243])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF61C42E401;
-	Sun, 20 Sep 2026 11:42:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591653ED11D
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:50:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789904577; cv=none; b=D25FMImkP2QeSMAMFIC2/RlO3LSXIKUrdydFQ/ULGc7hmy9gElzZ3TE5Pr56k8kVvcHipWBc2Hti70rhdHDbUbm+Z7xLjMowbhMKXAzYBU7VyLYr9qsnJ1cNVsGZ2fy4WUqaeMt1CmPn/UB0x7oZCWSzrtLa1MMDaf3Isbz1/Ac=
+	t=1789905006; cv=none; b=tHFxNOhvPlE/M++2ie63A9OZo+5N28v+h/WpXkgENkGl1dygvAuuR4bKuoxyEOK173n/EFy4kr+TgBqKcmLu2znNvuw3feBeX7AOmdxxgbiSymn0mSx327Eohwv7iBgRBZ30sw2HAsdZA7lqgw+lAPMykASKO8M9wv6nggrm+t8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789904577; c=relaxed/simple;
-	bh=riGlHG++DL8f0DnvaJ2KRuj/96+VOlrVeHQ7nm4g8CI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Lin2sbAfTYSzb8Y6/dtiEHE0RXTnvKNs7TtI2t4RpcWXaGADw9vQC/g2fCZF4K+OdwDlGjrMG21aAgyZPOSYN9g6g0qkEwJlsJlI7YyAgZv7yIdlmO3E++5MZ12CfmATEjYhNBj9Ac9tp4WQyiJ+nIslX9KZcxKmRNIrtJIyqEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PoGh9Arc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789905006; c=relaxed/simple;
+	bh=KH7FktkdMcieqHaTaKksUq53Yjn6UUlgcItyieml+Bw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VNwMoQ8GG0BJQ//zoP8cuej6YyS0g2CvsUksMIur4AwTgbIdx03Q8iBPkUkR9j2VfGnHAIf4CzQPOXJg3frXn9dxovEaGqyWarcXHJlndqDYHDagJjkK0l9Kz/BefeKidS1BgGQbtbxw9Co1lEdwEVTd/qZD522nXEiMVH4Wr7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hmAT4QVU; arc=none smtp.client-ip=91.218.175.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PoGh9Arc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57CB01F00893;
-	Sun, 20 Sep 2026 11:42:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789904575;
-	bh=s9hM+k8hMa1R4u6jdfPzKiE4L3rfw69xZAFpd6/U+Zg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PoGh9ArcYHh6zXNr/LygdppEE41Db17kxr5t8DdpKSiAmGcvrNfiIokCmXawiSfgM
-	 Hku+cxQAisaRVymDGpXIo3meEk+bOR2g+Y8aLtNmYxus8IwnLKNDcdCfeOGfpUAhKb
-	 qg3DXxavmZka1Wpk5hk3AzrKJd30UoX4QkJZaYjeiG7YyoC73R736Zf+VPco5sxyqZ
-	 7yyzoTpNQaSFpcz9B8xtmt4zInIak96Jr+dPLsMf3PpVjYkdKBLbKPlS/ZSi2KdJmB
-	 QwQiMhcXSYtwK3//ZBexba+fRUsUAsieD8tve6cl17Yql9bVvOorZZC4N0wazzUl1c
-	 b1Nj4vFiXfdmQ==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Alex Williamson <alex@shazbot.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org
-Subject: [PATCH v7 18/19] RDMA/uverbs: Hand out the P2PDMA provider behind a dma-buf
-Date: Sun, 20 Sep 2026 14:41:30 +0300
-Message-ID: <20260920-fix-p2p-acs-v4-0-v7-18-ca0828ab697c@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
-References: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hmAT4QVU"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KH7FktkdMcieqHaTaKksUq53Yjn6UUlgcItyieml+Bw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789905003; v=1; x=1790509803;
+ b=hmAT4QVUpiiw1eL44wj0U2wQWpSIppl0qpeDcEurVf8uG3ffx4wF2m2rg00eaIVtLBeTqxLT
+ lSnfqLSJC/BqespoR8Fv4PSpbmckvSYppjMiNs0wKz/MOhWOAb1w2Ijd40oPypJ6vGrGdsIWWK7
+ jrPuq8W/RrPzyobF8LvnQSw8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 897b13857ccdc661;
+	Sun, 20 Sep 2026 11:49:52 +0000
+X-Mizu-Trace-ID: 897b13857ccdc661
+X-Migadu-Flow: FLOW_OUT
+From: Qingfang Deng <qingfang.deng@linux.dev>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+	Markus Elfring <elfring@users.sourceforge.net>,
+	Kees Cook <kees@kernel.org>,
+	linux-ppp@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: kernel test robot <lkp@intel.com>,
+	Dan Carpenter <error27@gmail.com>
+Subject: [PATCH net] ppp_synctty: remove redundant skb null check in ppp_sync_txmunge()
+Date: Sun, 20 Sep 2026 19:49:43 +0800
+Message-Id: <20260920114945.2517-1-qingfang.deng@linux.dev>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
 Content-Transfer-Encoding: 8bit
 
-From: Leon Romanovsky <leonro@nvidia.com>
+The skb is already dereferenced before the check. In addition, a TX skb
+passed from the generic layer can never be null.
 
-An importer attached to a uverbs dma-buf cannot tell whether its
-peer-to-peer traffic would reach the exported memory directly, because the
-&struct p2pdma_provider describing it stays in ib_uverbs_dmabuf_file.
+Remove the redundant null check.
 
-Implement @p2pdma_provider so dma_buf_p2pdma_map_type() can reach it, and
-refuse once the buffer is revoked and the memory it described is gone.
-
-Tested-by: Tushar Dave <tdave@nvidia.com>
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <error27@gmail.com>
+Closes: https://lore.kernel.org/r/202609132245.txZXoUxc-lkp@intel.com/
+Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
 ---
- drivers/infiniband/core/uverbs_std_types_dmabuf.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/net/ppp/ppp_synctty.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/infiniband/core/uverbs_std_types_dmabuf.c b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-index 2411ebee69e2..5a6a1ee430a7 100644
---- a/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-+++ b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-@@ -76,6 +76,17 @@ static void uverbs_dmabuf_release(struct dma_buf *dmabuf)
- 	uverbs_uobject_release(&priv->uobj);
- }
+diff --git a/drivers/net/ppp/ppp_synctty.c b/drivers/net/ppp/ppp_synctty.c
+index 9e440e110e9f..b90ae0583c84 100644
+--- a/drivers/net/ppp/ppp_synctty.c
++++ b/drivers/net/ppp/ppp_synctty.c
+@@ -464,7 +464,7 @@ ppp_sync_txmunge(struct syncppp *ap, struct sk_buff *skb)
  
-+static struct p2pdma_provider *
-+uverbs_dmabuf_provider(struct dma_buf *dmabuf)
-+{
-+	struct ib_uverbs_dmabuf_file *priv = dmabuf->priv;
-+
-+	if (priv->revoked)
-+		return NULL;
-+
-+	return priv->provider;
-+}
-+
- static const struct dma_buf_ops uverbs_dmabuf_ops = {
- 	.attach = uverbs_dmabuf_attach,
- 	.map_dma_buf = uverbs_dmabuf_map,
-@@ -83,6 +94,7 @@ static const struct dma_buf_ops uverbs_dmabuf_ops = {
- 	.pin = uverbs_dmabuf_pin,
- 	.unpin = uverbs_dmabuf_unpin,
- 	.release = uverbs_dmabuf_release,
-+	.p2pdma_provider = uverbs_dmabuf_provider,
- };
+ 	ap->last_xmit = jiffies;
  
- static int UVERBS_HANDLER(UVERBS_METHOD_DMABUF_ALLOC)(
-
+-	if (skb && ap->flags & SC_LOG_OUTPKT)
++	if (ap->flags & SC_LOG_OUTPKT)
+ 		ppp_print_buffer ("send buffer", skb->data, skb->len);
+ 
+ 	return skb;
 -- 
-2.55.0
+2.34.1
 
