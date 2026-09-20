@@ -1,78 +1,126 @@
-Received: from out28-101.mail.aliyun.com (out28-101.mail.aliyun.com [115.124.28.101])
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C930233134;
-	Sun, 20 Sep 2026 02:52:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D42913BD62F;
+	Sun, 20 Sep 2026 02:52:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789872751; cv=none; b=RsYMv1PwMnoByjgtnmqqjF1dk7X1n6lvjow9G6JF8sElMEWL4xQBy0NkUJhCAxGeRi3J9foQEbh8vD7RUnM74VUgtEshhvSywQcKR9iesIwG5O7myk17US//HEPTMD0lSPADW4YYtbs3RBtMgYiqmsmj9CgP7hLDjF4cB4DxWRo=
+	t=1789872754; cv=none; b=pMUF65cPDxoY+1AtmrqhtWLlnycIq4nVFfhqDg5x3GmbwZvcYmD7uLY+oaPO7bC9DPzl3Jisra4ZQetaVMgIesFQkNtFXWjuvrK99nRnUmu6f/s0XfJOO0AScDQvsDkdgG5rbWmP08jEJR2H/H7vkCmFKwVim8t3yZg1W9cxqPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789872751; c=relaxed/simple;
-	bh=Ce2u0hqKcwLOve3UfRfzdJzS9nPp2PpK0WL5gWGvjhY=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=YjIjjzU7h2lTfu8RooEf1uJpAMVD+MhfH4DBuBkHQBi/aRdj2S+yQGnbzyphpVJ5SCdwAn9F70YiH0wtwzIgqs07H33ThxWY1sepSg/hRBeqflClkYzjbSRN+KUXT8f2z7ECTS1EnlcctvjMUmA1/ywegoWmORJmtoHx0X75hM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1046899|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0365619-0.00717008-0.956268;FP=7332737672707408792|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032053168;MF=fuhao@open-hieco.net;NM=1;PH=DS;RN=17;RT=17;SR=0;TI=SMTPD_---.jHm56Jf_1789872728;
-Received: from 172.25.21.212(mailfrom:fuhao@open-hieco.net fp:SMTPD_---.jHm56Jf_1789872728 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Sun, 20 Sep 2026 10:52:17 +0800
-Message-ID: <114fd759-07c4-4001-b20f-517e596ebe25@open-hieco.net>
-Date: Sun, 20 Sep 2026 10:52:07 +0800
+	s=arc-20240116; t=1789872754; c=relaxed/simple;
+	bh=QXb/cV89VsaP/9zRd2dab8d7D+flttke5bcHo40KykA=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Oj1fGP/nq1J5SANiNj8G4HFcJA2ymZLREcla8H0qiHiBOGeuDSuKGOb70W8u1tZjqkzI7ZuvxkB6sRS4aBcWPd0ou33Z5V4sEt917kleOGrX4aOsDpLIezEVKu3MrDJp3jOAcfktPvwl9XkZIbg7jnzqYDoP1UwAf6MXk4of2HI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=h-partners.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=cKUwYex9; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=h-partners.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="cKUwYex9"
+dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=XTqWSSuBf9KtefvaLEkU3prx7X2Sj4g8zqOqV2yeZww=;
+	b=cKUwYex9nJ/5e313I3ljvFa+LoWUB+dJuOSv4Vq/HtsEiZi1Ims4sF7aJ8lGEDDL5VV2pRn37
+	rlMJ8Kucnb7chx/6GBvb0q/Dacrl32bUouIGz94VqhNUlqRf9KH8PMv9RS4gyeMfBI9L8o0y9eX
+	k7P9zfpFfRdBU6JujHsMANk=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hnVvx0f6dzpStW;
+	Sun, 20 Sep 2026 10:40:29 +0800 (CST)
+Received: from kwepemr100001.china.huawei.com (unknown [7.202.195.168])
+	by mail.maildlp.com (Postfix) with ESMTPS id 389F820333;
+	Sun, 20 Sep 2026 10:52:21 +0800 (CST)
+Received: from huawei.com (10.50.159.234) by kwepemr100001.china.huawei.com
+ (7.202.195.168) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 20 Sep
+ 2026 10:52:20 +0800
+From: xietangxin <xietangxin@h-partners.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, Jason Wang
+	<jasowangio@gmail.com>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, huyizhen
+	<huyizhen2@huawei.com>, gaoxingwang <gaoxingwang1@huawei.com>, xietangxin
+	<xietangxin@h-partners.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH net v2] net: tun: fix race condition between tun_attach and tun_get_user with XDP
+Date: Sun, 20 Sep 2026 11:02:40 +0800
+Message-ID: <20260920030240.443223-1-xietangxin@h-partners.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Fu Hao <fuhao@open-hieco.net>
-Subject: Re: [PATCH v5 4/5] perf/x86/uncore: Add L3 PMU support for Hygon
- family 18h model 6h
-To: Sandipan Das <sandipan.das@amd.com>, peterz@infradead.org,
- mingo@redhat.com, acme@kernel.org, namhyung@kernel.org, tglx@kernel.org,
- bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
- alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com,
- james.clark@linaro.org, hpa@zytor.com
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- tingyin.duan@gmail.com
-References: <cover.1788404433.git.fuhao@open-hieco.net>
- <d45936ac077e5a62dae6f40edcafa13644620ed5.1788404433.git.fuhao@open-hieco.net>
- <4240334a-621a-4ac3-91d3-294fddf1f05e@amd.com>
-Content-Language: en-US
-In-Reply-To: <4240334a-621a-4ac3-91d3-294fddf1f05e@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemr100001.china.huawei.com (7.202.195.168)
 
-On 9/17/2026 10:08 PM, Sandipan Das wrote:
-> On 04-09-2026 08:42, Fu Hao wrote:
->> Adjust the L3 PMU slicemask and threadmask for Hygon family 18h
->> model 6h processor.
->>
->> Signed-off-by: Fu Hao <fuhao@open-hieco.net>
->> Tested-by: Tingyin Duan <tingyin.duan@gmail.com>
->> ---
->>   arch/x86/events/amd/uncore.c      | 48 ++++++++++++++++++++++++++++++-
->>   arch/x86/include/asm/perf_event.h |  8 ++++++
->>   2 files changed, 55 insertions(+), 1 deletion(-)
->>
-> 
-> There was a proposal to have separate uncore PMU drivers for AMD and Hygon.
-> The latest version of that series can be found at
-> https://lore.kernel.org/lkml/20260818100118.12944-1-liuqi@hygon.cn/
-> 
-> Can these changes be adapted to that?
+Concurrent TUNSETIFF ioctls and write() operations on the same
+file descriptor can trigger a WARN_ONCE in netif_get_rxqueue():
 
-Hi Sandipan Das,
+  virt_tun0 received packet on queue 2, but number of RX queues is 2
+  WARNING: CPU: 2 PID: 5989 at net/core/dev.c:5494
+  Call trace:
+   bpf_prog_run_generic_xdp
+   netif_receive_generic_xdp
+   do_xdp_generic
+   tun_get_user
+   tun_chr_write_iter
 
-    Thanks for your guidance. I will implement the Hygon L3 PMU support
-on top of the Hygon uncore PMU driver (hygon_uncore.c) that is currently
-under discussion on the list, rather than growing the Hygon bits further
-inside the AMD uncore code. The goal is to finish the separation between
-AMD and Hygon for uncore PMU drivers.
+Because tfile->tun is published before tun_set_real_num_queues()
+updates dev->real_num_rx_queues. Concurrent tun_get_user() can
+observe the newly attached tun file and process packets with
+the new queue_index before dev->real_num_rx_queues is updated.
 
+CPU 0 (tun_attach)         CPU 1 (tun_get_user)
+tfile->queue_index = 2
+rcu_assign_pointer(tfile->tun)
+                           skb_record_rx_queue(skb,tfile->queue_index)
+                             do_xdp_generic()
+                               netif_receive_generic_xdp()
+                               bpf_prog_run_generic_xdp()
+                               netif_get_rxqueue()
+                               // index(2) >= real_num_rx_queues(2)
+                                 WARN_ONCE
+tun_set_real_num_queues()
+  dev->real_num_rx_queues = 3
+
+Fix this by moving rcu_assign_pointer(tfile->tun, tun) after
+tun_set_real_num_queues(). This ensures dev->real_num_rx_queues
+is updated before any concurrent packet processing path can observe
+the attached tun file.
+
+Fixes: 3fe260e00cd0 ("net: tun: record RX queue in skb before do_xdp_generic()")
+Cc: stable@vger.kernel.org
+Signed-off-by: xietangxin <xietangxin@h-partners.com>
+---
+v1 -> v2:
+- Defer publishing tfile->tun after tun_set_real_num_queues() instead of
+  moving numqueues increment, as suggested by Jason Wang, to prevent
+  potential TX packet drops.
+---
+ drivers/net/tun.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+index 5a302709a68a..2dfca25b86e9 100644
+--- a/drivers/net/tun.c
++++ b/drivers/net/tun.c
+@@ -811,11 +811,11 @@ static int tun_attach(struct tun_struct *tun, struct file *file,
+ 	 * initialized tfile; otherwise we risk using half-initialized
+ 	 * object.
+ 	 */
+-	if (publish_tun)
+-		rcu_assign_pointer(tfile->tun, tun);
+ 	rcu_assign_pointer(tun->tfiles[tun->numqueues], tfile);
+ 	WRITE_ONCE(tun->numqueues, tun->numqueues + 1);
+ 	tun_set_real_num_queues(tun);
++	if (publish_tun)
++		rcu_assign_pointer(tfile->tun, tun);
+ out:
+ 	return err;
+ }
 -- 
-Regards,
-Fu Hao
+2.43.0
 
