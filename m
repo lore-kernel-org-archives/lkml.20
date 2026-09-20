@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3EDC2931F4;
-	Sun, 20 Sep 2026 11:03:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766F1274FDF;
+	Sun, 20 Sep 2026 11:04:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789902221; cv=none; b=m1UPRH1swI0R2JNvYUP6KBb5kN+38pE2mhbIyzDUu6eQJKGe/xtbXNRMKjHShgRR1RqOMpUT6OLftCGVTGz/5ohRljsaO3/EpC93tJAdmQ+rIA08W/Z+b5tLJbDUb4SmGax5D9f9O45NZxap74KdoyE7N+s7MjP5YnaLB/q73zA=
+	t=1789902269; cv=none; b=reibndwaEJYCNqTHlh7DUPO7zm8bxHfVDvCLsgFmwFo1jbjcq8EoUR/KzMIfwcgkhfXIr6bt2NTOa3hxtNoSHBriKhRzDs0iHMmObp5F4RUbBkykEfmECQI7NxD+Mj22nU9dOws+Dcsc04eSSGrsdppWpYtaivO1acxYE+9kiIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789902221; c=relaxed/simple;
-	bh=5woVyMhOzSYUGhrHxUaiAmoR6mZWcAIs2jTC2ISzFlc=;
+	s=arc-20240116; t=1789902269; c=relaxed/simple;
+	bh=P3SQOEgE/EcVl9uIkwwYf1g4PdVesjb3lxO/5Rp/cGg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IZkyHjHkVsBD60nVNrHd9BoXw12MQaJuAfFdJ4pNeybguBo9dL1VlREiWpGGMjvRvW7wcCtCvUTkx47R66+if/VcJHCaEH60qj1LvS8FPrmInHOnCPN8zQFNJjUklhHfqqqMhFrR/cwkkXlSqOAR7CXwfdOYe18gLRpa8rwe6Fg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a3iFn4/U; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=jTdkgkMGJHAIM6PDJUg0tovlvj5lesH7yf4S8miyLezSY73ydiwOYljDjTMp2RBew5qTM1kev+du1R95cjrotQOHzcmubgEZ8CcbkRRMnRMjqCoD+eDUGDns8hKKfbrvIQoPHnUioB/gzNuG1a/TykuNj9Y4BwwcDV3NtO8GwvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hOPNlNEi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a3iFn4/U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 148051F000FF;
-	Sun, 20 Sep 2026 11:03:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hOPNlNEi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295A61F000FF;
+	Sun, 20 Sep 2026 11:04:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789902220;
-	bh=wmiCn3Falc3kmGbVnoJeiFa88eIWlueA3zxNQNX38iY=;
+	s=k20260515; t=1789902268;
+	bh=u8l6bCKfnpTk8lTywgNZZDMe6ju/mRjx+c2z09OSzvU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a3iFn4/UL3Wj4ldPUaQAfPbKsWGcZwdFujMsM3jqYjDbbXsqn3G5G8SB29UrcN+F6
-	 nIHK9AccEbQPi53Zi8diDDW5+14rMl3dbXBDqJ9JuRKetjd2GOHC5kKxphbUuNbyJA
-	 +iP1GN8IvF8UbO4cGSc253Dk7gBUJC0BkV//xWngVNhUogL8mkq9o+2+R/dYqAAOeb
-	 b4JMy5K+cB294bWQ/3nW6jGr3Fk+Z5ZdpGZHGVdAgA82C+pcT7nxVH9XltpiXvUmJ7
-	 u07D9u3KZ8bJFkGp7nvNlG/+3vPs+N6cW+SkvG+It95dFPOc+du1jvST3kzO7r/HU4
-	 pJl9joiZu1oNA==
-Date: Sun, 20 Sep 2026 13:03:33 +0200
+	b=hOPNlNEiYAZUe79Q9Liu85a8BGIIS8E0OfeJbsnGVr30TOXlPYqwXnomyBNvhhoUa
+	 9u0xBttz1oe0wjaRhXXEd7VambHGaZcJiTWBZz1Zq71mW2VSBmy+mPyrwzeCibWhTF
+	 5/oPtyVPci0x4N4DSD4+IEIEjVtd9wijm2klNEyaPT6qmnOGmQ0FnrzXaxu9cjnzGc
+	 oZzdx5102V3sLiVIMQXEa6dIDJ/vOizWCF6igUmJZPPs+Vh/2QPI0ekWWU1x7gMsKZ
+	 ZJqbPzTVzGkA44MbVy8lQRlD38p7h46RWQMj9/jqp0DZEl3CJq69Uu3kSrEVICvwxM
+	 mCIpXa2QfEPmQ==
+Date: Sun, 20 Sep 2026 13:04:22 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jon Hunter <jonathanh@nvidia.com>
+To: Francesco Dolcini <francesco@dolcini.it>
 Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Thierry Reding <treding@nvidia.com>
-Subject: Re: [PATCH v2 1/3] dt-bindings: fuse: Document compatible string for
- Tegra264 FUSE
-Message-ID: <20260920-celestial-scorpion-of-certainty-aa0954@quoll>
-References: <20260917-tegra-tegra264-fuse-v2-0-4936068c2168@nvidia.com>
- <20260917-tegra-tegra264-fuse-v2-1-4936068c2168@nvidia.com>
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
+	Antoine Gouby <antoine.gouby@toradex.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Francesco Dolcini <francesco.dolcini@toradex.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: arm: fsl: Add Toradex OSM iMX95
+Message-ID: <20260920-accurate-hallowed-aardwolf-ed281f@quoll>
+References: <20260917102011.69071-1-francesco@dolcini.it>
+ <20260917102011.69071-2-francesco@dolcini.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,20 +48,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260917-tegra-tegra264-fuse-v2-1-4936068c2168@nvidia.com>
+In-Reply-To: <20260917102011.69071-2-francesco@dolcini.it>
 
-On Thu, Sep 17, 2026 at 10:16:01AM +0100, Jon Hunter wrote:
-> From: Thierry Reding <treding@nvidia.com>
+On Thu, Sep 17, 2026 at 12:20:08PM +0200, Francesco Dolcini wrote:
+> From: Antoine Gouby <antoine.gouby@toradex.com>
 > 
-> Add the compatible string for the fuse device on Tegra264. This hardware
-> block is mostly the same as the one found on earlier generations,
-> however, the exact register regions that can be accessed differ.
+> Add Toradex OSM iMX95 SoM and the Toradex OSM development carrier board
+> it can be combined with.
 > 
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
-> Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
+> The Toradex OSM iMX95 is a SoM compliant with the OSM V1.2 specification
+> from SGET using the NXP i.MX95 SoC and is available in Size L (45x45 mm).
+> 
+> Link: https://www.toradex.com/computer-on-modules/osm-arm-family/nxp-imx95
+> Signed-off-by: Antoine Gouby <antoine.gouby@toradex.com>
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 > ---
->  Documentation/devicetree/bindings/fuse/nvidia,tegra20-fuse.yaml | 1 +
->  1 file changed, 1 insertion(+)
+>  Documentation/devicetree/bindings/arm/fsl.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+> index 36e28e0e4ad9..9413c3e225ea 100644
+> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
+> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+> @@ -1578,6 +1578,12 @@ properties:
+>            - const: toradex,aquila-imx95     # Aquila iMX95 Module
+>            - const: fsl,imx95
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
