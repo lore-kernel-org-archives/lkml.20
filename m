@@ -1,119 +1,180 @@
-Received: from mail-vs2-f16.google.com (mail-vs2-f16.google.com [74.125.227.16])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E674C242D62
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 01:21:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789867281; cv=none; b=db3GNktTk56XvxpzaJ4MYaub5HO7PeVDQBy6ib6jhB4//kj3V3AvQP9yiXY0DjFGnLr3IBmErP+QvR+qEjigxRwj64Fiv3eNitYtMynSCuQHAxwiFVl0+ZFW3/u9eCX0+XLvWWfXvpngn2z9itNw0ruQmlChQUp9RVnGunTZhGo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789867281; c=relaxed/simple;
-	bh=2zaSWf5r9NwHO8bq30a3+zlb6fuk3dWRT56RBawh42A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Nkpo0z9qGvy+OGdF6WUror/X2KFS8loKEStvYDi0gffhJufjA4hIU+3llZknA0LizuxgbhtD2SNQ7e0zARt5UCT6Vn1JRNwLnB4BPhMvZS96qPxq60P0ukqMmfcOsGJu8KiuQ0fLpt83RQBCnR8Pm/goEvUqzI4fu6oj08FxUz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H3G44PZz; arc=none smtp.client-ip=74.125.227.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE16318EC5
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 01:22:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789867332; cv=pass; b=bfFin0Ydew/knxXVaq8G9SvtQyFaljOYQ8d86eSzy1nWjjPfnNDaZwAYcKGs4HubJIvIWKiFxVvq7XQ5YbNoK7TNxZ44lDDIFVw3AkfXMk0FxymqxRYV00fgQVnjKot/vGpuY8wBl6FARcaX4xTZohvLiRfGMy1qX42GG072mE8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789867332; c=relaxed/simple;
+	bh=2VEm69UeAdHkIwbBU0Ergf1rGXkHAkJuOFSQAiSO0p8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Vfnqf6meF4KJVnOw+G5Sc+JMWztiTPq+PKl+T7A63lqCBV89K/90S4HdnkghrCxBOu/dSa6/8wGBpSUusGFg7VAPGv0u8GfCjGZ3f/Ai1Hz6ZrW6rKysId3/56ch6/AS9bfXVXeRap3jhvv8UcjnJoGjZgwez32xMIwuLQnRuQM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=L6O+ve67; arc=pass smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H3G44PZz"
-Received: by mail-vs2-f16.google.com with SMTP id 71dfb90a1353d-5c67e5292fdso612055e0c.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:21:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="L6O+ve67"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc1cea50dc1so1120275a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:22:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789867330; cv=none;
+        d=google.com; s=arc-20260327;
+        b=i1q1QzamCujRBRIWTfzL8EZ1NtTMh0clnNe/1KykvshB1GWTVoX8by4I4mZKx7UC0G
+         i1TKBTKrJxiDHwQGH1gObByf7HDIS4W+n+dr8cKyazU0mJrfeua59HvTLMCgeO8fjlQE
+         7TTjPJc88quNTC7pczU3DxzGgRLizQm6XzlYAlnxDTYhev7KH1mfwo+pE6zho/xnHdXI
+         tXbZacj76+O+iXcQ12xLNx1IufuSLsEjj2BH5eqcp9tmcV4dfgrjCw7IKX0D+/yy60KH
+         h5H6rH4pr0Omnw/CkkHTqSNmKz4foaBgGzDJFqn9RyHLeV1iIzohowL+R9EXydtAfCOp
+         02rQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zXdKuOcPQjh4tFULSVStg5yQtDl5Sivh8Z/3KuFYKs0=;
+        fh=JE6kNNagTlmMihKFQbNFjYOYfNY4u8T2qK1bgQjiXvM=;
+        b=Sim7s4U8AhHhoiU5vj3b3JGsDT94BUKBzUZHgteCwseVrh1kLLuIEP6QUDKFyPLc+6
+         rIhpguSfstwaLUjfArv8TR1E1iqHMsielNrtnPxvzRd++65EhoeRQOeYfGNvo3VZm8LD
+         e+Wftq9aoEQ8w0knf/QOhyJO4cQfRnWNjl2iwBUn+Bhr5tsle5+q2aFJAR3v9imw7dpt
+         Vmc4V2ege8dkkYbWlp7XW8BMwt4D75p7P6Dw2ScCRAaEuu53AtrNktSCXhYJ2QXy3dZC
+         QFjatOJZv7lHPd8wBZe+m+OS3c2Q5OtnVG5OwJvRU5e3jZoiFYM3P1V6KjHooKEK12fy
+         sNeg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789867279; x=1790472079; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n7dETFL01Uf/V8b/sJtlYLOgTsT5+0OY9xqQKkVwMJU=;
-        b=H3G44PZzgdTZOnwKmIw3EfAOWZV8DplBDKkbWkjwyy7wB6EfswLhgeKgMFJZEAj+VW
-         n0OcUcITPU10YpZW+9qgeV2fXNWLyA0UVETSuHv4YWmKIhgNJdn9liLECsfe9iJZvmNw
-         8zKWLHpDEpjvQ5hCGKYDsvnWUycdt0HYpgBGaGNq4vUWsrJm8AMr/hFEjXCEkRESCxM8
-         RuOn1SoltfgonOAr1twZTSw3uHuAFyOS2P9IKJdDrF+gvHT7+5uEC017VLyCzZ/e5Zyi
-         OaZc3L0jAKaDPmkXo/egZ5B6CiakuTn0fRuGhGuUvv8kCI37xMJznn7tAuH0HlbwolkZ
-         nJSQ==
+        d=paul-moore.com; s=google; t=1789867330; x=1790472130; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zXdKuOcPQjh4tFULSVStg5yQtDl5Sivh8Z/3KuFYKs0=;
+        b=L6O+ve675fqEPtcUxqXtqgUQOpms6zlKaUIVzibB6dwlz8UfhHs18NE2LQUD0Itsbq
+         AmXaRpmqj59ev0o94mh3ukN0p/YT3QVdvoOrUJ1MdZT9J/lGPqVNQkvOsxD5rhN+A9eL
+         LSsfQ6qJGaQTDNhZ2QQWWEBDV889TT7n/YsnabMngyUxuZlKl/P1C3y/n3UyrpfAOlcN
+         MOBAOUOJScs7eRYBD8xg0ICP/+2B7tz/TIyD6q5N1RhFcabKg9Gkct3n4hjEokIhjm3X
+         69PzVQcrIsgtUubhk1bGHZETjXsz2Or2LbKOUnyrb7IK1ddnqQG3J9tdZG88507MKWLH
+         P/fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789867279; x=1790472079;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n7dETFL01Uf/V8b/sJtlYLOgTsT5+0OY9xqQKkVwMJU=;
-        b=Fs8mrT5b1DobY/wpUfiwn3KVl/336dYqHp4KIFcQGB0cb44bxP6lo+8xOkGVgDPfK8
-         JDZmCuq6hP75u8listsH0a7oiuagQ/bEc8tZScPBnp1fF4fXWAFG3uNIk8nfJTRIhVHe
-         Tm/FfPLgofFK+tSmWJU/fC0Ftj4HKx/xH5v7mXoLFrrAXsFHCFanBl1N9qcS5jhNiqcL
-         LZUsYIfRGXG1VsipvGZP6ZJATYN8zLLTHwBjXOzHv13WS81YEQOqlLp9MB2VLRp11kBy
-         9daA+tLP2NcmoCdkNJRO5N1QjN0G3fagexTxOleG19wYIrgMQfIwxZwQ2CfGIS0FmyFX
-         CIxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy8JMGz7Cl6H49FFwTtLIGNahY/zosBv7bfqqvzl0kZ4OjJ6lCrvt6rddXWaKjMTq6w1VukVtFlRj5Jt7w=@vger.kernel.org
-X-Gm-Message-State: AFuF++lh/IOfXiL4pEP/Qdvsbs8UEV6stJZsqetYqU/brAtT5mcDqxWN
-	8aJdXjCgkB9yuzePF7Y9G6p164fUuzfijmn0e5pIosOeuEhImOrNeCNf
-X-Gm-Gg: AYBFou3xH5EtzPiMGP5YcllGUA0ePIBndJlJoqNNMKOlqGMJ9Ab0UU7V0+AfSdTjgpC
-	ndGHLFRReTbpLtv7A5dYQW7fTzmFHigfdiEQJrVriyKyrhVEppoFn8frC/TINQyJlK21p8020DM
-	j/zdMT5HAQk370TOw11SjthrLFOs3ksyht6pLvfyUGGF5jnBM4yGjDzKvL3iBm6n4Z6XDk+LwGe
-	Q79WuUxDiTl8aKGCNym2BkN44cR/M8DmKXRS652GltvxObklxf2cZoVfCord5fhvOC5h2T3dClv
-	D6D0DffVbhu8h+/w0UmBy10RfFy3o10sR0dC1WSLlperyEaPJ/PdDMottHBjH4sxOUgoRax+fae
-	NPHW8IGylkZ7c1ET67i3Ax24PFj/ZQfEGHqNxr5LXknHZhr85C5woH2k0BZsJTVJANoSg7YLpTl
-	RcXfuOEZesRYqrHnQtGCtSHpElT4lwCnsyKfgdpYIs6k5WLQEU3juXeh8v/FZ1jtao2lQM
-X-Received: by 2002:a05:6102:2922:b0:7a2:2a6b:e7b4 with SMTP id ada2fe7eead31-7a55a0253damr2427061137.2.1789867278724;
-        Sat, 19 Sep 2026 18:21:18 -0700 (PDT)
-Received: from danozmo ([38.51.243.36])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7a6ac5e08c7sm4064319137.8.2026.09.19.18.21.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 18:21:17 -0700 (PDT)
-From: Daniel Ortiz <letargopausado@gmail.com>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Cc: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for Lenovo V15 G6 ARP
-Date: Sat, 19 Sep 2026 20:19:20 -0500
-Message-ID: <20260920011920.2482786-1-letargopausado@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1789867330; x=1790472130;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zXdKuOcPQjh4tFULSVStg5yQtDl5Sivh8Z/3KuFYKs0=;
+        b=Ze8bEtGOmLpzEM60pwTn3PPY9frPJSgMcEHkYiYBIRrbUvU8nzhbzUy7njTGPxdZnK
+         6V6S8AmwXeyK24/LIFtjSBcnV2jCxROu0Twc3fFmF3uuNHV4+dAJB2XR8fzKV8m63+w/
+         h8eSNvQgTr9fx9devSQ6aYB6NvLZ9seSyGBHUd+X3lS99ZL5pQ+4mcjqOz5qb3af5u6e
+         M70dvLf3TaCkoujvZlm6BiKJlyMyPoMAJuaJ/TEPfNXPo30uuOTfFZviGZ/TgC7UVdaE
+         v8f05DqCFo5YAmzXGwLIv/kqG5Ggjcv74iVfdAhYP4O/HLchHXetJgF4R5frZu24XuTj
+         mp6g==
+X-Forwarded-Encrypted: i=1; AKwUvBxv/4UD4nni/f6ddv7E9RatZbs/qHoFmpBqzYZkU15udUcD4J4gGW3lG1rufc4Vu8q57RlSwBic7BW9pLQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltEgbLTrip3BCokzlJYbzo4n+n4fYKkaLJ5i3XOd6mTaPOkVKm
+	h9NeQDt8mJUiwA5xnU2DqrL/eTNZ3NXlmp8JdDULTN2zKEBWVi91kIIB4X2qwv3Krp7BAp9NsL1
+	v60hYm+wdVy9MUKvA0WA9ybDpL1MGcVpgYsZkgdRiKoDxJj3YjoSNKg==
+X-Gm-Gg: AYBFou1cbzS23cjnrDfW3nHsLDsfxC9rpjcVpWeCDlsJDXgPQA7mcxpvnhhZU55DtGb
+	9ZD7GC4OpKhjTm89AqGd3iYC6XbeEHo+p3g5ltZ/otbadWpKaWGvd7ltEwMTEKlePtx7bIkHBgH
+	Fx0V+iTbpX2InVW/cfUskE/kQGXeRwkJt9riCgQvwsecSbD7awyNLuWUMSDRyxWGkq2USSlLmEb
+	DOzrhzMB1NKklQNh6JLqPwN9rBGbP1kJPgww9y9grQfJV4IBNBmj3WNIYXLuuG0lUxDSY1BI1oB
+	XERBD+T7j3fN60G+0FOfHdtBc1uAMmDlJyFDGuToAQwqQq6E34q2CzL8wqwg55myHg+r6Q9cAiQ
+	RFvIPsffxM2Y=
+X-Received: by 2002:a05:6a20:144d:b0:3dd:a008:dc39 with SMTP id
+ adf61e73a8af0-3dda008e131mr6498106637.39.1789867330527; Sat, 19 Sep 2026
+ 18:22:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260919223438.3883567-1-benquike@gmail.com>
+In-Reply-To: <20260919223438.3883567-1-benquike@gmail.com>
+From: Paul Moore <paul@paul-moore.com>
+Date: Sat, 19 Sep 2026 21:21:58 -0400
+X-Gm-Features: AcwNN1XYIQ_wBn8i5ggt4CeI5Ch8V6l0HMTPG10aIvqe5hBWEiugJPjmk6GI8NQ
+Message-ID: <CAHC9VhS7sZQaPaRswKQ1ETrReEPB2f5buNAMGSXqZ1iBKTs+bg@mail.gmail.com>
+Subject: Re: [PATCH] netlabel: calipso, x509: clean up ADDRSELECT on DOI
+ removal and check AKID len
+To: Hui Peng <benquike@gmail.com>
+Cc: dhowells@redhat.com, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, keyrings@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Lenovo V15 G6 ARP (product name 83UU) uses the ACP6x PDM interface
-for its internal digital microphone array. Its firmware exposes neither
-the AcpDmicConnected _DSD property nor the _WOV method, so acp6x_probe()
-falls through to the DMI check and returns -ENODEV, leaving
-acp_yc_mach.0 unbound and no capture device registered.
+On Sat, Sep 19, 2026 at 6:34=E2=80=AFPM Hui Peng <benquike@gmail.com> wrote=
+:
+>
+> Fix two issues in netlabel CALIPSO and X.509 key parsing:
+>
+> 1. In netlbl_calipso_remove_cb() (net/netlabel/netlabel_calipso.c), also
+>    inspect NETLBL_NLTYPE_ADDRSELECT entries so IPv6 address-selected
+>    mappings referencing a removed CALIPSO DOI are removed.
+> 2. In crypto/asymmetric_keys/x509_public_key.c, guard against zero-
+>    length signature/AKID fields before key matching.
+>
+> Fixes: cb72d38211ea ("netlabel: Initial support for the CALIPSO netlink p=
+rotocol.")
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
 
-Add a DMI quirk entry for this model. With it, the machine driver binds
-and the DMIC capture device is created:
+Thank you for your patch, but as NetLabel and the kernel key code are
+in two very different subsystems, please split this into two patches
+so they can be properly reviewed and potentially merged.
 
-  acp_yc_mach acp_yc_mach.0: Enabling ACP DMIC support via DMI
-  card 2: acp6x [acp6x], device 0: DMIC capture dmic-hifi-0
+> diff --git a/crypto/asymmetric_keys/x509_public_key.c b/crypto/asymmetric=
+_keys/x509_public_key.c
+> index 25cf8ac7f257..5c9165a83f91 100644
+> --- a/crypto/asymmetric_keys/x509_public_key.c
+> +++ b/crypto/asymmetric_keys/x509_public_key.c
+> @@ -53,9 +53,11 @@ int x509_get_sig_params(struct x509_certificate *cert)
+>
+>         if (sig->algo_takes_data) {
+>                 /* The signature algorithm does whatever passes for hashi=
+ng. */
+> -               sig->m =3D (u8 *)cert->tbs;
+> +               sig->m =3D kmemdup(cert->tbs, cert->tbs_size, GFP_KERNEL)=
+;
+> +               if (!sig->m)
+> +                       return -ENOMEM;
+>                 sig->m_size =3D cert->tbs_size;
+> -               sig->m_free =3D false;
+> +               sig->m_free =3D true;
+>                 goto out;
+>         }
+>
+> diff --git a/net/netlabel/netlabel_calipso.c b/net/netlabel/netlabel_cali=
+pso.c
+> index e1efd888b4a2..3756193b1c49 100644
+> --- a/net/netlabel/netlabel_calipso.c
+> +++ b/net/netlabel/netlabel_calipso.c
+> @@ -283,10 +283,21 @@ static int netlbl_calipso_listall(struct sk_buff *s=
+kb,
+>  static int netlbl_calipso_remove_cb(struct netlbl_dom_map *entry, void *=
+arg)
+>  {
+>         struct netlbl_domhsh_walk_arg *cb_arg =3D arg;
+> +       struct netlbl_af6list *iter6;
+> +       struct netlbl_domaddr6_map *map6;
+>
+>         if (entry->def.type =3D=3D NETLBL_NLTYPE_CALIPSO &&
+>             entry->def.calipso->doi =3D=3D cb_arg->doi)
+>                 return netlbl_domhsh_remove_entry(entry, cb_arg->audit_in=
+fo);
+> +       else if (entry->def.type =3D=3D NETLBL_NLTYPE_ADDRSELECT) {
+> +               netlbl_af6list_foreach_rcu(iter6, &entry->def.addrsel->li=
+st6) {
+> +                       map6 =3D netlbl_domhsh_addr6_entry(iter6);
+> +                       if (map6->def.type =3D=3D NETLBL_NLTYPE_CALIPSO &=
+&
+> +                           map6->def.calipso->doi =3D=3D cb_arg->doi)
+> +                               return netlbl_domhsh_remove_entry(entry,
+> +                                                                 cb_arg-=
+>audit_info);
+> +               }
+> +       }
+>
+>         return 0;
+>  }
 
-Capture was verified working with arecord and PipeWire.
 
-Signed-off-by: Daniel Ortiz <letargopausado@gmail.com>
----
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 79858fc..f3f3592 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -381,6 +381,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "83Q3"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "83UU"),
-+		}
-+	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
--- 
-2.55.0
-
+--=20
+paul-moore.com
