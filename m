@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DAB3D47669C;
-	Sun, 20 Sep 2026 21:29:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2D1C147F3BA;
+	Sun, 20 Sep 2026 21:29:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789939783; cv=none; b=GTlUquOwEO6BIv4QDtc9gii9gKFvKLX/QOy+oSnQ6GnqTbX4/UFsvaS9W62E3kDFsOBU7fBJ0zGKAaqpm3wORibLSKI3h9E7vT3q/MF5MPhqUI3kezKP7n5dGrr5XtY3tz2MZ5lwH/ksF7uiQDFqFKJx9/ZO43zNIQJlnu0pQLE=
+	t=1789939792; cv=none; b=XBZhAAqZ83YWHdp63/UMrl8QEk2i0BDXDpFrZlghqDSyu8B0DV0sfpx/qisgvMBoyymH9+kiYUArEV9drBPkDS9LMhr9kwHjPEdgrU8BUrZAfns5Yfzqf+wsijjvHnwCS5KeE3Vxiir1cvuh38cKkdNYR5AC9Brgf//tvqPZD3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789939783; c=relaxed/simple;
-	bh=0U8aO1/0Ck4btuF0Vn/F5GWxn1ySbcYd0fsPDdoweDo=;
+	s=arc-20240116; t=1789939792; c=relaxed/simple;
+	bh=gzM0Ayg1qoFvztDhLjp8w0BalG7pR+nQwntryX7bfuU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VObbjQhWL64ePSDm0zqs3r8fEnxAXjS5Uwpsxoz0SuLXX6nWNnPK8X8QCbZr7SJ8Rxc7GMF+o2NB2OMCHi0w/LMh+2MZ1m14LsoHkCjonz9nt8VzXzT+CQ834aDJHzmVoHj8xtGoinbKBfUpamGqjk19ICzNaugVxp/Q/TNkgjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FjIrmjN5; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=vCkQVOSoNzM1q4b+HwjCBwa737XzgFANFT1GdhJck3Yk7eYnkw+koJmaHx3AKGcegZpiOJqV8Hs20tifUbDYwzNEcDHyEmFDnnxU3CQnS0pEEnQ6hwaI4fsiYHBo/ryNuE2oj+zBfDzykn78Mght9c5Ys3sUNDC0UVuNJaNgQ4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Yylpyu9P; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FjIrmjN5"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Yylpyu9P"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E5AE31650;
-	Sun, 20 Sep 2026 14:29:35 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 10FFA1596;
+	Sun, 20 Sep 2026 14:29:42 -0700 (PDT)
 Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id AE3483F632;
-	Sun, 20 Sep 2026 14:29:36 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id CDF303F632;
+	Sun, 20 Sep 2026 14:29:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789939779; bh=0U8aO1/0Ck4btuF0Vn/F5GWxn1ySbcYd0fsPDdoweDo=;
+	t=1789939785; bh=gzM0Ayg1qoFvztDhLjp8w0BalG7pR+nQwntryX7bfuU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=FjIrmjN5+4tssKCfxsJGpByMFVWKXwnyqQxtpDCInAYkKnCpA3tnAZh94d8rJD/K/
-	 bDPGJwvDzni5idDDgY21C+CspSMylsqM9XdoUylx5+KIbk4kB8BtI3aCU7TpfunCgM
-	 fcIaXMZUssx7ArZ/g1dDfI8F6cCd5b1oFUqEHv4w=
+	b=Yylpyu9POOi/4ml9bEbDw4DJn/gTxJva/hprBLCYJN8sIz5V8riUgadRzpsb339g3
+	 WCNZROgSpXm6RvZ8CFDocifLkIux80p+i8QvuJNVIczCjHdfsz5tUzEETOkjYKkkcy
+	 qFBLrRcBV+rtDkOHuIjd+bBbuB3Tj1YwcYwR073E=
 From: Suzuki K Poulose <suzuki.poulose@arm.com>
 To: kvm@vger.kernel.org,
 	kvmarm@lists.linux.dev
@@ -50,9 +50,9 @@ Cc: maz@kernel.org,
 	lpieralisi@kernel.org,
 	enju.kohei@fujitsu.com,
 	Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: [PATCH v19 12/20] KVM: arm64: CCA: Add a new mode for supporting Realm guests
-Date: Sun, 20 Sep 2026 22:28:37 +0100
-Message-ID: <20260920212845.707-13-suzuki.poulose@arm.com>
+Subject: [PATCH v19 14/20] KVM: arm64: CCA: Add bare minimal S2 operations for Realm
+Date: Sun, 20 Sep 2026 22:28:39 +0100
+Message-ID: <20260920212845.707-15-suzuki.poulose@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260920212845.707-1-suzuki.poulose@arm.com>
 References: <20260920212845.707-1-suzuki.poulose@arm.com>
@@ -64,57 +64,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add an explicit mode to support Arm CCA guests.
+Add bare minimal MMU operation hooks for Realms. The mem_abort handling
+is chosen as the default KVM variant. However this cannot be reached for
+Realms yet and we would need real RMI command support to make it fully
+functional.
+
+RMM takes care of the TLB flushing as required, when the Stage2 is
+modified. So host doesn't need to do anything explicitly. RMM doesn't
+support access flags for the stage2, even for the shared IPA.
 
 Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 ---
- Documentation/admin-guide/kernel-parameters.txt | 3 +++
- arch/arm64/include/asm/kvm_host.h               | 1 +
- arch/arm64/kvm/arm.c                            | 5 +++++
- 3 files changed, 9 insertions(+)
+ arch/arm64/kvm/mmu.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 68647ff4bdd24..1afe3df3b923e 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -3256,6 +3256,9 @@ Kernel parameters
- 			nested: VHE-based mode with support for nested
- 				virtualization. Requires at least ARMv8.4
- 				hardware (with FEAT_NV2).
-+			rmm: Support for running confidential guests in Realm
-+			     world using RMM, as defined by Arm Confidential
-+			     Compute Architecture (CCA)
- 
- 			Defaults to VHE/nVHE based on hardware support. Setting
- 			mode to "protected" will disable kexec and hibernation
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index bb156a633ab75..ecbf5a35cd59e 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -69,6 +69,7 @@ enum kvm_mode {
- 	KVM_MODE_DEFAULT,
- 	KVM_MODE_PROTECTED,
- 	KVM_MODE_NV,
-+	KVM_MODE_RMM,
- 	KVM_MODE_NONE,
- };
- #ifdef CONFIG_KVM
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 9b977dc734220..0e2ab5311e4d8 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -3268,6 +3268,11 @@ static int __init early_kvm_mode_cfg(char *arg)
- 		return 0;
- 	}
- 
-+	if (strcmp(arg, "rmm") == 0 && !WARN_ON(!is_kernel_in_hyp_mode())) {
-+		kvm_mode = KVM_MODE_RMM;
-+		return 0;
-+	}
-+
- 	return -EINVAL;
+diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+index 413c4b114d75d..a38459f6b456e 100644
+--- a/arch/arm64/kvm/mmu.c
++++ b/arch/arm64/kvm/mmu.c
+@@ -180,6 +180,12 @@ static int kvm_vm_flush_remote_tlbs(struct kvm *kvm)
+ 	return 0;
  }
- early_param("kvm-arm.mode", early_kvm_mode_cfg);
+ 
++static int realm_vm_flush_remote_tlbs(struct kvm *kvm)
++{
++	/* Nothing to do here, RMM takes care of this */
++	return 0;
++}
++
+ /**
+  * kvm_arch_flush_remote_tlbs() - flush all VM TLB entries for v7/8
+  * @kvm:	pointer to kvm structure.
+@@ -209,6 +215,13 @@ static int kvm_vm_flush_remote_tlbs_range(struct kvm *kvm,
+ 	return 0;
+ }
+ 
++static int realm_vm_flush_remote_tlbs_range(struct kvm *kvm,
++					   gfn_t gfn, u64 nr_pages)
++{
++	/* Nothing to do here, RMM takes care of this */
++	return 0;
++}
++
+ int kvm_arch_flush_remote_tlbs_range(struct kvm *kvm,
+ 				     gfn_t gfn, u64 nr_pages)
+ {
+@@ -2881,6 +2894,17 @@ static const struct kvm_vm_s2_ops kvm_default_vm_s2_ops = {
+ 	.vm_mem_abort			= kvm_vm_mem_abort,
+ };
+ 
++static const struct kvm_vm_s2_ops realm_vm_s2_ops = {
++	.vm_flush_remote_tlbs		= realm_vm_flush_remote_tlbs,
++	.vm_flush_remote_tlbs_range	= realm_vm_flush_remote_tlbs_range,
++	.vm_mem_abort			= kvm_vm_mem_abort,
++	/*
++	 * Not supported for Realms
++	 *	.vm_age_gfn			= realm_vm_age_gfn,
++	 *	.vm_test_age_gfn		= realm_vm_test_age_gfn,
++	 */
++};
++
+ #define KVM_VM_S2_OPS(flavor, ops)		\
+ 		[flavor] = ops
+ static const struct kvm_vm_s2_ops *arm64_vm_s2_ops[] = {
 -- 
 2.43.0
 
