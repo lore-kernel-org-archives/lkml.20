@@ -1,177 +1,284 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+Received: from mail-oa2-f36.google.com (mail-oa2-f36.google.com [74.125.231.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502923382EC
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:39:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD42314A86
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:46:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.100
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789943964; cv=pass; b=inCZ2AR7bJstfbg2xcEgeTOyX1Z+c18tv8nDzO/jIq679Hlz+mKK3CLE7hnwql3icZV3n+9DMzGncf/3K8ki8uXWhmF9F7AxCDBpGPmsd1RD/lqFnhvSs1Ou7hsWN/bOh6nrp+whF4yRMap1HuXexHR3NFfF3ScYDUPjtuG+Tbc=
+	t=1789944409; cv=pass; b=T0m/WdeNWQyvmoTNFhoXTU4FViMRHluHdYIXjIVNdPZJzFGX42Dt8yW5E6xcZ4FawBArcbgGPCUcHmI7gosJI91b5wK4qT8UZXZRk5ExA5At1xzw8XgPI+OqXYM5rkwPVdN2nPo1P6W+FYXGiU8htnzW/r/Z/ibP7JWiQWU/nR8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789943964; c=relaxed/simple;
-	bh=WtJ4ZTd+8k6LQGnxavaDmIp6OwRZVXdyPN3V6KIUn6Q=;
-	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=F1wGxdxvk0mYiWLLNNDr/OraQ1HddAH58lFFKMTxT0H9g2B5Cexv5taYqYqwS4r48j0wQWi53LKbt/wA5jt8ohUYbzL4+yL98YpE2pdAPCrAuDO4I2nCEIB9T8V9V3nxGqxsC8yZq8FCBhpHujFyGIpUhejOmHQbUph85J+6jlA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qo02oinT; arc=pass smtp.client-ip=209.85.218.42
+	s=arc-20240116; t=1789944409; c=relaxed/simple;
+	bh=CBhM7FF9u5QvV0vicKwt7/j6wjdB57A3Ftn0yg5M34M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YG03PESMtdQoKGowXSQ9pmNktTrwB0WgwLURSVW7LET5+I6xr76CWLX8IG7doBJIxBorZcLltlctxCq1meckG0cE1gWQ2tWlGAi2FNPTk9/P3YtsHzzG1NSzxewWE05gMxBhe70M1RKcC/qaCCQrDtihEZjfNKzJI/IRXu1tXd4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Klw+jYS8; arc=pass smtp.client-ip=74.125.231.100
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qo02oinT"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c294ad260fdso379406866b.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 15:39:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789943961; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Klw+jYS8"
+Received: by mail-oa2-f36.google.com with SMTP id 586e51a60fabf-466ccbd478bso1070136fac.3
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 15:46:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789944407; cv=none;
         d=google.com; s=arc-20260327;
-        b=P/jFyl31qM8fL+pDKq3Gb74X+777BqVK6lJZ7uK0AcyZKyxWNGfWoHOYOZ6ZTFSX0K
-         V2vYwrYYCih2q2mi2xymZzsx+zenWru0ner03jfoI+CDqB7P8N/QbapTiUSZUDz6HZ8B
-         wIcDGrg8S24Ovoz+Hhweq3fkL/6mqj6k7H1hdJgwOGnNWwPTqLFdacs8dvSR7p8xEnbf
-         f5Y1e0h75NMjuOQIjZiC/0stYW/PKBCaObu14e1Sez4tmefpcVydYOCwiTK2tMYI3C3u
-         cZmF5qtV9HpXMeJVv1ec9CLTaTp79CAwQoryDMLroIvZYJXu/Eyh3V3tNbG++AJS3+3z
-         maxA==
+        b=cGkutOtgk8BFtrOedgC2PdBb1HayAzUi032qNEqb/oNIO/knm5n7HHOsmVretXO4Ib
+         bQz7j7ky6YGLJT0Fxg77ER9s2vpLHQYWZ8WUrXcFhfPMWV/Ukg7H61Wr44Q3jMNYqKxn
+         ZrOcOhwtmO3U+YfK6vuVuBvPmfsPB+nTJRXuB+GGKhCBbrAN5YV4aWi4tgoN4Tw1cQOM
+         2dd3JLYVzHws1IIny6RjETXbByZOLm+B2OlDZ4cZAPPUpSifa3pWp1LgfwfDUzAUrcL/
+         B6MrtCZOF8pEOHUwIt9BCL20FkpcyZR9U6LHXjzcW4TtWgPQ78OpKSEhfEVZ9qbBksd+
+         nc+w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:references:in-reply-to
-         :mime-version:dkim-signature;
-        bh=KpJKV9oL0BlyVbCMHmeY3GdCnj0W6bhLkcjPYkX4BAw=;
-        fh=bs8fd0oX8FpTsm1cRGCt4z9bOiKMHH7FrxmYLwjqfD4=;
-        b=cchqsCrVH8UqLsqI9Lu46WD92drOa6SXQ+RsfRA7oipthBZv5p9qcUMylYxbAylnvG
-         MuQbMxw/PwxM2Ei/ZmF6JB3syx1b+V/i7MvRAAUAyjQKcOt3BYEtCgDYtEIerC4ayxZR
-         81NNxZutlju/c9oxbIqMZhpL+8taBqlqC0QLyNmqMqnFdYN1t/IPwqN/pU4lKyNDgCAb
-         gN70aUS0LjN8ihC2bpkv1cGGV/ONo2NcJoukh1zeXMzxkKcLSXYfpWPNZ7KD4jMFctsP
-         EcQ1ou4L+IkSAUOxAIX00Qckxux6jytbDoaoa0ulwresQEXzbIzNtLrsE7crCQxnbVKu
-         iR0Q==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CBhM7FF9u5QvV0vicKwt7/j6wjdB57A3Ftn0yg5M34M=;
+        fh=E63K8ioRUqoElMW578Zz0MQF1rDimrJk/hTSyUua9Q8=;
+        b=sANhsLv3KlSEgoIA0rhmdWtUVYLQsbA7mZqZfbrOKwUpipUiCmc9RpIDAe4AYNRswA
+         01jnhran1jkgNT6dKKFgLTy2vMe9G3E6EvLbWMuQzVgjbuuWVPryZBLKZenSPYSHYhVX
+         EYgOkViqcxtT33gz6JZfTKdwYs81YYfsGo9uf0cZmAOdFnFPu5/biM48W9I8ztxRrQ9S
+         enLAboJZw/aJOD21Lxol+IvGxILP1Q9dCMI27EM3sWQNV4POv3yXiu6jLxYGyVsUeKFL
+         u5Zs9aAPmXSV1L/yBT4g9ArLL52qnHMgl1KC1d8CaKQ4ni1jFGvP1/2ZSBaS1uRntMCu
+         7r1g==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789943961; x=1790548761; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=KpJKV9oL0BlyVbCMHmeY3GdCnj0W6bhLkcjPYkX4BAw=;
-        b=Qo02oinTMvO2Fgj8T/2UkrOGO8Gluotrmqm98huofPWiTqmjv8GvxSrwPVo/31z9+E
-         pnGGPm3xvJp5EHNM/H1/oS64PX4usYU4e2btfb68sTcVyo5QZb7G/YmWDM4toqEpf+iz
-         louTriEOZE6v2yUgADiyrL6VvrjFIjTp6bECk5AfcGoIjPcurH8oRumVa2SULV+kvhGR
-         JlgXGEv0SZ7GPm+dpxxnFOl88EooQi+FQmixwTYKzrnb2zpxF1ZV2vdquKFPLsW720Ey
-         IdNnmVoHxQSCEO9n051pUbK9+cFBTuaHhWK1/C6wb4OSipk05xFQRNF8JUXK/k3ZOmDs
-         MGnw==
+        d=gmail.com; s=20251104; t=1789944407; x=1790549207; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CBhM7FF9u5QvV0vicKwt7/j6wjdB57A3Ftn0yg5M34M=;
+        b=Klw+jYS84KWcrvELtJqi6UxylqwtErAp/xfj5Mzl1ahu8XNmOOEFtZghCCC7nw8VCN
+         fm9GaEtXrZPGYZsdCkYS17vmDsNpRV4sg+Qo4ysVzF5vUDYGdGpuagsPweDmy56sowcq
+         9iGqsCQ20G3+JMa121zrkso2n5Y6FHS8MqFQzYCnp8Wy9HlIt4qOkyte7nPPMCCZIBkm
+         48zEDZapPYp/Fb3OG1JJYAZvZjmASVPo8N6T3bRW0v12u5yjzTsjNeICmpjY5UESUUcT
+         JgG/KlbuywrKCjSL4ZFXmS9D6UHlp/Nv6lNQXnVWoE0Ne+SLgzmlKGHURGY2iV2yaIYF
+         pVUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789943961; x=1790548761;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KpJKV9oL0BlyVbCMHmeY3GdCnj0W6bhLkcjPYkX4BAw=;
-        b=n8GDpdcR+MnJEsfjtdZNpnsaiR2oSTYcgx7zk70gNmLPM4ZC72NEWhcVnH1hBpnH1o
-         7RS8/2eB5yVD5ZI0VF3jv83oY7hIExOCP6GMh7ENRVUKpRXG5ubes8LcIbcvws0U32T1
-         e7cOMRu77e+XuSWEGPIyvhkoO6cOgx6TSkwha2Zh1EBz90WQEDm3TUls1cRyz1th4zRS
-         DYtxkNH4x4ejxcaMS0KWPOIrLLmJcGf0n8qgD/Vy7vDmH/rLxLt1/yGK8PubS+3HNM82
-         j9SIEyZ2b9OXr6S4kXIZiMmD8Wa1+Gfuu4ItyZadlu5qwJ2o07pLpSg16Iq5r4FMNxFf
-         wKTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzAf11HOrCeimmxzuD8QrOQOjV5a6ZxHU8YILSG3JKNSUveZZi9p/vRgNZhsG2W4GYd0urgBsHcrgH/Hgg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgzSbi5EqO9hlVtUDKdOFj2vUw4F2Q1eBL+wZHryz9z3jOFZOf
-	8rZsp6CEPkp/Gv7wSx3yYx77iV+Cwe+82VTioxPDABlP8/kYJIFiMiq+Yz4+DkOR5g/qYR6EVdb
-	+Tyz1dHjIZYrH0P6Xcm4X0gssoUA4ioQ=
-X-Gm-Gg: AYBFou2NskSHEDvzTODV8Fcp+lFvXrngPEzkeVViN9fKzUmvGR9tLgyfKf2MwTJoGHL
-	fbWjJxMdqdRDEcaZzIBfHEaZX+bi0ggU74NcHmcMcxmzj9P+YWsIy1SeRXhdGksZlpg7RNscBRU
-	MyAkfGaXi5nOQp/cYw18k0n43HrgBRaUAS0MCd73bqb0leD9DhfCo4x3TJqGIPfYJdEpEwPs9Ep
-	DfEQJo5Yowkf3+W44vC987JXD32nKZiiTmEBakWNA0AlCSFJ+/7lYxKmyyNOELTSdo44/zXO9d/
-	rMXdoMOuu5oSCiJ9UiwTFpCeiJYSViPItNvW52hc3Z03Hkkr0078GBEP4g==
+        d=1e100.net; s=20260707; t=1789944407; x=1790549207;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CBhM7FF9u5QvV0vicKwt7/j6wjdB57A3Ftn0yg5M34M=;
+        b=bqWLylRjrO6QkdmVaN5UtqSsgv6oVXOlD3K3q+9PFc8hl1DHTZsSu5vbEP3bpnLFQ6
+         xv69471gvK+SuvNuxMip/MAwe8fgPbfkTQlvTOC6VTRVrdwB+ZvEjj/16KgJF0XCxWqp
+         Tr79TabtTctmJtpI6VjxkI1gAOb0jj7BQIRXK0P12ujUAm1OSDcuuqtUzadgYeQtFJDK
+         BAooqSun6/qN5phH6Fblwjr21kwnvtV8pNJlXDdi240FSIMBZemw23ttsSlimfZwwRPc
+         vdSUAbfskHsY80/RPzK2WjunGUUpLdLBa1lOVbFEoJ5xkkI/mX8VY6/+u5A+ICJUpyil
+         vlsw==
+X-Forwarded-Encrypted: i=1; AKwUvBw1qm7OaMuc5xKG3D130Q4OKNFGCqZx6u5pQT2kEQ1698zynq3uIFNssTzmcgxim9MsbbDvaTRs4v06D/8=@vger.kernel.org
+X-Gm-Message-State: AFuF++myIPFPLE+fWueljIx7ewFwI/BhFJ29XmS4STQ/1MBUCASw2IOF
+	NjE6jENyJIQmpk0jsjbViFC9NsIWjqeRybm/sZCgyOlLW0QlsAjZAiounohw1nZX862Gz3hzEdc
+	tzq2rMemB3Y23DM8DT9KsOqbAwtZYk7I=
+X-Gm-Gg: AYBFou0tmBPMHxUJ4csCEvR0Nr4cfP0uVPkmdGpPQKnbLpL3vOVwkCl0jPKRa5ztHpw
+	HA2fg/W6kKnoVlMNaX4Br+FH86AS45AgEKll9E9a9rFR0dCLGhzfSsAY7qQhdE2hD+qAs9rbW5i
+	t6jOqh+rp44EREO5gXB7fxEwt5Vy7tNimGyLxKyaF/ajYFirY1nPPD4GMPAo9UKsldrDc47AE81
+	MHTGFiaTPWd6DR2N82lngdCwUH7Qr9uvtq3V7vBiDx0dHo2VSN3ga6Pmxn8st/fWDWMhI3pww5V
+	4nIvUjLMefzTVrRq3Q6ZwKHMF4qr3VdFQfgpkX7w7AMdpcFtBf6XC7U=
+X-Received: by 2002:a05:6870:3207:b0:46a:d3e7:2552 with SMTP id
+ 586e51a60fabf-486e4e100b8mr8341437fac.1.1789944406853; Sun, 20 Sep 2026
+ 15:46:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a17:907:3ea4:b0:c29:6bf0:eb73 with SMTP id
- a640c23a62f3a-c29f5228f5fmr1121776566b.1.1789943961258; Sun, 20 Sep 2026
- 15:39:21 -0700 (PDT)
-Received: from 292895732794 named unknown by gmailapi.google.com with
- HTTPREST; Sun, 20 Sep 2026 15:39:20 -0700
-Received: from 292895732794 named unknown by gmailapi.google.com with
- HTTPREST; Sun, 20 Sep 2026 15:39:20 -0700
-In-Reply-To: <<o5ihhfa252cjfspqlag65xhnmehz3a5feyclmlyy4xlrcmceck@njmhyu7oom3d>>
-References: <20260725182628.221603-1-nsd.project.dev@gmail.com>
- <CAFLp9PEQQVuDpJPwrNvLN1-u3w3TMwZPUUrf0+rOBrvDjBBf1A@mail.gmail.com>
- <anlByPDZmvEhWeXI@casper.infradead.org> <ffcij36vnozf3rginqd2opd2dwqyki7xhtdo4veuty734hhgba@utjav2k263o6>
- <nsd.1787001235.35928@mail.gmail.com> <w7vte4itudtkw2yf4vbmuofiumfffmp2y52dpu2bqvqtdgjvpd@5femyiozss3e>
- <CAFLp9PGkVYZcQT5qAx-RKFOF-urZ92m417zpAeF7ZQempbS1HQ@mail.gmail.com> <o5ihhfa252cjfspqlag65xhnmehz3a5feyclmlyy4xlrcmceck@njmhyu7oom3d>
-From: =?UTF-8?B?YXloYW4gYXlkxLFu?= <nsd.project.dev@gmail.com>
-Date: Sun, 20 Sep 2026 15:39:20 -0700
-X-Gm-Features: AcwNN1Uij5l810gjQSoNTyE4DLMXLaa4cmXOi_eWZ3R4ZbTL0QkRJm-CP3x26yU
-Message-ID: <CAFLp9PF+6KUY7ZAGQZ_X9AN4VYbkdW_aDk1QSth3ZAVVqLTqsQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/3] Neural Storage Driver - learning page cache prefetcher
-To: Jan Kara <jack@suse.cz>
-Cc: Matthew Wilcox <willy@infradead.org>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org
+References: <20260714222338.2965707-1-dianders@chromium.org>
+ <20260714152138.7.I5cef580a62c86ba6c3465ad336fa509afbdf1476@changeid>
+ <CABb+yY3_xBvQVFHEs=v39u7+TLjJRaVv3sg5pGgd0YxCruZ8Tw@mail.gmail.com>
+ <CAD=FV=X-fAJp=EG_yTAg+QQgNYRCt25947oHGHZuq-FEyirK0g@mail.gmail.com>
+ <CABb+yY2CH5A1ixfX9czgtEwsP95FN-2JVzN_wmRDRNsSuZY5PQ@mail.gmail.com>
+ <CAD=FV=XiguzS7nH1sE=BkXt+7G6-hhqyz5u3sjc4zAA9H7KqJg@mail.gmail.com>
+ <CABb+yY2_AvcnaTDmpL8gP4H2_Pp3HddrtNr5gvL4GCW2DPPvOw@mail.gmail.com>
+ <CAD=FV=VzJCb1nz+q5EZ33G5U6KZM_tXi8snL=KbUM3C5yymG4g@mail.gmail.com>
+ <CABb+yY2omp+g13UgZfiKWLux9J1P+=ed0U3F8AhS0iQK=kpN8w@mail.gmail.com> <CAD=FV=WA2wFbk0=qFE0aZs9E5jg-EXzcrkPCk6VOMhbDroOQCw@mail.gmail.com>
+In-Reply-To: <CAD=FV=WA2wFbk0=qFE0aZs9E5jg-EXzcrkPCk6VOMhbDroOQCw@mail.gmail.com>
+From: Jassi Brar <jassisinghbrar@gmail.com>
+Date: Sun, 20 Sep 2026 17:46:35 -0500
+X-Gm-Features: AcwNN1VuA008vOMHnkJv-oCnQ1icxOOy2PmZx4D2aQIj4GV-3fDcHSdBhSxycls
+Message-ID: <CABb+yY0W+244qaXqHdfEq9XFuQXBez7PVcDNrKooV9cFS8TS_Q@mail.gmail.com>
+Subject: Re: [PATCH 7/7] mailbox: goog-mba: Introduce the goog-mba mailbox driver
+To: Doug Anderson <dianders@chromium.org>
+Cc: Joonwon Kang <joonwonkang@google.com>, Subhash Jadavani <sjadavani@google.com>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Lucas Wei <lucaswei@google.com>, 
+	Brian Norris <briannorris@chromium.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Honza, hi Willy,
+Hi Doug,
 
-First, my Aug 20 follow-up bounced on the HTML part. My mistake, resending
-as plain text. Below is that content updated with six more weeks of
-measurement. Two self corrections first, before any numbers.
+On Sun, Sep 20, 2026 at 4:39=E2=80=AFPM Doug Anderson <dianders@chromium.or=
+g> wrote:
+ >
+> > > Imagine we have three clocks: They are: "clk_i2c1", "clk_i2c2", and
+> > > "clk_spi". The "clk_i2c1" needs to be turned on when we're going to
+> > > start an I2C transfer on I2C bus 1. "clk_i2c2" is the same but for th=
+e
+> > > I2C bus 2. "clk_spi" needs to be turned on when we want to start a a
+> > > SPI transfer.
+> > >
+> > clk_prepare() is allowed to sleep, so any path, that includes the
+> > call, can not be expected to have low or even deterministic latency.
+>
+> Sure. Essentially anything using a mailbox as a transport mechanism
+> needs to be able to sleep, at least if it cares about "txdone". Even
+> without a guaranteed latency, though, that doesn't mean we shouldn't
+> try to reduce the latency.
+>
+>
+> > > In the i2c/spi drivers, we've got "clk_prepare(clk)" calls to turn on
+> > > the clocks. The three clocks are operated independently by their
+> > > respective users. An I2C or SPI transfer may take place at any time.
+> > > The I2C and SPI drivers need to know for sure when the clock has
+> > > finished enabling because as soon as the clk_prepare() calls return
+> > > they will start transferring.
+> > >
+> > > All three clocks are backed by a single clock driver. We'll call it
+> > > the "clk_mailbox" driver. The "clk_mailbox" driver takes the request
+> > > to turn on the clock and encodes it as a mailbox message to a remote
+> > > processor. Let's imagine that the mailbox message looks like a 2-word
+> > > transfer. The first word contains a 0 or a 1 for enable/disable and
+> > > the second word contains the ID of the clock: 0 for "clk_i2c1", 1 for
+> > > "clk_i2c2", and 2 for "clk_i3c3".
+> > >
+> > > Now, imagine that we want to turn on all three clocks simultaneously.
+> >
+> > Why? (not that it can't be done) I2C and SPI clients run independent
+> > of each other.
+>
+> Right, the whole "independent" aspect is what I'm talking about. I'm
+> not saying that we're _trying_ to do all three transfers at once, but
+> just in the natural state of things there will be lots of clock calls
+> going on at the system all independently of each other. That means
+> it's likely there will be times when several clocks are enabled
+> simultaneously.
+>
+>
+> > > The "clk_mailbox" driver will see 3 calls to turn on the clocks and i=
+t
+> > > needs to convert those to messages to send the remote processor. It
+> > > will then call mbox_send_message() to queue those messages with the
+> > > mailbox controller. In other words, we'll see these three calls happe=
+n
+> > > nearly simultaneously:
+> > >
+> > > mbox_send_message(chan, &{0x1, 0x0});
+> > > mbox_send_message(chan, &{0x1, 0x1});
+> > > mbox_send_message(chan, &{0x1, 0x2});
+> > >
+> > > The LGA mailbox controller knows "txdone". That is, when the remote
+> > > processor "acks" a message, the LGA mailbox controller can tell (and
+> > > get an interrupt). This "ack" signals that the clock has finished
+> > > enabling. This means that the "clk_mailbox" cannot run the state
+> > > machine and it can't call "txdone" itself.
+> > >
+> > > Without my patches, when the above 3 mbox_send_message() calls are
+> > > made, the first one will go straight to the LGA mailbox controller an=
+d
+> > > the second two will be queued up. Once the "txdone" for the first
+> > > message arrives, we'll queue the second message. Once the "txdone" fo=
+r
+> > > the second message arrives, we'll queue the third message. This means
+> > > that the messages are not being processed simultaneously. The third
+> > > clk_prepare() call will be processed much more slowly since it has to
+> > > wait in line. If we had 10 clocks enabling at the same time, the 10th
+> > > clock could have a pretty significant wait.
+> > >
+> > > With my patches, the LGA mailbox controller is given the second and
+> > > third message even though the first message isn't done yet. The LGA
+> > > mailbox controller can queue the second and third messages even thoug=
+h
+> > > the txdone for the first message hasn't arrived yet. If things are
+> > > fast enough, all three messages can be queued up before the remote
+> > > processor has even started processing the first one. The remote
+> > > processor can process all three messages concurrently and acknowledge
+> > > all three at once. The LGA mailbox controller can get a single
+> > > interrupt representing all three "txdone" ACKs and call "txdone" for
+> > > all three messages simultaneously.
+> > >
+> > If your remote (host) can actually act on multiple requests parallely,
+> > you need a way to map ACKs back onto the requests. Currently you
+> > don't.
+> > Looking at the goog_mba_handle_tx_interrupt() implementation, consider
+> > the situation when 5 requests are submitted in the h/w fifo and 3 are
+> > reported ACKed by the interrupt after some time.
+> > You assume the three done are the first three -- which implies that
+> > the remote handles requests in the order they arrive i.e, serially.
+> > Otherwise, say, request-1 may be wrongly completed if the ACKs were
+> > for requests 2, 3 & 4.
+> > So it seems mostly an illusion of parallelism - remote is acting on
+> > requests (or atleast sending ACKs) serially.
+>
+> It's more than an illusion because all of the slow paths are
+> parallelized. For the remote processor, I believe that turning on a
+> clock is trivially easy: just set a bit. The slow parts are the
+> interrupt arriving on the remote processor and the interrupt arriving
+> on the Linux processor. Those _are_ parallelized. During a single
+> interrupt, we can see and process multiple mailbox messges (or
+> multiple mailbox ACKs). I can paste the example I gave earlier. Just
+> as you say, interrupts are processed and acted on serially. ...but
+> because we can parallelize the interrupt handling we still get the win
+> because interrupt latency is much worse than any of the actual work
+> that needs to be done.
+>
+> 0.000000: Client sends msg #1 and mbox controller initiates the xfer
+> 0.000010: Client sends msg #2 and mbox controller initiates the xfer
+> 0.000020: Client sends msg #3 and mbox controller initiates the xfer
+> 0.000050: Remote gets IRQ, sees 3 messages, and ACKs them all.
+> 0.000150: ACK IRQ arrives; mbox controller sends 3 txdone
+>
+> ...so all 3 messages are sent / ACKed in 150us.
+>
+> Without letting the mailbox controller queue, we'd end up more like this:
+>
+> 0.000000: Client sends msg #1 and mbox controller initiates the xfer
+> 0.000050: Remote gets IRQ, sees msg #1, ACKs it.
+> 0.000150: ACK IRQ arrives; mbox controller sends txdone
+> 0.000150: mbox core notes txdone and sends msg #2
+> 0.000200: Remote gets IRQ, sees msg #2, ACKs it.
+> 0.000300: ACK IRQ arrives; mbox controller sends txdone
+> 0.000300: mbox core notes txdone and sends msg #3
+> 0.000350: Remote gets IRQ, sees msg #3, ACKs it.
+> 0.000450: ACK IRQ arrives; mbox controller sends txdone
+>
+> The numbers here for interrupt latency are made up for my example and
+> I haven't personally measured them, but I think it's not completely
+> absurd to say that interrupt latency (on both the Linux and remote
+> sides) dominates the communication path.
+>
+Yes, the numbers do look biased. It takes 50us for remote to get the
+irq and act upon it before ACKing but it takes 100us for that ACK to
+get back.
+And the benefit will be hard to achieve - it involves three unrelated
+clk_prepare() requests done within 50us often enough. When the stars
+align you save 300us on a clk_prepare()
 
-What changed since the RFC (same out of tree module):
-Automated prefetch never exceeds ra_pages now. Overhangs get trimmed
-or dropped, all counted. The only exception is our own measured
-willneed ranges up to io_pages. That follows Ming Lei's RFC direction
-and the MADV_POPULATE precedent. It is toggleable, Mod A means strict cap.
+It feels you are trying to optimize a non-issue. clk_prepare() is
+expected to be slow and anyways shouldn't be frequent enough from all
+devices to give noticeable benefit.
 
-Fault path first, as you asked in Q3. filemap_fault hook observes, then
-prefetches with depth capped at 2 and bounded by the cap. One more
-thing on this: the fault path stands down explicitly at 1M windows and
-up. There is a straight s_bdi->ra_pages check in nsd_process(). The
-  parity we see at 256K and 512K is a different thing. Our code still
-  fires there. The kernel just catches up on its own at those sizes.
+If you do have some real numbers and think it is worth it on your
+platform, then maybe expose each doorbell/shm-slot as a generic
+channel. clk_mailbox will request a generic channel, do the request
+and free it. The same effect but without inventing a new api. I can
+share a draft if you want, but I suggest let's not make things
+complicated without proven benefit.
 
-A sleeping in atomic bug in our fast path got found through a stack
-trace and fixed. vfs_fadvise was called from fprobe context. It now
-goes through a workqueue.
+> > We can keep the core
+> > unchanged and the driver much simpler if we simply use the buffering
+> > in the core.
+>
+> FWIW, the driver will need to contain the queuing complexity
+> regardless. This is because the remote processor expects queuing. Even
+> if we don't queue at the Linux level, the driver still needs to know
+> if the remote side uses a "queuing protocol." This is because the
+> remote side expects the shared memory to be partitioned into chunks
+> and that we must move onto the next chunk between messages.
+>
+My first concern is to avoid implanting a yet another path of sending
+messages and second is to keep drivers simple if they can.
 
-A len==0 fadvise footgun got found through our own counters. Len 0
-means to end of file, so those sends preloaded whole files. All our
-earlier big mmap and SQLite speedups traced back to it. Retracted.
-Sends with len 0 are now dropped and counted.
-
-Narrowed claims after all that. Interleaved A/B, drop_caches before
-every run, checksums verified, 500+ runs in total:
-
-  sparse mmap scan, about 64KB stride, 512MB to 20GB files, 128K window,
-  SSD: ON ~47s vs OFF ~88s median over 30+30 reps, no overlap.
-    The threshold lines up exactly with FAULT_AROUND_ORDER=4 (65536B).
-    Below it the kernel fault around covers the fault by itself.
-    Above it, it does not.
-  same setup at 256K, 512K, 1024K windows: parity, kernel catches up.
-  dense mmap, rand 4K, seq read, SQLite, THP, and HDD sparse mmap:
-  parity everywhere. The early small HDD lean got remeasured with
-  current code and traced to the same len 0 accident, retracted too.
-  No workload regresses. dmesg tracked throughout, no new warnings.
-
-So the scope is sparse mmap scans at default size windows on
-SSD. That is where the fault path underprovisions while the read path
-is already saturated. Dense, random, 1M tuned and HDD cases are parity
-by measurement.
-Separately, one thing that might be useful here too: p99 tail latency
-is about 4x worse at 1M than at 128K regardless of NSD state. Another
-practical reason to keep windows small.
-
-Open questions, updated:
-  Q1, fadvise beyond ra_pages: we stopped doing it silently. Only
-      measured willneed ranges up to io_pages, and that can be turned
-      off. Acceptable shape?
-  Q2, ra_state integration: we prototyped window steering from the
-      module. The kernel keeps our window but wall clock does not move
-      because there is just not enough volume from outside. Real
-      integration needs in kernel changes, so we drafted a minimal one:
-      2 stream slots plus stride state in file_ra_state, every window
-      bounded by ra_pages, read path only. Want me to post it separately
-      for direction feedback before any boot testing?
-  Q3: fault path first as described above, with timely versus correct
-      accounting running underneath.
-
-For Willy: backward patterns get detected near perfectly (strides with
-negative deltas, counted separately) but they do not move the wall on
-SATA SSD, so throttled now. Fault path is covered as you asked.
-PG_readahead replacement stays an in kernel question as above.
-
-Full data and the retraction notes are in the tree. Happy to run any
-counter matrix you ask for.
-
-Thanks,
-Ayhan
+Regards,
+Jassi
