@@ -1,149 +1,108 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD515175A62
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 16:20:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A93923CE0A4
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 16:21:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789921220; cv=none; b=lo7HjEAgmr1U2nAp7GyRdN8HgCTPMctsl3viMoByJOkY9JpWHJcsGdXCjO4WPsB+e/dYMrIlTgGiye5rDE1j12GhpVJqwJXD+mPgJTCHkIfcs/3rMmdrw6PD8Lw+RVzuwFwLqiMdd/2B5E+r2h4KbMFkHr+ypIac2X79EE5oAbQ=
+	t=1789921308; cv=none; b=E0o402ggwVlW+RmSyFBkBGVYNejwBPNtmr4jbizgl1MB9dFq1/SZ+LXiEW46IH3QDUs+w+ctYORBk/XDjD6TQmy57DEoc+/uAOEPXEy3GcS9e+9XNiWG5YEPTGC00XlXufEe2GypS4BM9KTbKWUubCY6RKba+drEG1OSeI5ZwhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789921220; c=relaxed/simple;
-	bh=vy+mJB3Db1v2pbkJ/M2R+/MB10DPkK/0qsLGoEZF3PY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C8mIb/aRwqIPB0kR0fQT3I439cQUCR4jmUKa3c6mg60aP3hWDTH5/9hK11/uMciv0tnwK+fxsg6V6qAle5OWCmK7IBHV3rStGhK/Jv6hNO+QfPMtNxVEx11UvU9dcqU61dyzWa+prjLfrIbUvB91Oa96qq6G16nV9/aZ7EmzMP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lXAyp8Wl; arc=none smtp.client-ip=74.125.228.41
+	s=arc-20240116; t=1789921308; c=relaxed/simple;
+	bh=qfdM3YubCe2IP79evjGQNlSp/HU4IyfWbW9l+cBm2Rg=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:In-Reply-To:
+	 References:MIME-Version; b=op3sOcROWZn3QpOea87xdOdrjSeq9Gg3+O6VUPDt2I+J9j0Fm6CdhurOIBOGz+8hAhSAc4X4LH5pgSItRBQZcvXuE+xf4rYpWPPgPUNdqcCdyz+N0KukgtcWKnZQbaLqcSyE44T9jfho/uLO4p3aaISd6zNv5+o//DRnV9nrrRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qGepoum3; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lXAyp8Wl"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469d249c6so1929833b3a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:20:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qGepoum3"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39dbdfaef3cso1950269a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:21:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789921218; x=1790526018; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ua2PeUg5BEcfgC5FSR37S5o47FCdmEaQbiS+1Z8zlCM=;
-        b=lXAyp8WltKlGTIsJAv1F3x1AL7PZnHFlSXPh99tXia+Lu0HzLjJUCr7c4P+Fy1161k
-         Lyb9GwK3Lee3/ExKc3lXuS4QOPxxnOHD6LDhASyXRQXFZllUl9hcgomU6yDBcVV8Bzku
-         5EVP/8IkdoIuZcqdfTVr1OdDzz5PQPf1ToNuyf4ec0QwKhb9MMpm+8DO3Pfn71shbeMn
-         fXfKgPrirXCxtBCB17LoKDpLuS8RnWfPlqe1jOAtK7m3f9F3eqzsFZevtTnlsU2BXsOu
-         X3sMCdvOWG71TX9wPX4wmx3I+d3nPmPdmboDuN6urAfB5+AriVHkcTq1GFIO7rnjXzmm
-         zXkA==
+        d=gmail.com; s=20251104; t=1789921306; x=1790526106; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
+         :from:subject:message-id:date:content-type:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Gy5ssaabRSlN5kBFNvs8mh80/gy44esWLyC1RJAbEbs=;
+        b=qGepoum3EieqrlPF7DutwuW8Fc2VyWKRJkCu/M+PyxqYxN6PISB4Ba41CAQy6SUvIt
+         ZBYqjtYi/jgBvXej7PPpe3izlR/z0V8yk3OlEb3Qj4CbY2wU63Neui7mte80/EVqefEA
+         hEE6gDxLfcLdr0Ij4bzCVh8G7WoDDDaLJ63wpCbkUAyGdD1WU5E0wx2BS92ELIw+2/fj
+         I091/bi1WcMT3RVFM26y0lq5orT0ExYCqW9pxZ24hk+bxVEB9OfEoOoRKtMtXTKB+O/j
+         OLSyWbQvrCuyAT46+lXIfj4g7cD8HcqWTtuh8ofAeZjsfdvFs4R0k3c2Mam5uZ88/fO5
+         +Stw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789921218; x=1790526018;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1789921306; x=1790526106;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
+         :from:subject:message-id:date:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ua2PeUg5BEcfgC5FSR37S5o47FCdmEaQbiS+1Z8zlCM=;
-        b=hvWtU8c6kOFc02dIO4pvnYC7Cc+TvDdjLWqbBy6kgWhLuB1YCEtis9RS2g5ye2aOqr
-         9X9hHI/3ka0CL9C57M91P4V3c4+cgCfRjkMadtbpraW5p5G6OzBxKWzhA3c9pYdgv3c+
-         6DSQ9yYf89iz27NV5a6axTJ+pQr1f4MGHef40LfENZ8LIgw/zHFA4hk3IwYaFT7qlaSv
-         uQ6gD3+ev+LNmlh5l7nRiY8rrYYWTbya6E5WDp0UVKXIP5PGW3AAru070wu/pHDqbuGT
-         LJxLpsChU1ttmvkQUB+A5jHPvbvytbtTpzpiBJTpDzAWLhu+1gVRBd4ztcxKi5Gm3BEb
-         UuvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxwO7zRI3NbMSu/hMjmtq3roM9et0VpRBbpjR43t32bOKHqhVfuZTa22MfWPee48BYwLJiN80zwN+wB+zI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l18g9EefXRUYHpbAVWYofUlln2iK9DWvwSpvqCmxrP4xMAYUPm
-	BVmaOtLmNWWTx51ActiKOQs3DTEYl2CYvVXg/wUApXuWHdeGvmFEgzRt
-X-Gm-Gg: AYBFou0bTqWdlBmk6Q1JsbN7X0OIDbGFG4hHhMWQ3IOPAHxlFzCQsWF604aRdx8Xuq3
-	eigMr6d/vt0afelo6sjkXRO6Uw/ptU9pnqcfXxp9qlZyVioM9xIbSkx0M5PICJlstZHJtIwWfBn
-	YKfRa69ugPILXd+vVJhFCRIDS8NLd250wTqw21PnBAzJeD9pFosORoRvR6uFHRUS0NMUJmVDSNh
-	btbhZRnMIC7rQsyuGu8dnePRtKOgmC8oy1yiqqv387+aHwlsvsQd+zUrDme9EtdrQ7UT50liMbs
-	WotlREmOIiUoutkf82DfBBPiC6pHoyC/kYqf606mzgOwgLS2PHKNyAx9QS9Ohoh6FF09a0ARCa+
-	m4518MJa1FxokjfiaQ8n8QkJA1JjXGV986J9zWVTmBlgEwBVP4XcCX6tCVXSzOhgWCtxbfqFoBy
-	KUG9wULzkfvyrKj8vJo3Nd2oDYu3nFOhEdfbWqNh0elx02+PAXaX5NEufeVa+DZjDivVowvJd/0
-	8H8LZwYynKTc4kPu/zDsjO/316zRvgsHtIS+F2f5wk=
-X-Received: by 2002:a05:6a00:ad89:b0:857:726d:2e99 with SMTP id d2e1a72fcca58-874dd7f8d8cmr12002193b3a.22.1789921218131;
-        Sun, 20 Sep 2026 09:20:18 -0700 (PDT)
-Received: from gmail.com ([220.85.166.190])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877aa1099e5sm2093196b3a.49.2026.09.20.09.20.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 09:20:17 -0700 (PDT)
-Date: Mon, 21 Sep 2026 01:20:11 +0900
-From: Youngjun Park <her0gyugyu@gmail.com>
-To: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Youngjun Park <youngjun.park@lge.com>, akpm@linux-foundation.org,
-	chrisl@kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kasong@tencent.com, mhocko@kernel.org,
-	roman.gushchin@linux.dev, shakeel.butt@linux.dev,
-	muchun.song@linux.dev, shikemeng@huaweicloud.com,
-	baoquan.he@linux.dev, baohua@kernel.org, yosry@kernel.org,
-	joshua.hahnjy@gmail.com, taejoon.song@lge.com, lianux.mm@gmail.com
-Subject: Re: [RFC PATCH v11 0/4] mm/swap: priority-based swap tiers with
- per-cgroup selection
-Message-ID: <arAHu_BD5oqpZJER@gmail.com>
-References: <20260916183437.2946306-1-youngjun.park@lge.com>
- <20260916200434.GA5784@cmpxchg.org>
+        bh=Gy5ssaabRSlN5kBFNvs8mh80/gy44esWLyC1RJAbEbs=;
+        b=vPfxvGF3nFTbTODY/nGCS55IDTmB3Sn2/fWu5RhvknoEd7SzErODg7vxlkl7aOCW3x
+         4JI6gCmkiQetlfbJpU6IS3vkF0AEB1mSnWYNiaLm4aUPAFksz8K79g/2CK99KWmPaiBu
+         FoVfCkzzPRIbYP5SYttPFYS/WQWjHfxUVeV1q43sYzbbHeKDAGTNdD6Bk7LHGv/sub9u
+         ZCcdTjI4xoFQuExHK+D22S4SoVKl+buhq10Vg6uomjTXQoGvXYgOgTpDcKvLYZ5fpt/B
+         hztcmTyqdZyKi9DldA7yn4buXYO8mxrpfSDZCjCMTdvSu84HDAQMD+thbtbY2DpHav3S
+         dQmw==
+X-Forwarded-Encrypted: i=1; AKwUvBz5cb0HPwy9KUchLy9V9dvkh57YagKL3DWh9HnmrR2zo1sXKo7H0gfYudGvzgtyPrYads8aZjyRuJ+qSSM=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2hLYdGr95FyHs5YZVrLszSGR+7dgYlQB7JR6TO/N0YlInPDFd
+	Yh6f+NItyEEfT7CRL1zU4wQ86lIn5jnZhn8nMdppwXZCCvxKeEaWgo6T
+X-Gm-Gg: AYBFou0il4O8WAtSrCot8eLvfPk/XsxpsnuzJNzI1W4m2/MhSGUMP/UmKr1e7AmnYSV
+	LgHxsHq2QdRit24V6DH5MwD4Axx/qRoW5knG59XkGp9/N80r92UGEs7i0sEt8yo6R4+Gccu6+uO
+	nW3HuYj73DLl/ZW+JyJ1+b9j+p1y5Qcun/43XEw4mMQUng1CFus1/1M2Wh2Sbfgz6xEJKgxTWx2
+	AjFxCrPAaFAZWOIBNfd6piqoum6QsCN+Rq/O/NxLuYqLQnTpFXgQUjBu3vKzOPxGkkE5+pJi7u5
+	Fg8Y2Ay+LJeB3W+vtMDluiQKcuGWF9nENkU39dBok4ulxcghNkYf2IDkVD/F+uuWvhIlrY0JdEL
+	ZABPJoHFnyf9+4RTd9B1E8Z7XB2TSFqIrmHS3nOcWgrfBB4VJqD0nkP5NLGEJNnOiO+oTEgdQrs
+	K4lf+kOhs09l7KP2Wf0pz1e0UuIi6LpKnZIIyXQWqBs+t16SIe9PVCEvTxSP4NeBN7UhSx89SQ2
+	CnIYkVc5N/e6jjVD58ZBj+zMOjcdwuWh0rSDFoSaPDuY6oc3srbNB7moOB3LZ+s/lafz6yw5bFO
+	/El4
+X-Received: by 2002:a17:90b:1647:b0:39e:4498:4863 with SMTP id 98e67ed59e1d1-39e54f4187emr17716173a91.10.1789921306000;
+        Sun, 20 Sep 2026 09:21:46 -0700 (PDT)
+Received: from localhost ([153.61.198.244])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a03bcecdd2sm1495785a91.1.2026.09.20.09.21.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 20 Sep 2026 09:21:45 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 20 Sep 2026 16:21:44 +0000
+Message-Id: <DLKA5BT4JBZD.30HJC03MXC30U@gmail.com>
+Subject: Re: [PATCH bpf 1/2] bpf: Zero-fill other CPUs when BPF_F_CPU
+ creates a per-cpu hash element
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Donggeun Yoo" <donggeunyoo.kernel@gmail.com>, <bpf@vger.kernel.org>
+Cc: <daniel@iogearbox.net>, <andrii@kernel.org>, <eddyz87@gmail.com>,
+ <memxor@gmail.com>, <martin.lau@linux.dev>, <song@kernel.org>,
+ <yonghong.song@linux.dev>, <jolsa@kernel.org>, <emil@etsalapatis.com>,
+ <ihor.solodrai@linux.dev>, <linux-kselftest@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+In-Reply-To: <20260920093153.439743-2-donggeunyoo.kernel@gmail.com>
+References: <20260920093153.439743-1-donggeunyoo.kernel@gmail.com> <20260920093153.439743-2-donggeunyoo.kernel@gmail.com>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916200434.GA5784@cmpxchg.org>
 
-On 2026-09-16 16:04, Johannes Weiner wrote:
-> On Thu, Sep 17, 2026 at 03:34:33AM +0900, Youngjun Park wrote:
-> > Per-cgroup swap in debugfs
-> > ==========================
-> > 
-> > Patches 3 and 4 let a memory cgroup choose its tiers through debugfs.
-> > 
-> >   # swapon -p 100 /dev/nvme0n1p2
-> >   # swapon -p 50 /dev/sdb2
-> >   # cat /sys/kernel/debug/swap/tiers
-> >   Idx   Prio
-> >   0     100
-> >   1     50
-> >   # echo "/batch 0x2" > /sys/kernel/debug/swap/memcg_tiers
-> > 
-> > Bit i of the mask is tier i, so /batch swaps only to sdb2. A tier keeps
-> > its index for its lifetime, so the mask keeps selecting the same tier
-> > across swapon and swapoff.
->
+On Sun, Sep 20, 2026 at 06:31 PM Donggeun Yoo <donggeunyoo.kernel@gmail.com> wrote:
+> Fixes: c6936161fd55 ("bpf: Add BPF_F_CPU and BPF_F_ALL_CPUS flags support for percpu_hash and lru_percpu_hash maps")
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-Hello Johannes,
+Pls cc Leon on respin.
 
-Sorry for the late reply on a good suggestion :)
+[...]
 
-> Can the cgroup be given a priority limit? That would have pretty
-> obvious inheritance semantics:
-> root
-> `- batch (memory.swap.prio.max = 20)
->    `- task (memory.swap.prio.max = max)
->    `- logs (memory.swap.prio.max = 10)
-> `- interactive (memory.swap.prio.max = max)
->    `- task (memory.swap.prio.max)
+> @@ -1056,12 +1056,12 @@ static void pcpu_init_value(struct bpf_htab *htab, void __percpu *pptr,
+>  	 * known initial values for cpus other than current one
+>  	 * (onallcpus=false always when coming from bpf prog).
+>  	 */
+> -	if (!onallcpus) {
+> -		int current_cpu = raw_smp_processor_id();
+> +	if (!onallcpus || (map_flags & BPF_F_CPU)) {
+> +		int init_cpu = onallcpus ? map_flags >> 32 : raw_smp_processor_id();
 
-Right, the inheritance is clear and easy to understand, and with this I
-can pre-define the limit without knowing the mask value.
+The comment above covers only the bpf prog case now.
+Pls update it, but one short sentence about BPF_F_CPU is enough.
+What you proposed in reply to the bot is too verbose.
 
-But first, let me check the intent. Is the point that capping batch keeps
-it from taking the faster tiers, so they are left for interactive?
-
-If so, that matches our use case. Latency sensitive workloads get the
-fast tiers, non-latency sensitive ones get the slow tiers. But...
-
-Even then, the reverse cannot be expressed. A cap only cuts from the top,
-so a latency sensitive workload given max can still fall back to the slow
-tiers once the fast ones fill up. For example,
-
-  tier0  tier1  tier2  tier3
-    0     10     20     30
-
-there is no way to say "use tier0 and tier1, but never fall back to tier2
-or tier3". To cover that, the interface would also need a min value, or
-some way to express a range.
-
-And even a range is not enough. Excluding only tier2 leaves a hole in the
-middle, which no min/max pair can express. That needs per-tier selection,
-which is what the mask,  and what I'd carry over to the memcg
-interface later (Currently memcg.swap.tiers.max).
-
-How do you think?
-
-Thanks!
-Youngjun Park
+pw-bot: cr
