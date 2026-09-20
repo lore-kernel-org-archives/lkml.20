@@ -1,56 +1,56 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13653D9020
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:23:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E323E51FF
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:23:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789881826; cv=none; b=fVGYI8S9+d7M7jwoS6Afbp+Ox+gdGtMcN1p0BoTeahgYGxEPy9RDA1p0Eng82U1edngacuzjNMKzD3eD5hAOh//z7BxOLRQvLbEHM1nSuCUb6ozDGFWSyi601eQdAajNyv0T8l4uSaVg/2a1JVL/OEYwMJ1S9DCCLuSir5Tuch8=
+	t=1789881830; cv=none; b=E7ol4T6zc5cp/KupRTiJYt5Xz7yH+q6pe9y1uCKs3mnOCYm3zH7NLhjToDSkaumN3mWwzDvGIcGFRBPyiO8Zc4WP545EDufeLuc8ZbyzQvY+t0uCCxYVh2iQjPSL2vxglGiI2/PGzUJEDpVM4575GcYSZMNYvlN7InVDDsaBX/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789881826; c=relaxed/simple;
-	bh=xInPpGO/2t3ZOrX8ptqL8O+0JJuykR8gB6dk8HHjdGU=;
+	s=arc-20240116; t=1789881830; c=relaxed/simple;
+	bh=nKQW47lxp/Dgw4Lwt/YaydZ+is5KdVRbjfyWdzeoGpA=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=nkmiTu/E53qWZ9toM4Qkv3XSAZJWYHLQW3A/LNWto+PdjTi8MYDrJOktZOUOlU+sc+t1Xwu4C4jDtODmXdrfBmoKcK+G5hYUFbt+85NfmvS/ReO9fne57maDurHKxTV/rvlYwnqoCQmUrw0HL2KlIJZfYJhjrTk/2L6sm7XhKAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BgwZn3DN; arc=none smtp.client-ip=209.85.215.197
+	 To:Cc:Content-Type; b=QcOfjxCVzpZHqXA1ygPbgicDDIMYitBAQEKJbyGjKe/fIad/WpXW55/oAa4F/RVb/xL1AEbXYuWrUcPTqz3qN/QkFxAz18VBhx42b0gWWDkw1fQ82Nd2sTgpKKsl8oSO1nDjbTeEoczTj7Rmv5Esxar4WOOQpKjvf2izJRZYlxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UjW3vkVu; arc=none smtp.client-ip=209.85.210.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BgwZn3DN"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1b80835d5so2711287a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:23:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UjW3vkVu"
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-86a880e91f0so3668287b3a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:23:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789881823; x=1790486623; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789881827; x=1790486627; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2tDtrrOeVkfMwYdNmE8aW9Rvd7NdfOSd0MtlP3HpqxQ=;
-        b=BgwZn3DNNXzbOmYK8Yk+2lmQN1jO1SWxShLmXp8ZE07dJaPyJLMzxOWMG7U2HeNBF0
-         VsZ4cIlmnY2ojxnagCqrAFBj9E+fd/FAJYwzJSvQwOdMVEK/oB4Y5GY1mc++0DzKqoKb
-         LX9fkFINYVMwebRc5l9D1+1Xfu1YuXU9UuoGjFP6MJTxJsT+gEl2WVBk5Qe/txR7uVMb
-         7tNiKh158TcrrH0g6010VPnu/iFVBfJWA4uTr7BuT4OMdhtMt92OZlL7heQ+4ewhmNPA
-         vT4yhscPuodKFp3qTIQ0nyCnWMYpzZ/dlGCHXQdY43eP+VQ3tzArNp4AHuiyf9Gj+5we
-         ux5A==
+        bh=7aHrgyV77JwbUqX0lovVxaQarutyauJOue8Qd9W4AQ4=;
+        b=UjW3vkVudyaSyxeUwcKL9bG9fz1KD9aShT98+tLhHpzYYMlFvIgB5ZZTDVVZXwMJRZ
+         TLf2hhUZYuKfZBKNaSdMY/NffTDg5VBSkGAiRptndhTHtAk91YdyYd+DkstvCdYIu+I8
+         lVpFV2oAH9chjeNARXZAFk6zM3vtzzV6FZqV4eYn8eYx2pDlJZZ4MgrwdxTzuuY8RA/J
+         GRZuK5BMywIeNnDWFvUrQuNDg2gG01B+aoE9oCJdHL399FAM9iWQD9xGbJpHSbuIsKW2
+         m8IMj2LLPjy7lca/GHHT5RzpoCIBVZRXsqUsO3V77OMcDMjLH8UNPpN2x0hltrbli6pK
+         mLeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789881823; x=1790486623;
+        d=1e100.net; s=20260707; t=1789881827; x=1790486627;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2tDtrrOeVkfMwYdNmE8aW9Rvd7NdfOSd0MtlP3HpqxQ=;
-        b=ydidI5g6VPOPPx82VZpmKM91NmholBTpZmKaDnuV7b1OjXhjPMqFZ7+jJDDazVcctq
-         i+l3t68P2a5GgEgXe8j8PiZzX7a1fCP0rC7ChgK1L2M1ypRpXZ4xqeHQq3tR1w+XLhYY
-         AS+wr1xpTU7/5iONaQdn/BJ/mf0gw4h3KoAyIk2SfwpgtmetaeQV5fStn5ZCu4dy+aue
-         dn7qf4QCG0LdTAe5uA53i8Qdw3CKrDeLFoRWoEc3B0JrEHfJBijzyCRr8DW7Emrpn/u0
-         jVoxjV8H9Evflvikc6ZFcrNNokPmXw4h36vzfkPjtOp9ozmj3fWtJ9ArbbJog9x4HuJO
-         pxmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz2+pbmwaSMyJ91UvJ/t9el0R3vwkONTI68M2y3+7ob6rmKLLH2fiIoPfMheEWg/0A+y8sYOtsRH1RBV7M=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7Lfmiy59xcr8zlHKDQ1ACf7GJCTwmO/fK1WYfFphvVMZcfKv/
-	ckyLijeZ/D0QZRIyYjhtQzb3uw+Vl7lyF++LwhNNnuMAISoN7AsxkPLcblDv5mFqnoTCn3E6ZdV
-	Ox+6rlLiIAA==
-X-Received: from dldnz2.prod.google.com ([2002:a05:701a:ca02:b0:143:77d0:b6d4])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6300:48:b0:3dd:a197:cf1a
- with SMTP id adf61e73a8af0-3dda197d75emr5277320637.62.1789881822864; Sat, 19
- Sep 2026 22:23:42 -0700 (PDT)
-Date: Sat, 19 Sep 2026 22:21:28 -0700
+        bh=7aHrgyV77JwbUqX0lovVxaQarutyauJOue8Qd9W4AQ4=;
+        b=nVqj8n9/NM+ODAU6QFyaemDfyM4jUEcoAl/tZEpOkgoROR0D6cRIJxCuuEAyYrDyIV
+         TxjksKI39Egpe/OCjo8wf2EvgYwBbarRsQF1XME+N9bPUzqrRZ5jBABa1SbPNzK4TjXP
+         CQ2HEaPr5cTCl/DpwhITA5G0Vgdu31lCrZNa0qZgN0f7K4lD5KsVVIqgze8aZKT2oLTI
+         DpVTle8YM0AqeDk3Au0qa7RxlGLPq80vEZtOHR6Mes8w7HVTIVaXjYIebXHENyLTHBTV
+         46A5yzhANW1g+Jzs6agRyl8vMK5UqQVxJNAAbm/VJHcSbh8yyGsoA4FcWebTNfPv3n0b
+         UYYQ==
+X-Forwarded-Encrypted: i=1; AKwUvByA350bMVnbKKbLFL11fxbv4W6YqTRNVpxhd4qzAToobLubPbFs5ymLP7u+SOIjNOz8LKjVnPWsS3HBfqo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJ4TbckqYealnwqgm+gxOGIHOw3IFyGEjWcbz68D6Z4ks1t+M4
+	nY/vX/8RGD2akIWvDxG5DIW6Q2chC8ySlj4pAsm0YGHVvVK01+/WGoxNVIHWVEwk9OzsvRj2AHA
+	5CQ445BC/pw==
+X-Received: from dycnr23-n2.prod.google.com ([2002:a05:7300:e9d7:20b0:33c:32d4:3ed0])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:3949:b0:3c3:791e:5e18
+ with SMTP id adf61e73a8af0-3dd8c2dd660mr12979472637.7.1789881827028; Sat, 19
+ Sep 2026 22:23:47 -0700 (PDT)
+Date: Sat, 19 Sep 2026 22:21:30 -0700
 In-Reply-To: <cover.1789880842.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789880842.git.irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <79644055228b6065ab6c822895d29f81eb8c95b9.1789880842.git.irogers@google.com>
-Subject: [PATCH v1 36/49] perf python: Port netdev-times to perf module
+Message-ID: <a87f87541e6b2caddc90232c2742f4a41076ce5c.1789880842.git.irogers@google.com>
+Subject: [PATCH v1 38/49] perf python: Port arm-cs-trace-disasm to perf module
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, adrian.hunter@intel.com, 
 	alice.mei.rogers@gmail.com, james.clark@linaro.org, 
@@ -71,588 +71,449 @@ Cc: dapeng1.mi@linux.intel.com, leo.yan@linux.dev,
 	tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Port netdev-times.py from tools/perf/scripts/python/ to a standalone
-script in tools/perf/python/:
-- Refactor the script into a NetDevTimesAnalyzer class with full type
-  annotations to encapsulate state.
-- Collect events via perf.session and sort them in timestamp order
-  before analysis so multi-CPU TX and RX packet timelines are
-  reconstructed deterministically.
-- Replace custom argument parsing with argparse (-i/--input, --tx,
-  --rx, --dev, --debug), extract tracepoint fields directly from sample
-  attributes, and remove Python 2 compatibility artifacts.
+Port arm-cs-trace-disasm.py to a standalone script in tools/perf/python/
+using the perf module directly.
 
-Add a shell test (test_netdev_times_python.sh) to verify the standalone
-script.
+Improvements compared to the legacy script:
+- Encapsulate trace disassembly state in a TraceDisasm class and
+  migrate CLI parsing from deprecated optparse to argparse.
+- Automatically search standard kernel debug paths (find_vmlinux())
+  when -k/--vmlinux is not specified, and query
+  perf.config_get("annotate.objdump") for the default objdump binary.
+- Bound DISASM_CACHE memory consumption by evicting the cache at 1024
+  entries and skipping caching of oversized (> 512 lines) objdump
+  outputs.
+- Use sample.srccode() from the perf extension module to annotate
+  disassembly output with source filenames, line numbers, and source
+  lines.
+
+Update the ARM CoreSight disassembly shell test
+(test_arm_coresight_disasm.sh) to invoke the standalone script.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/python/netdev-times.py             | 486 ++++++++++++++++++
- .../tests/shell/test_netdev_times_python.sh   |  61 +++
- 2 files changed, 547 insertions(+)
- create mode 100755 tools/perf/python/netdev-times.py
- create mode 100755 tools/perf/tests/shell/test_netdev_times_python.sh
+ tools/perf/python/arm-cs-trace-disasm.py      | 350 ++++++++++++++++++
+ .../coresight/test_arm_coresight_disasm.sh    |  27 +-
+ 2 files changed, 371 insertions(+), 6 deletions(-)
+ create mode 100755 tools/perf/python/arm-cs-trace-disasm.py
 
-diff --git a/tools/perf/python/netdev-times.py b/tools/perf/python/netdev-times.py
+diff --git a/tools/perf/python/arm-cs-trace-disasm.py b/tools/perf/python/arm-cs-trace-disasm.py
 new file mode 100755
-index 000000000000..68f85bf890a0
+index 000000000000..da5c5a5a3f3c
 --- /dev/null
-+++ b/tools/perf/python/netdev-times.py
-@@ -0,0 +1,486 @@
++++ b/tools/perf/python/arm-cs-trace-disasm.py
+@@ -0,0 +1,350 @@
 +#!/usr/bin/env python3
 +# SPDX-License-Identifier: GPL-2.0
 +"""
-+Display a process of packets and processed time.
-+It helps us to investigate networking or network device.
-+
-+Ported from tools/perf/scripts/python/netdev-times.py
++arm-cs-trace-disasm.py: ARM CoreSight Trace Dump With Disassember using perf python module
 +"""
-+
 +from __future__ import annotations
++
++import os
++from os import path
++import re
++from subprocess import check_output
 +import argparse
-+from collections import defaultdict
++import platform
 +import sys
-+from typing import Optional
++from typing import Dict, List, Optional
++
 +import perf
 +
-+# Format for displaying rx packet processing
-+PF_IRQ_ENTRY = "  irq_entry(+%.3fmsec irq=%d:%s)"
-+PF_SOFT_ENTRY = "  softirq_entry(+%.3fmsec)"
-+PF_NAPI_POLL = "  napi_poll_exit(+%.3fmsec %s)"
-+PF_JOINT = "         |"
-+PF_WJOINT = "         |            |"
-+PF_NET_RECV = "         |---netif_receive_skb(+%.3fmsec skb=%x len=%d)"
-+PF_NET_RX = "         |---netif_rx(+%.3fmsec skb=%x)"
-+PF_CPY_DGRAM = "         |      skb_copy_datagram_iovec(+%.3fmsec %d:%s)"
-+PF_KFREE_SKB = "         |      kfree_skb(+%.3fmsec location=%x)"
-+PF_CONS_SKB = "         |      consume_skb(+%.3fmsec)"
++# Initialize global dicts and regular expression
++DISASM_CACHE: Dict[str, List[str]] = {}
++CPU_DATA: Dict[str, int] = {}
++DISASM_RE = re.compile(r"^\s*([0-9a-fA-F]+):")
++DISASM_FUNC_RE = re.compile(r"^\s*([0-9a-fA-F]+)\s.*:")
++CACHE_SIZE = 1024
++class _State:
++    sample_idx: int = -1
++    source_file_name: Optional[str] = None
++    line_number: Optional[int] = None
++    dso: Optional[str] = None
 +
++_STATE = _State()
 +
-+class NetDevTimesAnalyzer:
-+    """Analyzes network device events and prints charts."""
++KVER = platform.release()
++VMLINUX_PATHS = [
++    f"/usr/lib/debug/boot/vmlinux-{KVER}.debug",
++    f"/usr/lib/debug/lib/modules/{KVER}/vmlinux",
++    f"/lib/modules/{KVER}/build/vmlinux",
++    f"/usr/lib/debug/boot/vmlinux-{KVER}",
++    f"/boot/vmlinux-{KVER}",
++    "/boot/vmlinux",
++    "vmlinux"
++]
 +
-+    def __init__(self, cfg: argparse.Namespace):
-+        self.args = cfg
-+        self.session: Optional[perf.session] = None
-+        self.show_tx = cfg.tx or (not cfg.tx and not cfg.rx)
-+        self.show_rx = cfg.rx or (not cfg.tx and not cfg.rx)
-+        self.dev = cfg.dev
-+        self.debug = cfg.debug
-+        self.buffer_budget = 65536
-+        self.irq_dic: dict[int, list[dict]] = defaultdict(list)
-+        self.net_rx_dic: dict[int, dict] = {}
-+        self.receive_hunk_list: list[dict] = []
-+        self.rx_skb_list: list[dict] = []
-+        self.tx_queue_list: list[dict] = []
-+        self.tx_xmit_list: list[dict] = []
-+        self.tx_free_list: list[dict] = []
++def default_objdump() -> str:
++    """Return the default objdump path from perf config or 'objdump'."""
++    try:
++        config = perf.config_get("annotate.objdump")
++        return str(config) if config else "objdump"
++    except (AttributeError, TypeError):
++        return "objdump"
 +
-+        self.buffer_budget = 65536
-+        self.of_count_rx_skb_list = 0
-+        self.of_count_tx_queue_list = 0
-+        self.of_count_tx_xmit_list = 0
++def find_vmlinux() -> Optional[str]:
++    """Find the vmlinux file in standard paths."""
++    if hasattr(find_vmlinux, "path"):
++        return getattr(find_vmlinux, "path")
 +
-+    def diff_msec(self, src: int, dst: int) -> float:
-+        """Calculate a time interval(msec) from src(nsec) to dst(nsec)."""
-+        return (dst - src) / 1000000.0
++    for v in VMLINUX_PATHS:
++        if os.access(v, os.R_OK):
++            setattr(find_vmlinux, "path", v)
++            return v
++    setattr(find_vmlinux, "path", None)
++    return None
 +
-+    def print_transmit(self, hunk: dict) -> None:
-+        """Display a process of transmitting a packet."""
-+        if self.dev and hunk['dev'].find(self.dev) < 0:
-+            return
-+        queue_t_sec = hunk['queue_t'] // 1000000000
-+        queue_t_usec = hunk['queue_t'] % 1000000000 // 1000
-+        print(f"{hunk['dev']:7s} {hunk['len']:5d} "
-+              f"{queue_t_sec:6d}.{queue_t_usec:06d}sec "
-+              f"{self.diff_msec(hunk['queue_t'], hunk['xmit_t']):12.3f}msec      "
-+              f"{self.diff_msec(hunk['xmit_t'], hunk['free_t']):12.3f}msec")
++def get_dso_file_path(dso_name: str, dso_build_id: str, vmlinux: Optional[str]) -> str:
++    """Return the path to the DSO file."""
++    buildid_dir = os.environ.get('PERF_BUILDID_DIR')
++    if not buildid_dir:
++        buildid_dir = os.path.join(os.environ.get('HOME', ''), '.debug')
 +
-+    def print_receive(self, hunk: dict) -> None:
-+        """Display a process of received packets and interrupts."""
-+        show_hunk = False
-+        irq_list = hunk['irq_list']
-+        if not irq_list:
-+            return
-+        cpu = irq_list[0]['cpu']
-+        base_t = irq_list[0]['irq_ent_t']
++    if dso_name in ("[kernel.kallsyms]", "vmlinux"):
++        if vmlinux:
++            return vmlinux
++        if dso_build_id:
++            for kname in (dso_name, "vmlinux", "[kernel.kallsyms]"):
++                candidate = os.path.join(buildid_dir, kname, dso_build_id, "elf")
++                if os.access(candidate, os.R_OK):
++                    return candidate
++        return find_vmlinux() or dso_name
 +
-+        if self.dev:
-+            for irq in irq_list:
-+                if irq['name'].find(self.dev) >= 0:
-+                    show_hunk = True
-+                    break
++    if dso_name == "[vdso]":
++        append = "/vdso"
++    else:
++        append = "/elf"
++
++    dso_path = buildid_dir + "/" + dso_name + "/" + dso_build_id + append
++    # Replace duplicate slash chars to single slash char
++    dso_path = dso_path.replace('//', '/', 1)
++    return dso_path
++
++def read_disam(dso_fname: str, dso_start: int, start_addr: int,
++               stop_addr: int, objdump: str) -> List[str]:
++    """Read disassembly from a DSO file using objdump."""
++    addr_range = f"{start_addr}:{stop_addr}:{dso_start}:{dso_fname}"
++
++    # Don't let the cache get too big, clear it when it hits max size
++    if len(DISASM_CACHE) > CACHE_SIZE:
++        DISASM_CACHE.clear()
++
++    if addr_range in DISASM_CACHE:
++        disasm_output = DISASM_CACHE[addr_range]
++    else:
++        start_addr = start_addr - dso_start
++        stop_addr = stop_addr - dso_start
++        disasm = [objdump, "-d", "-z",
++                  f"--start-address={start_addr:#x}",
++                  f"--stop-address={stop_addr:#x}"]
++        disasm += [dso_fname]
++        disasm_output = check_output(disasm).decode('utf-8').split('\n')
++        if len(disasm_output) <= 512:
++            DISASM_CACHE[addr_range] = disasm_output
++
++    return disasm_output
++
++def print_disam(dso_fname: str, dso_start: int, start_addr: int,
++                stop_addr: int, objdump: str) -> None:
++    """Print disassembly for a given address range."""
++    for line in read_disam(dso_fname, dso_start, start_addr, stop_addr, objdump):
++        m = DISASM_FUNC_RE.search(line)
++        if m is None:
++            m = DISASM_RE.search(line)
++            if m is None:
++                continue
++        print(f"\t{line}")
++
++def print_sample(sample: perf.sample_event) -> None:
++    """Print sample details."""
++    print(f"Sample = {{ cpu: {sample.sample_cpu:04d} addr: {sample.sample_addr:016x} "
++          f"phys_addr: {sample.sample_phys_addr:016x} ip: {sample.sample_ip:016x} "
++          f"pid: {sample.sample_pid} tid: {sample.sample_tid} period: {sample.sample_period} "
++          f"time: {sample.sample_time} index: {_STATE.sample_idx}}}")
++
++def common_start_str(comm: str, sample: perf.sample_event) -> str:
++    """Return common start string for sample output."""
++    sec = int(sample.sample_time / 1000000000)
++    ns = sample.sample_time % 1000000000
++    cpu = sample.sample_cpu
++    pid = sample.sample_pid
++    tid = sample.sample_tid
++    return f"{comm:>16s} {pid:5d}/{tid:<5d} [{cpu:04d}] {sec:9d}.{ns:09d}  "
++
++def print_srccode(comm: str, sample: perf.sample_event, symbol: str, dso: str) -> None:
++    """Print source code and symbols for a sample."""
++    ip = sample.sample_ip
++    if symbol == "[unknown]":
++        start_str = common_start_str(comm, sample) + f"{ip:x}".rjust(16).ljust(40)
++    else:
++        symoff = 0
++        symoff = getattr(sample, 'sym_offset', 0) or 0
++        offs = f"+{symoff:#x}" if symoff != 0 else ""
++        start_str = common_start_str(comm, sample) + (symbol + offs).ljust(40)
++
++    source_file_name, line_number, source_line = sample.srccode() or (None, 0, None)
++    if source_file_name:
++        if _STATE.line_number == line_number and _STATE.source_file_name == source_file_name:
++            src_str = ""
 +        else:
-+            show_hunk = True
-+
-+        if not show_hunk:
-+            return
-+
-+        base_t_sec = base_t // 1000000000
-+        base_t_usec = base_t % 1000000000 // 1000
-+        print(f"{base_t_sec}.{base_t_usec:06d}sec cpu={cpu}")
-+        for irq in irq_list:
-+            print(PF_IRQ_ENTRY %
-+                  (self.diff_msec(base_t, irq['irq_ent_t']),
-+                   irq['irq'], irq['name']))
-+            print(PF_JOINT)
-+            irq_event_list = irq['event_list']
-+            for irq_event in irq_event_list:
-+                if irq_event['event'] == 'netif_rx':
-+                    print(PF_NET_RX %
-+                          (self.diff_msec(base_t, irq_event['time']),
-+                           irq_event['skbaddr']))
-+                    print(PF_JOINT)
-+
-+        print(PF_SOFT_ENTRY % self.diff_msec(base_t, hunk['sirq_ent_t']))
-+        print(PF_JOINT)
-+        event_list = hunk['event_list']
-+        for i, event in enumerate(event_list):
-+            if event['event_name'] == 'napi_poll':
-+                print(PF_NAPI_POLL %
-+                      (self.diff_msec(base_t, event['event_t']),
-+                       event['dev']))
-+                if i == len(event_list) - 1:
-+                    print("")
-+                else:
-+                    print(PF_JOINT)
++            if len(source_file_name) > 40:
++                src_file = f"...{source_file_name[-37:]} "
 +            else:
-+                print(PF_NET_RECV %
-+                      (self.diff_msec(base_t, event['event_t']),
-+                       event['skbaddr'],
-+                       event['len']))
-+                if 'handle' in event:
-+                    print(PF_WJOINT)
-+                    if event['handle'] == "kfree_skb":
-+                        print(PF_KFREE_SKB %
-+                              (self.diff_msec(base_t, event['comm_t']),
-+                               event['location']))
-+                    elif event['handle'] == "consume_skb":
-+                        print(PF_CONS_SKB %
-+                              self.diff_msec(base_t, event['comm_t']))
-+                    elif event['handle'] == "skb_copy_datagram_iovec":
-+                        print(PF_CPY_DGRAM %
-+                              (self.diff_msec(base_t, event['comm_t']),
-+                               event['pid'], event['comm']))
-+                print(PF_JOINT)
++                src_file = source_file_name.ljust(41)
 +
-+    def handle_irq_handler_entry(self, event: dict) -> None:
-+        """Handle irq:irq_handler_entry event."""
-+        time = event['time']
-+        cpu = event['cpu']
-+        irq = event['irq']
-+        irq_name = event['irq_name']
-+        irq_record = {'irq': irq, 'name': irq_name, 'cpu': cpu,
-+                      'irq_ent_t': time, 'event_list': []}
-+        self.irq_dic[cpu].append(irq_record)
++            if source_line is None:
++                src_str = f"{src_file}{line_number:>4d} <source not found>"
++            else:
++                src_str = f"{src_file}{line_number:>4d} {source_line}"
++        _STATE.dso = None
++    elif dso == _STATE.dso:
++        src_str = ""
++    else:
++        src_str = dso
++        _STATE.dso = dso
 +
-+    def handle_irq_handler_exit(self, event: dict) -> None:
-+        """Handle irq:irq_handler_exit event."""
-+        time = event['time']
-+        cpu = event['cpu']
-+        irq = event['irq']
-+        if cpu not in self.irq_dic or not self.irq_dic[cpu]:
-+            return
-+        if irq != self.irq_dic[cpu][-1]['irq']:
-+            return
-+        irq_record = self.irq_dic[cpu].pop()
-+        irq_record['irq_ext_t'] = time
-+        # if an irq doesn't include NET_RX softirq, drop.
-+        if irq_record['event_list']:
-+            self.irq_dic[cpu].append(irq_record)
++    _STATE.line_number = line_number
++    _STATE.source_file_name = source_file_name
 +
-+    def handle_irq_softirq_raise(self, event: dict) -> None:
-+        """Handle irq:softirq_raise event."""
-+        time = event['time']
-+        cpu = event['cpu']
-+        if cpu not in self.irq_dic or not self.irq_dic[cpu]:
-+            return
-+        irq_record = self.irq_dic[cpu].pop()
-+        irq_record['event_list'].append({'time': time, 'event': 'sirq_raise'})
-+        self.irq_dic[cpu].append(irq_record)
++    print(start_str, src_str)
 +
-+    def handle_irq_softirq_entry(self, event: dict) -> None:
-+        """Handle irq:softirq_entry event."""
-+        time = event['time']
-+        cpu = event['cpu']
-+        self.net_rx_dic[cpu] = {'sirq_ent_t': time, 'event_list': []}
-+
-+    def handle_irq_softirq_exit(self, event: dict) -> None:
-+        """Handle irq:softirq_exit event."""
-+        time = event['time']
-+        cpu = event['cpu']
-+        irq_list = None
-+        event_list = None
-+        sirq_ent_t = None
-+
-+        if cpu in self.irq_dic:
-+            irq_list = self.irq_dic[cpu]
-+            del self.irq_dic[cpu]
-+        if cpu in self.net_rx_dic:
-+            sirq_ent_t = self.net_rx_dic[cpu]['sirq_ent_t']
-+            event_list = self.net_rx_dic[cpu]['event_list']
-+            del self.net_rx_dic[cpu]
-+        if not irq_list or not event_list or sirq_ent_t is None:
-+            return
-+        rec_data = {'sirq_ent_t': sirq_ent_t, 'sirq_ext_t': time,
-+                    'irq_list': irq_list, 'event_list': event_list}
-+        self.receive_hunk_list.append(rec_data)
-+
-+    def handle_napi_poll(self, event: dict) -> None:
-+        """Handle napi:napi_poll event."""
-+        time = event['time']
-+        cpu = event['cpu']
-+        dev_name = event['dev_name']
-+        work = event['work']
-+        budget = event['budget']
-+        if cpu in self.net_rx_dic:
-+            event_list = self.net_rx_dic[cpu]['event_list']
-+            rec_data = {'event_name': 'napi_poll',
-+                        'dev': dev_name, 'event_t': time,
-+                        'work': work, 'budget': budget}
-+            event_list.append(rec_data)
-+
-+    def handle_netif_rx(self, event: dict) -> None:
-+        """Handle net:netif_rx event."""
-+        time = event['time']
-+        cpu = event['cpu']
-+        skbaddr = event['skbaddr']
-+        skblen = event['skblen']
-+        dev_name = event['dev_name']
-+        if cpu not in self.irq_dic or not self.irq_dic[cpu]:
-+            return
-+        irq_record = self.irq_dic[cpu].pop()
-+        irq_record['event_list'].append({'time': time, 'event': 'netif_rx',
-+                                         'skbaddr': skbaddr, 'skblen': skblen,
-+                                         'dev_name': dev_name})
-+        self.irq_dic[cpu].append(irq_record)
-+
-+    def handle_netif_receive_skb(self, event: dict) -> None:
-+        """Handle net:netif_receive_skb event."""
-+        time = event['time']
-+        cpu = event['cpu']
-+        skbaddr = event['skbaddr']
-+        skblen = event['skblen']
-+        if cpu in self.net_rx_dic:
-+            rec_data = {'event_name': 'netif_receive_skb',
-+                        'event_t': time, 'skbaddr': skbaddr, 'len': skblen}
-+            event_list = self.net_rx_dic[cpu]['event_list']
-+            event_list.append(rec_data)
-+            self.rx_skb_list.insert(0, rec_data)
-+            if len(self.rx_skb_list) > self.buffer_budget:
-+                self.rx_skb_list.pop()
-+                self.of_count_rx_skb_list += 1
-+
-+    def handle_net_dev_queue(self, event: dict) -> None:
-+        """Handle net:net_dev_queue event."""
-+        time = event['time']
-+        skbaddr = event['skbaddr']
-+        skblen = event['skblen']
-+        dev_name = event['dev_name']
-+        skb = {'dev': dev_name, 'skbaddr': skbaddr, 'len': skblen, 'queue_t': time}
-+        self.tx_queue_list.insert(0, skb)
-+        if len(self.tx_queue_list) > self.buffer_budget:
-+            self.tx_queue_list.pop()
-+            self.of_count_tx_queue_list += 1
-+
-+    def handle_net_dev_xmit(self, event: dict) -> None:
-+        """Handle net:net_dev_xmit event."""
-+        time = event['time']
-+        skbaddr = event['skbaddr']
-+        rc = event['rc']
-+        if rc == 0:  # NETDEV_TX_OK
-+            for i, skb in enumerate(self.tx_queue_list):
-+                if skb['skbaddr'] == skbaddr:
-+                    skb['xmit_t'] = time
-+                    self.tx_xmit_list.insert(0, skb)
-+                    del self.tx_queue_list[i]
-+                    if len(self.tx_xmit_list) > self.buffer_budget:
-+                        self.tx_xmit_list.pop()
-+                        self.of_count_tx_xmit_list += 1
-+                    return
-+
-+    def handle_kfree_skb(self, event: dict) -> None:
-+        """Handle skb:kfree_skb event."""
-+        time = event['time']
-+        skbaddr = event['skbaddr']
-+        comm = event['comm']
-+        pid = event['pid']
-+        location = event['location']
-+        for i, skb in enumerate(self.tx_queue_list):
-+            if skb['skbaddr'] == skbaddr:
-+                del self.tx_queue_list[i]
-+                return
-+        for i, skb in enumerate(self.tx_xmit_list):
-+            if skb['skbaddr'] == skbaddr:
-+                skb['free_t'] = time
-+                self.tx_free_list.append(skb)
-+                del self.tx_xmit_list[i]
-+                return
-+        for i, rec_data in enumerate(self.rx_skb_list):
-+            if rec_data['skbaddr'] == skbaddr:
-+                rec_data.update({'handle': "kfree_skb",
-+                                 'comm': comm, 'pid': pid, 'comm_t': time, 'location': location})
-+                del self.rx_skb_list[i]
-+                return
-+
-+    def handle_consume_skb(self, event: dict) -> None:
-+        """Handle skb:consume_skb event."""
-+        time = event['time']
-+        skbaddr = event['skbaddr']
-+        for i, skb in enumerate(self.tx_xmit_list):
-+            if skb['skbaddr'] == skbaddr:
-+                skb['free_t'] = time
-+                self.tx_free_list.append(skb)
-+                del self.tx_xmit_list[i]
-+                return
-+        for i, rec_data in enumerate(self.rx_skb_list):
-+            if rec_data['skbaddr'] == skbaddr:
-+                rec_data.update({'handle': "consume_skb", 'comm_t': time})
-+                del self.rx_skb_list[i]
-+                return
-+
-+    def handle_skb_copy_datagram_iovec(self, event: dict) -> None:
-+        """Handle skb:skb_copy_datagram_iovec event."""
-+        time = event['time']
-+        skbaddr = event['skbaddr']
-+        comm = event['comm']
-+        pid = event['pid']
-+        for i, rec_data in enumerate(self.rx_skb_list):
-+            if skbaddr == rec_data['skbaddr']:
-+                rec_data.update({'handle': "skb_copy_datagram_iovec",
-+                                 'comm': comm, 'pid': pid, 'comm_t': time})
-+                del self.rx_skb_list[i]
-+                return
-+
-+
-+
-+    def print_summary(self) -> None:
-+        """Print charts."""
-+
-+        # display receive hunks
-+        if self.show_rx:
-+            for hunk in self.receive_hunk_list:
-+                self.print_receive(hunk)
-+
-+        # display transmit hunks
-+        if self.show_tx:
-+            print("   dev    len      Qdisc        "
-+                  "       netdevice             free")
-+            for hunk in self.tx_free_list:
-+                self.print_transmit(hunk)
-+
-+        if self.debug:
-+            print("debug buffer status")
-+            print("----------------------------")
-+            print(f"xmit Qdisc:remain:{len(self.tx_queue_list)} "
-+                  f"overflow:{self.of_count_tx_queue_list}")
-+            print(f"xmit netdevice:remain:{len(self.tx_xmit_list)} "
-+                  f"overflow:{self.of_count_tx_xmit_list}")
-+            print(f"receive:remain:{len(self.rx_skb_list)} "
-+                  f"overflow:{self.of_count_rx_skb_list}")
-+
-+    def handle_single_event(self, event: dict) -> None:
-+        """Handle a single processed event."""
-+        name = event['name']
-+        if name == 'irq:softirq_exit':
-+            self.handle_irq_softirq_exit(event)
-+        elif name == 'irq:softirq_entry':
-+            self.handle_irq_softirq_entry(event)
-+        elif name == 'irq:softirq_raise':
-+            self.handle_irq_softirq_raise(event)
-+        elif name == 'irq:irq_handler_entry':
-+            self.handle_irq_handler_entry(event)
-+        elif name == 'irq:irq_handler_exit':
-+            self.handle_irq_handler_exit(event)
-+        elif name == 'napi:napi_poll':
-+            self.handle_napi_poll(event)
-+        elif name == 'net:netif_receive_skb':
-+            self.handle_netif_receive_skb(event)
-+        elif name == 'net:netif_rx':
-+            self.handle_netif_rx(event)
-+        elif name == 'skb:skb_copy_datagram_iovec':
-+            self.handle_skb_copy_datagram_iovec(event)
-+        elif name == 'net:net_dev_queue':
-+            self.handle_net_dev_queue(event)
-+        elif name == 'net:net_dev_xmit':
-+            self.handle_net_dev_xmit(event)
-+        elif name == 'skb:kfree_skb':
-+            self.handle_kfree_skb(event)
-+        elif name == 'skb:consume_skb':
-+            self.handle_consume_skb(event)
++class TraceDisasm:
++    """Class to handle trace disassembly."""
++    def __init__(self, cli_options: argparse.Namespace):
++        self.options = cli_options
++        self.sample_idx = -1
++        self.session: Optional[perf.session] = None
 +
 +    def process_event(self, sample: perf.sample_event) -> None:
-+        """Process events directly on-the-fly."""
-+        name = str(sample.evsel)
-+        ev_name = name[6:-1] if name.startswith("evsel(") else name
-+        pid = sample.sample_pid
-+        if hasattr(self, 'session') and self.session:
-+            try:
-+                thread = self.session.find_thread(pid)
-+                comm = (thread.comm() if thread else None) or "[unknown]"
-+            except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError):
-+                comm = "[unknown]"
-+        else:
-+            comm = "Unknown"
-+        event_data = {
-+            'name': ev_name,
-+            'time': sample.sample_time,
-+            'cpu': sample.sample_cpu,
-+            'pid': pid,
-+            'comm': comm,
-+        }
++        """Process a single perf event."""
++        self.sample_idx += 1
++        _STATE.sample_idx = self.sample_idx
 +
-+        # Extract specific fields based on event type
-+        if ev_name.startswith("irq:softirq_"):
-+            event_data['vec'] = getattr(sample, "vec", 0)
-+            # Filter for NET_RX
-+            if event_data['vec'] != 3:  # NET_RX_SOFTIRQ is usually 3
-+                return
-+        elif ev_name == "irq:irq_handler_entry":
-+            event_data['irq'] = getattr(sample, "irq", -1)
-+            event_data['irq_name'] = getattr(sample, "name", "[unknown]")
-+        elif ev_name == "irq:irq_handler_exit":
-+            event_data['irq'] = getattr(sample, "irq", -1)
-+            event_data['ret'] = getattr(sample, "ret", 0)
-+        elif ev_name == "napi:napi_poll":
-+            event_data['napi'] = getattr(sample, "napi", 0)
-+            event_data['dev_name'] = getattr(sample, "dev_name", "[unknown]")
-+            event_data['work'] = getattr(sample, "work", 0)
-+            event_data['budget'] = getattr(sample, "budget", 0)
-+        elif ev_name in ("net:netif_receive_skb", "net:netif_rx",
-+                         "net:net_dev_queue"):
-+            event_data['skbaddr'] = getattr(sample, "skbaddr", 0)
-+            event_data['skblen'] = getattr(sample, "len", 0)
-+            event_data['dev_name'] = getattr(sample, "name", "[unknown]")
-+        elif ev_name == "net:net_dev_xmit":
-+            event_data['skbaddr'] = getattr(sample, "skbaddr", 0)
-+            event_data['skblen'] = getattr(sample, "len", 0)
-+            event_data['rc'] = getattr(sample, "rc", 0)
-+            event_data['dev_name'] = getattr(sample, "name", "[unknown]")
-+        elif ev_name == "skb:kfree_skb":
-+            event_data['skbaddr'] = getattr(sample, "skbaddr", 0)
-+            event_data['location'] = getattr(sample, "location", 0)
-+            event_data['protocol'] = getattr(sample, "protocol", 0)
-+            event_data['reason'] = getattr(sample, "reason", 0)
-+        elif ev_name == "skb:consume_skb":
-+            event_data['skbaddr'] = getattr(sample, "skbaddr", 0)
-+            event_data['location'] = getattr(sample, "location", 0)
-+        elif ev_name == "skb:skb_copy_datagram_iovec":
-+            event_data['skbaddr'] = getattr(sample, "skbaddr", 0)
-+            event_data['skblen'] = getattr(sample, "len", 0)
++        if self.options.start_time is not None and sample.sample_time < self.options.start_time:
++            return
++        if self.options.stop_time is not None and sample.sample_time > self.options.stop_time:
++            sys.exit(0)
++        if self.options.start_sample is not None and self.sample_idx < self.options.start_sample:
++            return
++        if self.options.stop_sample is not None and self.sample_idx > self.options.stop_sample:
++            sys.exit(0)
 +
-+        self.handle_single_event(event_data)
++        ev_name = str(sample.evsel)
++        if self.options.verbose:
++            print(f"Event type: {ev_name}")
++            print_sample(sample)
 +
++        dso = sample.dso or '[unknown]'
++        symbol = sample.symbol or '[unknown]'
++        dso_bid = (sample.dso_bid.decode('utf-8')
++                   if isinstance(sample.dso_bid, bytes)
++                   else str(sample.dso_bid or '[unknown]'))
++        dso_start = sample.map_start
++        dso_end = sample.map_end
++        map_pgoff = sample.map_pgoff or 0
++
++        comm = "[unknown]"
++        try:
++            if self.session:
++                thread_info = self.session.find_thread(sample.sample_tid)
++                if thread_info:
++                    comm = thread_info.comm() or "[unknown]"
++        except (TypeError, AttributeError):
++            pass
++
++        if dso == '[unknown]':
++            return
++
++        if dso_start is None or dso_end is None:
++            print(f"Failed to find valid dso map for dso {dso}")
++            return
++
++        if "instructions" in ev_name:
++            print_srccode(comm, sample, symbol, dso)
++            return
++
++        if "branches" not in ev_name:
++            return
++
++        self._process_branch(sample, comm, symbol, dso, dso_bid, dso_start, dso_end, map_pgoff)
++
++    def _process_branch(self, sample: perf.sample_event, comm: str, symbol: str, dso: str,
++                        dso_bid: str, dso_start: int, dso_end: int, map_pgoff: int) -> None:
++        """Helper to process branch events."""
++        cpu = sample.sample_cpu
++        ip = sample.sample_ip
++        addr = sample.sample_addr
++
++        if CPU_DATA.get(str(cpu) + 'addr') is None:
++            CPU_DATA[str(cpu) + 'addr'] = addr
++            return
++
++        start_addr = CPU_DATA[str(cpu) + 'addr']
++        stop_addr  = ip + 4
++
++        # Record for previous sample packet
++        CPU_DATA[str(cpu) + 'addr'] = addr
++
++        # Filter out zero start_address. Optionally identify CS_ETM_TRACE_ON packet
++        if start_addr == 0:
++            if stop_addr == 4 and self.options.verbose:
++                print(f"CPU{cpu}: CS_ETM_TRACE_ON packet is inserted")
++            return
++
++        if start_addr < dso_start or start_addr > dso_end:
++            print(f"Start address {start_addr:#x} is out of range [ {dso_start:#x} .. "
++                  f"{dso_end:#x} ] for dso {dso}")
++            return
++
++        if stop_addr < dso_start or stop_addr > dso_end:
++            print(f"Stop address {stop_addr:#x} is out of range [ {dso_start:#x} .. "
++                  f"{dso_end:#x} ] for dso {dso}")
++            return
++
++        if self.options.objdump is not None:
++            if dso == "[kernel.kallsyms]":
++                dso_vm_start = 0
++                map_pgoff_local = 0
++            elif dso_start == 0x400000:
++                dso_vm_start = 0
++                map_pgoff_local = 0
++            else:
++                dso_vm_start = dso_start
++                map_pgoff_local = map_pgoff
++
++            dso_fname = get_dso_file_path(dso, dso_bid, self.options.vmlinux)
++            if path.exists(dso_fname):
++                print_disam(dso_fname, dso_vm_start, start_addr + map_pgoff_local,
++                            stop_addr + map_pgoff_local, self.options.objdump)
++            else:
++                print(f"Failed to find dso {dso} for address range [ "
++                      f"{start_addr + map_pgoff_local:#x} .. {stop_addr + map_pgoff_local:#x} ]")
++
++        print_srccode(comm, sample, symbol, dso)
++
++    def run(self) -> None:
++        """Run the trace disassembly session."""
++        input_file = self.options.input or "perf.data"
++        if input_file != "-" and not os.path.exists(input_file):
++            print(f"Error: {input_file} not found.", file=sys.stderr)
++            sys.exit(1)
++
++        print('ARM CoreSight Trace Data Assembler Dump')
++        try:
++            self.session = perf.session(
++                perf.data(input_file),
++                sample=self.process_event,
++                itrace=self.options.itrace
++            )
++        except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError) as e:
++            print(f"Error opening session: {e}", file=sys.stderr)
++            sys.exit(1)
++
++        self.session.process_events()
++        print('End')
 +
 +if __name__ == "__main__":
-+    ap = argparse.ArgumentParser(description="Display a process of packets and processed time.")
-+    ap.add_argument("-i", "--input", default="perf.data", help="Input file name")
-+    ap.add_argument("--tx", action="store_true", help="show only tx chart")
-+    ap.add_argument("--rx", action="store_true", help="show only rx chart")
-+    ap.add_argument("--dev", default=None, help="show only specified device")
-+    ap.add_argument("--debug", action="store_true",
-+                    help="work with debug mode. It shows buffer status.")
-+    ap.add_argument("positionals", nargs="*",
-+                    help="optional positional arguments (tx, rx, dev=<name>, debug)")
-+    args, unknown_args = ap.parse_known_args()
++    def int_arg(v: str) -> int:
++        """Helper for integer command line arguments."""
++        val = int(v)
++        if val < 0:
++            raise argparse.ArgumentTypeError("Argument must be a positive integer")
++        return val
 +
-+    parsed_args = argparse.Namespace(
-+        tx=args.tx, rx=args.rx, dev=args.dev, debug=args.debug, input=args.input
-+    )
++    arg_parser = argparse.ArgumentParser(description="ARM CoreSight Trace Dump With Disassembler")
++    arg_parser.add_argument("-i", "--input", help="input perf.data file")
++    arg_parser.add_argument("-k", "--vmlinux",
++                            help="Set path to vmlinux file. Omit to autodetect")
++    arg_parser.add_argument("-d", "--objdump", nargs="?", const=default_objdump(),
++                            help="Show disassembly. Can also be used to change the objdump path")
++    arg_parser.add_argument("-v", "--verbose", action="store_true", help="Enable debugging log")
++    arg_parser.add_argument("--start-time", type=int_arg,
++                            help="Monotonic clock time of sample to start from.")
++    arg_parser.add_argument("--stop-time", type=int_arg,
++                            help="Monotonic clock time of sample to stop at.")
++    arg_parser.add_argument("--itrace", default="b",
++                            help="Instruction tracing options.")
++    arg_parser.add_argument("--start-sample", type=int_arg,
++                            help="Index of sample to start from.")
++    arg_parser.add_argument("--stop-sample", type=int_arg,
++                            help="Index of sample to stop at.")
 +
-+    for arg in list(args.positionals) + unknown_args:
-+        if not arg or not isinstance(arg, str):
-+            continue
-+        if arg in ('tx', '--tx'):
-+            parsed_args.tx = True
-+        elif arg in ('rx', '--rx'):
-+            parsed_args.rx = True
-+        elif arg.startswith('dev='):
-+            parsed_args.dev = arg[4:]
-+        elif arg.startswith('--dev='):
-+            parsed_args.dev = arg[6:]
-+        elif arg in ('debug', '--debug'):
-+            parsed_args.debug = True
++    parsed_options = arg_parser.parse_args()
++    if (parsed_options.start_time is not None and parsed_options.stop_time is not None and
++            parsed_options.start_time >= parsed_options.stop_time):
++        print("--start-time must less than --stop-time")
++        sys.exit(2)
++    if (parsed_options.start_sample is not None and parsed_options.stop_sample is not None and
++            parsed_options.start_sample >= parsed_options.stop_sample):
++        print("--start-sample must less than --stop-sample")
++        sys.exit(2)
 +
-+    analyzer = NetDevTimesAnalyzer(parsed_args)
-+
-+    try:
-+        session = perf.session(perf.data(parsed_args.input), sample=analyzer.process_event)
-+        analyzer.session = session
-+        session.process_events()
-+        analyzer.print_summary()
-+    except KeyboardInterrupt:
-+        analyzer.print_summary()
-+    except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError) as e:
-+        print(f"Error processing events: {e}")
-+        sys.exit(1)
-diff --git a/tools/perf/tests/shell/test_netdev_times_python.sh b/tools/perf/tests/shell/test_netdev_times_python.sh
-new file mode 100755
-index 000000000000..b512d1946ff0
---- /dev/null
-+++ b/tools/perf/tests/shell/test_netdev_times_python.sh
-@@ -0,0 +1,61 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+# netdev_times python test
-+
-+set -e
-+
-+shelldir=$(dirname "$0")
++    td = TraceDisasm(parsed_options)
++    td.run()
+diff --git a/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh b/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh
+index f3ebad596378..96c6bdc13a17 100755
+--- a/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh
++++ b/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh
+@@ -1,6 +1,6 @@
+ #!/bin/bash
+-# Check Arm CoreSight disassembly script completes without errors (exclusive)
+ # SPDX-License-Identifier: GPL-2.0
++# Check Arm CoreSight disassembly script completes without errors (exclusive)
+ 
+ # The disassembly script reconstructs ranges of instructions and gives these to objdump to
+ # decode. objdump doesn't like ranges that go backwards, but these are a good indication
+@@ -22,9 +22,10 @@ glb_err=1
+ 
+ perfdata_dir=$(mktemp -d /tmp/__perf_test.perf.data.XXXXX)
+ perfdata=${perfdata_dir}/perf.data
++perfdata2=${perfdata_dir}/perf2.data
+ file=$(mktemp /tmp/temporary_file.XXXXX)
+ # Relative path works whether it's installed or running from repo
+-script_path=$(dirname "$0")/../../../scripts/python/arm-cs-trace-disasm.py
++script_path=$(dirname "$0")/../../../python/arm-cs-trace-disasm.py
+ 
+ cleanup_files()
+ {
+@@ -44,8 +45,15 @@ branch_search='[[:space:]](bl|b(\.(eq|ne|cs|cc|mi|pl|vs|vc|hi|ls|ge|lt|gt|le|al)
+ if [ "$(id -u)" == 0 ] && [ -e /proc/kcore ]; then
+ 	echo "Testing kernel disassembly"
+ 	perf record -o ${perfdata} -e cs_etm//k --kcore -Se -m,64K -- touch $file > /dev/null 2>&1
+-	perf script -i ${perfdata} --itrace=b -s python:${script_path} -- \
+-		-d --stop-sample=2 -k ${perfdata}/kcore_dir/kcore 2> /dev/null > ${file}
++	# shellcheck source=lib/setup_python.sh
++	. "$(dirname "$0")"/../lib/setup_python.sh
++	$PYTHON -c "import perf" 2>/dev/null || {
++		echo "Skipping test, perf python module not found"
++		glb_err=2
++		exit 2
++	}
++	$PYTHON ${script_path} -i ${perfdata} --itrace=b -d --stop-sample=2 \
++		-k ${perfdata}/kcore_dir/kcore 2> /dev/null > ${file}
+ 	grep -q -E ${branch_search} ${file}
+ 	echo "Found kernel branches"
+ else
+@@ -56,8 +64,15 @@ fi
+ ## Test user ##
+ echo "Testing userspace disassembly"
+ perf record -o ${perfdata} -e cs_etm//u -Se -m,64K -- touch $file > /dev/null 2>&1
+-perf script -i ${perfdata} --itrace=b -s python:${script_path} -- \
+-	-d --stop-sample=2 2> /dev/null > ${file}
++perf inject --itrace=b -i ${perfdata} -o ${perfdata2}
 +# shellcheck source=lib/setup_python.sh
-+. "${shelldir}"/lib/setup_python.sh
-+
-+if ! "$PYTHON" -c 'import perf' > /dev/null 2>&1; then
++. "$(dirname "$0")"/../lib/setup_python.sh
++$PYTHON -c "import perf" 2>/dev/null || {
 +	echo "Skipping test, perf python module not found"
++	glb_err=2
 +	exit 2
-+fi
-+
-+script_dir="$(dirname "$0")/../../python"
-+script_path="${script_dir}/netdev-times.py"
-+
-+if ! perf check feature -q libtraceevent > /dev/null 2>&1; then
-+	echo "Skipping test, libtraceevent is disabled"
-+	exit 2
-+fi
-+
-+
-+if [ ! -f "$script_path" ]; then
-+	echo "Skipping test, netdev-times.py not found at $script_path"
-+	exit 2
-+fi
-+
-+err=0
-+temp_data=""
-+temp_out=""
-+
-+cleanup() {
-+	rm -f "${temp_data}" "${temp_out}"
 +}
-+trap 'cleanup' EXIT TERM INT
-+
-+temp_data=$(mktemp /tmp/perf.data.XXXXXX)
-+temp_out=$(mktemp /tmp/perf.out.XXXXXX)
-+
-+echo "Testing netdev-times.py..."
-+
-+# Create a perf.data file. Force dropping a packet if tracepoint is available!
-+if ! perf record -e skb:kfree_skb -a -o "${temp_data}" \
-+	-- ping -c 1 127.0.0.1 >/dev/null 2>&1; then
-+	perf record -e cycles -o "${temp_data}" \
-+		-- perf test -w noploop >/dev/null 2>&1 || \
-+		{ echo "Skipping test, perf record failed"; exit 2; }
-+fi
-+
-+# Check that the script executes
-+if ! "$PYTHON" "$script_path" -i "${temp_data}" > "${temp_out}"; then
-+	echo "netdev-times.py test failed"
-+	err=1
-+else
-+	echo "netdev-times test passed."
-+fi
-+rm -f "${temp_out}"
-+
-+exit $err
++$PYTHON ${script_path} -i ${perfdata2} -d --stop-sample=2 2> /dev/null > ${file}
+ grep -q -E ${branch_search} ${file}
+ echo "Found userspace branches"
+ 
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
