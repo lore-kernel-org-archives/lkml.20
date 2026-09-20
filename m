@@ -1,214 +1,611 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F0522EC54A
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:08:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BAF44838E;
+	Sun, 20 Sep 2026 14:09:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789913303; cv=none; b=d/230PDpNGJQdhC1A6qhm4ZNwuIKDSO1NuWZ24rX/+v6hPhsYwvoPXd+SWH1CY/SKYoGG8NRKLNiEs3Yo5aH7fNTKxXqofLGoZJ2jyMJsDT8UJtxc7l4PMqpcnhxKvkb2+rzwbJW/rS8gFaHw9od29tZEApIKKD7SZF7wOd/eAk=
+	t=1789913393; cv=none; b=MrvVRhPq0O8rTo6jrEw3iyPRxN6PO/UwjbBoauSaC66R1RzHL92LxQn585+jfFQEedzhC+2r1gjXvZf2nQscPjsz6kfdTcNIEhatFV70GOOLRycgA+1UzGb0Xswg18/OEQYRWqWk1zowDeOKgSmVCx58W6cqikVAeX+Ho5HfeOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789913303; c=relaxed/simple;
-	bh=bof09/06nPiQ4HzLqim9Sfhjmg3hRr1rOAzuadnmP+k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ICQeypH5ZKVcCZRsC7N+kQHSTyozy2lWxRsW2LpbA03tmhtrFNP7JsC8Mpm+MV86yr72GjN8TD4fTj1EYPfX46unHWfAKJ0DjJexvfBclsFywaALtUI8Z7gwHP6oGEM8M9Gx/tJ9PH/sUjdohw+4tpPgrGNlG4cZcsjC9odVQGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FonyBhjo; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789913393; c=relaxed/simple;
+	bh=ONNB8ad90qkW/loGYI5oknoo/rPFcENKswPOuyFSXWQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=pFNlqfOGbwRTNU+uX2bcqhq5HehjtG7RjB3XNK7ggJfJXjdmdTXiyCpYY0bxKQuauqFwY1Gn/x5YvCbNao9pPSA45yuMap/baDYfz8+IvksLUajNgrYj/SsrTPFYv7DyFljTElIHX9naFCDZD4LBzsR4Ntx/4Vb03CiBCi52bok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lJWOQCli; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FonyBhjo"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so1889588a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:08:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789913302; x=1790518102; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iyOmZAJ5EC0g24waSg1z6ypsi7AcrrbpqT6UrnwgkGA=;
-        b=FonyBhjoMeC1jqWHAxmLeMtbVXfrqU+W7qQttCpdKcO+uKfaszWTqIBcm7RwHfVEd2
-         UaQCTvt6r4wAdntCQDDdXfSf2olZcf4pjbRxkdvJLJU5hOU9vkn7uGqrRLJyP22pEyee
-         m5lEJzy221Qq6tAQd1OIpMjbgi3OlIPb1yUFWcfkBun74PWVEGo86u1CJ4Opn0MYcSFr
-         N1nkfDdFS8lcalJmFvfiaQNrYW0Vb+1j02Gdy+0ckc+MenoUBeD9lLFwmor9JQ03ZCMs
-         D2/VJsYUTXRttYN6xjdQ2JBfaHjRoBGx+ntRarliDB9JXRg3qK+D4h04KShg8A54cXEH
-         FYKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789913302; x=1790518102;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iyOmZAJ5EC0g24waSg1z6ypsi7AcrrbpqT6UrnwgkGA=;
-        b=kJx730kVgbSiFWFTjh9xpFbEBMYjb45oTp152vHQ1Z0W22qkGcpT/XiOllPN2bwoSE
-         OZow8Uu2+cvhnXwaFD8HkW62db/QHojfdeZYr0RxDA0TV5vQevMZhmZy7Pc/AVbgDkHi
-         rdzvSlMT/vYe4WIH+iVfjRfD7C7XMYblTDYcE6AJnTd524HpH21ZfE01E7IhphV5ZFdq
-         EsIWrcbFBfHPeHFKlGUNltlLaeucm1lZ4dIVw1PCHwxyDXId+piJVFGKD3HIEEw1S8hm
-         WHz7KVoKVm1r9Wx2BbWPA+VzLt6W2/fZbvOBOBFCbQ7L1qLqTAUwETJorHhYQlaGNuVg
-         gH0g==
-X-Forwarded-Encrypted: i=1; AKwUvBzvCDGOmfJ3aQu9WQYynOhHLAXwN8QvRAScN1eK1ICAtWuVOpsldw/Or8JL1Sw4dgzMSA4LpSPY6OgW73s=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbe655G3e4pVjgviHxmelvVQ2hWcmLwfM821d/oUTIReTyrHcq
-	FOhPiMMlG9KUx4QeQNOJ6S46uPQIMHo2Z7+HeicO8w8eqyU7W9ZYipB9
-X-Gm-Gg: AYBFou32kQdf130SwJqrIDyVziy/UKehwEyR0l5J6fdkuz+yenbBAFw+DUx2ghr4mja
-	Eln/cjxHOOr7ifBRgtZQgIbaSpq8f8bHNew/eUJpeq+em7igSGhS++9lmVm4rPhv/rMwP7l0u3W
-	rnJOjTvSRqaisNuSbmOxiCBTSWmlmn+EO02JP69YR4Tady6m+URTS6+5vnpqU3bgLN5oSsSJK4b
-	pigZYYZlcMbgVCCQezPP8FUCYNzt6OJ34MM+Y/BEEYzBXGRgNbqGT+A9oXjee3uX+gntdEfQMVG
-	BJ4IvLYUkZZYS5HpfsTqBZNH3tq0/H8sfOeuqTBSbW8YmGH/o1QI7FCwlmVCNkRbF6VZ1UNcYav
-	Il5AHIG+YjAgGxLo3hbQagc+1qyWedFHAkjA61kgIXmu1oY2YISK20RTDS+ztfGH4VrQH3nDFUx
-	VRDlzyP/r9Pan7IwbKP3WLk0mfdbxDeZwebfTNCve27VmaI5o2LxmcCIH1pVMggJQE55ADuH6rW
-	Ooi0vVJyOxkcQM=
-X-Received: by 2002:a17:90b:3eca:b0:39e:6a7f:1dc6 with SMTP id 98e67ed59e1d1-39e6a7f2209mr7510006a91.34.1789913301817;
-        Sun, 20 Sep 2026 07:08:21 -0700 (PDT)
-Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144e14dd04dsm2962133c88.7.2026.09.20.07.08.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 07:08:20 -0700 (PDT)
-Date: Sun, 20 Sep 2026 11:09:27 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Henrik Grimler <henrik.grimler@axis.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Chris Morgan <macromorgan@hotmail.com>, kernel@axis.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 4/5] iio: imu: inv_icm42607: Implement MREGx register
- access
-Message-ID: <aq_pFy46SirVu09b@debian-BULLSEYE-live-builder-AMD64>
-References: <20260917-b4-inv_icm42370p-v4-0-fd9373f123c9@axis.com>
- <20260917-b4-inv_icm42370p-v4-4-fd9373f123c9@axis.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lJWOQCli"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=AG
+	E9c1/porG2izzS8SPc2PiwypiPAK95cO8USS9ZWFY=; b=lJWOQCliLQezrg10LY
+	tOjRAdPOCYSBiT/i/7K0JOiXHZby1NnEtU3UnwySxSHBMnUr9R+kghymBI9v22os
+	dpY3cAKNbfY/MSQmNxe2d63FW7QCi2YzLUoIRubMWIpnOwuXVXaJuk5Szg+gnODM
+	VHrzOo+CDpnkf1vjt/dHEF1Vg=
+Received: from 1.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgCXDz7g6K9q0orGAQ--.60300S2;
+	Sun, 20 Sep 2026 22:08:38 +0800 (CST)
+From: Can Qi <qican5708@163.com>
+To: Anup Patel <anup@brainfault.org>
+Cc: Atish Patra <atish.patra@linux.dev>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	kvm@vger.kernel.org,
+	kvm-riscv@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Can Qi <qican5708@163.com>,
+	Quan Zhou <zhouquan@iscas.ac.cn>
+Subject: [PATCH v2] KVM: riscv: Free detached G-stage page tables outside mmu_lock
+Date: Sun, 20 Sep 2026 22:08:31 +0800
+Message-Id: <20260920140831.75097-1-qican5708@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260920123117.49830-1-qican5708@163.com>
+References: <20260920123117.49830-1-qican5708@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-b4-inv_icm42370p-v4-4-fd9373f123c9@axis.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgCXDz7g6K9q0orGAQ--.60300S2
+X-Coremail-Antispam: 1Uf129KBjvAXoW3KF1kWF4UKr47Cw1Utw18Krg_yoW8Zr13to
+	W0ya1rWF48u340yFWjyw1UtFyjq3yvkrZruF15XFWYqFyUZ348uryUKrZ8Ja4agr1UWFyf
+	ZFyfXry7XF18G3Zrn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjTRq_M3UUUUU
+X-CM-SenderInfo: ptlft0avxqmqqrwthudrp/xtbCzQb5t2qv6OaI4wAA3l
 
-On 09/17, Kanak Shilledar wrote:
-> The device supports indirect register access to different banks. A
-> specific routine needs to be followed when accessing the registers in
-> another bank as documented in the datasheet (section 13). This is
-> required for accessing registers configured via the user and
-> implementing buffer support. The implementation is inspired from the
-> icm45600 driver. The banks are defined based on their initial bank
-> access code which are written to the BLK_SEL_* regs. However, there is a
-> variation for MREG1 as User Bank 0 and MREG1 both share the same 0x00,
-> so User Bank 1 has 0x00 and MREG1 has 0x01. When MREG1 register is
-> accessed, then BLK_SEL_* is written with 0x00 instead of 0x01.
-> 
-> Datasheet: https://www.invensense.tdk.com/en-us/products/3-axis/icm-42370-p
-> Datasheet: https://www.lcsc.com/product-detail/C5129967.html
-> Assisted-by: LLM
-> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
-> ---
-> LLM was used to implement the mreg back switching support.
-...
->  
-> -/* Virtual register addresses: @bank on MSB (4 upper bits), @address on LSB */
-> +/*
-> + * Virtual register addresses: bank id in the upper byte, register address in
-> + * the lower byte. Bank 0 is directly addressable on the bus. MREG banks are
-> + * reached through the BLK_SEL/MADDR/M indirect access window, one byte per
-> + * transaction (datasheet section 13, no burst support).
-> + *
-> + * MREG1 programs BLK_SEL = 0x00, which collides with the direct bank, so it
-> + * gets the distinct virtual id 0x01. MREG2 and MREG3 virtual ids match their
-> + * BLK_SEL values.
-> + */
-> +#define INV_ICM42607_REG_BANK_MASK			GENMASK(15, 8)
-> +#define INV_ICM42607_REG_ADDR_MASK			GENMASK(7, 0)
-> +
-> +#define INV_ICM42607_BANK0				0x0000
-> +#define INV_ICM42607_MREG1				0x0100
-> +#define INV_ICM42607_MREG2				0x2800
-> +#define INV_ICM42607_MREG3				0x5000
-> +
-> +/* BLK_SEL value written to the device for each virtual bank id. */
-> +#define INV_ICM42607_MREG1_BLK_SEL			0x00
-> +#define INV_ICM42607_MREG2_BLK_SEL			0x28
-> +#define INV_ICM42607_MREG3_BLK_SEL			0x50
-> +
-> +/*
-> + * Datasheet section 13, Accessing MREGx Registers: no bus access for 10us
-> + * after programming the indirect access window.
-> + */
-> +#define INV_ICM42607_MREG_ACCESS_DELAY_US		10
->  
->  /* Register Map for User Bank 0 */
-It would help review if either the commit message or a comment here made it
-clear Bank 0 register access is now going to be handled by the same routines
-used by 16-bit virtual regmap_config. Replacing 0x00 by 0x0000 looks odd
-otherwise.
+kvm_riscv_mmu_free_pgd() currently walks the entire G-stage address
+space and recursively frees lower-level page-table pages while holding
+mmu_lock for write. Teardown of a large VM can therefore hold mmu_lock
+for a long time.
 
-> -#define INV_ICM42607_REG_MCLK_RDY			0x00
-> +#define INV_ICM42607_REG_MCLK_RDY			0x0000
-> +#define INV_ICM42607_MCLK_RDY_BIT			BIT(3)
->  
-> -#define INV_ICM42607_REG_DEVICE_CONFIG			0x01
-> +#define INV_ICM42607_REG_DEVICE_CONFIG			0x0001
->  #define INV_ICM42607_DEVICE_CONFIG_SPI_AP_4WIRE		BIT(2)
->  #define INV_ICM42607_DEVICE_CONFIG_SPI_MODE		BIT(0)
->  
-...
-> -static bool inv_icm42607_is_readable_reg(struct device *dev, unsigned int reg)
-> +static int inv_icm42607_mclk_get(struct regmap *map, bool *idle_set)
->  {
-> -	switch (reg) {
-> -	case INV_ICM42607_REG_MCLK_RDY ... INV_ICM42607_REG_INT_CONFIG:
-> -	case INV_ICM42607_REG_TEMP_DATA1 ... INV_ICM42607_REG_TMST_FSYNCL:
-> -	case INV_ICM42607_REG_APEX_DATA4 ... INV_ICM42607_REG_INTF_CONFIG1:
-> -	case INV_ICM42607_REG_INT_STATUS_DRDY ... INV_ICM42607_REG_FIFO_DATA:
-> -	case INV_ICM42607_REG_WHOAMI:
-> -		return true;
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	*idle_set = false;
-> +
-> +	ret = regmap_read(map, INV_ICM42607_REG_MCLK_RDY, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (val & INV_ICM42607_MCLK_RDY_BIT)
-> +		return 0;
-> +
-> +	/*
-> +	 * Clock isn't running: we're either in Sleep mode or in Accel LP mode
-> +	 * running on WUOSC. Force the RC oscillator on via IDLE and wait for
-> +	 * MCLK_RDY. Datasheet gives 10us (accel startup) to 200us (accel
-> +	 * transition from OFF) for this to complete.
-> +	 */
-> +	ret = regmap_set_bits(map, INV_ICM42607_REG_PWR_MGMT0,
-> +			      INV_ICM42607_PWR_MGMT0_IDLE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	*idle_set = true;
-> +
-> +	ret = regmap_read_poll_timeout(map, INV_ICM42607_REG_MCLK_RDY, val,
-> +				       val & INV_ICM42607_MCLK_RDY_BIT, 10, 200);
-> +	if (ret) {
-> +		regmap_clear_bits(map, INV_ICM42607_REG_PWR_MGMT0,
-> +				  INV_ICM42607_PWR_MGMT0_IDLE);
-> +		*idle_set = false;
-To fully handle the error path, it should also check regmap_clear_bits() return.
-E.g.
-		ret2 = regmap_clear_bits(map, INV_ICM42607_REG_PWR_MGMT0,
-					 INV_ICM42607_PWR_MGMT0_IDLE);
-		if (ret2)
-			dev_err(...);
-		else
-			*idle_set = false;
+Detach the active G-stage root under mmu_lock and free the detached tree
+after dropping the lock. Make live G-stage users acquire the active root
+under mmu_lock, and make walkers that drop and reacquire the lock verify
+that the root is still active before continuing.
 
->  	}
->  
-> -	return false;
-> +	return ret;
->  }
->  
+Before freeing the detached tree, quiesce guest and host HLV/HLVX
+hardware users using KVM_REQ_OUTSIDE_GUEST_MODE and the
+READING_SHADOW_PAGE_TABLES protocol. Prevent a detached root from being
+reinstalled in HGATP or used for guest entry, and request invalidation
+of stale G-stage translations for the old VMID.
+
+Free only page-table pages from the detached tree and periodically call
+cond_resched() while walking it.
+
+Also replace the KVM-wide split page cache with a per-operation cache.
+The huge-page split path can drop mmu_lock while topping up its cache or
+rescheduling, so keeping the cache local avoids sharing its lifetime
+with G-stage teardown.
+
+Assisted-by: LLM
+Co-developed-by: Quan Zhou <zhouquan@iscas.ac.cn>
+Signed-off-by: Quan Zhou <zhouquan@iscas.ac.cn>
+Signed-off-by: Can Qi <qican5708@163.com>
+---
+Changes in v2:
+
+- Keep mmu_lock held across the complete HLV/HLVX access.
+- Restore local IRQs before read_unlock() to avoid a PREEMPT_RT warning.
+
+ arch/riscv/include/asm/kvm_gstage.h |   9 +-
+ arch/riscv/include/asm/kvm_host.h   |   1 -
+ arch/riscv/kvm/gstage.c             |  37 ++++++++
+ arch/riscv/kvm/mmu.c                | 138 ++++++++++++++--------------
+ arch/riscv/kvm/vcpu.c               |  10 +-
+ arch/riscv/kvm/vcpu_exit.c          |  16 ++++
+ 6 files changed, 139 insertions(+), 72 deletions(-)
+
+diff --git a/arch/riscv/include/asm/kvm_gstage.h b/arch/riscv/include/asm/kvm_gstage.h
+index aaf080ba1b77..b5a9563754d0 100644
+--- a/arch/riscv/include/asm/kvm_gstage.h
++++ b/arch/riscv/include/asm/kvm_gstage.h
+@@ -87,6 +87,8 @@ bool kvm_riscv_gstage_wp_pt_masked(struct kvm_gstage *gstage, gfn_t base_gfn,
+ 
+ void kvm_riscv_gstage_mode_detect(void);
+ 
++void kvm_riscv_gstage_free(struct kvm_gstage *gstage);
++
+ static inline unsigned long kvm_riscv_gstage_mode(unsigned long pgd_levels)
+ {
+ 	switch (pgd_levels) {
+@@ -104,13 +106,18 @@ static inline unsigned long kvm_riscv_gstage_mode(unsigned long pgd_levels)
+ 	}
+ }
+ 
+-static inline void kvm_riscv_gstage_init(struct kvm_gstage *gstage, struct kvm *kvm)
++static inline bool kvm_riscv_gstage_init(struct kvm_gstage *gstage, struct kvm *kvm)
+ {
++	lockdep_assert_held(&kvm->mmu_lock);
++	if (!kvm->arch.pgd)
++		return false;
++
+ 	gstage->kvm = kvm;
+ 	gstage->flags = 0;
+ 	gstage->vmid = READ_ONCE(kvm->arch.vmid.vmid);
+ 	gstage->pgd = kvm->arch.pgd;
+ 	gstage->pgd_levels = kvm->arch.pgd_levels;
++	return true;
+ }
+ 
+ #endif
+diff --git a/arch/riscv/include/asm/kvm_host.h b/arch/riscv/include/asm/kvm_host.h
+index a30600579231..2ab999f75151 100644
+--- a/arch/riscv/include/asm/kvm_host.h
++++ b/arch/riscv/include/asm/kvm_host.h
+@@ -86,7 +86,6 @@ struct kvm_arch {
+ 	pgd_t *pgd;
+ 	phys_addr_t pgd_phys;
+ 	unsigned long pgd_levels;
+-	struct kvm_mmu_memory_cache pgd_split_page_cache;
+ 
+ 	/* Guest Timer */
+ 	struct kvm_guest_timer timer;
+diff --git a/arch/riscv/kvm/gstage.c b/arch/riscv/kvm/gstage.c
+index e5002cb9cbef..5ab3c4ba5a6a 100644
+--- a/arch/riscv/kvm/gstage.c
++++ b/arch/riscv/kvm/gstage.c
+@@ -414,6 +414,37 @@ bool kvm_riscv_gstage_op_pte(struct kvm_gstage *gstage, gpa_t addr,
+ 	return flush;
+ }
+ 
++/* The caller has detached this tree and quiesced its hardware users. */
++static void gstage_free_level(pte_t *ptep, u32 level, unsigned long nr_entries,
++			      unsigned int *processed)
++{
++	pte_t pte, *child;
++	unsigned long i;
++
++	for (i = 0; i < nr_entries; i++) {
++		pte = ptep_get(&ptep[i]);
++		if (level && pte_val(pte) && !gstage_pte_leaf(&pte)) {
++			child = (pte_t *)gstage_pte_page_vaddr(pte);
++			gstage_free_level(child, level - 1, PTRS_PER_PTE, processed);
++			put_page(virt_to_page(child));
++		}
++		/* Leaf PFNs belong to the guest backing memory, not this tree. */
++		if (++*processed == PTRS_PER_PTE) {
++			*processed = 0;
++			cond_resched();
++		}
++	}
++}
++
++void kvm_riscv_gstage_free(struct kvm_gstage *gstage)
++{
++	unsigned int processed = 0;
++
++	gstage_free_level((pte_t *)gstage->pgd, gstage->pgd_levels - 1,
++			  PTRS_PER_PTE << kvm_riscv_gstage_pgd_xbits, &processed);
++	free_pages((unsigned long)gstage->pgd, get_order(kvm_riscv_gstage_pgd_size));
++}
++
+ bool kvm_riscv_gstage_unmap_range(struct kvm_gstage *gstage,
+ 				  gpa_t start, gpa_t size, bool may_block)
+ {
+@@ -426,6 +457,12 @@ bool kvm_riscv_gstage_unmap_range(struct kvm_gstage *gstage,
+ 	bool flush = false;
+ 
+ 	while (addr < end) {
++		/* cond_resched_rwlock_write() may have let teardown detach us. */
++		if (!(gstage->flags & KVM_GSTAGE_FLAGS_LOCAL) &&
++		    (!gstage->kvm->arch.pgd ||
++		     gstage->pgd != gstage->kvm->arch.pgd))
++			break;
++
+ 		found_leaf = kvm_riscv_gstage_get_leaf(gstage, addr, &ptep, &ptep_level);
+ 		ret = gstage_level_to_page_size(gstage, ptep_level, &page_size);
+ 		if (ret)
+diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
+index 6035b5ec9503..2d7ad70ff765 100644
+--- a/arch/riscv/kvm/mmu.c
++++ b/arch/riscv/kvm/mmu.c
+@@ -26,12 +26,11 @@ static void mmu_wp_memory_region(struct kvm *kvm, int slot)
+ 	phys_addr_t start = memslot->base_gfn << PAGE_SHIFT;
+ 	phys_addr_t end = (memslot->base_gfn + memslot->npages) << PAGE_SHIFT;
+ 	struct kvm_gstage gstage;
+-	bool flush;
+-
+-	kvm_riscv_gstage_init(&gstage, kvm);
++	bool flush = false;
+ 
+ 	write_lock(&kvm->mmu_lock);
+-	flush = kvm_riscv_gstage_wp_range(&gstage, start, end);
++	if (kvm_riscv_gstage_init(&gstage, kvm))
++		flush = kvm_riscv_gstage_wp_range(&gstage, start, end);
+ 	write_unlock(&kvm->mmu_lock);
+ 	if (flush)
+ 		kvm_flush_remote_tlbs_memslot(kvm, memslot);
+@@ -44,7 +43,7 @@ int kvm_riscv_mmu_ioremap(struct kvm *kvm, gpa_t gpa, phys_addr_t hpa,
+ 	pgprot_t prot;
+ 	unsigned long pfn;
+ 	phys_addr_t addr, end;
+-	unsigned long pgd_levels = kvm->arch.pgd_levels;
++	unsigned long pgd_levels = kvm_riscv_gstage_max_pgd_levels;
+ 	struct kvm_mmu_memory_cache pcache = {
+ 		.gfp_custom = (in_atomic) ? GFP_ATOMIC | __GFP_ACCOUNT : 0,
+ 		.gfp_zero = __GFP_ZERO,
+@@ -52,8 +51,6 @@ int kvm_riscv_mmu_ioremap(struct kvm *kvm, gpa_t gpa, phys_addr_t hpa,
+ 	struct kvm_gstage_mapping map;
+ 	struct kvm_gstage gstage;
+ 
+-	kvm_riscv_gstage_init(&gstage, kvm);
+-
+ 	end = (gpa + size + PAGE_SIZE - 1) & PAGE_MASK;
+ 	pfn = __phys_to_pfn(hpa);
+ 	prot = pgprot_noncached(PAGE_WRITE);
+@@ -72,7 +69,10 @@ int kvm_riscv_mmu_ioremap(struct kvm *kvm, gpa_t gpa, phys_addr_t hpa,
+ 			goto out;
+ 
+ 		write_lock(&kvm->mmu_lock);
+-		ret = kvm_riscv_gstage_set_pte(&gstage, &pcache, &map);
++		if (kvm_riscv_gstage_init(&gstage, kvm))
++			ret = kvm_riscv_gstage_set_pte(&gstage, &pcache, &map);
++		else
++			ret = -EFAULT;
+ 		write_unlock(&kvm->mmu_lock);
+ 		if (ret)
+ 			goto out;
+@@ -88,12 +88,11 @@ int kvm_riscv_mmu_ioremap(struct kvm *kvm, gpa_t gpa, phys_addr_t hpa,
+ void kvm_riscv_mmu_iounmap(struct kvm *kvm, gpa_t gpa, unsigned long size)
+ {
+ 	struct kvm_gstage gstage;
+-	bool flush;
+-
+-	kvm_riscv_gstage_init(&gstage, kvm);
++	bool flush = false;
+ 
+ 	write_lock(&kvm->mmu_lock);
+-	flush = kvm_riscv_gstage_unmap_range(&gstage, gpa, size, false);
++	if (kvm_riscv_gstage_init(&gstage, kvm))
++		flush = kvm_riscv_gstage_unmap_range(&gstage, gpa, size, false);
+ 	write_unlock(&kvm->mmu_lock);
+ 
+ 	if (flush)
+@@ -101,14 +100,12 @@ void kvm_riscv_mmu_iounmap(struct kvm *kvm, gpa_t gpa, unsigned long size)
+ 					    size >> PAGE_SHIFT);
+ }
+ 
+-static bool need_topup_split_caches_or_resched(struct kvm *kvm, int count)
++static bool need_topup_split_cache(struct kvm *kvm,
++				   struct kvm_mmu_memory_cache *cache, int count)
+ {
+-	struct kvm_mmu_memory_cache *cache;
+-
+ 	if (need_resched() || rwlock_needbreak(&kvm->mmu_lock))
+ 		return true;
+ 
+-	cache = &kvm->arch.pgd_split_page_cache;
+ 	return kvm_mmu_memory_cache_nr_free_objects(cache) < count;
+ }
+ 
+@@ -116,7 +113,8 @@ static bool mmu_split_huge_pages(struct kvm_gstage *gstage,
+ 				 phys_addr_t start, phys_addr_t end)
+ {
+ 	struct kvm *kvm = gstage->kvm;
+-	struct kvm_mmu_memory_cache *pcache = &kvm->arch.pgd_split_page_cache;
++	struct kvm_mmu_memory_cache cache = { .gfp_zero = __GFP_ZERO };
++	struct kvm_mmu_memory_cache *pcache = &cache;
+ 	phys_addr_t addr = ALIGN_DOWN(start, PMD_SIZE);
+ 	phys_addr_t last_flush_gfn = addr >> PAGE_SHIFT;
+ 	int count = gstage->pgd_levels;
+@@ -126,7 +124,7 @@ static bool mmu_split_huge_pages(struct kvm_gstage *gstage,
+ 	lockdep_assert_held_write(&kvm->mmu_lock);
+ 
+ 	while (addr < end) {
+-		if (need_topup_split_caches_or_resched(kvm, count)) {
++		if (need_topup_split_cache(kvm, pcache, count)) {
+ 			if (flush) {
+ 				kvm_flush_remote_tlbs_range(kvm, last_flush_gfn,
+ 					  (addr >> PAGE_SHIFT) - last_flush_gfn);
+@@ -141,19 +139,22 @@ static bool mmu_split_huge_pages(struct kvm_gstage *gstage,
+ 			if (ret) {
+ 				kvm_err("Failed to toup split page cache\n");
+ 				write_lock(&kvm->mmu_lock);
+-				return flush;
++				break;
+ 			}
+ 			write_lock(&kvm->mmu_lock);
+ 		}
+ 
+-		if (!kvm->arch.pgd)
+-			return flush;
++		if (!kvm->arch.pgd || gstage->pgd != kvm->arch.pgd)
++			break;
+ 
+ 		flush |= kvm_riscv_gstage_split_huge(gstage, pcache, addr, 0, false);
+ 
+ 		addr += PMD_SIZE;
+ 	}
+ 
++	write_unlock(&kvm->mmu_lock);
++	kvm_mmu_free_memory_cache(pcache);
++	write_lock(&kvm->mmu_lock);
+ 	return flush;
+ }
+ 
+@@ -167,7 +168,8 @@ void kvm_arch_mmu_enable_log_dirty_pt_masked(struct kvm *kvm,
+ 	phys_addr_t end = (base_gfn + __fls(mask) + 1) << PAGE_SHIFT;
+ 	struct kvm_gstage gstage;
+ 
+-	kvm_riscv_gstage_init(&gstage, kvm);
++	if (!kvm_riscv_gstage_init(&gstage, kvm))
++		return;
+ 
+ 	kvm_riscv_gstage_wp_pt_masked(&gstage, base_gfn, mask);
+ 
+@@ -205,12 +207,11 @@ void kvm_arch_flush_shadow_memslot(struct kvm *kvm,
+ 	gpa_t gpa = slot->base_gfn << PAGE_SHIFT;
+ 	phys_addr_t size = slot->npages << PAGE_SHIFT;
+ 	struct kvm_gstage gstage;
+-	bool flush;
+-
+-	kvm_riscv_gstage_init(&gstage, kvm);
++	bool flush = false;
+ 
+ 	write_lock(&kvm->mmu_lock);
+-	flush = kvm_riscv_gstage_unmap_range(&gstage, gpa, size, false);
++	if (kvm_riscv_gstage_init(&gstage, kvm))
++		flush = kvm_riscv_gstage_unmap_range(&gstage, gpa, size, false);
+ 	write_unlock(&kvm->mmu_lock);
+ 	if (flush)
+ 		kvm_flush_remote_tlbs_range(kvm, gpa >> PAGE_SHIFT,
+@@ -224,12 +225,11 @@ static void mmu_split_memory_region(struct kvm *kvm, int slot)
+ 	phys_addr_t start = memslot->base_gfn << PAGE_SHIFT;
+ 	phys_addr_t end = (memslot->base_gfn + memslot->npages) << PAGE_SHIFT;
+ 	struct kvm_gstage gstage;
+-	bool flush;
+-
+-	kvm_riscv_gstage_init(&gstage, kvm);
++	bool flush = false;
+ 
+ 	write_lock(&kvm->mmu_lock);
+-	flush = mmu_split_huge_pages(&gstage, start, end);
++	if (kvm_riscv_gstage_init(&gstage, kvm))
++		flush = mmu_split_huge_pages(&gstage, start, end);
+ 	write_unlock(&kvm->mmu_lock);
+ 
+ 	if (flush)
+@@ -334,12 +334,10 @@ bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
+ 	struct kvm_gstage gstage;
+ 	bool flush;
+ 
+-	if (!kvm->arch.pgd)
+-		return false;
+-
+ 	lockdep_assert_held_write(&kvm->mmu_lock);
+ 
+-	kvm_riscv_gstage_init(&gstage, kvm);
++	if (!kvm_riscv_gstage_init(&gstage, kvm))
++		return false;
+ 	flush = kvm_riscv_gstage_unmap_range(&gstage, range->start << PAGE_SHIFT,
+ 					     (range->end - range->start) << PAGE_SHIFT,
+ 					     range->may_block);
+@@ -356,12 +354,10 @@ bool kvm_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
+ 	u64 size = (range->end - range->start) << PAGE_SHIFT;
+ 	struct kvm_gstage gstage;
+ 
+-	if (!kvm->arch.pgd)
+-		return false;
+-
+ 	WARN_ON(size != PAGE_SIZE && size != PMD_SIZE && size != PUD_SIZE);
+ 
+-	kvm_riscv_gstage_init(&gstage, kvm);
++	if (!kvm_riscv_gstage_init(&gstage, kvm))
++		return false;
+ 	if (!kvm_riscv_gstage_get_leaf(&gstage, range->start << PAGE_SHIFT,
+ 				       &ptep, &ptep_level))
+ 		return false;
+@@ -376,12 +372,10 @@ bool kvm_test_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
+ 	u64 size = (range->end - range->start) << PAGE_SHIFT;
+ 	struct kvm_gstage gstage;
+ 
+-	if (!kvm->arch.pgd)
+-		return false;
+-
+ 	WARN_ON(size != PAGE_SIZE && size != PMD_SIZE && size != PUD_SIZE);
+ 
+-	kvm_riscv_gstage_init(&gstage, kvm);
++	if (!kvm_riscv_gstage_init(&gstage, kvm))
++		return false;
+ 	if (!kvm_riscv_gstage_get_leaf(&gstage, range->start << PAGE_SHIFT,
+ 				       &ptep, &ptep_level))
+ 		return false;
+@@ -563,12 +557,12 @@ static bool kvm_riscv_mmu_dirty_log_write_fault_fast(struct kvm *kvm,
+ 	bool dirty_marked = false;
+ 	bool ret;
+ 
+-	kvm_riscv_gstage_init(&gstage, kvm);
+ 	mmu_seq = kvm->mmu_invalidate_seq;
+ 
+ 	read_lock(&kvm->mmu_lock);
+ 
+-	if (mmu_invalidate_retry_gfn(kvm, mmu_seq, gfn)) {
++	if (!kvm_riscv_gstage_init(&gstage, kvm) ||
++	    mmu_invalidate_retry_gfn(kvm, mmu_seq, gfn)) {
+ 		ret = false;
+ 		goto out_unlock;
+ 	}
+@@ -639,8 +633,6 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
+ 	struct kvm_gstage gstage;
+ 	struct page *page;
+ 
+-	kvm_riscv_gstage_init(&gstage, kvm);
+-
+ 	/* Setup initial state of output mapping */
+ 	memset(out_map, 0, sizeof(*out_map));
+ 
+@@ -649,7 +641,7 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
+ 		return 0;
+ 
+ 	/* We need minimum second+third level pages */
+-	ret = kvm_mmu_topup_memory_cache(pcache, kvm->arch.pgd_levels);
++	ret = kvm_mmu_topup_memory_cache(pcache, kvm_riscv_gstage_max_pgd_levels);
+ 	if (ret) {
+ 		kvm_err("Failed to topup G-stage cache\n");
+ 		return ret;
+@@ -719,6 +711,11 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
+ 
+ 	write_lock(&kvm->mmu_lock);
+ 
++	ret = -EFAULT;
++	if (!kvm_riscv_gstage_init(&gstage, kvm))
++		goto out_unlock;
++
++	ret = 0;
+ 	if (mmu_invalidate_retry(kvm, mmu_seq))
+ 		goto out_unlock;
+ 
+@@ -764,7 +761,6 @@ int kvm_riscv_mmu_alloc_pgd(struct kvm *kvm)
+ 	kvm->arch.pgd = page_to_virt(pgd_page);
+ 	kvm->arch.pgd_phys = page_to_phys(pgd_page);
+ 	kvm->arch.pgd_levels = kvm_riscv_gstage_max_pgd_levels;
+-	kvm->arch.pgd_split_page_cache.gfp_zero = __GFP_ZERO;
+ 
+ 	return 0;
+ }
+@@ -772,41 +768,45 @@ int kvm_riscv_mmu_alloc_pgd(struct kvm *kvm)
+ void kvm_riscv_mmu_free_pgd(struct kvm *kvm)
+ {
+ 	struct kvm_gstage gstage;
+-	void *pgd = NULL;
+-	bool flush = false;
+ 
+ 	write_lock(&kvm->mmu_lock);
+-	if (kvm->arch.pgd) {
+-		kvm_riscv_gstage_init(&gstage, kvm);
+-		flush = kvm_riscv_gstage_unmap_range(&gstage, 0UL,
+-			kvm_riscv_gstage_gpa_size(kvm->arch.pgd_levels), false);
+-		pgd = READ_ONCE(kvm->arch.pgd);
+-		kvm->arch.pgd = NULL;
+-		kvm->arch.pgd_phys = 0;
+-		kvm->arch.pgd_levels = 0;
++	if (!kvm_riscv_gstage_init(&gstage, kvm)) {
++		write_unlock(&kvm->mmu_lock);
++		return;
+ 	}
++	/* Live walkers must acquire mmu_lock and check the active root. */
++	WRITE_ONCE(kvm->arch.pgd, NULL);
++	kvm->arch.pgd_phys = 0;
++	kvm->arch.pgd_levels = 0;
+ 	write_unlock(&kvm->mmu_lock);
+ 
+-	if (flush)
+-		kvm_flush_remote_tlbs(kvm);
+-
+-	if (pgd)
+-		free_pages((unsigned long)pgd, get_order(kvm_riscv_gstage_pgd_size));
++	/* Quiesce hardware users before freeing the detached page tables. */
++	kvm_make_all_cpus_request(kvm, KVM_REQ_OUTSIDE_GUEST_MODE);
+ 
+-	kvm_mmu_free_memory_cache(&kvm->arch.pgd_split_page_cache);
++	/*
++	 * Request an old-VMID HFENCE. Queue-full fallback can flush the current
++	 * VMID, so the hardware quiescing above protects the tree lifetime.
++	 */
++	kvm_riscv_hfence_gvma_vmid_all(kvm, -1UL, 0, gstage.vmid);
++	kvm_riscv_gstage_free(&gstage);
+ }
+ 
+ void kvm_riscv_mmu_update_hgatp(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm_arch *ka = &vcpu->kvm->arch;
+-	unsigned long hgatp = kvm_riscv_gstage_mode(ka->pgd_levels)
+-			      << HGATP_MODE_SHIFT;
+-
+-	hgatp |= (READ_ONCE(ka->vmid.vmid) << HGATP_VMID_SHIFT) & HGATP_VMID;
+-	hgatp |= (ka->pgd_phys >> PAGE_SHIFT) & HGATP_PPN;
++	unsigned long hgatp = 0;
++
++	/* Serialize the root snapshot and HGATP install against root detach. */
++	read_lock(&vcpu->kvm->mmu_lock);
++	if (ka->pgd) {
++		hgatp = kvm_riscv_gstage_mode(ka->pgd_levels) << HGATP_MODE_SHIFT;
++		hgatp |= (READ_ONCE(ka->vmid.vmid) << HGATP_VMID_SHIFT) & HGATP_VMID;
++		hgatp |= (ka->pgd_phys >> PAGE_SHIFT) & HGATP_PPN;
++	}
+ 
+ 	ncsr_write(CSR_HGATP, hgatp);
+ 
+ 	if (!kvm_riscv_gstage_vmid_bits())
+ 		kvm_riscv_local_hfence_gvma_all();
++	read_unlock(&vcpu->kvm->mmu_lock);
+ }
+diff --git a/arch/riscv/kvm/vcpu.c b/arch/riscv/kvm/vcpu.c
+index e062ca19f9d8..35bf948bd451 100644
+--- a/arch/riscv/kvm/vcpu.c
++++ b/arch/riscv/kvm/vcpu.c
+@@ -708,6 +708,7 @@ void kvm_arch_vcpu_put(struct kvm_vcpu *vcpu)
+  *
+  * Return: 1 if we should enter the guest
+  *	    0 if we should exit to userspace
++ *	    negative error code if guest entry is no longer possible
+  */
+ static int kvm_riscv_check_vcpu_requests(struct kvm_vcpu *vcpu)
+ {
+@@ -755,6 +756,12 @@ static int kvm_riscv_check_vcpu_requests(struct kvm_vcpu *vcpu)
+ 			return 0;
+ 	}
+ 
++	/* A detached G-stage must not be reused after processing its HFENCE. */
++	if (!READ_ONCE(vcpu->kvm->arch.pgd)) {
++		kvm_riscv_mmu_update_hgatp(vcpu);
++		return -EIO;
++	}
++
+ 	return 1;
+ }
+ 
+@@ -980,7 +987,8 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ 		/* Update HVIP CSR for current CPU */
+ 		kvm_riscv_update_hvip(vcpu);
+ 
+-		if (kvm_riscv_gstage_vmid_ver_changed(&vcpu->kvm->arch.vmid) ||
++		if (!READ_ONCE(vcpu->kvm->arch.pgd) ||
++		    kvm_riscv_gstage_vmid_ver_changed(&vcpu->kvm->arch.vmid) ||
+ 		    kvm_request_pending(vcpu) ||
+ 		    xfer_to_guest_mode_work_pending()) {
+ 			vcpu->mode = OUTSIDE_GUEST_MODE;
+diff --git a/arch/riscv/kvm/vcpu_exit.c b/arch/riscv/kvm/vcpu_exit.c
+index 88e0c369b354..144b9f71f0a1 100644
+--- a/arch/riscv/kvm/vcpu_exit.c
++++ b/arch/riscv/kvm/vcpu_exit.c
+@@ -90,7 +90,20 @@ unsigned long kvm_riscv_vcpu_unpriv_read(struct kvm_vcpu *vcpu,
+ 	register unsigned long ttmp asm("a1");
+ 	unsigned long flags, val, tmp, old_stvec, old_hstatus;
+ 
++	/*
++	 * Prevent G-stage teardown while HLV/HLVX can walk the page tables.
++	 * The active-root check prevents a new walk from starting after detach.
++	 */
++	read_lock(&vcpu->kvm->mmu_lock);
++	if (!vcpu->kvm->arch.pgd) {
++		read_unlock(&vcpu->kvm->mmu_lock);
++		trap->scause = EXC_LOAD_GUEST_PAGE_FAULT;
++		trap->stval = guest_addr;
++		return 0;
++	}
+ 	local_irq_save(flags);
++	/* Publish the hardware walk before accessing guest memory. */
++	smp_store_mb(vcpu->mode, READING_SHADOW_PAGE_TABLES);
+ 
+ 	old_hstatus = csr_swap(CSR_HSTATUS, vcpu->arch.guest_context.hstatus);
+ 	old_stvec = csr_swap(CSR_STVEC, (ulong)&__kvm_riscv_unpriv_trap);
+@@ -146,7 +159,10 @@ unsigned long kvm_riscv_vcpu_unpriv_read(struct kvm_vcpu *vcpu,
+ 	csr_write(CSR_STVEC, old_stvec);
+ 	csr_write(CSR_HSTATUS, old_hstatus);
+ 
++	/* Complete all HLV/HLVX accesses before publishing OUTSIDE. */
++	smp_store_release(&vcpu->mode, OUTSIDE_GUEST_MODE);
+ 	local_irq_restore(flags);
++	read_unlock(&vcpu->kvm->mmu_lock);
+ 
+ 	return val;
+ }
+-- 
+2.34.1
+
