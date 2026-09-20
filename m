@@ -1,99 +1,89 @@
-Received: from relay15.grserver.gr (relay15.grserver.gr [46.62.234.254])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A562D97A6;
-	Sun, 20 Sep 2026 18:58:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.62.234.254
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262362D97A6;
+	Sun, 20 Sep 2026 18:58:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789930697; cv=none; b=KbbyOzZuTfGfRs52CabY48tVuxQ6shRoovSZWfAw5fjqDfsfofD7pnHLIYXP/OmP0HKBuTB8eeUobcU+Nqk33aPa8GoSXTf9eFmVBEcYfaX1NWXuRJkV1oW+/EXbVg5PPb6nw0ule8D4li5BvjzKaKdBXHBOFL5cXJlMT35cnvk=
+	t=1789930725; cv=none; b=nKX4/ok7XTbkO1/TUKFkdt4hVJFqrluZVGtekyC8TNrhnWXmPQCky/xL83jWRxMfZAxjVluMp+W9nqx6QD7Pi13XE0hsgTrrNhqNvm54j6MrIXCpuwENcxJzU7Tp+CsZONVM6gu7CNiOq3iKRcqql7el6zG1iChUUXg2zWn6diI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789930697; c=relaxed/simple;
-	bh=sfvZxEMgovNZnn4twPZMIQd92MJ8XyCf4scs8NDanlQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PGdEJ2n9C21ho81OtYdTouwoYNuQmmLOyfATMtBRtZuk54japk1TBLMM9DoAQ9GMqaoFVZxUQr2lqAS3wki/m5Y/f2AGRyZVsBdDKpQXtNqx8hrPWKOcqyC4+fMbyxK9UYOOAiDJiI3xQPHIdswGRwojPyAgBLqfxAfenrAKfhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=LyjSjPlq; arc=none smtp.client-ip=46.62.234.254
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	s=arc-20240116; t=1789930725; c=relaxed/simple;
+	bh=znNhHj4L2n/p2Lp5h9Kwr4jYUjH66grR1RIRJN15M7I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jl+GmhDjRA22LZHVe3OzDJHMw2HxlOREQLtook7dS/BQZ9E98n1rSlCZlHkdA70G9LUaOQ+qSapJIZKkkg12ApBXp+YX2efb+3lAY8Y9snQgNQEXQRrEX/us4iQOS8ne6ge8/m70ax0MvJztA3TkDWrNfXJVYqAAy36v5B2tQKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=AcuVNqjM; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="LyjSjPlq"
-Received: from relay15 (localhost [127.0.0.1])
-	by relay15.grserver.gr (Proxmox) with ESMTP id B143C3FA87;
-	Sun, 20 Sep 2026 18:58:05 +0000 (UTC)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay15.grserver.gr (Proxmox) with ESMTPS id C11F43EAA3;
-	Sun, 20 Sep 2026 18:58:04 +0000 (UTC)
-Received: from t14.cm.kolding.net (unknown [IPv6:2a05:f6c5:43c3:0:71d:3f4c:4885:3ab1])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id 162341FDA07;
-	Sun, 20 Sep 2026 21:58:03 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1789930683;
-	bh=vrklPTZvPch2HnTPGrV3N7W7mx20cwZeHxYrVl82fUI=; h=From:To:Subject;
-	b=LyjSjPlqFldIC0E32tvr9hIKAT+iNUV6Vw29ysw8/7Q1LLD8lXIuFTkExH7LF4Y4T
-	 zkvGqxynXYV1lNriTQAXjeM7Uz6fExi7YUE6jVBHqlFoZdj7qtmFbE+7qQP1RC0aGb
-	 pbaxReBckFml45XC+EIxCcqFr5aE3ZdKK6wVjtFLdOL1/lOfH35Z9ca0hfbthAozSn
-	 BUSde8QqeL/2dzN501M+MrQphQF43yBF10TrG5fDWYsVgzuDANwwPHZHgk0RPQZ5a0
-	 7NB7oq4PutwXz0KbS9qe8YO2/mq+ywGZ518sP/RdQItEb3ziNAKtMJojSZrjqiZhNp
-	 uy1XsPQN6B2fw==
-Authentication-Results: linux3247.grserver.gr;
-	spf=pass (sender IP is 2a05:f6c5:43c3:0:71d:3f4c:4885:3ab1) smtp.mailfrom=lkml@antheas.dev smtp.helo=t14.cm.kolding.net
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-From: Antheas Kapenekakis <lkml@antheas.dev>
-To: Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Antheas Kapenekakis <lkml@antheas.dev>,
-	Tiago Silva <tiago.paulo@live.com>
-Subject: [PATCH v1] platform/x86: ayaneo-ec: Add AYANEO 2S charge control
-Date: Sun, 20 Sep 2026 20:57:59 +0200
-Message-ID: <20260920185759.3426627-1-lkml@antheas.dev>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="AcuVNqjM"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=qYQleoFvs99p8ooFy5bGAQ/ufyR4hI12KJUFrG0P1DA=; b=Ac
+	uVNqjMcWbNu4FtNUWYhZK2mLHeTv7msvavESzCcaekD9MbxdyD5RbKjbazBlOT8IHRm+7gIkXXSqt
+	m8E052xgfd5Fgl3gteTda6xwqTSBtVxk+nOnxK//YRynqHlufNwvl1I0nUEuTnjmrYk73y24S08+E
+	r/pNN0Ewmv+Rbec=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x8MkF-006Bb9-Qs; Sun, 20 Sep 2026 20:58:35 +0200
+Date: Sun, 20 Sep 2026 20:58:35 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: =?iso-8859-1?Q?Nicol=F2_Giuliani_-_nicolo=2Egiuliani6=40studio=2Eunibo?=
+	=?iso-8859-1?B?Lml0?= <nicolo.giuliani6@studio.unibo.it>
+Cc: Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: R: [PATCH net] net: dsa: mv88e6xxx: continue without PTP if the
+ TAI period is invalid
+Message-ID: <fde8b48a-10ed-46fd-b477-18ac57df8a88@lunn.ch>
+References: <20260919-send-net-v1-1-4355c72465ee@studio.unibo.it>
+ <66937bde-51a0-49d2-9ae7-f27fb4f8ecde@lunn.ch>
+ <DU4PR01MB12163870875DEF21E5C39DD2D80852@DU4PR01MB12163.eurprd01.prod.exchangelabs.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: 
- <178993068357.1664346.17705031083463011378@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+In-Reply-To: <DU4PR01MB12163870875DEF21E5C39DD2D80852@DU4PR01MB12163.eurprd01.prod.exchangelabs.com>
 
-The AYANEO 2S uses the same EC fan interface as the AYANEO 2 and
-additionally supports charge limiting. Add an exact match ahead of the
-broader AYANEO 2 match so the charge-control quirk is selected.
+On Sun, Sep 20, 2026 at 05:34:01PM +0000, Nicolò Giuliani - nicolo.giuliani6@studio.unibo.it wrote:
+> 
+> Hi Andrew,
+> 
+> > The point of the failure is to indicate an assumption in the driver is
+> > not valid, and we need to examine the assumption.
+> 
+> You are right, and my patch only works around it.
+> 
+> > What does the datasheet for the 88E6193X say about this register? Has
+> > its meaning changed? Marvell like moving registers around, is it
+> > somewhere else?
+> 
+> I do not have the datasheet for this chip, so I cannot answer that from documentation.
 
-Reported-by: Tiago Silva <tiago.paulo@live.com>
-Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
----
- drivers/platform/x86/ayaneo-ec.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+I don't have the 88E6193X either. But i do have some other datasheets.
 
-diff --git a/drivers/platform/x86/ayaneo-ec.c b/drivers/platform/x86/ayaneo-ec.c
-index 41a24e091248..81dac81262e7 100644
---- a/drivers/platform/x86/ayaneo-ec.c
-+++ b/drivers/platform/x86/ayaneo-ec.c
-@@ -76,6 +76,13 @@ static const struct ayaneo_ec_quirk quirk_ayaneo3 = {
- };
- 
- static const struct dmi_system_id dmi_table[] = {
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "AYANEO"),
-+			DMI_EXACT_MATCH(DMI_BOARD_NAME, "AYANEO 2S"),
-+		},
-+		.driver_data = (void *)&quirk_charge_limit,
-+	},
- 	{
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "AYANEO"),
+If the device is using the internal 250MHz clock, the register is
+expected to contain 0x0FA0, 4000picoseconds. If i remember correctly,
+the patch which changed things was because different devices have
+different internal clocks, hence the need to read it.
 
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
--- 
-2.55.0
+There is however the option to use an external clock. This is
+controlled via TAI register 0x1e. If bit 14 is 0, the internal clock
+is used. If 1, the external clock is used. With the external clock,
+you need to write to register 0x01 what the external clock period is,
+in picoseconds.
 
+So you probably want to check what register 0x1e contains.
 
+	Andrew
