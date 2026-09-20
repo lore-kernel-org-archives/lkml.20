@@ -1,56 +1,56 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 375B13D5657
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:22:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8EB3D525B
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:23:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789881777; cv=none; b=TgjADQwtJEeajVjXJR5E8UdOW41+r/qhAe9xeeZ9PKajwNPZVQrPO/Sq+OctUCuG8TaojIyKNy16+oDXhQ4a8P51g1ncwuJYcKzlMHhlqEoni4U+0aLTavAeEvsgcgF6JLb4es79bW8Wr4wNsVKC8+NL7ZrDc/6QUHF4Vh2ZQHE=
+	t=1789881784; cv=none; b=WRJNJyRJIpmWW+QVS0kcTqeB6Q1RaF2G3oQnDCCPGTg/z0vNIV2OqSRlSyUQ0G2OT0YRfEJ7VMUGkOalZL6i6roRvE2ohO9M4Z8C0VK+8WDheC0+nM2IKguakSJbuafebFagmr7j+D0LlNW3b7JmucOWDI9uPyxzJNTakbygmKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789881777; c=relaxed/simple;
-	bh=7r/bTHh0ScTAyQwcYIRK3GzSDEyuQ23uw0vfe0MckBw=;
+	s=arc-20240116; t=1789881784; c=relaxed/simple;
+	bh=S6mL8H/b3NpwzuCBgaGKWVjxzCruzeEOAud4VZhZBww=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=b4Bv+h16npzD6rysM4hP5QFGgy5jSoRDemTRfRdRaZMbLQLJstsGwwNsCeay8NEt/caIZBZkBLEVDr6Wvss5jl5iDj0flUmlfnIekISAixR3donrFL5Sd+v0goMZQH9MGeEy2ANbUHP3FV/ID4JF/vxeYtp0Ie5jSEAPjG9rcqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=E7i3fcxc; arc=none smtp.client-ip=209.85.215.200
+	 To:Cc:Content-Type; b=FbdXms6PQx9s5dT9YVTG0E1RdZXDZ0M3pVJyF7PUO4hMTEwBEDBuM/Vm6WdBFORHkohHe3FQVsVN/0phi+0uvu0l0ypAk30rnr6/SgsNp7caUTHCyoobbUxGgI6YiJonpluQlcsHPYiDz8HoNaDRNBKBM2WDL8IBUgwtFuLSBVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ChwU/CGm; arc=none smtp.client-ip=209.85.214.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="E7i3fcxc"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4ac5feaa4so2758754a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:22:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ChwU/CGm"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2dd753a52bbso38490925ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:23:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789881772; x=1790486572; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789881781; x=1790486581; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TAr3JsSecIvU8RuLJP8w4tdcPJ2utP0RVG4o7rqJXfI=;
-        b=E7i3fcxc/vhDqIkRDR8SJG7obvyhZ52DC0k7djG8LZxUH0CYSNEdwxRLD77/W72Cwc
-         M/xNWpOEThidgwwhQSVp6Uwz/Nq++ocheK/jyyuqRDVOAN5Ys5ABbBITFcn0JddBvUA6
-         tRK5GzQZmxvhNqa5hb+E0FoHpx/7vwtP+UAIVt6P5JEvTM3toxMv6+KvI07fCuAWtUil
-         gT8r+XvSRnOcTeCKETT0qFEkwgdk/gC1TOtvifwzMWJlmBXrPC/4bqd3uimUPAp+6LLN
-         KgCrK52/Dfzyu1cdaCvFVB7F13zfos8GnMPJD9pOe5OO+SouJ/eRgO/exepHg5D4+0MP
-         ea6g==
+        bh=tuebB8yjUONaP5k4givMWNJoLg+Rg6Sf1ayYARW2BaQ=;
+        b=ChwU/CGmYqz5CWgGlIXcKk03Pk5cjC3Ffx59CN+QJRwrp4aNhFcsNtnEaQ9Za00XwO
+         Fn6U6YZFQAVT/Zaykuc92oT9ea3WIfn1nTxjDUXXZraTbiifCO3v97GTMbtT1vKgaUqR
+         ng4oXpaz0wqBrjNh72LCb7pCO/OIVfH1LVCDJuUW/q2caOfngfNEKITgE7vu+oN6Q+T5
+         vMdE6LZRTsj0ZWp3x9tvbvMFaoS47EmuX7byOO43cckUz40pmIOBPrs2Q2yFdVwXJQWs
+         QdDD5G14loW9E+nR9nZTBM2Moe3DSYezINWXMqQC50TT38vRTBx9ES2mKXaGgMx8V1LV
+         Xz8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789881772; x=1790486572;
+        d=1e100.net; s=20260707; t=1789881781; x=1790486581;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TAr3JsSecIvU8RuLJP8w4tdcPJ2utP0RVG4o7rqJXfI=;
-        b=Vb8w8e4CDe5eCuwCaVY0SvuDH/R0Y1lEvS3Wh1m9Ctst4vIz4oN64FvzlzTcJwisvb
-         Shsng1RNg2gjEpFMyLR4yO6ep9DGLC4Kvj8JVGCE7M0l4lKUiDBGMWJFgQX5JTlWsphp
-         qF1DBljk3tfJuDnEdzpeS3sOLlhvzNJ/gNIo6NKgx5o6fng0ss+ZSFpCZmQ3yo/ZO9bp
-         0nF9ELGrKKBppi2KttI1uCILP356RklLzRp76nM6ByhDnT6fr6bCRkFnPBLjhWLxc4AS
-         nkAO4zFM39dGMsfFrfl4Bw8kBCHZgLqZ0d1E1Qpt/AYUh/CxEzMDKmiUrhvvd7BV30Ur
-         fqaw==
-X-Forwarded-Encrypted: i=1; AKwUvBzN1VNrqUPHRYnzn/WMn8KhZsdtlB/PCbWDSsTeiRS5flpKWZ9MKlayWpCTZXaxG1doesI2KhaN2XuKnVQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfkLSjeTguFwCtgbfMPEOzIatS3bYek/xdC7v2jHwE7sqYHX/d
-	xgbxxoOMw6qymYIX6Pe8C4Fghv3LWrGkBC0hvU5sQCseG33dYq4ukGJU9r1jjTdSO/SzrqjcFJb
-	mc+eEj68ncw==
-X-Received: from dleb12-n2.prod.google.com ([2002:a05:701b:424c:20b0:13c:fe05:89a3])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:9d8e:b0:3dd:a197:cf2f
- with SMTP id adf61e73a8af0-3dda197d85dmr5741846637.83.1789881772168; Sat, 19
- Sep 2026 22:22:52 -0700 (PDT)
-Date: Sat, 19 Sep 2026 22:21:00 -0700
+        bh=tuebB8yjUONaP5k4givMWNJoLg+Rg6Sf1ayYARW2BaQ=;
+        b=vsetzGA4GI3gPLQnvMzvaFZkYDQpvVCgk+E1EOlJQyMsqauBgHHPSosRgfFfk2WDhq
+         /A3jgA0kb5NTnw4oMs9YX3pKkMB32Umun+33Tr380qtZ5xS1WtLnwlqDDsq0YfIYMkFf
+         7Zo87+1754MitdzSRw8mNlbuWFf5/SIbdqaLw15DzdcwhMPPSUbCCh4pHgwv828Z1hD8
+         5qoU4MWI7i702rA983BCJbxvGtq8JBzkv+LA2dPg8/RQdjP5a9CSU3mpqMU3eGdzmelU
+         s70K6iAFsKLliSfEk7r0MMTyMsuTcD8vqQAwn7rXpR1W5ZqvwrFT6C9u5Yh33sLD/j9G
+         U/7g==
+X-Forwarded-Encrypted: i=1; AKwUvBz+aspZbiGbPsBCMS/ierMr3CdWDzhoK2GiljV/z94hthG/eI2aWa8mdb5mvXFv9iacE5gcf2RhpUlB0L4=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3C/1Yg2fjAxXWXj6BPhLi1u+E41amY3bbazGUoWYfxuAEFXDV
+	iDkr1dvisrG21IHsxoSno/wRKJSGY0SAopgpg0qRI51xi7EfJ2VDtqVKGiOzMfg5KKluOg6breL
+	1HUfWZFcmfw==
+X-Received: from dycac1.prod.google.com ([2002:a05:7301:5501:b0:33c:2c49:add8])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:13d0:b0:2dd:c100:a5e2
+ with SMTP id d9443c01a7336-2ddc100a6cfmr53588585ad.54.1789881781392; Sat, 19
+ Sep 2026 22:23:01 -0700 (PDT)
+Date: Sat, 19 Sep 2026 22:21:05 -0700
 In-Reply-To: <cover.1789880842.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789880842.git.irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <b8e1b4ae6cb475a56bcd2c48130ac1f8ca036ddb.1789880842.git.irogers@google.com>
-Subject: [PATCH v1 08/49] perf python: Expose addr location, transaction, and context_switch
+Message-ID: <ce0228594dc98299f205bbba86e1cb8220e78a34.1789880842.git.irogers@google.com>
+Subject: [PATCH v1 13/49] perf build: Make mypy build test opt-out (NO_MYPY=1)
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, adrian.hunter@intel.com, 
 	alice.mei.rogers@gmail.com, james.clark@linaro.org, 
@@ -71,475 +71,122 @@ Cc: dapeng1.mi@linux.intel.com, leo.yan@linux.dev,
 	tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Expose destination address location components (addr_dso, addr_symbol,
-addr_sym_offset), branch/transaction metrics (branch_type, in_tx,
-flags, transaction), machine_pid, vcpu, sym_offset, and context_switch
-callbacks directly to the Python extension.
+Commit 168910d0f937 ("perf build: Add mypy build tests") added mypy as an
+opt-in compile-time check (MYPY=1) because of existing mypy errors across
+perf Python scripts.
 
-Also include supporting fixes and infrastructure updates in
-util/python.c and perf.pyi:
-- Support fetching sym_offset on resolved sample symbols.
-- Populate sample machine_pid and vcpu from evlist__id2sid() when
-  perf_guest is enabled, and resolve samples against the matching guest
-  or host machine.
-- Expose next_prev_pid and next_prev_tid on switch_event only for
-  PERF_RECORD_SWITCH_CPU_WIDE records (returning None otherwise).
-- Wire up tracing_data in pyrf_session__new(), use 'static char * const
-  kwlist[]', and update perf.pyi type stubs (including srccode() and
-  insn() return types).
+Now that all Python scripts in tools/perf have been cleaned up and pass
+mypy without errors, make the mypy build test opt-out (default on when
+mypy is installed, disabled with NO_MYPY=1), matching NO_SHELLCHECK=1.
+Set MYPYPATH to tools/perf/python so local imports resolve during type
+checking, and clean *.mypy_log files in 'make clean'.
 
+Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/python/perf.pyi |  22 +++-
- tools/perf/util/python.c   | 249 +++++++++++++++++++++++++++++++++++--
- 2 files changed, 253 insertions(+), 18 deletions(-)
+ tools/perf/Build            |  2 +-
+ tools/perf/Makefile.perf    | 20 +++++++++++++++++---
+ tools/perf/pmu-events/Build |  2 +-
+ tools/perf/tests/Build      |  2 +-
+ tools/perf/util/Build       |  2 +-
+ 5 files changed, 21 insertions(+), 7 deletions(-)
 
-diff --git a/tools/perf/python/perf.pyi b/tools/perf/python/perf.pyi
-index e5259e9b61dd..7f747eed3eda 100644
---- a/tools/perf/python/perf.pyi
-+++ b/tools/perf/python/perf.pyi
-@@ -182,6 +182,8 @@ class _sample_members:
-     sample_time: int
-     sample_id: int
-     sample_stream_id: int
-+    machine_pid: int
-+    vcpu: int
-     sample_period: int
-     sample_cpu: int
+diff --git a/tools/perf/Build b/tools/perf/Build
+index e18c80a5c1bc..37d603faea6d 100644
+--- a/tools/perf/Build
++++ b/tools/perf/Build
+@@ -88,7 +88,7 @@ endif
  
-@@ -206,10 +208,18 @@ class sample_event(_sample_members):
-     symbol: str
-     sym_start: int
-     sym_end: int
-+    sym_offset: Optional[int]
-+    addr_dso: Optional[str]
-+    addr_symbol: Optional[str]
-+    addr_sym_offset: Optional[int]
-+    branch_type: int
-+    in_tx: int
-+    flags: int
-+    transaction: int
-     brstack: Optional['branch_stack']
-     callchain: Optional['callchain']
--    def srccode(self) -> str: ...
--    def insn(self) -> str: ...
-+    def srccode(self) -> Optional[tuple[str, int, str]]: ...
-+    def insn(self) -> Optional[bytes]: ...
-     def __getattr__(self, name: str) -> Any: ...
+ $(OUTPUT)%.mypy_log: %
+ 	$(call rule_mkdir)
+-	$(Q)$(call echo-cmd,test)mypy "$<" > $@ || (cat $@ && rm $@ && false)
++	$(Q)$(call echo-cmd,test)$(MYPY) "$<" > $@ || (cat $@ && rm $@ && false)
  
- class mmap_event(_sample_members):
-@@ -286,8 +296,9 @@ class read_event(_sample_members):
- class switch_event(_sample_members):
-     """Represents a SWITCH or SWITCH_CPU_WIDE record."""
-     type: int
--    next_prev_pid: int
--    next_prev_tid: int
-+    misc: int
-+    next_prev_pid: Optional[int]
-+    next_prev_tid: Optional[int]
-     evsel: Optional['evsel']
+ perf-y += $(MYPY_TEST_LOGS)
  
- class branch_entry:
-@@ -429,7 +440,8 @@ class session:
-         self,
-         data: data,
-         sample: Optional[Callable[[sample_event], None]] = None,
--        stat: Optional[Callable[[Any, Optional[str]], None]] = None
-+        stat: Optional[Callable[[Any, Optional[str]], None]] = None,
-+        context_switch: Optional[Callable[[switch_event], None]] = None,
-     ) -> None:
-         """Initialize a perf session.
+diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
+index 2438b40eaaec..f22eda3d2852 100644
+--- a/tools/perf/Makefile.perf
++++ b/tools/perf/Makefile.perf
+@@ -129,6 +129,8 @@ include ../scripts/utilities.mak
+ # Define GEN_VMLINUX_H to generate vmlinux.h from the BTF.
+ #
+ # Define NO_SHELLCHECK if you do not want to run shellcheck during build
++#
++# Define NO_MYPY if you do not want to run mypy during build
  
-diff --git a/tools/perf/util/python.c b/tools/perf/util/python.c
-index fbfa71b1c4b6..49f37198f4b3 100644
---- a/tools/perf/util/python.c
-+++ b/tools/perf/util/python.c
-@@ -3,6 +3,7 @@
- #include <Python.h>
+ # As per kernel Makefile, avoid funny character set dependencies
+ unexport LC_ALL
+@@ -263,8 +265,19 @@ ifneq ($(SHELLCHECK),)
+ endif
  
- #include <inttypes.h>
-+#include <stdio.h>
- #include <string.h>
+ # Runs mypy on perf python files
+-ifeq ($(MYPY),1)
+-  MYPY := $(shell which mypy 2> /dev/null)
++MAKEOVERRIDES := $(filter-out MYPY=%,$(MAKEOVERRIDES))
++ifeq ($(NO_MYPY),1)
++  override MYPY :=
++else
++  ifeq ($(MYPY),1)
++    override MYPY := $(shell which mypy 2> /dev/null)
++  else
++    MYPY ?= $(shell which mypy 2> /dev/null)
++  endif
++endif
++
++ifneq ($(MYPY),)
++  override MYPY := MYPYPATH=$(srctree)/tools/perf/python $(MYPY)
+ endif
  
- #include <linux/err.h>
-@@ -106,6 +107,8 @@ struct pyrf_event {
- 	sample_member_def(sample_time, time, T_ULONGLONG, "event timestamp"),		 \
- 	sample_member_def(sample_id, id, T_ULONGLONG, "event id"),			 \
- 	sample_member_def(sample_stream_id, stream_id, T_ULONGLONG, "event stream id"), \
-+	sample_member_def(machine_pid, machine_pid, T_UINT, "event machine pid"),	 \
-+	sample_member_def(vcpu, vcpu, T_UINT, "event vcpu"),				 \
- 	sample_member_def(sample_period, period, T_ULONGLONG, "event period"),		 \
- 	sample_member_def(sample_cpu, cpu, T_UINT, "event cpu"),
+ # Runs pylint on perf python files
+@@ -948,7 +961,8 @@ clean:: $(LIBAPI)-clean $(LIBBPF)-clean $(LIBSUBCMD)-clean $(LIBSYMBOL)-clean $(
+ 	$(call QUIET_CLEAN, core-objs)  $(RM) $(LIBPERF_A) $(OUTPUT)perf-archive \
+ 		$(OUTPUT)perf-iostat $(LANG_BINDINGS)
+ 	$(Q)find $(or $(OUTPUT),.) -name '*.o' -delete -o -name '*.a' -delete -o \
+-		-name '\.*.cmd' -delete -o -name '\.*.d' -delete -o -name '*.shellcheck_log' -delete
++		-name '\.*.cmd' -delete -o -name '\.*.d' -delete -o -name '*.shellcheck_log' -delete -o \
++		-name '*.mypy_log' -delete
+ 	$(Q)$(RM) $(OUTPUT).config-detected
+ 	$(call QUIET_CLEAN, core-progs) $(RM) $(ALL_PROGRAMS) perf perf-read-vdso32 \
+ 		perf-read-vdsox32 $(OUTPUT)$(LIBJVMTI).so
+diff --git a/tools/perf/pmu-events/Build b/tools/perf/pmu-events/Build
+index 372773b998e4..c3542e5ae46f 100644
+--- a/tools/perf/pmu-events/Build
++++ b/tools/perf/pmu-events/Build
+@@ -187,7 +187,7 @@ JEVENTS_DEPS := $(OUT_JSON) $(GEN_JSON) $(JEVENTS_PY) $(METRIC_PY) $(EMPTY_PMU_E
+ ifdef MYPY
+ define MYPY_RULE
+ $(2): $(1)
+-	$$(Q)$$(call echo-cmd,test)mypy $(1) > $(2) || (cat $(2) && rm $(2) && false)
++	$$(Q)$$(call echo-cmd,test)$$(MYPY) $(1) > $(2) || (cat $(2) && rm $(2) && false)
+ endef
+ $(foreach src,$(wildcard pmu-events/*.py), \
+     $(eval dest := $(patsubst pmu-events/%,$(OUTPUT)pmu-events/%.mypy_log,$(src))) \
+diff --git a/tools/perf/tests/Build b/tools/perf/tests/Build
+index 406e48eed1c8..98b05b68fc14 100644
+--- a/tools/perf/tests/Build
++++ b/tools/perf/tests/Build
+@@ -104,7 +104,7 @@ endif
  
-@@ -581,6 +584,7 @@ static PyMemberDef pyrf_sample_event__members[] = {
- 	sample_member_def(sample_data_src, data_src, T_ULONGLONG, "event data source"),
- 	sample_member_def(sample_insn_count, insn_cnt, T_ULONGLONG, "event instruction count"),
- 	sample_member_def(sample_cyc_count, cyc_cnt, T_ULONGLONG, "event cycle count"),
-+	sample_member_def(flags, flags, T_UINT, "event flags"),
- 	member_def(perf_event_header, type, T_UINT, "event type"),
- 	{ .name = NULL, },
- };
-@@ -679,6 +683,7 @@ static int pyrf_sample_event__resolve_al(struct pyrf_event *pevent)
- 	struct evsel *evsel = pevent->sample.evsel;
- 	struct evlist *evlist = evsel ? evsel->evlist : NULL;
- 	struct perf_session *session = evlist ? evlist__session(evlist) : NULL;
-+	struct machine *machine;
+ $(OUTPUT)%.mypy_log: %
+ 	$(call rule_mkdir)
+-	$(Q)$(call echo-cmd,test)mypy "$<" > $@ || (cat $@ && rm $@ && false)
++	$(Q)$(call echo-cmd,test)$(MYPY) "$<" > $@ || (cat $@ && rm $@ && false)
  
- 	if (pevent->al_resolved)
- 		return 0;
-@@ -686,8 +691,14 @@ static int pyrf_sample_event__resolve_al(struct pyrf_event *pevent)
- 	if (!session)
- 		return -1;
+ perf-test-y += $(MYPY_TEST_LOGS)
  
-+	machine = pevent->sample.machine_pid ?
-+		machines__find(&session->machines, pevent->sample.machine_pid) :
-+		&session->machines.host;
-+	if (!machine)
-+		machine = &session->machines.host;
-+
- 	addr_location__init(&pevent->al);
--	if (machine__resolve(&session->machines.host, &pevent->al, &pevent->sample) < 0) {
-+	if (machine__resolve(machine, &pevent->al, &pevent->sample) < 0) {
- 		addr_location__exit(&pevent->al);
- 		return -1;
- 	}
-@@ -771,6 +782,15 @@ static PyObject *pyrf_sample_event__get_sym_start(struct pyrf_event *pevent,
- 	return PyLong_FromUnsignedLongLong(pevent->al.sym->start);
- }
+diff --git a/tools/perf/util/Build b/tools/perf/util/Build
+index d08f2af7d970..71d1f7289d03 100644
+--- a/tools/perf/util/Build
++++ b/tools/perf/util/Build
+@@ -426,7 +426,7 @@ endif
  
-+static PyObject *pyrf_sample_event__get_sym_offset(struct pyrf_event *pevent,
-+						   void *closure __maybe_unused)
-+{
-+	if (pyrf_sample_event__resolve_al(pevent) < 0 || !pevent->al.sym)
-+		Py_RETURN_NONE;
-+
-+	return PyLong_FromUnsignedLongLong(pevent->al.addr - pevent->al.sym->start);
-+}
-+
- static PyObject *pyrf_sample_event__get_sym_end(struct pyrf_event *pevent,
- 						void *closure __maybe_unused)
- {
-@@ -1166,7 +1186,115 @@ pyrf_sample_event__getattro(struct pyrf_event *pevent, PyObject *attr_name)
- 	return obj ?: PyObject_GenericGetAttr((PyObject *) pevent, attr_name);
- }
+ $(OUTPUT)%.mypy_log: %
+ 	$(call rule_mkdir)
+-	$(Q)$(call echo-cmd,test)mypy "$<" > $@ || (cat $@ && rm $@ && false)
++	$(Q)$(call echo-cmd,test)$(MYPY) "$<" > $@ || (cat $@ && rm $@ && false)
  
-+
-+static int pyrf_sample_event__resolve_addr_al(struct pyrf_event *pevent,
-+					      struct addr_location *addr_al)
-+{
-+	addr_location__init(addr_al);
-+	if (pyrf_sample_event__resolve_al(pevent) < 0 || !pevent->al.thread)
-+		return -1;
-+
-+	thread__find_symbol_fb(pevent->al.thread, pevent->sample.cpumode,
-+			       pevent->sample.addr, addr_al);
-+	return 0;
-+}
-+
-+static PyObject *pyrf_sample_event__get_addr_dso(struct pyrf_event *pevent,
-+						 void *closure __maybe_unused)
-+{
-+	struct addr_location addr_al;
-+	PyObject *ret = Py_None;
-+
-+	if (pyrf_sample_event__resolve_addr_al(pevent, &addr_al) == 0 && addr_al.map)
-+		ret = PyUnicode_FromString(dso__name(map__dso(addr_al.map)));
-+	else
-+		Py_INCREF(Py_None);
-+
-+	addr_location__exit(&addr_al);
-+	return ret;
-+}
-+
-+static PyObject *pyrf_sample_event__get_addr_symbol(struct pyrf_event *pevent,
-+						    void *closure __maybe_unused)
-+{
-+	struct addr_location addr_al;
-+	PyObject *ret = Py_None;
-+
-+	if (pyrf_sample_event__resolve_addr_al(pevent, &addr_al) == 0 && addr_al.sym)
-+		ret = PyUnicode_FromString(addr_al.sym->name);
-+	else
-+		Py_INCREF(Py_None);
-+
-+	addr_location__exit(&addr_al);
-+	return ret;
-+}
-+
-+static PyObject *pyrf_sample_event__get_addr_sym_offset(struct pyrf_event *pevent,
-+							void *closure __maybe_unused)
-+{
-+	struct addr_location addr_al;
-+	PyObject *ret = Py_None;
-+
-+	if (pyrf_sample_event__resolve_addr_al(pevent, &addr_al) == 0 && addr_al.sym)
-+		ret = PyLong_FromUnsignedLongLong(addr_al.addr - addr_al.sym->start);
-+	else
-+		Py_INCREF(Py_None);
-+
-+	addr_location__exit(&addr_al);
-+	return ret;
-+}
-+
-+static PyObject *pyrf_sample_event__get_branch_type(struct pyrf_event *pevent,
-+						    void *closure __maybe_unused)
-+{
-+	return PyLong_FromUnsignedLong(pevent->sample.flags & PERF_BRANCH_MASK);
-+}
-+
-+static PyObject *pyrf_sample_event__get_in_tx(struct pyrf_event *pevent,
-+					      void *closure __maybe_unused)
-+{
-+	return PyLong_FromUnsignedLong(!!(pevent->sample.flags & PERF_IP_FLAG_IN_TX));
-+}
-+
-+static PyObject *pyrf_sample_event__get_transaction(struct pyrf_event *pevent,
-+						    void *closure __maybe_unused)
-+{
-+	return PyLong_FromUnsignedLongLong(pevent->sample.transaction);
-+}
-+
- static PyGetSetDef pyrf_sample_event__getset[] = {
-+
-+	{
-+		.name = "addr_dso",
-+		.get = (getter)pyrf_sample_event__get_addr_dso,
-+		.doc = "event destination dso.",
-+	},
-+	{
-+		.name = "addr_symbol",
-+		.get = (getter)pyrf_sample_event__get_addr_symbol,
-+		.doc = "event destination symbol.",
-+	},
-+	{
-+		.name = "addr_sym_offset",
-+		.get = (getter)pyrf_sample_event__get_addr_sym_offset,
-+		.doc = "event destination symbol offset.",
-+	},
-+	{
-+		.name = "branch_type",
-+		.get = (getter)pyrf_sample_event__get_branch_type,
-+		.doc = "branch type.",
-+	},
-+	{
-+		.name = "in_tx",
-+		.get = (getter)pyrf_sample_event__get_in_tx,
-+		.doc = "in transaction flag.",
-+	},
-+	{
-+		.name = "transaction",
-+		.get = (getter)pyrf_sample_event__get_transaction,
-+		.doc = "transaction execution.",
-+	},
-+
- 	{
- 		.name = "callchain",
- 		.get = pyrf_sample_event__get_callchain,
-@@ -1227,6 +1355,12 @@ static PyGetSetDef pyrf_sample_event__getset[] = {
- 		.set = NULL,
- 		.doc = "event map page offset.",
- 	},
-+	{
-+		.name = "sym_offset",
-+		.get = (getter)pyrf_sample_event__get_sym_offset,
-+		.set = NULL,
-+		.doc = "event symbol offset.",
-+	},
- 	{
- 		.name = "symbol",
- 		.get = (getter)pyrf_sample_event__get_symbol,
-@@ -1283,8 +1417,45 @@ static const char pyrf_context_switch_event__doc[] = PyDoc_STR("perf context_swi
- static PyMemberDef pyrf_context_switch_event__members[] = {
- 	sample_members
- 	member_def(perf_event_header, type, T_UINT, "event type"),
--	member_def(perf_record_switch, next_prev_pid, T_UINT, "next/prev pid"),
--	member_def(perf_record_switch, next_prev_tid, T_UINT, "next/prev tid"),
-+	member_def(perf_event_header, misc, T_USHORT, "event misc"),
-+	{ .name = NULL, },
-+};
-+
-+static PyObject *pyrf_context_switch_event__get_next_prev_pid(const struct pyrf_event *pevent,
-+							      void *closure __maybe_unused)
-+{
-+	if (pevent->event.header.type == PERF_RECORD_SWITCH_CPU_WIDE)
-+		return PyLong_FromUnsignedLong(pevent->event.context_switch.next_prev_pid);
-+	Py_RETURN_NONE;
-+}
-+
-+static PyObject *pyrf_context_switch_event__get_next_prev_tid(const struct pyrf_event *pevent,
-+							      void *closure __maybe_unused)
-+{
-+	if (pevent->event.header.type == PERF_RECORD_SWITCH_CPU_WIDE)
-+		return PyLong_FromUnsignedLong(pevent->event.context_switch.next_prev_tid);
-+	Py_RETURN_NONE;
-+}
-+
-+static PyGetSetDef pyrf_context_switch_event__getset[] = {
-+	{
-+		.name = "evsel",
-+		.get = pyrf_event__get_evsel,
-+		.set = NULL,
-+		.doc = "tracking event.",
-+	},
-+	{
-+		.name = "next_prev_pid",
-+		.get = (getter)pyrf_context_switch_event__get_next_prev_pid,
-+		.set = NULL,
-+		.doc = "next/prev pid for CPU-wide switch, or None.",
-+	},
-+	{
-+		.name = "next_prev_tid",
-+		.get = (getter)pyrf_context_switch_event__get_next_prev_tid,
-+		.set = NULL,
-+		.doc = "next/prev tid for CPU-wide switch, or None.",
-+	},
- 	{ .name = NULL, },
- };
- 
-@@ -1292,11 +1463,19 @@ static PyObject *pyrf_context_switch_event__repr(const struct pyrf_event *pevent
- {
- 	PyObject *ret;
- 	char *s;
--
--	if (asprintf(&s, "{ type: context_switch, next_prev_pid: %u, next_prev_tid: %u, switch_out: %u }",
--		     pevent->event.context_switch.next_prev_pid,
--		     pevent->event.context_switch.next_prev_tid,
--		     !!(pevent->event.header.misc & PERF_RECORD_MISC_SWITCH_OUT)) < 0) {
-+	int res;
-+
-+	if (pevent->event.header.type == PERF_RECORD_SWITCH_CPU_WIDE) {
-+		res = asprintf(&s,
-+			"{ type: context_switch, next_prev_pid: %u, next_prev_tid: %u, switch_out: %u }",
-+			pevent->event.context_switch.next_prev_pid,
-+			pevent->event.context_switch.next_prev_tid,
-+			!!(pevent->event.header.misc & PERF_RECORD_MISC_SWITCH_OUT));
-+	} else {
-+		res = asprintf(&s, "{ type: context_switch, switch_out: %u }",
-+			       !!(pevent->event.header.misc & PERF_RECORD_MISC_SWITCH_OUT));
-+	}
-+	if (res < 0) {
- 		ret = PyErr_NoMemory();
- 	} else {
- 		ret = PyUnicode_FromString(s);
-@@ -1313,7 +1492,7 @@ static PyTypeObject pyrf_context_switch_event__type = {
- 	.tp_flags	= Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,
- 	.tp_doc		= pyrf_context_switch_event__doc,
- 	.tp_members	= pyrf_context_switch_event__members,
--	.tp_getset	= pyrf_event__getset,
-+	.tp_getset	= pyrf_context_switch_event__getset,
- 	.tp_repr	= (reprfunc)pyrf_context_switch_event__repr,
- };
- 
-@@ -1450,6 +1629,16 @@ static PyObject *pyrf_event__new(const union perf_event *event, struct evsel *ev
- 		return PyErr_Format(PyExc_OSError,
- 				    "perf: can't parse sample, err=%d", err);
- 	}
-+	if (session && session->evlist && perf_guest && pevent->sample.id) {
-+		struct perf_sample_id *sid = evlist__id2sid(session->evlist, pevent->sample.id);
-+
-+		if (sid) {
-+			pevent->sample.machine_pid = sid->machine_pid;
-+			pevent->sample.vcpu = sid->vcpu.cpu;
-+		}
-+	}
-+	if (machine && machine->pid > 0 && !pevent->sample.machine_pid)
-+		pevent->sample.machine_pid = machine->pid;
- 	sample = &pevent->sample;
- 	if (machine && sample->callchain) {
- 		struct addr_location al;
-@@ -3837,6 +4026,7 @@ struct pyrf_session {
- 	struct pyrf_data *pdata;
- 	PyObject *sample;
- 	PyObject *stat;
-+	PyObject *context_switch;
- };
- 
- static int pyrf_session_tool__sample(const struct perf_tool *tool,
-@@ -3861,6 +4051,33 @@ static int pyrf_session_tool__sample(const struct perf_tool *tool,
- 	return 0;
- }
- 
-+static int pyrf_session_tool__context_switch(const struct perf_tool *tool,
-+					     union perf_event *event,
-+					     struct perf_sample *sample,
-+					     struct machine *machine)
-+{
-+	struct pyrf_session *psession = container_of(tool, struct pyrf_session, tool);
-+	PyObject *pyevent = pyrf_event__new(event, sample->evsel, psession->session, machine);
-+	PyObject *ret;
-+
-+	if (perf_event__process_switch(tool, event, sample, machine) < 0) {
-+		Py_XDECREF(pyevent);
-+		return -1;
-+	}
-+
-+	if (pyevent == NULL)
-+		return -ENOMEM;
-+
-+	ret = PyObject_CallFunction(psession->context_switch, "O", pyevent);
-+	if (!ret) {
-+		Py_DECREF(pyevent);
-+		return -1;
-+	}
-+	Py_DECREF(ret);
-+	Py_DECREF(pyevent);
-+	return 0;
-+}
-+
- static int pyrf_session_tool__stat(const struct perf_tool *tool,
- 				   struct perf_session *session,
- 				   union perf_event *event)
-@@ -3943,13 +4160,13 @@ static PyObject *pyrf_session__find_thread(struct pyrf_session *psession, PyObje
- static PyObject *pyrf_session__new(PyTypeObject *type, PyObject *args, PyObject *kwargs)
- {
- 	struct pyrf_data *pdata;
--	PyObject *sample = NULL, *stat = NULL;
--	static char *kwlist[] = { "data", "sample", "stat", NULL };
-+	PyObject *sample = NULL, *stat = NULL, *context_switch = NULL;
-+	static char * const kwlist[] = { "data", "sample", "stat", "context_switch", NULL };
- 	struct pyrf_session *psession;
- 	struct perf_session *session;
- 
--	if (!PyArg_ParseTupleAndKeywords(args, kwargs, "O!|OO", kwlist, &pyrf_data__type, &pdata,
--					 &sample, &stat))
-+	if (!PyArg_ParseTupleAndKeywords(args, kwargs, "O!|OOO", kwlist, &pyrf_data__type, &pdata,
-+					 &sample, &stat, &context_switch))
- 		return NULL;
- 
- 	psession = PyObject_New(struct pyrf_session, type);
-@@ -3959,6 +4176,7 @@ static PyObject *pyrf_session__new(PyTypeObject *type, PyObject *args, PyObject
- 	psession->session = NULL;
- 	psession->sample = NULL;
- 	psession->stat = NULL;
-+	psession->context_switch = NULL;
- 	psession->pdata = NULL;
- 
- 	Py_INCREF(pdata);
-@@ -3982,6 +4200,7 @@ static PyObject *pyrf_session__new(PyTypeObject *type, PyObject *args, PyObject
- 
- 	ADD_TOOL(sample);
- 	ADD_TOOL(stat);
-+	ADD_TOOL(context_switch);
- 	#undef ADD_TOOL
- 
- 	if (stat)
-@@ -4000,6 +4219,9 @@ static PyObject *pyrf_session__new(PyTypeObject *type, PyObject *args, PyObject
- 	psession->tool.build_id         = perf_event__process_build_id;
- 	psession->tool.attr		= perf_event__process_attr;
- 	psession->tool.feature		= perf_event__process_feature;
-+#ifdef HAVE_LIBTRACEEVENT
-+	psession->tool.tracing_data	= perf_event__process_tracing_data;
-+#endif
- 
- 	session = perf_session__new(&pdata->data, &psession->tool);
- 	if (IS_ERR(session)) {
-@@ -4030,6 +4252,7 @@ static void pyrf_session__delete(struct pyrf_session *psession)
- 	Py_XDECREF(psession->pdata);
- 	Py_XDECREF(psession->sample);
- 	Py_XDECREF(psession->stat);
-+	Py_XDECREF(psession->context_switch);
- 	Py_TYPE(psession)->tp_free((PyObject *)psession);
- }
+ perf-util-y += $(MYPY_TEST_LOGS)
  
 -- 
 2.55.0.1082.g2b9226bbc0-goog
