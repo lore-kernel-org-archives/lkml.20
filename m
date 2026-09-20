@@ -1,121 +1,118 @@
-Received: from va-2-48.ptr.blmpb.com (va-2-48.ptr.blmpb.com [209.127.231.48])
+Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B6B422E2E
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:51:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3EF4429014
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:51:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789905073; cv=none; b=t39brXxOorkFjwCMz3obw+p18TI2M4BDwU7r+hnGA04NBmORsS0SvMSgnx7gY1+1rP3u0gk+jp/4PRmNWSf4boCfqVemS/823a40/Gg7AJvJWWNJ21GPzMgBE8V7dNBm3jKCGetT+XM65mXvdDfFE5FgCAuBxWFMDxPixJ1zlp0=
+	t=1789905075; cv=none; b=gLPW7cWhdB25fJuT9rDll/HtJX6qvymobPcDLTGVVSD49naIDDksyF/OvbyTXQVJ1pK0h1+jWSrsoZ6IruL1mo/4Kh3ZsJRtHXPP5wfTU7mur9ZLR8mypaiJdrwZVb/sMBVAaaSna2QB8AXsI8wghf/pZ+LXEdhHNyzFbsICMb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789905073; c=relaxed/simple;
-	bh=Bw39X9AkTUoh/aHMDqTy8Y4i1sHlfc+cuooNbm5nWgs=;
-	h=Message-Id:Content-Type:Cc:Subject:Date:References:To:From:
-	 Mime-Version:In-Reply-To; b=TQiLRoSsbZNS/YM7Q6qvJS51NK0+9r1Z3G8CO6ip/liG18eWbbaRu7OmSYy/TsLKi5QCEvUZhCxZ3MHsNUchNfvZtjKi1oA4aNEbZNvf2OTI1t3x2nSE0JSU9Pbo3Emed51UTGxXoApp5tSocNnIZHXeKr1xf0aUrkrVyLkaA80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=Ihr0q8Kc; arc=none smtp.client-ip=209.127.231.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	s=arc-20240116; t=1789905075; c=relaxed/simple;
+	bh=pMbfx0NjIRyRskdHuH6lM861rKcUzwuGwYYxkIB5WEo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HqZpPOQQCZ9fDaidaunwO7B7AM9sAwg55QOSyaPSdestWI9zJwqos15pLrnpAWW+J1oEBAl0LmnoqRWUozlZUWcZiieClzU7BrzeD1Z7BlCxsbe1uw8rD0rQK5soFGN4ja+Yg0aGkc77fH6phLDisfw2GVBgpf2ajCTpm2q00GI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=smartx.com; spf=none smtp.mailfrom=smartx.com; dkim=pass (2048-bit key) header.d=smartx-com.20251104.gappssmtp.com header.i=@smartx-com.20251104.gappssmtp.com header.b=02CKOPTe; arc=none smtp.client-ip=74.125.227.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=smartx.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=smartx.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="Ihr0q8Kc"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1789905061;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=4ohIn79VTQwaPZDLQ4bf9CpjIqYPmTtX+vxVGjEsJ6w=;
- b=Ihr0q8KcvGDAweIWla7IkixnooUdKnVDP3ZIa7WUvcOa0B62NCyYzNo53EqFUvMk3AAXL/
- dHZaokNaLclQPKf8uxg+AUrIkGY5oG5YEiQj3yTbcxNKwC7CEtDy5/HJ7ujTDPjsiv+Csm
- KTy1D98wi1tpMuzZYjBlYj4oHQS/n9pYtyqI7NF39h+6QvEI2TwfTG7ITktFcvONOKshAJ
- dBEfBrurg3Myv/rd7wMJn1JWv+x7VLhjsbnBD+pJtn4CPx8QThbwBWap9Xsh49xte+HaBx
- WXsGEgrXWnn3um9vNlnnKnBYQOo2w7DUVjKCMWZXmIAZSlO3fbHB07RJCMyQNw==
-Message-Id: <fad92649-e362-443a-93ea-205b11247e6d@fygo.io>
-Content-Type: text/plain; charset=UTF-8
-X-Original-From: yu kuai <yukuai@fygo.io>
-Cc: "Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
-	"NeilBrown" <neil@brown.name>, <linux-raid@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH 1/2] md: fix bblog_size-driven OOB read in super_1_load() and super_1_sync()
-Date: Sun, 20 Sep 2026 19:50:56 +0800
-Content-Transfer-Encoding: quoted-printable
-References: <20260917083820.57091-1-ndaugoing@gmail.com> <20260917083820.57091-2-ndaugoing@gmail.com>
-Received: from [192.168.1.104] ([39.182.0.142]) by smtp.larksuite.com with ESMTPS; Sun, 20 Sep 2026 11:50:59 +0000
-To: "zjamg" <ndaugoing@gmail.com>, "Song Liu" <song@kernel.org>, 
-	"yu kuai" <yukuai@fygo.io>
-From: "yu kuai" <yukuai@fygo.io>
+	dkim=pass (2048-bit key) header.d=smartx-com.20251104.gappssmtp.com header.i=@smartx-com.20251104.gappssmtp.com header.b="02CKOPTe"
+Received: by mail-pj2-f5.google.com with SMTP id 98e67ed59e1d1-3965683e9e9so1659249a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:51:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=smartx-com.20251104.gappssmtp.com; s=20251104; t=1789905069; x=1790509869; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mVn1m5BbAcLTrd543GgGtPm08/ACaaeHnQhjr+DsHvs=;
+        b=02CKOPTes+Ch1feJ1RYD3fC7qLguOEqagMo2m7KU2vAFOYhPq/2keCkhF8panELeuP
+         3amgJb5qeZ8w2MicYf1/6S2X2dxoV3CgbY999quQf9bExh5e/eYynB0l0rmBq0bfCxao
+         Xz6s+/EJU0I/JsxM5wOMgmpuwQv0tstxUe87ZKCg3/70otj1Tzao5TwEon4QLsBwS5CG
+         bRmer7haHbAC2uW7F/WVfdKkxaHzHbLd08MOptAgY1PTMtUSb6Qs9xTrbICxZwmdxQoB
+         d/jd3Sn+xsMm+KLhOGPMfPkOAtyQSrDgf9ma8m4t//F/qESLaLKzelIFWv0ITbbHxGif
+         4WbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789905069; x=1790509869;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mVn1m5BbAcLTrd543GgGtPm08/ACaaeHnQhjr+DsHvs=;
+        b=c/96w7/E4Ff+zFGosa6+VNEoWL+gwB7o4TzXWZZjNL+LqwgMBh1aC0LForoVrU2O6r
+         u4rFpA5W62FbgoQazxwu90/PBF/uiwG3emZvUgfxjCk7SlOZccvsD3wszkpSOKB6Rzlt
+         /SG4U342cCQEOHqDQ5NNFG+wKbD8atH8BfHJRZwjT4wd/ZaONVVtioIDOHKLstjO9w8q
+         3FQCUmx+uVWp3MIDRLJKaNk99LCMrvE1OEAylCcgzkSv8edqUMYGLB7Ag19APeeNcGza
+         gBcl6pbUngxWqjxYfjZKL2Ym+CL+D6hfVHzqnKffayO4kxLz253oMz1GLpZr2y2e5pDW
+         ikUA==
+X-Forwarded-Encrypted: i=1; AKwUvBzP/Xb8u6/q9VZOp1P/RGuxmxe17Dt/tGgOGkWRD7yCN8grtvMn2611uE5eLyKVpW4ABh909N3V1FGgVZQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHeXSZkSONX20L8KoFv3EhADMkVuXBZsQctl4Mxnv4oTa29rgZ
+	r/NVb7j0AyyVBNiwmuHxBeiOVdWDn5h1uvNByoU7vq9hBI43olRRJbo5NmgPURjhQw1MrJ+oRPr
+	2zob+kjZbgmnI4//pFZlnfm7I9/vFBxymm6FLj78a1iuZw0xwpqYv8uDd/ec=
+X-Gm-Gg: AYBFou1hRu4MkS5O6EpLSEk4zV22ISvwjIhhs3gvwDSq6gw5qshBYQ6aJIb6xiSSJkl
+	3FobMWXwjq0ZQuEkNAvPqMROZ6SZ1xsUzcwcZggmYWYg+uuvbyCmx8IWonUU0tJ7vHqinJOoKoP
+	UWjl2RHpSgUhEul0lxsrOg8fHFH46Jc21FHFuHTU42pJN60SRMpzLZgojwkKbRSGJSXsyfJnT2e
+	3BmlK+sFxLSfS7YtxEUa40Evfm8p4Lwf4J0gSWTaAA/Dx4YIrpnBA1E/NTpQl2LeOQ+/ZQSHbHa
+	R1eP50Hscv2j9kzchaS4yxIM5hxlFFScMUw/PxuKaP4rDIwzx9iGylbB11iOdbm4zegQlzS5/Q9
+	kk5mzxflZnhqqX/cEU81Cqr9B5ETvizJfA0jfZYPjxdCRrEasFhljr+kco2QA5QTo3St362HTuE
+	tgdv14ATtGsO1/rGWXc2BBv53IgeK1I+OK5L4s3fqly50K0ZkoqBhdroQjW1ETNyErrg4/KAh0J
+	CxF3pX64b4=
+X-Received: by 2002:a17:90b:380a:b0:39e:6a7f:1dc7 with SMTP id 98e67ed59e1d1-39e6a7f224bmr6783683a91.35.1789905068691;
+        Sun, 20 Sep 2026 04:51:08 -0700 (PDT)
+Received: from localhost.localdomain ([23.148.204.241])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c331d55cfsm14633990eec.30.2026.09.20.04.51.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 04:51:08 -0700 (PDT)
+From: Wang Zhan <wang.zhan@smartx.com>
+To: netdev@vger.kernel.org,
+	steffen.klassert@secunet.com
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	keyong.sun@smartx.com,
+	herbert@gondor.apana.org.au,
+	linux-kernel@vger.kernel.org,
+	leon@kernel.org,
+	huyn@nvidia.com,
+	raeds@nvidia.com,
+	Wang Zhan <wang.zhan@smartx.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH net] xfrm: free the whole skb list on the packet offload drop
+Date: Sun, 20 Sep 2026 19:50:48 +0800
+Message-ID: <20260920115048.3549614-1-wang.zhan@smartx.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26aafc8a4+ef42b0+vger.kernel.org+yukuai@fygo.io>
-Reply-To: yukuai@fygo.io
-In-Reply-To: <20260917083820.57091-2-ndaugoing@gmail.com>
-User-Agent: Mozilla Thunderbird
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi,
+validate_xmit_skb() hands the segmentation result of one GSO packet down
+to validate_xmit_xfrm() as a list.  The drop for a packet whose packet
+offload state no longer matches the device frees the first skb only, so
+the rest of the list and its payload are leaked.
 
-=E5=9C=A8 2026/9/17 16:38, zjamg =E5=86=99=E9=81=93:
-> In super_1_load(), when the on-disk feature_map does not have the
-> MD_FEATURE_BAD_BLOCKS flag set, but sb->bblog_offset is non-zero,
-> rdev->badblocks.shift is initialized to 0 while completely bypassing
-> the sectors > (PAGE_SIZE / 512) validation check on sb->bblog_size.
+Fixes: f8a70afafc175 ("xfrm: add TX datapath support for IPsec packet offload mode")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260918084651.3022878-1-wang.zhan%40smartx.com?part=3
+Assisted-by: LLM
+Signed-off-by: Wang Zhan <wang.zhan@smartx.com>
+---
+ net/xfrm/xfrm_device.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-How can this happen? If this is just raw disk metadata inject failure,
-just add a checking in super_1_load() is enough.
+diff --git a/net/xfrm/xfrm_device.c b/net/xfrm/xfrm_device.c
+index f153bf695b9dd..0fdd10d29fd1a 100644
+--- a/net/xfrm/xfrm_device.c
++++ b/net/xfrm/xfrm_device.c
+@@ -140,7 +140,7 @@ struct sk_buff *validate_xmit_xfrm(struct sk_buff *skb, netdev_features_t featur
+ 	 * XFRM stack.
+ 	 */
+ 	if (x->xso.type == XFRM_DEV_OFFLOAD_PACKET && x->xso.dev != dev) {
+-		kfree_skb(skb);
++		kfree_skb_list(skb);
+ 		dev_core_stats_tx_dropped_inc(dev);
+ 		return NULL;
+ 	}
+-- 
+2.47.3
 
->
-> Subsequently, when badblocks are updated, super_1_sync() enables the
-> MD_FEATURE_BAD_BLOCKS feature flag and assigns bb->size directly from
-> sb->bblog_size without validating that bb->size fits within the single
-> allocated rdev->bb_page (which is PAGE_SIZE, or PAGE_SIZE / 512 sectors).
->
-> When md_update_sb() later writes metadata via md_write_metadata(), an
-> unvalidated bb->size (e.g. 0xFFFF) results in a bio whose length exceeds
-> the backing page, causing out-of-bounds reads into kernel memory during
-> block I/O and leaking kernel slab/page contents to disk.
->
-> Fix this by:
-> 1. Validating sb->bblog_size in the 'else if (sb->bblog_offset !=3D 0)'
->     branch of super_1_load(), returning -EINVAL on oversized values.
-> 2. Clamping bb->size in super_1_sync() to PAGE_SIZE / 512 to ensure it
->     never exceeds the backing rdev->bb_page capacity.
->
-> Fixes: 2699b67223ac ("md: load/store badblock list from v1.x metadata")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: zjamg <ndaugoing@gmail.com>
-> ---
->   drivers/md/md.c | 8 ++++++--
->   1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/md/md.c b/drivers/md/md.c
-> index 680b34a63cb3..d2433cf41e65 100644
-> --- a/drivers/md/md.c
-> +++ b/drivers/md/md.c
-> @@ -1934,8 +1934,11 @@ static int super_1_load(struct md_rdev *rdev, stru=
-ct md_rdev *refdev, int minor_
->   			if (!badblocks_set(&rdev->badblocks, sector, count, 1))
->   				return -EINVAL;
->   		}
-> -	} else if (sb->bblog_offset !=3D 0)
-> +	} else if (sb->bblog_offset !=3D 0) {
-> +		if (le16_to_cpu(sb->bblog_size) > (PAGE_SIZE / 512))
-> +			return -EINVAL;
->   		rdev->badblocks.shift =3D 0;
-> +	}
->  =20
->   	if ((le32_to_cpu(sb->feature_map) &
->   	    (MD_FEATURE_PPL | MD_FEATURE_MULTIPLE_PPLS))) {
-> @@ -2313,7 +2316,8 @@ static void super_1_sync(struct mddev *mddev, struc=
-t md_rdev *rdev)
->  =20
->   			bb->sector =3D (rdev->sb_start +
->   				      (int)le32_to_cpu(sb->bblog_offset));
-> -			bb->size =3D le16_to_cpu(sb->bblog_size);
-> +			bb->size =3D min_t(sector_t, le16_to_cpu(sb->bblog_size),
-> +					 PAGE_SIZE / 512);
->   		}
->   	}
->  =20
-
---=20
-Thanks,
-Kuai
