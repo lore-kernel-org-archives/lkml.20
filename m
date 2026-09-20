@@ -1,357 +1,209 @@
-Received: from mail-oa2-f9.google.com (mail-oa2-f9.google.com [74.125.231.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com [205.220.166.238])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA65C3515CC
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:48:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.73
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789872514; cv=none; b=mISXYah4coiDKqztBkDE8Cz79LU1Jcg6lmPDFVSQiLkJ6LHiISZaOYsvMv9S9VkYVvY1z5nU7l4tf0yBTecuvJkl2cGIPjm01r3ftTSEwsiahTQcj3B+OnTp9yW4j7XqkQGchiXUaj9CN6PGTbyOJ6jAwTPKopQn7vwmNLsZhvE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789872514; c=relaxed/simple;
-	bh=5zJQUcTfeHOupAFBO5SzKmha1B+IVgnGLyfPlMQyMi4=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=QM1tDS7a2ioW7tbu9O2qoInf3YepYV9iWxtwK6FwyGqI/1Vv7rFZz9b7fFU7Ht0SPPn1kzyFNxw7N0DBQ2ISDifmDSL9Ln0xuoBmFzis3GTszhibnZePBQuMd8eMa3ZaGDIv5Iw9Z8GzOEWzybtFP6wRS69gkzbCx5aHzYLe4W0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=edrJU3Ob; arc=none smtp.client-ip=74.125.231.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF9A13D886;
+	Sun, 20 Sep 2026 02:49:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.166.238
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789872559; cv=fail; b=LkmctwiWzwRb475JN3mbOvdVw7HN8VaRUo6zFu7IL86wilAZL9LxAQKoQm3+g6sL78L44wzzyKDwfoGnWDywtndJPj0LccvJ2RJ5gec38nHe/o+P+sa4WPtN/qhHYFwrCOSd1CyjdBs29HzQmH0AL6oh6fhGtBwRZ61NP96059Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789872559; c=relaxed/simple;
+	bh=9Hc6K7YkLU1XLiXO+mfjCOtFIjYXgYuhMoYmRhYkVw0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=u39cAjFb5WJxk7hXZXhmNgFtjuhnrDRMgZ8BXGCwIph9DDUvYa3tuQZqJd1C7C//b9NNkrZrJ69bXDYnhbt9reXNz2UlRmdpv8ixhEfL7OUzGvVGJ5DX3/uLYfZ7cqmsP0q7ZCM4/IImF9ZnhiCoa4bCeyw/yplm7fD01V2UCsQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=pass smtp.mailfrom=windriver.com; dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b=bcKK1tFT; arc=fail smtp.client-ip=205.220.166.238
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=windriver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="edrJU3Ob"
-Received: by mail-oa2-f9.google.com with SMTP id 586e51a60fabf-47bd4bcc3e2so905077fac.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 19:48:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789872510; x=1790477310; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TjvmYyCc6sVH2RWH/PPf9bwAMgPY9Arl3SG7xhOPHXY=;
-        b=edrJU3ObiRBfUezczsp3hF4E0jIdgu62Oi+NduiwJbDFH3fBJQc3Lfv/5vpcrRd8MD
-         vOUi+fmqHaqLwGPGoBFs3Tj8W2QKEugh19joQ+4hGp16nYQQWIWJB3fFQayFdxUt5eS7
-         4lN4ZA4z2khMeq+Po5Q5pRULgUyCZtNMMYemp3QKdHH6+o/EKyxaCRCeV2tV34jfalSs
-         N0oga6ITNllKo3u9vWa0bdb8sFjlrdnY/AWxYtTFAZUB3RiwY8LDYhPwYjDOfNIC5A/W
-         d5SWTMg4lW8sN/gGk9D/+36o7i6Bh3uisti8nfWX7TFmMhiGK6z7b8vEpZOIZRf4lgbr
-         rlIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789872510; x=1790477310;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TjvmYyCc6sVH2RWH/PPf9bwAMgPY9Arl3SG7xhOPHXY=;
-        b=wFHcpdLh/cviCL9arOofQxtO3/P+d+9bQ9+yl+66AuwQMIuhTiryvVF/+jwAPxGvIm
-         vJEhbaT5moP/7U3nxRVBFXCtv7jusv7FnwcXQIndl1SyWwsaSQyNcQNR+knQtw7Ztug0
-         801NYJ2xihRJsYFtkJwcZf1KodcU17QDTyAQph3SrG+CGJd6/sZ8BaT5l/nrvnVYPH8t
-         pkYcagU5nOyf3H/hGYrFdGEoRkwddbsqnzXO4t2fa/ILMKbMjrk5udj+Cb+gQIe5SEV4
-         6rlbOFnZP82Kc9O7R4fw+rD+I6K5bSRbguQRqy7zDUKf2uCgscvyLsIN5iSmXtvb6AMK
-         Ltcg==
-X-Forwarded-Encrypted: i=1; AKwUvBxUgDnFm32mZO72AQagVrZWCoBH9CjxUrkpMFlrexHNIo8ZUgjoK5v1S+zMZiP0fnNRHOLppLyW280EasA=@vger.kernel.org
-X-Gm-Message-State: AFuF++k+Rv/A40d/2p3vYiH3T6fDykl14cDc99OuRv0JCXVekBDCE+/V
-	OzSbTkBDqOzzEhR7DFS2jo9iKojMsJbgZFyZP6s9DSCgc5t9pY2FHzaF
-X-Gm-Gg: AYBFou0VYLUC9XBCScOYBUZCAriczmJrxVhLFviS8DZFkHdi0+NtpxgQIm0n3CceVs4
-	AL6xmXAHDKANT50+aFWup57WYlKQHOMCWFQrAIgfsS8DtwwG8ylrQsc5CRrdHysS0gnJSKzPS2e
-	HOA/KyQHt5pA6oD/ZC9UALnkwBzsjufAIbjA/vfuw5YgRISEuVhzEFSX+lKRdHwt368OcYgPfKW
-	7uNsk8ojfe37DxwCZk4bJUu6W8nWZA7f+O/pXdBKzR5pp/Ac86ljPyU9wGuUcVnry6RF0JfXFVc
-	z98Xve1WVjGlhd6MUW34QyCgEwuOUviABjbjeJfeeni5o734atpDlDrHflLh3mCPYYdQjsSHcZW
-	v8ENvbC5Zg4zr0a4AsVG7Z0JwSaU9p8XsZix7aBnjXyob4gYCZCtLW+e1r6fBzrW8YWV8aNcIhN
-	0g7DJZbwtAK2+K6jZr2bhrbV28hOQOiu0txz1GeUPME2MbIfwiBaW3cHL70Esw2z3eF4TLnCB+N
-	SjvfgxA+8sBA3YyWGeAeBjN7Q==
-X-Received: by 2002:a05:6870:d24c:b0:43b:bb18:affd with SMTP id 586e51a60fabf-486e554a334mr7101333fac.8.1789872509696;
-        Sat, 19 Sep 2026 19:48:29 -0700 (PDT)
-Received: from ?IPV6:2600:8804:5716:d800::2620? ([2600:8804:5716:d800::2620])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4881f4d519fsm4188565fac.2.2026.09.19.19.48.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Sep 2026 19:48:28 -0700 (PDT)
-Message-ID: <7f1ab011-c90f-42fc-bc4c-836a1ef9febc@gmail.com>
-Date: Sat, 19 Sep 2026 21:48:25 -0500
+	dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b="bcKK1tFT"
+Received: from pps.filterd (m0250809.ppops.net [127.0.0.1])
+	by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68K2RZsj2358225;
+	Sat, 19 Sep 2026 19:48:57 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	PPS06212021; bh=QX7GFzDBFVF1hZmDBJHyKW7/LWo3fOynL05Iu4kJHLk=; b=
+	bcKK1tFTqsRI1qf9mhe54PjXHPTJS0x/sLVZaIntKA+OIz21B+jGIn5OF8wUm75f
+	vrp4LaGbq/7QIt3FlI5iJZnNAfolaEcl+H6QfhcmYNRttvOKlC4lYYYc+2gYLTaL
+	6Abadv901smdPJ6+P9AVfCIiUYy6ZPtZCbwpP/vCDbtCoSmwa8gQfPu+Nc96APcJ
+	QRmC2Rkr0ravkfwBvcxKhtXCRP/rZQGOG6dyrLnet32AQvpPvmTn/LuS2lFHOmiW
+	7wA3ERORQff+/G0ZNpJAgfWkZRD/13bwC4sTWJzjO8RcJX7+WzWrLs01/e9QSMPc
+	+rDMhls7fNDx4XxDbciVtw==
+Received: from cy7pr03cu001.outbound.protection.outlook.com (mail-westcentralusazon11020090.outbound.protection.outlook.com [40.93.198.90])
+	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 4gsswe0m0k-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sat, 19 Sep 2026 19:48:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Kwf3uextZxh4YauT/mXDvyGuH374jPfk5r4FAUJiJzvoHJ86Bcee7G1dX4lnmgyI6CHpEOHcDcRrcak6kEHML7Tlnu38dn9PjfoQ0b66vCRnkVTOw2+522GCbg0VLfdc+YvE/nOsznN0tJSJZxsXECuMXb4knHCd0Vi8qjIQZcakNL0OlawPEFxMkvAWW2/ajUDt+z96Yg4B3fBDrQX5p7WWr3O2KqGq17C2H31HkMpD3uvhpMAFcBPI72eA/7ZAmBzXJJtErwHiiMWBpFfPzhRyzrTlyAOSN+JhoJ32cZ32iRkSXJY9hBEO1C0kDYZ1CwNJJ1vYqpnYiIG4quRT5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QX7GFzDBFVF1hZmDBJHyKW7/LWo3fOynL05Iu4kJHLk=;
+ b=o41ELhZATdT+N1SPQc9rRGn4rJxIMxeWvkp+bAdMA/DL9rd8oF46u/2Z5U/RYLIFC+E/QdQKgYXt/Si7mWHGQeurmGHJGaufsdtokPRmO9WnbnMbujtH6fqopA/KmQ0SuRd9bxm2zxWioQzvTZkhjM+RspC1IJczHz41YequQRL8ixUiIEvVA9lgpvSMj7BzlJ9XH16oGSGJr1dJ6WZMeOVFJ0YVLWgepz4+6RtAKbh0l2qrACilXSmEYRB00f6Iky68PoOzQ6ti0GwWIQtEWFDoN/3c5jkCax3Eld+AAOfCsIyKIkr1426Pdmt2bbZro5zxf21xwd/ySHAhddchdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=windriver.com; dmarc=pass action=none
+ header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
+Received: from CH0PR11MB5332.namprd11.prod.outlook.com (2603:10b6:610:bf::17)
+ by DM4PR11MB6165.namprd11.prod.outlook.com (2603:10b6:8:ae::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.12; Sun, 20 Sep 2026 02:48:52 +0000
+Received: from CH0PR11MB5332.namprd11.prod.outlook.com
+ ([fe80::8f86:8d08:45bf:ec13]) by CH0PR11MB5332.namprd11.prod.outlook.com
+ ([fe80::8f86:8d08:45bf:ec13%6]) with mapi id 15.21.0428.011; Sun, 20 Sep 2026
+ 02:48:51 +0000
+Message-ID: <c51150c8-85dd-43cd-a615-65cd45b3affd@windriver.com>
+Date: Sun, 20 Sep 2026 10:48:42 +0800
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net v4] net: erspan: set lltx to avoid sch_direct_xmit
+ deadlock
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: dsahern@kernel.org, davem@davemloft.net, edumazet@google.com,
+        kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+        netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260916061314.936440-1-yun.zhou@windriver.com>
+ <20260916082028.GA879236@shredder>
+Content-Language: en-US
+From: "Zhou, Yun" <yun.zhou@windriver.com>
+In-Reply-To: <20260916082028.GA879236@shredder>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI1PR02CA0002.apcprd02.prod.outlook.com
+ (2603:1096:4:1f7::16) To CH0PR11MB5332.namprd11.prod.outlook.com
+ (2603:10b6:610:bf::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Subject: Re: [PATCH v2 2/3] iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC
- driver
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- mfd@lists.linux.dev, Roman Vivchar <rva333@protonmail.com>,
- Luca Leonardo Scorcia <l.scorcia@gmail.com>
-References: <20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-0-db35882a6080@gmail.com>
- <20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-2-db35882a6080@gmail.com>
- <aqzo2vqeGEGCLFIP@ashevche-desk.local>
-Content-Language: en-US
-In-Reply-To: <aqzo2vqeGEGCLFIP@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH0PR11MB5332:EE_|DM4PR11MB6165:EE_
+X-MS-Office365-Filtering-Correlation-Id: c37d3539-b8a9-4ba7-12b3-08df16c1b322
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|4143699003|56012099006|11063799006|18002099003|22082099003|10067099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	NbEsosKN1rHi+3pD9T6c4s6z92NRwA+YUsJiNnCmbbwbXrdciMmyj5HemVUDyP+TzG0PFfQo5zsu2h739vIHBpVGrVs0Yp2gctZmte2RSbscmhDqY8c/urW1chY3WV9Mifpn8Nxiigio6dKWpEcCb1XuFDwNv5iPmbnVNd3tUZSfZ2775KtyBwXmFNLleYfzZlCkr+zAEeQ+06W0MMf34QXK6goV45jZJMrK4t+Px1MyK5vMijOLDzRy/uuT0Rzcpx98N3eR6JWbihl+sxymiwB8yPsvhLwCnTRFIDayy9TNhLoXrmt4XEGKKfZIKSl/xieWuxwLltlsyIK6FcPZe/0mQH8JPZNidcna5HGZqUoE9ugVyonelx7YYbLmZN01Ro8UgtY9bAZxK0SBoijwZjmTLzMdAMMl+afiftDy4xXcKZUuhIHwUeLTkBGkgAHB58GqKh9chHmmDW0O0Hn3uto4gOREYKLCAfyCPd5lrlNPdsw/j4J2zhxV0rKfUCG4S+Nt7PlhUAp8sqD+bL+hIUGiGm4sTDLuHX2FAxDzfQ4+gChqtFFHpj0RYx8DT+h72/3oc9AGdWKoEmMzROgWJXr3vp1ypIkokyNNejF4ccLpJXATC0Jxap+SyUjpL7xz
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR11MB5332.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003)(10067099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bktZTDBibHBWYTBucFI2aVBEYUcxTnhlbU5KWFU4WCs1ck92Z3R6NFIydXFK?=
+ =?utf-8?B?SWplRE1DR0dkVWs5MmQySWFSaUtxeHhYQStWWElscUp1QUtxVEZIWTFzMi9L?=
+ =?utf-8?B?eTh6YzMwVWtUTzNLNnFpQlIxT25PWjl3YWtZMzAyT1h0N2hVVXdjaXJJSjhm?=
+ =?utf-8?B?bXJwbytadU8yZUl2QUE1c1NrYUpOdlpSd0V6ZzVwUUZycVcwbnRodkR1Z1VQ?=
+ =?utf-8?B?WlEwVkQzbVhFVlVuWWZLZWgyMzNySnJFeXYxbWRlbUFRc2Y1SDJ1NFdjcEJr?=
+ =?utf-8?B?cHN5K2szSFp6RnpQcnBwYk0xRkxkb1UzaUZrbmxlTUNCUXN6TG55U1hjYWlM?=
+ =?utf-8?B?Ky9tWlhKb3BXNExJbXhEUXZ2YWI0eDJGQ3ZkR3RRcFo3b2c5bmczVHJDZEFs?=
+ =?utf-8?B?cXBZWXN5ek9KTk1aeFdUQngvN2hqOGhQY0hkTGNPemoyMmUyR2FJbEhjbVFt?=
+ =?utf-8?B?cVRrbzY4eHdaNzNWeG1HN0VuUzdmRmh6Z3lqT0M2VHN1SjlYRmFzczNlTjlo?=
+ =?utf-8?B?cFB2V3VTU25NUzZDZDZrNzQvTlJ2SGhkeU80NmpJNUpkSnd3bDhES204cTZx?=
+ =?utf-8?B?dlpVdnZyYTRZNC9LWnFPczk2dnFDQ3VzVndqMWF5VEkxN3FoQUdzT21kK2NE?=
+ =?utf-8?B?NXhQNkMvRXM2dmpncjVHOHNmRmVUamNjS1JreDdlTTZ0c2FtUzE0c25vWm9p?=
+ =?utf-8?B?dXo1b2M2M3hzUkIyQWQ2RnJ2Q2lBL3JJYW1lYlFwZDJCRU5kTjBHNjgwM29V?=
+ =?utf-8?B?S0h0bXE5SDlwTU5kZHR2SFUvVFU1VWNrZExveXBGMHJiTWZza1FUYjZFKzBk?=
+ =?utf-8?B?Y2xJUUgxZVVWOVhOaU5YV0FBcmN5K2VzMVNMMUVZb0V3eUdrUEFuL2hZZjFX?=
+ =?utf-8?B?NDBpbCtnajlHaFFidnZDSTh4S0I3OE13ZEtkVm9wT01UZGltajBFZk4yWVlh?=
+ =?utf-8?B?Mlk4YkhsenZ3dzZEaTlVc25TT2hwa3YxVmpVYWRjVllsMXNTbGJCRHVnT0lK?=
+ =?utf-8?B?K0tLeEtOM01tcFk4SERtNElnWDNzTStrR1pta3Ezcnh3YzBtbDJUcWxuSWNz?=
+ =?utf-8?B?TGhUL2lRRzF4UDFzSWZybGh0VVNuUHlDcVYyWG5kanNIKytJTHRlQmE3ZFlL?=
+ =?utf-8?B?bjYzWlcvMFhPWnI5MnZ1OW9vbTNUZXRBakl6SUpsbXlkSEhGQ0lEOGFEcE1L?=
+ =?utf-8?B?UVRNMFRPTHFLcCtrSXJ5TnJoMDlURTNWZG04YThTU1BWVGRMK0h1SmQyVWlk?=
+ =?utf-8?B?ajhHVW1PbUIyZUdvQW5SbG55SzErOGJGbG91Z1I4Y3hwaVI3WitHZ3dyOTln?=
+ =?utf-8?B?Z3VWUUNWeFQyMzlJMDMxaHFtbjE4M3lTUXdhMStFdmk2ZGZGd0gxaVU3M2VF?=
+ =?utf-8?B?dGNpUUtpQm5PcThuV3NJWE5WSkNMVE5SV3FyZC95S1lhbGNvZXp2aGs5NVJ4?=
+ =?utf-8?B?aHAzSmFiNzBaT0pmWm1wbUxDZGd6Q0prdHNNb2VQQzVGLzZId0ZGRGpTUFdu?=
+ =?utf-8?B?RkxxbHhvenBoS3VnZlRsdXBlbVNEMm91Ky9kcWRoblYyVkpnVzdWRWhKUStr?=
+ =?utf-8?B?RnI1NHdYaWQzSHd3ZU1CWW9CeG5mUUFRMER2Q3ltSW5waFY4bjVVSmhzbFNM?=
+ =?utf-8?B?V3h3dkYzM3lpYklSZFBHd2Y0TnRRcERYaVFqUVd5UGVXNURuWHgvb0ZjUXBS?=
+ =?utf-8?B?UDE3UFdiRzhvdDhmNmNXYURnTlhKM2MzOWltdXR0bm8vVkNIYTJzMmpqZ0Vv?=
+ =?utf-8?B?WkpwR29SMG1lLy94Z2IrZkdyZHFST21IZDRrVzRaVjJDMWg0WmlkT3BzU1k2?=
+ =?utf-8?B?S3RtMDBCYWlWaWk0M2JKV0tVU0ZNc3loNVI4cXdkMnpZNmZOWSszNDBoekFM?=
+ =?utf-8?B?cVFVeFdtcXZqMmlWWjFsR0l5V2tqV3liM0s2cGk0NXo2RVh1VVUyajcvSWND?=
+ =?utf-8?B?UmlDUWc4NWZGMEhBU1g0cm9qeFRxWVhJSmtMUnpTRG40S1V1ampsN2lIcklZ?=
+ =?utf-8?B?Wm1KZnZzc0k4UFU0djlsdCtybW50amp3NWVDQVh6eEszWkhGK2QvYUIyTzVG?=
+ =?utf-8?B?eUpudXdORExXaDM4L2hVU3RXSWVzT1R1bW1BazJGcFhHUWNjcWdtMjNINVdX?=
+ =?utf-8?B?YStiWmlrL1ZRRVB0Qy92Q0k4TDZoNm9KMzZjelBQUWVKa3poeGJtQ2ZxcU1J?=
+ =?utf-8?B?MTNTeEg5VFlwU1Z6U0RNSktkOHcxU2dWeVJLb2ZkYWZWVHRpbm5ZYjRGZzJD?=
+ =?utf-8?B?WXV6SVIrRE96dUZlUHdXRW16WldzQk1oZXRZZEJpNGZSOHRycmZDVEcveHJC?=
+ =?utf-8?B?YnY5MHRHaUpHOEhoYi84ZkNJU01sMldLdUt1Y0JCRkV0OHZ5K241dz09?=
+X-Exchange-RoutingPolicyChecked:
+	I1r/Nf0EmCK5esD1yQ6IuFmROeuIb8DfVnNySDWPWoJpeAAcgepvVqI65u/5MhJ7fpi8y2WKnMBdsSjdAi/0dlem6XwQ0A/9H/YHKEzqtgT+fmeQ/dqHFVfktvqNX6oaopkDnIwv4Ys2s5ogVdqW1lKeKzTs+mLS0tpz+uzIgmKSkJpnJSz06vxcFFb0e0SEu+F6dHM/MODAnFEpyi4dvAb4tzAlqJNS3h1mPCKuFP0rWzCqLs+PlsN/SZHMEilJ10I0o1JkeVkoGraAN8rUqzW3tgX7Ss3Xhi2b5gpA+zUzoxV90DUGqxQgzPq3nSE829gW4XQhTILTTWJTaYoOOw==
+X-OriginatorOrg: windriver.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c37d3539-b8a9-4ba7-12b3-08df16c1b322
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR11MB5332.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 02:48:51.5373
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NZ6y/xUnvGjrV1syVaZF9WMR5D/Le0wHpqiPq8eRNm508V9C9F8cDEiJfU/udi1DM1ZAjIvk/+yihSCPC0stmg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6165
+X-Proofpoint-GUID: NFJgyFPLJ6uZEPrtQ8qntn4BJFf5Q10F
+X-Authority-Analysis: v=2.4 cv=WLrqzXsR c=1 sm=1 tr=0 ts=6aaf4998 cx=c_pps
+ a=O2bURPg9OTzncuCi5jyorA==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=bi6dqmuHe4P4UrxVR6um:22 a=iKiJcTA2PjBS6x5JeXcw:22
+ a=edf1wS77AAAA:8 a=HJkPzozMfburt-u3MEEA:9 a=QEXdDO2ut3YA:10
+ a=DcSpbTIhAlouE1Uv7lRv:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDAzOCBTYWx0ZWRfX33pDWGjXzaBJ
+ lMgBs/AhaAVNszfCMa6lUbapCbuj5FyrDsXs3M8qDCPcIub+C+oBRr05p/nboCZJYtQDZgwbOB5
+ Q1B1K7rVcOK7IZEZEoiEVqB7mbNKpro9l35BlTnsMhxpaGG7x4qjGQLG56ocYV2CmfHL7eG4XRn
+ 9JaZtoTl+zIZi3t4vIlXEePqsUSgrL+RtnDYsj1rpsU07NkV2zP1+gj9a8O77uJtxzfLaRCoqy4
+ iLxwejlV5sB6CdY3AkMp/mXGI3Rdp8z7cgNRGEYx6Qm0khcmNuMp/drcoOvneTtqMyMWhP+H+6z
+ SbhqGUnNEmA50tdhzo90pm3149aEwmoFpnGOJl1wSrcVvCNjh9b2EZcg6oHqxeicZWwPSP5RrVt
+ C9HigrWVoHMXzaAFgMD5vP+REoNC+ybugwCmajEfdGZcg68H2yeVojAcRJ2ifKmeS1rPPbf/71F
+ kQe+1ayIh1QX1NlT1Pw==
+X-Proofpoint-ORIG-GUID: NFJgyFPLJ6uZEPrtQ8qntn4BJFf5Q10F
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIwMDAzOCBTYWx0ZWRfX/57qtzPJx9T1
+ NQK8dduHQ230BG5I2bBXncXJtSPbUi+jMNgTMRWe4GIgQaYbOg9QnUayru56vEOkNbWVkoQcOv4
+ YtHi9FxmnvzFwQx9m0fQNlfeahAeOJiyhlMzROT/CZal97HdGuCI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-20_01,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 phishscore=0 clxscore=1015 spamscore=0
+ priorityscore=1501 adultscore=0 bulkscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609200038
 
-On 9/18/26 2:31 AM, Andy Shevchenko wrote:
-> The below should be part of the comment block, no commit message needs to
-> be polluted with this.
->
->> A new driver was created here, instead of modifying an existing driver
->> such as mt6323-auxadc or mt6359-auxadc, for the following reasons:
+On 9/16/26 16:20, Ido Schimmel wrote:
+> On Wed, Sep 16, 2026 at 02:13:14PM +0800, Yun Zhou wrote:
+>> erspan_xmit() re-enters the network stack via ip_tunnel_xmit(), causing
+>> nested acquisition of _xmit_lock on the underlay device while already
+>> holding the ERSPAN device's _xmit_lock, creating an ABBA deadlock:
 >>
->>   - Both mt6323-auxadc and mt6359-auxadc select channels through a request
->>     register (1 bit per channel), while mt6397 uses a 4-bit numeric field
->>     CHSEL in CON1 (10:7), and then pulses a START bit (CON1 bit 0).
+>>    sch_direct_xmit [lock erspan] -> erspan_xmit -> ip_tunnel_xmit ->
+>>    ip_output -> __dev_queue_xmit -> sch_direct_xmit [lock underlay]
 >>
->>   - For mt6323-auxadc, which is the closest I could find to the mt6397
->>     (CON0..CON27), it has 13 more registers than the mt6397 (CON0..CON14).
->>     It uses CON22 for its request register, and reads the result value
->>     from the same register as the ready bit. We don't do that - the mt6397
->>     has a factory calibrated value for each channel at 0x16 higher than the
->>     raw value. mt6323 also has a 1800 mV / 15 bit scale / resolution while
->>     we have 1200 mV / 10 bits. We also have some per-channel preparation
->>     that we have to do before the burst, that the mt6323 doesn't have to
->>     do.
->>
->>   - For mt6359-auxadc, it has a more generic framework for describing the
->>     AUXADC, but it assumes requests are channel-per-bit, and so we would
->>     have to basically ignore req_idx, req_mask, rdy_idx, and rdy_mask.
->>
->>   - We also have our own software sampling, which the vendor does too
->>     (Amazon Fire OS based on Linux 3.18). We'd have to have our own
->>     sampling callback to do it.
->>
->> Assisted-by: LLM
->> Signed-off-by: Ryan Brue<ryanbrue.dev@gmail.com>
->> ---
-> ...here is the comment block...
-Done in v3.
->> +static int mt6397_auxadc_read_once(struct mt6397_auxadc *adc,
->> +				   const struct iio_chan_spec *chan, int *val)
->> +{
->> +	struct regmap *map = adc->regmap;
->> +	unsigned int reg;
->> +	int ret;
->> +
->> +	ret = regmap_update_bits(map, MT6397_AUXADC_CON1,
->> +				 MT6397_AUXADC_CON1_CHSEL,
->> +				 FIELD_PREP(MT6397_AUXADC_CON1_CHSEL,
->> +					    chan->address));
-> Make it two a bit long lines rather than four.
-Done in v3.
->> +	if (ret)
->> +		return ret;
->> +
->> +	/* START is edge triggered: it has to be lowered before being raised. */
->> +	ret = regmap_clear_bits(map, MT6397_AUXADC_CON1, MT6397_AUXADC_CON1_START);
->> +	if (ret)
->> +		return ret;
-> Does it need any settling timeout (in case it was set before)?
-I don't think so. The ready bit gets cleared when START gets raised, not 
-when it gets lowered, so a missed edge wouldn't surface as an error. The 
-poll would match the previous conversion's ready bit and a stale value 
-would be averaged into the burst, so I forced one by suppressing the 
-clear on START.
+>> Set dev->lltx = true so HARD_TX_LOCK() skips the spinlock for ERSPAN.
+>> This is safe as erspan_xmit() has no shared mutable state: o_seqno is
+>> atomic, TX stats are per-CPU u64_stats, dst_cache is per-CPU, and
+>> o_flags is no longer modified in the xmit path since commit 9958e69b9893
+>> ("gre: fix ERSPAN o_flags race/corruption in xmit and fill_info").
+>> GRETAP, the sibling device with identical xmit structure, already sets
+>> lltx.
+> 
+> In v3 I asked that the commit message:
+> 
+> 1. State that the overlay and underlay devices should be of the same
+> type (both erspan or both ip6erspan) for the splat to happen.
+> 
+The devices do not need to be the same type. The actual syzbot report 
+[1] is between IPv4 erspan and vti6 - two completely different tunnel types:
 
-With the clear suppressed the set finds START already high, so regmap 
-doesn't issue a write at all and no edge happens. All 40 reads still 
-succeeded, but each one returns sixteen identical conversions instead of 
-the usual spread, and nothing shows up in dmesg.
+   -> #1: erspan_xmit (net/ipv4/ip_gre.c)   holding &qdisc_xmit_lock_key#2
+   -> #0: vti6_tnl_xmit (net/ipv6/ip6_vti.c) holding &qdisc_xmit_lock_key#3
 
-It also let me calibrate the probe, which I wanted before trusting a 
-zero out of it. Probing the result register just after the rise, it 
-counts the injected stale bits exactly: 93.75% with the clear 
-suppressed, which is 15 of 16 because in the first conversion of a burst 
-START is already low and still makes an edge, and 43.79% against 43.75% 
-predicted when seven of sixteen are made stale. In normal operation 
-everything it sees is conversions that have already finished, and once I 
-subtract those out, what's left at 30 us -- which is where the poll 
-first looks -- is -5.1e-3 +/- 2.9e-3 over 96000 conversions.
+I can reproduce this reliably with erspan <-> vti6 cross-routed in a 
+netns (no same-type stacking involved).
 
-The two writes are never back to back anyway, since each one is its own 
-transaction on an uncached regmap over the PMIC wrapper and the set 
-alone takes at least 7.3 us. I also tried inserting a gap of 30 and 300 
-us, and it moves the reading by under 0.06 LSB, with no poll timing out 
-across about a million conversions.
+Additionally, I think it makes sense to set lltx=true for vti6 as well.
 
-Even though the vendor isn't necessarily what we care about, it also 
-writes START 0 then 1 with nothing in between.
+[1] https://syzkaller.appspot.com/text?tag=CrashReport&x=15b29287180000
 
-I don't have a datasheet figure for a minimum low time, this is all 
-measured, so if you end up wanting a wait there let me know, v3 has a 
-bit more context in the comment.
-
->> +static int mt6397_auxadc_battemp_bias(struct mt6397_auxadc *adc, bool on)
-> There is nothing common between on==false and on==true cases. Make it two
-> distinct functions and drop bool parameter. It's actually a recommended
-> pattern.
-Done in v3.
->> +{
->> +	struct regmap *map = adc->regmap;
->> +	int ret, err;
->> +
->> +	if (on) {
->> +		ret = regmap_set_bits(map, MT6397_AUXADC_CON0,
->> +				      MT6397_AUXADC_CON0_BUF_PWD_ON);
->> +		if (ret)
->> +			return ret;
->> +
->> +		ret = regmap_set_bits(map, MT6397_AUXADC_CON0,
->> +				      MT6397_AUXADC_CON0_BUF_PWD_B);
->> +		if (ret)
->> +			return ret;
->> +
->> +		ret = regmap_set_bits(map, MT6397_CHR_CON7,
->> +				      MT6397_CHR_CON7_BATON_TDET_EN);
->> +	} else {
->> +		/*
->> +		 * Every step of the teardown is attempted even if an earlier
->> +		 * one failed, so that one failing write cannot leave the bias
->> +		 * or the input buffer powered. The first error is reported.
->> +		 */
->> +		ret = regmap_clear_bits(map, MT6397_CHR_CON7,
->> +					MT6397_CHR_CON7_BATON_TDET_EN);
->> +
->> +		err = regmap_clear_bits(map, MT6397_AUXADC_CON0,
->> +					MT6397_AUXADC_CON0_BUF_PWD_B);
->> +		if (!ret)
->> +			ret = err;
->> +
->> +		err = regmap_clear_bits(map, MT6397_AUXADC_CON0,
->> +					MT6397_AUXADC_CON0_BUF_PWD_ON);
->> +		if (!ret)
->> +			ret = err;
-> These 'if (!ret)' bug me. What can we do if the ret == 0 and err != 0
-> on the caller's level? In other words, what can caller do in such a case?
-Nothing, and in v2 it didn't do anything -- read_channel() discarded the 
-teardown's return anyways, so the value wasn't even used. v3 hands it to 
-dev_err() instead, as mt6323-auxadc.c does on its own release path, and 
-the accumulators are gone.
-
-The 'if (!ret)' left in read_channel() are sequencing the next step 
-rather than merging an error into it, and the teardown below it is 
-unconditional, but if you don't want 'if (!ret)' at all, let me know.
->> +	if (!ret)
->> +		ret = err;
->> +
->> +	return ret;
-> This can be written as
->
-> 	if (ret)
-> 		return ret;
->
-> 	return err;
->
->
-> But the same Q as per above remains.
-I took it a step further and made both teardowns return on the first 
-failure rather than attempting the rest. mt6323_auxadc_release() does 
-the same, and so do twelve others in drivers/iio that I could find. One 
-does continue after a failed write -- ltr390_powerdown(), but it's a 
-void devm cleanup callback that logs each error as it comes, so it has 
-nothing to return.
-
-With this change, a failed write can leave the later bits set. The read 
-still returns its value with the failure logged, and the teardown runs 
-at the end of every read, so the next read of that channel clears them.
->> +	/* Held across the whole burst: the channel select is shared state. */
-> Unneeded comment. It's obvious that guard()() takes the whole scope.
-Done in v3.
->> +	guard(mutex)(&adc->lock);
->> +
->> +	/*
->> +	 * Once any part of the per-channel setup has been written, the
->> +	 * teardown has to run, so every exit below goes through it.
->> +	 */
->> +	if (isense) {
->> +		ret = mt6397_auxadc_isense_enable(adc);
->> +		if (ret)
->> +			goto out_teardown;
-> Have you compiled this?
-Yes, with clang on arm64 and gcc on x86_64 allmodconfig, W=1 clean at 
-every patch in the series, and the codegen was correct: one mutex_lock, 
-one mutex_unlock and a single ret in read_raw() with read_channel() 
-inlined into it, and no path that takes the lock reaches that ret 
-without passing the unlock. The only two branches ahead of the lock are 
-the SCALE and default cases, and neither takes it. Still, I missed that 
-cleanup.h wants goto and cleanup helpers to not mix, and I shouldn't 
-have mixed them. v3 puts the sample loop into its own function, so 
-read_channel() becomes setup, then a conditional burst and an 
-unconditional teardown, with no label.
->> +		fsleep(MT6397_AUXADC_ISENSE_SETTLE_US);
->> +	} else {
->> +		ret = mt6397_auxadc_battemp_bias(adc, true);
->> +		if (ret)
->> +			goto out_teardown;
->> +		fsleep(MT6397_AUXADC_BATTEMP_SETTLE_US);
->> +	}
->> +
->> +	for (unsigned int i = 0; i < MT6397_AUXADC_SAMPLES; i++) {
->> +		ret = mt6397_auxadc_read_once(adc, chan, &sample);
->> +		if (ret)
->> +			goto out_teardown;
->> +
->> +		sum += sample;
->> +	}
->> +
->> +	*val = DIV_ROUND_CLOSEST(sum, MT6397_AUXADC_SAMPLES);
->> +
->> +out_teardown:
->> +	/* Lower START so the converter is not left armed between reads. */
->> +	regmap_clear_bits(adc->regmap, MT6397_AUXADC_CON1,
->> +			  MT6397_AUXADC_CON1_START);
->> +
->> +	if (isense)
->> +		mt6397_auxadc_isense_disable(adc);
->> +	else
->> +		mt6397_auxadc_battemp_bias(adc, false);
->> +
->> +	return ret;
->> +}
-> So, this function has to refactored. And please, compile and test the code
-> *each* time you update it.
-Ack. Admittedly I hadn't tested the 'goto out_teardown' path prior to 
-sending out the v2, so I apologize. I have now tested it by injecting a 
-failure into each of the helpers read_channel() calls. All five paths 
-return the helper's errno, the teardown runs, and leaves every bit the 
-partial setup wrote clear again, and guard() releases the mutex.
-
-I also stubbed out the teardown as a negative control, and the same 
-faults do leave the bits set in that situation, so the check can fail. 
-The restructure is in v3.
-> ...
->
->> +static int mt6397_auxadc_read_raw(struct iio_dev *indio_dev,
->> +				  const struct iio_chan_spec *chan,
->> +				  int *val, int *val2, long mask)
->> +{
->> +	struct mt6397_auxadc *adc = iio_priv(indio_dev);
->> +	int ret;
->> +
->> +	switch (mask) {
->> +	case IIO_CHAN_INFO_RAW:
->> +		ret = mt6397_auxadc_read_channel(adc, chan, val);
->> +		if (ret)
->> +			return ret;
->> +
->> +		return IIO_VAL_INT;
->> +
->> +	case IIO_CHAN_INFO_SCALE:
->> +		/* 1200 mV full range with 10-bit resolution. */
->> +		*val = 1200;
->> +		if (chan->channel == MT6397_AUXADC_ISENSE)
->> +			*val *= MT6397_AUXADC_ISENSE_DIVIDER;
-> Make it if-else.
-Done in v3.
->> +		*val2 = 10;
->> +
->> +		return IIO_VAL_FRACTIONAL_LOG2;
->> +
->> +	default:
->> +		return -EINVAL;
->> +	}
->> +}
-Thanks Andy!
-
-Best regards,
-Ryan
+Thanks,
+Yun
