@@ -1,96 +1,106 @@
-Received: from mta0.migadu.com (out-142.mta0.migadu.com [91.218.175.142])
+Received: from mta0.migadu.com (out-148.mta0.migadu.com [91.218.175.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695B354704F
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:12:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C53377553
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:13:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789888371; cv=none; b=uw4Nbojmur8l0D/0kYnADiQybslzwVjAd+ui33qWeUlWmtmhtg4NBv4rw+ofwCvmTsSAy0GwFfh/73hw1pqL033OYvYS6y/ZbK+hQnWje4Lm8cztRRKFaqg9P0m8+cfd5165vcU5tVh4CV1W7Hdxr24kj3C4RmWw7VTEjq5lU2Y=
+	t=1789888399; cv=none; b=jFPdc5i5Z2I7zGy2HjCaUeOus0oY5HaVefrXyTbDLXYqaKG+LDrJ4l+eyDELeAgBTYKd7aSIbw78ZSksRwDKaTdFMVDP8XjIg3DcpEy5KhleVgaSLbvcPpjYhPL+D1yI0Ovvyl3TNbFtRK/noSl1pClCkbK/cF73SzONV+PO4i0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789888371; c=relaxed/simple;
-	bh=/auR9gCHvoV1ZZy41WfsTy51Ovl7b7KYbkYc8K8mWGA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B5lz8zMg4fsk2XPEVKkWj9BXZiqtDfa/7rewuUK09eUIahF7z2rIGb2Ma4DOBP9Q8/969yzaI4prxKgt7WvG/1cbAMfo55h3tLb2aMjZs/0cCsJHfSp/7+axxZk3gmZnb7F4VUoA/3TcezhoLi4AwCk1G8UTVL8s4vhOAVITPz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uwP6yZkT; arc=none smtp.client-ip=91.218.175.142
+	s=arc-20240116; t=1789888399; c=relaxed/simple;
+	bh=AmpQvYC+661I5Z6XBFyOhYJJR3FumQ2cqGqfiZD1Gtg=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=BnIpTDFUtNwHz8XQNbm1vzUyZEBklJHnoV5xDmB2YAtY10uAu+tHMDSA9WNnmshdAMf6Y7RuMrkjvI6SjANvWWqJRt7qC5zl9Ypvm6gAfsbJBmiyXSqJUsucpjKoCay5WbeiPt5tbQoSR8+jzJj3R083z4KmYZci4G3MwNr+OGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ved1K0YU; arc=none smtp.client-ip=91.218.175.148
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uwP6yZkT"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ved1K0YU"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/auR9gCHvoV1ZZy41WfsTy51Ovl7b7KYbkYc8K8mWGA=;
+DKIM-Signature: a=rsa-sha256; bh=AmpQvYC+661I5Z6XBFyOhYJJR3FumQ2cqGqfiZD1Gtg=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789888368; v=1; x=1790493168;
- b=uwP6yZkTkDQeTvvmU39ag8J43t72VbjNcercY6upGsbubp+tDYXSuneg82+jx2ADtmmHyA7M
- YJNUB6GfThOjoANZ1QJOOY8vsM4gTrG5ACgzsi1kpqke2Rb3CznecjzlBA35rQLVk+lB5ORJb+I
- iW/wk5cNkc7jPARHR8uE6sKU=
+ t=1789888395; v=1; x=1790493195;
+ b=Ved1K0YUAUGAOCtw1/I4YIudHikNJ5JergFMDhMB/61g7cVnno8RPaPQjOcgITqLyWEEhzbK
+ U/WyGVbdGMaf4zXp+XydFtM2pDb7GcLSvfDH5ufjGbw01+4Ur6zKmgeac/tB4uf+n+vVdMBNGq2
+ 4dKGq6VBGKOjiZxpIAxvRuss=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 9f2d3912fda08430;
-	Sun, 20 Sep 2026 07:12:48 +0000
-X-Mizu-Trace-ID: 9f2d3912fda08430
+Received: by smtp.migadu.com with ESMTPS id 412a9c1ee22be783;
+	Sun, 20 Sep 2026 07:13:15 +0000
+X-Mizu-Trace-ID: 412a9c1ee22be783
 X-Migadu-Flow: FLOW_OUT
-Date: Sun, 20 Sep 2026 15:12:36 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Hui Peng <benquike@gmail.com>
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, kuniyu@google.com,
-	willemb@google.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fou: reject FOU_ENCAP_DIRECT with protocol 0 to prevent
- sk_buff leak
-Message-ID: <aq-HZFIueACIiKgU@fedora>
-References: <20260919215238.3471141-1-benquike@gmail.com>
+Message-ID: <7674b311-52a9-4a88-80c9-65a37383b4ab@linux.dev>
+Date: Sun, 20 Sep 2026 15:13:12 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260919215238.3471141-1-benquike@gmail.com>
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, Josef Bacik <josef@toxicpanda.com>,
+ josef@toxicopanda.com, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@infradead.org>, cgroups@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, cuitao@kylinos.cn
+Subject: Re: [PATCH v2 2/4] blk-iocost: charge zone appends as page-counted
+ sequential writes
+To: Tejun Heo <tj@kernel.org>
+References: <20260916085304.1080271-1-cui.tao@linux.dev>
+ <20260916085304.1080271-3-cui.tao@linux.dev>
+ <084ec3b97432a6d1520948417d9b9bc1@kernel.org>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <084ec3b97432a6d1520948417d9b9bc1@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 19, 2026 at 09:52:38PM +0000, Hui Peng wrote:
-> In fou_udp_recv(), returning -fou->protocol to udp_queue_rcv_one_skb()
-> triggers IP protocol resubmission when fou->protocol > 0, whereas returning
-> 0 tells the UDP tunnel layer that the skb was consumed without freeing it.
-> When a FOU_ENCAP_DIRECT socket is configured with FOU_ATTR_IPPROTO == 0,
-> every received packet returns 0 from fou_udp_recv() and leaks the sk_buff.
+Hello Tejun,
+
+在 2026/9/19 23:00, Tejun Heo 写道:
+> Hello, Tao.
 > 
-> Reject FOU_ENCAP_DIRECT configurations with protocol 0 in parse_nl_config()
-> and drop packets if !fou->protocol in fou_udp_recv().
+> On Wed, Sep 16, 2026 at 04:53:02PM +0800, Tao Cui wrote:
+>> A zone append advances the zone write pointer and is therefore
+>> sequential from the device's perspective; the actual sector is only
+>> returned after completion, so the cursor-based seq/rand classification
+>> doesn't apply.  Price it as a page-counted sequential write.
 > 
-> Fixes: 08d323234d10 ("net: fou: rename the source for linking")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> diff --git a/net/ipv4/fou_core.c b/net/ipv4/fou_core.c
-> index 5e867f1b5c1d..3fc087c808bc 100644
-> --- a/net/ipv4/fou_core.c
-> +++ b/net/ipv4/fou_core.c
-> @@ -77,6 +77,9 @@ static int fou_udp_recv(struct sock *sk, struct sk_buff *skb)
->  	if (!fou)
->  		return 1;
->  
-> +	if (unlikely(!fou->protocol))
-> +		goto drop;
-> +
->  	if (fou_recv_pull(skb, fou, sizeof(struct udphdr)))
->  		goto drop;
->  
-> @@ -696,6 +699,9 @@ static int parse_nl_config(struct genl_info *info,
->  	if (info->attrs[FOU_ATTR_TYPE])
->  		cfg->type = nla_get_u8(info->attrs[FOU_ATTR_TYPE]);
->  
-> +	if (cfg->type == FOU_ENCAP_DIRECT && !cfg->protocol)
-> +		return -EINVAL;
-> +
->  	if (info->attrs[FOU_ATTR_REMCSUM_NOPARTIAL])
->  		cfg->flags |= FOU_F_REMCSUM_NOPARTIAL;
->  
+> Whether an append is cheap depends on where the previous IO went, the same
+> as for a regular write, and the cursor already tracks that. The sector is
+> the zone start rather than the write pointer, but the cursor gets set from
+> the same sector, so back-to-back appends to the same zone are a bio length
+> apart and classify sequential, appends to different zones are a zone apart
+> and classify random, and emulated appends already arrive here as regular
+> writes at the write pointer.
+> 
+> It isn't exact. A read or regular write into a zone being appended to is
+> measured from the zone start rather than the write pointer, so it drifts
+> toward random as the zone fills, and the last append in one zone and the
+> first in the next are contiguous but compute as a zone apart. Both are
+> bounded by the difference between the seq and rand base costs of one IO,
+> which is small on the flash devices that do native appends. Mostly right
+> is fine here. Can you just add REQ_OP_ZONE_APPEND to the REQ_OP_WRITE case
+> and leave the cursor update alone?
+> 
 
-The patch looks good to me. But the fixes tag is incorrect. Looks the LLM
-only find the tag based on the file name.
+That fits the existing model better than the special handling I
+introduced.  I had missed that the cursor is set from the same
+zone-start sector on every append, so back-to-back appends classify
+sequential as expected, and that emulated appends already take the regular
+WRITE path.
 
-Thanks
-Hangbin
+I'll drop the special case and the cursor skip in v3 and just add
+REQ_OP_ZONE_APPEND to the REQ_OP_WRITE case.
+
+> Also, the Fixes tags on this patch and 3/4 should point at 0512a75b98f8
+> ("block: Introduce REQ_OP_ZONE_APPEND"), which added the op without pricing
+> it, rather than the iocost commit that predates it.
+> 
+
+Agreed, that's the right anchor - the gap appeared when the op was
+added.  Both Fixes tags will be updated.
+
+Thanks.
+
+> Thanks.
+> 
+
