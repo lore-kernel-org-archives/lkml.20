@@ -1,172 +1,102 @@
-Received: from mta1.migadu.com (out-102.mta1.migadu.com [95.215.58.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A3F3D9556
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 06:30:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C688D3DA7C8
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 06:32:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789885836; cv=none; b=UCQwtbBNeevBjieYSRsutImhAciewteoj0JEmZoos0ib1wqK80KrUNToWgAiHU7yayxYMHAuVOSB29IPbGTCJoqT1xcbT2SCDRNzHlVr2G+x9osd37FC94v93bnaVVEFY3f0fLxQ9IR5TlRZL9gILWIkntrONgJYTgdYxK5hBI4=
+	t=1789885940; cv=none; b=bQBkQBKlaYM6IxgrfwLh31NOYUmXwD5651LREr8NsEXhWlFmIR4bEBLJR53+cRz3iChMsO8hHQ00BCqxGvxrocRUDEr9N0mB9tbqSRN+AR243Yzek6gok/V0xMW6ZxBDnoixpw7qWSIW1qNTRWW0q9S6lAbRWFvxYkO4X+M1Xe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789885836; c=relaxed/simple;
-	bh=Pv9EV8bO6mfi0NkJtb1zwwVK+S+58D5VVIJK1Mf9buw=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=a5c94l9BPOigjyKrepvLcxDR04XCcAUZfcvWtNwOREzaf8plczh6adp5VxINt++lrK4hQUsqOppm+wUqKrSvDgdEn+atNcBbBo5L9VWX4WBOs1wLGa+nX8CzocsDcKhu1h371lJia0LCnLM77mAaYOp1Dvj68cbpbOJRX33moA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cHIps9Oi; arc=none smtp.client-ip=95.215.58.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cHIps9Oi"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Pv9EV8bO6mfi0NkJtb1zwwVK+S+58D5VVIJK1Mf9buw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789885832; v=1; x=1790490632;
- b=cHIps9OijEUJJjx5govCxqhuxUfkHezRBN6AVygy6gOQLP1cp94zajusra+38EKmGiQUdG29
- ZrBtr49BtCBfCiAAPZXfFBT6xCFKEBplAHfQZiJ2UhsCmbVmFtF/5aGb0m0FqxBbOcd99XKPQ5P
- 3Ehw5rFsPPB/0T/ICGgdaknM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 24ca9784efa152a4;
-	Sun, 20 Sep 2026 06:30:30 +0000
-X-Mizu-Trace-ID: 24ca9784efa152a4
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <25b72fce-5354-435b-9256-482c15ae7b06@linux.dev>
-Date: Sun, 20 Sep 2026 14:30:23 +0800
+	s=arc-20240116; t=1789885940; c=relaxed/simple;
+	bh=pAERUW8myD8CNy2U4OteOdJ/vkvuBTpnim9iNvmMlf0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bDsPTzjGV72+GuSFf8dJ5S3zQd7KrjEXO2jrcoSX2XzPaspHdHvK0BCv8NoHAPZdc/zzD01HoBa7EAKSV1EvqnnAXWrZBBaHJJGydhKKEvnc1KKkVjCp00K5LaTWivm8XYBa9HRMCGjE1GrKoQcUA56Q90ImDfu8rokXNa+XXBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 014e4150b4bd11f19a56ed5b684f684d-20260920
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, SA_TRUSTED, SA_EXISTED
+	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD
+	CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
+	AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:b3c004ea-2d5d-4cd1-bb14-abe007292fed,IP:10,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:10
+X-CID-INFO: VERSION:1.3.19,REQID:b3c004ea-2d5d-4cd1-bb14-abe007292fed,IP:10,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+	elease,TS:10
+X-CID-META: VersionHash:7db8b62,CLOUDID:a97caa48f5a694a96ff053bb118d16ee,BulkI
+	D:260920143212CE1VE3T0,BulkQuantity:0,SF:17|19|38|66|78|102|127|850|865|89
+	8,TC:nil,Content:0|15|50|99|100|102|158,EDM:-3,IP:-2,URL:0,File:nil,RT:nil
+	,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,B
+	RR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 014e4150b4bd11f19a56ed5b684f684d-20260920
+X-User: wangxuewen@kylinos.cn
+Received: from localhost.localdomain [(223.70.159.239)] by mailgw.kylinos.cn
+	(envelope-from <wangxuewen@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1462341643; Sun, 20 Sep 2026 14:32:08 +0800
+From: Xuewen Wang <wangxuewen@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Xuewen Wang <wangxuewen@kylinos.cn>,
+	Baolin Liu <liubaolin@kylinos.cn>
+Subject: [PATCH v1] ntfs: preserve the 64-bit FITRIM minimum length
+Date: Sun, 20 Sep 2026 14:31:53 +0800
+Message-Id: <20260920063153.376958-1-wangxuewen@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-Subject: Re: [PATCH] cgroup/cpuset: prevent overlapping local and remote
- partition creation
-To: Hui Peng <benquike@gmail.com>, longman@redhat.com, ridong.chen@linux.dev,
- tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260919221727.3706964-1-benquike@gmail.com>
-Content-Language: en-US
-In-Reply-To: <20260919221727.3706964-1-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+The minlen member of struct fstrim_range is a 64-bit byte count, but
+ntfs_ioctl_fitrim() uses max_t(u32, ...) to compare it with the device's
+discard granularity. This truncates the requested minimum length before
+passing it to ntfs_trim_fs().
 
+For example, a minimum length of 4 GiB is reduced to the discard
+granularity, allowing smaller free extents to be discarded. The truncated
+minimum length is also copied back to userspace.
 
-在 2026/9/20 06:17, Hui Peng 写道:
+Use max_t(u64, ...) to preserve the requested minimum length. The bitmap
+scan already compares the aligned extent length against range->minlen
+using 64-bit values.
 
-Hello Hui,
+Fixes: 9c87959601e8 ("ntfs: update file operations")
+Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+---
+ fs/ntfs/file.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Fix two partition validation bugs in kernel/cgroup/cpuset.c:
-> 
-> 1. In remote_partition_enable(), check whether the requested effective
->    xcpus intersect parent->subpartitions_cpus so a remote partition
->    cannot claim CPUs already delegated to a local child partition.
-> 2. In validate_partition(), verify that enabling a local partition does
->    not overlap CPUs already allocated to an active remote partition.
-> 
-> Fixes: aa7d3a56a20f ("cpuset: fix warning when disabling remote partition")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 2538faac9aba..13fad096c494 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -713,7 +713,10 @@ static inline bool cpus_excl_conflict(struct cpuset *trial, struct cpuset *sibli
->  		return true;
->  
->  	/* Exclusive_cpus cannot intersect */
-> -	return cpumask_intersects(trial->exclusive_cpus, sibling->exclusive_cpus);
-> +	return cpumask_intersects(trial->exclusive_cpus,
-> +				  cpumask_empty(sibling->exclusive_cpus)
-> +				  ? sibling->effective_xcpus
-> +				  : sibling->exclusive_cpus);
->  }
->  
->  static inline bool mems_excl_conflict(struct cpuset *cs1, struct cpuset *cs2)
-> @@ -1591,8 +1594,8 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
->  	 * above it or remote partition root underneath it is not allowed.
->  	 */
->  	compute_excpus(cs, tmp->new_cpus);
-> -	WARN_ON_ONCE(cpumask_intersects(tmp->new_cpus, subpartitions_cpus));
->  	if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
-> +	    cpumask_intersects(tmp->new_cpus, subpartitions_cpus) ||
->  	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
->  		return PERR_INVCPUS;
-
-I have been going through this part of the code repeatedly recently, and I
-would like to share one thought.
-
-Should this return PERR_NOCPUS instead?
-
-+	if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
-+		return PERR_NOCPUS;
-
-In the first reproducer you described in your reply to Ridong:
-
-Minimized reproducer (Scenario 1):
-#!/bin/sh
-mkdir -p /tmp/cg1
-mount -t cgroup2 none /tmp/cg1
-echo "+cpuset" > /tmp/cg1/cgroup.subtree_control
-
-mkdir /tmp/cg1/A
-echo 1 > /tmp/cg1/A/cpuset.cpus
-echo 1 > /tmp/cg1/A/cpuset.cpus.exclusive
-echo root > /tmp/cg1/A/cpuset.cpus.partition
-echo "+cpuset" > /tmp/cg1/A/cgroup.subtree_control
-
-mkdir /tmp/cg1/A/B
-echo 1 > /tmp/cg1/A/B/cpuset.cpus
-echo 1 > /tmp/cg1/A/B/cpuset.cpus.exclusive
-echo "+cpuset" > /tmp/cg1/A/B/cgroup.subtree_control
-
-mkdir /tmp/cg1/A/B/D
-echo 1 > /tmp/cg1/A/B/D/cpuset.cpus
-echo 1 > /tmp/cg1/A/B/D/cpuset.cpus.exclusive
-echo root > /tmp/cg1/A/B/D/cpuset.cpus.partition
-
-CPU 1 is active, and the requested CPU mask itself is valid. The failure
-happens because CPU 1 has already been allocated to partition A, so the
-top cpuset can no longer distribute it to the remote partition D.
-
-remote_cpus_update() uses PERR_NOCPUS for the same kind of
-subpartitions_cpus conflict:
-
-else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
-         cpumask_subset(top_cpuset.effective_cpus,
-                        tmp->addmask))
-        WRITE_ONCE(cs->prs_err, PERR_NOCPUS);
-
-Would using PERR_NOCPUS here be more appropriate? This would keep the
-initial remote-partition enable path consistent with the CPU update path
-for an existing remote partition, and it also seems to describe the
-failure more accurately: the CPU itself is not invalid, but has already
-been allocated to another partition, so the parent can no longer
-distribute it downstream.
-
-Thanks,
-Guopeng
-
->  	if (((new_prs == PRS_ISOLATED) &&
-> @@ -2411,6 +2414,10 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
->  	if (cpumask_empty(trialcs->effective_xcpus))
->  		return PERR_INVCPUS;
->  
-> +	if ((parent == &top_cpuset) &&
-> +	    cpumask_intersects(trialcs->effective_xcpus, subpartitions_cpus))
-> +		return PERR_REMOTE;
-> +
->  	if (prstate_housekeeping_conflict(trialcs->partition_root_state,
->  					  trialcs->effective_xcpus))
->  		return PERR_HKEEPING;
-> @@ -2970,7 +2977,7 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->  		 * local or remote partition.
->  		 */
->  		if ((parent == &top_cpuset) &&
-> -		    cpumask_intersects(cs->exclusive_cpus, subpartitions_cpus)) {
-> +		    cpumask_intersects(user_xcpus(cs), subpartitions_cpus)) {
->  			err = PERR_REMOTE;
->  			goto out;
->  		}
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index 8164326b7812..e315fed4d13b 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -866,7 +866,7 @@ static int ntfs_ioctl_fitrim(struct ntfs_volume *vol, unsigned long arg)
+ 	if (range.len < vol->cluster_size)
+ 		return -EINVAL;
+ 
+-	range.minlen = max_t(u32, range.minlen, bdev_discard_granularity(dev));
++	range.minlen = max_t(u64, range.minlen, bdev_discard_granularity(dev));
+ 
+ 	err = ntfs_trim_fs(vol, &range);
+ 	if (err < 0)
+-- 
+2.25.1
 
