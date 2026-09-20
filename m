@@ -1,30 +1,30 @@
-Received: from outbound.pv.icloud.com (pv-2001j-snip4-1.eps.apple.com [57.103.64.94])
+Received: from outbound.pv.icloud.com (pv-2002l-snip4-6.eps.apple.com [57.103.64.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0306833E348
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:47:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.64.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C0C2D738F
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:47:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.64.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789915629; cv=none; b=os2qyPVVNMvPWGRXhrSO2Pv7oKQc3z7abF3tTsQUX/hCmF9FohuK1g3xj5DzRnM8YJEXlwXWj+D1Fuv1eTRdzeTgPEcxnYwOMzMRuNIYy+hSxEgqVZArQ2nyleOKROumbT2L7rIYiS6AbBV5ITjgjxmdiuMPGn6hIydattOVxM0=
+	t=1789915657; cv=none; b=QKGrWtYGlkF7T5PZt8U6SpL9j2fbtcS+44uciGsmN6hZ4Gv0iIx3TJ6uyFmHL898TRL5u/Iv5IygPZTaZSyMgf4NcBVymebYVB8YpL0K3gTUiA2VvI0vbjNnSXw2NxarwghOBaW48nXR2jviIdhRv1AM/bWMdLmL3coWf9i//Rw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789915629; c=relaxed/simple;
-	bh=9QI8/6eDLyBcGPBNmX7kguyI2uiQ4PHzLcxMB/ujd4E=;
+	s=arc-20240116; t=1789915657; c=relaxed/simple;
+	bh=/JkcBH1+wbKRy3ZGp5VZFSV/QYJaJAk8NyGPR8Dw5cE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eZtQeuJcwyb4yM0Ke9HbPZiEoGD7mZt7lpRfpvTNhDAEkeQYl1qlGfluGEK29aSSyp8zXRLpvD8tbCd2I1Hn4mJDeMaEjIQoYXO30qvSs6FHydpOcQv571wFP5XfCacBZllTsFWuVUqh75l9pgmGGf+CGnovzzL9wisFAYWWOJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=B9Z8hwmp; arc=none smtp.client-ip=57.103.64.94
+	 MIME-Version:Content-Type; b=ecZnHl5cCnNdijSs6lQ4p0+A6+wYx9XMMIY9cYeCG7CrAdo9BR7A7beONg9cfK9CT97kqkT2t8+oMIBPT4eVNl44K7UxmK/+trm1TTNLVpM42b/mqEPFZ2f0g3fTShNmHr53IqJ/gv3WWI3pxUVgXFpo1BJsro5wgCdtp6K/X8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=v9Bb3LD+; arc=none smtp.client-ip=57.103.64.167
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="B9Z8hwmp"
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="v9Bb3LD+"
 Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-1a-20-percent-0 (Postfix) with ESMTPS id 7C5BA18001B6;
-	Sun, 20 Sep 2026 14:47:02 +0000 (UTC)
-X-ICL-RepId: 01a0bf48-ec0a-7a7f-a463-1916823a79c0
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhKB0MGWQReCEsEQwFbEhVdRUkERxtXAlQXXQZSEnIZWhRcGFNFUR9UWFUJCgJRHFYNV0NUBF9QSxsOXwZLWhVVFw4CQh9QH0wWV0NHHRwZWhRcGFNFUR9UWEMZRVZpQQtPHV0ZWxxCZFhXCQoCURxWDVdDVARfUFQRV1ALWQJCD0gKXwdaBkQPTARDA1gBQwpVAkBNAkIAXApeAlkAVwl5EVABWB5WXloXXlMXH0sAXEVaDlsERxQ=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789915625; x=1792507625; bh=09jiLbzpb1veArtuXhL84Hxo7NJy/m+yRETm/PTbJXM=; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=B9Z8hwmp9+SQ7EaHjGu4O3EE4TOO56BGpkmOlXmH8xPLmgxy9uPR2l3S4tbtpkkzle5PetrDmfi1gcFLkcvKx3xTfHXbj9E7GWe6EgbONyuGb/QOKw4N/i8pfNM2GzNui+qEET3o1jAR9ppf+jRVdHs5Cxun+RwFCBFZrG62ZJx2m6EtmcoTG5iEC1vbs3I2lpVAMn1lBJ31V04GdCWjj+7bC7mhcc0s//rLPb7K3joWZjsjkKzI4m1vtaN6PfiPBNAUZC6V3BZUVpL/5rW7AETjcGJs5LUJ5xafiGz2INhwvq6rXDcFH9V5G5+U3P39/5XD9qXAjE1IkpbC6bBwpA==
+	by p00-icloudmta-asmtp-us-west-1a-100-percent-3 (Postfix) with ESMTPS id 217051800236;
+	Sun, 20 Sep 2026 14:47:30 +0000 (UTC)
+X-ICL-RepId: 01a0bf49-5bd6-7fb5-8a26-8f6f2eca0ab1
+X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhKB0MGWQReCEsEQwFbEhVdRUkERxtXAlQXXQZSEnIZWhRcGFNFUR9UWFUJCgJRHFYNV0NUBF9QSxsOXwZLWhVVFw4CQh9QH0wWV0NHHRwZWhRcGFNFUR9UWEMZRVZpQQtPHV0ZWxxCZFhXCQoCURxWDVdDVARfUFQRV1ALWQJCD0gKXwdaBkQOSQRDA1gEQgtVAkBNAkIAXApeAlkAVwl5EVABWB5WXloXXlMXH0sAXEVaDlsERxQ=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789915655; x=1792507655; bh=XGBEthCp7AYhQq4Iu5r57dtDW5NjXYdTS74nYmFJLPA=; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=v9Bb3LD+TnJGFv6ItNxWWNGNYfF0Uwjvf03l5yT2gvmsf/8RgFwWzm4pxqpQAH5okawiLLhL7YUPd5QNA6RnluMUlEikmKegGjpbNkEMCEafuuT8MVsCEMAG+l+otps6j5DlGiWRIQSf8h9VUYb6qAUtNEH46mMIXb5tboEcdS8UHH3BCYScCgdderfXQzCrQMncpvTJxGDIX4OH7lwLPa6fL5Xr4ntOzbCqiQkCz69Da8p2xup0HWzg/GmeJyUXsJs5CHKb1R9Je+js8mS0wSgxJZ9TCr9C1v83wfVSbz08vVIzkbwYa2Gc+Sw+bTJJ+FYhp18zw3yUBocndO+Vyg==
 Received: from BRUZZHANG-MC1.tencent.com (unknown [17.156.192.29])
-	by p00-icloudmta-asmtp-us-west-1a-20-percent-0 (Postfix) with ESMTPSA id 695811800207;
-	Sun, 20 Sep 2026 14:46:56 +0000 (UTC)
+	by p00-icloudmta-asmtp-us-west-1a-100-percent-3 (Postfix) with ESMTPSA id D7B9B1800302;
+	Sun, 20 Sep 2026 14:47:23 +0000 (UTC)
 From: Zhang Peng <zippermonkey@icloud.com>
 To: Barry Song <baohua@kernel.org>
 Cc: Zhang Peng <zippermonkey@icloud.com>,
@@ -47,12 +47,12 @@ Cc: Zhang Peng <zippermonkey@icloud.com>,
 	Zhang Peng <bruzzhang@tencent.com>,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 3/5] mm/vmscan: extract pageout_one() from shrink_folio_list()
-Date: Sun, 20 Sep 2026 22:46:46 +0800
-Message-ID: <20260920144647.43333-1-zippermonkey@icloud.com>
+Subject: Re: [PATCH v5 5/5] mm/vmscan: flush TLB for every 31 folios evictions
+Date: Sun, 20 Sep 2026 22:47:14 +0800
+Message-ID: <20260920144717.43622-1-zippermonkey@icloud.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To:  <CAGsJ_4zOfR3Rn5tk_RcOWUDmREO1JyRwXA15Vr3aeUs=+ybMMA@mail.gmail.com>
-References: <20260720-batch-tlb-flush-v5-0-db943a0d0d6b@icloud.com> <20260720-batch-tlb-flush-v5-3-db943a0d0d6b@icloud.com> <CAGsJ_4zOfR3Rn5tk_RcOWUDmREO1JyRwXA15Vr3aeUs=+ybMMA@mail.gmail.com>
+In-Reply-To:  <CAGsJ_4wrQRGjqavMzWgi2+PrRr1ztf4QRZEb6HKm02OF8nEBUQ@mail.gmail.com>
+References: <20260720-batch-tlb-flush-v5-0-db943a0d0d6b@icloud.com> <20260720-batch-tlb-flush-v5-5-db943a0d0d6b@icloud.com> <CAGsJ_4wrQRGjqavMzWgi2+PrRr1ztf4QRZEb6HKm02OF8nEBUQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,78 +61,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: fy9rEMDQMrPKHRWHN-6yUqk-6O7WW-7b
-X-Proofpoint-ORIG-GUID: fy9rEMDQMrPKHRWHN-6yUqk-6O7WW-7b
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDIxNSBTYWx0ZWRfX8gI4cbZRMWuI
- KcCjj6CThf8vLJmvMDeWXV/ybMzoNi96Ux+hL+qNHgUTCKLL1tuYe/jr55yOHUqBYAzGeV1YlAi
- VW316FN6iHrDMhFSuO44EyXS90cSq1Ck+RWOkaRLL5BCTDHAx0gs1EQsPhXzg0ZhekbUUsv0nEa
- UWdT592jHkFC2V9nosNzFLaeHPxqTFd7zRg4KtWmPUDjol+ICw9Oc3tbJc/Z8oH36STkA9fCycP
- 3pPD1xR3vZ5CvdhwSlmHwdCiG3dKc38li0j/hfWjgWfm2kpHQD1ALeV2Eap3LnibDpE/rNqP+T2
- toJ/6S26n2AyFXK0Mq0UShDf0CFZNPWr2sMPr184Vsrvo3Gbfmn3yy/6elfkM0=
-X-Authority-Info-Out: v=2.4 cv=RrvI7SmK c=1 sm=1 tr=0 ts=6aaff1e8
+X-Authority-Info-Out: v=2.4 cv=K8sv3iWI c=1 sm=1 tr=0 ts=6aaff205
  cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
  a=aW9mcIavGNWWFvFFKOxBSA==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
  a=x7bEGLp0ZPQA:10 a=YE32fvk_ji8A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VwQbUJbxAAAA:8 a=v3ZZPjhaAAAA:8 a=_kJJyzcaNiJmjTfxGhgA:9 a=QEXdDO2ut3YA:10
- a=J82S1U87d15UFHHUFZS8:22 a=kKg27zqgtulLWh45kPDF:22
-X-JNJ: AAAAAAAB1nRey5oJZ5F0KLj/9N0cLRbSJoEF39yyVxr75/6La6rO40JosQD394aQDfSDJ3l3H/mMOBI3LcEcOFejkhBB4zmEoHX7h34F5la8K45IEG6slCWkklQn3s2PDsYCWIW7poavcSrlgLg3Qgo56AL7xmyCV1dmh9W4ELAPgNpG7pvKQ3FaZeSvPiyMEaZ39D+9lKRLhbpBgqKvHV0+15SOFVS5Te+QOxHuOwhGiLbUtcsLpIJL8UB+J61U/k1EN+54kIAvmZ+wS0RxAChmpYxRrSphfkYlStZg1vfCvAbyycRP7P0R0UYoe2acnhn66iQprqMOmDoSM4pmW0N4yXWq6pwUbsW9OJf2qcvxVqgpooWj8+5Sjrx/mD0HNbW345EFkeek72TzVBAk9w3WWXrHMq5H4ApY6BghjdJOpJ813aRo9o6gDKMNJ8Qpw4DP6KjmodQuLCoN7SnFbdJLXSbdjl2ldeKjJd+8rdkJMrYYxM4hnXRYlSbco3GqfTIxGy4LCfY3DPo3XEPpnHfNzpq8QQCUfq7sEfJPPZtWjVMfbEEC/DHmGGR+iwTc9zt44ht9IXIYo1RCtrX0WoRTXxdLjWz8cn/uuBix4HL1BMjtoxPjGTs3HwCA9kwj5K4hzym5rtmf27RE0QsyNDvAXNVMcZ69BPoyhHQeCYw+A5qTWzgaxePZa5ZSLyhaCLdPBadPGt6HqHO8R2DzRLyjN4a49VoAyAwQZxbifELRt5Rrk00hkM6yy8ob6JMHlcYKOP3C/RBdOdSXqysvRjDB7mBY97CFhJglm3Sinr+qdh2SUxsEGaH+XYQP++u9jDHCZ5JPw/Y1vdKgAuphOqxjEhR96Y9LAAfsGUjobBGUDuEt7q/qI0rTf9F6utbk9Xu0uSyFdxuEAX9ZdULfT9NU9MryhF1JrFR2zGR8AgX1NJ3DXagRrgs/XVrVxItF+TcIuqPALFX7sKxov3IkLkZB6bta+vN
- gmf0hbLDOrb+dcB6NJVQESsPHmhSSvERtls2lwTlqzkJLMy1by4aoxi2RASv4uXNLZ8RrI/BlnMaW8O0bonKhc9UiF+cnez6pPR13TORw+CqIBr6hM62/ig3KzjPLDYkri1KIaUy3jTwC7fp2WpwNdINj2RH69ZBSqQNlMlqKA4RE1KsXjiP/B+DZBkFeeg2EsunPMoW5hFUtjP6u1BcNExnwGHTXmO7B43UXBfH4lfa/zB5dOPZ4P4zq3wPFCPJENg2nPedFQh6IWz0BQqM5uOw5JJdfo7y8dmPFPsEwdbGo17ih/5z25s6hBpX4HxP0yp86S65SG9FwzK4HlY2TsLUZr/dM6Q+KhO3mmTFTIb0iR/MDpuiSPD15qWw9XKbFsxgxFFikXHBEQRkGKC+fp0CoXNjl5PkuhuTuNfWXu7qrL9x1k+1OyJ1Zw7hSgbpHGpbCKMKtC5uRr4Tdd6tCCu4i24GoOypYNci3E/eylVjTAHKsrGpq1BNLkbxqalwwwAJ3ERs/RFukvNgiZlRpjIM=
+ a=VwQbUJbxAAAA:8 a=v3ZZPjhaAAAA:8 a=GvQkQWPkAAAA:8 a=d8zy1PgHqa5D0lzE5hsA:9
+ a=QEXdDO2ut3YA:10 a=J82S1U87d15UFHHUFZS8:22 a=kKg27zqgtulLWh45kPDF:22
+X-Proofpoint-ORIG-GUID: Q81NMmtKSXNwrhk0b8AE8ion5_v4U2r6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDIxNiBTYWx0ZWRfX2fcTERIUmG39
+ YlN2dYg1xwmj++IlqZJHGhKoPQ12t/GjbEfvi1nVncEi/vYIzqzRWfZZfbTLF5xact+1dOmfkEL
+ IOhZf0s+AojSM07FIWK0FNAYlbaWxbnDX66OuE7S3iNgvulYpcA/BWBHWe2u6ctwf2DHhM87fWj
+ jsJ15hGJI8whC9NDVAW6PoP3V+eC+WQ1GqftjPl2VLGSq2Cd0oOqIDpjujXjG0lXBLduy/yIssW
+ pfOMTmg1HjFx72K+VB3yQfNwh0gW0MzuD7ISH5TKvTHjGxT1aKjmysKBMfOhcJ5wujNvj8KmMUJ
+ YeNY+Xrnl92OA3kbcUrsOkT8iWzx6zg/eviu1PjzDum+Ar6w55QxxP1gBAaxe8=
+X-Proofpoint-GUID: Q81NMmtKSXNwrhk0b8AE8ion5_v4U2r6
+X-JNJ: AAAAAAABflP+VvU0bVkD6NYGBv6aQPZJ2lo78qa0Hiru5ViahMp1D9TpJ8WI+LFKxCvReFex3EcTZ4Vs/qLxUZIR63RQT1/6QAmEsqpmfzWah2/aEswL1C+PRIdipzigqgI+tGD++XvvdU6+UUH5cBwRxbb9ahwAdN3ItGxKuN6dMv/EtSVTnTgB+oj8+AE5VnT/RN8YOnu/SopL/11V4UsP33OukS5JI5YWlan9y/6kbfqrw9Sa0zvW2IknH9tEVEcKDIchV/QYdpCcmHrMLSggUJ91ySco3w97mv0F+Y/TOy4CFAGydj+O2A8VDs7maABqZtIc+Y/0qibsAtvMhD1UafQRT07K1mt6ybTYvhPYVm9tf1OJ/BX/sboGaniT9tICYxTkZnBderLZa/juiZjT7tq7neanRVLD4XE4Q8Km3YvrYRs8bqLP96PCPT57XHF6Mh4A2Un8Fr1XvXi3CaUxVyMAp1KoOoCHndSxQNVhLZ2Z4VNlW9pUthxhEwHTOK2pUfdjdt+FPeUEGHjATxea72PJelR3dHgZczf6kyGal1gn3XTrjWRvvwzL8J704bpo1YFrbbblSItTgAIIVPn2xht8nRnbD3nvi5ccZqoeslendlAUw/a5///CC5gmSpyIdb3cV2DQo/6ls+8hcB79NrusahmCbjyCpuTUzKNGH2g1YAD02J8p6pf8PEmPWBrdCvSppwXFopKyWplPudvC1spyGp8cy4xwm7jqYD2oiU5EjBqzxtNF50jHurIc9Yz0rNf7CTK/8HhOsQ1eIjp4h23RlGStuH2ZYH2Mi2crhFl8N3MYhmL0OmT8B1tAwTfZKcYzg7jlCSQFpn+BJRYGx2i200JMGBbp/8xxxt1yhPuXczwzOSFNS9WdZNJozXm4O1G41lKkTb2qn9FO9C2O7QNPK5+WAJx4eM1T78FPyyFgzjsS+jze04B2CBZtJm/3HSE8pEXJf1hA5J2lUWRWYW9U7Sp
+ EsQ83PKI2v2HGMdxFMnpzZdy3eFsEV+3DB7XazYZeLjq34SxmcsYf7gOaJUW/IdfjcSB4Pj0wxsFrAtzNxHHte8RGKGwzAoqC+VrSfFZlAgcxEKxluTa+bcBMMLqUjnPP4cNNbTtI+vKhvJvL9IhMfb6fb1d6ex1JkwTAxmuCbBXx0Is/GStOinfAKT4lUlAPiB5dw78JI+/7taexmKgyqIk0A39971JBGboSC0QD5BEzXkmIlB9h7O2WUmHDpB45Z4KvhGXC5Ipz0w8vh8T1x+NOmgtcyaMFK3Z5DdgZq/i7Fw5tcwme+gp4kBC/kxRgt81jHgfUO8Z88KpBAqpzwz+SKuUHJSuK5rKjhg9rXupo/18CAuE+Dr1okxVBRtDkcg5VnWyV07phuW89hc9Bx9ioGHaX+yGbFOPXJYbyHEdy86Qk8lSk2KeNKnIl7IEiBdFNKTevVVgQy/+IhwcMUbhJfSozv+LI46s/kYkRpb2kx8UHgjfr0+U=
 
 [Resending this one on its own - my first attempt accidentally sent
 all four replies concatenated into a single mail, see
 https://lore.kernel.org/all/20260920143816.39827-1-zippermonkey@icloud.com/
 Sorry for the noise.]
 
-On Fri, Aug 14, 2026 at 5:49 AM Barry Song <baohua@kernel.org> wrote:
+On Fri, Aug 14, 2026 at 5:58 AM Barry Song <baohua@kernel.org> wrote:
 >
-> Also, this patch looks basically good, just like the previous one.
-> Could we also avoid hiding the activation semantics in the inner
-> function? It would be clearer to make the activation semantics
-> explicit at the outer level, so readers don't have to dig into a
-> deep internal function to realize that a folio may take the
-> activation path.
->
-> In LRU, we have two distinct possibilities: activate a folio or just
-> keep it. This is an important semantic distinction in the LRU logic.
-> Hiding the activation decision so deep in an inner function makes
-> that semantic much less obvious.
+> Yes, I think batching the dirty flush is a great idea. I can clearly
+> see that IPIs for dirty flushes (smp_call) on x86 take up a
+> significant part of the flame graph when building the kernel in a
+> memcg, so I think this is something we should pursue. Could we
+> revisit this patch after we clean up the previous ones?
 
-Done, same treatment as 2/5 - the helper reports the decision and the
-caller acts on it:
+Sounds good, and thanks for confirming the workload - useful to know
+the dirty-flush IPIs show up that clearly in a memcg kernel build.
 
-	enum folio_pageout_result {
-		FOLIO_PAGEOUT_KEEP_LOCKED,
-		FOLIO_PAGEOUT_KEEP_UNLOCKED,
-		FOLIO_PAGEOUT_ACTIVATE,
-		FOLIO_PAGEOUT_FREE,	/* folio is locked, hand it to
-					   folio_try_reclaim_free() */
-	};
+I've split the series accordingly. The four cleanup patches, with the
+explicit-outcome rework you asked for in 2/5 and 3/5, are posted on
+their own as:
 
-	switch (folio_try_pageout(folio, sc, &ctx, folio_list)) {
-	case FOLIO_PAGEOUT_ACTIVATE:
-		goto activate_locked;
-	case FOLIO_PAGEOUT_KEEP_LOCKED:
-		goto keep_locked;
-	case FOLIO_PAGEOUT_KEEP_UNLOCKED:
-		goto keep;
-	case FOLIO_PAGEOUT_FREE:
-		break;	/* folio is locked; try to free it below */
-	}
+  [PATCH 0/4] mm/vmscan: refactor shrink_folio_list()
+  https://lore.kernel.org/all/20260920-vmscan-refactor-v1-0-ec04d71cb761@tencent.com/
 
-Two things beyond what you asked for, both because pageout() has more
-outcomes than the freeing path does:
-
- - "keep" is split into KEEP_LOCKED and KEEP_UNLOCKED. pageout() can
-   return with the folio either still locked or already unlocked, and
-   previously the caller had to know which internal branch it came
-   from to pick between the keep_locked and keep labels. Now the
-   result says so.
-
- - FOLIO_PAGEOUT_FREE keeps the "and now try to free it" step at the
-   outer level too, instead of chaining into folio_try_reclaim_free()
-   from inside folio_try_pageout().
-
-This patch is in the cleanup-only series, see my reply on 5/5.
+No functional change intended there. I'll repost the TLB batching on
+top once that has settled.
 
 Thanks
 Zhang Peng
