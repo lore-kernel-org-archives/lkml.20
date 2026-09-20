@@ -1,81 +1,145 @@
-Received: from mailout3.hostsharing.net (mailout3.hostsharing.net [144.76.133.104])
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806C41A6806;
-	Sun, 20 Sep 2026 06:17:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=144.76.133.104
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACCC433986F;
+	Sun, 20 Sep 2026 06:17:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789885053; cv=none; b=BFen8gbBA40UBH80VLKZJaCBhWa6bJUgaK1QuMiOFasdmbqyR21p5TpKMMhGrv70keWeQ1YaglhaYACLJVDhVctqbvnoUO8TSMc2D19n/78ggxSVwM0b+VYQ06db6S/2Uoq/9i1Wczj8AULi33b/Wqh6lVB6w0ZES+R04KFDCFQ=
+	t=1789885063; cv=none; b=fG1Mcr7BgVe2DZ8E2TCyu0RrwELuSzOnyiPhnqs8Dp2tm+wAZPn5J356uQTeumuZsooYJ5Jmn8j+rk/Dy9zJigo5kEGKwtvM/FPi0d9DwDgGr7TTSCXQiIGCG2zr4yitt0AO2W0jgsMSJR4ANrYBhNcrWPLCqqbXhQe6fDP0G1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789885053; c=relaxed/simple;
-	bh=wsDZb9FaCBL6EPTf17FjcijI1ZHiidhK1dy76kOY0WU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MOdn5el7UiNDUZWEGw707TH0XeuIkcd9otJ6kRrdPSDj3/oAb01Y/O87EPkbq0gGEjHNcOpDXsAmPRD2tdsyvitS4RdfAvzV3uAIuRcg1Asq1/Etypm3lGDf/4wu+8eh61sU8V94B5OF65bRZTpEwg76VKMjkVeZHk0Y8OgeS/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de; spf=pass smtp.mailfrom=wunner.de; arc=none smtp.client-ip=144.76.133.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
-Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
-	 client-signature ECDSA (secp384r1) client-digest SHA384)
-	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
-	by mailout3.hostsharing.net (Postfix) with ESMTPS id A80E34938;
-	Sun, 20 Sep 2026 08:17:21 +0200 (CEST)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
-	id 7697E61ACEA6; Sun, 20 Sep 2026 08:17:21 +0200 (CEST)
-Date: Sun, 20 Sep 2026 08:17:21 +0200
-From: Lukas Wunner <lukas@wunner.de>
-To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Rafael J Wysocki <rafael@kernel.org>,
-	Guixin Liu <kanie@linux.alibaba.com>,
-	Olof Johansson <olof@lixom.net>
-Subject: Re: [PATCH v13 2/5] PCI: Assume control of portdrv-related features
- only when portdrv enabled
-Message-ID: <aq96cULSmdeBzd3D@wunner.de>
-References: <20260919162655.3499010-1-sathyanarayanan.kuppuswamy@linux.intel.com>
- <20260919162655.3499010-3-sathyanarayanan.kuppuswamy@linux.intel.com>
+	s=arc-20240116; t=1789885063; c=relaxed/simple;
+	bh=f04XNksIqZ3jdRrR4QeUbXTOo/hxqhH5+cMqIpcrXBM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=S2ndx/nbefBq7a25GPmD2NOVP1vqldJZKwAUauACeGKazcL1GHIMZmQRuuT9VF61dv2cC/L0JOlpOysPxNyhVo1B1TdaW38z4VWKZndcNt+Be+NbmE6GHAm6Qy97Ysi6AXuq85l+X4HwssPBOV89Fp6gzxV8FGAVN4KrUkKxGEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=G8T1U/IW; arc=none smtp.client-ip=220.197.31.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="G8T1U/IW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=0M
+	JtPJukxDHokGFqPIDOiixqdEoWYSRe1kuishwSmuQ=; b=G8T1U/IWWh3Iq+QoWS
+	Dli0CFPLBlZhIK4dcX3ut2r7eRcPFmWcYJvUbyrARGulY8JDxS7ltH5o+lBMYhBn
+	xTbPici6Nsz0dj92Kvdp0ihNq4YZQXdnQwL2YS2OXlqG420iejsQEmx7SyzEy4z4
+	mXvGzs5sGddTvMeij3qnwlpBI=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3xwwqeq9qij3sBg--.31149S2;
+	Sun, 20 Sep 2026 14:16:12 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: maxime.chevallier@bootlin.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com
+Cc: netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Linkui Xiao <xiaolinkui@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] net: stmmac: do not cache the new TSO MSS before it reaches the DMA
+Date: Sun, 20 Sep 2026 14:16:09 +0800
+Message-Id: <20260920061609.1919876-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260919162655.3499010-3-sathyanarayanan.kuppuswamy@linux.intel.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3xwwqeq9qij3sBg--.31149S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAr17KFyUur4DJw43Aw13Arb_yoW5KFyDpF
+	4UAa90yr98Jr4fXw48Cw40qa45Ja95tayYkw18G3sxGw4ayryvgryfKrW8G34UCFyrZr1S
+	ka129a43Ar4UXrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UlhFsUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqAwwB2qveixC+wAA35
 
-On Sat, Sep 19, 2026 at 09:26:52AM -0700, Kuppuswamy Sathyanarayanan wrote:
-> +++ b/drivers/pci/probe.c
-> @@ -668,12 +668,14 @@ static void pci_init_host_bridge(struct pci_host_bridge *bridge)
->  	 * may implement its own AER handling and use _OSC to prevent the
->  	 * OS from interfering.
->  	 */
-> +#ifdef CONFIG_PCIEPORTBUS
->  	bridge->native_aer = 1;
->  	bridge->native_pcie_hotplug = 1;
-> -	bridge->native_shpc_hotplug = 1;
->  	bridge->native_pme = 1;
-> -	bridge->native_ltr = 1;
->  	bridge->native_dpc = 1;
-> +#endif
-> +	bridge->native_ltr = 1;
-> +	bridge->native_shpc_hotplug = 1;
->  	bridge->domain_nr = PCI_DOMAIN_NR_NOT_SET;
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-How about (e.g.)
+stmmac_tso_xmit() fills the MSS context descriptor and stores the new MSS
+in tx_q->mss right away, but the descriptor only gets its OWN bit much
+later, right before the frame is handed to the DMA. Every error path in
+between - the dma_map_single() of the linear part and the
+skb_frag_dma_map() of each fragment - returns with tx_q->mss already
+updated while the MAC is still programmed with the previous MSS; the
+abandoned context descriptor is later reclaimed by stmmac_tx_clean().
 
- 	bridge->native_pcie_hotplug = IS_ENABLED(CONFIG_PCIEPORTBUS);
+The next skb carrying the same MSS then compares equal to the cached
+value, so no context descriptor is emitted and the hardware segments the
+TCP stream with a stale MSS, generating frames whose payload size does
+not match what the stack accounted for.
 
-instead of using #ifdef?  That's the preferred style according to
-section 21 of Documentation/process/coding-style.rst
+Update tx_q->mss only once the context descriptor has been given to the
+DMA, so that the cached value always describes what the hardware is
+actually programmed with.
 
->  	bridge->native_cxl_error = 1;
+The context descriptor is now handled like the data descriptors are:
+tx_q->cur_tx is not advanced while it is being filled. Whether the frame
+can be queued is only known after every dma_map_single() and
+skb_frag_dma_map() has succeeded, so the descriptor stays at the slot
+tx_q->cur_tx points to and the index moves past it later, together with
+the data descriptors. That also keeps the context descriptor outside the
+range stmmac_tx_clean() walks when the ring is cleaned after a failure,
+so the error paths have to release it explicitly.
 
-Hm, this one depends on CONFIG_PCIEAER I believe.
-(But Terry Bowman is the expert.)
+Fixes: f748be531d70 ("stmmac: support new GMAC4")
+Cc: stable@vger.kernel.org
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+---
+Changes in v2:
+- Do not advance tx_q->cur_tx while the context descriptor is filled, as
+  for the data descriptors, and release the context descriptor on the
+  error paths instead of leaving it to stmmac_tx_clean(). (Lorenzo Bianconi)
 
-Thanks,
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-Lukas
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index af2d38a2bb3d..e2e680dd980c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4563,10 +4563,6 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+ 			mss_desc = &tx_q->dma_tx[tx_q->cur_tx];
+ 
+ 		stmmac_set_mss(priv, mss_desc, mss);
+-		tx_q->mss = mss;
+-		tx_q->cur_tx = STMMAC_NEXT_ENTRY(tx_q->cur_tx,
+-						priv->dma_conf.dma_tx_size);
+-		WARN_ON(tx_q->tx_skbuff[tx_q->cur_tx]);
+ 	}
+ 
+ 	if (netif_msg_tx_queued(priv)) {
+@@ -4577,6 +4573,9 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	}
+ 
+ 	first_entry = tx_q->cur_tx;
++	if (mss_desc)
++		first_entry = STMMAC_NEXT_ENTRY(first_entry,
++						priv->dma_conf.dma_tx_size);
+ 	entry = first_entry;
+ 
+ 	WARN_ON(tx_q->tx_skbuff[entry]);
+@@ -4714,6 +4713,7 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		 */
+ 		dma_wmb();
+ 		stmmac_set_tx_owner(priv, mss_desc);
++		tx_q->mss = mss;
+ 	}
+ 
+ 	if (netif_msg_pktdata(priv)) {
+@@ -4745,6 +4745,9 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+ 						priv->dma_conf.dma_tx_size);
+ 	}
+ error:
++	if (mss_desc)
++		stmmac_release_tx_desc(priv, mss_desc, priv->descriptor_mode);
++
+ 	dev_err(priv->device, "Tx dma map failed\n");
+ 	dev_kfree_skb(skb);
+ 	priv->xstats.tx_dropped++;
+-- 
+2.25.1
+
