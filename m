@@ -1,64 +1,75 @@
-Received: from mta0.migadu.com (out-91.mta0.migadu.com [91.218.175.91])
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 372113DA5B3
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:04:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.91
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44FA710F0
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:08:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789887883; cv=none; b=dZYfw3NaTdJeLM4JnIsMpqUcmRyta8lJKAeKE+wEJqQlk/CcaI950SQLwVaWEQn5uIQqgJR8KROe8Bde+IaewN2+KLVGTeRmytI1K1jHcgs+9kPTogdeBxox6PMeW/hLI8NtSBkzIrr59+4EuxUdAKUBruq+HAl2Zz3s/9liha4=
+	t=1789888092; cv=none; b=Y5U+1aLaSLt03w7osIlNGQu9fJrYtw/qtwYPAN2tmE8WNbhpx2fAAsMBBVdykKOVcIfItChsi58bdOQco5yOzVzJ052XOjCEFP67G7gclANw9Qwg9f8lhRxvJrq7VU2gMQYArbic98bm4pZmwmYf9+SW/J0hAkRc/ofl2wXph3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789887883; c=relaxed/simple;
-	bh=jIL5Xm0hBwRJq72+13iYyBKNUWWSaRe7RMggUGRje9U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HdfBW2heS3urWK5cNXiUoPfJz7gzAkJOL8tdIj2Nhnu00neJNVOAsh8oEk2mE/fmTn1eYm9dJ2ClxDXw8Nd/+/nr1GUHeeb33kx3p4YD/PWBlbOfYRYZpbDu4gUhLolvRBECU0xmH0Jxwaf1qrlcrgzP/w4lLsA4AkQH1rTmq6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YcGvSh8Q; arc=none smtp.client-ip=91.218.175.91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789888092; c=relaxed/simple;
+	bh=1B0V8T4ktuc79cxDoRF6PqS6cRvCeIaed92X3FxIr9M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NlKv2whjw+mi7T7dbudulxVOCaRiQGEEjTsQessXIRLqF1tMevQCpKhUiHw2xUuJ5dghFOX7KWONa9ZO/o3UBPslLT3YRz6u3BKFEUDIAsxXlI3kAhUHsgZin9tN8u4x6cflZ8T54JD+xM7tNM16uAMxO1c7tcWI1ixYiCnTMWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bl+pRrz7; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YcGvSh8Q"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jIL5Xm0hBwRJq72+13iYyBKNUWWSaRe7RMggUGRje9U=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789887878; v=1; x=1790492678;
- b=YcGvSh8QsWadQB0J+34j8xfNqv5nMkEJSQzAOxQT6GAzk8K1uktWkjhY03kKaFJz7dxoRUCD
- rQqNQRrnpZVQNk65eQLwAsmc5OlJjgJiMStY9eZRQHOzUS8JblST78ioZGc2cBXaErh3S+Df0LT
- 9ZHr4fF0IRbyMTNgTsWAe5hE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cd1bdbb1ac128f27;
-	Sun, 20 Sep 2026 07:04:38 +0000
-X-Mizu-Trace-ID: cd1bdbb1ac128f27
-X-Migadu-Flow: FLOW_OUT
-From: Kaitao Cheng <kaitao.cheng@linux.dev>
-To: Andy Lutomirski <luto@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Muchun Song <muchun.song@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bl+pRrz7"
+Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2df36461d63so4392555ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 00:08:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789888090; x=1790492890; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6a5bAZPuUCh9F1dtEQIfloO2fyihCQk+5QE8nkYOx1w=;
+        b=Bl+pRrz7LCa6p1MbER5rebW1XLI+oOuSRU0XAX5oslTTtWgVeamVtS5NpVXvxzZyeN
+         2fHcW9fQJRPe/+lFRk2hOBlsQVW9JyngG1wVwWAr940zCgB3B2s4S4HweSdwrch2ztmm
+         muZN0O7hnfapw7hnsphqr0k//k6WihsX61V1bxNkn5FEhdZ+7UfoZpNv55BZtgey+WKK
+         5HUvweBAtVrvdYoa+4eoZYGOI5v5wSQGKL7zOfLBf85oO38ErMBflMSdJ9mtgwNvnE7V
+         AAlFAfhadbEe1//m7Dkqx0a9Ur3skt0WUmlpX67/ABgIOp5dcXigXkFT+aDs5tyAvY9W
+         8+1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789888090; x=1790492890;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6a5bAZPuUCh9F1dtEQIfloO2fyihCQk+5QE8nkYOx1w=;
+        b=n6RJioxYFzgCnjeDbbJ47cW9364pJ2WxXiPmt3+AhKobTGNWWtHJlDlczs1r2idtJe
+         dXjq7gW+5ac7mqHRlEe3EVE7oSNinM9dreRK0sG3kUWx+BhWIsoMnK73/5nT449NrHYC
+         lIC2R8cOBf9xZhXh6J50XyxWX4gD4rcRYZl3QJJfAF5sB/sWLb85xb/FeyVkjZFjDqSj
+         6E1GM0UC+Sz72qW0VX/29MHdjar7WVjuWeRPpcB2lbxhQkWXIMvn1du3YkjpOv+yMEmo
+         VM4OKgzgxgDaceMKwJP5nskV0rq5kYaQ+QMJRWufT4hVZcU4mGNG6KXAFpu2cTzojrK1
+         BrXQ==
+X-Gm-Message-State: AFuF++lsjhzvFct2zOZkEhkjdoZBnu/HO94pHZeg5/5YyUwAWxOzmL6e
+	x0fYSPw2ET5K69UGBJupnL1FLlhKrpBs/u7nEtELneLXwJ+A68YdL/OS
+X-Gm-Gg: AYBFou2ZY30M95fSK80z10dn6VBnvb3crIkRQ2DaglT7ew6RW9f4AFkvRqLqG7nC63T
+	bglSe2gDPIWWs8ZCKzGlSL6De7rQU1/mGSNRsCDKmZ4FpgZyhj22/WseL7GizimpVsLRxuyl5+S
+	r54+vp/GhTPvONd8JlOI3NXM9xAmr8j5wF9yxx8DhnhBLN+MALKrGuYqXB1jdp2vNJW/SZOObpw
+	/n2BgN6ZY+a9aZ/VDRXKR91khv9gdmlEVQVqsEbg/xuni8WMwGkN5Ldl0K9qAJeGUUw0CBcfCiB
+	OuVWqRTdQZlCoHmO0GV0B/nspMY859TRBGbbVNecqjS5IKc0LznLVme2wY9Eihd34hZudoypk8E
+	yBoOHylQPv4sjKhNWEDUbFiVUk0usjBs9NoXYFhqNUoHMbp4GbqPYDIrtb8D3isQSWDOW2pqxNB
+	3hPq29tQjp885BG7YL5HNR6hNe0k1xaixF1IxnTROYeE5IZ7kb94B7T6Tav5RqRgWNrDmPQWK9W
+	scl6CJ/VTXSx/Pj/GcSwRLsn6j9
+X-Received: by 2002:a17:903:124b:b0:2dd:ad73:c981 with SMTP id d9443c01a7336-2ddb1ba2dcdmr102512425ad.25.1789888089877;
+        Sun, 20 Sep 2026 00:08:09 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c3311a6e5sm10517519eec.7.2026.09.20.00.08.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 00:08:09 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: frederic@kernel.org,
+	longman@redhat.com,
+	juri.lelli@redhat.com,
+	peterz@infradead.org,
+	kees+treewide@kernel.org,
+	brauner@kernel.org
 Cc: linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH] mm: Add CONFIG_SPARSEMEM_CLASSIC
-Date: Sun, 20 Sep 2026 15:04:06 +0800
-Message-ID: <20260920070406.95354-1-kaitao.cheng@linux.dev>
-X-Mailer: git-send-email 2.54.0
+	paulmck@kernel.org,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: [PATCH] kthread: Annotate lockless to_kthread() flags access
+Date: Sun, 20 Sep 2026 15:07:50 +0800
+Message-ID: <20260920070750.2871923-1-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,152 +78,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kaitao Cheng <chengkaitao@kylinos.cn>
+do_exit() calls synchronize_group_exit(), which modifies task->flags
+under sighand->siglock:
 
-Several MM paths identify classic sparse memory by testing
-CONFIG_SPARSEMEM while also testing that CONFIG_SPARSEMEM_VMEMMAP is
-disabled. Repeating the compound condition obscures the memory model being
-selected and requires the local SECTION_IN_PAGE_FLAGS alias for the same
-state.
+	tsk->flags |= PF_POSTCOREDUMP;
 
-Add CONFIG_SPARSEMEM_CLASSIC as a hidden derived option and use it at the
-conditional sites. Remove SECTION_IN_PAGE_FLAGS and test the new option
-directly.
+The sanity check in to_kthread() reads the same flags word without
+holding that lock:
 
-The x86 32-bit vDSO build starts with the x86_64 configuration and then
-undefines CONFIG_SPARSEMEM_VMEMMAP to emulate a 32-bit configuration.
-Kconfig-derived symbols are not recomputed by the C preprocessor, so define
-CONFIG_SPARSEMEM_CLASSIC there when CONFIG_SPARSEMEM is enabled. This
-preserves the existing behavior.
+	WARN_ON(!(k->flags & PF_KTHREAD));
 
-Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+PF_KTHREAD is set once when the task becomes a kthread and is never
+cleared for the lifetime of the task.  Since PF_KTHREAD is immutable,
+the check does not depend on synchronization with updates to other
+bits in task->flags.
+
+Use READ_ONCE() to annotate the intentional lockless access.
+
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- arch/x86/entry/vdso/vdso32/fake_32bit_build.h |  3 +++
- include/linux/mm.h                            | 12 ++++--------
- include/linux/mmzone.h                        |  2 +-
- include/linux/page-flags-layout.h             |  2 +-
- mm/Kconfig                                    |  3 +++
- mm/util.c                                     |  2 +-
- 6 files changed, 13 insertions(+), 11 deletions(-)
+ kernel/kthread.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/x86/entry/vdso/vdso32/fake_32bit_build.h b/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
-index 72a92cb9b53d..3e07389c4d2b 100644
---- a/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
-+++ b/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
-@@ -20,6 +20,9 @@
- #define CONFIG_PAGE_OFFSET 0
- #define CONFIG_ILLEGAL_POINTER_VALUE 0
- #define CONFIG_NR_CPUS 1
-+#ifdef CONFIG_SPARSEMEM
-+#define CONFIG_SPARSEMEM_CLASSIC 1
-+#endif
+diff --git a/kernel/kthread.c b/kernel/kthread.c
+index a3f95c90456b..cc8cb5d3eab7 100644
+--- a/kernel/kthread.c
++++ b/kernel/kthread.c
+@@ -81,7 +81,7 @@ enum KTHREAD_BITS {
  
- #define BUILD_VDSO32_64
- 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index ae56d6a2c9f9..b786ee73a20f 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -201,7 +201,7 @@ static inline void __mm_zero_struct_page(struct page *page)
- extern unsigned long sysctl_user_reserve_kbytes;
- extern unsigned long sysctl_admin_reserve_kbytes;
- 
--#if defined(CONFIG_SPARSEMEM) && !defined(CONFIG_SPARSEMEM_VMEMMAP)
-+#ifdef CONFIG_SPARSEMEM_CLASSIC
- bool page_range_contiguous(const struct page *page, unsigned long nr_pages);
- #else
- static inline bool page_range_contiguous(const struct page *page,
-@@ -2531,10 +2531,6 @@ static inline bool is_nommu_shared_vma_flags(const vma_flags_t *flags)
- }
- #endif
- 
--#if defined(CONFIG_SPARSEMEM) && !defined(CONFIG_SPARSEMEM_VMEMMAP)
--#define SECTION_IN_PAGE_FLAGS
--#endif
--
- /*
-  * The identification function is mainly used by the buddy allocator for
-  * determining if two pages could be buddies. We are not really identifying
-@@ -2805,7 +2801,7 @@ static inline struct zone *folio_zone(const struct folio *folio)
- 	return &folio_pgdat(folio)->node_zones[folio_zonenum(folio)];
- }
- 
--#ifdef SECTION_IN_PAGE_FLAGS
-+#ifdef CONFIG_SPARSEMEM_CLASSIC
- static inline void set_page_section(struct page *page, unsigned long section)
+ static inline struct kthread *to_kthread(struct task_struct *k)
  {
- 	page->flags.f &= ~(SECTIONS_MASK << SECTIONS_PGSHIFT);
-@@ -2823,7 +2819,7 @@ static inline unsigned long memdesc_section(const memdesc_flags_t *mdf)
- 	ASSERT_EXCLUSIVE_BITS(mdf->f, SECTIONS_MASK << SECTIONS_PGSHIFT);
- 	return (mdf->f >> SECTIONS_PGSHIFT) & SECTIONS_MASK;
+-	WARN_ON(!(k->flags & PF_KTHREAD));
++	WARN_ON(!(READ_ONCE(k->flags) & PF_KTHREAD));
+ 	return k->worker_private;
  }
--#else /* !SECTION_IN_PAGE_FLAGS */
-+#else /* !CONFIG_SPARSEMEM_CLASSIC */
- static inline void set_page_section_from_pfn(struct page *page,
- 		unsigned long pfn)
- {
-@@ -2833,7 +2829,7 @@ static inline unsigned long memdesc_section(const memdesc_flags_t *mdf)
- {
- 	return 0;
- }
--#endif /* SECTION_IN_PAGE_FLAGS */
-+#endif /* CONFIG_SPARSEMEM_CLASSIC */
  
- /**
-  * folio_pfn - Return the Page Frame Number of a folio.
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index ebbda6f31139..c83529ad6e35 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -68,7 +68,7 @@
-  * memory sections).
-  */
- #define MAX_FOLIO_ORDER		MAX_PAGE_ORDER
--#elif defined(CONFIG_SPARSEMEM) && !defined(CONFIG_SPARSEMEM_VMEMMAP)
-+#elif defined(CONFIG_SPARSEMEM_CLASSIC)
- /*
-  * Only pages within a single memory section are guaranteed to be
-  * contiguous. By limiting folios to a single memory section, all folio
-diff --git a/include/linux/page-flags-layout.h b/include/linux/page-flags-layout.h
-index 760006b1c480..536003b364a7 100644
---- a/include/linux/page-flags-layout.h
-+++ b/include/linux/page-flags-layout.h
-@@ -49,7 +49,7 @@
-  *      " plus space for last_cpupid: | SECTION | NODE | ZONE | LAST_CPUPID ... | FLAGS |
-  * classic sparse no space for node:  | SECTION |     ZONE    | ... | FLAGS |
-  */
--#if defined(CONFIG_SPARSEMEM) && !defined(CONFIG_SPARSEMEM_VMEMMAP)
-+#ifdef CONFIG_SPARSEMEM_CLASSIC
- #define SECTIONS_WIDTH		SECTIONS_SHIFT
- #else
- #define SECTIONS_WIDTH		0
-diff --git a/mm/Kconfig b/mm/Kconfig
-index 30170a936f1f..c7bbcf086f21 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -461,6 +461,9 @@ config SPARSEMEM_VMEMMAP
- 	  pfn_to_page and page_to_pfn operations.  This is the most
- 	  efficient option when sufficient kernel resources are available.
- 
-+config SPARSEMEM_CLASSIC
-+	def_bool SPARSEMEM && !SPARSEMEM_VMEMMAP
-+
- config VMEMMAP_OPTIMIZATION
- 	bool
- 	depends on SPARSEMEM_VMEMMAP
-diff --git a/mm/util.c b/mm/util.c
-index c5ee52aede1e..6910b47ca415 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -1590,7 +1590,7 @@ unsigned int folio_pte_batch(struct folio *folio, pte_t *ptep, pte_t pte,
- }
- #endif /* CONFIG_MMU */
- 
--#if defined(CONFIG_SPARSEMEM) && !defined(CONFIG_SPARSEMEM_VMEMMAP)
-+#ifdef CONFIG_SPARSEMEM_CLASSIC
- /**
-  * page_range_contiguous - test whether the page range is contiguous
-  * @page: the start of the page range.
 -- 
-2.54.0 (Apple Git-157)
+2.43.0
 
