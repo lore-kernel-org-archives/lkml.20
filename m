@@ -1,234 +1,144 @@
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819E615E5DC
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:02:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD836282F34;
+	Sun, 20 Sep 2026 02:02:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789869752; cv=none; b=W6TBjk3yksOZmPxtTsjbV/lrEJJC7/2gtiwFjpC3BAvUtskaASSISB4hqezyAX8kXq3pP47Q9XJS0wKQY2KngZ6MboX4TBs30/pSPqY2caL7vXaKwtXe+MdmM67Chrcs7UzOwzClRYk7acoNvMnx/aCLFJb6jNTWjqFQ9kDEZuE=
+	t=1789869759; cv=none; b=AcNxL1QM+bQSnncy8ncUphgjb+CUOJ9oaWXIgan+7yJkrJb5FHVpSOlM05JcbS5Ld1pcrbkScQl4ZwQqd1Hb0HTS2OiWYf6atZQqb0hBlqAPIUq+UWW3eyXRWMvWpeKVq6DLFJSexw0hmlv8Sd4qPSfP27ywbC8iz4Jq50kNsC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789869752; c=relaxed/simple;
-	bh=9uSa/hm1ymxon1IRVtj0oZVesExXdByn6Dxh1jkM0Eo=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=ahu6LL9vRsY4pvRXXK7R1bAVkrgZkIWsiE5Qu0bae1OXT4XzX1H+o4FYtE2H0rbLokmJKo5geUE0po6uAxt84y6MQbarHjqBR24fK5J0giPUnjdOQrJx3QQCWh831QaGjKSda3t7jmAckfGnIVxGqhxqbMlX1JCfoVDN+ko25DM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6c2474b64bbso2522775eaf.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 19:02:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789869749; x=1790474549;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X+4ycWhQtc8KNt7Sd5hkOb35v5kZlN0yeq4JM6q0nHg=;
-        b=jZ9dS9JvDn+ESYA9msMGl5UV0nfks4cRtEpvXVmxARq5HTkZX/SqoT6nl3bhiWl583
-         3SpVb/E5zNQGDcKfZIOlmGAr6/54/W9Nfw+imuSh/n4k7zDbw1czh1mKvHD+SASSbPOp
-         +y/g3hYBBCCkXGGEfvA5zw2xVxjKqxCDP1D3twsdNvsckMLFrvSSv+/Ib5qrO+UA3xO1
-         PKhkokd10Mm6DQFZr8aFq1o4Rx2MUpyZPsnUTkXwLrqkP4yUUg7p4S99CF3BTMYXKkcC
-         1DF/boni6D6uYh3+hzCZRvIT2xS+KPfny5C0KaDjrUGChZ3C1bo6A3T8/VHQqz5J9Ot6
-         gZlw==
-X-Gm-Message-State: AFuF++lj9TAAr4M0/JSF5b4v4tazyAEFIw6v1MyEl3p5dlX/+k2Uvt33
-	6kxhPwRVJ7wwGXQXbXwgrO8HVac6S2I40EmY1h5EIwnTArSbcpsvS5Z4QhbNq2Ld+KC9HxIxgjy
-	xeq+7EKcanw7o6Gr/yIy9FsJ272YQqBuFKtBn0o5/yq4yaYjzPMwmdMtw6rk=
+	s=arc-20240116; t=1789869759; c=relaxed/simple;
+	bh=K1MtACSQtXprS7sAMZfuF/mgu8+OafBDwPZ8SzYQAbs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LmLIqYfZ19qAa+A04R2dqRm71t6LLuEdAkyDzkN3zAKj79kqTwdlRb02OQZ1MIkXIJuU9fli5K+ozU8B6nvK1R1Mx/ULPrtQc6jb6gZVxlifVo6LKKp87gmkdftaJSKDsSklhGVhj/sal6d0U3ZdtgGLlSbB3jVqq8sQbnqWWIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q1vR1Ge/; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q1vR1Ge/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789869758; x=1821405758;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=K1MtACSQtXprS7sAMZfuF/mgu8+OafBDwPZ8SzYQAbs=;
+  b=Q1vR1Ge/Ozpkz1AVF4P2PBHi+OpiM8gdTxnUvSbxiWcORXkAejazosXb
+   m8TnEov8TIddFiwwoRYjJhsl9A3F0xBoh3pXgV3hZaf/RITCO3mDq5xCM
+   cVAQYW2psFBb7KsFjcsUWho2JUdp87MXZnRzdVV0XTcHdJHb5YdVDcXPA
+   zekcsamlaQfkT1fPi7ikJXrVDapEQjo6LrkeI/6Ny5InhOFLWjqW3cQZe
+   lnwmnzM6fv8GI76e3q+c8RGY8IO5E53zl7kC3C3cFdTos9tEGlYYt9mMQ
+   JDElC4e48T14m6wYPD1CB6RnlWue7Vjn4n1dkD9fN5KSTCAwn7egGjBxD
+   A==;
+X-CSE-ConnectionGUID: f68PcDc4QSSgEThcD+6V1w==
+X-CSE-MsgGUID: zsUlJmpMTXWM6u+DJmKQBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11910"; a="94207550"
+X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
+   d="scan'208";a="94207550"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 19:02:37 -0700
+X-CSE-ConnectionGUID: hWL6eNUoSoWDx6Wx9MqIvA==
+X-CSE-MsgGUID: etYkF2Y3THWTnOr5fpensA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
+   d="scan'208";a="271262872"
+Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 19:02:34 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Marcel Holtmann <marcel@holtmann.org>
+Cc: Andy Tsvetinskiy <andrew.tsvetinskiy@gmail.com>,
+	Kamil Serwus <kserwus@gmail.com>,
+	Alexej Sidorenko <alexej@sidorenko.cz>,
+	Thorsten Leemhuis <regressions@leemhuis.info>,
+	linux-bluetooth@vger.kernel.org,
+	regressions@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] Bluetooth: btusb: drop BROKEN_EXT_SCAN quirk for 0bda:a728
+Date: Sun, 20 Sep 2026 10:02:27 +0800
+Message-ID: <20260920020227.709800-1-junjie.cao@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:3104:b0:6b3:6bc7:2ea7 with SMTP id
- 006d021491bc7-6ca9a63e159mr5644098eaf.7.1789869749364; Sat, 19 Sep 2026
- 19:02:29 -0700 (PDT)
-Date: Sat, 19 Sep 2026 19:02:29 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aaf3eb5.3179f8cd.1e36b2.0006.GAE@google.com>
-Subject: [syzbot] KASAN: slab-use-after-free Read in fcloop_rport_lsrqst_work
-From: syzbot <syzbot+77955102efac681ec73b@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Commit 5ead2063611a ("Bluetooth: btrtl: fix RTL8761B/BU broken LE
+extended scan") set HCI_QUIRK_BROKEN_EXT_SCAN on every RTL8761B, and
+commit ca0583c24661 ("Bluetooth: btusb: limit RTL8761B BROKEN_EXT_SCAN
+quirk to 0bda:a728") kept it on 0bda:a728 on the assumption that the
+USB id separates dongles with broken extended scan from those with a
+broken legacy scan path. It does not. An 0bda:a728 unit (RTL8761BUV,
+fw 0xdfc6d922) on 6.18.51 fails the same way the UB500 and 0bda:8771
+did: LE Set Scan Enable (0x200c) times out with -110 and btusb resets
+the device. With the flag removed from the table entry, scanning works
+on that unit.
 
-syzbot found the following issue on:
+Two dongles with the same USB id need opposite settings, so the device
+table cannot key the quirk either. The costs are not symmetric. Without
+the quirk, the unit it was written for gets -EBUSY on LE Set Extended
+Scan Enable (0x2042) while a connection is up. With it, 0x200c times
+out and btusb resets the device on three reported units, two of them in
+a re-enumeration loop.
 
-HEAD commit:    518e5b794c06 Merge tag 'for-7.3-rc3-tag' of git://git.kern..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=15045ff9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=84649d3ff8d550cb
-dashboard link: https://syzkaller.appspot.com/bug?extid=77955102efac681ec73b
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1210d915580000
+Remove the flag and the table entry. 0bda:a728 matches the generic
+Realtek entry again and runs without the quirk, as before v7.2.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+77955102efac681ec73b@syzkaller.appspotmail.com
-
-nvmet_fc: {0:0}: Association deleted
-nvmet_fc: {0:0}: Association freed
-==================================================================
-BUG: KASAN: slab-use-after-free in fcloop_rport_lsrqst_work+0x242/0x2e0 drivers/nvme/target/fcloop.c:342
-Read of size 8 at addr ffff8880234fdc38 by task kworker/u33:6/188
-
-CPU: 3 UID: 0 PID: 188 Comm: kworker/u33:6 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: nvmet-wq fcloop_tport_lsrqst_work
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- fcloop_rport_lsrqst_work+0x242/0x2e0 drivers/nvme/target/fcloop.c:342
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-Allocated by task 188:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __do_kmalloc_node mm/slub.c:5414 [inline]
- __kmalloc_noprof+0x32f/0x840 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- nvmet_fc_xmt_disconnect_assoc drivers/nvme/target/fc.c:489 [inline]
- nvmet_fc_target_assoc_free+0xbd5/0x2220 drivers/nvme/target/fc.c:1177
- kref_put include/linux/kref.h:65 [inline]
- nvmet_fc_tgt_a_put drivers/nvme/target/fc.c:1195 [inline]
- nvmet_fc_delete_assoc_work.cold+0x118/0x144 drivers/nvme/target/fc.c:1068
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Freed by task 6009:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6508 [inline]
- kfree+0x22b/0x6d0 mm/slub.c:6801
- nvmet_fc_free_pending_reqs drivers/nvme/target/fc.c:1619 [inline]
- nvmet_fc_unregister_targetport+0x351/0x760 drivers/nvme/target/fc.c:1651
- __targetport_unreg drivers/nvme/target/fcloop.c:1600 [inline]
- fcloop_delete_target_port+0x185/0x1f0 drivers/nvme/target/fcloop.c:1630
- dev_attr_store+0x58/0x80 drivers/base/core.c:2509
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff8880234fdc00
- which belongs to the cache kmalloc-256 of size 256
-The buggy address is located 56 bytes inside of
- freed 256-byte region [ffff8880234fdc00, ffff8880234fdd00)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x234fc
-head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000040 ffff88801c042b40 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
-head: 00fff00000000040 ffff88801c042b40 dead000000000100 dead000000000122
-head: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
-head: 00fff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd2040(__GFP_IO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5742, tgid 5742 (udevd), ts 51615023593
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab mm/slub.c:3462 [inline]
- new_slab+0xa9/0x6e0 mm/slub.c:3513
- refill_objects+0xe3/0x410 mm/slub.c:7417
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __do_kmalloc_node mm/slub.c:5413 [inline]
- __kmalloc_noprof+0x67c/0x840 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- _kmalloc_array_noprof include/linux/slab.h:1211 [inline]
- security_inode_init_security+0x113/0x370 security/security.c:1347
- shmem_mknod+0x2ce/0x480 mm/shmem.c:3838
- lookup_open+0x1255/0x1990 fs/namei.c:4567
- open_last_lookups fs/namei.c:4767 [inline]
- path_openat+0xa2c/0x2440 fs/namei.c:4997
- do_file_open+0x20e/0x430 fs/namei.c:5029
- do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
- do_sys_open fs/open.c:1423 [inline]
- __do_sys_openat fs/open.c:1439 [inline]
- __se_sys_openat fs/open.c:1434 [inline]
- __x64_sys_openat+0x12d/0x210 fs/open.c:1434
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-page last free pid 29 tgid 29 ts 51596759354 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
- rcu_do_batch kernel/rcu/tree.c:2650 [inline]
- rcu_core+0x5f0/0x1260 kernel/rcu/tree.c:2919
- handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
- run_ksoftirqd kernel/softirq.c:1099 [inline]
- run_ksoftirqd+0x38/0x60 kernel/softirq.c:1091
- smpboot_thread_fn+0x3d3/0xab0 kernel/smpboot.c:160
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Memory state around the buggy address:
- ffff8880234fdb00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff8880234fdb80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->ffff8880234fdc00: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                        ^
- ffff8880234fdc80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff8880234fdd00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-==================================================================
-
-
+Reported-by: Andy Tsvetinskiy <andrew.tsvetinskiy@gmail.com>
+Closes: https://lore.kernel.org/all/CAE4bxw+ofDFVx0aTHqCrzns9oP1CRQDm_wzeyHPeMBYOhSpcuA@mail.gmail.com/
+Fixes: 5ead2063611a ("Bluetooth: btrtl: fix RTL8761B/BU broken LE extended scan")
+Fixes: ca0583c24661 ("Bluetooth: btusb: limit RTL8761B BROKEN_EXT_SCAN quirk to 0bda:a728")
+Cc: stable@vger.kernel.org
+Signed-off-by: Junjie Cao <junjie.cao@intel.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Based on bluetooth-next. bluetooth.git and stable still have btusb.c,
+where the first hunk has different context (no BTUSB_QUALCOMM line);
+a btusb.c version is available if wanted for 7.3.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+Build-tested only (allmodconfig, W=1). Andy tested dropping the flag
+with the a728 entry kept; this also drops the entry, so the device
+falls to the generic 0bda entry. Andy, could you test this version?
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+ drivers/bluetooth/btusb_main.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+diff --git a/drivers/bluetooth/btusb_main.c b/drivers/bluetooth/btusb_main.c
+index be47ac894b6cc..f410f130aaad3 100644
+--- a/drivers/bluetooth/btusb_main.c
++++ b/drivers/bluetooth/btusb_main.c
+@@ -70,7 +70,6 @@ static struct usb_driver btusb_driver;
+ #define BTUSB_INTEL_NO_WBS_SUPPORT	BIT(26)
+ #define BTUSB_ACTIONS_SEMI		BIT(27)
+ #define BTUSB_BARROT			BIT(28)
+-#define BTUSB_BROKEN_EXT_SCAN		BIT(29)
+ #define BTUSB_QUALCOMM			BIT(30)
+ 
+ static const struct usb_device_id btusb_table[] = {
+@@ -648,10 +647,6 @@ static const struct usb_device_id quirks_table[] = {
+ 	{ USB_DEVICE(0x0489, 0xe130), .driver_info = BTUSB_REALTEK |
+ 						     BTUSB_WIDEBAND_SPEECH },
+ 
+-	/* Realtek 8761BU Bluetooth devices */
+-	{ USB_DEVICE(0x0bda, 0xa728), .driver_info = BTUSB_REALTEK |
+-						     BTUSB_BROKEN_EXT_SCAN },
+-
+ 	/* Realtek Bluetooth devices */
+ 	{ USB_VENDOR_AND_INTERFACE_INFO(0x0bda, 0xe0, 0x01, 0x01),
+ 	  .driver_info = BTUSB_REALTEK },
+@@ -4749,9 +4744,6 @@ static int btusb_probe(struct usb_interface *intf,
+ 	if (id->driver_info & BTUSB_INVALID_LE_STATES)
+ 		hci_set_quirk(hdev, HCI_QUIRK_BROKEN_LE_STATES);
+ 
+-	if (id->driver_info & BTUSB_BROKEN_EXT_SCAN)
+-		hci_set_quirk(hdev, HCI_QUIRK_BROKEN_EXT_SCAN);
+-
+ 	if (id->driver_info & BTUSB_DIGIANSWER) {
+ 		data->cmdreq_type = USB_TYPE_VENDOR;
+ 		hci_set_quirk(hdev, HCI_QUIRK_RESET_ON_CLOSE);
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+base-commit: 019debf20bfd648b40ba10377ee0168db5eb241e
+-- 
+2.43.0
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
