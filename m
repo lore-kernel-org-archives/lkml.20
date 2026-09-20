@@ -1,89 +1,144 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E191436BC8;
-	Sun, 20 Sep 2026 13:10:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE8D436BC8;
+	Sun, 20 Sep 2026 13:10:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789909824; cv=none; b=qYr7pST4Bv00K8aytdj5SOKKUEhxUzsY9AzZ/YTritgidqteuTDg8z0dThXgvM5PBixqd7pE4guotTU0KHwJF/9qH3ZAMBsQ4lfASVW/zvAQ878r1UPPidVvdEq5hMTYAToplQGkPjiV4nOAsIZS/zYyNIkwzbNJRAUssi5xNFU=
+	t=1789909855; cv=none; b=Tyfoh/ocHXjna6bp1wzfMjCcUWwDW/cDQzGI/GxCIo56hfaCzPUBfKECRAp3K49GP8P36aJgJ9IwDfcwFJ5lRv7RV3l2Uv2u7a4meuEKlMZv1tYFq6Y7OWNAr/55yUrkJesYKlkmp/MRFTlNCYpi0d+QpuRCu2v/Fib3DgUvQ/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789909824; c=relaxed/simple;
-	bh=AqnRodBIwABofBtRlUF4paLYDS04JTFYgO4ptt3bU14=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uthX1kyZxrWr0mkwK4XbatfSDzzzXSEzJ4+JUC4NXKVEqNDHeB76sUKMxVK0rfK6/OU0gjZBoOxkkwDD/2DWxaZLhsaQ7CbtREm6VCMiRsclCglW2+nHnZ6TdosVvxpyePumBQ3/Nush4WHVzBxOQQuZEu3vVh8UQ4gtO+X4glU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Hyq93UyW; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789909855; c=relaxed/simple;
+	bh=1VFQdq98VWzSvyCfjw8VGmS+UXUQ9KHUBodyapcL/o4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Mr752CKky/lkJNinxLWq8VnzASvUEeZ+aZbnD0oU6qeVCqDe3RpsG4+yvcpfnugM6BwtG1//T+K4bLNWoiwad2GzKt2tM3bgTnq8Bx8isI6IdFhG5cIUigNJBHBZ8tFx6g2SUmEPcXqg9LyZoqhVsa52az/+qaYV1VelKZu91jU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Ugecy1cD; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Hyq93UyW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=xT
-	nC9jWGLW12aTgRRmdOguEbZvWOQuln9KGAxNvNGak=; b=Hyq93UyWq9S3yt/FL9
-	pTitFm1JdF05vAVEXeyyL88yDO6WYoQLAVSv1VhVuVMO9FJZiGbIyiIt14ocxkrC
-	HViKNVw6UpOTR4371oIKww1SGAl8Y+tmgl8hIfCMX5EpnnZHS10uTVzb8/fkjE2L
-	478dEpIEnyRShcezOmrfyUuY8=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgDnr9_C2q9qDpfBAQ--.40005S2;
-	Sun, 20 Sep 2026 21:08:19 +0800 (CST)
-From: Pengpeng Hou <hppiscas@163.com>
-To: anup@brainfault.org
-Cc: Pengpeng Hou <hppiscas@163.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Andrew Jones <andrew.jones@oss.qualcomm.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Atish Patra <atish.patra@linux.dev>,
-	Fangyu Yu <fangyu.yu@linux.alibaba.com>,
-	Guo Ren <guoren@kernel.org>,
-	kvm-riscv@lists.infradead.org,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Nutty Liu <nutty.liu@hotmail.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <pjw@kernel.org>
-Subject: [PATCH v2 0/2] RISC-V: KVM: Validate AIA MMIO ranges against GPA width
-Date: Sun, 20 Sep 2026 21:08:16 +0800
-Message-ID: <cover.1789872556.git.hppiscas@163.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Ugecy1cD"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id BF5571A08D2;
+	Sun, 20 Sep 2026 13:10:45 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 836E5604C9;
+	Sun, 20 Sep 2026 13:10:45 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F2B551032906C;
+	Sun, 20 Sep 2026 15:10:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789909844; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=QYnRZvFpmS3H8pe6bMUWA1PeBW7A6p0m180UqcaFJ2Y=;
+	b=Ugecy1cD/0SjjXpul+Nt5694nKLYIMh/qni4kOJuEXE4FrO3ulQHfJRUXZ/hGdxiWRLoFG
+	e/9nupAUptugQtLuxvw2EmSyN7WEcyP6Qi226y5IfATBuoKUDaxv9pyYvS49inAr1V6y68
+	zWHOi34wmh/m1Nw6t7OTOzQ4jb63HYgIrRPJHYtVkTacJgtQII9g62tZAyk91lDM9DaicP
+	KOvFmobiZXzhP/tyecEjBPIam4e+H2i8HSJWi1CATy091ALhBDU4mOuxShN9QDmmaXkpnZ
+	mWoWvw/3jqEbGx9ruwr5DTDf/HEEun7WZfsmYrWL/OtDh1webMbMFuIhumdqKw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Hui Peng <benquike@gmail.com>
+Cc: alex.aring@gmail.com,  stefan@datenfreihafen.org,  davem@davemloft.net,
+  edumazet@google.com,  kuba@kernel.org,  pabeni@redhat.com,
+  linux-wpan@vger.kernel.org,  netdev@vger.kernel.org,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mac802154: rx: fix beacon/mac_cmd skb leak and short
+ skb_trim underflow
+In-Reply-To: <20260919213637.3314421-1-benquike@gmail.com> (Hui Peng's message
+	of "Sat, 19 Sep 2026 21:36:36 +0000")
+References: <20260919213637.3314421-1-benquike@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Sun, 20 Sep 2026 15:10:39 +0200
+Message-ID: <87pky89igg.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgDnr9_C2q9qDpfBAQ--.40005S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKr13ZrW3Ar4rGFy8XFy7ZFb_yoWkurg_ua
-	18Kryaqw48Wa1UCa4qyr4rXr95C3yrGFW5AFyYyr1fJr9xXFnxWF4kGr1rXF1UG3yYyF1D
-	Zr9a9w4fGryIyjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRNMan7UUUUU==
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbCxgRuN2qv2sQC6QAA3r
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-This revision keeps the existing mandatory-address checks and narrows
-the initialization revalidation to APLIC. An IMSIC address is only set
-after a vCPU exists, which already freezes the selected GPA width.
-APLIC can be configured earlier, so its range is rechecked at init.
+On 19/09/2026 at 21:36:36 GMT, Hui Peng <benquike@gmail.com> wrote:
 
-Patch 2 keeps the previously reviewed GPA-width freeze unchanged.
+> Fix two sk_buff handling bugs in `net/mac802154/rx.c`:
+>
+> 1. In `ieee802154_subif_frame()`, the `skb` passed by
+>    `__ieee802154_rx_handle_packet()` is already a dedicated
+>    `skb_clone()` owned by `ieee802154_subif_frame()` (with `skb->users
+>    =3D=3D 1`), and all normal return paths consume it without extra
+>    reference increments. However, the `IEEE802154_FC_TYPE_BEACON` and
+>    `IEEE802154_FC_TYPE_MAC_CMD` branches call `mac_pkt->skb =3D
+>    skb_get(skb)` (incrementing `skb->users` to `2`) and return
+>    `NET_RX_SUCCESS`. When the worker later calls
+>    `kfree_skb(mac_pkt->skb)`, `skb->users` only drops from `2` to `1`,
+>    permanently leaking every received Beacon and MAC Command `sk_buff`.
+>    Assign `mac_pkt->skb =3D skb` directly.
 
-Changes since v1:
-https://lore.kernel.org/r/cover.1786512671.git.pengpeng@iscas.ac.cn/
-- Preserve the required-address checks and existing cleanup path.
-- Remove the all-vCPU range-validation pass.
-- Explain why only APLIC needs a range recheck before initialization.
-- Retain Anup's Reviewed-by for unchanged patch 2.
+This is okay and should probably an independent fix.
 
-The issues were found by our static-analysis tool. AI assistance was
-used to revise the patches and descriptions following the review.
+> 2. In `ieee802154_rx()`, when `IEEE802154_HW_RX_OMIT_CKSUM` is set,
+>    `skb_put(skb, 2)` is called without ensuring 2 bytes of tailroom, and
+>    when `IEEE802154_HW_RX_OMIT_CKSUM` is not set,
+>    `__ieee802154_rx_handle_packet()` calls `skb_trim(skb, skb->len - 2)`
+>    without verifying `skb->len >=3D 2`. Ensure tailroom with
+>    `pskb_expand_head(skb, 0, 2, GFP_ATOMIC)` and drop frames shorter
+>    than 2 bytes.
+>
+> Fixes: 57588c71177f ("mac802154: Handle passive scanning")
+> Fixes: d021d218f6d9 ("mac802154: Handle received BEACON_REQ")
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+>
+> ---
+>  net/mac802154/rx.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+>
+> diff --git a/net/mac802154/rx.c b/net/mac802154/rx.c
+> index 19b5382e85a8..dbdaf5962ca7 100644
+> --- a/net/mac802154/rx.c
+> +++ b/net/mac802154/rx.c
+> @@ -287,7 +287,7 @@ ieee802154_subif_frame(struct ieee802154_sub_if_data =
+*sdata,
+>  		if (!mac_pkt)
+>  			goto fail;
+>=20=20
+> -		mac_pkt->skb =3D skb_get(skb);
+> +		mac_pkt->skb =3D skb;
+>  		mac_pkt->sdata =3D sdata;
+>  		mac_pkt->page =3D sdata->local->scan_page;
+>  		mac_pkt->channel =3D sdata->local->scan_channel;
+> @@ -304,7 +304,7 @@ ieee802154_subif_frame(struct ieee802154_sub_if_data =
+*sdata,
+>  		if (!mac_pkt)
+>  			goto fail;
+>=20=20
+> -		mac_pkt->skb =3D skb_get(skb);
+> +		mac_pkt->skb =3D skb;
+>  		mac_pkt->sdata =3D sdata;
+>  		netdev_hold(sdata->dev, &mac_pkt->dev_tracker, GFP_ATOMIC);
+>  		spin_lock(&sdata->local->rx_lock);
+> @@ -487,10 +487,15 @@ void ieee802154_rx(struct ieee802154_local *local, =
+struct sk_buff *skb)
+>  	 * solution because the monitor needs a crc here.
+>  	 */
+>  	if (local->hw.flags & IEEE802154_HW_RX_OMIT_CKSUM) {
+> +		if (pskb_expand_head(skb, 0, 2, GFP_ATOMIC))
+> +			goto free_skb;
+>  		crc =3D crc_ccitt(0, skb->data, skb->len);
+>  		put_unaligned_le16(crc, skb_put(skb, 2));
 
+This, why not.
 
-Pengpeng Hou (2):
-  RISC-V: KVM: Validate AIA MMIO address ranges
-  RISC-V: KVM: Disallow GPA-width changes after AIA init
+>  	}
+>=20=20
+> +	if (skb->len < 2)
+> +		goto free_skb;
 
- arch/riscv/kvm/aia_device.c | 42 +++++++++++++++++++++++++++++++++----
- arch/riscv/kvm/vm.c         |  3 ++-
- 2 files changed, 40 insertions(+), 5 deletions(-)
+But this? This is a situation that cannot happen, right? Either the PHY
+adds the checksum, or it does not and we add it above.
 
+> +
+>  	rcu_read_lock();
+>=20=20
+>  	ieee802154_monitors_rx(local, skb);
 
-base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
-
+Miqu=C3=A8l
