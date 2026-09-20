@@ -1,307 +1,253 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB20243956;
-	Sun, 20 Sep 2026 00:26:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FA4125A0
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 00:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.203
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789863993; cv=none; b=oS0GaxpbckHyCKhRgLYl5tXKI0CSdtA/2yFrYKxYcUWW28ziQCoK/HsoCn8nuK9Q9AmWf5jrFAmBLCC2KqQt+1sgQKPS8/snQaNUi5bOVZVserp83sTujj/JC69GZLm5tRgzWXMh+8UDMv2ZypFRmqEd2y2YnJYyORv61/OU9Mc=
+	t=1789864119; cv=none; b=TTjJ2T8oQ2ykyxXxE/Izf9CzHFBb9vGpg5XGFZYnHnJDCiO64sppAApEPCr/zNNp5GDijk6jgJgmypVbwLYQ2V11eIYn21jqX4RNWJm7ZKZikn1pMN0t5G4N068Awie9tsEKMxFmZSMaSlg+AZDDFK70g7FHtchDIWfpST5B4x4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789863993; c=relaxed/simple;
-	bh=uLmvPUp87K7r0vGvD8ZD4IVYNriyJj+66xcneCBOS0o=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=LuVQvB1LBVjqlKKmvOelpMNMZXeM/ZdxQtLhHIWcmDig4YhxOgWtapi5nxZqzJL+X8P+GjXqzMRRg+Zj2qRU1PIZeltYxsucoeQVk3WONdk/JR5XIh79b+XnZsRe/s95RKjZH+W7S0aOOWtVATH8tsny2rK74pvhKkyBQ+uYxYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H0Tuu1vn; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H0Tuu1vn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D166E1F00893;
-	Sun, 20 Sep 2026 00:26:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789863992;
-	bh=PNtxMPBdA6D6F7+yKqIP1uS8LVqvhCrDZwDNAGGy/Dw=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=H0Tuu1vnosAtwMC7r9/HdIzmwOz69Xy8aclYQiOAj+eIHOCei7MlBwoK1LF5N6Yng
-	 vkNCDcEXyP6P05FwlC+hIvMM9PwDg9j1K22WsuL5TttC/bomdOld2ewQKczTxZZthJ
-	 KgOlY7hezhai9rSUjnHW6CJiYL3LlmFxjYnGOK134bfoQbRbo+2pd/wJDk6XVV9J5L
-	 PTGTRY7qDRfh1m4H6ol6ELge4j7uvPklh1lJzW722BgyHOnp3+ZB4JaO098lo5KPWv
-	 jDTnU2866EfmT98FJLIvvN0UUwWMWr/kj455C0qwAmKUvp36zL8uYAFBt75CzCODwD
-	 wFi9sPTho/f3w==
+	s=arc-20240116; t=1789864119; c=relaxed/simple;
+	bh=J85FaY8hAWBjhygK/XgUN89yhwVad/Lz+KB4pdXzSjY=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Gqx+uADag7r8yaOseHrP4DE1cSwv2kbt3F4Yy21rKcrYDgZeC1Jv/VhZEPkKQk+PMbQkFRy5fjdECcKPz+0W4s0W7d8OipxyaxSQffZ3/AsiGnLkDSVL9ryGqQW2aQNJKjKXLNnf9iUp3bI/UUsJtTcFyScC5OE/VYVVmYZvn88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4bfec71901fso955616b6e.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:28:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789864116; x=1790468916;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2ReM82aEcRwh1FAqo17hhPk/qhH0GNuuHIChn6NhnZg=;
+        b=LBtb82Zw+oG4rtmQ5iCa9Mpy0xeTsLZYI1yc3UFCTHkOuNbHBmQpCDfuFrznQAXxRQ
+         z+fx8Jr1hN+DA0fjszjj4fcLvRdkm1/oC07XYLY7bDkKvj9CKnotGGAj33KezC9GHjaA
+         OAb6Ta2UExQsbayC9/0DrK64NtDyrkQKx6GzT99GgnT5P4sNGPYg4YxINvOTBzdoJIVr
+         8jpV3rO3NIXQFqOisf8Vbx5FdrDO/7h1rpyFUFmhVidsaj4+WJauqWAEg73FTTOd5Qw6
+         hHF7/Ilk0PpkJxJ0lcRQc+51HwqYEmyC55U2M6VSlfjWpxvgA6isnjhGJxCQ4TLERe5a
+         pmQw==
+X-Forwarded-Encrypted: i=1; AKwUvByA6GzFXPLYFXRhTM9hSvm+xbHCiAlz0wsIy2IuTQO4tCi2YoQ+1orXV55kKIpzAJo4zT8G6Pchq2CAPpA=@vger.kernel.org
+X-Gm-Message-State: AFuF++myp7/u6+rYd2HU7QGJxyL/yZAlxivByLMNsqJ1LHsWw8CprXy/
+	dqhBTdMicPAh18GMoMZHdKBDzNeyBTWpCTevCCc5mFqbkwDkFO4evaAIqxnPx1CNh3aPFevTHAT
+	y5X9pb1pLxLo754pIWdPIErMqmMoyUGddZCiCxRuQNZzhXzMWo+U21SwAeP8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v5 2/2] iio: light: add AS7343 multi-spectral sensor
- driver
-From: Jonathan Cameron <jic23@kernel.org>
-To: Chang Yu <marcus.yu.56@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shi Hao <i.shihao.999@gmail.com>, 
- Joshua Crofts <joshua.crofts1@gmail.com>, 
- "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, linux-iio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260919235145.48273-3-marcus.yu.56@gmail.com>
-References: <20260919235145.48273-1-marcus.yu.56@gmail.com>
- <20260919235145.48273-3-marcus.yu.56@gmail.com>
-Date: Sun, 20 Sep 2026 01:26:11 +0100
-Message-Id: <178986397173.706584.14464234266525982696.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7464;
- i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
- bh=uLmvPUp87K7r0vGvD8ZD4IVYNriyJj+66xcneCBOS0o=;
- b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqrygzAZr8BViunxGyhfcH7UIvciP9dQgDhNbLW
- y1ZjHXsryKJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCaq8oMxEcamljMjNAa2Vy
- bmVsLm9yZwAKCRBUhTSZxPQWiLmZD/0blpEXS9Wr5vPaJ2evT5K3coQlZBE2tRWK0yRurWuI+gl
- bGprbRUHt5O2objLtzQzShhCQwZkHFjiueLMkSbqvUhsVPYSe+TvQeHfwFvImsV7JUle6gvml9m
- mODe9beil1eD6ubnanyRK/ziFWkJGXANVF3Epkg/p5UhtGVDO8NuXxPe6ay+dazVyGOmJXrwBgc
- NV3LJG/OI46N3iPCfreYleGcLcgdp4Ta4xc5ZgLC9JhemFXFbXIrBtX32s+xz1qDvH1O/iisFip
- TFAAzvGKvl4ZTEg62Q1ZseHhS9DQuwUQcdLzbQWTRI8m6QZUeHaSBb2+LDvnwTI8qzOmVjBjV81
- /ga4VnkH+EspP9nNEKryHUcuJH43QYk7NEoIPLT4weuT8d7yJVCb4jGmk54cjA1KWw7qBPONaSF
- SzNgLkRbn5XHs+tpvH66u5cVDrbI7fwN0WoyOzKs8Yy3Ok3HUTPWCyphbt9DcIZ1mfYjXT1LvNQ
- gGVlObB7CEMQlUdFycncVdjk/fy0nLkhQ7spNQhnWTGYe7HeXtDMLldtd/UKSfjCQi5aY44bmGv
- fruk1izRgFlNc7oDqLYMHvMucJGw5/B+otc0la8f6MYE8OlgeqF9sSjLMCXBK0oA3jroDKjpzMN
- ESwzUTdKT0HYQlwbbVdl/s01ty+QkZjtwRbTOHw==
-X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
- fpr=6E2966B387840652912681B154853499C4F41688
+X-Received: by 2002:a05:6820:1f11:b0:6b7:83d6:2935 with SMTP id
+ 006d021491bc7-6ca9d14501dmr6425675eaf.56.1789864116376; Sat, 19 Sep 2026
+ 17:28:36 -0700 (PDT)
+Date: Sat, 19 Sep 2026 17:28:36 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aaf28b4.71f81b7d.15fa6d.000e.GAE@google.com>
+Subject: [syzbot] [nvme?] KASAN: slab-use-after-free Read in fcloop_t2h_xmt_ls_rsp
+From: syzbot <syzbot+2a31ef5d37a9d722e987@syzkaller.appspotmail.com>
+To: hch@lst.de, justin.tee@broadcom.com, kch@nvidia.com, 
+	linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org, 
+	nareshgottumukkala83@gmail.com, paul.ely@broadcom.com, sagi@grimberg.me, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-> Add a driver for the AMS AS7343 14-channel multi-spectral sensor.
-> 
-> The AS7343 is a 14-channel spectral sensor featuring 11 visible
-> channels, 1 near-infrared channel, 1 clear channel (VIS), and 1
-> flicker detection channel.
-> 
-> The driver exposes 12 spectral channels (11 visible light and 1
-> near-infrared) via sysfs. Runtime PM is implemented to stop
-> measurements when the device is suspended or torn down. Power is
-> never cut (PON=1 always) to preserve register values.
-> 
-> Future patches will add configurable gain and integration time,
-> interrupt support, buffered reads, VIS channel, and flicker
-> detection.
-> 
-> Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-> Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+Hello,
 
-FWIW I believe the sashiko feedback autosuspend is incorrect, but
-probably good to sanity check that by proving device and just checking
-the calls in dd.c are sufficient to put it to sleep after the auto
-suspend time.
+syzbot found the following issue on:
 
-Sashiko generally seems not to spot that probe is special in this
-regard.  Probably doesn't help that there are quite a few drivers
-that do have the handling it suggests, presumably because humans
-didn't know it was special either ;)
+HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=16386115580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
+dashboard link: https://syzkaller.appspot.com/bug?extid=2a31ef5d37a9d722e987
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
 
-A couple of follow up comments inline.  This is coming together
-nicely so I think we are down to tiny details now.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-Jonathan
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-50d05c7c.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/303a0ade8f9e/vmlinux-50d05c7c.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/70b8ca71442b/bzImage-50d05c7c.xz
 
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f0c08e634bf4..9496280903d9 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -1460,6 +1460,7 @@ M:	Chang Yu <marcus.yu.56@gmail.com>
->  L:	linux-iio@vger.kernel.org
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> +F:	drivers/iio/light/as7343.c
->  
->  AMT (Automatic Multicast Tunneling)
->  M:	Taehee Yoo <ap420073@gmail.com>
-> diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
-> index 462fff1ddef2..d0dea4f3113b 100644
-> --- a/drivers/iio/light/Kconfig
-> +++ b/drivers/iio/light/Kconfig
-> @@ -152,6 +152,17 @@ config AS73211
->  	 This driver can also be built as a module.  If so, the module
->  	 will be called as73211.
->  
-> +config AS7343
-> +	tristate "AMS AS7343 14-Channel Multi-Spectral Sensor"
-> +	depends on I2C
-> +	select REGMAP_I2C
-> +	help
-> +	 Say Y here to build support for the AMS AS7343 14-channel
-> +	 multi-spectral sensor.
-> +
-> +	 To compile this driver as a module, choose M here: the module will
-> +	 be called as7343.
-> +
->  config BH1745
->  	tristate "ROHM BH1745 colour sensor"
->  	depends on I2C
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+2a31ef5d37a9d722e987@syzkaller.appspotmail.com
 
-> diff --git a/drivers/iio/light/as7343.c b/drivers/iio/light/as7343.c
-> new file mode 100644
-> index 000000000000..c079e0c6aa70
-> --- /dev/null
-> +++ b/drivers/iio/light/as7343.c
+(NULL device *): Disconnect LS failed: No Association
+==================================================================
+BUG: KASAN: slab-use-after-free in fcloop_t2h_xmt_ls_rsp+0x393/0x460 drivers/nvme/target/fcloop.c:518
+Read of size 4 at addr ffff8880237d2228 by task kworker/1:4/5844
+
+CPU: 1 UID: 0 PID: 5844 Comm: kworker/1:4 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: events nvme_fc_handle_ls_rqst_work
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ fcloop_t2h_xmt_ls_rsp+0x393/0x460 drivers/nvme/target/fcloop.c:518
+ nvme_fc_xmt_ls_rsp+0x1bd/0x270 drivers/nvme/host/fc.c:1456
+ nvme_fc_handle_ls_rqst_work+0x43c/0x2100 drivers/nvme/host/fc.c:1660
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Allocated by task 8325:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __do_kmalloc_node mm/slub.c:5414 [inline]
+ __kmalloc_noprof+0x32f/0x840 mm/slub.c:5439
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ nvmet_fc_xmt_disconnect_assoc drivers/nvme/target/fc.c:489 [inline]
+ nvmet_fc_target_assoc_free+0xbd5/0x2220 drivers/nvme/target/fc.c:1177
+ kref_put include/linux/kref.h:65 [inline]
+ nvmet_fc_tgt_a_put drivers/nvme/target/fc.c:1195 [inline]
+ nvmet_fc_delete_assoc_work.cold+0x118/0x144 drivers/nvme/target/fc.c:1068
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Freed by task 17245:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6499 [inline]
+ kfree+0x22b/0x6d0 mm/slub.c:6792
+ nvmet_fc_free_pending_reqs drivers/nvme/target/fc.c:1619 [inline]
+ nvmet_fc_unregister_targetport+0x351/0x760 drivers/nvme/target/fc.c:1651
+ __targetport_unreg drivers/nvme/target/fcloop.c:1600 [inline]
+ fcloop_delete_target_port+0x185/0x1f0 drivers/nvme/target/fcloop.c:1630
+ dev_attr_store+0x58/0x80 drivers/base/core.c:2509
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
+ do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+ entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+
+The buggy address belongs to the object at ffff8880237d2200
+ which belongs to the cache kmalloc-256 of size 256
+The buggy address is located 40 bytes inside of
+ freed 256-byte region [ffff8880237d2200, ffff8880237d2300)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x237d2
+head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000040 ffff88801c042b40 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
+head: 00fff00000000040 ffff88801c042b40 dead000000000100 dead000000000122
+head: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
+head: 00fff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5746, tgid 5746 (syz-executor), ts 39099710655
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab mm/slub.c:3462 [inline]
+ new_slab+0xa9/0x6e0 mm/slub.c:3513
+ refill_objects+0xe3/0x410 mm/slub.c:7410
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ __kmalloc_cache_noprof+0x4f4/0x6d0 mm/slub.c:5559
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ ____ip_mc_inc_group+0x40b/0x10d0 net/ipv4/igmp.c:1601
+ __ip_mc_inc_group net/ipv4/igmp.c:1639 [inline]
+ ip_mc_inc_group net/ipv4/igmp.c:1645 [inline]
+ ip_mc_up+0x154/0x390 net/ipv4/igmp.c:1950
+ inetdev_event+0x6f0/0x17f0 net/ipv4/devinet.c:1630
+ notifier_call_chain+0x99/0x3f0 kernel/notifier.c:85
+ call_netdevice_notifiers_info+0xbe/0x110 net/core/dev.c:2275
+ call_netdevice_notifiers_extack net/core/dev.c:2313 [inline]
+ call_netdevice_notifiers net/core/dev.c:2327 [inline]
+ __dev_notify_flags+0x22c/0x4b0 net/core/dev.c:9853
+ netif_change_flags+0x108/0x160 net/core/dev.c:9882
+ do_setlink.isra.0+0x1ac4/0x3e60 net/core/rtnetlink.c:3266
+ rtnl_changelink net/core/rtnetlink.c:3905 [inline]
+ __rtnl_newlink net/core/rtnetlink.c:4076 [inline]
+ rtnl_newlink+0x13c1/0x2620 net/core/rtnetlink.c:4215
+page last free pid 5151 tgid 5151 ts 10778201277 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
+ qlink_free mm/kasan/quarantine.c:163 [inline]
+ qlist_free_all+0x47/0xf0 mm/kasan/quarantine.c:179
+ kasan_quarantine_reduce+0x1a0/0x1f0 mm/kasan/quarantine.c:286
+ __kasan_slab_alloc+0x69/0x90 mm/kasan/common.c:350
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4683 [inline]
+ slab_alloc_node mm/slub.c:4996 [inline]
+ kmem_cache_alloc_noprof+0x269/0x6a0 mm/slub.c:5010
+ alloc_filename fs/namei.c:147 [inline]
+ do_getname+0x35/0x390 fs/namei.c:187
+ class_filename_flags_constructor include/linux/fs.h:2586 [inline]
+ do_readlinkat+0xa9/0x370 fs/stat.c:569
+ __do_sys_readlink fs/stat.c:605 [inline]
+ __se_sys_readlink fs/stat.c:602 [inline]
+ __x64_sys_readlink+0x78/0xc0 fs/stat.c:602
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x121/0x770 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Memory state around the buggy address:
+ ffff8880237d2100: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff8880237d2180: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>ffff8880237d2200: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                  ^
+ ffff8880237d2280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff8880237d2300: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+==================================================================
 
 
-> +
-> +/*
-> + * Integration time is calculated as (ATIME + 1) * ((ASTEP + 1) * 2.78us).
-> + * ATIME must be between 0 and 255, inclusive
-> + * ASTEP must be between 0 and 65534, inclusive
-> + */
-> +static inline u8 as7343_atime_steps(unsigned int step)
-> +{
-> +	BUILD_BUG_ON(step < 1 || step > 256);
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Whilst for now this is fine as you aren't making these controllable,
-I would make them runtime checks just to make a future change to
-make these userspce adjustable easier to make.
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-That will complicate the code a little but give less churn in the
-longer term.
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-> +	return step - 1;
-> +}
-> +
-> +static inline u16 as7343_astep_x2780ns(unsigned int n)
-> +{
-> +	BUILD_BUG_ON(n < 1 || n > 65535);
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-Same here.
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-> +	return n - 1;
-> +}
-> +
-
-
-...
-
-> +static int as7343_setup_device(struct device *dev, struct as7343_data *data)
-> +{
-> +	struct regmap *map = data->regmap;
-> +	unsigned int val;
-> +	__le16 step;
-> +	int ret;
-> +
-> +	/* Power on */
-> +	ret = regmap_set_bits(map, AS7343_ENABLE_REG, AS7343_ENABLE_PON);
-
-If the regulators are fixed supplies and as such we haven't just
-turned the power on here and device hasn't just taken default values,
-could the previously driver / firmware / whatever have left us
-using bank 1.  If so would that power on call do anything?
-
-It's common to have a few control registers on a device accessible
-from every bank, but that doesn't seem to be the case here. Though
-given it won't work otherwise, I'm assuming it is the case for
-CFG0 despite it being at an address of greater than 0x80!
-As such expect to see first call being one to get the device using bank 0.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Need to set REG_BANK to 1 before we can access ID */
-> +	ret = regmap_update_bits(map, AS7343_CFG0_REG, AS7343_CFG0_REG_BANK,
-> +				 FIELD_PREP(AS7343_CFG0_REG_BANK, 1));
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_read(map, AS7343_ID, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (val != 0x81)
-> +		dev_info(dev, "Unknown device ID: %x\n", val);
-> +
-> +	ret = regmap_update_bits(map, AS7343_CFG0_REG, AS7343_CFG0_REG_BANK,
-> +				 FIELD_PREP(AS7343_CFG0_REG_BANK, 0));
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Configure the SMUX to readout all channels */
-> +	ret = regmap_update_bits(map, AS7343_CFG20_REG, AS7343_CFG20_AUTO_SMUX,
-> +				 FIELD_PREP(AS7343_CFG20_AUTO_SMUX,
-> +					    AS7343_CFG20_AUTO_SMUX_READOUT_ALL));
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * Setting a 600 * 2.78us * 30 = 50ms integration time as the default
-> +	 * for now.
-> +	 */
-> +	step = cpu_to_le16(as7343_astep_x2780ns(600));
-> +	ret = regmap_bulk_write(map, AS7343_ASTEP_REG, &step, sizeof(step));
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(map, AS7343_ATIME_REG, as7343_atime_steps(30));
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_update_bits(map, AS7343_CFG1_REG, AS7343_CFG1_AGAIN,
-> +				  FIELD_PREP(AS7343_CFG1_AGAIN,
-> +					     AS7343_CFG1_AGAIN_X256));
-> +}
-
-...
-
-> +static int as7343_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct iio_dev *indio_dev;
-> +	struct as7343_data *data;
-> +	struct regmap *regmap;
-> +	int ret;
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	i2c_set_clientdata(client, indio_dev);
-> +
-> +	regmap = devm_regmap_init_i2c(client, &as7343_regmap_config);
-> +	if (IS_ERR(regmap))
-> +		return PTR_ERR(regmap);
-> +
-> +	data = iio_priv(indio_dev);
-> +	data->regmap = regmap;
-> +
-> +	ret = devm_mutex_init(dev, &data->mutex);
-> +	if (ret)
-> +		return ret;
-> +
-> +	indio_dev->name = "as7343";
-> +	indio_dev->info = &as7343_info;
-> +	indio_dev->channels = as7343_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(as7343_channels);
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +
-> +	ret = devm_regulator_get_enable(dev, "vdd");
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = as7343_setup_device(dev, data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Start measurements */
-> +	ret = regmap_set_bits(regmap, AS7343_ENABLE_REG, AS7343_ENABLE_SP_EN);
-> +	if (ret)
-> +		return ret;
-> +
-> +	pm_runtime_set_autosuspend_delay(dev, 3000);
-> +	pm_runtime_use_autosuspend(dev);
-> +
-> +	ret = devm_add_action_or_reset(dev, as7343_suspend_action, dev);
-
-Why here?  Neither of the two calls immediately above have anything to
-do with what this is unwinding?  I think this should logically be
-before the pm_runtime_set_autosuspend_delay() call so that is
-is clearly matched with the regmap one above that.
-
--- 
-Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+If you want to undo deduplication, reply with:
+#syz undup
