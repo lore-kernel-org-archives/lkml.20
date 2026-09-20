@@ -1,143 +1,120 @@
-Received: from mail-ed2-f43.google.com (mail-ed2-f43.google.com [74.125.228.107])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E71A3203B4
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 01:05:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.107
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789866340; cv=pass; b=FattOMAYrnCR2VaysI4YHh9qaBq9QogSzS1av++lz8qlrDZgCj5lfIIVLsjgeB5nZBWC7BQFcm7EnGEn0+oczKkpjtYi9sU9XfK2iLb74nlzqxIOz5XngMyQRl0Td3UNrx4/aZX+5UOmU7wSmHEdx/F6quavv1sjPFPWrzw7zJ4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789866340; c=relaxed/simple;
-	bh=9Cl8MzOpqM4J6On4kxqgKOwRQOeDSnW9VyXB1VHn/7s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PPk2saBbEyhrV+OqMuxQvGAFhGAMKu6klMsXyMDEpGaZEklafkT9YmHsW/lc8vKQlepXXwpqRSqKTCE2apE1QQ08vpeEYFrCdO7QTj6VgksYMMU1G+Nh3qjOpV5EjvM/gSV6mWvxkPO6XgIjZ2JR6Cw+58EzbdVQu+//e+21Xaw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WEIkRrMr; arc=pass smtp.client-ip=74.125.228.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F73C78F3A;
+	Sun, 20 Sep 2026 01:07:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789866470; cv=none; b=NBP6yLp1eDtxpWUuSe2lmYflBRkhJcd/NRsQPKz3IZHHBfzOhou0Ge5TasRt1TC2BntZyMYZYbuPmquxPM+GAl/XfFAsOp39k/m0Lt7JRaJoP4qPm2C1ILk0U6VOySHRvWFzBV8tdzH3ZC5AVK0HZ2N6KIHfLS6E05wGBFB936Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789866470; c=relaxed/simple;
+	bh=b2GOIQfJ4bDeLmMopprtcZG7Nh8TrMUvDf5T9aGfuhg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=iMZ+L5Ld7HdD34HKelzusy9rRdxW9Ms4wqFNN5xUiAqslpbWDl1D8A6LH0apHqH5HZ4AmUmDHcS0MhnGyxY450og6ENY0q9JXx3qwD8/PRfwvVSqOw5siW7l33niJv9IPEHqJklBFgxZorbGG2HWxcDGfMF94jsbCjwtB2kNvgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=Pdc6DabR; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WEIkRrMr"
-Received: by mail-ed2-f43.google.com with SMTP id 4fb4d7f45d1cf-6a9ba73bee8so1385770a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:05:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789866337; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EOjohiacfmWe7zpoZskvBs2UUcy6YZoGe7G0ORDjqTtbDZGeCacY3PvwVsKaC7cPeq
-         zyfC5OHArfCTJ6m/j194/oUuK9KdIt72+Jr9mzweY0n3ppgmEugzaWyY6pxKNr8sxGRP
-         lVaKMsTIkOF2GiF52XiEDkJzIOB8nh/HssKe5SQbHBgkPzRLelFX7UlnR79GGP6A8jhR
-         KWGyHY1bvIvUi/hLLpXQeZxqvr2bS6mB8gWuIokRhzZCKONB/FcrNwJps3SxFpYSonyM
-         GtPfE+P/gKjGkzyrMZjtxNoDqMWQVk5gt4IMoeYURCMzI5oXO43DV77uInr7sXwivoHJ
-         vNkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9Cl8MzOpqM4J6On4kxqgKOwRQOeDSnW9VyXB1VHn/7s=;
-        fh=4BduCuoJaUcli9erUuf6xEag1fbhrpejSS4NDYQF6j0=;
-        b=oa9KGZAZ36iE2DhYNHEvFuPH3OPgTCAYkynr4JL+cQR1eIWA5RHvtMDRq4pMLsfL6H
-         fA+atfaMzD8cUBQHy9DWKAo7fTVIAEkNBqU+sg0wSsKu7GhuRjLlzxkAk/VMLhdhFXdg
-         dqNeLxsHONy/XywVVwVURw5MOjeKzjwV/rZKCmFmo0LSwFsciD3kdldr+Gges9xT952e
-         lZti3o9fxUOKYrP8VLCFTwl1Zr9BPkTJ8Jt7oflqzUy2XzlCAr4L5iPD9MXPNvCM/Vkp
-         iZJPwIiw08DY+mb+07OWFb2IIoCqGxWETQZFAPLwNTq8OkMnDumhf1eC79qI8O2WN3SH
-         aZCQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789866337; x=1790471137; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9Cl8MzOpqM4J6On4kxqgKOwRQOeDSnW9VyXB1VHn/7s=;
-        b=WEIkRrMr1kTjROhNQo4itlGjaxu5jZv1u3OviUO71+jRlgZowfS5k80ipfr+4ao4Zz
-         3Tr6efn5zQgWGb/oaJaaT+N54JQBh2MPY6BFs+tn4CqQjc/k4g/jnCuAAMT62E7xKUCn
-         2fhwheC0Jp3k8c3na4ciLkX7ADHYkdvp7MlL06FlgZu1aFY2LXfmVsN24tiQAc1oJlXE
-         PE2dJW6Hxl6UBcscIgN1o699il7bkT6BMSlnCMPofbN2uYk+8wt4VaQkXC2U15dZ92ov
-         MuAonuMprppQbMfKRJQdtz7TEW8lRRTsscvxIAJ3tFjhV3yq9/lJkzUUIlTzCEnJg+3C
-         DQHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789866337; x=1790471137;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9Cl8MzOpqM4J6On4kxqgKOwRQOeDSnW9VyXB1VHn/7s=;
-        b=bwyh0gtnKzVG/MD0cCAw4IMGMWAzmnJthl7zsXPzjN3f3w1djlJcOKnON/y4Cxkrdw
-         RGDfJIyiVDPKRl8gotBZIdleeSW7CikkZA8rqLl9WY94UEdy42+1y7HhiW+tLxVzkTaI
-         YicChqgpg0mWi9eUxx555CfuyMJhUxoKxsX5682inyaiPcxhknw4AVqKcWhU2TGVP4y6
-         TUOVYkU6xCQPxtNmmtdTkDGAV6C6bz+0UlXT0/CyYuXICPHV400az0+dg+e7346i/q2m
-         ANpQKn+9uAQHsH1y+9SwV7SXvVRu1BBRx5WnDMDnwizVveWDonHH7fBOpE3K7eOeZxUT
-         XGEg==
-X-Forwarded-Encrypted: i=1; AKwUvBy2ZwPq/S63sVPJ9ueRIA8Q92aNax4LuHUr4dKGkjvPk+lGoGjpv8yOmgPHMMMO0ZyRpagXmi7lhoGCklg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFpzoDC9I1CfpF0GU6niVR+pM0+9FZresvq9zkib82JQdHn29n
-	7NqXBqRCxECTrL0lm5z7YiJU9fgPUppjdzOfGGUz8I/hKi62qpJvuuQpiuX46BNvxdLRTjgiYLM
-	HGQRr/Dxqze4AgYPVXPuiZ2HQeQqJ6eI=
-X-Gm-Gg: AYBFou1f7WlbEVFDEHP+6A09bfwaYU6Fo60F5VYki1ecl21VytZKcss3gCERTPst/SN
-	y8dfZWDjqrCQym+ZtH7WAcGMYG6HixRynwU0DEvDN4i1hHyULU5b0+IuULTq9tcSW3Hcv3EZjeM
-	UyVaNgMrIJ6M8zoo9SubV/HTUIDBVMMxsz1GwllRkJnAy4EtOskZywH0helFMD/E/5NBGQWAVKP
-	gaXew2Dv+mokExSAH0/Kv+p8HJmksNeMWMdqSiwC+mAeQbAidnf+5UKM+vBIIwUhI3l4Y4b1pje
-	EM85o5G1Ng53fWb6aQuJyXGBfMK/BY5U/gT+2WRvrUFThiaK5c04dOZthgSmUhtZej9v0ye6vVM
-	J6cEe0lXMkCUegxOjtt7UujxDcGeSKvKl5sODRnFdXr/sFhpOUqXxp8nazUOm9tdzLT2uEAp6sh
-	RphX+maN3QRR7zZInvIn8m5ABpD7U8fFLNuugxbIisVQOCj8athNZr4WggQH91vdo9DQ==
-X-Received: by 2002:a17:906:2099:b0:c29:c575:de84 with SMTP id
- a640c23a62f3a-c2a164422b2mr369770066b.8.1789866337249; Sat, 19 Sep 2026
- 18:05:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="Pdc6DabR"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=b2GOIQfJ4bDeLmMopprtcZG7Nh8TrMUvDf5T9aGfuhg=; b=Pdc6Da
+	bRI5hQv74SAhUyEsQ7m6MJ6naENkUfD9RL4OJRa8leXWbar+hCtKi4zI+xiqCN99VDdDtf4Y8Hujp
+	v5gBRlB/Se4g+ESvOWvaFrjb6wun/7fSGO4EnYXRkeIrEW2heUy2uKTZ+dgT5BIWoeXrRxZ9MdmqD
+	adUenGybBOdlNOACzDIOnbgsN6xup/QBRqu7gg45bU16A6jc/JJkUL70s0P1nHKelJLSA3cnGulHO
+	6CcdEEZBFDpdEQhxDEwmVtZt5cmvsux5xecBA3c4zKQUWdnpLNZd8kSa9D9amrPmtRfqoj70f1WnD
+	bp0QhSLiU5zFSArPI8vsuEKZngdg==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1x8613-0000000CQGs-3lB1;
+	Sun, 20 Sep 2026 01:06:49 +0000
+Message-ID: <e42d8bb0bb13067609e8ff8c858a26ca056368bd.camel@surriel.com>
+Subject: Re: Path forward for Virtualized Swap?
+From: Rik van Riel <riel@surriel.com>
+To: Chris Li <chrisl@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>
+Cc: Kairui Song <ryncsn@gmail.com>, Nhat Pham <nphamcs@gmail.com>, Michal
+ Hocko	 <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt	 <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>,
+ David Hildenbrand	 <david@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Kemeng Shi	 <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>,
+ Barry Song	 <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>,
+ Chengming Zhou	 <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)"
+ <ljs@kernel.org>,  "Liam R. Howlett"	 <liam@infradead.org>, "Vlastimil
+ Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
+ =?UTF-8?Q?Baghdasaryan=EF=BF=BC?= <surenb@google.com>, Qi Zheng	
+ <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, Yuanchu
+ Xie	 <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Gregory Price	
+ <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet	
+ <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, Baolin Wang	
+ <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, Michal
+ =?ISO-8859-1?Q?Koutn=FD?=	 <mkoutny@suse.com>, Shuah Khan
+ <skhan@linuxfoundation.org>, Kunwu Chan	 <kunwu.chan@linux.dev>, Meta
+ kernel team <kernel-team@meta.com>, Linux Memory Management List	
+ <linux-mm@kvack.org>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, 	linux-doc@vger.kernel.org, "open
+ list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Joshua Hahn	 <joshua.hahnjy@gmail.com>
+Date: Sat, 19 Sep 2026 21:06:48 -0400
+In-Reply-To: <CACePvbWLHAT5DjC=HidzN10XF5_cnkpxXXDR_yfEJjTY_uDvDQ@mail.gmail.com>
+References: 
+	<CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+	 <CAMgjq7AHRzBsbmGOx0s=TQFBwcn=DEU1naR443sO6x+pJd6hAg@mail.gmail.com>
+	 <aqBT_35E-eSoN_zj@cmpxchg.org>
+	 <CAKEwX=N4aaq_oD2agTUNrUNXhaYGeQ9vxu+dywFvEFgWFi4uQg@mail.gmail.com>
+	 <CAMgjq7AfNBUpMamcv29JFzpX=7ApNYVLtPjWT4Sm8cXjSLYL9g@mail.gmail.com>
+	 <aqU81l1oqGItb-0C@cmpxchg.org>
+	 <CACePvbWLHAT5DjC=HidzN10XF5_cnkpxXXDR_yfEJjTY_uDvDQ@mail.gmail.com>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914212409.74539-1-rosenp@gmail.com> <20260919154133.3fd41455@kernel.org>
-In-Reply-To: <20260919154133.3fd41455@kernel.org>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Sat, 19 Sep 2026 18:05:25 -0700
-X-Gm-Features: AcwNN1WQnD1iBFmCVfW9pDJM-KDqAYyCx3hOiVJ0-12Jxjp3COQ2VYVvEI3MBjY
-Message-ID: <CAKxU2N-aWS0hNFbirG9g+vzz=KEDHvr5Hi1gij531OXT-3Y0zQ@mail.gmail.com>
-Subject: Re: [PATCHv2 net] net: phy: marvell: undo WoL setup when Wake-on-LAN
- is disabled
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Michael Stapelberg <michael@stapelberg.de>, 
-	open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 19, 2026 at 3:41=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wr=
-ote:
->
-> On Mon, 14 Sep 2026 14:24:09 -0700 Rosen Penev wrote:
-> > Fully disabling Wake-on-LAN on the 88E1318S/88E1510 used to leave
-> > the WoL interrupt enable bit (CSIER.WOL_EIE) set and LED[2]
-> > configured as the INTn pin. A magic packet arriving after "wol d"
-> > would still assert INTn, and a later "wol g" re-enabled WoL from a
-> > dirty register state.
-> >
-> > Fully disabling WoL clears CSIER.WOL_EIE on the copper page. The
-> > LED[2]/INTn pin mux is disposed of only when this driver forced it to
-> > the INTn function: the INTn enable and polarity bits read at arming
-> > time are saved, and restored once all WoL options are cleared, so PHYs
-> > serving the MAC interrupt, strap configs, or marvell,reg-init values
-> > are never touched. The FORCE_INT bit is not set while disposing of the
-> > pin: it holds the interrupt line asserted and turns the shared PHY
-> > interrupt into a "nobody cared" IRQ storm when the PHY interrupt is in
-> > use.
->
-> Oof, this is pretty hard to read. The paragraph is pretty much 2
-> run-on sentences.
-I'll get it to rewrite.
->
-> Please add info about how the issue was discovered and how it was
-> tested. If you don't have HW back to net-next without Fixes it goes.
-> The AI is pretty bad at judging severity, I need to find time to tune
-> the Fixes suggestions further :/
-Probably. I don't know much about the specifics of Sashiko.
+>=20
+> For our deployment, we only compress about 7-10% of the system memory
+> before performance starts to suffer. The feedback loop will scale it
+> back. I am very curious do you have actual work load to swap out 100%
+> of the RAM.
 
-This patch was split from a larger one that adds support for WoL on an
-mvebu device. LLM suggested the v1 of this as a bug fix. I did not.
-But then sashiko did.
+One common workload is a web browser with idle tabs.
 
-The full thing, which unfortunately needs patching of the PHY and GPIO
-drivers, along with dts, was tested on a Helios 4. This alone does not
-add support for anything but does prevent the IRQ storm as mentioned
-in the description.
-> --
-> pw-bot: cr
+Those often compress pretty well, a ratio of 4:1 is
+not unheard of, which makes it easy to fill up
+1/3 of memory with 133% of memory's worth of compressed
+memory.
+
+--=20
+All Rights Reversed.
