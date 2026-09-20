@@ -1,90 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79F43DC4B8
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:59:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789898367; cv=none; b=pMefjKEr7MACZlT9nEZ10Ya340ZcjslYHGtCBa7J8ciUfDpz4o+PWzVGqfZ5rQhiVwll6GNF3MBYCw3gbqYyVfEaTLAaN1GSBwVH4O4iFy1/8Srf92RkRuJ/egD7QBFQObbBdTeIyWkVP2JP1JmAwK9KIQVtA75erBzeK32xD9k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789898367; c=relaxed/simple;
-	bh=ZFNBDABJRO6JWa4olUfIapDxkuge4CcJgYicSgLWpGU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=tCZHyb9Dl7ivuhM/GznlwFSrvsgVM/RMnCetGP/iALlgB3Ao2wr5zfMefReiZmoiw2ysir/YSdxwx6hIYMuOv6xLwUmJr2MasgrPLuSzymROgTk93QWFXIUW7GBh7jJ1KpXDVVCMFRQ9OyM1zD162YwlJ5GRra/ycBt0WsP7qbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=azezaMqx; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="azezaMqx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1580A1F000FF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980B72E7387;
 	Sun, 20 Sep 2026 09:59:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789898366;
-	bh=25KWYzuxAInrQX9ER/ay9H3W4gfHO2tjs8JLkfc4F+0=;
-	h=Date:From:To:Cc:Subject;
-	b=azezaMqx9KkQnG+b4pNmIw3zCN+DdWdqJUsG5Dh2uRorAGBEfCR/LUKJ0J3/TcCwZ
-	 voXx1AZJhWFeXuOk/TitKXbEwgy+njcBJGD5NEdxW5b4yHbZDB4wm04S9MialQYas6
-	 qvcqFtTUTeeGiJ7Z/s48XmQlDhqgAqb6JM6JzPqw7nolmcN7MmGh5GukQ5FwpoM8iG
-	 XLjdw8Apo7E9rKIN+2XtDtXgVVmf+MEM44WLBK+qpm5oZC8Ml859hqs1SNUql3kyvD
-	 DFBtI1Yhvzb1Ac6iS0wd0UMCp4It/8vXVSVOMyN3QYSWaXswN5P3A73rF+cviMltyA
-	 e6UkaQ43E4gVQ==
-Date: Sun, 20 Sep 2026 11:59:22 +0200
-From: Ingo Molnar <mingo@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, the arch/x86 maintainers <x86@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: [GIT PULL] x86 fixes
-Message-ID: <aq-uep_xbMeGoGTF@gmail.com>
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789898368; cv=none; b=pYJK7n6z2d9alPxSVdHVWHNcmaDjHb5LhdWRlG+Sn2iyO/+ecX1pMkjDAvLZiGOLtz7YD3LYgXqkgDBUQp7LwkJdm6pGyHX1TsBlBBiQ5okicm/l2TVf86gxmwq0Nz9VfnhSKwag0JcjIk4P1NiONZMlMaD/HxFyx4xmk2Z5IMY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789898368; c=relaxed/simple;
+	bh=3mZygXS8hcdF9UOcYnhziL96HcLNndS5lt7/g0olpI0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IkMFqHJ/nQT0bqb3uoJ4P9ntgsMq47eKBlb3jOOuT4eacQD6uRPu1xZXYbpqj48s+usGeULdlJz6WHzq7dtYUzSi83kQvUHfGhcCUyRpL7YWzpFkH1uKaZ3KnUJUBkB+9A/+R9srZJezOkVUNvK347SDlMcULM1e8hY7pSl1zAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=WDhsEfd5; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="WDhsEfd5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=U0
+	N8AvroK2i84JfujNVPvJ5wQkAktO+RLbUeaiRFkgs=; b=WDhsEfd51tjACogpnd
+	GYqp+Pcvrsv6GxPg0jwQKlaV1yauJ2/ijSiac9pniweHfsLcLA3hGughz1O5OG9r
+	R4FogOcFwS6pOzvrKT0YLLw+IqchvMubPW5qBL8Op1zMwt3BLsQx4ut5Fa960JrW
+	WhhyCz9g1souo1gCPRkHnTaEY=
+Received: from lx2.. (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3D0herq9qUuHOBw--.53419S2;
+	Sun, 20 Sep 2026 17:58:55 +0800 (CST)
+From: Zijin Tao <taozj888@163.com>
+To: maintainer@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	theo.lebrun@bootlin.com,
+	conor.dooley@microchip.com,
+	andrew+netdev@lunn.ch,
+	netdev@vger.kernel.org,
+	Zijin Tao <taozj888@163.com>
+Subject: [PATCH] net: macb: rate limit netdev error info print in the data path
+Date: Sun, 20 Sep 2026 17:58:39 +0800
+Message-Id: <20260920095839.62852-1-taozj888@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3D0herq9qUuHOBw--.53419S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWrAry3tw4kuFy5JrWxXrb_yoW5Aw4Upa
+	yUCa95Ww4kGr47Cas7trWkAr1rAr95KryrW3ykGw13Xwn8Ar98WFyIkryYkFW8GFW3Aw1S
+	kr1UZa9rCan5ArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_xhldUUUUU=
+X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC+h9JEWqvrl+NcQAA31
 
-Linus,
+Now the MACB ethernet driver print the netdev error information
+directly by netdev_err(), which would lead to a large number of
+error information print if there was a significant number of
+error or just jumbo packets received when booting.
+For example, it would print a large number of:
 
-Please pull the latest x86/urgent Git tree from:
+macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+...
 
-   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86-urgent-2026-09-20
+in gem_rx() by received a large number of packets without
+RX_SOF or RX_EOF flag set.
 
-for you to fetch changes up to 63edf5a009ae366369a1b484cd9ae4ee7c51946c:
+The unlimited print here would greatly bother and delay
+the system booting process unless the source stop sending
+packets.
 
-x86 fixes:
+So rate limit the netdev error information print in the receive
+and transmit data path.
 
- - Reject the loading of a potentially problematic microcode version
-   on Intel Granite Rapids systems (Chang S. Bae)
+Signed-off-by: Zijin Tao <taozj888@163.com>
+---
+ drivers/net/ethernet/cadence/macb_main.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
- - On FRED, reconstruct the proper #GP context for rejected INT
-   instructions, to fix a signal ABI regression (Matthew Schwartz)
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index b8234ac4b602..c32d48d03008 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -1617,16 +1617,16 @@ static int gem_rx(struct macb_queue *queue, struct napi_struct *napi,
+ 		count++;
+ 
+ 		if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
+-			netdev_err(bp->netdev,
+-				   "not whole frame pointed by descriptor\n");
++			if (net_ratelimit())
++				netdev_err(bp->netdev, "not whole frame pointed by descriptor\n");
+ 			bp->netdev->stats.rx_dropped++;
+ 			queue->stats.rx_dropped++;
+ 			break;
+ 		}
+ 		skb = queue->rx_skbuff[entry];
+ 		if (unlikely(!skb)) {
+-			netdev_err(bp->netdev,
+-				   "inconsistent Rx descriptor chain\n");
++			if (net_ratelimit())
++				netdev_err(bp->netdev, "inconsistent Rx descriptor chain\n");
+ 			bp->netdev->stats.rx_dropped++;
+ 			queue->stats.rx_dropped++;
+ 			break;
+@@ -1829,7 +1829,8 @@ static int macb_rx(struct macb_queue *queue, struct napi_struct *napi,
+ 		unsigned long flags;
+ 		u32 ctrl;
+ 
+-		netdev_err(bp->netdev, "RX queue corruption: reset it\n");
++		if (net_ratelimit())
++			netdev_err(bp->netdev, "RX queue corruption: reset it\n");
+ 
+ 		spin_lock_irqsave(&bp->lock, flags);
+ 
+@@ -2102,7 +2103,8 @@ static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
+ 
+ 	if (status & MACB_BIT(HRESP)) {
+ 		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
+-		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
++		if (net_ratelimit())
++			netdev_err(netdev, "DMA bus error: HRESP not OK\n");
+ 		macb_queue_isr_clear(bp, queue, MACB_BIT(HRESP));
+ 	}
+ 
+@@ -2511,7 +2513,8 @@ static netdev_tx_t macb_start_xmit(struct sk_buff *skb,
+ 		else
+ 			hdrlen = skb_tcp_all_headers(skb);
+ 		if (skb_headlen(skb) < hdrlen) {
+-			netdev_err(bp->netdev, "Error - LSO headers fragmented!!!\n");
++			if (net_ratelimit())
++				netdev_err(bp->netdev, "Error - LSO headers fragmented!!!\n");
+ 			/* if this is required, would need to copy to single buffer */
+ 			return NETDEV_TX_BUSY;
+ 		}
+-- 
+2.34.1
 
- - Add a test for this signal ABI regression the x86
-   self-test suite (Matthew Schwartz)
-
- - Don't emit the new and not yet properly supported EGPR instructions
-   (%r16-%r31) on CONFIG_X86_NATIVE_CPU=y builds (Chang S. Bae)
-
- Thanks,
-
-	Ingo
-
------------------->
-Chang S. Bae (2):
-      x86/microcode/intel: Reject problematic loading on Granite Rapids systems
-      x86/build/64: Prevent native builds from generating EGPR use
-
-Matthew Schwartz (2):
-      x86/fred: Reconstruct the #GP context for rejected INT instructions
-      selftests/x86: Check signal state for rejected software interrupts
-
-
- arch/x86/Kconfig.cpu                     |  11 ++
- arch/x86/Makefile                        |   5 +
- arch/x86/entry/entry_fred.c              |  11 +-
- arch/x86/kernel/cpu/microcode/intel.c    |  26 +++
- scripts/generate_rust_target.rs          |   5 +
- tools/testing/selftests/x86/Makefile     |   2 +-
- tools/testing/selftests/x86/int_signal.c | 311 +++++++++++++++++++++++++++++++
- 7 files changed, 369 insertions(+), 2 deletions(-)
- create mode 100644 tools/testing/selftests/x86/int_signal.c
