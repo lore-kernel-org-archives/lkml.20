@@ -1,93 +1,114 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9411A0B15;
-	Sun, 20 Sep 2026 03:46:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 947DF1A0B15;
+	Sun, 20 Sep 2026 03:46:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789875996; cv=none; b=YC1yDnBidRsEhv4G0VUZD5ytkho4rAWXA0UrYORxoCprDPIAVgyzbypCxS1kiqwPofFLWy+6KaYtdof7UGI5PBeYQot7LxFsnYGqjKUyM8iqqzQ8ikIuGwfy/RYBLiqko3DdxE5gMZtdn2lFp84NJcnEiS4AkXHrFBsWHL6Il6I=
+	t=1789876003; cv=none; b=JozroZQhK+jNCY7AbZ/Xw3QYkcVChe79P54u+1xtvg5IvytOjtTzmGGfc13l+6dYPBavQaDCm5M63/7ziAeZKKtWsr2r2Btd06eFgOiG+w2E3lYZ3D4nSP/ZksmgOAutot94KtGBeVwpD1pPOlefQNFzbIez572/6+l7gb0l1h4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789875996; c=relaxed/simple;
-	bh=NdTPyd+LWM9Y309KiOHZPqBmJkd4QAG94GBiwayKs7A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TFubF5YeVOLIlTYPm38ZXKU4Aa2WPE8kMPG6NQz7+3YbXzXdLAXitPVpFzqirmSVJxA30FlVAVxn8ICFo6b+PCN/uMR4Aa1rubgRcZNKpycIvkpGAn1W94hMTFNT0XUyux8YP/8j1unAIoHDE4fceWDTW9SzkhsqgdTSy/trD2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CUhSp25N; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789876003; c=relaxed/simple;
+	bh=ZbWAqJRTY3VosimGz01P04wQqhvs31GplZgQSEgfbFw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pFQCSaknNLTw92BKf+9EYPPu8NPFsrDG4Rg75OjW8VyWPgf6N3Gv1jpBEo5PPHRl1UCE9128nhralT6yjjYTLHmLLOPoa2DZSlSwq+3+4fn2cqXtVqXajaCBuzDBsT/GHc7tioHzcLR0szWuScLtkx2IMTMYvvDVLO1pYVYHjj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pq1c/x2e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CUhSp25N"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=y7
-	oZm9+z+hbgvMhdVdurGn/wJj516H0abb9OFKdrX3Y=; b=CUhSp25NjxeIffDmP+
-	/N940LDPdGWYrEiVoaZATW3DdU3MW6tc0EN/j5BEZ1ZkIS5HgSjN3MNjvDGSNtw9
-	HwrpjnRQfZjiZ/fjRW5xV42RVUsO6Os0Y8sTE3S/EgFDHfFEmnQHIoo5wRtWs+qe
-	e4PR4UcEPlFT6gh2Cquebmz2A=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgD3f9H3Vq9qa4RSAQ--.43416S2;
-	Sun, 20 Sep 2026 11:46:00 +0800 (CST)
-From: Pengpeng Hou <hppiscas@163.com>
-To: andrew+netdev@lunn.ch
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	richardcochran@gmail.com,
-	horms@kernel.org,
-	hppiscas@163.com
-Subject: [PATCH net v2] net: xscale: publish the IXP46x PTP OF module alias
-Date: Sun, 20 Sep 2026 11:45:57 +0800
-Message-ID: <20260920034557.17734-1-hppiscas@163.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pq1c/x2e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 499CE1F00893;
+	Sun, 20 Sep 2026 03:46:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789876002;
+	bh=RAgjdNuY0GHwXBswA5NShTSJab25cAeZ2wGxG0I/vUo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Pq1c/x2eNDaaA3FhHkOhGuCnsEwXECeh01hVEHOpDv8HFPU3D8PLxh2wVU0nylDaJ
+	 7EaPp5slBBZUiOqsjhzEs7IgscKJPgdM3bXnpCs8IVuHJRaG5hD0rrtfwkhInaUah2
+	 UEwXWAbH8m3JDS27foafZhT7dYncShEItD34AqEMdXClbdFXPJauYFWvvxe4hWYd96
+	 N8ZnwsnLY9Xqn+sIDhK7K9lW5wcmPeM+9vJTKsXnZtJMmVVGCpp7vNL+wlt5H2W4zk
+	 L6Y0Pud3rjcJlvf9NtFTivJRz4pQVpslkC4pi8p+/DINuR9TeguqodaZGqQrIxp572
+	 Ic8aE8TCrC2FA==
+Date: Sat, 19 Sep 2026 20:46:42 -0700
+From: Kees Cook <kees@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Alexey Gladkov <legion@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 09/20] kbuild: implement and use depcheck to check
+ dependency timestamps
+Message-ID: <202609192045.24A5A4E876@keescook>
+References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+ <20260917-build-speedup-v3-9-9ecf4163ff36@kernel.org>
+ <202609171117.35BFDCC13@keescook>
+ <202609171229.31BB336E1@keescook>
+ <aq6_JcIy6gOsN4oa@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgD3f9H3Vq9qa4RSAQ--.43416S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CFyUXryxAw1Dtw43ury8Krg_yoW8GrW5pa
-	y7Ja47uF1vqF4rGan7Ca18uFy5WwsxJryj9a4UGw4ruryY9ryUXF1fKFWUu34jqrWrGryx
-	tr1Yy3Z7CFs5Aw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zR5GYXUUUUU=
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7hhaI2qvVviw0gAA3G
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aq6_JcIy6gOsN4oa@gremlin>
 
-The IXP46x PTP driver matches intel,ixp46x-ptp-timer via its OF table,
-but does not export that table. A module build therefore lacks the OF
-alias used to automatically load the timer driver.
+On Sat, Sep 19, 2026 at 06:02:46PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Thu, Sep 17, 2026 at 01:59:26PM -0700, Kees Cook wrote:
+> > So, yeah, it makes me nervous, and it may make incremental builds less
+> > idempotent. But I can't really find extant problems and the demo is
+> > slightly contrived, but not exactly an impossible situation.
+> 
+> Ack thanks for this!
+> 
+> There is definitely an issue here, your example is fine in the stock kernel
+> but one run late in v3.
+> 
+> Solution is to have depcheck treat any dependency that is itself a target
+> of the same run as never being 'fresh' (it already reads every .cmd file in
+> the directory so has all the dependency information it needs), so that's
+> fixed in v4.
+> 
+> Confirmed that it fixes the demo'd bug here, that touching a header
+> rebuilds exactly the same objects as it did before and that noop build perf
+> was not harmed by the change.
 
-Export the existing table without changing the matching or probe logic.
+Oh very nice! Thank you for finding a solution there. :)
 
-The issue was found by our static-analysis tool.
-
-Fixes: e9e506221b42 ("ixp4xx_eth: Probe the PTP module from the device tree")
-Reviewed-by: Simon Horman <horms@kernel.org>
-Assisted-by: gpt 5
-Signed-off-by: Pengpeng Hou <hppiscas@163.com>
----
-Changes since v1:
-https://lore.kernel.org/all/20260704122722.5715-1-pengpeng@iscas.ac.cn/
-Rewrite the source-analysis explanation as requested by Jakub and
-identify the PTP driver in the subject.
-
- drivers/net/ethernet/xscale/ptp_ixp46x.c |    1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/ethernet/xscale/ptp_ixp46x.c b/drivers/net/ethernet/xscale/ptp_ixp46x.c
-index 558c4f8d23f7..c805d1df5d4e 100644
---- a/drivers/net/ethernet/xscale/ptp_ixp46x.c
-+++ b/drivers/net/ethernet/xscale/ptp_ixp46x.c
-@@ -307,6 +307,7 @@ static const struct of_device_id ptp_ixp_match[] = {
- 	},
- 	{ },
- };
-+MODULE_DEVICE_TABLE(of, ptp_ixp_match);
- 
- static struct platform_driver ptp_ixp_driver = {
- 	.driver = {
-
-base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
 -- 
-2.50.1 (Apple Git-155)
-
+Kees Cook
