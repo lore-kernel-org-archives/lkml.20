@@ -1,130 +1,211 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B8E03559D6;
-	Sun, 20 Sep 2026 18:46:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349032DECBA;
+	Sun, 20 Sep 2026 18:48:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789929967; cv=none; b=PKYQx5opBeo4lDHqx9EEQsHtxlJqsFktRm3+QX/E6kT1ItauFgncaxjD9Y0MhOjLw6F/8rZi9Im2Fht9Eog71qfOHx6awVtySHMep3Mwoi3y8PL7uvLFh5rgT/iNyyd9qtXA7wcQAZncN5AvMZDP7beSaMAuA21B8Q2nVm8p+R0=
+	t=1789930131; cv=none; b=UKr1uMmidUwpnsST6/YSntYELiemp1dnPV76TMi+RC92AeQOOEXLJYwXDseRrQI54peBhUCsIq3Qs7K0ml81UKjjVNTQNuG4EZ42eAeHob8gUtbpVH46/at+tkjzP2fYdHl21UVCICBNmLIs+PY0ngizaQIkZH6N3kvno8NEsC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789929967; c=relaxed/simple;
-	bh=Q3uMs1G6z74jTt5qeS31A+mvx2NgAtq7cA44lxi9nrI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CJDSO/HEy9MQAh4nn5QTQuN84BKmr+hxdTDr42YVOR5BfF36iK2LAF5C7+/mzoGbRZ1zgcO7GORdF/ByndQcvJPwfqEuwSQUn90/jeh6DwyI/dsraRoJAEGScy02s5NHugKocJjtr/PlxJQ5zj5E6CtCdED7k0XVCZb91NPMtfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IECg6RA8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789930131; c=relaxed/simple;
+	bh=GOPsJOreXNlAaKcxbVqRAVMFHexBe7rS+9iBLMLqoSE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B0J9ouFmMHgnMGfo1ITWGC/eJVhmiQB1fmmOt2SoPONnCs63BYtmUIlXSTk0ObqZJ+dDlPKVzlTEuEyxRcGmYeDYGk0EeeEC8OTmrIaYxA02MbNUth17ZTRWa06ItkrY/mXfVrwrrY5lXeh8WjmNgTTxxpAODJHCvjMZ5XxkzVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=xQsC6X39; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IECg6RA8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431801F000FF;
-	Sun, 20 Sep 2026 18:45:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789929965;
-	bh=7ynaufQVtyfTr5NQ4iLsrxfZxiHcy95lGY5BmduC6Mo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=IECg6RA8t5Y5NM/O2OoL6T2FKPBTNxPWYMFFG5dVV6UPBJlyurapze0Oxk9g14wsT
-	 BA6iMjkH6lhbW6ktnVI8U+D2PwRwruPh8xo/e42R0FJIibymnZmCTZuWT44yysLemY
-	 RAV6b0ezBUx5FQlFEP58xX2ToCAgJSSGvhQvIAZ0CA8UWcNDfbl1Du3koLWv1dhDeL
-	 LJdq+MapRumNtkV/j7xWJ/XxzbvxLeLN4D6Ua+9gV+rinWDUswdKlTUj6LYnxWqsO+
-	 HRiVrUM/J9T3Bdm3VK425koantZzNKVn4Z+NLlRu3tsM9cXf0OSGU+U639KHGcTVs+
-	 NWzZzI53CAtew==
-Message-ID: <7074efa0-17f3-45f9-9cde-301f81c68005@kernel.org>
-Date: Sun, 20 Sep 2026 20:45:54 +0200
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="xQsC6X39"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=PaGTwvteuyHqrGuks83fVCl+/8rXJ3r1PwfsllqphCA=; b=xQsC6X39EcIhsWPsQupsJArG8u
+	6VcTENCIP9yRgwbMRUcO3TiX7Eb9RQ2OPm1d1pp7RIEu16AFGqaWNLuFdOZwzXN/UrdAJGM+p9NPs
+	oD5/QZ+iXA4rz5VwNG5pdc4gV5GH2DtblLt1tjKFLTD+dmGlmQvOAK06rW6nJprUNJNb2+vuzTHjV
+	zA5xEK5FJ4bV1ZC3Fms6216/tExXOSEChvQ8BzYEWaavrK2/N5flEQ3eD2E4BLoMlJIHe1KKaJRYP
+	McneMq3osP4BRNZoFmy2wpo1NpXtIv/LZsiximNMf0bNbTSfxMrhPiwv/ITwc1mxjnHZazkvc6sTd
+	AnsrcXkQ==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x8Mac-00000000GMc-3jzi;
+	Sun, 20 Sep 2026 18:48:38 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	driver-core@lists.linux.dev,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-doc@vger.kernel.org
+Subject: [RFC PATCH] debugfs: clarify return values when disabled
+Date: Sun, 20 Sep 2026 11:48:36 -0700
+Message-ID: <20260920184836.3925972-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/28] dt-bindings: sound: Add Apple Macs sound
- peripherals
-To: James Calligeros <jcalligeros99@gmail.com>,
- =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>, David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Ulf Hansson <ulfh@kernel.org>, Amit Kucheria <amit.kucheria@linaro.org>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- Lars-Peter Clausen <lars@metafoo.de>, Vinod Koul <vkoul@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
- Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
- James Schulman <james.schulman@cirrus.com>
-Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.de>, linux-mediatek@lists.infradead.org
-References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
- <20260920-macaudio-v1-1-741cc20a74e5@gmail.com>
-Content-Language: en-US
-From: Sven Peter <sven@kernel.org>
-In-Reply-To: <20260920-macaudio-v1-1-741cc20a74e5@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi,
+debugfs can be disabled at kconfig time (# CONFIG_DEBUG_FS is not set)
+or by using "debugfs=off" on the kernel command line.
 
-On 20.09.26 06:53, James Calligeros wrote:
-> From: Martin Povišer <povik+lin@cutebit.org>
-> 
-> Add binding for Apple Silicon Macs machine-level integration of sound
-> peripherals.
-> 
-> Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
-> Co-developed-by: James Calligeros <jcalligeros99@gmail.com>
-> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
-> ---
->   .../bindings/sound/apple,macaudio.yaml   | 235 +++++++++++++++++++++++++
->   1 file changed, 235 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/apple,macaudio.yaml b/Documentation/devicetree/bindings/sound/apple,macaudio.yaml
-> new file mode 100644
-> index 000000000000..bd844c9928c9
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/apple,macaudio.yaml
-> @@ -0,0 +1,235 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/apple,macaudio.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Sound peripheral integration for Apple Silicon Macs
-> +
-> +description:
-> +  This binding represents the overall machine-level integration of sound
-> +  peripherals on Apple Silicon Macs, starting with the M1 series.
-> +
-> +maintainers:
-> +  - James Calligeros <jcalligeros99@gmail.com>
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - description: First-of-their-kind machines
-> +        items:
-> +          - enum:
-> +              - apple,j180-macaudio
-> +              - apple,j274-macaudio
-> +              - apple,j293-macaudio
-> +              - apple,j313-macaudio
-> +              - apple,j314-macaudio
-> +              - apple,j316-macaudio
-> +              - apple,j375-macaudio
-> +              - apple,j413-macaudio
-> +              - apple,j415-macaudio
-> +              - apple,j473-macaudio
-> +              - apple,j456-macaudio
-> +              - apple,j457-macaudio
-> +          - const: apple,macaudio
+The return values for some debugfs functions in these 2 cases can be
+different. Describe those differences.
 
-We've had some not-so-great experiences with these generic compatibles 
-in the past. I'd just drop it.
+No code changes.
 
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+---
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: driver-core@lists.linux.dev
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-doc@vger.kernel.org
 
+ Documentation/admin-guide/kernel-parameters.txt |    3 +
+ Documentation/filesystems/debugfs.rst           |   24 ++++++++++++--
+ fs/debugfs/file.c                               |    6 ++-
+ fs/debugfs/inode.c                              |   22 +++++++++---
+ include/linux/debugfs.h                         |    5 +-
+ 5 files changed, 47 insertions(+), 13 deletions(-)
 
-Sven
-
+--- linux-next-20260918.orig/Documentation/admin-guide/kernel-parameters.txt
++++ linux-next-20260918/Documentation/admin-guide/kernel-parameters.txt
+@@ -1201,7 +1201,8 @@ Kernel parameters
+ 			        get a -EPERM as result when trying to register files
+ 				or directories within debugfs.
+ 				This is equivalent of the runtime functionality if
+-				debugfs was not enabled in the kernel at all.
++				debugfs was not enabled in the kernel at all,
++				except that the latter returns -ENODEV.
+ 			Default value is set in build-time with a kernel configuration.
+ 
+ 	debugpat	[X86] Enable PAT debugging
+--- linux-next-20260918.orig/include/linux/debugfs.h
++++ linux-next-20260918/include/linux/debugfs.h
+@@ -110,8 +110,9 @@ struct dentry *debugfs_create_file_short
+  * you are responsible here.)  If an error occurs, ERR_PTR(-ERROR) will be
+  * returned.
+  *
+- * If debugfs is not enabled in the kernel, the value -%ENODEV will be
+- * returned.
++ * If debugfs is not enabled in the kernel build, the value -%ENODEV will be
++ * returned. If debugfs is enabled in the kernel build but is disabled
++ * on the kernel command line, the value -%EPERM will be returned.
+  *
+  * If fops points to a struct debugfs_short_fops, then simple_open() will be
+  * used for the open, and only read/write/llseek are supported and are proxied,
+--- linux-next-20260918.orig/Documentation/filesystems/debugfs.rst
++++ linux-next-20260918/Documentation/filesystems/debugfs.rst
+@@ -41,7 +41,17 @@ dentry pointer which can be used to crea
+ clean it up at the end).  An ERR_PTR(-ERROR) return value indicates that
+ something went wrong.  If ERR_PTR(-ENODEV) is returned, that is an
+ indication that the kernel has been built without debugfs support and none
+-of the functions described below will work.
++of the functions described below will work. If the kernel was built with
++debugfs support but it has been disabled by using "debugfs=off" on the
++kernel command line, ERR_PTR(-EPERM) is returned.
++
++.. note::
++
++  It's expected that most callers should _ignore_ the errors returned
++  by this function. Other debugfs functions handle the fact that the "dentry"
++  passed to them could be an error and they don't crash in that case.
++  Drivers should generally work fine even if debugfs fails to init or is
++  disabled.
+ 
+ The most general way to create a file within a debugfs directory is with::
+ 
+@@ -57,7 +67,17 @@ implement the file's behavior.  At a min
+ operations should be provided; others can be included as needed.  Again,
+ the return value will be a dentry pointer to the created file,
+ ERR_PTR(-ERROR) on error, or ERR_PTR(-ENODEV) if debugfs support is
+-missing.
++missing.  If the kernel was built with debugfs support but it has been
++disabled by using "debugfs=off" on the kernel command line, ERR_PTR(-EPERM)
++is returned.
++
++.. note::
++
++  It's expected that most callers should _ignore_ the errors returned
++  by this function. Other debugfs functions handle the fact that the "dentry"
++  passed to them could be an error and they don't crash in that case.
++  Drivers should generally work fine even if debugfs fails to init or is
++  disabled.
+ 
+ Create a file with an initial size, the following function can be used
+ instead::
+--- linux-next-20260918.orig/fs/debugfs/file.c
++++ linux-next-20260918/fs/debugfs/file.c
+@@ -1205,8 +1205,10 @@ static const struct file_operations fops
+  * you are responsible here.)  If an error occurs, ERR_PTR(-ERROR) will be
+  * returned.
+  *
+- * If debugfs is not enabled in the kernel, the value ERR_PTR(-ENODEV) will
+- * be returned.
++ * If debugfs is not enabled in the kernel build, the value ERR_PTR(-ENODEV)
++ * will be returned. If debugfs is enabled in the kernel build but is disabled
++ * by using "debugfs=off" on the kernel command line, the value ERR_PTR(-EPERM)
++ * will be returned.
+  */
+ struct dentry *debugfs_create_blob(const char *name, umode_t mode,
+ 				   struct dentry *parent,
+--- linux-next-20260918.orig/fs/debugfs/inode.c
++++ linux-next-20260918/fs/debugfs/inode.c
+@@ -339,8 +339,10 @@ MODULE_ALIAS_FS("debugfs");
+  * doesn't exist or an error occurs, %NULL will be returned.  The returned
+  * dentry must be passed to dput() when it is no longer needed.
+  *
+- * If debugfs is not enabled in the kernel, the value -%ENODEV will be
+- * returned.
++ * If debugfs is not enabled in the kernel build, the value ERR_PTR(-ENODEV)
++ * will be returned. If debugfs is enabled in the kernel build but is disabled
++ * by using "debugfs=off" on the kernel command line, the value ERR_PTR(-EPERM)
++ * will be returned.
+  */
+ struct dentry *debugfs_lookup(const char *name, struct dentry *parent)
+ {
+@@ -562,8 +564,10 @@ EXPORT_SYMBOL_GPL(debugfs_create_file_si
+  * you are responsible here.)  If an error occurs, ERR_PTR(-ERROR) will be
+  * returned.
+  *
+- * If debugfs is not enabled in the kernel, the value -%ENODEV will be
+- * returned.
++ * If debugfs is not enabled in the kernel build, the value ERR_PTR(-ENODEV)
++ * will be returned. If debugfs is enabled in the kernel build but is disabled
++ * by using "debugfs=off" on the kernel command line, the value ERR_PTR(-EPERM)
++ * will be returned.
+  *
+  * NOTE: it's expected that most callers should _ignore_ the errors returned
+  * by this function. Other debugfs functions handle the fact that the "dentry"
+@@ -660,8 +664,10 @@ EXPORT_SYMBOL(debugfs_create_automount);
+  * unloaded, you are responsible here.)  If an error occurs, ERR_PTR(-ERROR)
+  * will be returned.
+  *
+- * If debugfs is not enabled in the kernel, the value -%ENODEV will be
+- * returned.
++ * If debugfs is not enabled in the kernel build, the value ERR_PTR(-ENODEV)
++ * will be returned. If debugfs is enabled in the kernel build but is disabled
++ * by using "debugfs=off" on the kernel command line, the value ERR_PTR(-EPERM)
++ * will be returned.
+  */
+ struct dentry *debugfs_create_symlink(const char *name, struct dentry *parent,
+ 				      const char *target)
+@@ -820,6 +826,10 @@ EXPORT_SYMBOL_GPL(debugfs_lookup_and_rem
+  *
+  * If debugfs is not enabled in the kernel, the value -%ENODEV will be
+  * returned.
++ * If debugfs is not enabled in the kernel build, the value %-ENODEV
++ * will be returned. If debugfs is enabled in the kernel build but is disabled
++ * by using "debugfs=off" on the kernel command line, the value %-EPERM
++ * will be returned.
+  */
+ int __printf(2, 3) debugfs_change_name(struct dentry *dentry, const char *fmt, ...)
+ {
