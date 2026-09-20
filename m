@@ -1,56 +1,81 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f36.google.com (mail-pz2-f36.google.com [74.125.228.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2BF3DA7C8;
-	Sun, 20 Sep 2026 06:35:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765DF28315D
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 06:37:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789886156; cv=none; b=knVn+iov5egBfaa9NEzWlPECtUmDW5FEgcGCmjk2Cr6HXYvq7/hYRSQzesYNo82cUZVMKw4PxA2IU9w8eKqe7KQNBsAHW2bTAXf5voMZiyg+xgDX33bpxhVCWhkfIVgctPLJf2nXGULq54+nR+WRGUMoIBs6d/i/fUalvvmoE3s=
+	t=1789886236; cv=none; b=lOLM4u/GHeiahXjLSCDZtHXZEP/5jtXIgBvgIUtKgQMoLg6CA/Khtfn3qHCHePHTdgAC5zhjjT/IuPq2MBq0av48+A3sMihDE4fbSxXOg1oQSQqpEhl0Hz7M/9f6SMqSQ/20zOfP541uZqTx+H6Cg/PLC9XKRlYdIUPN3D3OJhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789886156; c=relaxed/simple;
-	bh=f3kEV6qCWROIy4is1IzV6l2A5scYFq8hQZHNNsWqp/M=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=SBwStihdFAApyW7poW1UXnKVM4MYrEH/LGIrgFJNGJ99aOBwbOuHVS0StPRIE9yQns+9iGCZPYO/qJ2PmGsDZrRb8dz4k/XLAY+9KWq8wwfQnX0JMsZDOXwDKNqjZYaJw5emUJo1BsjNOeTCpRllXxH8SDv8PywyOQy9SbUEUbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LbO4g6Mp; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789886236; c=relaxed/simple;
+	bh=cPVi0xJfBEiLqCtm3UOfyLxn+P7c3BdOroSZ3AH7Hqc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UOC00sCBIoORLpjf3PvkWfDTHhpPEY8oUvjOMSkWc39WuQ/VkFT2AtGg6IoQA3CZSmIq/PmO62TJkF70sIdPqgjhteejmGAmrly+lqddWiTk9Y0pJtCzo5BVxvi1RqmecHEDxKbQpiBqU+I110h6mlGA/+RLVrhi+cFQqZJP8yw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RC4EMiDH; arc=none smtp.client-ip=74.125.228.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LbO4g6Mp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=h+
-	Xk56gXA8V+uCWJm4Hp2x1B0l2K4jdoVWRG3XTXLjw=; b=LbO4g6MpuPBhySYxtq
-	KYjGy6U1rl3Rlm8BJ06V/jgw6oWEe09AcqwYO6Yq3R4pyW2ILslcOUQNs4dsNKJi
-	ATIgk8x3oPQXzHYBumlgFvI82M+caoiId7gR1c3r6ZI3wRmQV7DMSn9qP6CTVk1V
-	0O1jksZrIjiMIjgylAH/nE5xI=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3F8OCfq9qG42sBw--.49698S3;
-	Sun, 20 Sep 2026 14:34:44 +0800 (CST)
-From: Feng Yang <yangfeng59949@163.com>
-To: kpsingh@kernel.org,
-	matt@bobrowski.net,
-	song@kernel.org,
-	jolsa@kernel.org,
-	ihor.solodrai@linux.dev,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	yonghong.song@linux.dev,
-	emil@etsalapatis.com,
-	rostedt@goodmis.org,
-	mhiramat@kernel.org,
-	mathieu.desnoyers@efficios.com
-Cc: bpf@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RC4EMiDH"
+Received: by mail-pz2-f36.google.com with SMTP id 41be03b00d2f7-cc1cea34f01so1694999a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 23:37:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789886235; x=1790491035; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cPVi0xJfBEiLqCtm3UOfyLxn+P7c3BdOroSZ3AH7Hqc=;
+        b=RC4EMiDHBv0Fb/J5GP+qlU9ArEm7Kx3E2JbZlSPcErhIRx1cuq8SGaSLoz4nhC0R1v
+         /H+9I1rxesKqqVtYVEaHgUSXEezM5lQ0MeO0UDVtluaJaCExe+sinoPJtfiDu6fSvi40
+         2feFAOy/SzOObS/hCKTWmaDIkn60jpt2fA9BUJrT0eHHnVi9VYPt2RYm7NwAdJlaU55H
+         oFR1vagBFPYMInxJfWnWipzvRRSgajVa4c98VGxUMXhqhrsEFtZmwXKZdYqheovsCvCV
+         /3sWb0hdYq5+zeCZGwDL9slQ0UDCbINGMs7uqZsiJVya0VjJstID9UHr59G7+0g6xhr1
+         EEBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789886235; x=1790491035;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cPVi0xJfBEiLqCtm3UOfyLxn+P7c3BdOroSZ3AH7Hqc=;
+        b=hwvID2m0AsXmYk0OnOHzjOVndmHIpzvbHUFpJO+vkyuf40fMyhHEiRyFfNf5U3lU/B
+         mksDXGsWO0EnpdruXhO9eXsnABKM2yTaXRuPkt7+rpedkM5qTdUw0U8kw/KQ+G55gaUn
+         deuKX7cu8CF10TF0oE6syCo3eYtP1G/LJSffV22dN6AhLz+D3vOVOhWf6OmYbFpprYi5
+         cay9JS2jq/4eDipU1muQBV1DlL8GlPpjwVputf9fOW/qDl/xh2/Be0sy9pWHP3agFf9x
+         7HhRq8tC9AHi1aA2D+8lkU+LcmbYiXeKi7lb7e4HH7Q+l9NlFmqS87F78A0lI67Wapc9
+         e2Gg==
+X-Forwarded-Encrypted: i=1; AKwUvBycJJWAdlNGgJFvyR54pyT7+gaJp1/8zDXDHzrZWGNXQ6+GoZGvSfqhMmSJ4gfxPruuiYql1Xw5itVQxpU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkraRSHXNtOjqFNzEGVqMoU83jjKUtOLbRa5a2HQ9Jv01wEQFs
+	xjno0lg2MVDRQuNIayEmhkrTMWjBBDl8UQRCHyhaE5dkhxD/tlUSo7ix
+X-Gm-Gg: AYBFou1UXWymOt9qkK9QYcmfSs9utPErIMzj2oKHAkg8ABjPPwPlBt0IrMCGUvKaNE7
+	Wte2NTjXmffzNR0pqlq1/yqkou0V0yGKQPS2Zk3jr3t8XzH7G4HBH2sVcun9YBR9LeCFs0Eyqi/
+	FHBTQ509iOZsDLTjRYTvma+ztzmHzMww3kaiivdea+WgCM4f1O0+2f+UspVM1q9z/YEyZhWQoLQ
+	q6UhbSvz8Dw/8fu+tHugurXXQd79Nv0cCKFYU+HLLL0dUlwv1svh6SVNGc1u/AuHNuhLhS9CTva
+	LxIfCEe0Nk3sOnRe52PHXJR6hKS2JMR+PeZQBmthX9n8pJDGH3kEMDZ0H2u8TGpM1WFgO34MI6X
+	zGkdiB//HQVRbeNFkNr3mMdNLvQQ1jrmx80+Y3tJoEFcub6x7U8gVDhaKEWbDGxWloRe8wraghV
+	jh+OFb4vp4TEn+fvVcQYEryrKipYtb683f+VEbruuf8EzFWJTmYdKPdiDAO1VrE8Zbd7Mr8enDo
+	Qp4Z0Bz8odMz7eKiZkUqzBarScsfp3OUw==
+X-Received: by 2002:a05:6a20:9e4a:b0:3da:e1b5:2baa with SMTP id adf61e73a8af0-3dd8c3f80bcmr12893395637.2.1789886234714;
+        Sat, 19 Sep 2026 23:37:14 -0700 (PDT)
+Received: from archlinux ([223.188.166.241])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72aea2da9sm1666420a12.18.2026.09.19.23.37.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 23:37:13 -0700 (PDT)
+From: Suryansh Singh <technosfan14@gmail.com>
+To: baoshuwen2013@outlook.com
+Cc: emreleno@gmail.com,
+	hansg@kernel.org,
+	hello@kursatabayli.dev,
+	ilpo.jarvinen@linux.intel.com,
+	krishna.chomal108@gmail.com,
 	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: [PATCH bpf-next 2/2] selftests/bpf: Check bpf_skb_output() tracing restrictions
-Date: Sun, 20 Sep 2026 14:34:42 +0800
-Message-Id: <20260920063442.499577-2-yangfeng59949@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260920063442.499577-1-yangfeng59949@163.com>
-References: <20260920063442.499577-1-yangfeng59949@163.com>
+	platform-driver-x86@vger.kernel.org,
+	radheykalra901@gmail.com,
+	technosfan14@gmail.com
+Subject: Re: [PATCH] platform/x86: hp-wmi: add support for OMEN 16-am2xxx boards
+Date: Sun, 20 Sep 2026 12:06:31 +0530
+Message-ID: <20260920063631.142985-1-technosfan14@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <SI2PR04MB58957D08A31E56D73C751885A2862@SI2PR04MB5895.apcprd04.prod.outlook.com>
+References: <SI2PR04MB58957D08A31E56D73C751885A2862@SI2PR04MB5895.apcprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,80 +83,31 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3F8OCfq9qG42sBw--.49698S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZFy5JrW5AF48KF4rur45ZFb_yoW8uw13p3
-	Wkt39xKrykXF42gw4fAa1xZwnIqa1kZrWYvr4Sqw1ayr43Xrs7XF1IkF4Ygw1fZr4UuryF
-	vrW2gFW7Aw4kAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j12NtUUUUU=
-X-CM-SenderInfo: p1dqww5hqjkmqzuzqiywtou0bp/xtbC8gVHv2qvfoWOSgAA31
 
-From: Feng Yang <yangfeng@kylinos.cn>
+On Sat, Sep 19, 2026 at 09:24:25 +0800, Shuwen Bao wrote:
+> Add 8F1C to the OMEN thermal profile board list. On this platform
+> the EC firmware also arms its own thermal profile revert timer (EC
+> offset 0x63, armed with 0x5a when performance is selected) and
+> switches back to the balanced profile once it expires, so also add
+> the board to omen_timed_thermal_profile_boards in order to have the
+> driver clear the timer and set the NOTIMER|TURBO flags when
+> switching to the performance profile. Testing further showed that
+> this board uses v0 commands, so also add it to
+> omen_thermal_profile_force_v0_boards.
 
-Add verifier coverage for the bpf_skb_output() tracing policy. Verify
-that an fentry program can still use the helper, while the equivalent
-fexit program is rejected at load time.
+Thanks for the patch.
 
-Signed-off-by: Yun Lu <luyun_611@163.com>
-Signed-off-by: Feng Yang<yangfeng@kylinos.cn>
----
- .../bpf/progs/verifier_helper_restricted.c    | 32 +++++++++++++++++++
- 1 file changed, 32 insertions(+)
+It is slightly unusual to see a board ID ending up in all 3 arrays.
+(I believe no other board is present in the base, force v0 and
+timed thermal profile simultaneously.)
 
-diff --git a/tools/testing/selftests/bpf/progs/verifier_helper_restricted.c b/tools/testing/selftests/bpf/progs/verifier_helper_restricted.c
-index 889c9b78b912..058e71927cd5 100644
---- a/tools/testing/selftests/bpf/progs/verifier_helper_restricted.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_helper_restricted.c
-@@ -3,6 +3,7 @@
- 
- #include <linux/bpf.h>
- #include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
- #include "bpf_misc.h"
- 
- struct val {
-@@ -17,6 +18,13 @@ struct {
- 	__type(value, struct val);
- } map_spin_lock SEC(".maps");
- 
-+struct {
-+	__uint(type, BPF_MAP_TYPE_PERF_EVENT_ARRAY);
-+	__uint(max_entries, 1);
-+	__type(key, __u32);
-+	__type(value, __u32);
-+} perf_event_map SEC(".maps");
-+
- SEC("kprobe")
- __description("bpf_ktime_get_coarse_ns is forbidden in BPF_PROG_TYPE_KPROBE")
- __failure __msg("program of this type cannot use helper bpf_ktime_get_coarse_ns")
-@@ -165,4 +173,28 @@ l0_%=:	exit;						\
- 	: __clobber_all);
- }
- 
-+SEC("fentry/skb_tx_error")
-+__description("bpf_skb_output is allowed in BPF_TRACE_FENTRY")
-+__success
-+int BPF_PROG(skb_output_fentry, void *skb)
-+{
-+	__u64 meta = 0;
-+
-+	bpf_skb_output(skb, &perf_event_map, BPF_F_CURRENT_CPU,
-+		       &meta, sizeof(meta));
-+	return 0;
-+}
-+
-+SEC("fexit/skb_tx_error")
-+__description("bpf_skb_output is forbidden in BPF_TRACE_FEXIT")
-+__failure __msg("program of this type cannot use helper bpf_skb_output")
-+int BPF_PROG(skb_output_fexit, void *skb)
-+{
-+	__u64 meta = 0;
-+
-+	bpf_skb_output(skb, &perf_event_map, BPF_F_CURRENT_CPU,
-+		       &meta, sizeof(meta));
-+	return 0;
-+}
-+
- char _license[] SEC("license") = "GPL";
--- 
-2.43.0
+But, it has been explained well in the commit message and tested,
+so it is completely plausible.
 
+Oh, and since the first revision of this patch had a corrupted
+patch file (stated by the maintainer), I did apply it to check,
+and it works.
+
+LGTM.
+
+Reviewed-by: Suryansh Singh <technosfan14@gmail.com>
