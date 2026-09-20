@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CD63C1D70;
-	Sun, 20 Sep 2026 15:16:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BAE13AA51F;
+	Sun, 20 Sep 2026 15:26:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789917417; cv=none; b=TOQ1E1hKq5qSR7qsi7YroblXjf+5E41RviBjkZzM/n8sX+HyFPoeheAMaDD1/fLheEIdbN+akgDEvSKQ22o+sNQfr5PwxuVMI0H1ftEnzL/xt5oqbLUg7AnQHK/MU/+yevawOXjKIXg3cvPA7eiH40iPebkX7t6cDbcCUefFkQg=
+	t=1789917997; cv=none; b=tL1QauMfjhPCdG4p7+X5q/MNPNSDvfpRTrEiXznyFjTsL4BiIzqDglNZGwWxSqkI2Dgsm/orTUG/kF4lqwUJXuPsVqw0ZSFep5CEO3oYmB7I38JqYH39Pqq97gqI0O7vAt0YCfcs5uo7uvGkcKIJz/+dCNqW+qkJNNFy/X4Eddk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789917417; c=relaxed/simple;
-	bh=PwyZVcSxXjJ9yYO+cCnpQkrou93zJMggwO78VtNhCtI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aDIDSImAVxPYZoIYXIERQD32ZIxbHiJPZmnzqhPWkLUG/AVrDxHV8D946BYZybVy/zAYyieFN423FjPumCGk4W33cwOEuJ4AtGR+matfHUPnc6m4bFXyOm6k0Xt312EMy8nBFX63gfPH/7sisG/I5fz2G86QYXz6tAFM6LoAbxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OnAGPvyV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789917997; c=relaxed/simple;
+	bh=Kd3DEycZCT9xrEKR2OyomQn9mkQPQi6S0yNMBwviiQU=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=nmbkL8BVisXYydHyUzyMPuibh90dyieQY+nc6YXcB6jX7WCztbVWjIg/GZKXvxWuL5ZnO1pktUCB0Y5bdxyoID/s/xGgcNmQKxOGI3TZQNdDcy7KD2FknGwwm+eWyqRvH74PxjGK+sYcbS68KhVmx5AEOTX0dBsxITLfiFX84Xo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dfv7TiYj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OnAGPvyV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAA8E1F000FF;
-	Sun, 20 Sep 2026 15:16:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dfv7TiYj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ECAF1F000FF;
+	Sun, 20 Sep 2026 15:26:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789917416;
-	bh=2lDJLRD0tWKpTG3FemqC63jSPLEGJkOuVrxQR96bHhs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OnAGPvyVu9vBxlC+RUtW2mmfYe6GcvhdDKhk5hRP6CDFDcGPQLUPpe92Puxwn/sRt
-	 hbjFQrZSjTy6zaAb6Y7JG7l7dWhaUT0XsCD8q9MGasluvxgs8/cQYd5HVkJSQy7AeP
-	 A/r6Hla3m/q2EhnmmFozlhmV/2qMeBYPVACElKTOc5wc9jWQRpTWZ520N1vPpI2iEb
-	 Ce7MyE5iWFMh6uqijxTNDSFg9m9hdamIkf13ODzgfCqVDAZhvfUyfYp3eeBUNyj1S+
-	 Zllfx10IDtZJ542iPEeeW5q1C0wTbza8aDNTMER2EoDgDzhCLnq+hX/zATKJ/3J4zo
-	 Mr96Z2+pttpaA==
-Message-ID: <7553dff6-004a-46a7-88c2-728651366113@kernel.org>
-Date: Sun, 20 Sep 2026 17:16:47 +0200
+	s=k20260515; t=1789917996;
+	bh=U4xyNahx++UeRE+3duparWGVDTSmJTCo/Jj3/jlmSRs=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=Dfv7TiYjmnoWMGWqCZXmyp5LK7WO8c0cvUn8efVlQZ++xIZC7JhOOtTUQW8BpvuaB
+	 zjaXYWtnpFJcyjYd8pvRc08g6LQTZCTad1geVmlTiam1TpqHm4r4s+dLIc+0uJcCTg
+	 4KUXMzlG/Zsa1q0JL/EIM0DAu0Bvc5eDmnqBj/HxntTFauJMaAD+FUsUcQVQCsLJJX
+	 zB9BTqc97sf9x+dwuI6g8DlynmDOLp5L8L3uU+MGXIeXR12OibMQKCCW2hTkuC9gtD
+	 elECGKU1JIAV6tVJE7j8MGyBMmsKqUwfZkbFuuiDPpb2gUGa8nDiNpShZuxZh9FnE+
+	 9YihPYJQY5djg==
+Message-ID: <0e8b5e26-aeba-4a19-9453-206d51661d71@kernel.org>
+Date: Sun, 20 Sep 2026 17:26:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,30 +35,18 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/4] arm64: dts: google: Add initial dts for
- frankel/blazer/mustang
-To: Peter Griffin <peter.griffin@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?=
- <andre.draszik@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Arnd Bergmann <arnd@arndb.de>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>,
- Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- soc@lists.linux.dev, Douglas Anderson <dianders@chromium.org>,
- Juan Yescas <jyescas@google.com>, RD Babiera <rdbabiera@google.com>,
- Brian Norris <briannorris@google.com>,
- William McVicker <willmcvicker@google.com>, kernel-team@android.com,
- linux-serial@vger.kernel.org, Brian Norris <briannorris@chromium.org>
-References: <20260918-contrib-pg-pixel10-initial-dts-v4-0-745eaca28b1a@linaro.org>
- <20260918-contrib-pg-pixel10-initial-dts-v4-3-745eaca28b1a@linaro.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH 2/2] ARM: dts: imx50: add support for Amazon Kindle 4
+ (Yoshi)
+To: Andrii Salivon <andrijsalivon@plajta.eu>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Frank Li <Frank.Li@nxp.com>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260920135456.3192247-3-andrijsalivon@plajta.eu>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -103,30 +91,42 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260918-contrib-pg-pixel10-initial-dts-v4-3-745eaca28b1a@linaro.org>
+In-Reply-To: <20260920135456.3192247-3-andrijsalivon@plajta.eu>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18/09/2026 21:05, Peter Griffin wrote:
-> From: Douglas Anderson <dianders@chromium.org>
+On 20/09/2026 15:54, Andrii Salivon wrote:
+> Add initial device tree for the Amazon Kindle 4 non-touch e-reader
+> (codename "yoshi", mainboard marked E01100), based on the i.MX50 SoC.
 > 
-> Add initial device trees for frankel (Pixel 10), blazer (Pixel 10
-> Pro) and mustang (Pixel 10 Pro XL). These device trees are enough to
-> boot to a serial prompt using an initramfs.
+> This enables the console (UART1) and internal eMMC (eSDHC3), tested
+> booting to a full Arch Linux ARM userspace with systemd on real
+> hardware.
 > 
-> Currently only Laguna B0 silicon found in mass production phones is
-> officially supported. Further revisions such as A0 silicon and EVT
-> devices maybe added in the future if they are useful. As of today,
-> these device trees boot fine on EVT devices with A0 silicon.
+> Signed-off-by: Andrii Salivon <andrijsalivon@plajta.eu>
+
+Your patches goes unthreaded. Just use b4 to submit your work.
+
+> ---
+>  arch/arm/boot/dts/nxp/imx/Makefile            |  3 +-
+>  .../boot/dts/nxp/imx/imx50-amazon-yoshi.dts   | 60 +++++++++++++++++++
+>  2 files changed, 62 insertions(+), 1 deletion(-)
+>  create mode 100644 arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts
 > 
-> A few things can be noted about these device trees:
+> diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
+> index 1a2539fa19b4..dd508451286d 100644
+> --- a/arch/arm/boot/dts/nxp/imx/Makefile
+> +++ b/arch/arm/boot/dts/nxp/imx/Makefile
+> @@ -24,7 +24,8 @@ dtb-$(CONFIG_SOC_IMX35) += \
+>  	imx35-pdk.dtb
+>  dtb-$(CONFIG_SOC_IMX50) += \
+>  	imx50-evk.dtb \
+> -	imx50-kobo-aura.dtb
+> +	imx50-kobo-aura.dtb \
+> +	imx50-amazon-yoshi.dtb
 
+Also here, why adding at the end. It only increases chances of conflicts.
 
-I actually forgot if you intend me to pick it up. I assume it's not for
-me to pick up, but nevertheless let me know if something is needed from me.
-
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
