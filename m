@@ -1,73 +1,75 @@
-Received: from mail-10697.protonmail.ch (mail-10697.protonmail.ch [79.135.106.97])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 321E5262FD0
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 13:12:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005593E40F2;
+	Sun, 20 Sep 2026 13:13:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789909979; cv=none; b=IGLDaYGaAQzJHoKLhzn8+NtPOa3XtT74CMj7jkNwdXlMT0h+l/pLUA054Z+PatmaxxlAsFb5u8+iZUjcU3zbjSD3G/c9e1og1EoIcbvTctbBFEePFaraEtQJ7OQZXkYAqu8ioOJ4VbGQ58W2ARuBlIAEQMhdSpEtryX9zFDhUUM=
+	t=1789909990; cv=none; b=IU89yaT7xyYVoByjntshNQtHn+y9BibiZfgRexKp3BA01LeG24ofhkk+AdvzGC1okUboe1gZdfO1fM1vcXzdOMxYYV2vNJVf040iSo3B53Rs/h2AEN+UmbibE0IwTFlU5iwl45gMlZ3oHRxvE7T3IcqWoad5AC9BZH44dnZrDD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789909979; c=relaxed/simple;
-	bh=QoW+zTpFe/hAimq+Yvo2aGAQOgYJWR0s6ZvGeaJGaRc=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=JRJbv70Qf9O8u4m+bPGj5IRqzTTSrcIIgxZZM6VQj9QcOJzqDiD4VxQNuFqz3YKQykHzmgyvxEplxAK/G8isjIxT9Fa2eroI0SAB15XlBIGkWrksxUR5F3o2GNFDy1AxN1f4SautnADv+Yk9dsv45R7XokTcEaX1Ujyd/hThqSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=G3uXNT1k; arc=none smtp.client-ip=79.135.106.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1789909990; c=relaxed/simple;
+	bh=o2pdwhMeRimlcFmeKbTvylW3D2mzBAAa+DZot940NZY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=huKFaaG587aCMGeT5fMmpa2cJaVZDyQQLstWkf90yefYEGGknVED8tHUkn0/tVpThpBxsTAb3u70GbG8qBoGCPilw6F6svj2Uxgfgnm5Mtx+CZBYxunX82rwop2qLfNp5HCeZU64leoUKdYezK2dLDzNy68bePsSdB8XCGxAolk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZrzDEdbi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="G3uXNT1k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1789909971; x=1790169171;
-	bh=QoW+zTpFe/hAimq+Yvo2aGAQOgYJWR0s6ZvGeaJGaRc=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=G3uXNT1kYEm94xraSWzckEela216RdStJaqZT6vQK/Ol0svOc91mGemgX1qiySh1y
-	 iKhGHwdnOn//clS/JKeMR+nG3yQklgktCs1h4p+k3gAM436Q92e6FocGTfDWXPKFN3
-	 KFkyVZs3khIsdYX1drKCkO+jvbvazrPgy2RZzUyVnwM9j8kXq4cGV80qcsGNms/Bbr
-	 h9kdyq1C3TiAilNEIw7W4RFsuRnMy+7eG1jb1wgdfBwUpqjst1UpuiLmuKIMocWWeP
-	 tfrdBn/A/ALMgZhWn6Ge27NslVxGHc3V0HO/of6Do3fuLnuihWBpPm1HWOX3ztIQbR
-	 T9CL9QUdc/JtA==
-Date: Sun, 20 Sep 2026 13:12:47 +0000
-To: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-From: Turritopsis Dohrnii Teo En Ming <teo.en.ming@protonmail.com>
-Cc: "ceo@teo-en-ming-corp.com" <ceo@teo-en-ming-corp.com>
-Subject: CISA Flags Three Linux Kernel Vulnerabilities Exploited in the Wild
-Message-ID: <gqrUYA2c4s1H71Vwz26ua_al_No7q6A93kFDxfgK9Mfpjvm2DEKc-UClyceXpg38E0Je1QkqRfeylHCYOjWL_cte52kfwcpqEOk11gw2N5w=@protonmail.com>
-Feedback-ID: 39510961:user:proton
-X-Pm-Message-ID: b474eb4fe8ede1918c6ab51094ea59f8c16f803c
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZrzDEdbi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD8301F000FF;
+	Sun, 20 Sep 2026 13:13:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789909984;
+	bh=r5ELjAIpHRlkJUa+hT8eIBelfH7GALLeX3V3acfUJV8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZrzDEdbiJrUZQu4+qtloEJwle/dju3mnN+1+3mgPOxiGZGJlvJtg99A5W5ZFI8iTc
+	 4+opUMM/1qODOwkO1h6WOh016hXxSC4u1q7B7CJeq5ImGW7Utc3riH/cno7TgS1Tup
+	 3ds8NZqrrU6QT5RQM5evslOcki8VeDW+zBf791Xh1DjNhFjt9wsrfAw9ou8QY6N2ud
+	 xrLv9Wuj8DSWslkGGuTdAOLAyMUPJji4Zvz4HMthGNQZK81iPV/3lAEgwmG/BpA5YN
+	 9+6S4523eJKMYQ+7XUw9WQjzg7vfbzZuPCf0FEW28aoHAlliZGbbuZ5DGVBGMbhukL
+	 BfMotXd26bfsg==
+From: SJ Park <sj@kernel.org>
+To: Zenghui Yu <zenghui.yu@linux.dev>
+Cc: SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org
+Subject: Re: [PATCH] mm/damon/api: remove unused NR_DAMOS_* enumerators
+Date: Sun, 20 Sep 2026 06:12:59 -0700
+Message-ID: <20260920131300.48929-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <e0c63f91-4d33-469e-a584-f97fdf8c3cc5@linux.dev>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Subject: CISA Flags Three Linux Kernel Vulnerabilities Exploited in the Wil=
-d
+On Sun, 20 Sep 2026 20:34:48 +0800 Zenghui Yu <zenghui.yu@linux.dev> wrote:
 
-Good day from Singapore,
+> On 9/20/26 6:00 PM, SJ Park wrote:
+> > On Sun, 20 Sep 2026 09:20:28 +0800 Zenghui Yu <zenghui.yu@linux.dev> wrote:
+> > 
+> > > From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+> > >
+> > > NR_DAMOS_ACTIONS, NR_DAMOS_QUOTA_GOAL_METRICS, and NR_DAMOS_WMARK_METRICS
+> > 
+> > More than 72 columns.
+> 
+> I learnt from submitting-patches.rst that
+> 
+>   - The body of the explanation, line wrapped at 75 columns, which will
+>     be copied to the permanent changelog to describe this patch.
+> 
+> But I'm also fine with the 72 columns rule for damon patches (or for mm
+> patches?).
 
-Here is an article which I would like to share.
-
-Article: CISA Flags Three Linux Kernel Vulnerabilities Exploited in the Wil=
-d
-Link: https://thehackernews.com/2026/09/cisa-flags-three-linux-kernel.html?=
-m=3D1
-Date of article: 19 Sep 2026
-
-Thank you.
-
-Regards,
-
-Mr. Turritopsis Dohrnii Teo En Ming
-Targeted Individuals Singapore
-Government-Induced Schizophrenia, Government-Induced Health and Medical Pro=
-blems, and Government-Induced Extreme Poverty for the Past 20 Years (Govern=
-ment Persecution)
-20th September 2026 Sunday 9.12 pm Singapore Time
+Ah, thank you for pointing that.  Let's use 75 columns.
 
 
+Thanks,
+SJ
 
-
-
+[...]
