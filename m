@@ -1,121 +1,135 @@
 Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B913E0C5F
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:13:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789938837; cv=pass; b=aPhLwTdmWHlrWy94HRQOJHW09GgmhQcVtyeX09RrQEZvKt6fCVVuT2TPo97/BfHa2edRJ0TspHba9/ym+dkO4t7X7B30iFIdKuzAIUZPfWxfHLVjXcM60Q55AnaShNF6B1BgX1YCA+wG6tz8cQoFV6Yy2moe5BcPaUpf66+PIis=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789938837; c=relaxed/simple;
-	bh=ERyn8NtnNgljLAbF7o+FMaSrrj0xAAg4crkAr7XiMn0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Lq8nPYdv4ldMMNT6pBYKmsj0E9RX8o3GqehDRWxdF6OZ694qzL6xy8f6+DmU7Du8G83NRNXsDFdCcqHdmt9pSiY4EEVCAsLl6gYUU4eCFFxCBmhWWjG7KYygWH0LvVM47Twl7AW6jsvSS6wgwMrIQvD87s74OD7f7+kxDWeynvs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B86AkbOT; arc=pass smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 966043E0C5F
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:14:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789938841; cv=none; b=iQrkJe2tYNkms2Y3/5uQblIOy2hKlJcfEWphPKHiFmuG7CJ6gjmPakE3XDF+M2phwkvZKTu5dmafvTh46R0QY5tf9oQA+U0w0hUaqHXDnTjaSY+7fR8FAlGy0RqmMtYobXMdLgMoQC253sDqwLab0d4AgOKSKdrsQA+0rS1RvZo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789938841; c=relaxed/simple;
+	bh=o2jGA+oz8FAHUUGJjII1o9Dpx+I2JLINT0FHkUiHcKM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kCrMEmxiFKvS8e5fradcCH8xZRQid1X4wmdaL56vIODju+nP3rWBwh2RaEg6WbHEP5bmiqvsipPZvyfLL5pjhvWKwibGWNlVo0Ryucun8lqhBgZEVS/DS754NXQNwJp/eCW9ZW35L95hBH55G52gkbBO+v/nxEkDbjn4whUJLkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cTFA5MuV; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B86AkbOT"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d6ff2f2c4eso4886005ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:13:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789938835; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Gb5nDrb2x27E9VJcich1XY/erSLeoWbq/1kAXFgug750gNGcNRcVTtPsUdG6K1w0sP
-         JexobT6eIcbWHKdsqCL+SO9RRN0Dqctc3xtO1uYPlRjgI3iA5lKqUVncasTY7Fa85lD5
-         7XCFw9bWvnaba2Tgml3HqfB6fIi1l8+rqun50Jj4voRySZ11jm0GMtLHlKk23t7yXVyw
-         Z6QTYCGn9CRW2GdpSv/PmW04wDzEib450MqjJlig6/Y1U64FGryDZudjzTe10e1+VpYE
-         ooYNEjqHW9nSuEIjPb1TVSwrIGYzT9awMb0fSex1zlIYkIt+lOGqgIxJjYZBakgzeGQD
-         WdYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ERyn8NtnNgljLAbF7o+FMaSrrj0xAAg4crkAr7XiMn0=;
-        fh=K7GG4BCHGKIuTMvo1d9YokAv0D1j5PcjXXpaeBUEuCo=;
-        b=jn8Fa9zb/m4pizg5ff25qU7RRjv2ttjA/cHT4qFJkDnmTshakGPvXLFHcCi/O1wB4e
-         XCJwbUM1TxrhrYaZF7A2TQ8YqteMwjp0B1BxeGu5Nh+I67Ss/By5GSnxLVabsTvVrDuB
-         sQ3tgAaRQHyfCC+Z2nzE1Q5VsyCRIzMsqJhbUK+wLwKy4yEaXhjmmHTNoNX4wxVE3Zkp
-         nsWcHdUKccG6ZZvc66lOOGVx1gJcjl9r+W6OOEpdz0dyyKKY2lzox2ADdllLjh32wHpH
-         fpcqHu7xXj+XNpV/RItoNd/Jfb9zsCGg6/3RI3RIj8vrsF41LyK3i4Mji4xW7ny5bCXW
-         uDaA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cTFA5MuV"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398beb616f5so1005418a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:14:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789938835; x=1790543635; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ERyn8NtnNgljLAbF7o+FMaSrrj0xAAg4crkAr7XiMn0=;
-        b=B86AkbOTEtGatdYajaYeLdQlCQhJna5J4tA25aQJWOkPlRHNTKg2Kh2geHUPcBoTGN
-         szvnMfmf8zq/aoz2dtjblZsS6uzS0RyMwGwdirrCzeRf4ojqh3/23VJpqPqsL3yFkRpD
-         UA5gi7o2uPnG3v/jcg/874nVCr3e40CkMuQJ1Cmojm0zgFUzEWBJBz0wjFuIkbR1Q52g
-         BM66OBg/fH90SJZlCEvMliiRNCM3jM2Ionu2HnRfiw0oh42tByE0/Fo+DqGFb2RDuV6Y
-         IVAc8RbH65brIyr8o/PEY4XaU+z/x65jh7UPzs6h0WPf6nIvzJ9hT8GmWF4mjn7OdZJp
-         38rw==
+        d=gmail.com; s=20251104; t=1789938840; x=1790543640; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5GVVx1LqA6B1jJlZmV64iP6HqsdwAzR/vY4RLJ8HlJI=;
+        b=cTFA5MuVrIwwUpiHun3AF0v7E6G2C4VNXJNI3vjaAVvOSFmFlLXloxJj6PxGGRqIYT
+         CZp4KvTeuWSInVT1j+yAvm9853t05hBoamyjW4KEfRz66TrHy97odZygbJ6pqmfghoip
+         mdnppQjZ9CHodLVZFF/MELEHV8Mtc55NP1uKYBWHvpw5nVkCEiFd8PbTFP5xgIicLqhp
+         TdbiYmSbjqK2YOg4YGrbmf+hjICwn16ozpBdZIfoUp335Wz1h1l+LSQkn5x3RUF41Q+z
+         F8WpI713bNTrTsSgvCVSc1a8CNLnTlkDAXrRvjJpAidCF8ZlQk1ckTdNh7ThXpElJDq0
+         KsGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789938835; x=1790543635;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ERyn8NtnNgljLAbF7o+FMaSrrj0xAAg4crkAr7XiMn0=;
-        b=vwo15p8BzXynmqOyfD6lvCZjId/7HILsgy5CC7tCqb/z+cBmSfqyyEg3KGs7aqGsfH
-         TG6FH47J9qxgZWLvAEx+FpHbpMzfILlCHqU9CB1bLC/IfpAvGxLh2JxPRgMpoie50T0b
-         eGagaf1zAnlbHUjaT+3WjyPfX9SinkXgUh/+VHz8gt6bMNcc2WKcfWugP0EpAKmukdGW
-         bCZ3ro/8rrjdFpfCRWcx8tMGesuiI9rUU975I6gZADPrFqsI42p5iJHfU6wOzI7qFQnh
-         zaFRM1ram/wkvyibq+9NROeSAdsGuaHfClXfuokCmyBgkfKrMsrtlhv8h8AUomarDIOs
-         KALw==
-X-Forwarded-Encrypted: i=1; AKwUvBymK2EiZXKkkq9GIlSc9d77mK7cdxMk+hjAlrhBaxiCW7GM/Rq+r6PEGMxiM4CcBwo1FbfwUM+MyvQU12A=@vger.kernel.org
-X-Gm-Message-State: AFuF++kG8voBjVrR9YEiYWccPoZ/ROgyBdudXCviojYhZSS7fqenBSPn
-	OnNqq8X8T+UFfuYRAuvgZB+2Ga8rVbV6qUwcZT2D+0snVzenh+Sz5I1xEtCDkNfxMWQSIgY8k2w
-	ducGnoRr6Y+zm5xROzQ0s2xpAvnsHylM=
-X-Gm-Gg: AYBFou2Kaiza+ckOhG4r3ZPxTHD5Bdx0w4ZnKkkoMiElytJSKp4PAuiqSb+9af2s5Mn
-	lmR56w32VNV/RTX2Rwy8Pohn0Jfn+1WGIx9gf98cclCK/WQ8DizheblwrEG2gNKc/G5TqQLHKtV
-	aioYdX+PCVvNiqWwIsap4hzUxycaRsqq0ilwMq6zM8UVkq7KeynIas7sT7anWpQNIT9lXkJkOUE
-	PHQKfSzspGjCcTCmi8nnSmUq85iHfrBBzyIEuSrwiUWkeUTv+2ECcNcGjrRjNrHkCZn3TW2xUmv
-	ZK2Aqi45Cc7S6qCVjUcJ5DG4VEDj8hXJI7oU47WP3xMxXvjQDHu/tVxIi/kVwwnvOpqOthJZj+X
-	1Aa4L25XpqUvDNQyjv6Wa5oD1OFXwHHAJoQGrAN7I0uX1WWhG1U4JKyNw0CBbvEvEO5krfojq3g
-	FkaZmu7B9dhU4fLjhSLx6CSBTpzo50+HErrpauh0q/ZfxVdUEoi78=
-X-Received: by 2002:a17:902:d482:b0:2da:dd0a:99e0 with SMTP id
- d9443c01a7336-2ddb69d813amr157911745ad.2.1789938834978; Sun, 20 Sep 2026
- 14:13:54 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789938840; x=1790543640;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5GVVx1LqA6B1jJlZmV64iP6HqsdwAzR/vY4RLJ8HlJI=;
+        b=n3T0mU1wePA6qcxdqsZ4S4aeLJsHgdq+ycvzilDeyy8LJ2a3rsDbbjRCXBK8mBcS+O
+         lQPcVZFE5XLOsOhVRSApBcLhx59Y1UargeKgH3DQaM01lZXFQvFEZcI0xgXIRpK9P/v4
+         M/oVQweq81qQDAiidezUeNAGXvdM7rQl7rsMKszW5XcCE8Ounky2iHAAv4lW/VudS9B+
+         y7VKzK8xtvVnXvPx2GILlZBBbr2pzeN6fJVv+fjR6Wf8TkHOpjlQ5j9Ay4Xi9cm/ogXN
+         MGZkZ9tMrk5vhI7VL5ruweLoiLDXZPwJnQZ+g/xlLnCHI+BDGHiQ485kiftoHgRzJisk
+         +FFA==
+X-Forwarded-Encrypted: i=1; AKwUvByrI8K/39f6+Nv142seOzbVMrAU+BeRNxaiX8iLdlZqaKNqYDUzMK+I4IM8PUUiQ8rHvbBektJcncASfVo=@vger.kernel.org
+X-Gm-Message-State: AFuF++l3BR66mmFR/8GJf1sVy2rE+a5VKU6Ee50j+//NzV4zMgMTLu9d
+	3pXMvaXGibRsu/olmBKe+rwBUN0UrIDPE0hdtXijJuLHZcFXR2Nsaixv
+X-Gm-Gg: AYBFou04b1mPTjDfMR7Xp4hWMnaVOiFpprwsmDUVZGXVnZ+iaKVx89tQ6ekIzj4+iFG
+	s0zsWQgnduUtMfnLYPeohEBRXkzbsh+R3cvO3B/bnjhjif+N+ROyf8b/iMmyBcMb7qhVMPjAzXr
+	NyO6h1sNrkOnShRxp3JUtUGJcIeztlPSks8AWt8Ktf+k/7gqaVYO6w+YtIhdMkFkmp/IuQ3SoBJ
+	tLZLYfnK4y6KrqcCZ0BBaRx9oHJXpRWDzNQ4GtTsBCnef9XxsrZhf6ooC0PB3Z27ib0YQHWpntP
+	bi2QKX1CIKkPzxP/6H46vfEp5vI7Rn8TFKazILjnPuh7BwWA2rcByH+07rZG14sGV/mBQg8KW45
+	takOO/Dn2HpJqk1RqKJrqRl3Zxwdeo78XQcQ495nxyrX2eug8hhZjjNhfKW/BALsOmbk4yXeMaU
+	DbFZehJoUAWq8Kcfb0ITdnAkcLHCYcEMHFgNb+UpcUyx8I/WzKY4ZE6la/CxIPuBnuHoAjTAsLz
+	PlXnnXzxy2Hrr55b0Q0+8sJ8xVrpTQYaIoBAgQFLATw6EZXU9QK4ZP03uQdjRHKTRQzhgSHdyGw
+	rblgYSQT+CwCrwLG6vffhH8uqRlViLAbqc4GKXY+WAuGqToJR9RnRKlKERY=
+X-Received: by 2002:a17:90b:3a43:b0:39e:6c68:fd91 with SMTP id 98e67ed59e1d1-39e6c68fec5mr4752048a91.38.1789938839949;
+        Sun, 20 Sep 2026 14:13:59 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c3145dasm10609743a91.4.2026.09.20.14.13.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 14:13:59 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list),
+	linux-usb@vger.kernel.org (open list:USB SUBSYSTEM)
+Subject: [PATCH 0/2] usb: bcma: control VBUS via a regulator
+Date: Sun, 20 Sep 2026 14:13:54 -0700
+Message-ID: <20260920211356.186967-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260113192949.689834-1-lorenzo.stoakes@oracle.com>
- <20260917041453.1029362-1-springbreeze@stu.pku.edu.cn> <CANiq72ko6sGmmUhN4bSfmmmnDjo966_D6ro8y=EGhAw11ZVCzQ@mail.gmail.com>
-In-Reply-To: <CANiq72ko6sGmmUhN4bSfmmmnDjo966_D6ro8y=EGhAw11ZVCzQ@mail.gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sun, 20 Sep 2026 22:13:41 +0100
-X-Gm-Features: AcwNN1UF2OK4koMxfuVb-f2s0ZLXbtaVivf1KWcwd41G2Lkymw99mRpzMbx8-i0
-Message-ID: <CANiq72=vKg0c4CL_h7PcZ8gSZ4U-KgZVXJ1kNA8HNha86+wEEA@mail.gmail.com>
-Subject: Re: [PATCH] rust: fix typo in bindings
-To: Chunfeng Song <springbreeze@stu.pku.edu.cn>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Chris Mason <mason@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	Alice Ryhl <aliceryhl@google.com>, wang lian <lianux.mm@gmail.com>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 20, 2026 at 10:54=E2=80=AFPM Miguel Ojeda
-<miguel.ojeda.sandonis@gmail.com> wrote:
->
-> On Thu, Sep 17, 2026 at 6:15=E2=80=AFAM Chunfeng Song
-> <springbreeze@stu.pku.edu.cn> wrote:
-> >
-> > Since the fix already has three Reviewed-by tags, I assume it just fell
-> > through the cracks. Would a resend help? I am happy to send one -- I ju=
-st did
-> > not want to post a duplicate of your patch without checking with you fi=
-rst.
->
-> I am happy to pick it up as well.
+bcma-hcd currently drives the USB power line by grabbing the
+undocumented "vcc-gpio" property from the controller node and poking
+it through gpiolib. Besides relying on a non-standard binding, this
+cannot work on boards such as the NETGEAR R7000 and R8000 where one
+chipcommon GPIO powers both the USB2 and USB3 cores: the two
+controllers each request that GPIO exclusively, so the second one
+fails with -EBUSY and its port stays dead.
 
-Cc'ing new addresses for you since I got some bounces -- hopefully that hel=
-ps :)
+Instead, switch the driver to the standard regulator interface and
+express the power rails as regulator-fixed nodes bound to the
+chipcommon GPIOs. The regulator core reference-counts enable/disable
+requests, letting both controllers share one GPIO without conflicts.
 
-Cheers,
-Miguel
+Rosen Penev (2):
+  usb: bcma: control VBUS via a regulator instead of a GPIO
+  ARM: dts: broadcom: model USB VBUS power with regulator-fixed
+
+ .../broadcom/bcm4708-buffalo-wxr-1750dhp.dts  | 14 +++++-
+ .../bcm4708-buffalo-wzr-1166dhp-common.dtsi   | 25 ++++++++++-
+ .../broadcom/bcm4708-buffalo-wzr-1750dhp.dts  | 25 ++++++++++-
+ .../broadcom/bcm4708-linksys-ea6300-v1.dts    | 14 +++++-
+ .../broadcom/bcm4708-linksys-ea6500-v2.dts    | 14 +++++-
+ .../dts/broadcom/bcm4708-netgear-r6250.dts    | 14 +++++-
+ .../dts/broadcom/bcm4708-netgear-r6300-v2.dts | 14 +++++-
+ .../dts/broadcom/bcm47081-luxul-xwr-1200.dts  | 14 +++++-
+ .../broadcom/bcm47081-tplink-archer-c5-v2.dts | 14 +++++-
+ .../dts/broadcom/bcm4709-asus-rt-ac3200.dts   | 14 +++++-
+ .../broadcom/bcm4709-buffalo-wxr-1900dhp.dts  | 14 +++++-
+ .../dts/broadcom/bcm4709-linksys-ea9200.dts   | 26 ++++++++++-
+ .../dts/broadcom/bcm4709-netgear-r7000.dts    | 16 ++++++-
+ .../dts/broadcom/bcm4709-netgear-r8000.dts    | 16 ++++++-
+ .../broadcom/bcm4709-tplink-archer-c9-v1.dts  | 26 ++++++++++-
+ .../dts/broadcom/bcm47094-asus-rt-ac3100.dtsi | 14 +++++-
+ .../dts/broadcom/bcm47094-asus-rt-ac5300.dts  | 14 +++++-
+ .../dts/broadcom/bcm47094-dlink-dir-885l.dts  | 14 +++++-
+ .../dts/broadcom/bcm47094-dlink-dir-890l.dts  | 26 ++++++++++-
+ .../broadcom/bcm47094-linksys-panamera.dts    | 26 ++++++++++-
+ .../dts/broadcom/bcm47094-luxul-abr-4500.dts  | 14 +++++-
+ .../dts/broadcom/bcm47094-luxul-xbr-4500.dts  | 14 +++++-
+ .../dts/broadcom/bcm47094-luxul-xwr-3100.dts  | 14 +++++-
+ .../broadcom/bcm47094-luxul-xwr-3150-v1.dts   | 14 +++++-
+ .../arm/boot/dts/broadcom/bcm947189acdbmr.dts | 14 +++++-
+ drivers/usb/host/bcma-hcd.c                   | 45 +++++++++++++------
+ 26 files changed, 422 insertions(+), 47 deletions(-)
+
+-- 
+2.55.0
+
