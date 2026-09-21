@@ -1,89 +1,94 @@
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814CB4A3D4F
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:06:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D484A5EDB
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:07:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999619; cv=none; b=DfsFjTmQhC0dPPtAgR4SrS86rNEFyVhmSjPeCF7uGYn/Yes1AZhVdeU2lzqFVHPHp9IlYQaAZl8S8uQ1i+U+DiJoVrQ0Mm7n2+fsOIxCaNhWajsCTuD2x/eH3eCP6tBhONse1M01lrzVRGqnEFYar2CAYyNVHIyve42LzHq5aig=
+	t=1789999625; cv=none; b=H7peiFAgWvIrnxLuRyUBVKuwSH9aLsnzr722jnkzDg/ge18/nqYI1FT+M/wDdknf1S4p3bPRIyveWURExctfcy2fTY7i0U13TzqoWWXOUhqbM9oj8IEe11WBguCxPizxyiNZpA7aFeGNGJ9WiHv+jR05JscA0UUkBZ08lI9MHD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999619; c=relaxed/simple;
-	bh=wjVhj/5CNrmPAtPl8hgZIFUFRA54VA5mUrcARsjYmj0=;
+	s=arc-20240116; t=1789999625; c=relaxed/simple;
+	bh=4FcMiyOr8OPxtSjpSLiPSozoHGd1Js2MFl2iRYuYwRw=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=bXgo69WIZyJWxw3fP/NqcWyVav/qrDwIWBiHMv9DhOik0u9shqP4TrJh0aYCbMEq+neiA1V/Hr8b01yIY8vi1ErySK2tKlfbopObs4/vWNSCfJYVw+R9QAvVuPIDLs8DTRu9nkWtxpIsyUpZF7vxrPW/+frUWSdLAtAe8gl6TmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RmtX23p4; arc=none smtp.client-ip=209.85.210.197
+	 To:Cc:Content-Type; b=Jtt/k3fsXqUZtBeiqxpEPG2tWHHa3AEHhPxF9CI7SOnJ/ZjvTMpbdleBeYfVsTu6XQsZe7n93MVNVw6TPl6zjMq4/3RHWpMsVAHbQHVvJbZQxJ+VH+iIHVVvq5fCzOuyd/5uYReIh1zdXa6pVdXy+aGpd9d8htxaq7hs3wgOcjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JoiiYjsE; arc=none smtp.client-ip=209.85.216.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RmtX23p4"
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-862a0aa7d2aso4952562b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:06:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JoiiYjsE"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e54b6556aso4006584a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:07:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789999618; x=1790604418; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789999624; x=1790604424; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ju79T8LIaUGW1La3vhqmCrNWbKZfmx927vD3HZmioq0=;
-        b=RmtX23p4mg8Sm9Ebq/SnVEIlEDjh2gzRJgLPaiuuySGOl7ddXAizpu84cmaHGszsMv
-         NUaGPVaxAFJ7MAwWwIkUxpzpKg8q0B402P+h8WYT9tM9619bWtXrOM2gazJ3NPsuvSq8
-         DHnd7QI92eMJ3hydaqrfCedURjU2lmgwJ2Cf4Jl4vAZ9GHQoqvXapH4/5VLUdBrsnzkT
-         KtGsEdjTQmC56P6sWtKLTi4w+9FeHMi+MI/h22WRg1HaL4AHYAVW4WRdkhj3u4JdoCzc
-         Km8b2yDVIWWHjNdSEKuMuScmUTXysDGhpoVmLLcw+DpxH5Hg124R+jIGlvKlLwYGIp2Z
-         6g4Q==
+        bh=3+kxUElgm+ZfMM9aqTH6DJ1cXpFwb4T1UbDL65Aqg/A=;
+        b=JoiiYjsEyIQJi+RI/QReUys0iRYwtN6KLUuIF9b6BATT/BS3PAaQqICu9ZozU8Ow7c
+         cxviO28BEfLd7BstJdpGXNG6xpoIaozuIQTyf7XquaRIm3OMhfqCVxfEpe7OdJN7Gjlo
+         WQD1lyCem9rkBkI6JaAzTWTx4clYlUDbzR6gVyFrrPqUKoJNnYqrc4jp8A+lWWp0mhtA
+         4fuyD3YT70tdO8AcCw6ENrZGu+CfGw93oYUe9ADira/T1Mj0yH6H/LferwKM34ubUztm
+         TmMsfEyLCaCTHGZs6l9xJ/kPNDGJZeTkSvLATNSuLo28zxMKA7YSBJjxR1ScKVgEYaPO
+         wlXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789999618; x=1790604418;
+        d=1e100.net; s=20260707; t=1789999624; x=1790604424;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ju79T8LIaUGW1La3vhqmCrNWbKZfmx927vD3HZmioq0=;
-        b=0aR8T3QFm2Jpn+6V6I9EOtU8wWbz/Gpm3ftrGE72sF0rlGFkEWLYNEdRTC0+3pjV9W
-         RIT+fdymhBpP6Ay4NplQ5M+UC+UAOWfU5iiOECpQAEZ3A4q8FBhhUFiY+sWIY/UdBGz5
-         AUtk1bz0awtJYCZns5ISLXEXM7lg9ICBN3zLSDCHF/EGeT9zxy8Hhcyz/vGVOYUetd/b
-         D+UfxM8pASJe9Od9suqaJh9WDh717a4186JPa/435EZWp2psP7KINx6HICtm3VT4otrD
-         y3djjzJJ4046r48UpuhB14swgKD5k47SmpPRkOqJm4jhQRda6Mz933qPputET/cGgOAz
-         U56A==
-X-Forwarded-Encrypted: i=1; AKwUvBw+mrZR0Zhx4ULQcjELyvTye+EWp+/lBlIHRq6oq0Kbl/Hw0MxF6NXa9s5HlXArK9iGGZSIuL9ORlpGHJM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mP360tRA0fKdw92xH2+IDB7KUE8Z/XawvAwfnOfOL2Jf6Pqx6d
-	2PIHyUUXbVvEeofNFTud5Ioq2OMWTk7SuiI/drhiZ0ebmt2wCGRtADurPcgr3CazbJcXy0+KbpI
-	AKIxXag==
-X-Received: from pgvr17.prod.google.com ([2002:a65:60d1:0:b0:cbe:e0a7:536b])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:e8b:b0:3d3:ae40:51e3
- with SMTP id adf61e73a8af0-3dd8c53b507mr15341684637.23.1789999617656; Mon, 21
- Sep 2026 07:06:57 -0700 (PDT)
-Date: Mon, 21 Sep 2026 07:05:24 -0700
-In-Reply-To: <20260806191945.4192732-1-seanjc@google.com>
+        bh=3+kxUElgm+ZfMM9aqTH6DJ1cXpFwb4T1UbDL65Aqg/A=;
+        b=2naKQlJwXSkzBVAZeJ1u9LQbGefAR05hya8YDrzLC1vUCrdvk4j7DRhpjdmxqTfLPh
+         f1cZ9wQSlztt+iNLftSSJlgesumY6EMzHZUWM6ZeE5WBtPbwegSJK9ffua3MVmSr3Iv5
+         phqWXvV73uLuaJk3dc+PvjvHEMWM+5Wue9Z/qfD+BYFjmvcEsgJ+fvdqVTShueP3CsW8
+         HG0vWEo5uKlEIm6dsj6HfSt3zGQiBaCzn7uFST3eumW+zu75RyH3l1F6qWJa9x7K/zl1
+         sMC4q74UjQsqUyk4zelZ+2FA2wTQchdJOSYYjwuNMvGidj/nggRJir9p8vV+Qep6P2uR
+         XtiA==
+X-Forwarded-Encrypted: i=1; AKwUvByh5cc5AZ1Ta2WGYZfSpDVpCa9nr79nb/a/cONj8gWeD/brI9PjQJDwtSsjgeu2V7gV/Mj/m6wDTGZ230M=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYgT8YNSTSY29yGHjK6IDj5cn/nXVxxCKvMirSKFXb8kNgtux7
+	2rSIMNf/Y7+zrynfTOWXm1ZF2tg24gE4JXOBO56Qrlqa3p4wH2FTWocpAS2huhq5NCR7qLfiQK8
+	C//jvyg==
+X-Received: from pjbsg15.prod.google.com ([2002:a17:90b:520f:b0:39d:94c4:375f])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4ac7:b0:39e:252:ae4d
+ with SMTP id 98e67ed59e1d1-39e54f9d387mr15517055a91.17.1789999623550; Mon, 21
+ Sep 2026 07:07:03 -0700 (PDT)
+Date: Mon, 21 Sep 2026 07:05:26 -0700
+In-Reply-To: <20260826164214.756512-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260806191945.4192732-1-seanjc@google.com>
+References: <20260826164214.756512-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <178999692670.716970.18270488190389827567.b4-ty@google.com>
-Subject: Re: [PATCH] KVM: x86/mmu: Bug the VM if KVM attempts to unsync an
- upper-level shadow page
+Message-ID: <178999899502.746042.13434207152687268434.b4-ty@google.com>
+Subject: Re: [PATCH v2 0/4] KVM: x86/mmu: Fix pre-fault and map private loops
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Jinu Kim <kimjw04271234@gmail.com>
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Kai Huang <kai.huang@intel.com>, 
+	Yan Zhao <yan.y.zhao@intel.com>, Sashiko Bot <sashiko-bot@kernel.org>
 Content-Type: text/plain; charset="utf-8"
 
-On Thu, 06 Aug 2026 12:19:45 -0700, Sean Christopherson wrote:
-> Bug the VM and skip marking a shadow page unsync if KVM attempts to unsync
-> an upper-level shadow page, as marking an upper-level SP unsync is all but
-> guaranteed to be far worse than terminating the VM.  E.g. sync_spte()
-> (rightly) assumes SPTEs in the SP are leaf SPTEs and so calls drop_spte()
-> instead of drop_parent_pte(), which can effectively crash the host via
-> when running with CONFIG_BUG_ON_DATA_CORRUPTION=y due to there not being an
-> rmap entry for the SPTE.
+On Wed, 26 Aug 2026 09:42:10 -0700, Sean Christopherson wrote:
+> Fix a bug in the pre-fault path where KVM fails to reload an invalidated
+> MMU root, which puts the KVM_PRE_FAULT_MEMORY task into an infinite loop
+> (although it's breakable, so not fatal to the host).  My best guess is that
+> the test started failing once PREEMPT_LAZY was enabled by default.  Note,
+> the bug is *really* easy to repro with a to-be-proposed patch to have KVM
+> do auto-pre-faulting[*], i.e. prefetch surrounding pages on fault.
 > 
 > [...]
 
 Applied to kvm-x86 mmu, thanks!
 
-[1/1] KVM: x86/mmu: Bug the VM if KVM attempts to unsync an upper-level shadow page
-      https://github.com/kvm-x86/linux/commit/27f02d851410
+[1/4] KVM: x86/mmu: Reload MMU on *every* page pre-fault attempt/iteration
+      https://github.com/kvm-x86/linux/commit/355323a4dc94
+[2/4] KVM: x86/mmu: Harden "map private PFN" against unexpected root invalidation
+      https://github.com/kvm-x86/linux/commit/698b8c88e159
+[3/4] KVM: x86/mmu: Top-up memory caches when retrying "map private PFN"
+      https://github.com/kvm-x86/linux/commit/6415d9c4ee19
+[4/4] KVM: x86/mmu: Add sanity check to detect stale page faults in "map private PFN"
+      https://github.com/kvm-x86/linux/commit/f7a3be227619
 
 --
 https://github.com/kvm-x86/linux/tree/next
