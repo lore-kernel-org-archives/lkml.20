@@ -1,79 +1,92 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612274AD4CB
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:54:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D0F4AA00D;
+	Mon, 21 Sep 2026 14:55:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002494; cv=none; b=aafdA36KId20E13w86j+HtkX7gI2SitbF8uAOYwWmPKFN/5w988/MBZowK9kvVXP8ew2BGUFquacJt/I2s0tIggKVwDGgQswDB0IegV2/1DMHTURxHf53kZY5WMevTlQsDPxRV5Y4c7KYxE2C//KPRisBdGaV3AenekZLxdtmFg=
+	t=1790002507; cv=none; b=APIN62BcoOyhHHb3PDT34FioAbHkoIkmD6tNnS069CBQ8pRxDojzK2EuwZIky1piusS+V2Ql1OKAEtGDPcxYyZKcUNEzAQ7vXWb3UfhrF3VHkRYJC04IIuqDpPe//2QM/+A3mmlhFG/XhsFsR9e6Qaq75a+rzumjH22BjUvH7Cg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002494; c=relaxed/simple;
-	bh=QWcJ1ZwZUHcxpyq7thHCmohE4ptDaGzodLSdKk9x9Zk=;
-	h=Mime-Version:From:References:In-Reply-To:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DI54FminhfL7jtplz8fnEpAbK/e4rUywl+nqOPJRpqBAP+LuiclCVuoI3JgVVaw8pqQzwa1ZhcyeGsc027xFcmFzCmlZXNpvqzdz1mBI+Ir7yFU8cHM2KXOCE6vGpSETF3dmDm3kQ1J2ytRm2BEa8xVTOpnCSAouitudLMOTcGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=black-desk.cn; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=black-desk.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a302c23fb2so25679041fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:54:52 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790002490; x=1790607290;
-        h=content-type:cc:to:subject:message-id:date:in-reply-to:references
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QWcJ1ZwZUHcxpyq7thHCmohE4ptDaGzodLSdKk9x9Zk=;
-        b=sEGuavj0DXZxhMYP7RIR4nvYsBzF482U3c9ZHVR43iF7i3XsSzG/Jgdh3P7uAaUvzu
-         uO5erZG/zFSSyShW6g+MrunpoqoUohbrtuVcB4K8IzriM3OK+dXUxUbOfZHTxrukyhNZ
-         Jw+2EXwy1+24hTY7fIbQGf2ywd1cpMKDFeHNlsCyCltQwcllUb+yS+rSxYcN5u/PQQyv
-         eDD4XkxiAzxfuEbLbERNWYg2Tc8YmQWvp1bTM+Vkp8ic9iFkAkRzTzLHtksu1W9iaKsP
-         pDJK7DhdRPoVb+2QDR35Yj9g3rk/2dpGm4/SWSCy9Czxwr1ntdfNxssgs9pS5BdpI/gb
-         RDWw==
-X-Forwarded-Encrypted: i=1; AKwUvBz04V/HlcS8Oe4OnzHm3rQITYMSKTmfRtoakJOQ054g1afmJogOCTmlqhbTYM86eyJDAmp5Kg7RYtQSSB0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhb8uXOS5PitJp4nSGQihoXZzVi7mc2QHFZcwLZCzrQ8v+kepE
-	v5qoCxNkCMiScFt0IBrLIY9KYxrV5FiEGz1Z1LliNwn69Kb70LRz+BrAKfuCec0uIS9rxw==
-X-Gm-Gg: AYBFou2FrM7GQ9keYm5PBYL9ZgpBNzF3/0uHGAMcgAkTj+cOKl2NtxRaLvyFyvunV2d
-	c/pWHYSfd53Vc6+BVkpLdpTa7MVrH5gEB4pS/7g9kFcFXxHTYgNcU+jHPhV2+utOTg3qgsMCnVG
-	9K7PSV2cYS7K7X25hkz1OGWomON/Iava7r7b3BJmvaDynRJ2/m01R8/cYYtIuBdB/XzjPv7JVdz
-	KOfMOXo6GA5q37knqNaD8NBGG1Clkq0s7VNeQ4US1N98QlcHsz615jdPn7xuSiOLCIu7abyd6CJ
-	nikR7bwBNcL33I/157+jwNzRchtnJWFb7k/9DMv8V4MggWknfefTvLJ5//Hnd8nBz7+z+LqzQxa
-	J8kCP1X4dqwtIKGO85MNi6KTJDL/JEMQeQkIxaHdKzEDqlMgj6jxjnv7XSZhxFzAWs3Zsu4P1Vt
-	kavNKO3ncN7tS1DA0Rt0UdlxdtzW5szvBRUVsIJI9zaHMfbRJi4cmtKRNIVl0jmUnZ9DU6+2yjy
-	eAn57I/j7r5bXBLR+7qSfaKvq+s+FME3yhgEVZ4EXgZIJkb3NZW0HeUIKNUq7VNEIcYrZMdsRU=
-X-Received: by 2002:a2e:be2a:0:b0:3a1:aab7:9bdf with SMTP id 38308e7fff4ca-3a5fbe4a9femr23452341fa.5.1790002489991;
-        Mon, 21 Sep 2026 07:54:49 -0700 (PDT)
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com. [74.125.229.205])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a60763ea05sm24631471fa.34.2026.09.21.07.54.48
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 07:54:49 -0700 (PDT)
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c795f805so1587575e87.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:54:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzTw6f+KzBiKOfr3bxK+V1yqjkd6kNwStx7ocLg/+VX3ufCEei5IyQM6ciHm1vjgvuyWa5QeQY6lK2vPQY=@vger.kernel.org
-X-Received: by 2002:a05:6512:3a96:b0:5b8:9c46:d4cd with SMTP id
- 2adb3069b0e04-5b8c1951288mr3688629e87.55.1790002488480; Mon, 21 Sep 2026
- 07:54:48 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 09:54:47 -0500
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 09:54:47 -0500
+	s=arc-20240116; t=1790002507; c=relaxed/simple;
+	bh=3B+XdrnK9k0v7LXUKi9ISbYlmKUyaa36XlCHL1ErWcA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Kwe4eocG8M6uGGFAJr69pBb59nc3F57zfDFxeQeTdnaBX1QsvLVdLllDsQoU60oCejefWX10mdKI+CA9ac02ZNoYDpioxteVCqXu6wii99sDXiiVgobd4lioI1FAw/HgOppraBCrLQ9gpEugFJLJ+B1+IOKn5FFuzVihjz5FakM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Le+k5UzZ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Le+k5UzZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB4621F000FF;
+	Mon, 21 Sep 2026 14:54:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790002501;
+	bh=RHx+eXyS0dYmACF7sNod0lM9zWrOoctLgr/u6KoqGlA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Le+k5UzZahEOQB+XTfdY/yV5Wd5HuzhpzZ20oeYPMVx9EqENi7pBL/9XRa9CPRLPg
+	 BxZFEk7gbmn0NeyvFCUFJM2S8qjXKpobDva6xqPwyza36v07ZjCfMD68kpnSM6G2K1
+	 QHN1mA+S33qvj3euuHB2OoHg8q35odk85MCwxyAd9DYY7/3pKxl8yJoYAxh9IPt0up
+	 nRmqVvGlyuqvS/YNb3UYwvPcdlSgzXKpWCoyVFuvPFL+dEchK3eweahNOTz5DLsF5G
+	 swt36HXbct3JGC/P6zrSq3IWaAwH1pmyauUDoLGOCY4ZbajJid6F29liXLg/1iBez+
+	 zOLewdjJHN6EA==
+From: Mark Brown <broonie@kernel.org>
+To: Maciej Strozek <mstrozek@opensource.cirrus.com>
+Cc: lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com, 
+ pierre-louis.bossart@linux.dev, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+In-Reply-To: <20260917103400.2032913-1-mstrozek@opensource.cirrus.com>
+References: <20260917103400.2032913-1-mstrozek@opensource.cirrus.com>
+Subject: Re: [PATCH 1/2] ASoC: SDCA: Improve scanning the SWFT during FDL
+Message-Id: <178998555390.191028.4550913416185996743.b4-ty@b4>
+Date: Mon, 21 Sep 2026 12:12:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: Chen Linxuan <me@black-desk.cn>
-X-Mailer: aerc 0.22.0
-References: <alpine.DEB.2.21.2609191504030.27665@angie.orcam.me.uk> <alpine.DEB.2.21.2609191513020.27665@angie.orcam.me.uk>
-In-Reply-To: <alpine.DEB.2.21.2609191513020.27665@angie.orcam.me.uk>
-Date: Mon, 21 Sep 2026 09:54:47 -0500
-X-Gmail-Original-Message-ID: <CAC1kPDOfcwWWf=c=P0jdkC3gY_XgW+kUVRHJUzGcbg3kDWXQVw@mail.gmail.com>
-X-Gm-Features: AcwNN1V6c2qU0b0r9BU2071ZB6Xf7zCTCVbgql1xyH-Rm3j5rkXmiN9tXpwtK7I
-Message-ID: <CAC1kPDOfcwWWf=c=P0jdkC3gY_XgW+kUVRHJUzGcbg3kDWXQVw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/7] MIPS: Only check -msym32 when need-compiler
-To: "Maciej W. Rozycki" <macro@orcam.me.uk>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: WangYuli <wangyuli@aosc.io>, Chen Linxuan <chenlinxuan@uniontech.com>, 
-	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1246; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=3B+XdrnK9k0v7LXUKi9ISbYlmKUyaa36XlCHL1ErWcA=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqsUVAzBSaEAzdqR+8gaXs92mam7YDcvd/NIyJJ
+ fi7TmTU7EaJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarFFQAAKCRAk1otyXVSH
+ 0ITtB/47JvFb3GCKKdKQtEFhW6ZIxdBtiXYrPwKJXE504mxwMGfyJM+244wFHn5tU9S0ZLkbZMV
+ T+gej9PYAQX+kV2VN9ktCYRl0vO0SUcj2Eo9T1gwwj4RoZ/N8J23Sr2lFozzb2Iaxp5foXNW24S
+ laS1nbF+z31c4bCklbjRDQcWMZef6aU4Ip6fY4W+c84DQNxgiy651N0JSZI2vf4aq13WZcKK7+V
+ I2KSSjoJWTMTzHsHTyoW6yTIDnGxx+OgmB4GJVoI1Q1wf8Wicn/vYQuTMKR3eRMziT8LUMR1hiS
+ RaLKcQ2QNvsg66ulqHHMPM9PQpuND2LOVlCw4mkZJinOZ8pZ
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Reviewed-by: Chen Linxuan <me@black-desk.cn>
+On Thu, 17 Sep 2026 11:33:59 +0100, Maciej Strozek wrote:
+> ASoC: SDCA: Improve scanning the SWFT during FDL
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+
+Thanks!
+
+[1/2] ASoC: SDCA: Improve scanning the SWFT during FDL
+      https://git.kernel.org/broonie/sound/c/4454102d6565
+[2/2] ASoC: SDCA: Check return value on a missing FDL_Set_Index Range
+      https://git.kernel.org/broonie/sound/c/dfd8940277c9
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
