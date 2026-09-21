@@ -1,114 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44DA04A3859;
-	Mon, 21 Sep 2026 14:00:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27F44A3877
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:00:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999233; cv=none; b=MG29BjBzoZLJoXtIFpR09Y/Q2Q8OYEdfVOVwDAovyn+/MROeX8o8qMnNfzXVAJcwxhQT/g/Zrm3BTWEYID5em/nef2OGG/2dvPQCoETmobPEcuxOXEUa19OlK0vwzOzwv8p8uKLm04FUXKPI8okfhWM6FPGmWL38K/RIzKoc0Zg=
+	t=1789999240; cv=none; b=aF84Majcg6Cahl1kUcVLCZMVQJ8JBzH9sLgJqh07LL9SOKmXj5zChTQzyGnZcEJ9UBtz8/zzF95iQjZts3StPnORUE6Wa9MCZ0+BmLNBzoJpCDP1riQ2jXIqC4JXK50BgZjpQduhBOkMKp8l4T5gHjI5MN9hQ/vfIZKT6xawN3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999233; c=relaxed/simple;
-	bh=yTzPxPSNtjXiI8Bowsb0EfZGgwMuvaB3WBQI5TMT9yY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=IwI9BmhHM7ocdZqct70flk2CXWE2EjetyKqufEUPIK0r0kQyM1U1BtKTMrYU2cj+8lovXw5sAg7qNB2MRC/yfjSsMaXwHgxdSpKORELz6YczzL3pHt2X/VCRl8Dio46m3k2Owl/TZhKQORJqmfkB2s0jiyYiTIPQF9uTGhFDAgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BtJmf4qe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789999240; c=relaxed/simple;
+	bh=OeyvfHgi0AM3S4WMT38BkWK6VSxmsJwFB/n9ks+exd0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=b+4mNXwGoJhMVU3LmgiQBlBDXVRJnCtMENKzfliObenM9xWTvQ8mC3V5/5JBUbDfTcpzwDiAlOonOPo3TId88kqIRj/3ebuIbKxsS7rTVRx545yWm/oB37pc1noxoK8EuOu3XBMAWGPno7x2xyRQhu04PEXNxmaAT/JJ8SaIGQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fy3lm4mW; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BtJmf4qe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 852CB1F000FF;
-	Mon, 21 Sep 2026 14:00:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789999231;
-	bh=y2gMPy2lUhK3ZXDQoGrQ/YQBEKSXGy637t+H9Aci18U=;
-	h=Date:From:To:Cc:Subject;
-	b=BtJmf4qeFF3MHVRjfKXRJvXzbnO98ouY5kNWuzD2p/NEDgB8LUwoL22tBr9SEfIeH
-	 ZowHMYHJQZrfe1S8UnHXTjzzCGuNzzz2w8R83S8qSZsqcBU9428KJ1rtNC2dNsrsQJ
-	 yWrpAsHEkSHWZpCdV6Ml2/W/DlsAK5r+hQvyH5nW265vQZAfFr41K9m/Q++ITMcPgg
-	 bwYhjogbwE/lKU1K2KcaL3QD0BgdnKT8Yoxk7FC1/R+nNIaf+ib32eFVNS+BJvyQjd
-	 39EAHRCUUqLnPWoE///L1jyjNruF9//ig68RjO+BdhkpAcmGzbeHRj83YSXNEpOFQb
-	 C+Tu6jav1udrQ==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 651851AC55A7; Mon, 21 Sep 2026 15:00:27 +0100 (BST)
-Date: Mon, 21 Sep 2026 16:00:27 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: linux-next: Tree for Sep 21
-Message-ID: <arE4e6B263xjQD1_@sirena.co.uk>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fy3lm4mW"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60590a85cso5624346a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:00:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789999236; x=1790604036; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YF4hTPZsf1CzF+RjsRJpL1NqJMDoLq3jkvr85glNVqI=;
+        b=fy3lm4mWVVfxCbiB/3/idnBoWiGR7Ak2D36Mzxp6PBr2+Q8laVBrWpIRYVMTFrcp/0
+         jFF0hAEuenju7k/fW2j0/C1Jli1UP8WnHH/Of94Gvk1sgDsM7fWI2uyyOZHUsjkVJJPb
+         0JtH6BP+SVZlH0HMjkU4m57nlQhEUE2RAVPRXvprm0BKQC1hQgaD4/dvBt4EOAFUDnL8
+         rpAJY91Fcg/OygM5CEK/CUumLCPykTEC3z5vkEPe3zTfIl3UWEN1JSUp6/FvaR+dRraE
+         jovk046obSWMIph957RrWPJMVfeJ6kFVMrFj0Hqvcqs0jI8QC8TubZvfnFnAJXJHjE1h
+         Ikjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789999236; x=1790604036;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YF4hTPZsf1CzF+RjsRJpL1NqJMDoLq3jkvr85glNVqI=;
+        b=q1ps6gHHzhxN1qi81EnyPkL9urHxHhemRn+jcSMO+7oU3J1xNhLeBWcFMGlbEUth1m
+         /Q3rU5+TGrgf7k/sh5UqlIno76tP6+DqvE+aIp0VbOH+igIZRup8iYQw/uUb34AtdRqJ
+         cdwnBDpy50qDubyqowel3KhXDn6h5QYxqJXdmJlB1/HPRFpNAJ8pZYjpJOpVyE2+mSaw
+         1aZywTsx7AOgmrUnuL9z7BB7jGaUp7NpDQ8Zx/UPuQf9MYzhEd3+aPQqKdzDH3w2VrPn
+         pshiOfew1MUAG+uYmzbcfSchsS3JFrM/PV0KCJBcae4Xq4EParCDga8xloC4W3N12Dem
+         zQIg==
+X-Forwarded-Encrypted: i=1; AKwUvBxdgwjeZyjLJGtKJnL+li8fy6ySiqasIQI4acYcTt4FEBfnKplBnRnsQ17F4pfLv5cxyWZNcu8d7fSvZRs=@vger.kernel.org
+X-Gm-Message-State: AFuF++ncvk7IFFnCWr4SIy1cmvvIxvJbVXpHfJVlXQnvHroDy2peCdBq
+	pfEjUJxoyFbydlPcZvTHxRCmrgyLCuo4K9taikXdCXp2AMXjKM2B3ItBxr+e3EeO
+X-Gm-Gg: AYBFou1pMiWSImcnRUhhu99iNGR3l1elj/ENcJCbF6ZS5c+YtG4hPF0IusEhAg3Zhdm
+	/N0CRwLcvLj5Li/TyXZHEOBXx56oQpXuy+i13f6l34YlkmUDU6KSsglBHXVZ/cTBoN+m7wnr4ZO
+	aTwaivCt8M+LMIJ7EQXMvRxPTyHrk2FCbOF6dH9mPkD2Od0nmnDJWhZ95D1nT9qQN5dRPO//8bT
+	PK7G7uSMcTkeKZQT7Pc7Ml4c+eG+Y2uxwYZNjWm5sShzuji25fsCWSElG22DCkupz5zuIsT4WKU
+	4i4iXAmfrFEaspn48mPjVZ9tMNXtcEGzqFBLZaiab2BwuehWBaVez0PFRJxK3KaGD2RKuxFLa1j
+	q3I5QnAUTFRcxqC8f2zSo9+iqm5CDDoDSdVqrulsfi9Fsa2ypriytxQbhD7KjlSjcXlQpSKfcJ8
+	ITog7TIvtzDoi5ancyFgKp3rx5o17sFxpVZ14V+qUpJexnauZRdsK3nyomdSFbUnhhd7robwAwV
+	0HrNmo6muC7pDf5PuMUiYKiUdKBdd230mRfeM5O2Mgt4KgA9GN/HJFlG2tt8eGKnz2Ii2HbMWe1
+	0rJOViV8VeSDsJiqZBoFpOEzUA==
+X-Received: by 2002:a05:6402:210f:b0:6a9:aead:4e98 with SMTP id 4fb4d7f45d1cf-6aa577f5cfdmr8223981a12.1.1789999236010;
+        Mon, 21 Sep 2026 07:00:36 -0700 (PDT)
+Received: from [10.54.182.141] (82-132-213-26.dab.02.net. [82.132.213.26])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67e1a45esm4427483a12.25.2026.09.21.07.00.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 07:00:35 -0700 (PDT)
+Message-ID: <14db93d0-b41b-43c6-8934-82d10cc50168@gmail.com>
+Date: Mon, 21 Sep 2026 15:00:27 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rG5UCpIhpKQ5bvpL"
-Content-Disposition: inline
-rom: Mark Brown <broonie@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Linaro-mm-sig] Re: [PATCH v4 01/14] dma-buf: introduce initial
+ file I/O infrastructure
+To: Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ io-uring@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Nitesh Shetty
+ <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
+ Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
+ nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
+ ceph-devel@vger.kernel.org
+References: <cover.1785274111.git.asml.silence@gmail.com>
+ <bc20381e8daf85ac58811c344325d8192cde9d1e.1785274111.git.asml.silence@gmail.com>
+ <181b08be-04bc-4ae9-bb88-15321a82440f@amd.com>
+ <anPlbjhpPmj2VZxm@gsse-cloud1.jf.intel.com>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <anPlbjhpPmj2VZxm@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+On 8/6/26 02:37, Matthew Brost wrote:
+> On Wed, Aug 05, 2026 at 10:27:49AM +0200, Christian König wrote:
+>> On 7/28/26 23:29, Pavel Begunkov wrote:
+...>>> +	/*
+>>> +	 * There are no more requests using the map, we can signal the fence.
+>>> +	 * It should be done before taking the resv lock as someone could be
+>>> +	 * waiting for the fence while holding the lock.
+>>> +	 */
+>>> +	dma_fence_signal(&fence->base);
+>>
+>> Signaling fences has a whole bunch of very strict rules associated with it. E.g. you can't alocate memory for example.
+>>
+> 
+> Yes, and the rules around signaling fences from worker threads become
+> interesting as well. In practice, the entire workqueue (or any work item
+> scheduled on that workqueue) effectively becomes part of the fence
+> signaling and reclaim path.
+> 
+>> Are you sure you actually need and want a dma_fence here?
+>>
+>>> +
+>>> +	dma_resv_lock(dmabuf->resv, NULL);
+> 
+> So this is illegal because code is allowed to hold dma-resv locks while
+> waiting on dma-fences. See dma_resv_lockdep / __dma_fence_might_wait /
+> dma_fence_begin_signalling.
+> 
+>>> +	ctx->dev_ops->unmap(ctx, map);
+>>> +	dma_resv_unlock(dmabuf->resv);
+>>> +
+>>> +	dma_fence_put(&fence->base);
+>>
+>> You should probably set map->fence to NULL after that.
+>>
+>>> +	percpu_ref_exit(&map->refs);
+>>> +	kfree(map);
+>>> +
+>>> +	if (refcount_dec_and_test(&ctx->refs)) {
+>>> +		/*
+>>> +		 * Destruction needs to wait for I/O and dma fences. Defer it to
+>>> +		 * simplify locking.
+>>> +		 */
+>>> +		INIT_WORK(&ctx->release_work, dma_buf_io_ctx_destroy_work);
+>>> +		queue_work(system_wq, &ctx->release_work);
+>>> +	}
+>>> +}
+>>> +
+>>> +static void dma_buf_io_map_refs_release(struct percpu_ref *ref)
+>>> +{
+>>> +	struct dma_buf_io_map *map = container_of(ref, struct dma_buf_io_map, refs);
+>>> +
+>>> +	/* might sleep, use a worker */
+>>> +	INIT_WORK(&map->release_work, dma_buf_io_map_release_work);
+>>> +	queue_work(system_wq, &map->release_work);
+> 
+> You can't guarantee that a GFP_KERNEL allocation won't be performed from
+> a system worker thread, so you can't safely signal a fence from one. The
+> pathological case is when all threads in system_wq are running work
+> items that perform GFP_KERNEL allocations, enter reclaim, and then wait
+> on a fence that is signaled by another work item queued on system_wq.
+> Since all worker threads are occupied, the signaling work item cannot be
+> scheduled, resulting in a deadlock. We actually hit this exact deadlock
+> early in Xe.
+> 
+> So, as Christian says, think carefully about whether you really need a
+> dma-fence here. If you do, then you need to play by the rules.
 
---rG5UCpIhpKQ5bvpL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I started with moving it out of wq, which was a good idea anyway,
+but as mentioned in another email, in the end I just got rid of
+fences as I believe Christian was suggesting / hinting on. I cc'ed
+you on v6 if you'd be curious.
 
-Hi all,
+-- 
+Pavel Begunkov
 
-Changes since 20260918:
-
-The bpf-next tree acquired a conflict with the mm tree.
-
-The bpf-next tree acquired a conflict with the bpf tree.
-
-The drm-xe tree acquired a conflict with the drm-intel tree.
-
-The char-misc tree acquired a conflict with the char-misc.current tree.
-
-Non-merge commits (relative to Linus' tree): 7602
- 8221 files changed, 431806 insertions(+), 139589 deletions(-)
-
-----------------------------------------------------------------------------
-
-I have created today's linux-next tree at
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
-are tracking the linux-next tree using git, you should not use "git pull"
-to do so as that will try to merge the new linux-next release with the
-old one.  You should use "git fetch" and checkout or reset to the new
-master.
-
-You can see which trees have been included by looking in the Next/Trees
-file in the source.  There is also the merge.log file in the Next
-directory.  Between each merge, the tree was built with a defconfig
-for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
-an arm64 build of various kselftests, a KUnit build and run on arm64,
-and a native build of tools/perf.  After the final fixups (if any), I do
-an x86_64 modules_install followed by builds for x86_64 allnoconfig,
-arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
-ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
-sparc64 defconfig and htmldocs.
-
-Below is a summary of the state of the merge.
-
-I am currently merging 428 trees (counting Linus' and 133 trees of bug
-fix patches pending for the current release).
-
-Stats about the size of the tree over time can be seen at
-http://neuling.org/linux-next-size.html .
-
-Thanks to Paul Gortmaker for triage and bug fixes.
-
---rG5UCpIhpKQ5bvpL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxOHoACgkQJNaLcl1U
-h9AAyQf9HgPdqg5rnDPZ9NsA044QFRHCJxYUmL6qIl3gm694wp1FxLv3pnPxiYnl
-COerwIi+47bXFJbUMariEpQbhVENR2hKeXgD/aVKZjbIfYnr6O4GMlON7U285P8v
-te1I0I98v51JBwvOGQQuKJH/rMz72Sep/3tPnUhGXyTUGwHyG8I0ix/l7kIvoZl/
-g3rH86Ud5ocPHLeFCvPxBrvHew+9nG8UnQsbDlP3d77/LddIrGjAWD9fdfzDm6wx
-/vNjs/8cV20bEkOH3revGqPHzezgdJMYQjmhsE9Rj68ce8/BtfTFqCSz7zLUenoz
-8Nc6oL/zeyfz1i27d1kD3YjySt8aXg==
-=secF
------END PGP SIGNATURE-----
-
---rG5UCpIhpKQ5bvpL--
