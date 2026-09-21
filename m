@@ -1,122 +1,133 @@
-Received: from mail.rimpianto.com (mail.rimpianto.com [46.14.198.178])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A52048F02A;
-	Mon, 21 Sep 2026 09:28:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.14.198.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A27FC48F823;
+	Mon, 21 Sep 2026 09:28:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982894; cv=none; b=hWz+IIs/PoBwmM+wYl9zwux9JNcD/hW21pqxz6JAaGtqt8m98lY/nuY2mTfd7mCua3cHw1bnHlrRGlB38UUigmvnXXjDtKyaPWlPc+qLhoHW6j88AlcBbrRaOj1hROPtbVFLbn3ssNCd+2+/uoVb2K1BhNL2VTzzy0CrUZ0HL2I=
+	t=1789982895; cv=none; b=nRp+Tf/BRptDA2y3BsfawtJCII7u69t4goR96vzamMm60plth7qBGeUESjuGLRE2gZU9LrsGlC/WD8CH9uz9aZ04/xdYdb7eESYGQquU1BGk3gWhaPStn1tdb67QmM0h6FtD71+99iwTqWvjWzc2sUlZk9VpNBxjYt6g9wbAUQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982894; c=relaxed/simple;
-	bh=PH4/FT+SgS9Z/G4pWqkm/WiDabKc+6oc79OwZwH8JTo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l736XRzZVpZolhTgbq3kF/wvBM/OinA06K+Xc1KvwZxKWj+Rc/QjW0oOxTEw9bfm4WfJnkG/TCzFwW5TOtJOM4KjpD50fnmm7n+55cP3DUmn59Nkxa5pfx3CmOIyiUTlyV6iN/9rnVUlouWuU3lPEB/u3YVnXO5oH1H9qa7YA+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rimpianto.com; spf=pass smtp.mailfrom=rimpianto.com; dkim=pass (2048-bit key) header.d=rimpianto.com header.i=@rimpianto.com header.b=pmY3E/zB; arc=none smtp.client-ip=46.14.198.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rimpianto.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rimpianto.com
+	s=arc-20240116; t=1789982895; c=relaxed/simple;
+	bh=zErUc3ycfR5y5AiZ+RUYdeB9W7d8nXeC4UEgiMP9ang=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=SuttCd1dBuaxpOslDp2PnUHyVxnPp5FOAsVFHG36FAVLNHA+aIbthw/8F4kW782z58A5wyrS7ggeYEkKc3IIhInsbQfwyjgZ25rRuncSfy30lVJ4wBWATw50o/klz+8u/SbX+QBaCJ5nD0/G8/NhAfrFv/r4I8mJINArmS0aNak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=dFUFGGr1; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=AhRdCNmT; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rimpianto.com header.i=@rimpianto.com header.b="pmY3E/zB"
-Authentication-Results: mail.rimpianto.com;
-	auth=pass (plain)
-From: =?UTF-8?q?Gajdos=20Tam=C3=A1s?= <tamas@rimpianto.com>
-To: netdev@vger.kernel.org
-Cc: kuba@kernel.org,
-	chris.snook@gmail.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	gatis@mikrotik.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: atl1c: fix soft lockup on out-of-range tpd_cons read
-Date: Mon, 21 Sep 2026 11:27:55 +0200
-Message-ID: <20260921092755.3573852-1-tamas@rimpianto.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917004924.2461599-1-kuba@kernel.org>
-References: <20260917004924.2461599-1-kuba@kernel.org>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="dFUFGGr1";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="AhRdCNmT"
+Date: Mon, 21 Sep 2026 09:28:09 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789982890;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mMUMfVqe6+dj9gQFMPcnBriYiSWeuszViW2soYkvhBs=;
+	b=dFUFGGr1F74PI8OTRhu8zdTjXbog/wzarOfl4z/LJGjDrtMgZpn9c/dQZlSqEZMsSyBLiM
+	j9UI5qFmst67LwaE+qIe3Uf0UeuAcKjoD7EtRvvXXAojZlwJmnVh8FsNb+aHebRnH+ct+0
+	mAkqN5eVT38OtBDWxTNotrnuYFYFN9HWbJlf9oZXGKvddKk150QjJU/7r9ic/iKfCgFk/U
+	qJ4OP2jsSdDIn9OD4bDuhFwObV2Hzk+f/1X1J7vQ3kSdRmW8cJtxTVuhasjiO3WaL4qh/I
+	4ZKJ4hg4EyP/X2YSfSY5gysNM8glyqet5qWniAssFf3nDSi+Wn26tw5WTRe+LA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789982890;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mMUMfVqe6+dj9gQFMPcnBriYiSWeuszViW2soYkvhBs=;
+	b=AhRdCNmTHYFoyMbup69x8vRLHQ+VT1qo78hnCZx1PD9OtmlI4KZ4Pa1V3HYIZCdkLEgunX
+	k+OrVHDvOMDI3mAQ==
+From: "tip-bot2 for Song Liu" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: objtool/core] objtool/klp: Add test for Module.symvers path
+ normalization
+Cc: Song Liu <song@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ Ingo Molnar <mingo@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260916184351.2720310-31-song@kernel.org>
+References: <20260916184351.2720310-31-song@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Received: from localhost (Unknown [127.0.0.1])
-	by mail.rimpianto.com (Haraka) with ESMTPSA id A2A76402-2A36-4946-B8D5-72374F76B25A.1
-	envelope-from <tamas@rimpianto.com>
-	tls TLS_AES_256_GCM_SHA384 (authenticated bits=0);
-	Mon, 21 Sep 2026 11:28:10 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rimpianto.com;
- h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
- Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=s20260314391;
- t=1789982890; bh=fMB8li3SdzNXwqIERvGv3IFialqAVuf5hLhWvqJ6h2g=;
- b=pmY3E/zBaoesZoQsrWvOMRZrES2zs3mg7pR5vFhLz+hXdqZEbL7U6eeaLYKQc+fc/A1jnbYD1
- Bb6tI/nIe1V0nK5oIZxE0nqi0VyxI0mRqb21DuNRnLCx4TZUF8iShgGUPdftuhU8RXkixc9NFXf
- RO4Uxpt2arC+jkeLYU85QIC1JUGLkzXVGrQMjY+OuwEmg33zh2p1iwHL7ad9ulzwqdFjWVEMztO
- TRAidM23P6ugSLJArjar8Md9WRLXdrS4NCRsvgwzmH1mYT51GVIgryhdRd0Such5M40LTCFiML5
- EfCOc6/O7BpkK2bH0Y2uDhFufVsZtmgXWRuf+MkqC5Hw==
+Message-ID: <178998288939.2819794.12297739293208692858.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for the review.
+The following commit has been merged into the objtool/core branch of tip:
 
-> Should this carry a Fixes: tag and a Cc: stable@vger.kernel.org?
->
-> Fixes: 43250ddd75a35d ("atl1c: Atheros L1C Gigabit Ethernet driver")
+Commit-ID:     90949e312de909e2f2a4f72ff3221f79e891d19f
+Gitweb:        https://git.kernel.org/tip/90949e312de909e2f2a4f72ff3221f79e89=
+1d19f
+Author:        Song Liu <song@kernel.org>
+AuthorDate:    Wed, 16 Sep 2026 11:43:23 -07:00
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Mon, 21 Sep 2026 11:12:06 +02:00
 
-Agreed on both, will add in v2.
+objtool/klp: Add test for Module.symvers path normalization
 
-> Could the changelog also say how the 0xffff value was observed - kernel
-> version, hardware, and the log or reproducer? That makes the hardware
-> claim easier to confirm.
+Module.symvers names an export's owner by build path, and the kernel knows
+modules by their runtime name.  Without normalizing one to the other, an
+export owned by a module is not recognised as owned by anything, and a
+reference that should become a klp relocation stays an ordinary one.
 
-Reproduced on two machines, same NIC (Qualcomm Atheros AR8151 v2.0,
-4-port), triggered by rebooting a Mikrotik CCR2004 PCIe card that the
-ports are directly linked to:
+This tests the behavior of commit 8668bf91e050 ("objtool/klp: Normalize
+Module.symvers paths to module names").
 
-- Ubuntu 26.04.1 LTS, kernel 7.0.0-31-generic. The link-flap precursor,
-  before the lockup was captured with a full trace elsewhere:
+Assisted-by: Claude:claude-opus-4
+Based-on-test-by: Joe Lawrence <joe.lawrence@redhat.com>
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Song Liu <song@kernel.org>
+Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Link: https://patch.msgid.link/20260916184351.2720310-31-song@kernel.org
+---
+ tools/objtool/tests/generic/test-modname-normalize.sh | 26 ++++++++++-
+ 1 file changed, 26 insertions(+)
+ create mode 100755 tools/objtool/tests/generic/test-modname-normalize.sh
 
-    atl1c 0000:05:00.0 enp5s0f0: NETDEV WATCHDOG: CPU: 4: transmit queue 2 timed out 489984 ms
-    atl1c 0000:05:00.0: MAC state machine can't be idle since disabled for 10ms second
-    atl1c 0000:05:00.0: atl1c: enp5s0f0 NIC Link is Up<65535 Mbps Full Duplex>
-
-  65535 (0xffff) here is the same value the tpd_cons register reads
-  back once the loop this patch fixes gets stuck.
-
-- Proxmox VE, kernel 7.0.14-11-pve. Same NIC/trigger, this time caught
-  by the soft lockup watchdog with a full stack trace:
-
-    watchdog: BUG: soft lockup - CPU#12 stuck for 354s! [napi/eth%d-0:329]
-    CPU: 12 UID: 0 PID: 329 Comm: napi/eth%d-0 Tainted: P O L 7.0.14-11-pve #1 PREEMPT(lazy)
-    RIP: 0010:atl1c_clean_tx+0x142/0x2d0 [atl1c]
-    Call Trace:
-     <TASK>
-     __napi_poll+0x32/0x1e0
-     napi_threaded_poll_loop+0x286/0x2e0
-     napi_threaded_poll+0xfd/0x140
-     kthread+0xf7/0x130
-     ret_from_fork+0x2da/0x3a0
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-
-Will fold both into the v2 changelog.
-
-> This isn't a bug introduced by this patch, but the sibling Atheros
-> drivers have the same loop and are left untouched here. Were they
-> audited?
-
-Yes - sending this as a 3-patch series (atl1c/atl1e/atl1), same guard
-applied to atl1e_clean_tx_irq() and atl1_intr_tx(). One caveat worth
-being upfront about: only the atl1c fix has been validated against
-real hardware (repeated reboot cycles against the CCR2004 above,
-confirmed fixed). The atl1e and atl1 patches apply the identical guard
-against the identical loop shape by code inspection - I don't have
-atl1e/atl1 hardware to reproduce and confirm the fix against directly.
-Flagging this explicitly rather than implying equivalent test coverage
-across all three.
-
-> Would adding napi_disable()/napi_synchronize() around the reset in
-> the link-change path be the right complement to this clamp?
-
-Agreed this looks real - still confirming the right fix, will follow
-up separately since it's an independent bug from the one this patch
-addresses.
+diff --git a/tools/objtool/tests/generic/test-modname-normalize.sh b/tools/ob=
+jtool/tests/generic/test-modname-normalize.sh
+new file mode 100755
+index 0000000..a8059bd
+--- /dev/null
++++ b/tools/objtool/tests/generic/test-modname-normalize.sh
+@@ -0,0 +1,26 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++#
++# Module.symvers records the build-tree path of the object that exports a
++# symbol, not the name the module has at runtime: "arch/x86/kvm/kvm-intel",
++# where the kernel knows the module as "kvm_intel".
++#
++# The klp symbol name embeds the owning object, and livepatch matches it
++# against loaded modules by name.  Left unnormalized it names a module that
++# does not exist, and the relocation is never resolved -- at load time, with=
+ no
++# build-time complaint.
++
++. "$(dirname "$0")/../lib.sh"
++
++setup
++build_module_pair cross_module.c klp_testmod
++
++# A path with directory components, a dash, and no extension.
++export_syms
++add_exports "arch/x86/kvm/kvm-intel" other_mod_func
++run_diff
++
++# Directories stripped, dash to underscore.
++assert_klp_sym other_mod_func kvm_intel
++
++pass "Module.symvers paths normalized to runtime module names"
