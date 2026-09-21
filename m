@@ -1,77 +1,137 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B398C2EEE67;
-	Mon, 21 Sep 2026 05:47:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10B1D35A398
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789969640; cv=none; b=WZc4hTLcLEyxeYiQinjGhLdgpN7WrnqOPDqp0lLIkAMLVr5wtjmmHABdE9HHhoBYJJT9xoRk8mvDsU6ziP8CJSo+2h5tbEEUd2J3ap0t3Yf07ND72eshlSqf0fS529CiicXwzVWPXTqgcDZAcMzTW3GrlBx6Gb5rekUBU93+/hY=
+	t=1789969707; cv=none; b=H8wFIXGLffA+JA5r7+JBJ5tBhNM57NHbR6Bkh9Tqxk+lvNAR4fqeVoXdeiHkZfA6hsFYgK3UL36uh7GIoIUhgSuKRyhPlMops3c97HSR9SEfrDdABfczY62StRignMOwDOapd2a+A5OJWAZlaIU9FBtfyvYCZ0RP6FHjYxwMufU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789969640; c=relaxed/simple;
-	bh=V/Vug2RlqixkFaXTypOw+VY47ihsootWxD/0hfxVxG0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=h/IcbpuPa9Fg6RbWxkViVgxWobKXLfcjssY+pbJyUkA/6aKfbf2ZZeyc3bS7Zt0AcYqW6J253qBom1gBLvc0WEi2NdfznONPeOjb7c6KWSLBh7hKEaE3j2nalZvpZBAyqvOsUnWbYBlvlz9mKb/wnDhf9Su6lxn9trI7k0MxbiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=OhVQZOe9; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	s=arc-20240116; t=1789969707; c=relaxed/simple;
+	bh=4q3x0VjUvsd6BIdKh4dxjcXadLqLQxFM6mQepQJSzUg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uLANjbkCdeAoAig3lQOn1yIC9wg/np2S3rB751iy72jVxsJrQbdU5muE9Koqs26DS1QgABRQ7tLXkCCUe8u52vH8JsGSu3r+4URmuPqFvHtjL7D5ox/WbXqSdMwYtTYo8CxljLZ8YUGs4yvjyPsukDOnT2BrRZzIhxnvm3iXvwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M0LzBUAG; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="OhVQZOe9"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 523F24090F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1789969632; bh=YOCb5PDIZfjavIu8Tn/O03ibiuTI3hY3aKhvJg4NzvM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=OhVQZOe9NlvwmNG5si3VbkPxTHjUQ2XGFOyi55xRKmhKsOfCFXdYlqwemAKdsPtwl
-	 K1HN6AVKn/k8/QyR9KZqWBH/IpQzUPyQGQumHm1OXm98som5weK4YEYxE8f++s66IN
-	 EdofZEAtLMgG/hM9goU43T0lwFPXuScwuaLLtDZKSV/sTqij55u5lxsjTVnqM2usFF
-	 JA2AIyQOuqLX1WUKfRyqfqZDta1QCLOLhW/4PapV+paBgiyeGiHtEWrYqAuy9jokhG
-	 vosZp4cWrMRytHXoWrZy2L8RZf/HAwC7jlMbtoWkMWLe5qHv4KsFUT/VGvdZijCgla
-	 d9+Nx+MwZz68g==
-Received: from localhost (mdns.lwn.net [45.79.72.68])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 523F24090F;
-	Mon, 21 Sep 2026 05:47:11 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Osman Ahmadzai <osmanahmadxai@gmail.com>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] README: add a reST version with clickable documentation
- links
-In-Reply-To: <20260921050038.76985-1-osmanahmadxai@gmail.com>
-References: <20260921050038.76985-1-osmanahmadxai@gmail.com>
-Date: Sun, 20 Sep 2026 23:47:08 -0600
-Message-ID: <87o6dryx43.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M0LzBUAG"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398cb5615deso3069145a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:48:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789969705; x=1790574505; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zNJYOwH68Um+gj+JHkyQ06KZcoI1X6BYrC4IoaU244U=;
+        b=M0LzBUAG+E4ngoiMV65MDhbsgox3K5+3ta+tx0gZLyief7igIKdaivLhXEZIGM5THM
+         uak4iiZmRUCazbzM5IxILqWedfH3/y1upy4ozmebhGzuCpiMHxtuM/scMRE6MYBdxvIW
+         3Y0YkYL630tMhi1Vq8VsoPv4i9lQUzabffeoNI/bFzMz5ytD9FBV3RxxduS21Mnq9Aox
+         UQCvJp3qLGc1vLsazcgt01vOZXs4KnQbI7O8HdcpFNwrDP8YwsYOiJQWajl2IgCvjAza
+         n1kDLJKvSCZXpiB7I+7VHk4Ql3wG/qxqaSy/ybu5F2c+1+SYDYNkfYRPvdRcGMoJiyUh
+         2dXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789969705; x=1790574505;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zNJYOwH68Um+gj+JHkyQ06KZcoI1X6BYrC4IoaU244U=;
+        b=r4yr7YRTvDiouHC/l0XpI7MwZDkK8jI1mOPdbp+ymIKN9BqFrwlpeFiRU0LTVq72uE
+         PrYQzYKqGSNJQvOHyQqQjR0zRbNGlcaJbZ6vh2cJtEvtrQuWP8gEiRHL0aJhk2Y9743U
+         NhWDRtCLrQVMgzLhDZdqxKfRAPoLM7jGo457f17jN2gx8nvVgavU/7IZaMQh8YSNyqdP
+         9SieQXyn+zZCZlsi1xZJqMmL7r69KGFSa8ljcwV/bQiPXkqP7WROBikXMuT2Nn+00d6I
+         mkkY8LmYa9QY81oOp5xl6APkMxmdjx4Yj2IY9zmE7/Z6D988Fyn3nTG8NRkmIN/gAon1
+         9Exw==
+X-Forwarded-Encrypted: i=1; AKwUvBw31wJEafNNIj+I3iaXk7pPzw5VO6PJPcGVht23k5nSUaaOY8ue0vl5mjStNSpLsqvdZMWfquOfXhfgtB4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZpelw5DI3o/1IjeuiZqAcdA4tGVSlR8iSX7BH/KAl5ZcMRrPX
+	NxN89wfUkHW25H67mUEzhZxfKKAIKtwuvzqfJ2/MDHRonkgK/aKYhTp9
+X-Gm-Gg: AYBFou1Jbe5i7RN67myYgnouXG5MGinrRygo/B2BcDv0voKJvdViLnJSsZxgvzEfElw
+	aq87zb8F8e4Wx31t/RCozYsv049ytEdvDWCtyzfPbSqOhyrOXfi58pg0Yn/Q1k/jbtQmNn8t6Vi
+	u+4XsPnB89a9Cjbz3Fq00PpPn4dnO88NeH6mWzVztQGVZIUU6BJGP8yFtB4Bq1SEoUG/vo5LCPL
+	9xG+miAdUpuARRLCR5AzbR6Ho29NGyV7V5Ir0UYdMhNS8CZdCjEw7baC/+QUv6T19WFS0B1qgSN
+	6mY3/wSsHAIcxpqVYb3pTtgI4EK6WdhQoS5a1k/qOwH+Doite40Ch8u2qWYPaG7mLqyF8EzxbHc
+	eG3V4ZY0PmTxgUz16EQURsK4tjiKyufesPg0eNeNlQqZMgBnWpSiNvh+oMek8uSbhwXx+flu1mZ
+	gtbHMkR0B9kQUQZKYzoJ0q1FjAnsx/kNwmkTCKgm6RsK86nw/NwtHV4oxDcYjFUbrtfEa50XO3q
+	hF5lOw+/YtUuztfnCo5MEDaCJlAUCQOm6SnSj6WKXC1nXCj+sF3lCOwSVSR0MFyWTFs7FdoA5NF
+	H18pQkXMsw==
+X-Received: by 2002:a17:90b:4c50:b0:39d:fd60:caba with SMTP id 98e67ed59e1d1-39e54d21a31mr14881297a91.14.1789969705254;
+        Sun, 20 Sep 2026 22:48:25 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cb372b7sm12640514a91.15.2026.09.20.22.48.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 22:48:24 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: kuniyu@google.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	willemb@google.com,
+	mhal@rbox.co,
+	jakub@cloudflare.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	benquike@gmail.com
+Subject: [PATCH net v2 1/2] af_unix: decrement u->inq_len when skipping unread OOB skb in manage_oob()
+Date: Mon, 21 Sep 2026 05:48:22 +0000
+Message-ID: <20260921054823.1822122-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+In-Reply-To: <CAAVpQUARH-vecUojrXJWHp_C_rCpyxkB-HMBhryfxB-S76BAiw@mail.gmail.com>
+References: <CAAVpQUARH-vecUojrXJWHp_C_rCpyxkB-HMBhryfxB-S76BAiw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Osman Ahmadzai <osmanahmadxai@gmail.com> writes:
+When a normal in-band read on an AF_UNIX stream socket (without MSG_PEEK
+and without SO_OOBINLINE) encounters an unread u->oob_skb in manage_oob(),
+manage_oob() clears u->oob_skb, unlinks the 1-byte skb from
+sk->sk_receive_queue, and drops it with SKB_DROP_REASON_UNIX_SKIP_OOB
+without decrementing u->inq_len. Because queue_oob() incremented
+u->inq_len by 1 when queuing the OOB skb, u->inq_len remains permanently
+inflated by 1 byte for each skipped unread OOB skb, causing SIOCINQ /
+FIONREAD to report a stale positive byte count on an empty socket.
 
-> The README points at some sixty files in the tree, but it has no
-> extension, so it shows up as plain text and none of those paths can be
-> followed.  You have to go and find each one by hand.
->
-> Add README.rst with the same content, wrapping each path in an anonymous
-> reST reference.  The link text is the path itself, so the file reads the
-> same as it does now.  Anonymous because a handful of the paths are listed
-> twice and named targets would collide.
->
-> README itself is left alone - checkpatch.pl and get_maintainer.pl both
-> look for a file called README to find the top of the tree, and the
-> Makefile points at it too, so renaming would mean touching all three.
->
-> Signed-off-by: Osman Ahmadzai <osmanahmadxai@gmail.com>
+Decrement u->inq_len by 1 when unlinking the unread OOB skb in
+manage_oob().
 
-Creating a second file with duplicated content isn't really going to
-help...they'll be out of sync within one release cycle.  Better to have
-a single file and use a symlink (or else to simply rename it and fix the
-other files as well).  Or, perhaps best yet, see if it can be integrated
-with Documentation/index.rst.
+Tested in QEMU against Linux 7.3.0-rc3 by sending three 1-byte MSG_OOB
+packets interleaved with normal stream data on an AF_UNIX SOCK_STREAM
+socketpair and draining all in-band data via recv(): on the unfixed
+kernel, ioctl(SIOCINQ) reports 3 on the empty socket; with this patch
+applied, ioctl(SIOCINQ) reports 0.
 
-Thanks,
+Fixes: f4e1fb04c123 ("af_unix: Use cached value for SOCK_STREAM in unix_inq_len().")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v2:
+- Split the manage_oob() and unix_stream_read_skb() fixes into a 2-patch
+  series as requested by Kuniyuki Iwashima.
+- Update Fixes: tag to f4e1fb04c123 ("af_unix: Use cached value for
+  SOCK_STREAM in unix_inq_len().") and clarify the commit message as
+  noted by Sashiko.
 
-jon
+ net/unix/af_unix.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
+index 42cffeafc8c1..1770af3c2684 100644
+--- a/net/unix/af_unix.c
++++ b/net/unix/af_unix.c
+@@ -2849,6 +2849,7 @@ static struct sk_buff *manage_oob(struct sk_buff *skb, struct sk_buff **last,
+ 		WRITE_ONCE(u->oob_skb, NULL);
+ 
+ 		if (!sock_flag(sk, SOCK_URGINLINE)) {
++			WRITE_ONCE(u->inq_len, u->inq_len - 1);
+ 			__skb_unlink(skb, &sk->sk_receive_queue);
+ 			unread_skb = skb;
+ 			skb = skb_peek(&sk->sk_receive_queue);
+-- 
+2.49.0
