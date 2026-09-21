@@ -1,49 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AAC9489FAB;
-	Mon, 21 Sep 2026 23:28:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D4448988B;
+	Mon, 21 Sep 2026 23:28:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790033302; cv=none; b=LPcfcsM2I0uxrOwBt/2hRjZdM8bBp/NMI8EPI5lQqhlvKFpNK+Fa54HsWDbv5fKylP++UaaoBMZ7m6XOepEvIuDKj/EF1m+bVgxFAe8gVGZv/Gx3Wm8Qrv6NoYvXYWlb11Zl71wyEF2tvgS1pjGHrRWYFH9ynUX+ZIAsK4B/GvY=
+	t=1790033313; cv=none; b=tquDK7BSGGC6zLfa27oxV1ZIrdjAygs9XoOSkNbc/C9KEcTj3JaC+HX3r5e4Kd1yHMo+2iw9hMmpvMG//9aGg54ra0rmoSv+pLacATcgSbnxjTK1vOEoUoW+uT4nNSZDB3zdOhUlbAKTRostMBJ3e7rhYFOUzmnar4FTV9UGHZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790033302; c=relaxed/simple;
-	bh=+AO/v9nGlpiWxBEyyBhfU0XYgqE2xZJnTRMqOr3Gqfk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YpioePWhfDrbXkm9wcTVH0zQZ0wvNiQI4buc9Z9TZN03kiAQz9qcoktVlW2FqDl7B3hCbzDNwzBWeegtzcUl8hL4pt+CrlUDDr3wMaCSJIJgE0PQArqojZLmUb0A4EFtZp5ECZLONhfmRl+AKLSvK1391zZ7+oWDzBwkhSBrrhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XVBRn4HA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790033313; c=relaxed/simple;
+	bh=ng5+diCyg8PNAA5LOmAaEul+3zb+gC5v3dRe2xnBQMM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OK0gwDoI4tpJakal5xfZ25/YYF4MjdeA7ny5uBwbosiJ9SYnW8Knd3lPrzjRHRMQZ9mnrsBpIZ9bM58D75BE+IgHvssollXnu2+yx+3qt6VnRRH3pETLMhX7CLHbAIKCpasczBnvuEFOwrIjGXyEumH/RrTaErdmC/QR+u2BgoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lbZIen5t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XVBRn4HA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C956F1F000FF;
-	Mon, 21 Sep 2026 23:28:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lbZIen5t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E26FD1F000FF;
+	Mon, 21 Sep 2026 23:28:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790033291;
-	bh=s9i/ToZsbA5iXctbYEYVjf65fydob/mr01EsHElgSTk=;
+	s=k20260515; t=1790033303;
+	bh=QrsjZJ1TM+xQCAvXHKD26PYxlrRKofHOjYGm45CcmYw=;
 	h=From:To:Cc:Subject:Date;
-	b=XVBRn4HAER+wIB/E1iVk+dVgAHu83sRTjn6y74APepGBQ1VZ6N+hHkfvdjHVgdiLU
-	 J/LRnQ4ScTBfL+ekBqAafSEEuJ6co4rYknZEwK5+woBeM5s7SyTrp0tvH5h3LAMO37
-	 UM89JozSTA+pvcbol3QHFY+V8Otsz5aQBJSTVUnnFjoSvmUCVQfv4ikou3XYUQXcNq
-	 OyZ6hYfM613SOlbK6nSqhTb5rBX/3hGQPvBHsX4Th4yS/rgzmkiedmEzdD/z/Vn0Vt
-	 eIkgWdBpMnVmK/TeRzYlLfOdl/QTdrgNknxCOxyeFHxFnkRnO+WMddXzvFqJkuThw1
-	 bXZQjn7aqx1iw==
+	b=lbZIen5tt1hGAOqFoQ8gbT3A3tDJFe8wY/s5i+YLS9qwhb2nd9Fo2QaQmPZWPSq2F
+	 XCP+xCOvDdO4BZQz7Iz45Qhci3dq/DOnj5FoI6SPMwgIdDaDbrwtusq3+IXWe7bp8g
+	 hzqWYiGO56z1/KoWKZrdY8Hwy4oAUM5kONe8TpldMfHW+S6iorAXJdqlIgg3jERwqS
+	 459KtU5mAdbq8yifyGb+7gFlUTXd9nlB6K2x/dEHQXPOnWnZ83mUHFCBEiH0w4aU/K
+	 /x1rbqO+RAQefJTbSX2zdh+vF8zJhp/CtSnzVy2DItscFHcLCGGZyH8zxojyxjOV/l
+	 83OKRIrtHiUVQ==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Yassine Oudjana <y.oudjana@protonmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-clk@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	devicetree@vger.kernel.org,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Eugen Hristev <ehristev@kernel.org>
+Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH] dt-bindings: clock: mediatek: Add MT8516 fallbacks
-Date: Mon, 21 Sep 2026 18:28:06 -0500
-Message-ID: <20260921232807.3137010-1-robh@kernel.org>
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH] dt-bindings: arm: mediatek: Fix MT6779 audsys compatible
+Date: Mon, 21 Sep 2026 18:28:18 -0500
+Message-ID: <20260921232819.3137721-1-robh@kernel.org>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -53,59 +47,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-MT8516 topckgen and apmixedsys nodes use the common syscon fallback
-form. Add the MT8516 compatibles to the branches that allow the
-syscon fallback.
+The correct name for the MediaTek MT6779 audsys compatible is
+"mediatek,mt6779-audio", not "mediatek,mt6779-audsys". The original .txt
+binding was correct.
 
-Fixes: cd9fdd06b0e8 ("dt-bindings: arm: mediatek: topckgen: Convert to DT schema")
-Fixes: 16a146735df3 ("dt-bindings: arm: mediatek: apmixedsys: Convert to DT schema")
+Fixes: e97c618234d9 ("dt-bindings: arm: mediatek: convert audsys and mt2701-afe-pcm to yaml")
 Assisted-by: LLM
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- .../devicetree/bindings/clock/mediatek,apmixedsys.yaml          | 2 +-
- Documentation/devicetree/bindings/clock/mediatek,topckgen.yaml  | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ .../devicetree/bindings/arm/mediatek/mediatek,audsys.yaml       | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/clock/mediatek,apmixedsys.yaml b/Documentation/devicetree/bindings/clock/mediatek,apmixedsys.yaml
-index 591a9e862c7d..438723d25320 100644
---- a/Documentation/devicetree/bindings/clock/mediatek,apmixedsys.yaml
-+++ b/Documentation/devicetree/bindings/clock/mediatek,apmixedsys.yaml
-@@ -26,7 +26,6 @@ properties:
-           - mediatek,mt7988-apmixedsys
-           - mediatek,mt8135-apmixedsys
-           - mediatek,mt8173-apmixedsys
--          - mediatek,mt8516-apmixedsys
-       - items:
-           - const: mediatek,mt7623-apmixedsys
-           - const: mediatek,mt2701-apmixedsys
-@@ -42,6 +41,7 @@ properties:
-               - mediatek,mt7629-apmixedsys
-               - mediatek,mt8167-apmixedsys
-               - mediatek,mt8183-apmixedsys
-+              - mediatek,mt8516-apmixedsys
-           - const: syscon
- 
-   reg:
-diff --git a/Documentation/devicetree/bindings/clock/mediatek,topckgen.yaml b/Documentation/devicetree/bindings/clock/mediatek,topckgen.yaml
-index c080fb0a1618..6594d491e215 100644
---- a/Documentation/devicetree/bindings/clock/mediatek,topckgen.yaml
-+++ b/Documentation/devicetree/bindings/clock/mediatek,topckgen.yaml
-@@ -23,7 +23,6 @@ properties:
-           - mediatek,mt7622-topckgen
-           - mediatek,mt8135-topckgen
-           - mediatek,mt8173-topckgen
--          - mediatek,mt8516-topckgen
-       - items:
-           - const: mediatek,mt7623-topckgen
-           - const: mediatek,mt2701-topckgen
-@@ -43,6 +42,7 @@ properties:
-               - mediatek,mt7988-topckgen
-               - mediatek,mt8167-topckgen
-               - mediatek,mt8183-topckgen
-+              - mediatek,mt8516-topckgen
-           - const: syscon
- 
-   reg:
+diff --git a/Documentation/devicetree/bindings/arm/mediatek/mediatek,audsys.yaml b/Documentation/devicetree/bindings/arm/mediatek/mediatek,audsys.yaml
+index 9aa39b002361..5ede7d277488 100644
+--- a/Documentation/devicetree/bindings/arm/mediatek/mediatek,audsys.yaml
++++ b/Documentation/devicetree/bindings/arm/mediatek/mediatek,audsys.yaml
+@@ -19,7 +19,7 @@ properties:
+           - enum:
+               - mediatek,mt2701-audsys
+               - mediatek,mt6765-audsys
+-              - mediatek,mt6779-audsys
++              - mediatek,mt6779-audio
+               - mediatek,mt7622-audsys
+               - mediatek,mt8167-audsys
+               - mediatek,mt8173-audsys
 -- 
 2.53.0
 
