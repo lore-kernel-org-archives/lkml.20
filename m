@@ -1,84 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03405466B72
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:04:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 429C546D2B5;
+	Mon, 21 Sep 2026 09:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789981487; cv=none; b=sEDjABZmxzrZW48YQpFCpyeGR3e97SDRwW1gFFv8h1+2f7RD4iCQXtpOaMn8CHKYLL0s3+vCnYlpp940vBG/XYeAGWY2MRtRIo/ywDw2w1MwK+rrCvZpoDuO7ZpZZBe3DRrEIU/L7ab/jatqjHvMg6EeG76Xm+aA0bmffwPtyCU=
+	t=1789981491; cv=none; b=ekfqZwkMY6hiD8Gh/aUsCTXl0ro5jpdWik/NCcUEv9gdSg3mRMAv9pRvGLaEmJqqFNJp7FmNKcMYMPQ9Qm2AbZu+ePvZdKXBdDAY8WNaojwzTau+GnOMeuV5lwgf4ComBoJYzq9rDOALAFUyniAk58CBIPB5dWxZekEWl1V4e3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789981487; c=relaxed/simple;
-	bh=VFKHHGpF6NRAqi8ddCzmD3/jk7OUJuPZ01kFQLdlvxM=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JdvmIFykzq8U/IILcqbofWw03Jv8zBwLlJtJojvf2XKbOVbTmCgexmimvWfvUaYNa7Rf4PxnFfFlqTgJgViNivRqR98qLKcxwTfZF/OZPmhV86fFLLFntFOntlEUlFInN5stGFo7NhVQ9EdIB9g5Gmoke5eJLKiR9aPkw9I420U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oUBoma+p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789981491; c=relaxed/simple;
+	bh=8XfMkOskSZJ52LZ+fWsCnR6GpWD08w36joEyxV2mlIM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eR5pD2u0FQCsipFFJpYacjvo3xKSQEUe3PFopJ48zZmTpqomeDSQT6mBXWwjtS7lZA7fJ40QIDLXBFl/J+1Jy9LxAQhoxu5EwTVn8hPtghDeBvlsGh9EfsCwT4EcbF6+mbTVMXC7dkjC204ieiXzCLTj3nFgdM6wDYhuOH9Kqnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=t/8RLcX1; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oUBoma+p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA0101F00898
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:04:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789981485;
-	bh=VFKHHGpF6NRAqi8ddCzmD3/jk7OUJuPZ01kFQLdlvxM=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=oUBoma+pcuy/bPEkSxFM1/Kl3td60ypI5Gdcoul0w503NCROA3iXjr0C2AoszRrZt
-	 dp5jvzL2CHfOnUBrYYUrOCJNHsq8xk3VRkyO4KN4YulSYrwi4Q4JCrDb8Mx4Yt5pc7
-	 VeJY4k30NNaOlVpPyTO681h5a71kuIP2Sp9PaB1N7kyKpEDZTXxdz3IBv0kQlVrx0j
-	 umertCdCxeVAdS8FmiPaD9LUAE8EPJFZjPJTbogY27SsWM0F6+ceU+Ld+oRhvi8G/T
-	 zaN0Yp5zQmSd1whd7UglMT2a8kz3FWlzhb0ID1ALFsO4w/dmYKkVHEwtB1yadKVyHk
-	 Gnh4okw2Fvtgw==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5b6840edcso23305841fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:04:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxM12GBsJmnTT4bYPQ4vZ3VNdIeFC6JZ3cVUJOzbkNlQxeCaUlzn+iawNbd8ta9Cyi+95gRS0iSxB/gFwk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lH65ILmKqELINS9NW4dCuFr9YViOj5GNoWQTq+O6hdKLJW3xny
-	R1Ixz0GdVknhmhb57zOE0Bnr6mts9FBRI1lVE2Ml5I/gvV9F5QvnJ+w1It8T9m6G4/gFL6EP/9w
-	naFX6vvc4Kl32f34OkR8OqWEf6TOGv1plVqTICdlYOw==
-X-Received: by 2002:a05:651c:19a8:b0:3a6:95a:52ab with SMTP id
- 38308e7fff4ca-3a6095a546emr13661581fa.18.1789981484353; Mon, 21 Sep 2026
- 02:04:44 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 05:04:42 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 05:04:42 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <CAD++jLmB-sEea0rVNAE7Lnw4N4n69iutY_xU-CEOCBoT_8HnNw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="t/8RLcX1"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F14C51D13;
+	Mon, 21 Sep 2026 02:04:44 -0700 (PDT)
+Received: from [192.168.178.6] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8826F3F86F;
+	Mon, 21 Sep 2026 02:04:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789981488; bh=8XfMkOskSZJ52LZ+fWsCnR6GpWD08w36joEyxV2mlIM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=t/8RLcX1Cyg7pKGg7/0DSnPFnDmu0we8JLdWSt+4WIVCIglvEF8hdf4Swz5EEVwzC
+	 7UQf3srwRW5s5ZBr/m9Pf4qvjKgbyuDSn7B9E36qoDTPCIdHgPoR77gvrqo6xn7zvH
+	 hUNBFqa9tgRX/ZAkJSBMsLxdVY3Z+JIHunUYrWak=
+Message-ID: <75f23add-e27c-4749-8495-d29388b6ca56@arm.com>
+Date: Mon, 21 Sep 2026 11:04:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917094356.7040-1-bartosz.golaszewski@oss.qualcomm.com> <CAD++jLmB-sEea0rVNAE7Lnw4N4n69iutY_xU-CEOCBoT_8HnNw@mail.gmail.com>
-Date: Mon, 21 Sep 2026 05:04:42 -0400
-X-Gmail-Original-Message-ID: <CAMRc=Mdkd2ksvx+4FgC2Pv00Q+dR_iUc=WV-VuTkuqAdFq6Z6Q@mail.gmail.com>
-X-Gm-Features: AcwNN1WrYJAoBHNr3ytSsgTaT7gy6peMzoBxhqJfrKvkq013nvGw7rfxcxp8Dm4
-Message-ID: <CAMRc=Mdkd2ksvx+4FgC2Pv00Q+dR_iUc=WV-VuTkuqAdFq6Z6Q@mail.gmail.com>
-Subject: Re: [GIT PULL] Qualcomm pin control fixes for v7.3-rc4
-To: Linus Walleij <linusw@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, brgl@kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/2] sched: Enable preferred SMT siblings on NVIDIA
+ Olympus
+To: Andrea Righi <arighi@nvidia.com>, Ingo Molnar <mingo@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>, Will Deacon <will@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>,
+ Christian Loehle <christian.loehle@arm.com>,
+ Srikar Dronamraju <srikar@linux.ibm.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>,
+ Breno Leitao <leitao@debian.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Lee Trager <ltrager@nvidia.com>,
+ Vikram Sethi <vsethi@nvidia.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260917140707.3807229-1-arighi@nvidia.com>
+Content-Language: en-GB
+From: Dietmar Eggemann <dietmar.eggemann@arm.com>
+In-Reply-To: <20260917140707.3807229-1-arighi@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, 18 Sep 2026 19:01:35 +0200, Linus Walleij <linusw@kernel.org> said:
-> On Thu, Sep 17, 2026 at 11:44=E2=80=AFAM Bartosz Golaszewski
-> <bartosz.golaszewski@oss.qualcomm.com> wrote:
->
->> Please pull the following set of Qualcomm pin controller fixes for the
->> next RC.
->
-> This was not based on -rc1 like my tree so I just pulled off
-> the two commits and signed them off on top of my existing
-> patch stack so I don't have to pull in -rc2.
->
+On 17.09.26 16:05, Andrea Righi wrote:
 
-Ah, I think we never discussed the upstream tag policy. I typically base my
-pull-requests targeting the *current* release (in this case: v7.3) on whate=
-ver
-the latest upstream tag is. I try to base my for-next trees on top of the
-current rc1 unless there are conflicting commits already upstream, in which
-case I pull the earliest required upstream tag.
+[...]
 
-Do you want me to prefer rc1 even for fixes for pinctrl PRs?
+> The first patch teaches the fair scheduler's idle-selection paths to honor
+> SD_ASYM_PACKING at the shared-capacity SMT level. The scheduler first selects a
+> candidate CPU and core according to its existing placement and capacity rules,
+> then chooses the highest-priority available sibling within that core. This also
+> completes the existing POWER7 SD_ASYM_PACKING behavior by applying its
+> hardware-thread ordering during idle selection.
+> 
+> Olympus firmware does not currently provide an interface to describe the
+> preferred SMT sibling. Adding such a firmware or ACPI interface will take time
+> and will not help systems with existing firmware. At the same time, inferring
+> this policy from MIDR would encode a platform-specific decision in the kernel
+> and make it harder to replace with a proper firmware ABI.
+> 
+> The second patch therefore adds the sched_smt_asym_packing= boot option. Using
+> sched_smt_asym_packing=on explicitly opts the SMT scheduling domain into
+> SD_ASYM_PACKING without requiring architecture-specific detection. Priority
+> remains defined by arch_asym_cpu_priority(). The weak default orders siblings by
+> -cpu, consistently selecting the lowest-numbered available logical CPU.
+> Architecture overrides remain authoritative, so siblings assigned equal
+> priorities remain unordered. The default auto mode preserves
+> architecture-provided topology policy, including the existing powerpc behavior,
+> while off provides an explicit override to disable SMT asymmetric packing.
+> 
+> On Olympus, PE0 and PE1 have equal steady-state capacity; this preference does
+> not identify a faster PE. The lower-numbered logical CPU is used only as a
+> canonical choice when both siblings are available. Consistently selecting the
+> same sibling avoids alternating the active PE across wakeups, lets the other
+> sibling remain idle for longer, and allows more cores to remain in, or return
+> to, full-resource single-thread mode.
 
-Bartosz
+So I think that Power7 and other SMT machines won't ever turn
+'sched_smt_asym_packing' on then.
+As we have seen in https://lore.kernel.org/r/aqSEB2N_NQbBVab6@gpd4 this
+code will only benefit NVIDIAs Spatial SMT, i.e. dynamically
+partitioning a physical core, rather than conventional SMT where two
+threads opportunistically compete for most of the same machinery.
+
+IIUC on Spatial SMT, placing the workload on PE0 is beneficial because
+even if interrupts and other per-CPU housekeeping activities have to be
+handled by PE0 next to the benchmark tasks, the main thing is that PE0
+stays in full-resource single-thread mode (PE1 stays idle).
+> 
+> The v6 series was tested on a two-node Vera system using 88-thread
+> single-precision GEMM workloads on the 88 physical cores of NUMA node 0, with
+> sched_smt_asym_packing=on and the workloads allowed to choose either sibling of
+> every core. Each result covers five runs.
+> 
+> Two BLAS implementations were tested: OpenBLAS, an open-source BLAS library that
+> provides a publicly reproducible benchmark, and NVIDIA Performance Libraries
+> (NVPL), NVIDIA's optimized BLAS implementation.
+> 
+> OpenBLAS was evaluated using benchmark/sgemm.goto with an M=N=K=16384
+> single-precision GEMM. NVPL was evaluated using benchblas with the same matrix
+> dimensions, non-transposed inputs, alpha=1 and beta=0. The numbers below are the
+> mean and standard deviation from five runs.
+
+So I assume that you have 88 consistently running benchmark threads and
+in case your new code let them run more likely on PE0 instead PE1 you
+see this throughput increase.
+
+> OpenBLAS throughput increased from 7.11876 +/- 0.06734 TFLOP/s on the baseline
+> kernel to 7.34669 +/- 0.01936 TFLOP/s with this series (+3.20%). NVPL throughput
+> increased from 9.64742 +/- 0.17311 TFLOP/s to 10.29695 +/- 0.01786 TFLOP/s
+> (+6.73%).
+
+I assume further that NVPL has the same benchmark task model, maybe with
+a couple of sleep/wakeups in between?
+
+[...]
