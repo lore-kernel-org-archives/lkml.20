@@ -1,144 +1,109 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BEDC48A2B5;
-	Mon, 21 Sep 2026 12:20:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D2531D39A;
+	Mon, 21 Sep 2026 12:20:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789993213; cv=none; b=M7Wr+IsWJGaKcKVL40btqfvgoy6xaXshMjTNulTBOxVyeilMHglNjaIrVCtZkxz7woS2xQ1FiUvsoFZLtxn7s5ipkcSc8dZmI+0syLr/6yz6RjM/aVOwV9mo+WvnJaFFUfnCYzqra5tlW02KdeUdBDNFVtgBhP9eNKsAd0E6wfo=
+	t=1789993251; cv=none; b=g/kfgvEMyppyVW6d5oKqvy2JnK09wt8rgdNJ5GWyBAc1rT+m+3BcBNoDXW7VBLMOtsJkOpYeDkRrAsCZ+vsPbha+641HAY4bu4NuOyDRx6/WTqTPSyqCKG2nKtduW3vRl0C51Xil/dDmw+8z8vUggflvcDOh9C8Wyw+a74NrhZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789993213; c=relaxed/simple;
-	bh=4HIejzb3u16Cr5ANljdLvK4OezxqZVkl2qfAaCbJ5TE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C9xOmqY/qkjZmvdi6ko+N3DmNLEtN/Kf/r3kH22mcatAc2NAyWeRMxk3NPG/vO7aUCM4UQNxV9toOvCIA4GbmI6IelOmRXd+Q6LcXi2Pu8gOEGCzedYcLXDbsVTcHTPoMYJTF3yWFZpmvuoXYxtMl7sF9g9U9UWIuV+RRLF5VqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=wKXegHR6; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=9j3GrqTZ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=owCSAm65; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=cjRPmOoD; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789993251; c=relaxed/simple;
+	bh=mgO4mokD0E24PqAMfH5gWDTW5fAHUY+njIaRzx4iI+Q=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pZR7TSV9uiZj6Ufox50DU9kOzz+vopS62SvpZPQPf4yjlC7Iw7jpny9ywnnyY7M+AeEcDHv1pWkY83jV4M2k+Q660CrL3aTZEO5I2E7qdJcuRqg9r3PMxHLlU3ZEUS3T8jsnrlS1JpJ6GGsrYMU1sXiUxf5owX69RWU8+HYdg5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=oYQ6SLpW; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wKXegHR6";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9j3GrqTZ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="owCSAm65";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cjRPmOoD"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 2C07B1F38C;
-	Mon, 21 Sep 2026 12:20:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789993206; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XwpiFYC8NMjfTNhwfCkZOAGpc1v1XoGkGw35BrG8hpQ=;
-	b=wKXegHR6kxTz1Lqx/J3GfHYDZmqL3jyhBAacSx4Isuwwhm/hU9EWVNMUN1vi7Vs0u6aDJl
-	fd1tWXSZFZhavy9Cc2p52ciuW+2JCi8I5C8SSyETKVqT9lzcKLI9+af9JTi1OwTbEFBW0Z
-	p3RBJzSOJVXavRjU5ssdevcCXEpR1vQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789993206;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XwpiFYC8NMjfTNhwfCkZOAGpc1v1XoGkGw35BrG8hpQ=;
-	b=9j3GrqTZDb7bHIw/XXhROstdcbXytLej3Sv/U39qdEzVtT78BoHsAXYkbfnpbM/RkPR/uq
-	YG5cWDyP19dir3CQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=owCSAm65;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=cjRPmOoD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789993202; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XwpiFYC8NMjfTNhwfCkZOAGpc1v1XoGkGw35BrG8hpQ=;
-	b=owCSAm65JD1DRw02PtJYDOZOX8Y648G5VHj+Ignxs2xFKotf6jv8hRWPG0Af3x4WoP/FQJ
-	JkySIXii+U1+WOEVcX1Z4xrv96DMF2VYNN5Z8N0CFN72FBCAdw+5eOaPr0vkuR+mgbAxzK
-	XPgGiFOxLGCBHlJDGBdDJxL0Szdap9s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789993202;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XwpiFYC8NMjfTNhwfCkZOAGpc1v1XoGkGw35BrG8hpQ=;
-	b=cjRPmOoD8Rf3WLLtRrq24Zb/COpxv4FGicalqFo4xKgILEh1BtB2E0GowOiWtLl/rk1kAp
-	OSXk+IJxhd/okiCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E2A4313793;
-	Mon, 21 Sep 2026 12:20:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id f+xMLfEgsWo1NgAAD6G6ig
-	(envelope-from <dwagner@suse.de>); Mon, 21 Sep 2026 12:20:01 +0000
-Date: Mon, 21 Sep 2026 14:20:00 +0200
-From: Daniel Wagner <dwagner@suse.de>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Ram Vegesna <ram.vegesna@broadcom.com>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen" <martin.petersen@oracle.com>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Thomas Gleixner <tglx@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Hannes Reinecke <hare@suse.de>, James Smart <jsmart2021@gmail.com>, linux-scsi@vger.kernel.org, 
-	target-devel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] scsi: efct: clear MWI on remove
-Message-ID: <6e80e9b4-231a-4299-a90d-a2181ea49261@flourine.local>
-References: <20260918181326.3633765-1-lgs201920130244@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="oYQ6SLpW"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LB5X2g1360907;
+	Mon, 21 Sep 2026 12:20:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=mgO4mo
+	kD0E24PqAMfH5gWDTW5fAHUY+njIaRzx4iI+Q=; b=oYQ6SLpW5rQjlVqsRUgxaF
+	v2htOAE/B01yyQEEnlDvXAGFdKoYCxD1S/x+1CY+Sgs+0EwI/c7/M4B4eZN3AL9W
+	HjefTbs0rn6G2fkJ0tcGFYP7xUoIBIUw0uW+XpiW7jgI9czYbT9wMvlJ5pLrl7W6
+	vQCHcQk4uoG5BA7YIKErBSHteo02LQtFvrGXhsuoMMrtZ6qp0KcV1GQbKeRD152T
+	0s0NyBPOT0HGRFnf9cEH5PWSR3RKzeNLUyaU4hpCzeVO7Yj3vvzkVUZNMUD3PWph
+	OJAFx+KMufOvmTf0HiZ4bKviOoWTAJqZdZ+kZG8Gk5dmjAG1N3YWd38D+/6NmAwQ
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskdv09sh-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 12:20:48 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAlTjs2063267;
+	Mon, 21 Sep 2026 12:20:48 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gt7dy4xv9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 12:20:48 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68LCKiw945154774
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 21 Sep 2026 12:20:44 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9A82D20040;
+	Mon, 21 Sep 2026 12:20:44 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 710D02004B;
+	Mon, 21 Sep 2026 12:20:44 +0000 (GMT)
+Received: from li-fa2166e9-1f7d-4f1a-8ca5-7ccf0f022c25.ibm.com (unknown [9.224.79.183])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 21 Sep 2026 12:20:44 +0000 (GMT)
+Message-ID: <6f6c532cf8f192277661f0383c29ad7f9abb0666.camel@linux.ibm.com>
+Subject: Re: [PATCH 0/2] s390/sclp: Resize for sclp-vt220 console
+From: Maximilian Immanuel Brandtner <maxbr@linux.ibm.com>
+To: oberpar@linux.ibm.com, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        borntraeger@linux.ibm.com, svens@linux.ibm.com,
+        brueckner@linux.ibm.com, mjrosato@linux.ibm.com, farman@linux.ibm.com,
+        maximilian.immanuel.brandtner@protonmail.com
+Date: Mon, 21 Sep 2026 14:20:44 +0200
+In-Reply-To: <20260921121619.1354611-1-maxbr@linux.ibm.com>
+References: <20260921121619.1354611-1-maxbr@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918181326.3633765-1-lgs201920130244@gmail.com>
-X-Spam-Score: -4.51
-X-Rspamd-Queue-Id: 2C07B1F38C
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[broadcom.com,hansenpartnership.com,oracle.com,linutronix.de,kernel.org,suse.de,gmail.com,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,flourine.local:mid,suse.de:dkim,suse.de:email];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: YivCbbaYkuHk8a1MFm_ridCoQ2gauXI3
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE3NSBTYWx0ZWRfX9kosdGEYPXI6
+ A0kUcUMBJ2FK7PWMjp8Mc4YgmYMHz/DKiF9ABSD4BQ3s8HNPN3kwoGu1y4SJqe9sopKSgzLRtYl
+ I4GVhV1gMiHJIqbB3NwFPDkCIutNp3c=
+X-Authority-Analysis: v=2.4 cv=FLiOVOos c=1 sm=1 tr=0 ts=6ab12121 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=Fyptuc2d6Q3nMO3XRtAA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: FBTYA53j5xaenkK4BZYZ2EnovEQdOisz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE3NSBTYWx0ZWRfX59blTO2oBRKW
+ WTlSvm5CXGi6C1Nwiu3G4PPI7Lgk0KFQ9QshdSMr2Le8YkRwdoeHlJhavmiNLpsastRmhjf+CUD
+ dIjauWOjU3g2WwU+40+mFpxxG5gU/dn215Goly36+Q6f4YwYy7O0xJjfG/5g8jza5F1ylvTz1ml
+ WToV3q6dnSsQ77woH7km2YxIWvI7extx4iLYUIJwQubXK7wDqKlBl4m/dCZw4GghRGn0DLeqiFK
+ urdkFb/7CXr9gWF2KOaRB8AvsgeqjffpyZX7dTze4SO5ULy1P/Sj146h8YoyOWB5qfLnVwsLoOI
+ S7+UaNpghT9JQ0uPhqgec/6Ug9nMUEsGuyWWHdFs2g3H24d1LJ0Wk0uqfTbe0INPMsreQRvmHeQ
+ +uMvr+bLOM3O26+FfzcFOhIP/Nag0bwjSOhc/5EuuHYkJvscfPuRK35L/wCTTmGHp1woZ/Gnw5x
+ RU0W+OiGO/6fScMDFNQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
+ suspectscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210175
 
-On Sat, Sep 19, 2026 at 02:13:26AM +0800, Guangshuo Li wrote:
-> efct_pci_probe() enables PCI Memory-Write-Invalidate with pci_set_mwi().
-> The probe failure path clears this state with pci_clear_mwi(), but the
-> normal remove path does not perform the corresponding cleanup.
-> 
-> pci_disable_device() only disables PCI bus mastering and does not clear
-> the PCI_COMMAND_INVALIDATE bit. As a result, the MWI configuration can
-> remain enabled after the driver is removed.
-> 
-> Call pci_clear_mwi() in efct_pci_remove(), matching the probe error
-> path.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: 4df84e8466242 ("scsi: elx: efct: Driver initialization routines")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-
-Reviewed-by: Daniel Wagner <dwagner@suse.de>
+For the QEMU Patch see: [PATCH] s390x/sclpconsole: implement resizing
+for vt220 consoles (https://lore.kernel.org/qemu-
+devel/20260921121641.1354712-1-maxbr@linux.ibm.com/T/#u)
