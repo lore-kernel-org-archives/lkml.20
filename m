@@ -1,46 +1,80 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B513A7F58;
-	Mon, 21 Sep 2026 19:31:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709603A9D8D
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:32:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790019095; cv=none; b=IZC77O4YLI6PHK/wwystgBrmhSS1n2xiexDGgq1YdereXrysS8LWZpJ0+EIhfge36fRb8eeFXRmzBDUD9sZ0eZxwcET32z3kGiroeo3YlL0fUrC6YBenJ22dHQ0KJr9Jvb2Fxv/a2V6FPlBCpujd8H8HeyvaGuHfqF5ipbq+BS0=
+	t=1790019131; cv=none; b=m1oQuV4m+IWO9xHbjImrFyWyIJ2OmewgvDTcwHIQ1ESRcf2ncRnIWt4+Oju5v7/WY2Ynv5PGY0nPz7vPjEG/b56zcRiUesiCYKsQC9CkvGHLVA5JHShyQERNolSHno75AE1qjNw/KX/urn2G7qWs4xxYZZ7zy8M5lJSoNsaQnmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790019095; c=relaxed/simple;
-	bh=L9t9LVARten1iwmjL739azvMH1M9ooRrH0gtIrmYCWk=;
+	s=arc-20240116; t=1790019131; c=relaxed/simple;
+	bh=DlxL+7x1lp9tnfFTr4GsXM8J8UTaDQhZyuNIKR35QKE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O83zdJOCVS5iqGcr5mvYKMscNbedvg/O4XXwwff6oo7dphglPryHjRtOoD0xvoAiQ5FFTd6mx0yexZu9mtSIwSZ1hqq86FEC0janPtQ4PCCO5HnPjctMf8nGXtFGIXHKBxRpgMClaGV7wDw+uGuFj6tVrTPG7EX7VtF6Hm30iPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=me/lfJYe; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=u9zuZbGpPSEKwFN+ArC93tuoVyOVILB13cHrnMBUsteFVdPITjUTUm/TwfxsaEI1XjejyOQcyva2S7Ol/wBKrg5WfA+CxAdSHAurNcIvhv4WEGAr+VQw7stfm/k4IUaneqBZjXk8uhUH9fmhGEOcYGZO3Xolod9Ku938q9MCGXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AfPF8gHi; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="me/lfJYe"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id BEEF81A0E97;
-	Mon, 21 Sep 2026 19:31:31 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 91EFF5FFB2;
-	Mon, 21 Sep 2026 19:31:31 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4848010328D5D;
-	Mon, 21 Sep 2026 21:31:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790019090; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=rUmp8OZq8/U25SwVy/z19uf2fjfI5fsBRo+TQXAZzXs=;
-	b=me/lfJYe3P+2EiTVLF+COgR2X/91o5ueMK9M4jxJK1tD/WdpP5wxJX4/bgZTCFHQ6FE+6F
-	J8pxBTmISfBVM6LjPamWEoyxQcr9Q92WeKuhHWwupGbgirMThjplCHbtlkryqikQrVQxn1
-	ZnS0m/VjSanuhCmrTlQxF9XLmFN1Keh8906jpXKfy/rylMokOZ1mauU8ZwXwiJZsMciEqo
-	FxKXMB5FP+xCI44N6xZ8xR3/R/kJ1cOprk/a8M4W+3ieFGXyEe537QP5aW5iFcqP3lruzj
-	qDclryikaos5d5GuxmRjgcJ0bXuOGiVsH5Yn/VjyCejOp+YCKQ3txlqMoLvjJw==
-Date: Mon, 21 Sep 2026 21:31:29 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Wake Liu <wakel@google.com>
-Cc: Shuah Khan <shuah@kernel.org>, linux-rtc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests: rtc: Support harness test filtering and
- arguments
-Message-ID: <2026092119312953871857@mail.local>
-References: <20260910034821.2935214-1-wakel@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AfPF8gHi"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d90ba1d807so41162795ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:32:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790019128; x=1790623928; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YkVaGp7Cn0+pPyLCGLyICIBFgNNpQjfNjoyqplnwg8g=;
+        b=AfPF8gHihqxKFvtNza2MGwCvpV6MbsDsDRIoNgNIeeSZr0dlfUr+1UeOlB6y0r7mC/
+         rpUes6cMushi0H4WxkjcK/tiOQsKxQXKcjJvFdj2CEv6rAgkxLNvSyKYajFTeNlqdYMR
+         jhKiwujTXvbeHgiU/Y9ZnuQr0MoLCUKjLWXX2cjEy0vsyrMHeTdbEXJd0IBpCgu2xMo/
+         JbuzxKcoAk4Qzzs2RoXWTgfN07VMmY2wzk3AqAUIvdffWPQGD9nb6MxUAEnVjIud+QaE
+         R2dHbz2xAvkONLCvYriwH7njZxfT1m/5YJmZyYKCfvfitj8mINm0eTYldaCLClzfO17j
+         ilxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790019128; x=1790623928;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YkVaGp7Cn0+pPyLCGLyICIBFgNNpQjfNjoyqplnwg8g=;
+        b=EZ7f3FZEXR8vNhJIQ+7Fbw7zzWGNW+CHYftUFIpP9TusDkfYrkJL5ETopJmMyfHXSB
+         d2wxAc9S210+/Po6ObWspPRxraQJhnkQl68C0/qiNFWfq5jI7MBgXoIHXROxRr0a5+jN
+         gXtRMmZTiwSrUR2fwLdACAkygZaalzf+LKDglgk+8cXHgh/1mfvBDSRhd+szw8saoOOF
+         0ZBok2G+awzdJ9fkGH3jua+VwZBnrDkD5H7FXsviQds4NXdUESnPDtaoPBATILte3afX
+         Z9WQX1iVgpLV8h7INGXDQR09lBJDAKurmtmM6Nq5ypv+aweYwX/QuF1JbjdKxomw4zrg
+         t7Tg==
+X-Forwarded-Encrypted: i=1; AKwUvBwylzqd8emr8O/NBveuoQqnb6Bt51dX+NOFSuC66/CS3RMLMi+GadZ/foZUR/eV+ObChuEJp5WnbzssTyw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mslJe3p9a3JR5K0cXG1P4D0pVvCRUG72w87RkLWbIQANIgpQoc
+	AX6+fQifJuOf4gqQiweLKikAeYOVOq1JrWGdfaqdBJuO3Ia63oK1eOrK
+X-Gm-Gg: AYBFou3ZJrvH+ajzrLAQhf3q6BKSGGEQiwe3OUzpQymfCHvhuCPbF+I3Y79OrVtIHhm
+	ez3AEGmVC0PdbwVi1PZbAj5obd53h7QiXzwftHty7XlVlvTvKP5BHqIQV3a7ORADyoJTjdFsBgY
+	P4skp/c42KH16nZ9Jz6f2s4AR+YtP+wBohtAqPRqmitafIo9GXbBeeRvXT1RDptzN1zCP7sFaRV
+	UybakkoYHmHvWmui67oAiXRqdB45DWNqyvm1EtKIin0dI78aopRWTat7jMEV67W8FSd7STYx61O
+	jR1/f7ldLAvM3yKt9LMy4FB7YnlY5ghFDkuoZZ/qR66CHh+T96xyxytzdOcxf9vy5h+rD0yPt+i
+	j1XqtNWaT86nns8revNebvTCkfozotSzg5wyx9dcPcrziBHUxTpi87j2RNvTArgN32QpL6UMJUU
+	uNL3kB6eOU0OFMObU62dMSK0NqL4luH3nKKteQf0yHoTpBb8ojoIl/0AnZ61mdtxoXnG1Q7QoXy
+	6vcY8YEzjkQcZ+ZSTJkoozJ2WVMAD6V3dSsMuyT
+X-Received: by 2002:a17:903:4b28:b0:2dd:c100:a5da with SMTP id d9443c01a7336-2ddc100a676mr100940305ad.46.1790019127634;
+        Mon, 21 Sep 2026 12:32:07 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:e1a7:4f7b:11d4:34fa])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e5ec60d1fsm126954eec.28.2026.09.21.12.32.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 12:32:07 -0700 (PDT)
+Date: Mon, 21 Sep 2026 12:32:02 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Yassine Oudjana <y.oudjana@protonmail.com>, Mattijs Korpershoek <mkorpershoek@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Artur Rojek <contact@artur-rojek.eu>, 
+	Frank Li <Frank.Li@nxp.com>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH] dt-bindings: input: Use consistent indentation in the
+ example
+Message-ID: <arGGLo9vmxyJQlTo@google.com>
+References: <20260913123310.100170-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,34 +83,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260910034821.2935214-1-wakel@google.com>
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <20260913123310.100170-2-krzysztof.kozlowski@oss.qualcomm.com>
 
-On 10/09/2026 03:48:21+0000, Wake Liu wrote:
-> rtctest implements its own main() function with a rigid switch (argc)
-> check that only accepts an optional single argument for the RTC device
-> node path. This prevents kselftest_harness standard arguments from
-> working properly:
+On Sun, Sep 13, 2026 at 02:33:11PM +0200, Krzysztof Kozlowski wrote:
+> Correct indentation in the examples to consistent 2- or 4-spaces
+> indentation to fix dt-check-style warnings ("example 0
+> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
+> re-indenting entire example just for that is too much churn.
 > 
-> 1. Passing filter options like -t <name> or -T <name> triggers a usage
->    error because argc is greater than 2.
-> 2. Passing -l or -h causes rtctest to treat "-l" or "-h" as the device
->    node path and fail with access() errors before ever reaching the
->    harness argument checker.
-> 
-> Parse command line arguments with getopt() to pass all kselftest harness
-> options (such as -t, -T, -v, -V, -f, -F, -r, -d, -h, and -l) through to
-> test_harness_run(), while preserving the ability to specify an optional
-> RTC device node path as a non-option argument. Also ensure optind is
-> reset before invoking test_harness_run() so the harness can inspect the
-> options, and bypass device accessibility checks when help or test
-> listing is requested.
-> 
-> Signed-off-by: Wake Liu <wakel@google.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Applied, thank you.
 
 -- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Dmitry
