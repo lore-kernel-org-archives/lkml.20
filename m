@@ -1,69 +1,53 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013039.outbound.protection.outlook.com [40.93.196.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f8.google.com (mail-wr2-f8.google.com [74.125.225.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9E838E8A2;
-	Mon, 21 Sep 2026 22:23:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790029422; cv=fail; b=JkYXbzQbpOhLbifwk/pGF5PvsuXAjYhTjLA5p5P8k7MU/Hh1LYLNWg80P+9e8EDdvZ87V0wJWFLwVJbTS4TfCoRpZVoVJD85w7k2twqwyS3mORwsCkx0zXxyx2uAYPhiNCJxOwhAikRorknDfh2ij87FfMvDkS5K2c0R6x42L8M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790029422; c=relaxed/simple;
-	bh=Dq8V/eeSAGdCCFdcnGUxElqYX6DAGzD66QGCumC5ilo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=T9xbw9fyarCGd7VVkS+T67ipaFGHAsKe3BVw63BptO0YVE2tZsyKqdirwfjZ1wzyUKmYUice5rE5+iXiKfBY6AA2k0vTw4B7ZEcxr+JEafK/JwGninbxlHmvnxq42gP4t6k77BIa+Wt3lQr6xpFP6F6fNTQPsmQU55Hcxs01SBQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=EQbRSifm; arc=fail smtp.client-ip=40.93.196.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="EQbRSifm"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kyZkPIB5nt19l788l15U54aj1dKlM/57EVFGMVMnXx/aj3gPXKB7Zf3XxS2kDq1KaJeINwkrWhXwsh72FzhBK+MF/T7aisGrl94Y2xOiwau9btswXb8NN8GBTifaKQ75O5e0d3EKhI2eDgUOzvEsh2xzen2TTlI9uw5mv/0SqwisXDGu7asqQs0lv98UPHHb+sYWhaRapcAibLbhIM1k7ccG+VnA9BorDI5ZLtR5qxTTCCAAdArv3kl8rrne1IDOluR7BIGFGIFx6iYDMu1dqr+P4d9ruaDwnFj06WG4C7tlWu2vhOQ10GZTd7pzZ9aP1YyBL1JjPXjj0UwNQAvqSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3FuJXJ+S+MFgkVXXYAuRlBx9hLARNm4JnIUAlxt5zhM=;
- b=dUn/p4Slnkei+1I4okdXdaLn7vEddiMhHzlrMiiIYj9D89TPjzSddqGjirBAxDcNS17DdoRVGpK9mTc86DJoyq9gfAN8HYw2lbFsTiljrgsqBKuHToDT4A/bt+dgeBD7JCdr4bPEdRzQ2YJ1ijUvs3SMNNZTaNtG5VQpqmkxd5WZ9AxscjJIDIRd59kT3C0muR7C+uT1t6wAWsSwXZ6Q4lee4PAlLIWKTeQuZHpqDNdh3dqPSiJGbEZ3H4Zw6BC9DqAELBvLxkho7jsQBZ9k6jagEWBSk++V1toHeeSK+s+LtRzhRvUqCbDfck/SBf5X32XHKGvaYHYK65e6CQRjSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=collabora.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3FuJXJ+S+MFgkVXXYAuRlBx9hLARNm4JnIUAlxt5zhM=;
- b=EQbRSifmLtxFH6lruuXhoVaUtZklaj57JCCcyl41o4wvSazVTTQen3iM1GYTwSYWzb3QfH72AeSQmpDFtjHy750nzojkIvopSezpAm8ZGOC0ShtqOb8qrWdMu1w4Q2uNPhZ6orPdiFw5a/LZIWswpkEE/5pnVDccDga8GtcmhUs=
-Received: from PH0P220CA0011.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:d3::16)
- by LV8PR12MB9450.namprd12.prod.outlook.com (2603:10b6:408:202::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 22:23:34 +0000
-Received: from SJ1PEPF000023CC.namprd02.prod.outlook.com
- (2603:10b6:510:d3:cafe::5c) by PH0P220CA0011.outlook.office365.com
- (2603:10b6:510:d3::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
- 21 Sep 2026 22:23:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000023CC.mail.protection.outlook.com (10.167.244.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 22:23:33 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
- 2026 17:23:33 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
- 2026 17:23:32 -0500
-Received: from [10.254.92.51] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Mon, 21 Sep 2026 17:23:31 -0500
-Message-ID: <0226527e-ee38-40ab-a2a8-1ae62013b950@amd.com>
-Date: Mon, 21 Sep 2026 18:23:30 -0400
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73F851AFF9
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:23:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.72
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790029441; cv=none; b=cwf2G+/OClWErzOelU/f2sCBF5Qw8jUM6/XixAsHLxd24mCQ6z347ME4gvhz3O17AHJ4+yTiryZlxn/6vXsgsfxSHnCv4N1U3NWXvsHMAxjOmCvm1yHgVO78ZXDONIuP6BpHZHeFjzjgS4tYtxCAXEWo3me4wETZ8jYoyf9mK3M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790029441; c=relaxed/simple;
+	bh=bSLQ8dhyTkMsa0T3MRybn10V2qri87KKmc+w8o1F3xM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U58G29OLLBF5gF/f7x29bgmoO4cZb/EAPNTAtR5CHW3uWii9bk83HWQQak/wz3Uq3zdiuo6iR+dF31aGw2mBlV+rzI3Pg8Cq8iT6XIQeYAONqZekNc4GFSFCir/+ftUjUj1pjMLW0SQmCdATSzYZZto4+n3gDlUH2lN2rJ12eXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr2-f8.google.com with SMTP id ffacd0b85a97d-485ac0c75b9so1390224f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:23:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790029438; x=1790634238;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZWKBhus7Q6cGpJkKuYawt2j9PRf/Qc0mjhsFcNxeZ9c=;
+        b=rz+1O9YfQqbQvBjvGH9HNoRSKcZasxpVQZMJiSMkhSRY4fx2NK5WOiHbIYhB6ugXez
+         WE867TZicWPpN0sCSJ/N6d4Nim9k/j10gO4LJti5+JVsRls2SFovAVJo7gs8iK87HCAf
+         8Pzzhm3ItEB0kUs3x0iXw5Hro9cJuOiGnPh89UVAeNBpf55+vo6HPCk8Ummk8oTOGsiM
+         IkA6/pXzZZ34r/Jk8BmVqLI40Stm0U+BC0sxfHFyw8ymePe9ixsm/zmUYIEaGErXOrpX
+         rrGOXV9hdl+274F15UCQdOXT2SwVZbMVCI5QqDMgySHduPk4wbXS6igKN1Ya6YULaDGO
+         0rLw==
+X-Forwarded-Encrypted: i=1; AKwUvBz968erJj4HmKz5VPYZVo9ufbhL+a6GJAbbuNXQcjDHt2i/IhTbcPUOwLSDq4AjCxFt8WtIa+bMwbarLqw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVt/fVanQV9hjlQv40lqpsXedp1be/QXTQ/ZWIvqNYYSoyQ55s
+	/EuSPqnUDWVJP56UdckLbINgbYZmaf5GdDlhV+wr7ZXo58DPY6fJDh3stVMgvm5z
+X-Gm-Gg: AYBFou3k7hEErW1raSfsef9VRmc17yUAiA0SHLqoK8Qbdxqq6qrNa03wbAX7lTpZG1C
+	FoHB7YWHXqhGeDxSc4HwKI4VFbI8WCsH/Pu/aMGzIXYYfpj+vxWsSEFIi516uw+US4pt2z6i6M4
+	BYrBSbzUqndLBijsop4TFmSxChaamg+mdU7voj8F2Ybp+PFdv6Or4hmkpymCzknG4Au6Oo0qcak
+	8YNcrPdAh6slKa/7WCg9XsBqoDYhiCl53HihC3DDV7zab6E19JXt1FEV5b2HtMk6GCUQWN12WKN
+	AnsYWg0+DbSjIai/DH/Hm3mbbDRi/G6BXni0NwMwwAVuxfy3trPdl58Rh2UyTlphlSjZs41Mt5f
+	nDUrY+ste37+LO1C6D8uzbNsNMcAqs2/ALpgbEF3xFZjzqiHXuYtQv7IS8c/vE2r8yR6ZQz9txK
+	qsltZAC7/8578t6klf+uJbhcmM6nznFjmifibuEG/qUkc1fofOImdbc4qV9csDcbFoOAZhP6SGi
+	Luf+CDlZUOKq8aPQjLm8tBREeeYTXrB+jMnmws8cX2UUT335Q==
+X-Received: by 2002:a05:6000:2301:b0:487:a3f:1ea6 with SMTP id ffacd0b85a97d-4871e211724mr18432556f8f.11.1790029437903;
+        Mon, 21 Sep 2026 15:23:57 -0700 (PDT)
+Received: from [192.168.88.241] (78-80-107-225.customers.tmcz.cz. [78.80.107.225])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862244e1asm726393f8f.11.2026.09.21.15.23.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 15:23:57 -0700 (PDT)
+Message-ID: <7f557f5a-b21e-45cc-9d3a-cd4f8b5f799b@ovn.org>
+Date: Tue, 22 Sep 2026 00:23:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,337 +55,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 13/25] drm: Add VRR target frame rate properties
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, "Borah, Chaitanya
- Kumar" <chaitanya.kumar.borah@intel.com>, Daniel Stone
-	<daniels@collabora.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, Andrzej Hajda
-	<andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
-	"Robert Foss" <rfoss@kernel.org>, Laurent Pinchart
-	<Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, "Jernej
- Skrabec" <jernej.skrabec@gmail.com>, Luca Ceresoli
-	<luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
-	=?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
-	<andy.yan@rock-chips.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
-	<linux-fbdev@vger.kernel.org>, <linux-rockchip@lists.infradead.org>,
-	<linux-arm-kernel@lists.infradead.org>, <kernel@collabora.com>, Derek Foreman
-	<derek.foreman@collabora.com>, <wayland-devel@lists.freedesktop.org>
-References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
- <20260921-vrr-limiter-uapi-v1-13-2fcd7d011646@collabora.com>
+Subject: Re: [PATCH v6 3/4] net: dropreason: use new __print_sym() in tracing
+To: Matthieu Baerts <matttbe@kernel.org>,
+ Johannes Berg <johannes@sipsolutions.net>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Johannes Berg <johannes.berg@intel.com>, Aaron Conole <aconole@redhat.com>,
+ Eelco Chaudron <echaudro@redhat.com>, Ilya Maximets <i.maximets@ovn.org>,
+ dev@openvswitch.org, linux-trace-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Adrian Moreno <amorenoz@redhat.com>, Antoine Tenart <atenart@kernel.org>
+References: <20260921101538.97286-6-johannes@sipsolutions.net>
+ <20260921101538.97286-9-johannes@sipsolutions.net>
+ <98b93c98-21ae-4248-a60a-9625a20508ad@kernel.org>
 Content-Language: en-US
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <20260921-vrr-limiter-uapi-v1-13-2fcd7d011646@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Ilya Maximets <i.maximets@ovn.org>
+Autocrypt: addr=i.maximets@ovn.org; keydata=
+ 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
+In-Reply-To: <98b93c98-21ae-4248-a60a-9625a20508ad@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CC:EE_|LV8PR12MB9450:EE_
-X-MS-Office365-Filtering-Correlation-Id: a323075a-413f-4c5b-372f-08df182ef956
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|42112799006|82310400026|1800799024|7416014|36860700016|4143699003|56012099006|3023799007|11063799006|921020|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	T9RDJe4EBH3ZFjIjYjtFh3OkL9K4GodEFHegc6exyejkM8fAWAS/7/rq67aIvBVdu23O6iCWQIFIU2Ga0EGNCOiwZMBxgerTu5ZhjGaiITA51QccpGSOy7ta3oVFXPsFwN8pJSPXeVSWlmawWW7uOkLJ0smW3oKifCm7bYtlWN/73B2QrD45Wdty3TGJKhbAvxWjO1LgyjYbOj6bEGp7x0shNTP9MWEKlpZuoign7u9ZXGT7CVK9U1mYEabgySV3C/u2yHDowgUWRAWzMwtN3+2b4kYHa7NdHJnL3Z7EBqpa47320szAgs05Le7+ZMfhjh6mvnK33YI07JHlNg3j1C8ZG1A1XEEQtug9i6u+fTM0giwMQGsjnogbsVX/R/izc8re3avneUnldfTwhOsxMwFUvMFfacki40t773FnUgRq4MUkKINSHes0vojSDwm8Crulc1RAApBEJVkGN3SCaEbWzvQNKBiCR3xsjN0278We3tKT87w22JUbW70kig7m+6r9gHY/4cg62NPpfgtJBWfKFaeUdtChyl5VqAVzm/+3Ssdi0k+dVyTcSnLzL9ifkzKb5/X9PDF0Fcd6CoYc/rfevRQerUGx6QdKML7cec2J0y4C+Hh4+ckA2ai2ENUpJb8ahiPRbi3QBm9RhradGJ6JD6rcfwua/99UWPiAXXwen2dQT/poZiSA4Yho70khAGph84Lvhh5mR5ObybsOeyHL4/8b9Ou79kyvS6p5+A9EL/ZfTxKKsYOm8Iz+XWr/
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(42112799006)(82310400026)(1800799024)(7416014)(36860700016)(4143699003)(56012099006)(3023799007)(11063799006)(921020)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	hlSomVcSpTtCoNd3vNbOgJrMFRdXMKfDxFze8l6Z5nX9N6Lq9znm0P+UJPTbeFqONANSZGl3UEQYLNIBungrvFGE8g6vsXswBIf/+3xD0dnqdR0Idtt4jtgr402ptHs/ghucs/G+0w6HE2a5vb6KsWUMb0xt4rvSzLALFrz42rrKH/qqWuS1y1Y0BRNS4f+PYFoqfCrOHhEsCRaxmtm5ZlivcUU69AG35F8zLcHMSuljuZ+mRWcbzndigedDLz6Mj8tlLvn1GUTCb0JqUIbQKoyHPjHKjiK1zpPS115HpYQB5xVpdiwJ0CJzlfGXbPI9g7KDXQEapYC0LkVExxHrIzGAVVdsz8Xvj6whzV2xm7spkNVbXGHXJPP6pn5gQEnB2wC7+BuciEH9Y6by2wo987hNKVf9CVCKnHj6bIGKe2fBqNNiVxCC1jO4IHf2xS9d
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 22:23:33.9359
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a323075a-413f-4c5b-372f-08df182ef956
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000023CC.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9450
 
+On 9/22/26 12:03 AM, Matthieu Baerts wrote:
+> Hi Johannes,
+> 
+> (+Cc openvswitch devs)
+> 
+> On 21/09/2026 12:06, Johannes Berg wrote:
+>> From: Johannes Berg <johannes.berg@intel.com>
+>>
+>> The __print_symbolic() could only ever print the core
+>> drop reasons, since that's the way the infrastructure
+>> works. Now that we have __print_sym() with all the
+>> advantages mentioned in that commit, convert to that
+>> and get all the drop reasons from all subsystems. As
+>> we already have a list of them, that's really easy.
+>>
+>> This is a little bit of .text (~100 bytes in my build)
+>> and saves a lot of .data (~17k).
+> Thank you for working on that! But it looks like it breaks the
+> openvswitch test:
+> 
+> https://netdev-ctrl.bots.linux.dev/logview.html?f=%2Flogs%2Fvmksft%2Fnet%2Fresults%2F833743%2F9-openvswitch-sh%2Fstdout#L168
+> 
+> Maybe the test needs to be adapted to get the same info differently?
+> (and adding CONFIG_TRACEPOINTS to the selftest config file)
+The parsing in the test will definitely need to be updated, i.e.,
+the numbers swapped with the names of the drop reasons.
 
+IIUC, this change only affects the printing and doesn't affect debugging
+tools like retis that attempt to surface the drop reasons.  But, maybe
+Adrian and Antoine (CCed) may want to have a glance as well.
 
-On 2026-09-21 11:51, Nicolas Frattaroli wrote:
-> Userspace may wish to set a target frame rate for the Variable Refresh
-> Rate mechanism. There are multiple possible ways such a target could be
-> communicated.
-> 
-> It's desirable for userspace to not only set a fixed target, but a
-> target range within which VRR may operate. This is because even if a
-> sink advertises a certain range as supported, said range may not be the
-> ideal range to use, as numbers on the extreme end of the range may
-> induce flickering or other glitches.
-> 
-> There's four choices to how one bracketing value for the target range
-> could be communicated:
-> 1. Target frame rate in something like millihertz
-> 2. Target frame period in something like usecs
-> 3. Target vtotal value
-> 4. Target frame rate as a fraction expressed by two integers
-> 
-> Choice 1 is unpleasant as it would introduce some amount of rounding to
-> common broadcast framerates like 24/1.001, which seems minor except that
-> exact matches to standard framerates would rely on making all userspace
-> and kernel agree on a specific method of rounding. This is sure to go
-> wrong, so is disqualified.
-> 
-> Choice 2 has the same problem as 1, with the added complication that
-> the EDID's VRR range is expressed in frames per second, and other HDMI
-> features express things in frames per second as well, which would
-> require possibly imprecise computations.
-> 
-> Choice 3 is disqualified as mechanisms other than VRR, such as FVA, may
-> also modify the vtotal value. Additionally, it has the same drawbacks of
-> choice 2 and 1.
-> 
-> Choice 4 is therefore what's implemented. The frame rate 24/1.001Hz, for
-> example, is expressed as nominator=24000 and denominator=1001. As there
-> is both a minimum and a maximum, there are 4 properties in total: two
-> numerators, and two denominators. A fixed rate with no variability is
-> expressed by setting the minimum fractional and the maximum fractional
-> properties to the same value.
-> 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> ---
->  drivers/gpu/drm/drm_atomic_uapi.c | 24 +++++++++++++++++++++
->  drivers/gpu/drm/drm_connector.c   | 45 +++++++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/drm_crtc.c        |  8 +++++++
->  drivers/gpu/drm/drm_mode_config.c | 20 +++++++++++++++++
->  include/drm/drm_crtc.h            |  4 ++++
->  include/drm/drm_mode_config.h     | 45 +++++++++++++++++++++++++++++++++++++++
->  6 files changed, 146 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-> index 1eebcf6f5e05..c9eb01d740b3 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -420,6 +420,22 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
->  		return ret;
->  	} else if (property == config->prop_vrr_enabled) {
->  		state->vrr_enabled = val;
-> +	} else if (property == config->prop_vrr_min_numerator) {
-> +		if (val > U32_MAX)
-> +			return -EINVAL;
-> +		state->vrr_state.vrr_min_n = val;
-> +	} else if (property == config->prop_vrr_min_denominator) {
-> +		if (val > U32_MAX)
-> +			return -EINVAL;
-> +		state->vrr_state.vrr_min_d = val;
-> +	} else if (property == config->prop_vrr_max_numerator) {
-> +		if (val > U32_MAX)
-> +			return -EINVAL;
-> +		state->vrr_state.vrr_max_n = val;
-> +	} else if (property == config->prop_vrr_max_denominator) {
-> +		if (val > U32_MAX)
-> +			return -EINVAL;
-> +		state->vrr_state.vrr_max_d = val;
->  	} else if (property == config->degamma_lut_property) {
->  		const size_t elem_size = sizeof(struct drm_color_lut);
->  		u64 lut_size;
-> @@ -505,6 +521,14 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
->  		*val = (state->mode_blob) ? state->mode_blob->base.id : 0;
->  	else if (property == config->prop_vrr_enabled)
->  		*val = state->vrr_enabled;
-> +	else if (property == config->prop_vrr_min_numerator)
-> +		*val = state->vrr_state.vrr_min_n;
-> +	else if (property == config->prop_vrr_min_denominator)
-> +		*val = state->vrr_state.vrr_min_d;
-> +	else if (property == config->prop_vrr_max_numerator)
-> +		*val = state->vrr_state.vrr_max_n;
-> +	else if (property == config->prop_vrr_max_denominator)
-> +		*val = state->vrr_state.vrr_max_d;
->  	else if (property == config->degamma_lut_property)
->  		*val = (state->degamma_lut) ? state->degamma_lut->base.id : 0;
->  	else if (property == config->ctm_property)
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index fc7d9fcf9d9f..5c07bd221977 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -2579,6 +2579,51 @@ EXPORT_SYMBOL(drm_mode_create_scaling_mode_property);
->   *
->   *	The driver may place further restrictions within these minimum
->   *	and maximum bounds.
-> + *
-> + * VRR Limiter/Target Properties
-> + * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> + *
-> + * The ``VRR_{MIN,MAX}_{NUMERATOR,DENOMINATOR}`` properties expose a mechanism
-> + * through which userspace can control the desired range of refresh rates in
-> + * which VRR is allowed to operate. Each rate is expressed as a
-> + * numerator/denominator fraction of refresh rates in Hz, allowing for rational
-> + * target rates like 24/1.001 Hz with no loss of precision or ambiguity.
-> + *
-> + * If the minimum and maximum rate are set to the same value (and not 0), they
-> + * are understood as a fixed target rate. This is especially useful for media
-> + * playback, where the content's frame rate is both constant and known in
-> + * advance. In such cases, a refresh rate that is not an integer multiple of the
-> + * content's frame rate will introduce judder, since not every frame is
-> + * displayed for the same amount of time. A modeset of the display with a
-> + * compatible rate may in those cases be either undesirable or impossible, but
-> + * the rate can still effectively be reached through VRR.
-> + *
-> + * .. _VRR-MIN-NUMERATOR:
-> + *
-> + * "VRR_MIN_NUMERATOR":
-> + *	Default &drm_crtc integer property forming the numerator of a
-> + *	numerator/denominator pair of a frame rate to set as the minimum VRR
-> + *	target rate. Set to 0 to disable.
-> + *
-> + * "VRR_MIN_DENOMINATOR":
-> + *	Default &drm_crtc integer property forming the denominator of a
-> + *	numerator/denominator pair of a frame rate to set as the minimum VRR
-> + *	target rate. If :ref:`VRR_MIN_NUMERATOR <VRR-MIN-NUMERATOR>` is not
-> + *	zero, it must be non-zero.
-> + *	Otherwise, must also be zero.
-> + *
-> + * .. _VRR-MAX-NUMERATOR:
-> + *
-> + * "VRR_MAX_NUMERATOR":
-> + *	Default &drm_crtc integer property forming the numerator of a
-> + *	numerator/denominator pair of a frame rate to set as the maximum VRR
-> + *	target rate. Set to 0 to disable.
-> + *
-> + * "VRR_MAX_DENOMINATOR":
-> + *	Default &drm_crtc integer property forming the denominator of a
-> + *	numerator/denominator pair of a frame rate to set as the maximum VRR
-> + *	target rate. If :ref:`VRR_MAX_NUMERATOR <VRR-MAX-NUMERATOR>` is not
-> + *	zero, it must be non-zero. Otherwise, must also be zero.
->   */
-
-If VRR_MIN_NUMERATOR == 0 && VRR_MAX_NUMERATOR > 0, do we interpret that as
-vrr limiting is disabled?
->  
->  /**
-> diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-> index 63ead8ba6756..9244fbf97029 100644
-> --- a/drivers/gpu/drm/drm_crtc.c
-> +++ b/drivers/gpu/drm/drm_crtc.c
-> @@ -322,6 +322,14 @@ static int __drm_crtc_init_with_planes(struct drm_device *dev, struct drm_crtc *
->  					   config->prop_out_fence_ptr, 0);
->  		drm_object_attach_property(&crtc->base,
->  					   config->prop_vrr_enabled, 0);
-> +		drm_object_attach_property(&crtc->base,
-> +					   config->prop_vrr_min_numerator, 0);
-> +		drm_object_attach_property(&crtc->base,
-> +					   config->prop_vrr_min_denominator, 0);
-> +		drm_object_attach_property(&crtc->base,
-> +					   config->prop_vrr_max_numerator, 0);
-> +		drm_object_attach_property(&crtc->base,
-> +					   config->prop_vrr_max_denominator, 0);
-
-Would it be better to let vendors attach these properties themselves? That way,
-they will only exist if supported. Otherwise, I'm not sure what would be the
-expected behavior if they're attached, but not supported.
-
-- Leo
->  	}
->  
->  	return 0;
-> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-> index 48a56f23dadb..da967d60f832 100644
-> --- a/drivers/gpu/drm/drm_mode_config.c
-> +++ b/drivers/gpu/drm/drm_mode_config.c
-> @@ -535,6 +535,26 @@ static int drm_mode_create_standard_properties(struct drm_device *dev)
->  		return -ENOMEM;
->  	dev->mode_config.prop_vrr_enabled = prop;
->  
-> +	prop = drm_property_create_range(dev, 0, "VRR_MIN_NUMERATOR", 0, U32_MAX);
-> +	if (!prop)
-> +		return -ENOMEM;
-> +	dev->mode_config.prop_vrr_min_numerator = prop;
-> +
-> +	prop = drm_property_create_range(dev, 0, "VRR_MIN_DENOMINATOR", 0, U32_MAX);
-> +	if (!prop)
-> +		return -ENOMEM;
-> +	dev->mode_config.prop_vrr_min_denominator = prop;
-> +
-> +	prop = drm_property_create_range(dev, 0, "VRR_MAX_NUMERATOR", 0, U32_MAX);
-> +	if (!prop)
-> +		return -ENOMEM;
-> +	dev->mode_config.prop_vrr_max_numerator = prop;
-> +
-> +	prop = drm_property_create_range(dev, 0, "VRR_MAX_DENOMINATOR", 0, U32_MAX);
-> +	if (!prop)
-> +		return -ENOMEM;
-> +	dev->mode_config.prop_vrr_max_denominator = prop;
-> +
->  	prop = drm_property_create(dev,
->  			DRM_MODE_PROP_BLOB,
->  			"DEGAMMA_LUT", 0);
-> diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-> index 9d58158af459..df37f4ebb58e 100644
-> --- a/include/drm/drm_crtc.h
-> +++ b/include/drm/drm_crtc.h
-> @@ -67,6 +67,10 @@ struct drm_crtc_vrr_state {
->  	u8 vic;
->  	u16 cur_vtotal;
->  	u16 max_vtotal;
-> +	u32 vrr_min_n;
-> +	u32 vrr_min_d;
-> +	u32 vrr_max_n;
-> +	u32 vrr_max_d;
->  	u16 base_vtotal;
->  	bool dynamic;
->  };
-> diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-> index 084517beb924..c8d5286f9267 100644
-> --- a/include/drm/drm_mode_config.h
-> +++ b/include/drm/drm_mode_config.h
-> @@ -702,6 +702,51 @@ struct drm_mode_config {
->  	 */
->  	struct drm_property *prop_vrr_enabled;
->  
-> +	/**
-> +	 * @prop_vrr_min_numerator: Default atomic CRTC property to indicate the
-> +	 * numerator of a numerator/denominator variable refresh rate minimum
-> +	 * target frame rate.
-> +	 *
-> +	 * If not zero, @prop_vrr_min_numerator divided by
-> +	 * @prop_vrr_min_denominator must result in a frame rate above the
-> +	 * sink's minimum VRR rate.
-> +	 */
-> +	struct drm_property *prop_vrr_min_numerator;
-> +
-> +	/**
-> +	 * @prop_vrr_min_denominator: Default atomic CRTC property to indicate
-> +	 * the denominator of a numerator/denominator variable refresh rate
-> +	 * minimum target frame rate.
-> +	 *
-> +	 * If @prop_vrr_min_numerator is set, @prop_vrr_min_denominator must not
-> +	 * be 0, and @prop_vrr_min_numerator divided by @prop_vrr_min_denominator
-> +	 * must result in a frame rate above the minimum VRR rate.
-> +	 */
-> +	struct drm_property *prop_vrr_min_denominator;
-> +
-> +	/**
-> +	 * @prop_vrr_max_numerator: Default atomic CRTC property to indicate the
-> +	 * numerator of a numerator/denominator variable refresh rate maximum
-> +	 * target frame rate range.
-> +	 *
-> +	 * The fraction expressed by this property divided by its corresponding
-> +	 * denominator must be equal to or greater than the value of
-> +	 * @prop_vrr_min_numerator.
-> +	 */
-> +	struct drm_property *prop_vrr_max_numerator;
-> +
-> +	/**
-> +	 * @prop_vrr_max_denominator: Default atomic CRTC property to indicate
-> +	 * the denominator of a numerator/denominator variable refresh rate
-> +	 * maximum target frame rate range.
-> +	 *
-> +	 * If @prop_vrr_max_numerator is set, @prop_vrr_max_denominator must not
-> +	 * be 0, and @prop_vrr_max_numerator divided by @prop_vrr_max_denominator
-> +	 * must result in a frame rate equal to or above @prop_vrr_min_numerator
-> +	 * divided by @prop_vrr_min_denominator.
-> +	 */
-> +	struct drm_property *prop_vrr_max_denominator;
-> +
->  	/**
->  	 * @dvi_i_subconnector_property: Optional DVI-I property to
->  	 * differentiate between analog or digital mode.
-> 
-
+Best regards, Ilya Maximets.
