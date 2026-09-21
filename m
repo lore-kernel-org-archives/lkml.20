@@ -1,56 +1,56 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640482DC783
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:48:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B792F0C7E
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:48:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789951733; cv=none; b=HEjpthP5mxnMn8IeBaSU9iOzU0FQENhXXoK3lz383QWZuZqp5WR5KP0kCmZ9IKuwl9rqTKIuYVorfHxzPpXDV/gRSUzgibM3lVIiyCPBgIY/u0xDtNpNmTKP/ST2Ue2hpEt7kW4Fk3CoGj1cap/YbX7MzzxLUvTHFg0HrTQPPYE=
+	t=1789951736; cv=none; b=W0XlYCaqfYT3udT/GthYN6ej40ClLDmKRiWjvK3hf/mudL7zyLB0bXajJkmnfuBOb0SL5zHvHQum4VesVhiG62lZHAAytQVs74wb78lLdTB+R5vyhKD/CYDzzm2PY9CNcti89gh0JFOlsepkjU7ez+na/HxGrhI0VvWA+DAhdsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789951733; c=relaxed/simple;
-	bh=KC381iw5UmgvllDgJ3YNjupbKUlYfiAYAjHYSVAumpI=;
+	s=arc-20240116; t=1789951736; c=relaxed/simple;
+	bh=avPZ16PAm2KRLLs3zFSBl7jOowUvnuNq+fuMqUotd3A=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=UTqVyjARQbnJFU5HDlyeen7d5GK/hoL00Ku/+21CDP11FjyqRCX1vZF7a+QYI3ApjSCdnXfDCqPuh1nahQ1ZhHoHd78fwq7zdV1L2J6YRemxf1Ssg9T/9EXpO+bjNidn41vwkpkmuvjV00CpzqlhD8XJph8YMY/NHnh48WcVi6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KgVd6AcV; arc=none smtp.client-ip=209.85.215.198
+	 To:Cc:Content-Type; b=bAtiItiyn3Fo0BFgLA+Zy3GL3/DoO6zJW3Gk/U1+Jgq00e9HVTeBdS1KTjmvDbsaJMYPuyiToJFUsIrvv8n65O2TZ37TWT+jBnyFSvwNgOS2hrPe/XOsBavcaJ9XpKwE6oJgUDuT9mNIPY1949Zvo+W8h7MFpt+nuxa12yopBmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BRfbpAcZ; arc=none smtp.client-ip=209.85.210.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KgVd6AcV"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc489e7a701so3739969a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:48:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BRfbpAcZ"
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-86a2639398cso5295365b3a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:48:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789951726; x=1790556526; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789951733; x=1790556533; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=blp+qm96mUk79bE4u/LdP52s0pcty0khhzeGk8qCR7I=;
-        b=KgVd6AcV4vmL1EnwsWcdr9UKRnVQx//uiQDV+WAX4QLuBJyQTsBCHsHwDhyroHIp+F
-         A3EeCmpkgD2aZmmjhDK3P1VESt3C7QzvYHBrC7gNe5+DQ8K6Wsxlc7mAghLSdDMc7RP+
-         MWL/w7acWWmdkjI6GPw5KpASZMvHRXHW6d9ceQXQW6frBJPfU99bs6+em6z3M9KJAG3F
-         V5NKO8MsWjXZMCHrSc3aaJUf6hfIkxr4/+QSdaImfNYzVn42JRYun0x6Cm90wEHQVSLi
-         bijHBimetT4nlEgp3BwTRhHRhLp9BZMNe7lIfycYw2ghz5OynKyeAMeDZ/zZp573E5o9
-         sVpw==
+        bh=/sjf1DDcqeGOiFnNg/3dW38k0O9F/mHXt9LSFR/mRoI=;
+        b=BRfbpAcZmOmJDGP4osSCg3PLLoHDJDWTaenp35KhmHipsl2mvDqOW0HJNs/Mz3dnm8
+         OuTGTXf7g0RDlyfXBs4N0Ojr8OQ5z4LQvslxytFh+xppBK75Hv2VdGPLY35vlU6HBHZJ
+         ghCm3nYmcbctH6qIbfW413jxO9y1e1TtlNssbcpBXYrnLCPYOYmuK4DVLZoOMbmXmrRZ
+         gZK4rwZbbbb3oI/Kl5nCLbIToLF6PBen8ll7VNflqmu0ASesIf6gEd26jbIyUrF1jPs2
+         xAyY+UNCQUM/RTXWMQimMTY4D/AwWHKdD7rID4c9C06Fj68Xvsze9Q5amlR/kMpMjQoM
+         z2IA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789951726; x=1790556526;
+        d=1e100.net; s=20260707; t=1789951733; x=1790556533;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=blp+qm96mUk79bE4u/LdP52s0pcty0khhzeGk8qCR7I=;
-        b=MnJlKX/EyyZyBgu+6J516RjR0c/TESlLeMU2Cbnm76ZM7HJ4qGtpIlhDimWvC8Z6vW
-         7ETq3UQGX4bVR6W5vSSO/O50IOEDUyRsMOSFUtcSJN1SwobfvDawbgH19HdMl/YRk7/T
-         zi/qXwJeN617IiaUpgCGAQxTYYbbJ0iKx0Zl8HAkfrbLgaYtE6bi7b1Azl5TP1Gwj+D/
-         UTvY1sNnSgwKKZ1sUoytMUiMKc3f+ar+ZDuV/m1kyiHfn+fistqagqEquLps7oaBmRvm
-         Aogb5zgtChCxOsIIku1RnaHPpN66rAPkCwDTSQ2b9KpYVa9iNqCqosTR/YRgIVOnIsvR
-         32tg==
-X-Forwarded-Encrypted: i=1; AKwUvBzHffuwLpJZ+8b8M2dm8q0jTFRxracs1V117YeVBYMLrAhsrflV1KXZwyE6wwO4p7uWKDdcNQpZkwh3T2Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++lG3JEHxjsC4M+KMDOHeybogk3qo18so91JgwiZuJfKgpEqwYMd
-	k/teRDgEVPVRS5DBsqyTT8uv8UY2JLYb0aWYpKTVd6ZiIE+kSyJ15f3xG255sbMZP0YJx4JRjT5
-	gcCwK/1tsV7PJWw==
-X-Received: from pgdf8.prod.google.com ([2002:a05:6a02:5148:b0:cc4:c085:96d1])
+        bh=/sjf1DDcqeGOiFnNg/3dW38k0O9F/mHXt9LSFR/mRoI=;
+        b=f8t0V/ADkRD4zHzvdymwAF3vBy6HQhewhZXY53e24O4o2YlLu+OgXTaOwDCpHKS7Tx
+         gxj4xICv4bhBcbPaTUxwgnVqZkAZbgGotDj+YhiMbuOGc5rLiY77WH0gLdYr7oHzfcjl
+         MFJxTnD4bHAWtOfiUiN3u3vpS+Rr2ZPM7eey6aF2yu+X8snzNqoh188wORC4Otfuadlm
+         GCesPoW59LL4N3qoK4E0WkMHcd91YoA1oeupQT7txd70EK+5a2otD4bdXbEF7KSrrftN
+         Kpa2MMHdpYD+81O0dRk9082sTYQv0N/EjvOph3rLh16k3ApLdSUnEuqIQzuS+9jamb8A
+         tN4g==
+X-Forwarded-Encrypted: i=1; AKwUvBympj6EPe5IDe5gZ4+VjDWdpXFrzISQx/sOiw1zp1lUASrRwZPUT8FcyHsUK3Ryfsewl3D8u43DgCrIf2Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++mlXf0ExuhBb4abjv2DhZ0QAfwYDZS/y7sG56zA2oGV6OMEmuMp
+	LGoRTl7pHzErcrXSqYDbyVXKgj+XQOZxYpYlViQq2/sPLEq/Ek5NEktc70nOM5XI8mG9mXUqDwb
+	x/sn5bkI1MT5NVg==
+X-Received: from pgtk20.prod.google.com ([2002:a65:68d4:0:b0:cc5:1024:105e])
  (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:ce43:b0:3b4:7e2d:a3c2 with SMTP id adf61e73a8af0-3dd8c44e218mr14476854637.18.1789951726141;
- Sun, 20 Sep 2026 17:48:46 -0700 (PDT)
-Date: Mon, 21 Sep 2026 00:48:22 +0000
+ 2002:a05:6a00:1804:b0:852:131f:b9d2 with SMTP id d2e1a72fcca58-874db8eab76mr12887659b3a.2.1789951732364;
+ Sun, 20 Sep 2026 17:48:52 -0700 (PDT)
+Date: Mon, 21 Sep 2026 00:48:30 +0000
 In-Reply-To: <20260921004834.2601285-1-skhawaja@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,561 +60,275 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260921004834.2601285-1-skhawaja@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260921004834.2601285-7-skhawaja@google.com>
-Subject: [PATCH v5 06/18] iommu: Implement device and IOMMU HW preservation
+Message-ID: <20260921004834.2601285-15-skhawaja@google.com>
+Subject: [PATCH v5 14/18] iommufd: Implement ioctl to mark HWPT for preservation
 From: Samiullah Khawaja <skhawaja@google.com>
 To: David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>, 
 	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Samiullah Khawaja <skhawaja@google.com>, Robin Murphy <robin.murphy@arm.com>, 
+Cc: YiFei Zhu <zhuyifei@google.com>, Pranjal Shrivastava <praan@google.com>, 
+	Samiullah Khawaja <skhawaja@google.com>, Robin Murphy <robin.murphy@arm.com>, 
 	Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, 
 	iommu@lists.linux.dev, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
 	Pratyush Yadav <pratyush@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
 	David Matlack <dmatlack@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>
+	Vipin Sharma <vipinsh@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Add IOMMU ops to preserve/unpreserve the device state handled by the
-IOMMU driver. This is IOMMU specific state of the device that needs to
-be preserved for liveupdate. These ops can be implemented by the IOMMU
-drivers that support preservation of devices that have their IOMMU
-domains preserved. During device preservation the state of the
-associated IOMMU is also preserved as dependency.
+From: YiFei Zhu <zhuyifei@google.com>
 
+Userspace provides a token to mark the HWPT for preservation. Note that
+this token is not the LUO token that is used to preserve the iommufd.
+Once all the required HWPT are marked for preservation, the user can
+preserve the iommufd into LUO. The iommufd will preserve the HWPTs that
+are marked for preservation.
+
+The marked HWPTs are tracked using a new XArray mark protected by a new
+liveupdate mutex. This mutex will also be used during iommufd
+preservation to protect against any race with the mark preserve ioctl.
+
+The HWPT token will be used during restore to identify this HWPT. The
+restoration logic is not implemented and will be added later.
+
+Reviewed-by: Pranjal Shrivastava <praan@google.com>
+Signed-off-by: YiFei Zhu <zhuyifei@google.com>
 Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
 ---
- drivers/iommu/iommu-priv.h       |   2 +
- drivers/iommu/iommu.c            |  62 ++++++++-
- drivers/iommu/liveupdate.c       | 212 +++++++++++++++++++++++++++++++
- include/linux/iommu-liveupdate.h |  56 ++++++++
- include/linux/iommu.h            |  42 ++++++
- 5 files changed, 373 insertions(+), 1 deletion(-)
+ MAINTAINERS                             |  1 +
+ drivers/iommu/iommufd/Makefile          |  1 +
+ drivers/iommu/iommufd/iommufd_private.h | 17 ++++++
+ drivers/iommu/iommufd/liveupdate.c      | 71 +++++++++++++++++++++++++
+ drivers/iommu/iommufd/main.c            |  9 ++++
+ include/uapi/linux/iommufd.h            | 27 ++++++++++
+ 6 files changed, 126 insertions(+)
+ create mode 100644 drivers/iommu/iommufd/liveupdate.c
 
-diff --git a/drivers/iommu/iommu-priv.h b/drivers/iommu/iommu-priv.h
-index aaffad5854fc..62612b1fc890 100644
---- a/drivers/iommu/iommu-priv.h
-+++ b/drivers/iommu/iommu-priv.h
-@@ -21,6 +21,8 @@ static inline const struct iommu_ops *dev_iommu_ops(struct device *dev)
+diff --git a/MAINTAINERS b/MAINTAINERS
+index ae6df95dc398..d4848ec3a9d6 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13728,6 +13728,7 @@ M:	Samiullah Khawaja <skhawaja@google.com>
+ R:	Pranjal Shrivastava <praan@google.com>
+ L:	iommu@lists.linux.dev
+ S:	Maintained
++F:	drivers/iommu/iommufd/liveupdate.c
+ F:	drivers/iommu/liveupdate.c
+ F:	include/linux/iommu-liveupdate.h
+ F:	include/linux/kho/abi/iommu.h
+diff --git a/drivers/iommu/iommufd/Makefile b/drivers/iommu/iommufd/Makefile
+index 67207914bb6e..cfd5b4b14ccb 100644
+--- a/drivers/iommu/iommufd/Makefile
++++ b/drivers/iommu/iommufd/Makefile
+@@ -12,6 +12,7 @@ iommufd-y := \
  
- void dev_iommu_free(struct device *dev);
+ iommufd-$(CONFIG_IOMMUFD_NOIOMMU) += hwpt_noiommu.o
+ iommufd-$(CONFIG_IOMMUFD_TEST) += selftest.o
++iommufd-$(CONFIG_IOMMU_LIVEUPDATE) += liveupdate.o
  
-+bool iommu_group_is_singleton(struct iommu_group *group);
-+
- const struct iommu_ops *iommu_ops_from_fwnode(const struct fwnode_handle *fwnode);
+ obj-$(CONFIG_IOMMUFD) += iommufd.o
+ obj-$(CONFIG_IOMMUFD_DRIVER) += iova_bitmap.o
+diff --git a/drivers/iommu/iommufd/iommufd_private.h b/drivers/iommu/iommufd/iommufd_private.h
+index eb2e85b27e42..a33b32708afa 100644
+--- a/drivers/iommu/iommufd/iommufd_private.h
++++ b/drivers/iommu/iommufd/iommufd_private.h
+@@ -44,6 +44,11 @@ struct iommufd_ctx {
+ 	struct file *file;
+ 	struct xarray objects;
+ 	struct xarray groups;
++#ifdef CONFIG_IOMMU_LIVEUPDATE
++#define IOMMUFD_OBJ_LIVEUPDATE_MARK XA_MARK_1
++	/* @liveupdate_mutex: Protects the preservation of HWPTs. */
++	struct mutex liveupdate_mutex;
++#endif
+ 	wait_queue_head_t destroy_wait;
+ 	struct rw_semaphore ioas_creation_lock;
+ 	struct maple_tree mt_mmap;
+@@ -392,6 +397,9 @@ struct iommufd_hwpt_paging {
+ 	bool auto_domain : 1;
+ 	bool enforce_cache_coherency : 1;
+ 	bool nest_parent : 1;
++#ifdef CONFIG_IOMMU_LIVEUPDATE
++	u64 liveupdate_token;
++#endif
+ 	/* Head at iommufd_ioas::hwpt_list */
+ 	struct list_head hwpt_item;
+ 	struct iommufd_sw_msi_maps present_sw_msi;
+@@ -729,6 +737,15 @@ void iommufd_vdevice_abort(struct iommufd_object *obj);
+ int iommufd_hw_queue_alloc_ioctl(struct iommufd_ucmd *ucmd);
+ void iommufd_hw_queue_destroy(struct iommufd_object *obj);
  
- static inline const struct iommu_ops *iommu_fwspec_ops(struct iommu_fwspec *fwspec)
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index cd1bca7ede9a..9c1ad8de3ad7 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -18,6 +18,7 @@
- #include <linux/errno.h>
- #include <linux/host1x_context_bus.h>
- #include <linux/iommu.h>
-+#include <linux/iommu-liveupdate.h>
- #include <linux/iommufd.h>
- #include <linux/idr.h>
- #include <linux/err.h>
-@@ -328,6 +329,37 @@ void iommu_device_unregister(struct iommu_device *iommu)
- }
- EXPORT_SYMBOL_GPL(iommu_device_unregister);
- 
-+static int _iommu_for_each_dev_cb(struct device *dev, void *data)
++#ifdef CONFIG_IOMMU_LIVEUPDATE
++int iommufd_hwpt_liveupdate_mark_preserve(struct iommufd_ucmd *ucmd);
++#else
++static inline int iommufd_hwpt_liveupdate_mark_preserve(struct iommufd_ucmd *ucmd)
 +{
-+	struct iommu_dev_iter *iter = data;
-+
-+	if (dev->iommu && dev->iommu->iommu_dev == iter->iommu)
-+		return iter->fn(dev, iter->iommu, iter->arg);
-+
-+	return 0;
++	return -ENOTTY;
 +}
++#endif
 +
-+/**
-+ * iommu_for_each_dev() - Iterate over all devices attached to an IOMMU
-+ * @iter: Device iterator context
-+ *
-+ * Return: 0 on success, or negative error code.
+ #ifdef CONFIG_IOMMUFD_TEST
+ int iommufd_test(struct iommufd_ucmd *ucmd);
+ void iommufd_selftest_destroy(struct iommufd_object *obj);
+diff --git a/drivers/iommu/iommufd/liveupdate.c b/drivers/iommu/iommufd/liveupdate.c
+new file mode 100644
+index 000000000000..96f01ee5a1e8
+--- /dev/null
++++ b/drivers/iommu/iommufd/liveupdate.c
+@@ -0,0 +1,71 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++/*
++ * Copyright (C) 2026, Google LLC
++ * Author: Samiullah Khawaja <skhawaja@google.com>
 + */
-+int iommu_for_each_dev(struct iommu_dev_iter *iter)
-+{
-+	int ret;
 +
-+	for (int i = 0; i < ARRAY_SIZE(iommu_buses); i++) {
-+		ret = bus_for_each_dev(iommu_buses[i], NULL, iter,
-+				       _iommu_for_each_dev_cb);
-+		if (ret)
-+			return ret;
++#define pr_fmt(fmt) "iommufd: " fmt
++
++#include <linux/file.h>
++#include <linux/iommufd.h>
++#include <linux/liveupdate.h>
++
++#include "iommufd_private.h"
++
++int iommufd_hwpt_liveupdate_mark_preserve(struct iommufd_ucmd *ucmd)
++{
++	struct iommu_hwpt_liveupdate_mark_preserve *cmd = ucmd->cmd;
++	struct iommufd_hwpt_paging *hwpt_target;
++	struct iommufd_hwpt_paging *hwpt_paging;
++	struct iommufd_ctx *ictx = ucmd->ictx;
++	struct iommufd_object *obj;
++	unsigned long index;
++	bool marked = false;
++	int rc = 0;
++
++	hwpt_target = iommufd_get_hwpt_paging(ucmd, cmd->hwpt_id);
++	if (IS_ERR(hwpt_target))
++		return PTR_ERR(hwpt_target);
++
++	mutex_lock(&ictx->liveupdate_mutex);
++
++	xa_lock(&ictx->objects);
++
++	/* PRI use cases are not supported. */
++	if (hwpt_target->common.fault) {
++		rc = -EOPNOTSUPP;
++		goto out_unlock;
 +	}
 +
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(iommu_for_each_dev);
++	xa_for_each_marked(&ictx->objects, index, obj, IOMMUFD_OBJ_LIVEUPDATE_MARK) {
++		if (WARN_ON_ONCE(obj->type != IOMMUFD_OBJ_HWPT_PAGING))
++			continue;
 +
- #if IS_ENABLED(CONFIG_IOMMUFD_TEST)
- void iommu_device_unregister_bus(struct iommu_device *iommu,
- 				 const struct bus_type *bus,
-@@ -626,8 +658,8 @@ DEFINE_MUTEX(iommu_probe_device_lock);
- 
- static int __iommu_probe_device(struct device *dev, struct list_head *group_list)
- {
-+	struct group_device *gdev, *gdev2;
- 	struct iommu_group *group;
--	struct group_device *gdev;
- 	int ret;
- 
- 	/*
-@@ -661,6 +693,13 @@ static int __iommu_probe_device(struct device *dev, struct list_head *group_list
- 		goto err_put_group;
- 	}
- 
-+	for_each_group_device(group, gdev2) {
-+		if (dev_iommu_preserved_state(gdev2->dev)) {
-+			ret = -EBUSY;
-+			goto err_free_gdev;
++		hwpt_paging = to_hwpt_paging(container_of(obj, struct iommufd_hw_pagetable, obj));
++
++		if (hwpt_paging == hwpt_target)
++			marked = true;
++
++		if (hwpt_paging->liveupdate_token == cmd->hwpt_token) {
++			if (hwpt_paging == hwpt_target)
++				goto out_unlock;
++
++			rc = -EADDRINUSE;
++			goto out_unlock;
 +		}
 +	}
 +
- 	/*
- 	 * The gdev must be in the list before calling
- 	 * iommu_setup_default_domain()
-@@ -697,6 +736,7 @@ static int __iommu_probe_device(struct device *dev, struct list_head *group_list
- 
- err_remove_gdev:
- 	list_del(&gdev->list);
-+err_free_gdev:
- 	__iommu_group_free_device(group, gdev);
- err_put_group:
- 	iommu_deinit_device(dev);
-@@ -3543,6 +3583,26 @@ bool iommu_group_dma_owner_claimed(struct iommu_group *group)
- }
- EXPORT_SYMBOL_GPL(iommu_group_dma_owner_claimed);
- 
-+/**
-+ * iommu_group_is_singleton() - Query if group contains exactly one device
-+ * @group: The group.
-+ *
-+ * Return: true if group contains exactly 1 device, false otherwise.
-+ */
-+bool iommu_group_is_singleton(struct iommu_group *group)
-+{
-+	bool ret;
++	__xa_set_mark(&ictx->objects, hwpt_target->common.obj.id, IOMMUFD_OBJ_LIVEUPDATE_MARK);
 +
-+	if (!group)
-+		return false;
-+
-+	mutex_lock(&group->mutex);
-+	ret = (list_count_nodes(&group->devices) == 1);
-+	mutex_unlock(&group->mutex);
-+
-+	return ret;
-+}
-+
- static void iommu_remove_dev_pasid(struct device *dev, ioasid_t pasid,
- 				   struct iommu_domain *domain)
- {
-diff --git a/drivers/iommu/liveupdate.c b/drivers/iommu/liveupdate.c
-index be542efbb023..5f92a023ea65 100644
---- a/drivers/iommu/liveupdate.c
-+++ b/drivers/iommu/liveupdate.c
-@@ -42,6 +42,9 @@
- #include <linux/iommu.h>
- #include <linux/kexec_handover.h>
- #include <linux/liveupdate.h>
-+#include <linux/pci.h>
-+
-+#include "iommu-priv.h"
- 
- #define iommu_max_objs_per_page(_array) \
- 	((PAGE_SIZE - sizeof(struct iommu_array_hdr_ser)) / sizeof((_array)->objects[0]))
-@@ -379,3 +382,212 @@ void iommu_unpreserve_domain(struct iommu_domain *domain)
- 	liveupdate_flb_put_outgoing(&iommu_flb);
- }
- EXPORT_SYMBOL_GPL(iommu_unpreserve_domain);
-+
-+static struct iommu_hw_ser *alloc_iommu_hw_ser(struct iommu_flb_obj *flb)
-+{
-+	int idx;
-+
-+	idx = alloc_object_ser((void **)&flb->curr_iommu_array,
-+			       iommu_max_objs_per_page(flb->curr_iommu_array));
-+	if (idx < 0)
-+		return ERR_PTR(idx);
-+
-+	flb->curr_iommu_array->objects[idx].hdr.ref_count = 1;
-+	return &flb->curr_iommu_array->objects[idx];
-+}
-+
-+static int iommu_preserve_locked(struct iommu_device *iommu,
-+				 struct iommu_flb_obj *flb_obj)
-+{
-+	struct iommu_hw_ser *iommu_hw_ser;
-+	int ret;
-+
-+	if (!iommu->ops->preserve || !iommu->ops->unpreserve)
-+		return -EOPNOTSUPP;
-+
-+	lockdep_assert_held(&flb_obj->lock);
-+	if (iommu->outgoing_preserved_state) {
-+		iommu->outgoing_preserved_state->hdr.ref_count++;
-+		return 0;
-+	}
-+
-+	iommu_hw_ser = alloc_iommu_hw_ser(flb_obj);
-+	if (IS_ERR(iommu_hw_ser))
-+		return PTR_ERR(iommu_hw_ser);
-+
-+	ret = iommu->ops->preserve(iommu, iommu_hw_ser);
-+	if (ret) {
-+		iommu_hw_ser->hdr.flags |= IOMMU_SER_FLAG_DELETED;
-+		return ret;
-+	}
-+
-+	iommu->outgoing_preserved_state = iommu_hw_ser;
-+	return ret;
-+}
-+
-+static void iommu_unpreserve_locked(struct iommu_device *iommu,
-+				    struct iommu_flb_obj *flb_obj)
-+{
-+	struct iommu_hw_ser *iommu_hw_ser = iommu->outgoing_preserved_state;
-+
-+	lockdep_assert_held(&flb_obj->lock);
-+	if (WARN_ON(!iommu_hw_ser))
-+		return;
-+
-+	if (WARN_ON_ONCE(!iommu->ops->preserve ||
-+			 !iommu->ops->unpreserve))
-+		return;
-+
-+	iommu_hw_ser->hdr.ref_count--;
-+	if (iommu_hw_ser->hdr.ref_count)
-+		return;
-+
-+	iommu->outgoing_preserved_state = NULL;
-+	iommu->ops->unpreserve(iommu, iommu_hw_ser);
-+	iommu_hw_ser->hdr.flags |= IOMMU_SER_FLAG_DELETED;
-+}
-+
-+static struct iommu_device_ser *alloc_iommu_device_ser(struct iommu_flb_obj *flb)
-+{
-+	int idx;
-+
-+	idx = alloc_object_ser((void **)&flb->curr_device_array,
-+			       iommu_max_objs_per_page(flb->curr_device_array));
-+	if (idx < 0)
-+		return ERR_PTR(idx);
-+
-+	flb->curr_device_array->objects[idx].hdr.ref_count = 1;
-+	return &flb->curr_device_array->objects[idx];
-+}
-+
-+/**
-+ * iommu_preserve_device() - Preserve device state across live update
-+ * @domain: Associated IOMMU domain
-+ * @dev: Device to preserve
-+ * @dma_owner_token: Token to identify DMA owner of this device
-+ *
-+ * Return: 0 on success, or negative error code.
-+ */
-+int iommu_preserve_device(struct iommu_domain *domain,
-+			  struct device *dev, u64 dma_owner_token)
-+{
-+	struct iommu_device_ser *device_ser;
-+	struct iommu_flb_obj *flb_obj;
-+	struct dev_iommu *iommu;
-+	struct pci_dev *pdev;
-+	int ret;
-+
-+	if (!dev_is_pci(dev))
-+		return -EOPNOTSUPP;
-+
-+	if (!iommu_group_dma_owner_claimed(dev->iommu_group))
-+		return -EINVAL;
-+
-+	pdev = to_pci_dev(dev);
-+	iommu = dev->iommu;
-+	if (!iommu->iommu_dev->ops->preserve_device ||
-+	    !iommu->iommu_dev->ops->unpreserve_device ||
-+	    !iommu->iommu_dev->ops->preserve ||
-+	    !iommu->iommu_dev->ops->unpreserve)
-+		return -EOPNOTSUPP;
-+
-+	ret = liveupdate_flb_get_outgoing(&iommu_flb, (void **)&flb_obj);
-+	if (ret)
-+		return ret;
-+
-+	mutex_lock(&flb_obj->lock);
-+	if (!domain->preserved_state) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
-+	if (dev_iommu_preserved_state(dev)) {
-+		ret = -EBUSY;
-+		goto out_unlock;
-+	}
-+
-+	device_ser = alloc_iommu_device_ser(flb_obj);
-+	if (IS_ERR(device_ser)) {
-+		ret = PTR_ERR(device_ser);
-+		goto out_unlock;
-+	}
-+
-+	ret = iommu_preserve_locked(iommu->iommu_dev, flb_obj);
-+	if (ret) {
-+		device_ser->hdr.flags |= IOMMU_SER_FLAG_DELETED;
-+		goto out_unlock;
-+	}
-+
-+	device_ser->domain_iommu_ser.domain_phys = virt_to_phys(domain->preserved_state);
-+	device_ser->domain_iommu_ser.iommu_phys = virt_to_phys(iommu->iommu_dev->outgoing_preserved_state);
-+	device_ser->devid = pci_dev_id(pdev);
-+	device_ser->pci_domain_nr = pci_domain_nr(pdev->bus);
-+	device_ser->dma_owner_token = dma_owner_token;
-+
-+	ret = iommu->iommu_dev->ops->preserve_device(dev, device_ser);
-+	if (!ret) {
-+		WRITE_ONCE(dev->iommu->device_ser, device_ser);
-+
-+		/* Validate that no sibling device was added concurrently */
-+		if (!iommu_group_is_singleton(dev->iommu_group)) {
-+			iommu->iommu_dev->ops->unpreserve_device(dev, device_ser);
-+			WRITE_ONCE(dev->iommu->device_ser, NULL);
-+			ret = -EOPNOTSUPP;
-+		}
-+	}
-+
-+	if (ret) {
-+		device_ser->hdr.flags |= IOMMU_SER_FLAG_DELETED;
-+		iommu_unpreserve_locked(iommu->iommu_dev, flb_obj);
-+		goto out_unlock;
-+	}
++	if (marked)
++		pr_warn_ratelimited("Overwriting HWPT liveupdate token from: %llu to %llu\n",
++				    hwpt_target->liveupdate_token, cmd->hwpt_token);
++	hwpt_target->liveupdate_token = cmd->hwpt_token;
 +
 +out_unlock:
-+	mutex_unlock(&flb_obj->lock);
-+	liveupdate_flb_put_outgoing(&iommu_flb);
-+	return ret;
++	xa_unlock(&ictx->objects);
++	mutex_unlock(&ictx->liveupdate_mutex);
++	iommufd_put_object(ictx, &hwpt_target->common.obj);
++	return rc;
 +}
-+EXPORT_SYMBOL_GPL(iommu_preserve_device);
-+
-+/**
-+ * iommu_unpreserve_device() - Unpreserve device state
-+ * @domain: Associated IOMMU domain
-+ * @dev: Device to unpreserve
-+ */
-+void iommu_unpreserve_device(struct iommu_domain *domain, struct device *dev)
-+{
-+	struct iommu_device_ser *iommu_device_ser;
-+	struct iommu_flb_obj *flb_obj;
-+	struct dev_iommu *iommu;
-+	int ret;
-+
-+	if (!dev_is_pci(dev))
-+		return;
-+
-+	if (!iommu_group_dma_owner_claimed(dev->iommu_group))
-+		return;
-+
-+	iommu = dev->iommu;
-+	if (WARN_ON(!iommu->iommu_dev->ops->unpreserve_device ||
-+		    !iommu->iommu_dev->ops->unpreserve))
-+		return;
-+
-+	ret = liveupdate_flb_get_outgoing(&iommu_flb, (void **)&flb_obj);
-+	if (WARN_ON(ret))
-+		return;
-+
-+	mutex_lock(&flb_obj->lock);
-+	iommu_device_ser = dev_iommu_preserved_state(dev);
-+	if (WARN_ON(!iommu_device_ser))
-+		goto out_unlock;
-+
-+	iommu_device_ser->hdr.flags |= IOMMU_SER_FLAG_DELETED;
-+	iommu->iommu_dev->ops->unpreserve_device(dev, iommu_device_ser);
-+	WRITE_ONCE(dev->iommu->device_ser, NULL);
-+
-+	iommu_unpreserve_locked(iommu->iommu_dev, flb_obj);
-+out_unlock:
-+	mutex_unlock(&flb_obj->lock);
-+	liveupdate_flb_put_outgoing(&iommu_flb);
-+}
-+EXPORT_SYMBOL_GPL(iommu_unpreserve_device);
-diff --git a/include/linux/iommu-liveupdate.h b/include/linux/iommu-liveupdate.h
-index caa9778eee2d..536bea09d064 100644
---- a/include/linux/iommu-liveupdate.h
-+++ b/include/linux/iommu-liveupdate.h
-@@ -8,6 +8,7 @@
- #ifndef _LINUX_IOMMU_LIVEUPDATE_H
- #define _LINUX_IOMMU_LIVEUPDATE_H
+diff --git a/drivers/iommu/iommufd/main.c b/drivers/iommu/iommufd/main.c
+index 9a921b153162..fe8610fd58e3 100644
+--- a/drivers/iommu/iommufd/main.c
++++ b/drivers/iommu/iommufd/main.c
+@@ -333,6 +333,9 @@ static int iommufd_fops_open(struct inode *inode, struct file *filp)
+ 	init_rwsem(&ictx->ioas_creation_lock);
+ 	xa_init_flags(&ictx->objects, XA_FLAGS_ALLOC1 | XA_FLAGS_ACCOUNT);
+ 	xa_init(&ictx->groups);
++#ifdef CONFIG_IOMMU_LIVEUPDATE
++	mutex_init(&ictx->liveupdate_mutex);
++#endif
+ 	ictx->file = filp;
+ 	mt_init_flags(&ictx->mt_mmap, MT_FLAGS_ALLOC_RANGE);
+ 	init_waitqueue_head(&ictx->destroy_wait);
+@@ -395,6 +398,9 @@ static int iommufd_fops_release(struct inode *inode, struct file *filp)
+ 	 * iommufd_object_tombstone_user()
+ 	 */
+ 	xa_destroy(&ictx->objects);
++#ifdef CONFIG_IOMMU_LIVEUPDATE
++	mutex_destroy(&ictx->liveupdate_mutex);
++#endif
  
-+#include <linux/device.h>
- #include <linux/iommu.h>
- #include <linux/liveupdate.h>
- #include <linux/kho/abi/iommu.h>
-@@ -15,8 +16,43 @@
- #ifdef CONFIG_IOMMU_LIVEUPDATE
- int iommu_liveupdate_register_flb(struct liveupdate_file_handler *handler);
- void iommu_liveupdate_unregister_flb(struct liveupdate_file_handler *handler);
-+
-+/**
-+ * dev_iommu_preserved_state() - Get preserved state of a device
-+ * @dev: Target device
-+ *
-+ * Return: Pointer to preserved device state, or NULL if not preserved.
-+ */
-+static inline void *dev_iommu_preserved_state(struct device *dev)
-+{
-+	struct iommu_device_ser *ser;
-+
-+	if (!dev->iommu)
-+		return NULL;
-+
-+	ser = READ_ONCE(dev->iommu->device_ser);
-+	if (ser && !(ser->hdr.flags & IOMMU_SER_FLAG_INCOMING))
-+		return ser;
-+
-+	return NULL;
-+}
-+
- int iommu_preserve_domain(struct iommu_domain *domain, struct iommu_domain_ser **ser);
- void iommu_unpreserve_domain(struct iommu_domain *domain);
-+int iommu_preserve_device(struct iommu_domain *domain,
-+			  struct device *dev, u64 dma_owner_token);
-+void iommu_unpreserve_device(struct iommu_domain *domain, struct device *dev);
-+
-+/**
-+ * iommu_preserved_state() - Get preserved state of an IOMMU instance
-+ * @iommu: IOMMU hardware instance
-+ *
-+ * Return: Pointer to preserved state, or NULL if not preserved.
-+ */
-+static inline void *iommu_preserved_state(struct iommu_device *iommu)
-+{
-+	return iommu->outgoing_preserved_state;
-+}
- #else
- static inline int iommu_liveupdate_register_flb(struct liveupdate_file_handler *handler)
- {
-@@ -27,6 +63,11 @@ static inline void iommu_liveupdate_unregister_flb(struct liveupdate_file_handle
- {
- }
+ 	WARN_ON(!xa_empty(&ictx->groups));
  
-+static inline void *dev_iommu_preserved_state(struct device *dev)
-+{
-+	return NULL;
-+}
-+
- static inline int iommu_preserve_domain(struct iommu_domain *domain, struct iommu_domain_ser **ser)
- {
- 	return -EOPNOTSUPP;
-@@ -35,5 +76,20 @@ static inline int iommu_preserve_domain(struct iommu_domain *domain, struct iomm
- static inline void iommu_unpreserve_domain(struct iommu_domain *domain)
- {
- }
-+
-+static inline int iommu_preserve_device(struct iommu_domain *domain,
-+					struct device *dev, u64 dma_owner_token)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+static inline void iommu_unpreserve_device(struct iommu_domain *domain, struct device *dev)
-+{
-+}
-+
-+static inline void *iommu_preserved_state(struct iommu_device *iommu)
-+{
-+	return NULL;
-+}
+@@ -440,6 +446,7 @@ union ucmd_buffer {
+ 	struct iommu_hwpt_alloc hwpt;
+ 	struct iommu_hwpt_get_dirty_bitmap get_dirty_bitmap;
+ 	struct iommu_hwpt_invalidate cache;
++	struct iommu_hwpt_liveupdate_mark_preserve mark_preserve;
+ 	struct iommu_hwpt_set_dirty_tracking set_dirty_tracking;
+ 	struct iommu_ioas_alloc alloc;
+ 	struct iommu_ioas_allow_iovas allow_iovas;
+@@ -516,6 +523,8 @@ static const struct iommufd_ioctl_op iommufd_ioctl_ops[] = {
+ 		 __reserved),
+ 	IOCTL_OP(IOMMU_VIOMMU_ALLOC, iommufd_viommu_alloc_ioctl,
+ 		 struct iommu_viommu_alloc, out_viommu_id),
++	IOCTL_OP(IOMMU_HWPT_LIVEUPDATE_MARK_PRESERVE, iommufd_hwpt_liveupdate_mark_preserve,
++		 struct iommu_hwpt_liveupdate_mark_preserve, hwpt_token),
+ #ifdef CONFIG_IOMMUFD_TEST
+ 	IOCTL_OP(IOMMU_TEST_CMD, iommufd_test, struct iommu_test_cmd, last),
  #endif
- #endif /* _LINUX_IOMMU_LIVEUPDATE_H */
-diff --git a/include/linux/iommu.h b/include/linux/iommu.h
-index 26de40d5a98e..920abd777879 100644
---- a/include/linux/iommu.h
-+++ b/include/linux/iommu.h
-@@ -684,6 +684,10 @@ __iommu_copy_struct_to_user(const struct iommu_user_data *dst_data,
-  *               resources shared/passed to user space IOMMU instance. Associate
-  *               it with a nesting @parent_domain. It is required for driver to
-  *               set @viommu->ops pointing to its own viommu_ops
-+ * @preserve_device: Preserve state of a device for liveupdate.
-+ * @unpreserve_device: Unpreserve state that was preserved earlier.
-+ * @preserve: Preserve state of iommu translation hardware for liveupdate.
-+ * @unpreserve: Unpreserve state of iommu that was preserved earlier.
-  * @owner: Driver module providing these ops
-  * @identity_domain: An always available, always attachable identity
-  *                   translation.
-@@ -740,6 +744,13 @@ struct iommu_ops {
- 			   struct iommu_domain *parent_domain,
- 			   const struct iommu_user_data *user_data);
- 
-+#ifdef CONFIG_IOMMU_LIVEUPDATE
-+	int (*preserve_device)(struct device *dev, struct iommu_device_ser *device_ser);
-+	void (*unpreserve_device)(struct device *dev, struct iommu_device_ser *device_ser);
-+	int (*preserve)(struct iommu_device *iommu, struct iommu_hw_ser *iommu_ser);
-+	void (*unpreserve)(struct iommu_device *iommu, struct iommu_hw_ser *iommu_ser);
-+#endif
-+
- 	const struct iommu_domain_ops *default_domain_ops;
- 	struct module *owner;
- 	struct iommu_domain *identity_domain;
-@@ -827,6 +838,8 @@ struct iommu_domain_ops {
-  * @singleton_group: Used internally for drivers that have only one group
-  * @max_pasids: number of supported PASIDs
-  * @ready: set once iommu_device_register() has completed successfully
-+ * @outgoing_preserved_state: preserved iommu state of outgoing kernel for
-+ * liveupdate.
-  */
- struct iommu_device {
- 	struct list_head list;
-@@ -836,6 +849,10 @@ struct iommu_device {
- 	struct iommu_group *singleton_group;
- 	u32 max_pasids;
- 	bool ready;
-+
-+#ifdef CONFIG_IOMMU_LIVEUPDATE
-+	struct iommu_hw_ser *outgoing_preserved_state;
-+#endif
+diff --git a/include/uapi/linux/iommufd.h b/include/uapi/linux/iommufd.h
+index 206fa667c782..34637712c873 100644
+--- a/include/uapi/linux/iommufd.h
++++ b/include/uapi/linux/iommufd.h
+@@ -58,6 +58,7 @@ enum {
+ 	IOMMUFD_CMD_VEVENTQ_ALLOC = 0x93,
+ 	IOMMUFD_CMD_HW_QUEUE_ALLOC = 0x94,
+ 	IOMMUFD_CMD_IOAS_NOIOMMU_GET_PA = 0x95,
++	IOMMUFD_CMD_HWPT_LIVEUPDATE_MARK_PRESERVE = 0x96,
  };
  
  /**
-@@ -890,6 +907,9 @@ struct dev_iommu {
- 	u32				pci_32bit_workaround:1;
- 	u32				require_direct:1;
- 	u32				shadow_on_flush:1;
-+#ifdef CONFIG_IOMMU_LIVEUPDATE
-+	struct iommu_device_ser		*device_ser;
-+#endif
+@@ -1390,4 +1391,30 @@ struct iommu_hw_queue_alloc {
+ 	__aligned_u64 length;
  };
- 
- int iommu_device_register(struct iommu_device *iommu,
-@@ -1206,6 +1226,28 @@ static inline void *dev_iommu_priv_get(struct device *dev)
- 
- void dev_iommu_priv_set(struct device *dev, void *priv);
- 
+ #define IOMMU_HW_QUEUE_ALLOC _IO(IOMMUFD_TYPE, IOMMUFD_CMD_HW_QUEUE_ALLOC)
++
 +/**
-+ * typedef iommu_dev_iter_fn - Callback for iterating IOMMU attached devices
-+ * @dev: Attached device
-+ * @iommu: IOMMU instance
-+ * @arg: Private argument passed to iterator
++ * struct iommu_hwpt_liveupdate_mark_preserve - ioctl(IOMMU_HWPT_LIVEUPDATE_MARK_PRESERVE)
++ * @size: sizeof(struct iommu_hwpt_liveupdate_mark_preserve)
++ * @hwpt_id: Iommufd object ID of the target HWPT
++ * @hwpt_token: Token to identify this hwpt upon restore
 + *
-+ * Return: 0 on success, or negative error code.
++ * The target HWPT will be preserved during iommufd preservation.
++ * Only file-based memory mappings (e.g. memfd) are supported for HWPTs marked
++ * for preservation. Mapping anonymous memory into a preserved HWPT will result
++ * in a failure during the preservation phase.
++ *
++ * The hwpt_token is provided by userspace. If userspace enters a token
++ * already in use within this iommufd, -EADDRINUSE is returned from this ioctl.
++ *
++ * Note: There is no 'unmark' operation, so any HWPTs pooled in userspace that
++ * are marked for preservation must be destroyed after use.
 + */
-+typedef int (*iommu_dev_iter_fn)(struct device *dev,
-+				 struct iommu_device *iommu, void *arg);
-+
-+/**
-+ * struct iommu_dev_iter - Iterator for devices attached to an IOMMU
-+ */
-+struct iommu_dev_iter {
-+	struct iommu_device *iommu;
-+	iommu_dev_iter_fn fn;
-+	void *arg;
++struct iommu_hwpt_liveupdate_mark_preserve {
++	__u32 size;
++	__u32 hwpt_id;
++	__aligned_u64 hwpt_token;
 +};
++#define IOMMU_HWPT_LIVEUPDATE_MARK_PRESERVE \
++	_IO(IOMMUFD_TYPE, IOMMUFD_CMD_HWPT_LIVEUPDATE_MARK_PRESERVE)
 +
-+int iommu_for_each_dev(struct iommu_dev_iter *iter);
-+
- extern struct mutex iommu_probe_device_lock;
- int iommu_probe_device(struct device *dev);
- 
+ #endif
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
