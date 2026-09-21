@@ -1,288 +1,273 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6483282F16;
-	Mon, 21 Sep 2026 14:32:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790001157; cv=none; b=t+JtcioT5FZOgAzIaA8SoDXm4btRjma3ShYlbXVFo1jyUEckIXXhYCnWbCvdwds4gJGIntk73636FIYM+O6xsY2MmCFFNkKLgIPa1pStH2/QIYQ52LH8tnvkempGCO2dxJEe5xxWtPqZVIOdbw+KAM/vLf8AiqcwTg0QJ72nfvw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790001157; c=relaxed/simple;
-	bh=eLfX3aC843a4x+zlIbAdW43pQW9d2skmTNjdUI6DGPg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CsMMx82OnAJV0V2bSS5eWd7mSAQSlu5C1ig+QkWb+VjTnDS+yWCsoErTEYnmpUE64cGqBa6lABmVQqaIsfHDNndvUFgSN0zEB9isqr+A+OMAATmWtApwPiLM64cyJMUl7HRw1NBmITvVRucCIp+XupJg/qHwhtNQHwazX70IGd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=jROXMDRf; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4A7306B3D
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:32:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790001174; cv=pass; b=sQMVtsMjwA6XSmZwk169LaAyXouD0e3329NPNBegnNSnoJhM6cTBp9yhvRqlbHIDl6C7uLw9uLEjRhG6wiRazKoVkF+Ifqn0NGF3GF+I89+rPpsJ1t/49TVLmM2DogC1AHlGyFGT2jhnVCqmme2LPXsH/XN4w4bcyXEkJjniEbM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790001174; c=relaxed/simple;
+	bh=hzsKoddot+dY0EZ27aq5GfZZI/Lez7LJqexM7v1StJc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=c9a4Sx7dWFp0u3ct3AWJBJu8A5Rro/zq65E88EtlzgLbg4nZxw9Qt4dMX1tQSMXGy4Ta+j+Rbl2Q+rN0mhtkRcsVbw1q0cHmJshpZwEaFoTZm726DJCusrrhfzdAXqDR1alJfi7cNSyGdQX/7SVVyJz/Q+Z0ulJYe827XA/Qc1M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IhPDDERP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WltfwJyY; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="jROXMDRf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=1DNM4B/DKlNamjDekFwegs2ASgo7JXOtIGUcdV58DYc=; b=jROXMDRfo0GolAgRZOKDUIe1Ny
-	oXuMeZRRQqhnqgHuusb8v8dJoNC9zcEOyLyZu+BZBcvWhFhozxE0ZJwYdMdP6PDSfDlIRIR+9FaPd
-	t9XL38hNAX9fuXWR7lA9GQvwALO6oXas5lgdKJtQigxTlIok/zX9rUO5ZtjQtfnLoEcYl6U6r/OX/
-	m/quCLTYp0ULCRVgY0tve0ib7FCqfpCfOIbSgBZhHNodcIB9U/8phtzDRWkQTu1/MWyVFGlcLJMPZ
-	yjRrLCQKowCumoAukJuexM5Q8Xa7a8temrLWl6RqAXjilfvXE9hRDJxrA70tuTCIAY+RnvcX+UIFN
-	5v4lKQZQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x8f3Z-002Gnz-2x;
-	Mon, 21 Sep 2026 14:31:46 +0000
-Date: Mon, 21 Sep 2026 07:31:37 -0700
-From: Breno Leitao <leitao@debian.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, kas@kernel.org, 
-	kexec@lists.infradead.org, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	Oscar Salvador <osalvador@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, hannes@cmpxchg.or, 
-	shakeel.butt@linux.dev, linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, rmikey@meta.com, riel@surriel.com, harry@kernel.org, 
-	linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v5 7/9] drivers/base/memory: count inherited poisoned
- frames into the block
-Message-ID: <arE3UjqPsxctWckg@gmail.com>
-References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
- <20260915-hwpoison-kho-v5-7-3bc7a57bd503@debian.org>
- <de41b78a-8471-4832-be0c-35d410a4499a@kernel.org>
- <aqpczrtIwSG948iv@gmail.com>
- <b8ad366a-a019-4462-9dce-f687f60ee7f2@kernel.org>
- <aqvHHHuWJ-y4WRJZ@gmail.com>
- <caac2cb9-8faa-49bc-ae8a-47c5fd7b7e58@kernel.org>
- <aq1RaH0eE0hZfNpr@gmail.com>
- <fb2237be-f7bc-4ad6-bcb0-7c3ef53136ef@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IhPDDERP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WltfwJyY"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LEGITw704766
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:32:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	8V9qRL8QsRUF83XpiMXUfrfmmQn7slBViBa0BqoAT0o=; b=IhPDDERPEIKbMFAd
+	g4ug9QshGTwL0pna643qpJ0WaDvB6HfRtmpn9UQ3FmOO9xhx/lpZOMwF1GyOPPXM
+	EsZnb5K7B8VtRS78CS+aZAXx+s9CXPeSCAG/w4sCEmgmifFcFnKU+utbEWQ3gGEf
+	TiDyyAKUSJ09MzWPAgql/ZJuMpVYIFXkWr2Bu6o9kRqrfxfPQ4VxftA0Jh98sb0W
+	jqT7GW/y6BxcOHfO6K39alWyOb8uJxDptadWSHP/rxq44Y7oTGNpuzaEjjarvHLp
+	761Qz6vDg+47aHh35c+cNwqqwgvfFiholHvdXhvm8mJ2BPrUyxkqvdWfwD2/xiz+
+	mAmeFw==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu17gsdnw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:32:51 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc435388657so4624796a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:32:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790001171; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hoU41N6Esvm4jQOzTNM3AVUUSXIc9X3W6aMsBlbY2qc6IhJPC7BAXYtkrjtLj7FHAS
+         s117t/ZdLOodafMXUCSON07QjYJeI7WKGJRSin3HNW0ysyp6dkOzrANW8R4z2hCzESZp
+         IcpSAaOq/IDbahXQFIK0aLSlzkxBIQohOX/Sh5C0+c6OdRMPnwVFqxZaFT5eEjtIhU4R
+         gZGkYD6U/ZeeknklxWQ83MeDgy8/8laBpIsRYmvItrL7eRu2Af5Cm1e7X/mC+vpuxJmt
+         cNQTxl7R6k4FNzenx9BcUc3otRZwOp56rn++pnspVExFbvPP2w26M3Cw7+ZYiT2mgmSJ
+         vljQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8V9qRL8QsRUF83XpiMXUfrfmmQn7slBViBa0BqoAT0o=;
+        fh=N6kx9CQwFpLSs8dYna2tRTH/dmEY8MBNAyNmiWGP1FI=;
+        b=MK5gEq4p2gByJimCbu4e+7S6I7l1F7XkYvRFboNK6H11jvn5Y9wwATSpmDbq8GS11N
+         OJbDyCkiwwvOVxchI9j2KvkJv2IxQfTJDMyqDUsZ+c/cGyUaElqYzEB9nCtzok2k3IkJ
+         2u5wg/iC9VVKePnyeh1BOZ+EXU/N8n7hbegyoFECBUty/GjQheYrwB6K2yDS8BmiFQ/A
+         wwgb1oSUivkaNItLTVqsIMB3/+iJqFfsgb/cf5T7o3TiWC1o8z7Uy9zmEqgzTKcdjzrG
+         eYZNcA1Nn9epTCwRBazMaL3Y/EPwc5TgjEigdGNVb3r/Py73AlJhh31TW7fO1Qx0DMna
+         SMSQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790001171; x=1790605971; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8V9qRL8QsRUF83XpiMXUfrfmmQn7slBViBa0BqoAT0o=;
+        b=WltfwJyY1HE7nEBY/fro95vhq0164NByOujzwNPc2UaGMk/yfTnUf/iP6lRtijOt5G
+         NVZqJ3CbLIb90suRAKobufXYZ7sleKzUgZ5sJrxAaMYarzRI+fKWnop/sa7a6RHAmfR7
+         WPMF0BwJQTAkSwJG2hvzzW8ct6LBaXQbHPf6Tbf27c+PETCCY8R9286qCza6AwuuwvvV
+         OQoEu6S1yzdHhYxgHczayNn7DZw2zRudQe+nxPf/SJ09H0uE4NCQm8Uh/EqWxu7FYJfW
+         jJGqxm72N6j226kHm5lEcjJfCXSnUel5sZOLUgOe9eKZP1Ocy/g00wX1xs3OZqMInthm
+         Ds3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790001171; x=1790605971;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8V9qRL8QsRUF83XpiMXUfrfmmQn7slBViBa0BqoAT0o=;
+        b=i/OjBk6+p0Z5lode4XhoaHGJvKxyfGzdkyGuAIKLmAXqiVxqjh81CC99Wi6NMF41YS
+         4N99vH8sq7XGMnQKP171nKor/a3HK+q7eme+s1GSzrqlBj/OymjSRovSo6y2PbP57RXV
+         7ed1xmAQ6tV9eXLp3IUByVDrVZotJ9pOiPxYGaVaUDlMEY1+ZB1JQKEy+2TCc/MesFvJ
+         UGv0vISyBM0kfuTZr+o+NfV2Vdp0MsQZrpaJGSz0gONNcAZgFFuzDngoWLH3VVyMyzn6
+         9gtczYO2CVnXvn8EHtJNYuOy97cQJYo/iFp9pPvUMM4270n8rU/por5/L2qqupNClMXu
+         SPwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx8oyS514trkQEP4PshGcFvS/vqo1CKFZKSXljnYgcVVnujwQE90Ldw3vmWmdwmsn69LP+/sXaSOxxbSkE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lp2TKuhZnR974X0zdGO27zMiF6XRYUhOuhyy6j9dNdkPjveAUR
+	B4cl2P8KbSeJ5JNsFGa7tLQmrwEeMQgk76DuUrGf/T/XFKQyFjADhPI3SSVTKczbtVk4BtUUYAP
+	Dct0/KoCjj6I8q2YoX6srPeruyR60CY49ODFJp5T0TQQlYRLm2KyrRvPiFdIGiidAorAtGExMth
+	7xHHevKDeN+cup7DUukcTwcxvbl1Ewk2RrMmxPbqE1ew==
+X-Gm-Gg: AYBFou2lHG5fW8KTkiF3yZk24cooeH4o07ycMxHgHEACKRkmiPnn7BTkJ8zonB3YRi3
+	EKt+pnxq4i1gdyOJMUXe9fFdtjIQP0Ta+P4YX8y+QrS92WlnE21W1vff3aNVbBIUn3LdyK7e7gH
+	cIEEPzOHZsyRxG8iRizUKzEZItoILVEPnmDSuiQpt1TgRjTA63PoCHTq1/Wg==
+X-Received: by 2002:a05:6a21:6194:b0:3cc:f008:8123 with SMTP id adf61e73a8af0-3dd8c3fe021mr18964755637.8.1790001170322;
+        Mon, 21 Sep 2026 07:32:50 -0700 (PDT)
+X-Received: by 2002:a05:6a21:6194:b0:3cc:f008:8123 with SMTP id
+ adf61e73a8af0-3dd8c3fe021mr18964705637.8.1790001169714; Mon, 21 Sep 2026
+ 07:32:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fb2237be-f7bc-4ad6-bcb0-7c3ef53136ef@kernel.org>
-X-Debian-User: leitao
+References: <20260903092347.620060-1-joshua.yeong@starfivetech.com>
+In-Reply-To: <20260903092347.620060-1-joshua.yeong@starfivetech.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 16:32:37 +0200
+X-Gm-Features: AcwNN1WpGO3jxKAH0ED7jq5tX0NF1bkBB1T37oZy7cznqRrvJi696dq7Itctpt8
+Message-ID: <CAPx+jO-3ZgVTSE2y0_TW4cy8wUYCJaogNnzgCr-WX681_H+sfw@mail.gmail.com>
+Subject: Re: [PATCH v3 0/3] Add RISC-V RPMI device power service support
+To: Joshua Yeong <joshua.yeong@starfivetech.com>
+Cc: rahul@summations.net, anup@brainfault.org, lftan.linux@gmail.com,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        ulfh@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+        aou@eecs.berkeley.edu, alex@ghiti.fr, linux-riscv@lists.infradead.org,
+        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: 8UJiiVPzQf46GhnME-InWlTcbWcIWVl0
+X-Authority-Analysis: v=2.4 cv=IewSymqa c=1 sm=1 tr=0 ts=6ab14013 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=Bq6zwJu1AAAA:8 a=NEAV23lmAAAA:8
+ a=2HKowqdte-bNKO3h_Y0A:9 a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
+ a=KQ6X2bKhxX7Fj2iT9C4S:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDIxMSBTYWx0ZWRfX37QCbLYBuU39
+ LscwsJAlpnZxFQ7KVQtZlgY383GJEs3QOMr+fiyEHwrwBRiIEdC+2nFQBsyL1aok4QdpmuPYoWa
+ ClC3zpHMoH5eFQVdpVP0OcGAfwEGUo6n8Q9yIfn39gc1oVSP5iuUO3ozofDTXcev+MFXUu4PZZi
+ w6UjD7momanoxl2nW2wbIvUofwMnYZakmyYBJzJfpYZo3OZauTY+XypgvtdPQXHBdOwmtYOMy2c
+ MY2hBtD3ibf3cWxit7y9+3+ef47XeQ5md0UGvHXP4/jFuIH41Iw80JADBeVJ8YEuXARw/ou8thg
+ /fxD0i81mPSNT7tEa2nAaXWdOLsoh5irGHUH9MZPHzpd+QByewuWlntFfjMrIpyqBaAUb10hfB8
+ Edq9DgiO6Rcxe8/yUXxRTbtD/NQxfcUxnxH0bf9J3+GmeUgH+2bKX6d4r9+Z7OdaFRbTgQqoVjC
+ ZyWkkQxEO33YZV2skqg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDIxMSBTYWx0ZWRfXwSZSeFwKJgXO
+ HOC1RPErRq9FyB2Yz6txdpebCMNU89cJpHviH+YebcPF2t2TA9N2B8DtM/T4qZ7MhoKe89mF0Rx
+ YpxIy6zDrnG3QTSlCF5KM9bCzum6i8s=
+X-Proofpoint-ORIG-GUID: 8UJiiVPzQf46GhnME-InWlTcbWcIWVl0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 spamscore=0 phishscore=0 malwarescore=0 adultscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210211
 
-On Fri, Sep 18, 2026 at 10:16:25PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/18/26 17:22, Breno Leitao wrote:
-> > On Fri, Sep 18, 2026 at 02:18:03PM +0200, David Hildenbrand (Arm) wrote:
-> >> On 9/17/26 15:01, Breno Leitao wrote:
-> >>>
-> >>> Fair point, I'll clean up the naming in the next revision.
-> >>>
-> >>> I'll also add that ->empty field, which should help locate this bit
-> >>> faster and may let us skip the bitmap query entirely on the happy path.
-> >>>
-> >>> Anything else you'd like addressed?
-> >>>
-> >>> Good to know this moved the needle from "David hates this feature" to
-> >>> "David only hates the naming" -- I'll take that as progress.  :-P
-> >>
-> >> ;)
-> >>
-> >> I think the crucial part is to find a way to cleanly distinguish our source of
-> >> information, and also how the source does only apply to some memory.
-> >
-> > Right, we have two source for poisoned page information, today.
-> >
-> > 1) LINUX_EFI_POISONED_MEMORY: Used to track memory block that got
-> >    poisioned, and will be passed around during kexec.
-> > 2) PG_hwpoison on struct page: Used by the memory subsystem to avoid
-> >    touching it.
+On Thu, Sep 3, 2026 at 11:24=E2=80=AFAM Joshua Yeong
+<joshua.yeong@starfivetech.com> wrote:
 >
-> How are both kept in sync? See below.
-
-The EFI table is only written when there is a memory failure. That is
-the only thing that writes to it:
-
-	action_result() -> efi_hwpoison_record_pfn() -> set_bit()
-
-You can see it on patch "mm/memory-failure: efi: record
-hardware-poisoned frames into the poisoned-memory table"
-
-Then, when the kernel kexecs into a second kernel, the EFI config table
-is queried and the pages are poisoned from it at boot, as they are
-getting into the buddy allocator, in __free_pages_core().
-
-You can see this at patch "mm/memory-failure: keep inherited poisoned
-frames out of the buddy allocator"
-
-> > And I understand that this design is fine, and we want to be easy to
-> > identify what we are querying on function name. For instance,
-> > I understand you confusion in range_contains_poisoned_memory() came
-> > from:
-> >
-> > range_contains_poisoned_memory():
-> >    * What the caller reads:
-> > 	* "is any memory in this range hardware poisoned?"
-> >    * What actually runs:
-> > 	* "is any bit set in an EFI table that a PREVIOUS kernel wrote,
-> > 	   at 2 MiB granularity, for this memory region?"
+> The RISC-V Platform Management Interface (RPMI) specification defines a
+> modular and extensible messaging protocol between the supervisor software
+> and a platform microcontroller (PuC). Among the service groups it defines
+> is the device power service group (service group ID 0x00009), which allow=
+s
+> the supervisor to enumerate the power domains of platform devices managed
+> by the PuC, query their attributes, and get/set their power state.
 >
-> Right, and we should use that only as a source for anything during early boot.
-> So maybe it should hint at the "early" aspect somehow.
-
-Ack. What I have in mind is to make the read side mirror the write side:
-
-	efi_hwpoison_record_pfn()	writes
-	efi_hwpoison_recorded()		reads
-
-"efi_" says where it comes from and "recorded" says an earlier kernel
-wrote it down, rather than it being a property of the page.
-
-On the "early" part: it is not strictly early boot, since
-generic_online_page() reaches __free_pages_core() as well. The real
-contract is "before the frame enters the allocator". I don't think a
-name carries that, so I'd rather state it in a comment on the function,
-unless you prefer something like efi_hwpoison_recorded_preinit().
-
-> Which brings me back to: is the bitmap kept in sync when memory gets hwpoisoned?
+> This series adds supervisor-side support for that service group:
 >
-> That is: as memory gets hwpoisoned, will the bitmap get set immediately?
-
-Every hard offline does, yes, and by the same path:
-
-	action_result() -> efi_hwpoison_record_pfn() -> set_bit()
-
-Three deliberate exceptions, so the sync is one-way and conservative
-rather than exact:
-
-    - soft offline sets PG_hwpoison but no bit, on purpose: those are
-      functional pages offlined predictively, and we do not want to turn
-      them into a permanent loss for every kernel down the chain.
-
-    - a bit is never cleared on unpoison, because a bit stands for 2M and
-      cannot tell whether the whole unit is good again. So the table is a
-      superset of PG_hwpoison, never a subset.
-
-    - a bit covers 2M, a flag covers 4K, so one bad frame comes back as
-      512 flagged frames in the next boot.
-
-One more case is a bug rather than a design point: the
-MF_MSG_ALREADY_POISONED guard also skips the record, so a hard error on
-a frame that was soft offlined earlier is never recorded. Sashiko caught
-it, and v6 moves the call out of the stats guard.
-
-> > So, I think think this is a naming issue, and I need to think more about
-> > it. Maybe appending efiposioned (on data that is coming from EFI config
-> > table). Let me think more about it.
-> >
-> >> Regarding this patch here, I'd assume it's sufficient.
-> >>
-> >> But I do wonder why we are walking pages when we have a bitmap to walk/process
-> >> at hand?
-> >
-> > Because the counter has to agree with the page flag, and the page flag is
-> > not the bitmap.
+>  - DT bindings for the power domain controller exposed to the supervisor
+>    ("riscv,rpmi-device-power") and for the SBI MPXY channel that the SBI
+>    implementation uses to expose the service group to the supervisor
+>    ("riscv,rpmi-mpxy-device-power").
 >
-> But how could they go out of sync? I'd assume only for memory holes
-> (!pfn_to_online_page), but for that we don't need to test actual page flags.
-
-True for the frames the table marks, so the walk could be narrowed to
-those and not test the flag at all (untested):
-
-static void memblk_nr_poison_init(struct memory_block *mem)
-{
-	....
-	for (i = 0; i < nr_pages; i++) {
-		struct page *page = pfn_to_online_page(pfn + i);
-
-		if (!page)
-			continue;
-		if (!efi_hwpoison_recorded(PFN_PHYS(pfn + i), PAGE_SIZE))
-			continue;
-
-		nr_poison++;
-	}
-
-
-> > PG_hwpoison in a block is the union of every source that poisoned a
-> > frame; the inherited EFI table is one of them, and it is the coarse and
-> > partial one.
+>  - A generic power domain (genpd) provider driver under
+>    drivers/pmdomain/riscv/ which talks to the PuC over an SBI MPXY
+>    mailbox channel. At probe it queries GET_NUM_DOMAINS, then for each
+>    domain queries GET_ATTRS for the name and transition latency and
+>    GET_STATE for the initial state, and registers the whole set as a
+>    onecell genpd provider. Domain power on/off is driven through
+>    SET_STATE with the generic ON/OFF power state parameters, so devices
+>    can simply reference a domain through the "power-domains" property.
 >
-> So you're saying that this code is possibly racy with other setting code? Or
-> which other sources might there be if the generically called
+> The series is based on the existing RISC-V RPMI/MPXY infrastructure
+> already present in the tree (drivers/mailbox/riscv-sbi-mpxy-mbox.c and
+> include/linux/mailbox/riscv-rpmi-message.h), and only adds the device
+> power service group definitions on top of it.
 >
-> range_contains_poisoned_memory()
+> Changes in v3:
+>  - Move the MAINTAINERS change into its own patch, and add a new
+>    "RISC-V RPMI DEVICE POWER DRIVER" section scoped to this driver and
+>    its bindings instead of adding an M: entry to the existing "RISC-V
+>    RPMI AND MPXY DRIVERS" section, which covers drivers maintained by
+>    others.
+>  - Drop the redundant trailing "bindings" from the dt-bindings subject.
+>  - Compare only the value field of the RPMI power state word. The word
+>    also carries a context bit, so a full word comparison would report
+>    -EIO after a successful transition, and would drop a domain at probe,
+>    whenever the PuC reports context as lost.
+>  - Check the pm_genpd_init() return value and leave a failed domain out
+>    of the onecell array. Every failure path in pm_genpd_init() returns
+>    before the genpd is linked into gpd_list, so the previous code could
+>    hand a half initialised genpd to of_genpd_add_provider_onecell() and
+>    then list_del() an uninitialised list head in the unwind loop.
+>  - Set GENPD_FLAG_DEV_NAME_FW. The domain names come from the PuC and
+>    are not guaranteed to be unique or non-empty, and were used verbatim
+>    as the sysfs and debugfs names, where a duplicate fails device_add()
+>    with -EEXIST and takes down the whole provider.
 >
-> wouldn't be able to identify it (and it only queries the bitmap?).
-
-Not racy: memblk_nr_poison_init() only ever runs at boot. It is gated on
-MEM_ONLINE, and only one of the two callers passes that.
-
-	memory_dev_init()		-> MEM_ONLINE	(boot)
-	create_memory_block_devices()	-> MEM_OFFLINE	(hotplug)
-
-So the hotplug path returns on the first line and never walks, and at
-the point the boot path walks, the only thing that has set PG_hwpoison
-in that block is hwpoison_boot_page().
-
-> > You might ask why I do not just count the bits set in the bitmape and
-> > multiply by the frames a unit covers.
-> >
-> > That was my first try. It over-counts: a bit stands for a whole 2M unit,
-> > but only the frames that reach __free_pages_core() get flagged -- CMA
-> > comes back through __free_pages(), the initrd and __init memory through
-> > free_reserved_pages(), and KHO-preserved frames never get an initialised
-> > struct page at all.
+> v1: https://lore.kernel.org/r/20260829205520.1691-1-joshua.yeong@starfive=
+tech.com
+> v2: https://lore.kernel.org/r/20260830152812.312663-1-joshua.yeong@starfi=
+vetech.com
 >
-> Why are other hwpoisoned pages not flagged? If initrd or anything else is
-> hwpoisoned, we should not be running this kernel?
-
-For the initrd and the image, the previous kernel's record cannot stop
-this kernel's loader from placing them on a bad frame. If that happens
-we consumed the poison in the relocation memcpy, long before any of this
-code runs. That is the kexec segment placement problem, which Kiryl
-raised on the RFC and which I split into its own series, which is landed
-in some mm tree already.
-
-https://lore.kernel.org/all/20260812-kexec_posioned-v6-0-e477887086f0@debian.org/
-
-
-> >
-> > And the over-count cannot be undone later.
+> Testing
+> =3D=3D=3D=3D=3D=3D=3D
 >
-> The inconsistency is worrisome.
-> I wouldn't say that I hate it but it certainly has "great, more hwpoison hacks"
-> smell to it.
+> The series was tested under QEMU with the RPMI device power service
+> implemented in firmware.
 >
-> We have enough semi-broken hwpoison ... stuff ... in our code base already. So
-> I'm hoping we're not adding more to it?
+> Components:
 >
-> > If the walk itself is what bothers you, the way out is not the bitmap
-> > but counting as we flag: hwpoison_boot_page() already knows the pfn, so
-> > it can bump a per-block-id counter in a small memblock array that
-> > memblk_nr_poison_init() then just reads.
+>  - OpenSBI: latest master branch
+>    https://github.com/riscv-software-src/opensbi
 >
-> The inconsistency is what worries me.
+>  - QEMU: the RPMI-enabled tree at
+>    https://github.com/yeongjoshua/qemu/tree/rpmi-v11.1.0
 >
-> And that we have pages we are told are hwpoisoned but we seem to ignore that and
-> carry on with our kernel letting it boot?
-
-The walk exists precisely because of that inconsistency: the counter has
-to match the frames that actually carry the flag, and the bitmap says
-more than that.
-
-If we drop the page walk, then there is change for inconsistency, but,
-as-is, there is no inconsistency.
-
-So, I am planning to keep the page walk above, when there is a poisoned
-page in the memory block, avoiding any inconsitency.
-
-> > Exact by construction, no walk. Happy to go that way instead if you
-> > prefer it.
+> Kernel config: enable CONFIG_RISCV_RPMI_DEVICE_POWER (default y on RISC-V
+> when MAILBOX is enabled) along with the SBI MPXY mailbox driver.
 >
-> Let me first try to understand the semantics here.
+> Run with:
+>
+>   qemu-system-riscv64 \
+>       -M virt -m 2G -smp 4 \
+>       -bios fw_dynamic.bin \
+>       -kernel Image \
+>       -M rpmi=3Dtrue \
+>       -nographic \
+>       -initrd rootfs-busybox.cpio \
+>       -append "root=3D/dev/ram rw console=3DttyS0,115200 no_console_suspe=
+nd mem=3D2048M earlycon=3Duart8250,mmio,0x10000000"
+>
+> The RPMI device power domains advertised by the emulated platform
+> microcontroller show up as generic power domains and can be inspected
+> through /sys/kernel/debug/pm_genpd/. The series was additionally booted
+> with CONFIG_PROVE_LOCKING, CONFIG_DEBUG_MUTEXES and
+> CONFIG_DEBUG_ATOMIC_SLEEP enabled, with no lockdep reports.
+>
+> Joshua Yeong (3):
+>   dt-bindings: power: Add RPMI device power service
+>   pmdomain: riscv: Add RPMI device power service
+>   MAINTAINERS: Add RISC-V RPMI device power driver
+>
+>  .../power/riscv,rpmi-device-power.yaml        |  65 +++
+>  .../power/riscv,rpmi-mpxy-device-power.yaml   |  65 +++
+>  MAINTAINERS                                   |   8 +
+>  drivers/pmdomain/Kconfig                      |   1 +
+>  drivers/pmdomain/Makefile                     |   1 +
+>  drivers/pmdomain/riscv/Kconfig                |  15 +
+>  drivers/pmdomain/riscv/Makefile               |   3 +
+>  .../pmdomain/riscv/riscv-rpmi-device-power.c  | 485 ++++++++++++++++++
+>  include/linux/mailbox/riscv-rpmi-message.h    |  11 +
+>  9 files changed, 654 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/power/riscv,rpmi-de=
+vice-power.yaml
+>  create mode 100644 Documentation/devicetree/bindings/power/riscv,rpmi-mp=
+xy-device-power.yaml
+>  create mode 100644 drivers/pmdomain/riscv/Kconfig
+>  create mode 100644 drivers/pmdomain/riscv/Makefile
+>  create mode 100644 drivers/pmdomain/riscv/riscv-rpmi-device-power.c
+>
+>
+> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+> --
+> 2.43.0
 
-Thanks for the review,
---breno
+The v3 series applied for next, thanks!
+
+Kind regards
+Uffe
