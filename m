@@ -1,131 +1,101 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AF2014BA1F4;
-	Mon, 21 Sep 2026 15:25:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E224B4893;
+	Mon, 21 Sep 2026 15:25:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790004337; cv=none; b=d8ncaHumIJ20PXDceeJnPLdPmyRzgdwvi1KII4H+FTtMVUkBTVg/svaJNMeA0P96IjoL4z8IkFTvLTQCTjUhs/I/tJagYtpesKen3njnxMRXXMxWDbcunnU1UrzV8xoSLQBF2eL4P+hgOxwhadffdfHJri/htCCpY4Jhucrr63s=
+	t=1790004351; cv=none; b=e7Ds8z8PNg2H1lEl/x5G+mqXfihiy9w8b0V+qxYMf+PEu6pXAHM5J1PfqV6e+4jddfgGNOFEjJolwYy8JExr9hzOzRMi4PHfj8dD00EIoW/q5/tQsg7onli0f4v9SFAN0SXxLEyrnRANvsqIfoYCrLkG0UaUfmQ99pq5iRC/wcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790004337; c=relaxed/simple;
-	bh=zzx3mjbudK64AmYFt4zDvBW4IWB8i50rKocOK6Kc+dM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pOEi//IoGRKYGl/91JKSCxxwW4HDytz6p+K1GFAv+tyWCs1ucKjuER7DQbP73+6NCPMIIG1v/Sz//sEhwhrQphHIyN3YquM8WvkwvCLendl520yKKqbvvip4nedGOh9PxLL5gQpEq0l29JLQESdmMOIW2e0D36FnVEMkLz7f3zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bJ6BTSYH; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790004351; c=relaxed/simple;
+	bh=52tNeDu8Sx+QHd6wEVEFM9NUN84pRBXq3nOTjLgEzE8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g/GrFsYM5qEzX3JItTrYGRi3XUUCS4/Ky6Nc8hQ21nMnD9D+PLa7dCw4b+hGMBuQEVXixOM/LMR5iTx0/9OOyBSCL0i7VDAu9iqIHMGumJ6gVjFlorSJasMAB4pEmba+BOeaP+BoRxeH4K5DBaymcRvdT2zKOqtWuEE1wFJUpAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lx18RnvP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bJ6BTSYH"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 467AE176C;
-	Mon, 21 Sep 2026 08:25:31 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4049D3F9A2;
-	Mon, 21 Sep 2026 08:25:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790004334; bh=zzx3mjbudK64AmYFt4zDvBW4IWB8i50rKocOK6Kc+dM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=bJ6BTSYHKivo2/eRF9c4tWP/TAAVxpqB5Gki+6hqB70gMH9c6T0DN/7LvVp33NcYt
-	 fV1Z2JO0j2YRGDrhpnqtAy2GN69cKLeg4YLIjHpGCN+UjR/tG+22iBWPqhPA/ijEBI
-	 8cO8DvQWcF+Nt3XHK3carG/MXQkDFh2hAqfz/P4w=
-Message-ID: <4ef23d65-02d2-4187-904b-9d1665d8cff5@arm.com>
-Date: Mon, 21 Sep 2026 16:25:25 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lx18RnvP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2B221F000FF;
+	Mon, 21 Sep 2026 15:25:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790004349;
+	bh=52tNeDu8Sx+QHd6wEVEFM9NUN84pRBXq3nOTjLgEzE8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lx18RnvPmerMwYKQBdZc24TN0CA72fv1PlKnIN7fmREb7z4DLrOzWNxX0v1AfkThT
+	 2on/RpJJUThi4V13fYJKL2Orrx5UD2dx4E38CnNYuvwOUU6bgjsNJ5hsuzm1zwAxCl
+	 01DDbFqnAHOV56oV49xPxn5toCEHk2gjkb/Po/jisxflIq8qlh9vxjUCN4PvcR9tKe
+	 XoOIXln291MBXqB0BLKdNEl0l33QzQpmeM8f0MGLf5uWGgFXm17X6RzdeQu0PIE/AY
+	 ptaH/kTFHjN9PS16mhnjg0DVXQ9gvdsqIBHBm/l1M+CRzO4v+FQwld92QZOSh1R6g4
+	 RLll6pDrbXqjg==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 569CB1AC56A7; Mon, 21 Sep 2026 16:25:46 +0100 (BST)
+Date: Mon, 21 Sep 2026 17:25:46 +0200
+From: Mark Brown <broonie@kernel.org>
+To: James Calligeros <jcalligeros99@gmail.com>
+Cc: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>,
+	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Amit Kucheria <amit.kucheria@linaro.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Lars-Peter Clausen <lars@metafoo.de>, Vinod Koul <vkoul@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+	James Schulman <james.schulman@cirrus.com>, asahi@lists.linux.dev,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.de>,
+	linux-mediatek@lists.infradead.org,
+	Martin =?utf-8?Q?Povi=C5=A1er?= <povik@protonmail.com>
+Subject: Re: [PATCH 02/28] ASoC: cs42l42: Fix typo
+Message-ID: <arFMetXGoogEAwmJ@sirena.co.uk>
+References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
+ <20260920-macaudio-v1-2-741cc20a74e5@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/6] dma: swiotlb: Centralize default pool policy
- selection
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Will Deacon
- <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Steven Price <steven.price@arm.com>,
- Suzuki K Poulose <Suzuki.Poulose@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Jiri Pirko <jiri@resnulli.us>,
- Jason Gunthorpe <jgg@ziepe.ca>, Mostafa Saleh <smostafa@google.com>,
- Petr Tesarik <ptesarik@suse.com>, Alexey Kardashevskiy <aik@amd.com>,
- Dan Williams <dan.j.williams@intel.com>, Xu Yilun
- <yilun.xu@linux.intel.com>, Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Russell King <linux@armlinux.org.uk>,
- Huacai Chen <chenhuacai@kernel.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
- linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, x86@kernel.org
-References: <20260921063628.362078-1-aneesh.kumar@kernel.org>
- <20260921063628.362078-2-aneesh.kumar@kernel.org>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260921063628.362078-2-aneesh.kumar@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="G0JcrUZHHYSZL8sl"
+Content-Disposition: inline
+In-Reply-To: <20260920-macaudio-v1-2-741cc20a74e5@gmail.com>
+X-Cookie: Too clever is dumb.
 
-On 21/09/2026 7:36 am, Aneesh Kumar K.V (Arm) wrote:
-[...]
-> diff --git a/arch/powerpc/kernel/dma-swiotlb.c b/arch/powerpc/kernel/dma-swiotlb.c
-> index ba256c37bcc0..97fffa46f05a 100644
-> --- a/arch/powerpc/kernel/dma-swiotlb.c
-> +++ b/arch/powerpc/kernel/dma-swiotlb.c
-> @@ -14,8 +14,10 @@ unsigned int ppc_swiotlb_flags;
->   
->   void __init swiotlb_detect_4g(void)
->   {
-> -	if ((memblock_end_of_DRAM() - 1) > 0xffffffff)
-> +	if ((memblock_end_of_DRAM() - 1) > 0xffffffff) {
->   		ppc_swiotlb_enable = 1;
 
-Nit: Perhaps it's beyond the functional scope of this patch, but I do 
-wonder if these <arch>_swiotlb_enable conditions become redundant and 
-could just be replaced with "if (<arch>_swiotlb_flags != 0)" too.
+--G0JcrUZHHYSZL8sl
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> +		ppc_swiotlb_flags |= SWIOTLB_INIT_ADDRESSING_LIMIT;
-> +	}
->   }
->   
->   static int __init check_swiotlb_enabled(void)
-[...]
-> diff --git a/arch/x86/kernel/pci-dma.c b/arch/x86/kernel/pci-dma.c
-> index 75cf8f6ae8cd..0cff255827ba 100644
-> --- a/arch/x86/kernel/pci-dma.c
-> +++ b/arch/x86/kernel/pci-dma.c
-> @@ -44,8 +44,10 @@ static unsigned int x86_swiotlb_flags;
->   static void __init pci_swiotlb_detect(void)
->   {
->   	/* don't initialize swiotlb if iommu=off (no_iommu=1) */
-> -	if (!no_iommu && max_possible_pfn > MAX_DMA32_PFN)
-> +	if (!no_iommu && max_possible_pfn > MAX_DMA32_PFN) {
->   		x86_swiotlb_enable = true;
-> +		x86_swiotlb_flags |= SWIOTLB_INIT_ADDRESSING_LIMIT;
-> +	}
->   
->   	/*
->   	 * Set swiotlb to 1 so that bounce buffers are allocated and used for
-> @@ -81,8 +83,10 @@ static void __init pci_xen_swiotlb_init(void)
->   	if (!xen_swiotlb_enabled())
->   		return;
->   	x86_swiotlb_enable = true;
-> -	x86_swiotlb_flags |= SWIOTLB_ANY;
-> -	swiotlb_init_remap(true, x86_swiotlb_flags, xen_swiotlb_fixup);
-> +	/* Xen can use a SWIOTLB pool anywhere in directly mapped memory. */
-> +	x86_swiotlb_flags &= ~SWIOTLB_INIT_ADDRESSING_LIMIT;
-> +	x86_swiotlb_flags |= SWIOTLB_INIT_REMAP | SWIOTLB_ANY;
+On Sun, Sep 20, 2026 at 02:53:41PM +1000, James Calligeros wrote:
+> From: Martin Povi=C5=A1er <povik@protonmail.com>
+>=20
+> Fixes: 2c394ca79604 ("ASoC: Add support for CS42L42 codec")
 
-Similarly, I see how having a SWIOTLB_INIT_REMAP flag keeps 
-swiotlb_select_pool_policy() neat, but couldn't we technically already 
-infer that from the fact that a non-NULL remap function was passed?
+This one is a very clear example of something that should have been
+split out, it's unrelated to the rest of the series.
 
-Nits aside, the overall change seems reasonable to me;
+--G0JcrUZHHYSZL8sl
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Reviewed-by: Robin Murphy <robin.murphy@arm.com>
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxTGAACgkQJNaLcl1U
+h9Caewf+N5iufxYFZ1liCvBd7fhltp9ck3djJSBs5D9F/V24SiXkujxzDT8AQdtt
+gcgzgX64NeQHbmgXRupfcESD2zeVGOOzSmbL9Kp3ohp8j5YqYey3hJEerIOlWxw0
+ZXWOY0jdi4I3A3PE0Y5H4R6jO044TTmVVNeOFHTHXIN+zxhAVNvnjfuZImzoI8R9
+dpGasJ1qTw75x1hZbryAhBcS7ho28ZT9t6kPhehrfRP3iXUinwItU8yiFBghmVvM
+FrcKdFdM1AvZjLiIE/rqudAdqlpszUVWDjluAnWdJb0w4onBKbbMgjmsE2KAygHC
+75lcoKFZI0G6SoaytCypAVZ/dAJeMA==
+=I6dw
+-----END PGP SIGNATURE-----
+
+--G0JcrUZHHYSZL8sl--
