@@ -1,72 +1,95 @@
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B8D3BD659
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:03:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA22C45C704;
+	Mon, 21 Sep 2026 09:03:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789981384; cv=none; b=JmYNu7ADEgq9f334C2ZpUWophhiffofT1Jy5X5RwugYxquQAECXWyFNObbob85wG7t3+zpbdwOCmmkucH4ogfgvi11Wz7WMscZDuRR+JTRZKjReDzBnlB7IDfZH/NpcPNk4MAZmYDss1iLrLtxQ6m5bo7ik6/Aln/T3DKSirvRI=
+	t=1789981400; cv=none; b=YFQapn/dEQQ1WiwwJmzVbWAj+m82JkBOE9M4WnKi5UZcOPwu59rQK479SQhBFdQdJ7lXLkiKSOgB85jf9OHphOv6JFPzX+uQ4PletT+BqOgoNQH0fxhyyCSYFJQfOwuAzuPQpXUVIK0XGRoIqjrvRuUj6tmXCDfgqRife4i+K8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789981384; c=relaxed/simple;
-	bh=RHmss5sAZlKIkOmdBAmKkXHhPEkg0BxU+QVvCmb4Qps=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=htpGtyZKdLMll47qOMGWHFagNaL8H21RRTAYOr80mHPBpyxe1ISJkwNDLP3h7k97Gd33hi4W5MKdWum2JiHmMNEcXMVRgD75Kx303eHIfWrtMFO1hAAyxag/Q88wClSLoN54c5sWyAkA9uRNcPDkrO48C4CmbKa2TY0TnT01jac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-448d51840c4so3023476fac.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:03:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789981382; x=1790586182;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=5JJ4bQWUkIWVABenRZMStxNKhwXm1JvlhHPyX1aQLsI=;
-        b=MCQg1h9RSsgA/zslwMxq5Jo9CFfBd2wE+9csO+timTFRlr04sQ+IiETQBkuHrWAksV
-         UndcBdMz4t9ZIYRbnbfue5HKZYl5v2M1w5Y3GtNZXII79DKyqfB5XVmZsM1uNHwa5VJX
-         sl4o6NfhrGiyXyD32jFJLcV7z/CN5djpzEty/wVNvg7PRG8nypZuNurU/TTAgs8t7skk
-         9uaeDCdWh19aYApMP/bFNgkmtzTuMMnihA9+JpftdQZ2aU4VQpS6sIGbZUAbcOIWU3Iq
-         IXnmajCLoeAjyE8Ld5BytkwFL2NIDyAK4K523nP3em3D/uGUNYTvacCW44i1jJzg6++H
-         QZ9Q==
-X-Forwarded-Encrypted: i=1; AKwUvByYZ+Tgnfgx71Gn3qbqOu4iAS3ifPXLp1LpykjrigiZkpLTptozotsZ7bStd6IzAHdUY305qIxlcwm1ruk=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4f/95EOVuYeMgWKxj5bGIarliBkYEJW15YWzXjNxPw9I/bBj5
-	lkz5gXnyhwOGe9qeA00lAH8QWUpMHPV/+OOIy1NUCireNZj0vrFywEHAQjNV/a61kz10BPqIxZx
-	51Vh6D+rrCPv/gDi5eeyF0PuZEVmgPNre1lIuwwZGtPkrfQhShW0eYh/gS2E=
+	s=arc-20240116; t=1789981400; c=relaxed/simple;
+	bh=L6Ym8ZIu6y5nkeZnnYjPffmE2K/+n+j84VAR43y2xWo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=cMa3mW+MqmMNP9iC44VxsqXxItYTH2ZlATqWb8dZraakL+uEhcSvfieaWQv10shVrqEnu/cjs0wNI/0h04JQCjKTF0vYLh4EUTPl9TrPTr3mIl2Lwzkih0xqTkVXfixMCdR7EhGXUtABJEeTBirMzzg57W8VYen0MNmhANUzfdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GVj+/jF3; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GVj+/jF3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1BF81F000FF;
+	Mon, 21 Sep 2026 09:03:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789981399;
+	bh=gh9znaemej2ebTYyF4AgCaUdWFG09lPGQkBE3YiACFs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=GVj+/jF3q1YjJ5WBqJ4M0vvDiXAZIK8+FRFrOp/5IQN65WVRuVWo1IlGH4pb4fAN3
+	 ih9Hv8pXP31hmbOBzJMUqOPHXGxZg08bV9B6qUIzRJ3/sf3N+VUWkOgX5PvT1cbm6S
+	 haX8D1l1bUPQRTf4hxDZl6OWuAF+ewkwLLot4+RGi0G/iqyXIqCEqKHP+Kn68S2VEd
+	 D872xUL/MsaVq7bRdM+Tjw7SpV9KeVUDqfzsJhieQffGRyXbKTFI3K5jKlitv2xrhR
+	 X9G0MddNq/ynKxBcsL8U5ny6Y0zW28tTlCIEAz28wbLEsT+y0akd4IXEp23NO3fODa
+	 L18ZmeGXsMUoQ==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>
+Subject: Re: [PATCH v12 1/7] firmware: smccc: Add an Arm SMCCC bus
+In-Reply-To: <arDtJaSvZMgpnP1t@arm.com>
+References: <20260921053807.354802-1-aneesh.kumar@kernel.org>
+ <20260921053807.354802-2-aneesh.kumar@kernel.org>
+ <arDtJaSvZMgpnP1t@arm.com>
+Date: Mon, 21 Sep 2026 14:33:09 +0530
+Message-ID: <yq5aa4pb3rjm.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4c0e:b0:6b0:19bc:fd14 with SMTP id
- 006d021491bc7-6ca9c05bddbmr8724020eaf.32.1789981381953; Mon, 21 Sep 2026
- 02:03:01 -0700 (PDT)
-Date: Mon, 21 Sep 2026 02:03:01 -0700
-In-Reply-To: <20260921163445.3968563-1-jie.wang@intel.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab0f2c5.71f81b7d.15fa6d.0028.GAE@google.com>
-Subject: Re: [syzbot] [usb?] general protection fault in adsl_state_store
-From: syzbot <syzbot+9b195c4f412ea5c4e56a@syzkaller.appspotmail.com>
-To: jie.wang@intel.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
 
-Hello,
+Catalin Marinas <catalin.marinas@arm.com> writes:
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+> On Mon, Sep 21, 2026 at 11:08:01AM +0530, Aneesh Kumar K.V (Arm) wrote:
+>>  MAINTAINERS                         |   1 +
+>>  drivers/firmware/smccc/Makefile     |   2 +-
+>>  drivers/firmware/smccc/bus.c        | 158 ++++++++++++++++++++++++++++
+>>  include/linux/arm-smccc-bus.h       |  48 +++++++++
+>>  include/linux/device-id/arm_smccc.h |  19 ++++
+>>  include/linux/mod_devicetable.h     |   1 +
+>>  scripts/mod/devicetable-offsets.c   |   3 +
+>>  scripts/mod/file2alias.c            |   8 ++
+>>  8 files changed, 239 insertions(+), 1 deletion(-)
+>>  create mode 100644 drivers/firmware/smccc/bus.c
+>>  create mode 100644 include/linux/arm-smccc-bus.h
+>>  create mode 100644 include/linux/device-id/arm_smccc.h
+>> 
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index c2414447892c..42364c540f50 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -24741,6 +24741,7 @@ M:	Sudeep Holla <sudeep.holla@kernel.org>
+>>  L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+>>  S:	Maintained
+>>  F:	drivers/firmware/smccc/
+>> +F:	include/linux/arm-smccc-bus.h
+>>  F:	include/linux/arm-smccc.h
+>
+> There's also include/linux/device-id/arm_smccc.h introduced by this
+> patch but not covered by MAINTAINERS.
+>
 
-Reported-by: syzbot+9b195c4f412ea5c4e56a@syzkaller.appspotmail.com
-Tested-by: syzbot+9b195c4f412ea5c4e56a@syzkaller.appspotmail.com
+I didn't add it because I couldn't find any other device-id files
+tracked in MAINTAINERS.
 
-Tested on:
-
-commit:         93f51579 Linux 7.3-rc4
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=15a3b005580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
-dashboard link: https://syzkaller.appspot.com/bug?extid=9b195c4f412ea5c4e56a
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=135d1005580000
-
-Note: testing is done by a robot and is best-effort only.
+-aneesh
