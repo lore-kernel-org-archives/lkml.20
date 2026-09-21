@@ -1,75 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-24421.protonmail.ch (mail-24421.protonmail.ch [109.224.244.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF873563E8
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:32:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4949486E4C;
+	Mon, 21 Sep 2026 13:32:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789997530; cv=none; b=r5RncMSxA/MT9iCEno6u/0n6mxHDz+AIFxBrPc4RpYBjopxuKsWTQfkcO6JFdwhSQoY2BTxegsUsBBRX7S0ZdUBTiQEQn2POYc3ep0fUA98Yy7svZIOPyzacv1Gk6uJAaueZx9sdKUCf1UoHIKo6c2MHuDeRPxTWUTTkhn3XXzg=
+	t=1789997567; cv=none; b=jlc1g1M4978ek+BiCZyeB2jb9khQRKSgtm/DknD3UAThm5tb2aTlu4M7gUzJRXHBiJu/I6ycCyggDnzm5iWdu65DIMXx8kHIl7oKfNGyHSO2F4f7GK0L/OmiOTI0yLWQmHWpV18mDc5cGlclx1MprkW6WdCLboKCgKNnvOqOVrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789997530; c=relaxed/simple;
-	bh=kzl/AiBL6Hih5LTlvddhpwZH/7ehdetI5DDxOehsz+4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=fdBOX+Z0tuHED0bB0wDfA0tTS6YFIaT7kZeCKKt1LgvI8mvFHkQzZ5ZbJvqx4IY+rZQ5vBtCm3mZiTkdLMP6iu0UTl2eKc6WsxXXewUHxabfJRbnYEg1U6cCJP4b/acYMewCj/irympNBtIJmotwFskLlYCnuqB1Z+0q6VsoDxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XWoHylf7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789997567; c=relaxed/simple;
+	bh=/JlwHsnz9qBWezNIZd35ZdD7VBL43SxECRUxqfHXKYs=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=GLRZJFDQwbshudvh+wJj69t91CwmZL3hGikqbeouxacwRTHBOysSiBBrxfOhqnmChmfMt3k/KYLFXyTeyoz/fE35kBu89u+cIUNm+f4epWbSF4knIkRg9k71zb/wLS5dzPZ3kTFoZ2sWMh38J091puFuC/OsilH0RpLPrekFi8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=optocloud.no; spf=pass smtp.mailfrom=optocloud.no; dkim=pass (2048-bit key) header.d=optocloud.no header.i=@optocloud.no header.b=XiOV0L+u; arc=none smtp.client-ip=109.224.244.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=optocloud.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=optocloud.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XWoHylf7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8B751F0089A;
-	Mon, 21 Sep 2026 13:32:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789997529;
-	bh=2kT1ySt9JkJYQBPTTE0pBorw4nyIBwWt51Dmu6nau8w=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=XWoHylf7176FH+h0QPLJfEe71DQ21tZQ+MJuPSUFPzRvBI/aqO3MCOsiVuCr7dcVF
-	 qmlTwpHNPhJ5lEhEDW95eIbqgWfmzDbtYzhZRRvHV9FgXcbLKXxqHHIpsxwZIusSAJ
-	 FDSkmusiD6dSuL/peU361teDsi+yEJTqco0yUVtS/cEdDqeaUsWI3xeyFe4v1ygPG+
-	 XFduhyY5rkYivlGHeiz16g0lGaaX4B3eJ0h+/Rw3yHY3RVfRVGZTeFh8I+IvMHkEoy
-	 GIU6nTZzQY5M+vW+ERZHj2IuHth0jlyPHT7aERc3J0HCvSCCkH7/k74ghTI0I9A+Vd
-	 9XuJobzroT35g==
-From: Michael Walle <mwalle@kernel.org>
-To: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>, 
- Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-In-Reply-To: <20260914-mtd-spi-nor-new-issi-chip-v2-0-3cd4d7e434b2@analog.com>
-References: <20260914-mtd-spi-nor-new-issi-chip-v2-0-3cd4d7e434b2@analog.com>
-Subject: Re: (subset) [PATCH v2 0/2] mtd: spi-nor: issi: add support for
- the IS25WX01G octal flash
-Message-Id: <178999752766.3604280.10374097557984380720.b4-ty@b4>
-Date: Mon, 21 Sep 2026 15:32:07 +0200
+	dkim=pass (2048-bit key) header.d=optocloud.no header.i=@optocloud.no header.b="XiOV0L+u"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=optocloud.no;
+	s=protonmail; t=1789997552; x=1790256752;
+	bh=rqfzXhIHgWL1ysTH5+xFLxUMZV2vHhaYy5Z33AQ80QY=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=XiOV0L+uG0kgaYngu1BqlyrzP84s3VhV2qQmEj+sXDcJILd8ZztEUYJZVGwFx3wXw
+	 RfS5v0XxyQSsEgXgJ0cHyXD+KKFdGaJNWIk+uAiijSqcNsg4unm5H+DYFWMsCO313C
+	 9gME/sY396pbzmo0l1a8LDXS/O+IOpY8Bws30Tv0/Vkc2+Cjpz3VmOe9kmi3Us6T2c
+	 P+JBvHYxOvgqPWg002vMiFJi3J2vRNupQOMml1efXgPcAbJIGmc1DKc47yqS6oGuQM
+	 qDJ/Kg6I9CvQC+zT/uysy0bQd5LZyqBMX2AqLPBGa2H0MIxFbD+rC0ssYVHpJ0GH96
+	 ThGCZhmzqU4qg==
+Date: Mon, 21 Sep 2026 13:32:27 +0000
+To: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>
+From: OptoCloud <git@optocloud.no>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, Yazen Ghannam <yazen.ghannam@amd.com>, Avadhut Naik <avadhut.naik@amd.com>, Qiuxu Zhuo <qiuxu.zhuo@intel.com>, "x86@kernel.org" <x86@kernel.org>, "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 0/2] x86/mce: Reset stale per-bank state between bank scans
+Message-ID: <g0x3OhSrEu9B2QPUUvyd5APM00mZ3wahJzeMthu0lcy8o_1R55nx_1kNgUgQ11cABCTZE6w9qJVKXItSyD0gxnC0oZ8wq-wIplFvR3V2rwQ=@optocloud.no>
+Feedback-ID: 192797849:user:proton
+X-Pm-Message-ID: c4877b5cb0f056577176d5338e23cf2c9d725ddd
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+Here is v3 of the MCA per-bank state resets, squashed into two patches
+instead of three.
+
+v1 and v2 accidentally went out with "OptoCloud" as the display name,
+which is my online alias.
+
+Yazen asked for the ->kflags reset to go in the helper, and for v2's
+3/3 to be merged with 2/3. Both done, so __mc_scan_banks() now clears
+m->kflags too, which it did not in v2.
+
+Dropped Cc: stable in both patches per Yazen's review. Patch 1 is
+unchanged code-wise and carries his Reviewed-by.
+
+Eirik B=C3=B8e (2):
+  x86/mce: Reset MCA_SYND between bank scans
+  x86/mce: Reset MCA_SYND1/2 and kflags between bank scans
+
+ arch/x86/kernel/cpu/mce/core.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
 
 
-On Mon, 14 Sep 2026 14:42:00 +0100, Nuno Sá wrote:
-> This series adds support for the ISSI IS25WX01G, a 1 Gbit (128 MiB) octal
-> NOR flash.
-> 
-> The part is fully described by SFDP, so patch 2 only needs the flash ID
-> plus a small post_bfpt fixup:
-> 
->  - The flash has no Status Register 2 and does not implement the 35h Read
->    Configuration Register command, so the core's default assumption of a
->    16-bit Write Status command does not hold and SNOR_F_HAS_16BIT_SR has
->    to be cleared.
-> 
-> [...]
+base-commit: 93f51579e7df248780214094418f205253383cc5
+--=20
+2.55.0
 
-Applied, thanks!
-
-[1/2] mtd: spi-nor: sfdp: get the 1-1-8 and 1-8-8 page programs from 4BAIT
-      commit: 68d7115d77a873c28d8c7d2f239c3d9ca83bf39f
-
-Best regards,
--- 
-Michael Walle <mwalle@kernel.org>
-
+Cheers,
+Eirik B=C3=B8e
