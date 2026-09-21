@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E32C5208B4;
-	Mon, 21 Sep 2026 22:31:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A925221CD;
+	Mon, 21 Sep 2026 22:31:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790029900; cv=none; b=S3kmy5NsejtYhUi2DkPXJpXh2MidHJPoQiFb3K7gNVz1ThQnRHkkCTtAmWXZtDI3EFzGslf4joOxRIByJgP/qf/IoYKOAjFeYouu+G0jfNTUXe88V0tLd3yLTe2kjMsZ26FBvaHakL4PFGGpfgKjjK+cDG+/Yq9NFubTl72mlPE=
+	t=1790029902; cv=none; b=kx+J/NUczI+4UeGqlvJx1YbusTCx69++M8ghEddY+EOHzHZbPTTCiFNaMyvZdlZ+ISs9QaQ6bRt7mdOz6jUMLkNn99aqp0pY7QXil+Vq0vf3PQp5acJtY7MozfGvaaNRYBjEW5jdmeUtkm2nrOZIqNySsJ48/LdArM1fvGt/XHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790029900; c=relaxed/simple;
-	bh=aj/ip20n8sCr0nYkSnByns9Tm7iVGZdyMePVQA1eGrw=;
+	s=arc-20240116; t=1790029902; c=relaxed/simple;
+	bh=JlNHcKy84toxA3F/QODe9s2E25bY0rtEGf8hPjb1p4o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QBzvjTNzpZki6wd/iDyctsGlVKaRoICQ2eDxJk/U0Te8Qrzi9LP24G8qQdSp7abFV49RRYweWA62uQIv99Yc87bvGYd7D4Q1MGRTc4+62uB0uToevkBcw5iUx+Ob9q8DBKElYmH4XGVZq/pFeIrJr3535S+rzYGoToa6YhmPPdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QZU/+74G; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=iWMTab3iwTJ1mg7zULGi2HbkSHfqF9QwJFf7U3nkFgSfoTU8Q/6SGYcGdzmB1UvRhl3nzJ0PZU54AjOvnfWBjqF/cJiD2wK2CXHVia4V4r7QT0KoLEkJfz5JLzF53SP7+O/9rbGqOiqqhzIQBuPge5LUt1jikm9ceMlcuPWzNRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fnAwChiJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QZU/+74G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECEEF1F00898;
-	Mon, 21 Sep 2026 22:31:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fnAwChiJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 923981F00899;
+	Mon, 21 Sep 2026 22:31:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790029899;
-	bh=gpZkeU1ez/jJdds8D5Mf1lVFeLdql8geXuOpgaKy+VU=;
+	s=k20260515; t=1790029901;
+	bh=UYuVqrd/jN+ZBhEgyr15URZxAUdCHsFFz1C246Rxdwo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QZU/+74GvZodFAur2y3qO//8jjfH0svV4YRdnGUs9k7/sg+Wvxqr+kWeSpFLKgpmb
-	 koAG9EewTZjHxAH1NKlZm1wxZe1tXQmMBRlwcX8PkgpYDUpbdvoKKDzHHcugB7aNz1
-	 0cGeyagIYQKr0LX2Ov67xGPH5IBt8qhtVCLm5OFxsOb7OeXeD2hw6o/6iynfRkEkoi
-	 e+g+Z4LQGV3tSBYHBQGXabMTHxKOkFv6cWwTd/XXsksX9twUc5QMzNdhsUfWj1hXf5
-	 Bqfx9jrUIQ+sUyYO0DMam1pxsorBT5msYNRuAxnyPhMWu6jrw+XlgTlSRjLo16sXYr
-	 M4RZ+FGEggamA==
+	b=fnAwChiJVvNcu4xqJ5to5IGrPfT9W1hMYYuqXpSBZOmtkDoxKbps6r7vEXBOWDFhv
+	 xI/u/MW7edjY9Wd5ywb3LthTuT4/+o2yVRJUTfn/l5sVHq6xZ4a0SPvUB5oF/TJIyJ
+	 PfpwG85wklQ166bb7VVR13pQP5susD1gBGwspGGq13d/VtwD0rfKawyXSu3jck1kgg
+	 siRvXOJ/EmUoUCql+u/iqqnBWP4e6QsbWNpWdhWGnAwgzvEy8Zv0//crkMxOK5r5Bb
+	 Zaa1C7p9z4RR6GRVYGPVrC1KS9GYf0jVlUDniQleybxUO45MxoYr/AURA9pRfhyH84
+	 pp1+m0JnDHpbw==
 From: Josh Poimboeuf <jpoimboe@kernel.org>
 To: x86@kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -38,9 +38,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Nicolas Schier <nsc@kernel.org>,
 	linux-kbuild@vger.kernel.org,
 	Huacai Chen <chenhuacai@kernel.org>
-Subject: [PATCH v3 05/28] objtool: Refactor the noreturn/dead-end detection
-Date: Mon, 21 Sep 2026 15:31:06 -0700
-Message-ID: <2fe49f30f46d5c9230bffeadd9a2baecd7327247.1790028654.git.jpoimboe@kernel.org>
+Subject: [PATCH v3 08/28] efi/libstub: Drop .discard.addressable from the stub objects
+Date: Mon, 21 Sep 2026 15:31:09 -0700
+Message-ID: <3800f3cb9e7ff835bf30e9a7981518b680e2fbef.1790028654.git.jpoimboe@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1790028654.git.jpoimboe@kernel.org>
 References: <cover.1790028654.git.jpoimboe@kernel.org>
@@ -52,248 +52,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The dead end detection (basically "is this a call to a noreturn?") is
-currently derived on demand, at each call site.  Also, the answer
-isn't saved anywhere, so it's redetermined each time.  It also has an
-ugly recursion check.
+On arm64, riscv and loongarch, the EFI stub objects are objcopy'd with
+--prefix-alloc-sections=.init, which renames every allocatable section.
 
-Clean that up by just detecting all the noreturns at the beginning.
+The .discard.addressable section is allocatable, so if
+STACK_FRAME_NON_STANDARD() and __ADDRESSABLE() are used, the section
+gets renamed and never discarded:
+
+  ld: warning: orphan section `.init.discard.addressable' from `vmlinux.o' being placed in section `.init.discard.addressable'
+
+The section is also a problem for the stub's absolute relocation check
+on some arches.
+
+In preparation for using STACK_FRAME_NON_STANDARD() in libstub code,
+remove the section for both cases.
 
 Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
 ---
- tools/objtool/check.c               | 159 ++++++++++++++++------------
- tools/objtool/include/objtool/elf.h |   1 +
- 2 files changed, 93 insertions(+), 67 deletions(-)
+ drivers/firmware/efi/libstub/Makefile | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/tools/objtool/check.c b/tools/objtool/check.c
-index 1fe7efa934ebf..83b4e748d33ba 100644
---- a/tools/objtool/check.c
-+++ b/tools/objtool/check.c
-@@ -219,94 +219,112 @@ static bool is_rust_noreturn(const struct symbol *func)
- 		str_ends_with(func->name, "_fail"));
- }
+diff --git a/drivers/firmware/efi/libstub/Makefile b/drivers/firmware/efi/libstub/Makefile
+index 77a2b2d74f3f6..0d5d99c3cacdd 100644
+--- a/drivers/firmware/efi/libstub/Makefile
++++ b/drivers/firmware/efi/libstub/Makefile
+@@ -155,6 +155,11 @@ STUBCOPY_FLAGS-$(CONFIG_LOONGARCH)	+= --prefix-alloc-sections=.init \
+ 					   --prefix-symbols=__efistub_
+ STUBCOPY_RELOC-$(CONFIG_LOONGARCH)	:= R_LARCH_MARK_LA
  
--/*
-- * This checks to see if the given function is a "noreturn" function.
-- *
-- * For global functions which are outside the scope of this object file, we
-- * have to keep a manual list of them.
-- *
-- * For local functions, we have to detect them manually by simply looking for
-- * the lack of a return instruction.
-- */
--static bool __dead_end_function(struct objtool_file *file, struct symbol *func,
--				int recursion)
-+static bool is_listed_noreturn(struct symbol *func)
- {
--	int i;
--	struct instruction *insn;
--	bool empty = true;
--
- #define NORETURN(func) __stringify(func),
- 	static const char * const global_noreturns[] = {
- #include "noreturns.h"
- 	};
- #undef NORETURN
- 
--	if (!func)
-+	if (is_local_sym(func))
- 		return false;
- 
--	if (!is_local_sym(func)) {
--		if (is_rust_noreturn(func))
-+	if (is_rust_noreturn(func))
-+		return true;
++# Drop the section created by __ADDRESSABLE() from the absolute symbol check
++# and the objcopy, otherwise it gets prefixed and doesn't get discared.
++STUBCOPY_RM_SECTIONS			:= --remove-section=.discard.addressable
++STUBCOPY_FLAGS-y			+= $(STUBCOPY_RM_SECTIONS)
 +
-+	for (int i = 0; i < ARRAY_SIZE(global_noreturns); i++)
-+		if (!strcmp(func->name, global_noreturns[i]))
- 			return true;
+ $(obj)/%.stub.o: $(obj)/%.o FORCE
+ 	$(call if_changed,stubcopy)
  
--		for (i = 0; i < ARRAY_SIZE(global_noreturns); i++)
--			if (!strcmp(func->name, global_noreturns[i]))
--				return true;
--	}
-+	return false;
-+}
-+
-+/*
-+ * Use this rather than reading sym->_noreturn directly: the noreturn status
-+ * lives on the primary alias, and ANNOTATE_IGNORE_NORETURN() overrides it.
-+ */
-+static bool is_noreturn(struct symbol *func)
-+{
-+	func = func->alias->pfunc;
-+
-+	if (is_listed_noreturn(func))
-+		return true;
-+
-+	return func->_noreturn;
-+}
-+
-+static bool might_return(struct objtool_file *file, struct symbol *func)
-+{
-+	struct instruction *insn;
-+	struct symbol *dest;
- 
- 	if (is_weak_sym(func))
--		return false;
--
--	if (!func->len)
--		return false;
--
--	insn = find_insn(file, func->sec, func->offset);
--	if (!insn || !insn_func(insn))
--		return false;
-+		return true;
- 
- 	func_for_each_insn(file, func, insn) {
--		empty = false;
--
- 		if (insn->type == INSN_RETURN)
--			return false;
--	}
--
--	if (empty)
--		return false;
--
--	/*
--	 * A function can have sibling calls instead of a return.  It's only a
--	 * dead end if *all* the sibling call targets are dead ends.
--	 */
--	func_for_each_insn(file, func, insn) {
--		struct symbol *dest;
-+			return true;
- 
- 		if (!is_sibling_call(insn))
- 			continue;
- 
- 		dest = insn_call_dest(insn);
--		if (!dest)
--			/* call to another file */
--			return false;
--
--		if (recursion == 5) {
--			/*
--			 * Infinite recursion: two functions have sibling
--			 * calls to each other.  This is a very rare case.
--			 * It means they aren't dead ends.
--			 */
--			return false;
--		}
--
--		if (!__dead_end_function(file, dest, recursion+1))
--			return false;
-+		if (!dest || !is_noreturn(dest))
-+			return true;
- 	}
- 
--	return true;
-+	return false;
- }
- 
--static bool dead_end_function(struct objtool_file *file, struct symbol *func)
-+static void detect_noreturns(struct objtool_file *file)
- {
--	return __dead_end_function(file, func, 0);
-+	struct symbol *func, *dest;
-+	struct instruction *insn;
-+	bool changed;
-+
-+	/* Mark all functions guilty until proven innocent */
-+	for_each_sym(file->elf, func) {
-+
-+		/* Aliases and cold subfunctions inherit the parent's verdict */
-+		if (!is_func_sym(func) || is_undef_sym(func) ||
-+		    is_prefix_func(func) || func->embedded_insn ||
-+		    func != func->alias->pfunc)
-+			continue;
-+
-+		insn = find_insn(file, func->sec, func->offset);
-+		if (!insn || insn_func(insn) != func)
-+			continue;
-+
-+		func->_noreturn = 1;
-+	}
-+
-+	/*
-+	 * A function's noreturn status depends on those of its sibling call
-+	 * destinations, which may not be settled yet.  Keep clearing the
-+	 * noreturn bit for known cases until it stops spreading.
-+	 */
-+	do {
-+		changed = false;
-+
-+		for_each_sym(file->elf, func) {
-+			if (!func->_noreturn || !might_return(file, func))
-+				continue;
-+
-+			func->_noreturn = 0;
-+			changed = true;
-+		}
-+	} while (changed);
-+
-+	/* Now mark the dead end call sites */
-+	for_each_insn(file, insn) {
-+		if (insn->type != INSN_CALL)
-+			continue;
-+
-+		dest = insn_call_dest(insn);
-+		if (dest && is_noreturn(dest))
-+			insn->dead_end = true;
-+	}
- }
- 
- static void init_cfi_state(struct cfi_state *cfi)
-@@ -1422,9 +1440,6 @@ static int annotate_call_site(struct objtool_file *file,
- 	    !insn->_call_dest->embedded_insn)
- 		list_add_tail(&insn->call_node, &file->call_list);
- 
--	if (!sibling && dead_end_function(file, sym))
--		insn->dead_end = true;
--
- 	return 0;
- }
- 
-@@ -2669,6 +2684,17 @@ int decode_file(struct objtool_file *file)
- 	if (add_jump_table_alts(file))
- 		return -1;
- 
-+	/*
-+	 * Must be after add_jump_table_alts(), which affects sibling call
-+	 * detection (jump table branches vs indirect sibling calls).
-+	 *
-+	 * The dead end marks are read by validate_branch() -- reached from
-+	 * both validate_functions() and validate_noinstr_sections() -- and by
-+	 * validate_unret().
-+	 */
-+	if (validate_branch_enabled() || opts.noinstr || opts.unret)
-+		detect_noreturns(file);
-+
- 	if (read_unwind_hints(file))
- 		return -1;
- 
-@@ -2676,8 +2702,7 @@ int decode_file(struct objtool_file *file)
- 	mark_holes(file);
- 
- 	/*
--	 * Must be after add_call_destinations() such that it can override
--	 * dead_end_function() marks.
-+	 * Must be after detect_noreturns() so it can override dead_end marks.
- 	 */
- 	if (read_annotate(file, __annotate_late))
- 		return -1;
-diff --git a/tools/objtool/include/objtool/elf.h b/tools/objtool/include/objtool/elf.h
-index a82517a76a0f6..46fb2230ca743 100644
---- a/tools/objtool/include/objtool/elf.h
-+++ b/tools/objtool/include/objtool/elf.h
-@@ -98,6 +98,7 @@ struct symbol {
- 	u8 klp		     : 1;
- 	u8 dont_correlate    : 1;
- 	u8 fake		     : 1;
-+	u8 _noreturn         : 1;
- 	struct list_head pv_target;
- 	struct reloc *relocs;
- 	struct section *group_sec;
+@@ -166,7 +171,7 @@ $(obj)/%.stub.o: $(obj)/%.o FORCE
+ #
+ quiet_cmd_stubcopy = STUBCPY $@
+       cmd_stubcopy =							\
+-	$(STRIP) --strip-debug -o $@ $<;				\
++	$(STRIP) --strip-debug $(STUBCOPY_RM_SECTIONS) -o $@ $<;	\
+ 	if $(OBJDUMP) -r $@ | grep $(STUBCOPY_RELOC-y); then		\
+ 		echo "$@: absolute symbol references not allowed in the EFI stub" >&2; \
+ 		/bin/false;						\
 -- 
 2.55.0
 
