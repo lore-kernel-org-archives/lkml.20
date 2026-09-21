@@ -1,136 +1,144 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5C0364940;
-	Mon, 21 Sep 2026 07:05:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD99C364940
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:06:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789974346; cv=none; b=qFGZBmOfWtA6ouAgk7HxGd4JZ58XcW4JbEk+4/vgCh96oMxGinra6HiMwdRO5D4G4kWaX4+308pHCc+5aprh4C9xP8Ic/hmWuPslf91MmhcexSZkWXxEcpjckCIt5NZ5Z6Fg3F0lwdbzUkTCyg4yzyyzYMNm2hGOTvUqavepYZA=
+	t=1789974366; cv=none; b=KBgrGFuEdegdNNlxYJUkYdk9toF3+AlgI0q20GjUY+DD4NaQ1RdIiXyM/OPIQoxRcIaMj32A0BMm4O1hiH3FttTeUpvA+vjg6CVqvVQ2bo8izIBHv11uZkIfWsI9l1R4IJTuyqUV1JtVAJX59WywKN1meea6y0tWjo8lORQmsdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789974346; c=relaxed/simple;
-	bh=V2UZAgtXxVj/e+y0JQbgyORtl55iUuBuEkAAYF8S1F8=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=sBSLPWJ7Rbcr4DKaMnsg5yBBVWtKkssKA+LWkc8HWafKesacc6sb2uDjTIghCqSv6q4NqzKOt+nt+zlAoc+v9ItpcbcbiiJ52/Z+3apIIqWOFOImZwgrGDvdJE3dYl8BFYawKlLaJaegfrRC1/FOlXM+4X+BjJ82LSYcAmg/aPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=F07TSrcx; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789974366; c=relaxed/simple;
+	bh=EBJQpWLY6zS3lPstVd9MZs+Q/9KBP95hHmwtpJd2xBA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
+	 References:In-Reply-To; b=GPPQqm5MEfTcze07IDq6tq4AxVLytgeqoLRKnVGTWrJdawE40XBwrJQXXc7REuRKZQw/1yO1CvETeDEKNfNLBsJIrz/RLjff75qIq00/UColw4JswPpVyPkdExi16dmkxfX0tvkpl8SwNy2QyUKPdqRut0HgDs5UmKYflPnOCsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=oIGWPfNv; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="F07TSrcx"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B2D78A3808;
-	Mon, 21 Sep 2026 09:05:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789974341; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="oIGWPfNv"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id CB902C2C652;
+	Mon, 21 Sep 2026 07:06:46 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id BC2FD60339;
+	Mon, 21 Sep 2026 07:06:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 79EEC10328ED0;
+	Mon, 21 Sep 2026 09:05:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789974357; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=/8mDAteS44LsiHToHeb3hAOQ+hMRfbMMGevkpmGBA6o=;
-	b=F07TSrcxjPB6bN9L46YngYeVnX2u3DmYYYMreOjHgZS2pa1hts26B9AUuUAZMNkI1cP/YI
-	sCubETKyH65PKc4fFyKpeKrURZ3adzhSdIk5TJxclS03BikAz/Xx70yAccXVxJLfWLFxoO
-	G3E3mEcZwiMQgko7bR+q8doDSNOD4QSHYUta+Nqz0HYTnnj2zNjuDGGb9WpkkmRdrgki0O
-	455OoM2/aOUNPbacWED0/mOR3uNwblaLc2fA1WyXz7csYXl9b7wmvDVEjEKxPuF8evF/fI
-	0Z/azghAF2W+xBUyBwhad68b1/Q9jh7w6/dSEzzVZvEvW2pK0p39toFfuJzZbA==
+	bh=lc3Q5bHjC9Y5EjOyv/5Amr9ZepClgh/msjX52TvdD9I=;
+	b=oIGWPfNvDSRbuhkeQtz7bxBJxWZYBW2cPZXT+UaEDez5iBFH2fF/5qtRmniX5pWZGz8E3K
+	q74f2AJxyvO54Nw2fgwxH0oY7iv3GFATtVa9GXDdxGNpeQhgcdnuS6q/aZMlIuCUtu+/sb
+	4iQ+/XyCd2B1VnpR+ZPSGkDM+9JVT+5mDsBCyziy25sxPBu9ZcbPg0GoNguKP1G05ucFLL
+	BMFC/U3CxdZw/9Kl6afCteUQDoNtTYjQ7SnsgvWqFB0O14Y0n8Bh2fmJ6XlJf9nitdwE1Z
+	dm61Uq7NAkZqZJzwTtkc5Gro/DbLRu4zBMjgv+5b5LNTZXEZV46O9KlQTh9fTg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Date: Mon, 21 Sep 2026 09:05:39 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Cc: Conor Dooley <conor.dooley@microchip.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Nicolas Ferre
- <nicolas.ferre@microchip.com>, Sean Anderson <sean.anderson@linux.dev>,
- Antoine Tenart <atenart@kernel.org>, Russell King <linux@armlinux.org.uk>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Vladimir Kondratiev
- <vladimir.kondratiev@mobileye.com>, Gregory CLEMENT
- <gregory.clement@bootlin.com>, Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Maxime Chevallier
- <maxime.chevallier@bootlin.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 2/3] net: macb: propagate RX ring refill errors
-In-Reply-To: <20260918-macb-close-v1-2-221d916b7961@bootlin.com>
-References: <20260918-macb-close-v1-0-221d916b7961@bootlin.com>
- <20260918-macb-close-v1-2-221d916b7961@bootlin.com>
-Message-ID: <0eeb123ad32558ac42762827eb509110@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 21 Sep 2026 09:05:40 +0200
+Message-Id: <DLKSY3W6CGW1.3C0J6DHKV8P2Z@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v11 13/74] drm/bridge: Fix NULL deref in
+ drm_bridge_add() for legacy bridges
+Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Dave Stevenson"
+ <dave.stevenson@raspberrypi.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca
+ Ceresoli" <luca.ceresoli@bootlin.com>, "Chen-Yu Tsai" <wens@kernel.org>,
+ "Samuel Holland" <samuel@sholland.org>, =?utf-8?q?Ma=C3=ADra_Canal?=
+ <mcanal@igalia.com>, "Raspberry Pi Kernel Maintenance"
+ <kernel-list@raspberrypi.com>, "Raphael Gallais-Pou"
+ <rgallaispou@gmail.com>, "Sandy Huang" <hjc@rock-chips.com>,
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, "Andy Yan"
+ <andy.yan@rock-chips.com>, "Algea Cao" <algea.cao@rock-chips.com>, "Daniel
+ Stone" <daniels@collabora.com>, "Liu Ying" <victor.liu@nxp.com>, "Phong LE"
+ <ple@baylibre.com>, "Helge Deller" <deller@gmx.de>, <kernel@collabora.com>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
+ <linux-rockchip@lists.infradead.org>, <linux-fbdev@vger.kernel.org>,
+ "Sashiko" <sashiko-bot@kernel.org>
+To: "Maxime Ripard" <mripard@kernel.org>, "Cristian Ciocaltea"
+ <cristian.ciocaltea@collabora.com>
+X-Mailer: aerc 0.22.0
+References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
+ <20260901-dw-hdmi-qp-scramb-v11-13-bc12954a0688@collabora.com>
+ <ap_Tr_Viqy29f515@houat>
+In-Reply-To: <ap_Tr_Viqy29f515@houat>
 X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Théo
+On Tue Sep 8, 2026 at 11:24 AM CEST, Maxime Ripard wrote:
+> On Tue, Sep 01, 2026 at 09:50:37PM +0300, Cristian Ciocaltea wrote:
+>> Legacy bridge drivers that embed struct drm_bridge in a zero-initialized
+>> allocation, rather than obtaining it from devm_drm_bridge_alloc(), never
+>> run INIT_LIST_HEAD() on bridge->list, leaving next and prev NULL.
+>> list_empty() compares next against &bridge->list, so it reports such a
+>> list head as non-empty.  list_del_init() therefore runs and dereferences
+>> the NULL pointers, panicking the kernel during probe.  Only builds with
+>> CONFIG_DEBUG_LIST survive, with a list corruption report.
+>>
+>> This affects rk3066_hdmi and the i.MX8 LDB bridges, which still embed a
+>> bridge in a devm_kzalloc()'d struct.
+>>
+>> Initialize the list head when it is found to be NULL, so that the bridge
+>> ends up with a valid empty list head and list_del_init() is only reached
+>> for bridges that can actually be linked.
+>>
+>> Fixes: 17805a15d175 ("drm/bridge: add list of removed refcounted bridges=
+")
+>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>> Closes: https://lore.kernel.org/all/20260731175016.C5D591F00AC4@smtp.ker=
+nel.org/
+>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+>> ---
+>>  drivers/gpu/drm/drm_bridge.c | 9 ++++++++-
+>>  1 file changed, 8 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+>> index 2c457ad74f3b..a8b6df5c13ea 100644
+>> --- a/drivers/gpu/drm/drm_bridge.c
+>> +++ b/drivers/gpu/drm/drm_bridge.c
+>> @@ -453,9 +453,16 @@ void drm_bridge_add(struct drm_bridge *bridge)
+>>  	 * If the bridge was previously added and then removed, it is now
+>>  	 * in bridge_lingering_list. Remove it or bridge_lingering_list will b=
+e
+>>  	 * corrupted when adding this bridge to bridge_list below.
+>> +	 *
+>> +	 * Legacy drivers that allocate the bridge with kzalloc() rather than
+>> +	 * devm_drm_bridge_alloc() leave list.next NULL. Such a bridge cannot
+>> +	 * be on any list, and list_del_init() would dereference NULL, so
+>> +	 * initialize the list head first.
+>
+> "legacy" bridges are ambigous and was also used for non-atomic bridges.
+> That being said, it's now *required* that bridges use
+> devm_drm_bridge_alloc() instead of kzalloc, and we warn in
+> drm_bridge_add if it hasn't.
+>
+> So I don't think we should merge this patch.
 
-On 18.9.2026 22:32, Théo Lebrun wrote:
-> gem_rx_refill() is responsible for Rx SKB allocation, including at 
-> open,
-> but its prototype indicates a void return value.
-> 
-> Therefore we change the code to propagate allocation and DMA mapping
-> errors back up the stack, making sure the open fails if it occurs.
-> Change all those to return errno-style ints:
->  - gem_rx_refill()
->  - its parent gem_init_rx_ring()
->  - its grand-parent gem_init_rings()
->  - the macbgem_ops.mog_init_rings function pointer
->  - its grand-uncle macb_init_rings()
-> 
-> Theoretical bugfix, never encountered in practice. To reproduce,
-> introduce memory pressure (less than 512 SKBs of free memory) and open
-> the interface. I expect the last queue to be unuseable because it has
-> zero usable rx buffers. Nothing will ever trigger a refill on that
-> queue which only happens once a frame has been received.
-> 
-> Note that other callers of refill (resume, HRESP error task, NAPI)
-> cannot do anything useful with that error and keep their best-effort
-> refill, hoping it will improve.
-> 
-> Fixes: 4df95131ea80 ("net/macb: change RX path for GEM")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
-> ---
+I agree.
 
-> [...]
+I theory all drivers are be already using devm_drm_bridge_alloc() by now.
 
-> diff --git a/drivers/net/ethernet/cadence/macb_main.c 
-> b/drivers/net/ethernet/cadence/macb_main.c
-> index 751fa9e68099..c418f859cc34 100644
-> --- a/drivers/net/ethernet/cadence/macb_main.c
-> +++ b/drivers/net/ethernet/cadence/macb_main.c
+In practice rk3066_hdmi is actually still using kzalloc, it should be fixed
+to use devm_drm_bridge_alloc(). Are you OK with doing it in v12?
 
-> [...]
+By "i.MX8 LDB" I guess you mean fsl-ldb.c, which was converted in
+9c399719cfb9 ("drm: convert many bridge drivers from devm_kzalloc() to
+devm_drm_bridge_alloc() API").
 
->  	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
-> @@ -2813,11 +2820,15 @@ static void gem_init_rings(struct macb *bp)
->  		queue->tx_head = 0;
->  		queue->tx_tail = 0;
-> 
-> -		gem_init_rx_ring(queue);
-> +		err = gem_init_rx_ring(queue);
-> +		if (err)
-> +			last_err = err;
+Luca
 
-A partly filled queue refills itself on the next gem_rx().  AFAIU only a
-queue with zero buffers can get stuck. Fail the open just for that case?
-
-> [...]
-
->  static void macb_reset_hw(struct macb *bp)
-> @@ -3162,7 +3175,9 @@ static int macb_open(struct net_device *netdev)
->  		goto pm_exit;
->  	}
-> 
-> -	bp->macbgem_ops.mog_init_rings(bp);
-> +	err = bp->macbgem_ops.mog_init_rings(bp);
-> +	if (err)
-> +		goto free_rings;
-
-macb_set_ringparam() ignores macb_open()'s error, so NAPI stays disabled
-with netif_running() == true and the next close will hang in 
-napi_disable().
-
-Should macb_set_ringparam() return the error?
-
-> [...]
-
-Thanks,
-Nicolai
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
