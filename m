@@ -1,208 +1,137 @@
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A78E26656D;
-	Mon, 21 Sep 2026 04:14:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086FC247280;
+	Mon, 21 Sep 2026 04:19:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789964065; cv=none; b=F03nVb6FB83blOZsegCBPBg0+iEYWlJzIObLQCTGSTq9t2GCjpilCHrk8KPapxjRXUx8wAEXbuxD6lK+bxUG9Yi2UVmMSSmsh8FhpLDM5+LbO/eWsgkfDeLQ9H0b2uVGyuiVOnSlN0PbCw8fK9xPnKNxkIUhsixjbup4ZZxM5Y0=
+	t=1789964359; cv=none; b=t4ZBtKpUPtQEVlzHwsipfb12IC1s8rOD5PEmfTOzCYXJB883akb2C49K7Uc/GKS3Gdu6c2hv8EFvYXqjzEiNKtKb6pNjZmWe+Lj6uXW39kMBi+EWmNPwBxMZKmVtkWL30zWQUUNXchhHfTsSEdoZmtedWD1hAl4AVBoQe3mFwLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789964065; c=relaxed/simple;
-	bh=iRYvNnPl3VQmlECSCn53GfxBtZNkyCBLb8oOBJnXe2s=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=V0plzjIV5363UREqrJxqVTa6wlZxiQJ5YXvG3m1zSZvJTJmLju1rSQLz5IDrwyEmxOaO/up+xeKpCxDKi8gT0+aZ3mCtQnkyokB6FAD/b9/Z6LuKpAcn4e7eKMVuGEM4TZ3FwBmsqUrPTMlIMgb0rMJGlLUaIgn8MyY+AGVAZM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=znMxX8Bx; arc=none smtp.client-ip=43.163.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="znMxX8Bx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1789964053; bh=O3RVgr7CiMucacgWG0CW24IkajveUZ/7Nmd8pYeqxDs=;
-	h=From:To:Cc:Subject:Date;
-	b=znMxX8BxAarSgoRmBtEC+0mHqWRxWN0rbZlKqI6NB5rqgumlt8+xj0LajjvkFYmmR
-	 ektHBOu3TlhLYuiWqu1O3ZqQWZH7jTXc2JNs3ijiK34PwLNndjeNnVtIpSmwGsvppM
-	 Js6tYDSWGyeSHj6afFn1KDAFfw+DZfa3btCf7lZg=
-Received: from localhost.localdomain ([202.120.234.146])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id 389942B0; Mon, 21 Sep 2026 12:14:09 +0800
-X-QQ-mid: xmsmtpt1789964049t1mv0ye6k
-Message-ID: <tencent_F3A825AD475CB58F5C0D1C833FD3353E130A@qq.com>
-X-QQ-XMAILINFO: NEW4AM7T0EBsYG2ExRARQxO3hr6TdO07J16dKb0jPZqRt1GtGL3OFK+pv+W8aA
-	 L2sLTn5ti49z5EpicYGh025QxxwYCn5JXR0d2Z71tv3U0X+HSaENSVrpo81I6QZtvUTkTMhiv0aD
-	 nI+PVgCAyNdMsdWLfrUgpe3M2TIuqU7zbNNERNVRzFHyk7OQY3RSCrU45J6mfN5Mpvyu39id+tlV
-	 wKQF4n15MAqfiCW1HAoQ0cSnljsdazJC/eU/suqFG7YUCUyRxJjZ0VKXXcusI8GjuLjigbDw0fJu
-	 fd/ntNL/sjEhiy/YSw7qfz3mi9CxfpqrJ8+6BYdFqn7vVv3YyJxmDcKVD220GNFm8F0JjpO5H4mE
-	 vrsTEOArnBgiIJJ2PeWy9tGe+n5tJCclWP84D86sdLPVIUZWbo78NVcDi7z7i/walvVbPB1ai1oj
-	 1kAzSfOzHjEA/ssq1pEhysrCJfX1SvH/ElOFO+uGmRgHxZV9lgmKvpdPxD9nhLlrYTJgpTXEwXvI
-	 UzlqOO2Ot4Wv1OmFyFqY7PZXijthnuRFVxe1xyWj600ZjKWRPOuI7/2bsSJYIUr7I1gnixQBfH7x
-	 ea0P8tnQrlhuIBPS/BhFI8tbIcLWHWnWPh1gevsndGIOFbqBCp03fN3S/eWcPs7dOBdpBjNOmb9d
-	 h3WqBazLb+fYJCKfjE/WggQxDlZRV8CBEl7HFbn0aD0o3tgdpwO5XPFbtmIkIX6yN3tOiGx43u3j
-	 3GV4fP3MaUdVYWmCtLE1TR670M7tJr04eSSOZjR20u3WhtPmI1qE0AfWub/VfadwzWy8kdPFr2oP
-	 IMPmT2hmLF5n9vj+r5gxBPNSpBOyCt0gdJ1x0E9N5XB7hj7fYA6o/ozzToJDGlTqj6VH3Pb7UwP9
-	 td1slwKmV6sriE+3/iBEMj2TBmKLqPg67d1bNHNPKvCrdj2VZ+Ie4+Rj9e3aNjRINqO6jfloEhcA
-	 JPOEBsivnoFZITjnY2iwCGPx62srRB657TI5ZoJcQzoZeOMKeGR3TK7Qry8TWZ4m+dOdYVtTI802
-	 v1rZj1riTRGzZkQ/SEIjCOOJLGsE5cbHfWaA6keEA6PInpx2I3L9rBSU5kiaqrjfSxSPrKZpy5Gz
-	 4bcQc3mET1eF2cMCI=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Yilin Chen <1479826151@qq.com>
-To: ojeda@kernel.org
-Cc: boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	work@onurozkan.dev,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yilin Chen <1479826151@qq.com>
-Subject: [PATCH] rust: list: document safety discharge and add offset_of! check
-Date: Mon, 21 Sep 2026 04:14:07 +0000
-X-OQ-MSGID: <20260921041407.1203693-1-1479826151@qq.com>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1789964359; c=relaxed/simple;
+	bh=uBQpeBIQXuJLx1jD+/D85vY+RbAG8WKdGugd4fz/kVs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IX4tquyIxVRC8lZZiFglFkQDv8IJyLp93F6rrfxz2MQtMyKJr1za60PF3NsA3na7F/jNPCbc+s+7SqlRNFt5VnCgQIbye9Gbcned/MNgZkCNfC472nXcU2Zrmjvrs9Vdw1BlNOnR7NWT9dZUZN3irFJogN3AFIjruacWZDoaCoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
+	by APP-05 (Coremail) with SMTP id zQCowAD3ZD80sLBqH53SCA--.25119S2;
+	Mon, 21 Sep 2026 12:19:01 +0800 (CST)
+Message-ID: <75baf71c31b5d6aff74b7d472ca48fa83ff74707.camel@iscas.ac.cn>
+Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane
+ disable clearing FB_EN
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Mon, 21 Sep 2026 12:18:59 +0800
+In-Reply-To: <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
+References: <20260918030125.315978-1-a0987203069@gmail.com>
+	 <20260918030125.315978-8-a0987203069@gmail.com>
+	 <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
+	 <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAD3ZD80sLBqH53SCA--.25119S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCw43uFWrXryxKw13WrykZrb_yoW5XF4UpF
+	s0vFW8KFs5Z3y09a4xtFyqga1Yy3W7t3s5Jr18GryYvrn8tr9rWFW8Jr9xZayDWrWxGF4S
+	qF4v9a9xCFyUAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+	14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+	IFyTuYvjxUqiFxDUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Replace the remaining "// Safety: TODO" in the Rust intrusive list
-implementation with explanations.
+=E5=9C=A8 2026-09-21=E4=B8=80=E7=9A=84 10:43 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
+>=20
+> Icenowy Zheng =E6=96=BC 2026/9/18 =E4=B8=8B=E5=8D=88 01:52 =E5=AF=AB=E9=
+=81=93:
+> > =E5=9C=A8 2026-09-18=E4=BA=94=E7=9A=84 11:01 +0800=EF=BC=8CJoey Lu=E5=
+=86=99=E9=81=93=EF=BC=9A
+> > > vs_dc8200_primary_plane_disable_ex() calls regmap_set_bits() on
+> > > VSDC_FB_CONFIG_EX_FB_EN instead of regmap_clear_bits(), so
+> > > disabling
+> > > the primary plane on DC8200-family hardware actually leaves the
+> > > framebuffer enable bit instead of clearing it.
+> > >=20
+> > > This bug predates this series: it was carried over unchanged from
+> > > vs_primary_plane_atomic_disable() when patch "drm/verisilicon:
+> > > introduce per-variant hardware ops table" split the DC8200-
+> > > specific
+> > > implementation out into vs_dc8200.c.
+> > >=20
+> > > Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for
+> > > Verisilicon
+> > > display controllers")
+> > Maybe it'd be better to fix this before adding DC variant
+> > abstraction,
+> > for easier backporting.
+> >=20
+> > Thanks,
+> > Icenowy
+> Makes sense. Should I send it as a standalone patch targeting
+> drm-misc-fixes (separate from this series), or do you have a
+> different preference for how to split it?
 
-Also, the `impl_has_list_links_self_ptr!` macro does not perform
-the field-path validation already used by `impl_has_list_links!`.
-As a result, `addr_of_mut!` also accepts paths that require
-implicit dereferencing.
+I prefer a standalone patch, although changing the patch order to
+before other drm/verisilicon changes is also okay.
 
-Use offset_of! in an unreachable branch to ensure that the path consists
-only of actual nested fields. The value is not evaluated, so the check
-has no runtime cost.
+In fact there's another point that seems to be fixed, and that fix
+should be more easier with this patchset --
+vs_primary_plane_atomic_update() (which operates with new plane state)
+calls vs_primary_plane_atomic_disable() (which operates with old plane
+state). With the refactor in this patchset, both calls can be directed
+into the primary_plane_disable_ex callback (or maybe _ex could be
+removed because no further hardware operation is present).
 
-Link: https://rust-for-linux.zulipchat.com/#narrow/channel/288089-General/topic/Should.20.60impl_has_list_links_self_ptr.21.60.20add.20offset_of.21.20macro.3F/with/624615061
+Thanks,
+Icenowy
 
-Signed-off-by: Yilin Chen <1479826151@qq.com>
----
-
-I don't know whether it is designed for allowing that format. But I think
-it is better to restrict the field path to embedded in Self, so I added
-offset_of! check to ensure that.
-
-I opened a topic in Zulip to discuss this but nobody has responded yet.
-The link is in the commit message.
-
-Looking for feedback from the maintainers about whether this is
-a good idea. Thank you for your feedback.
-
- rust/kernel/list.rs                    | 10 ++++++-
- rust/kernel/list/impl_list_item_mod.rs | 36 ++++++++++++++++++++------
- 2 files changed, 37 insertions(+), 9 deletions(-)
-
-diff --git a/rust/kernel/list.rs b/rust/kernel/list.rs
-index 0f367264ee2e..28e109750968 100644
---- a/rust/kernel/list.rs
-+++ b/rust/kernel/list.rs
-@@ -599,7 +599,15 @@ pub fn pop_front(&mut self) -> Option<ListArc<T, ID>> {
-     ///
-     /// `item` must not be in a different linked list (with the same id).
-     pub unsafe fn remove(&mut self, item: &T) -> Option<ListArc<T, ID>> {
--        // SAFETY: TODO.
-+        // SAFETY:
-+        // - `item` is a valid reference to a value of type `T`, satisfying the requirement of
-+        //   `ListItem::view_links`.
-+        // - If the item is not in a list, `ListItem::view_links` guarantees that the
-+        //   returned pointer points at a read-only `ListLinks` with two null pointers,
-+        //   which is dereferenceable.
-+        // - If the item is in a list, `ListItem::view_links` guarantees that the
-+        //   returned pointer is the same as the most recent `ListItem::prepare_to_insert`,
-+        //   which is dereferenceable.
-         let mut item = unsafe { ListLinks::fields(T::view_links(item)) };
-         // SAFETY: The user provided a reference, and reference are never dangling.
-         //
-diff --git a/rust/kernel/list/impl_list_item_mod.rs b/rust/kernel/list/impl_list_item_mod.rs
-index 5a3eac9f3cf0..87ce54d9215b 100644
---- a/rust/kernel/list/impl_list_item_mod.rs
-+++ b/rust/kernel/list/impl_list_item_mod.rs
-@@ -82,16 +82,26 @@ pub unsafe trait HasSelfPtr<T: ?Sized, const ID: u64 = 0>
-        for $self:ty
-        { self$(.$field:ident)* }
-     )*) => {$(
--        // SAFETY: The implementation of `raw_get_list_links` only compiles if the field has the
--        // right type.
-+        // SAFETY: The implementation of `raw_get_list_links` returns the `inner` field of the
-+        // `ListLinksSelfPtr<$item_type, ID>` selected by the field path.
-         unsafe impl$(<$($generics)*>)? $crate::list::HasSelfPtr<$item_type $(, $id)?> for $self {}
- 
--        // SAFETY: TODO.
-+        // SAFETY: The implementation of `raw_get_list_links` only compiles if the field has type
-+        // `ListLinksSelfPtr<$item_type, ID>`. Since `ListLinksSelfPtr` is `repr(C)` and `inner` is
-+        // its first field, a pointer to the former is also a pointer to the latter.
-         unsafe impl$(<$($generics)*>)? $crate::list::HasListLinks$(<$id>)? for $self {
-             #[inline]
-             unsafe fn raw_get_list_links(ptr: *mut Self) -> *mut $crate::list::ListLinks$(<$id>)? {
-+                // Statically ensure that `$(.field)*` doesn't follow any pointers.
-+                //
-+                // Cannot be `const` because `$self` may contain generics and E0401 says constants
-+                // "can't use {`Self`,generic parameters} from outer item".
-+                if false { let _: usize = ::core::mem::offset_of!(Self, $($field).*); }
-+
-                 let ptr: *mut $crate::list::ListLinksSelfPtr<$item_type $(, $id)?> =
--                    // SAFETY: The caller promises that the pointer is not dangling.
-+                    // SAFETY: The caller promises that the pointer points at a valid `Self`. We
-+                    // know that this expression doesn't follow any pointers, as the `offset_of!`
-+                    // invocation above would otherwise not compile.
-                     unsafe { ::core::ptr::addr_of_mut!((*ptr)$(.$field)*) };
-                 ptr.cast()
-             }
-@@ -274,14 +284,18 @@ unsafe fn prepare_to_insert(me: *const Self) -> *mut $crate::list::ListLinks<$nu
-                 // SAFETY: The caller promises that `me` points at a valid value of type `Self`.
-                 let links_field = unsafe { <Self as $crate::list::ListItem<$num>>::view_links(me) };
- 
--                // SAFETY: TODO.
-+                // SAFETY: `links_field` was returned by `view_links`, which forwards the pointer
-+                // returned by `HasListLinks::raw_get_list_links`. `HasSelfPtr` guarantees that
-+                // this `ListLinks` is the `inner` field of a `ListLinksSelfPtr<Self, $num>`.
-+                // Therefore, the resulting container pointer is in bounds of the same allocation.
-                 let container = unsafe {
-                     $crate::container_of!(
-                         links_field, $crate::list::ListLinksSelfPtr<Self, $num>, inner
-                     )
-                 };
- 
--                // SAFETY: By the same reasoning above, `links_field` is a valid pointer.
-+                // SAFETY: By the reasoning above, `container` points at a valid
-+                // `ListLinksSelfPtr<Self, $num>`.
-                 let self_ptr = unsafe {
-                     $crate::list::ListLinksSelfPtr::raw_get_self_ptr(container)
-                 };
-@@ -326,14 +340,20 @@ unsafe fn view_links(me: *const Self) -> *mut $crate::list::ListLinks<$num> {
-             //   `ListArc` containing `Self` until the next call to `post_remove`. The value cannot
-             //   be destroyed while a `ListArc` reference exists.
-             unsafe fn view_value(links_field: *mut $crate::list::ListLinks<$num>) -> *const Self {
--                // SAFETY: TODO.
-+                // SAFETY: The caller guarantees that `links_field` either originated from the
-+                // most recent `prepare_to_insert` or was returned by a subsequent `view_links`,
-+                // and that `post_remove` has not been called since. In either case, the pointer
-+                // originated from `HasListLinks::raw_get_list_links`, and `HasSelfPtr` guarantees
-+                // that this `ListLinks` is the `inner` field of a `ListLinksSelfPtr<Self, $num>`.
-+                // Therefore, the resulting container pointer is in bounds of the same allocation.
-                 let container = unsafe {
-                     $crate::container_of!(
-                         links_field, $crate::list::ListLinksSelfPtr<Self, $num>, inner
-                     )
-                 };
- 
--                // SAFETY: By the same reasoning above, `links_field` is a valid pointer.
-+                // SAFETY: By the reasoning above, `container` points at a valid
-+                // `ListLinksSelfPtr<Self, $num>`.
-                 let self_ptr = unsafe {
-                     $crate::list::ListLinksSelfPtr::raw_get_self_ptr(container)
-                 };
--- 
-2.25.1
+> >=20
+> > > Signed-off-by: Joey Lu <a0987203069@gmail.com>
+> > > ---
+> > > =C2=A0=C2=A0drivers/gpu/drm/verisilicon/vs_dc8200.c | 4 ++--
+> > > =C2=A0=C2=A01 file changed, 2 insertions(+), 2 deletions(-)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c
+> > > b/drivers/gpu/drm/verisilicon/vs_dc8200.c
+> > > index f72da10295e1b..25b5906a1c5fc 100644
+> > > --- a/drivers/gpu/drm/verisilicon/vs_dc8200.c
+> > > +++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
+> > > @@ -70,8 +70,8 @@ static void
+> > > vs_dc8200_primary_plane_enable_ex(struct vs_dc *dc, unsigned int
+> > > out
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0static void vs_dc8200_primary_plane_disable_ex(struct vs_=
+dc
+> > > *dc,
+> > > unsigned int output)
+> > > =C2=A0=C2=A0{
+> > > -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+> > > -			VSDC_FB_CONFIG_EX_FB_EN);
+> > > +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+> > > +			=C2=A0 VSDC_FB_CONFIG_EX_FB_EN);
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0	vs_dc8200_plane_commit(dc, output);
+> > > =C2=A0=C2=A0}
 
