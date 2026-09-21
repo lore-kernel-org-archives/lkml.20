@@ -1,131 +1,172 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [185.244.194.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BC6134CCF
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:21:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.244.194.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39BB3344DA0
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:21:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789964472; cv=none; b=VOQlNoGO83O0/5rXlZh9+U1OXO4PAzpHtG9YL+3bwGzwirOWARte1cL9bbQrhWdwhozbYpUuzruif6NSuMYjjTtc4Lgtbhr40F5hehBZSkKqzEksEETXsIBG6a99qhNmla5owI7vSUILRplDdjBeSo7gl7n0b6zQhHG4/1sxTq0=
+	t=1789964485; cv=none; b=bqlqSdRYSxwOq0pGJAFgoPUew/PxEkJ7Dj0HUDf+u2e4mQ0JbzDy8BrzYEIwr5dWPZQW9OGeSEe9fw6qlNIUh4E14f1BX4wfBBa16N3XCQyIYmZzbKe9TBNHl/trXjKyThQ0z71YSU1jd1y80lBFBO/iCpeKAdD3jOiAeU57s84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789964472; c=relaxed/simple;
-	bh=cpRxjTr/3q7bHaMCAKIG0CMS8AG8BV0K5UvVHGauoig=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ey0nnh5vxfwti4uuAVNHy9flIpcJS8zYQ8y5gmNBx5S0yweBiBhTLaW0KgPI7C9IedI/anQ65b/0h5OSLsQBnNuMiyJNATnh/KvvjE6k9VGFH2EhSxKIepbgy0iE6vpXurYpItrAs4j5Qdl8du0djAnehWz1dE239rvUpUyxOnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=i44ZEwJf; arc=none smtp.client-ip=185.244.194.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1789964485; c=relaxed/simple;
+	bh=QnBJ2lINDbYZLtvPWtK1dgRGpLQIhKeHYrcIi78w4I0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qJOMd8oeGf3xrVz127ULruHlf9f+XT2cf5bmZilK69q+rRfNFlKU+v3S1CcMV1vLxw9rqkSV5tiCPD2ftjTum/TqY1j3UthIJVVFsf/sXPDTuKF6mA6iIiYaKhLiEvhjmPefLSDQh4F4KCmd+PWLYeAw09w4FmlAUuarZsO8f0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BoQPPU+b; arc=none smtp.client-ip=91.218.175.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="i44ZEwJf"
-Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
-	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hp94j1m5Gz9Hnw;
-	Mon, 21 Sep 2026 06:20:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1789964421;
-	bh=cpRxjTr/3q7bHaMCAKIG0CMS8AG8BV0K5UvVHGauoig=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=i44ZEwJfLi1Kmlkz+Pc6yNlQ1vtC17cgE4JDsXXOUqex8Utc+HYWVkSvc5TFEab7g
-	 Avfjbv3z66jccSYtcgqgDLG2D+1AEvTW7QJh1RgqSRohSX4FKw0WrQZ6A+VlgeBuAK
-	 TgUQMj3SLsLXVfDwsjnylxL5u/MkO9ArWkM27zwGvriwssM1l4z6c5eB6UbsM5+nmy
-	 3nMpb7xMd2VU2vSFMRzqXlLRkV0LjzDUDqu4cbk4XGhkdvPvWR3uqtq8Hmv2JanVU7
-	 GP+xFFY3jcmbghDaQbjlftqBZWHHZQvHaDg9gfMFQ4Ga5qKQwwO5n7YonsCuLzb/ZC
-	 hn92VfSIrawTA==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hp94j12X9z7xhF;
-	Mon, 21 Sep 2026 06:20:21 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hp94h4MVxz8sch;
-	Mon, 21 Sep 2026 06:20:20 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 5BEBA5FA34;
-	Mon, 21 Sep 2026 06:20:11 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=linux@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <c6da5947-3139-4350-9d88-f1c56b361246@leemhuis.info>
-Date: Mon, 21 Sep 2026 06:20:10 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BoQPPU+b"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=QnBJ2lINDbYZLtvPWtK1dgRGpLQIhKeHYrcIi78w4I0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789964480; v=1; x=1790569280;
+ b=BoQPPU+bkhgjKdCgx4tbWab80cYbWoZ00kaP0nydvpJO9mrjHy64njeRXjfZo+eNK3Oo0LkC
+ LOTYUNCecebR7lUFg2hPSk/UfP7TAhNeuPxmY/5RWYsLLpjVPMoq+d7Zg0uMwFUEZoTCAsA0l7O
+ r3Ut4D3sMxQi/5WsDmVN7Zp0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f6ec75b7ce5dac5b;
+	Mon, 21 Sep 2026 04:21:19 +0000
+X-Mizu-Trace-ID: f6ec75b7ce5dac5b
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 21 Sep 2026 12:21:14 +0800
+From: Hao Li <hao.li@linux.dev>
+To: Harry Yoo <harry@kernel.org>
+Cc: vbabka@kernel.org, akpm@linux-foundation.org, cl@gentwo.org, 
+	rientjes@google.com, roman.gushchin@linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/slub: refill prefilled sheaves from the barn
+Message-ID: <arCeRr44nni8hykr@fedora>
+References: <20260918114318.124346-1-hao.li@linux.dev>
+ <aq0ylDidEHa2kg4X@thinkstation>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] net: qrtr: resend HELLO on MHI resume
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linux kernel regressions list <regressions@lists.linux.dev>,
- LKML <linux-kernel@vger.kernel.org>
-References: <1f3e8e4b-2060-4edc-aa58-d2b7a68280ca@leemhuis.info>
- <20260920141608.2977460-1-linux@leemhuis.info>
- <CAHk-=wgqFzLDVNk9wi5mwL7sPCDM9EvMPhP6R-v9HrSCNEFy=A@mail.gmail.com>
-From: Thorsten Leemhuis <linux@leemhuis.info>
-Content-Language: de-DE, en-US
-Autocrypt: addr=linux@leemhuis.info; keydata=
- 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 MEK4
-In-Reply-To: 
- <CAHk-=wgqFzLDVNk9wi5mwL7sPCDM9EvMPhP6R-v9HrSCNEFy=A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: 
- <178996441162.3600255.10611522863374979283@mxe9fb.netcup.net>
-X-NC-CID: Askht4KyUd+veG15l9byqksbOYKonS4SAwS5Gb25IgEBt2c/MHw=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aq0ylDidEHa2kg4X@thinkstation>
 
-On 9/20/26 20:26, Linus Torvalds wrote:
-> On Sun, 20 Sept 2026 at 07:16, Thorsten Leemhuis <linux@leemhuis.info> wrote:
->>
->> diff --git net/qrtr/af_qrtr.c net/qrtr/af_qrtr.c
->> index 78347c937af76b..e7b3647424b8f1 100644
->> --- net/qrtr/af_qrtr.c
->> +++ net/qrtr/af_qrtr.c
+On Fri, Sep 18, 2026 at 04:35:15PM +0100, Harry Yoo wrote:
+> On Fri, Sep 18, 2026 at 07:41:56PM +0800, Hao Li wrote:
+> > Currently, when the prefill API refills a non-full sheaf, it takes the
+> > objects from partial slabs and never from the full sheaves in the barn,
+> > so once the barn's full list becomes saturated, it stays saturated.
+> > 
+> > For objects freed via kfree_rcu(), every RCU sheaf then has to be
+> > flushed to slabs because the barn's full list has no room.
+> > 
+> > To fix this, let the sheaf refill from the barn first, and introduce a
+> > partial sheaf in the barn, which holds the leftover objects.
+> > 
+> > If no partial sheaf exists, take a full sheaf from the barn and return
+> > it to the caller; the non-full sheaf becomes the partial sheaf, or is
+> > put on the barn's empty list if it holds no objects.
+> > 
+> > If a partial sheaf exists and the non-full sheaf and the partial sheaf
+> > together reach capacity, the one holding more objects is filled up from
+> > the other and handed out instead, so no full sheaf needs to be taken
+> > from the barn.
+> > 
+> > If a partial sheaf exists but the two together do not reach capacity,
+> > take a full sheaf from the barn for the caller; the objects of the
+> > non-full sheaf are absorbed into the partial sheaf, and the non-full
+> > sheaf, now empty, is put on the barn's empty list.
 > 
-> How did you generate this diff? You have some very broken setup.
-> [...]
-> I fixed it up in order to apply it, but you have a "--no-prefix" or
-> similar horror somewhere that needs to go away.
-Thx for mentioning and especially for fixing this up! I briefly confused
-two git options and than that "--no-prefix" stayed behind accidentally. :-/
+> Perhaps let's explain why the slab allocator needs this partial sheaf
+> handling only for prefilled sheaves path?
 
-Ciao, Thorsten
+Agreed, that's definitely worth an explanation here!
+
+> 
+> while reviewing it i was wondering "why is this just not part of
+> refill_sheaf()"
+> 
+> I assume the reason is: usually we only refill empty sheaves because
+> if it has at least one object, it can serve the allocation.
+
+I think the distinction is less about why refill_sheaf() doesn't use
+sheaf_partial, and more about what the two paths do beforehand.
+
+For simplicity, let's call the __pcs_replace_empty_main path the
+generic path, to distinguish it from the prefill path.
+
+In both paths, refill_sheaf() plays an equivalent role: it simply pulls objects
+from n->partial. Since neither involves the barn at that point, sheaf_partial
+doesn't really come into play there.
+
+The real difference is what happens before calling refill_sheaf(). The generic
+path cleanly swaps an empty sheaf for a full one from the barn. But on the
+prefill path, the incoming sheaf isn't necessarily empty, so taking objects
+from the barn usually leaves leftovers. That's why we need a data structure
+to temporarily hold those leftovers, and that's where sheaf_partial comes in.
+
+If this explanation makes sense, I'll add it to the commit message. :)
+
+> 
+> > the gain comes from two sides: every full sheaf taken out makes room on
+> > the barn's full list for a future rcu sheaf, and refilling from the
+> > barn is cheaper than refilling from partial slabs under list_lock.
+> > 
+> > note that putting the non-full sheaf on the full list instead would not
+> > work: it would occupy room on the full list, so the list would stay
+> > saturated and rcu_free_sheaf() would still keep flushing.
+> 
+> [..]
+> 
+> > ---
+> >  mm/slub.c | 142 +++++++++++++++++++++++++++++++++++++++++++++++++++---
+> >  1 file changed, 134 insertions(+), 8 deletions(-)
+> > 
+> > diff --git a/mm/slub.c b/mm/slub.c
+> > index 54ec12503357..0b1de6b42b61 100644
+> > --- a/mm/slub.c
+> > +++ b/mm/slub.c
+> > @@ -3164,6 +3165,89 @@ static struct slab_sheaf *barn_get_empty_sheaf(struct node_barn *barn,
+> >  	return empty;
+> >  }
+> >  
+> > +/*
+> > + * Exchange @sheaf, which holds fewer objects than requested, for a full one,
+> > + * keeping the leftover objects in the barn's partial sheaf instead of
+> > + * flushing them.
+> > + *
+> > + * Returns a full sheaf, or NULL if the barn cannot make one.
+> > + * The returned sheaf might be @sheaf itself or a new one.
+> > + */
+> > +static struct slab_sheaf *barn_replace_partial_sheaf(struct kmem_cache *s,
+> > +						     struct node_barn *barn,
+> > +						     struct slab_sheaf *sheaf)
+> > +{
+> > +	struct slab_sheaf *full = NULL, *partial;
+> > +	unsigned int to_move;
+> > +	unsigned long flags;
+> > +
+> > +	if (!data_race(barn->nr_full) && !data_race(barn->sheaf_partial))
+> > +		return NULL;
+> > +
+> > +	spin_lock_irqsave(&barn->lock, flags);
+> > +
+> > +	partial = barn->sheaf_partial;
+> > +	if (partial && partial->size + sheaf->size >= s->sheaf_capacity) {
+> > +		/* Fill the larger one to capacity from the smaller */
+> > +		if (partial->size > sheaf->size)
+> > +			swap(partial, sheaf);
+> 
+> Hmm but why switch sheaves when we don't have to?
+
+My thinking was to minimize the amount of data copied via memcpy as much as
+possible, since I was a bit concerned that the copy overhead might stretch the
+lock hold time in the critical section.
+
+> Sounds like we're losing cache affinity unnecessarily.
+
+Yeah, that makes sense to me.
+
+I'll reply to the other points in the next email.
+
+-- 
+Thanks,
+Hao
