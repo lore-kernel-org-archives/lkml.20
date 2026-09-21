@@ -1,127 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F8C74D4883
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:31:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3FF24D488F;
+	Mon, 21 Sep 2026 16:31:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790008278; cv=none; b=XkgAsSvOY9EmjZW8OcmWOypfMw0+nUFj8I9ymp3leuVG0ULB6rPbKNMd4E/yS/DYPZ+srd7ExdAoDD1y51o4jL1BdAdoCEzXexoulsziJUCPvokUQQrmKTWkx19jK2SsxKHLXzQAtIRGGZhlJI3a0XKb63v0EoymklO/W1+mCHE=
+	t=1790008297; cv=none; b=AdMDV69n6tnKTgnaJMmBphqliVLFJD0C0TLnPJ2u5qHn7WXnEJ1RKV91jNaqwj9GloIYFEn7K+rFjCRbEmVmI0BsmO7su9dFpty3dkiiHpVZYzcmX3grWjK0jnxmp+0oaFsFkkkuaxbZn0a1itg9TgN0ZFKIV0coCGkcUQ2tR7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790008278; c=relaxed/simple;
-	bh=pB46b/5McjpRlcWhtExKDHwAUls0jhdUiv9fcow8q9c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LzWAkfogI+J4do5R4IqVeTgIWNUOpUJ+c5HnI/TIDJGxdBSrZ61Gh7prMG+ZsXuVWVkJ4jMUPOwjwU5DfWmtE28Tt/T6oMJtZxrFPuOx+tqemIaZ2hpXQCz6GU33QWXnEWKq9bMViP4SBDVc7cdbPwqOdye/VBV4OX21CQn4sMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C+S0GYnD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790008297; c=relaxed/simple;
+	bh=topJIHAcFcucgIIom/s6JhB/DOjnjHOXAk1hYRfIgNM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fPuQ6Px0LKuVwM4b3uu120bV5Oj3pZ9eMTRHhBEfX0c2lcvAewP3WwXx6PQCE4I7i5RNTqNhfUL8LgAYvhvB8i8/UfLNMDh1Yh0u5RIqLOxceueZEbDhQ7938Mla9TI93XzD75HS+hhZnx7ai9nMuosX5eIYP5+VWrM5zvqX0Zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=nn7Sd1Q1; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C+S0GYnD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 296541F008BF
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:31:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790008277;
-	bh=3xr1vny0sOsGLPZymUSVuBvQ2lAD5e8F1Q1dBisDoZY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=C+S0GYnDnxQf572qmFuv4S780mk/IXbOQ680vfrSXXVWznzFaC+vc/mENCtzeAoaO
-	 TR96FPZfvE1ohsT9EC5mnhZJyTzjNSzDF3VD8CNFuHjmIFRacTTJDgLQR8McwmNbTT
-	 gqoEobtoWSrsep5EpRHK4TSGnXKoI/RR1/rgyZf+gg+QpGmlqsiSPNzRzJph9tRPM2
-	 rinJHGjVi/SfW3/UWawDlvoRecw/QjVrNAlXlnBwewf6IkOnu1nxl1uBrrIuQLxuZY
-	 pXCJKrkmiOdcKBtEyfNJ5G1jxV3kzg6YwnVM/e08v2OCfRj2dzXt//6AQ7JLREu3XL
-	 cWldJb3yySW7w==
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-9104649a5dcso28915536d6.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:31:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx9jG/VrB2hOVp3pmji8iVAhQURcr6hIHtgOD8D6eyoevnl4stDLHq4OHoyzlUS6uwElkqW8GCS+1mq7tM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmoV9KurdmfUPG93RVBbVegLB5kIE1Bm07gzSThUxlGKwVS5QD
-	9mbMXGlFsyloZX+AHLn/8CUhvzbqXPxlvTC6Xw5mAiVm+vWJi/eMLJgXd5Hhn7JrAYUnnl541Mb
-	Y167cLudlPibutqqSHZZlxQt/YbYzFC/OhShtpAQlHA==
-X-Received: by 2002:a05:6214:8009:b0:912:5a5c:780d with SMTP id
- 6a1803df08f44-913fc89d07fmr11633656d6.5.1790008276295; Mon, 21 Sep 2026
- 09:31:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="nn7Sd1Q1"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hpTJG1wCYz8v1k;
+	Mon, 21 Sep 2026 18:31:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790008286;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=I066lHB93h8dqTHWVqvnXC/UNI96ZDGINkKhm6L02A8=;
+	b=nn7Sd1Q1L+wQTqtmh2O/hC1IRD5Q5cZtGyMTVdGow80KJyxYJwY447TM41iio2tvWtKUF1
+	a4KyDm52fNktjx5kbuBhOshN/s0yjdr+vJYpEGqrmGPlqP/RAiEe+N6TFgZDiQUyyM+Mqc
+	Y9OCKdIIB2uP5HztDOYZkru/Zms61KitY5yzga6Gu2MrzxYv49AtrRlNmRxW/eC4mjuixF
+	WbrrOJhohUoarzBG3E9T9VYv9DUqG8AjJk/3EzvXSq/n04ZtTyI03o3AzsUN03ebvyRRiV
+	TPZWSKpL7MqjHwFBVkuVHLxAreqHeUXgjl5lJaS6LxE/TW2OvoHqcOW1PunADQ==
+Message-ID: <67ab9f01-069e-4010-8f5e-7f65bf30ebd6@mailbox.org>
+Date: Mon, 21 Sep 2026 18:31:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <aqJXx2vtbKaRLt3x@fedora> <aqLi6cIjD2wJwk0B@cmpxchg.org> <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
- <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F> <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
- <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F> <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
- <e879ac65cb0940325736df7984c737edf1c6be94.camel@surriel.com>
-In-Reply-To: <e879ac65cb0940325736df7984c737edf1c6be94.camel@surriel.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Mon, 21 Sep 2026 06:31:03 -1000
-X-Gmail-Original-Message-ID: <CACePvbXThspPYD8DZkAeiJtYuMV79vGgC1SGhpMwhn4COWOtcg@mail.gmail.com>
-X-Gm-Features: AcwNN1WuDTsc28AMiNXH2l4X1GQXl6mvqO7A2s7z-INvZm2ismrDAvJON8rwpw8
-Message-ID: <CACePvbXThspPYD8DZkAeiJtYuMV79vGgC1SGhpMwhn4COWOtcg@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Rik van Riel <riel@surriel.com>
-Cc: Gregory Price <gourry@gourry.net>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
-	Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 5/6] PCI: dwc: rcar-gen4: Handle PERST via reset
+ subsystem
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-pci@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260905212649.360498-1-marek.vasut+renesas@mailbox.org>
+ <20260905212649.360498-6-marek.vasut+renesas@mailbox.org>
+ <zwdqspl2uno35uffgzsel57ed2umpejgfeqrkwvxiqd2pgfpm6@h6w3qsgc6rny>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <zwdqspl2uno35uffgzsel57ed2umpejgfeqrkwvxiqd2pgfpm6@h6w3qsgc6rny>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: 7de80fa4f7fd47ba824
+X-MBO-RS-META: 688b6z6z3h4z4uht9ckk6a8mg3k6fi8d
 
-On Mon, Sep 21, 2026 at 5:16=E2=80=AFAM Rik van Riel <riel@surriel.com> wro=
-te:
->
-> On Sun, 2026-09-20 at 23:43 -1000, Chris Li wrote:
-> >
-> > I am sorry, that is not actual user usage. You need to start from an
-> > actual usage case: I have a workload X, only want to give limit Y for
-> > the cgroup jobs but with Z SLO requirement. That kind of actual usage
-> > requirement.
->
-> Limiting how much anonymous memory can be zswapped
-> does not guarantee an SLO, though.
+On 9/21/26 5:46 PM, Manivannan Sadhasivam wrote:
 
-Nothing can guarantee an SLO. It is a safeguard we used. Those are
-existing use cases.
+Hello Manivannan,
 
-> We have seen plenty of examples in practice of
-> workloads that have swap DISABLED, and are still
-> thrashing, because part of the working set of
-> that program is in the page cache, and that still
-> gets evicted.
+>> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+>> @@ -99,6 +99,7 @@ struct rcar_gen4_pcie {
+>>   	void __iomem *base;
+>>   	void __iomem *phy_base;
+>>   	struct platform_device *pdev;
+>> +	struct reset_control *perst;
+>>   	const struct rcar_gen4_pcie_drvdata *drvdata;
+>>   };
+>>   #define to_rcar_gen4_pcie(_dw)	container_of(_dw, struct rcar_gen4_pcie, dw)
+>> @@ -317,12 +318,27 @@ static void rcar_gen4_pcie_unprepare(struct rcar_gen4_pcie *rcar)
+>>   
+>>   static int rcar_gen4_pcie_get_resources(struct rcar_gen4_pcie *rcar)
+>>   {
+>> +	struct device *dev = rcar->dw.dev;
+>> +	struct device_node *root_port;
+>> +
+>>   	rcar->phy_base = devm_platform_ioremap_resource_byname(rcar->pdev, "phy");
+>>   	if (IS_ERR(rcar->phy_base))
+>>   		return PTR_ERR(rcar->phy_base);
+>>   
+>> +	root_port = of_get_next_available_child(dev->of_node, NULL);
+>> +	if (root_port) {
+>> +		rcar->perst = of_reset_control_get_optional_exclusive(root_port, "perst");
+>> +		of_node_put(root_port);
+>> +		if (IS_ERR(rcar->perst))
+>> +			return dev_err_probe(dev, PTR_ERR(rcar->perst), "Failed to get PERST#\n");
+>> +	} else {
+>> +		rcar->perst = NULL;
+> 
+> 'rcar->perst' is NULL by default.
 
-I can only imagine adding more zswap will make the workload worse, not bett=
-er.
+Indeed.
 
->
-> The way you can guarantee the workload is not
-> thrashing is to limit the total (anon + file
-> cache) address space of the program to within
-> some size.
->
-> Anything else is not a guarantee.
->
-> What is it you are actually asking for?
+>> +	}
+>> +
+>>   	/* Renesas-specific registers */
+>>   	rcar->base = devm_platform_ioremap_resource_byname(rcar->pdev, "app");
+>> +	if (IS_ERR(rcar->base))
+>> +		reset_control_put(rcar->perst);
+>>   
+>>   	return PTR_ERR_OR_ZERO(rcar->base);
+>>   }
+>> @@ -494,6 +510,22 @@ static int rcar_gen4_pcie_enable_device(struct pci_host_bridge *bridge,
+>>   	return 0;
+>>   }
+>>   
+>> +static void rcar_gen4_pcie_host_perst_assert(struct dw_pcie_rp *pp, bool assert)
+>> +{
+>> +	struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
+>> +	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
+>> +
+>> +	gpiod_set_value_cansleep(dw->pe_rst, assert);
+>> +
+>> +	if (!rcar->perst)
+>> +		return;
+>> +
+>> +	if (assert)
+>> +		reset_control_assert(rcar->perst);
+>> +	else
+>> +		reset_control_deassert(rcar->perst);
+> 
+> So the controller will only have one form of PERST# implemented at a time. Even
+> though this code is technically correct, it also gives an impression that both
+> form could co-exist.
+> 
+> So I'd recommend using:
+> 
+>          if (dw->pe_rst) {
+>                  gpiod_set_value_cansleep(dw->pe_rst, assert);
+>          } else {
+>                  if (assert)
+>                          reset_control_assert(rcar->perst);
+>                  else
+>                          reset_control_deassert(rcar->perst);
+>          }
+> 
+> to makes it clear that only one form of PERST# is supported.
+> 
+> I'll implement both of these changes while applying.
 
-Give me some real-world examples of people hitting this kind of limit.
-e.g. MAX(%)  > 100% and still have a usesable system. I suspect that
-with 100% zswap usage, the system becomes unusable. Please show me a
-real world case that proves me wrong.
+Please do. Thank you !
 
-All your use cases are hypothetical, or someone in a corner of the
-world is going to have a problem. Give me one usage case I can repeat
-and test validate.
-You can't even do that, the burden is on you.
-
-In the kernel, we don't break user space behavior for no good reason.
-
-Chris
+-- 
+Best regards,
+Marek Vasut
