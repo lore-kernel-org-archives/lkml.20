@@ -1,169 +1,246 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11F74A68A5
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:54:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D964AB1B2
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:54:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002464; cv=none; b=cbBtfJQd85U0C3zltIcOJjhYqpEI17A3mdQuegSwmdnD/eQZxaRlHR72Hp8MyAYctiF8Z+/GbrezHNMPD4qv/1IGhBPvE3/rr7tpT5ZTm7mexdAdLL2r8iMBq190qQEBEnEw5XSPHWs7GXLK38hipGlEmBJzm/tKFcUWG8ZZgVc=
+	t=1790002475; cv=none; b=A1uK4fKORiAYIBS9yAgaZ1h+O32mjp3SGv+GJtvVDEZ6fFSZcNF1g9lHc7XHNL82OxTl6HjP18Mi0QkGPHMo6hIc5OduSUS/83n2LqZrkzUTs0gDM0LfaLKm8M4zAF4XaBCUdp4mjZH8RstODwtb7VOE6264pD/FpzldR30VFdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002464; c=relaxed/simple;
-	bh=yyPLV3+Ro5C2XR3LA/FZ/qEHrvLy3j0kue0Tnqcd6+8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j1twBSrksYb1bnokNBB7WoJnmmKz6ZMU2/hkwHt1VUoRL6G5MyPIv0TizMJq8zSucI4kd3WIdPscTZj2hRPJCtCRMIrfTlywC8HOnCAeD3srRrNgtFFvqbdFEPwF09MlS60JPvuzw+lvm2qe42+Zna0yuFwGX8WqkcGM7mSIPpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JxiX08PM; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1790002475; c=relaxed/simple;
+	bh=kiEKWx34GSLChiV33AtGscUKajKjswXMbyM45TD9rF0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rDujNiiu/5GSdDjiT0fi3Szxg9799KskFwIg2Bs+Xlqhu5kDkLMaDPYKzjs92pI/PWgB16jd6nLM7wTCNRLE+0cffx7ZLKoBuOKVqNJYsaXNN2EP9MyDTjieoWw9Gm9V88J+oHVTfClrlYeVNQM7EdU00TN8HIIsCdLan0pLIyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AaPDv5mm; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JxiX08PM"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398a147688bso3182349a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:54:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AaPDv5mm"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so2331445a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:54:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790002462; x=1790607262; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VWp+iLlQMdqyfouFS2cFnYcodix/vvF9kBi7DXbEuGY=;
-        b=JxiX08PM3FYpTFXpUZOUYIv27chF8qL4DBrGwdUB0lje+6BTWzEtKvu99rjZVT+lHn
-         fMWVsV4ythXy2vkWZ0MxOCh0l/QEdnCb7bdj72qJuLO3fKCd+5/gc8vzYlt67Q3yAKrI
-         S7awHLlKnHMb+QCkpfbqCyTzZ9QjBfB3PrUvjE0GqpNdyVh1BTmc6h60dMYMRJWjv9oA
-         B/AOgpysYsX/LF8NKz10MPl4gtMObEAOfcSl1GXvwoyRW3Wh6z1BC5vojx7dsoqzzahR
-         qwhNoPK09zkQ4U6NWi+1rKT/K6RSyGGfzygZoWOEAImD5Ocuyo775HUqbCu5wACfT2sm
-         a3Cg==
+        d=gmail.com; s=20251104; t=1790002473; x=1790607273; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=55jBginyPAWykGAECg1kcDGv2/bNXqJ6rxbJ7xeJwNc=;
+        b=AaPDv5mmw3ksdc6KIW4sWaqOYrNgYqsFbvTL4m8XMdRt72y18ar+Yih9CmuIdoqtZv
+         Kz0M1KR/AZQr8ZfE4+DKxSnVFduD4N/0ic01dvQ/+AWNd2aNtO1F8s3/FiXkjFmFJ6r2
+         ptOMVLpGvUkm1eUG2VFZzRwg7BdR7P/5jrKE8uAOXBcQ0AWCKFLynYrOM3chOkJD4SKV
+         YIM6J9/agPGN7CbrQJust1yXHZuaF3EDKYSzge9eSxUTEy9uFWGMFOuqqUKapQ6QaPis
+         2e0hlJIw8RUkMpW1dSZfbqMV74VRT9NGdEp8YZWT45h4RX+4wEzquNTUWH6klfpg7C3h
+         byjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790002462; x=1790607262;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VWp+iLlQMdqyfouFS2cFnYcodix/vvF9kBi7DXbEuGY=;
-        b=QLViBL/8bGaFrtAZ5F6sIOXSiQacAwVdVai2+8wmKE3Y+mj3RxxhrgcGUMrQTKW/2I
-         GeL+yS7q4X1y7XbYoxWlVGcnQ7NmueNJba37dFxI+++RZ6fiWxBaTGOWD4PrgNDEAC0a
-         rhymo4y2Ii+hG0QTXZbXM66ogllhL/fenmrHBuL/YVzn/xJjXpxe+t1kSfPbdCc0xDmf
-         vWv/2nED4bAOpyVsGlJR8x2EZDn3pKhjMF4AkJwjaG4ca+TQbkuSLZdxhhM3mwpI2F5V
-         D6czFMIVscEWGr7aQ3JTpTXJEq3lA7dvvalYbt19ny4KMxSG+UIC6MRBMUOVoSldDFO9
-         dAgg==
-X-Forwarded-Encrypted: i=1; AKwUvByhRgd4AqosilIJjFrPg1QW8y2lgz0ZOZqFJOHViQ3DL5udYilwBi7DNhLemUgollaY4uu0526ACogn26k=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltQdTai/BYI8zCLx6hKLiVU/sS30r/vD02M48UizCRiTnotoRs
-	azU+2FRjxgvVLW4V/hUBsmr9YlT3j7WrS9MTW1Sv3L4gu6gjisxCfCVj
-X-Gm-Gg: AYBFou1aavke7qt9kyBsuVDbkrCfTr9odVjDDm9eYSMvDUzZEGgJXtv6yeC+XV//7Pr
-	JIMRxmL0D4rRrJpv8IIphVCWJJaLOzEgDGT2eYHvZIaPUG7Smnok6SvVAPdh7qfLCizPfuae6vC
-	CyiGCACI7EjAJFX1Pksk9S09tgY9q9ShWQJzRVcpqodezRnZDkdwFwfhOhpxd9fcvubx5DpNmlx
-	UEQ/z6Fn1FXts2V4UhcpDNEE9ypHiyYd2PYM3d1kyk5AB+d8Xxa+hSN+WWHxZ08LbriCyWFVlNj
-	322WAN28KpklUYyrvRHj2l3HwMBrXMpUtwp+HrdIoCqM9Kx/WjImoiDpfNOGmC6uc4M9CIwcazi
-	HnPTSqZs9bcRWPA47VxtOK4JBBfq2i/fK7ZTfzrW1HWSwWHKI26aC3nUnOYHgaPRlJ/bC9S4l0g
-	Tgas0DqI33A6hfVUBUIWlOyW4ITjBAI6KknBxHm/qj+bFoKX8Dv+5ZYQlaGzjfQEBHtCV58vPrk
-	w/5GdvyJo+A
-X-Received: by 2002:a17:90b:1cc8:b0:39e:1329:7816 with SMTP id 98e67ed59e1d1-39e54d703dbmr16759570a91.15.1790002461942;
-        Mon, 21 Sep 2026 07:54:21 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a063bf8ddfsm445424a91.14.2026.09.21.07.54.21
+        d=1e100.net; s=20260707; t=1790002473; x=1790607273;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=55jBginyPAWykGAECg1kcDGv2/bNXqJ6rxbJ7xeJwNc=;
+        b=fRjUiYcDH0nxxhnuUCZnYNv1u6dX9Iqm3kdck9rRMiDGgReMNn7Grztmcvmbswd49P
+         deWkjGa2pGzGFLPl6Do/ecD/394efctj2Xys0fd0SkU5wTtYeci3MVf5AT+VC5hToAer
+         8RRnSk+eTtRk15Q/lsLzF3iMamIVW9BkdI89TfdTE8ApFfDNY6MlyAacWr+Ni6ce1FTO
+         lEWGNLUH5SyWgVWAyTBL0A2ZMgLsJYLi0coV3xsV4BDEtR954Nke+JgFNI2esN8l/AX5
+         gIIocyRU7q1N/APQUGdfmUeBHTBYSakyUpp3I7HDVIS++xVOwPdUidNQqRgZqVcb6+XM
+         qVcg==
+X-Forwarded-Encrypted: i=1; AKwUvBxlCg+veroU1bDhVaDiQGdNSWSm1iraRGSkJ/uSto8NIXGrofxLN4tZ88nreIuJtJV6vUpiGuR6eONvppU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kgnFPwiBGOanvRJj81C3x2ugpQadQB9nDZtSeYPMnCPZMNWW2o
+	1RyEdD/vb+X4sgZrx+OMZWkazFN4NmZ2vqXxIcTQ4Snjh9uveGGovN7X
+X-Gm-Gg: AYBFou3MrRjuhqe89pp0E5HXuL1zZ1N5njachCu9jcFGxq75oVLXur/oeXjd1Nt1APo
+	jBlbHsuLymWssFhGIoJ/+2Dz3W7I0fKtNTdyyuiN0+c6wmQca3ZMwNzGUgBBVYfo7ehiqRuITuq
+	eH9/PUk/CIjsOHQLEfFzhL1bzkio8iBgSA6W4mBx+qkOIkXE7SaS8WTBwe/ChegnWWSW6nFrmsD
+	1aeKpPSIydUqhoRK0DFEJKdW/ode6ejO4bvCGFv7hFjy5oq6pDQ0Da/raU96+KdgRcK1KFR36N1
+	vul222rfLvzwRhGbBI8fUH/ZtmH3B7eEn0MzL8UFoZ/Bth4tMt25xw1BRrhqQHM4jHDowi7+h8s
+	aBu3Lz5PzEf8X3PhDU+8KpLBc9MICi5AVP7/Qe1KJEFNGZmU6hCignKDXZhRva5pOEUW8BoZ4xq
+	GmOu8jZFsnxs6kvtBSO/NTEio445Ejn+77tgSqCTiDOFWHZislLVEmMlGJjlVR66P8rg==
+X-Received: by 2002:a05:6a21:e584:b0:3d7:b3c1:cc34 with SMTP id adf61e73a8af0-3dd8c41a56dmr13850919637.26.1790002472781;
+        Mon, 21 Sep 2026 07:54:32 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a6bec901sm3343453b3a.4.2026.09.21.07.54.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 07:54:21 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Mon, 21 Sep 2026 07:54:20 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Lin Wang <wanglin@open-hieco.net>
-Cc: Borislav Petkov <bp@alien8.de>, Yazen Ghannam <yazen.ghannam@amd.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Pu Wen <puwen@hygon.cn>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, Tony Luck <tony.luck@intel.com>,
-	Clemens Ladisch <clemens@ladisch.de>, x86@kernel.org,
-	linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 5/8] hwmon: (k10temp) Stop matching Hygon devices
-Message-ID: <b292d054-f0cf-4695-94a2-40f0d71563f8@roeck-us.net>
-References: <20260921055603.25112-1-wanglin@open-hieco.net>
- <20260921055603.25112-6-wanglin@open-hieco.net>
+        Mon, 21 Sep 2026 07:54:32 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] net: mediatek: fix PPE resource leak on remove
+Date: Mon, 21 Sep 2026 22:54:21 +0800
+Message-ID: <20260921145421.443018-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921055603.25112-6-wanglin@open-hieco.net>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 01:56:00PM +0800, Lin Wang wrote:
-> k10temp matches the Hygon F3 device, but derives the node passed to
-> amd_smn_read() from the F3 PCI slot using the AMD fixed-slot mapping
-> (slot - 0x18). Hygon PCI slots do not encode DF node identity, and
-> their SMN roots are grouped by socket.
-> 
-> The derived node number therefore cannot identify a valid Hygon SMN
-> target or provide usable temperature monitoring. Removing the match
-> does not disable a working monitoring path.
-> 
-> Remove the Hygon PCI match and Family 0x18 branch. Hygon temperature
-> monitoring will use the Hygon node and SMN interfaces in a separate
-> series.
-> 
-> Signed-off-by: Lin Wang <wanglin@open-hieco.net>
+The PPE teardown is incomplete after both probe failure and normal
+driver removal.
 
-Applied.
+mtk_ppe_init() initializes a per-PPE l2_flows rhashtable and creates
+debugfs entries, while mtk_eth_offload_init() initializes the shared
+eth->flow_table. Flow offload entries allocated by
+mtk_flow_offload_replace() can remain in these tables for the lifetime
+of the device.
 
-Thanks,
-Guenter
+mtk_ppe_deinit() currently only destroys the l2_flows tables. It does
+not release entries in eth->flow_table or destroy the flow table, and
+the normal remove path does not call mtk_ppe_deinit() at all. PPE
+debugfs entries are also left behind.
 
-> ---
->  Documentation/hwmon/k10temp.rst | 8 +++-----
->  drivers/hwmon/k10temp.c         | 5 ++---
->  2 files changed, 5 insertions(+), 8 deletions(-)
-> 
-> diff --git a/Documentation/hwmon/k10temp.rst b/Documentation/hwmon/k10temp.rst
-> index 91b99adc6c48..9680c4f3383c 100644
-> --- a/Documentation/hwmon/k10temp.rst
-> +++ b/Documentation/hwmon/k10temp.rst
-> @@ -28,8 +28,6 @@ Supported chips:
->  
->  * AMD Family 17h processors: "Zen", "Zen 2"
->  
-> -* AMD Family 18h processors: "Hygon Dhyana"
-> -
->  * AMD Family 19h processors: "Zen 3"
->  
->    Prefix: 'k10temp'
-> @@ -128,7 +126,7 @@ it.
->  Models from 17h family report relative temperature, the driver aims to
->  compensate and report the real temperature.
->  
-> -On Family 17h and Family 18h CPUs, additional temperature sensors may report
-> -Core Complex Die (CCD) temperatures. Up to 8 such temperatures are reported
-> -as temp{3..10}_input, labeled Tccd{1..8}. Actual support depends on the CPU
-> +On Family 17h CPUs, additional temperature sensors may report Core Complex
-> +Die (CCD) temperatures. Up to 8 such temperatures are reported as
-> +temp{3..10}_input, labeled Tccd{1..8}. Actual support depends on the CPU
->  variant.
-> diff --git a/drivers/hwmon/k10temp.c b/drivers/hwmon/k10temp.c
-> index 3e7e63edc6a3..e0a7211a513c 100644
-> --- a/drivers/hwmon/k10temp.c
-> +++ b/drivers/hwmon/k10temp.c
-> @@ -64,7 +64,7 @@ MODULE_PARM_DESC(force, "force loading on processors with erratum 319");
->  #define F15H_M60H_HARDWARE_TEMP_CTRL_OFFSET	0xd8200c64
->  #define F15H_M60H_REPORTED_TEMP_CTRL_OFFSET	0xd8200ca4
->  
-> -/* Common for Zen CPU families (Family 17h and 18h and 19h and 1Ah) */
-> +/* Common for Zen CPU families (Family 17h, 19h and 1Ah) */
->  #define ZEN_REPORTED_TEMP_CTRL_BASE		0x00059800
->  
->  #define ZEN_CCD_TEMP(offset, x)			(ZEN_REPORTED_TEMP_CTRL_BASE + \
-> @@ -475,7 +475,7 @@ static int k10temp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
->  		data->read_tempreg = read_tempreg_pci;
->  	}
->  
-> -	if (boot_cpu_data.x86 == 0x17 || boot_cpu_data.x86 == 0x18) {
-> +	if (boot_cpu_data.x86 == 0x17) {
->  		switch (boot_cpu_data.x86_model) {
->  		case 0x1:	/* Zen */
->  		case 0x8:	/* Zen+ */
-> @@ -583,7 +583,6 @@ static const struct pci_device_id k10temp_id_table[] = {
->  	{ PCI_VDEVICE(AMD, PCI_DEVICE_ID_AMD_1AH_M60H_DF_F3) },
->  	{ PCI_VDEVICE(AMD, PCI_DEVICE_ID_AMD_1AH_M70H_DF_F3) },
->  	{ PCI_VDEVICE(AMD, PCI_DEVICE_ID_AMD_1AH_M90H_DF_F3) },
-> -	{ PCI_VDEVICE(HYGON, PCI_DEVICE_ID_AMD_17H_DF_F3) },
->  	{}
->  };
->  MODULE_DEVICE_TABLE(pci, k10temp_id_table);
+Drain eth->flow_table with rhashtable_free_and_destroy(), clearing each
+PPE flow entry, dropping the WED flow reference when necessary, and
+freeing the flow entry. Remove the PPE debugfs directories and destroy
+the per-PPE l2_flows tables afterwards.
+
+Track initialization of the shared flow table so partial probe cleanup
+is safe and the table is initialized only once when multiple PPE
+instances are present. Also continue past missing PPE instances during
+cleanup so later instances are not skipped.
+
+Call mtk_ppe_deinit() from the remove path to perform the complete
+PPE/offload teardown.
+
+Fixes: 33fc42de3327 ("net: ethernet: mtk_eth_soc: support creating mac address based offload entries")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+v2:
+  - Drain and destroy the shared offload flow table during PPE teardown.
+  - Remove per-entry PPE and WED state before freeing flow entries.
+  - Remove PPE debugfs entries during teardown.
+  - Continue past missing PPE instances instead of returning early.
+  - Track the shared flow table initialization state for safe cleanup.
+  - Call the complete PPE teardown from the remove path.
+
+ drivers/net/ethernet/mediatek/mtk_eth_soc.c   |  1 +
+ drivers/net/ethernet/mediatek/mtk_eth_soc.h   |  2 +
+ drivers/net/ethernet/mediatek/mtk_ppe.c       | 13 ++++++-
+ .../net/ethernet/mediatek/mtk_ppe_offload.c   | 37 ++++++++++++++++++-
+ 4 files changed, 50 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.c b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+index be3bd025c41a..04d0a1eec4cf 100644
+--- a/drivers/net/ethernet/mediatek/mtk_eth_soc.c
++++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+@@ -5394,6 +5394,7 @@ static void mtk_remove(struct platform_device *pdev)
+ 
+ 	netif_napi_del(&eth->tx_napi);
+ 	netif_napi_del(&eth->rx_napi);
++	mtk_ppe_deinit(eth);
+ 	mtk_cleanup(eth);
+ 	free_netdev(eth->dummy_dev);
+ 	mtk_mdio_cleanup(eth);
+diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.h b/drivers/net/ethernet/mediatek/mtk_eth_soc.h
+index 0168e2fbc619..c1ca8af6f356 100644
+--- a/drivers/net/ethernet/mediatek/mtk_eth_soc.h
++++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.h
+@@ -1344,6 +1344,7 @@ struct mtk_eth {
+ 
+ 	struct mtk_ppe			*ppe[3];
+ 	struct rhashtable		flow_table;
++	bool				flow_table_initialized;
+ 
+ 	struct bpf_prog			__rcu *prog;
+ 
+@@ -1508,6 +1509,7 @@ int mtk_gmac_gephy_path_setup(struct mtk_eth *eth, int mac_id);
+ int mtk_gmac_rgmii_path_setup(struct mtk_eth *eth, int mac_id);
+ 
+ int mtk_eth_offload_init(struct mtk_eth *eth, u8 id);
++void mtk_eth_offload_deinit(struct mtk_eth *eth);
+ int mtk_eth_setup_tc(struct net_device *dev, enum tc_setup_type type,
+ 		     void *type_data);
+ int mtk_flow_offload_cmd(struct mtk_eth *eth, struct flow_cls_offload *cls,
+diff --git a/drivers/net/ethernet/mediatek/mtk_ppe.c b/drivers/net/ethernet/mediatek/mtk_ppe.c
+index 8451dc3fd00a..f41df3cf0e2b 100644
+--- a/drivers/net/ethernet/mediatek/mtk_ppe.c
++++ b/drivers/net/ethernet/mediatek/mtk_ppe.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ /* Copyright (C) 2020 Felix Fietkau <nbd@nbd.name> */
+ 
++#include <linux/debugfs.h>
+ #include <linux/kernel.h>
+ #include <linux/io.h>
+ #include <linux/iopoll.h>
+@@ -946,7 +947,17 @@ void mtk_ppe_deinit(struct mtk_eth *eth)
+ 
+ 	for (i = 0; i < ARRAY_SIZE(eth->ppe); i++) {
+ 		if (!eth->ppe[i])
+-			return;
++			continue;
++
++		debugfs_lookup_and_remove(eth->ppe[i]->dirname, NULL);
++	}
++
++	mtk_eth_offload_deinit(eth);
++
++	for (i = 0; i < ARRAY_SIZE(eth->ppe); i++) {
++		if (!eth->ppe[i])
++			continue;
++
+ 		rhashtable_destroy(&eth->ppe[i]->l2_flows);
+ 	}
+ }
+diff --git a/drivers/net/ethernet/mediatek/mtk_ppe_offload.c b/drivers/net/ethernet/mediatek/mtk_ppe_offload.c
+index 99b28aaa7cc4..5b14c7b3052f 100644
+--- a/drivers/net/ethernet/mediatek/mtk_ppe_offload.c
++++ b/drivers/net/ethernet/mediatek/mtk_ppe_offload.c
+@@ -678,9 +678,42 @@ int mtk_eth_setup_tc(struct net_device *dev, enum tc_setup_type type,
+ 	}
+ }
+ 
++static void mtk_flow_offload_free(void *ptr, void *arg)
++{
++	struct mtk_flow_entry *entry = ptr;
++	struct mtk_eth *eth = arg;
++
++	mtk_foe_entry_clear(eth->ppe[entry->ppe_index], entry);
++
++	if (entry->wed_index >= 0)
++		mtk_wed_flow_remove(entry->wed_index);
++
++	kfree(entry);
++}
++
+ int mtk_eth_offload_init(struct mtk_eth *eth, u8 id)
+ {
+-	if (!eth->ppe[id] || !eth->ppe[id]->foe_table)
++	int err;
++
++	if (!eth->ppe[id] || !eth->ppe[id]->foe_table ||
++	    eth->flow_table_initialized)
+ 		return 0;
+-	return rhashtable_init(&eth->flow_table, &mtk_flow_ht_params);
++	err = rhashtable_init(&eth->flow_table, &mtk_flow_ht_params);
++	if (!err)
++		eth->flow_table_initialized = true;
++
++	return err;
++}
++
++void mtk_eth_offload_deinit(struct mtk_eth *eth)
++{
++	if (!eth->flow_table_initialized)
++		return;
++
++	mutex_lock(&mtk_flow_offload_mutex);
++	rhashtable_free_and_destroy(&eth->flow_table, mtk_flow_offload_free,
++				    eth);
++	mutex_unlock(&mtk_flow_offload_mutex);
++
++	eth->flow_table_initialized = false;
+ }
+-- 
+2.43.0
+
