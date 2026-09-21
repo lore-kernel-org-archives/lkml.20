@@ -1,76 +1,106 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mta1.migadu.com (out-190.mta1.migadu.com [95.215.58.190])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D39463B8C
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:21:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F26466B58
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:21:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.190
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982499; cv=none; b=FEHoPVeb3vgITZ2YOKffcTyAaLuwY/nauI1O0BMonkfaKHhIn4E5HmunbdnrCpVzduaLtrC8Y4xZ9m08nZdAhun0y1NiOf+VmdV+6QpqWd7oMtyDwa0b0SeJ7QvaUUD6Kf21B4iYf9iVC38WSCFviWPK3waFzuu3XdVRem4rBc4=
+	t=1789982501; cv=none; b=elGSR8xPoW4F+qJqlZ/St/hLmPEl5+JdZShngikzneMpKT/EHvL7hjlAsFklU3xD3ir8jH/4Web4AJObW7to/vR9hsTouVWSu+6SXelJVu3bHGllb5a7mJaQAATuxB7gh+ajovU8BHZV/lUFBoJTZrSaSCNYbh7xq+9hBhbaYAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982499; c=relaxed/simple;
-	bh=EVfwCsH4i0+Sw3TDZsdu4yC6TSzMm6fMy+HhAWEl9Zk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fDcMzVaCAkNe4TPaZ4+GsVwpE3UsT4jZaSlB/uctXxXEKgXK5cixR5012fqjUsweC7+6BKxhgeN8DvWbJw3RMLO8hYKi1p5WNouNzZWaiNpaLwqjxqc5IuT60hDo0fpm3J+2vX/aADO1g4L/ruVknjHch60WSGjJbNIubHOVgdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s8OHbrTH; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789982501; c=relaxed/simple;
+	bh=deuDjh4KY/glu2qz4/gRNLs6D8kmr7YlUzYiZcAnK9k=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=uRL7Pim6FBejnf2RUWipy31DjaQK/8eJl9z0m5gJ7RgiizeGnRe5lJbRnc6hHaRogXKVEbIGbLa7kf+aJUhqGtOa68ucYj7IbEUSwencxnJOczPmEHnhBgNZsA43itf6oHWQ2j8JkBmeo1vMyOH/TXCbDTqM+8L4WOrK0W9eo5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jE26O8Ub; arc=none smtp.client-ip=95.215.58.190
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s8OHbrTH"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-39647184c73so3145375a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:21:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789982497; x=1790587297; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bs0kAyOUD2xFX0G95cOuQy2+oM0m4UkvlZ3Uv2YT+Us=;
-        b=s8OHbrTHKZa9aHKDHAxky1gbl6a3GPaPZ3AskQ60VPgHlauZTtDZJEDd030ArYEEEk
-         xUI9w9YtWlVnAs5sk5v72MhMsHFClIjA6O80ztR22RuPIcYzzq88C0MBMnmzZ2dhQX2m
-         J8JW5Vs1X9G8IhSFjkiQWlPTnqFBYw4dyQy8/E9BxSGev8gg4E8awukbyoYY8vMHPMdD
-         0V4GJ4WV1GFFzaU14nYRjGqCLpyh7eM9qRwYNIgOB25ZJA07STWx6JHWxl5Pfgh/EPWw
-         qa+WrFJgtbNFS7V0zfJ3ZvqFIPX0Qh4TlaHY9YfoiwZV+tIU74iN953NJRn4/Bn3VPew
-         ehkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789982497; x=1790587297;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bs0kAyOUD2xFX0G95cOuQy2+oM0m4UkvlZ3Uv2YT+Us=;
-        b=UTBY1/YMCf6q8rzFW+iyIN2ufIR8GUf64rEODdQN8oXxatPtI0yLmnhNOpn78D/p7K
-         0FBdXNeWOBJv+OOiwHnljMh7hCJNtYa1pATqBhgTtQplz/fLX/i5YJoG3IBk183XGLR5
-         +9yf8idyzbXTotmcWKF/a90L8jDgEFI7y5ZeLZBWf8FfUJvUMutoxB0Y92pE07dvqhX7
-         oygVn2ubwFjlotyfHhXm5Qz4de3JwOF0qIGcAMxAeEm3aOuAOm98/EH2XxM3jXcBt5b+
-         F8M9SSpywKlXEB+XDJxW+FCbTy6L+0fGPM0z5YSdp49z2YU/2NC99Lm7qhepkD/HksrL
-         WnPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxNr/3uSmeCq1lQmTHQbyXXVpKsmBH3DQEryjhQ/oMYRncvgeAbdkcy0vkv9j6hc6XquXtTgg/trFY8Nu4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nVBNHUBopTmlRx/MXaLlU9Zt2H9KrAgn5cINcLBMGQF59iH9si
-	jsXtOMCsFU9lhSLPEu/VAJ8elegNdRKYgbRxls7ISsd66YdtEiqKMCQ7
-X-Gm-Gg: AYBFou1RtJ9l9QeVqJGRzddkgMB9TFn6QY+Qn/t7hdXH3+a2mX8ufJXKGt8XbuB/XL4
-	zcRLQwFGb4CFmddW0XR3IqlFLIn9YJoCZvHuyEWIkrlefJ3mhij13FAzZQBbyYZDAGoeuP0yAUJ
-	ylNjGsNK1eddId8v6e8wj6NVJ7tohGmwzTRx+iXL5StlWN4JuziWaFkTwfJyi3S0CKMDssTJPfd
-	peeONMiBmu0PQ03paNY3Lxias9CUIBn4qF2Hz0UdCY52UsHlR7rwpgec2J9RJAV9Ecn7Qdixn3G
-	1bbwLl4nG8eMQ39z3kuJlqUijO6KBS2cKlxYI4JVikvMSRkOQSMQcvgHzAXeCCss3me/5RdJK0g
-	pFl0Hzh1iYfnfQG02YXRMWCkELoleSe1H//Tkle6kGTmB28L/krwy1RyfH2mF1Ed2REfP5l0CtW
-	nVLiuhR9DlcJ2wYhXda9P0+xRYikZ92bu4wW9B7kpR4wDylrFelWDDLiFndQ2X
-X-Received: by 2002:a17:90a:ec8c:b0:37f:e5b1:ec4b with SMTP id 98e67ed59e1d1-39e35da0512mr19230570a91.5.1789982497217;
-        Mon, 21 Sep 2026 02:21:37 -0700 (PDT)
-Received: from lgs.. ([47.82.67.168])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c331d55cfsm22540309eec.30.2026.09.21.02.21.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 02:21:36 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Luca Weiss <luca@lucaweiss.eu>,
-	linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2] leds: flash: sgm3140: fix child node reference leak
-Date: Mon, 21 Sep 2026 17:21:28 +0800
-Message-ID: <20260921092128.346375-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jE26O8Ub"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=deuDjh4KY/glu2qz4/gRNLs6D8kmr7YlUzYiZcAnK9k=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789982496; v=1; x=1790587296;
+ b=jE26O8UbS4Z3kIKMNZSQL5KFYomCRx7Qq8SpYpIyWgtqnLRcYXZ/6iH2p0gC9ofZdQmA+TYg
+ yTlOkvh1o31XXLbCCEbMBnxZD0CguEuJ4xRkXhLrIOtcFe0wtCv3zxMHfteJLONnhyBQqzztgx2
+ oe69VTlBxIT6eGKSj8L4rjZA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8d62996ef121fa9e;
+	Mon, 21 Sep 2026 09:21:36 +0000
+X-Mizu-Trace-ID: 8d62996ef121fa9e
+X-Migadu-Flow: FLOW_OUT
+From: Ye Liu <ye.liu@linux.dev>
+To: "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Marco Elver <elver@google.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Ye Liu <liuye@kylinos.cn>
+Cc: Michal Hocko <mhocko@suse.com>,
+	SJ Park <sj@kernel.org>,
+	Gregory Price <gourry@gourry.net>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	akpm@linux-foundation.org,
+	paulmck@kernel.org,
+	mingo@redhat.com,
+	rostedt@goodmis.org,
+	jpoimboe@kernel.org,
+	mic@digikod.net,
+	tglx@kernel.org,
+	david@kernel.org,
+	linmiaohe@huawei.com,
+	nao.horiguchi@gmail.com,
+	rafael@kernel.org,
+	gnoack3000@gmail.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	rcu@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	rientjes@google.com,
+	shakeel.butt@linux.dev,
+	xu.xin16@zte.com.cn,
+	chengming.zhou@linux.dev,
+	will@kernel.org,
+	boqun@kernel.org,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	joelagnelf@nvidia.com,
+	josh@joshtriplett.org,
+	urezki@gmail.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	tony.luck@intel.com,
+	reinette.chatre@intel.com,
+	x86@kernel.org,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com,
+	pavel@kernel.org,
+	lance.yang@linux.dev,
+	mhiramat@kernel.org,
+	pmladek@suse.com,
+	longman@redhat.com,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev,
+	dietmar.eggemann@arm.com,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	mark.rutland@arm.com,
+	Dave.Martin@arm.com,
+	james.morse@arm.com,
+	babu.moger@amd.com
+Subject: [PATCH v4 01/15] sched: introduce for_each_process_rculock and for_each_thread_rculock
+Date: Mon, 21 Sep 2026 17:20:47 +0800
+Message-Id: <20260921092101.89285-2-ye.liu@linux.dev>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260921092101.89285-1-ye.liu@linux.dev>
+References: <20260921092101.89285-1-ye.liu@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,68 +109,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sgm3140_probe() obtains a reference to the LED child node with
-device_get_next_child_node(), but the reference is not released after a
-successful probe.
+From: Ye Liu <liuye@kylinos.cn>
 
-The child node is also passed to devm_led_classdev_flash_register_ext().
-The LED class device stores the fwnode without taking a reference of its
-own, so the reference obtained by sgm3140_probe() must remain valid until
-the LED class device is unregistered.
+Introduce for_each_process_rculock(), for_each_thread_rculock() and
+for_each_process_thread_rculock() macros that acquire the RCU read
+lock before the iteration starts and release it when the loop is left,
+so that the RCU read-side critical section is scoped to the loop body
+instead of an externally managed rcu_read_lock()/rcu_read_unlock()
+pair.
 
-Manage the child node reference with a devm action registered before the
-LED class device. This ensures that the LED class device is unregistered
-before the child node reference is dropped, while also handling probe
-failure and device removal.
-
-Fixes: cef8ec8cbd21 ("leds: add sgm3140 driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Signed-off-by: Ye Liu <liuye@kylinos.cn>
+Acked-by: Michal Hocko <mhocko@suse.com>
+Reviewed-by: SJ Park <sj@kernel.org>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
-v2:
-  - Keep the child node reference alive until the LED class device is
-    unregistered, as pointed out by Laurent Pinchart.
-  - Manage the reference with a devm action registered before the LED
-    class device registration.
+ include/linux/sched/signal.h | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
- drivers/leds/flash/leds-sgm3140.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/leds/flash/leds-sgm3140.c b/drivers/leds/flash/leds-sgm3140.c
-index dc6840357370..973676b1dbb1 100644
---- a/drivers/leds/flash/leds-sgm3140.c
-+++ b/drivers/leds/flash/leds-sgm3140.c
-@@ -182,6 +182,11 @@ static void sgm3140_init_v4l2_flash_config(struct sgm3140 *priv,
- }
- #endif
+diff --git a/include/linux/sched/signal.h b/include/linux/sched/signal.h
+index 584ae88b435e..ea23c7e9db33 100644
+--- a/include/linux/sched/signal.h
++++ b/include/linux/sched/signal.h
+@@ -2,6 +2,7 @@
+ #ifndef _LINUX_SCHED_SIGNAL_H
+ #define _LINUX_SCHED_SIGNAL_H
  
-+static void sgm3140_fwnode_put(void *data)
-+{
-+	fwnode_handle_put(data);
-+}
++#include <linux/cleanup.h>
+ #include <linux/rculist.h>
+ #include <linux/signal.h>
+ #include <linux/sched.h>
+@@ -663,6 +664,31 @@ extern bool current_is_single_threaded(void);
+ #define for_each_process_thread(p, t)	\
+ 	for_each_process(p) for_each_thread(p, t)
+ 
++/*
++ * Variants of for_each_process(), for_each_thread() and
++ * for_each_process_thread() that automatically acquire and release the
++ * RCU read lock via scoped_guard(rcu).  The lock is held for the
++ * duration of the loop and released on exit, including via break,
++ * goto, or return.
++ */
++#define for_each_process_rculock(p) \
++	scoped_guard(rcu) \
++		for (p = &init_task ; (p = next_task(p)) != &init_task ; )
 +
- static int sgm3140_probe(struct platform_device *pdev)
- {
- 	struct sgm3140 *priv;
-@@ -220,6 +225,10 @@ static int sgm3140_probe(struct platform_device *pdev)
- 			"No fwnode child node found for connected LED.\n");
- 		return -EINVAL;
- 	}
-+	ret = devm_add_action_or_reset(&pdev->dev, sgm3140_fwnode_put,
-+				       child_node);
-+	if (ret)
-+		return ret;
- 
- 	ret = fwnode_property_read_u32(child_node, "flash-max-timeout-us",
- 				       &priv->max_timeout);
-@@ -276,7 +285,6 @@ static int sgm3140_probe(struct platform_device *pdev)
- 	return ret;
- 
- err:
--	fwnode_handle_put(child_node);
- 	return ret;
- }
++#define for_each_thread_rculock(p, t) \
++	scoped_guard(rcu) \
++		__for_each_thread((p)->signal, t)
++
++/*
++ * Double loop: 'break' only exits the inner for_each_thread() loop.
++ * Use 'goto' to exit both loops; the RCU read lock is released
++ * automatically when the scoped_guard scope is left.
++ */
++#define for_each_process_thread_rculock(p, t) \
++	scoped_guard(rcu) \
++		for_each_process(p) \
++			for_each_thread(p, t)
++
+ typedef int (*proc_visitor)(struct task_struct *p, void *data);
+ void walk_process_tree(struct task_struct *top, proc_visitor, void *);
  
 -- 
-2.43.0
+2.25.1
 
