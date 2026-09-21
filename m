@@ -1,145 +1,211 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f36.google.com (mail-yx2-f36.google.com [74.125.224.164])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F83227EA4
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:08:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789996134; cv=pass; b=XLZiLQ8MCG2RUlVqkjSY1rmJBFImJLX2UvZMSb85WSGHDzcakWCxlH2TMFqPyL7B8IzRztemBK0R+ybTtCeYcg52gxSrgBIwyhnki5hOzxyaa1hNufg7178K4VUbqQ8q9Sw8B8yNd72h4tOoAz6SZOGfwV0JF7Ux21XwUD591Yo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789996134; c=relaxed/simple;
-	bh=+hw0ixHejMxgxIBfXicypL5GmAH4YPvK3kWjtYiI4pM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=U13Dz4zVd2q/lWMfF8fHBFMxydSws+mPaOhn3hK5AxdPF4Ipt+WZYd4ILGFM+oT5XVmB+TndSSmjdxnlyU2pnq8FL0+of+A2q4daM3qfTm6JCcKMetXN4q2oXJ0PXVNCdfSDKArvu8jPsQpPywjf7wwTvjGeTW+LMIZZDHP+udk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dmm5isWz; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=aNZblGnJ; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28F849B5B7
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:09:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.164
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789996144; cv=none; b=ZnLIjJ+cyLe9hnivvvt3HLkcDled/aXpBF9DW9t9oCHtZ8rs+0qCv87Rk0UXpUiw3/uiCGHya/otqgau8kn7x29419s+lfvYOChZGnWENbisaQIx/MWtnHOrT/T3z4P6BFDf49mobIMykuDb+7NgHtiB4nlJMX+FKK+NWl8JRJI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789996144; c=relaxed/simple;
+	bh=7iRzAcHHARKyQ+ATaMDpW4DruCrP6jplXNxnuj7OqwM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WW3twCjgUv3cg+6eMoBGPKMQb5u39H6NKGV8eaJmxF2B7AncR+nC3GbDRV2SeAso3HjfIaL2xOWoIMd1qcZTeSThkEcprKMgAql2SO2iw0e8GZUd8PTZJg/sOuS/X/gIm+SrZBOcxiqTStM7S4l0b02A9kZTiRqAF8t79rGQXdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=OVbP23qH; arc=none smtp.client-ip=74.125.224.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dmm5isWz";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="aNZblGnJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789996132;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+hw0ixHejMxgxIBfXicypL5GmAH4YPvK3kWjtYiI4pM=;
-	b=dmm5isWzj5bcIc2JUh71jeBGf3N6hBodlAt9LnTVPdR5UsoYw2A1XLVcgYCbo7Oy009xyW
-	4O+73/XqW5/JLRPKJQZbwYnMEmVRybL139ejUBdKpSDf1Lylo9qGVlJFlK/KFcu3jbs07H
-	s0zib9tP9CSgraM+trcEMIypPx8Yctg=
-Received: from mail-lj1-f197.google.com (mail-lj1-f197.google.com
- [209.85.208.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-376-2LWTqjAWOhiNgnl_BbwyaA-1; Mon, 21 Sep 2026 09:08:50 -0400
-X-MC-Unique: 2LWTqjAWOhiNgnl_BbwyaA-1
-X-Mimecast-MFC-AGG-ID: 2LWTqjAWOhiNgnl_BbwyaA_1789996129
-Received: by mail-lj1-f197.google.com with SMTP id 38308e7fff4ca-3a5d09935b0so15552221fa.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:08:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789996129; cv=none;
-        d=google.com; s=arc-20260327;
-        b=alxiRYZi8LY3jHpnwyGTtS/bZkNyYx/oQQuDbFukKcJMabcOwBuanD1en5RWRcge8n
-         y9JZ2S6+WCEQQ+3iUMZPNmpRoQdjC2wvhM8ZZmu6ZLJB/dsxVLI0UZUeC3+WthjUkQ/4
-         dpvHADa08nV8o0400ltIAFEeGazxSUB+GNADQ23Q5CmicDKKi6ryrGTyuNN5qOBri2nn
-         1TsTtPaiegvUelwod/mM/8Wa7txDyVcakXu+UfrmT1Md3jjosAt+0LKrqMa8iAqF072a
-         gs6tuEQabJV3oTQ7sD8taHrvl/i1GRs8MUyZMp/IZ3TXyp/FSoUTcK+w6O9azuD7SceA
-         85cA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+hw0ixHejMxgxIBfXicypL5GmAH4YPvK3kWjtYiI4pM=;
-        fh=CRyToFDQYpKcIfDpQz71IZoSkZhN7b63ePBJKag1O3Q=;
-        b=Y9zpKUvUcgKIfu9den9XE6/BTVF/M938T/fvblWXwaYobPKVUnVvYq2+mdKVwS34RB
-         MTwRgcTznaK/NowF2J73SUdotvnra3ztY89dLYh+Vjfpy9139pz0FaDEVOmq0h8AeiYu
-         qL9YcjUsfXpZ9ULcQ+GktWaiQh3r+50ePLmbuDOv9MKWbTSe+TCxhmlI4GRSBN0Hafjj
-         S51bVow88Fh7z+eG+8h7LbcLUIUe9fKLKeSr/GzrfxSAs7nfA/CAE/ct0AjB8wteCYGu
-         jiz61A1FDjbJo3VSvQ7pC0JvZ24ebg5zWyWE1qwGj7mppxp93vl0sB/d8+zDwWrxc8g5
-         A/ZQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="OVbP23qH"
+Received: by mail-yx2-f36.google.com with SMTP id 956f58d0204a3-66e4aaf2ecfso2366077d50.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:09:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789996129; x=1790600929; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+hw0ixHejMxgxIBfXicypL5GmAH4YPvK3kWjtYiI4pM=;
-        b=aNZblGnJvUVLe5azh7ue5oEYNMpvB9zP9Jg8jo24pdfWvvE+7HzpwwLUc6iaytHHb1
-         WBNR+L5nqoSRDIylugMO1Btg4TLZhrJHK1akFb9+n/zNdmsHhui3T0pelQBnln5FXRH1
-         ddGRmrSmb7X6fDqJRZxblvb7sIcAvtGbnAQQebU92w2SgP/Z/C8ET/geLvFsv/F3DTC1
-         E3AAcUi/nowcqdpT4WAAdGAZnJohtesdETXsu8kYWuIUcQX5i+Q1Ym0slzQdCZcDQZe2
-         JeEJmooEk/GoMO4WEAG5jAuaU0vKcEEmnx/8200XHmeHDqp27+Hjr56Cx7Arsevt2R4H
-         I32g==
+        d=ziepe.ca; s=google; t=1789996141; x=1790600941; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/I4CnabOFJ3V+cBV+khghf4ltJkhcHX6gZAKyxfIiuU=;
+        b=OVbP23qHxpA1f0E25xNKG0Utb4qY1pci7lNk1dz9kSCfiFs84khz7O89QkedKxGdF/
+         0BgGqFlTDcjyoq1EhB62Hs1JbrYZYD8S5vHBJOhauPNXuaX1nb3pv3wtsBQTIyaxKlHH
+         W5RPLjfQVDytPLMyAVNbHYDlUMwBER/D7KO1XAs4nvgPFc7AW8QN2S5fU7XQBgbrQklV
+         mea3UtzB/mAP5ERVg1OpKwyibQEtCEHIyAnlL9kblIObxvClWKjATxcupqTIfL8HDbgJ
+         DArpRHVstouE13CeyOaGnHw7CHAQLXfCxKjIZToSseuODn/RSEXWdw31uTLaznBIBhdH
+         ujIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789996129; x=1790600929;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+hw0ixHejMxgxIBfXicypL5GmAH4YPvK3kWjtYiI4pM=;
-        b=ba/aKsOv/Jzh0XaJjOOaD2hGcrr9taJXifG+qB2OXGSRmwLywk/q50x/NZG0kAPuaw
-         cqeE3ogeXIaUx8hc5KHaaspVpU/wYLEbtJtNG/vagasID7LyGBjVlIqYtwOE5Tz4kPl6
-         t0ZJZFCBz5aiHmfLWiU9ykSUWUYl1pv44vpiE1XUVYS3j6ya+bcY1qwfi8S/7Jm7QJ5D
-         I8BKgJKzaesl/gZ90dH2vDQh8/2V/MrvhPJWDYZYUumumpf7Gbj3gvqN7M3UkHvXR4Zf
-         zbJtBykZmrpwIv6PDzmBrXNj2t9Q3m+BgYjHAzCC9Vdf83450Y9dEJ4l4KDNm+5xz47g
-         X/3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzzPebvBSjXuE7EAYmVDw3NCAB8wXX6DLh7wTFcg0tF/XfBGWq6oRz8wuZpl7PTEu/v9GIvtGmOlKlYU/E=@vger.kernel.org
-X-Gm-Message-State: AFuF++lpiYdkvuUpyk7HUCh4iu9wRg95Q+Vh5IYFakZY26UjVtM6TISY
-	LE+jCUgXqxbPsKqPA6GQZzkHbIZLYW9fx2mCmOUtvmN60sVh6ZH59BpJGuksw6JcRv8hAJuQpC3
-	WqXKnEAwvgP5M3Q2fSzoxE2HL9bKrBjmRxJHvi2Wz+elGDKH1WVHxxU08m/lpwh/9BCong95Rjx
-	30XbBPrviXcQ9MON3oCVgC7mmChC4nFRGTO6dPq3f4
-X-Gm-Gg: AYBFou0RH/ETYbQp1ppJsIggSmdgSRppjIYrec3kIeDEhYhRE5AkSyidCTd2u9888x3
-	6wDwJ49hEzFyvXy1bwZLIv5TLGK9GmDjmuJWgKcnXl7paiMPRqVldJWjo0y2q2aOVOA4FSJToOn
-	7Q7KfyloIfrzasv2/A8kEORMSwbsI7xxnNXqKbRs54TGVf5kPuSdqvPMoe
-X-Received: by 2002:a2e:bc12:0:b0:3a5:e541:4205 with SMTP id 38308e7fff4ca-3a5fbbc2f6bmr23494921fa.0.1789996128896;
-        Mon, 21 Sep 2026 06:08:48 -0700 (PDT)
-X-Received: by 2002:a2e:bc12:0:b0:3a5:e541:4205 with SMTP id
- 38308e7fff4ca-3a5fbbc2f6bmr23494821fa.0.1789996128490; Mon, 21 Sep 2026
- 06:08:48 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789996141; x=1790600941;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/I4CnabOFJ3V+cBV+khghf4ltJkhcHX6gZAKyxfIiuU=;
+        b=0brMdyO/dti0Cme0skLJiYKkSTr7XdLOsQU+2SiUErTZW+Zu9h2Q/i1OeXXFWd7WY3
+         8jCWAQy/GN0tA2AHZPj25h+xNcKeK6ZqKlg2u00G1GeWu0aKakT4pr7F/iFCh7WVU8ez
+         yIzWUvMih+p4zh6YZlox7zIHLN7VnxoY/suaYKEgYWStSgCUzRT73f4iBBSV0hC5EJYN
+         +835HxMjUPFQE/wSKoGC9ujJ3bzm57eimpzOuVYRSoqgEebU2cH4K1nutghxC8x1UXVw
+         30F2DJDHeTe2SODunc/miGb1TPEUPUcrpmnzzlZ6SbU1oGrjBlq8s1ABeBy2mZe5eKIz
+         Y0fw==
+X-Forwarded-Encrypted: i=1; AKwUvBztiPCKuRRKp/fA0NpJzRV4J57qPrp/4KAu2PBRxTsaPm6VySx+60dHsja18U9vuFKnn9yWsx2xVqHWqo4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCKkK/+v4DJH9/fVUKtZD/CoIlK1OxUYrVfC8I/CUFxuMK2pJk
+	X52Js8jwCcVK3KTnGRVofygvh8KmCzUB3EDlr0QsqrmovjV398tn2QxU+OMO38aAWp8=
+X-Gm-Gg: AYBFou0HXTnZ5HJNQypynBzFfpUsZ4hYALOO09ABqqNKyQgqaxNSlnFmmf1Fh6+p1lR
+	4z7SknaVuTWtchgH9MkjFVMLP+cHRrxRfqwuuLFLFzGAnrka3sHbND7130Pgh2oM8oV3qc+Fjq0
+	zI0eFdJ1dNGEZBYMMJ6gHaqmQXjxWq+o+865qkU/zKnGAyQbe6cW/uAMH+Ua6tR26XHCVKMK5iY
+	4t+ocze+PLqs6bTjH6Rm0Fzwp52fjPJJiFOtAQK6l6zJAexA8fY3v4AYW54Knkmwf/WJ3tloLzu
+	ptzEhopgUeud00oL4hL0p9eySb56m+wivSPR0ynJexV3Hgqp0rn8ljdPDgfR3g3mFLoVlSUnJRW
+	NliLSXWPqb8vUTxCAq7nhGjRsEHjlBsBpu7G65ZOnA9EYjTx22J4+pEzZ8/ztADExfUzCe3Nu06
+	J7JJHx4wcoIUMn19NfEFv7Om+nExm3tBgPRwSBw8EHZerdG/VkCGFHJD4xigitaEJCpjPAOKyam
+	e14+8aJEIpNex3hLVBZi4QfrHU3+xufeY30HDFjUlxl5PeUeT8RXspG
+X-Received: by 2002:a05:690e:11ca:b0:672:a52c:db25 with SMTP id 956f58d0204a3-672a52ce30bmr1843524d50.109.1789996140490;
+        Mon, 21 Sep 2026 06:09:00 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91260aa1db7sm67720106d6.44.2026.09.21.06.08.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 06:08:59 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x8dlS-00000006Jlj-41LR;
+	Mon, 21 Sep 2026 10:08:58 -0300
+Date: Mon, 21 Sep 2026 10:08:58 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Christoph Hellwig <hch@lst.de>, Leon Romanovsky <leon@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	iommu@lists.linux.dev, Tushar Dave <tdave@nvidia.com>,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+	kvm@vger.kernel.org
+Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
+ direct peer-to-peer route
+Message-ID: <20260921130858.GO11599@ziepe.ca>
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
+ <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
+ <20260918121500.GV13683@unreal>
+ <b517070d0b9236b03962fcba649faffcacda23eb.camel@linux.intel.com>
+ <20260918170524.GH11599@ziepe.ca>
+ <9656f2f9-2e39-4007-b065-3b763b53c6de@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260919173747.327963-1-ngocthang2710.1999@gmail.com>
-In-Reply-To: <20260919173747.327963-1-ngocthang2710.1999@gmail.com>
-From: Alexander Aring <aahringo@redhat.com>
-Date: Mon, 21 Sep 2026 09:08:37 -0400
-X-Gm-Features: AcwNN1VvpfHNYEg31n2yNqww7xoCQjLLg-_zsMOr5l7COl7EOAERHrmvGU6Y8Y8
-Message-ID: <CAK-6q+grbgqxyjX6-xpuXFTgNKShJmy=oF_-6qyYUZ88OvCiPw@mail.gmail.com>
-Subject: Re: [PATCH] dlm: make lockspace join wait killable
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: David Teigland <teigland@redhat.com>, gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	syzbot+b114bbe890d76037877c@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9656f2f9-2e39-4007-b065-3b763b53c6de@amd.com>
 
-Hi,
+On Mon, Sep 21, 2026 at 08:43:49AM +0200, Christian König wrote:
+> On 9/18/26 19:05, Jason Gunthorpe wrote:
+> > On Fri, Sep 18, 2026 at 03:42:28PM +0200, Thomas Hellström wrote:
+> >>
+> >> 1) Xe attachment check if pci_p2pdma_distance() returns OK for the
+> >> path. Then Xe always sets up dma-addresses using dma_map_resource(). 
+> > 
+> > Open coding pci_p2pdma_distance() in drivers is a hack. Using
+> > dma_map_resource() like this was never "allowed".
+> > 
+> > We've fixed things so these hacks are not needed, the drivers need to
+> > move over to things like dma_buf_phys_vec_to_sgt() and the hmm helpers
+> > to use the DMA API correctly.
+> 
+> That is a completely broken approach as well since it limits the
+> exported resources to addresses the CPU can reach.
 
-On Sat, Sep 19, 2026 at 1:38=E2=80=AFPM Nguyen Ngoc Thang
-<ngocthang2710.1999@gmail.com> wrote:
->
-> do_uevent() sleeps uninterruptibly until dlm_controld answers the
-> ONLINE uevent via sysfs. If the daemon is absent or stuck, a task
-> creating a lockspace through /dev/dlm-control blocks forever in D
-> state, cannot be killed and trips the hung task detector.
->
-> Use wait_event_killable() for the join event and return the error to
-> new_lockspace(), which already unwinds through out_recoverd. The
-> leave path is left alone as it must not skip teardown.
->
-> Reported-by: syzbot+b114bbe890d76037877c@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3Db114bbe890d76037877c
-> Fixes: e7fd41792fc0 ("[DLM] The core of the DLM for GFS2/CLVM")
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> ---
-> Problem: syzbot reports "INFO: task hung in do_uevent"
-> (https://syzkaller.appspot.com/bug?extid=3Db114bbe890d76037877c).
->
+Yes, of course it does. The DMA API only works on phy_addr_t. If you
+have a struct p2pdma_provider * then you have a phys_addr_t for it.
 
-I can see that syzkaller views this as a problem but syzkaller doesn't
-understand how the cluster world works. If dlm_controld dies it is
-game over for us, in this case the cluster manager should fence the
-node.
+If the exporter knows it is working with a MMIO mapping on a PCI
+device it gets to acquire a p2pdma_provider and use the helper.
 
-- Alex
+None of this is suposed to solve your "resources the CPU cannot reach"
+problem, that has nothing to do with DMA API or P2P. It is not broken
+just because it doesn't solve every problem.
 
+> Christoph Hellwig is right that drivers should never use that stuff
+> directly, not even through that dma_buf_phys_vec_to_sgt() function.
+
+Hellwig's point was that the subsystem needs a mapping helper that
+goes from the subsystem address representation to the HW
+representation and hides these details from the drivers.
+
+Look at what he built in nvme around biovec.
+
+The dma_buf_phys_vec_to_sgt() is the dmabuf version of the same idea,
+the subystem provides the mapping helper. We can try to do better, but
+better is not making the exporters touch the mapping algorithm.
+
+Ultimately I want to see something in lib/ handle this with a
+non-scatterlist datastructure, but there is a huge gulf between where
+dmabuf is now and it being able to work with a non-scatterlist
+datastructure.
+
+Look, it is easy to complain you don't like how it looks, but this
+stuff is hard there are lots of competing concerns, if you have a
+better idea now is a good time to present it. Maybe if you look
+closely you will appreciate how much work has gone into even getting
+things this far.
+
+> >> It seems to me that a pci-device settable flag "ATS always enabled"
+> >> should be enough to fix both issues?
+> > 
+> > It should be be per-mapping to support the NIC workflow that isn't a
+> > global operation.
+> 
+> I just realized what you guys are doing and I'm not sure if the
+> Linux PCI subsystem should support such hacks at all.
+
+I don't know how to respond to that. It is spec complaint, it is
+shipping in enormous volumes, of course Linux needs to support the HW
+that exists.
+
+> Basically from the point of view of the TA the NIC has ATS enabled
+> all the time, but has a per request option to use translated
+> addresses directly without previously translating and caching them
+> using ATS, correct?
+
+Yep. Very few devices in the world can use ATS for every single
+operation. Many have this split operating model. Some even only use
+ATS for DMA flows that are faultable.
+
+Mostly the OS can't tell what the device is doing and doesn't
+care. The P2P routing is the main issue and we have hacked around it
+in our systems till now. Leon is trying to fix it. Thomas needs it
+fixed too for Xe. So what's the issue here?
+
+DMABUF needs to learn how to do interconnect specific behaviors. PCI
+is an interconnect, it has lots and lots of crazy rules. An
+importer/exporter that chooses to use PCI for their DMA should have a
+way to exchange PCI specific information.
+
+So should UALink and all the other zoo of options we have now. It
+cannot be completely generic and meet everyones needs.
+
+Can we focus on that instead of arguing if the PCI craziness should
+exist or not?
+
+> If yes than that is extremely questionable behavior, I'm not sure if
+> that is covered by the PCIe spec.
+
+Spec doesn't say anything about when a device has to translated vs
+untranslated. The ATS flags only say translated is allowed to be used.
+
+> ATS is meant to be an optimization which moves the TLB from the root
+> complex (TA) into the devices at the cost of TLB invalidation
+> complexity. But what you do here is abusing that functionality as
+> far as I can see.
+
+ATS is for alot more than that, and there is no abuse here.
+
+Jason
