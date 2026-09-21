@@ -1,101 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2910451DDE3;
-	Mon, 21 Sep 2026 22:26:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29B951A13B
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:26:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790029577; cv=none; b=I85EiRuUZ1rf025TOHUq4Vds5g2DnMIyA67vH/3EpKXUeJoN8YJVLbIvTgMmEWcxWJ9YF86dffQ7QJWP5ZLoMxiz1QZY6/VL9XY/g6MVziGTl23Ri8y+YoYRIrksCMQkubH+TEQusXvpC28ghjTKUvGpeVJMgLIG9092cnLr7Ps=
+	t=1790029577; cv=none; b=hmPgS71OCkCW7C/QwbkJk4MKR6hkQHDHfUvMGGng99BZcAX/F2wqMrt2qaDYEB3IzO55Wte7KmT4DGIbdcpmkzRgZoeSlLl7rR/esRRpMXm5oM+l9kAWJ2+aaa/7jtFHH1Kd57xACJ3oQJ9sGNDINBvlFKXrkmqLNe+4FoqMEak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790029577; c=relaxed/simple;
-	bh=Yv5tl/9xomBQKEsb3GwoVPia40mBIRfiEi6dJ9H/VOE=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=vANnv/kbGe19whiliB1AuTkZVAjQekkHWHC3e4+q6bkf2AkTatYrLRpl5oIjdl9M44ceE66iekQhGX4L/JTqh07OROz+UQir2ZmeO7az5IVAUSdxMk5AS3iRm3KWp7uZLumNbUb8LjAY6S0D1RpoSW4ljH/WufZUWJPtp0bZ1FU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KzZ7IdgK; arc=none smtp.client-ip=100.103.45.18
+	bh=aBLxqyZQhOgf3TAzDDSInDb/QDQQM1Qyy+q82xgwgH4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Vx4wmgyyxbFecp8G7jsKoiL0nq7pGRzI5yd8PaaewvOX8gG0q5mjFcrH0JzJNf2CPDCmebWAEGoHimvVP+qd8BDmbpmClN5h5YuIGlRsKYhcF1rV9W57xul8msm9vmvrIh3X/7TW2/OtLGpsGRDaWhrbfw+RaCUiOUhxB2t9M1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=DUt7jjus; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KzZ7IdgK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 832F21F000FF;
-	Mon, 21 Sep 2026 22:26:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790029575;
-	bh=j30NcFiL36gEYC0Nk9dFYUMM2g+3L2gHkR4x76TqSgA=;
-	h=From:Subject:Date:To:Cc;
-	b=KzZ7IdgKAvuGG8wWDT0/Iq9OVRT0kwvpMcwJnQyH1oUb6D3MuIKu1nr+z7N4gymuK
-	 cuvy1BJN/55/K5o5fY2vVcMYS8KLM1NmJ+lD7WTEzC1lWi5ElCExYWyR0IFZ5RYVfB
-	 6G38aHaOeKJLRyMVNSEJwcQRsjJJbejOl7OjSHK18SxN05SE3xkI0Mu03fWqvYeWw0
-	 1cpUsk2GFXJ/8nG/BV0g1jI/Dt0Kt4uE9Zwv3GnfW8Sn2L9bGb023gb1LoVAgG6nhx
-	 NkUVE9/skAsqP5tKiqHm04q9D7I5GiTX2+Bp8SZ3WDeY8tdaUMdj/Jk/B8GYU4cLsw
-	 XntT1e+PrUCSw==
-From: Michael Grzeschik <mgr@kernel.org>
-Subject: [PATCH 0/7] usb9pfs: stable fixes
-Date: Tue, 22 Sep 2026 00:25:53 +0200
-Message-Id: <20260922-usb9pfsfixes-v1-0-9d8dcc52904c@kernel.org>
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="DUt7jjus"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939109f067eso332726085a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:26:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=openai.com; s=google; t=1790029574; x=1790634374; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kl4CFPtvedlEQovzhe8+gmEaMeiG5otby+pF0tKzS3A=;
+        b=DUt7jjusJzKHbyHkfJrLE8Kitpfl3IV+gffh0uu/8x1cFwfeSXTXdtGvLT72cK6IO9
+         +gsAq8lp+dFKdx+3S0E7zSs6txQ2TJfkmyDxSTKw3IJXTzDh3fTOrnbPkytD9Bw5YGxj
+         /0QwtgwPirrsDRldQg89E7vuy+XmzWYoq9nss=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790029574; x=1790634374;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kl4CFPtvedlEQovzhe8+gmEaMeiG5otby+pF0tKzS3A=;
+        b=jDY4gBXrgsM7JdyNhr5hDsYhQLwKHdZlNttNCW8bD6LRQBL/QdJmFF92BFWrBlrxmA
+         /uw/u36IDEKELItR1s50YvHBr9MN+38dZNF+mYlQKXLPW0qbvOVz7304ka/mmMrEORJJ
+         o+6Edcrg+7F1CFZxiceWNTh5O6wguKAM42vscaDVei90Nd5Q3dnJ4lgTGS/TJW8OYzBM
+         DYLxmDp/VUr7qsU2Lq7GJvthjZCEjiEl6xNXQQTDJ1jlMEH66BIimtv8O3KdUptjCH+Q
+         6hn4o3qbkMdmWn0MZX+GbAnhQjIpzBJvGpT9ReTiBo0oksMhfEc7Nlz6EBo1Hr/Z7V6Q
+         tK6A==
+X-Forwarded-Encrypted: i=1; AKwUvBwYqDpdsmfhH+0RUO3DRrYKOI0B1BQ5B7pbCKn0zx8Ng96DY7nGPJey44HCsDYNSpCNgch6P0UnDVTVp3A=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQVSGfg4aDo9c5tmDmRaghzJ4jSaUqcdfRFjx+QmNbgJuLRi1e
+	jVeRdztz5qmDZ0Y9EXh7fmjx+lB8oeA6GZi418Wvv96dYyB/lmF3GNwQ21X2Dph90As=
+X-Gm-Gg: AYBFou0UBSIFrksfjLHYMR4Q/G4F3Zw2eT0aZbCMPLGvJLHIyFxxigSgo1e69IRwuwu
+	ryaJkFkbSaO+5DjYwPCaUZ+uG8GIeg2Oa1RxvRYJBEaQLG2nYJZhJj7HK9sKtvmGQS9pigzlAC2
+	4C1PVcxkjcjhSa1ardBAuD0cdZwb6KNM9Sne0jJJKR6OYYras3AyojnYZUW8fqyfLngNCx9/aHp
+	8/JUCbxkRLmQH17Y8+RNGS2ksHOr2sBR4yUW5U0J4kOe8H1wDC/3dLmCIeLIhgQc6t9nKUwlD54
+	FLp6Pt5NRVDT6P69BcoYL1aiGz8ow+avzU6fLGu0J7mn7RNcJoUnIrZCKIklClYwNV2bHTM8zgj
+	TY4WaYCNWunvu1HKTda+UY+X4d2T//S25FqaF5K7zFDJMetBqJtGwdf/4itfjezaQ1z9uHOMeOv
+	KOOBnchm79VJv1bi5x3L9Qp1axGLBp/37EHwGLGad839aVZfcnIFySJ9rv+SMEN5HGlQCCNCTI2
+	o+M1BitpYNVaDfVmd1bf4gzjpnIDNo3QQ25lEiAuBnoGJZS48d0UFkjh5O9AG0K37GxlMEIO1s=
+X-Received: by 2002:a05:620a:6f0a:b0:93b:c350:a31e with SMTP id af79cd13be357-93c15e9c840mr255119485a.38.1790029574432;
+        Mon, 21 Sep 2026 15:26:14 -0700 (PDT)
+Received: from com-94485.corp.openai.org ([199.47.143.14])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c19bc6f4bsm30675085a.44.2026.09.21.15.26.12
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 21 Sep 2026 15:26:14 -0700 (PDT)
+From: Jeff Jo <jeffjo@openai.com>
+To: netdev@vger.kernel.org
+Cc: edumazet@google.com,
+	ncardwell@google.com,
+	kuniyu@google.com,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	shuah@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH net 0/2] tcp: correct timestamp echo for accepted old ACKs
+Date: Mon, 21 Sep 2026 15:26:10 -0700
+Message-ID: <20260921222609.50824-4-jeffjo@openai.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBCF4avIrDVhJNK6ilhoO2UskA4iEXdXL
- L+8/O8Cocgk0GQXRDpYeJkTyjwDN/bzQIp9MmCBdWEQ1S7WrEECnySKKmu911gGpyEla6RvSEX
- b/ZbdTuS29wPu+wERSPSXcAAAAA==
-X-Change-ID: 20260922-usb9pfsfixes-e3bbdd821fc8
-To: Eric Van Hensbergen <ericvh@kernel.org>, 
- Latchesar Ionkov <lucho@ionkov.net>, 
- Dominique Martinet <asmadeus@codewreck.org>, 
- Christian Schoenebeck <linux_oss@crudebyte.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: v9fs@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Michael Grzeschik <mgr@kernel.org>, stable@vger.kernel.org, 
- Hyungjung Joo <jhj140711@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1201; i=mgr@kernel.org;
- h=from:subject:message-id; bh=Yv5tl/9xomBQKEsb3GwoVPia40mBIRfiEi6dJ9H/VOE=;
- b=owEBbQKS/ZANAwAKAb9pWET5cfSrAcsmYgBqsa8D5L10QTOdW4gvEifvqaHSNif3qk81kcFmf
- W880qAAhG6JAjMEAAEKAB0WIQQV2+2Fpbqd6fvv0Gi/aVhE+XH0qwUCarGvAwAKCRC/aVhE+XH0
- q3bmEACkJEgBpHkrr70FxdDZ2yfF7EwcdnNSC+7YqOmQbeIZyWkF0p6DXSX/6PrHW+xoAm7QiV7
- vaaAfwVPY3EeZb2LTn9VsJyEryDvmCMkDTRvuUKQQIBdYm93nP3NIdfMB2lM0SYqGBf2VuX+xNb
- c+G0gKiBhjTHq93dpD1V/9s98LpYH0U4gEXcMWpaQkYiHsAQN/NfCWn2DIAIhkVgsT6aEYblI1m
- z1m5pHlGf3fyArP9yPj6mBuDrYb1pdlzz3PsLQuuk2GJH1buL6DCBcIhmrWORLYTVEuUzGtl8Pi
- fJ+X56+lId6eCIrKd94gmpyfROwLYAtDeOjTHlgleONsHKR4l3e4/lq2i7LNT27v8Ix1MOqhVPU
- oRYyWSu+OQM8rTeUt2ZrCr6RbiSX6zell+CZL5ts6WNX/tuco5oTlZql5kfs/pKLUu2uAG/X0wa
- F2s6A7tZC2FSze8aLnul/IXfRbAbVwnBng0k8FnTe7i9VYD+dGWA4i8dfwlnWXTo10vS0OoSmjN
- BRVP/46IOxiqkJJOLM6xrjVighGQ2z/pwePtjmTJ5jZ2kHwGbi7+rpf37naeQicMtCovXJR4RFM
- JCXCKlTR+bnOZZIBFrAVcOS3WyavcTnSHcX2+G2jhwhXQQwyIbgBlmIf5ptvQWpPVcQ0YHuvjLw
- qroMSVbO0ZSSI2Q==
-X-Developer-Key: i=mgr@kernel.org; a=openpgp;
- fpr=957BC452CE953D7EA60CF4FC0BE9E3157A1E2C64
+Content-Transfer-Encoding: 8bit
 
-This is a breakout series with some additional fixes of the
-first series of fixes I did sent out earlier this year.
+Linux can acknowledge newly received data while echoing an outdated
+TCP timestamp. This happens when a reordered packet fills a receive gap
+but carries an older acknowledgment for traffic in the other direction.
+If the sender uses this echo to measure round-trip time after a long idle
+period, the stale timestamp can inflate its estimate and slow its sending.
 
-https://lore.kernel.org/all/20260319-9pfixes-v1-0-c977a7433185@pengutronix.de/
+In this example, S sends the reordered data and R is the Linux receiver
+being patched. All packets shown belong to the same TCP connection, with
+overlapping requests in both directions. Each illustrated request fits in
+one TCP packet; request/response names describe application
+messages, while ACK numbers acknowledge TCP bytes. The numbers are
+illustrative: TS and echo use S's millisecond clock, and byte numbers are
+relative to the first post-idle byte in each direction. ACK=N acknowledges
+bytes before N.
 
-It only addresses the stability of the driver and left out
-the interface rework. Therefor I put all changes into a new
-series beginning as v1.
+  Before idle:
+    S -> R: sender request 1, TS=999
+    R -> S: response to sender request 1, echo=999
+    S -> R: TCP ACK, TS=1000             (R saves timestamp 1000)
 
-Signed-off-by: Michael Grzeschik <mgr@kernel.org>
----
-Hyungjung Joo (1):
-      net/9p/usbg: clear stale client pointer on close
+                   ... 300 seconds idle ...
 
-Michael Grzeschik (6):
-      net/9p/usbg: also disable endpoints on p9_usbg_close
-      net/9p/usbg: set client to Disconnected on usb9pfs_disable
-      net/9p/usbg: always reset completion when disconnecting
-      net/9p/usbg: call disable_usb9pfs() from usb9pfs_disable()
-      net/9p/usbg: fix out_req buffer leak in disable_usb9pfs
-      net/9p/usbg: remove bogus context initialization in alloc_requests
+  After idle (byte ranges include both ends):
+    S -> R: sender request 2, bytes 1-17, ACK=1, TS=301000
+            (delayed in the network)
+    R -> S: receiver request 1, bytes 1-17, ACK=1
+            (initiated by R while sender request 2 is still in flight)
+    S -> R: sender request 3, bytes 18-34, ACK=18, TS=301005
+            (arrives before sender request 2)
+    R -> S: TCP ACK=1, SACK for sender request 3, echo=1000
+    S -> R: original sender request 2 arrives, still ACK=1, TS=301000
+    R -> S: TCP ACK=35, echo=1000 (bug) or echo=301000 (fixed)
 
- net/9p/trans_usbg.c | 80 +++++++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 59 insertions(+), 21 deletions(-)
----
-base-commit: a170f3dfda02b6ab58bcd1caa1ac5421323a9b45
-change-id: 20260922-usb9pfsfixes-e3bbdd821fc8
+R initiates receiver request 1 while sender request 2 is still in flight;
+its ACK=1 means it has not received sender request 2. S receives R's
+request before sending sender request 3, so that packet carries ACK=18.
+Sender request 3 reaches R first, making sender request 2's ACK=1 old.
+The earlier ACK with SACK correctly echoes 1000 while the gap is open.
+The bug is retaining 1000 in ACK=35 after the gap closes, instead of
+echoing sender request 2's timestamp, 301000.
 
-Best regards,
---  
-Michael Grzeschik <mgr@kernel.org>
+If S falls back to timestamp-based RTT measurement for ACK=35, subtracting
+echo=1000 from its current timestamp (about 301000) produces a roughly
+300-second RTT sample, mistakenly counting the idle period. The inflated
+smoothed RTT lowers the sender's calculated pacing rate and, when pacing
+is enforced, unnecessarily delays outgoing packets and slows the transfer.
+
+Patch 1 refreshes the saved timestamp while preserving the existing
+validation and handshake behavior. Patch 2 adds a regression test for
+IPv4, IPv6 and IPv4-mapped IPv6. A shell wrapper checks the timestamp
+echo because packetdrill does not currently compare that field.
+
+Testing on net dd47bcf279f1:
+- ARM64/QEMU, normal and KASAN/UBSAN/lockdep: all 68 focused/control
+  cases and three selftest address modes pass with the fix; baseline
+  reproduces the stale echoes.
+- ARM64 W=1 allyesconfig/allmodconfig builds and Sparse: no new diagnostics
+  (patched builds incremental; existing warnings require -Wno-error).
+
+Earlier C-socket repro on net 46bc52d13594: after 300 seconds idle, with
+controlled reordering, retransmission and fq pacing, a 1 MiB transfer takes
+22.02 seconds without the fix versus 0.38 seconds with it (one run per arm).
+
+Limits: previous broad-suite timing failures and feature gaps remain
+unresolved; those suites were not rerun on this base.
+
+AI assistance: Codex generated and revised the fix, reproducers, selftest,
+analysis and patch messages. The user directed the investigation, asked
+for real-socket and upstream-kernel comparisons, and requested broader
+testing. A separate Codex reviewer challenged the code and evidence.
+Sparse supplied static analysis.
+
+Jeff Jo (2):
+  tcp: refresh TS.Recent for accepted old ACKs
+  selftests: net: check timestamp echo after an old ACK
+
+ net/ipv4/tcp_input.c                          |  7 +++
+ .../selftests/net/packetdrill/Makefile        |  5 +-
+ .../net/packetdrill/tcp_old_ack_ts.pkt        | 23 ++++++++
+ .../net/packetdrill/tcp_old_ack_ts.sh         | 57 +++++++++++++++++++
+ 4 files changed, 91 insertions(+), 1 deletion(-)
+ create mode 100644 tools/testing/selftests/net/packetdrill/tcp_old_ack_ts.pkt
+ create mode 100755 tools/testing/selftests/net/packetdrill/tcp_old_ack_ts.sh
+
+
+base-commit: dd47bcf279f1083f09bf5266890b26263361022b
+-- 
+2.55.0
 
