@@ -1,44 +1,45 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E394F49504F
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:42:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C341E498901;
+	Mon, 21 Sep 2026 12:42:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789994523; cv=none; b=EzIoEyq/WC1tpUfD/6tbG024tYdUI4kUCDFoqegMDv3pBlberjkHm7KsrGjAMhAsnGHtUURB3urZbzMQvgLZOltnsCbp32xQZh8ssSkjlj75YA9IrEH1KsDZR5Y2bnANSpORjpE8aAS11Pi+t2rAcuI88pfYbyFdKQ2XBePWWx4=
+	t=1789994533; cv=none; b=o11pG/TXcBZJeTnZXLNbdNaY390JOUqLh97BZ+gwaTMa2BE3Kek+vUn539atKaWqi0u71wqCtcGirVkZMM6ayMZZ/n4UnwQPCVBYa+n2Y6SIcPyCqgWEp/7uSK7ZHdna/0ueLX+KxgrR8Mcr289A4zBsD9aV+KBkMHOBR+NK5Uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789994523; c=relaxed/simple;
-	bh=bI7w8gHGdhxh4VEARjnqWWbdnU1VuH+Od9f4EvEeVjw=;
+	s=arc-20240116; t=1789994533; c=relaxed/simple;
+	bh=hPQiMzezBqMJuGIHYVTtRUEQcJeICLchl6bRn8gc/fY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QXOFzbzEQz2zu4jCb6rHmYOUaPfcSQush+PVLYS9DVFyCmAW4d7ntXqR6He8MPnI5puZB+tZiHv5/5gUxyGIH2d9C/h9oZWvanPHmBh8MQftHjOLqIXQs4SLCFwQlsmP8GYBo7nm23M/oKzcG82uTVcOob6l/gAhJatMDkc09rg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ttcXOmh6; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=TS8s6Am4ZEqGfMmD2x5ucgXmYGrtwemYIt1syc7Sym0VEMyakeJwSxb5GPbmw4TaEsO8E8TXAJqaV3N+Cu/R7sFCbtPnSb8U3QaEoZHHGA8JYxwhP+dQciFXKAwmCEijg+VEwnSInQ+JQ0InGuwNr3TTkn9oetR6buyiyG/1K28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KrJVG2q4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ttcXOmh6"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C956F1595;
-	Mon, 21 Sep 2026 05:41:56 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 94EAC3F86C;
-	Mon, 21 Sep 2026 05:41:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789994520; bh=bI7w8gHGdhxh4VEARjnqWWbdnU1VuH+Od9f4EvEeVjw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ttcXOmh61SrOvoEOAPQ4GmU+Vn2kvt7wLlypDdYben4eNFpMKlX1kcQgIxYV6GTy/
-	 se1zPGzMTveLaG5RWM9n6A9/lXq6GcG3cwCrNI9upyNip918OfA4DpZpyTTodfXvvu
-	 tgI49nhw7/M9X/o3ScuCj0iBtTNzLWXay6LNgYNA=
-Date: Mon, 21 Sep 2026 18:11:56 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 0/4] arm64/mm: Convert pgtable READ_ONCE() as pxdp_get()
-Message-ID: <etkbm3mjzsrogpizjwutsqajslkjymjldpyf6robitdot4e23w@mqcikehwbqzv>
-References: <20260903060657.2717457-1-anshuman.khandual@arm.com>
- <9aed35be-a411-4d9d-805c-03c836e9e56a@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KrJVG2q4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B94321F0089A;
+	Mon, 21 Sep 2026 12:42:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789994530;
+	bh=f+qMWNaepi83wEdIu8Qj9XEItvl/uPB1JxblYtoeB4o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KrJVG2q4gZiF5+VAXs9MAKVgKWbecIdsXQU9VDXCKpS0kkJ26mYvBG3tV1TFJJgHj
+	 pvC9x4wj8djTYwYa8PHFw49N2eSa+qpk6nMA+o/R0r+XkaBqbFC7kPRciHoP0JxuPc
+	 hfPirJO7dlCUA6stF255eifKklgNYMQh5HYAlHc7aBWxfSPvbUZUvMDfbbKnSQkqvy
+	 s7eS8HoWVTEIkAgUafUV5rUo1P9/8TFWKLZBNgwdLQn3vSliNg2O/HmzrbDWbhTSAy
+	 Yt1vCC9a1ehcIl1WRG7CwPrJ+OiA7Lp6VAshONAKjOBt0JpyH8bPeo6d5Cqi8issid
+	 8RXj6+y4gzucg==
+Date: Mon, 21 Sep 2026 12:42:06 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: Rob Herring <robh@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, spacemit@lists.linux.dev
+Subject: Re: [PATCH 1/1] riscv: dts: spacemit: set ETH MAC from eeprom for
+ OrangePi
+Message-ID: <20260921124206-GKI297024@kernel.org>
+References: <20260920100000.3888256-1-amadeus@jmu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,123 +48,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9aed35be-a411-4d9d-805c-03c836e9e56a@arm.com>
+In-Reply-To: <20260920100000.3888256-1-amadeus@jmu.edu.cn>
 
-On Mon, Sep 21, 2026 at 11:55:02AM +0100, Ryan Roberts wrote:
-> On 03/09/2026 07:06, Anshuman Khandual wrote:
-> > Route READ_ONCE() accesses on pgtable entries via level specific generic MM
-> > pxdp_get() helpers which platforms could then override when required. These
-> > accessors on arm64, will help in ensuring page table accesses are performed
-> > in an atomic manner while reading 128 bit page table entries later. But for
-> > now they just default to READ_ONCE(), thus preserving existing behaviour on
-> > current D64 translation.
-> > 
-> > This is similar to generic MM, where all atomic accesses have already been
-> > converted from READ_ONCE() into pgtable level specific accessors.
-> > 
-> > These are preparatory patches for D128 enablement, although standing their
-> > own for D64 translation as well. These patches are split from earlier D128
-> > V1 series. There are no functional changes here, and besides mm kselftests
-> > do not show any regression.
-> > 
-> > https://lore.kernel.org/linux-mm/20260729122452.3797443-1-anshuman.khandual@arm.com/
-> > 
-> > This series applies on v3.7-rc1 but after applying the following patches
-> 
-> I assume you meant v7.3-rc1 here?
+Hi Chukun,
 
-Oops ! that's correct.
+On 18:00 Sun 20 Sep     , Chukun Pan wrote:
+> The EEPROM on the OrangePi R2S and OrangePi RV2 stores the MAC address.
+> Assign it to Ethernet, with eth1 having a MAC offset of 1. Remove the
+> Ethernet alias to avoid U-Boot patching incorrect MAC addresses.
+> 
+Could you point me where the u-boot patching the MAC address?
+I'm not fully aware of this problem..
 
-> 
-> > related to pgtable entry print standardization posted earlier.
-> > 
-> > https://lore.kernel.org/linux-mm/20260831054331.625505-1-anshuman.khandual@arm.com/
-> 
-> This applies.
-> 
-> > 
-> > https://lore.kernel.org/linux-mm/20260901065454.1906343-1-anshuman.khandual@arm.com/
-> 
-> This fails:
-> ---8<---
-> $ b4 shazam 20260901065454.1906343-1-anshuman.khandual@arm.com
-> Grabbing thread from
-> lore.kernel.org/all/20260901065454.1906343-1-anshuman.khandual@arm.com/t.mbox.gz
-> Checking for newer revisions
-> Grabbing search results from lore.kernel.org
->   Added from v3: 3 patches
->   Added from v2: 3 patches
-> Analyzing 14 messages in the thread
-> Looking for additional code-review trailers on lore.kernel.org
-> Will use the latest revision: v3
-> You can pick other revisions using the -vN flag
-> Checking attestation on all messages, may take a moment...
+> Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
 > ---
->   ✓ [PATCH v3 1/2] arm64/mm: Move __check_safe_pte_update()
->   ✓ [PATCH v3 2/2] arm64/mm: Standardize printing for pgtable entries
->   ---
->   ✓ Signed: DKIM/arm.com
-> ---
-> Total patches: 2
-> ---
-> Applying: arm64/mm: Move __check_safe_pte_update()
-> Applying: arm64/mm: Standardize printing for pgtable entries
-> Patch failed at 0002 arm64/mm: Standardize printing for pgtable entries
-> When you have resolved this problem, run "git am --continue".
-> If you prefer to skip this patch, run "git am --skip" instead.
-> To restore the original branch and stop patching, run "git am --abort".
-> error: patch failed: arch/arm64/mm/fault.c:160
-> error: arch/arm64/mm/fault.c: patch does not apply
-> hint: Use 'git am --show-current-patch=diff' to see the failed patch
-> ---8<---
+>  arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts | 8 +++++---
+>  arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 8 +++++---
+>  2 files changed, 10 insertions(+), 6 deletions(-)
 > 
-> And as a result I can't apply this series. Any tips?
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
+> index 7125f2882ce8..073cc975135f 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
+> @@ -16,8 +16,6 @@ aliases {
+>  		i2c2 = &i2c2;
+>  		i2c8 = &i2c8;
+>  		serial0 = &uart0;
+> -		ethernet0 = &eth0;
+> -		ethernet1 = &eth1;
+..
 
-May be this is based on older dependant patches.
-
-The latest V3 does apply - although this series does not any more. 
-
-https://lore.kernel.org/linux-mm/20260916044933.2689426-1-anshuman.khandual@arm.com/
-
-I will respin the series updating the commit message as suggested on
-the other thread but probably with a hosted git branch for better
-access - should have just done that earlier given multiple moving
-pieces here.
-
-> 
-> Thanks,
-> Ryan
-> 
-> 
-> > 
-> > Cc: Catalin Marinas <catalin.marinas@arm.com>
-> > Cc: Will Deacon <will@kernel.org>
-> > Cc: Ryan Roberts <ryan.roberts@arm.com>
-> > Cc: Mark Rutland <mark.rutland@arm.com>
-> > Cc: Lorenzo Stoakes <ljs@kernel.org>
-> > Cc: Andrew Morton <akpm@linux-foundation.org>
-> > Cc: David Hildenbrand <david@kernel.org>
-> > Cc: Mike Rapoport <rppt@kernel.org>
-> > Cc: Linu Cherian <linu.cherian@arm.com>
-> > Cc: linux-arm-kernel@lists.infradead.org
-> > Cc: linux-kernel@vger.kernel.org
-> > Cc: linux-mm@kvack.org
-> > 
-> > Anshuman Khandual (4):
-> >   arm64/mm: Convert READ_ONCE() as pmdp_get() while accessing PMD
-> >   arm64/mm: Convert READ_ONCE() as pudp_get() while accessing PUD
-> >   arm64/mm: Convert READ_ONCE() as p4dp_get() while accessing P4D
-> >   arm64/mm: Convert READ_ONCE() as pgdp_get() while accessing PGD
-> > 
-> >  arch/arm64/include/asm/pgtable.h |  6 ++--
-> >  arch/arm64/mm/fault.c            |  8 ++---
-> >  arch/arm64/mm/fixmap.c           |  6 ++--
-> >  arch/arm64/mm/hugetlbpage.c      | 10 +++---
-> >  arch/arm64/mm/kasan_init.c       | 18 +++++-----
-> >  arch/arm64/mm/mmu.c              | 60 ++++++++++++++++----------------
-> >  arch/arm64/mm/pageattr.c         |  8 ++---
-> >  arch/arm64/mm/trans_pgd.c        | 14 ++++----
-> >  8 files changed, 66 insertions(+), 64 deletions(-)
-> > 
-> 
+-- 
+Yixun Lan (dlan)
