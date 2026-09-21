@@ -1,72 +1,75 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0BB494A0F
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:34:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE8D493D4A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:34:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789983265; cv=none; b=U5VZfM+kKIhcdePqRqBxaRwkAcZl26/gD7X6oiGbcxcvu/dyud7mjb9rqnzLmAEVQISUjQbYyBsyoFdg+zN9zmAGEe8nkHqaU1IuTSTKPWvsCZeyKf+6RD1vWdZdjlHg4Jc5Y8/6kjh+Jh+0qkQt6b+sIG36puhpAxhdcvQ37Jw=
+	t=1789983271; cv=none; b=LVdTmBPmC6VSvz53LYCIcYMWhRoliX76dkVTC5Te46ankYZAVf1E/BvquMnYmVNuV5uoUY5azfa6UTnoBmeFQQYHRpFAp8pIVngriKZ3MoVdh0ckY7rEjg0prqMrBJh0aA3ZKDRuMP/gLG+Gp7jC29wnob9YKqveEt5lPIWt/b4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789983265; c=relaxed/simple;
-	bh=1VbwLbBIUh9b8IPRANpvWaAwiHFOkp76hogbIk7DodA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HCSkWEbKHGDkn7IWTOdCh9+vyDZY8J30pTKaly3YQVgrcU42s+qic1HVRkCviDXh8mLpSXt6IfgmndQsC79zYsG6e7C346j02hz/wlxdIl6uRuEqbUjv4MxeOSbBvqubhlT1CP4AxKsmzH1yoPgMFyHIfUnq9Hj7V3n71Qs3l/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ON2VBzMQ; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1789983271; c=relaxed/simple;
+	bh=VDiVxS02UvU/DeJ8GhMZFJd8KjufYlSoVNBbS5euGuM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SBXsS3ytUz4i2OpMtSX90b+rSz5XxuLi8vKIBkurXa5Jmkkzjkkn6yg70iE/sGMvxEP0+AgkNG1P2Ifxr4VK/iBaExsS6swxSkTSUBmSWsvXv6od8qvo8gCb0mp3hkKHxqtY6bMHFoxw89XwbmlAtp0jy75TKpn/K2mLbUA84PQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cErvDhFi; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ON2VBzMQ"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48439feca17so2085942f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:34:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cErvDhFi"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so15680815e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:34:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789983261; x=1790588061; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789983268; x=1790588068; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vr1Hjh7AwrjiwGzdIsIwelbKhNuOiBeSErsKBn6SLyQ=;
-        b=ON2VBzMQTVV65+OKnarhqU6gN1XErOuXXHstHNwRgbPQ/SI/MtlpmcJ4i6DbH62C0Q
-         NV5BbAj0uJNJTuNYvwgibJLVUf54NMfi3Hdklv5rJ5gBth83TuO1epE6wSfoAYb40Ksv
-         GUu4696HTzxvvBJKobe0W5pgUIkbfA3dGt9rwJYL342Xpq4ssBe+/fv4834wtJSUzmTR
-         LZAsOASs6nu4nC3LUroqpIXx6FjdKNVdZWBuQPbCh+YRygoUeF3v/L48Ymlts4GMLYKX
-         kuQX+1x7ioOWLtnWhGtwQ3YQd6sw16OThbaCyTqH9Mcy7lPvPPlRPWbwoMnvFCWOwx9X
-         BNng==
+        bh=KHp+jegDUOX55mRyFE6554e6Msr1rJ/McOVQlrwyHvk=;
+        b=cErvDhFigGfdKbiuM902L2yLXhtvophUV6V86cIt370TA85fqwObN4OtTMphrvkkF2
+         i2yTyY75Rra4AEggTDKDi28tB56S73ymEY/wb508Bqmff1a8l+Ygjo+HMgCXifnUA1FD
+         Gt/Nl+4X3e2BZClF8ruWEPQHL/egOFssbKfJtfP4t+treMaSGSL96IuTQiHSeF+350zU
+         YNvB+Vf8juSd3W3mJdg9NDgJ8WHIzqnNbJZ4+jvVv45V93RsaSeVs4JjMuwBtyicRAi0
+         gOl7SwJjlWVLGtLRZTVWC6IXGogbpWs1IfGLub/RtdY1PalnivH3JYZ2NTEZbg2HDWaS
+         X+/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789983261; x=1790588061;
+        d=1e100.net; s=20260707; t=1789983268; x=1790588068;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vr1Hjh7AwrjiwGzdIsIwelbKhNuOiBeSErsKBn6SLyQ=;
-        b=MyKwm17CCwOBuZXQ/sYcgnOS7ktipXUQtuY8IGw+1mprUR7Z96cDRkSr0mcgDgjwXl
-         9AUW5cEqEhfENauEFizVSKBjkJ8nWvDUQENDKRu1yv2Vp95m4K4O14u3D8qT8piinl20
-         dwiCjyW4nDSoPXCoCz1aQEthuOb4yLnij4tlR1nkJ/pyZLZV2fRQddisjTOJ0KaE19WM
-         wUbUTcCvuuwbF/Z5y9OXnhQsCfhhOIZSnTmj5Ift/ZqOalU3Cw94i4N8YhO6/rGmfSUE
-         gt4PLNCeDx6n58HkShHUjCSNUg7jc1HCX9bYl/KsWkvSLusAOgDxsqkJ6AoB2BB8hJ1P
-         Qlfw==
-X-Forwarded-Encrypted: i=1; AKwUvBzHZLpbb7t+nFoCXLl+2G314J+uZjlJijqNKzc+ux6v6Mto/2po5wwr2kedP8i27yOTwDSgARQZsqUiq+c=@vger.kernel.org
-X-Gm-Message-State: AFuF++nr95vcq770PXftScpzjRcOVh5Z0UzAoEiXJLIsCnjYHZn/Mlne
-	rp+5dEU86FulnYB1WFmFYcKc6HKtctCgH4DBgnT5EU5O1Ejd/mGqGEhv
-X-Gm-Gg: AYBFou0Za93JZ5tRH5O/dnh2pbGHw7PZx4LPeMEMuN6EvU9WUNBD+1+0eFPiUFa+K0Z
-	noJbbzD1TEeYio+pAcLV9jzCADqTEkrtZVo/60UoHg48u1GTSW4vVYMP0pvpKEMZUC/DQgYbvGe
-	KwWA5tixPrScQZExAqxZHCjRwlDaz8HwKBnUvTWS0pGdcQfkW8SVlZ8kRi8Ysi9w70J7sWp8B63
-	fsAckyzkeMo0UKI9gNU5Nv7drbTv09JbtTjrr6H77oT8yaaW8FzQtKgJ2KNSl9had3OWIR9kJPN
-	ZzujHfmx83uXTlr7PNn/s5n700kBNMeHksRMLuKTKmSD3J+407C+O1wzNx9TWiFx3fI0SYYuYbZ
-	GvWYwL5lf/tDkwJ/t6oGQek/K9HE/zvR60IAowH5G3szfMPuLcqB7e53/z3dMwVVrdgvrFa2TN8
-	N9FYXAO2YgUfN6mrIzTs7cQ+UO7DIcQriI90G6ThKtjUU29ohiG9N31zIfNhwc9An9JqeVYeW6l
-	VJfIOIwBOnyqU+A1xDx5T42oZJCr7XOX2+d7MHo5gX3KMvRtNlDMtdyZw==
-X-Received: by 2002:a05:6000:26cc:b0:487:77c:f704 with SMTP id ffacd0b85a97d-4871e3834f3mr15264648f8f.57.1789983260787;
-        Mon, 21 Sep 2026 02:34:20 -0700 (PDT)
+        bh=KHp+jegDUOX55mRyFE6554e6Msr1rJ/McOVQlrwyHvk=;
+        b=moZ1scbR9vrnMjNbN3GGfnUOTn/HUdpVsVawg6jdZ4UKxO8f7gLQAB4mGUEa8vV0Yi
+         ILK4XQyG9waz11uWIBDNkaeFbXHcU145IxWf48MevJTL0B4Mv91Yz/M0sQvEdNIo07az
+         6EAeIVFmDv7HX/vo5xu/pD37UZsOfKiNhT4a3JNbsZDM5OLnNFGq1wSu1H20mp0lKrUH
+         O7Y1ZudcAFK1MbCDIBJqJF36xtKbVkegR/U1VkveQsrMjuWx5RvdQJtsVi/qJI2NnUuR
+         5EluYLcBGZ5aDVc2s+oKPG5NRvhPLzSCQJyOpN5B5M25yeowVX//SdLgNAq7N2jw2b+u
+         MPYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxKQqjT6erJiMUL7esFjODX3Yf6bZ2DjD9TzWaxTvZQaKK0h5h5S0yCf2T/bP5I2bZOFgITH11AozjW+lA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mE4SqKzh9PLtqihy5Fx2CVXqRxjl1ZbJGvJHUneLLKOZ9DBO3e
+	0xYy388CrStnnrKr5rckaFYyxUr0al460RC/IJW77AiZ3xtzQnir+jX2XGOIt2a8
+X-Gm-Gg: AYBFou05aEWdk65GonDt1vFaGPHzH64Unss5uyivkTsftbzvIuDyNr6PfGu0F7y7EU4
+	Vieno8W3cAmOD+WAlAky06I3PC2cbaITmdFL4Jy5o3iUGNvEXctehp3D+WAGjhvlfKR0onpWtcm
+	8RMW0gkMf4fqMVNE5YwXeuDfpLGvXKF+kbk7wQABhFjU24H/NGp/dXxRoeiWbL6coSxbxezkGBE
+	n0eUalvWfWQENRBzuE+tq9lZwV0p8RIQdCteuaplRpXUdD8aH5kYyzrFUwPgh0yNtVqyv2QC4w8
+	Jh7ec+Tjsyq3tkTxHnpDjd086YRsMYDo/NUXQMVZbOElHmiFIjlOn4CtboS5mu5bApg/lAZ8+ZV
+	oV9dCuwW9X8dpq6Tq9fWezgew1Atit7sN1GvL4KHEYtYbPlaz7YGzPohb7DRF6b+1rLEeztWkVU
+	F8P2Vg9lYmH9BeA+5H0GpW65teFFXxZkAOjLvAMcdBnczr+PzSgt1/Ioko2i4jLe/l8n4jcbRk1
+	xIBSF21f+58MIdmapRytB/9jOBxoEDlGeZtUniTGQWNcEc=
+X-Received: by 2002:a05:600c:c16a:b0:49f:ce78:356e with SMTP id 5b1f17b1804b1-49fce7836b0mr85310405e9.31.1789983267863;
+        Mon, 21 Sep 2026 02:34:27 -0700 (PDT)
 Received: from gil-endeavour.hs.rfd0.com (bl10-2-111.dsl.telepac.pt. [85.243.2.111])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724595289sm22906820f8f.29.2026.09.21.02.34.19
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcce144b1sm351916195e9.0.2026.09.21.02.34.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 02:34:20 -0700 (PDT)
+        Mon, 21 Sep 2026 02:34:27 -0700 (PDT)
 From: Gilberto Conde <gilbertorconde@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] pinctrl: qcom: ipq5018: add missing pwm3 function on gpio13
-Date: Mon, 21 Sep 2026 10:34:19 +0100
-Message-ID: <20260921093419.2870168-1-gilbertorconde@gmail.com>
+To: =?UTF-8?q?Bj=C3=B8rn=20Mork?= <bjorn@mork.no>
+Cc: netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jakub Kicinski <kuba@kernel.org>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>
+Subject: [PATCH net-next] net: usb: qmi_wwan: add Quectel EG120K-EA
+Date: Mon, 21 Sep 2026 10:34:26 +0100
+Message-ID: <20260921093426.2870266-1-gilbertorconde@gmail.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -76,51 +79,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-GPIO13 supports the PWM3 function at mux select value 4, but the
-pingroup table leaves that slot empty and gpio13 is not listed in
-pwm3_groups. Selecting pwm3 on gpio13 is therefore rejected by the
-pinmux core:
+Add support for the Quectel EG120K-EA LTE Cat.12 module (USB ID
+2c7c:030b). Its QMI interface (interface 4) uses class/subclass/protocol
+ff/ff/ff like the other recent Quectel modules, so match it the same way.
 
-  ipq5018-tlmm: invalid group "gpio13" for function "pwm3"
+The product ID is shared with the EM060K, which the option driver
+already knows and uses to claim the serial interfaces. Without a
+qmi_wwan entry the data interface is left unbound.
 
-The GL.iNet GL-X2000 drives its fan from PWM3 on this pin, and the
-vendor firmware muxes it with select value 4:
+Tested on a GL.iNet GL-X2000, where the module is soldered down and
+enumerates at SuperSpeed: cdc-wdm0 and wwan0 appear and ModemManager
+brings up a data session.
 
-  gpio13 : out low  func4 8mA no pull
+T:  Bus=02 Lev=01 Prnt=01 Port=00 Cnt=01 Dev#=  2 Spd=5000 MxCh= 0
+D:  Ver= 3.10 Cls=00(>ifc ) Sub=00 Prot=00 MxPS= 9 #Cfgs=  1
+P:  Vendor=2c7c ProdID=030b Rev= 5.04
+S:  Manufacturer=Quectel
+S:  Product=EG120K-EA
+S:  SerialNumber=45546267
+C:* #Ifs= 6 Cfg#= 1 Atr=a0 MxPwr=896mA
+I:* If#= 0 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=ff Prot=30 Driver=option
+E:  Ad=01(O) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+E:  Ad=81(I) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+I:* If#= 1 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=00 Prot=40 Driver=option
+E:  Ad=83(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+E:  Ad=82(I) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+E:  Ad=02(O) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+I:* If#= 2 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=85(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+E:  Ad=84(I) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+E:  Ad=03(O) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+I:* If#= 3 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=87(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+E:  Ad=86(I) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+E:  Ad=04(O) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+I:* If#= 4 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=ff Driver=qmi_wwan
+E:  Ad=88(I) Atr=03(Int.) MxPS=   8 Ivl=32ms
+E:  Ad=8e(I) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+E:  Ad=0f(O) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+I:* If#=12 Alt= 0 #EPs= 1 Cls=ff(vend.) Sub=ff Prot=70 Driver=(none)
+E:  Ad=89(I) Atr=02(Bulk) MxPS=1024 Ivl=0ms
 
-Add pwm3 to the fourth function slot of gpio13 and list gpio13 in
-pwm3_groups. With this the pin muxes as expected:
-
-  pin 13 (GPIO_13): device 1941010.pwm function pwm3 group gpio13
-
-Fixes: 725d1c891658 ("pinctrl: qcom: Add IPQ5018 pinctrl driver")
 Signed-off-by: Gilberto Conde <gilbertorconde@gmail.com>
 ---
- drivers/pinctrl/qcom/pinctrl-ipq5018.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/net/usb/qmi_wwan.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/pinctrl/qcom/pinctrl-ipq5018.c b/drivers/pinctrl/qcom/pinctrl-ipq5018.c
-index 03cfba9534f..84392fe258c 100644
---- a/drivers/pinctrl/qcom/pinctrl-ipq5018.c
-+++ b/drivers/pinctrl/qcom/pinctrl-ipq5018.c
-@@ -563,7 +563,7 @@ static const char * const qdss_cti_trig_out_b1_groups[] = {
- };
- 
- static const char * const pwm3_groups[] = {
--	"gpio45",
-+	"gpio45", "gpio13",
- };
- 
- static const char * const qdss_cti_trig_in_b1_groups[] = {
-@@ -689,7 +689,7 @@ static const struct msm_pingroup ipq5018_groups[] = {
- 	PINGROUP(10, blsp0_spi, blsp1_uart0, led0, gcc_plltest, qdss_tracedata_a, _, _, _, _),
- 	PINGROUP(11, blsp0_spi, blsp1_uart0, _, gcc_tlmm, qdss_tracedata_a, _, _, _, _),
- 	PINGROUP(12, blsp0_spi, blsp0_i2c, blsp1_uart0, _, gcc_plltest, qdss_tracedata_a, _, _, _),
--	PINGROUP(13, blsp0_spi, blsp0_i2c, blsp1_uart0, _, qdss_tracedata_a, _, _, _, _),
-+	PINGROUP(13, blsp0_spi, blsp0_i2c, blsp1_uart0, pwm3, qdss_tracedata_a, _, _, _, _),
- 	PINGROUP(14, pcie0_clk, _, _, cri_trng0, qdss_tracedata_a, _, _, _, _),
- 	PINGROUP(15, _, _, cri_trng1, qdss_tracedata_a, _, _, _, _, _),
- 	PINGROUP(16, pcie0_wake, _, _, cri_trng, qdss_tracedata_a, _, _, _, _),
+diff --git a/drivers/net/usb/qmi_wwan.c b/drivers/net/usb/qmi_wwan.c
+index 13a5e72059..f8b771dcc9 100644
+--- a/drivers/net/usb/qmi_wwan.c
++++ b/drivers/net/usb/qmi_wwan.c
+@@ -1086,6 +1086,7 @@ static const struct usb_device_id products[] = {
+ 	{QMI_MATCH_FF_FF_FF(0x2c7c, 0x0125)},	/* Quectel EC25, EC20 R2.0  Mini PCIe */
+ 	{QMI_MATCH_FF_FF_FF(0x2c7c, 0x013d)},	/* Quectel RG660QB */
+ 	{QMI_MATCH_FF_FF_FF(0x2c7c, 0x0306)},	/* Quectel EP06/EG06/EM06 */
++	{QMI_MATCH_FF_FF_FF(0x2c7c, 0x030b)},	/* Quectel EM060K/EG120K-EA */
+ 	{QMI_MATCH_FF_FF_FF(0x2c7c, 0x0512)},	/* Quectel EG12/EM12 */
+ 	{QMI_MATCH_FF_FF_FF(0x2c7c, 0x0620)},	/* Quectel EM160R-GL */
+ 	{QMI_MATCH_FF_FF_FF(0x2c7c, 0x0800)},	/* Quectel RM500Q-GL */
 -- 
 2.55.0
 
