@@ -1,119 +1,191 @@
-Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E381D246774
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:22:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5038C26980F
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:22:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789950136; cv=none; b=MRdxb3dCUCuDMGqyFk2miPKZdGPTZUPxXFKXT/WAXcb0Px7+ewNL/QbIUjym6p4LiMuU324QOGL18SVqi9MR6PQw/wFPgiW3bOTGAMXvc37mJTInZLvQLQZ1jbadYVJqrJqqn8J8xF25OJVxTluhegdULf2mcBMx96Dka6P6L88=
+	t=1789950138; cv=none; b=XPFPXH4wAqGaVfydNF6uVGMfQ2N2EsymPoH2zURh4TDxKZzTOwIkicJe9hEnEVhGPyQWlk2Q42ei1otgMtfCRJNPx6p/qQ9k1Yl1Zad55idBzc2ABnXWvoRZ07obReCqpABanHX8D7MxkBIO7AC6ZjLzuP8Y7zOhGT2ClSajb5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789950136; c=relaxed/simple;
-	bh=XwsRzJLQL722rDOxKBtIkGBU0anBu6ItURQT6kz124Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gFPB4shLkA8RNb51lXJbLDErJO6ujrDR1sSMGlMgMvdvp3tAEaRsmcnaqlPVoZwAkWnpm1K5YNITEetoJ9K6KGlWA8pCFcaawXzUTTK1rAFM5DPgLvo9X7Rvp1Ra8MJLaAe0wSeNbGKIbkCYnC9cEMfigHqSMpkQH3uPvDFLLXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gRx7OgU8; arc=none smtp.client-ip=74.125.231.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789950138; c=relaxed/simple;
+	bh=QMpJAHW6iJKz7zydVmvohHjsWjgI3mZnZNwE9Q/LXqE=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Vk9c6/Y/t89he7228U1s1yrj/2NYdEtkQ2R8jvDfcKlTD0W2iPMLXfBmR8/YnON+RqX8538eMWACT6Qvoqe/NI+yOoOfgvF6wLhH5T+306VdyLyWwcZd3DK+8iR1wyLDURmjgybQN/c6MYi72ZSZF/NXQ3Oni9JooiHvlfF0TaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=U8SnrT/9; arc=none smtp.client-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gRx7OgU8"
-Received: by mail-oo2-f6.google.com with SMTP id 006d021491bc7-6aafac56856so1182976eaf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:22:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="U8SnrT/9"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2db8e9fe9c7so35309925ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:22:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789950134; x=1790554934; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bMAwtCxGCGY6D0JArwPVVoRyTsw+poPi/tmNRvMJqUI=;
-        b=gRx7OgU8bDTs8tAAAJaQuWCc8DHTk1qHRi4qoJhKM9zAUf7iI5BCIPH6u6cwph9sfl
-         zVnIdfFp6zqFTiCVRFUz4Gp+3jX+i65MxWyxLrMfOogNTrWCBhJQVZvloXOoVchLRrnv
-         sb5N0lONhD+Lf5xDUDhTQl9Ybq8C1dEGtxCOYsUxi6lLAs7WYqsCBNIDyjEFogpJL5j5
-         kPJOiFoksMl28E7DqlFwz6rSrxsNcO+TCXDQNpyZ2T1cE1gCd7xFd1/4T9GcJNt1/Muh
-         FQqiMHwIV/3CrDN9HuP7DqsQl7FtXmiUL89kQ2XadcjIrYM45JwyWgPmaNrzd2GYOBuy
-         5VTg==
+        d=google.com; s=20251104; t=1789950137; x=1790554937; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=MFnE1lNKWOxXaJ6iiEL1DLT3dpDyZMEN/2e4s9+fthI=;
+        b=U8SnrT/9JoivbVKHrh026ol9folWHS/WqoT8i0rTfazY+sggMb0QqJ2kRNpaGM6Dcg
+         +RrYz3dTXW1wtabmm7W06yZxOc2rVSB3OpQwr8LcZYmLPw05wT1OEmJowQEUKiNdBHFS
+         QBJAalapCalcrEuC9JEY636ssuubTTc1FxwRmhT82IkpEwgcUtvXqEUV82EVoB6QaLvL
+         ZBw6cbYtutJ5nkeMc27x22BWdRrsXGnlbCOFimr0YFI3f/baQBAA/qxOR9K+sA0B1ZJa
+         zj1ogYXFuXbZbstDK6GVu3npNi2/bxx/QSgdKAjLJEtzYDhGATWh+yDtRPC+vqudAX0B
+         STpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789950134; x=1790554934;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bMAwtCxGCGY6D0JArwPVVoRyTsw+poPi/tmNRvMJqUI=;
-        b=WB2jCDZWi7IxErueuILB6T4QxUBVzj/yw42TaXoL9MD+njf5EQHFwDGlW0EQu/QDGi
-         icbxYuiByc7uKyUfnxkkx2K8YVtGHHLtLUMMGm1JIGaVg0xGQwFjE5aaOUWQSsbRb8fN
-         yE2NJO7LV0JtMa0N6u/wXNj1rSW3BU17kvRhhsMuQgThab1xUjjbX/j6QH4750JnDDJM
-         JsHg4trG4Lf5YdBd6hMhc8GAzjMjTNcR44W07AYXjSqHlMsMbXh7MGlY/G2iXOeu1Vz6
-         GzwonLlj1sgqez2bilB0cqm9eYfBs3YV2XF7hzc4G9BXuQ8IbtURX2F+UtOw03A7nzqj
-         mlsA==
-X-Forwarded-Encrypted: i=1; AKwUvByZrHvWzz0TqcqF9MkWIJJkO4Toy5YCay5vFfLcyPFbyAOS5Fq6HqHzWm5zcZnBOeKIkwPBxA2n7OQjEaU=@vger.kernel.org
-X-Gm-Message-State: AFuF++npo8eZzJRJnY86F30uO/2m2uIzvdS8RjBnIp/2qy652xH+B7pd
-	FtOullmT+wurWcFCQRyNOemrw3PJFEJvlStjYqNXsFzzDCfWKmcmW3TD
-X-Gm-Gg: AYBFou0SldujQoL6LqQFTSN4QdFqtpljfkahnIgZDWnbQOcsRO52oVq8JA7WRq9kyBd
-	wj8wd5Nd9VklEGsDlJQ5QXuRS2TYO0Bd9N5YrLRhXMdbIShLvYNexMe0l9QG8nuK4n4NMiHj3sb
-	PpUcfYkXx9wSCOMtv4CpaiMC0pNa6eawcbpY2Pad4LuaiJBzdhZDUe6mw0FN4CwhlB+JG/jJVDi
-	Z+Ao+lw5R80GwSgG6Qdin7oa7f4+LRGyw2n6AVbICiYbMq88WsPx92pWxIt/T7hO8HvXaeSnteZ
-	vDcdqqs51xhGCdzMyj+H/MvVVebiIHYXrBcKAGrG8syMPo9FuUlDmNdpd1CRYeiUZ1Ji/KqonSz
-	eSDSw1S8+0OY+uoR9Q3NKoWErzFW9HZXK2EoVaMdC+Gd1+FyH6+5W9XLC4cSJJpBQZBqOem1O2h
-	ugQpqNAQEBMOs4aBGwNY969k3O5wm1aJeuqwHV3Cu1Qdsxqpo/NPNjTZJzNza7Q43DdPEuzSNbO
-	bgaGObDudthbJ8=
-X-Received: by 2002:a05:6820:1f04:b0:6c2:1018:3f7 with SMTP id 006d021491bc7-6ca9aa4245emr7824820eaf.23.1789950133885;
-        Sun, 20 Sep 2026 17:22:13 -0700 (PDT)
-Received: from ?IPV6:2600:8804:5716:d800::2620? ([2600:8804:5716:d800::2620])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6cd34b3101esm7471632eaf.6.2026.09.20.17.22.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 20 Sep 2026 17:22:12 -0700 (PDT)
-Message-ID: <41503126-2f2b-4ac9-bb9a-610686be4729@gmail.com>
-Date: Sun, 20 Sep 2026 19:22:10 -0500
+        d=1e100.net; s=20260707; t=1789950137; x=1790554937;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MFnE1lNKWOxXaJ6iiEL1DLT3dpDyZMEN/2e4s9+fthI=;
+        b=21aYuZHwVTW0cPue/NTINEaQgFfbo6ILBwQfqsJRfLL5rwBlUJM95HoCARxBypp1E0
+         uHMmCvUjYaxrxxKLFWIlQupJKy1z+4ewBAHw3MF1iKAFuUudktQ1L/ePL7cTTEz9Cie4
+         /iSNdstyrKtx3HA/FlnIXWArlVM5Br11bt1Ue/rXbAImG52/mG66Y2xfkvZSsOak6hrZ
+         Tjc2rCAoTua0x8y4v0Rt3cxAlfaAGpdY6XHnGSVJ0F4jsCT/tez3KqsGQbR+1oVM2+L9
+         wuhJEQXRcVA2718o3Y+YlcrwBZZgBBxi3VDuUlSyhRqmy64QcqEPMaMg2k9PHaXZDB8f
+         U7IQ==
+X-Forwarded-Encrypted: i=1; AKwUvBylUWW7UcS2+PCAhcmsOaHHcFmiJ+c8Z1xVvAnji8k87RGsNKh/+f1lFVWDrKguiI1aJikp+OtQiHxW/Y4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMs8eLEDK69Npxv4AkLVlDi+QbpKBuCYMripdfaKRFTvzwi1Tk
+	CXXiyXm68zvXGQwwp9aga2OsCg2J+MgSwzsyXQTKkkIHYsLLsDYneP6BwQQY/lHn7nTpkVMkmYH
+	9C2heaPklrX3uNVLMnw==
+X-Received: from plcp9.prod.google.com ([2002:a17:902:e349:b0:2df:4244:c983])
+ (user=tjmercier job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:903:8c6:b0:2df:42de:f71 with SMTP id d9443c01a7336-2df42de1624mr31028995ad.19.1789950136472;
+ Sun, 20 Sep 2026 17:22:16 -0700 (PDT)
+Date: Sun, 20 Sep 2026 17:22:02 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] iio: adc: add mt6397 PMIC AUXADC support
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- mfd@lists.linux.dev, Roman Vivchar <rva333@protonmail.com>,
- Luca Leonardo Scorcia <l.scorcia@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@intel.com>
-References: <20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-0-c00edacbee64@gmail.com>
- <20260921001702.3a208780@jic23-hlaptop>
-Content-Language: en-US
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-In-Reply-To: <20260921001702.3a208780@jic23-hlaptop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260921002206.184660-1-tjmercier@google.com>
+Subject: [PATCH bpf-next v5 0/2] bpf: htab: Reduce memory use of hash maps
+From: "T.J. Mercier" <tjmercier@google.com>
+To: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, 
+	memxor@gmail.com, martin.lau@linux.dev, song@kernel.org, 
+	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com, 
+	ihor.solodrai@linux.dev, mykyta.yatsenko5@gmail.com
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	"T.J. Mercier" <tjmercier@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/20/26 6:17 PM, Jonathan Cameron wrote:
-> On Sun, 20 Sep 2026 00:31:50 -0500
-> Ryan Brue <ryanbrue.dev@gmail.com> wrote:
->
->> The MediaTek mt6397 PMIC has a 10-bit AUXADC that nothing in-tree can
->> reach. On boards built around it that ADC is the only path to the battery:
->> the SoC's AUXADC is wired to board thermistors, and the charger ICs these
->> boards use have no ADC at all, so without it there is no pack voltage and
->> no state of charge.
-> Hi Ryan,
->
-> Please slow down between new versions.  Unless a maintainer is specifically
-> asking for a quick turn around (sometimes happen very late in a series) at
-> least a week is typical time to allow multiple reviews to come in
-> and hence save on effort all round.
->
-> Jonathan
-Hi Jonathan,
+Memory is expensive and scarce these days. This series reduces the
+memory use of BPF hash maps by eliminating the per-element overheads
+below. This saves up to 50% of per-element memory use for standard and
+PCPU hash maps. The memory use of LRU hash maps is unaffected.
 
-Got it, thanks for being patient with me while I'm learning the kernel 
-workflow. I'm sure you guys get a lot of newcomers not knowing the ins 
-and outs. Won't happen again.
+Map Type & Configuration           | Old size | New size | Savings
+-----------------------------------|----------|----------|--------
+Standard (key =E2=89=A4 8 B, val =E2=89=A4 8 B)    |   64 B   |   32 B   | =
+50.0%
+Per-CPU (prealloc) (key =E2=89=A4 8 B)     |   64 B   |   32 B   | 50.0%
+Per-CPU (non-prealloc) (key =E2=89=A4 8 B) |   64 B   |   40 B   | 37.5%
+LRU (Any key/value size)           |    -     |    -     | 00.0%
 
-Best regards,
-Ryan Brue
+1) Unused LRU / PCPU fields in standard and PCPU hash maps (patch 1)
+struct htab_elem is used for all hash map types, and includes fields
+that are not always used (bpf_lru_node, ptr_to_pptr). For standard
+(non-LRU, non-PCPU) hash maps the 24 bytes for the bpf_lru_node (union)
+are entirely overhead and can be eliminated. Non-preallocated PCPU maps
+only need the 8 byte ptr_to_pptr which is currently unioned with the
+unneeded 24 byte bpf_lru_node, so 16 bytes of overhead can be
+eliminated. Preallocated PCPU maps don't need ptr_to_pptr, so 24 bytes
+of overhead can be saved.
+
+2) Hash caching for small keys (patch 2)
+For hash maps with small key sizes (=E2=89=A4 word size), comparing keys on=
+ly
+requires a single instruction. Currently the 4 byte hash value (8 byte
+aligned and padded) is used for this, but offers no performance
+advantage in this case and can be eliminated.
+
+The implementation splits htab_elem into dedicated structures for the
+different map types (htab_elem, htab_elem_pcpu, htab_elem_lru with
+hashed and unhashed variants) so that the map-type specific fields
+exist only in structures where they are necessary. In all hashed
+variants, the hash is always at a -8 byte offset from the start of
+htab_elem. The elem_offset map field supports the different sized
+element headers, and allows dynamic offsets to be kept out of the hot
+lookup path. It is used primarliy for allocation / free, and indexing
+preallocated elements.
+
+run_bench_htab_mem.sh shows the following changes across 10 runs on my
+3995WX.
+
+Benchmark (all in kops/sec)  |  Avg. Before  |  Avg. After  | Delta
+-----------------------------|---------------|--------------|--------
+prealloc overwrite           | 116.26 =C2=B1 4.3  | 118.81 =C2=B1 4.2 | +2.=
+19%
+prealloc batch_add_batch_del | 128.43 =C2=B1 3.6  | 128.89 =C2=B1 2.9 | +0.=
+35%
+prealloc add_del_on_diff_cpu | 22.91 =C2=B1 0.69  | 22.44 =C2=B1 0.62 | -2.=
+07%
+normal overwrite             | 72.43 =C2=B1 3.13  | 81.06 =C2=B1 1.49 | +11=
+.9%
+normal batch_add_batch_del   | 45.20 =C2=B1 0.78  | 50.09 =C2=B1 0.56 | +10=
+.8%
+normal add_del_on_diff_cpu   | 12.02 =C2=B1 0.24  | 12.80 =C2=B1 0.18 | +6.=
+49%
+
+---
+Changes in v5:
+Rebase on top of bpf-next/for-next
+
+Update elem_size check in map_ptr_kern selftest to 40 in first patch
+(Sashiko)
+
+Place hash at constant compile-time offset before htab_elem, to allow
+removal of key_offset. (Andrii Nakryiko)
+This avoids dynamic htab->key_offset load and pointer arithmetic. The
+struct declarations got reworked to implement this, and htab_node was
+dropped. All map_in_map changes became unnecessary and were dropped.
+
+Fix key update before pptr, value initialization for recycled elements
+and lockless readers. (Sashiko finding on internal run)
+Read / write memory barriers and READ_ONCE() / WRITE_ONCE() were added
+for this.
+
+Combine rhtab_mem_dtor() and htab_mem_dtor() implementations.
+
+Fixed the KMALLOC_MAX_SIZE overflow check since sizeof(struct htab_elem)
+shrinks in both patches.
+
+Changes in v4:
+Removed inline from new functions per BPF CI (netdev/source_inline).
+
+From Mykyta Yatsenko:
+Factor out duplicate lookup_elem code into __lookup_elem_raw.
+Use offsetof instead of sizeof for key_offset assignments in
+htab_map_alloc (patch 1).
+Eliminate branching and htab_elem casting in htab_elem_hash /
+htab_elem_set_hash.
+
+Changes in v3:
+From Sashiko on torn reads/writes:
+Use a local unsigned long and READ_ONCE / WRITE_ONCE instead of memcmp /
+memcpy for atomic key comparisons for hashless elements.
+
+Changes in v2:
+Make maximum key_size for !has_hash depend on word size for atomicity
+on 32-bit.
+
+From Mykyta Yatsenko:
+Put the htab_elem* common initial sequence in its own struct (htab_node)
+and reuse it across all element types that share it. Eliminate
+associated BUILD_BUG_ON additions.
+Replace both the hash and key fields with data[].
+Store has_hash in struct bpf_htab, and avoid per-element reads of it.
+
+T.J. Mercier (2):
+  bpf: htab: Split htab_elem_lru and htab_elem_pcpu off of htab_elem
+  bpf: htab: Reduce elem_size by 8 bytes for small key sizes
+
+ kernel/bpf/hashtab.c                          | 351 +++++++++++++-----
+ .../selftests/bpf/progs/map_ptr_kern.c        |   2 +-
+ 2 files changed, 255 insertions(+), 98 deletions(-)
+
+
+base-commit: b99f71407ce529ba01a9392f477522d2e76c6613
+--=20
+2.55.0.1082.g2b9226bbc0-goog
+
