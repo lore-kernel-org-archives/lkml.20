@@ -1,157 +1,161 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012058.outbound.protection.outlook.com [40.107.200.58])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69E093264F7;
-	Mon, 21 Sep 2026 04:54:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789966446; cv=fail; b=XnhWYx1fEarpPCn+fmVWgXQnhe276IYBo947vy7NjkTHUXKARJSgnDqTu7jVECs/t3Rgbi2LIWFwaJAa4obPokO3FDSKyzOpREqYhb9WxZdXUvJFUg1XB3dgUaHlVv2adJmWzTLAKAyX1zoHJM14qH/6WgHu1PqHiroR+nfMM7c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789966446; c=relaxed/simple;
-	bh=IuEo5NTMg+Xnn7jFVzT6ns6gB4QaMqdXJNdovuANjl0=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=NLCzrmCumZ9DtmmApvw6JxrP5odil8Al7bCoiQHHqYzOEsAso/YSIxYzMUz2epEUblfgDYytClVugSxvRI8RgNvDEsnYucoq5lvW94VzeyOq50NFu3qlUPCBbZlF1FL7ZsHKZQss6eUhg2lj1yIWKFK5quES6QnhvKT4mbAAiCo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=WZt8EHki; arc=fail smtp.client-ip=40.107.200.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1AEF33939A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:59:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789966764; cv=none; b=QiJgEvXxJcOsw8sgPYi1xAOolRUcTA9ci7nyAsCEiFmBhgEevMxHjO5PqYcMqA+ebCqSonIdbIB79gvpC1TEel475pR0n+isRVqU6f+P64ILIKPIyVAjg/1FV54dI3uV48ysTUucRYMUAY6PGXMDA6Abilhjd6kuBSpFfJU5YRE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789966764; c=relaxed/simple;
+	bh=b4CbI8uG/t5WRhiLbFsybqoCQb0cAqPt+YhPl6f1U+Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Ub0L6P6CxnpR0u8SSj04MCN0TXn5vtC0bCRbUzTnCYcKKVsC6txqzS1UAO3j1MqZ/jhI0W4rjAxIgtIEJr0NH5Z/GZWqPKRWOQzGcbIxB8aS2cRK7c41RrPM2HjRp0w6iXR9wLGuLr5HM/O4Uz5djnZOv8ATK+j1mnyFj7pBHeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VWiiHpix; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="WZt8EHki"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hxccVWFS7dTSPutNKzRi0mLdopJDm1s+29BBEc+sKP6GM3W0/RSmhV/3HwP8EmgVO8M9Xt7/aLSLkaS3+egoHZll1jAnIvkHnkIHkq88RD/9voy+FDLbeJj+jxs1XHggHPTBvrRSPiJXGKB/6bDIH8nMhy/jW+A+lPuDvufE/fLAzGoUDUMTxBqmO5mJeD5HQX37GqsQFBUN1ZexQoXSIzliaK9ol6EoIJ1WTz1z1yIq79g5EZTtdakhpHv99Cc+X88RMpjl3AQJxaFuc4wGoCAoCltBqTdMi/ue0OvyAWXgvDoTBdYaFEJJmK1YFRgDuJASkNqDM4a+bAdEzoENbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IuEo5NTMg+Xnn7jFVzT6ns6gB4QaMqdXJNdovuANjl0=;
- b=YMOUSWYl2LHRAgjLhYjI80904amrhgAWh3p9cUgMXA7/n/AvFnAkzb+NoU8reKZ1kdN2zZ9AHunghiBJsmvLB9NUuRSH2BHXD8egWs2cOTYceXxlkvoluYxdpHZBOdeiWzDHx26BKlrs+KvPt5VQadmZmk8L5jNcKcvQf/grvccaDofBTlJJCcqqozCIF9M+sf+AavJPTrDLr8bREbhJkVxcfknteCh/o2j4Xg0W/GP/3KpKTDThksGZda2cELABvdar6D/jwKIWKMbs+hExGLjGFV8TXI+Ywr3cl08yFQA08Jcl56aZFR1n9Spo6UfyqxTQ0l5Be8C3tdOOfUOI6A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IuEo5NTMg+Xnn7jFVzT6ns6gB4QaMqdXJNdovuANjl0=;
- b=WZt8EHki7MsEiTX8a7Dd5QEOxc682yzQcW9uYvMCQ/wiGA+olpsfa+EaGejfDFcuK5yKJcm7kiSwaA6IwV97gmlSnPuUP7fbTBgrFNzQQRoGa53Rvs9tyl9LZ5hxJhAuX435x/rGK2V25gsXBGVP5IjqklBNd6pl/lESc2ZeSFV+vwfepxZel8o78V+UtdR4dENa5N7NFeO+sELKVMuwV4nzCKR5ZE9SpdDNO+gqVqw0gLuHdgCBMrc8Ec7eDCOut+DmxCuoahSXDgscJJBJrscMt51BkEVwCJmJSN6tKDykUzSnhhS9JSuaEMROwYCaThxOB6sg87I6SktYQkxmKA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by CY5PR12MB6383.namprd12.prod.outlook.com (2603:10b6:930:3d::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 04:54:02 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 04:53:56 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 21 Sep 2026 13:53:52 +0900
-Message-Id: <DLKQ577P79LN.1YVO66REEP2SS@nvidia.com>
-Cc: <ojeda@kernel.org>, <boqun@kernel.org>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <aliceryhl@google.com>, <tmgross@umich.edu>, <dakr@kernel.org>,
- <daniel.almeida@collabora.com>, <tamird@kernel.org>, <work@onurozkan.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] rust: list: document safety discharge and add
- offset_of! check
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Yilin Chen" <1479826151@qq.com>
-References: <tencent_F3A825AD475CB58F5C0D1C833FD3353E130A@qq.com>
-In-Reply-To: <tencent_F3A825AD475CB58F5C0D1C833FD3353E130A@qq.com>
-X-ClientProxiedBy: OS7PR01CA0208.jpnprd01.prod.outlook.com
- (2603:1096:604:24a::19) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VWiiHpix"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb752so2090358a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:59:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789966762; x=1790571562; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=21WhGDIaCD25/aTs5QNVHTdMwpo2rK9F3FrQcRWeh8I=;
+        b=VWiiHpixtf2jDLZgtOdl01GZUctUTSnplDKhKL2tppgtesJ1oi7BEntqtLhbMWpSAG
+         HAsGUO1UFM5xJLdy2w/Rs2t02JdUhBgL1uNY6SIgC6M2MLfG9oAyzBCreLD4kJrCcxnZ
+         wdiVna+riLmy9lJucTK6QBgAGTdBxvJsbHvfjp/tZNiLfiMYmxvDeNWEQg45Y4RPUZpR
+         dpJlt0DTbKxFfUsCGvD+lAcopA9g8wK7FMe92NAiCPwkmyFQ/cSPCsNq/5r2CWeodk5W
+         CH/F2hGeAT58bZC/PY0Bg726PLdsG/eHYI0Gl1U5u4puLhOEQrSxSC/Y+arAt0o4uXW8
+         EEiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789966762; x=1790571562;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=21WhGDIaCD25/aTs5QNVHTdMwpo2rK9F3FrQcRWeh8I=;
+        b=NcViary6M2HvGV/ZVqTgSaU8OAX6/ZnLO9ngxdFpzX7W7+pqm2y+m2WflWhih1XHJX
+         G2X/q2Z/1ljQzE2I8FHfcNVimbqmWkk/WwI55lKODqvTvHlQlivlomsooI0G72U1WDEW
+         EV6TyhsQN3unPXew8h3DErathiv6Fgklu1PuAH2I2Z0xhdXp1/7AvKCIVUg7J/X+xCxv
+         I3x3yT4qVHjV9mHM8k5N/wsNcUGvz5uKA04pY7X+S81EM+OaSOmwr3yO/E+d2dwJHXei
+         pITr1kfRZ5J2UWcg8tj7xumWyrgtheMOv/ooWbC1TtMvL/QjgCvtx3bXtbLJ+k1PBF73
+         x2Ow==
+X-Forwarded-Encrypted: i=1; AKwUvBzRaKMhHyB/tthxArKGzXvseQe6QjEBNTitKzZQ6CdyPfNC2ww23jOF7WdBFkAgK1ipk6XClJoGVp+YdJc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lr5zDOSg359GIFbcbYmvtrhWEmNtqFG1LBcfQ5uiPdIQfJ0xoJ
+	V09nA23+eo0to2KK7skTL+0MMdIWJruIUfn8UDqMem9U+0+LptQRMcTg
+X-Gm-Gg: AYBFou23OF4qfrhnjE5vriUKYXsmBzsW2HU0/OWBPZjBe6fXIYQcJQhm38D2TE/xlRc
+	ELIN3n4ZYptDomBugIWwRbCF9DhGxJHfCXb3NELiN3C8Dqy+gcVogkty82kPxMnQ1RmKzNRL3TT
+	cFvXgah8DWpuqaw+WAsIXcObA7BdL40vEThjNq+JMKUM3qCkPNTVhTh0/M/aWUtcYULNAK4C3iA
+	RIduNFtsnhGgwGMcICFXtydG/9w0Bgvg2XmEB6i1KYBB4IAWhHhP4FkACPkr47S/Clyp2lcM5/c
+	FTn0bLAYLyQXogc+q564KhQblQbVkWVw9DUmuqnDZxgPH93WVAO6swlxQvmcGtlmM9sdz+4YPef
+	yJovt4fqZHPXO+WgA2CLbT/u6vnxGrm7wW4tWg59lGYRBwq8wD2kl3mZBp1ZVdnWYhEIFdn+Qzs
+	yWWPJJQAi8yGvPQKVa2367rUhlGrEqk1sAoMWKDlnG5Sh6tuJ8B41b+JmMYZwNSBSbnlPG2x/4o
+	lNehIxXJRFdb3qeHZtzZ5mNolq9CN/xVooxgXdWdaxkYNnYBcg+VJ6+ZTWuwL1FkFtsHsB3IxNr
+	ocLI7JjtIQ==
+X-Received: by 2002:a17:90b:5305:b0:381:6c5:3f63 with SMTP id 98e67ed59e1d1-39e54dcd917mr21660064a91.6.1789966762169;
+        Sun, 20 Sep 2026 21:59:22 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a026898b76sm9772930a91.16.2026.09.20.21.59.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 21:59:21 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: Kuniyuki Iwashima <kuniyu@google.com>,
+	Hangbin Liu <hangbin.liu@linux.dev>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	Willem de Bruijn <willemb@google.com>,
+	Tom Herbert <therbert@google.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH net v2] fou: reject omitted FOU_ATTR_IPPROTO on FOU_ENCAP_DIRECT
+Date: Mon, 21 Sep 2026 04:59:20 +0000
+Message-ID: <20260921045920.1613098-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+In-Reply-To: <CAAVpQUDwLnRfv1PkkexsC04D8wLSeARekuUDSTOenyRctWG8MA@mail.gmail.com>
+References: <CAAVpQUDwLnRfv1PkkexsC04D8wLSeARekuUDSTOenyRctWG8MA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CY5PR12MB6383:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1ed39045-614e-4899-9305-08df179c578b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|23010399003|10070799003|6133799003|10067099003|56012099006|11063799006|5023799004|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	KP38/wV2S886IVEvb9MSwqJygr8N/m9iLCV0HZoULY1FxX/MhibZXNaAtm5P2nuB1gjgx/U/+p3pRx2JrGXoW2+OZEm7nrX23TxHFVKPmjHJ+vptXMwbwxyDgoPAAkpjEYZY9RtVTrdjQByUp03Pw3HsWDBFQEx18A8X+vE9sGGrLWBSf24l6wg2JjmGXkkPZwJUqhzcTxZG0cvq67KGzL+iamnhTbcwT1UjfUUqObcjLj71ttkMsltgVWLU9YA8tfxZGEt2tN5gYsfz03jwqrP4CsHd4UCONmXMjDBlqmh7NJY4PQQpjBNg0gaoMHYWvWvIHPIl7Zob7qccCdgBa2fe1dwMQhxssmc2xY1iG+ZDzs7pgRv5jIde/v38Ir9FnjK7fdMyBEkXbiWjN823JAZjz+69L6hK6Jk51m6Gt9iWA/dlj4a0lQmd/tz3YShmZtSsedcLchGYoi6OZSE1yRGlXC4YP1uOM4hs6SKRbGNLG9TXZjRUDxhciofH/gvx19EZeBLAUOOGY2YqbGPlQcoQZPgv1L66PQczTitqgGp7vtAW4tcdahWgMrzoeFsgvpImb2PBVYdoQXQJBJGxjIzZvr2kCHXT6uVn+lvFsXNfbVrk0yDgssREfLanm7T/1wskWnOgTkcnbGXWh1UhNHLOTasoX5v14FxcOvq4IBI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(10070799003)(6133799003)(10067099003)(56012099006)(11063799006)(5023799004)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bmtYYzc4WjFTVlFZeTVsaUJpY08vTTluc2pvSjNoREZQQTFqeW1QZzZkM093?=
- =?utf-8?B?bzVpVGJJUGZ4VVV4NUs5WSswN0NBMEFtNVhEMDVXcFB0eHhNbEF2NTEzM1BO?=
- =?utf-8?B?MTRGTTc1dVVNNEt6UTl3NlNEL041d1RlSUxYbCtENXcrRmxvQzFCVlBnK0xE?=
- =?utf-8?B?WThMQlAzNTNzNVpNTzZ3bVNydU5aeUVnOEd3M3NCZE52SDBoWWcyWm1kMWNt?=
- =?utf-8?B?d3kxZlBiUVRDejRBa3BQN2YvVFJjT1plZEozZ1pEQXQzOWpNa3ZNSjRUU2hy?=
- =?utf-8?B?V0NrcTJGUE5UY2dER09ud1Ruc2ZTMkM4b0MvZE5xd0t3SDVjVld4aVpsc0lV?=
- =?utf-8?B?enl0eXAvUk9NVWx4R3R5amNtM1B4YU0rdWtXczcwVEM1Ly9LNXIvVmU2enM4?=
- =?utf-8?B?NU9ycTNtNnAwNkNvdnM2VDQ5SlNCZmJOK0RFdWgzT1RXNGg1ZUVQUERFNE1X?=
- =?utf-8?B?djNmWGxHNnh6dW9OUGprd3lQS1dMT1FLV21qQkxlODk0RkJLSDMweUxzYW5T?=
- =?utf-8?B?L05nWnRwQ3BCV3dOcFB5cmQ0SUV0NG5qODRaeEttY3VVT3JjUmQyZktldGdy?=
- =?utf-8?B?b3BTb2VpUDRKUHFabFFDUjVTVGhUMlVHUzJ0UGg0Z3c0V3VKakQrKzl5SVFj?=
- =?utf-8?B?dFFvMGRUZHNMZ3F6RW9sc0NSMUlDNGNOSHFsdS8zcU9TTkhYRnBQVHcrK1g1?=
- =?utf-8?B?RWFOT0xjNHIraTIvYU5KNXJEVjYwNkp0TGZhbEpHQTl2RFpRS2g1TG1FTVlY?=
- =?utf-8?B?VGd2NFBNcnBpeXJXaFl3UFo5YkNOc1NWd1E0M1pPMDErVFZlcXNuay9IemQw?=
- =?utf-8?B?T3QxNXRidStRSlFZa2RzdzNCa3lIQ0FTTXFqTDVzb1AraFlGRW9TdTZseEtW?=
- =?utf-8?B?UFFQU0pac2VTMzhrT0dSNzVONDd5a2Rkb2FHSkl4OXlXVTZqOGtYaDBKb0p2?=
- =?utf-8?B?VkJSS0pYU0JDakIyL29uQ0Y0T0pabHJFRXdGaGYxcGZhNlgyMURjamE3U0RI?=
- =?utf-8?B?a2ZXTmUwcFBkR2dIN0k3ZU5aSHg3WXVrZ1BBV0MrenlOdFNvMzk5WDRDdk42?=
- =?utf-8?B?WVdycWVLM2RyOHdJUUxXbTY3aGd6NUJtOXNNbGpMeWgvcWIycXU3cm5GcGxu?=
- =?utf-8?B?WDBjL1FQdkRVTURNUVlpYWNoUEZUYmVobCsxQVJhQW4wSXdXVlpDUTl0cWFQ?=
- =?utf-8?B?cWVreDJoM1llTFNaQzlnc1lsZmpxdlBRbXJzWnZMVTBqRUhRb1ptTWU0Rm1h?=
- =?utf-8?B?VWFtNG5RaVNqRXNYTVZKckpHTFFoN2hYSEtNWUZZR2YrVlI5d0FWbWJJM3Qw?=
- =?utf-8?B?eURmREdPZFZBRitjSmsyL0xXT2QvZnpHQ2p3ZFU0bGNLT2VwblFZd04zOXZK?=
- =?utf-8?B?czFjank3UVd5TVVEM2k5TUR4bmYzWEl5bHpoVzdXaEZNbDBubEdnSW9kY2M3?=
- =?utf-8?B?cTRHUGtLNkhOL2pXVUFmOXNJdTBmeUxoaHFuOUVYb1VvVjFDQTFUOThXeHlB?=
- =?utf-8?B?SFNUUUVlVXQ3SWQ1ZnAwSGIvb2RVaVdqZUhPOU80NTZKRjNSbGx1MVVEVm5K?=
- =?utf-8?B?YkQzL0FabHQ0dE9tWlZkMzBlN3o4bjNXOUNyYnBsSEZweEx1MFJHdjN0eHJw?=
- =?utf-8?B?NFhDNU4zQmc3cmdaaEoxQ3N4dmVlYUJjRmZJVHB5am5OTnlDeUlxUHNzUjZQ?=
- =?utf-8?B?OERxNFB0L2tza0hQaW5hOEsxcU5yM0NNYkpiRjI5QW56MGRtUVJWYkw5NWhO?=
- =?utf-8?B?cm9uQy9oZnRTejNqOUJScjJzMjRFV09GMlZvcEZscE40TXZCbERoUDNwRTVl?=
- =?utf-8?B?WDVycC9xc2czazlDN2kwSkNaODl5bjl5dUZ2UVU2RzJvaHFhbDE4SzJMTTEr?=
- =?utf-8?B?T1RoVkYvaUxYS1lBQ2tZNkZGTTNmR1dRc1hYdVpzdmNBWjkycmJnWEttV2tF?=
- =?utf-8?B?bGhGTkhaeGdCM2hHY1dpZWlhNXNGekt0VzhRUGZ5QWtFeVZEUDNwV3Jqc0xq?=
- =?utf-8?B?NHJ2Z3BTS3N0ZmcvdzlnQS9KaTlBeUZVenBMdVRTeFkxNjduT2tnM2RGaHR4?=
- =?utf-8?B?QXI5cUtYS2hJS25seVNzZHE0QjRGMW05ajJPdVVCTTRuc2p1UnZYNnE2czE2?=
- =?utf-8?B?UzNmYTRpTjFpV1U3MTVjeVpxeGdsSFozRnhtMWhQZ1R6a1YybklkZ085dm1n?=
- =?utf-8?B?VVU5REQ5OU1qeVBqcjZNQ2JGOTRuOHBMdjZvQTU4blhkYmVVR2hQVHNFWUhE?=
- =?utf-8?B?cWJ6Mkg4TzRvanhJa2xmTVZCUFNzdUFDY1YxRHdBWjFVRzB1Q0Y1S1dXR3Ro?=
- =?utf-8?B?MXd1eENpRVJIYndJVVVCS2I0QnhWbmh0SlpKalEwdzlsV0p6MWVudmdrZVJR?=
- =?utf-8?Q?R/JptsOQbTHdV6w1ddIU4c6n+ju/x6Tcu70wh6ZyEOthx?=
-X-MS-Exchange-AntiSpam-MessageData-1: qWXs68TWbmKh0g==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ed39045-614e-4899-9305-08df179c578b
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 04:53:56.2312
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wCIsviZ1drAHvnmXkhQTRvOgYj2WZZCU5AJAhoQQRJvxoXeKgHRToS6+Cyt09/f+h1Uc4CO9w8NU8mC8UNduFw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6383
+Content-Transfer-Encoding: 8bit
 
-On Mon Sep 21, 2026 at 1:14 PM JST, Yilin Chen wrote:
-> Replace the remaining "// Safety: TODO" in the Rust intrusive list
-> implementation with explanations.
->
-> Also, the `impl_has_list_links_self_ptr!` macro does not perform
-> the field-path validation already used by `impl_has_list_links!`.
-> As a result, `addr_of_mut!` also accepts paths that require
-> implicit dereferencing.
+Commit 7a9bc9e3f423 ("fou: Don't allow 0 for FOU_ATTR_IPPROTO.") added
+NLA_POLICY_MIN(NLA_U8, 1) to fou_nl_policy[FOU_ATTR_IPPROTO], which
+rejects an explicitly supplied FOU_ATTR_IPPROTO == 0 attribute with
+-ERANGE.
 
-This paragraph sounds like it is an independent fix? Let's put it in its
-own patch please as per the guidelines [1].
+However, FOU_ATTR_IPPROTO is an optional netlink attribute. When a user
+sends FOU_CMD_ADD with FOU_ATTR_TYPE set to FOU_ENCAP_DIRECT and omits
+FOU_ATTR_IPPROTO entirely, nla_policy validation succeeds and
+parse_nl_config() leaves cfg->protocol as 0 (from memset(cfg, 0,
+sizeof(*cfg))). fou_create() then creates a FOU_ENCAP_DIRECT socket with
+fou->protocol == 0.
 
-[1] https://docs.kernel.org/process/submitting-patches.html#separate-your-c=
-hanges
+In fou_udp_recv(), returning -fou->protocol to udp_queue_rcv_one_skb()
+triggers IP protocol resubmission when fou->protocol > 0, whereas
+returning 0 tells the UDP tunnel layer that the skb was consumed without
+freeing it. When fou->protocol == 0, every packet received on the socket
+returns 0 from fou_udp_recv() and leaks the sk_buff.
 
->
-> Use offset_of! in an unreachable branch to ensure that the path consists
-> only of actual nested fields. The value is not evaluated, so the check
-> has no runtime cost.
+Reject FOU_ENCAP_DIRECT when !cfg->protocol in fou_create() so that
+creating a direct encapsulation port without FOU_ATTR_IPPROTO fails with
+-EINVAL while leaving FOU_CMD_DEL and FOU_CMD_GET (which share
+parse_nl_config()) unaffected.
 
-This one also? So if my understanding is correct this should be a 3
-small (and easy to review) patches series. Your reviewers will be
-thankful for the split.
+Tested in QEMU against Linux 7.3.0-rc3 by sending a FOU_CMD_ADD Generic
+Netlink request with FOU_ATTR_PORT = 5555 and FOU_ATTR_TYPE =
+FOU_ENCAP_DIRECT while omitting FOU_ATTR_IPPROTO. On the unfixed kernel,
+FOU_CMD_ADD succeeds (err = 0), FOU_CMD_GET reports fou->type = 1 and
+fou->protocol = 0, and sending 4000 UDP packets to 127.0.0.1:5555 leaks
+all 4000 sk_buffs (SUnreclaim in /proc/meminfo grows from 41456 kB to
+59008 kB, +17552 kB); with this patch applied, FOU_CMD_ADD is rejected
+with -EINVAL (-22).
+
+Fixes: 23461551c006 ("fou: Support for foo-over-udp RX path")
+Fixes: 7a9bc9e3f423 ("fou: Don't allow 0 for FOU_ATTR_IPPROTO.")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v2:
+- Clarify in the commit message that fou->protocol == 0 is reached on
+  current kernels by omitting the optional FOU_ATTR_IPPROTO attribute
+  when FOU_ATTR_TYPE is FOU_ENCAP_DIRECT (whereas an explicit 0
+  attribute is rejected by commit 7a9bc9e3f423), as noted by Kuniyuki
+  Iwashima and Sashiko.
+- Move the !cfg->protocol check from parse_nl_config() into the
+  FOU_ENCAP_DIRECT branch of fou_create() so FOU_CMD_DEL and FOU_CMD_GET
+  are not affected, and drop the redundant check in fou_udp_recv(), as
+  suggested by Sashiko.
+- Fix the Fixes: commit tags to 23461551c006 and 7a9bc9e3f423, as
+  pointed out by Hangbin Liu and Kuniyuki Iwashima.
+
+ net/ipv4/fou_core.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/net/ipv4/fou_core.c b/net/ipv4/fou_core.c
+index 5e867f1b5c1d..f30f22389283 100644
+--- a/net/ipv4/fou_core.c
++++ b/net/ipv4/fou_core.c
+@@ -600,6 +600,10 @@ static int fou_create(struct net *net, struct fou_cfg *cfg,
+ 	/* Initial for fou type */
+ 	switch (cfg->type) {
+ 	case FOU_ENCAP_DIRECT:
++		if (!cfg->protocol) {
++			err = -EINVAL;
++			goto error;
++		}
+ 		tunnel_cfg.encap_rcv = fou_udp_recv;
+ 		tunnel_cfg.gro_receive = fou_gro_receive;
+ 		tunnel_cfg.gro_complete = fou_gro_complete;
+-- 
+2.49.0
