@@ -1,40 +1,33 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8403AEF4E;
-	Mon, 21 Sep 2026 09:44:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 590C2369D66;
+	Mon, 21 Sep 2026 09:44:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789983866; cv=none; b=QlpvJWC6IjIHGUylDXY/l/Uiqphg0J6Sy0G3fqoyV0tus33ecmGTCRHcCAyVqByjG/dMfCQoREFcEX0aQ5Uf6GQ+d1SmCAY2giq1o0/BO9zzitfdnY/uucFMSLWGBd+BqR3WL0ze8gTvnr5WHk5QW2M+J3B3/qXMkfk/scUYyws=
+	t=1789983888; cv=none; b=f7mZ7dWa8KbnBSELNJgsjduZ0kevcSu7YMyMjmNjqTrPA+fiH3l/joM8k44fKK3HvT/R4M7tiy3gwS3ZusPclF+90FkRW2kwtFWbKtARO57buElYkG2T5lRkCLeZKpYAS+UT7XUMeZ04y+zx53BAkJOLvQNTsmmQTM88YwhUlzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789983866; c=relaxed/simple;
-	bh=Ny2qS2fMxi0fAcYUfnNf3pmIxiRJbqNgL/Fh4LCY4Ik=;
+	s=arc-20240116; t=1789983888; c=relaxed/simple;
+	bh=21HQ9Jm+j3bA+jZJyxERUm/iQSi9IvRUOjPhb/LBexA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Cc3xDUbzCXJrH4Z4EUAQaK7pglHxE/7iYanB5DiVVtJqVaDi6d9FEdob5JIEvuxQrnYvTaApNTU+51EgTHaKeHdbNMUYumSX6flXM1kzynVpg0DSVHU8rrnDrI9uPEy1C+M4nDssCCIam6Crwyxj4itvPBQrdlM4xhXrqNk1SAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 03157cdab5a111f19a56ed5b684f684d-20260921
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:1c0d18b0-7032-41a2-a203-6262f7da3134,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:28c43a1190f95a13f376e43396c62bc9,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:-10|0|15|50
-	|99,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:
-	0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 03157cdab5a111f19a56ed5b684f684d-20260921
-X-User: lijiayi@kylinos.cn
-Received: from [172.25.120.57] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <lijiayi@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 1376205578; Mon, 21 Sep 2026 17:44:17 +0800
-Message-ID: <60d7692e-4d8e-4b94-b45d-a530bc2cff72@kylinos.cn>
-Date: Mon, 21 Sep 2026 17:44:14 +0800
+	 In-Reply-To:Content-Type; b=dq26cFtWqcKdKJosBI9RhVQ9qHCTt74uffzGL8KGrOx5DEj/8g+iZ6yXMRHGffRdROUEe6e4MFLgnDPN65wmFzWB1C8HgfH0BJiZMBV4qRZGxsBMMeZGjM6o5x72YGHSR7GVZuec7dP6XMHetcdfpiWsBfQ/Vr0sO/q2g3Zz9hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=e52ERe3N; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="e52ERe3N"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 84ADA153B;
+	Mon, 21 Sep 2026 02:44:41 -0700 (PDT)
+Received: from [10.57.83.12] (unknown [10.57.83.12])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DD1793F86F;
+	Mon, 21 Sep 2026 02:44:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789983885; bh=21HQ9Jm+j3bA+jZJyxERUm/iQSi9IvRUOjPhb/LBexA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=e52ERe3NX85DTf+sp8aD7+t+Z3+kuFmz2m3Q1UFRyMS1D4lxPKCftTkfNT25qwagy
+	 O4kzIm9OdRUieaMkJo7t5izcU6xr9HIDIhIJ2AIjuMfNbPHeo3gS24WWx3cczAEWEL
+	 Sy6+/Iq7UIvFNwm5CwTWVVvAgQg4fN+pILUIHuRM=
+Message-ID: <cb0f1d49-865b-4728-89f7-7d8552dabd67@arm.com>
+Date: Mon, 21 Sep 2026 10:44:38 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,65 +35,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] usb: uas: quiesce SCSI before stopping endpoints on
- driver unbind
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: Oliver Neukum <oneukum@suse.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alan Stern <stern@rowland.harvard.edu>, linux-usb@vger.kernel.org,
- linux-scsi@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
- linux-kernel@vger.kernel.org
-References: <20260920012358.3362053-1-lijiayi@kylinos.cn>
- <20260921092615.7402711d.michal.pecio@gmail.com>
-From: Jiayi Li <lijiayi@kylinos.cn>
-In-Reply-To: <20260921092615.7402711d.michal.pecio@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 6/6] arm64: enable a distinct type for HW PTEs
+To: Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Alexander Potapenko <glider@google.com>,
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-efi@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org
+References: <20260914-pte0_arm-v1-0-bb53b663e396@arm.com>
+ <20260914-pte0_arm-v1-6-bb53b663e396@arm.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260914-pte0_arm-v1-6-bb53b663e396@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Michal,
+On 14/09/2026 14:51, Muhammad Usama Anjum wrote:
+> With HW PTE pointers and direct HW PTE accesses converted, arm64 can use
+> the generic hw_pte_t wrapper instead of the pte_t alias.
+> 
+> Select ARCH_HAS_HW_PTE_T to give HW PTEs and SW PTE values distinct C
+> types.
+> 
+> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 
+Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
 
-> This is actually an anomaly, transfer events should always point
-> to valid rings. Device sendig bogus Stream ID would be code 34:
-> Invalid Stream ID Error.
->
-> Is this an ASMedia host controller? PCI ID doesn't looke like one...
-
-
-The original controller was not ASMedia.  It was a Zhaoxin xHCI
-controller, PCI ID 1d17:9204.
-
-
-I have now reproduced the same post-rebind failure with the same USB
-storage bridge (USB ID 2109:0715) and workload on an Intel xHCI
-controller (PCI ID 8086:a2af).  This additional run used
-6.14.0-27-generic.
-
-
-The relevant post-bind log is:
-
-
-   scsi host7: uas
-   scsi 7:0:0:0: tag#4 data cmplt err -75 uas-tag 1 inflight: CMD
-   scsi 7:0:0:0: tag#4 CDB: Inquiry 12 00 00 00 24 00
-   scsi 7:0:0:0: tag#4 uas_eh_abort_handler 0 uas-tag 1 inflight: CMD
-   usb 2-2: reset SuperSpeed USB device number 2 using xhci_hcd
-   scsi host7: uas_eh_device_reset_handler success
-   ...
-   scsi 7:0:0:0: tag#7 CDB: Test Unit Ready 00 00 00 00 00 00
-   scsi host7: uas_eh_device_reset_handler success
-   sd 7:0:0:0: Device offlined - not ready after error recovery
-
-
-There was no "Transfer event 26 for unknown stream ring" message in the
-Intel run.  Therefore, I agree that event 26 is anomalous, but it is not
-required for the storage failure and appears to be a secondary symptom
-specific to the original run.  The first post-bind failure is the
-Data-In completion error on INQUIRY, and the same error occurs on both
-controllers.
-
-
-Thanks,
-Jiayi
-
+> ---
+>  arch/arm64/Kconfig | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+> index 2bbeded33da0d..42841d5e2ed26 100644
+> --- a/arch/arm64/Kconfig
+> +++ b/arch/arm64/Kconfig
+> @@ -31,6 +31,7 @@ config ARM64
+>  	select ARCH_HAS_FORTIFY_SOURCE
+>  	select ARCH_HAS_GCOV_PROFILE_ALL
+>  	select ARCH_HAS_GIGANTIC_PAGE
+> +	select ARCH_HAS_HW_PTE_T
+>  	select ARCH_HAS_KCOV
+>  	select ARCH_HAS_KERNEL_FPU_SUPPORT if KERNEL_MODE_NEON
+>  	select ARCH_HAS_KEEPINITRD
+> 
 
