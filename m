@@ -1,87 +1,46 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mailrelay-egress16.pub.mailoutpod3-cph3.one.com (mailrelay-egress16.pub.mailoutpod3-cph3.one.com [46.30.212.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A28489FD6
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:35:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4B0484899
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:37:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.30.212.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789990554; cv=none; b=DhF5ewV829pIWrehoGscW926JatXP4tHIExWQijGGx9eUMYUvV2vE3LP9i8BMraIew9oT17inlnFrevQXo4sXSagf/Ugyuv44c1OocCIZoYqAzwNljfuj8TcFgi3NLgz2s2wP51zB5GnHxYeN0ZotIHE9SW8TLrRq6blMTegh0k=
+	t=1789990644; cv=none; b=Vg72ycHF6FZ4xr/kYxs6ZRvg5F/WdHfgpc2jIZIScr0FMmaslkOPxwrLB14NpupCHQdhZvmqgYcqy0hLFualK6N5TBaPRCRm67IjXfJo9QNjD2DjsY+pQ89kLhZBw7xQT3ZISeiJA5XJdgD+6ZvYg1NTFkJO/m86FfeAwsO+PX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789990554; c=relaxed/simple;
-	bh=HHlA3ZNEuhKfDm4d4c+jXhjuKOBy+d2g6bs8QECFrlw=;
+	s=arc-20240116; t=1789990644; c=relaxed/simple;
+	bh=LdM4mY9Nz0zcvD+YALzhKs/jO+4E95E5COO3p26ClF4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m74vhzhgt3nk9gsqNTjXxxCUbZEmBqXhW7RqpoNUITvHjFLSVkAYkpZ7OdDUx/8E50IGccXbzS0W2zclMEWL0Q/Qp8BOqryKbIigBv7QTZJ7lw/AjeifekhStEd1mTAe3QTf9OFR3PgVLMoxUZVp7rhZxeY3qR5FMbs9k2iyyus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bH73n8kb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fX/kVP7A; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=FwacfmzhXhc4zSKULOwSNvNEaeeGRxWjrpGRpDQ++C3hesZzLC2Ll+v5wkXY//TNNRsMUZJnCa2FhWOTAh+BqEGScS/qufZpbTfac+hC4OjUZ9KUiCwFCaU5+8ZlJaaj0Bl/IHmOV3KclK+v2T8JR6Bhxi6ZOSGj4Pcbmv5HZOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embetrix.com; spf=none smtp.mailfrom=embetrix.com; dkim=pass (2048-bit key) header.d=embetrix.com header.i=@embetrix.com header.b=cdwoRbpl; dkim=permerror (0-bit key) header.d=embetrix.com header.i=@embetrix.com header.b=UvuQ778N; arc=none smtp.client-ip=46.30.212.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embetrix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=embetrix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bH73n8kb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fX/kVP7A"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAe1mO1563503
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:35:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	RacektqXu375c4L9KiAsUvB4bKjBE5jyOEGZ/c/EWGQ=; b=bH73n8kbfHIr3Z6h
-	aferxfmolebruHmuFDXcgrFX9YFgLBGPJSNHtbJiQe4q/2EINyd9k88N/53yncrL
-	9s0a+xfCuAA94pH0n1LZVw6QuJt3zTLcza7ursBiTf6Vt0/rXH3/xiMfpRYhWKFj
-	LFczxy9j9GRJW8+0INzHkN1JqTUO/1lvZUSgIaAwP/PJdko/9vRj5kOCvLnEuK0p
-	YE9c89g9DaNjaf5HYTKTkWPgjalmB1m8RJdnHHcB2OUAiZpZSQ29ZTjTlok0/uhc
-	cZX8VGOS0xhyh8lItPof/2VyU8xWjg9ULbXfJYKVkEMowy6pAp391DwzuxtAlQtK
-	REypLg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtysw12na-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:35:51 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-930a312222dso76018585a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:35:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789990551; x=1790595351; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RacektqXu375c4L9KiAsUvB4bKjBE5jyOEGZ/c/EWGQ=;
-        b=fX/kVP7A072DsmbsjP4/o6mKfrJDBecmyLsdhCXfRIuT5BPLyyehbGKe+WYsRvfpMx
-         CBmM1z9Tqr9m8P8U6B3WIJ6ut7zvXW5Ng8STcuosAYGGoVVh8j9W4AU3wCNI+V8JHGyA
-         IsuBvfegsGE2mb4X9Gc/3qjL/aaDmD6yM8150P3JrxwWqHjhVijoASJb8IIhGYtRmIEa
-         RAqK/079nJS3n8YWk9UNCAhsKSxOBPJiV73sJfzexwFGT5oxY/OVzG6/2TOjOSv8KCL6
-         du6b5+naRe8xp6IZs+S+akneu564vljp1eoc8yfH1YPCM9t2BvpF4B4u+JijVNN8RuSF
-         lMCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789990551; x=1790595351;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RacektqXu375c4L9KiAsUvB4bKjBE5jyOEGZ/c/EWGQ=;
-        b=GsNTP5sWFUCuJYPsPyoXsJa51ue2ZA8TQICQ3bVaFZ07YOFOEqY5MVnVc0Txxa4+Nd
-         WshJWto9SB3WacLy23qCE+1Srb1xInCV19r0i2Y3vC6fIWLSa2MSdTz1RAybis6pgf3P
-         DK+3XWnJYDAjn7Ds9R8TCktS9SKMhhQpKMH/VgMzH8bhZy8YKhJkKjb1gwrX9g5ws/rY
-         jf9d7OOSBNvXOcvgNhhLOpcssjLIyRT4BOtGdSkJAANcZMTw0mHFePPbolhGjX5TSJQb
-         E1I+SXvdAY2u1TnzuEhhZlsolFx0hqFTsEXpp9kzJjdmQ0dXE4992vil8pP4gUVoTP4X
-         Xafg==
-X-Forwarded-Encrypted: i=1; AKwUvBxHGXj9RdwY7K8Vl7/QQfyTxi2x5zr3OBOXUwei8YwHxX4sC7uCtyyHJ8i0N97CuizKhHGOaAQ8rH5yIWw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQlTg1uCtwwKHnOE+yYHfc9oxdbxJA0NtoiVWhaEfbnf1OKMG3
-	XwVEmExkGbElcQb+W9n/AYmPiNxlPuC1V9WCCDzOaKupRZGq0JLmdfz4b3PpLQCohe6hRtfocHm
-	DW/biLIBNAxZK60RjyzuseuIOLB7yZbEkccduEP+sTK/tj9+aoZatvkG8C7W0huIR8MU=
-X-Gm-Gg: AYBFou2mzBeiv3quWtAaeAWnm3ayW/a9DI31wPvhRvc86Xb8mDMwnl+4I/66XbplZSO
-	Q7X7O/PoDxwcMzvYAbUOk6Bfc+8lqpIahMBy7lxFb0FO7ErOgmTsnHDeTjh4drRv1SvIupagZa6
-	s9ypcNF+3jnxa2ZE0pg/a620RuVN2XJPrZ+YnAXpQ22RGYxx1otrKoNfKEZQz8wwYbrjSHMO+aP
-	glNtSJ+1QnD1/uRZAoLOMH9AZyXP4chfHzK5myqMbLE+zqcPvjTMPs15haU5lM0yDpOhj5hgQbj
-	/EUZxOVEdU0SHrRzHy6Jpg/STw3I2F78rkBLaOZEg1Vvz0X7xVZpFppCze+nuz0xO6kEj6yUx0b
-	WSFwGYZoUYuSo02DJEWN62Q==
-X-Received: by 2002:a05:6214:5b04:b0:90f:1a3b:b20b with SMTP id 6a1803df08f44-913fc9f462cmr884646d6.4.1789990551415;
-        Mon, 21 Sep 2026 04:35:51 -0700 (PDT)
-X-Received: by 2002:a05:6214:5b04:b0:90f:1a3b:b20b with SMTP id 6a1803df08f44-913fc9f462cmr884306d6.4.1789990551084;
-        Mon, 21 Sep 2026 04:35:51 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67e18fc5sm4196752a12.24.2026.09.21.04.35.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 04:35:50 -0700 (PDT)
-Message-ID: <165d1eb4-f5e7-4f54-9f9c-22a210976d71@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 13:35:48 +0200
+	dkim=pass (2048-bit key) header.d=embetrix.com header.i=@embetrix.com header.b="cdwoRbpl";
+	dkim=permerror (0-bit key) header.d=embetrix.com header.i=@embetrix.com header.b="UvuQ778N"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1789990568; x=1790595368;
+	d=embetrix.com; s=rsa1;
+	h=content-transfer-encoding:content-type:in-reply-to:from:references:cc:to:
+	 subject:mime-version:date:message-id:from;
+	bh=9J5dZMdZm/gGQtb0P7U3KP1/b4Bcm8tjmsLOfVuk8/c=;
+	b=cdwoRbplKWvHICnileGfxB+eTjKQJxiVwukZAvfs+474kMJIrgeaYLFPc5LGV7+YxU9iC/0pkYjIF
+	 LLvxXV+m7LwE9OKTn5wZRhNS94Q+NuOxoW1M3CDGhePMBTnzzgwo9o/pPlm6VpHkEqLCAfNPrV+/jY
+	 g1e5vPtFASSDbOfEt3C891y6ADj2wX6JpBLrR6im7NqVb12iC+vhRPzqquXjtFA9YumRnn/SaB2YUg
+	 f17D4TB0evQE++0UYUFZgT/GHmmAeajPbklYPBEf31VqWg2MdFZHgKDso5riZmfAxtRsMRCcGaa2Sg
+	 nu6zgq68ygQcE+qAmjXiZrjE1YcbpoA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1789990568; x=1790595368;
+	d=embetrix.com; s=ed1;
+	h=content-transfer-encoding:content-type:in-reply-to:from:references:cc:to:
+	 subject:mime-version:date:message-id:from;
+	bh=9J5dZMdZm/gGQtb0P7U3KP1/b4Bcm8tjmsLOfVuk8/c=;
+	b=UvuQ778NPc00MPNTyAKhEUbQ5LBo2ysscpbi2nSi3lGDmMbGdNK11JYRH5VjQEbxY7Pt0iD6hTbI1
+	 I0ccpOMDg==
+X-HalOne-ID: a2218365-b5b0-11f1-81da-df8125a0c701
+Received: from [192.168.1.130] (unknown [160.178.122.52])
+	by mailrelay5.pub.mailoutpod2-cph3.one.com (Halon) with ESMTPSA
+	id a2218365-b5b0-11f1-81da-df8125a0c701;
+	Mon, 21 Sep 2026 11:36:07 +0000 (UTC)
+Message-ID: <97f8d660-a523-4011-ba15-6f708cb1b589@embetrix.com>
+Date: Mon, 21 Sep 2026 12:36:06 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,70 +48,138 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: glymur-lenovo-yoga-slim7x: add the
- embedded controller
-To: Oleg Keri <okerixx@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260914082950.9393-1-okerixx@gmail.com>
+Subject: Re: [PATCH] dm-verity: add DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE
+To: Mikulas Patocka <mpatocka@redhat.com>
+Cc: snitzer@kernel.org, agk@redhat.com, bmarzins@redhat.com,
+ dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org, corbet@lwn.net,
+ linux-doc@vger.kernel.org
+References: <20260907171939.355472-1-ayoub.zaki@embetrix.com>
+ <a37a63f2-e45d-4e51-0c2d-bd19cca5fe88@redhat.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260914082950.9393-1-okerixx@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE2NyBTYWx0ZWRfX1meTGo1t0wA1
- zdG/TekpjhL341q6dm/Blb+QQqT4qH94gcwmN7uTxGoZcVT5hFrHm6AmUU10ZNpN9ce/NSwwBjK
- rix0OwFm8+cLbHL0ayvuWxsdXhgGOL1Hwe7xj+DmS5mrbKjXAN+WdD5MfO1plHH65jGpfaQ7Fko
- O1f4hyDrza9l5RcoCUJqrq7DvdjIg3Hc2wR3nT5a/XqkcZWIko3kugldMWF5z5zVV0rMF+qNLLd
- jggjI32e7P+ign/E6okDIbUjwOnpAZt3RKfNX8hCG48swhkY+7xbXxFyY2+WCwoVG9AwxaEHd+W
- 7DkcOXm9cCtAiHb5sm1ACt0BJK7iYCElo+DyCdZaUESgwXfhl6MQhjPu/qmnPDaIavo20LM3Mi/
- spXWsJWTor8BcMrF05IV56+aE5aie3xsIAVpcH1X/gHr3SGNjOGQ3OfvX88BEeuD4Xvpp61yOMK
- 2J/tCe3mEKknVxZSlBw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE2NyBTYWx0ZWRfXw1Ntwmnj39ph
- xGO1TGIhcP/I5PMjyaTICUTsYat7Oi5JBKDAKK7BKNHxMBQSjtorXyrI2BzoCMv/zvcV3WM0Ucl
- zTE78Qs2X/eQoLkSoxNB6qfpDgS4rgo=
-X-Proofpoint-ORIG-GUID: xzIXZJ1EQNvXkiAr6pSmn0rD87bpO6eo
-X-Proofpoint-GUID: xzIXZJ1EQNvXkiAr6pSmn0rD87bpO6eo
-X-Authority-Analysis: v=2.4 cv=W7etxhWk c=1 sm=1 tr=0 ts=6ab11697 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=n8V4RSI0IBY5zkqsj_gA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0
- impostorscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609210167
+From: Ayoub Zaki <ayoub.zaki@embetrix.com>
+In-Reply-To: <a37a63f2-e45d-4e51-0c2d-bd19cca5fe88@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 9/14/26 10:29 AM, Oleg Keri wrote:
-> Describe the Compal embedded controller on I2C at address 0x70. It
-> provides the board thermistors, the battery cell voltages and the CPU fan
-> speed, and drives the keyboard backlight. Its interrupt line is TLMM
-> gpio66, falling edge, for which the file already carries a pin state.
+Hi,
+
+
+On 9/21/26 11:46, Mikulas Patocka wrote:
+> Hi
 > 
-> That state leaves the pin without a bias. gpio66 has no external pull
-> and floats when the EC is not driving it, which shows up as a steady
-> stream of spurious edges; the vendor ACPI tables describe the same pin
-> as GpioInt(Edge, ActiveLow, Exclusive, PullUp). Enable the pull-up.
+> The argument can be turned off even with your patch - by specifying
+> dm_verity.require_signatures=0 on the kernel command line (read-only
+> module parameters can be modified on the command line during boot).
 > 
-> The binding and the driver are under review separately [1]; this node is
-> inert until they land.
+> I'd like to know what kind of security problem does this patch try to
+> solve. If the attacker can tamper with the kernel command line, he can
+> already gain root (i.e. by using init=/bin/bash).
+> 
+> Mikulas
 
-No, merging a node without dt-bindings would cause DT validation errors
-(which you can check via make dtbs_check / make CHECK_DTBS=1 qcom/foo.dtb)
+Thanks for reviewing.
+I should have highlighted the change to bool_enable_only: with 
+CONFIG_DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE=y it rejects attempts to 
+clear require_signatures, including from the command line.
+I followed the existing CONFIG_MODULE_SIG_FORCE and module.sig_enforce 
+implementation.
+My intention is to make signature enforcement a build-time policy rather 
+than depend on boot configuration.
+I fully agree with your point and that this patch alone does not protect 
+against arbitrary command-line tampering.
 
-> [1] https://lore.kernel.org/all/20260908183403.2107-1-okerixx@gmail.com/
+If required I can clarify the scope in a v2 ?
 
-This link and the paragraph above should be above the --- line, so that
-it doesn't become part of git history
+> 
+> 
+> On Mon, 7 Sep 2026, Ayoub Zaki wrote:
+> 
+>> Add DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE Kconfig option.  When enabled,
+>> dm-verity always requires a valid root hash signature: require_signatures
+>> defaults to true and can no longer be cleared on the command line.  When
+>> disabled, the existing require_signatures module parameter controls
+>> enforcement.
+>>
+>> Signed-off-by: Ayoub Zaki <ayoub.zaki@embetrix.com>
+>> ---
+>>   Documentation/admin-guide/device-mapper/verity.rst |  5 +++++
+>>   drivers/md/Kconfig                                 | 14 ++++++++++++++
+>>   drivers/md/dm-verity-verify-sig.c                  |  4 ++--
+>>   3 files changed, 21 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/Documentation/admin-guide/device-mapper/verity.rst b/Documentation/admin-guide/device-mapper/verity.rst
+>> index eb9475d7e196..bb48c001aeac 100644
+>> --- a/Documentation/admin-guide/device-mapper/verity.rst
+>> +++ b/Documentation/admin-guide/device-mapper/verity.rst
+>> @@ -163,6 +163,11 @@ root_hash_sig_key_desc <key_description>
+>>       also gain new certificates at run time if they are signed by a certificate
+>>       already in the secondary trusted keyring.
+>>   
+>> +    Whether a signature is required for every dm-verity device is controlled by
+>> +    the dm_verity.require_signatures parameter which defaults to off. Setting
+>> +    DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE makes it default to on in which case it
+>> +    can no longer be turned off.
+>> +
+>>   try_verify_in_tasklet
+>>       If verity hashes are in cache and the IO size does not exceed the limit,
+>>       verify data blocks in bottom half instead of workqueue. This option can
+>> diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
+>> index df27c7d066d2..59098d1f4534 100644
+>> --- a/drivers/md/Kconfig
+>> +++ b/drivers/md/Kconfig
+>> @@ -610,6 +610,20 @@ config DM_VERITY_VERIFY_ROOTHASH_SIG_PLATFORM_KEYRING
+>>   
+>>   	  If unsure, say N.
+>>   
+>> +config DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE
+>> +	bool "Require dm-verity root hash signature verification"
+>> +	depends on DM_VERITY_VERIFY_ROOTHASH_SIG
+>> +	help
+>> +	  Reject dm-verity devices that are created without a valid root hash
+>> +	  signature.  Without this, whether a signature is required is decided
+>> +	  at boot time by the dm_verity.require_signatures parameter which
+>> +	  defaults to off.
+>> +
+>> +	  Enabling this makes that parameter default to on and it can then no
+>> +	  longer be turned off.
+>> +
+>> +	  If unsure, say N.
+>> +
+>>   config DM_VERITY_FEC
+>>   	bool "Verity forward error correction support"
+>>   	depends on DM_VERITY
+>> diff --git a/drivers/md/dm-verity-verify-sig.c b/drivers/md/dm-verity-verify-sig.c
+>> index b2b55c41e2cb..aadcf5e4a47c 100644
+>> --- a/drivers/md/dm-verity-verify-sig.c
+>> +++ b/drivers/md/dm-verity-verify-sig.c
+>> @@ -21,8 +21,8 @@ static bool dm_verity_keyring_unsealed __ro_after_init;
+>>   module_param_named(keyring_unsealed, dm_verity_keyring_unsealed, bool, 0444);
+>>   MODULE_PARM_DESC(keyring_unsealed, "Leave the dm-verity keyring unsealed");
+>>   
+>> -static bool require_signatures;
+>> -module_param(require_signatures, bool, 0444);
+>> +static bool require_signatures = IS_ENABLED(CONFIG_DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE);
+>> +module_param(require_signatures, bool_enable_only, 0444);
+>>   MODULE_PARM_DESC(require_signatures,
+>>   		"Verify the roothash of dm-verity hash tree");
+>>   
+>>
+>> base-commit: df2908090cda368b01ff43709f51890076c56157
+>> -- 
+>> 2.43.0
+>>
+> 
 
-Konrad
+Mit freundlichen Grüßen / Kind regards
+
+-- 
+Ayoub Zaki
+Embedded Systems Consultant
+
+Vaihinger Straße 2/1
+D-71634 Ludwigsburg
+
+Email    : ayoub.zaki@embetrix.com
+Homepage : https://embetrix.com
+
+
