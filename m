@@ -1,64 +1,68 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C643E44A3E2
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:02:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9FBF45D901
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:02:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789981331; cv=none; b=mOFw1fHsLti2RTI0vRZ9jrZIRSiReCXp8FgtC35EnLAGlcHnIgRjZyBLzh4otcEsN1mIPi8kHU4+auYza81Sa0qidtCRS94HCxQaVKsVBHO1IumCXJdnVsAhoFI4fY2cfGrjnDb6ypZWkbZJMx0ymJzi/ANjV+l/wUXJnaLQL5c=
+	t=1789981338; cv=none; b=Vz4+wkkEff/UDXHt/ws0ro6v+UeaQl84BzpNpamC/Zhd1V+tzO1seRL7uwDFJchN+2n4tjTFRPwj5xYGL31LZy2EOyJmTXv2WKAnrqJmoce7fdSxNnS1NJMDMMKoAMqgzydK9xBbRrA+k+GTDrJmoEjPvhWcrGsqa2aJutE/548=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789981331; c=relaxed/simple;
-	bh=g0dOxrMogl6ogkaWVVv5WE2Ut8VjwWilegYZhff/XXw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q74IX3ehGMJFkAO6kG7Gc93hMGLum0SybyIA8TXosoV7rpyeOaY84QIF9Ni8TCOchGp6MlcEe8xjgqLy4WJ9rDUDxF4a8TvSxJxKNMeBcGLlCElEiHup2mOj36GznagO9a3oyxkMya7LEAQIfqVHjpEKjGYnOrgpkS1+kTah1Hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=q7oshqOK; arc=none smtp.client-ip=148.163.156.1
+	s=arc-20240116; t=1789981338; c=relaxed/simple;
+	bh=vmv/0+Xq/lnqZX1V089W9nsRWCBLs+ie7NpO3PALego=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=E1k491GBHENKv4IwlgSyAfP44RxSGLe1FfkdvH8jSAYOw9/oMescCxevAlsWrJpY3JAHIFNjDrEapDByVy9zbBMeZ+ixqJ3DTUlwncuP9fag8AieImbJ/AoeLpH4r8JQZtzY1xniRh7MGeVN4uqJE57uqrg+99TySI34V32Fpao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=NPUY4DXK; arc=none smtp.client-ip=148.163.158.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="q7oshqOK"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7ZMY4829735;
-	Mon, 21 Sep 2026 09:02:04 GMT
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="NPUY4DXK"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7Zbm0672354;
+	Mon, 21 Sep 2026 09:02:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=stUr8pN49GsSi5dmVSoPptxR0f8R6WFZP/LSTKq8L
-	n8=; b=q7oshqOKInvYOZD65JizZNv/zSI1PRB7qNQMEUcGyeQq2gswP8Vghsa4n
-	0AxRo2tvXYmCUPqvjy6ntUjLgJM0Lzg/DyfocRV7pBNmPtQDjwloGQNy89enT0O+
-	oSs9dZNgMBkWaOUXnBNNmDCL4K+fkhLA7Lcf/YGMO1JszBc9hWlwDUsWizABgbcx
-	g8ASxDoXqMEzeTy6kG9smYyj01LfhaPaxqhSNyc5qCSen27fdB1bmBKwRfXbhKOB
-	l/hOrLwelKY5VBePVBHpEbR0suEKg9JWe8XLmwkoSM1UtRIQWvUpkDdnkwVvUsXi
-	zIq6W+RmGGDI8bYgZesrGn3Y8C9aQ==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgrymyu-1
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=lVU5bXNZYPJng82Z+
+	hQ2MJm5a+4tPpGlnygsU8bDr7U=; b=NPUY4DXKm1TzCFpsuE/d4TZ0lcOfB98c3
+	92RGcZiryjHxa7+Uv61h/wHgwMBiodfkKqSd8slDBbKwsCgnmYsyeKFLmoP/9+Z4
+	v47t6B0/wjMncf4qrTvJ8WNZVkelQ7IQgr+KJYWyGPJI9c373N95uT6+mAVePXMM
+	Vj9GWBrHUaRgMpdpNVZOJOZI9diZl3nFXdLHHQb7CULCEuE+sk+3Cap+zJR1shBX
+	ct9Zv7lxIJiSP376uPyP17Z8s5rVtOfxMwsjf/GtU5i3o14oOVXZ3Ic8Hl5rF3El
+	kjX0wwz0oFJX0sUezlAka/MzI/eB8D/ivSx0PNcUs0x80Slwu/sWw==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske17gpu-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 21 Sep 2026 09:02:04 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7HwSA844286;
-	Mon, 21 Sep 2026 09:02:03 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gt5qjmhw0-1
+	Mon, 21 Sep 2026 09:02:06 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7HaNk1835330;
+	Mon, 21 Sep 2026 09:02:05 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gt7dy4a8h-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 21 Sep 2026 09:02:03 +0000 (GMT)
+	Mon, 21 Sep 2026 09:02:05 +0000 (GMT)
 Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68L91x7O42074412
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68L9222848431494
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 21 Sep 2026 09:01:59 GMT
+	Mon, 21 Sep 2026 09:02:02 GMT
 Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2BBAB20043;
+	by IMSVA (Postfix) with ESMTP id E6EA72004D;
+	Mon, 21 Sep 2026 09:02:01 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A860920040;
 	Mon, 21 Sep 2026 09:01:59 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 38CE820040;
-	Mon, 21 Sep 2026 09:01:57 +0000 (GMT)
 Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.124.208.199])
 	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 21 Sep 2026 09:01:56 +0000 (GMT)
+	Mon, 21 Sep 2026 09:01:59 +0000 (GMT)
 From: Shrikanth Hegde <sshegde@linux.ibm.com>
 To: maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org
 Cc: sshegde@linux.ibm.com, christophe.leroy@csgroup.eu,
-        linux-kernel@vger.kernel.org, ritesh.list@gmail.com, tglx@kernel.org
-Subject: [PATCH v3 0/3] powerpc/irq: Use optimizations for /proc/interrupts
-Date: Mon, 21 Sep 2026 14:31:50 +0530
-Message-ID: <20260921090153.54745-1-sshegde@linux.ibm.com>
+        linux-kernel@vger.kernel.org, ritesh.list@gmail.com, tglx@kernel.org,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Subject: [PATCH v3 1/3] powerpc/irq: Move __softirq_pending out of irq_stat
+Date: Mon, 21 Sep 2026 14:31:51 +0530
+Message-ID: <20260921090153.54745-2-sshegde@linux.ibm.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260921090153.54745-1-sshegde@linux.ibm.com>
+References: <20260921090153.54745-1-sshegde@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,69 +72,80 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=V/XoQuni c=1 sm=1 tr=0 ts=6ab0f28c cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+X-Proofpoint-ORIG-GUID: NAhXtCkvhu0NTz2Jzdn4MIYRn0LXs_sN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEyMyBTYWx0ZWRfXwS9EPCB4ve2c
+ OSozCHFfukbsNcN3fATdtTu48Z7v5ub3RbheMJlVsiF7g8R9/c+6ciXtF9mekIzqv15cHQlhkpc
+ mtmqRSLskZhhYlTZGFQ/4UDetGNM8MEvyF5iwhJ/QqU1PeLfEjqPC741jck3B2JGBabf8rD3H7I
+ DC8eGOQZ5gY01zg88EuNOW1mbNdPnKsgFAst7mmkpftYkaJgBjMwdxr2GNBV2c0Jkqk+DmmBGr1
+ Tbh0pGocq+SSe1/V5nQsH2OTwaIJ2z8+NQ/XplXB/h8iLBvhmXRb7opQS+e6c39H5CB3iJOvJI1
+ h5weA2c5Jy/Lt32kTbGR5bApEp/lxOu7J+Tp9VOgRPSqcKjmCGkRx48liRv6H5FgnRTWCMqtCij
+ G8mob+QZINsUH7FonZ0Rhv6QlHf/+eftoPJ5+HdbgbA85LJwce3P9LzFEvIBfFuQ+aMibQVnotV
+ Y6wmY5k/OWIOmB8fpMQ==
+X-Authority-Analysis: v=2.4 cv=O/KsLx9W c=1 sm=1 tr=0 ts=6ab0f28e cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
  a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=ZHew1V-Ef7zmNSL-XegA:9
-X-Proofpoint-ORIG-GUID: SxJrAGq2YLQfcSGYBPcnXW8Ivbir3mD5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEyMyBTYWx0ZWRfX+SF25W7uY21B
- mvyi93n1KFOOWZNeF/2MIN2VfKNzmND6Qw8Z6vpVmSwwHXOLuzWVM48nyKygu5+Ad8+2yz1+9bY
- +Tikk0J38f7TcSrhl4IWf2HMd+AEZ+a+2kN2Oea5NF15HSDvohlptjHg7KTo+gz8ROxdw7/RR7P
- 0xbwTjWTNafd15eusAMqpuIH8Jaiqm9qTC/smvUwiu1g/y4MO6wtLJ0PIVnkZgV1gOYGh77R38N
- 28pw78HWvxDN5FHSr2nAcRGWqnyp6Ls5mHayyLFW60SmVBjV6knDEjrbOnopiJG6KJSdaBK0JHC
- lpH7LzmANG25L4FfAF9XUyDo8C/qFWG9WME7re+SSbcgpdFeH3TLsOw4MEXVkncDADubNDAmfhF
- oYpyD/yYC5FnStlt7yzWyxDvOn/5G8mYPJUGoapgipOlaG8bNcyq4QJ3iyAj2V18avcfK08djsr
- Uq7JaSqQF1VqWnBSl2g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEyMyBTYWx0ZWRfX1ihAq+LSXB1P
- Tk4b243gVCrp3c03A7OW9WTHa8rJ08In8nmtGsSRh3/LHdtJf5ye/20Ihf1TFl2yT28eR8EGR5h
- BjKUoPUPdQZ++hkOFZU4XEnYcozMfzQ=
-X-Proofpoint-GUID: hnA4rGDUllBfnQqi-SXIqWIE4-HTdu4v
+ a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=C94dUP7i7d1QJr0i2-sA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEyMyBTYWx0ZWRfX3tJ/M6v+V3hd
+ em4LlYawm21IwnJapA2kiE7dbW3cbgZQXWIWl8fmNXuUfWWNhvnkdXnvggZPCmGOD/ypqzjPt2q
+ OJzeHZvbw68AFUGjhIjNGr2zSbdaUNE=
+X-Proofpoint-GUID: PFyrBRmoRqmHdJWQbDsWQk4AfkbflBau
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ clxscore=1015 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
+ bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210123
 
-v2->v3:
-- Respin based on 7.3-rc1
+__softirq_pending isn't part of arch specific irq_stats. It is used
+by softirq core for various decision making such as whether to kick off
+ksoftirqd.
 
-v1-> v2:
-- Collected the tags (Thanks to Christophe Leroy)
-- Rename skip to optional and check optional while printing
-  (Christophe Leroy)
-- Decided not to add cpu_has_feature(CPU_FTR_DBELL) while printing.
-  This feature is mostly true for majority of platforms and adding check
-  means more ifdefs in that path. Prinitng "Doorbell interrupts" shouldn't
-  cause any issue when feature if off since all entries would be zero.
-  (sashiko)
+Move it out of irq_cpustat_t. This makes it simple to make irq_cpustat_t
+array based approach.
 
-This series is based on work by Thomas Gleixner[1].
-Further details can be found in cover-letter of v1.
+Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+---
+ arch/powerpc/include/asm/hardirq.h | 3 ++-
+ arch/powerpc/kernel/irq.c          | 1 +
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-Base: tip/sched/core at 'e81ee0630837 ("sched/fair: Reset NUMA fault locality after scan period update")'
-
-[1]: https://lore.kernel.org/all/20260517194421.705253664@kernel.org/
-[2]: https://lore.kernel.org/all/87jysxw65f.ffs@tglx/
-v1: https://lore.kernel.org/all/20260523174016.999456-1-sshegde@linux.ibm.com/
-v2: https://lore.kernel.org/all/20260529124045.1208539-1-sshegde@linux.ibm.com/#r
-
-Shrikanth Hegde (3):
-  powerpc/irq: Move __softirq_pending out of irq_stat
-  powerpc/irq: Make irqstats array based
-  powerpc/irq: Suppress unlikely interrupt stats by default
-
- arch/powerpc/include/asm/hardirq.h |  31 ++++---
- arch/powerpc/kernel/dbell.c        |   2 +-
- arch/powerpc/kernel/irq.c          | 131 +++++++++++++++--------------
- arch/powerpc/kernel/time.c         |   6 +-
- arch/powerpc/kernel/traps.c        |  11 +--
- arch/powerpc/kernel/watchdog.c     |   2 +-
- 6 files changed, 95 insertions(+), 88 deletions(-)
-
+diff --git a/arch/powerpc/include/asm/hardirq.h b/arch/powerpc/include/asm/hardirq.h
+index f133b5930ae1..bf3926a0c69c 100644
+--- a/arch/powerpc/include/asm/hardirq.h
++++ b/arch/powerpc/include/asm/hardirq.h
+@@ -6,7 +6,6 @@
+ #include <linux/irq.h>
+ 
+ typedef struct {
+-	unsigned int __softirq_pending;
+ 	unsigned int timer_irqs_event;
+ 	unsigned int broadcast_irqs_event;
+ 	unsigned int timer_irqs_others;
+@@ -23,6 +22,8 @@ typedef struct {
+ } ____cacheline_aligned irq_cpustat_t;
+ 
+ DECLARE_PER_CPU_SHARED_ALIGNED(irq_cpustat_t, irq_stat);
++DECLARE_PER_CPU(unsigned int, __softirq_pending);
++#define local_softirq_pending_ref       __softirq_pending
+ 
+ #define __ARCH_IRQ_STAT
+ #define __ARCH_IRQ_EXIT_IRQS_DISABLED
+diff --git a/arch/powerpc/kernel/irq.c b/arch/powerpc/kernel/irq.c
+index 15a3c3fd8e70..0a4daceee293 100644
+--- a/arch/powerpc/kernel/irq.c
++++ b/arch/powerpc/kernel/irq.c
+@@ -73,6 +73,7 @@
+ 
+ DEFINE_PER_CPU_SHARED_ALIGNED(irq_cpustat_t, irq_stat);
+ EXPORT_PER_CPU_SYMBOL(irq_stat);
++DEFINE_PER_CPU(unsigned int, __softirq_pending);
+ 
+ #ifdef CONFIG_PPC32
+ atomic_t ppc_n_lost_interrupts;
 -- 
 2.52.0
 
