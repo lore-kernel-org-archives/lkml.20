@@ -1,148 +1,167 @@
-Received: from mail-oi2-f8.google.com (mail-oi2-f8.google.com [74.125.231.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013063.outbound.protection.outlook.com [40.107.201.63])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422CE484238
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:07:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.200
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789988868; cv=none; b=RQj1d43ZT7w/vUM7uPmBQ/7Pm+BtGiOTQZBVgMtcC3B6RPTTXwsNMZJGZOaruSfCsYx0jCrFkvCC0tWS5xbLGRkDTQJcYOsS2Qe+k3X5Wr4CqF7btioOA2Tab2Y0moV785Au8NCOF33sVbvhUMjWS21aNKtY6rjsLOZLx8VfCaQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789988868; c=relaxed/simple;
-	bh=nFA1kLxPFD6DXL7JegHDVi+dyMdIf8B9BDVi9szT22o=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=dmLr4AyEP5EJBs78RVfzzynD/CTJ0p5fY3hVgG8E4FN9oex0k/0Z1ZPEv+LFVWIwzReWnsxb90pXlxaj3cixVNYX21EEqSsGDlr4ubowIoEsyBV+B0vB+hDu7qWXzymYvdp0tA0BBt+FhfTdcJpmidJ1akFnsdUT4Tu8NZ36jrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f8.google.com with SMTP id 46e09a7af769-804d58d09e9so912878a34.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:07:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789988858; x=1790593658;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X4NPzwFFH/PIySvIe6MuM8xYH8txyEHUbV+e+2t0RMs=;
-        b=YzHztSnX1kB2vJYGSCzBuF3m6x1vAIqhbIr2gtHB0MCN4rAMN8+75VuJZ5eYbs3UZX
-         EJRxfcqEnE7SbkCu79RbXgq46pDmrrUI565X/jlmbLgwwBO4k4ewiWh3Oqn5zpKPT1IZ
-         xDc5ENJlcPG/AaoR7Ji7Lr9nVhbCcjuZ8poQZw/M14o7dHzUSAhoOmSUHdMv9pKv7fHe
-         hm+rUtS285GthyfvedBtQS2ewdVcUfoyBH2c/OWdn985bCz4PYIdLmJIpbl0FqMjFYvz
-         +Y3nPGVdeML89YDMjkUyKHM6u9tuS90iw4AWqboZ+mo9DSubvz1FPa1xkN0nULsjfjAC
-         1/IA==
-X-Gm-Message-State: AFuF++lPokX8BzVnkMdLsDCuiGitDtdTV1a/7esMiYZMrTLMKjh5tnN0
-	G+7Fp4mYLKSYXTFvh9ZkuzqOoSgOz13WraECKl3N+H6qUU3/nBZzuofb+NemYnt1O+SUJYa2blW
-	eSo6IKnuUyZzMiHt48+3Twc5H0PwmtJvHGL0mueR00iUgjPa+b5D3nMAyAVPkhQ==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ACCE3BED4F;
+	Mon, 21 Sep 2026 11:08:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.63
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789988908; cv=fail; b=lt6MuKwYhv5hdAFOLnZB/ZyUR8WaEA1+sw+9H7uBBhiTnyCAyEgDydaWMsOPSwMSd+1j0m8TPmPBQhkbA42xfQcMhfaaxo5yJBPIXwZsI67gXLWjPZQmSHOPeeYgFwhF3AYsmgrQws3rQW6sPjCkAiCLm196xx0rLplvLfEZFsY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789988908; c=relaxed/simple;
+	bh=50aFj8XyFq/Byv9DUFELkwMDaLpt9FicW/LoVolsY1k=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WaxMvxHevTE03Z0fdG5UngHVJGynRxS18yu23X7ehCXoEI0qFgoxqdJj9sSLAYYHPmercJWq4EjFoEk5m1AfOAC3o+atchFVPDanGdBvefR1jxvJd4UBG8JFzlWAiYqQRFAHkIEbWHjWHNfMZFB8k0BixELAHSkfUyopUR0uwxg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=K57biAVq; arc=fail smtp.client-ip=40.107.201.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="K57biAVq"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sj/udurMRmITuesTZyMCR7bvR/yD+Kyx5SjboTqNM5qwbAJUAHP+4bUDlLPquev+YpcRC6DS+as7ILnZh69OyavpEAsoX2pNOl8UTYsGe1jWsSHlxh3tTVBFkJ1anWxEuZp71csPF3rw2WF9vkQaUUtYSezm3rqGeUzO5pfQSqu9hOVZ6mmhn1PqC033MWAsJIajz5zrv2MYUquZSKXYD2egWzIZG0E46rNPG6xviV6/NRL6iVPC6JrmQSlFkRACHbplpwN00Lp+Ae/Ulpm/sF2G7omPtBwk7eNT0115cVUkJIQgyz89Ne+u4imbx18A9QBFowe/P2Fmzp2q1EMHpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z8q2WyJAT9XhzwpEvy7Z+N2NqmdufuVCA1M62la48vI=;
+ b=ou6mG6gfSdzIMVSobPBjzeWEwhaPr8vGEEoWcdLvcG210DfXigiE4JfHPenXYzu6FFedeQHKZDoDxEtc4gylYKZMo5ntGKa9JtIKVWLWgX7jVF7siOC8W6tvopmA+tuS2MmKr6IgYWZbqVW9c8/aPlfvtkWloWxWk/zW0pF85hUVGdKqB/OBf+BmAbGFhARhpPgvx9Js/wq/wr+ySeKOG+XCM9T/Ygee2R4VZ+WY0BvIxv2JqVba8p9DaDGOOmJifRvcp9dU7j6aTThieV7hoU2oYYqT6k+Ajh31bbENUGILXY+u/Xum5jPkFCCpY9Ph1LzRW8Urd2pfB7PInk1PMQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z8q2WyJAT9XhzwpEvy7Z+N2NqmdufuVCA1M62la48vI=;
+ b=K57biAVq1ImMzflbIBJKf4EN7D80PQW6v6mgi/BM1iqSwn9ZrVDqbFkTSy1OVqHQnyhu4Nw2LYMIRXmVF20CZhjMCZKXiv7HLfwYSo38B/WM27xYMqTs/2cw9irVNaFJ0QVB0XJ4xKObsU88mloKvw4s3y2UqLtvJMX+O4vBEvM=
+Received: from MW4PR04CA0148.namprd04.prod.outlook.com (2603:10b6:303:84::33)
+ by PHXPR12MB999258.namprd12.prod.outlook.com (2603:10b6:510:3ca::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 11:08:18 +0000
+Received: from MW1PEPF00016160.namprd21.prod.outlook.com
+ (2603:10b6:303:84:cafe::1c) by MW4PR04CA0148.outlook.office365.com
+ (2603:10b6:303:84::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
+ 21 Sep 2026 11:08:18 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MW1PEPF00016160.mail.protection.outlook.com (10.167.249.91) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.0 via Frontend Transport; Mon, 21 Sep 2026 11:08:18 +0000
+Received: from sriov-SYS-7048GR-TR.xilinx.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 21 Sep 2026 06:08:15 -0500
+From: Nikola Prica <nikprica@amd.com>
+To: <bhelgaas@google.com>
+CC: <linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, <jerry.jiang@amd.com>, <haijun.chang@amd.com>,
+	<andy.zhang@amd.com>, <christian.koenig@amd.com>, <jim.chow@broadcom.com>,
+	<matthew.mcclure@broadcom.com>, <gbayer@linux.ibm.com>,
+	<regressions@lists.linux.dev>, Nikola Prica <nikola.prica@amd.com>
+Subject: [PATCH v4] PCI: Accept AtomicOps already enabled by the hypervisor
+Date: Mon, 21 Sep 2026 13:19:03 +0200
+Message-ID: <20260921111903.978687-1-nikprica@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <3f5fb659-c7a8-41cd-91dd-565cb46c0165@amd.com>
+References: <3f5fb659-c7a8-41cd-91dd-565cb46c0165@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:3403:20b0:6cd:3fcc:96d9 with SMTP id
- 006d021491bc7-6cd3fdbde06mr4054540eaf.87.1789988858742; Mon, 21 Sep 2026
- 04:07:38 -0700 (PDT)
-Date: Mon, 21 Sep 2026 04:07:38 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab10ffa.a6af0033.177e91.0014.GAE@google.com>
-Subject: [syzbot] [raid?] WARNING in free_conf
-From: syzbot <syzbot+6a132745caefcf42cb0d@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
-	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
-	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF00016160:EE_|PHXPR12MB999258:EE_
+X-MS-Office365-Filtering-Correlation-Id: 432a66c7-12c0-494f-2ccb-08df17d0a434
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|10067099003|6133799003|18002099003|22082099003|56012099006|5023799004|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	6qv6bj0fBPGD/Pv2k7c5zXvGcEM/h+9KJm6CA9w0pa4kaY+yjYhTephq56v4mVGpGZ60lnFjrgReN0DlYtGWmxoDhA6THuVgYxHQGChjgOreV5D9cW6vHAQ+7VH08+DGxY2P5t8oSg7qAaRxqXtpcy5sLqcLJeHPtE4SGNTS3SFw/DYOaCbVS0VakSlTwlOHuZ4SMXbqD6M35j3FJJ0TF+m1xsoWdtB4REQE7gRF1CRt1nsCTTBEbIIwuvISJKptFM5qrXgAJRk7VJrIoOvDIjcS3HfcHQYEkfz4Al7enbXmGeneX1BmmExFbMhrqHHUDfMcDbwuoNwzX41wmakcgDP4rectUEWKY7uFxOtNqAXJyra+ffiXvIctkg8xK1aybVPxjAJHx/+nc0mgKBQeuTn1fLQCHg6TfYTs4LuO11dQuU5qUwZ+6ON8qpsFvUGVAQygzXRt2fMowxyP55uuC+0VfSiwc7ifYk0mPduIgdUjb8oAeqQQ2yIOCG5cw8/ShMo0U3VfKzJQWZyOQS2kNwSKaE/ocwld1RIH72Qc/cRJr10Ed0o8ZtPWtI2YewFqFGaODdgiS7fjZfRoU5ZJ/ZeqF6MYJgAIM5HSvgMq4qcXMWUCsrxbBhzHJNdu/otggZMOqdwKuxTb/6t64bRyt60C6w9GD95flSIcCHvpIlMaBLli+OKkZFMZeMiNUDnQ1M7Hq6wiDebWLEs7IzqoWA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006)(5023799004)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	PdE/6cXgCJN3jCIVKZ8sc4dyHpupFH+9v7ur5osCHfT7z+ND4KYajDdMLr0B9/Q7A1goSOOVdWrOiEgHOrsWlmPcsd4h7NwbU/9huj1W/3beYfgMGQbL+1P2vxYsHG1Y3xHKaw3dwXlH0ykvy7nZF+fdWxAiTiDDTjUcD+x2NAma7H/eRgI9p6vUuD94f1G2KmJTAOTXrg8IBlUgxu2NI6WWFRe3sPyFtmeRkCeIOC1J2wpWZzFMmZJF5aNRi5NeGK/GR7NGgkwmOWrxmOV4IzeiQmPz5x1GPXCtznFegupSkYsP37t9y4wFqRLuLQz673RDYxK8M/ge/vHsPv7dZ9wKzj1e8fcb5zya2HdMqgxpOPj1/W05Lr7ULXCYGwpSh4EhAVPPtyhjYPs3S5jGOVJGkVCqEj53ZKtEPH42T4eATd2O/SegmcQQ2E5ZZ0C1
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 11:08:18.4067
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 432a66c7-12c0-494f-2ccb-08df17d0a434
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MW1PEPF00016160.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PHXPR12MB999258
 
-Hello,
+From: Nikola Prica <nikola.prica@amd.com>
 
-syzbot found the following issue on:
+pci_enable_atomic_ops_to_root() currently fails when no Root Port is
+visible. That is common in passthrough guests (ESXi, Hyper-V): the
+endpoint is assigned to the VM, but the guest topology has no Root
+Port above it.
 
-HEAD commit:    5dd1818b15d9 Merge tag 'for-next-keys-v7.3-rc4' of git://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1074e7f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c3be6e434b07ebb6
-dashboard link: https://syzkaller.appspot.com/bug?extid=6a132745caefcf42cb0d
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+In those setups the hypervisor may already have enabled AtomicOp
+Requester Enable on the device. If PCI_EXP_DEVCTL2_ATOMIC_REQ is set,
+treat AtomicOps as already enabled and return success instead of
+failing the Root Port walk.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+After 1ae8c4ce1570 ("PCI: Enable AtomicOps only if Root Port
+supports them"), pci_enable_atomic_ops_to_root() always fails if the
+Root Port is not visible.  On systems where the Root Port is not
+visible but *does* support AtomicOps, this is a regression: prior to
+1ae8c4ce1570, it enabled AtomicOps in the endpoint and returned
+success.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/ecb73b95440b/disk-5dd1818b.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e90eba3671c9/vmlinux-5dd1818b.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/ea031fa7db3f/bzImage-5dd1818b.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+6a132745caefcf42cb0d@syzkaller.appspotmail.com
-
------------------------------------------------------------------------------
-Object 0xffff88808b840000 @offset=0
-Object 0xffff88808b8404d8 @offset=1240
-Object 0xffff88808b8409b0 @offset=2480
-Object 0xffff88808b840e88 @offset=3720
-Slab 0xffffea00022e1000 objects=13 used=4 fp=0xffff88808b841360 flags=0xfff00000000240(workingset|head|node=0|zone=1|lastcpupid=0x7ff)
-Disabling lock debugging due to kernel taint
-------------[ cut here ]------------
-1
-WARNING: mm/slub.c:1268 at __slab_err+0x15/0x20 mm/slub.c:1268, CPU#0: syz.5.636/7760
-Modules linked in:
-CPU: 0 UID: 0 PID: 7760 Comm: syz.5.636 Tainted: G    B               syzkaller #0 PREEMPT(full) 
-Tainted: [B]=BAD_PAGE
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/26/2026
-RIP: 0010:__slab_err+0x15/0x20 mm/slub.c:1268
-Code: 00 00 00 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 e8 2b 00 00 00 bf 05 00 00 00 be 01 00 00 00 e8 7c 0f 5f 00 90 <0f> 0b 90 e9 5e 04 e8 ff cc 66 90 90 90 90 90 90 90 90 90 90 90 90
-RSP: 0018:ffffc9000527f840 EFLAGS: 00010083
-RAX: ffffffff81874cba RBX: ffff88801f7fb280 RCX: 0000000000080000
-RDX: ffffc9000ddd2000 RSI: 000000000000eef7 RDI: 000000000000eef8
-RBP: 0000000000000000 R08: ffffffff939990a7 R09: 1ffffffff2733214
-R10: dffffc0000000000 R11: fffffbfff2733215 R12: ffffea00022e8c10
-R13: ffffea00022e1000 R14: ffffc9000527f858 R15: ffff88805445e3c0
-FS:  00007f088e6396c0(0000) GS:ffff888124cce000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffca4261db0 CR3: 000000003121e000 CR4: 0000000000350ef0
-Call Trace:
- <TASK>
- free_partial mm/slub.c:8122 [inline]
- __kmem_cache_shutdown+0x1a5/0x2b0 mm/slub.c:8165
- kmem_cache_destroy+0x9d/0x180 mm/slab_common.c:576
- shrink_stripes drivers/md/raid5.c:2719 [inline]
- free_conf+0x1fc/0x5d0 drivers/md/raid5.c:7553
- setup_conf+0x1720/0x2ad0 drivers/md/raid5.c:7885
- raid5_takeover_raid1 drivers/md/raid5.c:8934 [inline]
- raid5_takeover+0x641/0x8d0 drivers/md/raid5.c:9045
- level_store+0x83b/0x1d10 drivers/md/md.c:4134
- md_attr_store+0x3b7/0x640 drivers/md/md.c:6158
- kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x612/0xba0 fs/read_write.c:687
- ksys_write+0x150/0x270 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f088d79e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f088e639028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007f088da25fa0 RCX: 00007f088d79e159
-RDX: 0000000000000005 RSI: 0000200000000300 RDI: 0000000000000004
-RBP: 00007f088d83506b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f088da26038 R14: 00007f088da25fa0 R15: 00007ffc30f7c868
- </TASK>
-
+Fixes: 1ae8c4ce1570 ("PCI: Enable AtomicOps only if Root Port supports them")
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Gerd Bayer <gbayer@linux.ibm.com>
+Tested-by: Gerd Bayer <gbayer@linux.ibm.com>
+Signed-off-by: Nikola Prica <nikola.prica@amd.com>
 
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+v4: Updates commit log to make regression point clear
+v3: Add Fixes tag
+v2: Be more strict and only apply logic in headless device case.
+---
+ drivers/pci/pci.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index b2879a6be5f8..62729ade496f 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -3769,8 +3769,18 @@ int pci_enable_atomic_ops_to_root(struct pci_dev *dev, u32 cap_mask)
+ 	}
+ 
+ 	root = pcie_find_root_port(dev);
+-	if (!root)
++	if (!root) {
++		/*
++		 * A hypervisor may expose a headless topology with no
++		 * visible root port.  If it has already set AtomicOp
++		 * Requester Enable, there is nothing more to do.
++		 */
++		pcie_capability_read_dword(dev, PCI_EXP_DEVCTL2, &ctl2);
++		if (ctl2 & PCI_EXP_DEVCTL2_ATOMIC_REQ)
++			return 0;
++
+ 		return -EINVAL;
++	}
+ 
+ 	pcie_capability_read_dword(root, PCI_EXP_DEVCAP2, &cap);
+ 	if ((cap & cap_mask) != cap_mask)
+-- 
+2.34.1
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
