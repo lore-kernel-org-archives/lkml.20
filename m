@@ -1,171 +1,91 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9FDA4BEE4B
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:37:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB1F4BEE3F;
+	Mon, 21 Sep 2026 15:37:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790005059; cv=none; b=DlEK+X3Mg8W9b/rkfIz5u6LxYZ1F+YB0UCejrVFRdZeb4HVq5rO7ywNCP+NvW7QNORHJkWzA9/KpKPc3tCONFr5JmMXMFALk6QM5SsOQgyhXx6IxD2WmUM/f+7RCP0IkvxdhMbMQi1mHywRp6y2sIolNVZHxnv4SMkzIojLXDBI=
+	t=1790005061; cv=none; b=nKODoEBcxmszFLycFSqCz/mn1e2UJR6a8kve35jcLaXYksrwsUpY1tKNwDgBnOymA8PeQ5+NPvSKN1Aym+v42HrJfRgezbP4w6z3gMMiMZKN0j6EZ/Flz9WZD+tA45E9mOpYzq2ixQGRgYpXqa5or6F1vlUWAUAExAUdqhOfYDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790005059; c=relaxed/simple;
-	bh=tNY8mp7Zd9XSXR2DbfXcW8LgeX+dz5snbtzbNJsAzuw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kHw2+Ma903H5jf9RzH7nNFQ6F4Jf30k6qTEQAUh3gmPz+4cB2Jbs/0v4WKBvCfXJMGbopmyPCP2eRHkrj2jpRGpJYzSZ/JAhwRfeCmVDfe0J7854dHOerkGTvMG3wgyxTQYyR75I9YrKQ9dou9RvmoRx1sSvy+HfpoU+eVKyErA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=YTLr/zOr; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="YTLr/zOr"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c2790ccso1913066f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:37:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790005055; x=1790609855; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/rARZR2bhx+oYDBih3ESVQmEAJ7+6xRagAey+ssOdNk=;
-        b=YTLr/zOrn3iTTERVcK5huDLlcWDnSS040Ht6O9I7Tf5ab+otg4vMDXHs5zjHFFVA27
-         PlAzAz41ZiCOhKklrSXPjEb0j1aq7RGNvMLmIWjTp6QzsDtLfQJ5e3vgkmyGLTX7fLiB
-         ZUB9nMHu6gf7Jm/RBLdyvqTdQCIyeg3kcALWiUAGdh4voC0r9a6CcnGMAMmF4QOsCuvr
-         s2g9r1tsUyiWjvqqZGVBKJ/mIYoZAoMlD5Riybi0jyNnenvImaVUOsRNNLsFlVR7E7dW
-         0GrgQEDfjVUnAoDdu64r0hevb7f0csZJH68mQk2JzyrSwm7MNf+WwCam8pOLfBZKP5tm
-         YZ9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790005055; x=1790609855;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/rARZR2bhx+oYDBih3ESVQmEAJ7+6xRagAey+ssOdNk=;
-        b=e80grHO6VX077waCi1hj84xLsvv+53NuXETySZXvRNgpSzwhHVHSxdBcdH5zN+9xwH
-         S0mfAPeLHuMWgiYUuXAjYhVNx39aCagfb9PCCGhc/t1ckbHskXsgIfvk2vmSj9MzAIPZ
-         hiuicNB/ZLc450/XnLImvGgdOZC1EqhJJ5lUm0KdoDLrmWDNITC7pVuNQ7sJybjrn1/p
-         1NNNOodCLU2I4tq0oPU4w8TzR5zwTNTQcILKCKeI4JJV+p3xsZcRjsU9nTZ2XU+rQDIv
-         lVftdCz3BptVimhs0HYKfSjaRT7YCqINWXEkO4ydyR4bLQHsYMOI335HJaMSA6Idmc9c
-         9xRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwiLU2C4GQ6+1IiZ5gucmuBgzMpDgPGFmQ+OEqH3Bo+YS5xS5JJQz1FHypHkZdtgNGu0W1jXwPS/fdBm9A=@vger.kernel.org
-X-Gm-Message-State: AFuF++nGO1sYNDKa8y31mtusP19fvtM6f/EKavug3agQibrZtohy0aw5
-	a8Eo3v1q+ne1IH6pgv0etjKDxxY21D7EPb8bMmmL9noFybtk7lMLbcYt20MuBZjBZPA=
-X-Gm-Gg: AYBFou2ly5+BqHas7aC8IIkhtPL3DKtwGzxybVbzgjCt4VW8YGsR649ci/5AVQVOd1S
-	CJmf9UvuZH5n03Za53cYGiL3r3Huui+ZJSWSum/Dfwpimv/pNDEpufXNkkug9GRUt7iek/YQfsV
-	3EfywSoCb4IzgSBBYE9IelivtWfIrUJ3w9CdF/4UEyV9oVvKnfvUI1sVe0O8DeA2jSCqhfAI1R0
-	YuW7zjM6zHt8kU60PmlC3bW2yEpa0fiU2B9OsmHeENYJdEF/IjeHI4rarlMyJb0TXizjg538WaI
-	dDUT+hpgbCwD6me0nhajPQNk88I09BqnSadzhYZC30TE9BRWlHc2IEoLgdiDTLB5L9eVh7Gd0n4
-	SI8NacOJ2y1jxAKPyZ6OFqyoDevvgOi9GRr3Fbh58cgn6QF1FVa34CAnseyyjbEE+4lcuLymGSA
-	SaLWjSVyUDDJuL4Ag1PcsKJQB7ypR3w9SceGR3Gy51QPRTG6Wp7O68kEVPNg9vDVfJt/zgYo+e/
-	RgU1oY=
-X-Received: by 2002:a05:600c:83cf:b0:49f:ce78:3562 with SMTP id 5b1f17b1804b1-49fce783698mr82645135e9.19.1790005054514;
-        Mon, 21 Sep 2026 08:37:34 -0700 (PDT)
-Received: from localhost ([2a02:168:9d56:1:e1c4:67b1:23e:28ed])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fcd0f7b9bsm237438295e9.5.2026.09.21.08.37.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 08:37:33 -0700 (PDT)
-From: Bruno Produit <bruno.produit@trailofbits.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Yangtao Li <frank.li@vivo.com>
-Cc: Kyle Zeng <kylebot@openai.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Dominik Czarnota <dominik.czarnota@trailofbits.com>,
-	stable@vger.kernel.org,
-	Bruno Produit <bruno.produit@trailofbits.com>,
-	syzbot+d729df28d933979e017a@syzkaller.appspotmail.com,
-	syzbot+2eac7d175baf21e6a5d5@syzkaller.appspotmail.com,
-	syzbot+7155b2fe09e033c91381@syzkaller.appspotmail.com,
-	syzbot+adeb387cede15eb11607@syzkaller.appspotmail.com,
-	syzbot+ae7f2423f3648100506d@syzkaller.appspotmail.com
-Subject: [PATCH v2] hfs/hfsplus: serialize B-tree close against folio release
-Date: Mon, 21 Sep 2026 17:37:29 +0200
-Message-ID: <20260921153729.600313-1-bruno.produit@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1790005061; c=relaxed/simple;
+	bh=VE27zaF0kRh+O1Q4hLrr4q6/gFwKz9ulspizTQ/7eGM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pZSKvcULnlkQwdu6vlG3koaP4Tyc+2dt0La17VcWSF0UM0wShvGIEvNF0QXAxDn275N9RpJ6ljG5Zk8W1q0QqfSM/yTTmLFVOB5DeefvocAhZu+uEkQI4U62btXQRfthVUW/4fOddiuBJBcGLA/7PJ95ZCxlbeHREfCZrSencts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=lht.dlh.de; spf=fail smtp.mailfrom=lht.dlh.de; arc=none smtp.client-ip=212.27.42.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=lht.dlh.de
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=lht.dlh.de
+Received: from OMT-CWNXR4TFW5-LHT (unknown [213.61.137.106])
+	(Authenticated sender: albeu@free.fr)
+	by smtp3-g21.free.fr (Postfix) with ESMTPSA id D5EF413F861;
+	Mon, 21 Sep 2026 17:37:24 +0200 (CEST)
+Date: Mon, 21 Sep 2026 17:37:12 +0200
+From: Alban Bedel <alban.bedel@lht.dlh.de>
+To: Johan Hovold <johan@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, Alban Bedel
+ <alban.bedel@lht.dlh.de>
+Subject: Re: [PATCH] USB: serial: Support attaching serdev devices
+Message-ID: <20260921173712.5b41e1ea@OMT-CWNXR4TFW5-LHT>
+In-Reply-To: <aq1RJuZw9MLKIMbl@hovoldconsulting.com>
+References: <20260917081103.1917665-1-alban.bedel@lht.dlh.de>
+	<2026091739-spousal-linked-2a36@gregkh>
+	<20260917153736.600061de@OMT-CWNXR4TFW5-LHT>
+	<2026091756-unmolded-fructose-a018@gregkh>
+	<20260917172152.1b1cb540@OMT-CWNXR4TFW5-LHT>
+	<aq1RJuZw9MLKIMbl@hovoldconsulting.com>
+Organization: Lufthansa Technik AG
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; aarch64-apple-darwin25.4.0)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-B-tree nodes with a zero reference count remain in the node hash until
-folio reclaim or tree teardown frees them.  The folio release callbacks
-remove nodes while holding hash_lock, but hfs_btree_close() walks and
-frees the same hash without that lock.  Reclaim can therefore unhash and
-free a node after close has loaded its pointer, causing a use-after-free
-or double-free. 
+On Fri, 18 Sep 2026 16:56:38 +0200
+Johan Hovold <johan@kernel.org> wrote:
 
-The following syzkaller crashes seem to be the same UAF in 
-{hfs,hfsplus}_btree_close() (or {hfs,hfsplus}_bnode_unhash()) and follow 
-the same pattern, but do not contain a reproducer to confirm. 
+> On Thu, Sep 17, 2026 at 05:21:52PM +0200, Alban Bedel wrote:
+> > On Thu, 17 Sep 2026 15:08:11 +0100
+> > Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:  
+> 
+> > > Please read the archives for why we don't want to do this unless/until
+> > > serdev is "fixed" to properly handle dynamic device removals.  
+> > 
+> > All I could find is the "USB-Serial serdev support" thread from last
+> > year which sadly doesn't provides much details. Like Marco Felsch back
+> > then I tested disabling/enabling the USB port and didn't have any
+> > issue, the serdev device get removed and added back just fine. In my
+> > case the serdev driver provides an I2C bus, all devices on it get
+> > removed and added back again as well and work just fine.
+> > 
+> > I really fail to see an issue in pratice, would you care to explain
+> > what I'm missing here?  
+> 
+> Serial drivers use hangups when tearing down their ports. Serdev does
+> not support that so the port is shut down underneath the serdev client
+> while still in use, which can lead to all sorts of issues.
 
-Detach each node with hfs_bnode_unhash() while holding hash_lock before
-inspecting and freeing it.  Drop the lock before hfs_bnode_free() so a
-large tree is not freed while holding a spinlock.  Apply the same fix to
-the matching HFS+ implementation.
+Hangup from modem status are ignored because serdev set C_CLOCAL. So
+that only leave the hangup sent when the USB device is disconnected.
+But in this case, right after the hangup, the tty port device is
+removed, which in turn remove the serdev device. At this point there no
+way to comunicate with the tty anymore anyway, so I don't see what
+signaling the hangup to the serdev device right before it get removed
+would add.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+d729df28d933979e017a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d729df28d933979e017a
-Reported-by: syzbot+2eac7d175baf21e6a5d5@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=2eac7d175baf21e6a5d5
-Reported-by: syzbot+7155b2fe09e033c91381@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=7155b2fe09e033c91381
-Reported-by: syzbot+adeb387cede15eb11607@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=adeb387cede15eb11607
-Reported-by: syzbot+ae7f2423f3648100506d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ae7f2423f3648100506d
-Assisted-by: Codex:gpt-5.6-sol
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
----
- fs/hfs/btree.c     | 7 +++++--
- fs/hfsplus/btree.c | 7 +++++--
- 2 files changed, 10 insertions(+), 4 deletions(-)
+Over the weekend I did some further test with a loopback cable and a
+test serdev driver that continuously read/write on the tty. I could
+disconnect and reconnect the USB device without any real issue.
+check_tty_count() produce a warning because the serdev open is not
+accounted for but that should be easy to fix.
 
-diff --git a/fs/hfs/btree.c b/fs/hfs/btree.c
-index 41b4e8fc9..4f0ddc76e 100644
---- a/fs/hfs/btree.c
-+++ b/fs/hfs/btree.c
-@@ -310,14 +310,17 @@ void hfs_btree_close(struct hfs_btree *tree)
- 		return;
- 
- 	for (i = 0; i < NODE_HASH_SIZE; i++) {
-+		spin_lock(&tree->hash_lock);
- 		while ((node = tree->node_hash[i])) {
--			tree->node_hash[i] = node->next_hash;
-+			hfs_bnode_unhash(node);
-+			spin_unlock(&tree->hash_lock);
- 			if (atomic_read(&node->refcnt))
- 				pr_err("node %d:%d still has %d user(s)!\n",
- 				       node->tree->cnid, node->this,
- 				       atomic_read(&node->refcnt));
- 			hfs_bnode_free(node);
--			tree->node_hash_cnt--;
-+			spin_lock(&tree->hash_lock);
- 		}
-+		spin_unlock(&tree->hash_lock);
- 	}
- 	iput(tree->inode);
-diff --git a/fs/hfsplus/btree.c b/fs/hfsplus/btree.c
-index 2ea8cd565..bd4dbdbc8 100644
---- a/fs/hfsplus/btree.c
-+++ b/fs/hfsplus/btree.c
-@@ -417,15 +417,18 @@ void hfs_btree_close(struct hfs_btree *tree)
- 		return;
- 
- 	for (i = 0; i < NODE_HASH_SIZE; i++) {
-+		spin_lock(&tree->hash_lock);
- 		while ((node = tree->node_hash[i])) {
--			tree->node_hash[i] = node->next_hash;
-+			hfs_bnode_unhash(node);
-+			spin_unlock(&tree->hash_lock);
- 			if (atomic_read(&node->refcnt))
- 				pr_crit("node %d:%d "
- 						"still has %d user(s)!\n",
- 					node->tree->cnid, node->this,
- 					atomic_read(&node->refcnt));
- 			hfs_bnode_free(node);
--			tree->node_hash_cnt--;
-+			spin_lock(&tree->hash_lock);
- 		}
-+		spin_unlock(&tree->hash_lock);
- 	}
- 	iput(tree->inode);
+One thing that I can see going wrong is if a serdev driver if waiting
+on a write with a very long timeout. If the tty goes away while it is
+waiting the wait is currently not interrupted which prevent the device
+from being removed. But this is a more generic issue in serdev as that
+could also happen by unbinding the serdev driver.
+
+Alban
