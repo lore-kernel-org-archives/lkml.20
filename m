@@ -1,322 +1,393 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C61F3EC833
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:36:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0278438B7DD
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:36:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790022968; cv=none; b=GQphN4TcgpsAr2A4SaLwCM8fBMLYfbdYPGxIAzATFAi7oX/ZMew4l0wJYz3lJGOzDcBawc39G/ed7xCLYEDAD5LheRP+AWTc7gBThw+I9FmbgX0glMvT0iBi3IyEyrHJZewXcFMJHQ/XhJ4IuZMooua84MDGsc9xKWaUZNUuzg8=
+	t=1790022969; cv=none; b=s/wnxYxvslXT8NMW0mGs73qjO4DlFYk0wfnUqP56kVCyVrRJqbuUIn75HVHKjYJnaXEwHwLSj9lsmyFnT/m3JRyX05ecyWI0Im9hMcH4FLnaJYQtvIz02Hb4WRs0yhU89FiIG13uV0VEvd+zukIe0QKdyOoispn3WM5TVGKq8MI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790022968; c=relaxed/simple;
-	bh=8X0NcnAyyYZrxMbslV2a8BYmyIWH8krztSLCg+aMn6s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QFbyjy4XyOjX5/+CZPgSWtw7ga3NNDYswoIBJs2ml0O0iTofCYWHdlxb0RVZfwoj8u88ReVDWQuI1eQc+ePoLM2PzgjR1W9P+Oqryvu8kC5ijHru17IQSGDPydpGLcIc5uuX1mp+FrYou+DGOcw9qsNciphj5f4lRsxMkf47+Lc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VefK8UL6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EVIyNnyG; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790022969; c=relaxed/simple;
+	bh=TBnKjZCAAvcwm8HIgliKTp3sPJIMdyVfOm0dVU9jd1A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pJBfxho6716pqSQpsiSaU1dlYIlolol/YIU4KKljic83llKTMPhYa7I7tZgRZAxji4NXkM8l4aWUprCpX5XRmPXaWRs7MTr06yeX/QUIL6JH/9I1JyGMBIPrzB1JghqRnjOZG/Voc5NG3W5BxvdnPwxHtR5dBZ14z6mjMJ/1Z18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=q/iQ6tpZ; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VefK8UL6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EVIyNnyG"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LG77LC351698
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:36:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	x5AIKP1mP34Wx9dw84lO7Zn0zSS/9x6lk1WSUH1MKxg=; b=VefK8UL62syGlWw0
-	C4PlvfAlL6cxbSmQ9Cjig+H6SMW6jZDpQrSNe8cl9xZJMri2zT8KEcHjenoxv3g7
-	A/segX7gVa9yKyiJ6HkHE4Bxf/7m7oGiZsHJ2uWaBkAWxvlYKbwzmJ+me1u1+X+x
-	Nm6KzRnJVDJ7i68qlZ7jpPWXnpd3vd8rHTCIQEdQ/KFVMBy8q6hRRr51gNSenr1P
-	h8fbALFHlQTT8tS0oOd1qM411ZdXGstdEHzSfMobUNZa+mQ/cdZ8M9L008vEwKC/
-	JKAM6Ad4myRowaZEO32frdAHpZjMRCeY+d6mjSn5xaJJsvXb9Vp+23eAm6N6I5n/
-	YSZKFQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu7tsh3m1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:36:05 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-381250979d5so4118070a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:36:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="q/iQ6tpZ"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8674704dab1so4696908b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:36:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790022965; x=1790627765; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x5AIKP1mP34Wx9dw84lO7Zn0zSS/9x6lk1WSUH1MKxg=;
-        b=EVIyNnyG5EFumc9o5uEqZehUuk6FQoL6l9a34mG3A32INEX1qY/IuAxLCT7e+SlsTU
-         oFXZiMpmK8CDWrWwveo53NU5UCOSAolgvJKvQhHc3DwqpNkCyq3kfdXmFr6e86FDL6KL
-         nInKtIe1CrR7GixAOG4SH0R/XJhc4tGAKgiRziLBxKnRyJ9xMgGC0RbVQ+CuE5chVcqb
-         pPP/ag/RCgt8UJJrJ8mcKcZ3I83KY25bNpfRaXDDTvekK39axl8xYBnj8Se6+KiDBwDf
-         FY6LEp9kGU/VuPgsCEjo9hNgYHLqTZM0xUcfO8lTGI98X9QBozKw5tVZtE7bd6K3AmIV
-         rAbw==
+        d=google.com; s=20251104; t=1790022967; x=1790627767; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=groqaSpL753eNcDTGAY1Cn/tLSUz1r+DZjsuraXcs+A=;
+        b=q/iQ6tpZ2FiuBXS4Blc2q7Kh2GRYBvLQv5QV1uh5B0sG6X3tMKIkM51tksz5kaXBms
+         ZvkNKPs2FfTevrz29o8VGhVuymU4YQsmKyQu+ho/gIm/rXATdba8XgvRHejAcgxk7S//
+         AJUtS1qeaLYR30yDaC5QS0+SkNY5etKh2EOQSyZqVJi1EhgtSBJmLJKTytnNjZ7qDs9F
+         8DpScHfLvwz013jF/L7KgJUZra924D0W/mJHgijyAvYkJve7Vf+1j7ti5pyysk+cPEWg
+         Ps7L4wfP4rSOnIMn0m681ir/2k7BoDxJQJzirUwl7+LqQIvg6jx5Gvb3MXdvpyTXyBY4
+         LPqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790022965; x=1790627765;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x5AIKP1mP34Wx9dw84lO7Zn0zSS/9x6lk1WSUH1MKxg=;
-        b=d2KtEO1syuUP489WuCuxzaOh5ToGGfpNAlgzCDdgbYgUg7CnR4cidv4T9/ydajTGHJ
-         tWIYJ3HWyVUYb1tnM6JsMO5u7ksNEA4e/97ztVgkngvG/wj1VZnx07tHP+1jiHCoOSAy
-         TITmKxq+xmzDE8cBdxfbzYhSp6otZAJbUsJ0whwxeu9H/lch37KALQgUbYmvAoAD4bgJ
-         OFLQTNoYQ1O0/t+OwQFjtE4FLbEtfl0FBqbo4NPfNOIdaIEHrFAn564RTlqyUhthdEiP
-         LOzAIsoyOhrzBmpvyh7U65+Uxe66dD/HUp9BSIlwMfzSYqTzGNF0/FoYi87w6jQf7m70
-         NbhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzYWwlJvA3jK81Fp93uItAaFEiY3noUiyFmN8Vhd55IPjiyoF0rTvuwSfFj3fjCOFMUOIEswMVwhfeiWrA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mN48FonkSxgQGHJ04LbuDh7vU5mWFK0xbe3DwmCPHq1Cq8AWXa
-	JD5nO6wLx77Zcwo2nKZJnhbGQK29J1edL3nbzFy3x/Nl9ZvPiU6PfA3c9ue9tt4QNoR5tsTcpNN
-	6dR7LP085/+WsDo7vc2uhDrfjbKwVl0FDSmdniWCFJmDtB379TUTAJM36GjTRb1c4vYg=
-X-Gm-Gg: AYBFou0M/giKwpBNqG6snHyLYLBhDewWb40QKQ2KWLsA/En45iJOqjkvsCKUl61JM/c
-	+pGiafFO7VCOAQPQ0dWhWJXs+JYhcKscBM26ZefiGduj1xsUqLoCmLq1A1cn5uhmm6TsYCJ8M+P
-	S7Ac985/XXPx3wl2UmjsaGfp1KVlEq2nuFNELPJHj0o+vj+uiCh+PTk5CSL2HAKa3JbN7ST2Rmh
-	TtG94QNma+PJVg3c9CRp/Q4KnKlPI4y5KYN2WRfLTozMFfWIQeLjhbvcWovMpXYq0O0fww7Nl9g
-	zu6WrZ9Qc4n5BYQ4/8csVrdlCgMOigoraTc9NjJ/l+EoIGwjvCes/3QC8dpCtgtrrIUMikJmJsr
-	Y5/MQXMgL2re7oHfBmNX6AoEjjvfZmL25Ig==
-X-Received: by 2002:a17:90b:17c2:b0:39e:6c69:f471 with SMTP id 98e67ed59e1d1-39e6c69f552mr11786905a91.48.1790022964940;
-        Mon, 21 Sep 2026 13:36:04 -0700 (PDT)
-X-Received: by 2002:a17:90b:17c2:b0:39e:6c69:f471 with SMTP id 98e67ed59e1d1-39e6c69f552mr11786876a91.48.1790022964357;
-        Mon, 21 Sep 2026 13:36:04 -0700 (PDT)
-Received: from [192.168.1.5] ([106.222.229.14])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0696b0d1fsm470437a91.1.2026.09.21.13.35.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 13:36:03 -0700 (PDT)
-Message-ID: <9fc5a569-003b-4d5e-a943-04ebfdd1e9bd@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 02:05:57 +0530
+        d=1e100.net; s=20260707; t=1790022967; x=1790627767;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=groqaSpL753eNcDTGAY1Cn/tLSUz1r+DZjsuraXcs+A=;
+        b=pmIvAlV4Iy21ehEg0yXQz7zAEkLHuNbNhNuHdUIiJWnDuuBEujtbcoHGHeLIreRrOh
+         5qtf5KXwkYd6EYYow0s4/pJvap9TxOaEVk8OIbkN5kQAYseZd0Xv1WKxdN2TpD3kABQu
+         wph64d3phar7g+RYlWUjgknwY5vHiZjNJw8SJlLeg4wuVHEWi7h7rMokRTQKVqmDTS4q
+         VdUdBFoI6AFyPIYhNYnvkBEh+njNcjPYZdzfAdnQCUDPe1c+UStAuG4simhBkwJpZ4NO
+         ZT5SZalvfyWM2c8+A0tnM1qp15ysWdY+92L6HuASBe/yFxilpT4cc30snsGL8A2HeYV9
+         Oe/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxK3/ujx2ezRKRV3ZV3dK0eWxb6PIWlM6RsJeOtWsS7XoSb7hU6rWCE4XglxOYwF2WbWfq1ekuF/ZI989k=@vger.kernel.org
+X-Gm-Message-State: AFuF++k3YzakiSp/EqdK/UOLiSFclQqywtvqB2PF93UXwyXcFDiFogRR
+	8xz+W6QWK+c0jlTC4G2dcai9S+H4IDVSh8xK7AKGkVEZy+B3zJC+84EFqN4Uk+/OjQ==
+X-Gm-Gg: AYBFou0OYLXIYW3P4/koKNDTz7L8Kfy0qUIO/f+ZN0uN9VQN9jc+TyIYXE9FE1ixdnv
+	IZUC3OP3xtfQg2jZppSyeemTbykxjoKD2dki7UWhaRB4YS1DlB9n49WqTAnJ4CWXa0nTSiVvG24
+	NeGcvoS+x5IpsvE4wr7dogZzD6ysVVqY9G76fCfiFT6HAWy/OeEiGTEeh8Ofviqf1TRG+NovotI
+	jWP9/NgHIEExhVkLjUdZI51RzAYJpet1eXXnwaxRA1xZ07RgWalnLlyRG8Rd7XSe0AWQIyW021P
+	euYM7nEeiAdQjXxMUdv3fjZBj8pgNiOjkDhhLMj0MiKUsMGaaXDC50v7Tnd+Jj0NoZjyrytdVsR
+	2uMYXZOeZPSjhCFyj2N6/4F2uHR4PUFd/QF0hbuxcJfgdSWEmVT9VsIYQpcVcktO/Yy2r28yrqc
+	+Udr378/owuYqL4dwqxrRhuuAlO1pytr4YIi9kRWXrQe8LukcsW17cG8WiKSo04o5p5GbAv4G+X
+	FvrIFW3fr8HRZlrNyscqQpSX8f/jVJqNRWek1np
+X-Received: by 2002:a05:6a00:2e89:b0:874:708d:b63a with SMTP id d2e1a72fcca58-874dea03034mr17531732b3a.27.1790022966708;
+        Mon, 21 Sep 2026 13:36:06 -0700 (PDT)
+Received: from google.com (192.150.203.35.bc.googleusercontent.com. [35.203.150.192])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87bf5785276sm45140b3a.8.2026.09.21.13.36.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 13:36:05 -0700 (PDT)
+Date: Mon, 21 Sep 2026 20:36:01 +0000
+From: David Matlack <dmatlack@google.com>
+To: Alex Williamson <alex@shazbot.org>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-pci@vger.kernel.org,
+	Adithya Jayachandran <ajayachandra@nvidia.com>,
+	Alexander Graf <graf@amazon.com>,
+	Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
+	David Rientjes <rientjes@google.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Josh Hilke <jrhilke@google.com>,
+	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
+	Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Saeed Mahameed <saeedm@nvidia.com>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>,
+	Yi Liu <yi.l.liu@intel.com>
+Subject: Re: [PATCH v9 08/13] PCI: Save and restore the ACS Control register
+Message-ID: <arGVMaxfwEw_PkXy@google.com>
+References: <20260918200640.887030-1-dmatlack@google.com>
+ <20260918200640.887030-9-dmatlack@google.com>
+ <20260918191846.2f68b23b@shazbot.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/3] i3c: master: Add Qualcomm I3C controller driver
-To: Mukesh Kumar Savaliya <quic_msavaliy@quicinc.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: alexandre.belloni@bootlin.com, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, jarkko.nikula@linux.intel.com,
-        linux-i3c@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Frank.Li@nxp.com, wsa+renesas@sang-engineering.com,
-        alok.a.tiwari@oracle.com, konradybcio@kernel.org
-References: <20250701071852.2107800-1-mukesh.savaliya@oss.qualcomm.com>
- <20250701071852.2107800-3-mukesh.savaliya@oss.qualcomm.com>
- <h4c5oybkuxf2wmja2osm73ntpolx2ap3csskipbuyoks6xtdsi@5ihhj6ztn7mq>
- <9e3da313-ab1f-435d-8e3c-1a0c946a7790@quicinc.com>
-Content-Language: en-US
-From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-In-Reply-To: <9e3da313-ab1f-435d-8e3c-1a0c946a7790@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: k8IR87UnZsa6QsUny2vPxTiKMo_odo52
-X-Authority-Analysis: v=2.4 cv=aqgnmiZV c=1 sm=1 tr=0 ts=6ab19535 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=LKvw4eQ66EqDTtCUdPbf+g==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=mqtUebdMckNC0E4VJ4YA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDMwMSBTYWx0ZWRfX9HqL8UdFd/RT
- lFw2zucGlMsHIPT98fs6cA8R1CWLbeaDEWbgSC/FDbACLKdqEIkgRAQR+TF3TYCeQLu2aSiwSzG
- 40lK3+KhoqhrhD/suv/Vzcr20dx0yXY=
-X-Proofpoint-GUID: k8IR87UnZsa6QsUny2vPxTiKMo_odo52
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDMwMSBTYWx0ZWRfX0cIkZUGbrTq7
- tGDclAY+HyL+g7ZNP9Fnd2HiSgUMOoHAUP2Z7Bjk5D/z6YXNwR59h9vFq573cVGtbr3jXngNZII
- lco0pikYIyiLwP573ANdWfRCrRIsMRJOoVoM0A8IRweaTnqyoryKSGOFuYxkzMzzZh+TbK34UQd
- lriy1xrD2bHV4CA1EGjxnhuTODgienz3JDAliR3iAyqkouGG5aNaToItLbaP/9jt2UL9IKrrUnh
- 8vM3lOYnONaRLdspk07f0i1EQlamg2n72AG0AkxVVRMXgFwLwceHW90nCI96fy6ejxKd+0Tlsap
- WW0E14mXBFwgzMM5wnFOztYu7zSRiUqQZaxGOjNo3X2LswIEBQbpIkthMoR9C/cT7uhaaJjhoyw
- rEHZKrr1uiB2zG8T3CVJyHRydtbQxqQxtycsZJ32utgqLn3kPK5WGZGUY3N+zYAM2Lj42LiBwdz
- q40oA80zIwE97YQ9JXQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
- bulkscore=0 clxscore=1015 priorityscore=1501 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210301
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918191846.2f68b23b@shazbot.org>
 
-Hi Bjorn, Please find my responses inline below. I have migrated from my 
-@quicinc.com email address to @oss.qualcomm.com and could not locate the 
-original email thread.
+On 2026-09-18 07:18 PM, Alex Williamson wrote:
+> On Fri, 18 Sep 2026 20:06:34 +0000
+> David Matlack <dmatlack@google.com> wrote:
+> 
+> > Save the ACS Control register in pci_save_state() and write it back
+> > in pci_restore_state(), instead of recomputing the ACS controls from
+> > scratch with pci_enable_acs().
+> > 
+> > This makes ACS symmetric with the rest of a device's saved state. Today
+> > pci_save_state() ignores ACS entirely and pci_restore_state() re-enables
+> > the ACS controls from the kernel's current ACS policy. As a result, a
+> > device can come out of a reset with different ACS controls than it went
+> > in with, e.g. any controls programmed outside of pci_enable_acs() are
+> > silently dropped.
+> 
+> Controls, yes, but if we're restoring controls that might have EC set
+> now, should the Egress Control Vector also be part of the save state?
+> 
+> Currently EC always gets cleared on reset and won't be restored by
+> pci_enable_acs(), so we can lose both EC and the EC vector.  With this,
+> I think we restore EC but still lose the EC vector.  Thanks,
 
-The replies below are from a draft I had saved earlier. I am sending 
-them now from my OSS account after resolving the slave setup and 
-validation issues that had delayed the response. I shall upload V7 
-cleanly with OSS ID.
+Hi Alex,
 
-On 3/5/2026 9:12 PM, Mukesh Kumar Savaliya wrote:
-> Thanks Bjorn !
-> I am sorry for the late reply, i was completely off from this work. I 
-> have restarted this series work and will continue now onwards.
-> 
-> On 7/2/2025 2:26 AM, Bjorn Andersson wrote:
->> On Tue, Jul 01, 2025 at 12:48:51PM +0530, Mukesh Kumar Savaliya wrote:
->>> Add support for the Qualcomm I3C controller driver, which implements
->>> I3C master functionality as defined in the MIPI Alliance Specification
->>> for I3C, Version 1.0.
->>>
->>> This driver supports master role in SDR mode.
->>>
->>> Unlike some other I3C master controllers, this implementation
->>> does not support In-Band Interrupts (IBI) and Hot-join requests.
->>
->> I believe the capitalization of the last feature is "Hot-Join"
->>
->> It's not entirely clear from this sentence if it's the controller or the
->> driver that doesn't support these features. Please update to make it
->> clear.
->>
-> Sure, let me clarify it and update the commit log.
-> It's the driver which doesn't support Hot-Join for now, we plan to add 
-> it in future.
-> 
-> I would rectify citing controller driver doesn't support these features.
->> [..]
->>> diff --git a/drivers/i3c/master/Makefile b/drivers/i3c/master/Makefile
->>> index 3e97960160bc..0e3ad9d96424 100644
->>> --- a/drivers/i3c/master/Makefile
->>> +++ b/drivers/i3c/master/Makefile
->>> @@ -1,5 +1,6 @@
->>>   # SPDX-License-Identifier: GPL-2.0-only
->>>   obj-$(CONFIG_CDNS_I3C_MASTER)        += i3c-master-cdns.o
->>> +obj-$(CONFIG_I3C_QCOM_GENI)        += i3c-qcom-geni.o
->>>   obj-$(CONFIG_DW_I3C_MASTER)        += dw-i3c-master.o
->>>   obj-$(CONFIG_AST2600_I3C_MASTER)    += ast2600-i3c-master.o
->>>   obj-$(CONFIG_SVC_I3C_MASTER)        += svc-i3c-master.o
->>> diff --git a/drivers/i3c/master/i3c-qcom-geni.c b/drivers/i3c/master/ 
->>> i3c-qcom-geni.c
->> [..]
->>> +
->>> +struct geni_i3c_i2c_dev_data {
->>> +    u32 ibi_keeping;  /* Plan to save IBI information, keep as dummy 
->>> for now */
->>
->> Commit message says that QUP doesn't support IBI, so what is this?
->>
-> No, i meant to say I3C driver doesn't support IBI along with Hot-Join. I 
-> have enhanced the commit log to make it clear.
-> 
->> Also, why "keep as dummy"?
->>
-> Removed it as we are not using it.
-> 
->>> +};
->>> +
->> [..]
->>> +static void qcom_geni_i3c_conf(struct geni_i3c_dev *gi3c, enum 
->>> i3c_bus_phase bus_phase)
->>> +{
->>> +    const struct geni_i3c_clk_settings *clk_idx = gi3c->clk_cfg;
->>> +    unsigned long freq;
->>> +    u32 val, dfs_idx;
->>> +    int ret;
->>> +
->>> +    if (bus_phase == OPEN_DRAIN_MODE)
->>> +        clk_idx = gi3c->clk_od_cfg;
->>> +
->>> +    ret = geni_se_clk_freq_match(&gi3c->se, clk_idx->clk_src_freq,
->>> +                     &dfs_idx, &freq, false);
->>> +    if (ret)
->>> +        dfs_idx = 0;
->>> +
->>> +    writel_relaxed(dfs_idx, gi3c->se.base + SE_GENI_CLK_SEL);
->>> +
->>> +    val = FIELD_PREP(CLK_DIV_VALUE_MASK, clk_idx->clk_div);
->>> +    val |= SER_CLK_EN;
->>> +    writel_relaxed(val, gi3c->se.base + GENI_SER_M_CLK_CFG);
->>> +
->>> +    val = FIELD_PREP(I2C_SCL_HIGH_COUNTER_MASK, clk_idx- 
->>> >i2c_t_high_cnt);
->>> +    val |= FIELD_PREP(I2C_SCL_LOW_COUNTER_MASK, clk_idx- 
->>> >i2c_t_low_cnt);
->>> +    val |= FIELD_PREP(I2C_SCL_CYCLE_COUNTER_MASK, clk_idx- 
->>> >i2c_t_cycle_cnt);
->>> +    writel_relaxed(val, gi3c->se.base + SE_I2C_SCL_COUNTERS);
->>> +
->>> +    writel_relaxed(clk_idx->i3c_t_cycle_cnt, gi3c->se.base + 
->>> SE_I3C_SCL_CYCLE);
->>> +    writel_relaxed(clk_idx->i3c_t_high_cnt, gi3c->se.base + 
->>> SE_I3C_SCL_HIGH);
->>> +
->>> +    writel_relaxed(M_IBI_IRQ_IGNORE, gi3c->se.base + 
->>> SE_GENI_HW_IRQ_IGNORE_ON_ACTIVE);
->>> +
->>> +    val = M_IBI_IRQ_PARAM_STOP_STALL | M_IBI_IRQ_PARAM_7E;
->>> +    writel_relaxed(val, gi3c->se.base + SE_GENI_HW_IRQ_CMD_PARAM_0);
->>> +
->>> +    writel_relaxed(M_IBI_IRQ_EN, gi3c->se.base + SE_GENI_HW_IRQ_EN);
->>
->> Don't you want a non-relaxed write here, to clarify that the ordering of
->> this write and the previous are significant?
->>
-> Do you mean for IBI_IRQ_EN or the whole function ? If yes, then i can 
-> change to ensure no re-ordering. But i don't see reordering for complete 
-> function is required.
->>
->> As above, the commit message says the controller doesn't do IBI, so why
->> are we enabling IBI interrupts? (Just guessing based on the IRQ names)
->>
-> Yes, commit message says rightly.
-> We are enabling just to ensure I3C controller works with IBI controller 
-> enabled. And that's mandatory per HW programming sequence as we don't 
-> disable IBI controller even we don't use IBI features like IBI interrupt.
->>> +}
->>> +
->> [..]
->>> +static int geni_i3c_master_attach_i2c_dev(struct i2c_dev_desc *dev)
->>> +{
->>> +    struct geni_i3c_i2c_dev_data *data;
->>> +
->>> +    data = kzalloc(sizeof(*data), GFP_KERNEL);
->>> +    if (!data)
->>> +        return -ENOMEM;
->>> +
->>> +    i2c_dev_set_master_data(dev, data);
->>
->> As far as I can tell, the master_data is private to the controller
->> driver, and the only thing I can find you do with it to free it again on
->> detach.
->>
->> Am I missing something or can these 4 optional functions be removed?
->>
-> Yes, right now these functions can be removed as it doesn't do anything.
-> I had kept it there to add something really required in future.
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static void geni_i3c_master_detach_i2c_dev(struct i2c_dev_desc *dev)
->>> +{
->>> +    struct geni_i3c_i2c_dev_data *data = i2c_dev_get_master_data(dev);
->>> +
->>> +    i2c_dev_set_master_data(dev, NULL);
->>> +    kfree(data);
->>> +}
->>> +
->>> +static int geni_i3c_master_attach_i3c_dev(struct i3c_dev_desc *dev)
->>> +{
->>> +    struct geni_i3c_i2c_dev_data *data;
->>> +
->>> +    data = kzalloc(sizeof(*data), GFP_KERNEL);
->>> +    if (!data)
->>> +        return -ENOMEM;
->>> +
->>> +    i3c_dev_set_master_data(dev, data);
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static void geni_i3c_master_detach_i3c_dev(struct i3c_dev_desc *dev)
->>> +{
->>> +    struct geni_i3c_i2c_dev_data *data = i3c_dev_get_master_data(dev);
->>> +
->>> +    i3c_dev_set_master_data(dev, NULL);
->>> +    kfree(data);
->>> +}
->>> +
->>
->> Regards,
->> Bjorn
->>
-> 
+The kernel does not enable Egress Control today or program the vector.
+Would this be to cover the case where firmware or userspace enabled it?
 
+Here is an updated patch to save/restore the vector, but I don't have
+any devices that support Egress Control on my normal testing system so I
+haven't been able to really test it yet.
+
+From: David Matlack <dmatlack@google.com>
+Date: Fri, 11 Sep 2026 20:05:04 +0000
+Subject: [PATCH] PCI: Save and restore the ACS Control register and Egress
+ Control Vector
+
+Save the ACS Control register and the ACS Egress Control Vector in
+pci_save_state() and write them back in pci_restore_state(), instead of
+recomputing the ACS controls from scratch with pci_enable_acs().
+
+This makes ACS symmetric with the rest of a device's saved state. Today
+pci_save_state() ignores ACS entirely and pci_restore_state() re-enables
+the ACS controls from the kernel's current ACS policy. As a result, a
+device can come out of a reset with different ACS controls than it went
+in with, e.g. any controls programmed outside of pci_enable_acs() are
+silently dropped.
+
+Notably, this prepares the kernel to be able to adopt the ACS controls
+established by a previous kernel across a Live Update rather than
+assigning new ones through pci_enable_acs().
+
+Save and restore the Egress Control Vector as well to keep it in sync
+with the now-properly-restored Egress Control Enable bit in the ACS
+control register. The kernel never enables Egress Controls or programs
+the vector, but the firmware could have and they need to be kept in sync
+to avoid changing how P2P traffic is rounted.
+
+The size of the Egress Control Vector is not known when
+pci_allocate_cap_save_buffers() runs, as the ACS Capability register is
+only read later, in pci_acs_init(). Rather than move the allocation,
+size the save buffer for the largest vector a device can implement,
+which costs at most 32 bytes per ACS-capable device.
+
+pci_enable_acs() runs when a driver binds to a device
+(pci_dma_configure()), i.e. after pci_bus_add_device() has already saved
+the device's state. Refresh the saved ACS state there as well, otherwise
+a subsequent reset would revert ACS back to the configuration left
+behind by firmware.
+
+Devices that rely on device-specific quirks to enable an ACS equivalent
+keep that configuration outside of the ACS Control register, so keep
+configuring ACS from scratch for them. Do the same for devices that have
+no saved ACS state at all.
+
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: David Matlack <dmatlack@google.com>
+---
+ drivers/pci/pci.c             | 117 +++++++++++++++++++++++++++++++++-
+ drivers/pci/pci.h             |   5 ++
+ drivers/pci/quirks.c          |   7 ++
+ include/uapi/linux/pci_regs.h |   1 +
+ 4 files changed, 129 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index b2879a6be5f8..e1c05866e2ee 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -1021,6 +1021,106 @@ static void pci_std_enable_acs(struct pci_dev *dev, struct pci_acs *caps)
+ 		caps->ctrl |= (dev->acs_capabilities & PCI_ACS_TB);
+ }
+ 
++/*
++ * Layout of the ACS save buffer. @ecv holds the ACS Egress Control Vector and
++ * is sized for the largest vector a device can implement.
++ */
++struct pci_acs_saved_state {
++	u16 ctrl;
++	u32 ecv[8];
++};
++
++/*
++ * Return the size in bytes of the ACS Egress Control Vector, or 0 if the
++ * device does not implement P2P Egress Control.
++ */
++static unsigned int pci_acs_ecv_size(struct pci_dev *dev)
++{
++	unsigned int bits;
++
++	if (!dev->acs_cap || !(dev->acs_capabilities & PCI_ACS_EC))
++		return 0;
++
++	/* An Egress Control Vector Size of 0 means 256 bits */
++	bits = FIELD_GET(PCI_ACS_EGRESS_BITS_MASK, dev->acs_capabilities);
++	if (!bits)
++		bits = 256;
++
++	/* The vector is implemented as a series of DWORD registers */
++	return round_up(bits, 32) / 8;
++}
++
++/**
++ * pci_save_acs_state - save the ACS Control register and Egress Control Vector
++ * @dev: the PCI device
++ *
++ * Record the ACS configuration currently programmed in hardware so that
++ * pci_restore_acs_state() can reapply it after a reset.
++ */
++static void pci_save_acs_state(struct pci_dev *dev)
++{
++	struct pci_cap_saved_state *save_state;
++	struct pci_acs_saved_state *acs;
++	unsigned int i, dwords;
++
++	if (!dev->acs_cap)
++		return;
++
++	save_state = pci_find_saved_ext_cap(dev, PCI_EXT_CAP_ID_ACS);
++	if (!save_state)
++		return;
++
++	acs = (struct pci_acs_saved_state *)save_state->cap.data;
++
++	pci_read_config_word(dev, dev->acs_cap + PCI_ACS_CTRL, &acs->ctrl);
++
++	dwords = pci_acs_ecv_size(dev) / sizeof(u32);
++	for (i = 0; i < dwords; i++)
++		pci_read_config_dword(dev, dev->acs_cap + PCI_ACS_EGRESS_CTL_V +
++				      i * sizeof(u32), &acs->ecv[i]);
++}
++
++/**
++ * pci_restore_acs_state - restore the ACS Control register and Egress Control
++ *			   Vector
++ * @dev: the PCI device
++ */
++static void pci_restore_acs_state(struct pci_dev *dev)
++{
++	struct pci_cap_saved_state *save_state = NULL;
++	struct pci_acs_saved_state *acs;
++	unsigned int i, dwords;
++
++	if (dev->acs_cap && !pci_need_dev_specific_enable_acs(dev))
++		save_state = pci_find_saved_ext_cap(dev, PCI_EXT_CAP_ID_ACS);
++
++	/*
++	 * Devices that rely on device-specific quirks to enable an ACS
++	 * equivalent keep that configuration outside of the ACS Control
++	 * register, so there is nothing useful to restore for them. Configure
++	 * ACS from scratch instead, which also covers devices that have no
++	 * saved ACS state at all.
++	 */
++	if (!save_state) {
++		pci_enable_acs(dev);
++		return;
++	}
++
++	acs = (struct pci_acs_saved_state *)save_state->cap.data;
++
++	/*
++	 * Restore the Egress Control Vector before the ACS Control register.
++	 * The vector resets to zero, so enabling P2P Egress Control first
++	 * would briefly apply the reset vector instead of the saved one.
++	 */
++	dwords = pci_acs_ecv_size(dev) / sizeof(u32);
++	for (i = 0; i < dwords; i++)
++		pci_write_config_dword(dev, dev->acs_cap + PCI_ACS_EGRESS_CTL_V +
++				       i * sizeof(u32), acs->ecv[i]);
++
++	pci_write_config_word(dev, dev->acs_cap + PCI_ACS_CTRL, acs->ctrl);
++}
++
+ /**
+  * pci_enable_acs - enable ACS if hardware support it
+  * @dev: the PCI device
+@@ -1057,6 +1157,15 @@ void pci_enable_acs(struct pci_dev *dev)
+ 	__pci_config_acs(dev, &caps, config_acs_param, 0, 0);
+ 
+ 	pci_write_config_word(dev, pos + PCI_ACS_CTRL, caps.ctrl);
++
++	/*
++	 * pci_enable_acs() runs when a driver binds to the device, i.e. after
++	 * pci_bus_add_device() has already saved the device's state. Refresh
++	 * the saved ACS state so that a subsequent reset restores the
++	 * configuration programmed here rather than the one left behind by
++	 * firmware.
++	 */
++	pci_save_acs_state(dev);
+ }
+ 
+ /**
+@@ -1800,6 +1909,7 @@ int pci_save_state(struct pci_dev *dev)
+ 	pci_save_aer_state(dev);
+ 	pci_save_ptm_state(dev);
+ 	pci_save_tph_state(dev);
++	pci_save_acs_state(dev);
+ 	return pci_save_vc_state(dev);
+ }
+ EXPORT_SYMBOL(pci_save_state);
+@@ -1877,7 +1987,7 @@ void pci_restore_state(struct pci_dev *dev)
+ 	pci_restore_msi_state(dev);
+ 
+ 	/* Restore ACS and IOV configuration state */
+-	pci_enable_acs(dev);
++	pci_restore_acs_state(dev);
+ 	pci_restore_iov_state(dev);
+ 
+ 	dev->state_saved = false;
+@@ -3532,6 +3642,11 @@ void pci_allocate_cap_save_buffers(struct pci_dev *dev)
+ 	if (error)
+ 		pci_err(dev, "unable to allocate suspend buffer for LTR\n");
+ 
++	error = pci_add_ext_cap_save_buffer(dev, PCI_EXT_CAP_ID_ACS,
++					    sizeof(struct pci_acs_saved_state));
++	if (error)
++		pci_err(dev, "unable to allocate suspend buffer for ACS\n");
++
+ 	pci_allocate_vc_save_buffers(dev);
+ }
+ 
+diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+index ba3c3fddddc2..037c1674f164 100644
+--- a/drivers/pci/pci.h
++++ b/drivers/pci/pci.h
+@@ -1095,6 +1095,7 @@ void pci_acs_init(struct pci_dev *dev);
+ void pci_enable_acs(struct pci_dev *dev);
+ #ifdef CONFIG_PCI_QUIRKS
+ int pci_dev_specific_acs_enabled(struct pci_dev *dev, u16 acs_flags);
++bool pci_need_dev_specific_enable_acs(struct pci_dev *dev);
+ int pci_dev_specific_enable_acs(struct pci_dev *dev);
+ int pci_dev_specific_disable_acs_redir(struct pci_dev *dev);
+ void pci_disable_broken_acs_cap(struct pci_dev *pdev);
+@@ -1105,6 +1106,10 @@ static inline int pci_dev_specific_acs_enabled(struct pci_dev *dev,
+ {
+ 	return -ENOTTY;
+ }
++static inline bool pci_need_dev_specific_enable_acs(struct pci_dev *dev)
++{
++	return false;
++}
+ static inline int pci_dev_specific_enable_acs(struct pci_dev *dev)
+ {
+ 	return -ENOTTY;
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index 7aee30734303..e500c202d2ec 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -5476,6 +5476,13 @@ static const struct pci_dev_acs_ops *pci_dev_acs_ops_get(struct pci_dev *dev)
+ 	return NULL;
+ }
+ 
++bool pci_need_dev_specific_enable_acs(struct pci_dev *dev)
++{
++	const struct pci_dev_acs_ops *p = pci_dev_acs_ops_get(dev);
++
++	return p && p->enable_acs;
++}
++
+ int pci_dev_specific_enable_acs(struct pci_dev *dev)
+ {
+ 	const struct pci_dev_acs_ops *p = pci_dev_acs_ops_get(dev);
+diff --git a/include/uapi/linux/pci_regs.h b/include/uapi/linux/pci_regs.h
+index facaa324bd86..66359cb94f0d 100644
+--- a/include/uapi/linux/pci_regs.h
++++ b/include/uapi/linux/pci_regs.h
+@@ -1023,6 +1023,7 @@
+ #define  PCI_ACS_UF		0x0010	/* Upstream Forwarding */
+ #define  PCI_ACS_EC		0x0020	/* P2P Egress Control */
+ #define  PCI_ACS_DT		0x0040	/* Direct Translated P2P */
++#define  PCI_ACS_EGRESS_BITS_MASK 0xff00 /* Egress Control Vector Size */
+ #define PCI_ACS_EGRESS_BITS	0x05	/* ACS Egress Control Vector Size */
+ #define PCI_ACS_CTRL		0x06	/* ACS Control Register */
+ #define PCI_ACS_EGRESS_CTL_V	0x08	/* ACS Egress Control Vector */
