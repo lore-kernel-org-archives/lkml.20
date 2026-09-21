@@ -1,131 +1,143 @@
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8681A6834
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:37:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36B9A26ED3E
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:40:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789965479; cv=none; b=o9lOBWqYz4IKrKH/jfXTY5PMp+DqtXgVAUoPFEZ9A2ymBMqdpyNFGcTN8NItIaESrkhnpqY+WhpqImlydQutrvYgrRrWIepFhcXOagcFLlteGdxGs3VYVd1753wYBhRTNAUzlQw1bNxS/VWGRA+UKsPzQgoyfvTX++pWb1PDtvQ=
+	t=1789965629; cv=none; b=Mk0vwbIPjdnIMjeK1RnhiqcT5GDnlx4FeEizAWgJ++pRqV0MPByTaYOAOhPK+yZW48bMCYZPMUUpzcNod5Bdtfd8oJ+r6uA162LbZx6dOQfSyzEBURCS/oN+iIFJrHIWZcSTkCak+70pY9AeQB5BorF54VwoVpDMqXNoFQ6EtF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789965479; c=relaxed/simple;
-	bh=2uFE3mXZl4Xq3D3D7cZ1Kf0JImoScL/wh49nI54DY90=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=aiRnBRbOF3UTh+p3dAfK0c3CMDV0fFQ0pRbASpCSI0pwxbKP6VxsUhr3VZJuuWjpgn38hOkZJeYU+roHW2Qz7c2ED7hW62y7PlbCtFNsf5F0COlHyWUXpHuy1kadppr6UBjg5EpkP0AXkjg0LtL9aMRSEHuqhBnXS6QZG5NehEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qmmjLbr4; arc=none smtp.client-ip=209.85.214.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	s=arc-20240116; t=1789965629; c=relaxed/simple;
+	bh=jeC4LaMsBa3akjQWVgKWMCdJPuYMgx9lSJHwCRiT4fI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aAMglN29HNXLv5RjVqYXzmxi9DXNIlnYfaJn6RwGxRKDWcgO91Ok8vIPW0AOriiLweAKnVek2neQoOPLX9jTBLmU5bZGKDXElfF/CzzuScgcqMkC9Ola7ZfgvGzmGva6I/3D4SoDfRZ6GfQ50/n+gxXyqwEjXQnmIAtBaZFOWRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GIMjhW0t; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qmmjLbr4"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d63bad3d09so37560815ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:37:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GIMjhW0t"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4d04d73b8so2128175a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:40:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789965477; x=1790570277; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oI0AcZyXxpUIL8Q/kLh7OVD6XmpNgHHPHxdbzb57xtY=;
-        b=qmmjLbr4KWrk7krMZdmbgl6LdUVrEboaNQ8nrFZeHbGH/DuLS/2UPM9KCq1Mbjidvv
-         guEROtfKDGE+vP5MaiNgxA7oWHrJkLPLX3of0g0dRGVvGm4+wlaj5sm/GuQcI0F4esHw
-         GH712IPZCFAWo3tDVVfJefJ4V2R7uPbT7k6LYCfGwoFc20JV0zW3FLeSght4WRZv1ov7
-         +pV2cJuxV2QO3kF5YZF2NQVo8J7qp4HZnmuhXKpKiNkMqA63m4cckZSR6qOVs3u98PRU
-         YIAVt5xsOBXjp7TWweAwBLpFXiRQMRRSzCHVHfIv2k6APGnAi+6vmqLIXZ2kqmjhdbfu
-         UaDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789965477; x=1790570277;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789965627; x=1790570427; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oI0AcZyXxpUIL8Q/kLh7OVD6XmpNgHHPHxdbzb57xtY=;
-        b=V9AQgLZxErCyNiX0x+w6OkqW+SSmB41gG/wPHt6xkeGsoCBzn1ZjtN9HXbE2Mp/B4o
-         xHehtJ04aMnHvsIJmOZQSEy+Cd47dxf3zysGwO8ozwzlPagSZpFvSncdYTIXYPTiJV6s
-         +5JePnPQxpGG1deqpjJfG/LnVn1/V9k+TNkWj/t5PTTaQDMDeAmplJyfouyBSoWJehJB
-         Hknth1q1b9Bsak2BW+8Qa56IL0VaDt461J7a6d9MBShMQy3Eh/Wd/3I+V+56JsEvXHtO
-         Fe3Nh4l9AR1bl4uQtrQS/0/2XCV339YPp/aT0uO2geR7d0XbF+aoypbobAztLwCgO3st
-         LuYw==
-X-Forwarded-Encrypted: i=1; AKwUvBx4sfWqx1ro/IDxPEDTjoWbT2x+pzpmf8vNMe3rTUHZ6T9XNt9yjJmFKressNBNDo+TSGJSHKKA9XgdA8E=@vger.kernel.org
-X-Gm-Message-State: AFuF++khn9MuNgjunYC06HzB74Mbd+63h4ymlGK62FiVjNt0y53nJsfu
-	i1AmhvJUCFTEEBXwWwzy2/0Wm1xCGOvQ+s0etn7+lUyNhSlT11h65yoiA9f9M1MjPyljQQv+rv/
-	/Dxf+N6Z/7IijmxUZckHUJw==
-X-Received: from plrr2.prod.google.com ([2002:a17:902:c602:b0:2df:4071:690d])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:ce92:b0:2db:63cb:1b17 with SMTP id d9443c01a7336-2ddb1b77648mr164287785ad.18.1789965477201;
- Sun, 20 Sep 2026 21:37:57 -0700 (PDT)
-Date: Mon, 21 Sep 2026 12:37:55 +0800
-In-Reply-To: <fee250ea-8e0b-4320-880e-8e2627e7b103@acm.org>
+        bh=y2spstPPyYxdRmmq2UEhNRiouajEznMuECBtSYufh90=;
+        b=GIMjhW0tg7wnSBN09CIB+VPoKDSQOr6qvD0MJMQsFfOWZi8lClmTEkK28k8fnV04Vf
+         w9VknH0liSFpmq52cIutcJYLEp684xjO5dgWbglFZKOd6msHT/KgNT1bCrt6UBcd+nny
+         /6Dd79RpibYmPaswrzOXomXPUUFn4UpvSDt2QPoFbW7jHSAzT+rhy7ljR+qUyV2iB/Fg
+         d5uz/A+8FYKIf19I+s4N43/cgWls3lvph99N0EpWdFjuP+JRdp6R81IIXosUuVEyyzlA
+         PXu6mdSOkA8RdOFV+10GjiTU94G0dS6aavPyrCEWLATGmHT+olLSEtFntICFhmXSuW03
+         q7Hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789965627; x=1790570427;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y2spstPPyYxdRmmq2UEhNRiouajEznMuECBtSYufh90=;
+        b=yXO1777k4Qd0GZcSegtNgAu/MCWv1SXNE9ER+UzPVYogZPrbF02dOpeaXUf+7rxdFq
+         5O7GKDJJHQ7XQAQfDO4XNpOP1L6K7Xvhk7MGqqoW4nsH8rGsoBvQgG9+SVU4rznS3igD
+         GLxGcvGMfC2Bf+npqoOeHseHmLv8NAdqBJd+2dYbO5KI7pa2F5WmEMHJb3mqYL8Y/0sP
+         xLwL1deWn/lGYRfQhnuDzbKiycrTTozE/tBKqIhtiDoYl9eEZ+WhNRLR44Wc4qj0JFVa
+         4X42wcNkTcT//FHymxBRqekJYmd04Y7XYgZJG+rIXMd1oua99VF4W+1uvP/Q6sNB6DgR
+         BqGg==
+X-Forwarded-Encrypted: i=1; AKwUvBwv6tB1hbMZXKEjOwgs1wJy7X4EnTznWN4fQcli2UOPiMzs7N4ASb1Tgu5WNkexj70I9fMGKilHjN8dbCM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTAQ2TgaNnuCV70+VjjzT5+j6eAi8v0joIUf8bEtuFigR5XuOK
+	eJOozqga2YOCKrIL8PIFzQe6FQZBW6OY1OyTrPUNCxTHVeSn/1Ri+kkm
+X-Gm-Gg: AYBFou1tEQS3iZ12elV/0607+cvpVGJwtZJJ1XPzHHX8DaQynfnEPNhwr4rsOkTW8DO
+	eTIfDvWfK1UklltRWu7/mkGbx/dPxnlkrwIu1+ul0WbyCAOswyNe8q1w9loP8o5g+pzkFZ372/e
+	z58wyfVzKF3PRRgqFsxrP1WzqrHZ2U4IRyt/M4M3n57evInVuT3Xfkez4A7kSaxtnfPjTAgIt1A
+	BjIHvoZcT6NKvqRSOb778GSRv/zusRAGDpfaeCCmBCRbGNWeE2F9b55CmlUtYJ2ehDehOqat+e+
+	/oF7daUuDY5UgCGoqPyw7fwuBtlLRRbmCBbDk6Rx0ZAtFbNcvYzI+Oc2/u3TPOh0PQizMkzKp6j
+	ISJSgGamhSgOzgAOQU4PU97RXf7tm04k5k+QAjBTtZr8FJ68EplQIuugAiAJMixylSOsI7LgFW3
+	HxJFB2/R/pf8Nh3lF47I/jVj12YKwIuu2CfmrQksXi5hjLVvUpRbNpvKWFXN1N2/ptyc6Fi3tDV
+	0yJxKIYdPjMZOLDI5t7mSK8XG003368APeN+8+NuUEQe0MZMK4ehcxWYJrHdp4ofaTpfq6IyWou
+	316XcocrXXxG65Z3defv
+X-Received: by 2002:a17:90b:2e0b:b0:39e:6c69:34d6 with SMTP id 98e67ed59e1d1-39e6c693688mr8433324a91.58.1789965627199;
+        Sun, 20 Sep 2026 21:40:27 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a02526e27dsm4604260a91.0.2026.09.20.21.40.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 21:40:26 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>,
+	Simon Horman <horms@kernel.org>,
+	David Lebrun <david.lebrun@uclouvain.be>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH net v2] ipv6: sr: enforce exact attribute length for SEG6_ATTR_DST
+Date: Mon, 21 Sep 2026 04:40:25 +0000
+Message-ID: <20260921044025.1535982-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+In-Reply-To: <aq-E5MPYZS5s9_bk@fedora>
+References: <aq-E5MPYZS5s9_bk@fedora>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260920143319.3659543-1-stanleyjhu@google.com>
- <20260920143319.3659543-2-stanleyjhu@google.com> <fee250ea-8e0b-4320-880e-8e2627e7b103@acm.org>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260921043755.1689675-1-stanleyjhu@google.com>
-Subject: Re: [PATCH 1/2] scsi: ufs: core: Release command resources instead of force-completing
-From: Stanley Jhu <stanleyjhu@google.com>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen" <mkp@kernel.org>, 
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
-	Bean Huo <beanhuo@micron.com>, Can Guo <can.guo@oss.qualcomm.com>, 
-	Peter Wang <peter.wang@mediatek.com>, Manivannan Sadhasivam <mani@kernel.org>, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On 9/20/26 5:41 PM, Bart Van Assche wrote:
-> No, this is not what I suggested.
+In seg6_genl_policy, SEG6_ATTR_DST is defined with .type = NLA_BINARY and
+.len = sizeof(struct in6_addr). For NLA_BINARY, .len only enforces the
+maximum payload length and permits shorter payloads (e.g., 0 bytes).
+When seg6_genl_set_tunsrc() copies sizeof(struct in6_addr) bytes via
+kmemdup(val, sizeof(*val), GFP_KERNEL), a short SEG6_ATTR_DST attribute
+triggers a 16-byte out-of-bounds read past skb->tail into uninitialized
+skb->head memory, which is stored in sdata->tun_src and leaked back to
+userspace via SEG6_CMD_GET_TUNSRC.
 
-Sorry about that - the Suggested-by: tag does not belong on this patch
-and I will drop it.
+Switch SEG6_ATTR_DST in seg6_genl_policy to
+NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)) so that generic netlink
+validation rejects any attribute whose length is not exactly
+sizeof(struct in6_addr) with -ERANGE.
 
-> The text above says "implement this in three steps". Hence, this patch
-> should have been three patches instead of one because of the "one change
-> per patch" rule in the Linux kernel community.
+Tested in QEMU against Linux 7.3.0-rc3 by sending a SEG6_CMD_SET_TUNSRC
+Generic Netlink message with a 0-byte SEG6_ATTR_DST attribute followed
+by SEG6_CMD_GET_TUNSRC. On the unfixed kernel, SEG6_CMD_SET_TUNSRC
+succeeds (err = 0) and SEG6_CMD_GET_TUNSRC leaks 16 bytes of
+uninitialized kernel heap memory (tun_src =
+836a61ecc4d25a1042a8d60411cfb378); with this patch applied,
+SEG6_CMD_SET_TUNSRC is rejected by netlink policy validation with
+-ERANGE (-34) and tun_src remains zeroed.
 
-Agreed.
+Fixes: 915d7e5e5930 ("ipv6: sr: add code base for control plane support of SR-IPv6")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v2:
+- Drop the redundant nla_len(info->attrs[SEG6_ATTR_DST]) !=
+  sizeof(struct in6_addr) check in seg6_genl_set_tunsrc() since
+  NLA_POLICY_EXACT_LEN() in seg6_genl_policy already enforces the exact
+  length, as pointed out by Hangbin Liu.
 
-> Why has ufshcd_clear_lu_cmds() been modified? This function is only
-> called for pending commands so checking &hba->outstanding_reqs is not
-> necessary.
+ net/ipv6/seg6.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> This is also wrong because this change will trigger a use-after-free in
-> scmd_eh_abort_handler() if it decides to retry or finish a SCSI command.
-
-Both hunks are out of scope for this patch and I will drop them.
-
-> Did you read this code before you posted it? As its name suggests,
-> ufshcd_release_scsi_cmd() is only called for SCSI commands. No device
-> management command code should be added in this function.
-
-You are right. In ufshcd_compl_one_cqe() I moved the
-ufshcd_release_scsi_cmd() call out of the ufshcd_is_scsi_cmd() branch,
-which let device management commands reach that function, and then
-added an early return there to filter them back out. In the respin the
-call will stay inside the branch, with no device management handling in
-that function.
-
-> Regarding (3), the UFS driver is a SCSI LLD (low-level driver) and hence
-> should only do what is specific to the UFS driver. Completing commands
-> after .eh_host_reset_handler() has been called is the responsibility of
-> the SCSI core and should not be done by the UFS driver.
-
-Agreed for the path where SCSI EH drove the reset. The case I am unsure
-about is the other caller: ufshcd_err_handler() also runs from
-hba->eh_work, scheduled by ufshcd_check_errors() on UIC and controller
-errors. Those commands have not timed out and are not on
-shost->eh_cmd_q, so SCSI EH never finishes them, and the handler leaves
-them to the reset path on purpose:
-
-	/*
-	 * if host reset is required then skip clearing the pending
-	 * transfers forcefully because they will get cleared during
-	 * host reset and restore
-	 */
-
-Should those simply wait for the block layer timeout and come back
-through SCSI EH?
-
-Thanks,
-
-Stanley
+diff --git a/net/ipv6/seg6.c b/net/ipv6/seg6.c
+index 62a7eb779202..8c2b156c227a 100644
+--- a/net/ipv6/seg6.c
++++ b/net/ipv6/seg6.c
+@@ -138,8 +138,8 @@ void seg6_icmp_srh(struct sk_buff *skb, struct inet6_skb_parm *opt)
+ static struct genl_family seg6_genl_family;
+ 
+ static const struct nla_policy seg6_genl_policy[SEG6_ATTR_MAX + 1] = {
+-	[SEG6_ATTR_DST]				= { .type = NLA_BINARY,
+-		.len = sizeof(struct in6_addr) },
++	[SEG6_ATTR_DST]				=
++		NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
+ 	[SEG6_ATTR_DSTLEN]			= { .type = NLA_S32, },
+ 	[SEG6_ATTR_HMACKEYID]		= { .type = NLA_U32, },
+ 	[SEG6_ATTR_SECRET]			= { .type = NLA_BINARY, },
+-- 
+2.49.0
