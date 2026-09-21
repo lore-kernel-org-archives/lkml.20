@@ -1,173 +1,369 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF92361DA6;
-	Mon, 21 Sep 2026 06:22:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAEF61A6834
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:23:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789971736; cv=none; b=s7STxaNScDW1FJfLbWUChQGfcnAWU5ZZ3Tq1IX7hUQ7gXiCrKavHTNMOSGgYdkR6R7LYRoN2w8izpdLCJYWgUTO7YF+MQttcDYQNdE+zU9m72hk06y0hflROA3IMEzDpvY2BRdsLohfpmCfLx83y1z0HQDPtABS4c7F94o8kxt0=
+	t=1789971813; cv=none; b=of7kRc2PEEg5vr2MBW1BM4+bitixy5ZpW8BlbnxE+NN5M75hJnGxhMuFAl7wewMDvgwfGA5T4AG2s2UMjy6uLRHqwO1L5R1sJNiH2Fu6wAw/k1Pw0KPydM8A9W+R1AKqvgep60RZ9RFUM/S1LOjuLs0l1p9jK/UxZf1Bzb4Mg2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789971736; c=relaxed/simple;
-	bh=z4aAwBgqIqyloe3Ukq3nEoAvkilgAieGKqiScaNkon0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZDng8Kg+o+CzaVoZbV6GnTqHCYfYfYn+IfbJdtsDUsIm1a9l8rrc+sx+HwdXIKpNY9a4MviSgeI1lVxH3kOOaxXZKI+RrfMIu15DiSefbDYJggT1qhE+bL7cUhpCNTozbBPdjZ4lEkdt9SVxw+6gtl90/r4VmmY4QNwhDjIn1Lk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YUnUaSif; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YUnUaSif"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2199C1F000FF;
-	Mon, 21 Sep 2026 06:22:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789971735;
-	bh=uZdMkJDAp6rJM26htnZk7E9JkWCMMA4T82aVyiUlmqU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YUnUaSifIgxamcrokCMOKJ6nQqnda7HcYwNosNqYbj649Wcsu9+4sdghAmf6eOjOg
-	 n2KbKE246kifwadd0SRpes9i/Sm6tBknVV8hgjFVqbiFACYLxnKHzT/uWQ1jrRSo0S
-	 5q2sh7oe6rbw5JfdGZnb71Z4WWWsWbMErdkgpPlwMp1JDO/+31qdv4sOopB0e5K+Hb
-	 Y+RIuEfQ7/aoAcZL9aUKZ/56sZBr66S+Xiz6Zl9VSZVMNpsYgjYOGp4/TkSEjq24QY
-	 P7uyIsbdLZPBDcHnSHrxfluNxa5nM3t2JXR7vcC5U+cRbXmHDm3sZAS3FC6KDMShsf
-	 bqtO5csm8cyFQ==
-Date: Sun, 20 Sep 2026 23:22:13 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: Re: [PATCH 4/7] perf annotate-data: Bound the member nesting
- recursion
-Message-ID: <arDNFYI5PvIF40GF@z2>
-References: <20260919204027.8504-1-acme@kernel.org>
- <20260919204027.8504-5-acme@kernel.org>
+	s=arc-20240116; t=1789971813; c=relaxed/simple;
+	bh=U2V5IMc/u6meggyJrXxYm7ih4d32y2dC2PV0L8J54CI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=QhIxqk9W9TVR/l87cblF13boLyecoTpTDbE1n1RWswLeIJhfBN3sLq+2qBYHWO8tf2gGCfkozUZXQhwjXG6SaB8qFlXtCwZn9I5j4t/uFScLjxpeQcK2cUKxJo+lZXWrku64oDQEEFRbS7ZOXXvu/kl37LeIg9y6pYsvGgIjHx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-469debb526fso3331172fac.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 23:23:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789971810; x=1790576610;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1WS7BiJHVzykxEF57zDgMk+JKBiYO6rLWgps4DcMF2k=;
+        b=ASWui/VzLiNKzoJeQlgJFaRRXA5J++Ltv51sTaGeM15pcZAELRlfRpmX+IgJr5X4TP
+         IqLU+Zle5BZngCBLfSfYtOcE1Wvn/vmhsE5RFhTkHeLRJKK3mADi5dFOz4ryZ9q6mkF0
+         DJ0waLNkKHZBs1t42quB1Cc/zO4WhLUDOX98tnMr/IBlem7pGx920mKazHYtjThgs9Tm
+         SMmUsZN4y5P4bmpGxTcJkt49rHPTxZglwVNV3qPYrwp7tGQkFifHC5BSIvdaEpaAyvBV
+         Y5Nss9j8lB9PCmlkC7/fUgSqDa0Yd+/e2IAAprTPX//pvRcEQmlVNHSvP8exyLHv3sr1
+         2ngQ==
+X-Gm-Message-State: AFuF++m0iT6uTsRM3dwYkvEwze0W3g0xeuCaUDr2HqzQoiJsPLp8ttF8
+	Xl30Mj+GPewxYhnaa1+KDxG7tkH9dn6Yx5po8I+sdYXV9nbshm+MaPlZrJDOquaZVssIE9mLjIo
+	kYjc0RrkLyetBxoC3mZiBpNOclfuggF+R1tWOha7CyIVVEtzK1FsTWl/VsDE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260919204027.8504-5-acme@kernel.org>
+X-Received: by 2002:a05:6820:2085:b0:6be:731b:5544 with SMTP id
+ 006d021491bc7-6ca9c64fad2mr8899233eaf.37.1789971810699; Sun, 20 Sep 2026
+ 23:23:30 -0700 (PDT)
+Date: Sun, 20 Sep 2026 23:23:30 -0700
+In-Reply-To: <6a92fadc.08e933ee.dbf97.008f.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab0cd62.71f81b7d.15fa6d.0023.GAE@google.com>
+Subject: Forwarded: [PATCH v3] Bluetooth: RFCOMM: connect the session socket
+ without rfcomm_mutex
+From: syzbot <syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Sep 19, 2026 at 05:40:24PM -0300, Arnaldo Carvalho de Melo wrote:
-> From: Arnaldo Carvalho de Melo <acme@redhat.com>
-> 
-> Members are added recursively, and the same kind of broken DIE can make
-> a member's type point back at one of its own ancestors, recursing until
-> the stack is gone; nothing usable comes out of nesting members 8 deep
-> anyway, so stop there, marking the member as truncated (reported by the
-> JSON exporter added in a later series) and giving up on member types
-> that don't resolve.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-I think 8 is too restrictive.  It should be common to have 3 or 4 depth
-if you have nested struct or union members.
+***
 
-And some kernel primitives like spinlock also have nested members like
+Subject: [PATCH v3] Bluetooth: RFCOMM: connect the session socket without rfcomm_mutex
+Author: mikhail.v.gavrilov@gmail.com
 
-  raw_spinlock_t
-    arch_spinlock_t
-      union
-        atomic_t
-	  int
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 518e5b794c06
 
-So it'd be easy to hit the limit when the nested members contain a
-spinlock.
+An RFCOMM connect() issued while a BR/EDR link is being authenticated
+makes lockdep report a circular dependency, and the reported cycle is a
+real AB/BA between rfcomm_mutex and hdev->lock.
 
-Thanks,
-Namhyung
+rfcomm_security_cfm() is called from the HCI event path, which already
+holds hdev->lock:
 
-> 
-> Assisted-by: LLM
-> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-> ---
->  tools/perf/util/annotate-data.c | 32 ++++++++++++++++++++++++++------
->  tools/perf/util/annotate-data.h |  3 +++
->  2 files changed, 29 insertions(+), 6 deletions(-)
-> 
-> diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-data.c
-> index 2ad6d012e069c522..c67bb6005e23c516 100644
-> --- a/tools/perf/util/annotate-data.c
-> +++ b/tools/perf/util/annotate-data.c
-> @@ -221,6 +221,13 @@ static bool data_type_less(struct rb_node *node_a, const struct rb_node *node_b)
->  	return strcmp(a->self.type_name, b->self.type_name) < 0;
->  }
->  
-> +/*
-> + * Members are added recursively; bound the nesting so that a broken
-> + * type that points back at one of its own ancestors doesn't recurse
-> + * until the stack is gone.
-> + */
-> +#define MAX_MEMBER_DEPTH 8
-> +
->  /* Recursively add new members for struct/union */
->  static int __add_member_cb(Dwarf_Die *die, void *arg)
->  {
-> @@ -235,6 +242,16 @@ static int __add_member_cb(Dwarf_Die *die, void *arg)
->  	if (dwarf_tag(die) != DW_TAG_member)
->  		return DIE_FIND_CB_SIBLING;
->  
-> +	if (__die_get_real_type(die, &member_type) == NULL)
-> +		return DIE_FIND_CB_SIBLING;
-> +
-> +	if (dwarf_tag(&member_type) == DW_TAG_typedef) {
-> +		if (die_get_real_type(&member_type, &die_mem) == NULL)
-> +			return DIE_FIND_CB_SIBLING;
-> +	} else {
-> +		die_mem = member_type;
-> +	}
-> +
->  	member = zalloc(sizeof(*member));
->  	if (member == NULL)
->  		return DIE_FIND_CB_END;
-> @@ -242,12 +259,6 @@ static int __add_member_cb(Dwarf_Die *die, void *arg)
->  	strbuf_init(&sb, 32);
->  	die_get_typename(die, &sb);
->  
-> -	__die_get_real_type(die, &member_type);
-> -	if (dwarf_tag(&member_type) == DW_TAG_typedef)
-> -		die_get_real_type(&member_type, &die_mem);
-> -	else
-> -		die_mem = member_type;
-> -
->  	if (dwarf_aggregate_size(&die_mem, &size) < 0)
->  		size = 0;
->  
-> @@ -289,10 +300,19 @@ static int __add_member_cb(Dwarf_Die *die, void *arg)
->  	}
->  	member->size = size;
->  	member->offset = loc + parent->offset;
-> +	member->depth = parent->depth + 1;
->  	INIT_LIST_HEAD(&member->children);
->  	list_add_tail(&member->node, &parent->children);
->  
->  	tag = dwarf_tag(&die_mem);
-> +	if (member->depth >= MAX_MEMBER_DEPTH) {
-> +		/* Reported by the JSON exporter so consumers can tell a truncated tree. */
-> +		member->truncated = true;
-> +		pr_debug_dtp("member nesting limit reached at %s\n",
-> +			     member->type_name ?: "(unknown type)");
-> +		return DIE_FIND_CB_SIBLING;
-> +	}
-> +
->  	switch (tag) {
->  	case DW_TAG_structure_type:
->  	case DW_TAG_union_type:
-> diff --git a/tools/perf/util/annotate-data.h b/tools/perf/util/annotate-data.h
-> index ca2096a9ee62cbfe..cc576232f55b5fb0 100644
-> --- a/tools/perf/util/annotate-data.h
-> +++ b/tools/perf/util/annotate-data.h
-> @@ -57,6 +57,9 @@ struct annotated_member {
->  	char *var_name;
->  	int offset;
->  	int size;
-> +	unsigned int depth;
-> +	/* Children not expanded because the nesting limit was reached */
-> +	bool truncated;
->  };
->  
->  /**
-> -- 
-> 2.53.0
-> 
+  hci_rx_work()
+    hci_event_packet()
+      hci_cc_read_enc_key_size()   [hdev->lock]
+        hci_encrypt_cfm()          [hci_cb_list_lock]
+          rfcomm_security_cfm()    [rfcomm_mutex]
+
+while an RFCOMM connect() from userspace takes the same two locks the
+other way round:
+
+  rfcomm_sock_connect()
+    rfcomm_dlc_open()              [rfcomm_mutex]
+      __rfcomm_dlc_open()
+        rfcomm_session_create()
+          kernel_connect()
+            l2cap_sock_connect()
+              l2cap_chan_connect() [hdev->lock]
+
+  WARNING: possible circular locking dependency detected
+  kworker/u131:1/1128 is trying to acquire lock:
+  rfcomm_mutex, at: rfcomm_security_cfm+0x31/0x3e0 [rfcomm]
+  but task is already holding lock:
+  hci_cb_list_lock, at: hci_cc_read_enc_key_size+0x1d2/0xcc0
+  Chain exists of:
+    rfcomm_mutex --> &hdev->lock --> hci_cb_list_lock
+
+hci_auth_complete_evt() and hci_encrypt_change_evt() reach the callback
+the same way.
+
+Both orders have to be seen in the same boot, which is why a BR/EDR
+connection alone is not enough to show it: a session set up by the
+remote side is created by rfcomm_accept_connection() in krfcommd, which
+calls kernel_accept() and never takes hdev->lock under rfcomm_mutex.
+Connecting a device that authenticates and encrypts the link and then
+calling connect() on an RFCOMM socket towards any address - the connect
+does not have to succeed, the order is recorded before the page timeout
+- reports it every time.
+
+Only the session socket has to be connected with the lock held, and it
+does not: nothing else can see the socket before it is put on the
+session list.  So connect it first and take rfcomm_mutex afterwards,
+which removes the rfcomm_mutex -> hdev->lock order for good, rather
+than keeping the HCI event path out of rfcomm_mutex.
+
+rfcomm_session_create() becomes rfcomm_session_connect(), which returns
+the connected socket without touching the session list, and
+rfcomm_dlc_open() adds the session once it holds the lock again.  If
+another opener added a session for the same pair while this socket was
+connecting, that session is used and this socket is dropped.
+__rfcomm_dlc_open() now takes the session it should use, and its state
+check runs after the lock is re-acquired, so a DLC that was opened or
+closed in the meantime is still handled.
+
+Over an existing ACL link the connection can complete before the
+session reaches the list, and the wakeup from the socket callback is
+then lost, so krfcommd is woken once the session is visible.
+
+Fixes: 759c185d0bbd ("Bluetooth: RFCOMM: serialize security confirmation handling")
+Suggested-by: Pauli Virtanen <pav@iki.fi>
+Reported-by: Pauli Virtanen <pav@iki.fi>
+Closes: https://lore.kernel.org/linux-bluetooth/5e76a95e934e451e7006db28827c2d64af5a88be.camel@iki.fi/
+Reported-by: syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/linux-bluetooth/6a92fadc.08e933ee.dbf97.008f.GAE@google.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+---
+
+The commit this fixes is in v7.3-rc1 and is marked for stable, so this
+probably wants the bluetooth fixes tree rather than -next.
+
+v1: https://lore.kernel.org/linux-bluetooth/20260902235132.453044-1-mikhail.v.gavrilov@gmail.com/
+v2: https://lore.kernel.org/linux-bluetooth/20260904012028.77590-1-mikhail.v.gavrilov@gmail.com/
+
+v3:
+ - fix the lock order on the connect side instead of deferring the
+   security confirmation, as asked for on v2; rfcomm_security_cfm()
+   and krfcommd are left alone, so none of the questions about delayed
+   confirmations apply any more
+ - the queue, its annotations and the flush from v2 are gone
+
+Tested on 7.3.0-rc2 with an MT7922 controller (btusb).  Without the
+patch the reproducer below reports the inversion on every run; with it
+applied it stays quiet and the validator is still armed afterwards
+(debug_locks: 1).  A 10 hour session with BR/EDR headset connects,
+AVRCP and SCO traffic produced no lockdep report either.
+
+An outgoing connect towards a connected headset is answered in 29 ms
+with ECONNREFUSED - the session is established over the existing ACL
+link and the peer rejects the channel - which is the case where the
+L2CAP connect can complete before the session reaches the list.
+Towards an idle device the same connect fails with EHOSTDOWN after the
+page timeout.
+
+The connect() side used for the reproducer, so that it does not depend
+on which end sets up the HFP session:
+
+  #include <stdint.h>
+  #include <string.h>
+  #include <unistd.h>
+  #include <sys/socket.h>
+
+  #define BTPROTO_RFCOMM 3
+
+  struct sockaddr_rc {
+      unsigned short  rc_family;
+      uint8_t         rc_bdaddr[6];   /* little endian */
+      uint8_t         rc_channel;
+  };
+
+  int main(void)
+  {
+      struct sockaddr_rc addr = { .rc_family = AF_BLUETOOTH,
+                                  .rc_channel = 1 };
+      int fd = socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM);
+
+      memcpy(addr.rc_bdaddr, "\x55\x44\x33\x22\x11\x00", 6);
+      connect(fd, (struct sockaddr *)&addr, sizeof(addr));
+      close(fd);
+      return 0;
+  }
+
+ net/bluetooth/rfcomm/core.c | 114 ++++++++++++++++++++++++------------
+ 1 file changed, 76 insertions(+), 38 deletions(-)
+
+diff --git a/net/bluetooth/rfcomm/core.c b/net/bluetooth/rfcomm/core.c
+index f7463f092283..227ccc7da848 100644
+--- a/net/bluetooth/rfcomm/core.c
++++ b/net/bluetooth/rfcomm/core.c
+@@ -62,10 +62,9 @@ static void rfcomm_make_uih(struct sk_buff *skb, u8 addr);
+ 
+ static void rfcomm_process_connect(struct rfcomm_session *s);
+ 
+-static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+-							bdaddr_t *dst,
+-							u8 sec_level,
+-							int *err);
++static struct socket *rfcomm_session_connect(bdaddr_t *src, bdaddr_t *dst,
++					     u8 sec_level, int *err);
++static struct rfcomm_session *rfcomm_session_add(struct socket *sock, int state);
+ static struct rfcomm_session *rfcomm_session_get(bdaddr_t *src, bdaddr_t *dst);
+ static struct rfcomm_session *rfcomm_session_del(struct rfcomm_session *s);
+ 
+@@ -365,28 +364,17 @@ static int rfcomm_check_channel(u8 channel)
+ 	return channel < 1 || channel > 30;
+ }
+ 
+-static int __rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst, u8 channel)
++static int __rfcomm_dlc_open(struct rfcomm_dlc *d, struct rfcomm_session *s,
++			     u8 channel)
+ {
+-	struct rfcomm_session *s;
+-	int err = 0;
+ 	u8 dlci;
+ 
+-	BT_DBG("dlc %p state %ld %pMR -> %pMR channel %d",
+-	       d, d->state, src, dst, channel);
+-
+-	if (rfcomm_check_channel(channel))
+-		return -EINVAL;
++	BT_DBG("dlc %p state %ld session %p channel %d",
++	       d, d->state, s, channel);
+ 
+ 	if (d->state != BT_OPEN && d->state != BT_CLOSED)
+ 		return 0;
+ 
+-	s = rfcomm_session_get(src, dst);
+-	if (!s) {
+-		s = rfcomm_session_create(src, dst, d->sec_level, &err);
+-		if (!s)
+-			return err;
+-	}
+-
+ 	dlci = __dlci(__session_dir(s), channel);
+ 
+ 	/* Check if DLCI already exists */
+@@ -421,14 +409,72 @@ static int __rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst,
+ 
+ int rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst, u8 channel)
+ {
+-	int r;
++	struct rfcomm_session *s;
++	struct socket *sock;
++	int err;
++
++	BT_DBG("dlc %p state %ld %pMR -> %pMR channel %d",
++	       d, d->state, src, dst, channel);
++
++	if (rfcomm_check_channel(channel))
++		return -EINVAL;
+ 
+ 	rfcomm_lock();
+ 
+-	r = __rfcomm_dlc_open(d, src, dst, channel);
++	/* Do not page the remote device for a DLC that cannot be opened
++	 * anyway.  __rfcomm_dlc_open() looks at the state again once the
++	 * lock has been re-acquired below.
++	 */
++	if (d->state != BT_OPEN && d->state != BT_CLOSED) {
++		rfcomm_unlock();
++		return 0;
++	}
+ 
++	s = rfcomm_session_get(src, dst);
++	if (s) {
++		err = __rfcomm_dlc_open(d, s, channel);
++		rfcomm_unlock();
++		return err;
++	}
+ 	rfcomm_unlock();
+-	return r;
++
++	/* There is no session for this pair yet.  kernel_connect() ends up in
++	 * l2cap_chan_connect(), which takes hdev->lock, and the HCI event
++	 * path takes rfcomm_mutex while holding hdev->lock, so the socket has
++	 * to be connected with rfcomm_mutex released.
++	 */
++	sock = rfcomm_session_connect(src, dst, d->sec_level, &err);
++	if (!sock)
++		return err;
++
++	rfcomm_lock();
++
++	/* Another opener may have added a session for the same pair in the
++	 * meantime; that one is used and this socket is dropped.
++	 */
++	s = rfcomm_session_get(src, dst);
++	if (!s) {
++		s = rfcomm_session_add(sock, BT_BOUND);
++		if (s) {
++			s->initiator = 1;
++			sock = NULL;
++		}
++	}
++
++	err = s ? __rfcomm_dlc_open(d, s, channel) : -ENOMEM;
++
++	rfcomm_unlock();
++
++	if (sock)
++		sock_release(sock);
++
++	/* Over an existing ACL link the connection can complete before the
++	 * session reaches the list, and that wakeup is then lost, so let
++	 * krfcommd look at the socket state now.
++	 */
++	rfcomm_schedule();
++
++	return err;
+ }
+ 
+ static void __rfcomm_dlc_disconn(struct rfcomm_dlc *d)
+@@ -757,12 +803,12 @@ static struct rfcomm_session *rfcomm_session_close(struct rfcomm_session *s,
+ 	return rfcomm_session_del(s);
+ }
+ 
+-static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+-							bdaddr_t *dst,
+-							u8 sec_level,
+-							int *err)
++/* Creates the L2CAP socket a new session will run on and starts connecting
++ * it.  Must be called with rfcomm_mutex released.
++ */
++static struct socket *rfcomm_session_connect(bdaddr_t *src, bdaddr_t *dst,
++					     u8 sec_level, int *err)
+ {
+-	struct rfcomm_session *s = NULL;
+ 	struct sockaddr_l2 addr;
+ 	struct socket *sock;
+ 	struct sock *sk;
+@@ -792,24 +838,16 @@ static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+ 		l2cap_pi(sk)->chan->mode = L2CAP_MODE_ERTM;
+ 	release_sock(sk);
+ 
+-	s = rfcomm_session_add(sock, BT_BOUND);
+-	if (!s) {
+-		*err = -ENOMEM;
+-		goto failed;
+-	}
+-
+-	s->initiator = 1;
+-
+ 	bacpy(&addr.l2_bdaddr, dst);
+ 	addr.l2_family = AF_BLUETOOTH;
+ 	addr.l2_psm    = cpu_to_le16(L2CAP_PSM_RFCOMM);
+ 	addr.l2_cid    = 0;
+ 	addr.l2_bdaddr_type = BDADDR_BREDR;
+ 	*err = kernel_connect(sock, (struct sockaddr_unsized *)&addr, sizeof(addr), O_NONBLOCK);
+-	if (*err == 0 || *err == -EINPROGRESS)
+-		return s;
++	if (*err && *err != -EINPROGRESS)
++		goto failed;
+ 
+-	return rfcomm_session_del(s);
++	return sock;
+ 
+ failed:
+ 	sock_release(sock);
+-- 
+2.55.0
+
