@@ -1,104 +1,202 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 7.mo17.mail-out.ovh.net (7.mo17.mail-out.ovh.net [87.98.150.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7703C09F5;
-	Mon, 21 Sep 2026 13:23:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C20C485503
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:23:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=87.98.150.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789997022; cv=none; b=nVTuI4PRehTBpxq4K6+mB70Yx68Zb5rO9ujGsBCPadWSIjzEM7VQWy013UWvp0aEYrUGfcxME+LgPDDTBVPab20dPmggAgTBHHulQqohSHu38w+a3j4bOFOYAXoY0ML9HWU2+T0lTN3Kqrp0Q8ICH03W9OTE436R0PxN44STJOg=
+	t=1789997037; cv=none; b=u4CqqAW+Oh+nNm5T8ylRIxR41CyNcywpIhFP1/lbPmUTI3Q615LdiC4I/4HK8dKzV9OrN/G9r6inN46m+XnZkZzA1Ejm/noOvJUduRjbA7a9p9huCBlSjdijXb/+JUgVosmNp86Mfv+qO3WcHFuKlKKoXyyYY/+tCBxAoBm+TrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789997022; c=relaxed/simple;
-	bh=ILTlNDUYmEiSeY4lDQxdQhoDTJaXJe9qCRQvipA5z9Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UT+O/trOhIXu9ngWED+YNXSt1XIg8hTR1bzsmu6622o9R4uSqkn8GUgnpjUYl9ywoqRwupOi7i2LT/0Ky3xg3VSkUuECeFzT6jiu4xbQpV3OaTpsYTVrZWa0DmWkhuMRV2FbXA4OBIR9zLeAM4nuF32EEdGe6ABqSBxCkS1ZMeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EGOY+fMq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789997037; c=relaxed/simple;
+	bh=lh4UrIoSXewLFHp76QY/Q0+dUJHd+++CaGLD1NcODj8=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=oTjnfxvdyPq/cI4KnMtkVfUwiXhSF7N1sHljAvFvQgpEmCs/gLVWHtm9CbI1OuFeQoORIBUNWSg+NXWu7cG1YpI9Q1i99OuQeccA2NXdS0BdV8J7iViUWO3+eU+PcHzzCptr3eUMTibJbZdEkbDWB1Im4ZGdq85qKW8lpFIDZfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=trinity-net.com; spf=pass smtp.mailfrom=trinity-net.com; dkim=pass (2048-bit key) header.d=trinity-net.com header.i=@trinity-net.com header.b=vTiMaFm6; arc=none smtp.client-ip=87.98.150.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=trinity-net.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trinity-net.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EGOY+fMq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AC911F000FF;
-	Mon, 21 Sep 2026 13:23:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789997021;
-	bh=fLwZek4EyJluuj8Pslnv2cjb+sz2TFrNPKCV32ADyLg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EGOY+fMqNA5ylxoHB89dFuqDWrLclQxP2VnMwnynEE9TCqwkecRAE/+qaVhX0EWf6
-	 5pTUFes28jkjQsYb0w836v3Ll86VCBLOr8wFY5J1IzU0jSGtQ55dzcCZen3E9gDPc5
-	 O4iZ804j0Zva0wJvybhHDohraX6mag++v3tYaL3eEPitJLZClauPkyc6eG2DAwysQz
-	 kYk6I/65Q7SbpDZKrmeE+034ONkai+df34OnzaOFDSWKXovSoRGOnac0GCA0oW+GT1
-	 grDWNUWlDupQHlH+8504vYXy1235/1VRMqPB+PxUFCTBrC+AGZaPgDYGBcoSTnXNPX
-	 1MEWUBKgyS5ng==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 124771AC55A7; Mon, 21 Sep 2026 14:23:38 +0100 (BST)
-Date: Mon, 21 Sep 2026 15:23:38 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Chancel Liu <chancel.liu@oss.nxp.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Oder Chiou <oder_chiou@realtek.com>,
-	Support Opensource <support.opensource@diasemi.com>,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-	patches@opensource.cirrus.com
-Subject: Re: [PATCH 21/21] ASoC: rt5514-spi: Free the DSP context on
- component remove
-Message-ID: <arEv2rLNkSo_2yXm@sirena.co.uk>
-References: <20260921104640.1941554-1-chancel.liu@oss.nxp.com>
- <20260921104640.1941554-22-chancel.liu@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=trinity-net.com header.i=@trinity-net.com header.b="vTiMaFm6"
+Received: from director1.derp.mail-out.ovh.net (director1.derp.mail-out.ovh.net [79.137.60.221])
+	by mo17.mail-out.ovh.net (Postfix) with ESMTPS id 4hpNmN6xM4z82jT;
+	Mon, 21 Sep 2026 13:07:00 +0000 (UTC)
+Received: from director1.derp.mail-out.ovh.net (director1.derp.mail-out.ovh.net. [127.0.0.1])
+        by director1.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+        for <regressions@leemhuis.info>; Mon, 21 Sep 2026 13:07:00 +0000 (UTC)
+Received: from mta3.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.58.168])
+	by director1.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4hpNmN4r0rz6GrY;
+	Mon, 21 Sep 2026 13:07:00 +0000 (UTC)
+Received: from mailstore7.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.1.8.7])
+	by mta3.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTP id C7A14941C53;
+	Mon, 21 Sep 2026 13:06:59 +0000 (UTC)
+Date: Mon, 21 Sep 2026 13:06:59 +0000 (UTC)
+From: Support TRINITY <support@trinity-net.com>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: regressions <regressions@lists.linux.dev>, 
+	linux-acpi <linux-acpi@vger.kernel.org>, 
+	linux-pm <linux-pm@vger.kernel.org>, stable <stable@vger.kernel.org>, 
+	xen-devel <xen-devel@lists.xenproject.org>, 
+	linux-kernel <linux-kernel@vger.kernel.org>
+Message-ID: <8375109.285919554.1789996019673.JavaMail.zimbra@trinity-net.com>
+In-Reply-To: <8aaad113-1952-4655-978d-0cdd8b048064@leemhuis.info>
+References: <905771062.272724286.1789919301858.JavaMail.zimbra@trinity-net.com> <8aaad113-1952-4655-978d-0cdd8b048064@leemhuis.info>
+Subject: Re: [REGRESSION] ACPI processor/cpuidle change in 6.18.52 breaks
+ bare-metal Xen dom0 boot
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="D9aeZTtAVC3gseBa"
-Content-Disposition: inline
-In-Reply-To: <20260921104640.1941554-22-chancel.liu@oss.nxp.com>
-X-Cookie: Too clever is dumb.
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Authenticated-User: support@trinity-net.com
+Thread-Topic: ACPI processor/cpuidle change in 6.18.52 breaks bare-metal Xen dom0 boot
+Thread-Index: xFt9ystRsn0Dmv4s3yH1kJqjVpPWwg==
+x-ovh-tracer-id: 3167156440896468507
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: dmFkZTEHV8uBM0suxcILPQHuI4B8S1OlSB/YHVb8/g14zw22rJSYP6YTO3+DnqnA+Iiq/RUcQphEfXjDQ/UHfZZSRJNBTelxXbMRNo3B0LhXj3vb0nz7rj1ftl80sdRSdU+oOTu0saDMx0LVlG6WOGEqrqskthR2jdSTt/m2u4IWuJa+w4JHgqqm3bofnzgYZpue/RkXIZtFa6K1rRNM6DEitB5WBe4SeO6p8zXCFjrVomW2QLcnNQPNdv8+vC1FxRa52dzN59qcPZ5o+LlrnzTh84iUnjzdKGw0B/OBYdviw4vd1Ytcba8j7YxDIHQnBvrObdbKHApuFDwTESa88H6ObHc8Qpf0kIMm5KQGY76Vgq/nmjcmlpm3/WsIJxP9rJ0XzKduzBF2pfhPzpVG/m9x9wE42vnJDzk/0u9Klx7f/4Aqcqcv8VX46u3StkL/4QXyF1ZJgJUUSOK88EcjfPcjYladpDkqwrhuGI3+9CqS6owu58W5g1iIFxUQ88WPn/zfdGO9Mr+EUIVBk2+d6X1m+J0O4oZVS8AsQnvHFKSOntrHeUqs8fwukXDiKFOpaDYXKNLmYHXW3NBy3oZWCWU8/9bfzy8003z/9iAhiVVZzehFLAkFTlcZKZEAaN3QVu6H4/nqzz5+FfiZU4y4JY4d0tvBdf22J9dWgJsYyWSGFRDEJQ
+DKIM-Signature: a=rsa-sha256; bh=QD4uKSRlS28zp5D1m/z675fqJs3w1celrAPe2tovDvQ=;
+ c=relaxed/relaxed; d=trinity-net.com; h=From; s=ovhmo-selector-1;
+ t=1789996021; v=1;
+ b=vTiMaFm6OJNBaQJZhBE6oZXC6f+0KXjkr0BPkQ0mDJ9O0sKMaJAAUVD8gVPYo2XQXRZHoEVY
+ woIukHkU1/wY4grSFnD1ep7In4CdeKPQfEC8dpZ6xkYSIK0J6RUc3ykHMxt13Hycc7+593qgcxP
+ 9qEwYu6k6BvnPWRAut4BRcVnH32ar2bmS85enSKkK3c36/6nrL0VCyrscLliGcMZ2dkMN8MAokS
+ XCuI+DJ69RWcpSpVD+s+mdNZPBcGXsPloVYNG/Mye6bTjmlx82d2id5VliQG8KYGRjSIi8hX8/u
+ 7kW1WAQKTjB101q9b4AW3pJ3pEM2+GmieCKPhv6F0wsZw==
+
+Hello Thorsten,
+Thanks for the follow-up.
+I have not tested latest 7.3-rc yet. So far, the regression was only tested=
+ and isolated on the Alpine linux-lts 6.18.51 -> 6.18.52 path.
+I will now test:
+latest 7.3-rc as-is on the affected bare-metal Xen dom0 host;
+latest 7.3-rc with the same partial ACPI processor/cpuidle lifecycle revert=
+ applied.
+I will report back with the results.
+Regards,
+Tony
 
 
---D9aeZTtAVC3gseBa
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+-----Message original-----
+De: Thorsten Leemhuis <regressions@leemhuis.info>
+=C3=A0: Support TRINITY <support@trinity-net.com>; regressions <regressions=
+@lists.linux.dev>; linux-acpi <linux-acpi@vger.kernel.org>; linux-pm <linux=
+-pm@vger.kernel.org>; stable <stable@vger.kernel.org>; xen-devel <xen-devel=
+@lists.xenproject.org>; linux-kernel <linux-kernel@vger.kernel.org>
+Envoy=C3=A9: lundi 21 septembre 2026 12:01 CEST
+Sujet : Re: [REGRESSION] ACPI processor/cpuidle change in 6.18.52 breaks ba=
+re-metal Xen dom0 boot
 
-On Mon, Sep 21, 2026 at 07:46:40PM +0900, Chancel Liu wrote:
->  	if (rt5514_spi->irq) {
-> -		ret = devm_request_threaded_irq(&rt5514_spi->dev,
-> -			rt5514_spi->irq, NULL, rt5514_spi_irq,
-> -			IRQF_TRIGGER_RISING | IRQF_ONESHOT, "rt5514-spi",
-> -			rt5514_dsp);
-> -		if (ret)
-> +		ret = request_threaded_irq(rt5514_spi->irq, NULL,
-> +					   rt5514_spi_irq,
-> +					   IRQF_TRIGGER_RISING | IRQF_ONESHOT,
-> +					   "rt5514-spi", rt5514_dsp);
-> +		if (ret) {
->  			dev_err(&rt5514_spi->dev,
->  				"%s Failed to request IRQ: %d\n", __func__,
->  				ret);
-> -		else
-> -			device_init_wakeup(rt5514_dsp->dev, true);
-> +			kfree(rt5514_dsp);
-> +			return ret;
-> +		}
-> +
-> +		device_init_wakeup(rt5514_dsp->dev, true);
 
-Previously we would ignore the error and carry on without the IRQ, now
-we pay attention.  I don't know if the device actually worked or not.
+On 9/20/26 17:48, Support TRINITY wrote:
+>
+> I am reporting a bare-metal *Xen* dom0 boot regression seen with *Linux
+> 6.18.52.*
 
---D9aeZTtAVC3gseBa
-Content-Type: application/pgp-signature; name="signature.asc"
+Thx for the report. There is one somewhat important detail that was
+missing (hope I didn't miss it):
 
------BEGIN PGP SIGNATURE-----
+Is latest 7.3-rc also affected? And if it is: does that partial revert
+help there, too?
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxL9kACgkQJNaLcl1U
-h9ATtgf/a/Fz3QCAlWQKG+ReZJ9hu/D2Y7X7qK2QviFDO5Va2LdEZ0zw3TSctUls
-Jx3C/OrpB+z7IE5EkMZme6tF2jdm4aHu1imze2LLQvwMjyCNeGX5ZoiIIq6NB7RJ
-49nijn4N3xfMyE6JHPZfOSJv8xVP36B7TCP6T2mivNEyq1qmdN4ohpb86aCOW9U7
-pVvY8wOSXjp7gyItxmzTcsxp6Aa560SUpMpx0UT0I5uLJ3TWPN+mhvchlHMBPSdI
-QFDU/Z6I5RDToKUPehIINn2CXAXAScNZFx8DMh9+XY9uPn3sG+ayZYB+hiWZ+6H2
-Ci2ZH/ubz1N/gEcDQK0e3GTrSCPDdg==
-=/VAv
------END PGP SIGNATURE-----
+Ciao, Thorsten
+> On affected systems, Linux 6.18.51 boots successfully as Xen dom0 on
+> bare metal, while Linux 6.18.52 *consistently black-screens before dom0
+> userspace/networking comes up.*
+>=20
+> #regzbot introduced: v6.18.51..v6.18.52
+> #regzbot title: ACPI processor/cpuidle lifecycle change breaks bare-
+> metal Xen dom0 boot
+> #regzbot link: https://gitlab.alpinelinux.org/alpine/aports/-/
+> work_items/18447 <https://gitlab.alpinelinux.org/alpine/aports/-/
+> work_items/18447>
+>=20
+> Tested results:
+>=20
+>   * Linux 6.18.51-r0, Xen dom0, bare metal: boots
+>   * Linux 6.18.52-r0, Xen dom0, bare metal: black screen before
+>     userspace/network
+>   * Linux 6.18.52-r0, Xen domU: boots
+>   * Linux 6.18.52-r0 with Xenbus notifier change reverted: still fails
+>   * Linux 6.18.52-r0 with only ACPI processor/cpuidle changes reverted:
+>     boots
+>   * Linux 6.18.52-r0 with refined ACPI idle lifecycle patch: boots
+>=20
+> Affected hardware tested:
+>=20
+>   * Intel Core i7-4785T thin mini-ITX, 16 GB DDR3
+>   * Intel N305 thin mini-ITX, 16 GB DDR5
+>   * Supermicro / Intel Xeon E5-1650, 32 GB DDR3
+>=20
+> The successful boot used the regular Xen command line:
+>=20
+> multiboot2 /boot/xen.gz cpufreq=3Dxen:performance
+> module2 /boot/vmlinuz-lts modules=3Dloop,squashfs,sd-mod,usb-storage,xfs =
+quiet
+> module2 /boot/initramfs-lts
+>=20
+> No IOMMU workaround, serial console parameter, debug parameter, storage
+> workaround, or Xen command-line change was required.
+>=20
+> The regression was narrowed to *ACPI processor/cpuidle* changes between
+> 6.18.51 and 6.18.52, specifically the idle-driver registration lifecycle.
+>=20
+> The working 6.18.51-style behavior registers the ACPI idle driver from
+> *acpi_processor_power_init()* and unregisters it from
+> *acpi_processor_power_exit().*
+>=20
+> The failing 6.18.52 behavior registers the ACPI idle driver globally
+> from *acpi_processor_driver_init()* before *driver_register().*
+>=20
+> A first ACPI-only revert confirmed the regression source. A refined
+> candidate patch was then prepared to preserve the working ACPI idle
+> lifecycle while keeping unrelated 6.18.52 safety fixes, including:
+>=20
+>   * _LPI bounds checks
+>   * cpufreq notifier cleanup on *acpi_processor_driver_init()* failure
+>=20
+> The refined candidate patch modifies only:
+>=20
+>   * *drivers/acpi/processor_driver.c*
+>   * *drivers/acpi/processor_idle.c*
+>   * *include/acpi/processor.h*
+>=20
+> It does not modify Xen, Xenbus, IOMMU, APIC, PCI/ASPM, intel_idle,
+> syscore, USB, storage, XFS, networking, printk, or the cpuidle core API.
+>=20
+> The earlier cpuidle_disabled() workaround is not included.
+>=20
+> The refined patch has been rebuilt and boot-tested successfully as Xen
+> dom0 on bare metal on TRINITY-EDGE.
+>=20
+> This issue is currently visible to *Alpine* users because the *Alpine
+> v3.24 *stable repository contains:
+>=20
+> alpine-release 3.24.2-r0
+> *linux-lts 6.18.52-r0*
+>=20
+> Systems tracking Alpine 3.24 stable / latest-stable may therefore
+> receive Linux 6.18.52 as the default LTS kernel.
+>=20
+> Attachments:
+>=20
+>   * revert-acpi-idle-registration-lifecycle.patch
+>   * APKBUILD
+>=20
+> The original Alpine report is here:
+>=20
+> https://gitlab.alpinelinux.org/alpine/aports/-/work_items/18447
+> <https://gitlab.alpinelinux.org/alpine/aports/-/work_items/18447>
+>=20
+> Please let me know if this should be submitted as a formal patch with
+> Signed-off-by, or if there is a better upstream fix/dependency that
+> should be backported instead.
+>=20
+> Regards,
+>=20
+> *Tony BONNIN*
+>=20
 
---D9aeZTtAVC3gseBa--
+
+#regzbot introduced: 6cffb59ee50ea4
