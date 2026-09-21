@@ -1,173 +1,186 @@
-Received: from out28-73.mail.aliyun.com (out28-73.mail.aliyun.com [115.124.28.73])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F05377010;
-	Mon, 21 Sep 2026 12:37:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1086733F589
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:38:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789994272; cv=none; b=rpfLh1I57qCjuvC3VN7EXHWZoYxm1mKJw+PbRD/JL1QhyV76ffQqjdH/HRGmCG9QHBNGzbDOo7NzhjPJua7FLv/4OM0xbGZ6LPRK019EaLE7VXlhgbHTnHi9IBvgqq0Ssh2mNzO+xB/r4wqI9v8HOZMPhtzWh83sVlOGJcptIo0=
+	t=1789994313; cv=none; b=i71GD4h+WfEr1qapY5SrtRcppXW8APye71VDM5Yrh1nbTCc55YBb2WP06Li/9MKAFs9tOIcIkLLd4pu/34HtWylUwVV+wPuLntdtnVuK92gIxURZJoJv6O57gi9Oj0XyfFH02aqZHd+g6CHHRYxDuDOg9oTEV9UY3N9edTJjfJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789994272; c=relaxed/simple;
-	bh=pCHZ+0L3d15L4I8PvI9TPUsMshBFUyEfjm3U/5H6Bwo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hIwzTO9hYBEKobRVJv37+H2sHMlIbd2DolxRI1YbA+AsVswGGz1lRQBcFC6D1FfOrAgpXvlo5F2kYlw9Vc5+RolqLrSB+8xC671yUILFwABAwBeTHG68w1re7GS8X9gS/OJ9qdUySF4SKYy4Vfz388IUQoa6Gyyo9qvSvqpj/i8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=Am+out3g; arc=none smtp.client-ip=115.124.28.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789994313; c=relaxed/simple;
+	bh=YxuXzWHDam+cuHCgh8Iwx9qoxWf2tukZ52/V+Oq8Xf8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d+mOMb+nNXYslePpOlTIYOQ0o2kb4tFMgudQPF2HDlhVVoo6a1yqXstTULT9T0Ffm15tRkpHbrNmqnhvUkSIOGWdJlatq80uCr1KEHCg+4JMH6u/Ou0na581IfGYWlq0xlSV7yoJiH1KDXyOn8eMayhnP2yvSpPfvSK7TM68Rn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MbQcBQ3L; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V4MN3o3g; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="Am+out3g"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789994258; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=o/puxiRCVI7n2+/8fAiUbqwHg5A90Gb1J0aQN2rumXY=;
-	b=Am+out3g+ncW2MsqgfRqQ7UVB3ajJOVddUzwMkn+BuYAu/iZoRIP7oP3aB07MqFI60abKICVWS5EZiJXScORsVIZjafT2Ba9hssolVOa3O0bsKfeNTeQ2bL7T51UK6mRv5MAN9m6CCBFiQHKgbWg5e6dCpPjLA/DdZOMTHi1aio=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0350538-0.00187946-0.963067;FP=7471856784318729563|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032053168;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=11;RT=11;SR=0;TI=SMTPD_---.jJ2aCIS_1789994256;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jJ2aCIS_1789994256 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 21 Sep 2026 20:37:37 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: Bradley Morgan <brads@mainlining.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>
-Cc: Masahiro Yamada <masahiroy@kernel.org>,
-	Matthew Maurer <mmaurer@google.com>,
-	linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v4] module: Validate __version_ext_crcs and __version_ext_names section types
-Date: Mon, 21 Sep 2026 20:37:35 +0800
-Message-ID: <20260921123735.72202-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MbQcBQ3L";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V4MN3o3g"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LB4jx41129584
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:38:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	PvIZxmuE15GlVG+Q4wvYNTHDEd1Gz/i8y/bSrvtg4rU=; b=MbQcBQ3L8hl7v/O+
+	yGvXJuRxZUpZs2h1b20swVmcTg4Gc5tI5e0nhcU3E0Gniwp3V4fkMXqnVlTdMx7g
+	KtpofB0o4MtfGBUrYn+rHcg2elUz5K1uYCz2MnRTM43KUQlVqHDubT2ikKZegKrA
+	jhiqJherUM3LMTYHCM0teQzFBIMCtJ+mo4+kIXJW3BLB4cmEGKgBhsss692lw1QG
+	vTQBYVxgTo0l4UquoWWHXBvaWehJUIiPqbN8uoJjHrf0R8KSssZL/3wScCeCBnrs
+	dIGg6xfLDQhRGlnXUb7MFIsBBQRQEoo/8+CKSr/sI4LvDoe02ILNoGmgGExNISD8
+	lEwNuQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu3csgaxu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:38:31 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-530a0a18108so4081391cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:38:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789994310; x=1790599110; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PvIZxmuE15GlVG+Q4wvYNTHDEd1Gz/i8y/bSrvtg4rU=;
+        b=V4MN3o3g8DgDm6y5UxVXvq4r/xmnAKbzK7P6CGCTkQxV/iXZMFaKqvVKN3e+9uKjRp
+         WIesl9wDN6HxVH2hnmNxuRzRaSgcCOKYc1pvd2Me/Qd2/P6FKulSoPEJviMETAG3wy8+
+         33jsSfru13TIHMYXj2UjA13RyOnnoCxt12L3nYMlOSiAJuQR00xm7CrBsL+qJg7mF9U8
+         CC4U1xz63ugulng0eFitiGSCenRZkLKGhEJlQAEmoNvZ7oZlveV+gJAzNtutsuFdaxdd
+         +LWA4dWeZsVOEGu4fSd08bwB5O84MqI3Tlklkr/T4UFCuXsaOwygK++ZXxeOvA9pfH0y
+         xS4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789994310; x=1790599110;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PvIZxmuE15GlVG+Q4wvYNTHDEd1Gz/i8y/bSrvtg4rU=;
+        b=GEUoZ8thNqPA3zBVt8ZfFJA18xGzW4DtOeDkFY6jFf4jfZz6JszMOswVePxvCs+JEp
+         ICb2OuftCh+feBTDFRFLb1PhiU1CRw3la6O9CM1tgSKT7vUtUAVgZn4WGgN5eo1gE8NE
+         E/LxwznIyh4i2PpGIu1Gs/nvWMT7V5/6fOqP5KdORVYYBxmXp71PfBoZIhzFr9F+zSXU
+         K0iKxzAaY/QVT7SWg6tCa2wmKe88d5f63PqzQpnTDZOK5iID4wM2KxXpRyfi8X4+wNTv
+         T79FjvEPloqYgPuCTzU19Z1TZLO1VWh+v7jWnswqyHAeOBBz/SjCQSm6qHxRZX4WuISb
+         vLyg==
+X-Forwarded-Encrypted: i=1; AKwUvBzWN4hA8JsatOPdRATbGkan0Yk5quY4T4VRHc2zMGT/9CAOpWJdIyd1ld173AYFMJneRW5OdNCCQ8Qfhl0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mn7Gk3ZVVLuhosD/cy3ER8w9gkGIuEf9f5PH9veLEvuEJmcBtG
+	rglfCKokTFIZhVbA4vVd4etTdID+I2jYOyJ7SnOj9jqV7akTxjlTU5892c0zrxi6Sbe7h3k9+7A
+	GbliACEdNVG/GNJYYLgg7vSYEmuEoQF6Gleceyxd1YBW3iYBRVZSgGlPJ1EQSVXN1cpk=
+X-Gm-Gg: AYBFou0Bo4OZQw2R/7/OUs3Q2N8vPvJywcavNu79IfV+XRG7Tob6l/vv22C8PtWs/7m
+	8FI8RMLGGARSfQ7otWo0CV+KFccQRLNegrqvC9fsbPIkzFj+nKC6Ju5cltB5tza+Uglj6aRGgXg
+	/woCzFOeSOPA8lEKjSdhm4tIRA0mwUp8k4+qwQLWvL6N8ZIemfXYi0LBJCA/oZmjaw3Oa1JJBpb
+	vPzM140NNA7qF4dSzdOvnBDNlF6QcIYT6aYxaQhxk26Ryf6FKn99H3g11cjFBVYlzCRGxaNRJJl
+	fwyviTvUkVr9GHdYyB1YLe89CkvuvUAr7dIkz+VQ8tYXjI/WdAJXkin31wxgHBgmhjlRUAN747b
+	U8oH8X7zacIQM59uqgbFl9w==
+X-Received: by 2002:a05:622a:50a:b0:531:c5bd:3014 with SMTP id d75a77b69052e-532d8f46a54mr3898951cf.5.1789994310246;
+        Mon, 21 Sep 2026 05:38:30 -0700 (PDT)
+X-Received: by 2002:a05:622a:50a:b0:531:c5bd:3014 with SMTP id d75a77b69052e-532d8f46a54mr3898381cf.5.1789994309616;
+        Mon, 21 Sep 2026 05:38:29 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a60762de03sm21616271fa.31.2026.09.21.05.38.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 05:38:28 -0700 (PDT)
+Message-ID: <83b67ab2-ab68-427a-94aa-881454f457ba@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 14:38:25 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: monaco-evk: Describe the PCIe M.2
+ Key E connector
+To: Manivannan Sadhasivam <mani@kernel.org>,
+        Wei Deng <wei.deng@oss.qualcomm.com>
+Cc: loic.poulain@oss.qualcomm.com, andersson@kernel.org,
+        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, linux-bluetooth@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, quic_chezhou@quicinc.com,
+        cheng.jiang@oss.qualcomm.com, shuai.zhang@oss.qualcomm.com,
+        jinwang.li@oss.qualcomm.com, xiuzhuo.shang@oss.qualcomm.com,
+        mengshi.wu@oss.qualcomm.com
+References: <0303224f-4c2c-46ec-9866-5ea1fd0fb4a3@oss.qualcomm.com>
+ <20260825092715.5794-1-wei.deng@oss.qualcomm.com>
+ <isbrpaztfrgwfcleujrn4w26cshbi2mgn57tbh5bubvsegn6lc@jh3ab6htvd24>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <isbrpaztfrgwfcleujrn4w26cshbi2mgn57tbh5bubvsegn6lc@jh3ab6htvd24>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE4MiBTYWx0ZWRfX+IWI0hr7GMvU
+ gSLwPnp8q96B6uNnVfYwoXvEQsDXEU4lQdVGOAjQ/EnW8JaK68uRDUQQNGkEDNS4v7dEg6cNoF+
+ x62CfNRjnk+TaYlYopOXH1rHdMI3p5w=
+X-Proofpoint-GUID: 1TDrEhCW1eRSJo6r9SbXhUbjkDAnxVeU
+X-Authority-Analysis: v=2.4 cv=QovLTlyd c=1 sm=1 tr=0 ts=6ab12547 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Me9BlI2ErCU43xmxp9EA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE4MiBTYWx0ZWRfX0DbfkzgaSMtU
+ VtJ6zgm6r+qYvzUjjYFxpV0dgPJJthiaOZPmmIkqv71XKO6lb+JzuTOhw0Aq3ByvXwWyVbevLxn
+ cSlJyyr/MYToyON8QMc79ewMZ8VgTIVVASy8YhkjDHHvoD6YmH3mcEGAppbjczYexaBXVKkH8WP
+ 5hzYLKHZcxFFS+HeomU8lghdOC8ybsPECcVPIlaQEEFkxAamTOvE7ujzRu+dpD5RmmyWTWE54UV
+ YUPhdf9Pl0N7EFlTAyhS18Ap0vq8nV18I/3oT7hO2gUcxxJRvFgHTZvLUiz+2QO+j7dnKnC5Ze0
+ L/CEFOCAOGKl6bDNCU0MwOERwNbV6i+rkL80HQ1rqZw8KaDoTwGlrDDVVNJBO6LoYw9TQDRMeSE
+ tW0x+6PBYzi+GdEE4fqIC1vkNsJ4KneCGv6pOvD4/oxBXR/yQEcCyjaiGV6043psPM3+IQNVpws
+ ukN4QAf2tl8sDwnGsmg==
+X-Proofpoint-ORIG-GUID: 1TDrEhCW1eRSJo6r9SbXhUbjkDAnxVeU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 bulkscore=0 impostorscore=0 priorityscore=1501
+ spamscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210182
 
-elf_validity_cache_sechdrs() skips validate_section_offset() for
-SHT_NOBITS sections, which hold no data in the ELF file. However, the
-extended MODVERSIONS sections __version_ext_crcs and __version_ext_names
-are later read as file contents without re-checking their type.
+On 9/2/26 3:48 PM, Manivannan Sadhasivam wrote:
+> On Tue, Aug 25, 2026 at 02:57:15PM +0530, Wei Deng wrote:
+>> Hi Konrad,
+>>
+>> On Wed, 19 Aug 2026 16:24:35 +0200, Konrad Dybcio wrote:
+>>> On 8/19/26 4:13 PM, Wei Deng wrote:
+>>>> On Wed, 29 Jul 2026 08:06:54 +0530, Wei Deng wrote:
+>>>>> Fair point. I will move the port/endpoint anchors to monaco.dtsi in v2.
+>>>>
+>>>> After testing v2 on qcs8300-ride-sx, BT init broke. qcs8300-ride-sx has a
+>>>> soldered WCN6855 and no M.2 Key E connector, but the pending series [1]
+>>>> uses of_graph_is_present() to detect whether an M.2 connector is present.
+>>>> Since of_graph_is_present() only checks for a 'port' child node, the empty
+>>>> anchors in monaco.dtsi caused hci_qca to incorrectly enter the M.2 pwrseq
+>>>> path on all monaco boards.
+>>>>
+>>>> v3 moves the port/endpoint nodes back to monaco-evk.dts. Please review.
+>>>>
+>>>> [1] https://lore.kernel.org/all/20260720-monza-wireless-v5-1-69ec6743543c@oss.qualcomm.com/
+>>>
+>>> The series should test of_graph_get_remote_endpoint() instead
+>>>
+>>> Konrad
+>>
+>> Hi Konrad,
+>>
+>> Tested: replacing of_graph_is_present() with of_graph_get_remote_endpoint()
+>> in hci_qca.c works correctly. The M.2 pwrseq path is only entered when a
+>> remote-endpoint is actually populated, so boards like qcs8300-ride (soldered
+>> WCN6855, no M.2 connector) are no longer affected.
+>>
+>> Hi Mani, Loic,
+>>
+>> We are adding M.2 Key E connector support for monaco-evk [2]. Konrad
+>> suggested moving the port/endpoint anchor nodes to the SoC DTSI
+>> (monaco.dtsi) for clean DTS layering, so that board files only need to
+>> fill in remote-endpoint for boards that actually have an M.2 connector.
+>>
+> 
+> This means, the dummy port/endpoint node will always be present even when the
+> M.2 connector is not used. I don't see a compelling reason to do so.
 
-elf_validity_cache_index_versions() reads __version_ext_names directly
-from the module image using sh_offset:
+I don't really see a compelling reason to defer re-defining them to each
+device DT either..
 
-	if (vers_ext_crc) {
-		crc_count = info->sechdrs[vers_ext_crc].sh_size / sizeof(u32);
-		name = (void *)info->hdr +
-			info->sechdrs[vers_ext_name].sh_offset;
-		remaining_len = info->sechdrs[vers_ext_name].sh_size;
-		while (crc_count--) {
-			name_size = strnlen(name, remaining_len) + 1;
-
-A SHT_NOBITS __version_ext_names therefore bypasses the generic offset
-validation and can carry an out-of-bounds sh_offset, so strnlen() reads
-past the end of the kernel's in-memory copy of the module:
-
-  BUG: KASAN: vmalloc-out-of-bounds in strnlen+0x73/0x80
-  Read of size 1 at addr ffa00000005834ff by task insmod/79
-  CPU: 0 PID: 79 Comm: insmod Not tainted 7.3.0-rc3-g704340f1cd0d #1
-  Call Trace:
-   strnlen+0x73/0x80
-   load_module+0xef6/0x8600
-
-The CRC section is read the same way, only later. In early_mod_check(),
-rewrite_section_headers() sets each sh_addr to hdr + sh_offset, and the
-version sections are not copied into the final image, so
-check_modstruct_version() reads the CRC data from that temporary image.
-A SHT_NOBITS __version_ext_crcs then makes check_version() dereference
-past the end of the image:
-
-  BUG: KASAN: vmalloc-out-of-bounds in check_version+0x5c7/0x600
-  Read of size 4 at addr ffa0000000583509 by task insmod/78
-  Call Trace:
-   check_version+0x5c7/0x600
-   check_modstruct_version+0x101/0x140
-   load_module+0x1442/0x8600
-
-Both reads occur after module_sig_check() and before
-layout_and_allocate(), on the temporary copy made by kernel_read_file(),
-so an unvalidated sh_offset points outside that vmalloc region.
-
-An offset bound is not enough: an in-bounds SHT_NOBITS section still
-passes it, and the loader would read unrelated image data as extended
-MODVERSIONS. A real __version_ext_crcs and __version_ext_names are
-SHT_PROGBITS, so require that type before either is read.
-
-Fixes: 54ac1ac8edeb ("modules: Support extended MODVERSIONS info")
-Cc: stable@vger.kernel.org
-Suggested-by: Bradley Morgan <brads@mainlining.org>
-Link: https://lore.kernel.org/all/C04CC94F-26D0-4823-84F4-7AFEBCDCA9AE@mainlining.org/
-Assisted-by: Hawkeye:GLM-5.3-flash
-Assisted-by: Qoder:Qwen3.8-Max
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
----
-
-Changes in v4:
-  - Extended the type check to __version_ext_crcs, not just
-    __version_ext_names (Bradley Morgan). The crc array is dereferenced
-    at hdr + sh_offset in check_version(), the same exposure as the name
-    walk, so a SHT_NOBITS __version_ext_crcs faults there too. Added a
-    second splat for it (check_version, Read of size 4).
-  - Shortened the in-code comment (Bradley Morgan).
-  - Reworked the changelog as defect / splat / fix and trimmed it. The
-    names walk in elf_validity_cache_index_versions() is inlined into
-    load_module(), so its splat has no frame for it.
-
-Standalone since v3 (20260919154139.52904-1-fangxy@xiaopeng.com). v1/v2 were
-patch 2/2 of a two-patch series, split off when the sibling SHT_NULL fix
-was withdrawn in favor of Liu Chao's fail-closed fix for the same bug. This
-patch does not depend on it.
-
-Reproducer: a .ko carrying __version_ext_crcs and __version_ext_names, in
-three variants. (1) names SHT_NOBITS with sh_offset past the end of the
-image: before, the name walk reads out of bounds (KASAN
-vmalloc-out-of-bounds in strnlen, Read of size 1). (2) names SHT_NOBITS
-with sh_offset in bounds, aimed at other file data: before, the walk
-silently consumes it as a version name and no splat fires. (3) crcs
-SHT_NOBITS with sh_offset past the end and names a valid SHT_PROGBITS
-"module_layout": before, check_version() reads the crc out of bounds
-(KASAN vmalloc-out-of-bounds, Read of size 4). On the patched kernel all
-three are rejected before the dereference and insmod fails with -ENOEXEC
-(rc=8); variant (3) prints "Invalid ELF __version_ext_* type: crc=8
-name=1".
-
-Tested on 704340f1cd0d (9 commits past v7.3-rc3), x86_64 defconfig plus
-CONFIG_KASAN_GENERIC and CONFIG_KASAN_VMALLOC, gcc 13.2.0, QEMU under TCG;
-the unpatched and patched kernels are built from byte-identical .config
-files and differ only by this patch. LOCALVERSION is pinned so the loader
-reaches the version walk instead of stopping at the vermagic check.
-
- kernel/module/main.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index d0e1e0b..e46eba6 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -2287,6 +2287,18 @@ static int elf_validity_cache_index_versions(struct load_info *info, int flags)
- 	 * number of entries in every section.
- 	 */
- 	if (vers_ext_crc) {
-+		/*
-+		 * SHT_NOBITS skips offset validation; both sections
-+		 * contain file data.
-+		 */
-+		if (info->sechdrs[vers_ext_crc].sh_type != SHT_PROGBITS ||
-+		    info->sechdrs[vers_ext_name].sh_type != SHT_PROGBITS) {
-+			pr_err("Invalid ELF __version_ext_* type: crc=%u name=%u\n",
-+			       info->sechdrs[vers_ext_crc].sh_type,
-+			       info->sechdrs[vers_ext_name].sh_type);
-+			return -ENOEXEC;
-+		}
-+
- 		crc_count = info->sechdrs[vers_ext_crc].sh_size / sizeof(u32);
- 		name = (void *)info->hdr +
- 			info->sechdrs[vers_ext_name].sh_offset;
--- 
-2.50.1 (Apple Git-155)
+Konrad
 
