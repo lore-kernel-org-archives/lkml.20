@@ -1,240 +1,123 @@
-Received: from mail-ej2-f23.google.com (mail-ej2-f23.google.com [74.125.228.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ADD82D8378
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.151
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789953569; cv=pass; b=GnIyjMyWWZXItwtF+z2XM1tMIzOQEiju1CuF7WeSEweqPc526kiyOtPc68cKco2t1mJsN5CzUMWJRvGl51TSCd/RgJ7EctGCe5F/e8obHXttBM0nFDeZgE6j7NsMShK7ysRDg4pmIcjaUvBCITwpFi4j34RWJhuXryDjPAT4lt4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789953569; c=relaxed/simple;
-	bh=524Exas1fPv38RjrxCqkSKJKlK7ycvZRRydZy2op5Qo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NEGYRM6HTHUciEZLC9zaVBHgKJK70A3UgXeMKGZvLH6NMEeQ7E25XpTQwHtcRVuK3c9joBBp67888bSpwRswLC5q6JSAvpvoRTwLpnKa4FBN23P3rxmasiBmeI7dQ+iZ3r1Heg+xMZp29kKXfHzwgj7x6eN5LIalQ4yrowtjmaI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QIvRRLK+; arc=pass smtp.client-ip=74.125.228.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0FC281ACD;
+	Mon, 21 Sep 2026 01:27:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789954073; cv=none; b=ftLiAPxT/cuRNF7YH+fYZ9IvxU7Aol/257T+K/B2iAfFGOGgw2ZOxrvHe/8vPaiLXUDZK3u0SqpAhUfCbfPSUUnDjB4S/rVUw+BbslhqVJLe0XWmvBHs5cK7ydsjUm86/1VCv0AZaID3Nixx90cSZ2xaJd2qKGruOMXvaxLRGZY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789954073; c=relaxed/simple;
+	bh=SXl5V4pIsOhS+3Wt9MkFa+DHhxLA7Jcq8jKcpxgMrDY=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=UX4EZ1aZXlrO3dcyC7g39o+4oozP42hG0+3fj3xp5dN5QIvm62Iad+pxdhAlnlpqPfALazC2eyArIiBgNk0SC8WssmBM7dr+lTszQfVWCxPRFGvbILU8yqmemiBqgtCA4c6c/rdETh8xCVVQW4w0sNp4IfcNLOzBfRzz7llLTac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=kLMUxbru; arc=none smtp.client-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QIvRRLK+"
-Received: by mail-ej2-f23.google.com with SMTP id a640c23a62f3a-c25ef7a3ce9so287441166b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 18:19:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789953565; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eyr3tjwSWoDQyB6KOY7p4SyKLkz7Mj1sz+nhEgMhopskeqQOBpO5Y6c3G+wYk0P7em
-         yp+26qxofXVV+IyRr1Lg1N5UTJvAi2r9UOdgF5c1+XFZy9bzghfNimnTphgYf5a71jbc
-         xb8HmtXg/BP/uAWc3dxgWPjiuPLeSIlxcj0wvTW2VcRx1yRytLnU1xCHwPThIFgRsrmF
-         bxvRT+w7TkOphjXCq5EkQDrL78+08pd+gt9jm9Zift4YnViMjWZB5qu6NPKONoXKc3Ef
-         /8R/+NO3SgT0JmvfEWJld8RtYkuuaSIQai7143FeW7a6CpxY3LnVXqCSgHnJ0z1U4Zpt
-         S8AA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hfhh+c5YY12EVXNVBu8sm0eRIhxIeh4aWLnX4aXKNYo=;
-        fh=wv8ygJjy6ZMHbSjN5cDRtrjmHBkXoIkAFAY8gwxeq3o=;
-        b=e9NtTkkNx+yQat8XDpVjeCJXgjqlGqkQh3UvxFOW5C7gr+PPt5T6yN30a612VVR9+u
-         r3Ty93ErN7B0TMChYz7Njfus/10cRwiYrk3qhDZ/StW/5CYCCCRo66BphIQj+rpkZlmH
-         x9ysW242QdE5oysUHwPjuM7ntvZmbLC+yeKErVWkCGon4O6pHoa8YbpXmPQYBKZcs/9o
-         eQcaJzboFv3eSxkVCkbNe+IOF/ecVz+/UOpB/udWzvvsrOMd4I1Wt16mresy8Ix934Sc
-         1blCO168IFX2fvgoLHsdzDXdFLIHUZL6aTAUFLBG+soMmT2vCCMzTpxwLrcagIksZi9I
-         VQow==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789953565; x=1790558365; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hfhh+c5YY12EVXNVBu8sm0eRIhxIeh4aWLnX4aXKNYo=;
-        b=QIvRRLK+krY8dmixuKYy9NGi7X84FB9k0JcS8q64IUdvdMpDGXPnOh961kiG9EGpdl
-         WEiTMgPtC+osI/S7LOe8GrrCHMbZWNRyuoHAKCVIoLKWmrl+BugTcqiT7ry769oKYf/r
-         Xvsc2J1KVkjrsUprJAk0esKLyZkM3BmeM9uTUV2p3mRGPiSfNoUOt9ZZJyQeLlR3kNTv
-         3cQDIdYa0oEAeiTQl10yBQC37x/uiDSAA/vlRO32Hw0hMyHxYQ0R2ED3dMPC3TP+2raL
-         9k1oOvKSKlTg/frOK5HqK/mhwGk8OxQU2g+OoYrV4g5LSOIJaebj93PhjUjzKShwHRId
-         PXSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789953565; x=1790558365;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hfhh+c5YY12EVXNVBu8sm0eRIhxIeh4aWLnX4aXKNYo=;
-        b=scNX2tcPNCOvlv1+5C2T6m9CvbtaTj00c1PAnvTheBk0kXRB0iE6yfp6wcl35ihGzu
-         vVKsppOZp63WAeFtvoPQWDUll0QlwqrbBqTQiYK+QeRu6hCRJKklfRFLbdqF9kA4NcgH
-         /52smxsnwUFohk2wF2rkMoDZvUshdWHr88qvI8LoUyDA58XryJi7gWj3qAEcPGHc7NO2
-         lnkiQ5eP56/j85Rzt/18uE0jK4Qqj2/sGAplXOUG5B5QrznlNaJqPis0XDlsm4PiMOem
-         1kyXDNZjwp9m8cL2O+buQaojzSprW8C3BO0rjGMkpG8sBXoJd9p/jNI7lfzjB3IPgeLC
-         4LiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxNZDLtnl0Ksb56ux2jR9KUon0q3to4l7B6g0JiKEZ6VMakAEOhFhs2aXor9ddwrYd2pbyARNRYuPQSM8o=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNpDKVZM8/VJpdLjCTHN9y/aZ1jFKlhymtQhVIjisPX4/Ckuar
-	nVy7TCOgie5Ycx6r0vWqKET8iFV+hLWbun3BUFmKCZ/lKwAVrzzUjbBofWn8rNKk8h6+kWtFqf3
-	J9N+iK8fLYR7hSs7ukMk+iPnR0t7ll0M=
-X-Gm-Gg: AYBFou1uh9LKHvpf77K6RgEZWWQknbCANVRlfqNpvCH7nH7JjPe8MPMi8wZd3WKdp2M
-	J0LvRb/EU794t1fX/t+KINvT3Ygzx+aEzskChVJP1huyS5QGALX/vmYyfOmX5s8LXGxrqZO06CU
-	JNivM57GLue2QGsMlEHNAoTw8KmUrHVd27LZJdJn5JDssH5i5iRYMFokeIz0yUPbiGdMm/gTQNP
-	lfxHTT3Nrfwqw/pK11SxBGnbMt1f/YCRgmutLOPFtLB9p8NELApH3Nqs1ZTVfeheDZeBYSwPkwT
-	djfKM1xY6MW4iw/0BBhhU4A/N9mHBD7dfLkfuEJzcd2pwHaVnJ7qq7NAXWi+Y8l8DJ2rbf9GqJ0
-	GfIQNXMiX5OZR73vq/AcggIoES3qNi67B6jzfC0APK72dUJh7nhuF7WNguWG+CAWb+feTd/Xs/T
-	I/fiHAeZ26YpPhTBZ70xSU+/gT8bhmcfiZX5hj2umvaSO7Gu7G4ye1uaJ7mm3JL1ZNcQ==
-X-Received: by 2002:a17:907:d0a:b0:c28:ec7c:27ae with SMTP id
- a640c23a62f3a-c2a15aecddfmr767261666b.25.1789953564969; Sun, 20 Sep 2026
- 18:19:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="kLMUxbru"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=SXl5V4pIsOhS+3Wt9MkFa+DHhxLA7Jcq8jKcpxgMrDY=;
+	b=kLMUxbruBd7IPk5l8bYoDuH0k+3OiioKXbP9nd6BxZSd2VWa3GhjqziC9xHEGagCOmE7Tx6eH
+	2QPc93F0b2KQGrT/ubN8l4pGwW5uNNl6T8YcI7IdXMCgJpGJbKbsYr7Hqo5KjWW0RVnb+9oi6dD
+	RWVsnWMyM05mhsSLr+zqA2I=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hp4zx3Chvz1T4Fq;
+	Mon, 21 Sep 2026 09:15:57 +0800 (CST)
+Received: from kwepemf100013.china.huawei.com (unknown [7.202.181.12])
+	by mail.maildlp.com (Postfix) with ESMTPS id 788B240561;
+	Mon, 21 Sep 2026 09:27:45 +0800 (CST)
+Received: from kwepemf100015.china.huawei.com (7.202.181.14) by
+ kwepemf100013.china.huawei.com (7.202.181.12) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 21 Sep 2026 09:27:45 +0800
+Received: from kwepemf100015.china.huawei.com ([7.202.181.14]) by
+ kwepemf100015.china.huawei.com ([7.202.181.14]) with mapi id 15.02.2562.045;
+ Mon, 21 Sep 2026 09:27:45 +0800
+From: "Liuwenliang (Abbott Liu)" <liuwenliang@huawei.com>
+To: "Guohanjun (Hanjun Guo)" <guohanjun@huawei.com>, "tony.luck@intel.com"
+	<tony.luck@intel.com>, "bp@alien8.de" <bp@alien8.de>, "ardb@kernel.org"
+	<ardb@kernel.org>, "mchehab+huawei@kernel.org" <mchehab+huawei@kernel.org>,
+	"rafael.j.wysocki@intel.com" <rafael.j.wysocki@intel.com>, "jic23@kernel.org"
+	<jic23@kernel.org>, "jason@os.amperecomputing.com"
+	<jason@os.amperecomputing.com>, "danielf@os.amperecomputing.com"
+	<danielf@os.amperecomputing.com>, luoshengwei <luoshengwei@huawei.com>,
+	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+CC: "yangzhuohao (A)" <yangzhuohao1@huawei.com>, douzhaolei
+	<douzhaolei@huawei.com>, zouyipeng <zouyipeng@huawei.com>, Wangbing
+	<wangbing6@huawei.com>, Nixiaoming <nixiaoming@huawei.com>, "ACPI Devel
+ Maling List" <linux-acpi@vger.kernel.org>, "Liuwenliang (Abbott Liu)"
+	<liuwenliang@huawei.com>
+Subject: Re: [PATCH v4 2/3] RAS: Fix out-of-bounds read when tracing arm_event
+Thread-Topic: [PATCH v4 2/3] RAS: Fix out-of-bounds read when tracing
+ arm_event
+Thread-Index: Ad1JaF2+cHTM7sAYSUqrERfvzztfPw==
+Date: Mon, 21 Sep 2026 01:27:45 +0000
+Message-ID: <a5d1d20b5f2642429aa89f01a614f531@huawei.com>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916223228.271815-1-rosenp@gmail.com> <178994444750.2160803.15737331291670911275@kernel.org>
-In-Reply-To: <178994444750.2160803.15737331291670911275@kernel.org>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Sun, 20 Sep 2026 18:19:13 -0700
-X-Gm-Features: AcwNN1V5USA9DUgZKgQR3NMPwqVnFQM1hGdEh4oEzz3Sj6DomwRh8WV62bkhbYI
-Message-ID: <CAKxU2N-1Xm5oHSriNWnmaYW9XM8nNV==6dq=kwSja=x1v6Zu2Q@mail.gmail.com>
-Subject: Re: [PATCHv2 net-next] net: fec_mpc52xx: remove dead resource size check
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 20, 2026 at 3:47=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
-te:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] drivers/net/ethernet/freescale/fec_mpc52xx.c: the patch
->   deletes the only runtime validation of the firmware-supplied register=
-=E2=80=A6
->
-> --
->
-> net: fec_mpc52xx: remove dead resource size check
->
-> This removes the minimum size test on the FEC register resource in
-> mpc52xx_fec_probe(), on the grounds that every in-tree device tree
-> describes the FEC node as a 0x400 byte region and the stale error message
-> referenced a file deleted in 2008.
->
-> > diff --git a/drivers/net/ethernet/freescale/fec_mpc52xx.c b/drivers/net=
-/ethernet/freescale/fec_mpc52xx.c
-> > index 5188551add0b7..14ad03d75598c 100644
-> > --- a/drivers/net/ethernet/freescale/fec_mpc52xx.c
-> > +++ b/drivers/net/ethernet/freescale/fec_mpc52xx.c
-> > @@ -834,13 +834,6 @@ static int mpc52xx_fec_probe(struct platform_devic=
-e *op)
-> >               pr_err("Error while parsing device node resource\n");
-> >               goto err_netdev;
-> >       }
-> > -     if (resource_size(&mem) < sizeof(struct mpc52xx_fec)) {
-> > -             pr_err("invalid resource size (%lx < %x), check mpc52xx_d=
-evices.c\n",
-> > -                    (unsigned long)resource_size(&mem),
-> > -                    sizeof(struct mpc52xx_fec));
-> > -             rv =3D -EINVAL;
-> > -             goto err_netdev;
-> > -     }
-> >
-> >       if (!request_mem_region(mem.start, sizeof(struct mpc52xx_fec),
-> >                               DRIVER_NAME)) {
->
-> [Severity: Medium]
-> Is the "can never be true" reasoning in the changelog accurate?
->
-> The changelog says:
->
->   "but every in-tree device tree describes the FEC node as a 0x400 byte
->    region, which is exactly the size of the struct, so the condition can
->    never be true."
->
-> The in-tree DTs (charon.dts, lite5200.dts, mpc5200b.dtsi, tqm5200.dts) do
-> all use reg =3D <0x3000 0x400>, but the device tree is firmware-supplied,=
- so
-> the blob is not restricted to the in-tree copies. Bootloader-generated DT=
-Bs,
-> out-of-tree board files and overlays can supply a shorter reg.
->
-> Does anything else reject a short reg? of_address_to_resource() only chec=
-ks
-> representability and add-overflow:
->
-> drivers/of/address.c:__of_address_resource_bounds() {
->         if (overflows_type(start, r->start))
->                 return -EOVERFLOW;
->
->         r->start =3D start;
->
->         if (!size)
->                 r->end =3D wrapping_sub(typeof(r->end), r->start, 1);
->         else if (size && check_add_overflow(r->start, size - 1, &r->end))
->                 return -EOVERFLOW;
-> }
->
-> So reg =3D <0x3000 0x100> translates fine and reaches the code below.
->
-> Also, Documentation/devicetree/bindings/powerpc/fsl/mpc5200.txt does not
-> state a length requirement for the fec node's reg, so with the check gone
-> the 0x400 assumption is neither validated in code nor documented in the
-> binding.
->
-> [Severity: Medium]
-> After this hunk, does mpc52xx_fec_probe() consult resource_size(&mem) at
-> all? Both the reservation and the mapping use the hard-coded struct size:
->
->         if (!request_mem_region(mem.start, sizeof(struct mpc52xx_fec),
->                                 DRIVER_NAME)) {
->         ...
->         priv->fec =3D ioremap(mem.start, sizeof(struct mpc52xx_fec));
->
-> __request_region() validates against the global resource tree, not agains=
-t
-> mem.end, so a short reg is silently over-claimed rather than rejected. Th=
-e
-> declared length then has no effect on the driver at all.
->
-> For a truncated reg, probe now proceeds and touches registers past the
-> described window during hardware setup:
->
-> drivers/net/ethernet/freescale/fec_mpc52xx.c:mpc52xx_fec_hw_init() {
->         ...
->         out_be32(&fec->rfifo_alarm, 0x0000030c);
->         out_be32(&fec->tfifo_alarm, 0x00000100);
->         ...
-> }
->
-> drivers/net/ethernet/freescale/fec_mpc52xx.c:mpc52xx_fec_reset_stats() {
->         ...
->         memset_io(&fec->rmon_t_drop, 0,
->                    offsetof(struct mpc52xx_fec, reserved10) -
->                    offsetof(struct mpc52xx_fec, rmon_t_drop));
->         ...
-> }
->
-> Previously the same input returned -EINVAL with a diagnostic. If the
-> over-claimed range overlaps a neighbouring reservation, the failure now
-> surfaces as -EBUSY from request_mem_region() instead.
->
-> Would it make sense to either honour resource_size(&mem) here (for exampl=
-e
-> via devm_platform_ioremap_resource() or of_iomap()), or keep the minimum
-> size check and just fix the message? The stale mpc52xx_devices.c referenc=
-e
-> and the %x versus size_t format mismatch look like the only genuinely dea=
-d
-> parts of the removed block.
-It is close to impossible to get anything similar to this merged.
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20260916223228.271815-1-rosenp%40gmail.com
+SGkgSGFuanVuLA0KDQpUaGFuayB5b3UgZm9yIHRoZSByZXZpZXcuDQoNCk9uIDIwMjYvOS8xNyAx
+MDoxNCwgSGFuanVuIEd1byB3cm90ZToNCj4gT24gMjAyNi85LzkgMTk6MjgsIEFiYm90dCBMaXUg
+d3JvdGU6DQo+ID4gVGhlIHZzZWlfbGVuIDwgMCBlcnJvciBwYXRoIGRpZCBub3QgdmVyaWZ5IHRo
+ZSBwZWlfbGVuIGFuZCBjdHhfbGVuLg0KPiA+IFdoZW4gdnNlaV9sZW4gaXMgbmVnYXRpdmUsIHNl
+Y3Rpb25fbGVuZ3RoIGlzIHRvbyBzbWFsbCB0byBob2xkIHRoZQ0KPiA+IGZ1bGwgcmVjb3JkLCB5
+ZXQgcGVpX2xlbiBhbmQgY3R4X2xlbiB3ZXJlIGRlcml2ZWQgZnJvbQ0KPiA+IGVycl9pbmZvX251
+bS9jb250ZXh0X2luZm9fbnVtIGFuZCBtYXkgZGVzY3JpYmUgcmVnaW9ucyBiZXlvbmQgdGhlDQo+
+ID4gKGxvbmcpZXJyIC4uIGVyciArIHNlY3Rpb25fbGVuZ3RoIGJ1ZmZlci4gVG8gcHJldmVudCB0
+cmFjZV9hcm1fZXZlbnQNCj4gPiBmcm9tIHJlYWRpbmcgcGFzdCB0aGUgYWxsb2NhdGVkIHJlY29y
+ZCwgc2FuaXRpemUgdGhlIHBhcmFtZXRlcnM6DQo+ID4gcmVjYWxjdWxhdGUgY3R4X2xlbiBhbmQg
+cGVpX2xlbiBiYXNlZCBvbiBzZWN0aW9uX2xlbmd0aCwgbGltaXQgdGhlbSwNCj4gPiBhbmQgc2V0
+IHRoZSBjb3JyZXNwb25kaW5nIHBvaW50ZXJzIHRvIE5VTEwgYW5kIGxlbmd0aHMgdG8gMCB3aGVu
+DQo+ID4gdGhlcmUgaXMgbm8gcmVtYWluaW5nIHNwYWNlLg0KPiA+DQo+ID4gcGVpX2xlbiBhbmQg
+Y3R4X2xlbiBiZWNvbWUgczMyIHNvIHRoYXQgdGhlIHJlY2FsY3VsYXRlZCBsZW5ndGhzIGNhbg0K
+PiA+IGJlIGNoZWNrZWQgZm9yIG5lZ2F0aXZlIHZhbHVlcy4NCj4gPg0KPiA+IEZpeGVzOiAwNTk1
+NDUxMWI3M2UgKCJSQVM6IFJlcG9ydCBhbGwgQVJNIHByb2Nlc3NvciBDUEVSIGluZm9ybWF0aW9u
+IHRvIHVzZXJzcGFjZSIpDQo+ID4gU2lnbmVkLW9mZi1ieTogQWJib3R0IExpdSA8bGl1d2VubGlh
+bmdAaHVhd2VpLmNvbT4NCj4gPiAtLS0NCj4gPiAgIGRyaXZlcnMvcmFzL3Jhcy5jIHwgMjIgKysr
+KysrKysrKysrKysrKysrLS0tLQ0KPiA+ICAgMSBmaWxlIGNoYW5nZWQsIDE4IGluc2VydGlvbnMo
+KyksIDQgZGVsZXRpb25zKC0pDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9yYXMvcmFz
+LmMgYi9kcml2ZXJzL3Jhcy9yYXMuYw0KPiA+IGluZGV4IDI1NDA1MzhhMTZhOC4uMDg1ZmUyZDk4
+MGU1IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvcmFzL3Jhcy5jDQo+ID4gKysrIGIvZHJpdmVy
+cy9yYXMvcmFzLmMNCj4gPiBAQCAtNTgsMTAgKzU4LDEwIEBAIHZvaWQgbG9nX2FybV9od19lcnJv
+cihzdHJ1Y3QgY3Blcl9zZWNfcHJvY19hcm0gKmVyciwgY29uc3QgdTggc2V2KQ0KPiA+ICAgCXN0
+cnVjdCBjcGVyX2FybV9lcnJfaW5mbyAqZXJyX2luZm87DQo+ID4gICAJc3RydWN0IGNwZXJfYXJt
+X2N0eF9pbmZvICpjdHhfaW5mbzsNCj4gPiAgIAl1OCAqdmVuX2Vycl9kYXRhOw0KPiA+IC0JdTMy
+IGN0eF9sZW4gPSAwOw0KPiA+ICsJczMyIGN0eF9sZW4gPSAwOw0KPiA+ICAgCWludCBuLCBzeiwg
+Y3B1Ow0KPiA+ICAgCXMzMiB2c2VpX2xlbjsNCj4gPiAtCXUzMiBwZWlfbGVuOw0KPiA+ICsJczMy
+IHBlaV9sZW47DQo+ID4gICAJdTggKnBlaV9lcnIsICpjdHhfZXJyOw0KPiA+DQo+ID4gICAJcGVp
+X2xlbiA9IHNpemVvZihzdHJ1Y3QgY3Blcl9hcm1fZXJyX2luZm8pICogZXJyLT5lcnJfaW5mb19u
+dW07DQo+ID4gQEAgLTg3LDE0ICs4NywyOCBAQCB2b2lkIGxvZ19hcm1faHdfZXJyb3Ioc3RydWN0
+IGNwZXJfc2VjX3Byb2NfYXJtICplcnIsIGNvbnN0IHU4IHNldikNCj4gPiAgIAkJcHJfd2FybihG
+V19CVUcgInNlY3Rpb24gbGVuZ3RoIGlzIHRvbyBzbWFsbFxuIik7DQo+ID4gICAJCXByX3dhcm4o
+RldfQlVHICJmaXJtd2FyZS1nZW5lcmF0ZWQgZXJyb3IgcmVjb3JkIGlzIGluY29ycmVjdFxuIik7
+DQo+ID4gICAJCXZzZWlfbGVuID0gMDsNCj4gPiArCQl2ZW5fZXJyX2RhdGEgPSBOVUxMOw0KPiA+
+ICsNCj4gPiArCQljdHhfbGVuID0gZXJyLT5zZWN0aW9uX2xlbmd0aCAtIChzaXplb2Yoc3RydWN0
+IGNwZXJfc2VjX3Byb2NfYXJtKSArIHBlaV9sZW4pOw0KPiA+ICsJCWlmIChjdHhfbGVuIDwgMCkg
+ew0KPiA+ICsJCQljdHhfbGVuID0gMDsNCj4gPiArCQkJY3R4X2VyciA9IE5VTEw7DQo+ID4gKw0K
+PiA+ICsJCQlwZWlfbGVuID0gZXJyLT5zZWN0aW9uX2xlbmd0aCAtIHNpemVvZihzdHJ1Y3QgY3Bl
+cl9zZWNfcHJvY19hcm0pOw0KPiA+ICsJCQlpZiAocGVpX2xlbiA8IDApIHsNCj4gPiArCQkJCXBl
+aV9sZW4gPSAwOw0KPiA+ICsJCQkJcGVpX2VyciA9IE5VTEw7DQo+ID4gKwkJCX0NCj4gPiArCQl9
+DQo+ID4gKwl9IGVsc2Ugew0KPiA+ICsJCXZlbl9lcnJfZGF0YSA9ICh1OCAqKWN0eF9pbmZvOw0K
+PiA+ICAgCX0NCj4gPiAtCXZlbl9lcnJfZGF0YSA9ICh1OCAqKWN0eF9pbmZvOw0KPiA+DQo+ID4g
+ICAJY3B1ID0gR0VUX0xPR0lDQUxfSU5ERVgoZXJyLT5tcGlkcik7DQo+ID4gICAJaWYgKGNwdSA8
+IDApDQo+ID4gICAJCWNwdSA9IC0xOw0KPiA+DQo+ID4gLQl0cmFjZV9hcm1fZXZlbnQoZXJyLCBw
+ZWlfZXJyLCBwZWlfbGVuLCBjdHhfZXJyLCBjdHhfbGVuLA0KPiA+ICsJdHJhY2VfYXJtX2V2ZW50
+KGVyciwgcGVpX2VyciwgKHUzMilwZWlfbGVuLCBjdHhfZXJyLCAodTMyKWN0eF9sZW4sDQo+ID4g
+ICAJCQl2ZW5fZXJyX2RhdGEsICh1MzIpdnNlaV9sZW4sIHNldiwgY3B1KTsNCj4gPiAgIH0NCj4N
+Cj4gUmV2aWV3ZWQtYnk6IEhhbmp1biBHdW8gPGd1b2hhbmp1bkBodWF3ZWkuY29tPg0KDQpUaGFu
+a3MsIEkgd2lsbCBhZGQgeW91ciBSZXZpZXdlZC1ieSB0YWcgaW4gdjUsIHRoZXJlIHdpbGwgYmUg
+bm8gY29kZSBjaGFuZ2VzIGluDQp0aGF0IHZlcnNpb24sIHNvIHRoZSB0YWcgcmVtYWlucyB2YWxp
+ZC4NCg0KPg0KPiBUaGFua3MNCj4gSGFuanVuDQo=
