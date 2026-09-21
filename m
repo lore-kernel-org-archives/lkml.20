@@ -1,85 +1,163 @@
-Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CA54E2F0E
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:58:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.135
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790009902; cv=none; b=hk6dpN6UICr/aLlVGVt/BObJm4OI9hFZSmx1tbN/RiXtt84JAui6KXienPT1AEqLNZKuzEhdVLgIDK6kI+olVO1Rl4nZIaP+LfVA1Lc0eyn8xi5ea/MJAChJhKy1v2MmFnqj1fkF+l9x0MeImKrZxFRh/mnxOH1slaBborUzkPk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790009902; c=relaxed/simple;
-	bh=vvkPoQ8nVYlyhj6hvOOpVTL1JFB04fmY2gsydGw9bHo=;
-	h=Date:Message-ID:From:To:Cc:In-Reply-To:Subject:Content-Type; b=p0kvGeBYuj0T3DDjOfvHLi3USN6ukQqQiNBKFO5hbYU6e6BAzWHOsn3G8pDFAJ/h3Hicn3hB3UNVz4Orwzuo8mZDslWReV14EsEuCPKJThTxKQGoDT/63BzmKlzPlxlSr139XIWxxPsonJz/wQ1KGsBER0JKwlyZb7IfHKGQLxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MfuBz/dR; arc=none smtp.client-ip=74.125.227.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818414C4F55
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:59:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790009966; cv=pass; b=puQVK1nSnpnDaRm70VkqBioY8uvXss0ol0dcpVUdBtJ1XgEc6PjXMSzxbmfFmDlfnvloLmxT7ut82jUhCulkU2WdGH14rqCcK52x/Wq6fawPK/ezt5W3GUrobNnb5GW1i8YwiGPS6Td5NcaUD3wV0wnOkvluwZg+wSa0bt3U8e4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790009966; c=relaxed/simple;
+	bh=yWngzaaOkrrGGD5OTkD0qpL0wQ8vMcgQMR/dSnwLmgQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=E/7qP7rIGPd0m51Z1+zZisrN37DD9BZXRwFl9ThptedSO1/JjEb9tQcqPqp2mv/sOhLVn8pFwgLw6O+JLgQ4Io88IcPH/cxrZYWa6eoYPGZ5gvXbqMBahRFLT/BLOLsezFBSKSUAvRdzDv+XlmP/iQPUb3E0yyXMFXgQXvaPIYk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WQdMKaYg; arc=pass smtp.client-ip=74.125.224.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MfuBz/dR"
-Received: by mail-pj2-f7.google.com with SMTP id d9443c01a7336-2d561173f9fso28309185ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:58:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WQdMKaYg"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d45ae011aso25588317b3.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:59:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790009963; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Lnqw3/gSbeW4ZoJFtZJfeMRRbLB8AU/wukxd5K8Ln/W5IoO9TqNgjR2xsiBs7t57/g
+         AslVE+DXarjk1fBlsVNW6NnPiAea4WYXyuRrgR5dDMmZMJCzIkNftojQUczPCTtFeEle
+         a3lG8ZlEwyCso7TxRjxdG9+noSjYO0lfX2nNH/6lnW5/CoIL7HQv6UDPc9f4pJZPagUB
+         KoiHDIAcAkIavqEdnndnEpyzBncx2+D8toxWvJrHdmW4P3xAmAqZFNGVivBpME29bAjM
+         oTB4vEkkQ+eWgkQkxkVANIJLzp8QuTGElZK6Qj1PbnLKbYE7JloiMh4h8dTX3D8Zzw5K
+         Hb7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mIoNQQFkO9KYjaAfdTZ5ScyMF1bXg0TUiegkh1VG1RM=;
+        fh=EU/tIhLT4md5QxHfGcLXpZYUa9aKThbltvM77KyjEu4=;
+        b=bV61vxuIl3wCrdcnLdGqaMfjvaQh0O7iEnD3cA3Ew3/EyfLW7mmijaFWxYBazfIEpr
+         YjTlY9VD3AcmoIBBD+TUTqDWLrn/8Rkp1cUhxDELjUcGeRKT3Fu+TANuxxiSIuWZgAU9
+         lyo9931PLixrb/5NBDR5W3y46UmrR6jZgZ12iEjTJuTUbg9Oja7Ft6/sBUC224GXqTNd
+         KGxchTczQFUstI5j6sYPoM99FkaCnqfz8HlfFMSR/a2CcJYDgXf34dWmI2oA7ssOGpkX
+         ywxfCxQgk7gKduxqD4fgjWgvCk9E6Hoyj7S5AixzywNqVYYf5xsgROte42oU2PxBScbb
+         6dMw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790009901; x=1790614701; darn=vger.kernel.org;
-        h=content-type:subject:in-reply-to:cc:to:from:message-id:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=vvkPoQ8nVYlyhj6hvOOpVTL1JFB04fmY2gsydGw9bHo=;
-        b=MfuBz/dRtHgU4a7Mxns7H6Ve4rY16FJb7QYp7JMHg50yyJPidb/AHCRP1lc9QJKMDY
-         CDllWeHukuCWEEFKG7CxfahzPzFuwnKo2gUVHcaVpuS4XNo5RPSaqLY+9CuCdrllAYAf
-         UG6pBURtp1kY0TyM5WqtibgbLag2jFE9S/JrqtDfqPU6yRbpqpy9ibhnN9qHFairDHlt
-         82M5/pIkhxP7WhWkAl776+BJQWJynyxM6xAr89dZBTNL2egzSvCu6eW+VodGPVaDBFdU
-         gTLvtLJOqzpzcKhzXBz1104iqjEzOks6Ky22zamlKLLe4j+69B7QxviccG4VxqXSO5RE
-         2tiQ==
+        d=gmail.com; s=20251104; t=1790009963; x=1790614763; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mIoNQQFkO9KYjaAfdTZ5ScyMF1bXg0TUiegkh1VG1RM=;
+        b=WQdMKaYgHH+WEMz4OsEyoJO9xQFCwSMHeSptPPYvbYZ+z0y0xxT3dt5yMNzvKcihqR
+         KCv/dtC6vaAKQnhHwSq8NCdhwMNZh3JcO+9KaH3FYzuxptl+8Pj8Zn1R4iEpV1R6RL7i
+         mHC5QLmk7/tRFz2yhv4nXWmQqZKybdVft49fqNwY0SYk9uyPVkX78aAsIg0w7ZhV8a7V
+         QEVOjCZTfc6G60IKGhGfxVugJjesWZEFgGnpSPWE7cdmPqaT82EJ5V3CxbN3Ump5zH5q
+         94pqstyaW46EA0QoSum1uXmjCYzcwfKwnIDj7U8rtdc36oKEIV+WTiRDhowc6OI4KNDT
+         nVbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790009901; x=1790614701;
-        h=content-type:subject:in-reply-to:cc:to:from:message-id:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790009963; x=1790614763;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vvkPoQ8nVYlyhj6hvOOpVTL1JFB04fmY2gsydGw9bHo=;
-        b=tdjFdQFU+/7JpSk9laDNLtRUSrZo3G3mgE1h3oGpps6T/M0l6AL2Mb06r7fVL626cO
-         PhqcF68s5Zk68yoKV2E/ec1h/773fOGyZM2dyCClVUDMQL4+ermhm6/u1t6fa/rvgGel
-         7SK03sdzgLty08v6jJn3w7H28qZ+1ofXMxzJ+YhaOEmv4yaPf5Jg/1Sa/er9c2HrNkQk
-         7a9ElW4d/F2L64B9a/s5GDdkxPKvC90sS1jSbyHD5aEo8DTA2RfPlZakGa7KLjH84cFq
-         uTVfJfm31TKYTN9jVVrsnNzEuQNx7bWUn7Rf+HQYdLA+N8WyPCNJGbkRxniM+qbDvC49
-         Q+rQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzjThKh/+DATNPbjwg7uOGo8h5uMxOvFZH1j98uE9iwAjcl4QqzyixAle/h6G+VUj4fq47zSPfYxaNRbkU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpXkhgBcNtIAvGB/8Lm05s9TWhlVoWWgHWLPsi01xUwBtnyXoi
-	wDLvvDPebOkpIPzdt0SKsss73e43PURDi6de++jEiHqcjmStmJnFMNj/
-X-Gm-Gg: AYBFou3g4APqxdg7UFPX64lBcoZLMlaz7PmEJTwRp4WWOh5o6YvUOE5natSWNp8V5ti
-	mJwxUnNeREXI7HFBptYviipNeldAe6Mo8nb1AZJXYas54SOyZWNspoy2IGfP669sis48px4JoAm
-	j83si08SnISVa4H8q7ER1kKFmb74r5Uo0Jqqqjyv7QCTzEtvn405dU4jQwbBs1QD2Kqic23PYoH
-	E90WvHtFVhZL8RWOWwiQLL/bqrvnQhN9pvbsst/PfVodSm6cH44vBriOUyt4rpzAS+YxH01O/HF
-	sabALeUcIkpKABVmQcVbxUwvXbhdmDbQK+Q1pB7xA5Wep3+pqOpdd8VQu2Vm+YyU0eSrAacoPgN
-	UzAuRHOrAv5AZiyHEr7SJWNJ1eew1GvAWOXPQydqfNgzP0XaRqy2KmP5TpaCQo4CTadAFzUPp/M
-	LRh4ZFLVxkNl5adkSsXuYjKeoCqbPcLwyWY9dsHb0RjwU0ppObOlNvFX4ofMT4eDuIvQ/1t9i5t
-	08=
-X-Received: by 2002:a17:903:2b05:b0:2dd:c100:a5d9 with SMTP id d9443c01a7336-2ddc100a66bmr116546145ad.45.1790009900775;
-        Mon, 21 Sep 2026 09:58:20 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:5b::])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc178701csm37221245ad.13.2026.09.21.09.58.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 09:58:20 -0700 (PDT)
-Date: Mon, 21 Sep 2026 09:58:19 -0700
-Message-ID: <76355a60e1b7e5d664d956e7a06c5900@gmail.com>
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, sdf@fomichev.me,
- bobbyeshleman@meta.com, almasrymina@google.com, linux-kernel@vger.kernel.org
-In-Reply-To: <178993807923.2160803.4802601925465816308@kernel.org>
-Subject:
- Re:  Re: [PATCH net-next v3 2/3] net: devmem: embed net_iov_area in binding
-Content-Type: text/plain; charset="utf-8"
+        bh=mIoNQQFkO9KYjaAfdTZ5ScyMF1bXg0TUiegkh1VG1RM=;
+        b=yc6yWlCNR/zeWCKLZrHMQdhtgtAby3AIc7QPHIQ0eITi5Gv1r580swD6MQn8KPdgPo
+         scQGeAwnrRqaR1Pyde4dX4MycmaRSSQ7DYzahXzaJKYN7slB/zBBWz74l4ZL3qyzdKdy
+         lbxUCRKgMs49ersoCPvcNC/iuHimjGJqVpS9AW+65RjGMxzjbUnwLwg5acKwjnOsRDN8
+         tAVDKMCkzO+Bqqg9UQHNx4fq8Z7JpAZROxNb6S5e/oo0GSRU4JyJCmkIAFby8LFwCeOR
+         4AWc6CiReU7S85cRKkEBFmQxpCByVGGeL7y4wJ4GYFqOKFmLELcjO3mojfTYd/eUp0YD
+         4NVw==
+X-Forwarded-Encrypted: i=1; AKwUvBzdv40CxdNwA3AF4vOJj5NtHGO1Ai1+c3hOoybOLpdOHz1P/pyKjdTbNTJNbS75bNNZiu/emynqI1Y0el0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nv4ErgoYb3+xcujLw/nt0K3nwqo3zLxvRvLPGKcVfuOM2AlrK0
+	3Gz64fuxMPoB39PESGrXUtb0Cu7OAsOjN/iaBR8mcOHsqbEQrLdu3Sn/4423QW+1J3sHV3jKH0w
+	gtIgaOyjC3MpH45pBcnSdZyXz45y+nbvPfJujYjQqGQ==
+X-Gm-Gg: AYBFou0vZutNisn3i1MIP6qqAgr9tKihD0l5pMEgQjyExAFkXga2ly3WkLxSf88tLc9
+	AFhanQxPrIHGbgeUjKp6hGhM9tycr5GscYsaxpBiTQMZWrWLuMV+NLCLGLWQFI52RvEPATrg+U1
+	GCZ00GYgLOmaXFl04uJ0Ned4259ZyCW64LS5eR5JHS5FnSCqbZGCj7zpiM/uX/R+MODGZWQ6d+T
+	gR7KX+j1WwAG73StO2//kzLuwhRAxHOSMwRTLF90KC2A/NdoOLx7cuQzQtNAEPDejVZmMjIrwIj
+	mO87EnP8dbjzOuj6CxuVfqKQoEVVa5BZu78JDynxeACrCwDhuVqFwvuvAosuTwm1sB0=
+X-Received: by 2002:a05:690c:e3e5:b0:81e:6a10:f90f with SMTP id
+ 00721157ae682-897318a8c2amr33910247b3.17.1790009963258; Mon, 21 Sep 2026
+ 09:59:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <pm-series-6lowpan-lifecycle-82fab5876048c8c9503c-0@gmail.com> <CABBYNZK2fK_iPL3u5YC8msj853QeGgH1o2i=nPqDFKXMV9UVAw@mail.gmail.com>
+In-Reply-To: <CABBYNZK2fK_iPL3u5YC8msj853QeGgH1o2i=nPqDFKXMV9UVAw@mail.gmail.com>
+From: Cen Zhang <zzzccc427@gmail.com>
+Date: Tue, 22 Sep 2026 00:59:10 +0800
+X-Gm-Features: AcwNN1Uq46xoUGPgL9i4HHsx-ydXPi2nll3UuwhNdNAS647pgGVLfVMVJlygHDU
+Message-ID: <CAFRLqsWydYv7xuTYxy8wsMm2DFQfo7ysg7S28+vaMz_T0mwWpQ@mail.gmail.com>
+Subject: Re: [PATCH 0/5] Bluetooth: 6LoWPAN lifecycle fixes
+To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
+	Marcel Holtmann <marcel@holtmann.org>, Marco Elver <elver@google.com>, 
+	Jukka Rissanen <jukka.rissanen@linux.intel.com>, linux-kernel@vger.kernel.org, 
+	linux-bluetooth@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> [Severity: Medium]
-> Can this loop in net_devmem_bind_dmabuf() write past
-> binding->area.niovs[], binding->freelist[] and binding->tx_vec[]?
+Hi Luiz,
 
-I do not think this is real. io_uring checks this because I think
-area_reg->len is from userspace. For dmabufs, len should be sum(sg->len).
+Luiz Augusto von Dentz <luiz.dentz@gmail.com> =E4=BA=8E2026=E5=B9=B49=E6=9C=
+=8822=E6=97=A5=E5=91=A8=E4=BA=8C 00:07=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Something suggests none of this was tested, as IPSP was never
+> mentioned once in this set.
+>
+Thank you for the feedback, and sorry that the patch series is not clear en=
+ough.
 
-You yourself claim: The in-tree exporters I looked at (udmabuf, dma-heaps,
-drm_prime) do build SG tables totalling dmabuf->size...
+This series addresses six Bluetooth 6LoWPAN/IPSP lifetime bugs found
+by our tools.
+They were not submitted as static guesses: each bug was confirmed by dynami=
+c
+execution in a controlled, instrumented kernel. Two of them produced
+native reports:
+a KASAN use-after-free in send_pkt(), and an instruction-fetch fault
+after unloading
+bluetooth_6lowpan. The other four were confirmed as semantic or state-manag=
+ement
+bugs where the harmful state or broken invariant was observed at runtime.
+
+Because these bugs are related, I tried to fix them together in one series.
+However, this turned out to be more difficult than I expected, and the
+current result is not good enough. I will try either to narrow the fixes or
+to send detailed bug reports first and work through the solutions together.
+
+Do you think it would be better to start from separate bug reports, or from
+narrower patches for a smaller subset of these issues?
+
+For reference, the six bugs were:
+
+    - A transmit race between ndo_start_xmit() and peer/channel removal,
+      producing a native KASAN use-after-free report in send_pkt().
+    - A module-lifetime bug where Bluetooth 6LoWPAN callback code could kee=
+p
+      executing or return through module text after the module reference wa=
+s
+      dropped, producing a native instruction-fetch-fault report after unlo=
+ad.
+    - A pre-publication setup failure where an IPSP channel could be delete=
+d
+      before lowpan_peer publication, leaving the creator-side channel
+      reference without an owner.
+    - A close-path race where local close could continue from stale connect=
+ed
+      state after concurrent deletion had set FLAG_DEL, rearming the timer =
+and
+      sending another disconnect for the deleted channel.
+    - A listener/disable race where a request that had already looked up th=
+e
+      listener could still create and publish a child peer after 6LoWPAN ha=
+d
+      been disabled and existing peers swept.
+    - A ready/publication failure where add_peer_chan() could fail while th=
+e
+      void ready callback returned normally, leaving a connected channel
+      without a peer and running ifup() on a zero-peer netdev.
+
+
+Best regards,
+
+Cen Zhang
