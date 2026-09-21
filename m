@@ -1,134 +1,169 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B6249B5A4;
-	Mon, 21 Sep 2026 14:54:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11F74A68A5
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:54:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002451; cv=none; b=UR9xRDflFsZMJ98X4GP0RFsQoNImt51lPiN75epPh2+F11/rmBzX0cs7JDUg5AylWIBbPq1KXw2lzfo5I4WmAjn1P+Jlp0TrUFu64PtokbyAYe6nF0aOAdwbzZKaI+N57BYj/8p3zihzch4umzmcGEUL4D1RGH+SnDnLVc0z+ec=
+	t=1790002464; cv=none; b=cbBtfJQd85U0C3zltIcOJjhYqpEI17A3mdQuegSwmdnD/eQZxaRlHR72Hp8MyAYctiF8Z+/GbrezHNMPD4qv/1IGhBPvE3/rr7tpT5ZTm7mexdAdLL2r8iMBq190qQEBEnEw5XSPHWs7GXLK38hipGlEmBJzm/tKFcUWG8ZZgVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002451; c=relaxed/simple;
-	bh=4tljT0UkC55usKowBbdeFYcEaGePDIjXOwpNQ1L4Pcw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=d+OE4zOnPHec6Q8R4TvHV8ge+1Mcdi9KF2PDWvPVwEcepIh3DEB7S+yX2bjYGmv2JXyJyZpO8CVRiXJItFTAkp7gY/qDHvPtAEYyG3XRsHTVKGIZal+Og+3twAl0hqocySZyRkulM97ZW7mL3POtiD359jlK4lbWoozfWspjJwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Z9gx2Fft; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790002464; c=relaxed/simple;
+	bh=yyPLV3+Ro5C2XR3LA/FZ/qEHrvLy3j0kue0Tnqcd6+8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j1twBSrksYb1bnokNBB7WoJnmmKz6ZMU2/hkwHt1VUoRL6G5MyPIv0TizMJq8zSucI4kd3WIdPscTZj2hRPJCtCRMIrfTlywC8HOnCAeD3srRrNgtFFvqbdFEPwF09MlS60JPvuzw+lvm2qe42+Zna0yuFwGX8WqkcGM7mSIPpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JxiX08PM; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Z9gx2Fft"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e97fb598;
-	Mon, 21 Sep 2026 22:53:45 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Vishal Bhakta <vishal.bhakta@broadcom.com>
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Jim Gill <jgill@vmware.com>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] scsi: vmw_pvscsi: only free a requested IRQ
-Date: Mon, 21 Sep 2026 22:53:39 +0800
-Message-Id: <20260921145339.307402-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JxiX08PM"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398a147688bso3182349a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:54:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790002462; x=1790607262; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VWp+iLlQMdqyfouFS2cFnYcodix/vvF9kBi7DXbEuGY=;
+        b=JxiX08PM3FYpTFXpUZOUYIv27chF8qL4DBrGwdUB0lje+6BTWzEtKvu99rjZVT+lHn
+         fMWVsV4ythXy2vkWZ0MxOCh0l/QEdnCb7bdj72qJuLO3fKCd+5/gc8vzYlt67Q3yAKrI
+         S7awHLlKnHMb+QCkpfbqCyTzZ9QjBfB3PrUvjE0GqpNdyVh1BTmc6h60dMYMRJWjv9oA
+         B/AOgpysYsX/LF8NKz10MPl4gtMObEAOfcSl1GXvwoyRW3Wh6z1BC5vojx7dsoqzzahR
+         qwhNoPK09zkQ4U6NWi+1rKT/K6RSyGGfzygZoWOEAImD5Ocuyo775HUqbCu5wACfT2sm
+         a3Cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790002462; x=1790607262;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VWp+iLlQMdqyfouFS2cFnYcodix/vvF9kBi7DXbEuGY=;
+        b=QLViBL/8bGaFrtAZ5F6sIOXSiQacAwVdVai2+8wmKE3Y+mj3RxxhrgcGUMrQTKW/2I
+         GeL+yS7q4X1y7XbYoxWlVGcnQ7NmueNJba37dFxI+++RZ6fiWxBaTGOWD4PrgNDEAC0a
+         rhymo4y2Ii+hG0QTXZbXM66ogllhL/fenmrHBuL/YVzn/xJjXpxe+t1kSfPbdCc0xDmf
+         vWv/2nED4bAOpyVsGlJR8x2EZDn3pKhjMF4AkJwjaG4ca+TQbkuSLZdxhhM3mwpI2F5V
+         D6czFMIVscEWGr7aQ3JTpTXJEq3lA7dvvalYbt19ny4KMxSG+UIC6MRBMUOVoSldDFO9
+         dAgg==
+X-Forwarded-Encrypted: i=1; AKwUvByhRgd4AqosilIJjFrPg1QW8y2lgz0ZOZqFJOHViQ3DL5udYilwBi7DNhLemUgollaY4uu0526ACogn26k=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltQdTai/BYI8zCLx6hKLiVU/sS30r/vD02M48UizCRiTnotoRs
+	azU+2FRjxgvVLW4V/hUBsmr9YlT3j7WrS9MTW1Sv3L4gu6gjisxCfCVj
+X-Gm-Gg: AYBFou1aavke7qt9kyBsuVDbkrCfTr9odVjDDm9eYSMvDUzZEGgJXtv6yeC+XV//7Pr
+	JIMRxmL0D4rRrJpv8IIphVCWJJaLOzEgDGT2eYHvZIaPUG7Smnok6SvVAPdh7qfLCizPfuae6vC
+	CyiGCACI7EjAJFX1Pksk9S09tgY9q9ShWQJzRVcpqodezRnZDkdwFwfhOhpxd9fcvubx5DpNmlx
+	UEQ/z6Fn1FXts2V4UhcpDNEE9ypHiyYd2PYM3d1kyk5AB+d8Xxa+hSN+WWHxZ08LbriCyWFVlNj
+	322WAN28KpklUYyrvRHj2l3HwMBrXMpUtwp+HrdIoCqM9Kx/WjImoiDpfNOGmC6uc4M9CIwcazi
+	HnPTSqZs9bcRWPA47VxtOK4JBBfq2i/fK7ZTfzrW1HWSwWHKI26aC3nUnOYHgaPRlJ/bC9S4l0g
+	Tgas0DqI33A6hfVUBUIWlOyW4ITjBAI6KknBxHm/qj+bFoKX8Dv+5ZYQlaGzjfQEBHtCV58vPrk
+	w/5GdvyJo+A
+X-Received: by 2002:a17:90b:1cc8:b0:39e:1329:7816 with SMTP id 98e67ed59e1d1-39e54d703dbmr16759570a91.15.1790002461942;
+        Mon, 21 Sep 2026 07:54:21 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a063bf8ddfsm445424a91.14.2026.09.21.07.54.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 07:54:21 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 21 Sep 2026 07:54:20 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Lin Wang <wanglin@open-hieco.net>
+Cc: Borislav Petkov <bp@alien8.de>, Yazen Ghannam <yazen.ghannam@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Pu Wen <puwen@hygon.cn>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, Tony Luck <tony.luck@intel.com>,
+	Clemens Ladisch <clemens@ladisch.de>, x86@kernel.org,
+	linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 5/8] hwmon: (k10temp) Stop matching Hygon devices
+Message-ID: <b292d054-f0cf-4695-94a2-40f0d71563f8@roeck-us.net>
+References: <20260921055603.25112-1-wanglin@open-hieco.net>
+ <20260921055603.25112-6-wanglin@open-hieco.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0c4756e0303a1kunmf1aca89053058
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSBhPVh5PTkhJTxlISEpMS1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=Z9gx2FftTv9qEk9q4XrYnV3uVAudxN1o/mr9BgIFlWgrTdgUu7Di5lOumMwZCFXDkOxu8JZ6gcRFywuXc6xwhHFrWwxfo0mEh63KSt1mdpWQjJrfd7uRU8gvCFLgF/ZWQu6US3gXEiOtnz1mHEXuozqehtmwifAU7ed4uSX4JDc=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=KEuHVsjNPxiQYkvXDKOhWZsKO1tEFxl0yddp6YFoVPs=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921055603.25112-6-wanglin@open-hieco.net>
 
-pvscsi_shutdown_intr() is used by both normal teardown and probe failure
-paths. It unconditionally calls free_irq(), even when probe fails before
-request_irq() or pci_alloc_irq_vectors() has succeeded. That passes an
-unregistered IRQ to free_irq(), which reports an already-free IRQ.
+On Mon, Sep 21, 2026 at 01:56:00PM +0800, Lin Wang wrote:
+> k10temp matches the Hygon F3 device, but derives the node passed to
+> amd_smn_read() from the F3 PCI slot using the AMD fixed-slot mapping
+> (slot - 0x18). Hygon PCI slots do not encode DF node identity, and
+> their SMN roots are grouped by socket.
+> 
+> The derived node number therefore cannot identify a valid Hygon SMN
+> target or provide usable temperature monitoring. Removing the match
+> does not disable a working monitoring path.
+> 
+> Remove the Hygon PCI match and Family 0x18 branch. Hygon temperature
+> monitoring will use the Hygon node and SMN interfaces in a separate
+> series.
+> 
+> Signed-off-by: Lin Wang <wanglin@open-hieco.net>
 
-Track successful request_irq() registration and only free the IRQ on that
-path. Clear the state after freeing so repeated shutdown paths remain safe.
+Applied.
 
-Reproducer:
+Thanks,
+Guenter
 
-  Build an x86_64 kernel with CONFIG_PCI=y, CONFIG_SCSI=y,
-  CONFIG_SCSI_LOWLEVEL=y, CONFIG_VMWARE_PVSCSI=m,
-  CONFIG_FUNCTION_ERROR_INJECTION=y, CONFIG_FAULT_INJECTION=y,
-  CONFIG_FAULT_INJECTION_DEBUG_FS=y, and CONFIG_FAIL_FUNCTION=y. For
-  testing, add ALLOW_ERROR_INJECTION(scsi_host_alloc, NULL) to
-  drivers/scsi/hosts.c, then boot QEMU with a PVSCSI device:
-
-    qemu-system-x86_64 -machine pc -m 1G -smp 2 -nodefaults \
-      -no-reboot -display none -serial file:console.log \
-      -kernel arch/x86/boot/bzImage -initrd test.cpio.gz \
-      -append 'console=ttyS0 rdinit=/init loglevel=7 panic=1' \
-      -device pvscsi,id=scsi0
-
-  In the guest, mount debugfs and inject one NULL return from
-  scsi_host_alloc() before loading vmw_pvscsi:
-
-    mount -t debugfs none /sys/kernel/debug
-    echo 100 > /sys/kernel/debug/fail_function/probability
-    echo 1 > /sys/kernel/debug/fail_function/times
-    echo scsi_host_alloc > /sys/kernel/debug/fail_function/inject
-    echo 0 > /sys/kernel/debug/fail_function/scsi_host_alloc/retval
-    insmod vmw_pvscsi.ko
-
-  On the unfixed kernel, the probe reaches pvscsi_shutdown_intr() before
-  request_irq() and prints "Trying to free already-free IRQ 10" followed
-  by a warning from __free_irq(). The fixed kernel reaches the same
-  failure path without the unmatched free_irq() warning. The injection
-  is deliberate and is not expected during ordinary probing.
-
-Fixes: 2e48e3491189 ("scsi: vmw_pvscsi: switch to pci_alloc_irq_vectors")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM Codex
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/scsi/vmw_pvscsi.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/scsi/vmw_pvscsi.c b/drivers/scsi/vmw_pvscsi.c
-index 151cac9f9..7babef882 100644
---- a/drivers/scsi/vmw_pvscsi.c
-+++ b/drivers/scsi/vmw_pvscsi.c
-@@ -69,6 +69,7 @@ struct pvscsi_adapter {
- 	u8				rev;
- 	bool				use_msg;
- 	bool				use_req_threshold;
-+	bool				irq_requested;
- 
- 	spinlock_t			hw_lock;
- 
-@@ -1212,7 +1213,10 @@ static void pvscsi_free_sgls(const struct pvscsi_adapter *adapter)
- 
- static void pvscsi_shutdown_intr(struct pvscsi_adapter *adapter)
- {
--	free_irq(pci_irq_vector(adapter->dev, 0), adapter);
-+	if (adapter->irq_requested) {
-+		free_irq(pci_irq_vector(adapter->dev, 0), adapter);
-+		adapter->irq_requested = false;
-+	}
- 	pci_free_irq_vectors(adapter->dev);
- }
- 
-@@ -1526,6 +1530,7 @@ static int pvscsi_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		       "vmw_pvscsi: unable to request IRQ: %d\n", error);
- 		goto out_reset_adapter;
- 	}
-+	adapter->irq_requested = true;
- 
- 	error = scsi_add_host(host, &pdev->dev);
- 	if (error) {
--- 
-2.34.1
+> ---
+>  Documentation/hwmon/k10temp.rst | 8 +++-----
+>  drivers/hwmon/k10temp.c         | 5 ++---
+>  2 files changed, 5 insertions(+), 8 deletions(-)
+> 
+> diff --git a/Documentation/hwmon/k10temp.rst b/Documentation/hwmon/k10temp.rst
+> index 91b99adc6c48..9680c4f3383c 100644
+> --- a/Documentation/hwmon/k10temp.rst
+> +++ b/Documentation/hwmon/k10temp.rst
+> @@ -28,8 +28,6 @@ Supported chips:
+>  
+>  * AMD Family 17h processors: "Zen", "Zen 2"
+>  
+> -* AMD Family 18h processors: "Hygon Dhyana"
+> -
+>  * AMD Family 19h processors: "Zen 3"
+>  
+>    Prefix: 'k10temp'
+> @@ -128,7 +126,7 @@ it.
+>  Models from 17h family report relative temperature, the driver aims to
+>  compensate and report the real temperature.
+>  
+> -On Family 17h and Family 18h CPUs, additional temperature sensors may report
+> -Core Complex Die (CCD) temperatures. Up to 8 such temperatures are reported
+> -as temp{3..10}_input, labeled Tccd{1..8}. Actual support depends on the CPU
+> +On Family 17h CPUs, additional temperature sensors may report Core Complex
+> +Die (CCD) temperatures. Up to 8 such temperatures are reported as
+> +temp{3..10}_input, labeled Tccd{1..8}. Actual support depends on the CPU
+>  variant.
+> diff --git a/drivers/hwmon/k10temp.c b/drivers/hwmon/k10temp.c
+> index 3e7e63edc6a3..e0a7211a513c 100644
+> --- a/drivers/hwmon/k10temp.c
+> +++ b/drivers/hwmon/k10temp.c
+> @@ -64,7 +64,7 @@ MODULE_PARM_DESC(force, "force loading on processors with erratum 319");
+>  #define F15H_M60H_HARDWARE_TEMP_CTRL_OFFSET	0xd8200c64
+>  #define F15H_M60H_REPORTED_TEMP_CTRL_OFFSET	0xd8200ca4
+>  
+> -/* Common for Zen CPU families (Family 17h and 18h and 19h and 1Ah) */
+> +/* Common for Zen CPU families (Family 17h, 19h and 1Ah) */
+>  #define ZEN_REPORTED_TEMP_CTRL_BASE		0x00059800
+>  
+>  #define ZEN_CCD_TEMP(offset, x)			(ZEN_REPORTED_TEMP_CTRL_BASE + \
+> @@ -475,7 +475,7 @@ static int k10temp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>  		data->read_tempreg = read_tempreg_pci;
+>  	}
+>  
+> -	if (boot_cpu_data.x86 == 0x17 || boot_cpu_data.x86 == 0x18) {
+> +	if (boot_cpu_data.x86 == 0x17) {
+>  		switch (boot_cpu_data.x86_model) {
+>  		case 0x1:	/* Zen */
+>  		case 0x8:	/* Zen+ */
+> @@ -583,7 +583,6 @@ static const struct pci_device_id k10temp_id_table[] = {
+>  	{ PCI_VDEVICE(AMD, PCI_DEVICE_ID_AMD_1AH_M60H_DF_F3) },
+>  	{ PCI_VDEVICE(AMD, PCI_DEVICE_ID_AMD_1AH_M70H_DF_F3) },
+>  	{ PCI_VDEVICE(AMD, PCI_DEVICE_ID_AMD_1AH_M90H_DF_F3) },
+> -	{ PCI_VDEVICE(HYGON, PCI_DEVICE_ID_AMD_17H_DF_F3) },
+>  	{}
+>  };
+>  MODULE_DEVICE_TABLE(pci, k10temp_id_table);
