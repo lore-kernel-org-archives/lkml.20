@@ -1,190 +1,154 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52BBB468C3A
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:19:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A97CB356770;
+	Mon, 21 Sep 2026 09:19:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982353; cv=none; b=EdQp0CifjRzZaeiB//OdDbFyiEFADryWkJKRWdZw4sTwowAXJ/TuvvZYarVg6MiKwKq9/ZkU66HSoNqsZsI9th3odswdv9o411WleSGp+lX3/3EeXh+aa9bKaiYMemPuloJwKpvB8KuCmBi4FyxbYv+y+cyQMMzxXg4VRXv84+4=
+	t=1789982363; cv=none; b=od+3IJxCOcgGhUuWDh5TL/PqZg/omvldqCtaHfRcSEi6iVgoPCbHmeQSVJiVvNpgXF/oSB6UYIic3ZeS2I3r1ZZefBeaNq5bN6lOBpX72TDPP+AFDvescfh9Qvk2LBCrdcvMh2oCOARvx11n7x2NimxBRxxxBvfFxzXLdoWf7as=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982353; c=relaxed/simple;
-	bh=487whN/ep3N2STbygC0sdA1IIhi1sdLZN0hb0tTo+do=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BwAXmet9cpuSCRdC24ludSWrqdBlBKin1KdqYKhxIfYPpNAn073USXGoXynsepX87GVKrkLpNj/g6YA5rT66O87IKUwhLXiDLxpiVqHx2hsgyStQe1SQtId+S4Zq/0qwDnySRX3pTqZQySjBJXv7UN2crszZu7p0W7P/KAr5dow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HFcDn9DR; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HFcDn9DR"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f633ece3so2095927f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:19:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789982349; x=1790587149; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MGiXLlnO4e+UrjavjSVvmX2UYt3SrnKyX7o77pnTk5E=;
-        b=HFcDn9DRX52z4pi9uX2bxrNrX04T/pV/rTmqZb80qHkUPlkQHmWeYERRZt1mNUm0De
-         WXHBsXDe3Nf3Xvd3sTHLc+V96YXPoctVie/4crz7J391f5jgz0LbjLB7/pStRO0RyrlH
-         8YY9qK2IaYMk50J7GQnTo+3qwj3HqVqUwIhByBluE3DB42ojXeaNKe7jPmKxGqm5zAqi
-         HUj1Yw9Hy1baRu9YGjFMg0Y3OCctpYiAa3Eoeqfc3qJQIdLWoum7CtzDDuKEMgaRDbSI
-         uBf8ZXE46N6vk1AUhVTC+a3F0lJqc8aBeF3ueDnTpsUPkJtbXDoPBfB15UaEyxE1ztv1
-         CS1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789982349; x=1790587149;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MGiXLlnO4e+UrjavjSVvmX2UYt3SrnKyX7o77pnTk5E=;
-        b=Tn0JKHY4MyOdWshksS9Lt+TM2fKeY8S4Jdel3TSixIs6uj0rV/aYG/jR82u8QtJcTD
-         /oFV8WqBUaTmuwNnsWXnX9U6AAnuMakhVznWdSDELvCMyeVUGPVGXg0P48e4hgIBU1qV
-         9dKcNIAtqNk86Kt9zgjLOKAGEMX1vHEML61as4r4ybHTUrAWuYfG+uOs/ufQ+M0pXRGA
-         BMX1slYR/+YaAqJ8GlzemRuMYWi9ZDEAVlWBgG2cm4+1+f+y0vNCguyB+8j8U7WTnKoX
-         PBwGwJpJBVcFfz6AZ9vy/jO6IatvwzCbbh+a8r4EPankw8FVBmt7ao7hWH5f0t5JzBY1
-         TZBg==
-X-Forwarded-Encrypted: i=1; AKwUvBy3+Jbsy6KP+wDBG7FjBNnKhT7q3a4+4IwBh3EA8lWZ6aBCvzh/LM2tptg9MNLAaIoG9HEtn+AgJAMfB2Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++khabzGEypXV1jlaS6bnziMxHEP1n7JmmiinFjczwZK1OzJoTgn
-	JwPzAc81GA4tmuhJOWpZrYh+biO0efZNsrbA2+0pJe4QwE+GB3B4nFL2
-X-Gm-Gg: AYBFou1CM4tABbrj2dRpPiSvaIxmEribbWaSnmxnDYT77CSUcU7LU4FxLXROx0OQRY+
-	D1LhBj7fQY2ii0VFCUBRI37f6nz37ebghPXnQa1WyrYIiRMtMrArOErgG5pHRruv1yI+AVork8o
-	BQ3MK0qpScQO+LYHVvDUFkYiXez9Lcwez2lUJRWE/tZyPQQPjgr8y5OOssf4TNdzm8uEAfCiI3S
-	lKQ2weKqQ7fe4+8ANxi9Oh3OL4YeClsGyBfZKZG4QZDqAXbFZXrxxUYlCShkEXSlt2Fbr8rHq6N
-	A5nFwBO82OeC8GtafU4JlHG6g4teXX5lyBFeShqqFu+jgxyJMuDkArRylAoY71qHecgUt2VdD+c
-	EjAYInXaQgicC+x4MQtScEtY1E39odno4VPEzrBpWpJjVB1PWSY0uYV4ayuk2zPaWCwu22Pa838
-	guSXNPyOkNgja4LL7Or4xIuRBipol8OGuWne4uNVL2R2J1CQpYkFam0uf7mDJUdJCJX/pR0eI34
-	r3KjTg++CPzcrpnKtQmSpZIlPgBLK4ILUdJ
-X-Received: by 2002:a05:6000:24c2:b0:487:d79:7cf7 with SMTP id ffacd0b85a97d-4871e377accmr13347203f8f.52.1789982349132;
-        Mon, 21 Sep 2026 02:19:09 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872459d409sm20519075f8f.33.2026.09.21.02.19.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 02:19:08 -0700 (PDT)
-Date: Mon, 21 Sep 2026 10:19:07 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Jan Kara <jack@suse.cz>
-Cc: Mikko Rantalainen <mikko.rantalainen@peda.net>, Matthew Wilcox
- <willy@infradead.org>, linux-fsdevel@vger.kernel.org,
- linux-api@vger.kernel.org, linux-kernel@vger.kernel.org,
- brauner@kernel.org, viro@zeniv.linux.org.uk, alx@kernel.org,
- dalias@libc.org
-Subject: Re: [RFC PATCH 0/1] close(): stop exposing non-retryable EINTR
-Message-ID: <20260921101907.162d3533@pumpkin>
-In-Reply-To: <wb5ulikmcromcpolaf7icazadijmadrspctqe3ffgnm3bffdwe@t4oz5ond537b>
-References: <20260913193815.2862366-1-mikko.rantalainen@peda.net>
-	<aqcmz5uI7PgN5CT7@casper.infradead.org>
-	<bcdb8f85-d53a-4824-8e34-8d190ec7f4b2@peda.net>
-	<cf83be66-e540-4abf-b377-7e344d62a1dd@peda.net>
-	<wb5ulikmcromcpolaf7icazadijmadrspctqe3ffgnm3bffdwe@t4oz5ond537b>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	s=arc-20240116; t=1789982363; c=relaxed/simple;
+	bh=ctfvrvRjDpF89isT+CxLZERwvBw6D/dw41TbnIBBu7s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=e61lj44rjFspATf8UtXAB88vqe9IDeZPwDTxaS1IVYA+lvYVCbGRgSB3+eJeOwgf5/6Ok+8EtZliLNK8H2KPtBMQcldU5GlPfTZawvCZpSd6Nkyms5LHxQG9ievDZ6PiZe6QFvdQHUJ5zmljyYDgva7Srr+9ObVqjyLATiCo7Z8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 823dbe18b59d11f19a56ed5b684f684d-20260921
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:7b8cc3ee-ffd5-4894-bb14-804e282dd169,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:c7d613d328ca9ba688807c2619c03747,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 823dbe18b59d11f19a56ed5b684f684d-20260921
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1870055999; Mon, 21 Sep 2026 17:19:12 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org,
+	Baolin Liu <liubaolin@kylinos.cn>
+Subject: [PATCH v6] ntfs: mount hibernated volumes read-only regardless of errors=
+Date: Mon, 21 Sep 2026 17:19:07 +0800
+Message-Id: <20260921091907.1491879-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 21 Sep 2026 10:49:23 +0200
-Jan Kara <jack@suse.cz> wrote:
+The hibernation check in load_system_files() only converts the
+superblock to read-only under errors=remount-ro.  With the default
+errors=continue (and with errors=panic), a hibernated volume is
+mounted read-write and the mount-time $LogFile emptying writes to it,
+although a hibernated volume must not be written to at all.
 
-> Hi!
-> 
-> On Mon 14-09-26 15:40:01, Mikko Rantalainen wrote:
-> > Mikko Rantalainen (2026-09-14 12:07 Europe/Helsinki):  
-> > > ---
-> > > retval = filp_flush(file, current->files);
-> > > 
-> > > WARN_ONCE(retval == -EINTR ||
-> > >           retval == -ERESTARTSYS ||
-> > >           retval == -ERESTARTNOINTR ||
-> > >           retval == -ERESTARTNOHAND ||
-> > >           retval == -ERESTART_RESTARTBLOCK,
-> > >           "close: ->flush %ps returned interrupt error %d\n",
-> > >           file->f_op->flush, retval);
-> > > ---
-> > > 
-> > > That would leave the existing userspace ABI unchanged while making
-> > > remaining offending implementations easier to find and fix.
-> > > 
-> > > I also considered retrying filp_flush() inside close(), but I don't
-> > > think that can be done generically. ->flush() is not documented as
-> > > safe to restart from the beginning after partial execution, and
-> > > an interruptible wait could immediately encounter the same
-> > > still-pending signal again. So fixing the interruptibility at the
-> > > offending wait seems safer if the above invariant is indeed
-> > > the intended one.  
-> > 
-> > Another thing I noticed is that there are already several paths where
-> > the kernel calls filp_close() and intentionally ignores its return value.
-> > 
-> > For example, close_files() does:
-> > 
-> >     filp_close(file, files);
-> > 
-> > without checking the result. The same is true for do_close_on_exec(),
-> > and close_range() explicitly says:
-> > 
-> >     Currently, errors to close a given file descriptor are ignored.
-> > 
-> > So I don't think a ->flush() implementation can rely on returning EINTR
-> > and having somebody retry the interrupted operation. There are valid
-> > close paths where nobody will ever see that return value, even when the
-> > process itself continues running.
-> > 
-> > This seems to strengthen Matthew's point: if some work performed by  
-> > ->flush() is required for correctness, that work has to tolerate these  
-> > close paths without depending on userspace retry. Returning an
-> > interruption result cannot be the recovery mechanism.
-> > 
-> > I'm therefore leaning towards treating an observable -EINTR/-ERESTART*
-> > from ->flush() as suspicious in general, rather than just special-casing
-> > the close(2) syscall. The fatal-signal case is harmless because the task
-> > will not observe the result, but close-on-exec and close_range() show
-> > that unobserved filp_close() errors are already part of normal operation
-> > as well.
-> > 
-> > That also makes me think documenting the intended ->flush() contract
-> > would be useful: if required close-time work must not depend on the
-> > caller retrying filp_close(), that seems like an important invariant for
-> > implementations to know.
-> > 
-> > What guarantees must file_operations::flush provide when its caller may
-> > have no way to act on its return value?
-> > 
-> > In any case, I'm now thinking that returning EINTR for close() is a bug
-> > when file descriptor is already freed. I think the only question is how
-> > it should be solved. I initially thought it should just be mapped to
-> > success. Maybe it should be logged as subsystem bug *and* mapped to
-> > success for userspace instead?  
-> 
-> I agree that nobody can sanely assume returning EINTR from open(2) helps
-> anything (or that userspace is able to do anything based on that).
+Drop the on_errors term so that a hibernated volume, or a volume whose
+hibernation state cannot be determined, always mounts read-only.
+NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
+remounts to read-write, and the $LogFile emptying is skipped by its
+!sb_rdonly() check.
 
-What about opens of serial ports waiting for modem signals or opens
-of tape drives waiting for rewind, finding tape marks etc?
+The check itself must not apply the errors= policy either: it runs
+before SB_RDONLY is set, and ntfs_lookup_inode_by_name() and ntfs_iget()
+call ntfs_error() internally on corruption or I/O errors, which under
+errors=panic would panic the machine before the read-only fallback has
+made its decision.  Temporarily substitute errors=remount-ro for
+errors=panic around the check: nested ntfs_error() calls then fall
+back to read-only, and any read-only transition they trigger is
+preserved even when the error is not propagated to the check's return
+value or recorded in NVolErrors().  This is safe during initial mount,
+before the super block is published.
 
-> Generally any error (perhaps outside EBADF) from close(2) is at best
-> informative telling you that something is unhealthy but userspace cannot
-> sensibly do anything about it.
+If the check reports hibernation or fails, set SB_RDONLY and record
+NVolErrors() unconditionally: hibernation safety takes precedence over
+the errors= policy.  A volume with errors recorded during the check or
+earlier in the mount, e.g. when loading the LogFile, also stays
+read-only, matching what ntfs_reconfigure() enforces for remounts.
 
-The program can exit with error to indicate that the output file is
-likely to be invalid.
-Although the last thing anybody wants is a pile of AI generated patches
-saying that a program forgot to check the return from close().
+Fixes: 6251f0b0de7d ("ntfs: update super block operations")
+Cc: stable@vger.kernel.org
+Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+Change in v6:
+ - Temporarily substitute errors=remount-ro for errors=panic during
+   the hibernation check.  ntfs_error() does not always set
+   NVolErrors(), so the v5 restore condition could re-enable write
+   access after a real error.
+---
+ fs/ntfs/super.c | 25 ++++++++++++++++++++-----
+ 1 file changed, 20 insertions(+), 5 deletions(-)
 
-David
-
-> OTOH this "something is unhealthy" message
-> does carry some value for possible debugging of the issues by sysadmin so
-> I'm not sure just ignoring the errors is the right way to go.
-> 
-> This raises a question: Are you actually seeing some case where you can see
-> EINTR returned? Because IMO the best fix is to just fix the .flush method
-> that can return EINTR to do that only in case of fatal signal and then you
-> don't have to be doing this special-casing in VFS.
-> 
-> 								Honza
-> 
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index f4a73e45773d..da2c8f310a7f 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -1398,6 +1398,7 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 	struct ntfs_attr_search_ctx *ctx;
+ 	struct restart_page_header *rp;
+ 	int err;
++	u8 saved_on_errors;
+ 
+ 	ntfs_debug("Entering.");
+ 	/* Get mft mirror inode compare the contents of $MFT and $MFTMirr. */
+@@ -1572,8 +1573,19 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 	 * NVolErrors() without setting the dirty volume flag and mount
+ 	 * read-only.  This will prevent read-write remounting and it will also
+ 	 * prevent all writes.
++	 *
++	 * Nested lookup and inode-loading errors must not panic before the
++	 * read-only fallback has run.  Temporarily use errors=remount-ro
++	 * instead of errors=panic, preserving any read-only transition even
++	 * if an error is not propagated to the check's return value or
++	 * recorded in NVolErrors().  This is safe during initial mount,
++	 * before the super block is published.
+ 	 */
++	saved_on_errors = vol->on_errors;
++	if (saved_on_errors == ON_ERRORS_PANIC)
++		vol->on_errors = ON_ERRORS_REMOUNT_RO;
+ 	err = check_windows_hibernation_status(vol);
++	vol->on_errors = saved_on_errors;
+ 	if (unlikely(err)) {
+ 		static const char *es1a = "Failed to determine if Windows is hibernated";
+ 		static const char *es1b = "Windows is hibernated";
+@@ -1581,12 +1593,15 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 		const char *es1;
+ 
+ 		es1 = err < 0 ? es1a : es1b;
+-		/* If a read-write mount, convert it to a read-only mount. */
+-		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
+-			sb->s_flags |= SB_RDONLY;
+-			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+-		}
++		/* Hibernation safety takes precedence over the errors= policy. */
++		sb->s_flags |= SB_RDONLY;
+ 		NVolSetErrors(vol);
++		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
++	} else if (!sb_rdonly(sb) && NVolErrors(vol)) {
++		/* Match the read-write remount restriction for recorded errors. */
++		sb->s_flags |= SB_RDONLY;
++		ntfs_error(sb,
++			   "Errors were recorded during mount.  Mounting read-only.  Run chkdsk.");
+ 	}
+ 
+ 	/* If (still) a read-write mount, empty the logfile. */
+-- 
+2.25.1
 
