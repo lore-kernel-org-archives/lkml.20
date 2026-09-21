@@ -1,162 +1,102 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com [34.2.64.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289DE360EE2
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:33:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6353E475357
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:34:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.64.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790004832; cv=none; b=VyrEDXZkx+CG6K7RVwBKyOxoXr5ObsA6kAzrktYF13ichFP4+lEVtCsHEh2HLebWOn8uXGkdf95V5XImNflKWuthoaQeczodgI06ct2xavDkvFP9WrqSGt9Izndu8RDezAu0agG0jBAtfZgWwP3so0msk6L41FxsT9Z+qJmBSUs=
+	t=1790004853; cv=none; b=nqru5eh/soX2l3ZErXr4iXrz954byos8IzLS0UAgSavRicJ6lSX78shUTngglKoYW6qcxIy+hXN1x9falXH7MYDewtJDV2BFflntJE95hvMEdHAdzMDq0CoEq99KBhULTnGP+CptOTOJ+PFf0xxs9e59jDcMKQGXlh4tvMee0+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790004832; c=relaxed/simple;
-	bh=I7UesNNzihhfUM3T9kkjRfplteVqAEnYJpPI/ePgiEY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oa6plmwkmtPB6gN+eRTWwwcYOzHNbtL9W3vGG65TzBRsD8gTLycWpYrPa274Os1MRqJkyXy8Z80c4It9db2mGQfAHMdnh/XOvzD9x8/9fat+bYwwQnYYUvwGEv+ShcBf3nk18hQr/y+f/iBn1knQJ15dDoctQy6J02YUo0qyHc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dz0t2q82; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790004853; c=relaxed/simple;
+	bh=p2DscuEwrTKvkyWB1oPdIp6xifZgL+9QqkpPUOoKowU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OhQk9msDZbfiHDzf4zKwZPc1xeSEBDM+TfGU4ZWblRWfQkizuTuQ0ufrIiMflqO9c6tIyMBAlGInmVU8d7B0fsSf0QtDCr0WZorkbhZnCupXzqvliEgJHPM5WRDpqCu6X+2nuRsEvZ1lBcheozNqBli3ht9BndaGZeDLsqEV4AE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=UPYlJhwY; arc=none smtp.client-ip=34.2.64.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dz0t2q82"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f63546c3so2473064f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:33:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790004829; x=1790609629; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ATQztYCMyMu3k6DnS/zHcGXiDiuEanDgsZ8XIDNR40k=;
-        b=Dz0t2q82wSX3pw4NUPNIMWFDFyaMLzrpHR3XlMeTROMDG6hkfv3lKtMy+t8UX4DCYZ
-         Yre0uZY0ohhZB/m8uZy+7NKSld+RQl4WeeH3lKWxRJDlI0jTU9kTZYktWnVPoRcdO0tM
-         O02PStEdyvZA/1ewe3YZi37vUbtncXVXn3bg/EPbqaWhOYHpbpwP8SIbHTRblKzE9q7l
-         nGBRSfYcad+DgIL8MobJBaUsECApzuOnQ/nsRfROKkFu03Gms5lDbF3Tihr3PUiStNA7
-         M0LzqB6uep7UWHhTP43YO6bWVcjxoa7FsoT+/mFMmL/xcKoHjtxanaXNqCzWNQDUnag3
-         +Amw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790004829; x=1790609629;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ATQztYCMyMu3k6DnS/zHcGXiDiuEanDgsZ8XIDNR40k=;
-        b=q+cVLtTty8Ea/h4zMpJcedfMh3WB6wE+XOsUjTDxufK/YvcjRzXclO/EeqfeAm1ujy
-         EmYhqgFpmsh9Yh5YplBR6rqQzlklG4n2wL3yax9fiD/N2jqKarIBEji0+DTVj7aeAr/l
-         6V7clQ+Wl7TasfW2JY8q+0Ku9kVvVzEi+4UuQC/CDj95Bh5YhUF8I/VuQ6LHLdYIWLAS
-         aNNPtw5mtDLZdoC55ScI8GVBCExhtu8Z+juXwzG/mnsDV9GlCSQ9AllHrDufCTNhMqHk
-         PJEuRPwDoJIM7KLfZlPxPb+d5dnb3EAIFZTEtzRWB14Mp1LZj99+eFqlPClcknmNoOD0
-         Ko9A==
-X-Forwarded-Encrypted: i=1; AKwUvByWzItnQvZ6AaY5lESLFj33Pr/cuGUQWcNgu+bs9tz922vD557AErXCWb7JYC9J0DNjrIOQV9Xe5BvSC+Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkRjmUoW5JTkFBtFPaozmwc0rGfwv4X4yBjAOk7oyk1SkVQQI0
-	SdPdLEui3ox5CWfUfSOpc6FQH198k3+aFOt/LiRgowH6awLp5k0+el1j
-X-Gm-Gg: AYBFou2baB0bJFMqWmbJJ7lbI5WTucjpYGnLIxLOgM/AKtZblSWj36J6AY4ALWoI4WN
-	7iNmdmvwQwRbQbjIpHDf2Up8rZ2as94sf5JSqeNy5X5fO0AWKYUni9RG1Oq+2A4XEOIrC6YnW4s
-	Imp4hNS/i0MgsT9/TsaE17NENywxwOU9MGtugxhIwv2K698bnWes60UsK6bDvq10HFv71ykmjCr
-	XWc0wAVcP2c8/MrbpmHSSYgjq2yHSbn+CHn2gnXnC4v4injzBcYYN/jiGwVUHW/BYt5mNxTkKHk
-	6GKKDYEerJTcQDLqcTVqgQaDDIrPynzz54HuTKFXWvw1PU0yrx2X8eaUpPPtLOJdd6L5ETfPUD3
-	f4TMnt5lpUCkpvGMyqDhU/ERt3NXlVCgGOV7xK8A3qa1P5Zat2BL4H2uisRooAGROIW0Dj3eO11
-	QOifLZwvMyNGJrMEQWVC0bKLYMYMcSnvnKyOw7EfL0dOgcpsCRFuFZX/4TwUFZCJzMZU0I7BsZa
-	DkueNMOZANb/nyTr+nINWdUYc071tb5Q/Tj
-X-Received: by 2002:a05:6000:38f:b0:487:c48:5dae with SMTP id ffacd0b85a97d-4871e21d900mr14510363f8f.17.1790004829281;
-        Mon, 21 Sep 2026 08:33:49 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872446067asm24137495f8f.12.2026.09.21.08.33.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 08:33:48 -0700 (PDT)
-Date: Mon, 21 Sep 2026 16:33:47 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Mahanta Jambigi <mjambigi@linux.ibm.com>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen
- <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
- linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-s390@vger.kernel.org, "D. Wythe"
- <alibuda@linux.alibaba.com>, Dust Li <dust.li@linux.alibaba.com>, Sidraya
- Jayagond <sidraya@linux.ibm.com>, Tony Lu <tonylu@linux.alibaba.com>, Wen
- Gu <guwen@linux.alibaba.com>, Alexandra Winter <wintera@linux.ibm.com>,
- Halil Pasic <pasic@linux.ibm.com>, Hidayath Khan <hidayath@linux.ibm.com>
-Subject: Re: [RFC] module: init-failure path can free a module with live
- try_module_get() users
-Message-ID: <20260921163347.2630a6f4@pumpkin>
-In-Reply-To: <2cd4adea-9b70-4951-be8b-40c1bcc7ecd6@linux.ibm.com>
-References: <5dc1fe2b-289e-4786-b9e9-e181dda8d4e9@linux.ibm.com>
-	<20260918142241.55a6630a@pumpkin>
-	<2cd4adea-9b70-4951-be8b-40c1bcc7ecd6@linux.ibm.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="UPYlJhwY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790004850; bh=p2DscuEwrTKvkyWB1oPdIp6xifZgL+9QqkpPUOoKowU=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=UPYlJhwYujUUWsQfiZtGJCfKFXgxAZXOLR2tgmqGXZEySKIMoMkXrltc7tyYfYa/aCRZcGXt0wqgN/SCtuIAB0rq8y40LK4R3S2pZSvLF6kJp+WIhk/cIMeUGIbwSeCUGi8B664Uohw/Vhl+S5pe9q1pt0XVcz08gr6ayrL2SDUpcutUCXkYHA1xPMWHBy+iHmv6CEpQaXNCFYrvOqOZnReyvsF8OxTWL9r9Q00cWPyRXx4YJRvtqiRvIPHJVW7GfSzn8ak+dPyi3cf1AAWuI+UwwDOOBsVCWfLJ7PhuEsHX4wVp+Re8+C6FdF1jEJPn2LefiIJV0fZG+S/EeviWjg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790004850; bh=OS4yj1kQUi/Oe1a57meU5bx9+vpkLCVn4TM+sXsI+k6=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=RgtxO30VemnFoNmBO0eXLvLnaSqtIW90cO4/fcnChO/IvPZm1vug0Zfm0ectOV14PR9DSc1tU8AEcz66dO0Mx14z3XqOEkydHvZJtVOWyHcOBChZry0SmqCGjYLOm7cGpvOb4Xj8oReEDErCHqaKGlRrYgl1OTOuZnEgC2YfPm3isQie6gjanha2OHUZkA67eM26ftkpHHsVwSz1hg+MP2AqMR7Vx/fwkpNPX+3kLY53vvW3G/L6elyYZZPpGngbSscFhLTKI0kH+YpIvz35K7TsVg8oaCog1wnPcf6T9/MJmpYYcX+erYB66lBhqFC/8OZr714QXPXGZ4sun+ZxJg==
+X-YMail-OSG: rdFtrsoVM1kKgYnfkEaba.sKsVq3apX0ASizRIB.lYV0I.6JtpaginG4ede1DUM
+ BGW3oJ4PHs_70xuWyqoe8dVmOsmlBp_K5JlkUlpAsj70s4GAYKFzWr.ZvUNrt7h0sASZbHtctWQe
+ mjvz7Ckf1VoPITr5f57ISsHh6apdhLLgMOJ9pnAhRsS_e0N81uES4ydKKyMA8NS1bjuEGcjgFJJT
+ eMOY092U.FWkW_8iEJAjZRpJcdg4eh1jm8bolI_Eq9YlD57jZ5BFsDoVyJKrTt084gV1JZgPlSvo
+ o.daUTtbRynPtRxAcOHNcJLqhvWIXrGOkxe.M.lJHElqrjb3_zI9qQsvsgb3yv8J68p1npyGfUIY
+ bBkG229D8Pmn98UCr7isYyZdcTVRkLTvGR0cZj1vOH4XVt_RfkmbBMqAbWJ6idqzp8h1bOyPX1qk
+ wCL6gWKgR6B7atb_XFEYIHskmLQ.desYtElzDktT4ATWVy9cBVP8gFDF4p0lb.I694gK.tYYyI4B
+ v16OMKH5SGVZaAw6BzFr8C8YVesG8nwWdZXHz7xCb_qQOT1HHQsmtc7DX9Sbchj1u9T.PwSVUOAD
+ WSLJX9NT9gz9YtL5Xwbmd8QZPLnXuU5JcyNL2Cz.BGoMBYZ0n2xO0UYbGUhHyyREGJIgDOSiPKWH
+ ZVF1BnibPYt93T6hWrN7jLW6o3y1U4.FskGNQnEXKwQz7CV2EMaP_btErzunF.YYVik0w_iKDFtq
+ 2hfCY0UvLu8tSOS9z3.XpITzbXr2uR8DVLOwVyeZHf_oqXQXfJ2n9coeoDKJPobLJqLitKt7EeAQ
+ 3vC5qrlIOQXeI253qoysPv10NAxyz0ie1.xm8T.z3r5zie5udfhNVXdttN_mNwG6QcMgd6j_DZdW
+ Hr1GypKdhUKuLv53WYxLthgUJEYeKMGUqbDw7cvBglTMVi9OB8rSiFUVe1NtQC1lvmFeqy_jKWnG
+ 0B8ywCg0wqACk1hQ015HrEtoDC8udTNAjrxr34B_H4Wmx7MuQs0Yfl.9nH1MIuJAvXnBe4xWM08f
+ hQxmpEGnxcfAK565KikHj_sbLkUYsornbyzkPN01CM.fnUW.G6FvLcVoRz7GvegA6TBpWOnJOspa
+ b8xRLwTRP4Q4_wIouN9gKydclSxYHSYljrNJXhf0uSgyVcqFZ7Ys6lR9V2jZoSOBmjwXGf2pLgTe
+ fxfVzdA0HZ3c8Rw5ERnLNdjwclj09nPPHSTgzLOV5jCwkUwJBh5lUlCyuxutlyNhZILexOZoNabf
+ htaETRaVX49cN8nUVNxiJkRd808CapoRmPQMYIFb7ku8k1_BtESkTmoQCRzmC59eFw6H5fVxsYv6
+ sqSMzTLywAmF3Xr0u3Q1DRH3k2odEtHqgOVYyHZ0izHrfiz10ieBv_Hx9qIY0kSTFxDp4wKTcOhE
+ 9rhz6XQjogjbcmutIyrcY3SyIP1Wmj5IhXkTuMPuikh9A4fJolqRuyuKLETGxH9DmM1kME_akYvN
+ .ZX7Eq4.MxeRu.xLzxQA3rmzqsD3YwZuHWwAT6HdmQ1Wq5fLBfbgOKwu2RICJfZu8ijpKJLb1Xs8
+ 6F5vhS2opip.cJ5Mj29XP1d2D7aRoL1wYnI5.xvyQX7ug7X2bBToIRtC6Mo5PA9Gayqf2xIFxJdj
+ XmEbnO.VSQdgRJ43IUiYdUrREhnX8zXpct7ghrpWuTSEMQZpBQxKBz7K9cntbcduez0QrvXS4aHV
+ VIwQFSNxhklnhflglHlt2utqDUK3ZoEK8E9WxwMmVGcaUSpOBrobNlJZgCKTEcsejwvnevbjTKWi
+ d9.UgkQWLb.BkHn4ea.c5zq53bBM8founBI0Cm0u2vKjyo0MebGRlOgFrPdu2ft19GM5mI0CqeYc
+ MfzhVpE797iMRbUaZM8qYPTmg5y2GOoTFfE5eepQSIb8kJ0vW3G5NgrEb71ZXL.Q4LwPlyNmHqx_
+ Of5XrfTclTBAWL48X1Y99eLnSkyIMAgfbW6708heCkVRjaYDho5CbOX6bGRkwVotVKS3zjC.xnno
+ bBpO2fLdPEOx2BoeJbUh7gg--
+X-Sonic-MF: <capitain_jack@yahoo.com>
+X-Sonic-ID: 0c33275f-9531-4585-8e8a-886a56219ffa
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-102 with HTTP; Mon, 21 Sep 2026 15:34:10 +0000
+Received: from dip69.lsn.bf1.yahoo.com ([67.195.177.78])
+          by hello (SMTP) with SMTP ID 9780d4958fcfd6726744335047757fef;
+          Mon, 21 Sep 2026 15:34:05 +0000 (UTC)
+From: Daniel Ramos <capitain_jack@yahoo.com>
+To: Adrian Betschart <adrian.betschart@cinemaone.ch>
+Cc: Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
+	Rodrigo Siqueira <siqueira@igalia.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Daniel Ramos <capitain_jack@yahoo.com>
+Subject: Re: [PATCH v3 0/3] drm/amd/display: HDMI 1.4 3D output (frame packing, top-and-bottom, side-by-side)
+Date: Mon, 21 Sep 2026 12:34:00 -0300
+Message-ID: <20260921153400.53321-1-capitain_jack@yahoo.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260921080126.98936-1-adrian.betschart@cinemaone.ch>
+References: <20260921080126.98936-1-adrian.betschart@cinemaone.ch>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, 21 Sep 2026 20:04:10 +0530
-Mahanta Jambigi <mjambigi@linux.ibm.com> wrote:
+Hi Adrian, Harry, Leo, others,
 
-> On 18/09/26 6:52 pm, David Laight wrote:
-> > On Mon, 24 Aug 2026 11:43:46 +0530
-> > Mahanta Jambigi <mjambigi@linux.ibm.com> wrote:
-> >  =20
-> >> Hi Luis, Petr, Daniel, Sami, Aaron,
-> >>
-> >> I'm writing to ask about what looks like a generic module-init failure
-> >> lifetime problem in the module loader. I ran into it while working on
-> >> the SMC networking module (net/smc/), but after several patch
-> >> iterations, it seems the root issue may belong in kernel/module/main.c
-> >> rather than in SMC itself. I'd appreciate your guidance on whether this
-> >> reading is correct, and if so, what fix direction would be preferred.
-> >>
-> >> THE ISSUE IN do_init_module()
-> >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D
-> >>
-> >> include/linux/module.h has a long-standing FIXME in module_is_live():
-> >>
-> >>     /* FIXME: It'd be nice to isolate modules during init, too, so they
-> >>        aren't used before they (may) fail. But presently too much code
-> >>        (IDE & SCSI) require entry into the module during init. */
-> >>     static inline bool module_is_live(struct module *mod)
-> >>     {
-> >>         return mod->state !=3D MODULE_STATE_GOING;
-> >>     }
-> >>
-> >> Because MODULE_STATE_COMING is not MODULE_STATE_GOING, try_module_get()
-> >> can succeed once a module's __init is executing. If __init makes the
-> >> module externally reachable partway through and then later fails, the
-> >> failure path in do_init_module() appears to do: =20
-> >=20
-> > It is rather worse that that.
-> > If sock_create() auto-loads a module (eg sctp) then nothing stops a sec=
-ond
-> > sock_create() entering the protocol code before the initialisation comp=
-letes.
-> > That can be hit by two separate applications, I hit it from an out of t=
-ree
-> > kernel module and avoided the problem by putting a mutex() around the
-> > sock_create() call.
-> >=20
-> > It might help by letting try_module_get(THIS_MODULE) always succeed
-> > while blocking other requests until initialisation completes.
-> > The code making the call must own a reference (otherwise the code could
-> > just disappear), and that reference stops the module being unloaded.
-> > That would let the initialisation code grab extra references (eg for
-> > a worker thread) without allowing other codes paths enter the
-> > part-initialised driver. =20
->=20
-> Thanks David =E2=80=94 you're right that the race is broader. This patch
-> addresses only the UAF on the __init failure path: once we set
-> MODULE_STATE_GOING and call synchronize_rcu(), new callers see GOING and
-> fail; we then drain existing refs before free_module().
->=20
-> The concurrent-init race you describe =E2=80=94 two callers entering
-> MODULE_STATE_COMING simultaneously during a successful init =E2=80=94 is =
-not
-> addressed here and would require changes to try_module_get() itself, as
-> you suggest. That is the long-standing FIXME in module_is_live() and is
-> a separate, larger change.
+Following your request, the testing is done, and it is a pass across the board: v3 as posted built into a 7.3-rc4 kernel and run today on the Renoir APU (DCN 2.1, Display Core 3.2.369) driving the Sony KDL-46HX855, all three layouts were tested in sequence (no restart) in one desktop-down window of about five minutes, so this Tested-by now covers the series exactly as it sits on the list.
 
-I suspect it is also much more common.
-Module load doesn't normally fail, but if you can persuade the system to
-unload an unused module I'd expect a non-root user can hit the concurrent
-init race.
+Top-and-bottom first, as you suggested: the TV switched itself into 3D on 1920x1080@60 TaB and the disparity picture read in depth through its glasses, so the sink is happy with the 3D_Ext_Data byte patch 2 sends for that layout. Side-by-side half at 1920x1080@60 followed with the same self-switch and picture. Frame packing closed the window at 1920x1080@24: the tool presented one 1920x2205 packed buffer, the expanded timing from patch 3 scanned it, and the full two-eye picture showed where my earlier unfinished 7.0 experiment without the expansion had signal and black picture (fixed as well now the same way).
 
-David
+The probe numbers on 7.3-rc4 + v3 are identical to what our 7.0 port produced here: 22 modes and 0 stereo without the client cap, 51 modes and 29 stereo with it, no regressions on the aspect-ratio pass.
+
+The run record is in the repo at the run11-betschart-v3-7.3rc4-all-pass-2026-09-21.log (https://github.com/danielcamposramos/sony-bravia-linux/blob/main/tools/stereo-modeset/run11-betschart-v3-7.3rc4-all-pass-2026-09-21.log), probe output and per-layout modeset lines included.
+
+One more thing I would like to put on the table while the series is in review.
+
+Since our first exchange I have kept the equivalent two changes prepared as a backport for the 7.0-era tree, where the connector code still lives in amdgpu_dm.c: same stereo_allowed plus VSIF wiring, same CRTC_STEREO_DOUBLE expansion for frame packing, forward-verified to apply cleanly against the pristine v7.0 source, sitting as format-patch mboxes in docs/upstream of the same repository.
+
+They are an offer, not a request, and there is no competing series coming: if this v3 lands and a stable backport or an older-generation follow-up ever becomes wanted, they are ready to go as-is, and I am equally happy to reshape them or to let them retire unused once v3 ships downstream on its own.
+
+Happy to run anything further on this APU and television if the review wants it.
+
+Tested-by: Daniel Ramos <capitain_jack@yahoo.com>
+
+Disclosure per Documentation/process/coding-assistants.html (https://docs.kernel.org/process/coding-assistants.html): prepared with AI assistance, directed and hardware-verified by me end to end; the assisting models were LLM Kimi K3 (Codex CLI), LLM GPT 5.6 Sol (Codex CLI) and LLM Claude Opus 5 (Claude Code CLI).
