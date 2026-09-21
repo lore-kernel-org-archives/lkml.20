@@ -1,175 +1,263 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010029.outbound.protection.outlook.com [52.101.46.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8EBA47045A
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:52:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984330; cv=none; b=MDr6SObn2oX3gu/EaP3Krf+fHxdvCBaJ+djR4jAvhlLsUMIK+xu3GiWaZPXuIuw0p5dwFIneUya1o2006EsBuDG8ALY/mtSIPyK9I0uKpgSLm9jVo3vEen6JKNlu10qzm4Igml8Vu1DIrx/xtOsbe+6CwEGY8r57djJeVntd184=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984330; c=relaxed/simple;
-	bh=rI9/kjtNsduYBOyjOom1xdDWF+u1HGKFUnT8QwRo51g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tytNuK/chWOmyLOvMKl+E/D67Rh0Y+TGEUmCt2KPXq4JQvz0TlxN29UiVR9TB6xFGy2XqvsANASMxCXJ28+6GCVz3n5xh6DC8bFQYJCfKd6F/yjCZkYBe/uMTls/UdkgtuAhwVm4qpML0X9wFNKusnHhDn/OgAGkpc57P67bij8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BFv/nBI4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aqBR4HHI; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D5DD46D559;
+	Mon, 21 Sep 2026 09:52:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789984338; cv=fail; b=SRiaBbbCWSfoQNl7TJRgdpSl6JorI7ig5Y4z4ZHbC/mqNRTCNEJANk3Bb8R7TjZYbl0MookOlLLLwLbyU8t064NGYTj81GEkVGAdx8Sg9DUlmHy/sq55F8Ef9XoqmHcirgaUvxkUOLeB3bGv4afbHGdTbacpoviOnU4QANA3EvY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789984338; c=relaxed/simple;
+	bh=ogVYGygaDXLXvSGAVi3tmTp+/fYNxNNHFOk0SyQXlIQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=hZJdOv5DkHxvCRWhdpazsjoS/n5T/+hoLiHuCm6Bt9AF2USuLbute6ci28fMzqAhgFiJnTZKX12N7u+eyf+wTzYp1kIfUnEp/+MY8B2eF4meObZrNwAid0v2NLmyP7wn6lPeqqPkwHAZ0h4T7hpOI3cWeS8gSFFbrj7h2hT4klc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=oI5XISVQ; arc=fail smtp.client-ip=52.101.46.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BFv/nBI4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aqBR4HHI"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7AOc73351570
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:52:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	RctFOn8pk1pJ07OhVZZcF2n4Tp1q3uclOz4Na2XKUV8=; b=BFv/nBI4bYId5wKG
-	KJSekAetFaXjrXhqhjsRCVJjIzJnza2Mk8jE0o+QcV5c+Gwg64zqKsG0+IoVK1iG
-	6n3fBGclHm5LK6yiXGA8pZTDYoCBTE2JsOAtX4QsE9FvaRnxTed/73oGUgcwSM5n
-	rdDgrFPPeadMhaoRWope4Rz5YwZcvJ4OUkwVOhYH6uFk2aBUWjmpkc6mfILL4/Il
-	rezBIiZCqueky4Q+scr+n2XmBiZct2rpPew9hcf6Tq51DPP+ftqen/sDxsa/CcFU
-	PeHimW53tEf433MXDYL6wRgNY9ffRgkX1ginAYF3e8RvxxV8HyEk3DIQeM5ZG2u6
-	IUXMhw==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtq79a25r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:52:09 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2dd8920c132so68407805ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:52:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789984328; x=1790589128; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RctFOn8pk1pJ07OhVZZcF2n4Tp1q3uclOz4Na2XKUV8=;
-        b=aqBR4HHI0p2KwPjJ+aoQICUX6o/BHBzD5rho0Gue38nLWGgFsTEMX8KxPA7pG4pGOp
-         O6FBT6o5WRb18hm6RRXT8Pm5rSwRXHpJQrB0GRIL+FPAEbRLT+LPJBXuRNs9FraBlZxm
-         aVFqSzwgNPyfv+C5DwKKAR9DHe/zXI6+8yup1CIDEkE8nqA8O26MnmjXg9Ya+B+4DZDW
-         b7SbeBHhS+amlPmZIOT9NmKEuMtABrvZDUx6/b/D31eT3ZXS3yAgldkJzezVn+cps2LD
-         /O47Jay8yxo/7WiG6Io1KQdZ6rZo8S9TZcPerlRr79PnxQUixw0x0T170rJ0rpYh8+/b
-         Rn4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789984328; x=1790589128;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RctFOn8pk1pJ07OhVZZcF2n4Tp1q3uclOz4Na2XKUV8=;
-        b=mPzr1nTAU9tVq6uK9oPZJ+6EVxZwgVu3pm3pxMba2bqvDeK+c5Z1t0cam8OGO8gOTJ
-         s8Emr+2eWnc0r4jesFxN6nBiffKUT9oquKJdgvedOazQuEzLbR54GOYGomPP36JOvub0
-         qyFNKnxaUxhtf8aW59Z6TZJX6RJxoTBge64N1CFhjRwoZTDN3I7RnYyxn1PLr/qL3T4o
-         SEHCA36wakNWElXSbJtQsQ+uDHq2mcsWyLPLoCvKffuzrgqWAOPVsulyKLMxhu+duqRT
-         xlFtS3qeieQNwA6NYvUyZFfzSGb8F4aGCteTZsZQsXQ94t2MkrkJ69WzG/nKvMrO7NRu
-         9x7g==
-X-Forwarded-Encrypted: i=1; AKwUvBynyHQMU/OzXM6Ky3jG8Ljx4UWbC5U5n7Dek2DXXL3EzvNwKJiPb7IwkmER4YoQIVnJglh1kB60B9iqJYM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kAAylZapoUfAwzGavBeUh2hnG9XVIBScSskINv3vGcLPDsEUZg
-	yl+VELq5nS9aObOEiT5V/c4ERVVqBwTDNNNRwkmXwg+R8G2bE/8HNsIlxKb/HDvt+VGfeozKltR
-	OHkM7Mqtley38kQM18sJwRxiMGv8v8QF1QpylA5W0ijmmzJIa5UIx5hqgSoo8aRNrYFY=
-X-Gm-Gg: AYBFou00cCPA3h7FoeCsKsZagobgc17GNprmk433YttohieLu4UPxUGNcCvQXJHUaZX
-	qAVZE2qvDsrvWCk9YD1SGispKVdNLTZkaVIeL3C5TbSSGjQASTM1oZjmrEMytRldGUc7zdOLk8i
-	hHKu1fBbFpMK7r5JI73Z7T9pOfUlNcOiuMIIE2Z2FHTFw8Ylh8VR2MppO9eBJrgKsPvKvpehMKY
-	kvfQtFVQo1LEuT6sZOrImRE0ZuSjVkgyjn3WJ0L0AofC7oWv+FZOkCh2ac+WaF3rpdubkBfN9QH
-	ghPJo4edsGM+U1HUkP0EwF//RsTQ5X8OWtwLF+0IDYZ9YFIq3pvAsXvLsPYzWy+9whzVHox/t7M
-	5jcC1Oa21MROGakOPMEzx7zBFM/Xe8zFNwyk6/Kd3u1tWmCj1J7qMakNJQebKxEbgcYYjwbSgmg
-	==
-X-Received: by 2002:a17:903:9ce:b0:2dd:c054:197b with SMTP id d9443c01a7336-2ddc0541cccmr97274835ad.32.1789984328477;
-        Mon, 21 Sep 2026 02:52:08 -0700 (PDT)
-X-Received: by 2002:a17:903:9ce:b0:2dd:c054:197b with SMTP id d9443c01a7336-2ddc0541cccmr97274515ad.32.1789984328011;
-        Mon, 21 Sep 2026 02:52:08 -0700 (PDT)
-Received: from WANGAOW-LAB01.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc178889dsm30523095ad.18.2026.09.21.02.52.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 02:52:07 -0700 (PDT)
-From: Wangao Wang <wangao.wang@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 17:51:38 +0800
-Subject: [PATCH v2 5/5] arm64: dts: qcom: eliza-evk: Enable iris video
- codec
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="oI5XISVQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l+uyqNwprQ7PkL+AP5/1cmQXshD+PrGRGpAsPdKUeruCFSqL21zsEsL2A2SaEdO88JpNltOQRVOjWS7sY+QyzJuO26STSslRfjYwwiYtKdLe6XaQqkdWjnJwTJSIHJ1mGRrBjYhOZp8P6Exp5ivbiF8nud+2bccEgwD3GXRcPebVAFfo1gTJpt0qGTkclLhI/AYnk7CGzr6YwbCvKHhOzS/GjrnYOYUN4kxVgFyfT2sw8aCdeAFg7mRt14Nn1ZqePO3nOzxVBb6D5hAP6JCwWuh3QD6apwLIyWAAuAcfycxb5wCHSLgafV5HS0SsAMmwSUOLpSb+nOegXYt8cJdZzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZCrLem1ctcpKsq/AknOhYb/GXtQSTA+YS0dV+9XL25Y=;
+ b=AJVzLrxE5LVTA5bBzmf6AvDCeHOZiCFIHQwdTp7QB/nEHdtQJvoJK6i/JMDoxe7e1DVOMEpTNgh/Ubv/+IIRZji1Iet1KwoBsPhJ2Vd3MQvL3ri3ZeWV2sEkifkL89B3/yQ2fQar+RmDkQK09B4NZmkuV58dsFcYhw0OW6bXHPxhB2DO20nGYDRTppKPoDhN2PCLGauf9Kvam6khtEGM8WVGROTlg0AN8JeoJjU/AGlwCnd8vJ4/TbbK4aG9c6+IXx+Ouxkvzze722ibEGxegj6D4fSutzdXaYuzhv7brU8QpLKRL5PmLztOP8N0nGa0TJrOXP/fjkGaBR/1eAPvww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZCrLem1ctcpKsq/AknOhYb/GXtQSTA+YS0dV+9XL25Y=;
+ b=oI5XISVQoaJVf62dVUB2PzIWhVtoieRBQWqqO1hnmCpzWdlnd80IVNyGxIvKf/XbzYzKcxXxLQsqCvq0gcgqvXtiAF+FqlnBhKaIfg71iWwu2nGqKgQ1Fqs9Jx7v0CHodmcac1NRTqsVeiqJB6m5RAXQ4NKXpoeO+DVAcApQimt32tgU6hbFgtjvxNhM0eORFuIpKqS3VD2cAsi5uzNU3NGqGcWA6IH3mXfQudQoq2/G0DJimkOla7oiWsJUevb+pTnQrmv8oMA5gM+Im7U7M8eJzvkaU+ebCHG98wnb1PkVr2TaSTfnPT3TWe5LU3s6SGTErsSE5j7qZuNXUA66lw==
+Received: from IA1PR12MB9030.namprd12.prod.outlook.com (2603:10b6:208:3f2::22)
+ by BL4PR12MB9534.namprd12.prod.outlook.com (2603:10b6:208:58f::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 09:52:13 +0000
+Received: from IA1PR12MB9030.namprd12.prod.outlook.com
+ ([fe80::2c1d:ed27:b53a:97d2]) by IA1PR12MB9030.namprd12.prod.outlook.com
+ ([fe80::2c1d:ed27:b53a:97d2%7]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 09:52:13 +0000
+From: Manish Honap <mhonap@nvidia.com>
+To: Richard Cheng <icheng@nvidia.com>
+CC: "alex@shazbot.org" <alex@shazbot.org>, "jgg@ziepe.ca" <jgg@ziepe.ca>,
+	Ankit Agrawal <ankita@nvidia.com>, "jic23@kernel.org" <jic23@kernel.org>,
+	"dave.jiang@intel.com" <dave.jiang@intel.com>,
+	"alejandro.lucero-palau@amd.com" <alejandro.lucero-palau@amd.com>, Srirangan
+ Madhavan <smadhavan@nvidia.com>, "corbet@lwn.net" <corbet@lwn.net>,
+	"skhan@linuxfoundation.org" <skhan@linuxfoundation.org>, "dave@stgolabs.net"
+	<dave@stgolabs.net>, "alison.schofield@intel.com"
+	<alison.schofield@intel.com>, "vishal.l.verma@intel.com"
+	<vishal.l.verma@intel.com>, "iweiny@kernel.org" <iweiny@kernel.org>,
+	"ming.li@zohomail.com" <ming.li@zohomail.com>, Yishai Hadas
+	<yishaih@nvidia.com>, Shameer Kolothum Thodi <skolothumtho@nvidia.com>,
+	"kevin.tian@intel.com" <kevin.tian@intel.com>, "bhelgaas@google.com"
+	<bhelgaas@google.com>, "dmatlack@google.com" <dmatlack@google.com>,
+	"kees@kernel.org" <kees@kernel.org>, "gustavoars@kernel.org"
+	<gustavoars@kernel.org>, Neo Jia <cjia@nvidia.com>, Krishnakant Jaju
+	<kjaju@nvidia.com>, Vikram Sethi <vsethi@nvidia.com>, Zhi Wang
+	<zhiw@nvidia.com>, "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-cxl@vger.kernel.org"
+	<linux-cxl@vger.kernel.org>, "linux-pci@vger.kernel.org"
+	<linux-pci@vger.kernel.org>, "linux-kselftest@vger.kernel.org"
+	<linux-kselftest@vger.kernel.org>, "linux-hardening@vger.kernel.org"
+	<linux-hardening@vger.kernel.org>, Manish Honap <mhonap@nvidia.com>
+Subject: RE: [PATCH v5 21/27] vfio/cxl: Exclude the HDM decoder registers from
+ direct BAR access
+Thread-Topic: [PATCH v5 21/27] vfio/cxl: Exclude the HDM decoder registers
+ from direct BAR access
+Thread-Index: AQHdRgrHAuorG+bHmkC7koIg0uVN17bSYEEAgAZvnmA=
+Date: Mon, 21 Sep 2026 09:52:13 +0000
+Message-ID:
+ <IA1PR12MB90302789C230A974B8922D9FBD842@IA1PR12MB9030.namprd12.prod.outlook.com>
+References: <20260916183540.3813685-1-mhonap@nvidia.com>
+ <20260916183540.3813685-22-mhonap@nvidia.com> <aquVEF7pLCpQxYwa@MWDK4CY14F>
+In-Reply-To: <aquVEF7pLCpQxYwa@MWDK4CY14F>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA1PR12MB9030:EE_|BL4PR12MB9534:EE_
+x-ms-office365-filtering-correlation-id: 3ef57673-b392-4614-7617-08df17c6035d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|11063799006|56012099006|4143699003|38070700021|10067099003|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ c1JD/bsTMIeB1EeP8er7a+0PsznC2NIJjKTrqUf+1vTz8HdzFsx91TYHaSVbGtv0FcaL0Pf8HmIv46bfa/gRYz1Akz61/b0yqz7IdUVCsSSqy0HxLzjIHaAgSMdhN0daeMdIs4Uqwqd9ac+UTTunDpqepZDYhzdFqYhbEyxwJgsrbaE6zxjuY6VxQRRPGIlWaAm4g5Jn6eziJ0IUeUpdMSNq7iqcv6xj2N7m4Gb0vSp4BuWDh4p+mb5JnRgFJSGpGY08aJszNPKeaV7cAmZNGUwCR/v8zIl4CONooE5ShdYxYxQfd7U+0qyFXas3/9jJuTJMAU8s+SuXgml3L70yaQDvl9CqxvaEy0AbBp1RLUjNdBNqr9Ek50Jz6uRqIsl+OXqNEvEcmTQja25hSWjczJtCI8xCizAI6cCenLzcw6BQtfYigMYywW0AHRPben9CFrqxS3LTBTAMh7LZG/56Gvo7mWog+JKz8Q0orT6exyE5DdhngQHEfLWp0mQEXb22r7iN/7OQ7JHdW4fB5Nl73VVlKZVRUy0o6VDH9J6kYh5ADDpOQdOED9ZA8BrC4UQRJuR3ETOK6cXM2Ci2mu2cq13K/A172Ahma/3lJyR+ES+nr3O+c4qj80ts+N+KTFy0Ja90swTw1NjWxijhPj/OoNV4LcOPb3LDGS8xns0xRjVjtOkSB3YdIU85GTQgEfyXCVJTDsQxIBu271kbKoexlqoCX5lUWQDZiGRPiYYSUqM=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB9030.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(11063799006)(56012099006)(4143699003)(38070700021)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Vq2cX+jtix8238Vvw/T+KYdFyNe7d4gDR/kWGcsil77Qg4FsQAGfXFjPobfX?=
+ =?us-ascii?Q?eXSPWa8caxNHLP72IZu1/2ZyFe+peF/5DlAq7joUeVg8SCxzFzQRDXf/SPte?=
+ =?us-ascii?Q?tmSfn+io7D3JxGXrPcNColMcTt2NMfOJTAFGdG26bXLL+qHK0iPIIGu7P85z?=
+ =?us-ascii?Q?0KRJmSjdcRLHVoDDxFKBO4VQWzh5bKO0ZjQ172SEzv8bwCFQcM6Vl8kYKtLR?=
+ =?us-ascii?Q?PJM7dpXttdKDVg/p17Dh0p9PRgyxwpXOk93IG7gvVsKzpmVM3iz5FOOlD2X/?=
+ =?us-ascii?Q?JcVYvRpDBMxD1plkTv2kXeh41VMbgpdm60xGvfZwg9Zw4yRodhp7jw69f0j8?=
+ =?us-ascii?Q?G4ExeC4qUgGbmL24KXSXHvNbOu9y4KHRt+Z1P4Dmjzv003f7UOK/vua5As80?=
+ =?us-ascii?Q?5uCQMjTHIVJIgDuC+F1CVxMuQPItfFzdXvxvmAxQh4WttNjUt7teXz6DTnts?=
+ =?us-ascii?Q?UDrF9p6ldZ1oXsARWe8F1qCZlWVKiIrudlD3vCGUrYdxbr5q80QMsbR2Pq7d?=
+ =?us-ascii?Q?TQttDBTueKTCLzXGwmN9ivIOqRVpBfRUr1bSFIDYzVTexzCsUC+e68FGwrMv?=
+ =?us-ascii?Q?4+irFgJx+R5mZZ50tXhN4TJ5Y2NRFeQqBBsAzYJ8VbyN0mXPZvmDsBOnsGrS?=
+ =?us-ascii?Q?50NEkZ6RYuWHZuK2g+EvpuVCEdJJ3ib/Dx63ZUNEPau+rhMse1reNbanC4rH?=
+ =?us-ascii?Q?qYLGRxCKKtAJj7ZVJkqj+uxXUaKeRu6dZz2u+4TvvbaQ0iSOzz+hxothxw5E?=
+ =?us-ascii?Q?CoFa9aCRiixLe9pAuMxVcoR7yTS+q6gvOwfN1556i0o87/hB1WsHsNVa6Vz9?=
+ =?us-ascii?Q?XtNIYzYTHl7FL5IqP6Q3gqVL93jHBndjUiW/foEPG8nIzxaAWdRutsqge5UT?=
+ =?us-ascii?Q?1tt1W2QlNyRB/AEMwOYwuo6YrMDR8II4hxpl028/fYdK44I+eswNJUcEe5su?=
+ =?us-ascii?Q?ByM7Dk7Etstu0x1YvM57X3KpsdUpk5Fp6D/qQx35vfTBJZqN/JUPpYga6fUu?=
+ =?us-ascii?Q?drNPsCUfBBo/sy3+/wwJcABQnlNy8acHFEDIfDvmpsXIDBpqWUG0mJagRVyE?=
+ =?us-ascii?Q?Yy3J9LKdSvob4EdZDCw5Zra37gZiFwygSuq+ChxfBovyjbk2sPsVumb/UKFz?=
+ =?us-ascii?Q?palNuxbopD33JD/5/1hc/y6wntq1J1/2a+lC+mspmf6Dit5IRomgurISSIhM?=
+ =?us-ascii?Q?mjTknpFWSWjF6oRem89p/046arvjk/Gj2D95cYVfjZKh19d2J2OnjdgCOOBo?=
+ =?us-ascii?Q?ks360fVNNjgTclC61WZrdYwZddYFZfaM7K8wSkkJeR0ghEyjkOVp236PYvJ3?=
+ =?us-ascii?Q?DNv/AJgJEiitrMhNY34UCz/Zh3aAacAGm21+IDvns4TMH1kj1bU5dHd1r9fw?=
+ =?us-ascii?Q?LFDjkhzDDao4im+DYUtbT4Vw2Wp9MZ5doLLge3A/+LCOvEaHbUXWQXer1CCV?=
+ =?us-ascii?Q?V0BuYBXoEqQAV/E7/NRKcBK3tIbNkGRvxp4nfv+V8KTudpE5PJBlYFKFkZy5?=
+ =?us-ascii?Q?K/lyHPCyujxerTMiE1+EkcrpIxVfy5rtM2mhS179q7MWKGjHF6jSlOXfXHZ5?=
+ =?us-ascii?Q?+nhPXvtI861OFssFJeYVJ0Ir9jx7KG3VD+915J88082mPq8dF1MQEM0Kr1ew?=
+ =?us-ascii?Q?VnKeaxvIPHq497JTR5SvG8WvCiWKusT9CQel01TFSdnJnW8PkUEaLi+8NVIY?=
+ =?us-ascii?Q?RyMHP1+QeQMzof7mpMkHdK3Pduf4qyyk8wrWRQAGe1IPydxm?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-add_iris_for_eliza-v2-5-5fe7be8c0230@oss.qualcomm.com>
-References: <20260921-add_iris_for_eliza-v2-0-5fe7be8c0230@oss.qualcomm.com>
-In-Reply-To: <20260921-add_iris_for_eliza-v2-0-5fe7be8c0230@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Wangao Wang <wangao.wang@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789984298; l=752;
- i=wangao.wang@oss.qualcomm.com; s=20251021; h=from:subject:message-id;
- bh=rI9/kjtNsduYBOyjOom1xdDWF+u1HGKFUnT8QwRo51g=;
- b=0SiVfaIXtTwDIQ/mrD3eEPIqmj0BEi795TA+eAEy7uyjl6LHgqK5Wi3paiSsII6G2jP+gjerJ
- gYY8EX/AB8eCx4z5KqcgOZNuhbNOLfc1ZPqTinCg1dAYDqXQN4FzIef
-X-Developer-Key: i=wangao.wang@oss.qualcomm.com; a=ed25519;
- pk=bUPgYblBUAsoPyGfssbNR7ZXUSGF8v1VF4FJzSO6/aA=
-X-Authority-Analysis: v=2.4 cv=aJ9lOr9m c=1 sm=1 tr=0 ts=6ab0fe49 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=8ycGgHVmDalfDplNnMAA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE0MSBTYWx0ZWRfX1bO2r25FF7Rx
- IYicyjaqy/8Do6jdOKxRdOTpcPJ/IroKAHqIxo8MuKTn52m5WAfyHzGBe6LtONVQCqkoPHRTEkP
- D6rw9FiopN9FyldsdOP8VCPi7YKSCLE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE0MSBTYWx0ZWRfX3aInOQx6BIRb
- qdsWcAS2jcm+ZGF4knLLLFzp4P2FyienxaQrswW2f8xa8+zIM/orpBCSykyuHXlrVxeuFvPvcmg
- RerLs9/NwdDIulcIZrBOnxiJvJEakt4eyzyISZFn1XeHfDXnFQTguI1kWj20G1lLSfilA1JuBeg
- mGe3jlGq8/ttaRsj/h+fSYh8NGTEmuNH8w7U0bZ0c8lPEGxMQ6WWTURZ4BiqS0q1Yopcb3R0c+M
- dmju928pJcSS1NrUwEvT0c8RiBOhwiDPYaFa96GZhYNzATLAzYp9jcKQa7suH+DEnGm1eXCZPvN
- p1cO5Hi1gnmP1fYfZZxfzCh528k61SyO9HG41gcI5bLWfWG4rC4Ap63eyg0yN2+ACeW2nKHqWtF
- hlcZ7N6bgtRGXHbzHuyur7l6wqRiUJiVOa9qLsX7BSqs54zzyTTyyxf3EC6OH0dlCrCgDmz1Cnh
- iVUgfoVFcMKfynK1HhA==
-X-Proofpoint-ORIG-GUID: TBymMWxA5sD0s8C6lqfXq8A8p8PVw27c
-X-Proofpoint-GUID: TBymMWxA5sD0s8C6lqfXq8A8p8PVw27c
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 bulkscore=0
- priorityscore=1501 suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210141
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB9030.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ef57673-b392-4614-7617-08df17c6035d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Sep 2026 09:52:13.7085
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 910dmZLrQJNLBjkTak1NTjUVZqgffiTF2fQxHGHeNvxFzqnE2NJurVKnvv6iZsk3K9DWZXOsBM5yPXrNiG1vaw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9534
 
-The Eliza EVK includes the Iris video codec, but the device tree leaves
-the node disabled. Mark it as okay so the video codec driver can probe
-on this board.
 
-Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/eliza-evk.dtsi | 4 ++++
- 1 file changed, 4 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-index 6c5cc47a183eac353e833dc2c3971b5a7301ab05..0d8f86b6c6fed16892369b0d1fa9c7a14f575370 100644
---- a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-+++ b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-@@ -148,6 +148,10 @@ gpio_expander1: gpio@3c {
- 	};
- };
- 
-+&iris {
-+	status = "okay";
-+};
-+
- &pcie0 {
- 	status = "okay";
- };
+> -----Original Message-----
+> From: Richard Cheng <icheng@nvidia.com>
+> Sent: Thursday, September 17, 2026 12:59 PM
+> To: Manish Honap <mhonap@nvidia.com>
+> Cc: alex@shazbot.org; jgg@ziepe.ca; Ankit Agrawal <ankita@nvidia.com>;
+> jic23@kernel.org; dave.jiang@intel.com; alejandro.lucero-palau@amd.com;
+> Srirangan Madhavan <smadhavan@nvidia.com>; corbet@lwn.net;
+> skhan@linuxfoundation.org; dave@stgolabs.net; alison.schofield@intel.com;
+> vishal.l.verma@intel.com; iweiny@kernel.org; ming.li@zohomail.com; Yishai
+> Hadas <yishaih@nvidia.com>; Shameer Kolothum Thodi
+> <skolothumtho@nvidia.com>; kevin.tian@intel.com; bhelgaas@google.com;
+> dmatlack@google.com; kees@kernel.org; gustavoars@kernel.org; Neo Jia
+> <cjia@nvidia.com>; Krishnakant Jaju <kjaju@nvidia.com>; Vikram Sethi
+> <vsethi@nvidia.com>; Zhi Wang <zhiw@nvidia.com>; linux-
+> doc@vger.kernel.org; linux-kernel@vger.kernel.org; kvm@vger.kernel.org;
+> linux-cxl@vger.kernel.org; linux-pci@vger.kernel.org; linux-
+> kselftest@vger.kernel.org; linux-hardening@vger.kernel.org
+> Subject: Re: [PATCH v5 21/27] vfio/cxl: Exclude the HDM decoder registers
+> from direct BAR access
+>=20
+> On Thu, Sep 17, 2026 at 12:05:34AM +0800, mhonap@nvidia.com wrote:
+> > From: Manish Honap <mhonap@nvidia.com>
+> >
+> > The HDM decoder register block lives in the component BAR that
+> > vfio-pci owns. The guest reads the decoder only through the trapped,
+> > read-only decoder region; it must not reach the physical registers
+> > through the BAR directly, and a host read of the range through a
+> > kernel mapping could abort as a fatal host SError.
+> >
+> > Add the block to the generic excluded-range list with
+> > VFIO_PCI_EXCLUDE_MMAP | VFIO_PCI_EXCLUDE_READ |
+> VFIO_PCI_EXCLUDE_WRITE
+> > similar to the MSI-X exclusion.
+> >
+>=20
+> Hi Manish,
+>=20
+> I think we need to block eventfd write and BAR DMA as well ?
+>=20
+> Have some comments below.
+>=20
+>=20
+> > Assisted-by: LLM
+> > Signed-off-by: Manish Honap <mhonap@nvidia.com>
+> > ---
+> >  drivers/vfio/pci/cxl/vfio_cxl_core.c | 17 +++++++++++++++++
+> >  1 file changed, 17 insertions(+)
+> >
+> > diff --git a/drivers/vfio/pci/cxl/vfio_cxl_core.c
+> > b/drivers/vfio/pci/cxl/vfio_cxl_core.c
+> > index da04776356e4..37e8a3b54cfb 100644
+> > --- a/drivers/vfio/pci/cxl/vfio_cxl_core.c
+> > +++ b/drivers/vfio/pci/cxl/vfio_cxl_core.c
+> > @@ -435,8 +435,25 @@ static int vfio_cxl_add_region(struct
+> > vfio_pci_core_device *vdev, u32 subtype,  static int
+> > vfio_cxl_open_device(struct vfio_pci_core_device *vdev)  {
+> >  	struct vfio_cxl_state *cxl =3D vdev->cxl;
+> > +	struct pci_dev *pdev =3D vdev->pdev;
+> >  	int ret;
+> >
+> > +	/*
+> > +	 * Keep the HDM decoder block out of the guest's direct BAR access:
+> the
+> > +	 * guest reaches it only through the trapped decoder region, and a
+> host
+> > +	 * read of the range through a kernel mapping could abort as an SErro=
+r.
+> > +	 * Exclude it from mmap, fill reads with -1 and drop writes. The list=
+ is
+> > +	 * cleared on close, so re-add it per open.
+> > +	 */
+> > +	ret =3D vfio_pci_core_add_excluded_range(vdev, pdev->hdm->hdm_bar,
+> > +					       pdev->hdm->hdm_offset,
+> > +					       cxl->hdm_len,
+> > +					       VFIO_PCI_EXCLUDE_MMAP |
+> > +					       VFIO_PCI_EXCLUDE_READ |
+> > +					       VFIO_PCI_EXCLUDE_WRITE);
+>=20
+> This adds the HDM reg to the exclusion list, but the eventfd and BAR DMA
+> path doesn't check that.
+>=20
+> Maybe we need to block those 2 path as well ?
+>=20
 
--- 
-2.43.0
+Thanks, yes, I Agree on both. The excluded-range list was only consulted on
+the fd read/write and mmap paths, so, I think, the decoder block is still
+reachable two other ways suggested above.
 
+For ioeventfd: I will add a guard in vfio_pci_ioeventfd() to reject a
+registration whose [pos, pos + count) overlaps a write-excluded range, righ=
+t
+next to the existing MSI-X guard.
+
+For BAR DMA. I will add a check in vfio_pci_core_feature_dma_buf() to rejec=
+t
+an export whose ranges overlap an excluded range on that BAR.
+
+Thanks,
+Manish
+
+> Best regards,
+> Richard Cheng.
+>=20
+>=20
+> > +	if (ret)
+> > +		return ret;
+> > +
+> >  	/*
+> >  	 * vfio_pci_core_disable() frees all dynamic regions on close, so
+> register
+> >  	 * them here per open rather than at bind. A failed first open never
+> > --
+> > 2.25.1
+> >
+> >
