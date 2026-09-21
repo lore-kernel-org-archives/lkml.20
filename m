@@ -1,111 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-93.mta0.migadu.com [91.218.175.93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0327448EC9E
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:16:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2578948EC9E
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:16:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.93
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789989374; cv=none; b=kHop/M5QAGYOyxzZ+3D4CLk60Kxi84LPO1ifyml1vlF9S2q8MR1Fl5EwLZ8rMTtZDFIUMLVgNmbhJU1OKOGlOYN9MyMRPWOGz5HL7Ze9og8O0Yc1GCTBh9x//sG3p0HjRChDb87bw190QbTOwp4dbc+dl4TFew8Yzb4Rx3zRhTI=
+	t=1789989382; cv=none; b=o9Hf814U4paou30CRekXpDiiQ23mqQWyATuBgFyJHLMqelVMBYmlV3lPz1VJ1QrPcDtH9XRIWmJ9l6ggvLnKH6zMrxBBzcjx3i6U9M2Ad1IvrvDRRaJIWPyzhO+n5y8goV6pCTtcHLE/9PL/YeKZnf82eUC+lM8E1Ei9DB0NSDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789989374; c=relaxed/simple;
-	bh=8ZrL1Qk82JC/DsKJBv6clrtjkiFR/oATgqHqtfCf7TQ=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EY/MrDSKIHuwj08jO3YFA7zFdrWd6KrOZmkVRMblLDClmgNES9Or5E/qIA/LDaTw5pT9XIKmnyDzKjMO8BtOPcDQDT6mPqYdyds3PXFSMy5kTPYZt6s5M8WH+msV1OwGcBlIInNdXo93gaakvIcGAGld6XNRTzfguRf6bcgZUUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gpzo2vlj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789989382; c=relaxed/simple;
+	bh=gatQIgMu3v/IsMUVrYP5QjjizymHE9HTRW55gqqQDXU=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=KpWyzFI4YzRhNOn1rmgw8fJMOjMg59rLpiLqWBsufYm93qFqIc/uQ+fOypVC8zVe3rtH6wOGSYEDWskA4NKfdPnIc3eBhc/ddU2LxpiGxyKanynNLsWY29Rrj339ow1uYG7qigmoCG2csJjJQrba6TxSygTBtTLM8HzQxGLGPZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ah2ILXlJ; arc=none smtp.client-ip=91.218.175.93
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gpzo2vlj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17031F00898
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:16:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789989370;
-	bh=Kx+QAr4ToKGYlWngvHHV4j0mm9EDwxDdHyCjQotbmHw=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=Gpzo2vljT2HuymoqbCrtcFV0Ilc4qveze20AdFQvj2VVTBe3FjupreimH2/6MSYxt
-	 TPbGFRznhxEn8LYS3J16BMBU4MgtmNdrhRpH38vyaCX0PfaDWLb9Z1FhCgLqrNov/p
-	 x4r4ZxUuNOUdHpDGt1fqrn5yQtM29krNQ0e0aihkDqe+P11SOTDMaITR0QlP2L2M4M
-	 H7SXJ3yGMCsg4cpoJjUZaKNhFTB26KWwE/3xWndiVUidgs4BzbV7WhrC1nnTOVrCGi
-	 pxxiQkgSGY8bCOSldOyLh3EY5nVMPo9t1vD5vJT6IRCv0LE8Fq9I5XYSOycewPyd7Q
-	 Dn9Cs1GgK2NEA==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a49bc59559so18519421fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:16:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwmotJo/TFKeWxQDTSW48XeZj5e4eKEHbL98aQD16m8Ex43mCUrLnJjEYqOo5K8XZ+FMTLSDGDHpkZGT1Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++njLb+jxd2ZKzrEPF3zJxoIvjEacOncQNvBK8TwWbKr+TPWwA2K
-	ZEigDVjYjva8BSV+S/QS3D+9eSV8XnGc9VictnqEFrS0fhKmG8Wl2E851xBDtbQLYx+aVH55glV
-	ipNo49IuIZo+YLOExWl2I1eQ9yahbd+nE4078ZC04XQ==
-X-Received: by 2002:a2e:beab:0:b0:3a3:7681:6d6b with SMTP id
- 38308e7fff4ca-3a5fc0898f4mr24620201fa.20.1789989369291; Mon, 21 Sep 2026
- 04:16:09 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 07:16:07 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 07:16:07 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <aqz-Wfa7sLNMlxym@gondor.apana.org.au>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ah2ILXlJ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=gatQIgMu3v/IsMUVrYP5QjjizymHE9HTRW55gqqQDXU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789989377; v=1; x=1790594177;
+ b=Ah2ILXlJUiKmMBQ1B/wLli2UkwdnNt4Qa+mxodmPSWcyTrLObSoJRJF1Dy4SpeONenSkSuyd
+ 2oEAlmsNg4E9NeLNx0OoxjKhbzo5mUU+ObrfGPgu1UpcWiGkB2PgBkFyNIIm15DrankoS2e6zu/
+ wyWp5ShFZ9eamQ8BRyRJH2rs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 89478576c1541826;
+	Mon, 21 Sep 2026 11:16:16 +0000
+X-Mizu-Trace-ID: 89478576c1541826
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com> <aqz-Wfa7sLNMlxym@gondor.apana.org.au>
-Date: Mon, 21 Sep 2026 07:16:07 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MdtL_djqfHqh0fx4Y3B2e33mvKDsVb4bUVAAutyOULqMg@mail.gmail.com>
-X-Gm-Features: AcwNN1VdFJqsdmLtUEpvvQalKYJeC0bqhIxDdP6vo3jg0p3p6d92YvZG7ppnXWE
-Message-ID: <CAMRc=MdtL_djqfHqh0fx4Y3B2e33mvKDsVb4bUVAAutyOULqMg@mail.gmail.com>
-Subject: Re: [PATCH v7 00/12] crypto: qce - Fix crypto self-test failures
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Thara Gopinath <thara.gopinath@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Stanimir Varbanov <svarbanov@mm-sol.com>, Eneas U de Queiroz <cotequeiroz@gmail.com>, 
-	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, Eric Biggers <ebiggers@kernel.org>, 
-	Demi Marie Obenour <demiobenour@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-crypto@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, brgl@kernel.org, 
-	stable@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Date: Mon, 21 Sep 2026 11:16:16 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Frank Wunderlich" <frank.wunderlich@linux.dev>
+Message-ID: <6b691a27f27eee1a058426cc7fd5a3fbdbfd45a6@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH 1/2] clk: mediatek: mt7988: keep combo-lane U3 PHY ref
+ clock enabled
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>,
+ "Frank Wunderlich" <linux@fw-web.de>, "Stephen Boyd" <sboyd@kernel.org>,
+ "Brian Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
+ <jbrunet+clk@baylibre.com>, "Matthias Brugger" <matthias.bgg@gmail.com>,
+ "Mathias Nyman" <mathias.nyman@intel.com>, "Chunfeng Yun"
+ <chunfeng.yun@mediatek.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>
+Cc: "Frank Wunderlich" <frank-w@public-files.de>, "Daniel Golle"
+ <daniel@makrotopia.org>, "Mihai Ordean" <research@mihaiordean.com>,
+ "Chen-Yu Tsai" <wenst@chromium.org>, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-usb@vger.kernel.org
+In-Reply-To: <a71b6552-ea57-4575-89e1-14d414d53569@collabora.com>
+References: <20260919114744.46777-1-linux@fw-web.de>
+ <20260919114744.46777-2-linux@fw-web.de>
+ <a71b6552-ea57-4575-89e1-14d414d53569@collabora.com>
 
-On Fri, 18 Sep 2026 11:03:21 +0200, Herbert Xu
-<herbert@gondor.apana.org.au> said:
-> On Thu, Sep 10, 2026 at 03:00:41PM +0200, Bartosz Golaszewski wrote:
->> This iteration - in addition to the previous fixes - proposes to split
->> the QCE driver into a core part necessary to bind to the QCE DT node and
->> enable runtime power management in order to allow to drop the
->> interconnect votes, and the crypto part registering the crypto
->> algorithms. The core module is then enabled in arm64 defconfig while the
->> crypto part stays disabled by default.
->>
->> The QCE hardware crypto engine has several limitations that cause it to
->> produce incorrect results or stall on certain inputs. This series fixes
->> several bugs and adds workaround allowing the deiver to pass crypto
->> self-tests.
->>
->> The failures addressed are:
->>
->> - HMAC self-test failures for empty messages
->> - AES-XTS returning success on zero-length input (should be -EINVAL)
->> - AES-CTR: partial final block causes the engine to stall, output IV
->>   derivation was incorrect
->> - AES-XTS with key1 == key2 is not supported by the CE
->> - AES-CCM: partial final block and fragmented payload both stall the
->>   engine
->>
->> All fixes were tested on an SM8650 QRD board with
->> CONFIG_CRYPTO_SELFTESTS=y and CONFIG_CRYPTO_SELFTESTS_FULL=y.
->>
->> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->> ---
->> Changes in v7:
->> - Add follow-up changes converting the QCE crypto driver to auxiliary
->>   bus, adding the core QCE driver under drivers/soc/ registering the
->>   auxiliary device and removing the BROKEN Kconfig label
->> - Link to v6: https://patch.msgid.link/20260717-qce-fix-self-tests-v6-0-455775fe5f6c@oss.qualcomm.com
->
-> For some reason your patches do not apply, please fix this and
-> resubmit:
->
-> https://sashiko.dev/#/patchset/20260910-qce-fix-self-tests-v7-0-cdbd2718af14%40oss.qualcomm.com
->
+Am 21. September 2026 um 11:59 schrieb "AngeloGioacchino Del Regno" <ange=
+logioacchino.delregno@collabora.com>:
 
-Weird, I did base the series on current linux-next. I'll do the same for v8.
+Hi angelo
 
-Bart
+> On 9/19/26 13:47, Frank Wunderlich wrote:
+>=20
+>=20>=20
+>=20> From: Mihai Ordean <research@mihaiordean.com>
+> >  CLK_INFRA_USB_PIPE is the reference clock of xphyu3port0, the U3/PCI=
+e
+> >  combo serdes. On MT7988 that lane is shared between ssusb0's SuperSp=
+eed
+> >  side and pcie2, but only the consumer that claims the PHY holds the =
+gate.
+> >  On the BPI-R4 Pro, ssusb0 is configured USB2-only (u3p-dis-msk=3D1) =
+and
+> >  pcie2 claims the lane for the CN13/CN15 M.2 slot, so pcie2 is the so=
+le
+> >  holder. u3p-dis-msk does not remove ssusb0's SuperSpeed root hub: th=
+at is
+> >  decided by xhci_has_one_roothub(), which keys off usb3_rhub.num_port=
+s
+> >  from the xHCI capability registers, so bus 2 is registered and live
+> >  regardless. When the M.2 slot is empty, pcie2 fails link training (-=
+110)
+> >  and its error path calls phy_power_off()/phy_exit(), which gates thi=
+s
+> >  clock - and sspxtp_sel with it, as nothing else consumes it. The sti=
+ll
+> >  registered SuperSpeed root hub is then left polling a serdes whose P=
+HY
+> >  reference clock has just stopped,
+> >=20
+>=20I'm not sure why said clock cannot be assigned to the USB controller =
+as well
+> as the PCIe PHY to keep the refcount high, avoiding to gate it?
+
+the clock is assigned to the phy which is assigned to both consumers
+
+mt7988a.dtsi:
+
+		xsphy: xs-phy@11e10000 {
+			compatible =3D "mediatek,mt7988-xsphy",
+				     "mediatek,xsphy";
+			...
+
+			xphyu3port0: usb-phy@3400 {
+				reg =3D <0x3400 0x500>;
+				clocks =3D <&infracfg CLK_INFRA_USB_PIPE>;
+
+		ssusb0: usb@11190000 {
+			compatible =3D "mediatek,mt7988-xhci", "mediatek,mtk-xhci";
+			...
+			phys =3D <&xphyu2port0 PHY_TYPE_USB2>,
+			       <&xphyu3port0 PHY_TYPE_USB3>;
+		};
+
+		pcie2: pcie@11280000 {
+			compatible =3D "mediatek,mt7986-pcie",
+				     "mediatek,mt8192-pcie";
+			...
+
+			phys =3D <&xphyu3port0 PHY_TYPE_PCIE>;
+			phy-names =3D "pcie-phy";
+			...
+		};
+
+but this seems not enough...do you mean we need to define the clock again=
+ for both
+consumers (e.g. via assigned-clock-parents property)?
+
+regards Frank
+
+> Cheers,
+> Angelo
+>=20
+>=20>=20
+>=20> and asserts the shared SSUSB interrupt
+> >  outside the xHCI event ring; xhci_irq() reads USBSTS with EINT clear=
+ and
+> >  returns IRQ_NONE, so the core disables the line ("nobody cared") and=
+ the
+> >  next USB teardown blocks forever in xhci_disable_slot().
+> >  Boot logs show the storm threshold being crossed 86-107 ms after the
+> >  pcie2 probe failure, while the earlier combo-mux switch to PCIe mode
+> >  (~550 ms before) causes no trouble, pointing at the clock gating rat=
+her
+> >  than the mux as the trigger.
+> >  Mark the gate CLK_IS_CRITICAL so the combo lane keeps its reference =
+clock.
+> >  Only port 0's gate is affected; ssusb1 uses CLK_INFRA_USB_PIPE_CK_P1=
+.
+> >  Signed-off-by: Mihai Ordean <research@mihaiordean.com>
+> >  Signed-off-by: Frank Wunderlich <frank-w@public-files.de>
+
+
+regards Frank
