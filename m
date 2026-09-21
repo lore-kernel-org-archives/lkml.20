@@ -1,134 +1,132 @@
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6009B381B10
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:12:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DE2283AF66E;
+	Mon, 21 Sep 2026 10:14:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789985565; cv=none; b=dHIvRXQw1oUVZ0vdfm/Jc12CMjBgNOUWhTrtYDtOkKGbK96fT2z95tq94GQozXGVI49nPv9WiuoKVsaGM9dOnDj7UPlRA4nO4vxTsZCMSvQUkO4J0KDPk5YsPnalkWEDbXV9aBG1ZUWEJ6yj3UTlH0nNtJJPyd+DhfYOalAhIQA=
+	t=1789985670; cv=none; b=gryTX7h+5fZ/98RU7YVE8EeBME1AkoWuItVNaAxkl8mH5Hm7PNI5k393t8PZxGYSMQ3eCpOrF4JXwDfwfcIieIurwiVhEF9//wuV/4ywApHT5Z0LDNPfvswCplCSuwb5iTFUQNEI9IsGv3zHnAcxAzSlYJvFpn5M5TAyJ8IC/xA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789985565; c=relaxed/simple;
-	bh=KKwhb/oSPtsp1yRz2ZuESm5esBcN5/jst4ue59zuig4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 References; b=Fihu5qdJSOOw7IwwshBoa7J8nvJeGHPt9Aq5UxWqo8oXr+LiztYhPC8gCkKAZdo0dtXHcSfJcXX2xCBiQl56+2uKusAloVLOtp2aFB3DCIl4te4WJ7WGyxpRtPGSWW6xvirzlBGBhDsSN64VPouExNFTJH7hnI39CecUonYC26U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=P/4DeJ6/; arc=none smtp.client-ip=203.254.224.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1789985670; c=relaxed/simple;
+	bh=X21Q+N08xUOyF31kxvte0qv2v56innxWRBgC11u9YPg=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Rq7RfQt+t81UWyKsvXhgyZIrPrCoCNZE8V16+vcVqU2Ew7w90B+V2GpSXKPA1NLFSeqdav1muSj5QRkK9OH5FL3nV40HJINMgO644yiC/DVZhlHU8jwT0P2ZGkUtoXX8ObKSUQkhHboySFdueYv9ivNQVN5eSTkSC6uQVZjVRnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bi8wj6lS; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="P/4DeJ6/"
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260921101240epoutp02397ed3f0ed29a1c1acfdc2c2ad0f315f~XTmIhiprJ1305313053epoutp02E
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:12:40 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260921101240epoutp02397ed3f0ed29a1c1acfdc2c2ad0f315f~XTmIhiprJ1305313053epoutp02E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789985560;
-	bh=H6EckjlZbTDuDbr8yAjtNMKEFEFvX00BNEUZIPb4CHo=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=P/4DeJ6/e0/RjQVsRJ0kC/ReA4NwL273z7HLSEO6wmDztjTGpKhs8+NW9k2BvaRXS
-	 PI5XVb01d6OPU57or+aZXGt8wP9eQL4xB5nsEeYET9dwpe8GVlx+KbYQ/bDejMfCMl
-	 phikOd3M2fyhImrCEAbxJjk3mR8DdsG5b63oAvbg=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
-	20260921101239epcas2p174aa964020ddd17ed666d3db3b656bde~XTmIFdRIH2148721487epcas2p1Z;
-	Mon, 21 Sep 2026 10:12:39 +0000 (GMT)
-Received: from epcas2p1.samsung.com (unknown [182.195.38.200]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4hpJvC3NrVz6B9m8; Mon, 21 Sep
-	2026 10:12:39 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
-	20260921101238epcas2p39bec3831b3cbaaa71de0ece7b7f7329d~XTmHUpWgl0503405034epcas2p3B;
-	Mon, 21 Sep 2026 10:12:38 +0000 (GMT)
-Received: from KORCO090182.samsungds.net (unknown [12.80.211.164]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260921101238epsmtip13d954d6aed26e77e2ba84064f8c60b7f~XTmHQTWSs2430824308epsmtip1L;
-	Mon, 21 Sep 2026 10:12:38 +0000 (GMT)
-From: Janghyuck Kim <janghyuck.kim@samsung.com>
-To: sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, Janghyuck Kim
-	<janghyuck.kim@samsung.com>
-Subject: [PATCH] dma-buf: don't WARN_ON_ONCE() on a failing
- dmabuf->ops->vmap()
-Date: Mon, 21 Sep 2026 19:09:46 +0900
-Message-Id: <20260921100946.353521-1-janghyuck.kim@samsung.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bi8wj6lS"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7ED0A1CE0;
+	Mon, 21 Sep 2026 03:14:23 -0700 (PDT)
+Received: from [10.0.128.141] (unknown [10.0.128.141])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 173203F86C;
+	Mon, 21 Sep 2026 03:14:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789985667; bh=X21Q+N08xUOyF31kxvte0qv2v56innxWRBgC11u9YPg=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=bi8wj6lSXbc+slgPhtQo8H+KMor5M5yzY0r8RQQqFvDPPtgRm0RMutnIRxaToRdTG
+	 YWI+Jnobq16nw+PjJSrqSjkJr7INZTwpehy3S8gXoDGcYoHz2kHClYB+y772yLyN7Z
+	 EPCugkdEQQwCspBynGN7LkS+G00+KuamtoSo/uq0=
+Message-ID: <eb4a30a0-abd2-4334-b5f3-62621ec5a19e@arm.com>
+Date: Mon, 21 Sep 2026 11:14:22 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 1/7] firmware: arm_rmm: Add SMC definitions for
+ calling the RMM
+Content-Language: en-GB
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
+ <20260912083611.2513845-2-suzuki.poulose@arm.com>
+ <178978126540.2352296.16845657485139032765.b4-review@b4>
+ <d7ccaf22-5bde-4344-8bf0-a5a17dcac0f3@arm.com>
+In-Reply-To: <d7ccaf22-5bde-4344-8bf0-a5a17dcac0f3@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260921101238epcas2p39bec3831b3cbaaa71de0ece7b7f7329d
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260921101238epcas2p39bec3831b3cbaaa71de0ece7b7f7329d
-References: <CGME20260921101238epcas2p39bec3831b3cbaaa71de0ece7b7f7329d@epcas2p3.samsung.com>
 
-dma_buf_vmap() escalates any non-zero return from dmabuf->ops->vmap()
-into a WARN_ON_ONCE(). But a failing vmap() is not, by itself,
-evidence of a violated invariant or a driver bug -- it's an ordinary
-runtime failure of a fallible operation, no different from any other
-allocation-shaped kernel API that can return an error. The dma-buf
-core has no visibility into what a given exporter's vmap()
-implementation considers a normal failure versus an internal bug;
-that distinction, if it matters at all, belongs to the exporter, not
-to this generic passthrough.
+On 21/09/2026 10:27, Suzuki K Poulose wrote:
+> On 19/09/2026 02:27, Jonathan Cameron wrote:
+>>> The RMM (Realm Management Monitor) provides functionality that can be
+>>> accessed by SMC calls from the host.
+>>>
+>>> The SMC definitions are based on DEN0137[1] version 2.0-bet3
+>>>
+>>> [1] https://developer.arm.com/documentation/den0137/2-0bet3/
+>>>
+>>> Signed-off-by: Steven Price <steven.price@arm.com>
+>>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>>
+>> With Gavin's nitpicks and the GENMASK_ULL() from sashiko, just a few
+>> comments inline.  Mostly on subtle inconsistencies that really don't
+>> matter that much.
+>>
+>>>   include/linux/arm-smccc-rmi.h | 497 ++++++++++++++++++++++++++++++++++
+>>>   1 file changed, 497 insertions(+)
+>>>   create mode 100644 include/linux/arm-smccc-rmi.h
+>>>
+>>> diff --git a/include/linux/arm-smccc-rmi.h b/include/linux/arm-smccc- 
+>>> rmi.h
+>>> new file mode 100644
+>>> index 000000000000..214d6228dfc2
+>>> --- /dev/null
+>>> +++ b/include/linux/arm-smccc-rmi.h
 
--ENOMEM is a concrete, easily reproduced example of this. Page
-allocation on the vmap()/vmalloc() path can fail purely because the
-calling task has a fatal signal pending: should_reclaim_retry() in
-mm/page_alloc.c intentionally gives up reclaim and returns false
-once fatal_signal_pending(current) is true, so that a task that is
-already being killed (e.g. by a userspace low-memory killer) isn't
-stuck retrying reclaim on its way out. The resulting -ENOMEM from
-dmabuf->ops->vmap() is expected behaviour in that case, not a bug in
-the exporter -- and it is far from the only way ops->vmap() can
-legitimately fail (an exporter may just as well refuse to vmap a
-buffer for other, unrelated reasons of its own).
+..
 
-This is exactly the kind of condition Documentation/process/coding-style.rst
-warns against for WARN*():
+>>> +
+>>> +struct rec_exit {
+>>> +    union { /* 0x000 */
+>>> +        u8 exit_reason;
+>>> +        u8 padding0[0x100];
 
-    WARN*() must not be used for a condition that is expected to
-    trigger easily, for example, by user space actions.
+...
 
-A failing vmap() is reachable purely by driving the system into low
-memory and then issuing an ioctl that happens to map a dma-buf -- no
-driver misbehaviour required. Turning that into a WARN_ON_ONCE(),
-and on panic_on_warn kernels into an outright panic, doesn't help
-debugging; it just turns an otherwise-recoverable error into a fatal
-one.
+>>
+>>> +    };
+>>> +    union { /* 0x400 */
+>>> +        struct {
+>>> +            u64 cntp_ctl;
+>>> +            u64 cntp_cval;
+>>> +            u64 cntv_ctl;
+>>> +            u64 cntv_cval;
+>>> +        };
+>>> +        u8 padding4[0x100];
+>>> +    };
+>>> +    union { /* 0x500 */
+>>> +        struct {
+>>> +            u64 ripas_base;
+>>> +            u64 ripas_top;
+>>> +            u8 ripas_value;
+>>> +            u8 padding5[0xf];
+>>
+>> In various other places you just use a u64 for a u8
+>> + padding. Why is this one special? And for that matter
+>> various other fields later in this particular structure?
+> 
+> Please feel free to point out, if you spot any. I am happy
+> to fix them.
 
-Drop the WARN_ON_ONCE() and simply propagate the error, consistent
-with how other allocation-failure paths in the kernel are handled.
-The dma_buf_vmap_unlocked()/dma_buf_vmap() contract is unchanged:
-both still return the negative errno from dmabuf->ops->vmap() to the
-caller. Only the WARN_ON_ONCE() splat (and, transitively, the panic
-on panic_on_warn kernels) is removed.
+I took a look and the padding is for extra "u64" bits in there.
+e.g, ripas_value offset = 0x510 and the s2ap_base is really at 0x520
+not 0x518. Same applies for the pmu_ovf_status and vsmmu.
 
-Signed-off-by: Janghyuck Kim <janghyuck.kim@samsung.com>
----
- drivers/dma-buf/dma-buf.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+So, I would leave them as they are. The rest are consistent.
+e.g, num_bps and num_wps. in realm_parameter
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 36cdc342627e..252495761a21 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -1670,7 +1670,7 @@ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
- 	BUG_ON(iosys_map_is_set(&dmabuf->vmap_ptr));
- 
- 	ret = dmabuf->ops->vmap(dmabuf, &ptr);
--	if (WARN_ON_ONCE(ret))
-+	if (ret)
- 		return ret;
- 
- 	dmabuf->vmap_ptr = ptr;
--- 
-2.34.1
+Cheers
+Suzuki
 
+
+>
