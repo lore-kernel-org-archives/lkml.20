@@ -1,230 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BAAB434E42;
-	Mon, 21 Sep 2026 20:20:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790022059; cv=none; b=sB7vBSSrPuAvdv7pqxDPLKjcUNJdQJahFDTK5aWqE8PXZpH1H2ooDQUzZ6QHfmYuWkvrGlj/on88I/0vldc2M81oapysIxyI4vQ1f8ZMr6Z702PTZFo8Xo/X3NatSV7OYZiCSSkC+THQ0CNvIEmxJOa7xWFr/MWw33dO1K3HDFQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790022059; c=relaxed/simple;
-	bh=ReYLXHNFtT/K5Zs4fdRlX7rfSg4iXApJqVxhDoqvA+M=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uw4tx6Wn5BgZAUY6d5KO/lOPWIh6Vd8A+IYTXj5rqScg8fumT+gG/gFrz1B9P3LdRykGkrXPsIq0h4qhSh0J4zY0TUqH3wEzBSXTDR3OvewE3TrCnOb3THM8Ed5HN/t/NDPhZ1V4U/CqsZbhs7dLzXunphCJgCBMCnctrJWn0tg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HYPpsxvj; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57D042FCDB
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:22:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790022171; cv=pass; b=iv6S/rByEZJ+2/GU/fZ63MHIP2ZQIMIBq1oy9eEFH8f1ULWViINnHMLrg8SBWcVoa6SZY7B59unRnIKVyCXiYJTNDXPOCfZrt2u5LYAuSsBP1l/RelsA+52PcSYjYgwwHu5rkCx98GNeRR8bAM3qSgmikVT0FHCJ3NLBhKy9MEg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790022171; c=relaxed/simple;
+	bh=5AoAm7kCydoLQsr+i6jrfa1JthOko596jNaE8bcwdh0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=n/9jz6YVjsCdggChRCezG4hHihsKWJfem5hZy14ivhSmm7t8D/sRdqf/kmtjpZKmzHVWKfE9JWJKW56dwhgpSeDd0katxr5wAU/GLaXdNmOfxVppLzrWnZRxiSggy/fGGSzjJ35dlGfO6Rqnqdb3P7fa0qzIfQK95ea3UMMes9g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NZPUSklz; arc=pass smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HYPpsxvj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D6261F00893;
-	Mon, 21 Sep 2026 20:20:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790022057;
-	bh=hTOTY1vDZ/URN1ByDhuIA/NtkHJAtz5pa2SS2+OP/9E=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=HYPpsxvjtkjXtUIFzXFcYCbFay0UHA8Nhx10iROOSDFOEfIog343t2rjbBMu+J3aH
-	 IErl4DZns224nBaxRf3ujn0ieQlCtfsVn2QnNqa7gHBInl0tvWXPw4YPdJiQI1uPDQ
-	 XFhJdwqeT5/45LjkC6Po+7hSLxt7EvH0Wxzs8w7Zh9Sl2ar1bBKxmlyH6j/edeQS2Z
-	 IZ+i3HXujgtTBE2URrdI9vIJj5cNj4zV3wKxQ5+ngT0PNCfNhFggBZh9q7RrWsih52
-	 rG9DvY/qZWjroW6gdF87q+xRGdOdgyD+gszkMigxAQWfVOGq5AgrrFpdwzKgQe2XBp
-	 xFgn1mH3fYx9A==
-Subject: Re: [PATCH net-next v3 3/3] selftests: net: cover IPv6 uncached route
- device mismatch
-From: netdev-bot+sashiko@kernel.org
-To: carges@cloudflare.com
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- shuah@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, kernel-team@cloudflare.com
-Date: Mon, 21 Sep 2026 20:20:56 +0000
-Message-ID: <179002205606.2160803.14680010273423486409@kernel.org>
-In-Reply-To:
- <20260917-hash-bucket-route-lists-v3-3-30493a37b6eb@cloudflare.com>
-References:
- <20260917-hash-bucket-route-lists-v3-3-30493a37b6eb@cloudflare.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NZPUSklz"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d8facae850so11155ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:22:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790022169; cv=none;
+        d=google.com; s=arc-20260327;
+        b=H4ep1rLjzO3iMlafRqv83YSWEJfBnyiK9TrWNCIc4L45Kx6ehowem/NBnD1fAon8R2
+         bK2tTfV8VUqbqXIAKz0VNYWp1188qtHa1dAqY0Z9mA6J0eUha6uesx8/234M8iCjArQQ
+         AFJ3TkeuO5E9vO/qcefB7Lvhde1AALd2UFtvmFAlv82g/KprQQz1udFumyysvBbbajcG
+         k/gSUC0GGG7GsaovOrX3TOqR8d0EEVUqc/VL7B8H8UtAD98TOJ9n5IwTJaU/S7s31B/L
+         mio87A/XoRdD04lM0RSPIIgauNDnHEpefn9AJrQeljqvauj8h15Dr+ttY292ceiQMRQ2
+         2i2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZZjuQxZbTYuwf9RVKp56gufP8tt1Juurh+o7CdzjxoY=;
+        fh=sb+Vc0d+ttXLcjchzXqwD+6GjxjvijFq0SlXFfyRUN0=;
+        b=X/jvv6EqziqRsLgj7tHKKuwX5uXbUgKoYm6nSXRzOGHYBImK16c2C8lbzafB4j/MNj
+         Uy8gKSNEl+v0ws97mNjHcqGGKcIgFlgnR2AybJfkC1UE5n/ZKSwBYaXxyEgZR5Iw7SY2
+         XfZW3Ir5Tiv626fm1vpfkQR2uzpaVdx1+3BH2diGaNX/SxhoC00uqKgyEGp0kmlchXFw
+         Frix5tVtLBJ9fy+NTVymzZd5hPu5fzjzYHK29s8krWFv+rj9lge5JUlf/BVNOhMTuYoI
+         jOD4WEGlPWUrMmKb0VZBUgfpwHUgsRA+4fdtIrhkOlERpp4t8gGKyNrZzrIWBS6A2kuX
+         LvSg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790022169; x=1790626969; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZZjuQxZbTYuwf9RVKp56gufP8tt1Juurh+o7CdzjxoY=;
+        b=NZPUSklzX91cqloY9UWtg2FDsu0QfMamuJIYh37mCQ9uf8iUvDG0RLPZntzjk1dmtD
+         j30Y3/Xf33ZxYFl6lIwIMluHu7nOiazNqy/dpeU9I8gUZtgdHC3CXbY6//v3bB87r+08
+         grxj/3LDypylKj77WsDYjH5dtlSXr6AJWE24kb1caw3yYTfO0IQjz7vGOeCV1cSNR3E0
+         JHrAj6AIC+7RYM+jMWLd0KQJ2JdAucmtx5xouyALxCr2ybiboglaHeksRYJhqo5wClAs
+         UBu7Y6CRvu0ujbQHCqQIoHNsMpTGP6QF7M2O4Vjso6zCq4anfXZgyG2Wyn6sY/32aSCv
+         m8BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790022169; x=1790626969;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZZjuQxZbTYuwf9RVKp56gufP8tt1Juurh+o7CdzjxoY=;
+        b=moAjdKewnXd3NYN0N5LerwYUntR+nm1OrL//kSnKFUtb1n6283T95LslSauQT/OtcH
+         mlycNWuSAGcGGeRm6FjVPAKBdPdE1prvZleiq59/9/3MfCos8Nz3+/0PF/FG+5k0wQ9r
+         JKPiBJx6bMmNj0fehytOL5P1Al8RUqiVw5ra2Ygoe6gZQjGVxYbLuPBZiJjbC2V1NuU6
+         raMjnqlFm4ZxcK/tZ51s9x7zS/E6UuBLqzzWCwBEziaa7HXAxj5cWlAz3KQAy5mBaOTL
+         gxmYCKl3KnuG6kAKOaSBbL34s9sexNvM2jvF41Tsy2u33+gmp8hLkWZAh9wioqN3itlL
+         /Msg==
+X-Forwarded-Encrypted: i=1; AKwUvBx7NRH8mDo1Vi04B0XP5iM+VEPkf/k7h/6PfbUlXWsqqRoXZA9n0isA1MedDNcOx7E/Uo+OXgvBv39Kdys=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNDStiUmL9AZGSu56Q74gFt30ShjxGlWB2/NrTBxb72/I00Jlo
+	OssXvUN6zbitJMXMJJcsujPd95zT45qvmUE2O/QOSQfmyZx+F/xw48bwIze0IPjazBAO/dzeEE1
+	eZl2pXDFjD36Xl1b8Y9swdLpau4Zt5vT5d+KHqQ/d
+X-Gm-Gg: AYBFou0jKrNg8eWmgxB2sDUFsq/6QJg2X3EVBCb8bp7p1VVeUYkZqe8JBKd3TJk6+j1
+	c2uC3XcOg+YTEeE3SvMhRBMYX0BnE3CIurYNF6NSi4UgwK7WId6bipgHDnlnpl6S4/qtIkDBA96
+	R+SYnb0RZrISZM7VceSUDrtpxJdJKdNjDdlIfKGeXOVYXaIqdGMlrCdpuys+8MCmM216tJvrfR7
+	oJ1AFz2lYcmz9nG9HjG5OOJS3AesWjCXfBQXJU4/IKx6tkJihqXMBua4N4QWcF/5WBqkfC6tQbk
+	/qKnHmMtRxrMV0Hjb/6K0dFgGkpWR4RLeNbjFr7ttc3/uVw+B11laseOdkAVds+y4uWa/dEPAxU
+	61Olt3KFKxh1rsoFE7U9IxPH5mg1q5M6znkEXqIM+
+X-Received: by 2002:a17:902:d98b:b0:2dd:280b:cdfc with SMTP id
+ d9443c01a7336-2df5b83676fmr449455ad.17.1790022168357; Mon, 21 Sep 2026
+ 13:22:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260831-pidfd-get-paths-v2-0-c59ea6a21b72@black-desk.cn>
+ <20260831-tauwetter-werkbank-dramen-b37eb4025283@brauner> <CAC1kPDMK_D4nhyRmBHg6KC7SmmCkH73Xtc5DhXeJbSvf3LcqcQ@mail.gmail.com>
+In-Reply-To: <CAC1kPDMK_D4nhyRmBHg6KC7SmmCkH73Xtc5DhXeJbSvf3LcqcQ@mail.gmail.com>
+From: Jann Horn <jannh@google.com>
+Date: Mon, 21 Sep 2026 22:22:11 +0200
+X-Gm-Features: AcwNN1UtR6M4RsRB1V4M9ZXr6hSPfcvgRf-Sf3BDBnWgXtSIC5rk0Yng7pQuhSw
+Message-ID: <CAG48ez1T5-tUHVK_iHsgUtWa-inVdrZxA3E-ZCW0iENJvasKfg@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] pidfd: add task path ioctls
+To: Chen Linxuan <me@black-desk.cn>, Christian Brauner <brauner@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	Kees Cook <kees@kernel.org>, John Johansen <john.johansen@canonical.com>, 
+	Georgia Garcia <georgia.garcia@canonical.com>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, apparmor@lists.ubuntu.com, 
+	linux-security-module@vger.kernel.org, linux-api@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+On Wed, Sep 2, 2026 at 8:47=E2=80=AFAM Chen Linxuan <me@black-desk.cn> wrot=
+e:
+> On Mon, Aug 31, 2026 at 4:49=E2=80=AFPM Christian Brauner <brauner@kernel=
+.org> wrote:
+> > On 2026-08-31 10:59 +0800, Chen Linxuan wrote:
+> > > Obtaining a target task's executable, working directory, or root
+> > > currently requires walking procfs symlinks such as /proc/<pid>/exe,
+> > > /proc/<pid>/cwd, and /proc/<pid>/root.  That makes the operation depe=
+nd
+> > > on procfs being mounted and visible to the caller, even when it alrea=
+dy
+> > > holds a pidfd for the target.
+> > >
+> > > This series adds PIDFD_GET_EXE, PIDFD_GET_CWD, and PIDFD_GET_ROOT. Ea=
+ch
+> > > ioctl takes no argument and returns a close-on-exec O_PATH file
+> > > descriptor referencing the corresponding task path.  The new ioctls u=
+se
+> > > the same ptrace permission check and nonzero-argument rejection as th=
+e
+> > > existing pidfd namespace ioctls.
+> > >
+> > > The target task is sampled while holding its exec_update_lock. This
+> > > keeps the access decision and the task-state read in the same exec
+> > > critical section, preventing a concurrent execve() from changing the
+> > > credentials or target state between the check and the use.
+> > >
+> > > The first patch factors out helpers for acquiring referenced task pat=
+hs
+> > > and reuses them in procfs and AppArmor.  The second patch introduces
+> > > scoped cleanup for privileged pidfd task access and separates namespa=
+ce
+> > > lookup from namespace fd creation.  The final patch uses these pieces=
+ to
+> > > implement the three new ioctls.
+> > >
+> > > Signed-off-by: Chen Linxuan <me@black-desk.cn>
+> > > ---
+> >
+> > I really have difficulties forming an opinion on this. So this sounds
+> > very useful but it has implications.
+> >
+> > Right now, pidfd ioctls are available even in situations where the task
+> > in question would not be accessible via procfs, e.g., when procfs is
+> > mounted with "hidepid" options or similar. So this would expand the
+>
+> One point regarding hidepid: for callers that can pass
+> PTRACE_MODE_READ_FSCREDS, hidepid does not provide an additional
+> restriction. With hidepid=3D1 or hidepid=3D2, has_pid_permissions() falls
+> back to ptrace_may_access(..., PTRACE_MODE_READ_FSCREDS), and
+> hidepid=3Dptraceable uses that check directly. In addition, the
+> /proc/<pid>/{exe,cwd,root} links independently perform the same
+> PTRACE_MODE_READ_FSCREDS check in call_proc_get_link(), regardless of
+> the hidepid mode.
+>
+> So for these specific path lookups, hidepid does not block a caller who
+> would already pass the check used by the proposed pidfd ioctls.
 
-Low priority / nit picks for your consideration:
+Agreed, I think with regards to hidepid there should be no issue here.
 
-- [Low] test_ipv6_uncached_mismatch() mutates the shared topology built
-  once by setup() and never restores it: it installs a root netem qdisc…
-- [Low] The test's regression signal depends on bucket separation that
-  the implementation does not guarantee.
-- [Low] test_ipv6_uncached_mismatch() replaces the VRF root qdisc with
-  `netem limit 1 delay 10s` (line 397) but neither checks nor logs the…
-- [Low] The test verifies 'route retained in the VRF qdisc' with a one-
-  shot `tc -s qdisc show` snapshot (line 408) and then performs the…
+If I try to come up with scenarios in which this could introduce
+additional danger, the main one I can think of would be: A task T1 is
+running inside a pid namespace and has a unix domain socket connection
+to a task T2 outside the namespace, with both running as the same
+EUID; T1 sets SO_PASSPIDFD on its socket to obtain a pidfd pointing to
+T2 on the next message sent by T2, then T1 uses that to get access to
+the mount namespace of T2.
 
---
-
-selftests: net: cover IPv6 uncached route device mismatch
-
-This adds test_ipv6_uncached_mismatch() to vrf-xfrm-tests.sh, which installs
-a delayed netem qdisc on the VRF, adds a local IPv6 route on the VRF member
-interface, sends raw-header packets with msg_zerocopy, and then deletes the
-member interface while the uncached route is still referenced by the qdisc
-backlog.
-
-> diff --git a/tools/testing/selftests/net/vrf-xfrm-tests.sh b/tools/testing/selftests/net/vrf-xfrm-tests.sh
-> index b64dd891699d3..4f409d135a99a 100755
-> --- a/tools/testing/selftests/net/vrf-xfrm-tests.sh
-> +++ b/tools/testing/selftests/net/vrf-xfrm-tests.sh
-> @@ -385,6 +385,37 @@ run_tests()
->  	cleanup_xfrm_dev
->  }
->  
-> +test_ipv6_uncached_mismatch()
-> +{
-> +	local sender_pid
-> +	local backlog
-> +	local rc
-> +
-> +	# A local route through a VRF uses the VRF as dst.dev while retaining
-> +	# the VRF member interface in rt6i_idev. Raw header sends create uncached
-> +	# routes, and netem keeps them referenced while the interface is deleted.
-> +	run_cmd_host1 tc qdisc replace dev ${VRF} root netem limit 1 delay 10s
-
-[Severity: Low]
-Should the result of this qdisc replacement be checked or logged like the
-other setup commands in this script?  The script does not use set -e, so the
-status is discarded here.
-
-The main flow has already installed a different qdisc on the same device
-before calling this function:
-
-	run_cmd_host1 tc qdisc add dev ${VRF} root netem delay 100ms
-	echo
-	echo "netem qdisc on VRF device"
-	run_tests
-
-If the replace fails, the 100ms qdisc stays in place.  msg_zerocopy with
--t 0 runs for about 200ms (parse_opts() computes
-cfg_runtime_ms = 200 + strtoul(optarg, NULL, 10) * 1000), so packets
-enqueued in the last 100ms are still in the backlog when tc -s qdisc show is
-sampled and the grep for a non-empty backlog still matches.  That backlog
-then drains in about 100ms, well within the 2s deletion timeout, so every
-added check can pass without ever holding a route across the device
-deletion.  Would checking the replace status here close that gap?
-
-> +	ip -6 -netns "$host1" route add local ${HOST1_6}/128 dev eth0
-> +	ip netns exec "$host1" ./msg_zerocopy -6 \
-> +		-S ${HOST1_6} -D ${HOST1_6} -s 1200 -t 0 raw_hdrincl \
-> +		>/dev/null 2>&1 &
-> +	sender_pid=$!
-> +	wait "$sender_pid"
-> +	rc=$?
-> +	log_test $rc 0 "Create uncached IPv6 routes with mismatched devices"
-> +	[ $rc -ne 0 ] && return
-> +
-> +	backlog=$(ip netns exec "$host1" tc -s qdisc show dev ${VRF})
-> +	if ! echo "$backlog" | grep -Eq 'backlog .* [1-9][0-9]*p'; then
-> +		log_test 1 0 "Retain uncached IPv6 routes in VRF qdisc"
-> +		return
-> +	fi
-> +	log_test 0 0 "Retain uncached IPv6 routes in VRF qdisc"
-> +
-
-[Severity: Low]
-Is the retention observed by this snapshot guaranteed to still hold when the
-delete runs a few statements later?
-
-The only thing keeping the skb, and therefore the uncached route reference,
-in the qdisc is the netem 10s timer, and that timer is armed at enqueue time
-during the msg_zerocopy run rather than at the moment of this check.  With
--t 0 the sender runs about 200ms, so roughly 9.8s of slack remain between
-the tc -s qdisc show sample and run_cmd_host1 timeout 2 ip link del eth0.
-
-If that slack is consumed by shell forks, grep, printf, or scheduling stalls
-on a loaded single-CPU or nested VM, netem has already dequeued the packet
-and dropped the dst/idev references, so the delete completes promptly
-regardless of whether the kernel bug is present, and the test reports a
-pass.  Would a longer netem delay, or re-sampling the backlog immediately
-before the delete, make the assertion self-checking?
-
-> +	run_cmd_host1 timeout 2 ip link del eth0
-> +	log_test $? 0 "Flush uncached IPv6 routes with mismatched devices"
-> +}
-
-[Severity: Low]
-Can a hash bucket collision make this check pass on a kernel where the
-insertion key regressed?
-
-rt6_uncached_list_add() in net/ipv6/route.c reduces the keying device
-pointer to one of 64 buckets:
-
-	ul = &table->buckets[hash_ptr(dev, RT6_UNCACHED_HASH_BITS)];
-
-and teardown of a non-master device scans only that one bucket:
-
-	ul = &table->buckets[hash_ptr(dev,
-				      RT6_UNCACHED_HASH_BITS)];
-	rt6_uncached_list_flush(ul, dev);
-
-With RT6_UNCACHED_HASH_BITS == 6, if a regression reintroduced keying by
-dst_dev() (the VRF) and hash_ptr(vrf) happens to land in the same bucket as
-hash_ptr(eth0), the eth0 scan still reaches the wrongly indexed route,
-rt6_uncached_list_flush() matches on rt6i_idev->dev == eth0 and releases the
-reference, so the delete succeeds and the test passes.  The pointers differ
-per boot, so that is roughly a 1-in-64 chance per run.  Would creating
-several VRF and member pairs make the signal independent of bucket layout?
-
-[Severity: Low]
-Does this function need to undo the state it installs?
-
-test_ipv6_uncached_mismatch() mutates the topology built once by setup() and
-never restores it:
-
-  - a root netem qdisc with limit 1 delay 10s on the VRF
-  - a local IPv6 route on eth0
-  - deletion of eth0, which is the VRF's only member and the only veth to
-    host2
-
-There is no matching tc qdisc del or ip -6 route del on any exit path, and
-both early returns (the [ $rc -ne 0 ] && return after the sender, and the
-backlog-check failure path) skip even the eth0 deletion, leaving the 10s
-netem qdisc behind.
-
-That makes the function correct only as the final statement of the script,
-and that constraint isn't documented anywhere, so anything appended after it
-runs against a namespace with no eth0 and a limit 1 / 10s-delay qdisc.
-
-Related, and not introduced by this patch: the script has no trap cleanup
-EXIT, and the cleanup 2>/dev/null in the main flow runs before setup while
-$host1/$host2 are still unset, so the namespaces and this state are simply
-abandoned at exit.  setup_ns() in tools/testing/selftests/net/lib.sh only
-records names in NS_LIST and does not arrange teardown.  Since setup_ns()
-picks a fresh randomized name per invocation, a re-run does not inherit the
-broken topology, so what remains is leaked state plus the undocumented
-ordering requirement.
-
->  
->  ################################################################################
->  # usage
->  
-> @@ -425,6 +456,10 @@ echo
->  echo "netem qdisc on VRF device"
->  run_tests
->  
-> +echo
-> +echo "Uncached IPv6 route with mismatched devices"
-> +test_ipv6_uncached_mismatch
-> +
->  printf "\nTests passed: %3d\n" ${nsuccess}
->  printf "Tests failed: %3d\n"   ${nfail}
->  
-
-Would a short comment here noting that this test must stay last, or a
-cleanup/restore inside the function, help whoever extends the script next?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917-hash-bucket-route-lists-v3-0-30493a37b6eb%40cloudflare.com
+Christian, is there some mechanism that already protects against using
+something like SO_PASSPIDFD to get a pidfd to a process in a parent
+namespace?
+Otherwise, should we add something like a "pid_vnr(pid) !=3D 0" check
+either in these new operations or in SO_PASSPIDFD?
