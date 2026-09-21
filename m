@@ -1,132 +1,254 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D7E430CEC;
-	Mon, 21 Sep 2026 11:11:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B973FA5E7;
+	Mon, 21 Sep 2026 11:11:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789989104; cv=none; b=Cmhh7NgSvGrUi386VgxmIAIkAoGgaFATGI+zVip4UB5faUVVfWiBD444Z5tOXv3TaKluz5AussbL9jFgSKd6dlx2MhqeQeVBBu8dPL33XRG+uCe8vylKiVQNWhJEJHqT6GBE0w8IoZ2TqOtc5bIBg9ClNzDzMW/27R8nI2zZipQ=
+	t=1789989122; cv=none; b=QxiRBf9G5+17cbXMQG1blRQ5nxszsdlafAgOhz4Gh07kVAYd2YORT9XLW1JVAJzHtmq7F0G4IwLirBN30E2ABeLL4punkJ2RYdJbu5ec0Kw05FDbxIvCX8Qxvm48HFaUFR+z2WMnSKOp3WApdOuW7rkYkR3BS7dFY0beb49Rdso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789989104; c=relaxed/simple;
-	bh=mFBik3/hELLoC6BbMxS74ONLTx+gj7nMcxnX0tLC5e4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=M2CaPXSDKYU+ZYl7vQlui9Mz5F+r633WNGrs+cuRLQSaN9ahPGldgmqZ9J5Tk88W/Det0ac6Wo4Vjg4kFNq6JkN8Zzt7cyLKYaSSEHFYnjCCbRfAbZYIV3ygSfBgU6pdis7hcCYhTRJWzelVSXb+n0HD1W1e2vsk5bY8HK8KSf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=P4hmlPWF; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1789989122; c=relaxed/simple;
+	bh=ZpOzhi3uqjsVA09CdLCYdKwIisDUR2UPCXVHY+SOHG4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tghI82uN+ubqJEb2a5nf0YhJYl12RumEbHvO88hpTVN4OTYwKl6xfa7Ui3y/kqvu64Z200d3zRPrIg9Ib/sE3/VdhK+QA1NixrX90u/M8MMf9ez6WDrZvlqvJTa0Sm/VikHPV7EfbfQ5futS3A6jumKWf59ur6MLXB3x4FCozkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JALHxyPC; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="P4hmlPWF"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e9246916;
-	Mon, 21 Sep 2026 19:11:32 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: =?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Richard Cochran <richardcochran@gmail.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH net v2] net: macb: initialize PTP state before registering clock
-Date: Mon, 21 Sep 2026 19:11:28 +0800
-Message-Id: <20260921111128.69129-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JALHxyPC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789989120; x=1821525120;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZpOzhi3uqjsVA09CdLCYdKwIisDUR2UPCXVHY+SOHG4=;
+  b=JALHxyPC1juqrt2P5kOAFzCk7A0aTAeexeVVLvTir9lSBUHBZcdhdUx1
+   2pWkJPx/V0nU5NSnM3Ir4dHMpyhFwWtjGGboIlEFNdOzCX2muWh9xy81V
+   SesYHyow5Zx89ZjpF4gx86sq4DalYp8JofQS8cj5rNcsIKpwYCA8472wE
+   oYTlKn5JQsdNfoB0QCk84FgbqXYUNsagGapoYu7D2+3nupc9iAkkx/U+E
+   wgvXcg9DMzZycPXZFy5cQnPyf/4JK4IQwvSzA2MDx3FFWjQCkLaqr2EsD
+   rx1X19MCZ/a9npC9Sxnca3/EI0PjGmkSICGEq10qk7YknRHz5+kupHDAU
+   g==;
+X-CSE-ConnectionGUID: 6Zf/WbzzSdiBtjTAASPBQA==
+X-CSE-MsgGUID: Lv1W/YOvTS69a6J3Q7h1VA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="89629614"
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="89629614"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 04:11:57 -0700
+X-CSE-ConnectionGUID: m0SDz/J4Qcy0askJRTm3LQ==
+X-CSE-MsgGUID: APE+PFb/RlSCKy5wDda8qw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="269124151"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa009.fm.intel.com with ESMTP; 21 Sep 2026 04:11:54 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id A863599; Mon, 21 Sep 2026 13:11:48 +0200 (CEST)
+Date: Mon, 21 Sep 2026 13:11:48 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Aniket Limaye <a-limaye@ti.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nirujogi Pratap <pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, vigneshr@ti.com, nm@ti.com,
+	u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
+	Ritwick.Sharma@arm.com
+Subject: Re: [PATCH 2/3] i2c: designware: Introduce per-variant register
+ offset and bit-layout tables
+Message-ID: <20260921111148.GT106095@black.igk.intel.com>
+References: <20260919-tda54-upstream-i2c-v1-0-b0b9f77be18b@ti.com>
+ <20260919-tda54-upstream-i2c-v1-2-b0b9f77be18b@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0c3a9fcf203a1kunm826d5db04898f
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCH0JPVk1MQh5IHkkYTh9ISFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=P4hmlPWFK3/dICZBJNzSDUOUAGFsn1PUT8uq0CjhZUIw4uiXNZvT1ZsJO8b+x0IUg8JvD7rUCAmroQVtPUoXvALzDnzkOWAQ97EdBUZnvFLzcJCNn4u8F2yrSjI9mnp07lN4/ArcwiYjh2owvR2YaKKd9dRHDzeKRqXNhJlxxc8=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=v3PuQr769s3QKtlzOD2OmKZv8gsCVwNEKKz25/3EGH8=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260919-tda54-upstream-i2c-v1-2-b0b9f77be18b@ti.com>
 
-gem_ptp_init() registers the PTP clock before initializing
-bp->tsu_clk_lock and the TSU hardware. Since ptp_clock_register()
-publishes the PTP character device, userspace may invoke PTP callbacks
-before the lock and hardware are ready.
+Hi,
 
-In addition, gem_ptp_init() is called from both the interface open and
-resume paths. Reinitializing tsu_clk_lock there can reset the lock while
-timestamp processing is using it.
+On Sat, Sep 19, 2026 at 02:36:07PM +0530, Aniket Limaye wrote:
+> Every DW_IC_* register offset and CON-register bit position is currently
+> baked in as a compile-time constant, which only works while there is a
+> single register layout. Introduce a logical register-ID enum (enum
+> dw_i2c_reg_idx) plus a per-variant offset table (dev->regs[]) and a
+> per-variant CON-register bit-layout descriptor (dev->con_bits), selected
+> at probe time via the new i2c_dw_select_variant().
+> 
+> Replace every direct DW_IC_* offset/bit-position reference with a lookup
+> through dev->regs[]/dev->con_bits. Also fold the read-to-clear
+> interrupt-acknowledgment pattern into a new i2c_dw_ack_intr() helper,
+> driven by a per-variant dev->intr_clr[] table.
+> 
+> Only one variant exists at this point (DW_apb_i2c), so this is a
+> mechanical, behavior-preserving change: the values in
+> dw_i2c_reg_offsets[] and dw_i2c_con_bits match the DW_IC_* macros
+> exactly. It lays the groundwork for adding a second register layout
+> (DWC_i2c) without duplicating the whole driver.
+> 
+> Signed-off-by: Aniket Limaye <a-limaye@ti.com>
+> ---
+>  drivers/i2c/busses/i2c-designware-amdisp.c  |   1 +
+>  drivers/i2c/busses/i2c-designware-common.c  | 158 ++++++++++++++++++++++------
+>  drivers/i2c/busses/i2c-designware-core.h    | 108 ++++++++++++++++++-
+>  drivers/i2c/busses/i2c-designware-master.c  | 125 +++++++++++-----------
+>  drivers/i2c/busses/i2c-designware-pcidrv.c  |   2 +
+>  drivers/i2c/busses/i2c-designware-platdrv.c |   2 +
+>  drivers/i2c/busses/i2c-designware-slave.c   |  42 ++++----
+>  7 files changed, 318 insertions(+), 120 deletions(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-designware-amdisp.c b/drivers/i2c/busses/i2c-designware-amdisp.c
+> index 9f0ec0fae6f2..f7aa075c9977 100644
+> --- a/drivers/i2c/busses/i2c-designware-amdisp.c
+> +++ b/drivers/i2c/busses/i2c-designware-amdisp.c
+> @@ -46,6 +46,7 @@ static int amd_isp_dw_i2c_plat_probe(struct platform_device *pdev)
+>  	isp_i2c_dev->flags |= ACCESS_POLLING;
+>  	platform_set_drvdata(pdev, isp_i2c_dev);
+>  
+> +	i2c_dw_select_variant(isp_i2c_dev);
+>  	isp_i2c_dev->base = devm_platform_ioremap_resource(pdev, 0);
+>  	if (IS_ERR(isp_i2c_dev->base))
+>  		return dev_err_probe(&pdev->dev, PTR_ERR(isp_i2c_dev->base),
+> diff --git a/drivers/i2c/busses/i2c-designware-common.c b/drivers/i2c/busses/i2c-designware-common.c
+> index a1eca6cd4b75..a21aeb7f415a 100644
+> --- a/drivers/i2c/busses/i2c-designware-common.c
+> +++ b/drivers/i2c/busses/i2c-designware-common.c
+> @@ -72,6 +72,95 @@ static const char *const abort_sources[] = {
+>  		"incorrect slave-transmitter mode configuration",
+>  };
+>  
+> +/* "snps,designware-i2c" flat register layout */
+> +static const u32 dw_i2c_reg_offsets[DW_REG_IDX_MAX] = {
+> +	[DW_REG_IDX_CON]			= DW_IC_CON,
+> +	[DW_REG_IDX_TAR]			= DW_IC_TAR,
+> +	[DW_REG_IDX_SAR]			= DW_IC_SAR,
+> +	[DW_REG_IDX_DATA_CMD]		= DW_IC_DATA_CMD,
+> +	[DW_REG_IDX_SS_SCL_HCNT]		= DW_IC_SS_SCL_HCNT,
+> +	[DW_REG_IDX_SS_SCL_LCNT]		= DW_IC_SS_SCL_LCNT,
+> +	[DW_REG_IDX_FS_SCL_HCNT]		= DW_IC_FS_SCL_HCNT,
+> +	[DW_REG_IDX_FS_SCL_LCNT]		= DW_IC_FS_SCL_LCNT,
+> +	[DW_REG_IDX_HS_SCL_HCNT]		= DW_IC_HS_SCL_HCNT,
+> +	[DW_REG_IDX_HS_SCL_LCNT]		= DW_IC_HS_SCL_LCNT,
+> +	[DW_REG_IDX_INTR_STAT]		= DW_IC_INTR_STAT,
+> +	[DW_REG_IDX_INTR_MASK]		= DW_IC_INTR_MASK,
+> +	[DW_REG_IDX_RAW_INTR_STAT]		= DW_IC_RAW_INTR_STAT,
+> +	[DW_REG_IDX_RX_TL]			= DW_IC_RX_TL,
+> +	[DW_REG_IDX_TX_TL]			= DW_IC_TX_TL,
+> +	[DW_REG_IDX_CLR_INTR]		= DW_IC_CLR_INTR,
+> +	[DW_REG_IDX_CLR_RX_UNDER]		= DW_IC_CLR_RX_UNDER,
+> +	[DW_REG_IDX_CLR_RX_OVER]		= DW_IC_CLR_RX_OVER,
+> +	[DW_REG_IDX_CLR_TX_OVER]		= DW_IC_CLR_TX_OVER,
+> +	[DW_REG_IDX_CLR_RD_REQ]		= DW_IC_CLR_RD_REQ,
+> +	[DW_REG_IDX_CLR_TX_ABRT]		= DW_IC_CLR_TX_ABRT,
+> +	[DW_REG_IDX_CLR_RX_DONE]		= DW_IC_CLR_RX_DONE,
+> +	[DW_REG_IDX_CLR_ACTIVITY]		= DW_IC_CLR_ACTIVITY,
+> +	[DW_REG_IDX_CLR_STOP_DET]		= DW_IC_CLR_STOP_DET,
+> +	[DW_REG_IDX_CLR_START_DET]		= DW_IC_CLR_START_DET,
+> +	[DW_REG_IDX_CLR_GEN_CALL]		= DW_IC_CLR_GEN_CALL,
+> +	[DW_REG_IDX_ENABLE]			= DW_IC_ENABLE,
+> +	[DW_REG_IDX_STATUS]			= DW_IC_STATUS,
+> +	[DW_REG_IDX_TXFLR]			= DW_IC_TXFLR,
+> +	[DW_REG_IDX_RXFLR]			= DW_IC_RXFLR,
+> +	[DW_REG_IDX_SDA_HOLD]		= DW_IC_SDA_HOLD,
+> +	[DW_REG_IDX_TX_ABRT_SOURCE]		= DW_IC_TX_ABRT_SOURCE,
+> +	[DW_REG_IDX_ENABLE_STATUS]		= DW_IC_ENABLE_STATUS,
+> +	[DW_REG_IDX_SMBUS_INTR_MASK]	= DW_IC_SMBUS_INTR_MASK,
+> +	[DW_REG_IDX_COMP_PARAM_1]		= DW_IC_COMP_PARAM_1,
+> +	[DW_REG_IDX_COMP_VERSION]		= DW_IC_COMP_VERSION,
+> +	[DW_REG_IDX_COMP_TYPE]		= DW_IC_COMP_TYPE,
+> +};
+> +
+> +static const struct dw_i2c_con_bits dw_i2c_con_bits = {
+> +	.master			= DW_IC_CON_MASTER,
+> +	.speed_std		= DW_IC_CON_SPEED_STD,
+> +	.speed_fast		= DW_IC_CON_SPEED_FAST,
+> +	.speed_high		= DW_IC_CON_SPEED_HIGH,
+> +	.speed_mask		= DW_IC_CON_SPEED_MASK,
+> +	.bit10_slave		= DW_IC_CON_10BITADDR_SLAVE,
+> +	.bit10_master		= DW_IC_CON_10BITADDR_MASTER,
+> +	.restart_en		= DW_IC_CON_RESTART_EN,
+> +	.slave_disable		= DW_IC_CON_SLAVE_DISABLE,
+> +	.stop_det_ifaddressed	= DW_IC_CON_STOP_DET_IFADDRESSED,
+> +	.tx_empty_ctrl		= DW_IC_CON_TX_EMPTY_CTRL,
+> +	.rx_fifo_full_hld_ctrl	= DW_IC_CON_RX_FIFO_FULL_HLD_CTRL,
+> +	.bus_clear_ctrl		= DW_IC_CON_BUS_CLEAR_CTRL,
+> +};
+> +
+> +/* "snps,designware-i2c": dedicated read-to-clear register ID per logical interrupt */
+> +static const u32 dw_i2c_intr_clr[DW_INTR_IDX_MAX] = {
+> +	[DW_INTR_IDX_ALL]       = DW_REG_IDX_CLR_INTR,
+> +	[DW_INTR_IDX_RX_UNDER]  = DW_REG_IDX_CLR_RX_UNDER,
+> +	[DW_INTR_IDX_RX_OVER]   = DW_REG_IDX_CLR_RX_OVER,
+> +	[DW_INTR_IDX_TX_OVER]   = DW_REG_IDX_CLR_TX_OVER,
+> +	[DW_INTR_IDX_RD_REQ]    = DW_REG_IDX_CLR_RD_REQ,
+> +	[DW_INTR_IDX_TX_ABRT]   = DW_REG_IDX_CLR_TX_ABRT,
+> +	[DW_INTR_IDX_RX_DONE]   = DW_REG_IDX_CLR_RX_DONE,
+> +	[DW_INTR_IDX_ACTIVITY]  = DW_REG_IDX_CLR_ACTIVITY,
+> +	[DW_INTR_IDX_STOP_DET]  = DW_REG_IDX_CLR_STOP_DET,
+> +	[DW_INTR_IDX_START_DET] = DW_REG_IDX_CLR_START_DET,
+> +	[DW_INTR_IDX_GEN_CALL]  = DW_REG_IDX_CLR_GEN_CALL,
+> +};
+> +
+> +/**
+> + * i2c_dw_select_variant() - Pick the register offset table, CON-register bit
+> + * layout and interrupt-ack mapping matching this device's IP variant
+> + * @dev: device private data
+> + *
+> + * Must be called after dev->flags has been populated from
+> + * device_get_match_data()/ACPI id data, and before any register access
+> + * (including i2c_dw_init_regmap()).
+> + */
+> +void i2c_dw_select_variant(struct dw_i2c_dev *dev)
+> +{
+> +	dev->regs = dw_i2c_reg_offsets;
+> +	dev->con_bits = &dw_i2c_con_bits;
+> +	dev->intr_clr = dw_i2c_intr_clr;
+> +}
+> +EXPORT_SYMBOL_GPL(i2c_dw_select_variant);
+> +
+>  static int dw_reg_read(void *context, unsigned int reg, unsigned int *val)
+>  {
+>  	struct dw_i2c_dev *dev = context;
+> @@ -147,7 +236,7 @@ static int i2c_dw_init_regmap(struct dw_i2c_dev *dev)
+>  		.disable_locking = true,
+>  		.reg_read = dw_reg_read,
+>  		.reg_write = dw_reg_write,
+> -		.max_register = DW_IC_COMP_TYPE,
+> +		.max_register = dev->regs[DW_REG_IDX_COMP_TYPE],
+>  	};
+>  	u32 reg;
+>  	int ret;
+> @@ -163,7 +252,7 @@ static int i2c_dw_init_regmap(struct dw_i2c_dev *dev)
+>  	if (ret)
+>  		return ret;
+>  
+> -	reg = readl(dev->base + DW_IC_COMP_TYPE);
+> +	reg = readl(dev->base + dev->regs[DW_REG_IDX_COMP_TYPE]);
+>  	i2c_dw_release_lock(dev);
+>  
+>  	if ((dev->flags & MODEL_MASK) == MODEL_AMD_NAVI_GPU)
+> @@ -365,17 +454,17 @@ static void i2c_dw_configure_mode(struct dw_i2c_dev *dev, int mode)
+>  {
+>  	switch (mode) {
+>  	case DW_IC_MASTER:
+> -		regmap_write(dev->map, DW_IC_TX_TL, dev->tx_fifo_depth / 2);
+> -		regmap_write(dev->map, DW_IC_RX_TL, 0);
+> -		regmap_write(dev->map, DW_IC_CON, dev->master_cfg);
+> +		regmap_write(dev->map, dev->regs[DW_REG_IDX_TX_TL], dev->tx_fifo_depth / 2);
+> +		regmap_write(dev->map, dev->regs[DW_REG_IDX_RX_TL], 0);
+> +		regmap_write(dev->map, dev->regs[DW_REG_IDX_CON], dev->master_cfg);
 
-This race is theoretical and has not been observed in practice.
+Instead of all this. Can't you do this inside the regmap so that here and
+elsewhere in the driver we continue to do:
 
-Initialize tsu_clk_lock once during probe and initialize the TSU before
-registering the PTP clock.
+	regmap_write(dev->map, DW_IC_RX_TL, 0);
 
-Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/netdev/20260830153520.2710520-1-runyu.xiao@seu.edu.cn/
-Assisted-by: LLM Codex
-Reviewed-by: Théo Lebrun <theo.lebrun@bootlin.com>
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-
----
-v2:
-- Initialize tsu_clk_lock once during probe and initialize the TSU before
-  registering the PTP clock.
-- Clarify that the race is theoretical and carry the Reviewed-by trailers.
----
- drivers/net/ethernet/cadence/macb_main.c | 1 +
- drivers/net/ethernet/cadence/macb_ptp.c  | 6 +-----
- 2 files changed, 2 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 76ee4f506..01b42b21a 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -5876,6 +5876,7 @@ static int macb_probe(struct platform_device *pdev)
- 	}
- 	spin_lock_init(&bp->lock);
- 	spin_lock_init(&bp->stats_lock);
-+	spin_lock_init(&bp->tsu_clk_lock);
- 
- 	/* setup capabilities */
- 	macb_configure_caps(bp, macb_config);
-diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
-index e5195d7da..e9c9c2692 100644
---- a/drivers/net/ethernet/cadence/macb_ptp.c
-+++ b/drivers/net/ethernet/cadence/macb_ptp.c
-@@ -334,6 +334,7 @@ void gem_ptp_init(struct net_device *netdev)
- 	bp->tsu_rate = bp->ptp_info->get_tsu_rate(bp);
- 	bp->ptp_clock_info.max_adj = bp->ptp_info->get_ptp_max_adj();
- 	gem_ptp_init_timer(bp);
-+	gem_ptp_init_tsu(bp);
- 	bp->ptp_clock = ptp_clock_register(&bp->ptp_clock_info, &netdev->dev);
- 	if (IS_ERR(bp->ptp_clock)) {
- 		pr_err("ptp clock register failed: %ld\n",
-@@ -345,10 +346,6 @@ void gem_ptp_init(struct net_device *netdev)
- 		return;
- 	}
- 
--	spin_lock_init(&bp->tsu_clk_lock);
--
--	gem_ptp_init_tsu(bp);
--
- 	dev_info(&bp->pdev->dev, "%s ptp clock registered.\n",
- 		 GEM_PTP_TIMER_NAME);
- }
-@@ -467,4 +464,3 @@ int gem_set_hwtst(struct net_device *netdev,
- 
- 	return 0;
- }
--
--- 
-2.34.1
-
+but internally, depending on the hardware it then maps this into the
+corresponding register offset.
