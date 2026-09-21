@@ -1,125 +1,144 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011040.outbound.protection.outlook.com [52.101.57.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184E2389114;
-	Mon, 21 Sep 2026 19:24:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790018661; cv=none; b=hSIjnWtHrM31Ae7KuqDLjoQDsYvNY2/VmR68omr4FMrfBlxAs1/A5qhM9TNt7a4R1Ooz8Tfk5TR2iS6bOvhMkm6UrJq7ejwXQU3C6gexQdmam6WBKpBPcpNvpfMZ/GvhNY5tYbHAh5wiTFdQxMw5jdholsXCP/h4HIVsD6/UhRA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790018661; c=relaxed/simple;
-	bh=3/QrBg70Tf3/O+uM6HFgxQ6ZmwiYPIdzQnJ9xK56ymw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RIQ84x+5y+IdchCZm5vYcNXUAzL+wtmuq55Bgv7Y6nrOpbBLtkltzz7mqroAwBzXE9soVAOShVOq9LbD+Y4MTIAhTcEuNIhcC/lpoVL+kStibxVdrowGLbV4dyAFw+lL8278WRFk8O1zd5rrGigg09aAqy6s5tIwJlb7u/ElBqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=m9AP3dUp; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6F438D3FD
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:24:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790018690; cv=fail; b=AQnzpRwFM/yCQ3NmImWoY4BBzASFDGF2hVD4dG4r0Uerz62msvsKaL0S2j2xcqWWM+trQ1P3HhzH8Yy0RRIjE+wqQv7DaiHQ13C0Emvk9RVGUT5EBh63HEKpawlcKIArs4mYDHASfp2EUJ7rGNKuWY9fHddUFdC+bmeW0lEdf50=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790018690; c=relaxed/simple;
+	bh=LaD1m3FHbIxvAej4Ib9W48XAWeryKNNA2qR9b9mSbXE=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U252rhl1vc8CJTQCQs8YhrpNq1YNHwcFREYDVW2nqBMaHOo5x3FNkphv9ZyKgeN2KVLtaLk3Ievkzm7cWqks80zysROpwLjN5Lt4jao33cJqf6wFw6u9icOW4xI1xMLTfA3nn+OHraybV//1LfssmomczTY4pe2ELa2ktpIJnic=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=bmJm3v+L; arc=fail smtp.client-ip=52.101.57.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="m9AP3dUp"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=eFUPaANFoDFNOYt9UreR4DTZ8ERA7Hd3xPzm0VcHkU4=; b=m9AP3dUpFsmELRt1UZ51/cooba
-	zhzb9vh//xqhu3gPEhtBvir7p1yDMUxxJcCRdjbWFhnSEfQUSqYeW2n2b/U9s99R/EFAWALe5FGud
-	SMi/cl/70zZauRtVX9ygUUV4/duAdxGLoY/E2y7pNUVTvbSQiWRWI/SMj11bTrJjX1/AYEx8RXIvH
-	fG9CN2a9J/hITk9JLUNXf+/5QnNWua70xCNzbKuzIvDby0qNgn4YRhDpsWlhQV5uD/UB5H7efwaQ3
-	gwksWZO0K6fCx90IVBHZbDeS+iGLZk/pkPzc8BuDF6pDD6eirhiHp99EOJ45zUp/v8FrluRAyUm76
-	sjz4Oybg==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x8jcX-00000003DrZ-3gp7;
-	Mon, 21 Sep 2026 19:24:09 +0000
-Message-ID: <e08514b5-87f6-4a2b-8080-7d7d8e802f99@infradead.org>
-Date: Mon, 21 Sep 2026 12:24:08 -0700
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="bmJm3v+L"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ilFsdpKM0h0Xmn/tN1jCp84GbsuG5arw/+QoKCGgHtdbBw+bg0SpMEVzBBr4qkVBUaZ1yPBBcVOlGkGDmMbJEN6tf/+/0D5PKT8oLGamzuvLgMEtQEjHo2mTwrdOMQj/V0v+x5e32bum3DdHLR9VcXayo5ekykYMIdGFV5dLIPsDhVyXcFZEvjR7C7oiG2Nmy4SviV6fLHUsCfkbZF8wZ8Mu3yWPSdAu1AV8GLmGtmhWmnKDH7lRsbZ7nCZvMpB1RWPF99V6t5bnrPwDxDSWW6Ux6iTCKpq9zPoy0OC+fEeFEx7xxAesZufBPnMpevoVbwh91Ze+sOoFYMc3n+h0aw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Y/qNr5k6aQGZ/le/mU8Q2yJKpP9kL+WSaZM2iRZ/sNg=;
+ b=q8Ym+flp/z1GIcfk70Mm+M86NRD5S9kR7vlEoCN+JYnFgqS7Xp9zPG96Cw1cAVwjstSTI+7wVsqgyEAnl+QENg5WLER4TCVe6ChaPlzGJM5kzB0r4/ul+FT9mriKu07g/9ys+UNdXJVJKElIWHiDfpEJ+fpjV19MJUPRZGC5uQFOO3PRuojnzlAXGsikwp+Z4H3lX0vjgasZSz/M4bUfL1unB9+3BQr9o0WqoHg2Zkyw+OZPMpGRJvNwUoQEoZYwET4MO+tSvgotD5HkjmaubgFZ4DGm+XnVKlO4rw6tMZaF5PRjq4E4dfEKguOCvVtsfFrxzaURoypgtZuoLBmOwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Y/qNr5k6aQGZ/le/mU8Q2yJKpP9kL+WSaZM2iRZ/sNg=;
+ b=bmJm3v+LWUpigMKyghOHCebfGf372LJpWX8zJAemuhOjYEIizhfGiSyu3N/TGXPKWq1tTkTV+AYU1/3/5RWBfYepaKkRzP4tpKynEosT5fF2cTNXqV3Q4Wfvx5g+Jmto1dgXT4M2s+l7FPunxn4o4j9KzidHRdlhK/16zu3smOsVQVeh75zG0HiCrx9om9+Ph94pPYkZU2Q6NG7I+C2YmmKGE2vUTVn9hj+3ao7UwRATPh3Lceet9iXOtwu5XmJjEBOZUt0tKr+c+66o3tQJqVu9Hrns2sqsH+NFJ5IytfuH1qTre0JuFIdXBqT+FedtDT8ptM3SJrpbiTRB4NaXeQ==
+Received: from CH0PR03CA0316.namprd03.prod.outlook.com (2603:10b6:610:118::23)
+ by CH1PR12MB9621.namprd12.prod.outlook.com (2603:10b6:610:2b2::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 19:24:41 +0000
+Received: from CH1PEPF0000AD79.namprd04.prod.outlook.com
+ (2603:10b6:610:118:cafe::78) by CH0PR03CA0316.outlook.office365.com
+ (2603:10b6:610:118::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
+ 21 Sep 2026 19:24:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ CH1PEPF0000AD79.mail.protection.outlook.com (10.167.244.57) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 19:24:41 +0000
+Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
+ 2026 12:24:16 -0700
+Received: from drhqmail201.nvidia.com (10.126.190.180) by
+ drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 21 Sep 2026 12:24:16 -0700
+Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.126.190.180)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Mon, 21 Sep 2026 12:24:15 -0700
+Date: Mon, 21 Sep 2026 12:24:13 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "Joerg
+ Roedel (AMD)" <joro@8bytes.org>, Jean-Philippe Brucker <jpb@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>, <linux-arm-kernel@lists.infradead.org>,
+	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, Peng Fan
+	<peng.fan@nxp.com>
+Subject: Re: [PATCH RFC v2 1/4] iommu/arm-smmu-v3: Convert streams from RB
+ tree to XArray
+Message-ID: <arGEXU2GqmYYBBjb@nvidia.com>
+References: <20260921-smmu-shared-sid-v2-0-4b656ce68178@nxp.com>
+ <20260921-smmu-shared-sid-v2-1-4b656ce68178@nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] README: rename to README.rst and make the doc
- references links
-To: Osman Ahmadzai <osmanahmadxai@gmail.com>, Jonathan Corbet <corbet@lwn.net>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- nathan@kernel.org, nsc@kernel.org, apw@canonical.com, joe@perches.com,
- tglx@kernel.org, gregkh@linuxfoundation.org, linux-kbuild@vger.kernel.org,
- linux-spdx@vger.kernel.org
-References: <20260921050038.76985-1-osmanahmadxai@gmail.com>
- <20260921070556.6909-1-osmanahmadxai@gmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260921070556.6909-1-osmanahmadxai@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260921-smmu-shared-sid-v2-1-4b656ce68178@nxp.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD79:EE_|CH1PR12MB9621:EE_
+X-MS-Office365-Filtering-Correlation-Id: fb7a92ec-eb73-4511-d6a6-08df1815fc58
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|23010399003|376014|7416014|10067099003|11063799006|22082099003|18002099003|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	0naqxtp7l9rYcirUxdr21zLfav3vwqiwBVCAJVSP4HJm/NWjNYdiaV3GfLGwgDGrxuuTQDgOix5XT3O/Gdqe6ZnXNsuxKl5fPIq15TaLvrhd9WcBQMqyldXi8r7ncgUdjLDJNnegyKCrIgZNkMQZ73uwJfjJIEnf2pcMpXNgtxz/dwcv8yZIugtuF/HiTQweUosdDk99HR4lBksW+vfOR19zQpabaL7Y5tm51yawXeGrE66JRYlivvgh759eY+TOk0HJu585e+kgxwsaj19H5DJ6f+rlMtDfStPPdLoUo2HjGOJniwMmGnlhiLYMa2q7Ou6K9Pe94nk0pqscpZYtGLdE3G32rdYQKFSZlvjiuz3oanVS5bEJzapS2MtBaIvgxZURXl1L1yWOHMToEogOp2krWz00FSdIIfwfVje2ROoz3sD2vVu7zOjpKqDEYvGUFuUEDndofaXAYRBu33cm5kXU8/vI+bmUOaU6xPXEkO7MQHMEHXHTU4LIE/AgQqc7ni9a4YjUWseKgyZ8U66nCc8dP75UG/iOUGhvODUGDR+JieCr9PaxpUvp+Dt4x4IIxfdm1pBr/im/sjgjr4qkKOZdX6k1qXVYvk1MEfkFb9/fG/G0uxqFdBiDhB5ZS16/N2Eps9IA0gdqTZ8gtlvSWbH5gpmDedmgxyslv8uB0gXGfKGYO51+g6MRfiAvj61AKwo5G4OYm+F795Tyz5hcGA==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(23010399003)(376014)(7416014)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	hwFa0QDooMgL9GgP+1Ec3/xMijoYUWoTOwAyEmQe1lhMeTQ6b/6WuQ4PBQKD7gEH7Xhk3CX9JiLDzxbcHVMj054M1rXDOHExi34Wr51P0cUnXKY+egVAbAj2M0O/BfbF+LgN+epAwzVuk88Cob7mldljewvyPrkyQER2WNpaHIOp/+TskeW7Gk/ZzaKqlxQQY7mhkNwaXd+OWlzPzGXg2LeOGYt0WId3YbRvIpXfA0OQ2NNdLJEOMMLPZXQe3R0CaqzMhCqxEi0nPdjMXansDmEbaPmT/LcZFuIVbQB8LOmsRHTWToFwIiwtL/9v2i65s6o/CvS3Le/UNFAL+QjQcOtxF4P9TxCALp2zlININDaz873fHQ3qloGGYjVospHBeNqXCfn59RqcA/wNjpm7wGGsbQACVysu+4NBK1nc8q3c1TfRztyyiP7TOsUKeVdr
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 19:24:41.5502
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb7a92ec-eb73-4511-d6a6-08df1815fc58
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD79.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9621
 
-Hi,
-
-On 9/21/26 12:05 AM, Osman Ahmadzai wrote:
-> The README points at some sixty files in the tree, but it has no
-> extension, so it shows up as plain text and none of those paths can be
-> followed.  You have to go and find each one by hand.
+On Mon, Sep 21, 2026 at 07:35:00PM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
 > 
-> The content has always been reStructuredText - it uses reST section
-> syntax for its headings - so give it the extension to match, and wrap
-> each in-tree reference in an anonymous hyperlink whose link text is the
-> path itself.  The rendered text is byte-for-byte what it was before; only
+> Replace the smmu->streams RB tree with an XArray for SID ->
+> arm_smmu_stream lookups. The existing streams_mutex serialises all
+> accesses (both xa_store/xa_erase and xa_load), protecting the lifetime
+> of returned pointers against concurrent arm_smmu_remove_master()
+> without requiring RCU grace periods. A mutex (rather than xa_lock) is
+> needed because several paths sleep while the lock is held:
+> dmam_alloc_coherent(GFP_KERNEL) in arm_smmu_init_sid_strtab(), and
+> down_read() inside iommu_report_device_fault().
 
-What causes README.rst to be rendered? Is it named README.html?
-I don't see it being rendered on a clean 'make htmldocs' build.
+The commit message reads very unconvincing.
 
-I see DOCS/Documentation/output/admin-guide/README.html, but that's
-a different file.
+The first paragraph starts with an action "replace" without giving
+a clear reason for the action.
 
-> the markup is new.  Anonymous because a handful of the paths are listed
-> twice and named targets would collide.
-> 
-> checkpatch.pl and get_maintainer.pl both test for a file called README to
-> find the top of the tree, and the Makefile points readers at ./README, so
-> those are updated in step.  scripts/spdxexclude lists the file as having
-> no copyrightable content; only its path changes there.
-> 
-> Signed-off-by: Osman Ahmadzai <osmanahmadxai@gmail.com>
-> ---
-> v2: Dropped the second file - you are right, two copies would be out of
->     sync within a release.  This renames instead, so there is one copy of
->     the content, and updates the four places that referred to the old
->     name.  I went with the rename rather than the symlink because it
->     leaves nothing pointing at a name that no longer describes the file,
->     and the fixups turned out to be one line each.
-> 
->     I did look at folding it into Documentation/index.rst, and it looks
->     like a bigger change than this one rather than an alternative to it.
->     The README names 55 documents; only 12 of them appear in the
->     index.rst toctrees today, the other 43 being reachable only by
->     descending into process/index.rst, subsystem-apis.rst and the rest.
->     So integrating means either pulling those 43 into index.rst or
->     dropping them, and that is an editorial call about material that
->     landed in b9a565b3e4d8 last November rather than a presentation fix.
->     I would rather not make it as a side effect of this patch.
-> 
->     If you do want it, what I had in mind is a short "where to start"
->     section near the top of index.rst - one entry per kind of reader,
->     pointing at the existing index documents (process/index.rst for new
->     developers, subsystem-apis.rst for internals, admin-guide/index.rst
->     for administrators, and so on) rather than repeating the individual
->     paths.  Around forty lines, and automarkup turns every path in it
->     into a link with no markup needed.  The README would then shrink to a
->     pointer at the documentation.  Say the word and I will send it as its
->     own patch.
-> 
->  Makefile                  |   4 +-
->  README                    | 168 -------------------------------------
->  README.rst                | 170 ++++++++++++++++++++++++++++++++++++++
->  scripts/checkpatch.pl     |   2 +-
->  scripts/get_maintainer.pl |   2 +-
->  scripts/spdxexclude       |   2 +-
->  6 files changed, 175 insertions(+), 173 deletions(-)
->  delete mode 100644 README
->  create mode 100644 README.rst
+> This removes the RB tree comparators, the rb_node from
 
-thanks.
--- 
-~Randy
+Then the second paragraph repeats the action...
 
+> arm_smmu_stream, and simplifies duplicate-SID handling for bridged PCI
+> devices.
+
+... and slightly mentions "simplifies". Maybe it should write about
+why this is necessary and how xarray would simplify vs RB tree?
+
+Nicolin
