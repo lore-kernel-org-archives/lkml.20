@@ -1,168 +1,361 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013002.outbound.protection.outlook.com [40.93.201.2])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3764E4C4C;
-	Mon, 21 Sep 2026 17:14:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F07E495ACB;
+	Mon, 21 Sep 2026 17:14:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790010851; cv=fail; b=hGP7mPrxJAgIyDg9n3NaFfcSzRJMyTMsZF6uCMN3Jh0zoLwA2Rycg6L+ztGE4/k/FvKYz9NVxtt9bJFXUbwTNpzYY9kxIjCq8gpS+zeyCc2SnyP9FICmV+X5FKxwPQi64xmVuOXeGXXi8QlM4baaAU2+EpUiDtYglHFRUwPqs+4=
+	t=1790010862; cv=fail; b=L3eQTjnlniIx5oPQwRtv4hWkZVDAGMCN0v486UQJ25etcVOc75fFJZe0U0ez6Q1H80ScN/dEi1vyIGyI/GrHdEnwdRIn5aIWtYbZUZHp+AGfWeYWvi/QuqL3Io6qPghSgKbHgRSW7CdhMMxurxr+6xFbzs7KO77INuRHDslCSKI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790010851; c=relaxed/simple;
-	bh=R1F8IhPE3TCyF2R+X6nLR5A07M2ZGtT/5qBYjYydjAM=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=lhzUgeiZ94fgTsfzyGw1HvPuXQ285uNVl5H6u+yIy7rC7uvxtjZ0/vuaj6Ejuj0Fo99xxfcyhq+wNqgn/9aZJ4LvymcWfLN4C3IwtJIBxWHJeEXs8Xnb/U2/6uGitI3CFW4WMvk1nwgx9OG/5RrYVhLWss0zLDBA444mZodiiE8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4KAP445f; arc=fail smtp.client-ip=40.93.201.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1790010862; c=relaxed/simple;
+	bh=EtCrYL2qjoEmeKs5l3vU07KH+17gMT9Qoe/LAJtes60=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=VAINqWCELNzBX381VA4z2l81aAuOZCJwUinbwZ9bF3w0Ax3uIugdSNjbuZ0JjhtpvDsvU6lNbcD15rJvZAaCIOpPWQwA45oosjRoGGR9kUvjvV11pLEz7J4DFv1ltG3wuZObyYQmacPFadjtxjcSFVjr8FJPDPmJkUdBd9QOYAc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=fJoHqZxn; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=wBAN9PG4; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4KAP445f"
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="fJoHqZxn";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="wBAN9PG4"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68LGuLFs081353;
+	Mon, 21 Sep 2026 12:14:05 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=BJFITvyk15BxzrJ/wkAtyZsz7VYKbgALDfeJwrEEq
+	uw=; b=fJoHqZxnyTGQxnOhR7SdGu+d1n7rmqf7rJMLQzEFvA+IOszM9FvzhyiqP
+	neZfHTibmw3WkAgBzVKFSPnjaXE+HtiKeksKqkh1I2Pj+v95L+A9tiphAlAsTPRL
+	f/zsfCkB5ozn3g6V357oJSGhoG1m4qXtdFVwgToY1vJL1Ez9qAP537sIrAM8gBfZ
+	AF9Rek/SqJksO2XMSF05eueS5j7z78LOYFaHWCUnaNgto9e7cfGoMLQIYMJKdwWx
+	pV94QV55lwNag4K9iG2ZjkSM/BR7ZhYn04AwHtX6Z4fmi1NjqG2mNuTrZVaH2weI
+	bYAMmbiTB0q/Jv5hKpi/MWYDMikVw==
+Received: from ph7pr06cu001.outbound.protection.outlook.com (mail-westus3azon11010030.outbound.protection.outlook.com [52.101.201.30])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4gtbdngagp-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 12:14:05 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eVpa330uu12On/Ibc3dxJeoY6ehUCaqKV7b0alT0JAd2nfSNTOWoXGTmKMloP3Z2gxljaR0l9C2Hek8m/ZRruu8x1Qsnl1gihHwghrGIO21N6KWdIsVc2xd4uNjtJVM9ZgYQblDA0HteoOiFzw5k/DznbHbvRy0X5kYtGxZHIWa4puQhxCTCKLkHpAnzDJ+Y5bvzdF9j8CHIYplrdk5ixNcfnWqmmB/KCvrp5j7q3Zd9BmfRbmJmWdGRdmkXu9QUz9OhcavAhky4rVtld+nPhPXRW0QRLj8a8JB7yYdGMyDKhrrLZLGYZyDyxaKOjOCIClhKGnbVC9nayrOfEn2Kxg==
+ b=CwITixMAKybfjHmkfNK7ASPYstsdaRv+TbXmzDbJ/VU6Q4uadxr7h9QIZM0t2pESvteMM5obybjv823J5WN6gOq8lyEPhJIrkCbGWsvU14f9m9ppFzW4bKTe+9tNJA/i/iJy338547J0H11Axwv2WHfkVFOkEMuvXJO6AEMF7ZKgAG0HJGVO/v30eDmZqvIzLKTgjQcACNBPRu8/n11vikmA8cF1TZs2MGxKLm9IG8oF3a3Uuy7TMIOAq1iYwy9LsDPF/zVvdDZe2D7cMvogp1CA2M4Q8t57M7b66p6CiIlqsWHFouYILo0Lhny3QugXor51Slm38EJbKcTF1VVdHQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bHaCdVG+2/bZF3CfrUnNeFV/y4alCiif+m27bPjdNCI=;
- b=TEVS0WPxdIs7qHrblKBzU3Q0mnJ6Qdy+0Lvn5IVK2vfd2QdU+9mHz3/eW26M5J49wGmrQ3NcPsxFmsQCPz7453sn+n3LvBv/WMbdRAzeREWAaITv4oNzUsYWqnlEF98d3XfEiL7HcMJS9nHDf2mvd/0L2tAQpYTZPZrQI/mRAV4WkgT/bRbBDDLbQQdwC0iGdIHZ0Vdc4N4YMG7Ux6bBQ9CPktVip5zji04UIP793ibvWUVPHRK75Ny7PPqhsQuflfMfNNJ/t7i8HPdVTjsM1LWMrxTVL2mwTx/Y+52o5oT6Ft1JtPn8p1mmrDmqDbKMluamiKDnb0Q2dQLdCSi1Yw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=BJFITvyk15BxzrJ/wkAtyZsz7VYKbgALDfeJwrEEquw=;
+ b=HZ5akD5W+yuuqDCrJOUufO4ZHMq5agLItdDLJDHuvo5BALM1P39CjoXhi45gY5ToYrxvwlnGMcM54zgAhhJBlwOBQfHroE5q56ATWARCIODoAp1DAqYnSUDcz1gO3oAGV2u9fZ/ekW5DbjvH3pjuP5MKwKrStf02y251MDu/jGJvasf6z5hk/JFoOwFp8TH5HKDMW8XB6mPpwud3yYyZwgsPm7LqloM7lTJIJa44kreRfayI8+jYjk+CQ37kgRsGCcKkZgeV1353IrIBYUCLPePuwsYWBlKgR2gTQ8r8rmNdwrDnz7eto2FEDmS9Ya0d5sjTd+do4fljYy8PNv4yLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=arm.com smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bHaCdVG+2/bZF3CfrUnNeFV/y4alCiif+m27bPjdNCI=;
- b=4KAP445f1BhK2Cwvq1SKoR0UC+JwshSqUMEMGru8mAkRPTajuLzK/zu1tmYztmBH8qP6jcY2NiML90R9DGO1LIV2/0KFfS3Fzc5LKJ2mH2IqGQ/8VtFSUbC2CWwADPBIJquJ6trezkmtPeg5xccL1q4Kd9cWTLbETDqrgFN6FsQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by CH3PR12MB7690.namprd12.prod.outlook.com (2603:10b6:610:14e::20) with
+ bh=BJFITvyk15BxzrJ/wkAtyZsz7VYKbgALDfeJwrEEquw=;
+ b=wBAN9PG4n50sWb/PUd45YShVBCgmT6/Lk/bU9wthJO1ziHr2rsyF0u2IHScG2BllLrvvFKi7sBJA+1zmnbXokEDvWyshIqHiK8DOGSKtuHLEMdDhZ3zTq0O9Wzoc5ojmclhfkS6XRYHxGOFWef1v59FbkcqTrmDa4ER07QtteuY=
+Received: from PH8PR21CA0003.namprd21.prod.outlook.com (2603:10b6:510:2ce::14)
+ by SA1PR10MB6517.namprd10.prod.outlook.com (2603:10b6:806:29c::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 17:14:02 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 17:14:02 +0000
-Message-ID: <92a0c8c3-3db1-4252-9c84-9a91ca8681c7@amd.com>
-Date: Mon, 21 Sep 2026 12:13:59 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] Fix a few Sashiko flagged issues on AMD_HFI
-Content-Language: en-US
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Hans de Goede <hansg@kernel.org>,
- "open list:AMD HETERO CORE HARDWARE FEEDBACK DRIVER"
- <platform-driver-x86@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260921170411.1149960-1-mario.limonciello@amd.com>
- <d70bc046-49bd-79b2-7df7-57d79046c507@linux.intel.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <d70bc046-49bd-79b2-7df7-57d79046c507@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN9PR03CA0188.namprd03.prod.outlook.com
- (2603:10b6:408:f9::13) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Mon, 21 Sep
+ 2026 17:11:48 +0000
+Received: from SN1PEPF00036F40.namprd05.prod.outlook.com
+ (2603:10b6:510:2ce:cafe::2d) by PH8PR21CA0003.outlook.office365.com
+ (2603:10b6:510:2ce::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.13 via Frontend Transport; Mon,
+ 21 Sep 2026 17:11:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ SN1PEPF00036F40.mail.protection.outlook.com (10.167.248.24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 17:11:47 +0000
+Received: from DFLE201.ent.ti.com (10.64.6.59) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 21 Sep
+ 2026 12:10:39 -0500
+Received: from DFLE213.ent.ti.com (10.64.6.71) by DFLE201.ent.ti.com
+ (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 21 Sep
+ 2026 12:10:39 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE213.ent.ti.com
+ (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Mon, 21 Sep 2026 12:10:39 -0500
+Received: from [10.24.51.24] (psdkl-workstation0.dhcp.ti.com [10.24.51.24])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68LHAYRs3390622;
+	Mon, 21 Sep 2026 12:10:35 -0500
+Message-ID: <b2d1e442-5254-413f-9c71-b071c6ef11bb@ti.com>
+Date: Mon, 21 Sep 2026 22:40:34 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] i2c: designware: Introduce per-variant register
+ offset and bit-layout tables
+To: Mika Westerberg <mika.westerberg@linux.intel.com>
+CC: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Nirujogi Pratap <pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
+        "Andy
+ Shevchenko" <andriy.shevchenko@linux.intel.com>,
+        <linux-i2c@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <vigneshr@ti.com>, <nm@ti.com>,
+        <u-kumar1@ti.com>, <lianfeng.ouyang@starfivetech.com>,
+        <Ritwick.Sharma@arm.com>
+References: <20260919-tda54-upstream-i2c-v1-0-b0b9f77be18b@ti.com>
+ <20260919-tda54-upstream-i2c-v1-2-b0b9f77be18b@ti.com>
+ <20260921111148.GT106095@black.igk.intel.com>
+Content-Language: en-US
+From: Aniket Limaye <a-limaye@ti.com>
+In-Reply-To: <20260921111148.GT106095@black.igk.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|CH3PR12MB7690:EE_
-X-MS-Office365-Filtering-Correlation-Id: 073fca67-6aea-4171-1e7b-08df1803bb69
+X-MS-TrafficTypeDiagnostic: SN1PEPF00036F40:EE_|SA1PR10MB6517:EE_
+X-MS-Office365-Filtering-Correlation-Id: d6256f1f-8bb0-468c-a1f0-08df18036b39
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|11063799006|6133799003|10067099003|4143699003|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|82310400026|7416014|36860700016|6133799003|10067099003|56012099006|4143699003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	EYIk3j/291xUNrWC4k4Y74j2HCWsY3aOvKtiBBZWFdKHimnpVn2NVBLRw207Pc7C+96oG1yK7JFbj2wLb6cqaeJyOrRy2bKq7w8hziGvWuTodI9O/Bs+qt1raskLhkjdH3u85EiaqsKeQfzUQKMRZgOtJ2N/kynwo3YEQBFvilWH8W3eCx6vf3fHibTkV3gBosma5iIsuprktw+VqC1/77i7asaujPzJj2HvGmlzfcor9TOG5zV5ZvzsA8Fo1Ql26M/1yMaZbezbuoXXXHfSekSfkf6Mks+XzcC+1TZX0VQOzQImH13DP5yChIlmPN+nnQ4o8BVYtTrPC7J+7emFCVB0UFFlhNR7YJemFWr27EtL8e17v9pATKzv7hdJF6S8FRNpzWcxOYe09POn/SFtpAVFk1Ay/BTUpYo8laOLz26n7dqOBhT8osEILymuqMolAgvVmEQKJeSucP9+MTZiPA2rAuFJdax7hI1zz5rlmpGThqUncYPveLKcO1znNepzxCPOIuwX6BV+Rr90IUvBx6ufffWPcmpowWclI6zbmq177C6WVchVSfRcVmDflqoYAgrKvnjtGm1eu6tYyKZQzZnALp1fUxCGxMUVTFlLsQ2cKNfbGaEVQw665fm5bz7MXNb0g1XUzRg9Wx5l42VWAM8JglvYmIVgH4AWasMDvC8=
+	oiqlItEgRTiY/ht0SJICiUlO1H/47R4RdlzygU32u+zArBV7BfA+TjclnWwnxQpmiFBlHXablnU3X43EGl3V5kPlyr1CDfUPY3CqrTWTXwsGPm5H+4zgD/mkL+O+Zvvp/dafoJhX+iJbQ6H/ec8PQDLxh3omhusQ5PLOrPRVOzuex7iZZ5fQlZU/HJJWZw1DFy0fK1jiQXQ+o6gqaJAxha/pStp4c3a1ciDJzgIwkXCkL1B+r5V7pgTVPRDbmt/LvWWOLfc1JpCLKdC4nBIQRx01CogDtgwmUfDxbmPRSIo5vCLu1cH0u/7eQELLPEW5iAKJ5XZQvrdS1z7Q0d38+/BnhmbtaxcpcHuyppYnhjbswDZh82bUVSQF13k3sCOYYUYT8bzLH4FZ/8+2zLa6xRNUPxC6DpGO/NxWHWcZEKBP5Yii8gbFv4/qn2e5LpgyqmMtcMeTNK4CsMDzC9g0m7tUNT8ZYg01Q7pxnAIodGCMkfrkNt1RLOiNHlft0ezzRzg5gE0p+rW3dNJulzovY6XFDjX5TIStQYN0bMv14QmXRpGpmRR3FmDWGpIRAQ+j40hiR2/yDSseoXVWW2GL+/1G5b1WMjNAR06eGVM66V+KmXBLoThPh2c9rCQ1331AAlvLgWdlBT8EUZCnT0hC5EMdnC8oGPQDJmz2ajzsR5DWgsmwBbEjaw7I6c0gkAi0Ce4jlDPO3fDctBwKIvBlgg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(11063799006)(6133799003)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(7416014)(36860700016)(6133799003)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dU10NVV5V1Q0NnkrQVY3dEdIK253T1RtcUx5Z1FsY2xxRTBpakxJelAzMjlQ?=
- =?utf-8?B?L2Q2RFhqTHh3UkxibkRBWlVucFFlSDNxQlYwNENZWVN6UUNuTUs4RFMrRU9u?=
- =?utf-8?B?a2xMbDQ2ZXBRTmlGS3hubjdjS3pEOTB2TnVJTGtBYVIvMVo5RzYxYUhDUFVt?=
- =?utf-8?B?a3gxSkFnVFdGMWpJNXg0Z2RWYUFXMFNEVzZmSjZjdE0yS1MzUWNTN3dvZWRi?=
- =?utf-8?B?VTJvTTI2Sm9HNzZRcCthdHRjYitHOFo5NXpmVVd4ZmdIcUtJcDB3ZWdUY1Zj?=
- =?utf-8?B?OUY0N3prTGRqZENrUy85cjZzZVhFSVR6ZDBGek1qRXFEeWQrTUFrc1MxbTZn?=
- =?utf-8?B?ZElNOEQvUDlpQVBLZnk3T3I3RjR6ajdWVUFxNDRsN2gvTm94UmRrRnRRaTlq?=
- =?utf-8?B?ZGpwclYxYmZRaGduenJPN2M4UTdhSjVIY1paNnZta01CaERsbnhQZGVxZU1P?=
- =?utf-8?B?dWVmTmlPMUdkcmZPR0grK014NnNpbVNqejl0eGF4eXQyY3ZnSGZFVFZJZmJx?=
- =?utf-8?B?MVljUENDYnpVZENFb2VsVnhEMXo1S3hzNTJkYnJ5OWlIZ3RIWUs5ZXVvcER3?=
- =?utf-8?B?Mk5CZmZWNEZLM2wza3hOTEdtd2Z1Wkh6TXJIYThyU0R0aDdpVnphTm1oRzRZ?=
- =?utf-8?B?ODJmMGRFNzNUeGk1Nk9wK2c3VUVsL2RRc2lKTHowSHpwMndzZDNibUQ2RTRv?=
- =?utf-8?B?bEZhS2ZBNElIejM3VFRDTEt5Y3BmdFJyckxFd2thb0FnYjYvcnduSy9mOXZC?=
- =?utf-8?B?a3VPWnhZdSt0YVVVOVRsY0hGYVMxRVdLVlVPR3NpMkNGdkZWQXora3piU3NP?=
- =?utf-8?B?VS9vbXdkM2VlMTIveEsxZmVDQzMvM2x4TzQ1MFBJRzhMdksvY2EzUzhPNG5M?=
- =?utf-8?B?cG1Ua3FWdisxK0UxNHYrNGxmd2FnSFhabXhwSVA1QWxkdXp2VWs1ckV5K2R6?=
- =?utf-8?B?djg4S1BZSDgxYWhTU0N3cXJ4MVBEMXhyRlRTVW1rcTJlZ0VjYjJieWxiRU1w?=
- =?utf-8?B?WnN3TEcyVFk5TTdsYmt1Q2FlaTMzTTVYNlMwT2R0Y2E1NklFVHU4QVpBbUZp?=
- =?utf-8?B?WGl2eEd0MDdzV0ZxN3pyLyswRW4wLzZFQjBHRkdUeFJqVmxRRFFLTGx3SDQ0?=
- =?utf-8?B?b1JscGZTcHpad1JFYktqMEthVWNET0puMkJPbzRkTHdqVHFoaTN0NVc0bU5O?=
- =?utf-8?B?eTFtbzhGMHIwNFlTTGYzeHBiUzlOSlpzVTNBdzZjQXhLbkZOb2pOWDVYa1c4?=
- =?utf-8?B?Vk9uM211eVAwU01nclN6TGFMaWlEWXJ3UzdoZE1GVnU4YWdKUElQa0tSTG4z?=
- =?utf-8?B?YTVRWngwWUFxNndjZ2Q0WVRUM3ZrSXVLalFxbDFERDArSVRSK3lxMExkWnRK?=
- =?utf-8?B?djBKNEFXUDhxV1Jycnp1MTJNZ2kvU0pnTEFTWHBna2NGTWhCSEdxNFp3U3BH?=
- =?utf-8?B?NWdjUTJaY2JXQTVORFp4NC9ZZ2NOaENQOEV2T2FSZm9jcjQ4MUVzazB6T2dV?=
- =?utf-8?B?dVlqNXFobjhNMEwwT3VidkY0M1h2Y1pISVAyWlY2M3k2K013L0RqSVBsbUdw?=
- =?utf-8?B?eHpXYzVna0gzR09TUzkyUGZFOHk0d2t0Z3JQY0xVQTBUb3BHWlFqU1Nkb2JF?=
- =?utf-8?B?U21PbkNTbGVhYmJkUzVMeHRHbDZXY1oxZGNzdWEyYkM1bTJqVmF4Sk5CdHFK?=
- =?utf-8?B?ejUvNERKTUpGUFVNb2QvZHM1Nm9wZmh1NXNkb2E5UE1KRkhCNi84T2lsVGFD?=
- =?utf-8?B?WDE5SFdkT1FCS3oycDlycjB1TFBmL1MyQVRyRTN5K1VRbzJZazlhUmZ6TzU4?=
- =?utf-8?B?RS94ZTZsQTFHUlQwL3M3NXdzNGxxLzgwWWlTM29lSytjTks2aUV5U09BUmNC?=
- =?utf-8?B?MUI3VHhxUG9GVE5hYVNlNk1lek81Y2dZTE95OWU1SGEzcS9Db2hVd0htVzJ2?=
- =?utf-8?B?L2xlN0NsUllKMWY1NVArR3Vra203VXRvdHZlYkJPZUVkQ29tY21oWHlmRzBF?=
- =?utf-8?B?RXYycU1Xb01GQ1RtSmJrODQ1WFdiM2FWV3MrdkRncEZSL2hhU3B1M0tETVFu?=
- =?utf-8?B?VVovRnNBL0RLNkkrbk5JdFRzbFpNdyt4MTFwc25yZGw3a3JMKzBac015MTVx?=
- =?utf-8?B?QStCQVFSQlRPR3RmQ1J5dTJQTlpaK2xsMGVmc2xnUHlNN2ZFOTl0SHhGVlhm?=
- =?utf-8?B?cFJMbGF0T1U0MUZ6QUlYd05hUnR3WmI4U0xvVU1qb3dLSDN0RW9jWWYzK1Q4?=
- =?utf-8?B?djJuSk9EMzNIWlBZQjVXazZUVGxsa25rV2o1dU9PeWcxOTYwRnF1ZnFia0Mx?=
- =?utf-8?B?cS8ramNlL0FIbkVvbnl0bWlGVVE4VVVodktmWlpFV0RpWWhJWVNXUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 073fca67-6aea-4171-1e7b-08df1803bb69
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 17:14:02.1589
+	dj+ezKWsqSt6IQNqEjPuGDbTvaIfItVOJdWYM3r3V6V1O3DoNYs+vMTIy4kIpA9a1Okjx5jTxkphBGelVFRREKffNCweBTf6Mkq5ty2iwwmcuMp6wElCPKcw1H9u+jpSPp56plnIQc2wLy7XGxQ0lBeJuO6fiWrSs2wsYWMbYFEBB4Vq9092nXZmBS+OgaTublPPJaTUqP74tlHX0uJrKUakgf63qRtwsnGwjHuqfq1qxh8ukzCxXKcdR88Rjsrq4PTG/H43HiezUd4XIsCD//q7WHLBcSkZ5ProWDtq7zS2V2I2gZNjVBXt9XQjvBl1YVMfPDcjuWUJ+YVchAWsBOZxX098GQCmi1DqLgnntxrSTppxeNFqFs8nnuEbb/fZuZNHQIeVWHyMYr3Ogt1cgOMwkKtJvjDd0Ii2ykkvMrMSg+3PvV1EQDgslYwoxjJ0
+X-Exchange-RoutingPolicyChecked:
+	0xRV6gVadKBmXt/OTO1AQeFxRWIW32ra8mQ2oxkcWlemtd2ezp5Nry2bwoD/ibxDTVrmeWA2UcTtUPsDjs6geyw7bBCHWeMdocay5wVJ018KDrfxfqn0SodxvELQ5heWZMx81811CVZlJ/TD7KDFMy3UPPnle6WDW2fSvD+7kCl+1JGjduXoEHW4jqxTDEHnrzG55y0hF9Jtm7NbkO7jIZO1wS6wGait9TDKJ/YQOUyFy29oMLH5mV3N/yYGwEeAdDur7T+uTQWvNxc9nDxK3wPls7yL0CNd1MR1AcrMVgFy8BSG2jaE5kSsoOttWfDRmptvZ/Ysx4qe/w0KOD0TGg==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 17:11:47.2312
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Gfrycz1TyjBkKgNiwnqXChwDwPOunCSl2sQViFvZiqJ2LNR77SEl9qLJEwwc8C+tPEUJL6epvq6jWmeESXi7Gw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7690
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6256f1f-8bb0-468c-a1f0-08df18036b39
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF00036F40.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB6517
+X-Proofpoint-ORIG-GUID: 1nTHXUIAaLvkChp4hzu2TlA605_io9Jd
+X-Proofpoint-GUID: 1nTHXUIAaLvkChp4hzu2TlA605_io9Jd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDI1MSBTYWx0ZWRfX+UtcuwPHyLR0
+ bLNrxUHxTenxxwcsSkaJpC8EwIYjzEgFNuYowWkRwxsZaz4nOoasTucm43IN5kwrhxA2FUc74/o
+ Bi8jke9rp7s2bWCINnDSElUI7tcqR5TkNe1KNzG0yVhTT2CIBmd0cSUJOkh5THq3vPWa6kxhsL+
+ F+d4A9CaWm74ym2j4SRMXZP7m+eboaMTkqm9iQfgAUGVfF/Lw8LfDCNrtqZhveHH810fmXVN6rn
+ zYo+EVuRqi9WtYyYgqVOo5m23pSZJK7/K00VQDZjLvEcSTJ5iETe3PVTQByuqqABs/Dxiye8My5
+ tHCSbR0Z1NGIXfdszixLtycDSxTl788iHi6gcman5zUQsDpWwmkYfGPHzfHayEgsIteaylppRCk
+ EWDcfomLkjd9eMR6BBxLs7SPGicg+EyK0UpLtH/UIOrkBqx3bw/XVRCRZHqEd+zjNryZddaEY3v
+ HG5K+BxN4pwjRc4t2Eg==
+X-Authority-Analysis: v=2.4 cv=bpDZl0ai c=1 sm=1 tr=0 ts=6ab165dd cx=c_pps
+ a=hhtN0wN0XYjGptQO8Yv39Q==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=sozttTNsAAAA:8 a=KxUmQjL12Svw3x4mmEMA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDI1MSBTYWx0ZWRfX7FTYJVqYM7uq
+ IxeXpz8/tg0KG0v82I5xnmRfL1CEu3MPRR9aGOI+V0wX9NKssl5uvBeoovTs++d6GlNfmNiSB4T
+ nzILwd53ST88diY2RYCN8rXdrRlnxO8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ suspectscore=0 phishscore=0 bulkscore=0 impostorscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210251
 
 
-
-On 9/21/26 12:10, Ilpo Järvinen wrote:
-> On Mon, 21 Sep 2026, Mario Limonciello wrote:
-> 
->> Sashiko flagged a few instances that could trigger out of bounds or
->> use-after-free.  This series fixes them.
-> 
+On 21/09/26 16:41, Mika Westerberg wrote:
 > Hi,
-> 
-> I suppose it would be fair to credit sashiko with tags.
-> 
->> Mario Limonciello (3):
->>    platform/x86/amd: hfi: Fix a use-after-free when unloading the driver
->>    platform/x86/amd: hfi: Fix out-of-bounds reads when parsing ranking
->>      data
->>    platform/x86/amd: hfi: Rely on ACPI enumeration instead of a dummy
->>      device
+>
+> On Sat, Sep 19, 2026 at 02:36:07PM +0530, Aniket Limaye wrote:
+>> Every DW_IC_* register offset and CON-register bit position is currently
+>> baked in as a compile-time constant, which only works while there is a
+>> single register layout. Introduce a logical register-ID enum (enum
+>> dw_i2c_reg_idx) plus a per-variant offset table (dev->regs[]) and a
+>> per-variant CON-register bit-layout descriptor (dev->con_bits), selected
+>> at probe time via the new i2c_dw_select_variant().
 >>
->>   drivers/platform/x86/amd/hfi/hfi.c | 34 ++++++++++++++++++------------
->>   1 file changed, 21 insertions(+), 13 deletions(-)
+>> Replace every direct DW_IC_* offset/bit-position reference with a lookup
+>> through dev->regs[]/dev->con_bits. Also fold the read-to-clear
+>> interrupt-acknowledgment pattern into a new i2c_dw_ack_intr() helper,
+>> driven by a per-variant dev->intr_clr[] table.
 >>
+>> Only one variant exists at this point (DW_apb_i2c), so this is a
+>> mechanical, behavior-preserving change: the values in
+>> dw_i2c_reg_offsets[] and dw_i2c_con_bits match the DW_IC_* macros
+>> exactly. It lays the groundwork for adding a second register layout
+>> (DWC_i2c) without duplicating the whole driver.
 >>
-> 
+>> Signed-off-by: Aniket Limaye <a-limaye@ti.com>
+>> ---
+>>   drivers/i2c/busses/i2c-designware-amdisp.c  |   1 +
+>>   drivers/i2c/busses/i2c-designware-common.c  | 158 ++++++++++++++++++++++------
+>>   drivers/i2c/busses/i2c-designware-core.h    | 108 ++++++++++++++++++-
+>>   drivers/i2c/busses/i2c-designware-master.c  | 125 +++++++++++-----------
+>>   drivers/i2c/busses/i2c-designware-pcidrv.c  |   2 +
+>>   drivers/i2c/busses/i2c-designware-platdrv.c |   2 +
+>>   drivers/i2c/busses/i2c-designware-slave.c   |  42 ++++----
+>>   7 files changed, 318 insertions(+), 120 deletions(-)
+>>
+>> diff --git a/drivers/i2c/busses/i2c-designware-amdisp.c b/drivers/i2c/busses/i2c-designware-amdisp.c
+>> index 9f0ec0fae6f2..f7aa075c9977 100644
+>> --- a/drivers/i2c/busses/i2c-designware-amdisp.c
+>> +++ b/drivers/i2c/busses/i2c-designware-amdisp.c
+>> @@ -46,6 +46,7 @@ static int amd_isp_dw_i2c_plat_probe(struct platform_device *pdev)
+>>   	isp_i2c_dev->flags |= ACCESS_POLLING;
+>>   	platform_set_drvdata(pdev, isp_i2c_dev);
+>>   
+>> +	i2c_dw_select_variant(isp_i2c_dev);
+>>   	isp_i2c_dev->base = devm_platform_ioremap_resource(pdev, 0);
+>>   	if (IS_ERR(isp_i2c_dev->base))
+>>   		return dev_err_probe(&pdev->dev, PTR_ERR(isp_i2c_dev->base),
+>> diff --git a/drivers/i2c/busses/i2c-designware-common.c b/drivers/i2c/busses/i2c-designware-common.c
+>> index a1eca6cd4b75..a21aeb7f415a 100644
+>> --- a/drivers/i2c/busses/i2c-designware-common.c
+>> +++ b/drivers/i2c/busses/i2c-designware-common.c
+>> @@ -72,6 +72,95 @@ static const char *const abort_sources[] = {
+>>   		"incorrect slave-transmitter mode configuration",
+>>   };
+>>   
+>> +/* "snps,designware-i2c" flat register layout */
+>> +static const u32 dw_i2c_reg_offsets[DW_REG_IDX_MAX] = {
+>> +	[DW_REG_IDX_CON]			= DW_IC_CON,
+>> +	[DW_REG_IDX_TAR]			= DW_IC_TAR,
+>> +	[DW_REG_IDX_SAR]			= DW_IC_SAR,
+>> +	[DW_REG_IDX_DATA_CMD]		= DW_IC_DATA_CMD,
+>> +	[DW_REG_IDX_SS_SCL_HCNT]		= DW_IC_SS_SCL_HCNT,
+>> +	[DW_REG_IDX_SS_SCL_LCNT]		= DW_IC_SS_SCL_LCNT,
+>> +	[DW_REG_IDX_FS_SCL_HCNT]		= DW_IC_FS_SCL_HCNT,
+>> +	[DW_REG_IDX_FS_SCL_LCNT]		= DW_IC_FS_SCL_LCNT,
+>> +	[DW_REG_IDX_HS_SCL_HCNT]		= DW_IC_HS_SCL_HCNT,
+>> +	[DW_REG_IDX_HS_SCL_LCNT]		= DW_IC_HS_SCL_LCNT,
+>> +	[DW_REG_IDX_INTR_STAT]		= DW_IC_INTR_STAT,
+>> +	[DW_REG_IDX_INTR_MASK]		= DW_IC_INTR_MASK,
+>> +	[DW_REG_IDX_RAW_INTR_STAT]		= DW_IC_RAW_INTR_STAT,
+>> +	[DW_REG_IDX_RX_TL]			= DW_IC_RX_TL,
+>> +	[DW_REG_IDX_TX_TL]			= DW_IC_TX_TL,
+>> +	[DW_REG_IDX_CLR_INTR]		= DW_IC_CLR_INTR,
+>> +	[DW_REG_IDX_CLR_RX_UNDER]		= DW_IC_CLR_RX_UNDER,
+>> +	[DW_REG_IDX_CLR_RX_OVER]		= DW_IC_CLR_RX_OVER,
+>> +	[DW_REG_IDX_CLR_TX_OVER]		= DW_IC_CLR_TX_OVER,
+>> +	[DW_REG_IDX_CLR_RD_REQ]		= DW_IC_CLR_RD_REQ,
+>> +	[DW_REG_IDX_CLR_TX_ABRT]		= DW_IC_CLR_TX_ABRT,
+>> +	[DW_REG_IDX_CLR_RX_DONE]		= DW_IC_CLR_RX_DONE,
+>> +	[DW_REG_IDX_CLR_ACTIVITY]		= DW_IC_CLR_ACTIVITY,
+>> +	[DW_REG_IDX_CLR_STOP_DET]		= DW_IC_CLR_STOP_DET,
+>> +	[DW_REG_IDX_CLR_START_DET]		= DW_IC_CLR_START_DET,
+>> +	[DW_REG_IDX_CLR_GEN_CALL]		= DW_IC_CLR_GEN_CALL,
+>> +	[DW_REG_IDX_ENABLE]			= DW_IC_ENABLE,
+>> +	[DW_REG_IDX_STATUS]			= DW_IC_STATUS,
+>> +	[DW_REG_IDX_TXFLR]			= DW_IC_TXFLR,
+>> +	[DW_REG_IDX_RXFLR]			= DW_IC_RXFLR,
+>> +	[DW_REG_IDX_SDA_HOLD]		= DW_IC_SDA_HOLD,
+>> +	[DW_REG_IDX_TX_ABRT_SOURCE]		= DW_IC_TX_ABRT_SOURCE,
+>> +	[DW_REG_IDX_ENABLE_STATUS]		= DW_IC_ENABLE_STATUS,
+>> +	[DW_REG_IDX_SMBUS_INTR_MASK]	= DW_IC_SMBUS_INTR_MASK,
+>> +	[DW_REG_IDX_COMP_PARAM_1]		= DW_IC_COMP_PARAM_1,
+>> +	[DW_REG_IDX_COMP_VERSION]		= DW_IC_COMP_VERSION,
+>> +	[DW_REG_IDX_COMP_TYPE]		= DW_IC_COMP_TYPE,
+>> +};
+>> +
+>> +static const struct dw_i2c_con_bits dw_i2c_con_bits = {
+>> +	.master			= DW_IC_CON_MASTER,
+>> +	.speed_std		= DW_IC_CON_SPEED_STD,
+>> +	.speed_fast		= DW_IC_CON_SPEED_FAST,
+>> +	.speed_high		= DW_IC_CON_SPEED_HIGH,
+>> +	.speed_mask		= DW_IC_CON_SPEED_MASK,
+>> +	.bit10_slave		= DW_IC_CON_10BITADDR_SLAVE,
+>> +	.bit10_master		= DW_IC_CON_10BITADDR_MASTER,
+>> +	.restart_en		= DW_IC_CON_RESTART_EN,
+>> +	.slave_disable		= DW_IC_CON_SLAVE_DISABLE,
+>> +	.stop_det_ifaddressed	= DW_IC_CON_STOP_DET_IFADDRESSED,
+>> +	.tx_empty_ctrl		= DW_IC_CON_TX_EMPTY_CTRL,
+>> +	.rx_fifo_full_hld_ctrl	= DW_IC_CON_RX_FIFO_FULL_HLD_CTRL,
+>> +	.bus_clear_ctrl		= DW_IC_CON_BUS_CLEAR_CTRL,
+>> +};
+>> +
+>> +/* "snps,designware-i2c": dedicated read-to-clear register ID per logical interrupt */
+>> +static const u32 dw_i2c_intr_clr[DW_INTR_IDX_MAX] = {
+>> +	[DW_INTR_IDX_ALL]       = DW_REG_IDX_CLR_INTR,
+>> +	[DW_INTR_IDX_RX_UNDER]  = DW_REG_IDX_CLR_RX_UNDER,
+>> +	[DW_INTR_IDX_RX_OVER]   = DW_REG_IDX_CLR_RX_OVER,
+>> +	[DW_INTR_IDX_TX_OVER]   = DW_REG_IDX_CLR_TX_OVER,
+>> +	[DW_INTR_IDX_RD_REQ]    = DW_REG_IDX_CLR_RD_REQ,
+>> +	[DW_INTR_IDX_TX_ABRT]   = DW_REG_IDX_CLR_TX_ABRT,
+>> +	[DW_INTR_IDX_RX_DONE]   = DW_REG_IDX_CLR_RX_DONE,
+>> +	[DW_INTR_IDX_ACTIVITY]  = DW_REG_IDX_CLR_ACTIVITY,
+>> +	[DW_INTR_IDX_STOP_DET]  = DW_REG_IDX_CLR_STOP_DET,
+>> +	[DW_INTR_IDX_START_DET] = DW_REG_IDX_CLR_START_DET,
+>> +	[DW_INTR_IDX_GEN_CALL]  = DW_REG_IDX_CLR_GEN_CALL,
+>> +};
+>> +
+>> +/**
+>> + * i2c_dw_select_variant() - Pick the register offset table, CON-register bit
+>> + * layout and interrupt-ack mapping matching this device's IP variant
+>> + * @dev: device private data
+>> + *
+>> + * Must be called after dev->flags has been populated from
+>> + * device_get_match_data()/ACPI id data, and before any register access
+>> + * (including i2c_dw_init_regmap()).
+>> + */
+>> +void i2c_dw_select_variant(struct dw_i2c_dev *dev)
+>> +{
+>> +	dev->regs = dw_i2c_reg_offsets;
+>> +	dev->con_bits = &dw_i2c_con_bits;
+>> +	dev->intr_clr = dw_i2c_intr_clr;
+>> +}
+>> +EXPORT_SYMBOL_GPL(i2c_dw_select_variant);
+>> +
+>>   static int dw_reg_read(void *context, unsigned int reg, unsigned int *val)
+>>   {
+>>   	struct dw_i2c_dev *dev = context;
+>> @@ -147,7 +236,7 @@ static int i2c_dw_init_regmap(struct dw_i2c_dev *dev)
+>>   		.disable_locking = true,
+>>   		.reg_read = dw_reg_read,
+>>   		.reg_write = dw_reg_write,
+>> -		.max_register = DW_IC_COMP_TYPE,
+>> +		.max_register = dev->regs[DW_REG_IDX_COMP_TYPE],
+>>   	};
+>>   	u32 reg;
+>>   	int ret;
+>> @@ -163,7 +252,7 @@ static int i2c_dw_init_regmap(struct dw_i2c_dev *dev)
+>>   	if (ret)
+>>   		return ret;
+>>   
+>> -	reg = readl(dev->base + DW_IC_COMP_TYPE);
+>> +	reg = readl(dev->base + dev->regs[DW_REG_IDX_COMP_TYPE]);
+>>   	i2c_dw_release_lock(dev);
+>>   
+>>   	if ((dev->flags & MODEL_MASK) == MODEL_AMD_NAVI_GPU)
+>> @@ -365,17 +454,17 @@ static void i2c_dw_configure_mode(struct dw_i2c_dev *dev, int mode)
+>>   {
+>>   	switch (mode) {
+>>   	case DW_IC_MASTER:
+>> -		regmap_write(dev->map, DW_IC_TX_TL, dev->tx_fifo_depth / 2);
+>> -		regmap_write(dev->map, DW_IC_RX_TL, 0);
+>> -		regmap_write(dev->map, DW_IC_CON, dev->master_cfg);
+>> +		regmap_write(dev->map, dev->regs[DW_REG_IDX_TX_TL], dev->tx_fifo_depth / 2);
+>> +		regmap_write(dev->map, dev->regs[DW_REG_IDX_RX_TL], 0);
+>> +		regmap_write(dev->map, dev->regs[DW_REG_IDX_CON], dev->master_cfg);
+> Instead of all this. Can't you do this inside the regmap so that here and
+> elsewhere in the driver we continue to do:
+>
+> 	regmap_write(dev->map, DW_IC_RX_TL, 0);
+>
+> but internally, depending on the hardware it then maps this into the
+> corresponding register offset.
 
-What tag would I use?  The Sashiko URLs appear to be private (or at 
-least I need to be logged in).
+Yeah that's definitely cleaner... will do in v2.
 
-Something like:
+Thanks,
+Aniket
 
-Reported-by: Sashiko
 
-or
-
-Reported-by: Sashiko
-Closes: <private-sashiko-url>
