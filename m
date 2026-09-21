@@ -1,86 +1,45 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mta0.migadu.com (out-130.mta0.migadu.com [91.218.175.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C7F4CDDF2
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:42:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE04D4570EE
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:44:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790005353; cv=none; b=Qaes8mmog8Vr/m+8MA5v8JOaZJhkaMZE7B1WkdqbDrhtXeC+96vT/QeD5Iu7FqusWncgZkWC90mtscrVArQeQTSOFESRqiPzg1eA7YtRMGG7gbH8GBG7rsdYLEUl3Ic3fChqN5TaLjN951yXehptfEY3TLCDRwEAxnK4yVrguDE=
+	t=1790005455; cv=none; b=Uy6e04KDXB9MBaxlxGlcpHwkkEOhj6MxbEsjIgcGuIyNWfro7VSYnlslqrPE9UYs55syaL2IFklYyNVTMstPu4/6cc97BTbQLqoPJ9JZ66GF/68TuZg+yq2w0XmVY/dTb4S0B6DfwQE818kWEPUqrmqlH56Ao0RG5zx1p3zTH2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790005353; c=relaxed/simple;
-	bh=9kH4Z0v4eee+DKg2Rpv77UIr+n2moHtnlgKwmj9MEoY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pwA1zUntGQ+ipdyCfbMkew7XviyGqxhEL602vR67VZ8Z4gMpxPqRvlyYGYXCRkXch4cdgNb/S2XHLnwJETEeiSiV+DfNqE78jOZUmBa3t/jgN2VZwrRnS2BA01VGHt+feaida9a2dq1r/5WEHtyu6vlyzMKCXye90t4DHmYrooc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ad7Rah05; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790005455; c=relaxed/simple;
+	bh=NEs3frl7AVwgf8OzQU1knx/lK7ppWsXpe37I2BsqKXU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GKO/g1lI/8IljFHec14VzkoIzEccbjuoXrXkqIvCGJI+/YrC8BxnpyuQGjl7BfktVx8TN/UBZA5a2/iDf9NCHKLPR376G4XstBvr2uj/6TGVjdR2bus5w8H0HwcCR/xjYVGBvYeO4yDWgtNckKISCKGvw/QnXvB6ixYUy6NZXUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=v+Efpuu1; arc=none smtp.client-ip=91.218.175.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ad7Rah05"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469e25187so1778701b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:42:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790005350; x=1790610150; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B54+vCOLkFDdOpiW0k+Uldsd6dkbrkEHEWRd5WaDkpQ=;
-        b=ad7Rah05PSvOwE/76pZJMjzTlqCO2T/G9Tj6rT51mH8Ds8VYe0LseSg15hZ1M7TY+e
-         G/IfSz3zdDCcLhv7G83l7Qp7aO1mJ064QX0wG7etlFd9DnsdYY91NNHW3ex6U6Z+vx9y
-         koKo3vu/kPjrv8dn/wvrcTWpBV+bjQaSx2AKoFVuLeb0tjQtDuSxnF0AgZcdgZCOhfHm
-         gMDzNWyIvd0eGj4AbYiJVzFj71alHFBES61XJr0QkVqNMuVUGblEHRdj9fSHy9g1mTAn
-         odOP0gFKnPa8DUBpX3MJTYnnfJ8mTVLWup775ftKoH/HBkKRGuerxNobtjm3cELXl5b8
-         YYpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790005350; x=1790610150;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B54+vCOLkFDdOpiW0k+Uldsd6dkbrkEHEWRd5WaDkpQ=;
-        b=bZgzfTc7unbFb7wIA+hlYLdE1Q0//NF3gNaSlVIhgzpqhIcUyEAo9d3Smz1pJkQv2X
-         sOQ5axj+EidfonXVaYPjNOkc1yMZqFSNHc9sDgmoDxi5KNNfcb+7mlewM7mXhYgPVgHO
-         Vxq79v5C2aFSZKcy0K3Mc8OQ7JOdL6LOOc+3/tH77pReXCbLFOn3J7Fn4S6BNmmt7wkE
-         h1i1OOln+umM8vloV15rseXSo3EVr4BloeeQjzFbQ0j3Ev4caJ7LZIsdj0PHILw1VWKI
-         Ux7fVtxeLGUPwKoD/Xu0apyeyKNEplvP2OilH3mzsVfh/v8Au8OL/pvYAFFZ2xY/ZwTc
-         Va6A==
-X-Forwarded-Encrypted: i=1; AKwUvBwfVAM+iOLS12emcivXy15p1nDXfKY+VKWXtnJF5HS2hypUhS7i9dycKTPSut1ZiknjaoXNe1x/8LhWMqg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwl2dcbbxp6vfTwSLjG9IZ19AukvmAa0nJL9HXISCRpnROaCyv
-	Hi6UY7xj8Ch4/EHJFTGBjjyktV/3VUw9dG/gC2ivYUMgMV9GYHxi6xmQ
-X-Gm-Gg: AYBFou2sTzSJfXx9GMx49VIceoPqODok5kxzgJJl/aQpBRoz4/GLjdNocxRr3xfFSfK
-	uLQk/BzsavB5z+BUBD1Mrglo7HELJ5h5Rm9fZAZ3wfsaEWWrSXvnkAvebKsSsfM2Bj1PCNMxC80
-	1sdamxb7TfLmOWiCklRBSdPOClNf3f+XD0aDhzWkFV1KdMKnFnr5IdZwFBf5bdhhNfqY807eq3O
-	v92agGKgrpaTfKPCSPRML5JNoBxA0akqLFLsSaZAK6Nzx+fizslksD5ivuwlQohUqRp6LYlUcyx
-	x+ML7LaQEB3q0qmdrKf/gJGE6ySfxX3Kw0Q+riSy4FG31OGUiNpIs23BAzmjWY1toz5NkOKy8Ly
-	NBrkaXnrzA/16FvdFK9Pbi5AcIbaiTpl3wE09gQthIrD4+wDJIIZpg3qqurHh7uFfyIES1m0Gq0
-	8W9mgjVYbhuwapycvdQ2QX0Ze7QzK10KmsRjkfrdjKi6Nz47+SYrRNNg==
-X-Received: by 2002:a05:6a00:2eaa:b0:871:f803:1f1a with SMTP id d2e1a72fcca58-874db6f71d0mr13984342b3a.6.1790005350498;
-        Mon, 21 Sep 2026 08:42:30 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877aa70200esm3449599b3a.61.2026.09.21.08.42.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 08:42:29 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Arthur Kiyanovski <akiyano@amazon.com>,
-	David Arinzon <darinzon@amazon.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Ioana Ciornei <ioana.ciornei@nxp.com>,
-	Sang-Heon Jeon <ekffu200098@gmail.com>,
-	Dawei Feng <dawei.feng@seu.edu.cn>,
-	Amit Bernstein <amitbern@amazon.com>,
-	Netanel Belgazal <netanel@annapurnalabs.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2 2/2] net: ena: fix MMIO read buffer leak on probe failure
-Date: Mon, 21 Sep 2026 23:42:02 +0800
-Message-ID: <20260921154202.471662-3-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260921154202.471662-1-lgs201920130244@gmail.com>
-References: <20260921154202.471662-1-lgs201920130244@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="v+Efpuu1"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=NEs3frl7AVwgf8OzQU1knx/lK7ppWsXpe37I2BsqKXU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790005450; v=1; x=1790610250;
+ b=v+Efpuu194uf230/c9jD5KTtLugaJOX8fSn1ciahJFj7tB32Tl9n6rQ0ZWDz+Vg12DBrLom5
+ Yj2DiA44HLTfk+f4+VV7XRElsU+V+kedeivcZr30wtT85qjy51rmxQe6baiiycbpPTjAVLaQFXe
+ Yl1A3VDiy3nJb2hDVtPL/38g=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a90b50435199dc9a;
+	Mon, 21 Sep 2026 15:44:09 +0000
+X-Mizu-Trace-ID: a90b50435199dc9a
+X-Migadu-Flow: FLOW_OUT
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Straube <straube.linux@gmail.com>,
+	Peter Robinson <pbrobinson@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	Luka Gejak <luka.gejak@linux.dev>
+Subject: [PATCH v3 0/6] wifi: rtw88: add RTL8723B/RTL8723BS support
+Date: Mon, 21 Sep 2026 17:43:41 +0200
+Message-ID: <20260921154347.82317-1-luka.gejak@linux.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,40 +48,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ena_device_init() initializes the MMIO read mechanism with
-ena_com_mmio_reg_read_request_init(), which allocates a coherent DMA
-buffer for MMIO read responses.
+Hi everyone, sorry for my inactivity in last 10 days. I am currently in
+Russia and will be there until weekend as one of participants of some
+student exchange for 16 year olds. Therefore, as I don't have my own
+internet, I might not be available at all times(maybe only couple of
+times per day).
 
-The normal removal path releases this buffer through
-ena_com_mmio_reg_read_request_destroy(). However, if ena_probe() fails
-after ena_device_init() succeeds, the error path destroys the admin
-resources and eventually frees ena_dev without destroying the MMIO read
-request, leaving the coherent DMA buffer allocated.
+This is the second of two series adding support for the Realtek RTL8723B
+802.11n chipset and its RTL8723BS SDIO variant to rtw88. The preparation
+series has now landed in rtw-next; this series contains only the chip
+register definitions, the BB/RF/AGC tables, the chip driver, the SDIO
+bind, the build glue and the MAINTAINERS entry.
 
-Call ena_com_mmio_reg_read_request_destroy() in the probe error path
-before releasing the remaining device resources.
+The preparation series was posted separately as v11 with seven patches and
+is not part of this series. The six patches here apply on the rtw-next
+branch as it stands after those changes were merged, and they can be read
+on their own: apart from the register definitions in reg.h, the chip code
+adds nothing to the shared rtw88 core. The series is split by file and
+dependency so that the register definitions, tables, chip implementation,
+SDIO bind, build glue and MAINTAINERS changes can be reviewed
+independently.
 
-This issue was found by manual code inspection.
+The driver supports:
 
-Fixes: 1738cd3ed342 ("net: ena: Add a driver for Amazon Elastic Network Adapters (ENA)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/net/ethernet/amazon/ena/ena_netdev.c | 1 +
- 1 file changed, 1 insertion(+)
+  - RTL8723B / RTL8723BS, SDIO only;
+  - 2.4 GHz 802.11n, HT20 and HT40;
+  - one spatial stream;
+  - station mode.
 
-diff --git a/drivers/net/ethernet/amazon/ena/ena_netdev.c b/drivers/net/ethernet/amazon/ena/ena_netdev.c
-index 5f0864d16dd3..7eb6456ed0d5 100644
---- a/drivers/net/ethernet/amazon/ena/ena_netdev.c
-+++ b/drivers/net/ethernet/amazon/ena/ena_netdev.c
-@@ -4123,6 +4123,7 @@ static int ena_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	ena_com_delete_host_info(ena_dev);
- 	ena_com_admin_destroy(ena_dev);
- 	ena_phc_destroy(adapter);
-+	ena_com_mmio_reg_read_request_destroy(ena_dev);
- ena_devlink_destroy:
- 	ena_devlink_free(devlink);
- err_metrics_destroy:
+Only station mode has been validated. The common rtw88 core advertises AP
+and IBSS for all chips, so those modes are advertised for RTL8723BS as
+well, but neither has been tested. An out-of-tree tester has reported AP
+mode associating without DHCP completing. The five additional SDIO IDs are
+included for parity with the existing staging driver; only the 0xb723
+device has been exercised.
+
+The chip driver requests:
+
+  rtw88/rtw8723b_fw.bin
+
+This is the version 41 firmware extracted from the Realtek rtl8723bs
+vendor driver. It was submitted separately to linux-firmware with its
+extraction provenance and carries Ping-Ke Shih's Reviewed-by. There is no
+known native rtw88 RTL8723B firmware.
+
+The implementation is based on the initial RTL8723B work by Michael
+Straube:
+
+  https://github.com/mistraube/rtw88/tree/rtl8723bs
+
+Michael's Co-developed-by and Signed-off-by tags are present on the three
+chip-code patches containing code derived from that work.
+
+The known limitations are unchanged. Bluetooth coexistence depends on the
+BT firmware's status reports. During A2DP streaming those reports identify
+a connected link but do not expose the active profile, so the WiFi
+coexistence logic cannot make a correct traffic-aware decision. WiFi
+throughput can fall sharply while audio remains smooth. This is documented
+rather than guessed around in the WiFi driver. The intermittent RTL8723BS
+firmware failure to leave LPS also remains a known limitation;
+instrumentation shows a firmware stall rather than a polling timeout that
+can be fixed by extending the budget.
+
+Testing
+=======
+
+The exact six-commit branch builds with W=1 and links all rtw88 modules
+with real modpost. Sparse and smatch were run over the rtw88 directory.
+Smatch has no finding in the 8723B files; the run reports an existing
+container-of static assertion from include/net/neighbour.h while checking
+usb.c. checkpatch --strict is clean apart from the complex-macro report on
+TRANS_SEQ_END, which is an initializer macro that rtw8703b.c already
+defines in exactly the same way, and the "does MAINTAINERS need updating"
+reminder on the file-adding patches, which the last patch answers. git
+diff --check is clean and all six commits are GPG-signed.
+
+Hardware validation was run at this exact branch, on top of the applied
+preparation series: scan, authentication, association, WPA2 key
+negotiation, DHCP, TCP and UDP traffic in both directions, scans under
+load, link down/up cycles, reconnects and five module reload cycles, with
+a clean dmesg: no warnings, no errors, and no TX-report, H2C or leave-LPS
+messages. An extended soak on the same build added twenty reload and
+reassociate cycles, longer TCP runs and UDP floods in both access
+categories, a 2000 packet ping run, ten scans while connected and idle
+periods with power save: nothing was lost, no queue stalled, and dmesg
+stayed clean. The test machine provides only s2idle, so suspend and resume
+are not covered.
+
+Changes in v3:
+  - moved the chip series onto the rtw-next tip containing the applied
+    preparation series, so no shared-core change is part of this series
+    any more: fw, coex, mac80211, main, rx, sdio, tx and sec are untouched
+    here and come from the preparation series, which also drops the unused
+    rtw_coex_8723bs_ensure_pta_path() helper;
+  - split the previous chip commits into six file-oriented patches,
+    following the series shape from the v2 review: the chip-only register
+    definitions are separated from the chip body, and the body is split
+    further into the tables, the chip driver and the SDIO bind;
+  - added Michael Straube's Co-developed-by and Signed-off-by to the three
+    chip-code patches. v2 credited him in the commit message and in the
+    copyright headers, but carried no tag;
+  - fixed the chip RCR to retain RX FCS handling: WLAN_RCR_CFG now sets
+    BIT_APP_FCS, and every other bit of the value is unchanged. v2 instead
+    carried a shared-core exception that stopped advertising
+    RX_INCLUDES_FCS for this chip and special-cased the RX path. The chip
+    driver sets the bit itself now, so the core keeps its unconditional
+    contract;
+  - added rtw8723b_read_efuse(), which reuses the 8723x efuse reader and
+    fills the chip-specific hardware capability. This chip has no firmware
+    hardware feature report, so without it the usable stream count,
+    antenna count and supported bandwidths stay zero;
+  - efuse access reuses rtw8723x_efuse_grant() instead of open-coding the
+    switch, and only the chip's BT power-cut/output-isolation bit is
+    written on top of it;
+  - power tracking now keeps the TXAGC remnant per path and programs the
+    IQK matrix for the path being tracked, rather than always for path A;
+  - removed the available-page-threshold and reserved-page helpers, which
+    programmed thresholds that were already skipped on SDIO in v2;
+  - set_channel_rf() programs both RF paths from a single path A read
+    instead of read-modify-writing both paths and re-reading them
+    afterwards;
+  - path B's RF switch control is addressed through
+    REG_FPGA0_XA_RF_SW_CTRL, the upper half of the word the shifted mask
+    already selects; 0x0872 would be a 32-bit access on a 2-byte boundary;
+  - IQK delays are sleepable, the IQK failure path logs with rtw_warn()
+    instead of WARN(1, ...), and the RFK debug print uses REG_IQK_RDY
+    instead of the literal 0xe90;
+  - coexistence: raw addresses are replaced by the named registers they
+    were already equal to (REG_BCN_CTRL, REG_BT_TDMA_TIME,
+    REG_BT_STAT_CTRL, REG_GPIO_MUXCFG), the duplicated PTA pin, GNT_BT and
+    enhanced-interrupt writes inside coex_set_rfe_type() are gone, and the
+    antenna-switch registers use the mainline RFE naming;
+  - dropped register definitions that no longer have a user
+    (REG_BT_COEX_CTRL_8723B, REG_FPGA0_XB_RF_SW_CTRL, BIT_DIS_ATIM) and
+    the two rtw8723b.h copies of registers rtw8703b.h already defines;
+  - renamed the CCK swing tables from rtw8732b_* to rtw8723b_* and
+    recorded why row 20 deliberately differs from the v5.2.17 vendor
+    transcription; the values themselves are unchanged from v2;
+  - added the five additional SDIO ids for parity with the staging driver,
+    together with a comment that only 0xb723 has been verified;
+  - the remaining comment, naming and typo cleanups in the chip files. The
+    build glue, MAINTAINERS entry, table contents and copyright headers
+    are unchanged from v2.
+
+Luka Gejak (6):
+  wifi: rtw88: 8723b: add the RTL8723B register definitions
+  wifi: rtw88: 8723b: add the RTL8723B BB, RF and AGC tables
+  wifi: rtw88: 8723b: add the RTL8723B chip driver
+  wifi: rtw88: 8723bs: add the RTL8723BS SDIO bind
+  wifi: rtw88: 8723bs: enable building the RTL8723BS driver
+  MAINTAINERS: add entry for the RTL8723B rtw88 driver
+
+ MAINTAINERS                                   |    7 +
+ drivers/net/wireless/realtek/rtw88/Kconfig    |   18 +
+ drivers/net/wireless/realtek/rtw88/Makefile   |    6 +
+ drivers/net/wireless/realtek/rtw88/reg.h      |   31 +
+ drivers/net/wireless/realtek/rtw88/rtw8723b.c | 2938 +++++++++++++++++
+ drivers/net/wireless/realtek/rtw88/rtw8723b.h |   12 +
+ .../wireless/realtek/rtw88/rtw8723b_table.c   |  862 +++++
+ .../wireless/realtek/rtw88/rtw8723b_table.h   |   18 +
+ .../net/wireless/realtek/rtw88/rtw8723bs.c    |   67 +
+ 9 files changed, 3959 insertions(+)
+ create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b.c
+ create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b.h
+ create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b_table.c
+ create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b_table.h
+ create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723bs.c
+
 -- 
-2.43.0
+2.55.0
 
