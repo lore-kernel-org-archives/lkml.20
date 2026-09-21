@@ -1,257 +1,140 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013002.outbound.protection.outlook.com [52.101.83.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBA73546C6;
-	Mon, 21 Sep 2026 09:51:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.2
-ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984294; cv=fail; b=EALNN2PuRi0v1JoyXO+2s7k7QSMgbT6mjEJDov9zwWbvHF2jVbshCQxVjQ9ji7GSB9yiJboRAZ0qUDZDoD3k/efW2jw8gPoFIV19fbgwprf+nbMSlmQ/lVEbxgXcdzOjquP0D2877b2c6t+Gs67Xoux6hAdpSNibwe+H69mR+tQ=
-ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984294; c=relaxed/simple;
-	bh=QU8NiC2pkPh9MV/SO6uh04Dn7QpE1hVjkNy2bTZbdY8=;
-	h=Message-ID:Date:Cc:Subject:To:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=mTGvrvHGPwvi0S7e+XwdLja2R1gCMzC/1YiGIcDZkG3aAwKwHlNpyJAAYbdUgJk4cS6L6AdEoN36dVVDoPzAVytxlfwT5H9mG4gpcje+14l69qvCWSlIdXmkRDU63SUaPfFKsEQf3hid9r7viEYfjVeiX11+3kHBZX6/B+ocUBg=
-ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kTQwTdUy; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kTQwTdUy; arc=fail smtp.client-ip=52.101.83.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7ED468C14
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:51:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789984298; cv=none; b=p3hW40k/wc5CfTdudtaAD6yD/qweQFezecmTCNp30KZM0oE5DOcgYE8FqUnT/EIe051vGJUKqlmXQOE3xs9Zoy30tMRA4j3PXrv2Im8gbVXY7CQKkl4yYpDm4dM5EfGMrkmYmm1BJoJl6RKY608FFkIWK+HoZFQDz7amesf760Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789984298; c=relaxed/simple;
+	bh=DdHkd2DILCtnjHQsOpuetELXTGQnreKxYeZ6GaLLDSs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=XJ1fxfd9YM3UjsMFxtVaHBxm0lbnqys2gjX88IA46hmoIedc7oamRXF8ORD67QSwcBVYajGtta71waXF9qpcoddMj9swtoIAh57PnbryIAjXhHl43FCUe3/3zZG2/3faoOkRXjx983rQviabhTHnD8c8KnkZomKuSefe7whQaKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=B1JG3jdk; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kTQwTdUy";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kTQwTdUy"
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=Uvh5fZxFHWX61M7CgTZ5+i32Gh5JUgXRPYQ3GdNdq0WVzth1OqwykSt72vTp1e7gMQf/VUt2uv7jLmlgkBqCc3Hl1NgFiOGEgNLZE717sPjg7jiv0LFCtOffA0bcH8ycN39Oj/AJ2UuhfRCL34W4aYbzZLkhMMtNa7hBF116mVM2Iu1m7ZjsvaZGB1J4d2gH09kO9CZUMl3UL82hXGgrAjK/Rt7Nf+wiCYErayk9YYw6kgiQJozEAGhh/6WZf0XkcJQucGlBub8fCeZdJmpjFmwwnV8Mhq0NfyHdFr7ee2hsLbl+ipEYdsHCxb27aiuJJIILynVZ72D4fT3fW85zOw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=orKvpeqkKoM8WgynMkKmVpwIwgecSBthzT2hDgJ1qW4=;
- b=lUcNy9XhzRTCnj99BDaCK5858Yv2jWs+tWupnNhMYgM2xp3ocu9A5Kyg54oGTaEQpTdlawfXxJXk8k3baqUh5kmBh62HLRi5B/3z9G9c+901cyUqJKVKEr75yNkvFHaZRMeaDjmrB+AYO58bBAK9t/28fUITciY9IOU7nsBC7zunFFajmvPPCdhFJjAotLWLlbmPqi26Rh/ll8NOfV9hov5oyTZRhcZGoT7wu8Bbpc2DsE5rC2Ww3K5n+ah9tKWdFNroUaxzYfzDx6H0/qpoS8GLPtC9xljcuSTNISnbCFB0VZolDYAX2Wo7qm7Wfet/8VPlpsxrsYXO/7o5gtjkAQ==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=kernel.org smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=orKvpeqkKoM8WgynMkKmVpwIwgecSBthzT2hDgJ1qW4=;
- b=kTQwTdUyqNIDyIvZwpNamhpHKIv6LL7tqCtwMtJBzGHJ5ZPF7DkGoVDQzCyEZZQtUM0jagxe8qYeIwkZ7n8mAou1i0iG8RHolzZqcDSCQ4GQuNBL1maLz96NcAqMp+tHehZJTyoeto1fVj4bUTKfhFvmorVMck1fZbBy0u39yNA=
-Received: from AM9P193CA0030.EURP193.PROD.OUTLOOK.COM (2603:10a6:20b:21e::35)
- by DB3PR08MB8794.eurprd08.prod.outlook.com (2603:10a6:10:435::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Mon, 21 Sep
- 2026 09:51:23 +0000
-Received: from CPH1EPF00000530.eurprd05.prod.outlook.com
- (2603:10a6:20b:21e:cafe::8) by AM9P193CA0030.outlook.office365.com
- (2603:10a6:20b:21e::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
- 21 Sep 2026 09:51:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- CPH1EPF00000530.mail.protection.outlook.com (10.167.241.171) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
- via Frontend Transport; Mon, 21 Sep 2026 09:51:22 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jgNGrj8+HHAnoVDs9t1KPVng2+bUd/mAWzl80z6t1J4sHy8e9lYsYwWWtjbpR0gwjClSmkj7hCmo/MR+7CkXIy7nlF4YXdllfamvL9SYNMqU3UdJW0yLcYwnQ64vjp7NZbgMKkyZj7gB0L7mZ1T4ioZHO2KhqFf7Sa2hGIjk34U8qaraIL3doEL+Uo0q3ZhtxfaSWPQGlqgObY3oP/xFLTWPv7alJG/85D41VRZQwQolcn0P7VAAQ8aC3pj17PtprMZPmh/I2drSR/fGzAGvOWEe5RNFw2Sn/iTJ+tXStxiIX7a0iI6I/oLwVw+3aKoN4D6bgfdClSvCM1w74oB+3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=orKvpeqkKoM8WgynMkKmVpwIwgecSBthzT2hDgJ1qW4=;
- b=P6LrWibkxRA+HPQ0EODtjniU1JMPeP+mSUDRp4S9lM8GqV6buu4G6qakOqpmWDyPlrafTp3/v6qF1jI+97L7e8rhiueW+CTC27/SPqNy/qYw0krueA8ELMZuMQptbWyhEAxifkG8cTg6JneumcWuknJqRUwXNurF6eFnHvdvTRuFuRhhDMlcP4qIvpaF5U1WGb/PeJgjoY2ZpfHKFmwigDTMU9XYGNyl3SLqV0ZOGCNCi9owXmoC7wdhvblAqo7pZMm1Ast5Zr9mLxxlq5x0uTvnLY6tcmvTQ3T6aImtzyjKKvmmYUc7/XlSefaYaXc887wSrHTemUpPkVW1qvkuuw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=orKvpeqkKoM8WgynMkKmVpwIwgecSBthzT2hDgJ1qW4=;
- b=kTQwTdUyqNIDyIvZwpNamhpHKIv6LL7tqCtwMtJBzGHJ5ZPF7DkGoVDQzCyEZZQtUM0jagxe8qYeIwkZ7n8mAou1i0iG8RHolzZqcDSCQ4GQuNBL1maLz96NcAqMp+tHehZJTyoeto1fVj4bUTKfhFvmorVMck1fZbBy0u39yNA=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com (2603:10a6:803:80::16)
- by DB5PR08MB10023.eurprd08.prod.outlook.com (2603:10a6:10:4a4::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Mon, 21 Sep
- 2026 09:50:49 +0000
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4]) by VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4%3]) with mapi id 15.21.0451.004; Mon, 21 Sep 2026
- 09:50:49 +0000
-Message-ID: <e044fdbc-a648-417d-9949-6e4e51040aa4@arm.com>
-Date: Mon, 21 Sep 2026 10:50:47 +0100
-User-Agent: Mozilla Thunderbird
-Cc: usama.anjum@arm.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mm@kvack.org
-Subject: Re: [PATCH 3/6] arm64: convert between HW PTEs and SW PTE values
-To: Ryan Roberts <ryan.roberts@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Alexander Potapenko <glider@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>
-References: <20260914-pte0_arm-v1-0-bb53b663e396@arm.com>
- <20260914-pte0_arm-v1-3-bb53b663e396@arm.com>
- <86d4aea6-4272-427e-9229-295489e068d7@arm.com>
-From: Muhammad Usama Anjum <usama.anjum@arm.com>
-Content-Language: en-US
-In-Reply-To: <86d4aea6-4272-427e-9229-295489e068d7@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PA7P264CA0486.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:3dc::25) To VI1PR08MB3421.eurprd08.prod.outlook.com
- (2603:10a6:803:80::16)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="B1JG3jdk"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so23258085e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:51:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789984295; x=1790589095; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XUqq0qWM5yZ1uKDCBnAQOs8ZSA6blJMuz5W3lmvErTc=;
+        b=B1JG3jdkH25HfJRTwVUtBAAgPoIiPCNmQmiaa7xXefh3qrpNaQooxPhrsgLVqGGJHY
+         UxBryzO4yEu3mO+n0vkNvH5OuO/pZZOQ1SvWWH4wO2fNmqDATJbzo3bvFh6njS5nzcFj
+         uwQmG1hdMW9qNkVlpxHsO/fF+7zK6hBq5mmvdJr4940fWJ5XhOAukq3DpVymr9iNKFZw
+         ABnC3mYkyYBSZx+1CCL9ovtWpzBRGjvXFjMBy2eg54ChqWGUYCCCn/KgxFZTTQUPTWUK
+         8VbN3LYEV1Ango2l4t8sNeHqJPxHPDMojrVPsGzZYYSC+/xxBR4GMvcmVDRFSNTBDnSs
+         Fp8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789984295; x=1790589095;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=XUqq0qWM5yZ1uKDCBnAQOs8ZSA6blJMuz5W3lmvErTc=;
+        b=GRQJlHmZ/Kmk6Ia+/LxRR/PomdIJxxVhr64+wBX25K8AvXOBmyHQ8dd6nKDRycN7Vi
+         sqZzAegZgitvELdTDxoeJiEuhyQH7DlVbBiEWXhVb34bbdzQFqsFGHbh7EKIrXGQPrpX
+         BzBfs8+mM8375qvzpUWEVfLAX0ant3TgmZXjkEaxy7fL/KTUx0r2pmIhhIDIMd/G2z/u
+         jaVKTRKgokjE9Ut3V26SP90nsxAveC23bauHVGvA/B6EyjHqCnxma+27SdLNUOPOL75+
+         5SgG+2unLPLm/bPVOsKre6jJGbTv91FkmxK6PAy9AYkubKKImP30KA2NLwl0698cwHCE
+         +QgQ==
+X-Forwarded-Encrypted: i=1; AKwUvByny/BCZjh9hnOXHKhAXf528OZsA6YP+N0zRO0v0hhY/YFQTk1KVYITnlpgwmTAhejertyTbWnOXd9PN8k=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVYcTsvOd0urSMbY41y6uMwM0qPJk1VUBBjisXQ6Fp3dZZ/qZN
+	HrOwyD3+oc3FiKiOcqo/gc2szttkzZFLUSAljaCR7t9D2ZVtFnCCRYhIGu5E/A5fUHQ=
+X-Gm-Gg: AYBFou2Xf4t0r0nt0+PEEXg4WYmlTTYahaZUdEZddcB54W+zg5DyDJDkV6z19E6rf2h
+	K2QIxZjAXJTlLld+/1PirDsuAMWnpS+BPPHO+XJq6IxHvv9L20HYijf+mPP0Y8/lHybvUqSt4il
+	H3Bng+PybRvQw9Q1HhapR1767oiJE4URKeQa5LFbeinppqi6w/elb75e1k2NJvOJv+kbwnFGUAF
+	3jZjpy7j4Uo79sUwJV3ih90ma3ZT5IQ1t/gz22Gqpn8c4Waau9CR6nGNS8JMlwLKttCySlWlHCu
+	FXor8tzqL5wPhfGPSZ69IpeutPlC5PCvmC0rEe7+zpijq6+KWMwzyUxg8K06+TJk8GBRNLPp4OU
+	vux7gGeDTQ8FhAqHpiOpa5HBtBoOfJSqtalS96NgiHojzaA3KVla72kfjsjbF4SwmEuiAK9xkXu
+	0n3hTIz2iZU4XI9jywtu92C/AERcuzn+LYWjtN3r45nkVpRCXAM2/qUvBQ3I5UFFbV74kZUFM3a
+	mFDZfyydCIYeHFH8Q2Z
+X-Received: by 2002:a05:600c:a085:b0:49d:25b0:cc60 with SMTP id 5b1f17b1804b1-49fc5747f7bmr147229805e9.29.1789984294496;
+        Mon, 21 Sep 2026 02:51:34 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd03fe55sm254330365e9.2.2026.09.21.02.51.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 02:51:33 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v2 0/3] regulator: add support for the Nexperia NEX10000UB
+ dual output LCD bias power supply
+Date: Mon, 21 Sep 2026 11:51:29 +0200
+Message-Id: <20260921-topic-sm8x50-nex10000ub-v2-0-eeeaf9b0c913@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	VI1PR08MB3421:EE_|DB5PR08MB10023:EE_|CPH1EPF00000530:EE_|DB3PR08MB8794:EE_
-X-MS-Office365-Filtering-Correlation-Id: 720387db-fb0c-4378-f160-08df17c5e4cf
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|921020|6133799003|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info-Original:
- l2SHpBKVaA5142jj8rwdMQjSTdYikj5Tts0ndkO0A7UuzzgTCw+2uRK2w5NiVcUrYJdHi4gT21kyDZXyzLLBFBusqaTGGZ1yv0X6llJ52+JaiEVLvrnslIl7bw25YQ6Da67sNUT/Ojr9sSTZ6Ddbg/Gp1sa0XjRbmvFh+2Cn281/2AX0E6/TWRdVLcMvTlpmefbQKZ6l/5IvF/DLet7xpqaWEPGhfyXKc/6rynhPJyafcqsCijiqklx1EARlT+8z7Ry/RZpdISZ56R7E5sFT9/8C/ouP6dOMobPReH5vhRUpcdyRcfWhvODXl0K8y6ulxXbPwzNKnm0NjZ/sqij9jNC97AFV0LpHpYKpggkLwpT7jaXN2PQ0y2UG38ABMsarXChojCTpv1BaLWtyUSHj+w3xIHE5TLKIB1gSQnH0wLepzbmBbYLY1dvbu+9qHoEJ5nAdZ5Meo+REqobDyFCIfUIqYoaDSxbmi0dX8DC/ahJEqXOYXILYs6bm+H9lfTmTX3BRxWYJeC79c3l0UZjP1GY/s4oB56U88OXL1L8XIJ3PR6qx6XTEJghPj6vNKCl8mVRrO4UMUDsU1u5xfLmewVs/lr0lYkWCm+S1Wijb+o8clddsV5FdTjMd6zTQuNzRa3c3J1CpH5O5yMpihuXbLAus76iNa5DpYSyrRmUMgIMcN/GM+KoR3hNH5JYBCIVeYpDISfGESI1s0HkqzdCmBQ==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR08MB3421.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(921020)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-Exchange-RoutingPolicyChecked:
- e7Ov9zfLE8kyPWXOuaBNWWIs8nBhk0gXD6fUNj3xP9lXu8bz3z6FiHQ8pQumAULYLstrS9dp5n0Gf4KJvievn9WStFtkuoDUEN2gW7VYnATzsDHe7ekF5dJD5nMnHU3+6+5wjKIW7ngFgdvBb9GS6KA8YzIQANp5lsT97MzGy8xPXsPcgDqPDvR/kSp6J9L289WtOwzzzP0v4R8RA6/U83/b9NzSjG0Qff00qgcHDqXUmDYywIr8QJTQNYluuh7RB4WeVBYCzm9d8FVsjLy6wCkHuC88hasxBXho/TAgT24EAgdQh7hmI4i0WA4Ym05IgD3gbPdnBy+Qm5kFLkt9Rg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR08MB10023
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- CPH1EPF00000530.eurprd05.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	964fcc93-c640-4efe-dcfa-08df17c5d106
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|35042699022|1800799024|14060799003|82310400026|23010399003|36860700016|921020|18002099003|22082099003|56012099006|11063799006|4143699003|6133799003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	Xi3mT5C5Y6CldZPzDWTWgYHJdePUayXmPUosTqNNGTKzOWCo9gYYQubhFdyQVLLJRwdeNRWXLOMR4/dG2I1TlHf85d0tvo9tOfldbZjW+HZLR6logRdXQK+Bwn4Nt6lDlRTuYTg3+4Et0hIcntYbKiW3ZyrgzpTARvlCiX/QptPdwFhHr/QWBz1JSOJHxjYt/L+qPM53tV9KxyQW577Pe6clxITTdHiMNDV99w2PNCy9EdaqAyWArpviqQ3Pd2hKp1Ph3k3vR5KpNx3OXYOPqQEnWTeg7kF6vuG/ZhFnNPnkAqmz+ahF7FzGe0/9qkn7+AqP5qEvub4HDRZ8atLC9e2818QH9LJhUmzwhYh+zdEEXzDQ21yMmcF8GqJThPJ6npx6K7Qdx0ZB1L0df91rf9S7J2aQNjn0U37EOuWcSH8Ktks2QoSdzwxqyeT8lWXVQlGzukYMz1zKE9ZNSqKfjFwSxcQ0CGv/fJ7gZQ3xNYNTSh8zTc+imzz2F8ns3edzkwnc6RCl/JkY7W6tKjz7hftQVkRMVIokduFwMgVuz4b4KlsXclnRkt+Gb8pEvPdrt/fWz/w6JbWlMVxdt+HVWj0DxCfTHZ0bgyxvy5yHxsk2v3vpNjqe8VoaZPPVHe2isoXO5aN0SPG8UgehDMStLiEhB0FB3Z9DrHPZXIDxxKMWqaPLHvLqyXPJ+d+4+1ntdvSDwPMmFMeMjQCumsMMtHxUhgs4Djo3KBHPzi4Db6Gfork4qGZ5XuUmusM01rld
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(35042699022)(1800799024)(14060799003)(82310400026)(23010399003)(36860700016)(921020)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	SKwJXYpbW7m2Q30QdVd2RsWZMCGBqsuigZdJD4aYuvkeSd59/0Q64OIlWdww4mlKWeDP5D28dk9s/v9WW2i4kGYO98EZTETsBUdMA/x3dalmT6MMJU4hBrr9VmvbnN8upYskiNh7GFbvEu0QNQLtWBD+qrxot6vGZ++jLiBABfXWyR0+9sAkUvUZhBdKJaxGDWJVIkCfJbCdI59T+yehcea97yVfbK4XufX7LNiscbdQKe6XVP0EpaP/5xvQ81JQ+kgX8CMMrXpiTudTROTbC3oqaYqddjsU1W2Ol78D1sgjY3zp6LAGS5Sd/ZXieIMG4U0Bgop9KiWJKPJv+f9Uq3WgZ93o8A9cJ2CvMQztlR0XBxqgiLzpZrxW3NiKq4UhDg4C/Cgg23Ergn2F31BUm3CyJ8qkbx4MBRuCwqboBQp+Q2lgYvOxeBhn+OB4B2kg
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 09:51:22.3351
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 720387db-fb0c-4378-f160-08df17c5e4cf
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CPH1EPF00000530.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3PR08MB8794
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACH+sGoC/4WNQQ6CMBBFr0Jm7ZgpCEFX3sOwKGWAMdqSFgiGc
+ HcLHsC/e8n//60Q2AsHuCUreJ4liLMR0lMCpte2Y5QmMqSUFnRVJY5uEIPhXS45oeVFUcxUY9a
+ w0ZnJC24vENeD51aW4/lR/ThM9ZPNuN/tjV7C6PznUM9q7/23zAoJc90yFbU2TNn9JVZ7d3a+g
+ 2rbti+wY8VU0QAAAA==
+X-Change-ID: 20260918-topic-sm8x50-nex10000ub-3deca3c56ef4
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1581;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=DdHkd2DILCtnjHQsOpuetELXTGQnreKxYeZ6GaLLDSs=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqsP4jz046aOzf1rIcPcYL+eSQl2LTAc4x/WnYDgx2
+ V4fBUZ+JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCarD+IwAKCRB33NvayMhJ0RLlD/
+ 9WyVWJC0tNNXP+41NKXtmU9cXPc/MqHeZHGXC5O7RiB2KcajIkszY8+IceoKeohllLg16W9F9A4i1X
+ eXciXdn+8EQDhITLcm+8au2RRBn/luaaD83zdTxKPSbPM1EVGY3gBCTttoFC3ZXDA7a+AHcLdwRgM+
+ hExpxNay11CfQWuUWcSRTb+SMJ7pP+MgtU82I8LH8rhjZOSDufmAfnRnh3JB2OtFes/Fja51rhLwip
+ QDYiM7PKE9Y9hiAm02wafHYLblv97ACaXjGYhqoybTQvoZpN0g1jaFOpU4jtFstXyfO+AM67l2e277
+ Zw+y9SonyatuBBtKtriJO8r4g6hkSrAWke/AaH9oKlzK5N5EPuqq+uAyRAQ0Dd6V/i5WBJtLDAmeBF
+ pXOndfhiuj7igFuNzrPSPZCQR5ndCoI5TQrKBdTiRy1Q1rO5FpUGhmhl3FneEutb0AUvCf8yRvkbx0
+ GQdFd54NZzwBankzX+Lo0KhdXcSLU3sTtFwDx6cg09TTrMSpLQBNJTgb6+B2IqxjMeCaY09JG8MGX4
+ n9sXHaF38W55/+SSSYuaiw0oRFy8ljpuOskdWKoOnfrfpzARlPoJK8YOYFsKoLxdDslS3SEvYfGoGL
+ MJimW8tFtBk47dADqzql38xGld71CLzXvJ7bGbEYMaIEHtU+0CDM8ngCCVtQ==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-On 21/09/2026 9:26 am, Ryan Roberts wrote:
-> On 14/09/2026 14:51, Muhammad Usama Anjum wrote:
->> __ptep_get() returns a SW PTE value, and __set_pte_nosync() accepts one.
->> When HW PTEs use a distinct hw_pte_t, directly reading or writing *ptep
->> as a SW PTE value no longer satisfies those interfaces.
->>
->> Use __pte_from_hw after READ_ONCE() to obtain a SW PTE value and add
->> __hw_pte before WRITE_ONCE() to form an HW PTE.
->>
->> Define __hw_pte for both the wrapper and alias configurations so the
->> same accessor code works in either case.
->>
->> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
->> ---
->>  arch/arm64/include/asm/pgtable.h | 4 ++--
->>  include/linux/pgtable_types.h    | 2 ++
->>  2 files changed, 4 insertions(+), 2 deletions(-)
->>
->> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
->> index 4768ec59de555..67c4a6179e154 100644
->> --- a/arch/arm64/include/asm/pgtable.h
->> +++ b/arch/arm64/include/asm/pgtable.h
->> @@ -360,7 +360,7 @@ static inline pte_t pte_clear_uffd(pte_t pte)
->>  
->>  static inline void __set_pte_nosync(hw_pte_t *ptep, pte_t pte)
->>  {
->> -	WRITE_ONCE(*ptep, pte);
->> +	WRITE_ONCE(*ptep, __hw_pte(pte));
-> 
-> Would this work as an alternative? It removes the need for the new __hw_pte()
-> helper. In future, converting a pte_t to a hw_pte_t won't be trivial so having a
-> generic helper for it doesn't feel like a good fit.
-> 
-> 	WRITE_ONCE(hw_pte_val(*ptep), pte_val(pte));
+Document and add regulator support for the Nexperia NEX10000UB dual
+output LCD bias power supply which provides programmable positive
+and negative output voltages mainly for display panels applications.
 
-Yeah, this would work. It removes the need for the generic conversion
-helpers which is even better.
+The driver supports setting the output voltage from 4V to 6V in
+100mV steps for each output via the I2C programming interface and
+supports the enable GPIOs for both outputs.
 
-> 
-> In general, I wonder if we should avoid defining both the __hw_pte() and
-> __pte_from_hw() generic helpers. Conversion between sw and hw representations
-> will become arch-specific in future and for arm64 that conversion will need
-> extra information so it's can't just specialize these interfaces as they are.
+Product datashet can be found online at [1].
 
-Agreed.
+[1] https://assets.nexperia.com/documents/data-sheet/NEX10000UB.pdf
 
-> 
->>  }
->>  
->>  static inline void __set_pte_complete(pte_t pte)
->> @@ -381,7 +381,7 @@ static inline void __set_pte(hw_pte_t *ptep, pte_t pte)
->>  
->>  static inline pte_t __ptep_get(hw_pte_t *ptep)
->>  {
->> -	return READ_ONCE(*ptep);
->> +	return __pte_from_hw(READ_ONCE(*ptep));
-> 
-> 
-> ...Corresponds with:
-> 
-> 	return __pte(READ_ONCE(hw_pte_val(*ptep)));
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Changes in v2:
+- Make enable-gpios mandatory
+- Register gpio as OUT_LOW at probe
+- Link to v1: https://patch.msgid.link/20260918-topic-sm8x50-nex10000ub-v1-0-5afe06bace03@linaro.org
 
-I'll update. 
+---
+Neil Armstrong (3):
+      dt-bindings: vendor-prefixes: add vendor prefix for Nexperia B.V.
+      regulator: dt-bindings: document the Nexperia NEX10000UB dual output LCD bias power supply
+      regulator: add regulator driver for the Nexperia NEX10000UB
 
-> 
-> Thanks,
-> Ryan
-> 
->>  }
->>  
->>  extern void __sync_icache_dcache(pte_t pteval);
->> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
->> index ee4eace5c3e1c..b5862a16aa497 100644
->> --- a/include/linux/pgtable_types.h
->> +++ b/include/linux/pgtable_types.h
->> @@ -9,11 +9,13 @@
->>  #ifdef CONFIG_ARCH_HAS_HW_PTE_T
->>  typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
->>  #define __pte_from_hw(pte)	((pte).__pte)
->> +#define __hw_pte(pte)  ((hw_pte_t) { (pte) })
->>  
->>  #define hw_pte_val(x)  pte_val((x).__pte)
->>  #else
->>  #define hw_pte_t pte_t
->>  #define __pte_from_hw(pte)	(pte)
->> +#define __hw_pte(pte)  (pte)
->>  
->>  #define hw_pte_val(x)  pte_val(x)
->>  #endif
->>
-> 
+ .../bindings/regulator/nexperia,nex10000ub.yaml    |  69 ++++++++++
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ drivers/regulator/Kconfig                          |   8 ++
+ drivers/regulator/Makefile                         |   1 +
+ drivers/regulator/nex10000ub-regulator.c           | 147 +++++++++++++++++++++
+ 5 files changed, 227 insertions(+)
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260918-topic-sm8x50-nex10000ub-3deca3c56ef4
 
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
--- 
-Thanks,
-Usama
