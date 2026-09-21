@@ -1,273 +1,208 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4A7306B3D
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:32:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 735C64825AF
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:33:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790001174; cv=pass; b=sQMVtsMjwA6XSmZwk169LaAyXouD0e3329NPNBegnNSnoJhM6cTBp9yhvRqlbHIDl6C7uLw9uLEjRhG6wiRazKoVkF+Ifqn0NGF3GF+I89+rPpsJ1t/49TVLmM2DogC1AHlGyFGT2jhnVCqmme2LPXsH/XN4w4bcyXEkJjniEbM=
+	t=1790001197; cv=pass; b=ZIoFgrdThRP91RcvIr6alBfKDcZfYdpUoLTcGVDE4fSMDK23KD0rKVuej2anNHXH1BFESfAPL1dp6+sf56vvCEHwUytf6ebng4e3e/v/GdM7y1q0BrqO+P6j7ePp6EHj9NIZ1jXOknAGTQunwLyk27/5ls7viGDOWmzt0A9SUGc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790001174; c=relaxed/simple;
-	bh=hzsKoddot+dY0EZ27aq5GfZZI/Lez7LJqexM7v1StJc=;
+	s=arc-20240116; t=1790001197; c=relaxed/simple;
+	bh=V3VrbB6jf588eglCgxMX73QpjqOXaCmky/I8c9HrzKQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=c9a4Sx7dWFp0u3ct3AWJBJu8A5Rro/zq65E88EtlzgLbg4nZxw9Qt4dMX1tQSMXGy4Ta+j+Rbl2Q+rN0mhtkRcsVbw1q0cHmJshpZwEaFoTZm726DJCusrrhfzdAXqDR1alJfi7cNSyGdQX/7SVVyJz/Q+Z0ulJYe827XA/Qc1M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IhPDDERP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WltfwJyY; arc=pass smtp.client-ip=205.220.168.131
+	 To:Cc:Content-Type; b=PoWP6sBZUXApdnhfoyGsDieXD8+/QTwi997pybiYWCcpE4iKMDdQLuKDW/3kZKQR9TmwFxnRooWs6mhmK81Hh84BnTbBwc6BUGNZ5QxGYkqGKskHybdlJO9y1FZAuCv77a9VUg9C3TDoE9vnp2firUT1tEckTClnXVe7Ta6NlnY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H+QKy3Uh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iFCiwNg7; arc=pass smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IhPDDERP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WltfwJyY"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LEGITw704766
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:32:51 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H+QKy3Uh";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iFCiwNg7"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LEGYA4894539
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:33:15 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8V9qRL8QsRUF83XpiMXUfrfmmQn7slBViBa0BqoAT0o=; b=IhPDDERPEIKbMFAd
-	g4ug9QshGTwL0pna643qpJ0WaDvB6HfRtmpn9UQ3FmOO9xhx/lpZOMwF1GyOPPXM
-	EsZnb5K7B8VtRS78CS+aZAXx+s9CXPeSCAG/w4sCEmgmifFcFnKU+utbEWQ3gGEf
-	TiDyyAKUSJ09MzWPAgql/ZJuMpVYIFXkWr2Bu6o9kRqrfxfPQ4VxftA0Jh98sb0W
-	jqT7GW/y6BxcOHfO6K39alWyOb8uJxDptadWSHP/rxq44Y7oTGNpuzaEjjarvHLp
-	761Qz6vDg+47aHh35c+cNwqqwgvfFiholHvdXhvm8mJ2BPrUyxkqvdWfwD2/xiz+
-	mAmeFw==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu17gsdnw-1
+	JWFmv2D8/n3cqAMWWL5EdMJGzYRCNgACARfCCr83z2U=; b=H+QKy3UhNAihHc5Y
+	1pf07KnUI2Kp20ZvSqQ4OhyXB06gEN9hy1AUzLFUli1/snEjvDvCcJKL6PLz44AT
+	IjqSdg32U77FHY3S+FGW8l29866cCIdfYINWiJWPq3G2sAC0fnyMUCvb1OjTjxpz
+	ebiEIT7vtkUgfyJH0cacmxXDsK39H7QZgOfjfziBN2b1eZRrNucJjTXR+LNzsv42
+	p5geUTyOnTTXZkT+P0j2NWSn5SJmkEPcGKm2AXzVkLrO0xPxTUKiRQqoowi3AAmh
+	UAocMShAMwK/m+X6M4/rxko1Gu1WCdreYQkJQUxhcME9cIuXIWA79NFxAoq1YXcc
+	9q3yrQ==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtyxq9ruv-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:32:51 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc435388657so4624796a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:32:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790001171; cv=none;
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:33:15 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2dd188e16a2so34339495ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:33:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790001195; cv=none;
         d=google.com; s=arc-20260327;
-        b=hoU41N6Esvm4jQOzTNM3AVUUSXIc9X3W6aMsBlbY2qc6IhJPC7BAXYtkrjtLj7FHAS
-         s117t/ZdLOodafMXUCSON07QjYJeI7WKGJRSin3HNW0ysyp6dkOzrANW8R4z2hCzESZp
-         IcpSAaOq/IDbahXQFIK0aLSlzkxBIQohOX/Sh5C0+c6OdRMPnwVFqxZaFT5eEjtIhU4R
-         gZGkYD6U/ZeeknklxWQ83MeDgy8/8laBpIsRYmvItrL7eRu2Af5Cm1e7X/mC+vpuxJmt
-         cNQTxl7R6k4FNzenx9BcUc3otRZwOp56rn++pnspVExFbvPP2w26M3Cw7+ZYiT2mgmSJ
-         vljQ==
+        b=UAXjN78AZSQMjfNBi945YzSEOOX6IsPC5iwFnRlJZeaV8KP3K0M28FnrI0v27+TWU4
+         5NQ02pe3N13tH4sRKdEoCL9Tq/Mzet3YwJ6L1r4wLHdS1XL1i8FCeQc9HcvjzBMENE/f
+         ZzgEkmzrQXKk9i4j7UhxjuhUEyiKCDV3zp8QLYeYnI/iYdE8ZSqkwXa57DEC4GkVH9PU
+         YXgpa1o9+L9CdkiUR5lwZYqYkpYdQ88WbH5Lc3iX/I27UL4IbNKeWf5vssXdd9OHK6bB
+         z1JhIlPRUMA8QNuDtQIsQ3mNbctcEVtyppaJokgWj4M1RAq3zMNrDcEXMKx+d4Vbfozh
+         ze8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=8V9qRL8QsRUF83XpiMXUfrfmmQn7slBViBa0BqoAT0o=;
-        fh=N6kx9CQwFpLSs8dYna2tRTH/dmEY8MBNAyNmiWGP1FI=;
-        b=MK5gEq4p2gByJimCbu4e+7S6I7l1F7XkYvRFboNK6H11jvn5Y9wwATSpmDbq8GS11N
-         OJbDyCkiwwvOVxchI9j2KvkJv2IxQfTJDMyqDUsZ+c/cGyUaElqYzEB9nCtzok2k3IkJ
-         2u5wg/iC9VVKePnyeh1BOZ+EXU/N8n7hbegyoFECBUty/GjQheYrwB6K2yDS8BmiFQ/A
-         wwgb1oSUivkaNItLTVqsIMB3/+iJqFfsgb/cf5T7o3TiWC1o8z7Uy9zmEqgzTKcdjzrG
-         eYZNcA1Nn9epTCwRBazMaL3Y/EPwc5TgjEigdGNVb3r/Py73AlJhh31TW7fO1Qx0DMna
-         SMSQ==;
+        bh=JWFmv2D8/n3cqAMWWL5EdMJGzYRCNgACARfCCr83z2U=;
+        fh=KmrohrDAHqOdfpBsMrP4hr5YvxcRsApVqLc5RIzVrKs=;
+        b=MHsTQd1C0HBSsIg9rwKoYa1tEsmayrWaxt9cKKdGmwWKN/0Ldg93ghqMOuUKwYE8P1
+         RFMH+wevO2gfVZVw8P3Z51lLkboLgRd5gLMd9LRB/OVyMY9fwBujIV4B2rmxeWZIb1RJ
+         DiOUoHhydMOFAkqGH+dja+mW41NEp2EIXVO5IezTXznLUSp9Jcknw5GyjImu9G4CYegJ
+         jATlwqVVvAjLem/15xIE6YRp5iy3nKqhYrwBdXyAdSLgg1n1QfODfOMGmNLQjFYBNTjZ
+         IM/ZnkJA0Mb6tCbBSu5J5sBtTc+iq8s1hUFdgCrf3TSArsMv/lsamD2Mz26B48yIT2U3
+         FQJw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790001171; x=1790605971; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790001195; x=1790605995; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=8V9qRL8QsRUF83XpiMXUfrfmmQn7slBViBa0BqoAT0o=;
-        b=WltfwJyY1HE7nEBY/fro95vhq0164NByOujzwNPc2UaGMk/yfTnUf/iP6lRtijOt5G
-         NVZqJ3CbLIb90suRAKobufXYZ7sleKzUgZ5sJrxAaMYarzRI+fKWnop/sa7a6RHAmfR7
-         WPMF0BwJQTAkSwJG2hvzzW8ct6LBaXQbHPf6Tbf27c+PETCCY8R9286qCza6AwuuwvvV
-         OQoEu6S1yzdHhYxgHczayNn7DZw2zRudQe+nxPf/SJ09H0uE4NCQm8Uh/EqWxu7FYJfW
-         jJGqxm72N6j226kHm5lEcjJfCXSnUel5sZOLUgOe9eKZP1Ocy/g00wX1xs3OZqMInthm
-         Ds3g==
+        bh=JWFmv2D8/n3cqAMWWL5EdMJGzYRCNgACARfCCr83z2U=;
+        b=iFCiwNg7VdaKtxGqkEtlXMA0eRwIbWPNe/IxIF/nzbOfNx3MqF8BnjpgDjQBJ0SgSK
+         Li3UsHTkxhVuN3zQ2a7T8oi7ij6VRiyZB5RNa/rrrPVSHkpKhXkjwMISAU7uvVPikfxf
+         uh3sELSEsPrMhebXH00A5o2LcpdSflnxwiFjcQO068zEXrkmSLnjJsoItAhJ5nM7OFXl
+         lejIjKYXGgST2qq6w0F53PUc4sfLu2RxGrzwknowZTkyutGhnnOljDB/cNGliN3J8gQV
+         EWnBQKZy1eO7SpIuq8V1NPl7Jkl3QpfD3FuAfCPv8yn+WphOkmnAbS4zqTZahfNfXXLd
+         pwmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790001171; x=1790605971;
+        d=1e100.net; s=20260707; t=1790001195; x=1790605995;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8V9qRL8QsRUF83XpiMXUfrfmmQn7slBViBa0BqoAT0o=;
-        b=i/OjBk6+p0Z5lode4XhoaHGJvKxyfGzdkyGuAIKLmAXqiVxqjh81CC99Wi6NMF41YS
-         4N99vH8sq7XGMnQKP171nKor/a3HK+q7eme+s1GSzrqlBj/OymjSRovSo6y2PbP57RXV
-         7ed1xmAQ6tV9eXLp3IUByVDrVZotJ9pOiPxYGaVaUDlMEY1+ZB1JQKEy+2TCc/MesFvJ
-         UGv0vISyBM0kfuTZr+o+NfV2Vdp0MsQZrpaJGSz0gONNcAZgFFuzDngoWLH3VVyMyzn6
-         9gtczYO2CVnXvn8EHtJNYuOy97cQJYo/iFp9pPvUMM4270n8rU/por5/L2qqupNClMXu
-         SPwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx8oyS514trkQEP4PshGcFvS/vqo1CKFZKSXljnYgcVVnujwQE90Ldw3vmWmdwmsn69LP+/sXaSOxxbSkE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lp2TKuhZnR974X0zdGO27zMiF6XRYUhOuhyy6j9dNdkPjveAUR
-	B4cl2P8KbSeJ5JNsFGa7tLQmrwEeMQgk76DuUrGf/T/XFKQyFjADhPI3SSVTKczbtVk4BtUUYAP
-	Dct0/KoCjj6I8q2YoX6srPeruyR60CY49ODFJp5T0TQQlYRLm2KyrRvPiFdIGiidAorAtGExMth
-	7xHHevKDeN+cup7DUukcTwcxvbl1Ewk2RrMmxPbqE1ew==
-X-Gm-Gg: AYBFou2lHG5fW8KTkiF3yZk24cooeH4o07ycMxHgHEACKRkmiPnn7BTkJ8zonB3YRi3
-	EKt+pnxq4i1gdyOJMUXe9fFdtjIQP0Ta+P4YX8y+QrS92WlnE21W1vff3aNVbBIUn3LdyK7e7gH
-	cIEEPzOHZsyRxG8iRizUKzEZItoILVEPnmDSuiQpt1TgRjTA63PoCHTq1/Wg==
-X-Received: by 2002:a05:6a21:6194:b0:3cc:f008:8123 with SMTP id adf61e73a8af0-3dd8c3fe021mr18964755637.8.1790001170322;
-        Mon, 21 Sep 2026 07:32:50 -0700 (PDT)
-X-Received: by 2002:a05:6a21:6194:b0:3cc:f008:8123 with SMTP id
- adf61e73a8af0-3dd8c3fe021mr18964705637.8.1790001169714; Mon, 21 Sep 2026
- 07:32:49 -0700 (PDT)
+        bh=JWFmv2D8/n3cqAMWWL5EdMJGzYRCNgACARfCCr83z2U=;
+        b=AHYYVB+1QXInl+U6KbeTb2Zt9Lw0lYMPZ7Bd4bQHSbD8LtWepqoO6tADcj8XUQYOkZ
+         7kfYMLf0QG8ma8BUiUCRy1icGQZQtWyHGLT4Eh2TzenJVZN8pzwIwu1toB523h5Ie2a0
+         vfBrnBYcDLWSB1/tJfX/cSLldwruUkMIIbdP1gQHRp9P7eXDw50VL4orS3GdAsbDQu0S
+         j4bOg95niGGiJJ+DOeYLUgTdy3POFDVCRUyTk96ZVmAm9E6V3d7ukWvDkaDLDTcvIhRp
+         25CvExgIjwQ0YTvULHSOSk0hoW8uiNt6Opk9POe65vSl1fqzY1EWNFJIswoIQJwl88nz
+         8bsQ==
+X-Forwarded-Encrypted: i=1; AKwUvByw33oA96QYmECWtg+RD+n2L5fFF1BkNoXqQmvwMPDQLEtbIVPs8Og/cZBgEOU1LWp7yiFnqV5wTUGpjmw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kZlsVUve1FEhGn3MyLEwC9cycokKEEItZtj2IpQbxmqTvLDovV
+	4RwYFP/6tDoQCxKsvK87fCur7hmCqDyz0JkG2fqO2rPasxknF6UjFW2kxgTYZDRt9r6pMS9pp8K
+	OkTvdwMEo8RE5QZEclsfN91ISfWexFZiKdYxNbqoK08MFTmSPlFrWi2FKH9+NRKjiwYVEZeB2cr
+	+pJ0O2Zb7Jp3U3dsiIe/VdVlNPaN0Q8m3FmnXIyD1uCA==
+X-Gm-Gg: AYBFou1A2omUGMMlBGozdekvXitsvysJXLu8MVU8PO3r/R9XLXdqnRR4T19lPW48+F+
+	hqmho0zegm5xj0yWlNKxYGxJy7zGxoSVIyzFU6vbz8tEDCchEvk+JbFv1TxPBn9QXC+3J/uUhyi
+	vrxIBLuZiaEpjWaFqdAIAXsvqoOi8mJbs3v9Prhgadru9Y0X0WU62f/xXynA==
+X-Received: by 2002:a17:902:db0f:b0:2d9:6db:9fcb with SMTP id d9443c01a7336-2ddb1ad911bmr168889515ad.11.1790001194746;
+        Mon, 21 Sep 2026 07:33:14 -0700 (PDT)
+X-Received: by 2002:a17:902:db0f:b0:2d9:6db:9fcb with SMTP id
+ d9443c01a7336-2ddb1ad911bmr168889115ad.11.1790001194225; Mon, 21 Sep 2026
+ 07:33:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903092347.620060-1-joshua.yeong@starfivetech.com>
-In-Reply-To: <20260903092347.620060-1-joshua.yeong@starfivetech.com>
+References: <20260906033806.84671-1-hppiscas@163.com>
+In-Reply-To: <20260906033806.84671-1-hppiscas@163.com>
 From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 16:32:37 +0200
-X-Gm-Features: AcwNN1WpGO3jxKAH0ED7jq5tX0NF1bkBB1T37oZy7cznqRrvJi696dq7Itctpt8
-Message-ID: <CAPx+jO-3ZgVTSE2y0_TW4cy8wUYCJaogNnzgCr-WX681_H+sfw@mail.gmail.com>
-Subject: Re: [PATCH v3 0/3] Add RISC-V RPMI device power service support
-To: Joshua Yeong <joshua.yeong@starfivetech.com>
-Cc: rahul@summations.net, anup@brainfault.org, lftan.linux@gmail.com,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        ulfh@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
-        aou@eecs.berkeley.edu, alex@ghiti.fr, linux-riscv@lists.infradead.org,
-        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+Date: Mon, 21 Sep 2026 16:33:02 +0200
+X-Gm-Features: AcwNN1URykOcgSM5mzAR_6Hv1HbdZSOKSvNjzwgzfex8XAPfx0E_X-1XkjOVQ2o
+Message-ID: <CAPx+jO_-ZD2We5Ap95YZG9rinGj40YXxCbf=fZ-g4MKexbYK8w@mail.gmail.com>
+Subject: Re: [PATCH] pmdomain: imx: Propagate SCU provider registration failures
+To: Pengpeng Hou <hppiscas@163.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+        "A.s. Dong" <aisheng.dong@nxp.com>, linux-pm@vger.kernel.org,
+        imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
         linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: 8UJiiVPzQf46GhnME-InWlTcbWcIWVl0
-X-Authority-Analysis: v=2.4 cv=IewSymqa c=1 sm=1 tr=0 ts=6ab14013 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+X-Proofpoint-GUID: nq16g_dLihJKZ3mhZw4bDE8mW5Is0p6P
+X-Proofpoint-ORIG-GUID: nq16g_dLihJKZ3mhZw4bDE8mW5Is0p6P
+X-Authority-Analysis: v=2.4 cv=OtraWC/t c=1 sm=1 tr=0 ts=6ab1402b cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
  a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=Bq6zwJu1AAAA:8 a=NEAV23lmAAAA:8
- a=2HKowqdte-bNKO3h_Y0A:9 a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
- a=KQ6X2bKhxX7Fj2iT9C4S:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDIxMSBTYWx0ZWRfX37QCbLYBuU39
- LscwsJAlpnZxFQ7KVQtZlgY383GJEs3QOMr+fiyEHwrwBRiIEdC+2nFQBsyL1aok4QdpmuPYoWa
- ClC3zpHMoH5eFQVdpVP0OcGAfwEGUo6n8Q9yIfn39gc1oVSP5iuUO3ozofDTXcev+MFXUu4PZZi
- w6UjD7momanoxl2nW2wbIvUofwMnYZakmyYBJzJfpYZo3OZauTY+XypgvtdPQXHBdOwmtYOMy2c
- MY2hBtD3ibf3cWxit7y9+3+ef47XeQ5md0UGvHXP4/jFuIH41Iw80JADBeVJ8YEuXARw/ou8thg
- /fxD0i81mPSNT7tEa2nAaXWdOLsoh5irGHUH9MZPHzpd+QByewuWlntFfjMrIpyqBaAUb10hfB8
- Edq9DgiO6Rcxe8/yUXxRTbtD/NQxfcUxnxH0bf9J3+GmeUgH+2bKX6d4r9+Z7OdaFRbTgQqoVjC
- ZyWkkQxEO33YZV2skqg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDIxMSBTYWx0ZWRfXwSZSeFwKJgXO
- HOC1RPErRq9FyB2Yz6txdpebCMNU89cJpHviH+YebcPF2t2TA9N2B8DtM/T4qZ7MhoKe89mF0Rx
- YpxIy6zDrnG3QTSlCF5KM9bCzum6i8s=
-X-Proofpoint-ORIG-GUID: 8UJiiVPzQf46GhnME-InWlTcbWcIWVl0
+ a=_K5XuSEh1TEqbUxoQ0s3:22 a=Byx-y9mGAAAA:8 a=YTAltBPf13rpVPKIVk8A:9
+ a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDIxMSBTYWx0ZWRfXzjdeaaY2WgX4
+ RNWbAGhMm0FT+d1kM6QMr6WMEduuzGBrf2mjiZd8kmBkOzxhr1bVzETIc1qa23JtZWdyUNMI0g6
+ kPDsZrhA/sqolPmEKzusxOuJ5HN6sAXoFHWLE9sa+6odc44rBIlzoENA7rgPmaAnkVJXXAnCF7h
+ e2l/NrGUNXKF+GgevRyhbSl4LYjmYLl0DHWyAdPQ4F1HVyB8/ZRFGsbbn33r47sYa7ljcWwqgY5
+ l6O+doEFE4u+sMrhfngfdSwbncuPxRdccAhSyVcKR+AaXx02hi32dtkHBcdG3S3gtoeAcHiE+ZD
+ arFzX35tm9fu6AUHcJJVLFwpEnNKJonZNoeeuFb22rKMXRQ94xskPdFeevmXFcdV5ALfLKxsd2c
+ j4rgMPTEYXIZWYmSSQ421IWCN8fkDT0VXenaToAdQuxJTSx/f0hX83V00tcvT+fS4OR83WG9B3v
+ 2yPSB/RykBxuadvldOg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDIxMSBTYWx0ZWRfX/wli6SsI6dFx
+ IgfngsXDR3qCwX5qs5dXlOTd4y2OeO6tjXALqc/2augKgeSlRWiJMeYYCLuL0BdKgcK4mwhGhB4
+ 5vBPUbQfvLuZaipm8nrOVA3MyMK+eao=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-21_04,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
- lowpriorityscore=0 spamscore=0 phishscore=0 malwarescore=0 adultscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609210211
+ priorityscore=1501 spamscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0
+ malwarescore=0 adultscore=0 phishscore=0 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210211
 
-On Thu, Sep 3, 2026 at 11:24=E2=80=AFAM Joshua Yeong
-<joshua.yeong@starfivetech.com> wrote:
+On Sun, Sep 6, 2026 at 5:38=E2=80=AFAM Pengpeng Hou <hppiscas@163.com> wrot=
+e:
 >
-> The RISC-V Platform Management Interface (RPMI) specification defines a
-> modular and extensible messaging protocol between the supervisor software
-> and a platform microcontroller (PuC). Among the service groups it defines
-> is the device power service group (service group ID 0x00009), which allow=
-s
-> the supervisor to enumerate the power domains of platform devices managed
-> by the PuC, query their attributes, and get/set their power state.
+> imx_scu_init_pm_domains() ignores of_genpd_add_provider_onecell() and
+> returns success even when none of the initialized domains are published t=
+o
+> DT consumers.
 >
-> This series adds supervisor-side support for that service group:
+> Return the provider error and remove the initialized domains in reverse
+> order before devm releases their backing storage on probe failure.
 >
->  - DT bindings for the power domain controller exposed to the supervisor
->    ("riscv,rpmi-device-power") and for the SBI MPXY channel that the SBI
->    implementation uses to expose the service group to the supervisor
->    ("riscv,rpmi-mpxy-device-power").
+> The issue was found by our static-analysis tool and manually reviewed.
 >
->  - A generic power domain (genpd) provider driver under
->    drivers/pmdomain/riscv/ which talks to the PuC over an SBI MPXY
->    mailbox channel. At probe it queries GET_NUM_DOMAINS, then for each
->    domain queries GET_ATTRS for the name and transition latency and
->    GET_STATE for the initial state, and registers the whole set as a
->    onecell genpd provider. Domain power on/off is driven through
->    SET_STATE with the generic ON/OFF power state parameters, so devices
->    can simply reference a domain through the "power-domains" property.
->
-> The series is based on the existing RISC-V RPMI/MPXY infrastructure
-> already present in the tree (drivers/mailbox/riscv-sbi-mpxy-mbox.c and
-> include/linux/mailbox/riscv-rpmi-message.h), and only adds the device
-> power service group definitions on top of it.
->
-> Changes in v3:
->  - Move the MAINTAINERS change into its own patch, and add a new
->    "RISC-V RPMI DEVICE POWER DRIVER" section scoped to this driver and
->    its bindings instead of adding an M: entry to the existing "RISC-V
->    RPMI AND MPXY DRIVERS" section, which covers drivers maintained by
->    others.
->  - Drop the redundant trailing "bindings" from the dt-bindings subject.
->  - Compare only the value field of the RPMI power state word. The word
->    also carries a context bit, so a full word comparison would report
->    -EIO after a successful transition, and would drop a domain at probe,
->    whenever the PuC reports context as lost.
->  - Check the pm_genpd_init() return value and leave a failed domain out
->    of the onecell array. Every failure path in pm_genpd_init() returns
->    before the genpd is linked into gpd_list, so the previous code could
->    hand a half initialised genpd to of_genpd_add_provider_onecell() and
->    then list_del() an uninitialised list head in the unwind loop.
->  - Set GENPD_FLAG_DEV_NAME_FW. The domain names come from the PuC and
->    are not guaranteed to be unique or non-empty, and were used verbatim
->    as the sysfs and debugfs names, where a duplicate fails device_add()
->    with -EEXIST and takes down the whole provider.
->
-> v1: https://lore.kernel.org/r/20260829205520.1691-1-joshua.yeong@starfive=
-tech.com
-> v2: https://lore.kernel.org/r/20260830152812.312663-1-joshua.yeong@starfi=
-vetech.com
->
-> Testing
-> =3D=3D=3D=3D=3D=3D=3D
->
-> The series was tested under QEMU with the RPMI device power service
-> implemented in firmware.
->
-> Components:
->
->  - OpenSBI: latest master branch
->    https://github.com/riscv-software-src/opensbi
->
->  - QEMU: the RPMI-enabled tree at
->    https://github.com/yeongjoshua/qemu/tree/rpmi-v11.1.0
->
-> Kernel config: enable CONFIG_RISCV_RPMI_DEVICE_POWER (default y on RISC-V
-> when MAILBOX is enabled) along with the SBI MPXY mailbox driver.
->
-> Run with:
->
->   qemu-system-riscv64 \
->       -M virt -m 2G -smp 4 \
->       -bios fw_dynamic.bin \
->       -kernel Image \
->       -M rpmi=3Dtrue \
->       -nographic \
->       -initrd rootfs-busybox.cpio \
->       -append "root=3D/dev/ram rw console=3DttyS0,115200 no_console_suspe=
-nd mem=3D2048M earlycon=3Duart8250,mmio,0x10000000"
->
-> The RPMI device power domains advertised by the emulated platform
-> microcontroller show up as generic power domains and can be inspected
-> through /sys/kernel/debug/pm_genpd/. The series was additionally booted
-> with CONFIG_PROVE_LOCKING, CONFIG_DEBUG_MUTEXES and
-> CONFIG_DEBUG_ATOMIC_SLEEP enabled, with no lockdep reports.
->
-> Joshua Yeong (3):
->   dt-bindings: power: Add RPMI device power service
->   pmdomain: riscv: Add RPMI device power service
->   MAINTAINERS: Add RISC-V RPMI device power driver
->
->  .../power/riscv,rpmi-device-power.yaml        |  65 +++
->  .../power/riscv,rpmi-mpxy-device-power.yaml   |  65 +++
->  MAINTAINERS                                   |   8 +
->  drivers/pmdomain/Kconfig                      |   1 +
->  drivers/pmdomain/Makefile                     |   1 +
->  drivers/pmdomain/riscv/Kconfig                |  15 +
->  drivers/pmdomain/riscv/Makefile               |   3 +
->  .../pmdomain/riscv/riscv-rpmi-device-power.c  | 485 ++++++++++++++++++
->  include/linux/mailbox/riscv-rpmi-message.h    |  11 +
->  9 files changed, 654 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/power/riscv,rpmi-de=
-vice-power.yaml
->  create mode 100644 Documentation/devicetree/bindings/power/riscv,rpmi-mp=
-xy-device-power.yaml
->  create mode 100644 drivers/pmdomain/riscv/Kconfig
->  create mode 100644 drivers/pmdomain/riscv/Makefile
->  create mode 100644 drivers/pmdomain/riscv/riscv-rpmi-device-power.c
->
->
-> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-> --
-> 2.43.0
+> Fixes: c800cd7824bd ("firmware: imx: add SCU power domain driver")
+> Assisted-by: gpt 5
+> Signed-off-by: Pengpeng Hou <hppiscas@163.com>
 
-The v3 series applied for next, thanks!
+Applied for next, thanks!
 
 Kind regards
 Uffe
+
+
+> ---
+>  drivers/pmdomain/imx/scu-pd.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/pmdomain/imx/scu-pd.c b/drivers/pmdomain/imx/scu-pd.=
+c
+> index e3f9e741daf7..05d4364f34be 100644
+> --- a/drivers/pmdomain/imx/scu-pd.c
+> +++ b/drivers/pmdomain/imx/scu-pd.c
+> @@ -474,7 +474,7 @@ static int imx_scu_init_pm_domains(struct device *dev=
+,
+>         struct genpd_onecell_data *pd_data;
+>         struct imx_sc_pm_domain *sc_pd;
+>         u32 count =3D 0;
+> -       int i, j;
+> +       int i, j, ret;
+>
+>         for (i =3D 0; i < pd_soc->num_ranges; i++)
+>                 count +=3D pd_ranges[i].num;
+> @@ -503,7 +503,13 @@ static int imx_scu_init_pm_domains(struct device *de=
+v,
+>         pd_data->num_domains =3D count;
+>         pd_data->xlate =3D imx_scu_pd_xlate;
+>
+> -       of_genpd_add_provider_onecell(dev->of_node, pd_data);
+> +       ret =3D of_genpd_add_provider_onecell(dev->of_node, pd_data);
+> +       if (ret) {
+> +               while (count)
+> +                       pm_genpd_remove(domains[--count]);
+> +
+> +               return ret;
+> +       }
+>
+>         return 0;
+>  }
+> --
+> 2.50.1 (Apple Git-155)
+>
