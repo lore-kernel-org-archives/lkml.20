@@ -1,77 +1,84 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C1945C711
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:07:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A74C33559C9
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:08:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789981670; cv=none; b=eIQsf88Vd6Pnm0oMDfY4IiW1Y0/XGhq1S06oeGyNbG8TYU0V/Sm/wRF275ku9Ph17NKB1Wi6M42SWdefVSEg46AY5StX9euq1I2G8txRANYQaXN/bvkbwutjFaMfYkNt0jiMJkck+noKZspkpXAqNGssxT69l6HLdx6Q4kNdFGo=
+	t=1789981703; cv=none; b=HgFC+oMtfeXTpZJYx9OryuR6jGwwyOgAbwkcTqsYzETM9oqDKt4lw9DBeiNbgVH3fIq+Zyd/N/amUUbOW9FPjdLNjTjjdIX+W0iaqfnT+Tp6Bt1NTBHXRU/pfFh4AbiEZqJG6hAfGXG+igiYrqUaamypYkmf+ZKRFAKrq9VNdU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789981670; c=relaxed/simple;
-	bh=WncuUMOrb+o1nLPTlnkYK/LlYBTttwBzacj96h5tcUM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RRDWASNZ39bf19x7bqGn1l3Hz4ZExOwc57QyY6meY7PA5xuU2yquY/NGIBLAhrp0ffmRoDuDahEzsqCA+7O3gA4al4aTiyCCEKbZZOg0dBY38Sg09KoPgs6+kn+E17RdBRZbDqrH6nBqQjA7PDXg91DKBXOeVZpXVzfr8OxuxJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=AtY/ST5I; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+	s=arc-20240116; t=1789981703; c=relaxed/simple;
+	bh=N0b8EmSEWVJczB6H2qZwDcYiZkDK6GT7hkNKj4yRWHQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ljEKSxmLqYvicCge0158n4t5vU2lhDsmmbof9LM3YBJn6fLwCf3RhcZ33165BSHClojheTdCSbI3qH6RirRnK2mw2grJ0Y8E4NUGw6AQ9jOF5sUj50fr1vIwERLROIFl17Bz2JntCbIJV/5hdz5VNpvXt4qzJSamApTYyST5ukw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CVjPJbQH; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="AtY/ST5I"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso19977495e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:07:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CVjPJbQH"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea50dc1so1587162a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:08:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1789981666; x=1790586466; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i9P0bAkfacAdN+uMzT0rVC2aiF/z3uaeg9DH0YZC9Ng=;
-        b=AtY/ST5IUNGGApmlZNbpNh50ApX7+7Fa53eHDZIfAE7R/MRAQa6x2DA0OM1HHeoQ7J
-         IZGUQmWjjwXRGQzGh5DpVWkSJ67B/DRvUG2FiGxLbMAC7VLu0oCNm7TuYmkM1vwPRypn
-         E4Bf0tFH6vnJm5m6+0T6qEn0f15oowHnz4kSM=
+        d=gmail.com; s=20251104; t=1789981701; x=1790586501; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kZfNRDAZYMOe8/raf1+kfme6bgo4XiPP5kMyL6mrkfE=;
+        b=CVjPJbQHI+RkMEXTuT5a+DoQVzH+g5w+QFeJmSjx/uyon15H6xcOm4xetV5ybkX97N
+         7mOt4IcCP8PthhpahSMIf5mtPacJtdPLqe5rHkQPMVmlUn+oST85xI83poRv5ARtTi0o
+         OeJ+X/Ij+1tUnW71s6a7EHjbhcIchBbwJJhA1btukNGs9PKt8KF/xQD2RnRLfOXodERK
+         y69g/8KPbeIJ3Ul8AA7gRptOnjy6XtsjzwKua6Ji4U1gGuFXWj6cmRWBwUeAz3RJwK0V
+         cg5Y3NPRow0MwUTX/7D+1Sio6M78anLw2ukQTNYZeHK30kA6dj87THPx/1WI/O3GU8Dl
+         Gi6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789981666; x=1790586466;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i9P0bAkfacAdN+uMzT0rVC2aiF/z3uaeg9DH0YZC9Ng=;
-        b=zzTMJCmmdIXGL63Al8TagkXXHCsULuEGyjBav6zI8WIlQIR2e1DKT2A5OS9qLsfiX6
-         xA7/E+ewUViqPZQio8yvIR0kUc/I775RkxNrPlwYxJ8IWG2q27dRhqaDLCT+dLye0ip2
-         w/MFIak8dnKxbqPu++YccO8qaZigQw/RJAsFw5LTUI6OrACYsB9zmvXxO+msCJ4qdTeP
-         uHsNsW3NNxwKKfoprfyVBLVpvvkK88z4yQckQrDr9uQayNXgwjb8+5Qu3L/A0J7fOwT+
-         L+d8BoOUAYEXh8RhbRZqvg1fTIeUsr6GgcAna2qb3prxceA7F7qstPryMBI/Nf8MAApe
-         WsOg==
-X-Gm-Message-State: AFuF++liK9JVgXGfhldRDvSEtGkP191FfRBzirNJZmPBNwUSr/FWAQjC
-	JKpJQ4U5iT24olmqI4Y7c9+dg5JTkzHmyfN6q+ywZrKv6FsHOUWViCw1vIIYhMJG3JP+mIeUh0t
-	ST6YmI08=
-X-Gm-Gg: AYBFou0WBGjf3kSevwSyxG93EmtCBcxYtWimokHsVDEy7QZqbMgRhOom1RhCGu0jGCV
-	U6j3nsFiJBoxZwgwPkML9UjUv2UX6QkjSUUa+DgSCYbxY4qg9P31otW8Ke1wotH6uLe/dH/ASa6
-	1P9FTSrBEalJ+fKRRLGcYbQjjNB+pwjKNOX0tG4r07ACHIQxzW1QNvC7r1zS8wlZcxh4bbbT131
-	bmbu5dQVMKKJ6YOaLKIWQ4XrIP/Puksnap35Cns5isrYk+SE4eEJKxzN6GwGaLdNqBvAhsgCRMd
-	fXo8pJIR8/z40T/M5RQyPRm8GWeYXCGp1rEfC9SP4wAwEfdZlWyzUQlrvlGfaJHF3l+gBQxScG/
-	vnZzzMFhyTkUDUWD08JsWBafLnBm9TQXxXojBuXjGe4jClb5wdkNQgTtW0MnSePW4WDlQ5BgTc6
-	6v0+fuU4zvi661kWv6PecXgzrgWrNIh5zuf5AEQZmvaYeOfS5u1/8ZKO4H8mxwNkeN80O/2laPz
-	B/EETmOKSG4s7Nm
-X-Received: by 2002:a05:600c:6211:b0:49c:fa20:cbfb with SMTP id 5b1f17b1804b1-49fc5728f84mr128229845e9.18.1789981665716;
-        Mon, 21 Sep 2026 02:07:45 -0700 (PDT)
-Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc585920fsm587218725e9.4.2026.09.21.02.07.44
+        d=1e100.net; s=20260707; t=1789981701; x=1790586501;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kZfNRDAZYMOe8/raf1+kfme6bgo4XiPP5kMyL6mrkfE=;
+        b=ZoNzy3sNlRGUuMju6eehOeYic1x8VIN73LKKUplG/MLR1KbZJylxaafXlIYzg3nCbZ
+         3o3+4Qec6CoHkofiZnTayqL2lgmqYkxXscnZjMhaCjlI7i+H+adZSn9LlAI9gnsfGWpX
+         9er9JghrsZc++BgFoc3ihCRvxHZC4IqJzbSggdpltUiTLQ8tOEC7geKrL7ZRIaRDi/am
+         h0kW0bn45vY0rWXM18SycYxyqTLzehopP2UPC56/8KDX7LNNiJJMQ4P/tRB1cMo88RU5
+         N2Z7AecwhfdfW6ZiTLm6d0FkWECiDq1C+4xlMghhCyiMHkFGguVQOjtqNFgiZFWPBRmE
+         srCw==
+X-Forwarded-Encrypted: i=1; AKwUvBxp0Liz/KOD/02z7QYXeKcZui3AyODPJHPF+a+NWtAIuoEgo27UvUSDB6Nn7nR4T/FV6VGsWlZYMqqo6SE=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9pnkqejOFdtJ2Fo/qfvJEYgWC3EQ7OagQm7YjLtkPgqUJ2n3i
+	tQeynfouy6+A9U1d0Aly/Izbst3VAVcmlShExHhTz3Km7OYX2d24FUCa
+X-Gm-Gg: AYBFou0gBpi0EawH+puy2Yd5G+2Rj4EJAGgsQ6OWfJUgt3FAiZlfrzaiCx695ILOccH
+	B480zE5lmp8gJXcP3QrcGLHFpfdyoQOX8xAvMVWKJ+vfNK/Ow3bpKqUUoIF8QO+VY/9stf6jSmZ
+	TTmT9yz5rM6oYrX2EnkiIVerz2Mq+NYlNYkSdt7ydl5IW0mzCp15kSOqd/YPVsYNPlAtIN3SHhI
+	WhFgA8FyRuuSe2mNNkh14DkXBdCnn9jeuOamx30tKuYfJeLwyHS65Izm3JOiFptAzBVGN0k9D8s
+	4GQxtd5m3wzS+N+Ly3Kv4qBp9YJovRnGfUivUgx4DwsfrAlAZWXkK5eSL1oPtQdL3ILzZGVW/nM
+	QOcaA1tKsb4b9t6HENU6Nqtv9vxXXfMkCIs2QLd2Y1t5f+149it5BOH6w9O+BGBFsZllud6qY0G
+	87z9+ImyhTQHDb9Csz7Cg3bNpStUULujAfsrmOIJEZjS7y1eZYTvbg0w==
+X-Received: by 2002:a17:90b:554b:b0:39e:6c6a:4b6c with SMTP id 98e67ed59e1d1-39e6c6a54f7mr7862823a91.54.1789981700866;
+        Mon, 21 Sep 2026 02:08:20 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6f1835adsm13203772a91.6.2026.09.21.02.08.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 02:07:45 -0700 (PDT)
-From: Petko Manolov <petko.manolov@konsulko.com>
-To: linux-kernel@vger.kernel.org
-Cc: devicetree@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	dinguyen@kernel.org,
-	arnemaximilian.richter@draeger.com,
-	martynas.grybauskas@draeger.com,
-	Petko Manolov <petko.manolov@konsulko.com>
-Subject: [PATCH v7 3/3] arm: dts: altera: add Draeger M48 CPU Module
-Date: Mon, 21 Sep 2026 12:07:33 +0300
-Message-ID: <20260921090735.3174292-4-petko.manolov@konsulko.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260921090735.3174292-1-petko.manolov@konsulko.com>
-References: <20260921090735.3174292-1-petko.manolov@konsulko.com>
+        Mon, 21 Sep 2026 02:08:20 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Tiffany Lin <tiffany.lin@mediatek.com>,
+	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+	Yunfei Dong <yunfei.dong@mediatek.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Tomasz Figa <tfiga@chromium.org>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Steve Cho <stevecho@chromium.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] media: mediatek: vcodec: fix decoder child device leaks
+Date: Mon, 21 Sep 2026 17:08:08 +0800
+Message-ID: <20260921090808.336112-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,161 +87,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-M48 is a heterogeneous board made by Draeger that is based on two
-independent cpus, that are monitoring each other.  One of them is
-imx6, the other is Altera SoCFPGA Cyclone 5.  The latter is booting
-independently off qspi.
+mtk_vcodec_probe() populates decoder hardware child platform devices on
+platforms that support decoder subdevices. These children must be
+removed with of_platform_depopulate() when they are no longer needed.
 
-This one adds the DT for the Altera SoCFPGA part of M48.
+If initialization fails after the children have been populated, the
+probe error path releases the parent decoder resources without
+depopulating the child devices. This leaves the child platform devices
+registered.
 
-Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
+The remove path has the same issue and leaves the child devices
+registered when the parent decoder driver is unbound.
+
+Depopulate the child devices in the probe error path and in the remove
+path before tearing down the remaining parent resources.
+
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
+
+Fixes: c05bada35f01 ("media: mtk-vcodec: Add to support multi hardware decode")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
- .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 123 ++++++++++++++++++
- 2 files changed, 124 insertions(+)
- create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+ .../platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c    | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/arm/boot/dts/intel/socfpga/Makefile b/arch/arm/boot/dts/intel/socfpga/Makefile
-index 8df0976da01c..cdcea11abdfa 100644
---- a/arch/arm/boot/dts/intel/socfpga/Makefile
-+++ b/arch/arm/boot/dts/intel/socfpga/Makefile
-@@ -11,6 +11,7 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += \
- 	socfpga_arria10_mercury_aa1_st1_emmc.dtb \
- 	socfpga_arria10_mercury_aa1_st1_qspi.dtb \
- 	socfpga_arria10_mercury_aa1_st1_sdmmc.dtb \
-+	socfpga_cyclone5_draeger_m48.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_emmc.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_qspi.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_sdmmc.dtb \
-diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-new file mode 100644
-index 000000000000..dae809c02adb
---- /dev/null
-+++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-@@ -0,0 +1,123 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-+ */
-+#include "socfpga_cyclone5.dtsi"
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+index e936ed8dffba..592685ad522c 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
++++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+@@ -517,6 +517,8 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
+ err_dec_mem_init:
+ 	video_unregister_device(vfd_dec);
+ err_reg_cont:
++	if (dev->vdec_pdata->is_subdev_supported)
++		of_platform_depopulate(&pdev->dev);
+ 	if (dev->vdec_pdata->uses_stateless_api)
+ 		media_device_cleanup(&dev->mdev_dec);
+ 	destroy_workqueue(dev->decode_workqueue);
+@@ -569,6 +571,9 @@ static void mtk_vcodec_dec_remove(struct platform_device *pdev)
+ {
+ 	struct mtk_vcodec_dec_dev *dev = platform_get_drvdata(pdev);
+ 
++	if (dev->vdec_pdata->is_subdev_supported)
++		of_platform_depopulate(&pdev->dev);
 +
-+/ {
-+	model = "Draeger M48 Cyclone V SoC";
-+	compatible = "draeger,m48", "altr,socfpga-cyclone5", "altr,socfpga";
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@0 {
-+		name = "memory";
-+		device_type = "memory";
-+		reg = <0x0 0x40000000>;
-+	};
-+
-+	aliases {
-+		/* this allow the ethaddr uboot environmnet variable contents
-+		 * to be added to the gmac0 device tree blob.
-+		 */
-+		ethernet0 = &gmac0;
-+	};
-+
-+	soc {
-+		gpio3: gpio@ff202000 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "snps,dw-apb-gpio";
-+			reg = <0xff202000 0x20>;
-+
-+			portd: gpio-controller@0 {
-+				compatible = "snps,dw-apb-gpio-port";
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				snps,nr-gpios = <2>;
-+				reg = <0>;
-+			};
-+		};
-+
-+		gpio4: gpio@ff202020 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "snps,dw-apb-gpio";
-+			reg = <0xff202020 0x20>;
-+
-+			porte: gpio-controller@0 {
-+				compatible = "snps,dw-apb-gpio-port";
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				snps,nr-gpios = <2>;
-+				reg = <0>;
-+			};
-+		};
-+	};
-+};
-+
-+&gmac0 {
-+	status = "okay";
-+	phy-mode = "rgmii-id";
-+	rxc-skew-ps = <1860>;
-+	rxd0-skew-ps = <0>;
-+	rxd1-skew-ps = <0>;
-+	rxd2-skew-ps = <0>;
-+	rxd3-skew-ps = <0>;
-+	rxdv-skew-ps = <0>;
-+	txc-skew-ps = <900>;
-+	txd0-skew-ps = <0>;
-+	txd1-skew-ps = <0>;
-+	txd2-skew-ps = <0>;
-+	txd3-skew-ps = <0>;
-+	txen-skew-ps = <0>;
-+};
-+
-+&gpio0 {
-+	status = "okay";
-+};
-+
-+&gpio1 {
-+	status = "okay";
-+};
-+
-+&gpio2 {
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+	clock-frequency = <100000>;
-+
-+	eeprom_mac: eeprom@50 {
-+		compatible = "atmel,24c08";
-+		reg = <0x50>;
-+		pagesize = <16>;
-+	};
-+};
-+
-+&mmc0 {
-+	status = "okay";
-+};
-+
-+&qspi {
-+	status = "okay";
-+
-+	flash: flash@0 {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		compatible = "micron,n25q256a", "jedec,spi-nor";
-+		reg = <0>;
-+
-+		/* chip select */
-+		spi-max-frequency = <100000000>;
-+		m25p,fast-read;
-+		cdns,read-delay = <4>;
-+		cdns,tshsl-ns = <50>;
-+		cdns,tsd2d-ns = <50>;
-+		cdns,tchsh-ns = <4>;
-+		cdns,tslch-ns = <4>;
-+	};
-+};
+ 	destroy_workqueue(dev->decode_workqueue);
+ 
+ 	if (media_devnode_is_registered(dev->mdev_dec.devnode)) {
 -- 
-2.47.3
+2.43.0
 
