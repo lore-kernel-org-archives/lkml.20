@@ -1,210 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0472DC783;
-	Mon, 21 Sep 2026 14:52:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E8049E127
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:52:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002326; cv=none; b=ZJBksMoa7p4+w+IebOkWyfaAu84AC4IUkkQGL8mKJbOUcNTBx5v/YHCwlaDhnQahVCak38hxb2S0KMvnBmWRQlyC4ul6/oDmCNRUkIbP83hpKLs2rB86+Fek4ji2jfViDwtxHe4kBmY3r+1a+iUBpVR5QMwgQYIEbHZGno1KQMk=
+	t=1790002377; cv=none; b=TYzjC5CM5APl0BLj1SGgJsV0J0xkk1ZzxvvMCj+IeEjnquaPvpPAeA9eDtf3yabvcKCtq0AnAe7pyBSL1HUBhuQ41w1036xq8mP2KrfiUn4B6EqSsycob/EyivUXT50/GI4L26/Bjj9rST0XyOd8mGbVnbj4T3St6iIxL38djN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002326; c=relaxed/simple;
-	bh=Lv0rCi1IVYqOe6nHWc43dTnfrHk4bD7+ZA8Q8tANp3w=;
+	s=arc-20240116; t=1790002377; c=relaxed/simple;
+	bh=g+1M4HqjEzjilBm0PxJObiEwb0aU1IwrI5Gz76d/G8Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rHHVXR4qhx0+w09FHGXVjBkQdQLCLntHYDBAF8RWtfmu7t6fKuKRgW5XJDTWMlMbJCPE6CrcqqPr/nhbzXe5IKRN1A95WUPSMBfUg3ML9MZiWkKRI2ym0whLasVxQsO83OIdWwALoNkHM+bnjq8KE8898NaGRBxI2pxIXxsptOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nTIaEWTO; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=JMfcMCIocVemYJS/k0psCyEQHtg+WvmnjPTUE1zn9JRiVtqreXEXjJeo5iqlcbdtjU/ip1Kyfd6txvkZEFPZL/LK0buJfTI0svdp4xpdXT9huSJhdxLv2QFinc5t+8dI/OCPaPHG04+mdxgO9xTkEQAV5/TbqZpmQ0qLnROmYqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FcN9mZ9E; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=dduVtyj1; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nTIaEWTO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B16451F000FF;
-	Mon, 21 Sep 2026 14:52:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790002324;
-	bh=iBzaDTFhCv8gByiggXKs3p0z6UUKmnCA/sXWzByV9wk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nTIaEWTOjTNWT59X5i/DxMipgg1LluTThVc0M6j+BJ+Li+8rHMbYlh9jdUVTttRU1
-	 fCRV4VKl1H9rZf4Iz7x0jKN7jMx8sfKR4bZhRmexU6t5d5LsYTEfQFoT0809QntJod
-	 HMOsTmd+58OOp4TcHZBt0Vpat1oD/ZnO3zoYv+aqRohnXDPa+FRAd2psKG/6QR3Ij7
-	 AVO4xQIGWG7uEO/1Z98/nYGtBCO1Qe0bLbziRCyrETYnuug1KULsguhszERDmNJJtU
-	 82ICOcgrOtwZdFgfrR784D4liSnYh/GfztC+IsrAUPZ6UDPMChzc8mK3bIOhlzGRe7
-	 f2x858rK/gEhA==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 7836D1AC55A7; Mon, 21 Sep 2026 15:51:59 +0100 (BST)
-Date: Mon, 21 Sep 2026 16:51:59 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Fei Xie <fei.xie@horizon.auto>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Parshuram Thombare <pthombar@cadence.com>,
-	linux-spi@vger.kernel.org, linux-mtd@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 2/4] spi: cadence-xspi: add ACMD support for SPI NAND
-Message-ID: <arFEjzkHGMbecWWV@sirena.co.uk>
-References: <20260921093701.1341766-1-fei.xie@horizon.auto>
- <20260921093701.1341766-3-fei.xie@horizon.auto>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FcN9mZ9E";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="dduVtyj1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790002375;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dte/ClAGy6eKCFKXrlyXY7UwAZkdvgemrmCIbNf+44s=;
+	b=FcN9mZ9EptznOrpAT1s8BuRTzRSz9LOzs2GbwaD3Ghm0xk4BVLORBo84zoW7sDBtFw4EG7
+	d40t7nVP+d6Q0shN5I/QO1kBHounZRiJJfhZVRQhUr7fXz51CBjpm4QxkvZnPWE6fJ5PU4
+	rS0G2LiPOzA7c0L1y/hNIqFapBMLf9Q=
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com
+ [209.85.217.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-455-5AHNQ3MrMtebysH7mR_JOw-1; Mon, 21 Sep 2026 10:52:52 -0400
+X-MC-Unique: 5AHNQ3MrMtebysH7mR_JOw-1
+X-Mimecast-MFC-AGG-ID: 5AHNQ3MrMtebysH7mR_JOw_1790002372
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7961a79fcd8so945115137.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:52:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790002372; x=1790607172; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=dte/ClAGy6eKCFKXrlyXY7UwAZkdvgemrmCIbNf+44s=;
+        b=dduVtyj1zqWEiWMCwj2fHNNL/xygHFc6MZkhiDoLxNLAzVGRbappJBnX1DfitQuOUo
+         fWnGB2nbBN8DiORc6/hZLFxSNKoLBmsZ4wo6fzjkYKq5nmhfNA/tFIuvPvBTZwrb0tCl
+         ya7QBcfgvmybgnfhoJZPyuaChDZYR8lLUGw3ephlzYCXRM+izFuOSKUnqEC6VPF7yoVJ
+         KC3MgRYiKUYORNpZcICnfAfwmvnqRSRHkrG3zDGJuKnQkxMRh6OXftZCiyYwCsXk53uB
+         cF/sAmvU5sZQtCjHb1wVwBE8z2G9NETzpAOA0EMMy/nsKhfQx90Im7f/0G11JUQWeKU/
+         jgCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790002372; x=1790607172;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dte/ClAGy6eKCFKXrlyXY7UwAZkdvgemrmCIbNf+44s=;
+        b=dviF1Xfkj5BsOMT6vZiM6e+LdRCQ+gWx2Eo/qy8YUlWWBXxVCBx7+dZC+Ure0ElefE
+         iGdGzpQkejJdzM+EGQYlcz4kHIWTm15ohZiKcBua0oqaBJzN/AtEb+xkv26IVnAtniqK
+         eGnyeJP7CYUlLWCRlEby9gYGuxL33Mvq7KllGnFyk1Im8uuR89fMyqtee3F8qz8L4qQS
+         8LSoadx5Q0lVfNfAPTtc5b4P1/WqG1qB39h4Xm+pDLoOWbPchcfgb63TE+UfKMtTUQuU
+         ekDAG7KYicWGri6B6P1LF5POh3M7OeB0Yv82h37S/+iv4JCpww3yy0rwTS0R1AC4Tt2f
+         WVZg==
+X-Forwarded-Encrypted: i=1; AKwUvByk9aHrOv7IzZvk3IXr3M3/twcuDPO4TzXfeaBdLKkDWoKjsyo1DdFTsFXVyQHJxV8KTBONgu5XErhFYo8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyJ3Zo8yZ3uOVh+HhHXHZ4wV7AssEPAuffNvtjfjaWuApEL9Cx
+	uBpXUZaEZV1G8TnNlf6yOnkygjpSJlkvDc+jDlTqHuEVkkLoxtqQLT4RNkK5oR7oOsp4LBl62jH
+	rHD+6j7A1Flj5fo/9AnoO7RQCrEzhqutzUnm0mOrz0pWzrCYQ0zSsGLIC1rOKqZeAHw==
+X-Gm-Gg: AYBFou1G7z1nPkiyEmO3OaE7Ep2KxJ2C1zkTkukU2YO/ziy3tw2A0u0PMNFhntQsQSp
+	DT/JCL/5RHhoFVNjCdI8qhYWjlQ7kdeyiq+07fbxYutErvSBg3ErJWUgQZu98oNELy3Sph+hIoS
+	GrOQCmRfW+R6Pst2FcnLwuZA0WDkzTaagSh6PzrKB7MNtW01oT2Fx6ZDssp5C/nsS6t+hnr0kk9
+	Ytg9Af07l9n8KKcaGKRIYpLyzwn8tMn6NmLY3xVQk2GqQ7HiOeA47lIQT01j/tpPt4AELwdq1No
+	tqyKTfYikOppCDyE142ey+9b9xPMRYWNkk/vAnUKF73vB17AF6KnGsatUyrzwnvBkgYVIep9vlV
+	KLido6J15eS49bXLJSb15MM0XRzPWnfGuc78=
+X-Received: by 2002:a05:6102:e09:b0:7a1:f7d2:e807 with SMTP id ada2fe7eead31-7a55c0748b9mr4687568137.15.1790002372214;
+        Mon, 21 Sep 2026 07:52:52 -0700 (PDT)
+X-Received: by 2002:a05:6102:e09:b0:7a1:f7d2:e807 with SMTP id ada2fe7eead31-7a55c0748b9mr4687509137.15.1790002371483;
+        Mon, 21 Sep 2026 07:52:51 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91260a3097dsm69888436d6.8.2026.09.21.07.52.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 07:52:50 -0700 (PDT)
+Date: Mon, 21 Sep 2026 10:52:49 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: "Ng, Adrian Ho Yin" <adrian.ho.yin.ng@altera.com>
+Cc: Dinh Nguyen <dinguyen@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH 1/3] clk: socfpga: agilex: convert to CLK_OF_DECLARE()
+Message-ID: <arFEwdu6EucK1G9x@redhat.com>
+References: <cover.1789096458.git.adrian.ho.yin.ng@altera.com>
+ <c7006ac0c353640f52902580564a85d6d23c57e5.1789096458.git.adrian.ho.yin.ng@altera.com>
+ <aq2-Ysy2wbLeBWd1@redhat.com>
+ <1abffb74-3b9d-494d-a414-ea21d537ed74@altera.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="8lF6WnBuWqq8JydY"
-Content-Disposition: inline
-In-Reply-To: <20260921093701.1341766-3-fei.xie@horizon.auto>
-X-Cookie: Too clever is dumb.
-
-
---8lF6WnBuWqq8JydY
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <1abffb74-3b9d-494d-a414-ea21d537ed74@altera.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-On Mon, Sep 21, 2026 at 05:36:59PM +0800, Fei Xie wrote:
++ Bartosz
 
-> Add PIO master-DMA support for the controller auto-command mode.
-> Configure the SPI NAND read, program, erase, status and reset
-> sequences, retaining STIG for operations not consumed by ACMD.
+Hi Adrian,
 
-> +struct cdns_xspi_acmd_info {
-> +	u64 row_addr;
-> +	u64 column_addr;
-> +	size_t data_nbytes;
-> +	bool row_addr_valid;
-> +	bool initialized;
-> +};
->  struct cdns_xspi_dev {
+On Mon, Sep 21, 2026 at 11:17:13AM +0800, Ng, Adrian Ho Yin wrote:
+> subsys_initcall() / subsys_platform_driver() would not fix the failure we
+> are hitting. Both still run after time_init(), while the DW APB timer is
+> registered via TIMER_OF_DECLARE from timer_probe().
+> 
+> So moving from core_initcall() to subsys_initcall() changes nothing for
+> this consumer: the timer cannot defer, clk_get() still fails, and the timer
+> is never brought up. That is why these patches use CLK_OF_DECLARE(): the
+> provider must be registered from of_clk_init() so clocks exist before
+> TIMER_OF_DECLARE runs.
+> 
+> On the broader point about CLK_OF_DECLARE abuse: I agree it should not be
+> used merely to beat platform device probe. If the preferred approach is to
+> keep the clkmgr as a platform driver (subsys_platform_driver()) and give the
+> DW APB timer nodes a fixed clock-frequency instead of a clocks phandle, I
+> can respin that way. Please let me know which you prefer.
 
-Missing blank line.
+I wanted confirmation that you wanted to use CLK_OF_DECLARE() for the
+system timers.
 
-> +static void cdns_xspi_nand_erase_seq_init(struct cdns_xspi_dev *cdns_xspi,
-> +					  struct spinand_device *spinand)
-> +{
-> +	u32 erase_seq_cfg0;
-> +	u32 erase_seq_cfg1;
-> +
-> +	/* SPI-NAND block erase is always D8h with a 3-byte row address. */
-> +	erase_seq_cfg0 =
-> +		FIELD_PREP(CDNS_XSPI_ERSS_SEQ_P1_CMD_VAL, 0xd8) |
+Will you by chance be at Linux Plumbers Conference in two weeks? Bartosz
+is leading a discussion about the future of CLK_OF_DECLARE() and
+friends.
 
-CDNS_XSPI_NAND_OP_BLOCK_ERASE.
+https://lpc.events/event/20/contributions/2503/
 
-> +static int cdns_xspi_nand_init(struct cdns_xspi_dev *cdns_xspi,
-> +			       struct spinand_device *spinand)
-> +{
+We want to minimize the use of CLK_OF_DECLARE(), so the preference is
+to keep this as a platform driver if possible. If you are able to get
+around using CLK_OF_DECLARE() by initially running the system timers
+with a fixed frequency then I think that would be preferable.
 
-How much of this initialisation is parameters based on the specific
-flash passed in - what if there are two different flashes attached to
-the same controller for some reason?
+Brian
 
-> +	cdns_xspi->dma_buf_len = spinand->base.memorg.pagesize +
-> +				 spinand->base.memorg.oobsize;
-> +	cdns_xspi->dma_buf = dmam_alloc_coherent(cdns_xspi->dev,
-> +						 cdns_xspi->dma_buf_len,
-> +						 &cdns_xspi->dma_addr,
-> +						 GFP_KERNEL);
-> +	if (!cdns_xspi->dma_buf)
-> +		return -ENOMEM;
-
-Why do we need the DMA buffer, I'd expect whatever reaches the driver to
-already be DMA safe?
-
-> +static int cdns_xspi_acmd_run(struct cdns_xspi_dev *cdns_xspi, u32 cmd_regs[6],
-> +			      u32 thread)
-> +{
-> +	unsigned long timeout;
-> +	int ret;
-> +
-> +	cdns_xspi_set_mode_acmd(cdns_xspi);
-> +	reinit_completion(&cdns_xspi->auto_cmd_complete);
-> +	cdns_xspi_set_interrupts(cdns_xspi, true);
-
-We have the set_interrupts() operation.
-
-> +	cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
-> +
-> +	timeout = msecs_to_jiffies(CDNS_XSPI_ACMD_TIMEOUT_MS);
-> +	if (!wait_for_completion_timeout(&cdns_xspi->auto_cmd_complete,
-> +					 timeout)) {
-> +		dev_err(cdns_xspi->dev, "ACMD command timed out\n");
-> +		ret = -ETIMEDOUT;
-
-Don't we need to clean up the hardware if this times out?
-
-> +	} else {
-> +		ret = cdns_xspi_acmd_get_thread_status(cdns_xspi, thread);
-> +	}
-
-Does this need any updates to cover more error types?
-
-> +static int cdns_xspi_pio_mdma_read(struct cdns_xspi_dev *cdns_xspi,
-> +				   struct spinand_device *spinand,
-> +				   const struct spi_mem_op *op)
-> +{
-
-> +	ret = cdns_xspi_acmd_run(cdns_xspi, cmd_regs,
-> +				 CDNS_XSPI_ACMD_DATA_THREAD);
-> +	if (ret) {
-> +		dev_err(cdns_xspi->dev, "ACMD read failed: %d\n", ret);
-> +		goto out_clear_read_state;
-> +	}
-> +
-> +	memcpy(op->data.buf.in, cdns_xspi->dma_buf, op->data.nbytes);
-> +
-> +out_clear_read_state:
-> +	cdns_xspi->acmd_info.row_addr_valid = false;
-> +	cdns_xspi->acmd_info.row_addr = 0;
-> +	return ret;
-> +}
-
-Does this do the right thing for short reads?
-
-> +static int cdns_xspi_send_pio_command(struct cdns_xspi_dev *cdns_xspi,
-> +				      struct spi_mem *mem,
-> +				      const struct spi_mem_op *op)
-> +{
-> +	struct spinand_device *spinand;
-> +	const struct spi_mem_op *read_cache;
-> +	const struct spi_mem_op *write_cache;
-> +	const struct spi_mem_op *update_cache;
-> +	int ret;
-> +
-> +	if (cdns_xspi->flash_type != CDNS_XSPI_FLASH_TYPE_NAND)
-> +		goto use_stig;
-> +
-> +	spinand = spi_mem_get_drvdata(mem);
-
-This appears to be peering into the child's driver data without any
-checking that the child is what we expect, this could go horribly wrong.
-
-> +	case CDNS_XSPI_NAND_OP_GET_FEATURE:
-> +		if (op->addr.val != CDNS_XSPI_NAND_STATUS_REG ||
-> +		    !cdns_xspi->acmd_info.row_addr_valid)
-> +			break;
-> +
-> +		if (op->data.dir != SPI_MEM_DATA_IN || !op->data.nbytes ||
-> +		    !op->data.buf.in)
-> +			return -EINVAL;
-> +
-> +		memset(op->data.buf.in, 0, op->data.nbytes);
-> +		return 0;
-
-Are you sure the zeroing makes sense here, for example with ECC?
-
---8lF6WnBuWqq8JydY
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxRI4ACgkQJNaLcl1U
-h9B9kQgAgexg4UroYbNqfnTx77dWvyfvZfAkOgGsSxorVl+++uS5zUEC4KFHAcv8
-nkJ+48LXafFUvcS296w9kMf9fYlUgGnOis3kaVXPnjAmJQpf0ESIFMKWc/++sLNT
-aDJxu/DmvkttnSswRXN87rtxXInLpPPXRSXHAc66nPGaa3aq9Uq0iZ9+N9wQfsP9
-yfWJOixMNrFRApiIEMTqvasq+M7YLwTSjbu/aQDQsAflsw0mSqkKuJ6OrqAlJ6EA
-bc7+75b0oBYOr6fiMqUvqlTGV3t1hPVRw1VkavKiRlBz3W9WqX0E4CTy2PEvPyAX
-FrTYRxC4hJK8kkYTmvxPlBNeHszLAw==
-=Mpw7
------END PGP SIGNATURE-----
-
---8lF6WnBuWqq8JydY--
