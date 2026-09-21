@@ -1,398 +1,198 @@
-Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCD6F493627
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:47:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802CC490BEA
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:47:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789991256; cv=none; b=BUycFp7cUVXFwmbunB8RcIVi9SmuLHhPw036RzGHAVC0bcEPXMKQfjwXwN/7Vg0yBhVCJ4by+x1FOwPK3WFoCGsrhmJca66UAu8gATxnlq5UDk/EenQ6iQXvqdC5mS8J8J3yM9CKW3Z7aWcM82lyzZvT0evuRkuds7CF2UUqfb8=
+	t=1789991259; cv=none; b=QjdyaN4ObTerHeiz5/O50RnBkUg3ewrbEC3phjG8yx1A8RsDiA+j1XdgIWSAZWJiZ9GUnVpn2Bxguun9pf4+FZu2YoxzsioDPIsbPto8ArIZjE+cntW0PsJLCR2+fhLLQQILlsh9wyVjEPSxVGI29zq0YQdu5H/CdkK0fj9mq9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789991256; c=relaxed/simple;
-	bh=kVauN+f5NOlRmTdY82forH3vYq9X+Tbj/feWTp1aQx0=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=X3O9MgtqH1kLikFlTxvAMZWJEjfXYRQcP09Lnp8YRZX2Gj0v1obQ71OO76cDzvjkRxnP+oSYQPBeDhEtmY5s5khwZzep9nUctnmXe/PzbuTaU9cBBXeA3oDE5xv1//KBFOWgr3n4GaqyCwUqygP8dIrSoNJwP+GegrVNDlOm7Pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4b94bb43008so471646b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:47:31 -0700 (PDT)
+	s=arc-20240116; t=1789991259; c=relaxed/simple;
+	bh=+RxU989r9Dq8S90POIQ9gQkbD9kCETs1BvNYgmVIDyM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=G8fgpVhS3kuD38lgHHPVuEI0sXqgJuLlna8tKtbsN7r5bOy5ghZ0qpxWzuvtq3IID9QHbRvQWgfqlTW1xAByQA+5dDLnhZj7zemSdfyvenzRLX6qHcLeACbjwT2QdJ4FFYQxoz4hxjsnDoxIvFrtZ4Sls8U8Sb1xPBPHGTEyriw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ajrgUT/f; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=frAxrjn4; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ajrgUT/f";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="frAxrjn4"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAe0T21563477
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:47:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ROMdPhV8eh7d+C9BoO4iWu0ECUiQI1dnpLtY/Sz9jRs=; b=ajrgUT/fyUixG+p8
+	l9oahI/XFpSnmHG/vfZ3CCbD3yOZ/NL7u2WRXOObZGX48SCi1cB4dMcC/ID906SG
+	IUvHA7QECeI+D+kgGq+PTCEsXJd636WiWcDDXGi/4SKMlNgQ19lI1BK40NnC53gJ
+	E0aHRiPJe2yb0wmV1zHujYH74gFiuOmJd/eQ/uD0O37xntWm0dp7XZpnegxOIjVS
+	ABvdBCqfriChS9+4C1bGS1mEShpJO8ObJ+/dLNoUP1DgbBkYT6zslkxedNu/Kyn+
+	ecM4Q1Z8sJlLaAF6dkpvkrttBtpAewt+Rdv0mXWOe/4Kj6kDR+tyNj90h7dsiTAj
+	jCigcQ==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtysw1425-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:47:34 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-90ce8ad8002so64684396d6.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:47:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789991254; x=1790596054; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ROMdPhV8eh7d+C9BoO4iWu0ECUiQI1dnpLtY/Sz9jRs=;
+        b=frAxrjn4ac/ScduZci/6bCcry/yEl9uDFNtLMu9/gSAGzzF6dPReL4kOxuqIm7O77V
+         w4f0asRsLa4iC0vSLSok0GYrXXGn+tBSDw5qu220TzKBg5OEp6V7NHbRTcsvD1mL4TXd
+         mHFQVkKY56RtkRK5O8dU3Y1MHf1x5lO8YcMACn8unHh+IllxrFJVHU53dSEkGaY6M1t0
+         yrIbFrIWl9oWI4ZXLDJ4uXTAyfiFD45RjWGxIvPSi4T9Oa785xQE3UWoOn1oDoWeGvb5
+         qx6iF8zMfVffjVoHQYdimF78KIavdy3+4zYCe/F52DQweqyJHEOKYtUqSqnjThM/xDTg
+         x7mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789991250; x=1790596050;
-        h=content-transfer-encoding:content-type:to:from:subject:message-id
-         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=S/hXxEHOxrust/MXkf7OZbFEvebD2oys7m23AgyJh5Q=;
-        b=BbTLdy91kv1bKXeXoL4T33J0mT1TlpaVimww0jJkcsme8ING0q8YYfW3Sj8XCZkdy2
-         MTMMj4Tl2Bk1C9yy/yKSxx1OwYRB0bwQXwp2Vt2OACwFF504vYsbTcz01ipE6QODI1gQ
-         f+1f7T1q/rDlRTEIg70r9Afv7RpM8dUxqvE6vjAfDmK1WKiv/NEX0hyU1cI8dLmsOJ63
-         B+lFfA1O8KTeLI4Tvwn8XGXy9X5pGrMlSdlV8OpoHLXHZpgGM2nq3i7OAcU5O8SGS2Om
-         eLuO+uQnS8mopgwNPQEFirY/Cl/QAfjh/2chq+MJoMyL5gqyF2EtqoPPHE3dTCMVUyFG
-         nCrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwhuyScLXROHNfnCgov1liA7KcmhtLvDG912/0tR7RVO+oC6EDDjGq/aVJ+xJMU9rxSRo15jem3963CPI4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXICgKImUWS3nItPwAqc5f+i/2VdEr+EoQKed6nw+izv8NSxXb
-	c4svfkmQygOpdjNzfyCGmzbdbRRXCrhmy0T3u7Rgx+fPGQJvOQiHirIJZlhBG/5F8ZaXtYRPn0O
-	3IDusKO/6PtV/toQjcezgidkFdlv43DDVkslp8QDuGoFgGmdi+Uw9A6yTh5Q=
+        d=1e100.net; s=20260707; t=1789991254; x=1790596054;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ROMdPhV8eh7d+C9BoO4iWu0ECUiQI1dnpLtY/Sz9jRs=;
+        b=DY+qTUKybch/7oK7KrYX0yUWr452HZW/w6u52lVVLNw7lSnJXK6ZMzsZrKxM3IMBo1
+         yvWdWpC/SFrlaM3aM+E9ylfCvbW3WUbWm5ipxK3o3iFio0eQuyeFAtQesM7tDVPPOkPC
+         1NTtb5LkZav1NIK/4DvD+mhnVrLIihMQEJczxa0EyXk3kKjKGKFHee8x15yvrbkgQXx+
+         ppp4+w39UX03WbTo9Z8S0cyEeUZJs4sj9QKKyg+l79YBZX0T2uh2jLUCEyaDEnSEwKNl
+         /sQNfSuPYx/pfbVUo3GRVBmEWSb+sgeo6mwYFJ8pXZGC3b3e/ZU2ejA3a+abkIiVrug/
+         rD0w==
+X-Forwarded-Encrypted: i=1; AKwUvBzhYppAhFna0f6s4sXvQnW3vUiLuNdGAvZJY3VRKL80t98atiPZBUPvb7nE4GCScfIWYIoefq0xqFnl8P0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcFa6PsbDIOZP1sfCWUAObKy7tZv2cYsdLnZFRRPYgoZ4rR7k6
+	tCtWUkpWmEEx6ezcdhto+MxLYXWpETVFfzJcmGs7a3zhU2GTINryQV+gJFemUVZLCub+oBs9kRa
+	oYX3phfd5K363xbQ0vLvohsEL7UNfLjpVwkwLZfJ00AEthyuXXENvAkqpRvE67gYQqzmbcCWI/y
+	U=
+X-Gm-Gg: AYBFou3hlBF2zLSg2qB20LM4L8Lk72hK3nd48tUvQb+gH8KrkUa0tka5FRWNvnwP/a8
+	3oGpoVse72WVx5HoP1FWpsPOBLjSNdtOeujp8saG61NR5YY5Nx1KlY4hmlj1/DJM7x2bLUGnolQ
+	wVMIMjHWTSRXtp53Us448QMnb0gEnsa9t28Rcg55DUyFO0XaQ/0GQvTu2HYJVTtvD7rZ8eFO+ID
+	tnB7ds1wWZrOVk9j8hHr1fA9mV56yFmpIT0LBZYMBlMCRKuFMwFyMZ/YwflNWkPOAQDdaZVIpOc
+	+07cULUKjDapkFpE/zfLzhpBLeyUJRha581DoUqWTS/gQLUava+uTJtCyd2j8jo3TKx6GOEJ6kn
+	R11Bwm4pifLvfZyHWi584JLYCR6E=
+X-Received: by 2002:a05:620a:371d:b0:927:25f5:ee08 with SMTP id af79cd13be357-93c15ec5578mr15952585a.43.1789991253925;
+        Mon, 21 Sep 2026 04:47:33 -0700 (PDT)
+X-Received: by 2002:a05:620a:371d:b0:927:25f5:ee08 with SMTP id af79cd13be357-93c15ec5578mr15946285a.43.1789991253175;
+        Mon, 21 Sep 2026 04:47:33 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:d04:d483:faad:1e4e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd10273fsm227980625e9.7.2026.09.21.04.47.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 04:47:32 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 13:47:06 +0200
+Subject: [PATCH v3 2/3] dt-bindings: phy: qcom,sc8280xp-qmp-usb43dp-phy:
+ Document the Nord QMP PHY
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:a297:10b0:6cd:3fdc:a939 with SMTP id
- 006d021491bc7-6cd3fecc5afmr4357428eaf.86.1789991250313; Mon, 21 Sep 2026
- 04:47:30 -0700 (PDT)
-Date: Mon, 21 Sep 2026 04:47:30 -0700
-In-Reply-To: <6aa9b9b7.f81106d8.2ab401.006f.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab11952.514bccd6.255447.0012.GAE@google.com>
-Subject: Re: [syzbot] [wireguard?] BUG: workqueue lockup in wg_packet_decrypt_worker
-From: syzbot <syzbot+d0d2f1a65f45b319d25d@syzkaller.appspotmail.com>
-To: Jason@zx2c4.com, andrew+netdev@lunn.ch, andrew@lunn.ch, 
-	davem@davemloft.net, edumazet@google.com, jason@zx2c4.com, kuba@kernel.org, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, 
-	syzkaller-bugs@googlegroups.com, wireguard@lists.zx2c4.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-nord-usb-phy-v3-2-68aa02b12b96@oss.qualcomm.com>
+References: <20260921-nord-usb-phy-v3-0-68aa02b12b96@oss.qualcomm.com>
+In-Reply-To: <20260921-nord-usb-phy-v3-0-68aa02b12b96@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Shawn Guo <shawnguo@kernel.org>, brgl@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1986;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=+RxU989r9Dq8S90POIQ9gQkbD9kCETs1BvNYgmVIDyM=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqsRlL1uYaQvA0U7uANR208QSEW96HJqpJ3eMx8
+ BGkEPSHYxSJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCarEZSwAKCRAFnS7L/zaE
+ w6CVD/9sQ9yVu2iHNTeGaCaPVJDIYS+ReRapVbMtPCxddI2vlVwrtJuBV+eUmJOvdswWpYitmi1
+ GKqBsldMRIyKO5JXogp6bvkjg2nUzujDmPMdNZSRsEx4kRAMa0FhSBuf0LwysFrdxqJyj3dLn21
+ 0EfLmxbNLwMeVXiSrbsS/xuI31eOWTAlNZbY1hzpR5tut5cKOtu1489TNt0tjZqK+2yHLbhrhig
+ Il/XezioM/2w7IkSx/DYs0zBkRREq1J9un9fa75IrYdDvCrlQpGy6CoAb66T5HWhiNK5WsKtjwe
+ 5Ylu9gK0oOMkgmt36JNEOl3bdhBxkc+QjhUoHSBb78ikWn1ZGJ8CRrXqM8PBPy+oto7U4q0rIWQ
+ fpLaC91D8y2dQKgn1pMY+OgBJv1xBciIhwT3uUwP/sJwCpIm7+Kxf8bCOJYmg5rtDkt/SuVuEOJ
+ YVIkprxg5GB+VW5vEU6cfuhtPB+7DbItRlkPuY/vryvELQNAlSxQe3hxwtDEesXQ8xJ0/3Bb1AU
+ DPyVOviySNiFeIHDDlHEFVDy4nc0xp22WxSmsRJHaRUOkwu1wTvgSRZbNT7E4ji0H847VJKsyj+
+ W/8QZoLNnUaORm/I9TCOxQF6KfU85kcwyGr7ApmznJV9i40+y+udN8QCbWxfi6MA4rkZugATKo/
+ DJMGvLEQnlQdu8A==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE3MCBTYWx0ZWRfX3ta88vxrl/GV
+ CGDE/ojDnYx+TbYEFySpzH5uQSE4HE3TI30cqnfl64wGvoXFqsVgSRtvxzlCKOim99K5TcoA/cA
+ H8Ta56dSczCYbWdYboNzoSbU1xWCojsskbKoPHsPGSOVwCk/O6JlLONkxqj4/hv6fI4S9FS+KYy
+ vGmS7shs8XPMiTgVWeUysOhbGrBDf1bYmrk+BV4s6B3ujw0nczRhG0phwRiRWM3P7pHIKocbYLF
+ CTMyxwsXXGZmXe2N+3Kl55HbQzQLZwSc83upgvPM3LLJtpF3idkjDEPO+uxo5Xs9nYZO8aVqG+Z
+ +CExCdRLtsQpXbagZ6D1jX8EBAF9qc3yer1akHUykDLrwHjKkhkKvD5dlbwu/TAXyvs3RWMM39F
+ biw/w+BuCDKHLtju3ESdLoZu7hLPi2pMNDcmXEJUbwxoQOiTWANMBZ19RI/aLafXF0v+Oc8cysX
+ i94cwfNBac4cEEw4W0Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE3MCBTYWx0ZWRfX+b+B2NL8eDvh
+ pA4Uk65SuAFIpaBV0c1EzNwmW7Vyx/QdxVme1BbeE4/QzAXp8U297yVEjzkyXHDZZNXkquMEB4k
+ m+MqwYFBekXk7m3/EHR7QT543wPPW78=
+X-Proofpoint-ORIG-GUID: NdXDrZg4sJapD64KayZz5SPBy3djyRd0
+X-Proofpoint-GUID: NdXDrZg4sJapD64KayZz5SPBy3djyRd0
+X-Authority-Analysis: v=2.4 cv=W7etxhWk c=1 sm=1 tr=0 ts=6ab11956 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=ukKPufHZZ26NhZEM1hcA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0
+ impostorscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210170
 
-syzbot has found a reproducer for the following issue on:
+Add a compatible for the USB3+DP combo QMP PHY found on the Qualcomm Nord
+SoC. The PHY sits behind a GDSC, so also allow (and require) power-domains
+for it.
 
-HEAD commit:    38872197cae2 Merge branch 'for-next/fixes' into for-kernelc=
-i
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.g=
-it for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=3D17567005580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=3D56ed23170c168d4=
-c
-dashboard link: https://syzkaller.appspot.com/bug?extid=3Dd0d2f1a65f45b319d=
-25d
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-=
-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: arm64
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=3D1606a80558000=
-0
+The block gets a standalone compatible rather than a fallback to an
+existing one, because it is not register-compatible with any PHY already
+described here. Its USB3 and DP initialisation sequences do match sm8550,
+but Nord places the sub-blocks at different offsets within the PHY: it
+exposes a dedicated USB3_PCS_AON region at 0x1e00, which sm8550 does not
+have at all. Falling back to sm8550 - or to any other entry - would make
+the driver program the wrong addresses.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/c5963fdd6790/disk-=
-38872197.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/a8c2cab00c45/vmlinux-=
-38872197.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/bde15d173380/Ima=
-ge-38872197.gz.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit=
-:
-Reported-by: syzbot+d0d2f1a65f45b319d25d@syzkaller.appspotmail.com
-
-BUG: workqueue lockup - pool cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 stuck f=
-or 38s!
-Showing busy workqueues and worker pools:
-workqueue events: flags=3D0x100
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D16 refcnt=3D17
-    in-flight: 4858:nsim_fib_event_work for 39s ,4830:nsim_fib_event_work f=
-or 40s
-    pending: 3*nsim_dev_hwstats_traffic_work, 2*psi_avgs_work, vmstat_sheph=
-erd, rht_deferred_worker, free_obj_work, 3*ovs_dp_masks_rebalance, drm_fb_h=
-elper_damage_work, 2*nsim_fib_event_work
-  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D11 refcnt=3D12
-    in-flight: 869:nsim_fib_event_work for 44s nsim_fib_event_work ,4806:ns=
-im_fib_event_work for 41s nsim_fib_event_work
-    pending: psi_avgs_work, 6*ovs_dp_masks_rebalance
-workqueue events_unbound: flags=3D0x2
-  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D22 refcnt=3D23
-    in-flight: 1472:cfg80211_wiphy_work for 41s cfg80211_wiphy_work ,1438:c=
-fg80211_wiphy_work for 43s cfg80211_wiphy_work ,1295:cfg80211_wiphy_work fo=
-r 43s cfg80211_wiphy_work ,14:cfg80211_wiphy_work for 36s ,79:cfg80211_wiph=
-y_work for 43s cfg80211_wiphy_work ,1486:cfg80211_wiphy_work for 42s cfg802=
-11_wiphy_work ,12:cfg80211_wiphy_work for 39s
-    pending: 2*cfg80211_wiphy_work, nsim_dev_trap_report_work, toggle_alloc=
-ation_gate, macvlan_process_broadcast, 3*nsim_dev_trap_report_work, flush_m=
-emcg_stats_dwork, macvlan_process_broadcast
-  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D7 refcnt=3D8
-    in-flight: 1234:cfg80211_wiphy_work for 43s cfg80211_wiphy_work
-    pending: macvlan_process_broadcast, crng_reseed, 3*macvlan_process_broa=
-dcast
-workqueue events_power_efficient: flags=3D0x82
-  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D5 refcnt=3D6
-    in-flight: 50:neigh_periodic_work for 33s
-    pending: neigh_managed_work, fb_flashcursor, wg_ratelimiter_gc_entries,=
- neigh_managed_work
-  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D2 refcnt=3D3
-    pending: neigh_periodic_work, do_cache_clean
-workqueue events_dfl_long: flags=3D0x2
-  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D9 refcnt=3D10
-    pending: 9*defense_work_handler
-workqueue netns: flags=3D0x6000a
-  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D4
-    in-flight: 1183:cleanup_net for 45s
-workqueue mm_percpu_wq: flags=3D0x108
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
-    pending: vmstat_update
-  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
-    pending: vmstat_update
-workqueue mld: flags=3D0x40108
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D73
-    pending: mld_ifc_work
-    inactive: 2*mld_ifc_work, mld_dad_work, mld_ifc_work, mld_dad_work, mld=
-_ifc_work, mld_dad_work, 4*mld_ifc_work, 2*mld_dad_work, mld_ifc_work, mld_=
-dad_work, 3*mld_ifc_work, 2*mld_dad_work, 5*mld_ifc_work, mld_dad_work, mld=
-_ifc_work, mld_dad_work, 3*mld_ifc_work, 3*mld_dad_work, mld_ifc_work, 2*ml=
-d_dad_work, 3*mld_ifc_work, mld_dad_work, 2*mld_ifc_work, mld_dad_work, 6*m=
-ld_ifc_work, mld_dad_work, mld_ifc_work, 2*mld_dad_work, 3*mld_ifc_work, 2*=
-mld_dad_work, mld_ifc_work, 2*mld_dad_work, mld_ifc_work, 8*mld_dad_work
-  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D95
-    pending: mld_ifc_work
-    inactive: mld_ifc_work, mld_dad_work, mld_ifc_work, mld_dad_work, 9*mld=
-_ifc_work, 2*mld_dad_work, 6*mld_ifc_work, mld_dad_work, 4*mld_ifc_work, ml=
-d_dad_work, 4*mld_ifc_work, 62*mld_dad_work
-workqueue ipv6_addrconf: flags=3D0x6000a
-  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D178 MAYDAY
-    in-flight: 2825(RESCUER):addrconf_dad_work for 0s
-    pending: mayday_cursor_func
-    inactive: 172*addrconf_dad_work
-workqueue bat_events: flags=3D0x6000a
-  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D51 MAYDAY
-    in-flight: 2857(RESCUER):batadv_tt_purge for 11s
-    pending: mayday_cursor_func
-    inactive: 4*batadv_tt_purge, batadv_dat_purge, batadv_bla_periodic_work=
-, 6*batadv_mcast_mla_update, 5*batadv_iv_send_outstanding_bat_ogm_packet, b=
-atadv_dat_purge, batadv_bla_periodic_work, batadv_dat_purge, batadv_bla_per=
-iodic_work, batadv_dat_purge, batadv_bla_periodic_work, batadv_dat_purge, b=
-atadv_bla_periodic_work, batadv_dat_purge, batadv_bla_periodic_work, 5*bata=
-dv_iv_send_outstanding_bat_ogm_packet, 6*batadv_purge_orig, 6*batadv_iv_sen=
-d_outstanding_bat_ogm_packet, batadv_tt_purge
-workqueue wg-kex-wg0: flags=3D0x6
-  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
-    pending: wg_packet_handshake_send_worker
-workqueue wg-crypt-wg0: flags=3D0x128
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
-    pending: wg_packet_encrypt_worker, wg_packet_tx_worker, wg_packet_decry=
-pt_worker
-  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
-    pending: wg_packet_decrypt_worker, wg_packet_encrypt_worker
-workqueue wg-crypt-wg1: flags=3D0x128
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D4 refcnt=3D5
-    in-flight: 9:wg_packet_decrypt_worker for 40s wg_packet_decrypt_worker
-    pending: wg_packet_encrypt_worker, wg_packet_tx_worker
-  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
-    pending: wg_packet_decrypt_worker, wg_packet_tx_worker, wg_packet_encry=
-pt_worker
-workqueue wg-kex-wg2: flags=3D0x6
-  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
-    pending: wg_packet_handshake_send_worker
-workqueue wg-crypt-wg2: flags=3D0x128
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D4 refcnt=3D5
-    in-flight: 10:wg_packet_decrypt_worker for 41s wg_packet_decrypt_worker
-    pending: wg_packet_encrypt_worker, wg_packet_tx_worker
-  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
-    pending: wg_packet_tx_worker, wg_packet_encrypt_worker
-workqueue wg-kex-wg0: flags=3D0x124
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
-    pending: wg_packet_handshake_receive_worker
-workqueue wg-kex-wg0: flags=3D0x6
-  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
-    pending: wg_packet_handshake_send_worker
-workqueue wg-crypt-wg0: flags=3D0x128
-  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
-    pending: wg_packet_decrypt_worker, wg_packet_tx_worker
-workqueue wg-kex-wg1: flags=3D0x124
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
-    pending: wg_packet_handshake_receive_worker
-workqueue wg-kex-wg1: flags=3D0x6
-  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
-    pending: wg_packet_handshake_send_worker
-workqueue wg-crypt-wg1: flags=3D0x128
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
-    in-flight: 1115:wg_packet_decrypt_worker for 41s wg_packet_decrypt_work=
-er
-    pending: wg_packet_encrypt_worker
-workqueue wg-kex-wg2: flags=3D0x124
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
-    in-flight: 4356:wg_packet_handshake_receive_worker for 41s
-workqueue wg-kex-wg2: flags=3D0x6
-  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D2 refcnt=3D3
-    pending: 2*wg_packet_handshake_send_worker
-workqueue wg-crypt-wg2: flags=3D0x128
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
-    pending: wg_packet_encrypt_worker, wg_packet_tx_worker
-  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
-    pending: wg_packet_tx_worker
-workqueue wg-kex-wg0: flags=3D0x6
-  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D2 refcnt=3D3
-    pending: 2*wg_packet_handshake_send_worker
-workqueue wg-crypt-wg0: flags=3D0x128
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
-    pending: wg_packet_encrypt_worker, wg_packet_tx_worker
-  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
-    pending: wg_packet_tx_worker, wg_packet_encrypt_worker
-workqueue wg-kex-wg1: flags=3D0x124
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
-    pending: wg_packet_handshake_receive_worker
-workqueue wg-crypt-wg1: flags=3D0x128
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
-    pending: wg_packet_encrypt_worker, wg_packet_tx_worker
-  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
-    pending: wg_packet_decrypt_worker, wg_packet_tx_worker
-workqueue wg-kex-wg2: flags=3D0x124
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
-    pending: wg_packet_handshake_receive_worker
-workqueue wg-crypt-wg2: flags=3D0x128
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
-    pending: wg_packet_encrypt_worker, wg_packet_tx_worker
-  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
-    pending: wg_packet_tx_worker, wg_packet_encrypt_worker
-workqueue wg-kex-wg0: flags=3D0x124
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
-    pending: wg_packet_handshake_receive_worker
-workqueue wg-kex-wg0: flags=3D0x6
-  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
-    pending: wg_packet_handshake_send_worker
-workqueue wg-crypt-wg0: flags=3D0x128
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
-    pending: wg_packet_tx_worker, wg_packet_encrypt_worker
-  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
-    pending: wg_packet_tx_worker
-workqueue wg-kex-wg1: flags=3D0x6
-  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
-    pending: wg_packet_handshake_send_worker
-workqueue wg-crypt-wg1: flags=3D0x128
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
-    pending: wg_packet_decrypt_worker, wg_packet_encrypt_worker, wg_packet_=
-tx_worker
-  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
-    pending: wg_packet_tx_worker, wg_packet_encrypt_worker
-workqueue wg-kex-wg2: flags=3D0x6
-  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
-    in-flight: 40:wg_packet_handshake_send_worker for 6s
-workqueue wg-crypt-wg2: flags=3D0x128
-  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
-    pending: wg_packet_encrypt_worker, wg_packet_tx_worker
-  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
-    pending: wg_packet_tx_worker, wg_packet_encrypt_worker
-pool 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 hung=3D38s workers=3D8 idle:=
- 5002 4997
-pool 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 hung=3D21s workers=3D7 idle:=
- 26 24 4967 5000 4999
-pool 8: cpus=3D0-1 flags=3D0x6 nice=3D0 hung=3D0s workers=3D12 manager: 500=
-1
-Showing backtraces of busy workers in stalled worker pools:
-pool 2:
-task:kworker/0:1     state:R  running task     stack:0     pid:10    tgid:1=
-0    ppid:2      task_flags:0x4208060 flags:0x00000010
-Workqueue: wg-crypt-wg2 wg_packet_decrypt_worker
-Call trace:
- __switch_to+0x2b4/0x6e4 arch/arm64/kernel/process.c:775 (T)
- context_switch kernel/sched/core.c:5526 [inline]
- __schedule+0x1370/0x2d80 kernel/sched/core.c:7277
- preempt_schedule_common+0xd4/0x190 kernel/sched/core.c:7456
- preempt_schedule+0x60/0x78 kernel/sched/core.c:7480
- __kunmap_atomic include/linux/highmem-internal.h:247 [inline]
- sg_miter_stop+0x220/0x2cc lib/scatterlist.c:941
- chacha20poly1305_crypt_sg_inplace+0x75c/0xc30 lib/crypto/chacha20poly1305.=
-c:319
- chacha20poly1305_decrypt_sg_inplace+0x6c/0x94 lib/crypto/chacha20poly1305.=
-c:353
- decrypt_packet drivers/net/wireguard/receive.c:278 [inline]
- wg_packet_decrypt_worker+0x490/0xa00 drivers/net/wireguard/receive.c:501
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3479
- worker_thread+0x798/0xbd0 kernel/workqueue.c:3560
- kthread+0x304/0x3d4 kernel/kthread.c:436
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
-pool 2:
-task:kworker/0:5     state:R  running task     stack:0     pid:4858  tgid:4=
-858  ppid:2      task_flags:0x4208060 flags:0x00000010
-Workqueue: events nsim_fib_event_work
-Call trace:
- __switch_to+0x2b4/0x6e4 arch/arm64/kernel/process.c:775 (T)
- context_switch kernel/sched/core.c:5526 [inline]
- __schedule+0x1370/0x2d80 kernel/sched/core.c:7277
- __schedule_loop kernel/sched/core.c:7354 [inline]
- schedule+0x13c/0x20c kernel/sched/core.c:7369
- schedule_timeout+0x13c/0x28c kernel/time/sleep_timeout.c:99
- schedule_timeout_uninterruptible+0x78/0xbc kernel/time/sleep_timeout.c:158
- msleep+0x3c/0x68 kernel/time/sleep_timeout.c:318
- nsim_fib6_rt_add drivers/net/netdevsim/fib.c:693 [inline]
- nsim_fib6_rt_insert drivers/net/netdevsim/fib.c:759 [inline]
- nsim_fib6_event drivers/net/netdevsim/fib.c:856 [inline]
- nsim_fib_event+0x57a0/0x60c4 drivers/net/netdevsim/fib.c:889
- nsim_fib_event_work+0x1d8/0x320 drivers/net/netdevsim/fib.c:1493
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3479
- worker_thread+0x798/0xbd0 kernel/workqueue.c:3560
- kthread+0x304/0x3d4 kernel/kthread.c:436
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
-pool 2:
-task:kworker/0:4     state:R  running task     stack:0     pid:4830  tgid:4=
-830  ppid:2      task_flags:0x4208060 flags:0x00000010
-Workqueue: events nsim_fib_event_work
-Call trace:
- __switch_to+0x2b4/0x6e4 arch/arm64/kernel/process.c:775 (T)
- context_switch kernel/sched/core.c:5526 [inline]
- __schedule+0x1370/0x2d80 kernel/sched/core.c:7277
- preempt_schedule_common+0xd4/0x190 kernel/sched/core.c:7456
- preempt_schedule+0x60/0x78 kernel/sched/core.c:7480
- irq_work_queue+0xa0/0xa4 kernel/irq_work.c:125
- __rhashtable_insert_fast include/linux/rhashtable.h:852 [inline]
- rhashtable_insert_fast include/linux/rhashtable.h:886 [inline]
- nsim_fib6_rt_add drivers/net/netdevsim/fib.c:686 [inline]
- nsim_fib6_rt_insert drivers/net/netdevsim/fib.c:759 [inline]
- nsim_fib6_event drivers/net/netdevsim/fib.c:856 [inline]
- nsim_fib_event+0x4f5c/0x60c4 drivers/net/netdevsim/fib.c:889
- nsim_fib_event_work+0x1d8/0x320 drivers/net/netdevsim/fib.c:1493
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3479
- worker_thread+0x798/0xbd0 kernel/workqueue.c:3560
- kthread+0x304/0x3d4 kernel/kthread.c:436
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
-pool 2:
-task:kworker/0:3     state:R  running task     stack:0     pid:4356  tgid:4=
-356  ppid:2      task_flags:0x4208060 flags:0x00000010
-Workqueue: wg-kex-wg2 wg_packet_handshake_receive_worker
-Call trace:
- __switch_to+0x2b4/0x6e4 arch/arm64/kernel/process.c:775 (T)
- context_switch kernel/sched/core.c:5526 [inline]
- __schedule+0x1370/0x2d80 kernel/sched/core.c:7277
- preempt_schedule_common+0xd4/0x190 kernel/sched/core.c:7456
- preempt_schedule+0x60/0x78 kernel/sched/core.c:7480
- __local_bh_enable_ip+0x20c/0x35c kernel/softirq.c:480
- local_bh_enable include/linux/bottom_half.h:33 [inline]
- rcu_read_unlock_bh include/linux/rcupdate.h:923 [inline]
- mod_peer_timer+0x21c/0x25c drivers/net/wireguard/timers.c:38
- wg_timers_session_derived+0x5c/0x6c drivers/net/wireguard/timers.c:208
- wg_receive_handshake_packet drivers/net/wireguard/receive.c:178 [inline]
- wg_packet_handshake_receive_worker+0x5b8/0xcf8 drivers/net/wireguard/recei=
-ve.c:213
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3479
- worker_thread+0x798/0xbd0 kernel/workqueue.c:3560
- kthread+0x304/0x3d4 kernel/kthread.c:436
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
-pool 2:
-task:kworker/0:0     state:R  running task     stack:0     pid:9     tgid:9=
-     ppid:2      task_flags:0x4208060 flags:0x00000010
-Workqueue: wg-crypt-wg1 wg_packet_decrypt_worker
-Call trace:
- __switch_to+0x2b4/0x6e4 arch/arm64/kernel/process.c:775 (T)
- context_switch kernel/sched/core.c:5526 [inline]
- __schedule+0x1370/0x2d80 kernel/sched/core.c:7277
- preempt_schedule_common+0xd4/0x190 kernel/sched/core.c:7456
- preempt_schedule+0x60/0x78 kernel/sched/core.c:7480
- __local_bh_enable_ip+0x20c/0x35c kernel/softirq.c:480
- __raw_spin_unlock_bh include/linux/spinlock_api_smp.h:237 [inline]
- _raw_spin_unlock_bh+0x3c/0x4c kernel/locking/spinlock.c:245
- spin_unlock_bh include/linux/spinlock.h:407 [inline]
- ptr_ring_consume_bh include/linux/ptr_ring.h:399 [inline]
- wg_packet_decrypt_worker+0x980/0xa00 drivers/net/wireguard/receive.c:499
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3479
- worker_thread+0x798/0xbd0 kernel/workqueue.c:3560
- kthread+0x304/0x3d4 kernel/kthread.c:436
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
-pool 2:
-
-
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Assisted-by: LLM
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+ .../devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml          | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
+index 43e90995709f..13e64fe510b8 100644
+--- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
++++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
+@@ -31,6 +31,7 @@ properties:
+       - enum:
+           - qcom,glymur-qmp-usb3-dp-phy
+           - qcom,hawi-qmp-usb3-dp-phy
++          - qcom,nord-qmp-usb3-dp-phy
+           - qcom,sar2130p-qmp-usb3-dp-phy
+           - qcom,sc7180-qmp-usb3-dp-phy
+           - qcom,sc7280-qmp-usb3-dp-phy
+@@ -249,6 +250,7 @@ allOf:
+             enum:
+               - qcom,glymur-qmp-usb3-dp-phy
+               - qcom,hawi-qmp-usb3-dp-phy
++              - qcom,nord-qmp-usb3-dp-phy
+               - qcom,sar2130p-qmp-usb3-dp-phy
+               - qcom,sc8280xp-qmp-usb43dp-phy
+               - qcom,sm6350-qmp-usb3-dp-phy
+
+-- 
+2.47.3
+
