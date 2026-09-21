@@ -1,94 +1,82 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5081C49AA4B;
-	Mon, 21 Sep 2026 13:02:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 99A17496D5B;
+	Mon, 21 Sep 2026 13:03:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789995769; cv=none; b=lItEPrY7+hxcrrLTOnZrtPvVdvvheXnbQeB9UkB5GwT1WFhh/9nZb8xee8riDyKU9DzkMYBzeBBz4cBWkb4UsbFvy+4zEeTj5y6RA7Wl9X8aU65kbTMWTPKPtXicXVuqMKGVWmVy5dm+nvs2ul3yNZshmerDvRngDNvIuzClAyE=
+	t=1789995820; cv=none; b=qNiR/1A7jkrLG6dEjhA+O7vyRI0RJmjhYCVQtE0BIIL6EGqdWsM0IFbc6BaAdotSt7SsXVkjNVc8L3e7HiSTameoR0QsC2tyJA6GGA+yX0Xarj1f3igiPoP6rvQye0luv49qHsARmjf/NCnwakjGi+nwuzHOUoOCkPnZEtxL64M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789995769; c=relaxed/simple;
-	bh=a9lrDJGugDn/XEbngsUxQjCalL4q6BemMqvBoYxwI24=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XEJJGNxqVmNsEH+qiZnHKSUKQ3SLFbE7ssn7U1Xd6wvAx3+LeHbHMaJpbgXu2loEPyzvXZxWKIw4ZeuQbaZDzQljJiZYIoyFOv01vMKzHtkklFmbf42XheSolu8NdJi7uUHX8hOficskcib0jVYhso6ZDPv7TI0qiat2m3x2OKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=oHo5rWTg; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1789995820; c=relaxed/simple;
+	bh=OoPqL9ehIIvD/OJY5G8d5/03edwIvHcNFvhV8sTgPSk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W8EDK25J3WLIETtVrjx+EamoWkzHZNBvyuea4QnTwa819zgwJVE19idOE2wB/PMcBKSZ2PjCEZAv2bYU9czTWMDuuhMFiAfPrV8mapTii63dlzbnAk/wvx3j+Cn4/s2cPuxT80MizpxWVnKtx3gQcHi12KbvDEjEfk5z1gs5hT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Y9x5z2N9; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="oHo5rWTg"
-X-UUID: b9e74dc4b5bc11f18dc8c9802ae25ab1-20260921
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=a9lrDJGugDn/XEbngsUxQjCalL4q6BemMqvBoYxwI24=;
-	b=oHo5rWTgO0D8TcgUG6tMwgqBajHLA6bnp3H79Uup4526JwG7RbSJXOT5ii/P+Yv1KLa4sdJOwd+1oFpnXlFALM7LbmVz+iUVv/gY1r+VOInQ7v/D96VAJdL6W3ioT+XDcRGPkMqDRXlzvm8u0es6u6tawBwqzdvjyIAHxV85pVQ=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:e35891af-f5fa-4f05-bf0c-89f0b962fae1,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:ce651de3-72a5-4ba1-af40-18bbd6ea8ffd,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|136|836|865|888|898,TC:-5,Cont
-	ent:0|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:
-	-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: b9e74dc4b5bc11f18dc8c9802ae25ab1-20260921
-Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by mailgw02.mediatek.com
-	(envelope-from <peter.wang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 616814811; Mon, 21 Sep 2026 21:02:40 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 21 Sep 2026 21:02:39 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs11n2.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Mon, 21 Sep 2026 21:02:39 +0800
-Message-ID: <0a8e36f57f169b9ff75ed7a3d547a36340b98e32.camel@mediatek.com>
-Subject: Re: [PATCH v2] scsi: ufs: mediatek: handle mPHY power-on failures
-From: Peter Wang <peter.wang@mediatek.com>
-To: Pengpeng Hou <hppiscas@163.com>
-CC: <chaotian.jing@mediatek.com>, <chu.stanley@gmail.com>,
-	<james.bottomley@hansenpartnership.com>, <mkp@kernel.org>,
-	<linux-scsi@vger.kernel.org>, <linux-mediatek@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <martin.petersen@oracle.com>,
-	<matthias.bgg@gmail.com>, <angelogioacchino.delregno@collabora.com>,
-	<linux-arm-kernel@lists.infradead.org>, <stanleyjhu@google.com>
-Date: Mon, 21 Sep 2026 21:02:38 +0800
-In-Reply-To: <20260920034953.19535-1-hppiscas@163.com>
-References: <20260920034953.19535-1-hppiscas@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Y9x5z2N9"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4571C19F0;
+	Mon, 21 Sep 2026 06:03:35 -0700 (PDT)
+Received: from [10.57.6.224] (unknown [10.57.6.224])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 11EAF3F86F;
+	Mon, 21 Sep 2026 06:03:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789995818; bh=OoPqL9ehIIvD/OJY5G8d5/03edwIvHcNFvhV8sTgPSk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Y9x5z2N9wxF1WJc9DrkVDbq6LZtMWGUJDqscc1hkUG8aFM75LsyBMucrsg5EiOBdx
+	 z/KSv4t2K5w/2K/s6vlsXf3XnlX276qju0hZG4HW9aOmWjiILwbXEnleijlMRvTfc/
+	 6aooxHtsj5Y6TP7O2n7n5OE1KlPrfuIzbkwiW3Ms=
+Message-ID: <433d32a4-f59a-4d6c-915d-2c1b4c22b840@arm.com>
+Date: Mon, 21 Sep 2026 15:03:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MTK: N
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] docs/mm: describe set_memory() and set_direct_map()
+ APIs
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Jonathan Corbet <corbet@lwn.net>
+Cc: "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Michal Hocko <mhocko@suse.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>,
+ linux-arch@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20260919-set-memory-docs-v2-1-a2a4b3657690@kernel.org>
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260919-set-memory-docs-v2-1-a2a4b3657690@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, 2026-09-20 at 11:49 +0800, Pengpeng Hou wrote:
-> The MediaTek helper enables VA09 before powering on the mPHY, but
-> ignores the PHY result. A failure can leave VA09 enabled and publish
-> mphy_powered_on as true, so a later power-on attempt is skipped.
->=20
-> Check phy_power_on(), attempt to unwind VA09 on failure, and leave
-> the
-> state flag unchanged. Propagate the helper result from host
-> initialization as well as its existing resume caller. Keep the
-> original
-> PHY error if the supply rollback also fails, and report that rollback
-> separately.
->=20
-> The issue was found by our static-analysis tool.
->=20
-> Fixes: 561e3a8726b2 ("scsi: ufs-mediatek: Fix unbalanced clock
-> on/off")
-> Fixes: cf137b3ea49a ("scsi: ufs-mediatek: Support VA09 regulator
-> operations")
-> Assisted-by: gpt 5
-> Signed-off-by: Pengpeng Hou <hppiscas@163.com>
-> ---
+On 19/09/2026 12:43, Mike Rapoport (Microsoft) wrote:
+> [...]
+>
+> +Modifying the kernel page tables
+> +================================
+> +
+> +Except for the vmalloc area, the kernel page tables are mostly static. Still,
+> +there are cases when the permissions of existing kernel mappings have to be
+> +updated, for instance when a module is loaded and its text becomes read-only
+> +and executable, or when a page is temporarily removed from the direct map to
+> +reduce its exposure.
+> +
+> +There are two families of functions for this, both declared in
+> +`include/linux/set_memory.h`:
+> +
+> +* `set_memory_*()` change permissions of an arbitrary kernel mapping. They
+> +  take a kernel virtual address and the number of pages.
+> +
+> +* `set_direct_map_*()` change permissions of the direct mapping of the page
+> +  frame represented by a `struct page`. They take a `struct page` pointer and
 
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+The new phrasing is a mouthful but at least should be accurate :) It
+should probably say "range of page frames" or something like that though.
+
+Looks good otherwise!
+
+Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
