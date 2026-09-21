@@ -1,122 +1,91 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 35478403EB5
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:50:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4493749EB;
+	Mon, 21 Sep 2026 08:50:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789980615; cv=none; b=Zx/XdPsvPJt1FdWAJeY8OA/kPPzNGkvDJ9+yCofrO7qboMYKnOkc/ZdYRz2apcC7HXy+O2cuRfcslDrt9qXEfH+oOVGfX2MZSgUW2tvzkD2Xk0kpAIBxW8EAgqCdRfPnvL41xeA3Q1k3tz5ckJqQgaJ6a7qUH6+edpfvurXwugM=
+	t=1789980626; cv=none; b=iZM9RVKHknzpAU2za7F1cFKbippj051bUQXPSehvwnobwZemqzESenyRob932jbRqBZwur8KE7eSC2ymYPwy/Wl0O8Bi2ph/UB+8eV9KzvFea+BU9MCISg1VCzRMRogiseKoDHgAuCECXOMwQWPkARep9hA3GMYI4RxIl9HWsvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789980615; c=relaxed/simple;
-	bh=zkJ6zamsKffplX1HXtrc8mnFcQsdKLrkWao+Syhic58=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=InSIlBuyIUVrqLGsoqm/oHO5Z7mP0GKzvRTzRMVzi2Sf7f/6GidGfReIZb4ikD2afy+aY1GZ3t1wlrxZatjsgyzTQLOPWtL0yK42N6l645Wj4vXO3aOvlVwpZIyUZ+pgiPXjI/VHnP2VbNCexIp0luEgoq3Hv2gaVd+jtbz/6io=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jvJSfPqL; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789980626; c=relaxed/simple;
+	bh=H9cphJmpOQVvNmk4PhJi40pLQyNjEX4widBlx5Y21/M=;
+	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=NyOcKSzeRwwdk0nR4nUD3VdLOtAi/W5oXIp5kYJxy//sXoULm1pZqMcBrQLv0k7dMkCJFCkg0C0mEOw+EZhfjmE7uwAPyfJEwli1CqioMc3pXpxYegWYfZBnU1RhKeOzyvwmaXUeTLfznOioqfdX9ApQSwml0WJzznZK66CWSv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=i9dmnZTC; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jvJSfPqL"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 073EE175A;
-	Mon, 21 Sep 2026 01:50:08 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 96CC53F86C;
-	Mon, 21 Sep 2026 01:50:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789980611; bh=zkJ6zamsKffplX1HXtrc8mnFcQsdKLrkWao+Syhic58=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jvJSfPqLf3HN3z+KPhvue54b/EtRQfqDF2kHtGW67M77rt+wnCXhmkm/1WsNMtE07
-	 o5+IdFoiz9kgEfxWcB6RLBl1iMrurkg7cBAfH033tNTteqbaTzvwE3HtiifRkMpNqv
-	 mmQPzdSKn8FH5n6VbL2u7b7fWhFSRikwpoVVdsXs=
-Date: Mon, 21 Sep 2026 09:50:06 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sudeep Holla <sudeep.holla@arm.com>, Will Deacon <will@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [PATCH v12 3/7] firmware: arm_rmm: Move RSI support out of
- arch/arm64
-Message-ID: <arDvvvqkm0O4OSlP@arm.com>
-References: <20260921053807.354802-1-aneesh.kumar@kernel.org>
- <20260921053807.354802-4-aneesh.kumar@kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="i9dmnZTC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=H9cphJmpOQVvNmk4PhJi40pLQyNjEX4widBlx5Y21/M=; b=i
+	9dmnZTCDplEhOonbEYxHeADbl081q8CPkwBJXKQe8DXlUY3vFrQKRwpV89qvArYm
+	HFJ++S3AcDHvGbmmzm2eIwGyaaoyLcVdFEhidRArlnUIZ9OkNUApPMwTJuJ9+p2u
+	/90TECtwUhBNvVZmmI/Px5/+NAWJN/NSsRAQt2TmKQ=
+Date: Mon, 21 Sep 2026 16:49:45 +0800 (CST)
+From: CJ <firefly0158@163.com>
+To: balbi@kernel.org, gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [BUG] usb: gadget: KASAN slab-out-of-bounds in gether_get_ifname
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2TC/WTv00j4yScbOkdmEsTju82UcS4ufQl245Xc/sEuADE1wYGfV5FGUX59tmTLwSKmzOZcTJQ8uBIdIhWj8XwMEOURiSsECwE6cSAaA==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921053807.354802-4-aneesh.kumar@kernel.org>
+Message-ID: <670670d.84d1.1a0c3282df0.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:cSgvCgDXv1ap77BqX0JLAA--.43947W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3gnsnmqw76lcoQAA3E
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On Mon, Sep 21, 2026 at 11:08:03AM +0530, Aneesh Kumar K.V (Arm) wrote:
-> The RSI SMCCC function IDs describe a firmware ABI and are not arm64
-> architecture specific definitions. Follow-up changes need to use them from
-> non-arch code, including drivers/firmware/smccc and the Arm CCA guest
-> driver.
-> 
-> Move the complete Realm Service Interface (RSI) implementation from
-> arch/arm64 to drivers/firmware/arm_rmm. The RSI SMCCC definitions and
-> command helpers are also moved to include/linux so they can be shared by
-> architecture code and firmware or driver code. This also keeps the
-> firmware interface outside architecture code, as requested [1].
-> 
-> [1] https://lore.kernel.org/all/agsNO9cc7H-b0H8L@willie-the-truck
-> 
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> Acked-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
-> ---
->  MAINTAINERS                                   |  2 +
->  arch/arm64/Kconfig                            |  1 +
->  arch/arm64/include/asm/io.h                   |  2 +-
->  arch/arm64/include/asm/mem_encrypt.h          |  2 +-
->  arch/arm64/include/asm/pgtable-prot.h         |  2 +-
->  arch/arm64/include/asm/rsi.h                  | 70 -----------------
->  arch/arm64/kernel/Makefile                    |  2 +-
->  arch/arm64/kernel/setup.c                     |  2 +-
->  arch/arm64/mm/init.c                          |  3 +-
->  drivers/firmware/Kconfig                      |  1 +
->  drivers/firmware/Makefile                     |  1 +
->  drivers/firmware/arm_rmm/Kconfig              | 17 ++++
->  drivers/firmware/arm_rmm/Makefile             |  2 +
->  .../kernel => drivers/firmware/arm_rmm}/rsi.c |  2 +-
->  drivers/virt/coco/arm-cca-guest/Kconfig       |  2 +-
->  .../virt/coco/arm-cca-guest/arm-cca-guest.c   |  5 +-
->  .../linux/arm-rsi-cmds.h                      | 77 +++++++++++++++++--
->  .../linux/arm-smccc-rsi.h                     |  6 +-
->  18 files changed, 110 insertions(+), 89 deletions(-)
->  delete mode 100644 arch/arm64/include/asm/rsi.h
->  create mode 100644 drivers/firmware/arm_rmm/Kconfig
->  create mode 100644 drivers/firmware/arm_rmm/Makefile
->  rename {arch/arm64/kernel => drivers/firmware/arm_rmm}/rsi.c (99%)
->  rename arch/arm64/include/asm/rsi_cmds.h => include/linux/arm-rsi-cmds.h (69%)
->  rename arch/arm64/include/asm/rsi_smc.h => include/linux/arm-smccc-rsi.h (98%)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 42364c540f50..b867d537a579 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -3953,6 +3953,8 @@ F:	Documentation/arch/arm64/
->  F:	arch/arm64/
->  F:	drivers/virt/coco/arm-cca-guest/
->  F:	drivers/virt/coco/pkvm-guest/
-> +F:	include/linux/arm-rsi-cmds.h
-> +F:	include/linux/arm-smccc-rsi.h
->  F:	tools/testing/selftests/arm64/
->  X:	arch/arm64/boot/dts/
->  X:	arch/arm64/configs/defconfig
-
-Does it need drivers/firmware/arm_rmm/ as well?
-
--- 
-Catalin
+CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGFuIGlzc3VlIHRyaWdnZXJlZCBieSBhIHN5emthbGxlciBy
+ZXByb2R1Y2VyIG9uIExpbnV4CjcuMy4wLXJjMi4gVGhlIGlzc3VlIGlzIHJlcHJvZHVjaWJsZSB3
+aXRoIEhFQUQgY29tbWl0CmRmMjkwODA5MGNkYTM2OGIwMWZmNDM3MDlmNTE4OTAwNzZjNTYxNTcu
+CgoKVGhlIHJlcHJvZHVjZXIgbW91bnRzIGNvbmZpZ2ZzLCBjcmVhdGVzIGEgVVNCIGdhZGdldCB3
+aXRoIGEgcGhvbmV0IGZ1bmN0aW9uCihjb25maWcvdXNiX2dhZGdldC9nMS9mdW5jdGlvbnMvcGhv
+bmV0LnVzYjApLCBhbmQgdGhlbiByZWFkcyB0aGUgaWZuYW1lCmF0dHJpYnV0ZSBvZiB0aGF0IGZ1
+bmN0aW9uIHdpdGhvdXQgZXZlciBiaW5kaW5nIHRoZSBnYWRnZXQgdG8gYSBVREMuCgoKUmVhZGlu
+ZyBpZm5hbWUgcmVhY2hlcyBmX3Bob25ldF9pZm5hbWVfc2hvdygpLCB3aGljaCBjYWxscwpnZXRo
+ZXJfZ2V0X2lmbmFtZSgpIHRvIGZvcm1hdCB0aGUgaW50ZXJmYWNlIG5hbWUuIEtBU0FOIHJlcG9y
+dHMgYSAxLWJ5dGUKb3V0LW9mLWJvdW5kcyByZWFkIGluIGdldGhlcl9nZXRfaWZuYW1lKCk7IHRo
+ZSByZXBvcnRlZCBvYmplY3Qgd2FzIGFsbG9jYXRlZApieSBhbGxvY19uZXRkZXZfbXFzKCkgZnJv
+bSBncGhvbmV0X3NldHVwX2RlZmF1bHQoKSB3aGVuIHRoZSBwaG9uZXQgaW5zdGFuY2UKd2FzIGNy
+ZWF0ZWQuIFRoZSByZWFkIGlzIHBlcmZvcm1lZCBieSB0aGUgc3l6a2FsbGVyIHRhc2sgaW4gdGhl
+IHJlYWQoKQpzeXNjYWxsLCB0aHJvdWdoIGNvbmZpZ2ZzX3JlYWRfaXRlcigpLgoKClRoaXMgbG9v
+a3MgbGlrZSB0aGUgaW50ZXJmYWNlIG5hbWUgYmVpbmcgcmVhZCBiZWZvcmUgaXQgaGFzIGJlZW4K
+ZXN0YWJsaXNoZWQuIFRoZSBuZXRfZGV2aWNlIGV4aXN0cyBmcm9tIGluc3RhbmNlIGNyZWF0aW9u
+LCBidXQgaXRzIG5hbWUgaXMKb25seSBzZXR0bGVkIG9uY2UgdGhlIGdhZGdldCBpcyBib3VuZCBh
+bmQgdGhlIG5ldGRldiBpcyByZWdpc3RlcmVkLCBhbmQgdGhlCmF0dHJpYnV0ZSBpcyByZWFkYWJs
+ZSBpbiBiZXR3ZWVuLiBHdWFyZGluZyB0aGUgYXR0cmlidXRlIG9uIHRoZSBmdW5jdGlvbgpiZWlu
+ZyBib3VuZCwgb3IgbWFraW5nIGdldGhlcl9nZXRfaWZuYW1lKCkgdG9sZXJhdGUgYW4gdW5zZXQg
+bmFtZSwgd291bGQKY292ZXIgaXQuIEkgY291bGQgbm90IGNvbmZpcm0gZnJvbSB0aGUgcmVwb3J0
+IGFsb25lIHdoaWNoIGJ5dGUgb2YgdGhlIG5hbWUKYnVmZmVyIGlzIHRoZSBvbmUgcmVhZCBwYXN0
+IHRoZSBhbGxvY2F0aW9uLgoKClRoaXMgZmFpbHVyZSB3YXMgcmVwb3J0ZWQgZWFybGllciBhZ2Fp
+bnN0IHRoZSBsaW51eC02LjEgbG9uZ3Rlcm0gc2VyaWVzIGF0Cmh0dHBzOi8vc3l6a2FsbGVyLmFw
+cHNwb3QuY29tL2J1Zz9leHRpZD0wNzg4NmU5NmRiMWY0Y2ZjMTk2ZCwgYW5kIHRoZQpyZXByb2R1
+Y2VyIGJlbG93IGlzIHRoZSBvbmUgZnJvbSB0aGF0IHJlcG9ydC4gSXQgc3RpbGwgcmVwcm9kdWNl
+cyBvbiB0aGUKdGVzdGVkIG1haW5saW5lIGtlcm5lbC4KCgpSZXByb2R1Y2VyOgoKCnN5eiByZXBy
+b2R1Y2VyOgpUaGUgcmVwcm9kdWNlciBpcyB0aGUgcHJvZ3JhbSBiZWxvdywgd2hpY2ggcmVxdWly
+ZXMgbm8gbGFyZ2UgZW5jb2RlZCBpbWFnZToKCgpta2RpcmF0KDB4ZmZmZmZmZmZmZmZmZmY5Yywg
+JigweDdmMDAwMDAwMDAwMCk9Jy4vY29uZmlnXHgwMCcsIDB4Nzc3KQptb3VudCgweDAsICYoMHg3
+ZjAwMDAwMDAwMDApPScuL2NvbmZpZ1x4MDAnLCAmKDB4N2YwMDAwMDAwMDgwKT0nY29uZmlnZnNc
+eDAwJywgMHgwLCAweDApCm1rZGlyYXQoMHhmZmZmZmZmZmZmZmZmZjljLCAmKDB4N2YwMDAwMDAw
+MTAwKT0nLi9jb25maWcvdXNiX2dhZGdldC9nMVx4MDAnLCAweDc3NykKbWtkaXJhdCgweGZmZmZm
+ZmZmZmZmZmZmOWMsICYoMHg3ZjAwMDAwMDAxNDApPScuL2NvbmZpZy91c2JfZ2FkZ2V0L2cxL2Z1
+bmN0aW9ucy9waG9uZXQudXNiMFx4MDAnLCAweDc3NykKcjAgPSBvcGVuYXQoMHhmZmZmZmZmZmZm
+ZmZmZjljLCAmKDB4N2YwMDAwMDAwMTgwKT0nLi9jb25maWcvdXNiX2dhZGdldC9nMS9mdW5jdGlv
+bnMvcGhvbmV0LnVzYjAvaWZuYW1lXHgwMCcsIDB4MCwgMHgwKQpyZWFkKHIwLCAweDAsIDB4MCkK
+Cgpjb25zb2xlIG91dHB1dDrCoMKgaHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L3ZzelpoVXBnCgpr
+ZXJuZWwgY29uZmlnOiBodHRwczovL3N5emthbGxlci5hcHBzcG90LmNvbS90ZXh0P3RhZz1LZXJu
+ZWxDb25maWcmeD04NzJjMDQ0NjYxNzk4MzNmCgoKS2VybmVsOgoKCkhFQUQgY29tbWl0OiBkZjI5
+MDgwOTBjZGEzNjhiMDFmZjQzNzA5ZjUxODkwMDc2YzU2MTU3CmdpdCB0cmVlOiBtYWlubGluZQpr
+ZXJuZWwgdmVyc2lvbjogNy4zLjAtcmMyCnRlc3RlZCB0YWc6IHY3LjMtcmMyIChhbm5vdGF0ZWQg
+dGFnIG9iamVjdCA1ZTAzNmNlMTJkZTkxYzZmZDY3NGRhZDMzYjE2OWM2MTUwYmUyYTdhKQoKCkxl
+dCBtZSBrbm93IGlmIHlvdSBuZWVkIG1vcmUgZGV0YWlscyBvciB0ZXN0aW5nLgoKCkJlc3QgcmVn
+YXJkcywKQ2hhbmdqaWFuIExpdQ==
