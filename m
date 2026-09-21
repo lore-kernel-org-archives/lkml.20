@@ -1,57 +1,57 @@
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5456A4ED182
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F824EE84D
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:44:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790012691; cv=none; b=mLGsO9ZQ2L8iYgMshfsSxpajrEEGZmF0jWIXQ3GQ5tCD0kbjG51bpwL/FwDjXhz+MilcErGJj0i8K0nq7H6HNuJex/t+jAjQB76k8tucwuIxYkNYicrlRhUz7o5L2qh2pDol8k5tHLfBwZo95VfuTFS0XVbB4HIFwADuCwE5h8Y=
+	t=1790012693; cv=none; b=fQ7+rHIVO9LD4FhtIg6QhsCDUl2N7zUa+ESVTW76dSttlTq1e/qDsChOXt8zia5gJVMAXPXiLcZ2lAib7EhzHdgPPiX1JIwCugcXV0cEFdCgSOdmAoX0cMzV7JQsrH5LZ+CN5cxIxKJHJ9H7lwhmZWcTcvyEALJeIdZF2AXJdKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790012691; c=relaxed/simple;
-	bh=Pm2NqTs6oRcRC4pVvxFdi78nyABlZFM4rmakGlSjCpY=;
+	s=arc-20240116; t=1790012693; c=relaxed/simple;
+	bh=j8ssnULdPPzVZi4sm7QHZinEQxPvi5qB+JfHrPlZuss=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=W8HYn6izBMgNY2qC+/vr5bZSuh/ViabPDy+3fJwSFl+f1qxZrFNASd2b3phMKp67mKwHbYgCc7YA1ha+SHZLHEpROXC5boe6eQ/pyB9vT2PKt9Jnk9Ou8hIdT2FDoDm158CMBIOaSpNzAibCsba6PFxxeD5IIAIf556rZhfZDxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KGT20HV4; arc=none smtp.client-ip=209.85.210.198
+	 To:Cc:Content-Type; b=bXQe1iLbiH2A5wXs3oIfpg0LuUEG+ixrOXGQAz7xmt2LyM479LcXFan/RFE+bFcm5UXHBlyaXb/4e1Z33iiMoVgwZ/UDxxmU93uZCy+eizsqJTxzSB7LP0ln+1Vc3c3XwqNJNVueY6XdxgvPwEqdYmyb5mf5NxZxpN/gV46NqBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AcYsIzqN; arc=none smtp.client-ip=209.85.214.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KGT20HV4"
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-86b4048367cso4305711b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:44:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AcYsIzqN"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2db3734d06dso57066735ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:44:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790012689; x=1790617489; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790012690; x=1790617490; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=ZLfRYJewP8aR3Y4V2zbyCdDW63inecBdjfc5u4aaKpU=;
-        b=KGT20HV4ORvKVgmu/kWoIDfdPBrIW+iw/KC01tQxxiB4PkDg8bxOEhgFYslUAqYkXw
-         FDpxDkNy1P0lsNOQjhZg4yXvc1dL9UBweQNwDQoJKju9JzY7tVJArL/B0BUPOOGpWT8K
-         3fRh/iceuHBchjJMSyfd0KGwmR/j0JD+vPGB578qEsJLqT80OUwGcAtYVUxdyA86fNRp
-         mUaOHq6KPnbuGcpPpRyI0pO9vtsQ5zjjdpxKSUDH1oGWlCrhobsy8pFSc1126FD62AJW
-         qK1SpjubJxBimDh7u7srgwQGL24rqplorOYWbrtr3eUPrdS3pExPeyZVeATga3SGv63+
-         6AZA==
+        bh=Hyb3zhkpLvcha2XPZl3y4VqrXuYFCx4NQzeWMijbr/g=;
+        b=AcYsIzqNXuEWViGRHn5SQxdAdfLhJzMsFwrOWZTfw4AKks74XEiA7eaVf8yDY0AU4t
+         FjvvBgOe7FvowqNv7fzKEuo+5gNV6Iff9va3tYFLEDV5flVyIFlYj0GNwTHolr2soTx/
+         FmfV0mKurMPEN9aNE5WL/u5j9TsTlay05n/9OCCS+sOiM+ud9e1YyjhGtX4+WnhxovWg
+         MJhS16lekyzIRgWSC9HghAXHbYKBqUu6ZdvX4+2i9PHX7SsPOEz1PfVlDa2hT2DysIbU
+         pgZZ+ocxsg6Z8r9ZrIb5s2HwN5NHk7Kp4B88WFvX33bxiKwnCezGE4AK+nogrlVbyZ+A
+         LjsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790012689; x=1790617489;
+        d=1e100.net; s=20260707; t=1790012690; x=1790617490;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ZLfRYJewP8aR3Y4V2zbyCdDW63inecBdjfc5u4aaKpU=;
-        b=JubzEP8sJ8Wpud8aQ30DV/2OaFc+2/jdAREe9WLfOuYxDi1J9K3XzHxxia2vbyz+wZ
-         XC1gASlouqh5Yn8gZv1N125PiQWV9vJ86V+VRaU9V4ERarHG10rTOk/BeN3Xcu/8C85S
-         jxEKKzvBr3X/HbbglebWX4lL82xRpSWvN5Qjwx6qT3GCV5oJHEZ4RrnvyKzbeFCW4FmV
-         tWnFftp9qRdHyK/tQWccD9Li/mWohY5Iqqr1ga22rnINbyHQzIUDNbT6w7ShfDzHIYcu
-         SMHWZ4+rIfTgPc8dxi6rQXFZ7OeaH+Uubs3ciyAMtVGVrvfyWdEzl+bRNwwJ7tQGR+v5
-         injw==
-X-Forwarded-Encrypted: i=1; AKwUvByI5GYHtd1LwxNxs9WaO2oLUThtHFaHTZ8kiXurpRDMjarjqAwjPb6FVLTMKiaZdK8iZrMfJNbLYBUlGpI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAmoIcIYDTfjy7Ms/fhv3S5UET69tFeobLvU20DCozjO5RDnrq
-	G0XZiQ0HD6cyrBJqCWlOv87gfDSR5YY2qHtDF4QUBF5BM+j0ko1ybb5/1eV9XqP+1JzN4pHAvDd
-	/NVg7uA==
-X-Received: from pfbgk3.prod.google.com ([2002:a05:6a00:8483:b0:873:d536:aebe])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:12dd:b0:86b:73b4:30fa
- with SMTP id d2e1a72fcca58-874dc0ff42cmr17041050b3a.11.1790012688332; Mon, 21
- Sep 2026 10:44:48 -0700 (PDT)
+        bh=Hyb3zhkpLvcha2XPZl3y4VqrXuYFCx4NQzeWMijbr/g=;
+        b=qxhd8W7xuYgNkB7JyP7iG3JotrWHeTsnRS9ilQnPNluZi829XE9tWTxrrf4RdR5oNy
+         d8q9mdzvlizo93kLOTyLT82rzVDQZX17mi/951iS5Na+ky43ByeqkJ+UDL+e8unSZZZ/
+         qGRAthbIcp4IcnP9RFMiSLPQ3YV4M2YnZtZhQDwm0p7YQbzOz1+njQxOSURibAaGrlCt
+         HuenkznraNouBYaJmtKNP82ICwVm39RYdblca4p8h456ut/Z/4bNp8wRIU6YpR/SRPsg
+         6Wn7mEHEJtpnSj1V/VjK0R3lIdlwNrO7Mh0u/05ACzUA0JaDzGCLrNI9wsuW08kYcBjz
+         K2DA==
+X-Forwarded-Encrypted: i=1; AKwUvBxHJPWTgblB6VM4+h9IQvuU7AiLcH1bt6GgNxIFY2G3euBpbsLOONOTDMBvxCITyOPvE3kZDfStwmu1llI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nK7vsi3IOxmpoJrsfzT5VTO17/HJMQ6LBLpDDt03yfRMivB4AE
+	TxTVK7uzsEwmKLQ5ID72LhZBOanImbwcaoE/51rnaKJhdnGJKwuITGOpF3UmmUoAd47N+NGEoUc
+	Q74j33w==
+X-Received: from plaq21.prod.google.com ([2002:a17:903:2055:b0:2dd:1daa:a60c])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f54f:b0:2dd:c053:c207
+ with SMTP id d9443c01a7336-2df560d81a4mr14415165ad.35.1790012689572; Mon, 21
+ Sep 2026 10:44:49 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Mon, 21 Sep 2026 10:44:39 -0700
+Date: Mon, 21 Sep 2026 10:44:40 -0700
 In-Reply-To: <20260921174445.911676-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,9 +61,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260921174445.911676-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260921174445.911676-2-seanjc@google.com>
-Subject: [PATCH v2 1/7] KVM: Reject attempts to lock all vCPUs if vCPU
- creation is in-progress
+Message-ID: <20260921174445.911676-3-seanjc@google.com>
+Subject: [PATCH v2 2/7] KVM: arm64: vgic: Rely on vCPU creation check in
+ "trylock all vCPUs"
 From: Sean Christopherson <seanjc@google.com>
 To: Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
 	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
@@ -78,105 +78,58 @@ Cc: Nicholas Piggin <npiggin@gmail.com>, Atish Patra <atish.patra@linux.dev>,
 	"=?UTF-8?q?Pawe=C5=82=20S?=" <spawel523@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Reject locking of all vCPUs if vCPU creation is in-progress, i.e. if the
-number of "created" vCPUs doesn't match the number of "onlined" vCPUs.
-It's simply not possible to guarantee that KVM has truly locked all vCPUs
-if one or more vCPUs are actively being created.  Holding kvm->lock does
-prevent in-flight vCPUs from being fully onlined, but it's infeasible for
-common KVM to know whether or not that provides sufficient protection.
+Now that KVM's APIs for locking all vCPUs return -EBUSY if vCPU creation is
+in-progress, drop the manual check for the same from vGIC creation, and
+update the comments accordingly.
 
-In practice, this is likely a minor bug fix for the ARM and RISC-V usage of
-kvm_trylock_all_vcpus(), and a glorified nop for everything else.  E.g.
-ARM's kvm_timer_vcpu_init() can race kvm_vm_ioctl_set_counter_offset() with
-respect to observing KVM_ARCH_FLAG_VM_COUNTER_OFFSET.
+Note, while KVM arm64 guards many vGIC operations with its arch-specific
+config_lock, holding kvm->lock is sufficient to guarantee a stable result
+for "is vCPU creation in-progress".  So, no functional change intended.
 
-Opportunistically drop x86's existing manual checks on vCPU creation being
-in-progress as all of x86's checks immediately precede or follow locking of
-all vCPUs.  Leave arm64 and RISC-V alone for the moment, as their checks
-aren't as obviously redundant/equivalent.
+Note #2, the open coded check in vgic_init() is racy when called without
+kvm->lock held, e.g. via vgic_lazy_init().  I.e. that check needs to stay
+open coded to avoid triggering a lockdep assert.  Whether or not the race
+is "fine" is a problem for a different day.
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/svm/sev.c | 10 ----------
- arch/x86/kvm/vmx/tdx.c |  5 -----
- virt/kvm/kvm_main.c    |  6 ++++++
- 3 files changed, 6 insertions(+), 15 deletions(-)
+ arch/arm64/kvm/vgic/vgic-init.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 5705723f1f41..068f8a236a35 100644
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -1125,9 +1125,6 @@ static int sev_launch_update_vmsa(struct kvm *kvm, struct kvm_sev_cmd *argp)
- 	if (!sev_es_guest(kvm))
- 		return -ENOTTY;
- 
--	if (kvm_is_vcpu_creation_in_progress(kvm))
--		return -EBUSY;
+diff --git a/arch/arm64/kvm/vgic/vgic-init.c b/arch/arm64/kvm/vgic/vgic-init.c
+index 4012df6002ea..a58575df36e9 100644
+--- a/arch/arm64/kvm/vgic/vgic-init.c
++++ b/arch/arm64/kvm/vgic/vgic-init.c
+@@ -97,6 +97,9 @@ int kvm_vgic_create(struct kvm *kvm, u32 type)
+ 	/*
+ 	 *  - Acquiring the vCPU mutex for every *online* vCPU to prevent
+ 	 *    concurrent vCPU ioctls for vCPUs already visible to userspace.
++	 *    This also ensures KVM isn't in the middle of creating a vCPU,
++	 *    i.e. that there are no vCPUs that have been created but aren't
++	 *    yet fully online.
+ 	 */
+ 	ret = -EBUSY;
+ 	if (kvm_trylock_all_vcpus(kvm))
+@@ -105,18 +108,11 @@ int kvm_vgic_create(struct kvm *kvm, u32 type)
+ 	/*
+ 	 *  - Taking the config_lock which protects VGIC data structures such
+ 	 *    as the per-vCPU arrays of private IRQs (SGIs, PPIs).
+-	 */
+-	mutex_lock(&kvm->arch.config_lock);
 -
- 	ret = kvm_lock_all_vcpus(kvm);
- 	if (ret)
- 		return ret;
-@@ -2115,10 +2112,6 @@ static int sev_check_source_vcpus(struct kvm *dst, struct kvm *src)
- 	struct kvm_vcpu *src_vcpu;
- 	unsigned long i;
+-	/*
+-	 * - Bailing on the entire thing if a vCPU is in the middle of creation,
+-	 *   dropped the kvm->lock, but hasn't reached kvm_arch_vcpu_create().
+ 	 *
+ 	 * The whole combination of this guarantees that no vCPU can get into
+ 	 * KVM with a VGIC configuration inconsistent with the VM's VGIC.
+ 	 */
+-	if (kvm->created_vcpus != atomic_read(&kvm->online_vcpus))
+-		goto out_unlock;
++	mutex_lock(&kvm->arch.config_lock);
  
--	if (kvm_is_vcpu_creation_in_progress(src) ||
--	    kvm_is_vcpu_creation_in_progress(dst))
--		return -EBUSY;
--
- 	if (!sev_es_guest(src))
- 		return 0;
- 
-@@ -2510,9 +2503,6 @@ static int snp_launch_update_vmsa(struct kvm *kvm, struct kvm_sev_cmd *argp)
- 	unsigned long i;
- 	int ret;
- 
--	if (kvm_is_vcpu_creation_in_progress(kvm))
--		return -EBUSY;
--
- 	ret = kvm_lock_all_vcpus(kvm);
- 	if (ret)
- 		return ret;
-diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-index b272c20586a7..58c255256e4c 100644
---- a/arch/x86/kvm/vmx/tdx.c
-+++ b/arch/x86/kvm/vmx/tdx.c
-@@ -2728,11 +2728,6 @@ static tdx_vm_state_guard_t tdx_acquire_vm_state_locks(struct kvm *kvm)
- 
- 	mutex_lock(&kvm->lock);
- 
--	if (kvm->created_vcpus != atomic_read(&kvm->online_vcpus)) {
--		r = -EBUSY;
--		goto out_err;
--	}
--
- 	r = kvm_lock_all_vcpus(kvm);
- 	if (r)
- 		goto out_err;
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 65eb26a0520d..78cc090435be 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -1363,6 +1363,9 @@ int kvm_trylock_all_vcpus(struct kvm *kvm)
- 
- 	lockdep_assert_held(&kvm->lock);
- 
-+	if (kvm_is_vcpu_creation_in_progress(kvm))
-+		return -EBUSY;
-+
- 	kvm_for_each_vcpu(i, vcpu, kvm)
- 		if (!mutex_trylock_nest_lock(&vcpu->mutex, &kvm->lock))
- 			goto out_unlock;
-@@ -1386,6 +1389,9 @@ int kvm_lock_all_vcpus(struct kvm *kvm)
- 
- 	lockdep_assert_held(&kvm->lock);
- 
-+	if (kvm_is_vcpu_creation_in_progress(kvm))
-+		return -EBUSY;
-+
- 	kvm_for_each_vcpu(i, vcpu, kvm) {
- 		r = mutex_lock_killable_nest_lock(&vcpu->mutex, &kvm->lock);
- 		if (r)
+ 	if (irqchip_in_kernel(kvm)) {
+ 		ret = -EEXIST;
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
