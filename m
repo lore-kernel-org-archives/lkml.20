@@ -1,204 +1,390 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazolkn19013085.outbound.protection.outlook.com [52.103.7.85])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012047.outbound.protection.outlook.com [52.101.66.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 231D64F4D09;
-	Mon, 21 Sep 2026 21:10:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.7.85
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790025048; cv=fail; b=Ev1D7PKTNays2jklPjHrTLgObIhIjj1xL+PThtfKQIaNWvYjiBVTHIZR36puLNFVR1mayAM3sMGpYF96N1AaLc7P4120DzlIc2vV8SwelEIbNFOGBPhVPT4p7y7T+B9eNBwODc+BvC7gQ5u/0JlpLVHZTkQLJmWuvfM7CF/IbPA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790025048; c=relaxed/simple;
-	bh=0td9yq3c/mTCg2tNVc43QZhJP/nX8XgwdEpZmWKhth8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=aQ3isq9C96fLjIEFhFkT3hpsCx+35mzzv5fzNOw37hnnUDUsVm7HpOJU0ixYk6PJmIO7V0jr/jaHgbQzU7jrfhssBBPx7aED88rzM+Ofzl4I+SJZ8Pl+PmaYshjTfYQY540D0UbHmNbV8FAd7+9Msoh5YM79xiMMUFfp06gLrHw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=UwJ2WxLD; arc=fail smtp.client-ip=52.103.7.85
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50C140F72D;
+	Mon, 21 Sep 2026 21:12:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.47
+ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790025129; cv=fail; b=B829g3+PqN5plFAMduaUm7VGEt+1mWh6sLzd0xfnQoEQs5oCj6P2q7+n9x9NhiPwwNLIqxKCohpoXHlruNYmBqYNhU/UxVnpH2ODWM3RXwxgO/pLe07XxTvvrRt1xu0EAvmzC/8DleJ6neWIY8hPnZoj9A10hDxJMtp3feMZ47o=
+ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790025129; c=relaxed/simple;
+	bh=VRmIoWzAq8tN9/Tw/idytSZNv7Yg66ION06ZdKSx7wA=;
+	h=Message-ID:Date:Cc:Subject:To:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=VNyb0o6pg16buoR6ICy3++anq/lNhOItyOixzDvdsNXKcOWfpCOTyz1/EcIrcG3XJahm2Uo/FiXyCVWyFVtnjMUkSsOJHy/baJLxNmdeX2IbnvauJnnCchxiJKYB44FPJGYSNO6qCaVZ1qxMhBWgFXC4AK/HL7k7ccRSw4wiboI=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=hxbskqef; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=hxbskqef; arc=fail smtp.client-ip=52.101.66.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="UwJ2WxLD"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="hxbskqef";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="hxbskqef"
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=At501vIPK0D95G0+5oa/eAvo/gs55DrnspX3Um15Ya6IKN6EilFTrm15lF3Qr+n9JAA8Oibda88xF1rmecFEY5CL3Orp7gmMxD6tcv2RB6MweQvcS/gUVzXd0ZduMApAe+HUbkvbXbt6RR4eFyEpOKv2aoqkoG7FIUP6YKUgzw4j6tyFciteY1d8BTtH9rQZxpp3RWofzNDPIWy/VGUzNDkrzK6yI/hdA+xutqCm4MUXNMMOq7o4h8DmwZRA2AxFZgKRttDwDeBmd8DnSf2SaWoWfaySD8tTjMHcPiikzKL5/FB2u3crduEMeAFJlDSmqsgHjzmybnURsDAD4zZ46A==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fssjnakAwX4Aot0ReFg0roa8e4/oDQDWx8US/n+1cwI=;
+ b=yc4HOZlYGB0pxaO8vW7ebsErhUSkFdzqO/zwNjrgx+eY7+C5Hu6HQ/Bcb3vtqUzKV1dGhqoy1Ic0HJe4cMMfoQup5QgE7/qhxOjHdIuJksVAWC13UqT0tj9XjjlL08U8W6Lpifu/s3pYCof3hcJwdGpEE+KYRn9vXeYR/Yqc51Lzv+eTTeVj4RN425BYzCh0T2ivYGMiNjR9Eff2zrDoBmqZ0MQOPk5g2cY7Ac7DMI7piMZupiKnDxFjuopBiuASD28bdTcpX0nTTjQJc4wuSpuwj0lNUv4cpItlEiyekOr22I+Oxdh09fjQlC2T5puMWKsZfht4cqIHVuUERCeUYw==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fssjnakAwX4Aot0ReFg0roa8e4/oDQDWx8US/n+1cwI=;
+ b=hxbskqefDT+K8DvxSO/ArBHoTe3NZIxbUDGs+sy9ObdlbwYXYPbYv2HfKwl/Jh9Nz5O2QTJEgU3tx4EoQYWHOdUG0vxyOF7rgfxTuq/Voxb04Ptqm1bkJBaVr5mieZAZIz0yxhISVzkd5XhBCFZyjK7CdyZSlwzEvBMpFxlLvIc=
+Received: from AS4P250CA0016.EURP250.PROD.OUTLOOK.COM (2603:10a6:20b:5e3::8)
+ by GV2PR08MB9376.eurprd08.prod.outlook.com (2603:10a6:150:d0::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Mon, 21 Sep
+ 2026 21:11:59 +0000
+Received: from CPH1EPF0000052A.eurprd05.prod.outlook.com
+ (2603:10a6:20b:5e3:cafe::20) by AS4P250CA0016.outlook.office365.com
+ (2603:10a6:20b:5e3::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
+ 21 Sep 2026 21:11:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ CPH1EPF0000052A.mail.protection.outlook.com (10.167.241.165) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
+ via Frontend Transport; Mon, 21 Sep 2026 21:11:58 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PpmICCElMbSOFi6PhG34kAC5Gk1EtFkb6S6zOLJVpP7Wbtc7XayIn3/7DMtSFoI3xxf3RrWBxOMziUPW/7KUG2ULq8E6gxomx1Z0zfH+N1+EQVKJoDJuiYljt6ZBzuak0k3jei3wuQAXubuVEdUcKT31biS8kxtt8wZUTm1UOxgDEUBvRJ5oX8bwbOO2QS3wbhZZytNalXAKZsnFw3n0CeTJdljwSvoWTz1d4maR/jPWqwP3YneYS/UViNR0vqOahSjiRr2RkmKsU8uVH6TZ6SjPacg49FFJO3hkgR/LYZCL7kI7zstho0OoHb2swXTdyxnf0qiAk6xs2qBicodfVw==
+ b=yh/L8IkuQ9fdNcJn27UMo85nIp6FumR0rJZajvV2yW62VRe0CzPEhhhlx+LnlgP39TGJmegDZ7XDxf7Rd+zEkQ6yay6nLeXg8r/QFz7PTtbYK3DDHL4EcmEYH0I2nnXyPWFoG8VNxA9ptv3pHbGHwQpfBsd/igpOEt714pHp6Zyi56YsnL0RFPKT1//Fv7Djrd6tsyuw6UWOkHV7yT1+xWwmEwu3YsCSP6nCoqrslylbSbLBeMcXTCBUNdogBappB7+wsYTgcvg0FpKF5DUDbT782j6SdgZBxWIVMx7/202VMi9im6TDCZ/+WTjHsWOm6N3yEKkcZ9lrdqIhVzErmQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0td9yq3c/mTCg2tNVc43QZhJP/nX8XgwdEpZmWKhth8=;
- b=a135vJeM2HsLGSn7DyBOwjJOWK16bB8phMQb4omcJgcBuePs82IeOm4pcVTEsIvxYc9GrhE4xdsakgTfmVxusqtNvVuzNTwbvYl1tmy68DJgm0EPtKeSLKsAJLthdvUjMSMC/ppk2EYpPz0CxTTPwMz8dPJnKHnOlycU3ZXfBqdh0gSaOTmR46jUeG0DJpgS73dZuNik5a5fqYnsrFv6O6fFgF49JjhnYY4wOi1gICDchyuatYtzD2YuDlEL8m8kyDszvFVnTrCip1qJBa15se2B5TP3Pz7DPgyIaDcQUr708WmfSvr7U+YDmG6SH+nRNJ/JlaClkzAQdw83x+WPgw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
+ bh=fssjnakAwX4Aot0ReFg0roa8e4/oDQDWx8US/n+1cwI=;
+ b=NC5bg//OTzh0+VL7CE+SHIjlW5gztg+ayC7augPAFpeP1ychSjJy2h9aq4f4nxd5gTu2VCn5alfzg1PiX24mBkWqK7ZjN9gxhVlL06rHCw5DgEw5BuMEIOLTBTWG7vN4EO3pLneHGeoX9IE8BBGg0fonoA5MO/uLDslwu9IFxQSUNCoT9QOXjdLWfW/Iw1GZyt58EO//Hh0M31qXZCdzdLK3jDKUez0UyZjHhE8VIRZnurdpBjJ47gK3y+h8/v5PSd7EpGhogBudaTFuVPVWp94m28IWZEJqAWjjlF5b8MVXtIPqb2UwHEs0WZQZpbXOPUYjeRpJoXhRW2uPp/cT5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0td9yq3c/mTCg2tNVc43QZhJP/nX8XgwdEpZmWKhth8=;
- b=UwJ2WxLDvmmnazSWHteUTBSfnaRGF1DBtVxhtQt3587Qm8SCeGmiCZ3jWj8jV/RADh5BEDSvuiWrH22peoVfXqWoLsz423cpv4Gm9sbUrfS8c7KHWebqvbMewRP7Gyc1ZK02J8j+V1xYBgRGaiwakVwPer0LRY1MmislJemfFkbNSygAPwLlhTemJiY8HvRoCWkCvCM8ndHOHFnqVA3nPgwlQf799ddV8zlOU+TQGej426HMVfF+7d85hJjWLtXNGDZWUINTxhyYdtETCz7lxwA9uWxAmudsAv5w/hNSbB95OyomUlui02zP/YrbEhn+NZ1+eSPZt65ixBphOS6fsQ==
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
- by DS0PR02MB11588.namprd02.prod.outlook.com (2603:10b6:8:394::6) with
+ bh=fssjnakAwX4Aot0ReFg0roa8e4/oDQDWx8US/n+1cwI=;
+ b=hxbskqefDT+K8DvxSO/ArBHoTe3NZIxbUDGs+sy9ObdlbwYXYPbYv2HfKwl/Jh9Nz5O2QTJEgU3tx4EoQYWHOdUG0vxyOF7rgfxTuq/Voxb04Ptqm1bkJBaVr5mieZAZIz0yxhISVzkd5XhBCFZyjK7CdyZSlwzEvBMpFxlLvIc=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from AM6PR08MB3414.eurprd08.prod.outlook.com (2603:10a6:20b:49::10)
+ by DBAPR08MB5782.eurprd08.prod.outlook.com (2603:10a6:10:1b2::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 21:09:33 +0000
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6%5]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 21:09:33 +0000
-From: Michael Kelley <mhklinux@outlook.com>
-To: Naman Jain <namjain@linux.microsoft.com>, "K. Y. Srinivasan"
-	<kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu
-	<wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Long Li
-	<longli@microsoft.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?utf-8?B?S3J6eXN6dG9mIFdpbGN6ecWEc2tp?= <kwilczynski@kernel.org>, Manivannan
- Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Bjorn Helgaas
-	<bhelgaas@google.com>
-CC: "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] PCI: hv: Probe vPCI buses asynchronously
-Thread-Topic: [PATCH] PCI: hv: Probe vPCI buses asynchronously
-Thread-Index: AQFxrKO58mwTdErnGMc9OIYxIQ3zNLewv9cQ
-Date: Mon, 21 Sep 2026 21:09:33 +0000
-Message-ID:
- <SN6PR02MB4157AB3B9404AF9CC43BF11FD4842@SN6PR02MB4157.namprd02.prod.outlook.com>
-References: <20260907054742.235389-1-namjain@linux.microsoft.com>
-In-Reply-To: <20260907054742.235389-1-namjain@linux.microsoft.com>
-Accept-Language: en-US
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Mon, 21 Sep
+ 2026 21:11:23 +0000
+Received: from AM6PR08MB3414.eurprd08.prod.outlook.com
+ ([fe80::dde8:bf0b:1dc:2a2]) by AM6PR08MB3414.eurprd08.prod.outlook.com
+ ([fe80::dde8:bf0b:1dc:2a2%5]) with mapi id 15.21.0451.012; Mon, 21 Sep 2026
+ 21:11:21 +0000
+Message-ID: <81b1fec1-3b5e-43ed-a5b3-1a73c80201d8@arm.com>
+Date: Mon, 21 Sep 2026 22:11:04 +0100
+User-Agent: Mozilla Thunderbird
+Cc: usama.anjum@arm.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-mips@vger.kernel.org, linux-arch@vger.kernel.org, linux-mm@kvack.org,
+ kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
+ linux-riscv@lists.infradead.org, linux-openrisc@vger.kernel.org,
+ Sohil Mehta <sohil.mehta@intel.com>, Russell King <linux@armlinux.org.uk>,
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Andrew Morton <akpm@linux-foundation.org>,
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Tianrui Zhao <zhaotianrui@loongson.cn>,
+ Bibo Mao <maobibo@loongson.cn>, Anup Patel <anup@brainfault.org>,
+ Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jonas Bonn <jonas@southpole.se>,
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+ Stafford Horne <shorne@gmail.com>
+Subject: Re: [PATCH 00/21] mm: change behavior of pXdp_get()/pXd_page() in
+ compile-time folded pgtable
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+References: <20260921-dummy_ptxp3-v1-0-cd40cf68242e@arm.com>
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|DS0PR02MB11588:EE_
-x-ms-office365-filtering-correlation-id: 202e7fcc-4d8e-46b4-1ce0-08df1824a26f
-x-ms-exchange-slblob-mailprops:
- 8U9+OAG/EBKkI8GgeR43xRMrZ/+qH0EF51qnm5S/Co3g7AO+g4pyj9V43z6NVG5K/o205smHwEy88p1wySWl41hOxuo42vYXgWFdmsRWMnKd0WA1aFGxwRbPS7hD4iywlwNLZ/newHdp7oLxmT62gzVLRD8ZbwucYahMeYKGbs8DmLGMbJdpTV4SNkN++nnoZQoUwqqarzbSxiF5e8U9hZJH/A8s7m+VsttNMLQMSfXLGwXLX+rHC2ZZ3vA+DBT7cdFi69i1zXvXG1Hm1rEQlQalojUuNf4wp0x0rOFfhc50iiiPAvk1hpqQVnfjDG4CF2AdpLgsgBGIe5KGhzvkQQAMGfhJJpECuZaQSq2uRtWfDaChn4LTr6xrG7ABG64c4VI0nOBBMMfXOiJ/shlzz6whbMNt4DVojS3bNWjPwg46IqHm4GTqGQCRBaLGVWlvWjiGkHBOGhr/4wUImGtPcCtBGdpoOtuUod/MNy2CIDPf7qUMceNy8WTh5BqRz+gz19u09cGrANsnxTLXe6wkmgFdV/VnNAGhZzAuBQwt2cR6fHRLmE7rOT7p9rZnGldQMVFeKpA41IT6Agsk+mIkE5Y1xCxXm5hJxdjXJy2CBcS5EkkcHobgTKv/LVIu/QffxOM7OBRjdimbW2w9ItPemRXMBjtWbxLGl/G51HlAPk4PTpepLMfFDBXePuBesqPRhWtj2GlA43FhOS3okFIDcvcBdBEzQmKXXxf8HYhXTgl7+BJwtp0rz+eKXoAMaAnTS8QoRbshUBaIDpu9CAAikXRJJNTmoGO3p9JGiipBJCUHW0j4GIr9+Z1/uge8HUbAlqJuzadiS7tEVlDnKnuxow==
-x-microsoft-antispam:
- BCL:0;ARA:14566002|15080799012|2604032031799003|41001999006|37011999003|24021099003|13091999003|8062599012|31061999003|8060799015|19110799012|51005399006|25010399006|55001999006|16051099003|440099028|3412199025|4302099013|102099032|1602099012|40105399003|2607281247196008|10035399007;
-x-microsoft-antispam-message-info:
- =?utf-8?B?VjdUc3VXUjlRK3JqcEhCdm1PUDRxSWcwTk9MT1BBSWV2WXdYSTFPb1UxeUg1?=
- =?utf-8?B?eHRFZ3g2ekk1UzJFTE52N0VPVEJBRWVvQ3QybHZQMzJ3eVVNNjhlSUV6NHBs?=
- =?utf-8?B?elU4LzFmWEk4NFBuMW9rSWVBZnBOM2Mwb1dwY1QrQzA1aUtOV2hNSHZMNm9Z?=
- =?utf-8?B?dGo5VFVJbDJYK2ZCRDhKbGxqNHk2OHlKdFZ5Z3pMZlJmMGNYbitNcFNpanJX?=
- =?utf-8?B?aVhjcGhDR3JjeWZuc01oQVFmRVQva0Z0UzB4ekFhSGY3NEsySDhWSVZmWW14?=
- =?utf-8?B?bEIySVZqMStMeWowNE9jYW13ZEtzMFVDamhNZUJETlRmc2FWRFBxTzZralBC?=
- =?utf-8?B?MUZINlZ2M1l4ZktWTWJoOXdkNmZKdTJnK3NDelp3NTgva25zTGcyZjBBMExj?=
- =?utf-8?B?eFpoMnR1am1waUZiekZRZDdXL1dxdkRpTnEwTTNOc0ErSXZSOE01Z0s0L0Ju?=
- =?utf-8?B?MUw4ckFZOTVWUDQvZU9uUitUUXEzMFlCM0FiZFJmRjllb0hmaWV5RG01cWhN?=
- =?utf-8?B?UWZDQWcxbjhrekhQbFBXVGV3MWxhTW9uZTJBQ0hiN0gvaEtNQ1ZmYy9UVDRO?=
- =?utf-8?B?TGtYdWdTakxjTnhqRDJqRXQrZG5XS09NZUVRYUhyYzNzbGRTZFY5UUlmb1My?=
- =?utf-8?B?N0FTcXl1ZmR2R2R6TzU4ZUtxcStVdkZ0bitwWm5jV2JySWlIYjBsQThxa3Yz?=
- =?utf-8?B?T0YrbExXaC9YUTlNdmllV2VUd3lJUzk2dlR0THROVWlPZDE4VjF2MUlaNkNl?=
- =?utf-8?B?UjdRTmNKbURKSmFiZGJXcTlKMjY3UWJyVnMvRitlSjRWWEl5cUdrVFBsY2xF?=
- =?utf-8?B?N043dVJxRXI3ZHcrbTcwZlJYQzduUXZhWmtYZFFabHJicEI5Q3loWW14YnhO?=
- =?utf-8?B?WnM0dXRQbjErMDIxWHpSaXFlWTJpS1VVU1hobzRMbTA2eDdtd2hHMlFMQ3hy?=
- =?utf-8?B?Mm9lczVPWmd5VnY2Q3BTZGxGcjFISnk4VlZnRk83SEE4SUlVeFZyczRxY3Ex?=
- =?utf-8?B?UnUvYTd4ekZOWXhhYTZ4alE2TytCVG0yUnRTQzhkbUozaVFLYU9BbWxEMFM3?=
- =?utf-8?B?aDliZjlCQURxS2Y3bHBIL2RtUXlzSnU1eFpWZHpuZCtYdFdOUzhOMGFOUzhZ?=
- =?utf-8?B?NG90TUNTWjV5TDlPMURDV1VjZlF4TmYrMW5ZTHBiU0M1WElTamtIYjI4dnVP?=
- =?utf-8?B?MXhIZ1gyRFByKzBaVGdQdzFBdFRiRE9QU21RUHhWeEREaFFhTnFja3h3dFlK?=
- =?utf-8?B?OEtYSHdadlpGS3pITTJoTVJWNVBJVzh6SDBldml1Zkpmek96dlpjTDRTaXBC?=
- =?utf-8?B?Szh1UWoxdlBkSFVMeFhyeGRwU3dub1FnRUczYnNpWmwrS2NpY3RFRFROdHVm?=
- =?utf-8?B?RWdIM0p3TWNjYW82M295VW54SHV6SWNERFFPTDIyRnZaTTAwV1crc05vMzFp?=
- =?utf-8?B?SlhsaXc5aEFuMFdqWXFsbnpNY2o2dlA4RHZ4ZDIxdXpRbFFoTUpEL0JJOUh1?=
- =?utf-8?B?ajQvblp2dm9nUXdtYUYyNFI0UmgvcXVnajdYQTdBdkRUM0d1aE9WdE1HUVdy?=
- =?utf-8?Q?OBNSj9096ug2B8bQHhWspYv8DBIM9Nre+MHv3XXRqc1oR8?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?dWQzdjFzSEtjck1SUTM3ZXYwVlgySnZLNngvRER0amY1N1hGOTI3VzFlMTdF?=
- =?utf-8?B?aXJrNWU4dlNVeEE4UFhyZ3ZjMUlxaHIrWEZoVk5ndGU1Y1RPTjh0QjA3aERV?=
- =?utf-8?B?MXdaYWltejZuUm1TSGhva0ppVm05dUJRNGppZ1NGZkRNWjVSOTVNdy8rZ3JL?=
- =?utf-8?B?NGpUaUpCK21FdlZUaG56VkZvOGxaUUtxeHNybWk0U3J2YVV3K1RVc3FCRkF1?=
- =?utf-8?B?dEk1NUNsNm9QRXh3YWpkNjZoc2ZHNklycVlIMjNYbm9pZ3hFQTE3enkvcVpq?=
- =?utf-8?B?UktMMGVMMWxaMVcwRmNtS2xFWDA1cU1SbTdCRzJXaVRwTUx0YW5mUnVRdGd3?=
- =?utf-8?B?WVZIQ3I3cHk5elFGWWZRK09jYWppT3VrMHlyMVJmNENWbkxGUUREUG5zQzc3?=
- =?utf-8?B?RmlsNm13b0dpVktMYlB5QmFvNUdKbmpOdDliUTMvZ3ZJU2xrMFc4K3JsbXND?=
- =?utf-8?B?UHBMMXd3V3ZWWVVJL25VSXZ4dXRINUdSQURnb0U2SDJXam1sT0FmZmpSMjFr?=
- =?utf-8?B?YWhuNkJHSFcvK3UyQzA5VkE5L2VkOXhYMWw1TjBZcDROTWIxYmI4MVRxamdL?=
- =?utf-8?B?VGZyRnptcUxoVzhSclhtV01NOW1KdXBYYTJXOXltcFNjblhwaWdENEE2a3M3?=
- =?utf-8?B?NE5RTmpEYmZsOEJSOUhrdG5hY29aWXVwdmQyWW9NNU9XSjFBc0pqQkY3NVAr?=
- =?utf-8?B?MERmUTQ3b3NxaUF6eWhoaWRzV0xXSStBSmhleUFHZ1FDeHZRKzZkUSs2VEFn?=
- =?utf-8?B?cm9PazNiVHM2YjBZUi9UanAzbEovYVZVSTlRYkRrT2ZZRjQwS2p4N2tvTzJM?=
- =?utf-8?B?U0JiSnB4MTU5UmNjVkNlQjlOak1uR000aCt5QzAyUDkxU3Jaay9od2JsZEJp?=
- =?utf-8?B?OEZVeHdYMVNNcW9STjRqVFYweFFLUVMzVTVyTzNZRDVjUGdHV0ROZTN0eGtz?=
- =?utf-8?B?anFBMWtERnZWMG82WlpUaUdDa2FOZWhwOER5cU9QSGwrYmVkd01sQ2lhVE5E?=
- =?utf-8?B?azBsT1lQSU1sL2ZtWldKS2lEbllmRUJMTW9ZaithVUNXVmpDbW9mL3R4V2V1?=
- =?utf-8?B?S3dUWUFIYmF4WHVQaXd6ZkRTbmJzcFlJZ1J6WWJ6b0praS9zWUs4YzE1RUdl?=
- =?utf-8?B?YVltZWdPZG5lZ2tBMzR0eHdEU0MydU1xUU5DaklwVXlUeEtaWm9CMjZuUVZ4?=
- =?utf-8?B?SWhzVllhdnRXcnlkekVKVjloZ1R3ODlidFRDcU1kbmNWTnJnbWJ5REpId29k?=
- =?utf-8?B?MXZPbks5SHpxbUllUnFJY2tNNGI2dUN6SWJTNkdNeFRBNTlyd2dncEg5ZE5F?=
- =?utf-8?B?UlAwc1FJOENNY2U2ZFZ6MlpRVDVOc0JLWGR4ZjZuazBHUFRSRXgrMkRGUEwr?=
- =?utf-8?B?b2V2eWN2VnVieVQxdmZrVnZGNkhpa1ZoOUVHMHpSNnh2ZjBoQSt6RXJqQVd0?=
- =?utf-8?B?aWV0VzN5MjZCSE9uR0laQnZFS3hpRHlyOGlTK0FUSjl4QnRHUGtWNktxNUtt?=
- =?utf-8?B?RUwxaVFDU1I0NmNSWTNKeWRQN2hVZ1RhcktrTFE0cUNrQTlsWVJLb3llTFFF?=
- =?utf-8?B?Y3FRVkpMT2IxaGdXeWZ2c0JGUkNxMGNXc3FpK3B0WVNzcHZPNVBSMk02K3hG?=
- =?utf-8?B?UjltN3BBSDZzODhYL0xaV3F2ZU05b1lEd0xQb1BadDFZa2dnTDAwQSt3WkJq?=
- =?utf-8?B?Z1EzdDBGOXVvdVRpM1FSMnpzL1Y4ZFFQMXhYU0lISkhMeWEvT2ZsamlGRXQw?=
- =?utf-8?B?NENLRWQ4VnFZaVJrYVdyNjZiUEUyaEN6bUlxNjR4S1RMMURQZlhsWlVzVFo5?=
- =?utf-8?Q?4sOk6aUVrh8lzgVVhKZbhTv1N0LsByX0OsfZs=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+In-Reply-To: <20260921-dummy_ptxp3-v1-0-cd40cf68242e@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR3P189CA0087.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:102:b4::32) To AM6PR08MB3414.eurprd08.prod.outlook.com
+ (2603:10a6:20b:49::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 202e7fcc-4d8e-46b4-1ce0-08df1824a26f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Sep 2026 21:09:33.2462
+X-MS-TrafficTypeDiagnostic:
+	AM6PR08MB3414:EE_|DBAPR08MB5782:EE_|CPH1EPF0000052A:EE_|GV2PR08MB9376:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8c65256-2298-46f2-2c61-08df1824f908
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|3023799007|6133799003|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ p2oDKWs+FEtkXEk/rhmMKOX2JqsVABKRRmgnUJBXP8+q5UHXMA3h1Kawyarg5G2d4lmnKXe6/lbPWbTRyvtZdQQ7bnahGip+88eTMSnnDZT/x/KlpWcHsQ5L5nsElVtFTD8QYKT2wk13FfQiXiGB+XYsRvW1YPN+gastoU4MpOKo1pYl3MlRQh5sUfSheCo7aOiljin8RScTGDpc+KL0w2+9lkpCgg/dt8iOPbScSWq+zM9AbEGXT6XUzs/JG4C2gQ9L5H9oelVVF81PrhRuZQE52k4YtrCfbU5xXoaC7JkPKdGEtWEMMZb3gVp7eWQ38O+P+605uqZKr1oeZ+b4mQj2RIhUIf60Y2exPChbw0mFF1c/WHZDXXCBmXPmzcIfshiyingzOF3GJDuzSd1uhV+40iim/W9Zh10bDyik9zXGf7Fs7iv9oV0pYOnUB8J4CugUZB9s/sJVXRlHJ9P4JPs3KGB4gnUY1MO5mr1GcKVFdcTk90IOqFCnON5hSFSoNNEDL/FQhBniIFOrxwtvPmTydAdMUvUo7F8EoLwGsSgvMiiJNCFNos9IfUg3NLvCcVBw7zHEJuAgdBcpY3nYem3Nf3nivS6Ay5jGWNkOIoUah7xG12xORFo5cCWjWbLS
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3414.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(3023799007)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ MN4fXV7rjyz1upSoyRduzOkezfp0p/LvCjoQxKTX/SX9IbSysCl0nKOGcBWIb50fZWzzWpJD6e4pVkzQrXlZyicYjb4PPnjtCNtc+PtzJ6W3to8hpSjIm9EFhDYTxNKpS+dQF59bTjWZJFzSscdhYZoAcF25v9qBWGQM8jIIA6QeW/tNdSA6QQmpGq3Lohf913dr3Gt/QdFVdwi98GHZhA6D9rBfuWXPRFo7/uUAKXp1Yby52wU3ManutuyhN1hfCPHqMRueRnXy1z5ezPx9IM3N85gjpNf3dppzRS1zr7oHhqAqqcHuL419DuXBHZgj0KhoUUKxXIwEmXAmCYqJyA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR08MB5782
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ CPH1EPF0000052A.eurprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	c6d20812-e8ad-4f65-c345-08df1824da1d
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|35042699022|7416014|14060799003|1800799024|82310400026|36860700016|376014|13003099007|3023799007|6133799003|11063799006|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	AWC1PFfT5KfqXNMUOjVgVZ7xgjnxueEK+PS6Pt0n55MoYqjY8PpZpoWxUeltRfPwjlZdty1jK//VDJjOhdoavPycXMp46gjN9wrt6MxmLnYS0tl0H7hlgFRpfctkNK9vGrosnJm4Uzl7rAFZMCR9595ro42rpGfPUJdjIY+T0jFQr7aO8Wnz8rgREEe6pDmAtvX+JUwzp9tNGFME4tcURUFKZDg7C9h87hSbqG5uyhNDqUFZhl3RjYZefcFTt/ABz4S8eauU0N6MBcSxG+YPPTp539xK/JnNkYf4Xqfx4dopYENsvclNl8ZdkRWI5GGv670YxNmEW3Bj/fS5shk5a8AezgPEZaKcf0z89ReJtlmtw+IVMV3sXEfKxZwnX1kQlFyc2vosf7dg0CZSUcAPp/QxKLltX/bbOdv4euwkqNbf8Z8FcQawY82K4YQB1aaeNQQtu3Eva5++h4r9JTuYCpzTe3FJgwvVt6CwmOIKMQd6kQi7oCjoRavTiHDc9goi1SofK3IBw66Sck/A+mNwRPX2STGfJCixYTd4NtJ8ucuY8wdop5OZCkdjNb7mpKe2SMn+VROvm+SCQYexcxf6MDVUnhZtp+HgfKBWoHtArK9L+pX/SyDzxfGfFo2eJDBAe8fl40daLteJbK6UqO8xTXQjbCNmTUkKmmKdd7ho64s=
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(35042699022)(7416014)(14060799003)(1800799024)(82310400026)(36860700016)(376014)(13003099007)(3023799007)(6133799003)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	+14LHJ1xGwhQZYcCuxNcd+vJokl8LMpUlaa9qmTyP8ggEjcxBGY6rGMEWobJULEEpq2RP53YM8TBQ1gox7jyXnw2bBlbBxR2z/MvyLdrPymMNd88U9i/8Vb3Fal/2xRFhra6V2gnrZ67muTE0t3b/vW6thavz8jhQ1I16V73uIRaxcx/f7jPXpPWTlF1tq3D5YOigljJSHq8XjmjaUlyCDo9LkpTbGQyd2TJwUMeuYU7SBWYveHagzcjiFThYYvZsCsdgK0czExhsCdYKdFJUqy43rvw28VGBTjzPINDrO/FzpKp3iUBF4xAmeFNhJcZ9O8KIqNREowFP7b9Yqo3ZzexzdME1ejtcmL1bnHthnU6IHxI2XBffXAe6/syZHb3sVjSl6CLaMB6Al1puLoqYUHCo97lPnf75j4hxEoF92vFx6L6QREEO33sMurUmAaU
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 21:11:58.4641
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR02MB11588
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8c65256-2298-46f2-2c61-08df1824f908
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CPH1EPF0000052A.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB9376
 
-RnJvbTogTmFtYW4gSmFpbiA8bmFtamFpbkBsaW51eC5taWNyb3NvZnQuY29tPiBTZW50OiBTdW5k
-YXksIFNlcHRlbWJlciA2LCAyMDI2IDEwOjQ4IFBNDQo+IA0KPiBPbiBIeXBlci1WIGd1ZXN0cyBl
-YWNoIHZpcnR1YWwgUENJIGJ1cyBpcyBlbnVtZXJhdGVkIGJ5IGl0cyBvd24NCj4gaHZfcGNpX3By
-b2JlKCkgY2FsbC4gVGhlIHByb2JlIHBlcmZvcm1zIHNldmVyYWwgc3luY2hyb25vdXMgaG9zdA0K
-PiByZXF1ZXN0L3Jlc3BvbnNlIGV4Y2hhbmdlcyB3aGlsZSBuZWdvdGlhdGluZyB0aGUgcHJvdG9j
-b2wsIHF1ZXJ5aW5nIGJ1cw0KPiByZWxhdGlvbnMsIGVudGVyaW5nIEQwLCBhbmQgcmVwb3J0aW5n
-IGFsbG9jYXRlZCByZXNvdXJjZXMuIFRoZXNlIHdhaXRzDQo+IGFyZSBsYXRlbmN5LWJvdW5kIHJh
-dGhlciB0aGFuIENQVS1ib3VuZC4NCj4gDQo+IGh2X3BjaSByZWdpc3RlcnMgYXMgYW4gb3JkaW5h
-cnkgVk1CdXMgZHJpdmVyLCBzbyBkcml2ZXJfcmVnaXN0ZXIoKSB3YWxrcw0KPiBtYXRjaGluZyB2
-UENJIGJ1c2VzIGFuZCBwcm9iZXMgdGhlbSBzZXF1ZW50aWFsbHkgd2hpbGUgdGhlIGRyaXZlcidz
-DQo+IGluaXRjYWxsIHJ1bnMuIE9uIGd1ZXN0cyB0aGF0IGV4cG9zZSBzZXZlcmFsIGRldmljZXMs
-IGVhY2ggdGhyb3VnaCBpdHMNCj4gb3duIHZQQ0kgYnVzLCB0aGlzIHNlcmlhbGl6YXRpb24gYWRk
-cyB0aGUgaG9zdCByb3VuZC10cmlwIGxhdGVuY2llcyB0bw0KPiBkZXZpY2UgaW5pdGlhbGl6YXRp
-b24uDQo+IA0KPiBFYWNoIGJ1cyBpcyBkZXNjcmliZWQgYnkgaXRzIG93biBzdHJ1Y3QgaHZfcGNp
-YnVzX2RldmljZSwgc28NCj4gaW5kZXBlbmRlbnQgYnVzZXMgY2FuIGJlIHByb2JlZCBjb25jdXJy
-ZW50bHkuIFJlcXVlc3QgYXN5bmNocm9ub3VzDQo+IHByb2JpbmcgdmlhIFBST0JFX1BSRUZFUl9B
-U1lOQ0hST05PVVMsIGNhdXNpbmcgdGhlIGRyaXZlciBjb3JlIHRvDQo+IHNjaGVkdWxlIG1hdGNo
-aW5nIGJ1c2VzIGZvciBhc3luY2hyb25vdXMgcHJvYmUgd29yay4NCj4gDQo+IE9uIGFuIEF6dXJl
-IFN0YW5kYXJkX0wzMnNfdjMgZ3Vlc3Qgd2l0aCBmaXZlIHZQQ0kgdGFyZ2V0cyAoZm91ciBOVk1l
-DQo+IGNvbnRyb2xsZXJzIGFuZCBvbmUgTWVsbGFub3ggVkYpLCBMaW51eCA3LjIuMyB3YXMgdGVz
-dGVkIHdpdGggb25lIHdhcm0tdXANCj4gYW5kIHRocmVlIG1lYXN1cmVkIGJvb3RzIHBlciB2YXJp
-YW50LiBUaGUgbWVkaWFuIGludGVydmFsIGZyb20gdGhlIGZpcnN0DQo+IGh2X3BjaV9wcm9iZSgp
-IGVudHJ5IHRvIHRoZSBsYXN0IHJldHVybiBkZWNyZWFzZWQgZnJvbSAyODQ3Ljk2OCBtcyB0bw0K
-PiAyNzg2LjcwOSBtcywgYSA2MS4yNTkgbXMgKDIuMTUlKSBpbXByb3ZlbWVudC4NCg0KVGhlIGVs
-YXBzZWQgdGltZSBpbXByb3ZlbWVudCBpcyByYXRoZXIgZGlzYXBwb2ludGluZyBnaXZlbiB0aGUN
-CmNvbXBsZXhpdHkgb2YgdGhlIHByb2Jpbmcgc2VxdWVuY2UgYW5kIHRoZSBudW1iZXIgb2YgaW50
-ZXJhY3Rpb25zDQp3aXRoIHRoZSBIeXBlci1WIGhvc3QuIERvIHlvdSBoYXZlIGFueSBpbnNpZ2h0
-IGludG8gd2h5IHRoZXJlIGlzbid0IGENCmxhcmdlciByZWR1Y3Rpb24/IElzIHNvbWV0aGluZyBt
-b3N0bHkgc2VyaWFsaXppbmcgdGhlIHdvcmsgZXZlbiB0aG91Z2gNClBST0JFX1BSRUZFUl9BU1lO
-Q0hST05PVVMgaXMgc3BlY2lmaWVkPw0KDQpNaWNoYWVsDQoNCj4gDQo+IENvLWRldmVsb3BlZC1i
-eTogRGV4dWFuIEN1aSA8ZGVjdWlAbWljcm9zb2Z0LmNvbT4NCj4gU2lnbmVkLW9mZi1ieTogRGV4
-dWFuIEN1aSA8ZGVjdWlAbWljcm9zb2Z0LmNvbT4NCj4gU2lnbmVkLW9mZi1ieTogTmFtYW4gSmFp
-biA8bmFtamFpbkBsaW51eC5taWNyb3NvZnQuY29tPg0KPiAtLS0NCj4gDQo+IFByZXZpb3VzIGRp
-c2N1c3Npb24gYXJvdW5kIHRoaXMgY2hhbmdlOg0KPiBodHRwczovL2xvcmUua2VybmVsLm9yZy9h
-bGwvMjAyMzA0MjAwMjQwMzcuNTkyMS03LWRlY3VpQG1pY3Jvc29mdC5jb20vDQo+IA0KPiBTa2lw
-cGluZyByZW1vdmFsIG9mIHBjaV9yZXNjYW5fcmVtb3ZlX2xvY2ssIGR1ZSB0byBwb3NzaWJsZQ0K
-PiBzeW5jaHJvbml6YXRpb24gcHJvYmxlbXMgYXNzb2NpYXRlZCB3aXRoIHRoaXMgbG9jayByZW1v
-dmFsLiBBbHNvLCB3aXRoDQo+IG15IGN1cnJlbnQgc2V0dXAsIEkgd2FzIG5vdCBhYmxlIHRvIHNl
-ZSBtdWNoIGltcHJvdmVtZW50cyB3aXRoIHRoaXMNCj4gY2hhbmdlLCBzbyBrZWVwaW5nIGl0IGZv
-ciBsYXRlci4gQXN5bmNocm9ub3VzIHByb2JpbmcgY2hhbmdlIGlzIG5vdA0KPiBkZXBlbmRlbnQg
-b24gdGhpcy4NCj4gDQo+IC0tLQ0KPiAgZHJpdmVycy9wY2kvY29udHJvbGxlci9wY2ktaHlwZXJ2
-LmMgfCAzICsrKw0KPiAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKQ0KPiANCj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvcGNpL2NvbnRyb2xsZXIvcGNpLWh5cGVydi5jIGIvZHJpdmVycy9w
-Y2kvY29udHJvbGxlci9wY2ktaHlwZXJ2LmMNCj4gaW5kZXggODk4MTZhMmJkN2NkMy4uMDU2ZDM3
-OWIzY2VlNCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9wY2kvY29udHJvbGxlci9wY2ktaHlwZXJ2
-LmMNCj4gKysrIGIvZHJpdmVycy9wY2kvY29udHJvbGxlci9wY2ktaHlwZXJ2LmMNCj4gQEAgLTQx
-NTUsNiArNDE1NSw5IEBAIHN0YXRpYyBzdHJ1Y3QgaHZfZHJpdmVyIGh2X3BjaV9kcnYgPSB7DQo+
-ICAJLnJlbW92ZQkJPSBodl9wY2lfcmVtb3ZlLA0KPiAgCS5zdXNwZW5kCT0gaHZfcGNpX3N1c3Bl
-bmQsDQo+ICAJLnJlc3VtZQkJPSBodl9wY2lfcmVzdW1lLA0KPiArCS5kcml2ZXIgPSB7DQo+ICsJ
-CS5wcm9iZV90eXBlID0gUFJPQkVfUFJFRkVSX0FTWU5DSFJPTk9VUywNCj4gKwl9LA0KPiAgfTsN
-Cj4gDQo+ICBzdGF0aWMgdm9pZCBfX2V4aXQgZXhpdF9odl9wY2lfZHJ2KHZvaWQpDQo+IC0tDQo+
-IDIuNDMuMA0KPiANCg0K
+On 21/09/2026 11:55 am, Yeoreum Yun wrote:
+> Using ptep_get() and its counterparts in common code is suboptimal on
+> kernel configurations with generic compile-time folded page tables.
+> By default, ptep_get() and its friends expands to READ_ONCE(),
+> forcing the compiler to emit a load even when the value is not used afterwards.
+> 
+> This issue was recently reported by Christophe Leroy [1] for ppc32
+> preventing futher code conversion to ptep_get()/pmdp_get()/... helper
+> and the same behavior can also be observed on arm64 when built with
+> 2- or 3-level page tables
+> 
+> e.g) perf_get_page_size() in arm64 with CONFIG_PGTABLE_LEVEL=3:
+> 
+> 00000000000052a0 <perf_get_page_size>:
+>     ...
+>     52dc: d53b4234     	mrs	x20, DAIF
+>     52e0: d50343df     	msr	DAIFSet, #0x3
+>     ...
+>     52fc: d35e9a69     	ubfx	x9, x19, #30, #9        /* pud_offset_lockless() */
+>     5300: f9403508     	ldr	x8, [x8, #0x68]
+>     5304: f869790a     	ldr	x10, [x8, x9, lsl #3]   /* pudp_get() */
+>     5308: f90007ea     	str	x10, [sp, #0x8]
+>     530c: f8697908     	ldr	x8, [x8, x9, lsl #3]    /* pudp_get() */
+>     ...
+>     5360: 90000009     	adrp	x9, 0x5000 <perf_prepare_sample+0x548>
+>     5364: 92746908     	and	x8, x8, #0x7ffffff000
+>     5368: d3557675     	ubfx	x21, x19, #21, #9       /* pmd_offset_lockless() */
+>     ...
+>     5394: f8757ac8     	ldr	x8, [x22, x21, lsl #3]  /* pmdp_get() */
+> 
+> Though PGTABLE_LEVEL=3, since the pudp_get() still remain with
+> READ_ONCE(), there's redundant load for the pud which is folded.
+> 
+> To prevent generating suboptimal code, make pXdp_get() return a dummy
+> entry for compile-time folded page tables, make the helpers such as
+> pXd_offset()/pXd_offset_lockless(), set_pXd() validate dummy entries
+> at compile time to catch the wrong usage and prohibit calls to
+> pXd_page() in pgtable-nopXd.h.
+> 
+> This series does not change the behaviour of existing code that directly
+> manipulates folded page-table levels using set_pgd(), pgd_page_vaddr(), and
+> related helpers. Those helpers continue to behave as before.
+> 
+> The new restrictions only apply to code that adopts the pXdp_get()-based
+> access model for compile-time folded page tables.
+> 
+> As the pXdp_get() can return *dummy* entry, some of code using
+> the stack value where saves the pXdp_get() could be a problematic:
+> 
+>   1. Passing address of stack value where saves the pXdp_get() result
+>      to pXd_offset() for example:
+> 
+>        pud_t *pudp, pud;
+>        pmd_t *pmdp;
+> 
+>        pud = pudp_get(pudp, address);
+>        pmdp = pmd_offset(&pud, pud, address);
+> 
+>      (e.g. host_pfn_mapping_level() in loongarch).
+> 
+>   2. Using the pXdp_get() result to use as argument of pXd_val() and
+>      to check prot without checking pgtable is folded.
+>      for example, x86's effective_prot().
+> 
+>   3. Using set_pXd() with pXdp_get() will set problematic dummy entry
+>      in folded page table like:
+> 
+>        set_pXd(pxdp, pXdp_get(pxdp_k));
+> 
+>   4. Using pgd_page_vaddr() to get the first-level pgtable.
+>      passing dummy pxdp_get() for pgd_page_vaddr() will return wrong
+>      address. Therefore, make pgd_page_vaddr() and pXd_pgtable() to
+>      trigger the error for improper usage with folded dummy entry in the
+>      generic compile-time folded pgtable.
+> 
+> Thanksfully, above cases are rare since (1) most of usage using
+> pXd_offset() with result of upper pXd_offset(), (2) it's extreamely
+> rare to use pXd_val() for non-leaf entry in the kernel,
+> (3) is to handle the vmalloc_fault or set the first level of page table
+> and (4) to setup early page table and etc.
+> 
+> Therefore, properly handle this uncommon and problematic pattern, and
+> document the current design of compile-time folded page tables.
+> 
+> This patch is based on mm-unstable.
+> 
+> Future work
+> ===========
+>  - print_bad_page_map() and show_pte() still prints dummy values
+>    instead of printing the same content for all generic compile-time
+>    folded page tables. We might want to skip printing dummy values later.
+> 
+>  - We currently catch abuse of dummy values on the stack at compile-time by
+>    relying on constant propagation by the compiler. Usama's work [3] on using
+>    distinct types for sw vs. hw PTEs could help here as well."
+> 
+>  - Clean up vmalloc fault handling by synchronizing the vmalloc entry on
+>    32-bit architectures. This code is almost identical across architectures.
+> 
+>  - Unfortunately, the current design of compile-time folded page tables appears
+>    to be internally consistent but confusing. For example,
+>    when CONFIG_PGTABLE_LEVELS is 2, p4d, pud, and pmd are expected to
+>    be folded into pgd. However, the architecture code uses set_pmd()
+>    to update the top-level page-table entry, even though it includes pgtable-nopmd.h.
+> 
+>    In the future, it would be good to eliminate this source of confusion,
+>    possibly by treating all folded upper levels consistently as dummy wrappers
+>    around the highest real page-table level:
+> 
+>          NOPGD
+>    --> +------+           P4D
+>        | ptr0 |-------> +------+           PUD
+>        +------+         | ptr0 |-------> +-----+
+>                         | ptr1 |-        | ptr | -------> ...
+>                         | ptr2 | \       | ptr |
+>                         | ptr3 |  \        ...
+>                           ...      \
+>                                     \        PUD
+>                                      +----> +-----+
+>                                             | ptr | -------> ...
+>                                             | ptr |
+>                                               ...
+> 
+> Link: [1] https://lore.kernel.org/all/0019d675-ce3d-4a5c-89ed-f126c45145c9@kernel.org/
+> Link: [2] https://lore.kernel.org/all/20251113014656.2605447-1-samuel.holland@sifive.com/
+> Link: [3] https://lore.kernel.org/r/74182e50-b54f-4d2d-a27f-3a59a538d6bc@arm.com
+
+I applied all 21 patches to the declared base and built and booted the
+kernels before and after on x86_64 and arm64 using virtme-ng.
+
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+
+> 
+> Patch History
+> =============
+> from RFC v3 to v1:
+>   - Drop and rebase for CONFIG_X86_DIRECT_GBPAGES and use the Dave's
+>     patch (https://lore.kernel.org/all/20260902194718.E1FF3041@davehans-spike.ostc.intel.com/)
+>   - Link to RFC v3: https://lore.kernel.org/r/20260902-dummy_ptxp3-v3-0-5d8f5b17c25c@arm.com
+> 
+> from RFC v2 to RFC v3:
+>   - repasre commit message
+>   - move ptdump_pgtable_first_level() into pgalloc.h
+>   - skip the huge pud operation when CONFIG_X86_DIRECT_GBPAGES is disabled
+>   - docuemtns compile-time folded page table
+>   - drop the applied patch.
+>   - Link to RFC v2: https://lore.kernel.org/all/20260722-dummy_ptxp3-v2-0-d9e4bad31e0a@arm.com/
+> 
+> from RFC v1 to RFC v2:
+>   - Restore slient fallback to next pXd in set_pXd() and pXd_pgtable()
+>     and add check whether they're called with dummy entry.
+>   - Add some comment for returning first entry of pgd in arm with
+>     2 pgtable-level
+>   - Link to RFC v1: https://lore.kernel.org/all/20260713135614.1618183-1-yeoreum.yun@arm.com/
+> 
+> ---
+> Dave Hansen (1):
+>       x86/mm: Introduce helper for checking direct map 1G page support
+> 
+> David Hildenbrand (Arm) (13):
+>       ARM: mm: make nommu pgd_t a scalar
+>       ARM: mm: make 2-level pgd_t a scalar
+>       ARM: mm: remove custom pgdp_get()
+>       LoongArch: mm: define pud_leaf() only when PUD exists
+>       MIPS: mm: define pud_leaf() only when PUD exists
+>       mm/pgtable: define (pgd|p4d|pud)_leaf() for folded page tables
+>       mm/pgtable: define (pgd|p4d|pud)_offset_lockless() for folded page tables
+>       openrisc/pgtable: drop __pmd_offset()
+>       mm/pgtable: optimize pmdp_get() and friends for folded pagetable levels
+>       mm/pgtable: catch abuse of folded dummy pgd_t/p4d_t/pud_t
+>       mm/pgtable: disallow calling (pgd|p4d|pud)_page, pgd_page_vaddr() and (p4d|pud)_pgtable with dummy
+>       mm/pgtable: disallow calling folded set_pgd/set_p4d/set_pud with dummy
+>       Documentation: mm: clarify behaviour of compile-time folded page tables
+> 
+> Yeoreum Yun (7):
+>       mm: vmscan: remove stack copy address of pud/pmd pass in walk_pud/pmd_range()
+>       loongarch: kvm: remove stack copy address of pXd in pXd_offset()
+>       riscv: kvm: remove stack copy address of pXd in pXd_offset()
+>       riscv: mm: use proper set_pXd() for generic compile-time folded patable in vmalloc_fault()
+>       mm/pgtable: redefine PGTABLE_LEVEL enum with ascend order from PGD
+>       x86: mm: use pgtable_level enum in effective_prot_pXd()
+>       x86: mm: carve out the generic compile-time folded pgtable case in effective_prot()
+> 
+>  Documentation/mm/page_tables.rst            | 84 +++++++++++++++++++++++++----
+>  arch/arm/include/asm/page-nommu.h           |  4 +-
+>  arch/arm/include/asm/pgtable-2level-types.h | 20 +++++--
+>  arch/arm/include/asm/pgtable.h              |  2 -
+>  arch/arm64/include/asm/pgtable.h            | 23 --------
+>  arch/loongarch/include/asm/pgtable.h        |  2 +
+>  arch/loongarch/kvm/mmu.c                    | 20 ++++---
+>  arch/mips/include/asm/pgtable.h             |  2 +
+>  arch/openrisc/include/asm/pgtable.h         |  3 --
+>  arch/riscv/kvm/mmu.c                        | 20 ++++---
+>  arch/riscv/mm/fault.c                       | 52 +++++++++++-------
+>  arch/x86/include/asm/pgtable.h              | 14 +++++
+>  arch/x86/kernel/cpu/common.c                |  2 +-
+>  arch/x86/kernel/machine_kexec_64.c          |  2 +-
+>  arch/x86/mm/dump_pagetables.c               | 18 ++++---
+>  arch/x86/mm/init.c                          |  2 +-
+>  arch/x86/mm/pat/set_memory.c                |  6 +--
+>  include/asm-generic/pgtable-nop4d.h         | 54 +++++++++++++++----
+>  include/asm-generic/pgtable-nopmd.h         | 54 +++++++++++++++----
+>  include/asm-generic/pgtable-nopud.h         | 56 +++++++++++++++----
+>  include/linux/pgtable.h                     | 69 +++++++++++++++++-------
+>  mm/vmscan.c                                 |  4 +-
+>  22 files changed, 371 insertions(+), 142 deletions(-)
+> ---
+> base-commit: 8d61431ed2607386b427752505379536eb634ce8
+> change-id: 20260722-dummy_ptxp3-3741d78cc70f
+> 
+> Best regards,
+
+
+-- 
+Thanks,
+Usama
