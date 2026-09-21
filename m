@@ -1,124 +1,188 @@
-Received: from mta0.migadu.com (out-27.mta0.migadu.com [91.218.175.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D828E4A3D20
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:04:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4864A3407;
+	Mon, 21 Sep 2026 14:04:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999483; cv=none; b=QK4DVoHWir13R/2dtai550pIlNULLWjivnOFanpQaKNpptZEW/UDlrnDgyCo80ii2MQD8DWbZwhB4kETMo0B06EdnJ4EAUq3AGTaPh/s1do6XaXnxcM/VxxhEjm1dUSV/dfUt9Vzc6X3cSfpT95rW2IIC7BJuIPJF5w5riJNQaA=
+	t=1789999491; cv=none; b=Qzc9ZLEYVjZGHHrQmSgr7n5G5KCCbeiQV6jlh3Br2kMzkDVy1aDNJcoyIzHTuUIXbDNmCYZp7ci9XMk6wtVeheWNlFoEAXIVWzW1Y2JUoYSVc3/21OF9k/imB5Ic5DzbUV6VAC0nwm1Ttk0wXKQKQgz1ln4lg56sTY1vzI0IuG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999483; c=relaxed/simple;
-	bh=kGLTqSDqNKduog1GOtZuGMpqVSeUXQY7T0QuU7Ou3ok=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QWGAmri2V9EunyH6wOWc+GWQ1O/oW8xtLTFcJmyGNWhz7dDuHOMn9epeXv/nm2UPzLugjzv/FmbRdJcOODrAjscvRMdqIolylpiJ6c2b6+vlE7uAO8U42txKY4V506229qxaAP7AuWhbwJ6WkeB0KySiX6EdZWTDyvNXIOPJhog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gfbW+RT9; arc=none smtp.client-ip=91.218.175.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789999491; c=relaxed/simple;
+	bh=wDzL7ubQ3VJHCTQpvWmfEl1tp5YhwoLORt71FwFlY44=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sZVQoY3ZZZMRRmoI0X9HCUrdDmB6yOGurV0ND6mWJrCl3Pwzwa1sXACfsCkxYZNvtA/tmzi73NEawsM/0HT9/lTIgWLnelC0kNTMnDXBd/MyeiHv/56I63pZCZ5vh2mfCgRY4AbqTjZRF1OXqX8tKmLhFKFpNk8mnA0TN20hrLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SWfG+fnM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gfbW+RT9"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kGLTqSDqNKduog1GOtZuGMpqVSeUXQY7T0QuU7Ou3ok=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789999479; v=1; x=1790604279;
- b=gfbW+RT93Hjow0l4m8ocQrvGpouLVMfsueC2VZt4se6who03ngRCK3TcgOvXcU0dDoFDFMtX
- Pibd/GCJfdn/mig5X5NFPtFdh5CxEI2MBzq82yP1fy8akDIF+UGBsTq6kF1M84km7wFVNnNGHZb
- AoP1k0eBW4yUvW3PIr4wpq68=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 295205c3151231b2;
-	Mon, 21 Sep 2026 14:04:29 +0000
-X-Mizu-Trace-ID: 295205c3151231b2
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Zenghui Yu <zenghui.yu@linux.dev>,
-	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH 0/3] KVM: arm64: timers: Program CVAL from the current count when the hardware won't apply the offset
-Date: Mon, 21 Sep 2026 15:04:24 +0100
-Message-Id: <20260921140427.2211373-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SWfG+fnM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D5FA2C2BCB8;
+	Mon, 21 Sep 2026 14:04:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789999490;
+	bh=wDzL7ubQ3VJHCTQpvWmfEl1tp5YhwoLORt71FwFlY44=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=SWfG+fnM1lZMlge2IYR6cy2O42HjvOh8otEufX2wNdgJ4eVmq9U6SoeOfe0G9AXCG
+	 KZOdYGnJiQseyhPb6Z8cniZ3lx3BKmRzHTHDlyEHD/HJXNvlejD+qDEH11aZb+i9cC
+	 Seye3Edmarg+g9j/KVZk8jl25Xh6oMm1FKI4kMxxUi0kt/rqlmySXoV7lMoyPuP/i8
+	 RXpo4vZPxFPLXqDZGKOO/jPejwWORTmyOjkU3ZDdxQ5ACT0pbafSOk1QhqIyZvo6dE
+	 q0SApUWbNixLrf2ID+zs7ftci33igIxSuT8Qbz0ZgPi6yf/p1BFoXf/A72Ydtt+ern
+	 yEuBW9T1cUUqQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1DBFC982E1;
+	Mon, 21 Sep 2026 14:04:50 +0000 (UTC)
+From: Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org>
+Date: Mon, 21 Sep 2026 07:04:47 -0700
+Subject: [PATCH] RDMA/rtrs-clt: Fix recv repost to satisfy ib_drain_rq
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-rtrs-fix-ib-drain-rq-v1-1-11b1637958ba@proton.me>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBCF4auQWTNJ2wS0XsW4gM6o46LqDBCSh
+ rtTZfkl7/0FjFXY4NIUUF7E5J0rfNtAeg75wShUDcGF3sXgUSc1vMuKMiLpIBn1i72ndO7I0am
+ LUK8f5Tr5Z6+3wzaPL07TrwXbtgOecvaveAAAAA==
+X-Change-ID: 20260921-rtrs-fix-ib-drain-rq-61dc85d0d759
+To: "Md. Haris Iqbal" <haris.iqbal@ionos.com>, 
+ Jack Wang <jinpu.wang@ionos.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, 
+ Danil Kipnis <danil.kipnis@cloud.ionos.com>
+Cc: Jack Wang <jinpu.wang@cloud.ionos.com>, linux-rdma@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Farhad Alemi <farhad.alemi@berkeley.edu>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789999487; l=4263;
+ i=quanyeyang@proton.me; s=20260801; h=from:subject:message-id;
+ bh=jdc5f+VeX4vAQ0/q8YB5nswDUjlqTyT+yz3ZwEQCWWY=;
+ b=+awDQrn+dez9ucZjiFAkkNLaPHDRTNQIeM5P7NDol8KqpSlUy1wmgTg9CugVwqJom/A2cBEA9
+ aGVHk5ZyiFkArqRyHQcyNqHRjqw64nAXv8JeKgelmeP+Mbfrw/kzFa6
+X-Developer-Key: i=quanyeyang@proton.me; a=ed25519;
+ pk=9L9FrcvzMgxPaBRU6XV0EnqTgjDqVO596rQKSZ9qZoY=
+X-Endpoint-Received: by B4 Relay for quanyeyang@proton.me/20260801 with
+ auth_id=963
+X-Original-From: Quanye Yang <quanyeyang@proton.me>
+Reply-To: quanyeyang@proton.me
 
-Hi folks,
+From: Quanye Yang <quanyeyang@proton.me>
 
-A guest timer can fail to fire, or fire early, once the guest's counter
-is far enough from the host's. Where the hardware won't apply the
-offset itself (the physical timer without CNTPOFF_EL2, a CNTPOFF_EL2
-host while TGE is set, the virtual timer on x1e), KVM adds it to CVAL
-and lets the hardware compare the sum against the raw counter. The
-timer condition is an unsigned compare, and adding the offset to both
-sides of it preserves it only while both sums wrap or neither does: a
-guest whose counter is ahead of the host's by more than CVAL has an
-expired timer that never fires, and one behind it can have a far-future
-timer fire at once.
+On disconnect the client error recovery path calls ib_drain_qp(), which
+requires one free RQ slot and that no recv WQEs are posted while the
+queue is being drained.
 
-Patch 1 computes the programmed value from the current count instead,
-and returns a guest hypervisor's own physical CVAL from memory where it
-used to subtract the offset from the hardware value. Patch 2 does the
-same for the virtual CVAL read on x1e, which has returned CVAL + offset
-since the workaround landed. Patch 3 adds the second case, a guest
-behind the host with a far-future timer, to arch_timer_edge_cases.
+The legacy recv completion path deferred reposting invalidate receives
+and instead posted two empty recv WQEs when handling RDMA-with-IMM
+responses marked with invalidation.  If an invalidate receive never
+arrived, each such response increased RQ occupancy by one until
+ib_post_recv() started returning -ENOMEM and __ib_drain_rq() failed with:
 
-So far it has only shown up in the selftest, which moves the guest
-counter half its range away from the host's. On a VHE host without
-CNTPOFF_EL2 arch_timer_edge_cases hangs in its physical cval = 0 cases
-until the vCPU is next loaded, which is what Zenghui saw on a
-Kunpeng920 [1]. On a CNTPOFF_EL2 host (QEMU, here) the same cases
-livelock instead. Both go away with patch 1. The arithmetic is wrong
-for any offset once one sum wraps and the other doesn't, and the fix
-for the selftest's case should be the fix for all of them.
+  failed to drain recv queue: -12
 
-Tested with arch_timer_edge_cases on QEMU with [2] applied, under VHE,
-nVHE and pKVM, and under VHE with CNTPOFF_EL2 removed by
-id_aa64mmfr0.ecv=1, the host class Zenghui hit. Under VHE with patch 1
-reverted the new case fails. QEMU's TCG has a separate bug with the
-same offsets, which [2] fixes. Without it the test stalls under nVHE
-and pKVM as well, where KVM emulates the physical timer and patch 1
-changes nothing. Not exercised here: patch 1's x1e paths in
-timer_save_state() and timer_restore_state() and all of patch 2, since
-nothing here runs on an x1e, and patch 1's CNTP_CVAL_EL0 read in
-kvm_hyp_handle_timer(), which only a guest hypervisor with a physical
-offset on a host without CNTPOFF_EL2 reaches.
+Repost one empty recv WQE for every receive completion, including legacy
+SEND_WITH_INV invalidates, and only while the path is still connected
+so CQ polling cannot race with ib_drain_qp().  Size IO connection RQs to
+2 * queue_depth + 1 to match the posted recv count and leave the drain
+slot.
 
-Patch 1 carries Cc: stable for the hang and the livelock.
+Tested with a synthetic RTRS client flooding unpaired
+RTRS_IO_RSP_W_INV_IMM messages; error recovery no longer triggers
+__ib_drain_rq() warnings.
 
-Based on Linux 7.3-rc3 (fd73f4a665989).
+Fixes: 6a98d71daea1 ("RDMA/rtrs: client: main functionality")
+Signed-off-by: Quanye Yang <quanyeyang@proton.me>
+Tested-by: Quanye Yang <quanyeyang@proton.me>
+Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+Link: https://lore.kernel.org/linux-rdma/CA+0ovCihE2_pxLimjmmR8NMz4g-ie8dvvq1jmAj-Om33y3Vzfg@mail.gmail.com
+---
+ drivers/infiniband/ulp/rtrs/rtrs-clt.c | 45 ++++++++++++----------------------
+ 1 file changed, 15 insertions(+), 30 deletions(-)
 
-Cheers,
-/fuad
+diff --git a/drivers/infiniband/ulp/rtrs/rtrs-clt.c b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
+index eac38b57b00d..ee6d5c3de16c 100644
+--- a/drivers/infiniband/ulp/rtrs/rtrs-clt.c
++++ b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
+@@ -577,25 +577,21 @@ static struct ib_cqe io_comp_cqe = {
+ 	.done = rtrs_clt_rdma_done
+ };
+ 
+-/*
+- * Post x2 empty WRs: first is for this RDMA with IMM,
+- * second is for RECV with INV, which happened earlier.
+- */
+-static int rtrs_post_recv_empty_x2(struct rtrs_con *con, struct ib_cqe *cqe)
++static int rtrs_clt_repost_recv(struct rtrs_clt_con *con)
+ {
+-	struct ib_recv_wr wr_arr[2], *wr;
+-	int i;
++	struct rtrs_clt_path *clt_path = to_clt_path(con->c.path);
++	int err;
+ 
+-	memset(wr_arr, 0, sizeof(wr_arr));
+-	for (i = 0; i < ARRAY_SIZE(wr_arr); i++) {
+-		wr = &wr_arr[i];
+-		wr->wr_cqe  = cqe;
+-		if (i)
+-			/* Chain backwards */
+-			wr->next = &wr_arr[i - 1];
+-	}
++	if (READ_ONCE(clt_path->state) != RTRS_CLT_CONNECTED)
++		return 0;
+ 
+-	return ib_post_recv(con->qp, wr, NULL);
++	err = rtrs_post_recv_empty(&con->c, &io_comp_cqe);
++	if (err) {
++		rtrs_err(con->c.path, "rtrs_post_recv_empty(): %pe\n",
++			 ERR_PTR(err));
++		rtrs_rdma_error_recovery(con);
++	}
++	return err;
+ }
+ 
+ static void rtrs_clt_rdma_done(struct ib_cq *cq, struct ib_wc *wc)
+@@ -650,19 +646,7 @@ static void rtrs_clt_rdma_done(struct ib_cq *cq, struct ib_wc *wc)
+ 			rtrs_wrn(con->c.path, "Unknown IMM type %u\n",
+ 				  imm_type);
+ 		}
+-		if (w_inval)
+-			/*
+-			 * Post x2 empty WRs: first is for this RDMA with IMM,
+-			 * second is for RECV with INV, which happened earlier.
+-			 */
+-			err = rtrs_post_recv_empty_x2(&con->c, &io_comp_cqe);
+-		else
+-			err = rtrs_post_recv_empty(&con->c, &io_comp_cqe);
+-		if (err) {
+-			rtrs_err(con->c.path, "rtrs_post_recv_empty(): %pe\n",
+-				 ERR_PTR(err));
+-			rtrs_rdma_error_recovery(con);
+-		}
++		rtrs_clt_repost_recv(con);
+ 		break;
+ 	case IB_WC_RECV:
+ 		/*
+@@ -678,6 +662,7 @@ static void rtrs_clt_rdma_done(struct ib_cq *cq, struct ib_wc *wc)
+ 
+ 			return  rtrs_clt_rkey_rsp_done(con, wc);
+ 		}
++		rtrs_clt_repost_recv(con);
+ 		break;
+ 	case IB_WC_RDMA_WRITE:
+ 		/*
+@@ -1693,7 +1678,7 @@ static int create_con_cq_qp(struct rtrs_clt_con *con)
+ 		clt_path->s.dev_ref++;
+ 		/* QD * (REQ + RSP + FR REGS or INVS) + drain */
+ 		max_send_wr = min(wr_limit, clt_path->queue_depth * 4 + 1);
+-		max_recv_wr = min(wr_limit, clt_path->queue_depth * 3 + 1);
++		max_recv_wr = min(wr_limit, clt_path->queue_depth * 2 + 1);
+ 		max_send_sge = 2;
+ 	}
+ 	atomic_set(&con->c.sq_wr_avail, max_send_wr);
 
-[1] https://lore.kernel.org/r/460258be-0102-e922-c342-4e87cd94b9e5@huawei.com
-[2] https://lore.kernel.org/qemu-devel/20260921074451.3158645-1-fuad.tabba@linux.dev/
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+change-id: 20260921-rtrs-fix-ib-drain-rq-61dc85d0d759
 
-Fuad Tabba (3):
-  KVM: arm64: timers: Compute an offset-applied CVAL from the current
-    count
-  KVM: arm64: nv: Read a guest hypervisor's CNTV_CVAL_EL0 from memory on
-    x1e
-  KVM: arm64: selftests: Test a timer set past the counter's wrap
+Best regards,
+--  
+Quanye Yang <quanyeyang@proton.me>
 
- arch/arm64/kvm/arch_timer.c                   | 27 +++++++++----------
- arch/arm64/kvm/hyp/vhe/switch.c               | 21 +++++++++------
- include/kvm/arm_arch_timer.h                  | 15 +++++++++++
- .../kvm/arm64/arch_timer_edge_cases.c         | 25 +++++++++++++++++
- 4 files changed, 65 insertions(+), 23 deletions(-)
-
--- 
-2.39.5
 
