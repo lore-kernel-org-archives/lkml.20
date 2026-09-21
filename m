@@ -1,150 +1,116 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f31.google.com (mail-wr2-f31.google.com [74.125.225.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233E732E121;
-	Mon, 21 Sep 2026 09:06:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194ED45D5F5
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:07:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789981617; cv=none; b=iQrTbmxzXzUC7m6y4GI//3H5IUan+CymYYsLGRK6q/i/59ueeFd3k3pstcAlEasi/8g1o9Gt9K+uC8CN8JaccE5KbhavP23YtLWP+Pun/2t/9CB8mvL44k+rCmoeK8u0do8DUK/QkfUwHw8P0JvQotkx4VrpoQOqs+/rS87MSek=
+	t=1789981626; cv=none; b=icJr5nyjW6VuHvWssyuT3kRk1lXYbxyk0rY8cF1RTtc5qe40acd+UT49XK8L/VyI4UiySz1oRMBCREJNMhpBTK/QABXwPvQrTvz+UfwPY3gh659PPp9irtcR+H6BuKiw/frC0wAMsBKNS4LCUtifi1Fr0pQXijd1qkOpcqeGabI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789981617; c=relaxed/simple;
-	bh=STo49Godg6DLVIS4A3fquG3iQwdFcMAQTL+yZDX8aAM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=GG/HtFQ5RALPqELGqc1QWdhoFcvsnH+fNcg33AlVOo1UtMzS0LzaXGdLwh8dd8t1RFtJQ7PEOfqoHyGPhG+atuCLYuNx1qtPUIaYfvSOUNp8bvRSL+WiA9EPFhwgWBYioEhBVwBFZY1dkPOTtUZWJKoSWILp3fQLWBzuxFqASgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=ibOsf5Hw; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1789981626; c=relaxed/simple;
+	bh=iDIhe959ua/SikBJ74bK34sKU4nfDpfOT2s06pZ7mig=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BBEn9uVeQIRwu7cFwr355SpIkAdsuD//J1eB0cFbGojLFX2GwaXNeqf3bi0KL9SEVtvcNF9fuHetVOGZkE0abNQtymxgrxhxj385r/tDdazdiB4PKTdDmt577eUUQoTBGAWKHiHjooJjp8oH4y5Ix9dvZIx898kxUiwNXHR3Axo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=LcELMFTc; arc=none smtp.client-ip=74.125.225.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="ibOsf5Hw"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e8e7465e;
-	Mon, 21 Sep 2026 17:06:43 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Breno Leitao <leitao@debian.org>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH v4 1/3] fs: configfs: add helpers for opening non-configfs paths
-Date: Mon, 21 Sep 2026 17:05:57 +0800
-Message-Id: <20260921090559.41364-2-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260921090559.41364-1-runyu.xiao@seu.edu.cn>
-References: <20260921090559.41364-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="LcELMFTc"
+Received: by mail-wr2-f31.google.com with SMTP id ffacd0b85a97d-4843c2790ccso1609379f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:07:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google; t=1789981623; x=1790586423; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=o2+7ioR7GiR1kYXn+2PMvzz5CAFkiiDN0weZk3Op38I=;
+        b=LcELMFTc9uCxsSJTqGY/uWTl8h54WwZk68BjEP8XitQPa+JtVy78n+pzQSDaW+gkE0
+         GMh5qqobPeEZB3tmcS/YexxustrXGFzm2S/n8rHeT6pQINeSusjVySCv8xVQuz+zO4Ev
+         9UFJ7R7lb5RO8ai63/xIRLaDj59wdBfmtY1Y0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789981623; x=1790586423;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o2+7ioR7GiR1kYXn+2PMvzz5CAFkiiDN0weZk3Op38I=;
+        b=IbQCF3CRq+QdqKzdp++bFH1wwOrQej0oakQ8QfOTZ8nlzv+93voETlGRIycqGE33Vh
+         V4XG85Vz55YIv3IIJKJu7Jc3t5bi/1OlYSQOZzmwEkANJm1aFw2Nttgfdngdy5Ad8q5r
+         twopeBiueYbO5eCJrHiB2XwhuNWH8VdN0bWBbAAmOU5Of3s55CMhB4eiRvv7Rl3Ld6CX
+         pYlqXd+LaZsfw+0tDlMe9CS84wMZZ7Se53CBq5wYxzsG+9420WeygMZWA6no3Ff/M+cp
+         AYXG96teqRQ/pF+KSScBGAj2tjgCdVZiZp7dXkJOH9LjNKRFFOCHUpvcS7o52OWGSRIL
+         aSWA==
+X-Gm-Message-State: AFuF++lNkiYRYIPmja+7BL8RSOWWiFM7pUaVik00S+1jcjhz+bQdx37U
+	00+VgV7aIsmqCW36B3ecxF4jxzWFmsi2Fgx1ZiS1C60llGc0VRBBHXC5PuN/K4H39L0=
+X-Gm-Gg: AYBFou2mAnDDwjMOhLMJ9S1IFkpZDDFFnqFzquMaWVsCVhzqEYbbea00RezfIJCCVj+
+	9/AaRidruEpWSfX3yn2tHA6B6bZB3HF156QupXgQJsu4bpysj06D5ZNOm8LY7Rg1PqywdWHr61P
+	QdQ5ujvFLrZDKw/tOUmYb4C7uTVgKoCJfXN6Kpss2BFPVvMqUlKirBojWOidCt8RY+U7boCECWj
+	nEdVpLhq0jnBcu9CZVpP/TQks0vO3RO+OWGRGsbNzd3vfm3oHQ8Cyhh4creJZ0QU88sUSh+1Fvl
+	kPiSfspA3cEe2tZs0aONiHN2YBBnonRNAXU3W/eSjl1YlLxk5y+l4ib052BmXVJLInGK14nJxYL
+	zf/v8F5jBeeflCaUpCg+liAQ3Y9d9MSd86cyhERuwb/E5nq6BLUJ2GDNeTokbuqbbGCnDmG+7On
+	JcxxIRJnwMYjNnIkfnv+O7C0kkJNv6B4F//VjoD1+EcFfBZmOYK/ncMTm6TRM9YVA2rxfnxhTm4
+	pjDBtMHSOIhhNJ53Mkq
+X-Received: by 2002:a05:6000:4287:b0:487:f37:7ece with SMTP id ffacd0b85a97d-4871dfacddcmr20021033f8f.0.1789981622977;
+        Mon, 21 Sep 2026 02:07:02 -0700 (PDT)
+Received: from cabron.k.g (lan.nucleusys.com. [92.247.61.126])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487245636f2sm20225040f8f.17.2026.09.21.02.07.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 02:07:02 -0700 (PDT)
+Date: Mon, 21 Sep 2026 12:06:59 +0300
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	dinguyen@kernel.org, arnemaximilian.richter@draeger.com,
+	martynas.grybauskas@draeger.com
+Subject: Re: [PATCH v6 3/3] arm: dts: altera: add Draeger M48 CPU Module
+Message-ID: <20260921090659.GD14552@cabron.k.g>
+References: <20260917163157.1380860-1-petko.manolov@konsulko.com>
+ <20260917163157.1380860-4-petko.manolov@konsulko.com>
+ <20260918-strategic-hairy-kelpie-46e807@quoll>
+ <20260920075924.GC7878@cabron.k.g>
+ <042c39d5-0642-4bcd-b965-61fce77b52ae@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0c337b5c503a1kunm2bb71b5a41172
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGk9JVh5JSh5LSUkYSEhDSlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=ibOsf5HwXz/CY07TG0jgmH5PQqIvHGw4W50Q2zgE9wHBO5rZQ4/iMcnilDDCpnZhXL8guqo9PoDEkQ6v6pxo4/8bdlhh2CNuoix7QQxTvOuKo7HOMlJVgzthd7ZvN4NgRO45MCbm0sxlhzmcvnlUjJW6rrZmyvfNBtb7dlkWdm0=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=FrHsZaSHjKajBX0rdMRb30xqwkz5sNsC48iENtcmYd8=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <042c39d5-0642-4bcd-b965-61fce77b52ae@kernel.org>
 
-Configfs store callbacks may open user-configured paths while holding an
-item frag_sem. Opening a configfs path from such a callback can re-enter
-configfs and try to acquire the same semaphore.
+On 26-09-20 11:52:36, Krzysztof Kozlowski wrote:
+> On 20/09/2026 09:59, Petko Manolov wrote:
+> > On 26-09-18 13:57:22, Krzysztof Kozlowski wrote:
+> >> On Thu, Sep 17, 2026 at 07:31:56PM +0300, Petko Manolov wrote:
+> >>> Draeger M48 CPU Module that is built around Altera SoCFPGA.
+> >>
+> >> How can you run a CPU module alone? To my knowledge there is only one such
+> >> case, only one exception, and it was explained by the authors. If this is
+> >> second, I already asked you to properly explain the hardware in commit msg.
+> > 
+> > I've described the board/carrier/module/whatever in the cover letter.  When i
+> 
+> Cover letters do not matter. We don't read them and they usually do not end up
+> in the git history. Your commit must stand on its own, not rely on cover
+> letter.
 
-Add helpers that reject configfs paths by comparing the actual filesystem
-type and open the resolved path with file_open_root(), preserving normal
-open-time permission and security checks. Provide a root-relative form for
-callers that retain a resolved root and may create a file below it.
+Fair enough.  Shall i drop cover letters entirely?
 
-Assisted-by: LLM Codex
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- fs/configfs/mount.c      | 33 +++++++++++++++++++++++++++++++++
- include/linux/configfs.h |  6 ++++++
- 2 files changed, 39 insertions(+)
+> > put the same text in the commit message Sashiko rejected the patch on the
+> > grounds that there should be just one CPU architecture there.  But there are
+> > two.
+> 
+> Sashiko cannot reject a patch. Does not have such abilities nor power.
 
-diff --git a/fs/configfs/mount.c b/fs/configfs/mount.c
-index d8cac1cbf3bd5..77e1788ce2372 100644
---- a/fs/configfs/mount.c
-+++ b/fs/configfs/mount.c
-@@ -13,6 +13,7 @@
- #include <linux/module.h>
- #include <linux/mount.h>
- #include <linux/fs_context.h>
-+#include <linux/namei.h>
- #include <linux/pagemap.h>
- #include <linux/init.h>
- #include <linux/slab.h>
-@@ -118,6 +119,38 @@ static struct file_system_type configfs_fs_type = {
- };
- MODULE_ALIAS_FS("configfs");
- 
-+bool configfs_path_is_configfs(const struct path *path)
-+{
-+	return path->dentry->d_sb->s_type == &configfs_fs_type;
-+}
-+EXPORT_SYMBOL_GPL(configfs_path_is_configfs);
-+
-+struct file *configfs_open_root(const struct path *root, const char *name,
-+				int flags, umode_t mode)
-+{
-+	if (configfs_path_is_configfs(root))
-+		return ERR_PTR(-EINVAL);
-+
-+	return file_open_root(root, name, flags, mode);
-+}
-+EXPORT_SYMBOL_GPL(configfs_open_root);
-+
-+struct file *configfs_file_open(const char *filename, int flags, umode_t mode)
-+{
-+	struct file *file;
-+	struct path path;
-+	int ret;
-+
-+	ret = kern_path(filename, LOOKUP_FOLLOW, &path);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	file = configfs_open_root(&path, "", flags, mode);
-+	path_put(&path);
-+	return file;
-+}
-+EXPORT_SYMBOL_GPL(configfs_file_open);
-+
- struct dentry *configfs_pin_fs(void)
- {
- 	int err = simple_pin_fs(&configfs_fs_type, &configfs_mount,
-diff --git a/include/linux/configfs.h b/include/linux/configfs.h
-index ef65c75beeaad..768132b2be1ae 100644
---- a/include/linux/configfs.h
-+++ b/include/linux/configfs.h
-@@ -34,6 +34,8 @@ struct configfs_group_operations;
- struct configfs_attribute;
- struct configfs_bin_attribute;
- struct configfs_subsystem;
-+struct file;
-+struct path;
- 
- struct config_item {
- 	char			*ci_name;
-@@ -243,6 +245,10 @@ void configfs_unregister_subsystem(struct configfs_subsystem *subsys);
- int configfs_register_group(struct config_group *parent_group,
- 			    struct config_group *group);
- void configfs_unregister_group(struct config_group *group);
-+bool configfs_path_is_configfs(const struct path *path);
-+struct file *configfs_open_root(const struct path *root, const char *name,
-+				int flags, umode_t mode);
-+struct file *configfs_file_open(const char *filename, int flags, umode_t mode);
- 
- void configfs_remove_default_groups(struct config_group *group);
- 
--- 
-2.34.1
+It does influence your decisions, though.
 
+> Regardless its comment was right - your description was between incomplete to
+> confusing.
+
+You do realize your comments mostly criticize, but do very little to actually
+help resolve the issues, don't you?
+
+
+		Petko
