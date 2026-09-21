@@ -1,263 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f7.google.com (mail-lr2-f7.google.com [74.125.230.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEE5342510;
-	Mon, 21 Sep 2026 06:14:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69708367B8F
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:15:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789971295; cv=none; b=Bd0aEow9R8t39bP1M3NluRbtykaFr0XEj/VvbmGb9wkUVHbIG5naqd+BUx429RuZ9e1lDp1rfH3p0Hp/HKoCSgiStGFXScX6f2jQR4RXwmqZlf6YGg0Kb8x9p4DK8zLWYfj1M0K9P29jb3GNTiKuwrjoVSGbpbCV+qltKbv/BYE=
+	t=1789971312; cv=none; b=KpmNW4zOg9eY+PIAEeCXckUoW/AWLnZYpxd2WK1ShJ9XTPpR4nb8fxE/8ueeq8MLvQFNOpClEkJ8a3mZdNlJgX3QL9zSXRzcTAtoQvJWfMxGkcO3rW5jbv5kBKCQEdWJ8J353HW1TQABNTzo9t6sx06lAWlrjeCNrfDbQsYJNeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789971295; c=relaxed/simple;
-	bh=zOyxF+1hk66rKAJGQAzFrvPZu+zRtvpZYooaNQRegZ4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FaCPdAHDLMTcgAJ/ZCuvnQqAAnytl/Fwl+WT4SBfSbHZ1iXveId9ZdIqxxgFyiozg+THiZ7Yzl7Sve728BBNjt2KVmAuRdrwp1BxVcTDzgl3H0CQTf9gKkjWT0XPBEkm+C5cBcSwkKz5gJE1t475NF7R/s63JQ/+c4Lql1bd/54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kLENm7CE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789971312; c=relaxed/simple;
+	bh=sV5QPs7DGYBPvqnJ7zT3vnO9o4CqLIZs3EEy4fJGu5o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iWPM3I1qEzVteVAidvl4SOYXMupi3lnQFGZad04ufCKHzImXK07oxyCzit8FaNZdfgUrUprCikLFEQSP+7+wQ2cWg/iIVnbwemACbsEjxhVJdadk/k5pXurFUrm0NmreV2FSx8wB3MUq5ldZkgcxy7IhYaGRuc8MwDX9Yf3Bm1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ki+hoG2d; arc=none smtp.client-ip=74.125.230.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kLENm7CE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4EDC1F000FF;
-	Mon, 21 Sep 2026 06:14:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789971294;
-	bh=MoL+BdwkTASRRJmhmbQMt2aU1tXNMx56eteYlxyyjNk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kLENm7CEqAqCDNWf+DMGmeTWbJTAaO1BUkICywZN55OTvFOUNGCvSi40ghLdG7uxC
-	 lvlUtuv2x6oqu2cCV5+p3MWnvicQR4M97WHbuyxB0e1dHFV91HyOGmLrexXsKlMKuP
-	 kotvsjCz2hSjWzfZ92UF9zyAt0i6yru2iDU0jXbZYXdvnKePLq40TB28NgwJ2BSzmf
-	 SCtPgKS6kCiHFZdluOB+GdeBTHdTPLu6xtf1dDzykWRfOiy9cJiuyyT80uZSCByTfZ
-	 z0/0igImC0ncdNp7j7vX/MZeiCsd1zXOJQQ/kgQ7qzZ0ycvdK2w4gq8KR4t1P3Mj64
-	 C8rjC3dep39Cw==
-Date: Sun, 20 Sep 2026 23:14:52 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Subject: Re: [PATCH 2/7] perf dwarf-aux: Add die_same_file() and
- die_get_type_die()
-Message-ID: <arDLXEmaFaC64I8I@z2>
-References: <20260919204027.8504-1-acme@kernel.org>
- <20260919204027.8504-3-acme@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ki+hoG2d"
+Received: by mail-lr2-f7.google.com with SMTP id 38308e7fff4ca-3a5abfab93bso19785801fa.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 23:15:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789971308; x=1790576108; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fuvF+SRLtU99nQlp2cXtrtRQVtC6maysR3JY+sX0IuU=;
+        b=Ki+hoG2dgElKjTuWJovhLh6if2bZBfaMh7tSjk00I1lpc9ai4LKH56g/YNScyxflVT
+         /fcvX1aXW9sKQhUDb+BYpDzMpRhg5fr59P8HKz9Cczs3uDqPgm3M7O1cchyT8v/lxzab
+         YdMIfAY64edIxeio+lEylxd+W+wINk7h5ARsLrZJOV6eK26mCuvWYtNdzbmTPTP1bOEG
+         HX3V6w1W1O5CcnjYBhg4lYEyoHpZ6oEjxY9GDr/kT7P7sF8VLk5IjYTLATon+n1gxsF8
+         /XocNsvFdnOtcbCnvXCd5YGy8AE26Sz1EYKE2ocd4tKNK3+H9cWxuKKSlF1iHBFmGV9k
+         spLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789971308; x=1790576108;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fuvF+SRLtU99nQlp2cXtrtRQVtC6maysR3JY+sX0IuU=;
+        b=tfR5fCYwlhfSQHKXTVoJBO3Wymy0KnGDxmw5Ib0ZcjB3QHFOPdc++eH3MybNeU07dP
+         ItzrPKftlEJ7YSWntQDqh+/2Lk0d7a+DSkSbu0WXqTD37CFlqQjXPSCBMCb9bsgndfbi
+         xvWwqFzyYKg6K68ZL8/4BiJ3w3w4of18YJbKnQaYY08bs1nfK8HsUbbxm/EFIDgBIgzx
+         jjocNk8rt0XVtTt6tmMDEZww5DaslWb3vFRVEwqPxNkOt91/H9/bP2xHsPBq6rLPimy0
+         /VyUK52H5JV+r1XqkLECq1eDrFD/4sTtYxBAyz5GXmg37qpkUmqjMDCrKIdh4aAu3DFd
+         8dJA==
+X-Forwarded-Encrypted: i=1; AKwUvBxAjSqprsvewImNzORmYHn01on4idDRdYrMpPBVGC+J7c0+XqWZ5jUEZP1jiLt3gttrygGG+RTqrMG7b/I=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwAi/YQ7tX4SoKTVk2dRvl/98j4i7QgnRbr6q0v++7W9HuxMKx
+	0mzXmRw5sTPXo2z0oKeQyMZML2PEka5uaSvtnLY6k2Gfwi2mPDRdnwmz
+X-Gm-Gg: AYBFou1xchDfRwCHuvOB9JvIQcb+XkzdtawozN2LaNHScqUVNQmdruCO0v+CHA28yfg
+	Jv6pBpOGL2uqVN7/vGwW060sxFdv179+ctJcbvJl+lDaJDtyXTjsPkzCVUhx3UlNckih++2si6V
+	r4qX86dkfeY7WARIo0bWFlLa+zpKC7Pp5F6xdLzo8cEwICKGIjRBm+srBP3Spymeoxy4Hu5Hpp5
+	/5s6DjYs5MIsbMVNCqgeYT+4gJMi+Hias24adEnj1/g363UjfZRI9y93KEprLsUi1/g9zlARRTF
+	KgPMWvsb2E3DB8n656dALFSt+mR3xuVJeB+TaO8QWBC2KbLtcQ9hhk5a59lV2TkNFXssxsRA5zs
+	ihw6jt8OJSqwdpCmvrk/zU2+OC2aQpXd8GoJaJIfvUSSVwZezC+fa39w/YChaYY9mbSoVfkZ4U4
+	JPH0xf3QE7PFFAMb/N/S6Y1qn7ysmLZ/fLzMYmkaaARp8HCQ5TUfBoQNMqFmGOFpz0pgkn6fblq
+	SGq7IgAieg+hgx/
+X-Received: by 2002:a05:6512:1090:b0:5b6:183c:5c9f with SMTP id 2adb3069b0e04-5b8c195a1c4mr3040448e87.61.1789971307991;
+        Sun, 20 Sep 2026 23:15:07 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8c78c1398sm1691835e87.7.2026.09.20.23.15.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 23:15:07 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	=?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>,
+	HyeongJun An <sammiee5311@gmail.com>,
+	bui duc phuc <phucduc.bui@gmail.com>,
+	Kyle Zeng <kylebot@openai.com>,
+	HanQuan <eilaimemedsnaimel@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10] ALSA: seq: Clear variable event pointer on read
+Date: Mon, 21 Sep 2026 09:14:53 +0300
+Message-ID: <20260921061454.6421-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260919204027.8504-3-acme@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-+Cc Masami
+From: Kyle Zeng <kylebot@openai.com>
 
-On Sat, Sep 19, 2026 at 05:40:22PM -0300, Arnaldo Carvalho de Melo wrote:
-> From: Arnaldo Carvalho de Melo <acme@redhat.com>
-> 
-> dwarf_dieoffset() is relative to the file the DIE is in, so an offset
-> saved by die_collect_vars()/die_collect_global_vars() is only
-> meaningful in that file: add die_same_file(), comparing the Dwarf each
-> DIE's CU belongs to, to record which file that is, and
-> die_get_type_die() to resolve the offset in it, with the saved tag as a
-> sanity check.  Resolving the offset in the main file instead parses
-> whatever is at it when it came from the dwz common file.
-> 
-> dwarf_cu_getdwarf() is new in elfutils 0.160, so the libdw feature test
-> probes for it and Makefile.config says 0.160.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-> ---
->  tools/build/feature/test-libdw.c | 13 ++++++-
->  tools/perf/Makefile.config       |  2 +-
->  tools/perf/util/dwarf-aux.c      | 62 ++++++++++++++++++++++++++++++--
->  tools/perf/util/dwarf-aux.h      | 17 +++++++++
->  4 files changed, 90 insertions(+), 4 deletions(-)
-> 
-> diff --git a/tools/build/feature/test-libdw.c b/tools/build/feature/test-libdw.c
-> index aabd63ca76b4d7e6..0ebe7bb4adf9d0bc 100644
-> --- a/tools/build/feature/test-libdw.c
-> +++ b/tools/build/feature/test-libdw.c
-> @@ -49,8 +49,19 @@ int test_elfutils(void)
->  	return 0;
->  }
->  
-> +/*
-> + * dwarf_cu_getdwarf() needs elfutils 0.160: take its address only, so
-> + * that older versions fail the probe instead of the link.
-> + */
-> +int test_libdw_cu_getdwarf(void)
-> +{
-> +	void *sym = (void *)dwarf_cu_getdwarf;
-> +
-> +	return sym == NULL;
-> +}
-> +
->  int main(void)
->  {
->  	return test_libdw() + test_libdw_unwind() + test_libdw_getlocations() +
-> -	       test_libdw_getcfi() + test_elfutils();
-> +	       test_libdw_getcfi() + test_libdw_cu_getdwarf() + test_elfutils();
->  }
-> diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
-> index 4ee7393a39f91d85..0585d71e3182c6dd 100644
-> --- a/tools/perf/Makefile.config
-> +++ b/tools/perf/Makefile.config
-> @@ -470,7 +470,7 @@ else
->    else
->      ifneq ($(feature-libdw), 1)
->        ifndef NO_LIBDW
-> -        $(warning No libdw.h found or old libdw.h found or elfutils is older than 0.157, disables dwarf support. Please install new elfutils-devel/libdw-dev)
-> +        $(warning No libdw.h found or old libdw.h found or elfutils is older than 0.160, disables dwarf support. Please install new elfutils-devel/libdw-dev)
->          NO_LIBDW := 1
->        endif
->      endif # Dwarf support
-> diff --git a/tools/perf/util/dwarf-aux.c b/tools/perf/util/dwarf-aux.c
-> index b5ffeea54446408d..de14d18a9d2f87d8 100644
-> --- a/tools/perf/util/dwarf-aux.c
-> +++ b/tools/perf/util/dwarf-aux.c
-> @@ -1680,6 +1680,16 @@ Dwarf_Die *die_find_variable_by_addr(Dwarf_Die *sc_die, Dwarf_Addr addr,
->  	return result;
->  }
->  
-> +/*
-> + * Whether two DIEs live in the same debug file, i.e. whether their
-> + * offsets have to be resolved in the same file: dwarf_dieoffset() is
-> + * relative to the file the DIE is in.
-> + */
-> +bool die_same_file(Dwarf_Die *die_a, Dwarf_Die *die_b)
-> +{
-> +	return dwarf_cu_getdwarf(die_a->cu) == dwarf_cu_getdwarf(die_b->cu);
-> +}
-> +
->  static int __die_collect_vars_cb(Dwarf_Die *die_mem, void *arg)
->  {
->  	struct die_var_type **var_types = arg;
-> @@ -1724,6 +1734,8 @@ static int __die_collect_vars_cb(Dwarf_Die *die_mem, void *arg)
->  			vt->is_reg_var_addr = true;
->  
->  		vt->die_off = dwarf_dieoffset(&type_die);
-> +		vt->die_tag = dwarf_tag(&type_die);
-> +		vt->from_alt = !die_same_file(die_mem, &type_die);
->  		vt->addr = start;
->  		vt->end = end;
->  		vt->has_range = (end != 0 || start != 0);
-> @@ -1743,7 +1755,8 @@ static int __die_collect_vars_cb(Dwarf_Die *die_mem, void *arg)
->   *
->   * Save all variables and parameters in the @sc_die and save them to @var_types.
->   * The @var_types is a singly-linked list containing type and location info.
-> - * Actual type can be retrieved using dwarf_offdie() with 'die_off' later.
-> + * Actual type can be retrieved using die_get_type_die() with 'die_off',
-> + * 'die_tag' and 'from_alt' later.
->   *
->   * Callers should free @var_types.
->   */
-> @@ -1789,6 +1802,8 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
->  		return DIE_FIND_CB_END;
->  
->  	vt->die_off = dwarf_dieoffset(&type_die);
-> +	vt->die_tag = dwarf_tag(&type_die);
-> +	vt->from_alt = !die_same_file(die_mem, &type_die);
->  	vt->addr = ops->number;
->  	vt->end = 0;
->  	vt->has_range = false;
-> @@ -1800,6 +1815,48 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
->  	return DIE_FIND_CB_SIBLING;
->  }
->  
-> +/**
-> + * die_get_type_die - Get a type DIE saved by die_collect_vars()
-> + * @dbg: the main debug info
-> + * @die_off: offset of the type DIE, from dwarf_dieoffset()
-> + * @die_tag: tag that DIE had when the offset was saved
-> + * @from_alt: whether the type DIE is in the dwz alt file
-> + * @die_mem: where to store the resulting DIE
-> + *
-> + * Resolve @die_off in the file it was recorded as belonging to: the
-> + * offset is only meaningful there, and there is deliberately no
-> + * fallback, as resolving an alt file offset in the main file parses
-> + * whatever is at it.  @die_tag is a sanity check.
-> + */
-> +Dwarf_Die *die_get_type_die(Dwarf *dbg, u64 die_off, int die_tag, bool from_alt,
-> +			    Dwarf_Die *die_mem)
-> +{
-> +	Dwarf *target = dbg;
-> +	Dwarf_Die die;
-> +
-> +	if (from_alt) {
-> +		/*
-> +		 * No fallback to the main file: resolving an alt file offset in it
-> +		 * does not fail, it parses whatever is there as a DIE.
-> +		 */
-> +		target = dwarf_getalt(dbg);
-> +		if (target == NULL) {
-> +			pr_debug("DWARF: no alt (dwz) debug file to resolve the type DIE at offset 0x%lx in\n",
-> +				 (unsigned long)die_off);
-> +			return NULL;
-> +		}
-> +	}
-> +
-> +	if (dwarf_offdie(target, die_off, &die) && dwarf_tag(&die) == die_tag) {
-> +		*die_mem = die;
-> +		return die_mem;
-> +	}
-> +
-> +	pr_debug("DWARF: no DIE with tag %d at offset 0x%lx in the %s debug file\n",
-> +		 die_tag, (unsigned long)die_off, from_alt ? "alt" : "main");
-> +	return NULL;
-> +}
-> +
->  /**
->   * die_collect_global_vars - Save all global variables
->   * @cu_die: a CU DIE
-> @@ -1807,7 +1864,8 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
->   *
->   * Save all global variables in the @cu_die and save them to @var_types.
->   * The @var_types is a singly-linked list containing type and location info.
-> - * Actual type can be retrieved using dwarf_offdie() with 'die_off' later.
-> + * Actual type can be retrieved using die_get_type_die() with 'die_off',
-> + * 'die_tag' and 'from_alt' later.
->   *
->   * Callers should free @var_types.
->   */
-> diff --git a/tools/perf/util/dwarf-aux.h b/tools/perf/util/dwarf-aux.h
-> index 161f0bf980b6ee6a..299ffddab0358baa 100644
-> --- a/tools/perf/util/dwarf-aux.h
-> +++ b/tools/perf/util/dwarf-aux.h
-> @@ -152,6 +152,8 @@ int die_get_scopes(Dwarf_Die *cu_die, Dwarf_Addr pc, Dwarf_Die **scopes);
->  struct die_var_type {
->  	struct die_var_type *next;
->  	u64 die_off;
-> +	int die_tag;
-> +	bool from_alt;	/* die_off is relative to the alt (dwz) file */
->  	u64 addr;
->  	u64 end;        /* end address of location range */
->  	int reg;
-> @@ -183,6 +185,21 @@ Dwarf_Die *die_find_variable_by_addr(Dwarf_Die *sc_die, Dwarf_Addr addr,
->  /* Save all variables and parameters in this scope */
->  void die_collect_vars(Dwarf_Die *sc_die, struct die_var_type **var_types);
->  
-> +/*
-> + * Get the type DIE saved by die_collect_vars()/die_collect_global_vars().
-> + *
-> + * Those save the dwarf_dieoffset() of the type DIE, which is relative
-> + * to the file it lives in, so @from_alt, recorded when the offset was
-> + * saved, says which file to resolve it in; @die_tag is a sanity check.
-> + * Resolving an alt file offset in the main file parses whatever is at
-> + * it, which is what hung 'perf report -s type'.
-> + */
-> +Dwarf_Die *die_get_type_die(Dwarf *dbg, u64 die_off, int die_tag, bool from_alt,
-> +			    Dwarf_Die *die_mem);
-> +
-> +/* Whether two DIEs live in the same debug file */
-> +bool die_same_file(Dwarf_Die *die_a, Dwarf_Die *die_b);
-> +
->  /* Save all global variables in this CU */
->  void die_collect_global_vars(Dwarf_Die *cu_die, struct die_var_type **var_types);
->  
-> -- 
-> 2.53.0
-> 
+commit 705dd6dcbc0ea87351c660c1a6443f85f1001c76 upstream.
+
+snd_seq_read() copies a queued variable-length event header to userspace
+before expanding the payload. Queued variable-length events use
+SNDRV_SEQ_EXT_CHAINED internally, and data.ext.ptr points at the first
+extension cell.
+
+The read side strips SNDRV_SEQ_EXT_* bits from data.ext.len before the
+copy, but it leaves data.ext.ptr untouched. A userspace sequencer client
+can therefore write a direct variable event to itself and read back the
+extension-cell kernel address from the returned header.
+
+Clear the temporary header pointer before copy_to_user(). The original
+queued event remains unchanged and is still passed to
+snd_seq_expand_var_event(), so payload expansion keeps using the
+internal chain.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Link: https://patch.msgid.link/20260607004129.61345-1-kylebot@openai.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+---
+Backport fix for CVE-2026-74339
+
+ sound/core/seq/seq_clientmgr.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
+index 0363670a56e7..27c8af14a39e 100644
+--- a/sound/core/seq/seq_clientmgr.c
++++ b/sound/core/seq/seq_clientmgr.c
+@@ -441,6 +441,7 @@ static ssize_t snd_seq_read(struct file *file, char __user *buf, size_t count,
+ 			struct snd_seq_event tmpev;
+ 			tmpev = cell->event;
+ 			tmpev.data.ext.len &= ~SNDRV_SEQ_EXT_MASK;
++			tmpev.data.ext.ptr = NULL;
+ 			if (copy_to_user(buf, &tmpev, sizeof(struct snd_seq_event))) {
+ 				err = -EFAULT;
+ 				break;
+-- 
+2.53.0
+
