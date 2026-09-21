@@ -1,155 +1,145 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35DBB2F8E95
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:25:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A0DB22D7A9
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:30:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789961160; cv=none; b=iNUKAvinJwbME9nqktfSVqHTcq7sHuo7BeqwdbV2vFLnoPiK9uDnm1tVGZoduYrOuLPMa4VkA+ujB/Qu2lv0C0bie2z/5kUvcE4Cn9lWXtmzndwTXnvaCCIrUwLeJSdF3ECMd8AnbWrw/NoIvAoofaa/2XCFo+zxBW8iDogY8LE=
+	t=1789961402; cv=none; b=O1lNx9y7whOnbcOOom/yrBI34sKc7h0GU9IY8yeLRiXrprmbK+bLIH7fsLC47qLlHf6B44d2QacNGS6ybwHsRGe0I1A11GgeZI1plPTkmhiAQRzfDMWzYhd3ZlT7r9/OILsOa1lBQbxaE9I8VkFQvdOBWwUgUONtPizX0KW2JPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789961160; c=relaxed/simple;
-	bh=g+A9hiqbjdRm1wxc94/jFX4bCS9hLPFOLeL9XnppuiA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=earnXROvEBg1XHAilOf6KRccUIY6HezwPMTiTuvVIBDDcxAGBPkD18tB13ME7L6gXQiwXkw6reqBq0EZ5T/WclTfBDx8UFyuKiMiSwnLYP1uZQ2wjbniX0XVT4H+nJ7SYmKsRoH8KCHNn/xTCNnZ/zNqwHUmxoeFedinESloV10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U6nx24SI; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789961402; c=relaxed/simple;
+	bh=tHUYK0nDBUMFLT2NCanIpdqGAgNC478FK1eCjuiQQWY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Oi2LOovT2y+5AwpHrdFykg0ZtkD3JBsEicW/v7ffF8JOclYPCwJ4z7y5ppWBEPa/M/3UilX+7vHp1k3m7pAohjNsnlycuXHhl339lMvTERFRuyPL0el+BchhkizH9MQctZ9KhvGELCcq5q5wmg6LiJcGnlWJebisnup/3sZEO2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=G73Y8qHS; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U6nx24SI"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398c066106cso1935509a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 20:25:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="G73Y8qHS"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910a0cefaso229795785a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 20:30:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789961158; x=1790565958; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ahFIIwQaTlAjng+rA2gaDe9OuP97cH36xpLgGOlzKso=;
-        b=U6nx24SIR7GarxQ2uXF/iDnqcW4ELWEfjlA0qUwrtqp91LHwJjMpxELtWhv+h8uvtx
-         U7pMM3l36kDlJo4My18hwSdZ/+Wgku3or0ZRrSFtdRo9hWuybN+aaZC0n164Wo5yKE0n
-         WF9TDtvGHNb37Lo3/hSLa4Pbw83FonqsExxZ0I3E8d98ANGS9+rJisLy/wWp42Tt6Kfa
-         NvW2rUVd6MsThAHvba5d4Z8ZYJeAi+MS01CAFFuzIStLL33y91cMWb6hvYuBK71KJyVD
-         ycQGs/sT/U+cxtAzHOBNFg9TElXx/dxSO1+ctNNiFEJKpilGjF5CMHA1FqMx8+3luyez
-         dHcA==
+        d=gourry.net; s=google; t=1789961399; x=1790566199; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ycUlz7DSy4nva9AM8PqQHd06zeVWx1ZyueB3ugH+fHQ=;
+        b=G73Y8qHS+k6hi/84WwjPKNcdSJrVhXvaQDlpAsBXsHdO4ttx5ikcFxMLiYY7uLibyq
+         laOcRZJaP2jnozGNGJw9w8OftwbValaRvWSnHave80l9NBViKPEo5Dd8mD/cgz4wTS0F
+         bZ6hUY4NDWFiIW1O/Wd3Q1Vu/y4mIbxpzfRirGWm9jq1kC4UY63tyMwAiN65knS16A6w
+         AupkI+vOmb6H73nWOHLiVodNKZ9OMlkHAVCPjgtHtpieCpBpqB1+jwQ31RmBSRnEH5Au
+         QdWEYHX9TI7iL164hOxuTV5fEiycoMtMU9sRVG/ukUYP3H/OhJBVHWS5O/ak8s8c8PZ7
+         mBEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789961158; x=1790565958;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ahFIIwQaTlAjng+rA2gaDe9OuP97cH36xpLgGOlzKso=;
-        b=iMltAByhChhwRCg9FfppHpNDLFOC02Tpbzcl1GGdvAuFE0HV4ymj/IlIrIZCa53kzM
-         CxscUA2b/XS/id+fmnKuwR57vopMs0j15VBYrVpZ/lFXXwavceYlkRSaxckjHEM2ZOZh
-         95QBcRF1kbOsQpeJ6wRFKiRKHldzWVEl4RPW5olMPcY/RwCp5V6uF2pTDjjjfRL65lmz
-         xvvJk8uRtKjui2mAQAg6U/2mWR+Htf1c9U3zj98duxA2bLtHvd2ro2Kez+ujnnx+j/+0
-         rIal5mJQK/g3OlZCwp5V++x7IK11DcXuMKQea/doNtI8jxj2m8VCzxqmGNkuby71swG7
-         Ds3A==
-X-Forwarded-Encrypted: i=1; AKwUvBwXw8Q5kcMD0bb9wkFBGSDHRI5KEZ9hJ0E7ECFHekMpxdyUsz+KQ7VXVF+UyTQ7uIdfUmHCM1qwAYtRO0k=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5wYcAWf0kvNC57dp0cAZemPeqxpjY6S0blFCCTwF8YMiY/1Vh
-	1AZgYHsIAeVhhesWeMsVFFEi4byaAt4cd3AZ1epxzWizljOXqTJIj5Q5
-X-Gm-Gg: AYBFou0WgacFNsUx5cOpWvl+dkqIujSnP1TT9v6sgQZ7xiVsPCrw/YMHXWZv+9VpITp
-	DkyFXrM0G+1sEKIrAiI7mqffjd6L2MbK1mItEhYrAfSWorCVVCGwNTHnWRRRp4hh6a2onQakcox
-	UGg3qViXHy1K0Co6gseFSt7Ytg79kqs9VsN225XtyLH7T/q8ii9/uuj06Bw/St4EIJ6o60h6wvW
-	jAZDj5p6yiCAPuQb54ZsFGeMRYVBzgbcHV9mqREe3aKVfNifvT96uL56UkkOtadRyBQKm8e+H9w
-	IMDPrEGs3p0/vzaZdxFmjUc0pVf0Rfo4xhJtqSusga1eu9Ayi8AR89NMKKnBxaKn7wP5DewnWpO
-	jlufGMEzhVY4+G/nac7m/qKu/ZW/5p3CWXvGkcCD0Ni4BrtG+0rVdCmb1QB/oU2MvkMwIs3OcCS
-	ont+EPCiq9z1jXyj79veCf2HFJcrAGJ7RL04J/BaYipSP7SPnrwXT8fjVQ/CShUp+zq98tMEQFh
-	7QPfP+4mbdDC6BU5dslQY5BcdKs6F+KKzLkMGf6koqPF9A3PIoVX1KbSzLGcZSesaDcOx6MoXOj
-	jmVY5g13NAY=
-X-Received: by 2002:a17:90b:3bcb:b0:38e:bbf1:de3f with SMTP id 98e67ed59e1d1-39e54eab3e6mr21858131a91.12.1789961158476;
-        Sun, 20 Sep 2026 20:25:58 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5547a04dsm6298293a91.3.2026.09.20.20.25.57
+        d=1e100.net; s=20260707; t=1789961399; x=1790566199;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ycUlz7DSy4nva9AM8PqQHd06zeVWx1ZyueB3ugH+fHQ=;
+        b=rmTOaYK1I+iQappqlePZuEio/GLvBKy0/JVUe8KopKcDioaweUqn1MBGUmqD42+9dE
+         q74lNX4kpn/uAvglHq+5Lo7Zv9JsacZu8spwLmMEupz2JVsEugCMq1XyOI2oK/aguBJv
+         DFvBs34N17z84DIQvSN+P90uUm6aMJV2Nh2NWDQrP4npGFqq4Zp8K5uTtJ4qw+JNxwru
+         syaNczmaJT3oZtDXfI7fANGy/PioaeqE5etFAGE7VnEpLY71vHRGY/EjPA4Flc3zWRa/
+         rRFmJwYCMAXMa4mO2VkNoqSD2FDLQcOL7dQQ8vhk4cR2laIZ5HARu/Ghw3h9Ww/iGCIk
+         ZnTA==
+X-Forwarded-Encrypted: i=1; AKwUvBwp0xljw1dotZQIUWsjhYty6tNrWUvUeZ3qLt7JZxipYlczEjdxpq8k0VI+x+U/eblZBRzcS1OXnr1u2WQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7n9b29nVpLOAGou8Og8cNIiJ3JTtie3PrjEyKQ+2rLL3ThJVB
+	QEMxJSaOqIB7JEK47w+n03IGDkMjQjiKj15y+OGL5BVLf8MKRMjyV8OUfXxIg/AQsDk=
+X-Gm-Gg: AYBFou23ZHAGEuZPW59JbDHkyzE2yqxkw76lGfJaDLS8/hDRCKs9/ngkJSTt7HV4qlb
+	Uu7wv2hw9a0/Hn2wFFit+3JSN5H8tNF1ViKslW52fFFa5ixV4uX47O+X+JFDGW5DD7B86supNrd
+	CKQbhwJmpcFKSiVC4aOyic8qFnbc4XR3tcStU7/rAlIU6pNIl29sZAarOgPyL9ziPCvGv8FKuuI
+	uqp3vtzzDFsDnwQ5SItvfJmuGxQF0XUhztDhmkbo/IbptEL4ASMgcEw8ECrIIzw5293ihnDbap6
+	mOhTKfoOwuef/om9cM6iQlDbzAfJe3xDD0lchKMNYTOrMhI3+elwPn7a7yxC6HBhFHjwxGDBOmE
+	Xqhpr/I8eHUDwitr2wCVxT3pYxnFggYBFrJyZ4qn4YhtDv/wOqCRJpH2xmtVR6825bp64Fc2K4N
+	OA4cTFgaJg/1whU/Lc5TwGlwz7Zr8UgIP55kYEqCziv8/Ywd6Fs+NWBBQm155OLvuW2yRC2dLGy
+	FsGFhlCroc/xHWx5/quYhJj6Hpmm0nQdUd1PD4p0JO1n0CAjAINtn0=
+X-Received: by 2002:a05:620a:28d3:b0:939:1d67:2231 with SMTP id af79cd13be357-93bf56f85fbmr786905685a.34.1789961399140;
+        Sun, 20 Sep 2026 20:29:59 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93bedaaf901sm553769785a.21.2026.09.20.20.29.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 20:25:58 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>
-Cc: linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v2] ata: libata-scsi: abort multi-sector pass-through commands when multi_count is 0
-Date: Mon, 21 Sep 2026 03:25:55 +0000
-Message-ID: <20260921032556.1160734-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <11314f1d-ee6a-45d1-a7aa-3bc1cca0c82f@kernel.org>
-References: <20260919222625.3797581-1-benquike@gmail.com> <11314f1d-ee6a-45d1-a7aa-3bc1cca0c82f@kernel.org>
+        Sun, 20 Sep 2026 20:29:58 -0700 (PDT)
+Date: Sun, 20 Sep 2026 23:29:55 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Zi Yan <ziy@nvidia.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
+	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
+	brendan.jackman@linux.dev, hannes@cmpxchg.org
+Subject: Re: [PATCH v2 2/2] mm/page_alloc: refactor build_node_zonelist() out
+ of build_zonelists()
+Message-ID: <arCeH_aD5PUM1tNE@gourry-fedora-PF4VCD3F>
+References: <20260912030424.2889731-1-gourry@gourry.net>
+ <20260912030424.2889731-3-gourry@gourry.net>
+ <DLKNHNP6LH59.3MEEBCAJGFEVK@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLKNHNP6LH59.3MEEBCAJGFEVK@nvidia.com>
 
-When an ATA_12, ATA_16, or ATA_32 pass-through command with a
-multi-sector PIO command opcode (ATA_CMD_READ_MULTI,
-ATA_CMD_WRITE_MULTI, ATA_CMD_READ_MULTI_EXT, ATA_CMD_WRITE_MULTI_EXT, or
-ATA_CMD_WRITE_MULTI_FUA_EXT) is submitted via SG_IO on a device where
-multiple-sector mode is not configured (dev->multi_count == 0),
-ata_scsi_pass_thru() currently logs a warning and still dispatches the
-taskfile. When the DRQ interrupt fires, ata_pio_sectors() triggers
-WARN_ON_ONCE(qc->dev->multi_count == 0) and computes
-nsect = min((qc->nbytes - qc->curbytes) / qc->sect_size, 0) = 0, failing
-to transfer any sectors:
+On Sun, Sep 20, 2026 at 10:49:05PM -0400, Zi Yan wrote:
+> On Fri Sep 11, 2026 at 11:04 PM EDT, Gregory Price wrote:
+> > +static void build_node_zonelist(pg_data_t *pgdat, const nodemask_t *candidates,
+> > +				int zlidx)
+> >  {
+> > -	static int node_order[MAX_NUMNODES];
+> > -	int node, nr_nodes = 0;
+> > +	struct zoneref *zonerefs = pgdat->node_zonelists[zlidx]._zonerefs;
+> 
+> Why does build_node_zonelist() need to have a new zlidx instead of using
+> ZONELIST_FALLBACK like build_zonelists_in_node_order() did?
+> 
 
-  ata1.00: invalid multi_count 1 ignored
-  WARNING: drivers/ata/libata-sff.c:666 at ata_pio_sectors+0x27d/0x300
-  Call Trace:
-   <IRQ>
-   ata_sff_hsm_move+0x211/0x22e0
-   __ata_sff_port_intr+0x1c8/0x520
-   ata_bmdma_port_intr+0xa1/0x5b0
-   ata_bmdma_interrupt+0x1f5/0x550
+The intent is to build new zonelist over a set of candidate nodes, and
+it's also just clearer: build ZONELIST_FALLBACK from N_MEMORY.
 
-Per ACS-3 section 7.12.7.21, if IDENTIFY DEVICE word 59 bit 8 is cleared
-to zero (multi_count == 0) and a READ MULTIPLE or WRITE MULTIPLE command
-is received without a preceding successful SET MULTIPLE MODE command, the
-device returns command aborted (ABRT). Per the SAT specification, an ABRT
-error translates to the ABORTED COMMAND sense key with NO ADDITIONAL SENSE
-INFORMATION (0x00, 0x00).
+With this we get:
 
-Fail multi-sector taskfile commands in ata_scsi_pass_thru() with
-ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND, 0, 0) when
-dev->multi_count == 0.
+build_node_zonelists(pgdat, &node_states[N_MEMORY_COMMON], ZONELIST_FALLBACK);
+build_node_zonelists(pgdat, &node_states[N_MEMORY], ZONELIST_PRIVATE);
+#ifdef PAGEALLOC_KTEST
+nodemask_andnot(&private_only, &node_states[N_MEMORY],
+		&node_states[N_MEMORY_COMMON]
+build_node_zonelists(pgdat, &private_only, ZONELIST_KTEST);
+#endif 
 
-Tested in QEMU against Linux 7.3.0-rc3 (-device ide-cf, where
-dev->multi_count is 0) by issuing ATA_CMD_SET_MULTI (nsect=1) followed
-by an SG_IO ATA_16 ATA_CMD_READ_MULTI command: on the unfixed kernel
-this triggers WARNING: drivers/ata/libata-sff.c:666 in
-ata_pio_sectors(), whereas on the fixed kernel it immediately completes
-with sense key ABORTED_COMMAND (0x0b, 0x00, 0x00) and 0 warnings.
 
-Fixes: 1dce589c38c3 ("libata passthru: support PIO multi commands")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
----
-Changes in v2:
-- Report sense key ABORTED_COMMAND (0x00, 0x00) via ata_scsi_set_sense()
-  per ACS-3 and SAT specifications instead of ILLEGAL_REQUEST /
-  invalid_fld, as pointed out by Damien Le Moal.
-- Update the commit description to accurately describe the
-  ata_pio_sectors() WARN_ON_ONCE(qc->dev->multi_count == 0) and 0-sector
-  transfer path and fix the Fixes: tag to 1dce589c38c3.
+> > +static void build_zonelists(pg_data_t *pgdat)
+> > +{
+> > +	build_node_zonelist(pgdat, &node_states[N_MEMORY], ZONELIST_FALLBACK);
+> > +	build_thisnode_zonelists(pgdat);
+> 
+> If build_thisnode_zonelists() means ZONELIST_NOFALLBACK, why
+> cannot build_node_zonelist() imply ZONELIST_FALLBACK?
+> 
 
- drivers/ata/libata-scsi.c | 5 +++++
- 1 file changed, 5 insertions(+)
+thisnode actually means ZONELIST_X+1 as opposed to ZONELIST_NOFALLBACK.
 
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index b3666519b648..29fd6d8d97ce 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -3507,6 +3507,11 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 	if (is_multi_taskfile(tf)) {
- 		unsigned int multi_count = 1 << (cdb[1] >> 5);
- 
-+		if (!dev->multi_count) {
-+			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND, 0, 0);
-+			return 1;
-+		}
-+
- 		/* compare the passed through multi_count
- 		 * with the cached multi_count of libata
- 		 */
--- 
-2.49.0
+Since folks are adamant about not allowing another GFP flag for zonelist
+selection (beyond GFP_THISNODE), the result of this is that all future
+zonelist additions must carry a FALLBACK + NOFALLBACK variant.
+
+The question you actually want to ask is why build_thisnode_zonelists()
+even exists - it should be part of build_node_zonelist()
+
+I can probably follow up this series by just folding eveything into
+
+/* build zlidx and zlidx+1 (nofallback) */
+build_node_zonelists(pgdat, candidates, zlidx);
+
+And add a BUILD_ON_BUG/ASSERT that forces any CONFIG_NUMA to have
+balanced zonelist additions.
+
+But I don't think it's strictly necessary for any of this, and we're
+just shuffling code from one place to another.  Probably I can just add
+that improvement when we add the next zonelist.  In the meantime - this
+makes it easier to add new zonelists as-is (and just makes the code more
+readable).
+
+~Gregory
