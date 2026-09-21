@@ -1,173 +1,332 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B42674BD78B
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:50:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1AE446853
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:50:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790023804; cv=none; b=glwDyuVRLwueT/wSqZFDP6lj4/2u5xJJ9KUl47oIXOUYNZaZ83WOKgqXV2w4wp0pCbH1t6AWQImhStcQyLQjcWJ+1iPdg20ro2ftLALkBpvp0iNQkbX0N3gEXg0zDBI/WnHIPDdAMa0Zif+8nCWKNWC1HTeTAK095IBgXGRxV4o=
+	t=1790023851; cv=none; b=eurNu3LGnEqrbniJg+wchRGILEtz3PYdcN41UL/hNDoBxo4jjEge0kbCARSivU/NZQbw7od34ine+Xq99n7x5d85z6yMkDAPl0KgvXKGzpAD49j8NWS238spMXlzh7q1j8p/kuTdmgR5E8z+PAUQK5qN4WcYWM/hGUh7Eh5KZsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790023804; c=relaxed/simple;
-	bh=iIiqyRbcA3cIM+eEeAukaQFh1R9zIQERaAj281GDdoI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=KUdNmRbfL1CWTFOys65+QzvpxsVgcdBjbf2CX1csrNZBwBwWhqSrOUSmSwWoq0wdlBVAvJSTsLddyK60TP+mm85/H5KJysY0QLhPPCSoU4J/W2NX3QF9qY3MEqnN+2Sv25E0YelqqBcgCAEjIAELbG/R8NDU8ssVZhG9oGtocM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nAoyD4DP; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790023851; c=relaxed/simple;
+	bh=200nLAtn9qL/3H6PIiUZgKhSboJrmJ+If5PphdBQ4Qc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=G9CnREF/96Qiq0j17TRZuXB+RjFtfBXpqK2bJqt30ZpOOcKzwvJrHtiBKDTHIM72cAg3D5qVt0RarnaelB1kfKIsZIfz1LDpsMtPntbXFKQLzyS54b9rpmDilKqsCzJj53SjSpWCQduuoJ4kLQ4wLqAjYkGlkdwpZs42ogzoRlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L7X9uCQq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nAoyD4DP"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so3113108a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:50:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790023799; x=1790628599; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=LqYdy25+yt5D+ERuvD/7CfLubVD4wGgFWt+BB4XJwi8=;
-        b=nAoyD4DPBR8OHSVXSwavEZJTxwSlia0tGmaow/hs/aR73eFuqk8WrjQkZOC2N8xBzD
-         gJ0KJ2ZDP/UoXeKh+eecrOygZW3mQfjtDgs1/C8IKy6YbvSPnC+VrDyIvvBvz6PpeEIA
-         C3CkBQlXcpIrcFRVAIVFPWGFaWBempGN5+XGXJXkM75WL01qV1xBc6a0xrAv+v7dRmdw
-         Ma/S4cXbOnVZT/IdVJSgfNYL5MwxH0ZaTW2kh4A/+23G1NQRTBcZ1QbWeNRAQlG24KhY
-         uPSkV0Wbwqd3AMNRi0AV3BTa07rnVkUKq6X7lCqcgMuP+g2fUyRbgst0Va50Y3ZjIlzE
-         OaaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790023799; x=1790628599;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=LqYdy25+yt5D+ERuvD/7CfLubVD4wGgFWt+BB4XJwi8=;
-        b=BIasYYpSjqa4EHo/ANZCf87vVAtaMmgxGue1g0Yt1fsEgX5IKNxpGmhvScGyk+nCxw
-         CKa7/sGJhwu/ZhcUApUGHbv2lQS02DdyVgHQ+9pBA3TdqtHTupVa+OxktVYX9c38DHwh
-         +qNIgEC3OTslQfdkhXR80qc9CIrnApePyhf4W9DIwttpJXZEXqVAIOdi4BUxG3DCXWah
-         XOIlmojcXbnAwFQHodwavECvoHVReyD1BLZcKS+Q7zm2yCuz4cSagnx5F2PYmxxEzFNB
-         ANzK+yxJJkBPblocSsbWnRZsxUQBmuMRi1OB8eYk7x/pjGjoJFs5E9EQJL2Sjj117WAp
-         ffsw==
-X-Forwarded-Encrypted: i=1; AKwUvBwNs+CHbt1mucqVVW2JmRpRvDy/u+rZTljfN/MLPCF6erj05KFQ1ezzDwTx9KXjull7HdHjS+r/AuspLBQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++knvxpy3Wmev69q2eHc6xSSbeV7xOp+rzVzVbOjzKWVHTVPI87e
-	xTS+hjv2E4ObHKTUe9KpbeGoIFhj6s0jIEkVm5i+HiSP8exAG9GUcEXH
-X-Gm-Gg: AYBFou1lZ0YvCIuv7WR9C+QAIB1vEQVm/chkDIj/9ECR3rndS/bIPTwQPpEeixo1l8y
-	4sjkRYLrQDl9T6kjQ1BkUHs87ME6j2Hxz+LiduLOldGEE89xkelVYgpDbI0OjrCPZWlWw6kXoa6
-	UEytjOt54kcGJ1hRTUxrxdPV9l226eqAo9H8+VOs9Op+6XBx2Y7uUqC4CAMCg4obCFb2pp3UEXp
-	g83VE+a1oIe6KEqOdnLzr1wt08RgumLUGdgexobpD7CmAvFPVqBzVPIgV07i1TeH2+17j8+mZ5S
-	KyJ2urn72SxMImDyJftjEsrQDRSOYOaLaPITXFFBljqBfXFbRpCWYROnkKAacvfzeaiABmtBu1I
-	ONBogyhchSliehAVN25NV7smvGWJtmxzNXTAJ81ICiINlmuNpxZGADVb0mevWyEXevjg8XcVKQT
-	mkyEQSp9BcL5gkb47eSeu5qJ3q0Mg3vi/AVSS9Ly4auDvjLKUK156OMQVSEm2Hjco7pUzOegSIK
-	KCnGhvRDA==
-X-Received: by 2002:a17:90b:2dc3:b0:39d:e9b6:cec9 with SMTP id 98e67ed59e1d1-39e54d36756mr22425406a91.7.1790023798836;
-        Mon, 21 Sep 2026 13:49:58 -0700 (PDT)
-Received: from [163.43.103.131] ([163.43.103.131])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0699ba81esm487826a91.13.2026.09.21.13.49.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 13:49:58 -0700 (PDT)
-From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-Date: Tue, 22 Sep 2026 05:49:56 +0900
-Subject: [PATCH net v3] net: ipv6: keep room for the mac header in
- dst_dev_overhead()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L7X9uCQq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA7F01F0089A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:50:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790023849;
+	bh=jW35yJ7+RnpL2QAo+nhnd7Nq53QwZe1JY6E75LV16WU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=L7X9uCQqZZz/HdEldbJX0Upm0aSMrJ93VpP0TcKNC8+yLH80ePkARjoVv/n/wweSg
+	 0bBEi4ZevotJJmBwRxTz7/S4UW6eLbgIPywNayZNpZZzO67D7BYZuziq0eZMTPQj4i
+	 FIddtUfDevT11qSE11rdZdXcv/L5QlRru+jOLi174S9r6lun0+Hou6aEwMoZp0qwn+
+	 D9lK3cb4TDJ6orK9x+i2gqw5sx0y793eChzNxmRjqCD0Mo6lRmAESR++xYWWgAOw/n
+	 Y1kD+UdBsvfQ5UzzBS5B3E3nNtXLEgJUc58vHVKZf6Abb6ElgoINhnlmKLQ7qucBmp
+	 dDf+Ag78CwLaA==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a302c06eceso26106881fa.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:50:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzBXL9hpF6nEOKPDSmLdZ8OEB/brxYwwurEop8umd24WWhcrm4iYuUUiOLbcnM5DywWdwbanTQf1KMPAxY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kXKKvzHbEPvpXKV1QGFyCq76smuCNPlsxM45Uzv4JcoXOLCZJA
+	Uto90NHJLBAF0xSe24RtHUY3Vwzwb9YeJ8zP3vjRtZctt1p6bpei2JXogdrM5aim8dSjwJNTH7w
+	Yt0/alS6Hv3SV1rNWHn+H+kKQXrXwdT0=
+X-Received: by 2002:a05:651c:222a:b0:3a3:a3:3560 with SMTP id
+ 38308e7fff4ca-3a5fbeb4f1dmr29678601fa.6.1790023848106; Mon, 21 Sep 2026
+ 13:50:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-seg6-maclen-headroom-v3-1-7b2f982ef79d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAHOYsWoC/33NTQ6CMBAF4KuQWVvTHwFx5T2MizIMUGNb0yLRE
- O4u1A0bXb7Jm+9NECkYinDKJgg0mmi8W4LaZYC9dh0x0ywZJJcFr0TJInUFsxrv5FhPugneW5Y
- rrVSFomw0wvL6CNSaV2Iv4GiA6/cYn/WNcFjBtdabOPjwTuOjSOX/O6NggnGJSJjzllfFubPa3
- PfobZoY5RY5/kDkghwaVXLd5nktaYvM8/wBRYsYHxQBAAA=
-X-Change-ID: 20260917-seg6-maclen-headroom-53a339c17dac
-To: Andrea Mayer <andrea.mayer@uniroma2.it>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Justin Iurman <justin.iurman@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yuya Kusakabe <yuya.kusakabe@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3113;
- i=yuya.kusakabe@gmail.com; h=from:subject:message-id;
- bh=iIiqyRbcA3cIM+eEeAukaQFh1R9zIQERaAj281GDdoI=;
- b=owEBbQKS/ZANAwAIASrX0XUqXRtNAcsmYgBqsZh0/Gn73y2UGeE+/oG8+6rdQ8y9GLzqGVuNX
- Zdxf+8iy1CJAjMEAAEIAB0WIQTaB7usAfxNKMeqa6Yq19F1Kl0bTQUCarGYdAAKCRAq19F1Kl0b
- TcioD/4kFK4UP+o0XIUuN/SfPhNMShJbCoY0isVafuAUcs3EgcR4O12fAHrIXnQrQs4KRPlK5VZ
- EOnV2oE8+Iv3NQmjlZX6rFsGCWMJRqN+S9sie94pAXa6DiQplcnxoRTLf9eKoQeM1qQOqGGDzU1
- 5lb6NmF0frSFkTrBFF3vmR+4wYfANjMYQmzvcBYcet/COVIffuL5QEsU1AoKOShQ6Py6pPgg5ex
- ibtSRCOgd4OMi8LNYNexjLdjzKbG6ucvZJu7aLGZnPmnqSIOQXwL5duq1qzzNVcPVOdjfgKXedZ
- 1hC4y0gWQR0NCITS/U4erpz3ODuTbD77mOL03c8ctr4F05FudzrfiRurAEsVnJ9yeKXFUFuoPWR
- MQ1Wg5lIMUkdvq8uII7c3/AxxVGhWdIg819xz+Ed/2ST2XXMQnyeAjRxR1XZyVfX94JL/xG/ZEE
- BQIYxnJXGbK0ApFWXRrlXhhVn/CE4kZTG7AYK+x4i+adfi8RSbK7IQ9bmk2udTQppT+QB/+WOZi
- /QnTDGRakVc9GKF+GHJztvHpb2TBdUaN4txqya0MvJIveHva1OJcMtPFIKEIseeIZllMJYJa2Sr
- sGh3vq68Sq85QfX3wxgw+uufymJ0t53sYL2v0kIeGGCAfZ0JkcDN6xgiQVGmd3sG4EtNPIPV4NI
- +AhiRZuaOPoIzqA==
-X-Developer-Key: i=yuya.kusakabe@gmail.com; a=openpgp;
- fpr=DA07BBAC01FC4D28C7AA6BA62AD7D1752A5D1B4D
+References: <20260904212000.4167880-1-briannorris@chromium.org>
+ <20260904141215.6.I45a794e4452e3df22419acdd8f11e2b788b3413f@changeid>
+ <CAJZ5v0ivQ25s_+fvhSaBJX+F80fjvBsrKtibMf=xEsi6n0FOAw@mail.gmail.com> <arGMJpS5ZU3E8ncx@google.com>
+In-Reply-To: <arGMJpS5ZU3E8ncx@google.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 21 Sep 2026 22:49:17 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0hpFZPpqVks=XMdaK3-s_5AkOW6fM9FLmb_zd4X4gNgcg@mail.gmail.com>
+X-Gm-Features: AcwNN1WvCgB7b844BU9JNoMOeR2RruO3hM7InuGxJnBmqA-ZWlurok_JfuhTYVA
+Message-ID: <CAJZ5v0hpFZPpqVks=XMdaK3-s_5AkOW6fM9FLmb_zd4X4gNgcg@mail.gmail.com>
+Subject: Re: [PATCH 06/11] PM: runtime: Expand introduction with core concepts
+ and structure
+To: Brian Norris <briannorris@chromium.org>
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, linux-kernel@vger.kernel.org, 
+	Len Brown <lenb@kernel.org>, Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org, 
+	Pavel Machek <pavel@kernel.org>, Doug Anderson <dianders@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The seg6, ioam6 and rpl lwtunnels size their skb_cow_head() request as
-the length they are about to push plus dst_dev_overhead(), then push the
-new headers and rebuild the mac header below them with
-skb_mac_header_rebuild().  That rebuild needs skb->mac_len of headroom,
-but dst_dev_overhead() leaves LL_RESERVED_SPACE() of the egress device,
-16 bytes for plain Ethernet.
+On Mon, Sep 21, 2026 at 9:57=E2=80=AFPM Brian Norris <briannorris@chromium.=
+org> wrote:
+>
+> Hi Rafael,
+>
+> Thanks for the review!
+>
+> On Thu, Sep 17, 2026 at 09:59:36PM +0200, Rafael J. Wysocki (Intel) wrote=
+:
+> > On Fri, Sep 4, 2026 at 11:20=E2=80=AFPM Brian Norris <briannorris@chrom=
+ium.org> wrote:
+> > >
+> > > I commonly see people have difficulty learning how runtime PM works
+> > > because of the following key points [*]:
+> > >
+> > >  1) there are several boolean concepts in runtime PM, with somewhat
+> > >     similar meanings:
+> > >
+> > >      enabled / disabled
+> > >      active / suspended
+> > >      allowed / forbidden
+> > >
+> > >  2) if these concepts are documented at all, they're scattered across
+> > >     the kerneldoc or Documentation/
+> > >
+> > >  3) the runtime_pm.rst docs don't make any attempt to ease a reader i=
+nto
+> > >     understanding the concepts, and instead jump straight into how it=
+'s
+> > >     implemented (queues, 'struct device' fields, helpers).
+> > >
+> > > Let's try to remedy this a bit by discussing the core concepts and
+> > > highlights at the top of the introduction, and introduce a few
+> > > sub-headings, so it's easier to navigate different aspects of the
+> > > introduction.
+> > >
+> > > While shuffling the intro around, I also see that the existing text
+> > > largely mirrors the layout of the following sections (2, 3, and 4), b=
+ut
+> > > does so out of order. Reorder those, and point to section numbers.
+> > >
+> > > [*] In addition to API complexity. I count 61 pm_*() helpers, 7 of wh=
+ich
+> > >     are variations of put() and 8 of which are variations of get().
+> > >
+> > > Signed-off-by: Brian Norris <briannorris@chromium.org>
+> > > ---
+> > >
+> > >  Documentation/power/runtime_pm.rst | 87 +++++++++++++++++++++++-----=
+--
+> > >  1 file changed, 68 insertions(+), 19 deletions(-)
+> > >
+> > > diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power=
+/runtime_pm.rst
+> > > index 39fdeeda7a1e..620b6988deca 100644
+> > > --- a/Documentation/power/runtime_pm.rst
+> > > +++ b/Documentation/power/runtime_pm.rst
+> > > @@ -11,31 +11,80 @@ Runtime Power Management Framework for I/O Device=
+s
+> > >  1. Introduction
+> > >  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > >
+> > > -Support for runtime power management (runtime PM) of I/O devices is =
+provided
+> > > -at the power management core (PM core) level by means of:
+> > > -
+> > > -* The power management workqueue pm_wq in which bus types and device=
+ drivers can
+> > > -  put their PM-related work items.  It is strongly recommended that =
+pm_wq be
+> > > -  used for queuing all work items related to runtime PM, because thi=
+s allows
+> > > -  them to be synchronized with system-wide power transitions (suspen=
+d to RAM,
+> > > -  hibernation and resume from system sleep states).  pm_wq is declar=
+ed in
+> > > -  include/linux/pm_runtime.h and defined in kernel/power/main.c.
+> > > -
+> > > -* A number of runtime PM fields in the 'power' member of 'struct dev=
+ice' (which
+> > > -  is of the type 'struct dev_pm_info', defined in include/linux/pm.h=
+) that can
+> > > -  be used for synchronizing runtime PM operations with one another.
+> > > +Runtime power management (or runtime PM, sometimes shortened to RPM)=
+ allows
+> > > +individual I/O devices to transition between high and low-power stat=
+es
+> > > +dynamically while the system is running, conserving power without wa=
+iting for a
+> > > +system-wide sleep state.
+> > > +
+> > > +Core Concepts
+> > > +-------------
+> > > +
+> > > +Understanding runtime PM requires distinguishing between several pai=
+rs of
+> > > +complementary states that operate orthogonally: **active** / **suspe=
+nded**,
+> > > +**enabled** / **disabled**, and **allowed** / **forbidden**.
+> > > +
+> > > +* **Active**: The PM core tracks a device's runtime status as either=
+ **active**
+> > > +  (the device is operational, having completed its resume callback) =
+or
+> > > +  **suspended** (the device is idle or in a low-power state, having
+> > > +  completed its suspend callback), along with transitional **suspend=
+ing**
+> > > +  and **resuming** phases. State transitions are primarily driven by
+> > > +  reference counting: drivers call pm_runtime_get() (or related vari=
+ants)
+> > > +  when the hardware is needed (ensuring the device is active) and
+> > > +  pm_runtime_put() when work completes, allowing the PM core to init=
+iate
+> > > +  suspension (immediately or after an autosuspend delay) once the us=
+age
+> > > +  counter and any active child dependencies reach zero.
+> >
+> > While the above is fine IMV, the enabled/disabled concept is more
+> > fundamental
+>
+> Sure. So perhaps "enabled" should come first in the introduction? And
+> then the (non-orthogonal, per below) relationships can be described when
+> introducing the others?
 
-Where the mac header is longer than that, as it is on ingress through a
-VLAN device with reorder_hdr off, the rebuild runs out of room:
-skb_set_mac_header(skb, -skb->mac_len) computes a negative offset,
-stores it unchecked in the u16 skb->mac_header, and the memmove that
-follows writes skb->mac_len bytes about 64 KB past skb->head.
-Forwarding plain ping6 traffic through such a device reproduces it on
-all five seg6 encapsulation modes and on the rpl and ioam6 inline paths;
-skb->mac_header comes back as 65534 on a 704-byte head.
+Yes, something like that.
 
-Return the larger of the two.  The helper already returns skb->mac_len
-when it has no dst, so this only makes the other branch agree, and it
-covers every caller rather than each call site in turn.
+> > because "active" and "suspended" are not really relevant
+> > when runtime PM is disabled.  Yes, they need to be set properly before
+> > enabling it and there is some complexity related to the integration
+> > with system-wide PM, but generally speaking, if runtime PM is disabled
+> > for a given device, its active/suspended status is irrelevant.
+>
+> I think you've hit on a key point here, which makes it hard to
+> understand RPM sometimes. Indeed enabled-vs-active are not fully
+> orthogonal, but then, I also think your "generally speaking" qualifier
+> is holding a lot of weight here -- there are quite a few ways in which
+> active/suspended are relevant independently of enabled/disabled.
+>
+> For one, an active disabled device *will* prevent its parent from
+> suspending, while a suspended disabled device will not. (Now, is that an
+> *important* state? An expected state? Maybe not really, but it at least
+> clouds a reader's mental model.)
 
-Fixes: 40475b63761a ("net: ipv6: seg6_iptunnel: mitigate 2-realloc issue")
-Fixes: dce525185bc9 ("net: ipv6: ioam6_iptunnel: mitigate 2-realloc issue")
-Fixes: 985ec6f5e623 ("net: ipv6: rpl_iptunnel: mitigate 2-realloc issue")
-Suggested-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-Assisted-by: LLM
-Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
----
-Changes in v3:
-- Fix dst_dev_overhead() itself rather than each of its callers [Andrea]
-- Drop Justin's Reviewed-by from v2, which was given for the per-caller
-  version; the patch no longer touches the files he reviewed
-- Link to v2: https://lore.kernel.org/r/20260918-seg6-maclen-headroom-v2-1-4d370af55b2e@gmail.com
+So there are two things, the status and the reference counters.
 
-Changes in v2:
-- Use max_t(unsigned int, ...) rather than max() [Justin]
-- Make the same change in ioam6_iptunnel and rpl_iptunnel [Justin]
-- Reproduce and verify the fix on those two as well: unpatched, rpl
-  underflows in 12 of 16 probed configurations and ioam6 in 3 of 13,
-  both reaching about 64 KB past a 320-byte head; patched, neither
-  underflows in 18
-- Rewrap the requests so they no longer exceed 80 columns
-- Retitle for net: ipv6, now that the change spans three files
-- Link to v1: https://lore.kernel.org/r/20260917-seg6-maclen-headroom-v1-1-02ccec50f096@gmail.com
----
- include/net/dst.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+The runtime suspend of a parent/supplier is prevented by the latter,
+not by the former, so if you never enable runtime PM for a device or
+otherwise cause the runtime PM reference counters of the parent and
+suppliers to get updated, it will never affect the parent or
+suppliers.
 
-diff --git a/include/net/dst.h b/include/net/dst.h
-index 307073eae7f8..dbedfe72e1fd 100644
---- a/include/net/dst.h
-+++ b/include/net/dst.h
-@@ -455,7 +455,8 @@ static inline unsigned int dst_dev_overhead(struct dst_entry *dst,
- 					    struct sk_buff *skb)
- {
- 	if (likely(dst))
--		return LL_RESERVED_SPACE(dst->dev);
-+		return max_t(unsigned int, skb->mac_len,
-+			     LL_RESERVED_SPACE(dst->dev));
- 
- 	return skb->mac_len;
- }
+However, if you enable runtime PM for a device, you runtime-resume it
+and then you disable runtime PM, the reference counters will remain
+unchanged.
 
----
-base-commit: 9a1599eeb8d18a2113e4cabcbd3bec5a8377dbed
-change-id: 20260917-seg6-maclen-headroom-53a339c17dac
+> And then, reading these 3 helpers, I constantly have to refer back to
+> their implementation:
+>
+>         pm_runtime_active()
+>         pm_runtime_suspended()
+>         pm_runtime_status_suspended()
+>
+> The existence of pm_runtime_status_suspended() (which ignores
+> disable_depth) means I can never fully apply the reasoning you suggest.
+> I need to consider both the disable_depth and the runtime_status when
+> understanding how a device will behave.
 
-Best regards,
---  
-Yuya Kusakabe <yuya.kusakabe@gmail.com>
+Well, as I said above, runtime_status doesn't really matter if
+disable_depth is nonzero.  Reference counters are a different matter,
+which I guess is the source of confusion here.
 
+But basically, nonzero disable_depth really only means that the
+device's runtime PM callbacks cannot run and its status will not
+change unless explicitly updated with
+pm_runtime_set_active/suspended().
+
+> > > +
+> > > +* **Enabled**: Orthogonal to whether a device is currently active or=
+ suspended
+> > > +  is whether runtime PM is **enabled** or **disabled**.
+> >
+> > So it is not orthogonal.
+>
+> Perhaps "independent" is a better term? I agree they're not fully
+> unrelated, but they're also not fully dependent -- active/suspended has
+> significant meaning even when disabled.
+>
+> In any case, I'll try to incorporate some more color about how they do
+> relate.
+
+IMV, "enabled" and "disabled" are not really states, they just tell
+you what can happen to the device and what can be done to it.
+
+"Active" and "suspended" are (meta)states that tell you what has
+happened to the device most recently.
+
+They aren't completely orthogonal (or independent) because "disabled"
+means that whatever has happened to the device recently is now sticky
+until something is explicitly done to it.
+
+> > > This is governed by an
+> > > +  internal disable counter (``disable_depth``). All devices are init=
+ialized
+> > > +  with runtime PM disabled (``disable_depth =3D=3D 1``)
+> >
+> > This is only partially true because the PCI bus type, for instance,
+> > enables runtime PM for all PCI devices and so it is enabled when
+> > drivers get to them.
+>
+> Ack. I had this in mind at some point during the drafting, but when RPM
+> is so complicated, it's hard to choose where and when to document all
+> the exceptions.
+>
+> > > and can also be disabled
+> > > +  during system sleep transitions or explicitly via pm_runtime_disab=
+le(). In
+> > > +  the disabled state, the PM core ignores idle and suspend requests =
+and will
+> > > +  not execute runtime PM callbacks (->runtime_suspend(), ->runtime_r=
+esume(),
+> > > +  ->runtime_idle()).
+> >
+> > Moreover, parent-child and supplied-consumer dependencies are
+> > generally not tracked for devices with disabled runtime PM.
+>
+> Is that really true? A disabled-but-active device still prevents its
+> parents and suppliers from suspending, as far as I can tell.
+
+Well, OK, but I've already covered this above.
+
+> If I can interpret *your* intended mental model: if we intend not to
+> RPM-manage a device, it should be left disabled and suspended, in which
+> case it will generally be ignored by RPM. (Or alternatively:
+> disabled-but-active is not generally an expected long-term "steady"
+> state.)
+
+Right.  More precisely, its references to the parent and suppliers
+need to be dropped.
+
+> But if that's all true, I'm still not sure what to document, to balance
+> focus and simplicity (for an introduction) vs covering all the edge
+> cases and complexities. Perhaps for an intro: we start with
+> "enabled/disabled", and suggest that if a driver never touches RPM (and
+> never "enables" the device), RPM mostly stays out of the way.
+
+I would do that.
+
+> But if we want to opt into RPM, then we enable() (and then start to
+> think about active/suspended, per the 2nd key state).
+
+Well, actually enable() may need to be preceded with taking references
+to the parent and suppliers.
+
+> [ Side note: since you mentioned PCI... that gets into a real-world case
+>   of confusion: I've dealt with PCI driver authors that want to "prevent
+>   runtime PM" in their driver [*], since they hadn't finished validating
+>   all the runtime_suspend/resume behavior for a particular device. In
+>   that case, pm_runtime_disable() was actually an OK choice, because the
+>   PCI device was already active. But if they applied your quoted
+>   reasoning, they'd have to choose something else. (And frankly, they
+>   probably should.) But would that be forbid()? Or get()? That's exactly
+>   the sort of question I'd hope this document can help clarify.
+>
+>   [*] ...yes, the PCI bus purposely holds a usage count, requiring
+>   drivers to opt into RPM by pm_runtime_put_noidle() or similar... But
+>   the question arises nonetheless, when people aren't really RPM
+>   experts, and they're dealing with vendor drivers with odd code
+>   structure. ]
+
+I can totally agree that this whole thing is not easy to use.  I'm not
+sure though if it might be made (much) easier to use TBH.
