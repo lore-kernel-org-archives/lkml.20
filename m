@@ -1,124 +1,106 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC022C15A0;
-	Mon, 21 Sep 2026 10:00:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7242D8DA8
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:00:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984831; cv=none; b=MOpT1HMSRgsjgw52xqAkI5pIjxuEueAt47ADzLdEs8cfWPIRN9v2yNWzt99/w81qpWkMrVn+hDphETw4ceE46oKUE4ovTGjrVRMTnkZaaWR0rTY68elUCmhNvAOhv/L/UhVfbGLjjz2gwOw4GRBDn6cU+XHoGw3WzP5INIcj84o=
+	t=1789984841; cv=none; b=g19/XtdUfjPN2oWrdY8GS/Q62KFdpO7GYn0Y990qbnLU+ZMyipvhyCbX8JGEwDwGmrqilGGuE/4WHWDPabSeI1y3pZaIVeqnKqTnmHABQOZxCPWNUyqLL5h+YvzEH9QdoOruti0H7ZVMMuGVOaeWar5qlJil2P9DTGS4V7So6Ow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984831; c=relaxed/simple;
-	bh=tWY19dcoFHXDmJAUhSNDhZfsNMNeWSyR8xwJfJSXA4Y=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=GzeFl+dPKmL/cyzKukujuF6pZhCRZrrb4u2x3noyWtUVp6/8glB8aqA0s3TifBOtASEoFRvoOQgEDQBp+SwuEXqL+Z4l7w0xRE5Kw9asixRJKsVAVr0iIAf3D+nZHaZWtAnXSFCYuDZOiL8kH4+oXJZsOWQypEWHnsnZXwD6meI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=XGeoumtS; arc=none smtp.client-ip=54.92.39.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1789984841; c=relaxed/simple;
+	bh=JMon/sqgQsJexCEWq8SVfFoEgmuxLqowCdCV90yuWac=;
+	h=Cc:Date:Mime-Version:Subject:Message-Id:References:In-Reply-To:
+	 Content-Type:To:From; b=OHUwadUvK6xK2A0tIle+FUs+2lBE+lbgzewuiZdp8UvF9cnKD9RPFfH7uaLAITU+1HhoVC/BSzbPveewqOISrAzkPl6q6rvcFB5w64kUW9qiQI8QoHqrMHVV+DI6vF4hAYaNwX7f4UjhaYqXDq+1lOMRRu6xa/rnGyJFTXJhJHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=PlgjNYoQ; arc=none smtp.client-ip=209.127.230.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="XGeoumtS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1789984764;
-	bh=tWY19dcoFHXDmJAUhSNDhZfsNMNeWSyR8xwJfJSXA4Y=;
-	h=Mime-Version:Date:Message-Id:From:To:Subject;
-	b=XGeoumtSLRlDiJcHm8GgRQhmiyavsHMcQR2xDuo4Kr16vA/1J6wwShsCLw8CZ/A8X
-	 ZS4Cl/1Mk4RXF0P7g0vxR4eEHwFZRQPC+3tXEE71vMGxIy48i8rve77WjY02hqHLZL
-	 zZLDouQ6TmO21z03Fo1/9YH0CxieAy8iogite3aI=
-X-QQ-mid: esmtpsz16t1789984762ta2036a00
-X-QQ-Originating-IP: N1kqgUwUQ6CpnaXGst8q5ZXZrxjY3nWuvsEvA3sPBAQ=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 21 Sep 2026 17:59:20 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 14150466999559320817
-EX-QQ-RecipientCnt: 10
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="PlgjNYoQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1789984828; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=FEEUMLjS98DKCdGbmaNycCrOOVlmaBW7hZVkLLaDhkk=;
+ b=PlgjNYoQVQagATxgJHR6AjdwljuXBBBZWWaWfBfVEWsLxPadn/z14hrfSc6h5IcoZmR4Vx
+ m6PF7kc3V/PVDHrhespX0dahPIBeOY3XrzJH1ALoMYsEU4S6XPUzy+ozrowy+9en/ENcah
+ j+KZrgF6PaFb0qKwwlEKqjX1P5sESw7iQ1KHa/sAMe3/4d8ZKyqvqPsbtOC+SeDmnOGLe7
+ YxMAsEUZTHkguwLFQKwZxuJj3PDJ5HAtclOvgKbB1n9uGiq8zCecHiuhdcXIE2qMqGxqLZ
+ jnyVf9u2zrDWaXv2qUnT6tH4sraXXH1dEn8RxnTCAH+7tBufbH9atJWi3TQ9Rw==
+Cc: <linux-kernel@vger.kernel.org>, "Chuyi Zhou" <zhouchuyi@bytedance.com>
+Date: Mon, 21 Sep 2026 17:59:59 +0800
+X-Original-From: Chuyi Zhou <zhouchuyi@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=219e651e61f225e66af934056fab0dddacd2006a3de520186a878c139085;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Mon, 21 Sep 2026 17:59:17 +0800
-Message-Id: <DLKWN1PHE3UB.1RPIZRUKDJMFI@linux.spacemit.com>
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Xiaofeng Yuan" <yuanxiaofeng@eswincomputing.com>, "Anup Patel"
- <anup@brainfault.org>
-Cc: "Atish Patra" <atish.patra@linux.dev>, <kvm@vger.kernel.org>,
- <kvm-riscv@lists.infradead.org>, <linux-riscv@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, "linux-riscv"
- <linux-riscv-bounces@lists.infradead.org>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>
-Subject: Re: [PATCH] RISC-V: KVM: Fix IPI delivery for out-of-order vcpu_id
-X-Mailer: aerc 0.21.0-reader-ipc2
-References: <20260917122012.2577-1-yuanxiaofeng@eswincomputing.com>
-In-Reply-To: <20260917122012.2577-1-yuanxiaofeng@eswincomputing.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MCXpTX1kEWEBsVV26uBpFHdhOGnrwBYhFbAU8AdRv8/m40mgU8GTCj/k
-	wyC66Wtahn1FuofVIBZbTmP9Pmvfb5syWYnSpSQyxBsFdvwN3i123eocYnH95zW757Jvg4F
-	XwlQ3pd3F8m8HiuLlRuGKXdfEjzlfbDCeUMwv9sIqgSiMKwRLXpdpX+K79Ioqk+VYWQVO60
-	zpVnxRTSOaZ5P841JFLaYH2Bb9H+Pf+SPGiCU/IV3/1VNkPCBXdQ7fdb291K+FmbLuuHHO/
-	R80aHrCU2r0wEtEGHbLa2kz26KhQSFqOI6AM6w/v0Gf2WvfjeN7TbXS7jkP920pId2zZsSn
-	AOZIzF/tcF8m9BYlo+DUJB5HR1ciymIlZpdbAzWZkbzpwaIrUxNFiAOLT8QSj4f/x7z0EWC
-	02E8XjFF0CBxdEbVpOx3+nQkaopUyBQ7UF4DL35u3YxH7mJMgkR2Fukr6ZkxLdLLrIYw9my
-	9JJU3e+DS6qS46WLQ87AJhQb2mpiUpw0UzLiZdilijNxX5XX8gdXA+oSFWTbhbHCy1OS6lo
-	qlFVQdWOnAmFppa2rRGHzj+jV9q/I+xWswetOuLxjso+7KnLn4xzCI/V7ZhU78/YpD2dIk4
-	qhTIw4MUK8BUx2wKzA8KSi+YtpTE4YD6gC3nPcyhZlABNf1ck4rI6fKGmjg2mdiDZ/9yPRZ
-	q4yiKe4JPMvee6Qn2qUklkUL4nMvPvn5fgMnBx7pFS3bKbxkDX6AmAB6T/sGig8WaM90YqN
-	ZfsgLkTgHwHDaEjrGcKXvdmatLiX7O+svdXavJ09zH4AVGBkIH2mLv9dPJhtTmrDb4VeEnL
-	DA3sqah5wux9arkA8ihdlx3A66Hty8PqAdiwEjPjpJDD1LvwIUrR72w629ZIhuxsbGsFKna
-	dyYQ848o7bFSsPRmveqieAuy+wz9MXufz3lUMA6NAoOrTGFgT1IjnOZIBuUx+lSOeo07yst
-	T1DUkdb8CcwQu+g3Wa4SupVOnXw3hIUiDMGkaUCPzqNI9ikiN/zSHCt2D+zAqnl3zPbcrqW
-	DHxzAM4yhsz+BEMswMNNds+Uo5ABbX2Pg1QkjqdnbgGBgsGEPHJef38qgiJ15nI2ripqe88
-	LGz8Ixg7Dk+
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
-
---219e651e61f225e66af934056fab0dddacd2006a3de520186a878c139085
-Content-Transfer-Encoding: quoted-printable
+X-Lms-Return-Path: <lba+26ab10035+f6b991+vger.kernel.org+zhouchuyi@bytedance.com>
+Subject: [PATCH 5/5] x86/mm: Re-enable preemption before waiting for kernel TLB flushes
+Message-Id: <20260921095959.3787573-1-zhouchuyi@bytedance.com>
+Content-Transfer-Encoding: 7bit
+References: <20260921095359.3784458-1-zhouchuyi@bytedance.com>
+In-Reply-To: <20260921095359.3784458-1-zhouchuyi@bytedance.com>
 Content-Type: text/plain; charset=UTF-8
+To: <tglx@kernel.org>, <mingo@redhat.com>, <luto@kernel.org>, 
+	<peterz@infradead.org>, <paulmck@kernel.org>, <muchun.song@linux.dev>, 
+	<bp@alien8.de>, <dave.hansen@linux.intel.com>, <pbonzini@redhat.com>, 
+	<bigeasy@linutronix.de>, <clrkwllms@kernel.org>, <rostedt@goodmis.org>, 
+	<nadav.amit@gmail.com>
+From: "Chuyi Zhou" <zhouchuyi@bytedance.com>
+X-Mailer: git-send-email 2.20.1
 
-On Thu Sep 17, 2026 at 8:20 PM +08, Xiaofeng Yuan wrote:
-> The SBI IPI handler walks vCPUs with kvm_for_each_vcpu(), which
-> iterates by vcpu_idx (creation order) rather than vcpu_id order.
-> Since vcpu_id can be assigned out of order by userspace, a vCPU whose
-> hart_bit falls outside the XLEN-bit hart_mask range may be reached
-> before vCPUs the mask actually targets. In that case the handler jumps
-> to "done" and stops sending IPIs, leaving valid target vCPUs without
-> an interrupt.
->
-> Replace the early "goto done" with "continue" so vCPUs outside the
-> hart_mask range are skipped without aborting the loop.
->
-> Reproduced with a minimal userspace VMM driving KVM inside a QEMU
-> (RISC-V virt) guest: three vCPUs are created with ids 100, 0, 1 (in
-> creation order) and sbi_send_ipi(hart_mask=3Dbit0, hbase=3D0) is called
-> from vcpu_id 1. Before this change the IPI is dropped and the ecall
-> returns SBI_ERR_INVALID_PARAM; with this change the IPI is delivered
-> and the ecall returns SBI_SUCCESS.
->
-> Fixes: 0611f78f83c9 ("riscv: KVM: Fix SBI IPI error generation")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Andrew Jones <ajones@ventanamicro.com>
-> Signed-off-by: Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
-Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+flush_tlb_kernel_range() uses on_each_cpu() to synchronously flush
+kernel mappings on all online CPUs when using the IPI backend.
 
---=20
-Troy Mitchell
+The synchronous wait can become longer as the number of online CPUs
+grows, and a remote CPU with interrupts disabled can further delay
+completion. Preemption remains disabled throughout this wait, delaying
+higher-priority tasks on the initiating CPU. The outer guard prevents
+the SMP layer from making its final completion wait preemptible.
 
+The kernel range descriptor is private stack storage and remains valid
+until on_each_cpu() returns. The SMP layer protects CPU selection, IPI
+queueing and local callback execution, so the kernel flush caller does
+not need to remain pinned while waiting for remote completion.
 
---219e651e61f225e66af934056fab0dddacd2006a3de520186a878c139085
-Content-Type: application/pgp-signature; name="signature.asc"
+INVLPGB requires separate protection: TLBSYNC only waits for operations
+issued on the same CPU. Disable preemption inside
+invlpgb_kernel_range_flush() across the broadcast loop and TLBSYNC.
+The full-flush helper invlpgb_flush_all() already provides this
+protection.
 
------BEGIN PGP SIGNATURE-----
+Remove the outer preemption guard from flush_tlb_kernel_range() so the
+IPI completion wait can be preempted when the caller's context allows
+it. Keep both flush backends synchronous.
 
-iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCarD/9Q0caUB0cm95LXku
-b3JnAAoJEJgJ74D5MzQvtYoBALNaq4r6dSilmdFKL0Z6RonhGyqeeGLzJqe/wK0C
-ia1TAP9QtPHoNyc9u2LcOopl5BAEhOBmS72y7mpW4CFa7dxyCA==
-=8dGz
------END PGP SIGNATURE-----
+Signed-off-by: Chuyi Zhou <zhouchuyi@bytedance.com>
+---
+ arch/x86/mm/tlb.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
---219e651e61f225e66af934056fab0dddacd2006a3de520186a878c139085--
+diff --git a/arch/x86/mm/tlb.c b/arch/x86/mm/tlb.c
+index 4f9f0a18dbbc..f7773ba4a152 100644
+--- a/arch/x86/mm/tlb.c
++++ b/arch/x86/mm/tlb.c
+@@ -1473,6 +1473,9 @@ static void invlpgb_kernel_range_flush(unsigned long start, unsigned long end)
+ {
+ 	unsigned long addr, nr;
+ 
++	/* Keep the INVLPGB operations and TLBSYNC on the same CPU. */
++	guard(preempt)();
++
+ 	for (addr = start; addr < end; addr += nr << PAGE_SHIFT) {
+ 		nr = (end - addr) >> PAGE_SHIFT;
+ 
+@@ -1521,8 +1524,6 @@ static void kernel_tlb_flush_range(unsigned long start, unsigned long end)
+ 
+ void flush_tlb_kernel_range(unsigned long start, unsigned long end)
+ {
+-	guard(preempt)();
+-
+ 	if (end == TLB_FLUSH_ALL ||
+ 	    tlb_range_exceeds_ceiling(start, end, PAGE_SHIFT))
+ 		kernel_tlb_flush_all();
+-- 
+2.20.1
