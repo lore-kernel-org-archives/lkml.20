@@ -1,365 +1,205 @@
-Received: from mail-yx2-f9.google.com (mail-yx2-f9.google.com [74.125.224.137])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DDC51D52B
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:25:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAC1151A738
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:25:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790029532; cv=none; b=fYndfBvsXqWnoa/xBYVLXF0YPFd1C/0FRmF7GTyhIZfmSMAIoPE0tw/e/7AD+WIt3vJMlC8iO2yAOni5SbOnRFTxA0wqiAdt1h6svoTtFWHHrpoDj6qy0aoovJ4h7NA/8AUnHYFF28PD03sJLbJ5mE86+XsLrXogKUZlyYnMhgI=
+	t=1790029549; cv=none; b=IdXCFqTxxx+1pXA66JuqAMcQY6igSOYIbqBqrTsVplywXXjrvfC/2gUQeMmL+OHKpgHfiDrGkmvV0ENSX0YqD/VVq0vMbrh2r1O8FKdhwtr67aVgndzaXRrh2+nDxp7H6Mfy2HEuj8/mnQFbSlQkidW8UHI2zzoaPs2fl+h4miA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790029532; c=relaxed/simple;
-	bh=PT3W/nO28TBwi5wqZrs3EjZOULa8Pkq0O82+HXOv7bg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VL5zCqk9FXvqJE9nmOPyLr99FO1ibGeFSC5P3vF8+87cfaIn3LKDkEEas5loOyNxwuseuZGR3h4+CreTH7DMxyNLZlEB68dpI3T6AZ/JHDHjk5Z4ypSQvIl27P6wqURkfEmz0e7tGiVUj1v7GhIbyckgBJg8RIHx+X2gAeAgOvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com; spf=pass smtp.mailfrom=amutable.com; dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b=dYLFD8ta; arc=none smtp.client-ip=74.125.224.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
+	s=arc-20240116; t=1790029549; c=relaxed/simple;
+	bh=8NC0hujbv7xtfa8dEzl5XFjQ+Qebvjd183H6KwElKpU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=PNejEdX9PMdYQrcJkqtkKdLAH23EOc/G7gmJUAXqgI6Av8eCFelUPRfJGm3zJooLGLxHfcj3xYIGteVMsjaYndrDQGZPwJRlqgxg6wiS0ABZrbvqTRl5fOMj7FvhaL1wgTQ343YB4fO+L7R1B4SuGxI05num4ucQrD6SYlKejVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tJ2nsNed; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b="dYLFD8ta"
-Received: by mail-yx2-f9.google.com with SMTP id 00721157ae682-85b8fbb56ceso2294417b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:25:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tJ2nsNed"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2db710396ffso3261255ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:25:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amutable-com.20251104.gappssmtp.com; s=20251104; t=1790029528; x=1790634328; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yHGVqmok/0GVfDYu2EI5EhSCaWnpiCB5OMGPCzXLcFA=;
-        b=dYLFD8taDP+waPb3luhu6g6oxSOEHhlH8EdTMH7rlkTwPvU7xO6on56eNDEoXOTvYe
-         dIGjrWsfI0oEgOSGFBMxejvziW00PCTgzB6YIshNU/1ipQiH+dCaHq6Z1Lnqz54NRC4R
-         YV2wK1q9WwY/ncmdIw7T6briUT8lou8wd7TRLd2+FI3YvvCMzYOO/78J30VlptFUW7dg
-         lK4iJGaB73jVfqP5Le+TMc6qmoEpr967YwCoYqYqo8eIy1T5xQsmWKpGRKQyhyqZwSc8
-         nP5FNv4Gv2HbysRqJaBpepSTrtwW5p7sZ5BWvAWGoyAgvtqvv3Dwl2ckGVCPfPmvzSM/
-         DQjA==
+        d=gmail.com; s=20251104; t=1790029547; x=1790634347; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1gmnlHshE9s3UsHmSY/lKD7Hmyco0TSK2+U3+Y1IWwk=;
+        b=tJ2nsNedRL/vOcCrmKB7Aow7okBkgiypcHwQRkhQVwx9VzqSx9PfcKqDmWfy7Uss04
+         yERNn5aOFMywgcaM/V5NJdQ1RJVl0DhBi0/tJ5oKCtJhaXE/ZbEt7uooTApmntAkhbZD
+         Ufi+BIYtD3zQ2aLCi6xElaNwELTYgPj1JrkdrTeYEANopeZSZyUMTVOtf8J0/J895u5W
+         kbKlXNipQANqJmt/c1n0ei6hnv80XtvNNXUisPrZ0UDTIhpu/sxgw5DRrckgOKhFQV/z
+         jVyFw5O4+oA9Xe1IYAa46IyxyAFAe01zgENZIPG4TohthWfWPX1df48dMH7hpZtdUDrL
+         8Z2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790029528; x=1790634328;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yHGVqmok/0GVfDYu2EI5EhSCaWnpiCB5OMGPCzXLcFA=;
-        b=j53k9WRy4vKEogbQnZkB1keTWnSarYf4kzFipSeH0QZnPgiNFBNUCxzH4+zVwLHyDL
-         Xie+94wll8Svl/Mqxy7y8sHTgR9BHburThB7S0wCJxnv/HSrCiJm4l5iieA0L6CRssbX
-         ivy3x4lOJpNJgHzNWAv3Xp8lWWquSWsGBJCrs8bMfgERbkCMdzrTNiaN0WJSEpKbdlIQ
-         hvwBfxqCudyJMH8QJjw1ZQUecNEVFmDewes5IK3EjX6Ec4gEDALGgyGHP74sgp4gqd51
-         5pWq+h4BrFlEfhJSYL5zV4NRrXUtBQkttFiT+20XDytLYPC+/LkQTYf3BnLdRTQfkc+g
-         3DAA==
-X-Forwarded-Encrypted: i=1; AKwUvBybCFT18S02c+jiHSKdHnLeZUi7PqEETmGm/To294YdquIoH1maFmtAHd7VdGzUnMGElOA9GSPAeVrJiDg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjv3QE3sTzo7hIGpBE80Y3dFoXRNUXOvDjKXYx41BdXuG1bFxR
-	yMephxJdzEZ4czIBhGNEpcroHMmW75QHoOzSbAf1yJJ6Qrn5zWdO9at4dgX1dDaKdDq7
-X-Gm-Gg: AYBFou3uJXb1BlgyPw9KWH0wl2AbDwGsJWvPcY82OV6snJNqUtVPqa3SZhh+cyDa7AF
-	pEbgk7wU3/TAX3SmJW3d+xt/N7ZdhB1pxAXpKM030UehRTItl6HSzqQGmZU6x921P1GrITKaNYX
-	Tjs4FZAzKcYedSDr0WISso572ee+qIqXyyhJ7/3NRwbzZ8cssl/ZVx49QN5fgJOUTQo6uzpkfSa
-	bhuWIcUU3CKznmfcu2Kq1TFbaPjUPbiCAE0CevNGRdlde2lVDG6vA+pThaYpWHq41b1h0FO7mod
-	UjlF4JnvssEXTMwzz5H6Jutf75qPFgeFzi1JTT971Uzi+M6Ot+048dzgH9qmeBiSgd27+lAH+vU
-	lezD8vlCeSxiImiMRRMMG7eQR//OI7ztWRfE29EISG72wrnQBjjY0SYILNgOxfTfjlk4y6ltDtQ
-	WRi9S2zDLqOUdJzhvbFFdhIIPEC1uj/IScUZMGDNpK3yhcEX8oWOpFu7NXKZqKr/XhfKgAfqLxW
-	GEzkU4NnddzYszvESE0q47kRIiE3TgbQPCOioAzg9g=
-X-Received: by 2002:a05:690c:e20b:20b0:873:5c6b:a324 with SMTP id 00721157ae682-8a1f902f70emr4003017b3.30.1790029527751;
-        Mon, 21 Sep 2026 15:25:27 -0700 (PDT)
-Received: from toolbx (104-53-165-62.lightspeed.stlsmo.sbcglobal.net. [104.53.165.62])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a23e676c72sm2049217b3.33.2026.09.21.15.25.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 15:25:27 -0700 (PDT)
-Date: Mon, 21 Sep 2026 17:25:34 -0500
-From: Andrew Halaney <andrew@amutable.com>
-To: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: Christian Brauner <brauner@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>
-Subject: Re: [PATCH v2 03/10] net: add SO_PASSPIDFD_THREAD to get a
- thread-specific SCM_PIDFD
-Message-ID: <arGuC7Kaml0N728m@toolbx>
-References: <20260909-work-unix-passpidfd-v2-0-7bd342abb2d1@kernel.org>
- <20260909-work-unix-passpidfd-v2-3-7bd342abb2d1@kernel.org>
- <CAAVpQUAK8uhZtO+oza3=5qfZvxy+RHFQd2AQ2y9FpWKbK5jgyg@mail.gmail.com>
+        d=1e100.net; s=20260707; t=1790029547; x=1790634347;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1gmnlHshE9s3UsHmSY/lKD7Hmyco0TSK2+U3+Y1IWwk=;
+        b=zSOkKYui6mX53Q7A/Y15OUbiliQXKRkCLedLtlNJfNcnFXJYBqU2faFIpQspIlBuBn
+         3I59quY+rebq4fpjQFNVTre6hZsbLVz3+jVlm1eXOuLTdC67AExXOGW5fTON2LJ0/Jk8
+         6d7ZU5VqnwmISjEnYatAFdlUp27u95A6xHDM3t8bQc9klMq5T+0t+guG2e8LBdizdO9b
+         bescW8DqXT3Q5ex+/zGgF3RNG3+WIkgsc50nmMsainBbl6waq2FdlJKPOV5E/enmRTCh
+         4e/Pfmfup3pBcOIBjPkqqQZHMg0P8gXaFjHuE0AkR2A0gDKfwBNbXFRB1cS4BOeUyF7P
+         HJvA==
+X-Forwarded-Encrypted: i=1; AKwUvBxGKZibTZZw7XAuHMakiksQwb7HEvyjJZeK0rTosVmP5m8NtbYQrDaLKH9xsWZ6jLPrDMfK/5uQbtIaPhw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mw2mkZR9wtWBQUHcZvEafRWRYaNyyNQO1lRQHmhMKV3mDOmOYo
+	LSi/DCp5DDP8Cslkpo8vgtvVZdoBg3xpjTJ+qX7lXJtuCKRX0qGM/tFP
+X-Gm-Gg: AYBFou1oIrHDQortj/fC7vf7anQok0oKcEouTIujtyvpFvb8XsUEwRGlarql59yOt88
+	tz7Oi3HxptmXqu9CsiBrCFb7gLYEORwAM9/EA81hLkjzec8SNM/tiI4AmC7nzsmTS+tO8qLa9Gm
+	lVXxoFVY27AA4Klvo2EuF9lvaOzmLSYQR3sH5UksfzpkebPJ5yEoMkbsWFthIcKEif7WSlF8hbC
+	d6Edr3bszsIScDWK/K1kC0q7nRX1c1YoVzmniNh9jCDhyt595e9GuHVNF5klrFBxmkE9N+WQiOL
+	P8gf/V3vUDkVnc3wcIbCvHIaQfzw3Y7Eg1Tb8CG7FRV45QuJ15YlZ2AFcyv6vsSX8vxyiPBsEaS
+	YARt5cPOvB7mJfpk09LFHOCq7UgtVs/dyzC2Xqedsw1JcfQWxiiAe8utRLCG9wP0GoCY1KhgCyx
+	gnu6/4NEE1mxIugEHI7MJjYD3AHXimxkW8GQGUapaGHeiBrJWM7PiH2q7wp4DiKEv0xPGYBzy2L
+	goeYfGDS/LmRCZKtsilB/Js2Al+TeYcLSsNLdoLby3GJQ/ZJhDthKlbUA59W2KccmMMoYrbNMZ5
+	Cek=
+X-Received: by 2002:a17:903:11c4:b0:2d8:d4d2:d138 with SMTP id d9443c01a7336-2df59a6039amr7832095ad.20.1790029547035;
+        Mon, 21 Sep 2026 15:25:47 -0700 (PDT)
+Received: from localhost ([153.61.198.252])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5b7a534dsm1068885ad.35.2026.09.21.15.25.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 15:25:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAVpQUAK8uhZtO+oza3=5qfZvxy+RHFQd2AQ2y9FpWKbK5jgyg@mail.gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 21 Sep 2026 22:25:46 +0000
+Message-Id: <DLLCIL3RGVY1.H5A4OEASW5OF@gmail.com>
+To: "Eduard Zingerman" <eddyz87@gmail.com>, "Vineet Gupta"
+ <vineet.gupta@linux.dev>
+Cc: "Alexei Starovoitov" <ast@kernel.org>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>, "Kumar
+ Kartikeya Dwivedi" <memxor@gmail.com>, "Martin KaFai Lau"
+ <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong Song"
+ <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
+ Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, "John Fastabend" <john.fastabend@gmail.com>,
+ "Shuah Khan" <shuah@kernel.org>, "bpf" <bpf@vger.kernel.org>, "LKML"
+ <linux-kernel@vger.kernel.org>, "open list:KERNEL SELFTEST FRAMEWORK"
+ <linux-kselftest@vger.kernel.org>
+Subject: Re: [PATCH bpf-next v2 03/13] bpf: track low-32 scalar equality
+ across zero-extending movs
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+X-Mailer: aerc 0.17.0
+References: <20260910164635.459558-1-vineet.gupta@linux.dev>
+ <20260910164635.459558-4-vineet.gupta@linux.dev>
+ <DLDKI0ZXYI7H.1XQZZE2RCU7IF@gmail.com>
+ <4ab75099-0e95-4fee-81da-6f4198e3e6a0@linux.dev>
+ <CAADnVQ+N9tzBJ0Bbvp8_8QvR+QcCP4ej5CgV_kRHt=iw4BANSQ@mail.gmail.com>
+ <202c45e2-58ba-4ad5-a234-c90703031f91@linux.dev>
+ <CAADnVQ+Si9Au8J_j2nt+ZzFq6WPaz8hpmh0n=_dFysZmSOeipA@mail.gmail.com>
+ <ff18ccb77a554000a030199e8c1fbb7d8d298e18.camel@gmail.com>
+ <DLL84IMPTRQF.3DOQQTN2KCAEW@gmail.com>
+ <e9aad352ba82dadd97a17867108b5db1865fa38d.camel@gmail.com>
+ <DLL8Q69N7BUD.1HI0MKU2M2UGE@gmail.com>
+ <951923920747d8dcba3d56ca8858e106d9c7ba4e.camel@gmail.com>
+ <DLLBVIU33MLC.ITFPYGMFKWUT@gmail.com>
+ <f4a616cf9241589fd093bbd0b34e8c8a162d579a.camel@gmail.com>
+In-Reply-To: <f4a616cf9241589fd093bbd0b34e8c8a162d579a.camel@gmail.com>
 
-On Wed, Sep 09, 2026 at 10:24:47PM -0700, Kuniyuki Iwashima wrote:
-> On Wed, Sep 9, 2026 at 3:43 AM Christian Brauner <brauner@kernel.org> wrote:
-> >
-> > Currently, SCM_PIDFD carries a pidfd for the thread-group leader. A
-> > broker or the coredump server cannot learn the identity of the specific
-> > thread that sent a given message. Now that both struct pids are recorded
-> > a receiver can ask for the specific identity it needs.
-> >
-> > So add SO_PASSPIDFD_THREAD as a sibling of SO_PASSPIDFD. Either option
-> > makes recvmsg() deliver an SCM_PIDFD. SO_PASSPIDFD sends a pidfd for the
-> > thread-group leader and SO_PASSPIDFD_THREAD sends a pidfd for the
-> > specific thread.
-> >
-> > The two options are mutually exclusive. Enabling one switches the other
-> > off, so getsockopt() always reports which of the two is active.
-> >
-> > On SOCK_STREAM sockets recvmsg() only stops merging data at a thread
-> > boundary when the receiver asked for a thread pidfd. For SO_PASSCRED and
-> > SO_PASSPIDFD receivers all threads of one process remain a single
-> > writer.
-> >
-> > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-> > ---
-> >  arch/alpha/include/uapi/asm/socket.h  |  2 ++
-> >  arch/mips/include/uapi/asm/socket.h   |  2 ++
-> >  arch/parisc/include/uapi/asm/socket.h |  2 ++
-> >  arch/sparc/include/uapi/asm/socket.h  |  2 ++
-> >  include/net/sock.h                    | 10 +++++++++-
-> >  include/uapi/asm-generic/socket.h     |  2 ++
-> >  net/core/scm.c                        | 19 +++++++++++++------
-> >  net/core/sock.c                       | 26 ++++++++++++++++++++++++--
-> >  net/unix/af_unix.c                    | 11 ++++++++---
-> >  9 files changed, 64 insertions(+), 12 deletions(-)
-> >
-> > diff --git a/arch/alpha/include/uapi/asm/socket.h b/arch/alpha/include/uapi/asm/socket.h
-> > index 946a5fad2691..bb3d534826bb 100644
-> > --- a/arch/alpha/include/uapi/asm/socket.h
-> > +++ b/arch/alpha/include/uapi/asm/socket.h
-> > @@ -157,6 +157,8 @@
-> >
-> >  #define SO_RIGHTS_NOTRUNC      85
-> >
-> > +#define SO_PASSPIDFD_THREAD    86
-> > +
-> >  #if !defined(__KERNEL__)
-> >
-> >  #if __BITS_PER_LONG == 64
-> > diff --git a/arch/mips/include/uapi/asm/socket.h b/arch/mips/include/uapi/asm/socket.h
-> > index f1641dde135f..269badcaa086 100644
-> > --- a/arch/mips/include/uapi/asm/socket.h
-> > +++ b/arch/mips/include/uapi/asm/socket.h
-> > @@ -168,6 +168,8 @@
-> >
-> >  #define SO_RIGHTS_NOTRUNC      85
-> >
-> > +#define SO_PASSPIDFD_THREAD    86
-> > +
-> >  #if !defined(__KERNEL__)
-> >
-> >  #if __BITS_PER_LONG == 64
-> > diff --git a/arch/parisc/include/uapi/asm/socket.h b/arch/parisc/include/uapi/asm/socket.h
-> > index f3a3815c7dc2..313aee10a52c 100644
-> > --- a/arch/parisc/include/uapi/asm/socket.h
-> > +++ b/arch/parisc/include/uapi/asm/socket.h
-> > @@ -149,6 +149,8 @@
-> >
-> >  #define SO_RIGHTS_NOTRUNC      0x4053
-> >
-> > +#define SO_PASSPIDFD_THREAD    0x4054
-> > +
-> >  #if !defined(__KERNEL__)
-> >
-> >  #if __BITS_PER_LONG == 64
-> > diff --git a/arch/sparc/include/uapi/asm/socket.h b/arch/sparc/include/uapi/asm/socket.h
-> > index 7907f3b1f0ee..bd3e69bcce7a 100644
-> > --- a/arch/sparc/include/uapi/asm/socket.h
-> > +++ b/arch/sparc/include/uapi/asm/socket.h
-> > @@ -150,6 +150,8 @@
-> >
-> >  #define SO_RIGHTS_NOTRUNC        0x005e
-> >
-> > +#define SO_PASSPIDFD_THREAD      0x005f
-> > +
-> >  #if !defined(__KERNEL__)
-> >
-> >
-> > diff --git a/include/net/sock.h b/include/net/sock.h
-> > index 51185222aac2..fc09c92e8a83 100644
-> > --- a/include/net/sock.h
-> > +++ b/include/net/sock.h
-> > @@ -356,6 +356,7 @@ struct sk_filter;
-> >    *    @sk_scm_security: flagged by SO_PASSSEC to recv SCM_SECURITY
-> >    *    @sk_scm_pidfd: flagged by SO_PASSPIDFD to recv SCM_PIDFD
-> >    *    @sk_scm_rights: flagged by SO_PASSRIGHTS to recv SCM_RIGHTS
-> > +  *    @sk_scm_pidfd_thread: flagged by SO_PASSPIDFD_THREAD to recv a thread SCM_PIDFD
-> >    *    @sk_scm_unused: unused flags for scm_recv()
-> >    *    @ns_tracker: tracker for netns reference
-> >    *    @sk_user_frags: xarray of pages the user is holding a reference on.
-> > @@ -562,7 +563,8 @@ struct sock {
-> >                                 sk_scm_security : 1,
-> >                                 sk_scm_pidfd : 1,
-> >                                 sk_scm_rights : 1,
-> > -                               sk_scm_unused : 4;
-> > +                               sk_scm_pidfd_thread : 1,
-> > +                               sk_scm_unused : 3;
-> >                 };
-> >         };
-> >         u8                      sk_clockid;
-> > @@ -2986,6 +2988,12 @@ static inline bool sk_is_stream_unix(const struct sock *sk)
-> >         return sk_is_unix(sk) && sk->sk_type == SOCK_STREAM;
-> >  }
-> >
-> > +/* SO_PASSPIDFD or SO_PASSPIDFD_THREAD asked for an SCM_PIDFD. */
-> > +static inline bool sk_scm_pidfd_wanted(const struct sock *sk)
-> > +{
-> > +       return sk->sk_scm_pidfd || sk->sk_scm_pidfd_thread;
-> > +}
-> > +
-> >  static inline bool sk_is_vsock(const struct sock *sk)
-> >  {
-> >         return sk->sk_family == AF_VSOCK;
-> > diff --git a/include/uapi/asm-generic/socket.h b/include/uapi/asm-generic/socket.h
-> > index 84ea7b92936e..d1e5c6de146d 100644
-> > --- a/include/uapi/asm-generic/socket.h
-> > +++ b/include/uapi/asm-generic/socket.h
-> > @@ -152,6 +152,8 @@
-> >
-> >  #define SO_RIGHTS_NOTRUNC      85
-> >
-> > +#define SO_PASSPIDFD_THREAD    86
-> > +
-> >  #if !defined(__KERNEL__)
-> >
-> >  #if __BITS_PER_LONG == 64 || (defined(__x86_64__) && defined(__ILP32__))
-> > diff --git a/net/core/scm.c b/net/core/scm.c
-> > index 9b9e119c353a..d69768414af4 100644
-> > --- a/net/core/scm.c
-> > +++ b/net/core/scm.c
-> > @@ -499,9 +499,13 @@ static bool scm_has_secdata(struct sock *sk)
-> >  }
-> >  #endif
-> >
-> > -static void scm_pidfd_recv(struct msghdr *msg, struct scm_cookie *scm)
-> > +static void scm_pidfd_recv(struct sock *sk, struct msghdr *msg,
-> > +                          struct scm_cookie *scm)
-> >  {
-> > +       enum pid_type type = sk->sk_scm_pidfd_thread ? PIDTYPE_PID : PIDTYPE_TGID;
-> > +       struct pid *pid = scm->pid[type];
-> >         struct file *pidfd_file = NULL;
-> > +       unsigned int flags = PIDFD_STALE;
-> 
-> nit: Please keep the reverse xmas tree order.
-> 
-> 
-> >         int len, pidfd;
-> >
-> >         /* put_cmsg() doesn't return an error if CMSG is truncated,
-> > @@ -517,10 +521,13 @@ static void scm_pidfd_recv(struct msghdr *msg, struct scm_cookie *scm)
-> >                 return;
-> >         }
-> >
-> > -       if (!scm->pid[PIDTYPE_TGID])
-> > +       if (!pid)
-> >                 return;
-> >
-> > -       pidfd = pidfd_prepare(scm->pid[PIDTYPE_TGID], PIDFD_STALE, &pidfd_file);
-> > +       if (type == PIDTYPE_PID)
-> > +               flags |= PIDFD_THREAD;
-> 
-> I'm wondering how this flag can be useful.
-> 
-> I thought this should be
-> 
->   if (pid_has_task(pid, PIDTYPE_TGID))
->     flags |= PIDFD_THREAD;
-> 
-> because when the sender sends TGID, this flag is set even though
-> it is a thread leader.
-> 
-> It seems PIDFD_THREAD is just feedback of whether the
-> receiver has set SO_PASSPIDFD or _THREAD, which the
-> application should already know.
-> 
+On Mon Sep 21, 2026 at 10:17 PM UTC, Eduard Zingerman wrote:
+> On Mon, 2026-09-21 at 21:55 +0000, Alexei Starovoitov wrote:
+> > On Mon Sep 21, 2026 at 7:44 PM UTC, Eduard Zingerman wrote:
+> > > > > > >=20
+> > > > > > > Where:
+> > > > > > > - id =3D=3D 0 =3D> no id link
+> > > > > > > - full =3D> all 64-bits of the register are identical to
+> > > > > > >           all 64-bits of a scalar value `id' (let's call it X=
+).
+> > > > > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D full}, rB{X=
+,full} =3D> rA =3D=3D rB
+> > > > > > > - zext =3D> lower 32-bits of the register are identical to
+> > > > > > >           lower 32-bits of a scalar value X,
+> > > > > > >           upper 32-bits of the register are null.
+> > > > > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D ?}, rB{X,ze=
+xt} =3D> rA % 32 =3D=3D rB % 32
+> > > > > > > - sext =3D> lower 32-bits of the register are identical to
+> > > > > > >           lower 32-bits of a scalar value X,
+> > > > > > >           upper 32-bits of the register are either 0 or 1,
+> > > > > > >           depending on the bit 31 value.
+> > > > > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D ?}, rB{X,se=
+xt} =3D> sext(rA % 32) =3D=3D sext(rB % 32)
+> > > > > >=20
+> > > > > > hmm.
+> > > > > > there is also 32-bit link with delta, right?
+> > > > >=20
+> > > > > My point is that delta is independent of 32-bit/64-bit property.
+> > > > > `delta' can be used to propagate in both directions:
+> > > > > - full 64 bit -> 32 bit sign/zero-extened
+> > > > > - 32 bit sign/zero-extened -> full 64-bit
+> > > >=20
+> > > > both? how ?
+> > > > I was under impression that in 32-bit domain delta is one way.
+> > > > rX =3D ...
+> > > > wY =3D wX
+> > > > wY +=3D 5
+> > > >=20
+> > > > if wY =3D=3D 10
+> > > > We cannot do -5 to rX
+> > >=20
+> > > Why?
+> > > It is still valid to transfer r32 and tnum_subreg knowledge from wY t=
+o rX.
+> > >=20
+> > >   wY + 5 =3D=3D rX % 32 + 5 =3D> hence rX % 32 knowledge can be recov=
+ered.
+> > >=20
+> > > If rX itself had some delta, e.g.:
+> > >=20
+> > >   rX =3D ...
+> > >   rX +=3D 7
+> > >   wY =3D wX
+> > >   wY +=3D 5
+> > >=20
+> > > Then it would still be possible:
+> > >=20
+> > >   wY + 5 =3D=3D (rX - 7) % 32 + 5 =3D rX % 32 - 2.
+> > >=20
+> > > Again, in case of this direction, only lower 32-bits of the 'full'
+> > > register can be inferred.
+> >=20
+> > Ok, so we're argeeing that it's not 'full' in your above definition.
+> > Your enum id_link_kind needs a 4th category : apply-delta-to-lower-32bi=
+t-...
+> > and it's not bi-directional.
+>
+> It's not really a category, it's just a direction in a sync function:
+> - if known_reg is 'full' -> sync to sext/zext register recovers lower
+>   32-bits and infers upper
+> - if known_reg is sext/zext -> sync to 'full' register recovers only
+>   lower 32-bits and keeps upper untouched (counting on cross-domain
+>   bounds sync logic).
+> - 'full' -> 'full' and 'sext/zext' -> 'sext/zext' syncs are trivial.
+>
+> > rX =3D ...
+> > wY =3D wX
+> > wY +=3D 5
+> > if wY =3D=3D 10
+> > here can apply -5 to lower 32-bit of rX only.
+> >=20
+> > rX =3D ...
+> > wY =3D wX
+> > wY +=3D 5
+> > if rX =3D=3D 10
+> > here can apply +5 to lower 32-bit of wY _and_ do zero extend into full =
+rY.
+> >=20
+> > I don't see a value of 'zext' kind alone that doesn't do 'add delta'.
+>
+> Exactly, that's why I suggest this as a completely orthogonal encoding.
+> Effectively for an abstract scalar value X it would encode whether
+> the particular register is:
+> - X + delta
+> - zext(X + delta)
+> - sext(X + delta)
 
-Isn't this flag necessary to indicate how to handle signals? i.e. its acting like
-PIDFD_THREAD acquired pidfds defaulting to pidfd_send_signal() with
-PIDFD_SIGNAL_THREAD. userspace can even read that back with fcntl() so
-if you were to pass the pidfd around with SCM_RIGHTS, etc the other end knows
-what type of pidfd they've gotten.
+ahh. it wasn't clear to me that 'zext' you're proposing does '+ delta'.
+Now I see that your zext is the same as apply-delta-to-lower-32bit-and-zext
+as I was talking about all along.
 
-> 
-> > +
-> > +       pidfd = pidfd_prepare(pid, flags, &pidfd_file);
-> >
-> >         if (put_cmsg(msg, SOL_SOCKET, SCM_PIDFD, sizeof(int), &pidfd)) {
-> >                 if (pidfd_file) {
-> > @@ -539,7 +546,7 @@ static bool __scm_recv_common(struct sock *sk, struct msghdr *msg,
-> >                               struct scm_cookie *scm, int flags)
-> >  {
-> >         if (!msg->msg_control) {
-> > -               if (sk->sk_scm_credentials || sk->sk_scm_pidfd ||
-> > +               if (sk->sk_scm_credentials || sk_scm_pidfd_wanted(sk) ||
-> >                     scm->fp || scm_has_secdata(sk))
-> >                         msg->msg_flags |= MSG_CTRUNC;
-> >
-> > @@ -586,8 +593,8 @@ void scm_recv_unix(struct socket *sock, struct msghdr *msg,
-> >                 scm_detach_fds(msg, scm, READ_ONCE(u->scm_rights_notrunc));
-> >         }
-> >
-> > -       if (sock->sk->sk_scm_pidfd)
-> > -               scm_pidfd_recv(msg, scm);
-> > +       if (sk_scm_pidfd_wanted(sock->sk))
-> > +               scm_pidfd_recv(sock->sk, msg, scm);
-> >
-> >         scm_destroy_cred(scm);
-> >  }
-> > diff --git a/net/core/sock.c b/net/core/sock.c
-> > index 1ad41904db25..f9615b0de10e 100644
-> > --- a/net/core/sock.c
-> > +++ b/net/core/sock.c
-> > @@ -1571,10 +1571,25 @@ int sk_setsockopt(struct sock *sk, int level, int optname,
-> >                 break;
-> >
-> >         case SO_PASSPIDFD:
-> > -               if (sk_is_unix(sk))
-> > +               if (sk_is_unix(sk)) {
-> > +                       /* Mutually exclusive with SO_PASSPIDFD_THREAD. */
-> >                         sk->sk_scm_pidfd = valbool;
-> > -               else
-> > +                       if (valbool)
-> > +                               sk->sk_scm_pidfd_thread = 0;
-> > +               } else {
-> > +                       ret = -EOPNOTSUPP;
-> > +               }
-> > +               break;
-> > +
-> > +       case SO_PASSPIDFD_THREAD:
-> 
-> If SO_PASSPIDFD had boolean check, it would have been possible
-> to reuse SO_PASSPIDFD==2 as SO_PASSPIDFD_THREAD.
-> 
-> Given two options are mutually exclusive here, I think it's cleaner
-> to have u32 SO_PASSPIDFD_OPTIONS or something, which can
-> store 32 flags for future extension.
-> 
-> #define SO_PASSPIDFD_OPTION 86
-> #define SO_PASSPIDFD_THREAD 1
-> 
-> Then, sk_scm_pidfd_thread will be used in unix_skb_scm_eq()
-> and scm_pidfd_recv() only.
-
-
-Are they really mutually exclusive? I could see a world where
-maybe you want both set. If we do treat it as exclusive is it
-a last option wins sort of thing?
-
-i.e.:
-
-    1. set SO_PASSPIDFD
-    2. set SO_PASSPIDFD_OPTION with SO_PASSPIDFD_THREAD
-
-does that just result in a SCM_PIDFD related to the thread?
-and then if we do a SO_PASSPIDFD_OPTION with 0, does that
-just stop sending the cmsg at all (or does it go back to SO_PASSPIDFD)?
-
-To me it would be kind of nice if they were unique / independent,
-i.e. if you did the above you'd get SCM_PIDFD and SCM_PIDFD_THREAD type as well
-(and I don't know if I'd make it have flags like that then and instead
-just keep it the way it is). That also seems to pair with SO_PEERPIDFD_THREAD better
-which has to be a separate option since you can't shove in any flags.
-
-Am I missing something? Happy to see it done either way but keeping them
-exclusive and adding options in kind of confuses me with expected behavior.
-
-Thanks,
-Andrew
