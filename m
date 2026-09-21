@@ -1,166 +1,136 @@
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF7F2F7EE8
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:04:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42EAF32AABD
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789967095; cv=none; b=jcv1B8tnimN/WyJVE6DyHJ3k6R4X0rd7yT8uJwWpa3NQOWHveoRpWlRk08rcUnbgRICkdTmfk/zWnj8SkARSMuuQBkNCYD/LxQz02rMNBYoLX8+fT9Cvju8P3CfC/9+P5EIUXl6xrfrhdoWNUjTdHLH1pAKu0fHsIyt9DWG2fYg=
+	t=1789967244; cv=none; b=ALN5N8DvpIh4kXasMRd4JZ1LT8P5KdiJuT2g6mc1YOcCTTnhI+43kZVQrCYB92MjWWf71lmmWrDbnepP4dY8oKphO51I90OT7sU4XSxxQWKPynzTcZd/t4WzLz4cQHcbqdU5J/ioclxqj3jmCGYF6fj12h4p0mH857Rnpl7cXnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789967095; c=relaxed/simple;
-	bh=SxZcuc9GcxETuDN4Dem/i05+97xrgTmNCvTtQ/Y7enc=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:In-Reply-To:
-	 Content-Type:References; b=CxDYmRbku2DkuvpRDEi6ODSokc9wxt0fXkwYRk1xuLvuQLK05PVqVeBBG6yG9gHPGJ44Apvzja9tagC86eb/sBtuMccCJfj4DZtTedb742Rr9WlKB3rpgVyVsZJYQbu+sj1opZ2dJSqB1yyOhHkV682Gn9cOZLqjf46qW1ORH90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=ZeaCbRe7; arc=none smtp.client-ip=203.254.224.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1789967244; c=relaxed/simple;
+	bh=GkmdESfvVw6Bhi5+j9XdWNIprQz32gaz404QEYVpfn8=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=CnV/7H8mAlSJvedWIkvUO2UiKIAHnBJRZ8yJTwufVDR2gX7NB5+cQp9GFavkTCjZ32/UXwS9WjmHYebFLT7lbQJ8rtBhgUxGxj5zzQ2r0V7n0W/WhYh9cYZw7GofMCMAXjpQ+noXP2yY/UpEgF8Y2SuRYAavb+lkMKCkfvqvxZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Leii7JsG; arc=none smtp.client-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="ZeaCbRe7"
-Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260921050446epoutp02bf98f71336076cac9973cb1fd18ebac9~XPZTOJn0m2888028880epoutp02f
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:04:46 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260921050446epoutp02bf98f71336076cac9973cb1fd18ebac9~XPZTOJn0m2888028880epoutp02f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789967086;
-	bh=d0QjUqvmVUNs1ggaTfEs9R1PKNgZmXcKBNFogy3IWTE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=ZeaCbRe7BTgzeOVxeUDTrR5h1FOeEjPxf5na0sXhC9iovBvJuyeTP8eo9P1lqyLO4
-	 +W4W8Q920Xmui6UXLCjqqfWlq1JV6XhnXZC2QrQi8Sbq8BW+I6LQVLNDsay8YB6lFu
-	 1PPOzPD9Ngvw6jIrtvJWZCIu7PamOgyT1521+tUQ=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
-	20260921050446epcas2p342dc4bf247be022411c56129f74a0f52~XPZTC4xBi0320303203epcas2p3x;
-	Mon, 21 Sep 2026 05:04:46 +0000 (GMT)
-Received: from epcas2p3.samsung.com (unknown [182.195.38.202]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4hpB3x4ySPz3hhT9; Mon, 21 Sep
-	2026 05:04:45 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
-	20260921050445epcas2p3615e4d6e209fbe40545e0ebac7a43a68~XPZSKskOl3096030960epcas2p3o;
-	Mon, 21 Sep 2026 05:04:45 +0000 (GMT)
-Received: from ubuntu (unknown [12.81.221.204]) by epsmtip2.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20260921050445epsmtip2a9809c58f286c64510ac656725fe903e~XPZSJCI5Y2089020890epsmtip2A;
-	Mon, 21 Sep 2026 05:04:45 +0000 (GMT)
-Date: Mon, 21 Sep 2026 14:01:02 +0900
-From: Daehwan Jung <dh10.jung@samsung.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3] usb: gadget: u_serial: fix stale req->dep warn on
- disconnect/reconnect
-Message-ID: <aqimTFTUGIjijeVY@ubuntu>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Leii7JsG"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38e54b6556aso3529327a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:07:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789967243; x=1790572043; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=s1sYzCcuJgWy+91qkWtU7G0DCPhx+Hi9Vsjhecq4f4U=;
+        b=Leii7JsGB+5B5vsNYSutBh9CsIZQJNW+mnTyoIbdckHa1mhFCzZLyG59gJL1bANaYy
+         s9Sfe49b4ULOyJSBK4l5NHRrS92hQ8+MxlbILtgJ0kdUxklLTauPXFb2tvjqmAE7BaJY
+         XcEuNL0QwfcOYjB+Ifx+yTot3c/q+BckD9MFuNavDbJskGFH8RFSWpSewEqeFq3T5MPK
+         WzApZ/fjTgaVFwqxA9FT+Cy1DfZyxfnzyCJis0eCBkNGmHHNusN5NtnHG1kosxFD4O9n
+         T9o+/eHXC7Nu+fm94iC+9n9x7c2aSe3DwgEDNl8omjJSma3F1kOx5bd7i+xcbnkmxoLE
+         dUmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789967243; x=1790572043;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=s1sYzCcuJgWy+91qkWtU7G0DCPhx+Hi9Vsjhecq4f4U=;
+        b=qUeMPuUN6Z9EenE7PZqyhF5oOtwEcM6KVDRzIQZp9PQuDBDdBMMEISUtoPdMvAzyZO
+         8D1+hcx5zVX9auIpbsbpov7uWzXPXPSfKSF9Ts1e7FDnHyYy5/Be1z3dAS5DhPWltCpu
+         sOq/zqwC1T/JmcnB8tF9D9A8s1uC/xKB22/XBCRgTSZHZEcAnxSMku+QwIaswtPZbP3G
+         88B6xHqYgBwzZ+Fg66dZJwyxUHx4pC3SUsTKySro3atYEM1oUbOlPwhSoiplbgR+FmPG
+         gn1gjrZxeo9QC0sEf41jRMuV9xip5kxacx3ZOiVjCN/5cAJYmgFCFZ/2K1rb5z2CkcY9
+         z4vw==
+X-Forwarded-Encrypted: i=1; AKwUvBwgHlcPKywD6ZqWbvDLjPb08ucZ2pjnbQB7yZguX9fIDHaMbYPjuqwgpVGnPkU7w0HEo3zgG9Ts5TdaIWg=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2Dp3YLSFu4Hx7us2NZgLF3t1frV+eOh7cYGnY1TUxRYt/99vy
+	51/AMJnPjS71BNDdirt7IqH8C9aFyYZwWktkxfIUytTuj9ugv3G4M8BzzzfA7n/Vd4hylhLtiUH
+	6mw8bHIDeWQ==
+X-Received: from dldyr17-n1.prod.google.com ([2002:a05:701b:4511:10b0:143:7976:20e7])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:54c4:b0:39e:4c7f:7308
+ with SMTP id 98e67ed59e1d1-39e55071981mr14570736a91.31.1789967242503; Sun, 20
+ Sep 2026 22:07:22 -0700 (PDT)
+Date: Sun, 20 Sep 2026 22:06:19 -0700
+In-Reply-To: <cover.1789966896.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <20260727051335.1745955-1-dh10.jung@samsung.com>
-X-CMS-MailID: 20260921050445epcas2p3615e4d6e209fbe40545e0ebac7a43a68
-X-Msg-Generator: CA
-Content-Type: multipart/mixed;
-	boundary="----rcuXGdnugs8S4waa-1E6HIXGjxa.6k2zyxtbMQI1gQTmk2wj=_525ee_"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260727051638epcas2p11f7b91e0be7604331bfe0f46beef9ce1
-References: <CGME20260727051638epcas2p11f7b91e0be7604331bfe0f46beef9ce1@epcas2p1.samsung.com>
-	<20260727051335.1745955-1-dh10.jung@samsung.com>
+Mime-Version: 1.0
+References: <cover.1789966896.git.irogers@google.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <f64b7f59e863302bb81c14a3a13af2e116d38b8f.1789966896.git.irogers@google.com>
+Subject: [PATCH v2 01/49] perf python: Update syscall format string to
+ optional positional
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
+	linux-perf-users@vger.kernel.org, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com, 
+	james.clark@linaro.org, leo.yan@linux.dev, linux-kernel@vger.kernel.org, 
+	mingo@redhat.com, peterz@infradead.org, tmricht@linux.ibm.com
+Content-Type: text/plain; charset="UTF-8"
 
-------rcuXGdnugs8S4waa-1E6HIXGjxa.6k2zyxtbMQI1gQTmk2wj=_525ee_
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
+Update the PyArg_ParseTupleAndKeywords format string for
+pyrf__syscall_name() and pyrf__syscall_id() from "i|$i" to "i|i" (and
+"s|$i" to "s|i"), allowing elf_machine to be passed as an optional
+positional argument as well as a keyword argument.
 
-On Mon, Jul 27, 2026 at 02:13:35PM +0900, Daehwan Jung wrote:
-> When DWC3_EP_DELAY_STOP defers ENDXFER, giveback of -ESHUTDOWN requests
-> arrives after gserial_disconnect(). These stale requests then accumulate
-> in read_pool via gs_rx_push(). After gadget exit frees the old endpoint,
-> req->dep becomes a dangling pointer. On the next gserial_connect(),
-> gs_start_rx() queues these stale requests onto a new endpoint, triggering:
-> 
->   WARNING: CPU: 0 at drivers/usb/dwc3/gadget.c:1990
->   request 00000000e6e350a5 belongs to ''
-> 
->   Call trace:
->    dwc3_gadget_ep_queue+0x158/0x1e8
->    usb_ep_queue+0x60/0xe8
->    gs_start_rx+0xa4/0x128
->    gs_start_io+0x128/0x254
->    gserial_connect+0xb4/0x14c
->    acm_set_alt+0xa0/0x114
->    set_config+0x22c/0x384
->    composite_setup+0x37c/0xc7c
->    configfs_composite_setup+0x5c/0x88
->    dwc3_ep0_interrupt+0x6c8/0xbcc
->    dwc3_thread_interrupt+0xa0/0x1284
->    irq_thread_fn+0x48/0xa8
->    irq_thread+0x150/0x31c
->    kthread+0x150/0x27c
->    ret_from_fork+0x10/0x20
-> 
-> Fix by discarding -ESHUTDOWN requests immediately in gs_read_complete()
-> while ep is still valid, preventing stale reqs from entering read_pool.
-> 
-> Fixes: 937ef73d5075 ("USB: serial gadget: rx path data loss fixes")
-> Signed-off-by: Daehwan Jung <dh10.jung@samsung.com>
-> ---
-> Changes in v3:
-> - Add missing version tag in subject
-> Link to v2: https://lore.kernel.org/linux-usb/20260727042632.1726391-1-dh10.jung@samsung.com/
-> 
-> Changes in v2:
-> - Correct the name of author
-> - Modify commit subject (panic -> warn)
-> Link to v1: https://lore.kernel.org/all/20260721013509.2327242-1-dh10.jung@samsung.com/
-> ---
->  drivers/usb/gadget/function/u_serial.c | 18 +++++++++++++++---
->  1 file changed, 15 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-> index cdd1dfc666c4..97ee1b9cb065 100644
-> --- a/drivers/usb/gadget/function/u_serial.c
-> +++ b/drivers/usb/gadget/function/u_serial.c
-> @@ -459,10 +459,22 @@ static void gs_read_complete(struct usb_ep *ep, struct usb_request *req)
->  {
->  	struct gs_port	*port = ep->driver_data;
->  
-> -	/* Queue all received data until the tty layer is ready for it. */
->  	spin_lock(&port->port_lock);
-> -	list_add_tail(&req->list, &port->read_queue);
-> -	schedule_delayed_work(&port->push, 0);
-> +	if (req->status == -ESHUTDOWN) {
-> +		/*
-> +		 * Discard shutdown completions here while ep is still valid.
-> +		 * Returning them to read_pool after gserial_disconnect() has
-> +		 * reset the counters causes stale reqs (with req->dep pointing
-> +		 * to the old ep) to be queued onto a new ep at reconnect time,
-> +		 * triggering a req->dep != dep WARN.
-> +		 */
-> +		gs_free_req(ep, req);
-> +		port->read_started--;
-> +	} else {
-> +		/* Queue all received data until the tty layer is ready for it. */
-> +		list_add_tail(&req->list, &port->read_queue);
-> +		schedule_delayed_work(&port->push, 0);
-> +	}
->  	spin_unlock(&port->port_lock);
->  }
->  
-> -- 
-> 2.34.1
-> 
-> 
+Update syscall_id() and syscall_name() in perf.pyi to match, and set the
+return type of syscall_name() to Optional[str] as unknown syscall numbers
+return None.
 
-Hi,
-This is gentle ping. Any comments would be appreciated.
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/python/perf.pyi | 4 ++--
+ tools/perf/util/python.c   | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-Best Regards,
-Daehwan Jung
+diff --git a/tools/perf/python/perf.pyi b/tools/perf/python/perf.pyi
+index 58b0b3ed819d..e737eb21567c 100644
+--- a/tools/perf/python/perf.pyi
++++ b/tools/perf/python/perf.pyi
+@@ -20,7 +20,7 @@ def metrics() -> List[Dict[str, Union[str, List[str]]]]:
+     """
+     ...
+ 
+-def syscall_name(id: int, *, elf_machine: Optional[int] = None) -> str:
++def syscall_name(id: int, elf_machine: Optional[int] = None) -> Optional[str]:
+     """Convert a syscall number to its name.
+ 
+     Args:
+@@ -32,7 +32,7 @@ def syscall_name(id: int, *, elf_machine: Optional[int] = None) -> str:
+     """
+     ...
+ 
+-def syscall_id(name: str, *, elf_machine: Optional[int] = None) -> int:
++def syscall_id(name: str, elf_machine: Optional[int] = None) -> int:
+     """Convert a syscall name to its number.
+ 
+     Args:
+diff --git a/tools/perf/util/python.c b/tools/perf/util/python.c
+index d8a842621cda..a3ffaf4d0850 100644
+--- a/tools/perf/util/python.c
++++ b/tools/perf/util/python.c
+@@ -4111,7 +4111,7 @@ static PyObject *pyrf__syscall_name(PyObject *self, PyObject *args, PyObject *kw
+ 	int elf_machine = EM_HOST;
+ 	static char *kwlist[] = { "id", "elf_machine", NULL };
+ 
+-	if (!PyArg_ParseTupleAndKeywords(args, kwargs, "i|$i", kwlist, &id, &elf_machine))
++	if (!PyArg_ParseTupleAndKeywords(args, kwargs, "i|i", kwlist, &id, &elf_machine))
+ 		return NULL;
+ 
+ 	name = syscalltbl__name(elf_machine, id);
+@@ -4127,7 +4127,7 @@ static PyObject *pyrf__syscall_id(PyObject *self, PyObject *args, PyObject *kwar
+ 	int elf_machine = EM_HOST;
+ 	static char *kwlist[] = { "name", "elf_machine", NULL };
+ 
+-	if (!PyArg_ParseTupleAndKeywords(args, kwargs, "s|$i", kwlist, &name, &elf_machine))
++	if (!PyArg_ParseTupleAndKeywords(args, kwargs, "s|i", kwlist, &name, &elf_machine))
+ 		return NULL;
+ 
+ 	id = syscalltbl__id(elf_machine, name);
+-- 
+2.55.0.1082.g2b9226bbc0-goog
 
-------rcuXGdnugs8S4waa-1E6HIXGjxa.6k2zyxtbMQI1gQTmk2wj=_525ee_
-Content-Type: text/plain; charset="utf-8"
-
-
-------rcuXGdnugs8S4waa-1E6HIXGjxa.6k2zyxtbMQI1gQTmk2wj=_525ee_--
