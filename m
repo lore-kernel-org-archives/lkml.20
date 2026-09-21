@@ -1,70 +1,72 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-pz2-f20.google.com (mail-pz2-f20.google.com [74.125.228.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B9A434408
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:16:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB0E4F6479
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:16:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790014568; cv=none; b=UEv8gmU94RnP4Xzy05EVUDde5KULuYpB3JZZSy1HckpOpixT8+rrtWju8lRHjpjG2huhCspdjWm1cb8WF1919H7AXEVT/d6a0+waMoRBPWMJ29wwcZcbPtA2LnpvTNCUg+9I2atMn6RgyrhPLZMtOoGm2A86j2XdGw8VcyQX65A=
+	t=1790014570; cv=none; b=eokSqkbXCLgwT/RnK6/y6InPryIlOFFgKFHfB8brvfCA+/AJkOqlZSV3cQXWcy6ppnPN2fKY1pfIQcKGEnBwWuYxba39c5XVdfoBilnC5cUM0b8bMMSw0pXqeC4PxZeet13DBt7Oma5J22xlkxlDN3ZI0nQecPPhUw+tEBJlHjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790014568; c=relaxed/simple;
-	bh=MF95b1CFz2Hh2Ch96ToeVJ+PB5mNQ3DhGZRr/7qtRaE=;
-	h=From:Subject:To:Cc:MIME-Version:Content-Type:Date:Message-ID; b=V5C5KPbyK1wMFzQlhbIU3evcx+ahLH5MDGmolJ4272wdnARSIJKO7iVLNe7vbc2RJvmvYIEym2RWV8FhQ+76CbFVyUh8VjXq8UbpCwThGYXGMDgvcW+yA6OLpPwDpd/SF68DBGR+3wNW9WFb0Q4fSW3nfJmL7pfQY//g2Sul4ys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qe7qoFK7; arc=none smtp.client-ip=74.125.228.41
+	s=arc-20240116; t=1790014570; c=relaxed/simple;
+	bh=9sO/C+Mw5RPob4eZkpAodclBSGa8oO5zecCGg5bgyHE=;
+	h=From:Subject:To:Cc:MIME-Version:Content-Type:Date:Message-ID; b=iTRWriTsEl0zfI4IJorFpKNq31gAlaQWVhDDsRwsamW6gcXsgS26LbfIP6JJ++f6NI5lNbLzLuzShMWbJdU5TjXq2Wbrxzx7rX4yZkUAjscBG1YM4L/j+gODN9os1tijq0ywKiKQJH0aKAGdSt1UxAsLZUec7mME6cfui5WHvLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hRcenJyf; arc=none smtp.client-ip=74.125.228.20
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qe7qoFK7"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-8692a856865so3020696b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:16:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hRcenJyf"
+Received: by mail-pz2-f20.google.com with SMTP id 41be03b00d2f7-cc1cebad4afso2379760a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:16:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790014566; x=1790619366; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790014569; x=1790619369; darn=vger.kernel.org;
         h=message-id:date:content-transfer-encoding:content-type:mime-version
          :cc:to:subject:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sp7CkkCFTfRQKPl6kzZrbuCRgTVE+fbWFxi07HmMuWo=;
-        b=qe7qoFK7Ayt9tt0RbnaQGa9W6vnh1iFhV2jgBFxYukOEZbhJYpnCDBiLeVxM4VmUxV
-         wQECEnesyEZQsl65jWyI6YrAG7vvsilxWnaTOqS1T1eJiqe1jp1omX/FxZi+IuxSZ3yy
-         WZmXBIRi/0ZqAWK17URNmJGTPlL69sWVN/1RMNAUFNeKoOp8gLkEYlbtU09jo0XsKEGN
-         lNKeKUu/pGRKD5YE7qYn7A/hEvfTiZRkGy6//kLcU5wrdFGmvTqm5VcpA/Wr09fHzjj/
-         WBdxbylZ7fI1lBTicos6plOYwYK8ax3uD0aVgHK3P4BiSe2HpbV0D0kduRZx825AfVvZ
-         qBDg==
+        bh=ceJBvn0jVpw0gF/+O6f3OrNX6AQyTIdHbztQy6tYQ0c=;
+        b=hRcenJyfl6YL7GXJLB6zn/9mI0QTlyKd4FdA7Wnyibu6RiTDeS1isKWA74u07k8/wg
+         +30POYVV2PLOmGWfa2yS1AxNCG9nbHMfZkjA5tlkkTir8oNDHvOG6fjcC/ZfkMcro3Jh
+         DcMpbLDOf6gOONDU8pOBSM3yaT9PsU4fhQ+i3dT35QSFORSJfUhjCV4aEhmVXN8goY0e
+         hFwNZ7kdOzwT6KrbcGaSnl7GWAr6swFYn0va9luf5BCajvP/8/oy93RswQqAF0DZ+u9J
+         LuwWDnsn5KtJeg84WWstLG31RFHCCIfVyvA0rJBwD8U+jKYfznPE+RrTLyQ1nGEyJA83
+         VP4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790014566; x=1790619366;
+        d=1e100.net; s=20260707; t=1790014569; x=1790619369;
         h=message-id:date:content-transfer-encoding:content-type:mime-version
          :cc:to:subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=sp7CkkCFTfRQKPl6kzZrbuCRgTVE+fbWFxi07HmMuWo=;
-        b=krbRLJSZjSMTBIYvH17Rm8JMcnfwFyQZ1FOpHZbeexXbuOaIyVMgc9oWe9P3x0ARHH
-         zQWVOirM7eZJZq8I1yBQg92D7D+TXlYNzu+2L6MNfX2kODeKOUvy/xx72jSmjMVoYI/4
-         8LCXVPny1nA7+yBSzyLU/oa7KmBUO5DU3NKZdAuueCAV1nvI1+ZCHZlY813Kv3SKat5k
-         mxXpBvYwUZHTpIckRUbmLhbBgdJEUHOoQJcpzXHBeNcW84lWfLoRWAUVlgwWzielZW82
-         Vbp5D6r7VgDo5V+LkZ9GcYsRciR7v08OmV6i5B1EkO/2Q7dEgDjOiNoK+0rguu4sc2q3
-         xd6A==
-X-Forwarded-Encrypted: i=1; AKwUvBycO/s0E05fSnylEGW7r5eKm1eWfl1WNeo1/k1zZm0lqanmxitj5yl/wMcAvQ9RDFqzIKggv7R9pLhetoA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjDF3o6yJGsBRnFW8WRwKrRZ4r41etFM1VBo7LvuY3u4go5hmX
-	rPRj/X4Je01gzwWjk5Mh7F8h8CDeJ5gQOdxX+wC9LGWyV9BLnRYVROQU
-X-Gm-Gg: AYBFou3LZtRhpC6oXzzXxMXurkJu7/VcPH3Z4t3nl9eG82kYzkYdWkxTSF9FZ5Q7Xs9
-	pXRIYK9uHm/QckzAXJN4qIMjqvQ00IHELcbvYzRDD538h44z+jxjCJ+Qg1uJai17IOtQqFKnh6O
-	FTorKTvCabDvY7JdOTkTfsmgeB+syRiWBFSM2z7LVZzlCPgbUP6z6Z7lSX9rxvyH/xugsggd3yz
-	muLqE4LRdCvUzz47AmeNty4Cx+7MmTmJk2L9oKp2A0CMCcUuGNgwYcwLaz9ydk+8vJoIU04f/fz
-	+/Vqa5ygCSmTYfDN9e/Uuw3zEKrtseXazFh/S3+gnkKECbWwWA7H3Q3egcI+HA4Y0RNAfw27TSO
-	rGbzZkuvneRmro3DhQ7r7Wiq/e6ftz0eMeGkLl3Lsy8Btm/1bXmxmeHhS+us1PLx5pJEWm7/S49
-	fekBOAUq0hxxdDKxLttETVrhHf5sjZTirXjrOwr1oiNkE7w17gYdPMlpa/YL8gwUN78ssE0c/PK
-	P5Lb5efqZKy25Egywr1jdo=
-X-Received: by 2002:a05:6a20:1605:b0:3dd:a197:cf26 with SMTP id adf61e73a8af0-3dda197d7dcmr12001110637.74.1790014565989;
-        Mon, 21 Sep 2026 11:16:05 -0700 (PDT)
+        bh=ceJBvn0jVpw0gF/+O6f3OrNX6AQyTIdHbztQy6tYQ0c=;
+        b=LeRlrEjC7TUNDPEe4Y0bt3oDJkgMezU+DCi3HN1L+IF9Isx07Qr3OgLgYIKJUVYpTf
+         vSb8gL2WqzItyN/Y4j4QLVLvCArF2gRqeSz2eFYPfKcnpGNssyPk2C647X2ox7ROrGGM
+         CJMeMVN+o88+ab0OE0ESFgA3qmBki1Ju6+PrPha20TUb+YyCBYIaeyF5c/Mhpnr36T3Y
+         bGkkRKb4h414xh+jBecfDbypKq2zvpqyohga2Zby2NV+BmZEcO1NK8JRb5xkfD0ObHcZ
+         KDZmIRGFPYv+qY1snvNNdYoA2Abpu94zIuP3O2Y7xyjVlLeXOYLojUcNA3ghGYB+cUSS
+         4hNw==
+X-Forwarded-Encrypted: i=1; AKwUvBxvf3mWPOjmrTYh3l3M/7wEuG2adEPaimpK1aenKXeHb1GP1bH468kZTKifVRUZEQ3dDKg0GUjpBFk3hd4=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7h5XenA9NIWu3dRXPbX5vpRJZos5IUhwwsbH2idWrZTuboTL1
+	ZDuMQRZY3UlHeBzBebPZYgtpuz7l0UVEYoScXa3iQEApef02wfGeM+vv0UMhazzW
+X-Gm-Gg: AYBFou39Ny4xxp/DMJ135+r2ZKdGL8iGmaSBCcUXzjCCRK0msbIw0hgock8SW1YGV+a
+	EZKeDFfY7s4JcLfO9mDOsDJw93u+XzV2qAy4YZFPaK6HoJoWKkS2E5AtouEI2kmsK8x/4RKcD9p
+	On3r8TMttcn1LEjpQhPtX7z+DggaKZeDjxrUQNiwZhfO7Z+gUICUqik8RTzdu/npP5QUo8afF8E
+	u9hEcdAYDRVv3/cmRJnjwao+uGIPAP2U2kJl4XexvlxxJ7CCHCuNQbxxoxqGrY3Gx5kHyhFN12g
+	X7tvujqN82ssEDlJIr09OOL7p86y32RkLD1aEmMid4GNBse1DHOYQf1iIyS1+nywpwVw9zkJbIZ
+	51jVpSB667AWvi9B4dKqxf+in6eFl+Wpu8ROsSxXuRgFJuCaVC46SwRe2SfeVfVlB9iPfH50B5E
+	13QscaDZZAiznB/mvG5nokxMRY2bfh1UmodWQoI1g529KdMUKpWnVCms98UOQZv0GCJStNHBBHo
+	Obfa9frBBxy3iF0anqBUAw=
+X-Received: by 2002:a05:6a21:3943:b0:3d0:8abe:9e08 with SMTP id adf61e73a8af0-3dd8c3f2338mr18188576637.3.1790014568927;
+        Mon, 21 Sep 2026 11:16:08 -0700 (PDT)
 Received: from SANGHOON. ([1.220.132.212])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72ae8eae3sm3902549a12.14.2026.09.21.11.16.03
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72ae8eae3sm3902549a12.14.2026.09.21.11.16.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 11:16:05 -0700 (PDT)
+        Mon, 21 Sep 2026 11:16:08 -0700 (PDT)
 From: Sang-Hoon Choi <csh0052@gmail.com>
-Subject: [PATCH] drm/tegra: initialize channel context before publishing it
-To: Thierry Reding <thierry.reding@kernel.org>,
-    Mikko Perttunen <mperttunen@nvidia.com>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>,
-    dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
-    linux-kernel@vger.kernel.org, Changyul Lee <lcy8047@gmail.com>
+Subject: [PATCH net] nfp: hold IPsec RX state under the XArray lock
+To: netdev@vger.kernel.org
+Cc: Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
+    Andrew Lunn <andrew+netdev@lunn.ch>,
+    David S. Miller <davem@davemloft.net>,
+    Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+    oss-drivers@corigine.com, linux-kernel@vger.kernel.org,
+    Changyul Lee <lcy8047@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,22 +76,25 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Date: Tue, 22 Sep 2026 03:15:59 +0900
-Message-ID: <179001455907.44752.8291506500067688174.idr-bug-37@gmail.com>
+Message-ID: <179001455912.44752.17153022439349797877.idr-bug-92@gmail.com>
 
 
-tegra_drm_ioctl_channel_open() stores a new context in fpriv->contexts
-before setting context->client and initializing context->mappings.
-Another thread sharing the DRM file can guess the context ID and issue
-CHANNEL_MAP before CHANNEL_OPEN returns. For example, the first allocated
-ID in an empty context array is 1. The mapping path can then dereference
-an uninitialized client pointer or use the mappings array before it has
-been initialized. CHANNEL_CLOSE can also free the context before the open
-path finishes writing those fields.
+nfp_net_ipsec_rx() drops the XArray lock before taking a reference to the
+xfrm_state it found. The delete path can erase the entry and drop the last
+state reference in that interval. RX can then try to increment a zero
+refcount after the state has been queued for destruction.
 
-Initialize the fields before xa_alloc() makes the context visible to the
-other channel ioctls.
+The driver queues firmware invalidation asynchronously; the delete path
+does not wait for the command to complete or drain pending RX processing.
 
-Fixes: d7c591bc1a3f ("drm/tegra: Implement new UAPI")
+The XFRM garbage collector waits for an RCU grace period before freeing
+the state. That delays reclamation but does not make acquiring a reference
+from zero valid.
+
+Take the xfrm_state reference before releasing the XArray lock so
+xa_erase() cannot run between lookup and reference acquisition.
+
+Fixes: 57f273adbcd4 ("nfp: add framework to support ipsec offloading")
 Reported-by: Changyul Lee <lcy8047@gmail.com>
 Assisted-by: LLM
 Signed-off-by: Sang-Hoon Choi <csh0052@gmail.com>
@@ -98,32 +103,29 @@ Found during source review at mainline
 5dd1818b15d98d4a20806cd00b1b40320b06004f. The affected source is unchanged
 at 93f51579e7df248780214094418f205253383cc5.
 
-The modified uapi.o compiled in an x86 allmodconfig build. I have not
-tested this on Tegra hardware and do not have a runtime sanitizer trace.
-This concerns the UAPI guarded by CONFIG_DRM_TEGRA_STAGING.
+The modified ipsec.o compiled in an x86 allmodconfig build. I have not
+tested this with NFP IPsec offload hardware or reproduced the race with a
+sanitizer. In particular, firmware invalidation and pending RX processing
+have not been exercised together on hardware.
 
- drivers/gpu/drm/tegra/uapi.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/netronome/nfp/crypto/ipsec.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tegra/uapi.c b/drivers/gpu/drm/tegra/uapi.c
-index c0ac6b45f..1dec2f0ab 100644
---- a/drivers/gpu/drm/tegra/uapi.c
-+++ b/drivers/gpu/drm/tegra/uapi.c
-@@ -135,14 +135,14 @@ int tegra_drm_ioctl_channel_open(struct drm_device *drm, void *data, struct drm_
- 		}
- 	}
+diff --git a/drivers/net/ethernet/netronome/nfp/crypto/ipsec.c b/drivers/net/ethernet/netronome/nfp/crypto/ipsec.c
+index 9e7c285ea..960d7513a 100644
+--- a/drivers/net/ethernet/netronome/nfp/crypto/ipsec.c
++++ b/drivers/net/ethernet/netronome/nfp/crypto/ipsec.c
+@@ -625,11 +625,12 @@ int nfp_net_ipsec_rx(struct nfp_meta_parsed *meta, struct sk_buff *skb)
  
-+	context->client = client;
-+	xa_init_flags(&context->mappings, XA_FLAGS_ALLOC1);
-+
- 	err = xa_alloc(&fpriv->contexts, &args->context, context, XA_LIMIT(1, U32_MAX),
- 		       GFP_KERNEL);
- 	if (err < 0)
- 		goto put_memctx;
+ 	xa_lock(&nn->xa_ipsec);
+ 	x = xa_load(&nn->xa_ipsec, saidx);
++	if (x)
++		xfrm_state_hold(x);
+ 	xa_unlock(&nn->xa_ipsec);
+ 	if (!x)
+ 		return -EINVAL;
  
--	context->client = client;
--	xa_init_flags(&context->mappings, XA_FLAGS_ALLOC1);
--
- 	args->version = client->version;
- 	args->capabilities = 0;
- 
+-	xfrm_state_hold(x);
+ 	sp->xvec[sp->len++] = x;
+ 	sp->olen++;
+ 	xo = xfrm_offload(skb);
