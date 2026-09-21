@@ -1,103 +1,51 @@
-Received: from mta0.migadu.com (out-229.mta0.migadu.com [91.218.175.229])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mta-65-225.siemens.flowmailer.net (mta-65-225.siemens.flowmailer.net [185.136.65.225])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A832448F008
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:33:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.229
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D1B478E49
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:33:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789983207; cv=none; b=UM7Ce7K/QJ+WIl1YoKeUosug38BN9b+pIVW1opOiBtGx/BWdV6eVF4IaUKqo+QzUsLQrRONPBpWGLPP79xBfejvQ/dsmj6p+bbGvDRjuBunmBXG5J1wMcdfopym+A4G8Rqz62QLi/b67pzshrgaBvjSOj855q9Me4xL6vcexLRI=
+	t=1789983197; cv=none; b=MabJ8oSW+7cD99S6KZ70RoZnvUlX/AP5+HslCn7ZR3VR4+Kz92Bht0NMPZIen7WODnl/qeUSlOf2DG3bIYryFev2tG6l+PXgoiOUAgS78pZVT0U6yyvJb/opj+EuxvmSmjJeWrxzxgvmC6UpIm4jPLVMFms5PyLtXu0gO90nbRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789983207; c=relaxed/simple;
-	bh=ngtWac8X3lY5A5SaQnbYXeWkN/JG2JLNpAbPKFOiOjM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=MaGYx0wYqnIT93+69inERDpBnL09PKpe4afu2rqDRnf51EmqCZQIDDiOK/kOYjVuY190KlbXQO3PNdktf577v5nHqFoEzHgVrVTtQRrck886t1RrgOeEsFBRHriQ1dmZ+pUe4qNMSCF67WK7Jdhdue1jltu5zG2TAw/eEfN+Dlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=f9zsQ83j; arc=none smtp.client-ip=91.218.175.229
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789983197; c=relaxed/simple;
+	bh=MuMf7Nt+s1wt5XM/x5dCAotMQ/UPI0nOLZmXZ9W16/U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=C9UuIAqXlH3UwaqdhfEmAL7E+NH+7jG2Sg4eLyW6m8kEU+sdNZ+2ib+CABjzX3YNKoe+s2FiAYv6hN3MYAOWZ/1mym8IQYM1phTTWMjFiaybpunmHAs+8So+bDxNBc+J8RUdXTXbx2aP1Mo86qEiT5XdZpX0g1W5lu9Uon2tJTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=pmggtXgw; arc=none smtp.client-ip=185.136.65.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="f9zsQ83j"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ngtWac8X3lY5A5SaQnbYXeWkN/JG2JLNpAbPKFOiOjM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789983203; v=1; x=1790588003;
- b=f9zsQ83jctwgcHU/RmDsAzFpBmzcyeP8XJuu2OwoLEJIDVTZwJcC39vehYpLwR6qsxzsPI9Y
- 1+31/aiNiv1DKkowHmxvokW9QTtZDPyV4BGyLdG4qzQ6MDM57NXkFeWBffJ0r7oaY0jB/d2Xufl
- QY//agRj3sw71upZe3+FidVc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0b8bc6083ed009dd;
-	Mon, 21 Sep 2026 09:33:23 +0000
-X-Mizu-Trace-ID: 0b8bc6083ed009dd
-X-Migadu-Flow: FLOW_OUT
-From: Ye Liu <ye.liu@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Ye Liu <liuye@kylinos.cn>,
-	Michal Hocko <mhocko@suse.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Gregory Price <gourry@gourry.net>,
-	SJ Park <sj@kernel.org>,
-	peterz@infradead.org,
-	paulmck@kernel.org,
-	mingo@redhat.com,
-	rostedt@goodmis.org,
-	jpoimboe@kernel.org,
-	mic@digikod.net,
-	oleg@redhat.com,
-	tglx@kernel.org,
-	david@kernel.org,
-	linmiaohe@huawei.com,
-	nao.horiguchi@gmail.com,
-	rafael@kernel.org,
-	gnoack3000@gmail.com,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="pmggtXgw"
+Received: by mta-65-225.siemens.flowmailer.net with ESMTPSA id 202609210933029ff71a9af60002073e
+        for <linux-kernel@vger.kernel.org>;
+        Mon, 21 Sep 2026 11:33:02 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=alexander.sverdlin@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=HuAhv2bofAntDDHM2/ps5bcWeGJaQ8lLCGnIoZQfawY=;
+ b=pmggtXgwGfJzvH3Oe2QWGDnorcH6ETyg6Ei/K2vOos0R72ft72tC5+qghDLsHdeaYyDO01
+ YkxgnD4LuefZMMmgshXPlfRXeazqCwoc13zNrFSFis5g/79UgVaeFAsGQCEEhwMaXXZfp/Nz
+ OnbGFBZ+DFh2JCWpaS2gkBgnfyCWB7exU9VG2xfdMKp/LvA8DIRsQb3Kc3Nuzx5WIf5nNZlJ
+ VQ8S/z12nnFY3lAckFbNPbHS4qTJCoEgoHR9MIghRW5REylXk5nYTH14zcljW7q+oiLDfQI7
+ WtKPKCWTXuBaA5bgKEkZ71+wyEir1kfSVJ9VSQNH1CZRryCoPrgi3iaw==;
+From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+To: linux-leds@vger.kernel.org
+Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	rientjes@google.com,
-	shakeel.butt@linux.dev,
-	xu.xin16@zte.com.cn,
-	chengming.zhou@linux.dev,
-	will@kernel.org,
-	boqun@kernel.org,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	joelagnelf@nvidia.com,
-	josh@joshtriplett.org,
-	urezki@gmail.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	tony.luck@intel.com,
-	reinette.chatre@intel.com,
-	x86@kernel.org,
-	paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com,
-	pavel@kernel.org,
-	lance.yang@linux.dev,
-	mhiramat@kernel.org,
-	pmladek@suse.com,
-	longman@redhat.com,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	dietmar.eggemann@arm.com,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	mark.rutland@arm.com,
-	Dave.Martin@arm.com,
-	james.morse@arm.com,
-	babu.moger@amd.com
-Subject: [PATCH v4 14/15] lib: convert process iterator to for_each_process_rculock
-Date: Mon, 21 Sep 2026 17:33:10 +0800
-Message-Id: <20260921093311.104814-1-ye.liu@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260921092101.89285-1-ye.liu@linux.dev>
-References: <20260921092101.89285-1-ye.liu@linux.dev>
+	stable@vger.kernel.org
+Subject: [PATCH v2 4/4] leds: trigger: netdev: Serialize mode/interval stores with trigger lock
+Date: Mon, 21 Sep 2026 11:32:46 +0200
+Message-ID: <20260921093249.3481413-5-alexander.sverdlin@siemens.com>
+In-Reply-To: <20260921093249.3481413-1-alexander.sverdlin@siemens.com>
+References: <20260921093249.3481413-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -105,46 +53,91 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-456497:519-21489:flowmailer
 
-From: Ye Liu <liuye@kylinos.cn>
+From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-Replace the manual rcu_read_lock()/rcu_read_unlock() pair combined
-with for_each_process() loop in lib/ with for_each_process_rculock(),
-which scopes the RCU read lock to the loop body via scoped_guard(rcu).
+netdev_led_attr_store() and interval_store() update ->mode and run
+set_baseline_state() without trigger_data->lock.  kernfs only serializes
+writes to the same file, so two attribute writes race on the non-atomic
+read-modify-write of ->mode:
 
-No functional change.
+  CPU0 (echo 1 > link_10)       CPU1 (echo 1 > link_100)
+  -----------------------       ------------------------
+  mode = trigger_data->mode;
+                                mode = trigger_data->mode;
+  set_bit(LINK_10, &mode);
+                                set_bit(LINK_100, &mode);
+  trigger_data->mode = mode;
+                                trigger_data->mode = mode;  // LINK_10 lost
 
-Signed-off-by: Ye Liu <liuye@kylinos.cn>
-Acked-by: Michal Hocko <mhocko@suse.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: SJ Park <sj@kernel.org>
+They also race the notifier's link-state and ->hw_control updates.
+
+Take trigger_data->lock in both stores.  netdev_trig_work() also holds it,
+so use the async cancel_delayed_work() (a sync cancel would deadlock).
+
+Cc: stable@vger.kernel.org
+Fixes: d5e01266e7f5 ("leds: trigger: netdev: add additional specific link speed mode")
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 ---
- lib/is_single_threaded.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+Changelog:
+v2:
+- reduced verbosity both in the comments and in commit message
+- dropped sync from cancel_delayed_work() (worker now takes the lock)
 
-diff --git a/lib/is_single_threaded.c b/lib/is_single_threaded.c
-index 8c98b20bfc41..4e7fe85454ab 100644
---- a/lib/is_single_threaded.c
-+++ b/lib/is_single_threaded.c
-@@ -26,8 +26,7 @@ bool current_is_single_threaded(void)
- 		return true;
+ drivers/leds/trigger/ledtrig-netdev.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
+index 54c6913f3afe3..92a6a456130c9 100644
+--- a/drivers/leds/trigger/ledtrig-netdev.c
++++ b/drivers/leds/trigger/ledtrig-netdev.c
+@@ -385,7 +385,7 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
+ {
+ 	struct led_netdev_data *trigger_data = led_trigger_get_drvdata(dev);
+ 	struct led_classdev *led_cdev = trigger_data->led_cdev;
+-	unsigned long state, mode = trigger_data->mode;
++	unsigned long state, mode;
+ 	int ret;
+ 	int bit;
  
- 	ret = false;
--	rcu_read_lock();
--	for_each_process(p) {
-+	for_each_process_rculock(p) {
- 		if (unlikely(p->flags & PF_KTHREAD))
- 			continue;
- 		if (unlikely(p == task->group_leader))
-@@ -48,7 +47,5 @@ bool current_is_single_threaded(void)
+@@ -417,6 +417,10 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
+ 		return -EINVAL;
  	}
- 	ret = true;
- found:
--	rcu_read_unlock();
--
- 	return ret;
- }
+ 
++	/* async cancel: the worker takes this lock */
++	guard(mutex)(&trigger_data->lock);
++
++	mode = trigger_data->mode;
+ 	if (state)
+ 		set_bit(bit, &mode);
+ 	else
+@@ -435,7 +439,7 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
+ 	     test_bit(TRIGGER_NETDEV_LINK_100000, &mode)))
+ 		return -EINVAL;
+ 
+-	cancel_delayed_work_sync(&trigger_data->work);
++	cancel_delayed_work(&trigger_data->work);
+ 
+ 	trigger_data->mode = mode;
+ 	trigger_data->hw_control = can_hw_control(trigger_data);
+@@ -506,10 +510,14 @@ static ssize_t interval_store(struct device *dev,
+ 
+ 	/* impose some basic bounds on the timer interval */
+ 	if (value >= 5 && value <= 10000) {
+-		cancel_delayed_work_sync(&trigger_data->work);
++		mutex_lock(&trigger_data->lock);
++
++		cancel_delayed_work(&trigger_data->work);
+ 
+ 		atomic_set(&trigger_data->interval, msecs_to_jiffies(value));
+ 		set_baseline_state(trigger_data);	/* resets timer */
++
++		mutex_unlock(&trigger_data->lock);
+ 	}
+ 
+ 	return size;
 -- 
-2.25.1
+2.55.0
 
