@@ -1,109 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 974F14A482A;
-	Mon, 21 Sep 2026 14:39:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC63C4A485B;
+	Mon, 21 Sep 2026 14:39:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790001568; cv=none; b=shZn9vgWWI9HadqjUl4l/KWQUn7iEok4DsJxsYH+/fKNfEq7lVH/4WdXDdR29itB/5Q36LmH9XyxiNoC9Jyr8YQcKytYuX22c2aG/Xh/7s4iyTdWbPDi++O3Uedkskc0+pPEt/zAoDZUq3am6D/FWTRuXAtCPLE2cAItF4OKLQE=
+	t=1790001585; cv=none; b=hW6zbyvgC2CsBqmlpjtmoeyD4e2f1rM5bsSBHYHCpYNogJpL1LbQTBxKtoB5zxRuZ92ij8hWIDAjEd3f5Dlp5P/Zjgx1p1MNtAYSLCxCOZUqm3i8C2QPOkyncWjqOxCl9cuM27OoVYZ5kdI4MWOylu5NR1s4mf7LMEXLZKY9gK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790001568; c=relaxed/simple;
-	bh=/5Q//Aq1aM5k2sxhg4y8t5ltSJXZEcn51IvhOJB6Gos=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UpdZNC+wbCZ7a7ab8USxohHKTJVxGVaMhEppWpos2wiry8xPZ506KRreqT8j7rjnYLshalLp36XRBSHJVQDLpLuF7Z1yDSfOq2MTv6Xi/P+5/3TZ6rHvUKS7YyZ/tLH6Nt6X7H5grlxhgJqYdEOP2ksV2RLzGSOrcMXqqF8JJOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cFc0ryuN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790001585; c=relaxed/simple;
+	bh=dEs0EeFokSewEqO3rTrKgpg/CaLxRnu6jz4mUmfIUhI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uFYw21mlTAcQkIJ83kwtFixGvQ3bq0WhzJroocPzC1Z1/0/2hhAhOm1Z+HdNFtZP+nrJQzx4BU6nVMmaqmHtkr1N+Sl5GkPUhv7Kl01Wu5sQ9MuKdB15x/3eQi3DRI8B7wt9k81A9noUm6p3nZpYVKrl+B5uP0rE6Z95aq11xLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=m5F3mPAz; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=UpJyVfbO; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cFc0ryuN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 009081F00893;
-	Mon, 21 Sep 2026 14:39:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790001566;
-	bh=wmWiC2Ylqqu6L2SbGAs32gmZrOgZzLH5dEw4pZz35U4=;
-	h=From:To:Cc:Subject:Date;
-	b=cFc0ryuNwfrYaRnMGZxfrSYVqjZ1aDV2LdwYrL1LVJVdoAIh5NI/ktLaoK4FE95SK
-	 TZBCge8nBfLEdeo0oRcvVXGYBcx5hT4NoExG1QOCNyzHBGqw15i/w429UCd7cpz5El
-	 LpvhQcS/mEK1M3D8jrMcEpuZ5K7hcIHF0HZf/rEPEKtoHir9NYJgFir2SPV/IYB8NN
-	 K7Rcal8x7f+a8rAuFtBazp1G8Z2bQTtq/T5qhJsszLcFTt48dfz9B62WzWBU1FUDBS
-	 aobv1rrp7Jpp9KQYV5zuSFc97oehTw4Zl412/rFLn86bXNepr1EKgliAKQF+jZmKx9
-	 /nTEvY4hp+3Bw==
-From: Thorsten Blum <blum@kernel.org>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Cc: Thorsten Blum <blum@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] thermal: intel: int340x: soc_slider: Simplify slider_def_*_set()
-Date: Mon, 21 Sep 2026 16:36:41 +0200
-Message-ID: <20260921143644.69381-2-blum@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="m5F3mPAz";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="UpJyVfbO"
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790001579;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=rrPv/sjCWK03ZBOx8OWtcHgD7XKExSRFEuIO5bJxcwg=;
+	b=m5F3mPAzAUBXyfcNt/leno2o2kNc5ZbxNvREk5xpEsmlVTlh6bNrqT7zwgu6799Mlj/Pg9
+	r42f0J+Hs+r7WtXHCswxqHhtypZ2g9x1MKPtrtaeFKXeV6r1O9xN4n7BSl6bTfAV+HTk8M
+	eAveb2fcfKtOwBzQ9urdND5VvELMqhJzcWa3NkE/HGI43EV/M0kl1tkKNJxi8GR87SIYEF
+	UJC3cN6S5bwJqTUBgXx0mBGnsFqZMdh2QP7TkiYOIir4DorO9vowZm+kQnaUr2BBDvD8J6
+	igIoO0Hg/aTFRXUAiIFxVLCksXjjvc55N5w/HIsm/gciGoi1bgO85TJF++zujw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790001579;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=rrPv/sjCWK03ZBOx8OWtcHgD7XKExSRFEuIO5bJxcwg=;
+	b=UpJyVfbOHN9rW8l/H0HZLVYeXiUJeQDd289HRvsOKqkHkP7hp5dul6vJHWfx5vOdSycubK
+	efa/Jj5PhdP1SIAQ==
+To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Petr Mladek <pmladek@suse.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	linux-serial@vger.kernel.org
+Subject: [PATCH tty v2] serial: 8250: Change console_msr_work to IRQ_WORK_LAZY
+Date: Mon, 21 Sep 2026 16:45:36 +0206
+Message-ID: <20260921143939.170314-1-john.ogness@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1890; i=blum@kernel.org; h=from:subject; bh=/5Q//Aq1aM5k2sxhg4y8t5ltSJXZEcn51IvhOJB6Gos=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkbHf4U/J37PWLPnYBnU9601Qi9nbU6/yTvJem/z/VnW FiUZy2V6ShlYRDjYpAVU2R5MOvHDN/SmspNJhE7YeawMoEMYeDiFICJlJxm+J8lMiHJNd5EfltI vbvKhHr/arWolre3r1UvsHXdwJI2/xjDPyW3B0y7j7fbWS4R26VavWyanFAit0/NZWXTW583ds5 SZAcA
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
 
-Return errors directly to simplify slider_def_balance_set() and
-slider_def_offset_set().
+Change console_msr_work (defers MSR handling) to be IRQ_WORK_LAZY,
+thus not raising an IRQ upon irq_work queueing. The irq_work is then
+handled on the next kernel tick. This additional delay is acceptable
+because any pending MSR handling is also performed in the interrupt
+handler, if mctrl is queried, and during console resume. Using
+IRQ_WORK_LAZY has the benefit of not needing to raise an IRQ for
+each line of atomic console printing when modem control is active.
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
+On a side note, the Tegra20 and Tegra30 platforms can hang if an
+irq_work IRQ is raised while entering cpuidle states. This problem
+was reproducible by performing atomic printing while entering cpuidle.
+So this change also provides a workaround for these platforms (as
+long as they are not running tickless). The discussion on this topic
+is linked below.
+
+Link: https://lore.kernel.org/lkml/f3757a75-0ba1-4558-bf57-f19ab7e59a4c@nvidia.com
+Fixes: d3539347022a ("serial: 8250: Switch to nbcon console, take 2")
+Signed-off-by: John Ogness <john.ogness@linutronix.de>
 ---
- .../processor_thermal_soc_slider.c            | 28 ++++++++++---------
- 1 file changed, 15 insertions(+), 13 deletions(-)
+ drivers/tty/serial/8250/8250_port.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_soc_slider.c b/drivers/thermal/intel/int340x_thermal/processor_thermal_soc_slider.c
-index 91f291627132..e161b95828e8 100644
---- a/drivers/thermal/intel/int340x_thermal/processor_thermal_soc_slider.c
-+++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_soc_slider.c
-@@ -66,15 +66,16 @@ static int slider_def_balance_set(const char *arg, const struct kernel_param *kp
- 	guard(mutex)(&slider_param_lock);
+diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
+index 38fa45e74a37a..1acb73e45f8a0 100644
+--- a/drivers/tty/serial/8250/8250_port.c
++++ b/drivers/tty/serial/8250/8250_port.c
+@@ -3597,7 +3597,7 @@ int serial8250_console_setup(struct uart_port *port, char *options, bool probe)
  
- 	ret = kstrtou8(arg, 16, &slider_val);
--	if (!ret) {
--		if (slider_val <= slider_values[SOC_POWER_SLIDER_PERFORMANCE] ||
--		    slider_val >= slider_values[SOC_POWER_SLIDER_POWERSAVE])
--			return -EINVAL;
-+	if (ret)
-+		return ret;
+ 	up->console_line_ended = true;
+ 	up->console_msr_work_allow = true;
+-	init_irq_work(&up->console_msr_work, console_msr_handler);
++	up->console_msr_work = IRQ_WORK_INIT_LAZY(console_msr_handler);
  
--		slider_balanced_param = slider_val;
--	}
-+	if (slider_val <= slider_values[SOC_POWER_SLIDER_PERFORMANCE] ||
-+	    slider_val >= slider_values[SOC_POWER_SLIDER_POWERSAVE])
-+		return -EINVAL;
- 
--	return ret;
-+	slider_balanced_param = slider_val;
-+
-+	return 0;
- }
- 
- static int slider_def_balance_get(char *buf, const struct kernel_param *kp)
-@@ -101,14 +102,15 @@ static int slider_def_offset_set(const char *arg, const struct kernel_param *kp)
- 	guard(mutex)(&slider_param_lock);
- 
- 	ret = kstrtou8(arg, 16, &offset);
--	if (!ret) {
--		if (offset > SOC_SLIDER_VALUE_MAXIMUM)
--			return -EINVAL;
-+	if (ret)
-+		return ret;
- 
--		slider_offset = offset;
--	}
-+	if (offset > SOC_SLIDER_VALUE_MAXIMUM)
-+		return -EINVAL;
- 
--	return ret;
-+	slider_offset = offset;
-+
-+	return 0;
- }
- 
- static int slider_def_offset_get(char *buf, const struct kernel_param *kp)
+ 	if (options)
+ 		uart_parse_options(options, &baud, &parity, &bits, &flow);
+
+base-commit: de7f683ff9e070ca19565373c546d736663e5512
+-- 
+2.47.3
+
