@@ -1,108 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77254BD10B;
-	Mon, 21 Sep 2026 15:15:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D119E4BE42D;
+	Mon, 21 Sep 2026 15:16:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003759; cv=none; b=C0IQnYbTgZq/g5ymARzFnz2h/baWaCiE7HGoBmMmJAPu7UTc8UN73XxSkyFw7b7YPjdHjQ//lEyqHIDU87F3cg0PA3+egcjUv/wcd13+j8Qcv3hk5hhw0WYLoVwnROpB2UjlchQUe52uD2PpNrHksLVCltHV5vCeDxlMttKrZWo=
+	t=1790003762; cv=none; b=OhjPFDrxRi4O2ABGiRHk7vQoPwj53eFzCX5yatcGq0Nudo23sHCwuui3u1IVSlXmz0VTQGs1SxjMYmmKtaWCvnT/321PwQRuf1eGlMbQuxWigod6W9CANplHLz4qY/5KE+/d7GS48VJcy6EW1r0za5nEZ3hwEq4lFp3Cs1f6Ee4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003759; c=relaxed/simple;
-	bh=/fCqJ2qTxNm3snRd2x48+oh09EsMTsOzYCwCEmFu7/c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u5/e9s5Fl/cNK1Z8E+YXJPj+yxfvJwsN3OM1TzPaKV+eAEGkLg7zHktDIW7PkEkjPypm8476Ssi4lQjEIHDBtiZH1QcW952JDMjsURymwc8vvo/KjRnE28NYEOyMw6nsb5oHiKklaMLfOIkLzWTJyBJTIXT3UYWRwMLmMZNUo5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h4nVxrJ8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790003762; c=relaxed/simple;
+	bh=GmWPcTpaKF6EHJdlDr9TQZWWAcbUCnyIBkkHLbo5z+U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LKH+Q6vHXw6RlSPmTg7gqitWr2Vttw+vbjTD2xw0UaHQEx9gYErF9b5gP9wesmLOi95i8lvZVnjL4ftNURlbTumLHfynoi0jj8iC27JEEQQ55UOo9pENiEpjKRlxFtZiLXc0Ogqn83Np3Cj79hfeJ3oMiiYZKtFLY+NEZEZERbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JXmy9QfE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h4nVxrJ8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D24D1F00899;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JXmy9QfE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C26091F000FF;
 	Mon, 21 Sep 2026 15:15:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003758;
-	bh=Pa7Ft/ijJMnGxUHvP/pkiFeMmDY5E8M9itOTKRJ8E0A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=h4nVxrJ8g3YF025hvaiGNr0MdFiGK034N3EzYm6Eq5q5IUw+KfLqfwhAGQEs1iS5J
-	 g157pX2XvAsaCz4Emgu1SiUAaMr67jPYhGKvYyZhuJ/3N6odu1/KHNltPPe/FPTC3e
-	 ZMqHYYMK/cCF5XndgTo6PnmWrR4hH48Q4pofQHdJZEu6I8OhUSo2pssBaGDySivRjp
-	 kMf6zlhq4c0W4vytLtaHsI+SxTi+wujMf7wvrB89vcIqIrfqAvfedHB2u14iE2eaNY
-	 8Mc60p2xDxdBbX8vnQ9tB+nQ/qyOpTWXVlg1imXOXHtq5X0njvbQTMAI0HI2c09dOC
-	 xP42vLSfP0cxg==
-Date: Mon, 21 Sep 2026 17:15:55 +0200
-From: krzk@kernel.org
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: stable@vger.kernel.org, Matthew Auld <matthew.auld@intel.com>, 
-	Jani Nikula <jani.nikula@linux.intel.com>, intel-gfx@lists.freedesktop.org, 
-	David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org, 
-	Tvrtko Ursulin <tursulin@ursulin.net>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
-	Simona Vetter <simona@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>, 
-	dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
-Subject: Re: [PATCH] drm/i915: fix mock ring memory leak on context
- allocation failure
-Message-ID: <arFKKZ_0siQVQAdB@quoll>
-References: <20260919171710.3699710-1-lgs201920130244@gmail.com>
+	s=k20260515; t=1790003760;
+	bh=bKpBenybAt2skpTkLkXIqtzA/nUfxrfvFxG/+NAT6QA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JXmy9QfEcwYPI/tNPSUfWcmZK2OvPO0BNfURuaKxF5h9YIMhrUnMM4vFj2sX8VqMN
+	 D9YZ9RJFpym5NVLBBcdn7kAsi+ADbCPpi7uonOTui1DTnYbmy+cqcXjJeimWJk8n4I
+	 Fm4ss6Uq93K1DV+3x4UJCvl5SLQQedtrdxOfjywEiKCmVD40efRhUpdnILEpejlViq
+	 x0Klihsbkoxo2xySgz7mNWR+GGw1ZXba4InQ1N898lk4kVo81w5jX0rilD6VkoU9LZ
+	 00MRa34TAFNihHZJffBuN8dixHOYqHlVPiBiMxHpLbvFZDzCCDTLobN6NDo3W3kxx0
+	 B0wHQkbEKRtyg==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com>,
+	Karthikeyan KS <karthiproffesional@gmail.com>,
+	Liew Rui Yan <aethernet65535@gmail.com>,
+	SJ Park <sj@kernel.org>,
+	Xuewen Wang <wangxuewen@kylinos.cn>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	"Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+Subject: [PATCH 3/4] mm/damon: fix typos in comments
+Date: Mon, 21 Sep 2026 08:15:45 -0700
+Message-ID: <20260921151547.78472-4-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260921151547.78472-1-sj@kernel.org>
+References: <20260921151547.78472-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260919171710.3699710-1-lgs201920130244@gmail.com>
+Content-Transfer-Encoding: 8bit
 
+From: "Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com>
 
-On Sun, 20 Sep 2026 01:17:10 +0800, Guangshuo Li wrote:
-> mock_context_alloc() creates ce->ring before allocating and pinning the
-> context timeline. mock_ring() initializes the ring reference count and
-> returns the initial reference to the context.
-> 
-> If intel_timeline_create() fails, mock_context_alloc() returns without
-> dropping the ring reference. The same leak occurs when
-> mock_timeline_pin() fails after the timeline has been created. Since
-> context allocation did not complete, CONTEXT_ALLOC_BIT is not set and
-> the later context teardown does not release the ring.
-> 
-> Drop the initial ring reference with kref_put() on both failure paths.
-> When the reference count reaches zero, intel_ring_free() releases the
-> ring VMA and frees the ring allocation. Clear ce->ring after dropping
-> the reference to avoid retaining a stale pointer.
-> 
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
-> 
-> Fixes: 75d0a7f31eec ("drm/i915: Lift timeline into intel_context")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/gpu/drm/i915/gt/mock_engine.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
+Correct spelling mistakes. No functional changes.
 
+Signed-off-by: Adrian Huang (Lenovo) <adrianhuang0701@gmail.com>
+Reviewed-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+Reviewed-by: SJ Park <sj@kernel.org>
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+Changes from v1
+- v1: https://lore.kernel.org/20260915102746.647-1-adrianhuang0701@gmail.com
+- Collect R-b: from Zenghui and SJ.
+- Rebase to the latest mm-new.
 
-You sent multiple independent patches, to multiple independent
-subsystems. The amount of these patches clearly suggest this was
-AI generated and most likely not tested.
+ mm/damon/core.c     | 6 +++---
+ mm/damon/lru_sort.c | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-More importantly, you sent all this work without properly organizing
-relevant patches into patchsets. This makes reviewing difficult
-and might cause multiple reviewers to address the same issue.
-Replying to the entire set is impossible and requires handling each
-patch independently, instead of applying or discarding the set.
-Maintainers also won't see the bigger picture of your work. Quite
-worrying.
-
-This is on the verge of hostile patch: bomb us with so many
-contributions, we won't be able to handle them in efficient manner,
-like responding ONCE to ask you to slow down.  Considering all this
-is untested and LLM generated, I have even more doubts whether this
-should be considered for review.
-
-Please read kernel documentation BEFORE posting more work. It will
-explain you how to identify subsystems, how to organize your work per
-subsystem, how to document usage of LLM and how what you should not
-do if this was posted in a good faith.
-
-Best regards,
-Krzysztof
-
-
-
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 98c767b9e6ef..0aa5d0ea8ebc 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2486,7 +2486,7 @@ static bool damos_valid_target(struct damon_ctx *c, struct damon_region *r,
+  * This function checks if a given region should be skipped or not for the
+  * reason.  If only the starting part of the region has previously charged,
+  * this function splits the region into two so that the second one covers the
+- * area that not charged in the previous charge widnow, and return true.  The
++ * area that not charged in the previous charge window, and return true.  The
+  * caller can see the second one on the next iteration of the region walk.
+  * Note that this means the caller should use damon_for_each_region() instead
+  * of damon_for_each_region_safe().  If damon_for_each_region_safe() is used,
+@@ -2652,7 +2652,7 @@ static void damos_walk_call_walk(struct damon_ctx *ctx, struct damon_target *t,
+  * This function is called when kdamond finished applying the action of a DAMOS
+  * scheme to all regions that eligible for the given &damos->apply_interval_us.
+  * If every scheme of @ctx including @s now finished walking for at least one
+- * &damos->apply_interval_us, this function makrs the handling of the given
++ * &damos->apply_interval_us, this function marks the handling of the given
+  * DAMOS walk request is done, so that damos_walk() can wake up and return.
+  */
+ static void damos_walk_complete(struct damon_ctx *ctx, struct damos *s)
+@@ -4177,7 +4177,7 @@ static bool damon_find_system_rams_range(unsigned long *start,
+  * This function sets the region of @t as requested by @start and @end.  If the
+  * values of @start and @end are zero, however, this function finds 'System
+  * RAM' resources and sets the region to cover all the resource.  In the latter
+- * case, this function saves the start and the end addresseses of the first and
++ * case, this function saves the start and the end addresses of the first and
+  * the last resources in @start and @end, respectively.
+  *
+  * Return: 0 on success, negative error code otherwise.
+diff --git a/mm/damon/lru_sort.c b/mm/damon/lru_sort.c
+index ad8e86dd3a93..273efa3c913e 100644
+--- a/mm/damon/lru_sort.c
++++ b/mm/damon/lru_sort.c
+@@ -260,7 +260,7 @@ static int damon_lru_sort_add_filters(struct damos *hot_scheme,
+ 		return -ENOMEM;
+ 	damos_add_filter(hot_scheme, filter);
+ 
+-	/* disabllow de-prioritizing young pages */
++	/* disallow de-prioritizing young pages */
+ 	filter = damos_new_filter(DAMOS_FILTER_TYPE_YOUNG, true, false);
+ 	if (!filter)
+ 		return -ENOMEM;
+-- 
+2.47.3
