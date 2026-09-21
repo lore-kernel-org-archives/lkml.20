@@ -1,187 +1,133 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A171335C6BD
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:00:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C69C36194A;
+	Mon, 21 Sep 2026 06:00:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789970439; cv=none; b=KmAxxz6jT8GFu3iurMh+21xMrsbsiIpGF2xf53pBwx8OTE6FmVjCpdaYpzXQHMFkhKRpH/dkWKpXj9/wSZ5omwtpPubBH+8wdLoefRXekAMj8Kxvbo2kQWGNEuxWah0tzd3uXgeG6v2QW1rdOK/jys5Xmib1q7TlCcv/2RZ3KRc=
+	t=1789970441; cv=none; b=kamIUWgttRrJWWfNb8LJVCcgnDC1Vq2jEUdbQZKqSVBw5D/DSyBRSAwCV/PedkeP6alzFUQNTNzuPDeBinA7+8dYXaG9xVgTSNX2aLrtgi/o+1vKnXnC8RGcxQM1zJ/0ZesUi2tERACb8a+AHS2ZMrw1+DCfSz+7gGgRpaXsChg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789970439; c=relaxed/simple;
-	bh=8fGm4QsbqboQ4X+kQYJy2qxs1YmyCSH63xzjYCEY+NY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SIXMRVKusn6IsJxjsLxnkJVhTTwxS3IaUNr9S4UUPAGAiJI5m7wY3shKVzyb0f8NWtY+4nXNrATBpTsvUjyf8EuDkxeawFMHnS58N2+XA+/jpujrHCdUA282yZ+HW19W3DQd2uBYxujR6XdweVbXNia+2KHPrT77cDfqKfy0vtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UXxLJL+L; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789970441; c=relaxed/simple;
+	bh=4zG69CZFDv+RZ4Ce0FKi1VK0WiVt5t0i/2XWwCPH3IQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Lj+yp0u9Q1W5RvU6GS77qm3fNJvh46FwjgVMxHT5Fg6qnCQRs9JPFJYQbJceZGV2ZlkZ9GbQdzi4dazd4GHf066wd1fhQenjA8/3T/ISqcK9BK7zXM7YhNUxnDR/qu04v1MUGmOgw7l5kFuuChlg1Jc4C0teHH03i47/YmOmSTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B1HgvdES; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UXxLJL+L"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so12263935e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 23:00:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789970432; x=1790575232; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BSUm2BvGMfGtlmppCZN9JChh915ltc85tdW86S+ilyw=;
-        b=UXxLJL+LJLLJzqH+pE+9tYH0gVaJfrrVVoVim2IOCAR0XnGWBjXKGU7Nn+UsRf/PcG
-         zHkcNBWWWpCb3AufARbbtOwiQ1cDME6bayGZa3S9ndrn9QzuuDJ5inrhWJQgBYynK0q6
-         SqeTI6ghEXD6TAiehE1Hd7DXxlI0cY4p7vhR0rM9zGZpak8L1DXJHyNXadpYVn3XBcG8
-         VKo4Pt4WbL0yD5bGsfX1sD4ZkP1gcBcELIAupPYA28x030Hm9/NqzvhG6VeKlELBmGj6
-         67WGZZnl5buNgqXg38Tkk+U1BdXuaSiUdvD5GIQEJdKSCZ8qAWLE1WRaeUrQkwpJG43i
-         e6xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789970432; x=1790575232;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BSUm2BvGMfGtlmppCZN9JChh915ltc85tdW86S+ilyw=;
-        b=rASgmWjZ1UaBBRmISjR+MbZDxlcdIYM0yeGXX9/nPPAke5yk1Cd0npMxpNfuZb0gn6
-         TDItZDNMtFfw+X0j6NswkR2Xn66xUKISEeXymarW8eNrocBVsPwe8yKJnQFquSE/wNbQ
-         Ixa5BIbwM60I2j7G9O43V8hektxy4zbIZOH2ehsG/yMoGeGypP1J9b/Bdaaa2hwkeB/9
-         G5kjaHrx4Go9CblIKnr1p+8QzCOs4BsA8kpqfNnUYpOWWtuqTgY9moVGxXQDr8YeAU6R
-         dqLh6hJV78bnAV6wNTwoJbNnFiufSPoRoI5D//UhCYkI3Ner7GdIcA2zb/THsbai/vcN
-         qxYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxZJEtdx3GnEb/3lSZ+CcwWJNCSlPP1EmwZot9d0xjcDYr3eW1AEKCZi1egzIehMvbuM2eR3M33u0bnk3Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++k12yLCBi1SaYIr6QB2PyZvJi3KIpyPKq7fZcTIkbCjey8Zg/3B
-	qChjgyQ5aKx07sBgrz/ENZ5G1mQtRU/QsSJK8s/iggk0hc2SRBiJM160
-X-Gm-Gg: AYBFou2yDls3k18ymiKxf8TRCvnlgwn994EtQizDMO0lo/xnpGVWhCD5s3F/kMPMRAD
-	BSvcNRkLo/RU7RIJ+Myl0qf22lN4ePLqqJc07Sn7Va2aCsLnbB0k49wm4OeMAGSlqkcCZO+TqNF
-	4It9HRzZE38sAsu0Ar6R2Z5UA2L3J9FIU0ZerM8Mx8hOYu5XEIHiNQz07mIagyvM8QzT7AjMthy
-	HFwlcmaYeAZB3chybpZLLV27J+kJOxkMJFj2zzGDaD1ETYh1Wv7HT7huge7I3AK2jaT50r8ElpG
-	LmvkfbrzDrLar12sso1qAEFTUiCuruOMG9wlHs7Rq0ga2+FbkcIdXlWS+T6Cnd/WdYIwtSK25SU
-	kyz9H9fTdergfR2GYDJYEtSYJc2s9iY0fsKq0tbKIdgvNT+Ld4kBdkxHZJO4Pi7am2PFIbDnt2N
-	jOvrE3FgEShF2dJ1Gm8GhF/GwNISPjtoGbfPiks04Y+WKJK3bsYnVURpT0YZF59e0IOifz2KcJO
-	bzbyUHL/P2t9NqVangtBsPel1D2i61K26sQNynPjbpXN1UwCqluPKDE6gKYhmmuIK48GqtQdz0Y
-	fYYo1GT1xmK8+lToiYoryawGYcNUdlsiznI8ymmc7Dt1l0k2VQm5O3C3HJAyVjKLXVXmRgPn/sE
-	Zsw==
-X-Received: by 2002:a05:600c:19cb:b0:49e:8184:f619 with SMTP id 5b1f17b1804b1-49fc57410f2mr132387185e9.22.1789970428604;
-        Sun, 20 Sep 2026 23:00:28 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a8e9-c501-f941-243b-87f6-e5a2.310.pool.telefonica.de. [2a02:3100:a8e9:c501:f941:243b:87f6:e5a2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd1149e0sm198706585e9.13.2026.09.20.23.00.27
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 20 Sep 2026 23:00:28 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Russell King <linux@armlinux.org.uk>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Radu Rendec <rrendec@redhat.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rt-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 4/4] ARM: topology: allocate the cacheinfo early on the boot CPU
-Date: Mon, 21 Sep 2026 08:00:13 +0200
-Message-Id: <20260921-arm-cacheinfo-v2-5892c4531ad9-4@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260921-arm-cacheinfo-v2-5892c4531ad9-0@gmail.com>
-References: <20260912195552.76673-1-kmehltretter@gmail.com> <CAD++jL=7OSrPMax9GRj3D7ehjmmG2uMyws53F8U0x7YGx+RNOQ@mail.gmail.com> <20260921-arm-cacheinfo-v2-5892c4531ad9-0@gmail.com>
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B1HgvdES"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 81F03C2BCB3;
+	Mon, 21 Sep 2026 06:00:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789970440;
+	bh=4zG69CZFDv+RZ4Ce0FKi1VK0WiVt5t0i/2XWwCPH3IQ=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=B1HgvdESkJ9mqTQwVKkhLsBzsYIFyY9l2MxRtY7FchAG5kzlq01gQOkCfA3QvJ0IM
+	 aZuY7S/wIjdUqLS/G+kMxlWtDq1Rd8P5dURdvz5POPYru2UPir/MaQU3TkL0Mygq2d
+	 KI377ifY20EuVATS9mo2Yl1apS4M2n3wV2UyXhgtNkHZbfnNeZLdtn9lWtS7Z6pk1s
+	 L6gFRg8ooh61Oi4oIvl7CeB3KnmyCXmKtOhDvs3VvAJlHK1d96wNsEefvN2bLJHlZL
+	 M0HS4FymKRV9lqneYcXIhbBlK/ocaFASMzq/dJ7BIcWDKPoxB8APGTEKJRGDzX85O6
+	 sjC8kmoT4Nhmg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A7ECC982ED;
+	Mon, 21 Sep 2026 06:00:40 +0000 (UTC)
+From: Bochao Cao via B4 Relay <devnull+bochaolucky.gmail.com@kernel.org>
+Subject: [PATCH net-next v4 0/2] selftests: Fix and migrate XDP feature
+ test
+Date: Mon, 21 Sep 2026 14:00:03 +0800
+Message-Id: <20260921-xdp-features-v4-send-v4-0-a0d4ec392cb7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOPHsGoC/x3MQQrCQAxG4auUrA2MoSp6FXExNn81m1gmYxkov
+ buDy2/x3kaBYgi6DRsVrBb28Y7xMND0zv4Cm3aTJDmnqxy56cIzcv0WBK8jB1xZpqT5pE8RvVB
+ Pl4LZ2n97J0dlR6v02Pcf+eWfvXAAAAA=
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>, 
+ Paolo Abeni <pabeni@redhat.com>
+Cc: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>, 
+ Lorenzo Bianconi <lorenzo@kernel.org>, 
+ Tiezhu Yang <tiozhang@didiglobal.com>, netdev@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bochao Cao <bochaolucky@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789970439; l=2678;
+ i=bochaolucky@gmail.com; h=from:subject:message-id;
+ bh=4zG69CZFDv+RZ4Ce0FKi1VK0WiVt5t0i/2XWwCPH3IQ=;
+ b=JlZitjBbieuRAZeg1bXnaBcm29oP9VsbRhAt9M08ArMB6ZeVOyczAN00+ixfN9bO8hjO9uxt7
+ hOlxhVtnNmLAHv+SAWbZU8Pv0S9gcg+KRvraldYCqA/FE/kx5hdL1SP
+X-Developer-Key: i=bochaolucky@gmail.com; a=ed25519;
+ pk=ZYp7O2eXSIrJ9YmKrl0iHDoulPYSG+1lzICsicAvld0=
+X-Endpoint-Received: by B4 Relay for bochaolucky@gmail.com/default with
+ auth_id=1042
+X-Original-From: Bochao Cao <bochaolucky@gmail.com>
+Reply-To: bochaolucky@gmail.com
 
-ARM secondary CPUs allocate cacheinfo in detect_cache_attributes(),
-called from secondary_start_kernel() with interrupts disabled. With
-PREEMPT_RT, the allocation takes a sleeping lock and triggers
-"BUG: sleeping function called from invalid context".
+Fix DUT process tracking, readiness retries, and signal cleanup, then
+move the XDP feature test to drivers/net/hw as requested during v3 review.
+The NetDrvEpEnv runner uses configured DUT and remote interfaces and
+reports detected-versus-advertised mismatches as test failures.
 
-Call fetch_cache_info() for each possible CPU from init_cpu_topology()
-on the boot CPU, following commit 5944ce092b97 ("arch_topology: Build
-cacheinfo from primary CPU"). This supplies the arrays before secondary
-CPUs populate them. Suppress -ENOENT and -EOPNOTSUPP, which leave cache
-detection to the existing late path.
+Collect results before teardown so the echo used to wake the DUT thread
+cannot contaminate tester counters and cause a false XDP_DROP failure.
 
-The CLIDR fallback uses the boot CPU's cache geometry. A secondary CPU
-with more cache leaves can still require late reallocation and trigger
-the warning.
+Changes in v4:
+- Correct the description of the set -e readiness behavior.
+- Handle signals arriving before DUT PID assignment, including QUIT/ABRT.
+- Move the test and build rules to drivers/net/hw and use NetDrvEpEnv.
+- Report feature mismatches as failures and sample counters before cleanup.
 
-Fixes: a9ff94477836 ("ARM: 9433/2: implement cacheinfo support")
-Cc: stable@vger.kernel.org
-Tested-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Link: https://lore.kernel.org/r/20260912195552.76673-5-kmehltretter@gmail.com/
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Testing on Ubuntu 7.0.0-30-generic:
+- Built xdp_features; checked shell and Python syntax.
+- Original and v4 REDIRECT/NDO_XMIT results matched in three repeated runs
+  with GRO enabled and TX checksum offload disabled, as in the old setup.
+- Confirmed default veth offload settings reproduce mismatches in both
+  versions; these are not migration-specific regressions.
+- After fixing cleanup counter contamination, XDP_DROP passed five runs
+  and the complete six-test runner passed twice (12 passes, zero failures).
+- SIGTERM interruption left no xdp_features processes, veths, or netns.
+- Rebased onto net-next commit 8830e65ed46d; repeated the build, Python
+  syntax, diff-check, and per-patch checkpatch validation.
+
+Native-XDP hardware traffic testing remains unverified: the available
+e1000e interface rejects native-mode attachment with EOPNOTSUPP.
+
+Link: https://lore.kernel.org/r/20260904-xdp-dut-process-lifecycle-gmail-v3-1-5b7eee4f7009@gmail.com
+
+Signed-off-by: Bochao Cao <bochaolucky@gmail.com>
 ---
-Fresh full-series rc1 retest: three builds and seven QEMU boot/CPU
-hotplug checks passed; see the v2 cover for the matrix.
+Bochao Cao (2):
+      selftests/bpf: Track test_xdp_features DUT processes
+      selftests/net: Move XDP feature test to driver framework
 
-The detailed testing below was performed for v1, before this rebase.
+ tools/testing/selftests/bpf/Makefile               |  11 +-
+ tools/testing/selftests/bpf/test_xdp_features.sh   | 107 -----------------
+ tools/testing/selftests/drivers/net/hw/.gitignore  |   3 +
+ tools/testing/selftests/drivers/net/hw/Makefile    |  22 ++++
+ .../net/hw/xdp_features.bpf.c}                     |   0
+ .../{bpf => drivers/net/hw}/xdp_features.c         | 126 +++++++++++++++------
+ .../{bpf => drivers/net/hw}/xdp_features.h         |   0
+ .../selftests/drivers/net/hw/xdp_features.py       | 109 ++++++++++++++++++
+ 8 files changed, 226 insertions(+), 152 deletions(-)
+---
+base-commit: 8830e65ed46de41f849eefb8ba227d4852c460f6
+change-id: 20260921-xdp-features-v4-send-2c0da5db22d7
 
-Full warning on QEMU virt, cortex-a15, 7.3-rc2, PREEMPT_RT:
+Best regards,
+-- 
+Bochao Cao <bochaolucky@gmail.com>
 
-  BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
-  in_atomic(): 1, irqs_disabled(): 128, non_block: 0, pid: 0, name: swapper/1
-  Call trace:
-   rt_spin_lock from ___slab_alloc+0x68/0x728
-   ...
-   __kmalloc_noprof from detect_cache_attributes+0xe4/0x734
-   detect_cache_attributes from update_siblings_masks+0x10/0x174
-   update_siblings_masks from secondary_start_kernel+0xec/0x120
 
-PREEMPT_RT became selectable on ARM in 7.1 with commit c6e61c06d606
-("ARM: 9463/1: Allow to enable RT"). The PREEMPT_RT patch queues carry
-that change for 6.18 and later, so 6.18.y is affected as well.
-
-QEMU virt, cortex-a15, PREEMPT_RT, 2 and 4 CPUs: the warning is gone,
-the cacheinfo sysfs tree is identical before and after, CPU 1 survives
-an offline/online cycle. Same on a non-RT build.
-
-QEMU realview-eb-mpcore, ARM11 MPCore, 4 CPUs, ARMv6 plus ARMv7 SMP
-kernel with PREEMPT_RT: fetch_cache_info() returns -EOPNOTSUPP through
-the CTR format check, no message, no cacheinfo before or after, CPU
-hotplug works, kernel messages otherwise identical.
-
-Raspberry Pi 400, four Cortex-A72 CPUs, 32-bit PREEMPT_RT 7.2.6-rc1,
-full series: the boot warning is absent and all 12 cache sysfs entries
-match the unpatched baseline and earlier topology-only run. The live
-DT describes the shared L2, exercising DT-based early allocation.
-CPU hotplug is unavailable on this platform.
-
- arch/arm/kernel/topology.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/arch/arm/kernel/topology.c b/arch/arm/kernel/topology.c
-index 2336ee2aa44a..e6b50cd43ce5 100644
---- a/arch/arm/kernel/topology.c
-+++ b/arch/arm/kernel/topology.c
-@@ -12,6 +12,7 @@
-  */
- 
- #include <linux/arch_topology.h>
-+#include <linux/cacheinfo.h>
- #include <linux/cpu.h>
- #include <linux/cpufreq.h>
- #include <linux/cpumask.h>
-@@ -238,8 +239,20 @@ void store_cpu_topology(unsigned int cpuid)
-  */
- void __init init_cpu_topology(void)
- {
-+	int cpu, ret;
-+
- 	reset_cpu_topology();
- 	smp_wmb();
- 
- 	parse_dt_topology();
-+
-+	for_each_possible_cpu(cpu) {
-+		ret = fetch_cache_info(cpu);
-+		if (!ret)
-+			continue;
-+		/* CPUs without a usable CLIDR return -EOPNOTSUPP. */
-+		if (ret != -ENOENT && ret != -EOPNOTSUPP)
-+			pr_err("Early cacheinfo failed, ret = %d\n", ret);
-+		return;
-+	}
- }
