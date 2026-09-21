@@ -1,56 +1,56 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E101369990
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:07:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06AA6364043
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:07:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789967270; cv=none; b=mnSqDOC7VCQF9xLLOBS/qQ/kpfzTau2cdOA3WOjE/u7eVPKKfxn0kyKs4xS6MijGFuPV3F1Nc0jIeV72hYnk/IjGSHLASkA0bmApaqMF4l5YTFT08KGHmhn2KPNPgfxKYjprnuH2nnmx3Kw5r6jH02iylb8csi5bjCQe9gb6V2w=
+	t=1789967266; cv=none; b=Ci0GXiF0bB7nXRlYbFycXHH42LrmBYKI9OvicJTk/jsTLja09WX0ge1lgJG9rjZJ9BwfjNa2jaQ2aleP0C2thDOlniVH+QDuNz/RU61eF9X/1dm7YUvzmL+Eds/+lzVYTW4FWNb8UVaGCMwAalGArXUpDLVVqxa+DbLaap3BMnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789967270; c=relaxed/simple;
-	bh=/VOAtg2lu5N2Nvzvlu6ANo0nxnKw4y0WWHEMAzYuN90=;
+	s=arc-20240116; t=1789967266; c=relaxed/simple;
+	bh=zDyCgKElJnJf2Xw0CW6H3IhwBe3zvdoC6phXFcQxMUc=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=oj/INLAW0iPN+YS+iJdJjMnWG8vDXYFhOfoOysvSP/vR5lcQdDp45R8pLI4B9QLlos1s7S39SR0/wN5m9dqCAAy0e4OJwv0SBmNiFJPDDXNBeDK/1KfPdsip8vrsW49ezw3+ErZexl7o2qSwc0B5uj669/4zVFY2lKxkfGxLidE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=l4CRfpBa; arc=none smtp.client-ip=209.85.216.71
+	 To:Cc:Content-Type; b=fJpd3bQ/LbQqpiF0aJdRTxg3ZE78s3V7qhv7wmVJ+2C0WXL1fZBLs6wmGUIEVrjyrz2xnasYtMamtL7eg/wCQg2ErV83NSINNAy9VbKsHMGS+Else50WuwCe6PC9gCkDvWx1c9EXI7vBgB32cwtn0sZBAGCdnpT4SZ9OoQxL/sE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gjuU15zf; arc=none smtp.client-ip=209.85.215.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="l4CRfpBa"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38dbf293831so6181302a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:07:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gjuU15zf"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cbb20f82a0eso1942690a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:07:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789967268; x=1790572068; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789967262; x=1790572062; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=njBfARfpD3SnV1SNIGOHUGhGOxd8dPHLz+F5h6CB8AM=;
-        b=l4CRfpBa37kpY6mkEzz0iyKKB5bK5ET/4mViJt7J62OWMWnF1gtv+15WTWEMWtL4oA
-         qLigfSP+b1qx5YzqsGVgnfN18eyBsOD8RV+B7PBxnTqRdL0O8Ky6ZyE16IUA/v5VThVX
-         q+Ozjqb/jQymsEE3OXXJvBmO9rU+LKw8z4z1dUCWzr4evCilkzY6mz/lkQdhxZ8jPKhd
-         rO1cj8r5P5a6lxBtFNEUeIJ8qOoDAo/wWcDE8eawUgByAbnM8ezJm/QC+eQXljx0X1oG
-         uiYPL2DpZPmUUG8HaG6FmyJEdjsBFIf4ksG4XUTWGE8DbmHb8J3yLp/vAxbR8MN6/qnN
-         KpJQ==
+        bh=5UJvx6m7Q3V8RaoRGo2HpSBYRSVuVzAgTOi+hsx2xco=;
+        b=gjuU15zfYID1UtN6ysQPa4Cy8H2SYwLB0IEf4euIXMoH5nuyUhYzozXR5nLGViPNvi
+         enD6v3rVTPgJLf6aZmei13hTz3KzCBIUeCcrfVBIukTAmUC8G51ELHDOBjw5tR3b+8Qr
+         XRm6VpC7N3yY5+ZrSAv6ZYwRUFgNTQu9mF2Bx074rVopyMWXm19P0x0NZR+Ejkmlatqw
+         E0YzCZY9zayy4QFif9XCvAIX3hpnjDyrxMhrxu8LSoEup/EtZWD+EoTUvuNj70ZuI/NC
+         NDNsA8hpWwfd6CKug6H276n9H5P9Jsi42EAj1iy25WioNgJed1q3MypfXhdrDx6G2Nxu
+         Kfaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789967268; x=1790572068;
+        d=1e100.net; s=20260707; t=1789967262; x=1790572062;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=njBfARfpD3SnV1SNIGOHUGhGOxd8dPHLz+F5h6CB8AM=;
-        b=EqL5bXdhfgW5CT7vVrVl5n7WWlJa7h2198litelu+zH4qNYNUVCRaXV2t6IQ58bZRI
-         UMsFu//69VBdjaBEThLzxrGAkq+hEriJP/lbvHznH6ebCjebMp/Mf6PokVV/RILYXShD
-         6jepEZGSKhw/hNe0UFoFhL5AOwA6ROmJdb1TV9YHE3b7yUMxXRjLR82YoJzDCe7Zw+Fd
-         JLnR1n4ihvmLGonG3eMiFRC1GqAx2mLc2HYkxemmrpocSk/OcFECVjys7OCui9BuZDof
-         5wERGuByIj5sU5qxxoTuR5gDQb2U9rz7C6Th1cLxDK5Hwac++LVx1U3fJAYw5g0/1OvQ
-         SfkA==
-X-Forwarded-Encrypted: i=1; AKwUvBwMowH0HUp6YAkJ+NqdwOCA3ut/yLVC+Pj4Ft256e7ZFbj2UE3jP2uz+AFbUyi6xDYIyE7z6GwK6pUrlyA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/3RGGfQseCRsNs0Y0OHGWyk7rFUom0c4t5EMbcApAxTdGUeL+
-	pyWTb+Uhxb9oeTV8qbr7oygNeslc0vGV+TRowlL+tHWI2rhwFsxyNJLsqG+O9BtOTr/sZWtnSJD
-	S5jJXzFNmjQ==
-X-Received: from dldyr17-n1.prod.google.com ([2002:a05:701b:4511:10b0:143:7976:20e7])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5830:b0:39e:6a82:afd3
- with SMTP id 98e67ed59e1d1-39e6a82bb9emr10090926a91.37.1789967267600; Sun, 20
- Sep 2026 22:07:47 -0700 (PDT)
-Date: Sun, 20 Sep 2026 22:06:33 -0700
+        bh=5UJvx6m7Q3V8RaoRGo2HpSBYRSVuVzAgTOi+hsx2xco=;
+        b=v2v8tq5ZNp9LRTBiupDkz2yVtb5SMggLVBhM4Tknq4/9X25s7cW66hM69q++nZpW27
+         MpRxajjby24dij/NnznErR5zrlQxIKXvbaxpppY7ZMKquhHwmo8kRQ+GKXUKdkVMrcxi
+         3HJkW5dceaTFTkuDdGYNERoWAiw2RFFyLGP1/DS3efquzIraNMCTWzZQSb1GND6p/v3r
+         BDZ0eQDmMcO0sK+U9mTjZtZBiMP0CKZAAx6HU7pLOFR/v3Yis7GweV/zFPQWjVIg7KRf
+         +tksWBwyyJRti5CiERWQ7lQnNzW1bM0juDkF1kU8Cwwn0C2QJnYIszR7phdUuqtznQXn
+         Xbjw==
+X-Forwarded-Encrypted: i=1; AKwUvBzjrxqG/pRnXb5mverwtZRz9TIa8VqGR5ZYSNYKwq41HjgcTfThR1Fo34PbBebvz+4INk71g1ctK/FHTh0=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/0IR5pOaE3elgsisLanDowkDqxgngqqr5GLrgBFD0m4MQ+pAw
+	R7/C7FAtw+UHeZJ/mbrmPrS7EwkB98KhsMT9TzrSUeIiHH3t1s3uvbN6sp/QE/UgPVOOFhZdCQN
+	WTAM4RU5GFQ==
+X-Received: from dlbbq37.prod.google.com ([2002:a05:7022:6725:b0:143:8c20:9c79])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:e584:b0:3d7:b3c1:cc34
+ with SMTP id adf61e73a8af0-3dd8c41a56dmr12371323637.26.1789967262202; Sun, 20
+ Sep 2026 22:07:42 -0700 (PDT)
+Date: Sun, 20 Sep 2026 22:06:30 -0700
 In-Reply-To: <cover.1789966896.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789966896.git.irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <bc2109d93d728f8cb71a9a1f6079920870b29130.1789966896.git.irogers@google.com>
-Subject: [PATCH v2 15/49] perf Makefile: Install standalone Python scripts
- during transition
+Message-ID: <bea01e4fc180d6e92361f034ca304033b319da97.1789966896.git.irogers@google.com>
+Subject: [PATCH v2 12/49] perf test: Clean up mypy and pylint issues in shell
+ test libraries
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
 	linux-perf-users@vger.kernel.org, namhyung@kernel.org
@@ -71,31 +71,531 @@ Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com,
 	mingo@redhat.com, peterz@infradead.org, tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Install the newly ported standalone Python scripts from
-tools/perf/python/ alongside the legacy scripts during the transition
-phase so that newly ported scripts are available in the installation
-directory before legacy support is removed.
+Clean up mypy type errors and pylint errors/warnings in
+tools/perf/tests/shell/lib/ (attr.py, perf_json_output_lint.py, and
+perf_metric_validation.py):
+- Fix E0606 (possibly-used-before-assignment) in perf_metric_validation.py
+  by importing sys at module level.
+- Add type annotations for stack, second_results, collectlist,
+  get_bounds(),
+  and main() in perf_metric_validation.py.
+- Avoid assigning -1 to list[int] expected_items in
+  perf_json_output_lint.py,
+  rename shadowing variables, and remove redundant lambdas.
+- Remove unnecessary semicolons, use lazy logging arguments, specify
+  exception types and file encodings, and initialize module-level logger
+  in attr.py.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/Makefile.perf | 3 +++
- 1 file changed, 3 insertions(+)
+ tools/perf/tests/shell/lib/attr.py            | 86 ++++++++++---------
+ .../tests/shell/lib/perf_json_output_lint.py  | 36 ++++----
+ .../tests/shell/lib/perf_metric_validation.py | 47 +++++-----
+ 3 files changed, 85 insertions(+), 84 deletions(-)
 
-diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
-index 3e193d609988..abd377c16435 100644
---- a/tools/perf/Makefile.perf
-+++ b/tools/perf/Makefile.perf
-@@ -905,6 +905,9 @@ ifndef NO_LIBPYTHON
- 		$(INSTALL) scripts/python/Perf-Trace-Util/lib/Perf/Trace/* -m 644 -t '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/scripts/python/Perf-Trace-Util/lib/Perf/Trace'; \
- 		$(INSTALL) scripts/python/*.py -m 644 -t '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/scripts/python'; \
- 		$(INSTALL) scripts/python/bin/* -t '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/scripts/python/bin'
-+	$(call QUIET_INSTALL, python-scripts-standalone) \
-+		$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/python'; \
-+		$(INSTALL) python/*.py -m 755 -t '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/python'
- endif
- 	$(call QUIET_INSTALL, dlfilters) \
- 		$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/dlfilters'; \
+diff --git a/tools/perf/tests/shell/lib/attr.py b/tools/perf/tests/shell/lib/attr.py
+index bfccc727d9b2..7f3d5b64b00d 100644
+--- a/tools/perf/tests/shell/lib/attr.py
++++ b/tools/perf/tests/shell/lib/attr.py
+@@ -12,6 +12,8 @@ import re
+ import shutil
+ import subprocess
+ 
++log = logging.getLogger('test')
++
+ def data_equal(a, b):
+     # Allow multiple values in assignment separated by '|'
+     a_list = a.split('|')
+@@ -89,19 +91,19 @@ class Event(dict):
+ 
+     def add(self, data):
+         for key, val in data:
+-            log.debug("      %s = %s" % (key, val))
++            log.debug("      %s = %s", key, val)
+             self[key] = val
+ 
+     def __init__(self, name, data, base):
+-        log.debug("    Event %s" % name);
+-        self.name  = name;
++        log.debug("    Event %s", name)
++        self.name  = name
+         self.group = ''
+         self.add(base)
+         self.add(data)
+ 
+     def equal(self, other):
+         for t in Event.terms:
+-            log.debug("      [%s] %s %s" % (t, self[t], other[t]));
++            log.debug("      [%s] %s %s", t, self[t], other[t])
+             if t not in self or t not in other:
+                 return False
+             if not data_equal(self[t], other[t]):
+@@ -118,7 +120,7 @@ class Event(dict):
+             if t not in self or t not in other:
+                 continue
+             if not data_equal(self[t], other[t]):
+-                log.warning("expected %s=%s, got %s" % (t, self[t], other[t]))
++                log.warning("expected %s=%s, got %s", t, self[t], other[t])
+ 
+ def parse_version(version):
+     if not version:
+@@ -149,7 +151,7 @@ class Test(object):
+         parser = configparser.ConfigParser()
+         parser.read(path)
+ 
+-        log.warning("running '%s'" % path)
++        log.warning("running '%s'", path)
+ 
+         self.path     = path
+         self.test_dir = options.test_dir
+@@ -159,15 +161,15 @@ class Test(object):
+ 
+         try:
+             self.ret  = parser.get('config', 'ret')
+-        except:
++        except Exception:
+             self.ret  = 0
+ 
+         self.test_ret = parser.getboolean('config', 'test_ret', fallback=False)
+ 
+         try:
+             self.arch  = parser.get('config', 'arch')
+-            log.warning("test limitation '%s'" % self.arch)
+-        except:
++            log.warning("test limitation '%s'", self.arch)
++        except Exception:
+             self.arch  = ''
+ 
+         self.auxv = parser.get('config', 'auxv', fallback=None)
+@@ -175,7 +177,7 @@ class Test(object):
+         self.kernel_until = parse_version(parser.get('config', 'kernel_until', fallback=None))
+         self.expect   = {}
+         self.result   = {}
+-        log.debug("  loading expected events");
++        log.debug("  loading expected events")
+         self.load_events(path, self.expect)
+ 
+     def is_event(self, name):
+@@ -203,7 +205,7 @@ class Test(object):
+             else:
+                 try:
+                     value = int(items[-1], 0)
+-                except:
++                except ValueError:
+                     value = items[-1]
+             return (items[0], value)
+ 
+@@ -227,7 +229,7 @@ class Test(object):
+         # Handle negated list such as !s390x,ppc
+         if arch_list[0][0] == '!':
+             arch_list[0] = arch_list[0][1:]
+-            log.warning("excluded architecture list %s" % arch_list)
++            log.warning("excluded architecture list %s", arch_list)
+             for arch_item in arch_list:
+                 # log.warning("test for %s arch is %s" % (arch_item, myarch))
+                 if arch_item == myarch:
+@@ -243,19 +245,19 @@ class Test(object):
+     def restore_sample_rate(self, value=10000):
+         try:
+             # Check value of sample_rate
+-            with open("/proc/sys/kernel/perf_event_max_sample_rate", "r") as fIn:
++            with open("/proc/sys/kernel/perf_event_max_sample_rate", "r", encoding="utf-8") as fIn:
+                 curr_value = fIn.readline()
+             # If too low restore to reasonable value
+             if not curr_value or int(curr_value) < int(value):
+-                with open("/proc/sys/kernel/perf_event_max_sample_rate", "w") as fOut:
++                with open("/proc/sys/kernel/perf_event_max_sample_rate", "w", encoding="utf-8") as fOut:
+                     fOut.write(str(value))
+ 
+         except IOError as e:
+-            log.warning("couldn't restore sample_rate value: I/O error %s" % e)
++            log.warning("couldn't restore sample_rate value: I/O error %s", e)
+         except ValueError as e:
+-            log.warning("couldn't restore sample_rate value: Value error %s" % e)
++            log.warning("couldn't restore sample_rate value: Value error %s", e)
+         except TypeError as e:
+-            log.warning("couldn't restore sample_rate value: Type error %s" % e)
++            log.warning("couldn't restore sample_rate value: Type error %s", e)
+ 
+     def load_events(self, path, events):
+         parser_event = configparser.ConfigParser()
+@@ -266,7 +268,7 @@ class Test(object):
+         # event' first as a base
+         for section in filter(self.is_event, parser_event.sections()):
+ 
+-            parser_items = parser_event.items(section);
++            parser_items = parser_event.items(section)
+             base_items   = {}
+ 
+             # Read parent event if there's any
+@@ -280,7 +282,7 @@ class Test(object):
+             events[section] = e
+ 
+     def run_cmd(self, tempdir):
+-        junk1, junk2, junk3, junk4, myarch = (os.uname())
++        _junk1, _junk2, _junk3, _junk4, myarch = (os.uname())
+ 
+         if self.skip_test_arch(myarch):
+             raise Notest(self, myarch)
+@@ -299,7 +301,7 @@ class Test(object):
+               self.perf, self.command, tempdir, self.args)
+         ret = os.WEXITSTATUS(os.system(cmd))
+ 
+-        log.info("  '%s' ret '%s', expected '%s'" % (cmd, str(ret), str(self.ret)))
++        log.info("  '%s' ret '%s', expected '%s'", cmd, str(ret), str(self.ret))
+ 
+         if not data_equal(str(ret), str(self.ret)):
+             if self.test_ret:
+@@ -310,34 +312,34 @@ class Test(object):
+     def compare(self, expect, result):
+         match = {}
+ 
+-        log.debug("  compare");
++        log.debug("  compare")
+ 
+         # For each expected event find all matching
+         # events in result. Fail if there's not any.
+         for exp_name, exp_event in expect.items():
+             exp_list = []
+             res_event = {}
+-            log.debug("    matching [%s]" % exp_name)
++            log.debug("    matching [%s]", exp_name)
+             for res_name, res_event in result.items():
+-                log.debug("      to [%s]" % res_name)
++                log.debug("      to [%s]", res_name)
+                 if (exp_event.equal(res_event)):
+                     exp_list.append(res_name)
+                     log.debug("    ->OK")
+                 else:
+-                    log.debug("    ->FAIL");
++                    log.debug("    ->FAIL")
+ 
+-            log.debug("    match: [%s] matches %s" % (exp_name, str(exp_list)))
++            log.debug("    match: [%s] matches %s", exp_name, str(exp_list))
+ 
+             # we did not any matching event - fail
+             if not exp_list:
+                 if exp_event.optional():
+-                    log.debug("    %s does not match, but is optional" % exp_name)
++                    log.debug("    %s does not match, but is optional", exp_name)
+                 else:
+                     if not res_event:
+-                        log.debug("    res_event is empty");
++                        log.debug("    res_event is empty")
+                     else:
+                         exp_event.diff(res_event)
+-                    raise Fail(self, 'match failure');
++                    raise Fail(self, 'match failure')
+ 
+             match[exp_name] = exp_list
+ 
+@@ -354,38 +356,38 @@ class Test(object):
+                 if res_group not in match[group]:
+                     raise Fail(self, 'group failure')
+ 
+-                log.debug("    group: [%s] matches group leader %s" %
+-                         (exp_name, str(match[group])))
++                log.debug("    group: [%s] matches group leader %s",
++                          exp_name, str(match[group]))
+ 
+         log.debug("  matched")
+ 
+     def resolve_groups(self, events):
+         for name, event in events.items():
+-            group_fd = event['group_fd'];
++            group_fd = event['group_fd']
+             if group_fd == '-1':
+-                continue;
++                continue
+ 
+             for iname, ievent in events.items():
+                 if (ievent['fd'] == group_fd):
+                     event.group = iname
+-                    log.debug('[%s] has group leader [%s]' % (name, iname))
+-                    break;
++                    log.debug('[%s] has group leader [%s]', name, iname)
++                    break
+ 
+     def run(self):
+-        tempdir = tempfile.mkdtemp();
++        tempdir = tempfile.mkdtemp()
+ 
+         try:
+             # run the test script
+-            self.run_cmd(tempdir);
++            self.run_cmd(tempdir)
+ 
+             # load events expectation for the test
+-            log.debug("  loading result events");
++            log.debug("  loading result events")
+             for f in glob.glob(tempdir + '/event*'):
+-                self.load_events(f, self.result);
++                self.load_events(f, self.result)
+ 
+             # resolve group_fd to event names
+-            self.resolve_groups(self.expect);
+-            self.resolve_groups(self.result);
++            self.resolve_groups(self.expect)
++            self.resolve_groups(self.result)
+ 
+             # do the expectation - results matching - both ways
+             self.compare(self.expect, self.result)
+@@ -401,9 +403,9 @@ def run_tests(options):
+         try:
+             Test(f, options).run()
+         except Unsup as obj:
+-            log.warning("unsupp  %s" % obj.getMsg())
++            log.warning("unsupp  %s", obj.getMsg())
+         except Notest as obj:
+-            log.warning("skipped %s" % obj.getMsg())
++            log.warning("skipped %s", obj.getMsg())
+ 
+ def setup_log(verbose):
+     global log
+diff --git a/tools/perf/tests/shell/lib/perf_json_output_lint.py b/tools/perf/tests/shell/lib/perf_json_output_lint.py
+index dafbde56cc76..8cde22ac9d97 100644
+--- a/tools/perf/tests/shell/lib/perf_json_output_lint.py
++++ b/tools/perf/tests/shell/lib/perf_json_output_lint.py
+@@ -46,46 +46,46 @@ def is_counter_value(num):
+ def is_metric_value(num):
+   return isfloat(num) or num == 'none'
+ 
+-def check_json_output(expected_items):
++def check_json_output(expected_count):
+   checks = {
+-      'counters': lambda x: isfloat(x),
++      'counters': isfloat,
+       'core': lambda x: True,
+-      'counter-value': lambda x: is_counter_value(x),
++      'counter-value': is_counter_value,
+       'cgroup': lambda x: True,
+-      'cpu': lambda x: isint(x),
++      'cpu': isint,
+       'cache': lambda x: True,
+       'cluster': lambda x: True,
+       'die': lambda x: True,
+       'event': lambda x: True,
+-      'event-runtime': lambda x: isfloat(x),
+-      'interval': lambda x: isfloat(x),
++      'event-runtime': isfloat,
++      'interval': isfloat,
+       'metric-unit': lambda x: True,
+-      'metric-value': lambda x: is_metric_value(x),
++      'metric-value': is_metric_value,
+       'metric-threshold': lambda x: x in ['unknown', 'good', 'less good', 'nearly bad', 'bad'],
+       'metricgroup': lambda x: True,
+       'node': lambda x: True,
+-      'pcnt-running': lambda x: isfloat(x),
++      'pcnt-running': isfloat,
+       'socket': lambda x: True,
+       'thread': lambda x: True,
+       'unit': lambda x: True,
+   }
+-  input = '[\n' + ','.join(Lines) + '\n]'
+-  for item in json.loads(input):
+-    if expected_items != -1:
++  json_input = '[\n' + ','.join(Lines) + '\n]'
++  for item in json.loads(json_input):
++    if expected_count:
+       count = len(item)
+-      if count not in expected_items and count >= 1 and count <= 7 and 'metric-value' in item:
++      if count not in expected_count and count >= 1 and count <= 7 and 'metric-value' in item:
+         # Events that generate >1 metric may have isolated metric
+         # values and possibly other prefixes like interval, core,
+         # counters, or event-runtime/pcnt-running from multiplexing.
+         pass
+-      elif count not in expected_items and count >= 1 and count <= 5 and 'metricgroup' in item:
++      elif count not in expected_count and count >= 1 and count <= 5 and 'metricgroup' in item:
+         pass
+-      elif count - 1 in expected_items and 'metric-threshold' in item:
++      elif count - 1 in expected_count and 'metric-threshold' in item:
+           pass
+-      elif count in expected_items and 'insn per cycle' in item:
++      elif count in expected_count and 'insn per cycle' in item:
+           pass
+-      elif count not in expected_items:
+-        raise RuntimeError(f'wrong number of fields. counted {count} expected {expected_items}'
++      elif count not in expected_count:
++        raise RuntimeError(f'wrong number of fields. counted {count} expected {expected_count}'
+                            f' in \'{item}\'')
+     for key, value in item.items():
+       if key not in checks:
+@@ -107,7 +107,7 @@ try:
+     expected_items = [1, 2]
+   else:
+     # If no option is specified, don't check the number of items.
+-    expected_items = -1
++    expected_items = []
+   check_json_output(expected_items)
+ except:
+   print('Test failed for input:\n' + '\n'.join(Lines))
+diff --git a/tools/perf/tests/shell/lib/perf_metric_validation.py b/tools/perf/tests/shell/lib/perf_metric_validation.py
+index 3d52f94f22b9..0508c98d84fd 100644
+--- a/tools/perf/tests/shell/lib/perf_metric_validation.py
++++ b/tools/perf/tests/shell/lib/perf_metric_validation.py
+@@ -1,10 +1,10 @@
+ # SPDX-License-Identifier: GPL-2.0
+-import re
+-import csv
+-import json
+ import argparse
++import json
+ from pathlib import Path
+ import subprocess
++import sys
++from typing import Any
+ 
+ 
+ class TestError:
+@@ -77,11 +77,11 @@ class Validator:
+ 
+     def read_json(self, filename: str) -> dict:
+         try:
+-            with open(Path(filename).resolve(), "r") as f:
++            with open(Path(filename).resolve(), "r", encoding="utf-8") as f:
+                 data = json.loads(f.read())
+         except OSError as e:
+             print(f"Error when reading file {e}")
+-            sys.exit()
++            sys.exit(1)
+ 
+         return data
+ 
+@@ -90,16 +90,16 @@ class Validator:
+         if not parent.exists():
+             parent.mkdir(parents=True)
+ 
+-        with open(output_file, "w+") as output_file:
++        with open(output_file, "w+", encoding="utf-8") as out_f:
+             json.dump(data,
+-                      output_file,
++                      out_f,
+                       ensure_ascii=True,
+                       indent=4)
+ 
+     def get_results(self, idx: int = 0):
+         return self.results.get(idx)
+ 
+-    def get_bounds(self, lb, ub, error, alias={}, ridx: int = 0) -> list:
++    def get_bounds(self, lb, ub, error, alias=None, ridx: int = 0) -> tuple:
+         """
+         Get bounds and tolerance from lb, ub, and error.
+         If missing lb, use 0.0; missing ub, use float('inf); missing error, use self.tolerance.
+@@ -111,6 +111,9 @@ class Validator:
+                   upper bound, return -1 if the upper bound is a metric value and is not collected
+                   tolerance, denormalized base on upper bound value
+         """
++        if alias is None:
++            alias = {}
++
+         # init ubv and lbv to invalid values
+         def get_bound_value(bound, initval, ridx):
+             val = initval
+@@ -213,7 +216,7 @@ class Validator:
+         @param alias: the dict has alias to metric name mapping
+         @returns: value of the formula is success; -1 if the one or more metric value not provided
+         """
+-        stack = []
++        stack: list[Any] = []
+         b = 0
+         errs = []
+         sign = "+"
+@@ -263,7 +266,7 @@ class Validator:
+             alias[m['Alias']] = m['Name']
+         lbv, ubv, t = self.get_bounds(
+             rule['RangeLower'], rule['RangeUpper'], rule['ErrorThreshold'], alias, ridx=rule['RuleIndex'])
+-        val, f = self.evaluate_formula(
++        val, _ = self.evaluate_formula(
+             rule['Formula'], alias, ridx=rule['RuleIndex'])
+ 
+         lb = rule['RangeLower']
+@@ -316,7 +319,7 @@ class Validator:
+                 rerun.append(m['Name'])
+ 
+         if len(rerun) > 0 and len(rerun) < 20:
+-            second_results = dict()
++            second_results: dict[Any, Any] = dict()
+             self.second_test(rerun, second_results)
+             for name, val in second_results.items():
+                 if name not in failures:
+@@ -373,7 +376,7 @@ class Validator:
+                     name = result["metric-unit"].split("  ")[1] if len(result["metric-unit"].split("  ")) > 1 \
+                         else result["metric-unit"]
+                     metricvalues[name.lower()] = float(result["metric-value"])
+-            except ValueError as error:
++            except ValueError:
+                 continue
+         return
+ 
+@@ -383,7 +386,7 @@ class Validator:
+         wl = workload.split()
+         command.extend(wl)
+         print(" ".join(command))
+-        cmd = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
++        cmd = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8', check=False)
+         lines = cmd.stderr.splitlines() + cmd.stdout.splitlines()
+         data = []
+         for line in lines:
+@@ -397,9 +400,9 @@ class Validator:
+         Collect metric data with "perf stat -M" on given workload with -a and -j.
+         """
+         self.results = dict()
+-        print(f"Starting perf collection")
++        print("Starting perf collection")
+         print(f"Long workload: {workload}")
+-        collectlist = dict()
++        collectlist: dict[int, Any] = dict()
+         if self.collectlist != "":
+             collectlist[0] = {x for x in self.collectlist.split(",")}
+         else:
+@@ -441,7 +444,7 @@ class Validator:
+         """
+         command = ['perf', 'list', '-j', '--details', 'metrics']
+         cmd = subprocess.run(command, stdout=subprocess.PIPE,
+-                             stderr=subprocess.PIPE, encoding='utf-8')
++                             stderr=subprocess.PIPE, encoding='utf-8', check=False)
+         try:
+             data = json.loads(cmd.stdout)
+             for m in data:
+@@ -454,9 +457,9 @@ class Validator:
+                 self.metrics.add(name)
+                 if 'ScaleUnit' in m and (m['ScaleUnit'] == '1%' or m['ScaleUnit'] == '100%'):
+                     self.pctgmetrics.add(name.lower())
+-        except ValueError as error:
+-            print(f"Error when parsing metric data")
+-            sys.exit()
++        except ValueError:
++            print("Error when parsing metric data")
++            sys.exit(1)
+ 
+         return
+ 
+@@ -519,9 +522,6 @@ class Validator:
+ 
+     # Initialize data structures before data validation of each workload
+     def _init_data(self):
+-
+-        testtypes = ['PositiveValueTest',
+-                     'RelationshipTest', 'SingleMetricTest']
+         self.results = dict()
+         self.ignoremetrics = set()
+         self.errlist = list()
+@@ -572,7 +572,7 @@ class Validator:
+ # End of Class Validator
+ 
+ 
+-def main() -> None:
++def main() -> int:
+     parser = argparse.ArgumentParser(
+         description="Launch metric value validation")
+ 
+@@ -602,5 +602,4 @@ def main() -> None:
+ 
+ 
+ if __name__ == "__main__":
+-    import sys
+     sys.exit(main())
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
