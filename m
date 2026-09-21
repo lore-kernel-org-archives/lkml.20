@@ -1,108 +1,114 @@
-Received: from mta1.migadu.com (out-79.mta1.migadu.com [95.215.58.79])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-217.mail.aliyun.com (out28-217.mail.aliyun.com [115.124.28.217])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D67360ED6
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:52:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.79
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BF823546C6;
+	Mon, 21 Sep 2026 05:56:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.217
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789969952; cv=none; b=ddUMpDwrfvemiC77ldkD9017uC6+kSFf8N1d3gvPsTjaAoEMXIXtApPnZ1cnuozoOqGwM0B+O3ajrNedRD7Sq+ExY8RgOTgCaDPDRk0FU2+wfYZK+M37Ynl2TFyCKz5GoBSyMkz0Q1rYg6FI+OXy+oyVEnEs6TH+F1iC9hy+FGg=
+	t=1789970182; cv=none; b=YFoEUzV3eCBpWnOZ2sCztnPodrA5DwnS6PnQz4pzI4VNrO5J4D4QJVdFn4zo40qdKaYcZ8+6K1cTaErVEo94t5pVYHfv2+H3kYgDQnkXKjaY2iTc+6aIKBv7So+TgVg1/BC3K1YEf9y/+AgtR2CWVSu/83UiJdU3LpjCbpwD1kc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789969952; c=relaxed/simple;
-	bh=+3OQfzHRoTvBjBd8jB9/THE2C+GAiBoDPdOUT4cBopw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LJTQS008sdxkI5Xk7/lFXDVSIBR417iVnWMOHhHDHAvl5u9a1aGBhSZ9q2Vbo2HSYW6+JTLJ0Z6keJ4Rug85Mv6q4ezwIYniRdfA5LgNJGFixUbdJk3EM94MmV9MI64HzUeOJ9CqenHfBduetRW8Q6Q1Yxc/IJN4O80yjqiNyCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AGqHNvoB; arc=none smtp.client-ip=95.215.58.79
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AGqHNvoB"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+3OQfzHRoTvBjBd8jB9/THE2C+GAiBoDPdOUT4cBopw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789969947; v=1; x=1790574747;
- b=AGqHNvoBHNAK5Sgs8bbNFPB9LRfWqahsS8hsc3FUslRi1QNL9CbtcXuiBuAODhnoALewzvTz
- zAJKHdCmXss9/DvIqB5/J8rDlIqMR5eOYjWyZsTcomxdHzlJCmmDAyvIWSZur3TyrC6BPzAwIHN
- locxBrK8oD3Q849lc7AWjrUk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 3106e5e1082e60f1;
-	Mon, 21 Sep 2026 05:52:26 +0000
-X-Mizu-Trace-ID: 3106e5e1082e60f1
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 21 Sep 2026 13:52:24 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Wandun <chenwandun1@gmail.com>
-Cc: Mike Rapoport <rppt@kernel.org>, catalin.marinas@arm.com,
-	will@kernel.org, chenhuacai@kernel.org, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, tglx@kernel.org,
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-	x86@kernel.org, robh@kernel.org, saravanak@kernel.org,
-	akpm@linux-foundation.org, pasha.tatashin@soleen.com,
-	pratyush@kernel.org, m.szyprowski@samsung.com, mark.rutland@arm.com,
-	kernel@xen0n.name, alex@ghiti.fr, hpa@zytor.com,
-	ruirui.yang@linux.dev, robin.murphy@arm.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, kexec@lists.infradead.org,
-	linux-mm@kvack.org, iommu@lists.linux.dev
-Subject: Re: [PATCH v6 06/10] memblock: introduce MEMBLOCK_NODUMP flag
-Message-ID: <arDGGOhKFueI90tJ@fedora>
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
- <20260902073116.802752-7-chenwandun1@gmail.com>
- <aqzxavL91icLw-Xv@fedora>
- <aq41nFRPtRWTQ7cK@kernel.org>
- <aq9UGXeqmCfuPHdD@fedora>
- <32b00102-0961-49e3-b780-74d6db182809@gmail.com>
+	s=arc-20240116; t=1789970182; c=relaxed/simple;
+	bh=8IPj77BeQcIRme9TsVnXSVUYMQnjTVZmDH3ow+sjtWU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m1Rfu2umDuP1E0U9hWEFMKZmGkx2O6ydGMPQxg6yf5ue7PP3+XF7d1/zD/5J0RamXhcOMmiF6vgVlNkRpBnkn91HowfysBe36xLJxxVgACqBrBywuJKM3vcch/WtFBnlipczEAi9eFQ3Gifpq6lPYGtx3qDOvMcoOphxuWlV75w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07453828|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0529914-0.0053801-0.941628;FP=5010334953258964115|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032062159;MF=wanglin@open-hieco.net;NM=1;PH=DS;RN=15;RT=15;SR=0;TI=SMTPD_---.jIkm1d8_1789970167;
+Received: from localhost.localdomain(mailfrom:wanglin@open-hieco.net fp:SMTPD_---.jIkm1d8_1789970167 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 21 Sep 2026 13:56:13 +0800
+From: Lin Wang <wanglin@open-hieco.net>
+To: Borislav Petkov <bp@alien8.de>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>
+Cc: Pu Wen <puwen@hygon.cn>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Tony Luck <tony.luck@intel.com>,
+	Clemens Ladisch <clemens@ladisch.de>,
+	Guenter Roeck <linux@roeck-us.net>,
+	x86@kernel.org,
+	linux-edac@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 0/8] x86/hygon: Add Family 0x18 DF node enumeration and SMN access
+Date: Mon, 21 Sep 2026 13:55:55 +0800
+Message-ID: <20260921055603.25112-1-wanglin@open-hieco.net>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <32b00102-0961-49e3-b780-74d6db182809@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On 09/20/26 at 04:00pm, Wandun wrote:
-> 
-> 
-> On 9/20/26 11:33, Baoquan He wrote:
-> > On 09/19/26 at 10:11am, Mike Rapoport wrote:
-> >> On Fri, Sep 18, 2026 at 04:08:10PM +0800, Baoquan He wrote:
-> >>> On 09/02/26 at 03:31pm, Wandun Chen wrote:
-> > ...snip... 
-> >>>> +/**
-> >>>> + * memblock_mark_nodump - Mark a memory region with flag MEMBLOCK_NODUMP.
-> >>>> + * @base: the base phys addr of the region
-> >>>> + * @size: the size of the region
-> >>>> + *
-> >>>> + * Mark the region as not to be included in crash dumps.
-> >>>> + *
-> >>>> + * Return: 0 on success, -errno on failure.
-> >>>> + */
-> >>>> +int __init_memblock memblock_mark_nodump(phys_addr_t base, phys_addr_t size)
-> >>>       ~~~~~~~~~~~~~~^
-> >>> Is it impossible to use at runtime even thought it claims to be generic?
-> >>
-> >> This should only happen at boot.
-> >>
-> >> Allowing modifications of memblock properties in runtime is a can of worms
-> >> I don't want to open.
-> > 
-> > Thank you. This is why I said this can't be claimed as a generic way to
-> > mark memory region as no dump. The generic way I'd like to see is
-> > at any time of system we can mark any unwanted memory region as no dump.
-> > And it won't impact the behaviour of the current system.
-> 
-> Thanks Mike for the explanation and Baoquan for the suggestion.
-> I'll drop the "generic" related description in the next version.
-> 
-> 
-> Baoquan, by the way, patch 2 is still awaiting review. It rewrites
-> the riscv side of the code that patch 3 (which you've acked) then
-> folds into the weak defaults, if you could take a look at it too,
-> that would be very helpful.
+This series separates the Hygon node and SMN support from the AMD
+northbridge and SMN implementations.
 
-I checked and looks good, I have added ACK. While RISC-V people can hold
-it anytime if they have concern.
+The AMD northbridge cache previously discovered Hygon F3 devices by PCI
+ID. It now derives the node count from CPU topology and locates DF
+functions at fixed PCI slots, removing the Hygon PCI-ID discovery path.
+Hygon instead requires F3 discovery by PCI ID and reads node identity
+from DF registers. Its PCI slots do not encode node identity, CPU
+NodeIds are sparse across sockets, and SMN roots are grouped by socket.
+
+The AMD mapping therefore cannot represent the Hygon topology. The
+northbridge cache is discarded before amd64_edac can probe a memory
+controller or ATL can register address translation support. k10temp
+does not use that cache, but derives an SMN node from the F3 PCI slot
+and therefore cannot identify a valid Hygon SMN target. These matches
+do not provide usable Hygon support.
+
+The series stops these drivers from matching Hygon before restricting
+AMD northbridge and SMN initialization to AMD CPUs. Follow-up Hygon
+support for these drivers will use the interfaces added here and will be
+submitted separately. The Hygon MCE decoder is unchanged.
+
+The node and SMN implementation has been tested on a Family 0x18 Model
+0x07 system with two sockets, 12 Core and DDR Dies (CDDs) and four I/O
+Dies (IODs).
+
+Changes in v6:
+
+  - Update the k10temp documentation after removing the Hygon match.
+    (Sashiko, Guenter)
+  - Follow tip-tree comment, declaration and whitespace conventions.
+    (Boris)
+  - Build and validate the DF cache before publishing it.
+  - Use the SMN root array directly as the setup state.
+
+Link: https://lore.kernel.org/20260916155956.GBaqq8_BsuLkBKp-Ia@fat_crate.local # v5 review
+Link: https://lore.kernel.org/20260901071700.3255382-1-wanglin@open-hieco.net # v4
+
+Lin Wang (8):
+  x86/hygon: Add Family 0x18 DF node enumeration
+  x86/hygon: Map CPU NodeIds to DF nodes
+  EDAC/amd64: Stop matching Hygon CPUs
+  RAS/AMD/ATL: Match AMD CPUs only
+  hwmon: (k10temp) Stop matching Hygon devices
+  x86/amd_nb: Restrict the northbridge framework to AMD CPUs
+  x86/amd_node: Restrict SMN setup to AMD CPUs
+  x86/hygon: Add Family 0x18 SMN access
+
+ Documentation/hwmon/k10temp.rst   |   8 +-
+ MAINTAINERS                       |   3 +
+ arch/x86/Kconfig                  |   4 +
+ arch/x86/include/asm/hygon/node.h | 191 +++++++
+ arch/x86/kernel/Makefile          |   1 +
+ arch/x86/kernel/amd_nb.c          |   6 +-
+ arch/x86/kernel/amd_node.c        |   6 +-
+ arch/x86/kernel/hygon_node.c      | 910 ++++++++++++++++++++++++++++++
+ drivers/edac/amd64_edac.c         |   4 -
+ drivers/hwmon/k10temp.c           |   5 +-
+ drivers/ras/amd/atl/core.c        |   9 +-
+ 11 files changed, 1124 insertions(+), 23 deletions(-)
+ create mode 100644 arch/x86/include/asm/hygon/node.h
+ create mode 100644 arch/x86/kernel/hygon_node.c
+
+base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
+-- 
+2.43.0
 
