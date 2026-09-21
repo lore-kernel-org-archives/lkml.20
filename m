@@ -1,140 +1,166 @@
-Received: from mail-oo1-f78.google.com (mail-oo1-f78.google.com [209.85.161.78])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C7326A1AC
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:19:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A8A274B4A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:20:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789957182; cv=none; b=YohO/X7CdxxaSHGlfOZfIPfo6Xbp3FLfitZMqonGBY8d4Z7mf6XpRbkZECcz9W8h6yB2AHDe3a0SlduO5dI5QvsdMpnUXtxs12rBpvxataUzxrtt7iam/64tqrYoMVMFcIaWAKzuOEqyc+d1HIcv5BYItV5sZERhFPXb/fccrtQ=
+	t=1789957224; cv=none; b=HWWdajgpp3nTqinBLcLt75ZM1gq+BN5q+7fCm+xDeeSX+u4qZ6a095V8rdTw7ubnmLVnfgXert3cTe/CKD39F4p4Qjnssr0gzvPcUd5u/gls42BqOfsLdPaoUj1+6lELUJgYkpvNH3kE7ymJUAhffNssTYMTbDvaGFvWDoavmAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789957182; c=relaxed/simple;
-	bh=BAsIUQ1nVkUgpzwJBCmVe0ojZCDOZnN7HyCcAiuT6So=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=BW6zjYi9lQKuJWvkNX1CsM24Mh+T9pyyE4ihVMH3Xs57kmSViNRmXaO0FIY9uu1oJibl4Kygo2iPWCbZ2NqzE1HeuqzcHMPlkSG7Q6FI/zD2JF3k5J9YAz6kb/RHLO2Ki6RFst1GpKTdh5Or2DhLIsIUfxf1vmJLs/+6xGkFn7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f78.google.com with SMTP id 006d021491bc7-6c2c5c1f843so3169433eaf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:19:40 -0700 (PDT)
+	s=arc-20240116; t=1789957224; c=relaxed/simple;
+	bh=vUf7QAanQ5dKq7z/fJvehLlpKSca00cy1tgrEizeFrk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=L88/Dn4D4vA1+lbKliIXcI2LcHIuNMFmVVPoiCvTrAa/qZ0hFhRWm9OquAToeEiPmCJVW8VqAJnR5L3bapW+V6Wmg4seZPe92CH9l5UlDIt88J1RDz/iY3n+MnW7IORXHjgWMBd05McIuZIZFMVbXxNrGVz7z8e32poC3KfPiJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I0skpZ1p; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I0skpZ1p"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4bdf8abaaso2000473a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:20:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789957222; x=1790562022; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FTEAVZypIz1LkNdblYydsxE0PH83Gg7fz01btoAhDQ8=;
+        b=I0skpZ1pJIiIOg5VKbG985MPt0AA6F0R5zFL3/qkDidr2Zbc/6z+2i3syYoSGooqP7
+         p+39zbfeUDa9iz0i0ew0Kk1XR2hBMrrTgtRy1A7mKbnADQ4ByThct2Yhkp0bNMBm9D7w
+         HcBiuSN/5qmdlnfE+f+mVmvUV0OzPqmi1yi8dv2TNaPdZGDdRnROfIPwRh6DCXGnehBy
+         9BqoCEL6cJSOP2k7RKEVzcnyuwvIf+DA9XN8HcNbgd04RvHUcYmp3Z0GnDxMYg6Nzpcy
+         3oeMrdHjMwncV8fwHlq9H05w00MkYxHt6NYP1uteM0ihvL11Mpv4FJDsRmCcc8ZQjIb/
+         xCag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789957180; x=1790561980;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rPYuXaERi/jrwZ0INi/v5/jDFp/Y0zqC2P4+v3xDKMA=;
-        b=cXcSOWgjBRzyh2qCWk/nwpT9Sui1U9QbnMJ0WUQL/jKjmTjkl3JIfBYP1ZQjCGhfVA
-         npx3mYvG7jNsJAvqF58viv1bn+fB+Qt/BnxaJaXAVOs31zz+f9FvkjAd6Yg+Lc1ssRSN
-         w4Kfx+2eMMkjMHX8ReG98+kkMUDHqXMysOMefXZg3EgVnb776vOkelrmV6lSnZdH2/t6
-         +qs04pJkWr4JneuHgBHfErX1KyIgsfbrKgFlboMBu5N0jgrpDz5HoWH/4Ttafeh8oVc2
-         AUntXsFJIfHH+SuoCm0LpLPTs1TZ5iq4h4eC7CGTUxMgT80rzM5yYwXjQ/XLysc4YMAj
-         4WOQ==
-X-Gm-Message-State: AFuF++kgQP7q7zzArpD9mg0PDqbgnuJoFjCTu30+TjqNEgdYi5jhC+ou
-	ZPMSbjJdHIsnU4oqBRxHU4xCQfZIhLoFRD2kqWpNF/uc6Y2alyGy2t+wxkDnrsdnmhHl9F3ny6z
-	6eNo5jummY5cggyTf7/HiIvNep2kEWoqjNizmbJ4VIGJ+LgPs2ymizWBu8bVp7g==
+        d=1e100.net; s=20260707; t=1789957222; x=1790562022;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FTEAVZypIz1LkNdblYydsxE0PH83Gg7fz01btoAhDQ8=;
+        b=biSCuvP3HzEtZ83uSEFWQa24QywmWgJWWxNjLsrVrZ9vK+DfUti3k4W+nWnsBwmu4L
+         DEoo9xLqF3OWNFy70ZFe68ulOjL8yOwdd1EuWSxO2koZSpjrgxzB+pSVoRGaKfZost26
+         r6Mq1zXl+NMqb/wIK2KcxRgxXZs4kmC6+GcxjG7hovOecOq5UXSJbceUqzPYuq/wvcaP
+         OuWr+nlHI21aDpNjxlyl5IL54TmNJ8P9/lfPhJMMaj7pLpj8/hA7m4ftcw3zPd+3Oy7E
+         jxIC9nRmnC5ETS1tUWFu9/Ipq5K7rZnPuOpU6MIvNpJzFeLvhiDt3rjgZJP76PJFeGSU
+         xLDg==
+X-Forwarded-Encrypted: i=1; AKwUvBzILR5KoJaYm8R22Le+Rx1FCtvF7gSmoFkVR5WwjPwiLn47vjOK32A33L6bLgFt6mkFRZipGSP+uhcBcNk=@vger.kernel.org
+X-Gm-Message-State: AFuF++llC2Gb+ck3r7moVBC0VAnczH6NB21sZq2fJEw7ckLa5/4pfiaW
+	dtlJ0NdgftRg7SYGsrQ893SbDoa6xauBd4wH5m7NlA6Pqk54LF01dHgjMyqy8+0g
+X-Gm-Gg: AYBFou2NCJbwwbeX/hQ1wuFo6y1woxebkCTY/LeW6Ka3lhX0dtWaMIUkFhdEfHwdcv5
+	mIX3quQYvpwyujIzOWvnclqi5BK6qTThjOYVemd8aW3U//fMXJ8L43LUeWnoXdyBCgbZKuzZHGW
+	PQGYxLWWpczIjMb7TSSMJGKGYatDctMhfsZIJGiK44U+iEL2dAXIVVfEzYOzWtGDIg/gerxjoFl
+	xiM+ZgjOCRbYd1I+VpFi3ZupasR4iZ8S4TA+rW0671r/xO+K53dD0n/DNUpvLwqhoGtbTisH6Ti
+	gNYZWEgKEJ+Oh9zy4V6qui4JKS7PV/1XSBTEMOWnF1WNCXP3Bixij4oqq70KzlZzk9BIAgb2Vg7
+	Aw6NJDK7tWmIiYiOvJzCkEr/C0RzhtMOpbMTZy65ZnG1moY4vWV6KGp4Y3jAouWXxHEAdaL/Txf
+	EL+BYbSQ+5dyZsUh/L1fzLvY6cEQNYHIGV83hiFIanOHhZctT/6jiWa1yKvMMNZzly/gXPyhhtc
+	M0mw/+nSEZns9mTMjASi9fq/JzGWJdaS7H0wRAPn4a0DF2PWrhMZYg163lnQwspsSN3z8XzQ5jZ
+	wREwg/LBSA==
+X-Received: by 2002:a17:90b:17ca:b0:393:19a3:4f1 with SMTP id 98e67ed59e1d1-39e54cb43c7mr14530866a91.6.1789957222045;
+        Sun, 20 Sep 2026 19:20:22 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c5b3932sm11294882a91.13.2026.09.20.19.20.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 19:20:21 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Clemens Ladisch <clemens@ladisch.de>,
+	Arnd Bergmann <arnd@arndb.de>
+Cc: Hui Peng <benquike@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] char: hpet: prevent hard-IRQ divide-by-zero in hpet_interrupt() via HPET_IRQFREQ
+Date: Mon, 21 Sep 2026 02:20:19 +0000
+Message-ID: <20260921022019.865442-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+In-Reply-To: <20260919203515.2581203-1-benquike@gmail.com>
+References: <20260919203515.2581203-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4cc9:b0:6ba:34ea:ab69 with SMTP id
- 006d021491bc7-6c8ffa2ca25mr10838622eaf.40.1789957180033; Sun, 20 Sep 2026
- 19:19:40 -0700 (PDT)
-Date: Sun, 20 Sep 2026 19:19:40 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab0943c.514bccd6.255447.000a.GAE@google.com>
-Subject: [syzbot] [target?] WARNING in rd_configure_device
-From: syzbot <syzbot+fa495e1497c48a6ed885@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org, mkp@kernel.org, 
-	syzkaller-bugs@googlegroups.com, target-devel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+In hpet_ioctl_common(), HPET_IRQFREQ computes the timer period as:
 
-syzbot found the following issue on:
+  devp->hd_ireqfreq = hpet_time_div(hpetp, arg);
 
-HEAD commit:    9d80aa4617b3 Add linux-next specific files for 20260903
-git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=13c1dbf9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b370c26fb58c72f0
-dashboard link: https://syzkaller.appspot.com/bug?extid=fa495e1497c48a6ed885
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+where hpet_time_div() returns div64_ul(hpetp->hp_tick_freq + (arg >> 1),
+arg). Whenever arg > 2 * hpetp->hp_tick_freq, integer division truncates
+to 0 and stores devp->hd_ireqfreq = 0.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+Although hpet_ioctl_ieon() (HPET_IE_ON) checks if (!devp->hd_ireqfreq)
+before enabling the timer interrupt, HPET_IRQFREQ neither rejects
+updates while HPET_IE is already active nor checks whether
+hpet_time_div(hpetp, arg) evaluates to 0. As a result, arming the timer
+with a valid frequency (for example, HPET_IRQFREQ with 1000 Hz followed
+by HPET_IE_ON) and then calling HPET_IRQFREQ with a large frequency (such
+as 0xffffffffUL) overwrites devp->hd_ireqfreq with 0 while the timer
+interrupt is active. When the next interrupt fires, hpet_interrupt()
+reads t = devp->hd_ireqfreq (0) and computes base = mc % t, crashing the
+kernel in hard-IRQ context:
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/84a12994f553/disk-9d80aa46.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/2329deeb3b2b/vmlinux-9d80aa46.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/689910d8c695/bzImage-9d80aa46.xz
+  Oops: divide error: 0000 [#1] SMP KASAN PTI
+  CPU: 0 UID: 0 PID: 0 Comm: swapper/0
+  RIP: 0010:hpet_interrupt+0x20f/0x360
+  Call Trace:
+   <IRQ>
+   __handle_irq_event_percpu+0x102/0x400
+   handle_irq_event+0xa6/0x1c0
+   handle_level_irq+0x205/0x5e0
+   __common_interrupt+0x60/0x130
+   common_interrupt+0x7a/0x90
+   </IRQ>
+  Kernel panic - not syncing: Fatal exception in interrupt
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+fa495e1497c48a6ed885@syzkaller.appspotmail.com
+Reject HPET_IRQFREQ with -EBUSY when HPET_IE is set in devp->hd_flags,
+and return -EINVAL when hpet_time_div(hpetp, arg) evaluates to 0.
 
-------------[ cut here ]------------
-1
-WARNING: mm/slub.c:5347 at ___kmalloc_large_node+0x10c/0x170 mm/slub.c:5347, CPU#1: syz.3.40/5899
-Modules linked in:
-CPU: 1 UID: 0 PID: 5899 Comm: syz.3.40 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:___kmalloc_large_node+0x10c/0x170 mm/slub.c:5347
-Code: 41 c7 46 30 00 00 00 f8 eb 03 45 31 ff 4c 89 ff 48 89 de 89 ea 5b 41 5c 41 5e 41 5f 5d e9 8c a0 0b 00 c6 05 8e e4 58 0e 01 90 <0f> 0b 90 31 c0 5b 41 5c 41 5e 41 5f 5d c3 cc cc cc cc cc 89 ef 89
-RSP: 0018:ffffc90004b7fa88 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: 0000000008000000 RCX: ffff8880237eddc0
-RDX: 00000000ffffffff RSI: 0000000000000dc0 RDI: 0000000008000000
-RBP: 0000000000000dc0 R08: ffffc90004b7fb47 R09: 1ffff9200096ff68
-R10: dffffc0000000000 R11: ffffffff869fe6a0 R12: dffffc0000000000
-R13: ffffffff869fe7a9 R14: 0000000008000000 R15: 1ffff1100eff52c3
-FS:  00007f0d2de8e6c0(0000) GS:ffff88812495b000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000000110c470003 CR3: 0000000036170000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __kmalloc_large_node_noprof+0x18/0x90 mm/slub.c:5390
- __do_kmalloc_node mm/slub.c:5407 [inline]
- __kmalloc_noprof+0x3f6/0x710 mm/slub.c:5444
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- rd_build_device_space drivers/target/target_core_rd.c:194 [inline]
- rd_configure_device+0x109/0x730 drivers/target/target_core_rd.c:294
- target_configure_device+0x13c/0xa70 drivers/target/target_core_device.c:988
- target_dev_enable_store+0x3e/0x80 drivers/target/target_core_configfs.c:2484
- flush_write_buffer fs/configfs/file.c:207 [inline]
- configfs_write_iter+0x337/0x430 fs/configfs/file.c:229
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x612/0xba0 fs/read_write.c:687
- ksys_write+0x150/0x270 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f0d2cf9e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f0d2de8e028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007f0d2d225fa0 RCX: 00007f0d2cf9e159
-RDX: 0000000000000002 RSI: 0000200000000280 RDI: 0000000000000004
-RBP: 00007f0d2d03506b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f0d2d226038 R14: 00007f0d2d225fa0 R15: 00007ffe861d7d28
- </TASK>
+Tested in QEMU (-global hpet.hpet-intcap=0x0c24 with noapic) by opening
+/dev/hpet and calling ioctl(fd, HPET_IRQFREQ, 1000), ioctl(fd,
+HPET_IE_ON, 0), and ioctl(fd, HPET_IRQFREQ, 0xffffffffUL): on the unfixed
+kernel this immediately triggers the divide error panic in
+hpet_interrupt(), whereas on the fixed kernel HPET_IRQFREQ returns -EBUSY
+while HPET_IE is enabled and -EINVAL when hpet_time_div(hpetp, arg) is 0.
 
-
+Fixes: ba3f213f8a31 ("[PATCH] HPET: make frequency calculations 32 bit safe")
+Fixes: 273ef9509b79 ("drivers/char/hpet.c: fix periodic-emulation for delayed interrupts")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Changes in v2:
+- Add Cc: stable@vger.kernel.org and include the QEMU test procedure and
+  oops trace in the commit description per Greg Kroah-Hartman.
+- Add Fixes: 273ef9509b79 ("drivers/char/hpet.c: fix periodic-emulation
+  for delayed interrupts") for the mc % t division in hpet_interrupt().
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+ drivers/char/hpet.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+diff --git a/drivers/char/hpet.c b/drivers/char/hpet.c
+index 285c6037417a..ada95872e148 100644
+--- a/drivers/char/hpet.c
++++ b/drivers/char/hpet.c
+@@ -625,13 +625,18 @@ hpet_ioctl_common(struct hpet_dev *devp, unsigned int cmd, unsigned long arg,
+ 		devp->hd_flags &= ~HPET_PERIODIC;
+ 		break;
+ 	case HPET_IRQFREQ:
++		if (devp->hd_flags & HPET_IE) {
++			err = -EBUSY;
++			break;
++		}
++
+ 		if ((arg > hpet_max_freq) &&
+ 		    !capable(CAP_SYS_RESOURCE)) {
+ 			err = -EACCES;
+ 			break;
+ 		}
+ 
+-		if (!arg) {
++		if (!arg || !hpet_time_div(hpetp, arg)) {
+ 			err = -EINVAL;
+ 			break;
+ 		}
+-- 
+2.49.0
