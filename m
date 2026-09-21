@@ -1,111 +1,265 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8739E48592E;
-	Mon, 21 Sep 2026 11:03:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE01430CEC;
+	Mon, 21 Sep 2026 11:04:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789988609; cv=none; b=Hkp6SmefFg8cng+AWgnS4ysZPITe6pe8Vj/2Fe+k6UgRdYYsu4o68iDNHs+RMFSe5QJYvF/NmVaV7/Bhyz4rjLXW0bMLg/di+4HyaCiXyhNa3Jrz45fAE3byx/JyzUq7SY55tKumze37PT9tzqmYnPf2vLI6iA+Ofx+AufpoZAc=
+	t=1789988677; cv=none; b=Q+8SF1rIDVV75d6MUB6KomPhIycZ5kR4hc1wGROY6gyob4qI1Exr6JAzQZ/8JaTgvDP4PUEn/Yz3L8mrEeAj2ellXf1FjLzKjruWhSb7eDayLB11Ts7o7y2Jgny9AG4e62YgX+kHMB+zVpUM1IzVOwgnOMRLMAadf8anisrck7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789988609; c=relaxed/simple;
-	bh=ezU9jJ7MwFvgarT3S7gLFpCf2ozU1aFJ3fwy76l486A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TpFh+/PUjGeoItWn4lucYnO/4md818BfW1D+FBs5PMW7EHgYUQoysBCiL72ChEHtin9pEkTRA25AlVf7Y2JHqmki4trOCoz23XvwpZohmugJ+hk1SH79aspxobQxMPG0k31RziGx46Qm5ZNT/0gm47OASQdUrp9PpNOxMXcOV5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k6YiJMw6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789988677; c=relaxed/simple;
+	bh=jSuuVBlpSef5iuoN/mlS5h79+s0Sw155NGnBGKRWtBA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d13yrfzmD9/XFwvXFPB1hplbZOTyDQN23+K7ovtRazXhObhqG80B7WS5O2v03eyuw6CQWDbf92iZ585czolR47LatRJKlkt4DumWAV7X6X90FM8kfmt98ybBZgii014uehv3KYGO6uhwZVua2JnKPUk+qdF4jxZPqZGbpKNunNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gU/qQHU8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k6YiJMw6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9235D1F000FF;
-	Mon, 21 Sep 2026 11:03:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gU/qQHU8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83EC81F000FF;
+	Mon, 21 Sep 2026 11:04:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789988603;
-	bh=Li5iIHYzXEeTCCbpZpScuMu1gMxmua3kiHF7nAY7gSw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=k6YiJMw6Bf7VQeWmaIFvGtDr0Q1CP2K9zPn8eV5D/uOYZjCrlAqFSpIKCPnMw82ng
-	 4sl3t4Z9/J2IpgoH5cxc4l52jn6CUYb4aPZQwcaGGmhDKFqBJ1i7SK7tDO9FvLHK8T
-	 Tm69OGIGGqf4qCUjlvbOTj0pAZB0FIjBmv14TmQ6plBkUUmAPp0sU/g+Pj5cjR9efn
-	 IIm9KGlIkHzdrr3zb4TiWCD2pdyymcHOQnJJ51fRgwuO5oT3VWps3oiu6qLRA5boex
-	 kAS0AD58ciEv8r6eGOfoccVNIjz/kaMWXsamdWYCzOERK2rRGm+0dIrwbCOxVpeujR
-	 JbAc+9J+WOJYA==
-Date: Mon, 21 Sep 2026 13:03:14 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: 
-	Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>, linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
-	Rahul Samana <rahul.samana@oss.qualcomm.com>, Wei Deng <wei.deng@oss.qualcomm.com>, 
-	Loic Poulain <loic.poulain@oss.qualcomm.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
-	Amitkumar Karwar <amitkumar.karwar@nxp.com>, Neeraj Kale <neeraj.sanjaykale@nxp.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>
-Subject: Re: [PATCH 3/5] power: sequencing: pcie-m2: Create auxiliary device
- for the M.2 BT interface
-Message-ID: <u2x4y5jochtvdrbzaofqpvf7pkufbljrogqy67renxhuubitbt@h5ogih6h2okx>
-References: <20260915-pci-m2-bt-rework-v1-0-3c7d9cf9c010@oss.qualcomm.com>
- <20260915-pci-m2-bt-rework-v1-3-3c7d9cf9c010@oss.qualcomm.com>
- <CAMRc=MdJgXDUb-Uac0TRB8u1WUpLng51C4yMH6iMEMoK56tQYA@mail.gmail.com>
- <p2qiwwig7ap74puja6mgnz37lofljhexiapmpp6y3xmwkhs2dn@v2mxawoivkn4>
- <CAMRc=MdHy6M9cY-ZqMXP_F6yLuVuipDkZwHoBF0D9W3A5VkOSQ@mail.gmail.com>
- <CAMRc=McfFtRi_kwPh6Dfz6MwGEy_Q7ojFmJ3ibJ6V4PiEDPetw@mail.gmail.com>
+	s=k20260515; t=1789988671;
+	bh=iZCqbmeiHFb5rdxel++hBSJZRs8tjgQKm9/ukIOdAnU=;
+	h=From:To:Cc:Subject:Date;
+	b=gU/qQHU89z18qCQaUCE+09/PGmZM7ufVqHZ7UZs+D3KqgFlNZPUX6BwGTepQKkHmU
+	 Bc1vZrHwcqRC3dzfkFbePdhhwuYBDw5VnTlHj6toIYKdeAk0ju6AMb8qH+HKEqdM1l
+	 J1xCcJgk2cYdUUPf/Qan+4qyh35ae3Q8udkDcJLtueE4kKyn0R0K/bzK18MkkPfgE3
+	 EALKTSAraLlN/H4O/1EiAydXWsbnfva4cT0jHOKYrauib8bvS8KVdwJC0VQJlGBKI1
+	 /0qF1EbxNsZjdUVqQURAjwOQy3jsApt61XGkwYJmmo6NKOUVjXuRZhAmjWZ8EbPJG1
+	 /XH5TApuzSuMw==
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] dt-bindings: net: nvidia,tegra234-mgbe: Add missing properties
+Date: Mon, 21 Sep 2026 13:04:22 +0200
+Message-ID: <20260921110422.220832-1-thierry.reding@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMRc=McfFtRi_kwPh6Dfz6MwGEy_Q7ojFmJ3ibJ6V4PiEDPetw@mail.gmail.com>
 
-On Mon, Sep 21, 2026 at 05:51:28AM -0400, Bartosz Golaszewski wrote:
-> On Mon, 21 Sep 2026 11:08:58 +0200, Bartosz Golaszewski <brgl@kernel.org> said:
-> > On Mon, 21 Sep 2026 09:58:27 +0200, Manivannan Sadhasivam <mani@kernel.org> said:
-> >> On Wed, Sep 16, 2026 at 04:19:16AM -0500, Bartosz Golaszewski wrote:
-> >>> On Tue, 15 Sep 2026 16:24:04 +0200, Manivannan Sadhasivam via B4 Relay
-> >>> <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org> said:
-> >>> > From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> >>> >
-> >>> > Currently, the driver instantiates the BT interface of the WCN6855 and
-> >>> > WCN7850 combo modules by creating a devicetree node at runtime using an
-> >>> > of_changeset, with the compatible passed through the PCI ID table. But this
-> >>> > method of creating a devicetree node just for matching with the driver is
-> >>> > not recommended.
-> >>> >
-> >>> > So create an auxiliary device for the BT interface instead. The serdev
-> >>> > transport is still allocated here and handed over to the Bluetooth driver
-> >>> > through the auxiliary device, along with the power sequencing target used
-> >>> > to power up the controller. Also extend the provider match so that the
-> >>> > auxiliary device created for this connector is matched as its power
-> >>> > sequencing consumer.
-> >>> >
-> >>> > Since the runtime node creation is now gone, select AUXILIARY_BUS in
-> >>> > place of OF_DYNAMIC.
-> >>> >
-> >>> > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> >>> > ---
-> >>>
-> >>> That's some nice stuff, thanks for doing it!
-> >>>
-> >>> It looks like there's no build-time dependency on this, only run-time? Can I
-> >>> take it independently?
-> >>>
-> >>
-> >> Yeah sure!
-> >>
-> >
-> > Nevermind that, it still needs is_controllable().
-> >
-> 
-> Patch 3/5 also needs the header patch 1/5 adds, so we'll need a different
-> merge strategy here.
-> 
+From: Thierry Reding <treding@nvidia.com>
 
-Oops... I replied without checking the patch order and trusting my memory :/
-But even without the dependencies, merging just the pwrseq driver will break the
-functionality. So a better strategy would be to merge the series in a single go
-to the Bluetooth tree.
+Being a DWMAC derivative, the Tegra234 MGBE supports AXI configuration
+nodes named stmmac-axi-config and phandle references to them using the
+snps,axi-config property.
 
-- Mani
+While at it, add the 10gbase-r PHY mode.
 
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+---
+Changes in v3:
+- add Rob's Reviewed-by
+- link to v2: https://lore.kernel.org/linux-tegra/20260902003004.453960-1-thierry.reding@kernel.org/
+
+Changes in v2:
+- move common properties to snps,dwmac-common.yaml
+- link to v1: https://lore.kernel.org/linux-tegra/20260716212001.989872-1-thierry.reding@kernel.org/
+
+ .../bindings/net/nvidia,tegra234-mgbe.yaml    |  8 ++-
+ .../bindings/net/snps,dwmac-common.yaml       | 66 +++++++++++++++++++
+ .../devicetree/bindings/net/snps,dwmac.yaml   | 52 +--------------
+ 3 files changed, 73 insertions(+), 53 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/snps,dwmac-common.yaml
+
+diff --git a/Documentation/devicetree/bindings/net/nvidia,tegra234-mgbe.yaml b/Documentation/devicetree/bindings/net/nvidia,tegra234-mgbe.yaml
+index 215f14d1897d..48e4798a039b 100644
+--- a/Documentation/devicetree/bindings/net/nvidia,tegra234-mgbe.yaml
++++ b/Documentation/devicetree/bindings/net/nvidia,tegra234-mgbe.yaml
+@@ -81,8 +81,9 @@ properties:
+   phy-mode:
+     contains:
+       enum:
+-        - usxgmii
+         - 10gbase-kr
++        - 10gbase-r
++        - usxgmii
+ 
+   mdio:
+     $ref: mdio.yaml#
+@@ -90,6 +91,9 @@ properties:
+     description:
+       Optional node for embedded MDIO controller.
+ 
++allOf:
++  - $ref: snps,dwmac-common.yaml#
++
+ required:
+   - compatible
+   - reg
+@@ -103,7 +107,7 @@ required:
+   - phy-handle
+   - phy-mode
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
+   - |
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac-common.yaml b/Documentation/devicetree/bindings/net/snps,dwmac-common.yaml
+new file mode 100644
+index 000000000000..a38ff314b3cd
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/snps,dwmac-common.yaml
+@@ -0,0 +1,66 @@
++# SPDX-License-Identifier: GPL-2.0
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/snps,dwmac-common.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Synopsys DesignWare MAC common properties
++
++maintainers:
++  - Alexandre Torgue <alexandre.torgue@foss.st.com>
++  - Giuseppe Cavallaro <peppe.cavallaro@st.com>
++  - Jose Abreu <joabreu@synopsys.com>
++
++properties:
++  stmmac-axi-config:
++    type: object
++    unevaluatedProperties: false
++    description:
++      AXI BUS Mode parameters.
++
++    properties:
++      snps,lpi_en:
++        $ref: /schemas/types.yaml#/definitions/flag
++        description:
++          enable Low Power Interface
++
++      snps,xit_frm:
++        $ref: /schemas/types.yaml#/definitions/flag
++        description:
++          unlock on WoL
++
++      snps,wr_osr_lmt:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description:
++          max write outstanding req. limit
++
++      snps,rd_osr_lmt:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description:
++          max read outstanding req. limit
++
++      snps,blen:
++        $ref: /schemas/types.yaml#/definitions/uint32-array
++        description:
++          this is a vector of supported burst length.
++        minItems: 7
++        maxItems: 7
++
++      snps,fb:
++        $ref: /schemas/types.yaml#/definitions/flag
++        description:
++          fixed-burst
++
++  snps,axi-config:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      AXI BUS Mode parameters. Phandle to a node that can contain the
++      following properties
++        * snps,lpi_en, enable Low Power Interface
++        * snps,xit_frm, unlock on WoL
++        * snps,wr_osr_lmt, max write outstanding req. limit
++        * snps,rd_osr_lmt, max read outstanding req. limit
++        * snps,blen, this is a vector of supported burst length.
++        * snps,fb, fixed-burst
++
++additionalProperties: true
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index 2449311c6d28..c5222c82e27a 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -195,18 +195,6 @@ properties:
+       can be passive (no SW requirement), and requires that the MAC operate
+       in a different mode than the PHY in order to function.
+ 
+-  snps,axi-config:
+-    $ref: /schemas/types.yaml#/definitions/phandle
+-    description:
+-      AXI BUS Mode parameters. Phandle to a node that can contain the
+-      following properties
+-        * snps,lpi_en, enable Low Power Interface
+-        * snps,xit_frm, unlock on WoL
+-        * snps,wr_osr_lmt, max write outstanding req. limit
+-        * snps,rd_osr_lmt, max read outstanding req. limit
+-        * snps,blen, this is a vector of supported burst length.
+-        * snps,fb, fixed-burst
+-
+   snps,mtl-rx-config:
+     $ref: /schemas/types.yaml#/definitions/phandle
+     description:
+@@ -558,45 +546,6 @@ properties:
+     required:
+       - compatible
+ 
+-  stmmac-axi-config:
+-    type: object
+-    unevaluatedProperties: false
+-    description:
+-      AXI BUS Mode parameters.
+-
+-    properties:
+-      snps,lpi_en:
+-        $ref: /schemas/types.yaml#/definitions/flag
+-        description:
+-          enable Low Power Interface
+-
+-      snps,xit_frm:
+-        $ref: /schemas/types.yaml#/definitions/flag
+-        description:
+-          unlock on WoL
+-
+-      snps,wr_osr_lmt:
+-        $ref: /schemas/types.yaml#/definitions/uint32
+-        description:
+-          max write outstanding req. limit
+-
+-      snps,rd_osr_lmt:
+-        $ref: /schemas/types.yaml#/definitions/uint32
+-        description:
+-          max read outstanding req. limit
+-
+-      snps,blen:
+-        $ref: /schemas/types.yaml#/definitions/uint32-array
+-        description:
+-          this is a vector of supported burst length.
+-        minItems: 7
+-        maxItems: 7
+-
+-      snps,fb:
+-        $ref: /schemas/types.yaml#/definitions/flag
+-        description:
+-          fixed-burst
+-
+ required:
+   - compatible
+   - reg
+@@ -610,6 +559,7 @@ dependencies:
+ 
+ allOf:
+   - $ref: ethernet-controller.yaml#
++  - $ref: snps,dwmac-common.yaml#
+   - if:
+       properties:
+         compatible:
 -- 
-மணிவண்ணன் சதாசிவம்
+2.55.0
+
