@@ -1,172 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F9A502D64;
-	Mon, 21 Sep 2026 19:04:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA0E4FC343;
+	Mon, 21 Sep 2026 19:06:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.42.203.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790017472; cv=none; b=oV2y61RroygoaKeDlLspKoKSqdHCmwzsGklyMqsX76mYCkoi57wLH/KqIaEpmJgogBNHDp8DlJvcMJ3wgcHKdqDl4CduchfqZ3c7F5MkNL5SEU+PuAChcQhr1ryX4/fwcPiFOzwZW0EhWWzS/eq9H9Pn6obZwAqUWJ3XVbUcg8Y=
+	t=1790017580; cv=none; b=YedvIjJ5kDMdvuwxQiZXSJwcdh4rv3EUHSuq6XLYLszJwxjjW02yZWAZfXfSh5EsuGEn0WP7DbwwIgRiLsw34Mpsb5Yza4L0Pga/EE9UKHgOV8GQ10hwLS2mAL1l1b9Y3M/J3xJ5a/5umFjio7TJxruW1j/msQxf4cH6ry4mVsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790017472; c=relaxed/simple;
-	bh=zPKIlDejxbmn+eyd22Igt4PrX5ufxVy4DxBjX5KZgEw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oZa4cdfC4wJnPJ0+DV93EmaRnDDPTg0dLSGqv0t3BPriZIiBCMAu6v7DQSTGdNqARncwZXxidhEfld3cwscwA3WUGex/4fltbt6IF7yijh/afWsGlUSG1hOs2+3yRpjDD/60lQ9NN8jkpuM6je5zS6mv1BN3dxPi9SnU64cShaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QJ3+MjzP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790017580; c=relaxed/simple;
+	bh=qzz7XnPrw2VN/hLIGszjeEct3tY2LRf2xEHYe6n5keM=;
+	h=MIME-Version:Content-Type:Subject:From:To:CC:In-Reply-To:
+	 References:Date:Message-ID; b=tGTJcDLQr29lcRu56hr9NWmFM8XeFd1NpJ3hfV5xSBwTs9I8l5hIAHQV5IeF9SrRCvgALdNXNBk3r+IY5k4M3xzvIK5XfOb7Dapeb2XxBmBAQ5JOXN8kE2OojPYCWrYxoLHKLFGDaLd0SShduoaC933IEa8LOLZ9/LnfUGq/i+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=rn3sOAmw; arc=none smtp.client-ip=52.42.203.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QJ3+MjzP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B7A01F00893;
-	Mon, 21 Sep 2026 19:04:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790017471;
-	bh=HONTjVdIawnS9OZFEKfpfN7ZS4t2FLaSysdX/D7tdUE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QJ3+MjzPgDkeKuSrv4SpqyxYPNEmxIKP5wF/AHUxIjmrP3oyrVErYktvhec3YEVHK
-	 lijZqldReiaYl3L2hOmRf6iiWW7z7jJRPfhAQ9xlaZ65QohMiicsNgjN4ahmT6bfAA
-	 lIxjqSIRTKWjAXyHlIMnuhALF1vr29ifj/07QF7P94nC/RHNMBK8QOVy27ngiz2zVX
-	 ZPeGo0ZnB+HxxWATYk7hsdLEmCArw4FsfU/43yCsGc+gRGCdQwZsC6w8P3sZyxzOIc
-	 7t6KRLl7kSRyoWJRmHhKPA9EprBmzeG1TbHg/gq9QDC8/bVs7OTYByZA1To4uSIrov
-	 McWVvDuZigCyA==
-Message-ID: <16c8eceb-69f4-4115-a2d5-70db828d07fd@kernel.org>
-Date: Mon, 21 Sep 2026 21:04:19 +0200
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="rn3sOAmw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1790017579; x=1821553579;
+  h=mime-version:content-transfer-encoding:subject:from:to:
+   cc:in-reply-to:references:date:message-id;
+  bh=5d1fPjV9fe1FfCtfOIKGBQ2v/+atEidlljUyxF6je9U=;
+  b=rn3sOAmwKFu6qIKGrBdAp5kmAFVZ+0bdMOSeS1j/tn2kDdhm3zcEd/we
+   CXyv90OEYj9w9etCyylNaKLbJYTY+u/SGc2A9+2g0PT6z4qADhLxZO56u
+   yYRAXPFeKc64+3selhWA85wZJn9BFnhMxkKal7a2Kr3Nj616kBEp6dKhQ
+   8lVJJg+FrVJ9vaIWOV7/FKWRdDQb+QN4tD/v7Skxxfq9z7MDB226+Orjl
+   4YQy++XAU3meZ7RsOi10C9X755V7Y8nRu4cYDvnoJJPhVwChAPpKmCV6V
+   u/N5GUZgXmZLin3z1ARsXWktDelKP8kOwa/l99E/bqbLcTuyYCZvcga7J
+   Q==;
+X-CSE-ConnectionGUID: 9Rii6w+CT5uGVI5t6oSXKg==
+X-CSE-MsgGUID: SjaWV+LkRxakxPqN1r2Uvg==
+X-IronPort-AV: E=Sophos;i="6.27,115,1787011200"; 
+   d="scan'208";a="29308397"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 19:06:16 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:23680]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.49.70:2525] with esmtp (Farcaster)
+ id 5849dd9a-7d05-4b67-9d2d-f3bbb6ade12f; Mon, 21 Sep 2026 19:06:15 +0000 (UTC)
+X-Farcaster-Flow-ID: 5849dd9a-7d05-4b67-9d2d-f3bbb6ade12f
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Mon, 21 Sep 2026 19:06:15 +0000
+Received: from dev-dsk-akiyano-1c-2138b29d.eu-west-1.amazon.com (172.19.83.6)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Mon, 21 Sep 2026 19:06:13 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/12] mm/sparse: remove SECTION_MARKED_PRESENT
-To: Seongjun Hong <hsj0512@snu.ac.kr>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- Oscar Salvador <osalvador@suse.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org,
- driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org
-References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
- <20260909-b4-sparsemem_cleanups-v1-9-008fc8d579fe@kernel.org>
- <aqK9S1hBpPnujgz9@gremlin> <eb5b465b-c256-4454-84de-517aefcd6d59@kernel.org>
- <vpz5zqg5nwbpolxbkip45vxxdt3lni7j2haal7q42skc3b57tu@uh4cec4x32dq>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <vpz5zqg5nwbpolxbkip45vxxdt3lni7j2haal7q42skc3b57tu@uh4cec4x32dq>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 1/2] net: ena: fix PHC cleanup on probe failure
+From: Arthur Kiyanovski <akiyano@amazon.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+CC: Arthur Kiyanovski <akiyano@amazon.com>, David Arinzon
+	<darinzon@amazon.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Ioana Ciornei
+	<ioana.ciornei@nxp.com>, Sang-Heon Jeon <ekffu200098@gmail.com>, Dawei Feng
+	<dawei.feng@seu.edu.cn>, Amit Bernstein <amitbern@amazon.com>, "Netanel
+ Belgazal" <netanel@annapurnalabs.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+In-Reply-To: <20260921154202.471662-2-lgs201920130244@gmail.com>
+References: <20260921154202.471662-1-lgs201920130244@gmail.com>
+ <20260921154202.471662-2-lgs201920130244@gmail.com>
+Date: Mon, 21 Sep 2026 19:06:02 +0000
+Message-ID: <179001756287.8372.475254242129499819.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: EX19D039UWB004.ant.amazon.com (10.13.138.57) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On 9/21/26 18:48, Seongjun Hong wrote:
-> Hi David,
+On Mon, 21 Sep 2026 23:42:01 +0800, Guangshuo Li <lgs201920130244@gmail.com> wrote:
+> ena_probe() initializes the PHC as part of ena_device_init(), but the
+> probe failure path does not destroy it before freeing the PHC private
+> data.
 > 
-> I'm sorry for the delayed response.
-> 
-> On Thu, Sep 10, 2026 at 05:11:36PM +0200, David Hildenbrand (Arm) wrote:
->>>
->>> Seems a bit strage given the code is:
->>>
->>>         try:
->>>             self.SECTION_HAS_MEM_MAP = 1 << int(gdb.parse_and_eval('SECTION_HAS_MEM_MAP_BIT'))
->>>             self.SECTION_IS_EARLY = 1 << int(gdb.parse_and_eval('SECTION_IS_EARLY_BIT'))
->>>         except:
->>>             self.SECTION_HAS_MEM_MAP = 1 << 0
->>>             self.SECTION_IS_EARLY = 1 << 2
->>>
->>> Whereas other variables must be available with no try, e.g.:
->>>
->>>         self.PAGE_OFFSET = int(gdb.parse_and_eval("page_offset_base"))
->>>         self.VMEMMAP_START = int(gdb.parse_and_eval("vmemmap_base"))
->>>         self.PHYS_BASE = int(gdb.parse_and_eval("(unsigned long) phys_base"))
->>>
->>> etc.
->>>
->>> Is there some weirdness with gdb? Or is it maybe because there are some configs
->>> without these symbols maybe?
->>
->> TBH, I have absolutely no idea and I was asking myself the same thing (but
->> decided that I couldn't care less about a python gdb script).
->>
->> This code was added in February:
->>
->> commit 55f8b4518d14b7436f70defe27faba4eca0cd4e1
->> Author: Seongjun Hong <hsj0512@snu.ac.kr>
->> Date:   Mon Feb 2 12:42:41 2026 +0900
->>
->>     scripts/gdb: implement x86_page_ops in mm.py
->>
->>     Implement all member functions of x86_page_ops strictly following the
->>     logic of aarch64_page_ops.
->>
->>     This includes full support for SPARSEMEM and standard page translation
->>     functions.
->>
->>     This fixes compatibility with 'lx-' commands on x86_64, preventing
->>     AttributeErrors when using lx-pfn_to_page and others.
->>
->> @Seongjun, why are these conditional and the others not? Trying to support older
->> kernels?
-> 
-> No. TBH I didn't look at the gdb script carefully at that time and just 
-> wanted to avoid a symbol lookup failure. 
-> 
-> It would be better if we remove the try statement.
+> The normal removal path calls ena_phc_destroy() through
+> ena_destroy_device() before ena_phc_free(). However, if probe fails
+> after ena_device_init() succeeds, the error path reaches ena_phc_free()
 
-Will do, thanks! :)
+This part:
+
+> without unregistering the PTP clock or destroying the device PHC
+> resources.
+
+is inaccurate, see my explanation bellow.
+
+>
+>
+> diff --git a/drivers/net/ethernet/amazon/ena/ena_netdev.c b/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> index ea89619039d8..5f0864d16dd3 100644
+> --- a/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> +++ b/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> @@ -4122,6 +4122,7 @@ static int ena_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+>  err_device_destroy:
+>  	ena_com_delete_host_info(ena_dev);
+>  	ena_com_admin_destroy(ena_dev);
+> +	ena_phc_destroy(adapter);
+>  ena_devlink_destroy:
+>  	ena_devlink_free(devlink);
+>  err_metrics_destroy:
+
+Thanks for resending as a series - the split and the ordering are what I
+asked for.
+
+But v2 doesn't address Sashiko's review of v1.
+
+PHC is off during an initial probe. It only turns on if the user enables
+it via devlink, and devlink is registered at the very end of a successful
+ena_probe(). So on this error path phc_info->clock and
+ena_dev->phc.virt_addr are both NULL and ena_phc_destroy() does nothing.
+
+I still want the call - it keeps the probe unwind symmetric with
+ena_destroy_device() - but it is a robustness change, not a fix. Please
+drop Fixes: and Cc: stable, and say so in the commit message, for
+example:
+
+  No functional change: PHC is always disabled during an initial probe,
+  so this only keeps the probe unwind symmetric.
+
+Since net is for fixes, that means splitting after all - sorry for the
+extra round trip:
+
+ - the MMIO read buffer fix goes to net on its own, keeping Fixes: and
+ - this patch goes to net-next, without Fixes: or Cc: stable
+
+The MMIO fix has to land in net and propagate into net-next before you
+post this one, otherwise you hit the same hunk conflict again.
+
+Also please use --subject-prefix='PATCH net-next v3';
+netdev/series_format is still warning that the target tree isn't
+specified in the subject.
+
+Thank you.
+
+Cc: stable
+
+Cc: stable
 
 -- 
-Cheers,
-
-David
+Arthur Kiyanovski <akiyano@amazon.com>
