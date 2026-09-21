@@ -1,214 +1,156 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012026.outbound.protection.outlook.com [40.93.195.26])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CBF48822D;
-	Mon, 21 Sep 2026 11:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789988799; cv=fail; b=J0+JSpmHvD0IlDpqo5Hb4av2CtNQNccLxUIDFPeXIXHpgduGVz3aa9LC8EJ5nUmk1lOdoa8zn7BhxdAkuL9p7u/y23C62AZoOvGEa1mKZJlHBZQZIOwBU319O+tjwHuz/ZriIAXzdEbZwclHUF7upksJJJVcIJn3Tdf7kJwm+uE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789988799; c=relaxed/simple;
-	bh=IVnvkru0YCZB8RLmZPZjG1PeCTZjQJY2V1qp8IR/RgU=;
-	h=Message-ID:Date:From:Subject:To:Cc:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=eSpuXs368M0aqieusygzDz/rNcF1mmgHKmsla3Nb9OtfScuJtzCTSVK5lijhz8kX5cpvm4Gw912NeKIx0eKQGfAaTp5A+tA4OxjhdGD/sKmWR99sjtcbtquTgiN5Z97jxFXr0GguM9Du5ZzvY00b06ZGrX+BQ25Xy1AHJH3dg4A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Q/77PTfD; arc=fail smtp.client-ip=40.93.195.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FEC430CEC
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:06:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789988800; cv=none; b=BMBuTq8dpFR+oYQ2zlZaS6O8wxIaz+xssbc/FBLolurSsPwWLwDldbVwKvqE5fLwg0vivZ0UjHVz9F7+xK50U6PslFgX11DDC9uV7ceAyYOh89LIYdxHSTn9B58nH1R312nIun8CnKOcgDU6DH0loH5Ek9rjHFz32hSagEobCSQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789988800; c=relaxed/simple;
+	bh=APDQF13y/S2iTJC8bsCnwlXoIXm7Osc7h1xGKtGf/V8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aNOUPE3gl2SSMFzuumFzD9z3ommyJq8AEjODMnyzWBW0DCkSHETq8U2kpbEEzKvPCq90NMLzqFn00VYLoFTEC4WmcLXkFyWMDzhcgErhFc+brpPHjtWZGAL+pCIxB8H28w1rty70dfC6PUHR7ekPzWQIL/WBdcCvANO5FMjTHCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=m8W0TYh/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=alIogjgH; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Q/77PTfD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AIMr0ERwAi+Ca1aNYEZw0UoCk2QxhCGUYYh38AiNXr6Ty7v7O9fWqufTl0u7c9ob5DUex5RXqjEC0zLJ8ul6Po75wtOB+V+JREP8X72OwFUhk1N2B5fWpgTrbJj33cjQBvnjPbr7o9Oi9OWyEqsN4+yeMAB4n2L0sJ+/ydxwjDnD0heM4tzJDFiWhsqH1wKZg8ha1H2XIsOoor9Dot5YccSgu0NeXg4w0kyT5jbyrGPBAe2NZfEi6HVwEzIeo4PsdyQjoGcs9k0YIrl6FS7Kauk4JnRkirQtbqJ6j4hTHR/flEeebLmY4leWeblzc8Q2Q4P/C4mcOyt+lf05aa6tPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zu/eVncv/yvLsWTBEpI36HkuAh9Agzp0WaiR5ddGahQ=;
- b=tXU3jSi6AoQuaaTUk0ErS62FMfL8LtO7c0rsTcwNOykUl40CsHh+DRmgu44TrzWvBzVIDw+3Z5220cXSfXE1tf+Fx7x2misAWwQO8dQqHrRABjK5tzh+uBBQFMDtl2Cb++Z2DKtEOMBJEe4/Au6KEt4uyGPDXS4W+J7AKxamvdQRuI+LiFEq07mTdHEABZzROKwgT88ahF7W48/FDXWYI1SepksGOf8lEKRgYpu1ei75uowAbkNQTMsVk//OzhXKhK9CJogUH/pvRZ5SVsh62A4cM2P8Vrh0wHSSwe2LZs1jp8S8qJnU7xeZ06TTPdz0ejrSBGrmFxSSU5DT4l38jA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zu/eVncv/yvLsWTBEpI36HkuAh9Agzp0WaiR5ddGahQ=;
- b=Q/77PTfDbCktygNrpNxaoFyJibL3Y6XiyFt7lt2YJpqW/WE1LKyLPZFup0/1okockGw6KbPOXNIC40rsxVgl5+T4t04GqstpaFlblR7eEiBGiGspSodXGf9BmQr7g05nkXoqz6xt5aGmGzz0UAS18exQ8q+miRU1D2+cpaszyt8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7771.namprd12.prod.outlook.com (2603:10b6:8:138::6) by
- SAWPR12MB999165.namprd12.prod.outlook.com (2603:10b6:806:4e1::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 11:05:16 +0000
-Received: from DS0PR12MB7771.namprd12.prod.outlook.com
- ([fe80::9a3e:791f:33b6:3d8c]) by DS0PR12MB7771.namprd12.prod.outlook.com
- ([fe80::9a3e:791f:33b6:3d8c%4]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 11:05:16 +0000
-Message-ID: <d50d001c-f71e-41ac-924b-3de5aac2a89a@amd.com>
-Date: Mon, 21 Sep 2026 13:05:04 +0200
-User-Agent: Mozilla Thunderbird
-From: "Gupta, Pankaj" <pankaj.gupta@amd.com>
-Subject: Re: [PATCH 3/4] mm: add shared read-only vmemmap support for FS-DAX
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>, Dan Williams <djbw@kernel.org>,
- David Hildenbrand <david@kernel.org>, linux-mm@kvack.org,
- nvdimm@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-cxl@vger.kernel.org,
- Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Mike Rapoport <rppt@kernel.org>, Oscar Salvador <osalvador@suse.de>,
- Ira Weiny <iweiny@kernel.org>, Jan Kara <jack@suse.cz>,
- Matthew Wilcox <willy@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Michal Hocko <mhocko@suse.com>,
- Qi Zheng <qi.zheng@linux.dev>
-References: <20260903122128.12264-1-songmuchun@bytedance.com>
- <20260903122128.12264-4-songmuchun@bytedance.com>
- <4bc1f4de-40ad-46f0-8d37-4c4e0cad0ad6@amd.com>
- <8EA6782C-7A3D-411F-91CD-031AB97CD024@linux.dev>
-Content-Language: en-US
-In-Reply-To: <8EA6782C-7A3D-411F-91CD-031AB97CD024@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0033.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:17a::16) To DS0PR12MB7771.namprd12.prod.outlook.com
- (2603:10b6:8:138::6)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="m8W0TYh/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="alIogjgH"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAeLnv1219039
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:06:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	fVGPjxP3QgcDv0E9g1JTcpUHcMxO88kzyAGTghYjz1g=; b=m8W0TYh/d0uyebaF
+	/H4rugJm9UHLtaks3QckssiAtyDNBN4VuiPevXR9Djr6KzlTqNqN94dM756RqGU2
+	NScRNU1R8rw6V6EHlfnol+na3tTdTl+izaV+EApchomVaHSztCRB2Gr/yfhGRdnX
+	Iz1Bxp3qr3rMUteI4SEwqtGKT37Qq1B4D4Fs+UTQiElzZQ3vjCBQAZXj5XYxb/3G
+	bkbPenBi2YQVunoAyv1n8iI4d+obL17oNt7c5GmCUW68PrvRGh0SxpJtsQVzKsjI
+	Qa7UIn7jbSnyIy5kiKVrb9zhBs1CubhRxIdm9WvcSkTT/EP958vHElgSm5C8lIy5
+	1aH33A==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu0118wvp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:06:33 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5c84b0a43efso101257e0c.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:06:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789988792; x=1790593592; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fVGPjxP3QgcDv0E9g1JTcpUHcMxO88kzyAGTghYjz1g=;
+        b=alIogjgHTnDYsZU3X4O9nwBJ/dcD/mfTtZsWrYULgjIsTsd6y2XdOAywFhYu1Q43rH
+         Ut4D/Xf2Uz7JJPv47oribEwHjtxtSOpi61ulaPFU8S/rWZLIUUWzMnRnCxy+2UlTu9tx
+         5Dnx3xEgcoxysDuQL4ewOQrY+I8aXbx3yhbZRe5IeyRX6M7fbaDjcpmT5WnZmuvNZWce
+         B2rMPo5AI7szT2fiB3/62MCQftpEjMdBedvjt+epF4IEwmVhy48mI0jFIiJ+B/dellcN
+         030Uj6eSPwlnzM3rg50KwlronZggMmFNus1K6OyrQoZJ7PoE0VjPRErcmMK3L/Y2uG6E
+         NgFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789988792; x=1790593592;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fVGPjxP3QgcDv0E9g1JTcpUHcMxO88kzyAGTghYjz1g=;
+        b=zjpNuCWwBieV6p6yjtSesjqQkILvZUspbxVFlTxiWy0nYZWxduWw2ri4onPIELTNPt
+         HckFWE6MCfhHva4gcnNl7xvSrTpA5nm99B2lT4JTS8T4YpkTxtJHLf0xLYDZ4lxoIXGA
+         52AielBHESJpHNyXgM5a8v29t5afAabF1QZY87jDw59w6cRAo5p0e1tz/YOhWtfWIvqc
+         ZbQHQaPVA4TBHUajBmNbaPJC43pfwTcqGw5vIYwwADdAQioFhOs1rM6nwb0Ie9HSZVZ3
+         CKpOTYzbVCO8LPoVbgJbCeaaPqTVUs0CwO4wkK5RRxl7ZOdn+c2h49ChNOSmH8u30qA9
+         mx/g==
+X-Forwarded-Encrypted: i=1; AKwUvBwAYz9I11c4+lotdHmEXXJ1FClL3SVKt0qwygHAep5Ut5dTRVmxjjz60etFAL/FAUZQTYSiMpmU+r9a8VU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9AqSJil5d1ReV5YevyFDrVF6T26fBMBMZM8yHRvplxaOXSd+S
+	xxJK3MLKCFGebzo1eUCYCsuFpQngE82Uko1Isp1DVUnomi9dhw0WvILbkkzR5u6Hb7wg1dkFcoR
+	OOdTrhqseUUa2RN3ArvH/g1tqLqwLmkKdBTGzkg/eo+GGRY1eRMxN3Kdokpn4QpOzCVo=
+X-Gm-Gg: AYBFou3LgGfUBC+0fYeDLH1TkMNHAllp8WBYpkIAEWtqmPbrpGsRvRwSmoSdYQ8X0gg
+	/O7H1tW+VijNcn5k07kC0jBHHTV6wzJTsBtuHG80CSRZARuJSs1uBhdL2gbqdYznup4VRb6GhRI
+	Qch8Q6D8V5z0t16FbCvsPW/+WGxUyfR6NAZ1BEsnxWEMeWp9+fb7wNb8bXe5VO/DbR25mFgi+fO
+	aIPoFQbyxNmZcn87+1ihRN7gpqZ3K3hf0q6v+ygy5iqU6RAwjWeNMoz4w+PVLSohOcyQXHL0u21
+	XYbGbagFm+AcBMAaEczn8kEfvKYX72j9aJAjXBe8wkK8X4aDVCaakcxZAYFUC8Sfkwlu50xncyq
+	IhbsoR2p9JVICso0wCkQrTg==
+X-Received: by 2002:a05:6122:35c1:b0:5bf:b91f:3bb5 with SMTP id 71dfb90a1353d-5c9bc3b53e6mr3524535e0c.2.1789988792527;
+        Mon, 21 Sep 2026 04:06:32 -0700 (PDT)
+X-Received: by 2002:a05:6122:35c1:b0:5bf:b91f:3bb5 with SMTP id 71dfb90a1353d-5c9bc3b53e6mr3524484e0c.2.1789988792144;
+        Mon, 21 Sep 2026 04:06:32 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67e1b7e1sm3810951a12.26.2026.09.21.04.06.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 04:06:31 -0700 (PDT)
+Message-ID: <8204dd54-d282-4303-85fb-d5408cc0b4b2@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 13:06:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7771:EE_|SAWPR12MB999165:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1c3a2f1a-5c82-494e-628e-08df17d03767
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|11063799006|56012099006|4143699003|10067099003|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	EmFY5bu9d8bk5NxGVAWsPbjh6ljZuySVUOMoQ96DXGP5ZCdcU7aY+F8uY0NtHKobOKftpEaE8Uu03/iaZSiDNmXwinrpnPToVDqO1afNqxzO/MnpNLtJooxr0yx9VU6EcBCtHNZwM7RGiJUU8sCnxtvqTrdKytAHPc1J0025PFFmztd4PmdeRdi+FArmYLrdg2dVCSMAXPk5ZaSpnfwAR7RtHZfoH5lNVp9qpI1+bDVz6dUqfK2PEsMhNq7rEkE3FSot6ebeuKQiwOP5N7ZMf0A173C1Z4pk7Rtre3ZqQPNLbTa3HEqZO2/oFVlrkKHrDEo2Q9dVBLXuTuWbbtY2/G6pfg2o/r5VX4NtLNtiSknfaSLnha3SgA40kihmq5UhigL41Yg6tSOuuogZBhZRB49pUJHHxG8XSZzqw6++ZvQQuzBbuAV/hHn8uF9H2oviZFUDm+A/tUW9T4HuMoe6Os9VnvktcHRQR2l5F91185js4lh6dc+1ynslw1IjyheO5CQScCuPoitPb5qRnScXZr6Q4pIRner9RSe9T9MU59Gi2YlXenxIg2wJfa7aR80KNFY7aFVmdSVg1M3MXuw8KQUcXpeJL6O8lB4htTdizYbNKrn9zNGSH9Cn/QjKheVQ1UafciJoWdU6h7rEgTKnjXkikpdQfstgbRUpI/zrLdc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7771.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(11063799006)(56012099006)(4143699003)(10067099003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cGVXa215d2c3bExIQmpuM0JrMXRnUUxVR0RUL2I0NSsvUGtYVys4WUYrYWMy?=
- =?utf-8?B?Y1ZOejhudjRxMHVNd2pVeDEyb01ZaWdkQ3RlWStFSG1LV1lmK0tpbXZZVENl?=
- =?utf-8?B?VExEVFZkZXJTZjA3NzIyZ3BIYUFRbGx5eE1VSVMyQUNwSU5lblJFYTdtZ3Ji?=
- =?utf-8?B?OE1DMFFtVUtRSnhXcjJ6TXB3M1VXck9oYXVjR2RweFcvRElkOUJRMUpHd0FU?=
- =?utf-8?B?YTBWaUFWdDFLUWZRYmhhMVFQL3lVeEZZRHhJUVA4NU55N3VJa1ZnR2lJeGYy?=
- =?utf-8?B?TmdwMDA4SzZYbFd2a0RBYy9HdkJBY0szMzhtUnVCSklyQm1CaDJIWUVRbEk0?=
- =?utf-8?B?NXR0SmpqWGsxRUp1T3RQcFlTV1djbmFCNWgxcXdvRys3azcvQzk3S1VxUHFz?=
- =?utf-8?B?WGpNaHAxVlVYYmdSU29FQlVlYU8ycnE0T0Qxek1yZHdQeGwwM2ZtbFFWd3Mw?=
- =?utf-8?B?b1JPU0tkZlF5Vk5mVC8xajJWandRdkpyTXdINmswYmM5N2EwRkVVRjBLRjNV?=
- =?utf-8?B?RHF1VjhBWkRtSHJHM0VKem1EamlIeFVvNUhZV0ZZbkpaelR2MFM2clQyNmhO?=
- =?utf-8?B?TVVQOG1yWG9Ba2liUERCbFRkVlloMjFYZ1Brc2FtVUlwR3NOU2J3MHp1NEhm?=
- =?utf-8?B?RmtWUDBURjQxQit1bDZJdmlkKzdEV0ZlWnc5aU5EenR1bVVISG1yMkxGVk1H?=
- =?utf-8?B?dnp4cmFYUXZqNkpjUmg0di8rQmRYZUJWQ3hzMG4wRWVBMU1laEF1RDEwZ2Nu?=
- =?utf-8?B?MlRXeUp0blNidmxIUStlUTg5WDJqSHU4dEhMWVFLaVAyUTlBMDFXakk5cmhT?=
- =?utf-8?B?Qkw4S25pRWpYOFRlaVBaaXc1TGFpbGhiRjd2NlRpbnkyK0pnVnc1Z3pNQUtk?=
- =?utf-8?B?anduNUFrS3ZxK29LdEtxY3dYcE8rZ1lDZzI1RUF0S0tONldBcHlXbXkxdVBZ?=
- =?utf-8?B?WGg3cER6a2luRTNkSFA3RllnWlZSTHRxbjdkNnc1NE8rS1hYdUxldG5WRS9k?=
- =?utf-8?B?enBYd0ptOEpNQ3h3bjNMc1BCMjhPaUhsbmduSEJ6TmQ0RFJtd29Ia0ttN09M?=
- =?utf-8?B?RWp1Q1NaejQrRFgwOFlhdDBkUzA5c1hySGVxSjAxYnZ4K21MSGtCZnlTT204?=
- =?utf-8?B?UHRPcUVpTFpNMUo3OElCMXMwRTdBWnZXL2lBSHFhRVpWMWtwbnBxM2JJSDlE?=
- =?utf-8?B?alY0Tko2dVZHbm84dHBtVGdiSVZtTmhiYnU2R2paU1N3RWhiWFh4UjRLOXRI?=
- =?utf-8?B?OHBCaDFuckRhS20wd2IzV3VSRTQwYzY0Y1BSUGl6TEw4TXNFYjZXVjdrUDIv?=
- =?utf-8?B?U3JCWUt3aFFWeFF2TDBweGpGM1E2bW94OUEzL2dvMGZZMTRkMVg1SHN6dVNG?=
- =?utf-8?B?dXMzbzgrSTBmTFIwbUpSZWFscHZScEZpQTBITUk2K3pTZFlZdGRUcVQvTWha?=
- =?utf-8?B?OGJlV1doUTA2QW9rL3dFdHgvT1ZPNEQrRWFRZk9RaUl5bHNJZVNzeGVQVkZR?=
- =?utf-8?B?Vmk0Sit6YW1wVUk2V1RZVERDWDdSaThJZ3NhMVBoc0J3UUdpaVpjckhOU1VV?=
- =?utf-8?B?b2lWTWRLMjZLdVBkS0xpUy9NMkhlcE83TzRBSFUrRjkzNER2YXRyOE1Cb0k1?=
- =?utf-8?B?SG1CVWNvcW93M3RWc3pBVUhoYlM2OUJqUjVnNVRQK0s1YzdSRFdldGJBNTIw?=
- =?utf-8?B?VTR4UmJ0THNwRVp3Sm1hQmFRNDA1SnhjUzNNSzFvWGRybVhCanJScnM1Z2xr?=
- =?utf-8?B?eG4rekZFaHFzQnZrRGszMVYwSFowc0QxbDFPRGRJcTQ0d00xM0o2OEVXZ3du?=
- =?utf-8?B?T002RnFTaWFoVDIvZXlOV2dmSG40aDZUUGFjU2xFVUdOMnlZc1Q4SFNSaS9v?=
- =?utf-8?B?eDhISnMraEhsdllDQWZWeEhiWWEzTGljc21BVEVLQ3RBUW5jWEtWZWZJbk80?=
- =?utf-8?B?QW85R3F1SytVMHFobUNmQTNiWTh0RmdkNCtockt4Mlc3QkNZUE1iL2hDRFFE?=
- =?utf-8?B?VUNLTjAvbE8zV0FIMXFBVndzVGtJcUZRNkhMQTU4emVFZHlSc1ZENWY4VnlO?=
- =?utf-8?B?bU8wTXBjZlc4Z0NCcUpLLy96QUI3NDRBMDhvcEdRRVFjTTQrUmxWbllGUXVR?=
- =?utf-8?B?MWJoN2F1NGRFZHJKRVBsb1N6N2JQa3FwSmhBYTRRWW0rN2x0RDJlR1MyYm1I?=
- =?utf-8?B?V3lkK3JVd3BrRFRMZXhxcGpXWUs4Rjc0VWRjWDFwaDk0ZzhaNVBVaExNTXpz?=
- =?utf-8?B?RUZZVndiVDNGVWQ4dW9iYU1ybEI1aHVqL2ZBQXJPeFo1ZEpRd0ptRzk2bEVt?=
- =?utf-8?B?RzhBYmFLYjZyYkpJWE5jaHhsMTVROUgrY01XSER0L3BiVWtZQ3ZQUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c3a2f1a-5c82-494e-628e-08df17d03767
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7771.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 11:05:16.1433
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7okIOoS8dnd/nCFNjl5SiCH5j7ZqJ81rNIXUww3XGzy4O2zG5+rSms8GKlM20R9t5nHyO3Ajj8cyHwtivujj/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999165
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/4] backlight: qcom-wled: Fix NULL pointer dereference
+ in wled_remove()
+To: david@ixit.cz, Lee Jones <lee@kernel.org>,
+        Daniel Thompson <danielt@kernel.org>,
+        Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
+        Kiran Gunda <quic_kgunda@quicinc.com>,
+        Marco Mattiolo <marco.mattiolo@hotmail.it>,
+        =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        phone-devel@vger.kernel.org, Joel Selvaraj <foss@joelselvaraj.com>,
+        stable@vger.kernel.org
+References: <20260921-qcom-wled-backlight-v4-0-bab8c7ef73cb@ixit.cz>
+ <20260921-qcom-wled-backlight-v4-1-bab8c7ef73cb@ixit.cz>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260921-qcom-wled-backlight-v4-1-bab8c7ef73cb@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: zh5Hr8tC2ZKQMsEtI1I_OLZrbNJyLhTI
+X-Authority-Analysis: v=2.4 cv=dPczC+Zb c=1 sm=1 tr=0 ts=6ab10fb9 cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=z8QxmeLbveigHahU524A:9 a=QEXdDO2ut3YA:10
+ a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE2MCBTYWx0ZWRfXx4hdE723vFtG
+ vk1CNMTsober7WRdGFgrAJiTe9NrTxRcUrkmZXOgyACfEjm61rjgw/K5NbDugwr5oa8iNoXDMAx
+ 8k72dNt9tj4lLs9GbahOWPNO1I1bkDQdDlaZKIpF/3JgiX8nRv0gf+bPf4lPdUoChs5aBnv+ing
+ yZA7UnXGl3XSZy6a8Sns5hmCz5BkBCJDPCIQqWnVnqMlLmgPgFKKg3nyveZaFf9ktAHHIk27vt8
+ Ti8cARtJy2lZufe4ccE8YEHMfU0UEnzD7ZUACAvLh4l3a37pfan1Ckr5QIRpikAU4lEgGqzLu7D
+ UVVvEcSrG+y3VoFfC79AxQtZ4CKs0eTHEr33leCi+JzRpthr9GHCWptzuncS/3HrKX8C1VX8tuO
+ qe0EHjf/m72oBF15z/ZMwhK3rM450a/LiLVZTZD01SPuFChFBl2vk4HH/+S5RYcftMVOpDuyeOs
+ Yr4rjlTEqIq/wgG2Kgg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE2MCBTYWx0ZWRfXy1e8xBtpVxGo
+ vj22tqbkuCx0S4HjIvOK4U2W9IChUr0U2ygmPjlUppPA5KoxIbm1wdQ5Q41z/IfA2qme6km0N4v
+ eqgehVZNcozcEblEMU7zpligcUUT11Y=
+X-Proofpoint-ORIG-GUID: zh5Hr8tC2ZKQMsEtI1I_OLZrbNJyLhTI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210160
 
->>> FS-DAX registers persistent-memory ranges as ZONE_DEVICE memory, and the
->>> kernel normally allocates and initializes vmemmap storage for every
->>> advertised PFN up front. Sparse pmem images and workloads that only use the
->>> DAX direct-access path may never need writable per-PFN state for most of
->>> that range, but still pay the memory and initialization cost.
->>>
->>> Add an opt-in dev_pagemap mode that populates FS-DAX vmemmap PTEs from a
->>> shared read-only metadata page. The shared page is initialized with the
->>> common ZONE_DEVICE and dev_pagemap state, so every PFN still has a valid
->>> struct page representation while private metadata allocation is deferred.
->>>
->>> This relies on sizeof(struct page) being a power of two, so each vmemmap
->>> page contains a naturally aligned and repeatable set of struct page slots.
->>> It also requires architecture support for runtime vmemmap remapping,
->>> because shared mappings must be replaced with private writable pages before
->>> a PFN can enter userspace mappings.
->>>
->>> The initial implementation is deliberately limited to a single
->>> memory-block-aligned range. That is not a fundamental requirement, but keeps
->>> the registration and teardown paths simple; support for multiple ranges or
->>> less strict alignment can be added later.
->>>
->>> Provide vmemmap_materialize_page() to replace shared mappings in the
->>> requested metadata range with private writable copies. A later patch will
->>> call it from the FS-DAX fault path.
->>>
->>> No caller enables the mode yet.
->>>
->>> Signed-off-by: Muchun Song<songmuchun@bytedance.com>
->>> ---
->>>   include/linux/memremap.h | 11 ++++++-
->>>   mm/memremap.c            | 38 ++++++++++++++++++++++--
->>>   mm/mm_init.c             | 11 +++++++
->>>   mm/sparse-vmemmap.c      | 64 +++++++++++++++++++++++++++++++++++++---
->>>   4 files changed, 116 insertions(+), 8 deletions(-)
->>>
->>> diff --git a/include/linux/memremap.h b/include/linux/memremap.h
->>> index e3c2ccf872a8..21c9b6aeef67 100644
->>> --- a/include/linux/memremap.h
->>> +++ b/include/linux/memremap.h
->>> @@ -9,6 +9,7 @@
->>>     struct resource;
->>>   struct device;
->>> +struct page;
->>>     /**
->>>    * struct vmem_altmap - pre-allocated storage for vmemmap_populate
->>> @@ -108,7 +109,8 @@ struct dev_pagemap_ops {
->>>    	void (*folio_split)(struct folio *head, struct folio *tail);
->>>   };
->>>   -#define PGMAP_ALTMAP_VALID (1 << 0)
->>> +#define PGMAP_ALTMAP_VALID BIT(0)
->>> +#define PGMAP_VMEMMAP_OPTIMIZATION BIT(1)
->> I liked the overall idea.
->>
->> Minor naming suggestion I have:
->>
->> 'PGMAP_VMEMMAP_OPTIMIZATION' feel too generic to me.
->>
->> Maybe something on the lines to reflect the actual optimization:
->>
->> |PGMAP_SHARED_VMEMMAP or PGMAP_VMEMMAP_ON_DEMAND or some_other_name?|
-> Maybe PGMAP_VMEMMAP_SHARED? It describes the shared vmemmap backing
-> more precisely. I prefer SHARED over ON_DEMAND.
->
-> If you are OK with this, I will keep it for the next version.
+On 9/21/26 12:46 PM, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
+> 
+> wled_probe() doesn't set the driver data for the platform device.
+> As a result, platform_get_drvdata() in wled_remove() will return NULL,
+> and the first dereference of it crashes on unbind.
+> 
+> Set the platform device driver data in wled_probe().
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: feeab87b3072 ("backlight: qcom-wled: Add support for short circuit handling")
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
 
-Yes, PGMAP_VMEMMAP_SHARED sounds better.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Thanks,
-
-Pankaj
-
+Konrad
