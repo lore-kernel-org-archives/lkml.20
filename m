@@ -1,65 +1,65 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C6C43D50E
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:42:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA80043C7B6
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:42:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789976530; cv=none; b=X/MaS+VXDMownt4t2mfFIBRLQRqEogvcKFqijGVCJRz/pdBm63mUDq4mMrtgmDdhUIKTg9SbAK8mAk2tRu1HTAqZ7c7AE353VHQL3h/gCzuYgBqAOABDLzmpYQAXbzZdf/de3YyE6M3ErrDAHsssyx+RHtHMMFyUVvgMZ1Qls0Y=
+	t=1789976530; cv=none; b=KuglALi8z+V2EiOl5weo/gHHqy4phpOL5HhhAgCIeKLhw5z3ERPJhZD3d8MrWxQ6KocLf2T0hHKTCvfQhz478uLbAmphEKoiaL9MBZkWCo2C54++pxWbHShGuAdK2iu0JMkljXxvJvS9ZJixF+KVfVwo5rkiI9Ie63QoqXroFiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789976530; c=relaxed/simple;
-	bh=DRSbsEZlYqRU2ZFuKlgyDsGV2nz0JSOXB6TyqyEq7AI=;
+	bh=YpyUyxCo507Mg3FfSIChnx0hchuXkpf1IYcucI+jCnE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CQOmqjKtgg4kZXG85Fn0ljqjWsLclHAtp9wddY+CJzcLvgJDLnvTJDZA87hNxaydZAsX3pivfyP2JqxQh2yrt6H3rrTULvThFox9DqsQV0zvCmXF5bYXG6MIJ+tKu2pg4BNqL6Eh5ad02wmLt+aKnWRr85WZKQT4xhGv/UO89Hs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A1yJiLDP; arc=none smtp.client-ip=74.125.227.171
+	 MIME-Version; b=mYx/v+y6UuMVSXSvJyfQlJ2jSSL4iH3rx0DEI0eQUmn0oEIQU9jkZy34pr8+vhXxfSi0tncrRIIBoCcxVVZF893ClJzqDXDltHIIkOPMNCbMT9uYL8fQrPbCXVOdmGuXrae9iWTX9gFYoRXyn0XTZKOT47ptdOFmNL3TY0jpIL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qqe+lclB; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A1yJiLDP"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-398a1676000so2086272a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:42:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qqe+lclB"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398c066106cso2056653a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:42:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789976527; x=1790581327; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789976526; x=1790581326; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rN2uUWtJbumqwS4fCKzwEsvJLfsBmHBgpfyDhn5UNyE=;
-        b=A1yJiLDP9PGZxGGRtHL1bUKeU11xKVtc7lAoDUBe85brLViJwITGIRezyfTB3uzO2M
-         tdOTF8C5hx5Qe9BM+fVxm3WC1D72z8Z2KCWgxi1YOrXiyf/0n0wEbPIXNrIGCfd3ic38
-         htyNEb38eJpD7j6dgWr9Re9d+/3TvZcs2YMm5S4t1igoR7hTjWphu318p98kJKCcad61
-         gCEJcAP+sxC37v4w33e1/xviZ4NnRKKJPDTEi+vvHn/qcMXNFFt5WhyzdZ53Fmj/0F4Q
-         8X6UCosu1Dy9dM1kbmpXYFVlAeQ6x3h1XnwVzWgQYuFyvLhzJM0k7MDUjL+MmmFQLB4u
-         rnGQ==
+        bh=r+ECARSANJrUe2ZD7obBA7E5y8RycSAtQslnQO+mgvc=;
+        b=qqe+lclBJb1rqSKhljacPsLAQQB9CrIzTdz9rVjqy3nmHMYP1cVYKqlL/o6DscJBdS
+         YcH5uPgiEYyg8ygMLcF9FkqMycohG7XNkqyzE1ps1scI+jSe/M6KMdSMaqig1iQYE/2T
+         NDXqct80WAVrgXtYG46f+0F5dXfJlL4EItKAm2vZ0+AcMBYaX7Ft6f/Vs1h0ZP83Ly1J
+         wKLvduSXgZpDrWi5hbHLnhSgdb9jAydl/x8vYfpDZax70yrkwn8YrUgamZzRSMV0WTlf
+         onlkr34+utbZIPGAcVczJ8aeKyzzlKsLfdP8inAVt9hcNwYnVZZLURW1pihW9H4ahVwy
+         yYmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789976527; x=1790581327;
+        d=1e100.net; s=20260707; t=1789976526; x=1790581326;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rN2uUWtJbumqwS4fCKzwEsvJLfsBmHBgpfyDhn5UNyE=;
-        b=xazHLh+6Xsp9LqXTiSfGB7wNDvstpIAePsnTXQ50mKjhNEkhmiURbxvac+I+YWDjOa
-         AMATrRFKoJfsaLkt2nzfw0jK8y34/1rpCsOAe2E7OigKXJ100Z7NPc/xZA42Tg8EB6xF
-         i3kTKBrJtckRBo4dgcN1dGb3nU3jI/e5dxatJV2lhKKyLMp8pbZ9dTi505RUj3evMcGF
-         DLp2VWsNbE6t9z4sti4TfyvfHQhIiRRQpSFlNn2L+a5JJMRv/EpCSVZzvUxk4TBW4BGI
-         ip3eM3NXg9ZEXeFrPUiKN4dS1X+b/ylwC0Znk3ejYXtFGBh5BkfxslqxcSiQWcxaV2jU
-         KlKg==
-X-Forwarded-Encrypted: i=1; AKwUvBy+ZYyb8lxRMxbKFvwO5gjZuP2w2FmlMbiaI0ylfYd+Y1bpO9/2Tnl8HNfG0HO9XKmWrWz86jsiz6w0SF8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEbwGZZyTZDKz17lh+4GL5iJ1OaPU2dODuVGZFVixfUK2DUNLh
-	RXRsj1gpiDEzOFfIS/rp+uAMvV9oEFHPsAt6adldQvZptVzA4axh0EMM
-X-Gm-Gg: AYBFou3dQ4EUIclCWnmA1/w0J6P/P6rJUXV43IpAWx+rb7Ihi1Ctg8w/RRB7sYrWSTg
-	+Ny4Qpr9eJMzC/vpxwXc9i5sV/aRoBXoTXkvh1jxNuv0g0T36cDQbl0lfy7m5LMtWl+UmpydolN
-	UW95NViM7/3FTvk82Lt8wykSyeyuelq9aaly1f3SQ3C6K92ekvVJGmQJ+zBo3Z7xzt2atMxNrRm
-	c5saOL619ggSx+Klbw3l0uJQk1khOA4DVbBinee1g8UDU8APoAvXfCTdLfAwS0ec4c01sQuai87
-	xO1IZkfUhyjm9f5TdALHTN2lKAF8AD9FBZXBKW311neE5g0oxABnkxnlJoPcbVzJ77HS3va0sfL
-	476fYzChzTWcDbAaOmIrLMJ/C5XHxJmZajFfuCfnE4Or+X318M6f6GvGaIC9ekrAG1GBSq33ZoY
-	uETChMzxsjdVvzwhJeZo3w5fhvWsK5EiNDPpUXAtxxl7nTCCCnuZBotADYYKVrBFocN5tjUgeiC
-	rnGLxrpXDQ/hziorCeUu8/sByPrTUixPH5EtBRYEiMsHayuw283XDekoJZRxPBUMgztSZREnALO
-	W8slmLLhIw==
-X-Received: by 2002:a17:90a:e7c6:b0:39e:6a81:f34a with SMTP id 98e67ed59e1d1-39e6a81fcf8mr8609680a91.36.1789976527065;
-        Mon, 21 Sep 2026 00:42:07 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cabb771sm13015876a91.9.2026.09.21.00.42.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        bh=r+ECARSANJrUe2ZD7obBA7E5y8RycSAtQslnQO+mgvc=;
+        b=IEIzWNKXbyuHx2mxuBVjpJRbBtvip+VLJBRAUhWODxWGx1z1GAoFBdMWc7kAQUPoSE
+         DaPEEjwU2ASrM6lDWr6SxMCea+bf6rebRfSmJIAOO64CHHpx2jxIbnyIILnXCAfDcFe9
+         TGVyzqJXIP6QZcvt2CwEDzZ5rZNVKtWFLRS+UalHFC2egYjwo7Uxc8u7VdcvcBvZECOf
+         xFY1GKd+d/Jg0IAkGtFlQwPZrFXJpeBGHRQSpgDNFch9jJoo5sAM4sC5bD0KJbw3GAyx
+         mHAI/eStdwRbYPtxqrISklxgfv+mIn/ue0ZK/jiiXV6z361kpoUiVp671qMtje3vSCt7
+         MzcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwOciCgXLJZadzc7aujCW5NZel5dp/6LOQNh/YY+aycw6M6cjWOJM0GYpZXjAs2HzhVSsqev+bRm6+3wcA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwOnoT46avusu4oG3QyTBmYLmELzAsubh5DL55PXQZ+ySHQmfh
+	zchDElNQR0dIDjlgkFRpgz0RHECr++vwyYsfZ3JYVYVlZX2bz0PHMkgm
+X-Gm-Gg: AYBFou3HiXbo3rvKwLjL/Ft5pYeFOJbb/WcQgT4J/LKUsyBXvfO2jojv5NMH1DCQOBN
+	4O/3PW6xVYj2eJwq+P+Hk4Hxt8lyejCaS6t/p8NQ+dHr+hPgaYVoI0hlLZmsPhhCf5xXgCBBIVN
+	YwOR1g/LnDa/awTkbiuNnn167EfDPDsdV2kPKAiRvmC0H7lq7TYDeo9lwsToGqsyQJ1A99yWySO
+	7lCJugL0BQjSanztCi1E7QdmjuaXpA0ktu9DohXup9Ej/HSimhJpMHfOA8jcgtyKYx+1l2e5QZi
+	tJKZjBpPqydbzYmgV9yJ6WMiPuCMRERAbRN+BJt20PUm0xr8Yk0hCLkefG2X7R0E8fwntzbISMg
+	o/EjpZTE36f+Ay0z01TQOHP1DgUY0qspud0mqcFQCCtKebO5wuMFxW81GIOsPYzAX/gin751XRu
+	h/yd7RG4vCK62l2SBaW7eKAKBukT9X2dF40rEcDFIwAdobFQyFslCqr9Equr5YVvdOc2pjT5/vS
+	weq1Wy1DunzTPSaKFTQJzwpqOYxrMGRM14EV600B5oLyjll9+gvm3Z3wXSIkkc1Q/2LlNOEtgj5
+	yHJJ1Hus2w==
+X-Received: by 2002:a17:90a:6c82:b0:39e:6a81:c923 with SMTP id 98e67ed59e1d1-39e6a81c9admr6628207a91.22.1789976526137;
         Mon, 21 Sep 2026 00:42:06 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cabb771sm13015876a91.9.2026.09.21.00.42.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 00:42:05 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
 To: Harry Morris <h.morris@cascoda.com>,
 	Alexander Aring <alex.aring@gmail.com>,
@@ -70,9 +70,9 @@ Cc: linux-wpan@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Hui Peng <benquike@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net v2 3/3] ieee802154: ca8210: validate data_ind length upfront in ca8210_skb_rx()
-Date: Mon, 21 Sep 2026 07:42:05 +0000
-Message-ID: <20260921074205.2289211-3-benquike@gmail.com>
+Subject: [PATCH net v2 1/3] ieee802154: ca8210: prevent stack buffer overflow in ca8210_rx_done()
+Date: Mon, 21 Sep 2026 07:42:03 +0000
+Message-ID: <20260921074205.2289211-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 In-Reply-To: <20260919213637.3316595-1-benquike@gmail.com>
 References: <20260919213637.3316595-1-benquike@gmail.com>
@@ -84,34 +84,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In ca8210_skb_rx(), data_ind is read at offsets 22 (msdulen), 23
-(mpdulinkquality), 29 + msdulen (hdr.sec.level), 30..39 + msdulen
-(security header), and 29 .. 29 + msdulen (payload) without verifying
-that the received SPI frame length len covers those offsets, causing an
-out-of-bounds read when msdulen exceeds len - 30:
+In ca8210_rx_done(), the packet length len = buf[1] + 2 is only checked
+against CA8210_SPI_BUF_SIZE (256). When buf[0] & SPI_SYN is set and
+priv->sync_command_response is non-NULL, memcpy() copies up to 256 bytes
+into priv->sync_command_response, which points to a struct mac_message
+object (sizeof(struct mac_message) = 250 bytes) on the synchronous
+caller's stack, overflowing the stack buffer by up to 6 bytes:
 
-  BUG: KASAN: slab-out-of-bounds in ca8210_skb_rx.constprop.0.isra.0+0x137/0x160
-  Read of size 64 at addr ffff888006453ddd by task init/1
+  BUG: KASAN: stack-out-of-bounds in ca8210_rx_done+0xc4/0xe0
+  Write of size 256 at addr ffff888001907660 by task init/1
   Call Trace:
    <TASK>
    dump_stack_lvl+0x70/0xa0
    print_report+0x153/0x4c6
    kasan_report+0xf1/0x120
    kasan_check_range+0x125/0x200
-   __asan_memcpy+0x23/0x60
-   ca8210_skb_rx.constprop.0.isra.0+0x137/0x160
-   ca8210_net_rx+0x96/0xc0
+   __asan_memcpy+0x3c/0x60
+   ca8210_rx_done+0xc4/0xe0
+   ca8210_spi_exchange+0x12e/0x190
   ...
-  The buggy address belongs to the object at ffff888006453dc0
-   which belongs to the cache kmalloc-32 of size 32
-  The buggy address is located 29 bytes inside of
-   allocated 32-byte region [ffff888006453dc0, ffff888006453de0)
+  The buggy address belongs to stack of task init/1
+   and is located at offset 32 in frame:
+   ca8210_spi_exchange+0x0/0x190
+  This frame has 1 object:
+   [32, 282) 'response'
 
-Consolidate all length and msdulen validations into a single upfront check
-at the beginning of ca8210_skb_rx() before allocating the skb.
+Bound the synchronous response memcpy() length to
+min_t(size_t, len, sizeof(struct mac_message)).
 
-Tested in QEMU with KASAN enabled by passing a short data_ind buffer with
-msdulen = 64 and len = 30 into ca8210_skb_rx().
+Tested in QEMU with KASAN enabled by passing a 256-byte SPI_SYN response
+into ca8210_rx_done().
 
 Fixes: ded845a781a5 ("ieee802154: Add CA8210 IEEE 802.15.4 device driver")
 Cc: stable@vger.kernel.org
@@ -119,68 +121,24 @@ Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
 Changes in v2:
-- Split out as patch 3/3.
-- Consolidated all length checks in ca8210_skb_rx() into a single place
-  at the beginning of the function before dev_alloc_skb() and dropped the
-  unrelated hdr.seq assignment as requested by Miquel Raynal.
+- Split the ca8210 fixes into three single-issue patches (1/3..3/3).
 
- drivers/net/ieee802154/ca8210.c | 32 ++++++++++++++++++++++----------
- 1 file changed, 22 insertions(+), 10 deletions(-)
+ drivers/net/ieee802154/ca8210.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/ieee802154/ca8210.c b/drivers/net/ieee802154/ca8210.c
-index 1de6314..2aa7d8c 100644
+index 01af4f9..c009930 100644
 --- a/drivers/net/ieee802154/ca8210.c
 +++ b/drivers/net/ieee802154/ca8210.c
-@@ -1759,19 +1759,15 @@ static int ca8210_skb_rx(
- 	u8                    *data_ind
- )
- {
--	struct ieee802154_hdr hdr;
-+	struct ieee802154_hdr hdr = { };
- 	int msdulen;
- 	int hlen;
--	u8 mpdulinkquality = data_ind[23];
-+	u8 mpdulinkquality;
- 	struct sk_buff *skb;
- 	struct ca8210_priv *priv = hw->priv;
+@@ -697,7 +697,8 @@ static void ca8210_rx_done(struct cas_control *cas_ctl)
  
--	/* Allocate mtu size buffer for every rx packet */
--	skb = dev_alloc_skb(IEEE802154_MTU + sizeof(hdr));
--	if (!skb)
--		return -ENOMEM;
--
--	skb_reserve(skb, sizeof(hdr));
-+	if (len < 30)
-+		return -EMSGSIZE;
- 
- 	msdulen = data_ind[22]; /* msdu_length */
- 	if (msdulen > IEEE802154_MTU) {
-@@ -1779,9 +1775,25 @@ static int ca8210_skb_rx(
- 			&priv->spi->dev,
- 			"received erroneously large msdu length!\n"
- 		);
--		kfree_skb(skb);
- 		return -EMSGSIZE;
- 	}
-+
-+	if (len < 30 + msdulen ||
-+	    (!priv->promiscuous && data_ind[29 + msdulen] > 0 &&
-+	     len < 29 + msdulen + sizeof(struct secspec))) {
-+		dev_err(&priv->spi->dev,
-+			"received truncated data indication!\n");
-+		return -EMSGSIZE;
-+	}
-+
-+	mpdulinkquality = data_ind[23];
-+
-+	/* Allocate mtu size buffer for every rx packet */
-+	skb = dev_alloc_skb(IEEE802154_MTU + sizeof(hdr));
-+	if (!skb)
-+		return -ENOMEM;
-+
-+	skb_reserve(skb, sizeof(hdr));
- 	dev_dbg(&priv->spi->dev, "skb buffer length = %d\n", msdulen);
- 
- 	if (priv->promiscuous)
+ 	if (buf[0] & SPI_SYN) {
+ 		if (priv->sync_command_response) {
+-			memcpy(priv->sync_command_response, buf, len);
++			memcpy(priv->sync_command_response, buf,
++			       min_t(size_t, len, sizeof(struct mac_message)));
+ 			complete(&priv->sync_exchange_complete);
+ 		} else {
+ 			if (cascoda_api_upstream)
 -- 
 2.47.3
