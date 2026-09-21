@@ -1,88 +1,88 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49BF4DAF85
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:41:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C110F4DDB41
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:41:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790008864; cv=none; b=bFoTwnEIzU7eg4XlGjI1uv71SdRWg43U2aRRoiRj6Fyqq/OdCEvzd9CwYAi0Y87L94SvVyLTxjgwyNTFuQ3yILhOrRlFVM4cY/JS7aiDZX1x3CmtjMdSYQQLhHcYMTEZ+L2CgvdJ5n2YXtsEf5Q23rrUJs7L1aysiaiWk1iDlaY=
+	t=1790008872; cv=none; b=H7cJSg3i5X1hLfPeeNi4UkPXkv7q7ugMZS0zARWrmiIwnUUwejmvuSsCoqPeV+h4t6liPVAKyp/rmEI0brhbqQK4mQFmHBU75h6QUzBW06tKjUDVLHg6H3eFe2rGsZDJV0YdSPh3p74y7G5G1ne5NxpR9McbWYmfwg9fRb4nXsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790008864; c=relaxed/simple;
-	bh=w5cFDvauDgruD+36S54d4kqkMhyWmgilo8XcvR7nbDc=;
+	s=arc-20240116; t=1790008872; c=relaxed/simple;
+	bh=rmypXG8PkZQdVlXsiCTpd3+Q/qn4BKM993nWuXndS3c=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dMaMHX3rpeTwS01sLyUSYd3ggw1EWwKtRZt7WDcZy0/3FuJEgqm5bKM0pywVKW1Zt+Bp1cIZkBlArxmA9XUxAWn0Lv+8PZ9EbHdCx4ExTZAK2ykyn1mOUzlDqVqypbV1JQSiLc/IWrQphnmrIrnQTdmfEAqMVR0LL+jwW2QQn+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GxKSG1x5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iimmqeZI; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=O3TyQEunqWLOdxVEnl4voCXT2vn0L8glNqbWDzZ5ocd1NrUjnaYPqJ4VZoXOni8oYL8u2EW0D95+ftSmgS4G2Y39DyLshZFY8XlbAe8VF0fMq8N6lKDS2xC/I5kX/16I4OF3K7Aw33aNXaWrugUEzk4/NfQHGEur+DgEFgABvh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=l0Lc2TxF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=T52PwNHJ; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GxKSG1x5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iimmqeZI"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LG77Dr351742
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:41:02 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="l0Lc2TxF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="T52PwNHJ"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LFAFr31016714
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:41:08 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	thdcCPtM+tGMNytTaRpSP/GhqNBf7dWlDzoV9SQrUyo=; b=GxKSG1x5mvidL77L
-	IWwyW0eg60bMFM4QNdHyt6fXxP8iZKGb9RQLOQu06dysUUhZSGDavsGlxF3Cdlo9
-	gJ2I2dnJm1c2XEczW25phVZ6VAT6uDQ144kE86MY/B9GtbEWmJ2021M4L2Z9egxw
-	NZtsVvcRR1AZ5mobyUMWpBCCpyq6DHGlwbKVoGjUf0rxm/JA46NqoIJ1RjefWxEZ
-	uiEijYhNXk0GD3qto1CfRbCXta2N59C/aaiPhI4nGj/onP+MTBmgtgIlANIIdiOD
-	ujRkBWWwXVvINOFq6JXibm25jCIeuj7pjfe6awW9tfvAV0JyyQNxEIXbobIdftQJ
-	f5nTDg==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu7tsg5c3-1
+	/NcY3STC/C/9sw5F0QDYnAfTg988+vE1o8LJr3uPSwE=; b=l0Lc2TxFowPWCqiM
+	jjmQ/tRwxut0WJmDORilcMkT3I12zkeD0keDQf9Hjsx3Hnu4QQEfVzN5oStMl07U
+	m3KyKcXThhacpXIAEz8OrbK04CXMhtD0PFiu3rq5X1Qq8uQD8IeCVAL974Cli5ty
+	Z0wvfo4hcQdScD0I7um1JQepkK1UFNoXdH3zFJCN98LCSCko6tcfa8P8xv2ZJrir
+	pK/QxB010Tr/CSbxHiFUSfo7ZCGm9Y5mIXj8xdJwY5ZZluxxTv2yMz9v+KNPzfcq
+	0IdBmlXC7mptK13sAVZGpFFndpootDwrCJdUvp6n2l5md0qG/UIwIQcq3xtmO8k2
+	opOToQ==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtyxqabr8-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:41:01 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-877ef1457aeso2362460b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:41:01 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:41:08 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-86a74698972so3694128b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:41:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790008861; x=1790613661; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790008867; x=1790613667; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=thdcCPtM+tGMNytTaRpSP/GhqNBf7dWlDzoV9SQrUyo=;
-        b=iimmqeZILgPIzUdWqKDZ95jZWV9Lrbfm5Vs7gtBywf1FC4CRLikm+VboIzqs4oNUg1
-         UBFM3CvgzVR0xpjPEZngB/w4oXARkEZyx1sU7/NkD3v2NfFgZxTFCO/15Zmt4Viqalho
-         fnvzwDV9IQtrJgbwC2oMHbVf+JsSnvJyhBaGRewvVpDGXkl7jrA5krosJBICFI2/88dm
-         IoVKzIL3HnUjw80BJ55zKpeONjSPFUUp5rI03dBERDdqu2NUzZBGrUXd3fl10xJrwfiX
-         U23IDa4pDqo8NHpnSm3+7CXMx5/Cs+8T34kJc4dMfJtLQkSXsv7S3RgX2xVUo4RxSX+M
-         uLkw==
+        bh=/NcY3STC/C/9sw5F0QDYnAfTg988+vE1o8LJr3uPSwE=;
+        b=T52PwNHJcIe3+tKY2dyTQKoMZK6XLJ+ug7Xb4as25kYn6pGrdnfGcarjGrHPmYdiFd
+         KUfjLkUf9HjSnxuETYQCalCLvzpt3mShTk3YDMGhZtOetUhJiyWgW6BV1TMDGRsPPVKX
+         kVQxz784WdXPC5FzB9hEp30+Fss1o2eRkgf4CSflpfSqLfhJge/t8FjREZNsW6P4j2Iq
+         GRQqHMWaS+IuK902bwsch5XVuzQnLGvgcO6GmCCcMXio16VB9BKiu9s/1pq2q/iZcIVC
+         02je3vFQUSgba1T7x74aYY+CmBmjzc3tTOtybqjoBYJ6fwVNj1OEyXZey6lIh+nFIJkb
+         9NeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790008861; x=1790613661;
+        d=1e100.net; s=20260707; t=1790008867; x=1790613667;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=thdcCPtM+tGMNytTaRpSP/GhqNBf7dWlDzoV9SQrUyo=;
-        b=vTiO8t8oADyil4OWHqDS+iUmYCB+ROmrmfjEmHNDFuvjgi0CP0HQP16Ss4ImzVZYSC
-         F/96hnWVUMDubaaX+R28SK/vlOxdRZLMDhrC9qE1GdcZ8JI5SS4lJowK7JRFSJI6qIcp
-         W9+nOPh9i+hMSgAUQOzU1iJKHYI3dHR8YjeYty5q2sKeNN0Y+3tRoEMSca3lpZD3AKj+
-         EQMrBRhtGSbUJOGRPtbmNZs+Ijpng0JsxNBcZcaqZ9oLUs/a75Q7htnVspuulPOGWq3X
-         OT5IWCZi8k9fz3cS1ehMVkLJJhKg7qL2rZxjS6dSezdIs+91MOdepu5pGQdrBqkoQUaF
-         6QbA==
-X-Forwarded-Encrypted: i=1; AKwUvBx2mKNm46MkaiAJDJuBrh9m7SdaALmaiPIzN1sNO2l8ksNTmpc3Zn47OF2XOcEzT9jCVsxzNWH2nQ6Ejx8=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4xkjNhokqY7RhZHuBJm12GdkCLBiKr9idPlH2OuPqvL6jkK/1
-	T9aNPjIGImhpxwdy7St3OhU8zGRsg9XOMUcN/KSZNYzObaZZ/g+2LvI2kqp0bmUSZoarxiDMfav
-	gIswCPr9vrlso1PSJKKTI0b9wEUReWossCX8tskvZMxQNLnLhCGw/1wplmykcN7rtzrk=
-X-Gm-Gg: AYBFou2RcttWb/FvBTnkWovVcIFQLtKQ1PGkHVDYbgGgouwBlTgCY3Ocqc+9tdPnEcB
-	l66/OrJBdLitCykmbNglXwfx/0sPyY/An7EcmSfQY67pNZM49W+WXYdlmkAFOJZamWkwZzFeoNh
-	8vnpydqi+k0aYrkNasGjObrh8s13FiBkIYh+ue/Evsyojdzbl3rsege+oygwVLYJQrbZJ4CC2Gr
-	yjkyDvD2ioUu4TxOsp3kTINvsJM7EyYVDvrYJJ8R4k1t+m7qX89dQJc8+XUFmEGjoK/3j7nXKWc
-	jgNJJF9ivfEY5Bnq5pvHbI+i3P3xxQ9+l0ulLbHx9/pthxQE4joovOAQSb9Ai+fldgtpLi10WfY
-	HILS/ujvaDXi6LObx77gi+7q7oQJrltE=
-X-Received: by 2002:a05:6a00:98f:b0:87a:6eb:ba50 with SMTP id d2e1a72fcca58-87a06fb013bmr4446875b3a.46.1790008861220;
-        Mon, 21 Sep 2026 09:41:01 -0700 (PDT)
-X-Received: by 2002:a05:6a00:98f:b0:87a:6eb:ba50 with SMTP id d2e1a72fcca58-87a06fb013bmr4446854b3a.46.1790008860845;
-        Mon, 21 Sep 2026 09:41:00 -0700 (PDT)
+        bh=/NcY3STC/C/9sw5F0QDYnAfTg988+vE1o8LJr3uPSwE=;
+        b=X+B+dZIU007hlRhqKw9Cs1HVS/LMz7Wvr0iAntPD9vgacYf4zvR+M9LZrTGb176oPe
+         mOrmE9UAaPPSC0jqIaB86IqtOKjoOFA8Mu7O4AbdX8WU+f/lMzzkdwGT7OkPhNeGSby4
+         QtGp8BA2Pg0pyTub0718/vwuPK5xrml9vIHPujKBiFWBO7Hm9P06M7uKcJZN04LBXluK
+         sgvxdezCF3qnUtuPmx4FajQgzga3owXMqlDusQWISxhWYj1sH3MrsZp4VMqMfUFCNeQk
+         zzBdbLwF/5o5B4249a2O0U2Kv0/GTn4KDtRdSxgJRWV3MVFD/QvmkY2BnKS6hB7WVbJE
+         UQLw==
+X-Forwarded-Encrypted: i=1; AKwUvBzcoDyQHuWS67N1gW3uM8NQmgHi4oz57Lj24bwTQXkjzl6IK9/wCc+1H0dmgDPAE34CQoW5l1z/n+VG8IM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nj0mf1fJUj+mktz2G851JadXgLWN4xZeJr9LiZTjJfOT5GcI3Y
+	XrN8pRaQ47nJM1Ty9QuIViv0FQFRVEj0kgH+iv5RRfYKBn5CcR8pfTPAM586F8aBJWd7oAwqZLb
+	AZuyaZV31NpXOrTZMT82j8w5FqVYXOGxGKCYAP/Iq3Dz3p9gYFLxCPq1mWeL3nRla/+M=
+X-Gm-Gg: AYBFou0irndwMzEW4mJXMnFFUtPE9LpyxAJABjeRsY0MEP+WRpD+6LKy/u+m1/xTASW
+	a/BfdH4k+sLK4QaGQ7/62/1bwmS5lKyKDhEHP6cIcEJlswJgBPveaRJcQGVKmPX5lo4l3Bi2O9H
+	1jaBJAs2LVX6PqJMZLSagotu/HMU4f2b/sPN/aYKVcr81U7GgOTd3CRb8kLjxPg6FyMRoNPcA/E
+	HDOBf+m7ikNb8+CiJuvttVQaD4kAQbpVNTm3EgZXif68nEoKmftl+lO8crCvMCccd0veyPUkbSO
+	5LxnISbbBKjgnS92uJWg8/qO37MDY1so/39F/aAWJ20aiB6/Mb3i+x4v94s+HM07yvX0z4ObY1g
+	BS99EQnVxHRClTyYtQV0MEkoy9SlTLpw=
+X-Received: by 2002:a05:6a00:1a0f:b0:877:b053:2e12 with SMTP id d2e1a72fcca58-877b05337a5mr7701115b3a.10.1790008867404;
+        Mon, 21 Sep 2026 09:41:07 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1a0f:b0:877:b053:2e12 with SMTP id d2e1a72fcca58-877b05337a5mr7701093b3a.10.1790008866947;
+        Mon, 21 Sep 2026 09:41:06 -0700 (PDT)
 Received: from hu-jkona-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a8dfe732sm3666086b3a.16.2026.09.21.09.40.55
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a8dfe732sm3666086b3a.16.2026.09.21.09.41.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 09:41:00 -0700 (PDT)
+        Mon, 21 Sep 2026 09:41:06 -0700 (PDT)
 From: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 22:10:33 +0530
-Subject: [PATCH v3 1/2] dt-bindings: clock: qcom: Add Maili camera clock
- controllers
+Date: Mon, 21 Sep 2026 22:10:34 +0530
+Subject: [PATCH v3 2/2] clk: qcom: Add support for camera clock controller
+ on Maili
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-maili_camcc-v3-1-2f8d739ac2d4@oss.qualcomm.com>
+Message-Id: <20260921-maili_camcc-v3-2-2f8d739ac2d4@oss.qualcomm.com>
 References: <20260921-maili_camcc-v3-0-2f8d739ac2d4@oss.qualcomm.com>
 In-Reply-To: <20260921-maili_camcc-v3-0-2f8d739ac2d4@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -109,75 +109,304 @@ Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Proofpoint-ORIG-GUID: 8MwculGGck_oBtUFMSVZkqWU4-I5tx-J
-X-Authority-Analysis: v=2.4 cv=aqgnmiZV c=1 sm=1 tr=0 ts=6ab15e1e cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-GUID: xH-PyRO2xJFJflaMXK0VsT6ljiU6DDTu
+X-Proofpoint-ORIG-GUID: xH-PyRO2xJFJflaMXK0VsT6ljiU6DDTu
+X-Authority-Analysis: v=2.4 cv=OtraWC/t c=1 sm=1 tr=0 ts=6ab15e24 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=6Q3Ru0MKm2Bx8LS0oh0A:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDI0MyBTYWx0ZWRfXxS5fgUpb7oKI
- ppHwTlHHVHPoH1Ufw3kPGcDEY/j9gCwLbpu8/CbP1dGSic2p4xsdMsPyPLNcPfYTMkzegyLDAqj
- b3r/Z6KlGr45rw8lg5vWFsaLJDOmLlw=
-X-Proofpoint-GUID: 8MwculGGck_oBtUFMSVZkqWU4-I5tx-J
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDI0MyBTYWx0ZWRfX5UOu6LtAn0HA
- INLg/vId2F9d5iOV8XeaWrK+GgfaTki7/WRwfGqVNollf639Zg03rJk8PKAyCpPVm23y4MQOhZT
- BcHDHreQ4exczr9nfb35uZzpuUCO1ahQXZDFPP2jQR3HcTYCb5bRxtZa1twdstsjd4d0ElVSa4x
- E07JbALLOD98l+alBfgdYR8aoRoltov8N0h5nxg8OvkoJdj6xs2KPs5fKF0SR4t0hbqdkPMYnia
- UyYWoEinxgMAlFYd2Mf58qJjHpkMmBVV3kce/2BEGaFosMa61q9HGVqraF1ErlH1D6QmL3iB9hX
- J1Y9sB50KmbUCHuCntkwqcYXWKkCWagF+F/YS72IAxndmk9EJuQlxaA9uzqzKHRtttYa+0f8F1S
- IYAVFkk7+Zj9C2bYxt0IS8QI3L3Flfl8QyWiQi6gybSkpK/mDma8CMQD6gwb9YqiseDbfT4I5wl
- S3VYZJySslA7PdDHCxA==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=x7oLaaGiLmRgSqN1hWIA:9 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDI0MyBTYWx0ZWRfX+682BxICo4zy
+ ui//TJxznDiW271zJJADlZLijuPYNxaZASUrM932xnb24b4XhO7EI4Ug8VzDDf4p25l0LQMpeEE
+ niTHHZgajbq409Nf9w2rHkcNfCqT6+jKrcRFyKPCsdvpPggHvVR/6ohHBG/UQf3ZEL8Z+Dz3JAq
+ taQNkhUqEkGXOVzeWX9ijPetz5hiYruTIaob9fdwOByHALC8gZxjq6YNUQzfpAVF32OU9KtAwd0
+ c12ODb8DjodLfomk0oGsa94tzqq2snDqLSz4aeeyMb++zqJ6nP0+auDoAyWKsTZuhu/n8as44Wn
+ Q/265RPgfc1QVG9m2KIvCQrYj4GE4dxs2u0jD5VZLQVRDu6EaDPdxo8fya8C9ytB7rRfQFFKYvZ
+ IgkgiDsm4Io6Lep94jd+eigowQA6OuWerHV9kfkBQvpNvcqWE6wSe1as5Ezfhi1HcwQYBSxlQuX
+ P+UqWrhKvFSQONoB+2g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDI0MyBTYWx0ZWRfX8GgIrJuFOADx
+ PkpWOziQ0YgFjE834r2Nkt/R3yz00kxo+RrAE+bRrq8KFgNWjf8Fzc4zTaSpA8T+qvN/KbSgsfq
+ pfPN7YwnxvieadLH/4Y81O2UVj5KeQo=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-21_05,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
- bulkscore=0 clxscore=1015 priorityscore=1501 adultscore=0 spamscore=0
+ priorityscore=1501 spamscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0
+ malwarescore=0 adultscore=0 phishscore=0 clxscore=1015 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210243
 
-Maili camcc is a derivative of Hawi camcc with minor changes, and
-hence reuses the Hawi camcc driver. Maili cambistmclkcc is the same
-as Kaanapali cambistmclkcc and falls back to it. Add the compatibles
-for the camera clock controllers on the Qualcomm Maili SoC.
+Maili camcc is mostly identical to Hawi camcc, with a few clocks
+removed, frequency table updates for a few other clocks, and PLL
+configuration changes. Hence, reuse the Hawi camera clock controller
+driver and extend it for the Qualcomm Maili SoC.
 
+Reviewed-by: Taniya Das <taniya.das@oss.qualcomm.com>
 Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/clk/qcom/camcc-hawi.c | 158 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 158 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml b/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml
-index e2a126925e9d50046d1b4ad2506d7921462f5fc0..64f5002931f24003607349aea3ce366f5a8ec369 100644
---- a/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml
-+++ b/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml
-@@ -33,6 +33,7 @@ properties:
-           - qcom,hawi-camcc
-           - qcom,kaanapali-cambistmclkcc
-           - qcom,kaanapali-camcc
-+          - qcom,maili-camcc
-           - qcom,nord-camcc
-           - qcom,sm8450-camcc
-           - qcom,sm8475-camcc
-@@ -43,6 +44,7 @@ properties:
-       - items:
-           - enum:
-               - qcom,hawi-cambistmclkcc
-+              - qcom,maili-cambistmclkcc
-           - const: qcom,kaanapali-cambistmclkcc
+diff --git a/drivers/clk/qcom/camcc-hawi.c b/drivers/clk/qcom/camcc-hawi.c
+index aa52b99aec003f7b9224bb89a15783dcf3889044..dc5c108ce608c2c1131d8e7edd236becc9fbe909 100644
+--- a/drivers/clk/qcom/camcc-hawi.c
++++ b/drivers/clk/qcom/camcc-hawi.c
+@@ -66,6 +66,18 @@ static const struct alpha_pll_config cam_cc_pll0_config = {
+ 	.user_ctl_hi_val = 0x00000002,
+ };
  
-   clocks:
-@@ -95,7 +97,9 @@ allOf:
-       properties:
-         compatible:
-           contains:
--            const: qcom,hawi-camcc
-+            enum:
-+              - qcom,hawi-camcc
-+              - qcom,maili-camcc
-     then:
-       required:
-         - interconnects
++/* 1200.0 MHz Configuration */
++static const struct alpha_pll_config cam_cc_pll0_config_maili = {
++	.l = 0x3e,
++	.cal_l = 0x42,
++	.alpha = 0x8000,
++	.config_ctl_val = 0xa5c400e7,
++	.config_ctl_hi_val = 0x0a806160,
++	.config_ctl_hi1_val = 0xf51dea20,
++	.user_ctl_val = 0x00008400,
++	.user_ctl_hi_val = 0x00000002,
++};
++
+ static struct clk_alpha_pll cam_cc_pll0 = {
+ 	.offset = 0x0,
+ 	.config = &cam_cc_pll0_config,
+@@ -141,6 +153,18 @@ static const struct alpha_pll_config cam_cc_pll1_config = {
+ 	.user_ctl_hi_val = 0x00000002,
+ };
+ 
++/* 493.2 MHz Configuration */
++static const struct alpha_pll_config cam_cc_pll1_config_maili = {
++	.l = 0x19,
++	.cal_l = 0x42,
++	.alpha = 0xb000,
++	.config_ctl_val = 0xa5c400e7,
++	.config_ctl_hi_val = 0x0a806160,
++	.config_ctl_hi1_val = 0xf51dea20,
++	.user_ctl_val = 0x00000400,
++	.user_ctl_hi_val = 0x00000002,
++};
++
+ static struct clk_alpha_pll cam_cc_pll1 = {
+ 	.offset = 0x1000,
+ 	.config = &cam_cc_pll1_config,
+@@ -193,6 +217,18 @@ static const struct alpha_pll_config cam_cc_pll2_config = {
+ 	.user_ctl_hi_val = 0x00000002,
+ };
+ 
++/* 600.0 MHz Configuration */
++static const struct alpha_pll_config cam_cc_pll2_config_maili = {
++	.l = 0x1f,
++	.cal_l = 0x42,
++	.alpha = 0x4000,
++	.config_ctl_val = 0xa5c400e7,
++	.config_ctl_hi_val = 0x0a806160,
++	.config_ctl_hi1_val = 0xf51dea20,
++	.user_ctl_val = 0x00000400,
++	.user_ctl_hi_val = 0x00000002,
++};
++
+ static struct clk_alpha_pll cam_cc_pll2 = {
+ 	.offset = 0x2000,
+ 	.config = &cam_cc_pll2_config,
+@@ -245,6 +281,18 @@ static const struct alpha_pll_config cam_cc_pll3_config = {
+ 	.user_ctl_hi_val = 0x00000002,
+ };
+ 
++/* 476.4 MHz Configuration */
++static const struct alpha_pll_config cam_cc_pll3_config_maili = {
++	.l = 0x18,
++	.cal_l = 0x42,
++	.alpha = 0xd000,
++	.config_ctl_val = 0xa5c400e7,
++	.config_ctl_hi_val = 0x0a806160,
++	.config_ctl_hi1_val = 0xf51dea20,
++	.user_ctl_val = 0x00000400,
++	.user_ctl_hi_val = 0x00000002,
++};
++
+ static struct clk_alpha_pll cam_cc_pll3 = {
+ 	.offset = 0x3000,
+ 	.config = &cam_cc_pll3_config,
+@@ -297,6 +345,18 @@ static const struct alpha_pll_config cam_cc_pll4_config = {
+ 	.user_ctl_hi_val = 0x00000002,
+ };
+ 
++/* 476.4 MHz Configuration */
++static const struct alpha_pll_config cam_cc_pll4_config_maili = {
++	.l = 0x18,
++	.cal_l = 0x42,
++	.alpha = 0xd000,
++	.config_ctl_val = 0xa5c400e7,
++	.config_ctl_hi_val = 0x0a806160,
++	.config_ctl_hi1_val = 0xf51dea20,
++	.user_ctl_val = 0x00000400,
++	.user_ctl_hi_val = 0x00000002,
++};
++
+ static struct clk_alpha_pll cam_cc_pll4 = {
+ 	.offset = 0x4000,
+ 	.config = &cam_cc_pll4_config,
+@@ -349,6 +409,18 @@ static const struct alpha_pll_config cam_cc_pll5_config = {
+ 	.user_ctl_hi_val = 0x00000002,
+ };
+ 
++/* 476.4 MHz Configuration */
++static const struct alpha_pll_config cam_cc_pll5_config_maili = {
++	.l = 0x18,
++	.cal_l = 0x42,
++	.alpha = 0xd000,
++	.config_ctl_val = 0xa5c400e7,
++	.config_ctl_hi_val = 0x0a806160,
++	.config_ctl_hi1_val = 0xf51dea20,
++	.user_ctl_val = 0x00000400,
++	.user_ctl_hi_val = 0x00000002,
++};
++
+ static struct clk_alpha_pll cam_cc_pll5 = {
+ 	.offset = 0x5000,
+ 	.config = &cam_cc_pll5_config,
+@@ -401,6 +473,18 @@ static const struct alpha_pll_config cam_cc_pll6_config = {
+ 	.user_ctl_hi_val = 0x00000002,
+ };
+ 
++/* 960.0 MHz Configuration */
++static const struct alpha_pll_config cam_cc_pll6_config_maili = {
++	.l = 0x32,
++	.cal_l = 0x42,
++	.alpha = 0x0,
++	.config_ctl_val = 0xa5c400e7,
++	.config_ctl_hi_val = 0x0a806160,
++	.config_ctl_hi1_val = 0xf51dea20,
++	.user_ctl_val = 0x00008400,
++	.user_ctl_hi_val = 0x00000002,
++};
++
+ static struct clk_alpha_pll cam_cc_pll6 = {
+ 	.offset = 0x6000,
+ 	.config = &cam_cc_pll6_config,
+@@ -476,6 +560,18 @@ static const struct alpha_pll_config cam_cc_pll7_config = {
+ 	.user_ctl_hi_val = 0x00000002,
+ };
+ 
++/* 345.0 MHz Configuration */
++static const struct alpha_pll_config cam_cc_pll7_config_maili = {
++	.l = 0x11,
++	.cal_l = 0x42,
++	.alpha = 0xf800,
++	.config_ctl_val = 0xa5c400e7,
++	.config_ctl_hi_val = 0x0a806160,
++	.config_ctl_hi1_val = 0xf51dea20,
++	.user_ctl_val = 0x00000000,
++	.user_ctl_hi_val = 0x00000002,
++};
++
+ static struct clk_alpha_pll cam_cc_pll7 = {
+ 	.offset = 0x7000,
+ 	.config = &cam_cc_pll7_config,
+@@ -505,6 +601,18 @@ static const struct alpha_pll_config cam_cc_pll8_config = {
+ 	.user_ctl_hi_val = 0x00000002,
+ };
+ 
++/* 493.2 MHz Configuration */
++static const struct alpha_pll_config cam_cc_pll8_config_maili = {
++	.l = 0x19,
++	.cal_l = 0x42,
++	.alpha = 0xb000,
++	.config_ctl_val = 0xa5c400e7,
++	.config_ctl_hi_val = 0x0a806160,
++	.config_ctl_hi1_val = 0xf51dea20,
++	.user_ctl_val = 0x00000400,
++	.user_ctl_hi_val = 0x00000002,
++};
++
+ static struct clk_alpha_pll cam_cc_pll8 = {
+ 	.offset = 0x8000,
+ 	.config = &cam_cc_pll8_config,
+@@ -682,6 +790,17 @@ static const struct freq_tbl ftbl_cam_cc_camnoc_rt_axi_clk_src[] = {
+ 	{ }
+ };
+ 
++static const struct freq_tbl ftbl_cam_cc_camnoc_rt_axi_clk_src_maili[] = {
++	F(19200000, P_BI_TCXO, 1, 0, 0),
++	F(200000000, P_CAM_CC_PLL0_OUT_MAIN, 6, 0, 0),
++	F(240000000, P_CAM_CC_PLL0_OUT_MAIN, 5, 0, 0),
++	F(300000000, P_CAM_CC_PLL0_OUT_MAIN, 4, 0, 0),
++	F(400000000, P_CAM_CC_PLL0_OUT_MAIN, 3, 0, 0),
++	F(480000000, P_CAM_CC_PLL0_OUT_MAIN, 2.5, 0, 0),
++	F(600000000, P_CAM_CC_PLL0_OUT_MAIN, 2, 0, 0),
++	{ }
++};
++
+ static struct clk_rcg2 cam_cc_camnoc_rt_axi_clk_src = {
+ 	.cmd_rcgr = 0x212cc,
+ 	.mnd_width = 0,
+@@ -703,6 +822,11 @@ static const struct freq_tbl ftbl_cam_cc_cci_0_clk_src[] = {
+ 	{ }
+ };
+ 
++static const struct freq_tbl ftbl_cam_cc_cci_0_clk_src_maili[] = {
++	F(37500000, P_CAM_CC_PLL0_OUT_EVEN, 16, 0, 0),
++	{ }
++};
++
+ static struct clk_rcg2 cam_cc_cci_0_clk_src = {
+ 	.cmd_rcgr = 0x21250,
+ 	.mnd_width = 8,
+@@ -1076,6 +1200,17 @@ static const struct freq_tbl ftbl_cam_cc_ofe_clk_src[] = {
+ 	{ }
+ };
+ 
++static const struct freq_tbl ftbl_cam_cc_ofe_clk_src_maili[] = {
++	F(300000000, P_CAM_CC_PLL2_OUT_EVEN, 1, 0, 0),
++	F(376000000, P_CAM_CC_PLL2_OUT_EVEN, 1, 0, 0),
++	F(445000000, P_CAM_CC_PLL2_OUT_EVEN, 1, 0, 0),
++	F(500000000, P_CAM_CC_PLL2_OUT_EVEN, 1, 0, 0),
++	F(609000000, P_CAM_CC_PLL2_OUT_EVEN, 1, 0, 0),
++	F(688000000, P_CAM_CC_PLL2_OUT_EVEN, 1, 0, 0),
++	F(841000000, P_CAM_CC_PLL2_OUT_EVEN, 1, 0, 0),
++	{ }
++};
++
+ static struct clk_rcg2 cam_cc_ofe_clk_src = {
+ 	.cmd_rcgr = 0x20120,
+ 	.mnd_width = 0,
+@@ -2970,12 +3105,35 @@ static const struct qcom_cc_desc cam_cc_hawi_desc = {
+ 
+ static const struct of_device_id cam_cc_hawi_match_table[] = {
+ 	{ .compatible = "qcom,hawi-camcc" },
++	{ .compatible = "qcom,maili-camcc" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, cam_cc_hawi_match_table);
+ 
+ static int cam_cc_hawi_probe(struct platform_device *pdev)
+ {
++	if (device_is_compatible(&pdev->dev, "qcom,maili-camcc")) {
++		cam_cc_pll0.config = &cam_cc_pll0_config_maili;
++		cam_cc_pll1.config = &cam_cc_pll1_config_maili;
++		cam_cc_pll2.config = &cam_cc_pll2_config_maili;
++		cam_cc_pll3.config = &cam_cc_pll3_config_maili;
++		cam_cc_pll4.config = &cam_cc_pll4_config_maili;
++		cam_cc_pll5.config = &cam_cc_pll5_config_maili;
++		cam_cc_pll6.config = &cam_cc_pll6_config_maili;
++		cam_cc_pll7.config = &cam_cc_pll7_config_maili;
++		cam_cc_pll8.config = &cam_cc_pll8_config_maili;
++
++		cam_cc_camnoc_rt_axi_clk_src.freq_tbl = ftbl_cam_cc_camnoc_rt_axi_clk_src_maili;
++		cam_cc_cci_0_clk_src.freq_tbl = ftbl_cam_cc_cci_0_clk_src_maili;
++		cam_cc_ofe_clk_src.freq_tbl = ftbl_cam_cc_ofe_clk_src_maili;
++
++		cam_cc_hawi_clocks[CAM_CC_CCI_2_CLK_SRC] = NULL;
++		cam_cc_hawi_clocks[CAM_CC_CCI_2_CLK] = NULL;
++		cam_cc_hawi_clocks[CAM_CC_CSI5PHYTIMER_CLK_SRC] = NULL;
++		cam_cc_hawi_clocks[CAM_CC_CSI5PHYTIMER_CLK] = NULL;
++		cam_cc_hawi_clocks[CAM_CC_CSIPHY5_CLK] = NULL;
++	}
++
+ 	return qcom_cc_probe(pdev, &cam_cc_hawi_desc);
+ }
+ 
 
 -- 
 2.34.1
