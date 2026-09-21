@@ -1,134 +1,105 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9984A015D;
-	Mon, 21 Sep 2026 13:42:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F02449F131
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:42:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789998144; cv=none; b=oUfSMvmncJdD8R/hCfCGB78v3ccNzk0/5SWCaJQD2HZ6hYczf0iFN1SRb6yGr9toyvsIsHt+cOnbzuvgn5y68OY9TfYq/mFyk77WhBbF9ZJtN1O3Jp4aS6r8TPZeXVDpk27T985K9KQmtjUnc3nxFJU0uW4Q9u+s/ZAlvyE0CB0=
+	t=1789998161; cv=none; b=H4ZJVSwN/k6kBk0YU6yew4C4fj3zdEvwzaAqv7d1K7F8MV1dXlAEFWJwRHGVsud/R+QI+W9PMSMgjyCziy262FpbTByQF3pYOXG6R9meZQVuYhZxcYYboxkTZESz8Ss9juc8R0GtrxUHFIuelxfj+BtFV00RDmOMwnMqYftiheE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789998144; c=relaxed/simple;
-	bh=rgl9EmGpFUmnfTfH2O4fMEOzZ6m0ldQkLOywmJNll44=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rNdb2wbve2NUfzj0tQjd/pN4KKfRhYAJqfHYvx+ZpwChZHIHgKN0iA79yzIzQEPg5mRke+IvDzlFExB7vM5FRI/UW/oes4X5w3VIBL/3cNhLcsQYWzW6falVoGI7MN6eBgQ7MpqbhXDAGO0DQ4hWkyV/YOAfv13EZZbBE45qObk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=aY55STBj; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="aY55STBj"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=o50iEUUq9Hico4BGWHaX2sieM5OHx8zB4NrvMh/pa/A=; b=aY55STBjtzWrl21NLFuecIM9F2
-	jXs+e4PqxodBJcqUkj7CChyA5StfbY9Ye42NLiklat4rxvb5NGZj+KQenVRXFpyd3gwomZAJiMWTa
-	30JZIjLf1zIPOIlxFA94dAD6Zv/Oznlygw6D/P59egCuoyjOqLsMhlNX0g4Sz9thM6Ca1CQC6thDY
-	qR7OSlOY5QEnQ+gQOzFvY0t+AiVC9QzwlWti+PiUTSk2x6MyOWMxqb7wRxThGVrdZwH3wIhoVPM6U
-	1NCQrptYHN1ln22pNHWZBnO03VOZxH02emQU031dZRLEU9C8w3Vm8YG28iXUEuoDdHQayV4kv8/Vp
-	OQtvJMqw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x8eH2-002F62-2Q;
-	Mon, 21 Sep 2026 13:41:36 +0000
-Date: Mon, 21 Sep 2026 06:41:27 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-Cc: Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, kas@kernel.org, 
-	kexec@lists.infradead.org, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	Oscar Salvador <osalvador@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, hannes@cmpxchg.or, 
-	shakeel.butt@linux.dev, linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, rmikey@meta.com, riel@surriel.com, harry@kernel.org, 
-	linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v5 8/9] mm/memory-failure: add hwpoison_boot_page() to
- flag an inherited frame
-Message-ID: <arEz7lp9_nRGwHPm@gmail.com>
-References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
- <20260915-hwpoison-kho-v5-8-3bc7a57bd503@debian.org>
- <aq5jyXzuDAANeCJs@acer-nitro-anv15-41>
+	s=arc-20240116; t=1789998161; c=relaxed/simple;
+	bh=eKBbq+cd+pa1ECuMI3RRu02NdgQieSp/fsXjwHX8CGU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=aNDkYK48t3QaBO2WQKuhcxyYrtPDFLm5GulXl1IfYz1LeUbVrIyk6L3i3mJckH6HtTd1QVVZ2UluVc75Zob9IVgSonUt3aHR+VVu6dHlM20PVMypk7csbCwLuDLfKrovNQqVCk1nLKui5c4COiig94OrCuxRa/XWWYlpedY0q0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com; spf=pass smtp.mailfrom=idkmanager.com; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=idkmanager.com
+Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-785692e59a4so1639325137.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:42:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789998159; x=1790602959;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=igw8US+UUaQ7xFHWjPtidfissy+IxS4zwRUNv5NU2iI=;
+        b=lJMER9+kTd7LBgQENx4rPAu4apHoGeJSNOMsAUy3vc3M3Wm+DsBQ7D6CA6pItx6271
+         gCr1yRsGj/aszMybLH1czf2AAIpr/YM+zVsS+WY2uXUKF0RdvMyNspPkgUk8GbIoh5Nt
+         PE0VFXfmgP9hpMmZEfA0NMLqIKSkhlektJK6Xd8fIyFUkMCzI4BrIS8UlCV+kFR3Lfqe
+         aUAAM4v9MwIm2R/QEiSWVPhPYVmi5cKWAnyu6Oo+ALbMpBH3pxaT64GbO7IpxSXG4xKM
+         9+vM4Hkp+ohFAQ1oZ6CAB6JJXbg6y3G43135a6UrlMhjt1joCXsG2KdWnrgkHQl1ttRj
+         VZAA==
+X-Forwarded-Encrypted: i=1; AKwUvBxMRdq4zPFshAC/eyHVyFc0bS02vfKeFHXjmkBEvbzfq5j6JtNJTkZGenPkZux8l6Z9FWxHS9Jsge49mJc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhEBEOXm09eY5thLDZhZolCGKNHXKklgdyRrLhNeron4AdzrnW
+	65bGhuK7k/W4JW16Wiq3hB6nUNY2brTPblGDhdihh4YNXLkm1FfEso/I/adxh3a/9dk+8LxXRdh
+	0cGpOWZGLDA==
+X-Gm-Gg: AYBFou34njU4cm6UmBMDurkYcU9kqRNi3Jxu7TyrvLLNgvmcrfFGQXQ8tUFw8oqvKPz
+	wWYe87uashB3oZkkG5Kqm5JUGTEyBqajIYITazdyR02VOgBSh7grrdLZ9+W5C6Wd6yfqXKJQmsE
+	JjAghL6PxQTksOzKewg5y6vIf1AF5bnHHqdFb88X+anNOyUvk7BPEcvWgVBWj0/41bHpqC29ACJ
+	m30Z9/NARYZb3Q+bTZiZZsulFSfZO8Y/rQCSUUFcv53A2aiowXWnMURydKdtHqpzPpw4lRCV7nv
+	99/54ASNh15e05n4C5OrvKpR7Asphxhhjd4NqeuSPpJ/qLjH2h20Q/6uIi5a1wNUjoihQm1h7nh
+	tpSHT0ajrvqqQ2/akczOkWJuBPnlhh8z/JJpcWQXqDYjsm4afV/kXQW7pay8WQmx9Xzhj/nYuxU
+	6qWFnKOiuUSThwQiB5M2qxEvABn94ziksSeD/2uze+F8LKv2OR4apR0FTv4mK+yJ4hdjXaJZj6F
+	YTD6+5rQUBHsTI0dj17+fHml6FkRnHjE5vO0bp8/1IjV2i8GvcIp8RavQaDesGVyA==
+X-Received: by 2002:a05:6102:1629:b0:7a7:19aa:8a86 with SMTP id ada2fe7eead31-7a719aa9111mr2954454137.33.1789998159216;
+        Mon, 21 Sep 2026 06:42:39 -0700 (PDT)
+Received: from [100.96.0.25] (corp-190-12-36-222.uio.puntonet.ec. [190.12.36.222])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7a6ac5e08c7sm8343193137.8.2026.09.21.06.42.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 06:42:38 -0700 (PDT)
+From: Ing. Alfonso Kuen Arroyo <gerencia@idkmanager.com>
+To: Christoph Hellwig <hch@lst.de>
+Cc: hch@lst.de, sagi@grimberg.me, kch@nvidia.com,
+ linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+ mlombard@arkamax.eu
+Subject: Re: [PATCH] nvmet-tcp: fix stale comment on NVMET_TCP_MAXH2CDATA
+Date: Mon, 21 Sep 2026 08:42:39 -0500
+Message-ID: <178999815960.27132.5021907314171265355@idkmanager.com>
+In-Reply-To: <20260921065448.GA13764@lst.de>
+References: 178978695312.43804.1554581215424967584@idkmanager.com
+ <20260921065448.GA13764@lst.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aq5jyXzuDAANeCJs@acer-nitro-anv15-41>
-X-Debian-User: leitao
 
-On Sat, Sep 19, 2026 at 03:58:25PM +0530, Shaikh Kamaluddin wrote:
-> On Tue, Sep 15, 2026 at 05:53:42AM -0700, Breno Leitao wrote:
-> > +
-> > +	/*
-> > +	 * The per memory block half of num_poisoned_pages_inc() has no block to
-> > +	 * find at boot, and divides by zero looking for one. A hotplugged block
-> > +	 * is already there.
-> > +	 */
-> > +	if (context == MEMINIT_HOTPLUG)
-> > +		num_poisoned_pages_inc(pfn);
-> > +	else
-> > +		atomic_long_inc(&num_poisoned_pages);
-> > +}
-> 
-> Hi Breno,
-> 
-> num_poisoned_pages_inc() currently assumes that the supplied PFN can
-> be used for per-memory-block accounting and therefore calls
-> memblk_nr_poison_inc() unconditionally. The early-boot path needs
-> global-only accounting because the memory-block infrastructure is not
-> initialized yet.
-> 
-> Could num_poisoned_pages_inc() treat -1UL as global-only accounting,
-> matching num_poisoned_pages_sub()?
-> 
-> Example as below:
-> 
-> void num_poisoned_pages_inc(unsigned long pfn)
-> {
-> 	atomic_long_inc(&num_poisoned_pages);
-> 
-> 	if (pfn != -1UL)
-> 		memblk_nr_poison_inc(pfn);
-> }
-> 
-> 
-> The caller could then use:
-> 
-> num_poisoned_pages_inc(context == MEMINIT_HOTPLUG ? pfn : -1UL);
-> 
-> This would keep updates to `num_poisoned_pages` encapsulated rather than
-> manipulating the counter directly here, while also making the increment
-> and decrement interfaces consistent.
+On Sun Sep 20, 2026, Christoph Hellwig wrote:
+> Maybe use SZ_4M instead of having a value and a comment that can get
+> out of sync?
 
-Good point, and it is a better fit than what I have.
+Good call - that also gets rid of the case Maurizio flagged (a value and
+a human-maintained comment that describe the same number and can drift
+independently). v2 below; the file doesn't pull in linux/sizes.h yet
+(checked, no other SZ_ user in it), so it needs the include.
 
--1UL already means "global only" on the sub side, and it is not just a
-convention on paper: remove_memory_block_devices() calls
-num_poisoned_pages_sub(-1UL, memblk_nr_poison(mem)) when a block goes
-away. Teaching inc() the same thing costs a branch and keeps
-num_poisoned_pages behind the two helpers instead of growing a third
-place that pokes the atomic directly.
+Signed-off-by: Alfonso Kuen
+---
+ drivers/nvme/target/tcp.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-I will fold this into v6:
+diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
+--- a/drivers/nvme/target/tcp.c
++++ b/drivers/nvme/target/tcp.c
+@@ -18,12 +18,13 @@
+ #include <net/handshake.h>
+ #include <linux/inet.h>
+ #include <linux/llist.h>
++#include <linux/sizes.h>
+ #include <trace/events/sock.h>
 
-      void num_poisoned_pages_inc(unsigned long pfn)
-      {
-              atomic_long_inc(&num_poisoned_pages);
+ #include "nvmet.h"
 
-              if (pfn != -1UL)
-                      memblk_nr_poison_inc(pfn);
-      }
+ #define NVMET_TCP_DEF_INLINE_DATA_SIZE	(4 * PAGE_SIZE)
+-#define NVMET_TCP_MAXH2CDATA		0x400000 /* 16M arbitrary limit */
++#define NVMET_TCP_MAXH2CDATA		SZ_4M
+ #define NVMET_TCP_BACKLOG 128
 
-Thanks for the review and suggestion,
---breno
+ static int param_store_val(const char *str, int *val, int min, int max)
+--
+2.53.0
+
+Alfonso
