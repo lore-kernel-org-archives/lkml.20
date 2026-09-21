@@ -1,167 +1,152 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52CA5451991
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:39:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A64FA451990;
+	Mon, 21 Sep 2026 08:40:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789979962; cv=none; b=LvzuJBKRwTsIZdWqHqtabx4IB4yMFuHzl/0HRvf1jeo4hv7gacgUcrlAHfMOS2y89y3JOPx9AHdZO/4puMEYSVWJA2V6wKYrW1VXm/TDWOBMJ0qi6/ntXA6b/Aj+UC4rK7k26m7iwSO1+f0rcY/mUG34Ab9n4MIoxL6T+ovdWdM=
+	t=1789980025; cv=none; b=XNsC/8GWycP3iBqeHCObvhwM73PuXnPT5T2rMl57scdzPbknTynzbcsgqUn/b4F8/LjZut8sXSr2Kfy6ABg1B91pz/OPjvU75HNK6wFhY4yKJVfsX0SQqxWBBtgI46ZnqMKV7pGisKcWuauuMPbd8eiKJn5rbT+K38u7inUZAqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789979962; c=relaxed/simple;
-	bh=XTE0kn2MoO/iNGwudDMabaFjWA+xpSyJN666f3dQZbE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WOpdeYUemkrKPPBAhaomB1YO1nSBLNxwpKp6D9Er2KwpQij8xGNyEc+BDmnC+jpxyJGINhp1XBXCYhVLtFOiAKswow1aMA8dmRjjaAxoEuIpFWquSAiYcBuucbgunrUxz9pzUBlvSxfMQWlNG4rS0WfQowD/V2QV9kppYBgwoDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=V7O/avnO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GTAdUcmH; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789980025; c=relaxed/simple;
+	bh=o9hPxOU9kHloIARfub1Nrx5KK2t//Hd+uRzDHhtzPxk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iLK+4qAlppHok+UnkUi9yAXyLGN+0ZlpMKqalwYftNMSgkxuxPWSE+cWwlTCKBFFhEZPnjZWfk2J240OFcO5rzrVFsM0h6fWaOZN8EmQgWFvNH16oV9ttVW5SxPzHSR6k2odZntdXzae6n1h5qftIc8YgSIHewS3Ts6f/WXr9kY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=BRbqd+rI; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="V7O/avnO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GTAdUcmH"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L79pxr1095978
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:39:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	QL8zsf25qI8f6OfYJqvNvrJ7OfAtYEj510v43CBRTMs=; b=V7O/avnOinz0Bj8m
-	MDWMHBuCMNM0qt/ooJDqcxX084KssfcDxzEKco/h2pp46wfYTLsD4AICKc7j7TsQ
-	53tQ3LZPEvl0fnqvNPHoHnDv0EXZHmaBofuwt755qsGC2YK5nrjyvVOY7pNXf4xD
-	D41z94n4K0fJhkKjl2hUFTygKC94AKfnusJEgsCr8eyynao2o4s/6RtnTUDd9uuj
-	8yDs2DBkMOMGCNGZf4YxRw30wuii6YqqVaqWK6anuc21n1irEnLdgg+Jlno/XV9k
-	lZZFmWF2q1E8Z5JLmYwih5ULAmAyZnFAnd6nIw2pm9Ar5pGgCGGwr514v08DJ4Qj
-	ruLS2w==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtysw0d3b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:39:20 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93bf3eeb42cso56957285a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:39:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789979959; x=1790584759; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QL8zsf25qI8f6OfYJqvNvrJ7OfAtYEj510v43CBRTMs=;
-        b=GTAdUcmHotNiJwur+ijsX+NyMuvJWO2Tot5+0lzYMVuEZunOnigHrMClLT0kON0dUQ
-         GW3b0EyUEGZ6wavn4zZcTWc2mThRhdA0K8u9ZQuJl1fbOhXwZM324zml0kmnG27N3YKT
-         lXgqVaKjKCTyIDXgZ2szkh1D5ONtbl6ICAtGTlQac59j3z7IklTrFRkE9kfWhODG9Zqx
-         lKqtiqMpqLZemJEOy+9V1uavRzZyK7tXjzlA7uovict1YueXDE8W0lgXzSdsyhdpRqj5
-         1ehyhP+dZSOTLULj7aICaBBlgk59sv3mLTqmk/AXqi7gI1HpQIE9VY6gdkmueBYxi6bE
-         9yZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789979959; x=1790584759;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QL8zsf25qI8f6OfYJqvNvrJ7OfAtYEj510v43CBRTMs=;
-        b=YMowDl8SwlVDsx7MwjmbBOEihYwF7eQlVJvIaCB1BUDAlUOrammhXGCW9qgP6VnhoQ
-         2Vu7sRM7LM/mEOMY33zteZZt5K9KCHbdfI4sYZk6opazIDbSsBaeByRFfUHlM/2FnUCt
-         oNjpyIsihEM5CYyH0r5p2Ueox+VV1AFzRJTEAFpO394LiRSzAU1kj3S3Sfi15ytwgO7O
-         QNl87yjw1/PgPm/J610foGgenrnM/zYzlt+f0FKcbK2BdTr4JhG1W+R/se2MD+PjgHnS
-         E4KI1VHGD5UdZKx2/VxT+O2G/P4xcF+SljnclYVqQ2QDEEkd0yvVXr1YkTCEcu01OEXw
-         M6vQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxMUXci6PIA7ZDV1vVYVHhh1iPP1a7c6ao3gjSKbdG9dOfl3WA6ayUXiz2OrIv3qWrYeDstjbtDObrkOu8=@vger.kernel.org
-X-Gm-Message-State: AFuF++km9wKUKUVi6Chgs2yvo24tpS8iGqp+9F654MFYRCG17UUqk/I1
-	5OHEvaupcGZB47zkWOtRpSJrCM5+CFmpu3JMFojYegvKSESJlEG/gt2/W1lj21ClgE2wT+B0Gy3
-	i7TYbh1KtVBiBK7bImDzDV2AR0/tcsLtWfpGmwJSxbYtY3Px3KFaAHZt8j66/al6+2cA=
-X-Gm-Gg: AYBFou1gF7fjHxzqiyTYY+4Pf0SqiOViu2pAqCaxLAplKckfmJdMeR0mKxGUTMWo0Pk
-	K1LNAJl8QbBzvCnpxJeAiEQBFyZ2ZjuUa8P+IOg7RcUkWJseKJBppYd2gyIq6bntbzleBrWyOVm
-	ROjNmp90oZcRfFrXFfusXHTg4qS06oqHXz/V1AWBCjpybCG9hTJQdU5E17kAZR0piwe1NCm/F+V
-	QqHQGwSYZGNvp8a/7x1DvbKO12D+/dmnNO9UoTAHXUqDjCIPROU/zONZIpembIXDLsptStdH4nX
-	NPsw1830UX8jFeGhgzaHlXwT5yGepmY6LJL9uPSl1rQNrFhaK5KOIJWVJtKXztQEEoSRUuKv7l5
-	+FBZS4nSQxEM/vI9dYp5Trw==
-X-Received: by 2002:a05:620a:4592:b0:939:e9a3:3105 with SMTP id af79cd13be357-93bf58b5b11mr914963285a.6.1789979959580;
-        Mon, 21 Sep 2026 01:39:19 -0700 (PDT)
-X-Received: by 2002:a05:620a:4592:b0:939:e9a3:3105 with SMTP id af79cd13be357-93bf58b5b11mr914960485a.6.1789979959176;
-        Mon, 21 Sep 2026 01:39:19 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67dc582csm3864765a12.16.2026.09.21.01.39.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 01:39:18 -0700 (PDT)
-Message-ID: <d5821380-3006-4eb6-86fd-977d6e17a8bd@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 10:39:16 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="BRbqd+rI"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7ZNvM3153438;
+	Mon, 21 Sep 2026 08:40:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=Vfh+Ku1qHAtSrYARs
+	L7UNTW+AGUl1eoke7UXxnSuWjU=; b=BRbqd+rIabIzd6jzaeJLaphHobiklG4ls
+	noRzipbpRRykLXWMBimY8wr4ncgI7SgZL0aOnNYyMd5766zNi+eIltrbe4S1Y5Mz
+	WuncA+d+Fy/ZuQ4bAipEKQR1SatJLJg/sCGyos1ME3dW41cR2+WWXHVoMUQy8PYP
+	Uqj8I4El3rzCcKzn02rnD6p0g+03t/pgkQFmg5vCsIdKg3GEYARUwUTliGXPS6tA
+	oPokWWZXfQZgBvgrxUkUZGcS2zaes/GUIKn9yVKMsCphKrJcpA3w6SytSsSyM6EZ
+	avf/aqY1EoqfaM+1bhBXSfosCPWGv7bOR5PCK7mwu/Uo/jNfboOCA==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1fjuh-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 08:40:13 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7HeRF887375;
+	Mon, 21 Sep 2026 08:40:12 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gt67gme75-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 08:40:12 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68L8e8nW51380558
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 21 Sep 2026 08:40:08 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 39BD920040;
+	Mon, 21 Sep 2026 08:40:08 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0F8CA2004B;
+	Mon, 21 Sep 2026 08:40:08 +0000 (GMT)
+Received: from tuxmaker.lnxne.boe (unknown [9.87.85.9])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 21 Sep 2026 08:40:08 +0000 (GMT)
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Mete Durlu <meted@linux.ibm.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Juergen Christ <jchrist@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: [PATCH v3 08/11] s390/percpu: Use percpu code section for this_cpu_cmpxchg128()
+Date: Mon, 21 Sep 2026 10:40:02 +0200
+Message-ID: <20260921084005.4022574-9-hca@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260921084005.4022574-1-hca@linux.ibm.com>
+References: <20260921084005.4022574-1-hca@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/8] arm64: dts: qcom: Add t-power-on-us property for PCIe
- root ports
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, mani@kernel.org
-References: <20260911-t_pwr_on-v1-0-c9eee197d082@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260911-t_pwr_on-v1-0-c9eee197d082@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEyNCBTYWx0ZWRfX4h8xSEhLczaq
- VCCyQ4G3vC0BPgVqWiPpu4PJui4B9Dg8j4BRyxKPO8R44RoUjADkA3FBxW8QbF80uSxCnjjtfQh
- UmCKi6OeAlm1zFelFCgSMxJGZzqtDWfL/kSY4D3oRy18VN7jFJRnRtS6GPeDm7Zw5EUNVMETMZR
- 7PttC4BrTogbGzD32ReIf9Lr9InVgHtC/VxVwXJr6UyegIl5/hnWfQiiuF1lcxttNOwwPA4SkQF
- tKlXGh356qW4SD+cRqwmZFtmbl6I54gyp3prOv+aznmiKrEGo/jdDRnPRk3nOoe7sXQhMXyF2r0
- pDhQTVxppXU5j1oTpLIw5LpTE3+nU3vX8ksmiT5Zy/wXXDhB6FaCCdrriNPWE2doA8iopaopEGK
- HCEJJru4jm9BvhkXFBhkL42q6SBoPtEzs7jxP94XcnxLQ2toIOfG7um9MSonwmJ46VoLxB02nYZ
- NRlMibxNqbpFyySUlsg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEyNCBTYWx0ZWRfX0pBEbsV52LWN
- 3FUWQasie5ij+WVemE6jWsJn3ooikhKK++nVaEb43IBgx3SeqgZ+EheJYGyDkJfJFdvXvwHbvZO
- 4m1v5FACQ+Z9bbOTV7Y92tfmXWfKR4g=
-X-Proofpoint-ORIG-GUID: wt_mT9GekQIoNE5reURbwv7UeyqteIFg
-X-Proofpoint-GUID: wt_mT9GekQIoNE5reURbwv7UeyqteIFg
-X-Authority-Analysis: v=2.4 cv=W7etxhWk c=1 sm=1 tr=0 ts=6ab0ed38 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=zKUMnf7IFlsw2KSWKZIA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: POnO64eVDEZ0F2Z9j4LBDF-npJcED5IB
+X-Authority-Analysis: v=2.4 cv=EOCTQFZC c=1 sm=1 tr=0 ts=6ab0ed6d cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=sJK1A0fQ-n6IDXIElG0A:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEyMyBTYWx0ZWRfX3JxhYmxeMC0Z
+ AqE7zPXEA/6NSS3wFp0ir+CHSqqZAYwNIa3plzkbBCQBGpGUf4JtgIAoyBB2KSlp2Ird7K/L6KP
+ tk1TQSgmPVZaxnhWr4eY8ns55qTN7to=
+X-Proofpoint-GUID: POnO64eVDEZ0F2Z9j4LBDF-npJcED5IB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEyMyBTYWx0ZWRfXyUp4e4/ShmJb
+ kB2Zi1WRtvbug0C9s/DaNNmGJmuNzmH9gYBvJu2HBcoHVltWbNqAUwn7C7L5exb1JPezimE2iJH
+ e8Rt7YFfCLhPApVSVUGzFok8SDfFhThxHe/5AHH+z2d4Vwnn5tsO+3DJwDf0o5Dzs080MiHD0ug
+ eLplSdOZYGUQ1lG2AN3RGX8x6dQcPie5GoLRFVu9jc+AVMWerg3ZY5F0pKVQwdaCEIh2HxM0iVJ
+ /KzF+Vws5yDC5GsBHvnq1ZqSdbJpqCXtL6+K/G334s7rHcAX99DwJU+oAuTg4Cj03R7S9X/rW40
+ yhQJH17mRoaXgphsFJvtbTELwQ/kasJIXoSzAOC0LkxsT/RNJJ+kHVpTisJZzpX0wSzC3CMhU7f
+ E0meCoILX7bkb9Q/8HHT9uwrDcS0nIzQk5BwUSSMFa7uMvghu4/PvLtgSG8CXbXthHg1+jnSTGv
+ y5Z3pHDJ9yqFoRnkFXQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0
- impostorscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609210124
+ bulkscore=0 phishscore=0 priorityscore=1501 clxscore=1015 spamscore=0
+ adultscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210123
 
-On 9/11/26 8:50 AM, Krishna Chaitanya Chundru wrote:
-> The Qualcomm PCIe host controller driver added support for parsing the
-> -power-on-us property[1] from each Root Port node and programming it as
-> art of host initialization (PCI: qcom: Program T_POWER_ON) [2]. Prior to
-> this, T_POWER_ON was expected to be programmed correctly in hardware or
-> by the bootloader, but not all targets support this, which can lead to an
-> incorrectly calculated LTR_L1.2_THRESHOLD in aspm.c and improper L1.2 exit
-> behavior.
+Convert this_cpu_cmpxchg128() to make use of percpu code section
+functionality. This is just for the sake of completeness, since
+currently there is no in-kernel user of this_cpu_cmpxchg128().
 
-This is a good problem description. Does it have observable effects
-that could also be mentioned here, beyond perhaps lspci reporting
-an odd value?
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+---
+ arch/s390/include/asm/percpu.h | 24 ++++++++++++++++--------
+ 1 file changed, 16 insertions(+), 8 deletions(-)
 
+diff --git a/arch/s390/include/asm/percpu.h b/arch/s390/include/asm/percpu.h
+index 78c3aaa138f7..0eae65937c0d 100644
+--- a/arch/s390/include/asm/percpu.h
++++ b/arch/s390/include/asm/percpu.h
+@@ -312,15 +312,23 @@ do {									\
+ #define this_cpu_cmpxchg128(pcp, oval, nval)				\
+ ({									\
+ 	typedef typeof(pcp) pcp_op_T__;					\
+-	u128 old__, new__, ret__;					\
++	u128 old__ = (oval), new__ = (nval);				\
+ 	pcp_op_T__ *ptr__;						\
+-	old__ = oval;							\
+-	new__ = nval;							\
+-	preempt_disable_notrace();					\
+-	ptr__ = raw_cpu_ptr(&(pcp));					\
+-	ret__ = cmpxchg128((void *)ptr__, old__, new__);		\
+-	preempt_enable_notrace();					\
+-	ret__;								\
++									\
++	ptr__ = PERCPU_PTR(&(pcp));					\
++	asm_inline volatile(						\
++		__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]")		\
++		"	cdsg	%[old__],%[new__],0(%[ptr__])\n"	\
++		__PCPU_END("%[lcreg]")					\
++		: [old__] "+&d" (old__), [ptr__] "+&a" (ptr__),		\
++		  "+m" (*ptr__),					\
++		  "=m" (((struct lowcore *)0)->percpu_register)		\
++		: [new__] "d" (new__),					\
++		  [lcreg] "i" (LC_PERCPU_REGISTER),			\
++		  [lcoff] "i" (LC_PERCPU_OFFSET),			\
++		  "m" (((struct lowcore *)0)->percpu_offset)		\
++		: "memory", "cc");					\
++	old__;								\
+ })
+ 
+ #define arch_this_cpu_xchg(pcp, nval)					\
+-- 
+2.53.0
 
-> This series adds the t-power-on-us = <80>; property to the PCIe root
-> port node(s) on the following targets, so the controller programs the
-> correct T_POWER_ON value instead of relying on the (currently incorrect)
-> hardware default:
-> 
-> - kodiak
-> - lemans
-> - monaco
-> - hamoa
-> - glymur
-> - talos
-> - sm8750
-> - kaanapali
-
-Because you said "currently incorrect", it clearly applies to all of
-these platforms. Are other ones that we support in the tree also
-affected?
-
-Konrad
