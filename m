@@ -1,107 +1,73 @@
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423874F68C9
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:16:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790014587; cv=pass; b=pVFpE48wMVhnQhKF8HRzOyLAaytbj6LZa01+UsS+skCqq6APR2VgSuNhws21ey6YoNEa29tYdediFeEdBeIs1QQsCLWrYGJH2X5OdyAWghFlySQXjFX6VblPwHM+kKOpQJDOUGPEpSGt+d0Jb0XxkEftWgPh44jC6KwFJI//tAE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790014587; c=relaxed/simple;
-	bh=BbpR1PLNc0jlsGbwUI8mzvAgF+2/fHU8K6V+IvKzcdg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PyKLqWurr4pNpFe+csBEI/le1A4hf2K7J7TMNEWuVxe4DVxY6157iHU+o9Fk3pQlbdU6xY87D1YRsgtkxoTBZBvQDatxbcwevNlafeRwePz4UbWV4q1FzCigl5v7Am4WJ+NQEwGyzYMNB1Ker+xsO6S0LzS/izn1fBoQtrTJTok=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=m+l/ZK3U; arc=pass smtp.client-ip=209.85.160.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB37A4F68DF;
+	Mon, 21 Sep 2026 18:16:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790014590; cv=none; b=c1A1+7PYcsbnGc3dpJugpfqeBHc83+ardfPnq9BocBdR+oRZy45dTT8B0Ejs9lzPMZPmaogfyNuZ9wV9qemCf4A8jhL/sXjGhP26xrSW7ix1orVm1ecEk13AZX6L8MUdb6BHLIEq9ZlYw5GUmolarvK5/mGYuHsCZstSyDgKECc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790014590; c=relaxed/simple;
+	bh=sKNvC+F5Ep4XZmXZtSX4U3Ghvzskr7RcJIiwQ3ATiTM=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LhFLUeQAicBshHqt8AsyZ98ERG2LaR2+bPSasD4Km5vL23nhm9UyL8h5bHmyVzPoncYAtae3HP5tGUZMKKZTRJ70N/ucAP8gyp12m9sLmXkp4IWbBrNTlm0l7QwXydoCMJw1NmnA/KKoL4ZrGKnyYKdmzfjgaS4+YjOtEzRTW4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O3r8zX3r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="m+l/ZK3U"
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-52faa58bff5so27941cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:16:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790014585; cv=none;
-        d=google.com; s=arc-20260327;
-        b=i1GIpr5d1LJRoeentRg23a/vudUg+AeLVIXkHnVK0XGQ67be3D2jjXxdfcT7n6LenY
-         nkBTgfXrvYHQuRWhe4lmu0me3L2TG7R/r3iRcDLvRr/ve6/KRNE3cdXelQ9XkHmMvDAz
-         K0f9Vd7ppbLKUMZFfj1fUQsPfstF4P/D5Q+HfbzKHDL1VAQ7V679xVrlAhlNdwwPLHmF
-         q9ajOx5E6jWr7mNx2hTbc0AegJdF6Xx11C9uwlSLI2BPILKu9FHyeZJBsyn0yRHZ0LoR
-         QOAoWJrSN0tjaRVlIbxsRllDnz+ZMNuv5b/u+JfzCJhhcqCoBwcs6ECL6C6VZW2pIPLV
-         T4Wg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=BbpR1PLNc0jlsGbwUI8mzvAgF+2/fHU8K6V+IvKzcdg=;
-        fh=AroSLRZz1NSR8l9+fgqApRyQd6bWt9ijcZrPpCYT4cw=;
-        b=Qt5njozBvZ3HWUXgX3lnlUiYgqAfBHthN0mS0oeeim185q8FocRrxRVAbTn0QvSHSp
-         /URtPhgt5LutZxnwmVE7ALZn4zVMOrg2buEcHaFqJC90OJ55I7fwADfUUwlRG80POYaV
-         10qvlfac13sTXF20FuspgOWTAL3Ju3IJxQJNl1jvuWQrfRGLENJwAR3XYJCy9mppZ2yY
-         Yr/npT0lM816mQGdfkwQxP9HlOQMb4YBB3QRWP3zICt18+yCmN/kZblUpCd17pvZp07l
-         6BGMw1cVq/VfVSmINeC999j3ZA5999QSX0DeuCCQfgrgsjLGFKsfVwuzqwDBVgtijaU5
-         MhDA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790014585; x=1790619385; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BbpR1PLNc0jlsGbwUI8mzvAgF+2/fHU8K6V+IvKzcdg=;
-        b=m+l/ZK3Uf2Ubk+OlBndY457og/QLlXc8u1y4jQ2GpZfQbcrwX0UG9B+imcFnsybxj5
-         leR6R2S/AC31/HisMn6iIkob/zXAdGc/r77QJI6YObuTr6L/rNizLVQwQWqeow8di30q
-         HwDFh/5/tW4UFEstBJoRZDsh9wP2dlk/lnm7scelfh3BFIcTj36ZEssbiaPaSNyMmPum
-         lqo8TQUyyp2VcrXmkKEwVGkNfraS77lhCAiXlxW6G9j5iU1cX0rpB1uOWawqcwv34CoE
-         McID+L0Rwit1biDqE4uUUoy5EPHdVrhGQvZxHuV8bNEewM7jGGsguu3FSskBrgevRboa
-         Chug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790014585; x=1790619385;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=BbpR1PLNc0jlsGbwUI8mzvAgF+2/fHU8K6V+IvKzcdg=;
-        b=wQM56d4JJVvFC6YC0GqdAq3tMPgWfN4TPzJnabS+zF+0G9GtZh+WrEKpiUlVcf/BCo
-         esEVcPjYVe5gCzHE1B/4PaQTvx/RkN19/KDzq87Ee02O8gHogGZHOka1WrrlxUS01dq7
-         2ozg8WX7hC1h2kaDXX8dTpKIGbjMLPLwYW+a0xyBYVmpzCmEPrwmjn0hqThZeufd4Jdn
-         CNLbeA6GxJo0XIldZe5//nKGSefq2RFZAgklbdvd85RmMizmDNRbGnu46BH9JwahYMkS
-         fBLxCTKJaLrg6VbflIf8ztDCSWeBk9I6MxRp9Kyb993clm0+Ee2A/UThQARi0nJC7LzU
-         SPcg==
-X-Forwarded-Encrypted: i=1; AKwUvByUDSKmgLV3vmerH9uaWiXlNDa5FHdyd/IWH8NqRYAAyoTgVouCL14f0Xx2nfjEIEEVS8bERHMTNk+t4jM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTTi9FIqGgYiEtNblSA6OBtb1eLXuC3WajjgxFm9u+6aQEAxje
-	avRBTX3l1UHrQvWTyBKCSWcy9CYpeW3Mby6MtQC7686+8SPCYRkX8xJWxXgiytvNNyfPh5fv/qX
-	TUvTmW3r7kJJGBxV/ny0RlFNXHmHk9tuVkvsPHXKj
-X-Gm-Gg: AYBFou2T/7Iq7f+fkncDiClDcgg3gfso82ie8feT+CDWyvHbzyAarcBXRB9Okb3WcTj
-	tzLJPL6Oz7BEDtYmuMXsneS5sPQFo2a8UmnBiNNgwvL5neMRTztGhjnVbnbsTHYC8VEA4iBjSrS
-	YCgj2rVQ1HMNysq1XrKPoB76sGmi4mNU9UqY+6tG9LoDfrAKz8erjWap/SYVDnIPCV9mpmi5uWW
-	uR+IZEJiKFiYoRJFvmGkKh6tnY53mLR+EhQJRemdggmXNDfaO3pnR0f8f28zzUA9ifLmNOSPWoZ
-	miUE4Apyt3Ofb+ub4BtNb4C3hmqUbOWmoVCGCqWQXx91v3erxDV3P/jwFsVDgQ4sZ6JnPmqTthA
-	/+3RB7RDm
-X-Received: by 2002:a05:622a:81:b0:532:84d3:abb with SMTP id
- d75a77b69052e-532dc3f65e2mr976631cf.7.1790014584401; Mon, 21 Sep 2026
- 11:16:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O3r8zX3r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C5761F000FF;
+	Mon, 21 Sep 2026 18:16:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790014588;
+	bh=l4EJvxSj/BJsRSgpyFNvCVzIpp4EruN23HflkMWdmXY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=O3r8zX3rRAdTh0tZ7rs6DQexuLgO9QK0vtOA6kKeN8MadLlRZl/xbGDhgQW1w9lLr
+	 RIMwyajFNVsPe+RnDMMptexa7Z+k3f+aK8i6Wlj37NMZ8VtcfTGeDp8IJNnoMqI8nf
+	 23lATnS4SrmJdOkZpjKxmuDOeI3HwfpP3FYOgOLS4l1JlEoQ74ksPe2EPombWAmaub
+	 i0BPGA2SU2TmTWn+l8hwAesNTCiAzu0AJTgWPzfgXmjRD4GY6zCyoW8sQAgFR2JOfZ
+	 cSYaC5nq11ykUAUAqGSBD9FbdPahivlPZaQYvxyGMz4EVzYyXb85FpKYMU9aRTh/h8
+	 ObdTOs2AVvpyA==
+Message-ID: <7e555045eff532576b56daa4e023be1b@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: christian.koenig@amd.com, ray.huang@amd.com, matthew.auld@intel.com,
+ matthew.brost@intel.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com,
+ natalie.vock@gmx.de, mhocko@kernel.org, roman.gushchin@linux.dev,
+ shakeel.butt@linux.dev, muchun.song@linux.dev,
+ thomas.hellstrom@linux.intel.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v8] cgroup/dmem: implement dmem.high soft limit with
+ proactive reclaim
+Date: Mon, 21 Sep 2026 08:13:47 -1000
+In-Reply-To: <20260921-feature-dmem-high-v8-1-6371fa83d6c3@gmail.com>
+References: <20260921-feature-dmem-high-v8-1-6371fa83d6c3@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908-perf-gtk2-v8-0-e90d5d155f0d@gmail.com>
- <aqE_QOp-x1aOQsCX@x2> <aqFCMfb94Cdumemm@x2> <aqFDLQ5Yu7yg6Y2Z@x2>
- <aqFEdSZ40HkvipUr@x2> <aqFGVejYb-kZ8o_I@x2> <aqFIkFzVvCQqnzpy@x2> <aqG7c7RkOoaxMo1w@x2>
-In-Reply-To: <aqG7c7RkOoaxMo1w@x2>
-From: Ian Rogers <irogers@google.com>
-Date: Mon, 21 Sep 2026 11:16:12 -0700
-X-Gm-Features: AcwNN1UN_lh_zwfA58A54BWF4igCNKeINGJCFDqxOaVdSwz-6QzX_L2a05Esh1Q
-Message-ID: <CAP-5=fV6+mzN3Lf_mCAJ4aP42JFZsF55ekvt8XrX505xOWwrmA@mail.gmail.com>
-Subject: Re: [PATCH v8 0/3] perf tools: port UI from GTK2 to GTK4
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Matt Turner <mattst88@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-It looks like tools/perf/Makefile.perf is missing something in the
-clean target to remove libperf-gtk.so.
+Hello,
 
-Thanks,
-Ian
+On Mon, Sep 21, 2026 at 03:02:48PM +0800, Qiliang Yuan wrote:
+> The dmem cgroup v2 controller only provides a hard "max" limit, which
+> fails allocations outright once a cgroup's device memory usage hits
+> its quota.  GPU-bound AI workloads need smoother over-subscription: a
+> soft limit that applies backpressure through reclaim before the hard
+> limit is hit.
+
+That's not how max behaves. A max hit makes TTM evict and retry before the
+allocation fails, and since 747c4bb450ad ("cgroup/dmem: Add reclaim
+callback for lowering max below current usage") lowering max reclaims as
+well. So the premise doesn't hold, and the patch doesn't show a concrete
+case where max reclaim falls short and high would help. Without that,
+there isn't enough justification for adding a new interface file.
+
+Thanks.
+
+--
+tejun
