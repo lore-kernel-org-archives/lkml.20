@@ -1,114 +1,168 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63182493D31
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:58:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 22AFF48CD7C;
+	Mon, 21 Sep 2026 10:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789988331; cv=none; b=LNiE57eLLXqLScRuWKgQ577XBlfbYyzILUkWSGeby+LLbIWEU/8rC4U9MfrNiHBL4fCOA5x2g8TPf4SvzFDLix12PvpAnEzAcNSHkup1SQICbJZMR2OZ4vEdw2EXJhgBkVRTV7fAo+SrlCvYS9Be2Jy/fPk+QJY35LKGf2ihjZs=
+	t=1789988335; cv=none; b=czFX30iDCB9mQank1VMalcP+Q391ZrGFyc8owfCd0Me1TM0U+gTm9Q6mo9/bEe4ddg+rb+JylVns4/3L/YuwjlxL1bM2JB53a2HlAqzNUmPQqorjHs3LR8BMmE/WWmONMPHgjC2yrcag6f61DEJl4+sswgBVdkp3AyEIBkHvn5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789988331; c=relaxed/simple;
-	bh=9d+9ZBvxo6G6q3+OJNAocJqza+l2mLOys7SvfT4EZYc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ElIGmLOLRdFHWrbqTdxbjrrUTEBx081TJ+xdcmWjmxLhKkiVJvue6F0244bPaDq8g6Gkh+lCfMgKDpRXREdMHJ3wA/J0ZmvcX3lf3tQNIIXRiDWgpI4L6jJPE3KJ/bOaSADgIGx9dX1rehT9Asjn7xv2mRA2ce0BTYeB515d7fs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FVpF/4Y/; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789988335; c=relaxed/simple;
+	bh=dSuJLJ9ohCs7txtQHt7hy5Mg9PfzhT9ZTRhsbp3QTUc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=uMROaVwgq5+rUqjI4o/+xBj3yf52XWC1QJ1XCbVfaGxbyKSehqfYlcu2+vR3jMWQhrh8HHDuJHMBXuxJp/XdgvBQE2zQ3erxpXazx0fp/PPcy7OyLIcheD/kBpoZKPqIS63DqYPJFgOb9gITJclSFl2GOpzgkHeUAz+OKpheENQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BThdboLw; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FVpF/4Y/"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e620fa473so16459995e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:58:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789988326; x=1790593126; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B7gJgiKzwHYQowFViJmep5j79EdGUMtu2GzF/1ItERw=;
-        b=FVpF/4Y/gIh7FMCWrtBK7h7XQ6wDsnZvMDOSyk6xhiqrTuvT0Qc8dLqwiTxp66vgPk
-         +U+gC2cE+3N1E7oeIw86Z7unHMIEirBI0V6VeuIs3ci2kgzKPqrMPoVYb2prHkvhTA8t
-         PKc3wRA78LFzjba+qifcEZ0UvW6pJVdSr5G2OJGTFSZ4SMzvHtQ18q8ELsY2ZiM4Xtud
-         bN+wV0Ik3FGSAZuoZsVDLjlaEr/dKBbELKcwHjSTWFqY4LVQ1EJ/UgkkKTKPP0Sp8lca
-         8ZAgr4H/TWrOQL932zIEtkHiGRf404f3fueAs+hBE669WY5vfYNO7oqj6dR3o0Comu3m
-         q3Og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789988326; x=1790593126;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B7gJgiKzwHYQowFViJmep5j79EdGUMtu2GzF/1ItERw=;
-        b=oMIwCeBN61819stViQkE1HDGjpKssdMt6f8wsa41zYBbYbRCTgHkXOWOKZWsyq6xOu
-         dDq3DrDo/c+3OSLm5GzfvaV2wd4ynPEU8EnTcvIXmPCea/6IaHEL1Sk+/IlY95dXIgnW
-         TRFbSsWVIz9iUNzrOUI6w0OrG+gFikbZ2jNuECvklY/yU9dBqe/HerCfi152Xtj+4rj9
-         RUIt5pJh29293PnzMIAUjSoCf6q50bddXKCM7nyPjSwVlsXx1pi2krlkfkMqrmzdA4mB
-         porH2xw1W49Usum8dEE05KYF2mE29qC3aJJI1x7ixjxqGvlvrpp8ss3UkeQmJS+QNwv/
-         A9vQ==
-X-Gm-Message-State: AFuF++kvQvV0K04dxG+7g2RG8RXpq7BJqeFpWdhdMHptE79B4tQFxhLh
-	Xlgx+laKfZQfQtcWUx602apHZC2tgudKraiP9uKqMgV/CaA7pMMZ0T+I
-X-Gm-Gg: AYBFou2AZUaP7+tkL9JHKPz6AFT3qiEqQTKQc2rc9raIoNjo7mvOFqr/8BsEcQeJUcL
-	fY7ns++bEsux+UtOR4pomMz7TCLC/RcfiPpyV0Q0eUPDkWIiVjL7t4icSnm4elK+QIv7gnfOd2P
-	dLqx17jfmdIdvafuS4hLcqtSBkL+Li+RvRq0EXWnAzbH9gQABCwI88U8UklGnRRWxkvQd4YOSQE
-	QAKkxgdadYV9C8P8bNVZUEqH6L/O4yplCtkoQMAzqusjHEmDNWBEmUQTgWuAFlpP+q7LxbfIKrj
-	MDEFZKQSpdBHHiXsBFFOUFK0Gq/jUh8n0lvnIkChrsCSnqCfIJD2Y3DwDGFpdqlaNn+nz9m9o5O
-	NdCv74oPK9GZTdppZIoj62TgFAcUP/PI6GiYHKjzqkYSRDFmDqrA/Zm1J5YS9GUgArkBJC+fnSA
-	7yw0V+DWczfpLSz1AgdEBeE2bkwLHK0lay2MyEaHy5tNRVptvhtZK8lrk50gUclOKQOH7lLedve
-	jKw3UT35zqvTjHicrdyNui3on9M5eCYz7ULKd11VJBtMs0=
-X-Received: by 2002:a05:600c:3584:b0:49d:286:83d5 with SMTP id 5b1f17b1804b1-49fc5722755mr184267135e9.13.1789988326343;
-        Mon, 21 Sep 2026 03:58:46 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:7e03:5f00:f6cc:18d8:115:cfda? ([2a02:810d:7e03:5f00:f6cc:18d8:115:cfda])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd757e97esm5954785e9.8.2026.09.21.03.58.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 03:58:45 -0700 (PDT)
-Message-ID: <82fdf997-1e9a-4d67-88d3-fbd8a795b7bc@gmail.com>
-Date: Mon, 21 Sep 2026 12:58:44 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BThdboLw"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C57631CE0;
+	Mon, 21 Sep 2026 03:58:48 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 12E133F86C;
+	Mon, 21 Sep 2026 03:58:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789988332; bh=dSuJLJ9ohCs7txtQHt7hy5Mg9PfzhT9ZTRhsbp3QTUc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=BThdboLwJgWaXYoH9hZWEZBjiZRv2Fu3SH7AMV949zk04FGwQM/S7e44T41HHFqBc
+	 ig0U/2EjLwcRsv+kn9RsCmeVGvHrzU+JMOsKwYzE5TaT0Ma5zFoMq0vE69LvCBaH9/
+	 4ET22UaBocVm3SCd1ar8dSE+dmzg+C2+T55N2vcs=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Date: Mon, 21 Sep 2026 11:55:41 +0100
+Subject: [PATCH 19/21] mm/pgtable: disallow calling (pgd|p4d|pud)_page,
+ pgd_page_vaddr() and (p4d|pud)_pgtable with dummy
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] target: use assign_bit() where applicable
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
- "Martin K. Petersen" <mkp@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
- linux-scsi@vger.kernel.org, target-devel@vger.kernel.org
-References: <20260919130853.3041614-1-peng.fan@oss.nxp.com>
-Content-Language: en-US, de-DE
-From: =?UTF-8?B?Qm9kbyBTdHLDtsOfZXI=?= <bostroesser@gmail.com>
-In-Reply-To: <20260919130853.3041614-1-peng.fan@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-dummy_ptxp3-v1-19-cd40cf68242e@arm.com>
+References: <20260921-dummy_ptxp3-v1-0-cd40cf68242e@arm.com>
+In-Reply-To: <20260921-dummy_ptxp3-v1-0-cd40cf68242e@arm.com>
+To: Russell King <linux@armlinux.org.uk>, 
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Arnd Bergmann <arnd@arndb.de>, Andrew Morton <akpm@linux-foundation.org>, 
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Tianrui Zhao <zhaotianrui@loongson.cn>, 
+ Bibo Mao <maobibo@loongson.cn>, Anup Patel <anup@brainfault.org>, 
+ Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonas Bonn <jonas@southpole.se>, 
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+ Stafford Horne <shorne@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-openrisc@vger.kernel.org, Yeoreum Yun <yeoreum.yun@arm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3268; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=VRD/vI2+dr2wFISWOiD6XpoJffv8Fhm2BOtCv803wXw=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqsQ1Tk7kRq4iKLtEgxpTwxLYomoYS7bs7Di2hM
+ iOcaArqGTSJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCarENUwAKCRBt1cPRWsUx
+ M0sKC/9fNwlXps/S5pQLQVmMhjhsVPzMbJGpnIoLHcK+XvcblaBizi3oEaugKCqA4IADURZxi7N
+ zeU9amkUNdxMyAtLqtqsPRdxMSu+j3HYk690xsRuu/io3DcfvB5D0j/q9hCj04SJ9Bh6IUiV17O
+ gNPS5GYZCwInYoilXG5e+HDU5w+XUwHoO+31YrveczOJESkUQ629XwSLUYzTZszK4UTHSe8eHN7
+ WpArw7F0ghyhriT0dILPWFsphGS9NifdWOc2+ZQ/1vOfre04d8kJHQb36FIwB6SFR7yI/luwSuw
+ 5RS5NpbJ58nx0AUey7RNro8jvW+HJmYnG9NO6ooeCMeXaKWbwC0g4p0lpKTUN6ZFzwon0SGwno3
+ YUiLEt32U5HAd7gBIVuvVL/IZo0r+8jfF97cQKOV05fH01cS47H2K1DIwwEQt7PMkVszvEnPgEU
+ pitE91INdVgJpvsLhPH3gte8+ox1sUn6LlA7pzFKeTV7DYzVwjulFjYbnWcQM6VW58Nd8=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-On 19/09/2026 15:08, Peng Fan (OSS) wrote:
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Convert open-coded if/else with set_bit/clear_bit to the assign_bit API.
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
->   drivers/target/target_core_user.c | 5 +----
->   1 file changed, 1 insertion(+), 4 deletions(-)
->
-> diff --git a/drivers/target/target_core_user.c b/drivers/target/target_core_user.c
-> index edc2afd5f4ee..425ad1246a75 100644
-> --- a/drivers/target/target_core_user.c
-> +++ b/drivers/target/target_core_user.c
-> @@ -3006,10 +3006,7 @@ static ssize_t tcmu_tmr_notification_store(struct config_item *item,
->   	if (val > 1)
->   		return -EINVAL;
->   
-> -	if (val)
-> -		set_bit(TCMU_DEV_BIT_TMR_NOTIFY, &udev->flags);
-> -	else
-> -		clear_bit(TCMU_DEV_BIT_TMR_NOTIFY, &udev->flags);
-> +	assign_bit(TCMU_DEV_BIT_TMR_NOTIFY, &udev->flags, val);
->   	return count;
->   }
->   CONFIGFS_ATTR(tcmu_, tmr_notification);
-Reviewed-by: Bodo Stroesser<bostroesser@gmail.com>
+These helpers silently fallback to the folded helpers. With e.g., pdgp_get()
+returning dummy values, pgd_page_vaddr(pgdp_get(pgdp)) will now behave
+differently than pgd_page_vaddr(*pgdp).
 
-Best regards,
-Bodo Strößer
+Disallow calling (pgd|p4d|pud)_page() entirely, and catch when passing a
+dummy value to pgd_page_vaddr() and (p4d|pud)_pgtable.
+This will catch most abuse of dummy pXdp value at compile time --
+so far there were none, and it better stay that way.
+
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Co-developed-by: Yeoreum Yun <yeoreum.yun@arm.com>
+Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+---
+ include/asm-generic/pgtable-nop4d.h | 8 ++++++--
+ include/asm-generic/pgtable-nopmd.h | 8 ++++++--
+ include/asm-generic/pgtable-nopud.h | 8 ++++++--
+ 3 files changed, 18 insertions(+), 6 deletions(-)
+
+diff --git a/include/asm-generic/pgtable-nop4d.h b/include/asm-generic/pgtable-nop4d.h
+index 2d86325235da5..d2dccf7542da5 100644
+--- a/include/asm-generic/pgtable-nop4d.h
++++ b/include/asm-generic/pgtable-nop4d.h
+@@ -70,8 +70,12 @@ static __always_inline p4d_t *__p4d_offset_lockless(pgd_t *pgdp, pgd_t pgd,
+ #define p4d_val(x)				(pgd_val((x).pgd))
+ #define __p4d(x)				((p4d_t) { __pgd(x) })
+ 
+-#define pgd_page(pgd)				(p4d_page((p4d_t){ pgd }))
+-#define pgd_page_vaddr(pgd)			((unsigned long)(p4d_pgtable((p4d_t){ pgd })))
++#define pgd_page(pgd)				({ BUILD_BUG(); (struct page *)NULL; })
++#define pgd_page_vaddr(pgd)						\
++({ 									\
++	pgd_check_dummy(pgd);						\
++	(unsigned long)p4d_pgtable((p4d_t) { pgd });			\
++})
+ 
+ /*
+  * allocating and freeing a p4d is trivial: the 1-entry p4d is
+diff --git a/include/asm-generic/pgtable-nopmd.h b/include/asm-generic/pgtable-nopmd.h
+index bd40d3a5743ff..2afbf2d8659dc 100644
+--- a/include/asm-generic/pgtable-nopmd.h
++++ b/include/asm-generic/pgtable-nopmd.h
+@@ -79,8 +79,12 @@ static __always_inline pmd_t *__pmd_offset_lockless(pud_t *pudp, pud_t pud,
+ #define pmd_val(x)				(pud_val((x).pud))
+ #define __pmd(x)				((pmd_t) { __pud(x) } )
+ 
+-#define pud_page(pud)				(pmd_page((pmd_t){ pud }))
+-#define pud_pgtable(pud)			((pmd_t *)(pmd_page_vaddr((pmd_t){ pud })))
++#define pud_page(pud)				({ BUILD_BUG(); (struct page *)NULL; })
++#define pud_pgtable(pud)						\
++({									\
++	pud_check_dummy(pud);						\
++	((pmd_t *)(pmd_page_vaddr((pmd_t) { pud })));			\
++})
+ 
+ /*
+  * allocating and freeing a pmd is trivial: the 1-entry pmd is
+diff --git a/include/asm-generic/pgtable-nopud.h b/include/asm-generic/pgtable-nopud.h
+index 7475d0bd0f2e0..3264673c0c386 100644
+--- a/include/asm-generic/pgtable-nopud.h
++++ b/include/asm-generic/pgtable-nopud.h
+@@ -77,8 +77,12 @@ static __always_inline pud_t *__pud_offset_lockless(p4d_t *p4dp, p4d_t p4d,
+ #define pud_val(x)				(p4d_val((x).p4d))
+ #define __pud(x)				((pud_t) { __p4d(x) })
+ 
+-#define p4d_page(p4d)				(pud_page((pud_t){ p4d }))
+-#define p4d_pgtable(p4d)			((pud_t *)(pud_pgtable((pud_t){ p4d })))
++#define p4d_page(p4d)				({ BUILD_BUG(); (struct page *)NULL; })
++#define p4d_pgtable(p4d)						\
++({									\
++	p4d_check_dummy(p4d);						\
++	((pud_t *)(pud_pgtable((pud_t) { p4d })));			\
++})
+ 
+ /*
+  * allocating and freeing a pud is trivial: the 1-entry pud is
+
+-- 
+2.43.0
+
