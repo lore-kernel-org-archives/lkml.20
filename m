@@ -1,74 +1,77 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD6A2D238F
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:59:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5803529992B
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:00:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789955996; cv=none; b=UIHL21rH0J11kVgOnebBXkD/ne5PiBPTjEgDw8pgm4R3x/lfRqMA9jaZHa7voAn/1CPpw5KN0g8HJVMYJjMTaeO8mcPDQGeCuHxYvYl+swqtxmgJ0muONz9cSANMGE8nLyboRl0n5AX9Q7Ksucd3PVWrr324JNSra4gpnoa3BSU=
+	t=1789956023; cv=none; b=ETDgtL6wQaAvZSK/RVPthSNZcnOeBchhmYMa3xuqshnrATBQKr+/pnz0zUyevyfKvZfb4L0nLz2/I/YY3oAsir4R4MpSOzu60imDwQl4IoSz4PORU37LInC0ONWjPMdEgoay7baIiX6LigpbdZJqOt14s46Q30qH/GQN0FZwGLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789955996; c=relaxed/simple;
-	bh=kW5bVQRCoqrI5ZVf1ECPBcmjU5MFYED1PQS4A/dkRFI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G74bFaOy5EkiyWzjaeK6oNN+2pllahqKz3MD4hFghM+jxaaQlljyluzTKv+R6wf4pltDXdsseM16alX1H+HioRBVYunsSTIvpNBDyP5FbbsNqwlbhoFuZCQs4p7mnMBR9fGyMxoFsudJLYgEOa4sqs7Q74kAOVhai4B+zMKp6E0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KQG0VbOw; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789956023; c=relaxed/simple;
+	bh=A+RJJnYsn8OIpInlPmG+k5uxSqICSok8KjI8Y67ZW7I=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dQjAm8k+TtEWO+EQK7rrsxI8WN8JC+ffyLqClMleW7eHmp3gr2BKd/QXC7avbib46hmfk/Zy+jVPyxZi5qCs6dpx3f/hSknPpwRfY6CmuOvhA459QDXQGVKdqu/Ntc7tECOAWWnzby3Ytr7PAkyIi18eOlj/WuYUCOge95UyfJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TSRuTE9O; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KQG0VbOw"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2db18fe433fso21335385ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 18:59:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TSRuTE9O"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso17689285e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:00:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789955995; x=1790560795; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789956020; x=1790560820; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5asLPp18b/l+0s1qeYWjIfvnNcbJX0h5CaYuSOAhSt0=;
-        b=KQG0VbOwaJODsTx8ep2xVGKUlfPzJHjod3p5oWevHxM9G+IhMQHQFTtVoGWEP+QMXy
-         RdYBrm1CyWVhfSoU/f+zNGC1V/Mt1rgoioDFQXvf4BFFb2MYbvJB+AXXy2p9SG19QjWy
-         CWkYMy0pGO/7IaWaXtR/I6Islxno2tOJOI1TWswE/FfgbayG2JlFDbqKR7PfVJ3GvxcR
-         vdYnY+G9gHVPJ3468KuKgG900uXuqr32I2+2ZD2VmQo2oB65T1J0aDk/5B0gmAYpNg4X
-         v/igLOaA3LBG59DMFzAMltSNrpOre6+kxFjhO/reRvzMcIZ3IhRINKvLapTjzQxCE2uj
-         k2hw==
+        bh=Dl3X5lIuCDCuxRfR4V0ReBm9Zl+q43AQqD3mJ2yz/dQ=;
+        b=TSRuTE9OMBIbeg6cL+ZEbFFWg7CMxWLvGWbogEFYUTnuc9BGGE/y460dOS6Oq0qr9H
+         kfPiI9TiVSG9WMrR5rsrAqABJhud+AaqcVNzRk8E1xj4Hubu3k3s970EgA9QPKQqBu6f
+         geoz9ErI232YZNTbePQchNtNnH7LjNZ1GSf2XJuPluWRgTvDLsuqfiaZObWBg0nh9VD1
+         7EtAuktU8gn8QF7B3kUoec9UxTLRKBzri8PRGP4FjVpGDAlxyzHSJJHzjl5nzwNKXdMD
+         tl/4c9dwZVqNYmAwdQW8pLn1bZBiVL3sqEPCTWH73fDWIYfMVvejv/y4BCRnZy913Yhx
+         F+Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789955995; x=1790560795;
+        d=1e100.net; s=20260707; t=1789956020; x=1790560820;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5asLPp18b/l+0s1qeYWjIfvnNcbJX0h5CaYuSOAhSt0=;
-        b=x4aLWFy4Bh5FfgCubZNlWZ32tV0ROHNcTOhmbLOuGGrt4C1ZPux0PLpEBcKoD41Skl
-         V1Dr734NJvcU/iQtrVyFbiSSWxnII4yoO6cIrey2iM/MwEy2/PeRIXbjt9HqdYMgDdOD
-         /zeB2dyWJ6X9eyyp3Nt+MuEm087kE2VDjLbLckTWZS04b1D8pEYvm+gZDkty6He68L37
-         op/rEbO3GAd2kfAHkbvt8qpMlGVv31cwBqjbJcm2Oh9LlAsRZ3LK+rgahYMKGQeBHHbz
-         RBKJIo0v/eqO1ohm+agyqwPZh/VcyxbyFdZf/XCu9V0DteZfKvBrHabT+PWGh1uHzmf9
-         r+1A==
-X-Forwarded-Encrypted: i=1; AKwUvByDW+puLBTfd42geXH1HIVNp9CC6TMiK/6oCpHhsBzEX3n+Nwfczor8e8m2vL7fbRwXWxfU5YNwJvKJeZk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNopTcXIHFcJvVUwu0rHPUT9+v9yV1BlU0oMaAR8KGcHxPfJi3
-	LX2dLKJ+1N7mD4M3lCvUn74nx5729ORboGqrZ+j52po9HS3FSDzTP4CU
-X-Gm-Gg: AYBFou0mG2LMwCOsoWH3TyS0zA6DkdSpWELoBXtQq8RScSDOSYTMz3Z8BgAzl79F2Bt
-	dE6wAz86HBZXdvE+tpqkK8CzsWJTzBiqdwXwsElNaJqj15i7B4xbc6tJQj5WgUcrThOy1CP/TP1
-	HjhvkVM0MOkPT8MMri6dvvvHb4oERftxFw+S5S3CxGTJZyL/Ottdbtw7WjIgyXUO7GAF1hu8fQo
-	lPN331hsw6jB44lp46vSqz6ZnPS0Ei2vxZaDIXhMCj7lxQebS5/psfIN8ASo5d/c2jkgceyWoLS
-	u/P9vATDCqgXSWhykxC+yF/pDcCA3Ft17qqJgezjl+R//NocbNcnmRz1OE0Ol4VJ3tU+MMZO94p
-	nD4Qm2eDG4bzw5N9nk0E2B/+5rPCD/tAPMchAXsoqOmnp28aEgIvhfIN90SyrQ4GEV6Rvc044En
-	WilCttLgUO7BscW3XWfVgrKRrXyXq8HmCD70rpLj/a5RQBH4nFPHTN3kgM7njExT8AdW/5ATykd
-	M14DYpsghZkFY9zUvinC4nydn08peGpA5uDu0CHqw+R6tny1B+weqfKVCKtA/zyiTtC5VnMd1yJ
-	TgBjzaGutmnEBBj8z0YazIWcqQwWX7SavtYmJz46Pj0lWko0YHX6F0/zOyY=
-X-Received: by 2002:a17:903:2acc:b0:2dd:c100:b2c4 with SMTP id d9443c01a7336-2ddc100b34amr85692785ad.47.1789955994727;
-        Sun, 20 Sep 2026 18:59:54 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df46c0dad9sm7458995ad.29.2026.09.20.18.59.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 18:59:54 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-usb@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	linux-tegra@vger.kernel.org (open list:TEGRA ARCHITECTURE SUPPORT),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] usb: phy: tegra: embed UTMI pad config in phy struct
-Date: Sun, 20 Sep 2026 18:59:52 -0700
-Message-ID: <20260921015952.1047410-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=Dl3X5lIuCDCuxRfR4V0ReBm9Zl+q43AQqD3mJ2yz/dQ=;
+        b=fUse6E0/mYcPCJq4LoJJcCdexkVLIi1EvZbVFZw/F6cGiIFSsYZJOMGoqEs1rsYy9l
+         /o1/mJYVZlkavqIWGtHBYb8Y3TRi2NuXUDQ+SyIRkFxi0ad/wswgrtuwD8jSK4JnqHJ5
+         oMxXqjzJ8GdyoHrsifww+pofHlfH7xug/yNH2dnVCyZY7nUkmyAC+b6ynbuvp29Ay+6u
+         ahYgwZHTi0GFoAEvzYTvNagCgWLqC1C066ddyrBymfdGd1c5kRGcEyruRWtEqJfAWGhk
+         x2b8ajXWAA2ut/+vkG7A7N3XnDQw58V/BAZ3TUJ7Y9bsupgLdOPRubiGzlSUbAJFWk3F
+         7J7A==
+X-Forwarded-Encrypted: i=1; AKwUvBxwpF5o/ogwv4aG3afWHO0Hwvu73afnaVaCxhI48RhzzKsiRyDHWsdjFW1A4rEH9rQumGC6aPZfNX8gS40=@vger.kernel.org
+X-Gm-Message-State: AFuF++neDJdmh58pMUmNnN7y429Uv0qJCDDEhHA4rtg11VPFpcGm/YCb
+	QEmG8TZMmVa1IPw4yK2/YgHnBl5eiLctYubd0dd2tCJxxmvEVnwEgUgp
+X-Gm-Gg: AYBFou3ioa2VAtxewizn9fg7KXFnQpQreAOeHwgDDNOpOlrXmrRdrPJzDvHa+cWeZci
+	3S47GHiwRXUn1wxsr54VOIeUTMjnS6KOVABFQyJpM86GGbjYudxLR+4K0kb6ZYzhkTXOlFbMmrd
+	7ZnTKhJj1wWguXRjoETn6Ds9pfK7OCxYJ8L5RiEcab5ktJbpdnxTAE94aYvzi0lR0ativNvv5ml
+	ylsF66yFi5ft9dxfHDMioRfFncXT0PhV9QvXNrgYl20ajMhY/rUtE0Y5CioCcksFx0/+VgV376R
+	FrPsSeObFciN/AjfmteIDTCiahTEE0unMBXpAisLM4T0nRR6Tirjleq5uLY8HsZPhfN+8jVzV1d
+	T9p6btHQ4HvppNcXIRQd4pnxAEK3DT646FoCH2xLblZpryAxR1tKEJ+wqzND3ScgjE+wiRou5rq
+	yZFUfS3lpHywsU+OTx76dvk8fzLEJqw/hQbBiZrwrj4fQt+AfIjVe6vnK5/qV0xrnkxx8DlPGQe
+	dS19nXspV2NAgrJh7BytN2EmXWe9WJ6n8Hn3qia4xb/ZucqYgoRPj5w8qLX7TRWqoWZO90gFU0s
+	WNxX8UBcwhds1rImWTPUeZ1mxXV1Afp5s2fKh6Hh0qQmQ78rR8VapnwFcWq/OFixWsakeHLiJPo
+	a1Q==
+X-Received: by 2002:a05:600c:4e50:b0:49c:ffde:45ff with SMTP id 5b1f17b1804b1-49fc5728f5amr118239615e9.17.1789956020203;
+        Sun, 20 Sep 2026 19:00:20 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a8e9-c501-2c36-515f-49b6-c492.310.pool.telefonica.de. [2a02:3100:a8e9:c501:2c36:515f:49b6:c492])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd10273fsm193284995e9.7.2026.09.20.19.00.18
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 20 Sep 2026 19:00:19 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lian Wang <lianux.mm@gmail.com>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] mm/damon: preserve temporal quota state for unmeasured PSI goals
+Date: Mon, 21 Sep 2026 04:00:11 +0200
+Message-Id: <20260921020013.33105-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,94 +80,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The UTMI pad configuration was kept in a heap-allocated void * member of
-struct tegra_usb_phy, even though the driver is the only user of the
-field.  Embed the struct directly in the phy state to drop the
-allocation and the void pointer indirection.  The config is
-zero-initialized when the phy struct is allocated, so no extra init
-is needed.
+A PSI quota goal without a previous sample is scored as achieved. This
+leaves the consist tuner's input unchanged but sets the temporal quota
+to zero. Preserve the temporal tuner's previous goal-achievement state
+using its effective quota, as SJ suggested [1], and test the helper with
+explicit PSI totals.
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/usb/phy/phy-tegra-usb.c   | 15 ++++-----------
- include/linux/usb/tegra_usb_phy.h |  2 +-
- 2 files changed, 5 insertions(+), 12 deletions(-)
+All 42 DAMON KUnit tests pass on x86-64 and i386. With the original
+scoring retained in the extracted helper, the new test fails on both.
+In a live damo test, a goals-only update changes a running 64 KiB quota
+to zero for an unmeasured round without the fix. With the fix, the
+effective quota stays at 64 KiB. A full damo tune also needs the separate
+quota-reset fix [3], so the context update preserves the running quota
+used for this decision.
 
-diff --git a/drivers/usb/phy/phy-tegra-usb.c b/drivers/usb/phy/phy-tegra-usb.c
-index 00443a7beaeb..12abc99bdf89 100644
---- a/drivers/usb/phy/phy-tegra-usb.c
-+++ b/drivers/usb/phy/phy-tegra-usb.c
-@@ -392,7 +392,7 @@ static int utmip_pad_close(struct tegra_usb_phy *phy)
- 
- static int utmip_pad_power_on(struct tegra_usb_phy *phy)
- {
--	struct tegra_utmip_config *config = phy->config;
-+	struct tegra_utmip_config *config = &phy->config;
- 	void __iomem *base = phy->pad_regs;
- 	u32 val;
- 	int err;
-@@ -549,7 +549,7 @@ static void utmi_phy_clk_enable(struct tegra_usb_phy *phy)
- 
- static int utmi_phy_power_on(struct tegra_usb_phy *phy)
- {
--	struct tegra_utmip_config *config = phy->config;
-+	struct tegra_utmip_config *config = &phy->config;
- 	void __iomem *base = phy->regs;
- 	u32 val;
- 	int err;
-@@ -888,7 +888,7 @@ static void tegra_hsic_writel(struct tegra_usb_phy *phy, u32 reg, u32 value)
- 
- static int uhsic_phy_power_on(struct tegra_usb_phy *phy)
- {
--	struct tegra_utmip_config *config = phy->config;
-+	struct tegra_utmip_config *config = &phy->config;
- 	void __iomem *base = phy->regs;
- 	u32 val;
- 	int err = 0;
-@@ -1324,7 +1324,7 @@ static int read_utmi_param(struct platform_device *pdev, const char *param,
- static int utmi_phy_probe(struct tegra_usb_phy *tegra_phy,
- 			  struct platform_device *pdev)
- {
--	struct tegra_utmip_config *config;
-+	struct tegra_utmip_config *config = &tegra_phy->config;
- 	struct resource *res;
- 	int err;
- 
-@@ -1345,13 +1345,6 @@ static int utmi_phy_probe(struct tegra_usb_phy *tegra_phy,
- 		return -ENOMEM;
- 	}
- 
--	tegra_phy->config = devm_kzalloc(&pdev->dev, sizeof(*config),
--					 GFP_KERNEL);
--	if (!tegra_phy->config)
--		return -ENOMEM;
--
--	config = tegra_phy->config;
--
- 	err = read_utmi_param(pdev, "nvidia,hssync-start-delay",
- 			      &config->hssync_start_delay);
- 	if (err)
-diff --git a/include/linux/usb/tegra_usb_phy.h b/include/linux/usb/tegra_usb_phy.h
-index 6343f88df5de..953ba9f06c2a 100644
---- a/include/linux/usb/tegra_usb_phy.h
-+++ b/include/linux/usb/tegra_usb_phy.h
-@@ -76,7 +76,6 @@ struct tegra_usb_phy {
- 	struct regulator *vbus;
- 	struct regmap *pmc_regmap;
- 	enum usb_dr_mode mode;
--	void *config;
- 	const struct tegra_phy_soc_config *soc_config;
- 	struct usb_phy *ulpi;
- 	struct usb_phy u_phy;
-@@ -87,6 +86,7 @@ struct tegra_usb_phy {
- 	bool wakeup_enabled;
- 	bool pad_wakeup;
- 	bool powered_on;
-+	struct tegra_utmip_config config;
- };
- 
- #endif /* __TEGRA_USB_PHY_H */
+DAMON selftests show no new failures (QEMU TCG guest; the wss_estimation
+test misses its accuracy bounds with and without the fix).
+
+Changes since v1 [2]:
+ - Use the previous effective quota for the temporal decision, including
+   when it is zero. Keep resetting last_psi_total for new and updated
+   goals.
+ - Move the current-value calculation and last_psi_total update into a
+   helper. Test both tuners with explicit samples and check
+   last_psi_total after each call.
+
+The series is based on mm-new as of September 20.
+
+[1] https://lore.kernel.org/damon/20260916001311.101024-1-sj@kernel.org/
+[2] https://lore.kernel.org/20260915060937.3423-1-kmehltretter@gmail.com/
+[3] https://lore.kernel.org/20260921003047.12041-1-kmehltretter@gmail.com/
+
+Karl Mehltretter (2):
+  mm/damon/core: keep the temporal tuner quota over an unmeasured PSI
+    round
+  mm/damon/tests/core-kunit: test PSI goal values with explicit samples
+
+ mm/damon/core.c             | 30 ++++++++++++++++++++------
+ mm/damon/tests/core-kunit.h | 43 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 66 insertions(+), 7 deletions(-)
+
+
+base-commit: 185111f116aabf202d12ce440c0f6e9bae073514
 -- 
-2.55.0
+2.53.0
 
