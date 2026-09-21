@@ -1,97 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m11867.qiye.163.com (mail-m11867.qiye.163.com [115.236.118.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 950D930DEA6;
-	Mon, 21 Sep 2026 08:34:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B3145519A;
+	Mon, 21 Sep 2026 08:34:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.118.67
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789979656; cv=none; b=kdgVxiotdamlEBVdi9XIqVbI2OyeHdYOjOv89JQ8GD4cpVQy3l7WUeffTvCW9MVhiDQIXtwZXtWdqPPUCEE3Q4ojb01AK6TXsJsvfF2iZy+E6FxefRJBPQjI0TpsBdVA9+IAlroKlplG4GxId7miwfjH/8UMffpRxhCbw4TEcvw=
+	t=1789979662; cv=none; b=bSyB8gXxaJxQzqhg4Uom/MPwaEoC2Iu7UGV6NxRlCjLTafe6lDTUGf056/zehmWl+LpAFprOlwYVlFwV14W0VoyIhirQXZK0U5nAWhuDH5o8gTN2tene2L9lVuks1uNqlAwjG5FX5NdY745YbDIuUxQztX1hs97jLRw27HN4tVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789979656; c=relaxed/simple;
-	bh=LKQBA+epEihVp/53sMaunef0vZqLpiZm8EEONl8LDls=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W/CxlHQ42EHvxDyOBVQqvVMQapnqfqKlaf2XJOCrFUDFDuzBN+smUhNPBaLdkGoMHnC+0mSRHcgnjNPQKSVohMfrO4K/EMUjFw2Md4vI9SYLl32Y9EevOmXXbD0Stf90Iw/QRWOSUc7PxuzfE1pP1MVbcOSQxSTXCMerjgbdgSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mP3nWF7g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789979662; c=relaxed/simple;
+	bh=csbji0AM0kULkpjajyHXb/OGoYxrhenXLE742n5Wr7g=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=JSeXuNNKX84Tp5/E6b2PfCaLQxp+Nh/7jxpSta1gKEOxyhy6jvuNyEVFIUX5+ThH/MCVPgEn6jjG9TirsJcxpdFy9J6cVK167q3711SmjerPq0DNzZf5rrX9amuXNYABdu93OxIp3OExsWX1bdMzS2/7N9ki4sVxiHXRm7cC9Zw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=fD2nnMrH; arc=none smtp.client-ip=115.236.118.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mP3nWF7g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A5741F000FF;
-	Mon, 21 Sep 2026 08:34:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789979655;
-	bh=8gbl7Xm+wSfCvDbbc3qvZFGs24Sa3c8Li3JzmJET1KM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mP3nWF7gGESdM2fA9CMjpIcdOIQbsFwFIUK+oQtYtVi0L8AORfOrkM/amIbo3cP9Q
-	 hHgvUapxO/ZL65CqoVmV7I8tVJrNI67pJqMr7lzly8tDbpcZTAy0dlZjix+U6/0S0M
-	 AfJWOBYCcIUSKvILtwULBkbfgJyIeIT9PUwgZpMtDLcNWgGoYS+RykMJSqf6Aw1vp/
-	 06IDQWzunYXkyj2/L7kWDuSfIYq5+zRt0odBfXT6cPrkA53am5SQ4H9HyJCtKhiX8d
-	 VM1hEYw0eO7WtEqQjaGf61b0SquKks2QdNFea/yuiMdPjZy5C/Eqbimcg/QHJbea/H
-	 u7XNeMACJxK7A==
-Date: Mon, 21 Sep 2026 01:34:14 -0700
-From: Kees Cook <kees@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] iio: adc: ad7173: Remove const from chan_arr allocation
- type
-Message-ID: <202609210131.8441BD398B@keescook>
-References: <20260917211436.i.689-kees@kernel.org>
- <aqzfhNmU3sazdCTQ@ashevche-desk.local>
- <20260921002128.46dc36db@jic23-hlaptop>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="fD2nnMrH"
+Received: from localhost.localdomain (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4e89bec58;
+	Mon, 21 Sep 2026 15:18:29 +0800 (GMT+08:00)
+From: Shawn Lin <shawn.lin@rock-chips.com>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shawn Lin <shawn.lin@linux.dev>,
+	Shawn Lin <shawn.lin@rock-chips.com>
+Subject: [PATCH v2 0/3] Add SDIO userspace passthrough support
+Date: Mon, 21 Sep 2026 15:18:16 +0800
+Message-Id: <1789975099-157594-1-git-send-email-shawn.lin@rock-chips.com>
+X-Mailer: git-send-email 2.7.4
+X-HM-Tid: 0aa0c2d49c1403a4kunm73dcdfcc310915
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGUxPSlYdGU4aSB5PHk
+	pNHk9WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=fD2nnMrHAAhYAQ0xtGHcWgxCwME7DPtZ51AQYKQ759guhr7nOw+I92tw2YJ+Jlu7IsiaSb14ZsqkkJYk1F9cpgnWZJOMuEskvJoBUErBwWcKDBq6tc92m0JkIk6nClX/v/fTtGvu/H3u20N7UuFw1fDkiUfBGAdxhhmpcMm4W50=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=7rdtTWnmmeB2ukmMkSFMGLI0SlyKO6Vy1To4o+dFke8=;
+	h=date:mime-version:subject:message-id:from;
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921002128.46dc36db@jic23-hlaptop>
 
-On Mon, Sep 21, 2026 at 12:21:28AM +0100, Jonathan Cameron wrote:
-> On Fri, 18 Sep 2026 09:51:48 +0300
-> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-> 
-> > On Thu, Sep 17, 2026 at 02:14:37PM -0700, Kees Cook wrote:
-> > 
-> > > In preparation for making the devm_kmalloc family of allocators type
-> > > aware, we need to make sure that the returned type from the allocation
-> > > matches the type of the variable being assigned. (Before, the allocator
-> > > would always return "void *", which can be implicitly cast to any
-> > > pointer type.)
-> > > 
-> > > The assigned type is "struct iio_chan_spec *", but the converted
-> > > allocation type would be "const struct iio_chan_spec *", as the size was
-> > > taken from "*indio_dev->channels", and "indio_dev->channels" points to
-> > > const. As there is no general way to remove const qualifiers, take the
-> > > size from the assignment target instead. No change in allocation size
-> > > results.  
-> > 
-> > Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> > 
-> > ...
-> > 
-> > > -	chan_arr = devm_kcalloc(dev, sizeof(*indio_dev->channels),
-> > > +	chan_arr = devm_kcalloc(dev, sizeof(*chan_arr),
-> > >  				st->num_channels, GFP_KERNEL);  
-> > 
-> > I would even dare to put it on a single line now (yes, 86 characters long).
-> > (No need to resend, Jonathan I hope can tweak if he agrees with this.)
-> Done, though I would assume Kees is going to send a mega series
-> that rewrites this line anyway and might well make it even shorter.
 
-I will indeed. :) But Coccinelle will be happy with whatever shape it
-has. (It'll swap "devm_kcalloc" for "devm_kmalloc" and then gain "_objs"
-and lose ", GFP_KERNEL".)
+SDIO cards are normally driven by function drivers (brcmfmac,
+mwifiex, rtw88_8723bs, ...), but bring-up, debugging and factory
+test frequently need to poke the SDIO register space directly:
+CCCR/FBR in function 0, or vendor registers before any function
+driver is bound, and some deployments, notably lightweight IoT
+boards, want to handle the SDIO function entirely from userspace.
+Today the only way is to write a tiny kernel driver per device.
 
-> Applied to the testing branch of iio.git (queued for next merge window
-> subject to tests etc)
+So this series adds raw userspace access to the SDIO register
+space as well a small reference client. Meanwhile, adding a new
+documentation about how to write a proper SDIO function driver,
+because I have recently been working on SDIO function drivers
+and kept referring to the existing drivers for guidance. It turns
+out that the knowledge is scattered and there is no unified document
+describing how an SDIO function driver is supposed to be written,
+despite the MMC core having clear expectations about how the APIs
+are used.
 
-Thanks!
+In particular, the interrupt model has many pitfalls:
+sdio_claim_irq()/sdio_release_irq() must be called with the host
+claimed, the handler runs with the host already claimed and must
+not sleep or claim the bus itself, and sdio_release_irq() must be
+called from ->remove() because it is the last chance before the
+core removes the function devices from mmc_remove_host(). Recent
+fixes around the SDIO IRQ work and host removal and the discussions
+on the mailing list showed how easily these contracts get broken.
+
+Also worth documenting is the buffer requirement of the CMD53 based
+helpers: the core builds a scatterlist directly from the caller's
+buffer and the host driver maps it for DMA, so vmalloc() or stack
+allocated buffers are not acceptable, while the CMD52 byte accessors
+are safe with stack buffers.
+
+Changes-in-v2:
+- drop RFC as I don't include mmc-utils to be sdio usersapce tool
+- add sdio doc
+
+Shawn Lin (3):
+  mmc: core: Add SDIO userspace passthrough character device
+  tools/sdio: add sdio-raw userspace client
+  docs: mmc: add introduction to writing SDIO function drivers
+
+ Documentation/driver-api/mmc/index.rst             |   1 +
+ .../driver-api/mmc/sdio-function-drivers.rst       | 211 ++++++
+ MAINTAINERS                                        |   2 +
+ drivers/mmc/Kconfig                                |  11 +
+ drivers/mmc/core/Makefile                          |   1 +
+ drivers/mmc/core/sdio_bus.c                        |  12 +-
+ drivers/mmc/core/sdio_cdev.c                       | 189 ++++++
+ drivers/mmc/core/sdio_cdev.h                       |  21 +
+ include/linux/mmc/sdio_func.h                      |   4 +
+ include/uapi/linux/mmc/sdio_ioctl.h                |  48 ++
+ tools/Makefile                                     |  14 +-
+ tools/sdio/Build                                   |   1 +
+ tools/sdio/Makefile                                |  66 ++
+ tools/sdio/gen-sdio-ids.sh                         |  59 ++
+ tools/sdio/sdio-raw.c                              | 714 +++++++++++++++++++++
+ 15 files changed, 1346 insertions(+), 8 deletions(-)
+ create mode 100644 Documentation/driver-api/mmc/sdio-function-drivers.rst
+ create mode 100644 drivers/mmc/core/sdio_cdev.c
+ create mode 100644 drivers/mmc/core/sdio_cdev.h
+ create mode 100644 include/uapi/linux/mmc/sdio_ioctl.h
+ create mode 100644 tools/sdio/Build
+ create mode 100644 tools/sdio/Makefile
+ create mode 100644 tools/sdio/gen-sdio-ids.sh
+ create mode 100644 tools/sdio/sdio-raw.c
 
 -- 
-Kees Cook
+2.7.4
+
