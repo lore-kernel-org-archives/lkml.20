@@ -1,63 +1,62 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFB949BD93;
-	Mon, 21 Sep 2026 09:28:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A91D47D465;
+	Mon, 21 Sep 2026 09:29:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982935; cv=none; b=FgChgL5y2zEcu0kbWBBJp/sE4WJhIloQqF5CvKgecFx+E4DOKA8a/ghUo7MfogwcO9CFoA2QavIHDwd23b64BN4sgUyLzq19wI42AdKOFBSBkVOU2aSpMZnkQZR0BpmH2gnndgM8GQtzePg3na/5OOE0dVY1THWa88wcPYpKWxc=
+	t=1789982945; cv=none; b=ZkHVSXJz2PevPO+CX7lZiRbLmy5l9gCKge7LpupjRbjOIRjeVe09ifbezhIN0AFsAwLLgMxLlfcIn3tW9DmeQspO7MDS112j1e5lzXoecwGu3bq9DMGeMU9lDFIxmPi1e/k+CtYx+c/jqoER1m+1G4K83V6OH1sMLy/cgXBIm5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982935; c=relaxed/simple;
-	bh=i6H6ppuxM+2Kbgtv3rlIf3UgY5ec/XM17HJ384msIRE=;
+	s=arc-20240116; t=1789982945; c=relaxed/simple;
+	bh=R5WRGvysW5vk3fK0sVav36+0ecU3kdgEeUHocOU4P1E=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=uQQD+UGKLhbA9BF+pC5JzUrkMslIu+eLeWo+OeqlIiLYH/W6CObV/D8wZ8HSEnOcqclDpBZSBHmi6SoLs9hpDBIAB79jIWXM4kHTg5v2JeqQMx7S71cnvR55f5C/XDqm0UXXPKQ6yjb68+ojNjgKLiGleGe5aT6isT4ZTzD8Mng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=t068CVeX; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=F0UtdufA; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=oET20CK0/z85jqItT5GeTG11UQ665pwl+qxTh+9sRRBBqggLjpxkNio7GsUYDGPobrYxsHb1Kuf00PjlB/rjUP0Ums4brUoftiT0+2Rkih/7ty88gRp8a/+OUw76+tQWI8gfcwcLnJQ0Tpik47aCO4M0M0opiJMt5Xtmh4ZncvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=HcBpm5i4; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=1y+b3XGH; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="t068CVeX";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="F0UtdufA"
-Date: Mon, 21 Sep 2026 09:28:48 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="HcBpm5i4";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="1y+b3XGH"
+Date: Mon, 21 Sep 2026 09:28:50 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789982930;
+	s=2020; t=1789982931;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Sgyjd4XqVYJr4rBUKRXIR72JMribfa+0sQyiCIbn+fI=;
-	b=t068CVeXJ2ud2pnx43NoaxG77fRamXctGPZ+vCEcJZCFRtarRXuHGfj9UkcJCjtG065RBV
-	OoZV7o9r8FuCYRYP/cv6xOyA8jQN0HslG9E3X5aWfthLIap2xJwb0jqhosM56k/RVqp3Yj
-	FZ+vZSGDi4+vuvNEtOxFz+4ME2iCkKoGwQWhgnGmzeiLLZjGC5T1tcxoLuD04YAJ73mBMN
-	63cblXLV4AuJhWSV5N3Vqh9Sv0W+1EacWogEprW/QfPInxcWHmjjuwXOy4A3iSYNLIkpv5
-	EQ/a7BDw2MPbxhsHlj+1OGvRCxFufBQvrB0zdV6drkgAvYrfDtJw6DDy5tCaJg==
+	bh=x+RTmrY9WT3Fu5WFqzPd2a6ODWgh0A7Zdvi68KlS8Tk=;
+	b=HcBpm5i4r/eY19orhgB6m5iw+ISKxYi8hvhdTf64qWDKwu/Yi7iFpPrpWDhnigVzQX4F5h
+	lp27fGBJ4MMTC+COdyBv58sWHQ1A6r8+aC4xbBlBG19ktRUsa1gw7Bzfnk/J/603BU2Mbl
+	scMkwvheI147ID3PTwX6b0bBBOSO2tAz9jD0PvbsmMglFAsXT3yMdjXKeb0YsgKtLwx5Fz
+	dy+C0DZz0lS+im9vxl1yL36WOnrrh4GbPOW8FNQUOX80JKRc1kf7GatRSvaFLaTxJTriTU
+	ySGnYYhryN20ewnMBl+MrkV7FvYknaxgys+fl5mVrsUSDqh2xWOOBkK0fNt8hQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789982930;
+	s=2020e; t=1789982931;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Sgyjd4XqVYJr4rBUKRXIR72JMribfa+0sQyiCIbn+fI=;
-	b=F0UtdufAs3eACWgEk88rVhViryyG1i5W62FizdjC1U24cD8XHctYwvKgwVYhs614p6gekm
-	PP7bZLHF5fAQUNBA==
+	bh=x+RTmrY9WT3Fu5WFqzPd2a6ODWgh0A7Zdvi68KlS8Tk=;
+	b=1y+b3XGHS6WmEmKwZbMoGXaGZ872/8FnnIEWyZhpZKKXXfm7Vs+sP714VNEnDzvydwbB/0
+	0uwbSg1XN8T8N5Ag==
 From: "tip-bot2 for Song Liu" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: objtool/core] objtool/klp: Classify klp test outcomes
-Cc: Puranjay Mohan <puranjay@kernel.org>, Song Liu <song@kernel.org>,
- Josh Poimboeuf <jpoimboe@kernel.org>, Ingo Molnar <mingo@kernel.org>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260916184351.2720310-5-song@kernel.org>
-References: <20260916184351.2720310-5-song@kernel.org>
+Subject: [tip: objtool/core] objtool/klp: Group the klp tests by architecture
+Cc: Song Liu <song@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ Ingo Molnar <mingo@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260916184351.2720310-4-song@kernel.org>
+References: <20260916184351.2720310-4-song@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178998292875.2819794.7809398601525567365.tip-bot2@tip-bot2>
+Message-ID: <178998293027.2819794.8942527865755591922.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -67,347 +66,267 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the objtool/core branch of tip:
 
-Commit-ID:     317cec905af82e9ccca93cec661e88b1d3968a43
-Gitweb:        https://git.kernel.org/tip/317cec905af82e9ccca93cec661e88b1d39=
-68a43
+Commit-ID:     d76312b8a1f69be71ec38d04d69fbcdd0520ff89
+Gitweb:        https://git.kernel.org/tip/d76312b8a1f69be71ec38d04d69fbcdd052=
+0ff89
 Author:        Song Liu <song@kernel.org>
-AuthorDate:    Wed, 16 Sep 2026 11:42:57 -07:00
+AuthorDate:    Wed, 16 Sep 2026 11:42:56 -07:00
 Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Mon, 21 Sep 2026 10:55:09 +02:00
+CommitterDate: Mon, 21 Sep 2026 10:54:41 +02:00
 
-objtool/klp: Classify klp test outcomes
+objtool/klp: Group the klp tests by architecture
 
-A test could pass, fail, or skip, and the runner reported only the exit
-status of the last one to fail.  Skips are the interesting case: they are
-how a suite quietly stops testing anything.
+Which architecture a test is for is expressed by where it lives: tests are
+in generic/ or in a directory named for their architecture, each carrying
+its own fixtures, and the runner executes generic/ plus the one that
+matches.  A test which cannot apply here is then not run at all, rather
+than running in order to announce that it did not.
 
-Three kinds, and the runner counts them separately:
+Layout does this better than a declaration would.  There is no x86_only(),
+and no lookup letting a fixtures/<arch>/ file shadow a generic one of the
+same name -- an arch-specific test simply carries its own fixtures.
 
-  declared   the test said in advance it does not apply here, e.g. gcc_only
-             on a clang run.  Expected indefinitely.
-  probe      the construct did not turn up in the built object this time.
-             Weaker: one which becomes permanent is a fixture that stopped
-             testing anything.
-  undeclared counted as a failure.  A test which gives up for a reason it
-             never declared is a hole, not an outcome.
+Compilers cannot work the same way: CI varies CC over the same tree, so a
+compiler requirement stays a declaration in the test.
 
-xfail and xpass come with them, so a known failure is reported rather than
-commented out and forgotten, and one which starts passing says so instead
-of going quietly green.
+What a run leaves out is reported once:
 
-The result line is what gets classified, not the whole of a test's output:
-objtool warns on stderr and the runner captures it, and a stray line ahead
-of the result would otherwise leave the exit status to decide -- counting
-an expected failure, which exits 0, as a pass.
+  # not run: 5 tests in x86/ (this run is arm64)
 
-Every test owes the plan exactly one result line, so a substituted verdict
-replaces the test's own rather than being printed beside it, and a test
-which dies before reporting gets a result of its own instead of being
-inferred from its exit status.
+Silence would have been cheaper and wrong.  A run covering less than the
+tree holds must not look like a run that covered all of it.
 
-Also: a TAP version line, LC_ALL=3DC so the order tests run in and the
-behaviour of grep's character ranges inside them do not depend on the
-invoking shell's locale, and fail() on stdout with every other verdict.
-
-Co-developed-by: Puranjay Mohan <puranjay@kernel.org>
-Signed-off-by: Puranjay Mohan <puranjay@kernel.org>
 Signed-off-by: Song Liu <song@kernel.org>
 Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
 Assisted-by: Claude:claude-opus-5
-Link: https://patch.msgid.link/20260916184351.2720310-5-song@kernel.org
+Link: https://patch.msgid.link/20260916184351.2720310-4-song@kernel.org
 ---
- tools/objtool/tests/lib.sh       |  67 ++++++++++++--
- tools/objtool/tests/run-tests.sh | 148 +++++++++++++++++++++++++-----
- 2 files changed, 186 insertions(+), 29 deletions(-)
+ tools/objtool/tests/fixtures/basic.c         | 20 +-----------
+ tools/objtool/tests/generic/fixtures/basic.c | 20 +++++++++++-
+ tools/objtool/tests/generic/test-basic.sh    | 17 +++++++++-
+ tools/objtool/tests/lib.sh                   | 27 ++++++++++++--
+ tools/objtool/tests/run-tests.sh             | 36 ++++++++++++++++---
+ tools/objtool/tests/test-basic.sh            | 17 +---------
+ 6 files changed, 92 insertions(+), 45 deletions(-)
+ delete mode 100644 tools/objtool/tests/fixtures/basic.c
+ create mode 100644 tools/objtool/tests/generic/fixtures/basic.c
+ create mode 100755 tools/objtool/tests/generic/test-basic.sh
+ delete mode 100755 tools/objtool/tests/test-basic.sh
 
+diff --git a/tools/objtool/tests/fixtures/basic.c b/tools/objtool/tests/fixtu=
+res/basic.c
+deleted file mode 100644
+index 811529e..0000000
+--- a/tools/objtool/tests/fixtures/basic.c
++++ /dev/null
+@@ -1,20 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0
+-/* One changed function and one unchanged function. */
+-
+-/* klp diff takes the object's module name from .modinfo */
+-static const char __modinfo[]
+-	__attribute__((section(".modinfo"), used, aligned(1))) =3D "\0name=3Dvmlinu=
+x";
+-
+-int untouched(int x)
+-{
+-	return x * 3;
+-}
+-
+-int changed(int x)
+-{
+-#ifdef PATCHED
+-	return x + 2;
+-#else
+-	return x + 1;
+-#endif
+-}
+diff --git a/tools/objtool/tests/generic/fixtures/basic.c b/tools/objtool/tes=
+ts/generic/fixtures/basic.c
+new file mode 100644
+index 0000000..811529e
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/basic.c
+@@ -0,0 +1,20 @@
++// SPDX-License-Identifier: GPL-2.0
++/* One changed function and one unchanged function. */
++
++/* klp diff takes the object's module name from .modinfo */
++static const char __modinfo[]
++	__attribute__((section(".modinfo"), used, aligned(1))) =3D "\0name=3Dvmlinu=
+x";
++
++int untouched(int x)
++{
++	return x * 3;
++}
++
++int changed(int x)
++{
++#ifdef PATCHED
++	return x + 2;
++#else
++	return x + 1;
++#endif
++}
+diff --git a/tools/objtool/tests/generic/test-basic.sh b/tools/objtool/tests/=
+generic/test-basic.sh
+new file mode 100755
+index 0000000..562edfb
+--- /dev/null
++++ b/tools/objtool/tests/generic/test-basic.sh
+@@ -0,0 +1,17 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++#
++# Only functions whose code changed get cloned into the patch.
++
++. "$(dirname "$0")/../lib.sh"
++
++setup
++build_pair basic.c
++run_diff
++
++assert_patched     changed
++assert_not_patched untouched
++assert_section     ".init.klp_funcs"
++assert_section     ".init.klp_objects"
++
++pass "changed function cloned, unchanged function left alone"
 diff --git a/tools/objtool/tests/lib.sh b/tools/objtool/tests/lib.sh
-index fdea9b7..1531caa 100644
+index 46bdb98..fdea9b7 100644
 --- a/tools/objtool/tests/lib.sh
 +++ b/tools/objtool/tests/lib.sh
-@@ -139,8 +139,38 @@ test_name=3D"$(basename "$0" .sh)"
- workdir=3D
+@@ -9,7 +9,10 @@
+ # of regressions.
 =20
- pass() { echo "ok - $test_name${1:+: $1}"; exit 0; }
--fail() { echo "not ok - $test_name: $1" >&2; exit 1; }
--skip() { echo "ok - $test_name # SKIP $1"; exit 0; }
-+fail() { echo "not ok - $test_name: $1"; exit 1; }
+ TESTS_DIR=3D"$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+-FIXTURES_DIR=3D"$TESTS_DIR/fixtures"
 +
-+# Two kinds of skip, and the runner tells them apart.
-+#
-+#   declared_skip  the test said in advance it does not apply here, e.g.
-+#                  gcc_only on a clang run.  Expected indefinitely.
-+#   probe_skip     the construct did not turn up in the built object this
-+#                  time.  Weaker: it may appear on another compiler version,
-+#                  and one which becomes permanent is a fixture that quietly
-+#                  stopped testing anything.
-+#
-+# A bare skip() is neither, and the runner counts it as a failure: a test wh=
-ich
-+# gives up for a reason it never declared is a hole, not an outcome.
-+declared_skip() { echo "ok - $test_name # SKIP (declared) $*"; exit 0; }
-+probe_skip()    { echo "ok - $test_name # SKIP (probe) $*"; exit 0; }
-+skip()          { echo "ok - $test_name # SKIP $*"; exit 0; }
-+
-+# TAP directives.  A test which is known to fail reports it rather than being
-+# commented out and forgotten, and one which starts passing again says so
-+# instead of quietly going green: the expectation has to be removed by hand,
-+# which is the point.
-+xfail()
-+{
-+	echo "not ok - $test_name${1:+: $1} # TODO known failure"
-+	exit 0
-+}
-+
-+xpass()
-+{
-+	echo "ok - $test_name${1:+: $1} # TODO expected failure, but passed"
-+	exit 1
-+}
++# Tests live in generic/ or in an architecture directory beside it, and each
++# carries its own fixtures.
++FIXTURES_DIR=3D"$(cd "$(dirname "$0")/fixtures" 2>/dev/null && pwd)"
 =20
- cleanup() { [ -n "$workdir" ] && rm -rf "$workdir"; }
-=20
-@@ -170,6 +200,23 @@ export_syms()
- 	done
- }
-=20
-+# gcc_only / clang_only <reason>
-+gcc_only()
-+{
-+	case "$($CC --version 2>/dev/null | head -1)" in
-+	*[Gg][Cc][Cc]*)	return 0 ;;
-+	esac
-+	declared_skip "gcc only${1:+: $1}"
-+}
-+
-+clang_only()
-+{
-+	case "$($CC --version 2>/dev/null | head -1)" in
-+	*clang*)	return 0 ;;
-+	esac
-+	declared_skip "clang only${1:+: $1}"
-+}
-+
- # build_pair <fixture.c> [cflags...]
- build_pair()
- {
-@@ -178,9 +225,9 @@ build_pair()
- 	[ -f "$fixture" ] || fail "missing fixture $fixture"
-=20
- 	$CC $FIXTURE_CFLAGS "$@" -o "$workdir/orig.o" "$fixture" 2>"$workdir/cc.log=
-" ||
--		skip "fixture does not build here: $(tail -1 "$workdir/cc.log")"
-+		probe_skip "fixture does not build here: $(tail -1 "$workdir/cc.log")"
- 	$CC $FIXTURE_CFLAGS "$@" -DPATCHED -o "$workdir/patched.o" "$fixture" 2>"$w=
-orkdir/cc.log" ||
--		skip "fixture does not build here: $(tail -1 "$workdir/cc.log")"
-+		probe_skip "fixture does not build here: $(tail -1 "$workdir/cc.log")"
- }
-=20
- # run_diff [expected exit status]
-@@ -226,16 +273,20 @@ partial_link()
-=20
- # find_thinlto_toolchain
+ # The kernel's convention: CROSS_COMPILE is the one knob, with per-tool
+ # overrides for what it does not cover.  objtool itself is always a host bin=
+ary
+@@ -36,7 +39,7 @@ OBJTOOL=3D"${OBJTOOL:-$TESTS_DIR/../objtool}"
  #
--# Set $THIN_CC and $THIN_LD to a clang and lld from the same LLVM release.  A
-+# Set $THIN_LD to an lld from the same LLVM release as $CC (or THIN_CC).  A
- # mismatched pair fails with "Invalid summary version", which reads like a
- # broken test rather than a broken environment.
-+#
-+# ThinLTO is clang-only; callers must use clang_only before calling this.
-+# Only $CC (or an explicit THIN_CC override) is consulted -- the harness does
-+# not search for a second compiler beside a gcc $CC.
- find_thinlto_toolchain()
+ klp_preflight()
  {
--	local cc ld ver
-+	local cc ver ld
+-	local tmp tool cc_version host cc_arch
++	local tmp tool cc_version arch host cc_arch
 =20
--	for cc in "${THIN_CC:-}" "$CC" clang; do
-+	for cc in "${THIN_CC:-}" "$CC"; do
- 		[ -n "$cc" ] || continue
--		command -v "${cc%% *}" >/dev/null 2>&1 || continue
-+		command -v "${cc%% *}" >/dev/null 2>&1 || return 1
+ 	bail() { echo "Bail out! $*" >&2; exit 1; }
 =20
- 		ver=3D$($cc -dumpversion 2>/dev/null | cut -d. -f1)
+@@ -96,8 +99,26 @@ klp_preflight()
+ 	esac
+ 	rm -rf "$tmp"
 =20
++	# Normalize to the kernel's SRCARCH.
++	case "${ARCH:-$(uname -m)}" in
++	x86_64|i?86)	arch=3Dx86 ;;
++	aarch64*)	arch=3Darm64 ;;
++	*)		arch=3D"${ARCH:-$(uname -m)}" ;;
++	esac
++
++	case "$(uname -m)" in
++	x86_64|i?86)	host=3Dx86 ;;
++	aarch64*)	host=3Darm64 ;;
++	*)		host=3D"$(uname -m)" ;;
++	esac
++
++	[ -z "$cc_arch" ] || [ "$cc_arch" =3D "$arch" ] ||
++		bail "ARCH says $arch but '$CC' builds $cc_arch objects;" \
++		     "the $arch tests would run against the wrong architecture"
++
++	KLP_TEST_ARCH=3D"$arch"
+ 	KLP_TEST_PREFLIGHT=3Ddone
+-	export OBJTOOL CC KLP_TEST_PREFLIGHT
++	export OBJTOOL CC KLP_TEST_ARCH KLP_TEST_PREFLIGHT
+=20
+ 	cc_version=3D"$($CC --version 2>/dev/null | head -1)"
+ 	cat <<EOF
 diff --git a/tools/objtool/tests/run-tests.sh b/tools/objtool/tests/run-tests=
 .sh
-index 48728a9..6b937fc 100755
+index f6a3e1b..48728a9 100755
 --- a/tools/objtool/tests/run-tests.sh
 +++ b/tools/objtool/tests/run-tests.sh
-@@ -8,13 +8,51 @@
- # apply here is not run rather than reporting a skip; what was left out is
- # reported once, as a comment, so differing coverage is still visible.
+@@ -3,6 +3,11 @@
  #
-+# A run covers one compiler and one architecture; CI runs the combinations.
+ # Run the objtool klp tests.  Each test-*.sh prints one TAP result line.
+ #
++# Tests live in generic/ and in a directory per architecture.  A run executes
++# generic/ plus the one matching this architecture, so a test which cannot
++# apply here is not run rather than reporting a skip; what was left out is
++# reported once, as a comment, so differing coverage is still visible.
++#
  # The harness checks the environment once up front and fails the run if the
  # suite cannot execute, rather than letting every test skip and exit 0.
 =20
- set -u
+@@ -10,13 +15,34 @@ set -u
 =20
-+# Determinism: the order test-*.sh expands in, and how grep's character rang=
-es
-+# and sort's collation behave inside the tests, are all locale-dependent.  A
-+# suite whose results depend on the invoking shell's locale is a suite whose
-+# failures cannot be reproduced.
-+export LC_ALL=3DC
-+
-+usage()
-+{
-+	cat <<EOF
-+usage: $(basename "$0") [test...]
-+
-+Run the objtool klp tests for this architecture: everything in generic/, plus
-+everything in the directory named for it.  With no arguments, runs all of th=
-em.
-+A test may be named with or without its "test-" prefix and ".sh" suffix, and=
- is
-+looked for in both directories.
-+
-+Environment:
-+    OBJTOOL       objtool binary to test (default ../objtool)
-+    CC            compiler used to build fixtures (default gcc)
-+    ARCH          architecture the tests are for (default: uname -m)
-+
-+A test which needs something of its own says so in its skip message.
-+EOF
-+	exit "${1:-0}"
-+}
-+
  cd "$(dirname "$0")" || exit 1
 =20
-+while [ $# -gt 0 ]; do
-+	case "$1" in
-+	-h|--help)	usage ;;
-+	--)		shift; break ;;
-+	-*)		echo "unknown option: $1" >&2; usage 1 ;;
-+	*)		break ;;
-+	esac
+-tests=3D( test-*.sh )
+-[ "${tests[0]}" =3D "test-*.sh" ] && { echo "1..0 # SKIP no tests found"; ex=
+it 0; }
+-
+-# Sourcing the harness runs its preflight, and exports what it found so the
+-# tests inherit it rather than working it out again.
++# Sourcing the harness runs its preflight, which decides which architecture
++# this run is for -- so the test list cannot be built before it has, and the
++# tests inherit the answers rather than working them out again.
+ . ./lib.sh
+=20
++dirs=3D( generic )
++[ -d "$KLP_TEST_ARCH" ] && dirs+=3D( "$KLP_TEST_ARCH" )
++
++tests=3D()
++for d in "${dirs[@]}"; do
++	for t in "$d"/test-*.sh; do
++		[ -f "$t" ] && tests+=3D( "$t" )
++	done
++done
++[ "${#tests[@]}" -gt 0 ] || { echo "1..0 # SKIP no tests found"; exit 0; }
++
++# Tests for another architecture are absent from this run entirely.  Say how
++# many, so a run which covers less than the tree holds does not look like one
++# that covers all of it.
++for d in */; do
++	d=3D"${d%/}"
++	case "$d" in generic|"$KLP_TEST_ARCH") continue ;; esac
++	n=3D$(ls "$d"/test-*.sh 2>/dev/null | wc -l)
++	[ "$n" -gt 0 ] || continue
++	echo "# not run: $n test$( [ "$n" =3D 1 ] || echo s ) in $d/" \
++	     "(this run is $KLP_TEST_ARCH)"
 +done
 +
-+echo "TAP version 13"
-+
- # Sourcing the harness runs its preflight, which decides which architecture
- # this run is for -- so the test list cannot be built before it has, and the
- # tests inherit the answers rather than working them out again.
-@@ -23,31 +61,99 @@ cd "$(dirname "$0")" || exit 1
- dirs=3D( generic )
- [ -d "$KLP_TEST_ARCH" ] && dirs+=3D( "$KLP_TEST_ARCH" )
-=20
--tests=3D()
--for d in "${dirs[@]}"; do
--	for t in "$d"/test-*.sh; do
--		[ -f "$t" ] && tests+=3D( "$t" )
-+if [ $# -gt 0 ]; then
-+	tests=3D()
-+	for arg in "$@"; do
-+		name=3D"test-${arg#test-}"; name=3D"${name%.sh}.sh"
-+		found=3D
-+		for d in "${dirs[@]}"; do
-+			[ -f "$d/$name" ] || continue
-+			[ -x "$d/$name" ] ||
-+				{ echo "not executable: $d/$name" >&2; exit 1; }
-+			tests+=3D( "$d/$name" ); found=3Dy
-+		done
-+		[ -n "$found" ] ||
-+			{ echo "no such test for $KLP_TEST_ARCH: $arg" >&2; exit 1; }
- 	done
--done
--[ "${#tests[@]}" -gt 0 ] || { echo "1..0 # SKIP no tests found"; exit 0; }
--
--# Tests for another architecture are absent from this run entirely.  Say how
--# many, so a run which covers less than the tree holds does not look like one
--# that covers all of it.
--for d in */; do
--	d=3D"${d%/}"
--	case "$d" in generic|"$KLP_TEST_ARCH") continue ;; esac
--	n=3D$(ls "$d"/test-*.sh 2>/dev/null | wc -l)
--	[ "$n" -gt 0 ] || continue
--	echo "# not run: $n test$( [ "$n" =3D 1 ] || echo s ) in $d/" \
--	     "(this run is $KLP_TEST_ARCH)"
--done
-+else
-+	tests=3D()
-+	for d in "${dirs[@]}"; do
-+		for t in "$d"/test-*.sh; do
-+			[ -f "$t" ] && tests+=3D( "$t" )
-+		done
-+	done
-+	[ "${#tests[@]}" -gt 0 ] ||
-+		{ echo "1..0 # SKIP no tests found"; exit 0; }
-+
-+	# Tests for another architecture are absent from this run entirely.  Say
-+	# how many, so a run which covers less than the tree holds does not look
-+	# like one that covers all of it.
-+	for d in */; do
-+		d=3D"${d%/}"
-+		case "$d" in generic|"$KLP_TEST_ARCH") continue ;; esac
-+		n=3D$(ls "$d"/test-*.sh 2>/dev/null | wc -l)
-+		[ "$n" -gt 0 ] || continue
-+		echo "# not run: $n test$( [ "$n" =3D 1 ] || echo s ) in $d/" \
-+		     "(this run is $KLP_TEST_ARCH)"
-+	done
-+fi
-=20
  echo "1..${#tests[@]}"
 =20
--rc=3D0
-+pass=3D0 fail=3D0 static_skip=3D0 probe_skip=3D0 xfail=3D0 xpass=3D0
-+
- for t in "${tests[@]}"; do
--	./"$t" || rc=3D1
-+	out=3D"$(./"$t" 2>&1)"
-+	rc=3D$?
-+
-+	# A test prints one result line, but it is not necessarily the only
-+	# thing it prints: objtool warns on stderr, and the runner captures
-+	# that.  Classify the result line itself rather than the whole of the
-+	# output, or a stray line ahead of it makes every pattern below miss and
-+	# the exit status decide -- which would count an expected failure, which
-+	# exits 0, as a pass.
-+	result=3D"$(printf '%s\n' "$out" | grep -E '^(ok|not ok)' | tail -1)"
-+	rest=3D"$(printf '%s\n' "$out" | grep -Ev '^(ok|not ok)')"
-+
-+	# Classify from the result line, not the exit status: a skip and a pass
-+	# both exit 0, and telling them apart is the point of counting.
-+	#
-+	# The two skip kinds differ in what they promise.  A static skip was
-+	# declared before the test ran ("clang does not do this"), so it is
-+	# expected indefinitely.  A probe skip means the construct did not turn
-+	# up this time, which is weaker and worth watching: one that becomes
-+	# permanent is a fixture that quietly stopped testing anything.
-+	case "$result" in
-+	*"# SKIP (declared)"*)	static_skip=3D$((static_skip + 1)) ;;
-+	*"# SKIP (probe)"*)	probe_skip=3D$((probe_skip + 1)) ;;
-+	*"# SKIP"*)
-+		# An undeclared skip: the test gave up for a reason it never
-+		# said it might.  That is a hole, not an expected outcome.
-+		#
-+		# Replace the line rather than adding one.  Every test owes the
-+		# plan exactly one result, and a consumer counting them is
-+		# entitled to say so when the totals disagree.
-+		rest=3D"$rest${rest:+$'\n'}was: $result"
-+		result=3D"not ok - $(basename "$t" .sh): undeclared skip"
-+		result=3D"$result (use gcc_only/clang_only or require_input_*)"
-+		fail=3D$((fail + 1)) ;;
-+	"not ok"*"# TODO"*)	xfail=3D$((xfail + 1)) ;;
-+	"ok"*"# TODO"*)		xpass=3D$((xpass + 1)) ;;
-+	"not ok"*)		fail=3D$((fail + 1)) ;;
-+	"ok"*)			pass=3D$((pass + 1)) ;;
-+	*)
-+		# No result line at all: the test died before reporting.
-+		rest=3D"$rest${rest:+$'\n'}exited $rc without a result line"
-+		result=3D"not ok - $(basename "$t" .sh): no TAP result"
-+		fail=3D$((fail + 1)) ;;
-+	esac
-+
-+	echo "$result"
-+	[ -n "$rest" ] && printf '%s\n' "$rest" | sed 's/^[^#]/# &/'
-+
- done
-=20
--exit $rc
-+echo "# pass:$pass fail:$fail static-skip:$static_skip" \
-+     "probe-skip:$probe_skip xfail:$xfail xpass:$xpass"
-+
-+[ "$fail" =3D 0 ] && [ "$xpass" =3D 0 ]
+ rc=3D0
+diff --git a/tools/objtool/tests/test-basic.sh b/tools/objtool/tests/test-bas=
+ic.sh
+deleted file mode 100755
+index 6b76996..0000000
+--- a/tools/objtool/tests/test-basic.sh
++++ /dev/null
+@@ -1,17 +0,0 @@
+-#!/bin/bash
+-# SPDX-License-Identifier: GPL-2.0
+-#
+-# Only functions whose code changed get cloned into the patch.
+-
+-. "$(dirname "$0")/lib.sh"
+-
+-setup
+-build_pair basic.c
+-run_diff
+-
+-assert_patched     changed
+-assert_not_patched untouched
+-assert_section     ".init.klp_funcs"
+-assert_section     ".init.klp_objects"
+-
+-pass "changed function cloned, unchanged function left alone"
