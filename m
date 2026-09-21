@@ -1,232 +1,192 @@
-Received: from mta1.migadu.com (out-102.mta1.migadu.com [95.215.58.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F7146E01D
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:29:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388223E49C3
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:29:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789986564; cv=none; b=LCGxvS3Y7Qas6fariuFgqs1aurw8yyOKZ0/9in1VYsb3oFvXWSNnGtohMrwaf6TCmUcYjByiZC5fZr/96kdmSCLSdcCn3hnokTHKvjfaBmphqiDYYwndtyEfskeknHyZPhCHblwKoWGUr4eJd1jhrtkYIxMc2BO12JYwitEE4Os=
+	t=1789986578; cv=none; b=mVWxf5hu/LTUkgzxEP/HiQvkQLLIraInDoOaou72QVwPv339J8ZGLlvJxvWUT+gb8zlj7dKhSNCF7c5Mlmqcfox9XHPizMW9mrTVGDQfL9hm5lQ87rhRbMaWvnixQ5wL0ElLAIAnRIPrmscbKmok8emc6B04MCEg5w2POmQlCpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789986564; c=relaxed/simple;
-	bh=mRSWnr+OOpF102n8uPqPG+ragjzLlcjBl6k7tY/W1dE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sNqp5i5PgfQmhNfBzq7QQz6t3zjW4PJ7WH0CS028lL9PfUoKTMJdvX/WgFoMAWb5DJFm6OUCK5IkhZBWzyqdKZxkVA7Na1whcku+L1XGeKRirpKOIEEGT4gLaMDhYvHq1x5xWkJ1pITZlcmZJRFhUyG4x8IEAXnDYE5uKIikCVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=p15ilvz9; arc=none smtp.client-ip=95.215.58.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789986578; c=relaxed/simple;
+	bh=zcOJMzXLl69/p3oVhEE7hTMKifMoLsS/KeY1YBgSWAk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EM4qTU1X2cNjZv2OzsQZS7X9wePweDTQCZ2K1G734P6SIxn+6iIYwivmUaZz3TWbfq0S+mfTYVO4TCwumM0VaNG+zkh6fIIqaRhDRQ8GZGBbuaFbk9lq92t8UBLa7Ic1YbFqTuI/zyRFlYJUNlEkL8RIrqZrnHrV26uaCc7JB+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LUlzHn8Y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OI6iOVCR; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="p15ilvz9"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=mRSWnr+OOpF102n8uPqPG+ragjzLlcjBl6k7tY/W1dE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789986558; v=1; x=1790591358;
- b=p15ilvz9caQovSjp6/c1x4Twv+yxP4bEPVMjdRpz3eDU388u3QAaO/RU0KyXfhrTzaW4icZS
- sZ2WKOnwufbU3OYghTibc7bvUbISTP5ZwopV2Sq1ZeYQIBheu2+WofE11kYqEuGmsYQWyBkySOw
- h3xalsV2F2NqQRB029Bqtzq0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 58aaa6d2d129fc08;
-	Mon, 21 Sep 2026 10:29:18 +0000
-X-Mizu-Trace-ID: 58aaa6d2d129fc08
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Luiz Capitulino <luizcap@redhat.com>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	david@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	ziy@nvidia.com,
-	lance.yang@linux.dev,
-	corbet@lwn.net,
-	tsbogend@alpha.franken.de,
-	maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	agordeev@linux.ibm.com,
-	gerald.schaefer@linux.ibm.com,
-	hca@linux.ibm.com,
-	gor@linux.ibm.com,
-	x86@kernel.org,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	hughd@google.com,
-	dave.hansen@linux.intel.com,
-	djbw@kernel.org,
-	vishal.l.verma@intel.com,
-	dave.jiang@intel.com,
-	akpm@linux-foundation.org,
-	yintirui@huawei.com,
-	dev.jain@arm.com
-Subject: Re: [PATCH v8 14/14] mm: thp: always enable mTHP support
-Date: Mon, 21 Sep 2026 03:29:12 -0700
-Message-ID: <20260921102913.2970139-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <752f528f0fed5cdc9de12b54260b0495d4e5a6cb.1789695931.git.luizcap@redhat.com>
-References: 
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LUlzHn8Y";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OI6iOVCR"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L79vHt1624391
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:29:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	er85m/VpcaNBY8p0HNqxGDH04XxFCaQjcVPnP1W36m8=; b=LUlzHn8YRnxEXbvJ
+	XKG1aPrc4ADfe5ljDpO39tdY8iQBQj3etE36KwnOG7OI33BORLbPEmIHiIhaH/yB
+	06UpGp0i0/pCDsykgV8t1r60dbrVjGREQesKRCOiGG5x1MZnkytdgxkf54fN5o/v
+	rfZlF8i0nGphho/biw5plN7bUZYGqQiXW/Be+z7/iQrErwC29LTvBziqo3fCoyAc
+	RWnwZMBiWo1j6oEX2oS/6g54pUVsXRfu0uNSZv2Prx+ubEwVyiMg+65Yo7trFjp8
+	JWCenn1jAWhtKLKbTH36jlcybklQtb7+rtYuME5LZ59WlUHtCEh3aCZd1xXYUxg6
+	YDegUg==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtt3wsvt2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:29:36 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so7223914a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:29:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789986576; x=1790591376; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=er85m/VpcaNBY8p0HNqxGDH04XxFCaQjcVPnP1W36m8=;
+        b=OI6iOVCRiUerF/RG9pzGJtGCf0l1tU+/ilM2Yn0+At6WOYDjkzFoKh6pXax1Ffu7bE
+         rDlyYLNtYMEL4QsnVb5zxEjuQvXt3PljUplOAXiFoElbvvmrmAak8TmfXTWXnEIANd6l
+         /SmLFjXAG2tkmualXNtIY/BbX1XVlysNP1/cEVrLjj8UJEAN31fQMCyM7rUb5xeMBs9M
+         OuizTns2gTzPxKCmrz4of5BV3EdEa6f73t0xxguWmatmZNjFlC2jbEeJu2HMfGjahcLV
+         xLVAC2I5Y4HbwiUOmmzk77Xj9xY6IOONkYgtE9D4nwNnr9Q8OccvO7nytjwGU2VTQDdF
+         ULAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789986576; x=1790591376;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=er85m/VpcaNBY8p0HNqxGDH04XxFCaQjcVPnP1W36m8=;
+        b=MdA+US6VGJPgO7aPASHdC97YCLlMWAXKuoy9kLX8joR54P79iXoyZITYUwfPJBkS86
+         lLDkyYJMev8jFGOwYY5G2BCSbQdXrAmgKmUgK3lvr2AIbSCOs4AWnx1RjsxkllUlcWGA
+         GvAx0QFntPa6l9SAD/TzLYbAyiadupf9UVZ0ZA5OZBnXiaMgSR/BH7ZPAeM0Z0EV1K84
+         hupNaGW6tYGyobKhCE1ER+ChBBILbbVXz1mELRzz4fNuaQA/vg6spv5SCkG2pWhhBll8
+         im8rpQt5PWXU73i1fuqGJIy68AjnWyun/79wdjOmUTPKlKRvfCTGCMPLVQeSMzQR1s99
+         nZEA==
+X-Forwarded-Encrypted: i=1; AKwUvBxxYKbPC95J0faPMeaQjEYheUpv2wWUiuzvBMmSPIknfSkMRYIB8moMIbcGNfemiopMfJ1q3MdyhtBhhDY=@vger.kernel.org
+X-Gm-Message-State: AFuF++m7OfcURgHn/bvTLK2xJ04XMW14flLmZLZsHzxLLR/eHmy8B6Dw
+	qajsBsIX5zMOHr+pE6Cinvn5Vy6ValXJbK4rGKajqmdDKSmjhRPoOJlJm9dphULt0wTzy01oWLJ
+	lKNjA2i8Mef2iEJVydcHx7f5MJbWkkWpWyhlMyks+680is8IedvEHkgF3mO2tPWMZ158=
+X-Gm-Gg: AYBFou2b1m1VDQgXrr8NhSKQCpIlhdtbx/jOH9bq+WAnigJrxBwjIhXANkm7yckaX1C
+	7pdPi85bKMEHoCXMB2uU2DOXSKjskJsalagvmbMRYX2U6L2s7pTcp9ujDVc0L+DXR8rai/f/qSZ
+	wrAgYyw5vh1H227JoZEpQwVEZco2jQxTPw928ez0VawxhP9u63Yr3ecGgnEcOmPsM2cvDJYc0Ac
+	OHbudHEhJqeOw2ZaJ31z3Fzu9JSncBnd5iC0b1Pre9cHiB7NUF0ROZDh21kTA+lwiPso4ghgt6h
+	7+BmHomAFHie8NrNGwQUqvsxRWZ6HQRPNScL4SPFdCRoz0ShddHTug9spAKpXcbQNS1IujKj98N
+	GHHuU7WdGuUiw6gtdzdQspKM7NTmHzuE=
+X-Received: by 2002:a17:90a:d40b:b0:3a0:574f:5854 with SMTP id 98e67ed59e1d1-3a0574f5cf6mr1247977a91.39.1789986575763;
+        Mon, 21 Sep 2026 03:29:35 -0700 (PDT)
+X-Received: by 2002:a17:90a:d40b:b0:3a0:574f:5854 with SMTP id 98e67ed59e1d1-3a0574f5cf6mr1247934a91.39.1789986575299;
+        Mon, 21 Sep 2026 03:29:35 -0700 (PDT)
+Received: from [10.218.9.75] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144da432647sm29762133c88.5.2026.09.21.03.29.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 03:29:34 -0700 (PDT)
+Message-ID: <0e6877df-0306-474f-bc25-aa7d3fd2f53c@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 15:59:22 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v25 05/10] dt-bindings: arm: Document reboot mode magic
+To: Rob Herring <robh@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Sebastian Reichel <sre@kernel.org>,
+        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Andy Yan
+ <andy.yan@rock-chips.com>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        John Stultz
+ <john.stultz@linaro.org>,
+        Moritz Fischer <moritz.fischer@ettus.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Christian Loehle <christian.loehle@arm.com>,
+        Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Pavan Kondeti
+ <pavan.kondeti@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Sudeep Holla
+ <sudeep.holla@kernel.org>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Andre Draszik <andre.draszik@linaro.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, mfd@lists.linux.dev,
+        Srinivas Kandagatla <srini@kernel.org>
+References: <20260914-arm-psci-system_reset2-vendor-reboots-v25-0-4aaf5c09b5c2@oss.qualcomm.com>
+ <20260914-arm-psci-system_reset2-vendor-reboots-v25-5-4aaf5c09b5c2@oss.qualcomm.com>
+ <20260918220634.GA2441717-robh@kernel.org>
+Content-Language: en-US
+From: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+In-Reply-To: <20260918220634.GA2441717-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE1MSBTYWx0ZWRfX8S1j3WEMIaha
+ Sej3KUrUBYrb7P/B6SEktwPUzunVFiLcGN+ntIotEshimn0wkPWqV+SmapvAfHX9DUck3vHc52t
+ v4aOF693CcmaiZ7hLij5SEPu6ruZ4TAOAIBgOA47DoMZoGqmfU1r8glZEdZYwJlPshseCmfP6Cp
+ 9Xd+qSWNLz010Y66/EwjCIgMGREIfIxwhD2HXhk8jj8IE7W5AFS7s8gp7xExk/3zpNDBfLADhCR
+ mOg4FrnlBOISQGK3dLXQz+cFo67WUlbFfJI7TddIcfJ29Y1at+H1FX0zTllwRVAzMvnbRcdfzTh
+ 8mNAxoa0r3BuSq6vNnpyV8F6wW0uBxyF0ru4Bq43J8QjlujRZvELfOMhdE1H7OZGekUUSRDUXjK
+ 9eNMW2JDB7oebGmeSD1T52pVrmyYJePtgiiGJrzc3CY7L7AekIeRtLS4bGSqvREd9ezXnQoYIlC
+ 1fCHblMac2VYLDIN7ow==
+X-Proofpoint-ORIG-GUID: HHW8EdvBew7kP12r2Rloluu-mVBudr41
+X-Proofpoint-GUID: HHW8EdvBew7kP12r2Rloluu-mVBudr41
+X-Authority-Analysis: v=2.4 cv=dakVTnXe c=1 sm=1 tr=0 ts=6ab10710 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=8elzRJZBfmQ5qZguGEwA:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE1MSBTYWx0ZWRfXxh681RoXLlUa
+ A/Ke8UqqvR9WmV2kRVt9C18AFUUvUk7h7MTmTk02FItBobP3gprYiUXwt/1QXOmc27ZTA18OQad
+ MlsVyGtSKcdQTZRy/fExb0jV32Tr3LA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 spamscore=0 adultscore=0 phishscore=0
+ bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210151
 
-On Thu, 17 Sep 2026 21:45:35 -0400 Luiz Capitulino <luizcap@redhat.com> wrote:
 
-> If PMD-sized pages are not supported on an architecture (ie. the
-> arch implements arch_has_pmd_leaves() and it returns false) then the
-> current code disables all THP, including mTHP.
-> 
-> This commit fixes this by allowing mTHP to be always enabled for all
-> archs. When PMD-sized pages are not supported, its sysfs entry won't be
-> created and their mapping will be disallowed at page-fault time.
-> 
-> Similarly, this commit implements the following changes for shmem in
-> shmem_allowable_huge_orders():
-> 
->  - Drop the pgtable_has_pmd_leaves() check so that mTHP sizes are
->    considered
->  - Filter out PMD and PUD orders from allowable orders when
->    PMD-sized pages are not supported by the CPU
-> 
-> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
-> ---
->  mm/huge_memory.c | 25 ++++++++++++++++++++-----
->  mm/shmem.c       | 14 +++++++++-----
->  2 files changed, 29 insertions(+), 10 deletions(-)
-> 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index a06025b87e7c..a2d6de3ea988 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -189,6 +189,15 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
->  	else
->  		supported_orders = THP_ORDERS_ALL_FILE_DEFAULT;
->  
-> +	if (!pgtable_has_pmd_leaves()) {
-> +		/*
-> +		 * If the CPU does not support PMD leaves, assume for
-> +		 * now that it does not support PUD leaves and disable
-> +		 * both folio orders.
-> +		 */
-> +		supported_orders &= ~(BIT(PMD_ORDER) | BIT(PUD_ORDER));
-> +	}
-> +
->  	orders &= supported_orders;
->  	if (!orders)
->  		return 0;
-> @@ -196,7 +205,7 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
->  	if (!vma->vm_mm)		/* vdso */
->  		return 0;
->  
-> -	if (!pgtable_has_pmd_leaves() || vma_thp_disabled(vma, vm_flags, forced_collapse))
-> +	if (vma_thp_disabled(vma, vm_flags, forced_collapse))
->  		return 0;
->  
->  	/* khugepaged doesn't collapse DAX vma, but page fault is fine. */
-> @@ -979,7 +988,7 @@ static int __init hugepage_init_sysfs(struct kobject **hugepage_kobj)
->  	 * disable all other sizes. powerpc's PMD_ORDER isn't a compile-time
->  	 * constant so we have to do this here.
->  	 */
-> -	if (!anon_orders_configured)
-> +	if (!anon_orders_configured && pgtable_has_pmd_leaves())
->  		huge_anon_orders_inherit = BIT(PMD_ORDER);
->  
->  	*hugepage_kobj = kobject_create_and_add("transparent_hugepage", mm_kobj);
-> @@ -1001,6 +1010,15 @@ static int __init hugepage_init_sysfs(struct kobject **hugepage_kobj)
->  	}
->  
->  	orders = THP_ORDERS_ALL_ANON | THP_ORDERS_ALL_FILE_DEFAULT;
-> +	if (!pgtable_has_pmd_leaves()) {
-> +		/*
-> +		 * If the CPU does not support PMD leaves, assume for
-> +		 * now that it does not support PUD leaves and disable
-> +		 * both folio orders.
-> +		 */
-> +		orders &= ~(BIT(PMD_ORDER) | BIT(PUD_ORDER));
-> +	}
-> +
->  	order = highest_order(orders);
->  	while (orders) {
->  		thpsize = thpsize_create(order, *hugepage_kobj);
-> @@ -1091,9 +1109,6 @@ static int __init hugepage_init(void)
->  	int err;
->  	struct kobject *hugepage_kobj;
->  
-> -	if (!pgtable_has_pmd_leaves())
-> -		return -EINVAL;
-> -
 
-Removing this guard lets start_stop_khugepaged() run on a system
-without PMD leaves. All mTHP orders default to never, but the global always
-or madvise flag still makes hugepage_enabled() return true.
+On 9/19/2026 3:36 AM, Rob Herring wrote:
+>> +            minimum: 0x80000000
+>> +          - description:
+>> +              arg2 (cookie_lo in 2-cell form, cookie_hi in 3-cell form)
+>> +            $ref: /schemas/types.yaml#/definitions/uint32
+> Drop. Types are per property, not per item.
 
-That starts an idle khugepaged thread and can unnecessarily raise
-min_free_kbytes. Could hugepage_enabled() instead test whether
-an enabled order remains after masking PMD_ORDER when
-pgtable_has_pmd_leaves() is false?
+Ack.
 
->  	/*
->  	 * hugepages can't be allocated by the buddy allocator
->  	 */
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index bc2de3a7c1ea..8c0f7e3efeeb 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -2046,11 +2046,14 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
->  	unsigned long mask = READ_ONCE(huge_shmem_orders_always);
->  	unsigned long within_size_orders = READ_ONCE(huge_shmem_orders_within_size);
->  	vm_flags_t vm_flags = vma ? vma->vm_flags : 0;
-> -	unsigned int global_orders;
-> +	unsigned int global_orders, disabled_orders = 0;
->  
-> -	if (!pgtable_has_pmd_leaves() || (vma && vma_thp_disabled(vma, vm_flags, shmem_huge_force)))
-> +	if (vma && vma_thp_disabled(vma, vm_flags, shmem_huge_force))
->  		return 0;
->  
-> +	if (!pgtable_has_pmd_leaves())
-> +		disabled_orders = BIT(PMD_ORDER);
-> +
->  	global_orders = shmem_huge_global_enabled(inode, index, write_end,
->  						  shmem_huge_force, vma, vm_flags);
->  	/*
-> @@ -2058,7 +2061,7 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
->  	 * sysfs configs.
->  	 */
->  	if (!vma || !vma_is_anon_shmem(vma) || shmem_huge_force)
-> -		return global_orders;
-> +		return global_orders & ~disabled_orders;
->  
->  	/*
->  	 * Following the 'deny' semantics of the top level, force the huge
-> @@ -2072,7 +2075,7 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
->  	 * means non-PMD sized THP can not override 'huge' mount option now.
->  	 */
->  	if (shmem_huge == SHMEM_HUGE_FORCE)
-> -		return READ_ONCE(huge_shmem_orders_inherit);
-> +		return READ_ONCE(huge_shmem_orders_inherit) & ~disabled_orders;
->  
->  	/* Allow mTHP that will be fully within i_size. */
->  	mask |= shmem_get_orders_within_size(inode, within_size_orders, index, 0);
-> @@ -2083,6 +2086,7 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
->  	if (global_orders > 0)
->  		mask |= READ_ONCE(huge_shmem_orders_inherit);
->  
-> +	mask &= ~disabled_orders;
->  	return THP_ORDERS_ALL_FILE_DEFAULT & mask;
->  }
->  
-> @@ -5630,7 +5634,7 @@ void __init shmem_init(void)
->  	 * Default to setting PMD-sized THP to inherit the global setting and
->  	 * disable all other multi-size THPs.
->  	 */
-> -	if (!shmem_orders_configured)
-> +	if (!shmem_orders_configured && pgtable_has_pmd_leaves())
->  		huge_shmem_orders_inherit = BIT(HPAGE_PMD_ORDER);
->  #endif
->  	return;
-> -- 
-> 2.55.0
-> 
-> 
+>> +          - description: arg3 (cookie_lo in 3-cell form)
+>> +            $ref: /schemas/types.yaml#/definitions/uint32
+> Drop.
+
+something like this?
+
+   items:
+     - description: arg1 (vendor-specific SYSTEM_RESET2 reset_type)
+       minimum: 0x80000000
+     - description: arg2 (cookie_lo in 2-cell form, cookie_hi in 3-cell 
+form)
+     - description: arg3 (cookie_lo in 3-cell form)
+
+   description: |
+     Describes a PSCI SYSTEM_RESET2 vendor-specific reset type.
+
+
+thanks,
+Shivendra
