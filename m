@@ -1,219 +1,222 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011058.outbound.protection.outlook.com [52.101.70.58])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34430498904;
-	Mon, 21 Sep 2026 12:34:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789994057; cv=fail; b=ryKusktcfIIDkr/48E7ubVmaNvjOpSESqtsGRUU4gXxPqIysTcT/NJvT4J6OoaCBeDy6sO/sniBZ2VI3LvR5sGFR14H+LWkYnteH38DI4ORquNouUT/HX06tvqRw0FNztpBQNA/VVN39pCODwWHaYbVkcC6lHPDW38U//72GjJM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789994057; c=relaxed/simple;
-	bh=2ZMSUN13nnWQoxn6b+A1Y3XPgqg5RAZx6oUPASfPdWY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=nZVJ5G26YYxOydPUOQDus8U3AbYEyecyVmi3R0bZR0M0ONvRF3lHyAG6dtFz54farfQD9lKMLcOD/Xcn3EuClI6GnikxfzdlsSna/RvhDR4SIyI/w48FqqaMw3iNRRXkWHGXM2NXtcwSx+B5gqmRK75S9MPYlxLLHtTos2TC3Fs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Cb7aZkbm; arc=fail smtp.client-ip=52.101.70.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67DC3405F7
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:34:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789994080; cv=none; b=DeloT5NW6omc0EhxtCSnbDEbI+gT8Y+vT4sVk76UsSYnZSaHGQWswVHk6R5is94rnm72VJQJFkLSjTIVwL/nu5QG5kft6T5YaHvX80jQb9Mqwt67PpdulhGmeDg4VcAvol14Rx97h61OoUZbw67ZfevIeOQ3EJ0hrg0LFZML9zI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789994080; c=relaxed/simple;
+	bh=0YvXIFXiKXoGE4fsdEbUZrH5wK3CbRKzUR6JqQ/z/Gc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JfdmWAbU7AkwE5dQ0ysKhHA7cNQBA1ko6ryZknMkbmHbWczCxyJv18tEicVlyhcIyDBS1bNgGlr+CHELmhkqjBuRB1RVKYcPhiDCla+ODyFFMNBgFn8e/FOCBSIb9aESoLgjfW7ShN1rZIeECUfw2fCv4eodqmbPGg4GmFpCbRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SPYcqaTh; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=je1B7qUh; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qFcA9A2A; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=RT/JqhDj; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Cb7aZkbm"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GtWwreKKzcKJhEykFnHbmzGNXmo/ItDBmWdGr4lGx9worKxBhqqUbL6524ESzPL3lUUu35eSjCdxjiGlaiwuCN8+/flTquZkjOkMTLtFUGgPxpTWh3fWtPQNpP5pvBorNKXcAoBhzRkriXW7dTzSa12R0ZMXXmRPHxc4k34cq1S3s12wJmHsO2bEDg0GKCQW8+PNtrGlZIfiFMxb6Yr+ScPvBeI2BXVY8Fpyshf1OQeFbeWFCd+a0hTI+BkPpwHCX+etw99MKhUfoB1ueCIZXkyaCjzMbo43q1Sqx8ju48v5HQzGEPgc9SwSZUAvTfABQ0BavPXAupmJrHyLuxz0jQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/BDRXmBkcw22M59qvA9K+D4f4Ea8LGuvWPNOiAu3AEo=;
- b=N2NH29F7c/CsjAUP3vD56nCwXOWLgJhd8lf6WPSuIY6Y++bLS9PAP9GWbCm/jHU6eMeIPRv6qSA3kbW8H49gR9U7to+DSL1LEavX8U86j/8DgLn3TJ1MTEQExwx7CdzKh1HFVhdD9R2Ilov9g7rStIJyYkaA791rzBNA9VHSit+iVsAtb6uw+bOEqHTR+lyKr3Hqr4MgiKONDXmqMJnYWkGh6a7Bm5zMRjK0QjsvRRuPX2OCcX/Z1kU7DNc7X8p1YaXLrr9Iu7i4i1NE0uEtYmkOck2Kzdx5EiBdeh/4qJo1UTqtZBKGm7Bthr88XX8/mK8lz24I1IKzLiYJZaNz+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/BDRXmBkcw22M59qvA9K+D4f4Ea8LGuvWPNOiAu3AEo=;
- b=Cb7aZkbmrbleJpmzNrbt2qT/HLqexR/KS7juxUCdghD460Dj3y9muC4d8AM0suskmq7tIcVlNvo76IHsq3wFrgP/aoVxF2zHJmArXuAtAHV9Jnca7IXQw/V1ofeU6+FTpgiYZRe5LjDRwe/tSLprlL4f2sNTyet3+9YRTD1xMik+P1CZRQVjdR0U/dXS574hs+HWDh9h2hUeyJEOGN3DUWsg5n8oxUJzNmyDEbN3ya1STseMb94aB9ivgPbjhPGliMXjQL1J/NT8rvaBC86NxdxSvRfgzFOVRUWSIlLeziwX6XGk6r3tqpYcIq0g4JTTmBq9xHnYDXdR4Ix09l7c0A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 12:34:05 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 12:34:05 +0000
-Date: Mon, 21 Sep 2026 20:37:58 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Shrikanth Hegde <sshegde@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
-	linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Subject: Re: [PATCH] KVM: PPC: use assign_bit() where applicable
-Message-ID: <arElJku644yUmTUY@shlinux89>
-References: <20260920022618.3145649-1-peng.fan@oss.nxp.com>
- <aed4e6a7-1678-4e27-9091-d621d3fe1535@linux.ibm.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aed4e6a7-1678-4e27-9091-d621d3fe1535@linux.ibm.com>
-X-ClientProxiedBy: MA5P287CA0310.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:21a::9) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SPYcqaTh";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="je1B7qUh";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qFcA9A2A";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RT/JqhDj"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7D80F1FA79;
+	Mon, 21 Sep 2026 12:34:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789994069; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VIec8Ew0yYm4cW66xxG7DDJvDI4mJ/N1qm7mNg0vcPk=;
+	b=SPYcqaThIVoxRz6i8TLq1Mrjjc8Gy/aa6j/GcpEeMm7U+ljbLnFReX2VdlhTIHwXKwZmUq
+	dX4zvsiUOFsVUnzh0NfHFH9HzbcgIi23tmfy8i1r5TBmypFSc5H8PRO8jU1P3IaY1XXZDg
+	qXb4kOgwwDmOkeFVhL7svRDljqGKd08=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789994069;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VIec8Ew0yYm4cW66xxG7DDJvDI4mJ/N1qm7mNg0vcPk=;
+	b=je1B7qUhMSNIkTxlvFqtwhTuR2hCGZ8++J7FC3t7n/wHQvcDOZNMpGvxDR9EjFDNRKEXs9
+	ZjXGIg3JV+BgJZCQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=qFcA9A2A;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="RT/JqhDj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789994065; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VIec8Ew0yYm4cW66xxG7DDJvDI4mJ/N1qm7mNg0vcPk=;
+	b=qFcA9A2AjTfyUsTzzH8FrKYw2hpMbwk+8egF2Tdex2tm+MTNzzBdL9qlml1H8OM5DVhe9M
+	EgEGlr0SHYWXdD15Q5FeH9Zpi8c7ztmQNlTwyUeIQPzPw8uqamQms0HQYw+KJxokAjZRYl
+	sq9NQnyVSRDfzVTAyD3S3wqFkuW7b2Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789994065;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VIec8Ew0yYm4cW66xxG7DDJvDI4mJ/N1qm7mNg0vcPk=;
+	b=RT/JqhDjjvbpYr9hJY4FgnARZkNhNWQOvS2b7VJgGO4CMxtI/XANOuePsLbD5pY6ihrNC9
+	YU/+H7lh41rwufAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A3B2813793;
+	Mon, 21 Sep 2026 12:34:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id k8CkHFAksWr+RQAAD6G6ig
+	(envelope-from <hare@suse.de>); Mon, 21 Sep 2026 12:34:24 +0000
+Message-ID: <ead0bdd9-8f0f-4deb-ba1b-e078262c5164@suse.de>
+Date: Mon, 21 Sep 2026 14:34:24 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AM7PR04MB7046:EE_
-X-MS-Office365-Filtering-Correlation-Id: 869f3da4-9fd2-402e-809b-08df17dc9fb3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|19092799006|10067099003|56012099006|22082099003|18002099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	8nmMaT6WmFf9kGSIvq9/aTIexDHnPm21X2yNaTmXJJPxkHV60h5CA6kUvJClNwmdkxJCQvuBjKMOE4W4dlycHJvJhSgj69WxI95qs7+lpqCgO/Ssfsi8iIivFN7FuqoK64YZojmWBBRpRNy8SjI6o+iJ7tqpj0Xap5LEpyXHpe+ExD1Icw5sepBbLXBkXilgMMWVy1zHyp1OkvWlGgmVHz0HSxJ761bRDZbEhlN8IAo3ieALNG148kdVsSXxHLAs3zgamvOkudGGk9OIkbh+/RE9p9ZTjMH6ZWXOPFIi2TJBCea6JWYxqMxte6/llonZh0evj/aOKakizC/wsX6hBDYMTBOzxK3YIamhIk/P73nB0P9KUSydux9HJOWvQQJIwQ3Q1T6PePI2kOVXDmn8rXotWCob0U52jk23R4LKGwmqE3SppFgQbEdoX8iDOcOJJpLMcCMGQSRmcIqFUkI2iZUrjCsY3OE5C65gW0o5iXsJZKxc+dROI7fufXTi86wZjrdOf5K1Gzg8IEZnwRCsfzP/dhQu0BXI/okP1OHE2aH9If4U4ZX9UoWUB0+N0BveXLNqqNKQXTkkDfRDbhisirzlNKyKiGCDThZZDOGZx+2567fpfMrUEmoSxoyhWMeaGnmjt70fbinKl0kGQ1/Gs9xzN6Yj85QYDOg6EZjP3OY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(19092799006)(10067099003)(56012099006)(22082099003)(18002099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?euRQfd+LHDJVXlwCKQURtQ93jWXo9FLN6s9ag36VeZaTimmaJmd2Awf6MwwN?=
- =?us-ascii?Q?CoZQpfCXJovR9fXmh4Yhl3IZuEWV0jfpqIq2e40wehvL1SoGpnLfaWAkjE0S?=
- =?us-ascii?Q?omP8STV0wOnbpfmI+Pvr8BmqVTqVizkZ5B0AX9c8ygC0FCkHs8VKmhykhEKE?=
- =?us-ascii?Q?oLHm5SAONe6tx+cMT7Z4VhYt+ChiPocqx3Vb1QtMriTwOdumRDDyV8dFmpOF?=
- =?us-ascii?Q?Mf6ip7q9UqYpu1tFKZ/A+Dp8vNDiHPhBQ1OwQfdCQ21Q4S5k0FKSOr10fgKu?=
- =?us-ascii?Q?VnIEzJW2QebzCDAMSxlDKfA+NzWMUcvbES63vvxxN2t4Q5Ms0e98A1+3iVLn?=
- =?us-ascii?Q?pci5o9TOdzikDsdk/KkKmnnPn65VGYFhqu4b9y1UO2ttCu2noUDX1IytsCIF?=
- =?us-ascii?Q?gx4NJX5m/hmEUmnc181Z0j4WzL+yR9Qz8NY6XFKMVCkNLP05XyENDdlRUjxl?=
- =?us-ascii?Q?J2rZF+F6H5encu6NyApxdezgiognBqdjKRqcTDBgj5+abiWZ97sdYkGfwrQb?=
- =?us-ascii?Q?EzZTWBWK2it3gFYSOS+6tKF1M/VEOh1UyNzKk1o9rxisCoI5xwByMmWPYsIg?=
- =?us-ascii?Q?6EehcJ4k0XDLYalCw+wT4x67RruB7cKoStpcFMEVXKBSdSUKmDXPG7VX7G4J?=
- =?us-ascii?Q?+8UWDsZM5dzwgiTGALgBwDdujdxcAp+ieMIFMFVdo3nfUNOQVr/i8IquL2jN?=
- =?us-ascii?Q?cz8OpGS9VlU6M7pJ5gQPA2pI8EhmgtLZJGrWLgIN/9fPxsij2WkRUUtYzgMs?=
- =?us-ascii?Q?WyyOeT22I+mpYbXO3Sx+ZngrFMGWPqcsto+NyGpSS+jBoBekjbLtc25NhPiS?=
- =?us-ascii?Q?IOL6iPQRrUyTD48tBwb+1W6AKiyzaJnQxfeTRJ/2oimn9nkPk2gVJs4WVriK?=
- =?us-ascii?Q?YvQ9SRHhSQLin87qKYApJlqL/E1EHng3P2xWvpU6cuD4m7ZHxSfgkYNM4XzX?=
- =?us-ascii?Q?kJXDDPSulCQHzYWKWoHMEbgObtYH9pZAZLtnjWPAzegVCJFcP4KWaf6LoYai?=
- =?us-ascii?Q?MLywhcx2hLNKO+tUxnnCj2Z3U4go6lMkOztq8jlWsslsBoEBBkRl6Ks+Jlhg?=
- =?us-ascii?Q?OuG2alvUla9JE99g0s1PMDVLqHe6DGsTm+dIYg1y3pGWpto5Ow2umPYSf033?=
- =?us-ascii?Q?p5dM+BjqDHFrK5Z5zxd0AnmtBbIsDR9o7AvpxaNtk7vP66sJSy+BM3u2HGt1?=
- =?us-ascii?Q?lAujR5/Txv/hB93l/uBnSgzWRkbQpNJbSwTW5pVkQrV37nZjZDrVTA1/gAGD?=
- =?us-ascii?Q?DjYKZLMrT8Pwdvavr8AlLQyzMOsQkokuSPE5YHcPmC2kk/U+aqbdRMc86+yc?=
- =?us-ascii?Q?F+kPdW2qf3Y7FvONUaAJ4I0esCF98TT2EJCuxRSxKCrwKo+MEld8vT51J2fM?=
- =?us-ascii?Q?xHZe3grezS9I7DIfAQ6Ip4cgPhFb8cMu8XxKxNUIG2yThPcHGQtrI3yxp5vP?=
- =?us-ascii?Q?S9PArGocLrZa7AdGCxBtNnaX72ehvlCUGSl10nP9tjQ2XCm+dOCMt/O45pY2?=
- =?us-ascii?Q?cafqwbPgNfj3TZt1SgPbjVFDiKhcrBVCaipCdjhDl2sXd8w/dfCoqReuvl4/?=
- =?us-ascii?Q?/4eOVLaMGDIqaT1Q33BKsdo0TaNqHxdDXQjy5Y9lqzwJyFO9khocFUrGQD/r?=
- =?us-ascii?Q?RRzBrGhvsiKg/IV8JLo9Kl+DNyviYlQB67IFINh91BB+frQlCGD1znzoOhKr?=
- =?us-ascii?Q?emZvDGp03RaTIMPI367kG3t4CxmOxXfnxWhnqBUDK73eoW1M/fcR3D1Bi1z6?=
- =?us-ascii?Q?3zd/9jaka3Lim7jpt9vzuErv86m6ig1CP4OWvRB/Ht64WfRd9JwH?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 869f3da4-9fd2-402e-809b-08df17dc9fb3
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 12:34:05.0990
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: isGpbmoiPMant2GBohJcihYfmRWx9cfvhF8yu2ME4nkHuzfojPh4ojgT6JOh74nknKer+92cUYh27zM9ZgWSJT5Y7cSS11u+RWjcEaByTVi7fiWwMsKKy1zBXC0IJcex
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7046
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] nvme-tcp: refactor I/O queue setup path
+To: Surabhi Gogte <sgogte@purestorage.com>, Keith Busch <kbusch@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
+ Sagi Grimberg <sagi@grimberg.me>
+Cc: Solganik Alexander <sashas@lightbitslabs.com>,
+ Roy Shterman <roys@lightbitslabs.com>, linux-nvme@lists.infradead.org,
+ linux-kernel@vger.kernel.org, mkhalfella@purestorage.com,
+ randyj@purestorage.com, adailey@purestorage.com
+References: <20260910202812.1642832-1-sgogte@purestorage.com>
+ <20260910202812.1642832-3-sgogte@purestorage.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20260910202812.1642832-3-sgogte@purestorage.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -4.51
+X-Rspamd-Queue-Id: 7D80F1FA79
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,purestorage.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
 
-Hi Shrikanth,
-On Mon, Sep 21, 2026 at 02:39:34PM +0530, Shrikanth Hegde wrote:
->Hi Peng.
->
->On 9/20/26 7:56 AM, Peng Fan (OSS) wrote:
->> From: Peng Fan <peng.fan@nxp.com>
->> 
->> Convert open-coded if/else with set_bit/clear_bit to the assign_bit API.
->> 
->
->Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
->
->> Signed-off-by: Peng Fan <peng.fan@nxp.com>
->> ---
->>   arch/powerpc/kvm/powerpc.c | 5 +----
->>   1 file changed, 1 insertion(+), 4 deletions(-)
->> 
->> diff --git a/arch/powerpc/kvm/powerpc.c b/arch/powerpc/kvm/powerpc.c
->> index 9194cf492d1c..a567b63a5f1f 100644
->> --- a/arch/powerpc/kvm/powerpc.c
->> +++ b/arch/powerpc/kvm/powerpc.c
->> @@ -2210,10 +2210,7 @@ int kvm_vm_ioctl_enable_cap(struct kvm *kvm,
->>   			break;
->>   		if (!kvmppc_book3s_hcall_implemented(kvm, hcall))
->>   			break;
->> -		if (cap->args[1])
->> -			set_bit(hcall / 4, kvm->arch.enabled_hcalls);
->> -		else
->> -			clear_bit(hcall / 4, kvm->arch.enabled_hcalls);
->> +		assign_bit(hcall / 4, kvm->arch.enabled_hcalls, cap->args[1]);
->>   		r = 0;
->>   		break;
->>   	}
->
->
->Just ensure you have covered all such possible open coding where applicable
->in arch/powerpc/.
+On 9/10/26 10:28 PM, Surabhi Gogte wrote:
+> Split the I/O queue setup helpers apart so that the individual steps can
+> be called directly from nvme_tcp_configure_io_queues():
+> 
+> - Queue count negotiation moves out of nvme_tcp_alloc_io_queues() into a
+>    new nvme_tcp_set_io_queue_count(), leaving the allocator with just the
+>    per-queue allocation loop.
+> - TLS PSK validation moves out of __nvme_tcp_alloc_io_queues() into a
+>    new nvme_tcp_tls_check_psk().
+> - nvme_tcp_configure_io_queues() now calls the three steps directly in
+>    the same order as before.
+> 
+> Signed-off-by: Surabhi Gogte <sgogte@purestorage.com>
+> ---
+>   drivers/nvme/host/tcp.c | 25 +++++++++++++++++++------
+>   1 file changed, 19 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+> index 8e5e22febe2a..fe0e581608b4 100644
+> --- a/drivers/nvme/host/tcp.c
+> +++ b/drivers/nvme/host/tcp.c
+> @@ -2172,10 +2172,8 @@ static int nvme_tcp_alloc_admin_queue(struct nvme_ctrl *ctrl)
+>   	return ret;
+>   }
+>   
+> -static int __nvme_tcp_alloc_io_queues(struct nvme_ctrl *ctrl)
+> +static int nvme_tcp_tls_check_psk(struct nvme_ctrl *ctrl)
+>   {
+> -	int i, ret;
+> -
+>   	if (nvme_tcp_tls_configured(ctrl)) {
+>   		if (ctrl->opts->concat) {
+>   			/*
+> @@ -2197,6 +2195,13 @@ static int __nvme_tcp_alloc_io_queues(struct nvme_ctrl *ctrl)
+>   		}
+>   	}
+>   
+> +	return 0;
+> +}
+> +
+> +static int __nvme_tcp_alloc_io_queues(struct nvme_ctrl *ctrl)
+> +{
+> +	int i, ret;
+> +
+>   	for (i = 1; i < ctrl->queue_count; i++) {
+>   		ret = nvme_tcp_alloc_queue(ctrl, i,
+>   				ctrl->tls_pskid);
+> @@ -2213,7 +2218,7 @@ static int __nvme_tcp_alloc_io_queues(struct nvme_ctrl *ctrl)
+>   	return ret;
+>   }
+>   
+> -static int nvme_tcp_alloc_io_queues(struct nvme_ctrl *ctrl)
+> +static int nvme_tcp_set_io_queue_count(struct nvme_ctrl *ctrl)
+>   {
+>   	unsigned int nr_io_queues;
+>   	int ret;
+We are not only set the queue count, but also allocating the queues
+themselves. Why not keep the original name?
 
-My cocci rule as below, only one candicate for arch/powerpc/ is found.
+> @@ -2235,14 +2240,22 @@ static int nvme_tcp_alloc_io_queues(struct nvme_ctrl *ctrl)
+>   
+>   	nvmf_set_io_queues(ctrl->opts, nr_io_queues,
+>   			   to_tcp_ctrl(ctrl)->io_queues);
+> -	return __nvme_tcp_alloc_io_queues(ctrl);
+> +	return 0;
+>   }
+>   
+>   static int nvme_tcp_configure_io_queues(struct nvme_ctrl *ctrl, bool new)
+>   {
+>   	int ret, nr_queues;
+>   
+> -	ret = nvme_tcp_alloc_io_queues(ctrl);
+> +	ret = nvme_tcp_set_io_queue_count(ctrl);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = nvme_tcp_tls_check_psk(ctrl);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = __nvme_tcp_alloc_io_queues(ctrl);
+>   	if (ret)
+>   		return ret;
+>   
 
-// set_bit -> clear_bit => assign_bit
+Cheers,
 
-@@
-expression cond, bit, addr;
-@@
-
--if (cond)
--        set_bit(bit, addr);
--else
--        clear_bit(bit, addr);
-+assign_bit(bit, addr, cond);
-
-
-// clear_bit -> set_bit => assign_bit
-
-@@
-expression cond, bit, addr;
-@@
-
--if (cond)
--        clear_bit(bit, addr);
--else
--        set_bit(bit, addr);
-+assign_bit(bit, addr, !cond);
-
-
-// __set_bit -> __clear_bit => __assign_bit
-
-@@
-expression cond, bit, addr;
-@@
-
--if (cond)
--        __set_bit(bit, addr);
--else
--        __clear_bit(bit, addr);
-+__assign_bit(bit, addr, cond);
-
-
-// __clear_bit -> __set_bit => __assign_bit
-
-@@
-expression cond, bit, addr;
-@@
-
--if (cond)
--        __clear_bit(bit, addr);
--else
--        __set_bit(bit, addr);
-+__assign_bit(bit, addr, !cond);
-
-Thanks
-Peng
->
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
