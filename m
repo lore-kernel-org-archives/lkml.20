@@ -1,175 +1,297 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838E64BE429
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:33:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE555158A5
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:34:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790026396; cv=none; b=L2Q1ckT2f9YaUf8d7evLDHrz3JKI2gWzVWEPwtuStaPvhGFPML/K4eDKTRyjSWnMYKOzFbYvGIu3Zl0gqVV85JvHL5tDRDRSWeh2D72zXHcXaUbscs1w0fl+oc6bIshj63/GHLMvdLZjbXg1wBmDpeJigrcGFOHwWLNg/Eh2PjE=
+	t=1790026449; cv=none; b=BM/XKV5u5xMw9c3uSRfH8p/mMaBu4/psW0e/EHKKjxqPo8b8XB2KaaaSai9rbBXRTpIbzNTvMrP7FczzSNHhnXIyJzYtKEglanZfmTwYPRjDvlAJpJMnICaz+m4tXCi7ixKh3iXyYvNx18XurzQD2nQrfqS/M8MGSixL/DTe3Sc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790026396; c=relaxed/simple;
-	bh=PfkfUgBBH4+gt9nP0fAfRVLhu+EQ/uA/stjuvdTdtYE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iApx+hh/i95KAXDEUlJ0cIiUxh0a6vjoWT0e9EuzzFfg94eEzPLcUIxAZGLf/D5yn3t2rDtM/GDdN77K0cDI7zZQauzLs/5DJDPcKPH5z6sckzBZ42KlfRe0P2GmAFwEkHaEjjeuebjnQDZMLMDOHn60FGzfCeGW2r4yjQMhctc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=0cB0l3vl; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1790026449; c=relaxed/simple;
+	bh=R1peGfGCRuDkyOnmHdifYGmM605I2Y0NPAuHhiZzP+w=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pJbXP1QyKakQMRe5ZPTc0sMRFGO7c/RLid1hQXVbSVmWj9CxeWxj2VHECHK/Y1N+t7/HUfjAxsLV3LC3TXTP0K0J6nSKljl1T6cOIPKYK1HBxIsnwXxHLqXD6O3W/BQumXoENA9aqKwvyFqRO6LXTeQBn/S2qeNIis9SQbqyfX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bIzBAr5/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NiVASZsZ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="0cB0l3vl"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4aaf2ecfso2982629d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:33:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bIzBAr5/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NiVASZsZ"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LKfv6Y2412159
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:34:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	z80fGZcv6BPIL4REfzCrI6RcJShWmT49WjhJXMKxxOU=; b=bIzBAr5/YZDrBmax
+	l1lrKwqt/AXF2k3S8USImZugoEgOGjaM7BeHLt/wgHvoz7eSgHPGcmF/GnQ7hKWw
+	AVXxXIpaoMMm7xQex8VmfUTelZ8DLkpTOYg07K1uuNJziWJ5/B850e9jvzpkX9M2
+	pwTdNHrRtkT9vJ2oGhKQdHlAxZe9b1cEb1kjnGj1JfQ5Yum1e018V7QG3SzMurdZ
+	qYBpZL7EjftEzedXWYubyG0HHB/uHSMgmSZraBPpTFk28q2fzcvYi1lEM+EtWJJu
+	jyBC0lCVWmE6/ZqI2+sGqlJRoDpTc9G/FJJoJO3kliDc8dcpTXxBoBtNX0fRuwuM
+	x0giwg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu3csjhpy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:34:06 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39e3f521346so3976734a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:34:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790026393; x=1790631193; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/vtBA2br0mdFH+MTeFUpCL6R+w/dADsqHz7aoBQi8r8=;
-        b=0cB0l3vlpUrUVYW2gP6CZRD3gkhHC6U9Irno7iioMwA6ecHOVLxm5v1l9PuWksUQ+6
-         acfuF6kshORtq2qPYXkN3YP7SD4BsS8rhOKtIoP6/wRRltL3Qt1nyxpKLP7TYYOXTpGS
-         TWPJirgPIuSzDzAIiaZqLm8omf1VXMjUbMcavUOzfJEl2k2mKKLUsO3GlFWZ9coB+B33
-         Qaic1hSr+K5g5d2/rlALVIqfEbQ1CIX4uB31B/kRruzXv7uLK+ObxNMWZL8r8gmzFwqn
-         KYpoylcOBYYPZDDYHya8AIXUZSUhRv/wjoDkDyQVQKy4j3AmeRy5uD57V4cIZseMr2h/
-         aJag==
+        d=oss.qualcomm.com; s=google; t=1790026446; x=1790631246; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=z80fGZcv6BPIL4REfzCrI6RcJShWmT49WjhJXMKxxOU=;
+        b=NiVASZsZqp5mxtmd62Co2IMNqC1MtQy0QCqhibiKhRSmKuTWVRkIh0yjYlifqDWUOB
+         ik4u0Q2oSiNHEloNHVOD4S2v6KBJ3yghWaOGVpCmWkUj2gZGzmAqmFe6riTP1f56e8WD
+         19veansBq8zQSbwJ/kJ+vPYZmdIUoxRfwWf7iBSGyqrIseqB6svEf/wJ9aiF5cGV5I8t
+         mN9ArRbmAsKXpjTg7RLI79QXfVMArholYDIzssENBxY9f06j9uI1/E5f6e3s08ijoRkr
+         rTpT2DaIKk1vMXVefAyE158B32x/jQ4Ge5QLLNCXcMqhefI90DpTqXp/e8aGGG87urRl
+         h2og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790026393; x=1790631193;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/vtBA2br0mdFH+MTeFUpCL6R+w/dADsqHz7aoBQi8r8=;
-        b=MevSrMalnhlqYCSk3JEZf0aN9WVvrsaeQpFANRzyqyGbT9hQ+nlWBAvB20htd9pF4T
-         +PH45+1PneQJA47e/YIxZEdZ5J0lrnbLNWApUfJQNlGZ9zAnoqrkr9x+6Kl3ubpvKX3Z
-         A/59q1IaeF5zy528KSRCse0iCCFb/7+beRLXxsWQ4pAuYtH2fjxbg1JwnEjatZ/xpjAQ
-         G6cz/9pNGV/2u9VakpguEkLCFJznCbiI7quBZYwhCOk22oQvCdIf15UVasrucLuZO999
-         m+eBhPOtCgjWmyKYI3V2bhyVSEXKLMPMKA2NhV5DSCT88TPJduTBc9ELyRncjEeClpEZ
-         GVfw==
-X-Forwarded-Encrypted: i=1; AKwUvBx+bMpSmBFCEftoqPDtNHfbRY6DIyTWCWfoaMDt7ocu5Gyh0RaiY1zgBcuDKx/j7EBCPXp70yN8LPcyook=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJqxP9fRm284TrWHD5wXOgtXYb7HSrGwbwbrDOkSyXwi2MFYq2
-	baOA4TF9zHV+h+P4w5yCRykwjglUYd3jiEongLTqQf5XeDeT+dVetCH0EiaTU4dnweM=
-X-Gm-Gg: AYBFou1FBinFv+tywWShUbac4rfbpRcYM1b373RYpLpMw79PTta+6Orapcqby8vYLtz
-	AQL2h3x0B2w4R/1wCpNNFcfo72eN92yl4blKTn0gUmTX663Uvjii5NsNuAYF6Mg98B9JLcbuhkI
-	5ljN2VUNq3UHPrgUZI1pf6i/D9Q0/eKZIH7xssV80XupsBbNIrcPsqThjvqxhRMtE3YU0PaymzF
-	15bXk8CCXgTdz3NCHzcn6np/+xwTp7thEOtSuFaqIKYJOvl9swNXhhHUsoU2zIsS2Xm+6F4jYiB
-	nqx8iOsep21YqxMe2ADTKoLRFyURAdffvPd5mvUJiAIG7/PIfuniW6srmUvZeTMapONaY0nKFpx
-	ca6gLJFGXkjuTsmLsVO6oAxRMPKOJejMH8uK1+TaY9Tzafzv2bEr9t7bNpKIlPSjYgN/k29mXdQ
-	d8eukaoSd8COWf8FNOLPnvdL/v6IzP03pMpruo8yKlG6JYN+bgK2apB6HT2r7LJoRfdByQXoXjH
-	/nqR0WGKvEwCA4iy0lrm7AgVbSAXwBx/QVqjOWszAB+C+9vrJ73iSNnrNW6sftpjkuEv75Ef58H
-	NOPjzpQ546bErr56KxUngnf64ei41mMO4HqKh3ZzXPkjhwkGy6q2zmeoVSWkrTYr
-X-Received: by 2002:a05:690e:4382:b0:670:f743:6eb0 with SMTP id 956f58d0204a3-672c55186a2mr73689d50.98.1790026393256;
-        Mon, 21 Sep 2026 14:33:13 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:8475:e6ce:2d2c:ddc2? ([2600:1700:6476:1430:8475:e6ce:2d2c:ddc2])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-672c50bb1d8sm145972d50.20.2026.09.21.14.33.12
+        d=1e100.net; s=20260707; t=1790026446; x=1790631246;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z80fGZcv6BPIL4REfzCrI6RcJShWmT49WjhJXMKxxOU=;
+        b=jSb4vf+mAyjWaqHI3EHn2Uz8avE/KPWavWIaVeFu5LIVO60dxjQRO+AI618UwxjRNW
+         kEOwcM7TQht/fc9yVza8vKRlJSXvWNdxmyhRxMgynrxpDDk3KjyohybTKMWUowwkLx9P
+         5yef818Dn7x8usXOK80Yxiy4742SA0k8LD7Q5v3SY4xxEtkcnc0JZk8bdW2CkrI0z0aw
+         aJpU0ZbuPo3AmCEl0x0nS78kTcfsTEMnUE3Q5UyxcCp8wk9lUp3FPVDgVbe6jp9/6vI2
+         dJG/44yaXOsV3elFHU4kKHraIHcQYEbR3aZdqamPJ13GERPxngwNnaKuaGvY4bF1hFG2
+         OpJw==
+X-Forwarded-Encrypted: i=1; AKwUvBxUardcVp/9ziwtBdxdlKi4DaTZW10f4B/TZdki04NIHXpXsAmniDYGMJnUA8sLbw4lQ1Q9E60gHYw+Umo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFyuLSsM7mt8Qcb39poLXbbfSzDqZUVZL6U3IrE9jUhpZe+TpP
+	Tt7HT51a2MZdMIX8XVs9ipgJnLZBFE2r0MGtk/MA0fqqfYnIzSNd2RHGN6vGCyFLf+xDBKYUwSA
+	AeqtNpoiCGcwWvI2a2ov8LuS9Adc6OuGhcSAHJ0eUkHKeBS60i/aQh4WZ76cdlS5lQOOcXU6Wyz
+	E=
+X-Gm-Gg: AYBFou0H+tIU2pfFELHrnxsHskjbvRdZbrD3ha3J0/0d3OWCrrs8NbKOQ6pOJrVGn/q
+	5dspRJQeRlpheYeUF4HvuNnb1L7AS4PLl7BLZC5UYwW7vz3WADYe1arr7ExzhY2+6y+lvHUsn3M
+	pwvX/9o5tPNcdUfWKVpbiLZP7D3Mwxa0G0uSHHyes/JHzoi9pDsVvdXK7wfs1b/x3e2UMC3aQpk
+	Ps7z85IsvNbib7UuBu6ofhLWUv6HwQyweReKW/lhwSoST/wHUcPWyRg5DiPZVWwjX/LX/RKX8KK
+	xmks49Pa5w6yBCiLteSJGAbZhedlIyBuFGcL1WZ7Cdu9qv2OcdNl3kfmRXtsIWo7r4JVn3d5ZfI
+	HWQY4hhe1AfiDEhPuu0xMgc+G5w==
+X-Received: by 2002:a17:90b:5187:b0:39e:6c6a:2095 with SMTP id 98e67ed59e1d1-39e6c6a22ecmr10542571a91.54.1790026445921;
+        Mon, 21 Sep 2026 14:34:05 -0700 (PDT)
+X-Received: by 2002:a17:90b:5187:b0:39e:6c6a:2095 with SMTP id 98e67ed59e1d1-39e6c6a22ecmr10542536a91.54.1790026445395;
+        Mon, 21 Sep 2026 14:34:05 -0700 (PDT)
+Received: from localhost ([50.35.44.179])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a02625615dsm5648638a91.2.2026.09.21.14.34.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 14:33:12 -0700 (PDT)
-Message-ID: <1164821496f54d2fe03af44283d48db707a5e391.camel@dubeyko.com>
-Subject: Re: [PATCH] hfs: validate drAlBlkSiz and fs_ablocks in hfs_mdb_get()
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Hui Peng <benquike@gmail.com>, glaubitz@physik.fu-berlin.de, 
-	frank.li@vivo.com, brauner@kernel.org
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 21 Sep 2026 14:33:11 -0700
-In-Reply-To: <20260919222605.3794529-1-benquike@gmail.com>
-References: <20260919222605.3794529-1-benquike@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+        Mon, 21 Sep 2026 14:34:04 -0700 (PDT)
+Date: Mon, 21 Sep 2026 14:33:52 -0700
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+        will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+        aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+        joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+        linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+        sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+        WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Subject: Re: [PATCH v18 1/7] firmware: arm_rmm: Add SMC definitions for
+ calling the RMM
+Message-ID: <20260921143352.0000014a@oss.qualcomm.com>
+In-Reply-To: <d7ccaf22-5bde-4344-8bf0-a5a17dcac0f3@arm.com>
+References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
+	<20260912083611.2513845-2-suzuki.poulose@arm.com>
+	<178978126540.2352296.16845657485139032765.b4-review@b4>
+	<d7ccaf22-5bde-4344-8bf0-a5a17dcac0f3@arm.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDMxNSBTYWx0ZWRfXxGgQcQIuVX4F
+ n5Bz1yZS4kFWu7V5Sa6pCLqwjGMYYij9XxYseN7BEdEc8KSASu6/OF7hu3nFYFsqEn5Zx7Qv+Lw
+ 78Df7Ifk75JCpKuJq/ZE1Pkc+P2n0lQ=
+X-Proofpoint-GUID: xo_nyhMG5Q7ml-fb4i6PJmBejbPv3DqM
+X-Authority-Analysis: v=2.4 cv=QovLTlyd c=1 sm=1 tr=0 ts=6ab1a2ce cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=aNnz9XPx1a4JIXSYt2cE/A==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=7CQSdrXTAAAA:8 a=PlCZfVOHbWhc7nwO5CYA:9 a=CjuIK1q_8ugA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDMxNSBTYWx0ZWRfX9Bxbs4L9790Y
+ Pr6+TFFPf6AZGX96gGI60P/n6zHz6pBArcJcRBiUBphoYY1XgEhrZ/xSL7OGGMFtRoD1gzgl3PY
+ 0h0ieECiw+DY5zg+jI1kwZqUBUjAjUTRsI7IB6pgsuWsT7ykzitNBUhdp90XcAGrwrWFTupHWwF
+ +speeXa9L6vC3UgtpYrOqQ0VpCpCEelQR7Y51jdDPEFs2zbxmmiFfklm2KcMWgl3iQqcUezEZ+F
+ 4e9xudYR7jB1nQsqu+wwEQ4QwQoZ4U+F48+dnfgz2q/LXFOsAMjyBeCaIsRmU7WphVrLubU9CmW
+ NKHkV3Kw2t/fEMS1tmeO6XoTuRAT4Az/jmvcdQjT8aUP1iAp69Cc2Gg4So11FZJ7KyUoho2EGx9
+ xpH3hZNBeYcZaQc3qEdfLvG2qWEjqT6IYyGsWoMf7AnGQ97zip+00IrLSnuO+qvKPKePl+OqQIL
+ QEX+8HLRQvITn9vYbkQ==
+X-Proofpoint-ORIG-GUID: xo_nyhMG5Q7ml-fb4i6PJmBejbPv3DqM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_06,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 bulkscore=0 impostorscore=0 priorityscore=1501
+ spamscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210315
 
-On Sat, 2026-09-19 at 22:26 +0000, Hui Peng wrote:
-> In hfs_mdb_get() (fs/hfs/mdb.c), reject images with allocation block
-> size (drAlBlkSiz) of 0 or not a multiple of HFS_SECTOR_SIZE (512), or
-> with fs_ablocks =3D=3D 0, preventing a divide-by-zero trap and out-of-
-> bounds
-> bitmap scans on crafted HFS images.
->=20
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> diff --git a/fs/hfs/mdb.c b/fs/hfs/mdb.c
-> index 277de712f9d4..9e78c561a3f1 100644
-> --- a/fs/hfs/mdb.c
-> +++ b/fs/hfs/mdb.c
-> @@ -204,6 +204,11 @@ int hfs_mdb_get(struct super_block *sb)
-> =C2=A0	/* These parameters are read from the MDB, and never written
-> */
-> =C2=A0	HFS_SB(sb)->part_start =3D part_start;
-> =C2=A0	HFS_SB(sb)->fs_ablocks =3D be16_to_cpu(mdb->drNmAlBlks);
-> +	if (!HFS_SB(sb)->fs_ablocks) {
+On Mon, 21 Sep 2026 10:27:46 +0100
+Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
 
-This check doesn't look like checking that it's "not a multiple of
-HFS_SECTOR_SIZE (512)". Could you make your check more accurate?
+> On 19/09/2026 02:27, Jonathan Cameron wrote:
+> >> The RMM (Realm Management Monitor) provides functionality that can be
+> >> accessed by SMC calls from the host.
+> >>
+> >> The SMC definitions are based on DEN0137[1] version 2.0-bet3
+> >>
+> >> [1] https://developer.arm.com/documentation/den0137/2-0bet3/
+> >>
+> >> Signed-off-by: Steven Price <steven.price@arm.com>
+> >> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>  
+> > 
+> > With Gavin's nitpicks and the GENMASK_ULL() from sashiko, just a few
+> > comments inline.  Mostly on subtle inconsistencies that really don't
+> > matter that much.
+> >   
+> >>   include/linux/arm-smccc-rmi.h | 497 ++++++++++++++++++++++++++++++++++
+> >>   1 file changed, 497 insertions(+)
+> >>   create mode 100644 include/linux/arm-smccc-rmi.h
+> >>
+> >> diff --git a/include/linux/arm-smccc-rmi.h b/include/linux/arm-smccc-rmi.h
+> >> new file mode 100644
+> >> index 000000000000..214d6228dfc2
+> >> --- /dev/null
+> >> +++ b/include/linux/arm-smccc-rmi.h
+> >> @@ -0,0 +1,497 @@
+> >> +/* SPDX-License-Identifier: GPL-2.0 */
+> >> +/*
+> >> + * Copyright (C) 2023-2026 ARM Ltd.
+> >> + *
+> >> + * The values and structures in this file are from the Realm Management Monitor
+> >> + * specification (DEN0137) version 2.0-bet3:
+> >> + * https://developer.arm.com/documentation/den0137/2-0bet3/
+> >> + */
+> >> +
+> >> +#ifndef __LINUX_ARM_SMCCC_RMI_H_
+> >> +#define __LINUX_ARM_SMCCC_RMI_H_
+> >> +
+> >> +#include <linux/arm-smccc.h>
+> >> +#include <linux/bitfield.h>
+> >> +#include <linux/bits.h>
+> >> +#include <linux/build_bug.h>
+> >> +#include <linux/sizes.h>
+> >> +
+> >> +#include <asm/page.h>
+> >> +
+> >> +#define SMC_RMI_CALL(func)				\
+> >> +	ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,		\
+> >> +			   ARM_SMCCC_SMC_64,		\
+> >> +			   ARM_SMCCC_OWNER_STANDARD,	\
+> >> +			   (func))  
+> > 
+> > Obviously it is v18 so probably a future thing but nothing about this
+> > is RMI specific.  Could be used for ARM_SMCCC_TRNG_RND64 for instance.
+> > I'm not entirely sure what we'd call such a macro
+> > 
+> > ARM_SMCCC_CALL_VAL64_STD() maybe?  
+> 
+> ARM_SMCCC_STD_CALL64_VAL() ?
+> 
+> But, I would leave it as a wider cleanup in the tree as a separate
+> series.
 
-Also, if you started this check, then let's check that all these fields
-are consistent:
+Ok.  A follow up would be fine I guess.
 
-	__be16 drNmAlBlks;		/* number of allocation blocks
-*/
-	__be32 drAlBlkSiz;		/* bytes in an allocation
-block */
 
-	__be16 drFreeBks;		/* number of free allocation
-blocks */
+> >> +
+> >> +#define RMI_RETURN_STATUS_MASK		GENMASK(7, 0)
+> >> +#define RMI_RETURN_INDEX_MASK		GENMASK(15, 8)
+> >> +#define RMI_RETURN_MEMREQ_MASK		GENMASK(9, 8)
+> >> +#define RMI_RETURN_CAN_CANCEL_MASK	BIT(10)
+> >> +
+> >> +#define RMI_RETURN_STATUS(ret)		FIELD_GET(RMI_RETURN_STATUS_MASK, ret)
+> >> +#define RMI_RETURN_INDEX(ret)		FIELD_GET(RMI_RETURN_INDEX_MASK, ret)  
+> > 
+> > What's this one?  I can't find anything in the spec that matches it
+> > and as far as I can tell you don't use it in this series.  
+> 
+> This is coming from RmiResultDataLevel. See RmiResult type.
+> This was renamed after we introduce the RmiResultDataIncomplete.
+> It is used in the KVM code to find the "level" where a command
+> failed/walked.
+> 
+> I could rename it to RMI_RESULT_DATA_LEVEL() ?
+> Similarly RMI_RESULT_STATUS instead of RMI_RETURN_*
 
-Could you please add these checks?
+Yes, that would make tracking it down easier. Thanks.
+
+> 
+> >   
+> >> +#define RMI_RETURN_MEMREQ(ret)		FIELD_GET(RMI_RETURN_MEMREQ_MASK, ret)
+> >> +#define RMI_RETURN_CAN_CANCEL(ret)	FIELD_GET(RMI_RETURN_CAN_CANCEL_MASK, ret)  
+> 
+> > These are obscure enough to find in the spec I'd give a comment just
+> > to save the sanity of anyone looking for them.  
+> 
+> As above, they are really RMI_RESULT_DATA_INCOMPLETE_*
+> 
+> >   
+> >> +/*
+> >> + * Note many of these fields are smaller than u64 but all fields have u64
+> >> + * alignment, so use u64 to ensure correct alignment.  
+> > 
+> > Obviously this is only going to run on arm64 so it's not critical, but
+> > more generally u64s aren't always 64 bit aligned.  So if you 'really'
+> > care aligned_u64 is there to ensure it.  Meh, arm64 so fine.  
+> 
+> Agreed, I am worried about the churn in the consumer code. Also, like
+> you said, this is only for ARM64. So, I would pass it.
+
+Ok. A tiny bit ugly but x86_32 adoption of RMM 2.0 is likely to be minimal :)
+
+
+> >> +
+> >> +struct rec_params {
+> >> +	union { /* 0x0 */
+> >> +		u64 flags;
+> >> +		u8 padding0[0x100];
+> >> +	};
+> >> +	union { /* 0x100 */
+> >> +		u64 mpidr;
+> >> +		u8 padding1[0x100];
+> >> +	};
+> >> +	union { /* 0x200 */
+> >> +		u64 pc;
+> >> +		u8 padding2[0x100];
+> >> +	};
+> >> +	union { /* 0x300 */
+> >> +		u64 gprs[REC_CREATE_NR_GPRS];
+> >> +		u8 padding3[0xd00];
+> >> +	};
+> >> +};
+> >> +
+> >> +static_assert(sizeof(struct rec_params) == SZ_4K);  
+> > Whilst the assert works and is need to prevent oversized the
+> > dos never seem to provide any indication of the final trailing
+> > padding other than indirectly and I don't like maths on Fridays ;).  
+> 
+> Agree it is a bit obscure, but ...
+> 
+> > Maybe union the inner union set with a u8 [SZ_4K]?
+> >   
+> 
+> That doesn't help if the other one runs past SZ_4K ?
+
+You still need the assert so I guess that is already providing
+the documentation indirectly so indeed little purpose in the
+extra union beyond removing need to have magic padding in the
+last element.  Mind you not obvious what that last pad should be
+if it wasn't just 'the rest'. So, I think this is fine as is.
+
 
 Thanks,
-Slava.
 
-> +		brelse(bh);
-> +		HFS_SB(sb)->mdb_bh =3D NULL;
-> +		return -EINVAL;
-> +	}
-> =C2=A0	HFS_SB(sb)->fs_div =3D HFS_SB(sb)->alloc_blksz >> sb-
-> >s_blocksize_bits;
-> =C2=A0	HFS_SB(sb)->clumpablks =3D be32_to_cpu(mdb->drClpSiz) /
-> =C2=A0				 HFS_SB(sb)->alloc_blksz;
+Jonathan
+
