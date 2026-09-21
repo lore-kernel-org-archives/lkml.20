@@ -1,183 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485BA4FDA7E
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:52:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 783354FECC2
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:52:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790016778; cv=none; b=Wlk1X7JUqT4vBEHklBwB+s5mF2tEVZf3pUDX0NatlxXMK39aRCRmkwnrP9hZJ4zZYsDjES/XMSG9vED566eI/uOY8XNhCUsBYXTeknntr1PKiTb2CnVg52KsG3fNyI3h5rIuUO38ZMYsHSKhH5V3EaaZU62Eju6TszNCokFd8e0=
+	t=1790016781; cv=none; b=T8vX/xbp50J+hnuNV8w3OpapI244Ppo6tOY+MbiWq2FWWMow+j+1xSSwfR/jZv4tA7h8etIg8UKL6VdqMuEX1QzPoJZCwGYz+UwQ2UKjf/LA52r09qK1XgCKXRQNoYRpEKySiSVNIPiMi/3L4pH08VCAFjntGFDm1psLJ3GW60c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790016778; c=relaxed/simple;
-	bh=vQ0nZdsZsVFHtvmiQLlrZD6T+6Pbos1zWUSSaUXa1SE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YVGw83qK01owj9gVfr08TCgOIsuJg83Bv5ro4/N+n/h4CDtfbm4muyRdH8OcmHFvkGvm8cwN53vzYh562jgHxFiSAuRXOhLydM2Hnr6aNkgd63TtWq+b+i/TVQxXmO5pMQdAwdmOraXmSdLRMs/KoCyyo05QC4Lda/FRiKS8WCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jnq63Tuv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790016781; c=relaxed/simple;
+	bh=JGvsE3qprxPos+efsPkq/3seFxa9aaaj4N7CPfDha88=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=A5CdV+IKyFH/PKo4CihZ+YNV64t9UcfuOIt3vPX+TO1VB1fShvepYQW7whotfJe/XtXCYr7WIU3Lnv9ot0eGwN1pKnKRqkHclapX9k1/BeBGOpNvWR9kl6vSLHi0yPans9Z+J7+glaQrbmpMJJZW4REY2Ng5rbcMNmPXANHZYKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NGycnf6g; arc=none smtp.client-ip=209.85.210.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jnq63Tuv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D1981F000FF;
-	Mon, 21 Sep 2026 18:52:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790016776;
-	bh=OfpxOT295Cqy5dFG4ckdzBDycmvuVGEuSlnWiQ/SQeg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Jnq63TuvJEI9WpDbfOjntptRn/RdFpP+Zjx3XXhcutv4efWciRNs/gDn9y2frz8nf
-	 /YIQN8T3B1Mk8g5fnsB6WYtYjPQs3Cn7fIqkVN0yVN51i84XW8wK3ZrnKR/FHhdf01
-	 /OyI8bEh8LoSfsTFORhVaPNaU9KLKaLbi+NL67LPNJLTeSIHvunJ9k/3fN4gHapstO
-	 0G/YCEHOc4LhJUkU08axdyME58tgh7J2/CY7z93TD9E6MtaRPoFwNF1ErPedXl0Pkb
-	 RYXHnOiPnFnMDbbZmuvQx7jIIzPYK0JUvPN53RLXpxIrjPwpFv/y8GD7uZQ5E49VGo
-	 zJuKbwJH/+kdA==
-Message-ID: <bc3703c3-5798-40a8-88ae-98e1a9ea4bf0@kernel.org>
-Date: Mon, 21 Sep 2026 20:52:47 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NGycnf6g"
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-854f274dd69so3399557b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:52:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790016779; x=1790621579; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/5YTcsXPaj8qnFsGtVLuToOw955UXBQDL4CSdNlovXI=;
+        b=NGycnf6gQ0snnukMyy/uVJbjXfNTrTufEL/sIKcGftNhB6QLJw5TTWjmrvxYGumupk
+         /7o0ROWYSPcncsinilaezljVu3oazvcFN0HCkZxIAOYkLSc2QFi/xDk/NdHHaXq0Ea5x
+         FOxlXMwH1KdxmJexMWHwuzEB5CB8zbNM1oOZIYwMw1X7Esm3KHZ/FYrRjCEEEOEoNnnO
+         WXLWt0jrFPkdZy3yVZCn5Vu+6jNkAtSvYJhIhOZbHXpYsywG2ALUKEf5YQUvEAD/4kj2
+         ApFSDSZIXOweoLCV8gweLGOJ1K82wn97cUvSYdIbk4dVOzQ2qwhiwYubm79JYwHy1wvT
+         Gtyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790016779; x=1790621579;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/5YTcsXPaj8qnFsGtVLuToOw955UXBQDL4CSdNlovXI=;
+        b=wPLHz+Ur5Anxhdfd4Uc3yiaIR9WkX0SKcq+ahy8JZRFjmrmE5o2hm7MkAZle1iVs2R
+         AZiSMdDRKdNEeoVVJyCf6yV939rfxahdRYft0ihL6KJQnYf0mb0+RVJ5GeFD4q7kEXRq
+         3JowHm4a+HOyl03D5IpK9lsWrpmP2OcmBvUZtkbTHgonxbwEe4k2GjFFN4AqUZiRCqQw
+         eK8BeWX6ZL2FfD8cFM/RnI3ixxanKX0PxyvmyI2AnzGy3wp5mAS90lj95gUVsBgSRnGx
+         qpwdINfB88jn6dzzJYoG47y/8hbri5I8W74q2SSYg6e00RBEUZN6kZuMVOPDLJBWcpvB
+         DI/g==
+X-Forwarded-Encrypted: i=1; AKwUvBwQHrwYtdmL7gUUXi7lf4/RgHLflOjoAe+4K1XIL4tYfqGSgy339o9xIIug6+RvoazLzDWnNBtCfcWBSLM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lRYxqTZIHjIt3c9aL5TddhgKeVfDVwqZ5/BiTSbsaXwNDkODLj
+	NfsVTkFZPmEp/4bUaxuSQyLHq92KkhgozNFWS1+B6uCOtTkAggKHoo7d7z+MjGwJZcCYNWbia2J
+	ZauYe1A==
+X-Received: from pfcs23.prod.google.com ([2002:a05:6a00:6fd7:b0:87a:f5a1:c5c0])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:14cd:b0:872:fd1:7c22
+ with SMTP id d2e1a72fcca58-874ddd05bf4mr16110399b3a.16.1790016778532; Mon, 21
+ Sep 2026 11:52:58 -0700 (PDT)
+Date: Mon, 21 Sep 2026 11:52:57 -0700
+In-Reply-To: <CAJxe5csCb0DHZmJo9a-asXZ-tYdcyK1y0Y4Y9Uoixqn=sa8zRQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] mm/khugepaged: Never install PMDs in
- uffd-minor-registered VMAs
-To: James Houghton <jthoughton@google.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, liam@infradead.org,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Yang Shi <shy828301@gmail.com>, zokeefe@google.com, hughd@google.com,
- Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20260910023411.514987-1-jthoughton@google.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260910023411.514987-1-jthoughton@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20260910-snp-invalid-input-v1-1-fb2e03da614b@google.com>
+ <0b2d8858-b361-4a64-986a-4c179210fbec@amd.com> <aqlWt4jb4CSPnecN@google.com>
+ <d6179d34-a4b0-4548-8298-b790b333d22f@amd.com> <CAJxe5ctcVxmhRSw3Gt0POQTzRKoxXo7+Y3CPDe7cUZvC0QPK+g@mail.gmail.com>
+ <aqrhFvwFJsQTaEkz@google.com> <CAJxe5csCb0DHZmJo9a-asXZ-tYdcyK1y0Y4Y9Uoixqn=sa8zRQ@mail.gmail.com>
+Message-ID: <arF9CXWC_UDYUMmf@google.com>
+Subject: Re: [PATCH] KVM: SEV: Return INVALID_INPUT on SNP req/resp buffer
+ access failure
+From: Sean Christopherson <seanjc@google.com>
+To: Jacky Li <jackyli@google.com>
+Cc: Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Michael Roth <michael.roth@amd.com>, 
+	Ashish Kalra <ashish.kalra@amd.com>, Jacob Xu <jacobhxu@google.com>, 
+	Supraja Sridhara <suprajasri@google.com>, linux-coco@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/10/26 04:34, James Houghton wrote:
-> Userfaultfd minor faults provides userspace with the ability to manually
-> install PTEs with UFFDIO_CONTINUE. Right now, MADV_COLLAPSE can map
-> holes in the VMA when a naturally-aligned THP is present. This is not
-> true for khugepaged collapse: the PTEs will be retracted, but a PMD will
-> not be installed.
+On Mon, Sep 21, 2026, Jacky Li wrote:
+> On Wed, Sep 16, 2026 at 11:34=E2=80=AFAM Sean Christopherson <seanjc@goog=
+le.com> wrote:
+> >
+> > The problem is, I don't see how the guest can know when it needs to dis=
+card the
+> > VMPCK (post-request failures) versus when the VMPCK is still "fine" (pr=
+e-request
+> > errors).
+> >
+> > FWIW, I'm not terribly concerned about bleeding host issues into the gu=
+est, I'm
+> > more concerned about ending up with deferred fatalities and a mess of a=
+n "ABI"
+> > between the guest and KVM with respect to handling failures.
+> >
+> > What if we "tickle" the resp_gpa before doing the request?  Similar to =
+how CPUs
+> > probe bytes early in XSAVE/XRSTOR to avoid having to unwind later on.  =
+In this
+> > case, the response is restricted to a single page, so we only need to t=
+ickle a
+> > single byte.  E.g.
+> >
+>=20
+> Agree. I see your points and why this tickle idea is a great solution.
+> Actually, building on that idea, what do you think about using
+> kvm_vcpu_map() in the exact place that you did
+> kvm_write_guest(kvm, resp_gpa, &tickle, sizeof(tickle)) instead (and
+> unmapping afterwards)? A few reasons:
+>=20
+> 1. Like kvm_write_guest(), kvm_vcpu_map() also checks the existence and
+>    writability of the memslot via __gfn_to_hva_many(..., write=3Dtrue) an=
+d
+>    faults in the host page as writable, plus it pins the page across the
+>    firmware command.
+>=20
+> 2. kvm_vcpu_map() has cleaner semantics of acquiring and holding the
+>    guest response page in KVM until the response is delivered, rather
+>    than doing a dummy write to test the waters. This is somewhat
+>    consistent with the GHCB page itself, which stays mapped until the
+>    response is filled in.
 
-You might want to add a breadcrumb here that collapse_file() never returns
-SCAN_PTE_MAPPED_HUGEPAGE for khugepaged.
+No, kvm_vcpu_map() actually has far worse semantics.  GUP pins the *page*, =
+it does
+not pin the userspace mapping.  I.e. kvm_vcpu_map() guarantees that KVM won=
+'t write
+to a freed page, but that's literally it.  E.g. if userspace mprotect()'s t=
+he page
+to make it read-only, KVM will write to what is supposed to be a RO page.  =
+Or if
+userspace completely unmaps the page, KVM will write to soon-to-be-freed me=
+mory.
 
-The whole thing makes me wonder why that khugepaged check is buried so deep down
-in that function. Makes me wonder whether that check can actually get pulled
-further out (maybe Kiryl's patches do that).
+We're actively trying to remove kvm_vcpu_map() to replace all usage with
+"struct gfn_to_pfn_cache" APIs, as the gpc functionally is tied into mmu_no=
+tifiers,
+i.e. guards against things like mprotect(), munmap(), etc.
 
-try_collapse_pte_mapped_thp(mm, addr, !cc->is_khugepaged);
+So if we wanted to do something other than a uaccess, a gpc would be the wa=
+y to
+go.  But I'm not convinced that's the right choice here.  There is zero dan=
+ger to
+the host beyond what already exists with private memory in general.  I.e. i=
+f
+guest_memfd leaves a dangling userspace mapping, then the host is hosed reg=
+ardless
+of what this code does.  Using a gpc could guarantee the write goes through=
+ or
+fails early, but IMO that's not worth the extra complexity involved with us=
+ing a
+gpc, because I'm not convinced that continuing on is the best outcome if th=
+e
+response GPA mapping is being concurrently modified.
 
-is rather confusing when we never end up there with khugepaged ...
+> 3. Pinning the page prevents a malicious guest from converting resp_gpa
+>    to private between the pre-check and kvm_write_guest() after the
+>    guest_memfd in-place conversion patch series [1] is merged.=20
 
-> 
-> When MADV_COLLAPSE installs a PMD that mapped holes in the VMA,
-> userspace is likely to expect UFFDIO_CONTINUE to succeed on the
-> should-be holes. UFFDIO_CONTINUE will fail and return EEXIST.
-> 
-> This is not inherently a problem, as MADV_COLLAPSE is an explicit
-> userspace action. But, especially because MADV_COLLAPSE can be invoked
-> by an external process via process_madvise(), a rogue caller could break
-> a userfaultfd-minor resolver thread. If khugepaged is later updated to
-> install PMDs for khugepaged collapsing, that would be a genuine problem.
-> 
-> Userspace cannot generally use MADV_COLLAPSE to resolve userfault minor
-> faults, as MADV_COLLAPSE will only resolve such faults if a
-> naturally-aligned THP is present.
-> 
-> The naturally-aligned THP case is the only case where this quirk exists.
-> Collapsing otherwise requires all PTEs to be present for
-> userfaultfd-registered VMAs (i.e., max none PTEs is 0), which is
-> correct. This check is essentially bypassed for naturally-aligned THPs.
-> 
-> Suggested-by: Lance Yang <lance.yang@linux.dev>
-> Tested-by: Lance Yang <lance.yang@linux.dev>
-> Signed-off-by: James Houghton <jthoughton@google.com>
-> ---
-> v2: https://lore.kernel.org/linux-mm/20260828222640.1638457-1-jthoughton@google.com/
-> Changes since v2:
->  - Drop cc:stable and update the changelog for the main patch.
->    khugepaged doesn't actually install PMDs, so it is impossible for the
->    kernel to silently install mappings that userspace didn't ask for.
->    Therefore this patch does not need to be backported.
->  - Update the uffd-unit-tests selftest to account for the new behavior
->    (new patch). This patched selftest is equivalent to the reproducer I
->    provided in v1.
-> 
-> v1: https://lore.kernel.org/linux-mm/20260828005004.2870750-1-jthoughton@google.com/
-> ---
->  mm/khugepaged.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-> index 75639298efc2..e6947fe142ee 100644
-> --- a/mm/khugepaged.c
-> +++ b/mm/khugepaged.c
-> @@ -1894,6 +1894,13 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
->  	if (userfaultfd_protected(vma))
->  		return SCAN_PTE_UFFD;
->  
-> +	/*
-> +	 * Userfaultfd-minor-registered VMAs should not be collapsed, as
-> +	 * userspace is expecting to explicitly install PTEs.
-> +	 */
-> +	if (userfaultfd_minor(vma))
-> +		return SCAN_PTE_UFFD;
+Who cares?  The guest can only hurt itself by converting resp_gpa to privat=
+e.
 
-Can we just combine the two uffd checks to have less uffd noise? :)
-
-"Don't collapse if we might have UFFD markers or if userspace fills the page
-tables through uffd minor faults".
-
-Overall LGTM
-
--- 
-Cheers,
-
-David
+>    (This assumes a future guest_memfd implementation, so it's less convin=
+cing
+>    than the first two points. This was also my original TOCTOU concern.  =
+And
+>    once we have either pre-check, on upstream today the guest has no way =
+to
+>    change the memslot state before kvm_write_guest(), so I'll also drop t=
+he
+>    original TOCTOU commit message.)
+>=20
+> [1] https://lore.kernel.org/lkml/20260830-gmem-inplace-conversion-v12-15-=
+85e5fd25252a@google.com/
