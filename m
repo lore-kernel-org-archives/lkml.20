@@ -1,85 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65EA53C1D4D;
-	Mon, 21 Sep 2026 23:28:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43E647A898;
+	Mon, 21 Sep 2026 23:29:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790033333; cv=none; b=u1nBwAMjlQvTczJrVNBvUolOOImfeMbprWfopn/3YxVQLgFjiFa0oWlakSDP2jlw3CsLB1fAwqc/VWNMxar7g+lW+Li185KF+Qq8GYf2d8pHzR0bewoRgkodaIoOlXIckIJ/64GdK3x9NEfxWObADNAjOhzLYKHfUnA2fSsEFbQ=
+	t=1790033353; cv=none; b=Vf+QW/cGpg2hIjhdsjHHLeAzWSRpR3zvVUoB+TIIFQtzX42tSHUuUh/mEC17RI7yUg4A0ezc8zVc1nYEx0JESvjY69F+ouV/tjwBYBe1TchpOXcOU9novt4k/daQRNpfexELHqDWaapTJvMd+uuCeoCKaTe2HsfOWhnrrKu9II4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790033333; c=relaxed/simple;
-	bh=rvxFVCi8l1oHqpLRwxE7IM/SxNzZSu5rHf2IMDJrxxA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k0NK5qaThKefIIDZlPTy3mtej8jCpfcimYATeNwbS/kdXfTILk2S7hKgQ9+JIcIk1sPa/Yr6kjYbGeosWgaO+AWkUh4qiSfQdEVw7mdRRoTdvEhZ1rKtV8nra/onn8rvw+CesNxr7H9SITXWW1ZsmOSw/AFvnOZOApjtT1MbBms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G6AW76Pw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790033353; c=relaxed/simple;
+	bh=lFsc1GojGmU3K5BpyRT66DQ0L55nkb7Z08ORNGTHHeU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=g3mF6Rd5kdaNcb4aw4d+hdpwIE7NMd6xi5fot2tU5mkhO4K72nYPfHyavkvRxK/k8NX4+PUL+hxVzY5F7eh1920r4gssT0fLRplQ/7EqN6dqQoUab2xDFWG1Ysc3WfKXvKrZ7EehxxR7EMqvKYkN5ceH3GRyqgvm1gB7YlyzT38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d4kWmp9o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G6AW76Pw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EADF1F000FF;
-	Mon, 21 Sep 2026 23:28:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d4kWmp9o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 878951F000FF;
+	Mon, 21 Sep 2026 23:29:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790033318;
-	bh=6dICvcKm3BIGHLqArm5a68sfhcX4BHfmX+37PnEVNIU=;
-	h=From:To:Cc:Subject:Date;
-	b=G6AW76Pw+tuclNLlmPboPUnIfHQGSTZEibH7WL1m/ALP5AoJDpuQx5Gx9WxDS9gnD
-	 5RmJF3TKIfhME64en1Y9uszNmBlYyJ9wcDRoXchXbcmU5+FxAlKDeVAP+GoSt/LpPF
-	 8LHQptJjbfvQDufL2/2ytujbOq1oECVJ13KybRG3bvzyMM85G72Do7lReNfVFAdhLa
-	 3TU9+L2q8UbXM5cZBqYsiCVKZRvdk4Fz+47u+UyYObxJBpKKaEruOVST7wzT6BrSiV
-	 Xgr/PuKcIGfbw5t0JDnnPNFe9omz6RpZgn2WGtxEhcNKVp9KrSp3g8Nd3AUUuRc0Q7
-	 U5//tIn3pmjBQ==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Leo Yan <leo.yan@arm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Leo Yan <leo.yan@linux.dev>,
-	coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: arm: coresight: Allow funnel clocks
-Date: Mon, 21 Sep 2026 18:28:33 -0500
-Message-ID: <20260921232834.3138571-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1790033346;
+	bh=3rdTZZ6oKBMbejVEbYel2wDyhsKjwmIkaR2bmVVCYog=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=d4kWmp9oAfCVa6isFY4AxMe6iGhxntTMfvA+hZKnMmjmYhNgz8JHyRr+WK4ttMtUb
+	 7uqRWnH7teYCec/1iQCQSiGmA2dkT6fcswYoJjSXNjvaSgvsWlUX4S+Em7fDibGMB7
+	 v6wdORpZ2LhzmEDMWcCos8YCszMrsrxRiFPmCYK0qqt5QZpsdh4HZLL2L+gyad5G4y
+	 JwGMnbT8XRv3iCMy2XPXbvKJm2P6PzK6Kec2M0CobyKpk7M2wyermQnflGmIrwqkz/
+	 AU7p5gaLT0T6CTP30sEqW+dmvG/pl0AHps+ptdhva3C0u1RJw55VvMBtDuvMf0CuAT
+	 2n6+CBBHFXIQA==
+Date: Mon, 21 Sep 2026 16:29:05 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ pabeni@redhat.com, horms@kernel.org, sdf@fomichev.me,
+ bobbyeshleman@meta.com, almasrymina@google.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v3 1/3] net: devmem: replace gen_pool with
+ freelist
+Message-ID: <20260921162905.48e76338@kernel.org>
+In-Reply-To: <20260917181116.3319017-2-sdf@fomichev.me>
+References: <20260917181116.3319017-1-sdf@fomichev.me>
+	<20260917181116.3319017-2-sdf@fomichev.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Some static funnel nodes have APB and AT clocks. Allow one or two
-clocks and the apb_pclk and atclk clock-names entries.
+On Thu, 17 Sep 2026 11:11:14 -0700 Stanislav Fomichev wrote:
+>  struct netlink_ext_ack;
+> +struct dmabuf_genpool_chunk_owner;
 
-Assisted-by: LLM
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../bindings/arm/arm,coresight-static-funnel.yaml      | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+watch out for unnecessary forward decl
+(next patch deletes this one so doesn't matter)
 
-diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-index 9598a3d0a95b..4a3d08f9568c 100644
---- a/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-+++ b/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-@@ -30,6 +30,16 @@ properties:
-   power-domains:
-     maxItems: 1
- 
-+  clocks:
-+    minItems: 1
-+    maxItems: 2
-+
-+  clock-names:
-+    minItems: 1
-+    items:
-+      - const: apb_pclk
-+      - const: atclk
-+
-   label:
-     description:
-       Description of a coresight device.
--- 
-2.53.0
-
+>  struct net_devmem_dmabuf_binding {
+>  	struct dma_buf *dmabuf;
+> @@ -26,7 +27,7 @@ struct net_devmem_dmabuf_binding {
+>  	 * dereferenced.
+>  	 */
+>  	void *vdev;
+> -	struct gen_pool *chunk_pool;
+> +	struct dmabuf_genpool_chunk_owner *chunk_owner;
+>  	/* Protect dev */
+>  	struct mutex lock;
