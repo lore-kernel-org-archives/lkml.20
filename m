@@ -1,127 +1,164 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 67BE1489FC6;
-	Mon, 21 Sep 2026 11:24:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789989862; cv=none; b=XON7hOsImypTR1a3xrfnh1gsT9sLNeMlND6TkKjIkejfhKA/QMUQ9RTxInxtRm10xdrHiBzmBXN20tGR+xdL6jBwRF1xdbQRzKLc3M+Yk1rW1+85ZU7vao2Ia60IpTUdBPX9uV4OGHFeAkaj9vnTd/Y2k0Dj8O4BXF9B1onYlVo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789989862; c=relaxed/simple;
-	bh=5sEEOYSy7wj6igo+hrPdpdU/0AEjMQY5y3e2upniJmA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QwUSpfm9rLYRBimzIqkDvAhu2Y6AlWvmFNcoorjBaAi6Abm+Jr16DZOd9EG4lzgZY24a3g8udzBYsnkYWICZiRCCTX2Rq4Pa0lBPrBBxp3R3CBnf+dk4JVhmeViL+uVRDsaLzmx3SzcdGVUbRqEuYog7G0t7kVivgFz3LcUItEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=el508ZSX; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE295435AAA
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:24:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789989863; cv=pass; b=KyRx5aZRedVFWTB+6w6SK5dzkajBHMit7WPxNGTgeJnDAJjPV0RDVS+CP19CGN2MpynmBviAUc2T+nP3HJ+PS5IoNHM3uj/Nwk4TUlbwj5lQnqANgsw7JBboXIjB22OXQCjzSXs/FaRobseIDtsrjcSVhXyxsZVlaRTSf1CXr2o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789989863; c=relaxed/simple;
+	bh=y/eWHTyXoMpFdp4Bz0hrXhzEPnH88xFODm0JNc+iGDo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=k4EDOkh27ULh2+WKRRO1ZKO6kBCpiNWaDWQ8ZfCuyGjl/3cjB+TjCWFA3lMJFPiulBAglu4T2Iaj9CijU+32n1gJf009OMK1uegO6GzowkplwqtbgbDMK6WVyieqNst9HXodewey+rNCGo7W53ids8IYOVsXyAcge+gZiyBGXkU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ThX742iP; arc=pass smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="el508ZSX"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3A6E1176C;
-	Mon, 21 Sep 2026 04:24:12 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A15113F86F;
-	Mon, 21 Sep 2026 04:24:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789989855; bh=5sEEOYSy7wj6igo+hrPdpdU/0AEjMQY5y3e2upniJmA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=el508ZSXkbgzQnJZ8DxHEQq434GiA7nJ9fjmQc0n7HCgG1y51lXdc3wLJTpQzmRfa
-	 zVKNuPguBsz12vDPNEAJlqfwumB9cOD/AM+fk0jTDNyavHnTKhVPgxOuc46NMhNTLg
-	 fEZJ2UESdLPGoQX2TijJNduSDdamtisU6tiB/39c=
-Message-ID: <a82c3113-cee1-4e27-8c10-b7616f860a93@arm.com>
-Date: Mon, 21 Sep 2026 12:24:13 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ThX742iP"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f635552aso2356141f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:24:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789989856; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GxZDnRoeI+Z7FEBcTFtFGtVB44SUilXi3vIAsoqfvj55SnZOMlrZZdSC6KjV/Jb+qG
+         CazmeaZnNewX9RLRRVf04IYDTjerBMUny1Nxa+gv2pLcT+AvlNYGrd2tgkkMD3vhROLx
+         aUNcocdxlh+3SHqtB74qXdpqeest38ee6HDdYB/vDr7DmcQX35xN6CaU/O6ctqOHz6bG
+         Xf+iipNiQHTjQ2k5QavsEti8prVWmpf2gE5/ED8bZCBZUP61g5XnO9scKAOyAiGNTpr8
+         HKbqDEIrS9mwFOqujZ1z/hZIpf8CNUmuuu6SLj+jrCKMktNEqGoVIzV0OXVrl6QzRYVE
+         qFiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=y/eWHTyXoMpFdp4Bz0hrXhzEPnH88xFODm0JNc+iGDo=;
+        fh=pnT46sYXZCfedv0TQY2PF+t3GkqTECFjB88W2icTlU8=;
+        b=lpe8cThtlPFVgJI8mZUPyyWsbu2zRQNrmxdG5X9hYSBvvxoUbbca2fMY9DUYUNmXJc
+         6Mh4rvnOYn4LKOIfDC+z32RudixFqU8SAO2SVkCE/6whlPlCznDpdcNGFHpHO6qdJcUV
+         aXi46GwQSQG4F1P9EZ2oxzZqO+A0cbFu714W4JJcky42C364czoSSUCL2fVU/NwgRXV5
+         d0oduzR7yz33bFv7LWY8qXDtvn895ymzg8qetHfoZlIOGZV4BpajzRq9YSGsWijVCQzF
+         HKwaVm1Vqu6NzyQVJHUcjuVORnM1GAYwrTRnidMxdwr8gyA9kjUDORdG9mTiwnqZojWz
+         p2gw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789989856; x=1790594656; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=y/eWHTyXoMpFdp4Bz0hrXhzEPnH88xFODm0JNc+iGDo=;
+        b=ThX742iPETQukFX3BBlsPPA+JqXvvRIUi3buvYb6DHUJ8uhywR7FkPybPC3WtdM2td
+         cw+JZn2MXPLxNJkU1hv/HjhYQbCExqead52s5CZSES4onYM6ZeFng/l1dI4W2aCJ070z
+         sGUIx8WWnCBUSgqZw2OQGQDhU4eYseFbxWM7XOZhjmsVd9hw+zaQJd17FyC+lmjZlng7
+         YrB893St+30OJ3wABghrgJytAqkSKr044EIXFeyfBUmZZurPVJoA7+OODterBi/HYktB
+         K+y+DZZjHv2NV80Cj+p5ANMayWnacg6V/RlXynE4nq+plf2w/FGel/B+E5JwiNU9VlO6
+         LP6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789989856; x=1790594656;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y/eWHTyXoMpFdp4Bz0hrXhzEPnH88xFODm0JNc+iGDo=;
+        b=abtDa+D1gAmkc4uVUzuA+sAptJL/F8RxoRSFKXc0Ypl2jBs1ZgPIgW2qOTWS0/9MTz
+         RROCQxInAAElMFNUfKHHEJo/aHb5jaLrpW7oqDracgdRmdobmjU/cJpEQhLG6Yffk49E
+         nxzunTUSXGtDFWeYcBf9c6DEJj8tHpBgwnC56cPWyJj2bcluF/P+mZt33BmbO5Xz9dCa
+         63auzVdEy0nZTgBR0uY1M3UGOzbo6jtRaUbkfb6BX+sLPKjLAMMfhr3WRfLHSSMYuyev
+         gSc/OvwYVb5DnxWtwhMsjPmCnDdjQmIffCnMs1Xv3mnFmBujJB6cW1bK8zy8o8aQL7nN
+         mHjg==
+X-Forwarded-Encrypted: i=1; AKwUvBy7cYCGATaypX6ctaYfrzL0xLMQGiVwQYe9az9Ctrr7g9LPHtnVr601QhgE/gSNGBCB4l0BgDUAIYdxvR8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kSARxzDTEQfPHCE1AmrI4HTWEU5kWXkt5RXDO8/qnIeOGn9UWq
+	nA5yVwxUyBCYxyRNzELtCdkLg6CZnw/9jCrgHp0iksuSOnzxXFtFDNnsY276V0P6UptznDgcQrj
+	BMs1b9xESfYQx2VEbObIkkNKB6i/efOQ=
+X-Gm-Gg: AYBFou2dG2FFpiBMAkNhFeuyWmmDs/4hU4GfLVhPAZ9N4nxpk8zEGaA302eVndtiHoJ
+	OW54c/ST4T9zzTXBOr2r4Inqw2RQhD9gbp9BEjuF8F5ItheNkMU9g5Kj+MUrlG7BquhcQWV4Rim
+	9IFr5t9Ktez2l1S4ruhx4vFWWDNVeI7LFDxvzryOyOlPGiO4spyGkCJWLKOVhmcaWnSyqPUK6hW
+	W7a63NF2o3Ie3PEUUwswW0Ef+P3P40s6XWmWmnPPRk/dhl4tvte3dH/joOhI3a/FipZO1FXrfxm
+	/OH9miQDZg4d6Aq5AmMc1wQBU8x5aHhAwjKug+x6IBqIhkWFBPneP4rWXp6nlgd+VD2AVzIqNVK
+	5b+SK67Gb26Y2yBQ8fuelYadHQFKKOr+syRW7x5saoBWtBBjcRATRvCUyD3186TKY/rxARGmz
+X-Received: by 2002:a5d:5d03:0:b0:487:8ef:5303 with SMTP id
+ ffacd0b85a97d-4871e394d18mr16926933f8f.34.1789989855856; Mon, 21 Sep 2026
+ 04:24:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] iommu: Reserve PCI host bridge MMIO windows for
- IOVA
-To: Guanghui Feng <guanghuifeng@linux.alibaba.com>, jgg@ziepe.ca,
- kevin.tian@intel.com, alex@shazbot.org, joro@8bytes.org, will@kernel.org
-Cc: iommu@lists.linux.dev, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260921070234.897736-1-guanghuifeng@linux.alibaba.com>
- <20260921103922.1113752-1-guanghuifeng@linux.alibaba.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260921103922.1113752-1-guanghuifeng@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260817192540.423994-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260817192540.423994-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <87577cdb-7f1d-4a9f-8a61-ff1f272234d9@roeck-us.net> <CA+V-a8vVtjALarck6PE3it1si2hNbveZWoGjTaTUW68Q6yYjcQ@mail.gmail.com>
+ <a73c5d5d-dd64-4061-83cd-0a1cdcc2db4d@roeck-us.net>
+In-Reply-To: <a73c5d5d-dd64-4061-83cd-0a1cdcc2db4d@roeck-us.net>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Mon, 21 Sep 2026 12:23:49 +0100
+X-Gm-Features: AcwNN1VFoJ0rwe68Hi1fMS8HP9OtdClqcRaDuoUukIno7KtW8dqa4XMt5T_ytyQ
+Message-ID: <CA+V-a8tugekX_ykWWMzVkHbEo4huviGYdJuECEfuYVZo6dY5wQ@mail.gmail.com>
+Subject: Re: [PATCH v4 5/7] watchdog: rzv2h: Add syscon support for WDTDCR
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 21/09/2026 11:39 am, Guanghui Feng wrote:
-> The DMA IOVA layer reserves PCI host bridge MMIO windows via
-> iova_reserve_pci_windows() to keep IOVA allocations from overlapping
-> those address ranges.  As commit fade1ec055dc ("iommu/dma: Avoid PCI
-> host bridge windows") explains, a host bridge may interpret addresses
-> falling within its MMIO windows as peer-to-peer DMA, leading to
-> faults, data corruption, or DMA transactions being misrouted to the
-> wrong PCIe device.  This is especially dangerous when a device sits
-> behind a PCIe switch and ACS Upstream Forwarding is not fully enabled.
-> 
-> Passthrough paths that let userspace pick IOVAs did not honour these
-> windows: VFIO type1 and iommufd only excluded IOMMU driver-level
-> reserved regions (RMRR, unity maps, MSI), not PCI host bridge MMIO
-> windows.
+Hi Guenter,
 
-This was intentional - I forget where the exact discussion happened, but 
-at the time we decided that exposing reserved regions for entire windows 
-was the wrong thing to do, as being pessimistically inaccurate might be 
-OK for the internal DMA API, but restricting userspace is another 
-matter, and I think the consensus was that it wasn't really the IOMMU 
-layer's job to get deep into PCI details anyway. Such "accidental" P2P 
-can only happen within a group that's assigned to VFIO as a whole, so 
-IIRC the conclusion was that users should already have enough 
-information at the VFIO level to avoid BAR addresses if they need to.
+On Fri, Sep 18, 2026 at 6:39=E2=80=AFPM Guenter Roeck <linux@roeck-us.net> =
+wrote:
+>
+> Hi,
+>
+> On 9/18/26 08:18, Lad, Prabhakar wrote:
+> > Hi Guenter,
+> >
+> > On Thu, Sep 17, 2026 at 2:12=E2=80=AFAM Guenter Roeck <linux@roeck-us.n=
+et> wrote:
+> >>
+> >> Hi,
+> >>
+> >> On Mon, Aug 17, 2026 at 08:25:38PM +0100, Prabhakar wrote:
+> >>> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> >>>
+> >>> On RZ/T2H and RZ/N2H SoCs, the WDTDCR (WDT Debug Control Register) re=
+sides
+> >>> in the second register region of the CPG/MSSR block. Since this
+> >>> multi-function block is shared with other peripherals, it is exposed =
+via a
+> >>> syscon regmap interface.
+> >>>
+> >>> Look up the SYSC regmap using the optional "renesas,sysc" property an=
+d
+> >>> derive the WDTDCR offset from the watchdog instance index.
+> >>>
+> >>> Retain the existing MMIO-based access method when the "renesas,sysc"
+> >>> property is absent to preserve compatibility with existing DT's.
+> >>>
+> >>> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com=
+>
+> >>> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> >>
+> >> Can I apply this patch without the other patches of the series ?
+> >>
+> > I posted the v5 series here addressing Sashiko's comments.
+> >
+>
+> Sorry, I was getting confused. I somehow thought they are different serie=
+s.
+>
+> Do you plan to send v6 to address the issues reported in v5 ?
+>
+Yes I do plan to post a v6.
 
-In fact we did briefly do this once before, and it was explicitly undone 
-again by cd2c9fcf5c66 ("iommu/dma: Move PCI window region reservation 
-back into dma specific path."). I think there may also have been a 
-practical issue with it breaking some standard Qemu setups.
+> Note that Sashiko no longer reports pre-existing issues in public,
+> so those will be out of scope.
+>
+Thanks for the note.
 
-Thanks,
-Robin.
-
-> 
-> This series closes that gap:
-> 
->    Patch 1 adds a common helper, iommu_get_pci_resv_windows(), and
->    reserves PCI host bridge MMIO windows in
->    iommu_get_group_resv_regions() so all group-level consumers (VFIO
->    type1, sysfs reserved_regions) avoid them; iova_reserve_pci_windows()
->    is refactored to reuse the helper.
-> 
->    Patch 2 switches iommufd's iopt_table_enforce_dev_resv_regions() to
->    iommu_get_group_resv_regions() so IOMMU_IOAS_IOVA_RANGES also avoids
->    PCI host bridge MMIO windows, aligning iommufd with VFIO type1.
-> 
-> v1: https://lore.kernel.org/all/20260921070234.897736-1-guanghuifeng@linux.alibaba.com/
-> 
-> Changes since v1:
-> - v1 was a single patch; v2 is a two-patch series.
-> - Patch 1: build the reservations with iommu_insert_resv_region()
->    instead of list_add_tail(), so the group reserved list stays sorted
->    by start address and overlapping same-type regions are merged.  The
->    helper now frees its partial list itself on error and leaves the
->    caller's list untouched.
-> - Patch 2 (new): reserve PCI host bridge MMIO windows for the iommufd
->    IOAS as well, so IOMMU_IOAS_IOVA_RANGES no longer reports IOVAs that
->    overlap PCI MMIO windows.
-> 
-> Notes on earlier automated review feedback:
-> - The size_t length of each window matches struct iommu_resv_region's
->    existing field type; no new truncation is introduced on 64-bit.
-> - An IOMMU group cannot span multiple PCI host bridges:
->    pci_device_group() only groups devices within a single host bridge
->    hierarchy, so scanning the first PCI device of the group is enough.
-> 
-> Guanghui Feng (2):
->    iommu: Reserve PCI host bridge MMIO windows in group reserved regions
->    iommufd: Reserve PCI host bridge MMIO windows in IOAS reserved regions
-> 
->   drivers/iommu/dma-iommu.c            | 17 ++++--
->   drivers/iommu/iommu-priv.h           | 11 ++++
->   drivers/iommu/iommu.c                | 85 ++++++++++++++++++++++++++++
->   drivers/iommu/iommufd/io_pagetable.c | 15 ++++-
->   4 files changed, 121 insertions(+), 7 deletions(-)
-> 
-
+Cheers,
+Prabhakar
