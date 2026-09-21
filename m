@@ -1,274 +1,301 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F40418362;
-	Mon, 21 Sep 2026 20:40:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE304433049;
+	Mon, 21 Sep 2026 20:41:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790023230; cv=none; b=TjUG/yp5IgMd560b2BZIyVr5ZbjW3vzrkvaBIKpTyKBJ7CthKX1mwOa+PMH0NyKRwa8f9mSFLj8qOtNckyfzPF5KCcOvmzswwXAvUWpwFxPN8TTHGEshKiZBCkRmmBYIjjp+Lok0gDh1pv+Zesk+mPYAlIbHPC2eX3+gLHnxurA=
+	t=1790023275; cv=none; b=jZG2B3GBB3JR/HrpLqZY/zbuuPbBKHONLEGxVS8XdzMPWm5yolzoNFJVLlD7i2WyDF5J8ITVXM2vmLM2ySNccJ0G54vYqT/SAZYluqYyj4IvwhVlun6hfqcxh7bfuO93T5HXgGwUTUFvrSJbXd/W4pRXaN0VXWqV0CVOEo2Ae+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790023230; c=relaxed/simple;
-	bh=2YYSZyaX6PzPi9WH7XIBNNssEiOcnWsLWNAwheWkOKk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=axrfVhejbBP6MA89e/FUkXfys/usPIKTciBw94vDAabE3lpa90hh580+JQECZk8TcnTUyA/1UQn/PcP7uXAZra/8NA7z0Uaxo67nbj2Vukz8l42EL/PbddbWxZV2Pe1Bp6JQxwdQ9g/gb00rVjDk6R9BGcbgzZZuUGHLLuaOk/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jjqyg3MH; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790023275; c=relaxed/simple;
+	bh=tyIjVOPEdcjwsjgzj+jvF4Wz0kMh53F5KcN4fiGKbJc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=c4yACMEL+whrCEpfLO9yn+YwDbCWf8a3ffW5vHlo1MVf6E6tO3fDr0EDiqQGqFqVpL9aKDpRML/seen3ARmSOxLmL8k7FOAAfenyzTg9jBgeFVzANi+1seixwgh9SWjU4gb5319WDoNcZ/X2NhYqhM7Np0YJzQvmNm/AiDosY5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=DmMmxVVU; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jjqyg3MH"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 329B1C2BCB3;
-	Mon, 21 Sep 2026 20:40:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790023230;
-	bh=2YYSZyaX6PzPi9WH7XIBNNssEiOcnWsLWNAwheWkOKk=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=Jjqyg3MHxuQJxdfhfvVK5t/GQpvGe5hj2CF1FxWswgojolSYav3yX80FgeP4phF+b
-	 MgUGZfVA6x2CNewr7bUQuwu5qbVqALACfYWQpZgcLGNVWgRFMvLlVJlGr/j3rqpkly
-	 0faPYS0XnANC/wSorbvPRPZGSEi2EZs+/j46tD5FWu8Ia2WmbLOvNQjINk55QWmJMc
-	 aIM31540cp89NI2W/aQp4jB8+pAgkPdrRzU4qXcbTyCXNN+jB9VnBJxYTpDTRQyF4p
-	 ahhRONPGJ5DN4Rst65COAHi51Yc38yX/MOiZ9AWWXmTOry9KcSBX2+w62nr/yKcW8T
-	 GAln7Adi7Mvlw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0AAC8C982E6;
-	Mon, 21 Sep 2026 20:40:30 +0000 (UTC)
-From: Haseeb Malik via B4 Relay <devnull+haseebulhaq55.gmail.com@kernel.org>
-Date: Mon, 21 Sep 2026 16:40:30 -0400
-Subject: [PATCH net v3] macsec: initialize SecY before registering the
- netdevice
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="DmMmxVVU"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LF8Pdi4193624;
+	Mon, 21 Sep 2026 20:41:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=sws6k0
+	mDF3hSgRc9u1g/C9IjEy4ChZADUQxPNGOl9jw=; b=DmMmxVVUFqx06vw7VEfKza
+	X8g2K7ShRPU8wC38P0CyGRCrLPO3iX8zYZUvb66b3xKF7ZOK231Ac0OjqJOqOCv3
+	pDMzpG9/s5fpIkV7L18lRo4B+Q7Q1403QXEtdk0Ont9ECekl8XNwccu+8EX+nmEA
+	/6rBC1P+dXrZ+spbx9xPZIi9t8tpiCWAI0F6QXQhG5EcQXMSsoDO7d+gidhUu/V8
+	aqiQ6EMXdwM7AV7IkADyfaloG/7wLzGuYyhtDDWSKDmXaMkEx5ke1LhGDFAhTHwc
+	eUbX0QvZRlyftcr0ToNeTsD88mEpXlIZNdaHf42z40XtG8tpIaM2CybxCgKNHsAg
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1jn3h-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 20:41:06 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68LJIDKn2399617;
+	Mon, 21 Sep 2026 20:41:06 GMT
+Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gt7dy6rrb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 20:41:06 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68LKf59524511082
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 21 Sep 2026 20:41:05 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2079E58050;
+	Mon, 21 Sep 2026 20:41:05 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 459F458052;
+	Mon, 21 Sep 2026 20:41:04 +0000 (GMT)
+Received: from [9.61.11.58] (unknown [9.61.11.58])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 21 Sep 2026 20:41:04 +0000 (GMT)
+Message-ID: <ee433719-a4ac-49d0-84ec-2a8e4697d621@linux.ibm.com>
+Date: Mon, 21 Sep 2026 13:41:03 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 6/9] scsi: ibmvfc: extend channel reg/dereg helpers
+ for async sub-CRQ
+To: james.bottomley@hansenpartnership.com, martin.petersen@oracle.com
+Cc: linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org, brking@linux.ibm.com,
+        davemarq@linux.ibm.com
+References: <20260911054832.1311668-1-tyreld@linux.ibm.com>
+ <20260911054832.1311668-7-tyreld@linux.ibm.com>
+Content-Language: en-US
+From: Tyrel Datwyler <tyreld@linux.ibm.com>
+In-Reply-To: <20260911054832.1311668-7-tyreld@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-fix-macsec-net-v3-1-accf94f93f5e@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAD2WsWoC/3WNyw7CIBREf6VhLVqgD3TlfxgXF7xtSSw10BBN0
- 3/3llUT43Imc+YsLGJwGNmlWFjA5KKbPAV1KJgdwPfI3YMyk6VsyrMQvHNvPoKNaLnHmXedMrb
- GFkwJjKBXQFrkwxujAbtTaSAiNwG8HbYvqk8jOL/tBxfnKXyyP4lM/VMlwQW3WgLUGrCtxLWnl
- +fRTmO2JLnH9Q8uCW91JUuFttKq2ePrun4BDjYdnAsBAAA=
-To: sd@queasysnail.net
-Cc: netdev@vger.kernel.org, davem@davemloft.net, 
- linux-kernel@vger.kernel.org, edumazet@google.com, horms@kernel.org, 
- kuba@kernel.org, andrew+netdev@lunn.ch, hangbin.liu@linux.dev, 
- pabeni@redhat.com, syzkaller-bugs@googlegroups.com, 
- felix.walter@cloudandheat.com, 
- syzbot+f2f6312ad1b5a0bfe316@syzkaller.appspotmail.com, 
- Haseeb Malik <haseebulhaq55@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790023229; l=7020;
- i=haseebulhaq55@gmail.com; s=default; h=from:subject:message-id;
- bh=5Szn+IqOQJizOOAwkL5s9HojNuSFN5aNN9B/x6gHH+Y=;
- b=kLwvMf4EbUrD89LkwEgKRKlxlRJQehnPNiOyGRUYxqCAsw7iFfTs/sDfv74u9L+n/XMFsNoSH
- 7CBgQimuaq8CKseDIlIQw4t5qrgWHgsAj6UxSftkLShcVw8PKbaSObY
-X-Developer-Key: i=haseebulhaq55@gmail.com; a=ed25519;
- pk=U/yCVc6cTsqDqxWLzvoONZ7DUA3EfRU+rfO9Xxo4p2w=
-X-Endpoint-Received: by B4 Relay for haseebulhaq55@gmail.com/default with
- auth_id=1026
-X-Original-From: Haseeb Malik <haseebulhaq55@gmail.com>
-Reply-To: haseebulhaq55@gmail.com
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: un4d6k4T0-ENgl4YYTxtrMi9zZtpYKsg
+X-Authority-Analysis: v=2.4 cv=EOCTQFZC c=1 sm=1 tr=0 ts=6ab19663 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
+ a=Xv2pnnNrGwOS_ky8ChoA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDMwMSBTYWx0ZWRfXxPri40Q2BbsW
+ qdwm+z/lEfFcOeMotLh8k9he6ELzDcQHqgFVOUrlwTrIfELveOzFFsWn9U1O3zi40B5ENE557fW
+ hiZBwrEVbui3iP8K3byoFAjRpxS92lc=
+X-Proofpoint-GUID: un4d6k4T0-ENgl4YYTxtrMi9zZtpYKsg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDMwMSBTYWx0ZWRfX3u5cIkfXceZO
+ EDZsMYK06fphlzovNDKLCfSDGaWelr+drlLgCukLxnR7lXGsPsYooDqYduf8FppUq3Ufy7XXOmY
+ OAordkvIMD6segoI3+uqT46+/YmscD/QKGEnqhS8z09ZChfCa6PYVdnsFY3iIUdDe0dwr/pljA3
+ +Jb4LMb1PpX+VkrLQjO+AYnQWb/wxn2IAaZweg1ZIdmfvNdrdo8X3JyChoTQBhRDHUnGGBeW+Sd
+ EMYjOpH9fHR2rJ0z0jPSmBDLT4v4JJMvmSJnI79CmqqZn7U9i3F49OC+9bU+L3qn+/xDz49qbKv
+ mRSPTMScaQDovxuhkkz4wJWqpKNdvTFs5Y2KIgbrCNn92mvxL2+JwNs30uXOlJJeTN5ch5ugtZ8
+ KCx2XsudG4AxUlfv3CD+0wI/t3InzFGxdS9m7JoiEBsR5v3vs6besB3HUl6c3bFbtTfWNlWPSQJ
+ nlG8sauuFoUtoBwkv8w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 priorityscore=1501 clxscore=1015 spamscore=0
+ adultscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210301
 
-From: Haseeb Malik <haseebulhaq55@gmail.com>
+On 9/10/26 10:48 PM, Tyrel Datwyler wrote:
+> From: Dave Marquardt <davemarq@linux.ibm.com>
+> 
+> ibmvfc_register_channel() and ibmvfc_deregister_channel() previously only
+> handled indexed sub-CRQ channels drawn from the channels->scrqs[] array.
+> The async sub-CRQ (vhost->async_sub_crq) had no registration path through
+> these helpers, requiring separate handling.
+> 
+> Extend both functions to accept a negative index as a sentinel value
+> signalling that the async sub-CRQ should be operated on instead of an
+> indexed scrq entry. When index < 0, the queue pointer is set to
+> &vhost->async_sub_crq, the IRQ is named "ibmvfc-<addr>-async", and the
+> handler is set to ibmvfc_interrupt_async_subq rather than the per-protocol
+> ibmvfc_interrupt_mq handler. hwq_id assignment is skipped for the async
+> queue since it has no meaningful hardware queue index.
+> 
+> Stopped marking ibmvfc_interrupt_async_subq as __maybe_unused.
+> 
+> Error messages in both paths are updated to distinguish async sub-CRQ
+> failures from indexed sub-CRQ failures. Kernel-doc headers are added to
+> both functions documenting the negative-index convention.
+> 
+> Signed-off-by: Dave Marquardt <davemarq@linux.ibm.com>
+> Acked-by: Tyrel Datwyler <tyreld@linux.ibm.com>
 
-Creating a MACsec device with MAC offload over an LRO-capable lower
-device triggers a warning in rtmsg_ifinfo_build_skb() when IPv4
-forwarding is enabled by default.
+I was a little relectuant about the chages here initially, and the more I look
+at this the more I don't like it. So I think I'm changing my mind to a NACK here.
 
-register_netdevice() invokes inetdev_init(), which disables LRO and emits
-a NETDEV_FEAT_CHANGE notification. This reaches macsec_fill_info() before
-macsec_add_dev() initializes the SecY. key_len is still zero, so
-macsec_fill_info() returns -EMSGSIZE and trips the WARN_ON in
-rtmsg_ifinfo_build_skb(), even though the skb has enough space.
+We want channel registration to be generic and the using a negative index to
+identify an async subq seems like a hack. The reality is there is only one
+channel and its at index 0. Futher, the async events are there own protocol that
+we process in the client so treat them as such and use the channel protocol
+field to identify that this is an async subq.
 
-Even without the warning, notifications during registration can report
-uninitialized SecY attributes, including the SCI. This ordering has existed
-since the driver was introduced.
-
-Initialize the SecY and apply the new-link attributes before registration.
-Move MAC address inheritance into macsec_newlink() so the SCI can also be
-initialized before registration-time notifications report it. Move the
-per-CPU statistics and metadata destination allocation into ndo_init(),
-and release partial allocations on failure.
-
-Fixes: c09440f7dcb3 ("macsec: introduce IEEE 802.1AE driver")
-Reported-by: syzbot+f2f6312ad1b5a0bfe316@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f2f6312ad1b5a0bfe316
-Suggested-by: Sabrina Dubroca <sd@queasysnail.net>
-Link: https://lists.openwall.net/linux-kernel/2026/08/19/552
-Signed-off-by: Haseeb Malik <haseebulhaq55@gmail.com>
----
-Changes in v3:
-- Correct the Fixes tag to the original MACsec driver commit, as pointed
-  out by Sabrina. Explain that the initialization order predates the
-  warning. No code changes from v2.
-- Link to v2: https://lore.kernel.org/netdev/20260918-fix-macsec-net-v2-1-784203ec4836@gmail.com/
-
-Changes in v2:
-- Initialize the SCI before registration, including MAC address inheritance,
-  so registration-time notifications carry the configured SCI.
-- Wrap the per-CPU statistics allocation at 80 columns.
-- Link to v1: https://lore.kernel.org/netdev/20260911-fix-macsec-net-v1-1-c82aa58ae741@gmail.com/
----
- drivers/net/macsec.c | 84 +++++++++++++++++++++++++++-------------------------
- 1 file changed, 43 insertions(+), 41 deletions(-)
-
-diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
-index 6f9f3aceffaa..78a19b134632 100644
---- a/drivers/net/macsec.c
-+++ b/drivers/net/macsec.c
-@@ -3539,6 +3539,22 @@ static int macsec_dev_init(struct net_device *dev)
- 	if (err)
- 		return err;
- 
-+	err = -ENOMEM;
-+	macsec->stats = netdev_alloc_pcpu_stats(struct pcpu_secy_stats);
-+	if (!macsec->stats)
-+		goto destroy_gro_cells;
-+
-+	macsec->secy.tx_sc.stats =
-+		netdev_alloc_pcpu_stats(struct pcpu_tx_sc_stats);
-+	if (!macsec->secy.tx_sc.stats)
-+		goto free_secy_stats;
-+
-+	macsec->secy.tx_sc.md_dst = metadata_dst_alloc(0, METADATA_MACSEC,
-+						       GFP_KERNEL);
-+	if (!macsec->secy.tx_sc.md_dst)
-+		goto free_tx_sc_stats;
-+	macsec->secy.tx_sc.md_dst->u.macsec_info.sci = macsec->secy.sci;
-+
- 	macsec_inherit_tso_max(dev);
- 
- 	dev->hw_features = real_dev->hw_features & MACSEC_OFFLOAD_FEATURES;
-@@ -3551,8 +3567,6 @@ static int macsec_dev_init(struct net_device *dev)
- 
- 	macsec_set_head_tail_room(dev);
- 
--	if (is_zero_ether_addr(dev->dev_addr))
--		eth_hw_addr_inherit(dev, real_dev);
- 	if (is_zero_ether_addr(dev->broadcast))
- 		memcpy(dev->broadcast, real_dev->broadcast, dev->addr_len);
- 
-@@ -3560,6 +3574,14 @@ static int macsec_dev_init(struct net_device *dev)
- 	netdev_hold(real_dev, &macsec->dev_tracker, GFP_KERNEL);
- 
- 	return 0;
-+
-+free_tx_sc_stats:
-+	free_percpu(macsec->secy.tx_sc.stats);
-+free_secy_stats:
-+	free_percpu(macsec->stats);
-+destroy_gro_cells:
-+	gro_cells_destroy(&macsec->gro_cells);
-+	return err;
- }
- 
- static void macsec_dev_uninit(struct net_device *dev)
-@@ -4116,26 +4138,11 @@ static sci_t dev_to_sci(struct net_device *dev, __be16 port)
- 	return make_sci(dev->dev_addr, port);
- }
- 
--static int macsec_add_dev(struct net_device *dev, sci_t sci, u8 icv_len)
-+static void macsec_init_secy(struct net_device *dev, sci_t sci, u8 icv_len)
- {
- 	struct macsec_dev *macsec = macsec_priv(dev);
- 	struct macsec_secy *secy = &macsec->secy;
- 
--	macsec->stats = netdev_alloc_pcpu_stats(struct pcpu_secy_stats);
--	if (!macsec->stats)
--		return -ENOMEM;
--
--	secy->tx_sc.stats = netdev_alloc_pcpu_stats(struct pcpu_tx_sc_stats);
--	if (!secy->tx_sc.stats)
--		return -ENOMEM;
--
--	secy->tx_sc.md_dst = metadata_dst_alloc(0, METADATA_MACSEC, GFP_KERNEL);
--	if (!secy->tx_sc.md_dst)
--		/* macsec and secy percpu stats will be freed when unregistering
--		 * net_device in macsec_free_netdev()
--		 */
--		return -ENOMEM;
--
- 	if (sci == MACSEC_UNDEF_SCI)
- 		sci = dev_to_sci(dev, MACSEC_PORT_ES);
- 
-@@ -4149,15 +4156,12 @@ static int macsec_add_dev(struct net_device *dev, sci_t sci, u8 icv_len)
- 	secy->xpn = DEFAULT_XPN;
- 
- 	secy->sci = sci;
--	secy->tx_sc.md_dst->u.macsec_info.sci = sci;
- 	secy->tx_sc.active = true;
- 	secy->tx_sc.encoding_sa = DEFAULT_ENCODING_SA;
- 	secy->tx_sc.encrypt = DEFAULT_ENCRYPT;
- 	secy->tx_sc.send_sci = DEFAULT_SEND_SCI;
- 	secy->tx_sc.end_station = false;
- 	secy->tx_sc.scb = false;
--
--	return 0;
- }
- 
- static struct lock_class_key macsec_netdev_addr_lock_key;
-@@ -4220,6 +4224,24 @@ static int macsec_newlink(struct net_device *dev,
- 	if (rx_handler && rx_handler != macsec_handle_frame)
- 		return -EBUSY;
- 
-+	if (is_zero_ether_addr(dev->dev_addr))
-+		eth_hw_addr_inherit(dev, real_dev);
-+
-+	if (data && data[IFLA_MACSEC_SCI])
-+		sci = nla_get_sci(data[IFLA_MACSEC_SCI]);
-+	else if (data && data[IFLA_MACSEC_PORT])
-+		sci = dev_to_sci(dev, nla_get_be16(data[IFLA_MACSEC_PORT]));
-+	else
-+		sci = dev_to_sci(dev, MACSEC_PORT_ES);
-+
-+	/* Registration can notify listeners before returning. */
-+	macsec_init_secy(dev, sci, icv_len);
-+	if (data) {
-+		err = macsec_changelink_common(dev, data);
-+		if (err)
-+			return err;
-+	}
-+
- 	err = register_netdevice(dev);
- 	if (err < 0)
- 		return err;
-@@ -4232,31 +4254,11 @@ static int macsec_newlink(struct net_device *dev,
- 	if (err < 0)
- 		goto unregister;
- 
--	/* need to be already registered so that ->init has run and
--	 * the MAC addr is set
--	 */
--	if (data && data[IFLA_MACSEC_SCI])
--		sci = nla_get_sci(data[IFLA_MACSEC_SCI]);
--	else if (data && data[IFLA_MACSEC_PORT])
--		sci = dev_to_sci(dev, nla_get_be16(data[IFLA_MACSEC_PORT]));
--	else
--		sci = dev_to_sci(dev, MACSEC_PORT_ES);
--
- 	if (rx_handler && sci_exists(real_dev, sci)) {
- 		err = -EBUSY;
- 		goto unlink;
- 	}
- 
--	err = macsec_add_dev(dev, sci, icv_len);
--	if (err)
--		goto unlink;
--
--	if (data) {
--		err = macsec_changelink_common(dev, data);
--		if (err)
--			goto del_dev;
--	}
--
- 	/* If h/w offloading is available, propagate to the device */
- 	if (macsec_is_offloaded(macsec)) {
- 		const struct macsec_ops *ops;
-
----
-base-commit: 78445023439506ebd83b86d40b1e428a3b309d4a
-change-id: 20260911-fix-macsec-net-ff3bc5e7ab0a
-
-Best regards,
--- 
-Haseeb Malik <haseebulhaq55@gmail.com>
-
+-Tyrel
+> ---
+>  drivers/scsi/ibmvscsi/ibmvfc-core.c | 93 ++++++++++++++++++++++-------
+>  1 file changed, 70 insertions(+), 23 deletions(-)
+> 
+> diff --git a/drivers/scsi/ibmvscsi/ibmvfc-core.c b/drivers/scsi/ibmvscsi/ibmvfc-core.c
+> index 670f6b3a5476..a9cf1096e755 100644
+> --- a/drivers/scsi/ibmvscsi/ibmvfc-core.c
+> +++ b/drivers/scsi/ibmvscsi/ibmvfc-core.c
+> @@ -4419,7 +4419,7 @@ static void ibmvfc_drain_async_subq(struct ibmvfc_queue *scrq)
+>   * @scrq_instance: async subq
+>   *
+>   **/
+> -static irqreturn_t __maybe_unused ibmvfc_interrupt_async_subq(int irq, void *scrq_instance)
+> +static irqreturn_t ibmvfc_interrupt_async_subq(int irq, void *scrq_instance)
+>  {
+>  	struct ibmvfc_queue *scrq = (struct ibmvfc_queue *)scrq_instance;
+>  
+> @@ -6810,13 +6810,29 @@ static int ibmvfc_init_crq(struct ibmvfc_host *vhost)
+>  	return retrc;
+>  }
+>  
+> +/**
+> + * ibmvfc_register_channel - Register a sub-CRQ channel with the hypervisor
+> + * @vhost:	ibmvfc host struct
+> + * @channels:	ibmvfc channels struct containing the channel array and protocol
+> + * @index:	index into the channels array for the queue to register, or
+> + *		a negative value to register the async sub-CRQ
+> + *
+> + * Register a sub-CRQ with the hypervisor via h_reg_sub_crq, map its hardware
+> + * IRQ to a Linux IRQ, and bind an interrupt handler to it. The handler is
+> + * selected based on the channel protocol (SCSI or NVMe) for normal queues, or
+> + * set to the async sub-CRQ handler when @index is negative.
+> + *
+> + * Return value:
+> + *	0 on success / non-zero on failure
+> + **/
+>  static int ibmvfc_register_channel(struct ibmvfc_host *vhost,
+>  				   struct ibmvfc_channels *channels,
+>  				   int index)
+>  {
+>  	struct device *dev = vhost->dev;
+>  	struct vio_dev *vdev = to_vio_dev(dev);
+> -	struct ibmvfc_queue *scrq = &channels->scrqs[index];
+> +	bool is_async = index < 0;
+> +	struct ibmvfc_queue *scrq = !is_async ? &channels->scrqs[index] : &vhost->async_sub_crq;
+>  	int rc = -ENOMEM;
+>  
+>  	ENTER;
+> @@ -6836,36 +6852,49 @@ static int ibmvfc_register_channel(struct ibmvfc_host *vhost,
+>  
+>  	if (!scrq->irq) {
+>  		rc = -EINVAL;
+> -		dev_err(dev, "Error mapping sub-crq[%d] irq\n", index);
+> +		if (!is_async)
+> +			dev_err(dev, "Error mapping sub-crq[%d] irq\n", index);
+> +		else
+> +			dev_err(dev, "Error mapping async sub-crq irq\n");
+>  		goto irq_failed;
+>  	}
+>  
+> -	switch (channels->protocol) {
+> -	case IBMVFC_PROTO_SCSI:
+> -		snprintf(scrq->name, sizeof(scrq->name), "ibmvfc-%x-scsi%d",
+> -			 vdev->unit_address, index);
+> -		scrq->handler = ibmvfc_interrupt_mq;
+> -		break;
+> -	case IBMVFC_PROTO_NVME:
+> -		snprintf(scrq->name, sizeof(scrq->name), "ibmvfc-%x-nvmf%d",
+> -			 vdev->unit_address, index);
+> -		scrq->handler = ibmvfc_interrupt_mq;
+> -		break;
+> -	default:
+> -		dev_err(dev, "Unknown channel protocol (%d)\n",
+> -			channels->protocol);
+> -		goto irq_failed;
+> +	if (!is_async) {
+> +		switch (channels->protocol) {
+> +		case IBMVFC_PROTO_SCSI:
+> +			snprintf(scrq->name, sizeof(scrq->name), "ibmvfc-%x-scsi%d",
+> +				 vdev->unit_address, index);
+> +			scrq->handler = ibmvfc_interrupt_mq;
+> +			break;
+> +		case IBMVFC_PROTO_NVME:
+> +			snprintf(scrq->name, sizeof(scrq->name), "ibmvfc-%x-nvmf%d",
+> +				 vdev->unit_address, index);
+> +			scrq->handler = ibmvfc_interrupt_mq;
+> +			break;
+> +		default:
+> +			dev_err(dev, "Unknown channel protocol (%d)\n",
+> +				channels->protocol);
+> +			goto irq_failed;
+> +		}
+> +	} else {
+> +		snprintf(scrq->name, sizeof(scrq->name), "ibmvfc-%x-async",
+> +			 vdev->unit_address);
+> +		scrq->handler = ibmvfc_interrupt_async_subq;
+>  	}
+>  
+>  	rc = request_irq(scrq->irq, scrq->handler, 0, scrq->name, scrq);
+>  
+>  	if (rc) {
+> -		dev_err(dev, "Couldn't register sub-crq[%d] irq\n", index);
+> +		if (!is_async)
+> +			dev_err(dev, "Couldn't register sub-crq[%d] irq\n", index);
+> +		else
+> +			dev_err(dev, "Couldn't register async sub-crq irq\n");
+>  		irq_dispose_mapping(scrq->irq);
+>  		goto irq_failed;
+>  	}
+>  
+> -	scrq->hwq_id = index;
+> +	if (!is_async)
+> +		scrq->hwq_id = index;
+>  
+>  	LEAVE;
+>  	return 0;
+> @@ -6879,13 +6908,26 @@ static int ibmvfc_register_channel(struct ibmvfc_host *vhost,
+>  	return rc;
+>  }
+>  
+> +/**
+> + * ibmvfc_deregister_channel - Deregister a sub-CRQ channel with the hypervisor
+> + * @vhost:	ibmvfc host struct
+> + * @channels:	ibmvfc channels struct containing the sub-CRQ array
+> + * @index:	index into the sub-CRQ array, or -1 to deregister the
+> + *		asynchronous sub-CRQ
+> + *
+> + * Frees the IRQ, disposes of the IRQ mapping, and calls H_FREE_SUB_CRQ to
+> + * release the sub-CRQ with the hypervisor. On success the queue message
+> + * buffer is zeroed and the current index is reset. If H_FREE_SUB_CRQ fails,
+> + * an error is logged but the channel resources are cleaned up regardless.
+> + */
+>  static void ibmvfc_deregister_channel(struct ibmvfc_host *vhost,
+>  				      struct ibmvfc_channels *channels,
+>  				      int index)
+>  {
+>  	struct device *dev = vhost->dev;
+>  	struct vio_dev *vdev = to_vio_dev(dev);
+> -	struct ibmvfc_queue *scrq = &channels->scrqs[index];
+> +	bool is_async = index < 0;
+> +	struct ibmvfc_queue *scrq = !is_async ? &channels->scrqs[index] : &vhost->async_sub_crq;
+>  	long rc;
+>  
+>  	ENTER;
+> @@ -6899,8 +6941,13 @@ static void ibmvfc_deregister_channel(struct ibmvfc_host *vhost,
+>  					scrq->cookie);
+>  	} while (rc == H_BUSY || H_IS_LONG_BUSY(rc));
+>  
+> -	if (rc)
+> -		dev_err(dev, "Failed to free sub-crq[%d]: rc=%ld\n", index, rc);
+> +	if (rc) {
+> +		if (!is_async)
+> +			dev_err(dev, "Failed to free sub-crq[%d]: rc=%ld\n",
+> +				index, rc);
+> +		else
+> +			dev_err(dev, "Failed to free async sub-crq: rc=%ld\n", rc);
+> +	}
+>  
+>  	/* Clean out the queue */
+>  	memset(scrq->msgs.crq, 0, PAGE_SIZE);
 
