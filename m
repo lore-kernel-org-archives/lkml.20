@@ -1,124 +1,75 @@
-Received: from mail.fris.de (mail.fris.de [116.203.77.234])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 173833C9EF0;
-	Mon, 21 Sep 2026 10:17:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE8A53B6360;
+	Mon, 21 Sep 2026 10:18:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789985848; cv=none; b=SFRhFZ2sTHmD/0SKPudlabbIhHBRKw3oi2AdD/wXsbdYTDMk87LB5sBkJ7xoBUnbyHEvKteOVX/h633+r4G5MVwdV/wTbFN96r1UicFZhRWBlF5ktf+6RqDCgtWvG3tufM6LPowuBRo7y0WJeJPukcZpVstuK0ehxc9bBArE6wA=
+	t=1789985883; cv=none; b=n9rOYDNJpEOUAqdQUbkW8pLuz0PJZI/qEC7Ntf561aQP0vgSAT1o5+yOsErv52aQmJJoiLmox0+JzEQowG3dBsz8rWn8EyXUqLOLlmbWuI+J7+Gn9MgQsnFvwOoBrUjBiw5khOcMt5Rxp3OIjwR480g8qJWqyWVl75DctUjH6m4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789985848; c=relaxed/simple;
-	bh=iIuowXzeOPCff2NgpDNY7AnzrSvtvo0WU3eOtTczGts=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZwaSEQDVMa8romJm8cp5HTuVyH0rI4bUS8FacMFPFwFMcbNVAMddp0DvEiQ+yL4xuS/lDRFCkA/4Jx0/4ewzFhidVRZrGfoAbiI3gxY3fNf8Wb9SzS/I9gQ6epvyDJhgIOzNgw4KC+6+6rIF85ooHlJNRUkr5Z1NYUqxKb9E+s0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=EXYS5Bbo; arc=none smtp.client-ip=116.203.77.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
+	s=arc-20240116; t=1789985883; c=relaxed/simple;
+	bh=pQumcm//+P5FtC23oznOvWATM5/MVXaxervTe7ynuvg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lwZpt4oHEnrxfw6VwMhPCtEpJNiTGBqqe9yDVjFsACM65VdksrKH/skMKpUcBLosG/IlnqgY3r5K4a6dbhL/eOTKq/11lgzLIeAwcnlhvaUIdm1fQ5CZHmUkH+U0eNAVrIz/W+pl+qeczUJX8jxddv39gIrIjvRGRzEJf+w8/OQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VkzZ8rMH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="EXYS5Bbo"
-From: Frieder Schrempf <frieder@fris.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1789985835;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=yTymEAWaatS3hNs3NMCopMPpShJbhdwWnMcQrP+brXQ=;
-	b=EXYS5BboGejYrW44OieqtnyMm94j2T21OKVrkkJehGm0rFzaqrNQxsrhOguVprPbxEBLcw
-	Mk4bkb4Ee5H+e9fMmyWIqciwaZnnkRpdyX2YTU1miL5ZWxzObg/1YFMQtLC/h1m7uhlHgx
-	KT9Qab/++IwVQdSJvr6fr2HNHmZq3CgAcIT86PPOPAPJBmW/eLxMJvlIsxeaQyudjBiY8A
-	8JNEX7ZEl8zdTiya0aLRJSouD4/NRp3OaWvCz4TDbZJehR4p7s8B/yEsTB5QdQ90T7gruf
-	f9miQHfCKVxN9NDFcPRx5aDbzgf1i1nnznhJi0rnMpXjXTj0JexPA4/H0f9iJA==
-Subject: [PATCH v2 0/3] spi: Better specification for rx-sample-delay-ns
- and core parsing
-Date: Mon, 21 Sep 2026 12:16:43 +0200
-Message-Id: <20260921-spi-sample-delay-cleanup-v2-0-b460d572fd32@kontron.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VkzZ8rMH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51CA01F000FF;
+	Mon, 21 Sep 2026 10:17:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789985881;
+	bh=uqOTbxWzk8L5l6BA2p4u811uJFFtZmHzvX1cPgWzEao=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VkzZ8rMHWhP5HZK31X8dH0pCJ9y3qfwA7WbxZII0OT8/6PqgFeZdxZFfkR4q0Q+WS
+	 4GwcL5008wqyQJQKjdE+7MK7KHPvCBEZefAbLX1LCd5narPa7uBpMYKY+91vYel8Lg
+	 chyrAyKbvODnB1kx9m3l8CRnHWFju6BbpKywy+Lut1kQFTwuE5hMMVdmIcXrLWJEKI
+	 a+MfwZPov4klFPb2Hi3P53pfXmYaNrx2zvBjGyBmO7u8acPH7rII7N8PTT39O4QaH2
+	 8hLdObzlZD4ww1AOS0oEg5gsl3Wefjc2gggd1C/MRvmZIAMWLJMwePkLlVN9+Z6QRh
+	 Crxm7nQaJRtvw==
+Date: Mon, 21 Sep 2026 11:17:57 +0100
+From: Simon Horman <horms@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, linux-kernel@vger.kernel.org,
+	madalin.bucur@nxp.com, netdev@vger.kernel.org, nsaenz@kernel.org,
+	pabeni@redhat.com, sean.anderson@linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] fsl/fman: Fix fm_node reference leak in read_dts_node()
+Message-ID: <20260921101757.GE13925@horms.kernel.org>
+References: <20260917110342.2148155-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NTQ6CMBBGr0K6dkxbjUZX3sOw6M8go9g2nUIkh
- LsLeAGXL3nf+ybBmAlZXKtJZByIKYYF9K4SrjXhgUB+YaGlPsmLOgMnAjbv1CF47MwIrkMT+gT
- GKi8PBqVujFjmKWNDny19r3/MvX2iK2tvNVriEvO4fQ9q9f64GRRIkHhE721jlcPbK4aSY9h7F
- PU8z19Re1dA0wAAAA==
-X-Change-ID: 20260917-spi-sample-delay-cleanup-ab1d03ae02fa
-To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, 
- Frieder Schrempf <frieder.schrempf@kontron.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2964;
- i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=iIuowXzeOPCff2NgpDNY7AnzrSvtvo0WU3eOtTczGts=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIWsji+xMTgs9+3mRV31iVn1leFaVUX9d9VGm9Zxcr/Puv
- HOZXPs7SlkYxLgYZMUUWaT4LV7bmsX6yB+rjoKZw8oEMoSBi1MAJpLIx8jQVNiqeto79mL4Z5vf
- 8dwi3c/+fha21zxe+IrRiUH2lXUKI8NFtefTKmQ5plvuVWJpZkrR6DVen3E8dNfj74mZr/8IW3M
- CAA==
-X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
- fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917110342.2148155-1-vulab@iscas.ac.cn>
 
-"rx-sample-delay-ns" has been a generic SPI peripheral property since it
-was moved to spi-peripheral-props.yaml, but the core has never looked at
-it, and what it is meant to describe has become blurred along the way.
+On Thu, Sep 17, 2026 at 11:03:42AM +0000, Wentao Liang wrote:
+> of_node_get() takes a reference on the FMan device node. That reference
+> is released neither on the success path, which returns straight after
+> of_platform_populate(), nor on the failure paths that jump to fman_free
+> without going through fman_node_put(). Neither read_dts_node() nor its
+> caller keeps fm_node around to release it later.
+> 
+> Release the reference on the success path, and route the remaining
+> failure paths through fman_node_put().
+> 
+> Fixes: ecb239d96d36 ("ethernet: fman: fix wrong of_node_put() in probe function")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-It was introduced in 2015 for Rockchip, to compensate "boards with
-high-capacitance SPI lines". The wording now in the generic schema came
-later, from a description of a DesignWare register, and lost its
-controller-specific qualifier on the way. It says what the value does to
-the controller, but not what a board should measure to arrive at it.
+Hi Wentao,
 
-Patch 1 says what the property describes. Patch 2 parses it in the core,
-so that a controller driver can act on it without open-coding the
-property name, and patch 3 converts spi-dw, its only user that reads it
-from the peripheral node as the binding intends.
+As flagged by W=1 builds, with this patch applied the fman_free tag is no
+longer used. It should be removed.
 
-Deliberately not converted: spi-rockchip and spi-mtk-snfi read
-"rx-sample-delay-ns" from the *controller* node rather than the
-peripheral node, which contradicts the binding but is what their device
-trees rely on. Converting them would break those boards, so they keep
-their private parsing. The controller-wide default that spi-dw reads
-from its own node is left in place for the same reason - it lives in a
-different node, which is not what the core parses when it looks at a
-peripheral.
+Please be sure to check that your patches do not introduce any
+new warnings when compiled with W=1.
 
-This is groundwork for letting SPI devices declare their datasheet
-clock-to-output-valid time so that controllers can move their sampling
-point instead of forcing a lower spi-max-frequency, posted as an RFC at
+Link: https://docs.kernel.org/process/maintainer-netdev.html#testing
 
-  https://lore.kernel.org/r/20260303-fsl-qspi-rx-sampling-delay-v1-0-9326bbc492d6@kontron.de
-
-Nothing in that work is needed to read this series, and nothing here
-depends on it: the chip side is a separate quantity that composes with
-this one, which is why patch 1 spends a paragraph on keeping them apart.
-
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
----
-Changes in v2:
-- Fix the bindings patch subject prefix
-- Improve commit message for patch 3
-- Link to v1: https://patch.msgid.link/20260917-spi-sample-delay-cleanup-v1-0-0e4eddbfb1ce@kontron.de
-
----
-Frieder Schrempf (3):
-      spi: dt-bindings: Clarify what rx-sample-delay-ns describes
-      spi: Parse the rx-sample-delay-ns peripheral property in the core
-      spi: dw: Use the rx-sample-delay-ns value parsed by the core
-
- .../devicetree/bindings/spi/spi-peripheral-props.yaml       |  8 ++++++++
- drivers/spi/spi-dw-core.c                                   | 13 +++++++------
- drivers/spi/spi.c                                           |  9 +++++++++
- include/linux/spi/spi.h                                     |  9 +++++++++
- 4 files changed, 33 insertions(+), 6 deletions(-)
----
-base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
-change-id: 20260917-spi-sample-delay-cleanup-ab1d03ae02fa
-
-Best regards,
---  
-Frieder Schrempf <frieder.schrempf@kontron.de>
+-- 
+pw-bot: changes-requested
 
