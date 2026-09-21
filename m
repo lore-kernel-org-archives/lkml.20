@@ -1,159 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E42C4FDA6B;
-	Mon, 21 Sep 2026 18:50:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8097B4FDA5A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:51:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790016655; cv=none; b=VwJy2cyETgKAoi4iV7mZAk5KvZinSccXWFWRJhJhkXg3g3wwgfvUtSNN8dtIf7jRq6jVQkQEAlwOIXGcbSiOpFij2znWLx2a/ueN7Vm2iVuA4mAKaTsPuA93z1xz3kZ63vrhcEppC/dVpXIsdwrf6nehJFJlTl7/PeNENMDhAE8=
+	t=1790016689; cv=none; b=My7+ObVGaTtoRGoeNh9Nhy1FgaChcJZZigaCfIUyE3zx+otpN8zzRWz/V1uA9ACV+81wFfNn19m96RF5L6QJxMLQiZ27KbJyz6EXBq0i2rpjp7CBXtcpkgQ4ZMGS+cUS2p9dDVeY0InsXtbczvLHHl3Hr1qPx/Y9DQd9CahivzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790016655; c=relaxed/simple;
-	bh=p9vye9Fn0omqERqkD37y+L1HgqTR2av/DqQTxodGdhg=;
+	s=arc-20240116; t=1790016689; c=relaxed/simple;
+	bh=gIA613t/TlSvmEDck9oaSUALamHs4wc+Ga8slxlZoho=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QXiCj+fbu4ekXvnI2iRtZV+FAQFP7ijOk9Sgc8Wcu9avfMmmxJ6oxcMDt8+0l/LEyBZlKretdcV2AEqbrQz8yVUJzbxxQ4+2vDrmqlRg0ZD4gR2/Dn/uWYMkQ7tjPKI+ZTPjMt5tyg/BTppdT/TBiQdvMNgyvUK9ajBtcRHG7Ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bJ9PM8tZ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=NkR5ORl2rPXgH7RKnorEfC1bw2i70jj/ajEPKpxpEdMuX8izgdo2wjQ1fe2FfB8ZqBj+Esv8gsssAEVLAwnbwh3pqh1+GJJc8km8oNmalbZTJ32yvupLUTzvAswNu5A5VvrZL7DZLdD03PEMBAVb7q1FFay+jADg/OLpcm4rY+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PpYCt6aY; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bJ9PM8tZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02C3E1F000FF;
-	Mon, 21 Sep 2026 18:50:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790016654;
-	bh=ORjA4AxqThj6VTeZiT/jrtg6yNBkGJ64/nYD9YDquxo=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=bJ9PM8tZiGRVPYCFuS05geBu6n15rijUhOKvxNMwzwQp+vbWm3n8K2FVx12gEAnAB
-	 r7U5zr7RnMj9j8GRGxVkdBds35a9fWV6O8KPjgsKK6bTS/hberfFiCAZeiHHNYWcuD
-	 qDYwIFiG5WirUSzyY++Qg+6C0TlfI+QlQ9Cvtlht6PNqj66UZvKcllq5EYladN5AMn
-	 TFilCwbbVTjC7pdDkXA3v0bXB+YzylJZb3NuH8gjFdFE2o2ngyR44RDveH93mnu+4M
-	 yngGOBJXyjwmG0VreHoc/Lfdk0A8uZuyaSA5gwmUafgrD+Oja+zl1jJ3umAj1ZVJLR
-	 eDU/Ilec2XVhA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id B90E4CE0E8C; Mon, 21 Sep 2026 11:50:53 -0700 (PDT)
-Date: Mon, 21 Sep 2026 11:50:53 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Boqun Feng <boqun@kernel.org>
-Cc: Puranjay Mohan <puranjay12@gmail.com>, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	rostedt@goodmis.org
-Subject: Re: [PATCH 1/7] rcu: Make call_rcu() safe to call from any context
-Message-ID: <fd572a7e-86f4-4ef3-8ebc-abeced7a6159@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <2a742578-120a-421d-9305-5de0b22bda33@paulmck-laptop>
- <20260919003258.3134343-1-paulmck@kernel.org>
- <aq6XFyrR3OiSvKl9@MacBook-0RXW5>
- <CANk7y0g5EU8T8cLiU=+tLiZCcMEhZOjhnvs4uzD8Z=8GwN+7LA@mail.gmail.com>
- <arF30s1AAAkmq0DB@MacBook-0RXW5>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PpYCt6aY"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e4ad9so19531355e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:51:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790016687; x=1790621487; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tE3Tr4gm4tvb6Rbj5+pcpfeQlxZsP6Od7O86P+CMJdo=;
+        b=PpYCt6aYElzcQJdSAzt81g13Pf5lN/R733eux3GMQXjzeLnpPoudANzPMvzxrprI9H
+         az3g72xCAlOC1KoQ0pwiiBUsoE0XDs9L6DQDXP6iKDE9RUgsFyYLQfF2vRyBNseNrhzy
+         2s9wqFFQO0Vz7aaeygqdoYvb/CFQ9I3Qt81sj6ZLaqjOCKQ5wfpuVdP2247kPbxRERaS
+         6ZVd5ErDq6dKYE9NpGK22C3I5iipjQOKjwBJZgC8lW77+kzfM1X6U3z5sww3W6AM4kpz
+         U/DlJ9yp8ClFfM8BdfmiOA3Z7WmJkwsDzhH3lpfGagDV0cmHielSsq8iGKOXEJgvLbpJ
+         gQQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790016687; x=1790621487;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tE3Tr4gm4tvb6Rbj5+pcpfeQlxZsP6Od7O86P+CMJdo=;
+        b=sxZb7TvEXhHPNpdFAseFJEGP967UQXzany9bOxo+UlR/4ckW9log5yGjWvGGIriinh
+         O+UMeSgWkxYBqGMQtZneqriwWKZbEQNgWMfWLq2AxEng/fPA7kyotN7GPuAMImOeHnbA
+         XuuaoxpnBbpUWWyzb5g2gseJjzhwXfGXlAcLfEaA1b25r1/PKXAoyAgpIa3F6MLMuNjy
+         YsI6k8sn2E0eY+M31bQPCDB6PhhfnINum6uobSVl8u3JcROIKg8vtaeQqgTYUoV1bPLe
+         Tb849DYiTmCu+g9XOleJh8fMKTOXMWAzhv4xmL7H9rndTXpNKlXs505JgbwtkS7KA8u4
+         qT7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzUhnvha3wRPtz86H5S1JIvfXyIw4Fkxg8x7BXHLFUtQLRvNgkwXcoiA1g/pLjduImm+jv+2wMmKFNiK8I=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGq5mJs1gjnTgLdTJcKFwVvt2HcZ0rhQn7bybj/9sAzs4flUVc
+	TXOPMjqX/WmzumVvsmQgUU38kmk8Rh5nedhU6+fT12pAqldkChI/P3Fb
+X-Gm-Gg: AYBFou2Dz6ruvg+hcqbmOSwYEl6Qj3bP9xXQDFXNzYQKTOibl/KJ6/MkoSqG3nefXn1
+	A9WqowHq2RoOdfmEs+oB+hwmslRGr4ZYs8iDldb/KxAHgGqj5tbRCI3XUqdyhAyS17xzBN9JWU1
+	M6HgsTDm4RS4jsBDYUegq6i1376EjJbRQerXurqoNMn3VbG8dNWpx0iquB8XJ91iBFTSDE/paVX
+	5aQuGxGgSjTj66mWnhFfvvaZKaU1Y1dbQydAEEDn/t80Z4mzW49os5KyiXMhRz9IGw1Wr2Z3p+j
+	1FXXqhBh7WBTmIhY3r6p1FVr8TE2DgBKiUhprlM51QnAk+W8gaOvqDeWaCPxEffg2Jya6skuEnp
+	H/QqTiVAyggqlsu9DqAqrZC5w4K+l+N5TWmUn0sD1eje93qJHbzKFoh4sjigQOhGyMja/ObOgjd
+	OQ1nJrZYUxmQfZ2glrtnez4fhHYv1pegDAaQm8Rgox3wkBkI4JrIkTMKa5R1at1OVydgw4s7bGL
+	p416VOfaiqrlmChIvvgUX7hWcLGPgpS1r3P/tNC59qqMThAdoinjdsNMBVmo1IgkLjzrP5sGcfL
+	uO3QuamVsTIDAau42YMAs2FiNdL/eorzo6CkgL8oNT/BR1zbhEkSyVDHvUouHoC7SZbCY1RP/2l
+	Jf91v9PGNAHpa6qeWCzlaWYs=
+X-Received: by 2002:a05:600c:310d:b0:49d:15b9:2a2a with SMTP id 5b1f17b1804b1-49fc5721b9dmr177099205e9.10.1790016686303;
+        Mon, 21 Sep 2026 11:51:26 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a8e9-c501-45ee-6f60-3fc5-4072.310.pool.telefonica.de. [2a02:3100:a8e9:c501:45ee:6f60:3fc5:4072])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd8b9fc5asm11550875e9.5.2026.09.21.11.51.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 11:51:25 -0700 (PDT)
+Date: Mon, 21 Sep 2026 20:51:24 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Lian Wang <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>, damon@lists.linux.dev, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] mm/damon/core: score an unmeasured PSI goal as not
+ achieved for the temporal tuner
+Message-ID: <arF7t_kmisrx0_WF@gmail.com>
+References: <aq4g5W58PgWLqJ8p@gmail.com>
+ <20260919155342.85699-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <arF30s1AAAkmq0DB@MacBook-0RXW5>
+In-Reply-To: <20260919155342.85699-1-sj@kernel.org>
 
-On Mon, Sep 21, 2026 at 08:30:42PM +0200, Boqun Feng wrote:
-> On Mon, Sep 21, 2026 at 07:12:02PM +0100, Puranjay Mohan wrote:
-> > On Sat, Sep 19, 2026 at 3:07 PM Boqun Feng <boqun@kernel.org> wrote:
-> > >
-> > > On Fri, Sep 18, 2026 at 05:32:52PM -0700, Paul E. McKenney wrote:
-> > > > From: Puranjay Mohan <puranjay@kernel.org>
-> > > >
-> > >
-> > > Hi,
-> > >
-> > > Sorry for a bit late repsonse.
-> > >
-> > > > RCU's per-CPU callback list is only touched with interrupts disabled: the
-> > > > enqueue runs under local_irq_save() (and the nocb locks when offloaded),
-> > > > as do callback invocation and grace-period work.  A call_rcu() that
-> > > > arrives with interrupts already disabled, whether from an NMI or from
-> > > > instrumentation that re-enters RCU, can interrupt one of those and corrupt
-> > > > the list or deadlock.
-> > > >
-> > > > Defer instead: stage the callback on a per-CPU llist and raise an irq_work
-> > > > that re-issues it once interrupts are on, straight to the enqueue so it
-> > > > cannot defer again.  The gate is bare irqs_disabled(), so callers that
-> > > > merely hold interrupts off are deferred too and pay one irq_work hop.
-> > > > Skip it while the scheduler is down (RCU_SCHEDULER_INACTIVE): irq_work is
-> > > > not usable that early, rcu_init() already calls call_rcu(), and the per-CPU
-> > > > deferral state is not initialised until rcu_init_one() runs later in it.
-> > > >
-> > > > rcu_barrier() drains every CPU's ->defer_head before it scans the lists,
-> > > > and rcutree_migrate_callbacks() drains an outgoing CPU's.  A drain
-> > > > re-issues onto the draining CPU, so a barrier moves other CPUs' staged
-> > > > callbacks onto
-> > > > its own ->cblist; call_rcu() promises no CPU affinity for invocation.
-> > > > ->defer_lock is held across llist_del_all() and the whole re-issue so the
-> > > > drainers
-> > > > serialize: one that finds the list empty can conclude that everything
-> > > > staged before it is already on a callback list.  Interrupts stay off for
-> > > > the batch.  Where the arch has an irq_work self-IPI that is what one
-> > > > interrupts-disabled region could stage, normally a single callback; where
-> > > > arch_irq_work_has_interrupt() is false the drain waits for the tick, so
-> > > > several regions can accumulate first.
-> > > >
-> > > > The drain clears ->next before re-issuing.  A double call_rcu() on a head
-> > > > that is already debug-object-active self-links the staged node, and
-> > > > rcu_do_enqueue()'s duplicate path returns without clearing it, so the
-> > > > drain would spin.  A re-add behind other staged callbacks makes a longer
-> > > > cycle, which that does not bound; a double call_rcu() stays undefined.
-> > > > llist_del_all() yields newest-first, so a batch is re-issued in reverse
-> > > > call order; nothing depends on call_rcu() ordering.  The re-issue drops
-> > > > the lazy hint, since staging records only ->func, so a deferred callback
-> > > > loses its batching on CONFIG_RCU_LAZY.  kasan_record_aux_stack() moves to
-> > >
-> > > I'm not sure this is a good idea, because it effectively remove LAZY
-> > > support when DEFER is enabled. Since the goal of this patchset supports
-> > > BPF and NMI, would it be nicer that we skip the whole defer logic if the
-> > > callback is LAZY? Alternatively, you can have two llist (one for hurry
-> > > and one for lazy).
-> > 
-> > I had made this trade-off of removing the Lazy tag as I thought it is
-> > not necessary to support lazy when call_rcu() is called from nmi and
-> > bpf based instrumentation as they should not be frequent. But I like
+On Sat, Sep 19, 2026 at 08:53:41AM +0100, SJ Park wrote:
+> And the apply interval (or, next_apply_sis) is extended for each commit, in
+> damon_set_attrs().  Hence, the problem can still happen.
 > 
-> Ah, I missed that you only defer if irqs_disabled() is true, so this is
-> much better than I used to think. So..
+
+Thank you for explaining the apply interval. So the PSI measurement
+period can exceed the quota reset interval.
+
+> > full commit zeroes esz, esz_bp and the charge state of the running
+> > schemes. Please correct me if I read this wrong. I can send a
+> > separate patch for that.
 > 
-> > the idea of two lists (skipping the defer logic is not possible as it
-> > could lead to deadlocks/corruption). I will also investigate if we can
-> > put the Lazy tag on the ->next pointer. But will it be acceptable if I
-> > do that as a follow up? I want to get the base support fully validated
-
-I agree that you need a lazy flag that indicates that all deferred
-callbacks in this llist are lazy.  As soon as the first non-lazy callback
-arrives, the flag must be cleared.  Because this is the way laziness
-works without deferral, correct?
-
-Then in the irq-work handler, enqueue them all lazily if the flag is
-still set, or non-lazily otherwise.  If the flag is not set, enqueue
-them lazily.  Either way, set the lazy flag.
-
-Of course, as described, this is quite racy.  To make it work, the
-enqueuing and the clearing of the flag for that first non-lazy
-callback must be atomic.  Which can be accomplished by having this
-be the low-order bit of the llist_head structure's ->first pointer,
-as opposed to the llist_node structure's ->next pointer.
-
-Or am I missing something subtle here?
-
-And of course, either way, this requires llist primitives that clear
-that low-order bit at the appropriate places.
-
-> .. definitely a follow-up would do, thank you!
-
-Very much agreed on this being a follow-up item!
-
-							Thanx, Paul
-
-> Regards,
-> Boqun
+> I don't really understand the problem.  Could you please further elaborate?
 > 
-> > with the BPF side changes. I also have more optimizations planned as
-> > suggested by Sebastian.
-> > 
-> > Thanks,
-> > Puranjay
-> > 
+
+I posted this as a separate patch series with KUnit tests:
+
+https://lore.kernel.org/r/20260921003047.12041-1-kmehltretter@gmail.com/
+
+Thanks,
+Karl
