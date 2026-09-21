@@ -1,80 +1,68 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21DA70809
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:50:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E98B49B5A0
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:50:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789998610; cv=none; b=d2oK3tH21yabnSru/eH9wNIchyG//cw9pnEylw4M3voZcmH7JkRYD7Zdhe3H1eiPMZwJ92ted1dejQuEDb4YbYLnaF9vSkepcDeYBgl1a50TSwTO9eC3eEnHKV44UcrnJDLw7B3Ve7PG6rTvWpVq285Gb+6QdEdTZo30c3hTnUY=
+	t=1789998612; cv=none; b=EH5Uxa3YbYc/UekbSpv69g+5P7xfis10Eq8+AGDAP2bVJF2iIKbe8f1Amg8EnQieEhqlHWRkaJ+SnN9F89Lt/dyWh9eM0mZMyt1VzKsK7oYI19oRNr72S9RGi5/F0Ijzhvvrjg2eMBKYPHQD4XaKexX1juXUpK9jEwz9lItb/1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789998610; c=relaxed/simple;
-	bh=EKX1YD4uIfCT4/gD8PVpTKfI4gS62ipKA98Eu2o1QQ8=;
+	s=arc-20240116; t=1789998612; c=relaxed/simple;
+	bh=5UQ+/b9voSw2XbVSVpGgsHCN+16v45r/eO2PjQuRZp8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UqyiFYGaU0kwS9t6G1zEmdpqzHuMGGN6rPihwmnder7LQ4JHAKosHvEUhpgl08Zp1aTwx5qQsJ6nECbhzpFMh3HcX4QgAcWMB6TWkrqQyjA7U9T9UTGuBMRubj20chqRWnmRys9g9vwz2VbEQLI2e7+WaoWKX9b/gxfYgQT2U3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=wzR+B/ey; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=4CEvNcIB; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Big9oNgJ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Pmel4JnP; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 In-Reply-To:Content-Type; b=iBkV3freJz4yg2PyqNsETsI5vqw3QPUUscgEEIv20UOmVG1y3zSR05aexnNvK5779J+1isY2X26R/F9P+UipScUXTnDi0MxHqa9IFYepBh0ibQfGCcZZm7mJYDe4WiJ4Hgc7luGeOF5JiLMMaI3ITCFnBg/OE9mvPI3PTOy/Hzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=dA95zy47; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wzR+B/ey";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4CEvNcIB";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Big9oNgJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Pmel4JnP"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 52F141F7FC;
-	Mon, 21 Sep 2026 13:49:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789998602; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oZtLm53IUi/1m5pz1oVSVhLTNUB+FHDnKY+yq6LJ+jw=;
-	b=wzR+B/eyoMlXOt+h98DfGlNkWDGAe1zaRxV9kcz4mXqB47rR7muH3qr00nxHXmlXaLo/bh
-	MrJUGLJx2HOJmEO5SdUXQIXEE4/QOhgy+RE2gr6ae2avtCPsD1nFeyP6d9P0QGgkBCnPgE
-	BVg3g9sTcR9rWRLyje8aWanQ0Ob0b44=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789998602;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oZtLm53IUi/1m5pz1oVSVhLTNUB+FHDnKY+yq6LJ+jw=;
-	b=4CEvNcIBoElL9BSZ4vaiwwO1elvbcrORHKE2UZ918R0dbelLjzsTomk3CCvA+yhFEOr/Q6
-	HsuqTZDEOFQdGWBA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789998598; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oZtLm53IUi/1m5pz1oVSVhLTNUB+FHDnKY+yq6LJ+jw=;
-	b=Big9oNgJ182TctBerFOzSFaTXh4in5GT/qpul/k+e72OEt2KPMYjYsdEmPlrISZdDu4P/a
-	My3BSPUx1y23IHPBbewbm/ZgTvjLAmhHSC1VKXdVG1WDWzFnWIsz9SIqMJLcNAteFCnIm3
-	joe1g0lkQrCo2uujzBNpFw+ntXysfug=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789998598;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oZtLm53IUi/1m5pz1oVSVhLTNUB+FHDnKY+yq6LJ+jw=;
-	b=Pmel4JnPeXiH5JU1k3XexMG4Q9wmdqJuFeweYZndV1K3Afj/fksVqHPQ+BTTlfL5a1n4Jz
-	sSas7hmw1RWL5DCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E02851368D;
-	Mon, 21 Sep 2026 13:49:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id GHJvKAU2sWrqFwAAD6G6ig
-	(envelope-from <hare@suse.de>); Mon, 21 Sep 2026 13:49:57 +0000
-Message-ID: <0602191a-81ce-4f8a-90d0-b47ba2bc36ac@suse.de>
-Date: Mon, 21 Sep 2026 15:49:57 +0200
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="dA95zy47"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48586861639so1192568f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:50:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1789998608; x=1790603408; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J4xPQrVJdFgFl8luzeo5fY/IUnv52YMtHgLJT02PkgQ=;
+        b=dA95zy47+9E+6Wj7pNYsrxpyB60MgweGLYJbZWECxloBtnCxSAfVgRTPb4n832bVN4
+         ioIHKLkAkdYc7/JT7hGCtIW/h2DDR9L2+ZHYH1NwtM/zrWohbxtmzZMw6cpxK0JyfEtx
+         AqkpxNrZ4pSf2uRNpuMoQAp9vqC6PLpWHJOOI82PimUrE8ewf1JfOpaqogd3nTsoLHUR
+         8ZVxLQrp1IZp55/gmH4uCmtu+XrmMNXsUWSLSAA3NFPhfhJvcGZvneivOdCykpCzfQUe
+         2ywIwODlr+jiLKyVnmujMraj7i+JFm9NAOspeLiIoPsIhZ3Aj9oHVhk+dIPIc5eINdGB
+         UhWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789998608; x=1790603408;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=J4xPQrVJdFgFl8luzeo5fY/IUnv52YMtHgLJT02PkgQ=;
+        b=eRrbPJlHUkrBMvGHd+QdnZY80tbs5HR87zpBvVzK9qkC/pHsnCf62ygg/NJDh7dYdE
+         MpXiIeFgnZ/0ecAK9UMsLPxUVq5pmBsj+Sd6fptJYYKjNul7KwAiQvMLDs3nJGglmgDU
+         uZNn+u5fsSsFc+xKQYAgZ7QacIhd182j3AB5zxY+yAmDHhs7xVNFVEozOTdX2ymsnKzN
+         Ndm9qZcled5s74oI5IW2mOf9EV/VaWijttju+fwFPG3JGcD918NJyTQgLUZ6w3SCcuEj
+         AJXmNblofVKu1N7A828VaMMNz3pBzTZbRuFNLSbGsKdwbb2NW6UKwb2SCqw76cE6ijer
+         o27w==
+X-Forwarded-Encrypted: i=1; AKwUvBxZPqhjZPq7Bx0K6wLZtA5VDPZS+s3Ako2JsjC5DLAor5ol7bE45r/X0EA9kFYSCEOyJ7qaW3nbCAywzKw=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltx/a7ofqezqJqlj17xUJLPZWccOzsxPyH2NGGfxE7QnaaAF02
+	e6qDz5RLpcSCBZ48EG9iXtEfr/H0SlNlGa+3LvldZwL7NumxgIEKNIVVoQZJsNbvEQY=
+X-Gm-Gg: AYBFou322f7Kvx5fWOSxEid2DdC89yuDI0zr0xYMfdLCCJASGDjAgq1vQCRwAZd4l2k
+	Dv3Xzs55mQsuThJoZkq9FI9/LF3RmncdaJlgXZqkoH7RTNqEjIJgh9YcsVo3umhgm+jjIFGqS9w
+	0fHHcToX3b06hiBnqngjuVRBaGcWGaJVRsXryym247n8LqZZCBDcMmX7DZJJIY0N3+biPuEwzM9
+	YPfzSxWj+i3Bcsryz9n86UK/atOQX8xSoJaG/UYPgNYolmJSfQEvrOezfSZw4tqJ/ngG5TrS83X
+	t1SzTQBxqKo16tB7vbymxtnAaC/ZLJpiuury6ACyZ28MQ9wSBuWUeSfxijLxZGrU01f2UC/bMPm
+	kP3PZ2+Ly1Tig8MCHrIImQ/02oYP0J+wlkMR2ziY7uIdiLnr2tzUdhXNOu1oE7SCgsHDTWHj8H7
+	qM+88VXRBAlsQpg1buI64uu64Q7nsMY6HixqaOK4ZMtU2URGVp0NqGwUEV14lEbDWI5XlRJQoxw
+	60I5Ke2lW7kJHTdJQJBLlmeV4kOvNT6h5M=
+X-Received: by 2002:a05:6000:64a:b0:487:c3e:d6cc with SMTP id ffacd0b85a97d-48713c7f005mr24266022f8f.31.1789998608134;
+        Mon, 21 Sep 2026 06:50:08 -0700 (PDT)
+Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724596604sm23426141f8f.30.2026.09.21.06.50.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 06:50:07 -0700 (PDT)
+Message-ID: <58605613-8a43-40e7-a00a-b0d09f089ec8@suse.com>
+Date: Mon, 21 Sep 2026 15:50:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,64 +70,109 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvme: auth: validate DHCHAP secret before stopping
- authentication
-To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>, kbusch@kernel.org,
- axboe@kernel.dk, hch@lst.de, sagi@grimberg.me
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260917080424.3544-1-sreekuttan2156239@gmail.com>
+Subject: Re: [PATCH v2 13/21] modpost: emit module descriptors as assembly
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Ard Biesheuvel <ardb@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+ linux-hardening@vger.kernel.org
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+ <20260914-build-speedup-v2-13-39817ec5db23@kernel.org>
+ <95baacfb-d8d9-4d2f-bc89-592df6f6f8e3@suse.com> <arEZrFmXeCO4hZpP@gremlin>
+ <2b27bb4b-47e3-45ed-a26a-4b9de2b20542@suse.com> <arEnCzzQa9XDd4LT@gremlin>
 Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20260917080424.3544-1-sreekuttan2156239@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -4.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com,kernel.org,kernel.dk,lst.de,grimberg.me];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	MIME_TRACE(0.00)[0:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email]
-X-Spam-Flag: NO
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <arEnCzzQa9XDd4LT@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 9/17/26 10:04 AM, Sreeraj S Kurup wrote:
-> The driver currently calls nvme_auth_stop() before checking if the new
-> secret key is valid. If a bad key is passed through sysfs, the key
-> parser fails and exits early.
+On 9/21/26 2:48 PM, Lorenzo Stoakes (ARM) wrote:
+> On Mon, Sep 21, 2026 at 02:36:30PM +0200, Petr Pavlu wrote:
+>> On 9/21/26 1:57 PM, Lorenzo Stoakes (ARM) wrote:
+>>> (note there's a v3 see [0])
+>>>
+>>> [0]: https://lore.kernel.org/linux-kbuild/20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org/
+>>
+>> Thanks, I missed it.
+>>
+>>> On Mon, Sep 21, 2026 at 01:25:09PM +0200, Petr Pavlu wrote:
+>>>> On 9/14/26 11:22 AM, Lorenzo Stoakes (ARM) wrote:
+>>>>> The sections were confirmed to be byte-for-byte identical to the C version
+>>>>> produced - each of .modinfo, .gnu.linkonce.this_module, __ksymtab*,
+>>>>> __ksymtab_strings, __kcrctab*, __kflagstab*, __versions,
+>>>>> __version_ext_crcs, __version_ext_names and their relocations - for all
+>>>>> 8,135 modules of a clang allmodconfig build with CONFIG_COMPILE_TEST off
+>>>>> and CONFIG_MODVERSIONS, CONFIG_EXTENDED_MODVERSIONS and
+>>>>> CONFIG_MODULE_SRCVERSION_ALL on, and for a sample built with gcc.
+>>>>
+>>>> Lowering the data to assembly loses debug information for __this_module,
+>>>> specifically that it has type `struct module`. It might be worth
+>>>
+>>> No, it keeps it - every module includes linux/module.h, and the extern
+>>> declaration of __this_module carries the type, so all of the stuff gdb
+>>> needs (e.g. ptype, p & field access), DWARF etc. is all there in the same
+>>> way as with .mod.c.
+>>>
+>>> Have confirmed locally.
+>>
+>> An extern declaration alone shouldn't cause its name and type to be
+>> included in debug information. They should appear only when the variable
+>> is referenced by some code.
 > 
-> Since nvme_auth_stop() was already called, the current authentication
-> session gets stopped. However, because the parser failed, the work
-> thread is never restarted. This leaves the NVMe controller stuck in a
-> stopped state until someone writes a valid key.
+> Ack yeah sorry my mistake, I had the LLM check that and should have known
+> better than to trust it without reviewing what it said (as I have done for
+> the most part for everything in this series).
 > 
-Are you sure?
-All what 'nvme_auth_stop()' does is stopping a currently running
-authentication. And if someone writes an invalid key it certainly
-was his intention to _start_ authentication.
-I find it kinda weird to allow an pre-existing authentication to
-run while the admin indicates that he wants to start a new one.
-So not really sure if this fixes anything.
+>>
+>> Testing with a simple module that previously referenced __this_module
+>> only in .mod.c and in no other file, such as lib/test_module.c, shows
+>> that the .ko no longer contains debug information for this variable.
+>>
+>> I've verified this behavior with GCC 16 and Clang 19.
+> 
+> Ack confirmed locally.
+> 
+> Can put a fix in module-common.c.
+> 
+> The LLM came up with a reference as an alternative:
+> 
+> static struct module *const __this_module_dbg __used __section(".discard.this_module") = &__this_module;
+> 
+> Would that work? Or should we go with your original suggestion? -
+> 
+> __weak __section(".discard.this_module") struct module __this_module;
 
-Cheers,
+With GCC, the LLM's suggestion produces debug information for both
+__this_module_dbg and __this_module. However, Clang only generates debug
+information for __this_module_dbg, so it is not quite what is needed.
 
-Hannes
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+Thanks,
+Petr
