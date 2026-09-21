@@ -1,146 +1,291 @@
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0B3496D39
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:43:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789994585; cv=none; b=TQrxJblpbpj4Qz8b//ltwkYLAoBnFjumNaqByIquOK7beKIClfV4nX1BbgpEVhgVhCS3dt3dEm3EcD7U7vj9KvahZkUD5X9MLp9cAwoa+keUkHMWLIvDNXBuyS2rzsICmkUH0mnazDGmdcQ1qbVFX/eQ+60cf9ufd3OZT823Y4o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789994585; c=relaxed/simple;
-	bh=t8+PdfneDu1hxHC8QDP5ldRMtCmeAtS8ppcZKVYE45U=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=DT1+bK8TGujJ+f0FgYgc0wulhuNelvTLeHpKmWljhMBcaQT3IexwSITS07XmsOqhTS0qLaWYT4J6cxF5SyQqPsKU9HNmtVt5b2VbTehtc0cpq9lkeLUhy6Dgi1IUlxW/qDXyVzgF3C6/iE1bZbCCiUsoDjZ7QdcBHFcBNdR46yc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6bc8f608979so2329442eaf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:43:03 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C1E4949F0
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:43:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789994615; cv=pass; b=b05GImgyXM3o0pSGV4FQEXmnceu5BU6daGHYijDpM1nAJmgjUavlSsdKiMIUfZm/aVX8YIxhpTBs0dCx3rg9ErW7put7PhPVrB6frmrNUj+VXepYRHB6dQFJWQ57KPz3M6y/NwRGwLWQIJAwAZanIu+KX+M85FqxTiMsDp3DLzE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789994615; c=relaxed/simple;
+	bh=Ot1FxL5JjYevslt62pC/ZLUd4qxLHu56oryKSsjlHBQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XzMPi4iGG5QZ4JOev1s2vR3MpHG242TlID1wDdEGlvMqUP7hyIPPTibEaUWLhhGNos4g1CfrGTSTP4lPZiH4GxII1uzfN8eG6ZHr+D0FD8qwDLkddIAIaNYbrxCgMaKOpGcZ2olrHLMtcbHbm1BV+73KyA+p78qmrEr/Arqn3JI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RjNhQMW0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GFoN/tl4; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RjNhQMW0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GFoN/tl4"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAdsCB1217838
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:43:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	YTc4eaTqTCWWXmcCsM9hd8rF0EjF2lDAr6pE9wv6n6k=; b=RjNhQMW0qXvCl9e7
+	TSqSjkDCMfDvn3tLw3Cir5ZYA42nfF6E17HauGaX61Fj0ylBQweO2l6cu7Ja1ckf
+	bTkYPxta1GMCaU3pKkI2VxKH3oak+zv+0Td9/U1IMNUWo9PGFgsaXdK0JbDAjy8E
+	9WUe4FSN44FrQeReNOrusu4zefIi2DGS7SlM93UNUJZ92ubgeva2ZyevUEOjxHgm
+	1KotCQAkWGKs8y5QQHk3iqcJBOR/BwzySMjwYrff7wXQWAIWtINpjTKMkhDJSjpT
+	vrUr230c/RwSaC9P6ePBdhDIZFQVeApKVBjMFEfHcYYTAeFF6AZOdcpBgQs4XRUb
+	HmK6/g==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu011999w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:43:32 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2db3b126c9fso39222865ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:43:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789994611; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LFtKBT+9q76WgqhsNHBUu023p18HEUetKWTnqQo7GXhQ/LRDQkrR6PjZ6W5IhPlxZI
+         MBkC53O28l6iqprv+z7t6pCnUZ/oPdR2ix6LWvat5VbJd2G/CNDHvLJUHJghOhYQDFck
+         6XF2v/aqp6sFT5BaIJjhLP0PynhUftyZrYWRNq+ureJWuguh+3oyngARM7+YsXhJinda
+         KJWyMNXSL2VeyNiL8vw4d/nOhrh+uSVejqK+ihsG0fmH6f2BPp9ulCerDk9TSlt00HS9
+         33zE/ufYpGepAVl2bHNSHMijUYudYdOxa+5QBtTtx2HWHnpJMVoshk4wvXlCk4NpCKmz
+         xD2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YTc4eaTqTCWWXmcCsM9hd8rF0EjF2lDAr6pE9wv6n6k=;
+        fh=xTVJsL78a/SaJB0yDJkMILzlo3080wLtuSDfoflYR6c=;
+        b=LcBgNqVuivSCCo2qjq9fDWgIBNHFGYVqPmFfXDWt0cR6NtydSBGXC6sttrgMH8vQIC
+         53Ypx7DVf0GoEXhgV6M5kIc3GogGrF8NuBs3Up6rWOGnUWg3HDV6vAsqt5WHTPO7nkY/
+         l5R983mFpM3Z5tqHw9tURB+hLarzqLyZ5FNGF2U7TDiX1OZrU3QS05zQDzc3Ht+zrA5q
+         KZoV+RDRV462WcXVhhDGS012UHvkSfgi1rwrSoRHtHEKrJmRVO4O98Q1vL2WrKOTFvWy
+         FC8EYAb9CXxkx7t6cRwhul1xsbH2pbmeTpbLf8Z9JlwXOH7rLAltQoK92dVSwtiAa5xj
+         2nYA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789994611; x=1790599411; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YTc4eaTqTCWWXmcCsM9hd8rF0EjF2lDAr6pE9wv6n6k=;
+        b=GFoN/tl4LE47wCdhmAqxjoxKPnjZMLZUlxPAxboqKnHHSmNCgrdfrNDlIZ0zzLKF1X
+         cpH1bLmH0h1xxoc4rOj2YsWUgSJwR67rlUb0yXssrsKqnzKHq6a9ELQOM2zzKoakonP0
+         dNG0afSHD/hi4R0W1iFNVmux6py9oGBNAckR6tbhCkkRM0cvJfmxJ9REfkwZoz2C9MIh
+         gA/+6HpQ7ZbtXVqGF7XJrc2yhGWDS7I8P0sCBKEjWuFSm2vSkTJEmqj4F1E7aM7HvX8h
+         tAB/qy/stMd5eXb1nlGhXATLCrY9mYncToMJfHoLYYocEKWwYhm0Z4OD7PEp7b6ny+Xe
+         sjbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789994583; x=1790599383;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nlciio7ok7KxUJezaVMgg7fHEPOABsp4fse8OC9WpMA=;
-        b=Gia/9GTjcEIPSNb7JkaA91vaaJwngGF/NU2G4nvGkCN3Y90xsUHELwyhM+WytVoBY7
-         9028U9bOUefR2NhJAPWRgGsip23y9GpMGM0lNH5bMM74ByUjaDU9Dy9W/tHTgKsmr0yD
-         zvSrQgyvEY9bbaHB4ydrwxsTLb1uHT8gcq4+nMQMFv4lcbD3qBuQgaGxmQOZ38bRzhSI
-         L0z4lxiWnUyOsii4Ik0nujFs5wYooHRUhxdV0ur2B6QhspKonOsWqvt3mNzaIKkNLKnK
-         v7nKDOFOHC4JPLUpxWFpVfFDVv4QNr/EV1N3qwPVcXBy6PGTKv6mchdJl6eHkzvJzk6i
-         b/AQ==
-X-Gm-Message-State: AFuF++nJ2EsDTUNXQhzRIJBsifBTCl8qzm9y39ayjLFjVZbQXMR7SJxO
-	+opJXCWfeGoIkjKXkLvDZ/qTNzZZi4FGXe3ypa3V1AAPbQaPnvE8MOOlMNyqPfAYrnb8WXIf7Ns
-	312IMLzMd6X7xmLYO6kPOKrZZC1yZExzkfMCRypYUnj6T7hW8Ipid2zSIk+Y=
+        d=1e100.net; s=20260707; t=1789994611; x=1790599411;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YTc4eaTqTCWWXmcCsM9hd8rF0EjF2lDAr6pE9wv6n6k=;
+        b=d7JClpBHipRW7/N/GppVkIc2uTOmuKQXnFGi7dmaPIG/owtONpoZCrGNukLFXSHuvU
+         Sk4HOaI7eg/KROsT1c6yTRjUR8mQgL7fCtaipQ0i0vwtrvifVeAMMt20vgxq8VekAjqO
+         mjFRSiRxwf2IZ2OCFbFIDYzehVqnDsNu/QLjYlYc8ttC21MJO1jgwLS9ztH3+joF7yQa
+         ZWeg20cbSFg8+bgSeGvIOLYSZcOBdwmq4lwx11K7UMYMm04ExNviJ7lKV24MKCg7eBvQ
+         pUOTS8x/D85fVp16lGDMCsv7Ikax8ZPJTmgSbNcJa3/gMjxtxeP1pK+AswVfLlGb3QJI
+         siag==
+X-Forwarded-Encrypted: i=1; AKwUvBzc0pDOAWrrX/ubfxz9t1LhLgX/rjLGOt/WDltyHsSjMf3HCPkgK4CL/vM3QEL0IRBJ6T+iF0Cnu+4KTtA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mxgs5wanTJ0U9SlV9zF/gr0U5Rgf48sZVdef0nJwNq0YeiqTuQ
+	1zXAcOEilaoGdC4oSK7LnPgUJggI0zs/zv1ps0q6+r0joH1ob46qeSW1n7fIJl1imhm6FwyEQ/f
+	Eyoq/L29MNhn4+LNAf8SMr1D5Z3Px5NToHcOVStGFCbjBbK4jUeqn3iaKxNQiXO2UYGWaprTHN8
+	aoy/OXXXja5w3lcMYZMvAPd37FLVYtaMXig1bGW87kyQ==
+X-Gm-Gg: AYBFou3/ZwlBBPoTJs33P6O3At0sbVZZqKpcqh2T8+hdd8bHf5I4SxqLlbyQD5lEy2o
+	aTY0WK9C4kyMoRy0C7S4sRg/zJ+UMFlpQ31LEqYosow7sBXSWdxlHGM59bMXo5n6i9KpMKiByVy
+	cOwJrY/gfX3zc9wDPpaSzE2Um/joLBEkgrqt4/2BRgpHTX4O3DROAWBWJ1sQ==
+X-Received: by 2002:a17:903:2349:b0:2dd:c100:424e with SMTP id d9443c01a7336-2ddc10044e2mr89288685ad.50.1789994611230;
+        Mon, 21 Sep 2026 05:43:31 -0700 (PDT)
+X-Received: by 2002:a17:903:2349:b0:2dd:c100:424e with SMTP id
+ d9443c01a7336-2ddc10044e2mr89288245ad.50.1789994610661; Mon, 21 Sep 2026
+ 05:43:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:198e:b0:6bd:d2ad:55a1 with SMTP id
- 006d021491bc7-6ca9a1343b2mr9098950eaf.9.1789994583010; Mon, 21 Sep 2026
- 05:43:03 -0700 (PDT)
-Date: Mon, 21 Sep 2026 05:43:02 -0700
-In-Reply-To: <20260921122100.6242-1-nsvatoslav515@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab12656.e548f532.1ca396.0013.GAE@google.com>
-Subject: Re: [syzbot] [kernel?] WARNING in iounmap
-From: syzbot <syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, nsvatoslav515@gmail.com, 
-	syzkaller-bugs@googlegroups.com
+References: <20260915104328.45901-1-gahing@gahingwoo.com> <20260915104328.45901-11-gahing@gahingwoo.com>
+In-Reply-To: <20260915104328.45901-11-gahing@gahingwoo.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 14:43:19 +0200
+X-Gm-Features: AcwNN1XRM4Zpoe9SV6Ox1cb4qr0Qhj7z7Tg6kKrM_v7MoPDIacNjWOamn5qOldA
+Message-ID: <CAPx+jO_MFkUrzRDnuoqn_yKntRc_NqPs=0nda6wC_xgb+Fy7bw@mail.gmail.com>
+Subject: Re: [PATCH v13 10/14] pmdomain: rockchip: cycle optional power-domain
+ resets on power-on
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org,
+        will@kernel.org, robin.murphy@arm.com, ulfh@kernel.org,
+        p.zabel@pengutronix.de, ogabbay@kernel.org, zhangqing@rock-chips.com,
+        royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
+        sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
+        u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
+        diederik@cknow-tech.com, alchark@flipper.net,
+        dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+        iommu@lists.linux.dev, linux-pm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: IkvaWovQCsleuWgSyP4K_g3SfbCyRdDW
+X-Authority-Analysis: v=2.4 cv=dPczC+Zb c=1 sm=1 tr=0 ts=6ab12674 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=9GNsruGHAAAA:8 a=EUspDBNiAAAA:8
+ a=xnVI1lRHtBAIIYlgu6QA:9 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+ a=gf-oSkQAjqHFJRp-GQfY:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE4MiBTYWx0ZWRfX3VUct9wjVIO4
+ hNxxhrVebRN8S/i2w/y+Zf4knDJ0RAUZH8AGpVbbAuSbVDCybgslXPbvs+vYKBtb1irhCiBTBo2
+ a0Z+q5MSXZNJTIYcnmRa4HSHWmF5tKhI4X9hFxwIjaKPsXUJPoTFf4V42LbyOrbKaSjhu3aBxz9
+ 9c3rhCsF34mPVLvpHFrZLGXB+cwdIwu880SyFoDqWi85ssfkW6qfvwd+oZIDYjkedDFfyRObfqw
+ nPYG0tZglQYRtG65EJdc+XqqozC3qgtBMCTEKPTbG+DBHnLWCe2il5veqBvwO2CZJbVoWJ/uapL
+ ZBI6ZFsW5SI++Z30+2++9cUEFTkJR45xA0yprsyHu9wZ8XnsAbLz/4IbydgnXe+DqttoMQqm4Ox
+ RbNRn+BUiXq/pGM8u3BDPqCgVVbKDUWSXVvhAw+TFnOxaCUxat80NlVNKgShmAwkeWfqYUDyjW7
+ Dsiadb5lEuhPRpBAE1w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE4MiBTYWx0ZWRfX92fO+RBZK9jV
+ zy+LfityVM928/Qd2BVE5i2KA3Ug1yMQ74By/c/JyOUtzjyxwzwpzvumAQB3kiEYMCBVDQUSZWu
+ UTEn0y76lV8CH1DKr6LyMagspty+L3U=
+X-Proofpoint-ORIG-GUID: IkvaWovQCsleuWgSyP4K_g3SfbCyRdDW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210182
 
-Hello,
+On Tue, Sep 15, 2026 at 12:45=E2=80=AFPM Jiaxing Hu <gahing@gahingwoo.com> =
+wrote:
+>
+> Some Rockchip domains come out of power-on with their bus interface in an
+> undefined state. On the RK3576 NPU this shows up as a hang on the first
+> register access after the domain is switched on, and pulsing the domain's
+> resets at this point clears it.
+>
+> Take the domain node's resets if it has any, and pulse them between
+> releasing idle and restoring QoS. The resets are optional, so domains tha=
+t
+> do not list any are unaffected.
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-WARNING in drm_mm_takedown
+Please drop the below from the commit message, the above is clear
+enough I think!
 
-Console: switching to colour dummy device 80x25
-------------[ cut here ]------------
-Memory manager not clean during takedown.
-WARNING: drivers/gpu/drm/drm_mm.c:965 at drm_mm_takedown+0x62/0x280 drivers/gpu/drm/drm_mm.c:965, CPU#3: syz.0.17/6259
-Modules linked in:
-CPU: 3 UID: 0 PID: 6259 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:drm_mm_takedown+0x62/0x280 drivers/gpu/drm/drm_mm.c:965
-Code: 8b 43 38 48 39 c5 75 16 e8 8b b6 38 fc 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e e9 4a b0 00 06 e8 75 b6 38 fc 48 8d 3d fe 27 7d 0b <67> 48 0f b9 3a 48 c7 c0 00 84 65 8e 48 ba 00 00 00 00 00 fc ff df
-RSP: 0018:ffffc90003b77860 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: ffff888026e90068 RCX: 0000000000000000
-RDX: ffff8880334a4b00 RSI: ffffffff85d3669b RDI: ffffffff91508ea0
-RBP: ffff888026e900a0 R08: 0000000000000007 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000001 R12: ffff888027ef2e80
-R13: ffff888027ef2e98 R14: ffffffff85d238e0 R15: 0000000000000000
-FS:  00007ff311d0f6c0(0000) GS:ffff8880d5e59000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ff310deb840 CR3: 000000003497d000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- drm_managed_release+0x1bb/0x540 drivers/gpu/drm/drm_managed.c:75
- drm_dev_release drivers/gpu/drm/drm_drv.c:924 [inline]
- kref_put include/linux/kref.h:65 [inline]
- drm_dev_put.part.0+0xca/0x140 drivers/gpu/drm/drm_drv.c:958
- drm_dev_put+0x1f/0x30 drivers/gpu/drm/drm_drv.c:957
- virtio_dev_remove+0xb8/0x170 drivers/virtio/virtio.c:375
- device_remove+0xcb/0x180 drivers/base/dd.c:616
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
- bus_remove_device+0x2bc/0x560 drivers/base/bus.c:664
- device_del+0x376/0x9b0 drivers/base/core.c:3965
- device_unregister+0x1d/0xe0 drivers/base/core.c:4006
- unregister_virtio_device+0x39/0x60 drivers/virtio/virtio.c:608
- virtio_pci_remove+0x7c/0x110 drivers/virtio/virtio_pci_common.c:760
- pci_device_remove+0xb2/0x1d0 drivers/pci/pci-driver.c:535
- device_remove+0xcb/0x180 drivers/base/dd.c:616
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
- unbind_store+0xf8/0x110 drivers/base/bus.c:244
- drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7ff310d9e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ff311d0f028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007ff311025fa0 RCX: 00007ff310d9e159
-RDX: 000000000000000d RSI: 0000200000000300 RDI: 0000000000000004
-RBP: 00007ff310e3503b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007ff311026038 R14: 00007ff311025fa0 R15: 00007ffca5d5c2c8
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	8b 43 38             	mov    0x38(%rbx),%eax
-   3:	48 39 c5             	cmp    %rax,%rbp
-   6:	75 16                	jne    0x1e
-   8:	e8 8b b6 38 fc       	call   0xfc38b698
-   d:	48 83 c4 08          	add    $0x8,%rsp
-  11:	5b                   	pop    %rbx
-  12:	5d                   	pop    %rbp
-  13:	41 5c                	pop    %r12
-  15:	41 5d                	pop    %r13
-  17:	41 5e                	pop    %r14
-  19:	e9 4a b0 00 06       	jmp    0x600b068
-  1e:	e8 75 b6 38 fc       	call   0xfc38b698
-  23:	48 8d 3d fe 27 7d 0b 	lea    0xb7d27fe(%rip),%rdi        # 0xb7d2828
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	48 c7 c0 00 84 65 8e 	mov    $0xffffffff8e658400,%rax
-  36:	48 ba 00 00 00 00 00 	movabs $0xdffffc0000000000,%rdx
-  3d:	fc ff df
+>
+> The cycle goes before the settle delay 9/14 adds, not after it. A domain
+> that asks for both is asking to settle before the QoS registers answer, a=
+nd
+> a reset deasserted after the delay would leave nothing between the deasse=
+rt
+> and rockchip_pmu_restore_qos(). On RK3576 PD_NPU0 and PD_NPU1 ask for bot=
+h,
+> and the reset they cycle is SRST_A_RKNN0/1_BIU, the bus interface those Q=
+oS
+> writes go through.
+>
+> It only runs when the domain actually changes state: rockchip_pd_power()
+> returns early when the hardware already reads the state being asked for. =
+A
+> bootloader that leaves the NPU powered would therefore skip both this and
+> the delay, which is why 9/14 gives RK3576_PD_NPU need_regulator and force=
+s
+> the domain off at probe.
+>
+> No in-tree DTS puts resets in a power-domain node today, so every other
+> Rockchip SoC takes the optional get's NULL and is unchanged.
+>
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 
+Kind regards
+Uffe
 
-Tested on:
-
-commit:         704340f1 Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=177894c9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=ca1ef9e2e234b8d3599b
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=11bc9005580000
-
+> ---
+>  drivers/pmdomain/rockchip/pm-domains.c | 27 ++++++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+>
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
+ckchip/pm-domains.c
+> index 39988efd8..6cc8d6efd 100644
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/of_clk.h>
+>  #include <linux/clk.h>
+>  #include <linux/delay.h>
+> +#include <linux/reset.h>
+>  #include <linux/regmap.h>
+>  #include <linux/regulator/consumer.h>
+>  #include <linux/mfd/syscon.h>
+> @@ -103,6 +104,7 @@ struct rockchip_pm_domain {
+>         struct clk_bulk_data *clks;
+>         struct device_node *node;
+>         struct regulator *supply;
+> +       struct reset_control *resets;
+>  };
+>
+>  struct rockchip_pmu {
+> @@ -688,6 +690,21 @@ static int rockchip_pd_power(struct rockchip_pm_doma=
+in *pd, bool power_on)
+>                 if (ret < 0)
+>                         goto out;
+>
+> +               /*
+> +                * Optional: some domains need their resets cycled once p=
+ower
+> +                * is on. This goes BEFORE the settle delay, not after: a
+> +                * domain that asks for both is asking to settle before t=
+he
+> +                * QoS registers answer, and a reset deasserted after the
+> +                * delay would leave nothing between it and the QoS write=
+s.
+> +                * On RK3576 the reset being cycled is the NPU core's bus
+> +                * interface, which is what those writes go through.
+> +                */
+> +               if (pd->resets) {
+> +                       reset_control_assert(pd->resets);
+> +                       usleep_range(10, 20);
+> +                       reset_control_deassert(pd->resets);
+> +               }
+> +
+>                 /* Some domains need to settle before the QoS registers a=
+nswer. */
+>                 if (pd->info->delay_us)
+>                         udelay(pd->info->delay_us);
+> @@ -861,6 +878,14 @@ static int rockchip_pm_add_one_domain(struct rockchi=
+p_pmu *pmu,
+>         if (error)
+>                 goto err_put_clocks;
+>
+> +       pd->resets =3D of_reset_control_array_get_optional_exclusive(node=
+);
+> +       if (IS_ERR(pd->resets)) {
+> +               error =3D dev_err_probe(pmu->dev, PTR_ERR(pd->resets),
+> +                                     "%pOFn: failed to get resets\n", no=
+de);
+> +               pd->resets =3D NULL;
+> +               goto err_unprepare_clocks;
+> +       }
+> +
+>         pd->num_qos =3D of_count_phandle_with_args(node, "pm_qos",
+>                                                  NULL);
+>
+> @@ -931,6 +956,7 @@ static int rockchip_pm_add_one_domain(struct rockchip=
+_pmu *pmu,
+>         clk_bulk_unprepare(pd->num_clks, pd->clks);
+>  err_put_clocks:
+>         clk_bulk_put(pd->num_clks, pd->clks);
+> +       reset_control_put(pd->resets);
+>         return error;
+>  }
+>
+> @@ -949,6 +975,7 @@ static void rockchip_pm_remove_one_domain(struct rock=
+chip_pm_domain *pd)
+>
+>         clk_bulk_unprepare(pd->num_clks, pd->clks);
+>         clk_bulk_put(pd->num_clks, pd->clks);
+> +       reset_control_put(pd->resets);
+>
+>         /* protect the zeroing of pm->num_clks */
+>         mutex_lock(&pd->pmu->mutex);
+> --
+> 2.43.0
+>
