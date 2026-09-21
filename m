@@ -1,98 +1,105 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C45645348A;
-	Mon, 21 Sep 2026 10:06:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7768345FFAB;
+	Mon, 21 Sep 2026 10:06:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789985176; cv=none; b=r+jlRU8QUeOUGCyicP2HfQS3Uz2gme1jesIv9EiZWu+SXC7Q9SV3ydUPqRxJuO6U5HGi40S7fyx95MDREmZGkkiOOIPmGrv+0G/bIugJDiZBxqXJYDHsbwcUVt8dJ/vGJ7LTfx7k4RVFdSGRt+szsI3oYTViPA188vyYQKO/E8A=
+	t=1789985219; cv=none; b=mHOwPD7Dmek10adrpPqOt4RsA2aLkunsD2e1swWBDHN6gADG+rC2wYYnD+7FO1QHkzDI0w5r5UaWs71sD0ukKa0O3Qboo3WhTVmzFcli+S9FjBjjxWyhMxIJhixxzhNOUlQxwerhbTStwn6zkflliKi2VYnFRq7Q6LG5dLL6ftY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789985176; c=relaxed/simple;
-	bh=TQHvv65J/zzLh+WKmHIXrutEiyIav2kG0laQR/4vRNo=;
-	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=OyEOkiQxF9ywVS9ZIZZNfCcz9kjJMOEQmtG88/0Kj81AorjhSmgFraAvVB7MlGbinmbEWdIypVO1n9rI+iB5GelQT4oGFnYAYfmZC15+eGiwKzUZd/BYG2hV85V/J78vIR2SiCNAb2TR4/Q/qg2Ba0q9qXF2U+k038JTVTnD1fM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mfHurCId; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789985219; c=relaxed/simple;
+	bh=qjxNDGZRSox1iiMB6SnmMNagxZd9u/kLfpnd4P1L180=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=hBltQorWlxLp21xfypAblelQhkjt8UbOqnLXIN8FbN8HSG+JhPZlnxBANTK5AxUPwa4ZcuzbIZECmsLpkh6Ek36YrMTIP9VYzKs62dQMU6iVE4MJJgbAOSyu7UBPJxKKP7L/cD8Z7bS1Oni7u2gVjUvY5dABNj9iAWfnYRVXuuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=l4yUviIS; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mfHurCId"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=TQHvv65J/zzLh+WKmHIXrutEiyIav2kG0laQR/4vRNo=; b=m
-	fHurCIdd6pZ+l1e9CpYBqFCJMxIBNafyLwL9pGmwXRBczsiAAid8TY6JJCRkbZ2D
-	9EupvXYNrphuGowruKXROz1aeCulrlUonjTpVIkA+QtTlo8iuKxOumFVudGUPDHp
-	2aiqofV1byWABRQzoOYNSX1sk/dF4qnRB3oXGV3uaw=
-Date: Mon, 21 Sep 2026 18:05:47 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: marcel@holtmann.org, johan.hedberg@gmail.com, luiz.dentz@gmail.com,
-	davem@davemloft.net, kuba@kernel.org
-Cc: linux-bluetooth@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [BUG] Bluetooth: rfcomm: possible circular locking dependency in
- the SAK vs. connect path
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2TC/WTukkv4SebY+kdmEsTju82UcS4ufQl245Xc/sEuADE1wYGfV5FGUX59tmTLwSKmzOZcTJQ8uBIdIhWn0u3hFgcDWHkBgsk1SueKg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="l4yUviIS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789985213;
+	bh=qjxNDGZRSox1iiMB6SnmMNagxZd9u/kLfpnd4P1L180=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=l4yUviISlNFUpqJsL8dMM5sYb32uoC+XpVNNrwIvWtCfI5HCNTq8mCfuNccddmYWu
+	 1T8AdiWnWRDWafK20MdNpBExx0MJPRx27VmAY2F3PUhcgxW18MkuYI/zGu+najSO0F
+	 CgY1nnzPS5NMsu6u4zdVmGx0kbaf5T/msrac9sM6uFxD5+FT24zmiJbWYw8nqPHZ4V
+	 Scv7SPk/HNYUD8ftMeXqti5Lq6Jixw/xC51PJ7rtYyoDUQXZAU1vYjtq8xKlg6yXqJ
+	 jOzUcKkyuj2SJXVjuOofjL/pKm6YElLIDgBkW4+g6GdyQgYsnPD7YmVSB/N4yTnY2n
+	 XBpVGNurTONTw==
+Received: from laura.lan (unknown [100.64.0.215])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laura.nao)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id DDBAC17E09ED;
+	Mon, 21 Sep 2026 12:06:52 +0200 (CEST)
+From: Laura Nao <laura.nao@collabora.com>
+To: gary@garyguo.net
+Cc: a.hindborg@kernel.org,
+	acourbot@nvidia.com,
+	airlied@gmail.com,
+	aliceryhl@google.com,
+	anna-maria@linutronix.de,
+	bjorn3_gh@protonmail.com,
+	boqun@kernel.org,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	dri-devel@lists.freedesktop.org,
+	driver-core@lists.linux.dev,
+	frederic@kernel.org,
+	fujita.tomonori@gmail.com,
+	jstultz@google.com,
+	kernel@collabora.com,
+	laura.nao@collabora.com,
+	linux-kernel@vger.kernel.org,
+	lossin@kernel.org,
+	lyude@redhat.com,
+	ojeda@kernel.org,
+	rust-for-linux@vger.kernel.org,
+	sboyd@kernel.org,
+	simona@ffwll.ch,
+	tamird@kernel.org,
+	tglx@kernel.org,
+	tmgross@umich.edu,
+	work@onurozkan.dev
+Subject: Re: [PATCH 2/9] rust: io: drop the CONFIG_64BIT restriction on system memory u64 access
+Date: Mon, 21 Sep 2026 12:06:41 +0200
+Message-Id: <20260921100641.228824-1-laura.nao@collabora.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <DLFUKN84E2XS.33S0LZHBMAWH2@garyguo.net>
+References: <DLFUKN84E2XS.33S0LZHBMAWH2@garyguo.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <6572ca06.97a1.1a0c36dcb5f.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:cSgvCgDXf1J7AbFq5FxLAA--.44295W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3RtlF2qxAXvzYwAA3F
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGFuIGlzc3VlIHRyaWdnZXJlZCBieSBhIHN5emthbGxlciBy
-ZXByb2R1Y2VyIG9uIExpbnV4CjcuMy4wLXJjMi4gVGhlIGlzc3VlIGlzIHJlcHJvZHVjaWJsZSB3
-aXRoIEhFQUQgY29tbWl0CmRmMjkwODA5MGNkYTM2OGIwMWZmNDM3MDlmNTE4OTAwNzZjNTYxNTcu
-CgoKVGhlIHJlcHJvZHVjZXIgY3JlYXRlcyBhbiBSRkNPTU0gc29ja2V0IG9uIGEgdmhjaS1iYWNr
-ZWQgSENJIGRldmljZSwgYmluZHMKYW5kIGxpc3RlbnMgb24gaXQsIGFuZCB0aGVuIGluamVjdHMg
-Zm91ciBjcmFmdGVkIFJGQ09NTSBmcmFtZXMgdGhyb3VnaApzeXpfZW1pdF92aGNpKCkuIFRoZSBm
-cmFtZXMgZHJpdmUgdGhlIFJGQ09NTSByZWNlaXZlciBpbnRvIHRoZSBjb25uZWN0aW9uCmluZGlj
-YXRpb24gcGF0aC4KCgpMb2NrZGVwIHJlcG9ydHMgYSBjaXJjdWxhciBsb2NraW5nIGRlcGVuZGVu
-Y3kgaW52b2x2aW5nIHJmY29tbS4gT24gdGhlCnJlcG9ydGluZyBzaWRlIHRoZSB0YXNrIGhvbGRz
-IGNvbnNvbGVfbG9jayAodGFrZW4gaW4gdmNfU0FLKSBhbmQgdHJpZXMgdG8KYWNxdWlyZSB0aGUg
-dHR5IGJ1ZmZlciBsb2NrICgmYnVmLT5sb2NrLCBhdCB0dHlfYnVmZmVyX2ZsdXNoKTsgdGhlIHJl
-dmVyc2UKZGVwZW5kZW5jeSBjaGFpbiBzaG93cyBjb25zb2xlX2xvY2sgYmVpbmcgYWNxdWlyZWQg
-YnkgY29uX2ZsdXNoX2NoYXJzKCkgZnJvbQpuX3R0eV93cml0ZSgpLiBUaGUgbG9jayBjbGFzcyBv
-ZiBpbnRlcmVzdCBmb3IgcmZjb21tIGlzIGVudGVyZWQgdGhyb3VnaApsb2NrX3NvY2tfbmVzdGVk
-KCkgZnJvbSByZmNvbW1fY29ubmVjdF9pbmQoKSwgd2hpY2ggdGhlIGVhcmxpZXIgcmVwb3J0IG9u
-CmxpbnV4LTYuMSBhbHNvIHNob3dlZC4KCgpUaGlzIGxvb2tzIGxpa2UgYSBsb2NrIG9yZGVyaW5n
-IHByb2JsZW0gYmV0d2VlbiB0aGUgUkZDT01NIHJlY2VpdmUvc2V0dXAKcGF0aCBhbmQgdGhlIHR0
-eS9jb25zb2xlIHRlYXJkb3duIHBhdGgsIHJhdGhlciB0aGFuIGEgc3BlY2lmaWMgYmFkIHBvaW50
-ZXIuClRoZSBlYXJsaWVyIHJlcG9ydCBhZ2FpbnN0IHRoZSBzYW1lIHJlcHJvZHVjZXIgZGVzY3Jp
-YmVkIHRoZSBtYXRjaGluZyBlZGdlCm9mIHRoZSBjeWNsZSwgd2l0aCB0dHkgdGVybWlvc19yd3Nl
-bSB0YWtlbiBhdCBuX3R0eV9mbHVzaF9idWZmZXIoKSB3aGlsZQpob2xkaW5nIHRoZSB0dHkgYnVm
-ZmVyIGxvY2ssIHNvIHRoZSBjeWNsZSBoYXMgYmVlbiByZWFjaGFibGUgZm9yIGEgd2hpbGUgYW5k
-CnRoZSBwYXJ0aWNpcGF0aW5nIGxvY2tzIGFyZSB0aGUgc2FtZS4gU2VyaWFsaXppbmcgdGhlIFJG
-Q09NTSBzZXNzaW9uIHNldHVwCmFuZCB0ZWFyZG93biBhZ2FpbnN0IHRoZSBzb2NrZXQgbG9jayB3
-b3VsZCBiZSB0aGUgZGlyZWN0aW9uOyBJIGhhdmUgbm90CnZlcmlmaWVkIHdoaWNoIG9mIHRoZSBy
-ZWNlbnQgUkZDT01NIGxvY2tpbmcgY2hhbmdlcyBhbHJlYWR5IGNvdmVycyBpdC4KCgpUaGlzIGZh
-aWx1cmUgd2FzIHJlcG9ydGVkIGVhcmxpZXIgYWdhaW5zdCB0aGUgbGludXgtNi4xIGxvbmd0ZXJt
-IHNlcmllcyBhdApodHRwczovL3N5emthbGxlci5hcHBzcG90LmNvbS9idWc/ZXh0aWQ9M2ExZjg2
-OWRjZDhmMjZlNWMyMTYsIGFuZCB0aGUKcmVwcm9kdWNlciBiZWxvdyBpcyB0aGUgb25lIGZyb20g
-dGhhdCByZXBvcnQuIEl0IHN0aWxsIHJlcHJvZHVjZXMgb24gdGhlCnRlc3RlZCBtYWlubGluZSBr
-ZXJuZWwuCgoKUmVwcm9kdWNlcjoKCgpzeXogcmVwcm9kdWNlcjoKVGhlIHJlcHJvZHVjZXIgaXMg
-dGhlIHByb2dyYW0gYmVsb3csIHdoaWNoIHJlcXVpcmVzIG5vIGxhcmdlIGVuY29kZWQgaW1hZ2U6
-CgoKcjAgPSBzeXpfaW5pdF9uZXRfc29ja2V0JGJ0X3JmY29tbSgweDFmLCAweDEsIDB4MykKYmlu
-ZCRidF9yZmNvbW0ocjAsICYoMHg3ZjAwMDAwMDAwMDApPXsweDFmLCBAYW55LCAweDF9LCAweGEp
-Cmxpc3RlbihyMCwgMHg1KQpzeXpfZW1pdF92aGNpKCYoMHg3ZjAwMDAwMDAyMDApPUFOWT1bQEFO
-WUJMT0I9IjAyYzgyMDBjMDAwODAwMDEwMDAyMDIwNDAwMDMwMDQwMDAiXSwgMHgxMSkKc3l6X2Vt
-aXRfdmhjaSgmKDB4N2YwMDAwMDAwMzAwKT1BTlk9W0BBTllCTE9CPSIwMmM4MjAwYzAwMDgwMDAx
-MDAwNDAzMDQwMDQwMDAwMDAwIl0sIDB4MTEpCnN5el9lbWl0X3ZoY2koJigweDdmMDAwMDAwMDQw
-MCk9QU5ZPVtAQU5ZQkxPQj0iMDJjODIwMGUwMDBhMDAwMTAwMDUwMTA2MDA0MDAwMDAwMDAwMDAi
-XSwgMHgxMykKc3l6X2VtaXRfdmhjaSgmKDB4N2YwMDAwMDAwNjAwKT1BTlk9W0BBTllCTE9CPSIw
-MmM4MjAxMjAwMGUwMDQwMDAwM2VmMTU4MzExMDIwMDA3MDA3ZjAwMDAwNzcwIl0sIDB4MTcpCgoK
-Y29uc29sZSBvdXRwdXQ6wqBodHRwczovL3Bhc3RlYmluLmNvbS9yYXcvekx5VkdoaTUKa2VybmVs
-IGNvbmZpZzogaHR0cHM6Ly9zeXprYWxsZXIuYXBwc3BvdC5jb20vdGV4dD90YWc9S2VybmVsQ29u
-ZmlnJng9MzFkZmVmYzRhMTRlZmVhMwoKCktlcm5lbDoKCgpIRUFEIGNvbW1pdDogZGYyOTA4MDkw
-Y2RhMzY4YjAxZmY0MzcwOWY1MTg5MDA3NmM1NjE1NwpnaXQgdHJlZTogbWFpbmxpbmUKa2VybmVs
-IHZlcnNpb246IDcuMy4wLXJjMgp0ZXN0ZWQgdGFnOiB2Ny4zLXJjMiAoYW5ub3RhdGVkIHRhZyBv
-YmplY3QgNWUwMzZjZTEyZGU5MWM2ZmQ2NzRkYWQzM2IxNjljNjE1MGJlMmE3YSkKCgpMZXQgbWUg
-a25vdyBpZiB5b3UgbmVlZCBtb3JlIGRldGFpbHMgb3IgdGVzdGluZy4KCgpCZXN0IHJlZ2FyZHMs
-CkNoYW5namlhbiBMaXXCoA==
+Hi Gary,
+
+On 9/15/26 13:18, Gary Guo wrote:
+> On Tue Sep 15, 2026 at 11:57 AM BST, Laura Nao wrote:
+>> SysMemBackend's IoCapable<u64> impl is currently gated on CONFIG_64BIT,
+>> copying the MMIO backend's restriction. MMIO needs that gate because
+>> readq() is not available on 32bit. System memory has no such dependency:
+>> a u64 volatile load/store compiles on any architecture, it's just not
+>> single-copy atomic on 32bit.
+>>
+>> Drop the gate so u64-backed types, such as bitfields, work on 32bit too.
+>> Document the non-atomicity at the impl instead of enforcing it at build
+>> time.
+>>
+>> Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
+>> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+>> Signed-off-by: Laura Nao <laura.nao@collabora.com>
+>
+> No. If you don't need atomicity, please use `copy_read` to read the value. It'll
+> compile down to the same volatile read, just without atomicity guarantee.
+>
+
+Ack, thanks for the feedback. I'll drop this in v2.
+
+Best,
+Laura
+
