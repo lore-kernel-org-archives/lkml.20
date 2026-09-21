@@ -1,58 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC8CF3B42CC;
-	Mon, 21 Sep 2026 07:58:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D510A44F542;
+	Mon, 21 Sep 2026 07:58:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789977505; cv=none; b=eO5pXowWc3xAD7tRYXYBvv1MxJGebWjhe6qxnoTbngWIwYXr3t98xrOY9xjCzTYyWs614W1I3tDwaviTuufISZW4VbERmjRRuj0IWP61RQwEIrXG1knLe83x6DnLFtS1QkyBP8mRtvYAhOfyurq9j0964iBcbO/Q0G0nfWWII2c=
+	t=1789977506; cv=none; b=j/S0Km0WBuvpZjDjbBFQ1eazMwN9IYbTyx1DnZope4jS46266vy0SQ5v0ihlj5tONtGRzFw9ZcauRJaOMl/ZzVG1rvK0NBW2K3PywZUuK96F8pYz3Y4hVgtZyuq1gZkblO1EQqMEqCU4vhJV+TwiBwD40l4Wd5AftL+5FDYO/wQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789977505; c=relaxed/simple;
-	bh=+WGfdR3Y4f4MJOabUzkDEAYVtCQqjvgmchKMVu5bAso=;
+	s=arc-20240116; t=1789977506; c=relaxed/simple;
+	bh=5/W6d8/fGN0H8flCw1+s2MH+b1ysv235gOyZUqiA6PY=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=mG5vXLvzuKlTDEduePUHGXHBL6Q7FeQ0qGwVNJ1G8ixts7z9NyH4wn0dWnOCDTLc5KHG7JILPGbelnOOrQ1KbKuC6i3hZ74ALVwH0ASdWWrehWUpgLo0CUbPJhDGSYdD28hTOjzPVfalUQzArSPM2NnznzO2GkXi82m7o6+FhS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A/Tbm2wJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OkiOn/ybPIVpZWUN1gJ0f2y+TXRctw4+PK4Frb2BPDp2GDg47Ch6UpFy0bpplUkXdempykUd0NMMTuU2UUEqyCHukYr/0XDfl9ItHTmp4HP4izfNBAM3EUzS5rPAXHF8B5XYj8A9cxuFP68cWt+8EH33RKAE3W5YgDg41Oe0C6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l5l6xMLr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A/Tbm2wJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 745871F00898;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l5l6xMLr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30A71F0092B;
 	Mon, 21 Sep 2026 07:58:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789977500;
-	bh=L/18n8TfyaFMDLnAYEp51nwGZPC1Y8Qvb7X09zPa7Vc=;
+	bh=NYCJwCjTojZoMSg1K1fjM/5lK8uQavHZIHSOSFY3WTI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A/Tbm2wJxme0+N0pPuGOo8l68ppGyPNpDhIC88m3xFlT8W2gs2H0UtOcaFX9iXwkS
-	 COcGAExn661bK6PWCy47/Y9KvNRK9Capy8ppPxO3wWFDlJV5njIu70kOH9B8waNcL6
-	 d6b/mpFAr35uy3KaVJDRyPlxeT1kPwDY4TDyg3KiNWt9J1VHjqAzIcp80PjutjKnqS
-	 K3D9lhTABsKYOqMjzwN3SKVtRrBzxlWF96B+TLvD3c4i7oouEgH78A03DroLWGeF2Z
-	 JuJwF8pMShZX1rKiCS5CtTF1YuKEr/PwoCl8dl2GystyIzixncFflxEEHpkeOvvb/l
-	 2GcjE3lK1EDJw==
+	b=l5l6xMLr+mdsyD4v9Exth0ro3zP53iCdhEmLvIqv/LW76z/hhaaHJOsgHfnUWXIZ+
+	 GrnzjyQXahhr94V3EyvWJwwhX4xXN55NzWW4lpD/CtK0uRf6PfPC8XxSzxp0FfCpnt
+	 xyz9yUy+4l5YMv/tWafJttCsw3tx+I6jyPbWuVjkH1/6SRaQvoLbO715gjAw1Ze8Wx
+	 bH6sLPxEJTj6YROx4jOtMDMQy9vbJTxIY2/KuP9pFMtgx4qmMFjUmfodEasuIIfQMM
+	 6mWXurW0lopmPAjxJnZxWvYuLY8bAis2OPiOKTuxS/9u3qCpxQleshG2Gnp44ctCqm
+	 Zuw0hGkOFp+0g==
 From: Kees Cook <kees@kernel.org>
 To: Vlastimil Babka <vbabka@kernel.org>
 Cc: Kees Cook <kees@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Willem de Bruijn <willemb@google.com>,
+	Jason Xing <kerneljasonxing@gmail.com>,
+	netdev@vger.kernel.org,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	linux-hardening@vger.kernel.org,
 	Harry Yoo <harry@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Hao Li <hao.li@linux.dev>,
 	Christoph Lameter <cl@gentwo.org>,
 	David Rientjes <rientjes@google.com>,
 	Roman Gushchin <roman.gushchin@linux.dev>,
-	linux-mm@kvack.org,
-	Pedro Falcato <pfalcato@suse.de>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	linux-hardening@vger.kernel.org,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jason Xing <kerneljasonxing@gmail.com>,
 	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
 	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Willem de Bruijn <willemb@google.com>,
 	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH v4 3/7] mm/slab: Add kmem_buckets_destroy()
-Date: Mon, 21 Sep 2026 00:58:14 -0700
-Message-Id: <20260921075820.1718334-3-kees@kernel.org>
+	linux-mm@kvack.org
+Subject: [PATCH v4 7/7] net: skb: isolate skb data area allocations into a separate bucket
+Date: Mon, 21 Sep 2026 00:58:18 -0700
+Message-Id: <20260921075820.1718334-7-kees@kernel.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260921075811.too.775-kees@kernel.org>
 References: <20260921075811.too.775-kees@kernel.org>
@@ -62,137 +62,92 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4729; i=kees@kernel.org; h=from:subject; bh=+WGfdR3Y4f4MJOabUzkDEAYVtCQqjvgmchKMVu5bAso=; b=owGbwMvMwCVmps19z/KJym7G02pJDFkbHs9UUVx8Nfu38g2JFUlnXu/wXSKoUZe4uPxUm0ODS qZpdcy7jlIWBjEuBlkxRZYgO/c4F4+37eHucxVh5rAygQxh4OIUgIkkVjD8z+N5yGySI+I2a/8V v7vmn5ezRey+emMBg+2JhF2itXI8uQz/a1aHH9OSFKp4G/eEN0gx01qHScXVznvTV4XDy6Kd8vg 5AA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3388; i=kees@kernel.org; h=from:subject; bh=YbmMITYuL1x/iTXXiiC6TtrZwPTf+P8ee7ihm7zXbV8=; b=owGbwMvMwCVmps19z/KJym7G02pJDFkbHs96Od9twi4pFTetfSFhyZfmVrMo1B9ll3bbeJ/t7 pcFHYp2HaUsDGJcDLJiiixBdu5xLh5v28Pd5yrCzGFlAhnCwMUpABPZZc7wv3rT2r5XJVMCz6wK vqIT9T/GlW9Rd9/7p/57/rs+yFdZ/I/hf3DgwrXRchzeZREev01/vRJKDn01aQmLgKWqcFv/nrn H+QE=
 X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
 
-kmem_buckets_create() intentionally had no "destroy" counterpart. Every
-caller has lived in core kernel code and creates its set once at boot,
-so nothing has needed to take one down. However, KUnit tests may be
-built module, so we need it now to support the coming tests.
+From: Pedro Falcato <pfalcato@suse.de>
 
-Some caches have size aliases, so the same pointer is stored at more
-then one index, so we have to save it, clear all matching instances, and
-then free the saved cache pointer. (This is what the bitmap was tracking
-before in the "allocation failed" error path.)
+SKB data area allocations (as done from alloc_skb()) use kmalloc().
+These allocations can be variably sized and their contents can be more
+or less controlled from userspace, which makes them useful for attackers
+that want to overwrite a use-after-free'd object from the same kmalloc slab
+(which often just requires the sizes to roughly match into the same kmalloc
+bucket). [0] is an easy example of an exploit that uses netlink skb
+allocation to target another similarly-sized accidentally freed object.
 
-When CONFIG_SLAB_BUCKETS=n the whole body compiles away, matching the
-ZERO_SIZE_PTR that kmem_buckets_create() hands back in that configuration.
+While other mitigations like CONFIG_RANDOM_KMALLOC_CACHES exist, these are
+probabilistic. Use the existing kmem buckets API to further isolate these
+allocations in a guaranteed fashion, when CONFIG_SLAB_BUCKETS=y.
 
-Link: https://lore.kernel.org/all/20240809073309.2134488-1-kees@kernel.org/
-Assisted-by: LLM
-Signed-off-by: Kees Cook <kees@kernel.org>
+Ask for the accounted kmalloc type as well as the normal one. AF_UNIX
+sets sk_allocation to GFP_KERNEL_ACCOUNT, so without it every AF_UNIX
+skb data area would fall back to the general caches, and those are the
+ones most worth isolating. GFP_DMA is left to fall back, being passed to
+an skb allocator only by rare devices.
+
+Link: https://github.com/google/security-research/blob/master/pocs/linux/kernelctf/CVE-2023-4207_lts_cos_mitigation_2/docs/exploit.md [0]
+Reviewed-by: Kees Cook <kees@kernel.org>
+Signed-off-by: Pedro Falcato <pfalcato@suse.de>
 ---
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Hao Li <hao.li@linux.dev>
-Cc: Christoph Lameter <cl@gentwo.org>
-Cc: David Rientjes <rientjes@google.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: <linux-mm@kvack.org>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>
+Cc: Willem de Bruijn <willemb@google.com>
+Cc: Jason Xing <kerneljasonxing@gmail.com>
+Cc: <netdev@vger.kernel.org>
 Cc: Pedro Falcato <pfalcato@suse.de>
 Cc: Kuniyuki Iwashima <kuniyu@google.com>
 Cc: <linux-hardening@vger.kernel.org>
 ---
- include/linux/slab.h |  1 +
- mm/slab_common.c     | 49 +++++++++++++++++++++++++++++++++++++-------
- 2 files changed, 43 insertions(+), 7 deletions(-)
+ net/core/skbuff.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/slab.h b/include/linux/slab.h
-index cda126def67a..18a2351f9084 100644
---- a/include/linux/slab.h
-+++ b/include/linux/slab.h
-@@ -893,6 +893,7 @@ void kmem_cache_free(struct kmem_cache *s, void *objp);
- kmem_buckets *kmem_buckets_create(const char *name, slab_flags_t flags,
- 				  unsigned int useroffset, unsigned int usersize,
- 				  void (*ctor)(void *));
-+void kmem_buckets_destroy(kmem_buckets *bucket);
- 
- /*
-  * Bulk allocation and freeing operations. These are accelerated in an
-diff --git a/mm/slab_common.c b/mm/slab_common.c
-index cc58f192f349..eb29cfb2f0a9 100644
---- a/mm/slab_common.c
-+++ b/mm/slab_common.c
-@@ -434,12 +434,9 @@ kmem_buckets *kmem_buckets_create(const char *name, slab_flags_t flags,
- 				  unsigned int usersize,
- 				  void (*ctor)(void *))
- {
--	unsigned long mask = 0;
- 	unsigned int idx;
- 	kmem_buckets *b;
- 
--	BUILD_BUG_ON(ARRAY_SIZE(kmalloc_caches[KMALLOC_NORMAL]) > BITS_PER_LONG);
--
- 	/*
- 	 * When the separate buckets API is not built in, just return
- 	 * a non-NULL value for the kmem_buckets pointer, which will be
-@@ -493,7 +490,6 @@ kmem_buckets *kmem_buckets_create(const char *name, slab_flags_t flags,
- 			kfree(cache_name);
- 			if (WARN_ON(!(*b)[aligned_idx]))
- 				goto fail;
--			set_bit(aligned_idx, &mask);
- 		}
- 		if (idx != aligned_idx)
- 			(*b)[idx] = (*b)[aligned_idx];
-@@ -502,14 +498,53 @@ kmem_buckets *kmem_buckets_create(const char *name, slab_flags_t flags,
- 	return b;
- 
- fail:
--	for_each_set_bit(idx, &mask, ARRAY_SIZE(kmalloc_caches[KMALLOC_NORMAL]))
--		kmem_cache_destroy((*b)[idx]);
--	kmem_cache_free(kmem_buckets_cache, b);
-+	kmem_buckets_destroy(b);
- 
- 	return NULL;
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index 966af3beed94..865eed3c57d1 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -586,6 +586,8 @@ struct sk_buff *napi_build_skb(void *data, unsigned int frag_size)
  }
- EXPORT_SYMBOL(kmem_buckets_create);
+ EXPORT_SYMBOL(napi_build_skb);
  
-+/**
-+ * kmem_buckets_destroy - Destroy a set of caches made by kmem_buckets_create()
-+ * @bucket: The set to destroy, which may be NULL.
-+ *
-+ * Destroys each cache in @bucket and then frees @bucket itself. As for
-+ * kmem_cache_destroy(), every object allocated from @bucket must have been
-+ * freed beforehand, and @bucket must not be used afterwards.
-+ *
-+ * Context: Process context. May sleep, as kmem_cache_destroy() takes the
-+ *	    slab mutex and can wait on RCU callbacks for each cache.
-+ */
-+void kmem_buckets_destroy(kmem_buckets *bucket)
-+{
-+	unsigned int idx, i;
++static kmem_buckets *skb_data_buckets __ro_after_init;
 +
-+	if (!IS_ENABLED(CONFIG_SLAB_BUCKETS) || ZERO_OR_NULL_PTR(bucket))
-+		return;
-+
-+	for (idx = 0; idx < ARRAY_SIZE(kmalloc_caches[KMALLOC_NORMAL]); idx++) {
-+		struct kmem_cache *cache = (*bucket)[idx];
-+
-+		if (!cache)
-+			continue;
-+
-+		/*
-+		 * Sizes below arch_slab_minalign() share one cache, which
-+		 * kmem_buckets_create() then stores at each of their indices.
-+		 * Drop every reference to it before destroying it, so that no
-+		 * later pass reads a pointer to a cache that is already gone.
-+		 */
-+		for (i = idx; i < ARRAY_SIZE(kmalloc_caches[KMALLOC_NORMAL]); i++)
-+			if ((*bucket)[i] == cache)
-+				(*bucket)[i] = NULL;
-+
-+		kmem_cache_destroy(cache);
-+	}
-+
-+	kmem_cache_free(kmem_buckets_cache, bucket);
-+}
-+EXPORT_SYMBOL(kmem_buckets_destroy);
-+
+ static void *kmalloc_pfmemalloc(size_t obj_size, gfp_t flags, int node)
+ {
+ 	if (!gfp_pfmemalloc_allowed(flags))
+@@ -593,7 +595,8 @@ static void *kmalloc_pfmemalloc(size_t obj_size, gfp_t flags, int node)
+ 	if (!obj_size)
+ 		return kmem_cache_alloc_node(net_hotdata.skb_small_head_cache,
+ 					     flags, node);
+-	return kmalloc_node_track_caller(obj_size, flags, node);
++	return kmem_buckets_alloc_node_track_caller(skb_data_buckets, obj_size,
++						    flags, node);
+ }
+ 
  /*
-  * For a given kmem_cache, kmem_cache_destroy() should only be called
-  * once or there will be a use-after-free problem. The actual deletion
+@@ -634,7 +637,7 @@ static void *kmalloc_reserve(unsigned int *size, gfp_t flags, int node,
+ 	 * Try a regular allocation, when that fails and we're not entitled
+ 	 * to the reserves, fail.
+ 	 */
+-	obj = kmalloc_node_track_caller(obj_size,
++	obj = kmem_buckets_alloc_node_track_caller(skb_data_buckets, obj_size,
+ 					flags | __GFP_NOMEMALLOC | __GFP_NOWARN,
+ 					node);
+ 	if (likely(obj))
+@@ -5235,6 +5238,10 @@ void __init skb_init(void)
+ 						0,
+ 						SKB_SMALL_HEAD_HEADROOM,
+ 						NULL);
++	skb_data_buckets = kmem_buckets_create_types("skb_data", SLAB_PANIC, 0,
++						     INT_MAX, NULL,
++						     BIT(KMEM_BUCKET_NORMAL) |
++						     BIT(KMEM_BUCKET_CGROUP));
+ 	skb_extensions_init();
+ }
+ 
 -- 
 2.34.1
 
