@@ -1,76 +1,82 @@
-Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com [34.2.64.18])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6353E475357
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:34:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.64.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59BB94BD10B
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:34:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790004853; cv=none; b=nqru5eh/soX2l3ZErXr4iXrz954byos8IzLS0UAgSavRicJ6lSX78shUTngglKoYW6qcxIy+hXN1x9falXH7MYDewtJDV2BFflntJE95hvMEdHAdzMDq0CoEq99KBhULTnGP+CptOTOJ+PFf0xxs9e59jDcMKQGXlh4tvMee0+4=
+	t=1790004858; cv=none; b=TUrabpWRWlED90vpaydwFvO9XvW6q0kLaT/t5gmiSZytHHiHSPyrGeHraMCJd2L1FfGfc3jsEFVlx507vRXfoZnBGjHVjlSaJxAim/HsIk7vDL3AK/QFYxUZ8ku4wrmWom3k+8WT9cc9nCBZm1P2pj/wFBKUPICY0g8OjAcUQN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790004853; c=relaxed/simple;
-	bh=p2DscuEwrTKvkyWB1oPdIp6xifZgL+9QqkpPUOoKowU=;
+	s=arc-20240116; t=1790004858; c=relaxed/simple;
+	bh=wGmrIqcdIcZU3r4B3ZiqI9AflO7CJwQ1F6YuHGdbybg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OhQk9msDZbfiHDzf4zKwZPc1xeSEBDM+TfGU4ZWblRWfQkizuTuQ0ufrIiMflqO9c6tIyMBAlGInmVU8d7B0fsSf0QtDCr0WZorkbhZnCupXzqvliEgJHPM5WRDpqCu6X+2nuRsEvZ1lBcheozNqBli3ht9BndaGZeDLsqEV4AE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=UPYlJhwY; arc=none smtp.client-ip=34.2.64.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	 MIME-Version; b=aMKzo0OGRyufsSBEZifTCduws5+t15uxpBrl9xCE2HXsHRtDTyZwFAdaUPDd0tnEMVWWexk8X3+hgyy1BtwIxDjQkL/T8uvo03E/tUWh1vEjOoRXtNKKuX798RoPOoVshOPOhUNaqWsgJ6oeiH/7tE+xQD0E7oI6ccLGClkiM1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IgKPeAxT; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="UPYlJhwY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790004850; bh=p2DscuEwrTKvkyWB1oPdIp6xifZgL+9QqkpPUOoKowU=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=UPYlJhwYujUUWsQfiZtGJCfKFXgxAZXOLR2tgmqGXZEySKIMoMkXrltc7tyYfYa/aCRZcGXt0wqgN/SCtuIAB0rq8y40LK4R3S2pZSvLF6kJp+WIhk/cIMeUGIbwSeCUGi8B664Uohw/Vhl+S5pe9q1pt0XVcz08gr6ayrL2SDUpcutUCXkYHA1xPMWHBy+iHmv6CEpQaXNCFYrvOqOZnReyvsF8OxTWL9r9Q00cWPyRXx4YJRvtqiRvIPHJVW7GfSzn8ak+dPyi3cf1AAWuI+UwwDOOBsVCWfLJ7PhuEsHX4wVp+Re8+C6FdF1jEJPn2LefiIJV0fZG+S/EeviWjg==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790004850; bh=OS4yj1kQUi/Oe1a57meU5bx9+vpkLCVn4TM+sXsI+k6=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=RgtxO30VemnFoNmBO0eXLvLnaSqtIW90cO4/fcnChO/IvPZm1vug0Zfm0ectOV14PR9DSc1tU8AEcz66dO0Mx14z3XqOEkydHvZJtVOWyHcOBChZry0SmqCGjYLOm7cGpvOb4Xj8oReEDErCHqaKGlRrYgl1OTOuZnEgC2YfPm3isQie6gjanha2OHUZkA67eM26ftkpHHsVwSz1hg+MP2AqMR7Vx/fwkpNPX+3kLY53vvW3G/L6elyYZZPpGngbSscFhLTKI0kH+YpIvz35K7TsVg8oaCog1wnPcf6T9/MJmpYYcX+erYB66lBhqFC/8OZr714QXPXGZ4sun+ZxJg==
-X-YMail-OSG: rdFtrsoVM1kKgYnfkEaba.sKsVq3apX0ASizRIB.lYV0I.6JtpaginG4ede1DUM
- BGW3oJ4PHs_70xuWyqoe8dVmOsmlBp_K5JlkUlpAsj70s4GAYKFzWr.ZvUNrt7h0sASZbHtctWQe
- mjvz7Ckf1VoPITr5f57ISsHh6apdhLLgMOJ9pnAhRsS_e0N81uES4ydKKyMA8NS1bjuEGcjgFJJT
- eMOY092U.FWkW_8iEJAjZRpJcdg4eh1jm8bolI_Eq9YlD57jZ5BFsDoVyJKrTt084gV1JZgPlSvo
- o.daUTtbRynPtRxAcOHNcJLqhvWIXrGOkxe.M.lJHElqrjb3_zI9qQsvsgb3yv8J68p1npyGfUIY
- bBkG229D8Pmn98UCr7isYyZdcTVRkLTvGR0cZj1vOH4XVt_RfkmbBMqAbWJ6idqzp8h1bOyPX1qk
- wCL6gWKgR6B7atb_XFEYIHskmLQ.desYtElzDktT4ATWVy9cBVP8gFDF4p0lb.I694gK.tYYyI4B
- v16OMKH5SGVZaAw6BzFr8C8YVesG8nwWdZXHz7xCb_qQOT1HHQsmtc7DX9Sbchj1u9T.PwSVUOAD
- WSLJX9NT9gz9YtL5Xwbmd8QZPLnXuU5JcyNL2Cz.BGoMBYZ0n2xO0UYbGUhHyyREGJIgDOSiPKWH
- ZVF1BnibPYt93T6hWrN7jLW6o3y1U4.FskGNQnEXKwQz7CV2EMaP_btErzunF.YYVik0w_iKDFtq
- 2hfCY0UvLu8tSOS9z3.XpITzbXr2uR8DVLOwVyeZHf_oqXQXfJ2n9coeoDKJPobLJqLitKt7EeAQ
- 3vC5qrlIOQXeI253qoysPv10NAxyz0ie1.xm8T.z3r5zie5udfhNVXdttN_mNwG6QcMgd6j_DZdW
- Hr1GypKdhUKuLv53WYxLthgUJEYeKMGUqbDw7cvBglTMVi9OB8rSiFUVe1NtQC1lvmFeqy_jKWnG
- 0B8ywCg0wqACk1hQ015HrEtoDC8udTNAjrxr34B_H4Wmx7MuQs0Yfl.9nH1MIuJAvXnBe4xWM08f
- hQxmpEGnxcfAK565KikHj_sbLkUYsornbyzkPN01CM.fnUW.G6FvLcVoRz7GvegA6TBpWOnJOspa
- b8xRLwTRP4Q4_wIouN9gKydclSxYHSYljrNJXhf0uSgyVcqFZ7Ys6lR9V2jZoSOBmjwXGf2pLgTe
- fxfVzdA0HZ3c8Rw5ERnLNdjwclj09nPPHSTgzLOV5jCwkUwJBh5lUlCyuxutlyNhZILexOZoNabf
- htaETRaVX49cN8nUVNxiJkRd808CapoRmPQMYIFb7ku8k1_BtESkTmoQCRzmC59eFw6H5fVxsYv6
- sqSMzTLywAmF3Xr0u3Q1DRH3k2odEtHqgOVYyHZ0izHrfiz10ieBv_Hx9qIY0kSTFxDp4wKTcOhE
- 9rhz6XQjogjbcmutIyrcY3SyIP1Wmj5IhXkTuMPuikh9A4fJolqRuyuKLETGxH9DmM1kME_akYvN
- .ZX7Eq4.MxeRu.xLzxQA3rmzqsD3YwZuHWwAT6HdmQ1Wq5fLBfbgOKwu2RICJfZu8ijpKJLb1Xs8
- 6F5vhS2opip.cJ5Mj29XP1d2D7aRoL1wYnI5.xvyQX7ug7X2bBToIRtC6Mo5PA9Gayqf2xIFxJdj
- XmEbnO.VSQdgRJ43IUiYdUrREhnX8zXpct7ghrpWuTSEMQZpBQxKBz7K9cntbcduez0QrvXS4aHV
- VIwQFSNxhklnhflglHlt2utqDUK3ZoEK8E9WxwMmVGcaUSpOBrobNlJZgCKTEcsejwvnevbjTKWi
- d9.UgkQWLb.BkHn4ea.c5zq53bBM8founBI0Cm0u2vKjyo0MebGRlOgFrPdu2ft19GM5mI0CqeYc
- MfzhVpE797iMRbUaZM8qYPTmg5y2GOoTFfE5eepQSIb8kJ0vW3G5NgrEb71ZXL.Q4LwPlyNmHqx_
- Of5XrfTclTBAWL48X1Y99eLnSkyIMAgfbW6708heCkVRjaYDho5CbOX6bGRkwVotVKS3zjC.xnno
- bBpO2fLdPEOx2BoeJbUh7gg--
-X-Sonic-MF: <capitain_jack@yahoo.com>
-X-Sonic-ID: 0c33275f-9531-4585-8e8a-886a56219ffa
-Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-102 with HTTP; Mon, 21 Sep 2026 15:34:10 +0000
-Received: from dip69.lsn.bf1.yahoo.com ([67.195.177.78])
-          by hello (SMTP) with SMTP ID 9780d4958fcfd6726744335047757fef;
-          Mon, 21 Sep 2026 15:34:05 +0000 (UTC)
-From: Daniel Ramos <capitain_jack@yahoo.com>
-To: Adrian Betschart <adrian.betschart@cinemaone.ch>
-Cc: Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IgKPeAxT"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4843e397f74so3339f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:34:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790004855; x=1790609655; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eqhSWBti4659IVEid5ZOd4ooKHmp9n0NkC3/DOwtaEQ=;
+        b=IgKPeAxT1AeqOypFM8ZZMbFKuriYWxHceGnvJdeQRpS3LPQmQcrtOrzVyfMtGblIvx
+         la8x4BWEHvXu82Suj6WVsDqJ+O0Dgr887ohQ+8kWS1SQAX5TXikSxQMN5fvXj3r81xKr
+         oHOTZ664M4QUoczuu+s2YU/jYfT3obzVllq0oncqH4A20Obc/fTCCuYrOpNxa5dHgcmJ
+         CYoCOd+BEmsN9+bGUUGm7o3aUsuqq4p+SNJ3q+NZmYYLtQS7SVlpCC+wmVdsBgcnEzaW
+         rCrntHh+a27qrRy3w06UMaL7QyQCRp6fdaPjk5onKL/h2YXfxYYBA5uFsfONacHwSOvV
+         lxUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790004855; x=1790609655;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eqhSWBti4659IVEid5ZOd4ooKHmp9n0NkC3/DOwtaEQ=;
+        b=fjIsBYrL879NA05PLGmNAWRnLyG6oo2bzAearKEh6RlrCd+oCUyfYwn0cDbrD6EKPh
+         cIEIJB3/SJOBd+M+KNTcoxKQoG1KMBZ3VXb1gIF9v7N1ow7TTMy/ZP1JaEWaqfaBkqwX
+         Ch2Q5I86SCOYZEUK9ngw1pI4cat6/IVH8F7RCJUCR4/8J1+pEuuBzh4zwAzvKuND1YFB
+         VGCzmzeZzbSPmBGr9SL5MqZo1sed8VQDZCweEuD/llHkD7DhNrG8lucmWFAbG8vZK7NR
+         +eeenuMS47F5KqoiZm+mYsp6NGTsCiptN7uAC4GP9wF/G8Ii/bgkecK2QCH2qPnIA26f
+         WoIA==
+X-Forwarded-Encrypted: i=1; AKwUvBwsmC6rXQI9QM/AKlSmLSH8Zlq40KERQk25U3XrWdjLKuM/mYMCcMIN2oFIqn1FzHVBYkiQe84twTHSDek=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQkYNmgd2zU+S+lhlIJvowpIcPBhmDIlEivUMI1pWaF9/jXVBQ
+	B/YmHtv0PkdLaerOP6jQxnyJxDE3tWlOtp/qj/m2eOhV/b3uNMv1x4s=
+X-Gm-Gg: AYBFou1FbFhesMD2pVgmCNzD2gfg9Lham+HAKsEnsL3p746UugVBRt2vlaOjv8be2+7
+	z6A+8mTzsoo7j9Xtl3eQdRs9/4T/TbNnMt5lICBXTbnPOiw+ZGFH9UBawWYpo5RuDYshCFuyBzn
+	GbyMN84uZ3nTOioyvbd4C3wX81RFwLTqO0W3RtmyGgMO5iLeEhtHEcZOCxmzrhxXmuus49YsWNC
+	++k/oTDHZ2KB2otM+bXWl9J7icDKh8S59tPRtiwBjfoBtFC2Ia7T6MIqwdbS9PtUkU0XtBkXieQ
+	yn395f/qkYjAq3V6AUbXVzGik7Ox6lCgLNieooHlVpguDF+dwJYQPgN5goLaYqdk8aWdJxr+H1P
+	73VMyQdp8p3x+E4q5d11n5EUAl2qommUV1ZkvOMwv10yVqXH2aUyW8VXcFb1wpF1kx4DpSoEm2Z
+	2C8I4kWGUeDZvjo0A4fTumirul4dIzzesTzc5r4A9yZwariDf7/Ht31StOisdFuZreVerY4qMhf
+	U/+qYFhBoLoQ2PSoxstuwb1WgflZkiGsOg48gH2bgkYeT8xRH4VU/o=
+X-Received: by 2002:a05:6000:4008:b0:487:955:e6c3 with SMTP id ffacd0b85a97d-48860f27ad0mr103491f8f.0.1790004855209;
+        Mon, 21 Sep 2026 08:34:15 -0700 (PDT)
+Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872456ee4esm22668564f8f.21.2026.09.21.08.34.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 08:34:14 -0700 (PDT)
+From: "D. Manresa" <dmanresa@gmail.com>
+To: Fernando Rimoli <fernandorimoli11@gmail.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Jakob Berg Jespersen <dev@berg.pm>,
+	Fil Dunsky <filipp.dunsky@gmail.com>,
+	Kengo Oki <dev.kengo.fugu0141@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Daniel Ramos <capitain_jack@yahoo.com>
-Subject: Re: [PATCH v3 0/3] drm/amd/display: HDMI 1.4 3D output (frame packing, top-and-bottom, side-by-side)
-Date: Mon, 21 Sep 2026 12:34:00 -0300
-Message-ID: <20260921153400.53321-1-capitain_jack@yahoo.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260921080126.98936-1-adrian.betschart@cinemaone.ch>
-References: <20260921080126.98936-1-adrian.betschart@cinemaone.ch>
+	"D . Manresa" <dmanresa@gmail.com>
+Subject: Re: [PATCH v5 0/7] media: Enable the OV5693 front camera on IPU6 Surface devices
+Date: Tue, 22 Sep 2026 00:32:57 +0200
+Message-ID: <20260921223257.534258-1-dmanresa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260914180807.150971-1-fernandorimoli11@gmail.com>
+References: <20260831181858.325109-1-fernandorimoli11@gmail.com> <20260902142322.73523-1-fernandorimoli11@gmail.com> <20260906073932.24090-1-dmanresa@gmail.com> <20260914180807.150971-1-fernandorimoli11@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,24 +85,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Adrian, Harry, Leo, others,
+On Mon, 14 Sep 2026, Fernando Rimoli wrote:
+> The series was applied to media-committers next on 2026-09-11, and your tag
+> did not make it into the commits. I have pointed Sakari at your message in
+> the follow-up fix, in case that commit can still be amended.
 
-Following your request, the testing is done, and it is a pass across the board: v3 as posted built into a 7.3-rc4 kernel and run today on the Renoir APU (DCN 2.1, Display Core 3.2.369) driving the Sony KDL-46HX855, all three layouts were tested in sequence (no restart) in one desktop-down window of about five minutes, so this Tested-by now covers the series exactly as it sits on the list.
+Thanks, but please don't spend effort on that. The coverage was the point,
+not the line in the commit.
 
-Top-and-bottom first, as you suggested: the TV switched itself into 3D on 1920x1080@60 TaB and the disparity picture read in depth through its glasses, so the sink is happy with the 3D_Ext_Data byte patch 2 sends for that layout. Side-by-side half at 1920x1080@60 followed with the same self-switch and picture. Frame packing closed the window at 1920x1080@24: the tool presented one 1920x2205 packed buffer, the expanded timing from patch 3 scanned it, and the full two-eye picture showed where my earlier unfinished 7.0 experiment without the expansion had signal and black picture (fixed as well now the same way).
+Two practical things, because I am donating this Surface Pro 7+ shortly and
+will not have the hardware any more:
 
-The probe numbers on 7.3-rc4 + v3 are identical to what our 7.0 port produced here: 22 modes and 0 stereo without the client cap, 51 modes and 29 stereo with it, no regressions on the aspect-ratio pass.
+- Don't hold anything waiting for a test from me. That includes a v3 of my
+  ipu-bridge series: it stands as tested on 6.19 and on top of your v5, and
+  anyone who wants to carry it is welcome to it (Sakari, on Cc).
 
-The run record is in the repo at the run11-betschart-v3-7.3rc4-all-pass-2026-09-21.log (https://github.com/danielcamposramos/sony-bravia-linux/blob/main/tools/stereo-modeset/run11-betschart-v3-7.3rc4-all-pass-2026-09-21.log), probe output and per-layout modeset lines included.
+- The two remaining literals, the link-frequencies values and the lens-focus
+  name, are what my 1/2 fixes. Take it, rework it, or rewrite it under your
+  own name, whichever is least friction.
 
-One more thing I would like to put on the table while the series is in review.
+Everything measured on this machine stays public, including the register
+tables extracted from the vendor driver, the Bayer-phase matrices and the raw
+captures: https://github.com/dmanresa-saes/surface-ipu6-cameras
 
-Since our first exchange I have kept the equivalent two changes prepared as a backport for the 7.0-era tree, where the connector code still lives in amdgpu_dm.c: same stereo_allowed plus VSIF wiring, same CRTC_STEREO_DOUBLE expansion for frame packing, forward-verified to apply cleanly against the pristine v7.0 source, sitting as format-patch mboxes in docs/upstream of the same repository.
+Good luck with the rest of the series.
 
-They are an offer, not a request, and there is no competing series coming: if this v3 lands and a stable backport or an older-generation follow-up ever becomes wanted, they are ready to go as-is, and I am equally happy to reshape them or to let them retire unused once v3 ships downstream on its own.
-
-Happy to run anything further on this APU and television if the review wants it.
-
-Tested-by: Daniel Ramos <capitain_jack@yahoo.com>
-
-Disclosure per Documentation/process/coding-assistants.html (https://docs.kernel.org/process/coding-assistants.html): prepared with AI assistance, directed and hardware-verified by me end to end; the assisting models were LLM Kimi K3 (Codex CLI), LLM GPT 5.6 Sol (Codex CLI) and LLM Claude Opus 5 (Claude Code CLI).
+D. Manresa <dmanresa@gmail.com>
