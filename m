@@ -1,187 +1,138 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010038.outbound.protection.outlook.com [52.101.193.38])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC4F3191D3
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:15:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790032552; cv=fail; b=YV8Jf63HYPdWeBxGjgs7gkLMvrBS/MgtJy67MzuSPVch93Gkj7zILHm71Sx2plchI6DscuL8uvJkDr+PDh9q7Z4jbnrhZvI0SQgBm9HkGnKlyWl4rtEF0Pw9mdNagt8LM1yKsBEIQXJxoHzXq7AKzPPm/FR4Jxjv03caSZ2UdC8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790032552; c=relaxed/simple;
-	bh=WR9c4p2jCHyC+Bw863SnJfeVro1mLytRCDkZOvVdUmw=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FgSNO//ZZmjj6eHCkUviMl/h3OZa2i/Nyax/4bsGqCYfvi7L/F6ARDl0CMGC4t7428fKNwmKfv2fAchXwJjH4jJDFLOBbp8licGAbP4SS1VjbLG6qQqbJIvB4AtFo7F04XIrXY8u14qILYvcRFGgkXdMUJ1sTJO4IjYqefPo3gA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=RhcHAHSJ; arc=fail smtp.client-ip=52.101.193.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6AD14279F8;
+	Mon, 21 Sep 2026 23:20:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790032850; cv=none; b=EPSAyGENWD4SZ8I+U/oT3itLkeS6XNaYXoFDO4PqM7rKMTNsn8J1PXMCCDQKy9JQPPEF0fFOzH6EAs4TYf9mkW8gAa22a2BGTOvwQ/Zl0t3BNFHkcw7MrgHlzFCq4Qn9NNlwa9PW/N5KnCWkbbd7ARz+T7tBMEvEHAcieTBdKsY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790032850; c=relaxed/simple;
+	bh=I8QurwjP3QB4ra+BZpKFn2F56cD706bsO9/irsbGN90=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=liutD5lf3V9FeqLDsRZQFUKRknn1kLQVjOGIePnCQ5JXM8konvHabEowUEq3j8q9C7iNfFd/UIw6sHBkIk0REoVXS/UJ37cN/U0BtihThfaxXpPdwcc9n8CCdUuM+ESjljUJ1ACx1hKPV3j0qb9Uncwdiz7L8Bq85gmSn8lM2vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=iQ2g6fBF; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="RhcHAHSJ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=et9LxqjynHnVFl6hlCp7rQn+O0JYeTACOsEH8ukvXuxw0TtKfLCVzN0vZzA0mvXZN/QbwcVxJZ0HytMDNobRx/bzeLf8MVAQEcjkq8BnZKem+aaXdN6xtYkY1eT+tmfENqV27fnCjz62y1dCp9eX580emQLqHP+pGZJfZO+Qa9ha4+QniDzgWNtjp+rW/bA/d5mSSNUX6Trg2OKeLlYhSGz71yqHUW86XO5kB71AJL0OXHBd6LVHxNWcTez6UnIl8EUJSgX1+HKAxRhFY9bXlx9y6JyZW4j/SMgt3b9qM5njtQIY/jcK8ZA4FDrF50lw8CG8yp3BLe0uRuWgXAzBMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ghYGPH7vELo62p4qjEl8XbjYQ9cyl0Cw0SEkMk1uLhg=;
- b=Fc6k4T8+ZSZcKKliSp7ZRlWC/nQ1UOhaPR05QP29DxKJZzMZ4ElDllD8oSsDdbBrIp6Ka0GfRHEfhnQWG6nvofsrP1SRsyPrTTK3myAt/3cB4yCOc07m1V0qWxJYpnWnw/ybFV0eFqEQE08bsF55ppIIxZhXOMMl8V8GQe35n4kiGGRh3RIYVVn2Evg5yM5itMco5OGixNokGfmuhumeHh1e5qoNGU74nU/DJ2o5pqD053c5Cl7zfEhYpkHrYXRkf/YCqFxiNgZoOWrFk0oDoaNvp4GbFbbMiLmcFaplGhqCTpZBJVTaUO3zG55RsZEcB2MnMXQ6ZD2QmYCmO+QWBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ghYGPH7vELo62p4qjEl8XbjYQ9cyl0Cw0SEkMk1uLhg=;
- b=RhcHAHSJ0SO7wyDjJ359OfAoStaigzisouzySNg23VUWsrPsONOFfZle5Q4MgfK0DItYoyPDC2tz3fmv4xYtj0quNFA17vlxzaRWmha7jqwNjDOwGsm7JBAIrVo5wHX+wCyLRGEZsFO7+JC5h6gDRwbVf9DEnWqLAlOS6wRACXW4VzhZB7ceN1M8Sfmpn8XksZw9h6N5nV3d/7RINcjhfQVXsYObZ4sKp4xh4E4YCF0KPnELeLMezRwZFxTdSdvhFa2DqUAhUoM65vzovU9CG4hiSn666qZBLAijt1ksxg6Q4smvBkuQ8i5rdS/F8ztbL760Yy0AbR98etXunQwTPw==
-Received: from BN9PR03CA0214.namprd03.prod.outlook.com (2603:10b6:408:f8::9)
- by DS7PR12MB5839.namprd12.prod.outlook.com (2603:10b6:8:7a::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 23:15:43 +0000
-Received: from LV8PEPF0000006B.namprd03.prod.outlook.com
- (2603:10b6:408:f8:cafe::23) by BN9PR03CA0214.outlook.office365.com
- (2603:10b6:408:f8::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
- 21 Sep 2026 23:15:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- LV8PEPF0000006B.mail.protection.outlook.com (10.167.248.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 23:15:43 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
- 2026 16:15:22 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
- 2026 16:15:21 -0700
-Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Mon, 21 Sep 2026 16:15:20 -0700
-Date: Mon, 21 Sep 2026 16:15:18 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-CC: <will@kernel.org>, <robin.murphy@arm.com>, <joro@8bytes.org>,
-	<jpb@kernel.org>, <jgg@ziepe.ca>, <linux-arm-kernel@lists.infradead.org>,
-	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, <peng.fan@nxp.com>
-Subject: Re: [PATCH RFC v2 2/4] iommu/arm-smmu-v3: Support shared SIDs in
- insert/remove_master
-Message-ID: <arG6hmng3NddGEHm@nvidia.com>
-References: <20260921-smmu-shared-sid-v2-0-4b656ce68178@nxp.com>
- <20260921123846.1663580-1-peng.fan@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="iQ2g6fBF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=bnzNQlUPAqEqRUkX0JQghfZNPrTJnLP49/ixQIya5nU=;
+	t=1790032848; x=1791242448; b=iQ2g6fBFZZejiRkIRfri67RbIRunWSxTvF/alrhjwg9DYbI
+	k5PMbKiLGygjq1FAS4/SjX3qIjkeYEZhTlkRvzNE1K+xa7snouzg3+TL+SzN1PFm3dAq4uBQiqDeT
+	wsVZNS7FdwN0NfMArQKaDBhInHywVPlfIMfHqWALC/03fGYaabKlsVQ0mswpQHv2dwQ8c1K3Ssofz
+	JkMADtP1iPGcshIudp3ZNnetj9UYQg0J9nkqzFew1+DJ47OCxkVYpREwD4fdGZLgbhQnBKk1h1kCU
+	1vUgkJ8NWOQ3FXsPVjGrOdRTKv51nrkAd0Fkb/RmR9Y3t1r11EUolhhEKVbNrjgA==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1x8nJR-000000069H1-1BjS;
+	Tue, 22 Sep 2026 01:20:41 +0200
+Message-ID: <4a0240a7b9ff87302620a95c73f4f265cd428618.camel@sipsolutions.net>
+Subject: Re: [PATCH v6 3/4] net: dropreason: use new __print_sym() in tracing
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Ilya Maximets <i.maximets@ovn.org>, Matthieu Baerts <matttbe@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>,  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Aaron Conole <aconole@redhat.com>, Eelco Chaudron	 <echaudro@redhat.com>,
+ dev@openvswitch.org, linux-trace-kernel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, Adrian Moreno	
+ <amorenoz@redhat.com>, Antoine Tenart <atenart@kernel.org>
+Date: Tue, 22 Sep 2026 01:20:40 +0200
+In-Reply-To: <99e5f7c0d7debc8a59bac96e93f09600bf488ca8.camel@sipsolutions.net>
+References: <20260921101538.97286-6-johannes@sipsolutions.net>
+		 <20260921101538.97286-9-johannes@sipsolutions.net>
+		 <98b93c98-21ae-4248-a60a-9625a20508ad@kernel.org>
+		 <7f557f5a-b21e-45cc-9d3a-cd4f8b5f799b@ovn.org>
+		 (sfid-20260922_002359_374467_DCE67D5E) <99e5f7c0d7debc8a59bac96e93f09600bf488ca8.camel@sipsolutions.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260921123846.1663580-1-peng.fan@oss.nxp.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF0000006B:EE_|DS7PR12MB5839:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0fd8ce4-912d-41fe-3150-08df1836428a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|376014|7416014|23010399003|82310400026|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	d1ccbHEs52RCKq4UPbzTSRJfCJOOF8ODbjmMFHgpNOj1mzDr4DBiQ0EwoC7z+GJaHgBghsU5IeqyGRjyKpQZhPeI3ZN92Mx/3KyPrEJWi0eKOeaZOBvk283Yk0aTCOMoxz8kX/EPq0wWD7brH/eRxqbaZsw70l0m6Ou2PXhVvao665+m9bHwS2LRNtgOQMEYePlhXr6GzoSmbWtdlF7/I2tPhLPU2Gsb4Gm3NQ8PgDUFDtleA8+/UvqHCjt7k4xLHH1qQWtiN7gjVDz+2F+nuZKJfhzeI1MAvd9Gu4dIXHYlE20mI4i6F9zUeuCHsKkdcZSZs+c//DME6wbeaYgwFNjPhI8Ya8SljV6tcm/4jxbyBOkBHGPWRjzxWdbymFKIATNMYeR7LE5SRzIyCxe9GKXEOrcrelu7ZXBFqp+oZvNG34ixjik5qBpYwHNdGQV14SJ5b+gaAK0KNU8/vQ6nOC+KO9Cz1mP+ff+mCTLUv7MQEc+PjCWhqttF4AzIHfKmiXQHB9GRYwrqHTRHH9etZXLFWEZlPcBxv21QoqFHsFiftgKtSLMGixC+paMDec6XPUV9hhHocmCsPnIDF6yS9A0dgtCuulbp55b7TqTalW8ViQaCq94PEvfWrycpOPVSYoODOzh9Cu1XIr9qjzUh25S2TpKEn0xcYJkl26jJOn48tynmV/vHTIbY+lJae5kI6wf2u/CpZs+Lq6N+s/OQWQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(7416014)(23010399003)(82310400026)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	eRtq7lUYmJzepv7M6QU71XULvrqgcn4jY5YI5/9fhlIa3t0vPsI7I5RZ2kZb2nCDSJtZEtEtwfQ/9qvM78wiERDpqOyvCmjulJCq8stJdv18vh4Dbr45sY1metxacwTuDjnL85fJaWq25zTyTdme9vZk5PJq6ephPYYJe00i08zKjQknrMXYsNHdg4+IaFPqqxBvnU/3NAEPqiwTPnHjODD+BJdWbG1etJP/CsgF8PDyH3D3IbKetldPAzAswuNtbWBuIPg9ebYEcG/06FRQU9YoSkOq3V6IzItiVqk162DvLU7kp5xV+5qRkmvTHF06KGbl09RiNR/qBoRVuY50PNpdHoPBdhWyni2XSG+2iEpX38CueRLcJHBkVQ1cudLywxywaY81qElstB/W1gvGx6W+3Gy05EqoQeSdyWinsAYFqBhlv/uuDBT3fHeEIpj9
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 23:15:43.1773
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0fd8ce4-912d-41fe-3150-08df1836428a
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	LV8PEPF0000006B.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5839
+X-malware-bazaar: not-scanned
 
-On Mon, Sep 21, 2026 at 08:38:46PM +0800, Peng Fan (OSS) wrote:
-> @@ -976,6 +976,24 @@ struct arm_smmu_device {
->  struct arm_smmu_stream {
->  	u32				id;
->  	struct arm_smmu_master		*master;
-> +	/*
-> +	 * ref_count > 1 means multiple masters share this SID.  Protected by
-> +	 * smmu->streams_mutex.
-> +	 */
-> +	unsigned int			ref_count;
-> +	/*
-> +	 * When ref_count > 1 the STE has already been written by the first
-> +	 * master; subsequent masters must skip the write.
-> +	 */
-> +	bool				ste_installed;
-> +	/*
-> +	 * Links all arm_smmu_stream objects that share the same SID across
-> +	 * different masters.  The canonical (XArray-stored) entry is the list
-> +	 * head; non-owning sharers are linked into it.  Used to transfer
-> +	 * XArray ownership when the current owner is removed.
-> +	 * Protected by smmu->streams_mutex.
-> +	 */
-> +	struct list_head		shared_link;
->  };
+On Tue, 2026-09-22 at 00:36 +0200, Johannes Berg wrote:
+>=20
+> Indeed. Something like this (untested right now, didn't manage to spin
+> up a test yet):
+>=20
+> diff --git a/tools/testing/selftests/net/openvswitch/openvswitch.sh b/too=
+ls/testing/selftests/net/openvswitch/openvswitch.sh
+> index a31f7fb6882d..9b8edfcd2d1a 100755
+> --- a/tools/testing/selftests/net/openvswitch/openvswitch.sh
+> +++ b/tools/testing/selftests/net/openvswitch/openvswitch.sh
+> @@ -234,7 +234,7 @@ ovs_drop_reason_count()
+>  	local reason=3D$1
+> =20
+>  	local perf_output=3D`perf script -i ${ovs_dir}/perf.data -F trace:event=
+,trace`
+> -	local pattern=3D"skb:kfree_skb:.*reason: $reason"
+> +	local pattern=3D"skb:kfree_skb:.*reason: $reason$"
+> =20
+>  	return `echo "$perf_output" | grep "$pattern" | wc -l`
+>  }
+> @@ -790,15 +790,6 @@ test_psample() {
+>  # - drop packets and verify the right drop reason is reported
+>  test_drop_reason() {
+>  	which perf >/dev/null 2>&1 || return $ksft_skip
+> -	which pahole >/dev/null 2>&1 || return $ksft_skip
+> -
+> -	ovs_drop_subsys=3D$(pahole -C skb_drop_reason_subsys |
+> -			      awk '/OPENVSWITCH/ { print $3; }' |
+> -			      tr -d ,)
+> -	if [ -z "$ovs_drop_subsys" ]; then
+> -		info "failed to get OVS drop subsys ID"
+> -		return $ksft_skip
+> -	fi
+> =20
+>  	sbx_add "test_drop_reason" || return $?
+> =20
+> @@ -842,7 +833,7 @@ test_drop_reason() {
+>  		"in_port(2),eth(),eth_type(0x0800),ipv4(src=3D172.31.110.20,proto=3D1)=
+,icmp()" 'drop'
+> =20
+>  	ovs_drop_record_and_run "test_drop_reason" ip netns exec client ping -c=
+ 2 172.31.110.20
+> -	ovs_drop_reason_count 0x${ovs_drop_subsys}0001 # OVS_DROP_FLOW_ACTION
+> +	ovs_drop_reason_count OVS_DROP_LAST_ACTION
+>  	if [[ "$?" -ne "2" ]]; then
+>  		info "Did not detect expected drops: $?"
+>  		return 1
+> @@ -859,7 +850,7 @@ test_drop_reason() {
+> =20
+>  	ovs_drop_record_and_run \
+>              "test_drop_reason" ip netns exec client nc -i 1 -zuv 172.31.=
+110.20 6000
+> -	ovs_drop_reason_count 0x${ovs_drop_subsys}0004 # OVS_DROP_EXPLICIT_ACTI=
+ON_ERROR
+> +	ovs_drop_reason_count OVS_DROP_EXPLICIT_WITH_ERROR
+>  	if [[ "$?" -ne "1" ]]; then
+>  		info "Did not detect expected explicit error drops: $?"
+>  		return 1
+> @@ -867,7 +858,7 @@ test_drop_reason() {
+> =20
+>  	ovs_drop_record_and_run \
+>              "test_drop_reason" ip netns exec client nc -i 1 -zuv 172.31.=
+110.20 7000
+> -	ovs_drop_reason_count 0x${ovs_drop_subsys}0003 # OVS_DROP_EXPLICIT_ACTI=
+ON
+> +	ovs_drop_reason_count OVS_DROP_EXPLICIT
+>  	if [[ "$?" -ne "1" ]]; then
+>  		info "Did not detect expected explicit drops: $?"
+>  		return 1
+>=20
 
-SID-sharing masters still allocate their own streams. Though the
-SIDs are the same number, they own duplicated streams linked via
-that "shared_link" list.
+No longer untested, that works.
 
-  master_a->stream[0] --> stream (SID=X) --|
-                                      shared_link
-  master_b->stream[0] --> stream (SID=X) --|
+I might resend tomorrow, but we'll have to wait for Steven to comment on
+patches 1-3 anyway.
 
-But maybe they could share the stream structure directly? I.e.
-
-  master_a->stream[0] --|
-                        |--> shared stream (SID=X)
-  master_b->stream[0] --|
-
-
-The stream structure would still need a list for shared_masters:
-
-struct arm_smmu_stream {
-[...]
-	/* Every sharing master, ->master included. Empty unless shared */
-	struct list_head shared_masters;
-};
-
-ref_count could be simply !list_empty(&stream->shared_masters).
-
-
-Does i.MX need to support SID-sharing with multi-SD device? If not,
-the master could have only a simple shared_masters_elm:
-
-struct arm_smmu_master {
-[....]
-	/* Supports num_streams == 1 only. Empty if SID is not shared */
-	struct list_head shared_masters_elm;
-};
-
-> @@ -1024,6 +1042,11 @@ struct arm_smmu_master {
->  	bool				ste_ats_enabled : 1;
->  	bool				stall_enabled;
->  	bool				ats_always_on;
-> +	/*
-> +	 * True when at least one of this master's SIDs is shared with another
-> +	 * master.  SVA, stall and IOPF are disabled for such masters.
-> +	 */
-> +	bool				shared_sid;
-
-Then, this could be !list_empty(&master->shared_masters_elm).
-
-Nicolin
+johannes
