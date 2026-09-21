@@ -1,302 +1,97 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8242935AC1B;
-	Mon, 21 Sep 2026 06:50:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A69130566B;
+	Mon, 21 Sep 2026 06:50:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789973411; cv=none; b=JiQ2SCaHDrFQnp2sGvzFqJRet71MhON1UdHzH7OjZGjG6lm6qnu9rHPyYcwRC6CMV1hAjC1MaSIGMxxAk9xUVny1vBfwnwgBMiTRzs4sQfOaxhLxYDSQ1russ3InzcfMjaveC1eZbmMPrcG+g36PCjUzBfxhI2Q9nWTeigrEyT0=
+	t=1789973413; cv=none; b=elPD+S5z5w3l8Zh0wFlsPrS4bT2LLhx4E2q09rJAYHdwe3qpuAM9oxB+AfZhmXjknVOq/FiM1+M69AA6FLZwhFpr5nHkgjO6D70N6ViSi4x6QrXBvMCJfcwku0aeoHYgEtMJvwmjewuR0bosGLyNSWejSLCxfbOB1OsuY14xgeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789973411; c=relaxed/simple;
-	bh=1dbccMFgoxGDDUW5fhi3TDjQLC/5SBBhtXsHnbI2baM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fOGd47Q3xG+xtDJCUP9RDd7c/BgzR/mLjhzz1nfwHBvYryw5vnKgzSU2iq3vsec4A+/lYo4yNAXI1WGS9pddyheAGjbyKfawC2fsACZ04xYklWywcyYQwOoFUgw2rfb0HUf5fhGGPlmYc65Yole99cpG1qbPbGsRk2c1e8av96M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5dd5:4b00:9ebf:dff:fe00:fdb5])
-	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 4225D2006D0;
-	Mon, 21 Sep 2026 08:50:00 +0200 (CEST)
-From: Sascha Hauer <s.hauer@pengutronix.de>
-Date: Mon, 21 Sep 2026 08:49:59 +0200
-Subject: [PATCH v9 1/2] dt-bindings: clock: add TI CDCE6214 binding
+	s=arc-20240116; t=1789973413; c=relaxed/simple;
+	bh=q51AK/Lc/hX9X0Z1EINHLTJQrj7k3dDpc0fhP1dzZA4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D0KUsibKNpe/48/ESQYSrj1NdOvJVUFAi3EfiygtMr31D4H7UivsMAWd5t1h0HSPquTwuF7LV514ddk/S6a5wJN7F5F+rN6n7BbI7n1BYnhNPTbOCeAwq5BD7/V6NaP9E4qOXgiyFudLKFwzq75jiAxYmD7JQYoxdFRL3w1lMGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=QfUOxR48; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="QfUOxR48"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Transfer-Encoding
+	:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=F9tFljIe5F2jT9DGsbXjRKKiG/p5HJJkbKxnQ2MIpwA=; b=QfUOxR48yb8sHs6Y3HD7wmLeSJ
+	LTe58fT7wZFwujLVqEfKJBmwPwA4Hdwywg+PzDESPHGyje+mYKOrSB5eMzaKRRNKBAle4Du5nPCVH
+	x90p0DkGtP0rtueQ0kx+diHcj2vpQudkOQSWPBwZvL6IlEVUYVs38HD0ywLm6D/jREcy7rt6A32Oy
+	zjvdh5nz9WhFIDCaXji+KG75c7TF1r/TjiXWKSVZgazsRPOJ/pMBLyIIflszB6gi20nMm9SJA3iai
+	3UbsCw4X4sYFyuO5WBrQuT58Wc4G+W+G3gkpmeO62WiCHM17LJxq+6H/q/gHBB1jDKDotGPBXwKLd
+	nFqK1v6Q==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x8Xqo-000000017Fa-2T1U;
+	Mon, 21 Sep 2026 06:50:06 +0000
+Date: Sun, 20 Sep 2026 23:50:06 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Jeremy Bingham <jbingham@gmail.com>
+Cc: Christoph Hellwig <hch@infradead.org>, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, brauner@kernel.org,
+	jkoolstra@xs4all.nl, jack@suse.cz, djwong@kernel.org,
+	viro@zeniv.linux.org.uk
+Subject: Re: [PATCH v4 2/3] minix: add iomap functions and definitions
+Message-ID: <arDTnjK84EGsIeYE@infradead.org>
+References: <cover.1787770110.git.jbingham@gmail.com>
+ <e7ab836149f814b04017905dca2e07a4c94078db.1787770110.git.jbingham@gmail.com>
+ <aq1GsO6dkS747OEb@infradead.org>
+ <CAMyBmMA5bOaGK0TfPMGpmfR6oD0k9EdS4_R3RoJ7d5QTjm0bqg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-clk-cdce6214-v9-1-f2ea74fd38a2@pengutronix.de>
-References: <20260921-clk-cdce6214-v9-0-f2ea74fd38a2@pengutronix.de>
-In-Reply-To: <20260921-clk-cdce6214-v9-0-f2ea74fd38a2@pengutronix.de>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, kernel@pengutronix.de, 
- linux-gpio@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>, 
- Linus Walleij <linusw@kernel.org>, 
- =?utf-8?q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789973400; l=6948;
- i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=1dbccMFgoxGDDUW5fhi3TDjQLC/5SBBhtXsHnbI2baM=;
- b=6aqryKyU2nHk7xaTJglNuI9Kakuzu4ttoEmMsZj+/rtGfjGqI0LHsbh4bBZOuQa6g36QHUSQp
- Jm8RRJXApRqCLI85HZ+e0gKCUYmfE8o2wk4Kt3YRBIPrUCrQQV6Y5G9
-X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
- pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAMyBmMA5bOaGK0TfPMGpmfR6oD0k9EdS4_R3RoJ7d5QTjm0bqg@mail.gmail.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-Add device tree binding for the CDCE6214, an Ultra-Low Power Clock
-Generator With One PLL, Four Differential Outputs, Two Inputs, and
-Internal EEPROM.
+On Sat, Sep 19, 2026 at 10:51:32AM -0700, Jeremy Bingham wrote:
+> On Fri, Sep 18, 2026 at 7:12 AM Christoph Hellwig <hch@infradead.org> wrote:
+> >
+> > On Wed, Aug 26, 2026 at 02:41:56PM -0700, Jeremy Bingham wrote:
+> > > This patch also wires iomap.c into itree_v1.c and itree_v2.c, similarly
+> > > to how itree_common.c is included in those files, and exports version
+> > > specific versions of minix_iomap_begin and iomap_ops.
+> >
+> > Can we keep the iomap code out of this double build mess?  Just define
+> > some low-level helper in it, but keep everything else in an only
+> > once build iomap.c
+> 
+> OK. I went back and forth a bunch on how to best do this, because it's *such* a mess.
 
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
----
- .../devicetree/bindings/clock/ti,cdce6214.yaml     | 198 +++++++++++++++++++++
- include/dt-bindings/clock/ti,cdce6214.h            |  25 +++
- 2 files changed, 223 insertions(+)
+Agreed.
 
-diff --git a/Documentation/devicetree/bindings/clock/ti,cdce6214.yaml b/Documentation/devicetree/bindings/clock/ti,cdce6214.yaml
-new file mode 100644
-index 0000000000000..cf8eed38abec1
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/ti,cdce6214.yaml
-@@ -0,0 +1,198 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/ti,cdce6214.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI CDCE6214 programmable clock generator with PLL
-+
-+maintainers:
-+  - Sascha Hauer <s.hauer@pengutronix.de>
-+
-+description: >
-+  Ultra-Low Power Clock Generator With One PLL, Four Differential Outputs,
-+  Two Inputs, and Internal EEPROM
-+
-+  - CDCE6214: https://www.ti.com/product/CDCE6214
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,cdce6214
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    minItems: 1
-+    maxItems: 2
-+
-+  clock-names:
-+    oneOf:
-+      - items:
-+          - enum: [ priref, secref ]
-+      - items:
-+          - const: priref
-+          - const: secref
-+
-+  '#clock-cells':
-+    const: 1
-+
-+patternProperties:
-+  '-pins$':
-+    type: object
-+    additionalProperties: false
-+
-+    patternProperties:
-+      '^conf':
-+        type: object
-+        additionalProperties: false
-+        $ref: /schemas/pinctrl/pincfg-node.yaml#
-+
-+        properties:
-+          pins:
-+            items:
-+              enum: [priref, secref, out0, out1, out2, out3, out4 ]
-+
-+          ti,io-standard:
-+            description: |
-+              1: CMOS
-+              2: LVDS
-+              3: Low-Power HCSL
-+              4: XTAL mode
-+              5: differential
-+            enum: [1, 2, 3, 4, 5]
-+            $ref: /schemas/types.yaml#/definitions/uint32
-+
-+          ti,xo-cload-femtofarads:
-+            description: Load capacity for XO in Femtofarad
-+
-+          ti,xo-bias-microamp:
-+            description: Bias current setting of the XO
-+
-+          ti,cmosp-mode:
-+            description: |
-+              Driving mode for CMOSP output:
-+              1: Low Polarity
-+              2: High Polarity
-+              3: Disable
-+            $ref: /schemas/types.yaml#/definitions/uint32
-+            minimum: 1
-+            maximum: 3
-+
-+          ti,cmosn-mode:
-+            description: |
-+              Driving mode for CMOSN output:
-+              1: Low Polarity
-+              2: High Polarity
-+              3: Disable
-+            $ref: /schemas/types.yaml#/definitions/uint32
-+            minimum: 1
-+            maximum: 3
-+
-+        allOf:
-+          - if:
-+              properties:
-+                pins:
-+                  contains:
-+                    const: priref
-+            then:
-+              properties:
-+                ti,io-standard:
-+                  enum: [ 1, 5 ]
-+
-+          - if:
-+              properties:
-+                pins:
-+                  contains:
-+                    const: secref
-+            then:
-+              properties:
-+                ti,io-standard:
-+                  enum: [ 1, 4, 5 ]
-+
-+          - if:
-+              properties:
-+                pins:
-+                  contains:
-+                    const: out0
-+            then:
-+              properties:
-+                ti,io-standard:
-+                  enum: [ 1 ]
-+
-+          - if:
-+              properties:
-+                pins:
-+                  contains:
-+                    enum:
-+                      - out1
-+                      - out4
-+            then:
-+              properties:
-+                ti,io-standard:
-+                  enum: [ 1, 2, 3 ]
-+
-+          - if:
-+              properties:
-+                pins:
-+                  contains:
-+                    enum:
-+                      - out2
-+                      - out3
-+            then:
-+              properties:
-+                ti,io-standard:
-+                  enum: [ 2, 3 ]
-+
-+        required:
-+          - pins
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - '#clock-cells'
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/ti,cdce6214.h>
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        clock-generator@67 {
-+            compatible = "ti,cdce6214";
-+            reg = <0x67>;
-+            #clock-cells = <1>;
-+            clocks = <&clock_ref25m>;
-+            clock-names = "priref";
-+            pinctrl-0 = <&cdce6214_pins>;
-+            pinctrl-names = "default";
-+
-+            cdce6214_pins: cdce6214-pins {
-+                conf1 {
-+                    pins = "secref";
-+                    ti,io-standard = <CDCE6214_IOSTD_XTAL>;
-+                    ti,xo-bias-microamp = <100>;
-+                    ti,xo-cload-femtofarads = <8100>;
-+                };
-+
-+                conf2 {
-+                    pins = "out1";
-+                    ti,cmosn-mode = <CDCE6214_CMOS_MODE_LOW>;
-+                    ti,cmosp-mode = <CDCE6214_CMOS_MODE_HIGH>;
-+                    ti,io-standard = <CDCE6214_IOSTD_CMOS>;
-+                };
-+
-+                conf3 {
-+                    pins = "out4";
-+                    ti,cmosn-mode = <CDCE6214_CMOS_MODE_LOW>;
-+                    ti,cmosp-mode = <CDCE6214_CMOS_MODE_HIGH>;
-+                    ti,io-standard = <CDCE6214_IOSTD_CMOS>;
-+                };
-+            };
-+        };
-+    };
-diff --git a/include/dt-bindings/clock/ti,cdce6214.h b/include/dt-bindings/clock/ti,cdce6214.h
-new file mode 100644
-index 0000000000000..41ec4f8868bbb
---- /dev/null
-+++ b/include/dt-bindings/clock/ti,cdce6214.h
-@@ -0,0 +1,25 @@
-+/* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
-+#ifndef _DT_BINDINGS_CLK_TI_CDCE6214_H
-+#define _DT_BINDINGS_CLK_TI_CDCE6214_H
-+
-+/* Clock indices for the clocks provided by the CDCE6214 */
-+#define CDCE6214_CLK_OUT0	2
-+#define CDCE6214_CLK_OUT1	3
-+#define CDCE6214_CLK_OUT2	4
-+#define CDCE6214_CLK_OUT3	5
-+#define CDCE6214_CLK_OUT4	6
-+#define CDCE6214_CLK_PLL	7
-+#define CDCE6214_CLK_PSA	8
-+#define CDCE6214_CLK_PSB	9
-+
-+#define CDCE6214_IOSTD_CMOS	1
-+#define CDCE6214_IOSTD_LVDS	2
-+#define CDCE6214_IOSTD_LP_HCSL	3
-+#define CDCE6214_IOSTD_XTAL	4
-+#define CDCE6214_IOSTD_DIFF	5
-+
-+#define CDCE6214_CMOS_MODE_LOW		1
-+#define CDCE6214_CMOS_MODE_HIGH		2
-+#define CDCE6214_CMOS_MODE_DISABLED	3
-+
-+#endif /* _DT_BINDINGS_CLK_TI_CDCE6214_H */
+> I had a lot of reservations about the way I had done it, but
+> it's so all around
+> messy I ended up there. When I refactor it I'll either move that function to
+> itree_common.c or craft a way to get that depth information out.
 
--- 
-2.47.3
+It might be worthwhile to kill this mess off first.  AFAICS it was
+written at a time when branch predictors where much worse than
+today.  So having a branch for te two cases much lower down in the code
+should be just fine with modern CPUs. 
+
+> 
+> > > Also updates 'unsigned' to 'unsigned int' a few places that got picked
+> > > up by checkpatch.pl.
+> >
+> > If you want to do these cleanups please split them into a separate
+> > patch.
+> 
+> Noted. I did submit a patch like that back in I think late June or
+> early July, but got
+> told (politely) to knock it off. I had kept these cleanups because of
+> checkpatch.pl
+> griping, but as you said below there's no technical downside to leaving it.
+
+checkpatch.pl is a little weird sometimes unfortunately.
 
