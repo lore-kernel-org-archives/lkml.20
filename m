@@ -1,121 +1,140 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-oo1-f78.google.com (mail-oo1-f78.google.com [209.85.161.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D9A82BE02C
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:18:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C7326A1AC
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:19:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789957137; cv=none; b=IQgDcxfUxRNdb9Z8Fm0//VX/j2L6yuIPzs4XNhVxLmFZqqbRPn0IhClWZgQqrHAHVcZonDxTqvAsRzHFDm2k+9knu/LmWUiy+pT8m5BbHlVHIgpHsEn5oS1u2LfYMwfNVlRRtdLNZ2UYqJQQn7jzrieFQf6t8ZiXFKp1DwZoW54=
+	t=1789957182; cv=none; b=YohO/X7CdxxaSHGlfOZfIPfo6Xbp3FLfitZMqonGBY8d4Z7mf6XpRbkZECcz9W8h6yB2AHDe3a0SlduO5dI5QvsdMpnUXtxs12rBpvxataUzxrtt7iam/64tqrYoMVMFcIaWAKzuOEqyc+d1HIcv5BYItV5sZERhFPXb/fccrtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789957137; c=relaxed/simple;
-	bh=ku65rsPht3NcHWbtasZ1Z5T+6hj8oFsmXcolUVc3gcs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JQ6k2MvvoXhfeUtdP/6MjSFh64iNMeugzK37iQ1fn0rIqhIxUyCwXEzt/cdhU5KZpVXJUKSbPgmUapTUf5bGwSB75qDVl/hS1MZLvjwTr5MUNrldFr5qwBeqeN1dJ1dLcTE9nh6n69cjt0KpnuEyjLjVwv4V8f8XP2o6H73z+70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mQepAVDo; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mQepAVDo"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-9107051ba26so17381756d6.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:18:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789957134; x=1790561934; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Vzx8L98Gb7Fp0ZMYaE1k4F3qR4UqlmOOTj29Xnzad1I=;
-        b=mQepAVDoRfnFMlJYovoN1xu2A0IT4DvscwEMSkz+QbaPI8jCUN88v7ZwGhUc3VovrF
-         tlBZJDauW9rXfH324YHdJGtymt6DfORU21cDg1h5ZY9wKbDVMXieEppCpeibaoUzQkCP
-         QTYhJDBc+0C+MNpRcbAR7R5GE+lV/YajVRMQIPzuZHYTKg0gZt9qiNu4y5XyBpUmGh0r
-         BwgYulN7FP4A4gcZCZRx1jk1DjPnqOYZF1RVP8pFJTWHvncI09gx8PrLv6HFrSMe35FA
-         qsxxEg4Rtv6G+zBcoPM6xrJ93jjQWNn+YuPxTss6sCcvc6KjfDSWDwqy8KsBxJZNbf+U
-         JFnw==
+	s=arc-20240116; t=1789957182; c=relaxed/simple;
+	bh=BAsIUQ1nVkUgpzwJBCmVe0ojZCDOZnN7HyCcAiuT6So=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=BW6zjYi9lQKuJWvkNX1CsM24Mh+T9pyyE4ihVMH3Xs57kmSViNRmXaO0FIY9uu1oJibl4Kygo2iPWCbZ2NqzE1HeuqzcHMPlkSG7Q6FI/zD2JF3k5J9YAz6kb/RHLO2Ki6RFst1GpKTdh5Or2DhLIsIUfxf1vmJLs/+6xGkFn7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f78.google.com with SMTP id 006d021491bc7-6c2c5c1f843so3169433eaf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:19:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789957134; x=1790561934;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Vzx8L98Gb7Fp0ZMYaE1k4F3qR4UqlmOOTj29Xnzad1I=;
-        b=B8kuxEmWTaUHRmAvQuIvQurWdZCIazidloAmJottavES7OJEsXiPQM+wWsY52BBRY6
-         Zv+y1sq6AW9sS3bOXg/yNBnz8s1zuOgW7DQNhOUWZD4Gzi8PdORgaIWhW9ioXTawKHC4
-         RWUw/H1p+H8QZqVPR2iPoUWxjk/wNKMsMZgh+u7kKYU0hknoQfg67VK/D4tp3v+ZLfql
-         SkdeuzQ4A7obADgWV6C0P/yxYioUxr3FrDDgV/R7xeuujLTJEN59LSpPGtr2lUooH5SR
-         dRmSMRwCZp+aVuBQJdCYGl5+VB173d8gFPr5ow8HNWA+FIj5c22/WHAatsal2iHV+lPu
-         AlSQ==
-X-Forwarded-Encrypted: i=1; AKwUvByiHJepnbvjRW4aqfFL09puqbAyd9pd970jePXUpnfHqe89NlutOi+nqkltqIzkwjWWOjhDdoLStOpvORE=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldaNQmR2fEFGx0oKF0NwoQu3bdx7+gU3oX1N/jDs7jukINe1MQ
-	M02kZPhUWhurhiPoaseWPZKAVQ9Ph682DFrQwvw4bE9SclMkAIWOGio=
-X-Gm-Gg: AYBFou0iVPE8nNrl424OjPnMuwyNO4oWsRnpLnQAehkkXxzAi78Qks/JW86fybT/kIz
-	O6MdHb6MknYqR0H8QywxEsLQPVLktfrryS0wFaBPUT1ohETHeNEpvsPuCdBuD5GxdIubO0Hd+7o
-	WmH0krfN53TuG2OtRTP7eidZgtqwQD6om+Ys6XLQlxeptaAUZftiXhOO65GNOb7TaFk6ARkbB1s
-	BhYssvGg7QYR6h67MY8T2s4F3tMM/Rbo5W5Kwf8KzvMRMFtp+ubfM6W4WxHnLiuHIPhSb9fhi5w
-	pp5lccNv2hGjgaDv+9/foQOwoSZoO/0zSg7oxv2teXsT2pZEngPTe3/t8Ked373nSkhgQCHI2nA
-	ZrZbNyjIM8paHlEsiCb+ubi/uyKdO5mUr+xLkb6hT/1qK+Fp+Ng2d0MkDtuYU59dLUgky52T+Lr
-	PTNJjx6dUEz5SEAgNfet9mg09UfrJeV730Zru/0/LX79tBxeOox3/GucbEkV0hKEUI7DqQbydAJ
-	+4ZG7IkzbvVGh8GfXXzdyIv9LpNLVXEhUDtMCoSaVb0X6iI3E7aYZr7VjseflT5pg/xjasnkIde
-	leMbFDcONxP/AG9/EX5bLJP0eV2fEGONEuqmD0I=
-X-Received: by 2002:a05:6214:5882:b0:912:517b:7be4 with SMTP id 6a1803df08f44-912a803845amr92378216d6.47.1789957134416;
-        Sun, 20 Sep 2026 19:18:54 -0700 (PDT)
-Received: from localhost.localdomain (ool-18ba9fde.dyn.optonline.net. [24.186.159.222])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91260aa15cdsm56221876d6.41.2026.09.20.19.18.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 19:18:53 -0700 (PDT)
-From: Justin Vargas <justinyvar@gmail.com>
-To: ilpo.jarvinen@linux.intel.com,
-	hansg@kernel.org,
-	jlee@suse.com,
-	corentin.chary@gmail.com,
-	luke@ljones.dev,
-	denis.benato@linux.dev
-Cc: W_Armin@gmx.de,
-	krishna.chomal108@gmail.com,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Justin Vargas <justinyvar@gmail.com>
-Subject: [PATCH v2 2/3] platform/x86: asus-wmi: Remove unused platform_profile_support member
-Date: Sun, 20 Sep 2026 22:17:19 -0400
-Message-ID: <20260921021720.5976-3-justinyvar@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260921021720.5976-1-justinyvar@gmail.com>
-References: <20260921021720.5976-1-justinyvar@gmail.com>
+        d=1e100.net; s=20260707; t=1789957180; x=1790561980;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rPYuXaERi/jrwZ0INi/v5/jDFp/Y0zqC2P4+v3xDKMA=;
+        b=cXcSOWgjBRzyh2qCWk/nwpT9Sui1U9QbnMJ0WUQL/jKjmTjkl3JIfBYP1ZQjCGhfVA
+         npx3mYvG7jNsJAvqF58viv1bn+fB+Qt/BnxaJaXAVOs31zz+f9FvkjAd6Yg+Lc1ssRSN
+         w4Kfx+2eMMkjMHX8ReG98+kkMUDHqXMysOMefXZg3EgVnb776vOkelrmV6lSnZdH2/t6
+         +qs04pJkWr4JneuHgBHfErX1KyIgsfbrKgFlboMBu5N0jgrpDz5HoWH/4Ttafeh8oVc2
+         AUntXsFJIfHH+SuoCm0LpLPTs1TZ5iq4h4eC7CGTUxMgT80rzM5yYwXjQ/XLysc4YMAj
+         4WOQ==
+X-Gm-Message-State: AFuF++kgQP7q7zzArpD9mg0PDqbgnuJoFjCTu30+TjqNEgdYi5jhC+ou
+	ZPMSbjJdHIsnU4oqBRxHU4xCQfZIhLoFRD2kqWpNF/uc6Y2alyGy2t+wxkDnrsdnmhHl9F3ny6z
+	6eNo5jummY5cggyTf7/HiIvNep2kEWoqjNizmbJ4VIGJ+LgPs2ymizWBu8bVp7g==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:4cc9:b0:6ba:34ea:ab69 with SMTP id
+ 006d021491bc7-6c8ffa2ca25mr10838622eaf.40.1789957180033; Sun, 20 Sep 2026
+ 19:19:40 -0700 (PDT)
+Date: Sun, 20 Sep 2026 19:19:40 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab0943c.514bccd6.255447.000a.GAE@google.com>
+Subject: [syzbot] [target?] WARNING in rd_configure_device
+From: syzbot <syzbot+fa495e1497c48a6ed885@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org, mkp@kernel.org, 
+	syzkaller-bugs@googlegroups.com, target-devel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The platform_profile_support member of struct asus_wmi is assigned
-during platform profile setup but is never read anywhere in the driver.
-Remove it.
+Hello,
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Justin Vargas <justinyvar@gmail.com>
+syzbot found the following issue on:
+
+HEAD commit:    9d80aa4617b3 Add linux-next specific files for 20260903
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=13c1dbf9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b370c26fb58c72f0
+dashboard link: https://syzkaller.appspot.com/bug?extid=fa495e1497c48a6ed885
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/84a12994f553/disk-9d80aa46.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/2329deeb3b2b/vmlinux-9d80aa46.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/689910d8c695/bzImage-9d80aa46.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+fa495e1497c48a6ed885@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+1
+WARNING: mm/slub.c:5347 at ___kmalloc_large_node+0x10c/0x170 mm/slub.c:5347, CPU#1: syz.3.40/5899
+Modules linked in:
+CPU: 1 UID: 0 PID: 5899 Comm: syz.3.40 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:___kmalloc_large_node+0x10c/0x170 mm/slub.c:5347
+Code: 41 c7 46 30 00 00 00 f8 eb 03 45 31 ff 4c 89 ff 48 89 de 89 ea 5b 41 5c 41 5e 41 5f 5d e9 8c a0 0b 00 c6 05 8e e4 58 0e 01 90 <0f> 0b 90 31 c0 5b 41 5c 41 5e 41 5f 5d c3 cc cc cc cc cc 89 ef 89
+RSP: 0018:ffffc90004b7fa88 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: 0000000008000000 RCX: ffff8880237eddc0
+RDX: 00000000ffffffff RSI: 0000000000000dc0 RDI: 0000000008000000
+RBP: 0000000000000dc0 R08: ffffc90004b7fb47 R09: 1ffff9200096ff68
+R10: dffffc0000000000 R11: ffffffff869fe6a0 R12: dffffc0000000000
+R13: ffffffff869fe7a9 R14: 0000000008000000 R15: 1ffff1100eff52c3
+FS:  00007f0d2de8e6c0(0000) GS:ffff88812495b000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000000110c470003 CR3: 0000000036170000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __kmalloc_large_node_noprof+0x18/0x90 mm/slub.c:5390
+ __do_kmalloc_node mm/slub.c:5407 [inline]
+ __kmalloc_noprof+0x3f6/0x710 mm/slub.c:5444
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ rd_build_device_space drivers/target/target_core_rd.c:194 [inline]
+ rd_configure_device+0x109/0x730 drivers/target/target_core_rd.c:294
+ target_configure_device+0x13c/0xa70 drivers/target/target_core_device.c:988
+ target_dev_enable_store+0x3e/0x80 drivers/target/target_core_configfs.c:2484
+ flush_write_buffer fs/configfs/file.c:207 [inline]
+ configfs_write_iter+0x337/0x430 fs/configfs/file.c:229
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x612/0xba0 fs/read_write.c:687
+ ksys_write+0x150/0x270 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f0d2cf9e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f0d2de8e028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007f0d2d225fa0 RCX: 00007f0d2cf9e159
+RDX: 0000000000000002 RSI: 0000200000000280 RDI: 0000000000000004
+RBP: 00007f0d2d03506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f0d2d226038 R14: 00007f0d2d225fa0 R15: 00007ffe861d7d28
+ </TASK>
+
+
 ---
- drivers/platform/x86/asus-wmi.c | 2 --
- 1 file changed, 2 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index 711f59c1aa6..3e630312139 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -320,7 +320,6 @@ struct asus_wmi {
- 	struct fan_curve_data custom_fan_curves[3];
- 
- 	struct device *ppdev;
--	bool platform_profile_support;
- 
- 	// The RSOC controls the maximum charging percentage.
- 	bool battery_rsoc_available;
-@@ -4332,7 +4331,6 @@ static int platform_profile_setup(struct asus_wmi *asus)
- 		return PTR_ERR(asus->ppdev);
- 	}
- 
--	asus->platform_profile_support = true;
- 	return 0;
- }
- 
--- 
-2.47.3
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
