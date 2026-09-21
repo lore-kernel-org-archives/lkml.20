@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-7.mta1.migadu.com [95.215.58.7])
+Received: from mta1.migadu.com (out-34.mta1.migadu.com [95.215.58.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 950813F5BC5
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:30:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5EE3F927A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:30:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789975817; cv=none; b=DuT8zEIoACTR8Ipl/hruY3U1L1aRnQN1lTeqJxzvGIk8BXfOWvAgYBVq3Py8SW9w7bWoXxFz09WkBwdwhVskVhcRvDkCQH5agiGLVjisCxachGV4EvuQm575c1x36QqkwaQhPESDspCfI8LsDCn6T+aVEwDLVzj8rm3aaPwVrk0=
+	t=1789975825; cv=none; b=CHCuim2rsv0gkbclsf2xdqoaXkZoidcxAbHpuEcg+/JmFvJLnW7es10WPraJSDcjLtE9V/f+BD20JFVTCH6bYpmPMuLL0lpsghw0F+jDeX3K0+KqvhV2Iuz0mcBR/8pHrnWDUU5MBV9lKsMndF6s2KK8TAhtaaPwUZMvZdhlWjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789975817; c=relaxed/simple;
-	bh=nEDmvpsFQHvopfMtsbrOfCA7ee7FniKC/B0/dYc8A2o=;
+	s=arc-20240116; t=1789975825; c=relaxed/simple;
+	bh=y65DU0zqn/mUcvtSk0T3Mz/Mz/7Zq8kcpJPr4FrcEdE=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=tA+vpux3dKBJbxJZTpV1KfjjT3QaVoKdqkZcttwyhyEIn9q1TKhhMqzFWsXaFutK3prMCaH/LnqEZRAnPB87Qdz+hWx+8zKvIwMulGnJ5UMQ8Wn7X38/L8JRgBFPdEMCBMF4PTcQIdmU582NCMZM8ip7WYtkbXW8hBzbk1xzfzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ubvVi5R+; arc=none smtp.client-ip=95.215.58.7
+	 MIME-Version; b=PnPQaJJWzd/DjldLt9q8ewfmmCBX3ntsjH4KEpCbPn8y7Y2+7IsBD2VjGOHlMPZ/2DwZrxA1Q33CRmuoVhpBehGWv13lz5zMPrfMUb2qPVaJlksbuBLSUTe9CGPfwfw4gEBWPfC9fJl54nd3qvaTCLoa+9PMLyfqZi3QOXjo6Xc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bgRIeKeS; arc=none smtp.client-ip=95.215.58.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ubvVi5R+"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bgRIeKeS"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nEDmvpsFQHvopfMtsbrOfCA7ee7FniKC/B0/dYc8A2o=;
+DKIM-Signature: a=rsa-sha256; bh=y65DU0zqn/mUcvtSk0T3Mz/Mz/7Zq8kcpJPr4FrcEdE=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789975807; v=1; x=1790580607;
- b=ubvVi5R+NB+iYRZtTal3qSDzr/K3LN+cXUHRIfl/UvOZuixg9ZUBQXwcipNDH+zNDwwuztPh
- +dxrYvze5acyUbgeTMIY1+M8JF5NOQZt0K5zuZ7rMZrn5884QabwEqpHyV1ko7xujdbPBXgM1f+
- Qs2EEHn+mjgmFS9ArsLQBbzE=
+ t=1789975819; v=1; x=1790580619;
+ b=bgRIeKeS4n1ul2c9W0BP3vcQyVxJKHMzCN+OBdnOQI1gmBFQTCueEqh9RNISFP9pFzCnPNeD
+ S3zigjAXYZZrZQdR0Vrohlx/NT1KnndvO7iiN/8KDP/ddLGfivPjtxWLt3bViTJoKEi1mNbXmdi
+ J3PFU6GR6TkiT2hhl/ECJRQQ=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a323088f969dfdb3;
-	Mon, 21 Sep 2026 07:30:04 +0000
-X-Mizu-Trace-ID: a323088f969dfdb3
+Received: by smtp.migadu.com with ESMTPS id be837298a217f5ce;
+	Mon, 21 Sep 2026 07:30:11 +0000
+X-Mizu-Trace-ID: be837298a217f5ce
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -46,9 +46,9 @@ Cc: Thomas Gleixner <tglx@kernel.org>,
 	kvmarm@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/4] irqchip/gic-v4: Clear the domain and fwnode pointers after freeing them
-Date: Mon, 21 Sep 2026 08:29:55 +0100
-Message-Id: <20260921072958.2918477-2-fuad.tabba@linux.dev>
+Subject: [PATCH v3 3/4] KVM: arm64: vgic: Tear down what vgic_init() created when it fails
+Date: Mon, 21 Sep 2026 08:29:57 +0100
+Message-Id: <20260921072958.2918477-4-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260921072958.2918477-1-fuad.tabba@linux.dev>
 References: <20260921072958.2918477-1-fuad.tabba@linux.dev>
@@ -60,80 +60,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The GICv4 allocation and teardown paths free their irq domains and
-fwnodes but leave the pointers set, and the allocation error paths test
-those pointers before removing them. struct its_vm and struct its_vpe
-are embedded in KVM's per-VM and per-vCPU state, so nothing re-zeroes
-them between two attempts, and an error path taken after an earlier one
-already freed the domain calls irq_domain_remove() on freed memory.
+Once kvm_vgic_dist_init() has succeeded, every later failure in
+vgic_init() returns with the SPI array still allocated. A failure after
+vgic_v4_init() has also succeeded, which means only
+kvm_vgic_setup_default_irq_routing(), leaves the vPE array behind as
+well.
 
-Reaching this takes two allocation failures, one to leave the stale
-pointer behind and one to send the next attempt down the error path.
+A failed vgic_init() leaves kvm_arch_vcpu_precreate() admitting new
+vCPUs, so a retry of KVM_DEV_ARM_VGIC_CTRL_INIT reaches
+vgic_v4_init()'s early return with an array that no longer covers every
+vCPU, and vgic_v3_load()'s WARN_ON(vgic_v4_load()) fires on the first
+one it misses.
 
-Fixes: 7de5c0af9c7c ("irqchip/gic-v4: Add per-VM VPE domain creation")
-Fixes: 6d31b6ff985d ("irqchip/gic-v4.1: Add VSGI allocation/teardown")
-Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
+Release each on the paths that can reach it, so the ioctl is all or
+nothing and a retry starts from scratch. vgic_v4_init() unwinds its own
+state on every error return, so its failure leaves only the SPI array
+to free. dist->nr_spis stays frozen, since the SPI count cannot change
+once vgic_init() has supplied it.
+
+Fixes: 180ae7b11823 ("KVM: arm/arm64: Enable irqchip routing")
+Fixes: 74fe55dc9ab7 ("KVM: arm/arm64: GICv4: Add init/teardown of the per-VM vPE irq domain")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260807105558.73D701F000E9@smtp.kernel.org/
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- drivers/irqchip/irq-gic-v4.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ arch/arm64/kvm/vgic/vgic-init.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/irqchip/irq-gic-v4.c b/drivers/irqchip/irq-gic-v4.c
-index 8455b4a5fbb0d..754839e409f88 100644
---- a/drivers/irqchip/irq-gic-v4.c
-+++ b/drivers/irqchip/irq-gic-v4.c
-@@ -147,10 +147,14 @@ static int its_alloc_vcpu_sgis(struct its_vpe *vpe, int idx)
+diff --git a/arch/arm64/kvm/vgic/vgic-init.c b/arch/arm64/kvm/vgic/vgic-init.c
+index 1537f4d20318e..67d1e8ce2aa2f 100644
+--- a/arch/arm64/kvm/vgic/vgic-init.c
++++ b/arch/arm64/kvm/vgic/vgic-init.c
+@@ -513,7 +513,7 @@ int vgic_init(struct kvm *kvm)
+ 		if (vgic_supports_direct_irqs(kvm)) {
+ 			ret = vgic_v4_init(kvm);
+ 			if (ret)
+-				return ret;
++				goto out_free_spis;
+ 		}
+ 	} else {
+ 		if (!dist->nr_spis)
+@@ -528,17 +528,24 @@ int vgic_init(struct kvm *kvm)
+ 		kvm_vgic_vcpu_reset(vcpu);
+ 
+ 	ret = kvm_vgic_setup_default_irq_routing(kvm);
+-	if (ret) {
+-		if (vgic_is_v5(kvm))
+-			vgic_v5_teardown(kvm);
+-
+-		return ret;
+-	}
++	if (ret)
++		goto out_teardown;
+ 
+ 	vgic_debug_init(kvm);
+ 	dist->initialized = true;
+ 
  	return 0;
- 
- err:
--	if (vpe->sgi_domain)
-+	if (vpe->sgi_domain) {
- 		irq_domain_remove(vpe->sgi_domain);
--	if (vpe->fwnode)
-+		vpe->sgi_domain = NULL;
-+	}
-+	if (vpe->fwnode) {
- 		irq_domain_free_fwnode(vpe->fwnode);
-+		vpe->fwnode = NULL;
-+	}
- 	kfree(name);
- 	return -ENOMEM;
- }
-@@ -191,10 +195,14 @@ int its_alloc_vcpu_irqs(struct its_vm *vm)
- 	return 0;
- 
- err:
--	if (vm->domain)
-+	if (vm->domain) {
- 		irq_domain_remove(vm->domain);
--	if (vm->fwnode)
-+		vm->domain = NULL;
-+	}
-+	if (vm->fwnode) {
- 		irq_domain_free_fwnode(vm->fwnode);
-+		vm->fwnode = NULL;
-+	}
- 
- 	return -ENOMEM;
- }
-@@ -215,6 +223,8 @@ static void its_free_sgi_irqs(struct its_vm *vm)
- 		irq_domain_free_irqs(irq, 16);
- 		irq_domain_remove(vm->vpes[i]->sgi_domain);
- 		irq_domain_free_fwnode(vm->vpes[i]->fwnode);
-+		vm->vpes[i]->sgi_domain = NULL;
-+		vm->vpes[i]->fwnode = NULL;
- 	}
++
++out_teardown:
++	if (vgic_is_v5(kvm))
++		vgic_v5_teardown(kvm);
++	else
++		vgic_v4_teardown(kvm);
++out_free_spis:
++	kfree(dist->spis);
++	dist->spis = NULL;
++
++	return ret;
  }
  
-@@ -224,6 +234,8 @@ void its_free_vcpu_irqs(struct its_vm *vm)
- 	irq_domain_free_irqs(vm->vpes[0]->irq, vm->nr_vpes);
- 	irq_domain_remove(vm->domain);
- 	irq_domain_free_fwnode(vm->fwnode);
-+	vm->domain = NULL;
-+	vm->fwnode = NULL;
- }
- 
- static int its_send_vpe_cmd(struct its_vpe *vpe, struct its_cmd_info *info)
+ static void kvm_vgic_dist_destroy(struct kvm *kvm)
 -- 
 2.39.5
 
