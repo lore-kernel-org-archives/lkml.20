@@ -1,81 +1,131 @@
-Received: from smtp153-141.sina.com.cn (smtp153-141.sina.com.cn [61.135.153.141])
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42EF32ECD1D
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:43:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B1C21F938;
+	Mon, 21 Sep 2026 01:46:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789955010; cv=none; b=MIr53Kb4BH3M+i82ICrg02vEG24qeknoS6+lYxt8uh1DQzBI6qi7BWEN8TRpY85dJ1vbXU/t0PFveCAMTK1PyjF1Ygpqxs4NQav7s/Jsn0tBZftsYmauvH+fq15UgLSidTIKHqHgJRHxu+E5K2RVE+y8ysxEXwxXJ6zC9o9jGiE=
+	t=1789955215; cv=none; b=Eu7f6v7lCYsl0P7DvdhuQEBfKcoZAaZTg1mnanPLUYbi9L8YbUvg7wI1lRwlZBg08STN5Q/dMyyXgytWDlzuteSOdnOZz2gouwZrnBe2v4SicN1dmBYErQHZ9ryW8jtAPVxQALblAVy15lMP1wgS3eWIY1JhXvGkNGXNeb7f0bc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789955010; c=relaxed/simple;
-	bh=qhiIOzYtmp0hEvN8BoHvxGac4o9/FV+baZpvWJ/G2mM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gEQU6TUYUvniuJOdWEM0MIQBs5Yikmyv0yPGwYZHAyZJWjDskeDAFTNKedFPMAuVjimsbzoCVs9eJZSgkbZWI23z4T4vwDTSBt/KaZRZa4hFBziIOYaLWE0KQ3KgEHmLfUxmJ2QNozC317XRI38kIrsNNSM0hqEayW242ctEXMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=g9ulZSQJ; arc=none smtp.client-ip=61.135.153.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="g9ulZSQJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1789955003;
-	bh=rU8vDUUQ7doPy3YsLbyw7gkk+iHfUwEdGMQu7Mfk3k4=;
-	h=From:Subject:Date:Message-ID;
-	b=g9ulZSQJqh5H7Hc0ax4KyQs2z/ursFhh6da+n36MBe90CYzEgQ/XwnDZy0z7P14qL
-	 jshtiwfEPWAZhsat8DqnzlsHOYwVEV/WuFgTUpcjX9WMKppw4l5OneMFFvVK51+a1U
-	 QX9+8QK2FlmYUzA2WYchbygA4set6wZUAq7zLWhM=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.249.62.194])
-	by sina.com (10.54.253.31) with ESMTP
-	id 6AB08BAE00006CA8; Mon, 21 Sep 2026 09:43:13 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 334586815960
-X-SMAIL-UIID: D2FB78204DD5429D972AB8B184240CDA-20260921-094313-1
-From: Hillf Danton <hdanton@sina.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: linux-kernel@vger.kernel.org,
-	rcu@vger.kernel.org,
-	kvm@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	linux-kselftest@vger.kernel.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Subject: Re: [PATCH 01/17] KVM: pfncache: Use atomic SRCU for readers instead of a rwlock
-Date: Mon, 21 Sep 2026 09:42:56 +0800
-Message-ID: <20260921014301.248-1-hdanton@sina.com>
-In-Reply-To: <20260920211920.928306-2-dwmw2@infradead.org>
-References: 
+	s=arc-20240116; t=1789955215; c=relaxed/simple;
+	bh=Q9beA94/928uU3xWnpz7idvGdeGny2607rbitfMEU40=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dKIZkjF85fKLXmbF7/5zPs4Tmjk6ujfKQDcxL2VCrueEx+p25o0yADyHx08kepvFnLgZdWmWndfhOROst3jIi6DB3hpP46KLYmZ4ynEXyiCrrIPqHAX+AL3Swb0hl4L+FMbijlEje4JE6QkCEoVIHYUaR8XKbPGplFP8YVWdKXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn; spf=pass smtp.mailfrom=kylinsec.com.cn; arc=none smtp.client-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinsec.com.cn
+X-QQ-mid: esmtpgz11t1789955160td87a9fbb
+X-QQ-Originating-IP: 2C5HUUwQm6uH1u8zjMviVM4I/RkA0fRP2jb6bdi/X0M=
+Received: from localhost.localdomain ( [111.8.45.130])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 21 Sep 2026 09:45:58 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 14727765409296284287
+EX-QQ-RecipientCnt: 11
+From: Hongjian Dai <daihongjian@kylinsec.com.cn>
+To: casey@schaufler-ca.com,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com
+Cc: linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	qinyungao@kylinsec.com.cn,
+	luoqiu@kylinsec.com.cn,
+	liudalin@kylinsec.com.cn,
+	dengyingchao@kylinsec.com.cn,
+	Hongjian Dai <daihongjian@kylinsec.com.cn>
+Subject: [PATCH] smackfs: reject out-of-range IPv4 octets in netlabel writes
+Date: Mon, 21 Sep 2026 09:45:55 +0800
+Message-ID: <FFA41AC93858A96A+20260921014555.20351-1-daihongjian@kylinsec.com.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:kylinsec.com.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: MhIaRTw6VKSjaLw95y9TN+VzVftrOf9Lwpq9sIfYmqlHNGbKeCNFgZdL
+	fJHFmFUn3J1OaINVUnMUxxJ3eIPysK+FK+Mf19osOraTH+gEKZzhrDQgEY4W6d072LR1gLO
+	dH345ujoD6RoHQvWkjFdfBkw27NGsHIM9j6kwF8m58MiaN48BKSXXjSmZw1voPr4IyIe32n
+	i1SHQ8pUXFklEy+yPkzBTt9jQV3A9X96XjtRpCr0BNE2vfg8XtAxyf1ro+9JYTBTAxa7W7V
+	nNxafstDjquxzHfzp6VxsioUuHjXlJJPnif/4iHSnFIGpjcOp5P4wFbRH8XqorapTc8qPhf
+	DEVSRVswgu1cBzIVBm2Rb7fvvx266cvG1iQZEKcHWbsqUQfeZflkEcSgswQ1m6c82cMJPFM
+	wvfBFDWYAza1fU+JZJ7Cw+EkOvbyagPIRAILi1QE8Tvh3CLmSBaBj+WVlU+lZIF+N0WVjZh
+	9pRBvxkl7js3Q3gCgmBZoz/Mq8A7VV0cI+KT8bQKsgYac6su4ar+r/HmY6l+TkFiyTxJOs+
+	Du3caNNvWaV4MqT1+go1OY41FkQlk0WnlchKTF2ldJJ7A333LQXMWtQE64IKg/cK3X6uE8n
+	9Af2pi8NV0tErMqs03oH63+bFY7C4/MsLIEaNkx3cVk9y0owgNAZQcsnsgjpLENZhrQl5Fk
+	djv59LeSxSsqNk7FedgzcCG/pAIRPeqnFPJwGqhUjSr6ozWsMeU9jxqQHE5Cy6psCQnqLAl
+	iiARo1ntYoFVR9mkZIVMO+nOuWlYpzNXf61DSkoDG1A0Nvv9ILm171YguHfJgSYoDb5SUkv
+	tdckGWpWqnjqros+t3icPpwK4BmfR20gMuh+yONprowwEK34FzRj5QtDyl6K7rp4IVmA5ZD
+	Wf40w0a7XfKDAJ6IJuL9Ve9E5k+XVZdTJbAa8yVnTJqY0c2QQZWzI/icEjR87S+5Mg1Z9UK
+	5gqbAHv1pDrVHy9bj+N/T3Ak0P2WarUpBDVmv9V405oKqx9oLJ9xKpieW7zLaN5m2bVo1WB
+	cHWrRRBDpdITb3HmGTficJxEmH0bH3OHuelk83mam62+N67f3hxfgByh1iKzA5pPMLUxWfo
+	CMjnU9Ap/C6viKF65/DfFgv8tVVoQ3b9w==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-On Sun, 20 Sep 2026 21:49:29 +0100 David Woodhouse wrote:
-> 
-> Replace the per-cache rwlock with a dedicated per-VM atomic SRCU
-> domain (kvm->gpc_srcu) for the read side. Readers now run under
-> srcu_read_lock_atomic() alone — preemption disabled and non-blocking
-> enforced, which every GPC read-side section already satisfied as a
-> former rwlock critical section. It works in any context
-> (including hardirq and sched-out paths) and never fails or spins,
-> eliminating the
-> read_trylock() contortions in the atomic paths, the double-lock dance
-> with the lockdep subclass hack in the runstate update, and the
-> PREEMPT_RT problems inherent to taking an rwlock in those contexts.
-> In particular, kvm_xen_set_evtchn_fast() is called from hardirq
-> context (timer callback, kvm_arch_set_irq_inatomic()), where taking
-> gpc->lock is a sleeping-lock-in-atomic-context bug on PREEMPT_RT.
-> 
-Given the preempt_disable() in srcu_read_lock_atomic(), as PREEMPT_RT
-has no way of handling preempt_disable(), you need to add another
-version of srcu_read_lock_atomic() with preempt_disable() replaced with
-something like rcu_read_lock().
+smk_write_net4addr() parses the address with %hhd, which silently
+wraps values over 255 (e.g. 300 becomes 44) and accepts them. The
+wrong address is then stored and passed to netlbl_cfg_unlbl_static_add(),
+so inbound packets get mislabeled and policy can be bypassed or
+connections wrongly denied by a privileged misconfiguration.
+
+Parse into unsigned ints like the IPv6 path does and reject any
+octet above 255 with -EINVAL, mirroring the existing scanned[i] >
+0xffff check in smk_write_net6addr().
+
+Fixes: 6d3dc07cbb1e ("smack: Add support for unlabeled network hosts and networks")
+Signed-off-by: Hongjian Dai <daihongjian@kylinsec.com.cn>
+---
+ security/smack/smackfs.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
+
+diff --git a/security/smack/smackfs.c b/security/smack/smackfs.c
+index a72bc7fabea9..845660cc3a7b 100644
+--- a/security/smack/smackfs.c
++++ b/security/smack/smackfs.c
+@@ -1169,6 +1169,7 @@ static ssize_t smk_write_net4addr(struct file *file, const char __user *buf,
+ 	struct in_addr mask;
+ 	unsigned int m;
+ 	unsigned int masks;
++	unsigned int octet[4];
+ 	int found;
+ 	u32 mask_bits = (1<<31);
+ 	__be32 nsa;
+@@ -1198,17 +1199,26 @@ static ssize_t smk_write_net4addr(struct file *file, const char __user *buf,
+ 		goto free_data_out;
+ 	}
+ 
+-	rc = sscanf(data, "%hhd.%hhd.%hhd.%hhd/%u %s",
+-		&host[0], &host[1], &host[2], &host[3], &masks, smack);
++	rc = sscanf(data, "%u.%u.%u.%u/%u %s",
++		&octet[0], &octet[1], &octet[2], &octet[3], &masks, smack);
+ 	if (rc != 6) {
+-		rc = sscanf(data, "%hhd.%hhd.%hhd.%hhd %s",
+-			&host[0], &host[1], &host[2], &host[3], smack);
++		rc = sscanf(data, "%u.%u.%u.%u %s",
++			&octet[0], &octet[1], &octet[2], &octet[3], smack);
+ 		if (rc != 5) {
+ 			rc = -EINVAL;
+ 			goto free_out;
+ 		}
+ 		masks = 32;
+ 	}
++	if (octet[0] > 255 || octet[1] > 255 || octet[2] > 255 ||
++	    octet[3] > 255) {
++		rc = -EINVAL;
++		goto free_out;
++	}
++	host[0] = octet[0];
++	host[1] = octet[1];
++	host[2] = octet[2];
++	host[3] = octet[3];
+ 	if (masks > BEBITS) {
+ 		rc = -EINVAL;
+ 		goto free_out;
+-- 
+2.43.0
+
