@@ -1,87 +1,33 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F38A148AE17
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:27:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71132489FD0;
+	Mon, 21 Sep 2026 15:28:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790004476; cv=none; b=s9r2kDRV9TdElutj+QmDsrN9A1KO49ijlK3jhGkqDXoVl3ef6x62vysAD/FqfzbCj0TEojFsDnB5LiRPDRwzdahvuD2JIJzV1duu/tu56cSCI+1dYYgY2oi3tJ1yWzCcS3btZoiOyrFF5aIreX8uA0c9tTrQhi5rZAT1cjIIZHM=
+	t=1790004488; cv=none; b=BwC/P81dGGwsq5WlJ0b73BHB76/lzXvMsdY7SzjO9lyD9R/JtNqatBuAW50a5yoFGI0YjKtqfe1tYNR57CCw2S99DjgJ3S6bqauTXzR2DhulAkkCvlpz2EGTUacmcZmcfXuO2y9eid9QOprJ1mrqYMLx14V91XP+Pn/aMY613W8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790004476; c=relaxed/simple;
-	bh=b/RrYFb52+NN31KVA4CU7JSurMY1CDQm1wHwE+xJGDc=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=t2ik2If8Nmo9vwxhMoPc6QQKQRT17oN63oxrRfh7mByV9lHqx470R1hIigj6KqT9GCcx/R+yHxOpJX4wRBEEOmygB28iQEiIn0Nas54Pq4dg/pqh8SH7oUOZNgkN2vEqaFRhenHEAm8fYxZuqmYgfU6PMBLYr7n6uhrf1RWCzvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TtQbCU94; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XRwxPDyj; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790004488; c=relaxed/simple;
+	bh=wVcHYMUuwwHS2kJKE7fAIhuFXdPYlVJguaKZ5xDkicg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=krIqy5rgyQIs8fyXiXHQ5kwssYfwj7owIiXk2U8JaIe50rihj/wtspbe6++cYcWojXtg/aWhQDywL9OJo4d1SdyR+HS12MAn11ZF44u/445RC8v3uP4zLv9CR7H0WPcbAtaicq4rvgLzycqIjAPWzeAZAiOZ0GWDYeysz2CSHWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M1Z45Td6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TtQbCU94";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XRwxPDyj"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LFA5Ft827697
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:27:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9T9nmSNz+lGc2TpGZ+uOXDjvim3gmJy7ieWolSYHfGA=; b=TtQbCU940JDHIoya
-	0GFpaaLovwxdUWrEikuSgG0/v1VEPivczA0ZXckRwPnjRX/9cGQYM40/1ZbSciqi
-	64dxPTkyAlIvx6kMGEu3MPHyjSe1moaSbNozv5ELxM5Sy5iAtBu6j0iVmrk5JjIP
-	YdUGkn0HH2IzMtmgj+ql/VltmQ9Sruuggft6/nhd1a/EOUEgO/psA9rA16gqeo9G
-	KmdrWIpPIVCfaIfimwLHWGivmnVHR8VczJSEQhn/pHGl69P3VTeW+bn7NkqBZjOF
-	Fu2yNzgaPAKJmjA3OO4snwsNouqRHsjFZDLB+2qLQTEJj/Qy2q53KUAbD6UVlnAi
-	GZ1hVw==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu17gspak-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:27:54 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cc73f47bdcso51725835ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:27:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790004474; x=1790609274; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9T9nmSNz+lGc2TpGZ+uOXDjvim3gmJy7ieWolSYHfGA=;
-        b=XRwxPDyjubXiIsvxBvpo6xIRg5TYQwzKrZs+IkV+TjMDQ0JQjmBmSpAuB0Xelas9Ro
-         RlSilCdUiYDf3QK40LbT4RwRcn+rGDESefd/IzG97XdV5fnN163cM8mWv93Axfl29Vgw
-         c9E5if0EWmbDNDnDviRMXxPPHsg3eRgD/X5KtGGd1eecNMVkab9sNTCs6YSgpLSYRo0z
-         EhG6HzAKqY0xGBOOD5OX34G1U2ywTCnP82/ZVeujYr7R8rUMkMEyfutSULInzyRX3APp
-         zMlHGM1No5Vq/tDXym9B2x+740fkq5h+PDZe4aLLXBHyNlFoC/1zap28vVSDu5NvtB//
-         Vr8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790004474; x=1790609274;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9T9nmSNz+lGc2TpGZ+uOXDjvim3gmJy7ieWolSYHfGA=;
-        b=qZdWMITD8jaAVjfNgoYMiDl1sG0vJ3LhnICZ7i+gd5HNi2XxBTjkp7dU26JC01Eaeb
-         YZYoFSXQqP32+jGvGtLRBk4o5OagAy8MxmTQvhzX2DrQWRiEsqpPROSG5iJ4vrFWmjzG
-         gvDMF/PEoWfgRRNs+gFEEU/2UEYWHAfHQTQORaoBh59szcm5SikrE92rdXX0YbCcccHM
-         vJWHUpxhph4rGX1TT1Y2C3Fs4LiAXupejMKpScbXnJChMbH691t3NDFT+y5JJl8lnfbI
-         rTll0nD+ikxoNk8v2vepJyEzUKl59eQjdaSrG4kodYh/2pQVFPXLUbP0wrPQvCd6S1Uz
-         hk9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwFBc3DC8/nMwAr+a82o+UAGKVtR9YEsCzWr3QuKot4cV1zXwsf7+Ak6xZ7iNkNHR+7PPa05svxUBYkAb8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kX8geVsrqNcAUvgvlexmKRSEr5NHeTmZDMVo2cAu2FRf4rd8dS
-	yGejgj3u5Mo57pkQ1ZHgVor11JYYXZhnfvSgdLv3EMiarnAAMVwn43HWLcKkIm0djPgx42Nw06T
-	g0zPLdDVIfY9Dfti35W5j1rA3dk5gsr7XyxwmN92NakdrPsHKtyA4nnZ0+SiUWOe0IYE=
-X-Gm-Gg: AYBFou3DLnWO3dpHXj8W1NJwHKAlLTdreMdnfu8z9XkioC9Fy7okCQUPMju83P3WVh6
-	ymMf4Om8Mh08zj6LbgKBavXRVx73Znl0ZAhNCPkQ2/79tzYIbGW8y3qFHeSSOWDU2wfVFHtLqxY
-	uUanh48kQGt+KgGUkolILVndA/D3hmJ5kp8KOn5uQ3UFgjfGkTe9kgSoEaNd30LC+sCjTLnJVBL
-	Dky3NeS3CLP3Kw6e1e5MM/CjL7wK3bs+d7sB/iq1QqAY5SRSe98rMcJeHILN9nStj28ooo/Tl/7
-	uTI+ReX68IiCZfuyXdUpSWmM7tRXX7yZL8N3utP3hxBogG6lKdn/ETEjRJooxZSn3TG6S+lsl+f
-	p0slis5IqsdRnBXR+liGxKj+Dz2E4oMpyi+elUpHO3n+T5/4kUFRoE/xv7OL+YJvowJo0ruXSS1
-	dvcndzHeipkZnF7g==
-X-Received: by 2002:a17:903:4687:b0:2dd:ad73:c983 with SMTP id d9443c01a7336-2ddb1ba30a3mr162452415ad.27.1790004473585;
-        Mon, 21 Sep 2026 08:27:53 -0700 (PDT)
-X-Received: by 2002:a17:903:4687:b0:2dd:ad73:c983 with SMTP id d9443c01a7336-2ddb1ba30a3mr162451965ad.27.1790004472847;
-        Mon, 21 Sep 2026 08:27:52 -0700 (PDT)
-Received: from [10.50.54.45] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17888a8sm37128495ad.26.2026.09.21.08.27.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 08:27:52 -0700 (PDT)
-Message-ID: <2cfbbff5-fd79-42f1-bd7e-a72067f54fbe@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 20:57:49 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M1Z45Td6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EFB01F000FF;
+	Mon, 21 Sep 2026 15:28:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790004486;
+	bh=K4q7WmwkmO/q0BFtHU/zrt3tXIDQ4weBhrVpkbB/RkE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=M1Z45Td6Tsh1UwdFQJQMCJDOqWa6eXAKciGI2YgR3f73yvEJiD+6J4LC4AfW8T+1b
+	 BVE4Vb8wgQqa2fHEJ9DQ/x7C6EIoJT06OMAnS4SV8MMLSGFJS6kaIxrXLB4wyA5bnN
+	 qlDTR3nxeErnD0JLgwR7rDjJj+7fN3XO038JQUb6SHa5daq2pKuzbeixgVGJGxHOCv
+	 foWqrBVJhuG1edKQyHB3xiUqD+1il/pa2s/rAgcD8yciMhGDC+8eQe8Cj55O7r82bK
+	 jpLAp3KlXx5/tptjqDeGXD39QLrL8YCrL66kM4jjPb7zpdeuqwk7L0aaN3EVMHCDBc
+	 JA0klpWeovUTg==
+Message-ID: <36465f31-59e2-43a5-8cd8-f8bb1844da3c@kernel.org>
+Date: Mon, 21 Sep 2026 17:27:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,98 +35,330 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Subject: Re: [PATCH] soc: qcom: qcom_stats: Add support for NSP subsystem
- stats
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Navya Malempati <navya.malempati@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260908-nord_stats-v1-1-a55adb083d65@oss.qualcomm.com>
- <4f518cb0-ed7b-4c2c-9a79-8d1549b26428@oss.qualcomm.com>
- <208b9e11-d36e-4376-9836-ce9ed3c81486@oss.qualcomm.com>
- <e66bb3f1-5dbd-4857-863c-99c22367bfe3@oss.qualcomm.com>
+Subject: Re: [PATCH v7 2/3] kselftest: mm: replace usage of /proc/self/smaps
+ for check_huge_xxx() helper
+To: Yeoreum Yun <yeoreum.yun@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+ Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260921-fix_split-v7-0-d25ec991159f@arm.com>
+ <20260921-fix_split-v7-2-d25ec991159f@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-In-Reply-To: <e66bb3f1-5dbd-4857-863c-99c22367bfe3@oss.qualcomm.com>
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260921-fix_split-v7-2-d25ec991159f@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: vM4Y-9celx23ISgQTSgI_Ek-OqG5lkCT
-X-Authority-Analysis: v=2.4 cv=IewSymqa c=1 sm=1 tr=0 ts=6ab14cfa cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=STkuWaXuNg38iv387h0A:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDIyNSBTYWx0ZWRfX/XAqgWI+LHMm
- PUT54CoPZPFP+KAqY4/qlOmXwMyh3wSMUjkuc+fMMt8XsSCVzj+/cL+upAymMZ/alnpTx9Uc9Vn
- Pb/R8CvctITAZebkA1m+7BSG+z32NzOgW2sskGQ/I9omiAgDtYVlcwonrSbI+xvVnuvDyR+CMc5
- p40WUxMV8cdQMxTj0GoaVbbbJ1iF07OzEVO5ozubfDwiQDAtKFjPchMVDmG/S+Y15T2TRqcqfHd
- 5/ZgcPpweQX1ZOmCpPCjgb2UHJolMC4Dap/FR2oyYfWoCiaM/1POm+kVdYLrtfJLyEuyGwUTwwi
- Vh1mcPBcSZRI6omu+8X0VzC3Gc78Wq6L6c759kxlk8Bv7T0yH+PFPGc83tG8Vbk7lUskteXJIjj
- D9WCyZxLzYEFtZ+GSzE19b0/8ym75IZiZ5oy8rTQw5oV1sImwDXuJpwqYT//DR9CaoJ16xVy3A0
- cBnmFWktQAHtUZpDeZQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDIyNSBTYWx0ZWRfX6lMnUnEiQJn0
- B58vahLny5KtnsMWKBySH1g1E3ufEbLgh/2F35cSe8LuhZG6jYEymEMVWqHlQCMce3pJ9H+irO7
- Kc4WJ0NYWSsiOTq+/ciLL+4TBGORD7w=
-X-Proofpoint-ORIG-GUID: vM4Y-9celx23ISgQTSgI_Ek-OqG5lkCT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
- lowpriorityscore=0 spamscore=0 phishscore=0 malwarescore=0 adultscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609210225
 
-On 9/18/2026 2:04 PM, Konrad Dybcio wrote:
-> On 9/15/26 6:09 AM, Navya Malempati wrote:
->>
->>
->> On 9/8/2026 3:33 PM, Pankaj Patil wrote:
->>> On 9/8/2026 1:43 PM, Navya Malempati wrote:
->>>> Add SMEM items for four NSP subsystems stats which are present in Nord
->>>> SoC. Rename CDSP stats as CDSP_NSP as both use same PID and SMEM item
->>>> id. Add new entries for NSP1/2/3.
->>>
->>> For other targets as well is the same applicable? NSP and CDSP are interchangeable?
->>>
->> From the stats point of view, they are the same, we used the name NSP in downstream, it looks like Nord SoC remoteproc is using the name CDSP [1]
->>
->> [1] https://lore.kernel.org/linux-arm-msm/20260904081619.593602-2-shengchao.guo@oss.qualcomm.com/
->>
-
-Downstream conventions can't be added upstream, if upstream dt entries
-are not named the same way. Please revert this
-
->>>>
->>>> Signed-off-by: Navya Malempati <navya.malempati@oss.qualcomm.com>
->>>> ---
->>>>   drivers/soc/qcom/qcom_stats.c | 5 ++++-
->>>>   1 file changed, 4 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/soc/qcom/qcom_stats.c b/drivers/soc/qcom/qcom_stats.c
->>>> index 06923408bfce..91f2d1293124 100644
->>>> --- a/drivers/soc/qcom/qcom_stats.c
->>>> +++ b/drivers/soc/qcom/qcom_stats.c
->>>> @@ -43,8 +43,11 @@ static const struct subsystem_data subsystems[] = {
->>>>       { "modem", 605, 1 },
->>>>       { "wpss", 605, 13 },
->>>>       { "adsp", 606, 2 },
->>>> -    { "cdsp", 607, 5 },
->>>> +    { "cdsp_nsp", 607, 5 },
->>>>       { "cdsp1", 607, 12 },
->>>
->>> Is cdsp1 not the same as nsp1?
->>
->> No, cdsp1 is not the same as nsp1.
-
-Please explain if the dt entries are named as remoteproc_cdspx then what
-does cdsp_nspx correspond to? Subsystems are common across all soc's
-
+On 9/21/26 12:40, Yeoreum Yun wrote:
+> Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
+> glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
+> made by memalign().
 > 
-> It would make sense to explain the difference here!
+> The underlying VMA may start at a different address from the aligned
+> address returned by memalign(). Furthermore, a subsequent
+> madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
+> already set.
 > 
-> Konrad
+> This causes split_huge_page_test to fail because the check_huge_xxx()
+> helpers incorrectly require the address returned by memalign() to
+> match the VMA start address reported in /proc/self/smaps.
+> 
+> Instead of relying on /proc/self/smaps, use /proc/self/pagemap and
+> /proc/kpageflags to detect huge-page mappings and large folios:
+> 
+>   1. If hpage_size == pmd_pagesize, check PAGE_IS_HUGE instead of
+>      using check_large_folios(), since only the mapping type matters.
+>      This identifies PMD-mapped huge pages.
+>   2. Otherwise, use check_large_folios() to detect large folios. This
+>      covers mTHP cases.
+>   3. Check the folio flags according to the type of huge page.
+> 
+> Since shmem pages are also file-backed, simply check whether the page
+> is file-backed.
+> 
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Suggested-by: Zi Yan <ziy@nvidia.com>
 
+Do we need a Fixes: tag?
+
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> ---
+>  tools/testing/selftests/mm/vm_util.c | 137 +++++++++++++++++++++--------------
+>  1 file changed, 84 insertions(+), 53 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
+> index 4821a35630363..a7c5caf6925e0 100644
+> --- a/tools/testing/selftests/mm/vm_util.c
+> +++ b/tools/testing/selftests/mm/vm_util.c
+> @@ -351,31 +351,13 @@ char *__get_smap_entry(void *addr, const char *pattern, char *buf, size_t len)
+>  	return entry;
+>  }
+>  
+> -static bool __check_pmd_huge(void *addr, char *pattern, int nr_hpages,
+> -		  uint64_t hpage_size)
+> -{
+> -	char buffer[MAX_LINE_LENGTH];
+> -	uint64_t thp = -1;
+> -	char *entry;
+> -
+> -	entry = __get_smap_entry(addr, pattern, buffer, sizeof(buffer));
+> -	if (!entry)
+> -		goto err_out;
+> -
+> -	if (sscanf(entry, "%9" SCNu64 " kB", &thp) != 1)
+> -		ksft_exit_fail_msg("Reading smap error\n");
+> -
+> -err_out:
+> -	return thp == (nr_hpages * (hpage_size >> 10));
+> -}
+> -
+> -static bool check_large_folios(void *addr, size_t len, int nr_hpages,
+> -		uint64_t hpage_size)
+> +static bool check_large_folios(int pagemap_fd, int kpageflags_fd,
+> +			       void *addr, size_t len, int nr_hpages,
+> +			       uint64_t hpage_size)
+
+The function used two tab indent for a reason ;)
+
+Use two tabs also in the functions you change below.
+
+[...]
+
+>  
+> -bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+> +static bool __check_huge(void *addr, size_t len, int nr_hpages,
+> +			 uint64_t hpage_size, enum check_huge_type type)
+
+
+>  {
+> -	uint64_t pmd_pagesize = read_pmd_pagesize();
+> +	bool ret = false;
+> +	int pagemap_fd, kpageflags_fd;
+> +	int nr_pmd_mappings = 0;
+> +	uint64_t pmd_pagesize, scan_mapping_size;
+> +	uint64_t categories, kpf;
+> +	unsigned long pfn;
+> +	bool check_pmd_mapping, allow_nonpresent;
+> +	char *start = addr;
+> +	char *end = start + len;
+>  
+> +	pmd_pagesize = read_pmd_pagesize();
+>  	if (!pmd_pagesize)
+>  		ksft_exit_fail_msg("reading PMD pagesize failed\n");
+>  
+> -	if (hpage_size == pmd_pagesize)
+> -		return __check_pmd_huge(addr, "FilePmdMapped:", nr_hpages, hpage_size);
+> +	check_pmd_mapping = (hpage_size == pmd_pagesize);
+
+No need for ()
+
+> +	scan_mapping_size = (nr_hpages > 0) ? hpage_size : psize();
+> +	/* Some mTHP tests check a partially populated PMD-sized range. */
+> +	allow_nonpresent = (uint64_t)nr_hpages * hpage_size < len;
+>  
+> -	return check_large_folios(addr, len, nr_hpages, hpage_size);
+> +	pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
+> +	if (pagemap_fd < 0)
+> +		ksft_exit_fail_msg("open pagemap fail\n");
+> +
+> +	kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
+> +	if (kpageflags_fd < 0)
+> +		ksft_exit_fail_msg("open kpageflags fail\n");
+> +
+> +	if (!check_pmd_mapping &&
+> +	    !check_large_folios(pagemap_fd, kpageflags_fd,
+> +				addr, len, nr_hpages, hpage_size))
+> +		goto out;
+> +
+> +	for (; start < end; start += scan_mapping_size) {
+> +		categories = pagemap_scan_get_categories(pagemap_fd, start);
+> +		pfn = pagemap_get_pfn(pagemap_fd, start);
+> +		if (pfn == -1UL) {
+> +			if (!allow_nonpresent)
+> +				goto out;
+> +			else
+> +				continue;
+> +		}
+> +		if (pageflags_get(pfn, kpageflags_fd, &kpf))
+> +			ksft_exit_fail_msg("read kpageflags: %s\n", strerror(errno));
+> +		if (check_pmd_mapping && (categories & PAGE_IS_HUGE))
+> +			nr_pmd_mappings++;
+> +		if (kpf & KPF_COMPOUND_TAIL)
+> +			continue;
+> +		if (!check_huge_type(categories, kpf, type))
+> +			goto out;
+> +	}
+> +
+> +	if (check_pmd_mapping && (nr_pmd_mappings != nr_hpages))
+> +		goto out;
+
+
+There is way too much happening here, which makes this rather hard to review.
+
+Why can't we just focus on the smaps change for now?
+
+I.e., something like the following (untested)
+
+diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
+index 4821a35630363..5d348d6985026 100644
+--- a/tools/testing/selftests/mm/vm_util.c
++++ b/tools/testing/selftests/mm/vm_util.c
+@@ -351,24 +351,6 @@ char *__get_smap_entry(void *addr, const char *pattern, char *buf, size_t len)
+ 	return entry;
+ }
+ 
+-static bool __check_pmd_huge(void *addr, char *pattern, int nr_hpages,
+-		  uint64_t hpage_size)
+-{
+-	char buffer[MAX_LINE_LENGTH];
+-	uint64_t thp = -1;
+-	char *entry;
+-
+-	entry = __get_smap_entry(addr, pattern, buffer, sizeof(buffer));
+-	if (!entry)
+-		goto err_out;
+-
+-	if (sscanf(entry, "%9" SCNu64 " kB", &thp) != 1)
+-		ksft_exit_fail_msg("Reading smap error\n");
+-
+-err_out:
+-	return thp == (nr_hpages * (hpage_size >> 10));
+-}
+-
+ static bool check_large_folios(void *addr, size_t len, int nr_hpages,
+ 		uint64_t hpage_size)
+ {
+@@ -410,20 +392,34 @@ static bool check_large_folios(void *addr, size_t len, int nr_hpages,
+ 	return ret;
+ }
+ 
+-bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
++static bool __check_pmds(void *start, size_t len, int expected_file_pmds,
++		int expected_anon_pmds, uint64_t pmd_pagesize)
+ {
+-	uint64_t pmd_pagesize = read_pmd_pagesize();
++	int found_anon_pmds = 0, found_file_pmds = 0;
++	int pagemap_fd;
++	void *addr;
+ 
+-	if (!pmd_pagesize)
+-		ksft_exit_fail_msg("reading PMD pagesize failed\n");
++	pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
++	if (pagemap_fd < 0)
++		ksft_exit_fail_msg("open pagemap fail\n");
+ 
+-	if (hpage_size == pmd_pagesize)
+-		return __check_pmd_huge(addr, "AnonHugePages: ", nr_hpages, hpage_size);
++	for (addr = start; addr < start + len; addr += pmd_pagesize) {
++		const uint64_t categories = pagemap_scan_get_categories(pagemap_fd, addr);
+ 
+-	return check_large_folios(addr, len, nr_hpages, hpage_size);
++		if (!(categories & PAGE_IS_HUGE))
++			continue;
++		if (categories & PAGE_IS_FILE)
++			found_file_pmds++;
++		else
++			found_anon_pmds++;
++	}
++
++	close(pagemap_fd);
++	return found_anon_pmds == expected_anon_pmds &&
++	       found_file_pmds == expected_file_pmds;
+ }
+ 
+-bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
++bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+ {
+ 	uint64_t pmd_pagesize = read_pmd_pagesize();
+ 
+@@ -431,12 +427,12 @@ bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+ 		ksft_exit_fail_msg("reading PMD pagesize failed\n");
+ 
+ 	if (hpage_size == pmd_pagesize)
+-		return __check_pmd_huge(addr, "FilePmdMapped:", nr_hpages, hpage_size);
++		return __check_pmds(addr, len, 0, nr_hpages, pmd_pagesize);
+ 
+ 	return check_large_folios(addr, len, nr_hpages, hpage_size);
+ }
+ 
+-bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
++bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+ {
+ 	uint64_t pmd_pagesize = read_pmd_pagesize();
+ 
+@@ -444,11 +440,16 @@ bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size
+ 		ksft_exit_fail_msg("reading PMD pagesize failed\n");
+ 
+ 	if (hpage_size == pmd_pagesize)
+-		return __check_pmd_huge(addr, "ShmemPmdMapped:", nr_hpages, hpage_size);
++		return __check_pmds(addr, len, nr_hpages, 0, pmd_pagesize);
+ 
+ 	return check_large_folios(addr, len, nr_hpages, hpage_size);
+ }
+ 
++bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
++{
++	return check_huge_file(addr, len, nr_hpages, hpage_size);
++}
++
+ int64_t allocate_transhuge(void *ptr, int pagemap_fd)
+ {
+ 	uint64_t ent[2];
+-- 
+2.43.0
+-- 
+Cheers,
+
+David
