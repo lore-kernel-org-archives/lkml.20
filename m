@@ -1,173 +1,160 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDB44E020E;
-	Mon, 21 Sep 2026 22:14:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790028892; cv=none; b=bDPD7nws1wsUznbSkAv8EfRej6ihQ5TW32gESW9dTyfY+p9UIsg8c5mF1gMv81d/J8YJwfWwhMUFdBqhwiOeW/zWiLAAKz2kKFdRksLmMUruWei3ndlmcKPfG+IE0clVeuKN1TLUanVrRtnYyoaNgJFTp8v+pst1S+fTenhR/2g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790028892; c=relaxed/simple;
-	bh=iWSVobGmyww2Uyy12C8qu+uuk49zSpwTgV4nyoZ4I/k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aIHYSfJ/joU8Q1E4uenvZdks9E8MqqPrx/AnSnEtmisGwAa0OveZ/6ssTOoSbbNDT6p3USqrOmtOtRPxYHHe70Zp6fsPdap62Qcyn50/4bGpnqjW94Y5IiFeyzjmPEaRcvPhj9hLxyfdZU6U61Mv+/lFkc+ns3F/xecvSa3hz/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=T2qRDUMm; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF8751C049
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:17:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790029025; cv=pass; b=bVkiL3KnK7YvWfjL8yrKyylQSIielDTGVw/ppRz2q4tfs5lRCBOTmEXMn2pKqjcB8c+dAiWulmxan7qfQ1FVMqv8LOsFmD00+O80slAqKbp/Lrl3Sy1BiPtPCl9BwkOs4nHejwJy8xH5rEB4nWCMZ4+WF1wNOHuGrPwlj6DyJPo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790029025; c=relaxed/simple;
+	bh=ygxQGrVULTuQLXHw/7/JdMV/ZQLiV+IGlcOGZt/F2D0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DhCNWY/9jddqqoC2TBUKQNeLIqMUwPUJSMnc1FjrX+u+K2kJB1VohCtyjr0Ie90l91r5+S1eLZsYJ6gLaxto88YIWBtLtPAMO6FPKrirxg9ZrqgNac6F+svtBn2QpkXrT44EjSGIHdUhwVeL/8AMerG7e0A80QYhGmBlBBRQzh0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o16dsyQu; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="T2qRDUMm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790028890; x=1821564890;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=iWSVobGmyww2Uyy12C8qu+uuk49zSpwTgV4nyoZ4I/k=;
-  b=T2qRDUMmyVKJBUNb/s3p8QBd1uq9x3MIxLvEQzRSUUuW83JiuOuO1XQN
-   Mc8qIp8WaamtGT+oTeUOIUb1xa4uL0O1791IWgd0WxS7clZ4ssyzP6557
-   U28SUFa76jPQeQ7KwUGWVSAUOUO/73fK6V77p3i4hXjU+kVSNjkyLgTTw
-   Ty8KI+bhwXZbrGJiqhXBGv0Df0NORYZx9UKAuA5dpmxTQPxjtc6aL2no3
-   dFfUHExv+P+KI/1vcmOD7m4bNNu03ABwg/RpEy/O/2JFe13UwezNHeOGS
-   ypF3zeKNfJQkDwrN+ws5nNWdsFHKrSNUFTZdSVAVDKEJoR+uoOpkGENDa
-   g==;
-X-CSE-ConnectionGUID: nIVESCgeRrqGWlU333OHMg==
-X-CSE-MsgGUID: 3x6O7fD9RiuDIzAWcTYJvg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="89718478"
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
-   d="scan'208";a="89718478"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 15:14:49 -0700
-X-CSE-ConnectionGUID: 260ZPTpMTsm5Ie0txO7RgQ==
-X-CSE-MsgGUID: heG+YXPPTl2C5FqK3rHAww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
-   d="scan'208";a="4163225"
-Received: from jjgreens-desk24.amr.corp.intel.com (HELO [10.125.109.249]) ([10.125.109.249])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 15:14:49 -0700
-Message-ID: <a4a562cf-f195-47fb-a402-e7bba06937ef@intel.com>
-Date: Mon, 21 Sep 2026 15:14:49 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o16dsyQu"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60590a85cso6610453a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:17:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790029022; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rxkBD4R63katMjijdFYaWoxls7OO5PZIja6I1mJwWfTxTmqDFg7aeUl483sw7Tld9L
+         jpvQTRuh6p2xLriHKOjPSR+HegYDHbQhwJdmCEnvk46JMCsdVZDW0Fddw91Rc4sC/chJ
+         VCJBcZjl0cJR0vkO6x6uaTmJL4aOVW4pn+OPr5dN8J6LJ3FKGLPlZpVGe85LfXv1zw0m
+         97NXcFx3fMbR249iWpc/xcFCsAE0ngCgXDyOxYQ69+qol4869wL8n0MlVcREUCIyB2bn
+         ouWyNUyu5V//sgE/0m4iLBc7TARw/25Qs4mNzz67w1IVJ0dYH4du7j08A7IVIrGngf+Z
+         USyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ck2dQ4iiA8x8tPtfYLzBLk9ACmAdSjWMpZnAG67iB4E=;
+        fh=uEqyyXCjdjdNKaD5k6540XrmqY+L++y1bWecIlfM7LU=;
+        b=JFIKXUN8omkZtiVip4yiC9coY6T3WFI71WU/wzlSUUqGpro/65oj1kSTqU3pCoOKF2
+         0blQPdrN3vdtqqf2UDSHPwLzDTuHeN1jGqcs56owCuAZlBnzuUEYmLwttdzEKFr3BFBw
+         oYy0GIPjiB73SIlhK32/cS/1TXlmLl5TEQOvpIXs6EZETL0WzbOurdbhCTy/XcAkFvfs
+         sd77f+9wIvO6qTlTnd03AYRQHXaz3I9PtkLmIkVZjbzQ7/gvQhe/GIXLsL49k+c6JuxP
+         gnvGvtIxdyhuA0R6AqoTUtPOtHEO2K3/3cfPbZSwH+nKs366Lc+ouX0ZTe4xBie3SwsJ
+         ZbXg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790029022; x=1790633822; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ck2dQ4iiA8x8tPtfYLzBLk9ACmAdSjWMpZnAG67iB4E=;
+        b=o16dsyQumVzJ6ZQD9CBPZDz7YOyTg+pWyJM4BZxRIEkzasViSj7ryKk/YSR5KboqyD
+         N83aI3rJno/AkfjPuoFBp8G0qX7X6KV8DXy75N9/Ih4AQ+dOPnVxxOVz/SFmwSdi8rXo
+         PAckqX5bPQv6k1wOv0NO8MWWG4mlhF3YLJaPpnWql8Bro/IbTaTziifDN9OIeCQwtXn5
+         eZKC//FrR3NTUiMsi+gtr6DnbmWadYllc02tNhue6HVursRuuwxEscIkUO0jujJxEQ5C
+         Ge6Y5UMpXO0bjYGlDGZtvETsUXLC2BzMDi9cU38TvWYHuFAPaM4NgEoNeFH3zVB+ed0w
+         vKwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790029022; x=1790633822;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ck2dQ4iiA8x8tPtfYLzBLk9ACmAdSjWMpZnAG67iB4E=;
+        b=cN1vuxG7n5N7CmZbUzA8nVKLefWYrNSq/oFxR+G3YJDY8C98ldX5sna1NPuUr/13q9
+         a/GuMBDbAMA743w5IXp2wYjltbnVomWBtKAnRuU7+Zx5IihQaHxti+mQ7g76XxOfJwE0
+         V99OokCWMpK6igBrqKQbQYBRE04AGqvu9VUUVPfFVIFj/6i1Qto2sO7Q7vZHDnm4OKI8
+         B6wusiSp2w1V4yZ4h28ujm2+P74LVlBnW9ZX05Ym0cDKQUVfGVFbEKtRNKEaDD/3ZGG3
+         rR0jZXyRrNXD9kzNFKlhuJ4gfrXCzRx1MXWWTgoVlrjfmpxHU90i4KNQOZC6UXTKmZ6C
+         la5w==
+X-Forwarded-Encrypted: i=1; AKwUvBwyUXQlblzvNXmf7jq60jB5gI2+R2D6BumJcWa1ktkIkcgU9WTaFvDjOgrwjYpQ9I1coZQsBYSQVK0rcPU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nBOltqJoljl74PkFab7WJ5DhccSSbQTBRWWBRJkVKcB7jpfwQq
+	7B8lX9ZZx9y217uSQ4KUxMTYenSXpbfLik/3LfIv12VC9JlFdyeqxyYIpKxt5LFKuLBEEs2LqT5
+	iKnA7D7qK7BmU0amXHvbw/2NSXKh9JA==
+X-Gm-Gg: AYBFou1URKgRBT+dpqCGIjHVQxdDsFAU30mZpe1iTFDUUqOO1Sok0O621PgI4dIDSQT
+	yEcJ0vRHM33P6WZTlhvYfAykn7kfxAobx05ad8yiPld5Gn3A5mWeu7eOX9hLGkXqIhn6Dz+nwnB
+	0N3JG0O8NOqzS+qRpBSCblGIcOfZnNg5hRvYjA+kZOHmg0meLOfJjnPxYmkkv3TCp5vdjLjOnHR
+	XEi6/MS4AVuFcSxzyRO5sZB29EZQ82PMehGvOimT7yUeirEx+V0FE3Lc/j/qSEFvFywbl5NJAFx
+	7yLrMNoJLGv/IQkJLdm9U4a9s911099yC6/rcYyZJMNd6FD4ARpoZpAAEC+ujsD44lR8NzcNTBv
+	oK1IUnYiZnsVPpHIuaPRaNDxlHY76S8Ug3VpkNpVv/UCsQgFH846jZU99X4wludTni93p
+X-Received: by 2002:a05:6402:2790:b0:6a7:ee56:8158 with SMTP id
+ 4fb4d7f45d1cf-6aa579b0382mr9106641a12.38.1790029021870; Mon, 21 Sep 2026
+ 15:17:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/4] x86/tdx: Add helper to query maximum TD Quote size
-To: Peter Fang <peter.fang@intel.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
- linux-coco@lists.linux.dev, kvm@vger.kernel.org,
- Xiaoyao Li <xiaoyao.li@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>,
- Tony Lindgren <tony.lindgren@linux.intel.com>,
- Sean Christopherson <seanjc@google.com>,
- Artem Bityutskiy <artem.bityutskiy@intel.com>
-References: <20260915092632.2822169-1-peter.fang@intel.com>
- <20260915092632.2822169-2-peter.fang@intel.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20260915092632.2822169-2-peter.fang@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <CAGEsz8F2eKsmV_tymO+9UD5xkS_tWhZo-b9Xom1_SiKuc-BCqg@mail.gmail.com>
+ <arETYSjwaHytxyBu@orome>
+In-Reply-To: <arETYSjwaHytxyBu@orome>
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Mon, 21 Sep 2026 18:16:49 -0400
+X-Gm-Features: AcwNN1ULiGgKpQwlzJhSBbDWZG7BlTQmkG_ouL-IXAT-QUCIcQoVWsAgftcR8FU
+Message-ID: <CAGEsz8EpXPPD=S8uM4fex1_c5eV6byzOcYgVyqmJMKBLUAm67Q@mail.gmail.com>
+Subject: Re: [PATCH] usb: gadget: tegra-xudc: Disable port reset work on removal
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	linux-usb@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/15/26 02:26, Peter Fang wrote:
-> +/**
-> + * tdx_get_max_quote_size() - Get the maximum TD Quote size
-> + *
-> + * Read the maximum size of a TD Quote from a 4-byte TD metadata field. The TDX
-> + * guest driver uses it to size the buffer for Quotes. Older TDX modules do not
-> + * support this field and return an error.
-> + *
-> + * The reported size covers every Quote type supported by the platform,
-> + * including SGX-based Quotes.
-> + *
-> + * A runtime TDX module update does not change the reported size.
-> + *
-> + * Return: Maximum Quote size in bytes on success, or 0 on failure.
-> + */
-> +u32 tdx_get_max_quote_size(void)
-> +{
-> +	u64 val, ret;
-> +
-> +	ret = tdg_vm_rd(TDCS_QUOTE_MAX_SIZE, &val);
-> +
-> +	return ret ? 0 : (u32)val;
-> +}
-> +EXPORT_SYMBOL_GPL(tdx_get_max_quote_size);
+Thanks for the review. v2 keeps the Fixes tag on one line and switches
+plc_reset_work to disable_delayed_work_sync() as well, since the
+port-status IRQ can queue it after cancel_delayed_work_sync() returns.
+usb_role_sw_work stays on cancel_work_sync(). Its producer is the USB
+PHY notifier, which v2 unregisters first. The two bugs are split so
+the notifier fix can be backported below v6.10.
 
-This is an awful lot of stuff I'm not fond of like packed in very few
-lines of code.
-
-1. An unscoped, unmentioned, uncommented export
-2. Ternary form
-3. Casting
-4. A kerneldoc comment that is quite verbose and restates the TDX specs
-5. kerneldocs for something that's not a widely-used API
-6. Comments that say the same thing as the function name
-7. Multiple variables declared on one line
-
-Rather than start trying to cram failure codes into the return code,
-just do:
-
-/*
- * Ask the TDX module what the largest possible quote might be.
- */
-int tdx_get_max_quote_size(u64 *max_quote_size)
-{
-	int ret = tdg_vm_rd(TDCS_QUOTE_MAX_SIZE, max_quote_size);
-
-	/* Old modules do not support this. Tell the caller. */
-	if (ret)
-		return -EINVAL;
-
-	return 0;
-}
-
-That's the normal pattern. Or, heck, just return a long and return
--errnos in there.
+2026=EB=85=84 9=EC=9B=94 21=EC=9D=BC (=EC=9B=94) =EC=98=A4=EC=A0=84 7:28, T=
+hierry Reding <thierry.reding@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=
+=B1:
+>
+> On Thu, Sep 17, 2026 at 07:20:58PM +0000, Myeonghun Pak wrote:
+> > The port status interrupt can schedule port_reset_war_work to handle th=
+e
+> > Tegra210 port reset workaround. The remove path does not cancel this
+> > work, so it can run after the PHYs and controller resources have been
+> > released and access freed memory.
+> >
+> > Disable and drain port_reset_war_work before tearing down the controlle=
+r.
+> > Use disable_delayed_work_sync() so that the interrupt handler cannot
+> > queue the work again while the managed IRQ is still registered.
+> >
+> > This issue was identified during our ongoing static-analysis research
+> > while reviewing kernel code.
+> >
+> > Fixes: 49db427232fe ("usb: gadget: Add UDC driver for tegra XUSB
+> > device mode controller")
+>
+> Please don't wrap lines like this.
+>
+> > Cc: stable@vger.kernel.org # 6.10+
+> > Assisted-by: LLM
+> > Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> > Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> > ---
+> >  drivers/usb/gadget/udc/tegra-xudc.c |    1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > --- a/drivers/usb/gadget/udc/tegra-xudc.c
+> > +++ b/drivers/usb/gadget/udc/tegra-xudc.c
+> > @@ -3926,6 +3926,7 @@
+> >
+> >       pm_runtime_get_sync(xudc->dev);
+> >
+> > +     disable_delayed_work_sync(&xudc->port_reset_war_work);
+> >       cancel_delayed_work_sync(&xudc->plc_reset_work);
+> >       cancel_work_sync(&xudc->usb_role_sw_work);
+>
+> This is a preexisting problem, but given that we only delete the gadget
+> below this cleanup, shouldn't the other two cancel_*() calls be
+> disable_*() as well? Otherwise there's potentially a race condition
+> between this and the interrupt handler (which is only unregistered after
+> .remove() completes).
+>
+> Either that or the existing cancel_*() calls are enough in which case
+> your patch probably should be using that variant as well.
+>
+> Thierry
