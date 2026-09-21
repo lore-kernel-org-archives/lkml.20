@@ -1,72 +1,72 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 440E34D4868
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:28:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1808F4D4892
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:28:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790008124; cv=none; b=u+flRqCeX5SL5b9PZmNF1GW2tmFV6W9XVAPryssyBY9ISrH8tEyJ0lCqagjuCCzxwSIWqxL2Rvh7OSk9/HBYNxQfHOWPy1xWSTzdAkZ1OFZUOEaFEQJGK24kTWeKie7QzVtBg+156ACgz8s4qJSdNmYDuYDKfPsThsMuXb6NAHo=
+	t=1790008127; cv=none; b=t+kwKwnmcWfhLDpgxT7t6pvj9RHFPoLUbcw5FU/uhI+QDEYxDAW64He8dhBVorIXl8oplvtG6EvNW8xa3LipVp1lMP41jC3zm/V+pi1Ni4l/bwLRF8wFzSEFaW9rgjiBI50xvYbw3f9UxGZLMcjPOvBklO6FpVnPE4NHis7lBco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790008124; c=relaxed/simple;
-	bh=Ei/lMDbqtinZc2yiBLQAMSXEoLG4Je+V+bGkXlP0VYg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=RDRkcMcLAnvfIxBgu9LrX3HT7BrjXA6N9l+hPW9M9sm5zYsLYtH/sxP8KhwiJa+Gz13Lh7xalQfqLQiBsMFB1Oxf4Fr4bk0086SYQ9VTUnYWtLX1xFaJbCRZAsl6QabI5vGf3jYVroC76EghfBaa+CG6RZOuqRFUF/Jxp6AcgEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H/06/YAZ; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1790008127; c=relaxed/simple;
+	bh=Qxbm4TfVjPREN88JmP56AonP5NndNnBy8FRaQjBPQ3A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=GlJfRmsDICiDxITqscrGx07ck+fx90DUODuEjt/AGQtYadrtXHoMjloHD98yzWlL+jJGpCsA9pDasQGcYVlWYEMQJ16nxRu1eKM+aXFlCsXq4f8C8z43IiOktrcTFDoPiZ+I4CGgmcfZp504VUqGlHIAIqT0F4vnfeFynBIITYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P/1kgVD1; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H/06/YAZ"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24afso2330940a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:28:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P/1kgVD1"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea50dc3so2270490a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:28:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790008122; x=1790612922; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790008125; x=1790612925; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=t4G340J0PDbk3TvCsLvJzIITRUJ1wAT/vSIriLlX324=;
-        b=H/06/YAZBLtuYf3AuZ60eF9ft44hb2CoZRlmIc8r8FaXSY34kQtWjMCZ5dZhh1U3wo
-         K6vHkWAFFPTr+fdB9/3lXE5dk3Tiq5vbjSvnmdzKYh3fARIyI9weAWi1+a+K2qw6/G3Z
-         ycbXdLEAOeF0wSG7SVt/tJR/gVlB9Fl0O/emtb223N9PWHRH+4IPaAld16QF9u1yvcb5
-         l38RpG63Jmv8kCqJtzSLoIeyjYgzguOU4rX9EXLbbrhxnCbsY1/SoULPrI0A5kjr4PmM
-         vJila0W45XK+56Ofo9n/ipsg6oo2i92M6ch3kEnsk1SkO7k6yUnPRsMAECGxU9ruKTMo
-         dz+Q==
+        bh=ySNS+GwrhibfzjzLbLOnb295wmy2g2Ft16DvkrgaNXI=;
+        b=P/1kgVD1NJRoIal3WQpTwAi5Kquz4M4NdC/RQCBWtp6ne7dxmzN8LadMYJIwz83WBn
+         Ijmagv4g2glyLeMrG+ZdWrMaZjkM2YOuHX2p94z7zUtTGpaNy4wsswwU7cid4z241Lir
+         /Ak9oWf9ShV6zv8ilfZfbYqGZG/NNy3ergGfIH29xL0HHnG6UWi9ikkkMi8MOPC8lsiM
+         tysy2cInRlgcdDjHraoCFSnFZWwOU6tVQeGwK/DtZTeB8kHUZcrNQu11hpWD4mCJEJE6
+         PYnFdU1SW/hbibL7vMruilr+7Yu99LXi3ccvVm0Ko5kUp/7t2FZbJyh0KRs8oMcVDVIK
+         D2RQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790008122; x=1790612922;
+        d=1e100.net; s=20260707; t=1790008125; x=1790612925;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=t4G340J0PDbk3TvCsLvJzIITRUJ1wAT/vSIriLlX324=;
-        b=QL7Q++ARjJz9Lc9Ws9DaDlhSo02UpRjY9mCAcLnfIqPuVVMbK9TxXgVbEPZrxHHDUI
-         ahPOQ4KS7WmXkfU9BfFLSb0eFz5XmHfrYhxw+9KHUdkd1lAsfp0XS5d4joqEu19tK7PR
-         Wp32un/XyR9VGeqFQ7kp0bwN2o4fStY1ubR1UsbxP2ooqrwa/nEh7P1Evz4FSO/LCSXG
-         7eNRH1jWPKMtgu+G+rg1gsYID1BWd0RVJBrhBapi2zJ/Jm8cxr0TddcmLn0rEkDClx7S
-         gBAvTbm0i9Y0SlKRm5mXZhmCl8gX15zXT+eJd+EskHoadKNJ3+orKm45htK0DHZsVdf3
-         ZdQQ==
-X-Forwarded-Encrypted: i=1; AKwUvByRfuOBgs7iQReN7IdoCxBujIpkYc4x0dxK9Sm4eIvHqo08vcBNsPJdh9zWvHzp7Xs/NDmyV7hF56NCaCk=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/zJjKji60P8GWPHKo4gfOqud/lfS2FMMDXkgLNbFqQMO2OgA1
-	n7WTNMVh9ng38z+3rCc0uNKyjM9B49/sLesmpkHroEeFgUT1MlgHsLu6
-X-Gm-Gg: AYBFou1uGR2cFGkM9X0x+oq2xee/+7WPKZmgPkjEfQ10b/0/CoWE7+jj2hsGQOVANeA
-	OjZGXJWChWIR9HwHqlemkfxzqvLm0w9FWEHElfAwkZWvOGblu6JxO+w1yig6YxcWMU3BbzcfEqS
-	qnI4k0wFDYRCQMUHfc+FMvJrUQ8Dg390NbEfEGskZepjVik/vRa/ylvSJDFzywBZnmkgdKvZ83R
-	n2ks//OjCbzf+XR0HvG+Eyshx4v9PfSMvyV5RkUmPWvbLPqbLdLxaK33xryvbt53sdJaIjAZpWS
-	cn4XJfCEduqJBDZ9spjJDiGNkfZ4KZb4N2fIzw5WiKgiRPIOS22zEOpNjEw9mBC1mg8QmmjDsiN
-	XX7xN68ihcVUQ/Dku/xLHKxzsseZ2qEVn5VszITvrHK8HH0rpSwk5WgO9dmYeENfycNOzJTkdZc
-	utDUG2vRKdILxzelaMRiUTSmI98jJRS+Yg2Bh1T3db6TlOoFTluwjk6HbQfGH/QLVBy/y8l7A9A
-	sUiLgvCzNpbdM7Y3a7U2EBb
-X-Received: by 2002:a05:6a20:4310:b0:3dd:85a8:cac9 with SMTP id adf61e73a8af0-3dd8c47c24cmr15340142637.32.1790008122351;
-        Mon, 21 Sep 2026 09:28:42 -0700 (PDT)
+        bh=ySNS+GwrhibfzjzLbLOnb295wmy2g2Ft16DvkrgaNXI=;
+        b=MbWDBoKco5SXZx6yhJHXcvzLtT4Q7VQzkfoxy94XkEGR+fJlzn/TmXjMjyEjOoAL2w
+         ya/26gc0+Mpg+hBfT538i1k3p++v1cQDxrcGDEU0VC/5wsG9zFGuaDOTFTfSNv0ZFv6P
+         SLPw2DeoGB+Ik8sBQI7ulfoG/wk2/8TfZc0Ly7Dqg7BBA7MOctpfm2QsMFk//dwy2/YC
+         oPuHvt2+K9AhwdXluZ705UteZpauNg89OjySD4LA3LMweIVIj7QaQDdmBDaKlalPVoCK
+         bW57JrReLeC1UrMltNIyL7DX7/H8a1KL/52KBF5D2diYlXri5uh5Z5WqbO3UJ/u8msC3
+         Bstw==
+X-Forwarded-Encrypted: i=1; AKwUvBzNrdKqnfFHqAmkaipcJBBuUvjiZRFdAXkJBcXlL9CJuW6gHeiktRSltAeHg87g/7HTRHciqsge6rqt2Fk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nK8m+7GqoLNfox37cGVxab+iHxNLzrY7qu+gDUoAAhm0+ew3r+
+	R6+C5N3+tGWXiem5M0z9T0sLOk+dn4dYiySmECvGpm/MvtpsWeDJgie5
+X-Gm-Gg: AYBFou35p6wvRaxvDqe+4ztWl7mKsg1Boo3aodNjrLgUQejRdhs1rwYfX954da4xiF+
+	SSQOGHuQ6UlPKQWwIVkqbHQFKLqmHkCITstlZwiXOtmpWlqC4YssnGgrQKQY4MqUeVjTPhhn19y
+	3aiE6JNSSavjeUaOfCQl1CQfWkL+HH4Q7Nobbpse/FhyK8HIiejqEF4uZJ8rS3gRV83Mj3El5IO
+	kXeO7xMcaZjj9SkIZAUx+FgP38J6UQu4Dv1EuawUJbxJpKYq6GL/jITQqPGqWk8JBpByDC8h3qI
+	2SZZt9gcMIsFBfGqt7h/vzyz5ScUNTlegvj+XRrv0e+dcnLJKCe4z2uYvY9NpxOMXHNjf2+EPZo
+	fuOv+YEft+XMnk5lqXNPI6pzwr5VFSLtfy/PE2Gr1JfnTwZqlDOzWZQeWmoIrGeo9RoNWXWjqPW
+	n+lA/P6a1f+2cfZdoz4/tOAzCIs01GAnni+MLuAzAEe0v1lxbDPMvqwgZBpaRMQTmi96hAUckyl
+	/XmYOeJNESgPbyLqS53ALsB
+X-Received: by 2002:a05:6a20:c90e:b0:3dd:a195:dd5f with SMTP id adf61e73a8af0-3dda195e43fmr11708071637.65.1790008125115;
+        Mon, 21 Sep 2026 09:28:45 -0700 (PDT)
 Received: from SANGHOON. ([1.220.132.212])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72aee0fbasm3746033a12.25.2026.09.21.09.28.40
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72aee0fbasm3746033a12.25.2026.09.21.09.28.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 09:28:41 -0700 (PDT)
+        Mon, 21 Sep 2026 09:28:44 -0700 (PDT)
 From: Sang-Hoon Choi <csh0052@gmail.com>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-    Jiri Slaby <jirislaby@kernel.org>,
-    linux-remoteproc@vger.kernel.org, linux-serial@vger.kernel.org,
-    linux-kernel@vger.kernel.org, Changyul Lee <lcy8047@gmail.com>
-Subject: [RFC] tty: rpmsg: possible lookup-to-reference lifetime race
+To: Juergen Gross <jgross@suse.com>,
+    Stefano Stabellini <sstabellini@kernel.org>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+    Changyul Lee <lcy8047@gmail.com>
+Subject: [RFC] xen/pvcalls: possible bind/disconnect mapping lifetime race
 Date: Tue, 22 Sep 2026 01:28:34 +0900
-Message-ID: <179000811428.1227592.8003229121862460039.idr-bug-84@gmail.com>
+Message-ID: <179000811428.1227592.17782105050930623388.idr-bug-82@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,50 +78,55 @@ Content-Transfer-Encoding: 7bit
 
 Hi,
 
-I would like to report a possible lifetime gap between looking up a port
-in tty_idr and acquiring its reference in rpmsg_tty_install().
+I would like to report a possible race between pvcalls_back_bind() and
+backend_disconnect(), found during source review.
 
 The source reviewed is mainline commit
 5dd1818b15d98d4a20806cd00b1b40320b06004f.
 
-The install path calls idr_find() without idr_lock, stores the result in
-tty->driver_data, and calls tty_port_get(&cport->port). The port destructor
-removes the IDR entry under idr_lock, drops the mutex, and frees cport.
+pvcalls_back_bind() inserts a new sockpass_mapping into
+socketpass_mappings under socket_lock, then drops that lock before
+installing the socket callbacks:
 
-If the last reference is dropped during that lookup-to-get interval, the
-following order appears possible:
+    radix_tree_insert(..., map);
+    up(&fedata->socket_lock);
+    write_lock_bh(&map->sock->sk->sk_callback_lock);
+    map->saved_data_ready = map->sock->sk->sk_data_ready;
+    map->sock->sk->sk_user_data = map;
+    map->sock->sk->sk_data_ready = pvcalls_pass_sk_data_ready;
 
-    rpmsg_tty_install()              rpmsg_tty_destruct_port()
-    -------------------              -------------------------
-    cport = idr_find(...)
-                                     take idr_lock
-                                     idr_remove(...)
-                                     drop idr_lock
-                                     kfree(cport)
-    tty_port_get(&cport->port)
+backend_disconnect() takes socket_lock, removes passive mappings, and
+calls pvcalls_back_release_passive(). That function restores the socket
+callback, releases the socket, destroys the workqueue, and frees the
+mapping. The request IRQ is unbound only after this cleanup.
 
-tty_port_get() uses kref_get_unless_zero(), but this cannot protect memory
-that has already been freed. The install path also does not check for a
-missing ID or a failed reference acquisition before tty_port_install().
+If disconnect overlaps the threaded request handler, this appears to
+allow the mapping to be freed between insertion and callback setup:
 
-TTY installation is serialized by tty_mutex, but the RPMsg remove path
-does not explicitly take that mutex around its final tty_port_put().
-The destructor can consequently run from RPMsg removal, not just from
-TTY cleanup. I have not established all cross-subsystem ordering rules.
+    bind handler                    disconnect
+    ------------                    ----------
+    insert map
+    drop socket_lock
+                                    take socket_lock
+                                    remove and release map
+    access map->sock
 
-A draft takes idr_lock across idr_find() and tty_port_get(), and returns
--ENODEV if no live reference is obtained. This uses the mutex already
-taken by the destructor before removing the entry. Its scope is this
-lookup/destruction gap; it does not establish safety of every probe or
-remove interaction.
+A draft change holds socket_lock through callback setup. This preserves
+the socket_lock -> sk_callback_lock order used during disconnect and
+addresses the interval above. It is not a complete teardown fix: an
+in-flight handler could still insert a mapping after disconnect has
+finished walking the tree. Quiescing the request IRQ before freeing
+mappings may be the better approach, but needs a separate teardown and
+deadlock review.
 
-The draft was compile-checked as rpmsg_tty.o with W=1 in an x86
-allmodconfig build at the commit above and passed checkpatch. There is
-no runtime reproducer with an RPMsg endpoint or sanitizer trace. Device
-permissions and the ability to remove the endpoint also remain relevant
-to any security assessment.
+The narrow draft was compile-checked as pvcalls-back.o with W=1 in an
+x86 allmodconfig build at the commit above and passed checkpatch. It has
+not been tested in a Xen frontend/backend setup. There is no runtime
+reproducer or sanitizer trace, and no security impact has been established.
+XEN_PVCALLS_BACKEND is marked experimental in Kconfig.
 
-Does another TTY or RPMsg lifetime rule prevent this particular overlap?
+Is there synchronization outside these functions that prevents the
+request handler from overlapping backend_disconnect()?
 
 Reported-by: Changyul Lee <lcy8047@gmail.com>
 Assisted-by: LLM
