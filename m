@@ -1,162 +1,154 @@
-Received: from lgeamrelo11.lge.com (lgeamrelo11.lge.com [156.147.23.51])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9656347ACC0
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.147.23.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03DCB4734CC;
+	Mon, 21 Sep 2026 10:46:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789987494; cv=none; b=nHKG7P3MgikHWt01z4i5g725kWlpyEXbMpLaB+k7z+3mCLCcuGP5SpIg5rk7tyFPaXq+MooXr0WjkjEB8FjfzAExXLN1MB33JaC6RNM1ZknSOwkzREmfAXfjpdgT7rkbp7R9k3CpwXtFT4Q8JjvDTJEH+vfMRIIDKAZAOtxs0JM=
+	t=1789987566; cv=none; b=ePcLqdB/4wN8Jt4rKd8Zf0ZQSiR3Zd6PF6YkUHws/l9ESurlqaESjD0+QEmvCUnSlLCtFLuKRJUq22Q/ltGYBg1eAZkyUAEEe0ICEy2u0VuPAaBY0mpirB/ccBjRAyHKLNiI5QvIXmZMCln5gmky/ObnJG8/xJziTz8IYM9IwZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789987494; c=relaxed/simple;
-	bh=QjartXcLa5zeQ/M0u7+w32mROV/UGTDcThe2MZzZvvk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rnMaafxhYXv56Kq4jXTk7jEVvmAoQ2tdrBdacUK1JAD21fuXPWV0Q5S3zvE7zZR1h3pJVkaszhbRZE3LGlssxIp3MiVEZa/cuWw8OJjFZXCkkQxY3qA6LIzGB3+OOzULDmJhFzcRpC8vRjjPt1fp93Pn0kBoVFbxG6d3w+I0pnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lge.com; spf=pass smtp.mailfrom=lge.com; arc=none smtp.client-ip=156.147.23.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lge.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lge.com
-Received: from unknown (HELO lgeamrelo04.lge.com) (156.147.1.127)
-	by 156.147.23.51 with ESMTP; 21 Sep 2026 19:14:47 +0900
-X-Original-SENDERIP: 156.147.1.127
-X-Original-MAILFROM: trieu2.huynh@lge.com
-Received: from unknown (HELO trieu2-huynh-trieuhpn-ubuntu24.bee-live.svc.cluster.local) (10.159.39.43)
-	by 156.147.1.127 with ESMTP; 21 Sep 2026 19:14:47 +0900
-X-Original-SENDERIP: 10.159.39.43
-X-Original-MAILFROM: trieu2.huynh@lge.com
-From: Nhat-Trieu Huynh-Pham <trieu2.huynh@lge.com>
-To: rafael@kernel.org
-Cc: pavel@kernel.org,
-	lenb@kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nhat-Trieu Huynh-Pham <trieu2.huynh@lge.com>
-Subject: [PATCH] PM: hibernate: exclude unusable free pages from image preallocation
-Date: Mon, 21 Sep 2026 19:14:46 +0900
-Message-ID: <20260921101446.1193565-1-trieu2.huynh@lge.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1789987566; c=relaxed/simple;
+	bh=p8yNUkMitpwgzvs+cGgbKwO3+XbwijnQD+AZR0s4TxU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=q7mSbohjp7AESf/9p5DOgbL/3/TjZqQYMegiHnmK7J9Ah3xRFuFgCFkjcVKKSrbZFaGHWte5Vap6peB1dEF07PCFl36VeBdpvqbYoUafbRx4bv3bVQoPT1kya6nee1rsiYiijFIZwgy02GNn0NGSPlfydRKvc48WqgeLMw1M9lM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=mYcyu6dD; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="mYcyu6dD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=GnSX7BDD3R3C62GVxOXhW1Ll8Ux6h+dSNtOidsNAaz8=; b=mYcyu6dDYCrgItiCp3xqx7/kZ0
+	RyXIRnMMl4oGyDBjhdx9EzNkDCcFPlaFNvN2/OJmKcVlVme9qM7JDGIfonToacq33tg/Pb0YnZ+ap
+	sxANbuUsf6tMT79gQPssXqaQaMb3P+mRLXioYC1y9ycRUZjLyjt1acvyUr33KflM8fXBzNcJE5ZaS
+	zdTKVkaTigFv4DPTQFpRub5+cSxSXjPEo0YaSTS/q+9J6zlq4tpw6VnuFVip1YOOMnnRjOTHDs1TT
+	+fgaVOC4maGto2Qm5khCHKxtpfGtm6QgZEqyJVVjAXpYjDhOzG4kylcKofrEim6vtykJSvcpGGT5A
+	/tMWDO6Q==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x8bX0-0029FF-1N;
+	Mon, 21 Sep 2026 10:45:54 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Mon, 21 Sep 2026 03:45:42 -0700
+Subject: [PATCH] vmcore: report the release of the crashed kernel
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-kdump_print-v1-1-e445fec3177c@debian.org>
+X-B4-Tracking: v=1; b=H4sIANUKsWoC/x3MYQqEIBAG0KsM3++EjBLzKsuyWE01RCa6RRDdP
+ egd4F3InIQzHF1IfEiWLcCRLgj97MPESgY4QlVWpmy1Vcuwr/EXk4S/skb7uu1sY3qPghATj3K
+ +2+d73w+I2cmPXQAAAA==
+X-Change-ID: 20260918-kdump_print-861a49b856ca
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>
+Cc: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, kernel-team@meta.com, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.16-dev-f8e9d
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2601; i=leitao@debian.org;
+ h=from:subject:message-id; bh=p8yNUkMitpwgzvs+cGgbKwO3+XbwijnQD+AZR0s4TxU=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqsQrdNWo2mbPeqC2ctKM0U9OzNzT6UnZB7Ey9u
+ HNsJAEFUjmJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCarEK3QAKCRA1o5Of/Hh3
+ bWnFD/0aDxinGR9m/HMt2DWUe2YmNdnYA4+TFUkLfyH9ek09lNxVLMsGeg01Ybgytzp7hscVcib
+ Pabef81sLVvPCWaZCfvfE3lT/ab8LlbbWoaSUXqLx04n6HMQJRVlCKBagz6vi2clrVb++d1BC76
+ Q+LFjUu90YlSOgCd8esIRs4WMLC0d5tit7OQ2FrtS/+HNaXnHJzEyr+vpzvjdV6xXk1x7OZZqrR
+ No/L9vmFy8qT/EdcDQa+Tipk4Q67UBaME0IDJU/VsP3CPmr2cJgEB32HqVJ891KxRR2aG4Cy2jH
+ ZaoYhU9K6jNgqx/xkvgQyIsJ7k32X9jfMAWodyJfYx+Xk/mJi6PcO62qiLRhP9M4p5oGebBONBv
+ LiJ7KAVAzoHmrnrYuecoIOl4jpLtvplIEp0EHVghWeFlknU1R9Yb5HeWFsB8VW48TKcOaDkZqgh
+ CVIsk2AL39Xy7pYRF7fHn2xAIS9D/48Ej8opUF+5w+WtPfx/pGCiqyy5E6xmdOtgGq9esNaLtj6
+ SGAvqzhWmlCuCZQVQbxz0mjyl+FLdcq+1mknTHu1rUW1I/tIr8VBKa5KOpfMc+MdYc6vt1TR7To
+ ub5cjYzOTC79K2XukZN7JkFsMsbGvEsVUykxrHSunUv9mDCu8oX1B9hBXYz4hu6rukmNHdFsTou
+ XpGGy3SMPhl07cQ==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-hibernate_preallocate_memory() derives the number of page frames to
-preallocate for the image from the per-zone NR_FREE_PAGES counters.
-Those counters count every free pageblock regardless of its migratetype,
-including MIGRATE_HIGHATOMIC and MIGRATE_CMA pageblocks. Such pages are
-free from the buddy allocator's point of view, but they cannot be used
-by the order-0, non-movable, non-reserve GFP_KERNEL allocations with
-which the image is preallocated (GFP_IMAGE = GFP_KERNEL|__GFP_NOWARN).
+kdump runs in a very small environment and cut-down set of drivers, and
+it can die before the dump lands: it runs out of memory, a device hangs
+on reset, or a watchdog fires while the dump is still being written out.
+This happens about a single high digit percentage on most of big scale
+datacenters.
 
-(*) Reported free vs usable free:
+When that happens the only evidence left is what the capture kernel
+printed to the console, and that does not say which kernel crashed.
 
-The mm subsystem already accounts for this in
-__zone_watermark_unusable_free(). For order-0 GFP_KERNEL neither
-ALLOC_RESERVES nor ALLOC_CMA is set, so the allocator subtracts the
-high-order atomic reserve and the free CMA pages from the free count before
-checking the watermarks. The hibernation preallocation, however, computes
-its target from the unadjusted NR_FREE_PAGES value, so it asks for about
-half of the unusable pages more than the allocator can deliver. On arm64
-(no CONFIG_HIGHMEM) the highmem fallback in the failure path is a no-op,
-hence even a small shortfall aborts hibernation, see [3] for example.
+A fleet typically pins one kdump image and boots it after crashes from
+many different production kernels, and it is useful to understand what
+are the combination of crashed kernel panic and succesful kdump
+collection.
 
-(*) Why those pages are not usable by GFP_KERNEL:
+Whether the dump completes at all tends to depend on the kernel that
+died: memory pinned, devices in flight, dump size.
 
-(**) CMA is reserved for movable allocations, so GFP_KERNEL has no
-ALLOC_CMA, and MIGRATE_CMA is not in the unmovable fallback list. Free
-CMA pages are therefore never handed to these allocations.
+The release is already recorded.  crash_save_vmcoreinfo_init() puts
+OSRELEASE= in the VMCOREINFO note, and by the time vmcore_init() has run
+parse_crash_elf_headers() that note sits in elfnotes_buf.  Walk the notes
+for it and print:
 
-(**) The high-order atomic reserve is only handed out to atomic, order > 0,
-__GFP_HIGH allocations (ALLOC_HIGHATOMIC), which GFP_KERNEL order-0 is not.
-These pages can be unreserved under memory pressure, but only all but one
-pageblock per zone and only after an allocation has already failed,
-so counting them as available still overestimates what the preallocation
-can obtain without failing first. Excluding them is conservative.
+  vmcore: dump is from kernel 7.3.0-rc3-next-20260917
 
-(*) Consequence of not excluding the unusable pages:
+Given this is cheap and useful, I think it is worth adding to vmcore, to
+improve kdump monitoring.
 
-With M = managed, S = saveable, F = free, U = highatomic + CMA and
-R = reclaimable, count = S + F - totalreserve and alloc is about
-count / 2, while the allocator can actually provide about (F - U) + R
-pages. The shortfall is therefore inflated by exactly U compared with
-the usable memory.
-
-From, with U = 11430 unusable free pages (5120 highatomic + 6310
-CMA), the preallocation target is inflated by about U / 2 = 5715 pages,
-while the allocator ends up 1247 pages short and hibernation is aborted
-even though the system is able to create the image.
-
-(*) What changes after excluding the unusable pages:
-
-Subtract U from the per-zone free accounting used to compute count and
-avail_normal. Then count' = count - U and, since max_size is roughly
-count / 2, max_size' = max_size - U / 2 and alloc' = alloc - U / 2.
-max_size' remains well above minimum_image_size() in practice, so the
-resulting image is effectively unchanged while hibernation no longer
-aborts unnecessarily.
-
-Testing
-=======
-(*) SA6155P running on AAOS with S2D feature
-(*) backport locally on GKI 6.1
-
-References
-==========
-[1]
-commit f27ce0e14088 ("page_alloc: consider highatomic reserve in watermark fast")
-[2]
-commit ac3f3b0a5551 ("mm: page_alloc: unreserve highatomic page blocks before oom")
-[3] Example of an abort:
-    Mem-Info:
-     free:344621 free_pcp:931 free_cma:6310
-    DMA32 free:973864kB reserved_highatomic:8192KB free_cma:25240kB
-    Normal free:404620kB reserved_highatomic:12288KB free_cma:0kB
-    PM: hibernation: Image allocation is 1247 pages short
-
-Signed-off-by: Nhat-Trieu Huynh-Pham <trieu2.huynh@lge.com>
+Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
- kernel/power/snapshot.c | 25 +++++++++++++++++++++++--
- 1 file changed, 23 insertions(+), 2 deletions(-)
+ fs/proc/vmcore.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/kernel/power/snapshot.c b/kernel/power/snapshot.c
-index b209712cb2c3..fd6164aea272 100644
---- a/kernel/power/snapshot.c
-+++ b/kernel/power/snapshot.c
-@@ -1867,11 +1867,32 @@ int hibernate_preallocate_memory(void)
- 	highmem = save_highmem;
- 	size = 0;
- 	for_each_populated_zone(zone) {
-+		unsigned long free, unusable;
+diff --git a/fs/proc/vmcore.c b/fs/proc/vmcore.c
+index 44d15436439fd9..406898247d7af1 100644
+--- a/fs/proc/vmcore.c
++++ b/fs/proc/vmcore.c
+@@ -1709,6 +1709,24 @@ static void vmcore_free_device_dumps(void)
+ #endif /* CONFIG_PROC_VMCORE_DEVICE_DUMP */
+ }
+ 
++#define VMCOREINFO_OSRELEASE_KEY	"OSRELEASE="
 +
- 		size += snapshot_additional_pages(zone);
++static void __init vmcore_report_crashed_release(void)
++{
++	const char *ver, *eol;
 +
-+		/*
-+		 * Pages reserved for high-order atomic allocations
-+		 * (MIGRATE_HIGHATOMIC) and free CMA pages cannot be used by
-+		 * the order-0 non-movable GFP_KERNEL allocations that
-+		 * preallocate the image, so do not count them as available.
-+		 * This mirrors __zone_watermark_unusable_free().
-+		 */
-+		free = zone_page_state(zone, NR_FREE_PAGES);
-+		unusable = zone->nr_reserved_highatomic;
-+#ifdef CONFIG_CMA
-+		unusable += zone_page_state(zone, NR_FREE_CMA_PAGES);
-+#endif
-+		/*
-+		 * nr_reserved_highatomic counts whole reserved pageblocks,
-+		 * so it can exceed the actual free pages.
-+		 */
-+		unusable = min(unusable, free);
++	ver = strnstr(elfnotes_buf, VMCOREINFO_OSRELEASE_KEY, elfnotes_sz);
++	if (!ver)
++		return;
 +
- 		if (is_highmem(zone))
--			highmem += zone_page_state(zone, NR_FREE_PAGES);
-+			highmem += free - unusable;
- 		else
--			count += zone_page_state(zone, NR_FREE_PAGES);
-+			count += free - unusable;
- 	}
- 	avail_normal = count;
- 	count += highmem;
--- 
-2.43.0
++	ver += sizeof(VMCOREINFO_OSRELEASE_KEY) - 1;
++	eol = memchr(ver, '\n', elfnotes_buf + elfnotes_sz - ver);
++	if (!eol)
++		return;
++
++	pr_notice("dump is from kernel %.*s\n", (int)(eol - ver), ver);
++}
++
+ /* Init function for vmcore module. */
+ static int __init vmcore_init(void)
+ {
+@@ -1733,6 +1751,8 @@ static int __init vmcore_init(void)
+ 	elfcorehdr_free(elfcorehdr_addr);
+ 	elfcorehdr_addr = ELFCORE_ADDR_ERR;
+ 
++	vmcore_report_crashed_release();
++
+ 	proc_vmcore = proc_create("vmcore", S_IRUSR, NULL, &vmcore_proc_ops);
+ 	if (proc_vmcore)
+ 		proc_vmcore->size = vmcore_size;
+
+---
+base-commit: 3f2425f5b5bbbdd991ca9cdfd5502e68d8895998
+change-id: 20260918-kdump_print-861a49b856ca
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
