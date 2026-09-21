@@ -1,91 +1,93 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 311D54A3D3A
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:06:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1EED4A64D4
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:06:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999565; cv=none; b=ilipcQ1R3Zj0AbXhm00kRpIPlrALUiqH+4cURkSLH7OgkWDvRJWQbMUE7q1SlRc2ianfwPyXIwPClponOkI5cFoMYQ9R4P1Y95ZO5DtW1ZqxQg45tRj79ADvY9B5V1G2fh4bLklVKTeNgkaCPDD0kd3iVonrnYoPmNI0L8Or0s8=
+	t=1789999570; cv=none; b=BpDbJgsj+vDQgN9XKMzieThSeCky5RPfmiBV0wByaRIuiNJ5i3U6kwhS5vJsOx/pzqKYRoxuQ/bh92RF2qhiBIwAPzEahY3j217lnTa8dHcJmoBSp1V8QN65tz0QmKy+27+aHZSOHXM3e72d8t+KaboiVSeXYOJXnxQ6+tcWqTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999565; c=relaxed/simple;
-	bh=2eJm4Qlbcv63yRhYp8LKeIfnT6D1XcAZy2F28IWxQIA=;
+	s=arc-20240116; t=1789999570; c=relaxed/simple;
+	bh=0dZ5YbDbJH39c/54d7+b7KJ43/iKdc3mwamBtUR777Q=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Content-Type; b=cOOLZMxGpY+RqPS/F7+eFwFjZDNWhKu07LNYXiXZiokudemmmQz3d5eoR9ZtpzPunBPi/Lh0q+UbzNynvPZQOJ/PvmhpiZI0qG/5qfMGlK5bhozgUjVNW5qo9xUN0QJOFGJcTGwztA8YqCOG9tIaSw9mLPUGT/KvrOXGsTkvESQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DVQG/ibn; arc=none smtp.client-ip=209.85.214.197
+	 To:Cc:Content-Type; b=dQ72z1CYV98Bf5qZf5oS7tMWsWM8LOpeuAe5u914lxj1TWXJ8fHUCOAFDuy+Yz6LCSfy9tM0krYj9hD7tSu1KewHOal00YbwxQMEcPYNqVUiPthu4AxppNHKsbFfaX2Fxmdq4VYvRw26IKt5XCQu090KK27j+SeZMAFHmaku2AQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oyEakO62; arc=none smtp.client-ip=209.85.210.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DVQG/ibn"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2db3d832827so40733505ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:06:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oyEakO62"
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-86261e66700so3018050b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:06:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789999563; x=1790604363; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:to:from:subject:message-id
-         :references:mime-version:in-reply-to:date:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2SNrcGbCmwVp5rC+pI8JTwzDzqFP9LyCEeRjh8ThPOg=;
-        b=DVQG/ibnrvEMizR/ZR3AN3CK4Wrbi5L96YI2dcIXkU2pFtMqBavry4S7EO3gVrJudk
-         fzImUQD3JxuHhf5VqZOT7NhoK88ro/+2RpyRlcGv7RekKGaPgMo/ZR6W3juLsapgwDYW
-         LIg1TZ27n20mJLhjvizutQJfx0H4NyFqoKcKxrXhLGqDWpOtwAs0KNVrdJ4ujm4PlQkm
-         mgApY4XEY71mKWkRnUDSTTS4BEXTc4kAF2iBoOrSZRkvMbCIx/zpZvFAF4pZZeKFIcSR
-         13wSKIr9FLcffcpSHcXzyrhc1svm+M4dhVVaOWKCD2R9DLusGQdtmfIyL33e1+FvYImZ
-         uEbg==
+        d=google.com; s=20251104; t=1789999568; x=1790604368; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=36Xgc8CFAqUqBdMyUYpwMuSstU8OP86gmDCHoH0Yjzs=;
+        b=oyEakO62fWq/dA9SucaYqgYInijGBMEstSQq/6uRMpmixvL5OXPUlOq4+DWBub72nb
+         OxlfFWvZ6OYitZAMk4x/cMC/iI3IY6Rb7VaTnKe4eahmubxp5I5kWO9KSsill+G+KTYt
+         EAAkBQYmP+WtbN/yiy8VNpKC8q7qBnceQUG9dwieaD9a/8/mMIwixswp13GMX1QYJSIB
+         lSKfYy4zQJYwhFq3G3MdDWbQ3Cir9WCNTealXnRrh+YEvnBKkGnTMo81S0yJjhWaFeUo
+         JcBLeuSzORf8+vdoaumUaYXhrN/hSFAihjwj3TzpI/fXPDHTz1m3Kh+G1hmfy6ehq5r7
+         coHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789999563; x=1790604363;
-        h=content-transfer-encoding:content-type:to:from:subject:message-id
-         :references:mime-version:in-reply-to:date:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=2SNrcGbCmwVp5rC+pI8JTwzDzqFP9LyCEeRjh8ThPOg=;
-        b=XIBPKLuV2eqazJ/goKxA1x4JulmiOc3y5eK4N6n3yhD9gYDBPAM26mMG3ESxfipo8t
-         1PXph4YHB0ZlNipQmzv12F8BoQoWqW0f4agaHpDnNVu0sb1GLcqtozutOLK3sBwh7Jio
-         /Jnek5iCZzaB5yuVl0JsvPyppf32CKEsfvbXFflk4Xi5FUdrW2iFwY8Ehn/+JxcsmzIa
-         HCTcJLmfuTjP2dPgtEQv0MOgwq0rHIV39IGVo/z0qBZrlER3X5jpBjYSKw6Q2M1JjhuL
-         MyuOYu6l9wgezKm9/MOtrS5NBGcqdUdJUYOjpMP6ILLEShxg72qXQp7MmyhW19mNuKZp
-         Md0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw5WsU7B1aqOw06+Qs5yCdYH5Tczt6tQfoLU9GZl2uVH0zDe06245mW5W+2h0zl4ZwwBMfqTAfcnZJgSdw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nAYO5PZHEyPCndJWRXD7twABIfNRGotJCganArd8nESTpsin5x
-	sQMfpadiVipcwzVhmNPIB8i3KESckboF9eSwc0LOMHSxC8bGxH3wuuAjoIhCApS0+3B1dIu+eyV
-	rYuxERw==
-X-Received: from plld8.prod.google.com ([2002:a17:902:7288:b0:2db:60a3:afae])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2f4c:b0:2dd:c170:2d4d
- with SMTP id d9443c01a7336-2ddc17034demr110471435ad.24.1789999563212; Mon, 21
- Sep 2026 07:06:03 -0700 (PDT)
-Date: Mon, 21 Sep 2026 07:05:06 -0700
-In-Reply-To: <047d5e3a-b64d-434c-9a40-140468441de2.hao.xiang@linux.alibaba.com>
+        d=1e100.net; s=20260707; t=1789999568; x=1790604368;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=36Xgc8CFAqUqBdMyUYpwMuSstU8OP86gmDCHoH0Yjzs=;
+        b=TdHxcY4MsRuH849TDda8vQFd2BL/gHTgM4pHVMb1JkSVcnj54F2l/UpgeT+bNoEKtj
+         9XR+MIj/15QtjwT5xRx/2pYUFCvzPOMjV5K/mUGvRmTE9JO9xmXDZ5sZ3c8AvuWP/Yby
+         LcY6Ik6YQYA4/577lcXPmM5ZfED0lY22CwUlXcOx/kJSm0qBZIDRfe2YPrtD2UOnE2RD
+         4lLKOykr8DNvizEMrP7tuCC72ZmZtgTnYJfYNFJQdX7gZgjLVUpySZ0asA80ggUPS+yf
+         0/NRF894E0gIvVoshPHafov2S37/SLiRqqLL9FjV4UOFxaOfEo9E36nUXNfwGtRHPFYu
+         toTg==
+X-Forwarded-Encrypted: i=1; AKwUvBxl83SyRbVGoCMqjAgVUKtALswdlzxfDAd76FFQoojMT1gSqBxT0swgLEpPO/r3yScQ1mxba3ZJxRLKIu8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mC7WLjsdXx0yNKUcHbVO8+eYnwGnPexwm9bAg2A8msALSTvCnR
+	6YEQ918rFOHIPtx9jIrqPjAfN1xgB1xqMqq14n1tQFU3P6BGnIxrGD6TO0jna9PX3vEbvNLI9U4
+	iz3YjTg==
+X-Received: from pfux1.prod.google.com ([2002:a05:6a00:bc1:b0:879:b29a:eb0d])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:1f06:b0:857:73e2:9108
+ with SMTP id d2e1a72fcca58-874ddbffd9bmr14371131b3a.24.1789999567863; Mon, 21
+ Sep 2026 07:06:07 -0700 (PDT)
+Date: Mon, 21 Sep 2026 07:05:08 -0700
+In-Reply-To: <20260826184449.814130-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <047d5e3a-b64d-434c-9a40-140468441de2.hao.xiang@linux.alibaba.com>
+References: <20260826184449.814130-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <178999687461.714438.14645888024741570716.b4-ty@google.com>
-Subject: Re: [PATCH v2] KVM: x86: Rename CPUID feature bit AVX10_VNNI_INT to AVX10_V1_AUX
+Message-ID: <178999678766.712354.13131811120139507103.b4-ty@google.com>
+Subject: Re: [PATCH] KVM: x86: Zero reserved synic flags when delivering
+ message to avoid stack leak
 From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, kvm <kvm@vger.kernel.org>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, "zhao1.liu" <zhao1.liu@intel.com>, 
-	pbonzini <pbonzini@redhat.com>, "shannon.zhao" <shannon.zhao@linux.alibaba.com>, 
-	Hao Xiang <hao.xiang@linux.alibaba.com>
+To: Sean Christopherson <seanjc@google.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, 08 Sep 2026 19:54:51 +0800, Hao Xiang wrote:
-> CPUID feature bit AVX10_VNNI_INT is renamed to AVX10_V1_AUX to account
-> for additional AVX10.2 instructions separated to have =E2=80=9DOR=E2=80=
-=9D sensitivity
-> for platforms which may not support all of AVX10.2[*]. This CPUID bit now
-> applies to the following VNNI instructions: VPDPB[SU,UU,SS]D[,S]
-> VPDPW[SU,US,UU]D[,S], as well as the following convert instructions:
-> VCVT[,2]PH2[B,H]F8[,S], VCVT2PS2PHX, VCVT-BIASPH2[B,H]F8[,S],
-> VCVTHF82PH.
->=20
+On Wed, 26 Aug 2026 11:44:49 -0700, Sean Christopherson wrote:
+> Ensure all reserved flags are zeroed when setting the msg_pending flag as
+> part of SynIC message delivery, as setting only msg_pending can leak seven
+> bits of kernel stack data to the guest.  E.g. gcc typically uses a
+> bitwise-OR to set the msg_pending flag, without initializing the on-stack
+> variable.
+> 
+> Precisely zero the flags, e.g. as opposed to zeroing the entire structure,
+> to make it somewhat more obvious that the flags *need* to be zeroed.  E.g.
+> it would be quite easy to misread the initial read of guest memory and
+> think that zeroing the entire structure is completely superfluous.
+> 
 > [...]
 
 Applied to kvm-x86 misc, thanks!
 
-[1/1] KVM: x86: Rename CPUID feature bit AVX10_VNNI_INT to AVX10_V1_AUX
-      https://github.com/kvm-x86/linux/commit/674717509d9e
+[1/1] KVM: x86: Zero reserved synic flags when delivering message to avoid stack leak
+      https://github.com/kvm-x86/linux/commit/2616f497506a
 
 --
 https://github.com/kvm-x86/linux/tree/next
