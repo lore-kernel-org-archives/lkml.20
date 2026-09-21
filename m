@@ -1,138 +1,121 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 703D2314D1F;
-	Mon, 21 Sep 2026 12:09:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E7AA493D38
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:09:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789992544; cv=none; b=e9qARyTYf92uGpKK8TaZEDimFsosKaMmnX+8hva4VCPAK5MMYCKx9paGIhJ3sF5WFIsE8MruswSIbq5J1qwltb/tRBpk4xcZGKrHP8U3Tltyr7U+gdDj/eDx+++Cm8L+Diad6+AtyRMkiGkpVIYJIhbF7QUblQW9qwBcFVDm5kI=
+	t=1789992552; cv=none; b=W2+4Tmhp1jgTtythl/5WdWSVMSO5jIUJF3DxlGGK8mpsXIgJYm4u8lqIZjpnWK7OKjcZR3jK28CmlhkFjvHsmGwpopfU0y3TDK52WmxtM9a6lB43D9FOVkdoE1+YZK5iZLvb4jkIL7qLDwtbScxz5sr5HA33P7tRvJNZ68KcNqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789992544; c=relaxed/simple;
-	bh=/qErVVwKhalJ2lwNOPfynyqL2Cb5IjjXJfMGfjh0ceo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Vlhr/QhcgLax6jbQf7Uc989rm97NHX1Vl0bCKtamt8tOF2Ip6rFKLu2JNdDGXDH5fgdBENnyAERq+YaCwdkFLRMC46s0M4kjj/Du0OdjLyCvjrkmBy3B240Ree0GS7tZGtSC1lt3WcXhnVwMdwR7tKPOE9R7bTl4CssjYB6w0yY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=kkX5vbfW; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1789992552; c=relaxed/simple;
+	bh=YBV2qFNBiBDxmwMg4/gYVlQdwkVLa6/Ny/umX+th+a4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SYc16x0jre9V8soqd90SJ4zHnDXN4X1k5BfRyyRPFZ4EV5rZL7Jg8wcgUWKMCvt1A6dB2botT86h1+FrhWyrRFBm2kOeD9uKCqO/SE6dFz3lBZwG7qrr9peR6++AiUOX+1S3T83GZEKqh1ABK6s7cx1HSNNFtx0Wq75iidKF/8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GYkLfITr; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="kkX5vbfW"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e943032e;
-	Mon, 21 Sep 2026 20:08:55 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	KyongHo Cho <pullip.cho@samsung.com>,
-	Kukjin Kim <kgene.kim@samsung.com>,
-	iommu@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] iommu/exynos: quiesce SysMMU before requesting IRQ
-Date: Mon, 21 Sep 2026 20:08:48 +0800
-Message-Id: <20260921120848.96215-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GYkLfITr"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4ad9so16523615e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:09:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789992548; x=1790597348; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P/1AK9R3z2kttD4zy0NklD51ewJDy0/li8YyGBaTfLw=;
+        b=GYkLfITrdAUgP+k2PZQaJ3xuVXjhg1TCqeH9r7FvsSMfhJ0XWdj6L28rJSBTeU1tas
+         Kfa84zyYoSdtGL3zYB9ZrwaYxhu0oMaPPzdhJ//URpBWj9sydFy8CHgaRwMESG9DGX0E
+         pNZEU8XDR7Xjl/ZE9w1zkIoI/VRUXd226DWsc2bAb4zdwCUYN7aMFf125HYRq9B50qH0
+         D9NVS9I4vsc9kJ37RSS73h+wLU142gChpqqpzbOQwVC61eRwUToiUR+tnG3keiqmuuCc
+         KGW2AgGJ2HcTB9yWqlAd37DeLTzR2QEZ1DZ85icA5Qz0iL+9XEkpw/RKKObEsct9JwbU
+         xlDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789992548; x=1790597348;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=P/1AK9R3z2kttD4zy0NklD51ewJDy0/li8YyGBaTfLw=;
+        b=g9njRFUayPKWiSneWYeMxR6v278TQsvZA4tyfgB3aM/6rzL0hfFdceTJWt8PAGI0Of
+         V3dQt5UOZPIDh8KKv3j07Ze2+852tD/HZ6EM3ABHC2l3mLC/Kxfp38m5mFO9NayGpDE+
+         Af2cHhBjjKRljP2sTQ3zYfLkLzpZ8q0dCotfN9R+ugnF22yfiWIKWUhyBtoe2Qm+t79I
+         JvNpk0zMIDf6+z/eXbzOGIrCG+Gt5luJ/ueomHwyOOCQUKwfvNR8I6NohqTOnzJ7SoKh
+         yc6WlhJ7uvhwVTCQWYkmt+rG0wpa7G7alMKpyD/EQoWu+tQbGDBzS74sNorh/z17gxQ0
+         e0Sw==
+X-Forwarded-Encrypted: i=1; AKwUvBzRJepMWTHXORkgy8XGHsPVbWGzsbX32KMxXvRXn5rIFPEOY2vjjSxUKXr7T87OUFYWn9PvGgO+3UEOsNk=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4TOoBnTddqUOkejQCrq8pwidhX5QZAnn5UukBAmUYFgJfvKEC
+	b7OA2rWJS1V2fi6hL4847FpB/iFOIWGI+BfVIVcQM2C8nCH3rJQVhY94
+X-Gm-Gg: AYBFou0gOyYH5P72d5TQAmOJf559zWdg6tP6iPzulp20u7WXLdDwUhicGrbcJkX/rqM
+	UEY6QjKGgumfAY2wO4Uvd4LvXyoacA64DNH1UFuKKfgibqtL00PDhhxVWG3mqDLWkGJ2XAv1iid
+	IlxAMwu4DjIZArUMXibjcH6UDi21nRqFAVzybRHpR4/LMEoVxTr1VwU+SNqqPkB56i/lRErvkFD
+	Bw6wq4KoSC4gPanL2E6V5MZYM75v6smNC9GbzSsfHNG2WyUNopQ/l3yZ4X4QEdIsMfph9AhMTr0
+	afAhzbotii31/sT+ys49uNikXULCwChwlCAhXR6e/LY3MdGwT+0hBfAKdQIYvcwkphAvjl21y4Z
+	H0n/a3bUv3nw3gAiLEwYHTFaALoPABTxm5fCndmbAWHtP5KgFbXa1EKxTImXJxDqNIiI3CKnYOK
+	imIQ5BdJQO8k50rU9RF+VbEt1YcQYFMa95X0laja/LS8C9hVoWBLNL4JJYzOGDEaVftPgMV2+5A
+	XR08yQf75iblRa2MWTxx/B3uPTB6dT7hOTjDyU5RsnyodkAFKRLelsFD/QRfpX4XKI7n1/vqtyq
+	pQ==
+X-Received: by 2002:a05:600c:1c01:b0:49c:fc6e:a3d7 with SMTP id 5b1f17b1804b1-49fc5753eb2mr184542645e9.22.1789992547781;
+        Mon, 21 Sep 2026 05:09:07 -0700 (PDT)
+Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd10273fsm229284935e9.7.2026.09.21.05.09.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 05:09:07 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <350cc022-2769-4052-93f4-029ef93fa41c@gmail.com>
+Date: Mon, 21 Sep 2026 13:09:05 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0c3de84a303a1kunmd735d0fb4b6a8
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTEpIVh5NSBgYSh5OS0kYHVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSUhOQ0
-	NVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=kkX5vbfWyv/gdMl7tC4ESPW32ilC7asfeLcN8S0K4dlX9J52PSfLUAZhNgD0iJ/2yJbIB9oEfHDb3kWslE2fMoAAz9gfICmC1gnOWetfT7Emq2GM89rBjfsd0eBhExmyYCSXliRpYgZPb/B8zbdKlOLH2FAPNMiY1vE2AvdSq/0=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=NyenvGwZgtQ1ti3SGghMMEphkksMnte6MvYyknQsOfs=;
-	h=date:mime-version:subject:message-id:from;
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] kconfig: Replace "cc-option-bit" with "cc-option-str"
+To: Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>
+Cc: Nicolas Schier <nsc@kernel.org>, Matthew Maurer <mmaurer@google.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Masahiro Yamada <masahiroy@kernel.org>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+ linux-kbuild@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Vegard Nossum <vegard.nossum@oracle.com>,
+ Nauman Sabir <officialnaumansabir@gmail.com>, Tejun Heo <tj@kernel.org>,
+ Nicolas Pitre <nico@fluxnic.net>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Andrew Jones <andrew.jones@linux.dev>, Graham Roff
+ <grahamr@qti.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org
+References: <20260919005923.i.879-kees@kernel.org>
+ <20260919005929.4077729-2-kees@kernel.org>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <20260919005929.4077729-2-kees@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-exynos_sysmmu_probe() registers the IRQ before obtaining clocks and
-detecting the SysMMU variant. A pending IRQ during this window can enter
-exynos_sysmmu_irq(), which takes data->lock and then dereferences
-clk_master and variant before they are initialized.
+On 9/19/26 01:59, Kees Cook wrote:
+> $(cc-option-bit) returns the flag it was given when the compiler accepts
+> it, and an empty string otherwise. It was originally only used
+> internally for machine bit flags, but it is generally useful[1].
+> 
+> Rename it to $(cc-option-str), which says what it returns rather than
+> what it was first used for, and extract the probe logic from the existing
+> $(cc-option) macro to reuse it. Additionally add support for an optional
+> fallback, much like the Kbuild cc-option macro. This can be used as:
+> 
+> 	config CC_OPT_FOO
+> 		def_string "$(cc-option-str,-fnew-option,-fold-option)"
+> 
+> If the fallback is omitted, it is just an empty string.
+> 
+> Build tested ARCH=x86_64 defconfig with GCC 16.2.0.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Kees Cook <kees@kernel.org>
 
-Obtain the clock resources and initialize the software state before
-requesting the IRQ. Detect the variant and quiesce the hardware by
-disabling the SysMMU and clearing its configuration while the clocks are
-enabled. This leaves the block inactive when the handler is published.
-
-Also ignore interrupts observed while the SysMMU is inactive, so a
-spurious interrupt cannot access inactive fault state.
-
-The race is theoretical; no runtime occurrence has been observed.
-
-Fixes: 2a96536e77b4 ("iommu/exynos: Add iommu driver for EXYNOS Platforms")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20260901130527.3289245-1-runyu.xiao@seu.edu.cn/
-Assisted-by: LLM Codex
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/iommu/exynos-iommu.c | 27 ++++++++++++++++++---------
- 1 file changed, 18 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/iommu/exynos-iommu.c b/drivers/iommu/exynos-iommu.c
-index 874d05f4b3969..8081bd93c67cb 100644
---- a/drivers/iommu/exynos-iommu.c
-+++ b/drivers/iommu/exynos-iommu.c
-@@ -571,9 +571,12 @@ static irqreturn_t exynos_sysmmu_irq(int irq, void *dev_id)
- 	struct sysmmu_fault fault;
- 	int ret = -ENOSYS;
- 
--	WARN_ON(!data->active);
--
- 	spin_lock(&data->lock);
-+	if (!data->active) {
-+		spin_unlock(&data->lock);
-+		return IRQ_NONE;
-+	}
-+
- 	clk_enable(data->clk_master);
- 
- 	itype = __ffs(readl(SYSMMU_REG(data, int_status)));
-@@ -744,13 +747,6 @@ static int exynos_sysmmu_probe(struct platform_device *pdev)
- 	if (irq <= 0)
- 		return irq;
- 
--	ret = devm_request_irq(dev, irq, exynos_sysmmu_irq, 0,
--				dev_name(dev), data);
--	if (ret) {
--		dev_err(dev, "Unable to register handler of irq %d\n", irq);
--		return ret;
--	}
--
- 	data->clk = devm_clk_get_optional(dev, "sysmmu");
- 	if (IS_ERR(data->clk))
- 		return PTR_ERR(data->clk);
-@@ -777,6 +773,19 @@ static int exynos_sysmmu_probe(struct platform_device *pdev)
- 
- 	__sysmmu_get_version(data);
- 
-+	/* Keep the hardware quiesced before publishing the IRQ handler. */
-+	__sysmmu_enable_clocks(data);
-+	writel(CTRL_DISABLE, data->sfrbase + REG_MMU_CTRL);
-+	writel(0, data->sfrbase + REG_MMU_CFG);
-+	__sysmmu_disable_clocks(data);
-+
-+	ret = devm_request_irq(dev, irq, exynos_sysmmu_irq, 0,
-+			       dev_name(dev), data);
-+	if (ret) {
-+		dev_err(dev, "Unable to register handler of irq %d\n", irq);
-+		return ret;
-+	}
-+
- 	ret = iommu_device_sysfs_add(&data->iommu, &pdev->dev, NULL,
- 				     dev_name(data->sysmmu));
- 	if (ret)
--- 
-2.34.1
-
+Tested-by: Julian Braha <julianbraha@gmail.com>
+Reviewed-by: Julian Braha <julianbraha@gmail.com>
