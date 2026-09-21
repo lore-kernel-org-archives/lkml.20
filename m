@@ -1,78 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5819E3BE627;
-	Mon, 21 Sep 2026 18:18:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0CF4F796E;
+	Mon, 21 Sep 2026 18:19:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790014718; cv=none; b=NIL+vY5LzF635y/YwrmfE0ENhC2ShRD2sIhHwD8rJqpQPNK+o9lcrQV9DubWy8aNQZpU1yweoAFd1qvFJOHHmHSHspuc3h+8JwY1jbsS3XOKrXD2m7mzLofSzzACT098YErgjIaS30dMPI7fWbC2qFIzslIAAqQ0NwecbjQCnYk=
+	t=1790014752; cv=none; b=SCfulwFGRg93hj5KEeABJzE7GMySdPcBnQ3TQ++S4mSaaqPXXj+gNarpCPFEbMS9++7EQnwr3GqBxmNpG3PFX4xsSl/Er7/xsfBy23EpuiPhnNYypwx8XIQ6eLR80HJTWpkeQ+Q5Ifk/zLap5OwEc0Y6xlapGNXn26dcWuYs+nc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790014718; c=relaxed/simple;
-	bh=Oo89vx5yydQGIL1iDyz/B0YNMuq7l9nfmGbOSCJaWew=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HjapUI/KNiJT6737qEiV2BtG9dvQ0paw/qoEcoJGJ9qrkR8D1GeL3H6MgwHCxcp4V2Wl5CRSaegJilQ39PBfu4boaS0Hw2ePJfe3btCR86sXStdcm0pAM85bK6QhZysWq5yXkASymVCW86OlgiJ1+d3AE2LTEdh/+FmLu/5jNR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X4Zq7HUJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790014752; c=relaxed/simple;
+	bh=Fnd+0sqejGQ0KX+O+NuogAH/m8bc5UQymiGVlXraqlI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=H+HG0UNIoitDjjWdPpkqMDrkDUJWYcCaZRlXsJ4Mqy+c0ULGt5fym8yE3LPo7F4Xgw4v1Uq7HuaS/JNZCTaUiStZGY6AvS6QeOGoDwGlhbsWVVdh4jBpOK3Y3cDngJW0aG+hEnSMdvRvwLferfswzFFBglHCtW3JJrF24bh+X9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wyb0E9bI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X4Zq7HUJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3B771F000FF;
-	Mon, 21 Sep 2026 18:18:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790014717;
-	bh=y3MmTN1WCD1kBfJ5XE9TLBBrKPVz6WjoZ7nFhMOitjc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=X4Zq7HUJRxh5B0hjjKPecA0hoM3MqF0UDwMAyPRVVl/lmady8eL/qvHriDScs/xdi
-	 piIdLTuIOk5gWgXXz037qmed+6js9U4EP9MXJdWOO1WizH2N0RCqxNR90oobb2XE15
-	 kGZVCWNOhazNDkGqeN3P98hv4n2g7G5o2JmdqLsk/F/HfWjflmOi6ers3b7X/QN15d
-	 iaU8DBa7F+wKU7ETSJe1cVkeBQPxp19zd1IwtjqWeZeNOMEbg63/g/qrNdHJMHr4D/
-	 OamlFuHUzT6zzUXmMlNVkb5biEIFK1YmSBcBXoPCMd10TowjkKf9eVtmGCyhZR3uW4
-	 +bETFCJdlUlaw==
-Date: Mon, 21 Sep 2026 13:18:34 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Quchaosheng <quchaosheng000406@163.com>
-Cc: linux-kernel@vger.kernel.org, Lee Jones <lee@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, mfd@lists.linux.dev,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-pwm@vger.kernel.org,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>
-Subject: Re: [PATCH] dt-bindings: mfd: convert lp3943 to DT schema
-Message-ID: <179001471344.1208214.13809098512770141099.robh@kernel.org>
-References: <20260914013752.394579-1-quchaosheng000406@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wyb0E9bI"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4C7FBC4AF15;
+	Mon, 21 Sep 2026 18:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790014752;
+	bh=Fnd+0sqejGQ0KX+O+NuogAH/m8bc5UQymiGVlXraqlI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Wyb0E9bIH7MqsEyZml6OlGrRTtTJvMDSpHaZfh4J5sQiHZqOJaza0xf+Z1YE0KknR
+	 uBeykR2FkvVad9CpoyiwSpTYIR9c1CkD/PGb9z9WPwsKXBUezg2AXzbciiXGv14fVc
+	 7EmnZzfDK9poc2cXTOFgZErmy7j3H2YMDuUSj49idnFbGtyMZK/uU5pqoJ+/K953Ku
+	 Xynm3tzbRywGlPkd0LGIczEKPO/Zbi38T1yiufWXPTzoaBWhedRhDPTbm3FJB9AXHW
+	 9EpSbpqtzuSrA4psMAlR241dNyPRwSjKbPVwaYSAJBdv5wuyX9HEhTJgeMG44ZsITM
+	 KwnwtMEq38GcA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 306F1C982E6;
+	Mon, 21 Sep 2026 18:19:12 +0000 (UTC)
+From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
+Date: Mon, 21 Sep 2026 21:18:54 +0300
+Subject: [PATCH v3 03/19] dt-bindings: nvmem: Add compatible for MSM8952
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914013752.394579-1-quchaosheng000406@163.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-msm8952-initial-support-v3-3-b96fd3fe298b@mainlining.org>
+References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
+In-Reply-To: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+ Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
+ Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org, 
+ linux-input@vger.kernel.org, Muzaffer Kadir <muzafferkadir@mainlining.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790014748; l=867;
+ i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
+ bh=6JMvRgvxX2he4PG9Fo4mqxxQVXCwNkBZtmdxWuS+a1o=;
+ b=ClIpLVxGYkGbsoPxZHFPXeK9OUKgRr+4EVaqNeySxB5n+7FGiJClSL03OKADreAzCOtMSR+Mx
+ MfESgokzHOrAanG6sGN9o7D6COlrTWelirMITGQY1dWy+XhjtgzONz4
+X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
+ pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
+X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
+ with auth_id=954
+X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Reply-To: muzafferkadir@mainlining.org
 
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-On Mon, 14 Sep 2026 09:37:52 +0800, Quchaosheng wrote:
-> Convert the LP3943 MFD binding from free-form text to DT schema.
-> 
-> The LP3943 is an I2C LED driver that contains two sub-devices,
-> lp3943-gpio and lp3943-pwm.  The GPIO sub-device is already covered by
-> trivial-gpio.yaml, so only the PWM sub-device needs a schema of its own.
-> 
-> The PWM schema documents the ti,pwm0 and ti,pwm1 properties that select
-> the output pins for each of the two internal PWM channels, matching what
-> pwm-lp3943.c reads through of_property_read_u32_array().
-> 
-> Both schemas pass dt_binding_check.
-> 
-> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
-> ---
->  .../devicetree/bindings/mfd/lp3943.txt        | 33 --------
->  .../devicetree/bindings/mfd/ti,lp3943.yaml    | 64 +++++++++++++++
->  .../devicetree/bindings/pwm/pwm-lp3943.txt    | 58 --------------
->  .../devicetree/bindings/pwm/pwm-lp3943.yaml   | 80 +++++++++++++++++++
->  4 files changed, 144 insertions(+), 91 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/mfd/lp3943.txt
->  create mode 100644 Documentation/devicetree/bindings/mfd/ti,lp3943.yaml
->  delete mode 100644 Documentation/devicetree/bindings/pwm/pwm-lp3943.txt
->  create mode 100644 Documentation/devicetree/bindings/pwm/pwm-lp3943.yaml
-> 
+Document the QFPROM block found on MSM8952.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+---
+ Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+index 566304ed4c78..646f2e8dcf4d 100644
+--- a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
++++ b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+@@ -37,6 +37,7 @@ properties:
+           - qcom,msm8916-qfprom
+           - qcom,msm8917-qfprom
+           - qcom,msm8937-qfprom
++          - qcom,msm8952-qfprom
+           - qcom,msm8960-qfprom
+           - qcom,msm8974-qfprom
+           - qcom,msm8976-qfprom
+
+-- 
+2.55.0
+
 
