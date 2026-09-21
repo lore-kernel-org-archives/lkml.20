@@ -1,128 +1,99 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+Received: from out203-205-221-233.mail.qq.com (out203-205-221-233.mail.qq.com [203.205.221.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D611A6834;
-	Mon, 21 Sep 2026 06:30:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8B0234994;
+	Mon, 21 Sep 2026 06:32:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789972262; cv=none; b=abf1yxxdwybKVxhEqAqrU95MwLOkQHq3BdQgW8zOQ6vSc5IrlHtnXdyUJfPoOYlPlvuF1Jehj3EKLWlSzdM7/dbluFyz8igl/8Jl7O48ZmE3pEtK2OxxcRVD6c6t2CXvMb9x1dlSSxkvhOluMPaGqBNUDfgOO6zbEGyblosOqLc=
+	t=1789972367; cv=none; b=kqAMZP4XLPqLlNmEn7LqATsTuCPU8Uf0H1XthMyTjLU9OlVMNcWLcPsY6AgN6YsUpx32Vk85dVhU3PrbRl/o4Xn8pMDXZglwiB/qIjdtxMJgQY2fKS4GNLn1iveO5fY+ZzSiJ/X4HI+kcs7/NnWork2LzmGCdIhJChODrYnPZ1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789972262; c=relaxed/simple;
-	bh=HtBwz7MpjVfsvm3vZY/Sk05dMHNZT6Od24wsVNFrNxk=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=UiTnS7FI0FpWOsYFTkAre6mkj9ZR++sDwgGFNpnEh8n8KSd4U45yaXySWLaURpmzM8+F0SYGYz/oLNE+Z1OtBicge7ThW2yKf/8ekrCdei2qkpSe3tSxHEW51N2gyPWHQ9Bk0SNrTUc2qiCz0f3cKOCqE87xJmss6d/ue0yT5c8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Wtk5edny; arc=none smtp.client-ip=192.198.163.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789972367; c=relaxed/simple;
+	bh=h88Tl3sbVFQECAY7ZHT2VvuvbhAp032nbtUBKdZVrpU=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=gyoA6ARTvwLj52BAs1Xx97tibmZYVgVrY4obc7LvWTtfCtR252l/Ea+W9QWaWKWSs2ur+3FmOjQzZVCB8YFmVJmYeEcbBHQr2SeAwb6NvS3Mbr8NYpWJZQspcr04rMClHM76++EGX4WbnTfpFdmkAWieQM9G2866OuvOdqg1Gjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=T1m31DUW; arc=none smtp.client-ip=203.205.221.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Wtk5edny"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789972260; x=1821508260;
-  h=mime-version:content-transfer-encoding:in-reply-to:
-   references:subject:from:cc:to:date:message-id;
-  bh=HtBwz7MpjVfsvm3vZY/Sk05dMHNZT6Od24wsVNFrNxk=;
-  b=Wtk5edny4RduoWLcZxji1Oinn7JvOrHt/fpj1g75iCkUJkXoBeSY0w6m
-   7cnz7TrmmxffWzbv7ogfQw4Ai9gMlWPupli+UyaWFGu0c17j7FDmDyd+5
-   44V8lhBL5+0c78EqsuWTyL/lP29rBwcfZ/OvZFfLwgEHrCkW5fLbSSzk+
-   hIn8TmsoaTHJzFMfDInTdao+N951/4X7vksy0WnOrhcz90KNrXD/+Ld/9
-   Jub3oM+zeSIbw5Z11o+A7LhhTkS+sfvSnQHQdb+q2V+I0CPARtIKwswcf
-   iLtikAPbBBWGOE/pKqBeJLYU9pmdW/wuBsF/B1NKEHgbw9OPz8fJrXPRT
-   w==;
-X-CSE-ConnectionGUID: jp8lWRtzQjim8Is0zqeOMw==
-X-CSE-MsgGUID: MjmreMj1S1enHujj7SUKxw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="971835"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="971835"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Sep 2026 23:30:59 -0700
-X-CSE-ConnectionGUID: WdnO2D4rQri/9a2FF6dXig==
-X-CSE-MsgGUID: nX8TpcC+Q0+GS22QJVfQWQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="300460814"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.142])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Sep 2026 23:30:56 -0700
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="T1m31DUW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1789972354; bh=+UphFfweXGstPshNkFfmpHUX3tQJgIQCJY33Ara9nFo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=T1m31DUWCmvyx+sznvDONxck2D3px8uOqCbHTS+7BZziqVLzXQR6/jYYQao9MsEbM
+	 TiJXEYIp9gkfbsltEpaAAHAB2wsFriYRuJMNqidZbCefnMeNBy8bUrALxoxYT/cLDp
+	 f1lrYUthUMZaoOOXoqnRBNa148o/GgKQdSvDwntI=
+Received: from localhost.localdomain ([202.120.234.146])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 8203A873; Mon, 21 Sep 2026 14:32:32 +0800
+X-QQ-mid: xmsmtpt1789972352tvjnsfpby
+Message-ID: <tencent_BECF7D8D0F045D49DE115EED535736C7EB08@qq.com>
+X-QQ-XMAILINFO: OFArnyxfXusvKrywOgBLuVxq+itKYIQbcGOEyU0tDfWUtmsbAn27QGfenKkxzj
+	 uDfbDRH7zoWr4WwG9bjv09J+ye8JVZucaq4sxQMrQuBaILyACETRiOm9UtagR7Nz6djqu+J4YhIu
+	 u4GNtmapUWlNI9HUeQjMXVibJmnlev1G+MqSN/2qFlEAwBAESr/x+DUAwAuagtLxFfVBfkoXs2od
+	 PwMd29N91D3L4fM5ADABmt13k0uewLgtaQj17GABTNmegUudMxY+cepcogdw36msTGVcLe2rUlU8
+	 bROezXVk9n1In9H8CRLA3a6ORLpfKWUF3FILtuyR2bo2wW8C9EJEn5V/4ah/VEoT2xcWc0flenm2
+	 NCj+w1FtDia/ByyCi3UebU3NrB8z0QHswYbjLltoZB91EVbNoff1Dkgdqh83Vw4Us7c56W2yzbRt
+	 66NI+QuJE2ysote5PKFPzfPiWUrrcHwq/Q7yhicn/DVYy1w8wpLQs4D07M5xGVB/l3fEkEB5zils
+	 kutbmiK3IUIfVvpV1toC0VmNBWfSPp22bCMMqAY1PAWknnWn/rCQAiXywdwAhw60J6cJwC4CkTyY
+	 oJfmPpaRnzzuO+PmgBuPPOkB2L/P9NIJ08lIK7g1nOVg1v7hFtBPlQ5dm1dWaODM/20HOINbUcHW
+	 Qsv/jWxjznVZsWfNQ6qHJIk/X4gG1iK8FZY2JWrjd8bLbjiC9TqXylbZHjRdVdNA6M8xt1dw/yNM
+	 5ykbWWKh+6filDaTtkd3LIldwDt/MGwSE91Zj5FKZfvoGafYDAfqaPTa+VmWbck95404ijxKr1Hh
+	 kZDkvOe+U5VOu7+kM9ir2Kn0o2UfLcd/GGuKuIZAq5X6umTBZVxYWKPAqyLWLYl6nBX5X/9GpYqk
+	 G8NKmgFW5DMMymhLw5AMC1tYgf2ktLS0orp43kF+pme2yOScN5iBXHbPFQHpl4dRMAeWU6y3A0Cq
+	 M8L7U3yqCAGaxA3VRS9eLiysrWioEM8KIPKl4JwFpT0BCsNoytXBDt/97yMRR/0R2ZtP+xGQySol
+	 z1ssb9Ydw1q0+Y99cLeczL7yVb7GulgPSC+gMQnaeMP2xgU4xvYPhKUdKYBvQC/qsAdn1x3fylit
+	 KJa4qz
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+From: Yilin Chen <1479826151@qq.com>
+To: Gary Guo <gary@garyguo.net>
+Cc: Yilin Chen <1479826151@qq.com>,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	acourbot@nvidia.com,
+	yury.norov@gmail.com,
+	ojeda@kernel.org
+Subject: Re: [PATCH] rust: bitfield: require Zeroable storage for Zeroable impl
+Date: Mon, 21 Sep 2026 06:32:32 +0000
+X-OQ-MSGID: <20260921063232.1263203-1-1479826151@qq.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <DLEFXN8E20PU.3GJN24VECD90Z@garyguo.net>
+References: <tencent_AA30574AC78ECFD88D7E042A49371119ED08@qq.com> <DLEFXN8E20PU.3GJN24VECD90Z@garyguo.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260919171710.3699710-1-lgs201920130244@gmail.com>
-References: <20260919171710.3699710-1-lgs201920130244@gmail.com>
-Subject: Re: [PATCH] drm/i915: fix mock ring memory leak on context allocation failure
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: stable@vger.kernel.org
-To: Chris Wilson <chris@chris-wilson.co.uk>, David Airlie <airlied@gmail.com>, Guangshuo Li <lgs201920130244@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>, Matthew Auld <matthew.auld@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Mon, 21 Sep 2026 09:30:49 +0300
-Message-ID: <178997224953.20141.15039837012698810465@jlahtine-mobl>
-User-Agent: alot/0.13.dev2+g40c57d620
+Content-Transfer-Encoding: 8bit
 
-Quoting Guangshuo Li (2026-09-19 20:17:10)
-> mock_context_alloc() creates ce->ring before allocating and pinning the
-> context timeline. mock_ring() initializes the ring reference count and
-> returns the initial reference to the context.
->=20
-> If intel_timeline_create() fails, mock_context_alloc() returns without
-> dropping the ring reference. The same leak occurs when
-> mock_timeline_pin() fails after the timeline has been created. Since
-> context allocation did not complete, CONTEXT_ALLOC_BIT is not set and
-> the later context teardown does not release the ring.
->=20
-> Drop the initial ring reference with kref_put() on both failure paths.
-> When the reference count reaches zero, intel_ring_free() releases the
-> ring VMA and frees the ring allocation. Clear ce->ring after dropping
-> the reference to avoid retaining a stale pointer.
->=20
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
->=20
-> Fixes: 75d0a7f31eec ("drm/i915: Lift timeline into intel_context")
-> Cc: stable@vger.kernel.org
+Hi Gary,
 
-We're not going to put Fixes and especially not Cc stable in
-for selftests.
+Resending my reply for visibility on the mailing list.
 
-You should use onion teardown idiom instead of duplicating code.
+You are right that a bitfield with at least one field generates a use of
+`Bounded<$storage, ...>`, which requires the storage type to implement
+`Integer`. However, `bitfield!` also accepts an empty field list. In that
+case, no `Bounded` use is generated, so the `Integer` requirement is
+absent, while the macro still generates the unconditional `Zeroable`
+implementation.
 
-Commit message also reeks of LLM generation as an average developer
-doesn't need "explain to me like I have never programmed before".
+For example:
 
-Regards, Joonas
+    use core::num::NonZeroU32;
+    use pin_init::Zeroable;
 
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/gpu/drm/i915/gt/mock_engine.c | 4 ++++
->  1 file changed, 4 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915=
-/gt/mock_engine.c
-> index 79741f043f03..fa4368730d33 100644
-> --- a/drivers/gpu/drm/i915/gt/mock_engine.c
-> +++ b/drivers/gpu/drm/i915/gt/mock_engine.c
-> @@ -170,6 +170,8 @@ static int mock_context_alloc(struct intel_context *c=
-e)
-> =20
->         ce->timeline =3D intel_timeline_create(ce->engine->gt);
->         if (IS_ERR(ce->timeline)) {
-> +               kref_put(&ce->ring->ref, intel_ring_free);
-> +               ce->ring =3D NULL;
->                 kfree(ce->engine);
->                 return PTR_ERR(ce->timeline);
->         }
-> @@ -178,6 +180,8 @@ static int mock_context_alloc(struct intel_context *c=
-e)
->         if (err) {
->                 intel_timeline_put(ce->timeline);
->                 ce->timeline =3D NULL;
-> +               kref_put(&ce->ring->ref, intel_ring_free);
-> +               ce->ring =3D NULL;
->                 return err;
->         }
-> =20
-> --=20
-> 2.43.0
->
+    bitfield! {
+        struct Bad(NonZeroU32) {}
+    }
+
+    fn check_bad_zeroable() {
+        let _: Bad = <Bad as Zeroable>::zeroed();
+    }
+
+This currently compiles. Since the all-zero bit pattern is invalid for
+`NonZeroU32`, the generated `Zeroable` implementation is unsound. This is
+why I think the explicit `$storage: Zeroable` bound is necessary.
+
+Best regards,
+Yilin
+
