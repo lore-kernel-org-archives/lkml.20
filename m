@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69E744A404;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B3D44A416;
 	Mon, 21 Sep 2026 07:50:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789977029; cv=none; b=IOqWYlxsNitzdsucUBS6vsC/jWMWlpdgEqoEbG11zSd5qXqklKM+jg07byAOIDLCraIO2tzy6qpP759KdF1yuMiD4quG5rrFNW0S4Ujt3h5Pq6YxlPsVGzldYRfBQ33V6q/tbrZG4L1qP8z/rFHyBEFYdYGx185xjtQHXeQ+MLI=
+	t=1789977029; cv=none; b=tr/G5zcZ5X3L6h9eYw2Nn9oWIgVaF208iYVjUuuazKaM+LhtoyPvW7ZktbMU/qzUl40sY5Sl+4jtNE9EXaEG0m5RImmIIgTGY0Jp7E6Ipxr99MEF21gDJjN8wIctbGAKz84PepZpgbS2WtXdGVC0kQEX42iDmIhXevWUIbyJKDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789977029; c=relaxed/simple;
-	bh=kvW2wtFi4KgEvcIkbiTYobALqwrfnuma/iDmVJ0C9Wk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SooGY8Azm1mIfB3uIbV5noX9qyLc8l1yYCJMA2zHa68fQ/Hi8MtPWs5BfOwWVB0VYeSqDaIh2Kx8Fdl+ENOe2PagHnKMmJuk7D538n4RnX6fj0OVajZpwCSEsjo2bvt/neblvfMx0ZaE9jHGZKqs03Q6QV3DD9PwXHC1jZToqMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JCY2WLvI; arc=none smtp.client-ip=10.30.226.201
+	bh=MN6wjM73jwFJE0BBGgrZ2DP1kz/GNI2gsTbQ6k5QYKg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=L6s+NLyrXa3Oj2wnXr447AC1gwoSU1GHQIN0+rpzdJAB6mb/rfUnMAnWoFx8JKvnYegGKDFgB9RAXxj7QWQY0jGqgPY59dH68XJlxmjF6rR89gTWbPOfbbSXwsr4Y1xiDsLAQnxuOM8n4eQd5mmr9Nkhr2Bfwh2nJ8pGXGnMroo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jy0egReD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JCY2WLvI"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 86F43C2BCF6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jy0egReD"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 787C5C2BCFA;
 	Mon, 21 Sep 2026 07:50:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789977028;
-	bh=kvW2wtFi4KgEvcIkbiTYobALqwrfnuma/iDmVJ0C9Wk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=JCY2WLvIl5nZPSOAIBhKvER3EujbwB9twrDIeIHqSGi2yKO2udhEBxVy+spl1GmGR
-	 QJJOrU//BingRMrHY4zzfXa49QYkV4k9kKyex8KQwX5w7OOFEKVAqexnyh9aTlnzwU
-	 ilC3NYcBuuVkHPVJypad7XOzHq4Cy/8yG19ZT+IiD8IZ838wDO0tPb3PXKtAFTIHen
-	 G15lO3AOuzUj7r5EFZgypn/pxQaGcFriBxjUKB6+X8DskQDmsAtyVtHPePHu6CIbeh
-	 aNTha1p50JYI1Q6DWxiF1Om2orMTgxb1iFMC95dQBqGikRnV5K6wOt7tAm5lURwmVG
-	 +VWYXHTkJFNoQ==
+	bh=MN6wjM73jwFJE0BBGgrZ2DP1kz/GNI2gsTbQ6k5QYKg=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=jy0egReD+8CgpgGNZcEoGc6MnHzSrqY8YQvM5daE5jPaDbqZmre0CW3f7cO4LhJvA
+	 6T7lAAfhYUC7Hq1FthIqk4rzdNhD6NT+UN+ybSJ4rT/K11YxTl6IECBYpPsqVcCcgL
+	 mBpMw80R97EGB8864NkCzza4eu35YRT7pYvEV+cz8FR+qN7UEVdlK6R45vbMpk93f0
+	 to8f2tl1Gown9Ln3k7cq6EhyDDwAjqwmRN88M1eRJkCkQVrQZtPI4frtjXzyHJ7TYm
+	 xRJ6VF0cWNBoL6Upj2PzVnVKwOsA+BBubhl/GLPvWNmomHSBSHDRV/mkrc1QaGlKSA
+	 HXN15hfdQJbZQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 67403C982DE;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54E78C982ED;
 	Mon, 21 Sep 2026 07:50:28 +0000 (UTC)
 From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Mon, 21 Sep 2026 10:50:02 +0300
-Subject: [PATCH v5 1/3] dt-bindings: mfd: mediatek: mt6397: add mt6323 PMIC
- EFUSE
+Subject: [PATCH v5 0/3] nvmem: add support for the MediaTek mt6323 PMIC
+Date: Mon, 21 Sep 2026 10:50:01 +0300
+Message-Id: <20260921-mt6323-nvmem-v5-0-2f5d308369f0@protonmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,9 +40,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-mt6323-nvmem-v5-1-2f5d308369f0@protonmail.com>
-References: <20260921-mt6323-nvmem-v5-0-2f5d308369f0@protonmail.com>
-In-Reply-To: <20260921-mt6323-nvmem-v5-0-2f5d308369f0@protonmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XPwW7DIAwG4FepOI8KbCDKTnuPaQdCzEpVQgUZa
+ lXl3Ue6Q6u2O/7S78/2hRXKgQp731xYphpKSFML+m3D3M5O38TD2DIDAUYYKXmcDQLyqUaKXDi
+ trPDgbe9ZGzlm8uF05T6//nL5Gfbk5tVYG7tQ5pTP131Vrr1/6Cq54IMmOfSOtPTwccxpTlO04
+ bB1KbLVr3AvdA8CNEF5FITGtivVSwFvQifxQcAmgNAOezCdhdeCugn90xeqCQbMOMpOoxzdk7A
+ syy9+Vg4WhQEAAA==
+X-Change-ID: 20260611-mt6323-nvmem-0c54a0f2fa9f
 To: Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
  Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -58,11 +60,11 @@ Cc: Andy Shevchenko <andy@kernel.org>, linux-pm@vger.kernel.org,
  Ben Grisdale <bengris32@protonmail.ch>, 
  Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789977026; l=1581;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789977026; l=2403;
  i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=mlQDk3dan2vmhf7s3FB34YUhH5UJAOcwjjg7f1t51Hs=;
- b=jYi5D0ZpLAxZPr3YuxJlL2rWdoMaE5b5z5VP9LMjKqdJENvJ79CzgDJIc1gBeZbyI5eG+j01t
- R7S0AxfYUrZAZnvzP99AP6o8K5RadBnk0wm2PN9zqZ56jlI/2zqdz8/
+ bh=MN6wjM73jwFJE0BBGgrZ2DP1kz/GNI2gsTbQ6k5QYKg=;
+ b=WfuNkR0MZFTaJPn5Cgdqk4A6l9M4n4AssM/47amKmWilCckA8bhc+0ZqCnazyL3HtApVK61Vh
+ bJCgtxCUZ28Abj0eGsH68mAgfNWjTroT7j4ofNoF8QSt1nNO8OXiuad
 X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
  pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
 X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
@@ -70,61 +72,63 @@ X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
 X-Original-From: Roman Vivchar <rva333@protonmail.com>
 Reply-To: rva333@protonmail.com
 
-From: Roman Vivchar <rva333@protonmail.com>
+This series adds support for the EFUSE found on the MediaTek mt6323 PMIC.
 
-The MediaTek mt6323 PMIC includes an EFUSE used for storing calibration
-data.
+Tested on the MediaTek mt6572 and mt8163 SoCs (Ben), both paired with a
+mt6323.
 
-Add the devicetree binding documentation for the MediaTek mt6323 EFUSE.
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Tested-by: Ben Grisdale <bengris32@protonmail.ch> # Amazon Echo Dot (2nd Generation)
 Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+
 ---
- .../devicetree/bindings/mfd/mediatek,mt6397.yaml    | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+Changes in v5:
+- Reorder Makefile entries
+- Use mt6323_regulators driver pattern for regmap instead of dev->parent->parent
+- Link to v4: https://patch.msgid.link/20260911-mt6323-nvmem-v4-0-626dd17531dc@protonmail.com
 
-diff --git a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
-index 3cbc0dc12c31..d2de227ae7a6 100644
---- a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
-+++ b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
-@@ -159,6 +159,23 @@ properties:
-     required:
-       - compatible
- 
-+  efuse:
-+    type: object
-+    unevaluatedProperties: false
-+    description:
-+      The efuse is responsible for storing calibration data, such as thermal
-+      sensor calibration.
-+
-+    properties:
-+      compatible:
-+        const: mediatek,mt6323-efuse
-+
-+      nvmem-layout:
-+        $ref: /schemas/nvmem/layouts/nvmem-layout.yaml#
-+
-+    required:
-+      - compatible
-+
-   leds:
-     type: object
-     additionalProperties: false
-@@ -307,6 +324,10 @@ examples:
-         interrupt-controller;
-         #interrupt-cells = <2>;
- 
-+        efuse {
-+          compatible = "mediatek,mt6323-efuse";
-+        };
-+
-         leds {
-             compatible = "mediatek,mt6323-led";
-             #address-cells = <1>;
+Changes in v4:
+- Rebase onto nvmem/for-next (8f596c13b6b7 ("dt-bindings: nvmem: qfprom: Add compatible for Qualcomm Maili"))
+- Drop device-id/of.h header (Andy)
+- Mediatek -> MediaTek in Kconfig
+- Link to v3: https://patch.msgid.link/20260713-mt6323-nvmem-v3-0-205c39267a24@protonmail.com
 
--- 
-2.55.0
+Changes in v3:
+- Rebase onto next-20260708
+- EFUSE driver: Replace 'mod_devicetable.h' with explicit 'device-id/of.h'
+- Drop MFD patch since it's applied
+- Link to v2: https://patch.msgid.link/20260617-mt6323-nvmem-v2-0-4f30e36aa0f4@protonmail.com
+
+Changes in v2:
+- EFUSE driver: Sort variables in the mt6323_efuse_read (Andy)
+- Link to v1: https://patch.msgid.link/20260611-mt6323-nvmem-v1-0-b5e1b9ce51f2@protonmail.com
+
+Changes after split:
+- EFUSE driver:
+    - Remove 'linux/errno.h' header (Andy)
+    - Remove explicit cast to u16 in the 'mt6323_efuse_read' (Andy)
+    - Reword comment in the 'mt6323_efuse_read'
+    - Capitalize MediaTek in the module description
+- Link to a previous series: https://patch.msgid.link/20260512-mt6323-v2-0-3efcba579e88@protonmail.com
+
+---
+Roman Vivchar (3):
+      dt-bindings: mfd: mediatek: mt6397: add mt6323 PMIC EFUSE
+      nvmem: add mt6323 PMIC EFUSE driver
+      ARM: dts: mediatek: mt6323: add EFUSE support
+
+ .../devicetree/bindings/mfd/mediatek,mt6397.yaml   | 21 ++++++
+ MAINTAINERS                                        |  5 ++
+ arch/arm/boot/dts/mediatek/mt6323.dtsi             |  4 ++
+ drivers/nvmem/Kconfig                              | 11 +++
+ drivers/nvmem/Makefile                             |  2 +
+ drivers/nvmem/mt6323-efuse.c                       | 83 ++++++++++++++++++++++
+ 6 files changed, 126 insertions(+)
+---
+base-commit: 8f596c13b6b7fa9fa35091273c37f9b6e3fc2d0f
+change-id: 20260611-mt6323-nvmem-0c54a0f2fa9f
+
+Best regards,
+--  
+Roman Vivchar <rva333@protonmail.com>
 
 
