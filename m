@@ -1,272 +1,249 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03FF3B38B4;
-	Mon, 21 Sep 2026 19:53:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32653BB687;
+	Mon, 21 Sep 2026 19:54:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790020385; cv=none; b=O0HemlAy4tFlp/38MD2zYfpY89oT6ZMqO3Tn30WSuaoFzD6HIWBWpyhjU531n5Zia7aIdJBsq1j7s2DHLPH8OCXGad5gQ8aceP1JcYYENw9JGTfVqv1Ylpsg0n0yyvMzaGBKBSOiAXryzFCuqSaP6iyCsvlxg6Q3F5w7XtWFQ7M=
+	t=1790020444; cv=none; b=PqtI3Uml8exHX2GLDs4lHH/IcKAnFyqKWNQpG7HIa2E+pY+/bky5vr+WOV5jq48autzEWDrKrJd2h14CwY8nMlqDOybpeBE6UsjXpyptaevxAfbKsMIGj47fce9lemDYW9yO0EAXfg1S9hzwQmT6L04vTu0EQ9YHZyo5iP6cLMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790020385; c=relaxed/simple;
-	bh=W498o8WnVx17/urOz4pvsvYQLkUTwiQaaBOsNKX2Gt8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jBHpZ4+7DIpf+HIbgrw6dXhfa8BGI1deKk0/qMYiptP2Y154EzfSl+tv+XJod507p64epj0dGlIqHXU2L2KiOfgxAI16G4HN08puCZCAiKO8aarb4GUnkXzpkx58fOpeRzrHNr+Q89n5cIXSW5gCQakB0K8xaaOColJzwnQQpXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mjT0KJl4; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790020444; c=relaxed/simple;
+	bh=q5I3uTP7PB2xW+/srh1dl5TmyLIeS2leATw2iix1tJ0=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=u7quSntWPhgqlo+RqjbVUF5MrJiMIvwVP0sru6nC4i89sbHRZnSlxzy0Z7E0sDGLlR425Cr5D/7JZjD8bXjeGjr3p3inrUMlQWyl4di4VOjG0xThk9JFLSZl7QyJjL0O++EYL+ywW1a/Ggf39QZezEztTioh3oT2BBKHN1l/HGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PrqXoQT9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mjT0KJl4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790020382; x=1821556382;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=W498o8WnVx17/urOz4pvsvYQLkUTwiQaaBOsNKX2Gt8=;
-  b=mjT0KJl4QASpQ0tP+SUXHRWDJ+d2diKtvANQJFjhEOMPQXYfAyKxkrM3
-   AT6/vSBchQ6dWBAM2ElGKbLM0xP6pHynXa0hlToLPJOlQecwue+DCvkSl
-   IO4RphWg6fMZjOsZed5zu6iFwaT2lkMd48SBpeQVNFEAlgf6oX+9pc7Q0
-   CrSfjnne7iZb0BGJ/ZzCdRea29p/7xTp0dJSyoZad9jXwY/Ol/ifRdcUu
-   l61fgW7x+o4VHgqVbigWCbxosVB+mdaCnIZh7zknfxCnQ4plZagtCPwJZ
-   Py7TuysSmriGwzbLtJArY1sn0I0A2DpxnUHvrEy9lnoU8BiI1RWBKDAQZ
-   w==;
-X-CSE-ConnectionGUID: 7UFw56sjRKS6Rhgdlk6vaA==
-X-CSE-MsgGUID: NVVnCYvxQ4KLPLZdL3+IOg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="90435115"
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
-   d="scan'208";a="90435115"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 12:53:02 -0700
-X-CSE-ConnectionGUID: Lg7RJ1CDTKmANU0f8YVZ3g==
-X-CSE-MsgGUID: cOjnP5h2TEqkL5DKzrOExQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
-   d="scan'208";a="299041231"
-Received: from vverma7-desk1.amr.corp.intel.com (HELO [192.168.1.200]) ([10.125.109.250])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 12:53:01 -0700
-From: Vishal Verma <vishal.l.verma@intel.com>
-Date: Mon, 21 Sep 2026 13:52:38 -0600
-Subject: [PATCH v2 2/2] x86/early_printk: Add earlyprintk=tdx to drive the
- UART with TDVMCALLs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PrqXoQT9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9F731F000FF;
+	Mon, 21 Sep 2026 19:54:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790020441;
+	bh=VLQVaPaIz4Oo4ECfSXhlQRNeQ/Xty59vDImusrSG7WE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=PrqXoQT9JUH+Mt5DFo6jb5wNRcLao0KYZs4UJcMxZxkt4Mb/I6kA/cLCJ0Z4eaKo8
+	 QV1DK5ofiscj7r2qd6/WWmuWxwzuSd7lpodpOJczVDJ6aqpdJtKqlgnGJy42tXSNpW
+	 aOG3E1Sfr9uRcYZOcuf8JXEw11WqTYa9fgjYb0U7tME2kreOUZTHEWqmUenZEvgMqt
+	 +Elk1cUTempX8d359+DG1J5/V8f7URIutfbo/I6klwDxLP8ikFF0c57d5jDGviLwRl
+	 sxMv/Vm8blNpy6V/NvKXVlDMGIrRoGbvRnisjrRLGXeLErGUU/sO0LvFrCWNZE6SfN
+	 DvFbfWp9XtIbQ==
+Subject: Re: [PATCH net] net: ti: icss-iep: Cancel compare work before
+ releasing device resources
+From: netdev-bot+sashiko@kernel.org
+To: mhun512@gmail.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, danishanwar@ti.com, rogerq@kernel.org,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, diogo.ivo@siemens.com, stable@vger.kernel.org,
+ ae878000@gmail.com
+Date: Mon, 21 Sep 2026 19:54:00 +0000
+Message-ID: <179002044036.2160803.17680070427629412173@kernel.org>
+In-Reply-To: <20260917193847.63849-1-mhun512@gmail.com>
+References: <20260917193847.63849-1-mhun512@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-b4-tdx_earlyprintk_tdcalls-v2-2-ad1fde3f25fd@intel.com>
-References: <20260921-b4-tdx_earlyprintk_tdcalls-v2-0-ad1fde3f25fd@intel.com>
-In-Reply-To: <20260921-b4-tdx_earlyprintk_tdcalls-v2-0-ad1fde3f25fd@intel.com>
-To: x86@kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, 
- Kiryl Shutsemau <kas@kernel.org>, 
- Rick Edgecombe <rick.p.edgecombe@intel.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, 
- kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
- Vishal Verma <vishal.l.verma@intel.com>
-X-Mailer: b4 0.16-dev-62088
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6861;
- i=vishal.l.verma@intel.com; h=from:subject:message-id;
- bh=W498o8WnVx17/urOz4pvsvYQLkUTwiQaaBOsNKX2Gt8=;
- b=owGbwMvMwCXGf25diOft7jLG02pJDFkbu6V7HXeo/Y83ixEXXitcxJP0VfV9n0rHbs4a6Qm2L
- NM5jH07SlkYxLgYZMUUWf7u+ch4TG57Pk9ggiPMHFYmkCEMXJwCMBHpQ4wM1/ra2+YkrJ9ZmHTh
- wMnd34svNW/7bHG/pTAp6tKVC4c3hzAyTN/0iHf+nz1PMyO3hh4vESq7zPt6acy8RM6WR091Ug5
- /YgAA
-X-Developer-Key: i=vishal.l.verma@intel.com; a=openpgp;
- fpr=F8682BE134C67A12332A2ED07AFA61BEA3B84DFF
 
-A TDX guest cannot execute port I/O instructions directly, but
-earlyprintk's serial console still issues plain inb()/outb() and lets
-each one fault into the #VE handler to be emulated as a TDVMCALL.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-While that works, it is a roundabout way to get a character out.
-early_serial_putc() polls the LSR, and then writes a byte, but since the
-TDX guest can't directly do port I/O, a #VE exception is raised. The #VE
-handler must call TDG.VP.VEINFO.GET to find out what faulted, and then
-it can issue the TDVMCALL that does the actual work.
+Critical: 0 · High: 1 (2) · Medium: 0 · Low: 0
 
-This makes #VE a functional mechanism for doing I/O, which is not
-desirable, is unnecessarily complicated and fragile, and results in
-twice the number of calls into the TDX module.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Instead, add an earlyprintk=tdx option, which can issue the TDVMCALLs
-directly. Add a pair of tdx_serial_in() and tdx_serial_out() accessors
-and set them up in this case.
+- [High] Incomplete fix: the compare work is still not drained before the
+  PTP clock it uses is torn down.
 
-Note that the output does not appear any earlier - "earlyprintk=" is an
-early_param(), so the console is still registered from
-parse_early_param(). This only changes how the bytes leave the guest
-once it is up.
+Pre-existing issues:
+- [High] Deadlock: `icss_iep_pps_enable()`
+  (drivers/net/ethernet/ti/icssg/icss_iep.c:579-618) calls…
+- [High] Fix scope is narrower than the commit message implies: detach of
+  the icss-iep device remains fundamentally unsafe.
 
-LLMs were used under supervision to create this patch, to help
-understand the scope and mechanisms, create testing instrumentation
-(throwaway) to count #VEs in the serial vs tdx earlyprintk setups,
-and to drive lab machines to do this testing.
+--
 
-Signed-off-by: Vishal Verma <vishal.l.verma@intel.com>
----
- Documentation/admin-guide/kernel-parameters.txt |  9 ++++++
- arch/x86/include/asm/tdx.h                      |  3 ++
- arch/x86/coco/tdx/tdx.c                         | 39 +++++++++++++++++++++++++
- arch/x86/kernel/early_printk.c                  | 37 +++++++++++++++++++++++
- 4 files changed, 88 insertions(+)
+net: ti: icss-iep: Cancel compare work before releasing device resources
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 33cd30996e47..263a806afd2a 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -1543,6 +1543,7 @@ Kernel parameters
- 			earlyprintk=serial[,ttySn[,baudrate]]
- 			earlyprintk=serial[,0x...[,baudrate]]
- 			earlyprintk=ttySn[,baudrate]
-+			earlyprintk=tdx[,ttySn[,baudrate]]
- 			earlyprintk=dbgp[debugController#]
- 			earlyprintk=mmio32,membase[,{nocfg|baudrate}]
- 			earlyprintk=pciserial[,force],bus:device.function[,{nocfg|baudrate}]
-@@ -1556,6 +1557,14 @@ Kernel parameters
- 			Use "nocfg" to skip UART configuration, assume
- 			BIOS/firmware has configured UART correctly.
- 
-+			On x86, "tdx" is equivalent to "serial", except that
-+			in a TDX guest the serial port is driven with
-+			TDVMCALLs rather than port I/O instructions, avoiding
-+			the #VE exception that would otherwise be taken to
-+			emulate every access. Outside a TDX guest it falls
-+			back to port I/O and behaves exactly like "serial".
-+			If CONFIG_INTEL_TDX_GUEST is not set, it is ignored.
-+
- 			Append ",keep" to not disable it when the real console
- 			takes over.
- 
-diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
-index 89e97d5761d8..325dd7c5929f 100644
---- a/arch/x86/include/asm/tdx.h
-+++ b/arch/x86/include/asm/tdx.h
-@@ -83,6 +83,9 @@ int tdx_mcall_extend_rtmr(u8 index, u8 *data);
- 
- u64 tdx_hcall_get_quote(u8 *buf, size_t size);
- 
-+u8 tdx_inb(u16 port);
-+void tdx_outb(u8 value, u16 port);
-+
- void __init tdx_dump_attributes(u64 td_attr);
- void __init tdx_dump_td_ctls(u64 td_ctls);
- 
-diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
-index 7d1a93ee2534..4377fcca2c99 100644
---- a/arch/x86/coco/tdx/tdx.c
-+++ b/arch/x86/coco/tdx/tdx.c
-@@ -194,6 +194,45 @@ u64 tdx_hcall_get_quote(u8 *buf, size_t size)
- }
- EXPORT_SYMBOL_GPL(tdx_hcall_get_quote);
- 
-+/**
-+ * tdx_inb() - Read a byte from an I/O port without a #VE
-+ * @port: I/O port to read from
-+ *
-+ * Ask the VMM to perform the read with TDG.VP.VMCALL<Instruction.IO>, rather
-+ * than executing an IN instruction and having the resulting #VE emulate it.
-+ *
-+ * Return: the byte read, or 0xff if the hypercall failed.
-+ */
-+u8 tdx_inb(u16 port)
-+{
-+	struct tdx_module_args args = {
-+		.r10 = TDX_HYPERCALL_STANDARD,
-+		.r11 = hcall_func(EXIT_REASON_IO_INSTRUCTION),
-+		.r12 = 1,
-+		.r13 = TDVMCALL_PORT_READ,
-+		.r14 = port,
-+	};
-+
-+	if (__tdx_hypercall(&args))
-+		return 0xff;
-+
-+	return args.r11;
-+}
-+
-+/**
-+ * tdx_outb() - Write a byte to an I/O port without a #VE
-+ * @value: byte to write
-+ * @port: I/O port to write to
-+ *
-+ * Ask the VMM to perform the write with TDG.VP.VMCALL<Instruction.IO>, rather
-+ * than executing an OUT instruction and having the resulting #VE emulate it.
-+ */
-+void tdx_outb(u8 value, u16 port)
-+{
-+	_tdx_hypercall(hcall_func(EXIT_REASON_IO_INSTRUCTION), 1,
-+		       TDVMCALL_PORT_WRITE, port, value);
-+}
-+
- static void __noreturn tdx_panic(const char *msg)
- {
- 	struct tdx_module_args args = {
-diff --git a/arch/x86/kernel/early_printk.c b/arch/x86/kernel/early_printk.c
-index cba75306e5b6..2721e48783cd 100644
---- a/arch/x86/kernel/early_printk.c
-+++ b/arch/x86/kernel/early_printk.c
-@@ -21,6 +21,7 @@
- #include <linux/usb/xhci-dbgp.h>
- #include <asm/pci_x86.h>
- #include <linux/static_call.h>
-+#include <asm/tdx.h>
- 
- /* Simple VGA output */
- #define VGABASE		(__ISA_IO_base + 0xb8000)
-@@ -111,6 +112,32 @@ ANNOTATE_NOENDBR_SYM(io_serial_out);
- DEFINE_STATIC_CALL(serial_in, io_serial_in);
- DEFINE_STATIC_CALL(serial_out, io_serial_out);
- 
-+#ifdef CONFIG_INTEL_TDX_GUEST
-+/*
-+ * A TDX guest cannot execute port I/O instructions, so ask the VMM to do it.
-+ */
-+static __noendbr unsigned int tdx_serial_in(unsigned long addr, int offset)
-+{
-+	return tdx_inb(addr + offset);
-+}
-+ANNOTATE_NOENDBR_SYM(tdx_serial_in);
-+
-+static __noendbr void tdx_serial_out(unsigned long addr, int offset, int value)
-+{
-+	tdx_outb(value, addr + offset);
-+}
-+ANNOTATE_NOENDBR_SYM(tdx_serial_out);
-+
-+static __init void early_serial_tdx_init(void)
-+{
-+	if (!cpu_feature_enabled(X86_FEATURE_TDX_GUEST))
-+		return;
-+
-+	static_call_update(serial_in, tdx_serial_in);
-+	static_call_update(serial_out, tdx_serial_out);
-+}
-+#endif /* CONFIG_INTEL_TDX_GUEST */
-+
- static int early_serial_putc(unsigned char ch)
- {
- 	unsigned timeout = 0xffff;
-@@ -414,6 +441,16 @@ static int __init setup_early_printk(char *buf)
- 			early_serial_init(buf + 4);
- 			early_console_register(&early_serial_console, keep);
- 		}
-+#ifdef CONFIG_INTEL_TDX_GUEST
-+		if (!strncmp(buf, "tdx", 3)) {
-+			buf += 3;
-+			early_serial_tdx_init();
-+			early_serial_init(buf);
-+			early_console_register(&early_serial_console, keep);
-+			if (!strncmp(buf, ",ttyS", 5))
-+				buf += 5;
-+		}
-+#endif
- #ifdef CONFIG_PCI
- 		if (!strncmp(buf, "pciserial", 9)) {
- 			buf += 9; /* Keep from match the above "pciserial" */
+The patch moves the iep_cap_cmp IRQ request in icss_iep_probe() to after the
+platform data and regmap are set up, and switches the compare work from
+INIT_WORK() to devm_work_autocancel() so that devres frees the IRQ, then
+cancels the work, before the rest of the devm resources are released.
+
+No Link: tags in the commit header.
+
+> diff --git a/drivers/net/ethernet/ti/icssg/icss_iep.c b/drivers/net/ethernet/ti/icssg/icss_iep.c
+> index ec085897edf09..fa45538f1faa6 100644
+> --- a/drivers/net/ethernet/ti/icssg/icss_iep.c
+> +++ b/drivers/net/ethernet/ti/icssg/icss_iep.c
+
+[ ... ]
+
+> @@ -895,9 +884,24 @@ static int icss_iep_probe(struct platform_device *pdev)
+>  
+>  	iep->ptp_info = icss_iep_ptp_info;
+>  	mutex_init(&iep->ptp_clk_mutex);
+> -	dev_set_drvdata(dev, iep);
+>  	icss_iep_disable(iep);
+>  
+> +	if (irq > 0) {
+> +		ret = devm_work_autocancel(dev, &iep->work, icss_iep_cap_cmp_work);
+> +		if (ret)
+> +			return ret;
+
+[Severity: High]
+
+Does this cover the teardown path that actually releases the resource the
+worker touches?  devm_work_autocancel() only drains the work when devres
+runs, i.e. at icss-iep driver detach.  The resource the worker dereferences,
+iep->ptp_clock, is released much earlier by icss_iep_exit(), which the
+consumer calls on interface stop while the icss-iep device stays bound:
+
+drivers/net/ethernet/ti/icssg/icssg_prueth.c:prueth_emac_common_stop() {
+	...
+	icss_iep_exit(emac->iep);
+	...
+}
+
+icss_iep_exit() drops the clock first and only then looks at the enable
+state:
+
+int icss_iep_exit(struct icss_iep *iep)
+{
+	if (iep->ptp_clock) {
+		ptp_clock_unregister(iep->ptp_clock);
+		iep->ptp_clock = NULL;
+	}
+	icss_iep_disable(iep);
+
+	if (iep->pps_enabled)
+		icss_iep_pps_enable(iep, false);
+	else if (iep->perout_enabled)
+		icss_iep_perout_enable(iep, NULL, false);
+
+	return 0;
+}
+
+icss_iep_perout_enable() has no cancel_work_sync(), so on the perout branch
+the work is never drained here at all.
+
+Meanwhile icss_iep_cap_cmp_irq() keeps queueing while either flag is set:
+
+	if (iep->pps_enabled || iep->perout_enabled)
+		schedule_work(&iep->work);
+
+and icss_iep_cap_cmp_work() uses the pointer unconditionally:
+
+	pevent.pps_times.ts_real = ns_to_timespec64(ns);
+	pevent.type = PTP_CLOCK_PPSUSR;
+	pevent.index = 0;
+	ptp_clock_event(iep->ptp_clock, &pevent);
+
+For PTP_CLOCK_PPSUSR, ptp_clock_event() reads ptp->pps_source and hands it
+to pps_event(), which dereferences it without a NULL check.
+
+So with PEROUT enabled on /dev/ptpN and a CMP1 interrupt already having
+queued the work, can an ifdown reach ptp_clock_event() with iep->ptp_clock
+already NULL (or pointing at the just-unregistered clock)?  Would stopping
+event production, synchronizing the IRQ and draining the work before
+ptp_clock_unregister() in icss_iep_exit() be the placement that closes the
+window described in the commit message?
+
+> +
+> +		ret = devm_request_irq(dev, irq, icss_iep_cap_cmp_irq,
+> +				       IRQF_TRIGGER_HIGH, "iep_cap_cmp", iep);
+> +		if (ret)
+> +			dev_info(iep->dev, "cap_cmp irq request failed: %x\n",
+> +				 ret);
+> +		else
+> +			iep->cap_cmp_irq = irq;
+> +	}
+> +
+> +	dev_set_drvdata(dev, iep);
+> +
+>  	return 0;
+>  }
+
+[Severity: High]
+
+This is a pre-existing issue and not introduced by this patch, but since the
+patch adds a second cancel site for the same work, it may be worth looking
+at the existing one in icss_iep_pps_enable().
+
+The disable branch calls cancel_work_sync() with ptp_clk_mutex still held,
+as the mutex is only dropped at the exit label:
+
+static int icss_iep_pps_enable(struct icss_iep *iep, int on)
+{
+	...
+	mutex_lock(&iep->ptp_clk_mutex);
+	...
+	} else {
+		ret = icss_iep_perout_enable_hw(iep, &rq.perout, on);
+		if (iep->cap_cmp_irq)
+			cancel_work_sync(&iep->work);
+	}
+	...
+exit:
+	mutex_unlock(&iep->ptp_clk_mutex);
+
+and the work handler takes the same mutex as its first action:
+
+static void icss_iep_cap_cmp_work(struct work_struct *work)
+{
+	...
+	mutex_lock(&iep->ptp_clk_mutex);
+
+If the work was already queued by an earlier CMP1 interrupt and is blocked
+on mutex_lock(&iep->ptp_clk_mutex), can cancel_work_sync() then wait
+forever for a worker that is waiting for the lock the canceller holds?
+
+Disabling the compare hardware just before the cancel narrows the window,
+but does it close it for a work item that is already queued or running?
+
+[Severity: High]
+
+This is also a pre-existing gap rather than something this patch introduces,
+but the commit message frames the change as making driver detach safe, so
+the scope may be worth clarifying for stable backporters.
+
+icss_iep_driver has no .remove callback:
+
+static struct platform_driver icss_iep_driver = {
+	.driver = {
+		.name = "icss-iep",
+		.of_match_table = icss_iep_of_match,
+	},
+	.probe = icss_iep_probe,
+};
+
+and icss_iep_get_idx() hands the devm-allocated iep out to the consumer
+while only taking a device reference:
+
+	pdev = of_find_device_by_node(iep_np);
+	...
+	iep = platform_get_drvdata(pdev);
+	...
+	iep->client_np = np;
+
+Nothing there pins the icss-iep driver, so on a sysfs unbind while prueth is
+still bound, devres frees iep and unmaps iep->base while the PTP clock
+registered from &iep->ptp_info in icss_iep_init() is still registered, and
+while prueth still calls icss_iep_exit()/icss_iep_get_count_*() on that
+pointer.  After unbind, does a PHC ioctl such as icss_iep_ptp_gettimeex()
+still reach container_of(ptp_info) on freed memory and readl() on the
+unmapped window?
+
+Should the commit message say that the change drains the work item only, and
+that unbind of the icss-iep device remains unsafe for other reasons?
 
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917193847.63849-1-mhun512%40gmail.com
