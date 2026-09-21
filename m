@@ -1,80 +1,49 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE65D514742;
-	Mon, 21 Sep 2026 19:14:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73EE4E9C20
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790018090; cv=none; b=T1L9U2pQrZuKxZ+TOsJl/wssKa/NINRJdCIis6lT4FS4a1ll8EtdpVdPZdSKWpZauu7nvf3NhrNit3b7EV9C7p91cLfyuV4cTnFTpKOPDDIc/UKg2gMc2N5wSakqP/ZiLcFu4euveOkI4kYgfg6XUkcBdI999S9EtxQfJF0rdNM=
+	t=1790018109; cv=none; b=tr+yza8DyE7yFN/mLk7v5qUvwytQVoNQjssCOFRNAcYNCxoicjz5gK1chYFt6V3izq0pj1/V+RdOqFlp8CgZGVOjjPpXOSG9rwETMzHlgDIcs3mXuIoTSBQR3r+ESWvX6vN0QBb79WAM/Tah7AXdHfI0/3iiphSym0n3Y/GNw6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790018090; c=relaxed/simple;
-	bh=9s0W0k+uY9shGX5XQPu4OZkZ8A8sGtI9MBOeqdn//fE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lw3PwFvMCUiC/WHrUDrHA5QLNTP3D4yetpEbhh8jGHzNsOKP7RM+rp5qb40BN7M/b1S5aPmzaRJP/WdoNyFgCyL95m47G8OBL67evYhG/ugQjnubEtDUyowCbeswfwtJQMWfGwmtqi3d9f4xQ++GgdpNRT7iJYTFgu0/Vt7N4Gc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cW2+Zr2q; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790018109; c=relaxed/simple;
+	bh=bd9m8m8d8IU5TdoGPuXOPXfhFCNyVe8w1UC+Y3VxWS4=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=EArWDKxiHgt/uGOWzxCsY6Chv9RZVzXaHsYAPo+XGLSbDqhmHVO/b1uOC6T3fuO/gckoOvddfSWI7Ky3cGP5xHq76e2LdGFolo14+/xKJpTvF7OUkROYzGWGAxf5u4cmBxRi+How5Xt7Y/CG2mE2ghMV9MBzi6ePla1iznkdxQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=kf4O8Fl7; arc=none smtp.client-ip=79.135.106.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cW2+Zr2q"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 4BDD51A0E97;
-	Mon, 21 Sep 2026 19:14:47 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 048A15FFB2;
-	Mon, 21 Sep 2026 19:14:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6ECE7103291F3;
-	Mon, 21 Sep 2026 21:14:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790018082; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=IutRmbTAc6OTvvdgkkZtC/X/ZDcjhL+70GUhz404HHA=;
-	b=cW2+Zr2qQjzlC4iFQcHd3Ap/QXCbm6L1q3tAeZhMjT6iTN5mSiGylWSUjF4Q0sQA79HpQM
-	SvXwowpuCCT0SB3QG6Rj7vLrmmzrUFHCnZtU/yE7ATDGmegYMQfAGu8nHY3I4OnECi29ui
-	WKRe+8WdZPzzy7nJUaONze1+F+O30gnKKV2KGYZo7PAAmFMbV5Xe/JtDSRFTwBYWwGx+Lz
-	j3n1JdC/BVbXuGNFfx8D4iHAm53OaLwQfuWMk0VIkFGmk+EQ5S7p+46pC1VkQo0u1dRNA6
-	2yR0uS+h9+30mk5FP6swueqif/GIqbIFHFS/Vbkw9o8uq4QMOcSdVGv+K3Ouqw==
-Date: Mon, 21 Sep 2026 21:14:39 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: linux-rtc@vger.kernel.org, "Johnny.Fan" <johnny.fan@cixtech.com>
-Cc: Ard Biesheuvel <ardb@kernel.org>,
-	Feng Tang <feng.tang@linux.alibaba.com>, linux-efi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com,
-	bob.zhang@cixtech.com, jie.fu@cixtech.com
-Subject: Re: [PATCH v3] rtc: efi: restore alarm support with runtime
- capability probe
-Message-ID: <179001804425.244067.16576957362126597621.b4-ty@b4>
-References: <20260831140014.839222-1-johnny.fan@cixtech.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="kf4O8Fl7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1790018103; x=1790277303;
+	bh=bd9m8m8d8IU5TdoGPuXOPXfhFCNyVe8w1UC+Y3VxWS4=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=kf4O8Fl7A54p61lJ7HjPMbkNGrBE9CSJk1NMtUk4Lyo2MjD+4IqgpWO2/SuSyl9p6
+	 X7UIGxuXSrZtg1HFRY5y/8/w1QB3SfDB95zUSpXScv70W1tNTVG1LY1KjtU39verpF
+	 xwXC9p+oaAB9WvMcrWXgL15zswUhIss264tWD8JUeFoJtEQmNcYyTrDAl3T0Z0xzeb
+	 kHQNtXi2UcR9Ngf32PF0jT50weY87m2Y/pc/Ug6ludaxlhvgbThVW/Aq0aGckrbCyG
+	 78udeFd9nJs31HsJYmf/YlnvlIXis+QboobwBlHz04w2TWJWwuWGmyL88ijASeUW7M
+	 GwEh7At6bVYDg==
+Date: Mon, 21 Sep 2026 19:14:59 +0000
+To: "scardracs@disroot.org" <scardracs@disroot.org>
+From: J <fooqux@proton.me>
+Cc: "corentin.chary@gmail.com" <corentin.chary@gmail.com>, "denis.benato@linux.dev" <denis.benato@linux.dev>, "hansg@kernel.org" <hansg@kernel.org>, "ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "luke@ljones.dev" <luke@ljones.dev>, "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH 1/2] platform/x86: asus-wmi: Serialize WMI method evaluations with a mutex
+Message-ID: <RbF1TyMN6iplUfewUXWzlhOxOMp1WkAHxVSWwz8V_iojKG6YZMv7QLTq6nSfIrgYOanHbEUOEaNHnM82NFp45BJUNNVqlV67ZdLG1RYLdpk=@proton.me>
+Feedback-ID: 137864333:user:proton
+X-Pm-Message-ID: 44c39749554fe0f2bc0c18dd08d03646ff699271
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831140014.839222-1-johnny.fan@cixtech.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 31 Aug 2026 22:00:14 +0800, Johnny.Fan wrote:
-> Restore the EFI RTC alarm functionality (read_alarm/set_alarm and
-> procfs output) that was removed by commit 18a3510bc87d ("rtc: efi:
-> Remove wakeup functionality").
-> 
-> The removal was motivated by the observation that many EFI platforms
-> lack RTC wakeup support while also omitting the RT_PROP table, causing
-> the wakeup capability to be incorrectly advertised.  While that is
-> true, removing the feature entirely also breaks platforms where the
-> wakeup runtime service actually works.
-> 
-> [...]
-
-Applied, thanks!
-
-[1/1] rtc: efi: restore alarm support with runtime capability probe
-      https://git.kernel.org/abelloni/c/b430d1f6d80c
-
-Best regards,
-
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Tested on a 2025 ASUS ROG Zephyrus G16, GU605C for a week. After applying p=
+atch the twice-daily haphazard crashes experienced on-device stopped.=C2=
+=A0
+Tested-by: Jasper N <fooqux@proton.me>
