@@ -1,113 +1,135 @@
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E45C345041A
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:46:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CAD3101D0;
+	Mon, 21 Sep 2026 09:46:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789983982; cv=none; b=Yq1/G3A15Qcg/K0TaPkeGon6MqRkgwJ1iUa+TzogNS1sZN+W7/pi2Hcl3M4pdPuwB1XZWYcvwP9QMM36RD9mdAmemtBjav/hkqYMpJ+OtdTfuq18PT7o9U7jzt9jnOZ3i8UqMHqwxjPsp0ACYY81P6TsAp8wTjXSM508mM4BiKc=
+	t=1789984017; cv=none; b=WA0TidQVsZUpdR/TnkjHoBUaYSQvYjzwEHnd1xD6LIHCF8qnY/+40t4aSPHV/hpcGlDl7SPLS+MW7xczIitvi1uzL1Nbcb+hH96LB+0rLLapfT5apdxaosMrdTO0+dxmSN6xIo62zoFlm0wYomn5w0qDGk0atmVFYNPM5e7CgA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789983982; c=relaxed/simple;
-	bh=fV1xaPY+sRwMZtpSIN6wrhucPsEUOR/9HpRNSALmywA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nismkvf/bAjJM9XxCyFzam+TScmp1U7pKQxSe8X+2ZtKCLAIPd3bh2DRe9eM0S1P9fOA8nTDq/4jw0q+N1mPvuuDYDTnYYLuzqcC1FwyMrXclqoaWbZuspLW2ai3EX3H0TqNT9viIBHmTO5eqFAkfpmXBjjDoc7HQ1hKwpFxzGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=XKaP0q21; arc=none smtp.client-ip=159.69.126.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
+	s=arc-20240116; t=1789984017; c=relaxed/simple;
+	bh=HBTiPzvCz4ug/UW24QEsYK91W05gquo6aW+Re5JmGP4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DImYgau7u7b25O2U6GYnYqS5LZraiudR1Ht8Ci3a9cGGQ35bv35iWDLXI8IavJWDvUR2jRFsugdAF1K1eARk6+gHlvc0QXuJNDUWjHvi9tMzYSd33kPZk3Ng3M5qFJ9/Kmm9izadkZgfDDnK3z6/LydF9XouIV2e9iepuTP2t8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=nCOKXCAW; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="XKaP0q21"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
-	s=mail; t=1789983972;
-	bh=fV1xaPY+sRwMZtpSIN6wrhucPsEUOR/9HpRNSALmywA=;
-	h=From:Date:Subject:To:Cc:From;
-	b=XKaP0q21QkS0+SvJmja3JvWBJdYkmDmFsF3v8SFJXxbRFGZ4jaMsO1YPonoZ4qaRK
-	 vOlGCInKEvJghi2UBQLa4Y+JvAZEfIihcXK81CqJpbzjS9IyNV+ZwCxItxZob7sV5T
-	 WmNbq5b6W/TJt49OTSsmrvrQDcwevc8ACBjIW+yw=
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Mon, 21 Sep 2026 11:45:58 +0200
-Subject: [PATCH] vdso/gettimeofday: Avoid runtime conditional in
- do_hres_timens()
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="nCOKXCAW"
+Received: from omf03.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay01.hostedemail.com (Postfix) with ESMTP id C98B81C2BF5;
+	Mon, 21 Sep 2026 09:46:52 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf03.hostedemail.com (Postfix) with ESMTPA id 79BB46000C;
+	Mon, 21 Sep 2026 09:46:49 +0000 (UTC)
+Date: Mon, 21 Sep 2026 05:46:47 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Bill Wendling <morbo@google.com>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, David Gow
+ <david@davidgow.net>, Petr Mladek <pmladek@suse.com>, Shuvam Pandey
+ <shuvampandey1@gmail.com>, nikitash.mariiaw@gmail.com,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 5/9] seq_buf: Add seq_buf_strlen()
+Message-ID: <20260921054647.3895bbb8@fedora>
+In-Reply-To: <20260919002714.4060307-5-kees@kernel.org>
+References: <20260919002658.stay.929-kees@kernel.org>
+	<20260919002714.4060307-5-kees@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260921-vdso-timens-conditional-v1-1-eac173f8bd92@weissschuh.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDQAxA0atI1gaMotJepbiwk9imtDNlMkpBv
- LtjXb7F/yuYRBWDa7FClEVNg8+gsgD3HP1DUDkb6qruqgv1uLAFTPoRb+iCZ025GN/Ydkx905L
- jhiDX3yiT/v7n23Da5vtLXDp2sG07qGfbynsAAAA=
-X-Change-ID: 20260917-vdso-timens-conditional-56d17351cd31
-To: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Vincenzo Frascino <vincenzo.frascino@arm.com>
-Cc: linux-kernel@vger.kernel.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789983970; l=1905;
- i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=fV1xaPY+sRwMZtpSIN6wrhucPsEUOR/9HpRNSALmywA=;
- b=/3O3DMN+q+RGzIYa7hK4NmOG2O+IE84wOfADtFD3iEeQsER/UwhBDOqhT3GSeBPladk9Suk3z
- DMMHp90Sh9WB986jA1cC+BGGqhLSF7YKLZndbFvD9shtHNhmFWVWRHn
-X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
- pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: rjp184kr1thiqj9oja9w7maf7ifpz1i9
+X-Rspamd-Server: rspamout06
+X-Rspamd-Queue-Id: 79BB46000C
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/wV+xy5oM/Yc19hz0L8UJwSIOf8eJGKII=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=hn41DI64BsSqbK+yXrYMlFcl7stInT1IdTJz73ayXrE=; b=nCOKXCAWEcIlGMHR8y4sxxY5B5enhzOruMrLNyYCDEa/zLwBfmSzmNtT90/YRi8hDy+JDwAYz+9/8BFbpM0fWzM4qWaFs3BZA/DczfewkHeFMVJkt+zC8UaLnRk934xV/Yu+JnxFuA6xYza5KR3WlQthVrC8bq3N/G36MI4voCU=
+X-HE-Tag: 1789984009-41735
+X-HE-Meta: U2FsdGVkX1+Q1gHPMV9MLHov25WHz+30ZbsaOySM58BDX39LOagkVjapGbw+eoiq4YV4TIwNW/oOPbbuIIm9K7u/IauLtXmGhN85++Mvj7fOCJkQXYNyYd1tKqvEvrusAWK06rbmcuhyLMzU6XdVyuHmE4CedJF/ARDu8k95doxwCTnI9MYv7gMWrnwmBqErXb7errnPKWm54ctla58GW9FrSMBz8hSpGqgDjQWa9gsGBnTVA+aRJIXs2Jr/8dCHDN5xNbr/e7cG1Ij0wW62ec7b41ifSuRsvkhMz8mwXBTfzuGZIkffTaRRB7UowzpjGTbCMauwGzI6kLsBXOPGoHPg/M7PCXp3bYTv7CahljlnMppFfHInbNH7+aoSBT/NtU+nuxct8WoPHFi8gXXqin8deJrwD/VB0So5QIl+GkfFZcOvPPmCrjec4XKCoTIQj5l3IveEToWHHFb0w85gbSBiUodLNHUIk8yu5gJ1KSDIHSPYinzspmPDRHzMocibvL0HE8SfcD0sQrmV947zvJGB1tk2Q07e9VNso7AE5XCIJyT8cFq34HBIEmfHsDylKQKrRyHXBNqabxJHaV6Rw2fxhmWHx4eIvz7fH7ghgeNtvcYAzHTfTFdVUNJh2Ac0G7uB6BTUdp0mYCyUY4MlwJh99fyXyUTr55v0oGlfb/dovII1eUfcahaSeOeaeQ+jaCUitxm6bhY=
 
-Currently the derivation of the non-namespaced clock from its namespaced
-sibling uses a runtime conditional. This conditional mirrors the
-VDSO_RAW check in __cvdso_clock_gettime_common(), in a non-obvious way.
+On Fri, 18 Sep 2026 17:27:03 -0700
+Kees Cook <kees@kernel.org> wrote:
 
-Replace the runtime conditional with unconditional pointer arithmetic,
-which removes the duplication of logic and also is smaller and faster.
-Also get rid of the weird double use of the 'vc' variable, pointing both
-to the array of clocks and later to one specific one.
+> Several strlcat() call sites being converted to seq_buf need behavior
+> seq_buf doesn't currently provide. The return from seq_buf_used() is
+> not the length of the string in a seq_buf. Once the buffer is full or
+> has overflowed it returns the buffer size, which counts the byte that
+> seq_buf_str() replaces with the NUL, so a caller that needs the string
+> and its length has to call seq_buf_str() and then walk the string with
+> strlen().
+> 
+> Move the termination out of seq_buf_str() into a helper that returns
+> where it put the NUL, and add seq_buf_strlen(), which terminates the
+> buffer in the same way and returns that offset.
+> 
 
-This saves 31 bytes of .text on x86_64.
+Let's make a appropriate function to terminate the string in the
+seq_buf and not have it be an internal helper function (This has been
+on my todo list for some time).
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
----
- lib/vdso/gettimeofday.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/lib/vdso/gettimeofday.c b/lib/vdso/gettimeofday.c
-index f7a591aba59f..7c45a8be9185 100644
---- a/lib/vdso/gettimeofday.c
-+++ b/lib/vdso/gettimeofday.c
-@@ -135,22 +135,23 @@ const struct vdso_time_data *vdso_timens_data(const struct vdso_time_data *vd)
- 	return (void *)vd + PAGE_SIZE;
- }
- 
-+static __always_inline
-+const struct vdso_clock *vdso_timens_clock(const struct vdso_clock *vc)
-+{
-+	return (void *)vc + PAGE_SIZE;
-+}
-+
- static __always_inline
- bool do_hres_timens(const struct vdso_time_data *vdns, const struct vdso_clock *vcns,
- 		    clockid_t clk, struct __kernel_timespec *ts)
- {
- 	const struct vdso_time_data *vd = vdso_timens_data(vdns);
-+	const struct vdso_clock *vc = vdso_timens_clock(vcns);
- 	const struct timens_offset *offs = &vcns->offset[clk];
--	const struct vdso_clock *vc = vd->clock_data;
- 	u32 seq;
- 	s64 sec;
- 	u64 ns;
- 
--	if (clk != CLOCK_MONOTONIC_RAW)
--		vc = &vc[CS_HRES_COARSE];
--	else
--		vc = &vc[CS_RAW];
--
- 	do {
- 		seq = vdso_read_begin(vc);
- 
+> Add tests comparing seq_buf_strlen() against strlen() of seq_buf_str()
+> for empty, appended, truncated, exactly full, and overflowed buffers,
+> and checking that seq_buf_strlen() alone terminates a full buffer.
+> 
+> Tests passed under qemu on ARCH=x86_64 with GCC 16.2.0 and CONFIG_KASAN=y,
+> and on big-endian ARCH=s390 with GCC s390x-linux-gnu 16.1.0.
+> 
+> Assisted-by: LLM
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Signed-off-by: Kees Cook <kees@kernel.org>
+> ---
+> Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Cc: David Gow <david@davidgow.net>
+> Cc: Petr Mladek <pmladek@suse.com>
+> Cc: Shuvam Pandey <shuvampandey1@gmail.com>
+> Cc: Steven Rostedt <rostedt@goodmis.org>
+> ---
+>  include/linux/seq_buf.h   |  57 +++++++++++++++++--
+>  lib/tests/seq_buf_kunit.c | 114 ++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 166 insertions(+), 5 deletions(-)
+> 
+> diff --git a/include/linux/seq_buf.h b/include/linux/seq_buf.h
+> index 0c0a0db04b09..7f025c7a68be 100644
+> --- a/include/linux/seq_buf.h
+> +++ b/include/linux/seq_buf.h
+> @@ -89,6 +89,27 @@ static inline unsigned int seq_buf_used(struct seq_buf *s)
+>  	return min(s->len, s->size);
+>  }
+>  
+> +/*
+> + * NUL-terminate the buffer in @s: directly after the data when there is
+> + * room for it, otherwise in the last byte of the buffer. @s->size must not
+> + * be zero.
+> + *
+> + * Returns: the offset of the NUL.
+> + */
+> +static inline size_t __seq_buf_terminate(struct seq_buf *s)
+> +{
+> +	size_t end;
+> +
+> +	if (seq_buf_buffer_left(s))
+> +		end = s->len;
+> +	else
+> +		end = s->size - 1;
+> +
+> +	s->buffer[end] = 0;
+> +
+> +	return end;
+> +}
 
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260917-vdso-timens-conditional-56d17351cd31
+That is, make this a separate patch to introduce a
+"seq_buf_terminate()" function as there's several places in the kernel
+that could replace seq_buf_str() with it.
 
-Best regards,
---  
-Thomas Weißschuh <linux@weissschuh.net>
+Thanks,
 
+-- Steve
