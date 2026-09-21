@@ -1,309 +1,198 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 841523BB9EB;
-	Mon, 21 Sep 2026 16:55:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27DB44DA9A5
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:56:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790009757; cv=none; b=B2tTadiCm0124XeL95Hk3VWfJAji3/VorP2W7gxa4LlsKrLsSAZbUAdFm4n1qxrqDCyXMtMesV7Lrr9umCXP53K5L8J1oXJ/i/mL4s+TFqgjXYNNWiXMXETpiFlpCkfQzOlQBtcwoMaXKdcfZB93BXlJu6EtNvxtHUoIFvXVTD8=
+	t=1790009791; cv=none; b=S818YsxgmZ0WjK9Qn8udnNagSy0NwuigfaeBLmmUVFbAoAp3isA9Be/A1QSkmUjWDqu8TjFYUFB2Gi/NicE/a3dP57ss/Y6D7i5R3DqeYe9Y9iR0itYOEIjkQyZgUcGMXREcKTXfr0yrd9yFRvVvc8lzKOhhFTBzm395hyZz9LY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790009757; c=relaxed/simple;
-	bh=SQPzN1fDOFqNzpN0tds5Q+wgRCbruZuRXYCGQEpQ8dY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=srJNo1vgveFtIo25UY0s1ufvCA9OETCaBrhX6BVIODA/RR0hmf/+8wT/u5tZDhsY4zNghq4PJ/fQ9sKP4Sp62qNyrcpmhal9kLb5/mFkkE+SwA3f0kbxOodVHoGylzy0kSdcQ1Z0Sq/eBH17nDpJ6MbwbMNx+MBea8K9fWKFygQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=KGgk5hN4; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1790009791; c=relaxed/simple;
+	bh=IchJVRnvveIxEK+oQyYR3jsZUwvxCFT6SBbUrbKr4DY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Zmyaq655fovOCIg/TI0Q8KmedqzrS6EA7nwDJHD7pkOMN8mfiEgwC+lqNgg7gf2+AmV6IjTLS3e45ToqMeCKE/e5e/kVqL3FJfiUulFC0QyKiciRmG4yLWXz7gVHEvT9qG9SbqmH25CzpMj8iTY4/Ee6qAcxAX89H8vZx6KuifE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XMofM9DR; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="KGgk5hN4"
-Received: from localhost (unknown [167.220.233.38])
-	by linux.microsoft.com (Postfix) with ESMTPSA id AE87520B7167;
-	Mon, 21 Sep 2026 09:55:05 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com AE87520B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790009706;
-	bh=3cNk5cj79jHTROllI+XO8920iIA7Bpi8q9KBRItuhh0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KGgk5hN4wPDCL8bKyLkcH12FidK+MT5CDgWxXpSOv/3KC6QWukbzwn7I/1mv/pba6
-	 GLCTGu8BjKV+hhWzR+qsK/TUvRxRGg5yUpJAq2hUDFmqs/kemKArsp2hwzxonjSXGw
-	 pvTQl3cLmYlZsUIrkrun5dKhgueLwT5iFyCdmVp0=
-Date: Tue, 22 Sep 2026 00:55:51 +0800
-From: Yu Zhang <zhangyu1@linux.microsoft.com>
-To: jgg@ziepe.ca, joro@8bytes.org, linux-kernel@vger.kernel.org, 
-	linux-hyperv@vger.kernel.org, iommu@lists.linux.dev, linux-pci@vger.kernel.org, 
-	linux-arch@vger.kernel.org, x86@kernel.org
-Cc: wei.liu@kernel.org, kys@microsoft.com, haiyangz@microsoft.com, 
-	decui@microsoft.com, longli@microsoft.com, will@kernel.org, robin.murphy@arm.com, 
-	bhelgaas@google.com, kwilczynski@kernel.org, lpieralisi@kernel.org, mani@kernel.org, 
-	robh@kernel.org, arnd@arndb.de, mhklinux@outlook.com, 
-	jacob.pan@linux.microsoft.com, tgopinath@linux.microsoft.com, 
-	easwar.hariharan@linux.microsoft.com, mrathor@linux.microsoft.com, baolu.lu@linux.intel.com, 
-	suravee.suthikulpanit@amd.com, vasant.hegde@amd.com
-Subject: Re: [PATCH v5 0/5] Hyper-V: Add para-virtualized IOMMU support for
- Linux guests
-Message-ID: <j3jyw3dlgvlooerixwybkqj3wjc6irqy2np55adqto7vhv4qad@tb5gvf5irvn3>
-References: <20260904075512.174154-1-zhangyu1@linux.microsoft.com>
- <5naiz3yuo5xo6mjyakckym3mrwzwr67cvvglkaqas7ev4lx6qf@muijinxpf3fa>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XMofM9DR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790009789;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=As7I/HbMfxtL9nsELV4HpSsq1JEhRRrzYwSEyLJqizM=;
+	b=XMofM9DRgSHK95QIY7/QEczyeRfXLkTKosaFOc1UI0Ws0W8E8D6Z4kwBerNddK49bt9lU3
+	cQIh8BaGFwf2yPuiPOVR2CCwWZLkbZIcQpUiwjFqEd/LQkxN3aGNtJZj214dwnSQP3MiCq
+	cFKHdPDd2bbMddd0DRIH2qPY0v65/sQ=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-346-F2k4iL6jOheYbBBXHtQ1CA-1; Mon,
+ 21 Sep 2026 12:56:25 -0400
+X-MC-Unique: F2k4iL6jOheYbBBXHtQ1CA-1
+X-Mimecast-MFC-AGG-ID: F2k4iL6jOheYbBBXHtQ1CA_1790009784
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 03CF018512EB;
+	Mon, 21 Sep 2026 16:56:24 +0000 (UTC)
+Received: from vkuznets-thinkpadx1carbongen12.rmtcz.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 887D81953945;
+	Mon, 21 Sep 2026 16:56:21 +0000 (UTC)
+From: Vitaly Kuznetsov <vkuznets@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
+ kvm@vger.kernel.org
+Cc: nsaenz@amazon.com, snambakam@linux.microsoft.com
+Subject: Re: [PATCH v3 00/28] KVM: x86: Introduce memory protection attributes
+In-Reply-To: <20260918135030.171564-1-pbonzini@redhat.com>
+References: <20260918135030.171564-1-pbonzini@redhat.com>
+Date: Mon, 21 Sep 2026 18:56:18 +0200
+Message-ID: <kupwlse5yrx.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5naiz3yuo5xo6mjyakckym3mrwzwr67cvvglkaqas7ev4lx6qf@muijinxpf3fa>
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On Mon, Sep 07, 2026 at 04:48:23PM +0800, Yu Zhang wrote:
+Paolo Bonzini <pbonzini@redhat.com> writes:
 
-Hi Joerg, Jason,
+> [cover letter copied from v2 - sorry for the very quick turnaround
+> but it's pointless to ask for reviews with the issues reported by
+> sashiko]
+>
+> This series introduces a mechanism to let userspace block read,
+> write or execute access to individual GFNs via KVM's memory
+> attribute mechanism, and have them reported via KVM_EXIT_MEMORY_FAULT.
+> It is mostly the work of Nicolas Saenz Julienne, with my working
+> consisting in reorganization, code cleanup, and using the recently
+> revamped MMU code (ACC_* masks and kvm_page_format).
+>
+> KVM needs to check the attributes anytime KVM takes GPAs as input for any
+> action initiated by the guest; if the memory attributes are incompatible
+> with such action, it should be stopped.  This means that there are quite
+> a lot of cases to handle.  While some families of functions can be
+> handled in one step, there are simply many places that do memory access.
+>
+> Along the way, the patches fix some issues in the memory attributes code,
+> that surfaced due to having more than one attribute.
+>
+> Paolo
+>
+> v2->v3 is just a bunch of sashiko fixes:
+> - new patch "KVM: x86/hyperv: do not overwrite hc->ingpa for slow
+>   SIGNAL_EVENT hypercall"
 
-A gentle ping on this series. Could you let me know whether it is ready to be
-picked up, or whether any further changes or acks are needed? Thanks a lot!
+A nitpick: in a few places in this series you use 'slow Hyper-V
+hypercall' term but TLFS never calls them that. It's kind of my fault I
+guess as in aee738236dca I used in in the comment I've added (although,
+in quotes to emphasize I'm making the term up). In TLFS, hypercalls are
+either regular (using memory locations for in/out params) or 'fast'
+(using registers, including XMM). I think we need to decide if we want
+to adopt the 'slow' term and use it ever after of if we want to fall
+back to a more conventional "non-fast"/"regular"/"" name. 
 
-B.R.
-Yu
+> - rewritten "KVM: apply nGPA->GPA translation to KVM_HC_CLOCK_PAIRING"
+>   to handle cross-patch accesses
+> - rewrite choice of KVM_FILTER_SHARED/KVM_FILTER_PRIVATE prior to
+>   setting memory attributes; even though the previous version worked,
+>   it relied on not having any attribute at all for has_private_mem VMs
+> - fix WARN_ON_ONCE/WARN_ONCE confusion
+> - fix loongarch compilation
+> - new (not really satisfactory_ patch "KVM: Take memory protections into
+>   account for __kvm_vcpu_map"
+> - fix incorrect NOT in "KVM: x86/mmu: Do not prefetch sptes on gfns backed
+>   by memory attributes"
+> - do not use kvm_mmu_prepare_memory_fault_exit() for attribute exits on
+>   PTEs
+> - new patch "KVM: let kvm_arch_post_set_memory_attributes drop mmu_lock"
+> - testcase fixes
+>
+> Anish Moorthy (1):
+>   KVM: Define and communicate KVM_EXIT_MEMORY_FAULT RWX flags to
+>     userspace
+>
+> Nicolas Saenz Julienne (12):
+>   KVM: selftests: Take into account mixed memory fault flags
+>   KVM: x86/mmu: Init memslot hugepage information for non-private_mem
+>     VMs too
+>   KVM: Introduce NR/NW/NX memory attributes
+>   KVM: Include memory protections in result of gfn->hva conversion
+>   KVM: Take memory protections into account for memory read/write/fetch
+>   KVM: Encapsulate memattrs array into anonymous struct
+>   KVM: Introduce a generation number for memory attributes
+>   KVM: Take memory protections into account for accesses with cached
+>     gfn->hva
+>   KVM: pfncache: Fail to refresh if it contains memory protections
+>   KVM: x86/mmu: Do not prefetch sptes on gfns backed by memory
+>     attributes
+>   KVM: x86/mmu: Take memory protection attributes into account during
+>     faults
+>   KVM: x86/mmu: Issue memory fault exit if walk failed due to memory
+>     attribute
+>
+> Paolo Bonzini (18):
+>   KVM: x86/hyperv: do not overwrite hc->ingpa for slow SIGNAL_EVENT
+>     hypercall
+>   KVM: selftests: Test address translation for Hyper-V direct L2
+>     hypercalls
+>   KVM: apply nGPA->GPA translation to KVM_HC_CLOCK_PAIRING
+>   KVM: x86: Introduce memory fault on invalid hypercalls reads/writes
+>   KVM: selftests: test hypercall memory fault exits
+>   KVM: x86/mmu: intersect writability from __kvm_faultin_pfn with
+>     fault->map_writable
+>   KVM: x86/mmu: Extend map_writable to a full ACC_* mask
+>   KVM: pass kvm == NULL case to kvm_arch_has_private_mem
+>   KVM: adjust for presence of more than one attribute
+>   KVM: Introduce kvm_fetch_guest_page() and use it for x86
+>   KVM: Take memory protections into account for __kvm_vcpu_map
+>   KVM: loongarch: do full validity check on the gfn-to-hva cache
+>   KVM: Introduce kvm_check_gen()/kvm_memslots_check_gen()
+>   KVM: let kvm_arch_post_set_memory_attributes drop mmu_lock
+>   KVM: x86/mmu: Obsolete all roots if memattr contains gPTEs
+>   KVM: x86: selftests: Introduce memory protection attributes test
+>   KVM: x86: selftests: Introduce memory attributes PTE test
+>   KVM: x86: selftests: Introduce memory attributes side-channel tests
+>
+>  Documentation/virt/kvm/api.rst                |  38 +-
+>  arch/loongarch/kvm/vcpu.c                     |  12 +-
+>  arch/x86/include/asm/kvm_host.h               |   4 +-
+>  arch/x86/kvm/Kconfig                          |   4 +-
+>  arch/x86/kvm/hyperv.c                         | 172 +++++--
+>  arch/x86/kvm/mmu/mmu.c                        | 183 +++++--
+>  arch/x86/kvm/mmu/mmu_internal.h               |  21 +-
+>  arch/x86/kvm/mmu/mmutrace.h                   |  36 ++
+>  arch/x86/kvm/mmu/paging_tmpl.h                |  25 +-
+>  arch/x86/kvm/mmu/spte.c                       |  12 +-
+>  arch/x86/kvm/mmu/spte.h                       |  13 +-
+>  arch/x86/kvm/mmu/tdp_mmu.c                    |   2 +-
+>  arch/x86/kvm/x86.c                            |  66 ++-
+>  include/linux/kvm_host.h                      | 128 ++++-
+>  include/linux/kvm_types.h                     |   6 +-
+>  include/trace/events/kvm.h                    |  14 +-
+>  include/uapi/linux/kvm.h                      |   7 +
+>  tools/include/uapi/linux/kvm.h                |   3 +
+>  tools/testing/selftests/kvm/Makefile.kvm      |   2 +
+>  .../testing/selftests/kvm/include/kvm_util.h  |  32 +-
+>  .../selftests/kvm/include/x86/processor.h     |   1 +
+>  .../testing/selftests/kvm/lib/x86/processor.c |   5 +
+>  .../testing/selftests/kvm/memory_attributes.c | 453 ++++++++++++++++++
+>  tools/testing/selftests/kvm/x86/hcall_fault.c | 246 ++++++++++
+>  .../testing/selftests/kvm/x86/hyperv_evmcs.c  |  16 +-
+>  .../selftests/kvm/x86/hyperv_svm_test.c       |  15 +-
+>  .../selftests/kvm/x86/memory_attributes.c     | 415 ++++++++++++++++
+>  .../kvm/x86/private_mem_kvm_exits_test.c      |   6 +-
+>  virt/kvm/kvm_main.c                           | 271 +++++++++--
+>  virt/kvm/pfncache.c                           |  30 +-
+>  30 files changed, 2027 insertions(+), 211 deletions(-)
+>  create mode 100644 tools/testing/selftests/kvm/memory_attributes.c
+>  create mode 100644 tools/testing/selftests/kvm/x86/hcall_fault.c
+>  create mode 100644 tools/testing/selftests/kvm/x86/memory_attributes.c
 
-> 
-> Hi Jason, Joerg,
->                                                                                                                                                         
-> Do you have any further comments on this version, particularly
-> any remaining issues that would warrant a respin before the series
-> can be considered for inclusion? Thanks a lot! 
-> 
-> B.R.
-> Yu
-> 
-> > This patch series introduces a para-virtualized IOMMU driver for
-> > Linux guests running on Microsoft Hyper-V. The driver enables two
-> > primary use cases:
-> >   1) In-kernel DMA protection for devices assigned to the guest.
-> >   2) Device assignment to guest user space (e.g., via VFIO).
-> > 
-> > The driver implements the following core functionality:
-> > *   Hypercall-based Enumeration
-> >     Unlike traditional ACPI-based discovery (e.g., DMAR/IVRS),
-> >     this driver enumerates the Hyper-V IOMMU capabilities directly
-> >     via hypercalls. This approach allows the guest to discover
-> >     IOMMU presence and features without requiring specific virtual
-> >     firmware extensions or modifications.
-> > 
-> > *   Domain Management
-> >     The driver manages IOMMU domains through a new set of Hyper-V
-> >     hypercall interfaces, handling domain allocation and attachment
-> >     for endpoint devices.
-> > 
-> > *   Nested Translation Support
-> >     This implementation leverages guest-managed stage-1 I/O page
-> >     tables nested with host stage-2 translations. It is built
-> >     upon the consolidated IOMMU page table framework (IOMMU_PT).
-> >     This design eliminates the need for emulating map operations.
-> >     Both Intel VT-d and AMD IOMMU platforms are supported.
-> > 
-> > *   IOTLB Invalidation
-> >     IOTLB invalidation requests are marshaled and issued to the
-> >     hypervisor through the same hypercall mechanism. Both domain-
-> >     selective and page-selective flushes are supported.
-> > 
-> > Implementation Notes:
-> > *   Platform Support
-> >     The current implementation targets x86 platforms with Intel
-> >     VT-d and AMD IOMMU hardware.
-> > 
-> > *   MSI Region Handling
-> >     The standard x86 MSI interrupt range
-> >     (0xfee00000 - 0xfeefffff) is reserved from normal IOVA mappings.
-> >     Future updates may allow this configuration to be queried via
-> >     hypercalls if new hardware platforms are to be supported.
-> > 
-> > *   Reserved Regions (RMRR)
-> >     There is currently no requirement to support assigned devices with
-> >     ACPI RMRR limitations. Consequently, this patch series does not
-> >     specify or query reserved memory regions.
-> > 
-> > *   Guest Hibernation
-> >     Guest hibernation and resume are not supported by this initial
-> >     implementation. The current pvIOMMU interface does not define how
-> >     Hyper-V device-domain objects and device attachments are restored.
-> > 
-> > Testing:
-> > Validated with the following configurations:
-> > - NVMe devices assigned to the guest on AMD platforms, tested
-> >   with fio.
-> > - Intel DSA devices assigned to the guest, tested with dmatest.
-> > - dma_map_benchmark for DMA mapping performance evaluation.
-> > 
-> > Changelog:
-> > 
-> > v4[1] -> v5:
-> > - Added Michael Kelley's Reviewed-by tags for patch 1/2/3/4.
-> > 
-> > - hv: logical device ID registry:
-> >   - Used four-digit hexadecimal values to print PCI domain numbers.
-> >   - Included the PCI domain number in the unregister failure warning.
-> > 
-> > - iommu/hyperv: para-virtualized IOMMU:
-> >   - Removed the unused per-device endpoint structure, allocation,
-> >     private pointer, and release_device() callback.
-> >   - Clarified the logical device ID lookup failure message.
-> >   - Read the ATS capability from the IOMMU associated with the domain
-> >     instead of the global IOMMU pointer.
-> > 
-> > - iommu/hyperv: page-selective IOTLB flush:
-> >   - Unified normal and full-range descriptor construction around the
-> >     aligned range start.
-> >   - Used max() to express the minimum Hyper-V page granularity.
-> >   - Reported Hyper-V status values in warnings when the flush fails.
-> > 
-> > v3[2] -> v4:
-> > - Added Jacob Pan's Reviewed-by tag for patch 1/4/5.
-> > 
-> > - hyperv: hypercall interfaces:
-> >   - Added the authoritative Hyper-V type names to imported definitions.
-> >   - Added HV_STATUS_DEVICE_ALREADY_IN_DOMAIN and mapped it to -EEXIST.
-> > 
-> > - hv: logical device ID registry:
-> >   - Made the registry independent of CONFIG_HYPERV_PVIOMMU.
-> >   - Renamed the APIs to hv_pci_xxx_dev_id(),
-> >   - Reworked initialization and error cleanup to propagate failures.
-> >   - Return -EEXIST with a warning for duplicate registration.
-> > 
-> > - iommu/x86: architectural MSI reserved region:
-> >   - Replaced the exported range constants with
-> >     iommu_alloc_resv_x86_msi_region().
-> > 
-> > - iommu/hyperv: para-virtualized IOMMU:
-> >   - Accepted HV_STATUS_DEVICE_ALREADY_IN_DOMAIN as a successful attach,
-> >     and removed the blocking-domain-specific duplicate check.
-> >   - Removed the redundant ATS disable from release_device(); ATS is
-> >     disabled when attaching the release domain.
-> > 
-> > - iommu/hyperv: page-selective IOTLB flush:
-> >   - Removed the redundant include of linux/hyperv.h.
-> >   - Documented that the list flush also invalidates non-leaf page-walk
-> >     caches before detached page-table pages are freed.
-> > 
-> > v2[3] -> v3:
-> > - Added a separate patch defining the common x86 architectural MSI
-> >   reserved range and converted the Intel, AMD, and Hyper-V IOMMU
-> >   drivers to use it.
-> > 
-> > - hyperv: hypercall interfaces:
-> >   - Used BIT_ULL() for 64-bit capability flags.
-> >   - Matched the create-device-domain input layout to the 32-byte
-> >     Hyper-V ABI.
-> >   - Corrected the page-selective flush range layout to 6/6/52 bits.
-> > 
-> > - hv: logical device ID registry:
-> >   - Replaced the linear list with an rhashtable for the sparse PCI
-> >     domain number mapping.
-> >   - Used RCU-protected lookup and deferred freeing on removal.
-> >   - Simplified the registration and cleanup paths.
-> > 
-> > - iommu/hyperv: para-virtualized IOMMU:
-> >   - Renamed the guest driver source to hv-iommu-guest.c.
-> >   - Enabled ATS only after a device-domain attachment succeeds, and
-> >     disabled ATS before attaching the blocking domain.
-> >   - Removed the obsolete deferred-flush capability, unused geometry,
-> >     and redundant device-private-data clearing.
-> >   - Made the Hyper-V domain settings explicit at each caller instead
-> >     of deriving them from the Linux domain type.
-> >   - Added transactional create/configure domain handling with rollback.
-> >   - Required only the base page size and masked the domain page-size
-> >     bitmap with the Hyper-V-supported bitmap.
-> >   - Silenced detection for unsupported hosts while retaining errors
-> >     for actual hypercall and capability failures.
-> >   - Clarified Kconfig support for assigned PCI devices and documented
-> >     the lack of guest hibernation/resume support.
-> > 
-> > - iommu/hyperv: page-selective IOTLB flush:
-> >   - Removed the inclusive-end overflow and kept the range calculation
-> >     in byte addresses until the final page conversion.
-> >   - Cleared both the fixed hypercall header and the range entry.
-> >   - Warned on selective-flush failure before falling back to a
-> >     full-domain flush.
-> > 
-> > v1[4] -> v2:
-> > - Dropped the "move to subdirectory" patch; the directory now exists
-> >   upstream.
-> > 
-> > - hv: logical device ID registry:
-> >   - Moved the registry to hv_common.c so it can be shared, and derived
-> >     the prefix via a shared helper instead of caching it in pci-hyperv's
-> >     private struct.
-> >   - Moved the lookup out of the irq-disabled region (PREEMPT_RT).
-> > 
-> > - iommu/hyperv: para-virtualized IOMMU:
-> >   - Removed the unused detach_dev op.
-> >   - Rejected a hypervisor not advertising x86 page sizes instead of
-> >     masking and warning.
-> >   - Statically initialized the identity and blocking domains.
-> >   - Gave the blocking domain its own attach op, which returns the hypercall
-> >     status and WARNs on failure.
-> > 
-> > - iommu/hyperv: page-selective IOTLB flush:
-> >   - Used a single descriptor covering a slightly larger power-of-two
-> >     range, instead of splitting the range into multiple descriptors.
-> >   - Fixed the inclusive-end corner case in the flush range calculation.
-> > 
-> > RFC v1[5] -> v1[4]:
-> > - Scoped platform support to x86 only (Intel VT-d and AMD IOMMU);
-> >   initialization now uses x86_init.iommu.iommu_init
-> > - Added page-selective IOTLB flush support
-> > - Disable device ATS in hv_iommu_release_device()
-> > - Addressed review comments from Michael Kelley:
-> >   - Reversed dependency: pvIOMMU exports registration API for
-> >     pci-hyperv to call, instead of pci-hyperv exporting
-> >     hv_build_logical_dev_id()
-> >   - Dropped separate output page allocation patch; hypercall input
-> >     and output now share the same per-CPU page
-> >   - Cleaned up Kconfig (removed PCI_HYPERV dependency, unnecessary
-> >     selects)
-> >   - Removed dev_list, per-domain spinlock, and syscore_ops
-> >   - Removed forward declarations by reordering functions
-> >   - Fixed typos, cleaned up Kconfig selects, improved pr_info
-> >     messages, etc.
-> > 
-> > [1] v4:
-> > https://lore.kernel.org/linux-hyperv/20260821132654.211730-1-zhangyu1@linux.microsoft.com/
-> > [2] v3:
-> > https://lore.kernel.org/linux-hyperv/20260811155022.108148-1-zhangyu1@linux.microsoft.com/
-> > [3] v2:
-> > https://lore.kernel.org/linux-hyperv/20260702160518.311234-1-zhangyu1@linux.microsoft.com/
-> > [4] v1:
-> > https://lore.kernel.org/linux-hyperv/20260511162408.1180069-1-zhangyu1@linux.microsoft.com/
-> > [5] RFC v1:
-> > https://lore.kernel.org/linux-hyperv/20251209051128.76913-1-zhangyu1@linux.microsoft.com/
-> > 
-> > Wei Liu (1):
-> >   hyperv: Introduce new hypercall interfaces used by Hyper-V guest IOMMU
-> > 
-> > Yu Zhang (4):
-> >   Drivers: hv: Add logical device ID registry for vPCI devices
-> >   iommu/x86: Add architectural MSI reserved region helper
-> >   iommu/hyperv: Add para-virtualized IOMMU support for Hyper-V guest
-> >   iommu/hyperv: Add page-selective IOTLB flush support
-> > 
-> >  arch/x86/hyperv/hv_init.c             |   4 +
-> >  arch/x86/include/asm/iommu.h          |  14 +
-> >  arch/x86/include/asm/mshyperv.h       |   4 +
-> >  drivers/hv/hv_common.c                | 115 +++++
-> >  drivers/iommu/Kconfig                 |   1 +
-> >  drivers/iommu/amd/iommu.c             |   6 +-
-> >  drivers/iommu/hyperv/Kconfig          |  16 +
-> >  drivers/iommu/hyperv/Makefile         |   1 +
-> >  drivers/iommu/hyperv/hv-iommu-guest.c | 679 ++++++++++++++++++++++++++
-> >  drivers/iommu/hyperv/iommu.h          |  44 ++
-> >  drivers/iommu/intel/iommu.c           |   6 +-
-> >  drivers/pci/controller/pci-hyperv.c   |  21 +-
-> >  include/asm-generic/mshyperv.h        |   4 +
-> >  include/hyperv/hvgdk_mini.h           |  10 +
-> >  include/hyperv/hvhdk_mini.h           | 155 ++++++
-> >  include/linux/hyperv.h                |   8 +
-> >  16 files changed, 1073 insertions(+), 15 deletions(-)
-> >  create mode 100644 drivers/iommu/hyperv/Kconfig
-> >  create mode 100644 drivers/iommu/hyperv/hv-iommu-guest.c
-> >  create mode 100644 drivers/iommu/hyperv/iommu.h
-> > 
-> > -- 
-> > 2.52.0
-> > 
-> 
+-- 
+Vitaly
+
