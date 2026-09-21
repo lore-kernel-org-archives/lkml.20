@@ -1,91 +1,72 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007DD45C6E0;
-	Mon, 21 Sep 2026 08:56:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E457459AD2
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:56:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789980994; cv=none; b=Upd9vZhgKP+KnpkdHY8Rvs+MeZCxysz4F+dpd8iJZF2UimS5L4fC5pgK1HKN7iFM/C99wbNtjT4giI4Zskjy4kWBWYSZa1FUe4fK8auRwW89U9aalMAGSu2nYXw5ujxwygbAMyOuCPqJhm0b9MpS/4ZgfVvYC/4nOGMbRja5kS4=
+	t=1789981018; cv=none; b=WsieL5kMXr7voX5wNdCRgwWT96TSKqNoanTmtVv/JCbGhc1JC8PSzUX0WTmGdqlB16odyUqTzZIhtoRigWJUwWS9mZIdLfpkBfovFzHEAeL5fwe44+0fdvpGPgqm4O9KqrI7V3vTtN8XovXHcumWOKpnARbj9UdGVqljZ17BtfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789980994; c=relaxed/simple;
-	bh=/DxlKT9T7MMO03kSkCLZfgdqBAp21kPuU2laLxaVsHM=;
-	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=aBvwa93LV2DKnw0hyGlJLJbNsV5T0J4a8T3cs6iC6FHEKc9CyqG/HEdVBs2XwplKtx9kN8qSjRt6IUke1Z97EJXX9SPqPFX0EOVe7tDPOUKUczZMskk4v/GZwQts4bZXKV9i9ejaTM8mdjqbybNGqN2/EgY4kxY1LHurClK/8Fk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eF4sS4wZ; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789981018; c=relaxed/simple;
+	bh=2a5mHMgwlyejMsFJQNISCi2AvFfycqTH5EAXJVfXLvg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qCZfk+KBx7qaWqO1cdUgvQwVGY/ByGRJ3thRxtYzpPtlgW4UnmWF6CSlNfxcQGCkzF9gTsbQFtI/bg0eGgEf/jaEGWskspW7S4dtLsvDt4j6OoMri2lPtI3SRUlodnSeLqjCuaNUg+297ZIP8c1BDuFxfLxPBDN6njVyodqlpUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iWWAKtbe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eF4sS4wZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=/DxlKT9T7MMO03kSkCLZfgdqBAp21kPuU2laLxaVsHM=; b=e
-	F4sS4wZG5wntkP1jVrIIg8QwB1v7fF3uoxQrvqrFq90E17d+z1yYuD3ytnR0FugD
-	ut5EY0/Rlyn5moAVaMxN73BdQkoWhV8LJUkwNOpVlETGYv+XZV85GEUlmQxqxL5j
-	IQqZp+7kuIYFn0RxvpCmlHVgDkDJeGqasrlcI6wnHg=
-Date: Mon, 21 Sep 2026 16:56:05 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: idryomov@gmail.com, jlayton@kernel.org, davem@davemloft.net,
-	kuba@kernel.org
-Cc: ceph-devel@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [BUG] ceph: WARNING in ceph_con_v1_try_read (process_connect)
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2TC/WTv0Et4yibbOkdmEsTju82UcS4ufQl245Xc/sEuADE1wYGfV5FGUX59tmTLwSKmzOZcTJQ8uBIdIhW1puIDMp93j1jxIkbYBwCFQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iWWAKtbe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BACC71F00899
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:56:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789981016;
+	bh=2a5mHMgwlyejMsFJQNISCi2AvFfycqTH5EAXJVfXLvg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=iWWAKtbeMFd8MTJIlJ8Ojb1MD8bAC2qJItwDlZw+33XW8Scrj1cRSH3A+SC2saFjm
+	 xSZTm7SOnJsabYlSRk80otn1Sr7E/BXGymGxVMtWdhm4jznFjQ7HcQwUsrHHsPOJZV
+	 anr4AvegeaXtkGEly6db3MshWhgfOCZYkulBM6gSySw1Whb+j40Ox0FCgzCvh7//r2
+	 H5QhnFqgp0hR2lvJo5Gd6q6abZkMznlOuAbkh+lz5Sk/JlwOU0tqwN6EUnymjie5ne
+	 tMB4crx5jBnGB/UMqk3uWz9Tei1nPxiNbXxhHMPq4BI0lX7tIGXsd4UjVNKBAx0JTT
+	 1A9vt36jhstww==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c5231570so2229671e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:56:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwSwSbJlSxlaUn7uiBAZBNKvSwVAs0RUKgATaSh46O2TB1nLVlIiSMEoK7rLUgC73imqBWFkmi7ZxsoQ24=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSdJxfRJ2g3IuOpUzx4HbT/e5qSGgNc9aXNBNXCmHnQzTJwvjz
+	7JJJeNG8pNN9zIAiaipbWKS2OGbReyTKV1H8m625iFawDQo0YgxzGIIVm6vf8NXVaowDC6H4/d1
+	RSfrGocOqi2atNfTWmVQqX0nc2eCSNeM=
+X-Received: by 2002:a05:6512:3345:b0:5b4:8658:a401 with SMTP id
+ 2adb3069b0e04-5b8c17fa206mr3083443e87.19.1789981015453; Mon, 21 Sep 2026
+ 01:56:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <3f6316d7.86ce.1a0c32dfbd6.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:cSgvCgD3v1Mm8bBqOEVLAA--.43984W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3QZM-Wqw8SZ60gAA3P
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+References: <20260921061120.29694-6-blum@kernel.org> <20260921061120.29694-8-blum@kernel.org>
+In-Reply-To: <20260921061120.29694-8-blum@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 21 Sep 2026 10:56:41 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=ah_RX1P3fPr=QjJpzhtxti5wz7FB+Vs-TpmQdrKSbaA@mail.gmail.com>
+X-Gm-Features: AcwNN1XALyjIwjQI4ZaIxHXpArCEdJ4cTcRwnxSkp5lz5jN9zOxBaiocFEsP44g
+Message-ID: <CAD++jL=ah_RX1P3fPr=QjJpzhtxti5wz7FB+Vs-TpmQdrKSbaA@mail.gmail.com>
+Subject: Re: [PATCH 3/5] crypto: ixp4xx - use memcpy_and_pad() in register_chain_var()
+To: Thorsten Blum <blum@kernel.org>
+Cc: Imre Kaloz <kaloz@openwrt.org>, Corentin Labbe <clabbe@baylibre.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+	linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGFuIGlzc3VlIHRyaWdnZXJlZCBieSBhIHN5emthbGxlciBy
-ZXByb2R1Y2VyIG9uIExpbnV4CjcuMy4wLXJjMi4gVGhlIGlzc3VlIGlzIHJlcHJvZHVjaWJsZSB3
-aXRoIEhFQUQgY29tbWl0CmRmMjkwODA5MGNkYTM2OGIwMWZmNDM3MDlmNTE4OTAwNzZjNTYxNTcu
-CgoKVGhlIHJlcHJvZHVjZXIgY3JlYXRlcyBhIGxpc3RlbmluZyBUQ1Agc29ja2V0LCBjb25uZWN0
-cyBhIGNlcGggZmlsZXN5c3RlbSB0bwppdCB0aHJvdWdoIGZzY29uZmlnKCksIGFjY2VwdHMgdGhl
-IGNvbm5lY3Rpb24gaW4gdGhlIHJlcHJvZHVjZXIncyBvd24KcHJvY2VzcywgYW5kIHRoZW4gd3Jp
-dGVzIGEgY3JhZnRlZCBiYW5uZXIgYW5kIGhhbmRzaGFrZSByZXBseSBpbnRvIHRoYXQKc29ja2V0
-LiBUaGUgcmVwcm9kdWNlciBpcyBwbGF5aW5nIHRoZSBwYXJ0IG9mIHRoZSBwZWVyLCBzbyBpdCBj
-b250cm9scyB0aGUKY29ubmVjdCBzZXF1ZW5jZSBudW1iZXJzIHRoZSBjbGllbnQgc2Vlcy4KCgpX
-aGVuIHRoZSBjbGllbnQgcHJvY2Vzc2VzIHRoZSByZXBseSwgcHJvY2Vzc19jb25uZWN0KCkgY29t
-cGFyZXMgdGhlIGNvbm5lY3QKc2VxdWVuY2UgaXQgZXhwZWN0cyBhZ2FpbnN0IHRoZSBvbmUgaW4g
-dGhlIHJlcGx5IGFuZCBmaW5kcyB0aGVtIGRpZmZlcmVudC4KVGhlIFdBUk5fT04gZm9yIHRoYXQg
-bWlzbWF0Y2ggZmlyZXMsIGluIHRoZSBjZXBoLW1zZ3Igd29ya3F1ZXVlIHdvcmtlcgpydW5uaW5n
-IGNlcGhfY29uX3dvcmtmbigpIC0+IGNlcGhfY29uX3YxX3RyeV9yZWFkKCkuCgoKVGhpcyBsb29r
-cyBsaWtlIGEgcHJvdG9jb2wtY29uc2lzdGVuY3kgY2hlY2sgdGhhdCBpcyBvbmx5IGFibGUgdG8g
-cmVwb3J0IHRoZQptaXNtYXRjaCByYXRoZXIgdGhhbiByZWNvdmVyIGZyb20gaXQuIEEgcGVlciB0
-aGF0IHJldHVybnMgYSBjb25uZWN0X3NlcSB0aGUKY2xpZW50IGRvZXMgbm90IGV4cGVjdCBpcyBl
-eHRlcm5hbCBpbnB1dCwgc28gdHJlYXRpbmcgdGhlIGNvbmRpdGlvbiBhcyBhCmNvbm5lY3Rpb24g
-ZXJyb3IgYW5kIHJlc2V0dGluZyB0aGUgc2Vzc2lvbiB3b3VsZCBiZSBtb3JlIHVzZWZ1bCB0aGFu
-IGEKd2FybmluZy4gSSBoYXZlIG5vdCB3b3JrZWQgb3V0IHdoZXRoZXIgYW55IGxlZ2l0aW1hdGUg
-cmVjb25uZWN0aW9uIHNlcXVlbmNlCmNhbiBhbHNvIHByb2R1Y2UgdGhpcyBtaXNtYXRjaC4KCgpU
-aGlzIGZhaWx1cmUgd2FzIHJlcG9ydGVkIGVhcmxpZXIgYWdhaW5zdCB0aGUgbGludXgtNi4xIGxv
-bmd0ZXJtIHNlcmllcyBhdApodHRwczovL3N5emthbGxlci5hcHBzcG90LmNvbS9idWc/ZXh0aWQ9
-MmM0NTUyMjJiMzhlZjI0YTU2N2MsIGFuZCB0aGUKcmVwcm9kdWNlciBiZWxvdyBpcyB0aGUgb25l
-IGZyb20gdGhhdCByZXBvcnQuIEl0IHN0aWxsIHJlcHJvZHVjZXMgb24gdGhlCnRlc3RlZCBtYWlu
-bGluZSBrZXJuZWwuCgoKUmVwcm9kdWNlcjoKCgpzeXogcmVwcm9kdWNlcjoKVGhlIHJlcHJvZHVj
-ZXIgaXMgdGhlIHByb2dyYW0gYmVsb3csIHdoaWNoIHJlcXVpcmVzIG5vIGxhcmdlIGVuY29kZWQg
-aW1hZ2U6CgoKcjAgPSBzb2NrZXQkaW5ldF90Y3AoMHgyLCAweDEsIDB4MCkKYmluZCRpbmV0KHIw
-LCAmKDB4N2YwMDAwMDAwMDAwKT17MHgyLCAweDFhODUsIEBsb29wYmFja30sIDB4MTApCmxpc3Rl
-bihyMCwgMHg1KQpyMSA9IGZzb3BlbigmKDB4N2YwMDAwMDAwMTAwKT0nY2VwaFx4MDAnLCAweDAp
-CmZzY29uZmlnJEZTQ09ORklHX1NFVF9TVFJJTkcocjEsIDB4MSwgJigweDdmMDAwMDAwMDE0MCk9
-J3NvdXJjZVx4MDAnLCAmKDB4N2YwMDAwMDAwMTgwKT0nMTI3LjAuMC4xOjY3ODk6L1x4MDAnLCAw
-eDApCmZzY29uZmlnJEZTQ09ORklHX0NNRF9DUkVBVEUocjEsIDB4NiwgMHgwLCAweDAsIDB4MCkK
-cjIgPSBhY2NlcHQkaW5ldChyMCwgMHgwLCAweDApCndyaXRlKHIyLCAmKDB4N2YwMDAwMDAwMzAw
-KT0nY2VwaCB2MDI3XHgwMCcvMjc4LCAweDExOSkKd3JpdGUocjIsICYoMHg3ZjAwMDAwMDA4MDAp
-PSIwMWZmZmZmZmZmZmZmZmZmZmYwMCIvMjYsIDB4MWEpCgoKY29uc29sZSBvdXRwdXQ6wqBodHRw
-czovL3Bhc3RlYmluLmNvbS9yYXcvMmlpaEx1WlMKCgprZXJuZWwgY29uZmlnOiBodHRwczovL3N5
-emthbGxlci5hcHBzcG90LmNvbS90ZXh0P3RhZz1LZXJuZWxDb25maWcmeD04NzJjMDQ0NjYxNzk4
-MzNmCgoKS2VybmVsOgoKCkhFQUQgY29tbWl0OiBkZjI5MDgwOTBjZGEzNjhiMDFmZjQzNzA5ZjUx
-ODkwMDc2YzU2MTU3CmdpdCB0cmVlOiBtYWlubGluZQprZXJuZWwgdmVyc2lvbjogNy4zLjAtcmMy
-CnRlc3RlZCB0YWc6IHY3LjMtcmMyIChhbm5vdGF0ZWQgdGFnIG9iamVjdCA1ZTAzNmNlMTJkZTkx
-YzZmZDY3NGRhZDMzYjE2OWM2MTUwYmUyYTdhKQoKCkxldCBtZSBrbm93IGlmIHlvdSBuZWVkIG1v
-cmUgZGV0YWlscyBvciB0ZXN0aW5nLgoKCkJlc3QgcmVnYXJkcywKQ2hhbmdqaWFuIExpdQ==
+On Mon, Sep 21, 2026 at 8:12=E2=80=AFAM Thorsten Blum <blum@kernel.org> wro=
+te:
+
+> Use memcpy_and_pad() instead of separate memcpy() and memset() calls to
+> simplify register_chain_var().
+>
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+
+This makes sense.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+
+Yours,
+Linus Walleij
