@@ -1,248 +1,95 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31EB544E041
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:07:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E4244B663
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:08:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789978044; cv=none; b=K6EdVL+4UZPH9ADmnFH6qbnT6B8Z+RNodZMCA9wona0b6Vur4uua3vKocHDxnVsssqtshCG7U3vfkPPCgq3/Lac+qWs5pD981g4uWQFGG3KlLBAfgGzLx51zET7aAXeldytJcpFg0DyI1PoS8NTDKhCbKEaDk8eVN3DSAizaCa0=
+	t=1789978128; cv=none; b=oCT8QChVkZE3dRb4iLzeviJ+cT87vORpX8SQbD5EQV9PajL/B4AC/bqPo/vfi9ramE9XCTtQLYY615v7WLjQLToWMaeODjgbEKJn08UN9kiZXK5ePGW/7eV18fXzUevCZ9/5HzYOlgbe92O4jMFoWTb3hBggFa361FErq54ks/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789978044; c=relaxed/simple;
-	bh=sQnQQvkH/71oyEWy2yZkhzhvyoZW4sFOT06jk94t0cg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hI56uulyt6/3LQdkRvMzOkYpa4lZ8qsVS7uzQH/2bWUHzCBMGKfKEYXrzxOCyXnperVV2rtpcrrjZweBiPiXUORmldS/XUtdXls0odPRvMfx8ydAnUgvd1Yf1KgvFtIbqXwbgxlb+wMNmQGZ6gmMiVuK8V1IeNbsziUChmxZ0ps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=hmlqgRzk; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=slls9C5w; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=XcmBXLFS; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=y57ifLw6; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789978128; c=relaxed/simple;
+	bh=0RaQGQqIo9leMXjyzQA0KC9Q+HujEJJke6QT7/KvSNo=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mhXbBRx73ItCTIvPz9a8AV1OKnUGMEzp1kYCWZ2aSs4VUGSR02KusdkehlfJc2qOp3ariPjEd59hPtb98GSlJZwhGESSrWBfl2d4HPAc1qVvHUdnwhZvT694I1P/3PJpdltFewmVvS6g+YkQuInjMEHAdN0BicWGWWYnAydIWmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bVSv3kMC; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hmlqgRzk";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="slls9C5w";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="XcmBXLFS";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="y57ifLw6"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D49531F7CD;
-	Mon, 21 Sep 2026 08:07:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789978036; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dnlR76jhIgMBfFFSz0TPxpps120E4s2EWia/QNjr+II=;
-	b=hmlqgRzkFXEZkMKpkH4RgUbX4wexdVeC6wLPU74DA8FdGvqDkQqXSOQlA6u29560XzY0M0
-	yWiVEdVehFmrojw3hNi88IUJPqhFoUORU7dvVmBwmZ9FqI7BUF+sGjWecJou1Jpdc288C7
-	gjD20BxVZ9hAv77WbQjINHxyLo1WKkU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789978036;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dnlR76jhIgMBfFFSz0TPxpps120E4s2EWia/QNjr+II=;
-	b=slls9C5wZDuOZEcxaGdfrf4wpEgjt/+6B9YVBFWiUcVxsQAa8yUYDocAicbx/fGWhLEnNV
-	rRvoScsryeXTt5BQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789978031; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dnlR76jhIgMBfFFSz0TPxpps120E4s2EWia/QNjr+II=;
-	b=XcmBXLFSw806eDP0dslNNjmy2/drKpB/eUEQJ/vKAvcceu+VrgFWjOfCQQEDzK9E4MB5V9
-	EAq6xasiO7aGpX4pq7C4Qa510CaqpYW4ELo/V7ftGq/Rwzzqx0aEDIH7JtH6LBC/W7JIy5
-	DoCPTt1sh1ChZt5OTmKYT4rrtGFUPqE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789978031;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dnlR76jhIgMBfFFSz0TPxpps120E4s2EWia/QNjr+II=;
-	b=y57ifLw6/OkmH5Rme0hh1Zvw2eJJ0bmQrAJklJbV+YLqO0MUpvnDEurijXFVE6UFcopNC6
-	ITlVtBeoH3OAJqBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 50DEB1368D;
-	Mon, 21 Sep 2026 08:07:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 0EMZCq/lsGo/GwAAD6G6ig
-	(envelope-from <hare@suse.de>); Mon, 21 Sep 2026 08:07:11 +0000
-Message-ID: <6a2fddc2-0a32-4dc2-9642-efebe6934633@suse.de>
-Date: Mon, 21 Sep 2026 10:07:10 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bVSv3kMC"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8693af0d7c4so2916957b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:08:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789978126; x=1790582926; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lJf0AoDPq153hT3aZ9zolJbEGD9GJzVcss+BLxpyNVg=;
+        b=bVSv3kMCmbOHD9t1EXb9tFC/DwYBsTtIXFRtmptsDNkCYfr4NYrol30HUMxWhXCrcG
+         NugtI9VMwA04MFK+YqO3jzk0waVYkOzbUyv7Z8ktaJwZP0h6tK7qtSNee/9K+HZDAXaQ
+         k9VvVtzoKhlSq1u+GU8FGZaooM5H3oO9hMOwozpuAdg7iQh9dqlaMF9YeCpe4fs4Trzi
+         Eqn9sDPAn9dIAQmm0caE8yqWZJ0e0LMzWvyofFqFkCCzxnsEs3cRWExXZyVyxYkVsC0S
+         LVdutyaNjzZCaf8dNp+a6oK5OHVsgu6AzNeIlV3YjbTYc+nLMCrENXIJADZfqHZstaTt
+         5wYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789978126; x=1790582926;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lJf0AoDPq153hT3aZ9zolJbEGD9GJzVcss+BLxpyNVg=;
+        b=t5SatTKm2rdiysVrswRAgLipcSKbeV++ZQ1iGIE5cr0OtGry6WApbSHsKG1eRZAyU3
+         cmHcIMImMuFk2O9l6xo2YTzblA1v0GksxcgL9P6pYtblosSZfi9z9f9Uco8y560H2OmR
+         3ewnnKCw0Lq7by5SCVg3Klg47gW1+cm0JnMvFVl9Bx9Av4WPsT8hRTniXs4XFxN4B+Os
+         GzbbB9a1zEzVKbmo+CqPG1unjQNu4CAAkfqbyF7PKBf+O1m2ftN0WCPV0jq2QPxQ0JXb
+         ssWEfMKP8Qvic1j+g3fbbAlj1IPdXtIBfotPHm7LWv23jkiCEHiBOu4oox1ffK/0Tn2U
+         BmKQ==
+X-Forwarded-Encrypted: i=1; AKwUvByRbc7JjoCNvVw9XFp/bXAsEy/Vem4ZgGan8Kl/ZHxZFic+pjlShCl1CUPrujCkeF7c+/NXTyfxAR/quDs=@vger.kernel.org
+X-Gm-Message-State: AFuF++l94kelleZaVImdWAzLz234b2byq2Vq95SHtYlnO/3UbSSganEn
+	GEwL3g2XoPZF4lajhtMgZI74my0Nd47VSqs8wUhquAwR8HRwYd3uVw+6
+X-Gm-Gg: AYBFou0NccYebPnMix8DzXI7Lz+/40gs3Z/Quy7T+t3Tb77ZaV6pGiMgFxLcTAlYWPW
+	S7+dL0VxxOUadarzK4OpVQaXfH6K6qunGI5ICuGM/gw1QO0+XSNRXaTA1VrdtKO3lNa8/xXUIjp
+	WfZSFJWqUdVHHKrx98ZjM636l2KrXB4wFCtUwYLw5Lacq755jTg2hMSHJsMDg5HUtheLuK7VxOc
+	x9hMbEe8t7nY2upHEuolJmM/AWF70b3bVHGUBCwl6xtIZnWUGJD4ofc7bgcZY60V5q055etYj8o
+	uZbUk8rM5dHV1Q81GMbo/rkJFKPeMHSvjWRpp+Oa0xYCSP3G3dAbDrkj89aT3TCp7xrJiIM1i3f
+	yMQIXh4+iaN/wpR9PQ0xYnlJ9V6cZfUz1RGKbn+6kotc8qEz4yGmZpCOZeRgUvJdyUpeNi/tHDK
+	7HSiWhno+3XigDElTp+M9UzFQD+D0sNVYDpwjP7LLph79m6O67amoVX+25Cci6/cwGYld/J5A35
+	dSV1JlcMV/l40s2TuxVbe5FjNDO6vrx3GjmOFq3quXNxIAVaNdsxAg5SLUeAqaXtkt8cIkQEyE7
+	9H/X6xJQF4I=
+X-Received: by 2002:a05:6a00:1c8d:b0:857:72ba:ff0a with SMTP id d2e1a72fcca58-874dcae6e87mr14283804b3a.18.1789978126122;
+        Mon, 21 Sep 2026 01:08:46 -0700 (PDT)
+Received: from nxpwireless-Inspiron-14-Plus-7440 (61-228-227-192.dynamic-ip.hinet.net. [61.228.227.192])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a96f8da0sm2842130b3a.32.2026.09.21.01.08.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 01:08:45 -0700 (PDT)
+From: Jeff Chen <chunfan.chen@gmail.com>
+X-Google-Original-From: Jeff Chen <jeff.chen_1@nxp.com>
+Date: Mon, 21 Sep 2026 16:08:40 +0800
+To: Heyang Tan <thy15333007817@163.com>
+Cc: francesco@dolcini.it, johannes@sipsolutions.net,
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] wifi: nxpwifi: bound histogram debugfs output
+Message-ID: <arDmCFfgOGThdGxX@nxpwireless-Inspiron-14-Plus-7440>
+References: <20260919040253.590-1-thy15333007817@163.com>
+ <20260919040253.590-2-thy15333007817@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 14/18] nvme-fc: Use CCR to recover controller that hits an
- error
-To: Mohamed Khalfella <mkhalfella@purestorage.com>,
- Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
-Cc: Justin Tee <justin.tee@broadcom.com>,
- Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
- Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
- Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>,
- Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260918181614.3947933-1-mkhalfella@purestorage.com>
- <20260918181614.3947933-15-mkhalfella@purestorage.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20260918181614.3947933-15-mkhalfella@purestorage.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -4.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[broadcom.com,gmail.com,kernel.org,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid]
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919040253.590-2-thy15333007817@163.com>
 
-On 9/18/26 8:14 PM, Mohamed Khalfella wrote:
-> An alive nvme controller that hits an error now will move to FENCING
-> state instead of RESETTING state. ctrl->fencing_work attempts CCR to
-> terminate inflight IOs. Regardless of the success or failure of CCR
-> operation the controller is transitioned to RESETTING state to continue
-> error recovery process.
+On Sat, Sep 19, 2026 at 12:02:52 PM +0800, Heyang Tan wrote:
+> nxpwifi_histogram_read() writes histogram entries to a PAGE_SIZE buffer.
+> Each entry is formatted with sprintf(), so enough populated buckets can
+> write past the allocation.
 > 
-> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
-> ---
->   drivers/nvme/host/fc.c | 42 ++++++++++++++++++++++++++++++++++++++++++
->   1 file changed, 42 insertions(+)
-> 
-> diff --git a/drivers/nvme/host/fc.c b/drivers/nvme/host/fc.c
-> index 5a530aa37641..42671cca439f 100644
-> --- a/drivers/nvme/host/fc.c
-> +++ b/drivers/nvme/host/fc.c
-> @@ -166,6 +166,7 @@ struct nvme_fc_ctrl {
->   	struct blk_mq_tag_set	admin_tag_set;
->   	struct blk_mq_tag_set	tag_set;
->   
-> +	struct work_struct	fencing_work;
->   	struct work_struct	ioerr_work;
->   	struct delayed_work	connect_work;
->   
-> @@ -990,6 +991,7 @@ static void nvme_fc_ctrl_put(struct nvme_fc_ctrl *);
->   static int nvme_fc_ctrl_get(struct nvme_fc_ctrl *);
->   
->   static void nvme_fc_error_recovery(struct nvme_fc_ctrl *ctrl);
-> +static void nvme_fc_delete_association(struct nvme_fc_ctrl *ctrl);
->   
->   static void
->   __nvme_fc_finish_ls_req(struct nvmefc_ls_req_op *lsop)
-> @@ -1870,6 +1872,30 @@ __nvme_fc_fcpop_chk_teardowns(struct nvme_fc_ctrl *ctrl,
->   	}
->   }
->   
-> +static void nvme_fc_fencing_work(struct work_struct *work)
-> +{
-> +	struct nvme_fc_ctrl *fc_ctrl =
-> +			container_of(work, struct nvme_fc_ctrl, fencing_work);
-> +	struct nvme_ctrl *ctrl = &fc_ctrl->ctrl;
-> +	unsigned long rem;
-> +
-> +	/*
-> +	 * Tear the association down now so the LLDD can finish unregistering
-> +	 * the remoteport/localport while the fencing this controller.
-> +	 */
-> +	nvme_stop_keep_alive(ctrl);
-> +	cancel_work_sync(&ctrl->async_event_work);
-> +	nvme_fc_delete_association(fc_ctrl);
-> +
-> +	rem = nvme_fence_ctrl(ctrl);
-> +	if (rem)
-> +		dev_info(ctrl->device, "CCR failed, starting error recovery\n");
-> +
-> +	nvme_change_ctrl_state(ctrl, NVME_CTRL_FENCED);
-> +	if (nvme_change_ctrl_state(ctrl, NVME_CTRL_RESETTING))
-> +		queue_work(nvme_reset_wq, &fc_ctrl->ioerr_work);
-> +}
-> +
->   static void
->   nvme_fc_ctrl_ioerr_work(struct work_struct *work)
->   {
-> @@ -1950,6 +1976,14 @@ nvme_fc_start_ioerr_recovery(struct nvme_fc_ctrl *ctrl, char *errmsg)
->   		return;
->   	}
->   
-> +	if (nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_FENCING)) {
-> +		dev_warn(ctrl->ctrl.device,
-> +			 "NVME-FC{%d}: starting controller fencing %s\n",
-> +			 ctrl->cnum, errmsg);
-> +		queue_work(nvme_wq, &ctrl->fencing_work);
-> +		return;
-> +	}
-> +
->   	if (nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_RESETTING)) {
->   		dev_warn(ctrl->ctrl.device, "NVME-FC{%d}: starting error recovery %s\n",
->   			 ctrl->cnum, errmsg);
-> @@ -2463,6 +2497,12 @@ nvme_fc_ctrl_get(struct nvme_fc_ctrl *ctrl)
->   	return kref_get_unless_zero(&ctrl->ref);
->   }
->   
-> +static void
-> +nvme_fc_stop_ctrl(struct nvme_ctrl *nctrl)
-> +{
-> +	flush_work(&to_fc_ctrl(nctrl)->fencing_work);
-> +}
-> +
->   /*
->    * All accesses from nvme core layer done - can now free the
->    * controller. Called after last nvme_put_ctrl() call
-> @@ -3428,6 +3468,7 @@ static const struct nvme_ctrl_ops nvme_fc_ctrl_ops = {
->   	.submit_async_event	= nvme_fc_submit_async_event,
->   	.delete_ctrl		= nvme_fc_delete_ctrl,
->   	.get_address		= nvmf_get_address,
-> +	.stop_ctrl		= nvme_fc_stop_ctrl,
->   	.get_virt_boundary	= nvmf_get_virt_boundary,
->   };
->   
-> @@ -3547,6 +3588,7 @@ nvme_fc_alloc_ctrl(struct device *dev, struct nvmf_ctrl_options *opts,
->   
->   	INIT_WORK(&ctrl->ctrl.reset_work, nvme_fc_reset_ctrl_work);
->   	INIT_DELAYED_WORK(&ctrl->connect_work, nvme_fc_connect_ctrl_work);
-> +	INIT_WORK(&ctrl->fencing_work, nvme_fc_fencing_work);
->   	INIT_WORK(&ctrl->ioerr_work, nvme_fc_ctrl_ioerr_work);
->   	spin_lock_init(&ctrl->lock);
->   
+> Use scnprintf() with the remaining buffer space when formatting the
+> histogram.
 
-I would merge it with the previous patch as both are required to get FC
-error handling working properly.
-Otherwise:
+Using seq_file may be a better long-term solution, but the current
+scnprintf() fix looks good to me.
 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-
-Cheers,
-
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+Reviewed-by: Jeff Chen <jeff.chen_1@nxp.com>
