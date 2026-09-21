@@ -1,56 +1,56 @@
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F6848E0FD
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:01:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC6B488DA0
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:01:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789988469; cv=none; b=VQI7X5takbo2qRmvcyNtfX2o82hLBTt9/yWkMjoFEthdLjFNSSh/49xVfsqaJ8hpgYR8RDrVTRO5lz4bmwqTCHXZCubkw2H8sORiAzIQ1G9OvEG1pdLQpDCDW8ikMc9oV0fIuPiqEUzKuNWSkJffaw5vKB7VSyOq11J+4qonuhg=
+	t=1789988473; cv=none; b=t0+jstHEgtKBbV/o0nPiwNiA6tg3W/JyFtAv5QQR5/cO3lTK7VxGJcKqE6tIZN/TJIvcd9C5mmSh7z/7lF8wSoKUf303Uy+RfU+z5MDMxql8u2mwwEBzelQ1eDqvEUwC2ZYlNrXZrEzKv880cfrhRRBzyJ7CtZLvU9iZXKWwq0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789988469; c=relaxed/simple;
-	bh=TPX36FUUUvbKFKPQ58T2rMiYjcSbT6IYNeh8EC+IoXs=;
+	s=arc-20240116; t=1789988473; c=relaxed/simple;
+	bh=B/oP32fYVEgL/ZkWtwoP3dz6NpLmlUOmCKj3v/0F8co=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=KBLQUSr8LcI/7kB6wM176++Y53lQbMnczQbcFxoUxFqHvMGTC3LRazdyG/luP9mRMJf58f6dhegNA0W7mBrh1oOOOmwycDAWB5IYAuPJHUyA9Cd0orLyepzuj/AkA4HjlxE8Q3i+48dTnam3Ik/8lhkxcOele/HPsp6nGzpSxDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=U7PHHPJF; arc=none smtp.client-ip=209.85.218.71
+	 To:Cc:Content-Type; b=jsGSuFfKNa5OhMVu5U6T1EvicahhfM1LuvT7GfmJfbLTecLdeOuLWmctpb0cLd5xd/6RnJM4WPD7xJ5OTsgvOAYTP5ACMyKr2c85167dY5Gar9NQ/cjAiRgqAQOM7IhXDECuHORQEN/grtYiuTJ6NK5VrMhQTAsqop7Rq6HoIew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YGINq3L5; arc=none smtp.client-ip=209.85.128.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="U7PHHPJF"
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c294ae16922so321694566b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:01:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YGINq3L5"
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49e745d5dabso32361345e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:01:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789988463; x=1790593263; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789988466; x=1790593266; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mS8QTe3O0YSNViqoUNLsYRtEn1B1+bnqRzNqyeLclGU=;
-        b=U7PHHPJFYZpouYZA1GKns6vTDhk1ZS47R+swHIvUBOzEjL9r61FV7FExHn0cLsSi9L
-         RhVcg9aQx5ZymY/6m832lrbpPPneGVHIllAE8+r5iYNFTYy5/WusyY6zSXkC+pjt09Sm
-         1AtlyOXL1qLT5k8uuvW+//2aMZaLHGdyHEpya0Afab7mSKZWeE+/Igzwz1sp6Dd/PthB
-         PUbcYJ5NVk+VGE91VMm3KPhG0RVdEgFCX9hdHT1ZkxLDD+MIrDLSVZgdFwy/vH9t6WOP
-         A9hkd5IJZk378uqTNthvEptYUjOYw5bcBjzKi3O2xR7aYG8geFIpJBhF0NcwNwh22GQY
-         m04w==
+        bh=oCrcI7igLaQUil9vBYjywYIs9hdqlrNEBSUMKWJIUV4=;
+        b=YGINq3L5jVZPuoRAEO/CfarjCz6dYo71DRq7DKX1K5xB1gNWSHO9VnbVyjyuyoVe9e
+         FwPB+9IomF406zAEppL5sblaABFCyXPKL5usjjGyHeNDbl/OrRx31aFxMGv59dM0wbEB
+         mwAdkMwccdLGdGax3vlJypS8lSRavDdwTIzJkRcxuM2eheKPVD2QTH1uADOEveMPCfJI
+         A9sm5jDO8ywZuU2hmPzjYWa95XXr/YNfNYqxriXHsblf0FLg1LxrLXC2mcYQt3D8Uh4d
+         eraDDQdT12S8EW1eIvA4fK/mfFseAiRgx4gZs4YjG+0FFUt0+eJTi8IInD3EwV/uRLoJ
+         CDfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789988463; x=1790593263;
+        d=1e100.net; s=20260707; t=1789988466; x=1790593266;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mS8QTe3O0YSNViqoUNLsYRtEn1B1+bnqRzNqyeLclGU=;
-        b=rAZiFnoA/KwD56yv08L7EwzTGewnSezudmvdxfLD/4BIq0mx0zCbgq4YCX/PlRmyyf
-         9zxgVXM+qwe/9BuIQ4079z3BPTGviwv/EocxJN/qjnpXoKtPMLSCIr9v/WtcgdHE86Th
-         BLbEGMtts/azF1aywQXXH6/gqxLY32mAQv5/2Zi+BQkqK0wU9wkYW7xnx3VcrAvJUEU+
-         CseGUhioa1CfdWeoqjQIkjuPPqh7cZZJRv0wjFN0BrPbHIyqremQBk/Nt4WSV5Rrzqev
-         TFN5RQ+69SpQ2iIfTepQp+ix2TTL2OLpx/TiqCYifz3iBdYB+D7FulazjBXukJmQXPaa
-         x1yA==
-X-Forwarded-Encrypted: i=1; AKwUvBxhddZcnZP3QwiNaCBUfbjYj9D8lO4MiGZOiJ4Szb2Yk7pDYazXY3kPkCKEHU+GS0J4OJFKNHzXa/HR9Qk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nL/MNACDliVijZxXGHtFEtSloYoR67tqBsV/Za1tjffuXpklr0
-	0Aaim14bXoUnot5AAfzj5KL+eKiRn2IGYCubV4+bdCDIuOg6rWENl/QVzoYCwdlaOsmXCjZ3eYV
-	keBJ/WKR0x5FO4OVJsiW9uw==
-X-Received: from ejbmb16.prod.google.com ([2002:a17:906:eb10:b0:c25:46b8:4594])
+        bh=oCrcI7igLaQUil9vBYjywYIs9hdqlrNEBSUMKWJIUV4=;
+        b=jFKOk5CLPIIRXJp7yZaeGjpKuJJ05aDLLRWVJT3SFnJCrLRqobSlMeOV9qqE7NAl7M
+         gUyTQxcCbSSL0ylrdDP6H30T4k2om+FDBzHbCn4u51bV4apg6q71E7L86oF9qkkQYvwn
+         Ith0H4y6rwPZ/263du6Vi7MLHcblK0bUQ21GEf6lFabE3NzUPGN2xW5Y6SgQcyj9q9gi
+         XB1H6MSR7vVVn2IvcMGF5U2gf124WirKz0mpKhEdKfypujWrAp+r5ruXA4w9s5iq3bRz
+         cZYjID9J236SNk1PB5uhqngiUrkilQtAGEQe3SnxPqZ8Sfc6F6+TiIJDGfg8nDaJD9xf
+         UrDg==
+X-Forwarded-Encrypted: i=1; AKwUvBziS5zSYSEOvmae94Fs4zSjWPDA+FSMcIDJT0ggxi13b+1QbHe35b3ETpPe172nbg52pYCNBPuwxsSaoBk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXSBYrt8tJPGIa+TKzfXpOMA2F0ltU9nXrW95nyj6zUs31bLN6
+	tZmAjFiGEW68kRpYHOUoHGpwDHK7DjvmIQzO78vRe59E9S7AVnLEW6/wVh3kjJHwDxeBBFspV0H
+	6X/lXiBnhnK8tIScLXtBLzQ==
+X-Received: from wrbeh15.prod.google.com ([2002:a05:6000:410f:b0:487:2514:733])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:94cd:b0:c29:3ea4:a219 with SMTP id a640c23a62f3a-c2a15eb3513mr916572766b.44.1789988462315;
- Mon, 21 Sep 2026 04:01:02 -0700 (PDT)
-Date: Mon, 21 Sep 2026 12:00:47 +0100
+ 2002:a05:6000:290d:b0:487:27f9:829 with SMTP id ffacd0b85a97d-48727f90a8cmr8269596f8f.30.1789988465393;
+ Mon, 21 Sep 2026 04:01:05 -0700 (PDT)
+Date: Mon, 21 Sep 2026 12:00:50 +0100
 In-Reply-To: <20260921110050.3977591-1-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260921110050.3977591-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260921110050.3977591-6-vdonnefort@google.com>
-Subject: [PATCH v2 5/8] firmware: arm_ffa: Introduce ffa-lend-pool
+Message-ID: <20260921110050.3977591-9-vdonnefort@google.com>
+Subject: [PATCH v2 8/8] dt-bindings: firmware: optee: Add memory-region property
 From: Vincent Donnefort <vdonnefort@google.com>
 To: catalin.marinas@arm.com, will@kernel.org, rppt@kernel.org, 
 	akpm@linux-foundation.org, sudeep.holla@kernel.org, jenswi@kernel.org, 
@@ -73,356 +73,29 @@ Cc: mark.rutland@arm.com, sumit.garg@kernel.org, ardb@kernel.org,
 	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-When memory is lent to the Secure world via FF-A, fatal CPU speculative
-reads from Non-Secure can still occur as long as it retains a cacheable
-mapping to that memory. Introduce the "arm,ffa-lend-pool"
-reserved-memory CMA driver to unmap pages before lending
-(ffa_prepare_lend()) and restore them upon reclaim
-(ffa_lend_reclaimed()). Devices bind to the pool via the "memory-region"
-DT property or via ffa_lend_pool_attach().
-
-  reserved-memory {
-      #address-cells = <0x2>;
-      #size-cells = <0x2>;
-      ranges;
-
-      ffa_lend: ffa-lend-pool {
-          compatible = "arm,ffa-lend-pool";
-          reusable;
-          size = <0x0 0x4000000>;
-      };
-  };
+Allow reserved-memory via memory-region to support the arm,ffa-lend-pool.
 
 Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 ---
- drivers/firmware/arm_ffa/Kconfig     |   5 +
- drivers/firmware/arm_ffa/Makefile    |   1 +
- drivers/firmware/arm_ffa/lend_pool.c | 261 +++++++++++++++++++++++++++
- include/linux/arm_ffa.h              |  23 +++
- 4 files changed, 290 insertions(+)
- create mode 100644 drivers/firmware/arm_ffa/lend_pool.c
+ .../devicetree/bindings/arm/firmware/linaro,optee-tz.yaml    | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/firmware/arm_ffa/Kconfig b/drivers/firmware/arm_ffa/Kconfig
-index 5e3ae5cf82e8..66dbf74c37c3 100644
---- a/drivers/firmware/arm_ffa/Kconfig
-+++ b/drivers/firmware/arm_ffa/Kconfig
-@@ -19,3 +19,8 @@ config ARM_FFA_SMCCC
- 	bool
- 	default ARM_FFA_TRANSPORT
- 	depends on ARM64 && HAVE_ARM_SMCCC_DISCOVERY
-+
-+config ARM_FFA_LEND_POOL
-+	bool
-+	default y
-+	depends on ARM_FFA_TRANSPORT && CMA && OF_RESERVED_MEM
-diff --git a/drivers/firmware/arm_ffa/Makefile b/drivers/firmware/arm_ffa/Makefile
-index 168990a7e792..5ea3019c407b 100644
---- a/drivers/firmware/arm_ffa/Makefile
-+++ b/drivers/firmware/arm_ffa/Makefile
-@@ -6,3 +6,4 @@ ffa-core-objs := $(ffa-bus-y)
- ffa-module-objs := $(ffa-driver-y) $(ffa-transport-y)
- obj-$(CONFIG_ARM_FFA_TRANSPORT)  = ffa-core.o
- obj-$(CONFIG_ARM_FFA_TRANSPORT) += ffa-module.o
-+obj-$(CONFIG_ARM_FFA_LEND_POOL) += lend_pool.o
-diff --git a/drivers/firmware/arm_ffa/lend_pool.c b/drivers/firmware/arm_ffa/lend_pool.c
-new file mode 100644
-index 000000000000..e4348f5c618b
---- /dev/null
-+++ b/drivers/firmware/arm_ffa/lend_pool.c
-@@ -0,0 +1,261 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Arm FF-A Reserved Memory CMA driver for Memory Lending
-+ *
-+ * Prevents CPU speculative reads to secure memory by unmapping it from the
-+ * kernel direct map. This works if rodata=full or if all CPUs in the system
-+ * support BBML3 or if a reserved-memory is declared for this driver
-+ * "arm,ffa_lend_pool".
-+ *
-+ * Copyright (C) 2026 Google LLC
-+ * Author: Vincent Donnefort <vdonnefort@google.com>
-+ */
-+
-+#include <linux/arm_ffa.h>
-+#include <linux/cleanup.h>
-+#include <linux/cma.h>
-+#include <linux/dma-map-ops.h>
-+#include <linux/init.h>
-+#include <linux/memblock.h>
-+#include <linux/mm.h>
-+#include <linux/of.h>
-+#include <linux/of_reserved_mem.h>
-+#include <linux/rcupdate.h>
-+#include <linux/suspend.h>
-+#include <linux/set_memory.h>
-+#include <linux/xarray.h>
-+
-+#include <linux/cacheflush.h>
-+#include <asm/tlbflush.h>
-+
-+static DEFINE_XARRAY(ffa_lend_pool_devices);
-+static atomic_t ffa_lend_pool_active;
-+
-+#define FFA_LEND_POOL_DISABLED	-1
-+
-+static bool ffa_lend_pool_can_set_direct_map(struct device *dev, struct page *page, u64 nr_pages)
-+{
-+	phys_addr_t addr, base, end;
-+	size_t size;
-+
-+	if (can_set_direct_map())
-+		return true;
-+
-+	if (!dev)
-+		return false;
-+
-+	guard(rcu)();
-+
-+	if (xa_load(&ffa_lend_pool_devices, (unsigned long)dev) != dev)
-+		return false;
-+
-+	if (WARN_ON_ONCE(!dev->cma_area))
-+		return false;
-+
-+	addr = page_to_phys(page);
-+	size = nr_pages << PAGE_SHIFT;
-+	base = cma_get_base(dev->cma_area);
-+	end = base + cma_get_size(dev->cma_area);
-+
-+	return addr >= base && (addr + size) <= end;
-+}
-+
-+/**
-+ * ffa_prepare_lend() - Prepare a memory region to be lent in FF-A
-+ * @dev:	Device attached to the lend pool
-+ * @page:	First page of the memory region
-+ * @nr_pages:	Number of pages
-+ *
-+ * When memory is lent via FF-A, TrustZone transitions it to the secure state.
-+ * As long as Arm CPUs retain a valid mapping to that now-secure memory, they
-+ * can speculatively read it, which is fatal on some systems.
-+ *
-+ * ffa_prepare_lend() prevents this by unmapping the memory range from the
-+ * kernel's direct map.
-+ *
-+ * Return: 0 on success, negative error code otherwise.
-+ */
-+int ffa_prepare_lend(struct device *dev, struct page *page, u64 nr_pages)
-+{
-+	struct page *p, *end;
-+	unsigned long addr;
-+	int ret;
-+
-+	if (!ffa_lend_pool_can_set_direct_map(dev, page, nr_pages))
-+		return -ENODEV;
-+
-+	/* provides full ordering */
-+	if (!atomic_add_unless(&ffa_lend_pool_active, 1, FFA_LEND_POOL_DISABLED))
-+		return -EBUSY;
-+
-+	end = page + nr_pages;
-+	for (p = page; p < end; p++)
-+		flush_dcache_page(p);
-+
-+	ret = __set_direct_map_invalid_noflush(page, nr_pages);
-+	if (ret) {
-+		atomic_dec(&ffa_lend_pool_active);
-+		return ret;
-+	}
-+
-+	addr = (unsigned long)page_address(page);
-+	flush_tlb_kernel_range(addr, addr + (nr_pages << PAGE_SHIFT));
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(ffa_prepare_lend);
-+
-+/**
-+ * ffa_lend_reclaimed() - Restore a reclaimed FF-A memory region
-+ * @dev:	Device attached to the lend pool
-+ * @page:	First page of the memory region
-+ * @nr_pages:	Number of pages
-+ *
-+ * Restores a memory range into the kernel's direct mapping. It must be called
-+ * after a successful FF-A memory reclaim invocation.
-+ */
-+void ffa_lend_reclaimed(struct device *dev, struct page *page, u64 nr_pages)
-+{
-+	if (!ffa_lend_pool_can_set_direct_map(dev, page, nr_pages))
-+		return;
-+
-+	__set_direct_map_default_noflush(page, nr_pages);
-+
-+	atomic_dec_return_release(&ffa_lend_pool_active);
-+}
-+EXPORT_SYMBOL_GPL(ffa_lend_reclaimed);
-+
-+static int ffa_lend_pool_pm_notify(struct notifier_block *nb, unsigned long mode, void *data)
-+{
-+	/* Prevent hibernation which would try to access lent memory */
-+	switch (mode) {
-+	case PM_HIBERNATION_PREPARE:
-+		if (atomic_cmpxchg_acquire(&ffa_lend_pool_active, 0, FFA_LEND_POOL_DISABLED))
-+			return notifier_from_errno(-EBUSY);
-+		break;
-+	case PM_POST_HIBERNATION:
-+		atomic_set(&ffa_lend_pool_active, 0);
-+	}
-+
-+	return NOTIFY_DONE;
-+}
-+
-+static struct notifier_block ffa_lend_pool_pm_nb = {
-+	.notifier_call	= ffa_lend_pool_pm_notify,
-+};
-+
-+static const struct reserved_mem_ops ffa_lend_pool_ops;
-+
-+static struct reserved_mem *ffa_lend_pool_get_rmem(void)
-+{
-+	struct reserved_mem *rmem;
-+	struct device_node *np;
-+
-+	np = of_find_compatible_node(NULL, NULL, "arm,ffa-lend-pool");
-+	if (!np)
-+		return NULL;
-+
-+	rmem = of_reserved_mem_lookup(np);
-+	of_node_put(np);
-+
-+	if (WARN_ON_ONCE(rmem && rmem->ops != &ffa_lend_pool_ops))
-+		return NULL;
-+
-+	return rmem;
-+}
-+
-+/**
-+ * ffa_lend_pool_attach() - Attach a device to the FF-A lend pool
-+ * @dev:	Device to attach
-+ *
-+ * FF-A devices are dynamically discovered and might not have an associated
-+ * device tree node with a "memory-region" phandle. In that case, drivers must
-+ * use this function to attach to the "arm,ffa-lend-pool" reserved memory
-+ * region.
-+ *
-+ * Return: 0 on success, negative error code otherwise.
-+ */
-+int ffa_lend_pool_attach(struct device *dev)
-+{
-+	struct reserved_mem *rmem = ffa_lend_pool_get_rmem();
-+
-+	return rmem ? rmem->ops->device_init(rmem, dev) : -ENODEV;
-+}
-+EXPORT_SYMBOL_GPL(ffa_lend_pool_attach);
-+
-+/**
-+ * ffa_lend_pool_detach() - Detach a device from the FF-A lend pool
-+ * @dev:	Device to detach
-+ *
-+ * Releases the device from the "arm,ffa-lend-pool" reserved memory region.
-+ */
-+void ffa_lend_pool_detach(struct device *dev)
-+{
-+	struct reserved_mem *rmem = ffa_lend_pool_get_rmem();
-+
-+	if (rmem)
-+		rmem->ops->device_release(rmem, dev);
-+}
-+EXPORT_SYMBOL_GPL(ffa_lend_pool_detach);
-+
-+static int __init ffa_lend_pool_setup(unsigned long node, struct reserved_mem *rmem)
-+{
-+	struct cma *cma;
-+	int ret;
-+
-+	/* Limited by ffa_lend_pool_active */
-+	if (rmem->size / PAGE_SIZE > INT_MAX)
-+		return -E2BIG;
-+
-+	if (!IS_ALIGNED(rmem->base | rmem->size, CMA_MIN_ALIGNMENT_BYTES)) {
-+		pr_err("FF-A lend pool: incorrect alignment of CMA region\n");
-+		return -EINVAL;
-+	}
-+
-+	ret = memblock_mark_ptemap(rmem->base, rmem->size);
-+	if (ret)
-+		return ret;
-+
-+	ret = cma_init_reserved_mem(rmem->base, rmem->size, 0, rmem->name, &cma);
-+	if (ret) {
-+		pr_err("FF-A lend pool: unable to setup CMA region (%d)\n", ret);
-+		memblock_clear_ptemap(rmem->base, rmem->size);
-+		return ret;
-+	}
-+
-+	register_pm_notifier(&ffa_lend_pool_pm_nb);
-+	rmem->priv = cma;
-+
-+	return 0;
-+}
-+
-+static int ffa_lend_pool_device_init(struct reserved_mem *rmem, struct device *dev)
-+{
-+	int ret;
-+
-+	if (!can_set_direct_map_range(pfn_to_page(PHYS_PFN(rmem->base)), rmem->size / PAGE_SIZE)) {
-+		pr_err("FF-A lend pool: reserved memory cannot be unmapped in direct map\n");
-+		return -EINVAL;
-+	}
-+
-+	dev->cma_area = rmem->priv;
-+
-+	ret = xa_err(xa_store(&ffa_lend_pool_devices, (unsigned long)dev, dev, GFP_KERNEL));
-+	if (ret)
-+		dev->cma_area = NULL;
-+
-+	return ret;
-+}
-+
-+static void ffa_lend_pool_device_release(struct reserved_mem *rmem, struct device *dev)
-+{
-+	xa_erase(&ffa_lend_pool_devices, (unsigned long)dev);
-+	dev->cma_area = NULL;
-+}
-+
-+static const struct reserved_mem_ops ffa_lend_pool_ops = {
-+	.node_init	= ffa_lend_pool_setup,
-+	.device_init	= ffa_lend_pool_device_init,
-+	.device_release = ffa_lend_pool_device_release,
-+};
-+RESERVEDMEM_OF_DECLARE(ffa_lend_pool, "arm,ffa-lend-pool", &ffa_lend_pool_ops);
-diff --git a/include/linux/arm_ffa.h b/include/linux/arm_ffa.h
-index e71d83ee0aef..8608847931cc 100644
---- a/include/linux/arm_ffa.h
-+++ b/include/linux/arm_ffa.h
-@@ -519,4 +519,27 @@ struct ffa_ops {
- 	const struct ffa_notifier_ops *notifier_ops;
- };
+diff --git a/Documentation/devicetree/bindings/arm/firmware/linaro,optee-tz.yaml b/Documentation/devicetree/bindings/arm/firmware/linaro,optee-tz.yaml
+index 26ebcf4565f3..7fddea9cfdbc 100644
+--- a/Documentation/devicetree/bindings/arm/firmware/linaro,optee-tz.yaml
++++ b/Documentation/devicetree/bindings/arm/firmware/linaro,optee-tz.yaml
+@@ -41,6 +41,11 @@ properties:
+       HVC #0, register assignments
+       register assignments are specified in drivers/tee/optee/optee_smc.h
  
-+struct page;
++  memory-region:
++    maxItems: 1
++    description: |
++      Phandle to a reserved-memory node for the OP-TEE lend pool.
 +
-+#if IS_ENABLED(CONFIG_ARM_FFA_LEND_POOL)
-+int ffa_lend_pool_attach(struct device *dev);
-+void ffa_lend_pool_detach(struct device *dev);
-+int ffa_prepare_lend(struct device *dev, struct page *page, u64 nr_pages);
-+void ffa_lend_reclaimed(struct device *dev, struct page *page, u64 nr_pages);
-+#else
-+static inline int ffa_lend_pool_attach(struct device *dev)
-+{
-+	return -ENODEV;
-+}
-+static inline void ffa_lend_pool_detach(struct device *dev)
-+{
-+}
-+static inline int ffa_prepare_lend(struct device *dev, struct page *page, u64 nr_pages)
-+{
-+	return -ENODEV;
-+}
-+static inline void ffa_lend_reclaimed(struct device *dev, struct page *page, u64 nr_pages)
-+{
-+}
-+#endif
- #endif /* _LINUX_ARM_FFA_H */
+ required:
+   - compatible
+   - method
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
