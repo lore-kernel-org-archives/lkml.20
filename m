@@ -1,263 +1,209 @@
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 265A348EC9A
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:25:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5111F4A092E
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:26:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790000710; cv=none; b=c5eGh/SAbtID46JekWXD6TuXtvdHk4Mr0wzxKZN4iUYx2ntOTFdfXGmD69D9bEK1aL7d6QQgN+IxD83QCq8ZT5oDA+ElulgRPiB+kR5GUx9RXBYBJdcVVe/G/VR9ZuTa+XDvpD0cSZVXVMJrDOcT01gUTUuaqujRD1L0kv/kHWE=
+	t=1790000769; cv=none; b=ai9G/CAQpv3DiQwSDng4Fd4SXWrMVmMYc3QdDvTo1tT5i9Asmbuq5L1L1mgD5kWkhVwYhlYTYHYQE79wJV/trMyZmvCctJdSYU+7AGLgE0cLb1Yk3Gjv9tBSjtQLFfM+jlxl16m0ViIxlrDe5p46TlCTWoFb4Ov3uszhu94oWk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790000710; c=relaxed/simple;
-	bh=s3SG6zYetHP+gsiYG6Z8nnzdp21ZZzns/HVc+qfBNpY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EeKzMTwd0JIIhTBVuQwInqWz0NojRUt/9KkqaUun4tOZr9MxtgtISpIcWBcS8U26zARVklBt/5CRa9i5ND/F+yu0OOfFtiU6/doLGbgrJ771+AEYPul09MujCgrh5uAHUm7h7mW60SSPwkzwXFvONHxn9sryXs9IfneizdfOrgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=WtQzhDEz; arc=none smtp.client-ip=185.125.188.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	s=arc-20240116; t=1790000769; c=relaxed/simple;
+	bh=u79GVvIrNgovGs36Fao9Rh6cQHN/TgXSWpa2Q+lis6o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MKs6KRsVRL3MJom6EyxyT7kuwoXyrk/Cq2gGt1x6kPbf3mVKcXOun45D0AhpkGCkbTl7wiJweNYVSMGDNjJBp98IWD2C43n/zX5Q91SwZbVe27U6d0u1RuR7jVTzQZ4TtB41HgRnKsMAFKYPNkLP2SVlk4nQBpmk2cMwqRd7NvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=l1Ea1RHV; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="WtQzhDEz"
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id E4E073F4CA
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:24:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1790000697;
-	bh=QLEno9IoSGABXfyc+gs3/INLUq4rl6TSX3NFv/q902U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type;
-	b=WtQzhDEzVu2FovJXbQhyfFKLINeEHspRF4mMFEcbmSJZtx9QvIRbmMivzn/0ljUI5
-	 0M2SSPSUuir/N277ahAg+tKISvqkzsOiF6DsfWbHM7AOuIlsmj0w9J4m5xVGZvYvLr
-	 WjDDYUrEb36ExjcDM2+g2idh6vX+j8wVS/9Wh6VDLq3o3pYNXrivGYJXWIEa/R4me9
-	 wOC/JZZLw08UqvPvxmLhvSLpgXArxUreEzixDqafwXnClXe8dR4Yit9IlLcYZOzpnb
-	 XiTKg50htxuKQPfr9hXNg7Ba5AyEYLwnSnSkSM3CWHv9MPsoKnQYDVcP1UZ5RXcKH4
-	 BS0zEJuDu9fsYZL3ZGnmwuLpwuTTcAGjdiQsVYVjuh4uVFkAwdpgXQqfYExz4e06IS
-	 oh8ziKHDk31sFAfA9esH8/Qwrn2/J9rb5Rc6QMqMpNBraBNnapO3Tc6QdbckC5RM1z
-	 WnH1CQsxot6d6Ck9L/2ynGu1l9Ro+H6WCEejTaQ6JRy51W6P9fsPkoV+gQ8pYCe6fS
-	 fKOWzr0bWBEMnxQfsn2oqG58aKCalPs/+uSl93eqk/aLOdez36gbTQhCEIwLlc7TJv
-	 c6uMi2wqFA+CAT+/s1rTcL98Lfmr/HZ45LsgQwSUzGAH1m2P1Y809z0s2A4mCnvmw2
-	 lb08vG9qvCoOMPDVDYI+SBT4=
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49b0e6638e3so25719465e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:24:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="l1Ea1RHV"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d822dso21250825e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:26:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790000765; x=1790605565; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fKaXtSv/kbKul4ZN5Cjuy3lIzweY+anlAeJnxQKsOuk=;
+        b=l1Ea1RHVmAsB0z7ojHjSr2xmmjYcjdH0qvg0JMOGJQm6HSEco0QARF+Rot97So+0Y/
+         ZlBB6qtQCXX4ZD337dxI2fAvQc3yjy2AZn/pbHgEqZqQDAXN9ftI9i/DYoGpFQXCxJU3
+         MiHACGJOxC9SKBWXtPs6jj7NKH7tilEDNChcgcDne8CE9OubcnSt54bEH+yquwgIJO4L
+         gdPwFGCOWuaJWPnC3NppLC1Ay6xqzewUGfyFCrSV/g4BMhCmlftKFYdAZPvQKjLbFeeD
+         lQqNgz9xk3VeYRoDoB59ZO89uJSyqG5YsUt1bvVD9Y5WutWv055qKBvofEqxmGvmhObw
+         kjtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790000697; x=1790605497;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QLEno9IoSGABXfyc+gs3/INLUq4rl6TSX3NFv/q902U=;
-        b=hj4AUg5FnA8HisOc89O8B3mGce1zQw4rVHjRmSQxd6V6SOVwlwy+LAqCC7hO/hVbLO
-         lvRCMyQ3JFjUxIVdR9JcT8QG5mw0K6ZtNf3cWAd7u1XyNZPEMiUYNFaBV9zKc3XcgvUe
-         MgLT+o2vREPsl3N5MSKtopJoEaJDiMxy5zbyCNaTmt9QXxfNuVeEP/emR0VgGldNxF8T
-         63GsEgzugGoznThuVoy5giS5jP+b9uESPVyIvdpzInhV0lhndf1R8fPuddaF1Mhv7DQd
-         bOvIjDbJNkSwbVrOIdBwy1o6Th7JyTH0h53EWWdMKsR2NgxVn+Cged2CsMufDSRipIoj
-         xp4g==
-X-Forwarded-Encrypted: i=1; AKwUvBxVi6LFF3A1tXP6g9JISS479uWyaPAcsjddYN/kFEl5WFp3hv6Yl8gsuJSoz9H3xUyv3SXYVmJd0vovRJ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwmM+6F8qMb3mioFlRmiRGrAXYqDNsap8VBWdu88J595G+F+Vk
-	CAKEQ/xO/MT/SZzOu6k8zorGGTOYTAVSZN4q+Q6c3MQc8rv4rcoohgDAHhgIHWq6uqg4mbBZgcK
-	Io0+jB9ELop7XxU4T26F0g5IIhUxXQhC8hI/bfxOAQyV4bljjhHNXHy46nez+/DCG+jL+vHHm5M
-	frgh2Eeg==
-X-Gm-Gg: AYBFou2jOnwqUmbcBjq3SpTZK+SPzvbJS53GI8UKs+6myTUCdItDq1dMLkUSODxDUUM
-	dyVfNLKxbWnz4EZiakxOv6oy4hDRzZwRvpUdKo+GoRDtIHFgaInOkmln887Pw2G/ufpbjb4FV14
-	hMxXYeTtOZZBdyF8GZLubWOOGZRstD+OgdClJoQm+mL6PoLtanSbWjM8kxI57xzyVVcX/WDvJ/3
-	BdFEZJ3Wiiwdqgixr3Px8DHYJg6e3X6a7M/6/tUu8prLuDR4KS7vviwB4SWNMTMFQ5LaMQtNhWB
-	ZzlgSz40WNgqQBLyVhYTHX7JCC40YTTSUdOqOXe5VJFyI2YRlNPl/XJLFsZy1IOafwTUGTqkkbC
-	s/DVBvlGhszTLgSq2yycjH77aPg7qMNlrlD8IcU+fDzLi5ntwhWA6cDfcCmSt0JiE1xMPJrkJXu
-	iCseguQ2v8TLCQ17e0jJM7r80=
-X-Received: by 2002:a05:600c:4f09:b0:49e:8418:3858 with SMTP id 5b1f17b1804b1-49fc56b84c3mr149186375e9.9.1790000697376;
-        Mon, 21 Sep 2026 07:24:57 -0700 (PDT)
-X-Received: by 2002:a05:600c:4f09:b0:49e:8418:3858 with SMTP id 5b1f17b1804b1-49fc56b84c3mr149185895e9.9.1790000696811;
-        Mon, 21 Sep 2026 07:24:56 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1242:30e0:aec3:c221:8373:654c? ([2a02:908:1242:30e0:aec3:c221:8373:654c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc585920fsm622434405e9.4.2026.09.21.07.24.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 07:24:56 -0700 (PDT)
-Message-ID: <9d058591-466e-4c06-a820-b8ecc7d319a6@canonical.com>
-Date: Mon, 21 Sep 2026 16:24:53 +0200
+        d=1e100.net; s=20260707; t=1790000765; x=1790605565;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fKaXtSv/kbKul4ZN5Cjuy3lIzweY+anlAeJnxQKsOuk=;
+        b=vnwn70UIYVBm9DcMmGfWnS2fYRqyaRb9ZgKyJloE4+PX/poJglavugXUP25JJKtwKx
+         Zw+hdOM0Xz4I3BHIbbo4oiVTzTmGsmldMI9SBh+WFPBuDS4pti2GW2mMN3/IXUmSPrpE
+         nR07l9a2obhf7ga1b7wo7iAgf474lMq8ML5+cUITzgStVDAANrRFMtNF9++zVYa7Tv4z
+         rYXxC0o13nyymuikBvfcVta/vXAxDY7PAU81+mRBQnDqKfhw1Oq4vDMaK5cnjpQPLj1y
+         4rYSrbdIUtPO88dn54baCLOsitbQ/SCXB4tDUWOhHi9duPPqaFl9RrRpZcaTQgazgeSW
+         WXNg==
+X-Forwarded-Encrypted: i=1; AKwUvBx1PYax0xD4GmOorBvQxgoo/V4Fj6coDHBojO5vUr9bSMrGhWgfMPXASD3XFnYDemVwmFqG//yNEnUQA48=@vger.kernel.org
+X-Gm-Message-State: AFuF++lmDEU7adg+QaFRWEVtno8Jb0LLRIta1KNvJoT4j98sF9802Vcw
+	pSM4ApmL6Ydm5LBpGc8Nwd9cSTNDHIYALwo7erA3PSyDkF3jrOOd53ZJWK8GztlOuRs=
+X-Gm-Gg: AYBFou1va3DXOQNgrv8rbyVk7Cdid0E9cuBQbIawl0J1JZYeXGgniYvrj9VauLo0fLw
+	ospo0SsgifbHi7PJ6pLHLWj4eZ8eZBbjQpw5Rrg8SDasp0Hr0AgEHaK4pOGCqrTRAcW0B4u7RSq
+	ELtROxhnIrNW3ENrPeRvqVOsyqOejaADpSzIYKr6QDworEOJisyaH+kLfkvjK+FWNSpaZ/0IzuZ
+	7IP6GwUl/N+5MgsZ0+vXkHdq6mJqu4dMzsjaJlvqFqxVB0ixLp5KSwZn1Mt5dyUKfXTDjRx/0Na
+	agvd6YfVwsh7BsQi7JLrMQWtfI0PyarzKVoAGCjA8a42aL+wsL8hqwe55L82FJ+uhFtwiSxhM/h
+	Eoab7GnXYJv3yTXdQGMNVcnWrtbj6g8f8dT/v8NsGeUmUfAVaISVvHbISmaWuzy771l+F6EYfA8
+	QQzVm4fwECj/7zv6LeN0CCbn7/LZrDUFoMnK31iP1al225b5Pz1+sZ5cMAqb/NcyiI1tcRCeFNm
+	aWFNkDKeQwpSOeOhZmO8ZxWRal394cXrncr1Ck2mqoIpFax9gcb+DDgonWmlQ==
+X-Received: by 2002:a05:600c:c8f:b0:49e:6c9b:4e94 with SMTP id 5b1f17b1804b1-49fc5743124mr150664255e9.28.1790000765458;
+        Mon, 21 Sep 2026 07:26:05 -0700 (PDT)
+Received: from localhost (p200300f65f19a904d4f76eed31f2ef79.dip0.t-ipconnect.de. [2003:f6:5f19:a904:d4f7:6eed:31f2:ef79])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4872459f446sm21874677f8f.35.2026.09.21.07.26.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 07:26:04 -0700 (PDT)
+Date: Mon, 21 Sep 2026 16:26:03 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	"Ola Chr. Vaage" <ola.christoffer.vage@scoutdi.com>
+Subject: Re: [PATCH v2 3/3] pwm: tegra: Implement .get_state()
+Message-ID: <arE932ZcHGB8RAN6@monoceros>
+References: <cover.1789741839.git.u.kleine-koenig@baylibre.com>
+ <b72b16cf704aa662a1b49805db284379d4fa4050.1789741839.git.u.kleine-koenig@baylibre.com>
+ <arEAjOHU4rH5aGqb@orome>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 01/11] riscv: Add B to hwcap and hwprobe
-To: Guodong Xu <guodong.xu@oss.qualcomm.com>
-Cc: linux-doc@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>,
- Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org,
- spacemit@lists.linux.dev, sophgo@lists.linux.dev,
- linux-kselftest@vger.kernel.org, Andy Chiu <tchiu@tenstorrent.com>,
- Florian Weimer <fweimer@redhat.com>,
- Peter Bergner <bergner@oss.tenstorrent.com>,
- Zihong Yao <zihong.plct@isrc.iscas.ac.cn>, Mark Harris <mark.hsj@gmail.com>,
- Aurelien Jarno <aurelien@aurel32.net>,
- Andrew Jones <andrew.jones@oss.qualcomm.com>,
- Conor Dooley <conor.dooley@microchip.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Chen Wang <chen.wang@linux.dev>, Inochi Amaoto <inochiama@gmail.com>,
- Randy Dunlap <rdunlap@infradead.org>
-References: <20260920-rva23u64-hwprobe-v2-v8-0-5f14bc5c23d3@oss.qualcomm.com>
- <20260920-rva23u64-hwprobe-v2-v8-1-5f14bc5c23d3@oss.qualcomm.com>
-Content-Language: en-US
-From: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
-In-Reply-To: <20260920-rva23u64-hwprobe-v2-v8-1-5f14bc5c23d3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qkbghpdorbcu5kso"
+Content-Disposition: inline
+In-Reply-To: <arEAjOHU4rH5aGqb@orome>
 
-On 9/20/26 09:18, Guodong Xu wrote:
-> From: Andrew Jones <andrew.jones@oss.qualcomm.com>
-> 
-> Add B to hwcap and ensure when B is present that Zba, Zbb, and Zbs
-> are all set. Also expose B via hwprobe (RISCV_HWPROBE_EXT_B in
-> RISCV_HWPROBE_KEY_IMA_EXT_1) so that userspace can probe B directly,
-> mirroring the F/D/C/V pattern where each is reported via both hwcap
-> and hwprobe.
-> 
-> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
-> [Add B to hwprobe]
-> Signed-off-by: Guodong Xu <guodong.xu@oss.qualcomm.com>
-> ---
-> v8: No change.
-> v7: No change.
-> v6: Rebase onto riscv/for-next: define RISCV_HWPROBE_EXT_B in the
->      _BITULL() style of commit 8da45c93dfa9.
-> v5: Collected Reviewed-by from Conor Dooley.
-> v4: No change.
-> v3:
-> - Indent the added hwprobe.rst entry to match the normalized style.
-> - Rebased onto v7.1-rc6: index isa2hwcap[] via RISCV_ISA_EXT_B to match the
->    macro-ization in commit 41337097f2823.
-> v2:
-> - Rebased to v7.1-rc2
-> - Add B to hwprobe (RISCV_HWPROBE_EXT_B at IMA_EXT_1 bit 6) and
->    document it in hwprobe.rst, so userspace can probe B directly.
-> ---
->   Documentation/arch/riscv/hwprobe.rst  | 4 ++++
->   arch/riscv/include/asm/hwcap.h        | 1 +
->   arch/riscv/include/uapi/asm/hwcap.h   | 1 +
->   arch/riscv/include/uapi/asm/hwprobe.h | 1 +
->   arch/riscv/kernel/cpufeature.c        | 8 ++++++++
->   arch/riscv/kernel/sys_hwprobe.c       | 1 +
->   6 files changed, 16 insertions(+)
-> 
-> diff --git a/Documentation/arch/riscv/hwprobe.rst b/Documentation/arch/riscv/hwprobe.rst
-> index bb1e0cbab36f0..69a3fc0a29b71 100644
-> --- a/Documentation/arch/riscv/hwprobe.rst
-> +++ b/Documentation/arch/riscv/hwprobe.rst
-> @@ -423,3 +423,7 @@ * :c:macro:`RISCV_HWPROBE_KEY_IMA_EXT_1`: A bitmask containing additional
->     * :c:macro:`RISCV_HWPROBE_EXT_ZA64RS`: The Za64rs extension is supported,
->       as defined in the RISC-V Profiles specification starting from commit
->       b1d80660 ("Updated to ratified state.")
-> +
-> +  * :c:macro:`RISCV_HWPROBE_EXT_B`: The B extension is supported, as defined
-> +    in version 1.0 of the Bit-Manipulation ISA extensions, and implies the
-> +    presence of the Zba, Zbb, and Zbs sub-extensions.
-> diff --git a/arch/riscv/include/asm/hwcap.h b/arch/riscv/include/asm/hwcap.h
-> index f8db798b2654b..6a693210b2519 100644
-> --- a/arch/riscv/include/asm/hwcap.h
-> +++ b/arch/riscv/include/asm/hwcap.h
-> @@ -11,6 +11,7 @@
->   #include <uapi/asm/hwcap.h>
->   
->   #define RISCV_ISA_EXT_A		('a' - 'a')
-> +#define RISCV_ISA_EXT_B		('b' - 'a')
->   #define RISCV_ISA_EXT_C		('c' - 'a')
->   #define RISCV_ISA_EXT_D		('d' - 'a')
->   #define RISCV_ISA_EXT_F		('f' - 'a')
-> diff --git a/arch/riscv/include/uapi/asm/hwcap.h b/arch/riscv/include/uapi/asm/hwcap.h
-> index c52bb7bbbabe9..96b7cf854e090 100644
-> --- a/arch/riscv/include/uapi/asm/hwcap.h
-> +++ b/arch/riscv/include/uapi/asm/hwcap.h
-> @@ -21,6 +21,7 @@
->   #define COMPAT_HWCAP_ISA_F	(1 << ('F' - 'A'))
->   #define COMPAT_HWCAP_ISA_D	(1 << ('D' - 'A'))
->   #define COMPAT_HWCAP_ISA_C	(1 << ('C' - 'A'))
-> +#define COMPAT_HWCAP_ISA_B	(1 << ('B' - 'A'))
->   #define COMPAT_HWCAP_ISA_V	(1 << ('V' - 'A'))
->   
->   #endif /* _UAPI_ASM_RISCV_HWCAP_H */
-> diff --git a/arch/riscv/include/uapi/asm/hwprobe.h b/arch/riscv/include/uapi/asm/hwprobe.h
-> index e6a394fbe7fce..9323feb7c3c81 100644
-> --- a/arch/riscv/include/uapi/asm/hwprobe.h
-> +++ b/arch/riscv/include/uapi/asm/hwprobe.h
-> @@ -122,6 +122,7 @@ struct riscv_hwprobe {
->   #define		RISCV_HWPROBE_EXT_ZICCIF	_BITULL(3)
->   #define		RISCV_HWPROBE_EXT_ZICCRSE	_BITULL(4)
->   #define		RISCV_HWPROBE_EXT_ZA64RS	_BITULL(5)
-> +#define		RISCV_HWPROBE_EXT_B		_BITULL(6)
->   
->   /* Increase RISCV_HWPROBE_MAX_KEY when adding items. */
->   
-> diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeature.c
-> index 61d21f7148305..beb766420b5bc 100644
-> --- a/arch/riscv/kernel/cpufeature.c
-> +++ b/arch/riscv/kernel/cpufeature.c
-> @@ -484,6 +484,12 @@ static const unsigned int riscv_c_exts[] = {
->   	RISCV_ISA_EXT_ZCD,
->   };
->   
-> +static const unsigned int riscv_b_exts[] = {
-> +	RISCV_ISA_EXT_ZBA,
-> +	RISCV_ISA_EXT_ZBB,
-> +	RISCV_ISA_EXT_ZBS,
-> +};
-> +
->   /*
->    * The canonical order of ISA extension names in the ISA string is defined in
->    * Chapter 27 of the RISC-V Instruction Set Manual Volume I Unprivileged ISA
-> @@ -532,6 +538,7 @@ const struct riscv_isa_ext_data riscv_isa_ext[] = {
->   	__RISCV_ISA_EXT_DATA_VALIDATE(d, RISCV_ISA_EXT_D, riscv_ext_d_validate),
->   	__RISCV_ISA_EXT_DATA(q, RISCV_ISA_EXT_Q),
->   	__RISCV_ISA_EXT_SUPERSET(c, RISCV_ISA_EXT_C, riscv_c_exts),
-> +	__RISCV_ISA_EXT_SUPERSET(b, RISCV_ISA_EXT_B, riscv_b_exts),
 
-Hello Guodong,
+--qkbghpdorbcu5kso
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 3/3] pwm: tegra: Implement .get_state()
+MIME-Version: 1.0
 
-The RISC-V Unpriviledged ISA specification has this description of 
-extension B:
+Hello Thierry,
 
-"The B standard extension comprises instructions provided by the Zba, 
-Zbb, and Zbs extensions."
+On Mon, Sep 21, 2026 at 12:18:16PM +0200, Thierry Reding wrote:
+> On Fri, Sep 18, 2026 at 04:33:47PM +0200, Uwe Kleine-K=C3=B6nig wrote:
+> > The registers of the PWM IP are readable. Use that to implement the
+> > .get_state() callback.
+> >=20
+> > Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
+> > Tested-by: Ola Chr. Vaage <ola.christoffer.vage@scoutdi.com>
+> > Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com>
+> > ---
+> >  drivers/pwm/pwm-tegra.c | 48 +++++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 48 insertions(+)
+> >=20
+> > diff --git a/drivers/pwm/pwm-tegra.c b/drivers/pwm/pwm-tegra.c
+> > index b461d3877f43..0520d025c776 100644
+> > --- a/drivers/pwm/pwm-tegra.c
+> > +++ b/drivers/pwm/pwm-tegra.c
+> > @@ -310,8 +310,56 @@ static int tegra_pwm_apply(struct pwm_chip *chip, =
+struct pwm_device *pwm,
+> >  	return err;
+> >  }
+> > =20
+> > +static int tegra_pwm_get_state(struct pwm_chip *chip, struct pwm_devic=
+e *pwm,
+> > +			       struct pwm_state *state)
+> > +{
+> > +	struct tegra_pwm_chip *pc =3D to_tegra_pwm_chip(chip);
+> > +	int rc;
+> > +	u32 val;
+> > +
+> > +	rc =3D pm_runtime_resume_and_get(pwmchip_parent(chip));
+> > +	if (rc)
+> > +		return rc;
+> > +
+> > +	val =3D tegra_pwm_readl(pwm, pc->soc->enable_reg);
+> > +	if (val & TEGRA_PWM_ENABLE) {
+> > +		u32 scale, pwm0;
+> > +
+> > +		if (pc->soc->enable_reg !=3D TEGRA_PWM_CSR_0)
+> > +			val =3D tegra_pwm_readl(pwm, TEGRA_PWM_CSR_0);
+> > +
+> > +		scale =3D (val >> TEGRA_PWM_SCALE_SHIFT) & ((1 << pc->soc->scale_wid=
+th) - 1);
+> > +		pwm0 =3D (val >> TEGRA_PWM_DUTY_SHIFT) & (2 * TEGRA_PWM_DEPTH - 1);
+> > +
+> > +		if (pwm0 > TEGRA_PWM_DEPTH)
+> > +			pwm0 =3D TEGRA_PWM_DEPTH;
+>=20
+> It feels like this has too many assumptions built-in. That's mostly a
+> predefined issue, but I think if we want to get accurate hardware read-
+> out, we need to address this.
+>=20
+> According to the register documentation, the PWM depth is 16 bits wide
+> (on generations where it can be programmed). The value defaults to 255
+> (which is n - 1 encoded, hence TEGRA_PWM_DEPTH), but it can technically
+> be reprogrammed to any 16-bit value, as far as I can tell.
+>=20
+> So I think for this to be correct we'd need to read out the actual value
+> before overwriting with TEGRA_PWM_CSR_0 contents above. At that point I
+> think we'd need to either adjust the mask to be (2 * depth) - 1, or
+> maybe better yet, avoid masking it out arbitrarily based on the depth
+> and instead cap it at depth so we never exceed the 1:1 ratio for duty
+> cycle vs. period.
 
-__RISCV_ISA_EXT_SUPERSET would imply that something else but 
-riscv_b_exts is in B. But such an extra seems not to exist.
+As long as .apply() also hardcodes TEGRA_PWM_DEPTH, it's IMO fine that
+=2Eget_state() does so, too.
 
-So shouldn't __RISCV_ISA_EXT_BUNDLE be used here? Some code further 
-change may be needed to set extension B if riscv_b_exts is fulfilled.
+> > +		/*
+> > +		 * scale + 1 is at most 1 << 17, TEGRA_PWM_DEPTH is 256, so the
+> > +		 * multiplication for .period doesn't overflow a u64. With
+> > +		 * pwm0 =E2=89=A4 TEGRA_PWM_DEPTH, .duty_cycle is also fine.
+> > +		 */
+> > +		*state =3D (struct pwm_state){
+> > +			.period =3D DIV64_U64_ROUND_UP((u64)(scale + 1) * TEGRA_PWM_DEPTH *=
+ NSEC_PER_SEC, pc->clk_rate),
+> > +			.duty_cycle =3D DIV64_U64_ROUND_UP((u64)(scale + 1) * pwm0 * NSEC_P=
+ER_SEC, pc->clk_rate),
+>=20
+> Maybe as part of the above this can be broken down a bit to make it
+> easier to read? Something like:
+>=20
+> 	u64 duty_cycle =3D (u64)(scale + 1) * pwm0 * NSEC_PER_SEC;
+> 	u64 period =3D (u64)(scale + 1) * depth * NSEC_PER_SEC;
+>=20
+> 	...
+>=20
+> 	*state =3D (struct pwm_state) {
+> 		.period =3D DIV64_U64_ROUND_UP(period, pc->clk_rate),
+> 		.duty_cycle =3D DIV64_U64_ROUND_UP(duty_cycle, pc->clk_rate),
+> 		...
+> 	};
+>=20
+> is a bit easier on the eye and would make checkpatch happy (or happier).
 
-Best regads
+Fine for me, will address in the next revision.
 
-Heinrich
+Best regards
+Uwe
 
->   	__RISCV_ISA_EXT_SUPERSET_VALIDATE(v, RISCV_ISA_EXT_V, riscv_v_exts,
->   					  riscv_ext_vector_float_validate),
->   	__RISCV_ISA_EXT_DATA(h, RISCV_ISA_EXT_H),
-> @@ -1161,6 +1168,7 @@ void __init riscv_fill_hwcap(void)
->   	isa2hwcap[RISCV_ISA_EXT_F] = COMPAT_HWCAP_ISA_F;
->   	isa2hwcap[RISCV_ISA_EXT_D] = COMPAT_HWCAP_ISA_D;
->   	isa2hwcap[RISCV_ISA_EXT_C] = COMPAT_HWCAP_ISA_C;
-> +	isa2hwcap[RISCV_ISA_EXT_B] = COMPAT_HWCAP_ISA_B;
->   	isa2hwcap[RISCV_ISA_EXT_V] = COMPAT_HWCAP_ISA_V;
->   
->   	if (!acpi_disabled) {
-> diff --git a/arch/riscv/kernel/sys_hwprobe.c b/arch/riscv/kernel/sys_hwprobe.c
-> index 7818e1d32622d..c03c6e08dd4d0 100644
-> --- a/arch/riscv/kernel/sys_hwprobe.c
-> +++ b/arch/riscv/kernel/sys_hwprobe.c
-> @@ -207,6 +207,7 @@ static void hwprobe_isa_ext1(struct riscv_hwprobe *pair,
->   		EXT_KEY(isainfo->isa, ZICCIF, pair->value, missing);
->   		EXT_KEY(isainfo->isa, ZICCRSE, pair->value, missing);
->   		EXT_KEY(isainfo->isa, ZA64RS, pair->value, missing);
-> +		EXT_KEY(isainfo->isa, B, pair->value, missing);
->   	}
->   
->   	/* Now turn off reporting features if any CPU is missing it. */
-> 
+--qkbghpdorbcu5kso
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqxPnkACgkQj4D7WH0S
+/k77Kwf9HxX3gL2kjGUKkvvjXebMyyfQxZRXgqCU/pg12x5boLb18HblbZUDfnsX
+d19SKdoOiLJ/HAWUgKF9O9XA1RN60DhMjkBSUQgOKWd8J0397yW5YcTyoXsWM7FU
++dLfLHUj9S4Mv12ZWdpUOsAzdqOeJmdcGwby+OE7WjUc7B7mgcHg+SiBL+0QhA+z
+iye5Tag5LBtF/E6nCniBQV40ZFYME87gLKhtnZ6TrIKjGcw0TIEMb+fprw1Zm0ST
+gV1hPx94YVT37Gf1sOCC945uutgq6b7iivRlk0o+wetKxUANXbdbjRbOZ3S98OOL
+8L8Ibx6QLCqRAH4q0ud2Vk+nhi1FQQ==
+=KT2n
+-----END PGP SIGNATURE-----
+
+--qkbghpdorbcu5kso--
