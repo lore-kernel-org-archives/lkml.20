@@ -1,280 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04B041F5FC;
-	Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C86485506;
+	Mon, 21 Sep 2026 10:46:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789987586; cv=none; b=LpEzdYXmtdsO+rhAcIjVlN0qbF0x7eegsFV96R7hQ6tZ6DTaiG7DKlDG+unnjk5K+DYN3kMXI8xa43W9rQi/SFHHsLWAtdRKOCgym1h1UAuAhbGGGmZU2nJPkOSMwHzt2jPs53mc8+9eUT8adpJxW623yzRirahWWUaPFYtT7co=
+	t=1789987590; cv=none; b=hzltwRQA/caCMe3iJ4UYSKe4wSnZBrFmzGUmclhk4D6haNenBqdPxpt1pu8/L7OiiaCQcfekzjsH81pbC0YfAUiK2mvCAGyvzpwXAG9HxHqozUwoyuE38WyelbxHlOoyYpb920hQ9tatnYdt1pT5tKJiEvh9FLZc6BXMMyPt6rE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789987586; c=relaxed/simple;
-	bh=n5z+D92Tf4v9853MGiqmofw4VuQ92a5uY5YoXMvv1HM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=A+nlyJKeiBBvsxeK5eVoD6VC2DCYe8xB6ZzJM0wetF9JEHMMY50domNg7Vr1KDxtJKpp3p/KCk4sPhS5fN3fQgaWDlVFC8YcmPUQIsc+g+wL/UirW3ux4ft1qrycdGJ77UYyAWKm+m0HsJ/X+8+gxjz+E+wa+tknjW+Xtc8TNDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LdsBzRI0; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789987590; c=relaxed/simple;
+	bh=V/mTvVL5WpnDPKSgaJv02dNBla2Lmr3Vphd3nWknQhU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kvHCnxMdUfrdGEzL9wjroxGw81bUY1Umt5CJoTEIDcK5If2/x3TwMbxtMcwDSvG6/IzDh6jpRGkG5PIr/qS6bpuN2XadwJ92CPSx6jeNerMgy9GqV2NP7uiZY+25GnAY/zE3yPhIyiY/XalGcMqZmghK2xTaCPQZRJKTocHuXcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LkviZ7he; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LdsBzRI0"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A8F2DC2BD01;
-	Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789987585;
-	bh=n5z+D92Tf4v9853MGiqmofw4VuQ92a5uY5YoXMvv1HM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=LdsBzRI0poE8Pac0jEJIHy0xETKGcgs1X8jPzVOnpRfMcsuHEjlyFUlEfsLlUDlCt
-	 5faZuG06K6sLYL6OGHiNsX1YWrAVf2xVLUEqXAn/WdkLwXgOBwOjrCnGDd4Cwu56IA
-	 O9mOK5DLy0Ae9IPfVExTbpdu33pimXfmoir++82S/O4ke8aW89N0kww/P/liEWgrBm
-	 FCYy/isODMU5FP+UrQrNreRPb8r+vSAgG7g4rKilfxSSq/feA0ZPtzKNbZkgBaJsZa
-	 bNQn/v2oMGR02gQfymrJCi/fJXVD8yEXMmOSlMqobbRVQPZOYYNxrbswIvxu9QNZwg
-	 5yyr0peM+B8lA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 90C3AC982F1;
-	Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Mon, 21 Sep 2026 12:46:25 +0200
-Subject: [PATCH v4 4/4] backlight: qcom-wled: Read back the programmed
- brightness at probe
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LkviZ7he"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 860401F00898;
+	Mon, 21 Sep 2026 10:46:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789987588;
+	bh=iihlso6WiedFT9qMOlZdg0soKAXWmysksw94t25MY4M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LkviZ7heVc1DO05y4Xdc+4yXk2tWYp6AE45sX1MwrgPkMHmq68/s3tcsYjHUQAimU
+	 muS5kHjpE4NMl5G32u/qThgI3KmukUE93NHnBZI9Y3CHdY3sTkP8YfJ5T1JcpHSBj7
+	 VqM/qy2pG/aj5GMFzp2thYiWrDvqG46gLlQYE42u15yqGcZb6pk2tnzdkALAEGpSqA
+	 gpIB92OJZy1iC9xL1vIKaMNm9mqMXH8lh0VqXx2j7pXY3NK8Eyg4RxKz5wu8RuwZDc
+	 DS8w3ffAUiTJMA5nc9rLdCnC/nP1wvZKguKQuBdH1fPAzQus+tRE4ixHX3O+r0mmfo
+	 fGb+ohKnEdCLw==
+Date: Mon, 21 Sep 2026 11:46:24 +0100
+From: Simon Horman <horms@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: UNGLinuxDriver@microchip.com, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	pabeni@redhat.com, vladimir.oltean@nxp.com, stable@vger.kernel.org
+Subject: Re: [PATCH] net: mscc: ocelot: Fix mirror reference leak on VCAP aux
+ resource error
+Message-ID: <20260921104624.GI13925@horms.kernel.org>
+References: <20260917113444.2149183-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-qcom-wled-backlight-v4-4-bab8c7ef73cb@ixit.cz>
-References: <20260921-qcom-wled-backlight-v4-0-bab8c7ef73cb@ixit.cz>
-In-Reply-To: <20260921-qcom-wled-backlight-v4-0-bab8c7ef73cb@ixit.cz>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
- Kiran Gunda <quic_kgunda@quicinc.com>, 
- Marco Mattiolo <marco.mattiolo@hotmail.it>, 
- =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Joel Selvaraj <foss@joelselvaraj.com>, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6134; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=Vd0mK0QtPcwQRIQctDNdJy4/aT9MYS6AbqA9R9Lgs7M=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqsQr/SPXXhzir5slfNf//B0RQVNzZfsL8bCu40
- sNHQe0OfyqJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarEK/wAKCRBgAj/E00kg
- cohSD/43ZwcZK12PiDRqLFQ1BSQj/qpvka/d9RpoDqvnRgqK4kf2y0NM4dS2TQK/FdW5WZ+/Yi6
- y31aalt+YjK/Bq+IGnkO6rBIQHuRhNA6r3pDZKFVV2t0IG8sYVENY97njnDu2/NTvsBQ3UsSv4j
- pK9l2rU88hLobLSxO1zzEYAUrApOR/ibpYipJ12A7jwGrVUeJNF5eKYaLAudIO7AZv+B7UUms/h
- ssYYHA8EeTaukyFUvWw8PDd0KJsuEHa8GqolTOJxdQND6CJdl5Lx0Mlg7jWry/2wZZmtxPMjVBR
- JBZBXFs+8EeMXM9QapCVLV/aIgVeO+xUcOoQbMyQBMauFfXF0e/YDW/PR7Qhk4SlpHW8TMCvPWg
- ZYbG23sGon4Qo54P9PNe9IAQuwaHXq3eQJWZxkmfL0ExRhPhas0EUGledpjCjvTuiOOSNBnl4jW
- E6VPMZpoTLa1X5wUymOunEKw1tq8BWTDaw8Ic0mdjY0UhOahKxEhQ9AhiaJxPa9nouVdKZJnGSt
- rRS1pntI1oWsfwPcJClyNmXPLt51XZygdR1JLCUo65JPn5rqBWvMQLba4eXLY7xSCSKNToM1/2K
- BJMD71JkHf15/fCsvsPbv1dPF0z71Z2d1YZZTa5AoRBjjg6sTfUal+29YX7AOYBax7jxN95Hlzv
- F3B9oCckP7WZJdg==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917113444.2149183-1-vulab@iscas.ac.cn>
 
-From: David Heidelberg <david@ixit.cz>
+On Thu, Sep 17, 2026 at 11:34:44AM +0000, Wentao Liang wrote:
+> When ocelot_vcap_policer_add() fails, the aux resource setup returns
+> without releasing the mirror reference taken earlier by
+> ocelot_mirror_get(). The caller drops the filter without calling
+> ocelot_vcap_filter_del_aux_resources(), so the reference is leaked.
+> 
+> Release the mirror reference before returning the error.
+> 
+> Fixes: c3d427eac90f ("net: mscc: ocelot: establish functions for handling VCAP aux resources")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/net/ethernet/mscc/ocelot_vcap.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/mscc/ocelot_vcap.c b/drivers/net/ethernet/mscc/ocelot_vcap.c
+> index 25e533e91d71..c479af2a423f 100644
+> --- a/drivers/net/ethernet/mscc/ocelot_vcap.c
+> +++ b/drivers/net/ethernet/mscc/ocelot_vcap.c
+> @@ -970,8 +970,11 @@ ocelot_vcap_filter_add_aux_resources(struct ocelot *ocelot,
+>  	if (filter->block_id == VCAP_IS2 && filter->action.police_ena) {
+>  		ret = ocelot_vcap_policer_add(ocelot, filter->action.pol_ix,
+>  					      &filter->action.pol);
+> -		if (ret)
+> +		if (ret) {
+> +			if (filter->action.mirror_ena)
+> +				ocelot_mirror_put(ocelot);
+>  			return ret;
+> +		}
+>  	}
+>  
+>  	return 0;
 
-Since the previous change wled_probe() seeds wled->brightness from
-MOD_EN, but with default-brightness rather than the level the hardware
-is actually driving, so a backlight left lit by the bootloader still
-visibly steps on the first update, and actual_brightness reports the
-last value written rather than what the panel shows.
+I think this change would be somewhat more robust against future changes to
+this function if it was implemented using a goto-driven unwind ladder,
+which is the generally preferred in Networking code.
 
-Add wled_read_brightness(), which returns 0 when MOD_EN is clear and
-otherwise reads the brightness register the matching
-wledN_set_brightness() writes: the first enabled string on WLED3 and
-WLED4, the selected modulator on WLED5. Use it to seed both
-wled->brightness and the initial backlight property, and expose it as
-backlight_ops.get_brightness so that actual_brightness reflects the
-hardware too.
+Something like this (compile tested only!):
 
-A module that is enabled with the brightness registers at zero, which
-wled4_setup() and wled_auto_string_detection() can leave behind on a
-cold boot, now reads back as off. The OVP interrupt is then armed by the
-first brightness update rather than from probe, which is what happens
-on every other board where the module starts out disabled.
-
-Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Assisted-by: LLM
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- drivers/video/backlight/qcom-wled.c | 74 +++++++++++++++++++++++++++++++------
- 1 file changed, 63 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
-index 3ce3bade3b8dd..ca350f320e177 100644
---- a/drivers/video/backlight/qcom-wled.c
-+++ b/drivers/video/backlight/qcom-wled.c
-@@ -285,16 +285,60 @@ static int wled5_set_brightness(struct wled *wled, u16 brightness)
- 		  WLED5_SINK_REG_MOD_A_BRIGHTNESS_LSB :
- 		  WLED5_SINK_REG_MOD_B_BRIGHTNESS_LSB;
- 
- 	rc = regmap_bulk_write(wled->regmap, wled->sink_addr + offset,
- 			       &v, sizeof(v));
- 	return rc;
- }
- 
-+static int wled_read_brightness(struct wled *wled)
-+{
-+	u16 addr, mask;
-+	__le16 v;
-+	u32 val;
-+	int rc;
-+
-+	rc = regmap_read(wled->regmap, wled->ctrl_addr + WLED3_CTRL_REG_MOD_EN,
-+			 &val);
-+	if (rc < 0)
-+		return rc;
-+
-+	if (!(val & WLED3_CTRL_REG_MOD_EN_MASK))
-+		return 0;
-+
-+	switch (wled->version) {
-+	case 3:
-+		addr = wled->sink_addr +
-+		       WLED3_SINK_REG_BRIGHT(wled->cfg.enabled_strings[0]);
-+		mask = WLED3_SINK_REG_BRIGHT_MAX;
-+		break;
-+	case 4:
-+		addr = wled->sink_addr +
-+		       WLED4_SINK_REG_BRIGHT(wled->cfg.enabled_strings[0]);
-+		mask = WLED3_SINK_REG_BRIGHT_MAX;
-+		break;
-+	case 5:
-+		addr = wled->sink_addr + (wled->cfg.mod_sel == MOD_A ?
-+					  WLED5_SINK_REG_MOD_A_BRIGHTNESS_LSB :
-+					  WLED5_SINK_REG_MOD_B_BRIGHTNESS_LSB);
-+		mask = WLED5_SINK_REG_BRIGHT_MAX_15B;
-+		break;
-+	default:
-+		dev_err(wled->dev, "Invalid WLED version\n");
-+		return -EINVAL;
-+	}
-+
-+	rc = regmap_bulk_read(wled->regmap, addr, &v, sizeof(v));
-+	if (rc < 0)
-+		return rc;
-+
-+	return min_t(u32, le16_to_cpu(v) & mask, wled->max_brightness);
-+}
-+
- static void wled_ovp_work(struct work_struct *work)
+diff --git a/drivers/net/ethernet/mscc/ocelot_vcap.c b/drivers/net/ethernet/mscc/ocelot_vcap.c
+index 25e533e91d71..ce4a3da38c58 100644
+--- a/drivers/net/ethernet/mscc/ocelot_vcap.c
++++ b/drivers/net/ethernet/mscc/ocelot_vcap.c
+@@ -957,7 +957,7 @@ ocelot_vcap_filter_add_aux_resources(struct ocelot *ocelot,
+ 				     struct ocelot_vcap_filter *filter,
+ 				     struct netlink_ext_ack *extack)
  {
- 	struct wled *wled = container_of(work,
- 					 struct wled, ovp_work.work);
- 	enable_irq(wled->ovp_irq);
- }
+-	struct ocelot_mirror *m;
++	struct ocelot_mirror *m = NULL;
+ 	int ret;
  
- static int wled_module_enable(struct wled *wled, int val)
-@@ -475,16 +519,28 @@ static int wled_update_status(struct backlight_device *bl)
- 	wled->brightness = brightness;
- 
- unlock_mutex:
- 	mutex_unlock(&wled->lock);
- 
- 	return rc;
- }
- 
-+static int wled_get_brightness(struct backlight_device *bl)
-+{
-+	struct wled *wled = bl_get_data(bl);
-+	int rc;
-+
-+	mutex_lock(&wled->lock);
-+	rc = wled_read_brightness(wled);
-+	mutex_unlock(&wled->lock);
-+
-+	return rc;
-+}
-+
- static int wled4_cabc_config(struct wled *wled, bool enable)
- {
- 	int i, j, rc;
- 	u8 val;
- 
- 	for (i = 0; i < wled->cfg.num_strings; i++) {
- 		j = wled->cfg.enabled_strings[i];
- 
-@@ -1646,25 +1702,25 @@ static int wled_configure_ovp_irq(struct wled *wled,
- 	if (!wled->brightness)
- 		disable_irq(wled->ovp_irq);
+ 	if (filter->block_id == VCAP_IS2 && filter->action.mirror_ena) {
+@@ -971,10 +971,15 @@ ocelot_vcap_filter_add_aux_resources(struct ocelot *ocelot,
+ 		ret = ocelot_vcap_policer_add(ocelot, filter->action.pol_ix,
+ 					      &filter->action.pol);
+ 		if (ret)
+-			return ret;
++			goto err_mirror_put;
+ 	}
  
  	return 0;
++
++err_mirror_put:
++	if (m)
++		ocelot_mirror_put(ocelot);
++	return ret;
  }
  
- static const struct backlight_ops wled_ops = {
- 	.update_status = wled_update_status,
-+	.get_brightness = wled_get_brightness,
- };
- 
- static int wled_probe(struct platform_device *pdev)
- {
- 	struct backlight_properties props;
- 	struct backlight_device *bl;
- 	struct wled *wled;
- 	struct regmap *regmap;
--	u32 mod_en;
- 	u32 val;
- 	int rc;
- 
- 	regmap = dev_get_regmap(pdev->dev.parent, NULL);
- 	if (!regmap) {
- 		dev_err(&pdev->dev, "Unable to get regmap\n");
- 		return -EINVAL;
- 	}
-@@ -1729,41 +1785,37 @@ static int wled_probe(struct platform_device *pdev)
- 	}
- 
- 	INIT_DELAYED_WORK(&wled->ovp_work, wled_ovp_work);
- 
- 	val = WLED_DEFAULT_BRIGHTNESS;
- 	of_property_read_u32(pdev->dev.of_node, "default-brightness", &val);
- 
- 	/*
--	 * The module may already be enabled, either by a bootloader that left
--	 * the backlight lit or by the setup above. Record that, so that the
--	 * first brightness update does not enable an already enabled module,
--	 * and so that the OVP irq is armed from probe rather than from that
--	 * first update.
-+	 * The module may already be lit, either by the bootloader or by the
-+	 * setup above. Start from what the hardware is driving, so that the
-+	 * first brightness update does not step the brightness.
- 	 */
--	rc = regmap_read(wled->regmap, wled->ctrl_addr + WLED3_CTRL_REG_MOD_EN,
--			 &mod_en);
-+	rc = wled_read_brightness(wled);
- 	if (rc < 0)
- 		return rc;
- 
--	if (mod_en & WLED3_CTRL_REG_MOD_EN_MASK)
--		wled->brightness = val;
-+	wled->brightness = rc;
- 
- 	rc = wled_configure_short_irq(wled, pdev);
- 	if (rc < 0)
- 		return rc;
- 
- 	rc = wled_configure_ovp_irq(wled, pdev);
- 	if (rc < 0)
- 		return rc;
- 
- 	memset(&props, 0, sizeof(struct backlight_properties));
- 	props.type = BACKLIGHT_RAW;
--	props.brightness = val;
-+	props.brightness = wled->brightness ?: val;
- 	props.max_brightness = wled->max_brightness;
- 	bl = devm_backlight_device_register(&pdev->dev, wled->name,
- 					    &pdev->dev, wled,
- 					    &wled_ops, &props);
- 	return PTR_ERR_OR_ZERO(bl);
- };
- 
- static void wled_remove(struct platform_device *pdev)
+ static void
 
 -- 
-2.55.0
-
-
+pw-bot: changes-requested
