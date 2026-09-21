@@ -1,130 +1,89 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30224A3F3E;
-	Mon, 21 Sep 2026 14:08:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 39BA04BA1CE
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:08:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999690; cv=none; b=FqkZRU1vzvXswmqPihtXKza4+ZasL8aqekwAoCsgsTwEOxtlPiE6NrqNGXkx5VZpGFtpMNusv+IjTwfBgNcU8uRV9CzviI2JHVWhd+4mtoTdw5ba1ngHGxy9TZMapmMP85U0KLzNhSlii8y/ZH2gp3tEjM978S1r9/KYHpiUmCw=
+	t=1789999694; cv=none; b=dNhQs1frWGkEKEVDqEGMz3qqLTgpcHo2bXwkw78qKX/vat6M/6Te3rvq5jBNH5IE/1RhZSieejEGjOoCWhehOaoL2hrcuZWnAtoct6wh6VN7B6O3/d21Z7do9jgtYv2W0+HXkZE44rk90ef5hhVClSpcEufDU6THob06iaZLnNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999690; c=relaxed/simple;
-	bh=dQKhyetorp3O0zMecw8HeSSyTSsG1o6Nduy8reJfJA0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SX5DydgRaErPzcAoqPtpHKhTU5OyI8iD51T4s9cdCKalZeLpX9l4tp66V5ve8gMIz3TJE4DRhx/Xgkq57OPBYrb50petT8OTeNqUeIVjotDEOU0+eTcAixHDiZivdlrflnfqIaAwS3DVi2kebWZ1nfvW4hdsXTFl7FfesWiJeoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=YfKsUvZ7; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	s=arc-20240116; t=1789999694; c=relaxed/simple;
+	bh=HhFQAiv1nysEVqndnw2++GT0K3KYI3QnFbjxKk7BGnU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JQ/PAchTBBd3dpV2B8QIf9jXNUOv9sjpxl3CissxqirqGWdtcx7utjpyRcW9emdxyDG3YwMLswoc0O62W0fWSo7wui6dTmovwdkVuB37+PQHvrfav2EK1wccynsiQrWpqpT7kSbUVAfmAXlPgKZ2ppFzqaoVe1IerV/7A55qwJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ONycf/k3; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="YfKsUvZ7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=dQKhyetorp3O0zMecw8HeSSyTSsG1o6Nduy8reJfJA0=; b=YfKsUv
-	Z7vQOifpSbfpVDG6WmMIRNoZUDazqcEysy5ysSFw2WzPKzd7IIL8e9EnVtfxT7wrOQ7+8pSoFvTdp
-	1GWhwdGFlHRhTyr0q1n7ut3Jx+hEUpFpUOmOd3mQsyX/OSFWyJMgd7ps5SyZ/ddFmr/nF8BAxCjcP
-	/6Cvc/ffdCjnl1VvJJJSjm9VBnQcOX0YFerpWPn9YI1ByLcCEm3NvsuYYdbP0IpW2Y3NcbKqIa9yG
-	bDF6DaUNWWeUCQwS4Reukr2+F8+KXqbr0tOtlzuxPbznOFeIwT0FFi/zW6HBnhYA02DERg67u47g8
-	/Xua+T4Tt3SZ42W2rsiXfhzsM56A==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1x8efN-0000000D2M9-0cKp;
-	Mon, 21 Sep 2026 14:06:45 +0000
-Message-ID: <8aaf1f8101c9e45514af442aaf1969e3aafec4d0.camel@surriel.com>
-Subject: Re: Path forward for Virtualized Swap?
-From: Rik van Riel <riel@surriel.com>
-To: Chris Li <chrisl@kernel.org>, Gregory Price <gourry@gourry.net>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Baoquan He <baoquan.he@linux.dev>,
-  Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>, Michal
- Hocko <mhocko@kernel.org>,  Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
- David Hildenbrand	 <david@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Kemeng Shi	 <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>,
- YoungJun Park	 <youngjun.park@lge.com>, Chengming Zhou
- <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)"	 <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)"
- <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
- =?UTF-8?Q?Baghdasaryan=EF=BF=BC?=	 <surenb@google.com>, Qi Zheng
- <qi.zheng@linux.dev>, Axel Rasmussen	 <axelrasmussen@google.com>, Yuanchu
- Xie <yuanchu@google.com>, Wei Xu	 <weixugc@google.com>, Wenchao Hao
- <haowenchao22@gmail.com>, Jonathan Corbet	 <corbet@lwn.net>, Hugh Dickins
- <hughd@google.com>, Baolin Wang	 <baolin.wang@linux.alibaba.com>, Tejun Heo
- <tj@kernel.org>, Michal =?ISO-8859-1?Q?Koutn=FD?=	 <mkoutny@suse.com>,
- Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan	 <kunwu.chan@linux.dev>,
- Meta kernel team <kernel-team@meta.com>, Linux Memory Management List	
- <linux-mm@kvack.org>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>, 	linux-doc@vger.kernel.org, "open
- list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
- <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Kairui Song <ryncsn@gmail.com>,  Joshua Hahn <joshua.hahnjy@gmail.com>
-Date: Mon, 21 Sep 2026 10:06:44 -0400
-In-Reply-To: <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
-References: 
-	<CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
-	 <aqJXx2vtbKaRLt3x@fedora> <aqLi6cIjD2wJwk0B@cmpxchg.org>
-	 <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
-	 <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F>
-	 <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
-	 <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F>
-	 <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ONycf/k3"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EB2EE176C;
+	Mon, 21 Sep 2026 07:08:07 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7FB5B3F86C;
+	Mon, 21 Sep 2026 07:08:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789999691; bh=HhFQAiv1nysEVqndnw2++GT0K3KYI3QnFbjxKk7BGnU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ONycf/k3/SygxjCd7IHLVXJ6+9Ju0DDi1vrYa7U1nVMkYUJSyhUgJehEGK1Vp22de
+	 TdL6XjgnbuveAHzq8T5denRJmxUKlvOl/1RtrHLCjMvaBWulPYcOCWDukRASjuVKaZ
+	 yzptvoEUrM1aqoYm2KxlodDIZiV0Yb+xpM1EQcZY=
+Message-ID: <c2e84f24-e3bf-4d18-b873-bc17546f4c48@arm.com>
+Date: Mon, 21 Sep 2026 15:08:07 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/3] Suggestions for cache scalar controls
+To: reinette.chatre@intel.com
+Cc: Dave.Martin@arm.com, babu.moger@amd.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, fenghuay@nvidia.com, fustini@kernel.org,
+ james.morse@arm.com, linux-kernel@vger.kernel.org, peternewman@google.com,
+ tglx@linutronix.de, tony.luck@intel.com, x86@kernel.org, yu.c.chen@intel.com
+References: <d258a32f-12d5-464d-abe9-4720fb3e44b3@intel.com>
+ <20260921135702.2874931-1-ben.horgan@arm.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20260921135702.2874931-1-ben.horgan@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, 2026-09-20 at 23:43 -1000, Chris Li wrote:
-> On Sat, Sep 19, 2026 at 3:53=E2=80=AFPM Gregory Price <gourry@gourry.net>
-> wrote:
->=20
-> >=20
-> > I want:
->=20
-> >=20
-> > =C2=A0 1) zswap on machines with no swapfile
-> >=20
-> > =C2=A0 2) without being asked "how big?" - there is no number I can giv=
-e
-> > =C2=A0=C2=A0=C2=A0=C2=A0 that stays correct, and
->=20
-> Because you can't answer a question, we have to bend over backwards
-> for you? That does not make sense.
 
-There are millions of users for who the system
-should just work, without having to first answer
-your questions.
 
-Their use case is legitimate.
+On 21/09/2026 14:56, Ben Horgan wrote:
+> Hi Reinette,
+> 
+> I'm posting as a reply to your series to try and keep things together.
+> These patches should just be taken as suggestions. The first two
+> patches make the printing of the schema name simpler while keeping it
+> out of the arch code. The last add support for scalar cache controls
+> in the size file. I found these sufficient to add support for CMIN/CMAX
+> on top of MPAM. I'll post these separately but if makes sense to you
+> feel free to incorporate them in your PoC.
 
---=20
-All Rights Reversed.
+I've just put these MPAM changes on a branch here rather than making too much noise on the list.
+
+https://gitlab.arm.com/linux-arm/linux-bh/ mpam_controls_on_generic_schema_poc
+
+Ben
+
+> 
+> Thanks,
+> 
+> Ben
+> 
+> Ben Horgan (3):
+>   fs/resctrl: Add schema_name to struct resctrl_ctrl
+>   fs/resctrl: Use correct schema name in bw_validate() last_cmd_status
+>     messages
+>   fs/resctrl: display size for scalar cache controls
+> 
+>  fs/resctrl/ctrlmondata.c |  59 ++++++---------------
+>  fs/resctrl/internal.h    |   4 +-
+>  fs/resctrl/pseudo_lock.c |   2 +-
+>  fs/resctrl/rdtgroup.c    | 110 +++++++++++++++++++++++++--------------
+>  include/linux/resctrl.h  |   1 +
+>  5 files changed, 91 insertions(+), 85 deletions(-)
+> 
+
