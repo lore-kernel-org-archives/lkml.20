@@ -1,106 +1,96 @@
-Received: from mta0.migadu.com (out-192.mta0.migadu.com [91.218.175.192])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from 0001.3ffe.de (0001.3ffe.de [159.69.201.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50FE35C698
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:46:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.192
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC8CF48595C;
+	Mon, 21 Sep 2026 12:47:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.201.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789994792; cv=none; b=opdwZoQV/Sq8qEz6kyxUC9sTyAaiOn8+QMd9LLd6PnzzUidoZaAw/yGDu4BuSuPFXOBFzsujITxDjfOvUu4In13xotF5V6Pkrgf+ZTCr0f0tsj06Uty6QJpjuyzTd2+B1m1pdKYp/uRId3yKLWPNOpQXnWQCITxxlmvKWgnmU+c=
+	t=1789994826; cv=none; b=NGmcZIyNElsMtLdkOXZRWMs0yePU4Sur7TB1ggaE80TOX+1ThVPDr401SQSr92lfbQ+Jlysj1neS7pF+37P5RQxTbjaqQeKHn/Ze4tLO2TvWYdPOULSSGMVbsjLdU5VYYefbnhsTTHOv7R+gVknhmIw78L0xlb05EMjDv0kEk80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789994792; c=relaxed/simple;
-	bh=LLPYJqhe9zU7AnAPCVJgKLTWemu4LRRS+WljudQLQgk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=krJ6Ffn7C7T4DQ3w2hzrKxcLBpwCeX+IeV+CkD6AHiunbxfV9pufwVZyMrCl5scCFCa34jNj5/8RTiifZNx92YT5TJy85lMt4n7p1Ah3XpoBaQUz8dV2a8dSJjwCr6diYvOuKf168/Wch3fP4AU4zgK6MrTnbjhnTktDqL3J5rA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fzm8hP0H; arc=none smtp.client-ip=91.218.175.192
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789994826; c=relaxed/simple;
+	bh=0BgkS0X3pfARD7xlPenzZAzHbcH+oYWC73YWsvir9Bw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
+	 References:In-Reply-To; b=QEl96WB7ojyro4Tir7qjRlOCxplGCRn0VJbvZtBUlr0lPdzehkoXpo93JnjWblGBhvKu5q0lgkaSVRwNbBNkPxmdaTh6gDR9RwJIDijoZCNspp4PI0r+lgvOFHjLR9C3SqdFqZ2+TpgpN0w2p0lh2h5tZhFxE6huqzhcAt+w90g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=walle.cc; spf=pass smtp.mailfrom=walle.cc; dkim=pass (2048-bit key) header.d=walle.cc header.i=@walle.cc header.b=16B29EEi; arc=none smtp.client-ip=159.69.201.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=walle.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=walle.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fzm8hP0H"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=LLPYJqhe9zU7AnAPCVJgKLTWemu4LRRS+WljudQLQgk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789994787; v=1; x=1790599587;
- b=fzm8hP0HmWpaKNbMtVUqf9Z+SibovRajebPfJw4AWzdamM1oWHa+y4lsvZS/5I1Hdnze7pJ8
- fRcQnT0uJwJGZQ6NE4jKckOuWRSUtTq/RRJiD7CZkiw4yXNauSRF3gWzhThme/5PWeQ+izuXH4P
- a5o4ZhnHYBDlv4+2JG40pL3A=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 24ca413fc12d1e0d;
-	Mon, 21 Sep 2026 12:46:17 +0000
-X-Mizu-Trace-ID: 24ca413fc12d1e0d
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f27df91d-441b-4b40-abce-ff786b8c89e4@linux.dev>
-Date: Mon, 21 Sep 2026 20:46:10 +0800
+	dkim=pass (2048-bit key) header.d=walle.cc header.i=@walle.cc header.b="16B29EEi"
+Received: from localhost (unknown [213.135.10.150])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.3ffe.de (Postfix) with ESMTPSA id 81CD85C;
+	Mon, 21 Sep 2026 14:46:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc; s=mail2022082101;
+	t=1789994816;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0BgkS0X3pfARD7xlPenzZAzHbcH+oYWC73YWsvir9Bw=;
+	b=16B29EEiIN7cXTXUo7NzjnOQlc9Z/B6M+jzDkuHerC8x+2EwsiJsS5d5nS1yHEmfeEbpvX
+	wMpidef3+45QsFe7iH9uztbUcXIYPB94b/lY6MKMn5dpk03jqcjmesWzIFi1x7iph9u5pK
+	IVnASkXaOeu2pO6eM65U7QDhMRaquaPrnYEYX/krt+VF6Xdeu6ADFuyplkIy4lhO/FXL/c
+	37yCEwV5A0agJWfclqLKBw4gQn9mbDNF6B1EARHjhVIr5VgRRC24V0oybA/z5PBzltYDpe
+	riZh4xwzOn+IC7NyduPSQ29HGPTbD/o8oTtD+/O9Sjx1O6MvmZ3e6IJrBkPjyQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] mm/gup: honour FOLL_PIN in NOMMU
- __get_user_pages_locked()
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, Jason Gunthorpe <jgg@ziepe.ca>,
- John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org,
- Peter Xu <peterx@redhat.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>
-References: <20260921-nommu_gup_pin-v4-1-c410041cc479@kernel.org>
-Content-Language: en-US
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <20260921-nommu_gup_pin-v4-1-c410041cc479@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=b0aecd10d4970feaedd7d33bf060515ea13a2a83f941c6cf988065fda9d0;
+ micalg=pgp-sha384; protocol="application/pgp-signature"
+Date: Mon, 21 Sep 2026 14:46:54 +0200
+Message-Id: <DLL07DMYQ9EN.3I5OQJ93M8J1O@walle.cc>
+Subject: Re: [PATCH v7 00/15] Ambarella CV75 SoC minimal bring-up
+Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Michael
+ Turquette" <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>,
+ "Jerome Brunet" <jbrunet@baylibre.com>, "Linus Walleij"
+ <linusw@kernel.org>, "Bartosz Golaszewski" <brgl@kernel.org>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "Jiri Slaby"
+ <jirislaby@kernel.org>, "Andy Shevchenko"
+ <andriy.shevchenko@linux.intel.com>, =?utf-8?q?Ilpo_J=C3=A4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>, "Catalin Marinas"
+ <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, "Long Zhao"
+ <zl020895@163.com>, "Lee Jones" <lee@kernel.org>, <mfd@lists.linux.dev>,
+ <devicetree@vger.kernel.org>, <linux-clk@vger.kernel.org>,
+ <linux-gpio@vger.kernel.org>, <linux-serial@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Krzysztof Kozlowski"
+ <krzysztof.kozlowski@oss.qualcomm.com>
+From: "Michael Walle" <michael@walle.cc>
+To: <longzhao@ambarella.com>, "Arnd Bergmann" <arnd@arndb.de>, "Krzysztof
+ Kozlowski" <krzk@kernel.org>, "Alexandre Belloni"
+ <alexandre.belloni@bootlin.com>, <soc@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>
+X-Mailer: aerc 0.20.0
+References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
+In-Reply-To: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
 
+--b0aecd10d4970feaedd7d33bf060515ea13a2a83f941c6cf988065fda9d0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
+On Tue Sep 15, 2026 at 1:15 PM CEST, Long Zhao via B4 Relay wrote:
+> This is a single unified series. Please apply via the SoC
+> tree; subsystem maintainers are Cc'd for their pieces.
 
-On 2026/9/21 17:57, David Hildenbrand (Arm) wrote:
-> From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> 
-> The !CONFIG_MMU implementation of __get_user_pages_locked() takes a bare
-> get_page() reference for each page regardless of foll_flags:
-> 	if (pages[i])
-> 		get_page(pages[i]);
-> 
-> This is reached from pin_user_pages*() with FOLL_PIN set.
-> unpin_user_page() is shared between MMU and NOMMU configurations and
-> unconditionally calls gup_put_folio(..., FOLL_PIN), which subtracts
-> GUP_PIN_COUNTING_BIAS (1024) from the folio refcount.
-> 
-> This means that pin adds 1, and then unpin will subtract 1024.
-> 
-> If a user maps a page (refcount 1), registers it 1023 times as an
-> io_uring fixed buffer (1023 pin_user_pages calls -> refcount 1024), then
-> unregisters: the first unpin_user_page subtracts 1024, refcount hits 0,
-> the page is freed and returned to the buddy allocator.  The remaining
-> 1022 unpins write into whatever was reallocated, and the user's VMA
-> still maps the freed page (NOMMU has no MMU to invalidate it).
-> Reallocating the page for an io_uring pbuf_ring then lets userspace
-> corrupt the new owner's data through the stale mapping.
-> 
-> Use try_grab_folio() which adds GUP_PIN_COUNTING_BIAS for FOLL_PIN and 1
-> for FOLL_GET, mirroring the CONFIG_MMU path so pin and unpin are
-> symmetric. Keep supporting the traditional behavior where users specify
-> a pages array but don't set FOLL_GET.
-> 
-> While at it, don't return NULL pointers in the page array,
-> as this is really not expected for GUP users; instead, just fail and return
-> -EFAULT.
-> 
-> [ david: support traditional behavior with no FOLL_GET, extend
->    description ]
-> 
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Jason Gunthorpe <jgg@ziepe.ca>
-> Cc: John Hubbard <jhubbard@nvidia.com>
-> Cc: Peter Xu <peterx@redhat.com>
-> Cc: Lance Yang <lance.yang@linux.dev>
-> Reported-by: Anthropic
-> Fixes: 3faa52c03f44 ("mm/gup: track FOLL_PIN pages")
-> Assisted-by: gkh_clanker_t1000
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
+Well, not really. I wasn't CC'ed on any of the gpio-regmap patches.
 
-Tested-by: Lance Yang <lance.yang@linux.dev>
+-michael
+
+--b0aecd10d4970feaedd7d33bf060515ea13a2a83f941c6cf988065fda9d0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iKcEABMJAC8WIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCarEnPhEcbWljaGFlbEB3
+YWxsZS5jYwAKCRASJzzuPgIf+JbDAYD5NzUis6sH68krurEUmfZHPET63flmrmwz
+18rKy6cs6l45m6clXLvKPPfU15T+MEIBfR76IBYbqIHCrqRx0hg58wcEk/4iVesC
+afNRcTi5Hg1HbPYc3TajUdBjsycsnRCLeQ==
+=D+KD
+-----END PGP SIGNATURE-----
+
+--b0aecd10d4970feaedd7d33bf060515ea13a2a83f941c6cf988065fda9d0--
