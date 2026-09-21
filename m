@@ -1,96 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4231933A6EB;
-	Mon, 21 Sep 2026 09:01:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDA833A6EB;
+	Mon, 21 Sep 2026 09:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789981294; cv=none; b=GCEezqlEeaj3IQrQmqQaP9RprF1m792p/lCFEioUtqs7sQmVy9tda6C/Ea59tpy8+lkSU44w8EAild9pG7GeFxhMKQXWX95zDHOXLZ27kbGEcv+EWgcPIuZt6Su/ixf0CO8gy4eAnieHEc6PoKnGa3BxAXVca8cbCCd1ImdDmgM=
+	t=1789981308; cv=none; b=hgg9K0xxSjsEK63PV6000Hw/uFhrZmp8hYgAEMih3rTiZ6TRqG1gavbchDxmKXsGObrJ80W8YXSF1F/r+x84svFKQ50UPcjMdlFPCuqO3vSKslKpp+QtmAPK1qVJby3FRjwsLFnsZbfUKEsciXvml0Qgpl0QIAMeJ2xrYWKwYYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789981294; c=relaxed/simple;
-	bh=Ie1mOH4+KopURAQkynVReYv74glgCETVQLn/XvA1oYE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=VJwqztSm52pqMBFzDQeC8VHT87o9ZQ+sm9bgr4OjfrHM5faB62Q6HY518I0WI+r9beEj55Ko17hhBM1aRW51y4Ezdo9fA3CIa9aa+QAm0HorVaZm3+DvkuOlSQJSwlKo53xVYpGvxjLPvBQS4+p5hrvp4PtePjNU5jAwl1CotX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Chhjx5IP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789981308; c=relaxed/simple;
+	bh=Z2SoGjWG+kTjpmfzxSW2WbC/gloFMVtxPD/1PXeKi4w=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
+	 References:In-Reply-To; b=F0LRsNq3J1a1i6w6oTI2nfKgbmLVKvOeN/3oDuV4cGQlSt3NEYTJvWQDKHpW5BdoPKwiuNLiAcYaOYJCdgHTj1FxYPa0/8IrNDe+l6h4QApnS5OiDasVYTZOApnnKS02XEZ9R9t2ygqYzcc0uRHKIX+rSQzkObtqlQYd8fuUFYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=RrlX4/oN; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Chhjx5IP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D90091F000FF;
-	Mon, 21 Sep 2026 09:01:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789981292;
-	bh=/edLhwlXxK5WLjsufiNiRMm+DEeITmeYwM/BGG2po/Y=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Chhjx5IPpvXRMaHsZG/SYYAZuH7PK7n2Ec/3Da0nuAZu2Bk861eWfapQfsfDdsl/7
-	 rsyyZPgxGIf57xVvjWO+fVXbki6UkV55Fmn6mvwB4D9GANc4KKcR1h18C1/Uwrhg8n
-	 3ZYxlX/sV4K72MH/TPfb7Rwkb2unicftgkfsccl/HFKx91WR+XbP2J0OP58zinaVnE
-	 5r7eUrIN4ALdbOQBuqhLZWsfVvRBir7ZoN+3kPzIlXtrpekUxIdetWfpa+p0C1cm5W
-	 /5dtahPFzZVR8zMWnY+OXQ6nYGcCJwMGjB6ZYhAqUQIkNlCmrN/UETOFx03GGlmWBz
-	 MWSKb8uHoLXpw==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sudeep Holla <sudeep.holla@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [PATCH v12 2/7] firmware: hwrng: arm_smccc_trng: Register as an
- SMCCC device
-In-Reply-To: <arDuqtfrRcBmWRic@arm.com>
-References: <20260921053807.354802-1-aneesh.kumar@kernel.org>
- <20260921053807.354802-3-aneesh.kumar@kernel.org>
- <arDuqtfrRcBmWRic@arm.com>
-Date: Mon, 21 Sep 2026 14:31:24 +0530
-Message-ID: <yq5acxu73rmj.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="RrlX4/oN"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 992BD1A0F8C;
+	Mon, 21 Sep 2026 09:01:44 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6D06160339;
+	Mon, 21 Sep 2026 09:01:44 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DEF8E1032904C;
+	Mon, 21 Sep 2026 11:01:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789981303; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Z2SoGjWG+kTjpmfzxSW2WbC/gloFMVtxPD/1PXeKi4w=;
+	b=RrlX4/oNYKQM3FY3Pk+7lzI5bM0YDc2y7a0CS5gDJux2xsWKpCLR8fogTnf56iyp7vKT0M
+	wZf2nA+ST/8tZlReB5cZMKpip1jH6O4JlkpL91nRagD1A5HJ6PrlntRl9U3u7/5QZyItvn
+	xRhL24mu8yG05oI7DpbYpfzMn8SrhLu+HWm6JEJrLeQt7y0SLXasQbRvgpZOEFESEUWAUa
+	+RB6t+HNPG5O2MtLbO821vIHBAOyqmuIY+/jN0PpeOYbkLTlBLrwDaeH9hrNADcyDWjnvP
+	IR6+Tju6EpdK2kIQnB8ESWlZBfcP7h+A34WL1MmQednBeKS5Rh2CEa45l6pMKQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 21 Sep 2026 11:01:41 +0200
+Message-Id: <DLKVEXS7X14N.XLLMBDDX6ZJW@bootlin.com>
+To: "Zijin Tao" <taozj888@163.com>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Subject: Re: [PATCH] net: macb: rate limit netdev error info print in the
+ data path
+Cc: <linux-kernel@vger.kernel.org>, <conor.dooley@microchip.com>,
+ <andrew+netdev@lunn.ch>, <netdev@vger.kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260920095839.62852-1-taozj888@163.com>
+ <DLKVCOXTNGVZ.3CC6KFXDIFJ3X@bootlin.com>
+In-Reply-To: <DLKVCOXTNGVZ.3CC6KFXDIFJ3X@bootlin.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Catalin Marinas <catalin.marinas@arm.com> writes:
+Hello Zijin,
 
-> On Mon, Sep 21, 2026 at 11:08:02AM +0530, Aneesh Kumar K.V (Arm) wrote:
->> The SMCCC TRNG interface is a firmware-provided SMCCC service rather than a
->> standalone platform device. Now that the SMCCC core has an SMCCC bus,
->> create an arm-smccc-trng device for the discovered TRNG service and convert
->> the hwrng driver to an SMCCC driver.
->> 
->> The SMCCC id table preserves module autoloading for systems where the TRNG
->> driver is built as a module.
->> 
->> The sysfs device path changes from the old smccc_trng platform-device path
->> to an arm-smccc device path. No known userspace dependency on the old path
->> was found; a Debian Code Search lookup for the existing platform-device
->> name/path did not find any users.
->> 
->> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
->> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
->> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
->> Tested-by: Andre Przywara <andre.przywara@arm.com>
->> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
->> ---
->>  arch/arm/include/asm/archrandom.h       |  2 +-
->>  arch/arm64/include/asm/archrandom.h     |  2 +-
->>  drivers/char/hw_random/arm_smccc_trng.c | 32 ++++++++-----
->>  drivers/firmware/smccc/smccc.c          | 62 +++++++++++++++++++++----
->>  4 files changed, 76 insertions(+), 22 deletions(-)
+Also your To/Cc list is weird, make sure to use
+scripts/get_maintainer.pl (or use b4 for patch
+management which uses it automatically).
+
+On Mon Sep 21, 2026 at 10:58 AM CEST, Th=C3=A9o Lebrun wrote:
+> Hello Zijin,
 >
-> I asked you two times already to cc the hw_random maintainers. Not
-> adding them again but not merging this stuff without their ack either.
-> So, up to you.
+> You sent the same patch 3 times?
+> Message-ID: <20260920095839.62852-1-taozj888@163.com>
+> Message-ID: <20260920100658.65087-1-taozj888@163.com>
+> Message-ID: <20260920100920.65773-1-taozj888@163.com>
 >
+> Also you are missing the prefix [PATCH net] or [PATCH net-next].
+> Read up about this here (and read the full page):
+> https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
+>
+> On Sun Sep 20, 2026 at 11:58 AM CEST, Zijin Tao wrote:
+>> Now the MACB ethernet driver print the netdev error information
+>> directly by netdev_err(), which would lead to a large number of
+>> error information print if there was a significant number of
+>> error or just jumbo packets received when booting.
+>> For example, it would print a large number of:
+>>
+>> macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+>> macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+>> ...
+>
+> This whole patch is LLM generated? I don't think this "PHYT0036:00"
+> device name could ever exist. Please don't hallucinate kernel logs.
+>
+> In both cases, I prefer the commit message to either indicate whether it
+> is a theoretical bugfix or a bug hit in practice. I know I've faced
+> such a log spam on MACB in the past, but I don't remember which log
+> line it was.
+>
+>> in gem_rx() by received a large number of packets without
+>> RX_SOF or RX_EOF flag set.
+>>
+>> The unlimited print here would greatly bother and delay
+>> the system booting process unless the source stop sending
+>> packets.
+>
+> I don't understand the relation to the booting process here.
+>
+>> So rate limit the netdev error information print in the receive
+>> and transmit data path.
+>>
+>> Signed-off-by: Zijin Tao <taozj888@163.com>
 
-Sorry, I missed that. I'll repost and Cc the hw_random maintainers.
+Thanks Zijin,
 
--aneesh
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
