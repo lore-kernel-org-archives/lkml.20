@@ -1,82 +1,86 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 99A17496D5B;
-	Mon, 21 Sep 2026 13:03:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB0AD3C1991
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:05:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789995820; cv=none; b=qNiR/1A7jkrLG6dEjhA+O7vyRI0RJmjhYCVQtE0BIIL6EGqdWsM0IFbc6BaAdotSt7SsXVkjNVc8L3e7HiSTameoR0QsC2tyJA6GGA+yX0Xarj1f3igiPoP6rvQye0luv49qHsARmjf/NCnwakjGi+nwuzHOUoOCkPnZEtxL64M=
+	t=1789995947; cv=none; b=dg0zMq679ImJIjAB240NZFkT1DQ0ER7pYSPq48aRud2ghK7TPUKyYZBW1GYqDblKRexBKsvAHc+YC4If44+ViDHADfXbcjhxoqfvs2s3awoQaVtSbBsiGZathW2DZd6NigbpTOnrZpMGwvHyVr8McQD3XfCfY+Az+R228caLUHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789995820; c=relaxed/simple;
-	bh=OoPqL9ehIIvD/OJY5G8d5/03edwIvHcNFvhV8sTgPSk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W8EDK25J3WLIETtVrjx+EamoWkzHZNBvyuea4QnTwa819zgwJVE19idOE2wB/PMcBKSZ2PjCEZAv2bYU9czTWMDuuhMFiAfPrV8mapTii63dlzbnAk/wvx3j+Cn4/s2cPuxT80MizpxWVnKtx3gQcHi12KbvDEjEfk5z1gs5hT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Y9x5z2N9; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789995947; c=relaxed/simple;
+	bh=eqL1+pxbQbl2lD+yMbd0BnhFooll2P4VKDlpZNXroxA=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ElZrko4Ck/TZMlDyXvx/AHSt2OjJ5u6zWsU4xoUnzYix+yppIn+KzmAvpZhxqOampf4XFYMy8shLwOMrAUeoqNzGmDCkitsAVhcGJnnHZ3ZVaUSuZBhwH4v4/Le2tJa4o6uJN1t86OaX5IPjNDJ4zmiB1gCD9IAIGXIhPjCzR2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GytY8D3g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Y9x5z2N9"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4571C19F0;
-	Mon, 21 Sep 2026 06:03:35 -0700 (PDT)
-Received: from [10.57.6.224] (unknown [10.57.6.224])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 11EAF3F86F;
-	Mon, 21 Sep 2026 06:03:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789995818; bh=OoPqL9ehIIvD/OJY5G8d5/03edwIvHcNFvhV8sTgPSk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Y9x5z2N9wxF1WJc9DrkVDbq6LZtMWGUJDqscc1hkUG8aFM75LsyBMucrsg5EiOBdx
-	 z/KSv4t2K5w/2K/s6vlsXf3XnlX276qju0hZG4HW9aOmWjiILwbXEnleijlMRvTfc/
-	 6aooxHtsj5Y6TP7O2n7n5OE1KlPrfuIzbkwiW3Ms=
-Message-ID: <433d32a4-f59a-4d6c-915d-2c1b4c22b840@arm.com>
-Date: Mon, 21 Sep 2026 15:03:32 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GytY8D3g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80D5E1F00898
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:05:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789995945;
+	bh=eqL1+pxbQbl2lD+yMbd0BnhFooll2P4VKDlpZNXroxA=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=GytY8D3g9KdWyEtZtKTjUOE80hf8ad6hTWTO7J8PIUu0jHamYH88cX4PcpnIU4nuX
+	 Fb8JSRH3Z0LaZ3h+Pgb3AsvbFcuues6Bk5RIOba2lut9pliLRttQMlHxKmbOKAH2Yb
+	 Nh31eBZsWGEI2G7idQAW6xUecITXNq9iS7i2sMvQYIN8j20/cjTTq0TQ6EdLNUZCxP
+	 brZjpAm9BYFp8WBMt10OoutEA4CgYr68ypEaveyMCAvHgvpTrPjaxrgg+a+wjsUKDl
+	 ZZdNaF8bHTM+FswX6m4wAozccXVphUzMTrQ9GpTxAviLX5rpXaGuogEyWTAZoGR6sv
+	 p4hlu95urNk3Q==
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a612404718so13331631fa.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:05:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxBQfZmzkM83AiBmyHOe5XTNHR63TSxB1RE+lP0SpjNncmsVCnkZFJw9v0Cu9w1hQtOEg0WJUxx/nWzI5Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLB5WdP/fz6QjF0s7pV8oCNGovp4OwvRwBQK1tG6U8a6c46zwP
+	Gs56E+uhLXU7v3fhqyrX9e1PqnIQvYNGUPSbCnRDYnaQ4S7Vnx9WBgm4JMhMaMpVfw2ulO9AkVK
+	YqJcF2McC/6XChyhlA5/XZBobD272p3ZvqNGGlVnsjw==
+X-Received: by 2002:a05:651c:b13:b0:3a5:fb20:4e63 with SMTP id
+ 38308e7fff4ca-3a5fbf54e10mr22033851fa.17.1789995943840; Mon, 21 Sep 2026
+ 06:05:43 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 21 Sep 2026 09:05:42 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 21 Sep 2026 09:05:42 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <3e3a7197.9e4e.1a0c3e88117.Coremail.zl020895@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] docs/mm: describe set_memory() and set_direct_map()
- APIs
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Jonathan Corbet <corbet@lwn.net>
-Cc: "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Michal Hocko <mhocko@suse.com>, Randy Dunlap <rdunlap@infradead.org>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>,
- linux-arch@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20260919-set-memory-docs-v2-1-a2a4b3657690@kernel.org>
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260919-set-memory-docs-v2-1-a2a4b3657690@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
+ <20260921-cv75-v5-v8-9-282ff5d98dda@ambarella.com> <CAMRc=Mf7dtxvxBUF1fOuKw0mxdhCYPj=J4ckySPZUvcZ7a6cbQ@mail.gmail.com>
+ <3e3a7197.9e4e.1a0c3e88117.Coremail.zl020895@163.com>
+Date: Mon, 21 Sep 2026 09:05:42 -0400
+X-Gmail-Original-Message-ID: <CAMRc=MfSSHuPxOrP95aW5HXXE74f5X-yjr-KNavz_=tU__H33w@mail.gmail.com>
+X-Gm-Features: AcwNN1XpPns_pQlHseY9Ez4-fOhLH2UhBc-jukWmFLjbznkNpQwaq4oL4Cj_puk
+Message-ID: <CAMRc=MfSSHuPxOrP95aW5HXXE74f5X-yjr-KNavz_=tU__H33w@mail.gmail.com>
+Subject: Re: Re:Re: [PATCH v8 09/18] gpiolib: regmap: add gpio_regmap_get_chip()
+To: zl020895 <zl020895@163.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, longzhao@ambarella.com, 
+	Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Linus Walleij <linusw@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Lee Jones <lee@kernel.org>, 
+	mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Michael Walle <mwalle@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 19/09/2026 12:43, Mike Rapoport (Microsoft) wrote:
-> [...]
+On Mon, 21 Sep 2026 14:19:49 +0200, zl020895 <zl020895@163.com> said:
+> Hi Bart,
 >
-> +Modifying the kernel page tables
-> +================================
-> +
-> +Except for the vmalloc area, the kernel page tables are mostly static. Still,
-> +there are cases when the permissions of existing kernel mappings have to be
-> +updated, for instance when a module is loaded and its text becomes read-only
-> +and executable, or when a page is temporarily removed from the direct map to
-> +reduce its exposure.
-> +
-> +There are two families of functions for this, both declared in
-> +`include/linux/set_memory.h`:
-> +
-> +* `set_memory_*()` change permissions of an arbitrary kernel mapping. They
-> +  take a kernel virtual address and the number of pages.
-> +
-> +* `set_direct_map_*()` change permissions of the direct mapping of the page
-> +  frame represented by a `struct page`. They take a `struct page` pointer and
+> Done, sent as a follow-up:
+> https://lore.kernel.org/all/20260921-gpio-doc-followup-v1-1-618738124f4c@ambarella.com/
+>
 
-The new phrasing is a mouthful but at least should be accurate :) It
-should probably say "range of page frames" or something like that though.
+No, don't send follow-ups before anything is picked up. Also: Michael Walle,
+who's the maintainer for gpio-regmap was not Cc'ed on this so I'll wait for his
+Ack or change requests.
 
-Looks good otherwise!
-
-Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
+Bart
