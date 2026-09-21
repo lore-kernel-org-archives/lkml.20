@@ -1,115 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6F4146D5A;
-	Mon, 21 Sep 2026 02:55:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE71244667;
+	Mon, 21 Sep 2026 02:58:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789959323; cv=none; b=hypO/4lCErRsvkVbU0GSNQlyDjVgD117AQ2F5nxPkt5YMugvnNv/d40iFbSMQpY870fJk1SGjgtKy1KrEUarm65B3A2aneJRMm56SgoMC3SXNQQbgw8sOhZqdbscfOlC1M7xvL/T8sGHZKe83ZFfFQ2P0JYy0jDnYN6JQO3menc=
+	t=1789959540; cv=none; b=pTfUAm8rCuw+fg0skwA79dY8Uh66qYLveEoUa5gVRoZK4IULeDP2/Oi8NrT3w9ZVqGOqGBbbIGm5UJ5ZPzYRXD8fZy94ZDKTjcDAPwa/XfPTxgyViOwb/5D0oE1xCdX7JNXfxmukOyU5XtkrddzhO0hl9UU2ni3xh0RkXc3Z+hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789959323; c=relaxed/simple;
-	bh=zkpK03RYgMNZXgML4Ew+r/Dtcqs5cg1CYkPdVUVT15U=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AWxLUZVez2cfgKfEQXCjJceaBE+tzT5aogqD9lEK3IIZnGRk/Bi4Qzjpn4oEdV/g22GN0sfHR+VMnttbHJRQ3eS9LkdqTyYV7XMHyHTQLsCbSpiJtB7wy3Zwz5uZsKSE8mtsNEWA7OTekFmlICwXOCL1J45m4LRrhYGX8ynj1kA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZX+R7ln5; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZX+R7ln5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 628971F000FF;
-	Mon, 21 Sep 2026 02:55:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789959321;
-	bh=GcU0QGmFueS0jwckkv0xg7O1qozQrpTGoV36hRGJ0SM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZX+R7ln5PpzgQjzjbLK5PtfF1EYpKw2srgRLcWDJ8MfkeuoE59zPv6evJeebMCr3g
-	 jI/2p5UQhtDBXT98Vjf/uTXfig7pI+U94YppfWZFxlotwxw4kbLYA0YEblbSy/8d6V
-	 akuH+gWTL3mEgdZygbKovtZ8XFvv5gHnmkCKqaq35xTUJbZ5DboVs7VlVMV8MpRRX/
-	 8bNDdN92BhACbS3jr/V8IVlCdKhS3seF8ly10JcNwZbKMN7/C/wfJwm/1h0PoVyJXv
-	 e8I+Lc8sKw8s96/y1036pNEO9ZnGxlEDIfdrrG2Qh1ZIqJR32d3uNwSKXLNZ447Rqe
-	 K46dK1YgZSELQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 17/17] mm/page-flags: remove PG_private
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shakeel Butt" <shakeel.butt@linux.dev>, "Muchun Song" <muchun.song@linux.dev>, "Liam
- R. Howlett" <liam@infradead.org>, =?utf-8?b?TWF0dGhldyBXaWxjb3ggKE9yYWNs?=
- =?utf-8?b?ZSk=?= <willy@infradead.org>, "Suren Baghdasaryan" <surenb@google.com>, "Nico
- Pache" <nico.pache@linux.dev>, "Johannes Weiner" <hannes@cmpxchg.org>, "Gregory
- Price" <gourry@gourry.net>, "Kairui Song" <kasong@tencent.com>, "David
- Hildenbrand" <david@kernel.org>, "Michal Hocko" <mhocko@suse.com>, "Alistair
- Popple" <apopple@nvidia.com>, "Baolin Wang" <baolin.wang@linux.alibaba.com>, "Vlastimil
- Babka" <vbabka@kernel.org>, "Zi Yan" <ziy@nvidia.com>, "Lance Yang" <lance.yang@linux.dev>, "Lorenzo
- Stoakes" <ljs@kernel.org>, "Andrew Morton" <akpm@linux-foundation.org>, "Barry
- Song" <baohua@kernel.org>, "Ryan Roberts" <ryan.roberts@arm.com>, "Qi Zheng" <qi.zheng@linux.dev>, "Dev
- Jain" <dev.jain@arm.com>, "Ying Huang" <ying.huang@linux.alibaba.com>, "Usama
- Arif" <usama.arif@linux.dev>, "Mike Rapoport" <rppt@kernel.org>
-Cc: "Jan Kara" <jack@suse.cz>, "Jonathan Corbet" <corbet@lwn.net>, "Pasha
- Tatashin" <pasha.tatashin@soleen.com>, linux-mm@kvack.org, "Mathieu
- Desnoyers" <mathieu.desnoyers@efficios.com>, kexec@lists.infradead.org, "Masami
- Hiramatsu" <mhiramat@kernel.org>, "Pratyush Yadav" <pratyush@kernel.org>, linux-doc@vger.kernel.org, linux-trace-kernel@vger.kernel.org, "Baoquan
- He" <baoquan.he@linux.dev>, linux-kernel@vger.kernel.org, "Dave Young" <ruirui.yang@linux.dev>, "Steven
- Rostedt" <rostedt@goodmis.org>, "Shuah Khan" <skhan@linuxfoundation.org>, linux-fsdevel@vger.kernel.org
-In-Reply-To: <20260920-remove-pg_private-v5-17-bb68b6a21869@nvidia.com>
-References: <20260920-remove-pg_private-v5-0-bb68b6a21869@nvidia.com>
- <20260920-remove-pg_private-v5-17-bb68b6a21869@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 02:55:20 +0000
-Message-Id: <20260921025520.628971F000FF@smtp.kernel.org>
+	s=arc-20240116; t=1789959540; c=relaxed/simple;
+	bh=qq/HrIxA/bL6/wJjEKuTI/VAopTwbzecn/dAsqEIv20=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=I6L2kvhjcE5HbK95MNh8lJ+Ndom1MeMCycWDIdDl9Q9BrmsDV+AGE4YzicCJPCdkI/VQLsLqSJ8023nVR5JSNpNw7c8kVNBzO9dtG5QyuUd5mnB1pMeDfqZtyMJRvov60Cv9HblFCpWLvY4+NXXUQPHdSXMUg3iHxqZ6H6HL/d4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 5dec6558b56811f19a56ed5b684f684d-20260921
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:1a93c21b-53ac-496b-9bb0-fd3d18fea442,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:605a76c4cd180f63604284486b04e2f6,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|50|99,
+	EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5dec6558b56811f19a56ed5b684f684d-20260921
+X-User: lijiayi@kylinos.cn
+Received: from [172.25.120.57] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lijiayi@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 1694522496; Mon, 21 Sep 2026 10:58:48 +0800
+Message-ID: <3e392e3e-ec27-43b5-a361-bebca45ce087@kylinos.cn>
+Date: Mon, 21 Sep 2026 10:58:43 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Jiayi Li <lijiayi@kylinos.cn>
+Subject: Re: [RFC PATCH] usb: uas: quiesce SCSI before stopping endpoints on
+ driver unbind
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: Oliver Neukum <oneukum@suse.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-scsi@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
+ linux-kernel@vger.kernel.org
+References: <20260920012358.3362053-1-lijiayi@kylinos.cn>
+ <98374a38-eb18-44c7-8da4-d5e34944e72f@rowland.harvard.edu>
+In-Reply-To: <98374a38-eb18-44c7-8da4-d5e34944e72f@rowland.harvard.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] mm: silent memory leak masking due to PG_private removal
---
+Hi Alan,
 
-commit aee12ed3446e69cb6eee57384ca09e768dab36dd
-Author: Zi Yan <ziy@nvidia.com>
+Thank you for the clarification.
+> In general, a class driver like uas shouldn't care whether an unbind is
+> what you call "driver-only".  It should take the same steps whether it
+> can communicate with the device or not.  (Note that the patch's test for
+> USB_STATE_NOTATTACHED isn't fully reliable -- there is a window after a
+> device is unplugged before the state gets updated.)
+I understand that uas should not distinguish a driver-only unbind from a
+physical disconnect based on USB_STATE_NOTATTACHED.  I will remove that
+test and use the same teardown ordering for all disconnect paths.
 
-mm/page-flags: remove PG_private
+I will retest the revised patch and send v2 after allowing some time for
+the uas maintainers to comment.
 
-This commit removes the PG_private page flag and replaces its usage with
-checking if folio->private !=3D NULL. The space left by PG_private is
-reserved as PG_folio for future use.
-
-> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
-> index 7080a6a1a79e7..b0ddc652e76cc 100644
-> --- a/include/linux/page-flags.h
-> +++ b/include/linux/page-flags.h
-[ ... ]
-> @@ -1169,7 +1175,7 @@ static __always_inline void __ClearPageAnonExclusiv=
-e(struct page *page)
->   */
->  #define PAGE_FLAGS_CHECK_AT_FREE				\
->  	(1UL << PG_lru		| 1UL << PG_locked	|	\
-> -	 1UL << PG_private	| 1UL << PG_private_2	|	\
-> +	 1UL << PG_private_2	|				\
-
-[Severity: Medium]
-Since PG_private is removed from PAGE_FLAGS_CHECK_AT_FREE, does this bypass
-the safety check that ensures a page doesn't have uncleared private data?
-
-Looking at __free_pages_prepare() in mm/page_alloc.c:
-
-	page_cpupid_reset_last(page);
-	page->flags.f &=3D ~PAGE_FLAGS_CHECK_AT_PREP;
-	page->private =3D 0;
-	reset_page_owner(page, order);
-
-The head page's private field is silently zeroed here without any prior
-verification that it was NULL. Previously, free_page_is_bad() would catch
-and report leaked data via a bad_page() warning using
-PAGE_FLAGS_CHECK_AT_FREE.
-
-Now, if a buggy filesystem fails to detach and free folio->private data
-before freeing the page, will this result in silent memory leaks?
-
->  	 1UL << PG_writeback	| 1UL << PG_reserved	|	\
->  	 1UL << PG_active 	|				\
->  	 1UL << PG_unevictable	| __PG_MLOCKED | LRU_GEN_MASK)
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260920-remove-pg_=
-private-v5-0-bb68b6a21869@nvidia.com?part=3D17
+Thanks,
+Jiayi
