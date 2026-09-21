@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B3E3331EC5;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B57B35F19D;
 	Mon, 21 Sep 2026 06:16:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789971393; cv=none; b=rB9iV0pBktULOlF+Zi5Eq1mN+wsBs2OfPcmI8/wzZvCIuyw+c7j7lp+mk2Nac5ilshTrHlDWqpyyYPBhXvFEJtbPhFeWf6qF+k8QZ9LQmUgbbbvWaCuRqIrMUOMlrEz3ogqLCIwVAaeRH59K/lZkssYtMqoAbaFNjSzOjkrHJIc=
+	t=1789971393; cv=none; b=nWCEYQTu1WIOmM0bfzCHES8rzo0kps0WOTRgJP+nhcHQ3gS+RMCeUkWZYK0EffdI1bPlgcEtjggEM5uWvqo/MOu/Ii9nnMvV9xvTVYLqC825MkXbnL+lL26CnUQiGWUQFyQ9Sfr0tO02TmfN2fD5g00cmV0tM9O2lFO2iU/mFfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789971393; c=relaxed/simple;
-	bh=Z7oPMtzmmdxZysH8NfprVZtdImWm4xoqdqjiYrOmKrM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pV8rKIDi8c5Dbn7vP04Eil66ZQM9zvS3QaezQ0+tjWdb6GiqGk/bysyMxzQmMNF0KyJol84mKxBpCMu71ieZpguqUSHtifc5ULd+kKITrstKr4nN1lPg2mgbI0S3qrZDTKfevh+hvqgLXjxaC3ZoETKFmQHNq0qfnFoBncg0tXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B8/S9+vD; arc=none smtp.client-ip=10.30.226.201
+	bh=6MJxPjqbgb7Y/VEHgxJibzuGMSiGTlHjpPp7ebXihAI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=CxkkfLNfCs25k1AvrthNkoR0si/a+NooRv3Z+TRQifIfPRchQfqRwFl8np4YN6Tun0ZOpX1ciOZsAX6Sg4Y4KWD2QSD1HAZWjnIW7kzzpvh0urqe1fYu5kvoPEPMyy3Al+VKyVMOU5dOxRgPskuZiwvgQsFKJfvbmxcFbwaww2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=arr/3l/7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B8/S9+vD"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 11EDDC2BCFB;
-	Mon, 21 Sep 2026 06:16:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="arr/3l/7"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E7062C2BCB3;
+	Mon, 21 Sep 2026 06:16:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789971393;
-	bh=Z7oPMtzmmdxZysH8NfprVZtdImWm4xoqdqjiYrOmKrM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=B8/S9+vDvxGDAjUWVRIfABjPEBAjAy9Nm1hRE6d4sRCbnzlFCxEyTR+AP8bFKK4SM
-	 /H7gQozKaAQVm5QxvCGbnbjJN8MMiOIB5hDooWErWbtjoS0xphpxWlR9cdIR9OjLzY
-	 Smu5gcZhrumLDeTHLljK29B98Jzw3RJX53SqYF0Rj9uXAKX0PHhb9o/AK3BhUhRnF2
-	 B7uJQKBqnxMQTai4JIBz8C0qO2kLbfuqjY0U4KNxCWVgiaS/OG6r3vXJ0GQiYHuW/4
-	 Vki2HKmPu4ZQyl23/wDJpvnMtfsV3fgD5Y6YxfuNPAGgYJeTMHrCJLgU5QliqNBPLB
-	 /qHVn30VZ6/4g==
+	bh=6MJxPjqbgb7Y/VEHgxJibzuGMSiGTlHjpPp7ebXihAI=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=arr/3l/7JjqQDfbP6AjgzUB5eCnkfAd4OIFidWwe6EjU/vnlLaOyO6x4UJI74xXZA
+	 sFD8ECSyUJ2k5mMV4JmNFuRz/Vp+YA32hAa7bhD7TxYCQNVq2YWOEfKmI5hyMq6MTo
+	 gioFnoTlCqZTwmPWHAsHOoh22El8u2UHMXjZ8ZsFI7Pq+OapElBbogD4f7fMM8IN/d
+	 owPDW7TYzRWgIcj5SCgaussS164qoo0vqa7j1YdAsaB6xm9t58Gf/MbQ99fpOUUUCQ
+	 dCqGyfy1Rqn4mNoiZuxoXSYnH7Ia8eW/P7QhmGPWIwKp8p5N6+OcsxKJd+MQ8aZ5ng
+	 ygrYfL7CJNuTA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E7756C982E6;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C1787C982DE;
 	Mon, 21 Sep 2026 06:16:32 +0000 (UTC)
 From: Bingfang Guo via B4 Relay <devnull+bingfangguo.tencent.com@kernel.org>
-Date: Mon, 21 Sep 2026 14:16:25 +0800
-Subject: [PATCH v2 2/4] memcg: base swap charge accounting on memcgid root
- status
+Subject: [PATCH v2 0/4] memcg: move memcgid refcount to objcg to unpin
+ dying memcgs
+Date: Mon, 21 Sep 2026 14:16:23 +0800
+Message-Id: <20260921-bingfangguo-memcgid-rework-v2-0-6c0637dc0edb@tencent.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,9 +41,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-bingfangguo-memcgid-rework-v2-2-6c0637dc0edb@tencent.com>
-References: <20260921-bingfangguo-memcgid-rework-v2-0-6c0637dc0edb@tencent.com>
-In-Reply-To: <20260921-bingfangguo-memcgid-rework-v2-0-6c0637dc0edb@tencent.com>
+X-B4-Tracking: v=1; b=H4sIALfLsGoC/33OwYrCMBAG4FcpORtJptSMnhYEH8CreGiSSYxLE
+ 0lrd0X67kaFxQXx+M/A9/9X1lMO1LNVdWWZxtCHFEuAWcXMoY2eeLAlMxCwEAiK6xC9Kw9/Try
+ jzvhgeaaflL/5skaChkyrW2AFOGVy4feB7/YlH0I/pHx5dI3yfn2yS4mf2FFywRutXQ0gLKL7G
+ igaisPcpI7d4e1mXY3wAgr5EYQCIlmrnGoVNPI9+LIQZf2HJH00/jkKawvSLLDRSv03pmm6AWn
+ jPadbAQAA
 To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
  Roman Gushchin <roman.gushchin@linux.dev>, 
  Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
@@ -56,11 +58,11 @@ To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
 Cc: cgroups@vger.kernel.org, linux-mm@kvack.org, 
  linux-kernel@vger.kernel.org, Bingfang Guo <bingfangguo@tencent.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789971391; l=4757;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789971391; l=4662;
  i=bingfangguo@tencent.com; s=20260812; h=from:subject:message-id;
- bh=9FAyfMKM+7unLAdMxjg2Op7yswvqwLDZxs1E3W/Lmyo=;
- b=DJXQvDM7Ki8+9464bK5faIcO6vt3cMKvvJ33Y66tpyyuAQyR1gRDHKvAv1MkCrl8UZpXxh0MQ
- BNC0qblHNNqC/SHLIKTKwIuhj7rHyNsStz7NfFvhohcYC5smbLkRYHS
+ bh=6MJxPjqbgb7Y/VEHgxJibzuGMSiGTlHjpPp7ebXihAI=;
+ b=5Q7x040B0vUoB3GYgoqElocEo3xrwnGVk/iMGoohpF+TahdOPrG0amEOKcw9ubP44iLWxwITD
+ E7hGSZoG2lGBt81pbdcPmQLrg8Az/uTwnuMmf9i08Y9/zUEWeKSZz+H
 X-Developer-Key: i=bingfangguo@tencent.com; a=ed25519;
  pk=q7u9S7d5e7VijWrYF9O+vv9/XvqWduVGtwGtuCObAHE=
 X-Endpoint-Received: by B4 Relay for bingfangguo@tencent.com/20260812 with
@@ -68,126 +70,101 @@ X-Endpoint-Received: by B4 Relay for bingfangguo@tencent.com/20260812 with
 X-Original-From: Bingfang Guo <bingfangguo@tencent.com>
 Reply-To: bingfangguo@tencent.com
 
-From: Bingfang Guo <bingfangguo@tencent.com>
+Changes in v2:
+- Remove the NULL test and use the root in lru_gen_test_recent() to fix
+  the uninitialized lruvec pointer. (Shakeel)
+- Wrap rcu section in the swap charging path with scoped_guard.
+  (Shakeel)
+- Replace rcu lock with lockdep assertion in mem_cgroup_private_id_put().
+  (Shakeel)
+- Keep memcg->private_id datatype unchanged and send it separately later
+  for simplicity of this series. (Muchun)
+- Add blank lines between variable definitions and assertions. (Muchun)
+- Remove redundant comments. (Muchun & Shakeel)
+- Collect Acked-by tags.
+- Link to v1: https://lore.kernel.org/r/20260918-bingfangguo-memcgid-rework-v1-0-5bbf3220d88f@tencent.com
 
-A private ID currently pins its original memcg, so testing whether the
-ID belongs to root is equivalent to testing whether the resolved memcg
-is root.
+Although the dying memcg problem caused by LRU pages is fixed, I can
+still see many dying memcgs on some workloads that use shmem and those
+pages are swapped out. For example, programs populating logs to tmpfs or
+containers sharing data using shmem.  This series binds the memcgid
+refcount to objcgs so dying memcgs can be freed normally in this case.
 
-That equivalence will no longer hold when IDs refer to objcgs. A
-non-root ID may resolve to root after reparenting, but its swap entries
-still carry counter charges inherited by root. Skipping their uncharge
-based on the resolved memcg would leave those charges behind.
+The memcg private ID identifies memcgs for objects that can outlive the
+cgroup itself: swap entries and workingset shadows.  Today the ID's
+refcount is embedded in the css, and every outstanding ID reference
+(mostly swap entries) pins the css, keeping the entire memcg alive.
+This causes a problem: A swapped-out page holds a memcgid reference that
+pins the css, so the memcg cannot be freed until the page is swapped
+back in and charged back to its online parent.
 
-Use the private ID's root status to decide whether a swap entry carries
-a counter charge. A root-ID entry carries none, while a non-root-ID
-entry must release its charge even if its current accounting memcg has
-become root.
+The work done by Muchun Song and Qi Zheng already charges folios to the
+objcg, which is reparented to its parent when the memcg offlines.  This
+series applies similar idea to the memcg private ID: the ID's refcount
+moves from the css into the objcg, and the memcgid xarray holds a
+reference to an objcg instead of pinning the css.  When the memcg
+offlines, the objcg is reparented and any remaining memcgid references
+resolve to the ancestor, so swapped-out pages no longer pin the dying
+memcg and get the online parent naturally on swapin.
 
-This patch adds a new helper to check if the memcgid equals to that of
-the root memcg.  For swap uncharging and v2 swap charging, simply decide
-whether to charge/uncharge memsw or swap counter based on the swap
-memcgid is root or not. For v1 swapout, don't recharge the memsw
-counter, just cancel the charge if the swap memcg ID refers to the root
-memcg.
+Unbinding the ID from the memcg has three consequences the series has to
+deal with:
 
-This makes memory and swap charging have similar semantics: one relys on
-the objcg's root status, and the other relys on the memcgid's root
-status.
+  1. The ID stops pinning the memcg, so the paths that relied on the ID
+     reference to keep the memcg alive have to hold the RCU read lock
+     instead.  (Patch 1)
+
+  2. Charge and uncharge no longer necessarily happen on the same memcg:
+     swapout charges the folio's memcg, while the slot free resolves the
+     nearest live ancestor.  The counters are hierarchical, and the
+     MEMCG_SWAP stat is either reparented at offline (v1) or not visible
+     (v2), so nothing leaks.  But "does this entry carry a counter
+     charge at all" can no longer be answered from the resolved memcg:
+     root is skipped only because root's swap is not accounted, and a
+     non-root ID whose memcg was reparented into root still carries a
+     charge that must be released.  Patch 2 adds
+     mem_cgroup_private_id_is_root() and makes all three swap paths
+     decide on the ID's root status.
+
+  3. An ID can now outlive the memcg it was allocated to, so the memcg
+     resolved from an ID is not necessarily the memcg the ID was handed
+     out for.  Callers that need exactly that memcg (list_lru, the
+     workingset and MGLRU shadow tests) now get NULL and skip the entry,
+     while the swap paths, which only need something to account to, get
+     the nearest live ancestor.  (Patch 4)
+
+The series is now four patches. The first three are preparation that
+keeps today's semantics while the ID is still bound to the css. Only the
+last patch changes behavior.
+
+** Testing **
+
+RFC v1 contains some scripts and codes for reproducing the problem and
+testing the fix [1].
+
+[1] https://lore.kernel.org/r/20260813-memcgid-objcg-v1-0-83d21c685b77@tencent.com
 
 Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
-Acked-by: Muchun Song <muchun.song@linux.dev>
 ---
- mm/memcontrol-v1.c | 16 ++++++++--------
- mm/memcontrol-v1.h |  5 +++++
- mm/memcontrol.c    |  4 ++--
- 3 files changed, 15 insertions(+), 10 deletions(-)
+Bingfang Guo (4):
+      memcg: keep swap charging under RCU protection
+      memcg: base swap charge accounting on memcgid root status
+      memcg: manipulate memcg private ID references by ID
+      memcg: move memcg private ID refcount to objcg
 
-diff --git a/mm/memcontrol-v1.c b/mm/memcontrol-v1.c
-index bf2c7d53b01b1..ed015fdd95123 100644
---- a/mm/memcontrol-v1.c
-+++ b/mm/memcontrol-v1.c
-@@ -271,6 +271,7 @@ void __memcg1_swapout(struct folio *folio, struct swap_cluster_info *ci)
- 	struct mem_cgroup *memcg, *swap_memcg;
- 	struct obj_cgroup *objcg;
- 	unsigned int nr_entries;
-+	unsigned short private_id;
- 
- 	VM_WARN_ON_ONCE_FOLIO(!folio_test_swapcache(folio), folio);
- 	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
-@@ -293,25 +294,24 @@ void __memcg1_swapout(struct folio *folio, struct swap_cluster_info *ci)
- 	/*
- 	 * In case the memcg owning these pages has been offlined and doesn't
- 	 * have an ID allocated to it anymore, charge the closest online
--	 * ancestor for the swap instead and transfer the memory+swap charge.
-+	 * ancestor for the swap instead and cancel the memory+swap charge
-+	 * if the ID refers to the root memcg.
- 	 */
- 	nr_entries = folio_nr_pages(folio);
- 	swap_memcg = mem_cgroup_private_id_get_online(memcg, nr_entries);
-+	private_id = mem_cgroup_private_id(swap_memcg);
- 	mod_memcg_state(swap_memcg, MEMCG_SWAP, nr_entries);
- 
--	__swap_cgroup_set(ci, swp_cluster_offset(folio->swap), nr_entries,
--			  mem_cgroup_private_id(swap_memcg));
-+	__swap_cgroup_set(ci, swp_cluster_offset(folio->swap), nr_entries, private_id);
- 
- 	folio_unqueue_deferred_split(folio);
- 	folio->memcg_data = 0;
- 
--	if (!obj_cgroup_is_root(objcg))
-+	if (!obj_cgroup_is_root(objcg)) {
- 		page_counter_uncharge(&memcg->memory, nr_entries);
- 
--	if (memcg != swap_memcg) {
--		if (!mem_cgroup_is_root(swap_memcg))
--			page_counter_charge(&swap_memcg->memsw, nr_entries);
--		page_counter_uncharge(&memcg->memsw, nr_entries);
-+		if (mem_cgroup_private_id_is_root(private_id))
-+			page_counter_uncharge(&memcg->memsw, nr_entries);
- 	}
- 
- 	/*
-diff --git a/mm/memcontrol-v1.h b/mm/memcontrol-v1.h
-index 2cd37e1792d79..23be2512702dc 100644
---- a/mm/memcontrol-v1.h
-+++ b/mm/memcontrol-v1.h
-@@ -22,6 +22,11 @@ void drain_all_stock(struct mem_cgroup *root_memcg);
- 
- int memory_stat_show(struct seq_file *m, void *v);
- 
-+static inline bool mem_cgroup_private_id_is_root(unsigned short id)
-+{
-+	return id == mem_cgroup_private_id(root_mem_cgroup);
-+}
-+
- struct mem_cgroup *mem_cgroup_private_id_get_online(struct mem_cgroup *memcg,
- 						    unsigned int n);
- 
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 981a231a76129..aedac862fe254 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -5975,7 +5975,7 @@ int __mem_cgroup_try_charge_swap(struct folio *folio)
- 		/* memcg is pined by memcg ID. */
- 		private_id = mem_cgroup_private_id(memcg);
- 
--		if (!mem_cgroup_is_root(memcg) &&
-+		if (!mem_cgroup_private_id_is_root(private_id) &&
- 		    !page_counter_try_charge(&memcg->swap, nr_pages, &counter)) {
- 			memcg_memory_event(memcg, MEMCG_SWAP_MAX);
- 			memcg_memory_event(memcg, MEMCG_SWAP_FAIL);
-@@ -6004,7 +6004,7 @@ void __mem_cgroup_uncharge_swap(unsigned short id, unsigned int nr_pages)
- 	rcu_read_lock();
- 	memcg = mem_cgroup_from_private_id(id);
- 	if (memcg) {
--		if (!mem_cgroup_is_root(memcg)) {
-+		if (!mem_cgroup_private_id_is_root(id)) {
- 			if (do_memsw_account())
- 				page_counter_uncharge(&memcg->memsw, nr_pages);
- 			else
+ include/linux/memcontrol.h |   7 +--
+ mm/list_lru.c              |   2 +-
+ mm/memcontrol-v1.c         |  21 ++++----
+ mm/memcontrol-v1.h         |   8 ++-
+ mm/memcontrol.c            | 125 +++++++++++++++++++++++++++++++--------------
+ mm/workingset.c            |   2 +-
+ 6 files changed, 109 insertions(+), 56 deletions(-)
+---
+base-commit: 8d61431ed2607386b427752505379536eb634ce8
+change-id: 20260827-bingfangguo-memcgid-rework-938e25ecaba2
 
+Best regards,
 -- 
-2.43.7
+Bingfang Guo <bingfangguo@tencent.com>
 
 
