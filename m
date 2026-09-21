@@ -1,173 +1,142 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EE73D3B3
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:33:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EBF1FC0;
+	Mon, 21 Sep 2026 00:37:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789950790; cv=none; b=EVfU/DDTmapBi0YOWoYNJzf3Wy27ADAnV46zkoR9Kl7NgUC4Kd3m1D+lETpTSwCxgumhEacQ+Dz4dUSS/36B4fo+SZbELYqHatDdeio3EPmPmyPgp+lAXz+6cxFYIZ4SMFoY8UDln79vSSodmb1rzOMrVPJepkhfxEftgS+CDQ4=
+	t=1789951043; cv=none; b=FNJyeHJR4KJK0YkJAq20a1Wnz/kE7qIqftKPYwy3729b2f/uZKgsBrscJG3K3ijZKX3Tgpw32C/Hf1PcZLG/sjIoRpPsNW20Bz0qxZOhoMSi/IUd3/MTLNGrJuJUkpiuAVDjPot8r+h4SmE0c4FLBC4o3S0owGm96eiiYeWjlOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789950790; c=relaxed/simple;
-	bh=JuCBa24Q8mcK4IKnzSx3OFgFtgWwVjqbYpPpkFwtRIU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lTT34Xjs9AiztsQRaAgrthAegfc/BYy4PmKFJMQVXMhKpaZsXRS7smo+JgM3owZK1L9ivbJY5HTKP/fwfm9ES7ccSsqA6s3LMxe8biC4A6aDHe7SEgOnAgU6ay5KjvZuivL24+x48v001pUudTuUAttm15SCsyhI4RCD8N/Wzeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JHZvwieB; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789951043; c=relaxed/simple;
+	bh=jUSdsryHLUcbcflpvGA1b+Rdye8ulVCq+UtIvIPiFvY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VucZjk4KUZzLcYIHzOnDqKVwbD0e6Ni3PjXmojvpDnUN35ioAaQnBM34WU2j0oCU/oV6czWPiS1yJNVDGSrZLNEpSxNCkezhCtiMTE1zbPMconbPLL3BUvR+v8lv+GEqbSRBY8Bv5OUOPHs1Vhdkrf1vRsvkngmdcY70wItpJd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=R7ImQD2/; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JHZvwieB"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ec6185so14446195ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:33:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789950789; x=1790555589; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rMRLgcYmgr1ReQQm9bu3ytCdU9X0QEixo1U1Eo8/PJA=;
-        b=JHZvwieBH0u7ScD1d6le0c8i4r3zobbI8/gzbWKCwb6tYkQXHTncEAJZpRWJm0vm3+
-         nzTunqQzwLzXwgN714hKUEtbcJ7C/LUuaRkVf9xDx6PxcKpcWaUnv4t5pfKyRWIu46tj
-         Uw3a275P4uAGyz/MSd09TQTWXSxmBA0nUWhiKLiXGwhJ9jeRbntTu6gKx96HY1sdDtev
-         IRO1OfUHeyIyQm1eZZp0l16FbCRjU8Ok6R4hDWM40CBZKdLkRqDghgbWR4jvRtEDzOsV
-         E/iUQQ8709WwV8O8wgMVVVpT6ov18Y21HK65w9VYMwWBZuqOhaonic4fVN9SzZXNaGXV
-         09vQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789950789; x=1790555589;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rMRLgcYmgr1ReQQm9bu3ytCdU9X0QEixo1U1Eo8/PJA=;
-        b=naxqXqxzMDJaqUkVjaLHFnY+lQhyCvxFyJmRba3wmquSogOfCCnwtIUv3SM4QdCxk4
-         2x0CygkFy0+zePAdqHmfZOI8ol8Xz5v4wqb0CqtfNPlXNKXp5zLuiEclxfJTCULekj/2
-         IDpj2i/CfljR2OeQu1RglZQ28+kRFTGlfbvVN+D/Y0fEkUufIFhAMgbkX6e+QsEyhHj4
-         I+UVaCv0l8iaYOm8JFD3SZrfwDpE1TLEP8a37vpptTT6Ia+vNEvZuV+babw74ElToM8H
-         aqdIrTE7k1poCsFf6SuXnBRhfRWHba3jG2y5j22VYFDLTTdTNpFzTU9MFEpVbT1XfXFK
-         HYyg==
-X-Forwarded-Encrypted: i=1; AKwUvBw7mNb76Wkm4qlVUPaqQ46aJ3stEQ39+Ru57tr7byU2nFRwsEzHOmg22GaVsYQ4ArW3H2sZou8sagk0V2U=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhMxQHpBiZKxy0rWwMKX9m6bRduHKxdvqF4py5i/Svy/kytq9+
-	zfTN1TyIB2Jjvb9b6QN0uaqtIF1VAEQWbmEYQDb/sV8j7OfjKtRJxyrf
-X-Gm-Gg: AYBFou1OGQj6DALk0y2JSSkYHTua0MFg3ZoiIcvAfGzSZkWsm0tYhHw4x9tsIsYV/5b
-	q2r4aq2HDSJzXyx6G6Fur8XO96q8NiQj2/K0aPG7rCZ1kly/I2onT/yjml3gKxgZBceL3Qm923g
-	SDws2exmntGHVkwlFtrspzrTj7/mSlTpU+VA3UTPWaOTdItyBD92LBhMlyen4fOR7tgX6oig250
-	tJ9K4dWYggVeiW4DXaE8VdQ2vQG/WRPe8LTTmFrcRfk5LUjE58vxQDwQqiy4+viGDqG+gMjTndY
-	k5e0PRj5qh/hetPb3oWB0GVl+wIFEGav8D+qIylzEVRkAeOQ+Gy9wfkp1Jo9tYpWKOhJeP62nLX
-	hoOQ4706vhmyifAvGi9SmITHVPRPmT+fG0Jclrvkt5QgNAcqHPxWGBpGHEc9doxjxif+pRjLGHq
-	4pE8nX9MU1CpnqQWHDZf8TMRYvFw9GtnhlJCslfrsV8ZQyKW8i7kEgVrnxu02zKF3O5WigeMAPV
-	sDYsbt+fhq3fzOI7C5ZnIFDyE2TSM0u0UdeLwix0e8si1imo/mQ0zAKR3xTei8zTPh3cAkqkCFq
-	YXGx2bo/xQPTC74J5yjh
-X-Received: by 2002:a17:902:c948:b0:2d8:d4de:fa80 with SMTP id d9443c01a7336-2ddb1ab39edmr133532675ad.4.1789950788805;
-        Sun, 20 Sep 2026 17:33:08 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df44673b36sm8566115ad.0.2026.09.20.17.33.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 17:33:08 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] perf/core: fix user->locked_vm leak on secondary mmap()
-Date: Mon, 21 Sep 2026 00:33:06 +0000
-Message-ID: <20260921003306.426050-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <20260919221728.3707189-1-benquike@gmail.com>
-References: <20260919221728.3707189-1-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="R7ImQD2/"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=jUSdsryHLUcbcflpvGA1b+Rdye8ulVCq+UtIvIPiFvY=; b=R7ImQD
+	2/EHjNxEdtg4pd3vjaPfRh/m/a15X13i17xBqOkSfDP9p9pneJaTIM6Xp6GaZOYqW1+V5AyST+DF+
+	q/bM/BU2+dJKginoE6zAuF1w23S9m8LU9ZHn0lBYekN/qL016QZY362rW0Ka9etYntRx8mAYFINYt
+	Z4NNoYQ/bCmXdnnlp27InzAXbgGoER9co/65F8Rgynhim/ysBHbW7O6s4rJcKKUh2n9e9JwAKilUY
+	fQz7VdZyNIemn1Z9mhtM6PeSlGvmduF/R3Wtv3n+7nG14vNPachv2SRbdSpjb0yANRZz7vAmkP1Oo
+	biL6r86xHXNitbpCJNhH1vKfEZcw==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1x8S0h-0000000CnAC-3ZS3;
+	Mon, 21 Sep 2026 00:35:55 +0000
+Message-ID: <da13e0e48568da3ccccc304aeb449ababf085e14.camel@surriel.com>
+Subject: Re: Path forward for Virtualized Swap?
+From: Rik van Riel <riel@surriel.com>
+To: Chris Li <chrisl@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Michal Hocko <mhocko@kernel.org>, Roman
+ Gushchin	 <roman.gushchin@linux.dev>, Shakeel Butt
+ <shakeel.butt@linux.dev>, Yosry Ahmed	 <yosry@kernel.org>, David
+ Hildenbrand <david@kernel.org>, Muchun Song	 <muchun.song@linux.dev>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He	 <baoquan.he@linux.dev>,
+ Barry Song <baohua@kernel.org>, YoungJun Park	 <youngjun.park@lge.com>,
+ Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)"	
+ <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka
+ (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
+ =?UTF-8?Q?Baghdasaryan=EF=BF=BC?=	 <surenb@google.com>, Qi Zheng
+ <qi.zheng@linux.dev>, Axel Rasmussen	 <axelrasmussen@google.com>, Yuanchu
+ Xie <yuanchu@google.com>, Wei Xu	 <weixugc@google.com>, Gregory Price
+ <gourry@gourry.net>, Wenchao Hao	 <haowenchao22@gmail.com>, Jonathan Corbet
+ <corbet@lwn.net>, Hugh Dickins	 <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Tejun Heo	 <tj@kernel.org>, Michal
+ =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>, Shuah Khan
+ <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, Meta kernel
+ team	 <kernel-team@meta.com>, Linux Memory Management List
+ <linux-mm@kvack.org>,  Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, "open
+ list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Joshua Hahn	 <joshua.hahnjy@gmail.com>
+Date: Sun, 20 Sep 2026 20:35:55 -0400
+In-Reply-To: <CACePvbXDDDHo0rwkR3Ln4==teQugYP2=5y87J+A48Lagk1X_zg@mail.gmail.com>
+References: 
+	<CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+	 <CAMgjq7AHRzBsbmGOx0s=TQFBwcn=DEU1naR443sO6x+pJd6hAg@mail.gmail.com>
+	 <aqBT_35E-eSoN_zj@cmpxchg.org>
+	 <CAKEwX=N4aaq_oD2agTUNrUNXhaYGeQ9vxu+dywFvEFgWFi4uQg@mail.gmail.com>
+	 <CAMgjq7AfNBUpMamcv29JFzpX=7ApNYVLtPjWT4Sm8cXjSLYL9g@mail.gmail.com>
+	 <aqU81l1oqGItb-0C@cmpxchg.org>
+	 <CACePvbWLHAT5DjC=HidzN10XF5_cnkpxXXDR_yfEJjTY_uDvDQ@mail.gmail.com>
+	 <e42d8bb0bb13067609e8ff8c858a26ca056368bd.camel@surriel.com>
+	 <CACePvbXDDDHo0rwkR3Ln4==teQugYP2=5y87J+A48Lagk1X_zg@mail.gmail.com>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Commit 0c8a4e4139ad ("perf/core: Further simplify perf_mmap()") hoisted
-`user_extra = nr_pages` ahead of the existing-buffer checks (`if
-(event->rb)` and `if (rb_has_aux(rb))`), and subsequently
-commit 5d299897f1e3 ("perf: Split out the RB allocation") and
-commit 2aee37682391 ("perf: Split out the AUX buffer allocation")
-carried `long extra = 0, user_extra = nr_pages` into perf_mmap_rb() and
-perf_mmap_aux().
+On Sun, 2026-09-20 at 14:18 -1000, Chris Li wrote:
+> On Sat, Sep 19, 2026 at 3:07=E2=80=AFPM Rik van Riel <riel@surriel.com>
+> wrote:
+> >=20
+> > >=20
+> > > For our deployment, we only compress about 7-10% of the system
+> > > memory
+> > > before performance starts to suffer. The feedback loop will scale
+> > > it
+> > > back. I am very curious do you have actual work load to swap out
+> > > 100%
+> > > of the RAM.
+> >=20
+> > One common workload is a web browser with idle tabs.
+> >=20
+> > Those often compress pretty well, a ratio of 4:1 is
+> > not unheard of, which makes it easy to fill up
+> > 1/3 of memory with 133% of memory's worth of compressed
+> > memory.
+>=20
+> You did not answer my question. You are talking about user-space
+> processes (browsers). Do you run your browser in the data center, or
+> is that a laptop workload?
 
-As a result, when an already-allocated ring buffer (`event->rb`) or AUX
-buffer (`rb_has_aux(rb)`) is mapped again via mmap(), perf_mmap_account()
-is called with `user_extra = nr_pages` instead of `0`, charging `nr_pages`
-to `current_user()->locked_vm` on every additional mapping. However,
-perf_mmap_unaccount() and perf_mmap_close() only subtract the ring buffer's
-and AUX buffer's pages once when the final `rb->mmap_count` /
-`rb->aux_mmap_count` reference drops to zero. Consequently, every secondary
-mmap() + munmap() cycle on a perf event permanently leaks `nr_pages` in
-`user->locked_vm`, eventually exhausting `perf_event_mlock_kb` and
-`RLIMIT_MEMLOCK` (-EPERM) for that user.
+The browser runs on the desktop, but the same
+kernel runs on both.
 
-Fix this by only calling perf_mmap_account() when allocating a new ring
-buffer in perf_mmap_rb() or a new AUX buffer in perf_mmap_aux().
+The things we build here cannot be optimized for
+just one single workload. They have to work
+everywhere.
 
-Tested in QEMU against Linux 7.3.0-rc3 with a standalone C reproducer
-running as an unprivileged user (UID 1000, RLIMIT_MEMLOCK=0,
-perf_event_paranoid=1) that opens a software perf event, maps a 65-page
-ring buffer, performs 10 secondary mmap() + munmap() cycles on the same
-event fd, and then unmaps and closes the event. On the unfixed kernel,
-subsequent perf_mmap() calls by UID 1000 permanently fail with -EPERM due
-to the leaked `user->locked_vm` (650 pages leaked), whereas with the fix
-applied `user->locked_vm` returns to 0 and subsequent perf_mmap() calls
-succeed.
 
-Fixes: 0c8a4e4139ad ("perf/core: Further simplify perf_mmap()")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
----
-Changes in v2:
-- Dropped the cross-MM `pinned_vm` / `rb->mmap_mm` (`mmgrab`/`mmdrop`)
-  changes (which caused an RCU softirq context violation in `rb_free_rcu()`
-  in v1, flagged by sashiko-bot) to keep this patch focused on the
-  `user->locked_vm` leak on secondary `mmap()`.
-- Updated the `Fixes:` tag to `0c8a4e4139ad ("perf/core: Further simplify
-  perf_mmap()")` and added QEMU reproducer test details to the commit
-  message.
-
- kernel/events/core.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index fe33fe15689d..8fc15239bd7e 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -7311,7 +7311,6 @@ static int perf_mmap_rb(struct vm_area_struct *vma, struct perf_event *event,
- 			 * Success -- managed to mmap() the same buffer
- 			 * multiple times.
- 			 */
--			perf_mmap_account(vma, user_extra, extra);
- 			refcount_inc(&event->mmap_count);
- 			return 0;
- 		}
-@@ -7399,7 +7398,6 @@ static int perf_mmap_aux(struct vm_area_struct *vma, struct perf_event *event,
- 
- 	if (rb_has_aux(rb)) {
- 		refcount_inc(&rb->aux_mmap_count);
--
- 	} else {
- 		if (!perf_mmap_calc_limits(vma, &user_extra, &extra)) {
- 			refcount_dec(&rb->mmap_count);
-@@ -7420,9 +7418,9 @@ static int perf_mmap_aux(struct vm_area_struct *vma, struct perf_event *event,
- 
- 		refcount_set(&rb->aux_mmap_count, 1);
- 		rb->aux_mmap_locked = extra;
-+		perf_mmap_account(vma, user_extra, extra);
- 	}
- 
--	perf_mmap_account(vma, user_extra, extra);
- 	refcount_inc(&event->mmap_count);
- 
- 	return 0;
--- 
-2.47.3
+--=20
+All Rights Reversed.
