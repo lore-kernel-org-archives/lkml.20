@@ -1,755 +1,213 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012047.outbound.protection.outlook.com [52.101.53.47])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BE545C6EE;
-	Mon, 21 Sep 2026 08:57:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789981062; cv=fail; b=VxDMMkodKk1dM+TmZSI881Y/psfaRtBfC6EEo8wllH4BXGBtAgU/ZfPe6rYY9Y9yXP2W7Vsf7TrZlkzkz7H9BFmSGN6ZX5G/KUZy3vHDx9MNjBJTRqA3YaP1DKDhmcn5/soLoIBMIX+La3EyhjY7XyjHzRpcm/STcjBcsYYwVxQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789981062; c=relaxed/simple;
-	bh=yDIVb3fSgPbY30O7+/T/aZ+tX5ftnh/xtgLyuKniyd0=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MEXTwdgXq2umuJ7uM5q0quPE5u0LLSWUMM6FLSHv4ZIaZXFwZgWnPS0lxvtJcuwRV3Zi7OCBcyb59vJ3ToQy0ZQjrYYsTMSDQXyIDN/8qWzE5vuQECl0JDqBVB5HCaZxOaXPmKXpTrFnw4VOQVzWbRI7Qy85kYPVfZPJxThit2k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=U8Oay7mF; arc=fail smtp.client-ip=52.101.53.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ACA445C704;
+	Mon, 21 Sep 2026 08:58:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789981128; cv=none; b=Hbk84G1HkNf1f8YYx8N+6kg4hHwn/lAdWWz9Cnd/DXVLQExsfrBtrMSfeWVI1RLlmEfSz17QU9IyxgjUqAC3/WRJy/uPLwtTKn/aYkzsrXMOVLLTOrc4kWjsGm8iPjNftV2Nu6+VKFLZSG5N3aNtAeCfuM59KyTQoq1wrbUi550=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789981128; c=relaxed/simple;
+	bh=WpOr3csztkRtov9yqk6fRyk6eDyoY72F8Ujbrz8dTBk=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=XRK2ffKQKlV1pfTFptmx3KPgXsaAC3Eb9BAJqCeBzAcT+uO+9lPx4nbKxOWY5lw8TFDp67IpZbDOIrZqRnXTeSwzQnlBjAwDwHUeDJgDM7zorPMAvGN2JZmT8Szo6s8DLKXwTxV77FDKbje895qIfQ718JfJ4NY4q3cU10vyDPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Qk1puQMH; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="U8Oay7mF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jATyDOM+aOajpJpwOHagEz7Ane3PyObu/H/VShGNY7bRInZnugaOEOCHl1fPavvlhWvRuxxNMvj/EKmJq4yWqqM9FHU/oFEgxSZ5HEPdtt1z57IPK7mEHSK4MJxoc6AhncdR88/RY1zYIzjf9m/v65x+LWE+nIJhXDewNb6CL6X17nUtp015j9ProByFCdz9ksKbsaTE8MpXn8rlTrl5J4RWET50JtE6Ip/iKsU5W+yQYbvCBwrXKy167dVTRsu2ipnhLtpIUQBb75FnjuqySQFCb89yEsg3tjr7pFoSv5GskXnMzdzXrC3GrJisRg4uVYFQLpafP/tEvl1PcAhzvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vcerZHfVMNqNU125+XBUJCCEJ51ZiIwgi2CmvIFqgcs=;
- b=DGT6sSenMyfmCaHzc9Ukmbt5kytAJwJ8g2a876DdfOI4QdMZ5p20bh5tko2z+lsdAzti2RT8JzManoLk9BBsDJsxMjQLcBnZuanKZI0VV/rvn94WPfWFAPM95E8Y9Ov+Y0OQKYnnnUe2y5BOtKYY/Rr64z4DWmswueTCLR8ohSTS7Sm8mGlHFVc8OdGXoJJKrIA9W482+nf/zTGfbbzA6dpSdsuWr9jAf8ioaW5Yw0IKVdMjT9gCEbSfXZI9DYsmIBxlAJvN2VoDlE2g6zAGkN9Io4wWBQ+mskeaV8Qvk0yoFTfY9skaqC16g+3q/0Fh006rFakevLCYvgzlFhnUVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=gmail.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vcerZHfVMNqNU125+XBUJCCEJ51ZiIwgi2CmvIFqgcs=;
- b=U8Oay7mFiVPcKjBusuIRbRkSUA+GpOmBDk+u6qYH2rooSIrnL3tCUCZIGUM3sQmSVF7XTaP/JjMopiTHuYY0qJfrhz4ikPlsh6HezJ+g9BenFD4NQB55ECmNKAkaMv+0jrEGmjM2/Y0O/f1IGskfIUBswAtTVig9pJrUZcal36gt8Nvjqq+Lga7QvgY6F3fyF+FWSDcdN67Hd9IsKj4jU63tMxqPd+tCsTLR2hoDjTrur8e/iEj/JpEWfwa0LBUR05b9v2/ymDjIqW5HbHJdSpsHMEgCu3BtYvMOyyJSnTjaZ+PCyyRGRxI94pyRKQqbKAAYNcKumUlQU06LV9Bjbg==
-Received: from CH2PR20CA0020.namprd20.prod.outlook.com (2603:10b6:610:58::30)
- by DM6PR12MB4484.namprd12.prod.outlook.com (2603:10b6:5:28f::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 08:57:28 +0000
-Received: from DS2PEPF000061C6.namprd02.prod.outlook.com
- (2603:10b6:610:58:cafe::10) by CH2PR20CA0020.outlook.office365.com
- (2603:10b6:610:58::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
- 21 Sep 2026 08:57:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- DS2PEPF000061C6.mail.protection.outlook.com (10.167.23.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 08:57:28 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
- 2026 01:57:14 -0700
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
- 2026 01:57:14 -0700
-Received: from build-sheetal-noble-20260902.internal (10.127.8.14) by
- mail.nvidia.com (10.129.68.10) with Microsoft SMTP Server id 15.2.2562.49 via
- Frontend Transport; Mon, 21 Sep 2026 01:57:13 -0700
-From: Sheetal <sheetal@nvidia.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-CC: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Thierry
- Reding" <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
-	Sameer Pujar <spujar@nvidia.com>, Kuninori Morimoto
-	<kuninori.morimoto.gx@renesas.com>, Mohan Kumar <mkumard@nvidia.com>,
-	<linux-sound@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Sheetal <sheetal@nvidia.com>
-Subject: [RFC PATCH 2/3] ASoC: tegra: Update ASRC ratio controls
-Date: Mon, 21 Sep 2026 08:57:03 +0000
-Message-ID: <20260921085704.1248920-3-sheetal@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260921085704.1248920-1-sheetal@nvidia.com>
-References: <20260921085704.1248920-1-sheetal@nvidia.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Qk1puQMH"
+Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 522F114C7;
+	Mon, 21 Sep 2026 10:56:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789981019;
+	bh=WpOr3csztkRtov9yqk6fRyk6eDyoY72F8Ujbrz8dTBk=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=Qk1puQMH+MADQWQVwVoS5w5Iy0NqugdnVf5+U1Ys3Piuy3UTKB/lfolE3Whse8who
+	 8DOG+VMHNKuj4Wjohpb/1qE02Tb/WUJSTj3TE+P+RbzCCjznG8ZoFXPpmiH0xJIZrR
+	 9YA2aaIUy/FAvLSTXonyOeZVZXhDB6d0UGGVqb2w=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF000061C6:EE_|DM6PR12MB4484:EE_
-X-MS-Office365-Filtering-Correlation-Id: b56fcc6a-a62f-4c1a-2f5d-08df17be5d28
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|3023799007|6133799003|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	PSaNfLyE1UkBUtiAAsVQNdEBWELje0ZE/gf+32zjn7xPtIfiQvt83kn6gW2G2c6zwDzrSEAK4XwTjXan2Nkyi3I/bXBTiRM8t0kK9bLD4LcZFU0yLxEjBn5qwVv3V7O9GLT79OgUepDPIAxp97KCX24vYaOj/YFH7Wm1i4mUoCezorynmFWXUTQ5yThOPpw5Kb9PybkUucYo0NEQAyVS1m6SxCQMxk8IaRffRbpc6GIhPYh92aw9JfZ1nAP9cb6vl37o79vDVh9qqruO+hN5D3Z/wfbcOSieAc/oUaIrAglxDYC2I0N34M/Jhh/tg3oKdnPS9Nm6hWs0KI+GjeopSm7TU0ua46isORYaAVdiBGDbJbAaTWcyU0Tk6x1DaXw3ZqXHudIiNMry6PLaJLUD3Wt2I7PAl2UJdfLlDfxofC3jj+OifLtA3VKFkFhK/0oFIbmTm7vg+vD02d+JyCRgWnLLL2ziuffWCM/OxIRvcg8VcywhnShII+R7V4gjHoqCyaA2tec8bMn6ZcDwrrYujKxJ1wmlh2D7zs9Z/sVgNmjy06zUygwOg9+SZ37Z/JRX3+3ZENG47jaxKC6vjPqVqiN4R2Nbp9W1mY7E/jM33HxTF+noujz/iBAN0vInbDYqzf2YzsNeSmYVVw2ddMAPL9ZbEVf7oB7hBosLHolRdFwFBunLl5He62zP3FYrk86miXct3tdJMMiB4sxlzT4mWQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(3023799007)(6133799003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	i1mSaCFyGCfkxBewn50WraKFTuHIOHsIbXdlYXHWewnE7vej+tCWzNqBQ1oEGwHxkR7adP4altPUhdjVDdk7yXjsjPHIfYuKIppAzbH8EuTQrfPfbWlj//I1v4WYFfDhyLKO0OxF8jC+c3yza08kTacbrEXSzLyn4Ma2fpi8WIJd38zZVwO7aQjtvPd9fs9TJmiuU5UrU2FOUWuGciG/Uzbb7HpOowtCEPwZPxp8AsgUW5xSfpkbOxLR70QwH5goNd9dXURpiL15X4CrJiwbYT+6Jf78nTJO99OVjObC2tlJV+5brl82pXtnGSO1EkE2I1KSRm1RtAGdtISdNAAx2XWMpvcNHOMuSYugNx1ONWzZgftb9+KPfl33Xp8ruAZWokmI/pjKRhZD26WgnTQhX8wxrCvZmN/u3I22q3lF0QMbup9IxVHkHuONfaphFxeT
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 08:57:28.2999
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b56fcc6a-a62f-4c1a-2f5d-08df17be5d28
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF000061C6.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4484
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260921082609.30830-1-lsa.uz@pm.me>
+References: <20260921082609.30830-1-lsa.uz@pm.me>
+Subject: Re: [PATCH] media: i2c: ov13858: add horizontal and vertical flip controls
+From: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-kernel@vger.kernel.org
+To: Sergey Lebedev <lsa.uz@pm.me>, linux-media@vger.kernel.org
+Date: Mon, 21 Sep 2026 09:58:42 +0100
+Message-ID: <178998112223.1723501.7946524742858282804@ping.linuxembedded.co.uk>
+User-Agent: alot/0.9.1
 
-Replace the separate integer and fractional ASRC ratio controls with a
-single two-value control for each stream. This is a userspace-visible
-control ABI change, but:
+Quoting Sergey Lebedev (2026-09-21 09:26:14)
+> The driver programs OV13858_REG_FORMAT1 (0x3820) from its mode tables and
+> never exposes the readout direction, so a module mounted rotated cannot be
+> corrected.
+>=20
+> The Microsoft Surface Pro 11 for Business (Intel) mounts this sensor upsi=
+de
+> down, and ipu-bridge now says so - b238116ccd4b ("media: ipu-bridge: Add
+> upside-down quirk for Surface Pro 11"). libcamera reads that rotation and
+> tries to compensate with sensor flips, finds neither control, and falls
+> back to Rot0, so the quirk on its own names a rotation nothing can undo.
+>=20
+> ov13b10 has the same two controls, but it is a different part and its bit
+> assignments do not carry over. There is no public datasheet for this one,
+> so these were found by experiment on a single sample: single bits written
+> over i2c mid-stream, each captured frame correlated against the flipped
+> baseline. Of every bit in 0x3820 through 0x3823 exactly two move the
+> image: 0x3820 BIT(4) set flips vertically, and BIT(3) cleared mirrors
+> horizontally. 0x3821, where the mirror sits on several other OmniVision
+> parts, has no effect here.
+>=20
+> Verified through the controls against a static scene, as correlation with
+> the flipped reference and, as a control, with the unflipped one:
+>=20
+>   vflip  +0.994 / +0.629    hflip  +0.973 / -0.141    both  +0.975 / -0.1=
+78
 
-1. Keeping writable compatibility controls would preserve the non-atomic
-   update path that can expose a transient mixed ratio to hardware.
-2. This is limited to only the Tegra ASRC driver.
+What do these numbers mean ?
 
-Validate both values before programming hardware. The fractional field
-keeps the existing 32-bit maximum, while the integer field is rejected
-when it exceeds the hardware field width.
+Flips are 100% flips. They're not 90% flipped... or 90% correlated to
+something which might be flipped.
 
-ALSA exposes one min and max range for all values in an integer-array
-control, so the paired ratio controls advertise the fractional field's
-full 32-bit range. The put callback validates the integer part separately
-against the hardware field width.
+=20
+> The mirror bit is active low and every mode table already sets it, so the
+> defaults write back what the mode list just wrote.
+> __v4l2_ctrl_handler_setup() runs after that list and before MODE_SELECT,
+> so the read-modify-write here sees the value the mode just programmed.
+>=20
+> The Bayer order at the output does not change with either flip: per-chann=
+el
+> means over the four states agree to 0.2 counts in 70, and all four frames
 
-Serialize ratio-source changes, stream setup, and ratio updates with a
-driver mutex so cached ratio state and paired hardware programming remain
-consistent.
+What does this mean ? (what's 0.2?)
 
-Unlock and re-lock the ASRC stream before programming a software ratio
-when the new ratio differs from the cached ratio by more than 20%.
-Large ratio jumps require the hardware lock to be refreshed around the
-paired integer/fractional update.
+> demosaic correctly against one fixed pattern. Unlike imx219 and imx258,
+> whose flips select a different media bus code, these controls therefore do
+> not need V4L2_CTRL_FLAG_MODIFY_LAYOUT.
 
-Roll back the previous hardware pair and lock state if a paired ratio
-update fails after partially programming the hardware.
 
-Signed-off-by: Sheetal <sheetal@nvidia.com>
----
- sound/soc/tegra/tegra186_asrc.c | 443 ++++++++++++++++++++------------
- sound/soc/tegra/tegra186_asrc.h |   4 +
- 2 files changed, 276 insertions(+), 171 deletions(-)
+It sounds like ... you've found the right bits to handle flips. That's
+great.
 
-diff --git a/sound/soc/tegra/tegra186_asrc.c b/sound/soc/tegra/tegra186_asrc.c
-index d8ae5d997615..2b67d23f5fa7 100644
---- a/sound/soc/tegra/tegra186_asrc.c
-+++ b/sound/soc/tegra/tegra186_asrc.c
-@@ -19,6 +19,9 @@
- #include "tegra186_asrc.h"
- #include "tegra_cif.h"
- 
-+#define TEGRA186_ASRC_RATIO_PERCENT_SCALE		100
-+#define TEGRA186_ASRC_RATIO_UNLOCK_THRESHOLD_PERCENT	20
-+
- #define ASRC_STREAM_SOURCE_SELECT(id)					       \
- 	(TEGRA186_ASRC_CFG + ((id) * TEGRA186_ASRC_STREAM_STRIDE))
- 
-@@ -65,13 +68,125 @@ static const struct reg_default tegra186_asrc_reg_defaults[] = {
- 	{ TEGRA186_ASRC_CYA, 0x0},
- };
- 
--static void tegra186_asrc_lock_stream(struct tegra186_asrc *asrc,
--				      unsigned int id)
-+static int tegra186_asrc_set_stream_lock(struct tegra186_asrc *asrc,
-+					 unsigned int id, bool lock)
- {
--	regmap_write(asrc->regmap,
--		     ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_LOCK_STATUS,
--				     id),
--		     1);
-+	return regmap_write(asrc->regmap,
-+			    ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_LOCK_STATUS,
-+					    id),
-+			    lock);
-+}
-+
-+static int tegra186_asrc_write_ratio_pair(struct tegra186_asrc *asrc,
-+					  unsigned int id,
-+					  unsigned int int_part,
-+					  unsigned int frac_part)
-+{
-+	int ret;
-+
-+	ret = regmap_write(asrc->regmap,
-+			   ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_INT_PART, id),
-+			   int_part);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_write(asrc->regmap,
-+			    ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_FRAC_PART, id),
-+			    frac_part);
-+}
-+
-+static int tegra186_asrc_read_ratio_pair(struct tegra186_asrc *asrc,
-+					 unsigned int id, unsigned int *int_part,
-+					 unsigned int *frac_part)
-+{
-+	int ret;
-+
-+	ret = regmap_read(asrc->regmap,
-+			  ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_INT_PART, id),
-+			  int_part);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_read(asrc->regmap,
-+			   ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_FRAC_PART, id),
-+			   frac_part);
-+}
-+
-+static void tegra186_asrc_cache_ratio(struct tegra186_asrc *asrc,
-+				      unsigned int id, unsigned int int_part,
-+				      unsigned int frac_part)
-+{
-+	asrc->lane[id].int_part = int_part;
-+	asrc->lane[id].frac_part = frac_part;
-+}
-+
-+static int tegra186_asrc_apply_ratio(struct tegra186_asrc *asrc,
-+				     unsigned int id, unsigned int int_part,
-+				     unsigned int frac_part, bool unlock)
-+{
-+	unsigned int old_int_part, old_frac_part, old_lock;
-+	int ret, restore_ret;
-+
-+	ret = tegra186_asrc_read_ratio_pair(asrc, id, &old_int_part,
-+					    &old_frac_part);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_read(asrc->regmap,
-+			  ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_LOCK_STATUS, id),
-+			  &old_lock);
-+	if (ret)
-+		return ret;
-+
-+	if (unlock) {
-+		ret = tegra186_asrc_set_stream_lock(asrc, id, false);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = tegra186_asrc_write_ratio_pair(asrc, id, int_part, frac_part);
-+	if (ret)
-+		goto restore_ratio;
-+
-+	ret = tegra186_asrc_set_stream_lock(asrc, id, true);
-+	if (!ret)
-+		return 0;
-+
-+restore_ratio:
-+	restore_ret = tegra186_asrc_write_ratio_pair(asrc, id,
-+						     old_int_part,
-+						     old_frac_part);
-+	if (!restore_ret) {
-+		if (old_lock)
-+			restore_ret = tegra186_asrc_set_stream_lock(asrc, id,
-+								    true);
-+		else
-+			restore_ret = tegra186_asrc_set_stream_lock(asrc, id,
-+								    false);
-+	}
-+
-+	return ret ?: restore_ret;
-+}
-+
-+static int tegra186_asrc_apply_cached_ratio(struct tegra186_asrc *asrc,
-+					    unsigned int id)
-+{
-+	return tegra186_asrc_apply_ratio(asrc, id, asrc->lane[id].int_part,
-+					asrc->lane[id].frac_part, false);
-+}
-+
-+static bool tegra186_asrc_need_unlock(u64 old_ratio, u64 new_ratio)
-+{
-+	u64 ratio_diff;
-+
-+	if (!old_ratio || !new_ratio)
-+		return false;
-+
-+	ratio_diff = (old_ratio > new_ratio) ?
-+		     (old_ratio - new_ratio) : (new_ratio - old_ratio);
-+
-+	return ((ratio_diff * TEGRA186_ASRC_RATIO_PERCENT_SCALE) >
-+		(old_ratio * TEGRA186_ASRC_RATIO_UNLOCK_THRESHOLD_PERCENT));
- }
- 
- static int tegra186_asrc_runtime_suspend(struct device *dev)
-@@ -87,7 +202,7 @@ static int tegra186_asrc_runtime_suspend(struct device *dev)
- static int tegra186_asrc_runtime_resume(struct device *dev)
- {
- 	struct tegra186_asrc *asrc = dev_get_drvdata(dev);
--	int id;
-+	int id, ret, first_err = 0;
- 
- 	regcache_cache_only(asrc->regmap, false);
- 
-@@ -103,25 +218,23 @@ static int tegra186_asrc_runtime_resume(struct device *dev)
- 
- 	regcache_sync(asrc->regmap);
- 
-+	mutex_lock(&asrc->ratio_lock);
- 	for (id = 0; id < TEGRA186_ASRC_STREAM_MAX; id++) {
- 		if (asrc->lane[id].ratio_source !=
- 		    TEGRA186_ASRC_RATIO_SOURCE_SW)
- 			continue;
- 
--		regmap_write(asrc->regmap,
--			ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_INT_PART,
--					id),
--			asrc->lane[id].int_part);
--
--		regmap_write(asrc->regmap,
--			ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_FRAC_PART,
--					id),
--			asrc->lane[id].frac_part);
--
--		tegra186_asrc_lock_stream(asrc, id);
-+		ret = tegra186_asrc_apply_cached_ratio(asrc, id);
-+		if (ret) {
-+			dev_err(dev, "Failed to restore ratio for lane %d: %d\n",
-+				id, ret);
-+			if (!first_err)
-+				first_err = ret;
-+		}
- 	}
-+	mutex_unlock(&asrc->ratio_lock);
- 
--	return 0;
-+	return first_err;
- }
- 
- static int tegra186_asrc_set_audio_cif(struct tegra186_asrc *asrc,
-@@ -186,7 +299,7 @@ static int tegra186_asrc_out_hw_params(struct snd_pcm_substream *substream,
- {
- 	struct device *dev = dai->dev;
- 	struct tegra186_asrc *asrc = snd_soc_dai_get_drvdata(dai);
--	int ret, id = dai->id - 7;
-+	int ret = 0, id = dai->id - 7;
- 
- 	 /* Set output threshold */
- 	regmap_write(asrc->regmap,
-@@ -217,20 +330,22 @@ static int tegra186_asrc_out_hw_params(struct snd_pcm_substream *substream,
- 			TEGRA186_ASRC_STREAM_DEFAULT_HW_COMP_BIAS_VALUE);
- 	}
- 
-+	mutex_lock(&asrc->ratio_lock);
-+
- 	/* Set lock */
- 	regmap_update_bits(asrc->regmap,
- 			   ASRC_STREAM_REG(TEGRA186_ASRC_CFG, id),
- 			   1, asrc->lane[id].ratio_source);
- 
- 	if (asrc->lane[id].ratio_source == TEGRA186_ASRC_RATIO_SOURCE_SW) {
--		regmap_write(asrc->regmap,
--			ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_INT_PART, id),
--			asrc->lane[id].int_part);
--		regmap_write(asrc->regmap,
--			ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_FRAC_PART, id),
--			asrc->lane[id].frac_part);
--		tegra186_asrc_lock_stream(asrc, id);
-+		ret = tegra186_asrc_apply_cached_ratio(asrc, id);
-+		if (ret)
-+			dev_err(dev, "Can't apply cached ratio for ASRC stream %d: %d\n",
-+				id, ret);
- 	}
-+	mutex_unlock(&asrc->ratio_lock);
-+	if (ret)
-+		return ret;
- 
- 	return ret;
- }
-@@ -257,112 +372,132 @@ static int tegra186_asrc_put_ratio_source(struct snd_kcontrol *kcontrol,
- 	struct snd_soc_component *cmpnt = snd_kcontrol_chip(kcontrol);
- 	struct tegra186_asrc *asrc = snd_soc_component_get_drvdata(cmpnt);
- 	unsigned int id = asrc_private->reg / TEGRA186_ASRC_STREAM_STRIDE;
-+	unsigned int new_source = ucontrol->value.enumerated.item[0];
-+	unsigned int old_source, int_part = 0, frac_part = 0;
- 	bool change = false;
-+	int ret;
- 
--	asrc->lane[id].ratio_source = ucontrol->value.enumerated.item[0];
-+	mutex_lock(&asrc->ratio_lock);
- 
--	regmap_update_bits_check(asrc->regmap, asrc_private->reg,
--				 TEGRA186_ASRC_STREAM_RATIO_TYPE_MASK,
--				 asrc->lane[id].ratio_source,
--				 &change);
-+	old_source = asrc->lane[id].ratio_source;
- 
--	return change ? 1 : 0;
--}
-+	if (old_source == TEGRA186_ASRC_RATIO_SOURCE_ARAD &&
-+	    new_source == TEGRA186_ASRC_RATIO_SOURCE_SW) {
-+		ret = tegra186_asrc_read_ratio_pair(asrc, id, &int_part,
-+						    &frac_part);
-+		if (ret) {
-+			mutex_unlock(&asrc->ratio_lock);
-+			return ret;
-+		}
-+	}
- 
--static int tegra186_asrc_get_ratio_int(struct snd_kcontrol *kcontrol,
--				       struct snd_ctl_elem_value *ucontrol)
--{
--	struct soc_mixer_control *asrc_private =
--		(struct soc_mixer_control *)kcontrol->private_value;
--	struct snd_soc_component *cmpnt = snd_kcontrol_chip(kcontrol);
--	struct tegra186_asrc *asrc = snd_soc_component_get_drvdata(cmpnt);
--	unsigned int id = asrc_private->reg / TEGRA186_ASRC_STREAM_STRIDE;
-+	ret = regmap_update_bits_check(asrc->regmap, asrc_private->reg,
-+				       TEGRA186_ASRC_STREAM_RATIO_TYPE_MASK,
-+				       new_source, &change);
-+	if (ret) {
-+		mutex_unlock(&asrc->ratio_lock);
-+		return ret;
-+	}
- 
--	regmap_read(asrc->regmap,
--		    ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_INT_PART, id),
--		    &asrc->lane[id].int_part);
-+	asrc->lane[id].ratio_source = new_source;
-+	if (old_source == TEGRA186_ASRC_RATIO_SOURCE_ARAD &&
-+	    new_source == TEGRA186_ASRC_RATIO_SOURCE_SW)
-+		tegra186_asrc_cache_ratio(asrc, id, int_part, frac_part);
- 
--	ucontrol->value.integer.value[0] = asrc->lane[id].int_part;
-+	mutex_unlock(&asrc->ratio_lock);
- 
--	return 0;
-+	return change ? 1 : 0;
- }
- 
--static int tegra186_asrc_put_ratio_int(struct snd_kcontrol *kcontrol,
--				       struct snd_ctl_elem_value *ucontrol)
-+static int tegra186_asrc_get_ratio(struct snd_kcontrol *kcontrol,
-+				   struct snd_ctl_elem_value *ucontrol)
- {
--	struct soc_mixer_control *asrc_private =
--		(struct soc_mixer_control *)kcontrol->private_value;
-+	struct soc_mreg_control *asrc_private =
-+		(struct soc_mreg_control *)kcontrol->private_value;
- 	struct snd_soc_component *cmpnt = snd_kcontrol_chip(kcontrol);
- 	struct tegra186_asrc *asrc = snd_soc_component_get_drvdata(cmpnt);
--	unsigned int id = asrc_private->reg / TEGRA186_ASRC_STREAM_STRIDE;
--	bool change = false;
-+	unsigned int id = asrc_private->regbase;
-+	unsigned int int_part, frac_part;
-+	int ret;
-+
-+	mutex_lock(&asrc->ratio_lock);
- 
- 	if (asrc->lane[id].ratio_source == TEGRA186_ASRC_RATIO_SOURCE_ARAD) {
--		dev_err(cmpnt->dev,
--			"Lane %d ratio source is ARAD, invalid SW update\n",
--			id);
--		return -EINVAL;
-+		ret = tegra186_asrc_read_ratio_pair(asrc, id, &int_part,
-+						    &frac_part);
-+	} else {
-+		int_part = asrc->lane[id].int_part;
-+		frac_part = asrc->lane[id].frac_part;
-+		ret = 0;
- 	}
- 
--	asrc->lane[id].int_part = ucontrol->value.integer.value[0];
--
--	regmap_update_bits_check(asrc->regmap,
--				 ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_INT_PART,
--						 id),
--				 TEGRA186_ASRC_STREAM_RATIO_INT_PART_MASK,
--				 asrc->lane[id].int_part, &change);
-+	mutex_unlock(&asrc->ratio_lock);
-+	if (ret)
-+		return ret;
- 
--	tegra186_asrc_lock_stream(asrc, id);
-+	ucontrol->value.integer.value[0] = int_part;
-+	ucontrol->value.integer.value[1] = frac_part;
- 
--	return change ? 1 : 0;
-+	return 0;
- }
- 
--static int tegra186_asrc_get_ratio_frac(struct snd_kcontrol *kcontrol,
--					struct snd_ctl_elem_value *ucontrol)
-+static int tegra186_asrc_put_ratio(struct snd_kcontrol *kcontrol,
-+				   struct snd_ctl_elem_value *ucontrol)
- {
- 	struct soc_mreg_control *asrc_private =
- 		(struct soc_mreg_control *)kcontrol->private_value;
- 	struct snd_soc_component *cmpnt = snd_kcontrol_chip(kcontrol);
- 	struct tegra186_asrc *asrc = snd_soc_component_get_drvdata(cmpnt);
--	unsigned int id = asrc_private->regbase / TEGRA186_ASRC_STREAM_STRIDE;
--
--	regmap_read(asrc->regmap,
--		    ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_FRAC_PART, id),
--		    &asrc->lane[id].frac_part);
-+	unsigned int id = asrc_private->regbase;
-+	unsigned int int_part, frac_part;
-+	u64 old_ratio, new_ratio;
-+	long int_val = ucontrol->value.integer.value[0];
-+	long frac_val = ucontrol->value.integer.value[1];
-+	bool change = false, unlock = false;
-+	int ret = 0;
-+
-+	if (int_val < 0 || int_val > TEGRA186_ASRC_STREAM_RATIO_INT_PART_MASK)
-+		return -EINVAL;
- 
--	ucontrol->value.integer.value[0] = asrc->lane[id].frac_part;
-+	if (frac_val < 0 || frac_val > TEGRA186_ASRC_STREAM_RATIO_FRAC_PART_MASK)
-+		return -EINVAL;
- 
--	return 0;
--}
-+	int_part = int_val;
-+	frac_part = frac_val;
- 
--static int tegra186_asrc_put_ratio_frac(struct snd_kcontrol *kcontrol,
--					struct snd_ctl_elem_value *ucontrol)
--{
--	struct soc_mreg_control *asrc_private =
--		(struct soc_mreg_control *)kcontrol->private_value;
--	struct snd_soc_component *cmpnt = snd_kcontrol_chip(kcontrol);
--	struct tegra186_asrc *asrc = snd_soc_component_get_drvdata(cmpnt);
--	unsigned int id = asrc_private->regbase / TEGRA186_ASRC_STREAM_STRIDE;
--	bool change = false;
-+	mutex_lock(&asrc->ratio_lock);
- 
- 	if (asrc->lane[id].ratio_source == TEGRA186_ASRC_RATIO_SOURCE_ARAD) {
- 		dev_err(cmpnt->dev,
- 			"Lane %d ratio source is ARAD, invalid SW update\n",
- 			id);
--		return -EINVAL;
-+		ret = -EINVAL;
-+		goto out_unlock;
- 	}
- 
--	asrc->lane[id].frac_part = ucontrol->value.integer.value[0];
-+	old_ratio = ((u64)asrc->lane[id].int_part << 32) |
-+		    asrc->lane[id].frac_part;
-+	new_ratio = ((u64)int_part << 32) | frac_part;
-+
-+	if (!new_ratio) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
- 
--	regmap_update_bits_check(asrc->regmap,
--				 ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_FRAC_PART,
--						 id),
--				 TEGRA186_ASRC_STREAM_RATIO_FRAC_PART_MASK,
--				 asrc->lane[id].frac_part, &change);
-+	change = old_ratio != new_ratio;
-+	if (!change)
-+		goto out_unlock;
- 
--	tegra186_asrc_lock_stream(asrc, id);
-+	unlock = tegra186_asrc_need_unlock(old_ratio, new_ratio);
- 
--	return change ? 1 : 0;
-+	ret = tegra186_asrc_apply_ratio(asrc, id, int_part, frac_part, unlock);
-+	if (!ret)
-+		tegra186_asrc_cache_ratio(asrc, id, int_part, frac_part);
-+
-+out_unlock:
-+	mutex_unlock(&asrc->ratio_lock);
-+
-+	return ret ?: change;
- }
- 
- static int tegra186_asrc_get_hwcomp_disable(struct snd_kcontrol *kcontrol,
-@@ -651,99 +786,63 @@ ASRC_SOURCE_DECL(src_select4, 3);
- ASRC_SOURCE_DECL(src_select5, 4);
- ASRC_SOURCE_DECL(src_select6, 5);
- 
--#define SOC_SINGLE_EXT_FRAC(xname, xregbase, xmax, xget, xput)		\
-+static int tegra186_asrc_ratio_param_info(struct snd_kcontrol *kcontrol,
-+					  struct snd_ctl_elem_info *uinfo)
-+{
-+	struct soc_mreg_control *mc =
-+		(struct soc_mreg_control *)kcontrol->private_value;
-+
-+	/*
-+	 * ALSA exposes one range for all values in an integer array. The
-+	 * fractional part needs the full 32-bit range; the integer part is
-+	 * validated against the hardware field width in the put callback.
-+	 */
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = 2;
-+	uinfo->value.integer.min = mc->min;
-+	uinfo->value.integer.max = mc->max;
-+
-+	return 0;
-+}
-+
-+#define SOC_SINGLE_EXT_ARRAY(xname, xregbase, xmax, xget, xput)		\
- {									\
- 	.iface	= SNDRV_CTL_ELEM_IFACE_MIXER,				\
- 	.name	= (xname),						\
--	.info	= snd_soc_info_xr_sx,					\
-+	.info	= tegra186_asrc_ratio_param_info,			\
- 	.get	= xget,							\
- 	.put	= xput,							\
- 									\
- 	.private_value = (unsigned long)&(struct soc_mreg_control)	\
- 	{								\
- 		.regbase	= xregbase,				\
--		.regcount	= 1,					\
-+		.regcount	= 2,					\
- 		.nbits		= 32,					\
- 		.invert		= 0,					\
- 		.min		= 0,					\
--		.max		= xmax					\
-+		.max		= (xmax)				\
- 	}								\
- }
- 
- static const struct snd_kcontrol_new tegra186_asrc_controls[] = {
--	/* Controls for integer part of ratio */
--	SOC_SINGLE_EXT("Ratio1 Integer Part",
--		       ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_INT_PART, 0),
--		       0, TEGRA186_ASRC_STREAM_RATIO_INT_PART_MASK, 0,
--		       tegra186_asrc_get_ratio_int,
--		       tegra186_asrc_put_ratio_int),
--
--	SOC_SINGLE_EXT("Ratio2 Integer Part",
--		       ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_INT_PART, 1),
--		       0, TEGRA186_ASRC_STREAM_RATIO_INT_PART_MASK, 0,
--		       tegra186_asrc_get_ratio_int,
--		       tegra186_asrc_put_ratio_int),
--
--	SOC_SINGLE_EXT("Ratio3 Integer Part",
--		       ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_INT_PART, 2),
--		       0, TEGRA186_ASRC_STREAM_RATIO_INT_PART_MASK, 0,
--		       tegra186_asrc_get_ratio_int,
--		       tegra186_asrc_put_ratio_int),
--
--	SOC_SINGLE_EXT("Ratio4 Integer Part",
--		       ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_INT_PART, 3),
--		       0, TEGRA186_ASRC_STREAM_RATIO_INT_PART_MASK, 0,
--		       tegra186_asrc_get_ratio_int,
--		       tegra186_asrc_put_ratio_int),
--
--	SOC_SINGLE_EXT("Ratio5 Integer Part",
--		       ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_INT_PART, 4),
--		       0, TEGRA186_ASRC_STREAM_RATIO_INT_PART_MASK, 0,
--		       tegra186_asrc_get_ratio_int,
--		       tegra186_asrc_put_ratio_int),
--
--	SOC_SINGLE_EXT("Ratio6 Integer Part",
--		       ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_INT_PART, 5),
--		       0, TEGRA186_ASRC_STREAM_RATIO_INT_PART_MASK, 0,
--		       tegra186_asrc_get_ratio_int,
--		       tegra186_asrc_put_ratio_int),
--
--	/* Controls for fractional part of ratio */
--	SOC_SINGLE_EXT_FRAC("Ratio1 Fractional Part",
--			    ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_FRAC_PART, 0),
--			    TEGRA186_ASRC_STREAM_RATIO_FRAC_PART_MASK,
--			    tegra186_asrc_get_ratio_frac,
--			    tegra186_asrc_put_ratio_frac),
--
--	SOC_SINGLE_EXT_FRAC("Ratio2 Fractional Part",
--			    ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_FRAC_PART, 1),
--			    TEGRA186_ASRC_STREAM_RATIO_FRAC_PART_MASK,
--			    tegra186_asrc_get_ratio_frac,
--			    tegra186_asrc_put_ratio_frac),
--
--	SOC_SINGLE_EXT_FRAC("Ratio3 Fractional Part",
--			    ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_FRAC_PART, 2),
--			    TEGRA186_ASRC_STREAM_RATIO_FRAC_PART_MASK,
--			    tegra186_asrc_get_ratio_frac,
--			    tegra186_asrc_put_ratio_frac),
--
--	SOC_SINGLE_EXT_FRAC("Ratio4 Fractional Part",
--			    ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_FRAC_PART, 3),
--			    TEGRA186_ASRC_STREAM_RATIO_FRAC_PART_MASK,
--			    tegra186_asrc_get_ratio_frac,
--			    tegra186_asrc_put_ratio_frac),
--
--	SOC_SINGLE_EXT_FRAC("Ratio5 Fractional Part",
--			    ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_FRAC_PART, 4),
--			    TEGRA186_ASRC_STREAM_RATIO_FRAC_PART_MASK,
--			    tegra186_asrc_get_ratio_frac,
--			    tegra186_asrc_put_ratio_frac),
--
--	SOC_SINGLE_EXT_FRAC("Ratio6 Fractional Part",
--			    ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_FRAC_PART, 5),
--			    TEGRA186_ASRC_STREAM_RATIO_FRAC_PART_MASK,
--			    tegra186_asrc_get_ratio_frac,
--			    tegra186_asrc_put_ratio_frac),
-+	/* Controls for ASRC */
-+	SOC_SINGLE_EXT_ARRAY("Ratio1", 0, TEGRA186_ASRC_STREAM_RATIO_FRAC_PART_MASK,
-+			     tegra186_asrc_get_ratio, tegra186_asrc_put_ratio),
-+
-+	SOC_SINGLE_EXT_ARRAY("Ratio2", 1, TEGRA186_ASRC_STREAM_RATIO_FRAC_PART_MASK,
-+			     tegra186_asrc_get_ratio, tegra186_asrc_put_ratio),
-+
-+	SOC_SINGLE_EXT_ARRAY("Ratio3", 2, TEGRA186_ASRC_STREAM_RATIO_FRAC_PART_MASK,
-+			     tegra186_asrc_get_ratio, tegra186_asrc_put_ratio),
-+
-+	SOC_SINGLE_EXT_ARRAY("Ratio4", 3, TEGRA186_ASRC_STREAM_RATIO_FRAC_PART_MASK,
-+			     tegra186_asrc_get_ratio, tegra186_asrc_put_ratio),
-+
-+	SOC_SINGLE_EXT_ARRAY("Ratio5", 4, TEGRA186_ASRC_STREAM_RATIO_FRAC_PART_MASK,
-+			     tegra186_asrc_get_ratio, tegra186_asrc_put_ratio),
-+
-+	SOC_SINGLE_EXT_ARRAY("Ratio6", 5, TEGRA186_ASRC_STREAM_RATIO_FRAC_PART_MASK,
-+			     tegra186_asrc_get_ratio, tegra186_asrc_put_ratio),
- 
- 	/* Source of ratio provider */
- 	SOC_ENUM_EXT("Ratio1 Source", src_select1,
-@@ -1011,6 +1110,8 @@ static int tegra186_asrc_platform_probe(struct platform_device *pdev)
- 			TEGRA186_ASRC_STREAM_DEFAULT_OUTPUT_HW_COMP_THRESH_CFG;
- 	}
- 
-+	mutex_init(&asrc->ratio_lock);
-+
- 	err = devm_snd_soc_register_component(dev, &tegra186_asrc_cmpnt,
- 					      tegra186_asrc_dais,
- 					      ARRAY_SIZE(tegra186_asrc_dais));
-diff --git a/sound/soc/tegra/tegra186_asrc.h b/sound/soc/tegra/tegra186_asrc.h
-index 0c98e26d5e72..9cc8cec6c204 100644
---- a/sound/soc/tegra/tegra186_asrc.h
-+++ b/sound/soc/tegra/tegra186_asrc.h
-@@ -7,6 +7,8 @@
- #ifndef __TEGRA186_ASRC_H__
- #define __TEGRA186_ASRC_H__
- 
-+#include <linux/mutex.h>
-+
- /* ASRC stream related offset */
- #define TEGRA186_ASRC_CFG				0x0
- #define TEGRA186_ASRC_RATIO_INT_PART			0x4
-@@ -111,6 +113,8 @@ struct tegra186_asrc {
- 	const struct tegra_asrc_soc_data *soc_data;
- 	struct tegra186_asrc_lane lane[TEGRA186_ASRC_STREAM_MAX];
- 	struct regmap *regmap;
-+	/* Serializes ratio source, cache, and paired register updates. */
-+	struct mutex ratio_lock;
- };
- 
- #endif
--- 
-2.43.0
+But please just use a human to verify, and skip the almost maybe
+probablys.
 
+A flip is either flipped or it isn't. A 95% correlation that something
+might be flipped, probably, maybe ... isn't quite the same as "Oh look  I
+can see it's mirrored and I'm 100% certain of this because I'm a real
+person and I can tell when I look at something from left to right or
+right to left."
+
+If we know this flips correctly - lets say so clearly.
+
+> Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+> ---
+>  drivers/media/i2c/ov13858.c | 44 +++++++++++++++++++++++++++++++++++++
+>  1 file changed, 44 insertions(+)
+>=20
+> diff --git a/drivers/media/i2c/ov13858.c b/drivers/media/i2c/ov13858.c
+> index de2b79a9a0..1bf21ffbc7 100644
+> --- a/drivers/media/i2c/ov13858.c
+> +++ b/drivers/media/i2c/ov13858.c
+> @@ -76,6 +76,15 @@
+>  #define OV13858_DGTL_GAIN_DEFAULT      1024    /* Default gain =3D 1 X */
+>  #define OV13858_DGTL_GAIN_STEP         1       /* Each step =3D 1/1024 */
+> =20
+> +/*
+> + * Readout direction. Neither flip changes the Bayer order at the output=
+, so
+> + * no window offset compensation is needed. The mirror bit is active low=
+: the
+> + * value the mode tables program already has it set.
+> + */
+> +#define OV13858_REG_FORMAT1            0x3820
+> +#define OV13858_FORMAT1_VFLIP          BIT(4)
+> +#define OV13858_FORMAT1_HFLIP_N                BIT(3)
+> +
+>  /* Test Pattern Control */
+>  #define OV13858_REG_TEST_PATTERN       0x4503
+>  #define OV13858_TEST_PATTERN_ENABLE    BIT(7)
+> @@ -1042,6 +1051,8 @@ struct ov13858 {
+>         struct v4l2_ctrl *vblank;
+>         struct v4l2_ctrl *hblank;
+>         struct v4l2_ctrl *exposure;
+> +       struct v4l2_ctrl *hflip;
+> +       struct v4l2_ctrl *vflip;
+> =20
+>         /* Current mode */
+>         const struct ov13858_mode *cur_mode;
+> @@ -1208,6 +1219,30 @@ static int ov13858_enable_test_pattern(struct ov13=
+858 *ov13858, u32 pattern)
+>                                  OV13858_REG_VALUE_08BIT, val);
+>  }
+> =20
+> +static int ov13858_update_flips(struct ov13858 *ov13858)
+> +{
+> +       u32 val;
+> +       int ret;
+> +
+> +       ret =3D ov13858_read_reg(ov13858, OV13858_REG_FORMAT1,
+> +                              OV13858_REG_VALUE_08BIT, &val);
+> +       if (ret)
+> +               return ret;
+> +
+> +       if (ov13858->vflip->val)
+> +               val |=3D OV13858_FORMAT1_VFLIP;
+> +       else
+> +               val &=3D ~OV13858_FORMAT1_VFLIP;
+> +
+> +       if (ov13858->hflip->val)
+> +               val &=3D ~OV13858_FORMAT1_HFLIP_N;
+> +       else
+> +               val |=3D OV13858_FORMAT1_HFLIP_N;
+
+Why is VFLIP set to flip, and HFLIP set to not flip. This sounds very
+odd to me.
+
+
+
+> +
+> +       return ov13858_write_reg(ov13858, OV13858_REG_FORMAT1,
+> +                                OV13858_REG_VALUE_08BIT, val);
+> +}
+> +
+>  static int ov13858_set_ctrl(struct v4l2_ctrl *ctrl)
+>  {
+>         struct ov13858 *ov13858 =3D container_of(ctrl->handler,
+> @@ -1254,6 +1289,10 @@ static int ov13858_set_ctrl(struct v4l2_ctrl *ctrl)
+>                                         ov13858->cur_mode->height
+>                                           + ctrl->val);
+>                 break;
+> +       case V4L2_CID_HFLIP:
+> +       case V4L2_CID_VFLIP:
+> +               ret =3D ov13858_update_flips(ov13858);
+> +               break;
+>         case V4L2_CID_TEST_PATTERN:
+>                 ret =3D ov13858_enable_test_pattern(ov13858, ctrl->val);
+>                 break;
+> @@ -1619,6 +1658,11 @@ static int ov13858_init_controls(struct ov13858 *o=
+v13858)
+>                           OV13858_DGTL_GAIN_MIN, OV13858_DGTL_GAIN_MAX,
+>                           OV13858_DGTL_GAIN_STEP, OV13858_DGTL_GAIN_DEFAU=
+LT);
+> =20
+> +       ov13858->hflip =3D v4l2_ctrl_new_std(ctrl_hdlr, &ov13858_ctrl_ops,
+> +                                          V4L2_CID_HFLIP, 0, 1, 1, 0);
+> +       ov13858->vflip =3D v4l2_ctrl_new_std(ctrl_hdlr, &ov13858_ctrl_ops,
+> +                                          V4L2_CID_VFLIP, 0, 1, 1, 0);
+> +
+>         v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &ov13858_ctrl_ops,
+>                                      V4L2_CID_TEST_PATTERN,
+>                                      ARRAY_SIZE(ov13858_test_pattern_menu=
+) - 1,
+> --=20
+> 2.54.0 (Apple Git-157)
+>=20
+>
