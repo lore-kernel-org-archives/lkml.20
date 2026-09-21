@@ -1,248 +1,125 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012025.outbound.protection.outlook.com [52.101.48.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com [74.125.225.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D4E0386C21;
-	Mon, 21 Sep 2026 06:56:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789973776; cv=fail; b=qFUCjpRAUsF1+I/Y2rLcLT3PddorURHH9uuP40Q58psZYxVVFlxPSC9sCmEOmnYWiYqiEXvI9PHhWYtLbql+DapMKqU35SZ+xiQJSUbXZ31/zlHHTMWrltyT7UnVbKMDjeBwbEv5urXyU38Bi9ejWdPjFZcSbUe6dQ6+cYPIpSc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789973776; c=relaxed/simple;
-	bh=UolIazUweoz06EZduPOAP8Lu+Jl2eWEB1z23prifO/4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=tqMTsTa+jH9R07TTIbmWGHxxZiYBf7vWDtpbojE6W0Pk4ptYq5eaU5UpNIGMriSfROUuk20TqD6QATUOHeqV6N7T+OKSPlH+epKQ+Biy/ltdFRnNkQK8u+rYFHYEB25P02KdzLRC5SLO5EGFHFC1oXZCKwlJywlLu6MTg0wU8ek=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=GabOPv6u; arc=fail smtp.client-ip=52.101.48.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E763890EC
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:56:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.138
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789973784; cv=none; b=HXuREI+OMkHR0zkNj/DBPUUhUuq/G5EoanRbK7jD/idFqLpWOT26VNdPToqO2OjtcElUV4pcfBz2eK396olh3+tSMVqGmUn5BWWNhosLL87nXbn3tIYTB4eca2Zer/UFVotKQaZ2kve4pGviG+AFAttfqqLaDaLHzN06pnr4dmU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789973784; c=relaxed/simple;
+	bh=EkucCOPz8GZoCCEzERPCc1P/c5lfa7EDa7Hlgmx02AA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=rEGU6DkS/l37YTMDyaWo4RiPB4dIY9JYZMkANp4yFWoSXoF2NT71N6EX0sZRpA89lCVnxx1QdUpHJieN7h/B8e8ITQo+iqBFglxg4GBDNlXkKGPFUzXo730HOdrjiHHAirKkvU1eFc466Qxk8BmeITRu0azBMQ4aJ91RMNG9oYU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lH2XapNI; arc=none smtp.client-ip=74.125.225.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="GabOPv6u"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IEFKCk1nFywOLlILUWOqu0HtQP3PF5MDXunddDZkBkELPWkKTeZUm7ezjMZ/gAN+4Q5XE65C4dUrRWjloGMTcmNaHyzjKg9hD2OKbUJfXYiAOqin5HDR8ts4r01Oql0CnfCc26uJ19E6TpAif2tXZwb4NKB0JC5b134OgI83/225BnnTvDDKL5IkiDR26V7+ZvWn5p/n3skgf7jq+IHIdzFyIsiVHtwR83DK84dxjDR2XheFaPFhXgcsl5v0A93vP+ez/JNEgImtO+VQvirVesF/OAYysKItgawURE0xvrj+Pd3VRfoVUOdwKBsQ3Bdjs2OYW4FvWXZnFd+U4oK0fQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vRwqtyZpIlxH12E59U8j851c8nLUyhNFObHrQX129QE=;
- b=nKR73mL8v/ozmDiy4US1HPsyLBJwVKYUexFxHV5adrd6e1DJTKvrXwqvH4WPGpQdKFYLmkD1k40gSlbMT1QdcNSILlAT2M7WPQ2vCAV1cAjZIGREB++X8986vWvQKpLsM0TcQDK7bGxvjHySe5eKoR8ku/StarpMKUxPuBg0cXIBD+MnWwNn8cLuTX/is/O5taNWlDJK3+4Hq40haHa1AqqI/UCEo+OqI0BU8cibCx3+23nBhnjFRuLdkwxtyfgl5jnywlUTe2a/iQpiONUOi8gXQ97wkyIRz+Aevz1oXE9sfXHywWhpRp2cipThMjTlhmRfM9NpoDAXosze/3L7zA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vRwqtyZpIlxH12E59U8j851c8nLUyhNFObHrQX129QE=;
- b=GabOPv6uNecGhmWEFJS03tzkICaZRS8fmPD1hyd6T/LKdp5VNQ9cOfh76oQogFoHoq7RSob2EEno9wu2qTn8+bE3WBwt6qGu2TfcHoZoUACmop8JeOZCj/LHdC44J0EvcWw8+DogrHzxzu3M1SWutawP0TwiyDOgWQ+6OvyZevQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB7811.namprd12.prod.outlook.com (2603:10b6:806:34f::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 06:56:10 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.011; Mon, 21 Sep 2026
- 06:56:10 +0000
-Message-ID: <d91e2d04-cb8a-4c34-9e7d-e8faf2dfe79b@amd.com>
-Date: Mon, 21 Sep 2026 08:56:06 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dma-buf/udmabuf: reinstate a reasonable default size
- limit
-To: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>, kraxel@redhat.com,
- vivek.kasireddy@intel.com, sumit.semwal@linaro.org
-Cc: robert.mader@collabora.com, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org
-References: <20260919004222.4141024-1-xujiakai24@mails.ucas.ac.cn>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260919004222.4141024-1-xujiakai24@mails.ucas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FRYP281CA0013.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::23)
- To PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lH2XapNI"
+Received: by mail-wm2-f10.google.com with SMTP id 5b1f17b1804b1-49b963f51f6so11794925e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 23:56:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789973781; x=1790578581; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=EkucCOPz8GZoCCEzERPCc1P/c5lfa7EDa7Hlgmx02AA=;
+        b=lH2XapNIbMgfWFe7sTKpWeHxiCEsZbYaVKjtkxDyANXtYz93i0hmg12JbNd1qKYmB/
+         o5HUPAboqdnzpOKr+u/173tdXHWqZuP7mgI7x+uj04z5f5YzSMM/zY+qZPufZ0JhuN4e
+         8yR5kHNFystMvZeG/gctS/V4zy9aiOi9injSE7sxhp9GWs9+Ww7Za+1XyrDIiOlPfxuj
+         vj52q6JrGmQ4b6FqeJj94rg/FCb0vP+++2ca9ismrSMC+4ti65fOIC3EA+PcbnCjyUO+
+         dNhY/s87s2h65ZD8CX/ogIuhFt0pnemq1Wu6aieAKNcblHMqeamjICj1DFD/tEN4zWBC
+         Bo5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789973781; x=1790578581;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EkucCOPz8GZoCCEzERPCc1P/c5lfa7EDa7Hlgmx02AA=;
+        b=sMaJ9TON9kbRlxUghnKjBSUL8Rnf9jCGjrXajoBPg731tfCEr2JZ5s95bCn2Ir5nmf
+         S6HvyOQW5ivVXDRl6gPK6aac1yVSRIKIHytqqbVVDjuTPzNoSlkFJ9NvLytIDHwJK+Ox
+         ZeCi1ujpAY5aPXRGlW4KdenMVLZE2d28jgd1tBadaLSDGmlHeq3bK6gxM0DEOR2DG9Dg
+         FxlABAPyfsemv+y9yl80BmaWC01vq5+0vrW0Xesmhlno/qsQu1l+4kA4p6CzfZ3lzK4q
+         g98DxdcXDCOzn/ZyIJFsJkQ/SNffSGhMZeO3c6gN5Ohf3TTufE7GtpOkaNCmOylmxVxO
+         gPfA==
+X-Forwarded-Encrypted: i=1; AKwUvBzAyGdYk+sS/q/WNsZU2y0KjoOm4c4yQZyI1fxkdIQDWem9bhdBcoty9XtCi4ZnhrA8JXAX/79/AdM/xuA=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9fvzK8/77H+I39y6bfyC1STn123yztl4XSrYZ9j/7jZcjsyr9
+	pnE+87RyDCH18ZKPogzpBalV6bXvi0XfdAcz9IRQqknDeN0+0BcGIyEg
+X-Gm-Gg: AYBFou2LTWiah/9EMTWljuvvvJ0d0RXsfbvZVA4Djx35TuF/IZuk77+UIj/GaGcqqa/
+	Yh0daUu4aoR0HM5V0P0ldoxNXf64c0d0NTDBwKQ7F0+tXQUZ7JoAd76FZvvGYWexZinmpA8qQjR
+	otdb1LBMDrqqqWHae5Vcevs+InWCHl/qud65t7hnI6DPHVaI7WXig951NKqTYLBFn0LREgKwseI
+	abmerVPHLI2zIXt1H+9GIJlcBu81oKKbJX9hQiki+vBVZHWgeUR6QRXfjax42s6Svr70/Q7GZZi
+	N0QnKq0bs4b1XbIjTFQoO3r9hJBFjjiengSe1L9D+PL82ne6j+BKJByNp24ssg5MiBtPZohI0yP
+	8c0znacFm88E9VMwjT9yygZAx8FlvHWv1uM6VMaBRIQySmyXFZPO59a8dOacJcYZRllIKBfQXiU
+	ZnClS59wl8gXFbXDtvdPphGMTT+2lQ+XiuOa73FiIf7pP1SBggL+CX7VICXtK0yht4vi5uu9Efc
+	FeOjUaVudx5xSqnOfTE+pF33iXL9NWr8jNvidSRPArsZs0bsheIVYOyLpmrcj5OKF/P5ZznCqZk
+	flAJTvFBXh+JeN7NDFXjExy5Opo3RjXquVaC+do9Q0hj/Yu8
+X-Received: by 2002:a05:600c:83cd:b0:49c:c0d4:53d9 with SMTP id 5b1f17b1804b1-49fc56f7a11mr113732135e9.14.1789973780380;
+        Sun, 20 Sep 2026 23:56:20 -0700 (PDT)
+Received: from localhost (nat-icclus-192-26-29-3.epfl.ch. [192.26.29.3])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd068124sm201507435e9.3.2026.09.20.23.56.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 20 Sep 2026 23:56:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7811:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5d71c47-fb3d-4902-fda8-08df17ad6b08
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	isTtF52ATaDY7n04I1W8dkmysccSmmUdvrGZC+EqqwL9yNK84AyY2coE3vV7QBRH/F0exXAgCwNQgmrd09+Hq8PcKJA7fQceVogUZa+k5cwHluECb9cklKqL6CQrbBu5oQcRa2S0jO0Uw4PRgPhALr8goG1GD4spoNzq5OMldvTGlmETqHBjEPmge4TVagyP/rWpTqqR2dtoF0NZJMdzHG/307HqE8DUm668hd8M5sf9LFmtpnp0bqNdSj5xh8imDzrF2+0NXe3q6LFAlDHRkKYQLMKySkp4qYKDwKIZlF4PKuCwss7EtNN1SGZi1XvarCzyWVd6JPyqgeePbD0WBy08ahplxiisXX+d+/qG+V/pzzVFlqHteBXKVxb+u5jQ3Ty7PSrSZBtdN2uKXte5RTDKDYar0lDsHCao5nhf6xqZXoEnuZad5PMRIIH4lhhRaP9EblEj0vHKsuctl0j/+58/+tTJonIJX886We4dYTZ7vqy3FtXGiqhJqwZrhH5cFpi5iDTbW0vkFRX36l2QtdbpArFtcawiy9JeW1lvJim7E3GYnQPDLCzB078vheoQdjijkrqthvZ3lqw+YXctyq2RWByw2vNfrb6BSYAiskDVEOHQRfkktSpO22LbQMm1Sbv7Aucj1NQkSlIacPGsJzuLQYwQPRKpS+VGSE1pm/I=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cEJRazdNRkVaNmFObW54QktmTEpWeWNwT1VtUU91cmtrdXRmamVtb0dINHhC?=
- =?utf-8?B?VjBNZGJ5ODVqUWU0QVVuV1lnMno1bEpWV1Nsak10VVhwNHFGcm8vNmpPa2ZL?=
- =?utf-8?B?enlPSmRhRUEyQnpidjkreGdWYTM4S3J1dGFOa3diMmJyYXM5MTlodENDTVhK?=
- =?utf-8?B?N25BM1N6T0FXSHJsRVozM3ZTMHBhZFpPZE1PSW5vMTNiUmlHa3EydDl4MWxG?=
- =?utf-8?B?TDN6OGM1VGh3Nyt3Z1g4YkRkME9UbHRnMXovRzVBQWxQYzNoY09xRUVRZGxF?=
- =?utf-8?B?Yk1qRnRxZWFaMG1zV0xjQ2FGRW00UFk0SE53S3NMTVpLR256WHhjT1FmaTVE?=
- =?utf-8?B?RytaR2NnclFxY1MxUG1URnRneWtyYS9oMjN3a0JGd0hESUR4ODNidVNHSk9C?=
- =?utf-8?B?TzFSNW1SRFIvSEs1R1JObEROSjlwK0tnU3Z1Q3FKUEtmcTZKT2ZWQ2xjY294?=
- =?utf-8?B?bDh1RldQNytxNSszeXh4b1dXcWk0MXJRRlU5ZWoxa1ZLUXBoNi9wcmU3U1Y1?=
- =?utf-8?B?L3l4Vis3bStWeGVmbUpaQzV3TWg0Q2tCck5FTXFBZGdHeTJ1bmthRlkwMFRi?=
- =?utf-8?B?RW5aWFpTd09NaVZWUUNFY3d1VzlMSks5VjBNd3hzMzRrZmhJZE5BNDViOVlU?=
- =?utf-8?B?M2xEaDNZbFp6KzQrK0hkUlNrWTRMSjMyVUhLL1dQeHdiTmI4NFJzbjh2K3Iw?=
- =?utf-8?B?dzQ3SVJrU0gvZStxcFF3WE1Vby9SbG9pYmNyZkRBVWFoa3ZhcWFyM2hIc3Vj?=
- =?utf-8?B?MXZyVmlQSlN6QUQwRVgzODRXSVowcEJuUDhJYlRnbHAvbTVsdlFDOTc0cFp5?=
- =?utf-8?B?LzcweTRKNHFjK0FVVVJSWkxiZnllZHRvOTEwd29xYlJUSDBDa2dQYStmZk9q?=
- =?utf-8?B?dVNOOTNIWkk2R1pxYnlwM1lRU2NZdVVJbStPUVg2TUpNRWpTUUNCZVNLNTY1?=
- =?utf-8?B?QmFHTmY4OGNYcXRwSHgrZ0lZWm55OG13cHZUYkprTlFDMUhQa25pODluK1hq?=
- =?utf-8?B?L3F3RFF5dy9UeFRGMHRrNWtJWnVIQ3VuWkJ1UTZvMjU0dHdaSHJ3cDQvbDhj?=
- =?utf-8?B?WGE4cHhGQStpUEpSVU0vRXh1aWtVd2VSZ0xxZ3JpZWxBbnlQTnN5V2hUMkxY?=
- =?utf-8?B?eDlDQ2xJWWlJdlJQUTZSY3RwWnI4ZmJ6cEpzeU5hazdJL3BSdUlmZHpWaHVt?=
- =?utf-8?B?UDVhcjdrSm9zYVNRZ1VxUlJiOVR3em9aU0JnUlRnZm5DRGpONlo5MnByTVpH?=
- =?utf-8?B?NzJpblJnSFZkYm8zVFdXZjdhQTZlb3BadXFxWmxnMW1ZVGJjMEZuQ3J6aU9N?=
- =?utf-8?B?VzgzNEorZFFjYU9pUVUvREJhWTBkZWFhTjNMV0l6NkhTa0hWV1daOUFnUHJH?=
- =?utf-8?B?TmlKdlVZOCtvK3lLdFQrbHdwUjJocFN1a0l0NzF0eVpUZlpXSVdObjBHZzc4?=
- =?utf-8?B?MEIxL2pCSU81UmpONDhaRXBrVGkrZlA5OEJ1bGJPNU55ZGlCR0dZb1YxZnlz?=
- =?utf-8?B?bE1nS29MaHh4UG5RWkxGdHJhN1JId2Rnd0E1NnlhenFqU0tRKyt1eE5iYTZH?=
- =?utf-8?B?eklpTjU0L1hQMWpuTy9sRjErSGs3emdmNE1la3FQVlNEVXRNUUtieFpCNzZq?=
- =?utf-8?B?VmpGd1JZczZkeVg3c1NjNW5SMHhlSUJIZ1krMVppcnIrWnpjMnpXbW9FUjQ3?=
- =?utf-8?B?SmNOdXpEckNzcVlud01kWVNhVVUvQnd6OEd2UDdYN3hVTG5Jam0yNi9valVN?=
- =?utf-8?B?M2MwRkFmaGNUbEhTd1pvb3loU0Fsb0RDTGtITWc2aUxjaWxVVW95Wm5HQ243?=
- =?utf-8?B?bWRGWXBGSnNVRjZYRU81MXI2OE1heFNVbzA2OFZ4Q0pVRDU2VjkzMFA0YUhB?=
- =?utf-8?B?M0k0RS9RUlM4eG9qaEp2YmJBMkR5cGllOXRKSWFLTkQwVkZndUR4SExrTkxa?=
- =?utf-8?B?SDBKZkZXRzc2bzI2R1c4K1l5SlZrcDFqdlg1SHJQS2oxRTZjcUhHdEJhYlpt?=
- =?utf-8?B?YlFJQkhDSW9IWDR3RTlid3d5U08yaXFjYkFHdEJZNzlyOGdyNEZxQURxbmJx?=
- =?utf-8?B?a09rKzJVU2RoMHhjcHNVUG15bkk4dXdYaDJyaDJ2UTlScjMvTXNvV09BQVVN?=
- =?utf-8?B?UFFpZ0VvcWJHdTc0VUJNdTVSOThKanFDR1o5dWovNjdDQUUxUWVRcFBvZDdm?=
- =?utf-8?B?MFR4STdRRnAzYzRaVVhMUnNCa2FtcmZDREd3ODZVaU02Y1M4TG0wV09UMmRk?=
- =?utf-8?B?QURRUHlNWHdPWnJEZzE4a2U2dHAzeEt2S0FhYVhNV0lTdm0xeUxWMEFya0RK?=
- =?utf-8?Q?FMMMBCqjEcC09FjNCP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5d71c47-fb3d-4902-fda8-08df17ad6b08
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 06:56:10.3819
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eIcx934EtdOrWME51IiUO5jWOh6oe6l2PBgAD76tTv+c95rq5Matx0iPtM8MMTxd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7811
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 21 Sep 2026 08:56:18 +0200
+Message-Id: <DLKSQY1PP3WS.2ARYV8F47YY55@gmail.com>
+From: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
+To: "Hui Zhu" <hui.zhu@linux.dev>, "Roman Gushchin"
+ <roman.gushchin@linux.dev>, "JP Kobryn" <inwardvessel@gmail.com>, "Shakeel
+ Butt" <shakeel.butt@linux.dev>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "Andrii Nakryiko" <andrii@kernel.org>, "Eduard
+ Zingerman" <eddyz87@gmail.com>, "Ihor Solodrai" <ihor.solodrai@linux.dev>,
+ "Alexei Starovoitov" <ast@kernel.org>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song
+ Liu" <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri
+ Olsa" <jolsa@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "Shuah
+ Khan" <shuah@kernel.org>, "David Hildenbrand" <david@kernel.org>, "Barry
+ Song" <baohua@kernel.org>, "Geliang Tang" <geliang@kernel.org>,
+ <linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
+ <linux-mm@kvack.org>, <linux-kselftest@vger.kernel.org>
+Cc: "Hui Zhu" <zhuhui@kylinos.cn>, "JP Kobryn" <jp.kobryn@linux.dev>
+Subject: Re: [PATCH v13] mm/bpf: Add bpf_proactive_reclaim kfunc
+X-Mailer: aerc 0.21.0
+References: <20260921030854.17858-1-hui.zhu@linux.dev>
+In-Reply-To: <20260921030854.17858-1-hui.zhu@linux.dev>
 
-On 9/19/26 02:42, Jiakai Xu wrote:
-> Commit 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by
-> default") raised the default size_limit_mb from 64 to INT_MAX.  With
-> 4K pages, creating a buffer of more than INT_MAX / 8 pages (about 1 TB
-> of pinned memory) now makes the two per-page pointer arrays in
-> init_udmabuf() exceed what kvmalloc() can handle: kvmalloc() warns and
-> fails when the requested size exceeds INT_MAX bytes (WARN_ON_ONCE in
-> __kvmalloc_node_noprof), which is trivially triggerable from
-> unprivileged users through the UDMABUF_CREATE ioctls:
-> 
->   WARNING: CPU: 0 PID: 412 at mm/slub.c:7021 __kvmalloc_node_noprof
->   Call Trace:
->    udmabuf_create
->    udmabuf_ioctl_create_list
-> 
-> Restore a reasonable default limit of 256 MB, which is the value
-> proposed in the RFC discussion that led to commit 44e9eb5a7621
-
-That is way to low, we want to allocate multiple gigabytes using that API.
-
-Please make that (((INT_MAX / sizeof(struct folio *)) - 1) >> 20) << PAGE_SHIFT.
-
-That should allow to allocate a bit below 1TiB again without triggering the issue.
-
-Regards,
-Christian.
-
-> ("dma-buf/udmabuf: Disable the size limit by default") and comfortably
-> covers the 8K video use cases cited there, while keeping the
-> kvmalloc() request far below its threshold.  The limit remains
-> runtime-tunable via the size_limit_mb module parameter for setups
-> that need more.
-> 
-> Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
-> Assisted-by: OpenCode:DeepSeek-V4-Flash
-> Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+On Mon Sep 21, 2026 at 5:08 AM CEST, Hui Zhu wrote:
+> From: Hui Zhu <zhuhui@kylinos.cn>
+>
+> BPF programs can observe memory pressure on a cgroup, e.g. refault
+> stats via bpf_mem_cgroup_page_state(), but cannot act on it:
+> triggering reclaim requires writing to memory.reclaim, which BPF
+> cannot do.
+>
+> Add bpf_proactive_reclaim(), a sleepable kfunc performing one
+> proactive reclaim pass on a memcg, like a write to memory.reclaim
+> but without retrying until the target is reached, so that when and
+> how hard to reclaim is BPF policy rather than hard-coded thresholds.
+> The reclaim target of a single call is capped at MEMCG_CHARGE_BATCH,
+> as high_work_func() does for memory.high; reclaiming more is left to
+> the program, which can call the kfunc once per bpf_wq callback and
+> stop at any point. It is limited to BPF_PROG_TYPE_SYSCALL, because
+> other sleepable programs may run with filesystem locks held, on
+> which the reclaim path could deadlock via filesystem shrinkers.
+>
+> Convert MIN_SWAPPINESS, MAX_SWAPPINESS and SWAPPINESS_ANON_ONLY from
+> macros to an enum so that they are emitted into BTF and usable from
+> BPF programs via vmlinux.h.
+>
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+> Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+> Reviewed-by: JP Kobryn <jp.kobryn@linux.dev>
+> Reviewed-by: Barry Song <baohua@kernel.org>
 > ---
-> V1 -> V2:
-> - Instead of adding a pgcnt check in udmabuf_create(), restore a
->   reasonable default size limit (256 MB), as suggested by Christian
->   König.
-> - Drop the second Fixes tag; the regression is solely due to
->   44e9eb5a7621.
-> - Drop the "Cc: stable" tag; 44e9eb5a7621 is only in v7.3-rc1 and has
->   not shipped in any released kernel yet.
-> 
-> V1: https://lore.kernel.org/all/20260918013434.1849135-1-xujiakai24@mails.ucas.ac.cn/
-> ---
->  drivers/dma-buf/udmabuf.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-> index df6dd00462423..4d90c2cb14225 100644
-> --- a/drivers/dma-buf/udmabuf.c
-> +++ b/drivers/dma-buf/udmabuf.c
-> @@ -20,9 +20,9 @@ static int list_limit = 1024;
->  module_param(list_limit, int, 0644);
->  MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
-> 
-> -static int size_limit_mb = INT_MAX;
-> +static int size_limit_mb = 256;
->  module_param(size_limit_mb, int, 0644);
-> -MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is INT_MAX.");
-> +MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is 256.");
-> 
->  struct udmabuf {
->         pgoff_t pagecount;
-> --
-> 2.34.1
-> 
-> --
-> Below is the crash report:
-> ------------[ cut here ]------------
-> WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013, CPU#0: syz.5.27938/167363
-> Modules linked in:
-> CPU: 0 UID: 0 PID: 167363 Comm: syz.5.27938 Tainted: G        W    L      7.3.0-rc2 #1 PREEMPT(full)
-> Tainted: [W]=WARN, [L]=SOFTLOCKUP
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
-> RIP: 0010:__kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013
-> Code: 05 bf fa 2d 08 49 8b 0f c6 04 08 00 65 48 ff 0d 90 fa 2d 08 0f 85 4c fd ff ff e8 05 43 8c ff e9 42 fd ff ff e8 9b 86 0e 04 90 <0f> 0b 90 31 db e9 d2 fe ff ff f3 0f 1e fa 65 8b 05 8d fa 2d 08 89
-> RSP: 0018:ffffc90002bc3cf8 EFLAGS: 00010246
-> RAX: 0000000000000100 RBX: 0000000000000000 RCX: 0000008000000000
-> RDX: 0000008000000000 RSI: 0000000000000000 RDI: ffffffff835e3226
-> RBP: 00000000ffffffff R08: 00000000000028c0 R09: 00000000ffffffff
-> R10: 0000000000000006 R11: 0000000000000002 R12: 0000008000000000
-> R13: 00000000000028c0 R14: 0000001000000000 R15: 0000008000000000
-> FS:  00007fc89ae45640(0000) GS:ffff8880f3de4000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 000000110c2ff305 CR3: 000000002b3d4000 CR4: 0000000000752ef0
-> DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000006000
-> DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000400
-> PKRU: 80000000
-> Call Trace:
->  <TASK>
->  init_udmabuf home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:193 [inline]
->  udmabuf_create+0x1b6/0x750 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:386
->  udmabuf_ioctl_create home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:465 [inline]
->  udmabuf_ioctl+0x132/0x1d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:496
->  vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
->  __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597 [inline]
->  __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:583
->  do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:61 [inline]
->  do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:84
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> RIP: 0033:0x590d6d
-> Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
-> RSP: 002b:00007fc89ae44fd8 EFLAGS: 00000216 ORIG_RAX: 0000000000000010
-> RAX: ffffffffffffffda RBX: 0000000000611e7f RCX: 0000000000590d6d
-> RDX: 00002000000023c0 RSI: 0000000040187542 RDI: 000000000000000a
-> RBP: 00007fc89ae45010 R08: 0000000000000000 R09: 0000000000000000
-> R10: 0000000000000000 R11: 0000000000000216 R12: 00007fc89ae45640
-> R13: 000000000000000b R14: 0000000000528d40 R15: 00007fc89ae25000
->  </TASK>
-> ---[ end trace 0000000000000000 ]---
-> ---
-> 
 
+Applied.
+
+> [...]
