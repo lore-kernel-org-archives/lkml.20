@@ -1,105 +1,101 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AAFA4E1414
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:05:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5DC84BEE5A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:05:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790010311; cv=none; b=t2xR1OZoE//oiNvkkAaQYJJNGpLnSf3zy99mCpGN4aIt6HXSkHGe2rDmUb1QwLmDyKWECcafmrrNfBmq7LBdfa/g3XMNBOtdW38jGWiHOxMYOxUHJyX+eCv7EyLWJvqzU3abRdkLPapMzZkBsaqR+3NN6JyHmHwywi2HIvEy38M=
+	t=1790010338; cv=none; b=IuIPIvMuuU8PKD3e/ODQOTrxASS07o/xqXYJMGj54L6KPy3ua2IINo/i7HI99qi2KLjjm9jK//btZuJ34WryHbk7U65PmLUzTod9AmRbb4etHOF5kQjPfKwOrwHFjp0Is4Zb/MuRX9KE1Hxvq0oGfZuFmDCl8sLCcbXq9K+ai3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790010311; c=relaxed/simple;
-	bh=O9o/2+x9DNyH+rWW8r9iPwh1G4gt3sEINJUrnEZky4Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kFmc/+3PcylJpBr/yL/eYr6FgRYhoFBlP9H5p3W4Gi7gNg0gYHZZhJjx53enzIICAa0AvzY99UIAdQMJlzyrit9vJWUKTmTMDBBEJSlgOJHPry4uoWegNdtNSA2zQehcFGZyYS/4WFtZsc26tpoBct7YLcMxpWGXeYmhBjBUWnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=HOVgiczf; arc=none smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1790010338; c=relaxed/simple;
+	bh=sxrqKSwS1aorwF9WJCKcZM9J2sb1lpvGqut3ne1KxxE=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:MIME-Version; b=djBONKQOOJSI0zSNXeuceiypG0O/IcZZzUsvmgL3Na0TpPlMnZwi76yiCzQ+Q9HKQZj+VVJfre5z8W04ZQILYR0tcTZhYpF9HUEIawXjYpx79r1tNPcFwGWKr/lYGnY9cbn7RDrQpkfi9kFCIwnExLsEzSjisZUVBg49yfYYkYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e01Bk0ye; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="HOVgiczf"
-Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-530280b8234so16103311cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:05:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e01Bk0ye"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-398a147688bso3356508a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:05:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790010309; x=1790615109; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790010336; x=1790615136; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=v7LCENNPwU2GeUQBgdonqhl0jI5d3t/m3wn6hI3Pq7k=;
-        b=HOVgiczfcaIDjiQI25uHPyL0lQ2+CXsUaUwdw4qgkufiZDLg77dj76L7rYrzSb4jVH
-         D9r+A3sFh44tE2+lX0kkBS048Oqrej4ugK7lHejG83sDHWGVgS48aIQamfe1Bn26jL2v
-         fVzTQmxIh7gWHvTlx/SM8BFp737SzyjrNsXJGSqZXwE6NpJvLHEb5vNasTuv/RqaTb/u
-         rtCa85NTAeSk9jFYr8W89aTi4fnE/eImcSSl2ANbdvsCc8ffMGM0FjeimuHh3Gxi1p/U
-         urCvMQK+ADAPWMf4VGCTvPMofM66E+er4kgIJLpbLzG33JufznoznuqXdbOqr3kmD/Fp
-         qLiQ==
+        bh=hcS6tmFExHZcf0In9X6bDYXLCnLsTisUwJksVN/pUS4=;
+        b=e01Bk0yez5VZ5jUF8jiqRrY251Qq/kSTJdfERazEX42BnRIDkYDNZ/C8j0HhleNTcU
+         /f3E9VshD1wnSAyE9lPLaJnK/Vx1kVSHZatw+BpyspWm6SJxo/CRgrB0v2uProIj/hyr
+         zZHDX2UNup5jUQqIpXz1sp7o2UV7Ta97oUy45gdn1PcZ1iguDHPFEM/OihLooBPqFDhM
+         WEl+3uQoILBNuUDEJAhRnXxRg2INZ/9tiMkkXeGXfXNL8AlwM3jVSvh5Kf9t4HStwz7y
+         gTuY2fVluSfv7ekX5Vj7C13kfns36bFVOBlu1c+GxWyhnbvB8WUQsrSE0ply5+1VCuAz
+         +nIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790010309; x=1790615109;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790010336; x=1790615136;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=v7LCENNPwU2GeUQBgdonqhl0jI5d3t/m3wn6hI3Pq7k=;
-        b=W38++aQ8NY2sJqbmVmzIldyuKHJeQVh2eDsBlkGIakF8geN4TtauQB+FigzfJAOKl1
-         E9HdNAumIjwIQz3eab+QX0FsKo7OfE5Fnpb/MrH7538K0r51iy1Mnbhtm6b0naInlhu6
-         LL2WfHHTResbVOim+bBp6pQ0iNly/TS2mXlXQGwCJCjNqu/cWuXFFDGHuR0vF8Lr8zfm
-         2FO6jXCg1hlUk0v4iDose49n/CyYJTe3ZAe/ygIw13zhe1QY+CiVlcPnPW3RBwrgVXP1
-         lrmRnIzDvvTXPCO+y+jqhRmntjRDvqT7WP725/u6DsO26EnXzLFD6nQhVlf2mFt1tIzV
-         F9YQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwPIzWMtPwyNbuEO9xPCbyaE8vOrc6J7bJ/bsIOJmVaubKXob+yqCJaueZ88MMa3ujlUxvmABaQ9V0ixKE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZzlGCGegiNJY9YDmKCLiJE0tlPZtNFaapJfTgnWdDqshMvyhu
-	VF/qi0K2kyHZEaXwobRXgTltgRgtfRzUo/XNosPNkgOwpYA4bXGiV+YP0tbbL57rOA0=
-X-Gm-Gg: AYBFou00LC/kgZMzk1ptmeS/Ahm9vtiqqktrPMMdA4DiUk7I9kKfT/mYyjvvLcFiTzI
-	Ow56LErBBe7NXmrscQFXdXfKlY/YaLx+I8Ris1G6SHM6vgHYwXMVapgUfHOEOGg8ABm5ChirRhc
-	xVfuV0y55uxnf1tTePhNmQm+WxoZ3DE8P2LSFsBi3qcRYUe0YECxG6OayXmBeAWvDkJP0SIDRbk
-	YE2nwt4LvuyFfSNKVeQdx/SMVzBUnq2hphG5cxX7PzHGWvLQU6+V8XVoc/iLcAiXlp6QMHRl57Q
-	KCA8DwLmeQCiQ827zmN5h8HlxFDXWhnCDSWE9ZvnPWKL3MlqB2OFkcH6pCXNlWQz47L2WZkNywB
-	vUH3S7VZTImBEiehDwb8q+acfTc/xO44lt5+avvbxU2g9ue185DiuNtJRx+XwBc6SUymbQljWvd
-	xPbeuDYMt6jlkyacqNZINgpnB3rVIEjk3sqnP+SsYMgzuhid8x2Kf2i61jGOS7Tb93GYP+cnVI4
-	6vlffVOybp2
-X-Received: by 2002:ac8:7d43:0:b0:530:f84c:f02b with SMTP id d75a77b69052e-532db76f02amr3607851cf.1.1790010308696;
-        Mon, 21 Sep 2026 10:05:08 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F ([152.186.177.174])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532db6b5651sm1983721cf.18.2026.09.21.10.05.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 10:05:08 -0700 (PDT)
-Date: Mon, 21 Sep 2026 13:04:59 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Zi Yan <ziy@nvidia.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
-	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
-	brendan.jackman@linux.dev, hannes@cmpxchg.org
-Subject: Re: [PATCH v2 2/2] mm/page_alloc: refactor build_node_zonelist() out
- of build_zonelists()
-Message-ID: <arFjYiMbWf4ihrCu@gourry-fedora-PF4VCD3F>
-References: <20260912030424.2889731-1-gourry@gourry.net>
- <20260912030424.2889731-3-gourry@gourry.net>
- <DLKNHNP6LH59.3MEEBCAJGFEVK@nvidia.com>
- <arCeH_aD5PUM1tNE@gourry-fedora-PF4VCD3F>
- <C7A2977A-CDD8-4EEF-9448-A130411878B6@nvidia.com>
- <arFaiV9iVgxIsZ1g@gourry-fedora-PF4VCD3F>
+        bh=hcS6tmFExHZcf0In9X6bDYXLCnLsTisUwJksVN/pUS4=;
+        b=ETg/cqlLzrH53aDY0ee1PlEs2PUeh+++X5WWuDEYZNGoOA4fdprU0FliPvvm7yLM0A
+         YCsfLKP/BfpgiEQgsrC5xluxTDDi3C40WGzJsXiVirxXTV9yUrXL+gW9dZ943B8E3Ave
+         6N4zBoNCn+J3maDsuJiLTD0VR/SjKAKx86dtNsEuFYsT4BEiaDeujJTolSGAmdhPxE51
+         yz3BUlRpldnZRo84caHuBofJXENilCOxrnsFZiu+E5BQmvBUoDHILK3xeUVWWYZNbo7t
+         Ckb3PD59SLTtH2haVyByGHt5F2kkUGVVieRsZytp3F8DBRrtPh0tOwjiUJcoxf2kyTlg
+         Nn/A==
+X-Forwarded-Encrypted: i=1; AKwUvBxZQ1hCjxsszvA6vKPmPXTpX7kYDrkAXa0F6ifB/VcmS3cCdp66q3OAYXKttnnQG9dGXRuZca3hRVdiPNg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbv3o0+euL+lxZE6aiS0TwGMFN177edfCro7pA2XTSvOKPxNy1
+	UrLDwS8L1A/KuU640A93qH2XKRMvQQ+m1b1EVKKI9oKGNIP2TYnHtrYC
+X-Gm-Gg: AYBFou2fFe+l3L8SRTo5VzwGqHv2SFDnqU7e9A4dnDgPDvHWvzOPjAEykxHJAE30mYM
+	qG4Sgxx/a3fz4WRGs6PJ0Mj8s4xSTHkB7i/cbSoqIR96dggM44VwwGG7MfZX9tZ2J6mccHWi/D0
+	VlxvB1S4BVfvvbmGOB/1kSr8DCs6G+bEacLiQErGBbIG3AEMAbha/7ryZ3piGkkirVssCcXqC+I
+	pS+j+B6mHX4hClmkBmavWwpCH1cQzdJoO9KhyKSZZ3R8XhHLrwk8uhqgNUFuBbH8xjipr1ME9Cl
+	Eu+yQeAiyFOXClWjApo8J7VksA4JytvQyShhdsrVtk2W9h+yLQ28zTa7uyy+U7uPhgVkAMamS74
+	i6i3coUsOvEpciFbFYn6V9zS1dL3ltSXAZ2tHNMLXABz9OhFt/RZgrqNp51GJX0OZcmHj0nrjso
+	6f32+5vURlG3cj+TFOAKjArzbIf5w35kwJ7GJRMku1ZXqoeZbkJsUSwoRjyXHk10zFhbkDiI99z
+	THpxIsQ2SbckpBPuQC9aQL4aiDZaehMYaR3IsGCPY+faLhrunrNrvfXlP7UiTsXaeRyQD0vbdBz
+	4A+PTywmbgJxvGc=
+X-Received: by 2002:a17:90a:3f10:b0:39e:5cd8:2140 with SMTP id 98e67ed59e1d1-39e5cd825f0mr9887668a91.20.1790010335748;
+        Mon, 21 Sep 2026 10:05:35 -0700 (PDT)
+Received: from localhost ([153.61.198.251])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0673b64f5sm189723a91.5.2026.09.21.10.05.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 10:05:35 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 21 Sep 2026 17:05:34 +0000
+Message-Id: <DLL5PFJLT64M.1W82K71YXNT3A@gmail.com>
+Cc: <song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
+ <emil@etsalapatis.com>, <ihor.solodrai@linux.dev>,
+ <john.fastabend@gmail.com>, <bpf@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] bpf: add diagnostics for rejected memory and map
+ accesses
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Suchit Karunakaran" <suchitkarunakaran@gmail.com>,
+ <daniel@iogearbox.net>, <andrii@kernel.org>, <eddyz87@gmail.com>,
+ <memxor@gmail.com>, <martin.lau@linux.dev>
+In-Reply-To: <20260921154650.130677-1-suchitkarunakaran@gmail.com>
+References: <20260921154650.130677-1-suchitkarunakaran@gmail.com>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arFaiV9iVgxIsZ1g@gourry-fedora-PF4VCD3F>
 
-On Mon, Sep 21, 2026 at 12:38:57PM -0400, Gregory Price wrote:
-> On Mon, Sep 21, 2026 at 12:18:12PM -0400, Zi Yan wrote:
-> NOFALLBACK
->   0  :  [0]
->   1  :  [1]
->   2  :  [2]
+On Mon, Sep 21, 2026 at 09:16 PM Suchit Karunakaran <suchitkarunakaran@gmail.com> wrote:
+>  					verbose(env, "sign extending loads from arena are not supported yet\n");
+> +					bpf_diag_policy(
+> +						env, i + delta, "sign-extending arena load",
+> +						"the current JIT does not support this load instruction for arena memory",
+> +						"Use a kernel and architecture with JIT support for this arena load.");
 
-NOFALLBACK for a private node should be empty, sorry:
+Did you read what AI generated for you?
+"Use a kernel and architecture with JIT support for this arena load."
+?!?!
 
-  0  :  [0]
-  1  :  [1]
-  2  :  []
+Please apply human filter to every single line of "your" patches.
 
-if you attempt alloc(private_node, GFP_THISNODE) without selecting the
-private zonelist, your allocation should fail.
-
-But this is more discussion for the private node series.
+pw-bot: cr
