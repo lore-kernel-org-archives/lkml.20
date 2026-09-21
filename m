@@ -1,134 +1,274 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9CA93A8388;
-	Mon, 21 Sep 2026 10:23:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB32429004
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:23:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789986225; cv=none; b=cNaNbXKwvEhvwZXU3hVsZCD8yUsEDc8tjU+ZhonI9MQPXG+cPaIGMuWJhPTxgtwdWjp91IoaVnFqYI4/Wf7wLxuuBhkt/1gBq+4KnJwsE+jUqY3pN08J52MzZcM0ue4h1KZ0sLm5ys+FJi4dwC5sVAKHlSkIMfdq+kgPnGBfeZM=
+	t=1789986227; cv=none; b=sTUkNTnHDcMUl0bTnTCpaebKINqSQQFblUuRnmTUFx9H+YH1DILJk3zdUvn2pdXTdxGDbWcc2t7rrOMspcWf5Mj896ypVy+qHP3OBlF136irQhZcB81cl7HWy5yWfY4WGE0Lc/oEK4H1/78IvS3BSqQhaecZaDik9lej/SzO6D8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789986225; c=relaxed/simple;
-	bh=7GAn0SQrJZf8k+Cj17Zb29X4ig34iegCyfKKDdzx8c4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CZuMSJpEdxQ8GPIGianGipRQZl6i93yelab4E39MOWXkKbCuM9SIpAnpLaW1D3ltTPBREZtC5O8mgpVxNSdzBuOxdqN+IiSvfqciWOCDEksHgCDEY5BGhTanpQQyTpJrA75fAY0BoDbHp7BxIhzSyaOQoGoacFHkpB80tXRt4W0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l1StiYi4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789986227; c=relaxed/simple;
+	bh=JPmrA+1pamfT4N10xPdkW/sLqOV8VzX3DrQmaJ6F4aU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ShQHBJ8MOSwSYjlaQUWyHncU6zwDgigIi5x0VKuDFfjFQgtPQ8dIEdl0xe2fjnL/fMgJrqrFZTavquP6xZ6UKG1U5yke04MieezcVQJsWo0Z/6+kh/wKWqN7s+W4MA8YTnsbQcZ+OriCvYlDif82IhHBfu89LMvLldulzqdcLfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=WSUwicIG; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l1StiYi4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A95551F000FF;
-	Mon, 21 Sep 2026 10:23:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789986223;
-	bh=KeiDS35e7oDHwVYJ1jbiHDTcydj3LPI1RqwdLg/V/rc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l1StiYi4RfoOPqgoNX1poiOFcPxlad0HHVR4LgotRAP93zWrY35dmUG4Nvdg5CTj3
-	 YrQKm155U8J7D3AjlI8Kam8U4CJ3SWheQ0s0bd8y0qZiByYR08hVKUy8kFygMnNSFp
-	 /f27J7sCr3AhKDtucR0BNgSXW5dRy+IoifrobCIrlLNO1+N90f5iyTTceK0AmRE98D
-	 jmlrxOdHpx1TU89FFNIgIBN3SM1Jh6mFo11g9sLj3mIJP+u6tvzy+dy23bBnRQelyw
-	 4YHseQfrcmJ2L1CJVofEZEjtG6AZZKgZ22oFtLJYYe9n4A454D2l7YpQ0VX8xOmCuX
-	 WThWlEhsEp7jg==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 44EA21AC52F5; Mon, 21 Sep 2026 11:23:39 +0100 (BST)
-Date: Mon, 21 Sep 2026 12:23:39 +0200
-From: Mark Brown <broonie@kernel.org>
-To: zain_zhou@realsil.com.cn
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Vikash Bansal <vikash.bansal@nxp.com>,
-	Aman Kumar Pandey <aman.kumarpandey@nxp.com>,
-	Lakshay Piplani <lakshay.piplani@nxp.com>,
-	devicetree@vger.kernel.org, linux-i3c@lists.infradead.org,
-	linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
-	Wei Wang <wei_wang@realsil.com.cn>
-Subject: Re: [RFC PATCH 3/4] regulator: rts490x: Add driver for on-die
- regulators
-Message-ID: <arEFq_jDaUcbbDvo@sirena.co.uk>
-References: <20260920100501.4091351-1-zain_zhou@realsil.com.cn>
- <20260920100501.4091351-4-zain_zhou@realsil.com.cn>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="WSUwicIG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Bn
+	KEXm6L8TvYaojL6JJ9uLxmMd/GPyyKYDafIUlTuxQ=; b=WSUwicIGG8c65EYnNu
+	VeOajS6x/8xl+SrLhzGM+f9nUxKNK2+4SJpIiRSlf0Ect0NvxYwY0eZehEHysrED
+	vnUNzI2ZXsV1LSbhNsDXJoX6Mb4bg2aKdsYeAER+PbAGm890S/+LCbI/Iyhx266s
+	+kxalxQpzqntRAUnN7atWdhEw=
+Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgDntRaYBbFq1XESAg--.38205S2;
+	Mon, 21 Sep 2026 18:23:22 +0800 (CST)
+From: Baolin Liu <liubaolin12138@163.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Baolin Liu <liubaolin@kylinos.cn>
+Subject: [PATCH v3 02/10] ntfs: validate EA chains and link zero-terminated tails
+Date: Mon, 21 Sep 2026 18:23:18 +0800
+Message-ID: <20260921102318.2104180-1-liubaolin12138@163.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="f5/rSFUp8Yji7O/g"
-Content-Disposition: inline
-In-Reply-To: <20260920100501.4091351-4-zain_zhou@realsil.com.cn>
-X-Cookie: Too clever is dumb.
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCgvCgDntRaYBbFq1XESAg--.38205S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxtrWDCF4rXFyUJF1rZw1DKFg_yoWxWrWfpF
+	Z0y3s8tr4rJrnrGrs2kw4DXayF9ws7WFyUG34xKw1Ikrn0qr15tas09FyS9ayFyrWkCr1F
+	qFZ8tFs5uF1UAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnfHUUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwRpuOWqxBZosEQAA31
 
+From: Baolin Liu <liubaolin@kylinos.cn>
 
---f5/rSFUp8Yji7O/g
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+A zero next-entry offset terminates an EA list. Appending an entry
+without linking the old tail makes the new entry unreachable. Invalid
+entries are also treated as missing names, allowing setters to proceed
+on corrupt metadata.
 
-On Sun, Sep 20, 2026 at 06:05:00PM +0800, zain_zhou@realsil.com.cn wrote:
+Validate the entire chain before modifying it and connect a zero tail
+to the append position. Check name terminators and retain the full tail
+span when removing an entry. Return EUCLEAN for malformed EA structures
+and inconsistent information lengths, preserving that error through the
+get, set and list paths. Keep ENOENT for a missing name and translate it to
+ENODATA only at the xattr read boundary. Preserve lower-level read errors.
 
-> Add regulator support for the four programmable LDO outputs in the
-> Realtek RTS490x I3C hub. The driver exposes the LDO voltage and enable
-> controls through the regulator framework while preserving protected
-> register state across updates.
+Reuse the same full-chain validation in ntfs_listxattr(), including
+size-only queries, before copying names. Reject malformed lists with
+EUCLEAN instead of returning an empty or partial list.
 
-> +static int rts490x_regulator_unprotect(struct regulator_dev *rdev,
-> +				       struct rts490x_reg_state *state)
-> +{
-> +	int ret;
-> +
-> +	state->restore = false;
-> +
-> +	ret = regmap_read(rdev->regmap, RTS490X_PROTECTION_CODE,
-> +			  &state->original);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (state->original == RTS490X_REGISTERS_UNLOCK_CODE)
-> +		return 0;
-> +
-> +	ret = regmap_write(rdev->regmap, RTS490X_PROTECTION_CODE,
-> +			   RTS490X_REGISTERS_UNLOCK_CODE);
-> +	if (!ret)
-> +		state->restore = true;
-> +
-> +	return ret;
-> +}
+Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
+---
+Changes since v2:
+- Reuse full-chain validation in ntfs_listxattr(), including size-only
+  queries, and return EUCLEAN for malformed EA structures.
+- Remove the duplicate listxattr structure checks; preserve lower-level
+  read errors.
 
-What's going on with all this restore tracking?
+This replaces [PATCH v2 02/10]. Original v2 patches 3-10 apply cleanly
+on top without modification.
 
-> +static int rts490x_regulator_probe(struct platform_device *pdev)
-> +{
+Validation:
+- QEMU listxattr tests covered normal and zero-terminated lists, empty
+  lists, size-only queries, short buffers, malformed offsets, missing
+  name terminators, oversized values and truncated entry headers.
+  Verified EUCLEAN after successful file open, including tiny buffers.
+- Checked an oversized query length at the patch-2 stage, and ordinary
+  file/xattr writes plus unmount/remount.
 
-> +	if (!pdev->dev.of_node) {
-> +		dev_warn(&pdev->dev,
-> +			 "no OF node; skipping on-chip LDO registration\n");
-> +		return 0;
-> +	}
+ fs/ntfs/ea.c | 81 +++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 48 insertions(+), 33 deletions(-)
 
-The hardware is there no matter what, you should just load the driver so
-the state is visible.  Without constraints the hardware state won't be
-touched.
+diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
+index bb97df3045a0..2ee700f8227e 100644
+--- a/fs/ntfs/ea.c
++++ b/fs/ntfs/ea.c
+@@ -53,10 +53,13 @@ static int ntfs_ea_lookup(char *ea_buf, s64 ea_buf_size, const char *name,
+ 	loff_t offset, p_ea_size;
+ 	unsigned int next;
+ 
++	if (!ea_buf_size)
++		return -ENOENT;
++
+ 	offset = 0;
+ 	do {
+ 		if (ea_buf_size - offset < sizeof(struct ea_attr))
+-			break;
++			return -EUCLEAN;
+ 
+ 		p_ea = (const struct ea_attr *)&ea_buf[offset];
+ 		next = le32_to_cpu(p_ea->next_entry_offset);
+@@ -64,31 +67,31 @@ static int ntfs_ea_lookup(char *ea_buf, s64 ea_buf_size, const char *name,
+ 
+ 		if (p_ea_size < sizeof(struct ea_attr) ||
+ 		    offset + p_ea_size > ea_buf_size)
+-			break;
++			return -EUCLEAN;
+ 
+ 		if ((s64)p_ea->ea_name_length + 1 >
+ 		    p_ea_size - offsetof(struct ea_attr, ea_name))
+-			break;
++			return -EUCLEAN;
+ 
+ 		actual_size = ALIGN(struct_size(p_ea, ea_name, 1 + p_ea->ea_name_length +
+ 					le16_to_cpu(p_ea->ea_value_length)), 4);
+-		if (actual_size > p_ea_size)
+-			break;
++		if (actual_size > p_ea_size ||
++		    p_ea->ea_name[p_ea->ea_name_length])
++			return -EUCLEAN;
+ 
+-		if (p_ea->ea_name_length == name_len &&
++		if (name && p_ea->ea_name_length == name_len &&
+ 		    !memcmp(p_ea->ea_name, name, name_len)) {
+ 			*ea_offset = offset;
+-			*ea_size = next ? next : actual_size;
++			*ea_size = p_ea_size;
+ 
+ 			if (ea_buf_size < *ea_offset + *ea_size)
+-				goto out;
++				return -EUCLEAN;
+ 
+ 			return 0;
+ 		}
+ 		offset += next;
+ 	} while (next > 0 && offset < ea_buf_size);
+ 
+-out:
+ 	return -ENOENT;
+ }
+ 
+@@ -126,7 +129,7 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
+ 		return PTR_ERR(p_ea_info);
+ 	if (ea_info_size != sizeof(struct ea_information)) {
+ 		kvfree(p_ea_info);
+-		return -EIO;
++		return -EUCLEAN;
+ 	}
+ 
+ 	ea_info_qlen = le32_to_cpu(p_ea_info->ea_query_length);
+@@ -137,7 +140,7 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
+ 		return PTR_ERR(ea_buf);
+ 
+ 	if (ea_info_qlen > all_ea_size) {
+-		err = -EIO;
++		err = -EUCLEAN;
+ 		goto free_ea_buf;
+ 	}
+ 
+@@ -162,7 +165,8 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
+ 		return ea_value_len;
+ 	}
+ 
+-	err = -ENODATA;
++	if (err == -ENOENT)
++		err = -ENODATA;
+ free_ea_buf:
+ 	kvfree(ea_buf);
+ 	return err;
+@@ -216,7 +220,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+ 			goto out;
+ 		}
+ 		if (ea_info_size != sizeof(struct ea_information)) {
+-			err = -EIO;
++			err = -EUCLEAN;
+ 			goto out;
+ 		}
+ 
+@@ -255,12 +259,29 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+ 	}
+ 
+ 	if (ea_info_qsize > all_ea_size) {
+-		err = -EIO;
++		err = -EUCLEAN;
++		goto out;
++	}
++
++	/* Validate the whole chain before modifying it, including its tail. */
++	err = ntfs_ea_lookup(ea_buf, ea_info_qsize, NULL, 0, &ea_off,
++			     &ea_size);
++	if (err != -ENOENT)
+ 		goto out;
++	/* A zero tail offset must be linked before appending another EA. */
++	for (ea_off = 0; ea_off < ea_info_qsize; ea_off += ea_size) {
++		p_ea = (struct ea_attr *)(ea_buf + ea_off);
++		ea_size = le32_to_cpu(p_ea->next_entry_offset);
++		if (!ea_size) {
++			ea_size = ea_info_qsize - ea_off;
++			p_ea->next_entry_offset = cpu_to_le32(ea_size);
++		}
+ 	}
+ 
+ 	err = ntfs_ea_lookup(ea_buf, ea_info_qsize, name, name_len, &ea_off,
+ 			&ea_size);
++	if (err && err != -ENOENT)
++		goto out;
+ 	if (ea_info_qsize && !err) {
+ 		if (flags & XATTR_CREATE) {
+ 			err = -EEXIST;
+@@ -537,7 +558,7 @@ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
+ 		goto out;
+ 	}
+ 	if (ea_info_size != sizeof(struct ea_information)) {
+-		err = -EIO;
++		err = -EUCLEAN;
+ 		goto out;
+ 	}
+ 
+@@ -550,32 +571,26 @@ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
+ 		goto out;
+ 	}
+ 
+-	if (ea_info_qsize > ea_buf_size || ea_info_qsize == 0)
++	if (ea_info_qsize > ea_buf_size) {
++		err = -EUCLEAN;
++		goto out;
++	}
++
++	/* Validate the entire chain, including size-only queries. */
++	err = ntfs_ea_lookup(ea_buf, ea_info_qsize, NULL, 0, &offset,
++			     &ea_size);
++	if (err != -ENOENT)
++		goto out;
++	err = 0;
++	if (!ea_info_qsize)
+ 		goto out;
+ 
+ 	offset = 0;
+ 	do {
+-		if (ea_info_qsize - offset < sizeof(struct ea_attr)) {
+-			err = -EIO;
+-			goto out;
+-		}
+-
+ 		p_ea = (const struct ea_attr *)&ea_buf[offset];
+ 		next = le32_to_cpu(p_ea->next_entry_offset);
+ 		ea_size = next ? next : (ea_info_qsize - offset);
+ 
+-		if (ea_size < sizeof(struct ea_attr) ||
+-		    offset + ea_size > ea_info_qsize) {
+-			err = -EIO;
+-			goto out;
+-		}
+-
+-		if ((int)p_ea->ea_name_length + 1 >
+-			ea_size - offsetof(struct ea_attr, ea_name)) {
+-			err = -EIO;
+-			goto out;
+-		}
+-
+ 		if (buffer) {
+ 			if (ret + p_ea->ea_name_length + 1 > size) {
+ 				err = -ERANGE;
+-- 
+2.51.0
 
-> +	regulators = of_get_available_child_by_name(pdev->dev.of_node, "regulators");
-> +	if (!regulators)
-> +		return 0;
-
-The driver should just register all the regulators the silicon has
-unconditionally.
-
---f5/rSFUp8Yji7O/g
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxBaoACgkQJNaLcl1U
-h9DrEgf+KXidvn27tUTXYgVYcFZ0ex7DvlXgyKZmRRxKrLvcmKP7zfArl7kU5hn2
-SI1FLzc3ZUSfJ91wZIe+loFnf/Vx7/pmt9KvN0IZqtmuI0q8pbsGGDPOb4xc/Mx6
-MX/5aOUIrcHRGsxWUVJld1AYkG/Hp5z38/TlPxtdxQpP09artOzs4F1qXFUdcKMN
-QtrtPgyUrMf9vJV3+QaEfIzU3XslZOqr7igO4+jeJbGtc8Za5FG7/StjbvrQoOkd
-mxsTFhFLO9R4/QUjXz7ARi8JlAXl5WHaJiNhyoTrXXLlt/DbCIKLFA5cGd3gCA40
-5VnO2kac3TjTifouGM5EgKWlv2P6Eg==
-=RDhc
------END PGP SIGNATURE-----
-
---f5/rSFUp8Yji7O/g--
