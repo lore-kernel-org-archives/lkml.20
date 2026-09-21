@@ -1,189 +1,78 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337C8292B2E;
-	Mon, 21 Sep 2026 09:14:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30930292B2E;
+	Mon, 21 Sep 2026 09:14:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982048; cv=none; b=eNaPZuQafci9Hub8MOz0+KiU0QwS+3KKaWtLkY8eJAzGYr2sXzAVrsnW4zWp8D9UR5TapSx/2ZPPg1oR10GsWaiS6ddI1rlFDxE0ZQ2hi5QJ9cPZDZg5Y9UR3K7dtbpIiwA8Fkzp3Kds1KgdzhqMQu5iNDYl3KFrqWeruRFGKkg=
+	t=1789982057; cv=none; b=CzDjHgsopj3ypECA8nLqbyWShvh/tYlkt7/NVvxWNZM/fmrOTugyyB/ej0J9ZuwRcmHfN3HDid8nU6ryO6/xqVNYjFYpR9k56sptTnwID/iPnFdddjxwVTAyWWm/OYwlnBLsYZtoQTiL3SKuFAA/GxDjErVpn9SgZey4DBxKotc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982048; c=relaxed/simple;
-	bh=cuaLljRcyBeDoEi13kcoUI7J3r+uCL6iZagm/2olB64=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=islLFMI6RwLkiNpUR0rh+ZtqDfDLLWhqia7Bqu/1GC9QO4tT/7O14/o/0oOQ8Qt7P9AL39hx4e4Uy2tYm+IAOdrV7cnJvvjP8fvVxqOHXcedNaG9Qv3HI0V1Z9k1eMSSw7He/z4DlRPrCsjRBQtviE+1XDcZesAIdZXfujGF/HU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=DNa3q/Q2; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=k/S1oWP1; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=knIrBfKr; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=tUVl2pxi; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1789982057; c=relaxed/simple;
+	bh=Ypk197u83QsJkKLOBorgGsgBYWL8I8pOcxYcooVQIRs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=s34evjMd3RKVHnAtXYdr65GTpOQPk0phoQBW9dDHVjDPrNgaE6LGvmrbFHncSF8h3vjkCWKy2b1jwnPai6CIlwleOE7zqM84xi04uLHrjQ3BifOy5U+gFqSXkOwv0Voq9+wIcQttz85N5M3bUkxTcjD2aoAlJNWedYSx0vXldxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BVRV5Ip6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="DNa3q/Q2";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="k/S1oWP1";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="knIrBfKr";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="tUVl2pxi"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 22D071F7A6;
-	Mon, 21 Sep 2026 09:13:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789982041; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=i/5Hx42b5N3HMo+IBhECiBj3UiF/OOn1jXG+HpXUr1U=;
-	b=DNa3q/Q2mQrdJDulb7ILXu9DQAyp4WnXQOjkCKeVKYfxB8Dy8oj381xE863wWctCCuEmWY
-	PaIRD/hmYGQ5FPDv0wa2o/B/qj6Tm37aIh9aaEHrn6YNnuNpoOimH/ooot4V8r9nEDGYtJ
-	BSjpQQ4bkh1zKAIDraG5Jfq86AZ3+o4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789982041;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=i/5Hx42b5N3HMo+IBhECiBj3UiF/OOn1jXG+HpXUr1U=;
-	b=k/S1oWP1PxC9GXeq4HKLKMtStzinjSvABUTOHxH29kpIjE413Lme89yTCRz8woozTtS97B
-	IuZiIp2XStrcOXBw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789982037; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=i/5Hx42b5N3HMo+IBhECiBj3UiF/OOn1jXG+HpXUr1U=;
-	b=knIrBfKrHxOnwGZAq+XJFyc0VZ5gOFAI1fDk4pKI5OlRdzVbArHKtfudFX6UphG9+YiVNG
-	pBGSHncjAMjlI9tXWq+yobVeE6bIbVf3i3tOVGg4/ddmQupMNmUiKO5qp8B1wZziS03nYF
-	YhI2X0Pgd8o5LpsrTpkZokMk57de/F0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789982037;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=i/5Hx42b5N3HMo+IBhECiBj3UiF/OOn1jXG+HpXUr1U=;
-	b=tUVl2pxiQhApmw4qVxjXVL3Pgcp9okmZZZ02vOvWVNBV6cCNb1MKt4FxAtaIt+eBoABgTV
-	0sfppbXjKKnqCOCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EE4DC13793;
-	Mon, 21 Sep 2026 09:13:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ZYtQMlT1sGo7aQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 21 Sep 2026 09:13:56 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 7D1C1A13D5; Mon, 21 Sep 2026 11:13:56 +0200 (CEST)
-Date: Mon, 21 Sep 2026 11:13:56 +0200
-From: Jan Kara <jack@suse.cz>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, jack@suse.cz, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	willy@infradead.org, david@kernel.org, hannes@cmpxchg.org, mhocko@kernel.org, 
-	roman.gushchin@linux.dev, muchun.song@linux.dev, riel@surriel.com, shakeel.butt@linux.dev, 
-	kernel-team@meta.com
-Subject: Re: [PATCH] mm: filemap: move lruvec accounting outside the xarray
- lock
-Message-ID: <uomya4f3y667udbs2oht4p5jchbqmqah564infihegebl7jvq2@7h4g2f3gbdhh>
-References: <20260916125122.2696271-1-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BVRV5Ip6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C71221F00893;
+	Mon, 21 Sep 2026 09:14:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789982055;
+	bh=Ypk197u83QsJkKLOBorgGsgBYWL8I8pOcxYcooVQIRs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BVRV5Ip6eDfnma/w5Y/czw1VeMX630hiOe8uqSGXqsjooE2XeVRpukgHT2lEjnvWu
+	 6fr7DPRbl1pT/tixy4qKPgbdfhGlYyRG8mVxxP2xFNh0JvBj5PDyfoXXUlBIFmZA4A
+	 wfeqAXn7vlZ95v0+IozU1UxAIzm//WFXxIjRZk5wQ7PUdrDDUM00AjwNoSV4v7h67+
+	 t6gcdL1zYAKxQ8SwXrjgniMvV5ehmJobw1qZvb6XreBmqT5M27b3dOBakHQLtTBGpL
+	 7Qjs+OsKh7E9v3v5BGVIpCQ8aqce4Z1ksYxVuSAybhOUsiABwrrZkUDWyNB0hScgEj
+	 Xg7AZ5lBqmQ9A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 07/14] LoongArch: kexec_file: Fix elf_headers memory
+ leak in retry loop
+Reply-To: sashiko-reviews@lists.linux.dev
+To: james.morse@arm.com, thuth@redhat.com, me@linux.beauty, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, vishal.l.verma@intel.com, pasha.tatashin@soleen.com, sourabhjain@linux.ibm.com, baoquan.he@linux.dev, chao.gao@intel.com, akpm@linux-foundation.org, kai.huang@intel.com, mingo@redhat.com, kernel@xen0n.name, seanjc@google.com, piliu@redhat.com, mclapinski@google.com, palmer@rivosinc.com, linuxppc-dev@lists.ozlabs.org, bp@alien8.de, mpe@ellerman.id.au, driver-core@lists.linux.dev, kees@kernel.org, gregkh@linuxfoundation.org, hbathini@linux.ibm.com, chleroy@kernel.org, leitao@debian.org, will@kernel.org, x86@kernel.org, dakr@kernel.org, guodongtai@kylinos.cn, hpa@zytor.com, maddy@linux.ibm.com, takahiro.akashi@linaro.org, catalin.marinas@arm.com, sshegde@linux.ibm.com, loongarch@lists.linux.dev, zhangtianyang@loongson.cn, "Jinjie
+ Ruan" <ruanjinjie@huawei.com>, maqianga@uniontech.com, mark.rutland@arm.com, chenhuacai@kernel.org, tangyouling@kylinos.cn, eric.devolder@oracle.com, tglx@kernel.org, ruirui.yang@linux.dev, graf@amazon.com, bgwin@google.com, npiggin@gmail.com, pratyush@kernel.org, rafael@kernel.org, yeoreum.yun@arm.com, coxu@redhat.com, liukexin@kylinos.cn, dave.hansen@linux.intel.com, ritesh.list@gmail.com, rppt@kernel.org, jbouron@amazon.com, robh@kernel.org
+Cc: kexec@lists.infradead.org, ruanjinjie@huawei.com
+In-Reply-To: <20260921090450.807575-8-ruanjinjie@huawei.com>
+References: <20260921090450.807575-1-ruanjinjie@huawei.com>
+ <20260921090450.807575-8-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 09:14:12 +0000
+Message-Id: <20260921091412.C71221F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916125122.2696271-1-usama.arif@linux.dev>
-X-Spam-Score: -3.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.com:email,linux.dev:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
 
-On Wed 16-09-26 05:51:22, Usama Arif wrote:
-> __filemap_add_folio() inserts a folio and updates mapping->nrpages
-> while holding mapping->i_pages.xa_lock with interrupts disabled. The
-> XArray insertion and nrpages update require the lock, but the lruvec
-> statistic updates do not. With CONFIG_MEMCG, those calls also update
-> per-CPU memcg and lruvec counters and notify cgroup rstat, extending the
-> critical section.
-> 
-> Move the lruvec accounting after a successful XArray insertion and
-> after xas_unlock_irq(). The page-cache references pin the folio, while
-> the folio lock keeps folio->mapping stable and prevents removal until
-> accounting is complete. This moves one lruvec update for ordinary folios
-> and a second for PMD-mappable folios out of the serialized section.
-> 
-> In a 30-second system-wide perf lock contention -ab capture on a
-> production host, the hottest caller-stack record attributed to
-> __filemap_add_folio() had 20,867 contentions and 557.930 ms total wait.
-> That was 14% of the 3.998 seconds of aggregate lock wait in the
-> capture. Moving lruvec accuting outside of critical section should
-> help optimize it.
-> 
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> If load_other_segments() fails after image->elf_headers is assigned,
+> the memory lifecycle is safely managed by the global kimage object
+> and will be freed in arch_kimage_file_post_load_cleanup().
+>=20
+> However, during a retry loop in efi_kexec_load(), a subsequent iteration
+> will allocate a new buffer and overwrite image->elf_headers. This
+> permanently leaks the stale memory from the previous iteration before
+> the global cleanup can track it.
+>=20
+> Fix this by explicitly freeing the stale `image->elf_headers` buffer
+> before assigning the newly allocated headers.
+>=20
+> Cc: Huacai Chen <chenhuacai@kernel.org>
+> Cc: WANG Xuerui <kernel@xen0n.name>
+> Cc: Youling Tang <tangyouling@kylinos.cn>
+> Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
+> Cc: Kees Cook <kees@kernel.org>
+> Cc: stable@vger.kernel.org
+> Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%=
+40huawei.com
+> Fixes: 55d990f0084c ("LoongArch: Add EFI binary support for kexec_file")
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-Looks good. Feel free to add:
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921090450.8075=
+75-1-ruanjinjie@huawei.com?part=3D7
 
-								Honza
-
-> ---
->  mm/filemap.c | 15 +++++++--------
->  1 file changed, 7 insertions(+), 8 deletions(-)
-> 
-> diff --git a/mm/filemap.c b/mm/filemap.c
-> index 00fd89cf6f550..4720bbfc1a663 100644
-> --- a/mm/filemap.c
-> +++ b/mm/filemap.c
-> @@ -918,14 +918,6 @@ noinline int __filemap_add_folio(struct address_space *mapping,
->  
->  		mapping->nrpages += nr;
->  
-> -		/* hugetlb pages do not participate in page cache accounting */
-> -		if (!huge) {
-> -			lruvec_stat_mod_folio(folio, NR_FILE_PAGES, nr);
-> -			if (folio_test_pmd_mappable(folio))
-> -				lruvec_stat_mod_folio(folio,
-> -						NR_FILE_THPS, nr);
-> -		}
-> -
->  unlock:
->  		xas_unlock_irq(&xas);
->  
-> @@ -942,6 +934,13 @@ noinline int __filemap_add_folio(struct address_space *mapping,
->  	if (xas_error(&xas))
->  		goto error;
->  
-> +	/* hugetlb pages do not participate in page cache accounting */
-> +	if (!huge) {
-> +		lruvec_stat_mod_folio(folio, NR_FILE_PAGES, nr);
-> +		if (folio_test_pmd_mappable(folio))
-> +			lruvec_stat_mod_folio(folio, NR_FILE_THPS, nr);
-> +	}
-> +
->  	trace_mm_filemap_add_to_page_cache(folio);
->  	return 0;
->  error:
-> -- 
-> 2.53.0-Meta
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
