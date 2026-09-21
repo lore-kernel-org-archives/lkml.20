@@ -1,69 +1,69 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8C433033EC
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:31:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D74AD4BE436
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:31:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790004697; cv=none; b=qiRMrg3pzTmQRpGvEZbHiQfqr9GFKvrwLX9IXiU0FGR8qZZnhFBQn32sT7Ey6XW+KmBi27mkf24Zp6tqmL1cO83rr3pDchi3rJBlQRaxhrm8d5m/0o6ooMUNzXvIfpKNRslrKaaKJosX4yQdjqT1oGbHP+PQUqcfi9shaA/DsrA=
+	t=1790004698; cv=none; b=evpCFfap8LGXIaMEsrfiXWNRXh3wOFQ1MGA1en5aBXpc+NmL8rBH9J/TOgVPdJCKmJnmQWuSysuLkF+LTM/JZiYYnZXiRMCgYYRSX2cxiQmDGe8yByh1OjsnmB36j08BP0XX4nwdjkYAqUsxJaycJ7phLpVaxOj1N1T+ZkGr3Q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790004697; c=relaxed/simple;
-	bh=hmtR3W1Y5TWVJ1bZwbC6Y+hbDXaRcvii2VTH1g9vhD0=;
+	s=arc-20240116; t=1790004698; c=relaxed/simple;
+	bh=RarTNDU+cdrtiJCRKIjHK9/KtTW/V+grsr3mpwyd0ak=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=j0t8KLUoEKDdTUliT9d8PPAMB3i+nwhciMaJwUH6Wn8ntrzA4IrtYGiGWglZXDn6lR4i1KgeLo8/en4GIPFkb0PlqGlHw8i3ajj4px4SYGRXWPM2UTYOurSKtcRBEWFUmWAfq4m+D/a+lXHrkAABzcgbrn7Kx28U58UbjKC3IHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VH42h8mb; arc=none smtp.client-ip=74.125.225.99
+	 In-Reply-To:To:Cc; b=lVgnP+0mmuc55LMAOEvT0Y3QE/Jnr7iueY5v2aIBvbaUG1vkoxgn8fBix31UwhMQKyF+7a9j0PiOoqM45UEO4oTmG32Kqmqdjish1XJ2zTCyHDgGXOiO4wUh1/pRgoJXaZwIbkXZ18K5TaCzD9c5AaKqGnU/QCTnqeMSCKt1YOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F5bZe2+D; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VH42h8mb"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-482f63546c5so2469096f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:31:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F5bZe2+D"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48439feca17so2407383f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:31:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790004694; x=1790609494; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790004695; x=1790609495; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hvjZHOpLzp7pP91442UrHRwP2IoVQT4tZJveO/+uSIQ=;
-        b=VH42h8mbjunlLvUfhU2MPv3RDsyKFrpag8zJoNlvy9M7+6rpzAE/9WXMBCQrneYpzu
-         ikZSAGHbAsNDZGPFK/PVkVG5nbK4uXB1Fo2t/DOa6DYsdhpzM2vIqdbRhDwRWvWwWeO/
-         6YyHlWrE3Wcfel9hS7knbE/oH5ILoXC/xpNfcKiUvU8wZ0e/nQiqGB2gz9zG5+/YjNax
-         OCYghsovaLMu08OhIhrvfZR+dLpqAe9ZM7ihiJJrcKtAzjKTmqGy5FNZVsbmNSniGOpl
-         ps6DZAJ91yCHRmVh+Vo1XhPmZHiB1fcWifDSUvTT3PnWbxESP0ags7zrbJbuWTkzfLRa
-         AJYA==
+        bh=/2HAjOtO4JT6djVdWHJMgChsjtAACcDgZqmOTkPDDE8=;
+        b=F5bZe2+DGIsLh1lWMW+1JoFZoTnTAcAH27fSI1vf6mCua1Ic2x6LPioj8UN6pwF5HF
+         zMD18kN6TUMwltjSHvJGfeyTTqIWaU0CPczTBHKjMsWFB6HtdKE4ISSxsgOp3/c5LGji
+         K8qFvikXhSbpv0jEjILW6u3JT91y7k8JcHUt9UsEs4px+i32AIAVAS+2/7YyeIc1Ugkl
+         IpSvWP9GoWAMoDqEWgWwd4UkIGDN49vId7gkuDl9PF3hvJR4T2LPqG3qN7Gw1DOe1Vnu
+         Jp+gSw3b4ozZL8r80b4LHR1kD1bIbmzPA3fcfW5VJpkKm0CBsyYsTZQIcBhFYy1dYoF4
+         Uo5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790004694; x=1790609494;
+        d=1e100.net; s=20260707; t=1790004695; x=1790609495;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hvjZHOpLzp7pP91442UrHRwP2IoVQT4tZJveO/+uSIQ=;
-        b=f2XT2fwT7KHJYngABQgDBF8tYO09cD4Oe1JoAX8Vx2Tpxf4CK1QFkp+4bJNonW7dQj
-         b7AcUM18MLXVaxaR0w+aEKuQ+NjTcI21kPZjX9C/nOAA20ruYlOraWU53suaMd1o1t67
-         sIChpno+PrId6cdHaB3joH0OIi57KwYhnnnMrMxJVsvOgTM4IalItWnx8inK8UqgR9uq
-         5n3zLZND6tSAo0aozo3/klqyUqVWbDeWpsl8UjT9cKwRR8baP8QiELe6xr8VdfFseJOU
-         fe4JsV/npPMSsYIP51gjPXGmVpZzE9J6pjp/jCx0XrY5gD6rnWXgkzUzlsvnFIAzJqSa
-         52Qw==
-X-Forwarded-Encrypted: i=1; AKwUvBzFVPL8dn/DwYEPS+MCjsUC+QQ2/uvpXgONL0AOGC30UoOFF/sMUkkUQRQgdVHA0bGFoRclkFIe/qUPqGU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtTiPbB9kW8ZAqPXu6jcsyqCqtXZe47u5CVDHzI2k0bipWJfFY
-	xDRv/l+fDbt8wCu39p1d75MALj66mLIn7TP4fDBXF8t44xtDFL+ZvG0Y
-X-Gm-Gg: AYBFou1OwCugt4T5bdUQOQv2ysrxxWp+MOqPsxzLtlfq7uU5qCdoMfG7Q1kg2259pJE
-	R1fUCOvfQiOdF6p1tY2dg3wZvBIAiEi+DoKC7qIzMnDIlbfZXLYw1ads0RxtJkqwxnImydsnOd/
-	moo5RRNLwpQ04mXN2el5g9KyshrTKWcNFjj0W7bcQ1j5i/nVUh7BG4jrjZ+dj4x5N8+NKZndJ4s
-	lgUOd3uFHU/IsQMFvE9ER50uyYktF7xU+3+i4ZDig4kEx+G0KYnJ6RnPb74q+ERwQ+J1pbYlvH4
-	5/oecD+Ndh2J85aIEoCylvsKzyubnvBxoZ4IM60ndqhVqoAlapJDIpOUgwxA+ncM3KcaSA2Rcgq
-	XHgsIgMxluFLBDCp6k8qwErnHZprm46sUgoZ4n5ADSmIss7KZM4ykr7ChZmskaRv3QS5O93LTtQ
-	L+tQ4R4yMSYRaqFJMsApH9cszfkqUkxpla0HGaid7dfFl2tI60C5vgbXROGi70tcM1GTVMIzPUu
-	EBzu7q2rCylNSz4uXQx8k3XMSnbqm2lYHGTIEZJciq01uCY5VU2hr4gUbpQXSAjQcuF
-X-Received: by 2002:a05:6000:2407:b0:487:14b6:b1be with SMTP id ffacd0b85a97d-4871e235dedmr14131319f8f.25.1790004693661;
-        Mon, 21 Sep 2026 08:31:33 -0700 (PDT)
+        bh=/2HAjOtO4JT6djVdWHJMgChsjtAACcDgZqmOTkPDDE8=;
+        b=SEUiyKkrsgnmFOzNNVDFKXfKlOPC+804FuxudFBqhFQHRvBDeumeZq5mbJmS2GWiNE
+         XOiXeRMu/q8OKuvIcJV6yG6615aVbo+YrZKu6carTZblLu/PosBZeliNvyyTCL9KWPJ7
+         nTU95JzNKTWtJf2szdKli2cYgLrnnFP1BsNTn8GK9fnmX4ExamCz53MREz/sFqbw0oLo
+         bS3gkbzb5iBaZYzIqpIGHohVdDqjJyjLVky19pL/6eqZ6BkuczmzPYFjd0wOydKKUAx/
+         ahnBteipYx2tX/sGuL8Y8V12sLM7TOnlnpGsVYOVgzKSEZcw4LHzjfSrm207gtyNXs6v
+         3CBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw31f/d62rE/X6OqsYc2aQSeIsBEmqu3nIPvMn33Qmevo51d1L2dl2UK5gQiv1udr+OlbwfzUgKFJyP82Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/0y58NbuRYr8O0dSpCCPBG+9+DvKOVJE+bajJ6gN4I4BnBmoy
+	x0JiWcSYU+jt4fjOdLaZ2clfEbH+Krc/4eOcdvAvL6MrFFah0AToI28/
+X-Gm-Gg: AYBFou2gVsBWPvH66Xc8VhtRY30j1j4JH4v4vXGIafeoweQQ4hdqGBM3D4aq2UgqBRH
+	wM5nylZ3K7lH9BW4UCwlzoloreyB9IVDVziaQnL7DxbQk0jiM42RBvs9KOtsfSLMCNfeTvQ5G2k
+	ZG3ZLB9sQjnJnoBIEmYKosj19pxUFD50hLKo5KbYMmB1beAezg7gBecvRmoiIa+yHg8kwEWFxtK
+	ap3Z+V651xra1Gv5X6vwf+2IDeVF6sugy3Tj55wia5hyPBV5u9FKkeRDH8aCq1IQB8x5tibpENq
+	rYkBuXPHPIQ02x0CDQ/alud0OFXnRbBEZqJHkaCDun+kfjc27+mJd9Y1O1tnr/v5LymWy351qbE
+	XparFeA0e9RHQwoDqCpC/OJrr1tgDZAeqgeKwopMdO8sCQuEqbqpW3AH9T081+PPQxkUgopFHRC
+	zEDTs2TohozmAsl6APjHbFvBb578uWmB6FeXQolJSFmzcfW99MuOP1RQJ8CR0EGUooVhPDxvbia
+	mLZX2CWG3gZixc6vrOAVNrLuazzoaO7FgtBdq0YYReMxHg7gjNXREicBw==
+X-Received: by 2002:a05:6000:260d:b0:488:5d3e:becb with SMTP id ffacd0b85a97d-4885d3ec377mr3423054f8f.39.1790004694794;
+        Mon, 21 Sep 2026 08:31:34 -0700 (PDT)
 Received: from [127.0.1.1] (lmontsouris-656-1-83-121.w82-127.abo.wanadoo.fr. [82.127.110.121])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724562aebsm25313835f8f.14.2026.09.21.08.31.31
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724562aebsm25313835f8f.14.2026.09.21.08.31.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 08:31:32 -0700 (PDT)
+        Mon, 21 Sep 2026 08:31:34 -0700 (PDT)
 From: Amin Gattout <amin.gattout@gmail.com>
-Date: Mon, 21 Sep 2026 17:29:58 +0200
-Subject: [PATCH v2 2/5] media: rockchip: rkcif: add a register index for
- the MIPI capture size
+Date: Mon, 21 Sep 2026 17:29:59 +0200
+Subject: [PATCH v2 3/5] media: rockchip: rkcif: add a callback for the MIPI
+ ID_CTRL1 register
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-vicap-rk3576-v2-2-0a4582e20c72@gmail.com>
+Message-Id: <20260921-vicap-rk3576-v2-3-0a4582e20c72@gmail.com>
 References: <20260921-vicap-rk3576-v2-0-0a4582e20c72@gmail.com>
 In-Reply-To: <20260921-vicap-rk3576-v2-0-0a4582e20c72@gmail.com>
 To: Mehdi Djait <mehdi.djait@linux.intel.com>, 
@@ -84,118 +84,57 @@ Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Amin Gattout <amin.gattout@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790004687; l=4689;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790004687; l=2149;
  i=amin.gattout@gmail.com; s=20260818; h=from:subject:message-id;
- bh=hmtR3W1Y5TWVJ1bZwbC6Y+hbDXaRcvii2VTH1g9vhD0=;
- b=7eXfGmHs6sqc5ovi2LozeLD8P+//cq3BdzTNILe+jLO+3z6tcXIFTrq2r7PjL5gIQ0U+4GFP/
- bs+JT9H4zhyDhyWgtywsCyvaCrvhVdn3FYixJeafybxnIvdR7YATVT9
+ bh=RarTNDU+cdrtiJCRKIjHK9/KtTW/V+grsr3mpwyd0ak=;
+ b=AfnwiBUYc0Iwvv07IbNj4GLcQp3c8H7KT2SE4wJXU/4N3vJJhNOprP36ijMkFaowrAHFyv3c6
+ vPvJjApEssmBBjgqwoobVr5BffVD1PUuu8Qebca+Cabc2NfcYXvyCnb
 X-Developer-Key: i=amin.gattout@gmail.com; a=ed25519;
  pk=MSIqDPkCOkwtyP8Fns1m+KFU9SgqoDl2mpLe18vL+hQ=
 
-The RK3568 and RK3588 variants configure the MIPI capture size in the
-ID_CTRL1 register. The RK3576 has a dedicated ID_SET_SIZE register
-instead.
+The contents of the MIPI ID_CTRL1 register differ between variants. The
+RK3568 and RK3588 hold the capture size there, while the RK3576 uses it
+for the virtual channel and data type filter.
 
-Add a register index for the capture size and write it through that
-index, in preparation for the RK3576 support. The RK3568 and RK3588
-mark the index as unsupported, so the write is a no operation for them
-and their behavior is unchanged.
+Let each variant provide a callback that builds the register value, in
+preparation for the RK3576 support. Variants that do not provide one
+keep writing the capture size, so their behavior is unchanged.
 
 Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
 ---
- drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c | 10 ++++++++++
- drivers/media/platform/rockchip/rkcif/rkcif-regs.h         |  1 +
- 2 files changed, 11 insertions(+)
+ drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c | 5 ++++-
+ drivers/media/platform/rockchip/rkcif/rkcif-common.h       | 2 ++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-index bc9518f8db50..e0acb9049ca1 100644
+index e0acb9049ca1..432f47a1fc23 100644
 --- a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
 +++ b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-@@ -438,6 +438,7 @@ const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
- 			[RKCIF_MIPI_FRAME1_VLW_Y] = 0x38,
- 			[RKCIF_MIPI_FRAME1_VLW_UV] = 0x40,
- 			[RKCIF_MIPI_CROP_START] = 0xbc,
-+			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
- 		},
- 		[RKCIF_ID1] = {
- 			[RKCIF_MIPI_CTRL0] = 0x08,
-@@ -451,6 +452,7 @@ const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
- 			[RKCIF_MIPI_FRAME1_VLW_Y] = 0x58,
- 			[RKCIF_MIPI_FRAME1_VLW_UV] = 0x60,
- 			[RKCIF_MIPI_CROP_START] = 0xc0,
-+			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
- 		},
- 		[RKCIF_ID2] = {
- 			[RKCIF_MIPI_CTRL0] = 0x10,
-@@ -464,6 +466,7 @@ const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
- 			[RKCIF_MIPI_FRAME1_VLW_Y] = 0x78,
- 			[RKCIF_MIPI_FRAME1_VLW_UV] = 0x80,
- 			[RKCIF_MIPI_CROP_START] = 0xc4,
-+			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
- 		},
- 		[RKCIF_ID3] = {
- 			[RKCIF_MIPI_CTRL0] = 0x18,
-@@ -477,6 +480,7 @@ const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
- 			[RKCIF_MIPI_FRAME1_VLW_Y] = 0x98,
- 			[RKCIF_MIPI_FRAME1_VLW_UV] = 0xa0,
- 			[RKCIF_MIPI_CROP_START] = 0xc8,
-+			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
- 		},
- 	},
- 	.blocks = {
-@@ -549,6 +553,7 @@ const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data = {
- 			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
- 			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
- 			[RKCIF_MIPI_CROP_START] = 0x8c,
-+			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
- 		},
- 		[RKCIF_ID1] = {
- 			[RKCIF_MIPI_CTRL0] = 0x08,
-@@ -562,6 +567,7 @@ const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data = {
- 			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
- 			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
- 			[RKCIF_MIPI_CROP_START] = 0x90,
-+			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
- 		},
- 		[RKCIF_ID2] = {
- 			[RKCIF_MIPI_CTRL0] = 0x10,
-@@ -575,6 +581,7 @@ const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data = {
- 			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
- 			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
- 			[RKCIF_MIPI_CROP_START] = 0x94,
-+			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
- 		},
- 		[RKCIF_ID3] = {
- 			[RKCIF_MIPI_CTRL0] = 0x18,
-@@ -588,6 +595,7 @@ const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data = {
- 			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
- 			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
- 			[RKCIF_MIPI_CROP_START] = 0x98,
-+			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
- 		},
- 	},
- 	.blocks = {
-@@ -759,6 +767,8 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
- 	rkcif_mipi_stream_write(stream, RKCIF_MIPI_FRAME0_VLW_UV, vlw);
- 	rkcif_mipi_stream_write(stream, RKCIF_MIPI_FRAME1_VLW_UV, vlw);
- 	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CROP_START, 0x0);
-+	rkcif_mipi_stream_write(stream, RKCIF_MIPI_SET_SIZE,
-+				RKCIF_XY_COORD(width, height));
- 	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CTRL1, ctrl1);
- 	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CTRL0, ctrl0);
+@@ -749,7 +749,10 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
+ 	if (match_data->mipi_ctrl0)
+ 		ctrl0 = match_data->mipi_ctrl0(stream, active_out_fmt);
  
-diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-regs.h b/drivers/media/platform/rockchip/rkcif/rkcif-regs.h
-index 3cf7ee19de30..0460e963b154 100644
---- a/drivers/media/platform/rockchip/rkcif/rkcif-regs.h
-+++ b/drivers/media/platform/rockchip/rkcif/rkcif-regs.h
-@@ -147,6 +147,7 @@ enum rkcif_mipi_id_register_index {
- 	RKCIF_MIPI_FRAME1_VLW_Y,
- 	RKCIF_MIPI_FRAME1_VLW_UV,
- 	RKCIF_MIPI_CROP_START,
-+	RKCIF_MIPI_SET_SIZE,
- 	RKCIF_MIPI_ID_REGISTER_MAX
- };
+-	ctrl1 = RKCIF_XY_COORD(width, height);
++	if (match_data->mipi_ctrl1)
++		ctrl1 = match_data->mipi_ctrl1(stream, active_out_fmt);
++	else
++		ctrl1 = RKCIF_XY_COORD(width, height);
  
+ 	int_mask |= RKCIF_MIPI_INT_FRAME0_END(stream->id);
+ 	int_mask |= RKCIF_MIPI_INT_FRAME1_END(stream->id);
+diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-common.h b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
+index 4d9211ba9bda..f83c8099b78e 100644
+--- a/drivers/media/platform/rockchip/rkcif/rkcif-common.h
++++ b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
+@@ -207,6 +207,8 @@ struct rkcif_mipi_match_data {
+ 	unsigned int regs_id[RKCIF_ID_MAX][RKCIF_MIPI_ID_REGISTER_MAX];
+ 	u32 (*mipi_ctrl0)(struct rkcif_stream *stream,
+ 			  const struct rkcif_output_fmt *active_out_fmt);
++	u32 (*mipi_ctrl1)(struct rkcif_stream *stream,
++			  const struct rkcif_output_fmt *active_out_fmt);
+ 	struct {
+ 		unsigned int offset;
+ 	} blocks[RKCIF_MIPI_MAX - RKCIF_MIPI_BASE];
 
 -- 
 2.43.0
