@@ -1,124 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009ED4A6895;
-	Mon, 21 Sep 2026 14:07:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F78F4A5C29
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:07:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999632; cv=none; b=hnzWV8zBN0r/BO3ol9zj50J3n4Ybfidi8ue9fF0CZcFsCPSRIy57iUxLG6OrexKI5oiOlQMZtZtuwLAqR81QLlqrH/5hd/Q+YB6/sYPBUNLbzkicOnngHlu6b6OBTKGuVLctT7XWgsGmSXzdcuNDFpKqqiPfdZUWWc8z4JXszcM=
+	t=1789999633; cv=none; b=ujWZYamFNgtCvYxsLLA99IpE2PL/Qmz4tGsBe1VE+XHzqRGIiSxuxoofvFNZ/e+r31Rs4t/Izw9EIJqBzz31wIZOpT6FKNjjMojkQ0p7AS3xONh/VMJR/xz/n/0dSgUzc4ksXKe0q+iJ9vfiyPXfmBShROKrfVzH2qTVvQFct+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999632; c=relaxed/simple;
-	bh=ZiOWKN2ZOQGBsmjgpno6aMWr3mUKpdMIGpg/4/Pll6I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tyg0d/gFCG2udbbwPuYGO3pB8jRCYkc6v0LjSblGPZWEErMaN7N6XhXeqPhX6qYsD6ZCyVOQ54S5zIkytaHohyu704LPtmqy6A9GQwcbP93da5tjHJfVil247F+mE5QcEOnP2d9qUXGeutS/2XPtGohXemxtajdUS0M4R/AcRT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J2xBu0PX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789999633; c=relaxed/simple;
+	bh=i/UcvAt/YkZtUZDVVXvIhetIhWdvHwrWBqqKlaEfp7s=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=g+aGJKpkJ4olAIPbGXN0rJbWm1eAHXysUupa9KHU4oRw0FOVdIN8PDmuHFBFn67eexZLc9g93woscftKpr12tMIVsuhV6hgYpSn0veEOIwf2mpBEH7GpPzA6+U1LP35PN06ah5dfWYKg0O9FfZYBje0bltP4B4DqyRWgDKV8UYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Lv+yMTvG; arc=none smtp.client-ip=209.85.210.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J2xBu0PX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60A301F000FF;
-	Mon, 21 Sep 2026 14:07:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789999630;
-	bh=Hkz9vrtx1kw/x4N2HUKFo3iQsk0olFuz4chU+iuup4E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=J2xBu0PXsaN+o4G2QIczv3gQM7JMre5YpzRIumyf1nv6LEbnWJXnH2uF1Dvkv4fER
-	 AFct09TR7tS17GsEgyoL50kUeI8Umrek+fSsO4Jsnz5OYDoissgGoG7Qx12Hyrsqu4
-	 7ZtuMBwOGCMVCL15ppGs1zJBQH7NQwIbfJxg8SaGOYMR55d11T+9KnhbMktYJuKTC/
-	 3omJzzNu9RCGkq1Muys2zzDV5HOHsjjUe46yIfPgR326nnsVRg2RhEsYH3ojp18UFE
-	 l8pTROuP3HDk/b15LSuZYLHkKSy94sW8w0FnKV1IZ82h49eh+BdMvH9fYhnZj6q16k
-	 jJZpQx/331S+w==
-Message-ID: <86d282f5-9221-4a62-85db-2d46524dd817@kernel.org>
-Date: Mon, 21 Sep 2026 16:07:02 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Lv+yMTvG"
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-85602449126so6311427b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:07:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789999631; x=1790604431; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qlm967+2DqooBSKAh8N4dzu7et0Jh35p2pRDxfJUbO4=;
+        b=Lv+yMTvGEZfv7WEgk+VT97WGMKUJerUtbPtUneCsRKMJoFdViRBiLna84fwuhpNoeV
+         ujW7BbeCGysqMqJh2n1+X1S0GRCr3HosZ/a8YCEfPlTQTccaqiFdvwdxcYwfKcklxPmR
+         V2RMav3EfwvQW1otJcSdwBElimmkgdUiAIXXXW7/hwbBafWJDA4xvqOSRAgJLU2F5UWo
+         ArqCx90Ys8pcdRlyaCm/jWZ8fqwyR8zINH96qgEIjG3lRZu94Q1CMEwfbtqZ/z+6rwwa
+         qzdSK1FyKX3HERyDa00I3xujHNJnLiiBreZmmdnOvc8ApkkzYC1gm3CRloSsKV7aVT+J
+         5qng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789999631; x=1790604431;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qlm967+2DqooBSKAh8N4dzu7et0Jh35p2pRDxfJUbO4=;
+        b=sONCGMfYlSZsk8hSS6KdA0Kx6fqtVn094fmm/qNTTpI72sx4bHB8A+LjFphcOYIdy6
+         xDXQPo6x5AWsscEGgIS4RSZFTHGCmff7pPcHQvGiN4cgomUXYshyxiwZ0mRtVtajp77H
+         UsXCLeweL5Udi/U28ZHH2YYsLaWBlqdyDqAU0aJxFqQxni1ItusAyXIjAie0m8xiFlP0
+         40TeLbRLLWzOc3gdofrlPzJztJzxcLjj2YPYLqJPSg6slxJAi3L5KIWBt6e4rbO9NGRs
+         +2J06gHNZKMBPTxclvpWaj74ywyaMWBga3s/qyodKyqY+4u1OvuqGXd9GuqpZzoGs/Sb
+         eHpA==
+X-Forwarded-Encrypted: i=1; AKwUvBzgZTCN+0vwo8iRsv0hZ5eFW8cVah5vSr6O7pqQ/4/t+0ibFEUte4nF9Nr5bxVSBiqmCLxFItrP1w4N3uw=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9tWPdQyXb27/75c5jAFd6vJ5ECR50g5NnaOU7MoiPlt/DmeUT
+	/3igcwtJWLPkqsQGwHdsM5TJ/EbOVrvRJ3TrwnCaykf/JoCp4cFsiaPLpN6Gcg0XXhfzLZNcg3w
+	M+BArmQ==
+X-Received: from pfrb16.prod.google.com ([2002:aa7:8ed0:0:b0:86b:edd5:baf2])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:44cc:b0:874:708d:b63d
+ with SMTP id d2e1a72fcca58-874defffedemr17206570b3a.30.1789999631279; Mon, 21
+ Sep 2026 07:07:11 -0700 (PDT)
+Date: Mon, 21 Sep 2026 07:05:28 -0700
+In-Reply-To: <20260910115414.3015260-1-ewanhai-oc@zhaoxin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: =?UTF-8?B?UmU6IOWbnuWkjTogW1JGQyBQQVRDSCAzLzRdIHJlZ3VsYXRvcjogcnRz?=
- =?UTF-8?Q?490x=3A_Add_driver_for_on-die_regulators?=
-To: =?UTF-8?B?5ZGo5a+F?= <zain_zhou@realsil.com.cn>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Vikash Bansal <vikash.bansal@nxp.com>,
- Aman Kumar Pandey <aman.kumarpandey@nxp.com>,
- Lakshay Piplani <lakshay.piplani@nxp.com>
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-i3c@lists.infradead.org" <linux-i3c@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "mfd@lists.linux.dev" <mfd@lists.linux.dev>, =?UTF-8?B?546L54Kc?=
- <wei_wang@realsil.com.cn>
-References: <20260920100501.4091351-1-zain_zhou@realsil.com.cn>
- <20260920100501.4091351-4-zain_zhou@realsil.com.cn>
- <58c3ea87-b7df-4c68-b22b-5102c158d5f7@kernel.org>
- <fe92f1275efe4451978fc473cbad39dc@realsil.com.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <fe92f1275efe4451978fc473cbad39dc@realsil.com.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260910115414.3015260-1-ewanhai-oc@zhaoxin.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <178999920500.751128.15894438912016690895.b4-ty@google.com>
+Subject: Re: [PATCH v2 0/9] KVM: selftests: Add Zhaoxin CPU support
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Ewan Hai-oc <ewanhai-oc@zhaoxin.com>
+Cc: Shuah Khan <shuah@kernel.org>, Frank Zhu <frankzhu@zhaoxin.com>, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	ewanhai@zhaoxin.com, cobechen@zhaoxin.com
+Content-Type: text/plain; charset="utf-8"
 
-On 21/09/2026 05:46, 周寅 wrote:
-> On Sun, Sep 20, 2026, Krzysztof Kozlowski wrote:
->> You leak OF nodes.
+On Thu, 10 Sep 2026 19:54:05 +0800, Ewan Hai-oc wrote:
+> From: Frank Zhu <frankzhu@zhaoxin.com>
 > 
-> Thanks for the review.
+> This series adds Zhaoxin CPU support to the KVM x86 selftests.
 > 
-> Both regulators and node are declared with __free(device_node), so the
-> references returned by of_get_available_child_by_name() should be
-> dropped on scope exit, including the continue and error paths.
+> Zhaoxin CPUs use the "CentaurHauls" and "  Shanghai  " vendor strings
+> and implement VMX-compatible virtualization, so KVM handles them via
+> its VMX backend.  Several selftests currently assume a CPU is either
+> Intel or AMD, which makes them misbehave or skip on Zhaoxin hosts.
 > 
-> Could you clarify which reference is leaking?
+> [...]
 
-I missed the __free, but then why do you declare __free variable with
-NULL as constructor? Don't grow this pattern. See cleanup.h (or
-discussions on the lists).
+Applied to kvm-x86 selftests, thanks!
 
-Best regards,
-Krzysztof
+[1/9] KVM: selftests: Add Zhaoxin CPU detection support
+      https://github.com/kvm-x86/linux/commit/d80ddf303f3a
+[2/9] KVM: selftests: Use host_cpu_is_intel_compatible for mediated PMU
+      https://github.com/kvm-x86/linux/commit/9bb23b9e85ea
+[3/9] KVM: selftests: nx_huge_pages_test: Add TDP detection for Zhaoxin CPUs
+      https://github.com/kvm-x86/linux/commit/54edcc375a46
+[4/9] KVM: selftests: vmx_exception_with_invalid_guest_state: Support Zhaoxin CPUs
+      https://github.com/kvm-x86/linux/commit/7610139e1ab7
+[5/9] KVM: selftests: fix_hypercall_test: Add Zhaoxin CPU support
+      https://github.com/kvm-x86/linux/commit/2625a21954c4
+[6/9] KVM: selftests: Skip PERF_CAPABILITIES vCPU checks without PDCM
+      SKIP: (this is a KVM bug)
+[7/9] KVM: selftests: feature_msrs_test: Extend MSR_IA32_UCODE_REV quirk to Zhaoxin
+      https://github.com/kvm-x86/linux/commit/658d82c07e78
+[8/9] KVM: selftests: nested_exceptions_test: Add Zhaoxin CPU support
+      https://github.com/kvm-x86/linux/commit/1a0abfad6c80
+[9/9] KVM: selftests: vmx_apic_access_test: Check APIC virtualization support
+      https://github.com/kvm-x86/linux/commit/0d5c14800de0
+
+--
+https://github.com/kvm-x86/linux/tree/next
