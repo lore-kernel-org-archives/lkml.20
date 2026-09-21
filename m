@@ -1,194 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF5D4CA796
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:05:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC1474F404B
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:05:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790013904; cv=none; b=kh13nXyMoA9knsXaZvjOM2ggLDuAC66INzFcLVi49xGbr79BB2RAdHkkkzsoy/FuSOF/9xoimWvIqN/Qc3hSFtofz4cq64GLUmRoxIXm5igczj3NsbWNzyDXnjF6/ZksVOCDdWQTGQxdB1z5247/Dq/r0dOPs3ogfpOzfD+vNyE=
+	t=1790013908; cv=none; b=fOhzgM1PiqDBRAAzFokbtUefbA+/Mqt/Bv1EdtSlUdqRZFs80WlwvkXTWM8843i1gDnWqyjQp7yrb0B5Ho+v5+cqnvFAWY4Elt1F58xVWB3tU0CNWGd1CF7+YQTfA4B9Cycel7cQJs2Yeldm52gqwFbcB2IkALO8TQp1MXoMX2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790013904; c=relaxed/simple;
-	bh=xAz1Za0IGRvxTu1SLcrq0u25knNEFAxNJLC+t+BBsCM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ovtVFeNayBjMnDWat89+2LRToCH5LKousZtLRYVv+Z7p4tpR8xZ0NQsETvYJuJdMibYl2WAk+GVx/gpD6U3cGI6kD9910Kvx3SzkExRUHkVrpHQyQm8855CLUbzXNDTXLBaot/wWTZUzEf1ND37hNgDCK1GZ5Da8Ll3q7aJiECU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FFXk9FkA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790013908; c=relaxed/simple;
+	bh=TtGA8FAwyVtKQU6ihgcUHLNc6TfPrbRYp5zBdV15gjw=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=eEhT1V4tJuIWcFyQ5psRLyVWRSEHVjLkbizUhPRaHYHObutc2aAtDypExBt0mrv1MVSFHAOuSt3U1VLso3W8JD8EVETgJge1PGvcYqdi4N7vauG9wPQQUIarMX+kMNgJKWNP4K9ZkZ2ZBGGE7s79sEPBYdLoaBgq8GEuO7zJK58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ldSc8iWA; arc=none smtp.client-ip=74.125.227.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FFXk9FkA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 663FD1F000FF
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:05:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790013902;
-	bh=z+XbqSwIlygDp/k2jWmjBOZ00p46tZ3MqZOaYtXteAg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=FFXk9FkAVeSJkZn2IAoXZobgrULqUsGgEK+GSFO8kHuCe/vAqr1KbzXEq5dAjhDRB
-	 AZ15mJ6dw4r6oBCKcL+x3+kCCD+ceJHbbt06Z/sWJWtWit2O3AOKCz7pyU/vxDOutQ
-	 MfzfRvx1FZATnhYHsNd1YXwgkdT6Y+HEr2VRhaezyYiJ5SPTJydrBrBDrF62HW+aY+
-	 bh7BrvPWfgIMgsSXXqfa0JHvRmjoB9RB0o/kMZ3b4B6PS5hCBC/Oe6WtlR/Z+j/3jA
-	 zIWHyLjsEuCd9rcjwnHZMndwHNw/ngfc2pDF/+/Xy8da/oUcjgxLrP7vZCV9xIvwYm
-	 GUsH9AXs4CEng==
-Received: by mail-lr2-f30.google.com with SMTP id 38308e7fff4ca-3a318299b38so29976641fa.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:05:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz0ao/IqvKGD283LB/J15ZEhKR0Vx5Rl5QJVet8jVkpYgmUbsYwzXqXkbCmHdL9yxhvB8MS6j7Ra1RDFss=@vger.kernel.org
-X-Gm-Message-State: AFuF++liKJ9zfX0Z9xhmen3PSvpMcYqgAvZwqYP4psRcm0/lAvFYf1SV
-	Gztr3ksZyv3l9PY3ZTN0xwrz9+2NIlH20njJIPvh5gq8E7jb93+Ew0HUMvKqXSA48u65SnBbSEk
-	mfoIcEDkqWd0NRbTtrRHkHhgkz34AbmI=
-X-Received: by 2002:a2e:be28:0:b0:39f:1b37:82bd with SMTP id
- 38308e7fff4ca-3a5fbe6a277mr23646281fa.11.1790013900691; Mon, 21 Sep 2026
- 11:05:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ldSc8iWA"
+Received: by mail-vs2-f41.google.com with SMTP id ada2fe7eead31-78565b4db77so1694895137.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:05:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790013905; x=1790618705; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3q5Pn8PVukD7VgmCNiRaWY+I+xY+HmDF82DkgaI6sqs=;
+        b=ldSc8iWA0jR9mXQ6MkvFRmFVzc94d9Y/4jOcf0KmPtui36ERwQ2k7wwwg7wmSxrdF0
+         gthI3ddsJ19mD8QXe1/sEVq2XIUUEPvxyi4ww66lTIHu7kdGX9TtDG7keOrJRjBJ7W6l
+         6UGOO64XX6uY7hAIhkrI0k3sLbB9jLn1I6N4FzoMcv5MuG+DvAGtNxRF37R5+HJPIWeN
+         1y7GqWEGQoxBVzbhkyNgH+V5Ex4AuocLrRf2B54ywUqr0rUL4J4Hbt0JedY+oneOPnij
+         EBQiILnWEXxZmYLMI9sN34D7Nj88kZ++phy7yMyM1A8OiYnvmHRt73ZQNZRhM0ht83Yc
+         mOwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790013905; x=1790618705;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3q5Pn8PVukD7VgmCNiRaWY+I+xY+HmDF82DkgaI6sqs=;
+        b=nnKm9561dmGU9BeLVRioqUrsvcTA5LcxL5LUMUfKmiAsHcP02QCEIqE/JP+ViYG3xA
+         7ErV83Ub1BOHnPkmj/5ewz60AxpYBTlKJh9goMa6cnRGOhiydcvO6r06Au2iqldX5Noa
+         FPnsVC5ZpOAlHoRH7ZW3JextvI4jFzGzZkItWkwlKPmK9VYHS1Qd5Fyv49cnhl2fvJFH
+         c70DqvHrjLfGD3hl3BnpWaKUSuPSm1RpCUn49GIEPEX5it46hGbQOgDbt0j1+XDmutrQ
+         JEqsYxLsn5u3quXcv3Gb8tzHJl/60aliDQqrkauFGtWLrupKw8Ed7OoJ/ZoQc7TxhiQ/
+         025g==
+X-Forwarded-Encrypted: i=1; AKwUvBw4d5xnHrgzByHzwq/iVbt0eAI91O7paifbi230vglw2obcgMfG/+1OoQkMEhVaGOTCEK0fepKgyEOxXFk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lmQIkz9cbMR7vyn6c6vVL6R4QIsxFoL7hROKlCj08+jpq+fT3j
+	IbfW5KmenY82HQqli4aWTqTg+mZVPp8BOGIuPkfHWpaFR0X4T/5IO85qkgIyefTH
+X-Gm-Gg: AYBFou3S2Hi23H5YPrayjCskpQWgrYCiGd1BWajoR3WZIWIdHZQoMRTBXUDy9zppL3+
+	cXeHoH/0grhAw0HC3bTTXaWo3X7WR01L2kQ0DjUme/GPoF5M2az/8Dg74f2EB7KzeOcW1f/5DTh
+	UxAgW+1Qgzjf6t4ZySVjwPaPSW1cGHvN/3Bxy8IQIWaBv2hC8+XNl6BwSxqjOi2GnkMVCKKc8cu
+	xlgb8K4aI4Ue8UH2R1jqs/YA/Hn3E+qHZNZjJtD48vTjKuLstRNQ+35AjtIIWnLn2BFtfVJ5Q9J
+	mkeriYFmBqELCXhmG6Bt/aAI2zWwsqJT/Dn1H50yyOepy+xtR8Q5R7CIUioo3QRLGl012G0+34/
+	RciNfelV3/zOrGLxti16XgIwB36/is6ZLlqXX+JLvRhG9saA0COsHb9L+8qNdhKJxb//KFtPqc3
+	wcEsCe7gCa53A13X7cedLDej9tkEp+OBtHC4dNgzgMqCsA5udW9Z7T8+Z0n1ts2f576g+pn8wVM
+	9ybOAEcffzkBLs=
+X-Received: by 2002:a05:6102:4192:b0:7a1:f7c3:3a45 with SMTP id ada2fe7eead31-7a55c886d2emr6384562137.18.1790013904968;
+        Mon, 21 Sep 2026 11:05:04 -0700 (PDT)
+Received: from leonardoc-nb ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7aa86b4efefsm736826137.0.2026.09.21.11.05.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 11:05:04 -0700 (PDT)
+Date: Mon, 21 Sep 2026 15:04:59 -0300
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: Steve Longerbeam <slongerbeam@gmail.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Francesco Dolcini <francesco.dolcini@toradex.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Frank Li <Frank.li@oss.nxp.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	leonardo.costa@toradex.com
+Subject: [RFC] media: i2c: ov5640: Implement get_mbus_config
+Message-ID: <ho5e5huh2b5biibucht2bxyj2hzih2dkqpskrxtvsaf34niboc@s5e6pok36m5i>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <905771062.272724286.1789919301858.JavaMail.zimbra@trinity-net.com>
- <CAJZ5v0gg7kBtEhagR9SYKaPNstPC6aSyP7W4xBjP1r-kzbcH1A@mail.gmail.com> <arFe7-xa3HtCUOHs@mail-itl>
-In-Reply-To: <arFe7-xa3HtCUOHs@mail-itl>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 21 Sep 2026 20:03:28 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0h4giv53a2mPvJYT=fvBTj7vVXs=b7+qC2Q2L35qSTOSA@mail.gmail.com>
-X-Gm-Features: AcwNN1Vj0ZFSOOwh98D75XigHm-CPGlbbuwMjMKPEsP5Ta1JIqAFG3h-Yf_ZOC8
-Message-ID: <CAJZ5v0h4giv53a2mPvJYT=fvBTj7vVXs=b7+qC2Q2L35qSTOSA@mail.gmail.com>
-Subject: Re: [REGRESSION] ACPI processor/cpuidle change in 6.18.52 breaks
- bare-metal Xen dom0 boot
-To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Support TRINITY <support@trinity-net.com>, 
-	regressions <regressions@lists.linux.dev>, linux-acpi <linux-acpi@vger.kernel.org>, 
-	linux-pm <linux-pm@vger.kernel.org>, xen-devel <xen-devel@lists.xenproject.org>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, Huisong Li <lihuisong@huawei.com>, 
-	Stable <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Mon, Sep 21, 2026 at 6:44=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
-<marmarek@invisiblethingslab.com> wrote:
->
-> On Mon, Sep 21, 2026 at 05:26:55PM +0200, Rafael J. Wysocki (Intel) wrote=
-:
-> > On Sun, Sep 20, 2026 at 5:48=E2=80=AFPM Support TRINITY <support@trinit=
-y-net.com> wrote:
-> > >
-> > > Hello,
-> > >
-> > > I am reporting a bare-metal Xen dom0 boot regression seen with Linux =
-6.18.52.
-> > >
-> > > On affected systems, Linux 6.18.51 boots successfully as Xen dom0 on =
-bare metal, while Linux 6.18.52 consistently black-screens before dom0 user=
-space/networking comes up.
-> > >
-> > > #regzbot introduced: v6.18.51..v6.18.52
-> > > #regzbot title: ACPI processor/cpuidle lifecycle change breaks bare-m=
-etal Xen dom0 boot
-> > > #regzbot link: https://gitlab.alpinelinux.org/alpine/aports/-/work_it=
-ems/18447
-> > >
-> > > Tested results:
-> > >
-> > > Linux 6.18.51-r0, Xen dom0, bare metal: boots
-> > > Linux 6.18.52-r0, Xen dom0, bare metal: black screen before userspace=
-/network
-> >
-> > I'm wondering what's special about Xen dom0 bare metal.
-> >
-> > Does adding processor=3Dnocst to the kernel command line help, by any c=
-hance?
->
-> It does not.
->
-> > The patch is essentially a revert of commit 13ebeef6a1b9 ("ACPI:
-> > processor: idle: Optimize ACPI idle driver registration") which I'd
-> > rather not do without knowing what exactly is going on.
-> >
-> > At this point it looks like a missing check somewhere or similar, so
-> > it would be good to find out where exactly it crashes.
->
-> I can reproduce the crash, I get this:
->
-> [    3.525669] BUG: kernel NULL pointer dereference, address: 00000000000=
-00008
-> [    3.525677] #PF: supervisor read access in kernel mode
-> [    3.525681] #PF: error_code(0x0000) - not-present page
-> [    3.525685] PGD 0 P4D 0
-> [    3.525688] Oops: Oops: 0000 [#1] SMP NOPTI
-> [    3.525693] CPU: 0 UID: 0 PID: 21 Comm: cpuhp/0 Not tainted 6.18.52-1.=
-qubes.23.fc41.x86_64 #1 PREEMPT(full)
-> [    3.525700] Hardware name: Micro-Star International Co., Ltd. MS-7E06/=
-PRO Z790-P WIFI (MS-7E06), BIOS Dasharo (coreboot+UEFI) v0.9.1 01/17/2024
-> [    3.525706] RIP: e030:cpuidle_register_device+0xd2/0x350
-> [    3.525714] Code: 00 00 8b 55 04 49 89 c5 49 89 d4 81 fa ff 1f 00 00 0=
-f 87 68 02 00 00 48 8b 04 d5 c0 a0 19 82 48 83 3c 18 00 0f 85 ad 48 12 ff <=
-49> 8b 7d 08 48 89 14 24 e8 31 73 30 ff 84 c0 0f 84 72 01 00 00 41
-> [    3.525723] RSP: e02b:ffffc90040133db8 EFLAGS: 00010246
-> [    3.525727] RAX: ffff888235f5c000 RBX: ffffffff834d4d40 RCX: 000000000=
-0000000
-> [    3.525732] RDX: 0000000000000000 RSI: 0000000000000007 RDI: ffff88810=
-1c39c00
-> [    3.525736] RBP: ffff888101c39c00 R08: 4ec4ec4ec4ec4ec5 R09: ffff88810=
-1c39c00
-> [    3.525740] R10: ffffc90040133df8 R11: 0000000000000000 R12: 000000000=
-0000000
-> [    3.525744] R13: 0000000000000000 R14: 0000000000000000 R15: ffffffff8=
-34d4d40
-> [    3.525752] FS:  0000000000000000(0000) GS:ffff888235f5c000(0000) knlG=
-S:0000000000000000
-> [    3.525757] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [    3.525761] CR2: 0000000000000008 CR3: 000000000242c000 CR4: 000000000=
-0050660
-> [    3.525768] Call Trace:
-> [    3.525771]  <TASK>
-> [    3.525775]  acpi_processor_power_init+0xde/0x150
-> [    3.525782]  ? __pfx_acpi_soft_cpu_online+0x10/0x10
-> [    3.525787]  acpi_soft_cpu_online+0x123/0x170
-> [    3.525792]  cpuhp_invoke_callback+0x134/0x470
-> [    3.525797]  ? __pfx_smpboot_thread_fn+0x10/0x10
-> [    3.525802]  cpuhp_thread_fun+0xa2/0x170
-> [    3.525806]  smpboot_thread_fn+0xf3/0x220
-> [    3.525810]  kthread+0xfc/0x240
-> [    3.525814]  ? __pfx_kthread+0x10/0x10
-> [    3.525818]  ? __pfx_kthread+0x10/0x10
-> [    3.525822]  ret_from_fork+0x158/0x170
-> [    3.525827]  ? __pfx_kthread+0x10/0x10
-> [    3.525830]  ret_from_fork_asm+0x1a/0x30
-> [    3.525835]  </TASK>
-> [    3.525837] Modules linked in:
-> [    3.525842] CR2: 0000000000000008
-> [    3.525845] ---[ end trace 0000000000000000 ]---
-> [    3.525849] RIP: e030:cpuidle_register_device+0xd2/0x350
-> [    3.525854] Code: 00 00 8b 55 04 49 89 c5 49 89 d4 81 fa ff 1f 00 00 0=
-f 87 68 02 00 00 48 8b 04 d5 c0 a0 19 82 48 83 3c 18 00 0f 85 ad 48 12 ff <=
-49> 8b 7d 08 48 89 14 24 e8 31 73 30 ff 84 c0 0f 84 72 01 00 00 41
-> [    3.525862] RSP: e02b:ffffc90040133db8 EFLAGS: 00010246
-> [    3.525866] RAX: ffff888235f5c000 RBX: ffffffff834d4d40 RCX: 000000000=
-0000000
-> [    3.525870] RDX: 0000000000000000 RSI: 0000000000000007 RDI: ffff88810=
-1c39c00
-> [    3.525874] RBP: ffff888101c39c00 R08: 4ec4ec4ec4ec4ec5 R09: ffff88810=
-1c39c00
-> [    3.525878] R10: ffffc90040133df8 R11: 0000000000000000 R12: 000000000=
-0000000
-> [    3.525882] R13: 0000000000000000 R14: 0000000000000000 R15: ffffffff8=
-34d4d40
-> [    3.525889] FS:  0000000000000000(0000) GS:ffff888235f5c000(0000) knlG=
-S:0000000000000000
-> [    3.525894] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [    3.525898] CR2: 0000000000000008 CR3: 000000000242c000 CR4: 000000000=
-0050660
-> [    3.525904] Kernel panic - not syncing: Fatal exception
-> [    3.525931] Kernel Offset: disabled
->
-> And I have also another data point: Linux 7.2.6 is _not_ affected. And
-> similarly, Linux 7.3-rc3 works fine (haven't tried -rc4 yet).
+Hi all,
 
-So it is likely that the patch in question went into 6.18.y without a
-dependency.
+Some time ago, we had sent a patch that implemented the .get_mbus_config
+function for the OV5640 camera. This change was necessary for the camera to
+work with the i.MX6 after the v5.18 release.
 
-Let's see.  In 6.18.52, acpi_processor_power_init() is called in the
-!cpuidle_get_driver() case, which does not happen in the mainline.
+    https://lore.kernel.org/all/20230306063649.7387-1-marcel@ziswiler.com/T/#u
 
-AFAICS, 6.18.y needs to pick up commit 0089ce1c056a ("ACPI: processor:
-Update cpuidle driver check in __acpi_processor_start()") whose Fixes:
-tag should really point to 13ebeef6a1b9 which is a re-introduction of
-7a8c994cbb2d originally fixed by 8a1b5d412cb4.
+The patch stirred some discussion, since .get_mbus_config wasn't supposed to be
+implemented on drivers that don't have dynamic lane configuration. There were
+proposals of implementing it in other points of the camera pipeline, but no
+conclusion was reached.
 
-Thanks!
+We are planning to send the overlays for this camera for the Apalis iMX6, but
+we verified that this patch is still needed for the camera to work on the
+current mainline. Below are the commands to configure the pipeline, which
+explicitly require a .get_mbus_config from the camera driver.
+
+    root@apalis-imx6-11367581:~# media-ctl -l "'ov5640 1-003c':0 -> 'imx6-mipi-csi2':0[1]"
+    root@apalis-imx6-11367581:~# media-ctl -l "'imx6-mipi-csi2':2 -> 'ipu1_csi1':0[1]"
+    root@apalis-imx6-11367581:~# media-ctl -l "'ipu1_csi1':2 -> 'ipu1_csi1 capture':0[1]"
+    root@apalis-imx6-11367581:~# media-ctl -V "'ov5640 1-003c':0 [fmt:UYVY8_1X16/1920x1080 field:none]"
+    root@apalis-imx6-11367581:~# media-ctl -V "'imx6-mipi-csi2':2 [fmt:UYVY8_1X16/1920x1080 field:none]"
+    [   47.438237] ipu1_csi1: entity ov5640 1-003c does not implement get_mbus_config()
+    [   47.438265] ipu1_csi1: failed to get upstream media bus configuration
+    root@apalis-imx6-11367581:~# media-ctl -V "'ipu1_csi1':2 [fmt:UYVY8_1X16/1920x1080 field:none]"
+    Unable to setup formats: Inappropriate ioctl for device (25)
+    [   62.616177] ipu1_csi1: entity ov5640 1-003c does not implement get_mbus_config()
+    [   62.616204] ipu1_csi1: failed to get upstream media bus configuration
+
+I am not very familiar with this subsystem, and it's been years since this
+discussion took place, so I wanted to know what are your thoughts about this
+patch and what the correct approach would be here. Was there any change that
+would make this patch ok to be applied today? Do you think this still should
+be included somewhere else on the pipeline?
+
+Kind regards,
+Leonardo
