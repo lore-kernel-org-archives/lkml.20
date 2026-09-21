@@ -1,245 +1,216 @@
-Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 842C34BFE6B;
-	Mon, 21 Sep 2026 15:37:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.178.249
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790005076; cv=none; b=REqvDG2LjSznbPOQ76F7g/XTiuSqs97HA+PXdtyz6+yGJXOhFt26aQnggutgEq8xWv2QnP5mOyg5jnGEyfCNHJ1k+O3hmorFrvkimSfF6hTsBJrY1aCCiwyxbnzZ30RTXTBkhv0tOX8RKDn5D1wF1YN9v/Xg4dVDxuH/7fTY/ZQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790005076; c=relaxed/simple;
-	bh=G5bDhEAGtL4WetoIn196tHpjn9pkbZHdl7wylSvJY0g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OkBe3z9B8WYhMlLjHBSECpKhwpjnSXWCsX9mXlULIMQ9O8AyTt0i0p2eDAXS0RVgS/1hWvDcW2znHNnERRNZTVKGd8H/IsQpGh6TNwQWppXw4Cuy2QwHZoppp6JYuzEli4e3U6hG4maQ9lhwpyh3GCa28LDAa34n2rzXjBl3Ayw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr; spf=pass smtp.mailfrom=ghiti.fr; arc=none smtp.client-ip=217.70.178.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net [217.70.183.201])
-	by mslow3.mail.gandi.net (Postfix) with ESMTP id A4475581499;
-	Mon, 21 Sep 2026 15:13:19 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 1A0323ECFE;
-	Mon, 21 Sep 2026 15:13:07 +0000 (UTC)
-From: Alexandre Ghiti <alex@ghiti.fr>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>
-Cc: Kairui Song <ryncsn@gmail.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Wei Xu <weixugc@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Tal Zussman <tz2294@columbia.edu>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	Alexandre Ghiti <alex@ghiti.fr>
-Subject: [PATCH v6 0/3] mm: zswap: free cold writeback folios promptly
-Date: Mon, 21 Sep 2026 17:13:01 +0200
-Message-ID: <20260921151306.625134-1-alex@ghiti.fr>
-X-Mailer: git-send-email 2.55.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE3C495500;
+	Mon, 21 Sep 2026 15:38:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790005104; cv=fail; b=gTCtPH01s6JbPV7+C8Rbl8kerPtU9w/GFf2RBZKMbvLyk0wQXYyjie1qCxFLQZZMvzp+LVEDKSY2xsDRgOSwLg8iS7Aec3O88QXpmnxBPtHLKfkI8ks5FLIdh3XLQR9jsouUeHL1hXhoMmNw8tQMdPC0ljoMvw1QApyplhzE34g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790005104; c=relaxed/simple;
+	bh=Poad694m0qPvhSesT+th1zTiLEWmUAULNZZymKqZU9E=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=rNX7Wa6oAC6GQmLLq2uI1P8aBmlaFziowuGWDAln9edsSJhIEkxK/Gd1mKnwP9twzqvOW6L3wza93yGmruQVGKi3wRMu23Sxr6ln/NMVgmfFa23yVKIscXLCDbek4GCVCP2Ch+fZUBHc+47jlgI6emqN5qYugyOtco1KRFUNVpY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=f4yaRZk5; arc=fail smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="f4yaRZk5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790005101; x=1821541101;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=Poad694m0qPvhSesT+th1zTiLEWmUAULNZZymKqZU9E=;
+  b=f4yaRZk5cLBq5lS5KnPd9I3aRvIoCw3zQWqlG+Wwn/bmqxFP62c+jteg
+   3HughbIg5dDhDKFak+jV46NtdP1ri81GTU3WxrlqVm5dyEfpyOdlSb57Z
+   KedqutdGNcgOg9FfDnqVcDkPaspWWOTImL8v7NLcsCmK0mvfe3wqSEuJa
+   TGDW+tH6eBe2b3R7oYmyNT9KGqFE1ArdFdaTRBS034PnVoVMrvvG194XH
+   ly11ivkKi8OQrmv0yrUWSiwAukzvNRMor2R1No6vPvAgi0g3gWNKfMD59
+   qYKsWeZkBe7sVzw/V187Q51A0lDp4bL+YkdZ42RU5gx07qRIGaKxpv1dU
+   w==;
+X-CSE-ConnectionGUID: bXEdzym4QJCP/oOXnn9pWA==
+X-CSE-MsgGUID: 3GXJuGAdTPKZj5kHF8gFJw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="90398209"
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="90398209"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 08:38:20 -0700
+X-CSE-ConnectionGUID: +HOgJsw4R2agFYr7Hot+kQ==
+X-CSE-MsgGUID: aJ6YuRU7SlyMNY4ysJRytQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="298939846"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 08:38:20 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 21 Sep 2026 08:38:20 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Mon, 21 Sep 2026 08:38:20 -0700
+Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.41) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 21 Sep 2026 08:38:19 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Kwji47BGjDo/Shvr1q4Dx/rhAcQ69bP0WsPiJsaOgow4WcpPCDlnl+wGxPHabZ/ZYrNDprkSx7xcS/HBE4j+H4TFLFjTXylpV2VA5IulTCNMGiXTysMd2alB3bEDr+aIfLK2rhfj9S/5L73dPizqnat+UMkbfRB7bl/RGQWj+hzbbbNIu62/szqEXbTJaJkvfdQITtqNELgOq4OkSm9sYFX/aaDiB7jntpwLJe3zT27JAdDaZd4Eic+d2ENK6cz5/wRXXUPvI58KyxgYiSIba3Pe5ueX3YpX9zzdB5TEX5pzOSwTZNorK6Eu1dNJkcpDUfgjD8pzHRS0Rap21GWxRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1G5PwWRPekVsWCXJhBC4O6pgzO4gtiPTmTiL9195cfs=;
+ b=TiB9gnEEab+PQWm3YffcAAfjgnwEl4aDcnNC35Yo0Y0grU9Q1Ur1vxhUT7+9WuyJt37e5RGK2EGapD4K1SkcsaM4EQKX3iBuaTsYVN/Lm2XmejOSQ6h0MpAitrwrGruHbUMGeeR5yqPqEhK1CrVYzVg8NNzn5gBHqRqSWGkG8zoOtCaIj//+u5NCnuJTD7jnIEEcipW5j7xk9z6L3L/pO+y3xBIEYZ+pKMDjIPVQyzbUxPDqeW+J2BDo51vcYSVWTLa2N8gYm7euustL53KS0OpykihxOQEABcshhQJceIvf2wg9jqtwwN9wwnCjYwjb3GbyQg+hPq9va18OLq+ZSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
+ by IA3PR11MB8967.namprd11.prod.outlook.com (2603:10b6:208:574::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 15:38:13 +0000
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c]) by IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c%6]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 15:38:13 +0000
+From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
+To: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>, "Nguyen, Anthony L"
+	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
+	<przemyslaw.kitszel@intel.com>
+CC: "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
+	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com"
+	<syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com>
+Subject: RE: [PATCH] net: e1000: fix warning in iounmap on probe failure
+Thread-Topic: [PATCH] net: e1000: fix warning in iounmap on probe failure
+Thread-Index: AQHdSd6SKc1qfuTd60OoAKqrPmb1zbbZKdvA
+Date: Mon, 21 Sep 2026 15:38:13 +0000
+Message-ID: <IA3PR11MB898634DED4F39601AFDF1145E5842@IA3PR11MB8986.namprd11.prod.outlook.com>
+References: <20260921125932.7943-1-nsvatoslav515@gmail.com>
+In-Reply-To: <20260921125932.7943-1-nsvatoslav515@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|IA3PR11MB8967:EE_
+x-ms-office365-filtering-correlation-id: d8d2b2af-db56-4cb7-3a11-08df17f65923
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|7416014|23010399003|376014|366016|1800799024|6133799003|18002099003|22082099003|38070700021|56012099006|11063799006|10067099003;
+x-microsoft-antispam-message-info: 34f1LGC3juhIq/117xHwhTjJsAHDGmQbGY+0bWfpjx/5hS1YUkxOS26f46P7f+fAhFVgeth0Iw7SySHEVxc2/rV3351JtJLRiKFXq6g19E/F42fUnOm0sbNoqsV80ZSelpo5NFeEGYxKsGhjhVMXBl5f/fOnce213JxmCXrC5N96nQtFxANigkBOOrQ6MayN7Blpzv75Bh1agNJefhy3PM3TooEXHgbs9UKn8gFxJnPKiQKxEtY1v+IvYUZ9bfelswR2b0QQYlU+n9/gZee4unglj27h9hLHvQP7QUlcbHUbKT6dLUBIPVcJhTiwazXyR+BUppYtXkJaV6/sge65Y0IaUaQV7gbNm+xoR2O8ixvPC7vl461bh80skDpoc3nvDC9ZslUx+B6HAnr7eU1Oz8r1s/raybaN1nCQmQqyQvJZYYw+lQRLvYDymFPAiIuPuf1G0uPpAgRlc8pRpNxQVSKVuQAh7BTRNnIYzHLKnnFuJ5ARnNoaXE8oX0hPbHE5D7/AYR1acXiXeFYFthCmSDR6jIrxK9RQSPjK5cGrITvZEfXI0xKc8A562Lr/PoU7iZTxe1oGOI/5myGazvtXSvTG8jd5R4jwIZI73q4/vbV6jN05MU2AHB99XVJy2uiC0qaAmxmvhqJJdDow7GxsyA6+5CgpeZhVdB+vZb/18B9pEk+inPm2T/QGnogr/V9Wa29flUxYN73LcozT2zGJRv/nMc+Ia3SbongocRaPWjI=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8986.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(366016)(1800799024)(6133799003)(18002099003)(22082099003)(38070700021)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?HA0IrYvDq5N8Ienr8UJ0a74qoOocvIKff9GwR0P6nLp1ls/zYPGI302pipWR?=
+ =?us-ascii?Q?5H3YDror4GOT7QR9p8TsKjX4sKsFCUbc2n8FGgT9BABAY7h/G2kGJYP7be5g?=
+ =?us-ascii?Q?lqVU8LcT52wk5/EjgawsNuBoOGOuy73Tuc7huDwH4mkZNlXBUZ0ojCCv0Bjm?=
+ =?us-ascii?Q?w+kyE/qdrVGjzLiGI2KQhwniFEZwPqO3DxGqloIfFud8BC0G4f6UboC8Tnpb?=
+ =?us-ascii?Q?3ZuuLb+32ebBi0tKdG4IbFV2B3FOOBjDWH/jDK2ShLcHBQkX3aKlInbMbO+O?=
+ =?us-ascii?Q?T2sQeyg6EJRlRSEf8dk94fJwEcuZ5rA5kvKCV0lUlTuItR2jwObpjUSkyuOp?=
+ =?us-ascii?Q?Pp6vcU8jt0+RoTzMLB3XSyp4Bc/Kf6mXk4m1ZChTefP69rMGwfiA4D+u2BaM?=
+ =?us-ascii?Q?q/dwm3rcSKUsbiO72jTSz5F6RHIgjMxQgsqiQq9I3L8oyDVoxo0/rIrtD7ug?=
+ =?us-ascii?Q?VqeIsBMGTkuwe2+8IDO0XR/AvZN8NaUSfc3CjJ+g/+5lbVljuLEzpsOBnzM6?=
+ =?us-ascii?Q?O33+xNKXD8nSIAf50L3mHDeqvpDsLOjUdVuL1pVRq05nIAoOihL1OurejeMB?=
+ =?us-ascii?Q?k6eFba9rv3Yg8MuT0a94u4kte8bQxPsIgJQoRCc177jdN76M7LEic2X339Go?=
+ =?us-ascii?Q?caB/1tNrkT/IBtmTnvHlBcpetMmyFnNHGSEUK6M63Y+w3CZNLqTeIqqX5es4?=
+ =?us-ascii?Q?jA8Yjjl1AHuw+nWVhcll7lGwt3BGIQcXlTKSjmmqPQHdkwChDIXwitfeFsmU?=
+ =?us-ascii?Q?sEwd+wv1E47gkJeFcrI18O/bZ0D45bv9PYx38oFuDlZ0thgpTGGaO75nfPlh?=
+ =?us-ascii?Q?Y3S56HP+DsyBfPiihxtGuRmOGWrjSMg8RSIMZSNr3bpzt2BUHUmG3yY0WRd5?=
+ =?us-ascii?Q?jdKjA9ElK6UVcBAj5MRlAjXA+qtDqNThG6Zbs/ZRUGt8rloNygZP7dHDzDbF?=
+ =?us-ascii?Q?f+RwtDZhUi9X7a12/ek+AliXpjzckMOhpx3AlbGHLIIQxsVGfreTwThNenUw?=
+ =?us-ascii?Q?N7e8uH55b/3M9dxk2KSHhCxkLbYwizzzVU5MAbdcSQcCLElrtGuRxccOgP2Z?=
+ =?us-ascii?Q?4elgW1g0I4cUTrWYh9lQOcFSpTjPU0fo1RmQ3KuuStMwCjY5HfUnNOsnDvzH?=
+ =?us-ascii?Q?g6mBOUlKrrmJVfK/RkT6JECo2SqsJo2F26v+i9XLd626bRk5v4e57Z38GaI5?=
+ =?us-ascii?Q?/DljZhOSJN5zeJmSGDL3uYDOQPiK22OYml4JtB4jeiqJhSowamjFIo99y5t1?=
+ =?us-ascii?Q?oJjoQFy9QFYRYsgFY9WbuHrHM5LYQdxVQSnSjIeg0GOQqNTqNNggZTVO47we?=
+ =?us-ascii?Q?tqoIelKRON7UEAT2jzYzF/TdFivYnOhKQdOY/lAoG0xcYuvdgdxCUzpLdUV4?=
+ =?us-ascii?Q?3Xsk4c+pWO3Pw4+u3/XSAqYvDo3khREikp81gcE2hDiAOvPzCyvnq1rlFm5Y?=
+ =?us-ascii?Q?pFqhJeomoai5XIMcY5UA2sEdY8yN70YYfztVpair3h3h2dRHD3dRnpBZUupc?=
+ =?us-ascii?Q?U5nkFVUrBIajUAnASb/S6i4/x/PjqBVrsB56BvO9Sd+Cy4Vzh9ljeJSnyVxz?=
+ =?us-ascii?Q?bQqXwGanqVjkAgJl/ZDQ6zQxdEEzSlzpGZz2mhxuWNAVmECI+GQpJlr5iWae?=
+ =?us-ascii?Q?Gk4fQ9rqRDSTQn7WPMRHuGz6acIowic1DEt076+32i+R10Oa0dnt3er+X3tX?=
+ =?us-ascii?Q?6frvqPGLdGrWZVfK181XJjvF+33bXBL7Leh+6IoFVhHEsX5UGU+elRofVg7s?=
+ =?us-ascii?Q?qoBdlYrROnM2W+JPAGjssNfeYWKtk9A=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-GND-Sasl: alex@ghiti.fr
-X-GND-Cause: dmFkZTFQEKlht+YIrcaTAFbBnx61mYGElJSN/TDs9wb5Yw/MIniGq++jckvHEXjwpBJRuuD1HdYHZTep935Idam3fumpwXBryWWeP0w8BVREUivVnbrvuQgxRhCZSilw7Vha0RiBKgWJe0jn2EeQYqHYzuof1xFB040bBPwCnmVpchBqDIwQg5Td++/IofK3lUNPgzsrQB/PbL5qnmu7FOzqi/oO6657zjnGawFdQ3oI933OCbdtjMYABP4DSC9PoPyLNL9Jm3z4Lk3gFTiVMU0Tt5LlxvKoCNHFQNbCIYZ5Ln+A1PVRWUAcCdsWCzTZkydMZzu0aWRs/BzLiH+xAIxoUH+iSdfWTnXXEk2fXjU6yHurjXGu+4GsfbG969+j68nrcf42kX9/tXgxVvBI+yzjYd5d7wYV8bO52lYByWJX4nn+Jwedi6GC1TWZ00zu2iFzrXaGoJ5S3Ly/e+OQy2tHj38CQfVpcxnOeRNi9pD6qtqxMlv4kcZa9qanXd7POExukyuR2tQozZkb1x2W4J+65DD7VUBP0x8Zb75kqg3NoowHMN5UZYl4rHxe/UXQcCTrTbCj4TK6Bbn9zOx/RoYlTdLMUp3G/J67FQ09NCwmZ8QG1D64BrVxWSyMbMSS+bLBgNFSUoS3vFXwCSOzPYbks+izmj9YvpxrwSIQ8MMgguBrIA
-X-GND-State: clean
-X-GND-Score: -100
-
-When zswap writes an entry back, it allocates an order-0 swap cache folio,
-decompresses into it, and issues the write. The folio is cold by
-construction, yet today it is left on the LRU for page reclaim to find and
-free later. That wastes a reclaim scan and keeps cold memory resident
-longer than necessary.
-
-Rather than implement this in zswap, extend the existing dropbehind
-mechanism to swap cache folios and have zswap opt into it (Yosry). A
-PG_dropbehind folio is already dropped from its cache once writeback
-completes instead of being left for reclaim; for a swap cache folio that
-"drop" is removing it from the swap cache.
-
-  Patch 1 - move LRU insertion out of the swap cache allocator into its
-            callers, so zswap writeback can allocate off the LRU.
-
-  Patch 2 - drop dropbehind swap cache folios on writeback completion.
-
-  Patch 3 - zswap allocates its writeback folio off the LRU and marks it
-            dropbehind, opting into the mechanism above.
-
-Note: patch 1 also appears as patch 1 of the zswap writeback refault
-series [1]. It is the same patch. Both series need it and both are meant
-to apply on their own, so it is posted in each; whichever lands first, the
-other should drop it.
-
-This version is based on mm-stable. v4 was based on Linus' tree because
-Tal Zussman's BIO_COMPLETE_IN_TASK work had not reached the mm tree yet;
-it has since, so that detour is no longer needed. Thanks to Matthew and
-Barry for pointing that series out!
-
-v1: https://lore.kernel.org/linux-mm/20260718093723.153324-1-alex@ghiti.fr/
-v2: https://lore.kernel.org/linux-mm/20260727143618.1582318-1-alex@ghiti.fr/
-v3: https://lore.kernel.org/linux-mm/20260818163221.589352-1-alex@ghiti.fr/
-v4: https://lore.kernel.org/linux-mm/20260825135209.3135169-1-alex@ghiti.fr/
-v5: https://lore.kernel.org/linux-mm/20260911121341.178028-1-alex@ghiti.fr/
-
-[1] https://lore.kernel.org/linux-mm/20260911092012.92399-1-alex@ghiti.fr/
-
-Changes in v6:
-- No functional change: this version only updates changelogs and collects
-  tags.
-- Patch 1: fix the changelog. The first paragraph describes the behaviour
-  before the patch, so it must name swap_cache_alloc_folio(), not the
-  __swap_cache_alloc_folio() this patch introduces, and the last paragraph
-  now says the helper is renamed as well as that the LRU insertion is
-  deferred (Kairui).
-- Patch 2: fix the changelog. The swap cluster lock is a spinlock taken
-  with interrupts disabled and does not sleep; the folio lock is what the
-  drop blocks on, and that is why the completion needs task context. Also
-  spell out why it blocks instead of using folio_trylock() (Barry).
-- Collect Reviewed-by tags. Thanks to Kairui, Barry and Nhat for the
-  reviews! Kairui's tag on patch 1 was given on the posting of the zswap
-  writeback refault series [1], which carries the same patch.
-
-Changes in v5:
-- Rebase from Linus' tree onto mm-stable, which now carries Christoph's
-  swap_io_ctx work. __swap_writepage() takes a swap_io_ctx and the bio is
-  built by swap_bdev_submit_write() from a batch of folios, so patch 2 sets
-  BIO_COMPLETE_IN_TASK there instead of in the old per-folio async helper.
-  The bio can hold several folios, so the flag is set if any of them is
-  dropbehind; only the asynchronous branch needs it, as SWP_SYNCHRONOUS_IO
-  already completes in task context. Patch 3 follows the new
-  __swap_writepage() + swap_write_submit() pair.
-- Patch 3: clear PG_active on the writeback folio after allocation.
-  __swap_cache_alloc_folio() evaluates a refault, which can set PG_active;
-  with the folio kept off the LRU nothing clears it again and the folio is
-  freed with a PAGE_FLAGS_CHECK_AT_FREE flag set. This goes away once the
-  refault evaluation moves out of the swap cache allocator in [1].
-- Patch 2: rename remove_mapping_reclaim() to remove_mapping_set_shadow().
-  Storing the workingset eviction shadow is the only thing that sets it
-  apart from remove_mapping(), so name it after that rather than after the
-  caller that historically did it (Nhat).
-- Patch 3: the success path now returns directly, so the "if (ret)" in the
-  error path is dead and the label is only reached on failure. Drop the
-  check and rename the label from "out" to "err". Thanks Yosry for
-  spotting this!
-- Patch 1: take the version from the zswap writeback refault series [1],
-  which is where it has seen the most review. The changelog now describes
-  both users of the change instead of only this one, and it picks up the
-  stale swap_cache_alloc_folio() comment fix in mm/swapfile.c (Kunwu). The
-  two copies are now identical apart from the base they apply to.
-- Collect Reviewed-by tags. Thanks to Kunwu and Nhat for the careful
-  reviews, and to Usama for the ack on patch 1!
-
-Changes in v4:
-- Rebase on BIO_COMPLETE_IN_TASK: set it on dropbehind swap writeback like
-  the file dropbehind paths do, and drop the folio directly from
-  folio_end_writeback(). This removes the per-CPU llist, the workqueue and
-  the reuse of folio->lru as the list node.
-- zswap now drops its folio reference before starting writeback, so the
-  swap cache holds the only one and remove_mapping() sees the refcount it
-  expects. This fixes the drop on synchronous-IO devices and the race
-  Sashiko reported, where the drop could run before zswap released its
-  reference and fall back to the LRU. Verified on zram (the only
-  SWP_SYNCHRONOUS_IO backend I have): over ~6.7M writebacks per run, 99.999%
-  of the folios are dropped, and the refcount fallback fires 37-50 times.
-- Use remove_mapping_reclaim() rather than adding a boolean argument to
-  remove_mapping(), which keeps the calling code readable (David). This also
-  leaves the existing remove_mapping() callers untouched.
-- Patch 1: correct the changelog. The folio has to stay off the LRU because
-  folio_add_lru() leaves a reference in the per-CPU LRU batch, not because
-  of the free-time page-flag checks. Measured on zram, adding the folio to
-  the LRU instead drops the freed rate from 99.999% to 2.7%.
-
-Changes in v3:
-- Drop the synchronous-IO special case in zswap writeback (Yosry, Nhat).
-- Use mem_cgroup_tryget()/mem_cgroup_put(): struct mem_cgroup is only
-  defined under CONFIG_MEMCG, so css_tryget()/css_put() failed to build
-  with CONFIG_MEMCG=n.
-
-Changes in v2:
-- Make swap dropbehind a generic core-mm mechanism that zswap opts into,
-  rather than a zswap-specific implementation (Yosry).
-- Allocate off the LRU by moving folio_add_lru() out of the swap cache
-  allocator into its callers; rename it to __swap_cache_alloc_folio()
-  (Kairui).
-- Skip the folio in the free path if it is still under writeback (Nhat).
-
-Results
--------
-Paired baseline vs series on async swap (NVMe). Each
-workload runs confined to a memory cgroup (memory.max) small enough to force
-zswap shrinker writeback.
-
-Kernel build (defconfig, make -j4; memory.max = 600M):
-
-  metric            baseline       series      delta
-  pgrotated           441028         2521     -99.4%
-  pgsteal_direct     3524343      2869004     -18.6%
-  pgscan_direct      8393791      7765008      -7.5%
-  zswpwb              705129       699019      -0.9%
-  build time (s)        1155         1114      -3.6%
-
-Of the 699019 folios written back, 698990 (99.996%) were freed promptly on
-writeback completion; only 28 fell back to reclaim.
-
-MySQL/OLTP (sysbench, 10 tables x 1M rows, 512M buffer pool, 8 threads, 300s;
-memory.max = 256M):
-
-  metric            baseline       series      delta
-  transactions/s      153.87       163.30      +6.1%
-  p95 latency (ms)    157.42       145.82      -7.4%
-  avg latency (ms)     52.09        49.05      -5.9%
-  pgrotated           743738        22460     -97.0%
-  pgsteal_direct     6886490      5445278     -20.9%
-  pgscan_direct     13462510     10820730     -19.6%
-
-Future work
------------
-Barry suggested extending this to MADV_PAGEOUT and general reclaim. I
-prototyped dropbehind for all reclaimed swap folios and it regressed
-sysbench OLTP throughput by ~15% on NVMe swap: dropping the swap cache
-immediately turns cheap in-cache refaults into disk reads and collapses
-swap readahead clustering. Neither blk-wbt, mq-deadline nor a PG_workingset
-gate recovered it. MADV_PAGEOUT alone may still be worth it, since there
-userspace has explicitly declared the range cold, but I have not measured
-that case in isolation yet.
-
-Alexandre Ghiti (3):
-  mm: swap: move LRU insertion out of the swap cache allocator
-  mm: swap: drop dropbehind swap cache folios on writeback completion
-  mm: zswap: drop cold writeback folios via swap dropbehind
-
- include/linux/swap.h |  6 +++++
- mm/filemap.c         | 19 ++++++++++++++
- mm/page_io.c         |  9 +++++++
- mm/swap.h            |  6 ++---
- mm/swap_state.c      | 62 ++++++++++++++++++++++++++++++++++++++------
- mm/swapfile.c        |  2 +-
- mm/vmscan.c          | 49 +++++++++++++++++++++++++++-------
- mm/zswap.c           | 36 +++++++++++++++++--------
- 8 files changed, 156 insertions(+), 33 deletions(-)
+X-Exchange-RoutingPolicyChecked: zECTLzj5L/r6UKTWkJR/G4ds9oDQm/mR1l/HrqyNvf4sFiReaKHr+sarC7FBrXRE8kWrDS7zXVr8tdjggkcG1RdtvewlyN2GtipAmnSQE5kE8oqb4Ffij95oDeAYYRVQFsdPl0W/J62UcUcPMsxTek0v5qbUvfv6ltfFs4UJyNVelO/msLCBCw7SoeaN5ddnGX2zszqDMvUNJTmV2+jTt006nN83/KU2uxHzAW/I/o1tfCf3UoMl7uobs+D2ZZ4W0q94Sg+zPWQQ4KNZp9w0P4NiCOXlBAsIbGGA0ZGN5ppl/5IvBG782lx3wymYGG6ARFayfC45mEmDjeM6MKJvQg==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8d2b2af-db56-4cb7-3a11-08df17f65923
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Sep 2026 15:38:13.4513
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lPlgldWr/gvambrW2HGLU0I+eDnuyyk5y5RDJuQfDurxZrBXGmseSvSyWw3zAG1NBo1lW/gbMPrjD1SUP71tXuulLm06P/il6I8psTGjq6g=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB8967
+X-OriginatorOrg: intel.com
 
 
-base-commit: 0d9ff90a5422cc7509258aaaba1e7481df4d332a
--- 
-2.53.0-Meta
+
+> -----Original Message-----
+> From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+> Sent: Monday, September 21, 2026 3:00 PM
+> To: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; Kitszel,
+> Przemyslaw <przemyslaw.kitszel@intel.com>
+> Cc: andrew+netdev@lunn.ch; davem@davemloft.net; edumazet@google.com;
+> kuba@kernel.org; pabeni@redhat.com; intel-wired-lan@lists.osuosl.org;
+> netdev@vger.kernel.org; linux-kernel@vger.kernel.org; Svyatoslav
+> Nikolenko <nsvatoslav515@gmail.com>;
+> syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com
+> Subject: [PATCH] net: e1000: fix warning in iounmap on probe failure
+
+What configuration you have the reproduction?
+What are the reproduction steps?
+Is it a crash?
+
+Please specify which branch you aim to net/next.
+
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+
+>=20
+> Reported-by: syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com
+
+Rule of thumb it needs Fixes: tag then
+
+> Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+> ---
+>  drivers/net/ethernet/intel/e1000/e1000_main.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/net/ethernet/intel/e1000/e1000_main.c
+> b/drivers/net/ethernet/intel/e1000/e1000_main.c
+> index d7f5c6f16142..156903089fa6 100644
+> --- a/drivers/net/ethernet/intel/e1000/e1000_main.c
+> +++ b/drivers/net/ethernet/intel/e1000/e1000_main.c
+> @@ -1227,8 +1227,10 @@ static int e1000_probe(struct pci_dev *pdev,
+> const struct pci_device_id *ent)
+>  	kfree(adapter->rx_ring);
+>  err_dma:
+>  err_sw_init:
+> -	iounmap(hw->ce4100_gbe_mdio_base_virt);
+> -	iounmap(hw->hw_addr);
+> +	if (hw->ce4100_gbe_mdio_base_virt)
+> +		iounmap(hw->ce4100_gbe_mdio_base_virt);
+> +	if (hw->hw_addr)
+> +		iounmap(hw->hw_addr);
+>  err_ioremap:
+>  	disable_dev =3D !test_and_set_bit(__E1000_DISABLED, &adapter-
+> >flags);
+>  	free_netdev(netdev);
+> --
+> 2.47.3
 
