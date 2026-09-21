@@ -1,135 +1,219 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-219.mta1.migadu.com [95.215.58.219])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CAD3101D0;
-	Mon, 21 Sep 2026 09:46:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381BD446821
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:47:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984017; cv=none; b=WA0TidQVsZUpdR/TnkjHoBUaYSQvYjzwEHnd1xD6LIHCF8qnY/+40t4aSPHV/hpcGlDl7SPLS+MW7xczIitvi1uzL1Nbcb+hH96LB+0rLLapfT5apdxaosMrdTO0+dxmSN6xIo62zoFlm0wYomn5w0qDGk0atmVFYNPM5e7CgA8=
+	t=1789984030; cv=none; b=PZzA3zXr2UM4rLnztmR8vQk2YGr2Npm47QwmzhPjVgyOicla9p3V4LfpysJPTG1sz3FR0YmvaMz7eXspz4npDLdhQ+KN3WUAB0fRuyOo3ZU2FB4gHDI49q6HyOKkf3KV5yKv6/5FYNlEqnY6EKsVTBmf4TbmCXqSXqNEICzJvGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984017; c=relaxed/simple;
-	bh=HBTiPzvCz4ug/UW24QEsYK91W05gquo6aW+Re5JmGP4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DImYgau7u7b25O2U6GYnYqS5LZraiudR1Ht8Ci3a9cGGQ35bv35iWDLXI8IavJWDvUR2jRFsugdAF1K1eARk6+gHlvc0QXuJNDUWjHvi9tMzYSd33kPZk3Ng3M5qFJ9/Kmm9izadkZgfDDnK3z6/LydF9XouIV2e9iepuTP2t8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=nCOKXCAW; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1789984030; c=relaxed/simple;
+	bh=wecnKx7LkqikUqo4Dhub5mbay8oFhGFKDyVeaaaa/eI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O88Y4lgOthdXxHYCLN0kMc9Qvt5YlInKfacAWu9oxGgtFP8wakHG8CRjMZSMPYJ+xoXii0JqOTLQ+pVg3U2kS0LVKtD58/02k0AICWGP08u0i/tDt0D12ybjwHNU8n8BfGQjIRH3G9fEPCNGn4eK7tESsXvH+XDgih67Rk1GtKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pqrtHUwB; arc=none smtp.client-ip=95.215.58.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="nCOKXCAW"
-Received: from omf03.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay01.hostedemail.com (Postfix) with ESMTP id C98B81C2BF5;
-	Mon, 21 Sep 2026 09:46:52 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf03.hostedemail.com (Postfix) with ESMTPA id 79BB46000C;
-	Mon, 21 Sep 2026 09:46:49 +0000 (UTC)
-Date: Mon, 21 Sep 2026 05:46:47 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Bill Wendling <morbo@google.com>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, David Gow
- <david@davidgow.net>, Petr Mladek <pmladek@suse.com>, Shuvam Pandey
- <shuvampandey1@gmail.com>, nikitash.mariiaw@gmail.com,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v2 5/9] seq_buf: Add seq_buf_strlen()
-Message-ID: <20260921054647.3895bbb8@fedora>
-In-Reply-To: <20260919002714.4060307-5-kees@kernel.org>
-References: <20260919002658.stay.929-kees@kernel.org>
-	<20260919002714.4060307-5-kees@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pqrtHUwB"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=wecnKx7LkqikUqo4Dhub5mbay8oFhGFKDyVeaaaa/eI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789984025; v=1; x=1790588825;
+ b=pqrtHUwBQXyidBzFZ5OeyJevCtvhaUswAIEbifvApETF3SStsNiHWKHzq7KCqA/Nty6nmmzu
+ DgrXoKaPPszE/c4LufCjrRoFSG5m2+K2PuxWEYWQwYmbgxgoXQ//f2MfX21XSLXflV/Rk/147hp
+ 1JnT46qlh9IicNUKcuOBDDRo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 04cc045a125c398a;
+	Mon, 21 Sep 2026 09:47:04 +0000
+X-Mizu-Trace-ID: 04cc045a125c398a
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 21 Sep 2026 17:46:46 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: netdev-bot+sashiko@kernel.org
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, donald.hunter@gmail.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	liuhangbin@kylinos.cn
+Subject: Re: [PATCH net-next 5/6] netlink: specs: rt-route: describe lwt BPF
+ program options
+Message-ID: <arD89olLH_d2Y29A@fedora>
+References: <20260917-ynl_rt_encap-v1-5-fbbe6e680571@kylinos.cn>
+ <178997269710.2160803.17529308820161087653@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: rjp184kr1thiqj9oja9w7maf7ifpz1i9
-X-Rspamd-Server: rspamout06
-X-Rspamd-Queue-Id: 79BB46000C
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/wV+xy5oM/Yc19hz0L8UJwSIOf8eJGKII=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=hn41DI64BsSqbK+yXrYMlFcl7stInT1IdTJz73ayXrE=; b=nCOKXCAWEcIlGMHR8y4sxxY5B5enhzOruMrLNyYCDEa/zLwBfmSzmNtT90/YRi8hDy+JDwAYz+9/8BFbpM0fWzM4qWaFs3BZA/DczfewkHeFMVJkt+zC8UaLnRk934xV/Yu+JnxFuA6xYza5KR3WlQthVrC8bq3N/G36MI4voCU=
-X-HE-Tag: 1789984009-41735
-X-HE-Meta: U2FsdGVkX1+Q1gHPMV9MLHov25WHz+30ZbsaOySM58BDX39LOagkVjapGbw+eoiq4YV4TIwNW/oOPbbuIIm9K7u/IauLtXmGhN85++Mvj7fOCJkQXYNyYd1tKqvEvrusAWK06rbmcuhyLMzU6XdVyuHmE4CedJF/ARDu8k95doxwCTnI9MYv7gMWrnwmBqErXb7errnPKWm54ctla58GW9FrSMBz8hSpGqgDjQWa9gsGBnTVA+aRJIXs2Jr/8dCHDN5xNbr/e7cG1Ij0wW62ec7b41ifSuRsvkhMz8mwXBTfzuGZIkffTaRRB7UowzpjGTbCMauwGzI6kLsBXOPGoHPg/M7PCXp3bYTv7CahljlnMppFfHInbNH7+aoSBT/NtU+nuxct8WoPHFi8gXXqin8deJrwD/VB0So5QIl+GkfFZcOvPPmCrjec4XKCoTIQj5l3IveEToWHHFb0w85gbSBiUodLNHUIk8yu5gJ1KSDIHSPYinzspmPDRHzMocibvL0HE8SfcD0sQrmV947zvJGB1tk2Q07e9VNso7AE5XCIJyT8cFq34HBIEmfHsDylKQKrRyHXBNqabxJHaV6Rw2fxhmWHx4eIvz7fH7ghgeNtvcYAzHTfTFdVUNJh2Ac0G7uB6BTUdp0mYCyUY4MlwJh99fyXyUTr55v0oGlfb/dovII1eUfcahaSeOeaeQ+jaCUitxm6bhY=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <178997269710.2160803.17529308820161087653@kernel.org>
 
-On Fri, 18 Sep 2026 17:27:03 -0700
-Kees Cook <kees@kernel.org> wrote:
-
-> Several strlcat() call sites being converted to seq_buf need behavior
-> seq_buf doesn't currently provide. The return from seq_buf_used() is
-> not the length of the string in a seq_buf. Once the buffer is full or
-> has overflowed it returns the buffer size, which counts the byte that
-> seq_buf_str() replaces with the NUL, so a caller that needs the string
-> and its length has to call seq_buf_str() and then walk the string with
-> strlen().
+On Mon, Sep 21, 2026 at 06:38:17AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
 > 
-> Move the termination out of seq_buf_str() into a helper that returns
-> where it put the NUL, and add seq_buf_strlen(), which terminates the
-> buffer in the same way and returns that offset.
+> Critical: 0 · High: 0 · Medium: 1 · Low: 1
 > 
-
-Let's make a appropriate function to terminate the string in the
-seq_buf and not have it be an internal helper function (This has been
-on my todo list for some time).
-
-
-> Add tests comparing seq_buf_strlen() against strlen() of seq_buf_str()
-> for empty, appended, truncated, exactly full, and overflowed buffers,
-> and checking that seq_buf_strlen() alone terminates a full buffer.
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
 > 
-> Tests passed under qemu on ARCH=x86_64 with GCC 16.2.0 and CONFIG_KASAN=y,
-> and on big-endian ARCH=s390 with GCC s390x-linux-gnu 16.1.0.
+> - [Medium] Documentation/netlink/specs/rt-route.yaml re-points the
+>   seg6-local `bpf` attribute (SEG6_LOCAL_BPF) at the newly added `lwt-…
+
+Thanks, I will update the SEG6_LOCAL_BPF attrs in the seg6 update (patch 06).
+in v3.
+
+Hangbin
+
+> - [Low] The new `lwt-bpf-prog` `name` attribute in
+>   Documentation/netlink/specs/rt-route.yaml (lines 624-626) is declared…
 > 
-> Assisted-by: LLM
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Signed-off-by: Kees Cook <kees@kernel.org>
-> ---
-> Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Cc: David Gow <david@davidgow.net>
-> Cc: Petr Mladek <pmladek@suse.com>
-> Cc: Shuvam Pandey <shuvampandey1@gmail.com>
-> Cc: Steven Rostedt <rostedt@goodmis.org>
-> ---
->  include/linux/seq_buf.h   |  57 +++++++++++++++++--
->  lib/tests/seq_buf_kunit.c | 114 ++++++++++++++++++++++++++++++++++++++
->  2 files changed, 166 insertions(+), 5 deletions(-)
+> --
 > 
-> diff --git a/include/linux/seq_buf.h b/include/linux/seq_buf.h
-> index 0c0a0db04b09..7f025c7a68be 100644
-> --- a/include/linux/seq_buf.h
-> +++ b/include/linux/seq_buf.h
-> @@ -89,6 +89,27 @@ static inline unsigned int seq_buf_used(struct seq_buf *s)
->  	return min(s->len, s->size);
->  }
->  
-> +/*
-> + * NUL-terminate the buffer in @s: directly after the data when there is
-> + * room for it, otherwise in the last byte of the buffer. @s->size must not
-> + * be zero.
-> + *
-> + * Returns: the offset of the NUL.
-> + */
-> +static inline size_t __seq_buf_terminate(struct seq_buf *s)
-> +{
-> +	size_t end;
-> +
-> +	if (seq_buf_buffer_left(s))
-> +		end = s->len;
-> +	else
-> +		end = s->size - 1;
-> +
-> +	s->buffer[end] = 0;
-> +
-> +	return end;
-> +}
-
-That is, make this a separate patch to introduce a
-"seq_buf_terminate()" function as there's several places in the kernel
-that could replace seq_buf_str() with it.
-
-Thanks,
-
--- Steve
+> netlink: specs: rt-route: describe lwt BPF program options
+> 
+> This changes the lwt-bpf in/out/xmit attributes and the seg6-local bpf
+> attribute in Documentation/netlink/specs/rt-route.yaml from binary to a
+> nest, and adds a new shared lwt-bpf-prog attribute set with fd and name
+> members.
+> 
+> > diff --git a/Documentation/netlink/specs/rt-route.yaml b/Documentation/netlink/specs/rt-route.yaml
+> > index 6030d7cb8d0d1..5e9537f7dfad4 100644
+> > --- a/Documentation/netlink/specs/rt-route.yaml
+> > +++ b/Documentation/netlink/specs/rt-route.yaml
+> 
+> [ ... ]
+> 
+> > @@ -503,7 +506,8 @@ attribute-sets:
+> >          type: u32
+> >        -
+> >          name: bpf
+> > -        type: binary
+> > +        type: nest
+> > +        nested-attributes: lwt-bpf-prog
+> 
+> [Severity: Medium]
+> Should the seg6-local bpf attribute point at the lwt-bpf-prog set?  This
+> attribute lives in the seg6-local set, which carries
+> header: linux/seg6_local.h, but lwt-bpf-prog below uses
+> name-prefix: lwt-bpf-prog-, so its members document and generate as
+> LWT_BPF_PROG_FD / LWT_BPF_PROG_NAME.
+> 
+> Those identifiers come from linux/lwtunnel.h:
+> 
+>     enum {
+>             LWT_BPF_PROG_UNSPEC,
+>             LWT_BPF_PROG_FD,
+>             LWT_BPF_PROG_NAME,
+>             __LWT_BPF_PROG_MAX,
+>     };
+> 
+> while the seg6-local nest is a separate uAPI namespace in
+> linux/seg6_local.h:
+> 
+>     enum {
+>             SEG6_LOCAL_BPF_PROG_UNSPEC,
+>             SEG6_LOCAL_BPF_PROG,
+>             SEG6_LOCAL_BPF_PROG_NAME,
+>             __SEG6_LOCAL_BPF_PROG_MAX,
+>     };
+> 
+> The values (1, 2) and payload types happen to coincide, so the wire format
+> still decodes, but does this end up documenting SRv6 attributes with
+> lwtunnel.h names?  There also seems to be no header: value that can be
+> correct for a set shared between linux/lwtunnel.h and
+> linux/seg6_local.h.
+> 
+> Would a separate seg6-local-bpf-prog set with
+> header: linux/seg6_local.h be more accurate here?
+> 
+> Separately, the commit message says only:
+> 
+>     Replace binary BPF attributes with a nested lwt-bpf-prog to support
+>     lwt bpf prog options.
+> 
+> Could it also mention that the seg6-local bpf attribute is being re-typed,
+> since that is a different attribute space?
+> 
+> > @@ -610,6 +614,16 @@ attribute-sets:
+> >        -
+> >          name: hwid
+> >          type: u8
+> > +  -
+> > +    name: lwt-bpf-prog
+> > +    name-prefix: lwt-bpf-prog-
+> > +    attributes:
+> > +      -
+> > +        name: fd
+> > +        type: u32
+> 
+> [Severity: Medium]
+> Is fd the right name for attribute 1 in both directions?  In requests
+> parse_nla_bpf() in net/ipv6/seg6_local.c does treat it as a descriptor:
+> 
+>     fd = nla_get_u32(tb[SEG6_LOCAL_BPF_PROG]);
+>     p = bpf_prog_get_type(fd, BPF_PROG_TYPE_LWT_SEG6LOCAL);
+> 
+> but on GET/dump put_nla_bpf() emits a program id, not a descriptor:
+> 
+>     if (nla_put_u32(skb, SEG6_LOCAL_BPF_PROG, slwt->bpf.prog->aux->id))
+>             return -EMSGSIZE;
+> 
+> So a spec-driven decoder would print slwt->bpf.prog->aux->id under a field
+> called fd, and feeding that value back into a request would resolve an
+> unrelated descriptor or fail.  On the lwt-bpf side bpf_fill_lwt_prog() in
+> net/core/lwt_bpf.c never emits attribute 1 at all and only puts
+> LWT_BPF_PROG_NAME.
+> 
+> Would it be worth naming this member after the program reference/id, or at
+> least documenting the id-versus-fd asymmetry?
+> 
+> Note this appears unchanged at the end of the series (30e3ec46f708 still
+> has name: bpf with nested-attributes: lwt-bpf-prog and the fd member).
+> 
+> > +      -
+> > +        name: name
+> > +        type: string
+> 
+> [Severity: Low]
+> Should this string carry a max-len?  Both kernel consumers of this nest
+> bound it to MAX_PROG_NAME (256).
+> 
+> net/core/lwt_bpf.c:
+> 
+>     static const struct nla_policy bpf_prog_policy[LWT_BPF_PROG_MAX + 1] = {
+>             [LWT_BPF_PROG_FD]   = { .type = NLA_U32, },
+>             [LWT_BPF_PROG_NAME] = { .type = NLA_NUL_STRING,
+>                                     .len = MAX_PROG_NAME },
+>     };
+> 
+> net/ipv6/seg6_local.c:
+> 
+>     static const struct nla_policy bpf_prog_policy[SEG6_LOCAL_BPF_PROG_MAX + 1] = {
+>             [SEG6_LOCAL_BPF_PROG]      = { .type = NLA_U32, },
+>             [SEG6_LOCAL_BPF_PROG_NAME] = { .type = NLA_NUL_STRING,
+>                                            .len = MAX_PROG_NAME },
+>     };
+> 
+> As written the spec advertises an unbounded string, so tooling generated
+> from it will build a request that the kernel rejects with -EINVAL.
+> MAX_PROG_NAME is a private define in those two .c files, so the numeric
+> bound would need to be spelled out in the spec, and max-len does not count
+> the NUL terminator.
+> 
+> This is also still missing at the end of the series (30e3ec46f708).
+> 
+> >  
+> >  operations:
+> >    enum-model: directional
+> 
+> -- 
+> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917-ynl_rt_encap-v1-0-fbbe6e680571%40kylinos.cn
