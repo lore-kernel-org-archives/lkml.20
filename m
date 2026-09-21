@@ -1,123 +1,243 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B80843637C
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:34:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790033701; cv=pass; b=pobA32HegaPu1akCA0oQ/TM2pdDtq1PfjvjP51VP09nUmskszyXLom/s81NG40bVvR1BmDvPNXvlbcARngsfs57E8zLTMrC/uHVp3MBtS3jaQX50iKqvI2tTa2YjKiefCD8wfYomyOA2UN4YbsMC+h5IW4L87jI/pYWWWI+DTP4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790033701; c=relaxed/simple;
-	bh=sxVdzkqUKmgN4f+qWxZ2zsOjbna5V29vqf/tedxT+VA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JWdOFiVWfrKa4Cn+8XbSfSmIGSUqcU20GiOOhdR5KcWFSR17xcl0yhhdpBvGGgHtnKBFPoOExtd/MIX2rwQRMteNwf/YeTZIkwgg6SSj1Na4AVLViJdZJKxrY8pk22uqBUgQ3ffhE796LXE4gStB1E2yxGHp+OxRuTcxY1lcsak=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NBJR4xPt; arc=pass smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50EA2EEE96;
+	Mon, 21 Sep 2026 23:36:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790033817; cv=none; b=CAZs1R5Qi5YmMpldJI9mt3z+Qc5KgvI+Tc1gVzO0JeSnRyXPmH1N8PaFH6R/r6MjiBbvCyu9+jAQ+tK4VSWUqUfZYyyy/njwLzwoJicjBnMtPUUj+jTGSdesVQpkL+MusI2L/M7hXJ7p3cv4+6kCZBGzi632JDzcoSCLmy2ehdQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790033817; c=relaxed/simple;
+	bh=eVhLx5JcvytTWSse/SAhTACOe5zIdY7AHSl1kR7oBK0=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bNXTS1VbrKAn6V0PZX9srTaf20HcM3x/eObvogG0L/Q5+WVj81czYG+wPCzY2QinTR8WWD9Bpj2G1uconFmbiFhBh5f/UI88VYdn48MhXessPZ+xUf9yTtpdz+/lGNlutFveWx1lyjPwNWagf7HS9ySjkZV5sb4AF9wG5wxmt1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aPc+A1HS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NBJR4xPt"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a5f9b036f9so2328a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:34:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790033696; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iwMMIFE6PKFeK57PI7ZL991Z4zYRLO6ewCK39G44PbWKH4QJTrmRe33OXfJcCA75fm
-         hfqCTveE1lUaB+XlwqEtV5idZJSMLABIDGF4fdcVB1At4rSGWZoIcvEdMEXrx9l018VQ
-         DYUQHFjJSZtWpsLyubpaam33/kJ5/pgPAv9pYxP/IhR4GtQknSr++svr7Zm7H3XaCX74
-         aSDTRYLBan3yFIPoySBSzSVrvKFdGhkzeU0AWeNMHWRbjoD6fe2iRMnhTgvPBVS1SyvS
-         5hxgerBCEnGkTEsRgO74bzCERlKwHihBdjkPgbKAc6OWNNq6SpV+ufxah8sVvDeCjH6I
-         2FZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sxVdzkqUKmgN4f+qWxZ2zsOjbna5V29vqf/tedxT+VA=;
-        fh=T72e2davJmzctkh9mqkTvl2sLKH8uHmD9qzJV2aVw4M=;
-        b=pqJF2BkAYo5kgpth8ZhboODCsSMVPvaZ2Stn68r+O7Gle31Fn//XxUBaW0QIfZ6hiF
-         U89KjYpAJbOQ0o0k8sV+lqEYoTDVOJH8bTtQ4h2R71t7Qhg44l1ts+efQ9BPwDxpRlga
-         djhBzkvSALYYoVWDMcQuvTSFBkUUgAVId7tE6Pl2PtBGlj3Y0G5ZadUPPaxO0WTzhESG
-         rWZm8oTAyqA9/pH0O8DQLS43tm0O4OJESQd4lnwqjPILOUWw+KwbZEGDwHkTAzukKhcJ
-         va6wKd7MXYBk82vL55Lh9vHEE6827xfIEdrD5M17sbLqiLYh8A4TjB4dXhHqsDLUlrcd
-         IKdw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790033696; x=1790638496; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sxVdzkqUKmgN4f+qWxZ2zsOjbna5V29vqf/tedxT+VA=;
-        b=NBJR4xPt942hts7pvdHW48X3SWxgYnDMwQ4s6BqJGk0h80PC8M5jHLmvxMSkkYtXHA
-         6kP6vmVoTUiKPm0eS0TZrl5VN9oc0986EYK9bhKzW5LvW7gcHE3jKS1LY0tmYr4OV8n2
-         SVXMjymgBtUgikhK06pYQhVgK3d1sbt6ugQpm2kJH0puMeGP88ry3J0bZKaNJoyYc6U2
-         WEkQ3IUMDrOM1bTPMuumkCE+qbSy3/kFPADTc9r8upIwUg8hVlMmwUeBnBcE8A3tbETr
-         +waznWlkqY5AT8daALYFk88nosNsAjfgFfAFGC4Q6rE2wvQD7uHaiwDOB0/Oj8dF5Ntl
-         x1yQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790033696; x=1790638496;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sxVdzkqUKmgN4f+qWxZ2zsOjbna5V29vqf/tedxT+VA=;
-        b=dpmd5us0xUVqTVxNrDKKryJ4Yybrikge+jZq6wtTAWYxxDg1g7Dsa9rhBKbua8/hAZ
-         Uv1936sgni22yn8ti8oJnkMCoM1mormLWYPFOqSrRLyZDsfpOTEEVBE2HubobLHi7wx8
-         bCxY7SKV/CoTr2D5BjOqKbr1oFGoeIt2n/X+Syy/AYqxcOyZoCOHoIZvfbUG6ZfouvQX
-         8P23+NhiE+LPoHViOYmspPit94SCv9Snu7k2y2nsxAPmdc48g1AIwJl7gd0esHF+nNbA
-         ttDJlxJ4OFoJEQDXvfv8XZWpM2Aol25a04O9P7X97VAgZE1bPDkEeEIvS59HuGAQhHEG
-         jo6A==
-X-Forwarded-Encrypted: i=1; AKwUvBxSqtBsX14CUYBy0Nxmwc05f1tkltg3CKwpu74w9eGpbr99gRbagxxdupn3vnie+1WpAgbUHegH4NoKhU0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1b5kPAub1o1ry9wZr5wFwgmqhHXjHqO3aQq2YLPOCKGz7cXmM
-	GTCno/orGa6oqJTt8TxtD9Zt9/WDEE53Jpj0G5IMpuvd1pQnUZj8UTdRYJ/pZT9EwRqsTn791eD
-	+LXstcW26hlBtNy31jpOC0Svrf8st6ApQYxIX5X83
-X-Gm-Gg: AYBFou0G9CqB+Qq+MdJv2sm1jI1PWN3zgvWBkL2gHVbWZhXtULzVwAjyvCnsaDFoWgk
-	qOqfO1St9wsKRer0CMRCt8RPhjAeOtIVfp/kgU0wcFfLSZCVnghXyMyIrhmOIJndbB+fyme0PAP
-	6Xi9qwrlkJoX43+kVsrPhp8jC++npWB2qOqrCSWoW61inDA+CMP5OCisoFPo/7iJW+6XyGE9U4y
-	1koArznq0TLveTOkOjqJXgabJ+R8gDiUZJs5LwwzAL3URvZl+83I+yYa0Y/TaB4qdSO8k6TSBQi
-	zRPemfLxMz2yYr0RV4JDVPODRYImnTFJtO2ob1evY724WQ/9XLZhu7dEuA==
-X-Received: by 2002:a05:6402:b03:b0:6a9:f353:ef65 with SMTP id
- 4fb4d7f45d1cf-6aaa3285086mr5729a12.5.1790033695802; Mon, 21 Sep 2026 16:34:55
- -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aPc+A1HS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E01861F000FF;
+	Mon, 21 Sep 2026 23:36:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790033815;
+	bh=iHBmFehPZ8zT7cRUD7Ckua8yxikfhCJCyZDOyMY5qWY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=aPc+A1HSvO8hGjDQElPpYUvpxG5gIDf0tAEP7ZlOCBea1+XPXk52J7HCZu5L+KCy/
+	 60xaBDZ7Rd4kambCzY2tS+SGTmnH1FhCq7i3/heOSXYHi4TCvS16SWYRLgVN4VX7Xr
+	 IO5+Cr1wyg57FWpDfLPiIle8Vnh1Biys92XEJYOtGQrq4cBAGyWCH8hId11TU97Jyi
+	 18m4MC6ivL9l9+hewkFcGfJadTYPozLQOsWRl3v3bOt0qp8YldRsTdhASSjn35qg3M
+	 hsBp2bs1oj+rVWkx5tc4OM78h5XyDES5VkNFhyw2dYhPDauybanXGbmbdQ+IAj6+n0
+	 OhQ5tqc7PWdJg==
+Subject: Re: [PATCH net] net: phy: marvell: keep WOL_EIE across interrupt
+ reconfiguration
+From: netdev-bot+sashiko@kernel.org
+To: rosenp@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, michael@stapelberg.de,
+ linux-kernel@vger.kernel.org
+Date: Mon, 21 Sep 2026 23:36:54 +0000
+Message-ID: <179003381438.2160803.9735513848623011985@kernel.org>
+In-Reply-To: <20260917220136.97017-1-rosenp@gmail.com>
+References: <20260917220136.97017-1-rosenp@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917181116.3319017-1-sdf@fomichev.me> <20260917181116.3319017-2-sdf@fomichev.me>
-In-Reply-To: <20260917181116.3319017-2-sdf@fomichev.me>
-From: Mina Almasry <almasrymina@google.com>
-Date: Mon, 21 Sep 2026 16:34:44 -0700
-X-Gm-Features: AcwNN1WmRZwcqYEGOUzFgTIvMnbXviLLn9H3D7LnKrfzfpDlcqUx_C5C9_7JhxM
-Message-ID: <CAHS8izNfDamSJEgn5D=VGDf0bZG+D_YMrMRmuK51kzV2ZyZC+Q@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 1/3] net: devmem: replace gen_pool with freelist
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, sdf@fomichev.me, 
-	bobbyeshleman@meta.com, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 17, 2026 at 11:11=E2=80=AFAM Stanislav Fomichev
-<sdf.kernel@gmail.com> wrote:
->
-> devmem only needs fixed-size net_iov allocations for each dma-buf binding=
-.
-> The gen_pool tracks the same free set indirectly through DMA addresses,
-> which makes devmem depend on the generic allocator even though the users
-> are fixed-size net_iov chunks.
->
-> Mirror the io_uring zcrx model more closely by keeping a binding-level
-> freelist protected by spin_lock_bh(). Use a single net_iov_area owner for
-> the binding, populate each net_iov's DMA address while walking the SG
-> table, and check at teardown that all net_iovs have returned to the
-> freelist.
->
-> Validate the DMA-BUF size against the net_iov size up front and derive th=
-e
-> RX and TX entry count from it, avoiding a separate SG-table pass.
->
-> Drop the NET_DEVMEM select of GENERIC_ALLOCATOR now that devmem no longer
-> calls gen_pool APIs.
->
-> Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Reviewed-by: Mina Almasry <almasrymina@google.com>
+Critical: 0 · High: 1 · Medium: 2 · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] m88e1318_config_intr() deliberately keeps
+  MII_88E1318S_PHY_CSIER_WOL_EIE set when phydev->interrupts ==…
+- [Medium] Commit message misdescribes the trigger path.
+- [Medium] After this patch no code in drivers/net/phy/marvell.c can ever
+  clear MII_88E1318S_PHY_CSIER_WOL_EIE (BIT(7) of copper page register…
+
+--
+
+net: phy: marvell: keep WOL_EIE across interrupt reconfiguration
+
+Copper page register 0x12 on the 88E1318S/88E1510 is both the interrupt
+mask and the CSIER register holding the WoL interrupt enable bit, so the
+patch gives those two PHYs a dedicated config_intr that preserves
+MII_88E1318S_PHY_CSIER_WOL_EIE with a read-modify-write, plus a matching
+handle_interrupt. Other Marvell PHYs keep marvell_config_intr() and
+marvell_handle_interrupt().
+
+A few questions below, first about the changelog and then about the new
+disable path.
+
+> On the 88E1318S/88E1510, copper page register 0x12 is both the
+> MII_M1011_IMASK interrupt mask used by marvell_config_intr() and the
+> CSIER register in which m88e1318_set_wol() arms the WoL interrupt
+> (MII_88E1318S_PHY_CSIER_WOL_EIE). marvell_config_intr() rewrote the
+> whole register, so any interrupt reconfiguration (for example the
+> phy_disable_interrupts() on link down behind mvneta) silently cleared
+> WOL_EIE
+
+[Severity: Medium]
+Is "the phy_disable_interrupts() on link down behind mvneta" accurate?
+phy_disable_interrupts() has only two callers:
+
+drivers/net/phy/phy_device.c:phy_probe()
+drivers/net/phy/phy.c:phy_free_interrupt()
+
+	void phy_free_interrupt(struct phy_device *phydev)
+	{
+		phy_disable_interrupts(phydev);
+		free_irq(phydev->irq, phydev);
+	}
+
+and for mvneta the only route into phy_free_interrupt() is
+mvneta_stop() -> mvneta_mdio_remove() -> phylink_disconnect_phy() ->
+phy_disconnect().  Link state changes go through the phylink resolve /
+mac_link_down path and do not call config_intr at all.
+
+So is the reproducer ifdown/ifup (and probe) rather than a link flap?
+Note also that the enable side, phy_request_interrupt() ->
+phy_enable_interrupts(), rewrites the same register, which the changelog
+does not mention.
+
+> diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
+> index f71cffa884062..0897cfcd6ab70 100644
+> --- a/drivers/net/phy/marvell.c
+> +++ b/drivers/net/phy/marvell.c
+> @@ -425,6 +425,68 @@ static irqreturn_t marvell_handle_interrupt(struct phy_device *phydev)
+>  	return IRQ_HANDLED;
+>  }
+>  
+> +/*
+> + * On the 88E1318S/88E1510, copper page register 0x12 serves two
+> + * masters: it is the MII_M1011_IMASK interrupt mask for the generic
+> + * Marvell interrupt handling, and m88e1318_set_wol() sets the WoL
+> + * interrupt enable bit (MII_88E1318S_PHY_CSIER_WOL_EIE) in it. The
+> + * interrupt routines below therefore preserve that bit, so reconfiguring
+> + * the PHY interrupts cannot disarm Wake-on-LAN behind the user's back.
+> + */
+
+[Severity: Medium]
+Same framing question here as in the changelog: since this callback only
+runs from phy_probe(), phy_request_interrupt() and phy_free_interrupt(),
+would it be clearer to say the bit is preserved across probe, ifup and
+ifdown instead of "reconfiguring the PHY interrupts"?
+
+> +static int m88e1318_config_intr(struct phy_device *phydev)
+> +{
+> +	int val, err;
+> +
+> +	val = phy_read(phydev, MII_88E1318S_PHY_CSIER);
+> +	if (val < 0)
+> +		return val;
+> +
+> +	if (phydev->interrupts == PHY_INTERRUPT_ENABLED) {
+> +		err = marvell_ack_interrupt(phydev);
+> +		if (err < 0)
+> +			return err;
+> +
+> +		err = phy_write(phydev, MII_88E1318S_PHY_CSIER,
+> +				MII_M1011_IMASK_INIT |
+> +				(val & MII_88E1318S_PHY_CSIER_WOL_EIE));
+> +	} else {
+> +		/* Disable the PHY interrupts, but keep WOL_EIE set so an
+> +		 * armed magic packet still asserts INTn while the
+> +		 * interface is down or the machine is suspended.
+> +		 */
+> +		err = phy_write(phydev, MII_88E1318S_PHY_CSIER,
+> +				val & MII_88E1318S_PHY_CSIER_WOL_EIE);
+
+[Severity: High]
+Is it safe to leave WOL_EIE armed in the PHY_INTERRUPT_DISABLED branch,
+given what phylib does right after calling it?
+
+	void phy_free_interrupt(struct phy_device *phydev)
+	{
+		phy_disable_interrupts(phydev);
+		free_irq(phydev->irq, phydev);
+	}
+
+After ifdown the WoL matcher is still enabled (m88e1318_set_wol() only
+clears MAGIC_PACKET_MATCH_ENABLE when the user disables WoL), so a magic
+packet can assert INTn once the handler is gone.  The existing comment in
+m88e1318_set_wol() says that assertion is latched:
+
+	/* If WOL event happened once, the LED[2] interrupt pin
+	 * will not be cleared unless we reading the interrupt status
+	 * register.
+
+and reading MII_M1011_IEVENT is exactly what only the freed handler does.
+
+Since phy_request_interrupt() asks for the line with
+
+	request_threaded_irq(phydev->irq, NULL, phy_interrupt,
+			     IRQF_ONESHOT | IRQF_SHARED,
+			     phydev_name(phydev), phydev);
+
+can a shared level-triggered line end up permanently asserted here, with
+the co-user's handler returning IRQ_NONE until genirq's "nobody cared"
+logic disables the line for that other device too?
+
+Related question about the probe side: phy_probe() also calls
+phy_disable_interrupts() before any IRQ has been requested, so this branch
+now carries over a WOL_EIE left set by the bootloader or a previous module
+load.  Was that intended?
+
+Since WoL across suspend goes through phy_suspend()/drv->suspend rather
+than config_intr, could the bit be preserved only where the WoL arming
+needs it, instead of in the generic interrupt-disable callback?
+
+[Severity: Medium]
+With both branches writing back "val & MII_88E1318S_PHY_CSIER_WOL_EIE", is
+there anything left in marvell.c that can clear bit 7 of copper register
+0x12?
+
+m88e1318_set_wol() only ever sets it, inside the wolopts branch:
+
+	err = __phy_set_bits(phydev, MII_88E1318S_PHY_CSIER,
+			     MII_88E1318S_PHY_CSIER_WOL_EIE);
+
+and the WoL-disable branches touch only MII_88E1318S_PHY_WOL_CTRL on the
+WoL page.  The unconditional write in marvell_config_intr():
+
+	err = phy_write(phydev, MII_M1011_IMASK,
+			MII_M1011_IMASK_CLEAR);
+
+was the only path that returned bit 7 to zero, and these two PHYs no
+longer use it.
+
+So after a single "ethtool -s ethX wol g" does WOL_EIE stay set for the
+lifetime of the PHY, including after "ethtool -s ethX wol d"?
+m88e1318_get_wol() derives wolopts from the WoL-page WOL_CTRL bits only:
+
+	ret = phy_read_paged(phydev, MII_MARVELL_WOL_PAGE,
+			     MII_88E1318S_PHY_WOL_CTRL);
+
+so userspace would report wol=d while CSIER bit 7 remains armed.  Should
+m88e1318_set_wol()'s disable path clear WOL_EIE so the preservation in
+config_intr has a matching clear?
+
+> +		if (err < 0)
+> +			return err;
+> +
+> +		err = marvell_ack_interrupt(phydev);
+> +	}
+> +
+> +	return err;
+> +}
+> +
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917220136.97017-1-rosenp%40gmail.com
