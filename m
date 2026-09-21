@@ -1,132 +1,116 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA0433938C
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:25:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789964718; cv=none; b=O2qdnEdhSBgzDrmaVvPWLAtORZ7a9NL8TOtpn7BHFtg64hqLAPhDkqCglO/aAoAjfHNIaQ2fc9MHr8Gmw9UhdhohSwsLgPLFRiAwQeyaJrxFJ8bKc/3HEHOW2lgZzzYLoMXKVlr6NjJ8HDD5a1Whr/HiBHU5bHSe1vU4Gk3sFAQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789964718; c=relaxed/simple;
-	bh=UXX242uwM9CJbd75dgBpovw7CdyRLI0nhFevS4pmY30=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=swwUDDcwucWbHGFm84fZMSp8NuTCDeeBbrLVH/AzmzwE/Eqc8llYu1DTLiXBCF/jnXut3yRvNgLj69jTjnlUJX2E1Lf4Xf1ac4SQAfqD9T+5BlAcAZ4ejUZeJFoe6ZQeKEL8ryULCAVhLbpscVwlcH2XM5TPq8hUMPg3NtoMq6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AYZIovRZ; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4FDE349CF0
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:27:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789964861; cv=pass; b=LR6OvMlxgbw6RF2O8PGxSSl1eaXgSbxlJfUiWXcKQ+xMWhYCitxnogVy+VOPWbBMzKv3ckOX/6CRjOgj0TdxpstRYEMlk2VO6p4mvD4wUuuDyluPdn98IcDnhRyJGcRJXzTsthMheT7nB4yUkBEVvS5Trzs/fYX6mYQgUa8r1hY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789964861; c=relaxed/simple;
+	bh=OXHlmbHqYZPoffpzb4G+f1JwyrrSRzIC2VXrKgbZDkU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Oqzv22YCrLI8+SZvE4ghgc34S5CafWwfxATxKCLVHhV4yvdm1Q6bm50lOCWMnOzrwcxV7AtMSfy+TZ3g+1bC6ZkLLlnxeXE2AhyLnXgQNtFOmj/Xh0LqtrNK66eXwMAOMeGQxF1CJ4TB2WG/wLQsQazlm5xZfimD4zI4y5+Yz+g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com; spf=fail smtp.mailfrom=uber.com; dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b=VRWMS9G1; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AYZIovRZ"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398c066106cso1958833a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:25:16 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b="VRWMS9G1"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab201ebso1734257d50.3
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:27:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789964859; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CVelZh1x/za1rAQpq0e+gfUH4GP10mgKQ9UKx+g4Wu9k8Np7mKF97nvPjFsxZ0B9pg
+         bKcZs/waFwrbk7Z12vFwizlAP6vW7lZU0mGt1mxGEJNdZgyFUUJ/5TtfMbjWRevznGTz
+         11/7pddqntvS3ulsJn9zomlm++N9fW9us5ssBFAlY3YCA1p+JkJa81M3MAH7GX3L426y
+         avnseUK2Fw4YzI3F+d/cq36JndAFeX/iew+tPUO8b0bsj3AeoZnm6eF0QMNsR+N+PmA6
+         UVDnxa1iQUY/V757A5hkCBoUCtwruYFqIrwe5c/O7oo3AXIfx4Rcqxmaz+F6XLDUc/O7
+         Eyqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vHXcPbrTNAxtI04gX/24blX4z6iN9+N0kM3fkVzoCUc=;
+        fh=pgMS2mQ6Uo2lLT/lVhmu7F+UbDvo1dQPaCKAaKlv5jE=;
+        b=NA8GLfcQZjNwO986ZgrsoMg70f7Hu7yKLKrL7wfOt8NCmwVN9FHAKnmmvRHqUpWbUc
+         cyxIYlVQ8r85fHjkGnatT54Zj3+EmoE118nC67YyqFdVahTL7oYF21VLnWeATvLmlF0D
+         jI7JZq7x3R6s2JPy1pu9qtN6mhSR9Swchy9v0OEfYfyvvBBuVB4NwKxPcaTewDQqBwOA
+         70faZE4S+48wy6xhObqn6pADpQ58anYJ9+n3uxBlQLLU9H+VMqWN3zBO9hjqxlIrFOxe
+         WYtfDcOYwoIAA5+LBsR/uFt4gvmz20lqm/zQyHJTNmT9dwofWVFw8OuoYdacKqe5/2So
+         rmQQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789964715; x=1790569515; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KlcejhybFRwk+waXcujN7WP0JBvoJyfPnbBAG+LwQp8=;
-        b=AYZIovRZoyIsUjyI3U/Z4K4eWjMmJ3TNkBIREnYW4m97iy1yqLPdxVjaWepLcxvM9Z
-         k0DJMAmW93hnBL36osPKT2sxw3E/eC4Te+nHiD/aU9cnotZix4LPwlV4OmfkHqXfD3+/
-         7FJv5uc9ts5aYh5WcZBzDEB184slHv6028uHiOuCFrLucXF/d5SASqe/JhETxxFHOsjH
-         zwQug/GI6lgh4aUap2YCeI0UL9LmsNqfDtUL9yw9R/TE51GN/LEei/HSY370NamadSMj
-         6d71YovcZnGL8LShcuiPWSASjnnzsaqqQ40WAYwhtLJuuoNCevhyANoLsLW1ftMXJ566
-         qYNQ==
+        d=uber.com; s=google; t=1789964859; x=1790569659; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vHXcPbrTNAxtI04gX/24blX4z6iN9+N0kM3fkVzoCUc=;
+        b=VRWMS9G1Cq1IpDDpM99kgry6sBiqFNEKa2J8Nen3ORd4d+LcJmugpiEvns6O9Sg0yr
+         JyGqbov2q8/Ld4KSbFQla5BCLvbNYr/HCbBL4Tn0tbXap20YmEqxn2UlUCenS5P/XUCR
+         uAW2VVwT8Rk1hM3u/WWaQpl+uMp6XeC79basU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789964715; x=1790569515;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KlcejhybFRwk+waXcujN7WP0JBvoJyfPnbBAG+LwQp8=;
-        b=ChAkOmnWyQcveyPkNhF/G8XOYjfszBqO8ct6RURp9/C4fpamAXhxeZfteqEdE7xFXP
-         wpG8xhq10aYiU56NUqnvQ9CCYvtRQ3I5cU9JNkKVDh/6rv4HDSu52fzLkTwDBHhGg53J
-         UJS7AHX7b62nQCZ3l8+40LMsoMJkspaD/85612XcEpXvQ3NXbboZ0sVGmPpcXRwpHMUv
-         4WTgb+ImMAlc0ms9NviXMMLkR9c4qhWb2GUH9uhRUt4lIKhpQj2aC7YSpuWBsZUwrsiC
-         keVca6QoijLkXgTq1uZ1in2SFLIBKtahRWkm3h3WWRZVHsl1Ikl0I/69+XUGM1pdz360
-         7MNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzJ3hRXtmsydU/FInOEGK5tynLFO7S1SqKEDNwWYys1Rs+Cy9FbeCi/M+QMFs+IaPipoXnyIvkcqd1ATVA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwG7JueFY/b4jJedOuOlJVw7thhCOjyrWnB1nEFH9lZUVU2loU
-	j4GW/yBAJE+8nOE5AuIkL8dCOZG8y+4/xsWMGl71XTVuZR3oUQts7tPv
-X-Gm-Gg: AYBFou0Xq/M4OfTrgZLpEizB5i25vEvafnwe7+NQYHe/cZy7J8nxyBPbCn7Bl1ZqGaM
-	HsHmXmKXDr0zhJ42m54BrOPQVBWxaAy4cHoWhu6giyvMxXeObDq5pJ75iUpcahUzLs+1D65us1p
-	wwDL0S8uDdMWtL6KDA6KoIINSofWKaGmR2H3ay4gbtkG0rBpADmn8sWPW7U6i/T9WSVhprLbdiF
-	G+4+DRPrjOOhYBQ8Wv1580cO+lBLodYch/rARq4+FdOpGFGVpKquHNvHQ12FqPRnUd6o4oAxvsl
-	PAgEgH6+kO053oK4ZcE1h8bOapDFBH7HTUWrx/Q5+seSybIbf8Ylx6qKY+Os+CBphV0l1/BSNL9
-	4T+iHzrREMxDbGZ3PTzqwyffkKdeej7xdRj+fcupCfK3NQHBCm1hMSkBXndWhg47Tj/mp3C5QGj
-	cneEXx/Q4mCbIZCRAeLdEuNJlSzwPQzLA4KrzGLq2lSqAaRuo0yLt3MXf9qbuG4j+444E2KWiA2
-	G+4nRkEZVb4ecW1LlaxapjLx0TlnxzCCeSrYGQI7e3YZ5Mr4O1C8E7boPm6yWVDed1A+67BFxmT
-	R4Sm9SzsHw==
-X-Received: by 2002:a17:90b:3909:b0:39e:359f:8539 with SMTP id 98e67ed59e1d1-39e54f35cf7mr19843880a91.15.1789964715138;
-        Sun, 20 Sep 2026 21:25:15 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c5b3932sm11742139a91.13.2026.09.20.21.25.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 21:25:14 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Damien Le Moal <dlemoal@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jeff Layton <jlayton@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v2 5/6] qnx6: abort mount on superblock magic mismatch when silent is set
-Date: Mon, 21 Sep 2026 04:25:10 +0000
-Message-ID: <20260921042511.1473629-5-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <20260921042511.1473629-1-benquike@gmail.com>
-References: <20260919222556.3792829-1-benquike@gmail.com> <f68323da-e90f-46a4-b3ce-70d26de115e6@kernel.org>
- <20260921042511.1473629-1-benquike@gmail.com>
+        d=1e100.net; s=20260707; t=1789964859; x=1790569659;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vHXcPbrTNAxtI04gX/24blX4z6iN9+N0kM3fkVzoCUc=;
+        b=RHC/mATccIpcU6v9gBUvBM01aU7CHgkxvvGyEiu1Luk18CjYVSV9Oxd4FQiUu6niZn
+         BPL6FnuLnv+6XXkOHJXLI9n4szOiY/8z3ccSSwaFAlRGDl7f0WxFG7/4hGody+GrPgyG
+         FIp66lEWOGI4FhmC2gLHdLGEVdHaU49MZPtXCgZv4z3PM4AHJkPDK7BUB1nRtXDpAip9
+         rWIcG3GVtj/aBdAKb2k1Nsvr7gjz+gjeJt3ppselEVkxW0ZfOaQfwhcYlrZTUQlPsrCh
+         +ywyYaFAF0ZOwwCMq8MgHMZss2b/YWGTV4qzIsB/md7AnOo3KZzi7bvxrxVghbfW0wMm
+         dtNg==
+X-Forwarded-Encrypted: i=1; AKwUvByqriW6lz3hFxqRldDgNIEgaR+3sS3gx3zvLaPg3XUfxlVnqfaDbO7+kvMbAp9a1ZNZUXbLnayJdd5np/M=@vger.kernel.org
+X-Gm-Message-State: AFuF++kW7KwZvMRpJnRRROGsmhVABeImthDQJqJ5alPyAPeakH3tE1vO
+	Pokx/GVKgcUIbUwayxDemW5GtNJjXj3wo74RQXQys/w1Pl09aoBjjttDTUls+c5iZ2TWmUlFEBB
+	pHsxyncon3ed+ZEbKoZQeMpTdNbPEJVoD+OFyLJ5Iiw==
+X-Gm-Gg: AYBFou2UoV8+98e+8+oecQ0W3JeM8lOnlM6Oiw63XDfTSxtjkuNGUFhpJSCenpSarzv
+	6NZFai1HbJcVc2xBVcpWnrRI7jliViVkN+GhHZf5OwvK1sOk16wB7jXo9Xd7AEuL+1E+8D8eotc
+	yAD2buR75NPph3KcJayV0jqfxOXB6NgmundG7kb2ahrp3vggED7w9amJOvMaIKkOoaYn0Shn5lk
+	YEl7fE4Yar8vVzsADD9ye9NzjHbXbNFfO/DFz0oXjIuaL0mtPK//Qeo2GAey5QMG/tdfA9hxjF5
+	qA4Qt761c4+kc1SUC+7zZot3bbUXDHHLLC7r1V1Olid7qei2WlX9zKJluwhFRnS/9livW1gArCA
+	rzz0R+On/U3c=
+X-Received: by 2002:a05:690e:11c9:b0:66f:b1e4:f158 with SMTP id
+ 956f58d0204a3-6717fdab5b1mr2698964d50.46.1789964858081; Sun, 20 Sep 2026
+ 21:27:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260919-perf-symbol-memory-send-v2-0-495b8f00ad7c@uber.com>
+ <20260919-perf-symbol-memory-send-v2-2-495b8f00ad7c@uber.com> <arB0RCpi9szb5d_R@z2>
+In-Reply-To: <arB0RCpi9szb5d_R@z2>
+From: Alireza Haghdoost <haghdoost@uber.com>
+Date: Sun, 20 Sep 2026 21:27:22 -0700
+X-Gm-Features: AcwNN1XQbDYRv7d1MBZTRlnAPAQksPbSbaIYVIK2RGcLdF2_Normr9MWW17F3cE
+Message-ID: <CA+w=M=Te46a3918scFJrZ=KB5O5idGRFZL6LXH24srqPM2xC+w@mail.gmail.com>
+Subject: Re: [PATCH v2 2/4] perf script: Add --max-symbol-bytes to bound ELF
+ symbol memory
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In qnx6_mmi_fill_super(), when the superblock #1 magic check fails and the
-silent mount flag (SB_SILENT) is set, the goto out statement is inside the
-if (!silent) block, so execution continues past the magic check with an
-invalid superblock (unlike superblock #2 at line 93 where goto out is
-outside if (!silent)). Move goto out outside the if (!silent) block.
+> > @@ -90,7 +90,7 @@ struct symbol {
+> >       u64             start;
+> >       u64             end;
+> >       /** Length of the string name. */
+> > -     u16             namelen;
+> > +     u32             namelen;
+>
+> Why is this needed?  Do you have symbols with a really long name?
+> Anyway, it should be a separate change then.
+>
 
-Tested in QEMU against Linux 7.3.0-rc3 by mounting a crafted QNX6 mmi_fs
-image on /dev/loop0 with sb1->sb_magic = 0xdeadbeef (!= QNX6_SUPER_MAGIC)
-using MS_SILENT | MS_RDONLY and "-o mmi_fs": on the unfixed kernel
-qnx6_mmi_fill_super() ignores the magic mismatch when MS_SILENT is set,
-logs "qnx6: superblock #1 active", and mounts the invalid-magic filesystem
-(mount returns 0), whereas on the fixed kernel qnx6_mmi_fill_super()
-immediately aborts at the magic check and rejects the mount with -EINVAL.
-
-Fixes: 5d026c724220 ("fs: initial qnx6fs addition")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
----
-Changes in v2:
-- Split the qnx6_mmi_fill_super() silent magic check fix into its own
-  patch (5/6) and remove Markdown formatting from the commit message, as
-  requested by Damien Le Moal.
-
- fs/qnx6/super_mmi.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/fs/qnx6/super_mmi.c b/fs/qnx6/super_mmi.c
-index b8afb6f388b2..18298e273a13 100644
---- a/fs/qnx6/super_mmi.c
-+++ b/fs/qnx6/super_mmi.c
-@@ -51,10 +51,9 @@ struct qnx6_super_block *qnx6_mmi_fill_super(struct super_block *s, int silent)
- 	sb1 = (struct qnx6_mmi_super_block *)bh1->b_data;
- 	sbi = QNX6_SB(s);
- 	if (fs32_to_cpu(sbi, sb1->sb_magic) != QNX6_SUPER_MAGIC) {
--		if (!silent) {
-+		if (!silent)
- 			pr_err("wrong signature (magic) in superblock #1.\n");
--			goto out;
--		}
-+		goto out;
- 	}
- 
- 	/* checksum check - start at byte 8 and end at byte 512 */
--- 
-2.49.0
+I will drop this change in the v3.  This is a theoretical edge case
+and I don=E2=80=99t have a real workload
+that hits it.
