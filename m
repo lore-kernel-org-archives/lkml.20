@@ -1,131 +1,115 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-62.mta1.migadu.com [95.215.58.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C2D5012B5;
-	Mon, 21 Sep 2026 18:59:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676C14BE447
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:59:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.62
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790017176; cv=none; b=s7mpzqQdB9qTYoG/L7G2opjcFm5/rIPOMUl5sHnFO4H8t6buOGyizVPLxzwBTfs/IbeR/nODrSaQwVyj6uG9MgOvarOcwzx2m6053+miM2ix3j+igWvO3H4Kzgl1AV8MMRogOBefqyMq6tvb/hxuZJ50zBazorAEvFj/9ZP4KcE=
+	t=1790017195; cv=none; b=e4/IQhQIv4l2Rmdg8cbV/JCi2uyeDmG1P7x8cS1frjcRbtu1mtXmFmE5dpktTuSCIu6s/+4uOPOaimJ6TIomHkD7Oq6VH36oG312pbXJ7NJ/48vnuS3a3x9s0wOqzN0J0yQdQDUt0LvDdyhgqKSg2oXojJGh8kzfCrzPK8PhUxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790017176; c=relaxed/simple;
-	bh=pEJgGk0cH37LV0k9pah/ONK+RZwICyiK2i1EslabjcY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MOof0kFgeyFVVTOiMu81SgxU7Q8SEMLzBtVRpTMZ1C8Kw8ztFD477QRjIG6rL3Ny8RPJ7SpW44JrH0QuDLKh8Lh4IgYHnpgeYB3MM3ny9tw+5ZG5vAnfAo6MuhXj5f1gkr6/Y4Ae+mfUWeyRwvRp7omkURzzDxF1QhYQLw6QoLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CqLC9M2N; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790017195; c=relaxed/simple;
+	bh=Pofm77rzod73Bt78uY4E3DD44RNhgOcg2uywXtDlWwI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pvBlPTll/wAxkefIAzGWO2lLUUYGQUHcB5K1qsu44+uz+/TSerGbLCkyeaLDtzD2Rr2i4cJ7JJ9R0D4APJJZk7HkrF81d1Rw+scm/u9wh+SrEwJLhi3/6GGv54kwsa3rmggJS7MvLDkP2V0iCo0akY9RpPG4oLR8uCUrHS9ggi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Nb8aaqsY; arc=none smtp.client-ip=95.215.58.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CqLC9M2N"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790017174; x=1821553174;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=pEJgGk0cH37LV0k9pah/ONK+RZwICyiK2i1EslabjcY=;
-  b=CqLC9M2NY/x0wcSL3nm2Xl76LPvACoP3DF+DS2ex/1f2eC1O/XwO5eOs
-   54Z1oY8mqUObZNrfYmjTvtA3tJQJVuMyk30Iyny62NEiMXi59WLROrZ0Q
-   fhy6UITsIYT/IHfrnQgWHbDmIHlKpO1y2ljxpFhBKjRMGqYAlphJtM/pU
-   6SOPMFhWE/X2aUZY1adgaJWxKCCfMnF3qmAxTQTP7L2bOfO4u15TUtg9Q
-   mVrDahpdgLxU3yila4pSRMF0rVdIWHxocvzyQCPMrLF/at6TvfqA7YJ/c
-   CHKbI2m17f7k3PxfAbPQ3ZvnpAHcGZtkf6x2e4frct8rWZRAIzNSRxkis
-   Q==;
-X-CSE-ConnectionGUID: VLayl7JiR0qLOvCgcNGMuA==
-X-CSE-MsgGUID: U6p3klJcTfavYMwIhV2U/Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="108059005"
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
-   d="scan'208";a="108059005"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 11:59:33 -0700
-X-CSE-ConnectionGUID: BsuX840qSi+2vC0YrmPdRw==
-X-CSE-MsgGUID: kPAoAqbfTPu69ShvAQyqJw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
-   d="scan'208";a="280861595"
-Received: from soc-pf446t5c.clients.intel.com (HELO [10.24.80.90]) ([10.24.80.90])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 11:59:32 -0700
-Message-ID: <ebfa2423-f393-414b-a6ca-021747992bae@linux.intel.com>
-Date: Mon, 21 Sep 2026 11:59:31 -0700
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Nb8aaqsY"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Pofm77rzod73Bt78uY4E3DD44RNhgOcg2uywXtDlWwI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790017190; v=1; x=1790621990;
+ b=Nb8aaqsYC7gc15nF4KAHNxgQHBbHU0FUWw4HuzyQZ5+r4AokV7j4ul92QCgBPz1TsCVuqPnS
+ JYaW8UbwnacPJRaPcPTYwlUf6s4BXIMJhOGE9UFJwCeky/tiP2Q36ZetzIvpTwAyk8yO5sEd3Gh
+ FZFKJQGCJfUa5ngHkfwMysZ0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 3e8edb1392227131;
+	Mon, 21 Sep 2026 18:59:50 +0000
+X-Mizu-Trace-ID: 3e8edb1392227131
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: arighi@nvidia.com,
+	bpf@vger.kernel.org,
+	bsegall@google.com,
+	changwoo@igalia.com,
+	dietmar.eggemann@arm.com,
+	etsal@meta.com,
+	juri.lelli@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	sched-ext@lists.linux.dev,
+	tj@kernel.org,
+	vincent.guittot@linaro.org,
+	void@manifault.com,
+	vschneid@redhat.com,
+	yphbchou0911@gmail.com
+Cc: Usama Arif <usama.arif@linux.dev>
+Subject: [PATCH 1/2] sched_ext: Specialize the TID hashtable compare
+Date: Mon, 21 Sep 2026 11:59:11 -0700
+Message-ID: <20260921185943.4031480-2-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260921185943.4031480-1-usama.arif@linux.dev>
+References: <20260921185943.4031480-1-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 2/5] PCI: Assume control of portdrv-related features
- only when portdrv enabled
-To: Lukas Wunner <lukas@wunner.de>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
- linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
- Rafael J Wysocki <rafael@kernel.org>, Guixin Liu <kanie@linux.alibaba.com>,
- Olof Johansson <olof@lixom.net>
-References: <20260919162655.3499010-1-sathyanarayanan.kuppuswamy@linux.intel.com>
- <20260919162655.3499010-3-sathyanarayanan.kuppuswamy@linux.intel.com>
- <aq96cULSmdeBzd3D@wunner.de>
-Content-Language: en-US
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-In-Reply-To: <aq96cULSmdeBzd3D@wunner.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+scx_tid_hash_params does not provide an object comparison function, so
+rhashtable falls back to rhashtable_compare(). Although the key is one
+naturally aligned u64, the generic comparison reads the key offset and
+length from the table parameters at runtime and emits an out-of-line
+memcmp() for each element walked.
 
-On 9/19/2026 11:17 PM, Lukas Wunner wrote:
-> On Sat, Sep 19, 2026 at 09:26:52AM -0700, Kuppuswamy Sathyanarayanan wrote:
->> +++ b/drivers/pci/probe.c
->> @@ -668,12 +668,14 @@ static void pci_init_host_bridge(struct pci_host_bridge *bridge)
->>  	 * may implement its own AER handling and use _OSC to prevent the
->>  	 * OS from interfering.
->>  	 */
->> +#ifdef CONFIG_PCIEPORTBUS
->>  	bridge->native_aer = 1;
->>  	bridge->native_pcie_hotplug = 1;
->> -	bridge->native_shpc_hotplug = 1;
->>  	bridge->native_pme = 1;
->> -	bridge->native_ltr = 1;
->>  	bridge->native_dpc = 1;
->> +#endif
->> +	bridge->native_ltr = 1;
->> +	bridge->native_shpc_hotplug = 1;
->>  	bridge->domain_nr = PCI_DOMAIN_NR_NOT_SET;
-> 
-> How about (e.g.)
-> 
->  	bridge->native_pcie_hotplug = IS_ENABLED(CONFIG_PCIEPORTBUS);
-> 
-> instead of using #ifdef?  That's the preferred style according to
-> section 21 of Documentation/process/coding-style.rst
+scx_bpf_tid_to_task() can sit on hot scheduling paths. Supply an
+obj_cmpfn so the const parameters passed into the inlined rhashtable
+lookup specialize the comparison to a single equality test against
+scx->tid.
 
-Good point, will fix in v14.  I will use a local variable for it so the
-fields keep their current order and the diff stays small:
+The result is only tested against zero, so the ordering provided by
+memcmp() is not observable. No functional change intended.
 
-	bool port_services = IS_ENABLED(CONFIG_PCIEPORTBUS);
+Suggested-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
+---
+ kernel/sched/ext/ext.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-	bridge->native_aer = port_services;
-	bridge->native_pcie_hotplug = port_services;
-	bridge->native_shpc_hotplug = 1;
-	bridge->native_pme = port_services;
-	bridge->native_ltr = 1;
-	bridge->native_dpc = port_services;
-
-> 
->>  	bridge->native_cxl_error = 1;
-> 
-> Hm, this one depends on CONFIG_PCIEAER I believe.
-> (But Terry Bowman is the expert.)
-
-I don't think it does. The only consumer is cxl_event_config() in
-drivers/cxl/pci.c. CXL_PCI doesn't depend on PCIEAER.
-
-Terry, please correct me if I'm wrong.
-
-
-> 
-> Thanks,
-> 
-> Lukas
-
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 646affba4e3c4..288d6b80bbca0 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -52,10 +52,21 @@ struct rhashtable scx_sched_hash;
+ #endif
+ 
+ /* see SCX_OPS_TID_TO_TASK */
++static __always_inline int scx_tid_cmpfn(struct rhashtable_compare_arg *arg,
++					 const void *ptr)
++{
++	const struct sched_ext_entity *scx = ptr;
++
++	BUILD_BUG_ON(sizeof_field(struct sched_ext_entity, tid) != sizeof(u64));
++
++	return scx->tid != *(const u64 *)arg->key;
++}
++
+ static const struct rhashtable_params scx_tid_hash_params = {
+ 	.key_len		= sizeof_field(struct sched_ext_entity, tid),
+ 	.key_offset		= offsetof(struct sched_ext_entity, tid),
+ 	.head_offset		= offsetof(struct sched_ext_entity, tid_hash_node),
++	.obj_cmpfn		= scx_tid_cmpfn,
+ 	.insecure_elasticity	= true,	/* inserted/removed under scx_tasks_lock */
+ };
+ static struct rhashtable scx_tid_hash;
 -- 
-Sathyanarayanan Kuppuswamy
-Linux Kernel Developer
+2.53.0-Meta
 
