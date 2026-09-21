@@ -1,36 +1,49 @@
-Received: from mta0.migadu.com (out-253.mta0.migadu.com [91.218.175.253])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA073905F8
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:03:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.253
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68F1926656D
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:04:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789974224; cv=none; b=PUKqYu1iwXYsk8g6hXAQSYQT2ToINvt0i9s8D0/WW7HgYjsthOaLCF/1uto6wTw0bR0ORae9uA5aGd4wVBIG3itBylLzn8ZEmebUCrEJyC2wWZnTVeS+H0RxSVQVwR+CVlqjzWP5f6zYCWfSYq699xcd3D0DIg2vHTqTNEELhx0=
+	t=1789974249; cv=none; b=EugazKKCTGpzkOmwzp77uaw5puwlLwNaVlTFJ105pLZmZy24FGNa8AJG0brXtKrOiMH94XpUSyJ6H2Oc3ESfq0YrL4gbZujk+5PfxOBbgVGuFSILZcFypL8IuXT3XCorXUt6v1HnDqJL7iScsPS4rkow2nztVZjWrBlGYtEEQto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789974224; c=relaxed/simple;
-	bh=WmDc0N1baiP/8WMRHDil/n3WL/xh4aCmEkI/IFkGwhA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ol7lbwKMMyLSSzbdh/dmhJ+KvNT3FqfPfnhvVK1I3jxN0Yvwe/23IfxcCkXIG0O4RNITZkXCPvCm1zf+rpOdIpVX2qiBd84GUGuuA41yXfYOzWw9Qo88QDP+RBhUVY+dmyNk1w3WOU7wWhJWQcHmqaBN+ZmQH7EjIRR12EM/NHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=F7s8Zsc+; arc=none smtp.client-ip=91.218.175.253
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789974249; c=relaxed/simple;
+	bh=bIoiuueqrgbj5iOEpDzHmj1mvUntjViMQNteYy73Loo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=tilh3uFGhYYADQxXuW12MTIsBtw9bFf1xCOnGbUj3bqKVQCLFIiiRNoeYplPCY5axcqnKt7qvQbQZokKDDo7ys9lexXLwYdhmOIrT2ClNP/vkApALGz3gR5g59im11W9XK7Os4d6+6Zi07DkNSmx1tJMcD0hoz2p3IYK6KOXqUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=OJltEPhS; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="F7s8Zsc+"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=WmDc0N1baiP/8WMRHDil/n3WL/xh4aCmEkI/IFkGwhA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789974220; v=1; x=1790579020;
- b=F7s8Zsc+INX0m5yAUWTb7oLir5C5P+2JRBYIOQsffQHjDhXtp4WpzbmESuY4ndfYvaI6JtlZ
- OtLVefN2yT/B9XtQA06/hkgBhUSm51qKAnuI/mAm8PtfCWIo1aRmmUjsWJtqEzWU1GbyA5NnR+9
- GtV4savXtVGJIgwMBsAiF8sI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9f90210b135d8c77;
-	Mon, 21 Sep 2026 07:03:39 +0000
-X-Mizu-Trace-ID: 9f90210b135d8c77
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a44de8c6-a095-481b-80c5-5c61fad3151f@linux.dev>
-Date: Mon, 21 Sep 2026 15:03:25 +0800
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="OJltEPhS"
+Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260921070405epoutp02bf3605d7db59f9be0e15f3818f435ba0~XRBew13Le2186321863epoutp021
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:04:05 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260921070405epoutp02bf3605d7db59f9be0e15f3818f435ba0~XRBew13Le2186321863epoutp021
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789974245;
+	bh=A2RGwEkX8Nr2X2WiqJgXRovZAX/TOp2rfkegY7+nn5M=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=OJltEPhS4bdswx5DbOMWMF7aMeuigsTDgRdBzFosjRnngMXqPf+GD6UN4IG7qPhKz
+	 wQbRBoMSKKMeC5v7dW2sAVY/AzIR/TUv5XEYPCVs8Xr6PxjLrkJf0IUfK+OxUJJe8N
+	 MbQUz97SNvL5QlmO7OApDSNgkbOwn4FmOuH8fS1g=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20260921070404epcas5p3fd32e1e83eed9c75c3552ede73a9bcf4~XRBeSK8Xc0766607666epcas5p3g;
+	Mon, 21 Sep 2026 07:04:04 +0000 (GMT)
+Received: from epcas5p3.samsung.com (unknown [182.195.38.91]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4hpDjb6Tcfz3hhTL; Mon, 21 Sep
+	2026 07:04:03 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260921070403epcas5p1e5467529358348d41e60829d045e55e9~XRBcw5yLI1491414914epcas5p1n;
+	Mon, 21 Sep 2026 07:04:03 +0000 (GMT)
+Received: from [107.122.5.126] (unknown [107.122.5.126]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260921070400epsmtip20f421aa8950b361a497ca737f8cf6a1d~XRBZ8jRid2760327603epsmtip2I;
+	Mon, 21 Sep 2026 07:04:00 +0000 (GMT)
+Message-ID: <053c58ae-5920-4aed-a3b8-61b0a02fc52d@samsung.com>
+Date: Mon, 21 Sep 2026 12:33:58 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,56 +51,90 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 04/17] fscrypt: stop setting PG_private on bounce page
+Subject: Re: [PATCH v2 2/3] dt-bindings: usb: Introduce samsung,snps-dwc3
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: peter.griffin@linaro.org, alim.akhtar@samsung.com,
+	gregkh@linuxfoundation.org, robh@kernel.org, conor+dt@kernel.org,
+	Thinh.Nguyen@synopsys.com, mani@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, jh0801.jung@samsung.com, h10.kim@samsung.com,
+	dh10.jung@samsung.com, akash.m5@samsung.com, hongpooh.kim@samsung.com,
+	eomji.oh@samsung.com, shijie.cai@samsung.com, muhammed.ali@samsung.com,
+	thiagu.r@samsung.com
 Content-Language: en-US
-To: Zi Yan <ziy@nvidia.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Michal Hocko <mhocko@suse.com>, Usama Arif <usama.arif@linux.dev>,
- Alistair Popple <apopple@nvidia.com>, "Liam R. Howlett"
- <liam@infradead.org>, Muchun Song <muchun.song@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Nico Pache <nico.pache@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Suren Baghdasaryan <surenb@google.com>, Lorenzo Stoakes <ljs@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Eric Biggers <ebiggers@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Dev Jain
- <dev.jain@arm.com>, "Theodore Y. Ts'o" <tytso@mit.edu>,
- Barry Song <baohua@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Gregory Price <gourry@gourry.net>,
- Shakeel Butt <shakeel.butt@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
- Kairui Song <kasong@tencent.com>, linux-fscrypt@vger.kernel.org,
- Ryan Roberts <ryan.roberts@arm.com>
-References: <20260920-remove-pg_private-v5-0-bb68b6a21869@nvidia.com>
- <20260920-remove-pg_private-v5-4-bb68b6a21869@nvidia.com>
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <20260920-remove-pg_private-v5-4-bb68b6a21869@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+In-Reply-To: <628a4ac0-135d-434a-b5c7-27453e96fdec@kernel.org>
 Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260921070403epcas5p1e5467529358348d41e60829d045e55e9
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260916122354epcas5p401fd6470d6cef75951af732b03aa5970
+References: <20260916122229.2604003-1-selvarasu.g@samsung.com>
+	<CGME20260916122354epcas5p401fd6470d6cef75951af732b03aa5970@epcas5p4.samsung.com>
+	<20260916122229.2604003-3-selvarasu.g@samsung.com>
+	<20260918-burgundy-marmoset-of-focus-c9b9a7@quoll>
+	<fef2b2f5-3838-4eec-8118-d41f9ca0ed2f@samsung.com>
+	<7fbcf497-a166-45d6-844d-faaece6f581c@kernel.org>
+	<628a4ac0-135d-434a-b5c7-27453e96fdec@kernel.org>
 
 
+On 9/18/2026 7:25 PM, Krzysztof Kozlowski wrote:
+> On 18/09/2026 15:46, Krzysztof Kozlowski wrote:
+>> On 18/09/2026 15:36, Selvarasu Ganesan wrote:
+>>
+>>> As seen in samsung,exynos-dwc3.yaml, our existing bindings already
+>>> support multiple SoCs with diverse clock requirements within a single
+>>> file. Similarly, we plan to use a single flattened Samsung binding to
+>>> manage these diverse clock requirements. for different SoCs.
+>>>
+>>> Regarding the migration for current and future SoCs, would you prefer,
+>> I do not understand how any of this is relevant to my review comment.
+>>
+>>> Option A: A single flattened binding file using a common fallback
+>>> compatible string (instead of samsung,snps-dwc3) to minimize
+>>> of_match_table entries, and if/then constraints to handle diverse clock
+>>> requirements.
+>>> Option B: Separate binding files for each individual SoCs.
+>>>
+>>> Could you please let us know your preferred approach? Once confirmed, we
+>>> will address your other review comments based on the selected approach.
+>> You do not have other bindings. You have one device. If you have more,
+>> then post more. We are not making reviews based on imaginary future things.
+> OK, I guess you referred to my further comments about if:then: block
+> here. When you have more devices, you can add them to the same binding,
+> with proper constraints for each variant.
+>
+> https://protect2.fireeye.com/v1/url?k=9ebe79fc-ff356cca-9ebff2b3-74fe485fffe0-0d2d81d841babdca&q=1&e=60d36b7b-e65b-4d92-9fe0-f943564aaf66&u=https%3A%2F%2Felixir.bootlin.com%2Flinux%2Fv7.3-rc3%2Fsource%2FDocumentation%2Fdevicetree%2Fbindings%2Fclock%2Fsamsung%2Cexynos990-clock.yaml%23L93
+>
+> If the difference is only in clocks, one binding file is usually good to
+> hold many variants. If there are more differences, things are getting
+> too messy and more files are useful (see commit
+> c80dc8121d3af8f33413bb0f9ed9e81e2c576e1a for example).
 
-On 2026/9/21 10:28, Zi Yan wrote:
-> The pointer to a plain text folio is stored in bound_page->private and
-> cannot be NULL until the bounce_page is freed, making PG_private redundant.
-> 
-> It prepares for a future commit that remove PG_private.
-> 
-> No functional change intended.
-> 
-> Assisted-by: LLM
-> To: Eric Biggers <ebiggers@kernel.org>
-> To: "Theodore Y. Ts'o" <tytso@mit.edu>
-> To: Jaegeuk Kim <jaegeuk@kernel.org>
-> Cc: linux-fscrypt@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Acked-by: Eric Biggers <ebiggers@kernel.org>
-> Acked-by: Usama Arif <usama.arif@linux.dev>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Zi Yan <ziy@nvidia.com>
-> ---
 
-LGTM! Feel free to add:
+Thanks for your reference.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+
+Since the differences between the Exynos SoCs with USB DWc3 are 
+primarily their clock requirements, We will keep the one binding file 
+and add Exynos8855 SoC now and extend the same binding with per 
+compatible clock constraints when others are migrated.
+
+As we mentioned in our previous comment, we would appreciate your 
+guidance on the naming convention for a binding file that supports 
+multiple SoCs for flattened support , similar to how 
+samsung,exynos-dwc3.yaml is structured.
+
+should we use a common binding filename for the flattened representation 
+(Example: samsung,exynos-dwc3-flattened.yaml)?
+
+
+Thanks,
+Selva
+>
+> Best regards,
+> Krzysztof
