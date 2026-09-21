@@ -1,44 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DF34AD4B7;
-	Mon, 21 Sep 2026 15:09:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8AB24A689A;
+	Mon, 21 Sep 2026 15:09:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003377; cv=none; b=kqgNU8OsRcxhUkzqclhjMb6LiXG+/SI4DMNa0upGy5UW0qn6/WFLxE+PCc/Pi2YdPU0aa5GIQYZxLfnbQYUySlJBsiidk1oFKtkvt83gX10uhGNaMksZq1USdOYy16dusRlYRH0BCsd4223olafWvIcPdkxrCsvigZtGC+pv2oo=
+	t=1790003391; cv=none; b=CCTVbeyRIq2yeA4c2199203rkKzmv5MkB4nGqy/DFRyLbf0QrC96rDAuoFvp9Ouf00xT4QrP3eWhSL6m8gn8eJtuQ/14ZqDs6quZ4wEi0dK0MOqlHDUHUqHh4nyYOliz+CXC6Si2ezwa1LoP+W4/4caAI0XO6KlktFsI9g/Yocc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003377; c=relaxed/simple;
-	bh=/fCqJ2qTxNm3snRd2x48+oh09EsMTsOzYCwCEmFu7/c=;
+	s=arc-20240116; t=1790003391; c=relaxed/simple;
+	bh=ez8eHmDTkz9HqCY582jXa10MJiKTELvqD1mhuKy6C9w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fp/B8UfVK2rYaZgCYFEzQcs0sqXRpU5ogTAC0M6Mb/qqDCp/F+W1K3M9N9HFbiRUXWqnBVM4j3rLFtcmkWlj+mbuVpmxNqrBWrbqLO47WwdXz9s7XU/iM6U6AqGnjchcyTKDts1s1yfymOBJpdgBPu5kasbMFXa4EJ3K36ksPaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a37yIKpR; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=QxVihhgkirfF+kGimsIhsTe+OZLZ4ngMd5viiOXC2bcyGb2D11XM1I47wxce3xq2Fw0FfgeLPZn5PBRgkNOnO300Ii/1cbC7cbOyGY/0RYsL+bmDrSIjYlZJNEKz+N2o8AJGL2hlILPZTWo3W4HB4O7wXyK2agJ7tGCnjKJTNek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sujw36x3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a37yIKpR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B120E1F000FF;
-	Mon, 21 Sep 2026 15:09:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sujw36x3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 265871F000FF;
+	Mon, 21 Sep 2026 15:09:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003375;
-	bh=Pa7Ft/ijJMnGxUHvP/pkiFeMmDY5E8M9itOTKRJ8E0A=;
+	s=k20260515; t=1790003389;
+	bh=nIZxJGv0gpdWASD983DlGMxCIOhoLxPrF1ci5YJjVPY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a37yIKpR7CmkgDvDOsMGCXKWaNcNsStWl6fHm32Bkxy2yk9jYr+PMY5/xrmyUplbq
-	 oJi7fzUcqK7fwPQNuR7INp2S4DAQMogLZEAGYG2G0nIsaBHLyh0hQTsKIBqYH4y9e2
-	 NiEC53Fw/gEJuaPz1dH9NjbXatVo0vMpWDnWYu/LQM/ogXGTJdGnXEGJxLxfYGmLy9
-	 vG3D7eKr+u2KYDr0dj1QaFLrY2qLH3vEdi/zGXA1aIc9sibhgdKyltS3FANi3Rf8s0
-	 mWPnKly3hK7QVeNUm0Yat1qCFtJuW8ZjBai4YLTG+r1kiobG6ZTGifJsi0t9NIHapg
-	 lBUG6/S0xvAXg==
-Date: Mon, 21 Sep 2026 17:09:32 +0200
+	b=Sujw36x3YKSU0M3MPnA1Rmc7FJlAc4M0XlfvqouKUow3v91GQVn/eJ4LV8Cy+sshr
+	 ABSkmAv/m534G0+kU6OowlAI86wf/++qJ1LT/ybDWHNf61bZpZyct53qR0ZniklGUk
+	 bpgwk/rd4QipXHu7R+PdXJo/IIUiGfJTbfh21RrgxhFPX/sP92ffStsT62yGk0cLRo
+	 DyHlqxZL863JWY3D3/r99nyBg54eH8nxTgfa793zWMpahD6eerKQ1zc1pfW0F8RfI2
+	 tKDd/otqHkeRc6r4CRJop7XiOOQNHvBpR0DfiQtKl83IxuN58I2uzV1b8ps9VZf5PC
+	 xVAcBbzFEjIJQ==
+Date: Mon, 21 Sep 2026 17:09:44 +0200
 From: krzk@kernel.org
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, 
-	Simona Vetter <simona@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Jani Nikula <jani.nikula@linux.intel.com>, Chris Wilson <chris@chris-wilson.co.uk>, 
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
-	Matthew Auld <matthew.auld@intel.com>
-Subject: Re: [PATCH] drm/i915: fix mock ring memory leak on context
- allocation failure
-Message-ID: <arFIqOl-H6DYQ2k_@quoll>
-References: <20260919171710.3699710-1-lgs201920130244@gmail.com>
+To: Hui Peng <benquike@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, airlied@redhat.com, 
+	bhelgaas@google.com, linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH] PCI/VGA: fix inverted vga_tryget() return check and
+ clear removed pci_dev
+Message-ID: <arFItwNGp3_Sw3LC@quoll>
+References: <20260919222629.3798073-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,35 +43,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260919171710.3699710-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260919222629.3798073-1-benquike@gmail.com>
 
 
-On Sun, 20 Sep 2026 01:17:10 +0800, Guangshuo Li wrote:
-> mock_context_alloc() creates ce->ring before allocating and pinning the
-> context timeline. mock_ring() initializes the ring reference count and
-> returns the initial reference to the context.
+On Sat, 19 Sep 2026 22:26:29 +0000, Hui Peng wrote:
+> Fix two issues in drivers/pci/vgaarb.c:
 > 
-> If intel_timeline_create() fails, mock_context_alloc() returns without
-> dropping the ring reference. The same leak occurs when
-> mock_timeline_pin() fails after the timeline has been created. Since
-> context allocation did not complete, CONTEXT_ALLOC_BIT is not set and
-> the later context teardown does not release the ring.
+> 1. In vga_arb_device_init() / vga_arbiter_From_pci_dev(), vga_tryget()
+>    returns 0 on success and a negative errno on failure, so checking if
+>    (!vga_tryget(...)) is inverted and skips unlocking on success.
+> 2. In vga_arbiter_del_pci_device(), clear any open vga_arb_user_init
+>    priv->target references pointing to the removed pci_dev so subsequent
+>    writes or close() on /dev/vga_arbiter do not dereference a freed
+>    pci_dev.
 > 
-> Drop the initial ring reference with kref_put() on both failure paths.
-> When the reference count reaches zero, intel_ring_free() releases the
-> ring VMA and frees the ring allocation. Clear ce->ring after dropping
-> the reference to avoid retaining a stale pointer.
-> 
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
-> 
-> Fixes: 75d0a7f31eec ("drm/i915: Lift timeline into intel_context")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Fixes: 1d38fe6ee6a8 ("PCI/VGA: Move vgaarb to drivers/pci")
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
 > ---
->  drivers/gpu/drm/i915/gt/mock_engine.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
 
 
 You sent multiple independent patches, to multiple independent
