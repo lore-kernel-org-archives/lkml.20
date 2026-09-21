@@ -1,253 +1,178 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013005.outbound.protection.outlook.com [40.107.159.5])
+Received: from mout.web.de (mout.web.de [212.227.17.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0395748986E;
-	Mon, 21 Sep 2026 11:29:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789990199; cv=fail; b=b6r59AP5DtIzjucgDEqnb3GxuRjFWiUIrXJUPbO/ZtRmZtG07/+C4wPhZ9/UDRiPeuIUMkam9vqHEKPTffkDr5b+DCgxcs0hHbKoCPv/jJQfqglnLn0d+qCfjVSq35cHG4cOI3WpFl7xmSvz+Incji1y29nDPgpPztlKovx8lYs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789990199; c=relaxed/simple;
-	bh=xX22YuXjqr98aFI3s13sWdMIlR83n7aG7glnehC+Ak8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=u1Nh0C9nUZUp371+DehABWkGbJJ16EREuq+sEh/a0KtEP6L3Xp0aNbqOARyeagZ1czftNiiv61D8plR3NuJg89T2yOu+vstythiN3tZEoRsn75mysy3CvZSyxU9IRvsU/2ILGS4qQ8PmfM+OH0pgjBqepPWW8AxaVXroeviuP/o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=B+vtpJEt; arc=fail smtp.client-ip=40.107.159.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C937C3515E6;
+	Mon, 21 Sep 2026 11:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789990226; cv=none; b=H4VpBjJKl7oKyjNHxvAHj4xNk80Meh/Z5uH31PXXnK0qVEU8Uu66gBJehwXiKH64I1mr9Jhl3tRdtkdszgENT+neZobwiGa+eQ202gn7YHv3tYgIPjZjJsJJZbt5i5xRvS9h30MMmN2bRf6ifloKVbaCu3PveEzOhrJUpRnp+io=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789990226; c=relaxed/simple;
+	bh=18cCMPilsRUYuiHgtZ4z7dDpI6Ppa0jwDYnxvbfdWl4=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
+	 In-Reply-To:Content-Type; b=WTHnpZMkYl3nPmujY/jVgbadlAIxuWGMDm8wbDT89RdR8mTgq/niL0nnPATQVjqXdQ0AmWX1jgnHLPC+QPjIg0p2l0qdPAKclhvNnOdSkpPZ7XnOOkQC74TxhNrqPbkVs+p9nM6aySGBhwuECDr+7ndXyIuFkJG6vvJAZVq/8Ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=E6XaliZR; arc=none smtp.client-ip=212.227.17.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="B+vtpJEt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NY/AUOqGCKdP9xLxbP1D54Wyl5zz61Hjv+GhYDMJgHA3/3BMTLWMUEZNyb/UqaIl4ip9MqjHnBnvr/TLiOeobUFnw3gH5kiO/alFKGYflHKgDr4uObLlQ1280mY4ESArtOMkFNT4+QZUQAzdVxugXz+Tt5LbngY7GK5X0muFCg2Hkn7JiPXP4paIluBdbJA9Dk0SHVX6d08okDvgZPChBEqK3Oc/dLmOZq+TWi0g2N++nNGa5jkry9nsTx+vPYPis5/XHmrZ+9sqv0l2agAyl+BXwIS3A9amDGFPuwOimIlTVuGx4rwWH7rQgpXKUvTQM+ooa2WDlgzn10PY7OnfCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HvL7BG05ZeRq1GFvVRMx2BzjsZDoy573dvUJqt8HDtc=;
- b=nZJAuF+3oARjZmC2LZ/6MlxRGEggYzEgILsRdq0NDraThoQOwTBG8W4x67vltYyfFrK8hK02Tyq7+yg51OIyeUTNNEWZ3/hdF0a2ZRJC9fyZHmBgn6DkQsjm15GH8PkAPscp5qL2PjSj+9SypWboJqYmXYGzQybrVc2uTPKxtozDqPfYsNg3yQl+GMKHlf1P2GOgO6l+hlG2vI3xx3zlZ8I2g4nPongyDsSESMkX6PA07OaSfszy4cTK7EzkRphwugMhsn1M14HO1JMBaSW95k31NrA73bod4jNQwBHzatGFm/hTEHlL3s+S9mufe+FbAJQSYRGI179O0Es1xN0L7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HvL7BG05ZeRq1GFvVRMx2BzjsZDoy573dvUJqt8HDtc=;
- b=B+vtpJEtT8ONeS4s9c9WCeqFtK7RR/aiN2lZX5oTxUpxdJBnKAiyC8PpfQeguCK1fi0A8Pfu+jeR1B1TyFhl6MohSUm+gOldq53gRCAVgRVdx386ESOEU4icuWdyGsFh62WKWsLQC/n1r8BLiamy4uEbafBtE7iGy6tjcoO0aEzPtamPyF9ErPUyIqHwS55jpSCX+k5M2eNN0SWvdvjVfLTT1XsshnTiKH9HjibN/K6zER6UbsTqKLJzOzl9+OqVHuaGcCG0j8g9MpaYUj2A3C8EZxknOR/wgtHrg0ueCMbJiYQIfyWRv8lQzq3Vx7USTql7n4slETF0CheTWmeAbg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
- by AMBPR04MB11811.eurprd04.prod.outlook.com (2603:10a6:20b:6f4::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 11:29:50 +0000
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023%4]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 11:29:50 +0000
-Date: Mon, 21 Sep 2026 14:29:46 +0300
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: netdev@vger.kernel.org, Zefir Kurtisi <zefir.kurtisi@westermo.com>,
-	Claudiu Manoil <claudiu.manoil@nxp.com>,
-	Wei Fang <wei.fang@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Simon Horman <horms@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Yangbo Lu <yangbo.lu@nxp.com>,
-	Ioana Ciornei <ioana.ciornei@nxp.com>, imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH v3 net 4/7] net: enetc: pad short frames in software
-Message-ID: <20260921112946.edo5uw6cl7jx6oez@skbuf>
-References: <20260915222735.1016937-1-vladimir.oltean@nxp.com>
- <20260915222735.1016937-5-vladimir.oltean@nxp.com>
- <20260917111127.577d344b@pumpkin>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917111127.577d344b@pumpkin>
-X-ClientProxiedBy: WA1PEPF00005B7F.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d8::607) To AM0PR04MB6900.eurprd04.prod.outlook.com
- (2603:10a6:208:17d::10)
+	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="E6XaliZR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1789990222; x=1790595022; i=markus.elfring@web.de;
+	bh=RSpXnzktNavmcWvFOJG7CqU76cWDLD9tgkhka+ZQM4Y=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=E6XaliZRMCNXYGBGyAzOAvFfCHwz/bmB/64eJAOsO1J2zfqdUB+UXtoBzHuKkpDZ
+	 iEjT80v0yo0jQWn1NHHwschFItazfFSv/tIWwDvQH/gya16fe0U/iiwqeTCuwBizx
+	 tY5Wz+AyVcVHibMvd7j26e7RYuS/Ae92Y/xmkUB5Z7JyTVmG/YxyItHMDRTSQUsO2
+	 zWODqs4Hdz4eIy2TQFgxrwaArD9pxshkZQgvUkLXq1Vtd/fE+1qdTn10mwXP85MZk
+	 4ftDS35O12Q6PCxZwvlKxpcfPXhY96BOVDSKD0D39GlJsB96+/o0Iz1AKvnN7nNAo
+	 sCpKJr7TwY8ad1U9Ag==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MIL4Y-1wwWss1nEK-009aP0; Mon, 21
+ Sep 2026 13:30:22 +0200
+Message-ID: <4d1536a9-6836-430b-a84d-aaa19f6af9c6@web.de>
+Date: Mon, 21 Sep 2026 13:30:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|AMBPR04MB11811:EE_
-X-MS-Office365-Filtering-Correlation-Id: 52a4183a-9305-40de-bcfe-08df17d3a60b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|19092799006|1800799024|366016|10070799003|11063799006|6133799003|10067099003|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	pWOhlHDc+yMm8PVaWo7yRVtuZk9mO7yJ6x9JRa95TQom344WomSMeUFPpt3LrsumPapZclowoQ/XATyPGhleAIcOTHFErNPbmh9zVuPjeIeuxSk5eEAlk9djYPElmUpt+gV8NBnc5k0ESraRxhTdhQaMV9QYrCpxRMtB01QDvxN09nKNgIa+6h6VYNfaY+joH4CyTggi4n6grgQx+Hw2TeQAVhR6U+8h2vX8d9lw01llSdkIz8jz2rzD3OXmVCpP8U15LsNOJg5C1Ihh0KfjfkVyQjmYh11DG4nQ6I4dBNslrs4iaydDzeQo22xAIYKKho39F79oaehn1huSSWqgUB+KOWZEC1rZmNclqRu822UuB1nupAPPCokLiexXwd0YdFnt4TNkPJtsZ4IMEjEkSFIiQtb96jiQ49SPHMcAhA4wtrnz7bUN/7xS9yBl4o3hVLG/60xQfquFCZOv4gqCeB6MWRNU8w2VehFBkyLLbpYjfMFeTUQKhUcMP5H/WPt9hkvnnt43Jd2OXXsWfoNQI+RLCYTSgnN2mtiJe3V7J6M3xPklSqjAs5wXFEaAl41X6OikDIsEe/bZyjUYtyFd1JvvCgYSen9aWUkTLxRLePbdXblkuqG5kwVSZ5TqA5JC
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(19092799006)(1800799024)(366016)(10070799003)(11063799006)(6133799003)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?/chdVW1XdAA3etp0WF5WrQOiuSHgpFBqz3E79BRcc2SjXasWQIq4r70ee82F?=
- =?us-ascii?Q?XQ4Mg+jVOcNH5exR8x+z5hTMQPYPVWAqx7P8THF4tM7yGxflyZJAyyqFBBCm?=
- =?us-ascii?Q?OF5MLLxRsLZCbtuwyYubFiCyKw+ni1FFym6FnbN1P4+j91+6VeRHHM6Z2rAa?=
- =?us-ascii?Q?GobNWB8oBUgzRhIb4TbWv880f6UXwqAjLeCo/7C7fVYXGtkECv2Lvkncxyep?=
- =?us-ascii?Q?ni4hCEV+jrIPD1woyVT1VQ/Bi4Kxj5zQuTTUvNm9RgbQntuWbal3D1GZF7rX?=
- =?us-ascii?Q?7LNQzoSSMgRE0+NrKFgtQv1sXsMmzuT6kELcCXmC/1CDU/i72L4cwIBPp8Va?=
- =?us-ascii?Q?Zga25kymxa1W5/wYz08qWMIoJRMgXx0fYE+WJRss+YYJvHXBHn3FnYQhiTwt?=
- =?us-ascii?Q?VkRRvNtW19KlXsigbdron9HPiDPHFIzc2olpQQPzKzJdl1wXijD5OJGGILkh?=
- =?us-ascii?Q?wNjqq1iqWTv0SUXAF3K8UPsNAEHfKH+1WFhJ+UgHc6NMrNnKJlQYizwgGchI?=
- =?us-ascii?Q?hgRPMkH5aqNY6VbbFngZH2/TMtFK9Q863sbZe/odcmt3ob8/svvwpV533748?=
- =?us-ascii?Q?GegYqyooglJR0BBYqBpCtgCtHbm/zYVMQISDVNH+A2QJtePNLQK2Xy940hzt?=
- =?us-ascii?Q?9Vg75Lb3Vi29OcRgcjP4xVvegItZK8OSgfqMj87k8Nv12ilJr2hazd41llZv?=
- =?us-ascii?Q?Ri6UoDhq+MZHE6u8G59iiwaTGZMM6sPWZy+IlHD2qpQ5+5ixKBSMrM6vjEwg?=
- =?us-ascii?Q?y39RYHDqVrus7Oti6C9qCp9I+9HDNCxgeGoJf/1LIMtmoIH4YKUd/CBP/xcX?=
- =?us-ascii?Q?ougZ6hsGSj2pQYMIJp9Kc67EjSBtuoWQqmRovkrWqrjbB6mwSftDyj0iD1da?=
- =?us-ascii?Q?BkykulX39KBXVxwDII+PhEGLGeOKgkPyUFG9saHnsofehxBi+pvNlrZJ62UF?=
- =?us-ascii?Q?FxXyktHNc1f3si6wTA9NfNTGHHrJ6g/kq10t90rw/V4P5UIvDWHUYw/jeypn?=
- =?us-ascii?Q?Pd/t4Y7uEODpFRJQ8YP7/G5hS+xKU52+2Cmm0VT7SinGbwWk09rZzMGe+20h?=
- =?us-ascii?Q?aRgnAzSmI9l0bhuvtwNx9cr2uhuhzlOZ9FwNiiPfHFN9yGsxSsRW7yL0u9Dg?=
- =?us-ascii?Q?LxLEzqxW96MaPRKaE6qm1oKjKGmJuv8cGeVzKgnFxgMnG1o/iSvTESOGwNQR?=
- =?us-ascii?Q?KEy8Gm3FnuQfGf0EzkR5dXKNVUy7DBVumY0tQurSGmc17gR9saXAyYkx5Smj?=
- =?us-ascii?Q?X7tnKyywEQ2NmH9pB6yS8U1YQG4/kDRNVQWY7uhSjSjAi10ImnkIabWTyBEN?=
- =?us-ascii?Q?Zuyt5QmZ+8nceyboTJUl9ypWg+1u+MSPc+Ppjn1q2a/yufPKumcNfGlgJByE?=
- =?us-ascii?Q?pDJCRnxAfBw3CGN+OWUNSnteT+hhkSmp++ZCa9flbNBUkE8KM13F7WVVS5FY?=
- =?us-ascii?Q?TLhS8dVJQNfT46bmRlqj0/akY0SQzcldvwEIx9kdHFyrgcEkNAMi3eDj4mNQ?=
- =?us-ascii?Q?n/dotnvYJK24vyUnNexQPqGeyYrwvw3/lhK+RWyiBMmcaOPDFC2bqsp5q0xx?=
- =?us-ascii?Q?M9fV9VLCRHcsHR/sd+DJwsXV21p266WJMI+VaN2P5sL2xVw4LVsTAoQd20kW?=
- =?us-ascii?Q?qwnuh5ukqH9DbYvZsGT4DAx6EV8zDCAZnTk8FLn+ORBsC+OFm1a3Vn9QOGDd?=
- =?us-ascii?Q?cr+JNR7CIr+3vluZxD115wppPrBfubK+bf0rriH9o3N0gRc6tF/CZ8fPRdHp?=
- =?us-ascii?Q?iQPgiAAFUS7gElp5PD4+UnSaonXW3WV1OMIbD8sfd+GzNjDmxa3SfIlMntJD?=
-X-MS-Exchange-AntiSpam-MessageData-1: 4FoMVe6u4vGjOUWA6z1VMwItQ7Qtqm3y2Hw=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52a4183a-9305-40de-bcfe-08df17d3a60b
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 11:29:50.3179
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HVDwxNvhmbCGMrFMcqYxiMBx48d+MmzhPog34XbSBymvyJRI3353/Xjp806KjP8NwxRrVJNHOeS1SYOJ4LW0Gw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB11811
+User-Agent: Mozilla Thunderbird
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+ kernel-janitors@vger.kernel.org, Dan Williams <djbw@kernel.org>,
+ Kees Cook <kees@kernel.org>, Maciej Sosnowski <maciej.sosnowski@intel.com>
+Cc: stable@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+References: <20260919175925.3739806-1-lgs201920130244@gmail.com>
+Subject: Re: [PATCH] dca: fix provider device memory leak on domain allocation
+ failure
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20260919175925.3739806-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:E9BUn34A1IfG7EOvw63uPGD/6i7Df4b0xAGg7dSoB+tPzwIrRBC
+ 2DGbBlK4t9opi0Uxiye+h4KfPMlIvWoGOvm6Mx+ycPcTSH9kdzaQNwSpLHlNM/NvyMqEk0V
+ RftYbzTs0YM101jK4na2VM/FdzIMUJQ5ulD6u7BhuisazyoeRuaUC2PcT5b5jXiyebavnoE
+ o16Srr/j8veQeoWZWxFkQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:aKQbupmJN/E=;2UUdxqXMOcDbaK1eiBwsYgcvCUC
+ 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
+ Rx7/bm3gKCKDwabp5/+TPo
 
-On Thu, Sep 17, 2026 at 11:11:27AM +0100, David Laight wrote:
-> On Wed, 16 Sep 2026 01:27:31 +0300
-> vladimir.oltean@nxp.com wrote:
-> 
-> > The ENETC does not support BUF_LEN or FRM_LEN in TX buffer descriptors
-> > less than 16. This is written in the reference manual of all SoCs
-> > supported by the driver: LS1028A, i.MX943, i.MX95 etc.
-> >
-> >   Frames must not have a FRM_LEN that is less than 16 bytes. Frames of
-> >   0-15 bytes are not supported.
-> >   (...)
-> >   The first descriptor in a chain must not have a BUFF_LEN that is less
-> >   than 16 bytes.
-> >
-> > I don't think proper attention was paid to this during development, we
-> > found the text at the end of a bug investigation. Therefore, the driver
-> > does not enforce this.
-> >
-> > But the frame length is out of the driver's control, and the network
-> > stack can actually send packets with skb->len smaller than that. The
-> > result is unpleasant, as will be explained below, so for simplicity
-> > sake, we just pad anything shorter than ETH_ZLEN.
-> >
-> > Zefir Kurtisi found a case where transmitting L2 WNM keep-alive frames
-> > through ENETC would soft-lockup the host through an IRQ storm. He later
-> > distilled this into a small enetc-killer.c user space program which
-> > sends a packet with MAC DA, MAC SA and EtherType IPv4 (14 octets in
-> > length) through an AF_PACKET raw socket.
-> >
-> > The IRQ storm is actually a curious effect of a chain of events.
-> >
-> > The hardware behaviour, when an invalid BD is put in its TX ring, is
-> > that it would transmit the packet as normal, update counters, raise
-> > completion interrupt as normal, but it would just not advance the
-> > consumer index of the ring (TBaCIR) to signify that the BD has been
-> > consumed and is available for software to free. The ring will also get
-> > its TBaSR[BUSY] bit persistently set to 1 afterwards.
-> >
-> > It deserves an explanation why the behaviour above would lead to an
-> > IRQ storm, since ENETC interrupts are message-based (MSI-X), and an
-> > unhandled interrupt would typically just be lost rather than retrigger
-> > itself as a wired interrupt would.
-> >
-> > NAPI processing in ENETC has 3 steps:
-> >
-> > I. the enetc_msix() hardirq handler disables RBaIER, TBaIER and sets
-> >    softirq processing to the 'pending' state.
-> >
-> > II. the enetc_poll() softirq handler for the IRQ vector walks through
-> >     the TX rings affine to that vector, checks which ones have a TBCIR
-> >     updated since last time - enetc_bd_ready_count() - processes those
-> >     completed frames, and clears pending interrupts in these updated TX
-> >     rings by writing to TBaIDR. (I've excluded RX processing due to it
-> >     being irrelevant).
-> >
-> > III. After the softirq handler does its round of checking all RX and TX
-> >      rings for updates, it re-enables all interrupts in RBaIER and
-> >      TBaIER that were previously disabled by the hardirq handler, and
-> >      exits.
-> >
-> > Because the TX ring with the short frame is skipped at step II (TBCIR
-> > wasn't updated as part of HW malfunction), its pending IRQ is not
-> > cleared in TBaIDR by enetc_clean_tx_ring().
-> >
-> > But because enetc_msix() disables TBaIER at step I and re-enables it at
-> > step III, another MSI will be fired upon re-enabling it. This is what
-> > completes the cycle and the driver goes back to step I.
-> >
-> > So the driver misinterprets the mixed signals it's getting from the
-> > hardware, and ends up causing a software-amplified IRQ storm.
-> >
-> > Fixes: d4fd0404c1c9 ("enetc: Introduce basic PF and VF ENETC ethernet drivers")
-> > Reported-by: Zefir Kurtisi <zefir.kurtisi@westermo.com>
-> > Closes: https://lore.kernel.org/netdev/b3d9136c-2803-4203-b1ea-1f9e62de80a1@gmail.com/
-> > Tested-by: Zefir Kurtisi <zefir.kurtisi@westermo.com>
-> > Reviewed-by: Wei Fang <wei.fang@nxp.com>
-> > Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-> > ---
-> > v1->v3: none
-> > ---
-> >  drivers/net/ethernet/freescale/enetc/enetc.c | 13 +++++++++++++
-> >  drivers/net/ethernet/freescale/enetc/enetc.h |  2 ++
-> >  2 files changed, 15 insertions(+)
-> >
-> > diff --git a/drivers/net/ethernet/freescale/enetc/enetc.c b/drivers/net/ethernet/freescale/enetc/enetc.c
-> > index 0216f7d08e19..bbad942041f5 100644
-> > --- a/drivers/net/ethernet/freescale/enetc/enetc.c
-> > +++ b/drivers/net/ethernet/freescale/enetc/enetc.c
-> > @@ -1077,6 +1077,19 @@ netdev_tx_t enetc_xmit(struct sk_buff *skb, struct net_device *ndev)
-> >       u8 udp, msgtype, twostep;
-> >       u16 offset1, offset2;
-> >
-> > +     /* Hardware does not support transmit buffer descriptors with a total
-> > +      * length of less than 16 bytes, or a first buffer size of less than
-> > +      * 16 bytes.
-> > +      */
-> > +     if (unlikely(skb_headlen(skb) < ENETC_MIN_BUFF_SIZE &&
-> > +                  skb_linearize(skb))) {
-> 
-> Isn't it only necessary to pull a few bytes into the linear region?
+=E2=80=A6
+> +++ b/drivers/dca/dca-core.c
+> @@ -368,8 +368,11 @@ int register_dca_provider(struct dca_provider *dca,=
+ struct device *dev)
+>  		raw_spin_unlock_irqrestore(&dca_lock, flags);
+>  		rc =3D dca_pci_rc_from_dev(dev);
+>  		newdomain =3D dca_allocate_domain(rc);
+> -		if (!newdomain)
+> +		if (!newdomain) {
+> +			dca_sysfs_remove_provider(dca);
+>  			return -ENODEV;
+> +		}
+> +
+>  		raw_spin_lock_irqsave(&dca_lock, flags);
+=E2=80=A6
 
-It looks like pskb_may_pull() is an adequate improvement over
-skb_linearize(), so I'll use that, thanks.
+Please avoid a bit of duplicate source code in this function implementatio=
+n
+by using another goto chain.
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/process/coding-style.rst?h=3Dv7.3-rc4#n572
 
-> > +             dev_kfree_skb_any(skb);
-> > +             return NETDEV_TX_OK;
-> > +     }
-> > +
-> > +     if (eth_skb_pad(skb))
-> > +             return NETDEV_TX_OK;
-> 
-> That could be inside the (skb_headlen(skb) < ENETC_MIN_BUFF_SIZE) test.
+https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/dca/dca-core.c#L3=
+35-L389
 
-There was an undocumented reason why it's done unconditionally for any
-packet < ETH_ZLEN and not just < ENETC_MIN_BUFF_SIZE. It is to avoid a
-separate potential erratum. I'll make sure to mention that in the commit
-message.
+Regards,
+Markus
