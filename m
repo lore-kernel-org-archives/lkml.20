@@ -1,209 +1,346 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011005.outbound.protection.outlook.com [52.101.70.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4404908B7
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:31:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789990267; cv=none; b=WXUtH0PVQTjH/a8vsJjUCc+Puko7hHk8Mic1PMYsWBOJQaYgdSWrrdf3PV08q4dYBziC0/iyFzjZsiVjsoicOmOJh08Ec85Xc6nh1+Eeg0sLpOlHOOHNRMYP31t10lgaKwpKbv+ryUpVff92jFBGMIUL4+Pwz17Ey9TmQIWwk5E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789990267; c=relaxed/simple;
-	bh=UIFR8tf0jH+Z6/LeosPsUYyPZl7jf62BEMiT9Hkjlsw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=KJ+CwTDuhrbhG1ECYua8gnEf1igSyOsEBIS9U9In6QLLRXIILAE4aM8U6kZrz8hTM9CnKQLXyrO0JzY3kn9KIy8teH3KZVJ2oQysPwz63nR4pZWnY/X4VIEXg6jcPAbuKoYqGA68+woFbPBkCAxdBxhulWlv63HhBvtCzmZxbcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OnUd6eyg; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75EA48E0E7
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:31:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.5
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789990281; cv=fail; b=h079x5DDlUnjxQGydMp2oMG15+2JiQFpor3dCQKTI96VuDe2Xn4q+kDDOtivygpT9s5KnltBlHMnHMO3eGwGP3deOLLGzq/3Az/nzgFw04jmSe3ypy37U1Du9dJ8Es2dELhXK2aKZkY55YHJgshyqxW1J1aAsAmmrTVHSWtTFFU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789990281; c=relaxed/simple;
+	bh=w76LrviwoRXi1DOlKR7MnWMDfpZ4qGj3rLacMTnd53g=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=jNYaFSn46PqX+77Rg7OV13RZge8AmPpksMH71SS9JV2sN5LhzEad9eA7rmu1fcufYge+jNrD5OiROgdCp1wHWFSXhIrABwWvmXIvD+b5PrjUFZiH5vUPSwpIhGCli9cIBXBqI2vv7/j0R6UwDZikW+TfTshfHbzPvreLsa6nw/0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=JtzhnJ5Y; arc=fail smtp.client-ip=52.101.70.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OnUd6eyg"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b5b07ec78so1912893a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:31:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789990265; x=1790595065; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GXwttS8OODeGfpP/NZhHTaRMy64nJjuxHH+rjyaVcUM=;
-        b=OnUd6eygD9nqsmYym8wo8sibEIzBqc0gufypcgIaTJR2EBzDxIFrisRHiZfIdEQ9oD
-         bi17dqttKHDaRse4T6E0OvTghs0eA8/IsDBZmiGssOxdMa3Qipq4eEz7tJsC5ytGBH2S
-         88/PGoRPyGtTiaD+wl15Or5c1Ffft8eCn8JvWgHCqpLyA3Fy+H+S6W/7Kk3TjO+Q8jsi
-         BXm93KQNjtnPvjc6OUr2eBjFQMiprPsiKsMyBkRXKbY2MgQ7nmb9OC8rn+ZD6+5x2p6C
-         3Q9XY5QRv/acJPjyuOn/XaFY4NP9nV8kZTzKM7V5GIHTUbkDBxhKSp919yMhBgL5Rut2
-         Y3lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789990265; x=1790595065;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GXwttS8OODeGfpP/NZhHTaRMy64nJjuxHH+rjyaVcUM=;
-        b=Dmfj6byyC941GcjsOuBMHk5bB2PSPShJ4D5GHZCl8m6dMSQBlMJAiXQKdDfYFYO2Cj
-         7ijbmFcnA2USqgia4Dm8/y30wL5QsvLs/D5vYyK5MRUMyAgOC8pU0uCFbyrzIpVrygKh
-         zMoFOazpw3pgU/UyKolxdIjKrygrObZVOdDMftTQVPpxYhfSV1oFSc0kb2f1O0XaOiaZ
-         6FyoYaoimKrRyqrj2aSx3lYuCnG/L1o6f+CD8zchjDDB2dgP+RJhKaSWGZW8lTMYO4As
-         5ll2S+nWpE646UTVmiuATkDOz+3DoufWguwlWneKPSsGbI6Blv7uGqJOzFDjSSp9fFze
-         QjVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz0HM8u/okebozJ3uO9Lmx9ViMNbsc8QdlfMhIm+7pF0j0fAXoq7y4qoEZr++b+WtT4RPPmTIH0UFsE2t8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mBTr5epVUaAiu8JXJwjmRMlXToeJYK7jE77+pub7x+0Ai/YtoS
-	bOCGDF5W5vyC5iSBe1jOHF1gYpfajTxNs/qV9+05bucIl+MhLCX+TIUu
-X-Gm-Gg: AYBFou1t4Dh8QNStwaffWUNdW1fbXDuXqkt+LTvdibbHhU75GIebljfoL3Am2S36V7/
-	CIuWzIF/P0DhTOo5erNxApgFvqg6wdMhOMLtEEIOz99FfxR35AXSbilDV0MHCm0gRSUhXvg9F/B
-	ZoyCGzu7TXp/hkIozHG3MGDUYijPEj4CSi62hnQqcr34Vz+epZ2skN4WcWlYb0soYPKcSUd/eJS
-	d9XVg6porrJebztYu4UnSHPSFJWLV+O4iUcKCJMaXWa9UNNYZ4JIZhnQ0fyCCFqAg+aTm/yP+Tn
-	KNVVzGDWIGIaOHfGdICEgeC3UP17s+PyS8BKFvrhvkLnNxGZpaPwktLRetreuVK//9USJzo+A8L
-	vY+CKdt/g6fcvzyCssS6kXt62l654OtwT+Hhd7VuB/Dfx1foRMON6EvwGjFIIvDIosz22/1jHvf
-	oRNTC8qKkZO8G/509lddch5gckrifhA0i5MnfKKH+MYviYvwHvuCBgSHoT9xtJUPa4fM+EqO2tL
-	PA07GiKwgwh8T4h2afK29uOm0m6WXVLWo2+kdk=
-X-Received: by 2002:a17:90b:562c:b0:3a0:516d:9f87 with SMTP id 98e67ed59e1d1-3a0516da897mr2088846a91.13.1789990264908;
-        Mon, 21 Sep 2026 04:31:04 -0700 (PDT)
-Received: from bj-kjy-standalone-gaoxiang17.mioffice.cn ([43.224.245.230])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6ca86d83sm14003444a91.6.2026.09.21.04.31.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 04:31:04 -0700 (PDT)
-From: Xiang Gao <gxxa03070307@gmail.com>
-X-Google-Original-From: Xiang Gao <gaoxiang17@xiaomi.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	gao xu <gaoxu2@honor.com>,
-	yinchuang1@xiaomi.com,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiang Gao <gaoxiang17@xiaomi.com>
-Subject: [PATCH v4 2/2] tracing: add per-CPU memory usage statistics in tracefs
-Date: Mon, 21 Sep 2026 19:30:46 +0800
-Message-Id: <20260921113047.1152602-3-gaoxiang17@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260921113047.1152602-1-gaoxiang17@xiaomi.com>
-References: <20260916063322.472172-1-gaoxiang17@xiaomi.com>
- <20260921113047.1152602-1-gaoxiang17@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="JtzhnJ5Y"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HgfGuraVCqFpUHUTAuekBbZqGkIctaBANUgLNI0U4ZdkgS/ghUIIYWOZyzji44w+tzl40W3Vba8S4LUVAB2kM3BOCYwevqjrZlp9YVWj+excIr4bBaMTt+1dOphUhVz6H429I5ygtDCpksPwQCZj/rJA8lPl6LftUJ9hTxIUzIwIMkYvmitvbPyHHeVlJpFGdYtBEYc7cx2qL3/Fw/yCanza/UHzYN3LnvaOPaq5C0gJbhCWLuystMLqInMSDHUzhdGhuhK47ytNArm7Y6NJe2gtBzRMtS4fQGaZJhqj+aOuLgNWfP5aZZ2/9O3MI0y/B8px270RSSvApE7NEGySHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lYR+CCfe7Nse5TyLdV8R6PaT5x5yrAjUFlHn+dCy7yU=;
+ b=K1B8VFTMvu/8c80vmRnV8mnXyf8fB5YjSNMEh5uUWEirudhMH7S/GMhWM0hlgmGVzE9mDoBGXa2rZkCTKI63fP8v1dMlhV0VmrLfEB/4yUnIM/ODCU5lHr34HzHbew8tlsFGGc9J4BC5pd4vTwG2xGDk/xNVxlwcDhpKCXSGFfGCwj+4E+m50rS8hvRX70SNUC5HkvBWxXuxDaw/cjFrV6pbT7rPpK8XVC8GkR0w+fEV74wDlRoQ4tgEn+hVhPqVXUy3wn7ge2R/TdEilhXsGXV/nky9t0dN1n6+9pAp6KDXI5NT5fu9kTH7+GIMKHcQ08QO98TxbwXTrMmLmY6uaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lYR+CCfe7Nse5TyLdV8R6PaT5x5yrAjUFlHn+dCy7yU=;
+ b=JtzhnJ5YpT41EUSmZoTz1P+MMuczpvwWT15MtwUzgi3dme2MXKguSJ+rFvkto8kSU0ij1+tTJVjerin95+zDju22PPnDc/xDxAWD7xpGjkcIj0N3B1VvOF8YeF65xVtkKgxxreSnNMRdih5wQbCgJJPjbDe7pq5DLZJEgxe28CJ1HA0zfjouyBwo8gC/v091HrSAkE9lzQ725IGpVhYI6NLwvoStb/OQLqEtojTwkipPVND0OaEveqPIh3js8Do1ekTroHz23Zwwv6NcSUPFDX8ToAWEK/hiWxTjCKxiYv+tSnvLlyRwzfDHR36N0jlSFUgoRFKVl/1jW9hwkEC6Ww==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by VI0PR04MB10637.eurprd04.prod.outlook.com (2603:10a6:800:25f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 11:31:16 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 11:31:16 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Date: Mon, 21 Sep 2026 19:35:00 +0800
+Subject: [PATCH RFC v2 1/4] iommu/arm-smmu-v3: Convert streams from RB tree
+ to XArray
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-smmu-shared-sid-v2-1-4b656ce68178@nxp.com>
+References: <20260921-smmu-shared-sid-v2-0-4b656ce68178@nxp.com>
+In-Reply-To: <20260921-smmu-shared-sid-v2-0-4b656ce68178@nxp.com>
+To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Jean-Philippe Brucker <jpb@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+X-Mailer: b4 0.16-dev-7bc12
+X-ClientProxiedBy: MA5P287CA0043.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:175::6) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|VI0PR04MB10637:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67741980-5d52-4398-8060-08df17d3d955
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|19092799006|10067099003|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	ijmPW31CZQO5l0bGL3MFCbE/hDecU3ictjC7ThYh96n23AUGJyOGd54L3dqeok4CxSA3u9iHB3gD484RIlL1lhNuDXdVLeIcWGKSB1rXlpa5RsWJmsHWB2prvBLcBf1FhK7DyY9c+WkjSMxHG+haW+QEfKo+gAaKtbvemQ++hrC6XzL6C1rvKZ6E1zfR2R+7pEGjHPFm4udjZgTTywHw/SRbmKSIdunsS+vtYXKVnFfAepRYj7r3DHU7OWm8SoOj2w7JoL8S4X2m7En9udOvW3xV+muA6amHKum0b6bSt5/PYrpudd9P9MUhcEM/wFwNPdAG6lALisgmz4n94lRy0653PDII9RJ9aH6CQTnO7F4I2p3UZy8tawLQ2BEOfvQ2M7uuQpvSuBTqYY8YSs8njPpocCdQKh9gP6rEVZWIUOtF/BnI6xzw3p7SpU6WuTZcTitAtrIRl9MpFaVxPZQpOZtUb6ypJax2y7obNqP28EkaMbsg+hlGahKygouD92s9HjuIJM34KM7XewR0llzauIvGGUozsVlsYPxejYdTc99cwujHtFjooaFoRvgssG6WO2xeuvTk2x85kVpCSUD6p7ZfdI3+1vwbVOMZ3lk2G8GDrmOZRZZ02qJozsggQsIWtxOna0izZknHYNtWii4kr+Ed2iOD5W7a1jv+GQgBmAo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(19092799006)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?THRtMndJZm9Yc2FqaWxQamVhNkdqT2lidFJ6dThZNHg1YVpzdUwyQ013VkZ6?=
+ =?utf-8?B?cm1mUHVpVnh0cEJaYjEvN3hEczR1M05nRk94TkRpMGx2aDNFWEhUN3dvUEtk?=
+ =?utf-8?B?NzJvT256SFZFcStDWU5vaVhlY1c5a2tLVGpxV202bW9sTVFvN0oxV2M4b3NT?=
+ =?utf-8?B?QThXU1p2V2hIc0Q2WHVmbm40eHNOb2NZMEFpUHVQY0ZvQ2lkU0dTV0NITDJU?=
+ =?utf-8?B?SlhyMkZDU3VGaW9tRXhlcWJ4VkcxdEt0cUVva0pmTnBydFo0K3ZxNGl5ek9D?=
+ =?utf-8?B?S1dZekIxdzlOUzVEaThJSzRrR1JkTTJ0R1llUFFrWkNhdEt5WjJwVUdqQXBR?=
+ =?utf-8?B?b2JZWEY1bzFSaFU1eHFKRE0xdFZIODYxVlhCbUJqSXhkZzJtUXpoOUlxcTFn?=
+ =?utf-8?B?TXRlS3lndW44dGJWck1maDY3YnlRZWZqZnNTL2M2bkgyRzNZaHJFTS8yT0dR?=
+ =?utf-8?B?d2N3N2g3UXEraE5ERTg1U2V2TzZjS0dsWmlyZzVYbHpNUUpjRHBMTyt4S1Ez?=
+ =?utf-8?B?NEVWZEpkOW1nVGg5T1FNOHl6L0NKa253bTY0eWF4RUcxK1RrQlBJRko2cSsw?=
+ =?utf-8?B?S1JDQ2d3dWd2STEvbXlyUnZCWkd5U2NoK1lVQ2M5VVhCVWVWWVdhTi9tKzRL?=
+ =?utf-8?B?U1JoTWF0RWk5bEQrTWNyekpzOG1ObElTc28xb2JwRlJudytHV3dGTEtOTFlD?=
+ =?utf-8?B?MDhmMGJZR2cxRUlXNUw2VGwveVkxVktnNkgxQWdxUkNNRlpMdTZVR2RWS3A0?=
+ =?utf-8?B?OVNZZXc0U2s3RlhUZkpsVzBmeGxFWjRLRmNHM1VyclNvK1lYWE1OYlIwZDRZ?=
+ =?utf-8?B?aXBacFVjNUQxRllCOUdrWW9GQ0JScms3RTgwajJQQlpLRjMyRVU5bDE2eENx?=
+ =?utf-8?B?VDRSTzNjV3Q1bXR4cWZURld4enAzOHp4U204L1lpcnZFTUJ4aTB3ZHNPejR6?=
+ =?utf-8?B?eEt4NzdpWU5MNlBIVDBRMUdWd0ZaQlQ1UThNaEJOdHVSbk9wUE1ZUG05OUNh?=
+ =?utf-8?B?c1Qva3hxbFlTczlZM2pEN1JZVUhnNThVaXMwQTMxVmFLWTZJbXIzdXN4Yy80?=
+ =?utf-8?B?RjFyNXBuSEpBVS9OUzd5aVpwUWFRUldlVy9jNUZPR2xTak9ERnVmWW9rTDVB?=
+ =?utf-8?B?bElIY1E4TVlQd0h3cERObnhuTjBEUFI4TmFEV21PeG8xU2pXejZtSVVGZlZu?=
+ =?utf-8?B?aE05UGQwajVwOHV1WFFsQXRDNmJzTllxSkNyVGFEU2NqWGJMYXJGY0g0bDdn?=
+ =?utf-8?B?bVFLd3hHc0JCbXRTQ1hWelBrTlQ5cDR3Q0NQVG1SQU5ocUhQVUdSTGJvRG4w?=
+ =?utf-8?B?Nzhrbm1PbTVITGw1UHVwV2RjQWd4Rm5SU1pYd0l0aklwNXRpSHBNajhJalIy?=
+ =?utf-8?B?bG1kQmxtUkxZNU8yd1ZjdVVFcWNiUGQ1OWR0a1E3Ri9DNjhOM3BnaDhCOVhP?=
+ =?utf-8?B?Z2w5akVtMkNlYlQrb0lwRTVid1F5RUxGanNsNmY5M2c4VTlWbUp4elk4OVMv?=
+ =?utf-8?B?OUVPWDMyOXBFc1QvOEJpK1Y5NEw0NlYxMkxSR0tPQWtlck11YmsrMTdoS0dv?=
+ =?utf-8?B?WnVjMHg2Szh4V0s5RUYxM1duU2lhREs3aTB6KzBXTjRZOWszVkNhZERJUGZo?=
+ =?utf-8?B?UkNNZUsyNDFDWGc4ZWJKSmVXSlFrUDNCc2NiUkZ3Y3FjQ092V2pwSzdIOThl?=
+ =?utf-8?B?WVY1dDB2bVY5d2dYeFZjYkhWK3hIYlYxZDhZWmZvNnJ1czcwcW55V3crdWtK?=
+ =?utf-8?B?U0krZ3NFYmFRRkhCV2tTTC9zV1VWYkZ0djBEbFFzbTlCbG5FUmh0bDhoamhL?=
+ =?utf-8?B?TnhsTHpnZFlWcGlSL2N5TFJTa25ua2hQVUZJc3Z1WnlFRFVjeEpxZ1Brck1l?=
+ =?utf-8?B?MmJEeEtZeStOMGw0VUMrYVVWTy80bTljN3AwZEVpamZWMEx4R1p1MFhRWHlZ?=
+ =?utf-8?B?Tk1ZMnZSOUd3dkhobVUvU2h3cm0rNEsxVmU5NSt3Q0lyaGN2c3dwNU5lN2JN?=
+ =?utf-8?B?TmxZV2hRTVNFWW11bm9lWENpYzZIWUxYZ1h5dnN5NFJQYS9iNEQ5NGlzOHlh?=
+ =?utf-8?B?T3U2a0NEMHlDTENuSXNmYTJVY3RxUGNZZUhTa3NHTmw2Y0hqYURGL1dJQnow?=
+ =?utf-8?B?cXFmR2JyNXdOTFh6QW1aSjVWbllybytCZHB5dVFNUlUwMGtjdVZYdjJkUmdK?=
+ =?utf-8?B?OFhTdjVKMmRZK0RhSmdDeVI1dmt3RFljay9sNkVXaDViT3NrREJwQ2cwTzR0?=
+ =?utf-8?B?ekpPQ09pU2NDd3YxK3EzNkpkcGdHZzZlZXZrUGRFUDY3MXNJV3lJUTlDckNO?=
+ =?utf-8?B?djZ4eU83N2JVRHJRSUpTVWpMeGhtM1JvbmJadmsvN2s3WmkzbDJUa0p5V3h3?=
+ =?utf-8?Q?hf8DVKARn4wPkYtIX4Akksx0rsRsY3cnjfJU6?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67741980-5d52-4398-8060-08df17d3d955
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 11:31:16.2764
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: N9f6ugbOgxlJTMoZoeYAVzvh9GlbVFleUk3mLed8gyzeMHrcc23pQ2DrOL8ONHQUCZREA87h4Z0WE8E6TY1+tyCGoKRj9BJ0WOd3ZgMnlf9G4jL3n42DLBOcn1n5/lGA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10637
 
-Provide a per-CPU view of the tracing ring-buffer memory usage under
-trace_stats/per_cpu/cpuN/memory_usage_kb, using the same format as the
-aggregate file. Each file reports only the buffers belonging to that CPU
-across the global trace array and all tracing instances.
+From: Peng Fan <peng.fan@nxp.com>
 
-Signed-off-by: Xiang Gao <gaoxiang17@xiaomi.com>
+Replace the smmu->streams RB tree with an XArray for SID ->
+arm_smmu_stream lookups. The existing streams_mutex serialises all
+accesses (both xa_store/xa_erase and xa_load), protecting the lifetime
+of returned pointers against concurrent arm_smmu_remove_master()
+without requiring RCU grace periods. A mutex (rather than xa_lock) is
+needed because several paths sleep while the lock is held:
+dmam_alloc_coherent(GFP_KERNEL) in arm_smmu_init_sid_strtab(), and
+down_read() inside iommu_report_device_fault().
+
+This removes the RB tree comparators, the rb_node from
+arm_smmu_stream, and simplifies duplicate-SID handling for bridged PCI
+devices.
+
+No behavioural change intended; preparation for shared-SID support.
+
+Assisted-by: Claude:claude-opus-4-6
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
 ---
- Documentation/trace/ftrace.rst |  3 ++
- kernel/trace/trace.c           | 67 +++++++++++++++++++++++++++++++++-
- 2 files changed, 69 insertions(+), 1 deletion(-)
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 83 ++++++++++++++---------------
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h | 11 +++-
+ 2 files changed, 48 insertions(+), 46 deletions(-)
 
-diff --git a/Documentation/trace/ftrace.rst b/Documentation/trace/ftrace.rst
-index 99ddfe26b7cd..e53cdd8d6702 100644
---- a/Documentation/trace/ftrace.rst
-+++ b/Documentation/trace/ftrace.rst
-@@ -230,6 +230,9 @@ of ftrace. Here is a list of some of the key files:
- 	    buffers: ...
- 	    snapshot_buffers: ...
- 
-+	The same file is provided under trace_stats/per_cpu/cpuN/, reporting
-+	only the buffers belonging to that CPU.
-+
-   buffer_subbuf_size_kb:
- 
- 	This sets or displays the sub buffer size. The ring buffer is broken up
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index d4a913ff8a69..4010f28f3ebf 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -5844,6 +5844,52 @@ static const struct file_operations trace_mem_fops = {
- 	.release	= single_release,
- };
- 
-+static struct trace_mem_stats trace_buffers_memory_cpu(int cpu)
-+{
-+	struct trace_mem_stats stats = {};
-+	struct trace_array *tr;
-+
-+	guard(mutex)(&trace_types_lock);
-+
-+	list_for_each_entry(tr, &ftrace_trace_arrays, list)
-+		trace_array_buffer_memory(tr, cpu, &stats.buffers,
-+					  &stats.snapshot);
-+
-+	/* Account for the bootstrapping temp_buffer as well. */
-+	if (temp_buffer)
-+		stats.buffers += ring_buffer_memory_size(temp_buffer, cpu);
-+
-+	return stats;
-+}
-+
-+static int trace_mem_per_cpu_show(struct seq_file *m, void *v)
-+{
-+	struct trace_mem_stats stats = trace_buffers_memory_cpu((long)m->private);
-+
-+	seq_printf(m, "buffers: %lu\n", stats.buffers >> 10);
-+	seq_printf(m, "snapshot_buffers: %lu\n", stats.snapshot >> 10);
-+
-+	return 0;
-+}
-+
-+static int trace_mem_per_cpu_open(struct inode *inode, struct file *file)
-+{
-+	int ret;
-+
-+	ret = tracing_check_open_get_tr(NULL);
-+	if (ret)
-+		return ret;
-+
-+	return single_open(file, trace_mem_per_cpu_show, inode->i_private);
-+}
-+
-+static const struct file_operations trace_mem_per_cpu_fops = {
-+	.open		= trace_mem_per_cpu_open,
-+	.read		= seq_read,
-+	.llseek		= seq_lseek,
-+	.release	= single_release,
-+};
-+
- #define LAST_BOOT_HEADER ((void *)1)
- 
- static void *l_next(struct seq_file *m, void *v, loff_t *pos)
-@@ -9360,7 +9406,9 @@ static struct notifier_block trace_module_nb = {
- 
- static __init void init_trace_stats_tracefs(void)
- {
--	struct dentry *stats_dir;
-+	struct dentry *stats_dir, *per_cpu_dir, *cpu_dir;
-+	char cpu_dir_name[30];
-+	int cpu;
- 
- 	/*
- 	 * tracer_alloc_buffers() frees tracing_buffer_mask and temp_buffer
-@@ -9376,6 +9424,23 @@ static __init void init_trace_stats_tracefs(void)
- 
- 	trace_create_file("memory_usage_kb", TRACE_MODE_READ, stats_dir,
- 			  NULL, &trace_mem_fops);
-+
-+	per_cpu_dir = tracefs_create_dir("per_cpu", stats_dir);
-+	if (!per_cpu_dir)
-+		return;
-+
-+	for_each_tracing_cpu(cpu) {
-+		snprintf(cpu_dir_name, 30, "cpu%d", cpu);
-+		cpu_dir = tracefs_create_dir(cpu_dir_name, per_cpu_dir);
-+		if (!cpu_dir) {
-+			pr_warn("Could not create tracefs '%s' entry\n",
-+				cpu_dir_name);
-+			continue;
-+		}
-+
-+		trace_create_file("memory_usage_kb", TRACE_MODE_READ, cpu_dir,
-+				  (void *)(long)cpu, &trace_mem_per_cpu_fops);
-+	}
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+index 5732f3ba0122d..65e448a69a019 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+@@ -2024,37 +2024,17 @@ static int arm_smmu_init_l2_strtab(struct arm_smmu_device *smmu, u32 sid)
+ 	return 0;
  }
  
- static __init void tracer_init_tracefs_work_func(struct work_struct *work)
+-static int arm_smmu_streams_cmp_key(const void *lhs, const struct rb_node *rhs)
+-{
+-	struct arm_smmu_stream *stream_rhs =
+-		rb_entry(rhs, struct arm_smmu_stream, node);
+-	const u32 *sid_lhs = lhs;
+-
+-	if (*sid_lhs < stream_rhs->id)
+-		return -1;
+-	if (*sid_lhs > stream_rhs->id)
+-		return 1;
+-	return 0;
+-}
+-
+-static int arm_smmu_streams_cmp_node(struct rb_node *lhs,
+-				     const struct rb_node *rhs)
+-{
+-	return arm_smmu_streams_cmp_key(
+-		&rb_entry(lhs, struct arm_smmu_stream, node)->id, rhs);
+-}
+-
+ static struct arm_smmu_master *
+ arm_smmu_find_master(struct arm_smmu_device *smmu, u32 sid)
+ {
+-	struct rb_node *node;
++	struct arm_smmu_stream *stream;
+ 
+ 	lockdep_assert_held(&smmu->streams_mutex);
+ 
+-	node = rb_find(&sid, &smmu->streams, arm_smmu_streams_cmp_key);
+-	if (!node)
++	stream = xa_load(&smmu->streams, sid);
++	if (!stream)
+ 		return NULL;
+-	return rb_entry(node, struct arm_smmu_stream, node)->master;
++	return stream->master;
+ }
+ 
+ /* IRQ and event handlers */
+@@ -4123,38 +4103,47 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
+ 	     NULL);
+ 
+ 	mutex_lock(&smmu->streams_mutex);
+-	for (i = 0; i < fwspec->num_ids; i++) {
++	for (i = 0; i < master->num_streams; i++) {
+ 		struct arm_smmu_stream *new_stream = &master->streams[i];
+-		struct rb_node *existing;
++		struct arm_smmu_stream *existing;
+ 		u32 sid = new_stream->id;
+ 
+ 		ret = arm_smmu_init_sid_strtab(smmu, sid);
+ 		if (ret)
+ 			break;
+ 
+-		/* Insert into SID tree */
+-		existing = rb_find_add(&new_stream->node, &smmu->streams,
+-				       arm_smmu_streams_cmp_node);
+-		if (existing) {
+-			struct arm_smmu_master *existing_master =
+-				rb_entry(existing, struct arm_smmu_stream, node)
+-					->master;
+-
+-			/* Bridged PCI devices may end up with duplicated IDs */
+-			if (existing_master == master)
+-				continue;
++		/* Bridged PCI devices may end up with duplicated IDs */
++		if (i > 0 && master->streams[i - 1].id == sid)
++			continue;
+ 
++		existing = xa_load(&smmu->streams, sid);
++		if (existing) {
+ 			dev_warn(master->dev,
+ 				 "Aliasing StreamID 0x%x (from %s) unsupported, expect DMA to be broken\n",
+-				 sid, dev_name(existing_master->dev));
++				 sid, dev_name(existing->master->dev));
+ 			ret = -ENODEV;
+ 			break;
+ 		}
++
++		/*
++		 * xa_store() returns the old entry (void *) on success
++		 * or an ERR_PTR on allocation failure.  Use xa_err() to
++		 * convert to a standard errno.
++		 */
++		ret = xa_err(xa_store(&smmu->streams, sid, new_stream,
++				      GFP_KERNEL));
++		if (ret)
++			break;
+ 	}
+ 
+ 	if (ret) {
+-		for (i--; i >= 0; i--)
+-			rb_erase(&master->streams[i].node, &smmu->streams);
++		for (i--; i >= 0; i--) {
++			u32 sid = master->streams[i].id;
++
++			if (i > 0 && master->streams[i - 1].id == sid)
++				continue;
++			xa_erase(&smmu->streams, sid);
++		}
+ 		kfree(master->streams);
+ 		kfree(master->build_invs);
+ 	}
+@@ -4167,14 +4156,19 @@ static void arm_smmu_remove_master(struct arm_smmu_master *master)
+ {
+ 	int i;
+ 	struct arm_smmu_device *smmu = master->smmu;
+-	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(master->dev);
+ 
+ 	if (!smmu || !master->streams)
+ 		return;
+ 
+ 	mutex_lock(&smmu->streams_mutex);
+-	for (i = 0; i < fwspec->num_ids; i++)
+-		rb_erase(&master->streams[i].node, &smmu->streams);
++	for (i = 0; i < master->num_streams; i++) {
++		u32 sid = master->streams[i].id;
++
++		/* Skip intra-master duplicate SIDs */
++		if (i > 0 && master->streams[i - 1].id == sid)
++			continue;
++		xa_erase(&smmu->streams, sid);
++	}
+ 	mutex_unlock(&smmu->streams_mutex);
+ 
+ 	kfree(master->streams);
+@@ -4602,7 +4596,7 @@ static int arm_smmu_init_structures(struct arm_smmu_device *smmu)
+ 	int ret;
+ 
+ 	mutex_init(&smmu->streams_mutex);
+-	smmu->streams = RB_ROOT;
++	xa_init(&smmu->streams);
+ 
+ 	ret = arm_smmu_init_queues(smmu);
+ 	if (ret)
+@@ -5627,6 +5621,7 @@ static void arm_smmu_device_remove(struct platform_device *pdev)
+ 
+ 	iommu_device_unregister(&smmu->iommu);
+ 	iommu_device_sysfs_remove(&smmu->iommu);
++	xa_destroy(&smmu->streams);
+ }
+ 
+ static void arm_smmu_device_shutdown(struct platform_device *pdev)
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+index dd2fee2f560e6..97dc97ac704d9 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+@@ -14,6 +14,7 @@
+ #include <linux/kernel.h>
+ #include <linux/mmzone.h>
+ #include <linux/sizes.h>
++#include <linux/xarray.h>
+ 
+ struct arm_smmu_device;
+ struct arm_vsmmu;
+@@ -961,14 +962,20 @@ struct arm_smmu_device {
+ 	/* IOMMU core code handle */
+ 	struct iommu_device		iommu;
+ 
+-	struct rb_root			streams;
++	/*
++	 * XArray of arm_smmu_stream, indexed by SID.
++	 * All accesses (reads and writes) are serialised by streams_mutex.
++	 * The mutex is held across xa_load() and all subsequent uses of the
++	 * returned pointer to prevent use-after-free from concurrent
++	 * arm_smmu_remove_master().
++	 */
++	struct xarray			streams;
+ 	struct mutex			streams_mutex;
+ };
+ 
+ struct arm_smmu_stream {
+ 	u32				id;
+ 	struct arm_smmu_master		*master;
+-	struct rb_node			node;
+ };
+ 
+ struct arm_smmu_vmaster {
+
 -- 
 2.34.1
 
