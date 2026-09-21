@@ -1,67 +1,67 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB5AA59
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:00:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD8E2165EA
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:00:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789970428; cv=none; b=uQaQz49eWi8uf4K2yNc6e32wAT+aBdnorthUXZvSJPfjCyX12Pv6Scb0VGRo13Cgkqx9rk1RnltzeDleBqtvEmg/dyIIJcMWguB3C5A/JooJnl1w1Mv5szrCKjxuyD+6/p0+nEE+cDz7C428/cH4CMZA5jbR5l1bW4Cm7zRAWzk=
+	t=1789970429; cv=none; b=GeE5ksxhCLTusnsKmO1kPVbDthxHj0oNIpNdk1gpa+ZmwH7GDtUBuLjdIoKQUXXW4bYeW0+vg/weoB5Hq5aO+laQ2iUe/hF+QHrAs4HrSoxgG2Kj9BT1PLyQmOUhACBmiQMkzw86Igm1Y1V/IkFDEYbW7PuiV4MYT5JV2kUoNPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789970428; c=relaxed/simple;
-	bh=r4IZ5+oRt2NTHUYf5LXmNkSjOac+QeyqRjRNuHQhAo0=;
+	s=arc-20240116; t=1789970429; c=relaxed/simple;
+	bh=onN4wmQ3R+mhzbGXit5pCMgHTHvfkzs4ty0N89GJZJc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EvbIDvz82kHz187W6EEUFlXL80YnP3XnMnaGmOUeSwLsFKlhL45apxuzUz2gQ1EWx6ppMxt+WjTg3X+Qba06spY7Dl7ZIdzFBXtV9PhzydaUtJ4UdQ4avmWoAyor2nnM/l6KDIL4fIfr8eoJ3FORtfSCW2939tUarILvY9rcaIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ss5zp110; arc=none smtp.client-ip=74.125.225.140
+	 Content-Type:MIME-Version; b=T/4xUw3qcvGVgdbxpOsHg5iiHw2OKO+JR0on5dFEWBQqkLmQpUlhOqGj2jOhecdUmfH1KzVZ5X895hLvNz2uO8MIpPXBCPw5eJa7+8MkVSjYp3s+PWof5oaG16eLCI3y5xqAEKo6cYeJ8EeDkiPpuux4N1NBU95demTbuJ7HC3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mecFNc0B; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ss5zp110"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so10594165e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 23:00:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mecFNc0B"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so14249005e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 23:00:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789970424; x=1790575224; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789970426; x=1790575226; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Zqp0mXAPPlkB9y/VY2ECjAIS1J7bwOQJ/4A4XQOWjYI=;
-        b=Ss5zp110uCwExkhcKMEEERZP7EmV5aqEWUhzO0nmQsFBUZtMcKhVu49ToXM7YOJnpY
-         UaFd8P+TRycRmCqILMWT4yY4vxg7CowNCkIerM26ohRTWmr8ptOX0JNk2C5+ObP183vo
-         zbAyTeeZnWs2LfIDNsgDjv2r/2Tz/eUz4X+59poqjbP+kNC3ASrmaJt3QT2Fl9Uu4Z8d
-         5twTO8KQrvz3+DBfUwhayN+FiUmRt7U+HSeStjphKKB9Kl3apXe4z7Rj3K5LloDBLpt1
-         KUO3GVB2Q0ai/aIa+RaepuNtZV6AIgQnknDAyQ/PJcnRwkIrkmusf0/Ubzt9K+9sZ55z
-         QvdQ==
+        bh=ro+FMNk45PgRPb4vSmer/o4ptFIHYgVUebCic5ooA+w=;
+        b=mecFNc0Bmgw4HI2iU1fW0sizaPljl9GySPubip6PUHB33anXkUSXrSoXFJWJQm4kTt
+         /pyw+9/Hp/7ukseoTQR8U4JXCspuioKlD65vUH1yULijjad4N69jqoLo2Z7RC9ZPkX+G
+         rZkdLSMBoObVgyUpiDgbpF8YIC8OEjzsArrZgvVymjaney2qA+PioQECYXIZo2K/VOAe
+         AdQkFlgSQ9VYNGExyXdeOIDp3vDo+qju9BL5rkjc9kqnz9OtL98a1MB3g5ab5NMMQd5n
+         sC8juWIXnlWo+oG1orFkL37mLlq8Yx/sSsmUkkZu2MbCM9LQMorbW+wTEfzIosLHuFKQ
+         Xa6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789970424; x=1790575224;
+        d=1e100.net; s=20260707; t=1789970426; x=1790575226;
         h=content-transfer-encoding:mime-version:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Zqp0mXAPPlkB9y/VY2ECjAIS1J7bwOQJ/4A4XQOWjYI=;
-        b=1AAQbeq7SBtECJlIqZPc9XEdx1/SS0TVHLEh5AA5XiR1lYkQ9ZOUtovy8vbv108nVa
-         wRkOknhPH7QN9LHX8K/GMh+EcxUk8nwN7y9R2Nwm1+4sEj1fiMjDHbpEjVEm8ZZFx266
-         rJVDAAmrFHIYBcyTQVDiiCF/rFr8dvYWGkUVnTlbRdw6PNkrAlZAcNHsJeP1/cGsNrNO
-         Un+HaHOGsS7tIOpGhH5a4Ojy7i9wioh+ix3sXOqKNkbaRDPHRUBAiLqLvVK8MWNVcuPO
-         QVx407phKxBkGmiLIh2eJhXGEc9a6+fY6YqH57h8zdLNyIVo57B8E7Z06woyc7YiqyZP
-         kRnA==
-X-Forwarded-Encrypted: i=1; AKwUvBwMLbZ72OyNIUPGpjU9UUffIUYzrt9T24qvtXoc9m/An34f8D5Xd5s4/39W8QZRU3wMyaGRfZGINxIVtTc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVlxUCDmuASEjCDFxXNsciJ1T2BrySsiTR1f1vWxbtPm9f8bWG
-	smVPodIJqZPfEs2mSgIBKoVlC1Om2kHg7IUi01ET1u6QarsmxiKQLwlM
-X-Gm-Gg: AYBFou33gwTxXrEjtXZmTlCLRK+bRudKuR0XSVm7AqLaNYWRp0XtNRbe+DJL4afG3wC
-	Hr1b5FeO28VkuByjhxMGYXnAMQ1A2VdJ5pE0/PHaFJTp9m0L5gq6Blcs3STwpss1q4IkAiMvlFq
-	z+Y3apw0l7JlxwZA4LAb0nHT42RUJWKgg4ca3V8ZmoE1JG6k0ISV6KUwvl37nBbnZd6gKhl0+6C
-	2wiyAX11DFD2YOqsL5+3bpNGtFzeKMVqKAEcY3xhxA3yAAkImI779yajnsAYBtZG7B4iyYBmR4D
-	WTKDWddZkiJ5K+iU1556K0SQM3HFwEdMaKlyPioj0xELFdhRIoGIRQtediRTpUr6zwpixbVQwmF
-	HNfko3k05+oiZECDslo+IJNSoyp8pHi6idxnu+hJ/7gl0/RzMZ3oPPgPemyVCk40hheE1pep7Sw
-	yVz3gqId77t/8Rq2PrfSQg5YvLtFq5T/FlW21OtFEyAczLG8c86MWqIyxWRBBZI34oNk1BF64a0
-	aEOji48AxwXgC5nwxSElOLFuPBX1Pr1s3A4fR6Bd3mHFJkL4maIBMH1Vibpq2k2nEzYzGnqK/4D
-	CdD/qpTlYXc5QVrkxCSa0FJl+/C1DuAz7kzACGDtUDTL3sgYL8A5+tFoK5aKSoFZnTrY1tWIDA=
-	=
-X-Received: by 2002:a05:600c:468a:b0:49e:7c8c:bc77 with SMTP id 5b1f17b1804b1-49fc4fae7acmr152289065e9.7.1789970423297;
-        Sun, 20 Sep 2026 23:00:23 -0700 (PDT)
+        bh=ro+FMNk45PgRPb4vSmer/o4ptFIHYgVUebCic5ooA+w=;
+        b=tzuUnF9oJKr73SFtVph0lJgw1BXFSaYWuaHDc1tSR6GgkWcj9k87qnqQic3/6M5yqe
+         7bv9jGu3ML5Lm4lXhfYOwIzzfY6MOv0ilIeWZ2BRNr1MnhM3KS8aDkFB+T5tCEJSt6Do
+         g7nuVpJqh2KnpCSx5WBmZDgKsZKmXk9HFY2Yw8EQ4nTlh4fF8VO5CUdhNDsDa8qc7Pqb
+         RxoaWmztbhT+QuO5fTUbUxcNsTfnx94+yut/DnqUU9KxR2AxPeS/M5O4wKRuAyn4fW0J
+         6h1r6c32kfRqaptnxksfpC/+M6YRcmBI9dlXA+gnIJdUULwAjckCRCwctQ4KAa6PV4eM
+         izRg==
+X-Forwarded-Encrypted: i=1; AKwUvByruDyBgelunFM0xAeBI2nmsJi9hTSMClCs5hGPiVMSFcftmlrLU9vE8MHzBrQVirqGy5D6Od4+KjwoZu0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQGdyA5gnTh+W5+SMuazqPzTLsMtZTxUmxVjtNV8VLdEKCs1hm
+	ZfBktxn09HEQgAEhxZZKAsrhdv21PYTrP5ueF22QlfmU6O6C/xWMB0WC
+X-Gm-Gg: AYBFou18Hy7ubPjffNc5NZlkf2BjkC13o+qBqifVEhIu8ZRYRldRrwftIfynnChWUA2
+	31dbCtrHbTIE9W70PjtmoheDyBKqsgJ+ApL6taYotKmdUSWD0f6uYbCnoIdCl5bKqcn2gutMg/D
+	qHkv1F/wfbH1kqrFQHIhzjHFVgqbOoLs7AI20ciuhyAwDqQjPoYheBWy8Qq7xW7g1dYE7ujxhcT
+	UpoBEgRjkRfP0bV3qFz0kIDf/n20t9GIrY1v8JkhL++0jsUWrqO93EEXVfs7FV9CEzgO5mFTfNs
+	j9XPZ5KwHNsB+GJCHOSLbELwOTYi47n3r+SUeHb0O1WlSYK7oqSvJINNUWwImjtCiwGszPuKK8s
+	PM8o6cUBZqOFycxHZv8wzkFuxkhBBYuljJb9z8xBb+ZsqQ29JZ+DFkH/OjzBwCwiQnL8dZtKIUJ
+	yMRiM6mlXdKb6oh2GljZbJojjf9Yxg2jZNCy5NnQdJqA2k1pby66v91SUilsHaJNrEC7vc7qGaT
+	0qVQEB9dyLXAVq6qAw52TUFhX2vax5E5XN44Y++McmZDIN8IIvc5Om79u3eevFtfAysKsr6nWwb
+	lys5TUFbCl55OPXxM3wauhrDQersLspqHwCT8qVQ21p+a5OjXa4+Z8xqAtwE6IR88pQkxLyu1sc
+	6yj9juNMef+BP
+X-Received: by 2002:a05:600c:6305:b0:49f:c2ef:cfb9 with SMTP id 5b1f17b1804b1-49fc56719a8mr103694715e9.4.1789970425753;
+        Sun, 20 Sep 2026 23:00:25 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-a8e9-c501-f941-243b-87f6-e5a2.310.pool.telefonica.de. [2a02:3100:a8e9:c501:f941:243b:87f6:e5a2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd1149e0sm198706585e9.13.2026.09.20.23.00.22
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd1149e0sm198706585e9.13.2026.09.20.23.00.24
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 20 Sep 2026 23:00:22 -0700 (PDT)
+        Sun, 20 Sep 2026 23:00:25 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Russell King <linux@armlinux.org.uk>,
 	Dmitry Baryshkov <lumag@kernel.org>,
@@ -77,12 +77,12 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	linux-rt-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2 0/4] ARM: allocate the cacheinfo early to fix the PREEMPT_RT boot warning
-Date: Mon, 21 Sep 2026 08:00:09 +0200
-Message-Id: <20260921-arm-cacheinfo-v2-5892c4531ad9-0@gmail.com>
+Subject: [PATCH v2 2/4] ARM: cacheinfo: count external caches in early_cache_level()
+Date: Mon, 21 Sep 2026 08:00:11 +0200
+Message-Id: <20260921-arm-cacheinfo-v2-5892c4531ad9-2@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <CAD++jL=7OSrPMax9GRj3D7ehjmmG2uMyws53F8U0x7YGx+RNOQ@mail.gmail.com>
-References: <20260912195552.76673-1-kmehltretter@gmail.com> <CAD++jL=7OSrPMax9GRj3D7ehjmmG2uMyws53F8U0x7YGx+RNOQ@mail.gmail.com>
+In-Reply-To: <20260921-arm-cacheinfo-v2-5892c4531ad9-0@gmail.com>
+References: <20260912195552.76673-1-kmehltretter@gmail.com> <CAD++jL=7OSrPMax9GRj3D7ehjmmG2uMyws53F8U0x7YGx+RNOQ@mail.gmail.com> <20260921-arm-cacheinfo-v2-5892c4531ad9-0@gmail.com>
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -92,54 +92,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series moves ARM cacheinfo allocation to the boot CPU to avoid
-sleeping-lock warnings during PREEMPT_RT secondary-CPU startup. It is
-rebased onto v7.3-rc1, cee9395acd8043be0644b25c34bfa86623f2b935.
+early_cache_level() counts only caches described by CLIDR. An external
+PL310 is absent from CLIDR, and its arm,pl310-cache compatible is not
+accepted by init_of_cache_level(), so early allocation falls back to
+an incomplete count. init_cache_level() later adds the DT-described
+L2, forcing reallocation on the secondary CPU with interrupts disabled.
+This defeats early allocation on PREEMPT_RT.
 
-Patches 1-3 prepare for early allocation: bound cache-leaf writes,
-include external caches in the allocation size, and guard CLIDR reads
-on older CPUs. Patch 4 enables early allocation. Please take all four
-patches together for stable.
+Use init_cache_level() for early sizing too, so the initial allocation
+includes external caches described by the device tree.
 
-Changes in v2:
-- Rebase from post-v7.3-rc2 mainline (5225b8eec4c9) onto v7.3-rc1
-  as Linus requested [1].
-- Add Sebastian's Tested-by and links to the original patch posts.
-- Retest the full series on this base; results below.
-The four code diffs are unchanged.
+Cc: stable@vger.kernel.org
+Tested-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Link: https://lore.kernel.org/r/20260912195552.76673-3-kmehltretter@gmail.com/
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Fresh full-series rc1 retest: three builds and seven QEMU boot/CPU
+hotplug checks passed; see the v2 cover for the matrix.
 
-Fresh testing on this v7.3-rc1 base used GCC 15.2.0 and QEMU 10.2.1.
-Three full kernel builds and W=1 checks of cacheinfo.o/topology.o passed:
-multi_v7_defconfig with and without PREEMPT_RT, and an ARMv6+ARMv7 SMP
-PREEMPT_RT configuration for ARM11 MPCore. Seven boot checks passed:
-- virt, Cortex-A15, 2 and 4 CPUs, with and without PREEMPT_RT;
-- vexpress-a9, Cortex-A9 with external PL310 L2, 4 CPUs, RT and non-RT;
-- realview-eb-mpcore, ARM11 MPCore, 4 CPUs, PREEMPT_RT.
+The detailed testing below was performed for v1, before this rebase.
 
-With DEBUG_ATOMIC_SLEEP enabled, the RT boot warning was absent.
-CPU1 offline/online succeeded in every run, with identical cache sysfs
-output before and after. ARM11 exposed no cache leaves, as expected.
-RT and non-RT cache output also matched on each ARMv7 machine.
-All four stable patch IDs match v1.
+Without this patch, patch 4 keeps the warning on QEMU vexpress-a9
+(4 Cortex-A9, PL310): the early size is 2 leaves, init_cache_level()
+wants 3, and init_level_allocate_ci() reallocates on the secondary
+CPU. With it the warning is gone and the cache sysfs tree is unchanged
+(L1 data, L1 instruction, L2 unified shared by all CPUs).
 
-Earlier testing of these same diffs also covered DT cache-description
-corner cases. On September 12, the full series passed on a Raspberry
-Pi 400 with a 32-bit PREEMPT_RT 7.2.6-rc1 kernel: the boot warning was
-absent and all 12 cache sysfs entries matched the baseline. CPU hotplug
-was unavailable there. That hardware test and the DT corner-case tests
-were not repeated on this rebased tree.
+ arch/arm/kernel/cacheinfo.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
-v1: https://lore.kernel.org/r/20260912195552.76673-1-kmehltretter@gmail.com/
-[1] https://lore.kernel.org/r/CAD++jL=7OSrPMax9GRj3D7ehjmmG2uMyws53F8U0x7YGx+RNOQ@mail.gmail.com/
-
-Karl Mehltretter (4):
-  ARM: cacheinfo: avoid out-of-bounds write in populate_cache_leaves()
-  ARM: cacheinfo: count external caches in early_cache_level()
-  ARM: cacheinfo: guard the CLIDR read in populate_cache_leaves()
-  ARM: topology: allocate the cacheinfo early on the boot CPU
-
- arch/arm/kernel/cacheinfo.c | 49 +++++++++++++++++++++++----------------------
- arch/arm/kernel/topology.c  | 13 ++++++++++++
- 2 files changed, 38 insertions(+), 24 deletions(-)
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+diff --git a/arch/arm/kernel/cacheinfo.c b/arch/arm/kernel/cacheinfo.c
+index 860eeb03cfe5..31591c947254 100644
+--- a/arch/arm/kernel/cacheinfo.c
++++ b/arch/arm/kernel/cacheinfo.c
+@@ -111,13 +111,6 @@ static int detect_cache_level(unsigned int *level_p, unsigned int *leaves_p)
+ 	return 0;
+ }
+ 
+-int early_cache_level(unsigned int cpu)
+-{
+-	struct cpu_cacheinfo *this_cpu_ci = get_cpu_cacheinfo(cpu);
+-
+-	return detect_cache_level(&this_cpu_ci->num_levels, &this_cpu_ci->num_leaves);
+-}
+-
+ int init_cache_level(unsigned int cpu)
+ {
+ 	unsigned int level, leaves;
+@@ -146,6 +139,11 @@ int init_cache_level(unsigned int cpu)
+ 	return 0;
+ }
+ 
++int early_cache_level(unsigned int cpu)
++{
++	return init_cache_level(cpu);
++}
++
+ int populate_cache_leaves(unsigned int cpu)
+ {
+ 	unsigned int level, idx;
