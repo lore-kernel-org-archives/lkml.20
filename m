@@ -1,124 +1,151 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCEC38B7DD
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:42:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790023346; cv=none; b=lanBF0q+RI9QJGMB9dUltEuSoOnHIYHeZUHvwA+nnT0eQgtOpzhBDuiJYUKm/Q37Z+DGy5awoUaUflB+vn1vRtQjikI6fo5gZOMxUmfwBr3FtmRtpbfwry0W8Wg6eG3K0H6yzd9fGFmDcmeHiaH24MdnwZKTooOfTToF+9uzpRw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790023346; c=relaxed/simple;
-	bh=Cbhq5AY4F38rOC/Kyo867bYsHX9pFIIo/xsqTNuiRaQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Pzr6cupH7SPB24gi6ElfWVGxrr0sVJw+Hj5ZIatuYJXXi6hODPv9gckyfgsU8/XrTg9bKoN3TXOK0S0Hy9k7hRzsGXuFqIeJXh3Qr3pXitGEcr3TZJJY3pDhlvM73mUbNqKP3A1zLnAEtabBVwusFRR3sNbBDh6VW7vWHUq9nH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hRkd1HPT; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06CE3793D5
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:43:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790023412; cv=pass; b=hZ+R/1VqiUyvglLk4oIUggxdqaEeI8RUG4p7pD/pVsswyxoGdX73z7CFP9mLopn0lva43vD/R8M1EGhbOAzEHJbj13G4fLfNY9vgiV0YI44AycJRZIlRQrjO1lcAgY+P6UIjxcKVTalFDCY1NJ7UIAfeZs7aPX7fyopJuKisHxM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790023412; c=relaxed/simple;
+	bh=2AqOeRbrkTEeKxz/VGkXBEycMszwg20ujuSANUVGQhE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NTUPLemtXMaOz8zmlB2I4b8h79I5H7tNq4GK4Mx4PzuJvZ0Gk5/wC+CxOydYX/bGvZw7vSmvsQ1Dn9dpNJkPo1cxYLqbsx5i5qSnd65xS8lKB7vFq16qY+d+gPolwNlxsycmqsOKoSBfFq8o6dFVIjWaDIMlLf/SJ4tZj1q+qNk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GoDPnoOR; arc=pass smtp.client-ip=209.85.167.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hRkd1HPT"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4d04d740cso2073929a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:42:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GoDPnoOR"
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5b8997bc6e6so206387e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:43:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790023407; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IWUpJR6jWeZ278951GJAcvRJ6X26WvuWW7/nwgGfvhA64qN5rMBkQ3RhSfIc8gVDS0
+         eR26R8DPKbEzCZQ8nurU6iAIKPX7+kwhR9vlwkX5eMBnuGH9/MSs8pbDsaiSRvRZs6zU
+         y2x0p8MBKBa4wDz2/wQgMeqcwpm03cD7gkBo089NbavE85y0Q36taKJCzTVxPJyfvkbm
+         I9VtinFot2RQxMG4b8nc6hdyXHkFtRikE2EdDJtsxY/9KXLDe7i2YQRblkfEaXv5KKbw
+         W3SYLY40NsdVLTZDDhlieI0jamqvj6XDtqm3Gx/pTRsaKjYtzwmVbCeBORDLtE0oWfKX
+         /MAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2AqOeRbrkTEeKxz/VGkXBEycMszwg20ujuSANUVGQhE=;
+        fh=fmXcaEOMwxgXvNs3rW4T1v48/+6pmK9oKycBs+v88GQ=;
+        b=EU+fAPpSRTxciMwRaxRG98vLZZpK6GI0+AMakTACW+Hs1A3WGm/WOahyQpS8Ijxxed
+         f5SQFazwjcwReEx1hZd/x2LHg1YZLjHIRCfO9L+GUcqew5KdJQrqhEM0MRvf3tI4tKRb
+         wjh1sIPikGG6jf0Dj/b3cZEadslXq5rceklE6Q4VuKoIeVSG7Dn7lgQh1T3UjlYZ4zUg
+         KK+MXAuOi8J007RL3BkvXFxQkTWeVMkrSHc33gqCG0RC1FBcZgSAqNGL6FD4DS/9K5TZ
+         gFNn0NhSFZNUGTZdvRd7QXmayaezUbnB3VN8aT3SzYJ9MgNri/Tpc2wuC8nWS6RCngnA
+         bCow==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790023344; x=1790628144; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=19ujXM0/uR0vXBiub8+6aoHd0jV8R/3wu1J8/sZV+qw=;
-        b=hRkd1HPTvRUFUKj4Y2mwClNkeNvSOg7nE/AKFAugdyeN8bfnqygJ74RMhz/TE6PCba
-         OtCLOjn+WgnV0vLI5a8pqehPg5snvYh1URoA5dFxNgnsUSUq/EXDY6PQeYmT6RyYkdJg
-         jO0LjS1Btgcq3AA0it2QbEC4kSL9Y1uHjlATDW+J+osIZoeM822So8zJvRqpZ8cA8YVH
-         T3flecZ+dboTVI9BDYEyFTBXq50L9y6nmSBE2Qm9+kMDJjUTKpI/F09k2Wzwl9cXTmkf
-         ZjnKA96KWrKzmYt51W8vrv6Wm+7iF43/khJXVVztrYriFgnBpr43jChiRnhwPvpNgW9O
-         MDTQ==
+        d=gmail.com; s=20251104; t=1790023407; x=1790628207; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2AqOeRbrkTEeKxz/VGkXBEycMszwg20ujuSANUVGQhE=;
+        b=GoDPnoORyycuUdelfqd5OUIt9Se3EY0kad14vH+3MD9E/20H7L/wdsYHd24C8ClAvV
+         dM7NFhJkr1BeTJiuJnk++grbqDbfeZR9Aw46iFe134DoVtaTCnmU5PIxjJrGXeG2B3zu
+         9u5im+PChGZdYlopb8xds10brRi/yTw/Im7jiQtfHYkAy7G6EnyzZvYCJA4D756Xbuzs
+         kIyGDMd1FkXNyyOpVOy+s2fMqs37g83RUm0I8KJaOCPeX3x2mTWQzG4hCPPCiwwb7zsF
+         gHwUJF1Kd4AkTFiIRucvciLmq0NHn4oUWNethsE1VOdnQGbYigQlfiLQyX6wMEidP6jW
+         fDnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790023344; x=1790628144;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=19ujXM0/uR0vXBiub8+6aoHd0jV8R/3wu1J8/sZV+qw=;
-        b=j3daYy6XBYbDdUwKm/iCSiBVWE7lD9ua1q3Jg+74g0G7S2RDy+2k6+NARqKbARgHD0
-         wmLxQPRm7f3QnVZTiRqZvXE8JiTJNO0AYe55P2qLrggsEk1qaWSAfwDuFY1wStJT/wAh
-         +6lRDU+DYXJhgQxhymtIOdWLYUx1FziIhO+IzbXyIerYiTmMQ3HXjlGZBxmL6DPYVYqf
-         auR+X+YOTb9qdinU9pgZ3uY9RuIK1RkulIYyjx8Gxdyno2Cu9VLPU0BIIrkrt3KXCVmi
-         Fo0W5rvSnk8b7d7fZXL1HYzU56X5G0z4IB3tvTuSIRg7NZWSYIdvJJQIbQI7Pfv3pipi
-         zBkw==
-X-Forwarded-Encrypted: i=1; AKwUvBxLcK+x827ycUFbhusV2cPNklXDo8l4L3CJ0jPdKOf+EQnvu5WJjhRPsZ1qQhh7N+wN9JWyF6fBK0Otgc4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEA7xcijxssDZopcmZ9pvFoLa4na57yUALpfCXvKA1rXiklzJk
-	18tYO96lY1l1NC9ABbx6FOY0InGq7XPpY6/y/rh1nm8UzF9K5GTe47SH
-X-Gm-Gg: AYBFou0hucdJpt/g06CXgx4Sc0/NwKgtaLA7cFOEjlERrGQ33AWE3rBBHR2NokwMn/e
-	wflEqHxAH2AGKqAlaIvBBgguHGKqfAyzZ4RW0uDMwsuD/0sotUmfLXJWwKwr4+74/YuM4FlZ1Ek
-	w/4MoltnW/wHZrZgJF5WvJKW8ImIikrd1bNG1zfy6gzZqIp8w857vIGJHwx8C0pUkDFwBn9eUYj
-	MKFebylZ3m82EZEHaGlZHwy9dg2/X71YmxR1I+AxsGGRs8MTv1SwahDLYK7fKzKADXZUJlHAhgQ
-	sgKIxy8OI/CbAWbIIu8D78BwJm1f2Yy18jBEyGgNBKOVWUvoQfZ2f5Si78Dla/XK7y0NvxXE808
-	akk9drrBmAuLtXsy9etYkxxZiRWNVOnG9QHIydZHHp24xtMwP8WPuQJKWgB9APrYiJqOjAj3fSx
-	6IGge4ND0MnLc859tO7eocWxu9fwKzn4fE8r8aop+cts8bFzDoj/eWpWfk1LAJIdN975fJS6Mag
-	y0IlQMURgZI75aR+bQR
-X-Received: by 2002:a17:90b:4c02:b0:39e:2036:8243 with SMTP id 98e67ed59e1d1-39e54eb71f7mr17140919a91.25.1790023343451;
-        Mon, 21 Sep 2026 13:42:23 -0700 (PDT)
-Received: from cfarm424.jing.rocks (cfarm424.jing.rocks. [2600:3c18:e002:2e11::c424])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a067021ca6sm967996a91.2.2026.09.21.13.42.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 13:42:22 -0700 (PDT)
-From: Ridham Khurana <khurana.ridham222@gmail.com>
-To: =?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>
-Cc: soc@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Arnd Bergmann <arnd@arndb.de>,
-	linux-kernel@vger.kernel.org,
-	Shuah Khan <shuah@kernel.org>,
-	Jori Koolstra <jkoolstra@xs4all.nl>,
-	Brigham Campbell <me@brighamcampbell.com>,
-	linux-kernel-mentees@lists.linux.dev,
-	Ridham Khurana <khurana.ridham222@gmail.com>
-Subject: [PATCH RESEND] platform: cznic: turris-omnia-mcu: Add missing MODULE_DEVICE_TABLE()
-Date: Mon, 21 Sep 2026 20:41:47 +0000
-Message-ID: <20260921204204.797294-1-khurana.ridham222@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        d=1e100.net; s=20260707; t=1790023407; x=1790628207;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2AqOeRbrkTEeKxz/VGkXBEycMszwg20ujuSANUVGQhE=;
+        b=fjDi+oRkWtHgPWzGnDv9SOBx8VRskBKk3PPpj6UBO5RWPqf6RMVPK93DSciZdGqY4L
+         69RA5V6V+Wijl1eH1+Vs6KV6DYpsK17ha9hTvXeQO4szOHc+6Ev15fI3CeNN0h4ZWeE9
+         mYYogZ2YIeHZAsmpOahiD6jidUpxmxrlhQ2evmTFn/A4Pwu/mJ0UdNYdn5sw57EYFC1W
+         KZ3kTt6vNlYrG47pie9+/hA7cHaWsuY09CS/iHIWour0GCW0Ilm64ZZMadH2Diq1YICL
+         dwBsoSzlqcQ871yQ7NxK9HKsHNryaHRG974Nhszhnu9PLJVqmJp3OZzZqeke8LSUerRO
+         KowQ==
+X-Forwarded-Encrypted: i=1; AKwUvByXgpimIXEI8LTkFHB4NDzMj54Cz0wWIfg9nlXiUyKPG9bqaPBsqVQQhKYk0K+UZHIsXty2KOF8XzwdbHc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkWedb+ixfj14d0FPcgnVAVZj+unjvd9YbX412kBX1Z3im+ldR
+	Bcosh0qHhAe+Mo/0DX3zKXwfQcLB0mTZClDXk9Z5nbdhnmB8A8yEfk5UKdQMr4iXnKAnAaglu/w
+	oQW2LZGn6XzjF+VzVPiDSuL2hTyHxj7Y=
+X-Gm-Gg: AYBFou2aMixxr69/FZzYOHgO0Ph/HNdF8+W7kDYSIOcFRf0dtV0hM77pSAzEBEDsebt
+	cwPKCIkE1vDb8GhepvgmAwdM6PQMxKfkZ7b9pIoCPsA4SPI7yjjG1jgrGopYSD84SEEsffbJvWg
+	yMHI9zn+5JvmWx+950tlchS2wFla+L2yYhWNvRDqaYiYfl3mIZN8tCOenKHxZOBuzokUfgWv56Q
+	CTM7A/jk8EB3yv08qleW/ZQjHJE0sryiOzjBpHI8umvFpuKnKJYOWumXojg66jmLm6W3vGhVgOO
+	YZ/G+Gtpdr0n+aOCqEh9WmY1BMkxAu+B58Hqhc6QJ4Z/WMKc3UOfE7xXUziBNSXgS3mXHv3KYQQ
+	pJUWdnQHczApHtm4MwJcX1R6KAgfo/zHF0X3KqhVHND+b
+X-Received: by 2002:a05:6512:3c90:b0:5b8:b392:b401 with SMTP id
+ 2adb3069b0e04-5b8d28f8740mr203875e87.16.1790023406454; Mon, 21 Sep 2026
+ 13:43:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260918-fix-macsec-net-v2-1-784203ec4836@gmail.com> <arD488xDvFFwtTTN@krikkit>
+In-Reply-To: <arD488xDvFFwtTTN@krikkit>
+From: Haseeb Malik <haseebulhaq55@gmail.com>
+Date: Mon, 21 Sep 2026 16:43:15 -0400
+X-Gm-Features: AcwNN1UVt7aUbP_RA8XzUc4ImBuixAqqs5Pgi8wN_QARDaMYSFlj-pf3Ytt-ASc
+Message-ID: <CAB4N2KN-0EpTcU4eWD3hdFN=cM0S6T9UVjmy1URQPjJck8riVg@mail.gmail.com>
+Subject: Re: [PATCH net v2] macsec: initialize SecY before registering the netdevice
+To: Sabrina Dubroca <sd@queasysnail.net>
+Cc: Haseeb Malik via B4 Relay <devnull+haseebulhaq55.gmail.com@kernel.org>, 
+	felix.walter@cloudandheat.com, edumazet@google.com, 
+	linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, hangbin.liu@linux.dev, 
+	kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	davem@davemloft.net, syzkaller-bugs@googlegroups.com, 
+	syzbot+f2f6312ad1b5a0bfe316@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The driver wires of_omnia_mcu_match into the i2c_driver's
-.of_match_table but never exports it with MODULE_DEVICE_TABLE(), so no
-module alias is generated and the module is not autoloaded when the MCU
-is probed from the device tree.
+Thanks, you're right. I picked the commit that introduced the warning,
+but the initialization order goes back to the original MACsec driver.
 
-Found by code inspection. Not tested on the hardware itself; with the
-module built, the alias lookup
+Corrected the Fixes tag to c09440f7dcb3 in v3:
+https://lore.kernel.org/netdev/20260921-fix-macsec-net-v3-1-accf94f93f5e@gm=
+ail.com/
 
-  $ modprobe -R 'of:Nsystem-controllerT(null)Ccznic,turris-omnia-mcu'
+Thanks,
+Haseeb
 
-reports no match before this change and resolves to turris_omnia_mcu
-after it.
-
-Fixes: 992f1a3d4e88 ("platform: cznic: Add preliminary support for Turris Omnia MCU")
-Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
----
-Resend of the original posting, unchanged, widening Cc to the SoC tree
-(drivers/platform/cznic goes upstream through it). No response to the
-original posting or to the ping on Sep 9.
-
-Build-tested on linux-next (next-20260921).
-
-Link: https://lore.kernel.org/all/20260827113241.993923-1-khurana.ridham222@gmail.com/
-
- drivers/platform/cznic/turris-omnia-mcu-base.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/platform/cznic/turris-omnia-mcu-base.c b/drivers/platform/cznic/turris-omnia-mcu-base.c
-index e8fc0d7b3343..f0416302a1f3 100644
---- a/drivers/platform/cznic/turris-omnia-mcu-base.c
-+++ b/drivers/platform/cznic/turris-omnia-mcu-base.c
-@@ -403,6 +403,7 @@ static const struct of_device_id of_omnia_mcu_match[] = {
- 	{ .compatible = "cznic,turris-omnia-mcu" },
- 	{}
- };
-+MODULE_DEVICE_TABLE(of, of_omnia_mcu_match);
- 
- static struct i2c_driver omnia_mcu_driver = {
- 	.probe		= omnia_mcu_probe,
--- 
-2.47.3
-
+On Mon, Sep 21, 2026 at 5:29=E2=80=AFAM Sabrina Dubroca <sd@queasysnail.net=
+> wrote:
+>
+> 2026-09-18, 15:01:29 -0400, Haseeb Malik via B4 Relay wrote:
+> > From: Haseeb Malik <haseebulhaq55@gmail.com>
+> >
+> > Creating a MACsec device with MAC offload over an LRO-capable lower
+> > device triggers a warning in rtmsg_ifinfo_build_skb() when IPv4
+> > forwarding is enabled by default.
+> >
+> > register_netdevice() invokes inetdev_init(), which disables LRO and emi=
+ts
+> > a NETDEV_FEAT_CHANGE notification. This reaches macsec_fill_info() befo=
+re
+> > macsec_add_dev() initializes the SecY. key_len is still zero, so
+> > macsec_fill_info() returns -EMSGSIZE and trips the WARN_ON in
+> > rtmsg_ifinfo_build_skb(), even though the skb has enough space.
+> >
+> > Initialize the SecY and apply the new-link attributes before registrati=
+on.
+> > Move MAC address inheritance into macsec_newlink() so the SCI can also =
+be
+> > initialized before registration-time notifications report it. Move the
+> > per-CPU statistics and metadata destination allocation into ndo_init(),
+> > and release partial allocations on failure.
+> >
+> > Fixes: ccfdec908922 ("macsec: Add support for GCM-AES-256 cipher suite"=
+)
+>
+> Why this commit? The "register, then init SCI etc" order of operations
+> has existed since day 1. Without ccfdec908922 we don't hit the WARN_ON
+> in rtmsg_ifinfo_build_skb, but the bit fixed by "Registration can
+> notify listeners before returning." would still be bogus.
+>
+> The patch itself looks ok. Thanks for picking this up, things got
+> crazy and I forgot about it.
+>
+> --
+> Sabrina
