@@ -1,56 +1,56 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E47A2C3266
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:48:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615B12D1F40
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:48:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789951740; cv=none; b=c9POCwpQwMxtXVwrwvai1I17YOLr4mcnbI1MuBsPXYXleQzZUS95YGOTmRGH6tiuXnLyTa1GNh6D7+BVJ+yya2a/lUlQPj7rhK2QbLoEmavgvHqF+H3kaaYiYbzpANCE+wcJOh9giT6szznpiy/bMXmH1+Ru3x4N+Kvxd8oSciw=
+	t=1789951737; cv=none; b=dh/li1Sk9DF7O+DOlTZ/YKDqf5In7qONhkMtbkh03UwN65W+YXAUTgw5Yoc5q6P3+J2rEF0Uh/JHML8at4xzZydAFMzjOGBfp5gp5VjyMz44HHbV8yZKzrob1UqDZiNUueb5Zrtjrz6B4zW/1Leb9Oq/ICU2ZxNIsO/UPWXPg8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789951740; c=relaxed/simple;
-	bh=8am889ShSkVPusNK1kpFvgrxYeOGtjoGYqKXzuv+tR0=;
+	s=arc-20240116; t=1789951737; c=relaxed/simple;
+	bh=gwAv+wRVw3t/fG51U9Ec6hw3eDnLX/9UJyVoiPX5g7Y=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=pB1r6PJic2F8gjaBQ9XowxNyEv08e0xNwpsdBkJh0cAlBW2/E/Fw6a3RVg5s6SmRWokkUxVwtsph9bphT4DdYRWYXXOXPmoJVS//SMTvg38fVgXAqxHKbCc5hQw/h+S1npT75YXj8CRuOkPKv/OuUWBKZUktBVvGKwwSaZ9FzoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NVm/v6WN; arc=none smtp.client-ip=209.85.214.197
+	 To:Cc:Content-Type; b=tmVw0/40hGqBI6QUSKnKyiu1i3/xtXkQ2I+wNJJWrE/11k6iTkcUU2bWSZFWncwLLzJen8XizvRhvf1UouCOvKye6gfboOFKzc/5IVjDcBs+oPu9FkUYfkVYrgK2rBqWQYCyTJB345MxDwKgHkBJ86PUUJgQeOjnloNFyIksglk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nt24gl6w; arc=none smtp.client-ip=209.85.214.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NVm/v6WN"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d6fb956002so34133975ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:48:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nt24gl6w"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2db87f759c5so50275195ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:48:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789951736; x=1790556536; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789951730; x=1790556530; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kArZK0FqrV6rmyoKKIup6IrA4GYYPnuNKWQqNG3i9W4=;
-        b=NVm/v6WNOjrjaxaR90jnXqLPXurNM0XUv10oiKub1SUXNX4RcR2dC3XfMuhzQ2zBd1
-         /Cf1SMo8YOogVNpySIosyEw51OVodpd3609c/5craMY99th2fW1dPnoLj1iQq02DJ+Wm
-         7uuYShSa32T8D+j/sSehVBMQRVUFzRzybov9f7Y16SIGZtaL9Og/YQFzyQppodN3wZqL
-         C+BMmNei83Tfk5ugpSuwo72rMh/+vS0wPf30GqMqugFrfXF3uji+cHC7wAgJCPnutXjC
-         JR3Ph/EYeQU3J3NDYFziy4wQd2x5t8xcNsSu8bm0ZKV6if2NhM2k9JiZ58rv2qQswnhV
-         W3Ow==
+        bh=vboebmTOKLm+aioJh8qWJMYwNYCO/nAezbpt/kP9hZc=;
+        b=nt24gl6wZbD1fimF8AFLJYzNIJZWHqrzYFhquDcnnLaBFOjRigrlEFycQIyihPPTSi
+         HbeP2Du4r2/Bb+FLDKtRy/igL1S4jZJjlJXOpViepWbAQDs0FgGP4RM9LOwjeq1ojgFP
+         QycM8nQjTbWO86gesHoOeTKRxRPIHCCZB+X3bsmjnSY6YfLvIn8nJvJ/odDZLLzIrKPs
+         PZN7IB92+R3aUpXgy+nwDe5H1UzzubIwGK7Ue+FkpSTkFQ42dQ4PdSiuy5r1XpRsLNHt
+         3z7MsiEw2GySPIFAVVdzs5AN8QHcS8Be5lzV10qRheAXEiyPoecHxEfGEJnPcgesfI1f
+         tjkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789951736; x=1790556536;
+        d=1e100.net; s=20260707; t=1789951730; x=1790556530;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kArZK0FqrV6rmyoKKIup6IrA4GYYPnuNKWQqNG3i9W4=;
-        b=seFbQmy1BI63ogDtIGMFfxdTdqkhtlWm+9t+AKPA95POucViFdacYr/gkPPP3a0CUY
-         5HgV5ltJgEwUK6z7f9Yjo4/LEEFQW+ukLVp8zsZo/DhbF2pzHDeew+O3AKfQvb5fXeT2
-         /8zVhM8QrriX7UZeh3XmaVl2M5lyy8l3955NdWX0InN/FwkNVJu4xhmACf3K7OrYrR+H
-         wWA+D3Tbrwug5r1+86K1otpaxQoEdT6w2cEqK8oxtph8QdHfZw2zCdLxDjBeDPjqneks
-         cI8AJDxdpeCwp7PIi3cGxJVZ8e7RXJpO7YDta3GU8Ow1N3WON3Ltn8dwtaHKykPRTH1o
-         w4WQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwUzROpeF0vSQy9tqmMscHAen0WnYsGdlxRq+91fip95IwX23wh5DX8fMu5e1Ef1UCMRmAujO5uw95I1/w=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6ApWHXYd1JiF7+9lrwJqN51zgNyClwWZiQ+zzdMtZbC7S9/i/
-	xwHbGtgoV3rdxHh51NOdEGRky058lJlUkXSgVoN/Dd6V1UDVVZRz+KrpbxrvMHi9yxfrq/agxKu
-	y74RmXWaAjqyB/Q==
-X-Received: from plbd20.prod.google.com ([2002:a17:902:f154:b0:2df:3910:96c0])
+        bh=vboebmTOKLm+aioJh8qWJMYwNYCO/nAezbpt/kP9hZc=;
+        b=ID6N+oyMU0NkvYU/YnNNPibl9SbEh1xFjs6I5un6g2u9xby9FDgkq7GAVDq2PuWIZK
+         n82rJpkqWX0eOrKF7w0M2VPLda3EZFIRVokaFgdhThEH60cykZ0vHvFaniQy26y0nrmx
+         Qv0kFN1HD2/yMVrJA668uGrUtZ0bdl3XhWl4E3fvmyWI66lytYGwTxrt9dFmy8MMv3kv
+         Y5xt3rRI4mt6dEC65qeatoNwskydn6Jgqe56V5UlNZ7OoRR24sWl/mDh29xwNfuEJuGn
+         xZHNnGi92Jb37UtVcMwh8VeFJcwiIlscZ3J8VyC12f4fEzkebs8SqI2ZtVy9ZhcXvrQB
+         IBkg==
+X-Forwarded-Encrypted: i=1; AKwUvBwJBbYOX9aLm6gt64jgj2i8LShZkIB6M1hVvpTclhjwkBmH9eJM37K3SAxpVPOx7JhjxL34KZv7GQfekb8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nK7R2UnSGzn1mGBtSpQ3iP0Ol8uFBiJpymty+lRuliu+7VN2hd
+	J36IBfUVi9XRirm+aKwcidbR1hZeQz/F1C3M5FSkqjqAAscaQTFDG6MJWchf0hXPZ35xA0UZWyq
+	++56h/q2yt2TW6Q==
+X-Received: from plly11.prod.google.com ([2002:a17:902:7c8b:b0:2dd:c0fa:93f7])
  (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:986:b0:2dd:c053:d73b with SMTP id d9443c01a7336-2ddc053d79dmr82308235ad.34.1789951735528;
- Sun, 20 Sep 2026 17:48:55 -0700 (PDT)
-Date: Mon, 21 Sep 2026 00:48:34 +0000
+ 2002:a17:903:fa5:b0:2dd:c100:b2c1 with SMTP id d9443c01a7336-2ddc100b33bmr78386365ad.44.1789951729909;
+ Sun, 20 Sep 2026 17:48:49 -0700 (PDT)
+Date: Mon, 21 Sep 2026 00:48:27 +0000
 In-Reply-To: <20260921004834.2601285-1-skhawaja@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,307 +60,456 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260921004834.2601285-1-skhawaja@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260921004834.2601285-19-skhawaja@google.com>
-Subject: [PATCH v5 18/18] iommufd/selftest: Add test to verify iommufd preservation
+Message-ID: <20260921004834.2601285-12-skhawaja@google.com>
+Subject: [PATCH v5 11/18] iommu: Restore and reattach preserved domains to devices
 From: Samiullah Khawaja <skhawaja@google.com>
 To: David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>, 
 	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Samiullah Khawaja <skhawaja@google.com>, YiFei Zhu <zhuyifei@google.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+Cc: Samiullah Khawaja <skhawaja@google.com>, Robin Murphy <robin.murphy@arm.com>, 
+	Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, 
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
 	Pratyush Yadav <pratyush@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
 	David Matlack <dmatlack@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
 	Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Test iommufd preservation by setting up an iommufd and vfio cdev and
-preserve it across live update. Test takes VFIO cdev path of a device
-bound to vfio-pci driver and binds it to an iommufd being preserved. It
-also preserves the vfio cdev so the iommufd state associated with it is
-also preserved.
-
-The restore path is tested by restoring the preserved vfio cdev only. On
-restore, test verifies that the bind with a new iommufd fails as the
-device is attached to the restored IOMMU domain. Also the LUO session
-finish fails as the preserved iommufd is not restored.
+During default domain setup, restore the preserved domains by restoring
+the page tables using restore() iommupt op. Associated the restored
+domain with the iommu group of the preserved device, and reattach the
+domain to the device.
 
 Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
-Signed-off-by: YiFei Zhu <zhuyifei@google.com>
 ---
- tools/testing/selftests/iommu/Makefile        |  12 +
- .../iommu/iommufd_liveupdate_kexec_test.c     | 241 ++++++++++++++++++
- 2 files changed, 253 insertions(+)
- create mode 100644 tools/testing/selftests/iommu/iommufd_liveupdate_kexec_test.c
+ drivers/iommu/iommu.c            | 116 +++++++++++++++++++++++++++++--
+ drivers/iommu/liveupdate.c       | 116 +++++++++++++++++++++++++++++++
+ include/linux/iommu-liveupdate.h |  64 +++++++++++++++++
+ 3 files changed, 290 insertions(+), 6 deletions(-)
 
-diff --git a/tools/testing/selftests/iommu/Makefile b/tools/testing/selftests/iommu/Makefile
-index 84abeb2f0949..ab35e8b21580 100644
---- a/tools/testing/selftests/iommu/Makefile
-+++ b/tools/testing/selftests/iommu/Makefile
-@@ -7,4 +7,16 @@ TEST_GEN_PROGS :=
- TEST_GEN_PROGS += iommufd
- TEST_GEN_PROGS += iommufd_fail_nth
+diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+index 9c1ad8de3ad7..cca1eb332a43 100644
+--- a/drivers/iommu/iommu.c
++++ b/drivers/iommu/iommu.c
+@@ -158,6 +158,7 @@ static void __iommu_group_set_domain_nofail(struct iommu_group *group,
+ 	WARN_ON(__iommu_group_set_domain_internal(
+ 		group, new_domain, IOMMU_SET_DOMAIN_MUST_SUCCEED));
+ }
++static int __iommu_group_alloc_blocking_domain(struct iommu_group *group);
  
-+TEST_GEN_PROGS_EXTENDED += iommufd_liveupdate_kexec_test
+ static int iommu_setup_default_domain(struct iommu_group *group,
+ 				      int target_type);
+@@ -540,6 +541,10 @@ static int iommu_init_device(struct device *dev)
+ 		goto err_free;
+ 	}
+ 
++#ifdef CONFIG_IOMMU_LIVEUPDATE
++	iommu_init_device_preserved_data(dev);
++#endif
 +
- include ../lib.mk
-+include ../liveupdate/lib/libliveupdate.mk
-+
-+CFLAGS += -I$(top_srcdir)/tools/include
-+CFLAGS += -MD
-+CFLAGS += $(EXTRA_CFLAGS)
-+
-+$(TEST_GEN_PROGS_EXTENDED): %: %.o $(LIBLIVEUPDATE_O)
-+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH) $< $(LIBLIVEUPDATE_O) $(LDLIBS) -o $@
-+
-+EXTRA_CLEAN += $(LIBLIVEUPDATE_O)
-diff --git a/tools/testing/selftests/iommu/iommufd_liveupdate_kexec_test.c b/tools/testing/selftests/iommu/iommufd_liveupdate_kexec_test.c
-new file mode 100644
-index 000000000000..26c7e15b6187
---- /dev/null
-+++ b/tools/testing/selftests/iommu/iommufd_liveupdate_kexec_test.c
-@@ -0,0 +1,241 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+/*
-+ * Copyright (c) 2026, Google LLC.
-+ * Samiullah Khawaja <skhawaja@google.com>
-+ */
-+
-+#include <fcntl.h>
-+#include <sys/ioctl.h>
-+#include <sys/mman.h>
-+#include <stdbool.h>
-+#include <unistd.h>
-+#include <limits.h>
-+
-+#define __EXPORTED_HEADERS__
-+#include <linux/iommufd.h>
-+#include <linux/types.h>
-+#include <linux/vfio.h>
-+#include <linux/sizes.h>
-+#include <libliveupdate.h>
-+
-+#include "../kselftest.h"
-+
-+#define ksft_assert(condition) \
-+	do { \
-+		if (!(condition)) \
-+			fail_exit("Failed: %s", #condition); \
-+	} while (0)
-+
-+static const char *device_cdev_path;
-+static char state_session[LIVEUPDATE_SESSION_NAME_LENGTH];
-+static char iommufd_session[LIVEUPDATE_SESSION_NAME_LENGTH];
-+
-+static const uint64_t STATE_TOKEN;
-+static const uint64_t IOMMUFD_TOKEN = 0x123456;
-+static const uint64_t CDEV_TOKEN = 0x654321;
-+static const uint64_t HWPT_TOKEN = 0x789012;
-+static const uint64_t MEMFD_TOKEN = 0x890123;
-+
-+static int open_cdev(const char *vfio_cdev_path)
+ 	iommu_dev = ops->probe_device(dev);
+ 	if (IS_ERR(iommu_dev)) {
+ 		ret = PTR_ERR(iommu_dev);
+@@ -604,7 +609,8 @@ static void iommu_deinit_device(struct device *dev)
+ 	 * Regardless, if a delayed attach never occurred, then the release
+ 	 * should still avoid touching any hardware configuration either.
+ 	 */
+-	if (!dev->iommu->attach_deferred && ops->release_domain) {
++	if (!dev->iommu->attach_deferred && ops->release_domain &&
++	    !dev_iommu_restored_state(dev)) {
+ 		struct iommu_domain *release_domain = ops->release_domain;
+ 
+ 		/*
+@@ -694,7 +700,8 @@ static int __iommu_probe_device(struct device *dev, struct list_head *group_list
+ 	}
+ 
+ 	for_each_group_device(group, gdev2) {
+-		if (dev_iommu_preserved_state(gdev2->dev)) {
++		if (dev_iommu_preserved_state(gdev2->dev) ||
++		    dev_iommu_restored_state(gdev2->dev)) {
+ 			ret = -EBUSY;
+ 			goto err_free_gdev;
+ 		}
+@@ -764,6 +771,27 @@ int iommu_probe_device(struct device *dev)
+ 	return 0;
+ }
+ 
++static void __iommu_group_remove_restored_device(struct iommu_group *group,
++						 struct device *dev)
 +{
-+	int cdev_fd;
++	struct iommu_device_ser *device_ser;
 +
-+	cdev_fd = open(vfio_cdev_path, O_RDWR);
-+	if (cdev_fd < 0)
-+		ksft_exit_skip("Failed to open VFIO cdev: %s\n", vfio_cdev_path);
++	lockdep_assert_held(&group->mutex);
++	device_ser = dev_iommu_restored_state(dev);
++	if (!device_ser)
++		return;
 +
-+	return cdev_fd;
++	if (!group->owner_cnt || group->owner != device_ser)
++		return;
++
++	if (group->owner_cnt > 1) {
++		group->owner_cnt--;
++	} else {
++		group->owner_cnt = 0;
++		group->owner = NULL;
++	}
 +}
 +
-+static int open_iommufd(void)
+ static void __iommu_group_free_device(struct iommu_group *group,
+ 				      struct group_device *grp_dev)
+ {
+@@ -775,13 +803,15 @@ static void __iommu_group_free_device(struct iommu_group *group,
+ 	trace_remove_device_from_group(group->id, dev);
+ 
+ 	/*
+-	 * If the group has become empty then ownership must have been
+-	 * released, and the current domain must be set back to NULL or
+-	 * the default domain.
++	 * If the group has become empty then ownership must have been released,
++	 * and the current domain must be set back to NULL or the default
++	 * domain. A restored domain remains attached to the restored device on
++	 * removal.
+ 	 */
+ 	if (list_empty(&group->devices))
+ 		WARN_ON(group->owner_cnt ||
+-			group->domain != group->default_domain);
++			(group->domain != group->default_domain &&
++			 !iommu_domain_restored_state(group->domain)));
+ 
+ 	kfree(grp_dev->name);
+ 	kfree(grp_dev);
+@@ -794,6 +824,7 @@ static void __iommu_group_remove_device(struct device *dev)
+ 	struct group_device *device;
+ 
+ 	mutex_lock(&group->mutex);
++	__iommu_group_remove_restored_device(group, dev);
+ 	for_each_group_device(group, device) {
+ 		if (device->dev != dev)
+ 			continue;
+@@ -2211,6 +2242,7 @@ static int __iommu_attach_device(struct iommu_domain *domain,
+ 	ret = domain->ops->attach_dev(domain, dev, old);
+ 	if (ret)
+ 		return ret;
++
+ 	dev->iommu->attach_deferred = 0;
+ 	trace_attach_device_to_domain(dev);
+ 	return 0;
+@@ -3175,6 +3207,62 @@ int iommu_fwspec_add_ids(struct device *dev, const u32 *ids, int num_ids)
+ }
+ EXPORT_SYMBOL_GPL(iommu_fwspec_add_ids);
+ 
++static struct device *__iommu_group_restored_device(struct iommu_group *group)
 +{
-+	int iommufd;
++	struct group_device *gdev;
 +
-+	iommufd = open("/dev/iommu", O_RDWR);
-+	if (iommufd < 0)
-+		ksft_exit_skip("Failed to open /dev/iommu. IOMMUFD support not enabled.\n");
++	lockdep_assert_held(&group->mutex);
++	for_each_group_device(group, gdev) {
++		if (!dev_is_pci(gdev->dev))
++			continue;
 +
-+	return iommufd;
-+}
-+
-+static int create_sealed_memfd(size_t size)
-+{
-+	int fd, ret;
-+
-+	fd = memfd_create("buffer", MFD_ALLOW_SEALING);
-+	if (fd < 0)
-+		fail_exit("memfd_create failed");
-+
-+	ret = ftruncate(fd, size);
-+	if (ret)
-+		fail_exit("ftruncate failed");
-+
-+	ret = fcntl(fd, F_ADD_SEALS, F_SEAL_GROW | F_SEAL_SHRINK | F_SEAL_SEAL);
-+	if (ret)
-+		fail_exit("fcntl F_ADD_SEALS failed");
-+
-+	return fd;
-+}
-+
-+#define test_ioctl(fd, cmd, arg) \
-+	do { \
-+		if (ioctl(fd, cmd, arg)) \
-+			fail_exit("ioctl(%s) failed", #cmd); \
-+	} while (0)
-+
-+#define test_luo_session_preserve_fd(session, fd, token) \
-+	do { \
-+		if (luo_session_preserve_fd(session, fd, token)) \
-+			fail_exit("luo_session_preserve_fd(%s) failed", #token); \
-+	} while (0)
-+
-+#define test_luo_session_retrieve_fd(session, token) \
-+	({ \
-+		int _fd = luo_session_retrieve_fd(session, token); \
-+		if (_fd < 0) \
-+			fail_exit("luo_session_retrieve_fd(%s) failed", #token); \
-+		_fd; \
-+	})
-+
-+static void setup_iommufd(int iommufd, int memfd, int cdev_fd)
-+{
-+	struct vfio_device_bind_iommufd bind = {
-+		.argsz = sizeof(bind),
-+		.flags = 0,
-+		.iommufd = iommufd,
-+	};
-+	struct iommu_ioas_alloc alloc_data = {
-+		.size = sizeof(alloc_data),
-+		.flags = 0,
-+	};
-+	struct iommu_hwpt_alloc hwpt_alloc = {
-+		.size = sizeof(hwpt_alloc),
-+		.flags = 0,
-+	};
-+	struct vfio_device_attach_iommufd_pt attach_data = {
-+		.argsz = sizeof(attach_data),
-+		.flags = 0,
-+	};
-+	struct iommu_hwpt_liveupdate_mark_preserve mark_preserve = {
-+		.size = sizeof(mark_preserve),
-+		.hwpt_token = HWPT_TOKEN,
-+	};
-+	struct iommu_ioas_map_file map_file = {
-+		.size = sizeof(map_file),
-+		.length = SZ_1M,
-+		.flags = IOMMU_IOAS_MAP_WRITEABLE |
-+				IOMMU_IOAS_MAP_READABLE |
-+				IOMMU_IOAS_MAP_FIXED_IOVA,
-+		.iova = SZ_4G,
-+		.fd = memfd,
-+		.start = 0,
-+	};
-+
-+	test_ioctl(cdev_fd, VFIO_DEVICE_BIND_IOMMUFD, &bind);
-+
-+	test_ioctl(iommufd, IOMMU_IOAS_ALLOC, &alloc_data);
-+
-+	hwpt_alloc.dev_id = bind.out_devid;
-+	hwpt_alloc.pt_id = alloc_data.out_ioas_id;
-+	test_ioctl(iommufd, IOMMU_HWPT_ALLOC, &hwpt_alloc);
-+
-+	attach_data.pt_id = hwpt_alloc.out_hwpt_id;
-+	test_ioctl(cdev_fd, VFIO_DEVICE_ATTACH_IOMMUFD_PT, &attach_data);
-+
-+	map_file.ioas_id = alloc_data.out_ioas_id;
-+	test_ioctl(iommufd, IOMMU_IOAS_MAP_FILE, &map_file);
-+
-+	mark_preserve.hwpt_id = attach_data.pt_id;
-+	test_ioctl(iommufd, IOMMU_HWPT_LIVEUPDATE_MARK_PRESERVE, &mark_preserve);
-+}
-+
-+static void before_kexec(int luo_fd)
-+{
-+	int iommufd, cdev_fd, memfd, session;
-+
-+	create_state_file(luo_fd, state_session, STATE_TOKEN, /*next_stage=*/2);
-+
-+	session = luo_create_session(luo_fd, iommufd_session);
-+	if (session < 0)
-+		fail_exit("luo_create_session failed");
-+
-+	iommufd = open_iommufd();
-+	memfd = create_sealed_memfd(SZ_1M);
-+	cdev_fd = open_cdev(device_cdev_path);
-+
-+	setup_iommufd(iommufd, memfd, cdev_fd);
-+
-+	/* Cannot preserve cdev without iommufd */
-+	if (!luo_session_preserve_fd(session, cdev_fd, CDEV_TOKEN))
-+		fail_exit("Preserving cdev without iommufd should fail");
-+
-+	/* Cannot preserve iommufd without preserving memfd. */
-+	if (!luo_session_preserve_fd(session, iommufd, IOMMUFD_TOKEN))
-+		fail_exit("Preserving iommufd without memfd should fail");
-+
-+	test_luo_session_preserve_fd(session, memfd, MEMFD_TOKEN);
-+	test_luo_session_preserve_fd(session, iommufd, IOMMUFD_TOKEN);
-+	test_luo_session_preserve_fd(session, cdev_fd, CDEV_TOKEN);
-+
-+	close(session);
-+	session = luo_create_session(luo_fd, iommufd_session);
-+	if (session < 0)
-+		fail_exit("luo_create_session failed");
-+
-+	test_luo_session_preserve_fd(session, memfd, MEMFD_TOKEN);
-+	test_luo_session_preserve_fd(session, iommufd, IOMMUFD_TOKEN);
-+	test_luo_session_preserve_fd(session, cdev_fd, CDEV_TOKEN);
-+
-+	close(luo_fd);
-+	daemonize_and_wait();
-+}
-+
-+static void after_kexec(int luo_fd, int state_session_fd)
-+{
-+	int iommufd, cdev_fd, session, stage;
-+	struct vfio_device_bind_iommufd bind = {
-+		.argsz = sizeof(bind),
-+		.flags = 0,
-+	};
-+
-+	restore_and_read_stage(state_session_fd, STATE_TOKEN, &stage);
-+	ksft_assert(stage == 2);
-+
-+	session = luo_retrieve_session(luo_fd, iommufd_session);
-+	if (session < 0)
-+		fail_exit("luo_retrieve_session failed");
-+
-+	cdev_fd = test_luo_session_retrieve_fd(session, CDEV_TOKEN);
-+
-+	iommufd = luo_session_retrieve_fd(session, IOMMUFD_TOKEN);
-+	if (iommufd >= 0)
-+		fail_exit("iommufd should not be retrievable yet");
-+
-+	iommufd = open_iommufd();
-+
-+	bind.iommufd = iommufd;
-+	if (ioctl(cdev_fd, VFIO_DEVICE_BIND_IOMMUFD, &bind) == 0 || errno != EPERM)
-+		fail_exit("Binding cdev to new iommufd should fail with EPERM");
-+
-+	/* Should fail */
-+	if (luo_session_finish(session) == 0)
-+		fail_exit("luo_session_finish should fail if iommufd is not restored");
-+
-+	close(iommufd);
-+	close(cdev_fd);
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+	if (argc < 2) {
-+		printf("Usage: %s <vfio_cdev_path>\n", argv[0]);
-+		return 1;
++		if (dev_iommu_restored_state(gdev->dev))
++			return gdev->dev;
 +	}
 +
-+	device_cdev_path = argv[1];
-+	sprintf(iommufd_session, "iommufd-test-%s", "cdev");
-+	sprintf(state_session, "state-%s", "iommufd-cdev");
-+
-+	return luo_test(argc, argv, state_session, before_kexec, after_kexec);
++	return NULL;
 +}
++
++static int __iommu_group_restore_domain(struct iommu_group *group)
++{
++	struct iommu_device_ser *device_ser;
++	struct iommu_domain *domain;
++	struct device *dev;
++	void *owner;
++	int ret;
++
++	lockdep_assert_held(&group->mutex);
++	if (group->domain)
++		return -EBUSY;
++
++	dev = __iommu_group_restored_device(group);
++	device_ser = dev_iommu_restored_state(dev);
++	if (!device_ser)
++		return -ENOENT;
++
++	ret = __iommu_group_alloc_blocking_domain(group);
++	if (ret)
++		return ret;
++
++	domain = iommu_restore_domain(dev, device_ser, &owner);
++	if (WARN_ON(IS_ERR(domain)))
++		return PTR_ERR(domain);
++
++	/* The restored domain is attached with the restored device. */
++	ret = __iommu_group_set_domain(group, domain);
++	if (ret)
++		return ret;
++
++	/*
++	 * Ownership of groups with preserved devices is set during boot. These
++	 * will be reclaimed later by the entity (iommufd) that preserved them.
++	 */
++	WARN_ON(group->owner);
++	group->owner = owner;
++	group->owner_cnt = 1;
++	return ret;
++}
++
+ /**
+  * iommu_setup_default_domain - Set the default_domain for the group
+  * @group: Group to change
+@@ -3233,6 +3321,16 @@ static int iommu_setup_default_domain(struct iommu_group *group,
+ 
+ 	/* We must set default_domain early for __iommu_device_set_domain */
+ 	group->default_domain = dom;
++
++	/* Preserved devices need to be attached to the restore domain */
++	if (__iommu_group_restored_device(group)) {
++		ret = __iommu_group_restore_domain(group);
++		if (ret)
++			goto err_restore_def_domain;
++
++		goto out_free_old;
++	}
++
+ 	if (!group->domain) {
+ 		/*
+ 		 * Drivers are not allowed to fail the first domain attach.
+@@ -4102,6 +4200,9 @@ int pci_dev_reset_iommu_prepare(struct pci_dev *pdev)
+ 	if (!pci_ats_supported(pdev) || !dev_has_iommu(&pdev->dev))
+ 		return 0;
+ 
++	if (dev_iommu_restored_state(&pdev->dev))
++		return 0;
++
+ 	guard(mutex)(&group->mutex);
+ 
+ 	gdev = __dev_to_gdev(&pdev->dev);
+@@ -4213,6 +4314,9 @@ void pci_dev_reset_iommu_done(struct pci_dev *pdev)
+ 	if (!pci_ats_supported(pdev) || !dev_has_iommu(&pdev->dev))
+ 		return;
+ 
++	if (dev_iommu_restored_state(&pdev->dev))
++		return;
++
+ 	guard(mutex)(&group->mutex);
+ 
+ 	gdev = __dev_to_gdev(&pdev->dev);
+diff --git a/drivers/iommu/liveupdate.c b/drivers/iommu/liveupdate.c
+index ff76a23d9583..4fa12b4efea5 100644
+--- a/drivers/iommu/liveupdate.c
++++ b/drivers/iommu/liveupdate.c
+@@ -716,3 +716,119 @@ void iommu_unpreserve_device(struct iommu_domain *domain, struct device *dev)
+ 	liveupdate_flb_put_outgoing(&iommu_flb);
+ }
+ EXPORT_SYMBOL_GPL(iommu_unpreserve_device);
++
++static inline bool match_device_ser(struct iommu_device_ser *match,
++				    struct pci_dev *pdev)
++{
++	return match->devid == pci_dev_id(pdev) && match->pci_domain_nr == pci_domain_nr(pdev->bus);
++}
++
++/**
++ * iommu_init_device_preserved_data() - Initialize preserved state for device
++ * @dev: Target device
++ *
++ * Looks up incoming Live Update state for @dev and attaches it to the device if
++ * found.
++ */
++void iommu_init_device_preserved_data(struct device *dev)
++{
++	struct iommu_device_ser *device_ser = NULL;
++	struct iommu_device_array_ser *array;
++	struct iommu_flb_obj *flb_obj;
++	int ret, idx;
++
++	if (!dev_is_pci(dev))
++		return;
++
++	ret = iommu_liveupdate_flb_get_incoming(&flb_obj);
++	if (ret)
++		return;
++
++	mutex_lock(&flb_obj->lock);
++	array = phys_to_virt(flb_obj->ser->device_array_phys);
++	iommu_liveupdate_for_each_arr(array) {
++		iommu_liveupdate_for_each_obj(array, device_ser, idx) {
++			if (match_device_ser(device_ser, to_pci_dev(dev))) {
++				device_ser->hdr.flags |= IOMMU_SER_FLAG_INCOMING;
++				goto out;
++			}
++		}
++	}
++
++	device_ser = NULL;
++out:
++	WRITE_ONCE(dev->iommu->device_ser, device_ser);
++	mutex_unlock(&flb_obj->lock);
++	liveupdate_flb_put_incoming(&iommu_flb);
++}
++EXPORT_SYMBOL(iommu_init_device_preserved_data);
++
++/**
++ * iommu_restore_domain() - Restore a preserved domain for a device
++ * @dev: Target device
++ * @ser: Serialized device state
++ * @owner: Pointer to store group owner handle
++ *
++ * Restores or reuses a restored preserved domain for @dev from serialized state
++ * @ser.
++ *
++ * Return: Restored iommu_domain pointer, or ERR_PTR.
++ */
++struct iommu_domain *iommu_restore_domain(struct device *dev,
++					  struct iommu_device_ser *ser,
++					  void **owner)
++{
++	struct iommu_domain_ser *domain_ser;
++	struct iommu_flb_obj *flb_obj;
++	struct iommu_domain *domain;
++	struct pt_iommu *pt;
++	int ret;
++
++	ret = iommu_liveupdate_flb_get_incoming(&flb_obj);
++	if (ret)
++		return ERR_PTR(ret);
++
++	mutex_lock(&flb_obj->lock);
++
++	/* Preserved device should have a preserved domain */
++	if (!ser->domain_iommu_ser.domain_phys) {
++		domain = ERR_PTR(-EINVAL);
++		goto out;
++	}
++
++	domain_ser = phys_to_virt(ser->domain_iommu_ser.domain_phys);
++	if (domain_ser->restored_domain) {
++		*owner = ser;
++		domain = domain_ser->restored_domain;
++		goto out;
++	}
++
++	domain_ser->hdr.flags |=  IOMMU_SER_FLAG_INCOMING;
++	domain = iommu_paging_domain_alloc(dev);
++	if (IS_ERR(domain))
++		goto out;
++
++	pt = iommupt_from_domain(domain);
++	if (!pt) {
++		iommu_domain_free(domain);
++		domain = ERR_PTR(-EOPNOTSUPP);
++		goto out;
++	}
++
++	ret = pt->ops->restore(pt, domain_ser);
++	if (ret) {
++		iommu_domain_free(domain);
++		domain = ERR_PTR(ret);
++		goto out;
++	}
++
++	/* The device is owned by the preserved state. */
++	*owner = ser;
++	domain->preserved_state = domain_ser;
++	domain_ser->restored_domain = domain;
++
++out:
++	mutex_unlock(&flb_obj->lock);
++	liveupdate_flb_put_incoming(&iommu_flb);
++	return domain;
++}
+diff --git a/include/linux/iommu-liveupdate.h b/include/linux/iommu-liveupdate.h
+index 06f66cc8f526..3ff537ae081d 100644
+--- a/include/linux/iommu-liveupdate.h
++++ b/include/linux/iommu-liveupdate.h
+@@ -64,8 +64,51 @@ static inline void *iommu_domain_restored_state(struct iommu_domain *domain)
+ 	return NULL;
+ }
+ 
++/**
++ * dev_iommu_restored_state() - Get restored state of a device
++ * @dev: Target device
++ *
++ * Return: Restored state pointer or NULL.
++ */
++static inline void *dev_iommu_restored_state(struct device *dev)
++{
++	struct iommu_device_ser *ser;
++
++	if (!dev->iommu)
++		return NULL;
++
++	ser = READ_ONCE(dev->iommu->device_ser);
++	if (ser && (ser->hdr.flags & IOMMU_SER_FLAG_INCOMING))
++		return ser;
++
++	return NULL;
++}
++
++/**
++ * dev_iommu_restore_did() - Get restored domain ID for a device
++ * @dev: Target device
++ * @domain: Target domain
++ *
++ * Fetches the domain ID preserved for @dev and @domain across Live Update.
++ *
++ * Return: Domain ID or -1 on error.
++ */
++static inline int dev_iommu_restore_did(struct device *dev, struct iommu_domain *domain)
++{
++	struct iommu_device_ser *ser = dev_iommu_restored_state(dev);
++
++	if (ser && iommu_domain_restored_state(domain))
++		return ser->domain_iommu_ser.attachment_id;
++
++	return -1;
++}
++
++struct iommu_domain *iommu_restore_domain(struct device *dev,
++					  struct iommu_device_ser *ser,
++					  void **owner);
+ int iommu_for_each_preserved_device(iommu_preserved_device_iter_fn fn,
+ 				    void *arg);
++void iommu_init_device_preserved_data(struct device *dev);
+ struct iommu_hw_ser *iommu_get_preserved_data(u64 token, enum iommu_type_ser type);
+ int iommu_preserve_domain(struct iommu_domain *domain, struct iommu_domain_ser **ser);
+ void iommu_unpreserve_domain(struct iommu_domain *domain);
+@@ -98,16 +141,37 @@ static inline void *dev_iommu_preserved_state(struct device *dev)
+ 	return NULL;
+ }
+ 
++static inline void *dev_iommu_restored_state(struct device *dev)
++{
++	return NULL;
++}
++
++static inline int dev_iommu_restore_did(struct device *dev, struct iommu_domain *domain)
++{
++	return -1;
++}
++
+ static inline void *iommu_domain_restored_state(struct iommu_domain *domain)
+ {
+ 	return NULL;
+ }
+ 
++static inline struct iommu_domain *iommu_restore_domain(struct device *dev,
++							struct iommu_device_ser *ser,
++							void **owner)
++{
++	return NULL;
++}
++
+ static inline int iommu_for_each_preserved_device(iommu_preserved_device_iter_fn fn, void *arg)
+ {
+ 	return -EOPNOTSUPP;
+ }
+ 
++static inline void iommu_init_device_preserved_data(struct device *dev)
++{
++}
++
+ static inline struct iommu_hw_ser *iommu_get_preserved_data(u64 token, enum iommu_type_ser type)
+ {
+ 	return NULL;
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
