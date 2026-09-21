@@ -1,34 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A0544162A
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:57:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F46344162A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:57:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984659; cv=none; b=rmPE/1vzOwW8Q55DPJPnz22o6UjOjsGhHAyM3ErTxZVTfbUNwSgPgVt6w6uqIGPgZwaqF37nwZVo+dzOW/NorhNnr9HmeY8G9EwItpkIIZoZFRtCWmNY352x58UaIilemewmaLcMqWjPcw6LXOaCD2/hR+7sG3zwS9EickqTvec=
+	t=1789984664; cv=none; b=Jx7iuRWEJfFU9cmIPiDP6pptt3ciDSG5mWzB91ZZ8c1863oB/LNo4OPvgmiachsWA3UKpEiY1gXzEI/ZIw8FhbSWbfrF8vTwJID0V5m1JwTK9HvoZTH+tNilBAa5dQhBfwECSYh2AN68kX/O/O/APVT4OJiF0fb1Tq9ojKoGKuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984659; c=relaxed/simple;
-	bh=72I9yBzfGM45+AogRjk7w3z/baq6RZ/juZGm0YnbT0U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JlzPWEwRi1EuSHRGO4cWW0iMOvFvjS2QeMgMK1XSfJyQUbgyFFAJD/vntnFS4P2Rhy9k4DKZkZZALhoLprYb9JYu/PSSut2R4m9YmCIEOXknpvGBmQIy7Z1iLF0RkWi/fp4Wf7gCl9d10YT7eFNC3oByvPJoaG0FZoLwHMceuA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n4CEEleJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789984664; c=relaxed/simple;
+	bh=lJi3ptJcwYb4AYGE3khyoRyB84fxryi+QCmc+xoNuww=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gMPBY+DSshRMnNi/ylK5Tfl4wyvmF5v/FieHAViGppcvN8SXrBfA5qIremze0eoSNIJZoV9Nfqd9suMDigJ2UUIbCVbZLrR05LhOnLbeH27VLQLRJerr9uLwnOdYC/DmQBPghFO2c51b43XF4tSfqsrBQr6OgZBC3HmRyF6b37c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ea+eWzK9; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n4CEEleJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41AD41F000FF;
-	Mon, 21 Sep 2026 09:57:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789984657;
-	bh=kegxLK5Xa2bs3Cf0CvHFhVg7I1jBlelgO0k5ZXmd+8U=;
-	h=From:Date:Subject:To:Cc;
-	b=n4CEEleJPatRciYjxloAv3UxR2CitO2bLF+5DnDH+nxZCOKw2fVEo0AfrFefdj3fd
-	 bTfN4tOkVLF4xeEwxx7lDK4WI1v2AbFjBP08Tw5HCs5c/SCBm64G4rFtbt2EnjRkNV
-	 lsaTnWW2XZEEIynEBaLEb08HLEHIP4TBFvCMwLv31l8b+l7kNfz7MONouFI4202ub6
-	 DRdZyKG59NlKsM+LlyDu+HQBWRsBKgLcezct0xX0JNmX3UVaLikOUav39wcU3qCsO+
-	 cRW0+aSlBP+kSdYCuSmI+vQ0bbUBlpHNE2yEKlrWUESq7p+UzIAiZd5oDS32/GECE7
-	 1ohKziwONnMqg==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Mon, 21 Sep 2026 11:57:29 +0200
-Subject: [PATCH v4] mm/gup: honour FOLL_PIN in NOMMU
- __get_user_pages_locked()
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ea+eWzK9"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48434392b02so2065766f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:57:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789984660; x=1790589460; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qLURyJ5usDrCoS6jxkKDSurJA5Rl92FpG16gshoRTV8=;
+        b=ea+eWzK9vHQxiip9b6W3yZyvNvRbFJ3NZKwwS60JY3YUlQxrI29uHXJaHoR+YV16uh
+         j8z699TSV4YCaE7UkkwcsmNtWrJaYQLQ+hqmCUhdKshZ9gJ2ZgNGzEY6cyrBorDim2TK
+         VAckAJaY/inXppVYNq3uyEFDZWU6oNFyMtnC5GlYOcVJomCbCBnQGuDjzE87/GhlBXME
+         61g4YuBVPSi1sIhJJWF9DUS8wSKmjRJxy6AygVEfEThoWRQI+2Nx2M5KlALRmTPc4qvY
+         CsykamCiCdQUWz5PsKUnXmg9bxofDL3+YsVjtfnHF7iqFyJXsvhR9hlAM3prwohrDwL8
+         aEvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789984660; x=1790589460;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qLURyJ5usDrCoS6jxkKDSurJA5Rl92FpG16gshoRTV8=;
+        b=uoFUiPIw9ZKlF+ufvNeXH68BTSL1t2enck8JhrusQqmtsnYvQ4X0S59ovfZBUoFVBQ
+         9Re8pz8q10fY5Ykv4uuQD6IU5HqlxgwSgWRUcqKrfQlciu2XB7NeXFCLn0a7XPTFQNiV
+         etzPkJOTQIQy+ABdwDqMsppxm0a1Fhje3Q8dM+GaSpWW9qmZZy6KFOmI4dgRpub5kaqQ
+         ORqHXm4QsZf/a4rhUPC7972NHoQqqCnQMRoedsE8EGFCyUaqP1XhJFOdFUaSBQU6S+MR
+         DaCe0X9OfmNd9+70hDnA9dyCBQcWN1at54p0UV0CSEbrw7K/92Lb3GIGHqw4qNxmc9QW
+         SWAw==
+X-Forwarded-Encrypted: i=1; AKwUvBzgjgZE4qW/tOCBRA41lfYG691wvbTFhVKStRPAgk7w3UvRrUynnvUBFX2pBxt1+D/HfuIIjeq7CuAKR08=@vger.kernel.org
+X-Gm-Message-State: AFuF++nze2osq7FAG4Ks8WOznbwi98Ui9U6qXOtQpJ6Gsp/O6z752lpc
+	dtjcYjD1yiTwE67sI1yYMufoW+VLONpBmykpIXeDTv3MezfyVGC8bJvbgQnSGMugwcY=
+X-Gm-Gg: AYBFou3oJe69MsCanr/koOImpCH6z8nMBO+rDkLcIQHB6u0TAPf2h9FtU7so7HCbamh
+	B9aW3G73RVy2hBGc4LIKKy89JRVNnjGgD89qD2lQR7h96geP84QcNJOSUmw27Ew9Xp7mJJq28tU
+	htkhuX9Wlx9xcDwNu5stUiu7P+MlVCUemMvlANhzs+k+ONdicZmw27FmxeC4JD4HExHDS5jUMCV
+	ahyZq7/VSClPacYmSWND9BJ4ITNmu8Ujud7lT5NjcQmZOubjv+TO/PQ/5GYyvcqPkIH9FPKJAh/
+	qwEZiC/42oEnNenW/MmkdidAkxIWWPn7eYoThKDRbj3rnTzRvSBl0Kp04Adui3v+dDUXaZExZ8Z
+	WeYyAsHArR14z/p4QHM1oPXhScK6dAi3IlnSCxUhuMeey5td6cQ4+wGRLtN28CQN27UD7lZVCG3
+	87MKi8ODcfrZ0A1en45c/qqq22trtoZk1WBWxccMBx9xYDfgwK7EZuQRv+GpQqy5W+A/W6H4VvK
+	MSuv4EGQqm6oO0H+WFBHELuX8D9dA==
+X-Received: by 2002:a5d:64e6:0:b0:487:27f9:83b with SMTP id ffacd0b85a97d-48727f90bbfmr9655713f8f.48.1789984660253;
+        Mon, 21 Sep 2026 02:57:40 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487243cede9sm23826513f8f.0.2026.09.21.02.57.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 02:57:39 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v3 0/2] drm/msm/a6xx: use correct timestamp counter on A750
+ GPU
+Date: Mon, 21 Sep 2026 11:57:32 +0200
+Message-Id: <20260921-topic-sm8650-gmu-a750-timestamp-reg-v3-0-2b9015106553@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,142 +71,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-nommu_gup_pin-v4-1-c410041cc479@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAIj/sGoC/yXM0QpAMBSA4VfRubayEeZVJDEHR5m1mZS8u+Hyu
- /j/CxxaQgdVdIHFgxxtOiCLI1BzpydkNASDSESeSC6Z3tbVt5M3rSHNhjFPJS9UyUsBoTEWRzq
- /X938dr5fUO3vBO77AQJCSKVxAAAA
-X-Change-ID: 20260919-nommu_gup_pin-df63917c8182
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Peter Xu <peterx@redhat.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- David Hildenbrand <david@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3766; i=david@kernel.org;
- h=from:subject:message-id; bh=HxMJunxqlMOF1zZ6l1Ua107s6bmir1eB6BnonPlsO6s=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLI2/O+1789v7He6cPbfV1lDve+Sj+Y/PfJV44PfTueEf
- 8KrGqfIdJSyMIhxMMiKKbIEBd83ePlyXW21Gx8zzBxWJpAhDFycAjCRmV8Z/pl2Nd+bwxx9UGy7
- pfauB1ISljeTkpsaf21M5hD0uf3E4jbDP7uH4u32DfF9CXYxHIYdbusm2hz/sHl3Zt0erQO3Xy6
- +ygUA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+X-B4-Tracking: v=1; b=H4sIAIz/sGoC/5WOzQ6CMBAGX8X07JpS6Z8n38N4QFhxjVDSFqIhv
+ LutXvSmt53ky8zOLKAnDGy3mpnHiQK5PsF2vWL1pepbBGoSM8GF4pYbiG6gGkJnlOTQdiNUOh2
+ ROgyx6gbw2IJALbVEJbRtWDINHs90f1UOxzeH8XTFOmZ1XlwoROcfrzemIu/+K04FcBCmNIY3C
+ pU57W/UV95tnG9ZTk7iU2p/k4ok5bZodGmlsbL4ki7L8gQ9M1SzPgEAAA==
+X-Change-ID: 20260908-topic-sm8650-gmu-a750-timestamp-reg-2e7575e6279d
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1420;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=lJi3ptJcwYb4AYGE3khyoRyB84fxryi+QCmc+xoNuww=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqsP+RPqsxzq9x/h5ZIEEm1w0zfHyzzXjC578AwXsF
+ ZOgios2JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCarD/kQAKCRB33NvayMhJ0Q0pEA
+ CM0SWVIXyBSmbeiGNaf7GTH3LL+vHUgQJxAuvtFlxFDRpeoEwuZfKRJ4h9yrZk+OcfNzuZJuaTRGhs
+ 4nHLiLfuy0O2dL/L+irQAM9JVwmULu65WicX/JDqq8Uq83HvYC/Auy9GoAkQNjwifnwZhZ6idH+Ck+
+ 6PcxG8CfsLq48QNgq5+RS9YvscBEOOP7gZQHE1rJLC7aCbAena91LZBP2Ht40utERX6PW0dxG+ddmy
+ 3JRcU1mJaWQhoVkQmWcXYHn1NzL2J2z4OIvLHbSiXBFfHuo6w7hITZ7J0mDzZX2HxFB7dS2dI98Mnb
+ uMkDf9HhOHzLxrLu9/iRp+OEveFJJ0YprbpF9H8Krf5NQ6P4WM9q5BH4xPQyO4QVCqFb9PbWGbnlaY
+ llstq4oTu2gE3chWDF5A4SAta3PPlmM63XKSopihp+Z18S0CMhHm/DBVwuICI/jOG+xM7LtyyIUOjn
+ k/cHyCg+IAqFVl7D5Qlus7lKW5zZePkMK6YfcSKUo9JnNL/UPeasnVHL3maY6CgCEpIXkH4XnHBhZ3
+ gChCALY5IpZezitd/cp8KjWwWM5TsTCKwtcPvwFK6qL9svODWt9gNMcNkjlWRml5pnuBxJp3aeTq7U
+ Ph7d96Y157biDmmDH9i3Fc+8xfLDgTNsu+LlsNJgO8/A4Vah7Mtxlgx6kPRA==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+The A750 uses a different counter register as used on the downstream
+driver:
 
-The !CONFIG_MMU implementation of __get_user_pages_locked() takes a bare
-get_page() reference for each page regardless of foll_flags:
-	if (pages[i])
-		get_page(pages[i]);
+static u64 gen7_9_0_read_alwayson(struct adreno_device *adreno_dev)
+{
+...
+	/* Always use the GMU AO counter when doing a AHB read */
+	gmu_core_regread(device, GEN7_GMU_CX_AO_COUNTER_HI, &hi);
+	gmu_core_regread(device, GEN7_GMU_CX_AO_COUNTER_LO, &lo);
+...
+}
 
-This is reached from pin_user_pages*() with FOLL_PIN set.
-unpin_user_page() is shared between MMU and NOMMU configurations and
-unconditionally calls gup_put_folio(..., FOLL_PIN), which subtracts
-GUP_PIN_COUNTING_BIAS (1024) from the folio refcount.
+gen7_reg.h:#define GEN7_GMU_CX_AO_COUNTER_LO		0x1f880
+gen7_reg.h:#define GEN7_GMU_CX_AO_COUNTER_HI		0x1f881
 
-This means that pin adds 1, and then unpin will subtract 1024.
-
-If a user maps a page (refcount 1), registers it 1023 times as an
-io_uring fixed buffer (1023 pin_user_pages calls -> refcount 1024), then
-unregisters: the first unpin_user_page subtracts 1024, refcount hits 0,
-the page is freed and returned to the buddy allocator.  The remaining
-1022 unpins write into whatever was reallocated, and the user's VMA
-still maps the freed page (NOMMU has no MMU to invalidate it).
-Reallocating the page for an io_uring pbuf_ring then lets userspace
-corrupt the new owner's data through the stale mapping.
-
-Use try_grab_folio() which adds GUP_PIN_COUNTING_BIAS for FOLL_PIN and 1
-for FOLL_GET, mirroring the CONFIG_MMU path so pin and unpin are
-symmetric. Keep supporting the traditional behavior where users specify
-a pages array but don't set FOLL_GET.
-
-While at it, don't return NULL pointers in the page array,
-as this is really not expected for GUP users; instead, just fail and return
--EFAULT.
-
-[ david: support traditional behavior with no FOLL_GET, extend
-  description ]
-
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: John Hubbard <jhubbard@nvidia.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Reported-by: Anthropic
-Fixes: 3faa52c03f44 ("mm/gup: track FOLL_PIN pages")
-Assisted-by: gkh_clanker_t1000
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
-v3 -> v4:
-* Put FOLL_GET fixup into the NOMMU __get_user_pages_locked()
+Changes in v3:
+- Collected review tags and added Fixes tags
+- Link to v2: https://patch.msgid.link/20260909-topic-sm8650-gmu-a750-timestamp-reg-v2-0-091d74958951@linaro.org
 
-I'll queue the updated version after some more review.
----
- mm/gup.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
-
-diff --git a/mm/gup.c b/mm/gup.c
-index eb898ea1ee22e..4e9b5ac2cb62e 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -1983,6 +1983,7 @@ static long __get_user_pages_locked(struct mm_struct *mm, unsigned long start,
- 	struct vm_area_struct *vma;
- 	bool must_unlock = false;
- 	vm_flags_t vm_flags;
-+	int ret, err = -EFAULT;
- 	long i;
- 
- 	if (!nr_pages)
-@@ -1999,6 +2000,10 @@ static long __get_user_pages_locked(struct mm_struct *mm, unsigned long start,
- 		*locked = 1;
- 	}
- 
-+	/* See the MMU variant: support the traditional behavior. */
-+	if (pages && !(foll_flags & FOLL_PIN))
-+		foll_flags |= FOLL_GET;
-+
- 	/* calculate required read or write permissions.
- 	 * If FOLL_FORCE is set, we only require the "MAY" flags.
- 	 */
-@@ -2019,8 +2024,14 @@ static long __get_user_pages_locked(struct mm_struct *mm, unsigned long start,
- 
- 		if (pages) {
- 			pages[i] = virt_to_page((void *)start);
--			if (pages[i])
--				get_page(pages[i]);
-+			if (!pages[i])
-+				break;
-+			ret = try_grab_folio(page_folio(pages[i]), 1, foll_flags);
-+			if (unlikely(ret)) {
-+				pages[i] = NULL;
-+				err = ret;
-+				break;
-+			}
- 		}
- 
- 		start = (start + PAGE_SIZE) & PAGE_MASK;
-@@ -2031,7 +2042,7 @@ static long __get_user_pages_locked(struct mm_struct *mm, unsigned long start,
- 		*locked = 0;
- 	}
- 
--	return i ? : -EFAULT;
-+	return i ? : err;
- }
- #endif /* !CONFIG_MMU */
- 
+Changes in v2:
+- Fix swapped H/L registers in XML
+- Link to v1: https://patch.msgid.link/20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-0-284880d6e68b@linaro.org
 
 ---
+Neil Armstrong (2):
+      drm/msm/a6xx: Add CX AO Counter registers used for a750 GPUs
+      drm/msm/a6xx: Use CX AO Counter register for timestamp on a750 GPUs
 
-base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c             | 12 +++++++++---
+ drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml |  2 ++
+ 2 files changed, 11 insertions(+), 3 deletions(-)
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260908-topic-sm8650-gmu-a750-timestamp-reg-2e7575e6279d
 
-change-id: 20260919-nommu_gup_pin-df63917c8182
-
---
-
-Cheers,
-
-David
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
