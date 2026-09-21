@@ -1,91 +1,131 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF8C12D8DA8
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:00:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D202EED8
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:00:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984817; cv=none; b=aZg+mVRDlg7wkm8T6st3CmAW6luz0FMYQchESR3UrqoEF7FoETYMmNAocfliv3staYG/wQYKA221X3ZtairbUvYkBmHUirCFkogEygRUwvB3K6C07mml8l1D2rHt8x1tYdvhNqNHYo6iSHsXrRkZcU3dA+8d43me5NXkV+iMvZk=
+	t=1789984829; cv=none; b=Ici4wjp4hkUXZkOrrx00OacdWhj7iVZVw47nomQkvmWXVzcS+8fEkDe+rTdo7OPfBBUTl1uFvrb1UNs/55PDIeIfaqScFszvNrztEa4DIVS72u14mPPEodEG4M/ZsPOVnxh8lUx3KwYhTgFkIhcM0WZ+P7xmMiEWOO0pxD6keVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984817; c=relaxed/simple;
-	bh=KAHxQyCLffudv7kQ3tADcUX1WeHMPGpfPiNr5Zb4Uh8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cPXVr0pOC+o9sLjraNAhyBdDH6tN7N/XW64vBtTeHh6f6OP2kEy4Fn/VSrYCDXU3c63nsP7vJON7tHFPmp6aQaDr3Sn6AZ5b4UjgXi+bs2fIC+S7LE3I1GRakpcsHIswj1YDA9OqhiksMzvxJIv6PWvx0K4di/zBcyn2ged5qsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=XIoXtAaM; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789984829; c=relaxed/simple;
+	bh=jGvmlwUSbsp8x3X4MOA4gcbihfZLjlBgUOqmvFopaQU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nTAX5Zr4XcMZhxfhgVspzInXn88QAxWudwtjtZqEw9VVtFw77hblfkn3GMjPa82a5KpBb6p0XZeV6seASWFdTZEMe1KxMFPRszyVFfJc3Ffi5AGwGAaLY+Ap0x8siUmJYxLzsE/mFcR/TIkzV+rB8EGQ+KwXxcJ8paFme+0ttH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Q1Y8IhTA; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="XIoXtAaM"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BD5B6153B;
-	Mon, 21 Sep 2026 03:00:11 -0700 (PDT)
-Received: from [10.0.128.141] (unknown [10.0.128.141])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ED95B3F86F;
-	Mon, 21 Sep 2026 03:00:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789984815; bh=KAHxQyCLffudv7kQ3tADcUX1WeHMPGpfPiNr5Zb4Uh8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=XIoXtAaMDOmRwnyu8sQf9DbMLWTCBU9V5oWmQUBvvcAE0iV7BleEDJn/HYfi8FPS4
-	 WURSswpMLg10IEqSoRXoWQTAKT605tz3LQp9wSC1XsWgay3+UaMl75Zq22llLh57WA
-	 qG+44nuymFX6VWTfsKEBT31BtsVckOC8JfB6jbVg=
-Message-ID: <f927f542-cf96-4dd3-a4ec-94883ba10ce6@arm.com>
-Date: Mon, 21 Sep 2026 11:00:11 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Q1Y8IhTA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789984826;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ajNNixQX6BV58KzbsrlG4634t7w42wShP27NzOztrV8=;
+	b=Q1Y8IhTAg/fIIjnJqL/sA7lJya0yPdOQVTB9dTIe02sYcybMTeLt2BLHVTO8DPblzTbbOH
+	dCbE9LpqQiplFnftkGDkPjsX6U+7e6dxabMP9c8DRmL0x/fHC/IJ3KX18J4wzmLHfrbkrx
+	iyWNqoznvcUWAwThZYcy/1NmWyRF/Dg=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-654-0I7bIq2YNmypL7FIiKE9kQ-1; Mon,
+ 21 Sep 2026 06:00:21 -0400
+X-MC-Unique: 0I7bIq2YNmypL7FIiKE9kQ-1
+X-Mimecast-MFC-AGG-ID: 0I7bIq2YNmypL7FIiKE9kQ_1789984819
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6619718007F7;
+	Mon, 21 Sep 2026 10:00:19 +0000 (UTC)
+Received: from ShadowPeak.redhat.com (unknown [10.44.32.56])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4DF0B40E;
+	Mon, 21 Sep 2026 10:00:15 +0000 (UTC)
+From: Petr Oros <poros@redhat.com>
+To: netdev@vger.kernel.org
+Cc: Petr Oros <poros@redhat.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
+	intel-wired-lan@lists.osuosl.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH iwl-net] ice: restore double VLAN port parameters on devlink reload
+Date: Mon, 21 Sep 2026 12:00:00 +0200
+Message-ID: <20260921100000.1152575-1-poros@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 4/7] arm64: realm: Move Realm memory encryption ops to
- RSI code
-Content-Language: en-GB
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>
-Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
- Greg KH <gregkh@linuxfoundation.org>, Jeremy Linton <jeremy.linton@arm.com>,
- Jonathan Cameron <jic23@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Sudeep Holla <sudeep.holla@arm.com>,
- Will Deacon <will@kernel.org>, Steven Price <steven.price@arm.com>,
- Andre Przywara <andre.przywara@arm.com>,
- Suzuki K Poulose <suzuki.poulose@ram.com>
-References: <20260921053807.354802-1-aneesh.kumar@kernel.org>
- <20260921053807.354802-5-aneesh.kumar@kernel.org> <arDwTjQiqF6VZOau@arm.com>
- <yq5a5wzz3rfo.fsf@kernel.org>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <yq5a5wzz3rfo.fsf@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On 21/09/2026 10:05, Aneesh Kumar K.V wrote:
-> Catalin Marinas <catalin.marinas@arm.com> writes:
-> 
->> On Mon, Sep 21, 2026 at 11:08:04AM +0530, Aneesh Kumar K.V (Arm) wrote:
->>> Realm memory encryption callbacks are CCA-specific. Keep the Realm callback
->>> registration with the RSI initialization code instead of pageattr.c, which
->>> only needs to provide the low-level page-attribute transition helper.
->>>
->>> Export __set_memory_enc_dec() within arm64 so the RSI code can wrap it with
->>> the Realm-specific encrypt/decrypt callbacks and warning policy.
->>>
->>> No functional changes in this patch.
->>>
->>> Reviewed-by: Suzuki K Poulose <suzuki.poulose@ram.com>
->>
->> Nit: Suzuki's still at arm ;)
+Set Port Parameters with the double VLAN flag is issued from probe and
+from ice_rebuild(), but not from the devlink reinit path. ice_init_hw()
+resets the PF there and the port ends up in single VLAN mode while the
+driver keeps operating in DVM, so outer VLAN tags requested through the
+Tx descriptor by the PF and by VFs are silently not inserted until the
+next probe.
 
-;-)
+Move the call into ice_init_dev(), which is shared by probe and reinit.
 
->>
-> 
-> 
-> Will fix. I copied it from:
-> 
-> https://lore.kernel.org/all/bb59b1e0-2550-4a9d-8738-a54e5f106f45@arm.com
+Fixes: 31c8db2c4fa7 ("ice: implement devlink reinit action")
+Signed-off-by: Petr Oros <poros@redhat.com>
+---
+ drivers/net/ethernet/intel/ice/ice_main.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-Yikes, my bad.
-
-for FWIW, I really meant :
-
-Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+diff --git a/drivers/net/ethernet/intel/ice/ice_main.c b/drivers/net/ethernet/intel/ice/ice_main.c
+index 423adc138dd67c..8c4b0fbc790644 100644
+--- a/drivers/net/ethernet/intel/ice/ice_main.c
++++ b/drivers/net/ethernet/intel/ice/ice_main.c
+@@ -4766,6 +4766,14 @@ int ice_init_dev(struct ice_pf *pf)
+ 	int err;
+ 
+ 	ice_set_pf_caps(pf);
++
++	err = ice_aq_set_port_params(pf->hw.port_info, ice_is_dvm_ena(&pf->hw),
++				     NULL);
++	if (err) {
++		dev_err(dev, "ice_aq_set_port_params failed: %d\n", err);
++		return err;
++	}
++
+ 	err = ice_init_interrupt_scheme(pf);
+ 	if (err) {
+ 		dev_err(dev, "ice_init_interrupt_scheme failed: %d\n", err);
+@@ -4909,7 +4917,6 @@ static void ice_init_link(struct ice_pf *pf)
+ 
+ static int ice_init_pf_sw(struct ice_pf *pf)
+ {
+-	bool dvm = ice_is_dvm_ena(&pf->hw);
+ 	struct ice_vsi *vsi;
+ 	int err;
+ 
+@@ -4928,10 +4935,6 @@ static int ice_init_pf_sw(struct ice_pf *pf)
+ 	/* record the sw_id available for later use */
+ 	pf->first_sw->sw_id = pf->hw.port_info->sw_id;
+ 
+-	err = ice_aq_set_port_params(pf->hw.port_info, dvm, NULL);
+-	if (err)
+-		goto err_aq_set_port_params;
+-
+ 	vsi = ice_pf_vsi_setup(pf, pf->hw.port_info);
+ 	if (!vsi) {
+ 		err = -ENOMEM;
+@@ -4941,7 +4944,6 @@ static int ice_init_pf_sw(struct ice_pf *pf)
+ 	return 0;
+ 
+ err_pf_vsi_setup:
+-err_aq_set_port_params:
+ 	kfree(pf->first_sw);
+ 	return err;
+ }
+-- 
+2.55.0
 
