@@ -1,274 +1,160 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB32429004
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:23:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B43643B4423;
+	Mon, 21 Sep 2026 10:23:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789986227; cv=none; b=sTUkNTnHDcMUl0bTnTCpaebKINqSQQFblUuRnmTUFx9H+YH1DILJk3zdUvn2pdXTdxGDbWcc2t7rrOMspcWf5Mj896ypVy+qHP3OBlF136irQhZcB81cl7HWy5yWfY4WGE0Lc/oEK4H1/78IvS3BSqQhaecZaDik9lej/SzO6D8=
+	t=1789986229; cv=none; b=W0lTiui2VEAymqtrNpYCuaz7QDwZAaHg2U3LYgaA8nFv0zhFOJh4ZnPGRl+xfm2Tg/o9ImG9ZLzsfOxGXzday4g8Zer31H7OGuRBFmFJV33k0dzfoc+nyk3wInGrdR1qgvD1VNJ5UfpzKqbt5ppflsoALg5TmoTpAP96TELrEwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789986227; c=relaxed/simple;
-	bh=JPmrA+1pamfT4N10xPdkW/sLqOV8VzX3DrQmaJ6F4aU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ShQHBJ8MOSwSYjlaQUWyHncU6zwDgigIi5x0VKuDFfjFQgtPQ8dIEdl0xe2fjnL/fMgJrqrFZTavquP6xZ6UKG1U5yke04MieezcVQJsWo0Z/6+kh/wKWqN7s+W4MA8YTnsbQcZ+OriCvYlDif82IhHBfu89LMvLldulzqdcLfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=WSUwicIG; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789986229; c=relaxed/simple;
+	bh=SGxlfflnoEUE8PQna8EIobdZGBeut1mKJI2YDTFNBSk=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=VE8Xhunv27KRLGVHvIuEkh4YvNpUbjITmXQ7lpvbyNMXJS8mfdNL3EA0xdDGcy9peB+zT3VdPtXrfqWee2liUAAVbGqqkEuLJA1A+aZfvxfcPkuGcX4DfJlUqkhsOG8hYzpxJVzyI8T5pEJY+6JAeQakVQiZ1+8KEAFuUmOXc2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=Gu8aXN/Y; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="WSUwicIG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Bn
-	KEXm6L8TvYaojL6JJ9uLxmMd/GPyyKYDafIUlTuxQ=; b=WSUwicIGG8c65EYnNu
-	VeOajS6x/8xl+SrLhzGM+f9nUxKNK2+4SJpIiRSlf0Ect0NvxYwY0eZehEHysrED
-	vnUNzI2ZXsV1LSbhNsDXJoX6Mb4bg2aKdsYeAER+PbAGm890S/+LCbI/Iyhx266s
-	+kxalxQpzqntRAUnN7atWdhEw=
-Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgDntRaYBbFq1XESAg--.38205S2;
-	Mon, 21 Sep 2026 18:23:22 +0800 (CST)
-From: Baolin Liu <liubaolin12138@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v3 02/10] ntfs: validate EA chains and link zero-terminated tails
-Date: Mon, 21 Sep 2026 18:23:18 +0800
-Message-ID: <20260921102318.2104180-1-liubaolin12138@163.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="Gu8aXN/Y"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5A63DA4A31;
+	Mon, 21 Sep 2026 12:23:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1789986221; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=sYTyf2NzK31tnC6ydhPwUeBuS5CmfMmG+CeRjqUuIfE=;
+	b=Gu8aXN/YGk9qhL59VL0nIyWichBQRIS8ZytYfql2XkgbGzV9TMGQHQThHKrpZtmKkRK37S
+	yF1g9z5XUrNH1IbOFixDvcY4BU3R4QRQJ1yNgKEZtY6NrVvH8q/by6vcDdl3sArYyg0jlK
+	7PI/ljHWHKv5rS31XbgkX3lbeQeovU0rYY3nHQ/+cIc+ftJIbX5RZltwMsvi5yHSzcxQkJ
+	1ufZ0NpRTIW8QYIgSbviE/5cjzbegDKLtb98ipZtZaAWtM0RFW0pvkRZBwTxw4ooNjRDQL
+	leLQf/jUls/M6DnK682xY5UjK3uXOJBPOP6cn4eTLA8yLhmecJU3LYCQXkMLMQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Date: Mon, 21 Sep 2026 12:23:37 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: netdev-bot+sashiko@kernel.org
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, richardcochran@gmail.com,
+ kory.maincent@bootlin.com, vadim.fedorenko@linux.dev, jjc@jclark.com,
+ florian.fainelli@broadcom.com, opendmb@gmail.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: don't require the hwtstamp NDOs when a PHY
+ provides timestamping
+In-Reply-To: <178998466913.2160803.80702009306181180@kernel.org>
+References: <20260918095540.34286-1-nb@tipi-net.de>
+ <178998466913.2160803.80702009306181180@kernel.org>
+Message-ID: <8037c32ce6fef79a74ee56973bf185c2@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgDntRaYBbFq1XESAg--.38205S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtrWDCF4rXFyUJF1rZw1DKFg_yoWxWrWfpF
-	Z0y3s8tr4rJrnrGrs2kw4DXayF9ws7WFyUG34xKw1Ikrn0qr15tas09FyS9ayFyrWkCr1F
-	qFZ8tFs5uF1UAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnfHUUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwRpuOWqxBZosEQAA31
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Baolin Liu <liubaolin@kylinos.cn>
+Hi (S|Cl)ashiko
 
-A zero next-entry offset terminates an EA list. Appending an entry
-without linking the old tail makes the new entry unreachable. Invalid
-entries are also treated as missing names, allowing setters to proceed
-on corrupt metadata.
+On 21.9.2026 11:57, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let 
+> patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your 
+> reply
+> (one such reply per series is enough).
+> 
+> - [Medium] Incomplete fix: the ethtool-netlink tsconfig path still
+>   rejects PHY-only devices, so the two documented-equivalent uAPIs now…
+> 
+> --
+> 
+> [...]
 
-Validate the entire chain before modifying it and connect a zero tail
-to the append position. Check name terminators and retain the full tail
-span when removing an entry. Return EUCLEAN for malformed EA structures
-and inconsistent information lengths, preserving that error through the
-get, set and list paths. Keep ENOENT for a missing name and translate it to
-ENODATA only at the xattr read boundary. Preserve lower-level read errors.
+> [Severity: Medium]
+> With the checks relocated here, the ioctl entry points now reach
+> phy_hwtstamp_get()/phy_hwtstamp_set() for a device whose MAC implements
+> neither NDO but whose phydev satisfies phy_is_default_hwtstamp().  The
+> ethtool netlink peers of those ioctls keep the old unconditional gates,
+> and they run before these helpers are ever called.
+> 
+> net/ethtool/tsconfig.c:tsconfig_prepare_data() {
+> 	...
+> 	if (!dev->netdev_ops->ndo_hwtstamp_get)
+> 		return -EOPNOTSUPP;
+> 
+> 	ret = ethnl_ops_begin(dev);
+> 	...
+> 	ret = dev_get_hwtstamp_phylib(dev, &cfg);
+> 	...
+> }
+> 
+> net/ethtool/tsconfig.c:ethnl_set_tsconfig_validate() {
+> 	const struct net_device_ops *ops = req_base->dev->netdev_ops;
+> 
+> 	if (!ops->ndo_hwtstamp_set || !ops->ndo_hwtstamp_get)
+> 		return -EOPNOTSUPP;
+> 
+> 	return 1;
+> }
+> 
+> Does this leave the two interfaces disagreeing on the same hardware?  
+> On
 
-Reuse the same full-chain validation in ntfs_listxattr(), including
-size-only queries, before copying names. Reject malformed lists with
-EUCLEAN instead of returning an empty or partial list.
+Yes, but they already disagreed before this patch (EOPNOTSUPP).
 
-Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
----
-Changes since v2:
-- Reuse full-chain validation in ntfs_listxattr(), including size-only
-  queries, and return EUCLEAN for malformed EA structures.
-- Remove the duplicate listxattr structure checks; preserve lower-level
-  read errors.
+The ioctls are the regression and AFAIU TSCONFIG_GET/SET never worked
+here. Both gates are part of 6e9e2eed4f39 (~ a year before 
+5062245a5a7f).
 
-This replaces [PATCH v2 02/10]. Original v2 patches 3-10 apply cleanly
-on top without modification.
+> the bcmgenet plus BCM54213PE setup named in the changelog,
+> SIOCGHWTSTAMP/SIOCSHWTSTAMP would succeed after this patch, while
+> ETHTOOL_MSG_TSCONFIG_GET and ETHTOOL_MSG_TSCONFIG_SET would still 
+> return
+> -EOPNOTSUPP, even though Documentation/networking/ethtool-netlink.rst
+> lists those netlink operations as the replacements for the two ioctls 
+> in
+> its ioctl-to-netlink mapping table.
+> 
+> The note about this ("tsconfig keeps its own copy of the check ... IMHO
+> this is an extra patch for net-next") sits below the --- separator, so 
+> it
+> does not end up in git history.  Could it be moved into the commit 
+> message
+> so that maintainers and stable backporters can see that PHY-only
+> timestamping devices are only fixed on the ioctl path?
 
-Validation:
-- QEMU listxattr tests covered normal and zero-terminated lists, empty
-  lists, size-only queries, short buffers, malformed offsets, missing
-  name terminators, oversized values and truncated entry headers.
-  Verified EUCLEAN after successful file open, including tiny buffers.
-- Checked an oversized query length at the patch-2 stage, and ordinary
-  file/xattr writes plus unmount/remount.
+That would suggest the regression is half fixed. It isn't, the tsconfig
+gap is a separate and older bug. I placed it deliberately below ---.
 
- fs/ntfs/ea.c | 81 +++++++++++++++++++++++++++++++---------------------
- 1 file changed, 48 insertions(+), 33 deletions(-)
+> 
+> One detail for whoever narrows the tsconfig gates later: the fix is not 
+> a
+> mechanical copy of this one.  The HWTSTAMP_SOURCE_NETDEV branch in
+> dev_get_hwtstamp_phylib() still calls the callback with no NULL test:
+> 
+> net/core/dev_ioctl.c:dev_get_hwtstamp_phylib() {
+> 	...
+> 	if (hwprov->source == HWTSTAMP_SOURCE_NETDEV)
+> 		return dev->netdev_ops->ndo_hwtstamp_get(dev, cfg);
+> 	...
+> }
+> 
+> dev->hwprov is only ever assigned in ethnl_set_tsconfig(), which is
+> reached through ethnl_set_tsconfig_validate(), so that branch is safe
+> today precisely because of the check under discussion.  Should the two
+> sites be changed together?
 
-diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index bb97df3045a0..2ee700f8227e 100644
---- a/fs/ntfs/ea.c
-+++ b/fs/ntfs/ea.c
-@@ -53,10 +53,13 @@ static int ntfs_ea_lookup(char *ea_buf, s64 ea_buf_size, const char *name,
- 	loff_t offset, p_ea_size;
- 	unsigned int next;
- 
-+	if (!ea_buf_size)
-+		return -ENOENT;
-+
- 	offset = 0;
- 	do {
- 		if (ea_buf_size - offset < sizeof(struct ea_attr))
--			break;
-+			return -EUCLEAN;
- 
- 		p_ea = (const struct ea_attr *)&ea_buf[offset];
- 		next = le32_to_cpu(p_ea->next_entry_offset);
-@@ -64,31 +67,31 @@ static int ntfs_ea_lookup(char *ea_buf, s64 ea_buf_size, const char *name,
- 
- 		if (p_ea_size < sizeof(struct ea_attr) ||
- 		    offset + p_ea_size > ea_buf_size)
--			break;
-+			return -EUCLEAN;
- 
- 		if ((s64)p_ea->ea_name_length + 1 >
- 		    p_ea_size - offsetof(struct ea_attr, ea_name))
--			break;
-+			return -EUCLEAN;
- 
- 		actual_size = ALIGN(struct_size(p_ea, ea_name, 1 + p_ea->ea_name_length +
- 					le16_to_cpu(p_ea->ea_value_length)), 4);
--		if (actual_size > p_ea_size)
--			break;
-+		if (actual_size > p_ea_size ||
-+		    p_ea->ea_name[p_ea->ea_name_length])
-+			return -EUCLEAN;
- 
--		if (p_ea->ea_name_length == name_len &&
-+		if (name && p_ea->ea_name_length == name_len &&
- 		    !memcmp(p_ea->ea_name, name, name_len)) {
- 			*ea_offset = offset;
--			*ea_size = next ? next : actual_size;
-+			*ea_size = p_ea_size;
- 
- 			if (ea_buf_size < *ea_offset + *ea_size)
--				goto out;
-+				return -EUCLEAN;
- 
- 			return 0;
- 		}
- 		offset += next;
- 	} while (next > 0 && offset < ea_buf_size);
- 
--out:
- 	return -ENOENT;
- }
- 
-@@ -126,7 +129,7 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
- 		return PTR_ERR(p_ea_info);
- 	if (ea_info_size != sizeof(struct ea_information)) {
- 		kvfree(p_ea_info);
--		return -EIO;
-+		return -EUCLEAN;
- 	}
- 
- 	ea_info_qlen = le32_to_cpu(p_ea_info->ea_query_length);
-@@ -137,7 +140,7 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
- 		return PTR_ERR(ea_buf);
- 
- 	if (ea_info_qlen > all_ea_size) {
--		err = -EIO;
-+		err = -EUCLEAN;
- 		goto free_ea_buf;
- 	}
- 
-@@ -162,7 +165,8 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
- 		return ea_value_len;
- 	}
- 
--	err = -ENODATA;
-+	if (err == -ENOENT)
-+		err = -ENODATA;
- free_ea_buf:
- 	kvfree(ea_buf);
- 	return err;
-@@ -216,7 +220,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 			goto out;
- 		}
- 		if (ea_info_size != sizeof(struct ea_information)) {
--			err = -EIO;
-+			err = -EUCLEAN;
- 			goto out;
- 		}
- 
-@@ -255,12 +259,29 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 	}
- 
- 	if (ea_info_qsize > all_ea_size) {
--		err = -EIO;
-+		err = -EUCLEAN;
-+		goto out;
-+	}
-+
-+	/* Validate the whole chain before modifying it, including its tail. */
-+	err = ntfs_ea_lookup(ea_buf, ea_info_qsize, NULL, 0, &ea_off,
-+			     &ea_size);
-+	if (err != -ENOENT)
- 		goto out;
-+	/* A zero tail offset must be linked before appending another EA. */
-+	for (ea_off = 0; ea_off < ea_info_qsize; ea_off += ea_size) {
-+		p_ea = (struct ea_attr *)(ea_buf + ea_off);
-+		ea_size = le32_to_cpu(p_ea->next_entry_offset);
-+		if (!ea_size) {
-+			ea_size = ea_info_qsize - ea_off;
-+			p_ea->next_entry_offset = cpu_to_le32(ea_size);
-+		}
- 	}
- 
- 	err = ntfs_ea_lookup(ea_buf, ea_info_qsize, name, name_len, &ea_off,
- 			&ea_size);
-+	if (err && err != -ENOENT)
-+		goto out;
- 	if (ea_info_qsize && !err) {
- 		if (flags & XATTR_CREATE) {
- 			err = -EEXIST;
-@@ -537,7 +558,7 @@ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 		goto out;
- 	}
- 	if (ea_info_size != sizeof(struct ea_information)) {
--		err = -EIO;
-+		err = -EUCLEAN;
- 		goto out;
- 	}
- 
-@@ -550,32 +571,26 @@ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 		goto out;
- 	}
- 
--	if (ea_info_qsize > ea_buf_size || ea_info_qsize == 0)
-+	if (ea_info_qsize > ea_buf_size) {
-+		err = -EUCLEAN;
-+		goto out;
-+	}
-+
-+	/* Validate the entire chain, including size-only queries. */
-+	err = ntfs_ea_lookup(ea_buf, ea_info_qsize, NULL, 0, &offset,
-+			     &ea_size);
-+	if (err != -ENOENT)
-+		goto out;
-+	err = 0;
-+	if (!ea_info_qsize)
- 		goto out;
- 
- 	offset = 0;
- 	do {
--		if (ea_info_qsize - offset < sizeof(struct ea_attr)) {
--			err = -EIO;
--			goto out;
--		}
--
- 		p_ea = (const struct ea_attr *)&ea_buf[offset];
- 		next = le32_to_cpu(p_ea->next_entry_offset);
- 		ea_size = next ? next : (ea_info_qsize - offset);
- 
--		if (ea_size < sizeof(struct ea_attr) ||
--		    offset + ea_size > ea_info_qsize) {
--			err = -EIO;
--			goto out;
--		}
--
--		if ((int)p_ea->ea_name_length + 1 >
--			ea_size - offsetof(struct ea_attr, ea_name)) {
--			err = -EIO;
--			goto out;
--		}
--
- 		if (buffer) {
- 			if (ret + p_ea->ea_name_length + 1 > size) {
- 				err = -ERANGE;
--- 
-2.51.0
+No, IMHO not here. It would change change behaviour that never worked.
+Thus I would suggest fixing this with a follow-up to net-next.
 
+> 
+> [ ... ]
+
+Thanks,
+Nicolai
