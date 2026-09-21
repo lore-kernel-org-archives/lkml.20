@@ -1,132 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B65539FCE
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:13:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3D0182D6;
+	Mon, 21 Sep 2026 00:14:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789949614; cv=none; b=O0qMfV64SnavLCI0RE8q5URU/EWNKqoln0BElRwyolDa7ZSK289JxZUOLp8XsgCiZoqnRXO/dK7R+GOwT88yefnF4KvWBNma8teCm0PPZsi7/m7VkEkL6n4sdbeLyLpLUmIQr3xdQnz/NkEGSWtTUQy3j32wB3X9acwcFeVVMEU=
+	t=1789949691; cv=none; b=FbxSRqh4Xyu7NjOe0z5GREf8XiSrb+dt6NKe7PQM5IHcp6CAKQRUZUvjR7nw4if/Txl/mLT/JMhKk6+CuAU5htEGBWJydp1ap8RQDU8CKUw/nX6sLvazm1ppJHtMINDYQ49uM2RiPsKBkTVddJ0JMkgGSWxRnVF5LJWR5QQ4vtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789949614; c=relaxed/simple;
-	bh=HLIBdJTyhNKEU8IfU998eafr8kKCVMQcTkJyIlWnSvY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=m3vBZgkPBInn6RYGvGqEajCzC1iiuoBhm7Z0weCnoS6Z/dbgcf+rmCZKNtGmUQsoxK4zzXt6Zw8ac1bug7oT7EDsQnw44V4NISLj8jmOz/utsJJhcaEkVb5Ch8r2o9lL54slJjiy0H6eL//nbgiZHwKamlaDs+EcLHuXuBeNaOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bdVIkqhM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789949691; c=relaxed/simple;
+	bh=MF9MDvo0+v4jp0d+yKGWb2xCti+x5/t7U3PxG8gsFFA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Yk2Ue1h8c8wgJ4VBEvCe6Mvahin18SHbBhuAC9BgMzY5fdABX7owN2KEc1dgBRCVo+ZxPqBBBJdfUb8MtYVJOMuQshrT+5EISd+4dsXKz581xWr/nRxNMBvV8l6ItVWL61wSlFKO1Meyuyo8BKQ/MDICCKWZWaKH+LTi0XI9Vfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h/BXwGpz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bdVIkqhM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2A271F00899
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:13:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h/BXwGpz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC77A1F000FF;
+	Mon, 21 Sep 2026 00:14:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789949612;
-	bh=HLIBdJTyhNKEU8IfU998eafr8kKCVMQcTkJyIlWnSvY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=bdVIkqhMFVkB7TVrZddIKlNhMId7CVLPNFOIYhTBvMfZlq/+ND7W699t8IzRKRpgy
-	 Ycn5OZdY4+dgSygoENccSUhU327aIO3bl4msczwgTQNWIz/t2VoI+FRR+ZjqspGr2I
-	 aqguGuBXvR0MA8+3C9cFp1UWTpqxWWYVjEdFQ4Z+huLiaX5wFo1njy1A4BQ1IgdOPH
-	 bOdU0oA+12EaDez8p+g8+VcuyepChvAoZRLc+uexGe0BYlD+wbIecJ1SzaWgfQYkLJ
-	 sM16SDKdXJxCdXHHi0whETmv75bqS3r7Oyz3yUCEXyjs+ZvvGLHeLZ9SKOU6SYTZnD
-	 94E/Xy7BxNenA==
-Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43ac608dso17138137b3.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:13:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzyCggROBdUiJuShY9XIEuGfxIP7UqA+sk+XiLgc00ZMAAqZRB1QNRq4Ag+IgbPB27eEYvQr6k4Od1zJQs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJsODgK2GoaEMeUJtN1ZznBrrqNQ0KqNvI9lGFChX3wnNnpV8Y
-	rqLgA6rCkuXZMauQp/diDB11FlxQ0SO9VaIAruAEWn2weL16kS0BdfTPv0IW8hLIMfjJK+f7Fk+
-	J9NBuAW/HNuL77v2A99CrxRwRa9/gbKhlK36eKNC6Jg==
-X-Received: by 2002:a05:690e:4183:b0:671:27a:df14 with SMTP id
- 956f58d0204a3-6717fc74349mr2563663d50.20.1789949611648; Sun, 20 Sep 2026
- 17:13:31 -0700 (PDT)
+	s=k20260515; t=1789949690;
+	bh=H9n14ecYroU7+DDO7NNn5gqPEvYih3tU4SI/4RTqUOg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=h/BXwGpzwvMMl60jjUUC9Kl6ZHqrND4q9enkECK5ewsMOK6xiYfIdxihYg/EVNTB4
+	 jTu2+13wihO63GvQHNT1TmbIdBrYeCO+F+Nw3+JakUmgnUnkxNShbv3gLTsNdZpCYP
+	 LPyhoLfWO8VqUcYALZcgwyKmr/M+91PaekaiP5wqK9EGKa6QDzeR7JLqjEdSPW+05T
+	 ByzbN5Vob9DXwvDbpnIymLKdGbRl/U5uqJXFHepDu5bDQEsZMS+yolMN8yMBgUkofi
+	 x7U2r/jIk9WN4gow267HaZjjuJgKYk+UzadiROdp9dnFoGanZOyRY7rPbZYhpkR5go
+	 hFyoxdW1hWm2w==
+Date: Mon, 21 Sep 2026 01:14:42 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Olivier Moysan
+ <olivier.moysan@foss.st.com>, <linux-iio@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ Sashiko <sashiko-bot@kernel.org>, <stable@vger.kernel.org>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v3] iio: adc: stm32-adc: fix check on internal channel
+ availability
+Message-ID: <20260921011442.1c5a8403@jic23-hlaptop>
+In-Reply-To: <20260916-adc-fix-intchan-v1-v3-1-b5f05b86bc60@foss.st.com>
+References: <20260916-adc-fix-intchan-v1-v3-1-b5f05b86bc60@foss.st.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <aqJXx2vtbKaRLt3x@fedora> <aqLZ5TVDAqEbIeMN@linux.dev> <aqP81aqNbwAbs2P0@fedora>
- <aqQrPLPXHXiuKup0@linux.dev> <aqjcFb6MFNiA6n4V@fedora> <aqjpYHbZ14A8xRtK@fedora>
- <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
- <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
- <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com> <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
-In-Reply-To: <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Sun, 20 Sep 2026 14:13:19 -1000
-X-Gmail-Original-Message-ID: <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
-X-Gm-Features: AcwNN1V4--hMjboOC0TrbzcbPbb8njndB64L4hTOvsdZJ08v_ItIqBCQ_Dg6snk
-Message-ID: <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Rik van Riel <riel@surriel.com>
-Cc: Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 19, 2026 at 12:50=E2=80=AFPM Rik van Riel <riel@surriel.com> wr=
-ote:
->
-> On Sat, 2026-09-19 at 11:21 -1000, Chris Li wrote:
-> > On Sat, Sep 19, 2026 at 6:16=E2=80=AFAM Rik van Riel <riel@surriel.com>
-> > wrote:
-> > >
-> >
-> > > However, I believe we do need to take care that
-> > > whatever design we go with is actually able to
-> > > support the end user functionality we want.
-> >
-> > Agree. I want to add that we should support new functionality without
-> > sacrificing existing user functionality.
-> >
-> That means things need to work both for users
-> who want to configure a zswap size, and for
-> those who do not.
+On Wed, 16 Sep 2026 19:18:38 +0200
+Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
 
-Sure, I don't think it needs a syscall like UAPI. But I do want a
-kernel config for the power user who knows exactly what swap VMA limit
-e.g., the % ratio to RAM or the ceiling=E2=80=94they need to use. The rest =
-can
-use MAX. VMA is a resource, I don't want unnecessary waste large
-amount of VMA address. Other use cases legitimately require a large
-VMA. So, power users should be able to set the limit if they know
-exactly what they want.
+> If an unsupported internal channel like vddgpu is requested, the driver
+> prints a warning but falls through and assigns it a valid int_ch below.
+> 
+> This causes a problem later during setup:
+> stm32_adc_int_ch_enable() {
+>     ...
+>     case STM32_ADC_INT_CH_VDDGPU:
+>         stm32_adc_set_bits(adc, adc->cfg->regs->or_vddgpu.reg,
+>                            adc->cfg->regs->or_vddgpu.mask);
+>     ...
+> }
+> 
+> Because the register offset is uninitialized (0), this performs a
+> read-modify-write on offset 0, which corresponds to the ISR register.
+> 
+> Fix this by returning before a valid int_ch is assigned. Choice is
+> made to keep current driver behavior to warn about the channel name.
+> 
+> Fixes: cf0fb80ae167 ("iio: adc: stm32-adc: add stm32mp13 support")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/20260911162602.D323F1F000FF@smtp.kernel.org/
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Applied to the fixes-togreg branch of iio.git.
 
-> The cgroup memory.swap.max is an existing
-> interface that does that on a per cgroup
-> basis for swap, though in practice the
-> limit mostly seems to be set to 0 (no swap),
-> or to max (no limit).
+Thanks,
 
-Ack.
-
->
-> memory.zswap.max does the same on the zswap
-> side, again mostly 0 or max are used.
-
-Ack
-
-> Are you saying you rely on having something
-> like that at the system level, too?
-
-That is not what I have in mind. The example I have in mind is that
-zswap is charged to swap counters. Changing that behavior will break
-our current deployment and that of many other. Kairui give some
-example as well. That behavior should not change.
-
-Chris
+Jonathan
