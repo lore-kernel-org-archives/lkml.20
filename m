@@ -1,69 +1,33 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD3B475348
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:25:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5C0746C82A;
+	Mon, 21 Sep 2026 10:26:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789986349; cv=none; b=Wu2dhU7qqKXUhXg136pNEB0PIN9jlhmHgZ/Ie6Ks4zXUIMlF2pPp8Fn/jpTsSplItPiwpVX5Nrk8pm4hnmd9h1kL2zGlntMEW8KQFhkRzqmqhOFIApEBaHkVvVqJO1XQomtoop5XDKLXibDpyBnwhAZaJfDLT3p/WX/58QcF8hc=
+	t=1789986391; cv=none; b=AAicBNpAEyCQMmh3nkY4SQddld1NJGs+AYXMG2PtRkq0leC1CJLEtUZ8e/4J6mztcANbU/RTWfXqbCxFithKmt9TV0mXVAs50Q10NRcJDRFuRcDzCkr5u5Pv+A6aAb343h93pO50j1Cq2iCRPZ6GmCioqA694d7iT8kUYVxdVZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789986349; c=relaxed/simple;
-	bh=jB61ulPo4+2OXOWbLsMqmY+bgBX8tMYEW3pXzpN0lAI=;
+	s=arc-20240116; t=1789986391; c=relaxed/simple;
+	bh=4MYvMzW+eBCxyNeCV7pzyo8zAwP9qndGkWxb2VWBKoo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Cu1F+YEW7mfdJJG0zvlzTdOmDcdssj5p3BEAV4Iv9kJIP29OZlsIWTQN661vrAf1EhO6zYGHJbabNCGKOXRZjzuX+rG/nUVonPLYaGVZP130xrGlzMdFLlrbzS0K2ALSB0UBHKDKLjGRGQ9uFHzTz4RTfNHhkYNJ1nEu6f5i9mM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ElP/c9ue; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=rrsTRx12gMqA0amFI5THmdiEPiwo0CWzHPC6t6Q3OctSBCdxWlF43Jx565ayOOpV55SP7NkmC/7I6X34+wzfEdK8889L6+5Z55xXLhv902uBGXfANOCDbEahF+eYVCMxTrJIc0aXt2Ztn9jyg2q6P32IMh2g0sgeHlXBtkjGsdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RaUbCJOk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ElP/c9ue"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so13408715e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:25:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789986346; x=1790591146; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q7p3QHD6gpRm3mxOZTPCZ9KfFr3tYnokBkqHdCAaLmw=;
-        b=ElP/c9ue+yJsk2teQtO4yB7NXhbYne+K+YJbGjHpt0JHuPq4vyDYfg4BQYdYRKoH1m
-         er8UQilLfbHdsDAuyOFeQC2fbx9ufYuejcVIZaehSOpUm5ye9oZmTSA+ucr8OtCXnQpQ
-         vpmYZDRNkoNXxZA0DZlwdS+SIQ6F8s6qWjUJiDSSzlhksi+WOZvKQ9gdBjJRBI6sLvya
-         mRbq7wrmbpDnGOFyuD6Hp5EtNtlnaHy0++bKjPKML0qNRqkH/iOR19W2GcoDQSxF8XR7
-         n2butbkgYkb5urKswsWLyXMQX0TeJi9JUNK5hm1Xs4aCwNVMj1cVkmxjRQ5Ymgb5fI7e
-         zmyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789986346; x=1790591146;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Q7p3QHD6gpRm3mxOZTPCZ9KfFr3tYnokBkqHdCAaLmw=;
-        b=OoxQy7xbZuVe8kxmuO/9jxU2NWqT6ZlI3jvRg5oz0cw98B2bNvjpMvlftUCIYmW8y7
-         hIoJYTU8rwjN68fIUPbWebuntwL1Tf3jgY5Qw1TZcUfymBf2XUoTA+GXAipGibebHqci
-         LM3LFq0cbmSDXGStMRttW+mRdVbLIRM13DK3o2rtTOPOsasGmvDAfSdVVTEXsQ+lo0Xp
-         g7WzzxNzab0MWE7Mz9L8hFrOYzyUHDK1aO506EgBmp/GokiBj8v6LKhHH7IIf5I7LBPf
-         iOEalXIQ4MTRyZ/C4d68R4ZFJOZs7S3Fjo49gF9EjycnP4BajJ0EFZrSak2BX55i0Dg9
-         zpuw==
-X-Forwarded-Encrypted: i=1; AKwUvBxZqXjzoS87O9WHLPaHWTA5JleUJkmcHbGY8/BG4WTDAPUxyxsSoZ4hFZG7rMbnaNAJuo0aMjMTFZffWMc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1eDnHnyq7HUCJb2vYkb7OiBEj5NEQPkgWkexnxvRtk/e1R7eV
-	L0Lxa9so/lVn+5UXDl8MsuXHlNf9fjupYvzjbsMULXYQsFA56A4WT8+n
-X-Gm-Gg: AYBFou1UceAeWUPIAXNqWvX6DpxNB+uehKUf/T6L3qIll+ArVribblrxA6nbR6ibCbY
-	DvQEVgviXQjgqpTh36wwZSabYreclW06dWBMgjGeD/TotVrQdVM9+BX+aw+ssuB0gDgcZA4z0sC
-	slCPFvQgdq7rGi7G9fnF6NJXb+CZMlEz8Mirl2gQbrRGc8jZTjKvLJOx8SXQC+THD6Z+22W+ASD
-	x7o+zO7SThk6+CmhB+YBDE8Zg+SE3rhBRaI9OtCJ/xCAwzi5TGSkLxlkSqRpHzagNuTmRQPT0mS
-	KX4FUc/d5mZxpG4JmWvtC6lzfa5EC1gW0DcJCwlIMTZbXtDy5ltE8hiNv6MsOYlnx1cEfjo9Hcr
-	JaT9X4KKaOptbQXgM2pk6plymbjmWuWvyisgw7NpilKljBPtz6JV+oGBzfTwnKfSnsS3XNNd01u
-	YC6iebMD59j25J/Xdad4ioa/REsQjy2E9RZLIJ1Xd3NuUY0xoZO5sa9gaMu87+wV+kUCJmsUDtx
-	x4mZwxMt7t47oPEJTEU4XC08nnFnzTcR+qs/zW31CJ9kd0l+Z5u5Wj4nFayqp4cuPc=
-X-Received: by 2002:a05:600c:4f8c:b0:49f:c18a:61c8 with SMTP id 5b1f17b1804b1-49fc573f858mr140670845e9.29.1789986345436;
-        Mon, 21 Sep 2026 03:25:45 -0700 (PDT)
-Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd068124sm213889965e9.3.2026.09.21.03.25.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 03:25:44 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <c3ed62e7-732c-40fe-ba1e-f820b9473cc9@gmail.com>
-Date: Mon, 21 Sep 2026 11:25:41 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RaUbCJOk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6DE91F000FF;
+	Mon, 21 Sep 2026 10:26:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789986389;
+	bh=nTyZyJijpdRj0X6CZpg9ECIQcR7z9LYrkbviRiCY0G4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RaUbCJOkKLo4tajvGYl2aCqTQCY3jQWxoBsKIHV2ITHnHSBXC2/woloaFdCGmW1Mj
+	 dcqnBR/najbVBm0Qg+R1N7LTD78OeguoK+oRClpNLcd+DIrl2iwnxlSklyjNAgyFw7
+	 gyuQC7+WGA1FINXKOPRe7Z+J+rDNKexGnH/P62NTzygOtx0pF6lSf4Ou+0XADS1yuW
+	 CzTKi2rbMtTAQA7A64cF8mH/lnqIafIc2ZW/90Kuap8DxOePcQ3xYLkNQwwpt2acel
+	 HcpCSO93IhzDUtVvz4c0RiHvmXgVOTXNL8A8fSFTEdugmmj+Q6Zejcq7dDwz70vPJ9
+	 PmNoxsSt8U59g==
+Message-ID: <b51234d8-467b-47c4-9d94-82e589643859@kernel.org>
+Date: Mon, 21 Sep 2026 12:26:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,74 +35,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] kconfig: Add "def_string", "def_int" and "def_hex"
-To: Kees Cook <kees@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Masahiro Yamada
- <masahiroy@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Nicolas Pitre <nico@fluxnic.net>, Krzysztof Kozlowski <krzk@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Andrew Jones <andrew.jones@linux.dev>, linux-kbuild@vger.kernel.org,
- linux-doc@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Vegard Nossum <vegard.nossum@oracle.com>,
- Nauman Sabir <officialnaumansabir@gmail.com>, Tejun Heo <tj@kernel.org>,
- =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
- Matthew Maurer <mmaurer@google.com>, Graham Roff <grahamr@qti.qualcomm.com>,
- Miguel Ojeda <ojeda@kernel.org>, "Borislav Petkov (AMD)" <bp@alien8.de>,
- Gary Guo <gary@garyguo.net>, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org, conor.dooley@microchip.com
-References: <20260919005923.i.879-kees@kernel.org>
- <20260919005929.4077729-1-kees@kernel.org>
- <cdebaad4-00c2-4b80-b688-0f5a723d6009@gmail.com>
- <202609191431.C3BCBCD@keescook>
+Subject: Re: [RFC PATCH 1/2] mm/gup_test: Track long-term pins per open file
+To: Richard Cheng <icheng@nvidia.com>, akpm@linux-foundation.org
+Cc: jgg@ziepe.ca, jhubbard@nvidia.com, peterx@redhat.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, ljs@kernel.org, liam@infradead.org,
+ vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ shuah@kernel.org, linux-kselftest@vger.kernel.org, kobak@nvidia.com,
+ kaihengf@nvidia.com, newtonl@nvidia.com, kristinc@nvidia.com
+References: <20260921094243.64698-1-icheng@nvidia.com>
+ <20260921094243.64698-2-icheng@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <202609191431.C3BCBCD@keescook>
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260921094243.64698-2-icheng@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/20/26 04:40, Kees Cook wrote:
-
->> The second problem, is that since the order of defaults matters and
->> conditions can shadow each other, def_<type> makes it harder for users
->> to get defaults right. In the past, I've seen several config options
->> with bugged defaults due to 'default' + 'def_<type>' [2][3][4].
+On 9/21/26 11:42, Richard Cheng wrote:
+> Long-term pin state is currently global, allowing one gup_test file
+> descriptor to block, stop, or release pins owned by another client.
 > 
-> This is the one I, too, got worried about. From your example:
+> Allocate the pin state for each open file and store it in
+> file->private_data. Serialize START, READ, and STOP with the per-open
+> mutex, and release only the pages owned by that file.
 > 
->  config GUEST_STATE_BUFFER_TEST
-> -	def_tristate n
-> +	def_tristate KUNIT_ALL_TESTS
->  	prompt "Enable Guest State Buffer unit tests"
->  	depends on KUNIT
->  	depends on KVM_BOOK3S_HV_POSSIBLE
-> -	default KUNIT_ALL_TESTS
->  	help
+> Descriptors duplicated through dup() or fork() continue sharing state
+> because they reference the same struct file. Keep the ioctl ABI and
+> same-file duplicate START behavior unchanged.
 > 
-> Is there a way to detect this state? (I assume as a follow-up; it's a
-> general problem.)
+> Reviewed-by: Koba Ko <kobak@nvidia.com>
+> Signed-off-by: Richard Cheng <icheng@nvidia.com>
 
-Unfortunately there's no way to avoid some false alarms when checking
-these due to macros.
+commit 534b19bbb67717eea2272573bc0ff7ba4ba109c1
+Author: David Hildenbrand (Arm) <david@kernel.org>
+Date:   Mon Aug 10 13:31:14 2026 +0200
 
-Example:
+    mm/gup_test: keep longterm pin state per file
 
-    config TUNE_CPU
-        string
-        depends on POWERPC64_CPU
-        default "-mtune=power10" if $(cc-option,-mtune=power10)
-        default "-mtune=power9"  if $(cc-option,-mtune=power9)
-        default "-mtune=power8"  if $(cc-option,-mtune=power8)
+    The pin longterm test currently stores its data globally, shared among
+    multiple concurrent users of the interface (multiple open file descriptors
+    -> multiple "struct file"'s).  That makes the gup_test interface
+    problematic to use concurrently: two users, such as concurrent selftest
+    runs, can interfere with the same longterm pin state.
 
-These macros get evaluated during preprocessing, which is ahead of when
-the parse tree is finished and analysis can run.
+    While this has not been observed as a problem so far in practice, let's
+    just handle it cleanly.  There could be a way to trigger selftest failures
+    by e.g., running the cow.c and gup_longerm.c selftests concurrently, but
+    we usually run them sequentially.  Let's add a "Fixes" tag to be safe, but
+    not need to CC stable.
 
-Though a check for it is included in kconfirm (if merged) [1], and I've
-also been thinking about making this part of an optional KCONFIG_LINT
-setting, where some false positives could be acceptable.
+Which is already upstream.
 
-[1]
-https://lore.kernel.org/all/20260727001623.2794156-1-julianbraha@gmail.com/
+-- 
+Cheers,
 
-- Julian Braha
+David
