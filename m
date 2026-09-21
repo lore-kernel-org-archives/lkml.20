@@ -1,215 +1,237 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010030.outbound.protection.outlook.com [52.101.193.30])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010028.outbound.protection.outlook.com [52.101.228.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9439C4A2A61;
-	Mon, 21 Sep 2026 13:45:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8DD4A1DF5;
+	Mon, 21 Sep 2026 13:45:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789998318; cv=fail; b=XDhDXYFKA+NAaJR+jBpaoczRtr5iwkaUbE2K66eM2Gstwia1IDoQgGfDaQ0UYs2PlpLlaGQJr/1ix9TaOo5B21I2uH4WDcXC/melFcxvq8Se8eHGWM1tYcUitRG2/m6kf//dwnUOxo+w1zOvxcTR6sRpbsq96oueKwH2qCTtKTc=
+	t=1789998320; cv=fail; b=qjGy6gyc6bnZ9Wdnov0pTQPTkfiamaN514CO4ESoKe6hAuehYKHURycrSdik0V772Oq8GcA+CMydrQOoEIiD6lHKAurstEHwxOQk4a1VNYlfyVZdzxAV3Q3mOKhu+MIV1Jc6CPv9yhAadwadrlE/Tkv3cuxNj7HVLmpPycc18bo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789998318; c=relaxed/simple;
-	bh=kPcjrhE3Xio0zYDCTtFCB4jelpVm9a8wGSIHrcIRfvI=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ECpkzdoOsr6XLZ7bKZWynx1emdNOkgkJ+Slz27Gu8GgWBj8iTpYqUZwXnp0Leu3ATe9wd6izd2MgmbYFjev5NGwpjj5/oO+q5lU/TtzsGMMRQIiGnJRl95CJd1Yh9d+sMufpfYSxlis+T3dfjkVfdeUf5jBGBlr/dxTu2FHHVXM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=IBEw9ZqA; arc=fail smtp.client-ip=52.101.193.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1789998320; c=relaxed/simple;
+	bh=HFc0vzTV1fKij1dyZeSeWt8mUa1N+XvgeRipAq/C6Tg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GXdJSOHNMVlBO2S9QdJQYq0vSOVjDjb9OshPBxpHwbTwV86SemQNB3NOLsPMHPopolC9uBuX6D1AbvD+UgdCd0Ivt4dBvcqCqHz8qIJyPIPpehEsnxMKRJYQLkusb2Zb3U6qTyb7aHAYn3tfSI+aoMRVYyj5IxIz5cMS80sZGco=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=m6nuVewu; arc=fail smtp.client-ip=52.101.228.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="IBEw9ZqA"
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="m6nuVewu"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rzftqxOh7OZ6QVzMSSTObsyp3vRhSNgRG95D2bzyR1MFavDY40/s/i7yPg5zjJONhUvRCI/mq/Gi8QkG1OVmesnXwZrhI2NDU71DhwiWfK0U5G8ZdKWP+VHlXKWNc3le2Wo0T6fsb2v3ts62N5WO+mVI2sciVVLOxn8WJHZvxsFgZrlIHSuSJ5sxCf32rw2SDaXJCtfUNYZjsLqpO8yCa4aARsFLoOAV7I7ApZUbzgnlzy47c0R5krls5v8rcpKhP+WPSW08CtecOdiDI4v7c/aCORzI6Kzf/GyHt78RPCYigMt866hOme9bEJwkaBTMFCPRVaZ8dYMZdUjN4bDHMg==
+ b=QVVTr0knOKnlzz/Sna0vlUCtupa+F8ucg2mgeERdgAV5FSRt6rlFyc9C1PHzZUcfhbzYDGDnewtNAOycysuTHHVxD3sHGg/Q/0RpyFrsYYO+jkYl1p7dBBtqU0RTZbgqN8pO1ofUjVuYQPaKPGI6kNkaz25NMKCPLLKm2aWxornoLCv+R3tXE4M+eLMvJAxGENORAO7MAjBtGlcoLK1ffchEju0M0SWAf+QbiaUH0RBFI+da7owNkVdpiLnXCgt7XjS1nQpv/P2BFzWXiZyMwmelDBKNej2+4ZQGlKapBlbs7RMIYxdMn/kariXAtX3OXEAHrETImuUT8lLUDqrRSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5UbjuMBLhEjF/nyRqWu5kM0yRAUEnWtA0eYquV6bLQ4=;
- b=xAjyG0vX5iLHY5m3+sam2eB/JxWAPh6P51bfUq3Ohp3kJw2jQCGBAKlp7TPRHG2IQx3WC+JxA9IVkHuMZf+txD9tCshO10VPwNiNGZfXoJJsAd/lHApTI6GneOWcNhPkInp4j/MetJYnWEf9BEv242JcJULpDM4zUi0SwbeZOQeMfOgGqjwSVjqATHFFvWy/flRKWuJRCJlO4HgIq5y+N8JP7DzHXsldCMyW/uxsxZiiNHeIeQDrQKiyYEI98U+qglcORkVaAhaOofiYVTltsJ2+gOrWj/GWs/7ZAMvIh3MFRdR8/OmEyGoolEH4FhJEsFOJXonKqoOV7ZgFUvlcgQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=0mxgeug/OKSPx80nm7ww08lCXlxW7hDLdPbf/rtwU7E=;
+ b=u8TVOXgAIHMHMWMk8Vd6Bl8ey9oRSEa0mP9pFXmePQtH8EGzvu6idKko72af81rxFHWJc2V+LbJuqJGAgP/o2/I37ylOgSB0xap/zs9gWQ53htXGNnddAvl2t7GJMRI7wnNLD2upULIIRL8lNJLiIAD5FOCd2JWtjLeaHl/Y2S02btYw4IgJq6JiZins2QOg3TIGUrzuNqdKcgfDU2DdC6/3WaX2BpXL2Jx06CxWLRDwqPsXBgRVWcXf2wXrirSMi/Vptt+djn0WFJ8hutjieNWLTbIx4Mh9qCkOnfVekTMplO036NKRc5VsLLoLHDlUOgS9u7ot4UOzjn8mt62f0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 8.62.32.50) smtp.rcpttodomain=bp.renesas.com smtp.mailfrom=renesas.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5UbjuMBLhEjF/nyRqWu5kM0yRAUEnWtA0eYquV6bLQ4=;
- b=IBEw9ZqAWZCeZB+Zk7X4Sp47nCsRDqLQ0fNYYgH6bZ7m8FDM+zJBFuMwc1d8VXutxM8JcIESLGoaA62HnY1RKJMjQDDWkKQRNtedjJG40He00cW5JtgBRUXYK7xH9lAkW1Kj3pjimedETUp2YwY6fnNEXAG3UQs6AeJKGrDUiQ8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by DS0PR12MB6581.namprd12.prod.outlook.com (2603:10b6:8:d3::13) with
+ bh=0mxgeug/OKSPx80nm7ww08lCXlxW7hDLdPbf/rtwU7E=;
+ b=m6nuVewuHwM7wA3ZM8IEDeIgyB2HzfK1YUmGlFpsMntRmVa3n6jALdCfMErOumedpbW9HYLT5IURGhY2qxyxm/c1nPVVUPuvQHjwwcFKFC8SueFgH2TOVLnXLfo+I7/Z872y+YlDcjjDR82ILO9Op1VSo2c1iaP6RcLpJjvrBrs=
+Received: from TYCPR01CA0169.jpnprd01.prod.outlook.com (2603:1096:400:2b2::12)
+ by TYCPR01MB10039.jpnprd01.prod.outlook.com (2603:1096:400:1eb::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 13:45:12 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 13:45:12 +0000
-Message-ID: <4d5e3cff-03a5-45f0-8fa8-a6c99e82cdf6@amd.com>
-Date: Mon, 21 Sep 2026 08:45:09 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] pinctrl-amd: Don't clear S4 wake bits at probe
- causes power off to reboot AMD Ryzen laptop
-Content-Language: en-US
-To: Mario Limonciello <superm1@kernel.org>, Olzhas
- <marat.olzhasss@gmail.com>, linusw@kernel.org
-Cc: linux-gpio@vger.kernel.org, regressions@lists.linux.dev,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org, sashal@kernel.org
-References: <CANzgjV0YWUX6=ZGTbn4KEKqQmVhsZTsDPeRf0Nfq=YFT1eoPzA@mail.gmail.com>
- <de1b64ff-ee8c-4b76-aae8-ca29628b2db1@kernel.org>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <de1b64ff-ee8c-4b76-aae8-ca29628b2db1@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SN7PR18CA0030.namprd18.prod.outlook.com
- (2603:10b6:806:f3::7) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+ 2026 13:45:13 +0000
+Received: from TYO1EPF00005026.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b2:cafe::5c) by TYCPR01CA0169.outlook.office365.com
+ (2603:1096:400:2b2::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
+ 21 Sep 2026 13:45:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 8.62.32.50)
+ smtp.mailfrom=renesas.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=renesas.com;
+Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
+ 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
+Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
+ TYO1EPF00005026.mail.protection.outlook.com (10.167.240.23) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
+ via Frontend Transport; Mon, 21 Sep 2026 13:45:13 +0000
+Received: from laptop.adwin.renesas.com (GBR-5CG34119KX.adwin.renesas.com [10.226.37.103])
+	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id 35DAF3000279;
+	Mon, 21 Sep 2026 22:45:09 +0900 (JST)
+From: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Ulf Hansson <ulfh@kernel.org>
+Cc: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Chris Paterson <Chris.Paterson2@renesas.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v2 3/9] pmdomain: renesas: rcar-sys: Add r8a774a3 support
+Date: Mon, 21 Sep 2026 13:44:23 +0000
+Message-ID: <20260921134432.50338-4-ayman.chaudhry.kc@renesas.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260921134432.50338-1-ayman.chaudhry.kc@renesas.com>
+References: <20260921134432.50338-1-ayman.chaudhry.kc@renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|DS0PR12MB6581:EE_
-X-MS-Office365-Filtering-Correlation-Id: a0e11bae-ad2e-4072-6b55-08df17e68eeb
+X-MS-TrafficTypeDiagnostic: TYO1EPF00005026:EE_|TYCPR01MB10039:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: ddd1a0c5-66f8-48aa-f077-08df17e68feb
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|10067099003|3023799007|6133799003|22082099003|18002099003|56012099006|11063799006|4143699003;
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|10067099003|56012099006|11063799006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	GgEDS68fNTcXr20DJyndl3Roic/OrGuEyoQni3FOAzh+SRWARBuhYgatn6oHXqQep17cr/fkl+hNRcttSJ62tSYOII/z1tuVxjE0713tfDmP7IbhfSX9Ct/8jwD9PfjUBMQVkL/pcihEqSHF5JrbnTMZYIBiZ+sGjpv+Fl2suytWV2Cbh98skp3xggZ9e4YBhI3WYwY8qL1uxyZIle5SNhpGANcgFDObQH9eUQ8QMtPmU93vZv4UyoPLILlNypYthfGld5Ou00bEXzj435U7EtYAC/OjijWteptwJEaA/LrYcIEjzc4e0hXpmxVBeDcjOQvtWtcxMBSS5uLfgjXDihE1akmho1F+CMMdfvj/GaK36uPmgq649ilAzEhy4C3aBDk79E9f4FoW60t+VixSEboWrV8f6+GPLfQqOab9uZyeNzwClsKokPCyenZFHZv7y1VghkMqzs5HLMp72fMDLtS1c3Bd+wDB7hSGIRnBNwZaB5OCY+VrQaT3dbSjM+xxJ+8PCv8Owz5sKcIs3R13f1QNk9UO5S6fAxcAYTBPKrtB4aTsV9yuCMykGXChRC0GnqABKT9rgELU6DLIayaPpoxfvZ2QgNh+Pizos+6Mx1ZUfMnLhel2GMWPHHj3W6Cz
+	vBbbg1oWaeWm5TcEx46S4fw98HKfasZayDMQF4ZWbDOOBjlc6g63temcI2uQg9Fwdach47Q1hcgAHo778xUqTe29Cdg2y3H/4EGHIgHBPR7ng5R/Drj948GZkJZVXSZLDFcuCuI5rV7XFGJ9A0L0x30qoetnUur+nKM5APB5D4Z8Y3yZLs6jEHLRffYRdZH/RktiQvqxBxO1diKfokONmHzvxObdgBhT27yC3+Z6e57e7sCl8Qs+BVFEU0Wv2tyzSSMMbiDsFcfDhY6Uc2Bo71O5m3j8XL+syXP09JUvc5B/bZElEfbIDWFhO8jXepJ1GR+75YbwfM+cbyHHrmi8hzPjzhW44DoPcGEllOIsg+snPEY56hguvnsm6pp7Hz/PIrRXwR5vQrKcJiR6Jc8BWKwVInZOVCDm43fGQNYlVNgMD2l61YJj+k2BfOpbRLHoxMzcvP0EEF0FJ+qKsGdRGnCJinN9+X9r2XJajQ2XbjFtMdPIAn52goonaLNXCdweYYssOgS/HdVGS4BgWPRzs+lr/EK66hhiQohnHiApq3vNgAIsdZAYFKF7uxUjhYxDGTyMeZ3LAhUrVkpIC0pg8Hdi5vAORWrMT7Vt2YqL/1kg5pHw+24nDOpEfPNrIzCBVPCtaPd2txjWfO0iZ+d0ZoJ3PRD3jhdibWcGY7bQcqqtLM+otIFgo187a8ts2IiyFi/Coj/33NnQImccRXRLSQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(10067099003)(3023799007)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WlgydCtMT1pqeGFKYjlZQ3kvSzE2bmZoUUQ2Nmd0b2ZpQ0RBVzQ0NmxTS1Jw?=
- =?utf-8?B?UHVZYWlEOGFieE92cUpUNTZ0UWdrdHd6VllJZUQ4L3ZxVG0rZGptS0p5QjNP?=
- =?utf-8?B?ZW5XMTdidkpUaFZFek1Vbm54aVlEMEUybms5WnAvbTQ3QTN5eGRnZzFMMFMv?=
- =?utf-8?B?RTVJaWhFUG05NGdmV0swYlBOU2NEYmtKeTRGZVNZVHRWMEJ5ZkhPekowRU9t?=
- =?utf-8?B?VGNtc3lWbVd0Tmcxc2ZhVVVab1g2d1lzNXhkT2NoSnVOckEyejVCTnV4bktw?=
- =?utf-8?B?azZiRmlrQ29iNzVBYmViajZiVUF5VmVjZ2VSOTQxdDJJYTdkTUZVbkdsQW11?=
- =?utf-8?B?UkVWWVFhZ2I5WkxEQlpqQ3h6aGxFdHZMNjRWUUhZenIrV285bnhWRWVDL1E5?=
- =?utf-8?B?ZXlxaGJTcVZiaVlRbExzWGdCUFE0Qm5zdVJORzdQTkc1TUNWdnByYm4vTWpY?=
- =?utf-8?B?aXFpeGlBVmZOdURFVGlodDgxcml2SFlwWDJJT2tpRDJTUFVRQjJxMFdta3dY?=
- =?utf-8?B?dWlNUnh1cnpjeWErMHdYODVxdmdjUzNBRHhzSEpaUnR4cFJOZ2tSR2dPSEs3?=
- =?utf-8?B?ZXUreDlmZDBNRUsrNFA4ekxqU3JXUkxubFFBUytCRUdvMitQWndoVis0S2Rm?=
- =?utf-8?B?YWFGK294NHpmamI0aU95SVZhVXkxQ2krWks5Q1YxSS9zengrbElFUUg5ekE1?=
- =?utf-8?B?TEVhRVluRHR2WjNmblZISWZJTWZFV01qUENLQ0tYVHUyaHh1VWpYRTNKbW9G?=
- =?utf-8?B?Ly9tZTlBeW9JWnZOWnV6L2VtclBOa2E3Nm53RFpvbkVGMHVwTzl1OWp1Nkpr?=
- =?utf-8?B?bFA2VElORXdHL1FHK3U1czhzOU50TVVNc2xOMDBvM0pGbGlRR2NOeGIxSDFS?=
- =?utf-8?B?T2FQT2Vpb2RocEFlcWNRSWhqRlBPbSs5SDVkTGgxdi9ieTBpa05hTUo1NWhT?=
- =?utf-8?B?TlF0MFVkYVllb3RiNGlDUW1hWWI1cERidktXRFRacnhOWGdoZHE4ZFAwckxH?=
- =?utf-8?B?YUNrYzNEN2ZxdWVPTFJSZmxPK3ZyZE81UllIYkNQelUyT21lY2tXd2VsUDlN?=
- =?utf-8?B?ZXdJWjZQSW9YY2I2STJpTndwR0hMaTk3S2lmL2NtSkFucVRuSWRtS2pleFdH?=
- =?utf-8?B?dWNnWmhCVmw4QjRIVXUxUU1oNDF2THZKeUNIeGo3TW5DL0UwejRSSjd0SVZo?=
- =?utf-8?B?cWJjaVdLYml5SUJFT0tpTzRuKytMUVVzUjdLc2FCYThPUkhUdHpIRFRRTmpR?=
- =?utf-8?B?eC9lWm5qRGF2UzBwK3lBQytVWERBa3dwT0w1ZkFDWi9oODkyZm9QcmExQndZ?=
- =?utf-8?B?MWRmRytPREliY0FiNmZ4ZTI5d1JmSmdIemJHZlZEYUI2UnBEQ2Y2aHlMcWgw?=
- =?utf-8?B?QU5mMFJhTDZQU0VCMkQ1dENxSVpXbXFNY2FWdlJHbXU0SGFvcktWUlRLUUpX?=
- =?utf-8?B?RXFjeitZNGdqSHZHcnhYYjd0RFBWaTNQQjNQRHA1WGwzRUd3ejFyNVlHM0Ix?=
- =?utf-8?B?N1M2cndaSDVwOTJreEhPYXlyaXFBTW8vMGJHb1Z2bW42a1FWMjNPTTdBVGdH?=
- =?utf-8?B?ZktvYm5ycy90d01sbWsya0g1eitVNFBlQS8wdloxamFRdWFWTkg4THl5cDdO?=
- =?utf-8?B?V0Q0aDcrYXBybnZ1N2krVTZraEVXNWR6YU16bjNKWTA2elgvV01ZWGFlUE5k?=
- =?utf-8?B?VXhzNENaVjRVSlRZYTNqd20rR2NQL0hsNFBHRnc3K3hnKzAxNHJQQ1VHZmRn?=
- =?utf-8?B?M1pwYXVSV1JJTFlCNmpBRFJvWjRrbkJSR0JIb2VoM05pWHJCTWgvR2FNWC8y?=
- =?utf-8?B?VkpnLytvVURhYnNyUVUzNmlrT0dxNC92d0dOUEQ2dERrNndvRzNMdnpOVFlp?=
- =?utf-8?B?QUFlNi9oaHV3K2JJR2U4OFk2NjNqZkhtS0Y2WXBkMzdkYVV0emZkNitpVDBp?=
- =?utf-8?B?REM5L3JwclZXakhTRWJnZ081blZldmdWQVl3Qm5nYzRxUnZIZ0RTQlhMZmp0?=
- =?utf-8?B?b2d6L01HdEpXaG1lZmdoWFltbUJ5UmRMaFFhMURPRUcvbmNWOVBXRUVZNGhZ?=
- =?utf-8?B?OVdacmhoOXc2dGp5MCtrVWEvRitGdU1Bd1N3anhjNlovdjNsS2hnMmZSTWZD?=
- =?utf-8?B?R29nTDZ6T1NXQWlZbGlNWGJRU2VvMG5HMGxGb3dNZ2FibkpNbjF4K3VicDVX?=
- =?utf-8?B?bVM0ekYwOC80VFF6QURFUERXaVVHcjhSK254cU4ra3hETGRVK1hVMlZHcEpN?=
- =?utf-8?B?cjdPeUREaVkvNFc5Z0p1V1ExbXF6RXdlQm5tVEdocjdUVUZOL1J5WTh6UWVw?=
- =?utf-8?Q?B+SLQIZDNw4hmSxGna?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0e11bae-ad2e-4072-6b55-08df17e68eeb
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 13:45:12.1576
+	KlRyJuSmwd2VYCzUOZ5/wKw10VirPB9fAFmgI0KtAI2FUdPrEimNghKp2fXbzO9T3H/ghV/LtI4fEnWQivopqjue/TbpYEhgZgu6uhFfj+r9CawGwjqUKqobKlj4hA9XmJUXoZlZrkp/F6op06Gyzf5GeCptJrYGMNWEZxrsERVbAF+8kxn3BwaIFRCmYXCzqqwdEu5a0tLi9J3tbs3pG0/6+MPT0kHxDyZ7KG03QQp4WItqJeTgUzg80++rR5Ha9uaMa1SASdS+QLYacp7jJlXuDSI9uDREe/MDlNS+4pf3ifIPltbKPbRF50i4DMed5KItPvo+xttWpRfXOMBLmxJTuTsmx+iZhDZqfysIpL1CdCx+702rI8i9ozJx00Z/hu49dddIPr2PQOGN6CRrsvM9MAe/ElyQuctNf0He4lyna/M7Klf8LQIIhdOFp/zj
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 13:45:13.3927
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i5fzJ8VpBVKIJdhEsmm8s5YIya7xpVyNv5H+G67ai3VU5BwFcdFRbbsFhIv1C2wqSI+CMbdpjCjlSJBcrgkN5g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6581
+X-MS-Exchange-CrossTenant-Network-Message-Id: ddd1a0c5-66f8-48aa-f077-08df17e68feb
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
+X-MS-Exchange-CrossTenant-AuthSource: TYO1EPF00005026.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB10039
 
+Add support for Renesas RZ/G2M v3.0 (a.k.a. R8A774A3) SoC power areas
+to the R-Car SYSC driver. The RZ/G2M v3.0 SYSC is similar to the RZ/G2M
+v1.3 SYSC, however it lacks the A2VC0 power area.
 
+Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+---
+v1->v2:
+- Added space before closing brace for `ca57-cpu1` area
+- Updated include path to SYSC dt-bindings
+- Added Reviewed-by tag
 
-On 9/20/26 12:05, Mario Limonciello wrote:
-> 
-> 
-> On 9/20/26 12:00 PM, Olzhas wrote:
->> Hi Mario,
->>
->> I am experiencing a regression on my laptop where attempting to power
->> off the machine results in an immediate reboot instead of a shutdown.
->>
->> The last known good kernel is v7.1.7, while v7.1.8 is the first known
->> bad release.
->>
->> I bisected the regression across 9 kernel builds and identified the
->> following commit as the first bad commit:
->>
->> a7c855969b1a ("pinctrl-amd: Don't clear S4 wake bits at probe")
->>
->> With this commit present, running:
->>
->>      systemctl poweroff
->>
->> causes the laptop to power off and then immediately power back on.
->>
->> I reverted this specific commit on top of v7.3.0-rc3 and the issue is
->> completely resolved. The laptop now powers off correctly and remains
->> off.
->>
->> Hardware:
->> - Laptop: Chuwi CoreBook Plus 16
->> - DMI board vendor: Default string
->> - DMI board name: Default string
->> - DMI BIOS version: AB8139_S_2C_V00.01_007
->> - DMI BIOS date: 2025-08-05
->> - CPU reported by the system: AMD Ryzen 5 7430U with Radeon Graphics
->> - The CPU/hardware appears to correspond to Ryzen 5 5500U / Lucienne
->>    silicon, although I am not certain whether this is relevant.
->>
->> Software:
->> - Distribution: Arch Linux
->> - Last known good: v7.1.7
->> - First known bad: v7.1.8
->> - Current test kernel: v7.3.0-rc3 with a7c855969b1a reverted
->>
->> I have verified the fix by booting the reverted kernel and testing
->> poweroff successfully.
->>
->> Since the DMI board strings are generic ("Default string"), I would be
->> happy to provide an ACPI dump, dmesg output, kernel configuration,
->> bisect log, or perform additional testing if needed.
->>
->> I suspect this may be related to an S4 wake source left enabled by the
->> firmware, but I have not identified the exact wake source yet.
->>
->> Best regards,
->> Olzhas Marat
->>
->> #regzbot introduced: a7c855969b1a
->>
-> 
-> This is most likely a BIOS bug, but we need to dig into the details to 
-> understand more and decide what to do.  It could also be a driver bug, 
-> most likely in a WLAN driver.
-> 
-> Can you please open a kernel bugzilla with the following information:
-> 
-> 1) /sys/kernel/debug/gpio without the commit
-> 2) /sys/kernel/debug/gpio with the commit
-> 3) acpidump (just once)
-> 4) amd-s2idle report (this will capture and associate some information 
-> that will make this easier to triage)
-> 
-> Please CC me into the bug report.
-> 
-> Thanks
+ drivers/pmdomain/renesas/Kconfig         |  4 +++
+ drivers/pmdomain/renesas/Makefile        |  1 +
+ drivers/pmdomain/renesas/r8a774a3-sysc.c | 45 ++++++++++++++++++++++++
+ drivers/pmdomain/renesas/rcar-sysc.c     |  3 ++
+ drivers/pmdomain/renesas/rcar-sysc.h     |  1 +
+ 5 files changed, 54 insertions(+)
+ create mode 100644 drivers/pmdomain/renesas/r8a774a3-sysc.c
 
-FYI for others, a bug report is opened here:
+diff --git a/drivers/pmdomain/renesas/Kconfig b/drivers/pmdomain/renesas/Kconfig
+index f2f52d3c29a0..df19b95c4655 100644
+--- a/drivers/pmdomain/renesas/Kconfig
++++ b/drivers/pmdomain/renesas/Kconfig
+@@ -37,6 +37,10 @@ config SYSC_R8A774A1
+ 	bool "System Controller support for R8A774A1 (RZ/G2M)" if COMPILE_TEST
+ 	select SYSC_RCAR
+ 
++config SYSC_R8A774A3
++	bool "System Controller support for R8A774A3 (RZ/G2M v3.0)" if COMPILE_TEST
++	select SYSC_RCAR
++
+ config SYSC_R8A774B1
+ 	bool "System Controller support for R8A774B1 (RZ/G2N)" if COMPILE_TEST
+ 	select SYSC_RCAR
+diff --git a/drivers/pmdomain/renesas/Makefile b/drivers/pmdomain/renesas/Makefile
+index 17849aad37a5..8eda820478e4 100644
+--- a/drivers/pmdomain/renesas/Makefile
++++ b/drivers/pmdomain/renesas/Makefile
+@@ -6,6 +6,7 @@ obj-$(CONFIG_SYSC_R8A7743)	+= r8a7743-sysc.o
+ obj-$(CONFIG_SYSC_R8A7745)	+= r8a7745-sysc.o
+ obj-$(CONFIG_SYSC_R8A77470)	+= r8a77470-sysc.o
+ obj-$(CONFIG_SYSC_R8A774A1)	+= r8a774a1-sysc.o
++obj-$(CONFIG_SYSC_R8A774A3)	+= r8a774a3-sysc.o
+ obj-$(CONFIG_SYSC_R8A774B1)	+= r8a774b1-sysc.o
+ obj-$(CONFIG_SYSC_R8A774C0)	+= r8a774c0-sysc.o
+ obj-$(CONFIG_SYSC_R8A774E1)	+= r8a774e1-sysc.o
+diff --git a/drivers/pmdomain/renesas/r8a774a3-sysc.c b/drivers/pmdomain/renesas/r8a774a3-sysc.c
+new file mode 100644
+index 000000000000..58c98700bd55
+--- /dev/null
++++ b/drivers/pmdomain/renesas/r8a774a3-sysc.c
+@@ -0,0 +1,45 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Renesas RZ/G2M v3.0 System Controller
++ * Copyright (C) 2026 Renesas Electronics Corp.
++ *
++ * Based on Renesas R-Car M3-W System Controller
++ * Copyright (C) 2016 Glider bvba
++ */
++
++#include <linux/kernel.h>
++
++#include <dt-bindings/power/renesas,r8a774a3-sysc.h>
++
++#include "rcar-sysc.h"
++
++static const struct rcar_sysc_area r8a774a3_areas[] __initconst = {
++	{ "always-on",     0, 0, R8A774A3_PD_ALWAYS_ON, -1, PD_ALWAYS_ON },
++	{ "ca57-scu",  0x1c0, 0, R8A774A3_PD_CA57_SCU, R8A774A3_PD_ALWAYS_ON,
++	  PD_SCU },
++	{ "ca57-cpu0",  0x80, 0, R8A774A3_PD_CA57_CPU0, R8A774A3_PD_CA57_SCU,
++	  PD_CPU_NOCR },
++	{ "ca57-cpu1",  0x80, 1, R8A774A3_PD_CA57_CPU1, R8A774A3_PD_CA57_SCU,
++	  PD_CPU_NOCR },
++	{ "ca53-scu",  0x140, 0, R8A774A3_PD_CA53_SCU, R8A774A3_PD_ALWAYS_ON,
++	  PD_SCU },
++	{ "ca53-cpu0", 0x200, 0, R8A774A3_PD_CA53_CPU0, R8A774A3_PD_CA53_SCU,
++	  PD_CPU_NOCR },
++	{ "ca53-cpu1", 0x200, 1, R8A774A3_PD_CA53_CPU1, R8A774A3_PD_CA53_SCU,
++	  PD_CPU_NOCR },
++	{ "ca53-cpu2", 0x200, 2, R8A774A3_PD_CA53_CPU2, R8A774A3_PD_CA53_SCU,
++	  PD_CPU_NOCR },
++	{ "ca53-cpu3", 0x200, 3, R8A774A3_PD_CA53_CPU3, R8A774A3_PD_CA53_SCU,
++	  PD_CPU_NOCR },
++	{ "a3vc",      0x380, 0, R8A774A3_PD_A3VC, R8A774A3_PD_ALWAYS_ON },
++	{ "a2vc1",     0x3c0, 1, R8A774A3_PD_A2VC1, R8A774A3_PD_A3VC },
++	{ "3dg-a",     0x100, 0, R8A774A3_PD_3DG_A, R8A774A3_PD_ALWAYS_ON },
++	{ "3dg-b",     0x100, 1, R8A774A3_PD_3DG_B, R8A774A3_PD_3DG_A },
++};
++
++const struct rcar_sysc_info r8a774a3_sysc_info __initconst = {
++	.areas = r8a774a3_areas,
++	.num_areas = ARRAY_SIZE(r8a774a3_areas),
++	.extmask_offs = 0x2f8,
++	.extmask_val = BIT(0),
++};
+diff --git a/drivers/pmdomain/renesas/rcar-sysc.c b/drivers/pmdomain/renesas/rcar-sysc.c
+index bd7bb9cbd9da..3c8a44c6d772 100644
+--- a/drivers/pmdomain/renesas/rcar-sysc.c
++++ b/drivers/pmdomain/renesas/rcar-sysc.c
+@@ -284,6 +284,9 @@ static const struct of_device_id rcar_sysc_matches[] __initconst = {
+ #ifdef CONFIG_SYSC_R8A774A1
+ 	{ .compatible = "renesas,r8a774a1-sysc", .data = &r8a774a1_sysc_info },
+ #endif
++#ifdef CONFIG_SYSC_R8A774A3
++	{ .compatible = "renesas,r8a774a3-sysc", .data = &r8a774a3_sysc_info },
++#endif
+ #ifdef CONFIG_SYSC_R8A774B1
+ 	{ .compatible = "renesas,r8a774b1-sysc", .data = &r8a774b1_sysc_info },
+ #endif
+diff --git a/drivers/pmdomain/renesas/rcar-sysc.h b/drivers/pmdomain/renesas/rcar-sysc.h
+index ef598ecc710a..b264e727883b 100644
+--- a/drivers/pmdomain/renesas/rcar-sysc.h
++++ b/drivers/pmdomain/renesas/rcar-sysc.h
+@@ -61,6 +61,7 @@ extern const struct rcar_sysc_info r8a7743_sysc_info;
+ extern const struct rcar_sysc_info r8a7745_sysc_info;
+ extern const struct rcar_sysc_info r8a77470_sysc_info;
+ extern const struct rcar_sysc_info r8a774a1_sysc_info;
++extern const struct rcar_sysc_info r8a774a3_sysc_info;
+ extern const struct rcar_sysc_info r8a774b1_sysc_info;
+ extern const struct rcar_sysc_info r8a774c0_sysc_info;
+ extern const struct rcar_sysc_info r8a774e1_sysc_info;
+-- 
+2.34.1
 
-https://bugzilla.kernel.org/show_bug.cgi?id=222041
-
-We are working on narrowing down which GPIO is causing problems for this 
-machine and then will decide what to do.
