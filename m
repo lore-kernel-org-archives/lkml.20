@@ -1,158 +1,132 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9CD4B7A24
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:16:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003776; cv=pass; b=BsdsjqFMQ+1bfw54UkjN00alpw5tosQHd7QTE2oZh+ogiAiWTGJGYLrKSFPVasgRGSS4m+9gXxYte0JwUBm3ioZvq/VutzoTWAVAYG+P0Aev5Q3qxoZUC9lnxGlRk+ejpdv61IGFsAUQxsFAPD/kFJnvk6N7fGKBtrRL8b8ewXc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003776; c=relaxed/simple;
-	bh=XHPO43iPwGf/8rDqm86qoTqT4DK9heTLxM81CKZvxYw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OKn0fBQKYDiBO3orMSqsuHD0n6glfY5Kslk+nAJ/PY8Mxd5JJOHnWt4hjcCYLfHZjiJBVao+QlvDNyVCnfToMNMcY04XIpXSD3yhmrwq+mmRec5AJ4ie/ph4AZrSPwqZLUzEbN8sNNkQYxM1CBCjYZs3ci7QIFP52ksOUjUh7R8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=criticallink.com; spf=pass smtp.mailfrom=criticallink.com; dkim=pass (2048-bit key) header.d=criticallink.com header.i=@criticallink.com header.b=MlAuWMAw; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=criticallink.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=criticallink.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527DB4BB27C;
+	Mon, 21 Sep 2026 15:16:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790003778; cv=none; b=S9p+zR/XPa2dHMUzvXHreVuuVlCODc/IQySfKxcUK+Cog441pQgGsPAesJRt1KTWC5Jv1uSpnhdvprXpyfuH/tRbodZXEhRdzPyWUVF3ucO8G8kbkWzxKjRevrOD1cR/ahNINCmVZlYGHsNEejFdhi5zPiA6qZbGzgME0Lpp5MI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790003778; c=relaxed/simple;
+	bh=V4GSK/qWf5Ms9CYfyWjabIOgvNVwdzUU8y253T8SmUA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qBnLYik6BvnuHtBXq5QDfBKvdrzRBS1i59ENXANEzvq+ZhPdZvsIUZElxIuyPZ0MuuGdyyJ1D7ywGXMe8Mps2eGlvZQkQSugvXu3DJS6riCCw76mKDpJCr60aSSg7lkxPgq5TvOnJdmFdtJeOfUB64mAukdXCz4NedoxBWUq7IQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DCwelQrM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=criticallink.com header.i=@criticallink.com header.b="MlAuWMAw"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9adcso5332469a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:16:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790003772; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HT6NE64xTE44BzLk+dyWc05GUMXaXvBoSWHfKmwAhyu92W5kj3D4S8ozmzv6lEagnb
-         modiVJnzzGVlx8xbtzCMye1CR0VV6n2WMfpl4TA6fB00coiX/2UD0NixTdEyj9tpQ6hT
-         Cqh7VA/nAw7dxWQZKoizcZUGl2BINEUu8UAthVkdcjw2WWBAgbftmckQjQxGMduyBfZ9
-         42HDNcCbvQSyzd/j9kWvPDkIIRlqYov7bTlxY/jWXA7PRpkDJ3Hf4Fq/ymEkfhanBISs
-         hodX92FUi7ouHlN/we5NbWCholusbOfUelauviW5+42r8ZnurQCMoZUHks4WNaBnVVxd
-         Jgxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HX8wdI5S2tl2VsV0b3cC7CFvQKR8NtMSXQBbxVkBhOM=;
-        fh=/mpZIZAD6hyDdVCWw1/plMnYVqAOxEI/LEwaOihISSs=;
-        b=m6jzMDvFc5+wiIG3CNNehzKiSrmL3Yg6GZOEcIRF67TExgkqMUdJI8XD3E802cFvgV
-         J1TyF43f62BipEm14gCwm8n1Q73UtSV6HNzNVXaZ2LiWXTRDNK4Ys8Htt/OJ1JYEmPJc
-         FLDU7Q2HyuGs7k4f3nToxfHQR8hNWshw/RadHvIVzBSFuIOOjH9BOWgk5D/P7vsSX6O7
-         tNt/UtCFbhgenCKNaNMi88UsgxJOoiFT8v519+Apk6xXCHejpZczwQrGynw28UHfBkYs
-         7ry/e1WN6DubTi9xUiCXR9WrQOAFWdoD6mDnZAVfHZfBCM2R8cbJAGdFW8XOcmlVFtAC
-         DGzQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=criticallink.com; s=google; t=1790003772; x=1790608572; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HX8wdI5S2tl2VsV0b3cC7CFvQKR8NtMSXQBbxVkBhOM=;
-        b=MlAuWMAwbjpYzJtw6TBu52HvGXYbcslY8xaCfxUrYPzU9bDyOjDbHfqEDIRVacsDeM
-         /tFHlhXgsaAHLTTlwW7qwpnV+mXH0JoJFS11M4+u1Qk6N+/T2VW4aNM1Q/Zt5E75Vs76
-         lEaufwQgwsnvCEJtKfNGrtVb6H2pOmFnQP8V9g497VHGXsdCBlOnWgUlka1Yuoz0/j4t
-         iSINgCEg3C2FvVOlvEyHlNYjkyszX75D0C4LdyZrBfZDK8rIZKwFfeBTZ8vKTa6Ejg9A
-         1RF+io1ZIWhI764yfnveupU0Gn+H5XYZF1GKyHO74vOyfszv4mHxOKzmaycIchooOZ1i
-         08GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790003772; x=1790608572;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HX8wdI5S2tl2VsV0b3cC7CFvQKR8NtMSXQBbxVkBhOM=;
-        b=bfnuscYTkJLF182LpfmCIeZFpAWrh5W6JN6sCOm296k5ufUPGs8+nSnTWlyZf5ABzT
-         P0SIeJb8jC2p+yFkG1BM6EujYCfSCptQYG3BfReoSBLGa+MJtLc/ViYH3cYxynfI75/e
-         Gkk51acy9hVfxBDkr5CxQTJc/9ftLpUP+bg9dVq/85jbtV7BQadW3CVP6/9Vozm/fCSe
-         NbtZ56b48cB3PiFluU55Gpsib/PkwPcXfYV/SR4B0fWkTKBKCk5HlpemnN4lxWsSesJp
-         UlV3hR2n89EHHdD5l0KdfCHOzJunva8uoUnwP6gUbHP40PL5z/8Se7ZNSuDAEGBNsPs1
-         XEJA==
-X-Forwarded-Encrypted: i=1; AKwUvByrKotQp7J17abr+S30SvBPRhBAD9mUhI9Z99zETU0E/TSEk9HV8P7Bpr7uVboNE9+jD3dxA8Pa9N6Qpz0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxydbfNP+3XD23cTQn2xwsyoWqDFP/PgTLtaC86nF22UaipXip
-	tTfAAcAckGZ5vO8q4TiXOTE4kd3V7tMgyZAMzZsoAL/ojir494BWLThePHVMrIx+UgH8ZI8Imvd
-	dfztqeJJkqRXdbZDsFbWZ/7KvNdQUSg6HNqZTOqRB
-X-Gm-Gg: AYBFou0yJQSvsbSs06mD8v1M5K59KPbLlCrhCaSY0aHc1Ky1nxmWAg/IZ4pxM0YoRQm
-	k60phhE5d5IFhTeocl58y+NV3OIlIoWwcvBw/807S9xXFRrA/6e3RsmJ+xgu3J57u1ucKGKNWH8
-	KSdindECJklr9evizCwekUAvbbFIzzu3YjMR0xv3gbmUGaJBEOhNswiGpYhEQ1NqaPDM1+9dx/g
-	OLkRJ7Yr/MnPWFcNbJ0BVqSnbtawE1zwMzx5h5OljkXmszkQYL+b5Z7A+X1GA7LxoJ6pPiBEiE5
-	r7R4MXww0QXx30LfvPY00iPvxsArvv5vq7BdAJsYjahqxtJcz+X8Ww==
-X-Received: by 2002:a05:6402:4382:b0:6a9:6944:57f2 with SMTP id
- 4fb4d7f45d1cf-6aa564ce3c7mr7698906a12.10.1790003772167; Mon, 21 Sep 2026
- 08:16:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DCwelQrM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AACF1F000FF;
+	Mon, 21 Sep 2026 15:16:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790003777;
+	bh=veKrzBYwtqkZ5uAl4Bsq3wYfjpPB5wJHOcq0fU9d+Js=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DCwelQrMjozQ6vbdqphQolPQ972BZtLd7CKLuPTQUNeazNWIu/tlwZauW66zWBY74
+	 gb0awoGuIFOmP74/VRZv2cJ59MsMaoZJN/Ugm2WRM7ABnJOCn1llTHwhhfqmu77Tda
+	 Ef4gcOGoudHJg3ycT1XeCNY6Dx7HvbHEq15Xj+ZQ6431UQ3zeAPxIFO/zjUsNbQc9v
+	 dZmv8MQgQbVVWmoQrYG0fCVNGfz9ltIiVP+nu3RcWx1vlFL/hedcZzKTq8lkyyzccJ
+	 4nCwgo14Z34v/N2uelH5+0O5HyY1dDy74Jwnvpos8bFjHysTMDl76l7Fg47EbXFGkH
+	 8jpIrWkd3ICHA==
+Date: Mon, 21 Sep 2026 17:16:13 +0200
+From: krzk@kernel.org
+To: Hui Peng <benquike@gmail.com>
+Cc: Johan Hovold <johan@kernel.org>, stable@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v4] USB: serial: garmin_gps: validate packet data length
+ in nat_receive()
+Message-ID: <arFKNFtH4e81GtXm@quoll>
+References: <20260919112819.3885778-1-benquike@gmail.com>
+ <2026092059-hacking-coveting-c629@gregkh>
+ <20260921030236.1040858-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260919171100.90430-1-kmehltretter@gmail.com> <20260919171100.90430-2-kmehltretter@gmail.com>
-In-Reply-To: <20260919171100.90430-2-kmehltretter@gmail.com>
-From: Jon Cormier <jcormier@criticallink.com>
-Date: Mon, 21 Sep 2026 11:15:59 -0400
-X-Gm-Features: AcwNN1XBrxH6m24bVAE90lwMgAyLcIq43xhby1tZife3cbQ2oW2ZxE_IChsMK9A
-Message-ID: <CADL8D3bOOK0ER+rk3kGLaRKH0LBpTYj64SX57OCzZo4WeTZCHg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] gpio: tps65219: Fix GPIO input value reads
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Jerome Neanne <jneanne@baylibre.com>, Andy Shevchenko <andy.shevchenko@gmail.com>, 
-	Shree Ramamoorthy <s-ramamoorthy@ti.com>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
-	Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, linux-omap@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260921030236.1040858-1-benquike@gmail.com>
 
-On Sat, Sep 19, 2026 at 1:11=E2=80=AFPM Karl Mehltretter <kmehltretter@gmai=
-l.com> wrote:
->
-> TPS65219_MFP_GPIO_STATUS_MASK is already BIT(4). Passing it to BIT()
-> again tests bit 16, which cannot be set in the 8-bit MFP_CTRL register,
-> so GPIO0 is always reported low when configured as an input.
->
-> Test the register value with the mask directly.
->
-> Fixes: 57e30e00bd5b ("gpio: tps65219: add GPIO support for TPS65219 PMIC"=
-)
+
+On Mon, 21 Sep 2026 03:02:36 +0000, Hui Peng wrote:
+> In nat_receive() (called from garmin_write() when userspace writes to
+> /dev/ttyUSBn in MODE_NATIVE mode), while garmin_data_p->insize is less
+> than GARMIN_PKTHDR_LENGTH (12), the loop copies up to 12 bytes into
+> garmin_data_p->inbuffer. Once garmin_data_p->insize reaches
+> GARMIN_PKTHDR_LENGTH, nat_receive() computes the total packet size as:
+> 
+>   len = GARMIN_PKTHDR_LENGTH + getDataLength(garmin_data_p->inbuffer);
+> 
+> Because getDataLength() returns a signed int from __le32_to_cpup(), a
+> 12-byte header with a negative 32-bit length field (such as 0xfffffff5,
+> i.e., -11) causes len to underflow to a small positive value (12 + (-11)
+> = 1) without any bounds check at that point. Then garmin_data_p->insize
+> >= len (12 >= 1) evaluates to true and nat_receive() calls
+> garmin_write_bulk(port, inbuffer, 1, 0), which allocates a 1-byte slab
+> buffer via kmemdup() and immediately reads 4 bytes from it in
+> getLayerId(buffer) (and again in garmin_write_bulk_callback() when the
+> URB completes):
+> 
+>   BUG: KASAN: slab-out-of-bounds in garmin_write_bulk.constprop.0+0x3eb/0x500
+>   Read of size 4 at addr ffff888002cc0ba0 by task init/1
+>   Call Trace:
+>    <TASK>
+>    dump_stack_lvl+0x70/0xa0
+>    print_report+0x153/0x4c6
+>    kasan_report+0xf1/0x120
+>    garmin_write_bulk.constprop.0+0x3eb/0x500
+>    garmin_write+0x60f/0x1450
+>    serial_write+0x123/0x200
+>    n_tty_write+0x8ea/0xeb0
+>    file_tty_write.isra.0+0x44f/0x7a0
+>    vfs_write+0x671/0xd20
+> 
+> Validate the unsigned 32-bit data length (dlen >= GPS_IN_BUFSIZ -
+> GARMIN_PKTHDR_LENGTH, matching the existing len >= GPS_IN_BUFSIZ bound)
+> in nat_receive() as soon as the 12-byte header is present, resetting
+> insize and returning -EINVPKT on invalid lengths so garmin_write_bulk()
+> is only ever called with a full valid packet header (12 <= len <
+> GPS_IN_BUFSIZ).
+> 
+> Tested in QEMU against Linux 7.3.0-rc3 by emulating a Garmin USB GPS
+> device (091e:0003) via dummy_hcd + raw-gadget, switching /dev/ttyUSB0
+> to MODE_NATIVE via PRIV_PKTID_SET_MODE, and writing a 12-byte native
+> packet with data length 0xfffffff5: on the unfixed kernel this triggers
+> KASAN slab-out-of-bounds reads in garmin_write_bulk() and
+> garmin_write_bulk_callback(), whereas on the fixed kernel nat_receive()
+> rejects the packet with -EINVPKT and 0 KASAN faults.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 > Cc: stable@vger.kernel.org
 > Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
-> Testing:
->
->   - A temporary KUnit test instantiated the driver with a RAM-backed
->     regmap under x86_64 QEMU 10.2.1.  The TPS65219 input-high test
->     failed on the base commit and passes with this series.
->   - This has not been tested on real hardware; testing on affected
->     hardware is welcome.
->
->  drivers/gpio/gpio-tps65219.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpio/gpio-tps65219.c b/drivers/gpio/gpio-tps65219.c
-> index 457fd8a589e89..b25c6f7277680 100644
-> --- a/drivers/gpio/gpio-tps65219.c
-> +++ b/drivers/gpio/gpio-tps65219.c
-> @@ -79,7 +79,7 @@ static int tps65219_gpio_get(struct gpio_chip *gc, unsi=
-gned int offset)
->         if (ret)
->                 return ret;
->
-> -       ret =3D !!(val & BIT(TPS65219_MFP_GPIO_STATUS_MASK));
-> +       ret =3D !!(val & TPS65219_MFP_GPIO_STATUS_MASK);
->         dev_warn(dev, "GPIO%d =3D %d, MULTI_DEVICE_ENABLE, not a standard=
- GPIO\n", offset, ret);
->
->         /*
-> --
-> 2.53.0
-
-Makes sense to me, our hardware has this pin connected as an input so
-I must not have tested this case.
-Reviewed-by: Jonathan Cormier <jcormier@criticallink.com>
+> Signed-off-by: Hui Peng <benquike@gmail.com>
 
 
---=20
-Jonathan Cormier
-Senior Software Engineer
+You sent multiple independent patches, to multiple independent
+subsystems. The amount of these patches clearly suggest this was
+AI generated and most likely not tested.
 
-Office:  315.425.4045 x222
+More importantly, you sent all this work without properly organizing
+relevant patches into patchsets. This makes reviewing difficult
+and might cause multiple reviewers to address the same issue.
+Replying to the entire set is impossible and requires handling each
+patch independently, instead of applying or discarding the set.
+Maintainers also won't see the bigger picture of your work. Quite
+worrying.
 
-http://www.CriticalLink.com
-6712 Brooklawn Parkway, Syracuse, NY 13211
+This is on the verge of hostile patch: bomb us with so many
+contributions, we won't be able to handle them in efficient manner,
+like responding ONCE to ask you to slow down.  Considering all this
+is untested and LLM generated, I have even more doubts whether this
+should be considered for review.
+
+Please read kernel documentation BEFORE posting more work. It will
+explain you how to identify subsystems, how to organize your work per
+subsystem, how to document usage of LLM and how what you should not
+do if this was posted in a good faith.
+
+Best regards,
+Krzysztof
+
+
+
