@@ -1,78 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-106.mta0.migadu.com [91.218.175.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3B1450415;
-	Mon, 21 Sep 2026 09:25:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8301D459AD2
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:27:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982732; cv=none; b=WYEqt5Euyb+rYNGqlVxB0EJ3rnmOdoemmwfU9nHoDn2DgoeVSIFZv3QAN+htyK7jMmkylWXEV+DEOujyQgvQCIIkezopsztLOuqqJjkQmf6be0JQn0oq/PF8RP1zlAXzjnQSx3KXceFekj3Ajbs/Ip3cVoHhXUoCv2H4F9p7C6g=
+	t=1789982828; cv=none; b=i3xbvoFysr1PX3lMeiZBjtdQoMwBrBAbLB+oHwGZHi2/h+yK26VfbnywF+CGnZyXAToX5xMQYvvpYEgC7iin98kwsShLoKiOTby9Q2S6Dy/IEMQv6vJczRibtjP0gA0gfXnzWcqRUzwxey5LUKzhyZWXcQs3bbK8m2yTmHI2MnA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982732; c=relaxed/simple;
-	bh=h0lbirbiRFTe0nqD7sNgdCQWa98rjE9GNM+G7wxNPPI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hsp0+O8rPG7Li1c3PXoaMa9YWaZSL/1wzJqbhmo1QgVlsehtzjvGOlTBKhgKSUIHP+5H7/jlgRTbJoVdpMO0QtlsL+0UjWOfYuO88lIbAJ7hOI7tXD+j0o6EU10paPA1hT/bYO2O1whFmL0/sqV8qeaeqNIZPc/eV9jYOqq/PMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=fail (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9GTjN96 reason="signature verification failed"; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789982828; c=relaxed/simple;
+	bh=JniXzAKE9lpfUkjCAlN/VixjQ/mB0ZFDM8/tNkDSlNg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lv9aKk43Lg4KYGapH+OwsNyxB1EQnk7wfRk0dt95F/ZLRi8Y8mRF4aUztYLccYtztdDilbQC6QHONM7VcQRhUuKpEgNfsxgLirJNfHOufMWfjzi3hAxB/l4N5rr5WcMHCuROhRPp1rGs4L6IlN/k95jWkrZZIUp8An110duOR9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=R8biPaaa; arc=none smtp.client-ip=91.218.175.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9GTjN96"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17C231F000FF;
-	Mon, 21 Sep 2026 09:25:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789982731;
-	bh=h0lbirbiRFTe0nqD7sNgdCQWa98rjE9GNM+G7wxNPPI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G9GTjN96ydiq83Dx6AwgaeAwNufeqfgnbprIBt6+exthvcfj6KvKHWSrXRQ1G+fIO
-	 CR0L87npQ6Ea0jPOMswGc8AY9HnXr6SzLE6hm3nroxAsiTUCFONF1AjBiWKiNkLCdo
-	 HfU9pb7exOZunuj/m975SoxT+oZ9pYI08PLbHjYu/fAt6wyUupuuHzXfSz6mCT/nIk
-	 r3IcK0eAwtFOVdNOuyV1xOecJJtozZWu9l2Zr6l995o+kAO6IhF78/0PcvtX2Ru4hP
-	 wNiuRs4Yr9agDz8f6d2dNNu6+5doMmiXjWlo0apEAt26WEd6BL0MZpD5VMrlz6qyli
-	 Z4DPAU2m60XSw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 14/14] crash: Fix TOCTOU race in crash memory range
- collection
-Reply-To: sashiko-reviews@lists.linux.dev
-To: kees@kernel.org, piliu@redhat.com, npiggin@gmail.com, mpe@ellerman.id.au, me@linux.beauty, bgwin@google.com, mingo@redhat.com, x86@kernel.org, baoquan.he@linux.dev, guodongtai@kylinos.cn, leitao@debian.org, driver-core@lists.linux.dev, coxu@redhat.com, pratyush@kernel.org, "Jinjie
- Ruan" <ruanjinjie@huawei.com>, will@kernel.org, dakr@kernel.org, sourabhjain@linux.ibm.com, maqianga@uniontech.com, gregkh@linuxfoundation.org, sshegde@linux.ibm.com, liukexin@kylinos.cn, kernel@xen0n.name, thuth@redhat.com, hbathini@linux.ibm.com, linux-kernel@vger.kernel.org, mclapinski@google.com, tglx@kernel.org, kai.huang@intel.com, linuxppc-dev@lists.ozlabs.org, robh@kernel.org, seanjc@google.com, james.morse@arm.com, palmer@rivosinc.com, chleroy@kernel.org, yeoreum.yun@arm.com, loongarch@lists.linux.dev, jbouron@amazon.com, catalin.marinas@arm.com, ritesh.list@gmail.com, akpm@linux-foundation.org, rppt@kernel.org, eric.devolder@oracle.com, chenhuacai@kernel.org, vishal.l.verma@intel.com, dave.hansen@linux.intel.com, chao.gao@intel.com, pasha.tatashin@soleen.com, bp@alien8.de, mark.rutland@arm.com, takahiro.akashi@linaro.org, zhangtianyang@loongson.cn, rafael@kernel.org, tangyouling@kylinos.cn, graf@amazon.com, ruirui.yang@linux.dev, hpa@zytor.com, linux-arm-kernel@lists.infra
- dead.org, maddy@linux.ibm.com
-Cc: kexec@lists.infradead.org, ruanjinjie@huawei.com
-In-Reply-To: <20260921090450.807575-15-ruanjinjie@huawei.com>
-References: <20260921090450.807575-1-ruanjinjie@huawei.com>
- <20260921090450.807575-15-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 09:25:27 +0000
-Message-Id: <20260921092528.17C231F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="R8biPaaa"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=JniXzAKE9lpfUkjCAlN/VixjQ/mB0ZFDM8/tNkDSlNg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789982824; v=1; x=1790587624;
+ b=R8biPaaa9MhhaQBKatfYtizr7gXq6775Lw62rL2rd+EJ7vGe2mzuicT9pJnZj/zn3q/rtBDs
+ c9XyLkL5fZst0WjmBDL9t9IZlpYZpwihIkUDMUW1c/zEkgJ1V8aJaq1CU93kBKSqzHETtbXlbbY
+ fYgFUpr7/pvo7pBiH3BvQZ7I=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id cc5d6d6b42a8116f;
+	Mon, 21 Sep 2026 09:27:04 +0000
+X-Mizu-Trace-ID: cc5d6d6b42a8116f
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 21 Sep 2026 17:26:53 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: netdev-bot+sashiko@kernel.org
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, donald.hunter@gmail.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	liuhangbin@kylinos.cn
+Subject: Re: [PATCH net-next 4/6] netlink: specs: rt-route: describe lwtunnel
+ IP options
+Message-ID: <arD4XbtvSt-bo_8a@fedora>
+References: <20260917-ynl_rt_encap-v1-4-fbbe6e680571@kylinos.cn>
+ <178997269588.2160803.17770495644903940757@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <178997269588.2160803.17770495644903940757@kernel.org>
 
-> The crash kernel ELF core header construction counts system memory
-> ranges via `arch_get_system_nr_ranges()`, allocates the crash_mem
-> buffer, and then populates it via `arch_crash_populate_cmem()`.
-> This sequence has a time-of-check-to-time-of-use (TOCTOU) race with
-> memory hotplug: a concurrent hotplug event between the count
-> and populate steps can increase the number of ranges beyond the allocated
-> capacity, causing an out-of-bounds write. If the event triggers
-> memblock_double_array(), the memblock array can be freed and reallocated
-> during iteration, leading to a use-after-free.
->=20
-> Protect the entire range collection with device_hotplug_lock. Since
-> the hotplug notification path already holds that lock, add a lockless
-> helper, crash_get_memory_ranges_nolock(), for use there. The regular
-> crash_get_memory_ranges() acquires the lock and calls the helper.
->=20
-> [ ... ]
-> Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
-> Fixes: 8acea455fafa ("RISC-V: Support for kexec_file on panic")
-> Fixes: 1bcca8620a91 ("LoongArch: Add crash dump support for kexec_file")
-> Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%=
-40huawei.com
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+On Mon, Sep 21, 2026 at 06:38:15AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 2 (1) · Low: 1
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] New `lwtunnel-ip-opt-erspan.index` attribute in
+>   Documentation/netlink/specs/rt-route.yaml is declared as host-order…
+> - [Medium] The new `lwtunnel-ip-opts` / `lwtunnel-ip-opt-geneve` sets
+>   cannot represent multi-option Geneve tunnels.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Thanks, this is a new inspire. I will update it in my v3 patch and post 1
+week later to make sure v2 have enough reviews.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921090450.8075=
-75-1-ruanjinjie@huawei.com?part=3D14
-
+Hangbin
