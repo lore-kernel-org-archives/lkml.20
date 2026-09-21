@@ -1,63 +1,63 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E6D459AD0;
-	Mon, 21 Sep 2026 09:27:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 106C147986A;
+	Mon, 21 Sep 2026 09:27:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982863; cv=none; b=LD7kR/iYDZ+U2jqivh/y/sQD6zOGdJxc+fMU4tOJ0IhmdbNFoyoizH5wLXgrIpNlgaLRwQ3EGDmw6jMUSYcTgvOOkywIsvAUEPyTKtfFqzPEygLxr1J3u1hiac8O3ne7jrW9NUOpQLm1HzkDjPspLAWqGd68m2LlSWPQtZAT/ro=
+	t=1789982865; cv=none; b=YPaL0zKACUs4tn3fZT4bRzjRf+YOSRHIR1G+Lw0/qKA/pBeqEIsfz9dzfDzH6x2hfJL+4nhYpIfq/x+tnlKUOUNBQUJbKn2SXPzTtbdqPhroeHwyJ97H/UTnXU7rgqqfwm0U6EdLEecz1sygTZ430v3vleEZs/o+OJ0ICePBZHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982863; c=relaxed/simple;
-	bh=dV0wM7c3W41XdHbZMlNsQEZc/l9qQ5vj57B0VH+s2Xg=;
+	s=arc-20240116; t=1789982865; c=relaxed/simple;
+	bh=hgV3orOjrKOMr8ez+fAIM41KRdyL9smh3AJFwwJi7KQ=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=pDxuAfOCVQB5Z0L8SHxpu8i7nNpAfYpOjmFcktUs5r4ToufyVPKTn+fynDKu83/x4YZc+UFGipHNKtJlW83/qgxeqQ+R+1XG5ia6ekmYQjmAQgn9CEI2XglIAWglkOL/jgr1nBtduh99naK1QqwAX89aFIIUzl8SIwkoXIDaM9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=dhqHJa10; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Z/cXSg8k; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=sL/H0PPtQcggmxvysN/Xjyaqm8Xdy7hJZcUuuVrAWtnDOS5m7ySJS3xBjjx4DuOX59ASuJqYSO4oxHyryCOu5wcQbhAX4E9RESPwSgt49Y4EFW9Q4V8Fj9sPxsxXX7HN0Y8MR+o0SBBkYGpfGQX2PiQuDU/n+R+8fmMfWbE7WnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=1nEaTyoE; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=IfvR7DPV; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="dhqHJa10";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Z/cXSg8k"
-Date: Mon, 21 Sep 2026 09:27:38 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="1nEaTyoE";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="IfvR7DPV"
+Date: Mon, 21 Sep 2026 09:27:39 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789982859;
+	s=2020; t=1789982861;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KdNGE4e8s1bOFYgcuVRSB5ba6e+HsxVtn5gZBIte/I8=;
-	b=dhqHJa10+/w2zEFc8flQa+yWyXdipIgLJdVPYgIcRmzCmyiRRmQz/3QWtzdh3h5v0oY1tx
-	kPmeg4CTJN4TNpVbPz1MBDVWBVOQiEVtG/bbByklG2IkaDk6+Xxs5hF8vy2s7MTxjDkDd6
-	vYJH/I5JdxbpdxbE8KnEJWAQnHb241+PWdvsB1qzGcq2RBK23MwtSTnmCy7rgaWuuNGCpM
-	QXRkmbeOFkRTlfMJzgtwirnFCT+bzZfAeRSodAZLOqfLTFY071i3hp89bhKBpNwOrYHLzh
-	ADRrLmif722XVs7yK3CqgWRwrX0V/pXRTqs5wR2is/g5uQ/iJwzxbg0wsWTJZg==
+	bh=oZO92m/pQj4sfeuXxHkLGsGjYYBcia9C5xfyEyFsLxM=;
+	b=1nEaTyoEYDR3x1SSMol4JnLnJ3atYdn5cClKJXsJxFIgEnkWJ/L3HCFiBdUXHMGudL9hPg
+	7vB4yL82nea5+i1Vbr+J9jLeNhkiWK0KakRWXguqecuU41nnSKRVZDHdXf5E5Ok5pCpd6W
+	Bg6t++Ide3XXoL/E5AHrqSh0zbHEtpkcUSNGDZOnGLeO8iuaYUgfUSjn4P8KMuTX+KGc/Y
+	5f513Pk71UDwzc7bo9CGC9OZ9TgfQTGKfizpF8c7FsdKZqcG3xbBR880tqpYvhYm+IZjL7
+	/Aqyxf8CBrX8yYsUz7fa89Q3qYshwSXz+b0r2a5YR9RvCQl/nGdxHYfEat/n2A==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789982859;
+	s=2020e; t=1789982861;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KdNGE4e8s1bOFYgcuVRSB5ba6e+HsxVtn5gZBIte/I8=;
-	b=Z/cXSg8kWdpc4lEnwQzTZKdet3lCBrEcxVTClrzzEcF6srXTGzuuy1uyD+2dg6U3oFmf67
-	F2RyRoFBnT5Cv8AA==
+	bh=oZO92m/pQj4sfeuXxHkLGsGjYYBcia9C5xfyEyFsLxM=;
+	b=IfvR7DPV7pFLVSJ89lmFHqW8PvGANxPycQZE3cg8mQ3dLI0rpSS5K5H+YT9cnyUN3pJuxH
+	ApCDZTFrg0UketBQ==
 From: "tip-bot2 for Song Liu" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: objtool/core] objtool/klp: Add test for instruction operand checksums
+Subject: [tip: objtool/core] objtool/klp: Add test for a static call
+ introduced by the patch
 Cc: Song Liu <song@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
  Ingo Molnar <mingo@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260916184351.2720310-52-song@kernel.org>
-References: <20260916184351.2720310-52-song@kernel.org>
+In-Reply-To: <20260916184351.2720310-51-song@kernel.org>
+References: <20260916184351.2720310-51-song@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178998285810.2819794.16855827824670708386.tip-bot2@tip-bot2>
+Message-ID: <178998285961.2819794.916399678327143574.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -67,36 +67,38 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the objtool/core branch of tip:
 
-Commit-ID:     065f09c8332f9d5cf6ee5cd2494b9af179ee749b
-Gitweb:        https://git.kernel.org/tip/065f09c8332f9d5cf6ee5cd2494b9af179e=
-e749b
+Commit-ID:     938816b7d15644a486ebcea5d58994664b8cc04c
+Gitweb:        https://git.kernel.org/tip/938816b7d15644a486ebcea5d58994664b8=
+cc04c
 Author:        Song Liu <song@kernel.org>
-AuthorDate:    Wed, 16 Sep 2026 11:43:44 -07:00
+AuthorDate:    Wed, 16 Sep 2026 11:43:43 -07:00
 Committer:     Ingo Molnar <mingo@kernel.org>
 CommitterDate: Mon, 21 Sep 2026 11:12:07 +02:00
 
-objtool/klp: Add test for instruction operand checksums
+objtool/klp: Add test for a static call introduced by the patch
 
-checksum_update_insn() hashes an instruction's bytes and then what any
-relocation on it refers to: a string section contributes the string's
-contents, anything else the target symbol's name and adjusted addend, with
-a reference to a static resolved through its section symbol first.
+The counterpart to the static branch case: a patch may add a static call to
+a function which had none, so the .static_call_sites entry is new and there
+is nothing in the original to correlate it against.
 
-None of that shows up in the bytes.  A rel32 operand is zero in the object
-and supplied by the relocation, so calling a different function, editing a
-literal the code passes, or reading a different index of an array all leave
-the encoded instruction byte-identical.  A checksum stopping at the bytes
-reports the function unchanged and the patch silently does not contain the
-fix.
+Where the key lives still decides whether that is allowed.  A vmlinux key
+is reachable; a module-owned one is not, for the same reason an existing
+module key is not -- late module patching lets the livepatch load first and
+the unresolved entry is dereferenced when the module arrives.  Both halves
+are here because they fail in opposite directions: dropping the new entry
+leaves a static call the kernel never patches, and accepting a new
+module-owned one is the corruption the check exists to prevent.
 
-test-checksum-position is the other half: what must *not* change the
-checksum when a function merely moves.
+Both halves are one test over one fixture: built with -DNEW_CALL the key is
+vmlinux's and the new entry has to be carried in; built with -DMODNAME as
+well the key belongs to a module, klp diff has to reject it, and no output
+object may be left behind.  The premise is asserted first -- the original
+must have no .static_call_sites at all -- since otherwise this is a second
+copy of test-static-call-module-key.
 
-Each of the four is verified by sabotaging the line it covers.  The static
-case needed a writer the compiler cannot see through -- without one it
-proves the array is never written, folds every read to zero, and emits no
-relocation at all, so the reference under test does not exist and the
-variant passes having compared two identical objects.
+Covers the same ground as corpus/x86_64/static-call-vmlinux-new and
+corpus/x86_64/static-call-module-new in Joe Lawrence's klp-build unit test
+corpus.
 
 Assisted-by: Claude:claude-opus-4
 Based-on-test-by: Joe Lawrence <joe.lawrence@redhat.com>
@@ -104,157 +106,65 @@ Assisted-by: Claude:claude-opus-5
 Signed-off-by: Song Liu <song@kernel.org>
 Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Link: https://patch.msgid.link/20260916184351.2720310-52-song@kernel.org
+Link: https://patch.msgid.link/20260916184351.2720310-51-song@kernel.org
 ---
- tools/objtool/tests/generic/fixtures/checksum_insn.c | 78 +++++++++++-
- tools/objtool/tests/generic/test-checksum-insn.sh    | 49 +++++++-
- 2 files changed, 127 insertions(+)
- create mode 100644 tools/objtool/tests/generic/fixtures/checksum_insn.c
- create mode 100755 tools/objtool/tests/generic/test-checksum-insn.sh
+ tools/objtool/tests/generic/test-static-call-new.sh | 45 ++++++++++++-
+ 1 file changed, 45 insertions(+)
+ create mode 100755 tools/objtool/tests/generic/test-static-call-new.sh
 
-diff --git a/tools/objtool/tests/generic/fixtures/checksum_insn.c b/tools/obj=
-tool/tests/generic/fixtures/checksum_insn.c
-new file mode 100644
-index 0000000..10f70a7
---- /dev/null
-+++ b/tools/objtool/tests/generic/fixtures/checksum_insn.c
-@@ -0,0 +1,78 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Instruction operands whose change must move a function's checksum even
-+ * though the instruction bytes themselves do not.
-+ *
-+ * checksum_update_insn() hashes the raw bytes and then, when the instruction
-+ * carries a relocation, what that relocation refers to: a string section
-+ * contributes the string's contents, anything else the target symbol's name
-+ * and the adjusted addend.  A reference to a static arrives as a section
-+ * symbol and has to be resolved back to the object first.
-+ *
-+ * The bytes are identical in every case below -- a rel32 operand is zero in
-+ * the object and supplied by the relocation -- so a checksum that stopped at
-+ * the bytes would call all of these unchanged.
-+ *
-+ * Each variant applies to the patched build only:
-+ *
-+ *   WHICH_CALL    calls a different function
-+ *   STR_CONTENT   passes a literal whose text was edited
-+ *   WHICH_SLOT    reads a different index of a global array: addend only
-+ *   WHICH_PRIV    the same, for a static, reached through its section symbol
-+ */
-+
-+static const char __modinfo[]
-+	__attribute__((section(".modinfo"), used, aligned(1))) =3D "\0name=3Dvmlinu=
-x";
-+
-+int callee_a(int x);
-+int callee_b(int x);
-+int sink(const char *s);
-+
-+int slots[4];
-+
-+/*
-+ * A file-local array, plus a writer the compiler cannot see through.  Witho=
-ut
-+ * one it can prove the array is never written, folds every read to zero, and
-+ * emits no relocation at all -- so the reference this is here to exercise d=
-oes
-+ * not exist.
-+ */
-+static int priv_slots[4];
-+
-+void set_priv(int i, int v);
-+void set_priv(int i, int v)
-+{
-+	priv_slots[i] =3D v;
-+}
-+
-+#if defined(PATCHED) && defined(STR_CONTENT)
-+#define MESSAGE "edited"
-+#else
-+#define MESSAGE "original"
-+#endif
-+
-+int target(int x)
-+{
-+	int r;
-+
-+#if defined(PATCHED) && defined(WHICH_CALL)
-+	r =3D callee_b(x);
-+#else
-+	r =3D callee_a(x);
-+#endif
-+
-+	r +=3D sink(MESSAGE);
-+
-+#if defined(PATCHED) && defined(WHICH_SLOT)
-+	r +=3D slots[2];
-+#else
-+	r +=3D slots[1];
-+#endif
-+
-+#if defined(PATCHED) && defined(WHICH_PRIV)
-+	r +=3D priv_slots[3];
-+#else
-+	r +=3D priv_slots[1];
-+#endif
-+
-+	return r;
-+}
-diff --git a/tools/objtool/tests/generic/test-checksum-insn.sh b/tools/objtoo=
-l/tests/generic/test-checksum-insn.sh
+diff --git a/tools/objtool/tests/generic/test-static-call-new.sh b/tools/objt=
+ool/tests/generic/test-static-call-new.sh
 new file mode 100755
-index 0000000..e1c04a1
+index 0000000..f7d2b39
 --- /dev/null
-+++ b/tools/objtool/tests/generic/test-checksum-insn.sh
-@@ -0,0 +1,49 @@
++++ b/tools/objtool/tests/generic/test-static-call-new.sh
+@@ -0,0 +1,45 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
 +#
-+# What a function's checksum has to cover beyond its instruction bytes.
++# A patch may introduce a static call where the original function had none.
 +#
-+# checksum_update_insn() hashes the raw bytes, and then what any relocation =
++# The .static_call_sites entry is then new, with nothing in the original to
++# correlate it against, so klp diff has to carry it into the patch from
++# scratch.  Where the key lives still decides whether that is allowed: a
++# vmlinux key is reachable, and a module-owned one is not, for the same reas=
 on
-+# the instruction refers to: a string section contributes the string's
-+# contents, anything else the target symbol's name and the adjusted addend,
-+# with a reference to a static resolved back through its section symbol firs=
-t.
++# an existing module key is not -- late module patching lets the livepatch l=
+oad
++# first, and the unresolved entry is dereferenced when the module arrives.
 +#
-+# None of these show up in the bytes.  A rel32 operand is zero in the object
-+# and supplied by the relocation, so every change below leaves the encoded
-+# instruction byte-identical.  A checksum stopping at the bytes reports the
-+# function unchanged, klp diff omits it, and the patch silently does not
-+# contain the fix.
++# Both halves are here because they fail in opposite directions.  Dropping t=
+he
++# new entry leaves a static call the kernel never patches; accepting a new
++# module-owned one is the corruption the check exists to prevent.
 +#
-+# test-checksum-position is the other half of this: it covers what must *not*
-+# change the checksum when a function merely moves.
-+#
-+# Covers the same ground as corpus/x86_64/checksum-reloc-sym,
-+# checksum-pc-relative-addend, checksum-string-reloc and
-+# checksum-sec-sym-resolve in Joe Lawrence's klp-build unit test corpus.
++# Covers the same ground as corpus/x86_64/static-call-vmlinux-new and
++# static-call-module-new in Joe Lawrence's klp-build unit test corpus.
 +
 +. "$(dirname "$0")/../lib.sh"
 +
 +setup
++build_pair static_call.c -DNEW_CALL
 +
-+# check <flag> <what it changes>
-+check()
-+{
-+	build_pair checksum_insn.c "-D$1"
-+	run_checksum
++# The premise: the original really has no static call, the patched one does.
++has_input_section orig.o .static_call_sites &&
++	fail "fixture put a .static_call_sites in the original; nothing new to add"
++has_input_section patched.o .static_call_sites ||
++	probe_skip "compiler produced no .static_call_sites on this arch"
 +
-+	# The premise for all of them: the operand is a relocation, not bytes.
-+	assert_checksum_differs target
-+}
++run_diff
++assert_patched target
++assert_section .static_call_sites
++assert_reloc_sym .static_call_sites target
 +
-+check WHICH_CALL    # relocation target name
-+check STR_CONTENT   # contents of a string the code passes
-+check WHICH_SLOT    # addend, same target symbol
-+check WHICH_PRIV    # addend via a static's section symbol
++# The same new call, with the key owned by a module: not reachable, so the
++# build has to stop rather than emit a relocation nothing will resolve.
++rm -f "$workdir/out.o"
++build_pair static_call.c -DNEW_CALL -DMODNAME=3D'"klp_testmod"'
++run_diff 255
++assert_diff_log 'unsupported static call key __SCK__klp_test_call'
++[ -e "$workdir/out.o" ] &&
++	fail "output object produced for a rejected input"
 +
-+# The converse: rebuilding identical source leaves it alone, so the above is
-+# not just "any rebuild moves the checksum".
-+build_pair checksum_insn.c
-+run_checksum
-+assert_checksum_matches target
-+
-+pass "instruction checksums cover reloc targets, addends and string contents"
++pass "static call introduced by the patch carried in, or rejected for a modu=
+le key"
