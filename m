@@ -1,568 +1,281 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012022.outbound.protection.outlook.com [40.107.209.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FAD73C4B64;
-	Mon, 21 Sep 2026 11:58:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789991895; cv=none; b=tAd6RItlGNDMhkbdeMoxOnwJT+4rCzXgLXuD4Ruu7/tl3jcAdUC5Om+adEkF8LkM4gyH+X8x7hbu0LlUZfACQd3i5Deb+ZkVZjRjS8LtQqsC9Y6lzDYy48X2wEzF4j/qd0fzAORYptBc8NMknYsaEibIYVqTDPoYm2qI7a3I/tA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789991895; c=relaxed/simple;
-	bh=YeR0oH/K6W3qJ+ku3GbPZCfi82Qn+f1izUuUaI+tICc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=btu5l1ROxL2LyWMvSy3lJ2dPCLCDlXan1t0M4rTSJQaMzeEV4qWgxagtDx2rcILXF2gPQMF0wbuGFyZvY+W4Ft8j09z/ySBcaXlivtH2qUBVBx80O2/z0t6gBcK0waoPmzCKOeO97Gppocf3g1LIuLzmPIsRwcLoFuFpYPb2f/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hXLY9zYy; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 498C2488DA0;
+	Mon, 21 Sep 2026 11:58:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.22
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789991929; cv=fail; b=NFdDIM76RfTTzMaJ/Df2ojdsAi2goie2kfpaF2ySJv6LaRbgxyntdUDxKAtPiGsDip7rlZ+I3gH5D0vq0wYIdYAwebkBMfdz3OZX5osutSzOUc7zgIx87utn+Kk6wmIOuszf/y7ixzAW0/vcXaGEIKu+bkz6Z02flRruvmyw8qY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789991929; c=relaxed/simple;
+	bh=k3dNX7STTJUHu2XxmhZyKl63rCdggrgLzEYDh4v/n+w=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=mol8c72YMYwF5fTTFCiTxVUNOpw8rqLhK6oPPu6NtR1VR+PEFMaYI/RofuSupqSa+3QLfX/lOr1IaBT+Idros2oeLlJ01EZj6UAFjI9tB7KNi56UY3Joh8DvowAUXtA210gYDDwwI8dvlleliEtuWcPpIZqP3tC7DGv/szj59o4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=mrtc8hm3; arc=fail smtp.client-ip=40.107.209.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hXLY9zYy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9AFF1F000FF;
-	Mon, 21 Sep 2026 11:58:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789991893;
-	bh=zm7kQAj2ajeUjZ4eEBpJ2NJBCR+RfdDLO/kZiokS7W4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hXLY9zYytm0MT5EYDO9r/a0lGNzvqxIJn9Vs3ZczdXEXSJK/0KPcMlsSS0uOl44mA
-	 PFHS/FOFGiqqbPpF60IhngmJvR5wfG+hL9kF3Fn1ALz6uU2JB6cmNGHtENJauOIVmv
-	 attRlrsBhn/0Wp2c0jzLggXzla2b0VtH9R5uhViiL+ZAHVClq548kMhrGbyHMytwTQ
-	 IOIv4T5NHqK47ki182Fm/9FLBl60IkNSSsbINgMnuC4WtQWa/BFcidxN2paM1CrfSM
-	 BEgaQNnr3rMPLs4aliSXt4F6xdb4QYNGOUsrLhQtm6m/hzWL3Yta089jDhOVgFgtfY
-	 87N6FkBEY1tig==
-Date: Mon, 21 Sep 2026 12:57:57 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Petr Pavlu <petr.pavlu@suse.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
-	Randy Dunlap <rdunlap@infradead.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v2 13/21] modpost: emit module descriptors as assembly
-Message-ID: <arEZrFmXeCO4hZpP@gremlin>
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
- <20260914-build-speedup-v2-13-39817ec5db23@kernel.org>
- <95baacfb-d8d9-4d2f-bc89-592df6f6f8e3@suse.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="mrtc8hm3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HAhbePa/6x+5tlH6zpqvn3c6rDH+U9tXGlVvoDUV9yJenEaup3vEd4QiEnUelAithvcst/K45SqckaOS5Z9/AadkVcjLz4T/NZft0mfbIHlhdxz+GL7OMlmeCQDXD2X0L7hvl44rQQULvBiQ/76cFlv2981Iyg+IUI51q5tN8nDa0qlVuBrHMIrMkrk1daJYW4X95VWep9K/xI4hENXRcx4CJLGvePQA5fdMLefJtTj3ZIWB7M1vL2YCJhP/Rd8Jskb39lJSUgqfPnl/LXVuCuAZKFKx5ZBWqOLAqjiBPYu9Xm17RmRF7ODZXPSJTNARKzlUhnkY6BYloPdXHmL/nQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hHJ37jyKnbDiCAdb/eDrsA9ZwcIS7zaAmG/0wd5aDuw=;
+ b=JNPTV+RR+vFFFObiVNknIQxYDTMy1KDDNfMKvVaW29IKHt65s+eIsb2973vCVRu/tvXsL8rIo8U9oUd16YVtZNmFT0BhFdGfIMk6mJw2UthzCXeDnTkpxeL0gQY5jEQKDz3Bq4oFwq3z83AY3CebrZJOnRGvVYZ+EuriAZrQ6FMVDKqOwwSmTXJF6LdGb6llNPSekNZmSBYiEpamUgnkU7xpPmeT2lUPXbCGFJSN+H216krFdGesE2Mk0greF0gGpHmt0h6aTJme/rwCODYIOOHk2pXbln7aF9qqnPVcxK2tS34JhqqhRM1f0rpbyVYM0GHAlWvGrFwucrW3PSMczw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hHJ37jyKnbDiCAdb/eDrsA9ZwcIS7zaAmG/0wd5aDuw=;
+ b=mrtc8hm3bnKiGY9sLEr7TF4/t7Nl5ztRqDo9pNHwGbKyHleVhWJIMs95aZWnG+jNiFN/45Jl94NOOfV+6PBiPaz7UlwpzLn95TdsT9Xq0D0jqSP49fuul5LcAcrqbtq2zy3hZZltcl5nTMEf3HSmo586fk780R7YTsge/SID8Qc=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
+ by CY8PR12MB7660.namprd12.prod.outlook.com (2603:10b6:930:84::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 11:58:43 +0000
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68]) by SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68%6]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 11:58:43 +0000
+Message-ID: <e47aa112-7c09-4c49-9514-6c346dd40c39@amd.com>
+Date: Mon, 21 Sep 2026 13:58:38 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] PCI: Accept AtomicOps already enabled by the
+ hypervisor
+To: "Prica, Nikola" <nikola.prica@amd.com>, Bjorn Helgaas <helgaas@kernel.org>
+Cc: Nikola Prica <nikprica@amd.com>, bhelgaas@google.com,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, jerry.jiang@amd.com, haijun.chang@amd.com,
+ andy.zhang@amd.com, jim.chow@broadcom.com, matthew.mcclure@broadcom.com,
+ gbayer@linux.ibm.com
+References: <20260918170735.GA1162623@bhelgaas>
+ <e7708479-1e9f-45a2-878a-cd857d5468d5@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <e7708479-1e9f-45a2-878a-cd857d5468d5@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1P221CA0012.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:208:2c5::6) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <95baacfb-d8d9-4d2f-bc89-592df6f6f8e3@suse.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|CY8PR12MB7660:EE_
+X-MS-Office365-Filtering-Correlation-Id: ffa2bd4d-35af-4975-97aa-08df17d7af33
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|10067099003|6133799003|22082099003|18002099003|56012099006|11063799006|4143699003|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	PJQ8lkfZa+lTnOEcMOVQPkBGpB/A9HnYje0FA868yNp25cv+iOjtLf72Kwmo9dvIZvOcM5h3gP5gLMzCsxXj5x+BBZ3tyLbmbdenHo5IBS/+3GkuNzKWKG6pQtFlpdrc2xuU8ZqxM0zxgXPxdXzR2lz8jTwABQIe9pMZLtk/8H03s3fKvaasHoflHDnaMoaPpydKNE02ePSb6zD9o1onJ57vYaBucd0bd+FnnEPOWnzX6t0yO1FH7qR3H2NhsNbnVdQ5AHstyOEn5/pNOyr8TaNUS5C6nWrcNIXmnAlPI8ZrRtnfX56bdoI1Ny7tMiOgfMlZPX1/RGqErUKpkPjsKx2Nrrr3xyKgbKGhlWlm36GyPLmnJaOG3GYjVrOn0IP/PnIP5j3ynA7Q6vnr3oh0+HH60tHEysHny27l38uGEj5gaFQtsiJgLl1WASXeFMPaHQyhrLpwRKdY/u1yq5CqvgUAsAGNhJBh4gaYAPP0EV6dLCZwQHj9ugV3VLsfClo2rfdMCN2by/I+HC+MVB6KeB6WSqx2gqKq4IrL/5mixW4OxnR2ei9ZgJTchMB2uIrGY3tg2CY2PaJvjdhSTZ0ncXoWZ+0aMGlngG3lbsF8O6yOaFl+kpFpEeIY2mjQEbgW
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR12MB5673.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YUVualNPN2doc1BsMnNrTXVPRDg1UlB4a0Y0OHpreDN4ZWlXNHZDWm9GVXNR?=
+ =?utf-8?B?bG9TaWJtcGZIYmRwa1hPVDZzZGgzRW94b2wyaWRjczZCcW0wZkJGUU1ZZ3A2?=
+ =?utf-8?B?U3pXRW9Uazg0ZkNQbkx5VEhWVzBadnpiTlRFTVZyTGZBWlhnWExJaW1aL1BR?=
+ =?utf-8?B?Y1Q4L2dMa1l5WElJUTA3d3F5YU9pL3J5S2ZrV1N2YWtFNEVPdkJJZ0plR1Zl?=
+ =?utf-8?B?bFZNU3hJcDZXd2Z3VytzNWxkd1pUUVB0SHdLM1RwUmgxWXAyVEVPRVBqdnV2?=
+ =?utf-8?B?ZzNoanJFYm05cEp2QjBpSUhYd041N0k2WHNQUTU5ZzNDVlpsa2lOUW5MbWk5?=
+ =?utf-8?B?UnZhaDlUR0VKcmJ3NDljOC9GODBaT2dwZ1pkNGFFRk1YdlNkL2o4cGR4ckVr?=
+ =?utf-8?B?TUNzcnpOMUkxTHpUUkJMaUhyNzkyb3Rhcm0xMnlmRXQ0NlFKQzdyWHFaOWxI?=
+ =?utf-8?B?Sk1vNHVCVFhmZVlWeU9NLzBqL1E0TmdzY25xRStXaU1BTXRuM0drcDdyNHh6?=
+ =?utf-8?B?RkVCd29uVlBsdGJhQnpNaDlkN0pac3U0alNnNVl2NWRFUm1jZDRlWkEvc2Ns?=
+ =?utf-8?B?dTJuMlIxWEpWR1dEK1pmR2lSdVpNSENpTkFNUEhwa0MwWU9JN01GM21TNUNT?=
+ =?utf-8?B?K1JUdFBzd2NCSndUeEZNRFhNck5BT1d0R0QvRFNNQnZ2T0J5M045THdUZHo1?=
+ =?utf-8?B?L3dQQ0UreFRhZGpySE95ZXMzUDVaZ0hFSlByVnNFZUdhbjZnL0o1cmthWTBn?=
+ =?utf-8?B?cE1KZUE2eEJNRUc5YnBoYnF1bTVmdUhRTDBCUGRuaTNTalkrckpjL2lzanNh?=
+ =?utf-8?B?eEh4T3gxVmtNZGJzdzdqSlRSOVNVbHpXaDMwbWJnNnFMRnE2ODhlWDlBYk4w?=
+ =?utf-8?B?YjFZdnBuUmlEaFNVYVpNakNjN216UlpFSGJJbU9OVUtwNUhlZ1dCai9UWmdt?=
+ =?utf-8?B?N1l5V0ZxN1dSaUZNTDY1TTd1S21Vcnplcy93OFljSXNCZmQ1NGl0OUFiSXlX?=
+ =?utf-8?B?L2xHSFBSblBIcll6Z3M4eGZJektJbjVLbDIxZ29KQWQzNWZha25KcWhPZWpI?=
+ =?utf-8?B?RzZScFJia3dxTThBUERxeGFQcUpsUVFSclY5T0d1cGd0QThGR0hsbGNaMGd4?=
+ =?utf-8?B?aWU0WHJldjE4Um5BUkM0dld5OGptRzZRd0IyUy8vZlZLLzhnVVZqeUlXOUZO?=
+ =?utf-8?B?RVFQZk82SDBJVmgwUXMxa0lsYWtZeEdyRGU3RTZJbSt2b1V4UndtWVVGWGNC?=
+ =?utf-8?B?bmdSM2xxWnFmN3BrS3I1dDBSUm9RRmpOanVEL3UvamtVQWxvcWxFZm16ck5T?=
+ =?utf-8?B?aktCc1d3UEpyNkk5OElVdDl0SXRQYWpSNFNZd2x3bkFrMGZxNlVKa2pJVFBr?=
+ =?utf-8?B?MitybGs0c1ZvRTVhcWJzNnk4Y2JQZFN3Z2VzMXFTK1VBWWovQW9DNVZ2MnQx?=
+ =?utf-8?B?WHRQTFFyYS84c1FwUHh1a05ubjBLUUI5UXd6eGI5aWZrRHNnSDFhKzBPY0ph?=
+ =?utf-8?B?T3EyODBRREJLQ0ZabXFZNlBXaHJFeERYQStUZXFIK1A0QW9HbGpwWnkrdTRQ?=
+ =?utf-8?B?ZHFrdStQT2EwUUFCYzkwdjN3UmEyWGhwdkV3UHBSd3ZUeSs1OXBBQ3k0d2dT?=
+ =?utf-8?B?TUswVTBuS05NTXYzYWpTN3V5STQxb1pEbEhiQzI4ajl3MTZPWWdTUEpoek00?=
+ =?utf-8?B?SjFjbFBmM201MThVRHVmODVsNjFkd1dHbllIeWdCbFNTb3A2ZVd4VUNkaVN6?=
+ =?utf-8?B?ZmZ4bVlxZFY5TmhzVFkwME1obFR3bzNkUUc3ZngrTkY2MTY2ak1GMDVYbTBs?=
+ =?utf-8?B?YXB6elVqd0FlSUZabk5LaEdGVmJ2NkU1cTdpQmpienorSllpdElkcGpoS1Iv?=
+ =?utf-8?B?WWdKd1J4bnlpZkNXcktqRmVqbEZ3QWxkWEhxODE4MEFoelpXcHovV1pOUTFh?=
+ =?utf-8?B?djUyVmhhTytOR1djZXgwUkxvemUvMHkrZWVBT1JZd2dMS0xMaFBvMWdScTlC?=
+ =?utf-8?B?Nnp0TEc4eHlaK01IcERHSTNDaVJxU1RmeitjK2huUGY5eW1MaWJsK2RpUEQy?=
+ =?utf-8?B?UExxeGU0RlFtNGxKRmtzWnlUbStpbkRLclFIT3dBcjlkd3RTQkdDRERrWmFT?=
+ =?utf-8?B?S1d0anp0VW1PWkdyK2MzVUIzY2pURkZ6T0MwTFpWWnZtVDJoR1FKSnhFTjA2?=
+ =?utf-8?B?TEIrUGU2eFk5YnI3UEg2cWZJbnJJSnNRSUJaZVNhS0o3ejgvR3RGUDN4Wncr?=
+ =?utf-8?B?VUpkVFFjcXp4SDl5WXFVa2thZlNFZ3JjRVdXUSsxSGlRU0lTcnd5V0h0OU1M?=
+ =?utf-8?Q?/VGETczpShtGy4tQC8?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ffa2bd4d-35af-4975-97aa-08df17d7af33
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 11:58:43.6643
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mIfzJmxU6uAMx0Rymto0SLaX9ltqTStihYrkVpdc47l4PusxNrGwPIoyW3p0JcFd
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7660
 
-(note there's a v3 see [0])
+On 9/21/26 13:04, Prica, Nikola wrote:
+> On 9/18/2026 7:07 PM, Bjorn Helgaas wrote:
+>> On Fri, Sep 18, 2026 at 02:07:46PM +0200, Christian König wrote:
+>>> On 9/18/26 11:28, Nikola Prica wrote:
+>>>> From: Nikola Prica <nikola.prica@amd.com>
+>>>>
+>>>> pci_enable_atomic_ops_to_root() currently fails when no Root Port is
+>>>> visible. That is common in passthrough guests (ESXi, Hyper-V): the
+>>>> endpoint is assigned to the VM, but the guest topology has no Root
+>>>> Port above it.
+>>>>
+>>>> In those setups the hypervisor may already have enabled AtomicOp
+>>>> Requester Enable on the device. If PCI_EXP_DEVCTL2_ATOMIC_REQ is set,
+>>>> treat AtomicOps as already enabled and return success instead of
+>>>> failing the Root Port walk.
+>>>>
+>>>> Fixes: 1ae8c4ce1570 ("PCI: Enable AtomicOps only if Root Port supports them")
+>>>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>>>> Reviewed-by: Gerd Bayer <gbayer@linux.ibm.com>
+>>>> Tested-by: Gerd Bayer <gbayer@linux.ibm.com>
+>>>> Signed-off-by: Nikola Prica <nikola.prica@amd.com>
+>>>
+>>> CC: stable@vger.kernel.org # 7.1+
+>>>
+>>> Bjorn do you want to pick that up? Alternative I can push it through
+>>> drm-misc-fixes.
+>>>
+>>> Initially I thought that this is a new feature, but it turned out to
+>>> be an regression and we need to get it fixed ASAP.
+>>
+>> Let me just talk through this to make sure I understand it:
+>>
+>> Prior to 1ae8c4ce1570, pci_enable_atomic_ops_to_root() enabled
+>> PCI_EXP_DEVCTL2_ATOMIC_REQ unless a switch port didn't support
+>> AtomicOp routing, a switch upstream port blocked AtomicOp egress, or a
+>> Root Port didn't support the requested sizes.
+>>
+> 
+> To be technically correct, some hypervisors do not allow guest VM to
+> set the PCI_EXP_DEVCTL2_ATOMIC_REQ. So there were cases where this
+> set command didn't get through. But drivers relied on return value
+> of pci_enable_atomic_ops_to_root(). It may be good to read it back
+> to make sure that set went through.
 
-[0]: https://lore.kernel.org/linux-kbuild/20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org/
+Well that behavior of the hypervisor is a bit questionable.
 
-On Mon, Sep 21, 2026 at 01:25:09PM +0200, Petr Pavlu wrote:
-> On 9/14/26 11:22 AM, Lorenzo Stoakes (ARM) wrote:
-> > modpost generates a descriptor for every module in the form of a
-> > <module>.mod.c file with .modinfo strings, the __this_module descriptor,
-> > exported symbol tables and (with CONFIG_MODVERSIONS set), the CRC of
-> > imported symbols.
-> >
-> > These files are compiled like any other kernel C file with all of the
-> > -include preamble, as well as including linux/module.h, header dependencies
-> > generated by fixdep of a few hundred headers, an objtool run and if LTO is
-> > being performed, a link is performed to generate native code.
->
-> As a side note, I'm currently working on cleaning up what linux/module.h
-> includes. This was also originally motivated by an effort to reduce the
-> compilation time of .mod.c files, though cleaning up that header makes
-> sense in general, since it is the most explicitly included file in the
-> kernel.
+I understand why the hypervisor blocks such configuration changes, but it is essentially a recipe for trouble.
 
-Nice :) and yeah it seems like that would be useful more generally.
+So I agree that the Linux kernel should be as defensive as possible and double check if enabling the feature really worked as expected.
 
->
-> >
-> > On an x86-64 allmodconfig build 11,189 *.mod.c files are built, each
-> > taking ~0.24s of CPU time to compile, and module finalisation as a whole
-> > 6,300 CPU seconds, or 64 seconds of wall time when run over 128 threads.
-> >
-> > It also generates ~1.3 GiB of *.mod.o.cmd files that every subsequent build
-> > has to read back.
-> >
-> > Avoid all this by emitting the descriptors as assembly instead.
-> >
-> > The layout required (size and alignment of struct module, struct
-> > modversion_info, the module's name offsets, init, and exit fields and
-> > whether the architecture uses PREL32 ksymtab references) can all be derived
-> > from scripts/mod/module-offsets.h.
-> >
-> > The fields of __this_module are emitted in offset order rather than
-> > declaration order, as CONFIG_RANDSTRUCT shuffles struct module so the name,
-> > init and exit fields can land anywhere.
-> >
-> > An assembly file avoids all of the issues previously mentioned so this
-> > conversion results in a very significant performance win on kernel build.
-> >
-> > As a consequence of this change, since module-offsets.c includes
-> > linux/module.h, scripts/mod is now built after the generated headers in
-> > prepare0, rather than before.
-> >
-> > Also update .gitignore and make clean to handle .mod.S files, but keep
-> > .mod.c files there to ensure that users do not end up with untracked
-> > changes/dirty trees after the change takes effect.
-> >
-> > The sections were confirmed to be byte-for-byte identical to the C version
-> > produced - each of .modinfo, .gnu.linkonce.this_module, __ksymtab*,
-> > __ksymtab_strings, __kcrctab*, __kflagstab*, __versions,
-> > __version_ext_crcs, __version_ext_names and their relocations - for all
-> > 8,135 modules of a clang allmodconfig build with CONFIG_COMPILE_TEST off
-> > and CONFIG_MODVERSIONS, CONFIG_EXTENDED_MODVERSIONS and
-> > CONFIG_MODULE_SRCVERSION_ALL on, and for a sample built with gcc.
->
-> Lowering the data to assembly loses debug information for __this_module,
-> specifically that it has type `struct module`. It might be worth
+>> 1ae8c4ce1570 added the requirement that the Root Port be visible,
+>> which fixed an s390 case where pci_enable_atomic_ops_to_root() enabled
+>> AtomicOps when the Root Port did not support them but was not visible
+>> to the kernel.
+>>
+>> IIUC the regression is on systems where the Root Port is not visible
+>> but *does* support AtomicOps.  Prior to 1ae8c4ce1570, we would have
+>> enabled AtomicOps in the endpoint and returned success.  After
+>> 1ae8c4ce1570, we return -EINVAL because we can't see the Root Port to
+>> verify its support, so the driver thinks it can't use AtomicOps.
+>>
+>> This patch fixes the regression by assuming that if we can't see the
+>> Root Port but the endpoint already has AtomicOps enabled, the
+>> hypervisor or host kernel that *can* see the Root Port has already
+>> verified its AtomicOps support, so all we have to do is return success
+>> so the driver can use them.
+>>
+>> I'm happy to merge this for v7.3, and I think we should add something
+>> like this to the commit log to make it clear that it's a regression
+>> worthy of a post-merge window fix:
+>>
+>>    After 1ae8c4ce1570 ("PCI: Enable AtomicOps only if Root Port
+>>    supports them"), pci_enable_atomic_ops_to_root() always fails if the
+>>    Root Port is not visible.  On systems where the Root Port is not
+>>    visible but *does* support AtomicOps, this is a regression: prior to
+>>    1ae8c4ce1570, it enabled AtomicOps in the endpoint and returned
+>>    success.
+>>
+>> Is there any problem report for the regression?  I don't see anything
+>> at https://linux-regtracking.leemhuis.info/regzbot/mainline/, so my
+>> guess is no.
+>>
+> 
+> Yes. That is correct. I'll send new v4 patch with updated commit log
+> that appends your suggestion.
+> 
+> 
+> This patch fixes a regression introduced in v7.0-rc1-2-g1ae8c4ce1570.
+> 
+> #regzbot introduced: 1ae8c4ce1570
+> #regzbot title: Breaks atomics operations for headless passthrough devices
+> 
+> 
+> Hope that this will be enough to mark it as regression. If not please let
+> me know.
 
-No, it keeps it - every module includes linux/module.h, and the extern
-declaration of __this_module carries the type, so all of the stuff gdb
-needs (e.g. ptype, p & field access), DWARF etc. is all there in the same
-way as with .mod.c.
+I don't think we have a public visible bug report on the issue anywhere, so that should probably do it.
 
-Have confirmed locally.
+> One more question though, we encountered this issue with 6.8.0-138-generic
+> kernel, we figured out the regression point is 6.8.0-135-generic. Since our
+> validation teams are using older kernels too, is it safe to assume that
+> fix will be backported in new release for 6.8.0-*-generic version?
 
-> restoring that information in same way. A small hack would be to add
-> something like the following to scripts/module-common.c:
->
-> __weak __section(".discard.this_module") struct module __this_module;
+That is what the Fixes: tag takes care of. Most likely the kernel 6.8.0-135-generic doesn't work because the offending commit was back ported as fix.
 
-That isn't necessary it turns out given the above.
+So when the Fixes tag identifies that commit the stable maintainers should backport it as well.
 
->
-> > diff --git a/scripts/Makefile.modfinal b/scripts/Makefile.modfinal
-> > index 01a37ec872b9..75e9effdf02c 100644
-> > --- a/scripts/Makefile.modfinal
-> > +++ b/scripts/Makefile.modfinal
-> > @@ -20,10 +20,14 @@ __modfinal: $(modules:%.o=%.ko)
-> >  modname = $(notdir $(@:.mod.o=))
-> >  part-of-module = y
-> >  GCOV_PROFILE := n
-> > -ccflags-remove-y := $(CC_FLAGS_CFI)
-> >
-> > -%.mod.o: %.mod.c FORCE
-> > -	$(call if_changed_rule,cc_o_c)
-> > +# modpost lays the <module>.mod.S out completely (write_mod_S_file()), so it
-> > +# needs only the assembler and no dependency tracking.
-> > +quiet_cmd_as_mod_o = AS [M]  $@
-> > +      cmd_as_mod_o = $(CC) $(_a_flags) $(modkern_aflags) -c -o $@ $<
-> > +
-> > +%.mod.o: %.mod.S FORCE
-> > +	$(call if_changed,as_mod_o)
-> >
-> >  .module-common.o: $(srctree)/scripts/module-common.c FORCE
-> >  	$(call if_changed_rule,cc_o_c)
->
-> If the <module>.mod.S files are fully self-contained and do not even use
-> something like KBUILD_MODNAME, would it be possible to name them
-> <module>.mod.s and skip the C preprocessor as well?
+Regards,
+Christian.
 
-Ack will do for v4!
+> 
+> Regards,
+> Nikola
+> 
+> 
+>>>> ---
+>>>> v3: Add Fixes tag
+>>>> v2: Be more strict and only apply logic in headless device case.
+>>>> ---
+>>>>   drivers/pci/pci.c | 12 +++++++++++-
+>>>>   1 file changed, 11 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+>>>> index b2879a6be5f8..62729ade496f 100644
+>>>> --- a/drivers/pci/pci.c
+>>>> +++ b/drivers/pci/pci.c
+>>>> @@ -3769,8 +3769,18 @@ int pci_enable_atomic_ops_to_root(struct pci_dev *dev, u32 cap_mask)
+>>>>       }
+>>>>         root = pcie_find_root_port(dev);
+>>>> -    if (!root)
+>>>> +    if (!root) {
+>>>> +        /*
+>>>> +         * A hypervisor may expose a headless topology with no
+>>>> +         * visible root port.  If it has already set AtomicOp
+>>>> +         * Requester Enable, there is nothing more to do.
+>>>> +         */
+>>>> +        pcie_capability_read_dword(dev, PCI_EXP_DEVCTL2, &ctl2);
+>>>> +        if (ctl2 & PCI_EXP_DEVCTL2_ATOMIC_REQ)
+>>>> +            return 0;
+>>>> +
+>>>>           return -EINVAL;
+>>>> +    }
+>>>>         pcie_capability_read_dword(root, PCI_EXP_DEVCAP2, &cap);
+>>>>       if ((cap & cap_mask) != cap_mask)
+>>>
+> 
 
->
-> > diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
-> > index 0fd43c8a89ea..b4550b545330 100644
-> > --- a/scripts/mod/modpost.c
-> > +++ b/scripts/mod/modpost.c
-> > @@ -2191,30 +2042,483 @@ static void write_vmlinux_export_c_file(struct module *mod)
-> >  	free(buf.p);
-> >  }
-> >
-> > -/* do sanity checks, and generate *.mod.c file */
-> > -static void write_mod_c_file(struct module *mod)
-> > +#if MOD_SIZEOF_LONG == 8
-> > +#define MOD_PTR_DIRECTIVE	".quad"
-> > +#else
-> > +#define MOD_PTR_DIRECTIVE	".long"
-> > +#endif
-> > +
-> > +/* See KSYM_FUNC() in include/linux/export-internal.h. */
-> > +#if MOD_FUNC_PLABEL
-> > +#define MOD_FUNC_PREFIX		"P%"
-> > +#else
-> > +#define MOD_FUNC_PREFIX		""
-> > +#endif
-> > +
-> > +/* See __KSYM_ALIGN in include/linux/export-internal.h. */
-> > +#if MOD_PREL32_RELOCATIONS || MOD_SIZEOF_LONG == 4
-> > +#define KSYM_ALIGN		4
-> > +#else
-> > +#define KSYM_ALIGN		8
-> > +#endif
-> > +
-> > +/* Append the body of an assembler string literal, escaped as needed. */
-> > +static void buf_escaped(struct buffer *buf, const char *str)
-> > +{
-> > +	unsigned char chr;
-> > +
-> > +	while ((chr = *str++)) {
-> > +		if (chr == '"' || chr == '\\')
-> > +			buf_printf(buf, "\\%c", chr);
-> > +		else if (isprint(chr))
-> > +			buf_printf(buf, "%c", chr);
-> > +		else
-> > +			buf_printf(buf, "\\%03o", chr);
-> > +	}
-> > +}
-> > +
-> > +static void buf_asciz(struct buffer *buf, const char *str)
-> >  {
-> > -	struct buffer buf = { };
-> > -	struct module_alias *alias, *next;
-> > -	char fname[PATH_MAX];
-> > -	int ret;
-> > +	buf_printf(buf, "\t.asciz \"");
-> > +	buf_escaped(buf, str);
-> > +	buf_printf(buf, "\"\n");
-> > +}
-> >
-> > -	add_header(&buf, mod);
-> > -	add_exported_symbols(&buf, mod);
-> > -	add_versions(&buf, mod);
-> > -	add_extended_versions(&buf, mod);
-> > -	add_depends(&buf, mod);
-> > +/* The equivalent of MODULE_INFO(tag, info). */
-> > +static void add_asm_modinfo(struct buffer *buf, const char *tag,
-> > +			    const char *info)
-> > +{
-> > +	buf_printf(buf, "\t.section .modinfo,\"a\",%%progbits\n");
-> > +	buf_printf(buf, "\t.asciz \"%s=", tag);
-> > +	buf_escaped(buf, info);
-> > +	buf_printf(buf, "\"\n");
-> > +}
-> >
-> > -	buf_printf(&buf, "\n");
-> > +/* See __KSYM_REF() in include/linux/export-internal.h. */
-> > +static void add_asm_ksym_ref(struct buffer *buf, const char *prefix,
-> > +			     const char *sym)
-> > +{
-> > +#if MOD_PREL32_RELOCATIONS
-> > +	buf_printf(buf, "\t.long %s%s - .\n", prefix, sym);
-> > +#else
-> > +	buf_printf(buf, "\t" MOD_PTR_DIRECTIVE " %s%s\n", prefix, sym);
-> > +#endif
-> > +}
-> > +
-> > +/* The name and namespace strings a ksymtab entry refers to. */
-> > +static void add_asm_kstrtab(struct buffer *buf, const struct symbol *sym)
-> > +{
-> > +	buf_printf(buf, "\t.section \"__ksymtab_strings\",\"aMS\",%%progbits,1\n");
-> > +	buf_printf(buf, "__kstrtab_%s:\n", sym->name);
-> > +	buf_asciz(buf, sym->name);
-> > +	buf_printf(buf, "__kstrtabns_%s:\n", sym->name);
-> > +	buf_asciz(buf, sym->namespace);
-> > +	buf_printf(buf, "\t.previous\n");
-> > +}
-> > +
-> > +/* The equivalent of SYMBOL_FLAGS(). */
-> > +static void add_asm_kflagstab(struct buffer *buf, const struct symbol *sym)
-> > +{
-> > +	buf_printf(buf, "\t.section \"___kflagstab+%s\", \"a\"\n", sym->name);
-> > +	buf_printf(buf, "__flags_%s:\n", sym->name);
-> > +	buf_printf(buf, "\t.byte 0x%02x\n", get_symbol_flags(sym));
-> > +	buf_printf(buf, "\t.previous\n");
-> > +}
-> > +
-> > +/* The equivalent of KSYMTAB_FUNC()/KSYMTAB_DATA(). */
-> > +static void add_asm_ksymtab(struct buffer *buf, const struct symbol *sym)
-> > +{
-> > +	const char *name = sym->name;
-> > +
-> > +	add_asm_kstrtab(buf, sym);
-> > +
-> > +	buf_printf(buf, "\t.section \"___ksymtab+%s\", \"a\"\n", name);
-> > +	buf_printf(buf, "\t.balign %d\n", KSYM_ALIGN);
-> > +	buf_printf(buf, "__ksymtab_%s:\n", name);
-> > +	add_asm_ksym_ref(buf, sym->is_func ? MOD_FUNC_PREFIX : "", name);
-> > +	add_asm_ksym_ref(buf, "__kstrtab_", name);
-> > +	add_asm_ksym_ref(buf, "__kstrtabns_", name);
-> > +	buf_printf(buf, "\t.previous\n");
-> > +
-> > +	add_asm_kflagstab(buf, sym);
-> > +}
-> > +
-> > +/* The equivalent of SYMBOL_CRC(). */
-> > +static void add_asm_crc(struct buffer *buf, const struct symbol *sym)
-> > +{
-> > +	buf_printf(buf, "\t.section \"___kcrctab+%s\",\"a\"\n", sym->name);
-> > +	buf_printf(buf, "\t.balign 4\n");
-> > +	buf_printf(buf, "__crc_%s:\n", sym->name);
-> > +	buf_printf(buf, "\t.long 0x%08x\n", sym->crc);
-> > +	buf_printf(buf, "\t.previous\n");
-> > +}
->
-> It would be good to avoid duplicating these symbol-related
-> implementations in include/linux/export-internal.h and
-> scripts/mod/modpost.c. Perhaps .vmlinux.export.c could also be lowered
-> to assembly, so the implementation in include/linux/export-internal.h
-> can be removed and scripts/mod/modpost.c becomes the only source of
-> truth.
-
-Ack, sounds reasonable, but seems sensible as a follow-up I think?
-
->
-> > +
-> > +static bool export_is_kept(const struct symbol *sym)
-> > +{
-> > +	return !trim_unused_exports || sym->used;
-> > +}
-> > +
-> > +/* Record the CRCs of the exported symbols. */
-> > +static void add_asm_crcs(struct buffer *buf, struct module *mod)
-> > +{
-> > +	struct symbol *sym;
-> > +
-> > +	list_for_each_entry(sym, &mod->exported_symbols, list) {
-> > +		if (!export_is_kept(sym))
-> > +			continue;
-> > +
-> > +		if (!sym->crc_valid)
-> > +			mod_warn(mod, "EXPORT symbol '%s' version generation failed, symbol will not be versioned.\n"
-> > +				 "Is '%s' prototyped in <asm/asm-prototypes.h>?\n",
-> > +				 sym->name, sym->name);
-> > +		add_asm_crc(buf, sym);
-> > +	}
-> > +}
-> > +
-> > +static void add_asm_exported_symbols(struct buffer *buf, struct module *mod)
-> > +{
-> > +	struct symbol *sym;
-> > +
-> > +	list_for_each_entry(sym, &mod->exported_symbols, list) {
-> > +		if (export_is_kept(sym))
-> > +			add_asm_ksymtab(buf, sym);
-> > +	}
-> > +
-> > +	if (modversions)
-> > +		add_asm_crcs(buf, mod);
-> > +}
->
-> Nit: This could be kept shorter as a single function, similarly to how
-> the original C version was implemented solely as add_exported_symbols().
->
-> static void add_asm_exported_symbols(struct buffer *buf, struct module *mod)
-> {
-> 	struct symbol *sym;
->
-> 	list_for_each_entry(sym, &mod->exported_symbols, list) {
-> 		if (trim_unused_exports && !sym->used)
-> 			continue;
->
-> 		add_asm_ksymtab(buf, sym);
->
-> 		if (!modversions)
-> 			continue;
->
-> 		if (!sym->crc_valid)
-> 			mod_warn(mod, "EXPORT symbol '%s' version generation failed, symbol will not be versioned.\n"
-> 				 "Is '%s' prototyped in <asm/asm-prototypes.h>?\n",
-> 				 sym->name, sym->name);
-> 		add_asm_crc(buf, sym);
-> 	}
-> }
-
-Ack will do for v4.
-
->
-> > +/*
-> > + * An unresolved symbol without a module is not versioned; one without a CRC
-> > + * cannot be, so warn about it.
-> > + */
-> > +static bool skip_unversioned(struct module *mod, const struct symbol *sym)
-> > +{
-> > +	if (!sym->module)
-> > +		return true;
-> > +	if (sym->crc_valid)
-> > +		return false;
-> > +
-> > +	mod_warn(mod, "symbol '%s' has no CRC!\n", sym->name);
-> > +	return true;
-> > +}
-> > +
-> > +/* One struct modversion_info: the CRC, then the name padded to the end. */
-> > +static void add_asm_version(struct buffer *buf, const struct symbol *sym)
-> > +{
-> > +	buf_printf(buf, "\t" MOD_PTR_DIRECTIVE " 0x%08x\n", sym->crc);
-> > +	buf_printf(buf, "\t.ascii \"%s\"\n", sym->name);
-> > +	buf_printf(buf, "\t.skip %zu\n", MOD_SIZEOF_struct_modversion_info -
-> > +		   MOD_OFF_modversion_info_name - strlen(sym->name));
-> > +}
-> > +
-> > +/*
-> > + * The equivalent of:
-> > + *
-> > + *	static const struct modversion_info ____versions[]
-> > + *	__used __section("__versions") = { { crc, "name" }, ... };
-> > + *
-> > + * for unresolved symbols.
-> > + */
-> > +static void add_asm_versions(struct buffer *buf, struct module *mod)
-> > +{
-> > +	struct symbol *sym;
-> > +
-> > +	if (!basic_modversions)
-> > +		return;
-> > +
-> > +	buf_printf(buf, "\n\t.section __versions,\"a\",%%progbits\n");
-> > +	buf_printf(buf, "\t.balign %d\n", MOD_ALIGNOF_struct_modversion_info);
-> > +	list_for_each_entry(sym, &mod->unresolved_symbols, list) {
-> > +		if (skip_unversioned(mod, sym))
-> > +			continue;
-> > +
-> > +		if (strlen(sym->name) >= MOD_NAME_LEN) {
-> > +			/* Only the extended table can hold it. */
-> > +			if (extended_modversions)
-> > +				continue;
-> > +
-> > +			mod_error(mod, "too long symbol '%s'\n", sym->name);
-> > +			break;
-> > +		}
-> > +
-> > +		add_asm_version(buf, sym);
-> > +	}
-> > +}
-> > +
-> > +static void add_asm_version_ext_crcs(struct buffer *buf, struct module *mod)
-> > +{
-> > +	struct symbol *sym;
-> > +
-> > +	buf_printf(buf, "\n\t.section __version_ext_crcs,\"a\",%%progbits\n");
-> > +	buf_printf(buf, "\t.balign 4\n");
-> > +	list_for_each_entry(sym, &mod->unresolved_symbols, list) {
-> > +		if (skip_unversioned(mod, sym))
-> > +			continue;
-> > +
-> > +		buf_printf(buf, "\t.long 0x%08x\n", sym->crc);
-> > +	}
-> > +}
-> > +
-> > +/*
-> > + * A symbol without a CRC was warned about with the CRCs, and is skipped here
-> > + * too so that the names line up with them.
-> > + */
-> > +static void add_asm_version_ext_names(struct buffer *buf, struct module *mod)
-> > +{
-> > +	struct symbol *sym;
-> > +
-> > +	buf_printf(buf, "\t.section __version_ext_names,\"a\",%%progbits\n");
-> > +	list_for_each_entry(sym, &mod->unresolved_symbols, list) {
-> > +		if (!sym->module || !sym->crc_valid)
-> > +			continue;
-> > +
-> > +		buf_asciz(buf, sym->name);
-> > +	}
-> > +	/* The terminator of the string literal this used to be. */
-> > +	buf_printf(buf, "\t.byte 0\n");
->
-> This is ok since the conversion aims to be byte-identical. In the
-> future, I believe the extra NUL byte should be removed and
-> elf_validity_cache_index_versions() also be updated to report when
-> __version_ext_names contains more names than there are CRCs in
-> __version_ext_crcs.
-
-Ack, I agree one for a follow up!
-
->
-> > +}
-> > +
-> > +/*
-> > + * The equivalent of:
-> > + *	static const u32 ____version_ext_crcs[] __section("__version_ext_crcs") = { crc, ... };
-> > + *	static const char ____version_ext_names[] __section("__version_ext_names") = "name\0" ...;
-> > + *
-> > + * for unresolved symbols.
-> > + */
-> > +static void add_asm_extended_versions(struct buffer *buf, struct module *mod)
-> > +{
-> > +	if (!extended_modversions)
-> > +		return;
-> > +
-> > +	add_asm_version_ext_crcs(buf, mod);
-> > +	add_asm_version_ext_names(buf, mod);
-> > +}
->
-> Nit: add_asm_version_ext_crcs() and add_asm_version_ext_names() are both
-> fairly short and are called only from add_asm_extended_versions(), so
-> I think they could be inlined into that function. This would be similar
-> to the original implementation, which does all the work in
-> add_extended_versions().
-
-Ack will do for v4!
-
->
-> > +
-> > +/* Clear ->seen of the modules that own symbols this one needs. */
-> > +static void clear_seen_dependencies(struct module *mod)
-> > +{
-> > +	struct symbol *sym;
-> > +
-> > +	list_for_each_entry(sym, &mod->unresolved_symbols, list) {
-> > +		if (sym->module)
-> > +			sym->module->seen = sym->module->is_vmlinux;
-> > +	}
-> > +}
-> > +
-> > +/* The modules this one depends on, each once, comma separated. */
-> > +static void collect_dependencies(struct module *mod, struct buffer *deps)
-> > +{
-> > +	struct symbol *sym;
-> > +	bool first = true;
-> > +
-> > +	clear_seen_dependencies(mod);
-> > +
-> > +	list_for_each_entry(sym, &mod->unresolved_symbols, list) {
-> > +		struct module *owner = sym->module;
-> > +
-> > +		if (!owner || owner->seen)
-> > +			continue;
-> > +
-> > +		owner->seen = true;
-> > +		buf_printf(deps, "%s%s", first ? "" : ",",
-> > +			   get_basename(owner->name));
-> > +		first = false;
-> > +	}
-> > +	buf_write(deps, "", 1);
-> > +}
-> > +
-> > +static void add_asm_depends(struct buffer *buf, struct module *mod)
-> > +{
-> > +	struct buffer deps = { };
-> > +
-> > +	collect_dependencies(mod, &deps);
-> > +	buf_printf(buf, "\n");
-> > +	add_asm_modinfo(buf, "depends", deps.p);
-> > +	free(deps.p);
-> > +}
->
-> Nit: Same here. I think this would be more straightforward if
-> collect_dependencies() and clear_seen_dependencies() were inlined into
-> add_asm_depends(), matching the original add_depends().
-
-Ack one for v4 too! :)
-
->
-> --
-> Thanks,
-> Petr
-
---
-Cheers, Lorenzo
