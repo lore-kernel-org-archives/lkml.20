@@ -1,293 +1,329 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012003.outbound.protection.outlook.com [40.93.195.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E57773E4105
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:00:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79664B7A2F
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:00:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.175
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790006444; cv=fail; b=GrUSuHscX8y9v+2Jdczo/ffR1rWlGcZeUZrEN/7isAOYFDrUPCNHEDiX0ELH3hcdKdZGVHV2TaFduMwzaPAaguxghJmjQKF5BmFgLIWgiBs9n22BSj/ZBTokPVTdlASgu0RL+NecgypyXu0yWVGq8tLeCs5hLCfY+t8vZOip57U=
+	t=1790006459; cv=pass; b=ABk53MHwTXVrASV5R4Y6kEBqn5EoptQ0xKyqq9FU660F8utr36t2TDIjee39Q87fbTo7DTiUCbmx+w/CFfmhbUvKYIPQ/jgCfOYFV+inMK+umenW1x1VK8E6SmiB7zzJlPi59h5v1GILmL7TtPFv6MTCymrW/9Uh8H6J/WCTmaA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790006444; c=relaxed/simple;
-	bh=ASv76ZuMw/QA2/lf6g/PdUd1OV2Py8aIsppFnu085KA=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=e4eecrOVzMOZy+LNrCYkuHQQbO+eWLCZYxXXdULY2WPpH5BTIFq6QRqjO5s9vDHb3LkzM5Muk6hjDeLP8n7kOjTPVWY51Ox5WTGhEtOLz9ltBesbBlJ3nPRsoEKQ3S07gm//zeStxEZril64GyU061b3ATJJomZ46Fx1kxxngkM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=Ocb4qzHS; arc=fail smtp.client-ip=40.93.195.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	s=arc-20240116; t=1790006459; c=relaxed/simple;
+	bh=Ga0+ls8FoVxc1c9FhOUzyKw2f3t1sggxGBroQbxq7Uk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pdtVQbbNLdSPz0HxWzKiL2/ie/fcUHG2veB1Tgk7wjOJ51Z/C+yMbxMUSvEw5VF7z50Kat6NkHSrx7lDARH2blut2dOOofCMlvZc+FkVtBjK6iM7SN2ynQ2JLY/i/jCYm0pXreNtKaYrqFiMHCio3G96rhCVnPoAIyfHKxNMrZo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=syh0AO4n; arc=pass smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="Ocb4qzHS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bc+hl/OxHVzkXhTli3P7DwfuexU2Js4DahBRu5/u4HbJG3fNPVSDpxb13F9uwfQutac/5lrG8K2PVPrS3S80OwkEqwOtZJivh6xOJRxH2+kUCwYA89DIVjvpP+Yvq/YTS6vzohLkR43Jeim7+qHzD0W22zHxzQYWfJJfiaWJIpuKeXPtHaOrREmUrgupGXpLSVS4Y24tzetm5HdvjkCCsYtolklK86H9ZB5wZ0ENoIeQ5Ux1PkzEOilkfxuEltkky416CzUKdGq4FUnnY+sM/01JIXxv2zwsuCtWhpXIf/s0JEzpY16Nl48E4Q+/A0eC/iewzkD8ZgpczU+wL1yg0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HOWVq7bnMdbAA6KeQozhfapGkFx8F2jTdkjiHuK0Cuc=;
- b=OHmy/uCa/h4jNtKCv3aqCZikTWILWwjapxJn28dcOlUAoR1bS/+b0KwpTEHaNmpP4dyZfBG3LLnDDBLC6yWyzVsjYDT7FSq2oxP/NUkE1jCVcSDiGsHum1G9nyldtlpL5uhqUYp7QH8Nmm77eadCN6Nwa6yrXL2si0oEYrtSeigiNa21NW346DKQ6lL55O4Wc6eCwTyBe2AAMjeoM0LrzKEzb2HzoSklRw1insyo3Fq09fNfNl9bIMPsirs0hZpbBzzswuOJLHn/cU/Cdynnjg8fc4DnyQP8b1O2pLnKxH3IgfuIHZAP8++DktNMf/zW7grq2Kg5kemA3qM6JSqidA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HOWVq7bnMdbAA6KeQozhfapGkFx8F2jTdkjiHuK0Cuc=;
- b=Ocb4qzHSml26ALSkit9c0zd9OSPCwFtATnHl9F9BSagGaRwbiabXnUWM8XCmb0dOuiHY1+mLgjLOYVypFgQLtkgFtNA0UrQOMJPKDvUJSOTkjd3XLnY3vU8YGLEguUOyyrswEL/kT1jeDQibjOF5G+neEZ75gAfjiTsVOJ0zeKOJYACylH+HnB3Gj28D1WdNcPMWaad+3/uApXRtuOAr2FUxfvvD/GsjWwcxnpS/7QLNWH82TewahSxyjbA0fqQUWaDlBloPr2Ht2mq6fG803WtYo8/tiDGlTSDpFbuZXVZbPH+BE82u036TK75/H4PMKXjA19j4QcrS/CgXXBq8Dw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from SJ0PR03MB6581.namprd03.prod.outlook.com (2603:10b6:a03:393::12)
- by PH7PR03MB7105.namprd03.prod.outlook.com (2603:10b6:510:2b8::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 16:00:35 +0000
-Received: from SJ0PR03MB6581.namprd03.prod.outlook.com
- ([fe80::e335:b86:cf59:8b80]) by SJ0PR03MB6581.namprd03.prod.outlook.com
- ([fe80::e335:b86:cf59:8b80%3]) with mapi id 15.21.0428.014; Mon, 21 Sep 2026
- 16:00:34 +0000
-From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-To: Dinh Nguyen <dinguyen@kernel.org>,
-	linux-kernel@vger.kernel.org
-Cc: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-Subject: [PATCH] firmware: stratix10-svc: Reduce polling interval for command status
-Date: Tue, 22 Sep 2026 00:00:22 +0800
-Message-ID: <397bca17aad39df1b48dc971ab09c8955d778252.1790005475.git.adrian.ho.yin.ng@altera.com>
-X-Mailer: git-send-email 2.49.GIT
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0183.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b6::13) To SJ0PR03MB6581.namprd03.prod.outlook.com
- (2603:10b6:a03:393::12)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="syh0AO4n"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2db33db4de9so193155ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:00:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790006457; cv=none;
+        d=google.com; s=arc-20260327;
+        b=B4UDSqPSM1a6rJKrvB+NeC09SsRD+0mcH21NHvxx6aP5NcaBGNLMVWHKPRNN9D9yjb
+         NLghnbPMIIDYOGL4tOQ0SCWfhuFTLhi7/QarrBCEf8MhWWz/FZiskAOeVUiITVuGlYgg
+         VLOCgOKsz2vYlOTqksoU6CGHnnB5UrePZLpyfISy20v4KfnlpKpZf7oF2I1kajJi7X5Z
+         ydtzJlVuyMGFjv1F3Pm+EB34mxXAq5rkMem+ZBorT9TlhUN9BrlPLhSbOiilrSq3r0nx
+         Q+c7dE7TbcocTjuEfKZS7AtGEZHvIl4J8QpFtdKGMOd76YVVibbUCd60++40mZsQOYhC
+         1P7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OKk6v14E/puXf6C6/5MlJvluyYna1IXMIRlveuoXEKc=;
+        fh=EVPCzdgs5FCXTO5PtHaRKwX2GfQNmGQ+OJyE2bKLB/c=;
+        b=ShvjwkNWiacmBYvoWPWVC0V28VBX5jagsi/+SP7Oj3j19QJym3ULnKIrmP2RQRMlyD
+         FfG0jycH0LQNLXGcYvg6UdADKXzjKv43GGaU53mo0W6vPmHf6H4xDSOWFXnLfkAhpukQ
+         4znAKRkE6PSmpirc+Aj5UArlc4/RAH/fP07P/NTymRCrRkkG4e38PXenxOrHJ9liGL95
+         W4wUs1w0cAiVmUKA2sVKNQW91DXfmvxwZopcybJcjKyoR7342GcbIXCA+/ZeZ2e8gIXK
+         nfs2OGwArBzhgjoDk9Q9nDaEMAdLanOuA44Ti841mStJBSDhiLYjXj4y3mOVrKb+iQFo
+         E8hg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790006457; x=1790611257; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OKk6v14E/puXf6C6/5MlJvluyYna1IXMIRlveuoXEKc=;
+        b=syh0AO4nHIjL3+OKjgpzX4oiCwYXUWPuSo1F9epTPdxG3O8jk2GDE9+xDHXjPQbRR+
+         5AOpHCDdA/E2p4eYTh54+NRjewUYkdWHtTE/jv6k00Q3WSf69exLZjflJjFyUtxsdQ5N
+         +VpD32zFFvbfiUPRvtCuauJiqaHmtRh9XlbwbzHQ9NgtTv0aLvSMvEBJ5gq3VB/tLHmL
+         cXutx0nXCBAbq5Wz33FTJNg0uejnTa4vFLxlhx/ovNaCIiukul6t2dgGi86j0LdGHoKP
+         cWfRO+/SzY6oKzLpxekaHETUBSg7WARPY+9P60U1gcUOTv0LGkusPqiYtpjPtAuExEyC
+         dxYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790006457; x=1790611257;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OKk6v14E/puXf6C6/5MlJvluyYna1IXMIRlveuoXEKc=;
+        b=lXmu0MwGoDOL+Yz1n7+SGJsIPMM9PQqkPQSagXSrGwYSNSy/wIHjGm11T1Xhcw/TJL
+         wfGmEp9pUwPgNBUP4owOUsVXYOa+imrnA/vMKcDbZzgnb5OVkncFYJ+0Qa/jdMTBs5SO
+         cjtGI4X+pO/xMsEG+lQ4nNe3hBtmvwxgdiQITgwFi39ORy8h5dMIcup/hQ7dzINCRX9v
+         GjJr8M+eABRYFsOklNeWN8pN4D4F3du980bfz/X6yIIAVYIlph5psl3FkAYntONfVzv6
+         vyMChWauCIH5AMKyyy3NYc5/YEKjC679JFzHwJNJzXtO8FUWmk74VsjE4GCdgVyGhAsC
+         vgow==
+X-Forwarded-Encrypted: i=1; AKwUvBw7vbM+Q1zr1n3fzmt+vvQ/x1R5XmrADJF+h10V8RTMRsY9Ytc02ENh/CPhryeIUDOH30NK2n0iB6b9Iws=@vger.kernel.org
+X-Gm-Message-State: AFuF++mN25o1JrYAvFFBdjxepGtWlIQuzRsr4LuIDzHVLt7jUDbguefd
+	xjIt2UpW7w/+PrU8iAMtQbphD7UmzC50BI5BwiDVvlwTgBOBA4dqVH27R/l39QAZie9nTZ6286F
+	vl7zJxgqvreXYBRQGf5jjWFoBJu+I57UUYNQErdD0
+X-Gm-Gg: AYBFou1AptBUQm7l0tyTyTRnqq36lskFHxx4KsZFEFR5Oa4nooS+y8oq0athCxpMB4b
+	kYOvB0XfVUa/DuLZUvyOYueKVUp9X5EooBx8ftyiasFVTToWPM7258Hk8X3SWIv2vmTE/HLQSb1
+	dUMTZ+AEBk1ozfsiw/MF4kTnoxLN4+R16nBsTKyS354h85m0Ctloh4zOuV4Es5eu8iz+o07ggVn
+	XPccSSpcOhQaTWMkHnoz47A/wlo1V0BUQ+oOrQM0v/Zxe7Omm+3t6aWah1rlZSVR46R1R8J/5Vr
+	iWKIbIMCHKV0K3SQbbvLi/OvNYy5N/NQCzZAjFtgPbOhB4/jBSifkHgz9gXqd+KQfSiLfJqqQ75
+	UoKO0+DA9
+X-Received: by 2002:a17:902:ffce:b0:2d5:db3d:1a44 with SMTP id
+ d9443c01a7336-2dec1f19e92mr10907155ad.17.1790006456032; Mon, 21 Sep 2026
+ 09:00:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6581:EE_|PH7PR03MB7105:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5071d8bc-8861-4500-8499-08df17f9787c
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|10067099003|5023799004|3023799007|6133799003|55112099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	hLS6u1sPrPF7TnTf4R1bcz81Z5IMlxFKyokR92LsqhinLB8Ov29fvfJCOD5L5wiDONyGGdYbES1mOR9JRENSjKhHwxiBOE8N8xEQQfj9l1ya+aGbcPUHybTBfqSPczDFBosYpEFIXQ5i5anujijZfpavTTvf/cPBmkOYuPnQhjuEt4vatuiUFFURZsdFCXXZz/S4/h7z1OhIxEzx+z5QDy4lvVCaMJSOB2AYYOtzds1PP9hrenO22VQlDiQ1ujbBbD2kp9KYyJ0uxL4YMu/Xp0FJXxv9owq9oerNVJb2Uyq9TFiZWEkJ+hgPQYrGO1alv2gAkDH5l4KU5XBOwo5N+dM1Hp6NVQrTJU6jSRItNFndQ936TLJb97eKQFkUNjFxgYnxUVYk2rozv/LRkWNRG3rxfkbcKsfnnQsVJvfRhqrKoAjXxC0Bfcbc1e0Ga4t7922nTL6S2J2xRpuM5wP3r7UCwjvUgiWrOMyAJtSbJiyJJEgk8D64BAtHQ3+2X7h/12y3mHWiVHorB3vATkINyJBJ+6sW94obPF62MSd+hd6Y0ljWlZ4N7wmcccWzCYS03b0uzMcuKWv15+/qoudubHcgV+ZYGF3s7GvyxdFkIv3tPsVMl8Rp6o6Q6YDRsj29hFz3/adySJadhTfuCIuMgQdcpf5+ls9tE+Zp0u0sye0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6581.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(5023799004)(3023799007)(6133799003)(55112099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cm00Q2VnOWRhN3NLU3kzQktmeVpxM3RIeUFPcFF2VmlJeUxQckhIMGpUWUZ4?=
- =?utf-8?B?MkMwNWpKNTk2LzhhMnpHc2VTckZZeHBTMmdmWlVZaENNMWFDT3c0dVdHYzZS?=
- =?utf-8?B?aWFzNTB6blp0bDBibkwxdzdDVjZoZVlnRmFtdEg4L2lQcFBaaG5OdlRmVU5U?=
- =?utf-8?B?aDIyZ3hPbkJnRlN4TlJvM1RJSmd0cEZrdmY3Tnk4N2ZhWTc3dnF2U0JJSlZ3?=
- =?utf-8?B?eFlTSkVMQm4vdWNscnJIUHFZRlZZZU9TZTZoWjYvVFB1ZENBQlJPc1J4ZVcw?=
- =?utf-8?B?Z1ltTVU3N0tGV3V1WkpBUXJWWUdXNDgzSGlzVzNYS1cvK3VoMnNoWnZub1Ba?=
- =?utf-8?B?SmJvWWJQcjJOWWE3aFQ3NU9TVlpkWm1Tb2VoM3FaUkJtVDB4L1licDdSMEpR?=
- =?utf-8?B?U1hYVzFDcE5OOHVpWlc4ak1DbTk0elcvYXA3ZnRoZmNyTkZWWVYrU21xZFRl?=
- =?utf-8?B?dDVvb1lGMk1UV1JEaGJMS2VHNVNzdlZFZWNveGlKOHJ0RzlHclV6SHFKWGpV?=
- =?utf-8?B?UE1HWTJMeXJmeGJRVzRXTE9pcFhOUXBiN1gxdVh6UUIyOTNubk1TUXJSb0VI?=
- =?utf-8?B?Y0hadUZ0bExRbnFoUks5Ni9iMDVZT0NKVFdEMVBjY0h0a2VEdG5KYmJsN0ll?=
- =?utf-8?B?ODVuelJSWTFlc1UremxNbW9TRjE2VHByanZ3aGZXMUh6ZFgrUHI4d3RnYk9F?=
- =?utf-8?B?a05OZlFKMnZhUjNCMTQ2ZDRJZVA4MlFCd29EaVl6YXBWckFIS0I1ZjRxRDhS?=
- =?utf-8?B?QytBcWVHZE11WTJGd01ZNEladm5mbjNXZWM3L0NqMEgrcW5vVFRzVlo3ZXZY?=
- =?utf-8?B?OWRvOVpHb3FEenFLczZjenNtUzR1MCsybWJMNzI1Z2pzY09Fb3djeTRaOTNK?=
- =?utf-8?B?Tmp6UHdwaTFodGVkc0FIclhKZzMvUjI2WUhTMHRNZS9mcnA5ZE9wZTJpQ09k?=
- =?utf-8?B?Tk9LdjBiRXE1dDlCM0NxdHJmbUpxQ2hRM0ovV09uS0RzZ0ZtSHJjMEJVVHdN?=
- =?utf-8?B?NEcyZkJhcEtzcW5EYjZhODB2QlByemhDb3JtbmR6RmxRc3BWb3RqeWtSWVpO?=
- =?utf-8?B?YXpJTmE4VThJTzRGcE1uMXBmb1cvSm1hUk1FL0hnTjlRQmloQVhQYXZBeSsz?=
- =?utf-8?B?TkRoY1pzUXEvSDFoSXlDSVNvVXN6bHJhQXZPSytGNG1lMWZWS2ZqWEVvREs0?=
- =?utf-8?B?dEEzK0k4czVCMll6RXRoM3MwUDB4SW9sTGVTcmpFSUJKTEFPT3FidGU0a2Fu?=
- =?utf-8?B?YndiWDRIT0xnb0s1R0JsM1NUMGl0enpJcitZcVl4NThmVVBuN2huSllzT2hk?=
- =?utf-8?B?dk1vRk0wdHBmVDB0ang0ZitNaTBEMzNoaXR1WU1yZnRydk1qaTZlUExxZGlD?=
- =?utf-8?B?Rm9LT1FHUnp5d0N5aDhyUUVQeUc2eVFhWVFqRlFzcS85Ymw3N0J5WkdPQmhk?=
- =?utf-8?B?Ty9YSnJrc2hUcDk2WVlsK1RvblhmcTJwOFpnQjlaUWg0Q0hNNkJpaE5jeXVU?=
- =?utf-8?B?ejZBV1lRMFpBcmJldHluQnZLTXNXcUhnc2RaNldCYkRKUW9Ob2lqLzJjUGla?=
- =?utf-8?B?YjdwVnpvZUxjU0xEUjRqVWkrVUxzZnlwc09ReUhMcytBU1pIOHBGWUNjeGRE?=
- =?utf-8?B?T0tYdHF5TW05anpVakJyQi8wdDJ1clZ1eHhVVXVHRmRGQnJlckFiZExGZHpn?=
- =?utf-8?B?Y0U4MDFKTk92L3JuemxnZ0tmTmUyWkhubnRWay9VdS9JZVBwaTEzSG1KaXpp?=
- =?utf-8?B?ZjZxOUtGUk1Pam1IV0QvNjU5Nk5KY1ErMVdrZ1hBVlpHUVpRVVZ0Q3lOUzFI?=
- =?utf-8?B?blQvZGRDbXpiUzN4QTdNRkgvRllTOUJtQUc0RHBScUNmbmQvbU0xL2VaQjdw?=
- =?utf-8?B?NFE4Nm5qbE1OVUVHYVVlMWFPcGQ2VGhLNkNBeWdmS3MzN2h1THFKckNoa25G?=
- =?utf-8?B?Mk5OZ3JKMFMxSWpRbTQrOWN0cFB0NEY3VFN3dTdNMGNzOGY0VUd5aDJOQlk1?=
- =?utf-8?B?OUhmZ0xkRUtrWjV6VHgva2ljUUlxWTdKVHJTVmVjTTdSb0U4SzBnWlZvV3Nu?=
- =?utf-8?B?NlhrYnV5LzBpSkJQNENDZUpkWFZwT3lJaklSSGVIb21DQitjYzdBSnc3SkNM?=
- =?utf-8?B?Z2x1WjlzZzZuVlAxU0UyakNVS1pNQ2xSTFo4dTVQTWg2b2tmcnFKRVhzdXBp?=
- =?utf-8?B?NkFWdVFrbzRoSUZ4NUJPN3VUbVhlck81YjVaOHhLaHE2UjJyUlB4VnJlK0ln?=
- =?utf-8?B?NlEyT0p4THFyRkJMcTRuMlRNQWpPcnZMY0xsTi9oK01OZzVwWGdER3FwZ1pr?=
- =?utf-8?B?d1dPdnF0blFENWhHa2xZVGdSVEx1eE51V2ZLTXJCZEFsMlhvSjIrd3JQTDh1?=
- =?utf-8?Q?bhDWl5k5XwJREuso=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5071d8bc-8861-4500-8499-08df17f9787c
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6581.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 16:00:34.8467
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YTsDJ9B3mryoFH/XLtzcEwRvLPKhCMAnM1m+f392msDLcqgwoJ7dWMS4tY4dN8Os169s7MtJ1pAJiplS9XLurg629ME0T8KTdjDC+UDTZd4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB7105
+References: <20260912031112.1814574-1-sh_def@163.com> <aqdLFApaxDgj1mtZ@google.com>
+In-Reply-To: <aqdLFApaxDgj1mtZ@google.com>
+From: Ian Rogers <irogers@google.com>
+Date: Mon, 21 Sep 2026 09:00:43 -0700
+X-Gm-Features: AcwNN1Xzy5ghpFcSPnaGEG5eLF1maptCJOzM5lZ6FhWA2mEb-8LcSDaLUsh75NU
+Message-ID: <CAP-5=fUWC6F+_HCqW7eFuaw5StZpdcpb+pXPdHbXE+auNdMdTw@mail.gmail.com>
+Subject: Re: [PATCH] perf evsel: Restrict incremental open error unwind
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Hui Su <sh_def@163.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Jiri Olsa <jolsa@kernel.org>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The service controller currently polls FPGA configuration status at a
-fixed 1 second interval until the 30 second timeout expires. This leads
-to slow response time for fast-returning commands and unnecessary delay
-before reporting completion.
+On Sun, Sep 13, 2026 at 6:17=E2=80=AFPM Namhyung Kim <namhyung@kernel.org> =
+wrote:
+>
+> On Sat, Sep 12, 2026 at 12:11:10PM +0900, Hui Su wrote:
+> > evsel__open_cpu(), evsel__tool_pmu_open() and
+> > evsel__hwmon_pmu_open() support opening a subrange of a CPU map, bounde=
+d
+> > by [start_cpu_map_idx, end_cpu_map_idx).
+> >
+> > Their error paths, however, unwind using "while (--idx >=3D 0)" all the=
+ way
+> > back to CPU index 0 regardless of start_cpu_map_idx. If lower CPU indic=
+es
+> > were opened by an earlier invocation, a later incremental open failure
+> > therefore closes those existing file descriptors and overwrites their
+> > slots with -1.
+> >
+> > Before this fix, running the new incremental open test demonstrates thi=
+s
+> > corruption:
+> >
+> >   $ perf test -v "Tool PMU"
+> >    12: Tool PMU:
+> >    12.1: Tool PMU                                                      =
+: Ok
+> >    12.2: Tool PMU leader                                               =
+: Ok
+> >    12.3: Incremental open error unwind boundary:
+> >      FAILED: CPU 0 FD overwritten: FD(evsel, 0, 0)=3D-1, expected 4
+> >   FAILED!
+> >
+> > Stop the unwind at start_cpu_map_idx so that only file descriptors
+> > opened by the current invocation are rolled back.
+> >
+> > After this fix:
+> >
+> >   $ perf test -v "Tool PMU"
+> >    12: Tool PMU:
+> >    12.1: Tool PMU                                                      =
+: Ok
+> >    12.2: Tool PMU leader                                               =
+: Ok
+> >    12.3: Incremental open error unwind boundary                        =
+: Ok
+> >
+> > Fixes: 4804e0111662 ("perf stat: Use affinity for opening events")
+> > Fixes: 240505b2d0ad ("perf tool_pmu: Factor tool events into their own =
+PMU")
+> > Fixes: 53cc0b351ec9 ("perf hwmon_pmu: Add a tool PMU exposing events fr=
+om hwmon in sysfs")
+>
+> Maybe we just need to last one?
+>
+> Acked-by: Namhyung Kim <namhyung@kernel.org>
 
-Introduce two polling modes:
- - Fast polling: 20 ms interval for up to 50 iterations (≈1 s total)
- - Slow polling: 500 ms interval for up to 29 seconds
+Reviewed-by: Ian Rogers <irogers@google.com>
 
-A new helper, svc_cmd_poll_status(), abstracts the polling logic and
-replaces the existing loop in svc_thread_cmd_config_status(). This allows
-the driver to respond quickly to short operations while still handling
-long-running configuration commands within the same overall timeout
-window.
+Thanks,
+Ian
 
-Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
----
- drivers/firmware/stratix10-svc.c | 104 ++++++++++++++++++++++---------
- 1 file changed, 76 insertions(+), 28 deletions(-)
-
-diff --git a/drivers/firmware/stratix10-svc.c b/drivers/firmware/stratix10-svc.c
-index f803a1e947b6..65ddae175817 100644
---- a/drivers/firmware/stratix10-svc.c
-+++ b/drivers/firmware/stratix10-svc.c
-@@ -40,14 +40,32 @@
-  * from the secure world for FPGA manager to reuse, or to free the buffer(s)
-  * when all bit-stream data had be send.
-  *
-- * FPGA_CONFIG_STATUS_TIMEOUT_SEC - poll the FPGA configuration status,
-- * service layer will return error to FPGA manager when timeout occurs,
-- * timeout is set to 30 seconds (30 * 1000) at Intel Stratix10 SoC.
-+ * FPGA_CONFIG_STATUS_TIMEOUT_SEC - overall poll budget for FPGA
-+ * configuration / service completion status. Service layer returns
-+ * error to the client when this timeout expires (30 seconds).
-+ *
-+ * SVC_POLL_INTERVAL_MS_FAST / SVC_POLL_INTERVAL_MS_SLOW - sleep between
-+ * SMC status polls for the fast and slow phases.
-+ *
-+ * SVC_POLL_FAST_WINDOW_MS - duration of the fast-poll phase before
-+ * switching to the slower interval (1 second).
-+ *
-+ * SVC_POLL_COUNT_FAST / SVC_POLL_COUNT_SLOW - iteration budgets derived
-+ * from the intervals and overall timeout so the two phases still sum to
-+ * FPGA_CONFIG_STATUS_TIMEOUT_SEC.
-  */
- #define SVC_NUM_DATA_IN_FIFO			8
- #define SVC_NUM_CHANNEL				4
- #define FPGA_CONFIG_DATA_CLAIM_TIMEOUT_MS	2000
- #define FPGA_CONFIG_STATUS_TIMEOUT_SEC		30
-+#define SVC_POLL_INTERVAL_MS_FAST		20
-+#define SVC_POLL_INTERVAL_MS_SLOW		500
-+#define SVC_POLL_FAST_WINDOW_MS			1000
-+#define SVC_POLL_COUNT_FAST			\
-+	(SVC_POLL_FAST_WINDOW_MS / SVC_POLL_INTERVAL_MS_FAST)
-+#define SVC_POLL_COUNT_SLOW			\
-+	(((FPGA_CONFIG_STATUS_TIMEOUT_SEC * MSEC_PER_SEC) -	\
-+	  SVC_POLL_FAST_WINDOW_MS) / SVC_POLL_INTERVAL_MS_SLOW)
- #define BYTE_TO_WORD_SIZE              4
- 
- /*
-@@ -441,6 +459,52 @@ static void svc_thread_cmd_data_claim(struct stratix10_svc_controller *ctrl,
- 		 wait_for_completion_timeout(&ctrl->complete_status, timeout));
- }
- 
-+/**
-+ * svc_cmd_poll_status() - poll secure-world service completion status
-+ * @p_data: pointer to service data structure
-+ * @ctrl: pointer to service layer controller
-+ * @res: pointer to store the latest SMC response
-+ * @poll_count: maximum number of SMC polls for this phase
-+ * @poll_interval_in_ms: sleep duration between polls while status is busy
-+ *
-+ * Invokes the appropriate ISDONE / SERVICE_COMPLETED SMC until the secure
-+ * world returns a terminal status (OK, ERROR, or REJECTED), or until
-+ * @poll_count attempts have been exhausted.
-+ *
-+ * Return: true if a terminal status was received, false on poll budget
-+ * exhaustion.
-+ */
-+static bool svc_cmd_poll_status(struct stratix10_svc_data *p_data,
-+				struct stratix10_svc_controller *ctrl,
-+				struct arm_smccc_res *res,
-+				int poll_count, int poll_interval_in_ms)
-+{
-+	unsigned long a0, a1, a2;
-+
-+	a0 = INTEL_SIP_SMC_FPGA_CONFIG_ISDONE;
-+	a1 = (unsigned long)p_data->paddr;
-+	a2 = (unsigned long)p_data->size;
-+
-+	if (p_data->command == COMMAND_POLL_SERVICE_STATUS)
-+		a0 = INTEL_SIP_SMC_SERVICE_COMPLETED;
-+
-+	while (poll_count--) {
-+		ctrl->invoke_fn(a0, a1, a2, 0, 0, 0, 0, 0, res);
-+		if (res->a0 == INTEL_SIP_SMC_STATUS_OK ||
-+		    res->a0 == INTEL_SIP_SMC_STATUS_ERROR ||
-+		    res->a0 == INTEL_SIP_SMC_STATUS_REJECTED)
-+			return true;
-+
-+		/*
-+		 * request is still in progress, go to sleep then
-+		 * poll again
-+		 */
-+		msleep(poll_interval_in_ms);
-+	}
-+
-+	return false;
-+}
-+
- /**
-  * svc_thread_cmd_config_status() - check configuration status
-  * @ctrl: pointer to service layer controller
-@@ -455,8 +519,7 @@ static void svc_thread_cmd_config_status(struct stratix10_svc_controller *ctrl,
- 					 struct stratix10_svc_cb_data *cb_data)
- {
- 	struct arm_smccc_res res;
--	int count_in_sec;
--	unsigned long a0, a1, a2;
-+	bool done;
- 
- 	cb_data->kaddr1 = NULL;
- 	cb_data->kaddr2 = NULL;
-@@ -465,30 +528,15 @@ static void svc_thread_cmd_config_status(struct stratix10_svc_controller *ctrl,
- 
- 	pr_debug("%s: polling config status\n", __func__);
- 
--	a0 = INTEL_SIP_SMC_FPGA_CONFIG_ISDONE;
--	a1 = (unsigned long)p_data->paddr;
--	a2 = (unsigned long)p_data->size;
--
--	if (p_data->command == COMMAND_POLL_SERVICE_STATUS)
--		a0 = INTEL_SIP_SMC_SERVICE_COMPLETED;
--
--	count_in_sec = FPGA_CONFIG_STATUS_TIMEOUT_SEC;
--	while (count_in_sec) {
--		ctrl->invoke_fn(a0, a1, a2, 0, 0, 0, 0, 0, &res);
--		if ((res.a0 == INTEL_SIP_SMC_STATUS_OK) ||
--		    (res.a0 == INTEL_SIP_SMC_STATUS_ERROR) ||
--		    (res.a0 == INTEL_SIP_SMC_STATUS_REJECTED))
--			break;
--
--		/*
--		 * request is still in progress, wait one second then
--		 * poll again
--		 */
--		msleep(1000);
--		count_in_sec--;
--	}
-+	done = svc_cmd_poll_status(p_data, ctrl, &res, SVC_POLL_COUNT_FAST,
-+				   SVC_POLL_INTERVAL_MS_FAST);
-+	/* Fall back to a longer interval if still busy after the fast window */
-+	if (!done)
-+		done = svc_cmd_poll_status(p_data, ctrl, &res,
-+					   SVC_POLL_COUNT_SLOW,
-+					   SVC_POLL_INTERVAL_MS_SLOW);
- 
--	if (!count_in_sec) {
-+	if (!done) {
- 		pr_err("%s: poll status timeout\n", __func__);
- 		cb_data->status = BIT(SVC_STATUS_BUSY);
- 	} else if (res.a0 == INTEL_SIP_SMC_STATUS_OK) {
--- 
-2.49.GIT
-
+> Thanks,
+> Namhyung
+>
+>
+> > Signed-off-by: Hui Su <sh_def@163.com>
+> > ---
+> >  tools/perf/tests/tool_pmu.c | 79 +++++++++++++++++++++++++++++++++++++
+> >  tools/perf/util/evsel.c     |  2 +-
+> >  tools/perf/util/hwmon_pmu.c |  2 +-
+> >  tools/perf/util/tool_pmu.c  |  2 +-
+> >  4 files changed, 82 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/tools/perf/tests/tool_pmu.c b/tools/perf/tests/tool_pmu.c
+> > index c6c5ebf0e935..667160f9e2cd 100644
+> > --- a/tools/perf/tests/tool_pmu.c
+> > +++ b/tools/perf/tests/tool_pmu.c
+> > @@ -1,8 +1,16 @@
+> >  // SPDX-License-Identifier: (LGPL-2.1 OR BSD-2-Clause)
+> > +#include <errno.h>
+> > +#include <fcntl.h>
+> > +#include <string.h>
+> > +#include <unistd.h>
+> > +#include <internal/xyarray.h>
+> > +#include "cpumap.h"
+> >  #include "debug.h"
+> >  #include "evlist.h"
+> > +#include "evsel.h"
+> >  #include "parse-events.h"
+> >  #include "tests.h"
+> > +#include "thread_map.h"
+> >  #include "tool_pmu.h"
+> >
+> >  static int do_test(enum tool_pmu_event ev, bool with_pmu)
+> > @@ -100,9 +108,80 @@ static int test__tool_pmu_with_pmu(struct test_sui=
+te *test __maybe_unused,
+> >       return TEST_OK;
+> >  }
+> >
+> > +static int test__tool_pmu_incremental_open_unwind(struct test_suite *t=
+est __maybe_unused,
+> > +                                               int subtest __maybe_unu=
+sed)
+> > +{
+> > +     struct evlist *evlist =3D evlist__new();
+> > +     struct parse_events_error err;
+> > +     struct perf_cpu_map *cpus =3D NULL;
+> > +     struct perf_thread_map *threads =3D NULL;
+> > +     struct evsel *evsel;
+> > +     int ret =3D TEST_FAIL, fd0 =3D -1;
+> > +
+> > +     if (!evlist)
+> > +             return TEST_FAIL;
+> > +
+> > +     parse_events_error__init(&err);
+> > +     if (parse_events(evlist, "tool/user_time/", &err)) {
+> > +             parse_events_error__exit(&err);
+> > +             evlist__put(evlist);
+> > +             return TEST_FAIL;
+> > +     }
+> > +     parse_events_error__exit(&err);
+> > +
+> > +     evsel =3D evlist__first(evlist);
+> > +     cpus =3D perf_cpu_map__new("0,1");
+> > +     threads =3D thread_map__new_by_tid(getpid());
+> > +     if (!cpus || !threads)
+> > +             goto out;
+> > +
+> > +     /* Step 1: Open CPU index 0 successfully */
+> > +     if (evsel__open_per_cpu_and_thread(evsel, cpus, 0, threads) < 0) =
+{
+> > +             pr_debug("Failed to open CPU index 0\n");
+> > +             goto out;
+> > +     }
+> > +
+> > +     fd0 =3D (*(int *)xyarray__entry(evsel->core.fd, 0, 0));
+> > +     if (fd0 < 0 || fcntl(fd0, F_GETFD) < 0) {
+> > +             pr_debug("CPU index 0 FD is invalid (%d)\n", fd0);
+> > +             goto out;
+> > +     }
+> > +
+> > +     /* Step 2: Intentionally trigger failure on CPU index 1 */
+> > +     evsel->core.attr.sample_period =3D 1; /* Not supported for tool P=
+MU -> -EINVAL */
+> > +     if (evsel__open_per_cpu_and_thread(evsel, cpus, 1, threads) >=3D =
+0) {
+> > +             pr_debug("Unexpected success opening CPU index 1 with sam=
+ple_period=3D1\n");
+> > +             goto out;
+> > +     }
+> > +
+> > +     /*
+> > +      * Step 3: Check that CPU index 0's FD was NOT destroyed by CPU i=
+ndex 1's unwind.
+> > +      */
+> > +     if ((*(int *)xyarray__entry(evsel->core.fd, 0, 0)) !=3D fd0) {
+> > +             pr_debug("FAILED: CPU 0 FD overwritten: FD(evsel, 0, 0)=
+=3D%d, expected %d\n",
+> > +                      (*(int *)xyarray__entry(evsel->core.fd, 0, 0)), =
+fd0);
+> > +             goto out;
+> > +     }
+> > +
+> > +     if (fcntl(fd0, F_GETFD) < 0) {
+> > +             pr_debug("FAILED: CPU 0 FD %d was closed by error unwind!=
+ errno=3D%d (%s)\n",
+> > +                      fd0, errno, strerror(errno));
+> > +             goto out;
+> > +     }
+> > +
+> > +     ret =3D TEST_OK;
+> > +out:
+> > +     evsel__close(evsel);
+> > +     perf_cpu_map__put(cpus);
+> > +     perf_thread_map__put(threads);
+> > +     evlist__put(evlist);
+> > +     return ret;
+> > +}
+> > +
+> >  static struct test_case tests__tool_pmu[] =3D {
+> >       TEST_CASE("Parsing without PMU name", tool_pmu_without_pmu),
+> >       TEST_CASE("Parsing with PMU name", tool_pmu_with_pmu),
+> > +     TEST_CASE("Incremental open error unwind boundary", tool_pmu_incr=
+emental_open_unwind),
+> >       {       .name =3D NULL, }
+> >  };
+> >
+> > diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
+> > index d4cb455f4a7d..eb429087ebfe 100644
+> > --- a/tools/perf/util/evsel.c
+> > +++ b/tools/perf/util/evsel.c
+> > @@ -3127,7 +3127,7 @@ static int evsel__open_cpu(struct evsel *evsel, s=
+truct perf_cpu_map *cpus,
+> >                       FD(evsel, idx, thread) =3D -1;
+> >               }
+> >               thread =3D nthreads;
+> > -     } while (--idx >=3D 0);
+> > +     } while (--idx >=3D start_cpu_map_idx);
+> >       errno =3D old_errno;
+> >  out:
+> >       if (err)
+> > diff --git a/tools/perf/util/hwmon_pmu.c b/tools/perf/util/hwmon_pmu.c
+> > index ed544dca70c3..96aeb379e169 100644
+> > --- a/tools/perf/util/hwmon_pmu.c
+> > +++ b/tools/perf/util/hwmon_pmu.c
+> > @@ -803,7 +803,7 @@ int evsel__hwmon_pmu_open(struct evsel *evsel,
+> >                       FD(evsel, idx, thread) =3D -1;
+> >               }
+> >               thread =3D nthreads;
+> > -     } while (--idx >=3D 0);
+> > +     } while (--idx >=3D start_cpu_map_idx);
+> >       close(dir);
+> >       return err;
+> >  }
+> > diff --git a/tools/perf/util/tool_pmu.c b/tools/perf/util/tool_pmu.c
+> > index 5c30854b4644..d2f7591747d9 100644
+> > --- a/tools/perf/util/tool_pmu.c
+> > +++ b/tools/perf/util/tool_pmu.c
+> > @@ -349,7 +349,7 @@ int evsel__tool_pmu_open(struct evsel *evsel,
+> >                       FD(evsel, idx, thread) =3D -1;
+> >               }
+> >               thread =3D nthreads;
+> > -     } while (--idx >=3D 0);
+> > +     } while (--idx >=3D start_cpu_map_idx);
+> >       errno =3D old_errno;
+> >       return err;
+> >  }
+> > --
+> > 2.55.0
+> >
