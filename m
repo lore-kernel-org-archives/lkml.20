@@ -1,160 +1,287 @@
-Received: from mta1.migadu.com (out-143.mta1.migadu.com [95.215.58.143])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D763603D8
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:48:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.143
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60372283142;
+	Mon, 21 Sep 2026 05:49:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789969722; cv=none; b=BZvJJMcXmjv1Jr+gi0QSSVakKllTvRgHW3+UJo7T2Txez55dZS5f7UQww/47/xGQ6LldjRaUbz8P3uU+z67RL0ASXLO3R1V4tv9C8d6eAqVNJPgdzE2pux2TCmYIizjgrHzOD4BaahxLUhpMYLr+mJIgBCFNiZQ21ZiYl5mhVHg=
+	t=1789969801; cv=none; b=tH9n42Q0GujJls2IOVng2SalHBDHwoYgX2NW0kVpRHSdjMgB9pw1PwUYhcJ7+mfbXl5Yin+Pvy6aj5HsvetAIgEIbXUHX8LkPsw8GxAtZmcaaA6lGDtqd8VHc92RA6O5r2123Kfhoz413Ff7lAK0xSfnK/cFQOmY72b5QUzDLqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789969722; c=relaxed/simple;
-	bh=jhV/vw4+vWN8dqMOnDQNzr0Wd/YKWAZ5SZrLjVrKgJI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H0cVQAOF2uo/Hsz/eMWc8KILNfN1RnRXiTVxhiFiIWPWtStJRHWuSuOvzdjgxsnKqAo+/G8JiSPb4e+jCmdgZ5ic3LhArRDAaACWVYvFBM9PmOGeY8U0fa/Y+bNEc9bpJkn1YKIEvpt/CYZDFbgb4Cdzv+5NARcG795HRm4REZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wsWyZ/it; arc=none smtp.client-ip=95.215.58.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789969801; c=relaxed/simple;
+	bh=dxd33diBx/y3UwKTmtnlAJj1HYjEQXvs9B/2VOv2gvE=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=CmJW5ZDflD2RL3Yy8ABIIW6QPujZIsBvC0GWxl78BkLfzbEUjY6bamxfeasBLrFI9Ct6XRnTuq6Lg8hyn7OulEjd8YI9S9h2yzeiaoBIu3hLRDyzjpUSWh8BcJwEQhsMMZ8yqWUjXHden0Fdr1X7f3iMkl+hWBO55/FZd5Wvsko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mKSPhQSE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wsWyZ/it"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jhV/vw4+vWN8dqMOnDQNzr0Wd/YKWAZ5SZrLjVrKgJI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789969718; v=1; x=1790574518;
- b=wsWyZ/itCi6fu86wCCcJ0RZGEFvh1E6p15NlDx9Adkkv4ElC8H2tSzAL4teGcsjDOD6R85qz
- ElMAx70yL56Y1inpsiwWZHt2hrRRGoQ/lXhLrDGO15qK0CXIIZPbnue43uUKvmPYjDQXRaCwlcP
- 2RBx/KWVKMVfSuslG0ikOMXY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 417d6ee2dae11de6;
-	Mon, 21 Sep 2026 05:48:38 +0000
-X-Mizu-Trace-ID: 417d6ee2dae11de6
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 21 Sep 2026 13:48:34 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Wandun Chen <chenwandun1@gmail.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, robh@kernel.org,
-	saravanak@kernel.org, akpm@linux-foundation.org, rppt@kernel.org,
-	pasha.tatashin@soleen.com, pratyush@kernel.org,
-	m.szyprowski@samsung.com, mark.rutland@arm.com, kernel@xen0n.name,
-	alex@ghiti.fr, hpa@zytor.com, ruirui.yang@linux.dev,
-	robin.murphy@arm.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	kexec@lists.infradead.org, linux-mm@kvack.org,
-	iommu@lists.linux.dev
-Subject: Re: [PATCH v6 02/10] riscv: build crash_mem ranges from memblock
- instead of resource tree
-Message-ID: <arDFMqcUr6xkTn-h@fedora>
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
- <20260902073116.802752-3-chenwandun1@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mKSPhQSE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F0021F000FF;
+	Mon, 21 Sep 2026 05:49:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789969799;
+	bh=cWKiyNN+ZwBt0vGFx3kkNpOpb4m1x6useaF3SDDlZcY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=mKSPhQSEAQbQUk/qpzd9pxG3/Q9UaKEzaTWtXTB1NHN4Y0Bhif/tAxpMtiFvEXzvO
+	 eDGM2VDLdzLY0XJVzY+tWiCstMULIjcbwjIO0SCPsFU2HXZAB6DSoWqB5VDrUpsh/p
+	 kSWD90CG4yYY38Jun/glqpWGzkVQmMgscHHYRbFGQbzKMm2J5tgZBjZk6Zbs1XCtlx
+	 N6NnuQ2+GbbqV1DBDflPCrlJ0cmpOj1k5Cc2SyRimXB295sVlzzVuQDdkQsP+qhu1a
+	 CjqX1oqvQdUyPsGI6Hm6ETua7PBH7aQs2IAI4fCDWSD1el0ZRtAT0Gj29L14WLzwIa
+	 0mBhEi8p9t4Nw==
+Subject: Re: [PATCH net v2] net: stmmac: request the MDIO reset GPIO only once
+From: netdev-bot+sashiko@kernel.org
+To: xiaolinkui@126.com
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ xiaolinkui@kylinos.cn, stable@vger.kernel.org
+Date: Mon, 21 Sep 2026 05:49:58 +0000
+Message-ID: <178996979856.2160803.6509728485884520489@kernel.org>
+In-Reply-To: <20260920054703.1897755-1-xiaolinkui@126.com>
+References: <20260920054703.1897755-1-xiaolinkui@126.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902073116.802752-3-chenwandun1@gmail.com>
 
-On 09/02/26 at 03:31pm, Wandun Chen wrote:
-> From: Wandun Chen <chenwandun@lixiang.com>
-> 
-> Replace walk_system_ram_res() with for_each_mem_range(). A later patch
-> introduces MEMBLOCK_NODUMP in memblock, the reserved-memory regions
-> marked with MEMBLOCK_NODUMP can be excluded from the vmcore by walking
-> memblock.
-> 
-> for_each_mem_range() iterates memblock.memory, which is freed after
-> init unless ARCH_KEEP_MEMBLOCK is selected. riscv needs ARCH_KEEP_MEMBLOCK
-> to filter reserved memory from the vmcore, so extend its condition
-> (ACPI || KEXEC) with CRASH_DUMP. arm64 and loongarch already select
-> ARCH_KEEP_MEMBLOCK unconditionally.
-> 
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
-> ---
->  arch/riscv/Kconfig                     |  2 +-
->  arch/riscv/kernel/machine_kexec_file.c | 31 ++++++++++----------------
->  2 files changed, 13 insertions(+), 20 deletions(-)
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-This looks good to me, FWIW,
+Critical: 0 · High: 0 · Medium: 1 · Low: 2
 
-Acked-by: Baoquan He <baoquan.he@linux.dev>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> 
-> diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-> index d6c2dbf8455c..1de14a2d5aba 100644
-> --- a/arch/riscv/Kconfig
-> +++ b/arch/riscv/Kconfig
-> @@ -58,7 +58,7 @@ config RISCV
->  	select ARCH_HAS_UBSAN
->  	select ARCH_HAS_VDSO_ARCH_DATA
->  	select ARCH_HAVE_NMI_SAFE_CMPXCHG
-> -	select ARCH_KEEP_MEMBLOCK if ACPI || KEXEC
-> +	select ARCH_KEEP_MEMBLOCK if ACPI || KEXEC || CRASH_DUMP
->  	select ARCH_MHP_MEMMAP_ON_MEMORY_ENABLE	if 64BIT && MMU
->  	select ARCH_OPTIONAL_KERNEL_RWX if ARCH_HAS_STRICT_KERNEL_RWX
->  	select ARCH_OPTIONAL_KERNEL_RWX_DEFAULT
-> diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
-> index 26cd2a8bd0cd..808e872f4063 100644
-> --- a/arch/riscv/kernel/machine_kexec_file.c
-> +++ b/arch/riscv/kernel/machine_kexec_file.c
-> @@ -37,39 +37,32 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
->  }
+- [Medium] Guard mismatch between where the MDIO reset GPIO is acquired
+  and where it is used: stmmac_mdio_register() acquires the descriptor…
+- [Low] The new devm_gpiod_get_optional() call is placed before the
+  driver learns that the DT MDIO node is disabled, and is not…
+- [Low] The new devm_gpiod_get_optional() in stmmac_mdio_register()
+  (stmmac_mdio.c:604-609) is not wrapped in `#if…
+
+--
+
+net: stmmac: request the MDIO reset GPIO only once
+
+This moves the "snps,reset" GPIO lookup out of stmmac_mdio_reset() and
+into stmmac_mdio_register(), caching the descriptor in
+struct stmmac_priv::mdio_reset_gpio.  stmmac_mdio_reset() now only
+pulses the cached line, so repeated calls no longer fail with -EBUSY
+from a second devm_gpiod_get_optional().
+
+A few questions about the new placement of the request.
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> index afe98ff5bdcb..346f93f86abe 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> @@ -386,15 +386,8 @@ int stmmac_mdio_reset(struct mii_bus *bus)
 >  
->  #ifdef CONFIG_CRASH_DUMP
-> -static int get_nr_ram_ranges_callback(struct resource *res, void *arg)
-> -{
-> -	unsigned int *nr_ranges = arg;
+>  #ifdef CONFIG_OF
+>  	if (priv->device->of_node) {
+> -		struct gpio_desc *reset_gpio;
+>  		u32 delays[3] = { 0, 0, 0 };
+>  
+> -		reset_gpio = devm_gpiod_get_optional(priv->device,
+> -						     "snps,reset",
+> -						     GPIOD_OUT_LOW);
+> -		if (IS_ERR(reset_gpio))
+> -			return PTR_ERR(reset_gpio);
 > -
-> -	(*nr_ranges)++;
-> -	return 0;
-> -}
-> -
->  unsigned int arch_get_system_nr_ranges(void)
->  {
->  	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* For exclusion of crashkernel region */
-> +	u64 i;
-> +	phys_addr_t start, end;
+>  		device_property_read_u32_array(priv->device,
+>  					       "snps,reset-delays-us",
+>  					       delays, ARRAY_SIZE(delays));
+> @@ -402,11 +395,11 @@ int stmmac_mdio_reset(struct mii_bus *bus)
+>  		if (delays[0])
+>  			msleep(DIV_ROUND_UP(delays[0], 1000));
 >  
-> -	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
-> +	for_each_mem_range(i, &start, &end)
-> +		nr_ranges++;
+> -		gpiod_set_value_cansleep(reset_gpio, 1);
+> +		gpiod_set_value_cansleep(priv->mdio_reset_gpio, 1);
+>  		if (delays[1])
+>  			msleep(DIV_ROUND_UP(delays[1], 1000));
 >  
->  	return nr_ranges;
->  }
+> -		gpiod_set_value_cansleep(reset_gpio, 0);
+> +		gpiod_set_value_cansleep(priv->mdio_reset_gpio, 0);
+>  		if (delays[2])
+>  			msleep(DIV_ROUND_UP(delays[2], 1000));
+>  	}
+
+[Severity: Medium]
+Is the pulse site still gated on the same condition as the new
+acquisition site?
+
+Here in stmmac_mdio_reset() the only guard is CONFIG_OF plus
+priv->device->of_node, while the request added in stmmac_mdio_register()
+is additionally gated on mdio_bus_data->needs_reset.  For a DT device
+where needs_reset is false, priv->mdio_reset_gpio stays NULL, so both
+gpiod_set_value_cansleep() calls are no-ops, the delays are still slept,
+and the function returns 0.
+
+The caller that the commit message identifies as the victim does not test
+needs_reset either:
+
+drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:stmmac_resume() {
+	...
+		/* reset the phy so that it's ready */
+		if (priv->mii)
+			stmmac_mdio_reset(priv->mii);
+	...
+}
+
+needs_reset == false together with an of_node is produced in-tree, for
+example:
+
+drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c:tegra_eqos_probe() {
+	/* MDIO bus was already reset just above */
+	plat_dat->mdio_bus_data->needs_reset = false;
+}
+
+drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c:loongson_dwmac_dt_config() {
+	plat->mdio_node = of_get_child_by_name(np, "mdio");
+	if (plat->mdio_node) {
+		dev_info(&pdev->dev, "Found MDIO subnode\n");
+		plat->mdio_bus_data->needs_reset = true;
+	}
+}
+
+In the loongson case needs_reset stays false when there is no "mdio"
+subnode, while the device still has an of_node.
+
+On such a configuration, before this patch the first stmmac_mdio_reset()
+call did request the line and drive the pulse; afterwards the pulse never
+reaches the wire.  Would gating the acquisition on exactly the same
+condition as the use site (or not gating it on needs_reset at all) avoid
+that divergence?
+
+Related, the commit message says:
+
+    "The request is still gated on mdio_bus_data->needs_reset, which is
+    the condition that installs the reset callback, and on the device
+    using DT, as the reset itself is."
+
+Is that accurate for the stmmac_resume() path, which calls
+stmmac_mdio_reset() regardless of needs_reset?
+
+For what it is worth, no in-tree DT was found that combines
+needs_reset == false with "snps,reset-gpio" (all in-tree users of that
+property go through stmmac_platform.c, which sets needs_reset = true), so
+the lost pulse depends on a firmware or vendor DT, such as the
+firmware-provided Loongson one.
+
+> @@ -608,6 +601,14 @@ int stmmac_mdio_register(struct net_device *ndev)
+>  	if (!mdio_bus_data)
+>  		return 0;
 >  
-> -static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
-> +int arch_crash_populate_cmem(struct crash_mem *cmem)
->  {
-> -	struct crash_mem *cmem = arg;
-> +	u64 i;
-> +	phys_addr_t start, end;
->  
-> -	cmem->ranges[cmem->nr_ranges].start = res->start;
-> -	cmem->ranges[cmem->nr_ranges].end = res->end;
-> -	cmem->nr_ranges++;
-> +	for_each_mem_range(i, &start, &end) {
-> +		cmem->ranges[cmem->nr_ranges].start = start;
-> +		cmem->ranges[cmem->nr_ranges].end = end - 1;
-> +		cmem->nr_ranges++;
+> +	if (mdio_bus_data->needs_reset && dev_of_node(priv->device)) {
+> +		priv->mdio_reset_gpio =
+> +			devm_gpiod_get_optional(priv->device, "snps,reset",
+> +						GPIOD_OUT_LOW);
+> +		if (IS_ERR(priv->mdio_reset_gpio))
+> +			return PTR_ERR(priv->mdio_reset_gpio);
 > +	}
->  
->  	return 0;
->  }
->  
-> -int arch_crash_populate_cmem(struct crash_mem *cmem)
-> -{
-> -	return walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_callback);
-> -}
-> -
->  static char *setup_kdump_cmdline(struct kimage *image, char *cmdline,
->  				 unsigned long cmdline_len)
->  {
-> -- 
-> 2.43.0
-> 
+> +
+
+[Severity: Low]
+Can this request run for an MDIO bus that is disabled in DT and will
+never be registered?
+
+stmmac_of_get_mdio() does not filter unavailable nodes in either branch:
+
+drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c:stmmac_of_get_mdio() {
+	if (of_match_node(need_mdio_ids, np)) {
+		mdio_node = of_get_child_by_name(np, "mdio");
+	} else {
+		for_each_child_of_node(np, mdio_node) {
+			if (of_device_is_compatible(mdio_node,
+						    "snps,dwmac-mdio"))
+				break;
+	...
+}
+
+so a disabled child still reaches stmmac_mdio_setup(), which sets
+plat->mdio_bus_data->needs_reset = true.  The MDIO core then rejects it
+before the reset callback can ever be installed:
+
+drivers/net/mdio/of_mdio.c:__of_mdiobus_register() {
+	/* Do not continue if the node is disabled */
+	if (!of_device_is_available(np))
+		return -ENODEV;
+}
+
+and stmmac_mdio_register() turns that into success:
+
+	err = of_mdiobus_register(new_bus, mdio_node);
+	if (err == -ENODEV) {
+		err = 0;
+		dev_info(dev, "MDIO bus is disabled\n");
+		goto bus_register_fail;
+
+Before this patch the lookup only happened from the reset callback, so
+nothing was requested in that configuration.  With the request moved
+here, three things change for such a board:
+
+- a lookup error (-EPROBE_DEFER while the gpiochip is not yet present,
+  -EBUSY from another consumer, or anything else) is returned from
+  stmmac_mdio_register() and aborts or defers the whole MAC probe, for a
+  reset that can never run
+- on success the devm descriptor holds the line for the device lifetime
+  with no user at all, since probe succeeds and devres cleanup does not
+  run
+- GPIOD_OUT_LOW drives the reset signal to its inactive level for a bus
+  DT asked not to be used
+
+Would requesting the GPIO only after a bus has actually been registered,
+or skipping the request when the MDIO node is present but unavailable,
+be preferable?
+
+No in-tree DT was found that declares "snps,reset-gpio" on the MAC node
+and marks its MDIO child disabled, so the probe-abort and early
+de-assertion parts are not demonstrated on an in-tree board; the
+reserved-but-unused line follows directly from the code.
+
+[Severity: Low]
+Should this request be inside the same conditional compilation block as
+its only consumer?
+
+stmmac_mdio_reset() wraps its whole body, including both
+gpiod_set_value_cansleep(priv->mdio_reset_gpio, ...) calls, in:
+
+	int stmmac_mdio_reset(struct mii_bus *bus)
+	{
+	#if IS_ENABLED(CONFIG_STMMAC_PLATFORM)
+
+so with CONFIG_STMMAC_PLATFORM=n the function reduces to return 0, and
+priv->mdio_reset_gpio has no reader, while the new request above is
+compiled unconditionally.
+
+That combination is buildable: DWMAC_LOONGSON, DWMAC_MOTORCOMM and
+STMMAC_PCI sit after "endif # STMMAC_PLATFORM" in
+drivers/net/ethernet/stmicro/stmmac/Kconfig, and dwmac-loongson.c
+includes only stmmac.h and stmmac_libpci.h, so it links without
+stmmac_platform.o while still setting needs_reset = true on a device
+with a firmware-provided of_node:
+
+drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c:loongson_dwmac_dt_config() {
+	plat->mdio_bus_data->needs_reset = true;
+}
+
+In that build the "snps,reset" line is claimed for the device lifetime
+while the code that would pulse it does not exist, and a transient
+lookup failure aborts probe.  Before the patch acquisition and use were
+always compiled together.  Putting the request under the same
+IS_ENABLED(CONFIG_STMMAC_PLATFORM) guard, or dropping the guard from
+stmmac_mdio_reset(), would keep them paired.
+
+No in-tree Loongson DT carries snps,reset-gpio, so this has no observed
+effect on in-tree boards.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260920054703.1897755-1-xiaolinkui%40126.com
