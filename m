@@ -1,140 +1,125 @@
-Received: from mta0.migadu.com (out-105.mta0.migadu.com [91.218.175.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFBA92580F2
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306CF2580F2;
+	Mon, 21 Sep 2026 07:09:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789974544; cv=none; b=aT4KHJsf+yjx+OAvdWDorGS/BfCztsUOBXYhekFHvTAWxR0TW7WCHwa91tdfpylNuAOC5atUdWhm/6ABljLU3PXag2EpSeud0LYynILKnqbYwlTKdN2dNMcsJ+3C+N4aLpI3EXN/6PvHykhzoW6/Zjuq3iQA6VKuG2P1zMrnqho=
+	t=1789974560; cv=none; b=hENWsekAAa8Rk534ngRlsZWwsBmuzQlP+OZsJyF8T6EEE1NryQtIcBin5TbheWhhoM8vCfI94A1nOWpUKK51tzSqjPOzVGwz7KzOeoLcRqoW2tpvinwcf2aAT+Sz2RZ4ccy+g3ikQBI7JIfor56iQZcsHO6B0zmvZhl24V3Rkrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789974544; c=relaxed/simple;
-	bh=fP06fUHtBpp2cGAnDwmJQ/nY6+PkTalsUPKOuD9WtKM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q7f1dHiJ+J1R+dZzIWI2ttPNjYY81EUMGCedscUn4f4KY4y5P7yYxThDjADjZznpda5gyvIDg+OonwSzIjFF7qDzlVptnqI7WTpawcYvcjZmMIrICgdB9O0Qr5PeICrM83dufimlnoqvOkVYLxQilniJ32R+XQV8AFcztG+3qE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xhrRP/zv; arc=none smtp.client-ip=91.218.175.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789974560; c=relaxed/simple;
+	bh=YWp9yyTYvwNPegixRFPoINomQRv6/h1pbRYActZZKF8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BjOWw9/4IEoNIAul/b8PpYg2UjYHmfYnjX6JX/UHB/F+pyTKsk7b8DTso1xRnAYmyDi7VV+6x5qGaOitdg9SuMCXgbtE5MycoRsy8aahWKiL7CrcObDUjat77g+0loKON1jZ5gnIWRu4Ycmu7DYY2Dk0jAXELQNtojtpTMfwepE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ifECKoSl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xhrRP/zv"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fP06fUHtBpp2cGAnDwmJQ/nY6+PkTalsUPKOuD9WtKM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789974539; v=1; x=1790579339;
- b=xhrRP/zvxJyI/kzGlCRME/x2ufvzsIa6m5R16CX43gNscJV+T5eTFhoi2WljrN4AbN3QjqWv
- O01wsimJUSY9+mbf6AsEQgsi3FsXWAzlUfIwUQi9nSHvYWIGZd+ZomSbqxkJSYwqGN6LSA9bt8n
- oxKeCXE22h7tEe5lz8OZsI8s=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a688a47092d9ca8d;
-	Mon, 21 Sep 2026 07:08:59 +0000
-X-Mizu-Trace-ID: a688a47092d9ca8d
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a00dbaaa-99f1-4172-b337-911ff45ae71e@linux.dev>
-Date: Mon, 21 Sep 2026 15:08:55 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ifECKoSl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADDF11F000FF;
+	Mon, 21 Sep 2026 07:09:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789974558;
+	bh=7zgk872CgQmAHV14Qfyxg/FEnkqmHGMnxfF1BBY1yrA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ifECKoSlHbavrN+0+bCRxvFwjygcAWnLw2r6GesTzN6CMULnk1vSJX+4nqfVCL4RB
+	 zLPinjhdhuz85QTjxp47XNBB6Nd5e3dDVvKIQ65AvYi4GTWXQ5XL8sMm881IVpW2hj
+	 s5VqgOyodRr+tYDDYo+hcXJmvQVrgXmRQ7sX//CzMjnDIB17DppiJnz+GANEFLwz2C
+	 feTy7h5vyRQZLjGPOXyzPC5+3SB4Ps/DsbY05LAmdA0C5uC2Vp4het7qNxj9bS6IdV
+	 AqGSvpfZbLfXEejSDqN1cxPGv8LBT826V5eONP8BbYI6u5Ryg+KD+FtfJfd/LHJT0V
+	 TZHHQpt+rx0FQ==
+Date: Mon, 21 Sep 2026 00:09:17 -0700
+From: Oliver Upton <oupton@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>, Will Deacon <will@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Jack Thomson <jackabt@amazon.com>,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Fuad Tabba <tabba@google.com>
+Subject: Re: [PATCH v2] KVM: arm64: Restore the VM's feature bitmap when
+ kvm_setup_vcpu() fails
+Message-ID: <arDYHSlFHm_XzGvN@kernel.org>
+References: <20260921063718.1604533-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] cgroup/cpuset: return PERR_NOCPUS in
- remote_partition_enable()
-To: Hui Peng <benquike@gmail.com>, Guopeng Zhang <guopeng.zhang@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- Waiman Long <longman@redhat.com>
-Cc: Michal Koutny <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>,
- cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <aa90bb73-c2af-4d13-8f2a-0435aa528058@linux.dev>
- <20260920181449.3122336-1-benquike@gmail.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260920181449.3122336-1-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921063718.1604533-1-fuad.tabba@linux.dev>
 
+Hi Fuad,
 
-
-On 9/21/2026 2:14 AM, Hui Peng wrote:
-> Commit 6da580ec656a ("cgroup/cpuset: Don't allow creation of local
-> partition over a remote one") updated update_prstate() to prevent creating
-> a top-level local partition whose exclusive CPUs conflict with an existing
-> remote partition.
+On Mon, Sep 21, 2026 at 07:37:18AM +0100, Fuad Tabba wrote:
+> __kvm_vcpu_set_target() copies the requested features into the VM-wide
+> bitmap before kvm_setup_vcpu() runs and doesn't undo it when setup
+> fails, so a rejected KVM_ARM_VCPU_INIT leaves the VM recording features
+> that were never set up. With HAS_EL2 | HAS_EL2_E2H0 on a host without
+> FEAT_NV1, kvm_vcpu_init_nested() returns -EINVAL before it allocates any
+> nested stage-2 MMU, and vcpu_has_nv() is then true with
+> nested_mmus_size == 0; its -ENOMEM paths do the same on a VM's first
+> INIT.
 > 
-> However, if a top-level local partition A1 is created on CPUs 1-3, has a
-> non-partition member child A1/A2 with cpuset.cpus.exclusive = 1-3, and a
-> grandchild A1/A2/A3 is then enabled as a partition root on 1-3,
-> update_prstate() sees !is_partition_valid(parent) (since A1/A2 is a member)
-> and calls remote_partition_enable(). Because remote_partition_enable() does
-> not check whether tmp->new_cpus intersects subpartitions_cpus, A1/A2/A3 is
-> enabled as a remote partition on CPUs already owned by A1, triggering:
-> 
->    WARNING: kernel/cgroup/cpuset.c:1594 at update_prstate+0xbef/0xd70
-> 
-> Return PERR_NOCPUS in remote_partition_enable() when tmp->new_cpus
-> intersects subpartitions_cpus, matching the error code used by
-> remote_cpus_update() for subpartitions_cpus conflicts, and add a
-> corresponding regression test case to
-> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
-> 
-> Tested in QEMU on Linux 7.3.0-rc3 using
-> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
-> 
-> Fixes: 6da580ec656a ("cgroup/cpuset: Don't allow creation of local partition over a remote one")
-> Suggested-by: Guopeng Zhang <guopeng.zhang@linux.dev>
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> Changes in v3:
-> - Split the series into 3 patches (one per logical change and Fixes: tag).
-> 
+> Nothing in the tree loads a vCPU whose init failed, so this is latent.
+> The upcoming series that enables KVM_PRE_FAULT_MEMORY for arm64 exposes
+> it: the generic kvm_vcpu_pre_fault_memory() calls vcpu_load() whether
+> or not the vCPU has been initialised.
 
-What is going on here?
+That's a bug, not a feature. We should require an initialized vcpu for
+the ioctl.
 
-Please do not reply with a new series. And I think the changes should be listed 
-in the cover letter. Otherwise, it will get very confusing.
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index eaf583b771931..b25725f91c925 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -1685,6 +1685,7 @@ static int kvm_setup_vcpu(struct kvm_vcpu *vcpu)
+>  static int __kvm_vcpu_set_target(struct kvm_vcpu *vcpu,
+>  				 const struct kvm_vcpu_init *init)
+>  {
+> +	DECLARE_BITMAP(old_features, KVM_VCPU_MAX_FEATURES);
+>  	unsigned long features = init->features[0];
+>  	struct kvm *kvm = vcpu->kvm;
+>  	int ret = -EINVAL;
+> @@ -1695,11 +1696,15 @@ static int __kvm_vcpu_set_target(struct kvm_vcpu *vcpu,
+>  	    kvm_vcpu_init_changed(vcpu, init))
+>  		goto out_unlock;
+>  
+> +	/* Setup reads the VM-wide bitmap, so undo the copy if setup fails. */
+> +	bitmap_copy(old_features, kvm->arch.vcpu_features, KVM_VCPU_MAX_FEATURES);
+>  	bitmap_copy(kvm->arch.vcpu_features, &features, KVM_VCPU_MAX_FEATURES);
+>  
+>  	ret = kvm_setup_vcpu(vcpu);
+> -	if (ret)
+> +	if (ret) {
+> +		bitmap_copy(kvm->arch.vcpu_features, old_features, KVM_VCPU_MAX_FEATURES);
+>  		goto out_unlock;
+> +	}
 
+The bitmap copy is a bit confusing because there's only two possible
+situations:
 
->   kernel/cgroup/cpuset.c                        | 4 +++-
->   tools/testing/selftests/cgroup/test_cpuset_prs.sh | 2 ++
->   2 files changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index c8ab89cfbe3d..7381fa8502e7 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1678,8 +1678,10 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
->   	 * Callers must have validated that effective_xcpus is not empty.
->   	 */
->   	spin_lock_irq(&callback_lock);
-> -	if (cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus)) {
-> +	if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus) ||
-> +	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus)) {
->   		spin_unlock_irq(&callback_lock);
-> +		if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
-> +			return PERR_NOCPUS;
->   		return PERR_HKEEPING;
->   	}
->   
+ - KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED is unset and the bitmap was
+   previously zero
 
-I cannot apply this patch. It seems quite different from v2.
+ - KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED is set and @init->features is
+   identical to vcpu_features (see kvm_vcpu_init_changed())
 
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index a1f42ef64bc1..b732078bf319 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -298,6 +298,8 @@ TEST_MATRIX=(
->   	" C0-4:X2-4 C1-4:X2-4:P2 C2-4:X4:P1 \
->   				   .      .      .      X1      .    0 A1:0-1|A2:2-4|A3:2-4 \
->   								       A1:P0|A2:P2|A3:P-1 2-4"
-> +	" CX1-3:P1 CX1-3  CX1-3    .      .      .      P1     .     0 A1:1-3|A2:1-3|A3:1-3 \
-> +								       A1:P1|A2:P0|A3:P-1"
->   
->   	# Remote partition offline tests
->   	"   C0-3    C1-3  C2-3     .    X2-3   X2-3 X2-3:P2:O2=0 .   0 A1:0-1|A2:1|A3:3 A1:P0|A3:P2 2-3"
+While there's nothing wrong with your diff, I'd prefer if the above
+detail was represented directly.
 
--- 
-Best regards
-Ridong
+	ret = kvm_setup_vcpu(vcpu);
+	if (ret) {
+		/*
+		 * Clear the bitmap if setup fails on the first vCPU to be
+		 * initialized.
+		 */
+		if (!test_bit(KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED, &kvm->arch.flags))
+			bitmap_zero(kvm->arch.vcpu_features, KVM_VCPU_MAX_FEATURES);
 
+		goto out_unlock;
+	}
+
+Thanks,
+Oliver
