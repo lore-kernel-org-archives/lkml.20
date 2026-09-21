@@ -1,114 +1,127 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 960764FC328
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:32:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790015537; cv=none; b=bXs5FwaBA4zAi2CIR9S98OUI/Sq0zU0BXrWoToEvEzFBeucqoBAjBCjya6Kenv7n4iLMrM+RVIBGfj+BdL/mMbtHlyvZHQ2k+cXpZGKvg4Zf5X6Xie/stxDYq4Sct/ql57xo0yfaLkqr2TjwpKMET2YZclAwF2uVzJd0D1bIbU4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790015537; c=relaxed/simple;
-	bh=8BaAO/JTedLrIStDBlrZRjwux1WdgbCnv3+4CtQ+5po=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=nhWjiZx0ZDKUj+8cM+BBZ0/PDhwBswwFSVjdRSow09QOHnjHGKmXnet+dMGONh5xM7eNOPZe6bfKp2mBbRFb2pHJR7M35oKCvCla4CXu2805ElaEK041dqSFQJb8Uktn6+LbiBs8lK4JFwGQ3Xr5s5J7OrotdpnKsHRYsLSgkM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=QIgvXKP6; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041664EF147
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:32:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790015551; cv=pass; b=ufFLU07Rljqh2k7GFLMlpHPjFyphE7yEYxCvsDO/GKC3ZJJ1qw0NaF/++MkcktvKGaXJ5j/eKSe72rnnA1fpdZiOj58cIixxOSSr592XwQRRu0DtJ4wEFX3VyF491D7HjMUtiv5WMThU4DihdP9swF0FYNhc1xcSfiNro7SVids=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790015551; c=relaxed/simple;
+	bh=qIwSMIYKqd/HyMR94ewi8crt6BwQsBujCc6Lw+X9iRE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NNPXebIsdqeoZD6+uZp8HhGL//KDFjcsxGhBFceJOrjt4T/7iWn5sSduM7oOG3wu9ZUGy9xsrxP2egSMwx+y3MtiR2a/1ECyJLtgisx76JExNDHRgEQ7JMiVFCruyjElnuiftBNRiLCGTnN9EoJHA/tqHUf+p6bk2Xwz8oNZqc8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pe7IN9f/; arc=pass smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="QIgvXKP6"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccc09d65so3066568a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:32:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pe7IN9f/"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c795f805so1792922e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:32:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790015547; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qcyd1u4SW1vXuHNtxwjHYJNzfhbP4NDBV81lUmXhOfLjfSpx+SZCLpxqzJPVucmOUl
+         BayeeleFYp9iXmemQHseD1UBwYIvi/kMh5zQR0OKyD6O1bI0B7fmc/TtQUz09NyL6eYs
+         pxVqlcgHSBiZN6rTttZNOAskT8dHijZtQz6GX0rMcbgbRFfud206UJFFX8ZqDUXMvZqj
+         vQtW9y88FXBL0JWlBdmhUmdcZ2fZaxWdlFgPPOTUwVwo1ODky55MH+lISkLTkCxR2sB+
+         ww9KsUNBP6EAQj6ho0lAg4bihMcMgFZeHE1LS6HfDXsP2d5JrXWs4NaCsLwYRAVnF+BK
+         1yBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qIwSMIYKqd/HyMR94ewi8crt6BwQsBujCc6Lw+X9iRE=;
+        fh=7Yw8aJIeMmctNDj4ESqb9pbZpCbbixZPQomvySRSpFU=;
+        b=BLNuGbqOa4EBx1r0IaGn4EbNwUogYelun9M6edLwbhxwgXgTQZeMsUMuwyqOgV1+wy
+         UV8H8PLq+xqLIVACpcCtcFlbj0kuJU7SS3jGefxAPm0DM2Zv94gTonk6N1/rrzKSpavV
+         MGyybaEs8jV0RXhjzpzvyeIbCodkXZZwS4M8X2z8gEMX5Lylk64a30QpOYIKVbOJWfb7
+         +W7igwlY8iYcvs1KprNTbGeXTCwt0z04K+qPh6qs+wBSq1tYhZZ8N6gqYlBjXt3K3JlQ
+         mVahOah/97vutdQ8Ml2yfjJ/uRLZOAfl5mxHXE8KMprYoDH8StzkzUmWGOgrE2/KDow1
+         N0yA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1790015536; x=1790620336; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8BaAO/JTedLrIStDBlrZRjwux1WdgbCnv3+4CtQ+5po=;
-        b=QIgvXKP6cjWgHpN8Ep1F31SfUVgSyF+QsAqzUSGF5VYyQD7nO5AL7oina2cyOvtYwc
-         lYmSbsiRR/qjmGEFoj74RUGeIbffJrtApacxuNM1r36x9NExf03LyB4t0YcDgUU/msAU
-         0TYJlagRORlFnlAMyrruqnC/5wnLTFV2h9POxsWCg9crYiM1oglukfM6Jl9IQBZcvDss
-         2vl3wyRy389M34ACa4TeF94M0WSs3wiQJCcc76Z4qkQCzlrMiBscW7Ar2aImkKmXeYRB
-         eOlI7ZM9aqAuU+m1pgt2PiqHrw+sTUstn45CECaCaVIfJR03ZC9O0PHqNmiVdjPGvnre
-         /GGw==
+        d=gmail.com; s=20251104; t=1790015547; x=1790620347; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qIwSMIYKqd/HyMR94ewi8crt6BwQsBujCc6Lw+X9iRE=;
+        b=pe7IN9f/CQzF4VA0m1JpLqlJX4z/u1P4pQQOICgdkgWZCZtv1rB4SroMZ4XoMHwypn
+         F98ue8R4Cr+gy8ZiPDUM9I1ZF8y3cHKp47rDKD6NSQb/ino+xYLNJPvF/fWgsGn+Hjmj
+         v42iv54wgUAoSTG+YbvHj/AO0Fi7QrMa6A7V9Djv5ucvEfc93KSCxkx5dj50iu3vdN/8
+         l6LU2t/s7PcwAU5Rvr8qCGalMUJXFyVfwrhYw7cw7Nw61ZmQOrP4ppnDUpVjXN/u6KMw
+         wbR0/qFcD8KtXjF1JohMhEJXsmBp2EzQNsVBMWZMwZPKABaktVgU7kbLxaBF5MRx/NeV
+         5r/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790015536; x=1790620336;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790015547; x=1790620347;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8BaAO/JTedLrIStDBlrZRjwux1WdgbCnv3+4CtQ+5po=;
-        b=QoHvDjM9Bzq/QR0yU6Kdo+Y4jE4iQni6vz9RSu8UHAcXQc+y4FLqG0tKeKWoJoMTHS
-         buQFKKwvxzkc2y8/ZgkacFaOReO+CWLutEh0T1nYmlgr565hLDckhucYPC70VaxSW/a6
-         A3gNrM5TD/YoMl5FLO3KqJ6akIVHgtDfYsKYZqctrpQscVNrkAs1cN3c/95QMxld/CkK
-         nyxd/nSn/x6RlOnvzjJOK2IQwZCw42HxfW1I+54SMw3mPhOZSlLwYi2uX/8XS9DpbmYX
-         8QGnHbFskINezfuCSE3lZFcjflvreDTLiFbZaFSC43Ad27NC2iaesqo8SgZHT1u4kMXo
-         gVpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwzNnuD4hd57IoYB1MtOYgARnmFCnaYsyhRszEbm9uQS+HBn6dTi2s3k2i6EMdZbHL6VQgIlFjc2F48F0c=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbev1t4jjr3iyyyme8eqNmigzwcsMaa58+tyHsjd144f855d+H
-	8OUmO8m+jo0E0lHrR1Wq59JGBGrYYoaWf/x1OmzB9xDJ3HjG1guD0EVsHyzFzk0jH2U=
-X-Gm-Gg: AYBFou3Ya1pRhO37Bl/xCDy5HE1Tl2Q64NqsBbJaBix8hu3bbtAlRH1gvswQWM3w0Rs
-	TSfQTJ1UH+hTUAyKRrBSWElxwHlyYm0wy0vL6Rxmc4S9gRffMwHHlvDePjzsbmKxHKRySojGEzL
-	yhyfAilfAd9mQhyTkuS40ieZB90fhaC3j/UXl2RPOLC+0KTb4Ewvjc8x7SrkvF5XHBl94I7L/DT
-	S9aiCSdDF7YpIEKFHleG/8waE9rdqfyT+mbIiCjguW5Cvu6M3eNfHHclGr7d39JIfTgtCkubFHl
-	CG3CLTXsDIlKMPNjnptsv7t4/reaGsj9fW1bmaEeEZju6vZC0FqVRuCJ2WXP7VIjm/2vKQRgzrc
-	9Xi4Q6VACK4DqxdbGLWJTpYw7g3gJIZ2R/ZSE8c7iHPIKF5YF48aAzQuw3ERq35Dmf0YZqTrlfq
-	72EPhqVO7y0jW3IFu1idqrvQNbTsPT/G2TvwpE/XvyT0DN+8V5HLJlLUMmxgxweaSTAhDUy8A=
-X-Received: by 2002:a17:90b:3a43:b0:39e:6c68:c778 with SMTP id 98e67ed59e1d1-39e6c68ca12mr11774403a91.46.1790015535822;
-        Mon, 21 Sep 2026 11:32:15 -0700 (PDT)
-Received: from localhost ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144da432647sm32883863c88.5.2026.09.21.11.32.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 11:32:15 -0700 (PDT)
+        bh=qIwSMIYKqd/HyMR94ewi8crt6BwQsBujCc6Lw+X9iRE=;
+        b=u1EvqM/H9UynizSPTAx6HRseSZ5VVU27MxDKw2HQS5esfNs0FzCyKiuBou3D+6cNw8
+         du7zcBwtO6xMmkoSLYKbvNYCu+mQq613vciXWVjWg2lkSJpYU5QuKhh7xQ7Pat0iVGp0
+         t0+RDCM7dVboP75vVgLYc2MnxRkVJv4rNeGc+9wMQvIpIg8KVxS9Tde/iYiBFE68v7CW
+         8fqA+W9PWFkBRtu8Da1iAyHdd8tFEqij6xejOiL9aepM+9Hh8B/h0h79zFDD5KsiuX1H
+         pkV26xfx1xvCApJBOFEEmwDVBj8z27eC7F/fzAq1aSR/iQLrgp7Q2y8k2gWaGpbEdsPr
+         lapA==
+X-Forwarded-Encrypted: i=1; AKwUvBwcXEHBljt2Ans3U9BiXFyprmiQ3IlvGxUgpjSzuQ1p9gXyVYhEigTYUGZQXkXmNWEnKG1jA4UD63tUNFU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSp5bdTrIfl95Yvoh4puGw32j2iIQwhHGOm2HTsPQ9YNCFSE4A
+	ulCZlTHjJMPY1s3lJiDz6Jc7rJ6Wgw0XunoFLTY3bg9V0xCLX/1m4RFvifxf2LidqEMllffhSgA
+	zFnBT4qoUXZNLQcz570JqToEzvFYDal4=
+X-Gm-Gg: AYBFou3QN0yLUPkVDFSjqxoAE8gGHf9ygQN60LWnhfBAmeVSTIo6x8mQINBpxwgdbk+
+	uQglJt2cUDbc6nqptY+g/Wx+e8nevGLrQkqMd6Vn2mLl2iMLC541jf8A9xEQVzBOScvSiUFdKTF
+	AXjQtkDUSfVAow9IY00Em6VEqzudKkaH0JCr86DWp7vin1cg58Eqr8Gfm38PVB7/YMC/bZ7fh+T
+	KknW+IvcGGEcwgY2Kxg9TGL8xC0u54TqTEopC+wXclMQuri55+vijtbVAIuz8JUM83JY4XNOna1
+	LZui8Ox7fxg2kcXgSRRSxXqvXzASjnzPB2baFNRcJnvK6tpwmnTsbCQ4CCzmF54vI/XUVqkzOBh
+	enIJ0Q/mkXw==
+X-Received: by 2002:a05:6512:159c:b0:5b2:9f7a:29aa with SMTP id
+ 2adb3069b0e04-5b8c179de22mr3976341e87.0.1790015546739; Mon, 21 Sep 2026
+ 11:32:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260920211356.186967-1-rosenp@gmail.com> <20260920211356.186967-2-rosenp@gmail.com>
+In-Reply-To: <20260920211356.186967-2-rosenp@gmail.com>
+From: =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>
+Date: Mon, 21 Sep 2026 20:32:14 +0200
+X-Gm-Features: AcwNN1VdL-Fqcu_uP6CBPAY_SNwPGWfl7hrsVO4b8Qj22YVrcCYQZRsojkFfRw4
+Message-ID: <CACna6ryP-ZySxcK_b+BH-5ckDJxAOXE3tVtLYWP6SYA_Re3HOA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] usb: bcma: control VBUS via a regulator instead of a GPIO
+To: Rosen Penev <rosenp@gmail.com>
+Cc: devicetree@vger.kernel.org, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, Hauke Mehrtens <hauke@hauke-m.de>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, 
+	"moderated list:BROADCOM BCM5301X ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, 
+	open list <linux-kernel@vger.kernel.org>, 
+	"open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 21 Sep 2026 11:32:13 -0700
-Message-Id: <DLL7JS0LKL6X.1F7SU76VO5XVK@nexthop.ai>
-Subject: Re: [PATCH v7] i2c: xiic: restore non-managed runtime PM to fix clk
- WARN flood
-From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-To: "Andy Shevchenko" <andriy.shevchenko@intel.com>, "Abdurrahman Hussain"
- <abdurrahman@nexthop.ai>
-Cc: "Michal Simek" <michal.simek@amd.com>, "Andi Shyti"
- <andi.shyti@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-i2c@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20260821-i2c-xiic-restore-runtime-pm-teardown-v7-1-954e06765144@nexthop.ai> <DLBBXHXIVHZL.BIOFL7T9OAM7@nexthop.ai> <aqJQ8Qm_nhBaWR-s@ashevche-desk.local>
-In-Reply-To: <aqJQ8Qm_nhBaWR-s@ashevche-desk.local>
 
-On Wed Sep 9, 2026 at 11:40 PM PDT, Andy Shevchenko wrote:
-> On Wed, Sep 09, 2026 at 08:51:33PM -0700, Abdurrahman Hussain wrote:
->> On Fri Aug 21, 2026 at 6:12 PM PDT, Abdurrahman Hussain wrote:
+niedz., 20 wrz 2026 o 23:14 Rosen Penev <rosenp@gmail.com> napisa=C5=82(a):
+> bcma-hcd drives the USB power line by grabbing the undocumented
+> "vcc-gpio" from the controller node and poking it through gpiolib.
+> Besides relying on a non-standard binding, this cannot work on boards
+> such as the NETGEAR R7000 and R8000 where one chipcommon GPIO powers
+> both the USB2 and USB3 cores: the two controllers each request that
+> GPIO exclusively, so the second one fails with -EBUSY and its port
+> stays dead.
 >
->> Gentle ping on this one. It has been quiet since v7 went out on Aug 21.
->>
->> Andy, v4 onwards switched to request_threaded_irq()/free_irq() with the
->> explicit free in the probe error path and in remove(), per your comment =
-on
->> v3. Does that address your concern, or is there anything else you would
->> like changed?
->
-> Seems okay to me.
->
->> Andi, this is a regression fix for 50c63491ff26 (the devres conversion),
->> and the WARN fires on every unbind/rmmod of the driver, so it would be
->> good to get it into 7.2 or early 7.3 fixes if the patch looks OK to you.
->
-> v7.2 is already released, so v7.3-rcX is the best you can get.
->
->> Happy to respin if anything is still open.
+> Use the standard regulator interface instead. Each core obtains its
+> (shared) VBUS supply through devm_regulator_get_optional() and the
+> regulator core reference-counts the enable/disable requests, allowing
+> both controllers to drive one GPIO without conflicts.
 
-Andi, ping on this one.
+You should add support for VBUS without dropping "vcc-gpio" for now.
+Deprecate it. Give it some time and then submit a patch to drop it.
 
-It is a regression from my own 50c63491ff26 ("i2c: xiic: switch to
-devres managed APIs"), which landed in v7.1, so both v7.1 and v7.2 WARN
-on every unbind/rmmod of the driver. Andy was happy with v7 [1].
+This patch as it stands also breaks bisectability (because it drops
+"vcc-gpio" before switching to VBUS.
 
-Could you take it for 7.3 fixes?
-
-Abdurrahman
+--=20
+Rafa=C5=82
