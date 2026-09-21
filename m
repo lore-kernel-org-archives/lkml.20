@@ -1,456 +1,196 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35584424D46
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:05:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7051044E67E
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:06:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789977954; cv=none; b=b8EfzmdwbFALLuPCbNn6u1X+uL3bAzSlZpkm+1CkD2D4MhxwaO+OGGka6s1vl/YKx1WF+nhNlkFwojtcTwEY98uzonYX6kqUnyC9g0eCJYsNidjOf+B3ajj/BnPargrVJuZPIl0AN4hUAUswJuAS6yLQTDbXHQt3e5YA/VRHHmA=
+	t=1789977961; cv=none; b=nyEu8mp+hZJv0JeVPcNwsGgnRqpOyVCSKPqNH8D7/Q2SnOhlgOiTLass+Jb04XFGGTpwTuR+3XABPV0sMnCmCoqrnmZcyYehFVs1DH8bJ4nZTXoKrH8feMlAlolx74qNMA+u/nn1OWV2ut5lT8hrFjHTFza0OJNHK29Qd5ON8Rs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789977954; c=relaxed/simple;
-	bh=nwBEXJfGhZLA7eHpw0hCU7luYBy5IoCoOhaK6z49zWQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XL569giNUT7SdAKtcaBvfitTb4CjbAaHidR/WyumNWwrkctgQvvW6KHGYl/BXuhszZdJX0DNhtCH0zBniBYx7qcKnslJhJ6+mph+6IZrGReah9ZpJ59a7Y1fymqEK5/LF/orU4DFWC1S0Mlr9ZrsElHRSSakhsOE3WAsnP7238U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F/42jLtG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UGKUAM+I; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1789977961; c=relaxed/simple;
+	bh=qA+sfwYzHhJ7yBQQa+Jpqy8+4pxE8vXtXtY16x7quWc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XEF5/w7TEPNjTn9VTLNLX1Yfyi+LyR0u5g452jOOE759y/4LrI9WQvuHQWd85/ittkU35Y1m/fIM6bkA5CbAHT5CB0o9wWEcyp63nLeTJ3i4F9f8ZSRszuoHQASUAJ6mAYD0BnNbe3VyC7U7+gAep5rYnWrPhVbMaLYplFA1UC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M4X2Xqi/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Dh/OiPRR; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F/42jLtG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UGKUAM+I"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7APs1371183
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:05:52 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M4X2Xqi/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dh/OiPRR"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L79w6W467228
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:05:59 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=+Mjg/tCNPBZhheQ0n8yKQZmK
-	A0XJJg6EpF0xjk8cvTM=; b=F/42jLtGZVHVPZrSgblDVkcw/e5msG++8fm/WtHt
-	s/m0oaPsnyC9JRhxBqFSdS8eXfFRFZEOrFjT3bn6Ss7a9798ofRzzHXW3er72A6b
-	fhuZk9GULIGPRK0h5gwUV1ZxeNQMLKbMLV8zQkZyUOTxVX9JB5WwmBo0uhP6FX5r
-	x28YwHzN6THG9haCO2YbuvlBgPP7xdnn2veyBDq1iTdb86zgYwoRFNiZ5vT3yA25
-	z37Xf/fxhbkhG9eUcdLWb+Edl7Ocwb0cdX1zFp+k9+LXlDVWzfh57I2l17pU1nrE
-	f6a84u3WsfKeC3I8AhgDeZpkyefQ80z/YHou1A96xPsw9A==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtwf5grrm-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	z79Try10M8mBO4B/q2nr1hKgnYNAKB8UXw+vU+u74Rc=; b=M4X2Xqi/v44u4tKK
+	w+LVJIagX+aNoy10oOp0dN+F3hkp2q7bfNKNs/39oRMTIs9v6dFfkyUT0eoKCDZn
+	FHbbWVfL0MelxtauREK5xCAiuZeHogGZzOxl5bOJ/judbOr+paGJ79Z0eYf8GTpE
+	YGv8Qj7/qn+rC9I+9HBTGeA60TOm+Ymp8fIM/65EBfFJFQRr+eNFqwFUaBbZgi4o
+	n6w2CZ6FD5SRKB7X4M7V9A3gLRO/urFkPT211lBEW7OYPHuavpmTreeRhMqpmNsq
+	OBVhXHkc6fz2eOOWZh6LbRlYRfIy3MmFDX2UTYCufyMe1J+TqDAxvYBXT1zbxlIR
+	FFzeWw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtq8b9k1r-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:05:51 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93903622880so770466785a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:05:51 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:05:59 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-939fc317691so107016085a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:05:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789977951; x=1790582751; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+Mjg/tCNPBZhheQ0n8yKQZmKA0XJJg6EpF0xjk8cvTM=;
-        b=UGKUAM+ItNMJikrCiVExp30HZJVCyttUnpReKpAdGOLVJqx2ZuvQRM7rx0SVTTbRZh
-         NqOYEeS6WoF/NBXWQW2khEr9B85FKq0DKgIbSUOEN8qzZL7i+YRPdVuUxBalaGGX/cD3
-         4z2a8Iufr8JmWP3t10rYhrF3MjDC7FJBBIZqAzyVsaL037NFNhnC6zRnZLvR1iigFV3t
-         Ga8IiTRR2yOgWFcCdo0tptPCoqW3pOAD77v+a5ARRqTpkQWcsJ4SxT8tDpIaSRq9/8og
-         Dmii347lNTZkiCFIhVr3zslHS2cNDLNZAvs5wZmegMt6TG2X2714UJn5Xou0masBFTCt
-         0jtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789977951; x=1790582751;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1789977959; x=1790582759; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+Mjg/tCNPBZhheQ0n8yKQZmKA0XJJg6EpF0xjk8cvTM=;
-        b=1eTx5jqxyr+2CVxsfslFdGIK7DtUUTNNgeR11gXAV71/KdKuwwJ+CcmbduDnIvb+C9
-         lobrubZ86qWnqam+EhE2NqFR6LOyeH/jUK74yheZvSBUUT0AHwDMXOi47Bj02BwHIDOF
-         +muiKrB/Wu6KHO3a3ZaTIzE1slswqZZdI9j1ysj7HBrEXUUI4NQRqKaqA7Z5UWFz3qO6
-         puUqtkj12PSaEX3EvtotVxDRv7W8FlEWkKcTuCL8fqaKDu8kO6l/UQKieZN5z56tfiBe
-         wnttGb5Eq9/6eaYNuZrX34OvrlU4IPnDCCbPgcF4VGnWOBCwMTttyIN+vHlK/kbl3xg9
-         LP0A==
-X-Forwarded-Encrypted: i=1; AKwUvByKJ2EBHL9Tvf1T05bP+mqTZPGDdI+M5M/l7D0fi/wWTneh9bogfVerp51fPT1Rxd8flFDcjBZTL/3aGXU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nksZg0UbtMhlwQGGZh5LLhrgKHLjJpySziVQIG/00D731+ljQ2
-	pnWE8u0Skl8Nv9FFniW2Sh3p7xWkF7g31OdQUPd8KbUWWnafW4HyYKeO0qAg3m/o7rclmB0klwx
-	nqjkkT5ceMNm4HaZyQlGhVA4hILh16knMeOLJ5pNWxz1Y0ZFJRjhh7YG68bqMvj86xEY=
-X-Gm-Gg: AYBFou1xVgQQNBKNpwOyHN3mSiMgoROBNWXAiB7mzG6XATUeC3DQKC3AurZISgVIQah
-	dQraGjA0LQAL59kgF1r3DD9GOxW3go4K03shP5tGqzmSMP1pPO2OwvR4Fep8iGxzKZb+YpBVedr
-	bOGh1aStHjcAsI45jnBWZ7lk+O+RUytIvy0xL0cbUaUOPXLYtYpL0oluyA7kS3AaxxTSk7HraoQ
-	Kf09g2oG8J71vfC/tiY4SRTZqd3fVfyOBSs7kpMjp22Q2dRESq//Wf9pm5X4lmcoqIKUu0zfR+w
-	gkzhqG+sai3DLKIp48b64gBdj6RCiQnCOnZRR6uneP21ZT/ZuCAQLT2ZFsHCcUAkxoqDa1J0kmb
-	qVD7y4wAtZm6nmw==
-X-Received: by 2002:a05:620a:1994:b0:939:f861:8836 with SMTP id af79cd13be357-93bf56e996emr820050785a.20.1789977951164;
-        Mon, 21 Sep 2026 01:05:51 -0700 (PDT)
-X-Received: by 2002:a05:620a:1994:b0:939:f861:8836 with SMTP id af79cd13be357-93bf56e996emr820038085a.20.1789977949460;
-        Mon, 21 Sep 2026 01:05:49 -0700 (PDT)
-Received: from localhost ([188.216.77.92])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872459c3e9sm19451100f8f.32.2026.09.21.01.05.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 01:05:48 -0700 (PDT)
-Date: Mon, 21 Sep 2026 10:05:47 +0200
-From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-To: Til Kaiser <mail@tk154.de>
-Cc: netdev@vger.kernel.org, lorenzo@kernel.org, andrew+netdev@lunn.ch,
-        davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-        pabeni@redhat.com, linux-arm-kernel@lists.infradead.org,
-        linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 2/2] net: airoha: Add XDP statistics
-Message-ID: <arDlW06TwVzc2wOH@lore-desk>
-References: <20260920154329.161755-1-mail@tk154.de>
- <20260920154329.161755-3-mail@tk154.de>
+        bh=z79Try10M8mBO4B/q2nr1hKgnYNAKB8UXw+vU+u74Rc=;
+        b=Dh/OiPRRVGxD7IahTGdAdeU7usnQogrtf7tMjcd1for6PeUlHaM9bBc2l8Jn4I8/bP
+         Xa/9ydjnS7jkDaUd0FZq04/Yg0EjJSm7xHloBqEmG3doQgqlWNKI++bv/Utc6sQd2cKL
+         mlOkN5WMgUUyTayIOBAudiYwHRUikC3elgwafHcJFxRWU3AFkt7/psHvIO0PkBTTHiR+
+         4Aat1zqba9dlndukKIi1WEVhwOAiMmATO2UdWVHfP3SiPCHmCt1PG6QoWkwRMFh9ruCB
+         hLvlq2LuhQvHK8PXbJPdpxxYwleqKOuxQD0SFRuuiwdiTmvzIELMjKKOJOzJNuRnCbzI
+         +YWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789977959; x=1790582759;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z79Try10M8mBO4B/q2nr1hKgnYNAKB8UXw+vU+u74Rc=;
+        b=MudcbcsVVlD2dIuo1NjUFQEG8rhcPBi4nJ1bMSggbngE5EWNSA36mz44BAYzU0LSLu
+         I2ZtRto1SFavO+JVKIuS63jzMvVZT0M61uvtBdeRGmKMErJAlBLxbxfW7sQ1jshn/rsn
+         LT5eoGW+hH8FVNciZZiy1bik3T2DIwISZlV97P2iUO7QH0FBQccWzD5hVMVDSnecfZPs
+         u4gcCYNzZEBlnZF31WGswc2wM+gJQnNb+haxhZnig4YpFOAvp6BHUrJfKdvIlsdRLVhE
+         xh4Ue1sq8wrN2VVUfvBO0oC9KHhPjcA9F5qllfY/82md1hkht+FzzwsB3iIuCQiuhwfD
+         yWSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx7+C+cHmBFRt57AQttJuTnn9g9ZpCSIO5m1H+BgIF/rSrmCTavWKw+lhjnUBNXxuenaXx2RBAqnfyGb6g=@vger.kernel.org
+X-Gm-Message-State: AFuF++nb9T3k2GaGVeMv/+7+MuJkeNeTjxgyMj1A9OK+PbjCYdFztLeN
+	j2TtxLndTyxb/e/JQuvQx8ca1jmhjjG3duWInlOTk6Kayw88zlXBb3XJ/AfJ+1YWPwYha4NrKwD
+	qNrxs12RYK4a+djXB6fRpUpJL7WKRZSwtY3655YZuUaCFYJEZ8SNA8C4lmoKgFgVEuDA=
+X-Gm-Gg: AYBFou3GMzlLg/m/3dKi+eiQUjVHOG6vqIqRzn8M1wWlV4FTOPMEDgUceKes8VDj1i1
+	FGmAAbsXs/Y0xIDPP8bmw2jtlNADhywsyOj8RE5MOlHZbB077+fJ9woC6LrlpImVP3uzySA0Xjm
+	+oRGrVYOj7avf12JifkLJO4WEO4ZpfKTHz32wiGW02UAtjkwsgNIkiPpySmBRB+mNU3Q8FPlhYS
+	PkYAmKaaOflJkyrjHKgUOqhvV8+qHpSffoH2IpdkoHMZtSmuYRWFBZRFqeKRTx8E5qQ1pHmpYMm
+	dPy0e30JXPQS8TKK3xsBKm/rBOCxPCcFff6k0ppUAP5vLeVw8xn2tM9NAigk2DfpGX6SJmS4AYM
+	6dDkMyL17viBhsjaggqH9qA==
+X-Received: by 2002:a05:620a:2814:b0:93a:1312:ff19 with SMTP id af79cd13be357-93bf580a3dfmr872922885a.5.1789977958619;
+        Mon, 21 Sep 2026 01:05:58 -0700 (PDT)
+X-Received: by 2002:a05:620a:2814:b0:93a:1312:ff19 with SMTP id af79cd13be357-93bf580a3dfmr872919385a.5.1789977957968;
+        Mon, 21 Sep 2026 01:05:57 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a640f9ef5sm168057366b.25.2026.09.21.01.05.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 01:05:57 -0700 (PDT)
+Message-ID: <21b8c9c5-db26-45df-87e3-822db9cd11ea@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 10:05:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fzdF/KmcyqickKS5"
-Content-Disposition: inline
-In-Reply-To: <20260920154329.161755-3-mail@tk154.de>
-X-Authority-Analysis: v=2.4 cv=SJLXx+vH c=1 sm=1 tr=0 ts=6ab0e55f cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=MsImHhn9_lhz5m8RdU0A:9
- a=CjuIK1q_8ugA:10 a=Plx7TgaRLYl5t2sQAAMA:9 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: BesmcMmEMWhLcvMGOnA7fq1HkCkGCCG4
-X-Proofpoint-ORIG-GUID: BesmcMmEMWhLcvMGOnA7fq1HkCkGCCG4
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDExNSBTYWx0ZWRfX9d5MzOW46Ha8
- a8erN9iJU6MTT2c9rkuv7zrp4DzR7sXYvgxpsN8Ij6eRGHccbAHla3fGtL6J0FFZPJPVQ4eyQRm
- 6HZ5K33/pPjP/MdpjOzizL6slrNc0t0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDExNSBTYWx0ZWRfX8q2HXPKARwid
- iBf2LGqN7oc9pirZWwobu44FLED+aaTDmq+BU4lCRp877gFV3c6BLVQgsCLqf8CXZ0rcjH1+4J4
- FFCeCxzh2YBramBES920Ov8Rb5KS2i8KYCY+t7AypmT1ly4R8mU/8eaqHVOifxQSGxtIv3N9EP2
- WO7RTqDbJlXAOkn/aiU5GdK11AJ5TM66GH/5q74AtfGlh0lWdU5AFA79DMoTsBKs97YAM3mrzU+
- 0jD65OBpDstePuWTQRHxAzJOew1Y1GzK/JvePb5ba3OQNPrx31G2sR3ns581gRif3KXVoGUMDvx
- MPmgn30Q22/UQCZGsi/OebcA7nEOFddQEZ9wVDisGsj1QIHpVXJ8lagmYSnl6VZfKdvOnu65ZzX
- sK8kNnSlLL7rc8rpFp0OVj/p6W9ZEcPAqU8/AxhH6glUV3AxEjB6dkmPYOwz5w1gB/uYiDMirom
- jz3kK9xH960qlyGx0TQ==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: sda660-inforce-ifc6560: fix ADV7535
+ interrupt pin
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Dmitry Baryshkov <lumag@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+References: <20260920-ifc6560-adv-v1-1-89b1435d00c2@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260920-ifc6560-adv-v1-1-89b1435d00c2@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDExNSBTYWx0ZWRfX4uE38MIEq68z
+ oWOf4G3ss715mYbCZneVS1BvK7u6voYe1Jr50cEVo7jU/uEUevgfrtzIYPwV9Z2qrMRSd3Hr6ZP
+ 8iHXfmp33xYR352RscJY39Qu3jJ7wI+93pqfJZBxB24SnxCd6SPDd1+KZze37wEoNhmdxuXjLzK
+ 6xm7Xlb8VlU+WahaIl/kBS5gK40VtV0QGzcU6zweZfXlNPcVWj+lgej+IUaTcQafzvEb3EYdFuZ
+ duW/lH/GkuDQYXYjdqcaYndP5Nn3BCNAgj5A+GCGYOcEQPBV64MjmjM1JEad8v9FMuqnITrAH8C
+ cytY9cGQLj6RWcxctxJs62ER4vHbmwwNvHvfglHrYsRGYYdCppvKQyycPUx4p7kkddrLPPB1WtW
+ GpUDOjPS3rNyTZual1kzSaLFd8ofUzTZIA2HNpDPK8qax7c+Ja0ECSSZx6kKZHyqisY3MaHUffu
+ 1hcQfKC7GqnIaIFhMhw==
+X-Proofpoint-GUID: 98BwWpq-klylxM8icZ2N8c5iidYMQxZO
+X-Authority-Analysis: v=2.4 cv=T/8Z3PKQ c=1 sm=1 tr=0 ts=6ab0e567 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=RPWKvmICn8r4TwR_xsAA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: 98BwWpq-klylxM8icZ2N8c5iidYMQxZO
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDExNSBTYWx0ZWRfX91GJ06OBvMm3
+ 9Xzw7aZMz4e4WLIL7naIi2oonPKXU6z2qyXudkF3BpdXgTX4iARNCwjygmiSWVkNvAt7xQl4hCw
+ sby4fSW4+1NIz8Asmpo6Domo93kplB0=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
- malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0 spamscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ bulkscore=0 priorityscore=1501 phishscore=0 spamscore=0 adultscore=0
+ clxscore=1015 malwarescore=0 lowpriorityscore=0 suspectscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
  definitions=main-2609210115
 
---fzdF/KmcyqickKS5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-> Track and expose per-device XDP statistics via ethtool, covering both
-> the RX and TX sides of the XDP data path.
->=20
-> A new struct airoha_xdp_stats is introduced and embedded in the existing
-> struct airoha_hw_stats. It contains the following counters, all protected
-> by the existing u64_stats_sync:
->=20
->   rx_xdp_pass            - frames passed to the networking stack
->   rx_xdp_aborted         - frames with XDP_ABORTED or unknown action
->   rx_xdp_drop            - frames dropped by the BPF program or on error
->   rx_xdp_tx              - frames sent back out via XDP_TX
->   rx_xdp_tx_errors       - XDP_TX failures
->   rx_xdp_redirect        - frames successfully redirected
->   rx_xdp_redirect_errors - XDP_REDIRECT failures
->   tx_xdp_xmit            - frames successfully submitted via ndo_xdp_xmit
->   tx_xdp_xmit_errors     - frames dropped in ndo_xdp_xmit
->=20
-> The airoha_run_xdp() function is reworked to update the appropriate
-> counter after each XDP action. The airoha_xdp_xmit() ndo_xdp_xmit handler
-> is updated to record the number of successfully transmitted and dropped
-> frames.
->=20
-> The ethtool interface is extended with three new callbacks:
->=20
-> - get_strings: emits the XDP counter names followed by the page pool
->   stat strings obtained from page_pool_ethtool_stats_get_strings().
-> - get_sset_count: returns the combined count of XDP and page pool stats.
-> - get_ethtool_stats: reads the XDP counters under the u64_stats_sync
->   seqcount and appends page pool stats collected from all active RX
->   queues via page_pool_get_stats().
->=20
-> PAGE_POOL_STATS is selected in Kconfig to enable the page pool statistics
-> infrastructure required by the ethtool callbacks.
->=20
-> Signed-off-by: Til Kaiser <mail@tk154.de>
+On 9/20/26 1:11 PM, Dmitry Baryshkov wrote:
+> Probing the ADV7535 HDMI bridge fails on the IFC6560:
+> 
+>   gpio gpiochip3: (800f000.spmi:pmic@2:gpio@c000): gpiochip_lock_as_irq: tried to flag a GPIO set as output for IRQ
+>   gpio gpiochip3: (800f000.spmi:pmic@2:gpio@c000): unable to lock HW IRQ 10 for IRQ
+> 
+> The bridge's interrupt line is PM660L GPIO11, but the board never
+> configures that pad. pmic_gpio_populate() reads back the state left by
+> the bootloader, which is PMIC_GPIO_MODE_DIGITAL_OUTPUT, so
+> pmic_gpio_get_direction() reports GPIO_LINE_DIRECTION_OUT and
+> gpiochip_lock_as_irq() refuses the line. Requesting the interrupt then
+> fails and the bridge does not probe.
+> 
+> Add a default pinctrl state switching the pad to digital input, applied
+> by pinctrl_bind_pins() before the driver requests the interrupt. The
+> ADV7535 INT pin is open-drain and pulled up on the board, so leave the
+> internal bias disabled.
+> 
+> Fixes: 34279d6e3f32 ("arm64: dts: qcom: sdm660: Add initial Inforce IFC6560 board support")
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->  drivers/net/ethernet/airoha/Kconfig      |   1 +
->  drivers/net/ethernet/airoha/airoha_eth.c | 131 ++++++++++++++++++++---
->  drivers/net/ethernet/airoha/airoha_eth.h |  14 +++
->  3 files changed, 133 insertions(+), 13 deletions(-)
->=20
-> diff --git a/drivers/net/ethernet/airoha/Kconfig b/drivers/net/ethernet/a=
-iroha/Kconfig
-> index 1f6640a15fc9..3fa7683a79e9 100644
-> --- a/drivers/net/ethernet/airoha/Kconfig
-> +++ b/drivers/net/ethernet/airoha/Kconfig
-> @@ -20,6 +20,7 @@ config NET_AIROHA
->  	depends on NET_DSA || !NET_DSA
->  	select NET_AIROHA_NPU
->  	select PAGE_POOL
-> +	select PAGE_POOL_STATS
->  	help
->  	  This driver supports the gigabit ethernet MACs in the
->  	  Airoha SoC family.
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ether=
-net/airoha/airoha_eth.c
-> index 71b25f225a8a..29b837204842 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-> @@ -864,6 +864,11 @@ static int airoha_xdp_xmit(struct net_device *netdev=
-, int n,
->  	spin_unlock(&q->lock);
->  	rcu_read_unlock();
-> =20
-> +	u64_stats_update_begin(&dev->stats.syncp);
-> +	dev->stats.xdp_stats.tx_xdp_xmit +=3D n - drops;
-> +	dev->stats.xdp_stats.tx_xdp_xmit_errors +=3D drops;
-> +	u64_stats_update_end(&dev->stats.syncp);
+>  arch/arm64/boot/dts/qcom/sda660-inforce-ifc6560.dts | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sda660-inforce-ifc6560.dts b/arch/arm64/boot/dts/qcom/sda660-inforce-ifc6560.dts
+> index 9e14f53b552e..fdedae49d1d0 100644
+> --- a/arch/arm64/boot/dts/qcom/sda660-inforce-ifc6560.dts
+> +++ b/arch/arm64/boot/dts/qcom/sda660-inforce-ifc6560.dts
+> @@ -170,6 +170,9 @@ adv7533: hdmi@39 {
+>  		interrupt-parent = <&pm660l_gpios>;
+>  		interrupts = <11 IRQ_TYPE_EDGE_FALLING>;
+>  
+> +		pinctrl-0 = <&adv7533_int_default>;
+> +		pinctrl-names = "default";
 > +
->  	return n - drops;
->  }
-> =20
-> @@ -871,40 +876,56 @@ static bool airoha_run_xdp(struct net_device *netde=
-v, struct bpf_prog *prog,
->  			   struct xdp_buff *xdp, struct airoha_queue *q,
->  			   struct airoha_queue_entry *e, struct page *page)
->  {
-> +	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> +	struct airoha_hw_stats *hw_stats =3D &dev->stats;
->  	u32 act =3D bpf_prog_run_xdp(prog, xdp);
-> +	u64 *count;
-> =20
->  	switch (act) {
->  	case XDP_PASS:
-> -		return false;
-> +		count =3D &hw_stats->xdp_stats.rx_xdp_pass;
-> +		goto update_stats;
->  	case XDP_TX:
->  		if (unlikely(airoha_xdp_xmit_back(netdev, xdp, q->qdma) < 0)) {
-> +			count =3D &hw_stats->xdp_stats.rx_xdp_tx_errors;
->  			trace_xdp_exception(netdev, prog, act);
-> -			page_pool_put_full_page(q->page_pool, page, true);
-> -		} else {
-> -			e->buf =3D NULL;
-> +			break;
->  		}
-> -		break;
-> +
-> +		e->buf =3D NULL;
-> +		count =3D &hw_stats->xdp_stats.rx_xdp_tx;
-> +		goto update_stats;
->  	case XDP_REDIRECT:
->  		if (unlikely(xdp_do_redirect(netdev, xdp, prog) < 0)) {
-> +			count =3D &hw_stats->xdp_stats.rx_xdp_redirect_errors;
->  			trace_xdp_exception(netdev, prog, act);
-> -			page_pool_put_full_page(q->page_pool, page, true);
-> -		} else {
-> -			q->xdp_flush =3D true;
-> -			e->buf =3D NULL;
-> +			break;
->  		}
-> -		break;
-> +
-> +		e->buf =3D NULL;
-> +		q->xdp_flush =3D true;
-> +		count =3D &hw_stats->xdp_stats.rx_xdp_redirect;
-> +		goto update_stats;
->  	default:
->  		bpf_warn_invalid_xdp_action(netdev, prog, act);
->  		fallthrough;
->  	case XDP_ABORTED:
-> +		count =3D &hw_stats->xdp_stats.rx_xdp_aborted;
->  		trace_xdp_exception(netdev, prog, act);
-> -		fallthrough;
-> +		break;
->  	case XDP_DROP:
-> -		page_pool_put_full_page(q->page_pool, page, true);
-> +		count =3D &hw_stats->xdp_stats.rx_xdp_drop;
->  		break;
->  	}
-> =20
-> -	return true;
-> +	page_pool_put_full_page(q->page_pool, page, true);
-> +
-> +update_stats:
-> +	u64_stats_update_begin(&hw_stats->syncp);
-> +	*count =3D *count + 1;
-> +	u64_stats_update_end(&hw_stats->syncp);
-
-Would it better if we update the stats in airoha_qdma_rx_process() passing a
-airoha_xdp_stats struct to airoha_run_xdp(). I guess doing so we can even d=
-rop
-xdp_flush field in airoha_qdma_queue struct.
-
-> +
-> +	return act !=3D XDP_PASS;
->  }
-> =20
->  static int airoha_qdma_rx_process(struct airoha_queue *q, int budget)
-> @@ -3676,12 +3697,96 @@ static const struct net_device_ops airoha_netdev_=
-ops =3D {
->  	.ndo_xdp_xmit		=3D airoha_xdp_xmit,
+>  		clocks = <&rpmcc RPM_SMD_BB_CLK2>;
+>  		clock-names = "cec";
+>  		/*
+> @@ -285,6 +288,16 @@ sw_ctrl_default: sw-ctrl-default-state {
+>  	};
 >  };
-> =20
-> +#define AIROHA_ETHTOOL_XDP_STAT(x) { #x, \
-> +				  offsetof(struct airoha_hw_stats, xdp_stats.x) / \
-> +				  sizeof(u64) }
+>  
+> +&pm660l_gpios {
+> +	adv7533_int_default: adv7533-int-default-state {
+> +		pins = "gpio11";
+> +		function = "normal";
 > +
-> +static const struct {
-> +	const char name[ETH_GSTRING_LEN];
-> +	u32 offset;
-> +} airoha_ethtool_xdp_stats[] =3D {
-> +	AIROHA_ETHTOOL_XDP_STAT(rx_xdp_redirect),
-> +	AIROHA_ETHTOOL_XDP_STAT(rx_xdp_redirect_errors),
-> +	AIROHA_ETHTOOL_XDP_STAT(rx_xdp_pass),
-> +	AIROHA_ETHTOOL_XDP_STAT(rx_xdp_aborted),
-> +	AIROHA_ETHTOOL_XDP_STAT(rx_xdp_drop),
-> +	AIROHA_ETHTOOL_XDP_STAT(rx_xdp_tx),
-> +	AIROHA_ETHTOOL_XDP_STAT(rx_xdp_tx_errors),
-> +	AIROHA_ETHTOOL_XDP_STAT(tx_xdp_xmit),
-> +	AIROHA_ETHTOOL_XDP_STAT(tx_xdp_xmit_errors),
-> +};
-> +
-> +static void airoha_ethtool_get_strings(struct net_device *netdev, u32 st=
-ringset, u8 *data)
+> +		input-enable;
 
-nit I like old style :)
+strange \n in the middle
 
-	static void airoha_ethtool_get_strings(struct net_device *netdev,
-					       u32 stringset, u8 *data)
-	{
-		....
-	}
+> +		bias-disable;
 
-> +{
-> +	int i;
-> +
-> +	switch (stringset) {
-> +	case ETH_SS_STATS:
-> +		for (i =3D 0; i < ARRAY_SIZE(airoha_ethtool_xdp_stats); i++) {
-> +			strscpy(data, airoha_ethtool_xdp_stats[i].name, ETH_GSTRING_LEN);
-> +			data +=3D ETH_GSTRING_LEN;
-> +		}
-> +		page_pool_ethtool_stats_get_strings(data);
-> +		break;
-> +	}
-> +}
-> +
-> +static int airoha_ethtool_get_sset_count(struct net_device *netdev, int =
-stringset)
-> +{
-> +	switch (stringset) {
-> +	case ETH_SS_STATS:
-> +		return ARRAY_SIZE(airoha_ethtool_xdp_stats) + page_pool_ethtool_stats_=
-get_count();
+Plus you'd likely want a PU here, unless there's one onboard
 
-same here:
-		return ARRAY_SIZE(airoha_ethtool_xdp_stats) +
-		       page_pool_ethtool_stats_get_count();
-
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-> +}
-> +
-> +static void airoha_ethtool_get_ethtool_stats(struct net_device *netdev,
-> +					     struct ethtool_stats *stats,
-> +					     u64 *data)
-> +{
-> +	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> +	struct airoha_hw_stats *hw_stats =3D &dev->stats;
-> +	u64 *hw_stats_base =3D (u64 *)hw_stats;
-> +	struct page_pool_stats pp_stats =3D {};
-> +	struct airoha_qdma *qdma;
-> +	unsigned int start;
-> +	int i;
-> +
-> +	if (netif_running(netdev))
-> +		airoha_update_hw_stats(dev);
-> +
-> +	do {
-> +		start =3D u64_stats_fetch_begin(&hw_stats->syncp);
-> +		for (i =3D 0; i < ARRAY_SIZE(airoha_ethtool_xdp_stats); i++)
-> +			data[i] =3D hw_stats_base[airoha_ethtool_xdp_stats[i].offset];
-> +	} while (u64_stats_fetch_retry(&hw_stats->syncp, start));
-> +
-> +	rcu_read_lock();
-> +	qdma =3D rcu_dereference(dev->qdma);
-
-IIRC airoha_ethtool_get_ethtool_stats() is running under RTNL so you can ju=
-st
-use airoha_qdma_deref() here.
-
-Regards,
-Lorenzo
-
-> +	if (qdma) {
-> +		for (i =3D 0; i < ARRAY_SIZE(qdma->q_rx); i++) {
-> +			struct airoha_queue *q =3D &qdma->q_rx[i];
-> +
-> +			if (q->page_pool)
-> +				page_pool_get_stats(q->page_pool, &pp_stats);
-> +		}
-> +	}
-> +	rcu_read_unlock();
-> +
-> +	page_pool_ethtool_stats_get(data + ARRAY_SIZE(airoha_ethtool_xdp_stats),
-> +				    &pp_stats);
-> +}
-> +
->  static const struct ethtool_ops airoha_ethtool_ops =3D {
->  	.get_drvinfo		=3D airoha_ethtool_get_drvinfo,
->  	.get_eth_mac_stats      =3D airoha_ethtool_get_mac_stats,
->  	.get_rmon_stats		=3D airoha_ethtool_get_rmon_stats,
->  	.get_link_ksettings	=3D phy_ethtool_get_link_ksettings,
->  	.get_link		=3D ethtool_op_get_link,
-> +	.get_strings		=3D airoha_ethtool_get_strings,
-> +	.get_sset_count		=3D airoha_ethtool_get_sset_count,
-> +	.get_ethtool_stats	=3D airoha_ethtool_get_ethtool_stats,
->  };
-> =20
->  static int airoha_metadata_dst_alloc(struct airoha_gdm_port *port)
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/ether=
-net/airoha/airoha_eth.h
-> index cfbc0b8f5bf9..d2ac295c49e9 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.h
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.h
-> @@ -236,6 +236,18 @@ struct airoha_tx_irq_queue {
->  	u32 *q;
->  };
-> =20
-> +struct airoha_xdp_stats {
-> +	u64 rx_xdp_redirect;
-> +	u64 rx_xdp_redirect_errors;
-> +	u64 rx_xdp_pass;
-> +	u64 rx_xdp_aborted;
-> +	u64 rx_xdp_drop;
-> +	u64 rx_xdp_tx;
-> +	u64 rx_xdp_tx_errors;
-> +	u64 tx_xdp_xmit;
-> +	u64 tx_xdp_xmit_errors;
-> +};
-> +
->  struct airoha_hw_stats {
->  	struct u64_stats_sync syncp;
-> =20
-> @@ -259,6 +271,8 @@ struct airoha_hw_stats {
->  	u64 rx_jabber;
->  	u64 rx_len[7];
-> =20
-> +	struct airoha_xdp_stats xdp_stats;
-> +
->  	struct {
->  		/* Previous HW register values for 32-bit counter delta
->  		 * tracking. Storing the last seen value and accumulating
-> --=20
-> 2.55.0
->=20
->=20
-
---fzdF/KmcyqickKS5
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCarDlWwAKCRA6cBh0uS2t
-rMdDAQCEVNYBekytNaFST2RrMePP44SxkUqsKYfyVZJkKZXz6wEA6znuBk9d9ElA
-BtQvlJ/vkXJsbxVEz4vP1pTYR87qGwo=
-=T0BR
------END PGP SIGNATURE-----
-
---fzdF/KmcyqickKS5--
+Konrad
