@@ -1,47 +1,47 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012034.outbound.protection.outlook.com [52.101.66.34])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013007.outbound.protection.outlook.com [40.107.159.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 045764825D3;
-	Mon, 21 Sep 2026 10:47:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9F0481A99;
+	Mon, 21 Sep 2026 10:47:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.7
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789987635; cv=fail; b=sDR1vMQSyH7PDEMSoZ+Mc1lrxNQC+cchfwre//xpOUFmdtCkOVKqO99p4GIO7gxAtURg37TosCjkjlBdXrfYEV1GSaQ/au+qYr0HppljImEvDAMRWvJ4RCyLAawKo40zfZ2AcD2OnOVreYlOj+LUJg2k/KIVN0HAjuoBL7iXzQg=
+	t=1789987644; cv=fail; b=o56gw7izHJVvTnRpNSuoHbUkwqu8cEP7X75+aHLNGKcs8hIuqc660MVEDww40v0KnQbhYXvWuFWLIXUNDDjNp3bh5NCGbgO5di5B+N5mFpFA1qxnwB34D2W5Ga+Q/uN+dRABqLgLZpHfKBG73955ukUw1oqo5MMTnGkg87ze1bM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789987635; c=relaxed/simple;
-	bh=qEMqprp8CWTdo7TMThRLU1Zh5CRm1eBW79ke9ElAD9A=;
+	s=arc-20240116; t=1789987644; c=relaxed/simple;
+	bh=XP5kDniofYKa/9VQ7QhRDEBhaOJNuAK7XrVXn9wZjdU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=YTAjKSL8agKFjGMXLFdm7923qcEuV8wynmPIsNXmYI2HQ0ZsMIXtRjxTHyoia7VQM/ZIRIupFc9WWq5QNawlgwTJyWKKxGJ509sqKD4KanY3DmfG07Mpv9Abifujm4al83yXRwLqC92RasM6BkVs+2mUQP4KUQKHsxUIvDiOOOM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=OF1msDl+; arc=fail smtp.client-ip=52.101.66.34
+	 Content-Type:MIME-Version; b=kWAx2Q+dQqRjKJWP0NUfv+fr7g7cHKm54cW/kpJsy+3vYPjqRtSpe4qrvrzwhMJlB+gWCSOljf64hjiXoi53BZMjYFTCGN/2biYxnUSMYiK/nYAadjltMjkSXuMEV8q+B5O2rytgnyFu6/ucesv7+KcrbXv3+Aqa3NNJSDJACfM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Hj5ysARA; arc=fail smtp.client-ip=40.107.159.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="OF1msDl+"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Hj5ysARA"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BRBtG9cwpeC4mlIZBo+9guP/4PBjHkfb5dHM9biFWxbv88HbBD4vo4cijs/iZjDgb8Zop9mP6jAX5Sf7pnFPOkBKwVWrZfxIYt5ABehJDGsYVyWZdIBkEYfBkcu691/kWKPIq93rhoGEz5fmaJkmEwSLY9GYpEYXPhU5t2KJUvj0du7IVIdtgp+BbZECv/I2yM+rE+asLlpFuHjU4s6z7LG4xMJpf6hesIrPydT/bciJ8Jo1E4JxGD1ZY9m3a/1SH2szyZ9LAUGv7P3rogDq5CFYP94rajU+HwyiMrs6zM0HVaQXol42G5i0yTrIqxEIIo+3Uv9BOJjizrtG3peH0w==
+ b=ydGd43OCXCmiYhRX/152jOa7ftTvi4RmqPyJembuwKT/2iX51CnSOtxFvo9hEsNDhfkjFrSdq8gni8OOLDhl2MfnVyU5ULgBRn/qB+A+U1/ab/HLdDrYHoOoaqcfrul6r5aDuHmEs3xye50pOtuF3wRMEs/dJEWnd6wZ7zOcvSA6Jlq/c0Txgaix/L0K8sglDVQKERKfO6IsqKimD4Pu+R6X6zXiM3MDJM4Vvp2xRwRlC+/K5b5rsVA30VytNcu/fAolCID+oWKVEIPGq5Rr5CosqB77vTFgsweW7VlJQHatJXMD8Ekb+V/gYXoMcsNaYNiNEFjl2jE2pD/JOaw8Fg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cv2W0k0/Ejzq2odJu2pL7H9Wi9Ka+zCk4zA7jrVjKUk=;
- b=I+WVGEp4/0FlC6UdAv4hp6ViULqqAz8wfqK8eMaehP8PTel0BDgp3W/ZPXdE8S1k69SKCzDgZwl9bwFRQi2zHc+9PnTzugTB396CnDdNoU+i35ccMeW4QkiLnKEkm81YfMhAWu/ddo9clO9yzk2D84qV4mA3uWrFw9nNpLufPtO40BGIPdR9FjA2pdsn2OtrpaOhx7rOrIh67mnPzxgNV8fii+Rn7i+LiNTXLVVvMbL/BX6axD3j9EA15dkBGXn1pGQySyaNjt49U8gvMbWtFt7JFPJkjRBLyVuFmN04bJ0/5RQXR5VLDhPFG9E7By84+rcc3xc0Iuhf5wW5kMlwMQ==
+ bh=DcavGUxELXPW98RJksf9nLoEG+k/mtu5EkghU1zE0dA=;
+ b=tpMzmZGuHKd37IX1h6NMNXthXXIVFIOwvYCO73buvumyYuUEWIy0At2stDfxIBUopJJtdPV82/+pE8IXMrNMm2sMLADR+18xHtXLZZQboLY+YXyDps0td2Eg/MXoG2xKa9KPGE0U9eqyQkWaEAopBukNLeGTI3xLuGEy/Kn06cJvMwFn6ZSrlSG1VC7Av+VNOxveTZTKX1qSFKEOU6KkuV/7Z2EtYG2vqnSvDyhTVz4nU/5QxJGQOTYLrwpTrudybpGx23ZSBvRLJTHFtTqu6hLX2+xC2fztHEVpTi3CwjHtslABPcELfB8iu9RPoS/ntY+5XGi5vnYvgfeLWJoDZg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cv2W0k0/Ejzq2odJu2pL7H9Wi9Ka+zCk4zA7jrVjKUk=;
- b=OF1msDl+7uFsEz5wPEYE4wcIAu2yTopp1qbDN2roF4UV1UnL0DiFKfdMeAK3RLUW887c6lSx+UeR0/cG65bfaSYYID8X+wjufMcHVefOwyycEx6ocgG33XizSj+ZzUw3LDCW884iaQgETeZl59WNKF8tZs0Z5TH3FmpXet81s6hRvH5s2kD8Wj0L9Rhqzt5swdOr8M6sQv4FOoNDKVVmKXAKizqSclAAkI83GZkgDRq+OsFs6HmuFHPMLBb99xeEuhEvN9ewO/Ya+uYousOP1XUvY/2BgcEV1ozVV4sHxy5l74mM9r9YKiCY7PZh4v/r8AUxGL0iDZoSSh5Tk4qcDw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ bh=DcavGUxELXPW98RJksf9nLoEG+k/mtu5EkghU1zE0dA=;
+ b=Hj5ysARAh4XPf8aArRn4InvrQWLf/lQWN/ikexMPC1msvBAunKRODdkFfLYpaXx91QPwOhGLYSS5A1k7MfVGsw6saxoFC0QoRhJYaF6geAGlmEclaPCGLDE8YWlLfvgMT0s4IzKjHnkb9+xQKTqkCRUmYfg78T+SrFntugFHwC/loQ75TLD+TaXx/fBWom7tDcysb0/QNX/eIFUqFbD6MLq5+7/oFf4L8KTx3eMjQoPtCIHuVrss66ggd8NhPcLqut8io9ybAcIAjYNETTkKrPn1lSXbSHVI6pMXD5e0lQ1IBX35h6BxEqacx4uChZqMH0CnBhZ9oFf8jdYWs21aAQ==
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
- (2603:10a6:150:112::20) by VI0PR04MB554873.eurprd04.prod.outlook.com
- (2603:10a6:800:361::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Mon, 21 Sep
- 2026 10:47:10 +0000
+ (2603:10a6:150:112::20) by VI1PR04MB6862.eurprd04.prod.outlook.com
+ (2603:10a6:803:130::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 10:47:18 +0000
 Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
  ([fe80::d247:853:3e16:1994]) by GVXPR04MB10021.eurprd04.prod.outlook.com
  ([fe80::d247:853:3e16:1994%5]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 10:47:10 +0000
+ 10:47:18 +0000
 From: Chancel Liu <chancel.liu@oss.nxp.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -53,16 +53,16 @@ Cc: Support Opensource <support.opensource@diasemi.com>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	patches@opensource.cirrus.com
-Subject: [PATCH 03/21] ASoC: tlv320aic32x4: Fix clock leak from runtime callbacks
-Date: Mon, 21 Sep 2026 19:46:22 +0900
-Message-ID: <20260921104640.1941554-4-chancel.liu@oss.nxp.com>
+Subject: [PATCH 04/21] ASoC: twl4030: Acquire board params and hs_extmute GPIO in the platform probe
+Date: Mon, 21 Sep 2026 19:46:23 +0900
+Message-ID: <20260921104640.1941554-5-chancel.liu@oss.nxp.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260921104640.1941554-1-chancel.liu@oss.nxp.com>
 References: <20260921104640.1941554-1-chancel.liu@oss.nxp.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SE2P216CA0168.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2cb::10) To GVXPR04MB10021.eurprd04.prod.outlook.com
+X-ClientProxiedBy: SE2P216CA0167.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2cb::17) To GVXPR04MB10021.eurprd04.prod.outlook.com
  (2603:10a6:150:112::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -71,243 +71,221 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVXPR04MB10021:EE_|VI0PR04MB554873:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98ecf975-735e-477a-86d9-08df17cdb021
+X-MS-TrafficTypeDiagnostic: GVXPR04MB10021:EE_|VI1PR04MB6862:EE_
+X-MS-Office365-Filtering-Correlation-Id: a078f764-b4d5-4baf-a648-08df17cdb4cb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|19092799006|23010399003|366016|10067099003|11063799006|56012099006|6133799003|22082099003|18002099003;
+	BCL:0;ARA:13230040|376014|7416014|23010399003|19092799006|366016|1800799024|22082099003|18002099003|56012099006|11063799006|10067099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	VoS9yhcYewibqOHJx18c6Za9UyD7W6b+TwNsGf3e9j3dB6kJV/7uAbIN/Wp5nAJTKvmI4Yl8ooGAVsxBsmFl6lUMoHxsil+zqLyGSK3vv5dgI2hFqzwXUmex/gYdODGpCAjfPQLPBJWxrmaujYWiGTSKLB2SINKYJQ4T9YfiZaU+BV3gemBo5XcWC1Nq854XO8l5VGlam6QIF2kE1TDI0NrmeOUzQikLg3VTRUtwxe9m8T6byFOL47Yp+3xbiPL8IG0ihfRqZi0tRyrC0rYkXrl/VxpZGhaj85GxrU+bZiRlPjwgTeT2RHVjnXqguHeNOIrCT/G62NyBfwN2ga9VOif36kFg7w1a24p8Zc+uruBdJbsuvvZ1CjrCZ8GRaz1J0QT+IazYH9ShLAfvzdM0zmzfyxiAnH4kLImym8UJC7s3SGrWj6g/sYnUWFGKtX2cRnZ3yyYGxDSSnqICaGs+cAeiO1M5w3AX+IrgBhL/3qzz5CgMNWcQzGIMkk1R4B06F7IATtygCPlULtjW3E2yw4u/bRffPZDGYfhfNep+OraVbpSu9i8Mwj1YH+ErrrPODNUo2YSpj8QN+Adpl3G4sltDdrY7e1To5m7GM6dJqvU76Y3D9fFtIqcrdb5UkUJzbl8VCLkJTjKODQ42nlNpRSBwtaKm3g339c9Ly7I/DrY=
+	jZl+/vkNCVzaW0/IFcC6VaHt749J3tAgYj1sW7IP0Q6FZqQL+agyqdl8SzR1IPyYzXqp8u2cxLoddV5EYZwPNzIM/hIWsMMjO3KRudLf51ZJRfnjAp8WNfqMum/Z1sIaRzaupIZAjwiUIMkJWxQ2FY+C3SdBSMacUuj/TtJI5tCRN9E9lFMtA6Ob9MNrEuoF8yIr2DKSfsxVcUU8lfVK2+9YrUCbfwStWieooyAv8bJyvXxAAYmQgKrsYGTw1KM+0fy69Q7ZiunzYMBQjS49wPrnn22mAmGWBx3JMUiR/jYVMK0QR3H+GiXsnRgdfEz3RopwemeA7azlysTSS5set+u/IyodWI8rFteINUwRkfFlL8/f7iLTby053G0CmYr8hZj8PL+pu79x0/PzpGNhjFecLZwR05p4YlR6f8fs+x37DV/Bd9QjjxYp23QpvobNAes1BXqnBClFw6wtrJwLLFGUM8DsxQ/O0LZoGtEl184UhAvFp3bqrfIN7WyDn9nuFmSRj4xiyolj0Quj/96tmB0MDgAS9lND1Danjr1YFp8IVgjoyQPSHRY8goNMvQqPQI5ppVmKANVXr4Jdl7xrmacW5Ig1w7jQ1ru/CvKLnIda/GvLgWrPUg5mpw7ba5o4FL+PmDMtB3MuxaTwr1niwRgjOJnQrJYJwtMFXgOs7Y8=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB10021.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(19092799006)(23010399003)(366016)(10067099003)(11063799006)(56012099006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB10021.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(19092799006)(366016)(1800799024)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?+fSedBNzhbYQh/jNYfb4YAAZl5E7Ug0k3owcuBTsuglcc+6BCXQtvNm27GZl?=
- =?us-ascii?Q?H4X1gvhaFB0vr9gHgbP/VRRv+CCVitOd/eTmSMMuT6bP0/d4ZXTEIDM8Gqmw?=
- =?us-ascii?Q?Oazhqva0/gzn7RgMJLsm6buqVnUPBQq16f8a7/XU86m/C1fXsjBeAN/dL1n8?=
- =?us-ascii?Q?Ofwh7/5mwYVZK2q+lkU5ASqLN3EJz281NnxV0pc3/dzC06CItkgw4PniTHVM?=
- =?us-ascii?Q?5Y59ZnMoY7c1csRKr6k9yQ3J858XFid7S6YnhymGDmdmoKEObA5cyTqgwQux?=
- =?us-ascii?Q?Hn7OYU+hYHU6pv3IoadTcGlV29O68CtZod6CWrS1B7heOrkTCaTqBFuEXZdx?=
- =?us-ascii?Q?ZNQ6j4CptebGQbITb1hJ/iw3osB8Z9TVylq9XkcfuMaIKowf6xkPb+XGKnBq?=
- =?us-ascii?Q?OUjAxvqHEMFPeqTQPkz+EdgleUnybX0WhkvpdArnMY8eeFLLaf6+84i01EFm?=
- =?us-ascii?Q?ro4r8Z4wwNq7yPe5RYpsSEQy3Qr8k+Vrv4LrRU+LntFa4uw9nP5VN5V6G7PG?=
- =?us-ascii?Q?PDBJyPaucFtxeocxNjYtsimfq6b3+pAqfIzM9tC3TQd4J39rB1rcyrN5ault?=
- =?us-ascii?Q?ErXuLnRm78Nl/VeXiFMZP1XWHv+jqdIDDoap4LU6/vdNIneAR+cyB3uist5d?=
- =?us-ascii?Q?/WFcgwsHWTA/zi4zBrnw/tQNqRqO8V59McnfOnwtz+tyuFq2rfZN5MzzvbDD?=
- =?us-ascii?Q?UHzK1L78GNUvVmapXRjAKESR59JIP5IJfdqFEFV87sfTGqt6wZhlZfDTl4/z?=
- =?us-ascii?Q?x4TiSLkw0tXa7l806yr3/jiuOrSRmIw1o0mspYdgsr9scG3JeKnIec6N9VCd?=
- =?us-ascii?Q?2S21NgggZGeKiflaYykVaCWX/B/I81HXAVjxuvxbQFxO/xVwvfdLH+BhH9MG?=
- =?us-ascii?Q?KyMFz/xQtQ+GbGc+2TaxypaG5JxN+bDZPywL1OXtlOtWyZZPzN5FSSWBMZbq?=
- =?us-ascii?Q?DIevkLi+L1D34lbq/tNnu4b64PfE+9TySK/fxLBVv2QhF9b1UtRdGgfzVpus?=
- =?us-ascii?Q?h1LVXdXy9iNfaP2TleIcz0h3+X+LqjkBsKt93MP0u9kQDwIDGzXtQSzANb+0?=
- =?us-ascii?Q?BeT5NeIYQW86nN3GV+iVUBY4LaiUhXOZoQlJpT2ixTC6le56xen3bpfFAFmy?=
- =?us-ascii?Q?aBVpWt66bWh0sUe386jtRdYS3/i84e28a8cCxbftj+hZvaTPEUfW/+kI3gtc?=
- =?us-ascii?Q?kQ1NQacurbllb3afR73dcK3vM89dgsZTofdOiDHPXc39PidOBVxGFzqSxvLw?=
- =?us-ascii?Q?s5ELRraqBdjhHuXn8sK0+bRIqiKNCl1TFPYXYqCK9HGXQbaHLK2RMzGvARMY?=
- =?us-ascii?Q?GAqCbBM50bbjLzmqxbkfTmkfILQJvVwHASY8FeVlA6tPnuWeBYO0VG6JskmW?=
- =?us-ascii?Q?YXsd2mvdo8fgdywKaFNOAdAR4cSbQaggeMY9BpqrEtYxxBZya84Fv3qcsSOF?=
- =?us-ascii?Q?1kk62Xn+5VxRJTkkGzg13dkMk22wwrS9qReVNfQo0kv3UugyyNB7y24hTXf2?=
- =?us-ascii?Q?Xg9VBcJQimtHLTnkx/zpJWG2NbN6ZXz+l/kx0p4Gld9vrXQ43dzGyaI0QTgJ?=
- =?us-ascii?Q?iEmWUkZQSvctdRuVy/rrEY1js335uLa4ATFmaf8ikwtK+pCsSqWEpZV8a7dh?=
- =?us-ascii?Q?yBF5s4qNQBIN7//RzYFEPJucFxhp+WoAZGBTty5V6lOCrrxCCnK8/SURCr+B?=
- =?us-ascii?Q?Wh9vxUn2HcerGjbsXaDawqytzsk+Y0AhCTjjOM+m/I5DW27zQUPeuoTifCvS?=
- =?us-ascii?Q?jkyVyAMeBCoVZIpdcsTq2RCz75XqOEwNhwdJUwDvA8QDdUSggDf9?=
+	=?us-ascii?Q?VTAQH/gjr7RAtNa2BSqUcgruQ6gKInyWlv/rVqZyRq9OiqF8IN4zheeHVwfG?=
+ =?us-ascii?Q?3JmJ7wxv9TRlNn3gTzfU0F/4WDQbuC0pTR7bXr+zO9RgJccd59taLHB0XUPd?=
+ =?us-ascii?Q?HDSlEV97L1XYlhD6RM7Jedfg0jS4SUHNpFopzBcSlHSRQ65qpf/E+mOjrW+W?=
+ =?us-ascii?Q?1cF1hk9OyQ82O7HQPy9rHk8mZN3DqVrSKxCBUd0i1PjQvlDiuWQSqDgm+ERa?=
+ =?us-ascii?Q?Ad3tEp+wKQf/3cpYo5KH5HVqCSvSr/85NKqbCad/s4DLFUc/+71cjPg/+Dk+?=
+ =?us-ascii?Q?Gv91jnuwmxX5m3BA4B5lGGujcja7gGQOOvWPJFtQUcipHPVoG7S2BTfOj1/3?=
+ =?us-ascii?Q?5972DBz/kGmgjTfgzKatYERreQn5kYaYhrXDbcoV14Tl2GJzca9395emYkfo?=
+ =?us-ascii?Q?0sD9OjZHMvDZd0Yo7KXrLoQwxxFE2SUj5AeCOlkgjSJ2LMI0iMoPyD5YU0p6?=
+ =?us-ascii?Q?0OCrHtf49lNw7SivwihH02Z4NMp8RhnmYbaxQq5ei11JzaQLDIJLNo0+2SPy?=
+ =?us-ascii?Q?d9U6kJIIjnrLBlqNhW/f8Isz0ZOwk+N9TiXVsDphmbyWGc6ejPh7nlEsZ7Mb?=
+ =?us-ascii?Q?4hEElZOp4oQ8jLGOSsTUKOEP7d2SMALHjU1lF35sYGgJUrDhfksCljraAthN?=
+ =?us-ascii?Q?17dIUaF/v4EqCyWxUH7C/0HawZ6Kp4HyePyyGhzQonEfVDVZNavaCsoW7wOM?=
+ =?us-ascii?Q?lABJcyy1SCsOc+xhmoA4ZyORZTIjQuB8euMpYcuwDXKKQ10Vh2OxcMZ3t+B8?=
+ =?us-ascii?Q?hLUcYLipwNdOAmpKmNNliwiXPhRfuKbSKUOTegZ66E5YM9athFAuwmw6uKcl?=
+ =?us-ascii?Q?kKMjt4T/4qZEgAoyLKVh1tLDadpDiYMXwzTEKHZyru5Semdi3HVdqclkNfnb?=
+ =?us-ascii?Q?DTA71DVSHCgc0oZN+5eibKvhT80JN+JxbVKkWBZt8tDEFSECcUO7pVgskYgn?=
+ =?us-ascii?Q?ssCYQ69iMREESYozMgVgehAgU5uVXDG+r//ZmrpA6L4h0f6NpH9xruLIZyh5?=
+ =?us-ascii?Q?cacKUjoLxxKdBF23SjJpoTodnSAgMyi7GjbDDhzG6TdMUNWPKdzJT7X5l0n3?=
+ =?us-ascii?Q?jP+5B5nlktbLx10u5yClQ0yhnL3jmXDcqBA6su8omvLPbNVPvmFKd0LTzx39?=
+ =?us-ascii?Q?CdGM9459WpKZFqST23Rifci4Q610G+m6tuYCqSIhmReDnK2V55z4b7BLHzVP?=
+ =?us-ascii?Q?cjpuhUV144sB5CpztBJpUO3yH4GgfLCVJLiC1NFPuB/7x1dqhJGyxc/uwL+l?=
+ =?us-ascii?Q?c+2EMks/xkJhz3Bk77RVFjM5BhSchQUX3ig4TYKk9Ny5xDhy5MjSS39XUh29?=
+ =?us-ascii?Q?HDtk69mtcQJQl+CPOFoDOfohewP1hRXLXpMLQobeu1WSWyTgdXVKNND3m6Zt?=
+ =?us-ascii?Q?Y4urlZ8/hX/QHz85Cn0wjFZWIo4+Mm6az26pvD/HcXrWSrx94z+z5r0biHrM?=
+ =?us-ascii?Q?lNVeQRsp3Gs13s93uge+e1aS2OG7JGVyd7sMOk+wrkT/eCdFDx3D9ngzgGaQ?=
+ =?us-ascii?Q?isGi3PYFUIdlkCWTcGOZo+i8tBok8Waxd8E5kRbT4uL11essWcrBGe4vC6Xn?=
+ =?us-ascii?Q?RdjI25VnM1ck+7Ycq8XNN3c5iJ0IGooIkb+UXDKo6G4IXZ+Rnp2JuieppZE5?=
+ =?us-ascii?Q?uQNengCEcSgns9DRkkEL932UHqpGgdjOJt/OFdI9sA5Sedxl4tur0B/GovlO?=
+ =?us-ascii?Q?27uRaUA+m9gKInelS6JoSXlAwcWQ7CBsqpfFwEJBxK156EdEFRJ9sF0XS20G?=
+ =?us-ascii?Q?MHeHHFyVcGLpBB+2afTR025VNvHr2rhqFWSsg4Fg/BaZclbPzhtX?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98ecf975-735e-477a-86d9-08df17cdb021
+X-MS-Exchange-CrossTenant-Network-Message-Id: a078f764-b4d5-4baf-a648-08df17cdb4cb
 X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB10021.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 10:47:10.2906
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 10:47:18.0659
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GFvqFi/uws4higJyTV0PQ/pNq016zX/s08IUUocWlPBKxNz6Mx/CNmGeveu46WgVnk1I9BD/GrFNRg4cYQ4KCsQHxtv4rmxDzt+ws6eduEYbUy+7Vu5nHVnhxM+7wNoc
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB554873
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4OsifC+X1wyNvIf/QCalEbXkPNK+9UPeR5NrlpgIMOn6YF3putZ4/4K4OP8IGsAQYGPqMw1w1tkEOREuqao02MS3t2M6sOo9UoxbOTYhYVz5Xf2QPJi2VOVjQPzFnyUm
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6862
 
 From: Chancel Liu <chancel.liu@nxp.com>
 
-component->dev is the underlying I2C/SPI device. The driver acquired
-its codec clocks with devm_clk_get()/devm_clk_bulk_get(component->dev,
-...) from the DAI set_sysclk runtime callback, from set_bias_level and
-from the component .probe. Because devres on component->dev is only
-released when the platform device is removed, each card bind/unbind
-(and, for set_sysclk, each runtime invocation) leaked a fresh clock
-reference.
+The component .probe/.remove callbacks fire on ASoC card bind/unbind, but
+component->dev is the underlying platform device whose devres is only
+released on physical device removal. Resources allocated with
+devm_*(component->dev, ...) in the component probe are therefore never
+freed on card unbind, leaking one copy per bind/unbind cycle and leaking
+the hs_extmute GPIO descriptor (which can also fail to be re-acquired on
+re-bind).
 
-Acquire all codec clocks once in the bus probe with a single
-devm_clk_bulk_get() into the private struct, and have the runtime
-callbacks and both component probes reuse those stored references.
+The board parameters and the hs_extmute GPIO are pure hardware/device
+level resources: they only depend on the physical device and the DT, not
+on the ASoC component. Acquire them (together with the driver context)
+in twl4030_codec_probe() using devm on the platform device, and hand the
+context to the component through drvdata. Their devres lifetime then
+correctly follows the device rather than the card bind/unbind, so no
+explicit component .remove is needed. The component probe keeps only the
+codec register initialisation that genuinely needs the component.
 
 Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
 ---
- sound/soc/codecs/tlv320aic32x4.c | 94 +++++++++++++++-----------------
- 1 file changed, 44 insertions(+), 50 deletions(-)
+ sound/soc/codecs/twl4030.c | 63 +++++++++++++++++++++++++-------------
+ 1 file changed, 42 insertions(+), 21 deletions(-)
 
-diff --git a/sound/soc/codecs/tlv320aic32x4.c b/sound/soc/codecs/tlv320aic32x4.c
-index af4be5bee723..7fec94768afb 100644
---- a/sound/soc/codecs/tlv320aic32x4.c
-+++ b/sound/soc/codecs/tlv320aic32x4.c
-@@ -48,8 +48,18 @@ struct aic32x4_priv {
- 	enum aic32x4_type type;
- 
- 	unsigned int fmt;
-+
-+	struct clk_bulk_data clocks[7];
- };
- 
-+#define AIC32X4_CLK_CODEC_CLKIN	0
-+#define AIC32X4_CLK_PLL		1
-+#define AIC32X4_CLK_NADC	2
-+#define AIC32X4_CLK_MADC	3
-+#define AIC32X4_CLK_NDAC	4
-+#define AIC32X4_CLK_MDAC	5
-+#define AIC32X4_CLK_BDIV	6
-+
- static int aic32x4_reset_adc(struct snd_soc_dapm_widget *w,
- 			     struct snd_kcontrol *kcontrol, int event)
- {
-@@ -591,14 +601,10 @@ static int aic32x4_set_dai_sysclk(struct snd_soc_dai *codec_dai,
- 				  int clk_id, unsigned int freq, int dir)
- {
- 	struct snd_soc_component *component = codec_dai->component;
-+	struct aic32x4_priv *aic32x4 = snd_soc_component_get_drvdata(component);
- 	struct clk *mclk;
--	struct clk *pll;
--
--	pll = devm_clk_get(component->dev, "pll");
--	if (IS_ERR(pll))
--		return PTR_ERR(pll);
- 
--	mclk = clk_get_parent(pll);
-+	mclk = clk_get_parent(aic32x4->clocks[AIC32X4_CLK_PLL].clk);
- 
- 	return clk_set_rate(mclk, freq);
+diff --git a/sound/soc/codecs/twl4030.c b/sound/soc/codecs/twl4030.c
+index b986ece55d5a..442624cf2a31 100644
+--- a/sound/soc/codecs/twl4030.c
++++ b/sound/soc/codecs/twl4030.c
+@@ -212,21 +212,21 @@ twl4030_get_board_param_values(struct twl4030_board_params *board_params,
  }
-@@ -750,17 +756,7 @@ static int aic32x4_setup_clocks(struct snd_soc_component *component,
- 	unsigned long adc_clock_rate, dac_clock_rate;
- 	int ret;
  
--	struct clk_bulk_data clocks[] = {
--		{ .id = "pll" },
--		{ .id = "nadc" },
--		{ .id = "madc" },
--		{ .id = "ndac" },
--		{ .id = "mdac" },
--		{ .id = "bdiv" },
--	};
--	ret = devm_clk_bulk_get(component->dev, ARRAY_SIZE(clocks), clocks);
--	if (ret)
--		return ret;
-+	struct clk_bulk_data *clocks = &aic32x4->clocks[AIC32X4_CLK_PLL];
- 
- 	ret = aic32x4_configure_rate(component, sample_rate, &aosr,
- 				     &adc_resource_class, &dac_resource_class,
-@@ -876,18 +872,15 @@ static int aic32x4_set_bias_level(struct snd_soc_component *component,
- 				  enum snd_soc_bias_level level)
+ static struct twl4030_board_params*
+-twl4030_get_board_params(struct snd_soc_component *component)
++twl4030_get_board_params(struct device *dev)
  {
- 	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
-+	struct aic32x4_priv *aic32x4 = snd_soc_component_get_drvdata(component);
- 	int ret;
+ 	struct twl4030_board_params *board_params = NULL;
+ 	struct device_node *twl4030_codec_node = NULL;
  
- 	struct clk_bulk_data clocks[] = {
--		{ .id = "madc" },
--		{ .id = "mdac" },
--		{ .id = "bdiv" },
-+		aic32x4->clocks[AIC32X4_CLK_MADC],
-+		aic32x4->clocks[AIC32X4_CLK_MDAC],
-+		aic32x4->clocks[AIC32X4_CLK_BDIV],
- 	};
+-	twl4030_codec_node = of_get_child_by_name(component->dev->parent->of_node,
++	twl4030_codec_node = of_get_child_by_name(dev->parent->of_node,
+ 						  "codec");
  
--	ret = devm_clk_bulk_get(component->dev, ARRAY_SIZE(clocks), clocks);
--	if (ret)
--		return ret;
--
- 	switch (level) {
- 	case SND_SOC_BIAS_ON:
- 		ret = clk_bulk_prepare_enable(ARRAY_SIZE(clocks), clocks);
-@@ -970,23 +963,16 @@ static int aic32x4_component_probe(struct snd_soc_component *component)
+ 	if (twl4030_codec_node) {
+-		board_params = devm_kzalloc(component->dev,
++		board_params = devm_kzalloc(dev,
+ 					    sizeof(struct twl4030_board_params),
+ 					    GFP_KERNEL);
+ 		if (!board_params) {
+ 			of_node_put(twl4030_codec_node);
+-			return NULL;
++			return ERR_PTR(-ENOMEM);
+ 		}
+ 		twl4030_get_board_param_values(board_params, twl4030_codec_node);
+ 		of_node_put(twl4030_codec_node);
+@@ -235,21 +235,22 @@ twl4030_get_board_params(struct snd_soc_component *component)
+ 	return board_params;
+ }
+ 
+-static int twl4030_init_chip(struct snd_soc_component *component)
++static int twl4030_get_hw_params(struct device *dev,
++				 struct twl4030_priv *twl4030)
  {
- 	struct aic32x4_priv *aic32x4 = snd_soc_component_get_drvdata(component);
- 	u32 tmp_reg;
--	int ret;
+ 	struct twl4030_board_params *board_params;
+-	struct twl4030_priv *twl4030 = snd_soc_component_get_drvdata(component);
+-	u8 reg, byte;
+-	int i = 0;
  
--	struct clk_bulk_data clocks[] = {
--		{ .id = "codec_clkin" },
--		{ .id = "pll" },
--		{ .id = "bdiv" },
--		{ .id = "mdac" },
--	};
--
--	ret = devm_clk_bulk_get(component->dev, ARRAY_SIZE(clocks), clocks);
--	if (ret)
--		return ret;
-+	struct clk *codec_clkin = aic32x4->clocks[AIC32X4_CLK_CODEC_CLKIN].clk;
-+	struct clk *pll = aic32x4->clocks[AIC32X4_CLK_PLL].clk;
-+	struct clk *bdiv = aic32x4->clocks[AIC32X4_CLK_BDIV].clk;
-+	struct clk *mdac = aic32x4->clocks[AIC32X4_CLK_MDAC].clk;
+-	board_params = twl4030_get_board_params(component);
++	board_params = twl4030_get_board_params(dev);
++	if (IS_ERR(board_params))
++		return PTR_ERR(board_params);
  
- 	aic32x4_setup_gpios(component);
+ 	if (board_params && board_params->hs_extmute) {
+-		board_params->hs_extmute_gpio = devm_gpiod_get_optional(component->dev,
++		board_params->hs_extmute_gpio = devm_gpiod_get_optional(dev,
+ 									"ti,hs_extmute",
+ 									GPIOD_OUT_LOW);
+ 		if (IS_ERR(board_params->hs_extmute_gpio))
+-			return dev_err_probe(component->dev, PTR_ERR(board_params->hs_extmute_gpio),
++			return dev_err_probe(dev,
++					     PTR_ERR(board_params->hs_extmute_gpio),
+ 					     "Failed to get hs_extmute GPIO\n");
  
--	clk_set_parent(clocks[0].clk, clocks[1].clk);
--	clk_set_parent(clocks[2].clk, clocks[3].clk);
-+	clk_set_parent(codec_clkin, pll);
-+	clk_set_parent(bdiv, mdac);
+ 		if (board_params->hs_extmute_gpio) {
+@@ -257,7 +258,7 @@ static int twl4030_init_chip(struct snd_soc_component *component)
+ 		} else {
+ 			u8 pin_mux;
  
- 	/* Power platform configuration */
- 	if (aic32x4->power_cfg & AIC32X4_PWR_MICBIAS_2075_LDOIN) {
-@@ -1127,23 +1113,16 @@ static int aic32x4_tas2505_component_probe(struct snd_soc_component *component)
- {
- 	struct aic32x4_priv *aic32x4 = snd_soc_component_get_drvdata(component);
- 	u32 tmp_reg;
--	int ret;
--
--	struct clk_bulk_data clocks[] = {
--		{ .id = "codec_clkin" },
--		{ .id = "pll" },
--		{ .id = "bdiv" },
--		{ .id = "mdac" },
--	};
+-			dev_info(component->dev, "use TWL4030 GPIO6\n");
++			dev_info(dev, "use TWL4030 GPIO6\n");
  
--	ret = devm_clk_bulk_get(component->dev, ARRAY_SIZE(clocks), clocks);
--	if (ret)
--		return ret;
-+	struct clk *codec_clkin = aic32x4->clocks[AIC32X4_CLK_CODEC_CLKIN].clk;
-+	struct clk *pll = aic32x4->clocks[AIC32X4_CLK_PLL].clk;
-+	struct clk *bdiv = aic32x4->clocks[AIC32X4_CLK_BDIV].clk;
-+	struct clk *mdac = aic32x4->clocks[AIC32X4_CLK_MDAC].clk;
+ 			/* Set TWL4030 GPIO6 as EXTMUTE signal */
+ 			twl_i2c_read_u8(TWL4030_MODULE_INTBR, &pin_mux,
+@@ -269,6 +270,18 @@ static int twl4030_init_chip(struct snd_soc_component *component)
+ 		}
+ 	}
  
- 	aic32x4_setup_gpios(component);
- 
--	clk_set_parent(clocks[0].clk, clocks[1].clk);
--	clk_set_parent(clocks[2].clk, clocks[3].clk);
-+	clk_set_parent(codec_clkin, pll);
-+	clk_set_parent(bdiv, mdac);
- 
- 	/* Power platform configuration */
- 	if (aic32x4->power_cfg & AIC32X4_PWR_AVDD_DVDD_WEAK_DISABLE)
-@@ -1362,6 +1341,21 @@ int aic32x4_probe(struct device *dev, struct regmap *regmap,
- 	if (ret)
- 		goto err_disable_regulators;
- 
-+	aic32x4->clocks[AIC32X4_CLK_CODEC_CLKIN].id = "codec_clkin";
-+	aic32x4->clocks[AIC32X4_CLK_PLL].id = "pll";
-+	aic32x4->clocks[AIC32X4_CLK_NADC].id = "nadc";
-+	aic32x4->clocks[AIC32X4_CLK_MADC].id = "madc";
-+	aic32x4->clocks[AIC32X4_CLK_NDAC].id = "ndac";
-+	aic32x4->clocks[AIC32X4_CLK_MDAC].id = "mdac";
-+	aic32x4->clocks[AIC32X4_CLK_BDIV].id = "bdiv";
++	twl4030->board_params = board_params;
 +
-+	ret = devm_clk_bulk_get(dev, ARRAY_SIZE(aic32x4->clocks),
-+				aic32x4->clocks);
-+	if (ret) {
-+		dev_err(dev, "Failed to get clocks\n");
-+		goto err_disable_regulators;
-+	}
++	return 0;
++}
 +
- 	switch (aic32x4->type) {
- 	case AIC32X4_TYPE_TAS2505:
- 		ret = devm_snd_soc_register_component(dev,
++static int twl4030_init_chip(struct snd_soc_component *component)
++{
++	struct twl4030_priv *twl4030 = snd_soc_component_get_drvdata(component);
++	struct twl4030_board_params *board_params = twl4030->board_params;
++	u8 reg, byte;
++	int i = 0;
++
+ 	/* Initialize the local ctl register cache */
+ 	tw4030_init_ctl_cache(twl4030);
+ 
+@@ -288,8 +301,6 @@ static int twl4030_init_chip(struct snd_soc_component *component)
+ 	if (!board_params)
+ 		return 0;
+ 
+-	twl4030->board_params = board_params;
+-
+ 	reg = twl4030_read(component, TWL4030_REG_HS_POPN_SET);
+ 	reg &= ~TWL4030_RAMP_DELAY;
+ 	reg |= (board_params->ramp_delay_value << 2);
+@@ -2163,15 +2174,9 @@ static struct snd_soc_dai_driver twl4030_dai[] = {
+ 
+ static int twl4030_soc_probe(struct snd_soc_component *component)
+ {
+-	struct twl4030_priv *twl4030;
++	struct twl4030_priv *twl4030 = dev_get_drvdata(component->dev);
+ 
+-	twl4030 = devm_kzalloc(component->dev, sizeof(struct twl4030_priv),
+-			       GFP_KERNEL);
+-	if (!twl4030)
+-		return -ENOMEM;
+ 	snd_soc_component_set_drvdata(component, twl4030);
+-	/* Set the defaults, and power up the codec */
+-	twl4030->sysclk = twl4030_audio_get_mclk() / 1000;
+ 
+ 	return twl4030_init_chip(component);
+ }
+@@ -2193,6 +2198,22 @@ static const struct snd_soc_component_driver soc_component_dev_twl4030 = {
+ 
+ static int twl4030_codec_probe(struct platform_device *pdev)
+ {
++	struct twl4030_priv *twl4030;
++	int ret;
++
++	twl4030 = devm_kzalloc(&pdev->dev, sizeof(*twl4030), GFP_KERNEL);
++	if (!twl4030)
++		return -ENOMEM;
++
++	/* Set the defaults, and power up the codec */
++	twl4030->sysclk = twl4030_audio_get_mclk() / 1000;
++
++	ret = twl4030_get_hw_params(&pdev->dev, twl4030);
++	if (ret)
++		return ret;
++
++	platform_set_drvdata(pdev, twl4030);
++
+ 	return devm_snd_soc_register_component(&pdev->dev,
+ 				      &soc_component_dev_twl4030,
+ 				      twl4030_dai, ARRAY_SIZE(twl4030_dai));
 -- 
 2.50.1
 
