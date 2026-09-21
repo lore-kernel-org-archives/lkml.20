@@ -1,61 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 343894A64D3;
-	Mon, 21 Sep 2026 14:50:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDEF74AA007
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:50:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002206; cv=none; b=p7NcfRTTyRWEm7aiVgdXut/kg55SkwEeDNsTVMy4Xv+032tOCo9/i3l9/7W9G5AraoeD6ATzJ/lX86a2i8DuFUSaGEc1UTBAGRPiR6DiVO0KGwkJIEmVOeSJTo0Oi4PYs/BZykETxF83ADWsNWCgWlXxsBsV60wfz6BRZ7W61UU=
+	t=1790002207; cv=none; b=EQLs6dEj+BlFjTIBwqiKsMFMHD8/ayHQjzOX47xu7Ib3SlGdouafOi+kfu4JKn/jaKQzsUWjd5g/+UoD5HO0/TdXzINCAAsgWpUOG7y30DHF6wZ/hfE2v8BmGfr8YQuSdkMje/UDonbv5YDCqM+5bZbQ+g+jJt5iIAGMEJDqJg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002206; c=relaxed/simple;
-	bh=xfg4l7aAPcFuNNw0eq2vq9ZJl7eqy9aAtKlDZYYEOu0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nMyrV+tgnd9CgPF4QZSE9TG++rGFbaMy95El4FPkkOGYXllRI0whOTB5f0IXnQfaZsscfBzuBtBjdX/G7zWU58h8SnXjEfXby2gnuHGt6mA0CxxyEJKPfBpX8rcWLFD/SNyYvlUc+Kt/Qj2hkgdboOURRaWDVHARyTP/INirnsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GbU3J4YR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790002207; c=relaxed/simple;
+	bh=MvGGZL4IS4MjWjWviaHP6B+xBpIms7EWjzyjzTLCRMM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V+VdE2OIV9G+JAE+G6n2KJ6Sb35qK+cOdatNk5C+e3TRiLy7hmLPOb87LUEdu0KjSIyVkcctWqEaLAu4mC90hqtiGiwmC5gnVJUeVHcWxu9rUOcoCQ52ac60JNuyh902N00YkkaP+miPLSu3sifrzbAITVyx+pBFbuYhdxxWewo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ibFJkjo3; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GbU3J4YR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 500401F000FF;
-	Mon, 21 Sep 2026 14:49:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790002204;
-	bh=J0RXC9wgCT9tCmz+jINf5SBQKcG/vPYAJMGd4hap8Yw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GbU3J4YRMftmRU3jVFK0P2ygG00J8C4jBu4Ys1tpUN98glJT1tX1ZPswO6N6z6lAA
-	 WnjkUlnCLjFKCszyx2pEUTo3+5QIPTCs2doBtoVsBQS5mu/mREAiBQLWiXe4+wSLZm
-	 mSsfl5BK3UnuU6Gr3t60HLkoElNHWWH6WjIi93pYYLmUZ9v6tZ2mMB55GX6AZ/V3oV
-	 D18fKW95kPaoC7bvZrUyXgSyBqZrS8ScRtMvemwr2xSlV/oeZwfDMlmc1+pQMh3odX
-	 R0cR/d8No7rGW8ggtnjhCOriMqycOZC8UOGIZfaYntGncIiFOc+6D2M7lKuHb5IuR3
-	 WekYxl0d0gA9g==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: linux-coco@lists.linux.dev,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ibFJkjo3"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so15384405e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:50:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790002203; x=1790607003; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8M61Qqjvm/dE/aUDfnFagoCXYMpIF6uiqbbGLV3Yg4M=;
+        b=ibFJkjo3rloeFPr/uQSGRzTdb2rtT3XvdwBejgVrMVEFTSiQGps+NMJ5k7Zon/iFbS
+         d/rWKBmD89UZ01QNl8I9qANU4bdCFHmRJzKV6Xjy0ZRKRgFTdwvY8IHXj3OP0DkpBnfY
+         Tner00BDrTu+acah+vzm2mkvTkaFfAOiUH04wbnKznoiZT0GEFuWhuWhNUTTFxPHdDm4
+         duHF4De1gF4H2w6iTG0U92fS4dizHTZXAKyROVpSKQUNLxlNq4JeuPObP3TvIoSDwJ3B
+         8R0PqNZk1ZaaP4lJeYj0SSIv0LFHC2b6mm919ut1cg59Yrv+cuq4hAgK+25sST20VF6x
+         Aojw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790002203; x=1790607003;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8M61Qqjvm/dE/aUDfnFagoCXYMpIF6uiqbbGLV3Yg4M=;
+        b=cpMiyXXkD2p2BTJ+3oQ7GhJjn7Zt1xP97s+XdgTjZ+a5PMMQ7zgXn3OVGZgG+wCTNM
+         /Ya3xj2KTpbdDlvkEBEGzfIJrlPKtfxenYVH5aa0kWciw+t9MRu2zDDqjL9j0aCkd8HA
+         UZhgXpEIWRk6cEwz/g7d7eOE9IptWTY1vgjSAf19GifI54Ff8somgteEobsPyWmxN21r
+         Hp+TkD0GR1aNj4P/0mdFKOUeItQQS71k9pJd7363eowgGSNoWVdv6IU9b0houVKBoBiU
+         K9RyWza/Za+//r9K9+yr+K1WgHRR56Ca0OntXIqxcTTlU7PPVIa6w5fhVrDpJlu/Apqg
+         m9Ag==
+X-Forwarded-Encrypted: i=1; AKwUvBz66fAElH51SohtoGg2zAyTAgYuElO93odiU0jFO/HJm+JaHGlyDryBTzztFhX0Q3BYpgJ8OsGpJ9g70Uk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDpLNtddc3h/lux9fIBNF5xKtXY6CjyjDR95A5oZixT5ObbCuK
+	kqzUOO3OFz9qV25b37gxX/KorPfUpa+lgwPVS7WumGPL2WK+55Sej+9O
+X-Gm-Gg: AYBFou3ecMaRibfDRiJ/IuzuWW8cKDi3TRzKXkK5wDm2v3l6MxSTziuOMGZUx++08aU
+	Nbn8qeO3va7REMp25nA825a8cOjQATYeCH6lbJhp/E9I9ydOccCSZXCq7IoSNL2OCYFojwGUvyS
+	4lGL0ISx0w1aZjko0Tj6ftZiarvs82fjuNkv6F6KTlrKFtgOGwatN6fOGrFH8tg2+M8H7B/qXsX
+	r6XbAuI9N1ss7xlRrWVRisuHuO+m82zC7cdYAWLcpGS1WZbuAl3OP5tf7kZgye7De8/vJPIgMVU
+	wl3vUlf3ri2aM/WPIi2uGA+UMMtLblCQqNn/asl9N5ZR1KP97KUmSkd8NjnBj4MYpeeHMzSSfon
+	fo+aKy3Ub6uLJrxRIAttSMaAwan/vw9SMBk9VTful3RuPQnGq4FCQIZo9sTdBpmxTAs5PBp/+2z
+	zVQnsKcjeuK9vwFL0DaP4U0dwCIxGPsktRre33ircNTTKdYzLC1D08eQSmMn73ODYBDK1x4ERWM
+	fpUBmbtSaSbceXs+wm7
+X-Received: by 2002:a05:600c:3107:b0:49c:ff9f:f6b6 with SMTP id 5b1f17b1804b1-49fc5669346mr157236555e9.6.1790002202748;
+        Mon, 21 Sep 2026 07:50:02 -0700 (PDT)
+Received: from localhost.localdomain ([194.154.195.114])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fcd8bc15esm191595725e9.1.2026.09.21.07.50.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 07:50:02 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	christian.koenig@amd.com,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Joerg Roedel <joro@8bytes.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-media@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH v7 07/13] dma-pool: Allocate CoCo atomic pools using CoCo shared memory allocator
-Date: Mon, 21 Sep 2026 20:18:41 +0530
-Message-ID: <20260921144847.501151-8-aneesh.kumar@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260921144847.501151-1-aneesh.kumar@kernel.org>
-References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
+	platform-driver-x86@vger.kernel.org,
+	linux-hwmon@vger.kernel.org
+Subject: [PATCH v3 0/3] platform/arm64: Lenovo Yoga Slim 7x Gen 11 embedded controller
+Date: Mon, 21 Sep 2026 16:49:50 +0200
+Message-ID: <20260921144953.15113-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,112 +85,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Atomic DMA allocations cannot perform a potentially sleeping
-private/shared state transition at allocation time. The atomic DMA pools
-avoid this by transitioning their backing allocations in a sleepable
-context and suballocating memory that is already shared.
+The Lenovo Yoga Slim 7x Gen 11 is a Qualcomm Snapdragon X2 Elite (glymur)
+laptop. It carries a Compal EF06 embedded controller on I2C at address
+0x70, which is the only source on this machine for the board thermistors,
+the battery cell voltages, the fan tachometer, the keyboard backlight, and
+the mic-mute and airplane-mode keys.
 
-Architectures may require these transitions to use a shared granule size
-larger than PAGE_SIZE. The existing fallback loop can reduce the backing
-allocation below the order required by that size, producing a range that
-cannot be safely transitioned.
+Patch 1 documents the binding, patch 2 adds the driver, patch 3 adds the
+node to the board.
 
-For pools marked cc_shared, round the requested pool size up to a
-multiple of the shared granule size and prevent allocation fallback
-below the order required by that size. Pass this minimum order to
-dma_alloc_from_contiguous() as a required alignment so that CMA cannot
-silently clamp it. If CMA cannot satisfy the alignment, fall back to
-the buddy allocator. Non-shared pools pass zero and retain the existing
-CMA alignment policy.
+Why one driver
+--------------
 
-Use the cc_make_shared() and cc_make_private() helpers to transition the
-backing allocation and validate its address and size.
+The automated review of v2 asked for the hwmon part to become an
+auxiliary driver under drivers/hwmon/. The hwmon channels, the LED and
+the input device all sit behind one command mailbox and one interrupt,
+so the driver stays in one file, like huawei-gaokun-ec,
+lenovo-thinkpad-t14s and qcom-hamoa-ec next to it. It is documented
+under Documentation/ABI only.
 
-Individual atomic allocations may remain smaller than the shared granule
-size because the backing allocation remains owned by the pool and in the
-shared state.
+Notes
+-----
 
-Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
----
- kernel/dma/pool.c | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
+Fan speed is reported but not controlled, deliberately - the EC enforces no
+thermal floor over a manual setpoint. Patch 2 has the measurement.
 
-diff --git a/kernel/dma/pool.c b/kernel/dma/pool.c
-index 70b7f64b17ab..651d3a99c574 100644
---- a/kernel/dma/pool.c
-+++ b/kernel/dma/pool.c
-@@ -4,12 +4,12 @@
-  * Copyright (C) 2020 Google LLC
-  */
- #include <linux/cma.h>
-+#include <linux/cc_shared.h>
- #include <linux/debugfs.h>
- #include <linux/dma-map-ops.h>
- #include <linux/dma-direct.h>
- #include <linux/init.h>
- #include <linux/genalloc.h>
--#include <linux/set_memory.h>
- #include <linux/slab.h>
- #include <linux/workqueue.h>
- #include <linux/cc_platform.h>
-@@ -85,6 +85,8 @@ static bool cma_in_zone(gfp_t gfp)
- static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
- 			      gfp_t gfp)
- {
-+	struct cc_shared_layout layout;
-+	unsigned int min_order = 0;
- 	unsigned int order;
- 	struct page *page = NULL;
- 	bool leak_pages = false;
-@@ -92,6 +94,16 @@ static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
- 	int ret = -ENOMEM;
- 	pgprot_t prot __maybe_unused;
- 
-+	if (dma_pool->cc_shared) {
-+		ret = cc_shared_calc_layout(pool_size, &layout);
-+		if (ret)
-+			goto out;
-+		pool_size = layout.shared_size;
-+		min_order = get_order(layout.alignment);
-+		if (min_order > MAX_PAGE_ORDER)
-+			return -E2BIG;
-+	}
-+
- 	/* Cannot allocate larger than MAX_PAGE_ORDER */
- 	order = min(get_order(pool_size), MAX_PAGE_ORDER);
- 
-@@ -99,10 +111,10 @@ static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
- 		pool_size = 1 << (PAGE_SHIFT + order);
- 		if (cma_in_zone(gfp))
- 			page = dma_alloc_from_contiguous(NULL, 1 << order,
--							 order, 0, false);
-+							 order, min_order, false);
- 		if (!page)
- 			page = alloc_pages(gfp | __GFP_NOWARN, order);
--	} while (!page && order-- > 0);
-+	} while (!page && order-- > min_order);
- 	if (!page)
- 		goto out;
- 
-@@ -126,8 +138,7 @@ static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
- 	 * shrink so no re-encryption occurs in dma_direct_free().
- 	 */
- 	if (dma_pool->cc_shared) {
--		ret = set_memory_decrypted((unsigned long)page_to_virt(page),
--					   1 << order);
-+		ret = cc_make_shared(page_to_virt(page), pool_size);
- 		if (ret) {
- 			leak_pages = true;
- 			goto remove_mapping;
-@@ -144,7 +155,7 @@ static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
- 
- encrypt_mapping:
- 	if (dma_pool->cc_shared &&
--	    set_memory_encrypted((unsigned long)page_to_virt(page), 1 << order))
-+	    cc_make_private(page_to_virt(page), pool_size))
- 		leak_pages = true;
- 
- remove_mapping:
+Tested on a Lenovo Yoga Slim 7x Gen 11 (DMI 83QR, "Yoga Slim 7 14Q8Y11").
+
+Changes in v3:
+- Add the board DT node as patch 3. It was posted on its own [1], and a
+  node cannot be merged before its binding (Konrad).
+- Add the "Why one driver" section above.
+- Patch 2: name the driver after the module, and the i2c id after the
+  compatible.
+- Patch 2: spell out both SCUK bits the Fn-lock toggle moves instead of
+  the 0xa0/0x5f masks.
+- Patch 2: return -ENODATA for a thermistor reading of 0, as probe already
+  treats 0 as "not fitted".
+- Patch 2: ten tries for a cell-voltage sample instead of thirty.
+- Patch 2: include what is used directly, devm_mutex_init(), comment the
+  mutex, fix the address in MODULE_AUTHOR, say in the commit message that
+  results cannot be matched to commands.
+- Link to v2: https://lore.kernel.org/all/20260908183403.2107-1-okerixx@gmail.com/
+
+Changes in v2:
+- Patch 2: drop #include <linux/mod_devicetable.h>; <linux/i2c.h> already
+  provides both of_device_id (via linux/of.h) and i2c_device_id (via
+  linux/device-id/i2c.h), and the header is on its way out.
+  Reported-by: Uwe Kleine-Koenig <u.kleine-koenig@baylibre.com>
+- Patch 2: add "depends on INPUT" to EC_LENOVO_YOGA_SLIM7X_GEN11; the driver
+  registers an input device unconditionally, so a config with INPUT=n did
+  not link.
+- Patch 1: pick up Conor Dooley's Acked-by.
+- Link to v1: https://lore.kernel.org/all/20260908091752.5508-1-okerixx@gmail.com/
+
+[1] https://lore.kernel.org/all/20260914082950.9393-1-okerixx@gmail.com/
+
+Oleg Keri (3):
+  dt-bindings: embedded-controller: add Lenovo Yoga Slim 7x Gen 11 EC
+  platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC driver
+  arm64: dts: qcom: glymur-lenovo-yoga-slim7x: add the embedded controller
+
+ .../sysfs-driver-lenovo-yoga-slim7x-gen11-ec       |  21 +
+ .../lenovo,yoga-slim7x-gen11-ec.yaml               |  56 ++
+ MAINTAINERS                                        |   8 +
+ .../boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts    |  12 +-
+ drivers/platform/arm64/Kconfig                     |  23 +
+ drivers/platform/arm64/Makefile                    |   1 +
+ .../platform/arm64/lenovo-yoga-slim7x-gen11-ec.c   | 653 +++++++++++++++++++++
+ 7 files changed, 772 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-driver-lenovo-yoga-slim7x-gen11-ec
+ create mode 100644 Documentation/devicetree/bindings/embedded-controller/lenovo,yoga-slim7x-gen11-ec.yaml
+ create mode 100644 drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
+
 -- 
-2.43.0
-
+2.55.0
