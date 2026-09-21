@@ -1,47 +1,42 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A0848F01E;
-	Mon, 21 Sep 2026 11:54:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0BA0492512;
+	Mon, 21 Sep 2026 11:54:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789991664; cv=none; b=TEPXxLhShzZc/1COGgwA2No58fFSVJWWrSnZGhM2fPwwyQn2rG8EJTx93GZ3CaIEPDOcbcMHVD/W3/oBaPgjZ1Q5KjrEtRDVYP/379TS/3caTLcZb9iKR5Vu/6w9LErCAiIfvBREassVlVEDPckS0cA1banQTzfLIiOrDEzEhTE=
+	t=1789991669; cv=none; b=hqYEkaW18SdBwiZL6y+aXGgj3uIaDwWpaNp6goslJXGoqwtxXpnwbIjci/wse73ik2CqMGEsiuNzY8pJzGyNt9SFyzerV09DOQbxvoK1o1TiUR2YAbyKeEYD1uWjrtEXCsASoL5PW7WuUJ/+3oNN7D+ACnmovPRNU+cx2xSBT3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789991664; c=relaxed/simple;
-	bh=piPJM6h5cSD5hne9T+lzJIWQh4enQKFjOkStx3vpFik=;
+	s=arc-20240116; t=1789991669; c=relaxed/simple;
+	bh=2gOZ5ks0JgEkM3So4yHZeKzbB3Tyojvyr3oHIDrynKs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cHtX8ZhT9iGaPxnzigu7nCnQxNPIT7mq7nM2LPlYGoM2k1iWMWUcmllbXAliJ9sNFn+jT7Fg/jYc4Edlwte/uZK1nm9076pQcAcWp9yRcwJgQKa51PZGgSJDbJWVWzp5Ic9/5KALZXZqrfE+Slg/uoSp9MatJ6/SlyPUJWyK3+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wn524jk8; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=nBucwhEnN9EVU9RA1YX1rjN4cg6mvvhzh3FNkeOwA65EKIver4XTxw2t7A0qTXi7NTtvomCw/72221zJBaKWOetdQxIZT4vKuKcEgFr9nAk2rikRz25vzS2AT5IxWQoV44jWLDzWeVocWCkXATnZGYRJ4Wa/SEzwfGIz2cNRZ2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ZBVc7Kst; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wn524jk8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9099A1F000FF;
-	Mon, 21 Sep 2026 11:54:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789991662;
-	bh=qud4Wph3iZCEz1fv5XvgI8tCzN7g1q0uKRPavUoX0U8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Wn524jk8ONRxvbVMkeUGnIMqkVKXUq0pKyEVh6wkZxpXeLK9RYn5E1EI/ISP+Z5nE
-	 UmG3GBm0QBeosQvCRn6tX8fM01OOktT64e/RvkOiCy7pIbGZF98ZT3SxCyV3NYWGas
-	 W1qYbbjwNueuajU8FGwnG+HHzgMg4NUsd0oXU60kTgtwYdCTSbMYMJ1D+jpAq6wyyD
-	 UQMSC+UNFpjzyYHuoI3/ce2V9n2yRWtzIP4lGFy0l0XmHV+1vuLu93cJPgczLiVjvZ
-	 RNLgk/SeZagQVAvEF4uk9UEb/qzg+2WMnZFB7dMlKx4vkJ2fRzheBnSBJh9p3BkqCt
-	 un4s4gOr1qMdA==
-Date: Mon, 21 Sep 2026 13:54:15 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/8] arm64: dts: qcom: Add t-power-on-us property for
- PCIe root ports
-Message-ID: <rvs2a77sa5zypm4t4hxeerugm7a5o53e5htyy4mdy46letdm3j@65rgv4syurxv>
-References: <20260911-t_pwr_on-v1-0-c9eee197d082@oss.qualcomm.com>
- <d5821380-3006-4eb6-86fd-977d6e17a8bd@oss.qualcomm.com>
- <f2324e26-88a3-4411-acd5-9645552c4a14@oss.qualcomm.com>
- <fbtundyvbywomj67ee3jyogqhgrvndrjqctvkb7ttp7iy7pkvq@xocvzaiq7zmg>
- <15daa9f3-162c-43fd-b22e-0194b82f602c@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ZBVc7Kst"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 832EC15BF;
+	Mon, 21 Sep 2026 13:52:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789991559;
+	bh=2gOZ5ks0JgEkM3So4yHZeKzbB3Tyojvyr3oHIDrynKs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZBVc7KstGISu9Nk2hETYE+t8quYAQWE0awm2alg7zJhaHScRPAUGtd1D7ZmaFh4w8
+	 FIMzdBZj04VmJaG01ZyxosLER7h0RnJDkd4iiEVLjvppQtV4ZsoxgYuNBUvUGo98zw
+	 QPO6hzlMEF/J0SSoscgBm8vltNAlTahp3/kpT6vg=
+Date: Mon, 21 Sep 2026 14:54:23 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Jonathan Cameron <jic23@kernel.org>, Luca Weiss <luca@lucaweiss.eu>,
+	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] leds: flash: sgm3140: fix child node reference leak
+Message-ID: <20260921115423.GD1466037@killaraus.ideasonboard.com>
+References: <20260921092128.346375-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,57 +45,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <15daa9f3-162c-43fd-b22e-0194b82f602c@oss.qualcomm.com>
+In-Reply-To: <20260921092128.346375-1-lgs201920130244@gmail.com>
 
-On Mon, Sep 21, 2026 at 01:44:50PM +0200, Konrad Dybcio wrote:
-> On 9/21/26 1:34 PM, Manivannan Sadhasivam wrote:
-> > On Mon, Sep 21, 2026 at 04:40:43PM +0530, Krishna Chaitanya Chundru wrote:
-> >>
-> >>
-> >> On 9/21/2026 2:09 PM, Konrad Dybcio wrote:
-> >>> On 9/11/26 8:50 AM, Krishna Chaitanya Chundru wrote:
-> >>>> The Qualcomm PCIe host controller driver added support for parsing the
-> >>>> -power-on-us property[1] from each Root Port node and programming it as
-> >>>> art of host initialization (PCI: qcom: Program T_POWER_ON) [2]. Prior to
-> >>>> this, T_POWER_ON was expected to be programmed correctly in hardware or
-> >>>> by the bootloader, but not all targets support this, which can lead to an
-> >>>> incorrectly calculated LTR_L1.2_THRESHOLD in aspm.c and improper L1.2 exit
-> >>>> behavior.
-> >>> This is a good problem description. Does it have observable effects
-> >>> that could also be mentioned here, beyond perhaps lspci reporting
-> >>> an odd value?
-> >> we haven't seen direct problem till now, but we might seen some issue due to
-> >> incorrect LTR_L1.2_THRESHOLD value.
-> > 
-> > Can you specify what issue can be seen without this series? I'd assume the
-> > link will fail to enter L1.2 and will result in slightly more power drain as
-> > the link can only enter L1.1.
+Why did you submit a v2 ignoring my latest comments on v1 ?
+
+On Mon, Sep 21, 2026 at 05:21:28PM +0800, Guangshuo Li wrote:
+> sgm3140_probe() obtains a reference to the LED child node with
+> device_get_next_child_node(), but the reference is not released after a
+> successful probe.
 > 
-
-[Correcting my own reply]
-
-The power drain issue will only happen if the default value is higher than the
-programmed one. If the default is lower, L1.2 would be entered too aggressively
-and the link may fail to exit L1.2, resulting in LDn. This would be
-catastrophic.
-
-> Would that produce an explicit warning message somewhere?
+> The child node is also passed to devm_led_classdev_flash_register_ext().
+> The LED class device stores the fwnode without taking a reference of its
+> own, so the reference obtained by sgm3140_probe() must remain valid until
+> the LED class device is unregistered.
 > 
-
-Nope. PCI core would happily use whatever threshold programmed in the registers.
-
-> i.e. can I reasonably be able to tell I'm missing this change and
-> I need it?
+> Manage the child node reference with a devm action registered before the
+> LED class device. This ensures that the LED class device is unregistered
+> before the child node reference is dropped, while also handling probe
+> failure and device removal.
 > 
-> (if not, this is of course not a blocker, but the answer to that
-> question is always worth sharing)
+> Fixes: cef8ec8cbd21 ("leds: add sgm3140 driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+> v2:
+>   - Keep the child node reference alive until the LED class device is
+>     unregistered, as pointed out by Laurent Pinchart.
+>   - Manage the reference with a devm action registered before the LED
+>     class device registration.
 > 
-
-We can warn in the pcie-qcom driver though as it parses this property. But we
-should only do so for SoCs included in this series, selectively.
-
-- Mani
+>  drivers/leds/flash/leds-sgm3140.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/leds/flash/leds-sgm3140.c b/drivers/leds/flash/leds-sgm3140.c
+> index dc6840357370..973676b1dbb1 100644
+> --- a/drivers/leds/flash/leds-sgm3140.c
+> +++ b/drivers/leds/flash/leds-sgm3140.c
+> @@ -182,6 +182,11 @@ static void sgm3140_init_v4l2_flash_config(struct sgm3140 *priv,
+>  }
+>  #endif
+>  
+> +static void sgm3140_fwnode_put(void *data)
+> +{
+> +	fwnode_handle_put(data);
+> +}
+> +
+>  static int sgm3140_probe(struct platform_device *pdev)
+>  {
+>  	struct sgm3140 *priv;
+> @@ -220,6 +225,10 @@ static int sgm3140_probe(struct platform_device *pdev)
+>  			"No fwnode child node found for connected LED.\n");
+>  		return -EINVAL;
+>  	}
+> +	ret = devm_add_action_or_reset(&pdev->dev, sgm3140_fwnode_put,
+> +				       child_node);
+> +	if (ret)
+> +		return ret;
+>  
+>  	ret = fwnode_property_read_u32(child_node, "flash-max-timeout-us",
+>  				       &priv->max_timeout);
+> @@ -276,7 +285,6 @@ static int sgm3140_probe(struct platform_device *pdev)
+>  	return ret;
+>  
+>  err:
+> -	fwnode_handle_put(child_node);
+>  	return ret;
+>  }
+>  
 
 -- 
-மணிவண்ணன் சதாசிவம்
+Regards,
+
+Laurent Pinchart
