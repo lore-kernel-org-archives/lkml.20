@@ -1,166 +1,250 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011060.outbound.protection.outlook.com [52.101.125.60])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470284A205B;
-	Mon, 21 Sep 2026 13:45:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.60
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789998346; cv=fail; b=plalH9FLKRPJYv8LujLcUOPludqqUQg1Adizh4zgICLqjBmUv8V2NdH8+J8ml0W+WeXyV3/oHdS6uqumrcvWZtLyUTY2Zo5Jzh8aPXywF1RxPgGgbMwl6mTHwGCIJXWmLOCkICOW5tOSELTTnBwbASitso8WutH84cheu5BgfvA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789998346; c=relaxed/simple;
-	bh=Q8AnuxNnUYEfHEd2XUtCsH9GqBNjwJRXjkJL/cVW+YA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Qu9BZN3djykIFNqh5xPJ3V4Yvlayh76A/PZks5T4tUF8PY+fzPa4peg3DJ3Z1UNfWceXVK08wvVx7oO1RrAr5DezM5sGMlawmfLtH9ev0kHOe/lAo3mlxrbUROZrbpeI+lyUtEuvDTYYykUxxnHQxQTLvesWaktRuPc40xbGmsU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=IW1a33N/; arc=fail smtp.client-ip=52.101.125.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 276734A260E;
+	Mon, 21 Sep 2026 13:46:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789998370; cv=none; b=drM8yk/mBoWGSLuN/eWRA3A9fqEWritT6VQVWuxs6ZcSL8XTcHoHDCxm7rlc2S95K4vMypmxd3KjXDxSgWdeksWbKky53wLHH/AjH0bb78E4nrGBU+1Y1it6CeqNjWwgt3mODn0m2NKq6ov229XZnqQS6bRdnivkGfWERRtlt1Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789998370; c=relaxed/simple;
+	bh=y/aXfGyHuUvIJFQnIbLmsfviT91sj/iyYYR8um8uuw4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=PsR1M9XG0KSNd4edFBklQiwv/OZwxJxY9k0+eYwM34ILuZwrh+aAK3SSVa4iBEzc1csvYpntzN/iinEJlfmM6sAtmAnLzCCUWIb1oO5/z9MCDuY7DIwCHlJ+kcenPj1nP444+giE0BLxO70LlzQwQz3XJv3YWu8U2mFbtkEPQ2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F7P/2e17; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="IW1a33N/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u8jcRzLT5Shjk5R8pCNQFF6SDtFg5h1yl7sM18C7ipQydwjP7ciYTFvga9Vc4TFfxwLFSVquq5vMUAlJTuyY4SjQohWjCcFp0M6VATeE5kiKEJMoX8ytBi4rmEWCf+oI+ufd2k50DlO8Lv01+cXyPUhoPtMyX3JDqXsIueaxc9D6Wv95Mt1b0F5GFcwmuxx4LBmeZAMut2MeL17XpVIl5DDTbq7kx7S2QDScV2FthtvkrPbLCh8pQwkkz4m3G6zv4i/9rR/tjkdbpENnsaT/JNroGjLg3CleMlhuQOk7KTBXZMPaMMWhxrzQhrxvLFXvhUGaISewNOkC+IEA2E08qg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YsIUf/RWsFhX0fdGjc2/G459QQ7r9BgEHjrpEZOgJnM=;
- b=AnELFUHqCSSHsIUPV/rRBi3IyyBd1rWxOGUqzN2AUElK53x8H39DKS8Wxio/1t8Kw4+z8V7JgevCntzIKKSuK+pu15+sOBy/75cG2E4e7HzJzdqWzvNnlUSIlkhVTKojtIjBbJaIP+I2qZxj2xvuFzCN1sH9KWsXifETdc/+CPt7GWUj/iE4J1g+wHOt8VtQn2Ykef2CATtrNiVoO9UDrI30u2PrfaXofMpVN7T4taytq7IGxQ5QToPplCiGHG4U8EDQ0+22JtxQT+HNc8qPxusn0Xx6asNKvkF42uIm17rfxqi1s06zGuDATP6x4C2Nf0R4ix84wKO3aKsO77tovQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 8.62.32.50) smtp.rcpttodomain=bp.renesas.com smtp.mailfrom=renesas.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YsIUf/RWsFhX0fdGjc2/G459QQ7r9BgEHjrpEZOgJnM=;
- b=IW1a33N/un4uyEHTV+0ixn2adebeevf3IxYzXWWESHgWvx2lXnqSclkKIvAiZ5ktpr7jZyTeMq4GG24A0YGcI+qom8dd2FPNNyup1r1A8yGZc8PcZ3bgSowJV0g57j4B2IuWzuqNagb6kgl/LIdQrFxDgSiXvGTp7eb+nzYd+oE=
-Received: from TYCPR01CA0188.jpnprd01.prod.outlook.com (2603:1096:400:2b0::20)
- by TY4PR01MB14588.jpnprd01.prod.outlook.com (2603:1096:405:238::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 13:45:38 +0000
-Received: from TY1PEPF0000BADA.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b0:cafe::ac) by TYCPR01CA0188.outlook.office365.com
- (2603:1096:400:2b0::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
- 21 Sep 2026 13:45:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 8.62.32.50)
- smtp.mailfrom=renesas.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=renesas.com;
-Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
- 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
-Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
- TY1PEPF0000BADA.mail.protection.outlook.com (10.167.240.39) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
- via Frontend Transport; Mon, 21 Sep 2026 13:45:38 +0000
-Received: from laptop.adwin.renesas.com (GBR-5CG34119KX.adwin.renesas.com [10.226.37.103])
-	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id 8C8CD300027E;
-	Mon, 21 Sep 2026 22:45:34 +0900 (JST)
-From: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chris Paterson <Chris.Paterson2@renesas.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v2 9/9] arm64: dts: renesas: Add HiHope RZ/G2M v3.0 SoC sub board support
-Date: Mon, 21 Sep 2026 13:44:29 +0000
-Message-ID: <20260921134432.50338-10-ayman.chaudhry.kc@renesas.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260921134432.50338-1-ayman.chaudhry.kc@renesas.com>
-References: <20260921134432.50338-1-ayman.chaudhry.kc@renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F7P/2e17"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EA741F000FF;
+	Mon, 21 Sep 2026 13:46:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789998368;
+	bh=eZAHnRnQC+OsupV1rST31zrb4zF5a1Jmk+ZWxkErKLM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=F7P/2e17GBgxg1KHVUQ6yfEu2It3FRz38BAu0Eu/89Mr+wVwxTTdvZP8xRWrrlOFq
+	 pCcKmzPV8V3/H70sRMAu8SuGK9Y0vfiT5eIGAuITtidoGY4rKZos80kIKDs5Kb87tn
+	 v6BiuK3W9/O1voH8cllMKracdPQxl9pOPoJcLGWLC8BA+eiIcyL+/UuV/cvv1OhOye
+	 J9Dd/ddQB9wjJ2KTNFahCkCmJfJfbxXqTzsaWp3ZJccvmJBMmgmSG5InnLoEnXLGjS
+	 2gLa+vM82YlmuXGeVI1Ol3bFYCeXHzbana/lnaP/Rip7AclEUitLLaG/hsMJpj7bpT
+	 B+zpTnCqOqjgg==
+Message-ID: <ddab3a7be440dcd860b254bcd2dc213c1a3cc538.camel@kernel.org>
+Subject: Re: [PATCH] SUNRPC: use assign_bit() where applicable
+From: Jeff Layton <jlayton@kernel.org>
+To: Peng Fan <peng.fan@oss.nxp.com>, Chuck Lever <cel@kernel.org>
+Cc: NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, Trond Myklebust
+ <trondmy@kernel.org>,  Anna Schumaker	 <anna@kernel.org>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet	 <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni	 <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, 	linux-kernel@vger.kernel.org, Peng Fan
+ <peng.fan@nxp.com>, 	linux-nfs@vger.kernel.org, netdev@vger.kernel.org
+Date: Mon, 21 Sep 2026 09:46:05 -0400
+In-Reply-To: <arB/ixTLqjuyrSUr@shlinux89>
+References: <20260920022714.3145751-1-peng.fan@oss.nxp.com>
+	 <7c7d7b6a-38a9-477e-9bcd-1f9c53a160c5@app.fastmail.com>
+	 <arB/ixTLqjuyrSUr@shlinux89>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=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
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY1PEPF0000BADA:EE_|TY4PR01MB14588:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: d2281467-ae97-456f-6d66-08df17e69ebb
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|376014|23010399003|82310400026|11063799006|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	vpwfMEjlutVJ/+o4xotIf2wEXeCuuI6FrH44q3e8EIILQv73ksvFTIvAH6JU3Lj6a1KIdLCB7uKxBdJugbQDGw0eD9cdolD3M2mgSYFxpei1+Loh1fep3fyxjkMVQDtyAkLVCCKey6LU4AaWbFAsWnhn3ltQJp+iX/IDSAPx5zCg2lXVHLVfh/5o8NcoODJwbLhbc5QkWQWWnDH/T8SbDfTHv5mn6dExk0vxiCvZkve3Ky1SbY+7HZ9tS4yBbXvHAw3z0uOM3aE+UMiPITE0H0z4bzFB1u87+LjQDWx0YiqnuRde7QFw6r/OQCFAnWk6RfU8Ip/GoAhm58ds+nFhRm5YbmRL1lNauOaLU+JGFwjcB0Kf2vLBXKljzHBnLwMrYfK9zJP95d46RV6VV4RjCBfoOICN8K/k/oaGqZy1eWINtWj0iWlp2VV4lylwplpe5u5UN5MZl3X3W+aDyuniL9Wh96qOj6Bv1/Afg+nCJHdaJRdQEw5DmNUdPxTHebXO6yUqedE8Rs0LtIHw3SnQ4EK9PyT2y6d0B7rGJwLGP0wYyCU4OVDOdKQy7lo+Q0DdN2qi4AzgBpeG2To4QKJokViv0PAeRJQu8WSIebppGigP7HTQFg0MiemxSHUc7eEILaz9ZcCie3SoH9e+saFxNCBnOFqMelpJLixJq5uON3bABAlePG+cdi+JU100pZ+9BSJpITAM3ZcOFPIXpUNOEQ==
-X-Forefront-Antispam-Report:
-	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(23010399003)(82310400026)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	PLVThB42gP6zgoYdyhhXXg365PaU8jx+eH2HA92ETTtn3N+AvfJozv5SHfiRCrB/N258z+U6GHbPwH6w7GNOr+L4zTndGkwCwB8PslwDtaK01V5iIbVdjJyLP6gUufjDf93l9MQuNbrGUFLvVr/uGnmiqWQWCvgPwoaPhVW7IAXOiFuI1tB89m7JAhNsrWwd9YFOQWcYeYqAkmf0FFp//bU/bcbhLAhT+cSiUQbUDpcyabR1JtuNV2FtT2m3CvVHAZqaT2YPDz3c+QyLqdN3htdtPr3x5HMf445XiqVK2wVXX/vTyQ0Rwvp/lURRF+IuCSKDywl00z0g3VzlwfDtJeePBXgapythfD61xIoEaK88Zw8Fz5bLqEiIDdYEDL20NKjT+P1DH77X5ZDARTuk1oIORcuxb1jMI9PB6AdOWnkDsKawP6XNxQEkbiL1Bp6g
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 13:45:38.2401
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2281467-ae97-456f-6d66-08df17e69ebb
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
-X-MS-Exchange-CrossTenant-AuthSource: TY1PEPF0000BADA.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB14588
 
-The HiHope RZ/G2M sub board sits below the HiHope RZ/G2M v3.0
-(a.k.a. R8A774A3) SoC main board.
+On Mon, 2026-09-21 at 08:51 +0800, Peng Fan wrote:
+> On Sun, Sep 20, 2026 at 01:22:00PM -0400, Chuck Lever wrote:
+> >=20
+> >=20
+> > On Sat, Sep 19, 2026, at 10:27 PM, Peng Fan (OSS) wrote:
+> > > From: Peng Fan <peng.fan@nxp.com>
+> > >=20
+> > > Convert open-coded if/else with set_bit/clear_bit the assign_bit API.
+> >=20
+> > The above sentence explains the same thing that the diff body shows me,
+> > so it does not add value.
+> >=20
+> > But I don't have any context here: why is this being done? Is there som=
+e
+> > kind of tree-wide clean-up underway so that a new feature can be added,
+> > or is this patch just a one-off change?
+>=20
+> It is just a one-off change. I don't group other patches to use assign_bi=
+t()
+> into a large patchset, just separate patches.
+>=20
+> Free to drop if it does not make sense to you.
+>=20
+>=20
 
-The RZ/G2M v3.0 SoC sub board is similar to the RZ/G2M v1.3 SoC sub
-board, so there are already DTSI files available in the kernel. These
-DTSI files will be included once additional support (e.g. CAN, PCIe
-and ethernet) is added for the RZ/G2M v3.0 SoC.
+I think the problem is that you haven't explained the benefit of using
+assign_bit() here. It's now 2 lines instead of 4, but that doesn't seem
+like a substantive change. Does this create better assembly or
+something?=20
 
-Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
----
-v1->v2:
-- Corrected indentation
-- Updated licensing to "GPL-2.0-only OR BSD-2-Clause"
+Without a clear benefit, this seems like pointless churn.
 
- arch/arm64/boot/dts/renesas/Makefile               |  1 +
- .../boot/dts/renesas/r8a774a3-hihope-rzg2m-ex.dts  | 14 ++++++++++++++
- 2 files changed, 15 insertions(+)
- create mode 100644 arch/arm64/boot/dts/renesas/r8a774a3-hihope-rzg2m-ex.dts
+> > Including a URL that points to an explainer, or making this patch part
+> > of a series would help orient reviewers.
+> >=20
+> >=20
+> > > Done with Coccinelle semantic patch:
+> > >     // set_bit -> clear_bit =3D> assign_bit
+> > >=20
+> > >     @@
+> > >     expression cond, bit, addr;
+> > >     @@
+> > >=20
+> > >     -if (cond)
+> > >     -        set_bit(bit, addr);
+> > >     -else
+> > >     -        clear_bit(bit, addr);
+> > >     +assign_bit(bit, addr, cond);
+> > >=20
+> > >     @@
+> > >     expression cond, bit, addr;
+> > >     @@
+> > >=20
+> > >     -if (cond)
+> > >     -        clear_bit(bit, addr);
+> > >     -else
+> > >     -        set_bit(bit, addr);
+> > >     +assign_bit(bit, addr, !cond);
+> > >=20
+> > > Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> > > ---
+> > >  net/sunrpc/svcsock.c | 18 ++++++------------
+> > >  1 file changed, 6 insertions(+), 12 deletions(-)
+> > >=20
+> > > diff --git a/net/sunrpc/svcsock.c b/net/sunrpc/svcsock.c
+> > > index ef7ac080fcd3..d7fa0d1de3ef 100644
+> > > --- a/net/sunrpc/svcsock.c
+> > > +++ b/net/sunrpc/svcsock.c
+> > > @@ -352,10 +352,8 @@ static void svc_sock_setbufsize(struct svc_sock=
+=20
+> > > *svsk, unsigned int nreqs)
+> > >=20
+> > >  static void svc_sock_secure_port(struct svc_rqst *rqstp)
+> > >  {
+> > > -	if (svc_port_is_privileged(svc_addr(rqstp)))
+> > > -		set_bit(RQ_SECURE, &rqstp->rq_flags);
+> > > -	else
+> > > -		clear_bit(RQ_SECURE, &rqstp->rq_flags);
+> > > +	assign_bit(RQ_SECURE, &rqstp->rq_flags,
+> > > +		   svc_port_is_privileged(svc_addr(rqstp)));
+> > >  }
+> > >=20
+> > >  /*
+> > > @@ -941,10 +939,8 @@ static struct svc_xprt *svc_tcp_accept(struct=
+=20
+> > > svc_xprt *xprt)
+> > >  		slen =3D offsetof(struct sockaddr, sa_data);
+> > >  	svc_xprt_set_local(&newsvsk->sk_xprt, sin, slen);
+> > >=20
+> > > -	if (sock_is_loopback(newsock->sk))
+> > > -		set_bit(XPT_LOCAL, &newsvsk->sk_xprt.xpt_flags);
+> > > -	else
+> > > -		clear_bit(XPT_LOCAL, &newsvsk->sk_xprt.xpt_flags);
+> > > +	assign_bit(XPT_LOCAL, &newsvsk->sk_xprt.xpt_flags,
+> > > +		   sock_is_loopback(newsock->sk));
+> > >  	if (serv->sv_stats)
+> > >  		serv->sv_stats->nettcpconn++;
+> > >=20
+> > > @@ -1290,10 +1286,8 @@ static int svc_tcp_recvfrom(struct svc_rqst *r=
+qstp)
+> > >=20
+> > >  	rqstp->rq_xprt_ctxt   =3D NULL;
+> > >  	rqstp->rq_prot	      =3D IPPROTO_TCP;
+> > > -	if (test_bit(XPT_LOCAL, &svsk->sk_xprt.xpt_flags))
+> > > -		set_bit(RQ_LOCAL, &rqstp->rq_flags);
+> > > -	else
+> > > -		clear_bit(RQ_LOCAL, &rqstp->rq_flags);
+> > > +	assign_bit(RQ_LOCAL, &rqstp->rq_flags,
+> > > +		   test_bit(XPT_LOCAL, &svsk->sk_xprt.xpt_flags));
+> > >=20
+> > >  	/* Completing one message stops ->read_sock with whatever
+> > >  	 * follows still queued, and no path from here re-arms XPT_DATA.
+> > > --=20
+> > > 2.51.0
+> >=20
+> > --=20
+> > Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+> >=20
+> >=20
 
-diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/renesas/Makefile
-index 9817f3ada6f9..10a138216221 100644
---- a/arch/arm64/boot/dts/renesas/Makefile
-+++ b/arch/arm64/boot/dts/renesas/Makefile
-@@ -9,6 +9,7 @@ dtb-$(CONFIG_ARCH_R8A774A1) += r8a774a1-hihope-rzg2m-rev2-ex.dtb
- dtb-$(CONFIG_ARCH_R8A774A1) += r8a774a1-hihope-rzg2m-rev2-ex-idk-1110wr.dtb
- 
- dtb-$(CONFIG_ARCH_R8A774A3) += r8a774a3-hihope-rzg2m.dtb
-+dtb-$(CONFIG_ARCH_R8A774A3) += r8a774a3-hihope-rzg2m-ex.dtb
- 
- dtb-$(CONFIG_ARCH_R8A774B1) += r8a774b1-beacon-rzg2n-kit.dtb
- dtb-$(CONFIG_ARCH_R8A774B1) += r8a774b1-hihope-rzg2n.dtb
-diff --git a/arch/arm64/boot/dts/renesas/r8a774a3-hihope-rzg2m-ex.dts b/arch/arm64/boot/dts/renesas/r8a774a3-hihope-rzg2m-ex.dts
-new file mode 100644
-index 000000000000..d346a4009ec8
---- /dev/null
-+++ b/arch/arm64/boot/dts/renesas/r8a774a3-hihope-rzg2m-ex.dts
-@@ -0,0 +1,14 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+/*
-+ * Device Tree Source for the HiHope RZ/G2M v3.0 SoC sub board
-+ *
-+ * Copyright (C) 2026 Renesas Electronics Corp.
-+ */
-+
-+#include "r8a774a3-hihope-rzg2m.dts"
-+
-+/ {
-+	model = "HopeRun HiHope RZ/G2M v3.0 with sub board";
-+	compatible = "hoperun,hihope-rzg2-ex", "hoperun,hihope-rzg2m",
-+		     "renesas,r8a774a3";
-+};
--- 
-2.34.1
-
+--=20
+Jeff Layton <jlayton@kernel.org>
