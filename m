@@ -1,236 +1,245 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DED0649F10F;
-	Mon, 21 Sep 2026 13:38:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC4B49F13D
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:39:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789997937; cv=none; b=e0rf+1NwgZf3Qu+hxfy813PW9u6Zk2LqPM0avugb/LChROI3AskuXLT4UtQ9wuT10/2d4jLNHWyUP1au2YRSvheKtaS5udqQMf0AXnFoRNdz6WBXfQp2jL9KcPBcL2J/UqVDwEtcoYLV2+qkQ9VPhEy9EabSKGsGDWkqjLH4dFY=
+	t=1789997962; cv=none; b=ZbQwtyQUv1F184B7spKjLx3PWN7Gw+idWszhfoAQ+w0rUuyOVUxvJ89U3xWsIK8mLlhu35ddw06BTOH+TfQkHlgA/cSmpSs/2fnMttXna5nKBZcDPrZcPefl5/cANYrrsH3YzNyN5FwezpBsoiv/aU1VIrX1XuFQdpwjrKgQZYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789997937; c=relaxed/simple;
-	bh=MKegHsV8HzpeuCGAw7PUAXUzjaeSFOdwlkUlxPrRN1Y=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=ozT9UTryb/uudEJiJoOe1V9HCEA6Z5u4mmzLxLga+auh/vPtMCeJ4V1pIoHEX1Roxs60umUaAEHFN86Wn0EXpB5D/PN+e3YJ/bIjOyl7PZaL5UOZ1usz8bOvasaejiFptj+wjXwMsT7+v3sRrt9z2bHQ7zB0D7iDyllUygpGqJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=dRkF6hot; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789997962; c=relaxed/simple;
+	bh=RpITgNHybG/246G0ps7WuEPofE3/AsGe6jzoxiwBDiw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C/VdkTXYBtOgM44egmitYpzJfQJ6kB+p7x3EOUoIkvTMUS212LEWr+/Mpk4w3U5DvcWDm7d6M8iHY6OVJc4GpTP3T8PrjYGyRh28Tzuim1ZARd8fRe0+vVgRR31V73hlQ3X59w8HEHm/Yta7Qxpx2c32es/ZdBZpG/sZrTaiZNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b3wRD9Wi; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="dRkF6hot"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A7B4C19F6;
-	Mon, 21 Sep 2026 06:38:51 -0700 (PDT)
-Received: from [10.0.128.141] (unknown [10.0.128.141])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 656B83F86F;
-	Mon, 21 Sep 2026 06:38:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789997935; bh=MKegHsV8HzpeuCGAw7PUAXUzjaeSFOdwlkUlxPrRN1Y=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=dRkF6hot2SZM9x7rXT9uJ32yX8g3jH6t3bZx4R0uMTnlLattJs7rhfOXyCkD/Lg2H
-	 vNJ3kjbuUeHmumIC/8/lDd1Q4y4td1m0hp9Mlju7grA/51Q+jMf8Gw9H3N0AyTlN0y
-	 TUb00JwsTZ6YEE8FYHRh/7YAGXiWyFwsVrwA3JXY=
-Message-ID: <93aea89c-0a05-4b5a-905d-2e8c14a9e894@arm.com>
-Date: Mon, 21 Sep 2026 14:38:50 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b3wRD9Wi"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3931so22492195e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:39:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789997958; x=1790602758; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=s6kgf6V3xUR//WctRXY84w9DzTYgF20+bN2plXCsnYg=;
+        b=b3wRD9WirKCPL4Rg/i0tRlCv9DfDFw76Fkn8bSuoEOYwXlKwyp4M/HkSqQT4R+NFLs
+         LP5xWfAhW6h5eN4akZzg1Yj2U39vyvsIakRq5dt3XJ5AG7i+UIYy/UH22FSY+TguyOic
+         dFpyfnR8/PGOQXD3q3lMyCBwPOBvNDLBJsOXxQQ1YCtpQwp9hr/T5FIt0tVvUyz2CR9A
+         dvEJBgcFIen7xsFGEhmSNaMXE6BWzbDveZESODj25mwBBnEWyKO4ba3ZRSQzIDKyBHzg
+         yfmD5yaoTqAyNe8l8jWKfeyplSULONot57+sYXpaRugqtP2SE+NUZ7LNvctgr03PtfNz
+         wKQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789997958; x=1790602758;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=s6kgf6V3xUR//WctRXY84w9DzTYgF20+bN2plXCsnYg=;
+        b=hU0q1y5lNrCOnjvk7CyCey03UznyVEGswoIg04ZlwF8kyzg8j+rkC4aDF9jLVwoFzW
+         HPJNU5ip0rY3NbqfZw89sOSOrdBMViHgyjkB4w7BoCDJNJNFZjS2wP1YLdqNoa/gV0ae
+         zB+QCnCUNKnCy1cHvvdGgUxkINBIYXPWESmddfTjYwcVcwGm3uux6uCVMdnLUY/67ytM
+         xFOB0q7avbdo6d7ryHMXT+MZXAQjr7TuZDuILESyf1a8NIEq/u7JbNYIFjczISJu+VC2
+         6KvN6xwVOoZPb5LlUy0OJRxJKCkUnoAy0XtHSQ6185dRpASIzD4vL7yPP+jOfad1/GkQ
+         aHvw==
+X-Forwarded-Encrypted: i=1; AKwUvBygmO/n1RM2ZqNLgcCkPKj+2jiCkYtTmhO7ZpuIJboprtPdaTUHtcIkeHmHfxiRQetHcg71g4GeEFlNwnY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mT+63iqIMzncaRLA5TR5tMoc9hS4fMf4LY+Jq07y0yj1rzdyYy
+	HpqoQDV48L9ydUgG/sxYEjeIePys6R/kVQB41Jinag2AH6wSljQCysx7
+X-Gm-Gg: AYBFou3NwJVTU2CJDnNw4lGaND52uF9RT/PzxmZL3nKdY6xkBx8pweki5cjDEhAX7XJ
+	QtTmCd5tV3w03jSaRMBwWTDM1BEV220K9FT41sW5vzBd+lBWZAyjm26lCJgDmczqDSSok0NH3m1
+	bkupzQH4dCR1Aqhye7v4H0sbm03ZsEZY3keSz112o1iXUKkpLgYTlkOWpzhfYpBjVwaq9INjjIt
+	zBoNDpptJafdF5ZHm6LzmI2A9yIPIBJHd4W8G4jbM5HS2NsCJVia9IhQU2N5FSGrbkVwWCKpLfm
+	gy9E6ARLbtmnVzkODczE+/f0G9gZFNFKbuifrgBoOb9SKQ96TTw0Mxq407avUcWN0ZgpD6q1V6M
+	XpNurcmy4yWnhP2OSW2piqqU1EMEsDFYoI4wcFrBqMH8dWnGzZueHlKtfJ42afLVHHDucvrOD0A
+	57IBfOXdXHMQTgJ6UOdll3HJnUOf0+cKpZdpL4SHXhc3amrdmMCTDfT+sHMKw7TmMbSR+wrmCtu
+	G6XV8S7wIw69oOKYA24I0LWizgR06f2HVLVSkF3dtAFEWSUbNdAEI4EAZO+a1aXxSaw/RZxxwxw
+	7BzXuuTGBI8mU0Bv6syTsKg/0ZuS/g==
+X-Received: by 2002:a05:600c:1989:b0:49e:8184:f617 with SMTP id 5b1f17b1804b1-49fc573610cmr163288645e9.22.1789997957649;
+        Mon, 21 Sep 2026 06:39:17 -0700 (PDT)
+Received: from 127.0.0.1localhost (82-132-213-26.dab.02.net. [82.132.213.26])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc585920fsm617171605e9.4.2026.09.21.06.39.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 06:39:16 -0700 (PDT)
+From: Pavel Begunkov <asml.silence@gmail.com>
+To: linux-block@vger.kernel.org
+Cc: asml.silence@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-nvme@lists.infradead.org,
+	linux-fsdevel@vger.kernel.org,
+	io-uring@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Keith Busch <kbusch@kernel.org>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Nitesh Shetty <nj.shetty@samsung.com>,
+	Kanchan Joshi <joshi.k@samsung.com>,
+	Anuj Gupta <anuj20.g@samsung.com>,
+	Tushar Gohad <tushar.gohad@intel.com>,
+	William Power <william.power@intel.com>,
+	Phil Cayton <phil.cayton@intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	dm-devel@lists.linux.dev
+Subject: [PATCH v6 00/13] Add dmabuf read/write via io_uring
+Date: Mon, 21 Sep 2026 14:38:44 +0100
+Message-ID: <cover.1789997898.git.asml.silence@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 6/7] firmware: arm_rmm: Ensure the RMM has GPT entries
- for memory
-Content-Language: en-GB
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
- <20260912083611.2513845-7-suzuki.poulose@arm.com>
- <178978126543.2352296.12214136703168879825.b4-review@b4>
- <65b0c03b-36b9-4e60-aa55-c3b4b85e21ee@arm.com>
-In-Reply-To: <65b0c03b-36b9-4e60-aa55-c3b4b85e21ee@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 21/09/2026 10:32, Suzuki K Poulose wrote:
-> On 19/09/2026 02:27, Jonathan Cameron wrote:
->>> The RMM maintains the state of all the granules in the system to make
->>> sure that the host is abiding by the rules. This state can be maintained
->>> at different granularity, per page (TRACKING_FINE) or per region
->>> (TRACKING_COARSE or TRACKING_INTERMEDIATE). The region size depends 
->>> on the
->>> underlying "RMI_GRANULE_SIZE". For a "coarse"/"intermediate" region, 
->>> all pages
->>> in the region must be of the same state, this implies we need to have 
->>> "fine"
->>> tracking for DRAM, so that we can delegate individual pages.
->>>
->>> For now we only support a statically carved out memory for tracking
->>> granules for the "fine" regions. This can be extended in the future to
->>> allow modifying the tracking granularity and remove the need for a
->>> static allocation by the firmware.
->>>
->>> Similarly, the firmware may create L0 GPT entries describing the total
->>> address space. But if we change the "PAS" (Physical Address Space) of a
->>> granule, then the firmware may need to create L1 tables to track the PAS
->>> at a finer granularity. Linux therefore checks if the platform 
->>> firmware manages
->>> the PAR region. i.e., the firmware is in charge of managing the L1 GPTs
->>> (creation and the required memory for the GPT tables - via static 
->>> carveouts)
->>> without host intervention. Support for dynamic GPT creation by the 
->>> host will be
->>> added later.
->>>
->>> If the firmware requires us to manage the tracking or GPT memory, 
->>> Deactivate
->>> the RMM and reclaim any memory donated at RMM activation.
->>>
->>> Apply the same checks when hotplugged memory is brought online.
->>>
->>> Signed-off-by: Steven Price <steven.price@arm.com>
->>> [ Switch to RMI_GPT_L1_INFO for checking GPTs and deactivate RMM ]
->>> Co-Developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->>
->> A few comments inline.
->>
->>
->>> ---
->>>   Changes since v17:
->>>       * Move wrappers that may not be used elsewhere, out of arm-rmi- 
->>> cmds.h
->>>   Changes since v16:
->>>       * Check fine tracking and create L1 GPTs for hotplug-added memory.
->>>       * Clarify the L1 GPT setup and move the explanatory comment.
->>>       * Switch to using RMI_GPT_INFO command for checking the GPTs.
->>>       * Deactivate the RMM and reclaim the memory if we can't proceed.
->>>   Changes since v15:
->>>       * Skip firmware-reserved NOMAP memory in rmi_init_metadata()
->>>       * Handle negative error codes from wrappers.
->>>   Changes since v14:
->>>       * Move the implementation into drivers/firmware/arm_rmm.
->>>   Changes since v13:
->>>       * Moved out of KVM
->>> ---
->>>   drivers/firmware/arm_rmm/rmi.c | 200 +++++++++++++++++++++++++++++++++
->>>   include/linux/arm-rmi-cmds.h   |   2 +
->>>   2 files changed, 202 insertions(+)
->>>
->>> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/ 
->>> arm_rmm/rmi.c
->>> index ecc89e91d264..583e1aca9b15 100644
->>> --- a/drivers/firmware/arm_rmm/rmi.c
->>> +++ b/drivers/firmware/arm_rmm/rmi.c
->>
->>
->>> + */
->>> +static inline long rmi_gpt_info(unsigned long start, unsigned long end,
->>
->> Why inline vs letting compiler make it's mind up?
->> Same in other places
->>
->>> +                unsigned long *out_top,
->>> +                unsigned long *out_gpt_par_state)
->>> +{
->>> +    struct arm_smccc_1_2_regs regs = {
->>> +        SMC_RMI_GPT_INFO, start, end,
->>> +    };
->>> +
->>> +    rmi_smccc_invoke(&regs);
->>> +    if (regs.a0 != RMI_SUCCESS)
->>> +        return regs.a0;
->>> +
->>> +    if (out_top)
->>> +        *out_top = regs.a1;
->>> +    if (out_gpt_par_state)
->>> +        *out_gpt_par_state = regs.a2;
->>> +
->>> +    return RMI_SUCCESS;
->>> +}
->>
->>
->>
->>>   static int __init arm64_init_rmi(void)
->>>   {
->>>       int ret;
->>> @@ -786,8 +970,24 @@ static int __init arm64_init_rmi(void)
->>>       if (ret) {
->>>           pr_err("RMM activate failed\n");
->>>           ret = ret < 0 ? ret : -ENXIO;
->>> +        return ret;
->>
->> Why did this change?
-> 
-> Rebase messed up. I will restore it.
+The patch set allows to register a dmabuf to an io_uring instance for
+a specified file and use it with io_uring read / write requests. The
+infrastructure is not tied to io_uring and there could be more users
+in the future. A similar idea was attempted some years ago by Keith [1],
+from where I borrowed a number of changes. Later it was brough back up
+to life by Tushar and Vishal.
 
-Actually this is not. We dont have to check the metadata if
-we couldn't activate the RMM. Also, the failure path at the
-bottom has "deactivate", which again is not needed. So
-it is the right thing to do.
+It's an opt-in feature for files, and they need to implement a new
+file operation to use it. Only NVMe block devices are supported in this
+series. The user API is built on top of io_uring's "registered buffers",
+where a dmabuf is registered in a special way, but after it can be used
+as any other "registered buffer" with IORING_OP_{READ,WRITE}_FIXED
+requests. It's created via a new file operation and the resulted map is
+then passed through the I/O stack in a new iterator type. There is some
+additional infrastructure to glue it together, count requests, manage
+lifetime and implement invalidation.
 
-> 
->>
->>>       }
->>> +    ret = rmi_init_metadata();
->>> +    if (ret)
->>
->> And this is hitting another bit of guidance in cleanup.h.
->> Functions shouldn't be mixing __free and friends with
->> gotos.  Again, not a bug here but there are large ugly
->> monsters around this stuff, hence the blanket guidance.
->> I haven't thought that hard on how you avoid it here, but
->> usually it's a combination of suitable helpers and wrappers
->> and resulting code is often more readable as a result.
+Tushar, William, Phil did a lot of testing and experimentation on various
+devices with previous versions of the patch set, and I've received lots
+of help from Anuj, Kanchan and Nitesh with investigations, testing, and
+patching. Earlier benchmarks by Anuj for IOMMU optimisations with udmabuf
+showed:
 
-I could change the hunk to something like, but that looks ugly.
+STRICT: before = 570 KIOPS, after = 5.01 MIOPS
+LAZY: before = 1.93 MIOPS, after = 5.01 MIOPS
+PASSTHROUGH: before = 5.01 MIOPS, after = 5.01 MIOPS
 
-@@ -1010,20 +1010,12 @@ static int __init arm64_init_rmi(void)
-                 return ret;
-         }
+# Patch set structure:
+- Patches 1-2 introduce internal API and infrastructure mediating
+  io_uring and target subsystem / devices
+- Patches 3-5: block layer support + prep patches
+- Patches 6-8 implement NVMe support
+- Patches 9-13 add io_uring support and uapi.
 
--       ret = rmi_init_metadata();
--       if (ret)
--               goto out_deactivate;
-+       if (!rmi_init_metadata() && 
-!register_memory_notifier(&rmi_memory_nb)) {
-+               arm64_rmi_is_available = true;
-+               pr_info("RMI configured\n");
-+               return 0;
-+       }
+There are some liburing tests that can serve as an example:
+git: https://github.com/isilence/liburing.git rw-dmabuf-tests-v5
+url: https://github.com/isilence/liburing/tree/rw-dmabuf-tests-v5
 
--       ret = register_memory_notifier(&rmi_memory_nb);
--       if (ret)
--               goto out_deactivate;
--
--       arm64_rmi_is_available = true;
--       pr_info("RMI configured\n");
--
--       return 0;
--
--out_deactivate:
-         WARN_ON(rmi_sro_memxfer_cmd(sro, GFP_KERNEL, 
-SMC_RMI_RMM_DEACTIVATE));
-         return ret;
-  }
+The patches are based on Jens' for-next. Also available as a branch:
+git: https://github.com/isilence/linux.git rw-dmabuf-v6
+url: https://github.com/isilence/linux/tree/rw-dmabuf-v6
 
+[1] https://lore.kernel.org/io-uring/20220805162444.3985535-1-kbusch@fb.com/
 
-Either ways, we have to cleanup the object on return, no matter
-the route we take. So the original form is much more readable
-for me.
+v6: - remove fences and wait on invalidation synchronously
+    - report all map requests are detached earlier, outside of wq
+    - handle nvme removal
+    - gate nvme_free_descriptors() on iod->nr_descriptors 
+    - fix error handling in nvme_rq_setup_dmabuf_map() 
+    - fix iov_iter_alignment()
+    - relax the 1G io_uring registered dma-buf limit
+    - fix type overflow issue in bio split
+    - allocate struct dma_buf_io_ctx inside the dma-buf-io code
+    - harden block checks against dma-buf + buffered io
 
-Cheers
-Suzuki
+v5: - Reject dma-buf with buffered IO for raw bdev
+    - Add lim->max_segments bio splitting
+    - Add bio_iov_iter_set() helper
+    - Fix io_uring uapi validation
+    - Other minor changes
+    NVMe:
+    - Rename nvme_pci_sgl_set_data() to nvme_pci_dma_iter_set_sgl(), split 
+      into its own prep patch.
+    - Convert segment walk loops to do-while.
+    - Drop adjacent segment coalescing logic.
+    - Drop first_dma/first_len from nvme_pci_dmabuf_sgl_nents()
+    - Remove entries > NVME_MAX_SEGS bailout; moving to the block layer.
+    - Factor SGL vs PRP decision making into a helper.
 
->>
-> 
-> I will see if I can improve it.
-> 
-> Cheers
-> Suzuki
-> 
+v4: - https://lore.kernel.org/all/cover.1785274111.git.asml.silence@gmail.com/
+    - Add sgl support from Anuj
+    - Move it under drivers/dma-buf/ and rename
+    - Fix mis-sized allocations
+    - Fix io_uring re-import mishandling
+    - Drop map before io_uring "task work"
+    - Move blk-mq callback to block_device_operations
+    - Convert bio flag to REQ_OP*
+    - Other small changes
+
+v3: https://lore.kernel.org/io-uring/cover.1777475843.git.asml.silence@gmail.com/
+    - Rework io_uring registration
+    - Move token/map infrastructure code out of blk-mq
+    - Simplify callbacks: remove a separate blk-mq table, which was
+      mostly just forwarding calls (to nvme).
+    - Don't skip dma sync depending on request direction
+    - Fix a couple of hangs
+    - Rename s/dma/dmabuf/
+    - Other small changes
+
+v2: - Don't pass raw dma addresses, wrap it into a driver specific object
+    - Split into two objects: token and map
+    - Implement move_notify
+
+Anuj Gupta (2):
+  nvme-pci: rename nvme_pci_sgl_set_data to nvme_pci_dma_iter_set_sgl
+  nvme-pci: add SGL support for the dmabuf path
+
+Pavel Begunkov (11):
+  dma-buf: introduce initial file I/O infrastructure
+  iov_iter: add iterator type for dmabuf maps
+  block: always adjust bi_offset on bio_advance_iter
+  block: introduce dma map backed bio type
+  block: add dma-buf support for raw bdev
+  nvme-pci: implement dma-buf backed requests
+  io_uring/rsrc: introduce buf registration structure
+  io_uring/rsrc: extend buffer update
+  io_uring/rsrc: add uncloneable regbuf flag
+  io_uring/rsrc: add regbuf import flags
+  io_uring/rsrc: add dmabuf backed registered buffers
+
+ block/bio.c                    |  15 +-
+ block/blk-merge.c              |  45 +++
+ block/fops.c                   |  24 +-
+ drivers/dma-buf/Makefile       |   2 +-
+ drivers/dma-buf/dma-buf-io.c   | 219 +++++++++++++++
+ drivers/md/dm-io-rewind.c      |   6 +-
+ drivers/nvme/host/core.c       |  12 +
+ drivers/nvme/host/nvme.h       |   2 +
+ drivers/nvme/host/pci.c        | 484 ++++++++++++++++++++++++++++++++-
+ include/linux/bio.h            |  21 +-
+ include/linux/blk-mq.h         |   7 +
+ include/linux/blk_types.h      |  14 +-
+ include/linux/blkdev.h         |   2 +
+ include/linux/bvec.h           |   3 +-
+ include/linux/dma-buf-io.h     | 113 ++++++++
+ include/linux/fs.h             |   2 +
+ include/linux/io_uring_types.h |   5 +
+ include/linux/uio.h            |  11 +
+ include/uapi/linux/io_uring.h  |  31 ++-
+ io_uring/io_uring.c            |   3 +-
+ io_uring/rsrc.c                | 274 ++++++++++++++++---
+ io_uring/rsrc.h                |  45 ++-
+ io_uring/rw.c                  |   6 +-
+ lib/iov_iter.c                 |  29 +-
+ 24 files changed, 1295 insertions(+), 80 deletions(-)
+ create mode 100644 drivers/dma-buf/dma-buf-io.c
+ create mode 100644 include/linux/dma-buf-io.h
+
+-- 
+2.54.0
 
