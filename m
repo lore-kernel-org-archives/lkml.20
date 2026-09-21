@@ -1,130 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E0503CF699
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:28:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789975712; cv=none; b=dzeAEANx6CO9SqpbDGShXipCPROQS4qLYHISiuqcljSSq1hG4K+83sXWEgiO4mwcgnDzafBpOHOQ1tIAGTOSwJTY7YARF4d2Y4izGbxb3rQwe+izhXiodpd2jDUz0svx/akA3qVFMeNFjPLbBp3o/KtC4B3AD0TW42HrPcAu2go=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789975712; c=relaxed/simple;
-	bh=rwWzC8MIrlwJNyH0Cq54SAqC1PMKeJO12AO8yCWBlQQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=UEK6/u4xahFtMRpoHaaQ9TuxyjvG/CtTwT+xQL2HBsA91768zKOcVehCjoD/+k0U0OAC7672zTnmrrd41Ab2wKO16/+OhkA+dqH5BVFUVQv9maZ4vxqSu1Y5yFZm0/n8sDSREpKIuLuxHLjOMfx1r4pzSSfrJAmk7FCI9/sg+4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CXvYRLNm; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDD03DB31A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:28:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789975735; cv=pass; b=Q1uywqQxoHm2lbMXrvFjpQ3oEZGOIKthmW8awSHOHkbzIocUFwrPkRXSnCX+s+DCVTqVjXKNOUkgXTk8XL1vtf24ObBBS1WbrGgGAP2+ySqlUjBqfDFQ9AjnU2MsFrSssakCGyQQ8cuB+DWqA2qeRUtIXSsYjSTygH4g3KYleNA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789975735; c=relaxed/simple;
+	bh=lxo3rItzOI5E9MqNdGIwnwpWKqkISYML5yv6YHZcizc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UYC85qlnhaWC+Zgt//8l7CFeECfjk2vzVtJaats0B35NVJnjOfSNGvyOl4vtQpOyP8MmcdeRMWWsyGOq8rHLin+ejj/NNiw5w3Q6FAa8PQIfGJPUh+9i8rsJM8AKqcs6xjp/cULZ0gY9mk7UPk+A/lSI9+8/ycVoew1EuJw5qVc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BPK8/FO4; arc=pass smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CXvYRLNm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2420B1F000FF;
-	Mon, 21 Sep 2026 07:28:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789975707;
-	bh=9IeZ8YzYkEbqGx4JiJQgQ/74f9cdXZJykURU1L8RUeE=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=CXvYRLNmRVX3qFBuglutTKJhv2OiJs+5sxXaUEVLENXNjA2NzHSFEPfJpdiIkavhM
-	 gLP8nILXYxhZPjoWePoxZXQOw49GsB6euRP0lLxOhjk5wjkQxmiL9BII6tGHjZnobn
-	 6iMQ/+Vnbo9ApGYARGNzC0onzYFYvZyJuvZ0+1EimMT5qct7n0s7ClJxG8L3q8MWT7
-	 a6OrFc2z/lue81BbSlvzbjvJHEvdIfzRrT+eUuT3hgymENompzim8f7YQWeWXC3aUj
-	 TiQhqCRgoZLdnx3u061WpTgsN6fpukNN+JVxoz31MA3CCdmx50hey0d7uTLhecS1f7
-	 dCf3MRv1v/FZw==
-Message-ID: <3e9ce58a-1316-48a0-9bab-715c70d117f6@kernel.org>
-Date: Mon, 21 Sep 2026 09:28:22 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BPK8/FO4"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb65437so1988100a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:28:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789975730; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dVPeDEQCUztQC0yj0dcCleZXjWupbgRkuVM0DraR1zA43z/YixHrvXGxZEv1sqZjeo
+         7ufCpbyfxL89cDqiuDV7piSwJ5FtM9/IdIjQhaBFoFcdBqYC+S47vY7VMN6qiuK6Cxyz
+         NX9LMqVZC9fsFjd1QC89diJsx05c3KLBryX+L5uAEB8gGJGOIemSM20qtcCJzYSGgS1P
+         zTYx9OKmtI8vi27PCslu3Y+k+ky0Vmq3PZPCmCThxXSl5Is/M3AMu/Xl37RVJCc+b3bk
+         87rqIMp/VS24LDGynxV6sVlkFJDmTOWVTWtLahK8nE9oGDZwGSdYRpkFZQ4rKpS6WQTu
+         oRuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=A6cNT/xOU7D+9cHzOo3kYyxs0BX7F75Svm7QKlu1XOQ=;
+        fh=qSxaV8KJq2hlDK+8nCb5R/49q0CZi8w1tLljTD1n1qE=;
+        b=ivW2U+r+z+VC0S7qE2UXXdV6fEbHhtWdJXNFLXVuQEOQC4PQKclc4fnFjts4rvUoOc
+         4yct5nL5Ixff+amkwc4Qw0mky682iGTWrsC8WWdPKNev95ml1EnVGOP05XLNJxRqogag
+         O59YYvGtUs4SgJtfGoybVyTTDO5QFQBl901wcUahd9Y7YBHeV69oNjefPaZHS8jAl7xS
+         ulebU9eOyGg4b3lVVfvbIZBGcg3mKgznOYytCzeIUB4MH8Wma/j7OZxRr/6CW12r3FHG
+         gFxJ/L3kV4urNoArpNEVhlLmojTVfADBJoal7PdcCZNb6UZGLr/PfioATq9d438d5Mzh
+         YyQQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789975730; x=1790580530; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=A6cNT/xOU7D+9cHzOo3kYyxs0BX7F75Svm7QKlu1XOQ=;
+        b=BPK8/FO4MZk8LnmE3C0zsRMjRZqsdw9FI0zUn8r7RNGdnKb8QXCR0SKb6oDI7lAhVP
+         m9qZlWhIUIonYT5m76UqY1uDUOLanucx1YBHwsRlm4XGCwief3ZJdpiTTKqo7TKhXNV4
+         K2jsXoDnXpe7PSO//bYlC7kIframl4HaW69jsN+ZUy64hEPs+PRo7TIduLimrD9ZotFT
+         o9UpH0mmaaJMZT2p06Yowyf9oOQkZHSbRbIPTCgJR+VT4NS89+xVr9ius11hEbIRgyp+
+         zOvA3IbebjUViAfJxgkVzNd12W7Lp7a7i75bwlVfVS5BuI66X9kmYCA2civlJw6KE4st
+         KR1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789975730; x=1790580530;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=A6cNT/xOU7D+9cHzOo3kYyxs0BX7F75Svm7QKlu1XOQ=;
+        b=kQP09TzmA22A8ZylvcolD9po3omTqiLHwW3C1SrbVEGLEbwmeSTJgm2/Ei+uI7s7dU
+         sF4Luni8Rbldowzp3qj/bFHoRZHs3bvTs6riVWK+N+LQ0DbiV/h7KFk0gKOssju6U8KK
+         NIDBMOmRHOM/uqeGtUGul3ii1FfpdkOW1OCj/G4Ct0q5nmCiPKz1C1Dgdn69UdrhgesC
+         5laN5f2ZDU/5DHHJ+0jMBMQaPqWKtQ2+T4C/buIo2+8wKC2GlJFPtIg/EnOzQN2IwuA1
+         XrVWV2N8hWB8o48vwV6hOlM0OEK9KqFSagsLFPcY12mF2ewfgzRIe4EsW51Z6jHO+wQH
+         zs3A==
+X-Forwarded-Encrypted: i=1; AKwUvBxFp+4Yz6OUFgI+01tAt/HmZyOLyhgp86pd2XopafFlYm3iNwQzlyAOUOzbEjwSCtR/GNjBEQNywlCM3GI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBEjxwhY0vorA7fDV12Hk9JkDoGD3w/Qj6K7g3svpH9hf6OsCy
+	Ll+rNfl5rLa/hf4FlEwdOj8ZNaHDgMeC0hh9wPsdO6FHZMYUVPLA57Nr7QEB3QWuOgdgTYS+tYH
+	WhpMokuxfHv12Xg3LWbMe85jOa1tylLU=
+X-Gm-Gg: AYBFou3sxbix7UYDFtMdkQRnuccfWdWrPh92NzR6ftGT/DG0DpHgf9WUkCtNqBfsA0Q
+	Rh2dU26xSh7Qq3qZ4tCW0B9LCEGzgeiH17QMN6meQgWmv8/13Qetla2HIyMAAPIs1zXHrcQrnOD
+	zv+We7s1/7S1+j3h5cNfDU9PWr+kh3O1ALlBE1HrrQtj1XndvXRLncpSePHtia3f4+WN8CRjif9
+	UC6DhUciy/VSVCycE+xpbR0NI6AuH+4sQReic+nzC3n4svF/f9eK2qZ+HG4ukAlDA4VQMPnmdmo
+	XDSpfC9POqwl9b2cjv+bZicyuFEv7/0qgtnTOxfWYtc3eGZ2VJNxjxxQD6Nq/SspOoDHEEHX3qa
+	xLqG47mVzrw/k
+X-Received: by 2002:a17:90b:4c4c:b0:39e:4c7f:7307 with SMTP id
+ 98e67ed59e1d1-39e5506f80fmr15344793a91.30.1789975730612; Mon, 21 Sep 2026
+ 00:28:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] MAINTAINERS: rework MEMORY MANAGEMENT - MEMORY POLICY
- AND MIGRATION
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Rakie Kim <rakie.kim@sk.com>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
-References: <20260918-maintainers-mempolicy-v1-0-9a94cac6d135@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260918-maintainers-mempolicy-v1-0-9a94cac6d135@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260731114106.169398-1-clamor95@gmail.com>
+In-Reply-To: <20260731114106.169398-1-clamor95@gmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Mon, 21 Sep 2026 10:28:39 +0300
+X-Gm-Features: AcwNN1WIubtOA2Pf-MJxcDjvG4Mtn46SZcjDO-qZ5S8wuOcCU4q_uN3xE35GGCo
+Message-ID: <CAPVz0n0jQCLjBPbJcmJLgW7MAjS9pCZUpVv-aMFp768Dqewm_A@mail.gmail.com>
+Subject: Re: [PATCH v3 00/10] ARM: tegra: tf701t: Add new features
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Svyatoslav Ryhel <clamor95@gmail.com>, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/18/26 18:34, David Hildenbrand (Arm) wrote:
-> Let's rework MEMORY MANAGEMENT - MEMORY POLICY AND MIGRATION.
-> 
-> As I can use some maintenance help in that area, add Gregory as
-> a new co-maintainer for the split out MEMORY MANAGEMENT - NUMA PLACEMENT
-> section.
-> 
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+=D0=BF=D1=82, 31 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 14:41 Svya=
+toslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Add new features recently merged like CPU DFLL, MC and EMC timins
+> along with fixing some existing issues.
+>
 > ---
-> David Hildenbrand (Arm) (3):
->       MAINTAINERS: split up MEMORY MANAGEMENT - MEMORY POLICY AND MIGRATION
->       MAINTAINERS: move memory tiering under MEMORY MANAGEMENT - NUMA PLACEMENT
->       MAINTAINERS: make Gregory a co-maintainer of MEMORY MANAGEMENT - NUMA PLACEMENT
-
-Great, thanks David and Gregory!
-
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-
-> 
->  MAINTAINERS | 68 ++++++++++++++++++++++++++++++++++++-------------------------
->  1 file changed, 40 insertions(+), 28 deletions(-)
-> 
+> Changes in v2:
+> - removed vdd-cpu-supply from CPU node
+> - fixed typo in thermal nodes
+> - adjusted MMC flags
+> - improvements of commit descriptions
+>
+> Changes in v3:
+> - expanded commit description for BCM43341 related commit
+> - added Mikko's reviewed by
 > ---
-> 
-> base-commit: 5dd1818b15d98d4a20806cd00b1b40320b06004f
-> 
-> change-id: 20260918-maintainers-mempolicy-06bf34b59ec3
-> 
+>
+> Svyatoslav Ryhel (10):
+>   ARM: tegra: tf701t: Configure CPU DFLL clock node
+>   ARM: tegra: tf701t: Add core-supply to PMC node
+>   ARM: tegra: tf701t: Add MC and EMC timing nodes
+>   ARM: tegra: tf701t: Remove pin_ prefix from PMIC pinmux
+>   ARM: tegra: tf701t: Add thermal zones for nct1008 sensor
+>   ARM: tegra: tf701t: Tune MMC devices
+>   ARM: tegra: tf701t: Fix BCM43341 WiFi/BT chip configuration
+>   ARM: tegra: tf701t: Complete power sensor node
+>   ARM: tegra: tf701t: Configure UART-B line used for GPS
+>   ARM: tegra: tf701t: Add chosen node
+>
+>  .../boot/dts/nvidia/tegra114-asus-tf701t.dts  | 885 +++++++++++++++++-
+>  1 file changed, 848 insertions(+), 37 deletions(-)
+>
 > --
-> 
-> Cheers,
-> 
-> David
-> 
+> 2.53.0
+>
 
+Hello Thierry!
+
+May you please pick this series if you are fine with it? Thank you.
+
+Best regards,
+Svyatoslav R.
