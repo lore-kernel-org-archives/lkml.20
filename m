@@ -1,115 +1,183 @@
-Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f36.google.com (mail-pj2-f36.google.com [74.125.227.164])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683E11A6811
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:02:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B79D2C21DF
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:02:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.164
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789959733; cv=none; b=gklZnyH3AeiwBhzJeidmpbX9/l1iu/pA1QzIYUlKZoKN4GN14eCBqua/RqPdktNRKLveTsBeZRlJ7Ut0XrKU1FC5wzqPhFpqoHHVlGLkIh49m4DJldHp+EVkBAK70Gd2qKb+ndsUY+CRojEV5RVc58dappOgHMdFab+wkLFvV3E=
+	t=1789959760; cv=none; b=RPuVllcaO7RRrvCLZLh/eHjSloPmJ9T1UL/5SHC0imxMUdTFdULJBSsUNVP9p2UrR+RqHiUN7NBvNhJzXPEj6X5zDtE/TA8rxT7jCxj74kUNpJwRMLEOEijWkAFO46noduoaNH28FdHTIkjBHzuD8joPxjvEaa9839j5LS7pWv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789959733; c=relaxed/simple;
-	bh=iOXA07HB8HCaKIy41gNVHkMLFJBd+TbmJWua+BYy6os=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vCkN+VpH3UDfqeS/s9Px42gQzjKefHYvRzgm8G0JJvWit8/zLmilOYS5TgBuRhpbWIUQrOzjYbwTmSF1WbsPPw5LM8Cc37ixvUuESVscI2wjb75xDdYi0ZsswrV1DoFGuSr9P1xL5z7RGAwCNzLW/wiI52dT+bj7sGfpi5aIFlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=AumHS9yC; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OHqEEKfx; arc=none smtp.client-ip=103.168.172.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1789959760; c=relaxed/simple;
+	bh=FcfKgVtidTGfawbNAsZlmWstyb19QYDw9rtu6XxxEfM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=J6qSMDWPJ3gv/3aJ0yFD3cUyuK4ZZZe5oLs1gSmsLY4JvzAL5+n3uhhNaoOXGqzVeFjnm4jnnX3qRG/6f1e1keUZupPa12T8YY0IBud7dQXGHMzF/41sFR7cPr1rlHWcPg10ZGH8BBPBAGZC+xllPlV92N7RbirWQomB4NjJg+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D7Ow9xqL; arc=none smtp.client-ip=74.125.227.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="AumHS9yC";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OHqEEKfx"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 550AF140008A;
-	Sun, 20 Sep 2026 23:02:11 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Sun, 20 Sep 2026 23:02:11 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1789959731; x=
-	1790046131; bh=+csptQK2hgjD0ELS7zoCXD7jNQrBF8MJ6VJhRf8bx0o=; b=A
-	umHS9yCOz/SOa0YwpoSIlatJ4qV78orDtgq5rFxUtSRX35EWRTudu8WWadYW1jxi
-	/NGdBuVxiTyBvd//DdGacN+aW4mqiuFxbLqLCC/JQMTSGPjrhuGZZ0lm84rs4tXa
-	tsDz1gLqv0qWP6DqusUgc61xca+H0tU5r6rb05JqY5p1mFTRIu5xBwzHpPa5wYa8
-	tIYdUKEYg+9tcJpXQ6C0s5CUDuqkUuk130KLfjC+mKfMJJFMI+KwCvYxKljN6wnX
-	0ovRT3/bX6e2fgJQJDi20BPIPx27Np4iseqQXNprFzZMkF1QtUn7EusW4jJbUoCR
-	sU7ZXjAYV4qexlKrMnjLA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789959731; x=1790046131; bh=+csptQK2hgjD0ELS7zoCXD7jNQrBF8MJ6VJ
-	hRf8bx0o=; b=OHqEEKfxEBYN28UxHw1CmfloFgwWAODKqqxYj6MY31lcOns4FTi
-	aKOExlOi7jh6ZEnCC6nGkZb2wJa49M+kAXGTnFUtoZEnzXiD7wB5wJPYTLnL/5sF
-	4boZ9fEuWeWVuvg0PFd+GorG7ytqvVHbZOfSERNizEkIXyzRS3/3TQ/WvCpACL4q
-	IbD/VkDoj49waCjYOTGjEYtaniaJwRL8F9lwrRGxgPCiXFzL7qVdabE28QH8PreJ
-	Rsz4U+9sDIJ/jSIcQiA2NWMwDGXUfETr3xm9+0kmAl/UTGHBEphblVidBXmNpv1K
-	+uB8bo3xYeZOfYiCF/yuO7XRK9iLOofX7/Q==
-X-ME-Sender: <xms:M56wakrDBlZo9ZDPDJ1BnBsnbA5w8zds4BB4oomUbYAacb0062IADw>
-    <xme:M56waonrZxDd1BFr7ilepkQ625n4_qbcLU39GKLrL6Vu2anxZ0hggcksOUvwwwGeE
-    SFHYttkerUjsoNS5Sk3tNr0Wnybli8MwYb6PXcV540V43vyaxggn8o>
-X-ME-Received: <xmr:M56wagzd7jNIue-GfunGSUQdC2vxnPnkpSJ2zbaDPQxZu_KeSE3m_3Etr-XbxE961-n8ZBk3_BQBKjDeEo8KeYcSddapdg>
-X-ME-Proxy-Cause: dmFkZTE1ZcS5JDXTa42AyETs79Of6Pdbhp5vJafMVjOKTWJK16a/mP/WIge8cSG3dCt/r6
-    VGT7uF8R19wDaikXxbOMiEZR68ox3AlYrXtYBoMb/LbmRUB8HZUJLxVjvTm6gnIWo3pz8+
-    sUQj10/p8uIBStw3JhMNIqVZr4/r0UzjMCiTvOv+ACbrC8WUHymVbgUz6Me+hqP3sTFG8F
-    wgr8oF7byBH3AbNu6BxePWk7kzpJrT2c/UqFlxBPfjwoSIIFCiMqKz3rVIQ4PqvpbKDPRZ
-    8HcwHdO/bm+7mYlKs+pbVeoieETr7VmvMR8TpXIEHs8mVsHWbyf19PmCHmGthmQD80SCR8
-    h9dUn/1sCW08ntKm1345GXy8r9hjHjQtODpmvl4Eax7yMbUQIP2pd58nb6IzzKNm0R1x0T
-    IpfSh4dHmV8LAA3yQtMFbeoSQzd9+jEUiNMTus0pr4CjzIiKHjwAIVtS1mHIbbrN6o42zw
-    1TfLW/FQwdjRuugkLVY+MkM4dwrnpXcowC3TC9rGITFyhkd74sXb3AQ+BEzGD+4Rax8v9e
-    NMUVicVgk3T3z0CM9YweT8JMzPTlod/kYT90E9C5R/7u6iB60hihEte5xA9Wm6SNL6+yNX
-    lfVxAGmdd5J8ATgOzUtgr8r8hV+nok7Jjp5aSBEdG6BN3QN2a1J7ZTz7Jteg
-X-ME-Proxy: <xmx:M56waonR9IOxOGIn1Wwgh7WROtiKl7QU1PnYZK0AaKnUAXo18DpLXA>
-    <xmx:M56wahcAX_cV0nTRatcz5qWs-Awurmlch4pHB-Ram96OealrhQG1wA>
-    <xmx:M56wamqrjWZUtEPKGUg_Ss1cPke6UrSfc-a7iCnNtQD9w_7gJMhN4g>
-    <xmx:M56wan5AiRhcaz7mEpojfCTicTcB6mXcewmREhEz2sHj4TPD2_QKcA>
-    <xmx:M56wardhXrZmgD9t8N3aT2w0fnmAJIQM6T3cSVMKK4tk8030AwgydpOS>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 20 Sep 2026 23:02:10 -0400 (EDT)
-Date: Mon, 21 Sep 2026 12:02:08 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] firewire: core: consolidate lock scopes for event
- waiting in dequeue function
-Message-ID: <20260921030208.GB283306@sakamocchi.jp>
-Mail-Followup-To: linux1394-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org
-References: <20260920104745.212753-1-o-takashi@sakamocchi.jp>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D7Ow9xqL"
+Received: by mail-pj2-f36.google.com with SMTP id d9443c01a7336-2d8fdc579daso28230005ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 20:02:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789959758; x=1790564558; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hvZbxSF2qQnQhtXPVG06mkg9nimx73LR88KWFA5uNNc=;
+        b=D7Ow9xqLtdgGKU/XQ1zv/syW18wc5rFFy7bZlsmqHa9n8TMD4VkN5tCC8baisnHBhM
+         b5rFmjlr4GAxhL9FIcCWXDGnCFFIKpCpMxJ9gZHHDrO2+R++kRxHZTOcIOpydJ2a4ji+
+         rcWque+saPx+fVrs4+D4e37Rvg7mRJcz2+nAksuzITVAQl4EG6hAiJabyDg2snzkzmhz
+         Elf2UyjKJ48TL0d7BviZ87/yJ4tcD3rD3HttNthQRulynV5NDN1nlHvW8ToICxzM8h3Y
+         4/ALEO3xDr6Z+XJEor5F+gfgtOM0No6O6XrYfh+Jiei3I0dqphUUaRWbCA6/if/0U6Lj
+         zXxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789959758; x=1790564558;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hvZbxSF2qQnQhtXPVG06mkg9nimx73LR88KWFA5uNNc=;
+        b=tbICT4Ms8EtVdMx8/y8ybNxt8kHa6jlWqP9R3vYJhj4E4HgIGuyrgKafnuYkfz9OkT
+         LYAE96U2s1hHLF/NK5RxHLpAKVNG3LrItpIe8VsN3evx0enE1WdkGAwZ1SOHnAG1arHg
+         5z8uSATqNzeThIZmsEYx4QeMs0l8pX6FV6J9x5Y59kDUTNPaKfPAKj6HGX5WJXqdrJrP
+         6VHg/BJ8nedVXM2S9ZK7wn2ObnKejeoW4R+UeuanGRrQHJbgZvib3IIwsjGtPh3JKQgn
+         cvhqbVJ2IuV3Ua54QxyrpX/CXKKyE5jQP5RdOI1AjLMsmyRuKwLFyHlwKCYHgiN3FpfM
+         Ob6A==
+X-Forwarded-Encrypted: i=1; AKwUvBxd1jE51jT9weI6Wp7haYoLHI+osmN3XjtlB2i3TTFf6JSAVlu6DJTfkwMQEvvKLGiWjOihlqn0fw5f4ZU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nnw9Zr5tIVOvNxWGgfSwoiSuQK1Jk3eqXdOYgPlxBvNo+g4fvl
+	UPjvMHaJaL0Gk4WSrOs9L/CIWX3w86p679+U3fEDgl9oQMKmLnOLNaw+
+X-Gm-Gg: AYBFou3GEPdoQIAw4/h6ZMx+mxEu5DlFB0MTH3I/HpNh2oz7HlhQnbKeCmNJ5zoahUM
+	lF5arVon9ZTuq75SsROPOwuuW9uuPsYsMmapLnNkC4JV22v0+2179YL+R+3vCipy5SJSa9yFUYs
+	2cRHrd3u1axl+77CIrSG1A3D5zCf0daBhzV4E5AHHfZKoHs66U1YFHBuGquc/niTXnn5lhJ8UpB
+	ERQLdg+kfEzxiAxtKVTnru0xtFO65AAAd03Ln32Ijywyd7nEahO7M6XqqAE5oBHj3CL2ttcdSs9
+	jQzV+bNLmh/ZGh8TaPpdI+d7NffghP2Z656cr3W2lv7cWbvLtbquNuGXhXEklpu8pjsStKO/9QP
+	fyfLMt90lpeqO9q3AXs4UHYWfUXuP7tKlAMM3aOPKVxRVSk2NfqGKHbQAME+XTUsyVeJhtvOM/o
+	cVpKrAoVmEnTm2Qjfr/VGDZ2fcYzN5MgYCM9/PMqY9Zs+qEiyv1PNNNM9wErCtuRF7eO1wjdiZP
+	rq91jxqzhd4MXSABpFWybLypOwMywRzxhM/m0vM1mPUq4I/15vymBUPdt0Ccj/2nwww0Z8rWk3i
+	tSc2lfkD4w==
+X-Received: by 2002:a17:90b:2882:b0:39e:4c81:6c95 with SMTP id 98e67ed59e1d1-39e54f3d98fmr14405553a91.27.1789959758256;
+        Sun, 20 Sep 2026 20:02:38 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6ca50118sm11806311a91.4.2026.09.20.20.02.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 20:02:37 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: Johan Hovold <johan@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH v4] USB: serial: garmin_gps: validate packet data length in nat_receive()
+Date: Mon, 21 Sep 2026 03:02:36 +0000
+Message-ID: <20260921030236.1040858-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+In-Reply-To: <2026092059-hacking-coveting-c629@gregkh>
+References: <20260919112819.3885778-1-benquike@gmail.com> <2026092059-hacking-coveting-c629@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260920104745.212753-1-o-takashi@sakamocchi.jp>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 20, 2026 at 07:47:45PM +0900, Takashi Sakamoto wrote:
-> Current implementation uses the spinlock in the card structure to
-> serialize accesses to the event list. The dequeue_event() function yields
-> the CPU while waiting for the condition to become true, but checks the
-> list without acquiring the spinlock. It acquires the spinlock when
-> operating the list, however it assumes that the list has at least one
-> entry.
-> 
-> This can cause problems when multiple threads execute read(2) system calls
-> concurrently, since the list can become empty after rescheduling but before
-> the list operation, depending on the scheduling order of the two threads.
-> 
-> Use a wait_event variant that reacquires the lock after being
-> rescheduled, before checking the condition.
-> 
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-> ---
->  drivers/firewire/core-cdev.c | 26 +++++++++++++++++---------
->  1 file changed, 17 insertions(+), 9 deletions(-)
+In nat_receive() (called from garmin_write() when userspace writes to
+/dev/ttyUSBn in MODE_NATIVE mode), while garmin_data_p->insize is less
+than GARMIN_PKTHDR_LENGTH (12), the loop copies up to 12 bytes into
+garmin_data_p->inbuffer. Once garmin_data_p->insize reaches
+GARMIN_PKTHDR_LENGTH, nat_receive() computes the total packet size as:
 
-Applied to for-next branch.
+  len = GARMIN_PKTHDR_LENGTH + getDataLength(garmin_data_p->inbuffer);
 
+Because getDataLength() returns a signed int from __le32_to_cpup(), a
+12-byte header with a negative 32-bit length field (such as 0xfffffff5,
+i.e., -11) causes len to underflow to a small positive value (12 + (-11)
+= 1) without any bounds check at that point. Then garmin_data_p->insize
+>= len (12 >= 1) evaluates to true and nat_receive() calls
+garmin_write_bulk(port, inbuffer, 1, 0), which allocates a 1-byte slab
+buffer via kmemdup() and immediately reads 4 bytes from it in
+getLayerId(buffer) (and again in garmin_write_bulk_callback() when the
+URB completes):
 
-Regards
+  BUG: KASAN: slab-out-of-bounds in garmin_write_bulk.constprop.0+0x3eb/0x500
+  Read of size 4 at addr ffff888002cc0ba0 by task init/1
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x70/0xa0
+   print_report+0x153/0x4c6
+   kasan_report+0xf1/0x120
+   garmin_write_bulk.constprop.0+0x3eb/0x500
+   garmin_write+0x60f/0x1450
+   serial_write+0x123/0x200
+   n_tty_write+0x8ea/0xeb0
+   file_tty_write.isra.0+0x44f/0x7a0
+   vfs_write+0x671/0xd20
 
-Takashi Sakamoto
+Validate the unsigned 32-bit data length (dlen >= GPS_IN_BUFSIZ -
+GARMIN_PKTHDR_LENGTH, matching the existing len >= GPS_IN_BUFSIZ bound)
+in nat_receive() as soon as the 12-byte header is present, resetting
+insize and returning -EINVPKT on invalid lengths so garmin_write_bulk()
+is only ever called with a full valid packet header (12 <= len <
+GPS_IN_BUFSIZ).
+
+Tested in QEMU against Linux 7.3.0-rc3 by emulating a Garmin USB GPS
+device (091e:0003) via dummy_hcd + raw-gadget, switching /dev/ttyUSB0
+to MODE_NATIVE via PRIV_PKTID_SET_MODE, and writing a 12-byte native
+packet with data length 0xfffffff5: on the unfixed kernel this triggers
+KASAN slab-out-of-bounds reads in garmin_write_bulk() and
+garmin_write_bulk_callback(), whereas on the fixed kernel nat_receive()
+rejects the packet with -EINVPKT and 0 KASAN faults.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v4:
+- Kept the fix strictly inside nat_receive() and dropped the other hunks
+  from v3 (garmin_write_bulk_callback(), gsp_send(), and changing the
+  return type of getDataLength() / getPacketId()) per Greg
+  Kroah-Hartman:
+  1. Assigning u32 dlen = getDataLength(garmin_data_p->inbuffer) locally
+     in nat_receive() and rejecting dlen >= GPS_IN_BUFSIZ -
+     GARMIN_PKTHDR_LENGTH (matching the existing len >= GPS_IN_BUFSIZ
+     check at the top of the loop) prevents both negative/underflowed
+     lengths (< 12 bytes) and oversized lengths without needing to touch
+     getDataLength() across the file.
+  2. The out-of-bounds read in garmin_write_bulk() and
+     garmin_write_bulk_callback() was only reachable because
+     nat_receive() allowed len to underflow below GARMIN_PKTHDR_LENGTH
+     (12 bytes). All other callers of garmin_write_bulk() always pass at
+     least GARMIN_PKTHDR_LENGTH bytes, making a separate length check in
+     garmin_write_bulk_callback() redundant.
+  3. In MODE_GARMIN_SERIAL, gsp_receive() already bounds insize to
+     MAX_SERIAL_PKT_SIZ + 2 before calling gsp_send(), so the extra
+     bounds check in gsp_send() was an unrelated defensive check.
+- Added Cc: stable@vger.kernel.org and QEMU reproduction details.
+
+ drivers/usb/serial/garmin_gps.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/serial/garmin_gps.c b/drivers/usb/serial/garmin_gps.c
+index 8020149f5658..a3f599043a4d 100644
+--- a/drivers/usb/serial/garmin_gps.c
++++ b/drivers/usb/serial/garmin_gps.c
+@@ -769,8 +769,14 @@ static int nat_receive(struct garmin_data *garmin_data_p,
+ 
+ 		/* do we have a complete packet ? */
+ 		if (garmin_data_p->insize >= GARMIN_PKTHDR_LENGTH) {
+-			len = GARMIN_PKTHDR_LENGTH+
+-			   getDataLength(garmin_data_p->inbuffer);
++			u32 dlen = getDataLength(garmin_data_p->inbuffer);
++
++			if (dlen >= GPS_IN_BUFSIZ - GARMIN_PKTHDR_LENGTH) {
++				garmin_data_p->insize = 0;
++				result = -EINVPKT;
++				break;
++			}
++			len = GARMIN_PKTHDR_LENGTH + dlen;
+ 			if (garmin_data_p->insize >= len) {
+ 				garmin_write_bulk(garmin_data_p->port,
+ 						   garmin_data_p->inbuffer,
+-- 
+2.49.0
