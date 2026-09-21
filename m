@@ -1,134 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F41485921;
-	Mon, 21 Sep 2026 15:13:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83C14A5EB9
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:13:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.206.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003611; cv=none; b=gXPNmXvYrLF1onqQPDqUOY2Xhr7lzuVL5ADysr8sUj8N7gIrkQnFod/TbwgNWDpFZxQTzRdtVrOrn5RaoCy0gA4Bi2c5bCfNvY66t7gl2z54pwTri/+j07RoAueEEWE7uxMbBng7EcEVCZU/LLmw4tj+uDwx5dxEDGz9Q+LDkt0=
+	t=1790003613; cv=none; b=nD/7Vzu4rxIJm+LuIUbRHbMaN9t4EWFsirPyTC+oP2GKY8qYgbiuPJg+QjWQaBZRx3ugM23j2HnIS7EyeT9TJzgEV4sjw1t24b6RhwVISmwX+w3OmV4eWGaReCmARspgFGdz5OUPQhQ9PTL0gTYZJ0Y1SQf6jzFugKgg6RG0RQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003611; c=relaxed/simple;
-	bh=VFVm3deGEZoOvkqNDfaTjIXJe/vQ5gsepPxoR8S/TAc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WYK7v5F895BD32xM9n587AofqfbEkyGaiQ7OddgeV0vKI4+qQk1ZIfOZgwR1S40DD6q3PCwhmhR7Jb9bLAAeMa+xZ6xOqrxwsc082DaXwMe16vW5Hu5GN1rJlUQX1f8c3dZGGdPWAdtEakzKZRS/KtTb0nSmp3//itJp4Cyz0Pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S21YwvSR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790003613; c=relaxed/simple;
+	bh=d1D6q7cPYgUYmn8Y+4GOIUPx8mwQ6rbFeFOEWhn9MvY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UfP4hmFvouaYhwoAAS/ygFCZM37Bxemdo9uHCulwdsInrHmzEW6PqiZHyUHzIMTgIgpF4GtBVMA9KsycRk+QF1RKAv+kUAGWOmxo4tg/YKXTH75EGdNBiHKnV2fIyW1P00nghQ0I6FrhCwZi8hYLoC0uGALJS2HQohzOwzhr+4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nanonej.com; spf=pass smtp.mailfrom=nanonej.com; dkim=pass (2048-bit key) header.d=nanonej.com header.i=@nanonej.com header.b=AeCL4Ki1; arc=none smtp.client-ip=85.9.206.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nanonej.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nanonej.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S21YwvSR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856CE1F000FF;
-	Mon, 21 Sep 2026 15:13:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003609;
-	bh=8Z9pnwbujXH/q5I7qHSymHElSJLsHHgcLpqMH2sW6fk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S21YwvSRTAURvYpdtUFXYGzC32u9zOXzKBqGe4fcTj7z9ti7V6ZPbyoOohMpQKfxI
-	 Pd4rIy6vGoctpcvLTZEjVgOnV3TuWPOUMsIht/O9jGWkSsgGIWYmrC+chXUIhN2WTW
-	 YpfQ+sLaX+CpizQEKtO03nM54fJ5u4ea9HjtyC6V+pcwkXAOCznmBYEH61G9D/RQgh
-	 vsg9v7rYaDuWG+Hp0NiG0lOyFTzQFcDDHrMFphfUwB0bRuEQjXm5L9rEJWUz9nZDsS
-	 jJrmiaht/AiS/0EzAWNnshVq9n6QTK10e+9MP1suSndz40qDiro1saK719V+4KkitO
-	 ahJBGS7/G8Fmg==
-Date: Mon, 21 Sep 2026 17:13:26 +0200
-From: krzk@kernel.org
-To: Hui Peng <benquike@gmail.com>
-Cc: stable@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	Adrian Hunter <adrian.hunter@intel.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
-	linux-kernel@vger.kernel.org, Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
-	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>, 
-	Ian Rogers <irogers@google.com>, James Clark <james.clark@linaro.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [PATCH v2] perf/core: fix user->locked_vm leak on secondary
- mmap()
-Message-ID: <arFJlTQwGGnSs681@quoll>
-References: <20260919221728.3707189-1-benquike@gmail.com>
- <20260921003306.426050-1-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=nanonej.com header.i=@nanonej.com header.b="AeCL4Ki1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nanonej.com;
+	s=protonmail3; t=1790003592; x=1790262792;
+	bh=IEWMdJz9YAjjdToPx03hIHKOvrYcQfh3pyhTvkyPGLY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=AeCL4Ki176gOLOE0FuZ4scb2t7W8piULV1nmviKUgKnMkdxzOoQB6H91iPYmUNihS
+	 G/58oYGeX2Y1cwGK1sg8RSYI03LkTI+sCBEbl0KGF3NTiqL9d8VEtE8/2M4nIdF0mg
+	 HAA0FIzasQcT/I7rJOC/H6pznBQpA0+TmupgltMpuKcux6Eycwf5N0ssqR75FlDPpt
+	 J5OxEKskiTyN8Gvkz5mXQlEz+NYo6D5ZOw3fv2tT4AqMyWE5N4SsHiy/dvBa9zT8iQ
+	 jeWwTPFQ1yuo3z2VA4R2CvnbWBUr/KqgEwOy8sUn/5J47plahik9PwKhtO4hTBdStH
+	 pBl3VJelGL3IQ==
+Date: Mon, 21 Sep 2026 15:13:07 +0000
+To: Alexandre Courbot <acourbot@nvidia.com>
+From: Nanonej Dev <dev@nanonej.com>
+Cc: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 4/4] gpu: nova-core: Extract PFALCON register
+Message-ID: <2jQVZV73cgrJOjnRVQ-gT1k4iBhKks2rB7H2doPH0l4zkbumXvnyoLEIFmATkIhpfwxRBwOFClJrf0f_iM7-mHyvYFbgyXt25Aqqp50vm18=@nanonej.com>
+In-Reply-To: <kIdb8vQDIzXcbzWMhRY98VQbxMOEgAco-4AUdcK8u3YM1WP8XCjdrqTEGfj3PKMcahDDiizBwLFH6JwMlcUxuIkjsacGqNd7W8YJKeRqmFA=@nanonej.com>
+References: <20260826-b4-extract-pfsp-registers-to-falcon-mod-v1-0-38351df09084@nanonej.com> <20260826-b4-extract-pfsp-registers-to-falcon-mod-v1-4-38351df09084@nanonej.com> <DL06EAP0GF04.2X3P68IPD0Y7X@nvidia.com> <kIdb8vQDIzXcbzWMhRY98VQbxMOEgAco-4AUdcK8u3YM1WP8XCjdrqTEGfj3PKMcahDDiizBwLFH6JwMlcUxuIkjsacGqNd7W8YJKeRqmFA=@nanonej.com>
+Feedback-ID: 32181229:user:proton
+X-Pm-Message-ID: 31651d218434a189031e1a0140893ceba17db1bf
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260921003306.426050-1-benquike@gmail.com>
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------7b53ba318633761f155271ac5e47d80a75b0cb03fcc7ffeae3511ada91d502b2"; charset=utf-8
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------7b53ba318633761f155271ac5e47d80a75b0cb03fcc7ffeae3511ada91d502b2
+Content-Type: multipart/mixed;boundary=---------------------fb4e9f4b0b317602eaf5f3b1553d6975
+
+-----------------------fb4e9f4b0b317602eaf5f3b1553d6975
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
 
 
-On Mon, 21 Sep 2026 00:33:06 +0000, Hui Peng wrote:
-> Commit 0c8a4e4139ad ("perf/core: Further simplify perf_mmap()") hoisted
-> `user_extra = nr_pages` ahead of the existing-buffer checks (`if
-> (event->rb)` and `if (rb_has_aux(rb))`), and subsequently
-> commit 5d299897f1e3 ("perf: Split out the RB allocation") and
-> commit 2aee37682391 ("perf: Split out the AUX buffer allocation")
-> carried `long extra = 0, user_extra = nr_pages` into perf_mmap_rb() and
-> perf_mmap_aux().
-> 
-> As a result, when an already-allocated ring buffer (`event->rb`) or AUX
-> buffer (`rb_has_aux(rb)`) is mapped again via mmap(), perf_mmap_account()
-> is called with `user_extra = nr_pages` instead of `0`, charging `nr_pages`
-> to `current_user()->locked_vm` on every additional mapping. However,
-> perf_mmap_unaccount() and perf_mmap_close() only subtract the ring buffer's
-> and AUX buffer's pages once when the final `rb->mmap_count` /
-> `rb->aux_mmap_count` reference drops to zero. Consequently, every secondary
-> mmap() + munmap() cycle on a perf event permanently leaks `nr_pages` in
-> `user->locked_vm`, eventually exhausting `perf_event_mlock_kb` and
-> `RLIMIT_MEMLOCK` (-EPERM) for that user.
-> 
-> Fix this by only calling perf_mmap_account() when allocating a new ring
-> buffer in perf_mmap_rb() or a new AUX buffer in perf_mmap_aux().
-> 
-> Tested in QEMU against Linux 7.3.0-rc3 with a standalone C reproducer
-> running as an unprivileged user (UID 1000, RLIMIT_MEMLOCK=0,
-> perf_event_paranoid=1) that opens a software perf event, maps a 65-page
-> ring buffer, performs 10 secondary mmap() + munmap() cycles on the same
-> event fd, and then unmaps and closes the event. On the unfixed kernel,
-> subsequent perf_mmap() calls by UID 1000 permanently fail with -EPERM due
-> to the leaked `user->locked_vm` (650 pages leaked), whereas with the fix
-> applied `user->locked_vm` returns to 0 and subsequent perf_mmap() calls
-> succeed.
-> 
-> Fixes: 0c8a4e4139ad ("perf/core: Further simplify perf_mmap()")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> Changes in v2:
-> - Dropped the cross-MM `pinned_vm` / `rb->mmap_mm` (`mmgrab`/`mmdrop`)
->   changes (which caused an RCU softirq context violation in `rb_free_rcu()`
->   in v1, flagged by sashiko-bot) to keep this patch focused on the
->   `user->locked_vm` leak on secondary `mmap()`.
-> - Updated the `Fixes:` tag to `0c8a4e4139ad ("perf/core: Further simplify
->   perf_mmap()")` and added QEMU reproducer test details to the commit
->   message.
-> 
->  kernel/events/core.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
-> 
+> > I'd like the method to look at bit less
+> > ad-hoc and more confined. So would you:
+> >
+> > - Move it to `falcon/gsp.rs` and implement it only to `Falcon<Gsp>`, a=
+s
+> >   that's the only case where we need it so far,
+> > - Make `ctx_dma` a `usize` (it's the caller's problem to provide the
+> >   correct type),
+> > - Add the `FalconFbifTarget` and `FalconFbifMemType` as arguments of t=
+he
+> >   method,
+> > - Maybe rename it to `set_fbif_transcfg`, because the fact we touch
+> >   registers is an abstraction detail.
+> >
+> > As a side-note, the series is going to clash heavily with Gary's, and
+> > will need to be rebased on top of it after Gary's series is merged
+> > (which as far as I'm concerned should be the next version).
+> =
 
 
-You sent multiple independent patches, to multiple independent
-subsystems. The amount of these patches clearly suggest this was
-AI generated and most likely not tested.
+> Thanks for the review I'll refacto on a v2 like that then and wait for
+> Gary's series to rebase and send it.
 
-More importantly, you sent all this work without properly organizing
-relevant patches into patchsets. This makes reviewing difficult
-and might cause multiple reviewers to address the same issue.
-Replying to the entire set is impossible and requires handling each
-patch independently, instead of applying or discarding the set.
-Maintainers also won't see the bigger picture of your work. Quite
-worrying.
+I see the patch have been merged [1], so I'll rebase and make a refacto fo=
+r a v2
 
-This is on the verge of hostile patch: bomb us with so many
-contributions, we won't be able to handle them in efficient manner,
-like responding ONCE to ask you to slow down.  Considering all this
-is untested and LLM generated, I have even more doubts whether this
-should be considered for review.
+[1] https://gitlab.freedesktop.org/drm/rust/kernel/-/commit/ea79a501243155=
+89da68cbcaf518455a142d6d23
+-----------------------fb4e9f4b0b317602eaf5f3b1553d6975--
 
-Please read kernel documentation BEFORE posting more work. It will
-explain you how to identify subsystems, how to organize your work per
-subsystem, how to document usage of LLM and how what you should not
-do if this was posted in a good faith.
+--------7b53ba318633761f155271ac5e47d80a75b0cb03fcc7ffeae3511ada91d502b2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
-Best regards,
-Krzysztof
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wrsEARYKAG0FgmqxSWgJEFKmzSsu6sDwRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmeQvgvyV3yUJoCsLgAeC4wVDMe8MWuRIVetwT3P
+x/inKhYhBI+99gDJjAW7MoHJ0VKmzSsu6sDwAACeaQD8CKS7AOQBshpxYI7B
+0JUvIAKddHMLcTccNUgI/3ohueoA/i5KATberrMvAS5ERECh+sy1VHAtGQAS
+JiTYHBI/w/cL
+=fE1V
+-----END PGP SIGNATURE-----
 
 
+--------7b53ba318633761f155271ac5e47d80a75b0cb03fcc7ffeae3511ada91d502b2--
 
