@@ -1,103 +1,208 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FBDE134CCF;
-	Mon, 21 Sep 2026 03:53:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494FC33AD8C;
+	Mon, 21 Sep 2026 03:56:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789962833; cv=none; b=qpmVw8owVkDvNrOR1MBoz61o4MqonALp3dXdmKkZs1c57cNAyrGFRhQbBl3UQNowoeNPNqa8U068mAEF1AdqoePCkuNcXZmFBeNayAU0+y+/uaRdpYL7ntZGQglvxIhw13C+/SYIjSTLKBDyZHuQ1xrHCuZ8nZ2MhmjRjleOqU4=
+	t=1789962990; cv=none; b=PyUhcvgIF5XLnM8RvlYkAh6YPOQOElRzzG20KDgcEAa7VORchUKWoK/NQWnwW3SWYx+NhiRkRZDZJJvFtK9AWVhsp+ekcRN8iiPKq88ZfsJIgHlHHbK0RdNGaIa6rS9WbnPcrmbwUPL2lSAbNY2EN2zQ91ZWZrNtoqkKLRJ6GdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789962833; c=relaxed/simple;
-	bh=thBRA3BdH8VdVY4ioZyS/SS+nEIYECE2vWuugLNgY/U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=mFcPod1nHuHurMxCDKoTUZe7161PXtrScj1w8o9oTRNSeTCuVDO/qbNoZwmH2YzqM7SIGxFzIQrN+fH6eeeLmdz4/NGEwjPUSTodJFteaE83KAuzeOC/HmZ9758847kjgTuGOG8JF6cZN/8HLKtN4j4fzy8YBaZahtlHaJu3wqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=M9LOz8VE; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789962990; c=relaxed/simple;
+	bh=DuA4vGK359czk76fR54fow6IlJIGrbXTELlIgIlVM2E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jmifNBxWGYek3ZT1gHsdIuQE4CntCEWFFPzTmeiQEiR0m+jhBdsNjblAyhxOX/xxXGC2bLlCrkNmYzmnABGOOXWSqTO9zoBv3G9mBQdW+FB2kPWDCVWXEhf4TSzRFg9lP8MluE1CjUYcZDiLRkJViFlDhZcXrhfRq11vCLVVEn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oEqDVXBE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="M9LOz8VE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=thBRA3BdH8VdVY4ioZyS/SS+nEIYECE2vWuugLNgY/U=; b=M
-	9LOz8VEDOzW1v1SZPBtTQXUuw+YsMKEVnxVl/0cHjx3OSoeJ0X6egsKou5PFBYgY
-	Wi1+GsvX8iQrfU7GrEzCATDMxFhFufmC5vdvXv3z1xkkrHp+twfDGb0DeW51aXNS
-	mGvGIB9YhBi/YgIsNqWRThQ5VZxIqnaG1lWWe+9A2E=
-Date: Mon, 21 Sep 2026 11:52:33 +0800 (CST)
-From: zl020895  <zl020895@163.com>
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: longzhao@ambarella.com, "Arnd Bergmann" <arnd@arndb.de>,
-	"Krzysztof Kozlowski" <krzk@kernel.org>,
-	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	"Rob Herring" <robh@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-	"Conor Dooley" <conor+dt@kernel.org>,
-	"Michael Turquette" <mturquette@baylibre.com>,
-	"Stephen Boyd" <sboyd@kernel.org>,
-	"Jerome Brunet" <jbrunet@baylibre.com>,
-	"Bartosz Golaszewski" <brgl@kernel.org>,
-	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
-	"Jiri Slaby" <jirislaby@kernel.org>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	"Catalin Marinas" <catalin.marinas@arm.com>,
-	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH v7 08/15] gpiolib: regmap: add write_data_after_dir
- quirk
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <CAD++jLkHfgu_V8i_fhE1WQe+qwJ=ictQSONWPq1fPuYYb8tSRA@mail.gmail.com>
-References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
- <20260915-cv75-v5-v7-8-3297d3fbc9c0@ambarella.com>
- <CAD++jLkHfgu_V8i_fhE1WQe+qwJ=ictQSONWPq1fPuYYb8tSRA@mail.gmail.com>
-X-NTES-SC: AL_Qu2TC/WdvU8u5SiZYukcn0wRhug/UMa4u/sm3YNXc80ElTHX5Qk5QFV9DV/c98WtKxmClBWuVzh21PVmZapTMlnau6fbzs43n5vSZcX5aQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oEqDVXBE"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C0D3FC2BCB3;
+	Mon, 21 Sep 2026 03:56:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789962989;
+	bh=DuA4vGK359czk76fR54fow6IlJIGrbXTELlIgIlVM2E=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=oEqDVXBE05MbgC2AVe1An3cAuYve8Lu3dtW6HXe0RIZeyBwfHHrhYG+Izem7HLDvD
+	 KyhOzb+5ngf9YupinvSechtOUCaFg80bwkXhODJebv6xi9zVyOUK4qdPeWQEkd0NAW
+	 wWPGAV5xI5MrP7qCIMp1xNdoZZOxBZuGdsXamKX+xQNB7bpa5KQM/d0SVz9XIhDI1t
+	 7nfvdLACCu3Nwc5da1egjB23D/lwfRNdA9EwT01Zh3jsgpnl24SpHb6UA8F6F3au1Z
+	 nkvxNgSAyNzNWQAeZqWfhSV9AroNSlcJvNlM6s+7Ie5T1mMQ106K8nNPUu29yrw1H+
+	 TlC3+Ju+bf+2w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 98153C982E1;
+	Mon, 21 Sep 2026 03:56:29 +0000 (UTC)
+From: Nicolo Giuliani via B4 Relay <devnull+nicolo.giuliani6.studio.unibo.it@kernel.org>
+Date: Mon, 21 Sep 2026 05:56:29 +0200
+Subject: [PATCH net v2] net: dsa: mv88e6xxx: 88E6191X and 88E6193X have no
+ PTP
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <46342be7.3c81.1a0c2181721.Coremail.zl020895@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:fSgvCgD3n00BqrBqt2pLAA--.36901W
-X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbC7gFx4mqwqgHFHgAA3W
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-send-net-v2-1-031ad720f140@studio.unibo.it>
+X-B4-Tracking: v=1; b=H4sIAOyqsGoC/2WNQQ6CMBBFr0JmbQktLYgr72FclDLKuGhJpxAN4
+ e4WXLp8Py/vr8AYCRkuxQoRF2IKPoM6FeBG658oaMgMqlJN1clOMPpBeEyia601jamt02fI+hT
+ xQe8jdYMswP038ty/0KU9smsjcQrxcxwu8pD/24sUUujaGNcq3RjEK6d5oFDOnvpQUo5v2/YFo
+ RWcor0AAAA=
+X-Change-ID: 20260919-send-net-97aa5653ac48
+To: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Richard Cochran <richardcochran@gmail.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789962988; l=6074;
+ i=nicolo.giuliani6@studio.unibo.it; s=20260919; h=from:subject:message-id;
+ bh=zvg227S60l2Y4KCjY2ZtncW2AyMuzOIIib4Gk2dmg1o=;
+ b=267QZv6EzlKHut28OGs6bee7NNvCO2ylUTtereN1FBJtrz6WZ65ovebBlYIm1VmCLUGJx59CP
+ 7Gme7E5F2a0COndbzmMLnwQLUpWCEoK5kf7j5ZSR1ck9AsvzNiZKrLZ
+X-Developer-Key: i=nicolo.giuliani6@studio.unibo.it; a=ed25519;
+ pk=D652ecdT01GkA1eoFWNFNX85xIg5ZnFwUWyjfestgQw=
+X-Endpoint-Received: by B4 Relay for
+ nicolo.giuliani6@studio.unibo.it/20260919 with auth_id=1040
+X-Original-From: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+Reply-To: nicolo.giuliani6@studio.unibo.it
 
-SGkgTGludXMsCgpUaGFua3MgZm9yIHRoZSByZXZpZXcuIHY4IHdpbGwgc2tpcCB0aGUgcHJlLWRp
-cmVjdGlvbiBncGlvX3JlZ21hcF9zZXQoKSB3aGVuCndyaXRlX2RhdGFfYWZ0ZXJfZGlyIGlzIHNl
-dC4gVGhlIGdwaW9fcmVnbWFwX3NldCgpIHJldHVybnMgc3RheQppZ25vcmVkLCBwZXIgQW5keS4K
-CjAwMTQ6IGFkZGVkIHlvdXIgUmV2aWV3ZWQtYnkuCgpCZXN0IHJlZ2FyZHMsCkxvbmcgWmhhbwoK
-QXQgMjAyNi0wOS0yMSAwNjowMjo0OCwgIkxpbnVzIFdhbGxlaWoiIDxsaW51c3dAa2VybmVsLm9y
-Zz4gd3JvdGU6Cj5IaSBMb25nLAo+Cj50aGFua3MgZm9yIHlvdXIgcGF0Y2ghCj4KPk9uIFR1ZSwg
-U2VwIDE1LCAyMDI2IGF0IDE6MTXigK9QTSBMb25nIFpoYW8gdmlhIEI0IFJlbGF5Cj48ZGV2bnVs
-bCtsb25nemhhby5hbWJhcmVsbGEuY29tQGtlcm5lbC5vcmc+IHdyb3RlOgo+Cj4KPj4gRnJvbTog
-TG9uZyBaaGFvIDxsb25nemhhb0BhbWJhcmVsbGEuY29tPgo+Pgo+PiBTb21lIGNvbnRyb2xsZXJz
-IGlnbm9yZSBkYXRhLXJlZ2lzdGVyIHdyaXRlcyB3aGlsZSBhIGxpbmUgaXMgc3RpbGwgYW4KPj4g
-aW5wdXQuIE9wdGlvbmFsbHkgd3JpdGUgdGhlIG91dHB1dCB2YWx1ZSBhZ2FpbiBhZnRlciBzd2l0
-Y2hpbmcgdGhlCj4+IGRpcmVjdGlvbiwgbWF0Y2hpbmcgdGhlIGV4aXN0aW5nIFBMMDYxIGJlaGF2
-aW91ci4KPj4KPj4gU2lnbmVkLW9mZi1ieTogTG9uZyBaaGFvIDxsb25nemhhb0BhbWJhcmVsbGEu
-Y29tPgo+Cj5PSyBJIHNlZS4KPgo+KC4uLikKPgo+Cj4+IEBAIC0yNzEsOSArMjcyLDIyIEBAIHN0
-YXRpYyBpbnQgZ3Bpb19yZWdtYXBfZGlyZWN0aW9uX291dHB1dChzdHJ1Y3QgZ3Bpb19jaGlwICpj
-aGlwLAo+PiAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcmV0Owo+PiAgICAgICAgIH0K
-Pj4KPj4gLSAgICAgICBncGlvX3JlZ21hcF9zZXQoY2hpcCwgb2Zmc2V0LCB2YWx1ZSk7Cj4+ICsg
-ICAgICAgcmV0ID0gZ3Bpb19yZWdtYXBfc2V0KGNoaXAsIG9mZnNldCwgdmFsdWUpOwo+PiArICAg
-ICAgIGlmIChyZXQpCj4+ICsgICAgICAgICAgICAgICByZXR1cm4gcmV0Owo+Cj5pZiAoIWdwaW8t
-PndyaXRlX2RhdGFfYWZ0ZXJfZGlyKSB7Cj4gICAgIHJldCA9IGdwaW9fcmVnbWFwX3NldChjaGlw
-LCBvZmZzZXQsIHZhbHVlKTsKPiAgICAgaWYgKHJldCkKPiAgICAgICAgICAgICByZXR1cm4gcmV0
-Owo+fQo+Cj5UaGVyZSBpcyBubyBwb2ludCBpbiBkb2luZyBzb21ldGhpbmcgeW91IGtub3cgd2ls
-bCBub3QKPndvcmsuCj4KPj4gKyAgICAgICByZXQgPSBncGlvX3JlZ21hcF9zZXRfZGlyZWN0aW9u
-KGNoaXAsIG9mZnNldCwgdHJ1ZSk7Cj4+ICsgICAgICAgaWYgKHJldCkKPj4gKyAgICAgICAgICAg
-ICAgIHJldHVybiByZXQ7Cj4+Cj4+IC0gICAgICAgcmV0dXJuIGdwaW9fcmVnbWFwX3NldF9kaXJl
-Y3Rpb24oY2hpcCwgb2Zmc2V0LCB0cnVlKTsKPj4gKyAgICAgICAvKgo+PiArICAgICAgICAqIGdw
-aW8gdmFsdWUgaXMgc2V0IGFnYWluLCBiZWNhdXNlIHBsMDYxIGRvZXNuJ3QgYWxsb3cgdG8gc2V0
-IHZhbHVlIG9mCj4+ICsgICAgICAgICogYSBncGlvIHBpbiBiZWZvcmUgY29uZmlndXJpbmcgaXQg
-aW4gT1VUIG1vZGUuCj4+ICsgICAgICAgICovCj4+ICsgICAgICAgaWYgKGdwaW8tPndyaXRlX2Rh
-dGFfYWZ0ZXJfZGlyKQo+PiArICAgICAgICAgICAgICAgcmV0dXJuIGdwaW9fcmVnbWFwX3NldChj
-aGlwLCBvZmZzZXQsIHZhbHVlKTsKPgo+VGhlbiB0aGVyZSBpcyBBbmR5J3MgY29tbWVudCBhcyB3
-ZWxsLgo+Cj5UaGUgcmVzdCBsb29rcyBnb29kLgo+Cj5Zb3VycywKPkxpbnVzIFdhbGxlaWoK
+From: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+
+The 88E6191X and 88E6193X are 6393 family devices that share
+mv88e6393x_ops with the 88E6393X and are marked as ptp_support. Marvell's
+UMSD driver describes both as parts without AVB (88E6193X: "BGA package -
+No AVB, No Routing, No Cut-through"), and the register access confirms it
+on an 88E6193X: the whole indirect AVB register space behind Global 2
+registers 0x16 and 0x17 reads zero, for every port, block and address,
+with the 6390 and with the 6352 command encoding. Writes to the TAI
+registers, including the clock period register and the TAI global
+configuration register, read back as zero.
+
+Since commit 7e3c18097a70 ("net: dsa: mv88e6xxx: read cycle counter
+period from hardware") the PTP setup reads the TAI clock period, so the
+switch fails to probe:
+
+mv88e6xxx ...: unexpected cycle counter period of 0 ps
+
+Add mv88e6191x_ops, a copy of mv88e6393x_ops without avb_ops and ptp_ops,
+use it for the 88E6191X and the 88E6193X and stop setting ptp_support for
+them. The 88E6393X is unchanged.
+
+Tested on an 88E6193X (Sophos XGS 107w): the switch probes and the ports
+work. I do not have an 88E6191X, it is changed because UMSD describes it
+the same way.
+
+Fixes: de776d0d316f ("net: dsa: mv88e6xxx: add support for mv88e6393x family")
+Suggested-by: Andrew Lunn <andrew@lunn.ch>
+Assisted-by: LLM
+Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+---
+Changes in v2:
+- New patch instead of skipping PTP setup: the 88E6191X and 88E6193X have no AVB/PTP unit (per Andrew Lunn, from Marvell's UMSD; the AVB register space reads zero on an 88E6193X), so they get their own ops without avb_ops and ptp_ops and lose ptp_support
+- Link to v1: https://patch.msgid.link/20260919-send-net-v1-1-4355c72465ee@studio.unibo.it
+---
+ drivers/net/dsa/mv88e6xxx/chip.c | 68 +++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 64 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/dsa/mv88e6xxx/chip.c b/drivers/net/dsa/mv88e6xxx/chip.c
+index 7f68a0c55..a4a8c7e11 100644
+--- a/drivers/net/dsa/mv88e6xxx/chip.c
++++ b/drivers/net/dsa/mv88e6xxx/chip.c
+@@ -5639,6 +5639,68 @@ static const struct mv88e6xxx_ops mv88e6390x_ops = {
+ 	.pcs_ops = &mv88e6390_pcs_ops,
+ };
+ 
++static const struct mv88e6xxx_ops mv88e6191x_ops = {
++	/* MV88E6XXX_FAMILY_6393 without AVB and PTP: 6191X and 6193X */
++	.irl_init_all = mv88e6390_g2_irl_init_all,
++	.get_eeprom = mv88e6xxx_g2_get_eeprom8,
++	.set_eeprom = mv88e6xxx_g2_set_eeprom8,
++	.set_switch_mac = mv88e6xxx_g2_set_switch_mac,
++	.phy_read = mv88e6xxx_g2_smi_phy_read_c22,
++	.phy_write = mv88e6xxx_g2_smi_phy_write_c22,
++	.phy_read_c45 = mv88e6xxx_g2_smi_phy_read_c45,
++	.phy_write_c45 = mv88e6xxx_g2_smi_phy_write_c45,
++	.port_set_link = mv88e6xxx_port_set_link,
++	.port_sync_link = mv88e6xxx_port_sync_link,
++	.port_set_rgmii_delay = mv88e6390_port_set_rgmii_delay,
++	.port_set_speed_duplex = mv88e6393x_port_set_speed_duplex,
++	.port_tag_remap = mv88e6390_port_tag_remap,
++	.port_set_policy = mv88e6393x_port_set_policy,
++	.port_set_frame_mode = mv88e6351_port_set_frame_mode,
++	.port_set_ucast_flood = mv88e6352_port_set_ucast_flood,
++	.port_set_mcast_flood = mv88e6352_port_set_mcast_flood,
++	.port_set_ether_type = mv88e6393x_port_set_ether_type,
++	.port_set_jumbo_size = mv88e6165_port_set_jumbo_size,
++	.port_egress_rate_limiting = mv88e6097_port_egress_rate_limiting,
++	.port_pause_limit = mv88e6390_port_pause_limit,
++	.port_disable_learn_limit = mv88e6xxx_port_disable_learn_limit,
++	.port_disable_pri_override = mv88e6xxx_port_disable_pri_override,
++	.port_get_cmode = mv88e6352_port_get_cmode,
++	.port_set_cmode = mv88e6393x_port_set_cmode,
++	.port_setup_message_port = mv88e6xxx_setup_message_port,
++	.port_set_upstream_port = mv88e6393x_port_set_upstream_port,
++	.port_enable_tcam = mv88e6xxx_port_enable_tcam,
++	.stats_snapshot = mv88e6390_g1_stats_snapshot,
++	.stats_set_histogram = mv88e6390_g1_stats_set_histogram,
++	.stats_get_sset_count = mv88e6320_stats_get_sset_count,
++	.stats_get_strings = mv88e6320_stats_get_strings,
++	.stats_get_stat = mv88e6390_stats_get_stat,
++	/* .set_cpu_port is missing because this family does not support a global
++	 * CPU port, only per port CPU port which is set via
++	 * .port_set_upstream_port method.
++	 */
++	.set_egress_port = mv88e6393x_set_egress_port,
++	.watchdog_ops = &mv88e6393x_watchdog_ops,
++	.mgmt_rsvd2cpu = mv88e6393x_port_mgmt_rsvd2cpu,
++	.pot_clear = mv88e6xxx_g2_pot_clear,
++	.hardware_reset_pre = mv88e6xxx_g2_eeprom_wait,
++	.hardware_reset_post = mv88e6xxx_g2_eeprom_wait,
++	.reset = mv88e6352_g1_reset,
++	.rmu_disable = mv88e6390_g1_rmu_disable,
++	.atu_get_hash = mv88e6165_g1_atu_get_hash,
++	.atu_set_hash = mv88e6165_g1_atu_set_hash,
++	.vtu_getnext = mv88e6390_g1_vtu_getnext,
++	.vtu_loadpurge = mv88e6390_g1_vtu_loadpurge,
++	.stu_getnext = mv88e6390_g1_stu_getnext,
++	.stu_loadpurge = mv88e6390_g1_stu_loadpurge,
++	.serdes_get_lane = mv88e6393x_serdes_get_lane,
++	.serdes_irq_mapping = mv88e6390_serdes_irq_mapping,
++	/* TODO: serdes stats */
++	.gpio_ops = &mv88e6352_gpio_ops,
++	.phylink_get_caps = mv88e6393x_phylink_get_caps,
++	.pcs_ops = &mv88e6393x_pcs_ops,
++	.tcam_ops = &mv88e6393_tcam_ops,
++};
++
+ static const struct mv88e6xxx_ops mv88e6393x_ops = {
+ 	/* MV88E6XXX_FAMILY_6393 */
+ 	.irl_init_all = mv88e6390_g2_irl_init_all,
+@@ -6163,8 +6225,7 @@ static const struct mv88e6xxx_info mv88e6xxx_table[] = {
+ 		.atu_move_port_mask = 0x1f,
+ 		.pvt = true,
+ 		.multi_chip = true,
+-		.ptp_support = true,
+-		.ops = &mv88e6393x_ops,
++		.ops = &mv88e6191x_ops,
+ 	},
+ 
+ 	[MV88E6193X] = {
+@@ -6190,8 +6251,7 @@ static const struct mv88e6xxx_info mv88e6xxx_table[] = {
+ 		.atu_move_port_mask = 0x1f,
+ 		.pvt = true,
+ 		.multi_chip = true,
+-		.ptp_support = true,
+-		.ops = &mv88e6393x_ops,
++		.ops = &mv88e6191x_ops,
+ 	},
+ 
+ 	[MV88E6220] = {
+
+---
+base-commit: 6c096bb08de97cdca051fecddad22cac6a1fd275
+change-id: 20260919-send-net-97aa5653ac48
+
+Best regards,
+--  
+Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+
+
