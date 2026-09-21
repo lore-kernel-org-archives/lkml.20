@@ -1,90 +1,288 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 590C2369D66;
-	Mon, 21 Sep 2026 09:44:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mta1.migadu.com (out-191.mta1.migadu.com [95.215.58.191])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1A135C6AA
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:46:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.191
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789983888; cv=none; b=f7mZ7dWa8KbnBSELNJgsjduZ0kevcSu7YMyMjmNjqTrPA+fiH3l/joM8k44fKK3HvT/R4M7tiy3gwS3ZusPclF+90FkRW2kwtFWbKtARO57buElYkG2T5lRkCLeZKpYAS+UT7XUMeZ04y+zx53BAkJOLvQNTsmmQTM88YwhUlzo=
+	t=1789983977; cv=none; b=I1xPmSL1cxh/1ILyVRG9XXV4DiF50CcHKyTYAVRXmd7zZksrJK92MQs/1Wh2f5s9CmbFreQqYsM+fsNVhRLIh8mkTG4vJNWhWrnY6AfA4Yljv4OMJucR/Ee1662iWTQx/DX5q4s/Fy1mREXQioscUs1GjhYu5Jc2qBR2KVZsC20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789983888; c=relaxed/simple;
-	bh=21HQ9Jm+j3bA+jZJyxERUm/iQSi9IvRUOjPhb/LBexA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dq26cFtWqcKdKJosBI9RhVQ9qHCTt74uffzGL8KGrOx5DEj/8g+iZ6yXMRHGffRdROUEe6e4MFLgnDPN65wmFzWB1C8HgfH0BJiZMBV4qRZGxsBMMeZGjM6o5x72YGHSR7GVZuec7dP6XMHetcdfpiWsBfQ/Vr0sO/q2g3Zz9hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=e52ERe3N; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789983977; c=relaxed/simple;
+	bh=40Pibx3H1OAa4munGp9Mhm2S6yy1ZLpGkJtdxAVMpi0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X9E/8mLI+9UecUq0tevbmf8VlwS5omj5CbExkCpcckBPAe8xq3MQ6jQwNzdAcEPxNPkOpdvcNT+qjP9FmRvbPpPw6dYLfAh8nNlTQ2IPQ9IpNDVOUhmODUZ3JP1YCSD8icpQNzBboeTrTUhZDnkxfUh5cG31LbiC/RLnIHgGT+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=duBSfOvH; arc=none smtp.client-ip=95.215.58.191
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="e52ERe3N"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 84ADA153B;
-	Mon, 21 Sep 2026 02:44:41 -0700 (PDT)
-Received: from [10.57.83.12] (unknown [10.57.83.12])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DD1793F86F;
-	Mon, 21 Sep 2026 02:44:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789983885; bh=21HQ9Jm+j3bA+jZJyxERUm/iQSi9IvRUOjPhb/LBexA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=e52ERe3NX85DTf+sp8aD7+t+Z3+kuFmz2m3Q1UFRyMS1D4lxPKCftTkfNT25qwagy
-	 O4kzIm9OdRUieaMkJo7t5izcU6xr9HIDIhIJ2AIjuMfNbPHeo3gS24WWx3cczAEWEL
-	 Sy6+/Iq7UIvFNwm5CwTWVVvAgQg4fN+pILUIHuRM=
-Message-ID: <cb0f1d49-865b-4728-89f7-7d8552dabd67@arm.com>
-Date: Mon, 21 Sep 2026 10:44:38 +0100
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="duBSfOvH"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=40Pibx3H1OAa4munGp9Mhm2S6yy1ZLpGkJtdxAVMpi0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789983972; v=1; x=1790588772;
+ b=duBSfOvHVNfoYWf8+BBkg+mkclj9nFTEnxk+FDIF3L5oOTr+nAWSP9WBJQ4wOkR8ReaOQvuL
+ ww+74/zYFqmjtzevm8maeWsKaIfi14Pwnbru4al2MjI4/J851mP/brdrjr4d0jUsvAfmUe8GKo3
+ GMxAeBv8+92y6hy9hE5jzVzM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e0b3a8a4092f7f84;
+	Mon, 21 Sep 2026 09:46:12 +0000
+X-Mizu-Trace-ID: e0b3a8a4092f7f84
+X-Migadu-Flow: FLOW_OUT
+From: Hao Li <hao.li@linux.dev>
+To: vbabka@kernel.org,
+	harry@kernel.org,
+	akpm@linux-foundation.org
+Cc: cl@gentwo.org,
+	rientjes@google.com,
+	roman.gushchin@linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Hao Li <hao.li@linux.dev>
+Subject: [PATCH v2] mm/slub: refill prefilled sheaves from the barn
+Date: Mon, 21 Sep 2026 17:41:13 +0800
+Message-ID: <20260921094521.141665-1-hao.li@linux.dev>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] arm64: enable a distinct type for HW PTEs
-To: Muhammad Usama Anjum <usama.anjum@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Alexander Potapenko <glider@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-efi@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org
-References: <20260914-pte0_arm-v1-0-bb53b663e396@arm.com>
- <20260914-pte0_arm-v1-6-bb53b663e396@arm.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260914-pte0_arm-v1-6-bb53b663e396@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14/09/2026 14:51, Muhammad Usama Anjum wrote:
-> With HW PTE pointers and direct HW PTE accesses converted, arm64 can use
-> the generic hw_pte_t wrapper instead of the pte_t alias.
-> 
-> Select ARCH_HAS_HW_PTE_T to give HW PTEs and SW PTE values distinct C
-> types.
-> 
-> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Currently, when the prefill API refills a non-full sheaf, it takes the
+objects from partial slabs and never from the full sheaves in the barn,
+so once the barn's full list becomes saturated, it stays saturated.
 
-Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
+For objects freed via kfree_rcu(), every RCU sheaf then has to be
+flushed to slabs because the barn's full list has no room.
 
-> ---
->  arch/arm64/Kconfig | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index 2bbeded33da0d..42841d5e2ed26 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -31,6 +31,7 @@ config ARM64
->  	select ARCH_HAS_FORTIFY_SOURCE
->  	select ARCH_HAS_GCOV_PROFILE_ALL
->  	select ARCH_HAS_GIGANTIC_PAGE
-> +	select ARCH_HAS_HW_PTE_T
->  	select ARCH_HAS_KCOV
->  	select ARCH_HAS_KERNEL_FPU_SUPPORT if KERNEL_MODE_NEON
->  	select ARCH_HAS_KEEPINITRD
-> 
+To fix this, let the sheaf refill from the barn first, and introduce a
+partial sheaf in the barn, which holds the leftover objects [1].
+
+Only the prefill path needs the partial sheaf. The generic allocation
+path (__pcs_replace_empty_main()) exchanges an empty sheaf for a full
+one from the barn, so nothing is left over. The prefill path refills a
+sheaf that is not necessarily empty, so taking objects from the barn
+usually leaves leftovers, and the partial sheaf is where they are
+kept. refill_sheaf() only takes objects from partial slabs and never
+involves the partial sheaf.
+
+The sheaf is refilled by copying objects from the partial sheaf, and
+then from a full sheaf taken from the barn if it is still not full. A
+sheaf that objects were copied from stays in the barn as the partial
+sheaf if it still holds objects, or goes on the empty list if it is
+empty. The sheaf being refilled is never replaced.
+
+The gain comes from two sides: every full sheaf taken out makes room on
+the barn's full list for a future RCU sheaf, and refilling from the
+barn is cheaper than refilling from partial slabs under list_lock.
+
+Note that putting the sheaf with the leftover objects on the full list
+instead would not work: it would occupy room on the full list, so the
+list would stay saturated and rcu_free_sheaf() would still keep
+flushing.
+
+An earlier version of this patch swapped sheaves instead, to minimize
+the memcpy overhead. As Harry Yoo pointed out [2], replacing the
+caller's sheaf loses cache affinity, filling it directly is more
+straightforward, and testing showed no measurable difference between
+the two approaches, so the approach he suggested is used.
+
+Tested with will-it-scale mmap1 (192 processes, one-minute runs) on the
+maple_node cache.
+
+throughput: 27778727 -> 34500556 (+24.2%)
+
+metric                       baseline           patched        change
+=====================================================================
+alloc_fastpath                 54,124            56,696        +4.75%
+alloc_slab                  7,100,651           159,739       -97.75%
+barn_get                          849       194,460,392    +22904539.81%
+barn_get_fail                       2               217    +10750.00%
+barn_put                          851       182,306,701    +21422544.07%
+barn_put_fail             260,400,484       145,522,675       -44.12%
+cmpxchg_double_fail         1,029,204           334,228       -67.53%
+free_add_partial          326,694,687       181,935,790       -44.31%
+free_fastpath                  13,297            15,611       +17.40%
+free_rcu_sheaf          8,332,839,104    10,490,535,227       +25.89%
+free_remove_partial         7,099,788           158,297       -97.77%
+free_slab                   7,099,788           158,297       -97.77%
+free_slowpath              10,969,156           782,851       -92.86%
+objects                        15,295            14,849        -2.92%
+objects_partial                15,295            14,849        -2.92%
+partial                         1,604             2,336       +45.64%
+sheaf_alloc               137,757,895       141,208,076        +2.50%
+sheaf_flush             8,332,823,922     4,656,725,764       -44.12%
+sheaf_free                137,757,883       141,208,072        +2.50%
+sheaf_prefill_fast      3,337,502,163     4,196,506,116       +25.74%
+sheaf_prefill_slow                685               400       -41.61%
+sheaf_refill            8,343,794,364     4,657,509,724       -44.18%
+sheaf_return_fast       3,337,502,411     4,196,506,382       +25.74%
+sheaf_return_slow                 437               134       -69.34%
+slabs                           1,604             2,336       +45.64%
+total_objects                 102,656           149,504       +45.64%
+
+Here is what the important metric changes mean.
+
+barn_get and barn_put: refills now take full sheaves out of the barn,
+and RCU sheaves are put into the barn again. Before, the barn's full
+list was saturated once and hardly ever consumed.
+
+barn_put_fail: more than half of the RCU sheaves are now put into the
+barn instead of being flushed. The rest are still flushed because they
+arrive while the barn's full list is at its limit.
+
+sheaf_refill and free_add_partial: fewer objects are taken from partial
+slabs to refill sheaves, and fewer slabs are added to the partial list,
+by the same percentage.
+
+alloc_slab and free_slab: the partial list is almost never empty when a
+refill looks at it, so slabs are almost never allocated and freed again
+only to serve refills.
+
+After the test, the maple_node cache holds 1604 slabs without the patch
+and 2336 with it. After a manual shrink
+(echo 1 > /sys/kernel/slab/maple_node/shrink), it holds 485 without
+the patch and 563 with it. So most of the extra slabs are held only by
+objects sitting in sheaves and are returned by a shrink, and what
+remains is a small difference, because objects handed out from the barn
+come from many more slabs than a refill from partial slabs would use.
+
+Link: https://lore.kernel.org/linux-mm/aqPlMzUIw-4g2iOX@fedora/ [1]
+Link: https://lore.kernel.org/linux-mm/aq0ylDidEHa2kg4X@thinkstation/ [2]
+Signed-off-by: Hao Li <hao.li@linux.dev>
+---
+v2:
+- Refill the caller's sheaf in place, copying from the partial sheaf
+  and then from a full sheaf, instead of exchanging it for a barn
+  sheaf, as suggested by Harry Yoo. The sheaf is no longer passed by
+  reference, and the pfmemalloc guard and the capacity fixup of the
+  exchanged sheaf go away with the exchange. Thanks Harry!
+v1: https://lore.kernel.org/linux-mm/20260918114318.124346-1-hao.li@linux.dev/
+---
+ mm/slub.c | 81 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 81 insertions(+)
+
+diff --git a/mm/slub.c b/mm/slub.c
+index 54ec12503357..db83b1257440 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -422,6 +422,7 @@ struct node_barn {
+ 	spinlock_t lock;
+ 	struct list_head sheaves_full;
+ 	struct list_head sheaves_empty;
++	struct slab_sheaf *sheaf_partial;
+ 	unsigned int nr_full;
+ 	unsigned int nr_empty;
+ };
+@@ -3298,6 +3299,7 @@ static void barn_init(struct node_barn *barn)
+ 	spin_lock_init(&barn->lock);
+ 	INIT_LIST_HEAD(&barn->sheaves_full);
+ 	INIT_LIST_HEAD(&barn->sheaves_empty);
++	barn->sheaf_partial = NULL;
+ 	barn->nr_full = 0;
+ 	barn->nr_empty = 0;
+ }
+@@ -3315,6 +3317,10 @@ static void barn_shrink(struct kmem_cache *s, struct node_barn *barn)
+ 	barn->nr_full = 0;
+ 	list_splice_init(&barn->sheaves_empty, &empty_list);
+ 	barn->nr_empty = 0;
++	if (barn->sheaf_partial) {
++		list_add(&barn->sheaf_partial->barn_list, &full_list);
++		barn->sheaf_partial = NULL;
++	}
+ 
+ 	spin_unlock_irqrestore(&barn->lock, flags);
+ 
+@@ -5073,12 +5079,87 @@ void *kmem_cache_alloc_node_noprof(struct kmem_cache *s, gfp_t gfpflags, int nod
+ }
+ EXPORT_SYMBOL(kmem_cache_alloc_node_noprof);
+ 
++/*
++ * Refill @sheaf from the barn: from its partial sheaf first, then from its full
++ * sheaves. A sheaf that objects were copied from stays in the barn as the
++ * partial sheaf if it still holds objects, or goes on the empty list if it is
++ * empty.
++ *
++ * Returns true if the sheaf is now full, at s->sheaf_capacity.
++ * Returns false if the sheaf is still not full.
++ */
++static bool refill_sheaf_from_barn(struct kmem_cache *s,
++				   struct slab_sheaf *sheaf)
++{
++	struct node_barn *barn = get_barn(s);
++	struct slab_sheaf *src;
++	unsigned int to_move;
++	unsigned long flags;
++
++	if (!barn)
++		return false;
++
++	if (!data_race(barn->nr_full) && !data_race(barn->sheaf_partial))
++		return false;
++
++	spin_lock_irqsave(&barn->lock, flags);
++
++	/*
++	 * The partial sheaf can hold fewer objects than @sheaf needs to
++	 * reach capacity, and a sheaf on the full list is not necessarily
++	 * full (see the comment in rcu_free_sheaf()), so keep taking from
++	 * the barn until @sheaf is full or nothing is left.
++	 */
++	while (sheaf->size < s->sheaf_capacity) {
++		src = barn->sheaf_partial;
++		barn->sheaf_partial = NULL;
++		if (!src) {
++			if (!barn->nr_full)
++				break;
++			src = list_first_entry(&barn->sheaves_full,
++					       struct slab_sheaf, barn_list);
++			list_del(&src->barn_list);
++			barn->nr_full--;
++		}
++
++		to_move = min(s->sheaf_capacity - sheaf->size, src->size);
++		src->size -= to_move;
++		memcpy(&sheaf->objects[sheaf->size], &src->objects[src->size],
++		       to_move * sizeof(void *));
++		sheaf->size += to_move;
++
++		if (src->size) {
++			barn->sheaf_partial = src;
++		} else {
++			/*
++			 * No empty-limit check: the sheaf put on the empty list
++			 * was already in the barn, so the barn holds no more
++			 * sheaves than before. barn_replace_empty_sheaf() skips
++			 * the check for the same reason.
++			 */
++			list_add(&src->barn_list, &barn->sheaves_empty);
++			barn->nr_empty++;
++		}
++	}
++
++	spin_unlock_irqrestore(&barn->lock, flags);
++
++	if (sheaf->size < s->sheaf_capacity)
++		return false;
++
++	stat(s, BARN_GET);
++	return true;
++}
++
+ static int __prefill_sheaf_pfmemalloc(struct kmem_cache *s,
+ 				      struct slab_sheaf *sheaf, gfp_t gfp)
+ {
+ 	gfp_t gfp_nomemalloc;
+ 	int ret;
+ 
++	if (refill_sheaf_from_barn(s, sheaf))
++		return 0;
++
+ 	gfp_nomemalloc = gfp | __GFP_NOMEMALLOC;
+ 	if (gfp_pfmemalloc_allowed(gfp))
+ 		gfp_nomemalloc |= __GFP_NOWARN;
+-- 
+2.55.0
 
