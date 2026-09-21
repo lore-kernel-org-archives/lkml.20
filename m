@@ -1,103 +1,182 @@
-Received: from out28-51.mail.aliyun.com (out28-51.mail.aliyun.com [115.124.28.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-41.ptr.blmpb.com (va-2-41.ptr.blmpb.com [209.127.231.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DFB3BD64D;
-	Mon, 21 Sep 2026 07:26:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 572813BED6A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789975567; cv=none; b=W+vgrRFUTLFQCzjb87emRqUpUqiWUgPSlkTo2idKxVqQ2mKZiBckNFDvkOZHceyVNpmRMvicNELm27zHVjkIsbuGZrE3YIZtPUP6/2sREiEzngPzs5qa4fzvu5V7fwm9nqxoRApWsjRjTTku74slL3Gyj2XvtALQGJiKTz3vogk=
+	t=1789975571; cv=none; b=ZvYW+MAkyNlE05IV27M1gc7w1UMelnQkeN3pDvLKYUMUJhHgUPiAimwbVtS7pg5xyofA+lB/EOtoclcf5qoAfchZoMzvW8cq5QA76pzE08uhhgoL5NeQkCh702R/nHUJTsOcDax3rhxVL7VD6cFWUGFvowiP3kXUQaiesZe9x7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789975567; c=relaxed/simple;
-	bh=GqK89U7P+Urcs0Jv1SoaTfT4xNdMCDUxpjbtp7TnyyA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UdiXN86xoMmmThWkanPha4NIFmlSGQ27k/Cp3nTcMWeuwImG+x2nEkWvJ25j/7/yXxiu14e12EGzGeL5ezAvCsME/ixrIzA78vXf5GD32wZPNeVHzZ85gMjmlw/44k+UFTs7OV0ioS3ZkCrNT2zYOyQTQgk8OJRIEx0xLu44s8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=GBi5ESHH; arc=none smtp.client-ip=115.124.28.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789975571; c=relaxed/simple;
+	bh=Bht4kS7a0YKfju6b6SvBnNOh+fngCEA2CP1LDySMZkk=;
+	h=Subject:Cc:References:Content-Type:To:From:Date:Mime-Version:
+	 Message-Id:In-Reply-To; b=BgQ5EoTTwwYjtu1/JDbUvpkSYh5BNNfvXZbg5dyVxbSPEoJBcU67UMlbTxErNRWPP1IG/g4emY2+2vN4kUk8bBbFpRaL9BCr4Cv5jl14mJoE0P2BaQPtzgIjdsZwnolm99nBcnOCx5M6oKvj3NJLl+MdppU9LQZWdE+x10PKW2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com; spf=none smtp.mailfrom=bedmex.com; dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b=sOtWWiUR; arc=none smtp.client-ip=209.127.231.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bedmex.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="GBi5ESHH"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789975553; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=EPHR4VpXwsYv5AFQFeBRmLe/N624YOyPR6uVg9i85Ow=;
-	b=GBi5ESHH2Wha3lePb1SH9hP4HqMYny+dw7Qy7OJUlbo5bOwmuetjaPe+IekZKoaHG2dcV8GT+YibLMsp20Tem0jjE2tG4NR5iFrHgASuprfK/srvUXEknOzWMmKb01EnziXmBqbQsnVSuEk/M/5AsrHpWRsbMHr390w1Xe5LwZY=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1719459|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00975134-0.000581996-0.989667;FP=11527700046566641586|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037025160;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.jInOhLq_1789975551;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jInOhLq_1789975551 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 21 Sep 2026 15:25:52 +0800
-From: Liu Chao <liuc63@xiaopeng.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	skunkolee@gmail.com,
-	liuwb@xiaopeng.com,
-	Liu Chao <liuc63@xiaopeng.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] usb: gadget: f_uac1_legacy: validate bRequest index in generic_{set,get}_cmd
-Date: Mon, 21 Sep 2026 15:25:51 +0800
-Message-ID: <20260921072551.3708191-1-liuc63@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b="sOtWWiUR"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=bedmex-com.20200927.dkim.feishu.cn; t=1789975554;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=JwS/7g2tod8NvUB+y6K9b/eDXPcQuadctRoEP4suMpE=;
+ b=sOtWWiURAMmCNAChIj1ncyPNlIo/LrF9fV657hfKLFZSNl6VSIhE3xaZNiiqwzneJpvGF9
+ zpQ4aYgKu6yOvSU7yNNromx9wPcCMrXJqmH1F7gHPL+c51HhpIToUSqkngsec5AcIitbAl
+ mhX5JqR5CYgYE3+gZxQuCTvgX3sZ29A/tVyVtQ1rGDC4gqmxmN8IQs5q4A/PcxWzKha/R9
+ hUJokvvGWY+cX8jqJxmqhYNoMly8VNoLmU//BCqpbdrCp7h8QB1fIODZ4DAelKt6j1mWyR
+ UvlEBx2rlhl+stSnwDQL1j9CD8q4NcDO6fYzO+hHMUuI2eDIwVKKUO2QN2q5oA==
+Subject: [RFC PATCH v3 2/3] Bluetooth: dt-bindings: Add AIC8800D80
+Received: from bmxpxe-virtual-desktop.. ([36.141.79.164]) by smtp.feishu.cn with ESMTPS; Mon, 21 Sep 2026 15:25:50 +0800
+Cc: <marcel@holtmann.org>, <devicetree@vger.kernel.org>, <robh@kernel.org>, 
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <zhirunliu@aicsemi.com>, 
+	<dijiaxu@aicsemi.com>, <chunqiuliu@aicsemi.com>, <liheng.wei@bedmex.com>, 
+	<yanli.yang@bedmex.com>
+X-Original-From: Yanli Yang <yanli.yang@bedmex.com>
+X-Mailer: git-send-email 2.34.1
+References: <cover.1789974593.git.yanli.yang@bedmex.com>
+X-Lms-Return-Path: <lba+26ab0dbff+cc05f0+vger.kernel.org+yanli.yang@bedmex.com>
+Content-Type: text/plain; charset=UTF-8
+To: <linux-bluetooth@vger.kernel.org>
+From: "Yanli Yang" <yanli.yang@bedmex.com>
+Date: Mon, 21 Sep 2026 15:25:42 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Message-Id: <aff45beb52d4bcc99b0fdcb862b7b984ad737d92.1789974593.git.yanli.yang@bedmex.com>
+In-Reply-To: <cover.1789974593.git.yanli.yang@bedmex.com>
 
-generic_set_cmd() and generic_get_cmd() use the low nibble of
-ctrl->bRequest as an index into con->data[]:
+Describe the AIC8800D80 Bluetooth SDIO firmware-loading function and
+UART HCI interface. Link the UART node to its SDIO firmware provider
+with the aic,firmware-sdio phandle.
 
-    u8 cmd = (ctrl->bRequest & 0x0F);  /* 0 .. 15 */
-    ...
-    con->data[cmd] = value;            /* OOB when cmd >= 5 */
+Add the binding file to the AIC Bluetooth MAINTAINERS entry.
 
-struct usb_audio_control (include/linux/usb/audio.h) declares data as
-a 5-element array, so indices 5 through 15 write (or read) up to 44
-bytes past the end of the array on the heap.
-
-A malicious USB host can craft a class-specific SET_CUR / GET_CUR
-request with an arbitrary bRequest value, triggering the out-of-bounds
-access from an IRQ completion handler with no further preconditions.
-
-Add an ARRAY_SIZE() guard to both functions.
-
-Fixes: c47d7b09891a ("USB: audio: add USB audio class definitions")
-Cc: stable@vger.kernel.org
-Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
-Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+Signed-off-by: Zhirun Liu <zhirunliu@aicsemi.com>
+Signed-off-by: Dijia Xu <dijiaxu@aicsemi.com>
+Signed-off-by: Chunqiu Liu <chunqiuliu@aicsemi.com>
+Signed-off-by: Liheng Wei <liheng.wei@bedmex.com>
+Signed-off-by: Yanli Yang <yanli.yang@bedmex.com>
 ---
-Changes in v2:
-- Fix the Fixes: tag per review: the unchecked low-nibble index and
-  the data[5] array were both introduced by c47d7b09891a together
-  with generic_{set,get}_cmd(); d355339eecd9 was only a file rename.
-- Link to v1: https://lore.kernel.org/all/20260917081832.187957-1-liuc63@xiaopeng.com/
- drivers/usb/gadget/function/f_uac1_legacy.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ .../net/bluetooth/aic,aic8800d80-bt.yaml      | 83 +++++++++++++++++++
+ MAINTAINERS                                   | 10 +++
+ 2 files changed, 93 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml
 
-diff --git a/drivers/usb/gadget/function/f_uac1_legacy.c b/drivers/usb/gadget/function/f_uac1_legacy.c
-index 3f52099a4..7c8d60c7e 100644
---- a/drivers/usb/gadget/function/f_uac1_legacy.c
-+++ b/drivers/usb/gadget/function/f_uac1_legacy.c
-@@ -797,6 +797,9 @@ f_audio_bind(struct usb_configuration *c, struct usb_function *f)
- 
- static int generic_set_cmd(struct usb_audio_control *con, u8 cmd, int value)
- {
-+	if (cmd >= ARRAY_SIZE(con->data))
-+		return -EINVAL;
+diff --git a/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml b/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml
+new file mode 100644
+index 000000000000..9c04ba62ecef
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml
+@@ -0,0 +1,83 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/bluetooth/aic,aic8800d80-bt.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- 	con->data[cmd] = value;
- 
- 	return 0;
-@@ -804,6 +807,9 @@ static int generic_set_cmd(struct usb_audio_control *con, u8 cmd, int value)
- 
- static int generic_get_cmd(struct usb_audio_control *con, u8 cmd)
- {
-+	if (cmd >= ARRAY_SIZE(con->data))
-+		return -EINVAL;
++title: AIC AIC8800D80 Bluetooth
 +
- 	return con->data[cmd];
- }
++maintainers:
++  - Zhirun Liu <zhirunliu@aicsemi.com>
++  - Dijia Xu <dijiaxu@aicsemi.com>
++  - Chunqiu Liu <chunqiuliu@aicsemi.com>
++  - Liheng Wei <liheng.wei@bedmex.com>
++  - Yanli Yang <yanli.yang@bedmex.com>
++
++description:
++  The AIC8800D80 is a Wi-Fi and Bluetooth combination chip. The Bluetooth
++  firmware is loaded through SDIO function 1, while Bluetooth HCI traffic uses
++  the H4 protocol over a UART interface with hardware flow control.
++
++properties:
++  compatible:
++    enum:
++      - aic,aic8800d80-bt
++      - aic,aic8800d80-bt-sdio
++
++  reg:
++    maxItems: 1
++
++  max-speed: false
++
++  aic,firmware-sdio:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      Phandle to the SDIO function used to load the Bluetooth firmware.
++
++required:
++  - compatible
++
++allOf:
++  - $ref: bluetooth-controller.yaml#
++  - if:
++      properties:
++        compatible:
++          const: aic,aic8800d80-bt-sdio
++    then:
++      properties:
++        reg:
++          items:
++            - const: 1
++        aic,firmware-sdio: false
++      required:
++        - reg
++    else:
++      properties:
++        reg: false
++      required:
++        - aic,firmware-sdio
++      allOf:
++        - $ref: /schemas/serial/serial-peripheral-props.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    mmc {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        bt_sdio: bluetooth@1 {
++            compatible = "aic,aic8800d80-bt-sdio";
++            reg = <1>;
++        };
++    };
++
++    serial {
++        uart-has-rtscts;
++
++        bluetooth {
++            compatible = "aic,aic8800d80-bt";
++            aic,firmware-sdio = <&bt_sdio>;
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index af5a8b4b0bb5..20662fe78632 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -729,6 +729,16 @@ S:	Maintained
+ F:	drivers/scsi/aha152x*
+ F:	drivers/scsi/pcmcia/aha152x*
  
++AIC BLUETOOTH DRIVER
++M:	Zhirun Liu <zhirunliu@aicsemi.com>
++M:	Dijia Xu <dijiaxu@aicsemi.com>
++M:	Chunqiu Liu <chunqiuliu@aicsemi.com>
++M:	Liheng Wei <liheng.wei@bedmex.com>
++M:	Yanli Yang <yanli.yang@bedmex.com>
++L:	linux-bluetooth@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml
++
+ AIC7XXX / AIC79XX SCSI DRIVER
+ M:	Hannes Reinecke <hare@suse.com>
+ L:	linux-scsi@vger.kernel.org
 -- 
-2.50.1
-
+2.34.1
