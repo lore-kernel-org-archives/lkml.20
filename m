@@ -1,78 +1,47 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mta0.migadu.com (out-28.mta0.migadu.com [91.218.175.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E07A8635D
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:48:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F10E1D4606
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:49:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789955309; cv=none; b=B/OlpoH5LBe23m8uoDZJvSeBByUgXEtXIqeJtMwOJEw/91zRTOXF+/ZNkxv4R2E7Eru3x2kZcSHazE1mcw0So14QyDP7ho+aeKYOS/igrmVVTPEop2EuwjTSbUXEJT1fvek7rtF3qJe0G4gWRpiJTgxNtgciyAWrVOaYAsGKgzc=
+	t=1789955373; cv=none; b=PNJPvvr5n+J/zWIPtm1jfIBPZPY5I+qKRrDsTK6ijQcnavVEIk2atsFysy/lftItvdO74h8jkDjxxT85uSm4DbMq/4pSNiS3De+0qBAOPugiiX7npijZ1HgNtg8vNFPcZV0tBspU2ZNTw88rFWOW/huq4QkoH67ntkMht9qMSdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789955309; c=relaxed/simple;
-	bh=NokCmnDavm6nge3ht4581Wl5cd5odu08TSzfjqYvPX4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fNy27Gj2993eCZMNsC7byz4QCe1Gk0W9sa/W8/pN2SJSI2NwowwXgHkHpi7r7svu0kVQLjt8cgl2Sw31bl3qpVfZAnpQ80gIi1rhsRozLedJ+yYG6EqpBX6DcGUWrMk3OoH/OBjQvMqX2Nh1BlC8nCkbZ+IPLaBR6csl5L0lCtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lT3ZlwYb; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789955373; c=relaxed/simple;
+	bh=Zq4+vW7gLIfMp6nL7BJFMjrgjpLWJuH9xpY0ZGtQq7c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o4Koz3DbLTGDbcN7ZHamoBVH4xiZSjmDzBvRaCG7xC9zaoKi4pD+2W1OZDu5fgOLiKaxKZsmFbG7T0rl9sfKvJI6QmpcQysrbVrCfkrZUvgqinxhOe9GlGUiPhwpqMwQhAMoylobl/WonmKW6Qf92o+CbPpYCBta547nnjdweuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=esO4uJ5i; arc=none smtp.client-ip=91.218.175.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lT3ZlwYb"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398a1676000so1947056a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 18:48:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789955307; x=1790560107; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=d9cRyT3K2PGM0R80JNPC3Ark3l212LTWXq1nqw71ThQ=;
-        b=lT3ZlwYbPNQga3Ai3VeFDR5UFHMxyif46XNA3HB7rBBE/XDS+csJ7IjY9hugVC/OJd
-         qdX6qfS0VzCsCmnxWutLYDB3en5jERq9jcu8TIia0TfCBcMYeB/1/8yhMDop+RnqBkO5
-         w11hNvkJ3cUMvMFuLwiXggZppOsGIZrEW0ukBkbkU3Lo1fkTdrB/9fsgH/uvNKSCPHLw
-         0VCINAUzp86WNvooMKfkqvbJ0zIXMBU8wJO12asWCWfJ3t/WaWxTUQxGBCIalR4oKT9H
-         XOe+xGd5zTTI5dkynt4/7NUPdrx2J5rj8nY6g0h1J8Bu+SlbduWb034pxUDrwRG873Hb
-         5KVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789955307; x=1790560107;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d9cRyT3K2PGM0R80JNPC3Ark3l212LTWXq1nqw71ThQ=;
-        b=hnEzO5T+0t46l2micbgnECtJmda59B3knoLwwhCTibmTGwnvAov1qfh4vGP2SbbV8g
-         U3jOIiy+19lRxkOUQp8xS8JoStxP7trX0bZlLHIvN29CcNVjsr2pk2nCOu6w/15w736a
-         Zui5SKel2o/5PHDDAQQ30r5L7FSnv2Sj1ny6KWsV4bhaLfnp5KGEio4mNHTt3/uK81xe
-         JdDFXFWNm3OtkSTArJ4GV3Vz5sxS6A/R6jfcXZuh8pSviDJR8qVjw7jZ1g+/j77x9EZt
-         Dr2lnn57qZwUj4o92xLpZ27G6fyDo+hlybodOKs5SrrnPTQGml8ClsoO/fN9R1VFxLso
-         O3ow==
-X-Forwarded-Encrypted: i=1; AKwUvBwFtud5PjAbRTGZilYhIpZbjunQUj2+7F90M7MRfyZsMlAPvHufovhSRFvSA2z5MRKpqsAZOaWnld9fhLg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnirB8KRTvN6TiA/uCtGV9iF0QBNE3jFRgUg7npAYdScn4L9Oo
-	V0wdFSrGHVNIkMDgJjKvkranoAdsNEFHGr72mwXbtgRcnSf9rfAFrVwH
-X-Gm-Gg: AYBFou0WCWz11KILmMTakptyxDpGs6qFujvU16nuC0gHDnqH6zDcwaYVEtl+Zev1iGd
-	ySD+6ldVVRzdS/71HRUtEXkbkQiTKbwmYECKpqXc2kUST3T+ia/SjmE6m8yqwLpjkvib5wVO+qS
-	g5NGtQUut7p7IEsMMQ5YjMmVKbShe2otx2gaJ8NXGU7wg+0mFhzVZjLwflKGDlu4h3ny/P+qs8b
-	s1Ewc13+TMIdb2YRH9GU9TQkhBGo5WiYvJjBhI8hqaevHddmOXZreF/duiDJsbgEarqyXJQeKnx
-	YXUubprXPlvCYknyKjdglqXLd+7XXSe/Na6ZLH4xKs90Og8C7Nm9JECW68pVHWbjByPWXVlvoT1
-	qgpeVTsWHsgd4qP29Cwmwx7LCS6J0m/M5z5IXXQ91h3tsoHBortvkylbaV6sxgJkfrXQb5bp0/N
-	sagMDWPw4WJkK0xHQZ9b7x/95jEcTbl/Cv7S1QknHjct5fSxbH1cBTECUbX6ufE4tYzmThaeIrp
-	pMeiZYH7EIRG8ekjDR2ahPKVEF1FSg5cs0iH0QZeFq/70WKa8HnrsVDv7IF7FChA3dLDw6mGGyh
-	r/9jC1oIwbW+wh8idF6+kg==
-X-Received: by 2002:a17:90a:c105:b0:39e:4c80:f67e with SMTP id 98e67ed59e1d1-39e54f11f69mr15842285a91.29.1789955307433;
-        Sun, 20 Sep 2026 18:48:27 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c3145dasm11345650a91.4.2026.09.20.18.48.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 18:48:27 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Hui Peng <benquike@gmail.com>,
-	valentina.manea.m@gmail.com,
-	shuah@kernel.org,
-	linux-usb@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="esO4uJ5i"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Zq4+vW7gLIfMp6nL7BJFMjrgjpLWJuH9xpY0ZGtQq7c=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789955368; v=1; x=1790560168;
+ b=esO4uJ5iw7umAH0rRD2ZiT5bHTPjzNXsLXImfEbor4MRKFVkxG1lGMcQiIp1N5MugIVq/ODb
+ A66p3fI5FSid+npcyPpBj78R+fhEaLZ4Eui6uOKODP45vzp5DurWAzq5wbwSJ+14mMywygij+6E
+ ctv8Ern5wBS2FsQb9fDF+5rY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 627428ec648c6623;
+	Mon, 21 Sep 2026 01:49:28 +0000
+X-Mizu-Trace-ID: 627428ec648c6623
+X-Migadu-Flow: FLOW_OUT
+From: Qingfang Deng <qingfang.deng@linux.dev>
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	David Woodhouse <David.Woodhouse@intel.com>,
+	KOSAKI Motohiro <kosaki.motohiro@jp.fujitsu.com>,
+	linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usbip: validate ISO packet descriptors and URB lengths in vhci, vudc, and usbip_common
-Date: Mon, 21 Sep 2026 01:48:25 +0000
-Message-ID: <20260921014825.733805-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <2026092058-obtain-angles-cb4c@gregkh>
-References: <20260919223519.3890269-1-benquike@gmail.com> <2026092058-obtain-angles-cb4c@gregkh>
+Cc: Qingfang Deng <qingfang.deng@linux.dev>,
+	syzbot+e08e0a15269eefa87790@syzkaller.appspotmail.com
+Subject: [PATCH] mtd: block: prevent reclaim I/O during request processing
+Date: Mon, 21 Sep 2026 09:49:20 +0800
+Message-ID: <20260921014921.78150-1-qingfang.deng@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,34 +50,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 20, 2026 at 6:18 AM Greg KH <gregkh@linuxfoundation.org> wrote:
->
-> > diff --git a/drivers/usb/usbip/usbip_common.c b/drivers/usb/usbip/usbip_common.c
-> > index 100f8920624b..8bd9af7ebfc8 100644
-> > --- a/drivers/usb/usbip/usbip_common.c
-> > +++ b/drivers/usb/usbip/usbip_common.c
-> > @@ -482,7 +482,6 @@ static void usbip_pack_ret_submit(struct usbip_header *pdu, struct urb *urb,
-> >               if (rpdu->number_of_packets < 0 ||
-> >                   rpdu->number_of_packets > urb->number_of_packets)
-> >                       rpdu->number_of_packets = 0;
-> > -             urb->number_of_packets = rpdu->number_of_packets;
->
-> You are removing this, why?
->
-> How was this tested?
->
-> greg k-h
+The blktrans request callbacks run under dev->lock and may allocate
+memory with GFP_KERNEL. For example, mtdblock_writesect() uses vmalloc()
+to allocate its eraseblock cache. Direct reclaim can then recurse into
+block I/O and deadlock on resources held by the request being processed.
+syzbot reports a circular locking dependency involving the device mutex
+and fs_reclaim.
 
-Apologies for the noise, Greg.
+Commit d5ba1c8ffd0b ("mtd: don't use PF_MEMALLOC") removed PF_MEMALLOC
+from the MTD request thread. That flag had prevented direct reclaim,
+so its removal made allocations during request processing eligible for
+reclaim without excluding I/O.
 
-We originally found and tested these ISO packet descriptor issues on
-6.18.14, and when rebasing onto mainline we missed that commits
-2ab833a16a82 ("usbip: validate number_of_packets in
-usbip_pack_ret_submit()") and 4f8d24c48101 ("usb: usbip: validate source
-and destination offsets in usbip_pad_iso()") had already fixed them in
-upstream, which caused the rebase conflict in usbip_pack_ret_submit().
+Wrap request processing in mtd_queue_rq() in a NOIO scope. This covers
+both the request and background callbacks, including allocations made
+by lower MTD drivers, and prevents reclaim from initiating filesystem
+or block I/O.
 
-Please drop this patch.
+Fixes: d5ba1c8ffd0b ("mtd: don't use PF_MEMALLOC")
+Assisted-by: Codex:gpt-6-astra
+Reported-by: syzbot+e08e0a15269eefa87790@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=e08e0a15269eefa87790
+Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+---
+ drivers/mtd/mtd_blkdevs.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Best regards,
-Hui Peng
+diff --git a/drivers/mtd/mtd_blkdevs.c b/drivers/mtd/mtd_blkdevs.c
+index 4d2e7b7774e9..42f250344f0c 100644
+--- a/drivers/mtd/mtd_blkdevs.c
++++ b/drivers/mtd/mtd_blkdevs.c
+@@ -18,6 +18,7 @@
+ #include <linux/spinlock.h>
+ #include <linux/hdreg.h>
+ #include <linux/mutex.h>
++#include <linux/sched/mm.h>
+ #include <linux/uaccess.h>
+ 
+ #include "mtdcore.h"
+@@ -167,6 +168,7 @@ static blk_status_t mtd_queue_rq(struct blk_mq_hw_ctx *hctx,
+ 				 const struct blk_mq_queue_data *bd)
+ {
+ 	struct mtd_blktrans_dev *dev;
++	unsigned int noio_flags;
+ 
+ 	dev = hctx->queue->queuedata;
+ 	if (!dev) {
+@@ -174,10 +176,13 @@ static blk_status_t mtd_queue_rq(struct blk_mq_hw_ctx *hctx,
+ 		return BLK_STS_IOERR;
+ 	}
+ 
++	/* Reclaim must not recurse into I/O while processing requests. */
++	noio_flags = memalloc_noio_save();
+ 	spin_lock_irq(&dev->queue_lock);
+ 	list_add_tail(&bd->rq->queuelist, &dev->rq_list);
+ 	mtd_blktrans_work(dev);
+ 	spin_unlock_irq(&dev->queue_lock);
++	memalloc_noio_restore(noio_flags);
+ 
+ 	return BLK_STS_OK;
+ }
+-- 
+2.43.0
+
