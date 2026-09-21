@@ -1,76 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24487420469;
-	Mon, 21 Sep 2026 20:20:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78AE24334A5;
+	Mon, 21 Sep 2026 20:20:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790022023; cv=none; b=l64vji35iovNHyL1up+2EzFIwFkk9eWUJyLGtSX0n5fUjA+zAD6bHgKUX5B7Wg/ibjnxmlpmeVLu6RRRfC2YoAOrnPuC9p2eR7erJhIjCb9QT2wQkejODq7DDIoi7vNtIbjbdap1zcUEaAWNMoVKHzTRyJezA0AlsepCPE1QLoU=
+	t=1790022024; cv=none; b=cmC9xtedv6SkaVfy8pBeDNqHZxaOT9NIuD5RS7A1d1376CAlfS2UbEITvKQU5P2zVUun4bOJlBy4MKeUX6k4CK9ruh6/YZqyvH1YEfUA0wLej8aR0I0PyjkC+Dt/Maji+uwFM/VkWyzdIkgBNEPDbcM9OEZlwuXx9nzqfs/brZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790022023; c=relaxed/simple;
-	bh=JtykKgqo+f211SbFKgghZZ2s4s0O43HbHIIra7rXxb4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NhhzrOXndqOkEFz2razQROZrIbCYniVCCzI/fvvIZ2V9szF5TtiIRG9N9tU3OrJPVWP22GQ0NV7YUNnAw+veuu6hY/YBaVQPsKms1MWZZYNzM4cKyQ9ydMmoJdV2p/ZeHmoNGy9P/wuu1aef9Ujbxr/m1DFGyvUgVtwb547VN+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EpKzmRij; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790022024; c=relaxed/simple;
+	bh=t56rUUwRmXd5Bwozpjc5KFkjkkSuskX8gA5Flws04pw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PxnxFy8H08R5hJPQ/cPrUiQLBV3zMER48tb7H3VlSFjJP66GtHAzijnqTzt+UZTBAgWaw+L1pbDHu+N/jq7KfwfnaKHjk9WpS9seQC2SBSEYn1tBe9NLfenpfCqYIewNY/AJwC0OzIi87Cfo0QlLADfF5rKvdyN9rCznxiuLwvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=0YgOTHuR; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EpKzmRij"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89FD01F000FF;
-	Mon, 21 Sep 2026 20:20:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790022021;
-	bh=DSZiEtwE1uacP7iFOeCfIa6zqRHcapIJW8XH08Z+dxA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EpKzmRijiEzN+ngovxGMDwJKFJeQ2p8zxUZ2ELAUP5ZX3aH5mmjdKcjB23Xcui26Y
-	 DNzSM9QbDJB7kM2T0dotHeN1jiMXolgz2FFl2OUYT4PeyaTwoB9sYdLCSMRkvCEZ7t
-	 4O8pKUsfzFYRe4KTTxjK4vBTmINcmgeMEVRFLtFqWm/UldS7ydThDSex+ews5gnEQ8
-	 hfjWhD7bTQTmP2Sf52eg9Iy6SurqA7TF9pEZUh+GZlmEWh1IL07rn5VhKoQT6e7Sgn
-	 Fujl6SkeU74eLu7uqVpSXPAkkEgMHYUyCrecvCLfoORp2JRQTDmohMZXp+fUeCt8X7
-	 oG1sP4TJ4aRRQ==
-Date: Mon, 21 Sep 2026 13:20:20 -0700
-From: Oliver Upton <oupton@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <shuah@kernel.org>, Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>, kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] KVM: selftests: Fix arm64 sysreg header dependencies
-Message-ID: <arGRhHgP_izSwW4T@kernel.org>
-References: <20260902134118.2718200-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="0YgOTHuR"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=t56rUUwRmXd5Bwozpjc5KFkjkkSuskX8gA5Flws04pw=; b=0YgOTHuRfrXx1uFY1wMgE/U3e0
+	+dw/SC2Xa43f3HhGb4BANiW7jobFbsqgyg+H+OHB+9velcZTPQP3OLgQRcZfL3ZuFMhwbsfoU5LpQ
+	KscCXVeHleND2dk4DeIMrIyRmDqEd8x0S2W14yqzbij1R0tY0zrPzqENhXhxgQ/oBN/6abHZa0jsm
+	5xtYyleOrUyi4tvI1qjEATxfxEhUWURulNBpTFmXcQNpeI6XMz77ZsMBHl59H4Fe1nSDbBEACMs0s
+	R9vl+SbDHSNLxIZbf9boY17c+SpCWINR8BSudWHYfoTZz/fQGUOw/ergGpgsnhGaGG8tvgzRk6wau
+	8gIKa2bg==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Jacopo Mondi <jacopo@jmondi.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>,
+ Matthias Fend <matthias.fend@emfend.at>,
+ Mikhail Rudenko <mike.rudenko@gmail.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Michael Riesch <michael.riesch@collabora.com>,
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Sylvain Petinot <sylvain.petinot@foss.st.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Paul Elder <paul.elder@ideasonboard.com>,
+ Martin Kepplinger <martin.kepplinger@puri.sm>,
+ Quentin Schulz <quentin.schulz@theobroma-systems.com>,
+ Tommaso Merciai <tomm.merciai@gmail.com>,
+ Svyatoslav Ryhel <clamor95@gmail.com>,
+ Richard Acayan <mailingradian@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux@ew.tq-group.com, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Quentin Schulz <quentin.schulz@cherry.de>, David Heidelberg <david@ixit.cz>
+Subject:
+ Re: [PATCH v6 4/6] arm64: dts: rockchip: Convert to new media orientation
+ definitions
+Date: Mon, 21 Sep 2026 22:19:14 +0200
+Message-ID: <4535025.ejJDZkT8p0@phil>
+In-Reply-To:
+ <20260918-kbingham-orientation-v6-4-5e8b1f01be29@ideasonboard.com>
+References:
+ <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com>
+ <20260918-kbingham-orientation-v6-4-5e8b1f01be29@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902134118.2718200-1-fuad.tabba@linux.dev>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Hey Fuad,
+Am Freitag, 18. September 2026, 12:44:16 Mitteleurop=C3=A4ische Sommerzeit =
+schrieb Kieran Bingham:
+> From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+>=20
+> The orientation property for video interface devices now has definitions
+> to prevent hardcoded integer values for the enum options.
+>=20
+> Update the users throughout the rockchip device trees to use the new
+> definitions.
+>=20
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Reviewed-by: Quentin Schulz <quentin.schulz@cherry.de> # PP-1516 and
+> Reviewed-by: David Heidelberg <david@ixit.cz>
+> Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
 
-Thanks for the fix here.
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
-On Wed, Sep 02, 2026 at 02:41:18PM +0100, Fuad Tabba wrote:
-> ---
-> Unlike the two existing sysreg-defs.h rules, this one's recipe is a recursive
-> make, so its prerequisites are not the recipe's arguments. They only decide
-> whether to recurse, which is a question tools/arch/arm64/tools/Makefile already
-> answers. An alternative is therefore to drop the two explicit inputs in favour
-> of:
-> 
-> 	$(GEN_SYSREG_DEFS): FORCE
-> 
-> leaving that Makefile as the only place naming the generator's inputs. Both
-> forms regenerate the header and rebuild the dependents in the same invocation,
-> and neither rebuilds anything when nothing changed. I kept the explicit
-> prerequisites so that the recursion stays conditional, but I am happy to respin
-> with FORCE if you would rather.
+Same thing Thierry said, applies for the Rockchip change, if someone
+wants to apply (parts of) the series to the media tree, that is fine
+with me.
 
-This might be the better approach at this point. In the unlikely event
-that new dependencies get added to the kernel side of this, I'll give it
-approximately a 0% chance that the author will update this rule :)
+Otherwise I'll just pick "mine" after the next merge-window.
 
-Thanks,
-Oliver
+
+Heiko
+
+
