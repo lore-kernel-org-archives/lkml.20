@@ -1,78 +1,48 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C514A0929
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:57:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 112794A0139;
+	Mon, 21 Sep 2026 13:58:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999082; cv=none; b=PA8loToOoKXlRbu/EWJTZ860CxuClOjh5Kk1fMhQJv6TubpaWyVTIqqt5yolTCNAN3UmDuER7CNWhwvQWOn0uUFKDk/CL50xU4KmnfTB2d5RzQsVSS9u4xrHEACt99XJaOmT0BrLRou7F8NgvBDQ7nKvkJJkg7WRbBQqAwv+JIM=
+	t=1789999127; cv=none; b=C8cxNokcyMTDKcA4xhgeLyGtuWFUm0gTPcBH1FLS41KviZt0r9HcyGCwWKGc96Lxl3LcDwrcdvJsynX9V1qcQNsrvypxLjL+7pE/RsW5jyz6VAw7CwFwPpQ0qWWQr6gzkwtHZEnODN9EFWDJbrCX9xCNwC605rM6ayXUwy4/Fuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999082; c=relaxed/simple;
-	bh=scCajsGDahX0/C42DoxVM831Xi0Na9KZ5VIUIH33XnA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U5nX6qY3+9eAf34x+c06uqg3rEtxHN7vE1hXKHwfWoCl/dtCOE2YnGdm+R9EGoulJGC90trYA75ke/UPYnpjR68zNjfEDG44YDCb9HpTRNW4xEmLrTvP6Z1kq8kLfFmRsvub7BToHp3GVLSjHG1DqElPVqs86blsKZwtBKmSwtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cellusys.com; spf=pass smtp.mailfrom=cellusys.com; dkim=pass (2048-bit key) header.d=cellusys.com header.i=@cellusys.com header.b=OTj8RqEG; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cellusys.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cellusys.com
+	s=arc-20240116; t=1789999127; c=relaxed/simple;
+	bh=THpSRXzLzNF65kA5k6YgmRSnVbUWk8l6krfhI9QSfgM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WPoEecFkcfnrdZjUit3EMtlm1o0ij+1rYtCHrcXSvLBGdI1/DyNET/nTSsHSktbbfO6H+WlgTtmLNgjhLw9TE2NWmcwR87hozqtUrB/JPSSnhxSkN4KR9Q4gBlFvkd1KtRKe8O49XK6v4L3YtGfvdP9AiEPFyQ/xJJmnA7/gxVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=ZJ4A9DHy; arc=none smtp.client-ip=117.135.210.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cellusys.com header.i=@cellusys.com header.b="OTj8RqEG"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f6c7a58so454052066b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:57:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cellusys.com; s=google; t=1789999076; x=1790603876; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EYb9djJ650f+j77K71sOdKHCCKyIjN5iGG67MyIXzHI=;
-        b=OTj8RqEGF+l7bCcbT5hmWzczPcMMCF04cVxsA9gd8KK9TkWoWZaTjN8rAcrIV9djmR
-         KuUDyAGWBG9Upx0+NyW0m7phkvCSPBelDgHxyra+2VIHQWaiWpZlzT3gHbNqtpK+rMYV
-         GZSsUF9GASy/7ger6mdq1WWdjsBvVBf/5ZhKIQHQX8Rryz2j9r2ySIXAOak/xegY0Tm/
-         JOUl9HDSegQU3C6kLhEgY3Q9pFVZ+H/FXdF4f/nsumDThPlKH7KjCPMoOxSvnFRyClzI
-         /3DqWw7OxSk2+FN7IzoturcTIB5J6s8xdMiBS2u2OSlHeCcZmBROeAbapk6nNZQf5wxp
-         9Z0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789999076; x=1790603876;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EYb9djJ650f+j77K71sOdKHCCKyIjN5iGG67MyIXzHI=;
-        b=utFQUM6CjA56Z7ZpVzpdFCpICsZ8byNJj2mi68u7Aw3cR036kjRXr4pAhJTSvVm6Ta
-         bnI6aoLcZSacF2vXxXvAjPrgYEB55rybe1KRGvQJ28jzb9jOnPn+a2mrPuAJ7KSZecw4
-         1UIg+bAYFWSpl026/ck3YX6lIQxmqMEiD4uR/WPzcWmTiBauia0MxVXaUnylOm/CNTqv
-         dVr2oE32hrhBKsbT1B9rX3Vyjxa905G917K2tt5Lt7Y03ZcGWF38LRsVl0r8OYaXLaar
-         2ep4xAMPZ4ElQjHSFHpBR+BoQ6FykhpoJO2xCI0HLyjD2M8IwOZVQCy6HuXHUJ/v4aL6
-         /tKg==
-X-Forwarded-Encrypted: i=1; AKwUvByPlZsIjjh+JBJq9JMUt+NeH40Mm5Eu/YydllUpr/2bMdpyFVZ1I0fIVY2L2RuR5xDjL8Z7U5CTaUKyRfA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l1qncwpAyrt8AzMXIJZSOkDHPVkAqkF1LUfxr9bTXb51eFFfb2
-	Q7CVMeKtKqwxvU+wddoiTNlAWRdhaKXpnYyM8w4e7YQkga4+DMgA+DbfVBm2tmwOQ6s=
-X-Gm-Gg: AYBFou0e3f6iljA3wmkcppBNrpavu0SXHHJniyOwDujKLGGIh5+CwvpYyb0miVT0i/2
-	zoGsTkLXbDaZjj7hQIys5v4jdgdS9k2ms251WOB/FPQw87cuAhISCXglHX4ZaXMTCLgBaBLYWzh
-	+/9aN4wuRxkaHyPTGClbvitRXFBLYRWOS6fbJEM0bMJrjDP2SUhYsYSib9sl1DhDn+OFs+NxT1/
-	mvlWUEsY9SF+bXreQ3mo2tvMjKhbjjGGjxNMgA8Ic749FC+XaILR7ldZky5JYj4IMEfONAqjVlJ
-	27833hdB1ksZyZtFTezDUu1M5NvNH3RFRNo9kX22wNwtg87cn907vGBHr1RemP/9zuT7lYTrTU9
-	Es0jUm4KUuwt65Qn/W0WDr1+9f4S+23EQ65JTxdc/0mjCKPljdz9Gv3dkbxlLOEmWqAhSEN7r25
-	5pTX/nZezkcZA3yrol/HX0zODvfKdqk+wRt9vtfxONWEm1+oROFnc21YmBCR1O5Sb0X7lXY2sjm
-	fR/N0UAm/dnaJsr2WaL0nkeZKRj5UV1m+NzitndomZe4Ri3VLb8HWPW
-X-Received: by 2002:a17:906:f5a8:b0:c29:c356:6984 with SMTP id a640c23a62f3a-c2a1578857bmr907019266b.8.1789999076248;
-        Mon, 21 Sep 2026 06:57:56 -0700 (PDT)
-Received: from dscRocky-build.localdomain (ip-83-147-170-154.wfd.metro.digiweb.ie. [83.147.170.154])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a35745cfesm323987366b.38.2026.09.21.06.57.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 06:57:55 -0700 (PDT)
-From: Warren Briggs <wbriggs@cellusys.com>
-To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: linux-sctp@vger.kernel.org,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="ZJ4A9DHy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ez
+	yjvcjHnU8bsyuDFh4e4QIqzX8lLzZewGB28BdVIsQ=; b=ZJ4A9DHyVWeOVgvWbX
+	SQ9fRseiZitjjvZsJRy0vgOPvPYK4I4A2fSw7+Isykg0xhImtaQWk6orSkYK66wu
+	PxNG9vEiBNQoqNSf6yBUF3YXTamAJDNvhfhfcrFh5fkANSSVg0y197cqefnaoe+Y
+	WmsS7GG7L1lk796eI84fvtd94=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD33wG+N7FqH9M7Bw--.62914S2;
+	Mon, 21 Sep 2026 21:57:18 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: maxime.chevallier@bootlin.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com
+Cc: netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Warren Briggs <wbriggs@cellusys.com>
-Subject: [PATCH net v3] sctp: carry peer capabilities across an INIT collision
-Date: Mon, 21 Sep 2026 09:57:33 -0400
-Message-ID: <20260921135733.577647-1-wbriggs@cellusys.com>
-X-Mailer: git-send-email 2.43.7
+	Linkui Xiao <xiaolinkui@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH net v3 1/2] net: stmmac: ethtool: ignore inapplicable per-queue coalesce fields
+Date: Mon, 21 Sep 2026 21:57:15 +0800
+Message-Id: <20260921135716.218420-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,90 +50,135 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD33wG+N7FqH9M7Bw--.62914S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuF4DtFyxZF4Dury7Kry5twb_yoW7Jw47p3
+	yUCFZavw1kJrW2yw1kAF40kFy5trs3tFZ7XFyxt34Fka1fCry5Xry5tryUKFnFkrWkZrWY
+	gFWjq39ru398XaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UnmRUUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqR8E2mqxN7-cjgAA3p
 
-sctp_assoc_update() folds a temporary association into the existing one
-when an INIT collision is resolved. It copies asoc->c, peer.rwnd,
-peer.sack_needed, peer.auth_capable and peer.i, and nothing else.
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-The remaining peer capability bits therefore keep whatever the surviving
-association was given when it was created, rather than what the peer
-advertised in the INIT that caused the collision.
+rx_queues_to_use and tx_queues_to_use are independent: dwmac-intel uses
+6 RX and 4 TX channels on TGL and EHL, and snps,rx-queues-to-use and
+snps,tx-queues-to-use are parsed separately, so a queue index can exist
+in one direction only. include/linux/ethtool.h documents the parameters
+of the missing side as inapplicable and asks set_per_queue_coalesce() to
+ignore them, but __stmmac_set_coalesce() validates both directions for
+every index while __stmmac_get_coalesce() reports the inapplicable ones
+as zero.
 
-Forward TSN is the visible case. The INIT-ACK is built from the
-temporary association, so it advertises Forward-TSN-Supported; once the
-collision is resolved the surviving association holds
-peer.prsctp_capable == 0, and the first FORWARD TSN chunk the peer sends
-is answered with ERROR "Unrecognized chunk type". The peer does not
-expect this, having been told the capability was supported. ecn_capable,
-asconf_capable, reconf_capable and intl_capable are lost in the same
-way.
+ethtool implements --per-queue by reading the current settings of every
+queue in the mask and sending them back with only the requested fields
+overwritten, so the zeroed fields are fed straight back into the setter:
 
-The two address flags fail the other way round. sctp_process_param()
-clears ipv4_address and ipv6_address and sets them from the peer's
-Supported Address Types, but only on the temporary association. The
-surviving association keeps the permissive defaults from
-sctp_association_init(), so it can believe a peer supports an address
-family that peer never advertised.
+  - on an RX-only index the test for both TX fields being zero rejects
+    the request, so per-queue RX coalescing cannot be changed at all;
+  - on a TX-only index rx_coalesce_usecs is zero, stmmac_usec2riwt()
+    returns zero and the MIN_DMA_RIWT test rejects the request, so
+    per-queue TX coalescing cannot be changed at all.
 
-peer.auth_capable is already carried, added by commit 1be9a950c646
-("net: sctp: inherit auth_capable on INIT collisions") for the same
-reason. This extends that to the rest of the block.
+On an RX-only index the TX test rejects the request after the RX block
+has already called stmmac_rx_watchdog() and stored rx_riwt[] and
+rx_coal_frames[], so the driver reports -EINVAL with the hardware half
+reprogrammed.  The roll-back that ethtool_set_per_queue_coalesce() runs
+for the queues it has already changed then trips over the same test and
+cannot restore them.  On a TX-only index the rx_riwt range check fails
+before anything is written, but the request is still rejected and the
+TX settings are never stored.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Warren Briggs <wbriggs@cellusys.com>
+Validate and apply only the side that the queue index actually has, and
+move the TX checks in front of the RX block so that a request is either
+applied completely or rejected without touching the device.
+
+Fixes: db2f2842e6f5 ("net: stmmac: add per-queue TX & RX coalesce ethtool support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
 ---
-Changes since v2:
- - dropped asoc->peer.hostname_address. The field no longer exists,
-   removed by commit bd4b28189469 ("sctp: delete the obsolete code for
-   the host name address param").
- - wrapped the commit message at 75 columns.
- - added the Fixes tag.
- - retargeted at net, subject prefix corrected.
+Changes in v2:
+- Trim the comment in front of the TX checks to one line; the reasoning
+  belongs in the changelog. (Andrew Lunn)
+- Link: https://lore.kernel.org/all/20260920015647.1783574-1-xiaolinkui@126.com/
 
-Changes since v1:
- - added ecn_capable, asconf_capable, reconf_capable and intl_capable,
-   the missing fields identified in review of v1.
- - also added ipv4_address and ipv6_address, which are set from the
-   peer's Supported Address Types on the temporary association and are
-   lost at the merge in the same way.
+Changes in v3:
+- Only run the TX checks when the index carries a TX ring, and the rx_riwt
+  range check only when it carries an RX ring. Moving the checks alone
+  rejected per-queue RX coalescing on an RX-only index and broke the
+  ethtool core rollback for it. (Sashiko review)
+- Reword the subject and changelog to describe the direction-aware
+  validation.
 
-Testing. An INIT collision was resolved between two sockets on one host
-and the resulting association's peer capabilities read back, with a
-second, non-collided association created in the same run as a control,
-on an unpatched and a patched kernel:
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 35 +++++++++++++------
+ 1 file changed, 24 insertions(+), 11 deletions(-)
 
-prsctp_capable   SCTP_PR_SUPPORTED            unpatched 0, patched 1
-reconf_capable   SCTP_RECONFIG_SUPPORTED      unpatched 0, patched 1
-intl_capable     SCTP_INTERLEAVING_SUPPORTED  unpatched 0, patched 1
-asconf_capable   SCTP_ASCONF_SUPPORTED        unpatched 0, patched 1
-ecn_capable      SCTP_ECN_SUPPORTED           unpatched 0, patched 1
-ipv4_address     sctp_diag sctpi_peer_capable unpatched 1, patched 0,
-                 with the peer advertising IPv6 only
-ipv6_address     sctp_diag sctpi_peer_capable unpatched 1, patched 0,
-                 with the peer advertising IPv4 only
-
-Three of those were also confirmed on the wire. An unpatched kernel that
-has advertised Forward-TSN-Supported in its INIT-ACK answers a FORWARD
-TSN chunk with ERROR cause 6; a patched one accepts it.
-SCTP_RESET_STREAMS and sctp_bindx(SCTP_BINDX_ADD_ADDR) put a RE-CONFIG
-and an ASCONF on the wire on a patched kernel and produce nothing on an
-unpatched one.
-
-diff --git a/net/sctp/associola.c b/net/sctp/associola.c
-index 4521be3..0bd0a66 100644
---- a/net/sctp/associola.c
-+++ b/net/sctp/associola.c
-@@ -1107,6 +1107,13 @@ int sctp_assoc_update(struct sctp_association *asoc,
- 	asoc->peer.rwnd = new->peer.rwnd;
- 	asoc->peer.sack_needed = new->peer.sack_needed;
- 	asoc->peer.auth_capable = new->peer.auth_capable;
-+	asoc->peer.prsctp_capable = new->peer.prsctp_capable;
-+	asoc->peer.ecn_capable = new->peer.ecn_capable;
-+	asoc->peer.asconf_capable = new->peer.asconf_capable;
-+	asoc->peer.reconf_capable = new->peer.reconf_capable;
-+	asoc->peer.intl_capable = new->peer.intl_capable;
-+	asoc->peer.ipv4_address = new->peer.ipv4_address;
-+	asoc->peer.ipv6_address = new->peer.ipv6_address;
- 	asoc->peer.i = new->peer.i;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index 154cc0c7623d..fed648a9f784 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -837,6 +837,8 @@ static int __stmmac_set_coalesce(struct net_device *dev,
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 	bool all_queues = false;
+ 	unsigned int rx_riwt;
++	bool has_rx;
++	bool has_tx;
+ 	u32 max_cnt;
+ 	u32 rx_cnt;
+ 	u32 tx_cnt;
+@@ -850,7 +852,20 @@ static int __stmmac_set_coalesce(struct net_device *dev,
+ 	else if (queue >= max_cnt)
+ 		return -EINVAL;
  
- 	if (!sctp_tsnmap_init(&asoc->peer.tsn_map, SCTP_TSN_MAP_INITIAL,
+-	if (priv->use_riwt) {
++	has_rx = all_queues || queue < rx_cnt;
++	has_tx = all_queues || queue < tx_cnt;
++
++	/* An index can be RX-only or TX-only; ignore the missing side. */
++	if (has_tx &&
++	    ec->tx_coalesce_usecs == 0 && ec->tx_max_coalesced_frames == 0)
++		return -EINVAL;
++
++	if (has_tx &&
++	    (ec->tx_coalesce_usecs > STMMAC_MAX_COAL_TX_TICK ||
++	     ec->tx_max_coalesced_frames > STMMAC_TX_MAX_FRAMES))
++		return -EINVAL;
++
++	if (has_rx && priv->use_riwt) {
+ 		rx_riwt = stmmac_usec2riwt(ec->rx_coalesce_usecs, priv);
+ 
+ 		if ((rx_riwt > MAX_DMA_RIWT) || (rx_riwt < MIN_DMA_RIWT))
+@@ -866,7 +881,7 @@ static int __stmmac_set_coalesce(struct net_device *dev,
+ 				priv->rx_coal_frames[i] =
+ 					ec->rx_max_coalesced_frames;
+ 			}
+-		} else if (queue < rx_cnt) {
++		} else {
+ 			priv->rx_riwt[queue] = rx_riwt;
+ 			stmmac_rx_watchdog(priv, priv->ioaddr,
+ 					   rx_riwt, queue);
+@@ -875,14 +890,6 @@ static int __stmmac_set_coalesce(struct net_device *dev,
+ 		}
+ 	}
+ 
+-	if ((ec->tx_coalesce_usecs == 0) &&
+-	    (ec->tx_max_coalesced_frames == 0))
+-		return -EINVAL;
+-
+-	if ((ec->tx_coalesce_usecs > STMMAC_MAX_COAL_TX_TICK) ||
+-	    (ec->tx_max_coalesced_frames > STMMAC_TX_MAX_FRAMES))
+-		return -EINVAL;
+-
+ 	if (all_queues) {
+ 		int i;
+ 
+@@ -892,7 +899,7 @@ static int __stmmac_set_coalesce(struct net_device *dev,
+ 			priv->tx_coal_timer[i] =
+ 				ec->tx_coalesce_usecs;
+ 		}
+-	} else if (queue < tx_cnt) {
++	} else if (has_tx) {
+ 		priv->tx_coal_frames[queue] =
+ 			ec->tx_max_coalesced_frames;
+ 		priv->tx_coal_timer[queue] =
+-- 
+2.25.1
+
