@@ -1,106 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5703D3B3
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:18:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68823D3B3;
+	Mon, 21 Sep 2026 00:18:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789949932; cv=none; b=at7yNSm8qG0aPM44iCDB00swrEfGK3OtCN1Ys3/vFI9sPqbz7ndNhBnj7q91iwZmKcxr8YiBuIR9Jqr4o2GIavuSV18YY0/oorI+9DIIthTAmGsFx7ilye7cgE2s/LXKaWa9Km8aTBYlYubAMjixefPwJma0lcW0IglTpL7RyCg=
+	t=1789949939; cv=none; b=IGPCOEoeqI8RQUput/+5rqO7q549eth0PEF2WYkMrqNjwjsN6iw0mC9aL8SxPCodCZKRLkaFngp38Xn08GyIIvn0rmG5KmEY161d4ulKzQ/CnRQKCQ3VN2XetYBKGGVw+TOODqcdpqM8f1a1cO/GcfWWIlLBHj331MmPw5pgM/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789949932; c=relaxed/simple;
-	bh=yQLJwaBM1jNrWhBXChoiLFbCA/v9mJP+hXZ5bDTH3cA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=drmLykardvEKxWjD84Py3G5PBlC+Q2docZ4aLQ/R+uglJPed6zLspBoa+hcTAI44kYGzfLi1GOagoRXKqwQREB1vrxFjMkWhavphwzTpykrS8GBR4oXrFxHy4FM8zXD5FPohHpe61EoRA5rNfmCsGw9MFVN/XvLqKw/w/p38tLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aIEj4iaB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789949939; c=relaxed/simple;
+	bh=bTCkyx7gYIwwH2XQEptDRV0EKXsk0JHIHCfAyZ9pnhY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MRNInFzXubsMIvQ4+ns71yzd9woL5jkjS/IruqawaLNYd612P/evICedd0437+OrzZOOpahgI5UgFL0r7xBlrlm4+ZdXuLt2huEiz3AslIK75JXGFenM2852cZ60eBVUJdQntkmUshLKT4WPoQDuNrDzNs13Qy2HcEIID8cUF2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AzyIlKGS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aIEj4iaB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53BB81F008A4
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:18:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AzyIlKGS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 529561F00893;
+	Mon, 21 Sep 2026 00:18:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789949931;
-	bh=yQLJwaBM1jNrWhBXChoiLFbCA/v9mJP+hXZ5bDTH3cA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=aIEj4iaBhshktxUJ9NxtHfVL6ULOcPlzBZ+8JZnTwJNm0vxSPb3Tj+kbQCbxteszO
-	 QAnXO6g4HbazET/Ga/0jEGHY9wLEdkEp2XLCw3GjOLtXoEGXsxT86NukCsaUn7g99h
-	 DWgqIj8LdB52MhSQlPEBJXOU4SgzIBGzg0YppLv5Gzo9RN9HlDiBuLIi4xSPRJv5xz
-	 nf9PHnhgqW1fR7L23E/E9OfCSv6kFY/JokoUj7nuOkoe6YVnyLhe6uYdrJm36h6x81
-	 WcH9mHLOp6DpEwMeTAWYCV1RzL0rd7TjVt/se2qLf/3gpxRAaNDat6YlTSk7udgvBX
-	 haoUyoBJIR/vw==
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66fb93aee5eso2246430d50.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:18:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz6lTAgVRus8S9RrwQjqt74CFVbVmTT0/iqIos2FtqaP+5R+D4NxlCOtqBVF70zsVA7g+Pcovz0qg13VhI=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8PHhL4A1Ku3HlNcEw+m+r3MemULsK+SNx51bKYuqU9KPdSPzz
-	TnYcGaDk0mfRjkZoWbeN6pIyauuzIMqpvMoDAX55N8C4mWraZ+7+G1XnbE0qiBgrJjZ+5CkMfF4
-	cjWmHQtH9flFz7ZuPIrpp8jqZMXSLdih6CQmjr3eiKQ==
-X-Received: by 2002:a05:690e:144e:b0:672:b10e:c5e8 with SMTP id
- 956f58d0204a3-672b11e0a0dmr330726d50.28.1789949930653; Sun, 20 Sep 2026
- 17:18:50 -0700 (PDT)
+	s=k20260515; t=1789949938;
+	bh=pYjifRCpzas7A2q9taWb5XtUcgBE3zaYyp3xpNGct2I=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=AzyIlKGS948QUvJQD47PT6Q8xIVq54PD0JZhrFOPRD9orjx0+GMuAAXruOLz2Kk5O
+	 LWy5IlT2fue8tCLWhKPjS9C38HmqBFF/78B8WkZdChkbKbc9z4pGQpHsA4i+jFdBdI
+	 9HoyfYMlTGxOk2Mp/7QP9t4HVqFHJdpEswP9bktS9QdyirZO03uxg/9S1/aUkrQxVW
+	 t4tG5oA+WMP26BplzY8hEdtiZAE92KEX05KeSyhZejRgi2CB4hmOknEW6crLCvm/f3
+	 IusLschtF0rz8MNgKY8rNm1FV93H+KD6Bs3+AzWjtJd+HS+0Zi0utOB0cZncSjRRVN
+	 kQR0udFEhIUeQ==
+Date: Mon, 21 Sep 2026 01:18:52 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: <linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux@analog.com>, <michael.hennerich@analog.com>, <nuno.sa@analog.com>,
+ <dlechner@baylibre.com>, <andy@kernel.org>, <marcelo.schmitt1@gmail.com>
+Subject: Re: [PATCH v1 1/1] iio: adc: ad7173: Fix digital filter
+ configuration
+Message-ID: <20260921011852.1325aed0@jic23-hlaptop>
+In-Reply-To: <6de8050f5cc2b1632d7c72e4d290a484dbe53d31.1789577939.git.marcelo.schmitt@analog.com>
+References: <6de8050f5cc2b1632d7c72e4d290a484dbe53d31.1789577939.git.marcelo.schmitt@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <CAMgjq7AHRzBsbmGOx0s=TQFBwcn=DEU1naR443sO6x+pJd6hAg@mail.gmail.com>
- <aqBT_35E-eSoN_zj@cmpxchg.org> <CAKEwX=N4aaq_oD2agTUNrUNXhaYGeQ9vxu+dywFvEFgWFi4uQg@mail.gmail.com>
- <CAMgjq7AfNBUpMamcv29JFzpX=7ApNYVLtPjWT4Sm8cXjSLYL9g@mail.gmail.com>
- <aqU81l1oqGItb-0C@cmpxchg.org> <CACePvbWLHAT5DjC=HidzN10XF5_cnkpxXXDR_yfEJjTY_uDvDQ@mail.gmail.com>
- <e42d8bb0bb13067609e8ff8c858a26ca056368bd.camel@surriel.com>
-In-Reply-To: <e42d8bb0bb13067609e8ff8c858a26ca056368bd.camel@surriel.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Sun, 20 Sep 2026 14:18:37 -1000
-X-Gmail-Original-Message-ID: <CACePvbXDDDHo0rwkR3Ln4==teQugYP2=5y87J+A48Lagk1X_zg@mail.gmail.com>
-X-Gm-Features: AcwNN1V4Qm3_GmZRa8eeaDfHd6BdloTCfV1sTma9X2uAKhaJOLZlQ8rz9IjN_3c
-Message-ID: <CACePvbXDDDHo0rwkR3Ln4==teQugYP2=5y87J+A48Lagk1X_zg@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Rik van Riel <riel@surriel.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 19, 2026 at 3:07=E2=80=AFPM Rik van Riel <riel@surriel.com> wro=
-te:
->
-> >
-> > For our deployment, we only compress about 7-10% of the system memory
-> > before performance starts to suffer. The feedback loop will scale it
-> > back. I am very curious do you have actual work load to swap out 100%
-> > of the RAM.
->
-> One common workload is a web browser with idle tabs.
->
-> Those often compress pretty well, a ratio of 4:1 is
-> not unheard of, which makes it easy to fill up
-> 1/3 of memory with 133% of memory's worth of compressed
-> memory.
+On Wed, 16 Sep 2026 14:01:34 -0300
+Marcelo Schmitt <marcelo.schmitt@analog.com> wrote:
 
-You did not answer my question. You are talking about user-space
-processes (browsers). Do you run your browser in the data center, or
-is that a laptop workload?
+> Filter enable and filter type selection masks were swapped on data
+> preparation for filter configuration register write. Use the correct masks
+> to set each property of post filter configuration.
+> 
+> Fixes: bb688cd9f772 ("iio: adc: ad7173: support changing filter type")
+That's not a valid hash.  Fixed up whilst applying.
 
-Anyway, what is the total amount of memory swapped out to zswap
-(before compression), and what is the ratio to the total memory? I
-can't imagine your big server can reach 100% swap out to zswap while
-maintaining a reasonable SLO. So educate me.
+Applied to the fixes-togreg branch of iio.git.
 
-Chris
+
+> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> ---
+>  drivers/iio/adc/ad7173.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/ad7173.c b/drivers/iio/adc/ad7173.c
+> index eb47175a0528..faebb7b34a15 100644
+> --- a/drivers/iio/adc/ad7173.c
+> +++ b/drivers/iio/adc/ad7173.c
+> @@ -775,9 +775,9 @@ static int ad7173_load_config(struct ad7173_state *st,
+>  
+>  	return ad_sd_write_reg(&st->sd, AD7173_REG_FILTER(free_cfg_slot), 2,
+>  			       FIELD_PREP(AD7173_FILTER_SINC3_MAP, 0) |
+> -			       FIELD_PREP(AD7173_FILTER_ENHFILT_MASK,
+> -					  post_filter_enable) |
+>  			       FIELD_PREP(AD7173_FILTER_ENHFILTEN,
+> +					  post_filter_enable) |
+> +			       FIELD_PREP(AD7173_FILTER_ENHFILT_MASK,
+>  					  post_filter_select) |
+>  			       FIELD_PREP(AD7173_FILTER_ORDER, 0) |
+>  			       FIELD_PREP(AD7173_FILTER_ODR_MASK,
+> 
+> base-commit: 9c464e7473f762cee4c031a09da04f65a1c65d49
+
