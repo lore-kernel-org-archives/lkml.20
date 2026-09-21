@@ -1,97 +1,235 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net [217.70.183.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5242A3B8950
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:52:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D313B8950;
+	Mon, 21 Sep 2026 10:53:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789987967; cv=none; b=Vau+CdJJqYwkIfMHfCw4jCGZucSmjpJjBEPDDV4fXnPlxtgrgYMaLYBBEcPzVLGjJgzD+6dQkc2EyKuTWiGVapXgEQLmE0r6agfuQQ4IoZRpacQP0l2vaEqR9t61uNzGwPrbr5zVn4uZ2u9cAn9wFzx6iMs0EGT+n8kkxagCnj4=
+	t=1789987991; cv=none; b=RscOmI1trq6Xy4+AwisTxY/Wnpb3zVA3d8kLa1XXMa08GRm49XxpA+S+vLEP4obKk4QBzXrIRtrrX8R9/e6h4qOMY2avhgVNClcSnKeaZ7Oxxnhojlk3ceWPxVZDpqQHsSVPAZDnJoDhnzMbVXlWHSbh3+UzOAmgpYMXpyKo9Kc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789987967; c=relaxed/simple;
-	bh=3paPf3xvSBd+3IGy7fGmdzP572lcWRjJ/IP0IXUgrqE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VPQpQdQ8q62cwGxIqHUoUm6u37GgV58l4rxuyPZgMlj8QX5+3UzwMwtMnKksMjWs7DRXsbadF1eR9WbWFCcEKcKu8A+XeAMR9XSZLt3k6Vehpf6uWVmn712zITGpBWxvZS/OQMNuPKsxv1kaa/03mjSMeuZHOYfUbdBVHs1zO5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=RFMutsMg; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1789987991; c=relaxed/simple;
+	bh=RrJGYdKkxTQlz72pG9pht7EpKJzAaKC1XCSf3BCO5VM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=DdUzUxWltzql/osvIKVdkeRaMaFWQ8PC8+vE0u2FtV6nLM5qsI609w1Xun+L7F5xM/J/dhXvNxWzJy+dKvP+UCo0yoFcYN5CrLFXEgmuJHzJbo6iGRZaW7a/kIgRX4GE8DcC9mHAXFAqyeOTXBmVYwtLna+Np0c8xOBSs1Ftj1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=lQHFfhIm; arc=none smtp.client-ip=217.70.183.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="RFMutsMg"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d91c22d27dso15811615ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:52:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789987965; x=1790592765; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3paPf3xvSBd+3IGy7fGmdzP572lcWRjJ/IP0IXUgrqE=;
-        b=RFMutsMg74wvmacskFeKYPWaXp41QWi5NmKvl78XAVopYsgrH+A78qMPBrRKQo+VnP
-         5zTceVG36RyKuAN1GBjDZqQ0kqNxoqBhkc8TbfnLKPxN7ydUDDERAmh3lkoxcPAfmAfx
-         yZ0+A6o7+0z3C/oV7eR4gS7VNbuNJU6TSdu4g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789987965; x=1790592765;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3paPf3xvSBd+3IGy7fGmdzP572lcWRjJ/IP0IXUgrqE=;
-        b=CWLfHblHkXdf2zAOKyALnJoDW8yZNGf6IbzO5kc8XudEaeSy8LdkNj7iH2yFNFg2TQ
-         HTuGQDDftpVw+C0N1TVOQ7fYjz19E0a2CGtXhlN8HJRFcRirnsfs/nOATou4Ab+eYpsn
-         884s9xhIL2INKA33nIPGmEu+wEKIZ+DTIjUzDQKwnHRNHEThuA3l8W0LKxohIW3TO01K
-         GM5j910iEF2RNVoUxDhSqbKEXb3qIf6aHUexqnQDEYaq4nXgFnUPcUFnf1yixxjIzxik
-         RFky5hE1AJ+xDTMecFZOIx3yCXFDmI/DtD7sbrNkcTmz0icJCbFpnREBYoQCXj+j8HfC
-         55gA==
-X-Forwarded-Encrypted: i=1; AKwUvBy+nJaBL++uDN55ZK2ucGKsZ3t1rtK1/Dv5ovk5Gvv6usipKqjOfWVOe8BvCcFzlKOQJu94phdb2lblfXU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kN+TvMtGJf+WYAxwxKFHCC6r5+hCtSdu/l5S6g1F9nn8nDd3Gk
-	kgM/jhFLyplYwoc1HiKDTXKSqWD+/FFY2QIIfW1ICchiu7MuCkTWNy8axEDXS1rxxrSus+V/Ep+
-	O2hA=
-X-Gm-Gg: AYBFou1lPrV/TTEDOnrY6pEX2/WBIK4VXHFSy7FcNA3p4blI13T9Rm5/G9uIOYjU0b5
-	bB4MRQEFqkZgh4MdA/tSB2y9cDyOS5BxS0U1ZBwvokF8wnGnlFqJ+tbXu5ENWuAn8o+19bG31CB
-	H52bGrSkYkzSyDOsf0gliaPueC8P5nJZN4EEEfLkxcZpLLVe7ogg8c12uW6Qme2RkcIS8trUobo
-	9amJtZXOaSiQktD4AyJKZscQI6egRx0lo6tIKA0RZFwkYVgdbWibwf2Fup/H7cQYPjrdVirlghO
-	gVX2QIbaJBeBXjfT7GqA+OLVESXcQA+/Kazyp1aNaSkha12L9u/f8uY+HsCdEhBqIhI8ztHAbWf
-	JBg4v7Le7KhJ9kuyXPDXFYHWUZjNswuJf/KqIn6ghaZ9t40OcIZz7srqIzsHiz8713MyUB8EJhn
-	BskqCNjr3oE0lrjXJeRbczsrbg6qlDp9Nl37b3RWidady7dlnUjLgEO8rA6LvaFibVYzW20Xnbl
-	kZO5oV5wzMsRNtARoTq2pqI3+SB2odyq7WGpQ==
-X-Received: by 2002:a17:903:1446:b0:2dd:c100:4b7a with SMTP id d9443c01a7336-2ddc1005ecbmr91003595ad.49.1789987965532;
-        Mon, 21 Sep 2026 03:52:45 -0700 (PDT)
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com. [74.125.227.140])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17d7115sm31615595ad.66.2026.09.21.03.52.44
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 03:52:44 -0700 (PDT)
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb65437so2115989a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:52:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw0d5JTVWKV/cJplPLXexRl8kP5lpS7EAQY5STNtGSN5xJMhHvcAH4xSh8SK+n4BseFLNVnYFNJ7Szoees=@vger.kernel.org
-X-Received: by 2002:a17:90b:2b43:b0:39e:1ff0:331b with SMTP id
- 98e67ed59e1d1-39e54d37ad0mr14497597a91.2.1789987963836; Mon, 21 Sep 2026
- 03:52:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="lQHFfhIm"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id D992F3EC3A;
+	Mon, 21 Sep 2026 10:52:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
+	s=gm1; t=1789987981;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=KNCZjlfW/DFoOfMy9njTLqync4si8qX2FR/TAuNZUXk=;
+	b=lQHFfhImy1Au/8yk3vhs3EWoZt9wL7WnsJjhdSChXLGI9AX7jVpQ7YVO6Ve/svqkwtqd6m
+	NAf/QAKZCgeVo6NUwXTCDk5JMDm2DjwMZ4Kp2gfFDD8zWhZ57FVkTOhhEeOJjgB5aKJALy
+	u5+MDCsrrU5/1Vd+8RheiqUoZ4vimzfELtM7KKAz3gBnVrVj3f1sm1h34PgzMNd/8UU8ma
+	0mXEnNyea5RjO+ecIYSDWrZThQTzrx6e7bHdrtA/xaZCowT1EWpHX2TIVVIalP9tNUUU6G
+	laPUjfhHE95hQCpersHkPT9tgg7Jt7xMV7zZ2rQts8UuPp70NMfN5X/fZnbYDA==
+From: Arthur Crepin Leblond <arthur@marmottus.net>
+Subject: [PATCH net-next v10 0/3] w5100: restore GPIO-based link detection
+Date: Mon, 21 Sep 2026 12:52:48 +0200
+Message-Id: <20260921-wiznet-link-gpio-v10-0-5874a7a147a2@marmottus.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917212951.558283-1-henry.paradiz@gmail.com>
- <CANiDSCsoLGGewmpV6cL=wgkMh3qx=5dU_mVWUi_NaBdfZp+hPQ@mail.gmail.com> <CAMfFSnDa-nGr-mxzuK9FibOCJGFFCBjB_HiLBwGJ3btuFR=WVw@mail.gmail.com>
-In-Reply-To: <CAMfFSnDa-nGr-mxzuK9FibOCJGFFCBjB_HiLBwGJ3btuFR=WVw@mail.gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 21 Sep 2026 12:52:30 +0200
-X-Gmail-Original-Message-ID: <CANiDSCuUBCbiE-8Pteo=fpjT8AK9WN_s6AcR-8K43da3inteXw@mail.gmail.com>
-X-Gm-Features: AcwNN1UxJhqCvpukKhOiZnjWcRIkoMQomDv89By3KXFXhyvcJ1jkAhkv8gCkMx8
-Message-ID: <CANiDSCuUBCbiE-8Pteo=fpjT8AK9WN_s6AcR-8K43da3inteXw@mail.gmail.com>
-Subject: Re: [PATCH] media: uvcvideo: add capture quirks for 1e4e:7102
-To: Henry Paradiz <henry.paradiz@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIAMsWoC/4XRzVLDIBAH8FfpcBaH5WMBT76H4yHho0Vt0knSW
+ O303SXxYMZZxyPw39/CcmVjGkoa2cPuyoY0l7H0XV2AuNuxcGi6feIl1g0mhUThhObv5bNLE38
+ r3Svfn0rPrcesMETQ2bNadhpSLpfVfGJLtEuXiT1/n4zn9iWFaRGX7KGMUz98rO1nWCv+bjQDB
+ 96ixBx1tiG0j8dmOPbTdB7va3JtMcv/EMkFVy1EEZwVWRkKUVsECURVxCgZdQNaOUEieoMAEIi
+ uiI4m29g4ZxpHIWaLKAIxFWlCfSpmqTUoCsENoqib4IK0KWEwwSMmCrE/iCcHayuCPgtorahKp
+ hC3QcAQiKtIBKtQSm11CBTit4gjEL/8jlHLRKKLGH8jt9vtC4J8s7b5AgAA
+X-Change-ID: 20260804-wiznet-link-gpio-796f36cd14f9
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Arthur Crepin Leblond <arthur@marmottus.net>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-GND-Sasl: arthur@marmottus.net
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: dmFkZTF6b6jgYhyLS1AMsjs3SUF00ycLJG+3ieVql2Kn6qdvxDGf4rTyaSbhAqnwuGsjZ+WJOX/RpUHNPAXw8XKKkZ0KNTXxMTbyh1ZPeLZ/qDIQ7zQj799wFeDFqub8XcxckvuSUxxiBAdBRkbrJE9XHLO58FjG+8nOB+AxI++RzKQrqnmKb3pZEkkmHAA+2m/ZbgRJ7V52Z61a5S70xs3cs1YT95mw5ihF7Av3KbXYeMtfVUMvj9MBJ3vXM+JI4uGUtG2RywLSdFAKmgsJkJo7zgM5jDRsCsm02CYlSfELfbPydAL5xfFMHamzz8rvCADlcg88DIPeXJBwoVlZsuzk2jv2pWUUTvpJCI9sT8v1sGHObRWXCPYv64Pq+NTyZuMIluS5qLuJGEOADqIJYWBO5plZE+rY9LVIG2E43POFlBK0xrH0RNDLaIDE898yi6ucoP9He2T7Ktk1XF46D5F/+7FFFO3JsPwKWdOzYBPCRPx8OUfGf6RRfbOhy3Iuh1GANa89Hfgg3+xKmbtWkJpHGPqTBlQda7vwP+ZicY8LMmHEA/oJKjE1dmF9/Yea9coMbpNFrOoUVhoRMuZybAcOsETdP7/8OnB3uYhiwEXHGFvaZj46sAp7GXo2ETbgPm36hwfQgcNo4mE4IRPlqcXwGkl1QMa7kDc5qUofC8tllUPKyA
 
-Hi Henry
+Hi,
 
-Thanks for the extra info. I still do not get why the device keeps
-suspending if you have the UVC_QUIRK_DISABLE_AUTOSUSPEND. Are you sure
-that you do not have some kind of daemon in the system doing any kind
-of aggressive powersaving?
+In the previous version of the w5100 driver, the LINKLED pin could be
+wired to a GPIO to detect the link status changes via an interrupt.
+This only works on w5500 as it is the only one documenting its LINKLED
+pin to hold the link status (on w5100 the LINKLED pin is changing with
+RX/TX activity).
 
-If setting power/control=on fixes your issue... maybe you could
-configure udev to set it for you ?
+This series of patches is bringing back the link status detection on
+w5500 using the Link Status bit of the PHY Configuration Register.
+Additionally, the LINKLED pin can also be wired to detect link status
+changes and read the register in the interrupt handler.
 
-Regards!
+Arthur Crepin Leblond
+
+Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
+---
+v9 -> v10:
+ - Address Sashiko review
+  - Always schedule the restart work to avoid atomic context
+  - Move netif_device_detach before disabling irq in w5100_suspend
+  - Flush rx/tx queues in w5100_remove
+
+Link to v9: https://patch.msgid.link/20260918-wiznet-link-gpio-v9-0-5536f24d8d6d@marmottus.net
+Sashiko: https://sashiko.dev/#/patchset/20260918-wiznet-link-gpio-v9-0-5536f24d8d6d@marmottus.net
+
+v8 -> v9:
+ - Address Sashiko review
+  - Rework commit message
+  - Disable the link irq first in w5100_stop()
+  - Call w5100_hw_close earlier in w5100_stop()
+  - Flush rx/tx work and cancel restart in w5100_stop()
+  - Call cancel_work_sync() after unregister_netdev in w5100_remove()
+  - Call cancel_work_sync before netif_carrier_off in w5100_suspend()
+  - Enable/Disable main irq in open()/stop() and suspend()/resume()
+  - Check the number of irqs defined in DT
+  - enable the link irq after checking PHYCFGR
+  - Ignore fwnode_irq_get errors other than EPROBE_DEFER
+
+ - DT binding: Simplify the interrupts description:
+  - Describe the 2 interrupts in the top-level properties
+  - Limit the maximum number to 1 on non-w5500 with a condition
+  - Somehow only adding minItems in the top-level and then describing
+    2 items in the if block led to dt checks errors.
+
+Link to v8: https://patch.msgid.link/20260915-wiznet-link-gpio-v8-0-d173622474cc@marmottus.net
+Sashiko: https://sashiko.dev/#/patchset/20260915-wiznet-link-gpio-v8-0-d173622474cc%40marmottus.net
+Clashiko: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915-wiznet-link-gpio-v8-0-d173622474cc%40marmottus.net
+
+v7 -> v8:
+- dt-bindings: net: wiznet,w5100: convert to DT schema
+ - Add a myself in MAINTAINERS
+ - Address Sashiko reviews
+  - Change edge-falling to level-low
+  - Clarify the spi max frequency for all devices
+  - Add main interrupt description
+
+- dt-bindings: net: wiznet,w5100: add link status interrupt
+ - Remove Krzysztof Kozlowski reviewed-by tag after Sashiko review changes
+  - Make the interrupts property conditional
+
+- w5100: detect carrier state using link status bit and optional
+  interrupt
+ - Add myself in the MAINTAINERS file
+ - Address Sashiko reviews from online bot and locally run
+  - Add a mutex to synchronize the link state read and interrupt
+  - Return last known carrier state (netif_carrier_ok) in
+    w5500_get_link on SPI error or if the device is not present
+  - Only set ops .get_link on w5500
+  - Check the netif state, disable/enable the irq and re-check the
+    carrier state in w5100_restart
+  - Cancel the restart work on stop/suspend
+  - Only set carrier state to off in w5100_stop/suspend  when a link
+    irq is present
+  - Warn on fwnode_irq_get errors for the link irq
+  - Free the main irq and flush queues before resetting the hardware
+    in w5100_remove
+
+Link to v7: https://patch.msgid.link/20260904-wiznet-link-gpio-v7-0-69f01b70c96f@marmottus.net
+Sashiko : https://sashiko.dev/#/patchset/20260904-wiznet-link-gpio-v7-0-69f01b70c96f%40marmottus.net
+Netdev Sashiko : https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904-wiznet-link-gpio-v7-0-69f01b70c96f%40marmottus.net
+
+v6 -> v7:
+- Address Sashiko reviews
+ - Propagate spi read error to the caller
+ - Do not change the state of the carrier on SPI read error
+ - Enable the link IRQ before reading the PHYCFGR bit
+ - Call unregister_netdev before reset
+ - Update commit message
+
+Link to v6: https://patch.msgid.link/20260831-wiznet-link-gpio-v6-0-abee6c5c966e@marmottus.net
+
+v5 -> v6:
+- Fix DT error: use minItems
+- Remove conditional properties
+- Put back the reviewed by tag from Krzysztof Kozlowski from v4
+- Revert to the reviewed v4 version by Arnd Bergmann with a few
+  changes based on Sashiko's review
+- Address Sashiko reviews
+ - call netif_carrier_off in open if there is no link_irq or  get_link
+   returns false
+ - call register_netdev at the very end of probe
+ - call unregister_netdev before destroying work queue
+ - handle link irq probe defer error
+ - call netif_device_attach in resume before re enabling the link irq
+ - disable the link irq first in suspend
+ - log netif_err when PHYCFGR cannot be read
+ - enable link irq in open
+ - disable link irq in stop
+ - free irq and invalidate it in remove
+
+Link to v5: https://patch.msgid.link/20260813-wiznet-link-gpio-v5-0-ac8046f24413@marmottus.net
+
+v4 -> v5:
+- Remove gpio/gpio.h include from DT example
+- Make the DT interrupts property dynamic from the compatible one
+- Fix DT bindings errors
+- Address Sashiko review
+ - Read the link status register only on w5500 instead of checking
+   link_irq
+ - call netif_carrier_off on w5500 link status off in open
+ - enable/disable the link irq in open/stop
+ - enable/disable the link irq in resume/suspend
+ - handle link irq probe defer error
+ - register the netdev last
+
+Link to v4: https://patch.msgid.link/20260811-wiznet-link-gpio-v4-0-4d5f7da885a8@marmottus.net
+
+v3 -> v4:
+- Update interrupts in DT bindings
+- Use directly an interrupt line instead of gpio -> irq
+- Address Sashiko reviews
+ - drop devm_ on request_threaded_irq to avoid use after free
+ - disable/enable the link_irq in the suspend/resume
+ - only call netif_carrier_on|off if the link interrupt is present
+
+Link to v3: https://patch.msgid.link/20260806-wiznet-link-gpio-v3-0-532d4a143805@marmottus.net
+
+v2 -> v3:
+- Fix DT binding errors
+- Use the Link Status bit of the PHY Configuration Register
+- Use the LINKLED gpio binding for change detection only
+
+Link to v2: https://patch.msgid.link/20260804-wiznet-link-gpio-v2-0-3b1d0c870f35@marmottus.net
+
+v1 -> v2:
+- Convert device tree binding to YAML
+- Use devm_request_threaded_irq instead of request_any_context_irq
+- Use devm_gpiod_get_optional instead of gpiod_get_optional
+- Call dev_err_probe on gpiod_to_irq failure
+- Remove link_irq from priv
+- Use a fixed string for the IRQ name
+- Remove empty new lines
+
+Link to v1: https://patch.msgid.link/20260804-wiznet-link-gpio-v1-1-b626fd4f7ccb@marmottus.net
+
+---
+Arthur Crepin Leblond (3):
+      dt-bindings: net: wiznet,w5100: convert to DT schema
+      dt-bindings: net: wiznet,w5100: add link status interrupt
+      w5100: detect carrier state using link status bit and optional interrupt
+
+ .../devicetree/bindings/net/wiznet,w5100.yaml      |  88 ++++++++
+ .../devicetree/bindings/net/wiznet,w5x00.txt       |  50 -----
+ MAINTAINERS                                        |   7 +
+ drivers/net/ethernet/wiznet/w5100.c                | 227 ++++++++++++++++++---
+ 4 files changed, 296 insertions(+), 76 deletions(-)
+---
+base-commit: 8830e65ed46de41f849eefb8ba227d4852c460f6
+change-id: 20260804-wiznet-link-gpio-796f36cd14f9
+
