@@ -1,262 +1,290 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA526426438
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:16:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789978611; cv=pass; b=HJZXHpqii1J4WhqNFCddZcqbDDt9hz7kC6Pe8VCHt43VE0QUTuh5+ao18sApK6HAWcQ8ujMJm9cdu6mD4TXklyCu2KCqxhB4FAw/yr4J1cmhQ3RScr8gC/l7QSlTCRiPeClnq/B6NJ/JSyI4x/jsXQZ1dJ8fqGkHhGC6x4IU6kg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789978611; c=relaxed/simple;
-	bh=q3EkqwdcLdgFV2VFGPbC3LNBtZOmLyf+gqDHedG+WLY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FaCk+Mu6vWrueY7pI3ToFoa9CrCU9K2jEZKdiEEdj2CKorGJWipaKBP8vru3TYqD/yA9KrdSxLDIhrOWk+hiPnSWwcDntGX1/ffsxPKYMFVQBNNmqizpne3vDXakO1WT63Ol9qyoV7jQ3iyq6ugVo1fvM9kFk1T9suZ2uFbpw7g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kESnledQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Q4pxSYk4; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 835A8426438;
+	Mon, 21 Sep 2026 08:17:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789978639; cv=none; b=eH9ZmaYS9X9eKZGfq4IdMeEmRHRVJLQnhpBQCa6NLS1z3qKP3vaK+F71MYRO7kojFf/wH+7xH1Xmdtvry4dwjFq/1QoVuelLG51vXcPS9S5uEQKIiP+EgnCQyo9LV6ZCdS+iOuZaGfouzN5o9S5FUlcPEQDmHXyUZVl/hsh4osU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789978639; c=relaxed/simple;
+	bh=VSqHwS2cRu1OOR3Rhg6E+0Lu5iYtW6cZBMDx2i/OMgg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DaaY3+I641B2AC0ws+VRG1KsH7CVyhsY5D67E2+cKb4ryqhl1zAmJSozSmN3mJ+fNHyW1/HbHpWHeJK22lEoyzpohqD19vdEFnv/Ym8bh+BZXACQ3COf9Rwyrol+e4lPeFXa8SEmxIhPbIO79vLJ+QwGpVxZlpyTTh3+IxvAyH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=o8S3LeV8; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kESnledQ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q4pxSYk4"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7F313957083
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:16:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vx8dnU+n6phV57GfzrrgfQ2D/ZRjFORy9xJ5hSXAhSg=; b=kESnledQd8++Pdet
-	j62TRILMBoyIcvS7lWMhOXOc3NIB5u3ny0DJZovb/7Y3qWU/fkIHUM4ZDyae/7qW
-	7Cgt8daE9hvwrMtDaxVmqV53Dj9ibjoIUeT5DQTKhtL360PUfTl0tutd7I9wV0pJ
-	mFYjzMXMdzYTimqKu26QbhtYRwb3exVRHvJrSF5x1HlIesDkuovAb/wVoXG+p37w
-	6FAJJAgUDemBP/niM4BSmVfHUHaixVYDxDF8tiafzP62HH4V+pG5j0qQ5WxEYScm
-	GGSHMx4FZLlmCP8kGDRodpzKQymMKpxHl0ZNO3hfA/FQPm75e9G0c1AIXyOvg7vV
-	bYM4+A==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu01d07n9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:16:47 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93a1bffc2eeso188736585a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:16:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789978607; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nz/v5rM5wyaegX0zi0gCNTH3MblsiUoyMxeBJxVh2XVIr+AUxF1gJleZQA6nNDTVKO
-         8CUfR7b+GMARe1oAwNbQnXwkVwzV6e6SAXtpjWhybncEtoPRBBoVQ18uoDblTaw0hEvn
-         1sdoQMdGIdmha9SDfrfsH47AGSme8mmX7uG9qxQMAVRxwB8aYfcStqInVfwzdfua0J84
-         mA3HL9o17OvxRUzioRxmrU0nORsiuyut7PzhaFQOHvWHCv+pIWDZJyAZRAfM0J6GCdHu
-         ny2hcptl+aScVKPtKVDReNXiWrOQz7FC1f3UttMJyj7+iUHP+j2xWxsTfYHY7lSKnWVQ
-         CIKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vx8dnU+n6phV57GfzrrgfQ2D/ZRjFORy9xJ5hSXAhSg=;
-        fh=l3ag4OuNCk7zB3oXsS1ooFjzaBuvbbYKvjSBgoooRRg=;
-        b=rN3SRFgsJtozjELKqEzkjCVHOIdWjJ6i6uFVhUHsqjhQPH6S5DPkdEN++AQO3hCL4f
-         A2yO2JUvRonWQHJHTvlLvnwx2QISQOdTAbmttB28bIfB0ijbmcVgAfBaEDqrl9/iw2PS
-         rUuUAKz9lxWBbR0xUW21xGWjTHESHIUTQVm2nYKzo3nCITZTU4srTmQ2i7bte15xr8MW
-         Z7thZfLEDAOvIrrgdYpg5SzUY6MA/aDFEu0L8VbxsiFgDLpNKeknWGk9hmbxVFTgK6Hm
-         xU/wr3ApHVcsISXgvzdKYmxr+KHxe1OoowkvMkTc2AyEPmYxC1oq/NucOjYXGu5J/aNE
-         nsfg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789978607; x=1790583407; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vx8dnU+n6phV57GfzrrgfQ2D/ZRjFORy9xJ5hSXAhSg=;
-        b=Q4pxSYk4mzOJtcchWS+0LzAiXerBnzDJRcDq8gCvQnz4vXhL+RmLh6T+ju+Ocljjla
-         UyOjdycpqbYJnlek6dTTnGFmWBfHk51EIp7ETV/u9oM/IIgBPc/zq/wZdrlNhKJMWWXm
-         Ib/u/sMwkulJbO6/hXs8eTA98d5a2Z19k7tPkXnphOB/r9UGN7PrRmONUuaRUgV4T/eR
-         BjRQnRmRAG78cJcmGImr0qnVHReAwjlcXepVt3Vr3wu1J9TLnMlfooegI/ngrY+nyg17
-         ae82mEcCf74fg15Lts2EPj7h4cIipGUhDlqa4KOUZOdEDFFhBkllytpIDozFnJgL8n8O
-         r0DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789978607; x=1790583407;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vx8dnU+n6phV57GfzrrgfQ2D/ZRjFORy9xJ5hSXAhSg=;
-        b=EHbpcjnIVIzoevj+woCzbw+pb4tZ1LX0RlKszdhZCTlSDv5CH0XM3HhZzt7xjNETwx
-         8iwqiOAjncbNVKzrk36FS4j7qqnkS3kZWsFC0vcTWLMLaPH7ET22BtkC9mCk1L/+4MkN
-         W+N3OVsgvarRzeoC95p1XUobwbJnUP6F5G9XFri0733eHL317M9FYuC5NjrO1HWgQA25
-         xQ4Yxhv3kOst17fQ0a5BkuCBmCEXYXEkfncaIR8zjqjuzAACNBhsOgQR0/sqyZaor72u
-         1DsjIFnpg+AIaJ5jPsFXx7eqNx4/KpPh5gJ0aELvlgT6nUQv/hK2CuKBdR0QvOfPpKjb
-         nKHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy3nZE5GEK5DikzgO3Z3op2jDslOSmU2zamcQvtRaq4E0iitQZhA2RPKmQJd4Uho7RKMDIVsEyszCw9p4g=@vger.kernel.org
-X-Gm-Message-State: AFuF++njdowaI+KLHMlLR/QR2f4EdllQzolkdTDmesy3lSaaZ+EWsohS
-	1a1hb0W303OuSBUCdVEfNUWobfTTL5iE5YpMhbq3R7KOQ9vR0qCyeS+gK36Ht+FL09V6wmO93Qh
-	T5c1ylyANUxJ+T/gFLQwYgynRZXPMFm8j5XueTgsGrR5sMhyLBQDH3F4tzAZcqNlwP1VVpiW6s2
-	UviB7XovcuN6t4rP4fbdXfpx4GZlKQ07Bbisrjjlu/yw==
-X-Gm-Gg: AYBFou3hKq955tFsY9ac0cIS6hGu1MmEYRUBLkUcxVsykLpy5Vy/dyQ5Xq+XSEini8D
-	TtLK05oJZmVgJ9Vb9xGrDZzbEjTaFMbrOU7FyG+JgQ526n22fHhXorn9rLCdOMfjlYDlDrPLyiL
-	ymUOmXPYXFZXBl3OZAm7B69OfEAf/oQR/fRmiDTC/Mhwl5lrrVKigq7rnpXOl5N4Vu5/BHD5R+X
-	P13wkcjgNrsC2cXmwBXV6mtQ4bu/H9p1274io+50DTHGwDAMBF3xbIE02Oex4ICNDlhXlIWJiBa
-X-Received: by 2002:a05:620a:2809:b0:92e:bd39:9993 with SMTP id af79cd13be357-93bf55af058mr895548585a.31.1789978606926;
-        Mon, 21 Sep 2026 01:16:46 -0700 (PDT)
-X-Received: by 2002:a05:620a:2809:b0:92e:bd39:9993 with SMTP id
- af79cd13be357-93bf55af058mr895545385a.31.1789978606550; Mon, 21 Sep 2026
- 01:16:46 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="o8S3LeV8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Dd
+	i0+whRxYvthVAI+KVlYlCut7aSMESuFvaASlzz1EM=; b=o8S3LeV85dilO4SbiM
+	gBZGaw3lmTfjY3oHpJg9KsqB4mdaJNWA3Y6A2B5DkdxHtPZArwp63TGphQIZyPs3
+	IaoFOfUcJExUcbnRZap/gdMblHxphFIYXDn9yIcG8g0w4rZmvawZ6fmyXZDOCFQB
+	eULwYW7MIFd2pMWUx/9K/YDGU=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wCXfaW557BqHHkECA--.32565S2;
+	Mon, 21 Sep 2026 16:15:54 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>
+Cc: John Stultz <jstultz@google.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Waiman Long <longman@redhat.com>,
+	Boqun Feng <boqun.kernel@gmail.com>,
+	Will Deacon <will@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org,
+	linux-rt-users@vger.kernel.org,
+	Quchaosheng <quchaosheng000406@163.com>
+Subject: [PATCH] sched/proxy: allow SCHED_PROXY_EXEC with PREEMPT_RT
+Date: Mon, 21 Sep 2026 16:15:25 +0800
+Message-ID: <20260921081525.2982361-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920-qcom-bam-dmux-vmid-ext-v2-0-ef5ca2178378@oss.qualcomm.com>
- <20260920-qcom-bam-dmux-vmid-ext-v2-1-ef5ca2178378@oss.qualcomm.com> <20260920-humongous-raven-of-charisma-bb99ed@quoll>
-In-Reply-To: <20260920-humongous-raven-of-charisma-bb99ed@quoll>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 10:16:35 +0200
-X-Gm-Features: AcwNN1VVhQqlVhKk-jGl48O2Ddr1iFZHmIKcpsImvO5gypb5NVk-JoOt1_b9g5M
-Message-ID: <CAFEp6-0juFLDxo6kCTf_RrHv0EAevVqB3DP47=fg6PBNSCDcbA@mail.gmail.com>
-Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: qcom,bam-dmux: Add
- memory-region and qcom,vmid properties
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Cc: Stephan Gerhold <stephan@gerhold.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-ORIG-GUID: -x4Lh1RQRyYDgcK1ClQw57gIWOwTZsiE
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDExOCBTYWx0ZWRfX0baj4OIfAbG7
- UBwa26t3yCQzZ48oOQ7fCWWWZhvXd8F1B5ET+ur3tuZuHMyNpHn8ycgBvY220NeCHXJgWMUDEdN
- /P+dL5mPakwiOj1MpvjpyUtlPfu+p2s=
-X-Proofpoint-GUID: -x4Lh1RQRyYDgcK1ClQw57gIWOwTZsiE
-X-Authority-Analysis: v=2.4 cv=Ht7jiETS c=1 sm=1 tr=0 ts=6ab0e7ef cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=p3HfQXL-393XT7cpVekA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDExOCBTYWx0ZWRfXwGhc2u/lH0th
- Q1KFm72CA6Bt1FqOvlMpA0qPvdXURVtKpACkpa+kpvTNJej39ZRL0MXA3wVSl7JeBcqecC9+QZA
- p2hiSRGKtb+dO5iQtWlKF2HN0Z7BwaFbtu3MC191IOURrnlFjkTetp1IbQPyhwXWn9TsJP1WxmQ
- tMniLeIGDW9Xu/H0756Q+MfD8AMOFjj39nnxd7GKvCx5HrraPkIh7fe816IDpnUb4Q03DfvSCCw
- MJ2j5IGp9ExpVBym+U3yw+3Prs2vz+NSRkfLXlkE4h7ppZCe3IBleQvNvzLdB0/LNZhS1Zp9yw7
- R+Weom70fTr6W6uVwrk4WYyE+RmGxKzDPxIt67Dc30O8DhWlCKpjJWcVTWutV5OfFNB0i+EOqPd
- V55Rkq1AopFrKwvNC3PCizdXjK7cXa2CUESJLXM+eymXI5mRebUQkSHwxR2F3Xdz2rCjBKcizM1
- wWfCdWLwO1goFRWbkxA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0 impostorscore=0
- suspectscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210118
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wCXfaW557BqHHkECA--.32565S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxtw47tFW8Jw15Zry5Gr1UAwb_yoWfCrWfpa
+	1DKrW7Ja1DGFyIgry7Awn7W390vwn5Ca13AF97ta18ur98tr40vF1vgF13ur1FqrWxtFWa
+	qr4SgryFkF1j9r7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pREoGPUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC-xruZGqw57rc7wAA3b
 
-Hi Krzysztof,
+CONFIG_SCHED_PROXY_EXEC could not be enabled together with
+CONFIG_PREEMPT_RT. The Kconfig entry carried a "depends on !PREEMPT_RT"
+with the comment "Avoid some build failures w/ PREEMPT_RT until it can be
+fixed", and the failures are real: building kernel/sched/core.c with both
+options set gives:
 
-On Sun, Sep 20, 2026 at 12:36=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.o=
-rg> wrote:
->
-> On Sun, Sep 20, 2026 at 08:32:29AM +0530, Vishnu Santhosh wrote:
-> > Some Qualcomm SoCs, such as Shikra, run the modem in a separate securit=
-y
-> > domain with restricted access to system memory. BAM-DMUX DMA mappings
->
-> Then this is specific to Shikra and should come with its compatible plus
-> constraints per variant.
->
-> > must therefore be constrained to a designated region that can be shared
-> > with the modem.
-> >
-> > Add an optional memory-region property to reference a restricted DMA
-> > pool used for BAM-DMUX mappings, and a qcom,vmid property to identify t=
-he
-> > remote execution environment that is granted access to the pool through
-> > SCM.
-> >
-> > Require memory-region whenever qcom,vmid is specified.
-> >
-> > Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-> > Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-> > Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> > ---
-> >  .../devicetree/bindings/net/qcom,bam-dmux.yaml     | 38 ++++++++++++++=
-++++++++
-> >  1 file changed, 38 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml b=
-/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml
-> > index 33746c238513d72366bc52359fb10f275475b331..5351269b0ab72ede808ae47=
-b55d57580af209038 100644
-> > --- a/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml
-> > +++ b/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml
-> > @@ -72,6 +72,24 @@ properties:
-> >        - const: tx
-> >        - const: rx
-> >
-> > +  memory-region:
-> > +    maxItems: 1
-> > +    description:
-> > +      Phandle to a reserved-memory node compatible with restricted-dma=
--pool.
-> > +      The BAM-DMUX device uses the pool for DMA mappings.
-> > +
-> > +  qcom,vmid:
+  kernel/sched/core.c:6927: error: passing argument 2 of 'clear_task_blocked_on' from incompatible pointer type
+  kernel/sched/core.c:6939: error: 'struct mutex' has no member named 'wait_lock'
+  kernel/sched/core.c:6943: error: implicit declaration of function '__get_task_blocked_on'
+  kernel/sched/core.c:6956: error: implicit declaration of function '__mutex_owner'
 
-I can see several existing drivers, along with a few ongoing series,
-using this same property. Instead of redefining it in every binding,
-should we consider defining the prop/type once in a common soc/qcom
-schema and reusing it across bindings?
+The proxy execution machinery tracks a task's blocked-on mutex through
+task_struct::blocked_on and walks that chain in find_proxy_task(). It was
+written against the native struct mutex, which embeds wait_lock directly
+and keeps the owner in atomic_long_t owner.
 
-> > +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> > +    minItems: 1
->
-> Drop
->
-> > +    maxItems: 1
-> > +    items:
-> > +      minimum: 1
-> > +      maximum: 63
-> > +    description:
-> > +      VMID of the remote execution environment that is granted access =
-to the
-> > +      restricted DMA pool through SCM. The local execution environment=
- is
-> > +      retained automatically and must not be specified.
-> > +
-> >  required:
-> >    - compatible
-> >    - interrupts
-> > @@ -81,12 +99,29 @@ required:
-> >    - dmas
-> >    - dma-names
-> >
-> > +dependencies:
-> > +  qcom,vmid: [ memory-region ]
-> > +
-> >  additionalProperties: false
-> >
-> >  examples:
-> >    - |
-> > +    #include <dt-bindings/firmware/qcom,scm.h>
-> >      #include <dt-bindings/interrupt-controller/irq.h>
-> >
-> > +    reserved-memory {
-> > +        #address-cells =3D <1>;
-> > +        #size-cells =3D <1>;
-> > +        ranges;
-> > +
-> > +        bam_dmux_pool: restricted-dma-pool {
-> > +            compatible =3D "restricted-dma-pool";
-> > +            size =3D <0x40000>;
-> > +            alignment =3D <0x40000>;
-> > +            alloc-ranges =3D <0x80000000 0x80000000>;
-> > +        };
-> > +    };
->
-> This wasn't here before. Drop.
->
-> Best regards,
-> Krzysztof
->
+On PREEMPT_RT, struct mutex is instead a wrapper around struct rt_mutex,
+so both live in the embedded rt_mutex_base: wait_lock is
+rtmutex.wait_lock and the owner is reachable via rt_mutex_owner(). On top
+of that, the RT variants of the blocked_on accessors were stubbed out with
+a struct rt_mutex * parameter, so find_proxy_task() could not even compile.
+
+The set of errors has two independent causes, addressed separately:
+
+1. Header type mismatch. The PREEMPT_RT branch of the blocked_on helpers
+   was declared with "struct rt_mutex *" while every caller passes a
+   "struct mutex *". That parameter type came from __ww_mutex_die() and
+   __ww_mutex_wound() in ww_mutex.h, which are shared with the WW_RT
+   instantiation where the MUTEX macro expands to struct rt_mutex. Those
+   two call sites are now compiled out for WW_RT, making the helpers
+   consistently take a "struct mutex *". This is not a behavioural change
+   for WW_RT: the blocked_on relation is only maintained for native
+   mutexes, and an rt_mutex based lock relies on the rtmutex priority
+   inheritance chain instead.
+
+2. Data structure access. Add mutex_wait_lock(), which returns the
+   wait_lock of either mutex implementation, and provide a
+   PREEMPT_RT __mutex_owner() that reads rt_mutex_base::owner, so that
+   find_proxy_task() works on both.
+
+With that, the Kconfig restriction can be dropped.
+
+Note that this makes the combination build and boot; it does not make
+proxy execution actually do anything useful on PREEMPT_RT. An rt_mutex
+already provides priority inheritance, so there is no blocked_on chain to
+follow and proxy execution stays inactive. Replacing rt_mutexes in the RT
+mutex implementation is tracked as future work in the proxy execution
+series.
+
+Verified with a full x86_64 build plus a QEMU boot of the resulting
+SMP PREEMPT_RT kernel, both with and without CONFIG_SCHED_PROXY_EXEC and
+with PROVE_LOCKING, DEBUG_ATOMIC_SLEEP and DEBUG_PREEMPT enabled. The
+kernel boots clean and an 8-thread SCHED_FIFO pthread mutex stress loop
+runs without any BUG or WARNING.
+
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+---
+ include/linux/sched.h     | 11 -----------
+ init/Kconfig              |  6 ++++--
+ kernel/locking/mutex.h    | 36 ++++++++++++++++++++++++++++++++++--
+ kernel/locking/ww_mutex.h | 24 ++++++++++++++++--------
+ kernel/sched/core.c       |  2 +-
+ 5 files changed, 55 insertions(+), 24 deletions(-)
+
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index 705970d07614..334935d0ab55 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -2216,8 +2216,6 @@ extern int __cond_resched_rwlock_write(rwlock_t *lock) __must_hold(lock);
+ 	__cond_resched_rwlock_write(lock);					\
+ })
+ 
+-#ifndef CONFIG_PREEMPT_RT
+-
+ static inline struct mutex *__get_task_blocked_on(struct task_struct *p)
+ {
+ 	lockdep_assert_held_once(&p->blocked_lock);
+@@ -2258,15 +2256,6 @@ static inline void clear_task_blocked_on(struct task_struct *p, struct mutex *m)
+ 	guard(raw_spinlock_irqsave)(&p->blocked_lock);
+ 	__clear_task_blocked_on(p, m);
+ }
+-#else
+-static inline void __clear_task_blocked_on(struct task_struct *p, struct rt_mutex *m)
+-{
+-}
+-
+-static inline void clear_task_blocked_on(struct task_struct *p, struct rt_mutex *m)
+-{
+-}
+-#endif /* !CONFIG_PREEMPT_RT */
+ 
+ static __always_inline bool need_resched(void)
+ {
+diff --git a/init/Kconfig b/init/Kconfig
+index 8583d9f06c52..c4fca7951658 100644
+--- a/init/Kconfig
++++ b/init/Kconfig
+@@ -936,8 +936,6 @@ config UCLAMP_BUCKETS_COUNT
+ 
+ config SCHED_PROXY_EXEC
+ 	bool "Proxy Execution"
+-	# Avoid some build failures w/ PREEMPT_RT until it can be fixed
+-	depends on !PREEMPT_RT
+ 	# Need to investigate how to inform sched_ext of split contexts
+ 	depends on !SCHED_CLASS_EXT
+ 	# Not particularly useful until we get to multi-rq proxying
+@@ -946,6 +944,10 @@ config SCHED_PROXY_EXEC
+ 	  This option enables proxy execution, a mechanism for mutex-owning
+ 	  tasks to inherit the scheduling context of higher priority waiters.
+ 
++	  On PREEMPT_RT the mutex implementation already provides priority
++	  inheritance via rt_mutex, so proxy execution has no blocked_on
++	  chains to follow and the feature is effectively inactive there.
++
+ endmenu
+ 
+ #
+diff --git a/kernel/locking/mutex.h b/kernel/locking/mutex.h
+index 3e263e98e5fc..4e8b26840669 100644
+--- a/kernel/locking/mutex.h
++++ b/kernel/locking/mutex.h
+@@ -6,8 +6,25 @@
+  *
+  *  Copyright (C) 2004, 2005, 2006 Red Hat, Inc., Ingo Molnar <mingo@redhat.com>
+  */
+-#ifndef CONFIG_PREEMPT_RT
+ #include <linux/mutex.h>
++
++/*
++ * Where a mutex keeps its wait_lock differs between the two mutex
++ * implementations: native mutexes embed it directly, while PREEMPT_RT mutexes
++ * wrap an rt_mutex and keep it in rt_mutex_base. Provide a common accessor for
++ * the scheduler's proxy-execution code, which takes this lock to pin down a
++ * mutex owner.
++ */
++static inline raw_spinlock_t *mutex_wait_lock(struct mutex *lock)
++{
++#ifdef CONFIG_PREEMPT_RT
++	return &lock->rtmutex.wait_lock;
++#else
++	return &lock->wait_lock;
++#endif
++}
++
++#ifndef CONFIG_PREEMPT_RT
+ /*
+  * This is the control structure for tasks blocked on mutex, which resides
+  * on the blocked task's kernel stack:
+@@ -76,4 +93,19 @@ extern void debug_mutex_init(struct mutex *lock);
+ # define debug_mutex_unlock(lock)			do { } while (0)
+ # define debug_mutex_init(lock)				do { } while (0)
+ #endif /* !CONFIG_DEBUG_MUTEXES */
+-#endif /* CONFIG_PREEMPT_RT */
++
++#else /* CONFIG_PREEMPT_RT */
++
++/*
++ * On PREEMPT_RT a mutex is an rt_mutex, which keeps track of its owner in
++ * rt_mutex_base::owner. Expose it through the same helper the native mutex
++ * path uses so that the proxy-execution scheduler code builds for both.
++ */
++static inline struct task_struct *__mutex_owner(struct mutex *lock)
++{
++	if (!lock)
++		return NULL;
++	return rt_mutex_owner(&lock->rtmutex);
++}
++
++#endif /* !CONFIG_PREEMPT_RT */
+diff --git a/kernel/locking/ww_mutex.h b/kernel/locking/ww_mutex.h
+index d62b49b53ec3..5cb65daf1c88 100644
+--- a/kernel/locking/ww_mutex.h
++++ b/kernel/locking/ww_mutex.h
+@@ -323,8 +323,14 @@ __ww_mutex_die(struct MUTEX *lock, struct MUTEX_WAITER *waiter,
+ 		 * When waking up the task to die, be sure to set the
+ 		 * blocked_on to PROXY_WAKING. Otherwise we can see
+ 		 * circular blocked_on relationships that can't resolve.
++		 *
++		 * The blocked_on relation is only maintained for native
++		 * mutexes; on PREEMPT_RT an rt_mutex based lock relies on
++		 * priority inheritance instead.
+ 		 */
++#ifndef WW_RT
+ 		clear_task_blocked_on(waiter->task, lock);
++#endif
+ 		wake_q_add(wake_q, waiter->task);
+ 	}
+ 
+@@ -375,15 +381,17 @@ static bool __ww_mutex_wound(struct MUTEX *lock,
+ 		 */
+ 		if (owner != current) {
+ 			/*
+-			 * When waking up the task to wound, be sure to set the
+-			 * blocked_on to PROXY_WAKING. Otherwise we can see
+-			 * circular blocked_on relationships that can't resolve.
+-			 *
+-			 * NOTE: We pass NULL here instead of lock, because we
+-			 * are waking the mutex owner, who may be currently
+-			 * blocked on a different mutex.
+-			 */
++		 * When waking up the task to wound, be sure to set the
++		 * blocked_on to PROXY_WAKING. Otherwise we can see
++		 * circular blocked_on relationships that can't resolve.
++		 *
++		 * NOTE: We pass NULL here instead of lock, because we
++		 * are waking the mutex owner, who may be currently
++		 * blocked on a different mutex.
++		 */
++#ifndef WW_RT
+ 			clear_task_blocked_on(owner, NULL);
++#endif
+ 			wake_q_add(wake_q, owner);
+ 		}
+ 		return true;
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index b998ef6b87af..dcad037cbc08 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -6936,7 +6936,7 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
+ 		 * By taking mutex->wait_lock we hold off concurrent mutex_unlock()
+ 		 * and ensure @owner sticks around.
+ 		 */
+-		guard(raw_spinlock)(&mutex->wait_lock);
++		guard(raw_spinlock)(mutex_wait_lock(mutex));
+ 		guard(raw_spinlock)(&p->blocked_lock);
+ 
+ 		/* Check again that p is blocked with blocked_lock held */
+-- 
+2.43.0
+
