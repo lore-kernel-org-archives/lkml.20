@@ -1,179 +1,249 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC644B95B3
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:47:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457203BED79;
+	Mon, 21 Sep 2026 15:47:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790005630; cv=none; b=Rd9D6TH2xdG0HFQ3z+Mp/7Ei99J06uHAd40TGr3gVpedZhCULpub5JE+wp0kz+1ouJN2VoDbDWwwIQuhQ6IdEcJEKhE1oYiutl7sJwkQBPYb6vpo6X6ly/+TeOZFG1eDlG9lLeEHZwKgujxjbfzFCyFpS0LQ/tdnCxjE2F6/Uvo=
+	t=1790005663; cv=none; b=mFbuUpKtB22hEeRo0KDgeECa/N6xI8lXh/cDvubaMMo20TZDk1w6IFm0vLPhpnm+VNB8Y8DGGD8mwg3xOQ4TXiePDWC/nj2MFhmU3vQ0lrzhZegUVUU6jnxnKwKIFMTJ2SkMiJJe9AtGZUKCJAiqCm3GPiJskK5i37+3jYqlAcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790005630; c=relaxed/simple;
-	bh=C4xwW2mOduY+1qJomfHxU2ms1BcQsIMtec0pb8iWWZE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RfFkwFrbhvfd3MU5tKguj8plkVI4/Yoo40ZNjQFgsx5hmAJzMsj5udAEgJHidOL9afV2YZAXciyOjDpJbKgkzsfysFELmzr8ArGYUAK7x0sCU91u+V5aJu1FTD6zAtQDGP0813z3kZqkWbCVmUK0rnL9xbcgYOIgcvuNMrdaLe8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EeY0AY4C; arc=none smtp.client-ip=74.125.228.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790005663; c=relaxed/simple;
+	bh=MLZ3apyjYItLX3IqltdP51BK44oiADhmzSxVVeJAUfM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rqGfuvdLYSv2L66jlfQfkcHy8hW0fwvoL4ajQ4xe1vHHRd/lfz/jZ8egJmY1C/TgHUECavN/GnhE00H75zLiP9XhiOAOs56bFJRekL0ezdS6gTJta80+no/pTckZsnZiwLk8diZRePWEfq4OmJrsMLhBMiObNJOiE9ZytYmbcek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iNLZtwqq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EeY0AY4C"
-Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc750a1482fso167601a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:47:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790005628; x=1790610428; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vqoyuLnxl7hAbksadhiNpkBzn5St1OFv+pfKgvkEAqY=;
-        b=EeY0AY4CEzemyQ/eUCBkvoGnbNL7SrzBiOo5U8J+MEVOqEN138vceTAVwqSPSvTa6a
-         TEOqD0VJAuS/nYTcJUrx/8Wjp3c2JX62gU+VgZ9JU4S8g0RhL2tDeaK7J0umGpgeFWSV
-         sfkbJ0yLF2QYjMBXPFVMn8JxyshNORytUA7qt7plrdbFCcM5uypbDdBqpC0LYumyqyQW
-         BwZ+KqBk0Oiv1waiMoSNXHq8q7Exo2eaEE3kf7L/gOAhinmpeROxEURbvr4v2WoIVWc/
-         qnDebq1PeknrO2pCpJ/a9vOW7hgcjpewabTbUIFkMwKl4gYjRAkNKzy7SqaOZPmMnxwB
-         zEAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790005628; x=1790610428;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vqoyuLnxl7hAbksadhiNpkBzn5St1OFv+pfKgvkEAqY=;
-        b=iyvfRK5hyIi+Y1Du0k+v6d4fg8bcSLnwUlaTfXwsd1LLGY7vd0wBNGg70sGg5hi56J
-         ZXoS0o2C+gnnHMGKqrE9Qh8J5D28Yxp/SKlQYEdHRDH45lD3PwFlyf8ihJFzUG4/51y/
-         Ohk+x1AQg0As+7qUANIdMzFXbtvxmzu0GAzXCFjpc6l4CyeHrXA/iFyoALUjgHlDcZGC
-         KyLrJsI7DjaWbFVMHQLwucvBK15ReKGZnRq9A0aJs32PTGvcdzX8UCCpHhEM+qP/xEJi
-         QPVcZj4hmTCUrC1VxBuvE8WZ/Kh2XKUblXZwMZGt9GcUMneUsm1nUlNyqxkk2cBFyvp8
-         rJqw==
-X-Forwarded-Encrypted: i=1; AKwUvBzFcrsaTU/tZGo3jkFXNtpmmLx9PZJJADxtzr9Y8/vegtfjCCT/i+ySEBZLlrbt4YNu62Wh3exFl0UZPrU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lrauwQJ8h1z6zvS4xkv0RnWYo+GB3lWS0pTTK1Ljn/l0a2x4co
-	DgFo8kzlYxRBX9zI/ePfbRlcD0QvOYsULl87PezqTjzZsD/hBSFPnhGi
-X-Gm-Gg: AYBFou0sVJ9ZDF9S/KetisbI4aSmRLUgo/9tVKdYh4VdGd9rcISNcwnchz/7c3zLfBe
-	QfnzJ/IiTBH+wf4M+4gy/qm/niiZZt+c/1FiRxVGpI3mHLk3wvtHvHpdhgK1zFAC7jrcRh2IBCs
-	WfY8NQKSgRGMvlB1wQw+TeofJcclc2o+O1Rc/bzbHcNiIcpP44bkksCgLXtUncpEYZfDpt/H6F1
-	ZBNbMv9Kfz9LSUT7fk68ewyqWAI+uYD/yHFbt3+9/wfh/Pi7zJ+pQHpHAFVc/qEcZiXdbi6mAMv
-	syHfjivicFemb141JHI5+5P8ZCgMVzjm4FGvXogwzg2bmFtIdfucz09BP9f7czrkGKvJUX63Cjr
-	ldEAT+0Td6GDBlY3ERaRySU4lHrLznowbUbdWXZ4Wrq3FMmSaDlPm+KSdRhfHG1ljar9YcI4gAP
-	vUkmhu2slAWDJpNe4HWtk5RfxMUzQiO1LwtSZfRCH2Vf6y0CKfKE6PQEdFZNnFbLQ8J/arQWvis
-	+dYkCqy7U7BfeCuBm9kfgJaw4VHU0IpAmd9SB2CDWj/b2Sm
-X-Received: by 2002:a17:90a:d648:b0:39e:6c6a:6577 with SMTP id 98e67ed59e1d1-39e6c6a67b4mr9499408a91.58.1790005627594;
-        Mon, 21 Sep 2026 08:47:07 -0700 (PDT)
-Received: from archlinux ([205.254.163.69])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e554e5529sm7838802a91.4.2026.09.21.08.47.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 08:47:07 -0700 (PDT)
-From: Suchit Karunakaran <suchitkarunakaran@gmail.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev
-Cc: song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	john.fastabend@gmail.com,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Suchit Karunakaran <suchitkarunakaran@gmail.com>
-Subject: [PATCH] bpf: add diagnostics for rejected memory and map accesses
-Date: Mon, 21 Sep 2026 21:16:50 +0530
-Message-ID: <20260921154650.130677-1-suchitkarunakaran@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iNLZtwqq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56BEE1F000FF;
+	Mon, 21 Sep 2026 15:47:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790005661;
+	bh=xt/v9cPkBOq2fPAKYQmZiznySUYlaobjHi7Tql7AMps=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iNLZtwqqu4XESWw915pxWASPi2s5Je91G5+Mc7sftgwG1U9PiDAboIINWM6oYe8/X
+	 EB2WueoTzy0T7U53fp4NQjWShbXlhgcnuGC6ll5Pf6hKWzkHrx/4u0SpS/VzuGumgo
+	 uzXqzDIgq3Ag5wUfNl06Xfi+VrNStO5ZRXGAXxgWZ9MzCtm7AiI+Oee+vVY1KI6I8k
+	 +4MLvZhyzkIZbDfBc77JiTReV0zWCIA90WO+lh7VNiFzMYfs8C78/O0zHug2cyMAjw
+	 xVmsPoOQ5y24TbkKj5axWSvD45emrO9XpRnd11im7Agj0Sb4AO60D/+kW824l64ZHX
+	 QTCj/kPwe8z6A==
+Date: Mon, 21 Sep 2026 16:47:36 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
+	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 3/3] kselftest: mm: remove check_huge_shmem()
+Message-ID: <arFRjU2_g0tYVghn@gremlin>
+References: <20260921-fix_split-v7-0-d25ec991159f@arm.com>
+ <20260921-fix_split-v7-3-d25ec991159f@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260921-fix_split-v7-3-d25ec991159f@arm.com>
 
-Emit structured verifier diagnostics when BPF programs are rejected for
-unsupported or prohibited memory operations. Cover sign-extending arena
-loads without JIT support, read/write access restrictions on maps, writes
-through read-only pointers, direct packet writes, and modifying helpers
-used with BPF_F_RDONLY_PROG.
+On Mon, Sep 21, 2026 at 11:40:09AM +0100, Yeoreum Yun wrote:
+> check_huge_shmem() was required to distinguish shmem huge pages because
+> /proc/self/smaps reports them using a dedicated “ShmemPmdMapped” entry,
+> as opposed to “FilePmdMapped” for file-backed huge pages.
+>
+> Now that /proc/self/smaps is no longer used to detect huge pages and
+> /proc/kpageflags is used instead, it is sufficient to distinguish
+> between file-backed and anonymous pages since the ShmemPmdMapped is also
+> kind of file-backed.
+>
+> Therefore, remove check_huge_shmem() and use check_huge_file() instead
+> and cleanup khugepaged's check_huge operation in mem_ops.
+>
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
 
-Signed-off-by: Suchit Karunakaran <suchitkarunakaran@gmail.com>
----
- kernel/bpf/fixups.c   |  5 +++++
- kernel/bpf/verifier.c | 16 ++++++++++++++++
- 2 files changed, 21 insertions(+)
+LGTM so:
 
-diff --git a/kernel/bpf/fixups.c b/kernel/bpf/fixups.c
-index 2add8001c3ec..b8baf77d933e 100644
---- a/kernel/bpf/fixups.c
-+++ b/kernel/bpf/fixups.c
-@@ -9,6 +9,7 @@
- #include <linux/sort.h>
- #include <linux/perf_event.h>
- #include <net/xdp.h>
-+#include "diagnostics.h"
- #include "disasm.h"
- 
- #define verbose(env, fmt, args...) bpf_verifier_log_write(env, fmt, ##args)
-@@ -958,6 +959,10 @@ int bpf_convert_ctx_accesses(struct bpf_verifier_env *env)
- 			if (BPF_MODE(insn->code) == BPF_MEMSX) {
- 				if (!bpf_jit_supports_insn(insn, true)) {
- 					verbose(env, "sign extending loads from arena are not supported yet\n");
-+					bpf_diag_policy(
-+						env, i + delta, "sign-extending arena load",
-+						"the current JIT does not support this load instruction for arena memory",
-+						"Use a kernel and architecture with JIT support for this arena load.");
- 					return -EOPNOTSUPP;
- 				}
- 				insn->code = BPF_CLASS(insn->code) | BPF_PROBE_MEM32SX | BPF_SIZE(insn->code);
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 3a676fc70f4b..ebfa53930276 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -4365,12 +4365,18 @@ static int check_map_access_type(struct bpf_verifier_env *env, struct bpf_reg_st
- 	if (type == BPF_WRITE && !(cap & BPF_MAP_CAN_WRITE)) {
- 		verbose(env, "write into map forbidden, value_size=%d off=%lld size=%d\n",
- 			map->value_size, reg_smin(reg) + off, size);
-+		bpf_diag_policy(env, env->insn_idx, "map value write",
-+				"this map does not permit BPF programs to write its values",
-+				"Remove the write, or use a map that allows writes from BPF programs.");
- 		return -EACCES;
- 	}
- 
- 	if (type == BPF_READ && !(cap & BPF_MAP_CAN_READ)) {
- 		verbose(env, "read from map forbidden, value_size=%d off=%lld size=%d\n",
- 			map->value_size, reg_smin(reg) + off, size);
-+		bpf_diag_policy(env, env->insn_idx, "map value read",
-+				 "this map does not permit BPF programs to read its values",
-+				 "Remove the read, or use a map that allows reads from BPF programs.");
- 		return -EACCES;
- 	}
- 
-@@ -6527,6 +6533,9 @@ static int check_mem_access(struct bpf_verifier_env *env, int insn_idx, struct b
- 		if (t == BPF_WRITE && rdonly_mem) {
- 			verbose(env, "%s cannot write into %s\n",
- 				reg_arg_name(env, argno), reg_type_str(env, reg->type));
-+			bpf_diag_policy(env, insn_idx, "write through a read-only memory pointer",
-+					"this pointer permits reads only",
-+					"Use a writable destination, or copy the data into a writable buffer before modifying it.");
- 			return -EACCES;
- 		}
- 
-@@ -6613,6 +6622,9 @@ static int check_mem_access(struct bpf_verifier_env *env, int insn_idx, struct b
- 	} else if (reg_is_pkt_pointer(reg)) {
- 		if (t == BPF_WRITE && !may_access_direct_pkt_data(env, NULL, t)) {
- 			verbose(env, "cannot write into packet\n");
-+			bpf_diag_policy(env, insn_idx, "direct packet write",
-+					"direct packet writes are disabled for this program type",
-+					"Remove the direct write, or perform the modification in a program type and hook that support packet writes.");
- 			return -EACCES;
- 		}
- 		if (t == BPF_WRITE && value_regno >= 0 &&
-@@ -11188,6 +11200,10 @@ record_func_map(struct bpf_verifier_env *env, struct bpf_call_arg_meta *meta,
- 	     func_id == BPF_FUNC_map_push_elem ||
- 	     func_id == BPF_FUNC_map_pop_elem)) {
- 		verbose(env, "write into map forbidden\n");
-+		bpf_diag_policy(env, insn_idx,
-+				bpf_diag_fmt(env, "call to %s", func_id_name(func_id)),
-+				"this helper modifies the map, but BPF_F_RDONLY_PROG forbids modifications from BPF programs",
-+				"Remove the modifying helper call, or use a map created without BPF_F_RDONLY_PROG if updates from BPF programs are intended.");
- 		return -EACCES;
- 	}
- 
--- 
-2.55.0
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
+> ---
+>  tools/testing/selftests/mm/folio_split_race_test.c |  2 +-
+>  tools/testing/selftests/mm/khugepaged.c            | 38 ++++------------------
+>  tools/testing/selftests/mm/uffd-common.c           |  4 +--
+>  tools/testing/selftests/mm/vm_util.c               |  5 ---
+>  tools/testing/selftests/mm/vm_util.h               |  1 -
+>  5 files changed, 9 insertions(+), 41 deletions(-)
+>
+> diff --git a/tools/testing/selftests/mm/folio_split_race_test.c b/tools/testing/selftests/mm/folio_split_race_test.c
+> index 1960635a953eb..4c0d3b6a411b8 100644
+> --- a/tools/testing/selftests/mm/folio_split_race_test.c
+> +++ b/tools/testing/selftests/mm/folio_split_race_test.c
+> @@ -182,7 +182,7 @@ static uint64_t run_iteration(void)
+>  	for (i = 0; i < TOTAL_PAGES; i++)
+>  		fill_page(mmap_base, i);
+>
+> -	if (!check_huge_shmem(mmap_base, FILE_SIZE, NR_PMD_PAGE, pmd_pagesize))
+> +	if (!check_huge_file(mmap_base, FILE_SIZE, NR_PMD_PAGE, pmd_pagesize))
+>  		ksft_exit_fail_msg("No shmem THP is allocated\n");
+>
+>  	if (pthread_barrier_init(&ctl.barrier, NULL, NUM_READER_THREADS + 1) != 0)
+> diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
+> index f82673f5f6b47..f448278823678 100644
+> --- a/tools/testing/selftests/mm/khugepaged.c
+> +++ b/tools/testing/selftests/mm/khugepaged.c
+> @@ -53,7 +53,7 @@ struct mem_ops {
+>  	void *(*setup_area)(int nr_hpages);
+>  	void (*cleanup_area)(void *p, unsigned long size);
+>  	void (*fault)(void *p, unsigned long start, unsigned long end);
+> -	bool (*check_huge)(void *addr, size_t len, int nr_hpages, unsigned long hpage_size);
+> +	bool (*check_huge)(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
+>  	const char *name;
+>  };
+>
+> @@ -314,12 +314,6 @@ static void anon_fault(void *p, unsigned long start, unsigned long end)
+>  	fill_memory(p, start, end);
+>  }
+>
+> -static bool anon_check_huge(void *addr, size_t len, int nr_hpages,
+> -		unsigned long hpage_size)
+> -{
+> -	return check_huge_anon(addr, len, nr_hpages, hpage_size);
+> -}
+> -
+>  static void *file_setup_area_common(int nr_hpages, enum file_setup_ops setup)
+>  {
+>  	const int open_opt = setup == FILE_SETUP_READ_ONLY_FS ? O_RDONLY : O_RDWR;
+> @@ -411,20 +405,6 @@ static void file_fault_write(void *p, unsigned long start, unsigned long end)
+>  		ksft_exit_fail_perror("madvise(MADV_POPULATE_WRITE)");
+>  }
+>
+> -static bool file_check_huge(void *addr, size_t len, int nr_hpages,
+> -		unsigned long hpage_size)
+> -{
+> -	switch (finfo.type) {
+> -	case VMA_FILE:
+> -		return check_huge_file(addr, len, nr_hpages, hpage_size);
+> -	case VMA_SHMEM:
+> -		return check_huge_shmem(addr, len, nr_hpages, hpage_size);
+> -	default:
+> -		ksft_exit_fail_msg("Unknown VMA type\n");
+> -		return false;
+> -	}
+> -}
+> -
+>  static void *shmem_setup_area(int nr_hpages)
+>  {
+>  	void *p;
+> @@ -448,17 +428,11 @@ static void shmem_cleanup_area(void *p, unsigned long size)
+>  	close(finfo.fd);
+>  }
+>
+> -static bool shmem_check_huge(void *addr, size_t len, int nr_hpages,
+> -		unsigned long hpage_size)
+> -{
+> -	return check_huge_shmem(addr, len, nr_hpages, hpage_size);
+> -}
+> -
+>  static struct mem_ops __anon_ops = {
+>  	.setup_area = &anon_setup_area,
+>  	.cleanup_area = &anon_cleanup_area,
+>  	.fault = &anon_fault,
+> -	.check_huge = &anon_check_huge,
+> +	.check_huge = &check_huge_anon,
+>  	.name = "anon",
+>  };
+>
+> @@ -466,7 +440,7 @@ static struct mem_ops __read_only_file_ops = {
+>  	.setup_area = &file_setup_read_only_area,
+>  	.cleanup_area = &file_cleanup_area,
+>  	.fault = &file_fault_read,
+> -	.check_huge = &file_check_huge,
+> +	.check_huge = &check_huge_file,
+>  	.name = "file",
+>  };
+>
+> @@ -474,7 +448,7 @@ static struct mem_ops __read_write_file_read_ops = {
+>  	.setup_area = &file_setup_read_write_fs_read_area,
+>  	.cleanup_area = &file_cleanup_area,
+>  	.fault = &file_fault_read_and_flush,
+> -	.check_huge = &file_check_huge,
+> +	.check_huge = &check_huge_file,
+>  	.name = "file",
+>  };
+>
+> @@ -482,7 +456,7 @@ static struct mem_ops __read_write_file_write_ops = {
+>  	.setup_area = &file_setup_read_write_fs_write_area,
+>  	.cleanup_area = &file_cleanup_area,
+>  	.fault = &file_fault_write,
+> -	.check_huge = &file_check_huge,
+> +	.check_huge = &check_huge_file,
+>  	.name = "file",
+>  };
+>
+> @@ -490,7 +464,7 @@ static struct mem_ops __shmem_ops = {
+>  	.setup_area = &shmem_setup_area,
+>  	.cleanup_area = &shmem_cleanup_area,
+>  	.fault = &anon_fault,
+> -	.check_huge = &shmem_check_huge,
+> +	.check_huge = &check_huge_file,
+>  	.name = "shmem",
+>  };
+>
+> diff --git a/tools/testing/selftests/mm/uffd-common.c b/tools/testing/selftests/mm/uffd-common.c
+> index 1fb967ef49854..a76851aced4d0 100644
+> --- a/tools/testing/selftests/mm/uffd-common.c
+> +++ b/tools/testing/selftests/mm/uffd-common.c
+> @@ -196,8 +196,8 @@ static void shmem_check_pmd_mapping(uffd_global_test_opts_t *gopts, void *p, int
+>  {
+>  	size_t len = expect_nr_hpages * read_pmd_pagesize();
+>
+> -	if (!check_huge_shmem(gopts->area_dst_alias, len, expect_nr_hpages,
+> -			      read_pmd_pagesize()))
+> +	if (!check_huge_file(gopts->area_dst_alias, len, expect_nr_hpages,
+> +			     read_pmd_pagesize()))
+>  		err("Did not find expected %d number of hugepages",
+>  		    expect_nr_hpages);
+>  }
+> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
+> index a7c5caf6925e0..e31e88d5af76d 100644
+> --- a/tools/testing/selftests/mm/vm_util.c
+> +++ b/tools/testing/selftests/mm/vm_util.c
+> @@ -475,11 +475,6 @@ bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+>  	return __check_huge(addr, len, nr_hpages, hpage_size, CHECK_HUGE_FILE);
+>  }
+>
+> -bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+> -{
+> -	return __check_huge(addr, len, nr_hpages, hpage_size, CHECK_HUGE_FILE);
+> -}
+> -
+>  int64_t allocate_transhuge(void *ptr, int pagemap_fd)
+>  {
+>  	uint64_t ent[2];
+> diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
+> index 9a49af88702e4..fc9c93235f6fa 100644
+> --- a/tools/testing/selftests/mm/vm_util.h
+> +++ b/tools/testing/selftests/mm/vm_util.h
+> @@ -92,7 +92,6 @@ uint64_t read_pmd_pagesize(void);
+>  unsigned long rss_anon(void);
+>  bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
+>  bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
+> -bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
+>  int64_t allocate_transhuge(void *ptr, int pagemap_fd);
+>  int pageflags_get(unsigned long pfn, int kpageflags_fd, uint64_t *flags);
+>  int gather_folio_orders(char *vaddr_start, size_t len,
+>
+> --
+> 2.43.0
+>
+
+--
+Cheers, Lorenzo
