@@ -1,149 +1,131 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4478449B3A
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:59:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789977558; cv=pass; b=IXOCkRxTVK8zMuxlNdEYyo9MJqULEcnE43rBKZvx5igQsOifvDB2BS3NugudPWQOKk5x4gb8/t/tpTimEok0rqImgNtATU2RB7dlmYF0DdvE8yejrB422n/EUpnXee6vf4LHsCwC6/Y8AtPZx5FC05q8HNtiQG7EdZSk/IBL/cg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789977558; c=relaxed/simple;
-	bh=I2KFHCsto5ktwcOC7Smw2RZRoRdPhzo99usTN0lCH4g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=V+mnkkaLrIw3KUjvUmqy888pTv/s2zM3mYtgA919L0uBdgU4PDCUHtuNAcrcvglgFXBZIFfrTKL+5kMk2iOvJrdI1/N0EMCeRAV+/LqeTsNvzh5DT+VoRUwbnooYUcUNu8AE8kOddqP3NjQ747QrAuHdn2QWrTyUD1D9wbiyEEk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U5qNI9iE; arc=pass smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C67B44F553;
+	Mon, 21 Sep 2026 07:59:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789977592; cv=none; b=hP0uyiAKeUXrLgxRWTPp3Q29p6TVbw9YBds3dzKObyPZd9+AgzQ7A+2SflMs9dc07aiohTBrKmS5OJKD9coUOyiGNv9NplwsLf3k4jWN0xxKDPA8cUqDwYW8JDDIuoWsr7JhNVC4zedLHoUUF9+HP/r1t+2f0iiyB/3ndgv0Ses=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789977592; c=relaxed/simple;
+	bh=SmvhrJEU24sW5LU8DytMNLC3sHmZyGqZmfauFRtK3ng=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JboRFWkYseZtE138/V3g9rDfkSm3mXjazqJLiQ1Neif/oJTRnAjlkdn7o3JasXZwMkCSF0wHcVXgDu2N7wki2czu4Kb3RSCFAQMSdlm2S+lGG6ygkX3CwborbEwrVvPM56tDBsEI5zum6GqoD3frh7DMjt97wHoG7sexx4soTFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QGQnCm61; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U5qNI9iE"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff17443dso27729691fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:59:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789977555; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PKVJ/MHsKUZQwXB3p/rJlSBclJXeHv5+quwvAEugbf9CMFpDP3Zn81mGrEkpx6uAi9
-         RqcQ/wTqVTXTIaRfPbgrY4+yIvI1v/HOsTRV2Ru6IFFgV7xS2kcmhDdLEjsv5+oeNlPD
-         oxPmcfNGntiMB14sggT5PcE28Mk95ynH6slXSgJzOgxuG73E1RJFI+iHPrfEZd6oM9Pu
-         T0jRwAhFiq+MgoNFNEmNF/8yVKSMi5VO3NMSFC0xcF62lcJwah8VjX31nl3Ce4SZeznV
-         tabPGV5vq1RTyfoA24DOT1mcW23feKcR5BLZgYsLu34t/ciMj5qytL1ULBY8krI601Um
-         dL2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3aepA27SIv41SqDk2ILO7FI1p6Gl+MGhkJvg7WvtfaU=;
-        fh=eQsUQm1p1HUH5EsLA75HbCCl05FJKD0qRQQfAq99syo=;
-        b=OZJb3WBvpS20SkMvCjlZZ2cmic+1oBy4nqS00dYoEnFkvUSiWka99+AiQLbcZaQqGl
-         AR0moqlmS9SCl5FetZInqjPMNJMktl5LJj8kOMTt1mYVCIexgv7cXW1C05IN4ahUNATz
-         t9eAMCCQG+qqnO4ZrhzXcYHqs9IVuw6JgKPbMp13dYSWVdPz6GsH3jxtsPKrkEn/NQZ9
-         YkaXYniI0JaEQVGTxBErswUbcO5NWooGXGUPaQAm6z5RzaSVhTwqDQziSq7gi6YwYLja
-         COHEKh/25T78KWs0wRHX5V/am2eaimmYbbiaMjKQY7HVk5E9ASv8JISC2pkF6W0cWZgu
-         tMkA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789977555; x=1790582355; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3aepA27SIv41SqDk2ILO7FI1p6Gl+MGhkJvg7WvtfaU=;
-        b=U5qNI9iEjEVibd0quqYiYVMIGHaSVDIdoPsQd4vQb5MsfWg0q8fU5DcUJEo+CIvRT3
-         /1WkzLJcxX/ZNX0pFMkGdGpTuauqiGxgCrfBUQ1OA0cI1GPrPKNID8lvqMbBzW4aczRj
-         B9kHW7T4rmvtP3rhjG2egnJtLV8m5KpZeo1O2Z8HBVrMS74YpmgoFlTWOBSi1yhPkCTS
-         /7PNG/uetboANNk4ylgWyRTI7pzeYn47EAusYU0CXDNqjmBbg2CJhC2JV4MLNW4xQdrw
-         5lnU1w+U3/45DkoBK/Oxcj7NFjN/k7tpsAbn+hLjJLP5dlr3tR/jttv3Yfs9+Obol5Yx
-         SYHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789977555; x=1790582355;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3aepA27SIv41SqDk2ILO7FI1p6Gl+MGhkJvg7WvtfaU=;
-        b=aUM6cPaFf5ZnRLuj/k3o++NvopAMHu8DUZNKzvQVUy1hSWbsEvc3knTkyKNvjn5xso
-         Y02xKdKoT3IBIagsNWIoe1R1IdoGiG43bQvzbkojfDMlco38vf5xHuovqRO/s2YRBFjr
-         5iasnmUqstrz8tDnHC2hM5phNhFBBmLKRorYdKkV+dJaPl/DGWrjtfwVe6pAYE7Eykf0
-         btW3WpGygeL4yEVSMx8JdTvKRL1lXfUx1jYFMBojV95nBoCWpLCgksJE3CF3HZTqCnik
-         9Br5pDe3hlQOo5Awmr9M09+/RB7xUCKyFo2eEyfVdYOQiRMbmzUOHCj5j0ux34uGlE3M
-         bEIw==
-X-Forwarded-Encrypted: i=1; AKwUvByMQWexoXD/kXx3j66js0glKf16CvE5Bjzpdz4YBAYmSUZPsq85uAgJ5oyz4viy+STxL24YkmHZ9vXmzB0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nR9oSWftEuAzIggi7FERK38JPb81pmdt1SyaW2n80dt+QcsV1q
-	oBPOCDFMGFjgq62uXkFP+9Ap7nTAMzg7O3tODi7BiFK7lN3JMvir44ON9NpGpxivPiDIsNg6+oa
-	khHvQTEfH5mSt92FPO7R7Kntwa4Wg/dQ=
-X-Gm-Gg: AYBFou1sKCai9TB6gxR22SORM2AaEZkPjala6ubhyEEo9xU+0A8IJGuqP0jTxi8tLJl
-	T9Wz+TS6uei+ad8Xt9Y3T+7UbhLGvSmGzHHoQYZjMQXWxxoBPB7AzXLeSbWiw2FV5SK9ew2gGX9
-	/gNwyDcYhOw3Tdorhas1c9ihePHubKDeH76msrspOwCi0pQj6b0z74c6VapHGrEDToFekjlkxQC
-	b3SQbPhQGgjm/dHXJ0ZSVIzXRzi7eNaKfuAKhEEZYFUjJLcibAWaCTX8lxy9S/W3I9HyVWo0h45
-	Fxv22WnDowLiEyk+AoTku7JNfCm39FxQgBHByE8AOgtzitKNE6TSr1E=
-X-Received: by 2002:ac2:5685:0:b0:5b6:1783:d7b1 with SMTP id
- 2adb3069b0e04-5b8c17fe594mr3210051e87.17.1789977554310; Mon, 21 Sep 2026
- 00:59:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QGQnCm61"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DCA58C2BCFA;
+	Mon, 21 Sep 2026 07:59:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789977591;
+	bh=SmvhrJEU24sW5LU8DytMNLC3sHmZyGqZmfauFRtK3ng=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=QGQnCm61dgAVXwQIpNp+lsRzjn4B8gTWeaQhAaugxbJ2ihp26vHQ8c3K8q6oBTiw0
+	 fPAZIaSJfJSb01Vbnia3zd5ksopSsrqN1m5EpHhhZT9jv3Thk+i4hA319FdxcN3UVg
+	 ylvKmJ0EhRSAB1muiKzVk4SMsUtGnCyL9GxxXjTYVTTQVfQcuU/spTcG/tPb/gDkH+
+	 5fEf+XafoJxm76azApq/ty+482QXlELYGTg93wng1oH9npszRkt9J3xkHtxG9ILOhC
+	 YenFAb1TjonV5k+NZRvPcq0ZyTv+ppANgO9kYXYXbX+cne7QAVztGXaf2XdU7qpJnF
+	 9WgaCQ1ibee/Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B9294C982EE;
+	Mon, 21 Sep 2026 07:59:51 +0000 (UTC)
+From: Kim Wooseok via B4 Relay <devnull+5mghybrid.khu.ac.kr@kernel.org>
+Subject: [PATCH rtw-next v4 0/3] wifi: rtl8xxxu: keep RX requests available
+ across transient errors
+Date: Mon, 21 Sep 2026 16:59:48 +0900
+Message-Id: <20260921-codex-rtl-rx-v3-submit-v4-0-eeb09fe8f791@khu.ac.kr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920063153.376958-1-wangxuewen@kylinos.cn>
-In-Reply-To: <20260920063153.376958-1-wangxuewen@kylinos.cn>
-From: Hyunchul Lee <hyc.lee@gmail.com>
-Date: Mon, 21 Sep 2026 16:59:01 +0900
-X-Gm-Features: AcwNN1UkiQ_JkJL9NtBeCTb_hgmCbNBO3fvAM0Z6ss-_2PtRfA3QV5xcX422Ypo
-Message-ID: <CANFS6bY7vbzua0K8DJ74Cps7WDmpWOfxozPA4cu9Nro_Zx3xOw@mail.gmail.com>
-Subject: Re: [PATCH v1] ntfs: preserve the 64-bit FITRIM minimum length
-To: Xuewen Wang <wangxuewen@kylinos.cn>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Baolin Liu <liubaolin@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4VOSw6CMBC9ipm1QyhFAq68h2FRyigVLWZaEEO4u
+ y3GtbOa981bwBEbcnDcLcA0GWcGG0C+34HulL0SmjZgyNKsSKssRT20NCP7O/KMk0Q3Ng/jUTQ
+ 5qaLKRDgI4SfTxcxb8RnYv9DS7KH+KiFzI+1jb/Q2yhE2rKzuIvVzY+Sj3hnnB35vGye5Nf6bE
+ 74Uy1K2QsiDqAp56rsxUTrpGep1XT8V2yEZ+AAAAA==
+X-Change-ID: 20260920-codex-rtl-rx-v3-submit-1b4ea6921111
+To: linux-wireless@vger.kernel.org
+Cc: Ping-Ke Shih <pkshih@realtek.com>, 
+ Jes Sorensen <Jes.Sorensen@gmail.com>, Kalle Valo <kvalo@kernel.org>, 
+ linux-kernel@vger.kernel.org, Kim Wooseok <5mghybrid@khu.ac.kr>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789977589; l=2887;
+ i=5mghybrid@khu.ac.kr; s=kernel-20260913; h=from:subject:message-id;
+ bh=SmvhrJEU24sW5LU8DytMNLC3sHmZyGqZmfauFRtK3ng=;
+ b=zQIRZTigf6m5OBJGnNqPeiVrjGcO35JlN7AJ61tmmv+u+IZrwsHTUYP+5UrCb2gWzQGGySH73
+ NPPslW8JH/AAd7rQ1l84s8AMteA49CkH2ar4lFNxyF+xM9iQPEwHGYa
+X-Developer-Key: i=5mghybrid@khu.ac.kr; a=ed25519;
+ pk=1az/6lC8Tmd6BcvyarPc8FWoSxsV/WRr5NLs1v+kjlE=
+X-Endpoint-Received: by B4 Relay for 5mghybrid@khu.ac.kr/kernel-20260913
+ with auth_id=1028
+X-Original-From: Kim Wooseok <5mghybrid@khu.ac.kr>
+Reply-To: 5mghybrid@khu.ac.kr
 
-2026=EB=85=84 9=EC=9B=94 20=EC=9D=BC (=EC=9D=BC) =EC=98=A4=ED=9B=84 3:32, X=
-uewen Wang <wangxuewen@kylinos.cn>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> The minlen member of struct fstrim_range is a 64-bit byte count, but
-> ntfs_ioctl_fitrim() uses max_t(u32, ...) to compare it with the device's
-> discard granularity. This truncates the requested minimum length before
-> passing it to ntfs_trim_fs().
->
-> For example, a minimum length of 4 GiB is reduced to the discard
-> granularity, allowing smaller free extents to be discarded. The truncated
-> minimum length is also copied back to userspace.
->
-> Use max_t(u64, ...) to preserve the requested minimum length. The bitmap
-> scan already compares the aligned extent length against range->minlen
-> using 64-bit values.
->
-> Fixes: 9c87959601e8 ("ntfs: update file operations")
-> Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
-> Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+rtl8xxxu keeps 32 RX URBs in circulation. Completed requests wait on a
+pending list until more than eight are ready for resubmission. Completion
+errors free their URBs, so a finite run of errors can leave too few
+requests to reach that threshold. Reception can then remain stopped
+after the errors end.
 
-Looks good to me.
+This series preserves those requests across recoverable errors. It also
+fixes an skb leak after failed submission and startup error paths that
+leave requests active or report success after only part of the pool was
+allocated.
 
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
+Normal completions and recoverable failures use one pending list and
+one delayed work item. Errors schedule a retry with a 100 ms delay.
+When a normal completion takes the pending count above eight,
+mod_delayed_work(..., 0) brings the work forward. The delay limits
+repeated retries when normal reception is not progressing; it is not a
+minimum wait for each URB. ENOMEM/EAGAIN during submission uses the same
+retry path.
 
-> ---
->  fs/ntfs/file.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-> index 8164326b7812..e315fed4d13b 100644
-> --- a/fs/ntfs/file.c
-> +++ b/fs/ntfs/file.c
-> @@ -866,7 +866,7 @@ static int ntfs_ioctl_fitrim(struct ntfs_volume *vol,=
- unsigned long arg)
->         if (range.len < vol->cluster_size)
->                 return -EINVAL;
->
-> -       range.minlen =3D max_t(u32, range.minlen, bdev_discard_granularit=
-y(dev));
-> +       range.minlen =3D max_t(u64, range.minlen, bdev_discard_granularit=
-y(dev));
->
->         err =3D ntfs_trim_fs(vol, &range);
->         if (err < 0)
-> --
-> 2.25.1
->
+I designed the v3 tests around the error paths changed by this series
+and exercised them on an RTL8192EU with the RX changes backported to the
+Pi's 6.18.46 RT kernel. I checked resource cleanup and reception after
+recovery and restart.
+
+With the same 24 injected EPROTO completions, the unpatched driver
+stopped with eight pending URBs and none in flight. V3 retained all 32
+and received 1,225 packets in 30 seconds without restarting the
+interface.
+
+For the changes in v4, I rebuilt the driver with W=1 after patches 2
+and 3 using the existing ARM64 build configuration. Both builds passed
+without warnings. All three patches pass strict checkpatch and apply
+in order to the base commit.
+
+Assisted-by: GPT-6 Astra
+Signed-off-by: Kim Wooseok <5mghybrid@khu.ac.kr>
+
+---
+Changes in v4:
+- Leave patch 1 unchanged and add Ping-Ke's Reviewed-by to patch 2.
+- Initialize the RX worker's priv pointer at declaration and add the
+  requested blank lines.
+- Rename the queue helper's retry argument to defer_schedule.
+- Use schedule_delayed_work() for delayed retries. Keep
+  mod_delayed_work() to advance pending work on normal completions,
+  using system_percpu_wq instead of system_wq.
+- Link to v3: https://lore.kernel.org/linux-wireless/20260920-codex-rtl-rx-v3-submit-v3-0-883d11351963@khu.ac.kr/
+
+---
+Kim Wooseok (3):
+      wifi: rtl8xxxu: free RX skb when URB submission fails
+      wifi: rtl8xxxu: unwind incomplete receive startup
+      wifi: rtl8xxxu: preserve RX requests across recoverable transfer errors
+
+ drivers/net/wireless/realtek/rtl8xxxu/core.c     | 154 +++++++++++++----------
+ drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h |   2 +-
+ 2 files changed, 87 insertions(+), 69 deletions(-)
+---
+base-commit: 73e3b1c94c7d5b4a113e7cbb42665dc2fe3b9d78
+change-id: 20260920-codex-rtl-rx-v3-submit-1b4ea6921111
+
+Best regards,
+--  
+Kim Wooseok <5mghybrid@khu.ac.kr>
 
 
---=20
-Thanks,
-Hyunchul
