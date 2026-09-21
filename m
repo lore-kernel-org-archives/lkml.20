@@ -1,199 +1,122 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mail.rimpianto.com (mail.rimpianto.com [46.14.198.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F17E472F7D;
-	Mon, 21 Sep 2026 09:28:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A52048F02A;
+	Mon, 21 Sep 2026 09:28:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.14.198.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982893; cv=none; b=CfIDNrv2uARvsdOW3PvuX8YW4AHs1wTp2Vc5+jvW+x86mb/8E6U6ljSngzDif6E92NyJSOPfNLzNYfzLcabHCwxhkZO5tSgyPAYR/pK2NlAcLxTRXj2rOVuzjMYvXp61KfSXsyH3TRleH42PzdIcYT+g1zWFTI9Ihar18taMxB8=
+	t=1789982894; cv=none; b=hWz+IIs/PoBwmM+wYl9zwux9JNcD/hW21pqxz6JAaGtqt8m98lY/nuY2mTfd7mCua3cHw1bnHlrRGlB38UUigmvnXXjDtKyaPWlPc+qLhoHW6j88AlcBbrRaOj1hROPtbVFLbn3ssNCd+2+/uoVb2K1BhNL2VTzzy0CrUZ0HL2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982893; c=relaxed/simple;
-	bh=Nb1ZtMjBVt/uMefhRfcEWZNaoHbK8/f8+94a4DDwWZY=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=SoRfjF+PLWIMYip2b3vp4Gj2J0SdYLVYy77jW642JxD+KjuOarCQxNQ2FpeyTZakUYXKzVh4H2cLiDqx5c/zrx+cbNQDXPV5sf1PCxTTJHIM6AB53dOV06ByZZ9Y1fFgRVaDyU/wwJyQC6Qg4BRUQP2GgDH7TqXA0xd/YRmMwO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NeMYFbwb; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=z1mGQcOv; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1789982894; c=relaxed/simple;
+	bh=PH4/FT+SgS9Z/G4pWqkm/WiDabKc+6oc79OwZwH8JTo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=l736XRzZVpZolhTgbq3kF/wvBM/OinA06K+Xc1KvwZxKWj+Rc/QjW0oOxTEw9bfm4WfJnkG/TCzFwW5TOtJOM4KjpD50fnmm7n+55cP3DUmn59Nkxa5pfx3CmOIyiUTlyV6iN/9rnVUlouWuU3lPEB/u3YVnXO5oH1H9qa7YA+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rimpianto.com; spf=pass smtp.mailfrom=rimpianto.com; dkim=pass (2048-bit key) header.d=rimpianto.com header.i=@rimpianto.com header.b=pmY3E/zB; arc=none smtp.client-ip=46.14.198.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rimpianto.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rimpianto.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NeMYFbwb";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="z1mGQcOv"
-Date: Mon, 21 Sep 2026 09:28:07 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789982889;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=41CnNL72RreplOoAw3vcJd+c7WTHPBx60KyreR/0BzA=;
-	b=NeMYFbwbSPxn8b5qsxqcgZcutAorPLP92zjev5TgB18yk/nQ1oLyyIU7ung59YdnOPsyho
-	qr+IE+BGREWNYJkVroTQ4OiDWG0SUN6LZgkaZkF83L2rKeriN9dj4DK3ajq6rWdbXqk1Y9
-	px7D0JCNlW/w+BherGdx3Bx8sc45NB1dYOciPprgDYYMZXzsct3+eoICiWz60L8kfqF+H7
-	y593tKuTiz4u0NUZcDXiftYDR5XHTLKQggVHXpuMwJRkHzgGs/Jvm9FfqJnDVGyDILwdz3
-	3ZRMEFr+9N2H/zA3IfE+jNmRpFavjjMAonBRjUEyp7VwU6q6k2nO670hztp5Kg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789982889;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=41CnNL72RreplOoAw3vcJd+c7WTHPBx60KyreR/0BzA=;
-	b=z1mGQcOvwRWUDo+/4WN274MBx+dSIvanlMXU1GMF2KdD+OOIYH6ItgNpHdACNlUtQBZdNn
-	YG8qZABgBH50pcCA==
-From: "tip-bot2 for Song Liu" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: objtool/core] objtool/klp: Add test for the contents of the
- klp_funcs list
-Cc: Song Liu <song@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
- Ingo Molnar <mingo@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260916184351.2720310-32-song@kernel.org>
-References: <20260916184351.2720310-32-song@kernel.org>
+	dkim=pass (2048-bit key) header.d=rimpianto.com header.i=@rimpianto.com header.b="pmY3E/zB"
+Authentication-Results: mail.rimpianto.com;
+	auth=pass (plain)
+From: =?UTF-8?q?Gajdos=20Tam=C3=A1s?= <tamas@rimpianto.com>
+To: netdev@vger.kernel.org
+Cc: kuba@kernel.org,
+	chris.snook@gmail.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	gatis@mikrotik.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] net: atl1c: fix soft lockup on out-of-range tpd_cons read
+Date: Mon, 21 Sep 2026 11:27:55 +0200
+Message-ID: <20260921092755.3573852-1-tamas@rimpianto.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260917004924.2461599-1-kuba@kernel.org>
+References: <20260917004924.2461599-1-kuba@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178998288798.2819794.15124237701884270857.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Received: from localhost (Unknown [127.0.0.1])
+	by mail.rimpianto.com (Haraka) with ESMTPSA id A2A76402-2A36-4946-B8D5-72374F76B25A.1
+	envelope-from <tamas@rimpianto.com>
+	tls TLS_AES_256_GCM_SHA384 (authenticated bits=0);
+	Mon, 21 Sep 2026 11:28:10 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rimpianto.com;
+ h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
+ Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=s20260314391;
+ t=1789982890; bh=fMB8li3SdzNXwqIERvGv3IFialqAVuf5hLhWvqJ6h2g=;
+ b=pmY3E/zBaoesZoQsrWvOMRZrES2zs3mg7pR5vFhLz+hXdqZEbL7U6eeaLYKQc+fc/A1jnbYD1
+ Bb6tI/nIe1V0nK5oIZxE0nqi0VyxI0mRqb21DuNRnLCx4TZUF8iShgGUPdftuhU8RXkixc9NFXf
+ RO4Uxpt2arC+jkeLYU85QIC1JUGLkzXVGrQMjY+OuwEmg33zh2p1iwHL7ad9ulzwqdFjWVEMztO
+ TRAidM23P6ugSLJArjar8Md9WRLXdrS4NCRsvgwzmH1mYT51GVIgryhdRd0Such5M40LTCFiML5
+ EfCOc6/O7BpkK2bH0Y2uDhFufVsZtmgXWRuf+MkqC5Hw==
 
-The following commit has been merged into the objtool/core branch of tip:
+Thanks for the review.
 
-Commit-ID:     35021df3834e0b51dd77e4be6ee7cbe9bcfa4825
-Gitweb:        https://git.kernel.org/tip/35021df3834e0b51dd77e4be6ee7cbe9bcf=
-a4825
-Author:        Song Liu <song@kernel.org>
-AuthorDate:    Wed, 16 Sep 2026 11:43:24 -07:00
-Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Mon, 21 Sep 2026 11:12:06 +02:00
+> Should this carry a Fixes: tag and a Cc: stable@vger.kernel.org?
+>
+> Fixes: 43250ddd75a35d ("atl1c: Atheros L1C Gigabit Ethernet driver")
 
-objtool/klp: Add test for the contents of the klp_funcs list
+Agreed on both, will add in v2.
 
-The patch list is what livepatch acts on, and asserting only that it exists
-does not say it is right.  A function that should have been patched and is
-missing leaves the bug in place; one that should not be there patches code
-nobody changed.
+> Could the changelog also say how the 0xffff value was observed - kernel
+> version, hardware, and the log or reproducer? That makes the hardware
+> claim easier to confirm.
 
-The fixture changes two of three functions and asserts on all three: the
-two by name, and the third by its absence.  It checks the strings in
-.rodata.klp.str1.1 as well as the relocations, since the names the kernel
-matches on are real strings.
+Reproduced on two machines, same NIC (Qualcomm Atheros AR8151 v2.0,
+4-port), triggered by rebooting a Mikrotik CCR2004 PCIe card that the
+ports are directly linked to:
 
-Assisted-by: Claude:claude-opus-4
-Based-on-test-by: Joe Lawrence <joe.lawrence@redhat.com>
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Song Liu <song@kernel.org>
-Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Link: https://patch.msgid.link/20260916184351.2720310-32-song@kernel.org
----
- tools/objtool/tests/generic/fixtures/klp_funcs.c      | 31 +++++++-
- tools/objtool/tests/generic/test-klp-funcs-content.sh | 45 ++++++++++-
- 2 files changed, 76 insertions(+)
- create mode 100644 tools/objtool/tests/generic/fixtures/klp_funcs.c
- create mode 100755 tools/objtool/tests/generic/test-klp-funcs-content.sh
+- Ubuntu 26.04.1 LTS, kernel 7.0.0-31-generic. The link-flap precursor,
+  before the lockup was captured with a full trace elsewhere:
 
-diff --git a/tools/objtool/tests/generic/fixtures/klp_funcs.c b/tools/objtool=
-/tests/generic/fixtures/klp_funcs.c
-new file mode 100644
-index 0000000..3f0d3e2
---- /dev/null
-+++ b/tools/objtool/tests/generic/fixtures/klp_funcs.c
-@@ -0,0 +1,31 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Two changed functions and one untouched, so the patch's function list has=
- a
-+ * length worth checking and something that must not appear in it.
-+ */
-+
-+static const char __modinfo[]
-+	__attribute__((section(".modinfo"), used, aligned(1))) =3D "\0name=3Dvmlinu=
-x";
-+
-+int first(int x)
-+{
-+#ifdef PATCHED
-+	return x + 11;
-+#else
-+	return x + 1;
-+#endif
-+}
-+
-+int second(int x)
-+{
-+#ifdef PATCHED
-+	return x + 22;
-+#else
-+	return x + 2;
-+#endif
-+}
-+
-+int third(int x)
-+{
-+	return x + 3;
-+}
-diff --git a/tools/objtool/tests/generic/test-klp-funcs-content.sh b/tools/ob=
-jtool/tests/generic/test-klp-funcs-content.sh
-new file mode 100755
-index 0000000..32fbd5f
---- /dev/null
-+++ b/tools/objtool/tests/generic/test-klp-funcs-content.sh
-@@ -0,0 +1,45 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# .init.klp_funcs is the list the kernel walks to decide what to patch, and
-+# .init.klp_objects points at it.  Existing tests assert only that the secti=
-ons
-+# exist, which they do whether the list names the right functions, the wrong
-+# ones, or none at all -- and a patch module with an empty function list loa=
-ds
-+# perfectly happily and patches nothing.
-+#
-+# Each entry pairs a name string in .rodata.klp.str1.1 with a relocation to =
-the
-+# new function, so both halves are checkable.
-+
-+. "$(dirname "$0")/../lib.sh"
-+
-+setup
-+build_pair klp_funcs.c
-+run_diff
-+
-+assert_section .init.klp_funcs
-+assert_section .init.klp_objects
-+
-+# Two functions changed, so two entries, each contributing a name relocation
-+# and a function relocation.
-+assert_reloc_count .init.klp_funcs 4
-+
-+# The functions that changed are named ...
-+assert_reloc_sym .init.klp_funcs first
-+assert_reloc_sym .init.klp_funcs second
-+# ... and the one that did not is absent, from the list and from the patch.
-+assert_no_reloc_sym .init.klp_funcs third
-+assert_not_patched third
-+
-+# The names the kernel matches on are real strings, not just relocations.
-+# readelf prints one per line as "[ offset]  <string>", so compare the whole
-+# name: a word-boundary match would also accept ".text.first", since a dot is
-+# not a word character.
-+for name in first second; do
-+	out_strings .rodata.klp.str1.1 | awk -v n=3D"$name" '$NF =3D=3D n' | grep -=
-q . ||
-+		fail "no '$name' string in .rodata.klp.str1.1"
-+done
-+
-+# The object list has to reach the function list, or nothing is walked.
-+assert_reloc_sym .init.klp_objects .init.klp_funcs
-+
-+pass "klp_funcs lists exactly the changed functions, by name and relocation"
+    atl1c 0000:05:00.0 enp5s0f0: NETDEV WATCHDOG: CPU: 4: transmit queue 2 timed out 489984 ms
+    atl1c 0000:05:00.0: MAC state machine can't be idle since disabled for 10ms second
+    atl1c 0000:05:00.0: atl1c: enp5s0f0 NIC Link is Up<65535 Mbps Full Duplex>
+
+  65535 (0xffff) here is the same value the tpd_cons register reads
+  back once the loop this patch fixes gets stuck.
+
+- Proxmox VE, kernel 7.0.14-11-pve. Same NIC/trigger, this time caught
+  by the soft lockup watchdog with a full stack trace:
+
+    watchdog: BUG: soft lockup - CPU#12 stuck for 354s! [napi/eth%d-0:329]
+    CPU: 12 UID: 0 PID: 329 Comm: napi/eth%d-0 Tainted: P O L 7.0.14-11-pve #1 PREEMPT(lazy)
+    RIP: 0010:atl1c_clean_tx+0x142/0x2d0 [atl1c]
+    Call Trace:
+     <TASK>
+     __napi_poll+0x32/0x1e0
+     napi_threaded_poll_loop+0x286/0x2e0
+     napi_threaded_poll+0xfd/0x140
+     kthread+0xf7/0x130
+     ret_from_fork+0x2da/0x3a0
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
+
+Will fold both into the v2 changelog.
+
+> This isn't a bug introduced by this patch, but the sibling Atheros
+> drivers have the same loop and are left untouched here. Were they
+> audited?
+
+Yes - sending this as a 3-patch series (atl1c/atl1e/atl1), same guard
+applied to atl1e_clean_tx_irq() and atl1_intr_tx(). One caveat worth
+being upfront about: only the atl1c fix has been validated against
+real hardware (repeated reboot cycles against the CCR2004 above,
+confirmed fixed). The atl1e and atl1 patches apply the identical guard
+against the identical loop shape by code inspection - I don't have
+atl1e/atl1 hardware to reproduce and confirm the fix against directly.
+Flagging this explicitly rather than implying equivalent test coverage
+across all three.
+
+> Would adding napi_disable()/napi_synchronize() around the reset in
+> the link-change path be the right complement to this clamp?
+
+Agreed this looks real - still confirming the right fix, will follow
+up separately since it's an independent bug from the one this patch
+addresses.
