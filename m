@@ -1,79 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0743635C6AA;
-	Mon, 21 Sep 2026 10:31:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CCE74746A9
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:31:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789986707; cv=none; b=Sz9Vll23fsA70Q6tPAGGtFsdy0MnQCUDX+qWGaZ7sH5igl7mS6U9541p8VWNVrrRkA6EvNwlrRZ26DiviK2FUUIeGAg/YxBt4o7Kzwjc+vjyK5pBEtecwud1ENLSnadeDnqjSZHOgB00WgePIfbuGAvKwsXGbxP7fRmTJdajv0Y=
+	t=1789986711; cv=none; b=Qyw95rkFv5agKMIK5vX9BD8B3AWrkXW0IAoYAQj4rntHHn0aGUkhtXQ29eHr60Ar+J+pvcosAc61HSW8myGnTD6OdeTleNm0OTZbnw/+G7b/7UQIPYHdGVOik3PAe8qZizvZ9f0rJuZf6UZVrb4L+/Jj8dmAAJwN/HlRtX5KNLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789986707; c=relaxed/simple;
-	bh=EXDllXkxE5PenXcNK0sPgs5pO/YD2IlpkkpKPa4JFKo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l3LI2sPrs0I0texgw8ZgMOHje1wXAceb0QodkyFbTFclckjpJPbDmHrO9zBLnsLkUk93rs/Vqo3e5PXMNNhgBUbWKb9IT2c/rtSpT8LvDn202XPJXTk6IQ6pb9gsWOyfaA2ZBjaMi7GFFlh5UztpbQ0kLOwxjnVA2NRsAAJmr44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KimAC9VV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789986711; c=relaxed/simple;
+	bh=wlyZp0Y8DtkcpxZgedsAGdv5R+a3YrLHF+oXTMTBElQ=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AQZjxHfu5/PiwjtalFMX3ZinnRSuksM6UYEIf+ja1xfqRNNwQ45I4F6ryqKwWGdUMInbXAMP0vpypXrM/0iULgGrGVF1HLvKnX09pghdGj5KnHCXR0g14+3vvbOsyM6dnttmt+a+Z8ys0fLm/MSDmhI4pF8v1cqvVYtBX0VoKIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VPU9tO8H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KimAC9VV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 684ED1F000FF;
-	Mon, 21 Sep 2026 10:31:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VPU9tO8H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41AED1F008AB
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:31:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789986705;
-	bh=6wmU2sr9x4b6XtO4kbKx7Dnp9bvWjXp1O0gQjA1HTzs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KimAC9VVpjCZlkNzduww4oh7bYp1aa0Np39yi2VPuNIrLfl56BeGTJcp983e3fDov
-	 /KyyLZVNZsFFEtT+qjTMNU7A2hPWSY/l0Xnd9G2HlatJBjrsk9aca3EeZqawS+uRBL
-	 XMlU1AFlK6EeAg6UlgEYzfis+KUzENakNO4EHfix0FCe6Uz1QiiS71vIK7hpEhsn/G
-	 zWqB38Ue6AEvPJAb4UIiDvn/yxuMfaR44PwvqUOM9aeKTutrqwqfy9ywbCTKAZAX5A
-	 lDJvUSgQO/xKTtylqMPeQC1jnajdsscyZCP6Fn6G3FvtCWPJMH29kZ1NISmshg/ufM
-	 mkOtCoRMHKZdw==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id CD75E1AC5363; Mon, 21 Sep 2026 11:31:41 +0100 (BST)
-Date: Mon, 21 Sep 2026 12:31:41 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Zhang Heng <zhangheng@kylinos.cn>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: amd: yc: Add DMI quirk for MSI Thin A15 B7UCX
-Message-ID: <arEHjbt3AY06j_Vc@sirena.co.uk>
-References: <20260918104944.649403-1-zhangheng@kylinos.cn>
+	s=k20260515; t=1789986708;
+	bh=wlyZp0Y8DtkcpxZgedsAGdv5R+a3YrLHF+oXTMTBElQ=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=VPU9tO8HyjXQg9hPxqUgoZx3O6CP8/01/4vHCoV9a260fK4Edl4qoUs+qxH+0w9mU
+	 /5PbomemBtITMx8M4jPCzMgYYqXJj29ejgQxRuZ7nfDXRhpvSCnfAfq0PzVuwTrsSp
+	 zXUnpRfk0O7lMWJs/JP+bvv+OxbUdcmSMVhRYtRNjZ/sYH00R643AQ46wExjKB8MVI
+	 W+OaB1cE9LYQ94n+pR3PBMMrsDzAAic54alptXlheNRDRm6xKvkbXgplTsQR7wCyIs
+	 DRqjS7+wMN3k2cvyOY5A49srIrlgWXZUGdYkRX2KSEmgR8Mpx84plERTRO3wh5SgAJ
+	 5V5AHaHTG1cww==
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a3156692c6so18159421fa.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:31:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByfnCkFbMDS4ka+NRpRm7gM8OgEhGrDTeC3a/ZRIFlxHM8aqzafIyka68D1Or2V2FJiBUMA7aX3Iwzp6sw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXkw4nwCpp6fFuEuahHSXOXAlkJsVbvh/psf/jCJ2JZ9h0AbfD
+	fp9HMwEEsvZXdGgSNYyppDqYbg63IddeMvJ3ns3Of0hyQdKZGPYa5o8qVJ+x51IuR3eVm66G17Q
+	lk2QXxLTpfdoOqZVZfv19QkIjcDm1h3Y12Anf1EnMow==
+X-Received: by 2002:a2e:be8a:0:b0:3a3:74b7:fc0e with SMTP id
+ 38308e7fff4ca-3a5fc03636emr22688931fa.26.1789986706801; Mon, 21 Sep 2026
+ 03:31:46 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 21 Sep 2026 06:31:45 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 21 Sep 2026 06:31:45 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rfBbAC669TzLjavK"
-Content-Disposition: inline
-In-Reply-To: <20260918104944.649403-1-zhangheng@kylinos.cn>
-X-Cookie: Too clever is dumb.
+References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
+Date: Mon, 21 Sep 2026 06:31:45 -0400
+X-Gmail-Original-Message-ID: <CAMRc=Mf-0oLOPZsPboE0dzOGE2AzNE0LXmv9fcmgWO47FtGu1g@mail.gmail.com>
+X-Gm-Features: AcwNN1UZiDNcMAJ4MNmlX-UMIL58DwmKhOHQm7KWs4DW0jTpzuluxkWRRETFZSo
+Message-ID: <CAMRc=Mf-0oLOPZsPboE0dzOGE2AzNE0LXmv9fcmgWO47FtGu1g@mail.gmail.com>
+Subject: Re: [PATCH v8 00/18] Ambarella CV75 SoC minimal bring-up
+To: longzhao@ambarella.com
+Cc: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
+	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Mon, 21 Sep 2026 06:23:19 +0200, Long Zhao via B4 Relay
+<devnull+longzhao.ambarella.com@kernel.org> said:
+> This series adds minimal Ambarella CV75 support for early bring-up with
+> a serial console: DT bindings, RCT clocks, pinctrl, PL061 GPIO via
+> gpio-regmap, 8250_dw UART quirks, ARCH_AMBARELLA, CV75 EVK DT, and
+> MAINTAINERS.
+>
+> This is a single unified series. Please apply via the SoC
+> tree; subsystem maintainers are Cc'd for their pieces.
+>
 
---rfBbAC669TzLjavK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+As I said before: this brings in a lot of potentially conflicting code into
+drivers/gpio/ so I'll need an immutable branch to pull or I can queue the GPIO
+part myself and provide an immutable branch to other trees.
 
-On Fri, Sep 18, 2026 at 06:49:44PM +0800, Zhang Heng wrote:
-> Add a DMI quirk for the MSI Thin A15 B7UCX fixing the issue
-> where the internal microphone was not detected.
-
-I think this is already covered by the change in e2aa5ad3be41a (ASoC:
-amd: yc: Add DMI entry for MSI Thin A15 B7UC) which is already on it's
-way to mainline - it has a substring of your product name so should
-already match.  Can you confirm if this is still needed?
-
---rfBbAC669TzLjavK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxB40ACgkQJNaLcl1U
-h9BP0Af+OK9qbFlJFxBQmRvyO7xrzqH6pWeJzfqOdltvy+eZTrYyFW7k5P8o8v1K
-zWGr4QyPtoNOSZjU8ErZ0Z2/4A1eXCmbtCg5xRBW2dmm6M/reMw1Cvk+NY6ePDSJ
-hIEo9DEUBSJEjEKLuZOedZ7T4tPPoMjsrIDABZpybietNdVzZ7m3AVRV92ffma+J
-0BRi2wRJDzvFoYm+1oYksSms9YHtZzGXoS/Yh1KftR0N4BmiUj9UTTWeDXRtU71o
-I86J+bk2V0Z88LFK0+9PlT3IwK56MV4PLy8gZYSyRCtPT/u7zDp/duy3BZQiMGmS
-9YtiQsSUMOCOlcU9+b2cPLfgXcIrlQ==
-=ojyg
------END PGP SIGNATURE-----
-
---rfBbAC669TzLjavK--
+Bartosz
