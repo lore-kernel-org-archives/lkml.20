@@ -1,33 +1,43 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 44201421239
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D4548167B
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:55:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789988109; cv=none; b=kJhzAFauzV2Vcj9ob/vrejbP7R9eYu0ZWOVZlyNBblwa9osAmXn8qa7ZkVpocQ2uGCjKw7C8I5GZbmTUw/InsLNJQHJXi4mD5KkGVZZSk+roh/Gzs1ab9EB5D2i11ZH/xL5uG86c5h2n6bxUWfKNoLEuG31ssYBsyzsY5Fi8uUI=
+	t=1789988128; cv=none; b=ifoCGOWKAv564AZ+aGldvvqLKtDsolHESAQLEQ1CdFrH5SKGmaubgFnh2tSS2cKgyqVkUtKJ++BLIhM1dfz3hXXP9X86WH/fmtdgZ04Eetcwe1XyklQMSIEGeCBg9I9Nu8xh6/LKsP6HWbjjc53Bt+gm9TDLrYBoCukX/UsN6dA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789988109; c=relaxed/simple;
-	bh=VeIsaNzzDd9f9NeJzVh3EXPEgrmVN3PnEqsJPHZMPRs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=asGXtp8TsrjSOukFfRrWrZ1yZaioflERIVpgoPKkJYz2E9zgc7NGIYENVOFcHFG6EhUQ/zb+KJlsJsVQPcsCiYRnlCBkcqbf0pWQJu7tKNErZKW07UQZW9SFBVJ+E408UZB1VvXIhPC2NO5B/28lw4Mm1p5m8buKgoAyPmEcB/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=TcrqUl2G; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789988128; c=relaxed/simple;
+	bh=s5cmHaiP+c725pWs9K8HabYM5f7rZ8sldnF7whvKZnU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=CjkwsTxCTT1+EYsxXLdHkH/g6CdVWKTebymPpqH6QtwneSAFMnUGhMUBGd1vTuoGLRjuZzWbxWoE+urB1s7sTcbZuA9DXSCPVC3JaTC7RRnc6sLf1+dR6xlWGhFhlHArB38DK/P2b19iCxV7seTgq5Nbf1M79x3sTEGj1OG4Lkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=g0FqEh0j; arc=none smtp.client-ip=35.157.23.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="TcrqUl2G"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 23B091570;
-	Mon, 21 Sep 2026 03:55:03 -0700 (PDT)
-Received: from [10.57.83.12] (unknown [10.57.83.12])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B1D1C3F86C;
-	Mon, 21 Sep 2026 03:55:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789988106; bh=VeIsaNzzDd9f9NeJzVh3EXPEgrmVN3PnEqsJPHZMPRs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=TcrqUl2GOeCmADC+jcCe/JsSC8+pdpNPcZ+lZEqkLwHaF82/grSesMT2K8TGrEkh8
-	 Qc3oT/5ZQjSahcQhuvh7uXmdSxiUefczLAMViYr1PQ+k3g3NIwl+tJWn304rX67Hed
-	 cHuJUz2DRzDomCBX+TgkYOUQ70K+qqdbA41d7D/k=
-Message-ID: <9aed35be-a411-4d9d-805c-03c836e9e56a@arm.com>
-Date: Mon, 21 Sep 2026 11:55:02 +0100
+	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="g0FqEh0j"
+Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
+	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id D50301D09;
+	Mon, 21 Sep 2026 10:56:19 +0000 (UTC)
+Authentication-Results: relayaws-01.paragon-software.com;
+	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=g0FqEh0j;
+	dkim-atps=neutral
+Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
+	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 023F92135;
+	Mon, 21 Sep 2026 10:55:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=paragon-software.com; s=mail; t=1789988125;
+	bh=7Lu8Tt4KmrI7x8rygslVMM2EIDyJkSCFHg6IgTzXuLU=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To;
+	b=g0FqEh0j74/WJjrwhLzr6s3BPUOOpfHR9ryeK33KOkbN3Dig++LWVSxH5AT/xopWj
+	 tTapwT2QGb2liz79tzBj4n3SAzRO9lM90TluSVV8OqTF3JmV1BvvtEQacUTTU7atZ4
+	 4gcnOo3VnAjFFC/eykLbYzRZCoTRvS6vQkxOpGQ8=
+Received: from [192.168.95.128] (172.30.20.147) by
+ vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Mon, 21 Sep 2026 13:55:23 +0300
+Message-ID: <58801f27-bf38-474e-be74-c74d3473d446@paragon-software.com>
+Date: Mon, 21 Sep 2026 12:55:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,120 +45,89 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] arm64/mm: Convert pgtable READ_ONCE() as pxdp_get()
-To: Anshuman Khandual <anshuman.khandual@arm.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Linu Cherian <linu.cherian@arm.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org
-References: <20260903060657.2717457-1-anshuman.khandual@arm.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260903060657.2717457-1-anshuman.khandual@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] fs/ntfs3: check INDEX_ROOT resident size before use in
+ ntfs_read_mft()
+To: "Xiang Mei (Microsoft)" <xmei5@asu.edu>
+CC: <ntfs3@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<AutonomousCodeSecurity@microsoft.com>, <tgopinath@linux.microsoft.com>,
+	<kys@microsoft.com>
+References: <20260707015440.3420673-1-xmei5@asu.edu>
+Content-Language: en-US
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+In-Reply-To: <20260707015440.3420673-1-xmei5@asu.edu>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: vdlg-exch-02.paragon-software.com (172.30.1.105) To
+ vdlg-exch-02.paragon-software.com (172.30.1.105)
 
-On 03/09/2026 07:06, Anshuman Khandual wrote:
-> Route READ_ONCE() accesses on pgtable entries via level specific generic MM
-> pxdp_get() helpers which platforms could then override when required. These
-> accessors on arm64, will help in ensuring page table accesses are performed
-> in an atomic manner while reading 128 bit page table entries later. But for
-> now they just default to READ_ONCE(), thus preserving existing behaviour on
-> current D64 translation.
-> 
-> This is similar to generic MM, where all atomic accesses have already been
-> converted from READ_ONCE() into pgtable level specific accessors.
-> 
-> These are preparatory patches for D128 enablement, although standing their
-> own for D64 translation as well. These patches are split from earlier D128
-> V1 series. There are no functional changes here, and besides mm kselftests
-> do not show any regression.
-> 
-> https://lore.kernel.org/linux-mm/20260729122452.3797443-1-anshuman.khandual@arm.com/
-> 
-> This series applies on v3.7-rc1 but after applying the following patches
+On 7/7/26 03:54, Xiang Mei (Microsoft) wrote:
 
-I assume you meant v7.3-rc1 here?
+> When ntfs_read_mft() parses an ATTR_ROOT attribute it computes
+>
+> 	root = Add2Ptr(attr, roff);
+>
+> using the on-disk resident data offset (roff = attr->res.data_off) and
+> then dereferences root->type and root->rule, and later passes root on to
+> indx_init(). Unlike the ATTR_STD and ATTR_NAME cases, which validate that
+> the resident data is large enough (asize >= sizeof(struct X) + roff and
+> rsize >= sizeof(struct X)) before accessing it, the ATTR_ROOT case has no
+> such check.
+>
+> mi_enum_attr() only guarantees data_off + data_size <= attribute size, so
+> a crafted image can set data_off such that root lands at (or past) the end
+> of the MFT record's slab allocation while still passing that check (e.g.
+> data_size == 0). The subsequent read of root->type is then a
+> slab-out-of-bounds read, reported by KASAN when mounting the image:
+>
+>    BUG: KASAN: slab-out-of-bounds in ntfs_iget5 (fs/ntfs3/inode.c:283)
+>    Read of size 4 at addr ffff88800c06a400 by task exploit/142
+>    Call Trace:
+>     ...  [KASAN report internals]
+>     ntfs_iget5 (fs/ntfs3/inode.c:283 fs/ntfs3/inode.c:542)
+>     ntfs_fill_super (fs/ntfs3/super.c:1690)
+>     get_tree_bdev_flags (fs/super.c:1634)
+>     vfs_get_tree (fs/super.c:1694)
+>     fc_mount (fs/namespace.c:1198)
+>     path_mount (fs/namespace.c:3765 ...)
+>     __x64_sys_mount (fs/namespace.c:4174 ...)
+>     do_syscall_64 (arch/x86/entry/syscall_64.c:63)
+>     entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+>    The buggy address is located 0 bytes to the right of
+>     allocated 1024-byte region [ffff88800c06a000, ffff88800c06a400)
+>     which belongs to the cache kmalloc-1k of size 1024
+>
+> Validate the resident data size in the ATTR_ROOT case the same way the
+> neighbouring cases do, so that a truncated or mis-offset INDEX_ROOT is
+> rejected before root is dereferenced.
+>
+> Fixes: 82cae269cfa9 ("fs/ntfs3: Add initialization of super block")
+> Reported-by: AutonomousCodeSecurity@microsoft.com
+> Signed-off-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
+> ---
+>   fs/ntfs3/inode.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
+> index c43101cc064d..efb6a855c5ad 100644
+> --- a/fs/ntfs3/inode.c
+> +++ b/fs/ntfs3/inode.c
+> @@ -271,7 +271,9 @@ static struct inode *ntfs_read_mft(struct inode *inode,
+>   		break;
+>   
+>   	case ATTR_ROOT:
+> -		if (attr->non_res)
+> +		if (attr->non_res ||
+> +		    asize < sizeof(struct INDEX_ROOT) + roff ||
+> +		    rsize < sizeof(struct INDEX_ROOT))
+>   			goto out;
+>   
+>   		root = Add2Ptr(attr, roff);
 
-> related to pgtable entry print standardization posted earlier.
-> 
-> https://lore.kernel.org/linux-mm/20260831054331.625505-1-anshuman.khandual@arm.com/
+Hello,
 
-This applies.
+Sorry for the delay.
+Your patch was applied, thank you.
 
-> 
-> https://lore.kernel.org/linux-mm/20260901065454.1906343-1-anshuman.khandual@arm.com/
-
-This fails:
----8<---
-$ b4 shazam 20260901065454.1906343-1-anshuman.khandual@arm.com
-Grabbing thread from
-lore.kernel.org/all/20260901065454.1906343-1-anshuman.khandual@arm.com/t.mbox.gz
-Checking for newer revisions
-Grabbing search results from lore.kernel.org
-  Added from v3: 3 patches
-  Added from v2: 3 patches
-Analyzing 14 messages in the thread
-Looking for additional code-review trailers on lore.kernel.org
-Will use the latest revision: v3
-You can pick other revisions using the -vN flag
-Checking attestation on all messages, may take a moment...
----
-  ✓ [PATCH v3 1/2] arm64/mm: Move __check_safe_pte_update()
-  ✓ [PATCH v3 2/2] arm64/mm: Standardize printing for pgtable entries
-  ---
-  ✓ Signed: DKIM/arm.com
----
-Total patches: 2
----
-Applying: arm64/mm: Move __check_safe_pte_update()
-Applying: arm64/mm: Standardize printing for pgtable entries
-Patch failed at 0002 arm64/mm: Standardize printing for pgtable entries
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
-error: patch failed: arch/arm64/mm/fault.c:160
-error: arch/arm64/mm/fault.c: patch does not apply
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
----8<---
-
-And as a result I can't apply this series. Any tips?
-
-Thanks,
-Ryan
-
-
-> 
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Cc: Lorenzo Stoakes <ljs@kernel.org>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Cc: Linu Cherian <linu.cherian@arm.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-mm@kvack.org
-> 
-> Anshuman Khandual (4):
->   arm64/mm: Convert READ_ONCE() as pmdp_get() while accessing PMD
->   arm64/mm: Convert READ_ONCE() as pudp_get() while accessing PUD
->   arm64/mm: Convert READ_ONCE() as p4dp_get() while accessing P4D
->   arm64/mm: Convert READ_ONCE() as pgdp_get() while accessing PGD
-> 
->  arch/arm64/include/asm/pgtable.h |  6 ++--
->  arch/arm64/mm/fault.c            |  8 ++---
->  arch/arm64/mm/fixmap.c           |  6 ++--
->  arch/arm64/mm/hugetlbpage.c      | 10 +++---
->  arch/arm64/mm/kasan_init.c       | 18 +++++-----
->  arch/arm64/mm/mmu.c              | 60 ++++++++++++++++----------------
->  arch/arm64/mm/pageattr.c         |  8 ++---
->  arch/arm64/mm/trans_pgd.c        | 14 ++++----
->  8 files changed, 66 insertions(+), 64 deletions(-)
-> 
+Regards,
+Konstantin
 
