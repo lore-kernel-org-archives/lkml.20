@@ -1,87 +1,33 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5244448F82F
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:34:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A0CAB3403EA;
+	Mon, 21 Sep 2026 11:34:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789990450; cv=none; b=e0vkX2xUipKHsUsprq+cLRqxEZy5JuvN1tROs9AIBwgGBhfr9McitWaqSdyOlpMfR1Wgn3MzaKusbYQMjhra0gFwwcXt2p1f3361J9x3XrALvFnqp2Xo+IiePrLLhmGnJlYeIFojMhds/TOVdGFTEMx+bvM9PpFFOY/qAQl67Y8=
+	t=1789990491; cv=none; b=ctAIkm7fwSKBBkGeA4j4vGn64M3wx6qrlVbEubA1R7R7AnQpQ6FtZ/NxW87UkXzcAY2y+qUf4wSWiuPkZorzFiCGl6SZZUrbIOKcZFvf86ciX0B33CCSwbBmrUSX9yMGBvsow8fgT3pkjNDmSrYtIMZleKMPEFvhqnxkm5EveVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789990450; c=relaxed/simple;
-	bh=rhyik7ozJLF/QxQjmQQs4UQBfumoUTwGzzLHwdymBb0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eYZKObVs/sqWH2QRqR/as/Nu2h9uw5s5YwrmGtBJQqz8CKxrta3e+/fnEYQAlH0LUET8Y/67AzjW2BLeGS1LnxdB5BoSfY8ogUZ57DnLu0XxVtc4VyBLmJQWJ3otmikFP62xCfF/aP4v1NyniyMnZdFs9DCeGTgV7PM9Q/aPBdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QAXvOqag; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fqC5XCtg; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789990491; c=relaxed/simple;
+	bh=QV+v46sViJKLhMIGNt/Uz3iIskoe+UK8OyD9IWvb7Pk=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=PQU8LEqdGgTrULljKTAdXGK1spEtdLk04Wd/mDYRWMJQQaH2EBaHnAI3fR5+kvHmtbPkbf6c/Ib3pDwepNl/Hf+YObtuQuBIhIfAgrRdQgkZJIMNHPlVCzyDLUEJUSQvgzQmNemf5JggpTgcI3usAUFkNsYaY5AQBjsn832LdzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=a/zhrjT3; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QAXvOqag";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fqC5XCtg"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAdvq22091296
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:34:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	RPLVkzLU2SuROynD8TUPuOv/tuzIzLuttIBJIsnEFG8=; b=QAXvOqagnGQh68q9
-	W0r+t+uE5oZTaAiX8wcbDPKrllhUEqVQ8RPgaVsHN8FBBqhCq8aelA9SPyQcg2FR
-	LXLnEdDJKgMd6Q/28zslS93stIaW5MRQLXSwRCPLJGFZqZht9to3eFnV4o12txNC
-	b0H1eZVOTM2hUrMlavyPVuIQkwF3D24TQXNMfgEMIWljeFkwNlNDbIB8+nH2gk7p
-	VkJ61KhF4c3zBP3y+Yjuw7hi9bpDDAvlbzzWsBMNwnI81LkgTHZFrVO97CO499iM
-	+p8jFBOlShdP6ITtXGtHql7IPITsj0C4iwnR+X/zOniUd4ocYMWHex2bCXH7/7YO
-	zquZxw==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtt3wt4qn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:34:07 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c7d204b40aso71426e0c.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:34:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789990446; x=1790595246; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RPLVkzLU2SuROynD8TUPuOv/tuzIzLuttIBJIsnEFG8=;
-        b=fqC5XCtgFQ4lDmpI27YcAuRvXIg+IANmSqNhMCOOgSqUyZ/Ng5xA1bxDJdJyO3B2Ig
-         Krvk2X6jBtYyHFECI9lPu0dfS9Wy6E1GBsdoAnqPId6Lw+huAyqnCEsC7de4gl76wtKZ
-         k3vnSFF1zjfZLXeLAjiGqLEVd0cqZikekorqTusCvtqVGKQBhx9IJnB6uIivIC2G9Ccl
-         yZlRqalh1k7QF6irWSEEGiltFLod1BptYRK4XBWfENw7fGwsCEtrOThZsCLT5nhzqfg/
-         i1l6/2Gpi+dRt6bRpCrCMVnTHOiMARKFTih90bp7UM8rBvPkvx4YUmy8PtNKNdEUhlAF
-         +3IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789990446; x=1790595246;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RPLVkzLU2SuROynD8TUPuOv/tuzIzLuttIBJIsnEFG8=;
-        b=eBadW5dqSiviO8ObONp7Ct3dwdDOwbxh9Yhzlo9f4B3m5n4mt3IPdYnvh55ipVNEhS
-         JcrE/177gTJQr7J2B/7hj6KFxdCKxn/xVjaIrbipzz+raZeLhzsg8mSWO59wvHIz1DLo
-         cMuyMvGPkiRyL52elI4g6Ti9I5ngltgmLjDUwHyrdapc0Xmg40Ma6jdxaCZ6qVbyvEvT
-         csefYKGDn7kq8AoHk8PABIEsWskPWSp4iXvU9i9+jA53HK13XVledlB6YutwwkEDFPIH
-         8nZdLhD3W9hVtB5vmkXzJU12kxSoC3SNo9E8L4/ncfcloA9EBOICnv8wW1ugvS4VkGpf
-         ilfA==
-X-Forwarded-Encrypted: i=1; AKwUvBx89L9XbQFVhZrr6l/oULrlUyTQLUaPDvt3lN+Z0fNBzptnHNsj/HO8pGgnZXz+kT3hpn5f/HWlrOoXQHw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nbdsp6Ux8RHtW+LX8C8t8/qL7FETOPKAnrdc6H2oSxlrZoEz4x
-	fIDbECPKdXgl20zahmgC4VeyJkhxYsLT8JX29lXZbyIHLGL/XLgHcsTrLb5xTTF+bPCOpEqDzqf
-	J2S5qFaK6FbwNpi8vcXMywadKrZiqXftOgK+wQzkesXQd9qEmaVjm+hsLVpAWY1jiIu8=
-X-Gm-Gg: AYBFou0qS14zobrOtf7SHALJ93PqIot/dhOPDHGjxu8Sz2qipBPVXV7t+l9GyMxyOfS
-	R51YTsQEsk8oGQgjdPDAuB/Kgp0WECKuIel+Fvf9GPfxpJSFjSJ8plgPiUwTb/vMi3PhcB1yC2f
-	9EBof3j41nDl69/hVOetYaynzrhZYeVeXXh2IWzX/Voy0aMl3wkW7PkyX0tmZC7wmmamc7N/PI2
-	RtyQJMz2OttGJfq6FSgLohlh5DNJmcGrVk7aVos2zLaLSEHhr1JAcC03h7DJ3/MNwPZTxO2tRSi
-	gJ31RgMCJ+6Sm5yBH6OwpM+MvM31lrVwOHghfswp8g/NNmgj/r1LhyERGFh5XxOlHWjGx0iBQ/M
-	jAseWLv8soB+4s/HD2iYacw==
-X-Received: by 2002:a05:6122:4a03:20b0:5c8:39c7:ba55 with SMTP id 71dfb90a1353d-5c9b5735dc3mr3751962e0c.0.1789990446522;
-        Mon, 21 Sep 2026 04:34:06 -0700 (PDT)
-X-Received: by 2002:a05:6122:4a03:20b0:5c8:39c7:ba55 with SMTP id 71dfb90a1353d-5c9b5735dc3mr3751944e0c.0.1789990446070;
-        Mon, 21 Sep 2026 04:34:06 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67dafe8csm4051196a12.13.2026.09.21.04.34.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 04:34:05 -0700 (PDT)
-Message-ID: <c73b2ae0-e138-4472-8acd-b0ae3dcd742d@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 13:34:00 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="a/zhrjT3"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6E27A176C;
+	Mon, 21 Sep 2026 04:34:46 -0700 (PDT)
+Received: from [10.0.129.72] (e127648.arm.com [10.0.129.72])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 846BB3F86F;
+	Mon, 21 Sep 2026 04:34:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789990490; bh=QV+v46sViJKLhMIGNt/Uz3iIskoe+UK8OyD9IWvb7Pk=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=a/zhrjT324WOAls+SGrH1oXsInwRl4/iMkvHicAHoCcc+u3cFBIBWffspAZwQqHgD
+	 mns6EBaB5kNljRJbxRTHhYiyxc/ayD44SYanujZr/B5vhQ3ihX/jStJddNYXvml92V
+	 vIQxLH0eQqsxHVMPdQuMp0jLwNC9N4OmlEAGbfl4=
+Message-ID: <7a65fc72-7f9b-418a-ad26-a2cfac1d4898@arm.com>
+Date: Mon, 21 Sep 2026 12:34:45 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,83 +35,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] i2c: qcom-cci: enable SCL clock stretching in standard
- mode on CCI v2
-To: Hitesh Patel <hitesh@ebytelogic.com>, Andi Shyti <andi.shyti@kernel.org>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Robert Foss <rfoss@kernel.org>, linux-i2c@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        ravi@ebytelogic.com
-References: <20260914132328.976902-1-hitesh@ebytelogic.com>
+Subject: Re: [PATCH 0/3] selftests: Skip SUD tests when unsupported
+From: Christian Loehle <christian.loehle@arm.com>
+To: Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org,
+ Thomas Gleixner <tglx@kernel.org>
+Cc: Rama Krishna Katta <ramakrishna.katta@arm.com>,
+ Thomas Gleixner <tglx@kernel.org>, Gregory Price
+ <gourry.memverge@gmail.com>, Kees Cook <kees@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>,
+ Gabriel Krisman Bertazi <krisman@collabora.com>, linux-kernel@vger.kernel.org
+References: <cover.1786965107.git.christian.loehle@arm.com>
+ <499c6893-5daf-421d-ae11-31d0d9332241@arm.com>
+ <777919b3-5935-4f1d-b642-e1e56f5a82f8@arm.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260914132328.976902-1-hitesh@ebytelogic.com>
+In-Reply-To: <777919b3-5935-4f1d-b642-e1e56f5a82f8@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE2NyBTYWx0ZWRfX6Ice6jC3peit
- 9cNnqdSc2CS+y3h6hEUSZGjN6Ar/pnKb18Hda9CkbaivkKJi+cpaqcmY8eO2WJ8hutGf211BQgh
- 2odUED3sv3W5F9WW0sLdxPCsAa7Vp3XvHIjlymnG5eQ+HO31nO73VJFDCVOyTyTMBuiNYHkn7Hu
- 7OgttLLe8TsoxB6LRo4Zk98SRgbAPRoqK8B9iKQY7pc9d806yr8AuQ8mDBenJ1sBsPVH1KA8mBC
- 0DCijBBFprjs9NnXn+zH38AuOCMMDSNuTwpQ3UTxMnbYdrQPlQGzF2guh84pul6HEOKOC1Dh1Zq
- bvUEwrqvwyQuhpHRiEMnCgfJxoIcWqe6yqBR47xLkDFl6opRsV08csNJU1U/gAEgT98AmRX/YXk
- y0NNur+lbFxymjuotFXomWfkENHFJgbuQiR3tdYiOmX6g4FS21bQk3xzVON6SFDfKGcCEba+0ud
- go5AjUfQwdgfeLyLJ+A==
-X-Proofpoint-ORIG-GUID: tYTNb05oUod3ULuSU7DgHPruY92pC0Kx
-X-Proofpoint-GUID: tYTNb05oUod3ULuSU7DgHPruY92pC0Kx
-X-Authority-Analysis: v=2.4 cv=dakVTnXe c=1 sm=1 tr=0 ts=6ab1162f cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=ZovgdgjKAAAA:8 a=JPJhF2pIthm_ftW-UWcA:9 a=QEXdDO2ut3YA:10
- a=XD7yVLdPMpWraOa8Un9W:22 a=VOxKbm1zgHvARWIDjr3b:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE2NyBTYWx0ZWRfX4R2npkcFqdR8
- NYTaUGytpxsqRK3BOLvXYLWgMDUqhWjrqkC9fIAvh1adCnZKXzjlp4XPYyiECnS8zbRBopvXKnn
- E2lcbfMOPVN5fF36cyIsNcKi1oD4ayg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 spamscore=0 adultscore=0 phishscore=0
- bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210167
 
-On 9/14/26 3:23 PM, Hitesh Patel wrote:
-> The CCI v2 standard-mode (100 kHz) timing table leaves SCL clock
-> stretching disabled, unlike the fast-plus table for the same block.
-> A slave that holds SCL low is then not waited for: the master keeps
-> its own clock timing and the transfer fails with a NACK or returns
-> corrupt data.
+On 9/13/26 11:24, Christian Loehle wrote:
+> On 8/26/26 15:56, Christian Loehle wrote:
+>> On 8/17/26 12:16, Christian Loehle wrote:
+>>> Syscall User Dispatch (SUD) is unavailable on architectures without
+>>> generic syscall entry. Such architectures return -EINVAL for otherwise
+>>> valid SUD prctl and ptrace requests, which the SUD selftests currently
+>>> report as failures.
+>>>
+>>> Probe SUD with a valid disabled configuration and skip the affected tests
+>>> when that probe returns EINVAL. Unexpected errors remain failures, and the
+>>> existing coverage is unchanged on kernels that support SUD.
+>>>
+>>> Christian Loehle (3):
+>>>   selftests/ptrace: Skip get_set_sud if SUD is unsupported
+>>>   selftests/syscall_user_dispatch: Skip tests if SUD is unsupported
+>>>   selftests/syscall_user_dispatch: Skip benchmark if SUD is unsupported
+>>>
+>>>  tools/testing/selftests/ptrace/get_set_sud.c  |  8 +++++
+>>>  .../syscall_user_dispatch/sud_benchmark.c     |  9 +++++
+>>>  .../syscall_user_dispatch/sud_test.c          | 36 +++++++++++++++++++
+>>>  3 files changed, 53 insertions(+)
+>>>
+>>>
+>>> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+>>
+>> Gentle ping on this
 > 
-> This is hit with a camera reached through a GMSL serializer/
-> deserializer I2C tunnel (MAX9296A/MAX96717 on the RB3 Gen2 vision
-> mezzanine). The deserializer acknowledges the address locally, but
-> forwards the transaction over the coax link and stretches SCL until
-> the remote side has completed it, which takes well over one clock
-> period at 100 kHz. Without stretching the register reads of the
-> sensor behind the link intermittently return garbage and writes are
-> dropped, which shows up as random sensor init failures.
-> 
-> Clock stretching is part of the I2C specification for every speed
-> mode and a device that does not stretch is unaffected by enabling it,
-> so enable it for standard mode as it already is for fast-plus.
-> 
-> Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
-> ---
->  drivers/i2c/busses/i2c-qcom-cci.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
-> index 25b6e4e9e..327efa86f 100644
-> --- a/drivers/i2c/busses/i2c-qcom-cci.c
-> +++ b/drivers/i2c/busses/i2c-qcom-cci.c
-> @@ -723,7 +723,7 @@ static const struct cci_data cci_v2_data = {
->  		.thd_dat = 22,
->  		.thd_sta = 162,
->  		.tbuf = 227,
-> -		.scl_stretch_en = 0,
-> +		.scl_stretch_en = 1,
+> Another gentle ping, this should have all the reviews to land, right?
 
-Would it make sense to keep it enabled unconditionally then?
+Shuah, Thomas,
+Either of you mind picking this up in either kselftest or core/entry?
 
-Konrad
+Thanks!
+Christian
