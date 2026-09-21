@@ -1,111 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8753F1A683D;
-	Mon, 21 Sep 2026 08:28:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 42DF333D6D6;
+	Mon, 21 Sep 2026 08:29:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789979334; cv=none; b=UW6WXgqX0yB/B/jSLJQ1a+7m/tptqXcbdsseRMxrb3dI4bwsKeW+/vNPmT0eDdnY+luE8rLC5YlEvBs/Xf0vEHbhX9YYwZVInvTsNwQqv6uiKD09vbAuRzB5Dw65gW2VupzUzXTHwDnNeJ3oUVfGUZaVi362SURo/0L1bLGK/wQ=
+	t=1789979372; cv=none; b=fSEz5jqtDUzLoKTZ9I3q1qp/mntu2uCE0dtXwLHpmH7gR8GdavAs9dHkc8rJUUysAbTSNLx4wB/fcNV/Dfkw4NnKjvHl+XXnWv6Sxk+x6ppV5PP8Z8s23Wp00p3/8Qrk9HnV9zjXsGuh/q9B7RAKU4i6VdP3ubPTmr+IEqBwQDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789979334; c=relaxed/simple;
-	bh=dYYtzn0w3XQdZ4MHR5M9HDRmG23OEzjiFt00L9yw2FQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j1aYeWmSq1BfRTjiwHCr3Molu1PLehppM0C8VmLgr1cfmezanpcjB6919qox+fIIpXc9YcFg+cW1OAR4FGg8dG/xjF3o/VuXfeuXeidkT4iHLr/a4o7Esz2+xSCgYLMHa//8ajnZz+Tc4Q5chKg6h2t/nGQbOQFMFjJN+cpTZHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dIS3AeOy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789979372; c=relaxed/simple;
+	bh=Ad+6LLybI3uKKc7JJri+UgLlmCgPg2pPlm7qhk4O64g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Z+Jdgvbm2N7O+gTbKg7rDUUWf9YPrvsu/LZ1R6i+oeDw+ga749Y9IOg0M9GfMfEwAubV075c+JpnBTiY2j4Tf67QylhkjQvAqOmF/7OTNZrSGS6tt/ZpixDSVtNuBbaHlDaYxVewoegEsTqXiJW35vwwIvpa4qfPi+OwsqeDXT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qRXpyMvL; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dIS3AeOy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 101EE1F000FF;
-	Mon, 21 Sep 2026 08:28:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789979333;
-	bh=biIIPAL+udhZqFXOwfaaMfkq0a6RVhD5vW+C4HMFAiQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dIS3AeOyFkaJxlhFNs+dL5RL/IpOu6aZCdV/ELU0ngWedExwC72kqNR6GjJDGQi1Y
-	 vzm/oO4cDvW37S8Agtxf33GzaLU5eGIQVURLMNjOn7BtWii8WUGWcMOQ+X/QKz/n84
-	 RWX00CMbYneHmZkSBQkzIdC8NXtr/YgDa+mZiz4X4wIeRPNzofmqSmjQtWgXQzlnEK
-	 nqJdQdp6VA3YSf5qW/CNB4UgRLyN0Z5yxZ5esT7ZrY0v+zRxEbNitxEkUnlVEb9gQn
-	 LgB2Wj2uKAiqxn7K0w9EbLs3AQpyql1pKjX1tIKVxXIVaxh6fsqfaoT3zorQLqxISJ
-	 VHMa0ivbHQCAw==
-Date: Mon, 21 Sep 2026 09:28:48 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-	Frank.Li@kernel.org, arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	imx@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 1/2] module: add SCMI device table alias support
-Message-ID: <20260921-jumping-affable-agama-023caf@sudeepholla>
-References: <20260918092951.5656-1-johannes.goede@oss.qualcomm.com>
- <20260918092951.5656-2-johannes.goede@oss.qualcomm.com>
- <20260918-impetuous-daring-barnacle-1ea4d0@sudeepholla>
- <dca62a09-2af7-463e-9ba0-1be935a95502@oss.qualcomm.com>
- <aq2g9otvja7xQqJ_@monoceros>
- <20260920-hippo-of-immense-assurance-50a5fd@sudeepholla>
- <aq-xJE196Skvk2pX@monoceros>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qRXpyMvL"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2EA8E175A;
+	Mon, 21 Sep 2026 01:29:27 -0700 (PDT)
+Received: from [10.57.83.12] (unknown [10.57.83.12])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1ECEC3F86C;
+	Mon, 21 Sep 2026 01:29:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789979370; bh=Ad+6LLybI3uKKc7JJri+UgLlmCgPg2pPlm7qhk4O64g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qRXpyMvLHNueHE/qqmGi8wywc91oBqnC1xt/cQExQtagrEoU13hb8I0V89H6Lao7G
+	 3OHXj+U/lHUmAJ/1SxkKWWapIqk0qrE9EAGWElpxtagB8APekzbYKUgqjO/U1aCgBH
+	 42zSHCFhDH+OJ9duPe2mk552i7cOLu0tCTw7I4I0=
+Message-ID: <f790350a-02eb-46b2-b079-fc3db66f2b03@arm.com>
+Date: Mon, 21 Sep 2026 09:29:25 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aq-xJE196Skvk2pX@monoceros>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] arm64: use hw_pte_t for fixmap HW PTEs
+To: Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Alexander Potapenko <glider@google.com>,
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-efi@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org
+References: <20260914-pte0_arm-v1-0-bb53b663e396@arm.com>
+ <20260914-pte0_arm-v1-4-bb53b663e396@arm.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260914-pte0_arm-v1-4-bb53b663e396@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 20, 2026 at 12:18:47PM +0200, Uwe Kleine-König wrote:
-> On Sun, Sep 20, 2026 at 08:36:10AM +0100, Sudeep Holla wrote:
-
-[...]
-
-> > 
-> > I am confused. I am asking to align with what's done in
-> > Commit ad428f5811bd ("mod_devicetable.h: Split into per subsystem headers")
-> > and you are disagreeing with that ?
-> > 
-> > I am not comfortable taking this patch unless there are other similar
-> > examples that are agreed upon to break the pattern followed in the above
-> > mentioned commit.
-> > 
-> > Uwe, please suggest.
+On 14/09/2026 14:51, Muhammad Usama Anjum wrote:
+> fixmap_pte() returns a pointer into bm_pte, and early_fixmap_init_pte()
+> installs those arrays as page tables. Their elements are therefore
+> HW PTEs.
 > 
-> I didn't start removing stuff from mod_devicetable.h yet, as changes
-> there are expensive (regarding build dependencies). So the plan is to
-> stop drivers consuming mod_devicetable.h and then drop it. (Not sure
-> this is sensible as new users come in faster than I can fight them, but
-> I didn't give up yet.)
+> Change the element type of bm_pte to hw_pte_t so it matches the HW PTE
+> pointers returned and passed to the accessors. This is needed before
+> ARCH_HAS_HW_PTE_T makes HW PTEs and SW PTE values distinct types; the
+> array dimensions and placement are unchanged.
 > 
-> So while adding new device_id structures to mod_devicetable.h is
-> consistent with the existing practise, it still makes the situation
-> worse, as every consumer of mod_devicetable.h then also depends on the
-> new header for the new structure. That's why I think it's a good idea to
-> deviate here, even if you're the first one doing so, to not worsen the
-> already bad situation.
+> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> ---
+>  arch/arm64/mm/fixmap.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
+> index 237a9136bc73b..709a97fe327d8 100644
+> --- a/arch/arm64/mm/fixmap.c
+> +++ b/arch/arm64/mm/fixmap.c
+> @@ -31,7 +31,7 @@ static_assert(NR_BM_PMD_TABLES == 1);
+>  
+>  #define BM_PTE_TABLE_IDX(addr)	__BM_TABLE_IDX(addr, PMD_SHIFT)
+>  
+> -static pte_t bm_pte[NR_BM_PTE_TABLES][PTRS_PER_PTE] __bss_pgtbl;
+> +static hw_pte_t bm_pte[NR_BM_PTE_TABLES][PTRS_PER_PTE] __bss_pgtbl;
+>  static pmd_t bm_pmd[PTRS_PER_PMD] __bss_pgtbl __maybe_unused;
+>  static pud_t bm_pud[PTRS_PER_PUD] __bss_pgtbl __maybe_unused;
+>  
 > 
 
-It would be good if you provide your reviewed-by for mod_devicetable.h
-and associated parts specifically here.
+Ahh, so my previous comment that I thought this would break the build is wrong
+because you haven't enabled ARCH_HAS_HW_PTE_T at that point.
 
-Also there is another patch under discussion [1], it would be good to have
-similar suggestion there as well, so that there is less divergence in the
-newly added code from now on.
-
-> If it helps you, I can propose a patch changing modpost to not use that
-> catch-(nearly)-all header and use the needed linux/device-id/*.h
-> instead. I put this on my list for tomorrow.
-> 
-
-That's helpful too, but for the things that are being planned to be in
-v7.4, they may not see that unless you push that as a fix.
-
--- 
-Regards,
-Sudeep
-
-
-[1] https://lore.kernel.org/all/20260921053807.354802-2-aneesh.kumar@kernel.org
+Thanks,
+Ryan
