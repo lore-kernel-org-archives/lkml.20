@@ -1,322 +1,211 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0571046A5FE;
-	Mon, 21 Sep 2026 09:54:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A65347884A;
+	Mon, 21 Sep 2026 09:54:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984482; cv=none; b=OIVo9qUMRXfqP92VeqO+C1ZpOahDDa45aXqa7EiGr+XR0Dwoa6UdLevmW50ji5MuF/OYOEt49HbSpJNCXCzTrvm5bTKIgmJQKydq4oe1Xtmd8QKd7PwyBq2z2ZoD5zkKLQjTQiRP3M268k+vntSDYMAg0n+AHPahDw8yiQsi2qI=
+	t=1789984487; cv=none; b=cY5MBcBTvJQ8kG1KusKc+ABpieAJpsQrZrVdbqaA8xOwh0soDSYKEEeyApbsOPTjwi3iAsfVMoDwMibqQC+v28gDmVVWOzNt3T5Eh0h/Z6ricT6QTdA7EIMEdqUP7xy8W2poJXcZvoPu/s8qhurbnxFsGpsiCAmCEXx8eB0NBcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984482; c=relaxed/simple;
-	bh=jVFQhip/vlw8TJw/t9/1X4W3NVCUqLzpQWcjRqP1jqs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ipMI04cr2+PGr6ysHL0DPVoTtVh4wZ9sPEUS4y0tO6s0uTfMWYbu23KFUm3MpzD4/j6iXKr50pofDCAv8rL1oc9VXIpsmgaVkg7tOzZMvviYMVE5ZG3Y4lATqxXv8bpdN8J8VhCusuaKqEbG6ThQMB1uYUA8Ncamrpoy6yAmpWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=sRk4D34N; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1789984487; c=relaxed/simple;
+	bh=pxnpcy1owTePRNRFl9su+CAPlrDpo+Qz8mCwjZmdBa0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Bze24hzkMapGCyYYXAZEVn4qMnrg18uIjYpC5bJ/9VHs+mrjzaZ4Q07s1ArF5a5T8Iz1xFaXDtDiBNLjvZF7dL4K3rnElZESZOcpwIYRZ2YeNaXY1KKuXDX+gkT/APG2n6TPF83hPd5t3HTNp/c1VfbBl1iQzIa2vAZhMhZujp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=tQimKzY9; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="sRk4D34N"
-Received: by linux.microsoft.com (Postfix, from userid 1186)
-	id BD72520B7168; Mon, 21 Sep 2026 02:53:52 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com BD72520B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1789984432;
-	bh=pRq1CODKPIP7+gzmFoT9WbJ4eZOBgp1PAQeF0Ypg6qc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=sRk4D34NveGB7PfHZuRmk2A5ITP934WcsR16ALUdVIKQcKt5YL4KT/1a4T2r9OlP1
-	 Gj3f9Ic+LRi+bMIIyiuh6ke2RAki/RqJoCXl3ob6L9BUowOK5VSsOn5cDBrDj3woWu
-	 bWaWFFgZSvUexqR1kVEQjb7HrYOv8FSnfROrS62Y=
-From: Konstantin Taranov <kotaranov@linux.microsoft.com>
-To: kotaranov@microsoft.com,
-	snsanghvi@microsoft.com,
-	longli@microsoft.com,
-	jgg@ziepe.ca,
-	leon@kernel.org
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH rdma-next v3 1/5] RDMA/mana_ib: Optimize shadow queue bookkeeping
-Date: Mon, 21 Sep 2026 02:53:48 -0700
-Message-ID: <20260921095352.3524691-2-kotaranov@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260921095352.3524691-1-kotaranov@linux.microsoft.com>
-References: <20260921095352.3524691-1-kotaranov@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="tQimKzY9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=pxnpcy1owTePRNRFl9su+CAPlrDpo+Qz8mCwjZmdBa0=; b=tQimKzY97rPBrQljANO1Z/BwTM
+	NS+V3HQ+eatfQuCJ53Uo2EgD9KuBMXPayu9KtAMGQY4bJZ0GVgS3hbl9ygCwBzAgPS/gJoxXYXOB3
+	YqqrVXaf/mGCCy8H7Fwn/W2w/2AyjtgetUz3acLXqphF1wFJ9XwUbSLGNatH5IYyJircDhPJrSdgU
+	mGLw/ISar5sNLVpUIIA9akzF0pQ3Av3XM4xuR+ea+rcFOcwUY/oAdhuyE9f5vLui+l8fKAjoEi2KT
+	uxggnbuNEa5jLWLaoptEsx8Z0JRyMxQDRvQJL3JhBy+6VnPkNzBogLyg9aceZnqyNepFKhZEdtyyL
+	0wuS3QsQ==;
+Received: from 54-240-197-239.amazon.com ([54.240.197.239] helo=u09cd745991455d.ant.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x8ajO-00000001IaS-0AZh;
+	Mon, 21 Sep 2026 09:54:38 +0000
+Message-ID: <272c0fdf9e5eb9a1caf6a5c0bf674e3c006ac2ea.camel@infradead.org>
+Subject: Re: [PATCH 01/17] KVM: pfncache: Use atomic SRCU for readers
+ instead of a rwlock
+From: David Woodhouse <dwmw2@infradead.org>
+To: Hillf Danton <hdanton@sina.com>
+Cc: linux-kernel@vger.kernel.org, rcu@vger.kernel.org, kvm@vger.kernel.org, 
+	linux-rt-devel@lists.linux.dev, linux-kselftest@vger.kernel.org, Paolo
+ Bonzini	 <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>,
+ "Paul E. McKenney" <paulmck@kernel.org>, Sebastian Andrzej Siewior
+ <bigeasy@linutronix.de>
+Date: Mon, 21 Sep 2026 11:54:36 +0200
+In-Reply-To: <20260921014301.248-1-hdanton@sina.com>
+References: <20260921014301.248-1-hdanton@sina.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-k3y0dTyJnH42HOOuDeys"
+User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-From: Konstantin Taranov <kotaranov@microsoft.com>
 
-Use compact bitfields for the posted WQE size and send opcode. Flatten
-the UD receive shadow entry into the common shadow_wqe_header, retaining
-byte_len, src_qpn and the cached status until direct-CQE polling replaces
-their readers. Use this common entry for both send and receive queues,
-including allocation, posting, CQE handling and WC generation. Derive
-the receive WC opcode from the queue rather than storing it per WQE.
+--=-k3y0dTyJnH42HOOuDeys
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Publish initialized entries and release consumed entries with matching
-release/acquire operations so posting and polling can run on different
-CPUs. Retain the legacy completion cursor until direct-CQE polling and
-software flush lists replace it.
+On Mon, 2026-09-21 at 09:42 +0800, Hillf Danton wrote:
+> On Sun, 20 Sep 2026 21:49:29 +0100 David Woodhouse wrote:
+> >=20
+> > Replace the per-cache rwlock with a dedicated per-VM atomic SRCU
+> > domain (kvm->gpc_srcu) for the read side. Readers now run under
+> > srcu_read_lock_atomic() alone =E2=80=94 preemption disabled and non-blo=
+cking
+> > enforced, which every GPC read-side section already satisfied as a
+> > former rwlock critical section. It works in any context
+> > (including hardirq and sched-out paths) and never fails or spins,
+> > eliminating the
+> > read_trylock() contortions in the atomic paths, the double-lock dance
+> > with the lockdep subclass hack in the runstate update, and the
+> > PREEMPT_RT problems inherent to taking an rwlock in those contexts.
+> > In particular, kvm_xen_set_evtchn_fast() is called from hardirq
+> > context (timer callback, kvm_arch_set_irq_inatomic()), where taking
+> > gpc->lock is a sleeping-lock-in-atomic-context bug on PREEMPT_RT.
+>
+> Given the preempt_disable() in srcu_read_lock_atomic(), as PREEMPT_RT
+> has no way of handling preempt_disable(), you need to add another
+> version of srcu_read_lock_atomic() with preempt_disable() replaced with
+> something like rcu_read_lock().
 
-Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
----
- drivers/infiniband/hw/mana/cq.c           | 35 ++++++++++++-----------
- drivers/infiniband/hw/mana/qp.c           |  4 +--
- drivers/infiniband/hw/mana/shadow_queue.h | 29 +++++++++----------
- drivers/infiniband/hw/mana/wr.c           | 15 +++++-----
- 4 files changed, 40 insertions(+), 43 deletions(-)
+Hm? What's wrong with preempt_disable()? It works OK, but is generally
+frowned upon in RT unless the sections are short and bounded of course.
 
-diff --git a/drivers/infiniband/hw/mana/cq.c b/drivers/infiniband/hw/mana/cq.c
-index 6f9ac8b4a..14a48409e 100644
---- a/drivers/infiniband/hw/mana/cq.c
-+++ b/drivers/infiniband/hw/mana/cq.c
-@@ -190,15 +190,15 @@ static inline void handle_ud_sq_cqe(struct mana_ib_qp *qp, struct gdma_comp *cqe
- {
- 	struct mana_rdma_cqe *rdma_cqe = (struct mana_rdma_cqe *)cqe->cqe_data;
- 	struct gdma_queue *wq = qp->ud_qp.queues[MANA_UD_SEND_QUEUE].kmem;
--	struct ud_sq_shadow_wqe *shadow_wqe;
-+	struct shadow_wqe_header *shadow_wqe;
- 
- 	shadow_wqe = shadow_queue_get_next_to_complete(&qp->shadow_sq);
- 	if (!shadow_wqe)
- 		return;
- 
--	shadow_wqe->header.error_code = rdma_cqe->ud_send.vendor_error;
-+	shadow_wqe->error_code = rdma_cqe->ud_send.vendor_error;
- 
--	wq->tail += shadow_wqe->header.posted_wqe_size;
-+	wq->tail += shadow_wqe->wqe_size_in_bu;
- 	shadow_queue_advance_next_to_complete(&qp->shadow_sq);
- }
- 
-@@ -206,7 +206,7 @@ static inline void handle_ud_rq_cqe(struct mana_ib_qp *qp, struct gdma_comp *cqe
- {
- 	struct mana_rdma_cqe *rdma_cqe = (struct mana_rdma_cqe *)cqe->cqe_data;
- 	struct gdma_queue *wq = qp->ud_qp.queues[MANA_UD_RECV_QUEUE].kmem;
--	struct ud_rq_shadow_wqe *shadow_wqe;
-+	struct shadow_wqe_header *shadow_wqe;
- 
- 	shadow_wqe = shadow_queue_get_next_to_complete(&qp->shadow_rq);
- 	if (!shadow_wqe)
-@@ -214,9 +214,9 @@ static inline void handle_ud_rq_cqe(struct mana_ib_qp *qp, struct gdma_comp *cqe
- 
- 	shadow_wqe->byte_len = rdma_cqe->ud_recv.msg_len;
- 	shadow_wqe->src_qpn = rdma_cqe->ud_recv.src_qpn;
--	shadow_wqe->header.error_code = IB_WC_SUCCESS;
-+	shadow_wqe->error_code = IB_WC_SUCCESS;
- 
--	wq->tail += shadow_wqe->header.posted_wqe_size;
-+	wq->tail += shadow_wqe->wqe_size_in_bu;
- 	shadow_queue_advance_next_to_complete(&qp->shadow_rq);
- }
- 
-@@ -238,21 +238,20 @@ static void mana_handle_cqe(struct mana_ib_dev *mdev, struct gdma_comp *cqe)
- }
- 
- static void fill_verbs_from_shadow_wqe(struct mana_ib_qp *qp, struct ib_wc *wc,
--				       const struct shadow_wqe_header *shadow_wqe)
-+				       const struct shadow_wqe_header *shadow_wqe,
-+				       enum ib_wc_opcode opcode)
- {
--	const struct ud_rq_shadow_wqe *ud_wqe = (const struct ud_rq_shadow_wqe *)shadow_wqe;
--
- 	wc->wr_id = shadow_wqe->wr_id;
- 	wc->status = shadow_wqe->error_code;
--	wc->opcode = shadow_wqe->opcode;
-+	wc->opcode = opcode;
- 	wc->vendor_err = shadow_wqe->error_code;
- 	wc->wc_flags = 0;
- 	wc->qp = &qp->ibqp;
- 	wc->pkey_index = 0;
- 
--	if (shadow_wqe->opcode == IB_WC_RECV) {
--		wc->byte_len = ud_wqe->byte_len;
--		wc->src_qp = ud_wqe->src_qpn;
-+	if (opcode == IB_WC_RECV) {
-+		wc->byte_len = shadow_wqe->byte_len;
-+		wc->src_qp = shadow_wqe->src_qpn;
- 		wc->wc_flags |= IB_WC_GRH;
- 	}
- }
-@@ -270,7 +269,8 @@ static int mana_process_completions(struct mana_ib_cq *cq, int nwc, struct ib_wc
- 			if (wc_index >= nwc)
- 				goto out;
- 
--			fill_verbs_from_shadow_wqe(qp, &wc[wc_index], shadow_wqe);
-+			fill_verbs_from_shadow_wqe(qp, &wc[wc_index], shadow_wqe,
-+						   shadow_wqe->send_opcode);
- 			shadow_queue_advance_consumer(&qp->shadow_sq);
- 			wc_index++;
- 		}
-@@ -283,7 +283,8 @@ static int mana_process_completions(struct mana_ib_cq *cq, int nwc, struct ib_wc
- 			if (wc_index >= nwc)
- 				goto out;
- 
--			fill_verbs_from_shadow_wqe(qp, &wc[wc_index], shadow_wqe);
-+			fill_verbs_from_shadow_wqe(qp, &wc[wc_index], shadow_wqe,
-+						   IB_WC_RECV);
- 			shadow_queue_advance_consumer(&qp->shadow_rq);
- 			wc_index++;
- 		}
-@@ -296,13 +297,13 @@ static int mana_process_completions(struct mana_ib_cq *cq, int nwc, struct ib_wc
- static void mana_drain_gsi_sq(struct mana_ib_qp *qp)
- {
- 	struct mana_ib_cq *cq = container_of(qp->ibqp.send_cq, struct mana_ib_cq, ibcq);
--	struct ud_sq_shadow_wqe *shadow_wqe;
-+	struct shadow_wqe_header *shadow_wqe;
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&cq->cq_lock, flags);
- 	while ((shadow_wqe = shadow_queue_get_next_to_complete(&qp->shadow_sq))
- 			!= NULL) {
--		shadow_wqe->header.error_code = IB_WC_GENERAL_ERR;
-+		shadow_wqe->error_code = IB_WC_GENERAL_ERR;
- 		shadow_queue_advance_next_to_complete(&qp->shadow_sq);
- 	}
- 	spin_unlock_irqrestore(&cq->cq_lock, flags);
-diff --git a/drivers/infiniband/hw/mana/qp.c b/drivers/infiniband/hw/mana/qp.c
-index fac43b3a5..79c9cc944 100644
---- a/drivers/infiniband/hw/mana/qp.c
-+++ b/drivers/infiniband/hw/mana/qp.c
-@@ -748,13 +748,13 @@ static int mana_ib_create_ud_qp(struct ib_qp *ibqp, struct ib_pd *ibpd,
- 	doorbell = mdev->gdma_dev->doorbell;
- 
- 	err = create_shadow_queue(&qp->shadow_rq, attr->cap.max_recv_wr,
--				  sizeof(struct ud_rq_shadow_wqe));
-+				  sizeof(struct shadow_wqe_header));
- 	if (err) {
- 		ibdev_err(&mdev->ib_dev, "Failed to create shadow rq err %d\n", err);
- 		goto destroy_queues;
- 	}
- 	err = create_shadow_queue(&qp->shadow_sq, attr->cap.max_send_wr,
--				  sizeof(struct ud_sq_shadow_wqe));
-+				  sizeof(struct shadow_wqe_header));
- 	if (err) {
- 		ibdev_err(&mdev->ib_dev, "Failed to create shadow sq err %d\n", err);
- 		goto destroy_shadow_queues;
-diff --git a/drivers/infiniband/hw/mana/shadow_queue.h b/drivers/infiniband/hw/mana/shadow_queue.h
-index a4b3818f9..a127edf7a 100644
---- a/drivers/infiniband/hw/mana/shadow_queue.h
-+++ b/drivers/infiniband/hw/mana/shadow_queue.h
-@@ -7,22 +7,14 @@
- #define _MANA_SHADOW_QUEUE_H_
- 
- struct shadow_wqe_header {
--	u16 opcode;
--	u16 error_code;
--	u32 posted_wqe_size;
- 	u64 wr_id;
--};
--
--struct ud_rq_shadow_wqe {
--	struct shadow_wqe_header header;
-+	u64 wqe_size_in_bu : 8;
-+	u64 send_opcode : 4;
-+	u64 error_code : 16;
- 	u32 byte_len;
- 	u32 src_qpn;
- };
- 
--struct ud_sq_shadow_wqe {
--	struct shadow_wqe_header header;
--};
--
- struct shadow_queue {
- 	/* Unmasked producer index, Incremented on wqe posting */
- 	u64 prod_idx;
-@@ -57,12 +49,14 @@ static inline void destroy_shadow_queue(struct shadow_queue *queue)
- 
- static inline bool shadow_queue_full(struct shadow_queue *queue)
- {
--	return (queue->prod_idx - queue->cons_idx) >= queue->length;
-+	/* Do not reuse an entry until the poller has finished reading it. */
-+	return (queue->prod_idx - smp_load_acquire(&queue->cons_idx)) >= queue->length;
- }
- 
- static inline bool shadow_queue_empty(struct shadow_queue *queue)
- {
--	return queue->prod_idx == queue->cons_idx;
-+	/* Pair with posting's release of the initialized shadow WQE. */
-+	return smp_load_acquire(&queue->prod_idx) == queue->cons_idx;
- }
- 
- static inline void *
-@@ -91,7 +85,8 @@ shadow_queue_get_next_to_consume(const struct shadow_queue *queue)
- static inline void *
- shadow_queue_get_next_to_complete(struct shadow_queue *queue)
- {
--	if (queue->next_to_complete_idx == queue->prod_idx)
-+	/* Observe initialized WQE fields published by the posting CPU. */
-+	if (queue->next_to_complete_idx == smp_load_acquire(&queue->prod_idx))
- 		return NULL;
- 
- 	return shadow_queue_get_element(queue, queue->next_to_complete_idx);
-@@ -99,12 +94,14 @@ shadow_queue_get_next_to_complete(struct shadow_queue *queue)
- 
- static inline void shadow_queue_advance_producer(struct shadow_queue *queue)
- {
--	queue->prod_idx++;
-+	/* Publish all WQE fields to CQ polling on another CPU. */
-+	smp_store_release(&queue->prod_idx, queue->prod_idx + 1);
- }
- 
- static inline void shadow_queue_advance_consumer(struct shadow_queue *queue)
- {
--	queue->cons_idx++;
-+	/* Finish WC generation and queue-tail updates before allowing reuse. */
-+	smp_store_release(&queue->cons_idx, queue->cons_idx + 1);
- }
- 
- static inline void shadow_queue_advance_next_to_complete(struct shadow_queue *queue)
-diff --git a/drivers/infiniband/hw/mana/wr.c b/drivers/infiniband/hw/mana/wr.c
-index 36a1d506f..8cd2980d4 100644
---- a/drivers/infiniband/hw/mana/wr.c
-+++ b/drivers/infiniband/hw/mana/wr.c
-@@ -14,7 +14,7 @@ static int mana_ib_post_recv_ud(struct mana_ib_qp *qp, const struct ib_recv_wr *
- 	struct gdma_posted_wqe_info wqe_info = {0};
- 	struct gdma_sge gdma_sgl[MAX_WR_SGL_NUM];
- 	struct gdma_wqe_request wqe_req = {0};
--	struct ud_rq_shadow_wqe *shadow_wqe;
-+	struct shadow_wqe_header *shadow_wqe;
- 	int err, i;
- 
- 	if (shadow_queue_full(&qp->shadow_rq))
-@@ -37,9 +37,8 @@ static int mana_ib_post_recv_ud(struct mana_ib_qp *qp, const struct ib_recv_wr *
- 
- 	shadow_wqe = shadow_queue_producer_entry(&qp->shadow_rq);
- 	memset(shadow_wqe, 0, sizeof(*shadow_wqe));
--	shadow_wqe->header.opcode = IB_WC_RECV;
--	shadow_wqe->header.wr_id = wr->wr_id;
--	shadow_wqe->header.posted_wqe_size = wqe_info.wqe_size_in_bu;
-+	shadow_wqe->wr_id = wr->wr_id;
-+	shadow_wqe->wqe_size_in_bu = wqe_info.wqe_size_in_bu;
- 	shadow_queue_advance_producer(&qp->shadow_rq);
- 
- 	mana_gd_wq_ring_doorbell(mdev_to_gc(mdev), queue);
-@@ -82,7 +81,7 @@ static int mana_ib_post_send_ud(struct mana_ib_qp *qp, const struct ib_ud_wr *wr
- 	struct gdma_posted_wqe_info wqe_info = {0};
- 	struct gdma_wqe_request wqe_req = {0};
- 	struct rdma_send_oob send_oob = {0};
--	struct ud_sq_shadow_wqe *shadow_wqe;
-+	struct shadow_wqe_header *shadow_wqe;
- 	int err, i;
- 
- 	if (!ndev) {
-@@ -132,9 +131,9 @@ static int mana_ib_post_send_ud(struct mana_ib_qp *qp, const struct ib_ud_wr *wr
- 	qp->ud_qp.sq_psn++;
- 	shadow_wqe = shadow_queue_producer_entry(&qp->shadow_sq);
- 	memset(shadow_wqe, 0, sizeof(*shadow_wqe));
--	shadow_wqe->header.opcode = IB_WC_SEND;
--	shadow_wqe->header.wr_id = wr->wr.wr_id;
--	shadow_wqe->header.posted_wqe_size = wqe_info.wqe_size_in_bu;
-+	shadow_wqe->send_opcode = IB_WC_SEND;
-+	shadow_wqe->wr_id = wr->wr.wr_id;
-+	shadow_wqe->wqe_size_in_bu = wqe_info.wqe_size_in_bu;
- 	shadow_queue_advance_producer(&qp->shadow_sq);
- 
- 	mana_gd_wq_ring_doorbell(mdev_to_gc(mdev), queue);
--- 
-2.43.0
+We did talk=C2=B9 about the atomic SRCU being silently downgraded to the
+sleeping version under PREEMPT_RT, as other spinlocks are silently
+converted to sleeping locks. But I don't think it's mandatory, is it?
 
+=C2=B9 https://lore.kernel.org/all/333c4cdb-8f34-4e3f-a47f-961f47e089a0@pau=
+lmck-laptop/
+
+--=-k3y0dTyJnH42HOOuDeys
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
+PHqBA6MsvJTpOtsQMXx8UoUAAAAAAAA=
+
+
+--=-k3y0dTyJnH42HOOuDeys--
