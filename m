@@ -1,175 +1,413 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E756D49BD88
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:28:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFB949BD93;
+	Mon, 21 Sep 2026 09:28:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982936; cv=none; b=cnq6h2aGN1/iTTI/lF4DZXKE5hq8sNRYuiqO5U3bR/wlGSCqnHH1HJcnxvznBYSCdlhD1IEQk71+xXnUJvdQOyiEbfIO384iBI8TTsn3aeyJfqfXIs5A1ZeT7hdj30AUQZm8k90TEw9tvkp61Jyf5ZBXAMK1Q3ZRjZ6HO4koCdw=
+	t=1789982935; cv=none; b=FgChgL5y2zEcu0kbWBBJp/sE4WJhIloQqF5CvKgecFx+E4DOKA8a/ghUo7MfogwcO9CFoA2QavIHDwd23b64BN4sgUyLzq19wI42AdKOFBSBkVOU2aSpMZnkQZR0BpmH2gnndgM8GQtzePg3na/5OOE0dVY1THWa88wcPYpKWxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982936; c=relaxed/simple;
-	bh=phUmEey2KTaFFCHe3tz5iY5i7uUrJ8JToLD52Kf/15k=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=aatLxa9ELH6WVJsmWBaWRbF/kWYh48HGdNbPkfLDJvUM9NCl8lAheaKcclpOabkKaEe9QCocN9Kzr+tZJWJyz26ZAqzgZRXSMopBnUZJaRStv7rHB9qd6Zc0jk8lHtSUFN1p7rBJW548ERSiWv9tkaOUjaZRjnoSNeZ3xaE94VQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Px9FDAq9; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789982935; c=relaxed/simple;
+	bh=i6H6ppuxM+2Kbgtv3rlIf3UgY5ec/XM17HJ384msIRE=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=uQQD+UGKLhbA9BF+pC5JzUrkMslIu+eLeWo+OeqlIiLYH/W6CObV/D8wZ8HSEnOcqclDpBZSBHmi6SoLs9hpDBIAB79jIWXM4kHTg5v2JeqQMx7S71cnvR55f5C/XDqm0UXXPKQ6yjb68+ojNjgKLiGleGe5aT6isT4ZTzD8Mng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=t068CVeX; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=F0UtdufA; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Px9FDAq9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Message-ID:MIME-Version:
-	Content-Type; bh=zdLl1CStt/w3jatHVQVxNNngXmh7u7s/kl0WhZ6jI6s=;
-	b=Px9FDAq9aHUPNZAcGIHD3M2+04zjMbPX2xcpooeX0uzL9Z9oiwpyOyQIyxi4AE
-	w8zogl/TyayWrO2YvfaIrwCkntVNDA9chgzvw+UhJtXg3bOFUxIHwVlh0zFukwgI
-	YoIuFMUs2G5/2kaVguiF9+1hnESu/+owNS73oE5Bgkhzc=
-Received: from localhost (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgDXRr2V+LBqZlMwAg--.3777S2;
-	Mon, 21 Sep 2026 17:27:50 +0800 (CST)
-Date: Mon, 21 Sep 2026 17:27:47 +0800
-From: Hao Zhang <hao_zhang_kdev@163.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] KVM: selftests: Test arm64 stolen time after failed
- updates
-Message-ID: <arD4k4RqkTetKtvi@192.168.1.215>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="t068CVeX";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="F0UtdufA"
+Date: Mon, 21 Sep 2026 09:28:48 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789982930;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Sgyjd4XqVYJr4rBUKRXIR72JMribfa+0sQyiCIbn+fI=;
+	b=t068CVeXJ2ud2pnx43NoaxG77fRamXctGPZ+vCEcJZCFRtarRXuHGfj9UkcJCjtG065RBV
+	OoZV7o9r8FuCYRYP/cv6xOyA8jQN0HslG9E3X5aWfthLIap2xJwb0jqhosM56k/RVqp3Yj
+	FZ+vZSGDi4+vuvNEtOxFz+4ME2iCkKoGwQWhgnGmzeiLLZjGC5T1tcxoLuD04YAJ73mBMN
+	63cblXLV4AuJhWSV5N3Vqh9Sv0W+1EacWogEprW/QfPInxcWHmjjuwXOy4A3iSYNLIkpv5
+	EQ/a7BDw2MPbxhsHlj+1OGvRCxFufBQvrB0zdV6drkgAvYrfDtJw6DDy5tCaJg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789982930;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Sgyjd4XqVYJr4rBUKRXIR72JMribfa+0sQyiCIbn+fI=;
+	b=F0UtdufAs3eACWgEk88rVhViryyG1i5W62FizdjC1U24cD8XHctYwvKgwVYhs614p6gekm
+	PP7bZLHF5fAQUNBA==
+From: "tip-bot2 for Song Liu" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: objtool/core] objtool/klp: Classify klp test outcomes
+Cc: Puranjay Mohan <puranjay@kernel.org>, Song Liu <song@kernel.org>,
+ Josh Poimboeuf <jpoimboe@kernel.org>, Ingo Molnar <mingo@kernel.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260916184351.2720310-5-song@kernel.org>
+References: <20260916184351.2720310-5-song@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <arD24ru13owcE1Ms@192.168.1.215>
-X-CM-TRANSID:PSgvCgDXRr2V+LBqZlMwAg--.3777S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXryDtr43JryktF13uw43trb_yoWrGFy8pa
-	92kF1jgr4UK3ZFkr1Syr1DZFs8Gw4kJr42qr97u34rArs8KFsxtrs7KFy0qF1xArZ3XFn3
-	ZFWrKr9FgrWDXF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jUjjgUUUUU=
-X-CM-SenderInfo: pkdrs65kdqwshngh4qqrwthudrp/xtbC3hYqHWqw+JZDYgAA3q
+Message-ID: <178998292875.2819794.7809398601525567365.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Hao Zhang <zhanghao1@kylinos.cn>
+The following commit has been merged into the objtool/core branch of tip:
 
-Use mprotect() to keep the stolen-time page readable while removing
-write access.  This allows kvm_get_guest() to succeed and forces the
-subsequent kvm_put_guest() to fail.
+Commit-ID:     317cec905af82e9ccca93cec661e88b1d3968a43
+Gitweb:        https://git.kernel.org/tip/317cec905af82e9ccca93cec661e88b1d39=
+68a43
+Author:        Song Liu <song@kernel.org>
+AuthorDate:    Wed, 16 Sep 2026 11:42:57 -07:00
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Mon, 21 Sep 2026 10:55:09 +02:00
 
-Accumulate vCPU run delay, trigger the failed update, restore write
-access, and run the vCPU again.  Verify that the successful retry
-includes the delay that could not be reported by the failed update.
+objtool/klp: Classify klp test outcomes
 
-Without the fix, KVM advances last_steal on the failed write and the
-test observes that the accumulated delay is lost.
+A test could pass, fail, or skip, and the runner reported only the exit
+status of the last one to fail.  Skips are the interesting case: they are
+how a suite quietly stops testing anything.
 
-Signed-off-by: Hao Zhang <zhanghao1@kylinos.cn>
+Three kinds, and the runner counts them separately:
+
+  declared   the test said in advance it does not apply here, e.g. gcc_only
+             on a clang run.  Expected indefinitely.
+  probe      the construct did not turn up in the built object this time.
+             Weaker: one which becomes permanent is a fixture that stopped
+             testing anything.
+  undeclared counted as a failure.  A test which gives up for a reason it
+             never declared is a hole, not an outcome.
+
+xfail and xpass come with them, so a known failure is reported rather than
+commented out and forgotten, and one which starts passing says so instead
+of going quietly green.
+
+The result line is what gets classified, not the whole of a test's output:
+objtool warns on stderr and the runner captures it, and a stray line ahead
+of the result would otherwise leave the exit status to decide -- counting
+an expected failure, which exits 0, as a pass.
+
+Every test owes the plan exactly one result line, so a substituted verdict
+replaces the test's own rather than being printed beside it, and a test
+which dies before reporting gets a result of its own instead of being
+inferred from its exit status.
+
+Also: a TAP version line, LC_ALL=3DC so the order tests run in and the
+behaviour of grep's character ranges inside them do not depend on the
+invoking shell's locale, and fail() on stdout with every other verdict.
+
+Co-developed-by: Puranjay Mohan <puranjay@kernel.org>
+Signed-off-by: Puranjay Mohan <puranjay@kernel.org>
+Signed-off-by: Song Liu <song@kernel.org>
+Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Assisted-by: Claude:claude-opus-5
+Link: https://patch.msgid.link/20260916184351.2720310-5-song@kernel.org
 ---
- tools/testing/selftests/kvm/steal_time.c | 58 +++++++++++++++++++++++++++++++-
- 1 file changed, 57 insertions(+), 1 deletion(-)
+ tools/objtool/tests/lib.sh       |  67 ++++++++++++--
+ tools/objtool/tests/run-tests.sh | 148 +++++++++++++++++++++++++-----
+ 2 files changed, 186 insertions(+), 29 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/steal_time.c b/tools/testing/selftests/kvm/steal_time.c
-index bc3c62b72c58..fbdd55fa5ab6 100644
---- a/tools/testing/selftests/kvm/steal_time.c
-+++ b/tools/testing/selftests/kvm/steal_time.c
-@@ -8,6 +8,8 @@
- #include <time.h>
- #include <sched.h>
- #include <pthread.h>
-+#include <sys/mman.h>
-+#include <unistd.h>
- #include <linux/kernel.h>
- #include <asm/kvm.h>
- #ifdef __riscv
-@@ -162,6 +164,15 @@ static void guest_code(int cpu)
- 
- 	check_status(st);
- 	WRITE_ONCE(guest_stolen_time[cpu], st->st_time);
-+	if (!cpu) {
-+		/*
-+		 * Let userspace trigger a failed stolen-time update, then retry
-+		 * the update after restoring write access.
-+		 */
-+		GUEST_SYNC(2);
-+		GUEST_SYNC(3);
-+		WRITE_ONCE(guest_stolen_time[cpu], st->st_time);
-+	}
- 	GUEST_DONE();
- }
- 
-@@ -469,9 +480,10 @@ static void check_steal_time_uapi(void)
- static void *do_steal_time(void *arg)
- {
- 	struct timespec ts, stop;
-+	unsigned long duration = arg ? *(unsigned long *)arg : MIN_RUN_DELAY_NS;
- 
- 	clock_gettime(CLOCK_MONOTONIC, &ts);
--	stop = timespec_add_ns(ts, MIN_RUN_DELAY_NS);
-+	stop = timespec_add_ns(ts, duration);
- 
- 	while (1) {
- 		clock_gettime(CLOCK_MONOTONIC, &ts);
-@@ -500,6 +512,45 @@ static void run_vcpu(struct kvm_vcpu *vcpu)
- 	}
- }
- 
-+#ifdef __aarch64__
-+static void test_failed_stolen_time_update(struct kvm_vcpu *vcpu)
+diff --git a/tools/objtool/tests/lib.sh b/tools/objtool/tests/lib.sh
+index fdea9b7..1531caa 100644
+--- a/tools/objtool/tests/lib.sh
++++ b/tools/objtool/tests/lib.sh
+@@ -139,8 +139,38 @@ test_name=3D"$(basename "$0" .sh)"
+ workdir=3D
+=20
+ pass() { echo "ok - $test_name${1:+: $1}"; exit 0; }
+-fail() { echo "not ok - $test_name: $1" >&2; exit 1; }
+-skip() { echo "ok - $test_name # SKIP $1"; exit 0; }
++fail() { echo "not ok - $test_name: $1"; exit 1; }
++
++# Two kinds of skip, and the runner tells them apart.
++#
++#   declared_skip  the test said in advance it does not apply here, e.g.
++#                  gcc_only on a clang run.  Expected indefinitely.
++#   probe_skip     the construct did not turn up in the built object this
++#                  time.  Weaker: it may appear on another compiler version,
++#                  and one which becomes permanent is a fixture that quietly
++#                  stopped testing anything.
++#
++# A bare skip() is neither, and the runner counts it as a failure: a test wh=
+ich
++# gives up for a reason it never declared is a hole, not an outcome.
++declared_skip() { echo "ok - $test_name # SKIP (declared) $*"; exit 0; }
++probe_skip()    { echo "ok - $test_name # SKIP (probe) $*"; exit 0; }
++skip()          { echo "ok - $test_name # SKIP $*"; exit 0; }
++
++# TAP directives.  A test which is known to fail reports it rather than being
++# commented out and forgotten, and one which starts passing again says so
++# instead of quietly going green: the expectation has to be removed by hand,
++# which is the point.
++xfail()
 +{
-+	struct kvm_vm *vm = vcpu->vm;
-+	struct st_time *st = addr_gva2hva(vm, ST_GPA_BASE);
-+	unsigned long duration = 100 * 1000 * 1000UL;
-+	u64 stolen_time = st->st_time;
-+	long run_delay;
-+	pthread_t thread;
-+
-+	/*
-+	 * Keep the page readable so that kvm_get_guest() succeeds, but make
-+	 * kvm_put_guest() fail when KVM attempts to update stolen time.
-+	 */
-+	TEST_ASSERT(!mprotect(st, getpagesize(), PROT_READ),
-+		    "Failed to make stolen time page read-only");
-+
-+	run_delay = get_run_delay();
-+	kvm_pthread_create(&thread, NULL, do_steal_time, &duration);
-+	do
-+		sched_yield();
-+	while (get_run_delay() - run_delay < duration / 5);
-+	kvm_pthread_join(thread, NULL);
-+	run_delay = get_run_delay() - run_delay;
-+
-+	/* The update fails, but the guest must still be able to run. */
-+	run_vcpu(vcpu);
-+	TEST_ASSERT(st->st_time == stolen_time,
-+		    "Stolen time changed on a read-only page");
-+
-+	TEST_ASSERT(!mprotect(st, getpagesize(), PROT_READ | PROT_WRITE),
-+		    "Failed to restore stolen time page write access");
-+	run_vcpu(vcpu);
-+	TEST_ASSERT(st->st_time - stolen_time >= run_delay,
-+		    "Lost stolen time after a failed update: expected >= %ld, got %lu",
-+		    run_delay, (unsigned long)(st->st_time - stolen_time));
++	echo "not ok - $test_name${1:+: $1} # TODO known failure"
++	exit 0
 +}
-+#endif
 +
- int main(int ac, char **av)
++xpass()
++{
++	echo "ok - $test_name${1:+: $1} # TODO expected failure, but passed"
++	exit 1
++}
+=20
+ cleanup() { [ -n "$workdir" ] && rm -rf "$workdir"; }
+=20
+@@ -170,6 +200,23 @@ export_syms()
+ 	done
+ }
+=20
++# gcc_only / clang_only <reason>
++gcc_only()
++{
++	case "$($CC --version 2>/dev/null | head -1)" in
++	*[Gg][Cc][Cc]*)	return 0 ;;
++	esac
++	declared_skip "gcc only${1:+: $1}"
++}
++
++clang_only()
++{
++	case "$($CC --version 2>/dev/null | head -1)" in
++	*clang*)	return 0 ;;
++	esac
++	declared_skip "clang only${1:+: $1}"
++}
++
+ # build_pair <fixture.c> [cflags...]
+ build_pair()
  {
- 	struct kvm_vcpu *vcpus[NR_VCPUS];
-@@ -569,6 +620,11 @@ int main(int ac, char **av)
- 			    "Expected stolen time >= %ld, got %ld",
- 			    run_delay, stolen_time);
- 
-+#ifdef __aarch64__
-+		if (!i)
-+			test_failed_stolen_time_update(vcpus[i]);
-+#endif
+@@ -178,9 +225,9 @@ build_pair()
+ 	[ -f "$fixture" ] || fail "missing fixture $fixture"
+=20
+ 	$CC $FIXTURE_CFLAGS "$@" -o "$workdir/orig.o" "$fixture" 2>"$workdir/cc.log=
+" ||
+-		skip "fixture does not build here: $(tail -1 "$workdir/cc.log")"
++		probe_skip "fixture does not build here: $(tail -1 "$workdir/cc.log")"
+ 	$CC $FIXTURE_CFLAGS "$@" -DPATCHED -o "$workdir/patched.o" "$fixture" 2>"$w=
+orkdir/cc.log" ||
+-		skip "fixture does not build here: $(tail -1 "$workdir/cc.log")"
++		probe_skip "fixture does not build here: $(tail -1 "$workdir/cc.log")"
+ }
+=20
+ # run_diff [expected exit status]
+@@ -226,16 +273,20 @@ partial_link()
+=20
+ # find_thinlto_toolchain
+ #
+-# Set $THIN_CC and $THIN_LD to a clang and lld from the same LLVM release.  A
++# Set $THIN_LD to an lld from the same LLVM release as $CC (or THIN_CC).  A
+ # mismatched pair fails with "Invalid summary version", which reads like a
+ # broken test rather than a broken environment.
++#
++# ThinLTO is clang-only; callers must use clang_only before calling this.
++# Only $CC (or an explicit THIN_CC override) is consulted -- the harness does
++# not search for a second compiler beside a gcc $CC.
+ find_thinlto_toolchain()
+ {
+-	local cc ld ver
++	local cc ver ld
+=20
+-	for cc in "${THIN_CC:-}" "$CC" clang; do
++	for cc in "${THIN_CC:-}" "$CC"; do
+ 		[ -n "$cc" ] || continue
+-		command -v "${cc%% *}" >/dev/null 2>&1 || continue
++		command -v "${cc%% *}" >/dev/null 2>&1 || return 1
+=20
+ 		ver=3D$($cc -dumpversion 2>/dev/null | cut -d. -f1)
+=20
+diff --git a/tools/objtool/tests/run-tests.sh b/tools/objtool/tests/run-tests=
+.sh
+index 48728a9..6b937fc 100755
+--- a/tools/objtool/tests/run-tests.sh
++++ b/tools/objtool/tests/run-tests.sh
+@@ -8,13 +8,51 @@
+ # apply here is not run rather than reporting a skip; what was left out is
+ # reported once, as a comment, so differing coverage is still visible.
+ #
++# A run covers one compiler and one architecture; CI runs the combinations.
+ # The harness checks the environment once up front and fails the run if the
+ # suite cannot execute, rather than letting every test skip and exit 0.
+=20
+ set -u
+=20
++# Determinism: the order test-*.sh expands in, and how grep's character rang=
+es
++# and sort's collation behave inside the tests, are all locale-dependent.  A
++# suite whose results depend on the invoking shell's locale is a suite whose
++# failures cannot be reproduced.
++export LC_ALL=3DC
 +
- 		if (verbose) {
- 			ksft_print_msg("VCPU%d: total-stolen-time=%ld test-stolen-time=%ld%s\n",
- 				       i, guest_stolen_time[i], stolen_time,
--- 
-2.15.0
-
++usage()
++{
++	cat <<EOF
++usage: $(basename "$0") [test...]
++
++Run the objtool klp tests for this architecture: everything in generic/, plus
++everything in the directory named for it.  With no arguments, runs all of th=
+em.
++A test may be named with or without its "test-" prefix and ".sh" suffix, and=
+ is
++looked for in both directories.
++
++Environment:
++    OBJTOOL       objtool binary to test (default ../objtool)
++    CC            compiler used to build fixtures (default gcc)
++    ARCH          architecture the tests are for (default: uname -m)
++
++A test which needs something of its own says so in its skip message.
++EOF
++	exit "${1:-0}"
++}
++
+ cd "$(dirname "$0")" || exit 1
+=20
++while [ $# -gt 0 ]; do
++	case "$1" in
++	-h|--help)	usage ;;
++	--)		shift; break ;;
++	-*)		echo "unknown option: $1" >&2; usage 1 ;;
++	*)		break ;;
++	esac
++done
++
++echo "TAP version 13"
++
+ # Sourcing the harness runs its preflight, which decides which architecture
+ # this run is for -- so the test list cannot be built before it has, and the
+ # tests inherit the answers rather than working them out again.
+@@ -23,31 +61,99 @@ cd "$(dirname "$0")" || exit 1
+ dirs=3D( generic )
+ [ -d "$KLP_TEST_ARCH" ] && dirs+=3D( "$KLP_TEST_ARCH" )
+=20
+-tests=3D()
+-for d in "${dirs[@]}"; do
+-	for t in "$d"/test-*.sh; do
+-		[ -f "$t" ] && tests+=3D( "$t" )
++if [ $# -gt 0 ]; then
++	tests=3D()
++	for arg in "$@"; do
++		name=3D"test-${arg#test-}"; name=3D"${name%.sh}.sh"
++		found=3D
++		for d in "${dirs[@]}"; do
++			[ -f "$d/$name" ] || continue
++			[ -x "$d/$name" ] ||
++				{ echo "not executable: $d/$name" >&2; exit 1; }
++			tests+=3D( "$d/$name" ); found=3Dy
++		done
++		[ -n "$found" ] ||
++			{ echo "no such test for $KLP_TEST_ARCH: $arg" >&2; exit 1; }
+ 	done
+-done
+-[ "${#tests[@]}" -gt 0 ] || { echo "1..0 # SKIP no tests found"; exit 0; }
+-
+-# Tests for another architecture are absent from this run entirely.  Say how
+-# many, so a run which covers less than the tree holds does not look like one
+-# that covers all of it.
+-for d in */; do
+-	d=3D"${d%/}"
+-	case "$d" in generic|"$KLP_TEST_ARCH") continue ;; esac
+-	n=3D$(ls "$d"/test-*.sh 2>/dev/null | wc -l)
+-	[ "$n" -gt 0 ] || continue
+-	echo "# not run: $n test$( [ "$n" =3D 1 ] || echo s ) in $d/" \
+-	     "(this run is $KLP_TEST_ARCH)"
+-done
++else
++	tests=3D()
++	for d in "${dirs[@]}"; do
++		for t in "$d"/test-*.sh; do
++			[ -f "$t" ] && tests+=3D( "$t" )
++		done
++	done
++	[ "${#tests[@]}" -gt 0 ] ||
++		{ echo "1..0 # SKIP no tests found"; exit 0; }
++
++	# Tests for another architecture are absent from this run entirely.  Say
++	# how many, so a run which covers less than the tree holds does not look
++	# like one that covers all of it.
++	for d in */; do
++		d=3D"${d%/}"
++		case "$d" in generic|"$KLP_TEST_ARCH") continue ;; esac
++		n=3D$(ls "$d"/test-*.sh 2>/dev/null | wc -l)
++		[ "$n" -gt 0 ] || continue
++		echo "# not run: $n test$( [ "$n" =3D 1 ] || echo s ) in $d/" \
++		     "(this run is $KLP_TEST_ARCH)"
++	done
++fi
+=20
+ echo "1..${#tests[@]}"
+=20
+-rc=3D0
++pass=3D0 fail=3D0 static_skip=3D0 probe_skip=3D0 xfail=3D0 xpass=3D0
++
+ for t in "${tests[@]}"; do
+-	./"$t" || rc=3D1
++	out=3D"$(./"$t" 2>&1)"
++	rc=3D$?
++
++	# A test prints one result line, but it is not necessarily the only
++	# thing it prints: objtool warns on stderr, and the runner captures
++	# that.  Classify the result line itself rather than the whole of the
++	# output, or a stray line ahead of it makes every pattern below miss and
++	# the exit status decide -- which would count an expected failure, which
++	# exits 0, as a pass.
++	result=3D"$(printf '%s\n' "$out" | grep -E '^(ok|not ok)' | tail -1)"
++	rest=3D"$(printf '%s\n' "$out" | grep -Ev '^(ok|not ok)')"
++
++	# Classify from the result line, not the exit status: a skip and a pass
++	# both exit 0, and telling them apart is the point of counting.
++	#
++	# The two skip kinds differ in what they promise.  A static skip was
++	# declared before the test ran ("clang does not do this"), so it is
++	# expected indefinitely.  A probe skip means the construct did not turn
++	# up this time, which is weaker and worth watching: one that becomes
++	# permanent is a fixture that quietly stopped testing anything.
++	case "$result" in
++	*"# SKIP (declared)"*)	static_skip=3D$((static_skip + 1)) ;;
++	*"# SKIP (probe)"*)	probe_skip=3D$((probe_skip + 1)) ;;
++	*"# SKIP"*)
++		# An undeclared skip: the test gave up for a reason it never
++		# said it might.  That is a hole, not an expected outcome.
++		#
++		# Replace the line rather than adding one.  Every test owes the
++		# plan exactly one result, and a consumer counting them is
++		# entitled to say so when the totals disagree.
++		rest=3D"$rest${rest:+$'\n'}was: $result"
++		result=3D"not ok - $(basename "$t" .sh): undeclared skip"
++		result=3D"$result (use gcc_only/clang_only or require_input_*)"
++		fail=3D$((fail + 1)) ;;
++	"not ok"*"# TODO"*)	xfail=3D$((xfail + 1)) ;;
++	"ok"*"# TODO"*)		xpass=3D$((xpass + 1)) ;;
++	"not ok"*)		fail=3D$((fail + 1)) ;;
++	"ok"*)			pass=3D$((pass + 1)) ;;
++	*)
++		# No result line at all: the test died before reporting.
++		rest=3D"$rest${rest:+$'\n'}exited $rc without a result line"
++		result=3D"not ok - $(basename "$t" .sh): no TAP result"
++		fail=3D$((fail + 1)) ;;
++	esac
++
++	echo "$result"
++	[ -n "$rest" ] && printf '%s\n' "$rest" | sed 's/^[^#]/# &/'
++
+ done
+=20
+-exit $rc
++echo "# pass:$pass fail:$fail static-skip:$static_skip" \
++     "probe-skip:$probe_skip xfail:$xfail xpass:$xpass"
++
++[ "$fail" =3D 0 ] && [ "$xpass" =3D 0 ]
