@@ -1,84 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1AF64ABBA5;
-	Mon, 21 Sep 2026 14:11:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1CBF4A8A39
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:11:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999876; cv=none; b=t8QfnkqsMDxRWV+Yyp7MPAnGSGs2SqoI8TxEis0K1gVKGVnP/fyt0+M4vVuJf8Pfl08asKcPDJ+mwGpr+TN4YTwTPjYnUm60DxDj28J8fcGvYkY4SORwITFsXeap3v6Y4tVo2wKo/upwPUn64S4pOcxkzTSQDvRFHu5iBDagpik=
+	t=1789999877; cv=none; b=gJPwumq7PYmRC45izbxaEzOX2Iuzkcu68qJlPzKsWfYwbVbi9jl0MRVA7h4jnc/9IKg4AqKBPSJjW7ZMuSkK4+mC3KBdvDzWNfUb3PLEg/OlhmxVSkyNNq6Z5yfDBXYXfG85PvimOfR2Fs8epbZclFXb5OPAjeepJf3nA4w2azs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999876; c=relaxed/simple;
-	bh=3L3Bap18qjSXCX6iBqqNWpCfPu57syouIoubX54xDLw=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=CISkX++ByESOZATJMrzGif1THAPZTvB9auM+pu07s0/fCNSwvcQNyULaqql71eZB6e4rE7G+N8Lt6x4E5eDdjgC7Whf5Y7RdDXplQddmBVwsYFqaQ5oPuKOa2KryglN5vXqAZRKFe66QR2WhraveZaB333yNNVdHqZ5D+WZQnEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uf9ONZLU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789999877; c=relaxed/simple;
+	bh=B4QJF82dna8D9ggBsF8oeK2V+6NAw7hoRbDRKemE+iA=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=sEesdybx2hqPDkt98sm64RgSRbDJPGNSngWsuI5F6es3fdjO/VjSvUOE3FK/mwzQUcjMzsIv+YEbUKEwKd+rHoiqpsbOVXcU13zowBf07juQhziRBcSmLwagqyvZWQwkhf/eo5jFJIEmVYJH86Wc6pQbxl5LTcNYa4XGpKPFDDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oIU7zy4H; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uf9ONZLU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34AFB1F000FF;
-	Mon, 21 Sep 2026 14:11:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789999874;
-	bh=0A7d1TA37X32rbycSEftVefofy1c+Cm7HUxx/sK2yYs=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Uf9ONZLUPefg8+Y+geX7lyIkJT+o6wzkWjWAmyM4x20ij+Az63pl9NFEM+lYeInlS
-	 I9YrcJlx2dA7qhEf1OlV3LyS5CFCHdPeb5DrgXXwWyLLZeCz7VzMuerPcQqOHqUw4p
-	 5MQr+bZfBtr181t+c2m4d5avQ18xuzo+G5dv9OoRxQiP7pdpZgOpuol9MWUl9iCXEj
-	 HK+5aYd6t/PiFM/v/B6RBq6hfJoes39hKCRpH8V5mS1pn4IaD6j9lbx53sqQ8P7uP7
-	 /J9S9ImlfRUWRM98L11sS6c1IieYAzC6Xn4DnjrKDY3o5eek93zXvptKuwM5YBEFZg
-	 sjrQxY+0HLU2A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 199503926659;
-	Mon, 21 Sep 2026 14:10:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oIU7zy4H"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2dd188e16a2so34087685ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:11:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789999875; x=1790604675; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KuS+RsQ1XJKIcaJnDQOiwRD0nOJzYFvdBOhw7tWIQmU=;
+        b=oIU7zy4HyNKp2IBK19clGiJEU40RaDKJFkYvTUvGZgQGFiwGka4PrPEa/xXDsVa6lm
+         rEyS+gouQbdYD5bUJcq/PXi87Uye6Q9SIlHfUBa6ohWCWohewWm5t+NHVqMdgftadjWF
+         tc1w/dyA61JoIViA/phoMkOP3/g08PY7JOtdNSaQTSx7OQfn63H2ePCbre/OOudb1Q7g
+         XfF8yWKQXLkWp+x2bEAM05drdWiglH1RbGBR/j4FaCVxhK/Ovm71b+Hu6ha3qzUDg+xG
+         Zeew33ZPLwR8ErY+MJdqPYixLQvFjoeRlkoXvayMpcjSb1DzVFaJCMY4MH/9jQiVqYQ+
+         zrXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789999875; x=1790604675;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KuS+RsQ1XJKIcaJnDQOiwRD0nOJzYFvdBOhw7tWIQmU=;
+        b=KR3huX31R33SWv64upRjTKxZmyNKNBpqKdNQ1GBLUMdHdrx7LW308TjIbSmvmn6LqA
+         9/ikxfw7hREAZNdTcW1X7EzJU9dhIFUN0k7nO6BoqNU07n0C8VtQHnC40RdvlY5qhEq+
+         VLtI1PmPO2KrVEq8Iy9AQwS5OlCPSlluXRiM81mo9JPYjDVqS2RGj69eRD8wy0PwWoaU
+         cpSNPzGtbsrbxlUHezoLiKbSVqYX2O1siifxJFWKNC+niz1MK/ponUurRe8Yt9fs9mZO
+         7AgRVUBaA73dvkLZRmCRYMQk7gAKSbX3KXke4Q9PwjD1WfX0pZvmXQwhAXTm9kht5NEX
+         P9xw==
+X-Forwarded-Encrypted: i=1; AKwUvBwyd4uawOIZty/cGT9taLxqBTcOsS1aZYVidnue7GYcjnMPhsYNF/DsdZ1FOEchWazfjDqfXeI7e4FujAM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lqpdk1jmsqeISLZJr+lHkGM6zPWgaMGHClfA9CiLhZV3zS93Qu
+	et29dGL47i52Ive0rA/UnKmqItN/gt3Z7L9JQ1INTxmu0XYhIfeY+/1mXghtvlw+Sd8q3auXRMK
+	gNaiZqg==
+X-Received: from plbd17.prod.google.com ([2002:a17:902:f151:b0:2dd:4fe2:d786])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2349:b0:2dd:c100:4b73
+ with SMTP id d9443c01a7336-2ddc1005ee4mr92390435ad.42.1789999874739; Mon, 21
+ Sep 2026 07:11:14 -0700 (PDT)
+Date: Mon, 21 Sep 2026 07:11:14 -0700
+In-Reply-To: <7efe2260-5c11-4e8c-812e-dd1e215ac3e4@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2] Bluetooth: RFCOMM: Reject short EA=0 frames in
- rfcomm_recv_frame()
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <178999980590.3047822.8989068429457180405.git-patchwork-notify@kernel.org>
-Date: Mon, 21 Sep 2026 14:10:05 +0000
-References: <20260919112514.3871857-1-benquike@gmail.com>
-In-Reply-To: <20260919112514.3871857-1-benquike@gmail.com>
-To: Hui Peng <benquike@gmail.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
- linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
+Mime-Version: 1.0
+References: <20260914181223.289061-1-seanjc@google.com> <c645070e-9829-4f98-bafc-b5d44ff2db45@leemhuis.info>
+ <7efe2260-5c11-4e8c-812e-dd1e215ac3e4@redhat.com>
+Message-ID: <arE7AjkOyuadAFBY@google.com>
+Subject: Re: [PATCH 0/5] KVM: Serialize vCPU creation and revert vcpu_ids tracking
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Thorsten Leemhuis <regressions@leemhuis.info>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Jean-Christophe Guillain <jean-christophe@guillain.net>, "=?utf-8?B?UGF3ZcWC?= S" <spawel523@gmail.com>, 
+	Linux kernel regressions list <regressions@lists.linux.dev>
+Content-Type: text/plain; charset="us-ascii"
 
-Hello:
-
-This patch was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
-
-On Sat, 19 Sep 2026 11:25:14 +0000 you wrote:
-> While rfcomm_recv_frame() verifies that skb->len is at least
-> sizeof(*hdr) + 1 (4 bytes: 3-byte header + 1-byte FCS), an RFCOMM frame
-> with an extended 2-byte length field (!__test_ea(hdr->len)) has a 4-byte
-> header plus a 1-byte FCS (5 bytes minimum, sizeof(*hdr) + 2).
+On Mon, Sep 21, 2026, Paolo Bonzini wrote:
+> On 9/21/26 15:57, Thorsten Leemhuis wrote:
+> > On 9/14/26 20:12, Sean Christopherson wrote:
+> > > Serialize vCPU creation by holding kvm->lock for the entirety of
+> > > kvm_vm_ioctl_create_vcpu(), and then revert the now-redundant tracking adding
+> > > by commit 97d65b544f48 ("KVM: Check for duplicate vcpu_id as early as
+> > > possible").  I botched the math when justifying the vcpu_ids tracking; it's not
+> > > an extra 256 bytes, it's an extra 2048 bytes.  Roughly doubling the size of
+> > > "struct kvm" tripped x86's KVM_SANITY_CHECK_VM_STRUCT_SIZE, and obviously isn't
+> > > something we want to do in general.
+> > 
+> > Hi Sean! Thx for handling this and sorry for pestering you, but I have
+> > to ask, as this fixes a regression that was already reported two times
+> > and introduced this cycle:
+> > 
+> > What's the plan to merge this? Is this aimed for the current or the next
+> > merge window? Ciao, Thorsten
 > 
-> When a 4-byte RFCOMM frame with EA == 0 arrives:
-> 1. The initial skb->len < sizeof(*hdr) + 1 check passes (4 < 4 is false).
-> 2. Trimming the FCS byte decrements skb->len to 3.
-> 3. If __check_fcs() succeeds, skb_pull(skb, 4) fails (4 > 3) and returns
->    NULL without advancing skb->data.
-> 4. Because the return value of skb_pull() is ignored, the un-pulled
->    3-byte struct rfcomm_hdr remains at skb->data and is either queued as
->    application payload via rfcomm_recv_data() or parsed as a multiplexer
->    control command via rfcomm_recv_mcc() on DLCI 0.
-> 
-> [...]
+> For this one, but after fixing the PPC and s390 cases.
 
-Here is the summary with links:
-  - [v2] Bluetooth: RFCOMM: Reject short EA=0 frames in rfcomm_recv_frame()
-    https://git.kernel.org/bluetooth/bluetooth-next/c/6d91041bb38b
+Ya.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+> Sean, if you're busy I can send the v2 myself.
 
-
+I'll get it out today.  I was traveling last week and got behind one a "few" things.
