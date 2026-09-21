@@ -1,120 +1,116 @@
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8753837AA95
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:04:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A8644A3E2;
+	Mon, 21 Sep 2026 09:04:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789981452; cv=none; b=f97qX/LO4nUW8shI1OKqZFKsXpppU6iqGfKx3lWNbuPhR9XpVY7evZm/M7Pd1yuRRV1LVWjJG5YwSnDXq42sGWNGGLPOGK+Gn9A3voAbgEexX2vWvczEMmyNJNoKaZlLUsGndbh80DQnVPZjzO1OabUDAugHEGiqD55lB4HycQM=
+	t=1789981451; cv=none; b=UI5qC+dVkl0qfBGX0rS+L86bwdAyRSW0Ggpn6GArmNNshd1K8tgt6IPbKSGm3+G6VQpq6fQtGGiCPyQHct9sCUE09x3NV/SHSNTJSqJqAo20U6qLblvX+0o2X+AdH1ulksZglZNa6oFulPhOVM96zNhyLt22BYYXw0majPC/etI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789981452; c=relaxed/simple;
-	bh=yiGxQ7QIQdwQ3p4Fr0ygdVNI7N08QTdXriOuGM/62Gk=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=b8uHDW6XqLYVBWXntisocfeAmQyN+RfpW+LH8oQ3Z+dzYclhMLxCMA5dK7tD8sdkBdYgmy4XTkjuADd+n96TcIMmj4cKx0mf2dSPSzMXGaupU0KdKsIalgDV4QhAh+ubJGzwWxviqYGjnkhJOe8q8bOo+6FfMVPS2rQeG6H/WyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=cXqqzSbx; arc=none smtp.client-ip=113.46.200.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789981451; c=relaxed/simple;
+	bh=TnVrpLPKqt9pU+4t+BW0ugpWwIb/k00L7KRBWkhe9SQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XnBH6AGKEtPo2mFu7jmkbMDE/l12VR+XCUYTcgeBJin8iXXyeVvlzw7UjTx2gRoeALsZvk3lItSnKMgnOIqFCSczxv13sn3zRjJY0XJoOAvCs/wOxBVgdmp693O2f9DwOE3y42NWNPHrAbpCYer66UDrmY2Fg7pk/muEm3UELjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=NLuEgH86; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="cXqqzSbx"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=RK4VHRefALxjC8rB7K7w3VAwG6W6KlTC58IWMIYwUgI=;
-	b=cXqqzSbxz3lvEuOS9efT6kFVnZWykzECj9tiFIF8xUH5zySw0l0wtrrPJavS5/6c0ugtHU44w
-	TQx608nHzqqoqjifoGQQm3bSkj4dVZdXvljaZRoir8tVoNs8JWQj9Dkf8ZWXUzNH3gtlFlTVTbj
-	f2PJ9QOpTcwTuI1J8MwWSoI=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hpH7N3HYzzmVY2;
-	Mon, 21 Sep 2026 16:53:04 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 5E4524055B;
-	Mon, 21 Sep 2026 17:04:06 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 21 Sep
- 2026 17:04:04 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
-	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
-	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
-	<dakr@kernel.org>, <akpm@linux-foundation.org>, <baoquan.he@linux.dev>,
-	<rppt@kernel.org>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>,
-	<ruirui.yang@linux.dev>, <leitao@debian.org>, <yeoreum.yun@arm.com>,
-	<sourabhjain@linux.ibm.com>, <robh@kernel.org>, <coxu@redhat.com>,
-	<kees@kernel.org>, <tangyouling@kylinos.cn>, <liukexin@kylinos.cn>,
-	<zhangtianyang@loongson.cn>, <guodongtai@kylinos.cn>,
-	<maqianga@uniontech.com>, <chao.gao@intel.com>, <kai.huang@intel.com>,
-	<vishal.l.verma@intel.com>, <seanjc@google.com>, <piliu@redhat.com>,
-	<thuth@redhat.com>, <jbouron@amazon.com>, <me@linux.beauty>,
-	<mclapinski@google.com>, <graf@amazon.com>, <bgwin@google.com>,
-	<hbathini@linux.ibm.com>, <eric.devolder@oracle.com>,
-	<takahiro.akashi@linaro.org>, <james.morse@arm.com>, <palmer@rivosinc.com>,
-	<x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
-	<linuxppc-dev@lists.ozlabs.org>, <driver-core@lists.linux.dev>,
-	<kexec@lists.infradead.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v6 05/14] arm64: kexec_file: Fix elf_headers memory leak in retry loop
-Date: Mon, 21 Sep 2026 17:04:41 +0800
-Message-ID: <20260921090450.807575-6-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260921090450.807575-1-ruanjinjie@huawei.com>
-References: <20260921090450.807575-1-ruanjinjie@huawei.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="NLuEgH86"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8F66214C7;
+	Mon, 21 Sep 2026 11:02:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789981342;
+	bh=TnVrpLPKqt9pU+4t+BW0ugpWwIb/k00L7KRBWkhe9SQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NLuEgH86QNW/YYSHTldL0A/V8mbI4VDnLxr99ZbHYy+WKna4ItlVN0rkrKIl+r6NZ
+	 AbzDmkQT006MthEPQO8llN4EnPy604Ddhzx9840jmt0kZCOx1u0ACBz0I26NUN1aYP
+	 XOzFHnP8a0qyyEx0CQqzA31q910w/bw/etxvBKk4=
+Date: Mon, 21 Sep 2026 12:04:06 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Jonathan Cameron <jic23@kernel.org>, Luca Weiss <luca@lucaweiss.eu>,
+	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] leds: flash: sgm3140: fix child node reference leak
+Message-ID: <20260921090406.GC1466037@killaraus.ideasonboard.com>
+References: <20260914135723.1741327-1-lgs201920130244@gmail.com>
+ <20260914141722.GD2522202@killaraus.ideasonboard.com>
+ <CANUHTR9Zy1XK9=2vUu22Udcvnr9rywWGvgx0j0rdxkOtWhjDgA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CANUHTR9Zy1XK9=2vUu22Udcvnr9rywWGvgx0j0rdxkOtWhjDgA@mail.gmail.com>
 
-If load_other_segments() fails after image->elf_headers is assigned,
-the memory lifecycle is safely managed by the global kimage object
-and will be freed in arch_kimage_file_post_load_cleanup().
+On Mon, Sep 21, 2026 at 04:57:30PM +0800, Guangshuo Li wrote:
+> On Mon, 14 Sept 2026 at 22:17, Laurent Pinchart wrote:
+> > On Mon, Sep 14, 2026 at 09:57:23PM +0800, Guangshuo Li wrote:
+> > > sgm3140_probe() obtains a reference to the LED child node with
+> > > device_get_next_child_node(). The probe error path correctly drops this
+> > > reference with fwnode_handle_put(), but the successful probe path
+> > > returns without releasing it.
+> > >
+> > > v4l2_flash_init() takes its own reference to the supplied fwnode and
+> > > v4l2_flash_release() drops that reference during device removal.
+> >
+> > How about devm_led_classdev_flash_register_ext() ?
+> >
+> > > Therefore, the reference acquired by sgm3140_probe() is only needed
+> > > during probe and can be released once initialization has completed.
+> > >
+> > > Drop the child node reference before returning successfully from probe.
+> > >
+> > > This issue was found by manual code inspection.
+> >
+> > I wonder what prompted you to manual inspect that code.
+> >
+> > > Fixes: cef8ec8cbd21 ("leds: add sgm3140 driver")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > > ---
+> > >  drivers/leds/flash/leds-sgm3140.c | 4 +++-
+> > >  1 file changed, 3 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/drivers/leds/flash/leds-sgm3140.c b/drivers/leds/flash/leds-sgm3140.c
+> > > index dc6840357370..51e31fdb78e5 100644
+> > > --- a/drivers/leds/flash/leds-sgm3140.c
+> > > +++ b/drivers/leds/flash/leds-sgm3140.c
+> > > @@ -273,7 +273,9 @@ static int sgm3140_probe(struct platform_device *pdev)
+> > >               goto err;
+> > >       }
+> > >
+> > > -     return ret;
+> > > +     fwnode_handle_put(child_node);
+> > > +
+> > > +     return 0;
+> > >
+> > >  err:
+> > >       fwnode_handle_put(child_node);
+> 
+> The issue I was trying to fix is that the reference obtained by
+> device_get_next_child_node() is not released on the successful probe
+> path.
+> 
+> I missed that devm_led_classdev_flash_register_ext() stores the fwnode
+> in the LED class device without taking a reference of its own. Therefore,
+> dropping the reference at the end of probe, as in this patch, would be
+> too early.
+> 
+> I think the reference should instead be kept until the LED class device
+> is unregistered. I'll rework the fix to manage it with a devm action
+> registered before the LED class device registration and send a v2.
 
-However, during a retry loop in image_load(), a subsequent iteration
-will allocate a new buffer and overwrite image->elf_headers. This
-permanently leaks the stale memory from the previous iteration before
-the global cleanup can track it.
+Handling this in individual drivers with a devm action seems wrong.
+Please understand what you're doing and fix things correctly.
 
-Fix this by explicitly freeing the stale `image->elf_headers` buffer
-before assigning the newly allocated headers.
-
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Thomas Huth <thuth@redhat.com>
-Cc: Breno Leitao <leitao@debian.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Baoquan He <bhe@redhat.com>
-Cc: stable@vger.kernel.org
-Fixes: 108aa503657e ("arm64: kexec_file: try more regions if loading segments fails")
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
- arch/arm64/kernel/machine_kexec_file.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
-index e48f29167b38..2f750e5f4fcc 100644
---- a/arch/arm64/kernel/machine_kexec_file.c
-+++ b/arch/arm64/kernel/machine_kexec_file.c
-@@ -112,6 +112,10 @@ int load_other_segments(struct kimage *image,
- 			vfree(headers);
- 			goto out_err;
- 		}
-+
-+		if (unlikely(image->elf_headers))
-+			vfree(image->elf_headers);
-+
- 		image->elf_headers = headers;
- 		image->elf_load_addr = kbuf.mem;
- 		image->elf_headers_sz = headers_sz;
 -- 
-2.34.1
+Regards,
 
+Laurent Pinchart
