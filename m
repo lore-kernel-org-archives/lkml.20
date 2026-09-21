@@ -1,96 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A112D44C50E;
-	Mon, 21 Sep 2026 23:51:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657E547F79F
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:51:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790034675; cv=none; b=YH8Ty7rjh9HSZ+e56V2YvdLM1XqWIj9+UhWYQKK9hr7MiJNqqSEdOIe9EWlsU5HABBWJVuIeO5Zdc/Iasu+zmpqh/xI6OgZ6u47vOkD6LmoYu/nPxjxvpa9+Lyc0IM8WfUkCvshBVB6wucDNgQiBAdi4iiOe8xOj8kvZGuCLkaM=
+	t=1790034693; cv=none; b=IcGNjwjyz5Rlz6Bs33Ajh4bvM/EgfzKTZvF9DmiGivddOc8Px4O6bIMk1EVEpkdNq81TSAjXHx/+BcZnnhzvLGyD9dtHzNdF5SDV8EXS8R/GD1EpNEdtZJa48pKp+ps8+V0Uz0Lj/6EfoFIAP9pbUnoF2ky4gYRYCPQHKMb/jeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790034675; c=relaxed/simple;
-	bh=Ex5UyPRzbikK8x7tFipfIIcbeGDq/vbtYdr+K8Q//Y0=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=OW1Rrpysdb1b3VOd+dVvJMZY66YK9T3btZnVwMN0omjoMUIyTzycNqE8P9pBtn4ngOIFOuYQgSAfB2CFwm6WJMa03IE+PSwFdX/lphgDPSsDPFGWN2OguYyFq8bxF785IFyWUsqbOo3VqLfsAp96rp6g8r60oVq0Y9p+cmHP1Cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eEsWHO9k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790034693; c=relaxed/simple;
+	bh=QyoiVlZcrQw2NA0GB/xs5L1XT1cKTuYk0POnS93O920=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=BGJipNDAjqKzoi6KVVhihzgYw+aD/bCbUoE46iw5VjNZnSibfi1ldZAgCnQP2nmtyNbPonGOb8lVHUVcvtpIKGH5LijYs7Pc/Wi4iopY0+SBFsJB3DHPm5CphzCDrmoWv3+XfXrU17rASg42xPmSrRvtkY4tWY4PObvp2PxjFxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=V1WJhWBc; arc=none smtp.client-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eEsWHO9k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 364041F000FF;
-	Mon, 21 Sep 2026 23:51:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790034674;
-	bh=Wsl2VBLn5W3uQDDUrMxhsFq33OiDZ19fnk+ImeG7+5Y=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=eEsWHO9k6PxJvK2a5CBNV2UUKr5v33evDRRlFJne3hOSVsPZ+2PwVEjfzyQEAwApT
-	 sdvuR4oTPCXSxVFeeh7pa0iCNfn+PrqUaSw4NsiMA/O41VtShIVrry1CB5Ebj1pj41
-	 PA3TSo/lhgeP3RWv9HORFN56ooe9RIKrEmagaB6oAlC5NqvgS7avNwqer8jT7g6ue8
-	 b0K5xf+TYKsUDY5vfZQ6LtnBgdNTuKqsmxP9XxMzCczf1buLzULuXOVPMLt5/PErH9
-	 OqZU5QOl0X0EH5TJymJmg8Uh14nHRlw8TYsgFxSJC2vNG3W05or69RIdlRqlJEC8i6
-	 P46AzXxmIY2/w==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0F1C3930202;
-	Mon, 21 Sep 2026 23:50:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="V1WJhWBc"
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-877ef1457aeso2745432b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:51:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790034691; x=1790639491; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IVY/bA9ZpCCgCbVJoTStyY4rkPplmsI1qX0ZCCDfam4=;
+        b=V1WJhWBcrJc2Z3a5cvBZge242LzpabegtGA7XqxNQOcIJWYkvKWoH0GJih683m9ykQ
+         hVy97XxlE/Sb5OeB6nKZRlKwwriZEOYhnusM0La4YiT9F3Rucj7x1cFU16FQMlRocs6G
+         VTPwFVTNH4cTJyA2g67d8m3wYqcZe/YHWhZfm4hTjRsJi2T3ml6fmLhGx0OL+r8NjRvH
+         DAyHebkbQz5M3jOQ8Gj4nJK5aSrZCSJKo48EwsQueN8bQ7QyktXx5gBgXuj1y/PkCJjz
+         P0Fm+Kb/RXuj82UrzOVAzV33Ji6i1mKNlNpX47Awc5NdjH75SE8d0DSb4GanT7Zy+85H
+         7lcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790034691; x=1790639491;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IVY/bA9ZpCCgCbVJoTStyY4rkPplmsI1qX0ZCCDfam4=;
+        b=JsmfvlgwYPxnFx9/XDTbAiXfnVk7LDeOIpPNcJBXrktFdFqQYoXmBZLExkXUgwJHSF
+         S2fTyaeDNZHiAaTc6OO8S5Y+KpXyExF4igxmL8zKjlyng8OeZw+mabPgVZGnl2wh2a2x
+         9Vnz2azCA5gJwrWb9067Q+337TkPlooPUzgS7b/5yqUdcNh2viTTjS2Y80UqtHwaBwf3
+         dz3An4ZcihGu4mMWBw17mauAEA+ng0qX8LQQ3tLhQVm1xxSen/Q2CTa/C8ENHp8TX0sJ
+         FgD1LCPL6YwAUrsIrI4FWqXadyP+lwZKv6AVFtnMDG1oFQCaN+8vFf/Bs9QjwNf0dn28
+         yLaA==
+X-Forwarded-Encrypted: i=1; AKwUvBzd+iHJ6kamBWm3/zh+qQP4VhkYOxch/BJlMyji4+rHEcwk9QGoLEYVSsls5jUmDzIus+g4HsQVmHnCpcQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mi7WBj83KyyDlKWzRcckmrY/ySL3yzJVwcc9L9vtzl88iKBgRk
+	LwRIbggePdeSYXDj+VV1Ec6Ac7lctGqigZELr6zHoCQiAFgaMKJWx/qI34l78JizY2tJ+DxJK6W
+	WtlOoiA==
+X-Received: from pfj9.prod.google.com ([2002:a05:6a00:a409:b0:87a:ae70:87c9])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:94fc:b0:871:b921:6f44
+ with SMTP id d2e1a72fcca58-874dbcec5e1mr15279859b3a.12.1790034691298; Mon, 21
+ Sep 2026 16:51:31 -0700 (PDT)
+Date: Mon, 21 Sep 2026 16:51:29 -0700
+In-Reply-To: <6d9113d7-cfae-480b-908a-5cb52020a6c8@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v3 0/3] net: devmem: remove gen_pool from dma-buf
- allocations
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179003460565.3294616.1011395712325066826.git-patchwork-notify@kernel.org>
-Date: Mon, 21 Sep 2026 23:50:05 +0000
-References: <20260917181116.3319017-1-sdf@fomichev.me>
-In-Reply-To: <20260917181116.3319017-1-sdf@fomichev.me>
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, sdf@fomichev.me,
- bobbyeshleman@meta.com, almasrymina@google.com, linux-kernel@vger.kernel.org
+Mime-Version: 1.0
+References: <20260819094903.3060020-1-xiaoyao.li@intel.com> <6d9113d7-cfae-480b-908a-5cb52020a6c8@intel.com>
+Message-ID: <arHDAVhFXeQXXrfI@google.com>
+Subject: Re: [PATCH v4 0/9] KVM: TDX: Enable VM-DoS Prevention Features for TDX
+From: Sean Christopherson <seanjc@google.com>
+To: Xiaoyao Li <xiaoyao.li@intel.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, 
+	nik.borisov@suse.com
+Content-Type: text/plain; charset="us-ascii"
 
-Hello:
-
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Thu, 17 Sep 2026 11:11:13 -0700 you wrote:
-> Replace devmem's gen_pool based fixed-size allocator with a binding-level
-> freelist similar to the one used by io_uring zero-copy receive.
+On Mon, Sep 21, 2026, Xiaoyao Li wrote:
+> On 8/19/2026 5:48 PM, Xiaoyao Li wrote:
+> > Hi all,
+> > 
+> > This is v4 of the series to enable the Notify VM Exit and Bus Lock VM
+> > exit for TDX, which fixes the KVM CAP issue related with them and allow
+> > userspace to actually enable the features.
+> > 
+> > Compared to v3, this v4 adds 5 more patches.  The first 8 patches target
+> > for stable kernels while only the patch 9 doesn't have to.  Patch 1 is a
+> > single patch to enable Notify VM exit for TDX.  Except patch 6, patch
+> > 2-7 are mandatory for enabling Bus Lock VM exit for TDX in patch 8.
+> > 
+> > Patch 6 itself is a fix for VMX and is OK for cc stable though maybe not
+> > necessary.  Patch 6 is added to this series since it can help stop Sashiko
+> > repeating its finding of VMX's pre-existing issue, and it's also necessary
+> > for patch 9 to consilidate the exit handler for VMX and TDX.
+> > 
+> > There are other issues of existing code found during previous review, like
+> > the EPT MISCONFIG handling.  Given they are not mandatory for enabling the
+> > Notify VM exit and Bus Lock VM exit for TDX, the plan is to address them in
+> > a follow-up series separately.
+> > 
+> > Please refer to v1 for a full background.
+> > 
+> > v3: https://lore.kernel.org/all/20260812080229.2481439-1-xiaoyao.li@intel.com/
+> > v2: https://lore.kernel.org/all/20260810112200.2326727-1-xiaoyao.li@intel.com/
+> > v1: https://lore.kernel.org/all/20260805031257.1844914-1-xiaoyao.li@intel.com/
 > 
-> This is motivated by allocation latency observed in the NAPI receive path:
+> Hi Sean,
 > 
->   [ 1036.228913]  ? gen_pool_create+0x90/0x90
->   [ 1036.228915]  net_devmem_alloc_dmabuf+0x1f/0x60
->   [ 1036.228918]  mp_dmabuf_devmem_alloc_netmems+0x17/0x80
->   [ 1036.228920]  mlx5e_post_rx_mpwqes+0xdbe/0xdd0
->   [ 1036.228926]  mlx5e_napi_poll+0x113/0x830
->   [ 1036.228928]  ? sched_clock+0x5/0x10
->   [ 1036.228931]  ? wake_up_process+0x778/0x14b0
->   [ 1036.228933]  net_rx_action+0x15d/0x570
->   [ 1036.228934]  ? update_rq_clock+0x31/0x240
->   [ 1036.228937]  ? __napi_schedule+0x55/0xa0
->   [ 1036.228938]  ? mlx5_eq_comp_int+0x137/0x230
->   [ 1036.228940]  ? atomic_notifier_call_chain+0x36/0x90
->   [ 1036.228943]  ? sched_clock+0x5/0x10
->   [ 1036.228944]  ? sched_clock_cpu+0xc/0x170
->   [ 1036.228947]  irq_exit_rcu+0x12b/0x370
->   [ 1036.228950]  common_interrupt+0x85/0x90
-> 
-> [...]
+> What's your plan on this series? Can you queue it if it looks good to you? Or
+> need me to spin a new version to address Binbin and Rick's comments on the
+> commit message?
 
-Here is the summary with links:
-  - [net-next,v3,1/3] net: devmem: replace gen_pool with freelist
-    https://git.kernel.org/netdev/net-next/c/083e64a3af77
-  - [net-next,v3,2/3] net: devmem: embed net_iov_area in binding
-    https://git.kernel.org/netdev/net-next/c/13648ba78722
-  - [net-next,v3,3/3] net: devmem: batch net_iov allocations into the page_pool cache
-    https://git.kernel.org/netdev/net-next/c/050bacb138f1
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Get it applied, with some tweaks.  I.e. no v5 necessary.
