@@ -1,63 +1,65 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911023C3C07
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:08:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB4F342A176
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:08:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790032140; cv=none; b=IVOjJmpRM/e47tp/37yFSDfup8PHUUs8EqdqdzV104c1mOuH3BJDvu087u9e0u2wRKHJRx2rueqMZKJqEGBIdJvzfhza5s05s8zWVOWLOCf0VYVCreKQ0j6S6g3ySqbklyBYsG7bs0lsLc4CarcefcI/ImU/jtC7nFv1+0XTyL8=
+	t=1790032140; cv=none; b=UI/ApVlaUqptpr05QIWc1LLkmrOqQAxxRhIWAbasfc+QOQMBnw1ZvqAGfb9AeACPtOqDw/lmzZyuz6nr/fn11aqpDLtzLcWZvs180tvhotEvjQSvXvwGkiQ4IjnwiYHwCDVE4ouQ7rsXAXIvBKYEkp3FzcywAQx9PFthYuis/s0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790032140; c=relaxed/simple;
-	bh=FjE6m4Wu22yRUqg3eOb2AwP40X2TKH7xNOyBefmJeU8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ywu82veucdHmpNfz9V/v74PQ2eB1p2EyK9tO0FK6IbUf52Q9GbjAmvw4aIJ0ILR8sqTu0yAS8RZ4vMeeKnxZmjAXpKUsLma3fp2NC3CVe0cXOpeKKWkeeLLzjEamnkoLQDULd5cdKXJwg0G4f9vjCieZZkRFpMZe2OQIl2hSuoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E4E1Ym6e; arc=none smtp.client-ip=74.125.230.204
+	bh=kAvYqeh9lhIbm8YtKATUVDPt4SSV0dL/01lCzjcwo3Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rUGevKPkAV4VSUwUkZDmXNyEqWQWTlYjjJDZ8Cv+zUXizXhhE3BIf96kYAmiqu8U515eg3KrjlsGqrI4GgZLPq+/ObtZrFr4FoQBtxtHHHS4OfG1VkX+2BPQ6czgWbHY6gQP+EuffKf/MGRZ7uzeLL2ePkyfbOF3eSCR2dp+l9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QyZUYmCF; arc=none smtp.client-ip=74.125.230.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E4E1Ym6e"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cc46c4so339612585a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:08:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QyZUYmCF"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910ca5aa7so318936385a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:08:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790032135; x=1790636935; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V+7FtZo0KfJZuE7MAZ0TFcA4sMr0zM/AKrTXBM06+cw=;
-        b=E4E1Ym6emMwVocXYNi+rPgWOOJKOZ4J06QPIFyy4mPzFOhLXcdda85G8rlxZQxQTtv
-         wIY+2w2zm+vfv/7DdXkF3MAh0Iybkc7bEEv8gj19wEHBD19srwDS+ueb4dbxcWZcdhvz
-         eq5DwOrvSLQ8x3s6S/7aOZp0o7BNjLSgb2U4IHTwcsWQRyySoazNHDynQILNlVLIJ/dV
-         f+vI9J9PctGd0hv7pNUuOV5C4ulykOknlLzx3heTi8knqcfEu+z18aqdibrLY//bEblO
-         0O7jsirA2TiQEYy1e28J81p1BaOD3swJZD1PCcy21xYWgtomwimoRzsnBfXo/mXJpHbk
-         ZOGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790032135; x=1790636935;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790032138; x=1790636938; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=V+7FtZo0KfJZuE7MAZ0TFcA4sMr0zM/AKrTXBM06+cw=;
-        b=L3JL2CTf4jdD3kaQfqK7vSxNPJR83iUeGPEEZpHyOZYobF/cO1cAs66SkB0rxDfoDK
-         iQdhjhsr/rBopyU65kwr8ay9waSKqzNmcKwolVAKWuAg8GsM1Kr34o3HfEc/Vy/80fh7
-         170PPqK5qLBMLGCScV/IJKTCQNL2s0fwva8WyM4gp54Rg8ojsyF8T9+P7j0XAW0GMU/a
-         jeHdXKOiqiqP0PIv+BKpXHtt0LxS6AYXW6OaTLfmxzIYlpktPl0CaTfAGbKdpgjQypRH
-         3xA69xsb9/chl687h+cvIlCwQeCAgouzKxTeSQ/xFmerlWVjDsLcizRg8OX7qn2jTCcy
-         BUTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzuV8DmzS+YBtsqZV9N72dNxFAiNoKEt5e1Ts9havLf1xaKc4qNICCZxcQAYeCSJeaysweVij+0AfjZSkI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nRdGNLCpiHRPE/vClZk4kY1VpvPMn2xaSAjzSHR2RcRFgmwNg6
-	GAGAZTSIXuNIYOeSaPW6fzRJh7+DRFCvszkRHGiOZtMhOTbsexKrldk=
-X-Gm-Gg: AYBFou3iRI/cbDwXqcs3yxeNlXYMlt9t4ZQP5xj9ziA/YUU3BKwcq3zeAJK6U7Md8lg
-	HUywLxe8gNRlSw1erMGgTgjFEiIR0jcuoPkJr30yZdGX6bk74PsLY884eEXxTW7t8sTqAiQgrUj
-	MN3M7XFBvwMXehEdhkeZyCzxxv8LCIty5T9hQKI0oJtjJ2e+zFcx1Ngyqe30I+d8I9SFF4HFnBF
-	5ml9XEl5RLXAgzaDqOLBnccrkmCjsAZUGCgLcHL3DjArOqH7NkWkWKh7VXIU084TDACo98+5df6
-	s2zvReTwJOpBkMxJt9eyixODi8Z/3iS+Ra2R5X7ABSP6Mz0RsRRQMCyP5NzDDwDtkBxfLwrMosK
-	kRQjy1D/eE0YSD45HCiiukgDkF4jsbv8IfQJPSKboF1r1YB/dBGROeo/89q+NgE19ArbkKnt1sr
-	jRtC84rIIZ9osAF4dwmvuniGe4bKWgHl2/wrtRkAwWdZhacnRqD2Rk0mHup135ufFcMsL5DrsMT
-	MPhSTwZUDT2kC9jrndJaopIVbGM6BMrBhJuzVgLHHrYE26NtZLPD7jeYiOJMB9XMvWWWVwIDcCS
-	BeRG3tfr34fVdYRAl+XbN4sV8qgF
-X-Received: by 2002:a05:620a:4008:b0:939:6dbd:de57 with SMTP id af79cd13be357-93c198e81d8mr92373885a.32.1790032135435;
-        Mon, 21 Sep 2026 16:08:55 -0700 (PDT)
+        bh=81aKjimYrYOGXnfGd1vfh7o17MNAV+GZaQTkl+KjGW8=;
+        b=QyZUYmCFqcGdPDyj4LBCoxHGM3l8H92abHSqBj5QZZpXopqZSyK2Q5bFOaguO9b/IO
+         amUpJJWphzwIfhp3awJ0SEoCjqA2VbDlYzYpgOKHbPlesrGdT0qY/Jz84vj6s17+ua89
+         1pvcqTcZo8KcPzZlN9W8Lll3MUCQd9md+Clz6fqwOISzSx+mRNW0oXxexnynFvql6sC2
+         qzFI9M5TvlTf/k5I7pxJDKtj8xhEGw2i9ZuWQ0J2ou2tF06iXVDSsYTYvc+n+ZXCt/+F
+         qVmrGJY8P+2Mk/JUgyJ7MOSeF0tn7BiBDUJCXiMgq2YE1awp3nDuFx5EDA2643Rb1U9w
+         lR8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790032138; x=1790636938;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=81aKjimYrYOGXnfGd1vfh7o17MNAV+GZaQTkl+KjGW8=;
+        b=YQ6FcA7ncyEjYxVaNCv+GkD/wOGL4k/opUwGOghKEfAv/OzAVsvn3LMhAAHTnfrRMC
+         mj89i+6OOzVXnZJfeWlPu+SQ8G5ZticB+5ilmxbQ6Cf5yuPpzImKZw8DbHxudT258r3h
+         vqX2z7ve1p78NNSlnqDebaSMTARtZqg7k9oV52+eLkxD/AMvIxhK1CHm1aKCyzzZGxX8
+         bFWfnDgf+lGXiwQKtFRk6lfTIc1+e0GnrfOFkuOGHhRU0Fg5f3ZW1xloEs2oaRI6MZ5J
+         gy4/RIS+QgFZ/oDLpG9FLqO7r75UOLjXh4XRs9P6w+5TWirlVcwuwcjKmHjhyJiJKiTc
+         TVdw==
+X-Forwarded-Encrypted: i=1; AKwUvBzcLUGPADieJ732QP/gT+qV4SXNmpGO+ZJpHKR0iLjeHpcYkylhuttO4Xa5OnRUD+ant2Lblo1mP/G9wnM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmEB7+YwqqEnpiVIxwXuXKolrrVznmEQD/w0ojfgohCGZPn/kW
+	sq/2JZw81kH9pCkjAt3sXFN5x9jFLflOJ53Hd56db9LlUTlrKogL/6Y=
+X-Gm-Gg: AYBFou1kHqZTjC8GSHJwSkmM2LBVhnl8zN0YNR8QjFErYuuUOBDQUrjvHQSJ6f3I6ui
+	eBwZ3tULCcOD+dDifpTgSxwGKpNvf0U+QX//SFOlh2SixT4VxRfjbM/gq0YLaWxnknOiVigrivi
+	oxRMC4xmm1AwATXYmvyKYOO3gbp6TvVVj7kMJ7AYbXTwoaRvcsg9/shbn5zk47VShPcIeynjWx4
+	+BFXIX+oAXdjMZLnEKMR9p4nT4tCX0RbiI6vCrwQLkk6StP/+3t4VjXwnFpuNMCJilEpdKhdvyq
+	Dly3t9LLD45XdbYfNA7rEv/4biW024yBKYagEyvN18C2EMJdpUQIKWpYfspZSJokBIw4zkl3IgP
+	nQZwzLf7nl9fKrYjZ+uoEByoprR9/tNJquuoSOTZsTWo2vJg7lolCNwAmuUx5x/zPUnXSW/Sfx6
+	rcYHRvoypYE5hFTQYmqRoGEwoZGoed+2OYw0xlUB21y/SBk4rHF9qe07KWG6gCf5NXuOCJq2BIa
+	JakUwYEnsxa/vRvfGkmGuVf6jIejRCv7v9j0TGakEGu7mDSprci/ucj6IY9+Gh/2d2NZQaYKlOq
+	n1VXX1QuqKxMfIcodUQ15rCVxTRZ
+X-Received: by 2002:a05:620a:6f0c:b0:939:feaa:949c with SMTP id af79cd13be357-93c15eed484mr268135185a.36.1790032137800;
+        Mon, 21 Sep 2026 16:08:57 -0700 (PDT)
 Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c19a7f592sm39933985a.17.2026.09.21.16.08.54
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c19a7f592sm39933985a.17.2026.09.21.16.08.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 16:08:54 -0700 (PDT)
+        Mon, 21 Sep 2026 16:08:57 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Thierry Reding <thierry.reding@kernel.org>,
@@ -67,10 +69,12 @@ Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 0/2] usb: gadget: tegra-xudc: Fix removal-time work races
-Date: Mon, 21 Sep 2026 19:08:46 -0400
-Message-ID: <20260921230849.502492-1-mhun512@gmail.com>
+Subject: [PATCH v2 2/2] usb: gadget: tegra-xudc: Disable reset delayed works
+Date: Mon, 21 Sep 2026 19:08:48 -0400
+Message-ID: <20260921230849.502492-3-mhun512@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260921230849.502492-1-mhun512@gmail.com>
+References: <20260921230849.502492-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,31 +83,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Two producers outlive tegra_xudc_remove(), from different commits.
-Only the delayed-work fix needs an API added in v6.10.
+The devm port-status IRQ stays registered through remove() and can
+queue port_reset_war_work and plc_reset_work after
+cancel_delayed_work_sync() returns.  remove() never stops the first.
 
-The devm port-status IRQ queues port_reset_war_work and plc_reset_work.
-disable_delayed_work_sync() rejects a later queue.
+disable_delayed_work_sync() drains both and rejects a later queue.
+usb_role_sw_work stays on cancel_work_sync().  The PHY notifier is its
+producer and is unregistered before this cancel.
 
-The PHY notifier queues usb_role_sw_work and is not devres-managed.
-Unregister it, then keep cancel_work_sync().  That applies below v6.10.
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
+Fixes: 49db427232fe ("usb: gadget: Add UDC driver for tegra XUSB device mode controller")
+Cc: stable@vger.kernel.org # 6.10+
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
 Changes in v2:
-- Split the Fixes tags.  Only patch 2/2 is marked # 6.10+.
-- Keep each Fixes tag on one line. (Thierry Reding)
+- Keep the Fixes tag on one line. (Thierry Reding)
 - Disable plc_reset_work too.  The port-status IRQ can requeue it.
   (Thierry Reding)
-- Unregister the VBUS notifier before draining usb_role_sw_work.
 
-Myeonghun Pak (2):
-  usb: gadget: tegra-xudc: Unregister VBUS notifier
-  usb: gadget: tegra-xudc: Disable reset delayed works
+ drivers/usb/gadget/udc/tegra-xudc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
- drivers/usb/gadget/udc/tegra-xudc.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-
-base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
+diff --git a/drivers/usb/gadget/udc/tegra-xudc.c b/drivers/usb/gadget/udc/tegra-xudc.c
+index a0585a1f19f0..dd0a033b4a7f 100644
+--- a/drivers/usb/gadget/udc/tegra-xudc.c
++++ b/drivers/usb/gadget/udc/tegra-xudc.c
+@@ -3932,7 +3932,8 @@ static void tegra_xudc_remove(struct platform_device *pdev)
+ 						&xudc->vbus_nb);
+ 	}
+ 
+-	cancel_delayed_work_sync(&xudc->plc_reset_work);
++	disable_delayed_work_sync(&xudc->port_reset_war_work);
++	disable_delayed_work_sync(&xudc->plc_reset_work);
+ 	cancel_work_sync(&xudc->usb_role_sw_work);
+ 
+ 	usb_del_gadget_udc(&xudc->gadget);
 -- 
 2.53.0
 
