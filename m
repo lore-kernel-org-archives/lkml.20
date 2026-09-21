@@ -1,62 +1,63 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A91D47D465;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0FD469859;
 	Mon, 21 Sep 2026 09:29:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982945; cv=none; b=ZkHVSXJz2PevPO+CX7lZiRbLmy5l9gCKge7LpupjRbjOIRjeVe09ifbezhIN0AFsAwLLgMxLlfcIn3tW9DmeQspO7MDS112j1e5lzXoecwGu3bq9DMGeMU9lDFIxmPi1e/k+CtYx+c/jqoER1m+1G4K83V6OH1sMLy/cgXBIm5Q=
+	t=1789982945; cv=none; b=jieGHbNryKZZTO2AQY3A+iLpgsmCd7w9HWvDZP2Jt5QaMCiZ8RY51b7diQwwyBzGzBQTwcLazvBHpwfw+wBcTRkG0kMdwDzqeVlp7NJ7ikGqX2jzyWr//VWIoM9HXN+djGs4gNxip2B7rF42bWg+4CsHB0nlNpB7h1b/IZhPwBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789982945; c=relaxed/simple;
-	bh=R5WRGvysW5vk3fK0sVav36+0ecU3kdgEeUHocOU4P1E=;
+	bh=8Com1Y1RD9VfPyf8gAx7fUukaoUxHY9NeKu9opIWjYM=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=oET20CK0/z85jqItT5GeTG11UQ665pwl+qxTh+9sRRBBqggLjpxkNio7GsUYDGPobrYxsHb1Kuf00PjlB/rjUP0Ums4brUoftiT0+2Rkih/7ty88gRp8a/+OUw76+tQWI8gfcwcLnJQ0Tpik47aCO4M0M0opiJMt5Xtmh4ZncvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=HcBpm5i4; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=1y+b3XGH; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=Fov6JZZNPHaRbb7qM4afxMkxc9F7lpK14uYoUuixhHf20nlbNwvZ+2ZEdkQdaPP8wj99v1PHNuzLJy7+hS+sQoQi/dLJY0iUPIQz2tAQqd7XMhkfCVNIVYJWFtJcteDIFIhk7FGcA3P8SO7MQM2y9/6DeEg0k7y9o6dgOb9xkJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=CSzWiV+c; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=LIQx9VLK; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="HcBpm5i4";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="1y+b3XGH"
-Date: Mon, 21 Sep 2026 09:28:50 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="CSzWiV+c";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="LIQx9VLK"
+Date: Mon, 21 Sep 2026 09:28:51 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789982931;
+	s=2020; t=1789982933;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=x+RTmrY9WT3Fu5WFqzPd2a6ODWgh0A7Zdvi68KlS8Tk=;
-	b=HcBpm5i4r/eY19orhgB6m5iw+ISKxYi8hvhdTf64qWDKwu/Yi7iFpPrpWDhnigVzQX4F5h
-	lp27fGBJ4MMTC+COdyBv58sWHQ1A6r8+aC4xbBlBG19ktRUsa1gw7Bzfnk/J/603BU2Mbl
-	scMkwvheI147ID3PTwX6b0bBBOSO2tAz9jD0PvbsmMglFAsXT3yMdjXKeb0YsgKtLwx5Fz
-	dy+C0DZz0lS+im9vxl1yL36WOnrrh4GbPOW8FNQUOX80JKRc1kf7GatRSvaFLaTxJTriTU
-	ySGnYYhryN20ewnMBl+MrkV7FvYknaxgys+fl5mVrsUSDqh2xWOOBkK0fNt8hQ==
+	bh=4ZLZzf0XWnCLWbw80HNSFVAokHmULMNc0vaILtbdFvc=;
+	b=CSzWiV+cgINGbvlgeZpX1qiUJm1A4QOsVE9CXo5cy4Ec5lvrNHQazY2wHTMA0Es/k+CZ+d
+	H0fJGxzi46Uzn0YtJof9NiP4wusbVnMmPvZJjzajxWyWAtpVYnyX2PldW6v1Pxzei4xC4P
+	s8fhzp3GEh9dBH2X78ejc/7xmIzzKpZl5S0+eb7KvV9U3peJXTNYM8CVr7WUtqARNARolj
+	7DyAVppFWeoP7b2xcSs8KISAs3FA+ADUixEZ05DvWY9YYCphKgvSGMg54PMm5YCYj1m7rq
+	4pXcrORsGuCs42URtdjhjvaRZm99Te421h3peKf5GxCo1iWYDrp8UL9lMq3p9w==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789982931;
+	s=2020e; t=1789982933;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=x+RTmrY9WT3Fu5WFqzPd2a6ODWgh0A7Zdvi68KlS8Tk=;
-	b=1y+b3XGHS6WmEmKwZbMoGXaGZ872/8FnnIEWyZhpZKKXXfm7Vs+sP714VNEnDzvydwbB/0
-	0uwbSg1XN8T8N5Ag==
+	bh=4ZLZzf0XWnCLWbw80HNSFVAokHmULMNc0vaILtbdFvc=;
+	b=LIQx9VLKPGLf1EUvoijsvpbSAv+woKDEQ5cSdCfVEKuLvOsr22sc4WMz6i6v0bTJO2IUE/
+	aipgVqejXryzUQAA==
 From: "tip-bot2 for Song Liu" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: objtool/core] objtool/klp: Group the klp tests by architecture
+Subject: [tip: objtool/core] objtool/klp: Check the klp test environment once,
+ before any test
 Cc: Song Liu <song@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
  Ingo Molnar <mingo@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260916184351.2720310-4-song@kernel.org>
-References: <20260916184351.2720310-4-song@kernel.org>
+In-Reply-To: <20260916184351.2720310-3-song@kernel.org>
+References: <20260916184351.2720310-3-song@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178998293027.2819794.8942527865755591922.tip-bot2@tip-bot2>
+Message-ID: <178998293177.2819794.11430436709958672929.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -66,267 +67,247 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the objtool/core branch of tip:
 
-Commit-ID:     d76312b8a1f69be71ec38d04d69fbcdd0520ff89
-Gitweb:        https://git.kernel.org/tip/d76312b8a1f69be71ec38d04d69fbcdd052=
-0ff89
+Commit-ID:     c009fabc865200029173eb40db62f407225043d4
+Gitweb:        https://git.kernel.org/tip/c009fabc865200029173eb40db62f407225=
+043d4
 Author:        Song Liu <song@kernel.org>
-AuthorDate:    Wed, 16 Sep 2026 11:42:56 -07:00
+AuthorDate:    Wed, 16 Sep 2026 11:42:55 -07:00
 Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Mon, 21 Sep 2026 10:54:41 +02:00
+CommitterDate: Mon, 21 Sep 2026 10:54:35 +02:00
 
-objtool/klp: Group the klp tests by architecture
+objtool/klp: Check the klp test environment once, before any test
 
-Which architecture a test is for is expressed by where it lives: tests are
-in generic/ or in a directory named for their architecture, each carrying
-its own fixtures, and the runner executes generic/ plus the one that
-matches.  A test which cannot apply here is then not run at all, rather
-than running in order to announce that it did not.
+Every test checked for itself that objtool exists, was built with klp
+support, and that $CC runs.  Three problems with that: it is the same work
+done 40 times, a missing objtool reads as a per-test skip rather than as a
+suite which cannot run, and a run in which everything skipped still exits
+0.
 
-Layout does this better than a declaration would.  There is no x86_only(),
-and no lookup letting a fixtures/<arch>/ file shadow a generic one of the
-same name -- an arch-specific test simply carries its own fixtures.
+Do it once, before any test, in klp_preflight() in lib.sh, and export the
+answers where the tests can read them.  If the suite cannot run the whole
+run fails and says why; a test which gets as far as running can assume its
+environment.
 
-Compilers cannot work the same way: CI varies CC over the same tree, so a
-compiler requirement stays a declaration in the test.
+Nothing is written down, so nothing can go stale.  Sourcing lib.sh runs the
+checks, which means a test run by hand establishes its own answers rather
+than inheriting those of some earlier run with a different CC, and a test
+is never handed an empty value for where objtool is or which architecture
+it is on: either the exports are set or the run has already failed.
 
-What a run leaves out is reported once:
-
-  # not run: 5 tests in x86/ (this run is arm64)
-
-Silence would have been cheaper and wrong.  A run covering less than the
-tree holds must not look like a run that covered all of it.
+preflight answers only whether the suite can run at all -- not what the
+compiler is capable of.  A test needing a particular compiler feature
+probes for it and skips; that costs one compile and keeps the reason next
+to the test that has to justify it.
 
 Signed-off-by: Song Liu <song@kernel.org>
 Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
 Assisted-by: Claude:claude-opus-5
-Link: https://patch.msgid.link/20260916184351.2720310-4-song@kernel.org
+Link: https://patch.msgid.link/20260916184351.2720310-3-song@kernel.org
 ---
- tools/objtool/tests/fixtures/basic.c         | 20 +-----------
- tools/objtool/tests/generic/fixtures/basic.c | 20 +++++++++++-
- tools/objtool/tests/generic/test-basic.sh    | 17 +++++++++-
- tools/objtool/tests/lib.sh                   | 27 ++++++++++++--
- tools/objtool/tests/run-tests.sh             | 36 ++++++++++++++++---
- tools/objtool/tests/test-basic.sh            | 17 +---------
- 6 files changed, 92 insertions(+), 45 deletions(-)
- delete mode 100644 tools/objtool/tests/fixtures/basic.c
- create mode 100644 tools/objtool/tests/generic/fixtures/basic.c
- create mode 100755 tools/objtool/tests/generic/test-basic.sh
- delete mode 100755 tools/objtool/tests/test-basic.sh
+ tools/objtool/Makefile           |   3 +-
+ tools/objtool/tests/lib.sh       | 124 ++++++++++++++++++++++++------
+ tools/objtool/tests/run-tests.sh |   7 ++-
+ 3 files changed, 112 insertions(+), 22 deletions(-)
 
-diff --git a/tools/objtool/tests/fixtures/basic.c b/tools/objtool/tests/fixtu=
-res/basic.c
-deleted file mode 100644
-index 811529e..0000000
---- a/tools/objtool/tests/fixtures/basic.c
-+++ /dev/null
-@@ -1,20 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--/* One changed function and one unchanged function. */
--
--/* klp diff takes the object's module name from .modinfo */
--static const char __modinfo[]
--	__attribute__((section(".modinfo"), used, aligned(1))) =3D "\0name=3Dvmlinu=
-x";
--
--int untouched(int x)
--{
--	return x * 3;
--}
--
--int changed(int x)
--{
--#ifdef PATCHED
--	return x + 2;
--#else
--	return x + 1;
--#endif
--}
-diff --git a/tools/objtool/tests/generic/fixtures/basic.c b/tools/objtool/tes=
-ts/generic/fixtures/basic.c
-new file mode 100644
-index 0000000..811529e
---- /dev/null
-+++ b/tools/objtool/tests/generic/fixtures/basic.c
-@@ -0,0 +1,20 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* One changed function and one unchanged function. */
-+
-+/* klp diff takes the object's module name from .modinfo */
-+static const char __modinfo[]
-+	__attribute__((section(".modinfo"), used, aligned(1))) =3D "\0name=3Dvmlinu=
-x";
-+
-+int untouched(int x)
-+{
-+	return x * 3;
-+}
-+
-+int changed(int x)
-+{
-+#ifdef PATCHED
-+	return x + 2;
-+#else
-+	return x + 1;
-+#endif
-+}
-diff --git a/tools/objtool/tests/generic/test-basic.sh b/tools/objtool/tests/=
-generic/test-basic.sh
-new file mode 100755
-index 0000000..562edfb
---- /dev/null
-+++ b/tools/objtool/tests/generic/test-basic.sh
-@@ -0,0 +1,17 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Only functions whose code changed get cloned into the patch.
-+
-+. "$(dirname "$0")/../lib.sh"
-+
-+setup
-+build_pair basic.c
-+run_diff
-+
-+assert_patched     changed
-+assert_not_patched untouched
-+assert_section     ".init.klp_funcs"
-+assert_section     ".init.klp_objects"
-+
-+pass "changed function cloned, unchanged function left alone"
+diff --git a/tools/objtool/Makefile b/tools/objtool/Makefile
+index 0f34abb..e9a4cc8 100644
+--- a/tools/objtool/Makefile
++++ b/tools/objtool/Makefile
+@@ -154,7 +154,8 @@ mrproper: clean
+ 	$(call QUIET_CLEAN, objtool) $(RM) $(OBJTOOL)
+=20
+ tests: $(OBJTOOL)
+-	$(Q)OBJTOOL=3D$(abspath $(OBJTOOL)) $(srctree)/tools/objtool/tests/run-test=
+s.sh
++	$(Q)OBJTOOL=3D$(abspath $(OBJTOOL)) ARCH=3D$(ARCH) CROSS_COMPILE=3D$(CROSS_=
+COMPILE) \
++		$(srctree)/tools/objtool/tests/run-tests.sh
+=20
+ FORCE:
+=20
 diff --git a/tools/objtool/tests/lib.sh b/tools/objtool/tests/lib.sh
-index 46bdb98..fdea9b7 100644
+index 7b29db7..46bdb98 100644
 --- a/tools/objtool/tests/lib.sh
 +++ b/tools/objtool/tests/lib.sh
-@@ -9,7 +9,10 @@
- # of regressions.
-=20
+@@ -11,8 +11,104 @@
  TESTS_DIR=3D"$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
--FIXTURES_DIR=3D"$TESTS_DIR/fixtures"
-+
-+# Tests live in generic/ or in an architecture directory beside it, and each
-+# carries its own fixtures.
-+FIXTURES_DIR=3D"$(cd "$(dirname "$0")/fixtures" 2>/dev/null && pwd)"
+ FIXTURES_DIR=3D"$TESTS_DIR/fixtures"
 =20
- # The kernel's convention: CROSS_COMPILE is the one knob, with per-tool
- # overrides for what it does not cover.  objtool itself is always a host bin=
++# The kernel's convention: CROSS_COMPILE is the one knob, with per-tool
++# overrides for what it does not cover.  objtool itself is always a host bin=
 ary
-@@ -36,7 +39,7 @@ OBJTOOL=3D"${OBJTOOL:-$TESTS_DIR/../objtool}"
- #
- klp_preflight()
++# -- it is built with HOSTCC and only reads ELF -- so an arm64 machine can r=
+un
++# the x86 tests against x86 objects given a compiler that emits them.
++#
++# readelf reads any target, so it rarely needs overriding, and either GNU
++# readelf or llvm-readelf will do: the assertions match on fields rather than
++# on columns, and where the two spell something differently -- "OS [0xff20]"
++# against "OS[0xff20]" for SHN_LIVEPATCH -- they accept both.  BFD's objcopy=
+ is
++# usually built for the host's target alone, and llvm-objcopy is the
++# target-agnostic replacement.
++CROSS_COMPILE=3D"${CROSS_COMPILE:-}"
++CC=3D"${CC:-${CROSS_COMPILE}gcc}"
++LD=3D"${LD:-${CROSS_COMPILE}ld}"
++READELF=3D"${READELF:-${CROSS_COMPILE}readelf}"
++OBJCOPY=3D"${OBJCOPY:-${CROSS_COMPILE}objcopy}"
++
+ OBJTOOL=3D"${OBJTOOL:-$TESTS_DIR/../objtool}"
+-CC=3D"${CC:-gcc}"
++
++# klp_preflight
++#
++# Check the environment once, before any test runs, and report what was foun=
+d.
++#
++klp_preflight()
++{
++	local tmp tool cc_version host cc_arch
++
++	bail() { echo "Bail out! $*" >&2; exit 1; }
++
++	# A relative $OBJTOOL is relative to the objtool directory, not tests/.
++	[ -x "$OBJTOOL" ] || [ ! -x "$TESTS_DIR/../$OBJTOOL" ] ||
++		OBJTOOL=3D"$TESTS_DIR/../$OBJTOOL"
++
++	[ -x "$OBJTOOL" ] ||
++		bail "objtool not found at '$OBJTOOL' -- build it first"
++
++	# run_diff() runs objtool from inside the test's working directory, so
++	# a relative path would resolve against that instead.
++	OBJTOOL=3D"$(realpath "$OBJTOOL")"
++
++	"$OBJTOOL" klp 2>&1 | grep -q checksum ||
++		bail "objtool was built without klp support; install libxxhash (>=3D 0.8) =
+and rebuild"
++
++	command -v "${CC%% *}" >/dev/null || bail "compiler not found: $CC"
++
++	for tool in "$READELF" "$OBJCOPY" "$LD"; do
++		command -v "${tool%% *}" >/dev/null || bail "$tool not found"
++	done
++
++	tmp=3D"$(mktemp -d)" || bail "mktemp failed"
++	echo 'int probe(void) { return 0; }' > "$tmp/probe.c"
++	$CC -c -o "$tmp/probe.o" "$tmp/probe.c" 2>/dev/null ||
++		{ rm -rf "$tmp"; bail "$CC cannot compile a trivial object"; }
++
++	# $CC, $ARCH and objtool have to agree about the target, and cross runs
++	# are where they stop agreeing: plain "CC=3Dclang ARCH=3Dx86_64" on an arm64
++	# box selects the x86 tests and then builds arm64 objects, because clang
++	# needs --target=3D to emit anything but the host's.
++	#
++	# Ask objtool rather than comparing machine names.  It rejects an object
++	# it was not built for -- "unexpected ELF machine type" -- so one check
++	# covers every way the three can disagree, and says so once instead of
++	# failing every test for the same reason.
++	"$OBJTOOL" klp checksum "$tmp/probe.o" >/dev/null 2>&1 ||
++		{ rm -rf "$tmp"
++		  bail "objtool rejects an object built by '$CC'; they target" \
++		       "different architectures (set CROSS_COMPILE, or" \
++		       "--target=3D for clang)"; }
++
++	# BFD objcopy is usually built for the host's target alone, and
++	# checksum_of() needs it to read the object under test.
++	$OBJCOPY -O binary --only-section=3D.text "$tmp/probe.o" "$tmp/probe.bin" 2=
+>/dev/null ||
++		{ rm -rf "$tmp"
++		  bail "$OBJCOPY cannot read objects built by '$CC'; install" \
++		       "binutils-multiarch or set OBJCOPY=3Dllvm-objcopy"; }
++	# $ARCH only chooses which directory of tests runs, so it can disagree
++	# with what $CC builds without objtool noticing -- and the result is the
++	# wrong set of tests, quietly.
++	case "$($READELF -hW "$tmp/probe.o" | sed -n 's/.*Machine: *//p')" in
++	*X86-64*|*Intel*80386*)	cc_arch=3Dx86 ;;
++	*AArch64*)		cc_arch=3Darm64 ;;
++	*)			cc_arch=3D ;;
++	esac
++	rm -rf "$tmp"
++
++	KLP_TEST_PREFLIGHT=3Ddone
++	export OBJTOOL CC KLP_TEST_PREFLIGHT
++
++	cc_version=3D"$($CC --version 2>/dev/null | head -1)"
++	cat <<EOF
++# preflight
++#   objtool   $OBJTOOL (klp: yes)
++#   compiler  $cc_version
++#   arch      $KLP_TEST_ARCH$([ "$arch" =3D "$host" ] || echo "  (host $host=
+, cross)")
++EOF
++}
++
++[ -n "${KLP_TEST_PREFLIGHT:-}" ] || klp_preflight
+=20
+ # klp-build compiles the kernel this way; klp diff needs per-symbol sections=
+ to
+ # extract individual functions.
+@@ -30,23 +126,9 @@ cleanup() { [ -n "$workdir" ] && rm -rf "$workdir"; }
+ # setup [exported symbol...]
+ setup()
  {
--	local tmp tool cc_version host cc_arch
-+	local tmp tool cc_version arch host cc_arch
+-	# A relative $OBJTOOL is relative to the objtool directory, not to the
+-	# tests which run from tests/.
+-	[ -x "$OBJTOOL" ] || [ ! -x "$TESTS_DIR/../$OBJTOOL" ] ||
+-		OBJTOOL=3D"$TESTS_DIR/../$OBJTOOL"
+-
+-	# Not finding objtool is a broken invocation, not an environment which
+-	# cannot run the test.  Skipping here would read as a pass.
+-	[ -x "$OBJTOOL" ] || fail "objtool not found at '$OBJTOOL', build it first"
+-
+-	# run_diff() runs objtool from inside the test's working directory, so
+-	# a relative path would resolve against that instead.
+-	OBJTOOL=3D"$(realpath "$OBJTOOL")"
+-
+-	"$OBJTOOL" klp 2>&1 | grep -q checksum ||
+-		skip "objtool built without klp support (needs libxxhash)"
+-	command -v "${CC%% *}" >/dev/null || skip "no compiler ($CC)"
+-
++	# The environment was checked once when this file was sourced, so there
++	# is nothing to verify here: objtool exists at the resolved path, has
++	# klp support, and $CC works.
+ 	workdir=3D"$(mktemp -d)" || fail "mktemp failed"
+ 	trap cleanup EXIT
 =20
- 	bail() { echo "Bail out! $*" >&2; exit 1; }
+@@ -155,9 +237,9 @@ find_thinlto_toolchain()
+ 	return 1
+ }
 =20
-@@ -96,8 +99,26 @@ klp_preflight()
- 	esac
- 	rm -rf "$tmp"
+-out_sections() { readelf -S -W "$workdir/out.o" 2>/dev/null; }
+-out_relocs()   { readelf -r -W "$workdir/out.o" 2>/dev/null; }
+-out_symbols()  { readelf -s -W "$workdir/out.o" 2>/dev/null; }
++out_sections() { $READELF -S -W "$workdir/out.o" 2>/dev/null; }
++out_relocs()   { $READELF -r -W "$workdir/out.o" 2>/dev/null; }
++out_symbols()  { $READELF -s -W "$workdir/out.o" 2>/dev/null; }
+ diff_log()     { cat "$workdir/diff.log"; }
 =20
-+	# Normalize to the kernel's SRCARCH.
-+	case "${ARCH:-$(uname -m)}" in
-+	x86_64|i?86)	arch=3Dx86 ;;
-+	aarch64*)	arch=3Darm64 ;;
-+	*)		arch=3D"${ARCH:-$(uname -m)}" ;;
-+	esac
-+
-+	case "$(uname -m)" in
-+	x86_64|i?86)	host=3Dx86 ;;
-+	aarch64*)	host=3Darm64 ;;
-+	*)		host=3D"$(uname -m)" ;;
-+	esac
-+
-+	[ -z "$cc_arch" ] || [ "$cc_arch" =3D "$arch" ] ||
-+		bail "ARCH says $arch but '$CC' builds $cc_arch objects;" \
-+		     "the $arch tests would run against the wrong architecture"
-+
-+	KLP_TEST_ARCH=3D"$arch"
- 	KLP_TEST_PREFLIGHT=3Ddone
--	export OBJTOOL CC KLP_TEST_PREFLIGHT
-+	export OBJTOOL CC KLP_TEST_ARCH KLP_TEST_PREFLIGHT
-=20
- 	cc_version=3D"$($CC --version 2>/dev/null | head -1)"
- 	cat <<EOF
+ assert_section()
 diff --git a/tools/objtool/tests/run-tests.sh b/tools/objtool/tests/run-tests=
 .sh
-index f6a3e1b..48728a9 100755
+index ab1dea5..f6a3e1b 100755
 --- a/tools/objtool/tests/run-tests.sh
 +++ b/tools/objtool/tests/run-tests.sh
-@@ -3,6 +3,11 @@
+@@ -2,6 +2,9 @@
+ # SPDX-License-Identifier: GPL-2.0
  #
  # Run the objtool klp tests.  Each test-*.sh prints one TAP result line.
- #
-+# Tests live in generic/ and in a directory per architecture.  A run executes
-+# generic/ plus the one matching this architecture, so a test which cannot
-+# apply here is not run rather than reporting a skip; what was left out is
-+# reported once, as a comment, so differing coverage is still visible.
 +#
- # The harness checks the environment once up front and fails the run if the
- # suite cannot execute, rather than letting every test skip and exit 0.
++# The harness checks the environment once up front and fails the run if the
++# suite cannot execute, rather than letting every test skip and exit 0.
 =20
-@@ -10,13 +15,34 @@ set -u
+ set -u
 =20
- cd "$(dirname "$0")" || exit 1
-=20
--tests=3D( test-*.sh )
--[ "${tests[0]}" =3D "test-*.sh" ] && { echo "1..0 # SKIP no tests found"; ex=
+@@ -10,6 +13,10 @@ cd "$(dirname "$0")" || exit 1
+ tests=3D( test-*.sh )
+ [ "${tests[0]}" =3D "test-*.sh" ] && { echo "1..0 # SKIP no tests found"; ex=
 it 0; }
--
--# Sourcing the harness runs its preflight, and exports what it found so the
--# tests inherit it rather than working it out again.
-+# Sourcing the harness runs its preflight, which decides which architecture
-+# this run is for -- so the test list cannot be built before it has, and the
-+# tests inherit the answers rather than working them out again.
- . ./lib.sh
 =20
-+dirs=3D( generic )
-+[ -d "$KLP_TEST_ARCH" ] && dirs+=3D( "$KLP_TEST_ARCH" )
-+
-+tests=3D()
-+for d in "${dirs[@]}"; do
-+	for t in "$d"/test-*.sh; do
-+		[ -f "$t" ] && tests+=3D( "$t" )
-+	done
-+done
-+[ "${#tests[@]}" -gt 0 ] || { echo "1..0 # SKIP no tests found"; exit 0; }
-+
-+# Tests for another architecture are absent from this run entirely.  Say how
-+# many, so a run which covers less than the tree holds does not look like one
-+# that covers all of it.
-+for d in */; do
-+	d=3D"${d%/}"
-+	case "$d" in generic|"$KLP_TEST_ARCH") continue ;; esac
-+	n=3D$(ls "$d"/test-*.sh 2>/dev/null | wc -l)
-+	[ "$n" -gt 0 ] || continue
-+	echo "# not run: $n test$( [ "$n" =3D 1 ] || echo s ) in $d/" \
-+	     "(this run is $KLP_TEST_ARCH)"
-+done
++# Sourcing the harness runs its preflight, and exports what it found so the
++# tests inherit it rather than working it out again.
++. ./lib.sh
 +
  echo "1..${#tests[@]}"
 =20
  rc=3D0
-diff --git a/tools/objtool/tests/test-basic.sh b/tools/objtool/tests/test-bas=
-ic.sh
-deleted file mode 100755
-index 6b76996..0000000
---- a/tools/objtool/tests/test-basic.sh
-+++ /dev/null
-@@ -1,17 +0,0 @@
--#!/bin/bash
--# SPDX-License-Identifier: GPL-2.0
--#
--# Only functions whose code changed get cloned into the patch.
--
--. "$(dirname "$0")/lib.sh"
--
--setup
--build_pair basic.c
--run_diff
--
--assert_patched     changed
--assert_not_patched untouched
--assert_section     ".init.klp_funcs"
--assert_section     ".init.klp_objects"
--
--pass "changed function cloned, unchanged function left alone"
