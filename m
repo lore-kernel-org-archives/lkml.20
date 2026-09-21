@@ -1,121 +1,118 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF94635F163;
-	Mon, 21 Sep 2026 08:48:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 398C845198F
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:49:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789980521; cv=none; b=txmhq+i2PnRF7KaCtVNucWRh2pK0xWSV6Ij8reaomwEv7oK7s23vDn/ukI/J+IvwnDF/4hakvvTnqcnier8+oly6d+EH1MlCuocQjVq+zs8a1rAjfZSlDwB0s3Y4b1cKJi2clqRZsBB0Mwn9ledIfvMU3nfPGg7BAPK3i1LMNU4=
+	t=1789980542; cv=none; b=Dvglmk6W/vkpifUzy5ZmqyFNSgoqdMaV0FJNVnr9/EH2jwCaNNi1EGce/U8ZZhKBLpddpF4Kpdbq8aXFTAQ6h29v3Aug2Y5chjen82BLWlSfM86gDP4eKOnBSf/fAR3/ihThtK/4kZVSAwtAc81YKnf65bPhPYA36unPsYfqeXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789980521; c=relaxed/simple;
-	bh=yPW2dZAxEbH0+g92u4hCAhJCZWv/yfUo0ZYM9OdlpBM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rdqAgi662+8ufaPJAOCqMks8hx2ubxFHSO98EDXWDgJAaf54iOSMlZOkHvtcB8/8H0AkciSXWmdwf2isGKC84pbJqk/eqV8/AkGKLttXRqfGKNZl5h8qKufFKN0MzlpdnuJ93QcNt1Cz3o0uPVILJnBvwKAPEwU52+CyvY5Qo9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
-	by APP-03 (Coremail) with SMTP id rQCowADX2zlW77BqMptFCA--.6452S2;
-	Mon, 21 Sep 2026 16:48:22 +0800 (CST)
-Message-ID: <0da2ef7f08b23e916869d5c08267b3802d5a631d.camel@iscas.ac.cn>
-Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane
- disable clearing FB_EN
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 21 Sep 2026 16:48:22 +0800
-In-Reply-To: <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
-References: <20260918030125.315978-1-a0987203069@gmail.com>
-	 <20260918030125.315978-8-a0987203069@gmail.com>
-	 <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
-	 <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
-	 <cb30f57c0ac124aac85efad32626e6182b9f1369.camel@iscas.ac.cn>
-	 <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1789980542; c=relaxed/simple;
+	bh=DQCj1J/jIfg1YUowIN1zzXqx0CAqdoWCcdmZ/Ngkohg=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=D9WgkzKd7BrvDd7f8S8lY5R8tAaeS/ES1Qrw9KPMj9HbAnvj10iX061bTDkL7V9rM4ymhGjSzHwczMFiaXtj75IN5P1nIQIdGm449hp79f2uT9ierMrpmAELWcbYlH5Qa/1EvxnsJMvgvDteOlELAUNavIF2xQTX04+I6jM/ucc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-47d81384b4bso3355570fac.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:49:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789980540; x=1790585340;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=WEbY8rfUhT7rVMuOYhpNAIH57OV6/qM6hSQAdOqPqpI=;
+        b=uSfvMxH0uKzYITVxTVwqUCgI6nMMhiNNw99RCQUSXn7Izr5Xwn1kwqSljTU9ibOUyE
+         KC7w5XRgZPBH+15c/gWWVuobAG424ftTBZOrSgTfwbdHD8tVacZst+3rOiatdpK3p4W9
+         9AqPgElBgtjanzAPcYrglOZAPbk53vSubbf2T09G5td8gx0mxSw94x7huGrLO4IvisHM
+         biFWZAer2QijgQCL9Mh4IHsGlNTQn4ysOJkcQPM8zsgrkHieh1MR2bTkvrN2yWncpOVR
+         U+yjpkbjjh1w7QIBqV0f0X5qelu0RBtt2N5IOIZ8hlvxqE/+ZFZ/5qIYi9BKObRVokGA
+         IZ2w==
+X-Gm-Message-State: AFuF++ksIDOARdk8xYdDH5kUQS/AIdBClxgbWRhGM6/C8Llmizf3WCoD
+	ZJuZMx2f4SsguatTI0Ox2eklnmgzkf4VyAdgs0XmrHH4sO9SFrcUIhrUb66fF1lAfHdmR3DQbdV
+	Io8LHnGDjtDoiPcZl+zBETdlcNMX8LQDNwSV9z1ORorNlAPdc9axJveccAkc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowADX2zlW77BqMptFCA--.6452S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KFyfCFW8JFyDXFWkKw4fAFb_yoW8Cw15pa
-	9rKas0kr4kXr1Ik397Cw48tayFgrWrJ3y7JryrGr1vk398tr1xJFyrKayfuFW8Grs3Gw1a
-	qF4qyr98CFWDCw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
-	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
-	67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
-	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
-	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
-	UI43ZEXa7IU56yI5UUUUU==
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+X-Received: by 2002:a4a:ee19:0:b0:6cd:3fdb:fa5c with SMTP id
+ 006d021491bc7-6cd3fdbfd51mr6027159eaf.71.1789980539301; Mon, 21 Sep 2026
+ 01:48:59 -0700 (PDT)
+Date: Mon, 21 Sep 2026 01:48:59 -0700
+In-Reply-To: <6a81dc49.dbb3a75c.20434b.0037.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab0ef7b.71f81b7d.15fa6d.0026.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [usb?] general protection fault in adsl_state_store
+From: syzbot <syzbot+9b195c4f412ea5c4e56a@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-=E5=9C=A8 2026-09-21=E4=B8=80=E7=9A=84 15:49 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
->=20
-> Icenowy Zheng =E6=96=BC 2026/9/21 =E4=B8=8B=E5=8D=88 03:30 =E5=AF=AB=E9=
-=81=93:
-> > Maybe it's better to just make it the 2nd patch in this patchset,
-> > just
-> > after the binding change.
-> >=20
-> > Waiting for something into drm-misc-fixes again will need another
-> > fixes
-> > pull and another RC back merge, which can consume weeks and miss
-> > the
-> > current merging window.
-> >=20
-> > In addition, it's possible that `drm/verisilicon: introduce per-
-> > variant
-> > hardware ops table` also gets backported for a more clean primary
-> > plane
-> > atomic_update disabling fix.
-> Understood. I'll fold the FB_EN fix in as patch 2, right after the
-> dt-bindings patch, targeting the current vs_primary_plane.c directly,
-> so the ops-table patch just carries the already-corrected code
-> forward
-> into vs_dc8200.c. Agreed that's faster than round-tripping.
->=20
-> On primary_plane_disable_ex - I'll keep the "_ex" suffix. DC8200
-> still
-> has a real per-variant operation there (clearing FB_EN + commit),
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Well I propose to remove _ex because there's no real non-per-variant
-operation.
+***
 
-Thanks,
-Icenowy
+Subject: Re: [syzbot] [usb?] general protection fault in adsl_state_store
+Author: jie.wang@intel.com
 
-> while
-> DC8000 leaves it NULL and does nothing, so the suffix still reflects
-> an actual per-variant difference, not just structure introduced by
-> the
-> refactor.
->=20
-> While testing the cursor plane, I found the same class of bug there:
-> the disable register write was being triggered from the plane's
-> atomic_update() invisible-branch using the old plane state to look up
-> the CRTC/output, which can be stale or NULL on a plane's very first
-> commit if it's already invisible then. I've fixed it locally by
-> having
-> atomic_update() derive the CRTC/output from the state it already
-> holds
-> before checking visibility, instead of falling through to the
-> old-state-based disable path. Just flagging it here for now -
-> vs_cursor_plane.c isn't touched by any of my patches.
->=20
-> Thanks.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
+diff --git a/drivers/usb/atm/cxacru.c b/drivers/usb/atm/cxacru.c
+index 636f7886fc260..501a51b27e466 100644
+--- a/drivers/usb/atm/cxacru.c
++++ b/drivers/usb/atm/cxacru.c
+@@ -356,7 +356,7 @@ static ssize_t adsl_state_store(struct device *dev,
+ 	if (!strcmp(str_cmd, "stop") || !strcmp(str_cmd, "restart")) {
+ 		ret = cxacru_cm(instance, CM_REQUEST_CHIP_ADSL_LINE_STOP, NULL, 0, NULL, 0);
+ 		if (ret < 0) {
+-			atm_err(instance->usbatm, "change adsl state:"
++			usb_err(instance->usbatm, "change adsl state:"
+ 				" CHIP_ADSL_LINE_STOP returned %d\n", ret);
+ 
+ 			ret = -EIO;
+@@ -376,7 +376,7 @@ static ssize_t adsl_state_store(struct device *dev,
+ 	if (!strcmp(str_cmd, "start") || !strcmp(str_cmd, "restart")) {
+ 		ret = cxacru_cm(instance, CM_REQUEST_CHIP_ADSL_LINE_START, NULL, 0, NULL, 0);
+ 		if (ret < 0) {
+-			atm_err(instance->usbatm, "change adsl state:"
++			usb_err(instance->usbatm, "change adsl state:"
+ 				" CHIP_ADSL_LINE_START returned %d\n", ret);
+ 
+ 			ret = -EIO;
+@@ -396,6 +396,15 @@ static ssize_t adsl_state_store(struct device *dev,
+ 		poll = -1;
+ 	}
+ 
++	/* cxacru_poll_status() below dereferences atm_dev, which may not be
++	 * set up yet; reject before poll_state is advanced so that
++	 * cxacru_atm_start() can still start polling once it is.
++	 */
++	if (poll == CXPOLL_POLLING && !instance->usbatm->atm_dev) {
++		ret = -ENODEV;
++		poll = -1;
++	}
++
+ 	if (poll == CXPOLL_POLLING) {
+ 		mutex_lock(&instance->poll_state_serialize);
+ 		switch (instance->poll_state) {
+@@ -481,7 +490,7 @@ static ssize_t adsl_config_store(struct device *dev,
+ 			ret = cxacru_cm(instance, CM_REQUEST_CARD_DATA_SET,
+ 				(u8 *) data, 4 + num * 8, NULL, 0);
+ 			if (ret < 0) {
+-				atm_err(instance->usbatm,
++				usb_err(instance->usbatm,
+ 					"set card data returned %d\n", ret);
+ 				return -EIO;
+ 			}
+@@ -490,7 +499,7 @@ static ssize_t adsl_config_store(struct device *dev,
+ 				snprintf(log + tmp*12, 13, " %02x=%08x",
+ 					le32_to_cpu(data[tmp * 2 + 1]),
+ 					le32_to_cpu(data[tmp * 2 + 2]));
+-			atm_info(instance->usbatm, "config%s\n", log);
++			usb_info(instance->usbatm, "config%s\n", log);
+ 			num = 0;
+ 		}
+ 	}
