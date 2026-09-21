@@ -1,341 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE9163BBFAE
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:05:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F2A4A093D
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:05:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999517; cv=none; b=q5VNlLWaLvdyCE5WGyUDYXeh5t2bB9D1qiNACXVZzSE3efqXh7+NBIwFsswPLY9OYBZ7i8/gjEQaxaoNz7k5j9rZjOoBilMeZokGjJBFwCej2Hd2S0lnJUDF9MiAUUIYkZSxlbpxKxSAlQkkYMehBJ+gCinDKfiA+vmqX85vG/s=
+	t=1789999542; cv=none; b=fta3nrLFBkgQUr7Qx8cN+T84KAoW3VEyb7dt2LUHEt231ekNPHC2y0q5WAWmG6mctLKOTy9tbdn1eSdw4ByxSZWQ9UFuWAbWUI5+BP5xoaa4T2KUw2qB5B/nW9sb21vvYxEPHGyKb0edygQk94GY8eFKD7mzZHJBGAJDmMlDTHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999517; c=relaxed/simple;
-	bh=1Ie1SevSPCIGABLDqoWONujVRMa2QMitJGtvOSpVubE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=K1UH5UKTb5IGb0fcTffotd/tkypQ6SD6PuBBbKwVzC8wJ74poWVzBo8Z1A7KzCeKNtMHaLHyH/LLlPEVjlwaSygFsIkZ4vOUaGoD0revrTpgtXLPHuZRmAWTTWfT7VbCZ/rvtzzZgWdDOMjAhW5Eba711iRBWMA/XgCSz/0hLew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MTmX4kHm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789999542; c=relaxed/simple;
+	bh=ehiR32Gn7n/lXSBdkqVIOBvCJF2Aoz0ld9K8B3T6mdk=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=DhTD0VQzCjTqgySV236WPnhQ+tGKrmgXIKtTEyYehZYYashzfEK8xJdipgQi4ssvn5O21pi+WuyUwPSPXFWrfE4werozhz6Ip5Dson8yvmgwNEMoCh21iDxfdwM06kIAWyOByz8Q1XeYSemmIetOKGDACreP2CktnrHTzaA9crM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=W2ihu4ju; arc=none smtp.client-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MTmX4kHm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 658F71F00899
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:05:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789999515;
-	bh=QcxF0h96u3hg6AJaxWXr6Mk2WdgGgTpL71bsABI7cBg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=MTmX4kHmBGqbFVLWjaohhhyCNelBN6Xy5Puyz2vEo8ndhnmH7DTfLYgz6AMBiVY5r
-	 2JoziZ8ILzNxCX0yclhvYT66jvBFLKw9C6ie9x/JZsPq4NNe1BXzZPJBdLGpVWuiDO
-	 9YRvW7B8xtWDFkuD4kaXPXR3F6XWYydGlBdT/hXOWrw6YD7Ua1dIRq9ahRPWJij74C
-	 NnbI66nUjCoqCVknBt85UBnkBN+SqokHYB6or32ZjScgfDuFd6u1QwIiQR+ThSm8S0
-	 6bdPtKM5hOawwLuElMvS5pC6Q9AwPOhid+yiVtvS8fA4lHb2qOiaPlGCBja4faEwym
-	 K1N0GhaM8cmPg==
-Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-785686d2764so518719137.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:05:15 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxI4DTEuz05hi265zrPHiU+6pb2+8lWS9KgZfB3JjnMV0lF/J4VyW0HiMnybVfgkkoW9hn5FmgDDhDJhlo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m9iTFwdtQ8d4Gxgkzgu8dRy1U4ZQCtX0LD0brZNTQmd+Zi6zzv
-	++HQ2cS4gi3Hrawvw1bHm9diyJsc1kMGRKCYygEYFZohArSu5P6yUCQasW/hCaeP/SKG5I7Fal7
-	Flh8YNwjNw/xG8y9rCwKk5+Di/hN+Ft0=
-X-Received: by 2002:a05:6102:6b01:b0:7a7:36ed:4b43 with SMTP id
- ada2fe7eead31-7a736ed4c13mr1983871137.25.1789999514551; Mon, 21 Sep 2026
- 07:05:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="W2ihu4ju"
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8627258ef12so6728186b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:05:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789999540; x=1790604340; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y1UYnXCxuzBYy7emDqeed9xrR2iKFbDHhQtYLJlfFEE=;
+        b=W2ihu4ju9WBD6VyEQRWsSCSn5mYyronVRuDqiE6pJ4FQ6KHQk52E8vGyh1q451PK8C
+         22e/GazJkrcX7G6fS0nibfBMk+dxbaJjaVWUFqyHDgm6luTW1Gzg34ApEaAfSU3mvDKI
+         wIFtTD7nKg/RIOc+asV6AKUAjerRm9dwMphO0sfoH5drZBL67UBAzODt534Q4CMuY9k6
+         IFCZd72kYhkvdRIL/feqCXF99VA2o/51ldqczbpeAdkGxRyCkn545+Hr2+oAQ3tp+PKG
+         DVv+82+kOJtOZHDY17ay2a+qkySgjNIwJXzNUe3RSJFJOO6ukFM7m9rEmopfwPM8ea5o
+         sZ3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789999540; x=1790604340;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y1UYnXCxuzBYy7emDqeed9xrR2iKFbDHhQtYLJlfFEE=;
+        b=AnNOp5KWUua6FgWikJ3iwEHq3pJLikBDhUXXbutgPWhRYcb1CsqWhtaZluwoYa4s6s
+         09lMpoXiN7+XCYdNH+VsgWi6wuJr8v4xD7LSlr8xC70VGWsU2r67Nlbqnmo6hZdEMCAH
+         lFbs+1CXWiUXoHgc/cukk9OEHiw3GyyhtxXoA2xsQQbq+0Ld8zp8C5b8KeB6cUQ1Q6Nl
+         4ScSAckc7nQZJ1JHX4+T5GE8guzVN/8IBAnRaxQHTEI7b/dEFKDcx0maUx+YMom6EoiO
+         26+lhyJ8BcMfWki7HGNxCMlYVG57MltciyFIf/LqpU4KT468Wdgw7j4CKVGPyBrs67hV
+         9J9g==
+X-Forwarded-Encrypted: i=1; AKwUvBw+98XXaJmUMmTzRu0o9yxGZphH5CN6tMufgRSjIU5QS35Y191HckMXrFzm4VxqBbkBSPYzkNOk+ypdJxQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nM+zbdbf7aeoS77uOOG0HXabHU2kUfimXtt43H8onqRQbMaKm8
+	FJUGpzI7BMaAjZ2dCRDdBqmw7+ZuytVEi8fuENEyFK3nUIFyfAwzPqq+GZJww69mk+Dj/xlbZsw
+	BsITesQ==
+X-Received: from pfbgb5.prod.google.com ([2002:a05:6a00:6285:b0:877:1a5e:530a])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2450:b0:878:34d7:6a32
+ with SMTP id d2e1a72fcca58-87834d76df6mr8044053b3a.38.1789999539608; Mon, 21
+ Sep 2026 07:05:39 -0700 (PDT)
+Date: Mon, 21 Sep 2026 07:04:58 -0700
+In-Reply-To: <20260826213303.914988-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260906080316.3774-1-rong.bao@csmantle.top>
-In-Reply-To: <20260906080316.3774-1-rong.bao@csmantle.top>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Mon, 21 Sep 2026 22:04:59 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H6gB2+NPgiLu409FOfkmDdyFmbwqtAHTdTgQUJ_zx0z1Q@mail.gmail.com>
-X-Gm-Features: AcwNN1W4I8_1DwbsrggD-vSyPU8bO16mwXC18cIzBE-24aztLG2EVG3qddazu2g
-Message-ID: <CAAhV-H6gB2+NPgiLu409FOfkmDdyFmbwqtAHTdTgQUJ_zx0z1Q@mail.gmail.com>
-Subject: Re: [PATCH v2] LoongArch: expose LAMCAS existence via cpuinfo and hwcap
-To: Rong Bao <rong.bao@csmantle.top>
-Cc: WANG Xuerui <kernel@xen0n.name>, Hengqi Chen <hengqi.chen@gmail.com>, 
-	Arnd Bergmann <arnd@arndb.de>, Yawei Li <liyawei@loongson.cn>, 
-	Jiaxun Yang <jiaxun.yang@flygoat.com>, Tiezhu Yang <yangtiezhu@loongson.cn>, 
-	George Guo <dongtai.guo@linux.dev>, Yangyang Lian <lianyangyang@kylinos.cn>, 
-	Kexy Biscuit <kexybiscuit@aosc.io>, Mingcong Bai <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>, 
-	Rong Bao <baorong2005@126.com>, loongarch@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+References: <20260826213303.914988-1-seanjc@google.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <178999887060.742658.18392421628866750785.b4-ty@google.com>
+Subject: Re: [PATCH v10 00/21] KVM: x86: Cleaning up the KVM clock mess, part 1
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Paul Durrant <paul@xen.org>, David Woodhouse <dwmw@amazon.co.uk>, Dongli Zhang <dongli.zhang@oracle.com>
+Content-Type: text/plain; charset="utf-8"
 
-Applied, thanks.
+On Wed, 26 Aug 2026 14:32:40 -0700, Sean Christopherson wrote:
+> Part 1 of David's series to clean up the host-side mess of kvmclock.  The cut
+> point in this version is still quite arbitrary, but what's left for "part 2"
+> fits nicely into 2-3 buckets:
+> 
+>   1: Masterclock overhaul
+>   2. New uAPI and tests
+> 
+> [...]
 
-Huacai
+Applied to kvm-x86 clocks, thanks!
 
-On Sun, Sep 6, 2026 at 4:03=E2=80=AFPM Rong Bao <rong.bao@csmantle.top> wro=
-te:
->
-> Currently, neither /proc/cpuinfo nor hwcap exposes the existence of the
-> LAMCAS extension, which is part of LA64v1.1. For example, on a Loongson
-> 3B6000, /proc/cpuinfo is as follows:
->
->         processor               : 23
->         package                 : 0
->         core                    : 11
->         global_id               : 31
->         CPU Family              : Loongson-64bit
->         Model Name              : Loongson-3B6000
->         PRID                    : LA664 (0014d011)
->         CPU Revision            : 0x11
->         FPU Revision            : 0x01
->         CPU MHz                 : 2200.00
->         BogoMIPS                : 4400.00
->         TLB Entries             : 2112
->         Address Sizes           : 48 bits physical, 48 bits virtual
->         ISA                     : loongarch32r loongarch32s loongarch64
->         Features                : cpucfg lam lam_bh scq ual fpu lsx lasx
->         crc32 complex crypto lspw lvz lbt_x86 lbt_arm lbt_mips
->         Hardware Watchpoint     : yes, iwatch count: 8, dwatch count: 4
->
-> ... while the CPUCFG 2 instruction reads "0x7e7ccfcf", whose bit 28 is 1,
-> indicating the actual presence of LAMCAS.
->
-> This hinders user-space inspection and detection of LAMCAS. For example,
-> in SpiderMonkey, we need to switch to larchintrin.h and raw __cpucfg()
-> to manually perform the bit extraction. Also, a curious user reading
-> /proc/cpuinfo might be puzzled by the lack (of display) of LAMCAS.
->
-> Expose the existence of LAMCAS via cpuinfo and hwcap. The definition
-> point of the new LOONGARCH_CPU_LAMCAS flag is chosen to match the
-> practices in commit 1dd3e8a8eeb4059fb34b07578362380cf35b7ed5 ("LoongArch:
-> Define instruction formats for AM{SWAP/ADD}.{B/H} and DBAR").
->
-> After this patch, /proc/cpuinfo looks like the following:
->
->         processor               : 23
->         package                 : 0
->         core                    : 11
->         global_id               : 31
->         CPU Family              : Loongson-64bit
->         Model Name              : Loongson-3B6000
->         PRID                    : LA664 (0014d011)
->         CPU Revision            : 0x11
->         FPU Revision            : 0x01
->         CPU MHz                 : 2200.00
->         BogoMIPS                : 4400.00
->         TLB Entries             : 2112
->         Address Sizes           : 48 bits physical, 48 bits virtual
->         ISA                     : loongarch32r loongarch32s loongarch64
->         Features                : cpucfg lam lam_bh lamcas scq ual fpu ls=
-x
->         lasx crc32 complex crypto lspw lvz lbt_x86 lbt_arm lbt_mips
->         Hardware Watchpoint     : yes, iwatch count: 8, dwatch count: 4
->
-> Note the addition of "lamcas" to the "Features" row.
->
-> Link: https://bugzil.la/2069431 ("[loong64] Use LA64v1.1 LAMCAS
->  extension to simplify atomic cmpxchg operations")
-> Signed-off-by: Rong Bao <rong.bao@csmantle.top>
-> ---
-> v1 -> v2:
-> - Addressed review comments and correctly re-stylized "LoongArch" in
->   subject.
->
-> v1: https://lore.kernel.org/loongarch/20260905032010.4962-1-rong.bao@csma=
-ntle.top/
->
->  arch/loongarch/include/asm/cpu-features.h |  1 +
->  arch/loongarch/include/asm/cpu.h          | 64 ++++++++++++-----------
->  arch/loongarch/include/uapi/asm/hwcap.h   |  1 +
->  arch/loongarch/kernel/cpu-probe.c         |  4 ++
->  arch/loongarch/kernel/proc.c              |  2 +
->  5 files changed, 41 insertions(+), 31 deletions(-)
->
-> diff --git a/arch/loongarch/include/asm/cpu-features.h b/arch/loongarch/i=
-nclude/asm/cpu-features.h
-> index 62059c5551b9cdcc63c26033f8ccb44d63b18482..19cb0ccd0fb62bbbeb80a31bc=
-447c101560bed32 100644
-> --- a/arch/loongarch/include/asm/cpu-features.h
-> +++ b/arch/loongarch/include/asm/cpu-features.h
-> @@ -36,6 +36,7 @@
->  #define cpu_has_cpucfg         cpu_opt(LOONGARCH_CPU_CPUCFG)
->  #define cpu_has_lam            cpu_opt(LOONGARCH_CPU_LAM)
->  #define cpu_has_lam_bh         cpu_opt(LOONGARCH_CPU_LAM_BH)
-> +#define cpu_has_lamcas         cpu_opt(LOONGARCH_CPU_LAMCAS)
->  #define cpu_has_scq            cpu_opt(LOONGARCH_CPU_SCQ)
->  #define cpu_has_ual            cpu_opt(LOONGARCH_CPU_UAL)
->  #define cpu_has_fpu            cpu_opt(LOONGARCH_CPU_FPU)
-> diff --git a/arch/loongarch/include/asm/cpu.h b/arch/loongarch/include/as=
-m/cpu.h
-> index 91b96938861eb9f81882b128ab0bd0a925ce0dbb..334ca9d69ec4a649848133d0a=
-81555bfc37fbf9d 100644
-> --- a/arch/loongarch/include/asm/cpu.h
-> +++ b/arch/loongarch/include/asm/cpu.h
-> @@ -96,41 +96,43 @@ static inline char *id_to_core_name(unsigned int id)
->  #define CPU_FEATURE_CPUCFG             0       /* CPU has CPUCFG */
->  #define CPU_FEATURE_LAM                        1       /* CPU has Atomic=
- instructions */
->  #define CPU_FEATURE_LAM_BH             2       /* CPU has AM{SWAP/ADD}[_=
-DB].{B/H} instructions */
-> -#define CPU_FEATURE_SCQ                        3       /* CPU has SC.Q i=
-nstruction */
-> -#define CPU_FEATURE_UAL                        4       /* CPU supports u=
-naligned access */
-> -#define CPU_FEATURE_FPU                        5       /* CPU has FPU */
-> -#define CPU_FEATURE_LSX                        6       /* CPU has LSX (1=
-28-bit SIMD) */
-> -#define CPU_FEATURE_LASX               7       /* CPU has LASX (256-bit =
-SIMD) */
-> -#define CPU_FEATURE_CRC32              8       /* CPU has CRC32 instruct=
-ions */
-> -#define CPU_FEATURE_COMPLEX            9       /* CPU has Complex instru=
-ctions */
-> -#define CPU_FEATURE_CRYPTO             10      /* CPU has Crypto instruc=
-tions */
-> -#define CPU_FEATURE_LVZ                        11      /* CPU has Virtua=
-lization extension */
-> -#define CPU_FEATURE_LBT_X86            12      /* CPU has X86 Binary Tra=
-nslation */
-> -#define CPU_FEATURE_LBT_ARM            13      /* CPU has ARM Binary Tra=
-nslation */
-> -#define CPU_FEATURE_LBT_MIPS           14      /* CPU has MIPS Binary Tr=
-anslation */
-> -#define CPU_FEATURE_TLB                        15      /* CPU has TLB */
-> -#define CPU_FEATURE_CSR                        16      /* CPU has CSR */
-> -#define CPU_FEATURE_IOCSR              17      /* CPU has IOCSR */
-> -#define CPU_FEATURE_WATCH              18      /* CPU has watchpoint reg=
-isters */
-> -#define CPU_FEATURE_VINT               19      /* CPU has vectored inter=
-rupts */
-> -#define CPU_FEATURE_CSRIPI             20      /* CPU has CSR-IPI */
-> -#define CPU_FEATURE_EXTIOI             21      /* CPU has EXT-IOI */
-> -#define CPU_FEATURE_PREFETCH           22      /* CPU has prefetch instr=
-uctions */
-> -#define CPU_FEATURE_PMP                        23      /* CPU has perfer=
-mance counter */
-> -#define CPU_FEATURE_SCALEFREQ          24      /* CPU supports cpufreq s=
-caling */
-> -#define CPU_FEATURE_FLATMODE           25      /* CPU has flat mode */
-> -#define CPU_FEATURE_EIODECODE          26      /* CPU has EXTIOI interru=
-pt pin decode mode */
-> -#define CPU_FEATURE_GUESTID            27      /* CPU has GuestID featur=
-e */
-> -#define CPU_FEATURE_HYPERVISOR         28      /* CPU has hypervisor (ru=
-nning in VM) */
-> -#define CPU_FEATURE_PTW                        29      /* CPU has hardwa=
-re page table walker */
-> -#define CPU_FEATURE_LSPW               30      /* CPU has LSPW (lddir/ld=
-pte instructions) */
-> -#define CPU_FEATURE_MSGINT             31      /* CPU has MSG interrupt =
-*/
-> -#define CPU_FEATURE_AVECINT            32      /* CPU has AVEC interrupt=
- */
-> -#define CPU_FEATURE_REDIRECTINT                33      /* CPU has interr=
-upt remapping */
-> +#define CPU_FEATURE_LAMCAS             3       /* CPU has AMCAS[_DB].{B/=
-H/W/D} instructions */
-> +#define CPU_FEATURE_SCQ                        4       /* CPU has SC.Q i=
-nstruction */
-> +#define CPU_FEATURE_UAL                        5       /* CPU supports u=
-naligned access */
-> +#define CPU_FEATURE_FPU                        6       /* CPU has FPU */
-> +#define CPU_FEATURE_LSX                        7       /* CPU has LSX (1=
-28-bit SIMD) */
-> +#define CPU_FEATURE_LASX               8       /* CPU has LASX (256-bit =
-SIMD) */
-> +#define CPU_FEATURE_CRC32              9       /* CPU has CRC32 instruct=
-ions */
-> +#define CPU_FEATURE_COMPLEX            10      /* CPU has Complex instru=
-ctions */
-> +#define CPU_FEATURE_CRYPTO             11      /* CPU has Crypto instruc=
-tions */
-> +#define CPU_FEATURE_LVZ                        12      /* CPU has Virtua=
-lization extension */
-> +#define CPU_FEATURE_LBT_X86            13      /* CPU has X86 Binary Tra=
-nslation */
-> +#define CPU_FEATURE_LBT_ARM            14      /* CPU has ARM Binary Tra=
-nslation */
-> +#define CPU_FEATURE_LBT_MIPS           15      /* CPU has MIPS Binary Tr=
-anslation */
-> +#define CPU_FEATURE_TLB                        16      /* CPU has TLB */
-> +#define CPU_FEATURE_CSR                        17      /* CPU has CSR */
-> +#define CPU_FEATURE_IOCSR              18      /* CPU has IOCSR */
-> +#define CPU_FEATURE_WATCH              19      /* CPU has watchpoint reg=
-isters */
-> +#define CPU_FEATURE_VINT               20      /* CPU has vectored inter=
-rupts */
-> +#define CPU_FEATURE_CSRIPI             21      /* CPU has CSR-IPI */
-> +#define CPU_FEATURE_EXTIOI             22      /* CPU has EXT-IOI */
-> +#define CPU_FEATURE_PREFETCH           23      /* CPU has prefetch instr=
-uctions */
-> +#define CPU_FEATURE_PMP                        24      /* CPU has perfer=
-mance counter */
-> +#define CPU_FEATURE_SCALEFREQ          25      /* CPU supports cpufreq s=
-caling */
-> +#define CPU_FEATURE_FLATMODE           26      /* CPU has flat mode */
-> +#define CPU_FEATURE_EIODECODE          27      /* CPU has EXTIOI interru=
-pt pin decode mode */
-> +#define CPU_FEATURE_GUESTID            28      /* CPU has GuestID featur=
-e */
-> +#define CPU_FEATURE_HYPERVISOR         29      /* CPU has hypervisor (ru=
-nning in VM) */
-> +#define CPU_FEATURE_PTW                        30      /* CPU has hardwa=
-re page table walker */
-> +#define CPU_FEATURE_LSPW               31      /* CPU has LSPW (lddir/ld=
-pte instructions) */
-> +#define CPU_FEATURE_MSGINT             32      /* CPU has MSG interrupt =
-*/
-> +#define CPU_FEATURE_AVECINT            33      /* CPU has AVEC interrupt=
- */
-> +#define CPU_FEATURE_REDIRECTINT                34      /* CPU has interr=
-upt remapping */
->
->  #define LOONGARCH_CPU_CPUCFG           BIT_ULL(CPU_FEATURE_CPUCFG)
->  #define LOONGARCH_CPU_LAM              BIT_ULL(CPU_FEATURE_LAM)
->  #define LOONGARCH_CPU_LAM_BH           BIT_ULL(CPU_FEATURE_LAM_BH)
-> +#define LOONGARCH_CPU_LAMCAS           BIT_ULL(CPU_FEATURE_LAMCAS)
->  #define LOONGARCH_CPU_SCQ              BIT_ULL(CPU_FEATURE_SCQ)
->  #define LOONGARCH_CPU_UAL              BIT_ULL(CPU_FEATURE_UAL)
->  #define LOONGARCH_CPU_FPU              BIT_ULL(CPU_FEATURE_FPU)
-> diff --git a/arch/loongarch/include/uapi/asm/hwcap.h b/arch/loongarch/inc=
-lude/uapi/asm/hwcap.h
-> index 90e96113ba51003cd4dde5c7c79744f5e0755a03..d354787b937c3ae9eb8c3d58a=
-4e7e96bd066f6fd 100644
-> --- a/arch/loongarch/include/uapi/asm/hwcap.h
-> +++ b/arch/loongarch/include/uapi/asm/hwcap.h
-> @@ -20,5 +20,6 @@
->  #define HWCAP_LOONGARCH_LSPW           (1 << 14)
->  #define HWCAP_LOONGARCH_SCQ            (1 << 15)
->  #define HWCAP_LOONGARCH_LAM_BH         (1 << 16)
-> +#define HWCAP_LOONGARCH_LAMCAS         (1 << 17)
->
->  #endif /* _UAPI_ASM_HWCAP_H */
-> diff --git a/arch/loongarch/kernel/cpu-probe.c b/arch/loongarch/kernel/cp=
-u-probe.c
-> index 74d31f260dfd889e66a1f55c5bcc47a3657d101f..93176e4d017b4d8fc82c817a7=
-064af0656133c15 100644
-> --- a/arch/loongarch/kernel/cpu-probe.c
-> +++ b/arch/loongarch/kernel/cpu-probe.c
-> @@ -182,6 +182,10 @@ static void cpu_probe_common(struct cpuinfo_loongarc=
-h *c)
->                 c->options |=3D LOONGARCH_CPU_LAM_BH;
->                 elf_hwcap |=3D HWCAP_LOONGARCH_LAM_BH;
->         }
-> +       if (config & CPUCFG2_LAMCAS) {
-> +               c->options |=3D LOONGARCH_CPU_LAMCAS;
-> +               elf_hwcap |=3D HWCAP_LOONGARCH_LAMCAS;
-> +       }
->         if (config & CPUCFG2_SCQ) {
->                 c->options |=3D LOONGARCH_CPU_SCQ;
->                 elf_hwcap |=3D HWCAP_LOONGARCH_SCQ;
-> diff --git a/arch/loongarch/kernel/proc.c b/arch/loongarch/kernel/proc.c
-> index d4ce5b585453700caf2187c3dcc8f4f3cc8a9226..f86be83ad6f134c5793667fa6=
-dbe2bf82fd58a2e 100644
-> --- a/arch/loongarch/kernel/proc.c
-> +++ b/arch/loongarch/kernel/proc.c
-> @@ -66,6 +66,8 @@ static int show_cpuinfo(struct seq_file *m, void *v)
->                 seq_puts(m, " lam");
->         if (cpu_has_lam_bh)
->                 seq_puts(m, " lam_bh");
-> +       if (cpu_has_lamcas)
-> +               seq_puts(m, " lamcas");
->         if (cpu_has_scq)
->                 seq_puts(m, " scq");
->         if (cpu_has_ual)
->
-> base-commit: 654ae5d73c05bd2943d65636ce6cd0aa46e62f18
-> --
-> 2.55.0
->
+[01/21] KVM: x86: Update "last guest TSC" snapshot prior to enabling IRQs/preemption
+        https://github.com/kvm-x86/linux/commit/ba78382f34c1
+[02/21] KVM: x86: Improve accuracy of KVM clock when TSC scaling is in force
+        https://github.com/kvm-x86/linux/commit/d4f54ed48e00
+[03/21] KVM: x86: Explicitly disable TSC scaling without CONSTANT_TSC
+        https://github.com/kvm-x86/linux/commit/dd0a8675f4ba
+[04/21] KVM: x86: Activate master clock immediately on vCPU creation
+        https://github.com/kvm-x86/linux/commit/7254e09bb5e9
+[05/21] KVM: x86: Compute kvmclock base without pvclock_gtod_data
+        https://github.com/kvm-x86/linux/commit/7ffdb9d111c3
+[06/21] KVM: x86: Avoid NTP frequency skew for KVM clock on 32-bit host
+        https://github.com/kvm-x86/linux/commit/4c710e8182f4
+[07/21] KVM: x86: Drop unnecessary CPU pinning when computing/getting kvmclock
+        https://github.com/kvm-x86/linux/commit/796b73bba577
+[08/21] KVM: x86: Move "no master clock" fallback from __get_kvmclock() to get_kvmclock()
+        https://github.com/kvm-x86/linux/commit/1a926fb39304
+[09/21] KVM: x86: Wrap all of __get_kvmclock_master_clock() with CONFIG_X86_64=y
+        https://github.com/kvm-x86/linux/commit/8e7e24b88e26
+[10/21] KVM: x86: Fall back to non-master-clock if clockread fails in get_kvmclock()
+        https://github.com/kvm-x86/linux/commit/25f75fb43fd5
+[11/21] KVM: x86: Fix KVM clock precision in get_kvmclock() with TSC scaling
+        https://github.com/kvm-x86/linux/commit/abdef42276d8
+[12/21] KVM: x86: Use get_kvmclock() in kvm_get_wall_clock_epoch()
+        https://github.com/kvm-x86/linux/commit/c56419275caa
+[13/21] KVM: x86: Fix compute_guest_tsc() to handle negative time deltas
+        https://github.com/kvm-x86/linux/commit/d9173f59df3a
+[14/21] KVM: x86: Disable preemption, not IRQs, when getting TSC+freq pair
+        https://github.com/kvm-x86/linux/commit/917a53a4b461
+[15/21] KVM: x86: Make master clock logic in guest PV clock updates 64-bit only
+        https://github.com/kvm-x86/linux/commit/f21b04302404
+[16/21] KVM: x86: Upscale TSC to "now", not master clock when updating PV clocks
+        https://github.com/kvm-x86/linux/commit/92fac63cc739
+[17/21] KVM: x86: Simplify and comment kvm_get_time_scale()
+        https://github.com/kvm-x86/linux/commit/2918af628d0d
+[18/21] KVM: x86: Remove implicit rdtsc() from kvm_compute_l1_tsc_offset()
+        https://github.com/kvm-x86/linux/commit/d4bbf2a8eb82
+[19/21] KVM: x86: Use kernel timekeeping snapshots for getting kvmclock time since boot
+        https://github.com/kvm-x86/linux/commit/ef7d809987c9
+[20/21] KVM: x86: Use kernel timekeeping snapshot for monotonic clock
+        https://github.com/kvm-x86/linux/commit/0a0ab23b05f0
+[21/21] KVM: x86: Use kernel timekeeping snapshot to get walltime+TSC
+        https://github.com/kvm-x86/linux/commit/d7841275e1fb
+
+--
+https://github.com/kvm-x86/linux/tree/next
