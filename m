@@ -1,118 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87BC282F2A;
-	Mon, 21 Sep 2026 03:20:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35EB51A683D;
+	Mon, 21 Sep 2026 03:20:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789960805; cv=none; b=BtsqfmSVlgsulUMQAxh1coob92NzziG4M2WFpXW/dHdbqGzvh05n6sj4aqhmCh4YOFdw30Use69EioIuR9tbfk90jsT5KgXIL8cqUCtZgIcO5ZoUWw+ICLZtVYpsqK3/L+xs2O32M/4GQtjiZ52AuGcMR0WJ+mm9rPAkrlgShS4=
+	t=1789960856; cv=none; b=kT0OY86HaO+GgJdE8JxoMV21aaioOHHYDfUSUpmypDrT51Z0SltN4NI7oA8C8E5BqqUd4dFbVQeOb8bpuVorQX9uat5MX5LPXnpPEOJu03wD2blnf6t7LxrO6XNU8yjLPNgREO/ikaeDe5CF++f9C5pSQH93GTHhJYDZmwz8RUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789960805; c=relaxed/simple;
-	bh=rPGGIOpZ59OynQeltp2E3fFxaKxBAZF815TMqu6Cllg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nfAIlb6BevizjwT+9a+EX9PxnuH/JJt1Zs1sYgiK3UBtB22zfVoIS27YjWJLLbbZD+sBSSUfn4GOtQz8ivnHeR+xmaiiF8s2fhBFIOTj/pS30tms+OEpuk9UQ0VRdBjOXU7cR/BJfpDObIORe8O+hb6ztlZH3GEXBYI27omuJ4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HivVIxTq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789960856; c=relaxed/simple;
+	bh=UFB268/LGb8nePWdEIHM2IV7PvHoyjptADumRy6VTXw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Smy5vxxJcw6X6bX4V4ubl5aiOB5VbTxLeWbYq91v5oicLdIXGyDx03nxcKqwLak/kq4ykRLM5Xicuu/SlUOdneFcciNRb5+ghdGMuZtaOyJoLBqi5fceWYnjxv2kKW/Ebsq+mA3ai7iCcxwE6VgY9qtIUCYi8BHyqfP1THgRdG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=pnLidcWX; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HivVIxTq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C21FC1F000FF;
-	Mon, 21 Sep 2026 03:20:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789960803;
-	bh=Ftm1F7j/THscrEYnzHViiTYpJfj7RcigXEN1nosu8yo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HivVIxTq2MMtYaIVCxBKQm+UGZYNJ9jCeDikaISe3iSmciCiwtRgQk/XNNXm1DdDM
-	 S6xjHt2catrroO94Tdki3zVplNEqAMFOJalZywfeP/YH0SLtKWCE6pj6kFprhmFkij
-	 l/gHX3YpTMMQwb7LYTWd+uuYH0Xrf1P5LijVRw8+dih1i4Z+EBXOXm/DSlY3IYIdXO
-	 CMqZuV0spYwZVwuV4VNDphfMyo6XYPuWodYIHTLozZU565C8B8LiHcLgkOPSje6Qk4
-	 vSSzMWlTC5qqkFy2ajaOJ+klskohW0wGcip/kBe8UHdrEqmZn41SFZ/Za6hcUEtH3/
-	 YAFc+HN29ZVLw==
-Date: Mon, 21 Sep 2026 04:19:57 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Wadim Mueller <wafgo01@gmail.com>
-Cc: Maxwell Doose <maxwell@maxwelld.cc>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Jonathan Cameron
- <jonathan.cameron@oss.qualcomm.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Li Youhong <dayou5941@163.com>, Li Youhong
- <liyouhong@kylinos.cn>, Brendan Higgins <brendan.higgins@linux.dev>, David
- Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com
-Subject: Re: [PATCH 0/2] iio: flow: slf3s: fix and test the vdd supply
- balance
-Message-ID: <20260921041957.25b97f64@jic23-hlaptop>
-In-Reply-To: <20260904-iio-slf3s-pm-regulator-kunit-v1-0-5ea61e6d6db2@gmail.com>
-References: <20260904-iio-slf3s-pm-regulator-kunit-v1-0-5ea61e6d6db2@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="pnLidcWX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=FrjwtYPntKyHWdHugvGEL61qLIr/3Wg65fXA1S3UL4Q=; b=pnLidcWX2YMh8FZRRMUmOgUnAY
+	LdK/WWNgBWIg+a7x0bydx7Oe2I6VoB9bpEIpjmTYSw0Tl5Skk9fKloYKNZg1EMfjDr/5c5sB7LAnX
+	Z1s4JlLWBXH+Q6gHcs2/0v+uhOV3Z36xw2M7fEa9iOoEksFrjBT5R9ONBdl2LrVpjVIZmpBiVFycL
+	tLZJ0DcHYCmy9p1PL9YEnnEWBTVnHRnqPfxU/Gb/N5ZJgMbhwznXdmU9jPPlIN7OnRVXlwzJOsptT
+	OpCg3EPDVCAdF3FVX//qcOeZK1MIiaEUemnkhGMxshyxV1oseUgpC7X3NH67XW1EBBYTmrg/5reFI
+	kzz0gbrg==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x8UaI-00000000lHZ-3pwm;
+	Mon, 21 Sep 2026 03:20:50 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	Kexy Biscuit <kexybiscuit@aosc.io>,
+	Tiezhu Yang <yangtiezhu@loongson.cn>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-mips@vger.kernel.org
+Subject: [PATCH 2/2] docs: ABI: lefi: drop "ROM Size" in sysfs file doc.
+Date: Sun, 20 Sep 2026 20:20:48 -0700
+Message-ID: <20260921032048.4060710-2-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260921032048.4060710-1-rdunlap@infradead.org>
+References: <20260921032048.4060710-1-rdunlap@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 04 Sep 2026 21:24:24 +0200
-Wadim Mueller <wafgo01@gmail.com> wrote:
+The "ROM Size" line was dropped in a previous commit. Now delete it
+in the ABI documentation also.
 
-> Li Youhong reported that slf3s_resume() leaves vdd enabled when the
-> measurement restart fails [1].  The report is right, but the patch and
-> my own Reviewed-by on it were both too narrow.
-> 
-> Andy asked whether the regulator refcount can go sideways here.  It
-> cannot.  device_suspend() sets power.is_suspended only when the callback
-> returned 0, and device_resume() returns before the callback when the
-> flag is clear.  So the two alternate and the count stays in {0, 1}.
-> Please drop my Reviewed-by, the reasoning in it is wrong.
-> 
-> Three things do go wrong though:
-> 
->  - resume enables vdd, start_meas() fails, the supply stays on.
-> 
->  - the part is then powered but idle, so it NACKs the stop command.
->    suspend() returns early on that error and never disables vdd, so the
->    system cannot suspend any more until rebind.  This one hurts most.
-> 
->  - if regulator_enable() fails in resume, the next suspend disables a
->    supply that was never enabled: "unbalanced disables" in the regulator
->    core, and -EIO.  Unbind hits the same case.
-> 
-> The original patch fixes the first one only.
-> 
-> Patch 1 tracks the supply state and drives enable/disable from it.
-> Patch 2 adds KUnit tests with a fake i2c adapter and a counting
-> regulator, so no hardware is needed:
-> 
->   ./tools/testing/kunit/kunit.py run --kunitconfig=drivers/iio/flow
-> 
-> Four of the eight tests fail without patch 1.
-> 
-> [1] https://lore.kernel.org/linux-iio/20260901025010.356735-1-dayou5941@163.com/
-> 
-> Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
-Given a few outstanding bits on patch 1 and lack of discussion of patch 2
-(which doesn't need to go in as quickly) I am marking this in patchwork
-as changes requested.
+Fixes: bd2212d658d7 ("MIPS: Loongson64: remove ROM Size unit in boardinfo")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+---
+Cc: Kexy Biscuit <kexybiscuit@aosc.io>
+Cc: Tiezhu Yang <yangtiezhu@loongson.cn>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: Jiaxun Yang <jiaxun.yang@flygoat.com>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: linux-mips@vger.kernel.org
 
-Thanks
+ Documentation/ABI/testing/sysfs-firmware-lefi-boardinfo |    1 -
+ 1 file changed, 1 deletion(-)
 
-Jonathan
-
-> ---
-> Wadim Mueller (2):
->       iio: flow: slf3s: keep the vdd supply balanced across suspend/resume
->       iio: flow: slf3s: add KUnit tests for the PM regulator balance
-> 
->  MAINTAINERS                    |   2 +
->  drivers/iio/flow/.kunitconfig  |   6 +
->  drivers/iio/flow/Kconfig       |  15 +
->  drivers/iio/flow/Makefile      |   1 +
->  drivers/iio/flow/slf3s-kunit.c | 734 +++++++++++++++++++++++++++++++++++++++++
->  drivers/iio/flow/slf3s.c       |  35 +-
->  6 files changed, 787 insertions(+), 6 deletions(-)
-> ---
-> base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
-> change-id: 20260904-iio-slf3s-pm-regulator-kunit-43ee079b36f0
-> 
-> Best regards,
-
+--- linux-next-20260918.orig/Documentation/ABI/testing/sysfs-firmware-lefi-boardinfo
++++ linux-next-20260918/Documentation/ABI/testing/sysfs-firmware-lefi-boardinfo
+@@ -23,7 +23,6 @@ Description:
+ 		 BIOS Info
+ 		 Vendor                  : Kunlun
+ 		 Version                 : Kunlun-A1901-V4.1.3-20200414093938
+-		 ROM Size                : 4 KB
+ 		 Release Date            : 2020-04-14
+ 
+ 		By the way, using dmidecode command can get the similar info if there
