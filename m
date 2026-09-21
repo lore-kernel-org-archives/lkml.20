@@ -1,107 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0E449B5BF;
-	Mon, 21 Sep 2026 15:07:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6704A689A;
+	Mon, 21 Sep 2026 15:07:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003272; cv=none; b=L3IJ+uleAMyIP5McSaNz3erYdBqttyjTAo3fwjCDcqbj17INLjDABb1uiwYgo/gVnKySvCBt49xdFeKimGV/mbZlw39aHlrQ14IRkdbimkjk1C8wtfwp/VvrIwQ67dEPyr8zVreBCKi9zpkYSyGBufiGlBQzbcNQMqOweyR/puQ=
+	t=1790003274; cv=none; b=BeuUDbNwE5DYST/Qya0MEPqrxD4ZHqoMUsmOaUPK63ys++QvFoeItoNmVGaP04So9jkBNxN8i9tYHGLJKfkJulRXpqQJT2OS1MPHrotOX0zWdAbmj5QEoLBYXVBDY6whjdNa9MiBiQIbGl7maxXJSTzw6NUWI8UBph8OFZeipb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003272; c=relaxed/simple;
-	bh=3h2Vf7MQ6gbPIAHlTb6Tf0jJ1oiG9fyeFNnXc+/BghA=;
+	s=arc-20240116; t=1790003274; c=relaxed/simple;
+	bh=77vYYqxxfot4h942hItqxS5kQkj9h0SGZQLt4UhvaUE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G5Wa3KGKk0qKvbvsXOj7Nkjfk3fZV8hz/rNchYvTtHPHH0E0u6bocHksziyTWV/XPv9wnlViaiYc9cKHZGok7NERzR0FuPRUo5CnupPZQrmzghE1DWlyHIz3ezL2+2KuXIUvBA2HvD2z1fpBoehZD7RERYL8NKEsRlF+oJJ/Epc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TFm9+AdS; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=QK2OH1ewQrK9jEkrzkwKQgedNjMSy0PumN1MZliuxghclHsgR75O4inlLYRylAFYDgzbAd/CF5pK5UMIi7gKPIuf3augjbSu/5ZFOR2z9J32j6n1Yv+akqsdGD+26YbsjvFGJgRL2Fi5rHfWEbOssgltebY6OquAgG7RkZBJ0KA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MLNbSNUz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TFm9+AdS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88C901F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MLNbSNUz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8BAC1F00893;
 	Mon, 21 Sep 2026 15:07:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003271;
-	bh=q9yFLU7Unm1OdMVHZt4OUgFFo5ERQU/PMsBOuAHW9rA=;
+	s=k20260515; t=1790003272;
+	bh=/kxJdI60imaNRsgwIs9O+2/lppLAQj6941Uqe30oxv0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TFm9+AdSAtN3mbnlYd4vgC9VRbh+5bmnO3N7kojWXSlHpCT3NZ1MCAGq9g8INFYhd
-	 cJEomEBvzicrLJYdvKXM8TPcHEOIGlTBkw/GHRGelyMkt6F9jeZgsXfJEkvMpP88fJ
-	 7UGx6LFRqxolT1wz7z0X9PdsvIw1V3u46B8ArkKFHRWO0jw/4vkyUAsexYkWQhzwfD
-	 HHDcKX0cKMfxxwsgGk9IwyXwuKMXPyM2fUy/DXpsbOfjuLBDEc0L7H/9mQFve8u+/S
-	 jU0enoDxTG0/bi//OGFfqy2XOABCpNPAisaw9LGTTx3V16ciE7oaBchTTKgOZrqUtF
-	 zmveSO419KXqQ==
-Date: Mon, 21 Sep 2026 17:07:48 +0200
-From: krzk@kernel.org
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: linux-kernel@vger.kernel.org, Robert Love <robert.w.love@intel.com>, 
-	linux-scsi@vger.kernel.org, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K. Petersen" <martin.petersen@oracle.com>, Joe Eykholt <jeykholt@cisco.com>, Hannes Reinecke <hare@suse.de>, 
-	stable@vger.kernel.org, James Bottomley <James.Bottomley@suse.de>
-Subject: Re: [PATCH] scsi: libfc: fix directory server rport memory leak
-Message-ID: <arFIQcyQWxDnA_X9@quoll>
-References: <20260919173405.3718408-1-lgs201920130244@gmail.com>
+	b=MLNbSNUzJ3OCt4FbXqWp20u+UGK09qNsfE44pN76oiflwDXYZ/XcNNA6ScmPahcdk
+	 /ukhWOihscCU4FVPbdb1R8/WXC1MkWNDjugCr6V97NBDcNf8OKu3Hm8r99Zyci7QzF
+	 5r4Dh14MO/Y5Zi7pmgr2Ij5UfRcOO15X9mPlZy+WfUtTLpFQ+rgNHNYEQpYiyhog36
+	 +Y9dMOkONotB77rKrVEAdv8IXjgmvJFkKGW0kBsKm9EBXrIPjG2USeE0VaxKKdqOsL
+	 onTosdDtBfL3O3zr4hGb7j4mj//9vQvrzXZYkplXSoUgclhqVQ/KQFoC5Xgy08ntaO
+	 usOMCiCPIP89g==
+Date: Mon, 21 Sep 2026 16:07:48 +0100
+From: Simon Horman <horms@kernel.org>
+To: Coia Prant <coiaprant@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Serge Semin <fancer.lancer@gmail.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: pcs: xpcs: fix clock reference leak on
+ xpcs_init_clks failure
+Message-ID: <20260921150748.GU13925@horms.kernel.org>
+References: <20260919172021.2336748-1-coiaprant@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260919173405.3718408-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260919172021.2336748-1-coiaprant@gmail.com>
 
-
-On Sun, 20 Sep 2026 01:34:05 +0800, Guangshuo Li wrote:
-> fc_rport_recv_plogi_req() creates an rport before allocating the frame
-> used for the PLOGI LS_ACC response.
+On Sun, Sep 20, 2026 at 01:20:21AM +0800, Coia Prant wrote:
+> xpcs_init_clks() takes references with clk_bulk_get_optional() and then
+> enables them with clk_bulk_prepare_enable(). If the enable step fails,
+> the function returns without dropping the references.
 > 
-> fc_rport_create() does not add FC_FID_DIR_SERV rports to the discovery
-> rport list. If fc_frame_alloc() fails while handling a PLOGI from the
-> directory server, the function returns without starting the rport state
-> machine or dropping the initial rport reference.
+> xpcs_create() handles the failure through out_free_data, which calls
+> xpcs_free_data() but never xpcs_clear_clks(), so the clk references are
+> leaked.
 > 
-> Since the directory server rport is not present in the discovery list,
-> there is no later teardown path that can find the object and release
-> that reference. The allocated fc_rport_priv is therefore leaked.
+> Add the missing clk_bulk_put() on the enable failure path. The
+> prepare/enable side is already rolled back by
+> clk_bulk_prepare_enable() itself.
 > 
-> Record when the failed frame allocation leaves an unlisted directory
-> server rport behind and drop its initial reference after releasing the
-> rport mutex. Keep the existing lifetime unchanged for ordinary rports,
-> which remain owned by the discovery list.
-> 
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
-> 
-> Fixes: 3ac6f98f4113 ("[SCSI] libfc: correctly handle incoming PLOGI request.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/scsi/libfc/fc_rport.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
+> Fixes: f6bb3e9d98c2 ("net: pcs: xpcs: Add Synopsys DW xPCS platform device driver")
+> Signed-off-by: Coia Prant <coiaprant@gmail.com>
 
-
-You sent multiple independent patches, to multiple independent
-subsystems. The amount of these patches clearly suggest this was
-AI generated and most likely not tested.
-
-More importantly, you sent all this work without properly organizing
-relevant patches into patchsets. This makes reviewing difficult
-and might cause multiple reviewers to address the same issue.
-Replying to the entire set is impossible and requires handling each
-patch independently, instead of applying or discarding the set.
-Maintainers also won't see the bigger picture of your work. Quite
-worrying.
-
-This is on the verge of hostile patch: bomb us with so many
-contributions, we won't be able to handle them in efficient manner,
-like responding ONCE to ask you to slow down.  Considering all this
-is untested and LLM generated, I have even more doubts whether this
-should be considered for review.
-
-Please read kernel documentation BEFORE posting more work. It will
-explain you how to identify subsystems, how to organize your work per
-subsystem, how to document usage of LLM and how what you should not
-do if this was posted in a good faith.
-
-Best regards,
-Krzysztof
-
-
+Reviewed-by: Simon Horman <horms@kernel.org>
 
