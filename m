@@ -1,88 +1,51 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6EA23749EB;
-	Mon, 21 Sep 2026 08:49:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 35478403EB5
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:50:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789980584; cv=none; b=ABoSzwoPj7rzT2n8DFuWLkwq1lqI7YVABx+/Hrp9Xa4duaaR/3Ql+ib0O0MhpO0QvYQRC1GPiqaKWIRHNXBkLRLEcuI5RvH44ewhVNWz3udZnUsR4eAS4XRrYuTFf4iyDTV3PC/vzCuZVXHG5zUY+GIMowdIEZ9K+kOs/FVWSM4=
+	t=1789980615; cv=none; b=Zx/XdPsvPJt1FdWAJeY8OA/kPPzNGkvDJ9+yCofrO7qboMYKnOkc/ZdYRz2apcC7HXy+O2cuRfcslDrt9qXEfH+oOVGfX2MZSgUW2tvzkD2Xk0kpAIBxW8EAgqCdRfPnvL41xeA3Q1k3tz5ckJqQgaJ6a7qUH6+edpfvurXwugM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789980584; c=relaxed/simple;
-	bh=6hnjXTDKgMrZ3v9hMLsWJQuM28aalrFiQWMNBkfsTUk=;
+	s=arc-20240116; t=1789980615; c=relaxed/simple;
+	bh=zkJ6zamsKffplX1HXtrc8mnFcQsdKLrkWao+Syhic58=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CNlSGKlag2Z+HuzoIp6zEwULNwe3Lt4p8xaD8B9PRsHvmziWVT1QrMyIEXgl6QR80PyCwH2R54Jf9Qd2YUoR58RHniDOsJ19dVGW6qrku7aAZFkyyUnafOy0r09boKP+OOiH0GfZsCP7+tqlUqW9v2OctRAssjLH3Wj1wj5wYX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=JeKAo7HA; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=DRWrUWPE; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=r8LH/T/e; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ZjbFdMhw; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	 Content-Type:Content-Disposition:In-Reply-To; b=InSIlBuyIUVrqLGsoqm/oHO5Z7mP0GKzvRTzRMVzi2Sf7f/6GidGfReIZb4ikD2afy+aY1GZ3t1wlrxZatjsgyzTQLOPWtL0yK42N6l645Wj4vXO3aOvlVwpZIyUZ+pgiPXjI/VHnP2VbNCexIp0luEgoq3Hv2gaVd+jtbz/6io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jvJSfPqL; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="JeKAo7HA";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="DRWrUWPE";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="r8LH/T/e";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ZjbFdMhw"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 811B621C40;
-	Mon, 21 Sep 2026 08:49:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789980576; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c2LhYmfaEH4K/69mzOu0u/lHRbKocb6N3KsMzpZwf6c=;
-	b=JeKAo7HAisAPmCJIzn/9IbhB9/PhvDjJvrwR521c1+MgF5Jmr7MBgOvMASt/uN9hL0lUAV
-	D9PQZDMx33okKP/HVc/9beHAjw5yoQIIhS9a5vRYHiI2c7dMWjrceTSiemngfjHTV8o1RB
-	53xO6hvdUAcc+hQTzP5kt6+Lx8o5SO4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789980576;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c2LhYmfaEH4K/69mzOu0u/lHRbKocb6N3KsMzpZwf6c=;
-	b=DRWrUWPE/SkLMI4r5nujMqh1qcumvQyqdCtWXLydve7Vzbzr/sA15Rc/ObqjiG6uNpZUEX
-	G1VwMjbe8hC9MTAQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789980572; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c2LhYmfaEH4K/69mzOu0u/lHRbKocb6N3KsMzpZwf6c=;
-	b=r8LH/T/e79FcKo7K1qMt53C0HiYPpdxHHvzA0H7NCWHKlDjYprnjUpyNrIAfAtRn72Iv0X
-	xx0P251dr9Xt9i3fnG5u70Ofk0MI/S2HKJ7hRiBdWw4VacLe5+DGqrBM6fNc3YnJtQCX46
-	RoDNnW7MLDEHrKYIfbYiQ5UlaFXfKCc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789980572;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c2LhYmfaEH4K/69mzOu0u/lHRbKocb6N3KsMzpZwf6c=;
-	b=ZjbFdMhwCYfAwMJQCb2QUusccTaFAdV22sOIjCQEvl7deGjouUIIpLkG4qao6tBCJm9xdj
-	WldpTc9hmqeTz1Ag==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3613F1368D;
-	Mon, 21 Sep 2026 08:49:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id I0IaBZzvsGouTgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 21 Sep 2026 08:49:32 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id BB14FA13D5; Mon, 21 Sep 2026 10:49:23 +0200 (CEST)
-Date: Mon, 21 Sep 2026 10:49:23 +0200
-From: Jan Kara <jack@suse.cz>
-To: Mikko Rantalainen <mikko.rantalainen@peda.net>
-Cc: Matthew Wilcox <willy@infradead.org>, linux-fsdevel@vger.kernel.org, 
-	linux-api@vger.kernel.org, linux-kernel@vger.kernel.org, brauner@kernel.org, 
-	viro@zeniv.linux.org.uk, jack@suse.cz, alx@kernel.org, dalias@libc.org
-Subject: Re: [RFC PATCH 0/1] close(): stop exposing non-retryable EINTR
-Message-ID: <wb5ulikmcromcpolaf7icazadijmadrspctqe3ffgnm3bffdwe@t4oz5ond537b>
-References: <20260913193815.2862366-1-mikko.rantalainen@peda.net>
- <aqcmz5uI7PgN5CT7@casper.infradead.org>
- <bcdb8f85-d53a-4824-8e34-8d190ec7f4b2@peda.net>
- <cf83be66-e540-4abf-b377-7e344d62a1dd@peda.net>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jvJSfPqL"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 073EE175A;
+	Mon, 21 Sep 2026 01:50:08 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 96CC53F86C;
+	Mon, 21 Sep 2026 01:50:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789980611; bh=zkJ6zamsKffplX1HXtrc8mnFcQsdKLrkWao+Syhic58=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jvJSfPqLf3HN3z+KPhvue54b/EtRQfqDF2kHtGW67M77rt+wnCXhmkm/1WsNMtE07
+	 o5+IdFoiz9kgEfxWcB6RLBl1iMrurkg7cBAfH033tNTteqbaTzvwE3HtiifRkMpNqv
+	 mmQPzdSKn8FH5n6VbL2u7b7fWhFSRikwpoVVdsXs=
+Date: Mon, 21 Sep 2026 09:50:06 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>, Will Deacon <will@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: Re: [PATCH v12 3/7] firmware: arm_rmm: Move RSI support out of
+ arch/arm64
+Message-ID: <arDvvvqkm0O4OSlP@arm.com>
+References: <20260921053807.354802-1-aneesh.kumar@kernel.org>
+ <20260921053807.354802-4-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,115 +54,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cf83be66-e540-4abf-b377-7e344d62a1dd@peda.net>
-X-Spam-Score: -3.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
+In-Reply-To: <20260921053807.354802-4-aneesh.kumar@kernel.org>
 
-Hi!
+On Mon, Sep 21, 2026 at 11:08:03AM +0530, Aneesh Kumar K.V (Arm) wrote:
+> The RSI SMCCC function IDs describe a firmware ABI and are not arm64
+> architecture specific definitions. Follow-up changes need to use them from
+> non-arch code, including drivers/firmware/smccc and the Arm CCA guest
+> driver.
+> 
+> Move the complete Realm Service Interface (RSI) implementation from
+> arch/arm64 to drivers/firmware/arm_rmm. The RSI SMCCC definitions and
+> command helpers are also moved to include/linux so they can be shared by
+> architecture code and firmware or driver code. This also keeps the
+> firmware interface outside architecture code, as requested [1].
+> 
+> [1] https://lore.kernel.org/all/agsNO9cc7H-b0H8L@willie-the-truck
+> 
+> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Acked-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+> ---
+>  MAINTAINERS                                   |  2 +
+>  arch/arm64/Kconfig                            |  1 +
+>  arch/arm64/include/asm/io.h                   |  2 +-
+>  arch/arm64/include/asm/mem_encrypt.h          |  2 +-
+>  arch/arm64/include/asm/pgtable-prot.h         |  2 +-
+>  arch/arm64/include/asm/rsi.h                  | 70 -----------------
+>  arch/arm64/kernel/Makefile                    |  2 +-
+>  arch/arm64/kernel/setup.c                     |  2 +-
+>  arch/arm64/mm/init.c                          |  3 +-
+>  drivers/firmware/Kconfig                      |  1 +
+>  drivers/firmware/Makefile                     |  1 +
+>  drivers/firmware/arm_rmm/Kconfig              | 17 ++++
+>  drivers/firmware/arm_rmm/Makefile             |  2 +
+>  .../kernel => drivers/firmware/arm_rmm}/rsi.c |  2 +-
+>  drivers/virt/coco/arm-cca-guest/Kconfig       |  2 +-
+>  .../virt/coco/arm-cca-guest/arm-cca-guest.c   |  5 +-
+>  .../linux/arm-rsi-cmds.h                      | 77 +++++++++++++++++--
+>  .../linux/arm-smccc-rsi.h                     |  6 +-
+>  18 files changed, 110 insertions(+), 89 deletions(-)
+>  delete mode 100644 arch/arm64/include/asm/rsi.h
+>  create mode 100644 drivers/firmware/arm_rmm/Kconfig
+>  create mode 100644 drivers/firmware/arm_rmm/Makefile
+>  rename {arch/arm64/kernel => drivers/firmware/arm_rmm}/rsi.c (99%)
+>  rename arch/arm64/include/asm/rsi_cmds.h => include/linux/arm-rsi-cmds.h (69%)
+>  rename arch/arm64/include/asm/rsi_smc.h => include/linux/arm-smccc-rsi.h (98%)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 42364c540f50..b867d537a579 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -3953,6 +3953,8 @@ F:	Documentation/arch/arm64/
+>  F:	arch/arm64/
+>  F:	drivers/virt/coco/arm-cca-guest/
+>  F:	drivers/virt/coco/pkvm-guest/
+> +F:	include/linux/arm-rsi-cmds.h
+> +F:	include/linux/arm-smccc-rsi.h
+>  F:	tools/testing/selftests/arm64/
+>  X:	arch/arm64/boot/dts/
+>  X:	arch/arm64/configs/defconfig
 
-On Mon 14-09-26 15:40:01, Mikko Rantalainen wrote:
-> Mikko Rantalainen (2026-09-14 12:07 Europe/Helsinki):
-> > ---
-> > retval = filp_flush(file, current->files);
-> > 
-> > WARN_ONCE(retval == -EINTR ||
-> >           retval == -ERESTARTSYS ||
-> >           retval == -ERESTARTNOINTR ||
-> >           retval == -ERESTARTNOHAND ||
-> >           retval == -ERESTART_RESTARTBLOCK,
-> >           "close: ->flush %ps returned interrupt error %d\n",
-> >           file->f_op->flush, retval);
-> > ---
-> > 
-> > That would leave the existing userspace ABI unchanged while making
-> > remaining offending implementations easier to find and fix.
-> > 
-> > I also considered retrying filp_flush() inside close(), but I don't
-> > think that can be done generically. ->flush() is not documented as
-> > safe to restart from the beginning after partial execution, and
-> > an interruptible wait could immediately encounter the same
-> > still-pending signal again. So fixing the interruptibility at the
-> > offending wait seems safer if the above invariant is indeed
-> > the intended one.
-> 
-> Another thing I noticed is that there are already several paths where
-> the kernel calls filp_close() and intentionally ignores its return value.
-> 
-> For example, close_files() does:
-> 
->     filp_close(file, files);
-> 
-> without checking the result. The same is true for do_close_on_exec(),
-> and close_range() explicitly says:
-> 
->     Currently, errors to close a given file descriptor are ignored.
-> 
-> So I don't think a ->flush() implementation can rely on returning EINTR
-> and having somebody retry the interrupted operation. There are valid
-> close paths where nobody will ever see that return value, even when the
-> process itself continues running.
-> 
-> This seems to strengthen Matthew's point: if some work performed by
-> ->flush() is required for correctness, that work has to tolerate these
-> close paths without depending on userspace retry. Returning an
-> interruption result cannot be the recovery mechanism.
-> 
-> I'm therefore leaning towards treating an observable -EINTR/-ERESTART*
-> from ->flush() as suspicious in general, rather than just special-casing
-> the close(2) syscall. The fatal-signal case is harmless because the task
-> will not observe the result, but close-on-exec and close_range() show
-> that unobserved filp_close() errors are already part of normal operation
-> as well.
-> 
-> That also makes me think documenting the intended ->flush() contract
-> would be useful: if required close-time work must not depend on the
-> caller retrying filp_close(), that seems like an important invariant for
-> implementations to know.
-> 
-> What guarantees must file_operations::flush provide when its caller may
-> have no way to act on its return value?
-> 
-> In any case, I'm now thinking that returning EINTR for close() is a bug
-> when file descriptor is already freed. I think the only question is how
-> it should be solved. I initially thought it should just be mapped to
-> success. Maybe it should be logged as subsystem bug *and* mapped to
-> success for userspace instead?
-
-I agree that nobody can sanely assume returning EINTR from open(2) helps
-anything (or that userspace is able to do anything based on that).
-Generally any error (perhaps outside EBADF) from close(2) is at best
-informative telling you that something is unhealthy but userspace cannot
-sensibly do anything about it. OTOH this "something is unhealthy" message
-does carry some value for possible debugging of the issues by sysadmin so
-I'm not sure just ignoring the errors is the right way to go.
-
-This raises a question: Are you actually seeing some case where you can see
-EINTR returned? Because IMO the best fix is to just fix the .flush method
-that can return EINTR to do that only in case of fatal signal and then you
-don't have to be doing this special-casing in VFS.
-
-								Honza
+Does it need drivers/firmware/arm_rmm/ as well?
 
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Catalin
