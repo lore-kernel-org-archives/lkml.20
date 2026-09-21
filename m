@@ -1,188 +1,114 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7810A4334D0
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:39:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E863F4DAFB7
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:39:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790008748; cv=none; b=QdoSCGsIwkpS74QCHUpKaYcIBSFzG3paZjtPodXdrl9z6pbg1rw9B1lPlGuoKVBKR9CFyytl5GH2Q2xA5E8xZWeHdDAC8bRjZpOUkNUy0Qric9B8YHS5dr3LpyOaL8DV97tirJHlYwOUwJq9+OOtl71cohnGxPeuxBDA3jgN9ng=
+	t=1790008753; cv=none; b=jpMzU3s5dEZ6qibXwCHcpObSv2gqqLnCT9FWdwCCwyxBbEHSaM3K+WhEu+gpOZzHZEVrElc5QV669a0CZhzOvNNQH+xGeYGOEigQ2DiwuC/fSQxAO4HOPW0SxEIPPT/iU2zq7cU89oBhR/pnJfuytYPQkKPCt6hXRGwRxzNloUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790008748; c=relaxed/simple;
-	bh=xlwJPjp7OzLrnPfVNoCfKO2PQWRt8wVlhsJIn40b1Lg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vFcuXWgyYHJQTzYYOnB0YvQW6tTkVFnMMp4rsBOheZMlOXuDVa/Lsy69g2xokTk7G7i0dTP2yocqo8xJLApuMc+MqlGTANm/UtBxOwu20gc3On0mW+VHVjrNDWFUeyCAETkhv+r2THmG9irZUgSiXhDnyhmuEV2avhUPKvt+9xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=OnYbIItr; arc=none smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1790008753; c=relaxed/simple;
+	bh=24LLjrfzuiFDMiY2Di7cUy9EJjgSsWn/cM0wQ6Zr3d0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tihaw7/Gp5f2Q7/rAUHmTfGpyVJRqjA5Lg4X9MEyY7DYMlRPkAhWp/G2NsK5n+n55zMF2eeOo0N6Xj3jZmHPM/3QHI/DHjrZ/qC+wWnWK00oJkQYu13ycpFPvU8/zztAd4IzXcW3SvRYpjLAkR0e9sct6qUcfKhehRKWQowic5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=oyV3inQE; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="OnYbIItr"
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93910a0cb7cso246780085a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:39:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="oyV3inQE"
+Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-86efece610cso2304811b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:39:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790008745; x=1790613545; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jHNYxc4ofRbSyKf1aiBAvHcEXeXrXDYKaCYPOfwKjFU=;
-        b=OnYbIItrfgQnyK1QbjJSxvdRxDjzMG/Amh1p/svDxEhQLoEaLqAIAtpuiMuUhoZ+Aw
-         Uo/lTKcdmp1/fZUq/qQJG9oG1YUzRlMJwcG22EU0cpsbz+Fm0q1NJYZFQC6B6xqr0tgG
-         Y4WFLAPATdV3uyI2PSkxb/mDHsj3k5FXSC8eHpZaw/8uaFdXV88cXwkUgj3aanFzqtvA
-         ovxNLv+TarhyIMXFoL5xN/JwcmfqjHy+oK1728Iqw2sRxAMilpx6SqNCiljBwBmUpy5x
-         b63Y+xd19+h14AHaxXs36pmaNZDmjXRSGgpZgfQvkmIQOz11WJTVCekuO8RqrGq72Uw2
-         bVbw==
+        d=baylibre.com; s=google; t=1790008751; x=1790613551; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RTiKA6dzD/roszw2geZzPgwk2NApUJFQrzcJ6rWXdb4=;
+        b=oyV3inQEeeHTqxshpe/ogEl7ju8v7wlSGKV8bYi7/jPp2xNvY75N0XtQlSAVvHe1bO
+         oLv5Ucqi+We9rxUgZhTCL3E6KE7U0L84Jsgjv25Kmnx1/s038WxTnkvd7OxPHUtHlvJ3
+         Ou8Krd/nIkpIghqkR3+p/jTEh83Rnr82O/X2PnLiklAJvV6ZK8uVUb8J3a/fw/mI10DY
+         O13ioxKjOe2IplsuOhQgZqAa3QAHn33bpRo/mXb7pBwFlunGtFclgTTVkYTRXqhSVwoA
+         qpWRGF2SKWT4TlYcy5ne9wj9wZ83LVkKiNE67tmMl8rYikXP34nn/DREtX4G8y3Y1jxb
+         hytg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790008745; x=1790613545;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=jHNYxc4ofRbSyKf1aiBAvHcEXeXrXDYKaCYPOfwKjFU=;
-        b=Sii5wp3Khx7p5br3YWAexZ4xqtZ2IBMmh8oAt1tnF7Nak6w5Ao2fdnjMx0ARCqNEvn
-         Ua1evnVMvZ9zfOpXmm1ZYs6LALr0Ktr3eEIra6lPG7vfzSB3HpLdqoPg/ZIs4fKkhBxk
-         tzvtWBE7Far8sGlz6xuaoTBWceuhJ3U+NC4lDKzH+yfyWguYXcN/Ot2zhVELpa3v0TU8
-         7fSUhywvida7l6Ch2sXqkDm7QEL1nQrlhccTqH8V82csOYkb2pm0we6fDcSE03MHYzel
-         6Yg43mx4eOjfEKVKZr+1rBY+qAfYyOMnbr6Ln/jidTdA3DFah9co6ItAJ3AljRxVVwmf
-         ahqw==
-X-Forwarded-Encrypted: i=1; AKwUvBzAPZIkdXQkCQlnBQ8AXA6t6ZgxKx5RL1i/28pChinjZUc+UlEuIxs7DrkoMeoSr5tm4i2lc+9ysfhfRws=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRW/RLL1RMnOmCKJ8SST2QA6caHxpuEWqpiyZJc13MCjSS73WK
-	Wa+4kZJEbq2b6nlyQ/10GUfds/2/pY6qbHo/Q3IE1GMEoAyfuHLO0MxlrBuKtfl04Wc=
-X-Gm-Gg: AYBFou1Tf/xdwoxjdo1EN6fRmchoXTexdkoq36wnzssQKWGL2rSc14fXzHzCHMQkoTI
-	ebk4+GQnlAkUguhbk0kV3kiA+iXBtl/XWqpoSsC3THLijC/zR81yurZGjQHgt9Pk3W3JkIiss2b
-	Sh0L/yAC/hzX7GL7niRfFcWtJ/ec1acyfum/MByqtZM34zdy/Wa5ohPvOkemhgOKaA+TTfwIMGF
-	x+hgOykuk9GSFl1164U4zOrXTAST5nipXK9uIQ8hbU4pgkHkI0+zG1X5Kh5x8qDpIcmAnyBfXit
-	G1mJqDK1MkjcYPraQZhBPGsDp7QfL1DOUyFBvq0yEHUZcV8lyf5yIFHygMXfQO/WMsJjdty9QhJ
-	c7xHj06AGCN4yMIP1QZs4OWBGBCNal9BW++kQ/AUP5Wpq4FHbd11dY8Dz3Ukv/7eM0r1/OBsedk
-	Bt1469H5dmaIoeRX/bLwtwwSaICrGtbLozQPUNWbCf3A4/mU7kF6RqEePNMT3WlWNJMV0TFhr+f
-	Mv4cZZGgX1E3w1HdzRiXro=
-X-Received: by 2002:a05:620a:46a1:b0:93b:d7a2:83d4 with SMTP id af79cd13be357-93c15f2ea2emr125179885a.67.1790008744843;
-        Mon, 21 Sep 2026 09:39:04 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F ([152.186.177.174])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93befd5c2d0sm675442385a.4.2026.09.21.09.39.02
+        d=1e100.net; s=20260707; t=1790008751; x=1790613551;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RTiKA6dzD/roszw2geZzPgwk2NApUJFQrzcJ6rWXdb4=;
+        b=NXwAUDWGoQ/Xal3TpWiyZFTUgLpe+MDl+qPzG7KPJwwGinp5xmNIj0IH6ELpJW7gec
+         zhGaJZHrm1m1NOez8ezuS95tuf4fb/5uVkTlPj36e0HFejifIAIG4Dt+v0VBiWU7QSKq
+         G8GDEMkWECMw6ijZ2pvpDTPj4PtuJj5WCY/mkvOYUMEL2xGkPvfM6vsHnUgTy0GeNpDC
+         IJsJbenWws00g40kPfB9rhv48KkUQ7AUY6luwh/0GBqSFD68TKXtuj/VWM8GNqhWbgkD
+         2/EHyaYvYbngCVIIPnf7Uvb+tmdQeS4pnJ5ggn4ED5JVqtPWZM1bhnPOGngr5sq3LucP
+         bUtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy9LsLLLazcRqzE5cTAXA2ryqFElcl4g6eLXB3qKp1nwMmttxQLJRk0feWLRXYv4g/IZcfnoLCWgrOAJM8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAIEhs1/sMpoLXMW/n4NN1I4y0YMfBkPfnRlGpQU2jC0w94nZR
+	Aj+yltYOe1bafoOJcYFkT7XthM3wzCG+SB77ZUWRf7uwjmKWGYeTXALWefzMcsJoaeQ=
+X-Gm-Gg: AYBFou2VuJ8XRYv9Y/F0OXGDTjuaB/DzcLS2PUD3FO660YjyxqleRqXr65TjZzQmSNm
+	EDaRyo33LwQDWw7PPCqEp/KzR5MSLKeECj4OZQY2xl1vli+qrZzpF/zrQvs3WRAUPG98IQpaQ2I
+	DQ3bEHHRUe9ggnBzSAGEi1DYaxo/XdJSD63cyLQQ/FGdK9IEpO29Wh9xC6oxPYSQD7Q+1BoJrH3
+	BvLvEcwn3H0Bb8vUoVZqJ6g421HkhGF10kqTRSm6xxyRK7lNfLJ4aVh4ZoGUskKiTGklRDG7N/f
+	QA/8M2bFzyASwvJPbsy5NNHHwphl4qnrGea11Zjc5S/5+uvVmwpeExD89w0YfW+9AAjLGUB8ofK
+	IBCn4fRkxzhfTeg1aGIBO90D+Mxd9MwWhHW21aZGTyOG0xyIh+H3dRITJ1oqEcfvc5x1NsIaBd8
+	XwxLZbN0T2Z47L+URcX4t3UgBlaBUvcq/3lz2tweiP5cWLSgXbR8EKfCaG3pKp0eh8qQOM
+X-Received: by 2002:a05:6a00:f04:b0:878:37e1:aa78 with SMTP id d2e1a72fcca58-87837e1abb4mr7930031b3a.58.1790008751345;
+        Mon, 21 Sep 2026 09:39:11 -0700 (PDT)
+Received: from localhost ([71.212.197.238])
+        by smtp.gmail.com with UTF8SMTPSA id d2e1a72fcca58-877a95f916dsm3568909b3a.31.2026.09.21.09.39.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 09:39:04 -0700 (PDT)
-Date: Mon, 21 Sep 2026 12:38:57 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Zi Yan <ziy@nvidia.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
-	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
-	brendan.jackman@linux.dev, hannes@cmpxchg.org
-Subject: Re: [PATCH v2 2/2] mm/page_alloc: refactor build_node_zonelist() out
- of build_zonelists()
-Message-ID: <arFaiV9iVgxIsZ1g@gourry-fedora-PF4VCD3F>
-References: <20260912030424.2889731-1-gourry@gourry.net>
- <20260912030424.2889731-3-gourry@gourry.net>
- <DLKNHNP6LH59.3MEEBCAJGFEVK@nvidia.com>
- <arCeH_aD5PUM1tNE@gourry-fedora-PF4VCD3F>
- <C7A2977A-CDD8-4EEF-9448-A130411878B6@nvidia.com>
+        Mon, 21 Sep 2026 09:39:10 -0700 (PDT)
+From: "Kevin Hilman (TI)" <khilman@baylibre.com>
+To: Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Roger Quadros <rogerq@kernel.org>,
+	Tony Lindgren <tony@atomide.com>,
+	Lee Jones <lee@kernel.org>,
+	Shree Ramamoorthy <s-ramamoorthy@ti.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Kory Maincent (TI.com)" <kory.maincent@bootlin.com>
+Cc: Andrew Davis <afd@ti.com>,
+	Bajjuri Praneeth <praneeth@ti.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	linux-omap@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v6] ARM: dts: am335x-bonegreen-eco: Enable 1GHz OPP by increasing vdd_mpu voltage
+Date: Mon, 21 Sep 2026 09:38:51 -0700
+Message-ID: <179000865432.4136193.2675209362900857145.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260917-fix_tps65219-v6-1-0544b735edb8@bootlin.com>
+References: <20260917-fix_tps65219-v6-1-0544b735edb8@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <C7A2977A-CDD8-4EEF-9448-A130411878B6@nvidia.com>
 
-On Mon, Sep 21, 2026 at 12:18:12PM -0400, Zi Yan wrote:
-> On 20 Sep 2026, at 23:29, Gregory Price wrote:
+
+On Thu, 17 Sep 2026 11:01:34 +0200, Kory Maincent (TI.com) wrote:
+> The vdd_mpu regulator maximum voltage was previously limited to 1.2985V,
+> which prevented the CPU from reaching the 1GHz operating point. This
+> limitation was put in place because voltage changes were not working
+> correctly, causing the board to stall when attempting higher frequencies.
 > 
-> OK, ZONELIST_PRIVATE and ZONELIST_KTEST are not upstream yet, right?
-> In theory, the new zlidx can be added when you add new ZONELIST_ types.
+> With the recent TPS65219 PMIC driver fixes that properly implement the
+> LOCK register handling, voltage transitions now work reliably. Increase
+> the maximum voltage to 1.3515V to allow the full 1GHz OPP to be used.
 > 
-> I am OK with adding it now, but you could mention this change in
-> the commit message to avoid confusion. Something like,
-> for bulid_node_zonelist(), use ZONELIST_FALLBACK explicitly.
->
-...
-> > And add a BUILD_ON_BUG/ASSERT that forces any CONFIG_NUMA to have
-> > balanced zonelist additions.
-> 
-> Got it. Thank you for the explanation. Are all combinations of
-> {ZONELIST_FALLBACK, ZONELIST_PRIVATE, ZONELIST_KTEST} x
-> {N_MEMORY_GENERAL, N_MEMORY, /* private only */} allowed?
+> [...]
 
-Slight inaccuracy on the way zonelists are actually built.
+Applied, thanks!
 
-Every node has a list in every zonelist.  The contents of each node's
-list in that zonelist are limited to the candidate nodemask.
+[1/1] ARM: dts: am335x-bonegreen-eco: Enable 1GHz OPP by increasing vdd_mpu voltage
+      commit: c3037b5c7c38bdf78c214e7dbe513a553ce8f47b
 
-So consider the following nodes:  N0, N1, P2   (N=normal, P=private)
-
-With the following candidate mappings:
-   FALLBACK = N_MEMORY_GENERAL  (_COMMON)  (all normal nodes)
-   PRIVATE  = N_MEMORY                     (all nodes)
-   KTEST    = N_MEMORY & !N_MEMORY_GENERAL (only private nodes)
-
-FALLBACK
-  0  :  [0,1]
-  1  :  [1,0]
-  2  :  [0,1]  <- private node's fallback list is normal nodes
-
-NOFALLBACK
-  0  :  [0]
-  1  :  [1]
-  2  :  [2]
-
-PRIVATE          Accessible via ALLOC_PRIVATE_ZONELIST
-  0  :  [0,1,2]
-  1  :  [1,0,2]
-  2  :  [2,0,1]
-
-PRIVATE_NOFALLBACK
-  0  :  [0]
-  1  :  [1]
-  2  :  [2]
-
-KTEST             Not accessible via any flag, completely isolated
-  0  :  [2]
-  1  :  [2]
-  2  :  [2]
-
-KTEST_NOFALLBACK  Not accessible via any flag, completely isolated
-  0  :  []
-  1  :  []
-  2  :  [2]
-
-I haven't posted the ktest series yet, but it's how i've made the page
-allocator ktest-able.  Ktest is empowered to set the fallback list
-directly rather than requiring a flag - not something any in-tree caller
-can do - which lets it limit allocations to a private node and makes
-mutations on the pgdat for that node deterministic from test-to-test.
-
-Works on UML too, so testing is very fast. :]
-
-Apologies for the added complexity in the explanation, but I figure it's
-worth spelling out.
-
-> Any enforcement if not? This is more related your “private node” series,
-> instead of this patchset.
->
-
-These zonelists aren't something we're going to allocate dynamically,
-the enforcement is encoded in the function (build ZONELIST_X over
-candidates N_MEMORY_Y).
-
-> >
-> > But I don't think it's strictly necessary for any of this, and we're
-> > just shuffling code from one place to another.  Probably I can just add
-> > that improvement when we add the next zonelist.  In the meantime - this
-> > makes it easier to add new zonelists as-is (and just makes the code more
-> > readable).
-> 
-> Sure, no rush.
-> 
-> Feel free to add
-> 
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> 
-> after you add some text on the added zlidx in the commit message.
-> 
-
-ack. hopefully the explanation above helps.
-
-I will work that into the commit message in a reduced capacity.
-
-~Gregory
+Best regards,
+-- 
+Kevin Hilman (TI) <khilman@baylibre.com>
