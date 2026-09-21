@@ -1,157 +1,119 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86284238C1A
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:21:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E381D246774
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:22:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789950103; cv=none; b=WH+dcppmsc3CNFe2dFZBfu8fsXCHPBMdf74bArcBzRkaH/nEP8wlu6O9AaBB4K4VRTtMm5dp7lFOQMmg2KIml/0NF21vto+1p0jx9N0d5ihfnZvdswOX8EY3tHeOMoZe1Y/QbPgYFLKVakA9y3qyw7rVwIhrmmCr+2FO4JXfVII=
+	t=1789950136; cv=none; b=MRdxb3dCUCuDMGqyFk2miPKZdGPTZUPxXFKXT/WAXcb0Px7+ewNL/QbIUjym6p4LiMuU324QOGL18SVqi9MR6PQw/wFPgiW3bOTGAMXvc37mJTInZLvQLQZ1jbadYVJqrJqqn8J8xF25OJVxTluhegdULf2mcBMx96Dka6P6L88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789950103; c=relaxed/simple;
-	bh=37qNlOcLbOhHatM8dMqvPIeqNWeCxT22Gkdm8ie5LH8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XZk4aqbZhfJiBVxn+2P0MOKRUuOjEY/tCzOwMiNAzpvoD8k/y2svXwZVrZE0qpP8LnZZ3D+Dhd9YlZ3/mVqscQwlnH7M8tdQ73D0UV84mLylx0VSMNhSRLRV+UjI/JC6yYsTn3Il3195UFg7i3tTte3Bh32qUHQDKY6txasycLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=qbS+ijx/; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1789950136; c=relaxed/simple;
+	bh=XwsRzJLQL722rDOxKBtIkGBU0anBu6ItURQT6kz124Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gFPB4shLkA8RNb51lXJbLDErJO6ujrDR1sSMGlMgMvdvp3tAEaRsmcnaqlPVoZwAkWnpm1K5YNITEetoJ9K6KGlWA8pCFcaawXzUTTK1rAFM5DPgLvo9X7Rvp1Ra8MJLaAe0wSeNbGKIbkCYnC9cEMfigHqSMpkQH3uPvDFLLXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gRx7OgU8; arc=none smtp.client-ip=74.125.231.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="qbS+ijx/"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc93e00so13762076d6.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:21:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gRx7OgU8"
+Received: by mail-oo2-f6.google.com with SMTP id 006d021491bc7-6aafac56856so1182976eaf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:22:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1789950100; x=1790554900; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s5+HOZTbn3M5ZHhIolHoNXACaHcDNcWtJGkXHOE2EGc=;
-        b=qbS+ijx/btPEshwUwBw4JvmCvY5xfl27mVSwnwmiULRgv8O6dmzeUmeyd8iYbggx6A
-         FmTgsj06aTL3h6l20k+aWhFlk2Cepnm/bVV6xdQoSkJN26KXER8w0HfolPlOpE8KEKvm
-         vy/cUnUQrPNz6I5kaLZuXKaVqr2QuqKG7cCdVsJQNDVfkI5zrG/AEiUDAvlkWGNh2YQs
-         Wma3jwq4VYdmmnqsyLvbpWF+cRxTI7GbtFveVp+yRWdBtmhN8hJVtnlAeS7czdqdoLW3
-         rCBjTMKiqmS8rzltAu7mf8Y9FRcsUl5NQTXr3H+Vb877oL0NHZDfaftO9ZlgykCF8T0Q
-         DYNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789950100; x=1790554900;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789950134; x=1790554934; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=s5+HOZTbn3M5ZHhIolHoNXACaHcDNcWtJGkXHOE2EGc=;
-        b=fb5DWH6hJfaM6YQEJZQ61R+E81cKU9V+lKuEhgjYSBcBhcVTN3tYKCDSdycTIiYVU0
-         NN9PiF69HhVqYyvZcZY8xbWpt/9MQyr8xd6ns1obt0f2FUXGABV+7srghzVt9bCgug6V
-         gsFP3jL4UZRLXzd9fLIlQRbDZz741NN4MY5XVTzL0hh4V19JtkeC1zNWWiOy2mDrwTgk
-         d8Jupmq1G4WTz434QqbSbfYyjDalmARKMd6heASXmwtgg7I7xwV46cV9hu5O2D4PyJY4
-         SFRgNlMErd9QgGDAMwLiCDPb1qL0NFgr3wXmeiYxbY9ZBedS2b4aJwnyiAV9ZwRKr/OC
-         j0XQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxOxW+4E4faRH6lQBGXd+SDvt3Jiy1YJrCgeqk1/UKyzzmb8KmTpn80bknsWtXeTgF9r1lUhTDtfSVgsvk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mlBytHhiEoFVW555C+ca14gz7r4oHlkZFTBPPGFyHn0KGIEfV5
-	QxM6YEZv8tzctKSJwqhmsn3YMvXu7E5rKm1l0hr8eh7OMTvpZR6UGzVl43nI7eBbLPUYGsOtF+g
-	mn2ReFw==
-X-Gm-Gg: AYBFou1jeGy/pYyYpPqhcF5xN0d9YO3mzOOIfS/sKqlqPEqL1W7TxcTfgXPUK1bFVpE
-	vc7h4GaMSVYMgDEZYmhwI5S1sgYrRIbBut1dLo0Vug+EdxOk0SvRjdgd8tBx7EfFuQiAeLpgeXU
-	bYIrAp9NV048tpX5Z6Yw6eVi1DCALE4dyjjgkyoMKB25ND+jP8JjlS8hsku5D9T67fIIINELFD1
-	RcIfpyniGbHgdfirMvWFJc1Tk1jI7Zi2c1DycnNeMJvN/dGX9Kx2ZAyoOHhU35V68NCcOUSNGDD
-	8cZ9ifDOwyOElj/5RRuvr/OB7wWpExEpGpugjZxqObx1Vz10Wq4UxVwLdU3BRhnpUuNKJ4uoePf
-	wRFgl/VU3/CnPBWoCBSBpvtsHb+oh/v5LTsr1gZ3ySsdJPObORUSkoqIDh1l1oBHPw8sO0sfRkp
-	Y7FqS8/khWiRhqmkJdzfi3oYGjdV01VzN4w/qa9jD/CgN0BihhwUccjA+6VcWoXVGDZ8bdhyE+
-X-Received: by 2002:a05:6214:1c46:b0:912:6067:f588 with SMTP id 6a1803df08f44-912a801caabmr84450146d6.39.1789950100231;
-        Sun, 20 Sep 2026 17:21:40 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91260a8d2cdsm54394216d6.35.2026.09.20.17.21.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 17:21:39 -0700 (PDT)
-Date: Sun, 20 Sep 2026 20:21:35 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Hui Peng <benquike@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, michal.pecio@gmail.com,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] usb: core: clear both ep_in and ep_out for non-ep0
- control endpoints
-Message-ID: <fea9a6f7-b6d1-4b20-968d-a306ee4b4e80@rowland.harvard.edu>
-References: <20260919223518.3890208-1-benquike@gmail.com>
- <0bc9c10f-6b6e-429c-a625-d34b12aaf2ef@rowland.harvard.edu>
- <20260920231702.110963-1-benquike@gmail.com>
+        bh=bMAwtCxGCGY6D0JArwPVVoRyTsw+poPi/tmNRvMJqUI=;
+        b=gRx7OgU8bDTs8tAAAJaQuWCc8DHTk1qHRi4qoJhKM9zAUf7iI5BCIPH6u6cwph9sfl
+         zVnIdfFp6zqFTiCVRFUz4Gp+3jX+i65MxWyxLrMfOogNTrWCBhJQVZvloXOoVchLRrnv
+         sb5N0lONhD+Lf5xDUDhTQl9Ybq8C1dEGtxCOYsUxi6lLAs7WYqsCBNIDyjEFogpJL5j5
+         kPJOiFoksMl28E7DqlFwz6rSrxsNcO+TCXDQNpyZ2T1cE1gCd7xFd1/4T9GcJNt1/Muh
+         FQqiMHwIV/3CrDN9HuP7DqsQl7FtXmiUL89kQ2XadcjIrYM45JwyWgPmaNrzd2GYOBuy
+         5VTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789950134; x=1790554934;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bMAwtCxGCGY6D0JArwPVVoRyTsw+poPi/tmNRvMJqUI=;
+        b=WB2jCDZWi7IxErueuILB6T4QxUBVzj/yw42TaXoL9MD+njf5EQHFwDGlW0EQu/QDGi
+         icbxYuiByc7uKyUfnxkkx2K8YVtGHHLtLUMMGm1JIGaVg0xGQwFjE5aaOUWQSsbRb8fN
+         yE2NJO7LV0JtMa0N6u/wXNj1rSW3BU17kvRhhsMuQgThab1xUjjbX/j6QH4750JnDDJM
+         JsHg4trG4Lf5YdBd6hMhc8GAzjMjTNcR44W07AYXjSqHlMsMbXh7MGlY/G2iXOeu1Vz6
+         GzwonLlj1sgqez2bilB0cqm9eYfBs3YV2XF7hzc4G9BXuQ8IbtURX2F+UtOw03A7nzqj
+         mlsA==
+X-Forwarded-Encrypted: i=1; AKwUvByZrHvWzz0TqcqF9MkWIJJkO4Toy5YCay5vFfLcyPFbyAOS5Fq6HqHzWm5zcZnBOeKIkwPBxA2n7OQjEaU=@vger.kernel.org
+X-Gm-Message-State: AFuF++npo8eZzJRJnY86F30uO/2m2uIzvdS8RjBnIp/2qy652xH+B7pd
+	FtOullmT+wurWcFCQRyNOemrw3PJFEJvlStjYqNXsFzzDCfWKmcmW3TD
+X-Gm-Gg: AYBFou0SldujQoL6LqQFTSN4QdFqtpljfkahnIgZDWnbQOcsRO52oVq8JA7WRq9kyBd
+	wj8wd5Nd9VklEGsDlJQ5QXuRS2TYO0Bd9N5YrLRhXMdbIShLvYNexMe0l9QG8nuK4n4NMiHj3sb
+	PpUcfYkXx9wSCOMtv4CpaiMC0pNa6eawcbpY2Pad4LuaiJBzdhZDUe6mw0FN4CwhlB+JG/jJVDi
+	Z+Ao+lw5R80GwSgG6Qdin7oa7f4+LRGyw2n6AVbICiYbMq88WsPx92pWxIt/T7hO8HvXaeSnteZ
+	vDcdqqs51xhGCdzMyj+H/MvVVebiIHYXrBcKAGrG8syMPo9FuUlDmNdpd1CRYeiUZ1Ji/KqonSz
+	eSDSw1S8+0OY+uoR9Q3NKoWErzFW9HZXK2EoVaMdC+Gd1+FyH6+5W9XLC4cSJJpBQZBqOem1O2h
+	ugQpqNAQEBMOs4aBGwNY969k3O5wm1aJeuqwHV3Cu1Qdsxqpo/NPNjTZJzNza7Q43DdPEuzSNbO
+	bgaGObDudthbJ8=
+X-Received: by 2002:a05:6820:1f04:b0:6c2:1018:3f7 with SMTP id 006d021491bc7-6ca9aa4245emr7824820eaf.23.1789950133885;
+        Sun, 20 Sep 2026 17:22:13 -0700 (PDT)
+Received: from ?IPV6:2600:8804:5716:d800::2620? ([2600:8804:5716:d800::2620])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6cd34b3101esm7471632eaf.6.2026.09.20.17.22.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 20 Sep 2026 17:22:12 -0700 (PDT)
+Message-ID: <41503126-2f2b-4ac9-bb9a-610686be4729@gmail.com>
+Date: Sun, 20 Sep 2026 19:22:10 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260920231702.110963-1-benquike@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/3] iio: adc: add mt6397 PMIC AUXADC support
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ mfd@lists.linux.dev, Roman Vivchar <rva333@protonmail.com>,
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>
+References: <20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-0-c00edacbee64@gmail.com>
+ <20260921001702.3a208780@jic23-hlaptop>
+Content-Language: en-US
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <20260921001702.3a208780@jic23-hlaptop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 20, 2026 at 11:17:02PM +0000, Hui Peng wrote:
-> In usb_enable_endpoint(), non-zero control endpoints (where
-> usb_endpoint_xfer_control(&ep->desc) is true) populate both
-> dev->ep_in[epnum] and dev->ep_out[epnum] with the same
-> struct usb_host_endpoint pointer.
-> 
-> However, usb_disable_endpoint() only clears either dev->ep_out[epnum]
-> or dev->ep_in[epnum] depending on the direction bit of epaddr when
-> reset_hardware is set, leaving the opposite direction's array slot
-> pointing to the disabled/freed endpoint.
-> 
-> Clear both dev->ep_out[epnum] and dev->ep_in[epnum] when disabling a
-> non-ep0 control endpoint with reset_hardware set, and update the
-> function kerneldoc accordingly.
-> 
-> Tested in QEMU against Linux 7.3.0-rc3 using dummy_hcd and raw-gadget to
-> enumerate a USB device with a non-zero control endpoint (bEndpointAddress
-> 0x01, bmAttributes USB_ENDPOINT_XFER_CONTROL), verifying that both
-> dev->ep_in[1] and dev->ep_out[1] are cleared when the interface is
-> disabled.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> Changes in v2:
-> - Dropped all changes in the other files (config.c, hub.c, port.c,
->   devio.c, sysfs.c, and ledtrig-usbport.c) per Alan Stern and Greg
->   Kroah-Hartman, keeping only the usb_disable_endpoint() fix in
->   drivers/usb/core/message.c.
-> - Updated the usb_disable_endpoint() kerneldoc comment and commit
->   description per Alan Stern.
+On 9/20/26 6:17 PM, Jonathan Cameron wrote:
+> On Sun, 20 Sep 2026 00:31:50 -0500
+> Ryan Brue <ryanbrue.dev@gmail.com> wrote:
+>
+>> The MediaTek mt6397 PMIC has a 10-bit AUXADC that nothing in-tree can
+>> reach. On boards built around it that ADC is the only path to the battery:
+>> the SoC's AUXADC is wired to board thermistors, and the charger ICs these
+>> boards use have no ADC at all, so without it there is no pack voltage and
+>> no state of charge.
+> Hi Ryan,
+>
+> Please slow down between new versions.  Unless a maintainer is specifically
+> asking for a quick turn around (sometimes happen very late in a series) at
+> least a week is typical time to allow multiple reviews to come in
+> and hence save on effort all round.
+>
+> Jonathan
+Hi Jonathan,
 
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
+Got it, thanks for being patient with me while I'm learning the kernel 
+workflow. I'm sure you guys get a lot of newcomers not knowing the ins 
+and outs. Won't happen again.
 
-You might consider looking through other parts of the code to see if 
-they need similar attention.  Historically we haven't been very good 
-about supporting control endpoints other than ep0.
-
-Alan Stern
-
->  drivers/usb/core/message.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/core/message.c b/drivers/usb/core/message.c
-> index 75e2bfd744a9..0cd6dd2b6334 100644
-> --- a/drivers/usb/core/message.c
-> +++ b/drivers/usb/core/message.c
-> @@ -1337,7 +1337,8 @@ static void remove_intf_ep_devs(struct usb_interface *intf)
->   *
->   * Disables the endpoint for URB submission and nukes all pending URBs.
->   * If @reset_hardware is set then also deallocates hcd/hardware state
-> - * for the endpoint.
-> + * for the endpoint (clearing both ep_in and ep_out pointers for
-> + * bidirectional non-ep0 control endpoints).
->   */
->  void usb_disable_endpoint(struct usb_device *dev, unsigned int epaddr,
->  		bool reset_hardware)
-> @@ -1358,6 +1359,11 @@ void usb_disable_endpoint(struct usb_device *dev, unsigned int epaddr,
->  			dev->ep_in[epnum] = NULL;
->  	}
->  	if (ep) {
-> +		if (reset_hardware && epnum != 0 &&
-> +		    usb_endpoint_xfer_control(&ep->desc)) {
-> +			dev->ep_out[epnum] = NULL;
-> +			dev->ep_in[epnum] = NULL;
-> +		}
->  		ep->enabled = 0;
->  		usb_hcd_flush_endpoint(dev, ep);
->  		if (reset_hardware)
-> -- 
-> 2.47.3
+Best regards,
+Ryan Brue
