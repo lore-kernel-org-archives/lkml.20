@@ -1,89 +1,94 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F634A4409
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:06:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4506E34FF5D
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:06:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999580; cv=none; b=kWZJXx0kJTyUNEGi9GS5d8KKS0Q3SO68+tmUfB1+dVIpMZBJPueuVtVfdjTfqovaHXL82PicMiHLJBD30nmRiOHPIw9DSBar0zPNE4/cTKuvt/4i+d/qMI3MI5W+HxNYjkT3INAg0s6NVrF8vaK93GxrxxDgjyhNWZKiaJT9RiA=
+	t=1789999589; cv=none; b=Y7AYeps6U7Zd7hMDqqvdNMnQKq3iSivg5nhvbcrK42ZkZjFSvOTPmRt6TTXB55M9XeD1CKR2ys9O+sZeVV+xEC174G/LfLExcb8/ot8x/RTJACSiHvs8DhBP6R43jsrpdlR3Tqlcycr09WFno4ZGGhza8f1kmr46NXWp5hQ2ibc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999580; c=relaxed/simple;
-	bh=wCnC8qI8CEh2m6FoC+8QGgv1VEGAixHn2X1dL8GvZu0=;
+	s=arc-20240116; t=1789999589; c=relaxed/simple;
+	bh=6TAqMjHBoHUiFi3wkvnVQ728BuUL5Y5HLzESWYJT0lg=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=L7TZHLBXryFKuP7OEbIyoXpsjgLAvoum3CMTg9rrbYMQsRubSvux3Ds361ohPXpE1BXPviHOEEr5UzYQ5d0Md2ylNyfcRyNfZd+O9mJq9zJGtbKMgnGNdeAIQOvIICwOAqnj4pwMTxRyh8ZjG5P8qZOfYfPbFS5DZz4pMOgE04Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NvaiD4rN; arc=none smtp.client-ip=209.85.215.200
+	 To:Cc:Content-Type; b=KC7hNkm5eIzMhsCfvLL5hIMlZP/lLnqBusD/eN5glOEBqdj6j6rO6Tp9mAt8h/OkHvJQmkZ6v7UQn2ybfI2Btb6dbx6xkxLGUXQxIKFhXABvfGZpQ5Cv2MZ/Eh7VHsa30Dg0A7PmBio0mCdG75cDjv/hYmsrd7HYQMpJyPUXaAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=R1zHkoqO; arc=none smtp.client-ip=209.85.214.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NvaiD4rN"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4e496e5c3so2455248a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:06:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="R1zHkoqO"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ccb687f82eso42850295ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:06:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789999578; x=1790604378; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789999587; x=1790604387; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SNaqNFX1vJ/yB78IhkJf6QSv+su8YEM8AM0UoTN4xH4=;
-        b=NvaiD4rNW8eKAvDm3DE3Du9th83iAgXXIq9TsPi6oTEH2stFOYwToXSkKjm/WPKdM4
-         B47nCpt4vk27XusGa6UJQZe9UULwrga3bAKLMx8giXI7x5DJ2/KwbdgIXpr/W7gn98YI
-         oZQ4jDPVADNpJ4YMZcnfI9VbUS85bC9Sjb6S5ldUN/wcI62t3AxUW0N1HVWeIQspKWkM
-         79XXUdN+SrHf/BlJNl75ezDZWtwZhR1lWWPtaIb35F7+eLeEMbho+HYhGeFEf67JHau9
-         RybEiMqEL25/tdrcJl5YbqBectpOIWdwivTefiCoHr1Mw98hgG62wtVr2O2cQUJC3wke
-         p+aw==
+        bh=BZ2htXcpEf0yscnHPHdzpPSyyISdV3JRkU5aSKroXnM=;
+        b=R1zHkoqOcVx8rusEJx1Mg6tQby8QUV2fdQdkdN0OBvZRcIuycI6ZtgGe1p6spIpBgq
+         Gr/0RsURJi5nyzwQs0oGyHvPTppwyQPcTJFr3BVsBs5smV3Bxww1dy402HMAk8nxNAlH
+         dsEpMALiRCz99SPNOwelB2mzrecGK91h9otnLwcXk7lGZXy2JLdvBBfYIkyXrB3sICov
+         uUc6UHzvnOMAylutSEE2h+16CIu/W/IVYClOsNsgN2OU8ccU96gFP7TcTrTg3AYyBhYM
+         fYinEVOSyAI40wywtSxZirIN21BsrTnJkDpjAV00Zs8wb6LBbeEYyfpDzNu0zaaS6foC
+         yolQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789999578; x=1790604378;
+        d=1e100.net; s=20260707; t=1789999587; x=1790604387;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SNaqNFX1vJ/yB78IhkJf6QSv+su8YEM8AM0UoTN4xH4=;
-        b=RmdY25PfXvCoAMm90IbS6BAKkW1yhR1zh6kjzFNtvz+edSt+/1x2S7JhgrOxZFVb1Q
-         cn2UjxrgjBf9nNvCBXyDgeYW6uhld7k06cao/fKQbcl782Me4VFzkmU/CXW+wHSTnnT4
-         OcrIThP+ko/Cjlcy/rtABUZ9khXwEdngnOYD2rWdzv1Uxwj+DRVHbPlZAEuDPZ9uyP2D
-         wsjjNozSHAYrNgLRxkc9XHFT6soeUEln3GlTY8nYtNCDBOKJTcnlR5WhfDEULBtou2NI
-         e/QvjKr3u/UgbTGMZuzwG+ryBC++5gtnLoSyn0xjKxF570Hev8g7nQGrEoqmgbFSr/T5
-         ZY+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwLSedOPQwVs7jnFKJXm300N5MCkMzsqgZAQwgNIhj18gQeB2zXU4Q5yoLpnZDV1iV2Z5qoM31OvlbaNu4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mlfRJYs22JJe8jluPkOEnJ98nDxINlrURDTga7O7iwTkLTAvVr
-	2/UpNWCCr6/Wqz1Fx/OPXPqmBcZMH4bYmGYFZ+rkqZ6FUgIHKZ0ZpwMh3NfQzD1Ca/H/oowx2HE
-	Qu4GXtQ==
-X-Received: from pgtk20.prod.google.com ([2002:a65:68d4:0:b0:cc5:1024:105e])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:482:b0:3dd:a195:fa1f
- with SMTP id adf61e73a8af0-3dda195fc91mr11921087637.68.1789999577997; Mon, 21
- Sep 2026 07:06:17 -0700 (PDT)
-Date: Mon, 21 Sep 2026 07:05:12 -0700
-In-Reply-To: <20260806171400.4119301-1-seanjc@google.com>
+        bh=BZ2htXcpEf0yscnHPHdzpPSyyISdV3JRkU5aSKroXnM=;
+        b=lx1Nu7pPd3ISqiGGMCc5u2PWbY+P/ab/SUBdaWlqF1fkkhvfmtNIT8FHe7HtzqUWzn
+         J2MA7xPHNgOLbw024WA2w3TDl2i4BYDYCTFYiJ9iI3Zx2dD4rnamrUYunzvbgfv7iKJM
+         zrc9vpgHeBKYuWHNhS4SXIRQ5NIjhoYFvWHfIsVQClUkDmct5D67vjTo57RHw4vCluqv
+         gaoffYfklv/RihQ/srPe3gx2BL2oQ9+BOfwV+Qqb/U6/ilYp9wmAc8d+v4mD0UeXCKd5
+         /ZH5+LAgmR0UZci6+t1rvdtJP3FkC1NctIj0XxyRbQS/DQ3Kx0q9DPlPhRBCy997MRJG
+         K3sg==
+X-Forwarded-Encrypted: i=1; AKwUvBztjPCKi5X7HFDqDs8Y8SI19uEl7D69BsSk1/QPqvlsoDIPvCsIxt0aoJn1HG6zEdccc92jbuhzfRrkTV0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJ3u3vwrf8mzm8m66goIsLBq2QDzKKSaVL/a5TdeX3luSkNyD3
+	+oXJYGYxY9AohUOpKa4enrIai05fdpJCDYN+tvQcOPjuwqvw14IArdnLJtu8E6UwIkTeQMJL9Qy
+	G21y6AA==
+X-Received: from pleo1.prod.google.com ([2002:a17:903:2101:b0:2df:4883:3fc3])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:3803:b0:2dd:c100:b2d2
+ with SMTP id d9443c01a7336-2ddc100b3b1mr113461315ad.61.1789999587464; Mon, 21
+ Sep 2026 07:06:27 -0700 (PDT)
+Date: Mon, 21 Sep 2026 07:05:14 -0700
+In-Reply-To: <20260902230932.2760127-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260806171400.4119301-1-seanjc@google.com>
+References: <20260902230932.2760127-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <178999688412.714688.17254419509505486667.b4-ty@google.com>
-Subject: Re: [PATCH v2] KVM: x86: Track kvm_vcpu_arch.pending_ioapic_eoi as a
- u8 to drop dead BUG_ON()
+Message-ID: <178999888361.743033.9908769455046597723.b4-ty@google.com>
+Subject: Re: [PATCH v3 0/3] KVM: VMX: Explicitly track TDX VMs' root level
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
+	Kai Huang <kai.huang@intel.com>, Yan Zhao <yan.y.zhao@intel.com>, 
+	Binbin Wu <binbin.wu@linux.intel.com>
 Content-Type: text/plain; charset="utf-8"
 
-On Thu, 06 Aug 2026 10:14:00 -0700, Sean Christopherson wrote:
-> Track the vector associated with KVM_EXIT_IOAPIC_EOI as a u8, as the vector
-> is zero-initialized and is only ever set to a legal vector.  I.e. unlike
-> many of the other vector variables in KVM, it can't be -1 (and can't be
-> greater than 255, though that should hold true for all vectors in KVM).
+On Wed, 02 Sep 2026 16:09:29 -0700, Sean Christopherson wrote:
+> Fix a bug where a misbehaving (or niave?) userspace can configure guest CPUID
+> such that KVM will use the "wrong" root level for its mirror EPTs and trip the
+> KVM_BUG_ON() in tdx_load_mmu_pgd().
 > 
-> Drop the now fully dead BUG_ON(), which aside from being completely
-> unnecessary, was also useless, as it wouldn't guard against a negative
-> value, i.e. wouldn't detect KVM's magic -1 value.
+> v3:
+>  - Use kvm_mmu_get_max_tdp_level() in __kvm_mmu_create() to avoid what is
+>    effectively a false positive WARN. [Sashiko]
 > 
 > [...]
 
 Applied to kvm-x86 misc, thanks!
 
-[1/1] KVM: x86: Track kvm_vcpu_arch.pending_ioapic_eoi as a u8 to drop dead BUG_ON()
-      https://github.com/kvm-x86/linux/commit/926a9ea9bdf0
+[1/3] KVM: x86/mmu: Use KVM's max TDP level to determine need for 32-bit TDP root
+      https://github.com/kvm-x86/linux/commit/7ed619909773
+[2/3] KVM: VMX: Explicitly track TDX VMs' root level instead of guessing it from CPUID
+      https://github.com/kvm-x86/linux/commit/cc8a8f2a90b4
+[3/3] KVM: VMX: Drop TDX_SHARED_BIT_PWL_{4,5} and dedup related code
+      https://github.com/kvm-x86/linux/commit/37e3197c50c8
 
 --
 https://github.com/kvm-x86/linux/tree/next
