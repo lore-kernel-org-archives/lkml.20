@@ -1,39 +1,38 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03DCB4734CC;
-	Mon, 21 Sep 2026 10:46:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E069D47FAEA;
+	Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789987566; cv=none; b=ePcLqdB/4wN8Jt4rKd8Zf0ZQSiR3Zd6PF6YkUHws/l9ESurlqaESjD0+QEmvCUnSlLCtFLuKRJUq22Q/ltGYBg1eAZkyUAEEe0ICEy2u0VuPAaBY0mpirB/ccBjRAyHKLNiI5QvIXmZMCln5gmky/ObnJG8/xJziTz8IYM9IwZs=
+	t=1789987586; cv=none; b=dYHsGjQ0SUPyHwtoYNQd+8D00yyBHdUC6B7+EiexMFjWpnkSZ0a1L/atSbNw/mSE87MOYpBqIEnUih2rAnGoOETQlqAl4Jlcuivh+PZ2GWTSMPL3C1LtVrWfNuwugM6YHJPKIGkDOwQXKu+ZBjLmiSaXNBhSLSiPrjRBY2N3Yzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789987566; c=relaxed/simple;
-	bh=p8yNUkMitpwgzvs+cGgbKwO3+XbwijnQD+AZR0s4TxU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=q7mSbohjp7AESf/9p5DOgbL/3/TjZqQYMegiHnmK7J9Ah3xRFuFgCFkjcVKKSrbZFaGHWte5Vap6peB1dEF07PCFl36VeBdpvqbYoUafbRx4bv3bVQoPT1kya6nee1rsiYiijFIZwgy02GNn0NGSPlfydRKvc48WqgeLMw1M9lM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=mYcyu6dD; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1789987586; c=relaxed/simple;
+	bh=VzG9WGvgbCSaoayzd2ht++Y85jlKLhif3VYGTpEVkAM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=h9SX02S7dW03m3XIsxWBcKMgCTotJtJ2X3jwvdzS8H8liopx81DhaEgaSjoA7gVQL85nYDKKZNQsxxLaFX4U8jqMATsC85QZI3fyNrUrGo4qfJMVoQzlc7Q/EoW4tYnyOfPvRANPpTFaS/OdWWHHhCn1oJwRXs++ug7rx4aaf8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OKAJTj0g; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="mYcyu6dD"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=GnSX7BDD3R3C62GVxOXhW1Ll8Ux6h+dSNtOidsNAaz8=; b=mYcyu6dDYCrgItiCp3xqx7/kZ0
-	RyXIRnMMl4oGyDBjhdx9EzNkDCcFPlaFNvN2/OJmKcVlVme9qM7JDGIfonToacq33tg/Pb0YnZ+ap
-	sxANbuUsf6tMT79gQPssXqaQaMb3P+mRLXioYC1y9ycRUZjLyjt1acvyUr33KflM8fXBzNcJE5ZaS
-	zdTKVkaTigFv4DPTQFpRub5+cSxSXjPEo0YaSTS/q+9J6zlq4tpw6VnuFVip1YOOMnnRjOTHDs1TT
-	+fgaVOC4maGto2Qm5khCHKxtpfGtm6QgZEqyJVVjAXpYjDhOzG4kylcKofrEim6vtykJSvcpGGT5A
-	/tMWDO6Q==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x8bX0-0029FF-1N;
-	Mon, 21 Sep 2026 10:45:54 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Mon, 21 Sep 2026 03:45:42 -0700
-Subject: [PATCH] vmcore: report the release of the crashed kernel
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OKAJTj0g"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8D66EC2BCF6;
+	Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789987585;
+	bh=VzG9WGvgbCSaoayzd2ht++Y85jlKLhif3VYGTpEVkAM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=OKAJTj0gsMArSCKuEkyPR5bwygqGrSR0Za+XqKxc0jUpjdk23viwlw8+9PNAhat8J
+	 GpnA6NBC7QaPJMqiI3luFdzpPQEDJGVQwi8YWTO9TSmVABAau65/wthw0DYxIDmGow
+	 L4r7iH/1zsQvGdLtB1BZBFcvGT7eUPBg7crsO+1d3fBYOKEfyu0S+CO7a4hIDRJxXh
+	 N1g9uKoOStWdyJNiSPp18+7DWxOyvmG3JZHMjP0Vhab2z6oxifKCXPLmCCbnWeQJ6Y
+	 uSV5upNz0v+c9je0wS6XPDjPEQciLkZ3AwItXvJUFjPFpjg3kg1LLumtsQDuO9sxzl
+	 fiynr6catAcJQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D545C982ED;
+	Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Mon, 21 Sep 2026 12:46:23 +0200
+Subject: [PATCH v4 2/4] backlight: qcom-wled: Fix WLED3 brightness register
+ stride
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,113 +41,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-kdump_print-v1-1-e445fec3177c@debian.org>
-X-B4-Tracking: v=1; b=H4sIANUKsWoC/x3MYQqEIBAG0KsM3++EjBLzKsuyWE01RCa6RRDdP
- egd4F3InIQzHF1IfEiWLcCRLgj97MPESgY4QlVWpmy1Vcuwr/EXk4S/skb7uu1sY3qPghATj3K
- +2+d73w+I2cmPXQAAAA==
-X-Change-ID: 20260918-kdump_print-861a49b856ca
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>
-Cc: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, kernel-team@meta.com, 
- Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.16-dev-f8e9d
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2601; i=leitao@debian.org;
- h=from:subject:message-id; bh=p8yNUkMitpwgzvs+cGgbKwO3+XbwijnQD+AZR0s4TxU=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqsQrdNWo2mbPeqC2ctKM0U9OzNzT6UnZB7Ey9u
- HNsJAEFUjmJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCarEK3QAKCRA1o5Of/Hh3
- bWnFD/0aDxinGR9m/HMt2DWUe2YmNdnYA4+TFUkLfyH9ek09lNxVLMsGeg01Ybgytzp7hscVcib
- Pabef81sLVvPCWaZCfvfE3lT/ab8LlbbWoaSUXqLx04n6HMQJRVlCKBagz6vi2clrVb++d1BC76
- Q+LFjUu90YlSOgCd8esIRs4WMLC0d5tit7OQ2FrtS/+HNaXnHJzEyr+vpzvjdV6xXk1x7OZZqrR
- No/L9vmFy8qT/EdcDQa+Tipk4Q67UBaME0IDJU/VsP3CPmr2cJgEB32HqVJ891KxRR2aG4Cy2jH
- ZaoYhU9K6jNgqx/xkvgQyIsJ7k32X9jfMAWodyJfYx+Xk/mJi6PcO62qiLRhP9M4p5oGebBONBv
- LiJ7KAVAzoHmrnrYuecoIOl4jpLtvplIEp0EHVghWeFlknU1R9Yb5HeWFsB8VW48TKcOaDkZqgh
- CVIsk2AL39Xy7pYRF7fHn2xAIS9D/48Ej8opUF+5w+WtPfx/pGCiqyy5E6xmdOtgGq9esNaLtj6
- SGAvqzhWmlCuCZQVQbxz0mjyl+FLdcq+1mknTHu1rUW1I/tIr8VBKa5KOpfMc+MdYc6vt1TR7To
- ub5cjYzOTC79K2XukZN7JkFsMsbGvEsVUykxrHSunUv9mDCu8oX1B9hBXYz4hu6rukmNHdFsTou
- XpGGy3SMPhl07cQ==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Message-Id: <20260921-qcom-wled-backlight-v4-2-bab8c7ef73cb@ixit.cz>
+References: <20260921-qcom-wled-backlight-v4-0-bab8c7ef73cb@ixit.cz>
+In-Reply-To: <20260921-qcom-wled-backlight-v4-0-bab8c7ef73cb@ixit.cz>
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
+ Kiran Gunda <quic_kgunda@quicinc.com>, 
+ Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Joel Selvaraj <foss@joelselvaraj.com>, David Heidelberg <david@ixit.cz>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1776; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=7dg4sNfoJUcVQTg/pZrE7IUtjXq8Oym1qNiml++xiMI=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqsQr/sPC+A2M95fdj4NxWG/mcIHavg1o987p1L
+ ijk5700k3GJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarEK/wAKCRBgAj/E00kg
+ coGhEADMtxTn4ww2WMUJwvEDnnzgSyczCpqyJrexzt3wfJ4e37ctZNxb2pOiekO2LXiWSozjtwM
+ Skk0DtVcB8jWMkIp0vtBnWxsjdApCsjudOgv65lXTY20YVP+4f3yvnbJZEBJaHy3HCimLSA3YO7
+ r07cgUnIsk4f8TWT2UO40uLxcMZjIEVaGakFHOwKHNeyd978d+x7mC4NAJvLFGILR3jRV73lX5D
+ QshqkGFGd6xVd+/L4KWq9TKzJKK3NoOsxDAnDMDRVrfvOcMOS/13VrMkIVX0OgN8gUrkn1/81xa
+ DOo3/sGebkYyoIYHUGEESJjOdN0cVkSk+jU3iBI6SqFksdCJdxnvRz2k4SS3PheAMqq+4c3dEBT
+ b7G17F9scwl9W0tjKq7Sfsi2aXa2WodI8TfDExIYAzI9hZkKSFSWmOdN9U2gtu2pvEQJHoF7adf
+ l6aWlOj7RFyVXbGDDOWWlZI5noqP2SO1mQk1Y0oV15bm0WJR7g0Ny6US01b00mPtS23pX+vbXpq
+ RsiBQUGr/YCy7LXeBMy8v8DLLwWwU5WzvThn28TSYgfyPLPrTvzUpWMfpwQy1SVQfSujBtYAHLy
+ Cp6T+3LBN9vMio/Ydu0HWPLnLV5E6URxcL4GqWOXlalslWw4Ys6jNYmkRXwr0Z/j47/g640reF3
+ HiyH8n2VkdXPI3Q==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-kdump runs in a very small environment and cut-down set of drivers, and
-it can die before the dump lands: it runs out of memory, a device hangs
-on reset, or a watchdog fires while the dump is still being written out.
-This happens about a single high digit percentage on most of big scale
-datacenters.
+From: David Heidelberg <david@ixit.cz>
 
-When that happens the only evidence left is what the capture kernel
-printed to the console, and that does not say which kernel crashed.
+WLED3 has a 16-bit brightness register pair per string, at 0x40 + 2*n,
+which is what the pm8941-wled driver wrote to:
 
-A fleet typically pins one kdump image and boots it after crashes from
-many different production kernels, and it is useful to understand what
-are the combination of crashed kernel panic and succesful kdump
-collection.
+	rc = regmap_bulk_write(wled->regmap,
+			wled->addr + WLED3_CTRL_REG_VAL_BASE + 2 * i,
+			v, 2);
 
-Whether the dump completes at all tends to depend on the kernel that
-died: memory pinned, devices in flight, dump size.
+The restructuring for WLED3 turned that into WLED3_SINK_REG_BRIGHT(n),
+defined as 0x40 + n, so the two byte writes for consecutive strings
+overlap: string 1 overwrites the MSB of string 0 with its own LSB, and
+with the default three strings only string 1 ends up with the requested
+value.
 
-The release is already recorded.  crash_save_vmcoreinfo_init() puts
-OSRELEASE= in the VMCOREINFO note, and by the time vmcore_init() has run
-parse_crash_elf_headers() that note sits in elfnotes_buf.  Walk the notes
-for it and print:
+Use the 2 byte stride.
 
-  vmcore: dump is from kernel 7.3.0-rc3-next-20260917
-
-Given this is cheap and useful, I think it is worth adding to vmcore, to
-improve kdump monitoring.
-
-Signed-off-by: Breno Leitao <leitao@debian.org>
+Fixes: 775d2ffb4af6 ("backlight: qcom-wled: Restructure the driver for WLED3")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- fs/proc/vmcore.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ drivers/video/backlight/qcom-wled.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/proc/vmcore.c b/fs/proc/vmcore.c
-index 44d15436439fd9..406898247d7af1 100644
---- a/fs/proc/vmcore.c
-+++ b/fs/proc/vmcore.c
-@@ -1709,6 +1709,24 @@ static void vmcore_free_device_dumps(void)
- #endif /* CONFIG_PROC_VMCORE_DEVICE_DUMP */
- }
+diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
+index 2281007bdd459..f452d328997ad 100644
+--- a/drivers/video/backlight/qcom-wled.c
++++ b/drivers/video/backlight/qcom-wled.c
+@@ -54,17 +54,17 @@
+ #define WLED3_SINK_REG_SYNC				0x47
+ #define  WLED3_SINK_REG_SYNC_CLEAR			0x00
  
-+#define VMCOREINFO_OSRELEASE_KEY	"OSRELEASE="
-+
-+static void __init vmcore_report_crashed_release(void)
-+{
-+	const char *ver, *eol;
-+
-+	ver = strnstr(elfnotes_buf, VMCOREINFO_OSRELEASE_KEY, elfnotes_sz);
-+	if (!ver)
-+		return;
-+
-+	ver += sizeof(VMCOREINFO_OSRELEASE_KEY) - 1;
-+	eol = memchr(ver, '\n', elfnotes_buf + elfnotes_sz - ver);
-+	if (!eol)
-+		return;
-+
-+	pr_notice("dump is from kernel %.*s\n", (int)(eol - ver), ver);
-+}
-+
- /* Init function for vmcore module. */
- static int __init vmcore_init(void)
- {
-@@ -1733,6 +1751,8 @@ static int __init vmcore_init(void)
- 	elfcorehdr_free(elfcorehdr_addr);
- 	elfcorehdr_addr = ELFCORE_ADDR_ERR;
+ #define WLED3_SINK_REG_CURR_SINK			0x4f
+ #define  WLED3_SINK_REG_CURR_SINK_MASK			GENMASK(7, 5)
+ #define  WLED3_SINK_REG_CURR_SINK_SHFT			5
  
-+	vmcore_report_crashed_release();
-+
- 	proc_vmcore = proc_create("vmcore", S_IRUSR, NULL, &vmcore_proc_ops);
- 	if (proc_vmcore)
- 		proc_vmcore->size = vmcore_size;
+ /* WLED3 specific per-'string' registers below */
+-#define WLED3_SINK_REG_BRIGHT(n)			(0x40 + n)
++#define WLED3_SINK_REG_BRIGHT(n)			(0x40 + (n * 0x2))
+ 
+ #define WLED3_SINK_REG_STR_MOD_EN(n)			(0x60 + (n * 0x10))
+ #define  WLED3_SINK_REG_STR_MOD_MASK			BIT(7)
+ 
+ #define WLED3_SINK_REG_STR_FULL_SCALE_CURR(n)		(0x62 + (n * 0x10))
+ #define  WLED3_SINK_REG_STR_FULL_SCALE_CURR_MASK	GENMASK(4, 0)
+ 
+ #define WLED3_SINK_REG_STR_MOD_SRC(n)			(0x63 + (n * 0x10))
 
----
-base-commit: 3f2425f5b5bbbdd991ca9cdfd5502e68d8895998
-change-id: 20260918-kdump_print-861a49b856ca
+-- 
+2.55.0
 
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
 
