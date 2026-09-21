@@ -1,178 +1,169 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0CAE14A093D
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:57:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B51B4A014D
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999041; cv=none; b=RbR1PfwiSXG9F9yZu2gKLTGjYF49eQIfYFqOrifJzDqBKbNlb4xzOZdX8z7+xkc2BgWar5PMRdgOdCieqKQXlYwcLk3lavJVMViJNHNOFrPKoKfyXFPNDpWJFlvMexBkqVSvEgMnjV1ZO5qhmrVT80aZUQU+izkM4+/WgK2uF+U=
+	t=1789999041; cv=none; b=QRdJimkDLejrweIcNx9WWVQgBXSlaaKisAPntIibbYaxiJB0zlkKSYhaY0nURH60zTVM/Yhe3D+Xt9+p2IT2FJ017eibIKrbjXoQBGCfETf23LPmpweNs5sXcRBXtyD/qzx0xR7pIPDVcALtayQK1MIkwTtonO9CeM9IRUFFgZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789999041; c=relaxed/simple;
-	bh=krGY+lo9qL7tk8aDr46NS4pANsT7BmFp4RwLCfQW1jg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aLta/9h3k2bqJybLft9fS4/e+c1fGF06kbnH9WnwfM84Iu/2UwK4MoSu1XeQDkarj9LWvF9K9ld9jM98Jq1lgpbLjMHynB7LoBQj0ala/7QWE1Qy/Q6TyTB29Gmb1TFQIyBld8iMyrEIDlUOa5QvU4r7obHugJNnjhBv3eo/3+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=gCTtn60x; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	bh=05nQQn1fD5gOEpF/ULLHdZqTcDXLkNhHu9x2ubpJqaw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GIuR69CjQC1MVYjoSoPm9O9vJIJhtfMzRUiwrEohfS0Vgiq8NZUCSqHVgFultnlh2BARusLXO1I5IpLLUeYkpLUluL1DXSkjO00+q4IN1vKc0FfLFTs6rgy00jKaGGgQmmCy+gtU9U0oCZRYt9vlPYVSDARRUcCliNPRk4axp54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mzWI9N2G; arc=none smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="gCTtn60x"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A70431CE0;
-	Mon, 21 Sep 2026 06:57:14 -0700 (PDT)
-Received: from e134344.cambridge.arm.com (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 5441A3F528;
-	Mon, 21 Sep 2026 06:57:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789999038; bh=krGY+lo9qL7tk8aDr46NS4pANsT7BmFp4RwLCfQW1jg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=gCTtn60xiCLsopErCXForjNfd4nDz79a05hzXCj07vZDqPSXJvsPu8pagkRgR0qPS
-	 MUuodSstzZJ+pJSR7CVQoGFzzQ08UY9eWuak8aqvBJoH6JW/HZEcEoa3XVB76LHgzv
-	 +uzF2BBkogQaXcnYcWO5pBjYqabUFW6vy6Ber4G0=
-From: Ben Horgan <ben.horgan@arm.com>
-To: reinette.chatre@intel.com
-Cc: Dave.Martin@arm.com,
-	babu.moger@amd.com,
-	ben.horgan@arm.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	fenghuay@nvidia.com,
-	fustini@kernel.org,
-	james.morse@arm.com,
-	linux-kernel@vger.kernel.org,
-	peternewman@google.com,
-	tglx@linutronix.de,
-	tony.luck@intel.com,
-	x86@kernel.org,
-	yu.c.chen@intel.com
-Subject: [RFC PATCH 3/3] fs/resctrl: display size for scalar cache controls
-Date: Mon, 21 Sep 2026 14:57:02 +0100
-Message-ID: <20260921135702.2874931-4-ben.horgan@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260921135702.2874931-1-ben.horgan@arm.com>
-References: <d258a32f-12d5-464d-abe9-4720fb3e44b3@intel.com>
- <20260921135702.2874931-1-ben.horgan@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mzWI9N2G"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa13e194easo4685491a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:57:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789999037; x=1790603837; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ofpT4h/xZOk97T1LnY16xox+YwsLCtjUsNXPXQGc7Q0=;
+        b=mzWI9N2GG3yCh33wQMPJzyAje6/w1azTh4oUjAdlzJOreyc1TK6YMNTV/hQZ9TK3Gd
+         CEyFT6JaVuVjed/fVn+ehu8kPa8HNUOBbo0dKThcMYqAxQ33Sj3C6fOg7tWRzo9WCdYB
+         CgktU7m3qHBLqKFnkA5IBAlERt+FmUYJlBApJNKVhbQFFUR5JGgAq2NbcjsWbRyg6SFr
+         8Cqy4Q2D+SN+vgDtmn38CUCnH3wPIvBSzJNJo61M9aWxru9kd6n65Lm/HaoGXxtsYsZY
+         9ms6vbHcQFg4jHmo+4f1jqR7dpXme2eRW7XmPC1nlYjnriBkw/EB1U5QYlSftufCNk/N
+         jkGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789999037; x=1790603837;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ofpT4h/xZOk97T1LnY16xox+YwsLCtjUsNXPXQGc7Q0=;
+        b=cvWO1bH871luz1g0MSFWA2bh/X4T8nFm2AhGmBkyByGlHBIh1ytwznC0CiTFp5jBX7
+         YfHt69WV5JtYBUr2mmzGBQBKwZeVlURSKWjs7Hf9frIfyVgt22aWk6aCvD3LJAv22N5a
+         cppz0BsvhwIm/Hp9E5/MWhEw1jLiUmiwfghM5n1F228AfHysHeHu4p0JLuEXCII9F/4f
+         ou+cJ0MjpH07eK94K+elwn0hAuMkp1zBbVCGgFogvVDFL25a5W1ZWEOzN4VMOvUgBw0/
+         LwDfmA90HVSAv0ag9VRIALncrvOAvBq0CzEc2QdZ6DDrBRcBFGiJ0eeIeFUT5UcfCP3P
+         ca8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzY98m+07Ncw6L0iWi1cU2ZH9Uzwh7ZZ2V7tadCMfzRoG+KsCtp3F1/YVlRnriLf6RoJkBYaVkiS0UzEVM=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+xHlUZAShQGdb7LquRnKdwC1BSzNptWwvwDaPy2Eez+NQJNUC
+	9h4Y3EYj7S1EpzK93A5ki+2JMaSf2tm1408iks72XbP9qw8h+FCWPNbABS+qbg==
+X-Gm-Gg: AYBFou3rdZRazqupsQWdkSnqBXJNQPNMHHBFnwsPtd4EhxCv5VRsfgao581atiZ6rs+
+	HN95b9VRG6f60iYmPHnBOyx8ccMN9/uBvIHamFJ8eJ8SFO/CuAmpe3lGO6AblwGPrM2bXHIrLD1
+	9SVLejW8gMPJPiPGDcM7wdKIqsKPiH7LgxRrM2jBztfCuHcY82r8BUa+PEmpZ8H3uM4bo4lzy09
+	WE6PPUrMtztVa+8EUDe1WWvejhqq9lm5SzH+XcnMZtwGKpbB8nENJBEvDhs6qGLDdf5jJYt7c01
+	u4WR9d+zTnWaqsupbOpFdcg7bSclVCSKsRScmmySYGwE7QOXMw0+V2hXQpt2/2z8DbfPiUTIP63
+	wMoxPkE5WQT7QYSolPJTvadMqxSxGzJ2LKYtvz+FybnM2Jfi0Blh3yfmn6OYngxXIvUd3BVj+78
+	EiTJLvnsHn0zufVqCPUXadrPVAo9k/I87pd9rQCarHhHzQxDda3lafAiwALKHJF4X+rTlcs1T2/
+	H+vdsS9XtY2YR9qHqjdgeJgCpShxMkLhIi/lUaVFFHKVHxGc0rnNUOrfzcR8oE6CeaV2GR+ScBl
+	LG4adN67rA3/f6SzlicOPrhqrbgAvmXNTqoq
+X-Received: by 2002:a05:6402:210f:b0:6a9:aead:4e98 with SMTP id 4fb4d7f45d1cf-6aa577f5cfdmr8215865a12.1.1789999036894;
+        Mon, 21 Sep 2026 06:57:16 -0700 (PDT)
+Received: from [10.54.182.141] (82-132-213-26.dab.02.net. [82.132.213.26])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67e0d3c5sm4446691a12.22.2026.09.21.06.57.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 06:57:14 -0700 (PDT)
+Message-ID: <a8b01e56-bc86-412b-862c-d6a3efef2e6d@gmail.com>
+Date: Mon, 21 Sep 2026 14:57:05 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/14] dma-buf: introduce initial file I/O
+ infrastructure
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ io-uring@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Nitesh Shetty
+ <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
+ Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
+ nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
+ ceph-devel@vger.kernel.org
+References: <cover.1785274111.git.asml.silence@gmail.com>
+ <bc20381e8daf85ac58811c344325d8192cde9d1e.1785274111.git.asml.silence@gmail.com>
+ <181b08be-04bc-4ae9-bb88-15321a82440f@amd.com>
+ <8285ede8-bebb-403a-8a37-b9987cd37a8f@gmail.com>
+ <0113c49a-a364-4df6-9ab4-681c789d9d3b@amd.com>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <0113c49a-a364-4df6-9ab4-681c789d9d3b@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-resctrl allows controls specifying a minimum or maximum cache allocation
-but does not display their sizes in the 'size' file.
+On 8/6/26 08:29, Christian König wrote:
+> On 8/5/26 12:59, Pavel Begunkov wrote:
+>> On 8/5/26 09:27, Christian König wrote:
+> 
+>>>> +
+>>>> +    dma_resv_lock(dmabuf->resv, NULL);
+>>>> +    ctx->dev_ops->unmap(ctx, map);
+>>>> +    dma_resv_unlock(dmabuf->resv);
+>>>> +
+>>>> +    dma_fence_put(&fence->base);
+>>>
+>>> You should probably set map->fence to NULL after that.
+>>
+>> The map is freed two lines below, but I can add it as
+>> a defensive measure.
+> 
+> In that case it's ok, I've just haven't seen the kfree(map) below.
+> 
+>> ...
+>>>> +    ret = dma_resv_reserve_fences(dmabuf->resv, 1);
+>>>> +    if (WARN_ON_ONCE(ret)) {
+>>>> +        struct dma_fence *fence = &map->fence->base;
+>>>> +
+>>>> +        dma_fence_get(fence);
+>>>> +        percpu_ref_kill(&map->refs);
+>>>> +        dma_fence_wait(fence, false);
+>>>> +        dma_fence_put(fence);
+>>>> +        return;
+>>>> +    }
+>>>> +
+>>>> +    dma_resv_add_fence(dmabuf->resv, &map->fence->base,
+>>>> +               DMA_RESV_USAGE_KERNEL);
+>>>
+>>> That sequence is clearly incorrect!
+>>>
+>>> The fence must be created after dma_resv_reserve_fences(), otherwise you definately have an illegal memory operation here.
+>>
+>> I'm not sure what you mean, can you elaborate? I only cared about
+>> pre-allocating it to avoid allocations here. We add / signal the fence
+>> only once, no reuse. The map is going to be killed here, and if we
+>> create a new map, it'll have its own fence.
+>>
+>> I can move the dma_fence_init() call here if that makes a difference?
+> 
+> Yeah that is a good start, but you might need a bit more.
+> 
+> Here is a summary of the usual procedure you need to follow when implementing a dma_fence backend:
+> 
+> 1. Allocate your operation object, in this case here it's your mapping I think.
+> 2. Prepare your operation, including all memory allocations.
+> 3. Call dma_resv_reserve_fences() to reserve a fence slot.
+> 4. Allocate and init your dma_fence object.
 
-Calculate the size of any scalar cache controls and add them to the 'size' file.
+Looks I forgot it reply here, sorry for that. I killed dma fences in
+v6 in favour of synchronous waiting, it turned to be less trouble even
+outside of these fencing rules as I can rely on dma-resv lock less in
+the code.
 
-Signed-off-by: Ben Horgan <ben.horgan@arm.com>
----
- fs/resctrl/internal.h    |  4 ++--
- fs/resctrl/pseudo_lock.c |  2 +-
- fs/resctrl/rdtgroup.c    | 41 +++++++++++++++++++++++++++-------------
- 3 files changed, 31 insertions(+), 16 deletions(-)
-
-diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
-index 4bd09b1541c7..119f702a4f1f 100644
---- a/fs/resctrl/internal.h
-+++ b/fs/resctrl/internal.h
-@@ -362,8 +362,8 @@ bool rdtgroup_cbm_overlaps(struct rdt_resource_final *f, struct rdt_ctrl_domain
- 			   unsigned long cbm, int closid, bool exclusive,
- 			   struct resctrl_ctrl *ctrl);
- 
--unsigned int rdtgroup_cbm_to_size(struct rdt_resource *r, struct resctrl_ctrl *ctrl,
--				  struct rdt_ctrl_domain *d, unsigned long cbm);
-+unsigned int rdtgroup_cache_ctrl_to_size(struct rdt_resource *r, struct resctrl_ctrl *ctrl,
-+					 struct rdt_ctrl_domain *d, unsigned long ctrl_val);
- 
- enum rdtgrp_mode rdtgroup_mode_by_closid(int closid);
- 
-diff --git a/fs/resctrl/pseudo_lock.c b/fs/resctrl/pseudo_lock.c
-index 17b99a075eaf..36881491d074 100644
---- a/fs/resctrl/pseudo_lock.c
-+++ b/fs/resctrl/pseudo_lock.c
-@@ -255,7 +255,7 @@ static int pseudo_lock_region_init(struct pseudo_lock_region *plr)
- 	ci = get_cpu_cacheinfo_level(plr->cpu, scope);
- 	if (ci) {
- 		plr->line_size = ci->coherency_line_size;
--		plr->size = rdtgroup_cbm_to_size(plr->f->res, ctrl, plr->d, plr->cbm);
-+		plr->size = rdtgroup_cache_ctrl_to_size(plr->f->res, ctrl, plr->d, plr->cbm);
- 		return 0;
- 	}
- 
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index deb47edb2e87..ab0d8d0454f6 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -1751,20 +1751,27 @@ static ssize_t rdtgroup_mode_write(struct kernfs_open_file *of,
-  *
-  * Return: Size (in bytes) of cache portion represented by CBM, 0 on failure.
-  */
--unsigned int rdtgroup_cbm_to_size(struct rdt_resource *r, struct resctrl_ctrl *ctrl,
--				  struct rdt_ctrl_domain *d, unsigned long cbm)
-+unsigned int rdtgroup_cache_ctrl_to_size(struct rdt_resource *r, struct resctrl_ctrl *ctrl,
-+					 struct rdt_ctrl_domain *d, unsigned long ctrl_val)
- {
- 	unsigned int size = 0;
- 	struct cacheinfo *ci;
--	int num_b;
- 
- 	if (WARN_ON_ONCE(r->ctrl_scope != RESCTRL_L2_CACHE && r->ctrl_scope != RESCTRL_L3_CACHE))
- 		return size;
- 
--	num_b = bitmap_weight(&cbm, ctrl->bitmap.cbm_len);
- 	ci = get_cpu_cacheinfo_level(cpumask_any(&d->hdr.cpu_mask), r->ctrl_scope);
--	if (ci)
-+	if (!ci)
-+		return size;
-+
-+	if (ctrl->type == RESCTRL_CTRL_BITMAP) {
-+		int num_b;
-+
-+		num_b = bitmap_weight(&ctrl_val, ctrl->bitmap.cbm_len);
- 		size = ci->size / ctrl->bitmap.cbm_len * num_b;
-+	} else {
-+		size = ci->size / ctrl->scalar.resolution * ctrl->scalar.scale * ctrl_val;
-+	}
- 
- 	return size;
- }
-@@ -1834,10 +1841,10 @@ static int rdtgroup_size_show(struct kernfs_open_file *of,
- 			}
- 			seq_printf(s, "%*s:", max_name_width,
- 				   rdtgrp->plr->f->name);
--			size = rdtgroup_cbm_to_size(rdtgrp->plr->f->res,
--						    ctrl,
--						    rdtgrp->plr->d,
--						    rdtgrp->plr->cbm);
-+			size = rdtgroup_cache_ctrl_to_size(rdtgrp->plr->f->res,
-+							   ctrl,
-+							   rdtgrp->plr->d,
-+							   rdtgrp->plr->cbm);
- 			seq_printf(s, "%d=%u\n", rdtgrp->plr->d->hdr.id, size);
- 		}
- 		goto out;
-@@ -1863,11 +1870,19 @@ static int rdtgroup_size_show(struct kernfs_open_file *of,
- 						ctrl_val = resctrl_arch_get_config(r, ctrl, d,
- 										   closid,
- 										   type);
--					if (r->rid == RDT_RESOURCE_MBA ||
--					    r->rid == RDT_RESOURCE_SMBA)
-+					switch (r->rid) {
-+					case RDT_RESOURCE_L3:
-+					case RDT_RESOURCE_L2:
-+						size = rdtgroup_cache_ctrl_to_size(r, ctrl, d,
-+										   ctrl_val);
-+						break;
-+					case RDT_RESOURCE_MBA:
-+					case RDT_RESOURCE_SMBA:
- 						size = ctrl_val;
--					else
--						size = rdtgroup_cbm_to_size(r, ctrl, d, ctrl_val);
-+						break;
-+					case RDT_RESOURCE_PERF_PKG:
-+						size = 0;
-+					}
- 				}
- 				seq_printf(s, "%d=%u", d->hdr.id, size);
- 				sep = true;
 -- 
-2.43.0
+Pavel Begunkov
 
