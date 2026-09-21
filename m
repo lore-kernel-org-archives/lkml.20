@@ -1,99 +1,218 @@
-Received: from mail-pj2-f14.google.com (mail-pj2-f14.google.com [74.125.227.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE884C10CE
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:53:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.142
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790006034; cv=none; b=XV9N6zrNu4XpF99kn1XB8BeozNaVZT77OxCr6g+dB1fypKYh9rRZRIiNninQclFqNTzABfXWbYO4B4zm5Al2tqBjFBW9xqLfrneUG4b6XaTcNejMfQSm4B8AJx6cfsc7CAeaL40Kcjfq5eOlWUyCqQIQQ3Mt/anlEpzOQhxn0YQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790006034; c=relaxed/simple;
-	bh=kAV83GG8Wx3vs0tpxEdTxwn0XZCNc0tZOHUrR9Lz48M=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=CUNpiKZP4NV+lvdopoGqfEP1QnksAg+9fBEwz2HaCGizSx+Rvzjwo8nKwmlfiggHlvWkWxQZrJSdFfM8FYqO/yfrRp16CoF9HGPekOFBpUZbViM1tQK49THKqv+fTbXTmoe1W/hDfaKcyPLICdcDcp43b4L1Eo4ZmxYzGXB7rYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=eUb7/z9r; arc=none smtp.client-ip=74.125.227.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 279B01E5B68;
+	Mon, 21 Sep 2026 15:53:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790006041; cv=pass; b=ZmhZpc/UJ8cdQiB2ql8j5XaKy+ckez1N2Wg/csILYpssE07GjuKmkyqJ0SwBK2YlWiC4vt1OMyYO/fHayEcT+AxoX+pGGU4S5ufSiLSJfz5CnLaTuMSuKkRIjYOPoLrBx0Jtv6/YI9Lt4NIQ8h5hrAW+VGxy1+WMotxyT114SFY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790006041; c=relaxed/simple;
+	bh=1bzbmQPpKqErdxhqGvNL8r8WJgMdg+Ku5fCAQ2LM4SI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HH12LOcocC9lYciYnhqH4B/9mSH8D2vA+a594o8adedGcTd8WMNG2V2jLQkeb2g32M/A/diEuECuTlPWegjRAQtmoN0y+NG+GN5gX2z+OToFlKFUadg772j2uiGih4xqhvXnPb9VpaXq9eOJWPB4+bGMvsEMXj7KCthv3Tty6s4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b=fcrE2OXr; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="eUb7/z9r"
-Received: by mail-pj2-f14.google.com with SMTP id d9443c01a7336-2d747f05ffcso24075695ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:53:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790006032; x=1790610832; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kAV83GG8Wx3vs0tpxEdTxwn0XZCNc0tZOHUrR9Lz48M=;
-        b=eUb7/z9rRboiBmTpaCl6lc21MbiVYTqZq2BkuHUXMy9Qx+fjnMZz4Bb7z8d/uF2Ae3
-         sT6WmYODcw0JVzrx7KxrQz4kFJ9Q5QYBH/IqEiZzxeO41MWHpaxFo8uQ6gb/y83kY2pB
-         NP90W18zDe72xDHSnU3kKG76OQ0wDcb+Aqiz/atuxwrXdcg5t8RjpSF24W6IiaDErE2t
-         VPuD5uClKy+m5MRUoNey4jqUD9zOxYKXxKhK+bO/fRcrzUMWgASfP5k+MOb7EZPjLhIx
-         IcHGBNFRnSA/UAPQF9SrtFbt5/FJfbtqF+YAgEjAIdhAB7Kz2EOGo2WCHtpdijCvkjSW
-         bOCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790006032; x=1790610832;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kAV83GG8Wx3vs0tpxEdTxwn0XZCNc0tZOHUrR9Lz48M=;
-        b=qRG3M9wnsEgn2gISwRMu5aaQIrsdsoc/xUs6WhIOCUNLU/dxzpb/hA5pLCcPHsJXCc
-         L6DXlO7qP2w1mnPCe1tt591QDsXIhPgKQs79hhhaT4xAf4B5/J3S55buVOHOssvyngig
-         q99z/s6+25NFBT+hKL+/VgZ8QXqy+G974dkL75lfwUht8bs/C6I1UnjOHfFZKhJbvUyu
-         BOWEYzbSipKNNrZZfxJs0MvyTMwvffW/vBcCBNUDi1um6yxKe29ZIhCBALftDYgS6+KD
-         GdtSteV3q1kafCTN7rjrconCM1Q8qzQlLuBvB2b5qnETuRH/4SyHbukEwPomImySWdZ0
-         vv5Q==
-X-Forwarded-Encrypted: i=1; AKwUvByQeXuTPnr+Xe18Y03Efb+hd8G2t7rliP04iANsVoYG/58EArszXNicAaKKBgGKNP2BUKVVV9DHZBV45Sc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzSPievjlBliYaYg69H1miHZKix7A/PQHTRbqMTyPN+4oigg3y
-	++xUcu6k1Xwi7LqQCobBF6g5aux3Mh8qD33whd/O2wSL2D+LGOde+9ZqGFFtMkvp3Dk=
-X-Gm-Gg: AYBFou1tdPg/eZ9JTcstVUPOwXiRnWhIAzh/yB53yS1/j6VbvxgPvnoOr0/gfYhJHQz
-	OlOJdn8SfvbHcTVfFv9Zlq++5sABxLzN/ifmFojipoljVyZHGG5kB8Gk3Q3HzmiSDFznc+VxqPr
-	ML4N7/fyA7ylMnLc3KAy+PSoPu617mhSHx8Xwt9e0TObYTs52wx/wHtOv2iJn7XqGoi0pMi2AJc
-	eAkQPt3XDeXAa1JpOsmjfuGycVcN9XLKBfthItJUJ0Dcd0cnQMnBwpidE1n4/riSEADnVlt2YrG
-	sOgLmdogfZtl8IJU+nEF5kPnfiu9S1Ue9k8Ak0ya3TqT2qoSWCx+jmkGqGu+JJIs5kZi9rECx97
-	26IiWZzfz50R219HJq5QlbeGes5j2RcytF4T8Z3EcAgaYBvRVsxneToHJ+Gj1o8fmclD+bA364u
-	wsUB8NDddaEejtw1KpyzxUuqjUAUMHWEPtMTlOmxtj0TmsMW81FT2FrcWA9Y1TOqXQ3b4=
-X-Received: by 2002:a17:903:98f:b0:2dd:c053:e0f4 with SMTP id d9443c01a7336-2ddc053e132mr114905975ad.35.1790006031634;
-        Mon, 21 Sep 2026 08:53:51 -0700 (PDT)
-Received: from localhost ([71.212.197.238])
-        by smtp.gmail.com with UTF8SMTPSA id d9443c01a7336-2ddc178701csm36425795ad.13.2026.09.21.08.53.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 08:53:50 -0700 (PDT)
-From: Kevin Hilman <khilman@baylibre.com>
-To: Andrew Davis <afd@ti.com>, Tony Lindgren <tony@atomide.com>, Vignesh R
- <vigneshr@ti.com>, Andreas
- Kemnade <andreas@kemnade.info>, Roger
- Quadros <rogerq@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, Andrew Davis
- <afd@ti.com>
-Subject: Re: [PATCH v2 1/8] i2c: omap: Drop bit shift for I2C register
- addresses
-In-Reply-To: <20260908154223.116074-2-afd@ti.com>
-References: <20260908154223.116074-1-afd@ti.com>
- <20260908154223.116074-2-afd@ti.com>
-Date: Mon, 21 Sep 2026 08:53:50 -0700
-Message-ID: <7hzexad2i9.fsf@baylibre.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="fcrE2OXr"
+ARC-Seal: i=1; a=rsa-sha256; t=1790005985; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=MkvctPEgN/opcclJ7AbrHT0NUw5PyfmjTlw1EVX0+A9iCip/vCP3fTYIf4WeCcAmxdjPIfeki2VQrDQYcGZdVseNywFZQf87igLM7iofK+RpNwQExbBpkQ/GBA7eppgMrgnKur3C8we3HtOKWDzWZ/1qkMBPJkuFt9XdZSVZ+ME=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790005985; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=y/u3vmta3+dbrofrUmndHlgFpIUmssOjUpr8W2OjIi4=; 
+	b=bqmI9sT7fNW9pKNoXHo6CGSAoz+HKc8xaQoLIMQjPz0JPYYdbgzRXXDQEkWFL5dFKj4xcPPJK7300o+RNR3Dkuk6CA5coRlKJsIKeKBuUMqEz60Fn9jkiHfxAfvXzAiI3r+GCfuQ6WW78Fdpj0n39jjCY4kIEhUbCEJvrFZ0zA0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790005985;
+	s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=y/u3vmta3+dbrofrUmndHlgFpIUmssOjUpr8W2OjIi4=;
+	b=fcrE2OXrBcW4dbZejVZKBloogh6hW3A6feRsFGFcBd4A5tiB57BqLjkWHwbBuKiN
+	l6DmQrYGZiaHpBxaeZ8bYc85y0Bq9FNES1a+GcgVJu/iywyvc+9urb8Clkp/lIp9gzr
+	1TfyNvvK3GIlrrm9T1WjiL8RsRhKhSn4zUtBDa7M=
+Received: by smtp.zohomail.com with SMTPS id 179000598377154.95688948710904;
+	Mon, 21 Sep 2026 08:53:03 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Mon, 21 Sep 2026 17:51:37 +0200
+Subject: [PATCH RFC 11/25] drm/rockchip: vop2: Enable VRR
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-vrr-limiter-uapi-v1-11-2fcd7d011646@collabora.com>
+References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
+In-Reply-To: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
+ Leo Li <sunpeng.li@amd.com>, Daniel Stone <daniels@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com, 
+ Derek Foreman <derek.foreman@collabora.com>, 
+ wayland-devel@lists.freedesktop.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 
-Andrew Davis <afd@ti.com> writes:
+Use the new VRR state tracking to handle VRR front porch adjustment.
 
-> The OMAP7xx devices used a register address shift of 1, but this device
-> has long since been removed from the kernel. So now no remaining board
-> device uses a shift other than 2, and no DT supported platform ever did.
-> We can drop this flag and use the pre-shifted register addresses. This
-> simplifies the register access.
->
-> Signed-off-by: Andrew Davis <afd@ti.com>
-> Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
+To avoid indenting too deeply, refactor the vblank handling into its own
+function while at it, where scope-based cleanup helpers for the lock can
+be used.
 
-Acked-by: Kevin Hilman <khilman@baylibre.com>
+Co-developed-by: Derek Foreman <derek.foreman@collabora.com>
+Signed-off-by: Derek Foreman <derek.foreman@collabora.com>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 62 ++++++++++++++++++++++------
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  9 ++++
+ 2 files changed, 59 insertions(+), 12 deletions(-)
 
-Feel free to take this with the rest of the drivers/i2c/ patches.
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index bfb384142568..e79081c04437 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -24,6 +24,7 @@
+ #include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_blend.h>
+ #include <drm/drm_crtc.h>
++#include <drm/drm_crtc_helper.h>
+ #include <linux/debugfs.h>
+ #include <drm/drm_debugfs.h>
+ #include <drm/drm_flip_work.h>
+@@ -2011,6 +2012,25 @@ static void vop2_crtc_atomic_begin(struct drm_crtc *crtc,
+ 	vop2->ops->setup_overlay(vp);
+ }
+ 
++static void vop2_vp_set_vrr_vtotal(struct vop2_video_port *vp, unsigned int vtotal)
++{
++	const u32 mask = RK3568_VP_DSP_VTOTAL_VS_END__DSP_VTOTAL |
++			 RK3568_VP_DSP_VTOTAL_VS_END__IMD;
++
++	if (!vtotal) {
++		vop2_vp_update_bits(vp, RK3568_VP_DSP_VTOTAL_VS_END,
++				    RK3568_VP_DSP_VTOTAL_VS_END__IMD, 0);
++		return;
++	}
++
++	/* Value is 13 bits at most, saturate it if too large */
++	if (vtotal > RK3568_VP_DSP_VTOTAL_VS_END__DSP_VTOTAL >> 16)
++		vtotal = RK3568_VP_DSP_VTOTAL_VS_END__DSP_VTOTAL >> 16;
++
++	vop2_vp_update_bits(vp, RK3568_VP_DSP_VTOTAL_VS_END, mask,
++			    vtotal << 16 | RK3568_VP_DSP_VTOTAL_VS_END__IMD);
++}
++
+ static void vop2_crtc_atomic_flush(struct drm_crtc *crtc,
+ 				   struct drm_atomic_commit *state)
+ {
+@@ -2029,6 +2049,11 @@ static void vop2_crtc_atomic_flush(struct drm_crtc *crtc,
+ 
+ 	spin_lock_irq(&crtc->dev->event_lock);
+ 
++	if (crtc_state->vrr_enabled) {
++		if (drm_crtc_helper_vrr_flush(crtc_state))
++			vop2_vp_set_vrr_vtotal(vp, crtc_state->vrr_state.cur_vtotal);
++	}
++
+ 	if (crtc->state->event) {
+ 		WARN_ON(drm_crtc_vblank_get(crtc));
+ 		vp->event = crtc->state->event;
+@@ -2371,6 +2396,30 @@ static irqreturn_t rk3576_vp_isr(int irq, void *data)
+ 	return ret;
+ }
+ 
++static void vop2_vp_handle_vblank(struct vop2_video_port *vp)
++{
++	struct drm_crtc *crtc = &vp->crtc;
++	struct vop2 *vop2 = vp->vop2;
++	u32 val;
++
++	guard(spinlock)(&crtc->dev->event_lock);
++
++	if (!vp->event)
++		return;
++
++	val = vop2_readl(vop2, RK3568_REG_CFG_DONE);
++
++	if (!(val & BIT(vp->id))) {
++		drm_crtc_send_vblank_event(crtc, vp->event);
++		vp->event = NULL;
++		drm_crtc_vblank_put(crtc);
++
++		if (crtc->state->vrr_enabled)
++			if (drm_crtc_helper_vrr_vsync(crtc->state))
++				vop2_vp_set_vrr_vtotal(vp, crtc->state->vrr_state.cur_vtotal);
++	}
++}
++
+ static irqreturn_t vop2_isr(int irq, void *data)
+ {
+ 	struct vop2 *vop2 = data;
+@@ -2402,18 +2451,7 @@ static irqreturn_t vop2_isr(int irq, void *data)
+ 
+ 			if (irqs & VP_INT_FS_FIELD) {
+ 				drm_crtc_handle_vblank(crtc);
+-				spin_lock(&crtc->dev->event_lock);
+-				if (vp->event) {
+-					u32 val = vop2_readl(vop2, RK3568_REG_CFG_DONE);
+-
+-					if (!(val & BIT(vp->id))) {
+-						drm_crtc_send_vblank_event(crtc, vp->event);
+-						vp->event = NULL;
+-						drm_crtc_vblank_put(crtc);
+-					}
+-				}
+-				spin_unlock(&crtc->dev->event_lock);
+-
++				vop2_vp_handle_vblank(vp);
+ 				ret = IRQ_HANDLED;
+ 			}
+ 
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+index ffcb39c130aa..fdb2030e3ad4 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+@@ -655,6 +655,9 @@ enum dst_factor_mode {
+ 
+ #define RK3588_VP_DSP_CTRL__GAMMA_UPDATE_EN		BIT(22)
+ 
++#define RK3568_VP_DSP_VTOTAL_VS_END__DSP_VTOTAL		GENMASK(28, 16)
++#define RK3568_VP_DSP_VTOTAL_VS_END__IMD		BIT(15)
++
+ #define RK3588_VP_CLK_CTRL__DCLK_OUT_DIV		GENMASK(3, 2)
+ #define RK3588_VP_CLK_CTRL__DCLK_CORE_DIV		GENMASK(1, 0)
+ 
+@@ -810,6 +813,12 @@ static inline void vop2_vp_write(struct vop2_video_port *vp, u32 offset, u32 v)
+ 	regmap_write(vp->vop2->map, vp->data->offset + offset, v);
+ }
+ 
++static inline void vop2_vp_update_bits(struct vop2_video_port *vp, u32 offset,
++				       u32 mask, u32 v)
++{
++	regmap_update_bits(vp->vop2->map, vp->data->offset + offset, mask, v);
++}
++
+ static inline u32 vop2_readl(struct vop2 *vop2, u32 offset)
+ {
+ 	u32 val;
 
-Kevin
+-- 
+2.55.0
+
