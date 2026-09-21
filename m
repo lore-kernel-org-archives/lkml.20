@@ -1,106 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B3DA1C695;
-	Mon, 21 Sep 2026 02:42:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0297194C96
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:43:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789958544; cv=none; b=I+LBaGaqsCBGTMvg+d0m1xpbkZZUG6DDiUHF/pqAZdQlQdMjHsjdGWdNhO0oFcaZML04bDT7Ib2XTTbSFzBoRn/NuB4xqbGBBI5J0fRObWNiTI8gIKXZYcq3l2Vjgteu1NUnY66T+4B5Ip8Tb+e5GbSdtfR9ymonhn47dQls5bw=
+	t=1789958615; cv=none; b=SpRKacVH8AYVwrpydJlyrsQa4n/x3hLxgjrQ1VF6E73vf6CWfmjHFbRNq7kGPn2es0iuwr9n6JZI/AaGjuV3I/4j/OjZcYNy5U/UFjP+YzOOF6tul/i6sDbiIqZxPCBdhUP5rE9OsZA5DkDM7LhtuXGY33ostge+GUZtO2Msb8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789958544; c=relaxed/simple;
-	bh=rqUZhq6FGLgK9HJYynd7McvQht7yS1FoXSeDoganFcc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=svY5Fqc0B0cZ6eiDyUpavU20pVMV8Lev0DNExQy1rHieLIj2Vduf9E9H+qbxTE9l0n7CjWoKZweQaHwmpaJP9X61JU62zELZc9URcoAwn4R3/pGvcCZ9eXd9SZqXl86Ogheh/oJiNXa/F60YVjrv6AInCES6zo+rpAhiUsTHtbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PBeBt9x7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789958615; c=relaxed/simple;
+	bh=2qCydK8u3BZHbP6bXSOaSC6oTwDHyDpQPRSmcbNzz4A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FK386o2byauexwnJcSrZQ6N1EnuegpEq5QlgmR7HV5qqTtuEd37vRjWIRueYb+wRI2Hoe2/0A+0A9And12EduWNlCa5GrTrMezzJPKpJlTvPWXr6Mg9QBaXYvN7mbltIery1hClmx8JI+MxfddzjqQFVbTCDsfjsbWtx+wLjmp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ilc4uIPV; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PBeBt9x7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA9F1F000FF;
-	Mon, 21 Sep 2026 02:42:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789958543;
-	bh=/bP2P06kLvgPkyhpVNzT6k606fwq12DxgFbkk6tfbMQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=PBeBt9x7DdoVQU7tr2KgmMAn1i4H64u2l4SsVrtKW23pblTwsxqfEZSV+ngfiBlj1
-	 6NYV/Uh6YOfQasaBnIiI6W/BXBML9VomIOem7W1mGPwk+jl+yM/1XibtXyKCHSTOrk
-	 DudkEoFCOt8wTWktSVli8dEkZvpyKLDa47f/YQwLWJZBNrCyyLCjwn5IPKnanKDUTe
-	 OQ3kGzcMnOTyydvIiTJ3WiBdZB4vGrwrXmfZy+F0YrEnk8DK+gcyJaJvckgwCf5oqA
-	 D4OQxs5IUfhnuFXPC90aAHb3myfVHGcOGO5kf264ZbxIm4+9NR7Y7T+IOlP0a5HKcP
-	 46RnLg+knHQTw==
-Date: Mon, 21 Sep 2026 03:42:18 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
- Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
- Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
- Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
- R. Silva" <gustavoars@kernel.org>, Conor Dooley
- <conor.dooley@microchip.com>, Johan Hovold <johan@kernel.org>
-Subject: Re: [PATCH v10 00/17] AD9910 Direct Digital Synthesizer
-Message-ID: <20260921034218.45c93e1a@jic23-hlaptop>
-In-Reply-To: <20260907230505.277f1a6d@jic23-huawei>
-References: <20260729-ad9910-iio-driver-v10-0-aa1f6167729e@analog.com>
-	<20260802010959.25f9f4df@jic23-huawei>
-	<20260802015846.2be354ec@jic23-huawei>
-	<q2t53ly3vl73kmu3ehvntnj75pxl2smntctcuxzjuaguihqwju@adzts2ezpg5x>
-	<20260907230505.277f1a6d@jic23-huawei>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ilc4uIPV"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccdaea76so1053202a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:43:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789958613; x=1790563413; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XjC/UZqLFtMb5vJyxy966HHDm1SdiObcPJD69fIKS4Q=;
+        b=ilc4uIPV7qgnbFjNemL4roqgUH/7xxEyFoDY90lrVFHRKoRnr4Ad3fC0eBopA0Tfqv
+         5+N6FAWOw4GpqY0sdI77MwZa+Lr0zMIlTsgN/V9aXcVP4OyzW5LQD5izc3M75Ik/9Oyw
+         Zg4Vuf4nrWZaiA38L120csPNf0mCCjnsbVBLDGH8LCWlk5Ij0C3Ax3kPAJU9p3rKAKtI
+         CirlX/Mko1ECH99rbezGtyXc7TEhiA7A1BoqJixXPJoIdBZDoRY8PEMkjBC+ggTj65Hv
+         jsTJs5kZQTb67lELMratPfX6j67E9FIt8AwkOQHZOHNWsKJJn7JX86CYVMZvqPPS1GBV
+         e1Mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789958613; x=1790563413;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XjC/UZqLFtMb5vJyxy966HHDm1SdiObcPJD69fIKS4Q=;
+        b=bUwlCU+8KoDHPDE7AdjmpTomvm+CWK0N3/1fW8wyka+RF8AJUeI1heA/NHB/cxZQr0
+         tihwsQWRkirxbWmWVfwxzV8kAHiDOJDr7UlrTvOi0B+WAASxvluDgfkeQcKqbZtGjU8L
+         uROFm2g2mg/KpN7WVkmojGk/FfmwFKSktKW6VnsRlAUaFQkEviM6ciFo+FcvpzH29Akl
+         IQqX39mHshLysaq0r1Hwpqg3o/mDENuAfXkT5N8AfyuWJ7sFTMwf0V1oLTbM8zQ416FV
+         8l4EG3XEbQinpODQEgwwOvpWDd8HPuotYx29O5/PdHy3Xvd/RyqC9fbeVaGcoqWS6sku
+         5Drw==
+X-Forwarded-Encrypted: i=1; AKwUvBwNCA+R4H4T56kfcAumQ34npHeAxk3JqChrH+jlRC64O4T7nEvreEHnI8usHjLqBrZt8tHvLTR2GavpKYA=@vger.kernel.org
+X-Gm-Message-State: AFuF++ku2sKv76NbRz5P3e7s4RFKefFYUEXAqumkzuu662ayCXc/Nmux
+	I2ldEtpMdvFvGze3Q0uON3RXI+9uak0LEwsJbs5ecyVHenJ3cuxaylaEckZ7dg==
+X-Gm-Gg: AYBFou0HwPbzrSPgx7fID5KwrqApQQQotjacKUT+L86C8mRzrQMZ6Qmw3uqAGYQpoA1
+	mI2oW0EWSj1aROASfINpoGiKXpcPFmAB0dRDRtSNkT4DRN8NlBEtQBPXg741tqpldSwDbEZg5I9
+	SBmiUZJt+oXhCKXXc5b6ya+UOEz3CGRO1xZvW/8uNpgvZINBeTZk7Ndlw73bTst/WWyaT1V9qD1
+	3w171D6epmaSBRMp06WeX+Ng96t+m2Cg8iAhnGtzo5CadzvDk5Rak4aAyI6aN2DqTaRf/1Pi/B1
+	RfY4VsuSYQ7ccPdLiCk1nSw85YESOuQmbaATpOls1AsGHzkJHuEf7TWa1B3e2vUmPAjm4xepoKv
+	0rGQi0BSrkNu2lixEaVkPy4Vbs7TBFXMdGkHWHgp4HqVKv+PUZLzTAQuBeGu1q1BnpCL4EoQiB+
+	vErw9xp3lqZhD5G0HeR9kdLfEetOnbW2gbtS4MSHQ5y75lGaHg1WowuB/zevgJ4Ot6/k7wvJWXN
+	tsKGLH9OAyTBTh85CGVZ/oabsFdgqAHofgPwm1yinm60Jn4jCpLreo=
+X-Received: by 2002:a17:90b:55c4:b0:3a0:34a4:187e with SMTP id 98e67ed59e1d1-3a034a41dc3mr3254394a91.15.1789958613234;
+        Sun, 20 Sep 2026 19:43:33 -0700 (PDT)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a02900f84fsm10384623a91.2.2026.09.20.19.43.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 20 Sep 2026 19:43:32 -0700 (PDT)
+Message-ID: <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
+Date: Mon, 21 Sep 2026 10:43:28 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane disable
+ clearing FB_EN
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260918030125.315978-1-a0987203069@gmail.com>
+ <20260918030125.315978-8-a0987203069@gmail.com>
+ <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
+Content-Language: en-US
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, 7 Sep 2026 23:05:05 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
 
-> On Tue, 4 Aug 2026 11:56:26 +0100
-> Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
-> 
-> > On 02/08/26 01:58, Jonathan Cameron wrote:  
-> > > On Sun, 2 Aug 2026 01:09:59 +0100
-> > > Jonathan Cameron <jic23@kernel.org> wrote:
-> > >     
-> > > > On Wed, 29 Jul 2026 09:25:27 +0100
-> > > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-> > > >     
-> > > > > This patch series adds support for the Analog Devices AD9910 DDS.
-> > > > >       
-> > > > Series applied with that small Kconfig help tweak and a bit of fuzz
-> > > > around the new channel type due to the flow sensor I merged earlier today.    
-> > 
-> > Thanks! Let me know if you need a v11, I suppose We are going to wait on the
-> > mul_u64_add_u64_div_u64() fix anyways.
-> >   
-> > > And dropped again :( See patch 11 reply.    
-> >   
-> 
-> Picked up on top of an immutable  branch with the necessary x86
-> fixup. ib-iio-x86-asm-fix-7.3
-> 
-> So this is now on the testing branch of iio.git
-
-And here we go again. Merge rc4 and cherry-picked the patches
-on top of that.  Hopefully I didn't mess it up - please
-take a look as now pushed out as testing
-
-Thanks
-
-Jonathan
-
-> 
+Icenowy Zheng 於 2026/9/18 下午 01:52 寫道:
+> 在 2026-09-18五的 11:01 +0800，Joey Lu写道：
+>> vs_dc8200_primary_plane_disable_ex() calls regmap_set_bits() on
+>> VSDC_FB_CONFIG_EX_FB_EN instead of regmap_clear_bits(), so disabling
+>> the primary plane on DC8200-family hardware actually leaves the
+>> framebuffer enable bit instead of clearing it.
+>>
+>> This bug predates this series: it was carried over unchanged from
+>> vs_primary_plane_atomic_disable() when patch "drm/verisilicon:
+>> introduce per-variant hardware ops table" split the DC8200-specific
+>> implementation out into vs_dc8200.c.
+>>
+>> Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for Verisilicon
+>> display controllers")
+> Maybe it'd be better to fix this before adding DC variant abstraction,
+> for easier backporting.
+>
 > Thanks,
-> 
-> Jonathan
-> 
-> 
-> 
-
+> Icenowy
+Makes sense. Should I send it as a standalone patch targeting
+drm-misc-fixes (separate from this series), or do you have a
+different preference for how to split it?
+>
+>> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+>> ---
+>>   drivers/gpu/drm/verisilicon/vs_dc8200.c | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c
+>> b/drivers/gpu/drm/verisilicon/vs_dc8200.c
+>> index f72da10295e1b..25b5906a1c5fc 100644
+>> --- a/drivers/gpu/drm/verisilicon/vs_dc8200.c
+>> +++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
+>> @@ -70,8 +70,8 @@ static void
+>> vs_dc8200_primary_plane_enable_ex(struct vs_dc *dc, unsigned int out
+>>   
+>>   static void vs_dc8200_primary_plane_disable_ex(struct vs_dc *dc,
+>> unsigned int output)
+>>   {
+>> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+>> -			VSDC_FB_CONFIG_EX_FB_EN);
+>> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+>> +			  VSDC_FB_CONFIG_EX_FB_EN);
+>>   
+>>   	vs_dc8200_plane_commit(dc, output);
+>>   }
