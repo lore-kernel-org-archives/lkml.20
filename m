@@ -1,498 +1,157 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC90C457E61
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:51:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984265; cv=none; b=mb2aKRuuRmG/CNXb8ogvwAx3yysq5+fnIVwUz2LnmnKY1uEuBYmLDl8mPdWra12sb0f63OhBdrwTWeKrZFXDQbOJsVqemEeZQrXCHSr7CcyZFDDvGJzilLGRabJa4/vGXwzJsmh5SKsZbMHsycm/y7rgfzScptXjFxoorCGacHQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984265; c=relaxed/simple;
-	bh=cZ0O2E+eJdI33nUm8Co5Q6+X3F1m9O6WsXviD5CAOoo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZYpV94o80jytODA1NAgApdbINkDJpMY8WW3+XXl8ieXEKmfHvDEHM3ucjwWWZb7r2ap51Cpf6x4DrOV7VuL6ZByFd7FssFbwE9Xfr00smHkK07FUEavt3DPk27d/+F1NVMOiuw+NLoJbP/y2VlYL4uDxRYoARGoOc54bmfHxItA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D6DekRhI; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D3C45D906;
+	Mon, 21 Sep 2026 09:51:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789984271; cv=fail; b=UDZvSrigJtoFIffy5shpt03rBy3YzHk8laf8pstNdXHVGzg/ybWLeiUFtjT6+/gE/7b59DLuvy/HLPfqVwor3wcwppRaKK5cndAdeTuWthakxXMOKf6B1F2HRUx/AqtChpVXomvNgDgyyQcnKrlCrQVHm5Aq2h+qEc9P8UYX9Y8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789984271; c=relaxed/simple;
+	bh=QeDAqYuKYu0MyDvyMll4X2m5QR4WefMyMan11BlZBfY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DyH5g7gGtSGOG3uLeRNgyhR2M6zFCfcQ+BitKo0qEPtklMMyK7Tq+9t5z/LrUfvtIovv1U/JVoi0DPlc/Ihh+xnRwUoDGbt9WzXTGFKbNQk7l2eaxMLbCgT2bikZgPl+Bc7JyNfeqN5Ov3aYrTYNvxv3wKs/Ug/2TJOpCezYMJk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=lRmnYMRx; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=eSWrh94/; arc=fail smtp.client-ip=67.231.149.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D6DekRhI"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2caced6038eso24279375ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:51:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="lRmnYMRx";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="eSWrh94/"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L4iMwS538252;
+	Mon, 21 Sep 2026 04:50:59 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=PODMain02222019; bh=mK+sYppSZLaESD3xnd
+	H98/EjCJMQUeALCSM4ExwdwUs=; b=lRmnYMRxKDc+x0lQFz/zfw2L3o8OZPFIQg
+	VZq7Yc7s5fDV4evW/tTte6E3xD/dqA6f4oY8Y9Zy9Q4n//Ii7QUZyIhZuDkb9Hqz
+	Rjj4q8ydbHVlc2edSOn/NDXUKoKWcmnmfHUo1uUXLwRVyqQWZulyWOsz7wy3/d0c
+	ir0MguJN45PnSybSbJSqe71LD+6ln70olDB5SrBCOji+mNxdJv7j/n2++yNZhU+Y
+	q5PEoKTHC89rhhBnxrVSZtaBOr2ySFplSLcGbHqCxAMP8uQjlJN6QJ6nw27gG0SR
+	/OPZ+8zm8biNLC86VyTtpTNZ46E9F/KLBsu6fAnNNqU7qv7I/eWw==
+Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11022113.outbound.protection.outlook.com [52.101.53.113])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4gsqt09rkj-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 04:50:59 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=favqmJtR+mfFEfYjQVw3m6bVM83wPlror6FAteHmVC3pAXdP2mpuIbQl7fTut8v3jcPKbVfzZGb/PwDMp0lcFYiwiGnW9SMw4X1zw/DleRTOe8lt6Qq3dFbPqx2LFjFQF4+2qyyKpW030EWMjBx11Xo7ofPjsonRhELA34N1lJElpMbyfY1iFrZdp0N+ArJ+4aFDA88fWGSBIlHxcjSyp4DqD4TwO6RKDAm5RQZPXx8+cwMGPfxLqGatWYO8HI35374FzvkkQyFuJ7rOiio2wI4XAy5AUYvgDjj1lUoCVEVNfO3S77AUMD1O9rxpKK3CGhteW8JlTFLRY9n3dUqOKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mK+sYppSZLaESD3xndH98/EjCJMQUeALCSM4ExwdwUs=;
+ b=h4466aSPMymTSCP3ZaF0oUJ6OHHEjxER5jM2uhqT9e4J6S1+wGYxrQKKLBQ6GB72qGzYjJTgync/vVDpnoCp7KyFayqeSDJxc3PxG5/uouUYf6zWZjLBZoK7jOjaH2q/XD3eZOJc/yEFoO9MURXoowcvHd3TAuGs9sG6QmhxpeADeUeZKLYveibdG2E+cd9nPDM2uKNQ5TmwVSEi85mMuftmqv9+UqDZAh/hh0kyiHzKS0PxN4iZYA4Z+KKZPoHVzJ02oCsWkz3sYwc39LI33honV635jPTO3xjjrWTgeR8dT0h9jCI/IB104m+hBPNbs4k2TZwOkNYnogdG/PUaWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789984263; x=1790589063; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2F4CK2PTrv6qOUar6yzK/p6Y6e6mva4yc9+tBH2wH3A=;
-        b=D6DekRhINF1myGt08T3YCWP+VXHuXI95PGMXttixFWgf/VmEqQyLRAlZJVSVbqYON+
-         kNYvc+h49JUHJhBaUSHfYzF1Muo3ISqzgp+9jnyGGL0lnVLgNyZAhgJR7nRpz3BkdfMa
-         qBzAWXs7x8R44WS7SD6Hg2xArKaQ9Gxw8Dj+DbUsVkYid+ZUyu2QOYD8vQCskNTspWeF
-         AGZQJRGft4rtomIxKdTYVIk0A+BSItjkppe3NTkMoF2vZltbXuffyh4rCFJINwyG7AWB
-         NKNKmffZ/X+OxbcDPut0/xEcVEF/I9f44V9VYRapVHUb81MZwpH03zMoCdmWCeYulCcv
-         DiWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789984263; x=1790589063;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2F4CK2PTrv6qOUar6yzK/p6Y6e6mva4yc9+tBH2wH3A=;
-        b=e4HjOl/9iN12YMiZZmlxrrqIpZsCvO0BL+u/H+UWpnWee3JS8yxueYfpHTSJPUTMxt
-         S9Tk6d5YE4sQuVLwO5P7ZvuP6jKdcTczAt2vLATJqMZtVSEEGXOPuWsow9XziHET1gZP
-         cfjt2toJxnowJm+IwXWeicfHASyXY6dtGBr8moWOwLyOzwiYyBdLBPGQNR03WBUcLCUQ
-         DbmCZwopB4M5mpLW4nlyN7A/EzNzBhQKybkNS4tDm+cC828hFh8+PgzvxGA3QJdxm/IU
-         7dpOusSzI+7TMALD5yym+PkiCX+4N7CiZxhvFll5iUAA9kiK2qIFiSpKzQolJSmUJZSY
-         De1g==
-X-Forwarded-Encrypted: i=1; AKwUvBypAYYvJ6H8j+V/x3JI/jEnv5UqoSctsgol1SvnEbIvjT7ZzTj4DgAGhp/3gV2QdIlZThKnueBGtzgKaNo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrFR2nwOt0H4hoPH/z3dk9+JRLBYxiGEDFJ16sj9FzX35WJ+54
-	Bd4Ku+lucxcJostXZGOyCYe4PG9BR2fI1cX0lBxLKMlMQ0YwCZWrYVpS
-X-Gm-Gg: AYBFou3Kkc9DPYQfVppwVkXLCXRxNLtkmuau3Rja0FXamggxfOJy+tGuvcbyqwbLmPZ
-	D4x9wMmSWK/Io8MuI49s9H11PspBbzsk74+saTfAcmQoJZBiOkuPbZBNfM5RzaAzhr/cri80Yv2
-	XaE9vcOQ3TR2AavDtt3nrE1PUNe8Baa88KHL1aSJV3Lbm4QpgsBxDImLoQvnaIwvyR1prfyz9or
-	bTGyl6ZI5OlGUhr5LACVieYAGmB7MUHGomqIjGXNmUoiuGTZ1t9f5zKUul62BSbkuAnH9O4rHhc
-	1HE0iRL4NdbmvOaMBc/NdAmXptC3UG5oIKgoGTlyZ3ePdyRzWgUV1iPEhde6HY353RhysntCSdx
-	SiF29wz/bHW+9NYzej2Ozc0fbq5Vo/ASq6kfLSWmvU2AFrsehpGnfpmdLCcP/P1rlVmyXLIi7hN
-	GnEfElgkmYP5UocwEUAA6i0RuRyY+/za3Mhji+9uefc7RLdVMmjhcnhmo0iylWWNxaaHZ0YbgbK
-	WSy1IE+kbMJy3oXpr+zXfvZ0qbXYYML2Go=
-X-Received: by 2002:a17:903:2f03:b0:2d7:1858:1d96 with SMTP id d9443c01a7336-2dd9c7c2906mr159974055ad.7.1789984262990;
-        Mon, 21 Sep 2026 02:51:02 -0700 (PDT)
-Received: from localhost.. (59-124-112-186.hinet-ip.hinet.net. [59.124.112.186])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17ba45fsm31317095ad.50.2026.09.21.02.50.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 02:51:02 -0700 (PDT)
-From: chipang_kao <prozac2734@gmail.com>
-X-Google-Original-From: chipang_kao <chipang_kao@asus.com>
-To: hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	W_Armin@gmx.de
-Cc: corentin.chary@gmail.com,
-	luke@ljones.dev,
-	denis.benato@linux.dev,
-	jprvita@gmail.com,
-	scardracs@disroot.org,
-	bryan.odonoghue@linaro.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	chipang_kao <chipang_kao@asus.com>
-Subject: [PATCH v2] platform/wmi: Move ASUS platform drivers from x86 to wmi/asus
-Date: Mon, 21 Sep 2026 17:48:42 +0800
-Message-ID: <20260921094941.261599-1-chipang_kao@asus.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2384d8f5-106c-4cbd-a119-62d923725bf7@kernel.org>
-References: <2384d8f5-106c-4cbd-a119-62d923725bf7@kernel.org>
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mK+sYppSZLaESD3xndH98/EjCJMQUeALCSM4ExwdwUs=;
+ b=eSWrh94/1Y2XEKbWDY7kNnqlBeDNnpWSyTNCoYBrW2BC0p6hzYjV91mZ3aXrABgVrJFFxTrKgb5/e2n9XRhK/HG0leIblt2jAfVft9dimJ4hLTWo0KxeoWI5qxklNSabglgUpe3/lHr9rnIsp6cSq0MDxtPOq/8WvwYg3o/IQuE=
+Received: from BL1P223CA0009.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:2c4::14)
+ by DM4PR19MB6343.namprd19.prod.outlook.com (2603:10b6:8:a6::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.15; Mon, 21 Sep
+ 2026 09:50:53 +0000
+Received: from BN7PEPF000000A0.namprd04.prod.outlook.com
+ (2603:10b6:208:2c4:cafe::8f) by BL1P223CA0009.outlook.office365.com
+ (2603:10b6:208:2c4::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
+ 21 Sep 2026 09:50:53 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
+ smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ BN7PEPF000000A0.mail.protection.outlook.com (10.167.248.152) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
+ via Frontend Transport; Mon, 21 Sep 2026 09:50:52 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id DD634406541;
+	Mon, 21 Sep 2026 09:50:51 +0000 (UTC)
+Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id CB9B5820247;
+	Mon, 21 Sep 2026 09:50:51 +0000 (UTC)
+Date: Mon, 21 Sep 2026 10:50:50 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Maciej Strozek <mstrozek@opensource.cirrus.com>
+Cc: broonie@kernel.org, lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
+        pierre-louis.bossart@linux.dev, linux-sound@vger.kernel.org,
+        linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+Subject: Re: [PATCH 2/2] ASoC: SDCA: Check return value on a missing
+ FDL_Set_Index Range
+Message-ID: <arD9+rq5ricxcptK@opensource.cirrus.com>
+References: <20260917103400.2032913-1-mstrozek@opensource.cirrus.com>
+ <20260917103400.2032913-2-mstrozek@opensource.cirrus.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917103400.2032913-2-mstrozek@opensource.cirrus.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF000000A0:EE_|DM4PR19MB6343:EE_
+X-MS-Office365-Filtering-Correlation-Id: 97dab19a-7828-4445-c19b-08df17c5d32c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|61400799027|36860700016|23010399003|6133799003|22082099003|18002099003|16102099003|4143699003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	QbQYDnk2w0la/l0WxmAgl5dK2nADb5lQQp3xV4oS9fOcetBFDRdf6Bv1ZUMGI64hYGYAxqr2mTLVE09pfIAsSM/ZV9HDfRvGwjCZqsWIE/Gd6FeLOvgfIP72nvfMKqLRBo7yKhSVPiY1hU/W1puJ0ajpifv22/yAtaX6xcn+Qxu05vfAnAPIj1fhRHkao5sK7JufE38cYBZFVW67v8U0TZ2Wk5moNXaShmUEE/u9xSgZyUjoCXe4dhaV+jlce2A8jzgvxQ4LXksIpkDzvSJ2J1+sm/Luh9ADsJeZ2apJH85RarZSwOvmVfVTYMHCaB8eHP3WaxTMIYfpunOiWoMNBs9wwV2nZHCnnW1Tckf8AS7h922/d/vnqaefClhrHlC/8XzDyQig+qAC5qAqyffiQ6ucFq9V2LaI06wagz+2yhCCWF0Kw/8u8RJx+TnLsMNc5aWNknqEvnG6iq7ewH0xrozmQjJE6YXlHLfd3uXKNRDOHK11fWiUps6+381hxujuU9C3YwvULIs5d+bJoq0KqaigqgOFDxnxjH0sQVfuv/4P4jzKV2hmbEFh3jDJoNXqF0tXrFZe7TuXq3Bv81v5e6o+iMbdEgMvXF0MpEBt5lQ/WoNDQYWW/ze8kzzm0tY+L92lf1N7KSI+VxbTWDaxN8DJ97dqdz2B+aCbxqnwBQDQdyHgxQ+I+MPSTpGY4wRb523oZI6B3SlRERJSRmWhPg==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(61400799027)(36860700016)(23010399003)(6133799003)(22082099003)(18002099003)(16102099003)(4143699003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	RgbEWGu3SyIJF3mqMMTsUO9COvB9U1p90lRC0ygffPCcB/3CMUyPBquvLu+v+J3cSTXfgc2Tre4I7MzWenYJ3MqWf/mIg9hGRP8Ln8KtXwdo/2eRlJOkyR4pldxHDdAVVEmnEDXApSttS1fn10p9neJUVZTKW8IJq2zvD3iKB/k85BianUZW42Ml2umq6NsWqZZebJHTFQ5RJWd1j7DfsClHFHA6S/zsMZzAS5uPLjKuP2UPc7IXNbPSoVKM93WzIaW2Mvk+2QtTE+5ZBgG17ImYXTB8RWF5fguodsXJQ4PMXWNs0/8H/5auR9SqLRm43sXjpnEQnkX+cptSVG7iCPK/GqcVkLO6XFfkKi9osAMNZDRRnnk2mMC5YKL0d4/Knhj6RSbNQLV0b/AWyCTR48OSY3NTgg2PiECd3CmtKIyBPm1GrYENGhMYK0nKK/3B
+X-Exchange-RoutingPolicyChecked:
+	OVr8dr/9Ym1S3GTgEQNGezzATYZ4Q3nGzh++RSbbDMwdCIwk4o3yMuCUVP10Rhl24xQiaIHS6+7pr2/EFAW5leAoI9pJ4vkcSl3qBviRlj8m8MgFd6NsKdTajCBoJqwiPSvEDh0csY4bltkSBzbyIR+t6EEk//LfyFNeps9XGzEifrTBxz1QUOjM1g5GbBJCQSAscVde126X7lizHFBhzxrIpY505HiYaRw1sxQXIhuv0EU3P9GtQkTXf4k1jUYs9J5SU+rGPh4S2jdElDSHNNa/EoMFgOmJgaVXCKqIuK6RlAwk9xfr2a2koAm/K14M34iDGe5HGh0kCvPhSUpJNA==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 09:50:52.6682
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97dab19a-7828-4445-c19b-08df17c5d32c
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN7PEPF000000A0.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR19MB6343
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE0MiBTYWx0ZWRfX5dPhFruXQ5kN
+ Zwbty8zJE//ThoUu6FjVBWFWarJl+K+K7v/P7Af99kZxa0deJkCjd86BcC39kJmQKyRwU4YIgyS
+ DOBA0LDjW2NSiS2swdjlQS+UBiSL3z54zpgrl3TyTiGbtAfTOLTB0fFZVsrJPptvxRtgjaXXfsJ
+ 71wquRtYkR5MGHD8xWy1QmCjYMSC0njvRtMi5cbJopFNhoI9VKCXTEwQPV78XCXLkCyL3uClwa0
+ FbwyqVErLwTKmPISNF2vUGf3eylJOy+q2InuC+l9Vu9M62EdLDdxOHH2GA94/i9jShUIzvEb8KT
+ 02Xn0yBFPeiTO55mrBlzM3x+d7XsMGk7iJaLJ4o/XVJdfQ8O8IaPINOGPFq4N8n35sIkLrGm07l
+ oYFhTSvU2PFMT4f3k5jzTPrTq75tXv0KWDl39Dg/e+nUlvN42xBctUCEzIORCCaF9Xzhf8rCE/f
+ nkVuwKOV8uU+0TigxJA==
+X-Authority-Analysis: v=2.4 cv=TPTQ2Fla c=1 sm=1 tr=0 ts=6ab0fe03 cx=c_pps
+ a=opNks6lJvPUjoR/Ci7CsCA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
+ a=w1d2syhTAAAA:8 a=srDoHaXkoJIDN2wfDnwA:9 a=CjuIK1q_8ugA:10 a=0lgtpPvCYYIA:10
+X-Proofpoint-ORIG-GUID: MjJbTdFCiuBpfpOJeAEPMd-WRABtskzm
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE0MiBTYWx0ZWRfX0Ze4dEl6gqUf
+ +gTwM7OT+0R3pd34gVM8u2OvNP1lf+b7T7sTNf+dqUst9KRYs/P2FiXhU0Cqg+unlSUaW53NCge
+ d02MeinG9tKRG1Ytat3XwfgF/fZtpus=
+X-Proofpoint-GUID: MjJbTdFCiuBpfpOJeAEPMd-WRABtskzm
+X-Proofpoint-Spam-Reason: safe
 
-ASUS WMI and related platform drivers currently reside under
-drivers/platform/x86/. However, with ARM64 devices utilizing ACPI WMI
-interfaces, maintaining these drivers exclusively under x86 creates
-unnecessary architectural restrictions and Kconfig duplications.
+On Thu, Sep 17, 2026 at 11:34:00AM +0100, Maciej Strozek wrote:
+> In case of a missing FDL_Set_Index control the return value can be NULL,
+> ensure the functions returns before passing it on to range search.
+> 
+> Fixes: 71f7990a34cd ("ASoC: SDCA: Add FDL library for XU entities")
+> Signed-off-by: Maciej Strozek <mstrozek@opensource.cirrus.com>
+> ---
 
-To allow ARM64 architectures to build and utilize ASUS WMI drivers
-cleanly:
-1. Relocate all ASUS platform drivers and headers from
-   drivers/platform/x86/ to drivers/platform/wmi/asus/.
-2. Create dedicated Kconfig and Makefile under
-   drivers/platform/wmi/asus/ and source them in
-   drivers/platform/wmi/Kconfig and Makefile.
-3. Update drivers/platform/x86/Kconfig to remove duplicated entries
-   and source the unified WMI-based ASUS configuration.
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-No functional code logic changes are introduced in this patch; this is
-a pure code relocation and build infrastructure refactoring.
-
-Signed-off-by: chipang_kao <chipang_kao@asus.com>
----
-
-Changes in v2:
-- Relocated ASUS platform drivers from drivers/platform/x86/ to
-  drivers/platform/wmi/asus/ to eliminate Kconfig duplication and
-  architectural restrictions for ARM64 platforms.
-- Dropped patch 1/2 from the original series as CONFIG_ACPI_WMI
-  dependency changes are covered by Armin's WMI refactoring series.
-- Updated MAINTAINERS file to reflect the new path.
-
- MAINTAINERS                                   |   6 +-
- drivers/platform/wmi/Makefile                 |   1 +
- drivers/platform/wmi/asus/Kconfig             | 123 ++++++++++++++++++
- drivers/platform/wmi/asus/Makefile            |  12 ++
- .../platform/{x86 => wmi/asus}/asus-armoury.c |   0
- .../platform/{x86 => wmi/asus}/asus-armoury.h |   0
- .../platform/{x86 => wmi/asus}/asus-laptop.c  |   0
- .../platform/{x86 => wmi/asus}/asus-nb-wmi.c  |   0
- .../{x86 => wmi/asus}/asus-tf103c-dock.c      |   0
- .../{x86 => wmi/asus}/asus-wireless.c         |   0
- drivers/platform/{x86 => wmi/asus}/asus-wmi.c |   0
- drivers/platform/{x86 => wmi/asus}/asus-wmi.h |   0
- drivers/platform/x86/Kconfig                  | 117 -----------------
- 13 files changed, 139 insertions(+), 120 deletions(-)
- create mode 100644 drivers/platform/wmi/asus/Kconfig
- create mode 100644 drivers/platform/wmi/asus/Makefile
- rename drivers/platform/{x86 => wmi/asus}/asus-armoury.c (100%)
- rename drivers/platform/{x86 => wmi/asus}/asus-armoury.h (100%)
- rename drivers/platform/{x86 => wmi/asus}/asus-laptop.c (100%)
- rename drivers/platform/{x86 => wmi/asus}/asus-nb-wmi.c (100%)
- rename drivers/platform/{x86 => wmi/asus}/asus-tf103c-dock.c (100%)
- rename drivers/platform/{x86 => wmi/asus}/asus-wireless.c (100%)
- rename drivers/platform/{x86 => wmi/asus}/asus-wmi.c (100%)
- rename drivers/platform/{x86 => wmi/asus}/asus-wmi.h (100%)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cc3cae2e378b..25e4030e24b9 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4124,7 +4124,7 @@ M:	Denis Benato <denis.benato@linux.dev>
- L:	platform-driver-x86@vger.kernel.org
- S:	Maintained
- W:	https://asus-linux.org/
--F:	drivers/platform/x86/asus*.c
-+F:	drivers/platform/wmi/asus/asus*.c
- F:	drivers/platform/x86/eeepc*.c
- 
- ASUS TF103C DOCK DRIVER
-@@ -4132,7 +4132,7 @@ M:	Hans de Goede <hansg@kernel.org>
- L:	platform-driver-x86@vger.kernel.org
- S:	Maintained
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.git
--F:	drivers/platform/x86/asus-tf103c-dock.c
-+F:	drivers/platform/wmi/asus/asus-tf103c-dock.c
- 
- ASUS ROG RYUJIN AIO HARDWARE MONITOR DRIVER
- M:	Aleksa Savic <savicaleksa83@gmail.com>
-@@ -4144,7 +4144,7 @@ ASUS WIRELESS RADIO CONTROL DRIVER
- M:	João Paulo Rechi Vita <jprvita@gmail.com>
- L:	platform-driver-x86@vger.kernel.org
- S:	Maintained
--F:	drivers/platform/x86/asus-wireless.c
-+F:	drivers/platform/wmi/asus/asus-wireless.c
- 
- ASUS WMI HARDWARE MONITOR DRIVER
- M:	Ed Brindley <kernel@maidavale.org>
-diff --git a/drivers/platform/wmi/Makefile b/drivers/platform/wmi/Makefile
-index 2feff94a5594..305f4688324f 100644
---- a/drivers/platform/wmi/Makefile
-+++ b/drivers/platform/wmi/Makefile
-@@ -6,6 +6,7 @@
- 
- wmi-y			:= core.o marshalling.o string.o
- obj-$(CONFIG_ACPI_WMI)	+= wmi.o
-+obj-$(CONFIG_ASUS_WMI) += asus/
- 
- # Unit tests
- obj-y			+= tests/
-diff --git a/drivers/platform/wmi/asus/Kconfig b/drivers/platform/wmi/asus/Kconfig
-new file mode 100644
-index 000000000000..f7caf1450a5d
---- /dev/null
-+++ b/drivers/platform/wmi/asus/Kconfig
-@@ -0,0 +1,123 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+#
-+# Asus Platform Specific Drivers
-+#
-+
-+config ASUS_LAPTOP
-+	tristate "Asus Laptop Extras"
-+	depends on ACPI
-+	select LEDS_CLASS
-+	select NEW_LEDS
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	depends on INPUT
-+	depends on RFKILL || RFKILL = n
-+	depends on ACPI_VIDEO || ACPI_VIDEO = n
-+	select INPUT_SPARSEKMAP
-+	help
-+	  This is a driver for Asus laptops, Lenovo SL and the Pegatron
-+	  Lucid tablet. It may also support some MEDION, JVC or VICTOR
-+	  laptops. It makes all the extra buttons generate standard
-+	  ACPI events and input events, and on the Lucid the built-in
-+	  accelerometer appears as an input device.  It also adds
-+	  support for video output switching, LCD backlight control,
-+	  Bluetooth and Wlan control, and most importantly, allows you
-+	  to blink those fancy LEDs.
-+
-+	  For more information see <http://acpi4asus.sf.net>.
-+
-+	  If you have an ACPI-compatible ASUS laptop, say Y or M here.
-+
-+config ASUS_WIRELESS
-+	tristate "Asus Wireless Radio Control Driver"
-+	depends on ACPI
-+	depends on INPUT
-+	select NEW_LEDS
-+	select LEDS_CLASS
-+	help
-+	  The Asus Wireless Radio Control handles the airplane mode hotkey
-+	  present on some Asus laptops.
-+
-+	  Say Y or M here if you have an ASUS notebook with an airplane mode
-+	  hotkey.
-+
-+	  If you choose to compile this driver as a module the module will be
-+	  called asus-wireless.
-+
-+config ASUS_ARMOURY
-+	tristate "ASUS Armoury driver"
-+	depends on ASUS_WMI
-+	select FW_ATTR_CLASS
-+	help
-+	  Say Y here if you have a WMI aware Asus machine and would like to use the
-+	  firmware_attributes API to control various settings typically exposed in
-+	  the ASUS Armoury Crate application available on Windows.
-+
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called asus-armoury.
-+
-+config ASUS_WMI
-+	tristate "ASUS WMI Driver"
-+	depends on ACPI_WMI
-+	depends on ACPI_BATTERY
-+	depends on INPUT
-+	depends on HWMON
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	depends on RFKILL || RFKILL = n
-+	depends on HOTPLUG_PCI
-+	depends on ACPI_VIDEO || ACPI_VIDEO = n
-+	depends on SERIO_I8042 || SERIO_I8042 = n
-+	select INPUT_SPARSEKMAP
-+	select LEDS_CLASS
-+	select NEW_LEDS
-+	select ACPI_PLATFORM_PROFILE
-+	help
-+	  Say Y here if you have a WMI aware Asus laptop (like Eee PCs or new
-+	  Asus Notebooks).
-+
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called asus-wmi.
-+
-+config ASUS_WMI_DEPRECATED_ATTRS
-+	bool "BIOS option support in WMI platform (DEPRECATED)"
-+	depends on ASUS_WMI
-+	default y
-+	help
-+	  Say Y to expose the configurable BIOS options through the asus-wmi
-+	  driver.
-+
-+	  This can be used with or without the asus-armoury driver which
-+	  has the same attributes, but more, and better features.
-+
-+config ASUS_NB_WMI
-+	tristate "Asus Notebook WMI Driver"
-+	depends on ASUS_WMI
-+	help
-+	  This is a driver for newer Asus notebooks. It adds extra features
-+	  like wireless radio and bluetooth control, leds, hotkeys, backlight...
-+
-+	  For more information, see
-+	  <file:Documentation/ABI/testing/sysfs-platform-asus-wmi>
-+
-+	  If you have an ACPI-WMI compatible Asus Notebook, say Y or M
-+	  here.
-+
-+config ASUS_TF103C_DOCK
-+	tristate "Asus TF103C 2-in-1 keyboard dock"
-+	depends on ACPI
-+	depends on I2C
-+	depends on INPUT
-+	depends on HID
-+	depends on GPIOLIB
-+	help
-+	  This is a driver for the keyboard, touchpad and USB port of the
-+	  keyboard dock for the Asus TF103C 2-in-1 tablet.
-+
-+	  This keyboard dock has its own I2C attached embedded controller
-+	  and the keyboard and touchpad are also connected over I2C,
-+	  instead of using the usual USB connection. This means that the
-+	  keyboard dock requires this special driver to function.
-+
-+	  If you have an Asus TF103C tablet say Y or M here, for a generic x86
-+	  distro config say M here.
-+
-+
-diff --git a/drivers/platform/wmi/asus/Makefile b/drivers/platform/wmi/asus/Makefile
-new file mode 100644
-index 000000000000..0cee8db2d9d8
---- /dev/null
-+++ b/drivers/platform/wmi/asus/Makefile
-@@ -0,0 +1,12 @@
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Makefile for linux/drivers/platform/wmi/asus
-+# Asus Platform-Specific Drivers
-+#
-+
-+obj-$(CONFIG_ASUS_LAPTOP)	+= asus-laptop.o
-+obj-$(CONFIG_ASUS_WIRELESS)	+= asus-wireless.o
-+obj-$(CONFIG_ASUS_ARMOURY)	+= asus-armoury.o
-+obj-$(CONFIG_ASUS_WMI)		+= asus-wmi.o
-+obj-$(CONFIG_ASUS_NB_WMI)	+= asus-nb-wmi.o
-+obj-$(CONFIG_ASUS_TF103C_DOCK)	+= asus-tf103c-dock.o
-diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/wmi/asus/asus-armoury.c
-similarity index 100%
-rename from drivers/platform/x86/asus-armoury.c
-rename to drivers/platform/wmi/asus/asus-armoury.c
-diff --git a/drivers/platform/x86/asus-armoury.h b/drivers/platform/wmi/asus/asus-armoury.h
-similarity index 100%
-rename from drivers/platform/x86/asus-armoury.h
-rename to drivers/platform/wmi/asus/asus-armoury.h
-diff --git a/drivers/platform/x86/asus-laptop.c b/drivers/platform/wmi/asus/asus-laptop.c
-similarity index 100%
-rename from drivers/platform/x86/asus-laptop.c
-rename to drivers/platform/wmi/asus/asus-laptop.c
-diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/wmi/asus/asus-nb-wmi.c
-similarity index 100%
-rename from drivers/platform/x86/asus-nb-wmi.c
-rename to drivers/platform/wmi/asus/asus-nb-wmi.c
-diff --git a/drivers/platform/x86/asus-tf103c-dock.c b/drivers/platform/wmi/asus/asus-tf103c-dock.c
-similarity index 100%
-rename from drivers/platform/x86/asus-tf103c-dock.c
-rename to drivers/platform/wmi/asus/asus-tf103c-dock.c
-diff --git a/drivers/platform/x86/asus-wireless.c b/drivers/platform/wmi/asus/asus-wireless.c
-similarity index 100%
-rename from drivers/platform/x86/asus-wireless.c
-rename to drivers/platform/wmi/asus/asus-wireless.c
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/wmi/asus/asus-wmi.c
-similarity index 100%
-rename from drivers/platform/x86/asus-wmi.c
-rename to drivers/platform/wmi/asus/asus-wmi.c
-diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/wmi/asus/asus-wmi.h
-similarity index 100%
-rename from drivers/platform/x86/asus-wmi.h
-rename to drivers/platform/wmi/asus/asus-wmi.h
-diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
-index 957034f39e4e..257404b3fd44 100644
---- a/drivers/platform/x86/Kconfig
-+++ b/drivers/platform/x86/Kconfig
-@@ -213,123 +213,6 @@ config APPLE_GMUX
- 	  graphics as well as the backlight. Currently only backlight
- 	  control is supported by the driver.
- 
--config ASUS_LAPTOP
--	tristate "Asus Laptop Extras"
--	depends on ACPI
--	select LEDS_CLASS
--	select NEW_LEDS
--	depends on BACKLIGHT_CLASS_DEVICE
--	depends on INPUT
--	depends on RFKILL || RFKILL = n
--	depends on ACPI_VIDEO || ACPI_VIDEO = n
--	select INPUT_SPARSEKMAP
--	help
--	  This is a driver for Asus laptops, Lenovo SL and the Pegatron
--	  Lucid tablet. It may also support some MEDION, JVC or VICTOR
--	  laptops. It makes all the extra buttons generate standard
--	  ACPI events and input events, and on the Lucid the built-in
--	  accelerometer appears as an input device.  It also adds
--	  support for video output switching, LCD backlight control,
--	  Bluetooth and Wlan control, and most importantly, allows you
--	  to blink those fancy LEDs.
--
--	  For more information see <http://acpi4asus.sf.net>.
--
--	  If you have an ACPI-compatible ASUS laptop, say Y or M here.
--
--config ASUS_WIRELESS
--	tristate "Asus Wireless Radio Control Driver"
--	depends on ACPI
--	depends on INPUT
--	select NEW_LEDS
--	select LEDS_CLASS
--	help
--	  The Asus Wireless Radio Control handles the airplane mode hotkey
--	  present on some Asus laptops.
--
--	  Say Y or M here if you have an ASUS notebook with an airplane mode
--	  hotkey.
--
--	  If you choose to compile this driver as a module the module will be
--	  called asus-wireless.
--
--config ASUS_ARMOURY
--	tristate "ASUS Armoury driver"
--	depends on ASUS_WMI
--	select FW_ATTR_CLASS
--	help
--	  Say Y here if you have a WMI aware Asus machine and would like to use the
--	  firmware_attributes API to control various settings typically exposed in
--	  the ASUS Armoury Crate application available on Windows.
--
--	  To compile this driver as a module, choose M here: the module will
--	  be called asus-armoury.
--
--config ASUS_WMI
--	tristate "ASUS WMI Driver"
--	depends on ACPI_WMI
--	depends on ACPI_BATTERY
--	depends on INPUT
--	depends on HWMON
--	depends on BACKLIGHT_CLASS_DEVICE
--	depends on RFKILL || RFKILL = n
--	depends on HOTPLUG_PCI
--	depends on ACPI_VIDEO || ACPI_VIDEO = n
--	depends on SERIO_I8042 || SERIO_I8042 = n
--	select INPUT_SPARSEKMAP
--	select LEDS_CLASS
--	select NEW_LEDS
--	select ACPI_PLATFORM_PROFILE
--	help
--	  Say Y here if you have a WMI aware Asus laptop (like Eee PCs or new
--	  Asus Notebooks).
--
--	  To compile this driver as a module, choose M here: the module will
--	  be called asus-wmi.
--
--config ASUS_WMI_DEPRECATED_ATTRS
--	bool "BIOS option support in WMI platform (DEPRECATED)"
--	depends on ASUS_WMI
--	default y
--	help
--	  Say Y to expose the configurable BIOS options through the asus-wmi
--	  driver.
--
--	  This can be used with or without the asus-armoury driver which
--	  has the same attributes, but more, and better features.
--
--config ASUS_NB_WMI
--	tristate "Asus Notebook WMI Driver"
--	depends on ASUS_WMI
--	help
--	  This is a driver for newer Asus notebooks. It adds extra features
--	  like wireless radio and bluetooth control, leds, hotkeys, backlight...
--
--	  For more information, see
--	  <file:Documentation/ABI/testing/sysfs-platform-asus-wmi>
--
--	  If you have an ACPI-WMI compatible Asus Notebook, say Y or M
--	  here.
--
--config ASUS_TF103C_DOCK
--	tristate "Asus TF103C 2-in-1 keyboard dock"
--	depends on ACPI
--	depends on I2C
--	depends on INPUT
--	depends on HID
--	depends on GPIOLIB
--	help
--	  This is a driver for the keyboard, touchpad and USB port of the
--	  keyboard dock for the Asus TF103C 2-in-1 tablet.
--
--	  This keyboard dock has its own I2C attached embedded controller
--	  and the keyboard and touchpad are also connected over I2C,
--	  instead of using the usual USB connection. This means that the
--	  keyboard dock requires this special driver to function.
--
--	  If you have an Asus TF103C tablet say Y or M here, for a generic x86
--	  distro config say M here.
--
- config AYANEO_EC
- 	tristate "Ayaneo EC platform control"
- 	depends on DMI
--- 
-2.43.0
-
+Thanks,
+Charles
