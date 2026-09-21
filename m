@@ -1,52 +1,54 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600A844E046;
-	Mon, 21 Sep 2026 07:51:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CEA3F927B
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:52:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789977107; cv=none; b=Wr38JXUy3G+/1ij7BTH399vX6Uh8YXImOg8Zd+h4sXgrzxxhLsK8OGsY7EldTfVyNLUtLETfduDPTp1l1iE0YErilZBmv5DyOQn7qoOEu1SthiGesf+PEpo69lVyF1tb8HWan6WPfgYu9YFzLwS0njYfUDGuMZqR6va1boPy3xI=
+	t=1789977148; cv=none; b=cSf/lWw29pLmmLtbwL61yowBvi1DXj8Typ3vUkgsF/8BR/s0sAO05HIQsGOazpEwX/J7im1Lm7gdU6Ppukparyt9TPT24WGbxGUCbR38CMykczzu9hF+POld3O6u8d7kQl5J75NUAH7tZp1HH8fDj4NykXLZmWQOzgdyBjLAulY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789977107; c=relaxed/simple;
-	bh=sZlS+5hBTeYamg0dI6hO+fZLWCFBhpnY6tKiaHd8tMY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=btNTEfa0o4ujZ2I/i7iRwJo8wjvmCq4PQqKkNCPStd+wDYljxJTXYB++uaRm5MZpSG22QKMUqaARDjJlnXIHz/kWamAL1qpY2e8+EolOBv6PFJA5AKJYyk4DVwD5J581j1uFSO/UuL76b3tbltk4im2wx/wKyqFyde8MPG78HCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=L+sK7M1R; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789977148; c=relaxed/simple;
+	bh=5vd8q+ytIU6xQ6GKIb6K1ydTQBfPBNpTd3XztTCXMUU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=EoZEFZIhK56sg/IHsmmwXHhifEhPMkc4wHxwDarMErxEJyG2Qon+OlhEhVrLimxkLRZ5fQonpmT9cj90Rmj8N1C3bI2NC5IEnp+rAHHHx2T91I1+RVNOsbpOWD1IjpFa99qeKv2JjQUfnysUAmwoATgVphsycFcVS7Z/asvUGLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=i3Um32Cf; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ZaRU+eV2; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="L+sK7M1R"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 282A7153F;
-	Mon, 21 Sep 2026 09:49:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789976998;
-	bh=sZlS+5hBTeYamg0dI6hO+fZLWCFBhpnY6tKiaHd8tMY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=L+sK7M1R0d3rjmIkUs23v4Y91mzJ9bHr8jjSxwK4aS2qXXoFtQHYCrGWRjnz0Byzx
-	 vNNimR4pBTHeG7SeHma/holVeUOWYrcU/oa6HMGMPLxwPNoAXKe5uYt2P4THeDt+p7
-	 QcgTtPmdb0AhxJaj4n835+aHRKYh3D1CTLc0YuqE=
-Date: Mon, 21 Sep 2026 10:51:41 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Paul Elder <paul.elder+renesas@ideasonboard.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH DNI v2 00/11] media: rcar-fcp, vsp1: Enable on R-Car X5H
-Message-ID: <20260921075141.GF24505@killaraus.ideasonboard.com>
-References: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com>
- <CAMuHMdVC2vNp2nTHUi3saTZ8UD4ggeB_aBEvN9XP+EToOr7G2w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="i3Um32Cf";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ZaRU+eV2"
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789977139;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5vd8q+ytIU6xQ6GKIb6K1ydTQBfPBNpTd3XztTCXMUU=;
+	b=i3Um32CfJ4kCdFvl21sHrxUYmoyuf3ek45E0oKA3PHQHVhisTHoECyeYg+S4Pz1+IhjTfw
+	aLGQg9aqHtH/1yZAKMNWdzFjJzujLkk9oKYGCGOdwgr9of6rXPRaFeNWfBXM//ge41eEFD
+	NXxrNYbhRHAvWmJU5GAjDgig1KFN6HPhGthx6l2iOoi+Z6kKFa5fHyTqDF4UUzxqZs7Oqr
+	Jq8WqjCm7MPHZ/npUM2p1I616p2bcDEYfRZkLvC1AgIQIr6W2M4qOp1GkXi3mUvtsmqsaC
+	yIHNQA1j9EFkLWIaeIofENXGW8LJR/JXA057cOmzDrIskIupIqJI6DGmxcAm2A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789977139;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5vd8q+ytIU6xQ6GKIb6K1ydTQBfPBNpTd3XztTCXMUU=;
+	b=ZaRU+eV2MDgKp9It8mttx2g5I3QUALSMkMvJGDPu77rxo6+QDqGgVVulCdPE0v9MXDSqxs
+	DjymCMSqHQlRE2Dw==
+To: =?utf-8?B?5p6X5r+s5ZOy?= <m18667909625@163.com>, Petr Mladek
+ <pmladek@suse.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Sergey Senozhatsky
+ <senozhatsky@chromium.org>, linux-kernel@vger.kernel.org,
+ m18667909625@163.com
+Subject: Re: [PATCH] printk: fold consecutive duplicate messages
+In-Reply-To: <20260921050304.73440-1-m18667909625@163.com>
+References: <20260921050304.73440-1-m18667909625@163.com>
+Date: Mon, 21 Sep 2026 09:58:18 +0206
+Message-ID: <875wzzoxcd.fsf@jogness.linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,41 +56,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdVC2vNp2nTHUi3saTZ8UD4ggeB_aBEvN9XP+EToOr7G2w@mail.gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-Hi Geert,
+Hi,
 
-On Mon, Sep 21, 2026 at 09:41:10AM +0200, Geert Uytterhoeven wrote:
-> On Fri, 18 Sept 2026 at 19:07, Paul Elder wrote:
-> > This series is based on Geert's
-> > "topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v3" branch [0]. A
-> > branch including this series is available here [1].
-> >
-> > This series enables the FCPV{B,I,D} and the VSP{B,I,D} blocks on the Renesas
-> > R-Car X5H SoC.
-> >
-> > This has been tested on an Ironhide with the vsp-tests test suite [2].
-> > VSPI:
-> > 145 tests: 138 passed, 0 failed, 7 skipped
-> > VSPB:
-> > 115 tests: 104 passed, 0 failed, 11 skipped
-> > VSPD (a):
-> > 114 tests: 99 passed, 0 failed, 15 skipped
-> >
-> > VSPD (b) hangs on the tests, so that needs some investigation.
-> >
-> > The first couple patches add clocks that are used by the FCP and VSP,
-> > but as the upstream X5H CPG driver is barebones at the moment and we
-> > don't yet ensure that the parents are enabled, these are marked as DNI
-> > for the moment.
-> 
-> The DTS patches use DNI definitions of clocks, so they should be DNI, too.
+On 2026-09-21, =E6=9E=97=E6=BF=AC=E5=93=B2 <m18667909625@163.com> wrote:
+> A kernel bug can flood the console with thousands of copies of the
+> same message, drowning out everything else. Fold consecutive
+> duplicates into a single "last message repeated N times" summary,
+> flushed when 10 repeats accumulate or a 1s window elapses.
 
-Can we add non-DNI clock definitions in v3, or is that too early in the
-grand scheme of MDLC and SCMI development ?
+Do you have an example of the _same_ message flooding the console? This
+does not sound like a real-world case.
 
--- 
-Regards,
+> Known limitation: dedup_lock is not NMI safe; a message from NMI
+> context while another CPU holds the lock will spin.
 
-Laurent Pinchart
+printk _is_ NMI safe _and_ lockless. It needs to stay that way.
+
+John Ogness
