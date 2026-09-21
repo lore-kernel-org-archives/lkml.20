@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9733B05BC;
-	Mon, 21 Sep 2026 19:44:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77971494838;
+	Mon, 21 Sep 2026 19:44:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790019855; cv=none; b=pTRIA8pmmj9hzx1Qn6RsZYKWrmGzaxoNPwlNfEYgLj//Othf1DNA/F4WGBdG1iWyNpkkKC+ukwial8IM7pxhY5wNhay4dmoWhqj+cp5TmXBUn1m8l7q3bF3USOASt+mlQykojkTqDTAKDsldv6h4U5d3k4idmJpMOC1XYt7f5ho=
+	t=1790019858; cv=none; b=q6n8MGLXscO+7ZYDRnMfMYxia05E2Ze1QvSVs/2ymYYVOTbB86RC0XhIfdjvmZcVx4sGcFzhkXCQLFTvgnOH5yn5pLh52ruQuk3QsuigvqFoPfUBxztg/sR0R6HW4Kgxk+V4npXttblPMi7h8NnyokzzIjV7PE/hhjkZnMsEDVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790019855; c=relaxed/simple;
-	bh=tfuuwZkv0OiIbeoynFvgSL9aGg2B0yUwcYIegLL71gU=;
+	s=arc-20240116; t=1790019858; c=relaxed/simple;
+	bh=CqrAnHtcwX9WQpWWUO3LaXFmHGfOvpp3wC/giK8+WVk=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Hi9kfLDtIyp7QeYhLaBMMT1G67/RL9P74nbP9Ssr11NSQDyVCnrrxxcAAv4aKwfaLpdxyifgdir5JZawWG6CeYAZc2STndNOLKM5GksU/A8ZbM3mZoMizc3Ocpc+/HzoNOop1ibWzJs8IVRVY2vpm5JkPfCdj0jz8MqaUR0bkyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iRQGkjwA; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=MKtixr4wjAhbBLsAFkbT8uPFrx7RRG8jHkvmfKBcEioi+YVTewhL/5JtKBxr/r6WOJkFIEn4r0+qa5aN6bJvqFjb3Ryrv2NAFkrYLPcSsFszoQdyKF2lrnFGXrwhCOahcGnDnZKt+1nkGeTZx0qg4HLziNk+vLDwz2q4R4mt/Lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ni06qA4a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iRQGkjwA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54D8D1F00898;
-	Mon, 21 Sep 2026 19:44:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ni06qA4a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 863181F00893;
+	Mon, 21 Sep 2026 19:44:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790019853;
-	bh=sHkHOApxnjtxj7zKYj/CzHNgDiUNNQfctQnU2J5DLsI=;
+	s=k20260515; t=1790019856;
+	bh=8K12elA3reNVde5Ectr0vBv0VBkq3lZswh5dkH1Ivlo=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=iRQGkjwAKnAlS42FWELPf95QfMv6ABMFQwL0Ez/+AoygFAGVtxYGSwjaRFpA6QQZS
-	 ckP2eTWK1SiXFPS6LBTLmluM76z4IKwYOys1QO2X6oMFo5byrvXlc6OIC/j9fnnZxL
-	 LqYR8LdpA1AtclL6thoVZebW2mk+TZPKiOzqEi3lT+r2JaGfeW+a+F4CuHAQBP11F/
-	 oNjynJ64tdhn5CfCP19t5ZelqL3KOKKk0F0+lrAXU6uYj617l4rl3ThxkU+Biwrp6Z
-	 mAuJN2bVczQhWqUxpzhtiHkv9YmO/hnS4HLHbYvow5l4r/h+3BQhyAZDxwS5qYmY1J
-	 VxFg8hUuaSUgQ==
-Subject:
- Re: [PATCH net-next v3 5/8] net: dsa: motorcomm: Introduce yt921x_speed
+	b=Ni06qA4aFpjZAK0TeR/oyUyseY/rVgQJEM83YWIaNnlNjSzUBs1Ibb48VS+0lyNX3
+	 LDGJGXJ96b2TCUO0iTkASXc9ov8u6BgQVSqaLzmne+Ou2BuyPYxkuejYgAaGZ1/WIf
+	 D0U85/JIvo5B7JHpuedVEHFNYf4kgs3SxPUmZ7k87inxj/hKtShfzB8619mObBVDcR
+	 wJTzDlbeNT5RkhLh39x7H42Y7fNRg738dyX4kfukw6IaaL44sKu/dpdsOk9Qg+69m3
+	 57LKaApFouDmpoxGC1MXHC1cJcJBeePxBFnacoNVe9e5AxElhoIe0nprBGPdqV5Zq6
+	 vYg7KqEbUTlcQ==
+Subject: Re: [PATCH net-next v3 8/8] net: dsa: motorcomm: Add SerDes PCS
 From: netdev-bot+sashiko@kernel.org
 To: mmyangfl@gmail.com
 Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
  davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
  linux@armlinux.org.uk, linux-kernel@vger.kernel.org
-Date: Mon, 21 Sep 2026 19:44:12 +0000
-Message-ID: <179001985288.2160803.4254571626134705483@kernel.org>
-In-Reply-To: <20260917185010.3189199-6-mmyangfl@gmail.com>
-References: <20260917185010.3189199-6-mmyangfl@gmail.com>
-X-sashiko-severity: Low
+Date: Mon, 21 Sep 2026 19:44:15 +0000
+Message-ID: <179001985513.2160803.17379563809191262211@kernel.org>
+In-Reply-To: <20260917185010.3189199-9-mmyangfl@gmail.com>
+References: <20260917185010.3189199-9-mmyangfl@gmail.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -47,195 +46,298 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
-- [Low] The new `enum yt921x_speed` in drivers/net/dsa/motorcomm/chip.h
-  (lines 116-123) has no explicit enumerator values and no comment, yet…
-- [Low] The new driver-private helper added in
-  drivers/net/dsa/motorcomm/chip.h is named `ethtool_speed_to_yt921x()`,…
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] PHY_INTERFACE_MODE_100BASEX is advertised as a supported PCS
+  interface and the SerDes is actually programmed to…
+- [Medium] For SGMII with in-band signalling enabled,
+  yt921x_serdes_config() sets YT921X_PORT_CTRL_PAUSE_AN whenever…
+- [Low] yt921x_phylink_pcs_get_state() logs an unconditional dev_err() on
+  every register-read failure (pcs-921x.c:132-137).
 
 --
 
-net: dsa: motorcomm: Introduce yt921x_speed
+net: dsa: motorcomm: Add SerDes PCS
 
-This replaces the three per-register speed switch statements in
-yt921x_port_up() with a single conversion helper and a new enum, since
-FIELD_PREP() results cannot be used as case labels.  The old
-YT921X_{PORT,SERDES,MDIO_POLLING}_SPEED_* constants are dropped in favour
-of feeding the enum value into the corresponding FIELD_PREP() wrappers.
+This adds a phylink PCS implementation for the yt921x SerDes ports, moving
+the SerDes mode selection out of yt921x_port_config() into pcs_config(),
+and wires up in-band negotiation through the internal MDIO interface.
+
+A few questions about the new PCS code below.
 
 > diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-> index 5049f4be8aa6b..c99be2044fa20 100644
+> index 491ba1edfa3cd..530bea77ac70a 100644
 > --- a/drivers/net/dsa/motorcomm/chip.c
 > +++ b/drivers/net/dsa/motorcomm/chip.c
-> @@ -3771,29 +3771,15 @@ yt921x_port_up(struct yt921x_priv *priv, int port, unsigned int mode,
->  {
->  	const struct yt921x_info *info = priv->info;
->  	struct yt921x_port *pp = &priv->ports[port];
-> +	int ps = ethtool_speed_to_yt921x(speed);
 
-[Severity: Low]
-This isn't a bug, but should this helper carry the driver prefix?  Every
-other symbol reachable from chip.h uses yt921x_/YT921X_, while this new
-static inline takes a name in the core ethtool_ namespace, so the call
-site here reads as if the DSA driver is calling core ethtool API.
+[ ... ]
 
-Would something like yt921x_speed_from_ethtool() be preferable, both here
-and at the definition in chip.h?  It would also avoid a collision should a
-generic ethtool_speed_to_* helper or macro ever appear in
-include/linux/ethtool.h.
-
->  	u32 mask;
->  	u32 ctrl;
->  	int res;
->  
-> -	switch (speed) {
-> -	case SPEED_10:
-> -		ctrl = YT921X_PORT_SPEED_10;
-> -		break;
-> -	case SPEED_100:
-> -		ctrl = YT921X_PORT_SPEED_100;
-> -		break;
-> -	case SPEED_1000:
-> -		ctrl = YT921X_PORT_SPEED_1000;
-> -		break;
-> -	case SPEED_2500:
-> -		ctrl = YT921X_PORT_SPEED_2500;
-> -		break;
-> -	case SPEED_10000:
-> -		ctrl = YT921X_PORT_SPEED_10000;
-> -		break;
-> -	default:
-> +	if (ps == YT921X_SPEED_NUM)
+> @@ -3511,6 +3512,10 @@ yt921x_port_up(struct yt921x_priv *priv, int port, unsigned int mode,
+>  	if (ps == YT921X_SPEED_NUM)
 >  		return -EINVAL;
-> -	}
-> +
-> +	ctrl = YT921X_PORT_SPEED(ps);
-
-[ ... ]
-
-> @@ -3810,25 +3796,7 @@ yt921x_port_up(struct yt921x_priv *priv, int port, unsigned int mode,
 >  
->  	if (pp->serdes) {
->  		mask = YT921X_SERDES_SPEED_M;
-> -		switch (speed) {
-[ ... ]
-> -		}
-> +		ctrl = YT921X_SERDES_SPEED(ps);
+> +	mask = YT921X_PORT_SPEED_M | YT921X_PORT_TX_MAC_EN |
+> +	       YT921X_PORT_RX_MAC_EN | YT921X_PORT_TX_PAUSE |
+> +	       YT921X_PORT_RX_PAUSE | YT921X_PORT_DUPLEX_FULL |
+> +	       YT921X_PORT_CTRL_LINK_AN;
+>  	ctrl = YT921X_PORT_SPEED(ps);
+>  	if (duplex == DUPLEX_FULL)
+>  		ctrl |= YT921X_PORT_DUPLEX_FULL;
+> @@ -3519,7 +3524,9 @@ yt921x_port_up(struct yt921x_priv *priv, int port, unsigned int mode,
+>  	if (rx_pause)
+>  		ctrl |= YT921X_PORT_RX_PAUSE;
+>  	ctrl |= YT921X_PORT_RX_MAC_EN | YT921X_PORT_TX_MAC_EN;
+> +	if (pp->serdes && pp->inband)
+> +		ctrl |= YT921X_PORT_CTRL_LINK_AN;
+> +	res = yt921x_reg_update_bits(priv, YT921X_PORTn_CTRL(port), mask, ctrl);
+>  	if (res)
+>  		return res;
 
 [ ... ]
 
-> @@ -3850,25 +3818,7 @@ yt921x_port_up(struct yt921x_priv *priv, int port, unsigned int mode,
->  		if (res)
->  			return res;
+> @@ -3637,6 +3622,29 @@ yt921x_port_config(struct yt921x_priv *priv, int port, unsigned int mode,
+>  	return -EINVAL;
+>  }
 >  
-> -		switch (speed) {
-[ ... ]
-> -		}
-> +		ctrl = YT921X_MDIO_POLLING_SPEED(ps);
-
-> diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
-> index 3fb0c6a69dd8c..b3670f1e14276 100644
-> --- a/drivers/net/dsa/motorcomm/chip.h
-> +++ b/drivers/net/dsa/motorcomm/chip.h
-> @@ -89,11 +89,6 @@
->  #define  YT921X_SERDES_DUPLEX_FULL		BIT(3)
->  #define  YT921X_SERDES_SPEED_M			GENMASK(2, 0)
->  #define   YT921X_SERDES_SPEED(x)			FIELD_PREP(YT921X_SERDES_SPEED_M, (x))
-> -#define   YT921X_SERDES_SPEED_10			YT921X_SERDES_SPEED(0)
-> -#define   YT921X_SERDES_SPEED_100			YT921X_SERDES_SPEED(1)
-> -#define   YT921X_SERDES_SPEED_1000			YT921X_SERDES_SPEED(2)
-> -#define   YT921X_SERDES_SPEED_10000			YT921X_SERDES_SPEED(3)
-> -#define   YT921X_SERDES_SPEED_2500			YT921X_SERDES_SPEED(4)
-
-[ ... ]
-
-> @@ -107,11 +102,6 @@
->  #define  YT921X_PORT_SPEED_M			GENMASK(2, 0)
->  #define   YT921X_PORT_SPEED(x)				FIELD_PREP(YT921X_PORT_SPEED_M, (x))
-> -#define   YT921X_PORT_SPEED_10				YT921X_PORT_SPEED(0)
-> -#define   YT921X_PORT_SPEED_100				YT921X_PORT_SPEED(1)
-> -#define   YT921X_PORT_SPEED_1000			YT921X_PORT_SPEED(2)
-> -#define   YT921X_PORT_SPEED_10000			YT921X_PORT_SPEED(3)
-> -#define   YT921X_PORT_SPEED_2500			YT921X_PORT_SPEED(4)
-
-[ ... ]
-
-> @@ -122,11 +112,16 @@
->  #define  YT921X_MDIO_POLLING_SPEED_M		GENMASK(2, 0)
->  #define   YT921X_MDIO_POLLING_SPEED(x)			FIELD_PREP(YT921X_MDIO_POLLING_SPEED_M, (x))
-> -#define   YT921X_MDIO_POLLING_SPEED_10			YT921X_MDIO_POLLING_SPEED(0)
-> -#define   YT921X_MDIO_POLLING_SPEED_100			YT921X_MDIO_POLLING_SPEED(1)
-> -#define   YT921X_MDIO_POLLING_SPEED_1000		YT921X_MDIO_POLLING_SPEED(2)
-> -#define   YT921X_MDIO_POLLING_SPEED_10000		YT921X_MDIO_POLLING_SPEED(3)
-> -#define   YT921X_MDIO_POLLING_SPEED_2500		YT921X_MDIO_POLLING_SPEED(4)
-> +
-> +enum yt921x_speed {
-> +	YT921X_SPEED_10,
-> +	YT921X_SPEED_100,
-> +	YT921X_SPEED_1000,
-> +	YT921X_SPEED_10000,
-> +	YT921X_SPEED_2500,
-> +	YT921X_SPEED_NUM
-> +};
-
-[Severity: Low]
-Should these enumerators carry explicit values?  The ordinals here are the
-raw hardware field encodings, which yt921x_port_up() writes straight into
-three register fields:
-
-	ctrl = YT921X_PORT_SPEED(ps);
-	...
-	ctrl = YT921X_SERDES_SPEED(ps);
-	...
-	ctrl = YT921X_MDIO_POLLING_SPEED(ps);
-
-The encoding is not monotonic in speed (10G is 3, 2.5G is 4).  Before this
-patch that was visible in the constants being removed above:
-
-	#define   YT921X_PORT_SPEED_10000	YT921X_PORT_SPEED(3)
-	#define   YT921X_PORT_SPEED_2500	YT921X_PORT_SPEED(4)
-
-Afterwards the only record of it is the textual order of the enumerators.
-
-Would a later "sort these by speed" cleanup then silently program 2.5G as 3
-and 10G as 4, with no compile-time or runtime diagnostic?  Assigning
-YT921X_SPEED_10000 = 3 and YT921X_SPEED_2500 = 4 explicitly, and/or noting
-in a comment that these are hardware field encodings, would keep that
-intact.
-
-The values themselves are unchanged by this patch (10 -> 0, 100 -> 1,
-1000 -> 2, 10000 -> 3, 2500 -> 4 all match the removed macros), and the
-enum still has no explicit values at the end of the series.
-
-[ ... ]
-
-> @@ -1004,4 +999,22 @@ struct yt921x_priv {
->  	struct yt921x_acl_blk *acl_blks[YT921X_ACL_BLK_NUM];
->  };
->  
-> +static inline int ethtool_speed_to_yt921x(int speed)
-     ^^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: Low]
-This is the definition referred to above; renaming it to something like
-yt921x_speed_from_ethtool() would keep the driver's namespace consistent.
-
+> +static struct phylink_pcs *
+> +yt921x_phylink_mac_select_pcs(struct phylink_config *config,
+> +			      phy_interface_t interface)
 > +{
-> +	switch (speed) {
-> +	case SPEED_10:
-> +		return YT921X_SPEED_10;
-[ ... ]
+> +	struct dsa_port *dp = dsa_phylink_to_port(config);
+> +	struct yt921x_priv *priv = to_yt921x_priv(dp->ds);
+> +	const struct yt921x_info *info = priv->info;
+> +	int port = dp->index;
+> +
+> +	if (!(BIT(port) & info->serdes_mask))
+> +		return NULL;
+> +
+> +	switch (interface) {
+> +	case PHY_INTERFACE_MODE_SGMII:
+> +	case PHY_INTERFACE_MODE_100BASEX:
+> +	case PHY_INTERFACE_MODE_1000BASEX:
+> +	case PHY_INTERFACE_MODE_2500BASEX:
+> +		return &priv->ports[port].pcs;
 > +	default:
-> +		return YT921X_SPEED_NUM;
+> +		return NULL;
 > +	}
 > +}
 > +
->  #endif
+
+[ ... ]
+
+> @@ -4266,6 +4281,23 @@ static int yt921x_dsa_setup(struct dsa_switch *ds)
+>  		return -ENODEV;
+>  	}
+>  
+> +	mask = priv->info->serdes_mask;
+> +	for_each_set_bit(port, &mask, YT921X_PORT_NUM) {
+> +		struct yt921x_port *pp = &priv->ports[port];
+> +
+> +		pp->pcs.ops = &yt921x_phylink_pcs_ops;
+> +		pp->pcs.poll = true;
+> +
+> +		__set_bit(PHY_INTERFACE_MODE_SGMII,
+> +			  pp->pcs.supported_interfaces);
+> +		__set_bit(PHY_INTERFACE_MODE_100BASEX,
+> +			  pp->pcs.supported_interfaces);
+> +		__set_bit(PHY_INTERFACE_MODE_1000BASEX,
+> +			  pp->pcs.supported_interfaces);
+> +		__set_bit(PHY_INTERFACE_MODE_2500BASEX,
+> +			  pp->pcs.supported_interfaces);
+> +	}
+> +
+
+[ ... ]
+
+> diff --git a/drivers/net/dsa/motorcomm/pcs-921x.c b/drivers/net/dsa/motorcomm/pcs-921x.c
+> new file mode 100644
+> index 0000000000000..dcf7397cd2413
+> --- /dev/null
+> +++ b/drivers/net/dsa/motorcomm/pcs-921x.c
+> @@ -0,0 +1,235 @@
+
+[ ... ]
+
+> +static int
+> +yt921x_serdes_config(struct yt921x_priv *priv, int port, unsigned int neg_mode,
+> +		     phy_interface_t interface,
+> +		     const unsigned long *advertising, bool permit_pause_to_mac)
+> +{
+> +	bool inband = neg_mode & PHYLINK_PCS_NEG_INBAND;
+> +	struct yt921x_port *pp = &priv->ports[port];
+
+[ ... ]
+
+> +	switch (interface) {
+> +	case PHY_INTERFACE_MODE_SGMII:
+> +		ctrl = YT921X_SERDES_MODE_SGMII;
+> +		break;
+> +	case PHY_INTERFACE_MODE_100BASEX:
+> +		ctrl = YT921X_SERDES_MODE_100BASEX;
+> +		break;
+> +	case PHY_INTERFACE_MODE_1000BASEX:
+> +		ctrl = YT921X_SERDES_MODE_1000BASEX;
+> +		break;
+> +	case PHY_INTERFACE_MODE_2500BASEX:
+> +		ctrl = YT921X_SERDES_MODE_2500BASEX;
+> +		break;
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+> +	res = yt921x_reg_update_bits(priv, YT921X_SERDESn(port),
+> +				     YT921X_SERDES_MODE_M, ctrl);
+> +	if (res)
+> +		return res;
+> +
+> +	mask = YT921X_PORT_CTRL_LINK_AN | YT921X_PORT_CTRL_PAUSE_AN;
+> +	ctrl = 0;
+> +	if (inband)
+> +		ctrl |= YT921X_PORT_CTRL_LINK_AN;
+> +	if (neg_mode == PHYLINK_PCS_NEG_INBAND_ENABLED && permit_pause_to_mac)
+> +		ctrl |= YT921X_PORT_CTRL_PAUSE_AN;
+
+[Severity: Medium]
+Should YT921X_PORT_CTRL_PAUSE_AN also be gated on the interface here?
+
+For PHY_INTERFACE_MODE_SGMII the Cisco in-band configuration word carries
+only link, speed and duplex - there are no pause capability bits - so the
+resolved pause can only come from the attached PHY via the tx_pause/rx_pause
+arguments of mac_link_up().
+
+permit_pause_to_mac is true by default, since phylink_create() initialises
+link_config.pause to MLO_PAUSE_AN and phylink_major_config() passes:
+
+    err = phylink_pcs_config(pl->pcs, pl->pcs_neg_mode, state,
+                             !!(pl->link_config.pause & MLO_PAUSE_AN));
+
+so an SGMII port with in-band enabled ends up with PAUSE_AN set. At the same
+time yt921x_port_up() now programs the software-resolved bits with a masked
+update whose mask does not contain YT921X_PORT_CTRL_PAUSE_AN:
+
+    mask = YT921X_PORT_SPEED_M | YT921X_PORT_TX_MAC_EN |
+           YT921X_PORT_RX_MAC_EN | YT921X_PORT_TX_PAUSE |
+           YT921X_PORT_RX_PAUSE | YT921X_PORT_DUPLEX_FULL |
+           YT921X_PORT_CTRL_LINK_AN;
+
+so PAUSE_AN stays set while TX_PAUSE/RX_PAUSE are written from software.
+Does that leave flow control taking its value from in-band fields that SGMII
+never transmits?
+
+mvpp2_gmac_pcs_config() only applies permit_pause_to_mac in the 802.3z branch
+and explicitly not for SGMII, for the same reason.
+
+> +	res = yt921x_reg_update_bits(priv, YT921X_PORTn_CTRL(port), mask, ctrl);
+> +	if (res)
+> +		return res;
+
+[ ... ]
+
+> +static unsigned int
+> +yt921x_phylink_pcs_inband_caps(struct phylink_pcs *pcs,
+> +			       phy_interface_t interface)
+> +{
+> +	return LINK_INBAND_DISABLE | LINK_INBAND_ENABLE;
+> +}
+> +
+> +static void
+> +yt921x_phylink_pcs_get_state(struct phylink_pcs *pcs, unsigned int neg_mode,
+> +			     struct phylink_link_state *state)
+> +{
+
+[ ... ]
+
+> +	res = yt921x_intif_read(priv, port, MII_BMSR, &bmsr);
+> +	if (res)
+> +		goto out;
+> +
+> +	res = yt921x_intif_read(priv, port, MII_LPA, &lpa);
+> +
+> +out:
+> +	mutex_unlock(&priv->reg_lock);
+> +
+> +	if (res) {
+> +		dev_err(dev, "Failed to %s PCS port %d: %i\n", "get state of",
+> +			port, res);
+> +		state->link = false;
+> +		return;
+> +	}
+
+[Severity: Low]
+Would dev_err_ratelimited(), or logging only on a state change, be better
+here?
+
+yt921x_dsa_setup() registers the PCS with pp->pcs.poll = true, and phylink
+arms a one second timer for MLO_AN_INBAND ports:
+
+drivers/net/phy/phylink.c:phylink_pcs_poll_start() {
+	if (pl->pcs && pl->pcs->poll && pl->cfg_link_an_mode == MLO_AN_INBAND)
+		mod_timer(&pl->link_poll, jiffies + HZ);
+}
+
+phylink_resolve() also calls phylink_mac_pcs_get_state() a second time when
+the link reads down. If the internal MDIO/SMI access keeps failing (bus
+wedged, chip held in reset), does this print the same message roughly twice
+per second per SerDes port indefinitely?
+
+The error paths in yt921x_phylink_pcs_an_restart() and
+yt921x_phylink_pcs_disable() are bounded by administrative events, but this
+one is on a periodic path.
+
+> +
+> +	phylink_mii_c22_pcs_decode_state(state, neg_mode, bmsr, lpa);
+> +}
+
+[Severity: Medium]
+Can a 100BASE-X port ever come up with this decode path?
+
+PHY_INTERFACE_MODE_100BASEX is set in pp.pcs.supported_interfaces by
+yt921x_dsa_setup(), yt921x_phylink_mac_select_pcs() returns this PCS for it,
+and yt921x_serdes_config() programs YT921X_SERDES_MODE_100BASEX, but
+phylink_mii_c22_pcs_decode_state() has no case for it:
+
+drivers/net/phy/phylink.c:phylink_mii_c22_pcs_decode_state() {
+	state->link = !!(bmsr & BMSR_LSTATUS);
+	...
+	switch (state->interface) {
+	case PHY_INTERFACE_MODE_1000BASEX:
+	...
+	case PHY_INTERFACE_MODE_2500BASEX:
+	...
+	case PHY_INTERFACE_MODE_SGMII:
+	...
+	default:
+		state->link = false;
+		break;
+	}
+}
+
+so the BMSR_LSTATUS bit just read from MII_BMSR is discarded and the link is
+forced down on every poll.
+
+One way to reach this without any in-band DT setting is an SFP cage on a
+SerDes port: phylink_sfp_config_optical() picks
+PHY_INTERFACE_MODE_100BASEX for a 100BASE-FX module and
+phylink_sfp_set_config() selects MLO_AN_INBAND, after which
+phylink_resolve() uses pcs_get_state() as the only link source.
+
+On a related note, yt921x_phylink_pcs_inband_caps() ignores its interface
+argument and reports LINK_INBAND_ENABLE for 100BASE-X as well.
+phylink_get_inband_type() returns INBAND_NONE for that mode, so
+BMCR_ANENABLE is not actually armed, but
+phylink_validate_pcs_inband_autoneg() consults these caps, so
+"ethtool -s ... autoneg on" is accepted for a mode with no in-band
+negotiation. Should the 100BASE-X case return LINK_INBAND_DISABLE only, or
+be dropped from supported_interfaces until the state decoding handles it?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917185010.3189199-1-mmyangfl%40gmail.com
