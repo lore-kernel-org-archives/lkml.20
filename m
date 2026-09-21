@@ -1,234 +1,160 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F22495AE8;
-	Mon, 21 Sep 2026 12:16:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376693F23CC
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:16:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789992990; cv=none; b=WGg+KSiaqBGI1xdExwAeZ4qEDiH6QXasXSywD6mIeGOvWOYL4Aw706FLmjX2mZsAOE89sLibuykZSi6MbH9WvwVbzaKimYKv3wD0uGIJ6186hZzt+1EnAFAdynScwc1HXL4b4zmC5IMGl++p8WX/4fGgNuSFV+cdftXGypnqCZc=
+	t=1789993007; cv=none; b=c+/IiW/K3SbK/nY/Xx5hUkY7vdDvulB8UCb9zWygXeYkxGqv/0PA6UCUG9zNjxdGMOzeTsbkeHmqGygF+4wLBTOfVhB7bb/SPdQFO0dDhDavdMkKMzkei7lM9BACTOjLi4WSn3b16HEiPJHsv/eaQ8RribmwCYd7FW6bPBkVeHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789992990; c=relaxed/simple;
-	bh=JU8YY98aGkz8ATu8+7/s5O34cFyoupEFA0oAllr+jMo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PaqY6d0MVzDRU+OADY1BcrfES2JeiJ/kIzjyCUei5XpD1V9dJkhqviZapXFnj/G9IeGg09C4jg9LNwm8ECcw+0HGsGPUlL3dGFqAW7PtDJWta7uE+MhRm0FRiF+iYQhYW0KG17bKjYYXfrgbw/08yAoQ4EsGV8N+f6WtG8SRnFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=GwLSziKZ; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789993007; c=relaxed/simple;
+	bh=QM2U271Acf4FZQW/OKK11zrMNJwcmwAno4iDnq07zd0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BwQfotNP904nUFn9OfrA9cv9GyH2omnJ4qF/smqLatFFvQVjI0wdqXyQBjd2+KDujCQ8qHyBfdOMvQE8Q/62yMIrbnzHZFljAsUEMRdwEoQj2wEeenwSXmVVXRLEKnhM7dPHPeUHxQrzmWE39GWyo5p7MY60+xAuDQBlNsp44mA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KyfwA9Tf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NnKRUpnN; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="GwLSziKZ"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LB5PfE1316554;
-	Mon, 21 Sep 2026 12:16:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=qdwj+pUoe13xtVBsS
-	Bay68eGqcdZeUmHkLnbP0Ud1ek=; b=GwLSziKZ0jC6TwahntmCB12wr4iR1EbbE
-	4/G0YgkppWbqo1HurLPMT1CjArdr6jC1+aGV9x7BMiAAb9Nsw8g0Dfu+rQCI1YT3
-	Zfp5fZbMWmte8QyzhpXIteMSFxiXNVHQtHaEJlvclmDl7O9OU0Ih1dLR907ahzc1
-	UAqZT+FpwR3opvXBkGgtosFpItN5cvV0abGK9ZtozfQE/Ej0llxyU6roi1jSVvBN
-	7J9qnNTfo7fxntB5xcxpr8jfzc2NnMplSWtyb6EEokuGfY5o+jZFXE1nyxXhDLmq
-	X9FrFVcXqIOTw9dps/u/GccC9AHSU24fUJ0wNXGp08vneXmUjds4Q==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskg28ea8-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 21 Sep 2026 12:16:25 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAlmvW2063837;
-	Mon, 21 Sep 2026 12:16:25 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gt7dy4xfs-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 21 Sep 2026 12:16:25 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68LCGLIa40436038
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 21 Sep 2026 12:16:21 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6E2152004B;
-	Mon, 21 Sep 2026 12:16:21 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 43F9720043;
-	Mon, 21 Sep 2026 12:16:21 +0000 (GMT)
-Received: from li-fa2166e9-1f7d-4f1a-8ca5-7ccf0f022c25.ehn-de.ibm.com (unknown [9.224.79.183])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 21 Sep 2026 12:16:21 +0000 (GMT)
-From: Maximilian Immanuel Brandtner <maxbr@linux.ibm.com>
-To: oberpar@linux.ibm.com, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
-        borntraeger@linux.ibm.com, svens@linux.ibm.com,
-        brueckner@linux.ibm.com, mjrosato@linux.ibm.com, farman@linux.ibm.com,
-        maximilian.immanuel.brandtner@protonmail.com
-Subject: [PATCH 2/2] s390/sclp: Implement resize for sclp-vt220 console
-Date: Mon, 21 Sep 2026 14:16:19 +0200
-Message-ID: <20260921121619.1354611-3-maxbr@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260921121619.1354611-1-maxbr@linux.ibm.com>
-References: <20260921121619.1354611-1-maxbr@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KyfwA9Tf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NnKRUpnN"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAe40S1926892
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:16:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/YnyPyFINax9wnSB9nSbsjE759I4nGw6hd3qklAH9+0=; b=KyfwA9Tfj5P9y8XS
+	ML7glImoY61B+lTic2LQ+NBDDeuKBVAd3AIuNGEqaPD0HWcwTAoSvO4HSedAd2j2
+	j8zpmfqdiUqnYjK5Lo+P+iBzNlxIj9/TYBNwJaaCpLHVQdv7cBExnWUhAfqpCrk1
+	pMsVibM/i3Viiv+2HqiU9Vp3juuKzJ+w60HGPMwPSGiwZAaE7dV1P1Jdzp8ewuHe
+	flSxESm6CbwZ4TIK+u6VEl+RWEay4WH90JQ09hd9jR8cVKt7h+49nLjDofmZr572
+	ND+o0Av6p21+yQgvri/B3uKkdEIQ5Q4pAQeSVsMPCMkVL6PYJQAmPsQFak9R78Rw
+	BPRB/Q==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtt3vaa5y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:16:44 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5c97957d83bso88072e0c.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:16:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789993003; x=1790597803; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/YnyPyFINax9wnSB9nSbsjE759I4nGw6hd3qklAH9+0=;
+        b=NnKRUpnNv7BQ+VDM29pl8t7A0Dmik8YCJg4g8c/FIb2X9zg4AWt15eE5admcwOLG+0
+         67/zkcMuxDcoUVY3VRWM1UBpH9PUILUTAhHoFbZSNtClAgdVgPiLHTf66QGtVrddxfiZ
+         M3h/+3hoWmdAQSbvInwLmNAWbDOtvJyxaN/YxkAn8ODEFWU5oUVIvpA5wCuBQDbfNZR1
+         SiynNLCqXT4Y+5Y/cDCBNgDedO+d0I4x2Y+oFpG0/pWW/ak6lS9KW4FbWhSUDqzbWc6w
+         3zqDkRtrFd60xCqeUMmy0sJ5H1jeXpmqLczrBoWHyWPLLmlVb87r/AswiJ+m0JzFfDS9
+         r+AQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789993003; x=1790597803;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/YnyPyFINax9wnSB9nSbsjE759I4nGw6hd3qklAH9+0=;
+        b=M2sBmx/LJVBlgcuHvTBxvMG2DGhZr+IdxC6Tvbb0cwHRJOTGrUdyrt7ab+jotM2Iwv
+         ygs2ZSZryP/x2iiDyIDbx6U1q+6CquSYUHQrYSuMEICJUmzggmUp26Xz9OM7l+Dmq576
+         jop1BY2qheS3IpHoR+et0MWf4p01KTZQTIftpWw71CNVnl/jirl3YDI1Q48WPrHMTugG
+         js+bdy5N4JICfsyK332KayyFnNlhzAjFfx9GUz9ifGdkt3xTNHTu5yI+cjWGxtF5zLDI
+         E6Rp/xmhiPn5QqRGRekjOwAkBkzDY8X2N8Bzlx0A8pkn5pXXkCg+PKrz2ZLWA9qGM+8/
+         gStw==
+X-Forwarded-Encrypted: i=1; AKwUvByczxYPO11VWGB+iQvK95TKVYt1fCKLUj6B2TCTPdEr6R1h6gx8sgrT1ZQ5Mhvkt/JQlF2JuUFcsNzyTSU=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/mw+TqvMmFxVe+/k3oDNYebQpbVaCVNEpAR5wIDiqcXKZa5sq
+	8vcDLXdyXq7uvgBRvdNB0ra6W+NVat9XnCkcDR5Svge6B3JWwkvgwxIlTA8YEGMwqgy6gTNvngD
+	b3UjL7v37tmbWfOsj9QJUldXENzdLEFbTaFEpbWRZ1mIU/SYg/4ZKvzmW2KSZlP1jiho=
+X-Gm-Gg: AYBFou2pgAHfEYZvP1VlKETj4b/yWEJyNW1g0l4+OS/O1mYCrigDQSBR+i7KzybWjZz
+	+gIdXp56HPOCJO8FtoD9QoSzYZWtaJ9P8JvqtzFf8G4pUDQ/ZeRyOpj3L2MxvgvLcZc5NreRsd1
+	dvcRQVEGkjElFXj8QG75XUaEi7kyzDbY9Db8THgE6z/0kAvPd5mKbJzgYldxwZkQLN1lN/8HxD7
+	jsIYJcgJ7lkm8jiWhL/GxuOgAkXFObx8G7cqhrE3Yn1R5zN3QUJ1kcn9HfmlTqEjNJlDUQHQ590
+	qbAMn9AK8Xev+9Sy1xa7hgtpn1zsEiL6Th43BtTEZfkfKl1K8f4Ezph3mqhDZGl2weoV6prDcAw
+	4DhuVBAL78nq+RH3oiwarUQ==
+X-Received: by 2002:a05:6122:4a4f:20b0:5c9:ac9f:b7f8 with SMTP id 71dfb90a1353d-5c9b86e8c7cmr3185214e0c.0.1789993003257;
+        Mon, 21 Sep 2026 05:16:43 -0700 (PDT)
+X-Received: by 2002:a05:6122:4a4f:20b0:5c9:ac9f:b7f8 with SMTP id 71dfb90a1353d-5c9b86e8c7cmr3185166e0c.0.1789993002756;
+        Mon, 21 Sep 2026 05:16:42 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67c6f08fsm4064392a12.4.2026.09.21.05.16.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 05:16:42 -0700 (PDT)
+Message-ID: <6d5dad55-0eb5-4a88-b679-ae3d39df1ea0@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 14:16:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: Xaf_6PgsR69DByhhCSS86j6czd5ZGbJj
-X-Authority-Analysis: v=2.4 cv=I43w19gg c=1 sm=1 tr=0 ts=6ab1201a cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=ckP8Zc6KB2J5pO4mnlEA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE3NSBTYWx0ZWRfX12TIsW9wugg9
- 1z8V7TZf4Dl9Je0ERjgCP+iAozDSqW4jDiZBWJZmyIajgtK9tmrs465nSBBgl45/gBu1IXIeXtO
- FpevWMxaZjQmTEQWECJ+qK3ptRKA4kVTH83xkcAWQXEOLGVA0jmVwXSvZqYRNaUOpKxJK02kLxP
- VbU67vAfbJLMM+zfuSkvUX3so+1BK2+Y9zMqPjTuIgd+Orwm1IxEY2eiD3OzT3/Bw4DWYbpXZn0
- 17MYrMhC7Gy9tdmbr9p1gMwJh75MwMcB54MRhBhQIqkKtk/Coen7RiNwgBWkzcZmjfeN+lGsXbX
- TA6HB5z9icC9oi6uD1G74uCzyH+PdRZblpUJ1ZuiD0rMrgHBpxPSRRQwpa8S9iWl9ZNKNNvDA2v
- 3t14fjS2pscY4Ieoy2PR2Od4/fgjAce5qY19ptvnD5thYP6+aQq3OolsYbSM89mts5uLXZrGvNy
- 2bG1h9+FIrBN0EDag9g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE3NSBTYWx0ZWRfX8vP5PEbM+Q0K
- HPnxlsJN4125Dy2REFkPLr+vpNSj+vq9UUO1vZfWhvnhdkHG3bvRcEGbn0uOfdVGVcYkexiqaDs
- ++AGuhi2N4vd+w3PsXxK3a7ws2t0rcc=
-X-Proofpoint-GUID: HWpwyZ6m6ttyc4huIwL0fGNJrOYwTfEY
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mailbox: qcom-ipcc: Guard against NULL con_priv in
+ send_data()
+To: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Jassi Brar <jassisinghbrar@gmail.com>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: Jassi Brar <jaswinder.singh@linaro.org>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260916-b4-ipcc_send_data_null_check_upstream-v1-1-bfc61f5056a3@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260916-b4-ipcc_send_data_null_check_upstream-v1-1-bfc61f5056a3@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=Ytia1IYX c=1 sm=1 tr=0 ts=6ab1202c cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=L9zY5Dhm9UC1ejkej2IA:9 a=QEXdDO2ut3YA:10
+ a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-ORIG-GUID: nR1UcaCsMLRdPFBbBh2nM_j505kVmJ-I
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE3NyBTYWx0ZWRfX0bqVA98lj6/v
+ qndhetJ0nDdz4bzLzb0X+DHsGp35QBpT9vJYVeyIPpzi2sD41ECH4IUNWbyYxnlClGm+Ufd0mo3
+ ezO2h4yiryWNlo4bT8AHLANs9M5VPK4=
+X-Proofpoint-GUID: nR1UcaCsMLRdPFBbBh2nM_j505kVmJ-I
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE3NyBTYWx0ZWRfX4t9S3nWNiHkG
+ zWqjnKzDE8Lop5sZh3rkDfQxRCzyjf0+O+V2sdIAFz8vJs8j6MkSYvgYWn4ofO5LBlGmpku3rfe
+ 782l8k3noNAsoXa5zJHpgMYJKY1oAiZulyigP3r1cQc36Fa3w7tA8ObbAPxmCK9T+2wyWFsDHPs
+ N3Ye55zUtx8+CMddBYfAbT8giFNeLcMVlgDFGtDbZ8plKM+KACEgrUdzSd+O5x5iKnfii4RjGqL
+ pG02MLg7p8eT80VMtHrK1xVJszreamwO6eX/X11+W0i4nhwSCSeB873apnIq00vljPv+AXp+6nD
+ M58Jri1M/V1IDvxrzcnJ9MTIsqPFVbhLeEVjzAHyBaFULWwzxny7h4Cd56XREWqgfrUvawd6MWu
+ dHNtJUnbjvsTF2qPtJXF+YRz4tH32ARDeinM/vhNsjPrDB7Uc05C705HNiWgt5J5aV2WADYkO5l
+ YJwZ+8lVpe+HSYFml3Q==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1011 adultscore=0 suspectscore=0 impostorscore=0
- lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ adultscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0 bulkscore=0
+ clxscore=1015 impostorscore=0 malwarescore=0 spamscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210175
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210177
 
-Add support for sclp vt220 resize events to enable host-initiated
-terminal resizing when using the sclp-vt220 console.
+On 9/16/26 11:56 AM, Anup Vishwakarma wrote:
+> qcom_ipcc_mbox_shutdown() clears chan->con_priv with no locking.
+> qcom_ipcc_mbox_send_data() dereferences the same field without
+> checking for NULL first, so a send racing a concurrent shutdown can
+> crash:
+> 
+>   mchan = chan->con_priv;
+>   ...
+>   hwirq = qcom_ipcc_get_hwirq(mchan->client_id, mchan->signal_id);
+> 
+> Add the same NULL guard mbox_send_message() already uses for
+> chan->cl, and bail out before dereferencing a cleared con_priv.
+> 
+> To close the remaining race where send_data() reads con_priv a moment
+> before a concurrent shutdown clears it, acquire the spinlock in
+> qcom_ipcc_mbox_shutdown() using the modern guard(spinlock_irqsave)
+> primitive before setting con_priv to NULL.
+> 
+> Fixes: d6fbfdbc1274 ("mailbox: qcom-ipcc: Fix IPCC mbox channel exhaustion")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+> ---
 
-This allows QEMU to dynamically resize the console. On older kernel
-versions, these events are safely ignored as the kernel drops events
-with undefined tty codes.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Signed-off-by: Maximilian Immanuel Brandtner <maxbr@linux.ibm.com>
-Reviewed-by: Peter Oberparleiter <oberpar@linux.ibm.com>
----
- drivers/s390/char/sclp_vt220.c | 56 ++++++++++++++++++++++++++++++++--
- 1 file changed, 53 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/s390/char/sclp_vt220.c b/drivers/s390/char/sclp_vt220.c
-index 6dd176049..42b96b343 100644
---- a/drivers/s390/char/sclp_vt220.c
-+++ b/drivers/s390/char/sclp_vt220.c
-@@ -27,6 +27,7 @@
- #include <linux/init.h>
- #include <linux/reboot.h>
- #include <linux/slab.h>
-+#include <linux/workqueue.h>
- 
- #include <linux/uaccess.h>
- #include "sclp.h"
-@@ -58,6 +59,11 @@ struct sclp_vt220_evbuf {
- 	char data[];
- } __packed;
- 
-+struct sclp_vt220_resize_data_t {
-+	u16 rows;
-+	u16 cols;
-+} __packed;
-+
- #define SCLP_VT220_MAX_CHARS_PER_BUFFER	(PAGE_SIZE - \
- 					 sizeof(struct sclp_vt220_request) - \
- 					 sizeof(struct sclp_vt220_sccb))
-@@ -98,6 +104,15 @@ static int __initdata sclp_vt220_init_count;
-  * another buffer */
- static int sclp_vt220_flush_later;
- 
-+/* Work struct required for scheduling resize */
-+static struct work_struct sclp_vt220_resize_work;
-+
-+/* Current vt220 terminal winsize */
-+static struct winsize sclp_vt220_winsize = {
-+	.ws_row = 24,
-+	.ws_col = 80,
-+};
-+
- static void sclp_vt220_receiver_fn(struct evbuf_header *evbuf);
- static int __sclp_vt220_emit(struct sclp_vt220_request *request);
- static void sclp_vt220_emit_current(void);
-@@ -477,6 +492,7 @@ sclp_vt220_write(struct tty_struct *tty, const u8 *buf, size_t count)
- #define SCLP_VT220_SESSION_ENDED	0x01
- #define	SCLP_VT220_SESSION_STARTED	0x80
- #define SCLP_VT220_SESSION_DATA		0x00
-+#define SCLP_VT220_SESSION_RESIZE	0x08
- 
- #ifdef CONFIG_MAGIC_SYSRQ
- 
-@@ -525,6 +541,35 @@ static void sclp_vt220_handle_input(const char *buffer, unsigned int count)
- 
- #endif
- 
-+static void sclp_vt220_resize(struct work_struct *work)
-+{
-+	struct tty_struct *tty;
-+	struct winsize ws;
-+
-+	spin_lock_irq(&sclp_vt220_lock);
-+	ws = sclp_vt220_winsize;
-+	spin_unlock_irq(&sclp_vt220_lock);
-+
-+	tty = tty_port_tty_get(&sclp_vt220_port);
-+	if (!tty)
-+		return;
-+
-+	tty_do_resize(tty, &ws);
-+	tty_kref_put(tty);
-+}
-+
-+static void sclp_vt220_resize_sched(void *buffer)
-+{
-+	struct sclp_vt220_resize_data_t *data = buffer;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&sclp_vt220_lock, flags);
-+	sclp_vt220_winsize.ws_row = data->rows;
-+	sclp_vt220_winsize.ws_col = data->cols;
-+	schedule_work(&sclp_vt220_resize_work);
-+	spin_unlock_irqrestore(&sclp_vt220_lock, flags);
-+}
-+
- /*
-  * Called by the SCLP to report incoming event buffers.
-  */
-@@ -546,6 +591,9 @@ static void sclp_vt220_receiver_fn(struct evbuf_header *evbuf)
- 		sclp_vt220_handle_input(buffer->data, count);
- 		tty_flip_buffer_push(&sclp_vt220_port);
- 		break;
-+	case SCLP_VT220_SESSION_RESIZE:
-+		sclp_vt220_resize_sched(buffer->data);
-+		break;
- 	}
- }
- 
-@@ -557,9 +605,9 @@ sclp_vt220_open(struct tty_struct *tty, struct file *filp)
- {
- 	if (tty->count == 1) {
- 		tty_port_tty_set(&sclp_vt220_port, tty);
--		if (!tty->winsize.ws_row && !tty->winsize.ws_col) {
--			tty->winsize.ws_row = 24;
--			tty->winsize.ws_col = 80;
-+		if (tty->winsize.ws_row != sclp_vt220_winsize.ws_row ||
-+		    tty->winsize.ws_col != sclp_vt220_winsize.ws_col) {
-+			schedule_work(&sclp_vt220_resize_work);
- 		}
- 	}
- 	return 0;
-@@ -754,6 +802,8 @@ static int __init sclp_vt220_tty_init(void)
- 	rc = tty_register_driver(driver);
- 	if (rc)
- 		goto out_init;
-+
-+	INIT_WORK(&sclp_vt220_resize_work, sclp_vt220_resize);
- 	rc = sclp_register(&sclp_vt220_register_input);
- 	if (rc)
- 		goto out_reg;
--- 
-2.54.0
-
+Konrad
