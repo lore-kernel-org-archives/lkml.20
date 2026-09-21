@@ -1,278 +1,158 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-oi1-f227.google.com (mail-oi1-f227.google.com [209.85.167.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E2F4E06D4
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:30:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31224EB87A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:30:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790011846; cv=none; b=I1hHrdy1bMcSYg2CYX5qAA5iZyycJmbvT0napcmRtVtFPNHv3gfhPftGQHlAtCgPqARDOoWkhv25QDrqulpCsNomAhA9+nsJjyir/6xAbMXkHBI+oQJ8Mc6xW/8FreaEPz4NfM1g78ePhVwPjvCrBNqD0IbXXOoHXiEOx2RpEd8=
+	t=1790011851; cv=none; b=QYKxVr+Teu6eVQJUdHy0vVRI79YqoKk2y1xvOq5SM+X6FMFrEVs4leRfVmGorM8mVAyNIaLhHwxfAqFw6f4ePtfLAeqjmWHKGeuwiRI920W7kGrUByBLv2x77t8ED8o7NbRiUH7ZbIDOgUWn4kOigN4pxhdbkVBq/MthWIOC2iY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790011846; c=relaxed/simple;
-	bh=SmkHF4FiGhY6vkAj210MpG+mQj2Z0pAr8tccZVz5/z0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IX1T4OmH0POAU5Hju5lHGMOljiuL23kFiNL2NiN5s9f0jp3gx2cz29n7auM3hH1TtW3reVrqkefrVz5bSZxtBS3d35n9eaCSeIe8NcSdvdiHaoE0Go0OXoL0R0L3+WjHcayHoB5Kir2Ko2WYrk2bsKPgJ64w+6Wy2e/QG9yrgQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fkXtroz1; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790011851; c=relaxed/simple;
+	bh=+5uZ3k0+i0138r6TjbIE8SkNZdIkmusl5Zhh2otCCDY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ryhf35NzI2QO/bm02oL5TnvJ5m92Cux9iDF8A7qb4wptwf8+YeHCoZm6EVmNdR2RawGrRNNSDWtIJIxUj1fRcflQ0v23xfWJ7rESTBM1Bi5jH+ELjPiPTITlrCQkqAAZdLQbBgKWFl/RbvylFQ0DzjMOfOEg6N6PDJ2W4NUeztg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=Iui9m0ea; arc=none smtp.client-ip=209.85.167.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fkXtroz1"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e2406so17020975e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:30:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790011843; x=1790616643; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s8pWNm66LVdiHzafdbCttJBcf3IazbTGcwd5qfxU4As=;
-        b=fkXtroz1Aezsq76ZTCKm/n5nmmCiFSwMIiqZGJM5VGroxdf5y/Q1Jokpu4Xis/MbVb
-         ToT6Yg0k8V+nxtOsf3gJQQeP1EmowUA8Z3jjlBbyV7FNbg9tNZnsxKl5Y8nEZ8qFbLOu
-         NtRL+yM4pEsAb6BWGkH2d+Hhw/Tm8EUH+cZlFJRWMnei6/YAzM596rPTT1xXxarFXSug
-         imU9OHoopzOz8IZHbDLFJbExl3IR7gmXcXu5RwZF6L15xm0ht0uiVodG7zj3nicg2/mq
-         wQs+gEmqTp2cMXgPMOab0di2/NbpfveKLi/4Qz5RLlvG4M3i/Ivs2hpdbeIeZrEdmYgp
-         pESA==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="Iui9m0ea"
+Received: by mail-oi1-f227.google.com with SMTP id 5614622812f47-4c18e5e9745so143349b6e.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:30:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790011843; x=1790616643;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=s8pWNm66LVdiHzafdbCttJBcf3IazbTGcwd5qfxU4As=;
-        b=MCVExASOlHv4mYi6//ZpVRn/2eqU2TobmZ9VvBIXA8+N8+JciVjvOvxKIiyE51rQqo
-         ssthDUcx71ZWyPi2blh0Y+ji5Eo1Pm9SgGWvLzclUSXTmcsltTR1AOWz2ZzBbYfc3dx5
-         XvOZMHiOJZFfRfMCXHJc/nY0urFou6ERSdIwH7lxX8DzTW3YhzeBnoea5UkenkCr66dc
-         Kjjw7Dd6SE04/DbP/myPwrP4GLwgt86BeaiitzIBmYCq8y5MMsa3l4iToNtNvQzwZR7p
-         ua9uBmUxtgmDUnNXrz3MI0d1kgX9Dgf9SlBZQmv7ccm4QMLVokkErgGpP7FKWM4QpmuW
-         r05g==
-X-Forwarded-Encrypted: i=1; AKwUvBwqzNLwYowNPTEiHJColDkhihlZiiGoUemPugNdCshb5Yr0VzKQdemnPr8swwzCsKPn2lgoen+P64MYvF4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFkD7X7VIrj10NpPiaV4jgwVOmavtP0U4brPMga44LQPJtqhvb
-	Kt+iKYrUho94GyTzBKgNLuYqm3zaiuY8Pj/dCY1bdmWDTHzAOm53Ph+s
-X-Gm-Gg: AYBFou3dDQ+j9X/17IZ2L4tLumykMQKwRjkk2Kr0nqK/cwBAi6urbfFt1aZgQiaaStM
-	fVQJL+1uKPuJCVhYPJwiqWPCD66loIHC11f+b6THINw2HpAyp9URqRX+XUpq82nYrwZgx4W9niH
-	rUQSoB7QhU28fShQR0ZhXUxmD2ayh1yzXTuYLXXkilvkUC3GwYZLAdAXV3N4eCf9gW64qpZ/0sL
-	tb7Qh/aQf4S2lrjUHMSIuFuBFdmiX4P70sGRn5F/m69Q/oO09NeFJVN7cuwK1p04TmbBbbJAZGZ
-	tAcGn77WTndHiXmmyUxXZsHF4tsPJnol6gtqf9YkdmIv5lZm34J6lowr7fR4oCjIduSjG4vXOJC
-	m5pOYjmPutr4N+Ryax7SyG9BB0eKljlFVd4sbr+FUWYcBL39h6v7XaDuyUcEG8TYu5qIikT6/rh
-	Zgrva9nIN/EMtjYMYO1sJ08FU+F95HP8jXg4rTdAJs/TitRTFabKnSmzv1mHCwiAw=
-X-Received: by 2002:a05:600c:34c6:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-49fd88607e7mr6562135e9.5.1790011843197;
-        Mon, 21 Sep 2026 10:30:43 -0700 (PDT)
-Received: from vitor-nb ([2001:8a0:c4c6:f00:e34f:2f52:ae98:3e30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd8ccd0e1sm6146505e9.6.2026.09.21.10.30.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 10:30:42 -0700 (PDT)
-From: Vitor Soares <ivitro@gmail.com>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: Vitor Soares <vitor.soares@toradex.com>,
-	linux-wireless@vger.kernel.org,
-	ath12k@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	baochen.qiang@oss.qualcomm.com,
-	kang.yang@oss.qualcomm.com
-Subject: [PATCH ath-next v3] wifi: ath12k: advertise interface MAC address pool
-Date: Mon, 21 Sep 2026 18:30:33 +0100
-Message-ID: <20260921173033.846332-2-ivitro@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1790011848; x=1790616648;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Q1m8FIyre0txQoAK/ZMa3aVTldIqDlQtinxWjfyCf64=;
+        b=FtLlo0PmEz6hKudSP9ypyeVNaWbaRQ9ghD9vYnjeuz1oQU+gRAnl/lpC4UAPf4Pb3M
+         I1MRpHX4d42LGlbhm9p8Z7Lmtghy0Czl5VQhUEAU98Z5G2syOD/i3LNy3WowK4QrCYey
+         9TjEke7aH0DQXd7EjkE9+fmmxjmlU2KpA1BK6uEv5foqTLNawV3kA8PWkyn1XAFDsbTc
+         5iyfRQTY2WDs7Xp9EQ6R8i6NcBxfYu4zx/5QGVW6m/Iv+oxvRuLLFHEEkS41GNhsZ6iR
+         jtqLniVjU6vuSOklijVeciFq/8QLQRYYpuhMC4Lms/FI6s2/0k4ZjdOYO5jzu/9aYKK1
+         2emw==
+X-Forwarded-Encrypted: i=1; AKwUvByeeRPf/6oVvOL0avPVl2ddzxp5N8fPXcpgiYrXuHOOxfW+gK76xpc7d4VioHxgwLt5kxBGeTNpZGVBpvs=@vger.kernel.org
+X-Gm-Message-State: AFuF++km6JJG4VUCZ9OSkpk4OgNtq4yR/Fvtps8tHVwhk9/Wkz7T2LLr
+	0Qfe2h/6wpyUuQSdTkEgAklmWQiiHwaaf1j3fX6QreBa/EyeYW/1t0xz1S/SbiXBQPTw9MLMOGs
+	iMGIm54mW2g64Q0mtfE2sslAWoFUodEm6vRVddIIGNoWsCvaugowW/PCl7JjlvXq1Y347x0yZB/
+	j8q2Do5wVLfhLKEvLpxmP2Q/3Awpxti6n1lyy7fkW9e3+T6PlA7z/NnsXgsKxMe76mK7l16JwHt
+	JCpbTyM2YTW5rkh+mA14haB
+X-Gm-Gg: AYBFou2E6JlvOyAT8HfKH6aixclTFNDtm2aV4CICCA0ZXVVS57+JWOMFmnpa5EVVH3J
+	JtGWFCKBwoxWxKEU5gn1o5bIDQskfjo0Xr6VV0Ju7udcBiqOrYbHCXcAHWlLCh7VUmwzl3Ck1bZ
+	aQ2wTro+rVSds9wqITe62wRV97D0Jk+XzEKnqJ0uySnRBoEeAC2t6mt0uRY44loQPLaZs33sRvk
+	jo3M+y3qsoaQixHOwAHvcpgOt/JXCC8nTqZpKchUqoqzY7SrVtSdqEYHGH+tr0hI4wZ7uN8ziYU
+	1DThx1wzIlvmjLweyZmU2Q92qgo4Q7fxHW6OBFABiLf0U+uUR/IVM8PhJZqVbrMVtFprOq82ko7
+	6pRLw9x++2Zclm0mysLjg6IvJO/jKugD+ULeoEVFUL360XTACRjXAo0erHmnJpX+RuXwG8vfzYX
+	7+70fbZ1JbceFSBfI3tKIPRGynsidJi6DxEAbCwRea
+X-Received: by 2002:a05:6870:5253:b0:465:27b7:4009 with SMTP id 586e51a60fabf-486e4e10795mr11353910fac.4.1790011848381;
+        Mon, 21 Sep 2026 10:30:48 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+        by smtp-relay.gmail.com with ESMTPS id 586e51a60fabf-4882115d953sm144800fac.5.2026.09.21.10.30.47
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 21 Sep 2026 10:30:48 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-939f925ba4eso459778685a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:30:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1790011846; x=1790616646; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q1m8FIyre0txQoAK/ZMa3aVTldIqDlQtinxWjfyCf64=;
+        b=Iui9m0eavsuu8yiSHzfMGL1Jzf3vkUOOYzD3eLJyzddldgpcmr5uguUUCQTAEXfzkK
+         nJugmgpWtycVtszJGly5Gs4fRTgriaqgu487gZvESKc649d+4Y58KW4MfLB02i2ARY0B
+         S6L3HofajyvE2uwT2avFzdiQo9UZKEcElaYMQ=
+X-Forwarded-Encrypted: i=1; AKwUvBy6er7+y3CHMPAq0pNO/9sON2z4qEe9ovdl0l+oPeV1Lsld01ySQj4tRPsFEn9ss0OYjxB2j+sQpfB7q3A=@vger.kernel.org
+X-Received: by 2002:a05:620a:17a6:b0:93b:d7a1:ba12 with SMTP id af79cd13be357-93c15eb8261mr160199885a.61.1790011846445;
+        Mon, 21 Sep 2026 10:30:46 -0700 (PDT)
+X-Received: by 2002:a05:620a:17a6:b0:93b:d7a1:ba12 with SMTP id af79cd13be357-93c15eb8261mr160193585a.61.1790011845878;
+        Mon, 21 Sep 2026 10:30:45 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93beda72290sm686610385a.8.2026.09.21.10.30.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 10:30:44 -0700 (PDT)
+Message-ID: <7e2d1041-35ba-4d7d-8702-a13275e1791d@broadcom.com>
+Date: Mon, 21 Sep 2026 10:30:31 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] serial: 8250_bcm7271: fix use-after-free in
+ brcmuart_remove()
+To: Fan Wu <fanwu01@zju.edu.cn>, linux-serial@vger.kernel.org
+Cc: alcooperx@gmail.com, bcm-kernel-feedback-list@broadcom.com,
+ jirislaby@kernel.org, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260909084002.686911-1-fanwu01@zju.edu.cn>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20260909084002.686911-1-fanwu01@zju.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-From: Vitor Soares <vitor.soares@toradex.com>
+On 9/9/26 01:40, Fan Wu wrote:
+> brcmuart_handle_irq() starts priv->hrt to work around a receive-timeout
+> quirk of the 8250 core when hardware flow control is enabled; the timer
+> callback brcmuart_hrtimer_func() dereferences priv.
+> 
+> brcmuart_remove() cancels the hrtimer before it unregisters the port, so
+> a receive-timeout interrupt that arrives in between re-arms the timer.
+> After devm frees priv, the callback runs on freed memory.
+> 
+> Unregister the port before cancelling the hrtimer.
+> serial8250_unregister_port() shuts the port down and frees its IRQ, so
+> brcmuart_handle_irq() can no longer restart the timer, and the final
+> hrtimer_cancel() drains any timer that was armed before or during the
+> unregister.
+> 
+> This issue was found by an in-house static analysis tool.
+> 
+> Fixes: 41a469482de2 ("serial: 8250: Add new 8250-core based Broadcom STB driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6
+> Co-developed-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 
-ath12k supports creating vdevs with addresses provided by mac80211.
-Userspace can already make concurrent interfaces work by explicitly
-assigning different locally administered addresses.
-
-However, ath12k does not advertise an address list, so when a second
-interface is created without an explicit address, mac80211 has nothing
-to pick from and falls back to the permanent address. If the first
-interface is already running with that address, bringing up the second
-one fails with -ENOTUNIQ.
-
-As in ath11k, provide a list of usable addresses so
-ieee80211_assign_perm_addr() can hand each new interface an unused one.
-Keep the first entry as the wiphy's permanent MAC address. Generate the
-remaining entries as locally administered variants by changing only the
-upper nibble of the first octet, which naturally limits the pool to 16
-unique addresses.
-
-The cfg80211 definition of wiphy->addresses does not specify where the
-addresses must come from. Some ath12k platforms use it as an interface
-MAC address pool, while others use it for firmware-provided per-radio
-addresses. Gate the generated address pool behind
-advertise_iface_mac_pool and enable it for WCN7850 and QCC2072.
-
-Other platforms keep the existing behavior.
-
-Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
-
-Assisted-by: LLM
-Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
----
-v3:
-- Rename host_alloc_iface_mac to advertise_iface_mac_pool.
-- Clear wiphy->addresses and wiphy->n_addresses during cleanup.
-- Drop the single-radio check and rely on hw_params gating.
-- Enable the generated interface MAC pool for WCN7850 and QCC2072
-  (QCC2072 compile-tested only).
-- Follow kernel block comment style.
-- Link for v2: https://lore.kernel.org/all/20260915152815.254016-2-ivitro@gmail.com/
-
-v2:
-- Gate generated interface MAC address list behind hw_params
-  host_alloc_iface_mac, as suggested by Kang Yang.
-- Enable it only for WCN7850, the only part available for testing here.
-- Add Assisted-by: tag.
-- Link for v1: https://lore.kernel.org/all/20260902082219.3010793-2-ivitro@gmail.com/
----
- drivers/net/wireless/ath/ath12k/hw.h       |  1 +
- drivers/net/wireless/ath/ath12k/mac.c      | 48 ++++++++++++++++++++++
- drivers/net/wireless/ath/ath12k/wifi7/hw.c |  6 +++
- 3 files changed, 55 insertions(+)
-
-diff --git a/drivers/net/wireless/ath/ath12k/hw.h b/drivers/net/wireless/ath/ath12k/hw.h
-index e790de5737db..c58db8482aa4 100644
---- a/drivers/net/wireless/ath/ath12k/hw.h
-+++ b/drivers/net/wireless/ath/ath12k/hw.h
-@@ -238,6 +238,7 @@ struct ath12k_hw_params {
- 	} client;
- 
- 	bool host_alloc_ml_id;
-+	bool advertise_iface_mac_pool;
- };
- 
- struct ath12k_hw_ops {
-diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
-index d4116ba0da08..46f5f338f44c 100644
---- a/drivers/net/wireless/ath/ath12k/mac.c
-+++ b/drivers/net/wireless/ath/ath12k/mac.c
-@@ -14743,6 +14743,50 @@ static void ath12k_mac_cleanup_unregister(struct ath12k *ar)
- 	kfree(ar->mac.sbands[NL80211_BAND_6GHZ].channels);
- }
- 
-+static void ath12k_mac_cleanup_mac_address_list(struct ath12k_hw *ah)
-+{
-+	kfree(ah->hw->wiphy->addresses);
-+	ah->hw->wiphy->addresses = NULL;
-+	ah->hw->wiphy->n_addresses = 0;
-+}
-+
-+static void ath12k_mac_setup_mac_address_list(struct ath12k_hw *ah,
-+					      const u8 *mac_addr)
-+{
-+	struct mac_address *addresses;
-+	struct ath12k *ar;
-+	u16 n_addresses;
-+	int i;
-+
-+	ar = ath12k_ah_to_ar(ah, 0);
-+	if (!ar->ab->hw_params->advertise_iface_mac_pool)
-+		return;
-+
-+	/*
-+	 * Only the upper nibble of the first octet is varied, so at most 16
-+	 * addresses can be derived from one base.
-+	 */
-+	n_addresses = min_t(u16, TARGET_NUM_VDEVS(ar->ab), 16);
-+	if (n_addresses <= 1)
-+		return;
-+
-+	addresses = kzalloc_objs(*addresses, n_addresses);
-+	if (!addresses)
-+		return;
-+
-+	ether_addr_copy(addresses[0].addr, mac_addr);
-+	for (i = 1; i < n_addresses; i++) {
-+		ether_addr_copy(addresses[i].addr, mac_addr);
-+		/* set Local Administered Address bit */
-+		addresses[i].addr[0] |= 0x2;
-+
-+		addresses[i].addr[0] += i << 4;
-+	}
-+
-+	ah->hw->wiphy->addresses = addresses;
-+	ah->hw->wiphy->n_addresses = n_addresses;
-+}
-+
- static void ath12k_mac_hw_unregister(struct ath12k_hw *ah)
- {
- 	struct ieee80211_hw *hw = ah->hw;
-@@ -14762,6 +14806,7 @@ static void ath12k_mac_hw_unregister(struct ath12k_hw *ah)
- 		ath12k_mac_cleanup_unregister(ar);
- 
- 	ath12k_mac_cleanup_iface_combinations(ah);
-+	ath12k_mac_cleanup_mac_address_list(ah);
- 
- 	SET_IEEE80211_DEV(hw, NULL);
- }
-@@ -14878,6 +14923,7 @@ static int ath12k_mac_hw_register(struct ath12k_hw *ah)
- 	wiphy->available_antennas_tx = antennas_tx;
- 
- 	SET_IEEE80211_PERM_ADDR(hw, mac_addr);
-+	ath12k_mac_setup_mac_address_list(ah, mac_addr);
- 	SET_IEEE80211_DEV(hw, ab->dev);
- 
- 	ret = ath12k_mac_setup_iface_combinations(ah);
-@@ -15120,6 +15166,8 @@ static int ath12k_mac_hw_register(struct ath12k_hw *ah)
- 		ath12k_mac_cleanup_unregister(ar);
- 	}
- 
-+	ath12k_mac_cleanup_mac_address_list(ah);
-+
- 	SET_IEEE80211_DEV(hw, NULL);
- 
- 	return ret;
-diff --git a/drivers/net/wireless/ath/ath12k/wifi7/hw.c b/drivers/net/wireless/ath/ath12k/wifi7/hw.c
-index ae8df80928b0..ad362244ed9b 100644
---- a/drivers/net/wireless/ath/ath12k/wifi7/hw.c
-+++ b/drivers/net/wireless/ath/ath12k/wifi7/hw.c
-@@ -445,6 +445,7 @@ static const struct ath12k_hw_params ath12k_wifi7_hw_params[] = {
- 		},
- 
- 		.host_alloc_ml_id = true,
-+		.advertise_iface_mac_pool = false,
- 	},
- 	{
- 		.name = "wcn7850 hw2.0",
-@@ -539,6 +540,7 @@ static const struct ath12k_hw_params ath12k_wifi7_hw_params[] = {
- 		},
- 
- 		.host_alloc_ml_id = false,
-+		.advertise_iface_mac_pool = true,
- 	},
- 	{
- 		.name = "qcn9274 hw2.0",
-@@ -629,6 +631,7 @@ static const struct ath12k_hw_params ath12k_wifi7_hw_params[] = {
- 		},
- 
- 		.host_alloc_ml_id = true,
-+		.advertise_iface_mac_pool = false,
- 	},
- 	{
- 		.name = "ipq5332 hw1.0",
-@@ -713,6 +716,7 @@ static const struct ath12k_hw_params ath12k_wifi7_hw_params[] = {
- 		},
- 
- 		.host_alloc_ml_id = true,
-+		.advertise_iface_mac_pool = false,
- 	},
- 	{
- 		.name = "qcc2072 hw1.0",
-@@ -808,6 +812,7 @@ static const struct ath12k_hw_params ath12k_wifi7_hw_params[] = {
- 		},
- 
- 		.host_alloc_ml_id = false,
-+		.advertise_iface_mac_pool = true,
- 	},
- 	{
- 		.name = "ipq5424 hw1.0",
-@@ -895,6 +900,7 @@ static const struct ath12k_hw_params ath12k_wifi7_hw_params[] = {
- 		},
- 
- 		.host_alloc_ml_id = true,
-+		.advertise_iface_mac_pool = false,
- 	},
- };
- 
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-2.55.0
-
+Florian
