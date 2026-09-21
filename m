@@ -1,149 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F73351AFC1;
-	Mon, 21 Sep 2026 22:41:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D345013C3
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:44:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790030511; cv=none; b=P385BNZFgCaoLaivCYY9f/9PRZOMVm2reQmyfrSEg044/iIsQpfG35+lvldhoVEm3PQVG4ebWGFQGX3vXI9jd513Cw1bMrnfRfkr4UF0ywUHYC9i1Lb7etSK22lf0mlORloZGdSkQabMm5oIDLQEHaIgrdvMgjO/4EPYdrOkOMo=
+	t=1790030654; cv=none; b=eAsUy01DXds2rJ+FPlhXSW5EbprICDM1IR4P5bemCNmkbMiUpiSVkkl0KYQYJGP+w8d2mKXShovJcWSuLiroIZzqupS4GVcliztGLVh73oYrddFtWOjd0PdAdm0oLN99856HzlPxdkulIFzU8OVgwOEGa4Y6mecsNdjbCGiFOdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790030511; c=relaxed/simple;
-	bh=OBX7XpNtC+yrBEvD6sPv+E9K03bWHgqVaHlrEWl+1PY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MGULqVant+5Wux78AKS+L6VAVM/zJSyttZ+aSyu+wH9Ac+evG2fE28s4xOQf3IScCqWndUue1EW5zSsMh/Pz+idZlSAXx4y8br1NXs0EYX4/A4IRcP2tZF7dQ15xxWr2tmEjny1Egb+km3d7GTHwWj48R+l1vnK5QPHzBTmn7FY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GtldKd8/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790030654; c=relaxed/simple;
+	bh=9QhwX43kAdnxofPPBuUs/5aHrQY41yXWN28ALnl8G8w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mmvBymdwBaISD3SDdq7pzLSp8RvjmpYCTXHa65gXlHLKX4hifOhJ1HD82bonhapb919ALiYBGrdUSuR5gtcuXc4SWvtqmV9UAolqh4Fw9IQc87GbZvNyGQFhno62+r4213Uku9q1izX+AcGGm2zsuaWzlk1YBWRdxaHnja5ETCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=Rp4QAkUX; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GtldKd8/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 882FB1F000FF;
-	Mon, 21 Sep 2026 22:41:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790030509;
-	bh=dDu/I/jl47PhoBil2/ZTm2tiiw/rtG0yrhZ/WCeLz5E=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=GtldKd8/h1XxhH/vDHRTecc1tObnZv9wXiSMh1EyiUfhQARiF0HxrNO8iNcSfAPz3
-	 SBB4RpXgvPaKAEAtjGfhSmYtiIxIIiloKFZ6LZdhPnqZbDgjwAgRstFqIbUAmZ7aW1
-	 mC8/Kmafpd15IpnvlHawqqV4S+1hDfKqFW4OEU7bLX8Qyo5v/UVIFLxr/fMWrH8M/1
-	 B1ujLSiQM864nxLQTlNg0WQqUfnkW00nzvXbsocQBv22O/ZqhlPn7UOu8uKO2/zdYI
-	 CbKO28k4/jArJ1pFG0JWtWxHH3xkSJtVEA53JR/hwPZ/1RtBlLeBvJ9FVRYCkny6og
-	 7gdKVNjtoAd7g==
-Date: Mon, 21 Sep 2026 15:41:47 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
- <daniel@iogearbox.net>, Jesper Dangaard Brouer <hawk@kernel.org>, John
- Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- co+65e5c76b187f08b2@bugs.sh, Xiang Mei <xmei5@asu.edu>,
- stable@vger.kernel.org
-Subject: Re: [PATCH net] veth: manage XDP program pointers during channel
- resize
-Message-ID: <20260921154147.4e1e092d@kernel.org>
-In-Reply-To: <20260917153923.904124-3-bestswngs@gmail.com>
-References: <20260917153923.904124-3-bestswngs@gmail.com>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="Rp4QAkUX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=kJUN55IvtpETm9ZqDxcYOrMSuGXJ8YYL/bHnk8DOVzY=; b=Rp4QAkUXzHovKgCESQSdyCr8Nt
+	JWJRbZglUUrBbMsr/OgNQnO5LC7Jis/A7+PLykAM73iwiVUjGWi30gYc8G5h4+24uN0qqafRc9lZx
+	NGQhel3H/qRI+4gzSIm3Eh26WEz8qmONVVpta3RhbJ4rq6Y2aKfJp2iQPl84yZW4QOYAeutWHosfM
+	k0s0urejxB+FEVWsEA/wz6xDoGM9v26qF+2pPI6U4sXbE9n28i0GPNrLAxR43hgF1JIzcFYRuZ5C+
+	DryCOUojEYmb5/ZDmkIAlayFMlcPQGIdc2a4HNz6krOAUosXU2oAenp3Z9t6wEJD1NfZcwHhqWsfS
+	wIkQgf2A==;
+Received: from [177.172.123.214] (helo=[192.168.15.100])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1x8mjk-005Kj5-Kk; Tue, 22 Sep 2026 00:43:48 +0200
+Message-ID: <d162cde5-b53c-4e95-b587-6ee723c6783e@igalia.com>
+Date: Mon, 21 Sep 2026 19:43:49 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] futex: fix hb lock mismatch in futex_wait_requeue_pi()
+ and CLONE_VFORK hash init
+To: Hui Peng <benquike@gmail.com>
+Cc: dave@stgolabs.net, tglx@kernel.org, dvhart@infradead.org,
+ peterz@infradead.org, mingo@redhat.com, linux-kernel@vger.kernel.org
+References: <20260919221730.3707261-1-benquike@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20260919221730.3707261-1-benquike@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thu, 17 Sep 2026 23:39:25 +0800 Weiming Shi wrote:
-> veth_set_channels() tears down XDP resources for removed RX queues
-> without clearing rq->xdp_prog.  If the program is then detached or
-> replaced, those queues keep the old pointer after bpf_prog_put().  A
-> later channel increase can re-enable NAPI and run the freed program.
+Hi Hui Peng,
+
+Em 19/09/2026 19:17, Hui Peng escreveu:
+> Fix two issues in futex and fork initialization:
 > 
-> Clear the program pointer after taking an RX queue offline, and publish
-> the current program only after bringing the queue back online succeeds.
+> 1. In futex_wait_requeue_pi(), if futex_wait_queue() returns with
+
+I see an outdated comment with futex_wait_queue(), but I don't think 
+this function exists anymore.
+
+>     q.lock_ptr updated tohb2's lock after a requeue timeout or signal
+>     race, unlocking the original hb1 lock instead of q.lock_ptr leaves
+>     hb2 locked and unlocks an unheld spinlock. Always unlock via
+>     q.lock_ptr.
+> 2. In copy_mm() (kernel/fork.c), initialize mm->futex_phash properly
+>     when cloning so private futex hash state is consistent across
+>     CLONE_VFORK.
 > 
->   BUG: unable to handle page fault for address: ffffc90000256048
->   Oops: Oops: 0000 [#1] SMP KASAN NOPTI
->   RIP: veth_xdp_rcv_skb (include/linux/filter.h:779
->                          include/net/xdp.h:696 drivers/net/veth.c:820)
->   Call Trace:
->    veth_xdp_rcv (drivers/net/veth.c:941)
->    veth_poll (drivers/net/veth.c:986)
->    __napi_poll (net/core/dev.c:7787)
->    net_rx_action (net/core/dev.c:7850 net/core/dev.c:8007)
->    handle_softirqs (kernel/softirq.c:645)
->   Kernel panic - not syncing: Fatal exception in interrupt
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 4752eeb3d891 ("veth: implement support for set_channel ethtool op")
-> Reported-by: <co+65e5c76b187f08b2@bugs.sh>
+
+This part was already addressed:
+
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b61b6f95d6722ddbbbd09e689fa41b55fd36f9a5
+
+> Fixes: e5c6828493b5 ("futex: Split out requeue")
 > Assisted-by: LLM
-> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-> ---
->  drivers/net/veth.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-> index 6ed3ee81153fb..ef7624bc2c0ec 100644
-> --- a/drivers/net/veth.c
-> +++ b/drivers/net/veth.c
-> @@ -1247,12 +1247,15 @@ static int veth_napi_enable(struct net_device *dev)
->  static void veth_disable_range_safe(struct net_device *dev, int start, int end)
->  {
->  	struct veth_priv *priv = netdev_priv(dev);
-> +	int i;
->  
->  	if (start >= end)
->  		return;
->  
->  	if (priv->_xdp_prog) {
->  		veth_napi_del_range(dev, start, end);
-> +		for (i = start; i < end; i++)
-> +			rcu_assign_pointer(priv->rq[i].xdp_prog, NULL);
->  		veth_disable_xdp_range(dev, start, end, false);
->  	} else if (veth_gro_requested(dev)) {
->  		veth_napi_del_range(dev, start, end);
-> @@ -1262,7 +1265,7 @@ static void veth_disable_range_safe(struct net_device *dev, int start, int end)
->  static int veth_enable_range_safe(struct net_device *dev, int start, int end)
->  {
->  	struct veth_priv *priv = netdev_priv(dev);
-> -	int err;
-> +	int err, i;
->  
->  	if (start >= end)
->  		return 0;
-> @@ -1281,6 +1284,9 @@ static int veth_enable_range_safe(struct net_device *dev, int start, int end)
->  			veth_disable_xdp_range(dev, start, end, true);
->  			return err;
->  		}
-> +		for (i = start; i < end; i++)
-> +			rcu_assign_pointer(priv->rq[i].xdp_prog,
-> +					   priv->_xdp_prog);
->  	} else if (veth_gro_requested(dev)) {
->  		return veth_napi_enable_range(dev, start, end);
->  	}
 
-This is pure slop, cramming loops into functions which have none.
-Shameful, really.
+Please always double check in the current mainline code if the robots 
+ideas are up to date.
 
-Please test this and submit it if it passes the tests:
-
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index 6ed3ee81153f..5d5e8ebce65a 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -1054,6 +1054,8 @@ static int __veth_napi_enable_range(struct net_device *dev, int start, int end)
-        for (i = start; i < end; i++) {
-                struct veth_rq *rq = &priv->rq[i];
- 
-+               if (priv->_xdp_prog)
-+                       rcu_assign_pointer(rq->xdp_prog, priv->_xdp_prog);
-                napi_enable(&rq->xdp_napi);
-                rcu_assign_pointer(priv->rq[i].napi, &priv->rq[i].xdp_napi);
-        }
-@@ -1088,6 +1090,7 @@ static void veth_napi_del_range(struct net_device *dev, int start, int end)
- 
-                rcu_assign_pointer(priv->rq[i].napi, NULL);
-                napi_disable(&rq->xdp_napi);
-+               rcu_assign_pointer(rq->xdp_prog, NULL);
-                __netif_napi_del(&rq->xdp_napi);
-        }
-        synchronize_net();
+> Signed-off-by: Hui Peng <benquike@gmail.com>
