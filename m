@@ -1,221 +1,170 @@
-Received: from mail-m19731111.qiye.163.com (mail-m19731111.qiye.163.com [220.197.31.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A8D2D238F;
-	Mon, 21 Sep 2026 01:58:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD6A2D238F
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:59:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789955919; cv=none; b=IEjWkS8djIvi8JYbc+JAsIYhVPriURNlwfFI/+HQBlwV6JRzACKk8NXm+137zJTLJK6ip+Pu1vPGe7fmaN39qnUGfcDnIIm5DMRxfgoosurjDVpJd5oKM2ys9ww1BKSMirrzhp3X/J05Md9miORFmHNJMRVzvwoMwVOtox6hdO8=
+	t=1789955996; cv=none; b=UIHL21rH0J11kVgOnebBXkD/ne5PiBPTjEgDw8pgm4R3x/lfRqMA9jaZHa7voAn/1CPpw5KN0g8HJVMYJjMTaeO8mcPDQGeCuHxYvYl+swqtxmgJ0muONz9cSANMGE8nLyboRl0n5AX9Q7Ksucd3PVWrr324JNSra4gpnoa3BSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789955919; c=relaxed/simple;
-	bh=0g7mPXCN2Z2Lt25DZ+v4JMnNnf5UQhKzznDJwqETF4k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YCRW6lKGzDBM9wCngQTkcw2QcUvNwXqxjT8WzvgspTYYtxNSMle5oeqsBXqbR4snPoPIHFmB0PMcUIevwmsldr3IesJOnUj15Cvo72I9pcChG1NuiI5XB4HCtY7dm63MWcN6BAa99BiwXO6p7KQ5+CfqGPjxzg8BjzOKr0dThUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=F1wae6Xc; arc=none smtp.client-ip=220.197.31.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1789955996; c=relaxed/simple;
+	bh=kW5bVQRCoqrI5ZVf1ECPBcmjU5MFYED1PQS4A/dkRFI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G74bFaOy5EkiyWzjaeK6oNN+2pllahqKz3MD4hFghM+jxaaQlljyluzTKv+R6wf4pltDXdsseM16alX1H+HioRBVYunsSTIvpNBDyP5FbbsNqwlbhoFuZCQs4p7mnMBR9fGyMxoFsudJLYgEOa4sqs7Q74kAOVhai4B+zMKp6E0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KQG0VbOw; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="F1wae6Xc"
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e7dcd1ab;
-	Mon, 21 Sep 2026 09:53:12 +0800 (GMT+08:00)
-Message-ID: <b6ccf98c-58f3-4fdc-bd7b-3eb1bc3b6e98@rock-chips.com>
-Date: Mon, 21 Sep 2026 09:53:12 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KQG0VbOw"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2db18fe433fso21335385ad.2
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 18:59:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789955995; x=1790560795; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5asLPp18b/l+0s1qeYWjIfvnNcbJX0h5CaYuSOAhSt0=;
+        b=KQG0VbOwaJODsTx8ep2xVGKUlfPzJHjod3p5oWevHxM9G+IhMQHQFTtVoGWEP+QMXy
+         RdYBrm1CyWVhfSoU/f+zNGC1V/Mt1rgoioDFQXvf4BFFb2MYbvJB+AXXy2p9SG19QjWy
+         CWkYMy0pGO/7IaWaXtR/I6Islxno2tOJOI1TWswE/FfgbayG2JlFDbqKR7PfVJ3GvxcR
+         vdYnY+G9gHVPJ3468KuKgG900uXuqr32I2+2ZD2VmQo2oB65T1J0aDk/5B0gmAYpNg4X
+         v/igLOaA3LBG59DMFzAMltSNrpOre6+kxFjhO/reRvzMcIZ3IhRINKvLapTjzQxCE2uj
+         k2hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789955995; x=1790560795;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5asLPp18b/l+0s1qeYWjIfvnNcbJX0h5CaYuSOAhSt0=;
+        b=x4aLWFy4Bh5FfgCubZNlWZ32tV0ROHNcTOhmbLOuGGrt4C1ZPux0PLpEBcKoD41Skl
+         V1Dr734NJvcU/iQtrVyFbiSSWxnII4yoO6cIrey2iM/MwEy2/PeRIXbjt9HqdYMgDdOD
+         /zeB2dyWJ6X9eyyp3Nt+MuEm087kE2VDjLbLckTWZS04b1D8pEYvm+gZDkty6He68L37
+         op/rEbO3GAd2kfAHkbvt8qpMlGVv31cwBqjbJcm2Oh9LlAsRZ3LK+rgahYMKGQeBHHbz
+         RBKJIo0v/eqO1ohm+agyqwPZh/VcyxbyFdZf/XCu9V0DteZfKvBrHabT+PWGh1uHzmf9
+         r+1A==
+X-Forwarded-Encrypted: i=1; AKwUvByDW+puLBTfd42geXH1HIVNp9CC6TMiK/6oCpHhsBzEX3n+Nwfczor8e8m2vL7fbRwXWxfU5YNwJvKJeZk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNopTcXIHFcJvVUwu0rHPUT9+v9yV1BlU0oMaAR8KGcHxPfJi3
+	LX2dLKJ+1N7mD4M3lCvUn74nx5729ORboGqrZ+j52po9HS3FSDzTP4CU
+X-Gm-Gg: AYBFou0mG2LMwCOsoWH3TyS0zA6DkdSpWELoBXtQq8RScSDOSYTMz3Z8BgAzl79F2Bt
+	dE6wAz86HBZXdvE+tpqkK8CzsWJTzBiqdwXwsElNaJqj15i7B4xbc6tJQj5WgUcrThOy1CP/TP1
+	HjhvkVM0MOkPT8MMri6dvvvHb4oERftxFw+S5S3CxGTJZyL/Ottdbtw7WjIgyXUO7GAF1hu8fQo
+	lPN331hsw6jB44lp46vSqz6ZnPS0Ei2vxZaDIXhMCj7lxQebS5/psfIN8ASo5d/c2jkgceyWoLS
+	u/P9vATDCqgXSWhykxC+yF/pDcCA3Ft17qqJgezjl+R//NocbNcnmRz1OE0Ol4VJ3tU+MMZO94p
+	nD4Qm2eDG4bzw5N9nk0E2B/+5rPCD/tAPMchAXsoqOmnp28aEgIvhfIN90SyrQ4GEV6Rvc044En
+	WilCttLgUO7BscW3XWfVgrKRrXyXq8HmCD70rpLj/a5RQBH4nFPHTN3kgM7njExT8AdW/5ATykd
+	M14DYpsghZkFY9zUvinC4nydn08peGpA5uDu0CHqw+R6tny1B+weqfKVCKtA/zyiTtC5VnMd1yJ
+	TgBjzaGutmnEBBj8z0YazIWcqQwWX7SavtYmJz46Pj0lWko0YHX6F0/zOyY=
+X-Received: by 2002:a17:903:2acc:b0:2dd:c100:b2c4 with SMTP id d9443c01a7336-2ddc100b34amr85692785ad.47.1789955994727;
+        Sun, 20 Sep 2026 18:59:54 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df46c0dad9sm7458995ad.29.2026.09.20.18.59.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 18:59:54 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-usb@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	linux-tegra@vger.kernel.org (open list:TEGRA ARCHITECTURE SUPPORT),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] usb: phy: tegra: embed UTMI pad config in phy struct
+Date: Sun, 20 Sep 2026 18:59:52 -0700
+Message-ID: <20260921015952.1047410-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/8] drm/connector: pass down IRQ_HPD to the drivers
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Adrien Grassein <adrien.grassein@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>,
- Nikita Travkin <nikita@trvn.ru>, Yongxing Mou
- <yongxing.mou@oss.qualcomm.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Francesco Dolcini <francesco@dolcini.it>, Abel Vesa <abelvesa@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-References: <20260920-hpd-irq-events-v5-0-ff1de0090c72@oss.qualcomm.com>
- <20260920-hpd-irq-events-v5-2-ff1de0090c72@oss.qualcomm.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20260920-hpd-irq-events-v5-2-ff1de0090c72@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa0c1aad18703a7kunm0bf2730011828ad
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZS0xNVh4YQx9JSEhLGB0aGFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQkxVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=F1wae6Xc2Ll98E4oH3aX72tWpdTNBpUF/4Id0y1xtGULdLtcXmREe+rQNGcB3XdtZo+IKwJ/iDsWwlE1VZ5+iFWx+r8nsHoh8utA9dquAo25H8sCGGSNxUgNNRvgYaEMnEVgr09gpsnUdeon8tvQ8GlQryjz6eiIHmj7zAX49V0=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=JkQGzk7JtUmJhDI7/lc646wm8+od1xD4GOgStSiB+TI=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
 
-Hi Dmitry,
+The UTMI pad configuration was kept in a heap-allocated void * member of
+struct tegra_usb_phy, even though the driver is the only user of the
+field.  Embed the struct directly in the phy state to drop the
+allocation and the void pointer indirection.  The config is
+zero-initialized when the phy struct is allocated, so no extra init
+is needed.
 
-On 9/20/2026 11:01 PM, Dmitry Baryshkov wrote:
-> The DisplayPort standard defines a special kind of HPD events called
-> IRQ_HPD. These events are used to notify DP Source about the events on
-> the Sink side.
-> 
-> Extend drm_connector_funcs::oob_hotplug_event() to pass the
-> notifications about the IRQ_HPD events down to the individual drivers,
-> letting them handle those as required.
-> 
-> Reviewed-by: Pengyu Luo <mitltlatltl@gmail.com>
-> Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/display/drm_bridge_connector.c | 17 ++++++++++-------
->  drivers/gpu/drm/drm_connector.c                |  2 +-
->  drivers/gpu/drm/i915/display/intel_dp.c        |  3 ++-
->  include/drm/drm_connector.h                    |  3 ++-
->  4 files changed, 15 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-> index 00feb73e63d7..a51567d19550 100644
-> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
-> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-> @@ -141,7 +141,8 @@ struct drm_bridge_connector {
->   */
->  
->  static void drm_bridge_connector_hpd_notify(struct drm_connector *connector,
-> -					    enum drm_connector_status status)
-> +					    enum drm_connector_status status,
-> +					    enum drm_connector_dp_event event)
->  {
->  	struct drm_bridge_connector *bridge_connector =
->  		to_drm_bridge_connector(connector);
-> @@ -154,7 +155,8 @@ static void drm_bridge_connector_hpd_notify(struct drm_connector *connector,
->  }
->  
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/usb/phy/phy-tegra-usb.c   | 15 ++++-----------
+ include/linux/usb/tegra_usb_phy.h |  2 +-
+ 2 files changed, 5 insertions(+), 12 deletions(-)
 
-It looks like you only changed the function signature. 
-Don't the "bridge->funcs->hpd_notify" inside this function need to pass the event?
-
-	drm_for_each_bridge_in_chain_scoped(bridge_connector->encoder, bridge) {
-		if (bridge->funcs->hpd_notify)
-			bridge->funcs->hpd_notify(bridge, connector, status);
-	}
-
-
->  static void drm_bridge_connector_handle_hpd(struct drm_bridge_connector *drm_bridge_connector,
-> -					    enum drm_connector_status status)
-> +					    enum drm_connector_status status,
-> +					    enum drm_connector_dp_event event)
->  {
->  	struct drm_connector *connector = &drm_bridge_connector->base;
->  	struct drm_device *dev = connector->dev;
-> @@ -163,7 +165,7 @@ static void drm_bridge_connector_handle_hpd(struct drm_bridge_connector *drm_bri
->  	connector->status = status;
->  	mutex_unlock(&dev->mode_config.mutex);
->  
-> -	drm_bridge_connector_hpd_notify(connector, status);
-> +	drm_bridge_connector_hpd_notify(connector, status, event);
->  
->  	drm_kms_helper_connector_hotplug_event(connector);
->  }
-> @@ -171,16 +173,17 @@ static void drm_bridge_connector_handle_hpd(struct drm_bridge_connector *drm_bri
->  static void drm_bridge_connector_hpd_cb(void *cb_data,
->  					enum drm_connector_status status)
->  {
-> -	drm_bridge_connector_handle_hpd(cb_data, status);
-> +	drm_bridge_connector_handle_hpd(cb_data, status, DRM_CONNECTOR_NO_EXTRA_STATUS);
->  }
->  
->  static void drm_bridge_connector_oob_hotplug_event(struct drm_connector *connector,
-> -						   enum drm_connector_status status)
-> +						   enum drm_connector_status status,
-> +						   enum drm_connector_dp_event event)
->  {
->  	struct drm_bridge_connector *bridge_connector =
->  		to_drm_bridge_connector(connector);
->  
-> -	drm_bridge_connector_handle_hpd(bridge_connector, status);
-> +	drm_bridge_connector_handle_hpd(bridge_connector, status, event);
->  }
->  
->  static void drm_bridge_connector_enable_hpd(struct drm_connector *connector)
-> @@ -223,7 +226,7 @@ drm_bridge_connector_detect(struct drm_connector *connector, bool force)
->  		if (hdmi)
->  			drm_atomic_helper_connector_hdmi_hotplug(connector, status);
->  
-> -		drm_bridge_connector_hpd_notify(connector, status);
-> +		drm_bridge_connector_hpd_notify(connector, status, DRM_CONNECTOR_NO_EXTRA_STATUS);
->  	} else {
->  		switch (connector->connector_type) {
->  		case DRM_MODE_CONNECTOR_DPI:
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index 5d4945ea1e95..f0facccb7859 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -3698,7 +3698,7 @@ void drm_connector_dp_oob_status(struct fwnode_handle *connector_fwnode,
->  		return;
->  
->  	if (connector->funcs->oob_hotplug_event)
-> -		connector->funcs->oob_hotplug_event(connector, status);
-> +		connector->funcs->oob_hotplug_event(connector, status, event);
->  
->  	drm_connector_put(connector);
->  }
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 50ed615cf0f6..a2acff240b45 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -6800,7 +6800,8 @@ static int intel_dp_connector_atomic_check(struct drm_connector *_connector,
->  }
->  
->  static void intel_dp_oob_hotplug_event(struct drm_connector *_connector,
-> -				       enum drm_connector_status hpd_state)
-> +				       enum drm_connector_status hpd_state,
-> +				       enum drm_connector_dp_event event)
->  {
->  	struct intel_connector *connector = to_intel_connector(_connector);
->  	struct intel_display *display = to_intel_display(connector);
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index 906aaefca7e1..c3374cd2598e 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -1884,7 +1884,8 @@ struct drm_connector_funcs {
->  	 * has been received from a source outside the display driver / device.
->  	 */
->  	void (*oob_hotplug_event)(struct drm_connector *connector,
-> -				  enum drm_connector_status status);
-> +				  enum drm_connector_status status,
-> +				  enum drm_connector_dp_event event);
->  
->  	/**
->  	 * @debugfs_init:
-> 
-
+diff --git a/drivers/usb/phy/phy-tegra-usb.c b/drivers/usb/phy/phy-tegra-usb.c
+index 00443a7beaeb..12abc99bdf89 100644
+--- a/drivers/usb/phy/phy-tegra-usb.c
++++ b/drivers/usb/phy/phy-tegra-usb.c
+@@ -392,7 +392,7 @@ static int utmip_pad_close(struct tegra_usb_phy *phy)
+ 
+ static int utmip_pad_power_on(struct tegra_usb_phy *phy)
+ {
+-	struct tegra_utmip_config *config = phy->config;
++	struct tegra_utmip_config *config = &phy->config;
+ 	void __iomem *base = phy->pad_regs;
+ 	u32 val;
+ 	int err;
+@@ -549,7 +549,7 @@ static void utmi_phy_clk_enable(struct tegra_usb_phy *phy)
+ 
+ static int utmi_phy_power_on(struct tegra_usb_phy *phy)
+ {
+-	struct tegra_utmip_config *config = phy->config;
++	struct tegra_utmip_config *config = &phy->config;
+ 	void __iomem *base = phy->regs;
+ 	u32 val;
+ 	int err;
+@@ -888,7 +888,7 @@ static void tegra_hsic_writel(struct tegra_usb_phy *phy, u32 reg, u32 value)
+ 
+ static int uhsic_phy_power_on(struct tegra_usb_phy *phy)
+ {
+-	struct tegra_utmip_config *config = phy->config;
++	struct tegra_utmip_config *config = &phy->config;
+ 	void __iomem *base = phy->regs;
+ 	u32 val;
+ 	int err = 0;
+@@ -1324,7 +1324,7 @@ static int read_utmi_param(struct platform_device *pdev, const char *param,
+ static int utmi_phy_probe(struct tegra_usb_phy *tegra_phy,
+ 			  struct platform_device *pdev)
+ {
+-	struct tegra_utmip_config *config;
++	struct tegra_utmip_config *config = &tegra_phy->config;
+ 	struct resource *res;
+ 	int err;
+ 
+@@ -1345,13 +1345,6 @@ static int utmi_phy_probe(struct tegra_usb_phy *tegra_phy,
+ 		return -ENOMEM;
+ 	}
+ 
+-	tegra_phy->config = devm_kzalloc(&pdev->dev, sizeof(*config),
+-					 GFP_KERNEL);
+-	if (!tegra_phy->config)
+-		return -ENOMEM;
+-
+-	config = tegra_phy->config;
+-
+ 	err = read_utmi_param(pdev, "nvidia,hssync-start-delay",
+ 			      &config->hssync_start_delay);
+ 	if (err)
+diff --git a/include/linux/usb/tegra_usb_phy.h b/include/linux/usb/tegra_usb_phy.h
+index 6343f88df5de..953ba9f06c2a 100644
+--- a/include/linux/usb/tegra_usb_phy.h
++++ b/include/linux/usb/tegra_usb_phy.h
+@@ -76,7 +76,6 @@ struct tegra_usb_phy {
+ 	struct regulator *vbus;
+ 	struct regmap *pmc_regmap;
+ 	enum usb_dr_mode mode;
+-	void *config;
+ 	const struct tegra_phy_soc_config *soc_config;
+ 	struct usb_phy *ulpi;
+ 	struct usb_phy u_phy;
+@@ -87,6 +86,7 @@ struct tegra_usb_phy {
+ 	bool wakeup_enabled;
+ 	bool pad_wakeup;
+ 	bool powered_on;
++	struct tegra_utmip_config config;
+ };
+ 
+ #endif /* __TEGRA_USB_PHY_H */
 -- 
-Best, 
-Chaoyi
+2.55.0
+
