@@ -1,169 +1,251 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EAD349B458
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:35:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFBC249A3C3;
+	Mon, 21 Sep 2026 09:35:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789983346; cv=none; b=toeUNeYaTbIDAD/HlTlv5z9Inbdj5Kl6RbzJJMhsgpLOGfNEK6q3CJmPb8pW9BWpEg7kzkhUFW7ydPE7niAU1e2Mk2ff21bxYki7MPVi4SK6++7UVmB4Eyo2oPgD+pPADL4zcnGLIh0//x9u3H0CxPJyfDXCHUeJP/+tAMbRZTQ=
+	t=1789983351; cv=none; b=jI1eIQ49eBFMehwTF/n7KRmsGV9JNT45yeS+CTkEt/RZodmfNX0kFHAgRCaJ+jIacmCHlZ4isWfbbgk1v8D9YdmnVKB5F9+9u3EdMjfvansR85SJxZFdDePX3scOLz+YdStRDOGfAODqfLW6elmGGceFGD7IVQNxny4OCNtQ3eY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789983346; c=relaxed/simple;
-	bh=ViUeWJk96PNqJrIhaEIWN5xsXuhaArFaHhFVC6OOLhg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=vEMHYNwdRUTW4tqFHE6isvqOH8FWt98CFDeB4A6bYaS4hDJ9kbfCBus+XwI0bRQbxP8gYovn66mwaSErCRquXfAUs1MSX9HlaSH3RgiCc9Xa6R2UuRrNeNRTYVO0R8mLxGtg6Bcd0JyYQo76xM2trPI/6qJtI3z1QLAYywIDTpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KFvsOztY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a7lsuEWN; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789983351; c=relaxed/simple;
+	bh=4N1G44tpWAR4hmfnoY0hydyIPIQlr/hbuUILtJkT6BQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mBJj8Q4/T4ylSzLFp+Bp84lncWzPFTz3KEXd20ShvAnybEGtj9PSTh/qFxrCTQlH5t0STVpwbV7HPB6vaeencUF9oxFmPzStKdDyk4wqYxmG+eTaHELJEHFxizR3t2AozvHjtD6kkYRcmtPV35mLDqM9g+8mg24kxXyJBGleWLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mW/ciwfo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KFvsOztY";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a7lsuEWN"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L8aWTd4146737
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:35:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=mJTrOvpF8hQYLxtXvCLsRNpc5rO6U96I10x
-	yU4upylA=; b=KFvsOztYpIvT7BiVlSUrkjRCgWpqbz7bevnuNrjNQe16G2UiTgH
-	PZo7psoXfBCpj9WB7kWN+OgdDB7C1DeBKSUyMz5EdFCftCas1aY8ZJ3OkduKiiEo
-	HnZ6nYO6PPfhc4aUa1HfFMLR+BWmQ6kYDh3YTw2dYQeGg0j0u7fab/0Sg8HxQ3aa
-	WymnoUzuIjScFHkCUlrwBawf56lPMwT9VsHyxZrTHUYAkdCsXNb2udEszd3bdS6e
-	FeuQkF2qZq9+DJoGGPPi+FTSorhIxHo6DbYjKO3Q77744xcxKcWOYUi6kGqLMai9
-	ek7RbkSKjsdQVqA9anN5Ksicq+QM8sVsGkQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu17gr8sg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:35:43 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a3f673221so455353585a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:35:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789983343; x=1790588143; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mJTrOvpF8hQYLxtXvCLsRNpc5rO6U96I10xyU4upylA=;
-        b=a7lsuEWNLlqeiim+gwnOQy5YGR1YMWLGacklyczwPXV7xJ1GYX8wUitc9BEOjEkHs2
-         0C2gCnMlNJkhjSG2BZYXxpmUAXKF3unGz/wmrNbJQd0pWLiNflYxXgsyEsE/2ftRzMjy
-         rf+ltCrP4DtQ43BL518FPjybeO7i7Bjzf8CyPtDygKPeDYqn4Giz+ytYUYYJ1+DtYwMI
-         ovcnS85Yq5I2L0UreDkTPN/Rgwmd8mEro8SSWab6EiTLHAOXJ1zHsEi5p8mSpUe0Hl7D
-         c3iP/pmZSxTzHuwiAH6HA9RvsQq00QftACuFcdScyKoiLK9PLB/fpRxk/xNNp61ubNqQ
-         5UaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789983343; x=1790588143;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mJTrOvpF8hQYLxtXvCLsRNpc5rO6U96I10xyU4upylA=;
-        b=iU/MGl98uBD85KyJ6rAQTCgq58zZI2dXllTgHdvUq74H0rn8AudQkB3vUDR5SV/GHl
-         Qb5QuHm7IvKikEwduwssAJSpD+ZVOAR82W4fiOSu+qRP+8B2kbLHxVd7fHMcWaVE18D5
-         1iM+ZwqqVgeH6nrH467bAMGtY4rKA9HlK2VThnk42Amy184uQCakLGoWu2zHc2nap2Oe
-         xNKimEf61MlFXmF/3XS815O05upF8+nV0yfbepD9uNrsN8lYb1pDe4dU9GbWfp2nVD/Q
-         nbrPuBm7JUS3cqTjI/SJQigX3s7fkECMxo6OFu4YkPLNhFFXHAXBsqRoDiVfyDoVKWgD
-         +90g==
-X-Forwarded-Encrypted: i=1; AKwUvBx4ovYnb8II7ehkRa1zr8Dp6sZ0ZrxtXIE3Rt4sDL9vbfP4n9I+bivmcH9SN+kjE3d5so9y/kswq/l299Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++mlhVAv7F7vS09rZMdGZKuzA0V6vYGRrNaCW0MoBmWz2sorA9M2
-	zNQRrWzrWhMzlj+YX+Z/YQu4nU5m1LjnMYpaTksPtDYptxPrpe4ooIU9MM5cSAmf5M0s8+lom7c
-	n6hP+iXaFYQgti8U9yTSIMVwdKvZZE8YS8mBch2oq6bXojVZJrSyj2lZ120H0biwaN44=
-X-Gm-Gg: AYBFou2e2dCl0tBFLEDgV4FQH00iYgociIGOie3P6EyBFJ9An8e1hPW9twwxg9Y7b5Y
-	Oaxg7tDgjMx7aTTfx9vVMU//iKDseoVeKmbU4zDOewauSoQh3HyUUmkgVqzPvTLdaqo1i5ksJRQ
-	UN2T49Z2ybGPORlX8eD4IW7Ls4IKKSCDDPhx3Fs8P/MzZcjziBQvY7NshjvYUKPjvKH/hIky6C/
-	SPFypFe6Xvz6ZZYudlvHqTUJhcm8/v5TwcbcM+si1MGTRqwI9nwy5oYkzbgsj8lHT0PstEdTYuW
-	nCa/PF7FXbBQg2xdQwmE2BYPJqHiSDHw/hxjhXtS5VfHKFisPTw5psOibvY45njUviBLgYeN7+t
-	9XY1cNAz4TZ476nijC0eSKN2cYg==
-X-Received: by 2002:a05:620a:1a14:b0:93b:d7a1:ba10 with SMTP id af79cd13be357-93bf576ab1amr994781285a.59.1789983342844;
-        Mon, 21 Sep 2026 02:35:42 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a14:b0:93b:d7a1:ba10 with SMTP id af79cd13be357-93bf576ab1amr994778685a.59.1789983342499;
-        Mon, 21 Sep 2026 02:35:42 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:d04:d483:faad:1e4e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872456301dsm21897253f8f.18.2026.09.21.02.35.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 02:35:41 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        KrzysztofKozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [GIT PULL] power sequencing dependencies for v7.4-rc1
-Date: Mon, 21 Sep 2026 11:35:29 +0200
-Message-ID: <20260921093529.45596-1-bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mW/ciwfo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C8F91F00898;
+	Mon, 21 Sep 2026 09:35:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789983349;
+	bh=vB6u7hTafA7/3xCUaJmo0nI+NPov+j5mxQHYBu1u2js=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mW/ciwfoGLhjzMJByNGdweG+U3lhBfjpJfFRxw3fuUVWAHoXAWab+F+wWo6W8TUPA
+	 oPZqFSqAc1sfBg758UByY0v43uhFNg5YpP174+lUh0067wc9rBeepQGGoieBUIfPfG
+	 wbLXX8Tgt9LjF1AnWKsnTy/MuOWoNQvd56pz5cXhi+welfgIpXeDXF7bgKWC6w/G7Y
+	 W9SMLmP8InpfKddJ1hukjOJatG0Qo9VnSTh1nCLHMTG29ut9beEWQXehPILBuu+Bm5
+	 HCGwHUkV/5BsUo0d6dU53AsXKU70e57ifNK1RWzwCmIN4UUEOPvqS0MqyRmg6qylac
+	 rDNiqGvUnuw7Q==
+Message-ID: <6c94405a-48e4-4842-a096-e2fbbbaa862f@kernel.org>
+Date: Mon, 21 Sep 2026 11:35:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: G-s-1jG7KkvTRclVtSva7bYqNBeSbPWK
-X-Authority-Analysis: v=2.4 cv=IewSymqa c=1 sm=1 tr=0 ts=6ab0fa6f cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=Dtz6quo8gWpENlhL4bYA:9
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEzNiBTYWx0ZWRfX5K27250jIm4E
- 3hKE3Iharr4Xrx9DwS0Op5AbmXWZC0EqkBbjo7wy4A8L7W+MXLimaldj3eDYAQZ5sCr4l9D7Qfp
- v9elnx21vJPCGVYJs4eN72HNQjIJJFViYP3/51qqUluF/lRZcLeMu81wRrZ3wz4g/RxHKSjBDH4
- zysOUfU0SzGslP0bEc/Z987R+cnWR6gmJ1laDN9LoggLjUlEl553Nf5FupbdV7kx6js2Uuu3Tmv
- uZmuyQXERLwm9XILmPWZ+ccdC4eONE8+pzvem+fe24URJpINT7YmVerhFBKsso2hXkyYSNQk3ZI
- +ciaJjcl00KPhVD09vnUfNHUHEGg5+D53wpqEDiEElZ1MO+0hpuFoTiD1SnIuXDsM916kMSQpYr
- /33B38768OyXaXXp68jELtRWaaA+kSfbt1RhQHL5a7K2IZwvoe00FFVdHHStmeaRMSSmirwWEat
- I4F3VGlm+lNREhXFm6w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEzNiBTYWx0ZWRfX/rUvN3bDJZEd
- ukjWcEq5LHpK0b+ZTnETcZ0OU1PGkTQAKeTQzPJaFKkIqto4hSDsSW1xTOypICDEcwf4p74SybR
- nNf+R2FJiEya24Dpb32syrK38UQkt68=
-X-Proofpoint-ORIG-GUID: G-s-1jG7KkvTRclVtSva7bYqNBeSbPWK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
- lowpriorityscore=0 spamscore=0 phishscore=0 malwarescore=0 adultscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609210136
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] mm/page_alloc: avoid direct compaction for costly
+ __GFP_NORETRY allocations
+Content-Language: en-US
+To: Matthew Wilcox <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+ Salvatore Dipietro <dipiets@amazon.it>, abuehaze@amazon.com,
+ alisaidi@amazon.com, blakgeof@amazon.com, brauner@kernel.org,
+ brendan.jackman@linux.dev, david@redhat.com, dgc@kernel.org,
+ dipietro.salvatore@gmail.com, djwong@kernel.org, hch@infradead.org,
+ hch@lst.de, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux-xfs@vger.kernel.org, mhocko@suse.com,
+ ritesh.list@gmail.com, rvvandan@amazon.com, stable@vger.kernel.org,
+ surenb@google.com, ziy@nvidia.com
+References: <20260905174239.99e31515fabe220aa7d8e6fa@linux-foundation.org>
+ <20260910114602.926944-1-dipiets@amazon.it> <aqQlUr-1h07G8JWM@cmpxchg.org>
+ <8d6a8a63-4adc-458a-b548-a47bf5ff8eb7@kernel.org>
+ <aqq8pWI0u1IZNWHT@cmpxchg.org>
+ <20260916153426.3265e2e152cebb6a8d66373d@linux-foundation.org>
+ <20260916153540.9a3fb449f5b3fd481ca1b544@linux-foundation.org>
+ <aq4L29SBCYwvKrw2@casper.infradead.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <aq4L29SBCYwvKrw2@casper.infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi!
+On 9/19/26 06:13, Matthew Wilcox wrote:
+> On Wed, Sep 16, 2026 at 03:35:40PM -0700, Andrew Morton wrote:
+>> From: Salvatore Dipietro <dipiets@amazon.it>
+>> Subject: mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
+>> Date: Fri, 4 Sep 2026 11:56:28 +0000
+>> 
+>> Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+>> introduced high-order folio allocations in the iomap buffered write path. 
+>> When memory is fragmented, each failed costly-order allocation enters
+>> __alloc_pages_slowpath() which runs direct compaction and
+>> drain_all_pages(), causing a 0.38x throughput drop on PostgreSQL pgbench
+>> (simple-update) with 1024 clients on a 96-vCPU arm64 system.
+>> 
+>> The root issue is that direct compaction is too expensive for hot
+>> allocation paths that have fallbacks to smaller allocations. 
+>> __filemap_get_folio_mpol() already marks higher-order allocations with
+>> __GFP_NORETRY | __GFP_NOWARN, signalling that the caller can handle
+>> failure.  However, the page allocator still attempts full direct
+>> compaction for costly orders with __GFP_NORETRY, which is unnecessarily
+>> aggressive when the caller will simply retry at a lower order.
+>> 
+>> For costly-order allocations with __GFP_NORETRY, clear
+>> __GFP_DIRECT_RECLAIM at the very start of the slowpath, before
+>> can_direct_reclaim, can_compact and the nofail checks are evaluated.  This
+>> makes the entire slowpath treat the request as non-blocking: no direct
+>> reclaim, no direct compaction and no drain_all_pages() IPI across every
+>> CPU.  kswapd (and in turn kcompactd) is still woken further down for
+>> background defragmentation, so compaction keeps working for long-term
+>> system health while being removed from the latency-critical direct
+>> allocation path.
+>> 
+>> Allocations that also request __GFP_THISNODE are exempted.  That flag
+>> pairing identifies the local-node-first THP attempt issued by
+>> alloc_pages_mpol() (mempolicy.c), which relies on direct compaction to
+>> form transparent huge pages.
+> 
+> This patch is still piling hack on hack.  We haven't made a serious
+> effort to understand what's going on, we're just adjusting flags until
+> things stop sucking.
+> 
+> What we know:
+>  - Doing compaction every time (which is what we currently do)
+>    performs badly
+>  - Doing compaction once at the requested large size and then not
+>    again until the smallest size also performs badly.  So it's not
+>    that we're doing too much compaction, it's that we're doing
+>    compaction at all.
 
-Please pull the following set of power sequencing updates into the Bluetooth
-tree to satisfy the dependencies for supporting BT on Monza.
+The very first version [1] mentions the associated drain_all_pages(),
+interestingly.
 
-Thanks,
-Bartosz
+> But we don't know why compaction is performing badly.  For example,
+> we could specify MIGRATE_ASYNC or MIGRATE_SYNC_LIGHT if __GFP_NORETRY
+> is set.  Just as a reminder, here's how __GFP_NORETRY is documented:
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+That already happens (for costly orders) in __alloc_pages_slowpath() where
+it sets INIT_COMPACT_PRIORITY.
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+>  * %__GFP_NORETRY: The VM implementation will try only very lightweight
+>  * memory direct reclaim to get some memory under memory pressure (thus
+>  * it can sleep). It will avoid disruptive actions like OOM killer. The
+>  * caller must handle the failure which is quite likely to happen under
+>  * heavy memory pressure. The flag is suitable when failure can easily be
+>  * handled at small cost, such as reduced throughput.
+> 
+> So the callers aren't doing anything unreasonable when they say
+> __GFP_NORETRY.  It's the page allocator (and apparently the compaction
+> side of it) that's not living up to the documented contract.
 
-are available in the Git repository at:
+Note that all these different versions of this patch mention compaction, but
+implement a removal of __GFP_DIRECT_RECLAIM, thus suppressing both reclaim
+and compaction, in response to __GFP_NORETRY. Thus turning this effectively
+to a GFP_NOWAIT allocation. So that's also a violation of the contract, no?
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git tags/pwrseq-is-controllable-for-v7.4
+In [1] thread and also later on v2 thread by you [2] it was proposed to make
+the caller itself do this downgrade to GFP_NOWAIT. But Christoph and Dave
+didn't like that approach (that was conditional to costly order, I don't
+think yours had a response), which is understandable for the costly-order
+case, but for your case it makes sense that if you don't want any
+reclaim+compaction, you tell the allocator GFP_NOWAIT and not __GFP_NORETRY.
 
-for you to fetch changes up to 295eeaf2c6543f746c1c7d9871f6d2f71a7ed4cc:
+> So that's one approach which has not, as far as I can tell, been
+> investigated.
+> 
+> The other thing that icks me about this patch is how complex the
+> condition is:
+> 
+>> +	/*
+>> +	 * Costly __GFP_NORETRY callers have a cheap fallback, so don't stall
+>> +	 * them in reclaim or compaction. __GFP_THISNODE callers are exempt.
+>> +	 */
+>> +	if (costly_order && (gfp_mask & __GFP_NORETRY) &&
+>> +	    !(gfp_mask & __GFP_THISNODE))
+>> +		gfp_mask &= ~__GFP_DIRECT_RECLAIM;
+> 
+> So basically we're saying that __GFP_NORETRY means don't do compaction
+> unless __GFP_THISNODE is set, which is just special pleading.  Surely
+> the right answer is to remove __GFP_NORETRY from the one caller which
+> needs __GFP_THISNODE?
+> 
+> 
+> A slightly unrelated critique of this patch is that it's far too
+> complicated for what it does.  We could achieve the same thing by doing:
+> 
+>  static inline bool gfp_compaction_allowed(gfp_t gfp_mask)
+>  {
+> -       return IS_ENABLED(CONFIG_COMPACTION) && (gfp_mask & __GFP_IO);
+> +       return IS_ENABLED(CONFIG_COMPACTION) && (gfp_mask & __GFP_IO) &&
+> +               (!(gfp_mask & __GFP_NORETRY) || (gfp_mask & __GFP_THISNODE));
+>  }
+> 
+> 
+> Something I've been noodling on the past day or so is cleaning up the
+> GFP flags for "how hard to reclaim".  We currently have five
+> possibilities encoded in four bits:
+> 
+> 1. No direct reclaim (__GFP_DIRECT_RECLAIM clear)
+> 2. Light reclaim (__GFP_DIRECT_RECLAIM | __GFP_NORETRY)
+> 3. Normal reclaim (__GFP_DIRECT_RECLAIM)
+> 4. Extra reclaim (__GFP_DIRECT_RECLAIM | ___GFP_RETRY_MAYFAIL)
+> 5. Reclaim forever (__GFP_DIRECT_RECLAIM | __GFP_NOFAIL)
+> 
+> Clearly we can save ourselves a GFP flag bit by encoding those five
+> options into three bits.  Some of the code that manipulates "how hard to
+> reclaim" will need to be adjusted, but it shouldn't be that many places
+> to change.
+> 
+> If we do that, we can insert more options into the mix if they're really
+> needed.  Like we could have:
+> 
+> 0 - No direct reclaim
+> 1 - Light reclaim, no compaction
+> 2 - Light reclaim with compaction
+> 3 - Normal reclaim
+> 4 - Extra reclaim
+> 5 - Reclaim forever
 
-  power: sequencing: qcom-wcn: Report power controllability (2026-09-21 11:28:12 +0200)
+There's also still (for better or worse) the THP special case of light
+compaction with no reclaim.
+And the long-standing principle (maybe cargo cult? who knows) that for
+non-costly-order allocations (with fallback) the tradeoff of e.g. 2 is more
+favorable than 0. But we don't want the callers to have to change flags
+depending on the order. So it would have to be a distinct option?
 
-----------------------------------------------------------------
-power: sequencing: provide and use pwrseq_is_controllable()
+> and we'd still have two extra states in case we need to add more
+> flavours.
 
-Add a new core power sequencing consumer functions:
-pwrseq_is_controllable(). This allows users to check whether the
-sequencer's target is actually host-controllable.
-
-----------------------------------------------------------------
-Loic Poulain (3):
-      power: sequencing: Add pwrseq_is_controllable() API
-      power: sequencing: pcie-m2: Report power controllability
-      power: sequencing: qcom-wcn: Report power controllability
-
- drivers/power/sequencing/core.c            | 49 ++++++++++++++++++++++++++++++
- drivers/power/sequencing/pwrseq-pcie-m2.c  | 26 ++++++++++++++++
- drivers/power/sequencing/pwrseq-qcom-wcn.c | 30 ++++++++++++++++++
- include/linux/pwrseq/consumer.h            |  7 +++++
- include/linux/pwrseq/provider.h            |  8 +++++
- 5 files changed, 120 insertions(+)
+[1] https://lore.kernel.org/all/20260403193535.9970-1-dipiets@amazon.it/
+[2] https://lore.kernel.org/all/alEz4Chf7Ibyg-ZG@casper.infradead.org/
