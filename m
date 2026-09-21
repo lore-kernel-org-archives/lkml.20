@@ -1,305 +1,220 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C69A492E52
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8CC48C402
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:00:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789992001; cv=none; b=u06xG0vjd0GRI2DHbt+yPYJcvK0ymh/0MhA+xLjveqK8SJaQDJftw2ypjs0J5vgYKT0KOsHGrfr5d0xdZbCCpsIwE7UY9B/BXKJoii1T3Qro2ZCq3aPvJ5FGifl7cf41Qj3REo4WRC8EVLZU1Ferbm3NM7TIe2lKIsT4EYVszi4=
+	t=1789992021; cv=none; b=j/V9ggQ800r06p1cdDpyW9Z4PmZJurmRnnhpanGj1yODqLjD1jmLVQN0h55c0t3rtEW1NadZTQl7quw083o/DUZJLIxsAjsPx3IJtEFh6ib6BYtwKtCYn3fLmHXP/Shr8uzYgw1GGcxrdrHt9ER/esrw7rZxN0e9021ATk8Ej6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789992001; c=relaxed/simple;
-	bh=bEPzRIyIzB0IF+0zjejBOzqxA+2cdOa9NJ/Zly89bAI=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=kTik3k1vSTeyw2X7nisjCogWoorfvNpvJ0qk7xNvM7tU+eYD8wmai/JaMtBJhI9+YcYSXer6qB0PFJobxJruOcSTQ0IJgrb0+njIi/eROvNHAZ1yCV8EB4I88NsyqtxLZnAGGlrPDRIJ6FoeQGrPd57dCNe2Vmod/tBdb5tYyIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=conchuod.ie; spf=pass smtp.mailfrom=conchuod.ie; dkim=pass (2048-bit key) header.d=conchuod.ie header.i=@conchuod.ie header.b=BPPz4J5q; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=conchuod.ie
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=conchuod.ie
+	s=arc-20240116; t=1789992021; c=relaxed/simple;
+	bh=HgscCTdIhqbObj5IdkVWP+i1xbMxe2IH9fAHraLgLyM=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VOSzo7s0guwfEI3qSIf4tXjwB5btCwySNxSTepDnhMKAB2QaGeKMhC5zR3rxP+gjBEp1lvDmy9CmKctfM3ccw1fvLBOpy75uZ6aKG5Sq/u/Re43VzZvbw3wC0ikhUvAq+xQRDJJFupuCQyU/egQLTpK1FnaNIwCkIEv3qV3suk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aCLcEXhc; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=conchuod.ie header.i=@conchuod.ie header.b="BPPz4J5q"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f5603a0so384018566b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:59:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aCLcEXhc"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4858bc96fabso2314215f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:00:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=conchuod.ie; s=google; t=1789991995; x=1790596795; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=vm99IYdaFdSFEgRLWbOM1gyDbfw+zjAxHYiDcpK5GD8=;
-        b=BPPz4J5qUJbxgD7iIKL0SLMwKlXYaEe66n6DuChwl9Bu8fECKtyH5K95L0F7hmdLyg
-         36C7rzq9E3YxTGtqdpPWhHdXSRDpGlk1qfi860PsbV0WeWjitFq77bXvlR7USfE79jLS
-         RG4SY6xHOlFPk58mJ36rmc5JxpSDGZe1m5ahwBHwyTlLh4w1G+oKGCj5sgIX8NPNYXJE
-         xZzL4yTxrlpGTJz1kUS1sX09ss9vL3JMVLd+3XsI4tASFs7X9Eb8kr5aUk3WaBBlhesh
-         6EW+dcAo+EXgAxtT/nMFFYo36YZ4FIYKDmYzT1CZugSknZsOgdEqWaJaBhv7CCPuE31j
-         v9gQ==
+        d=gmail.com; s=20251104; t=1789992018; x=1790596818; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QA57d0MWfONjf/OW7F8GGaeRDnISGbQSvosg5yrwN8E=;
+        b=aCLcEXhcAcbruGw8fngH97iYAZg4T/nAdF6IhqfxlkoUZFCgLUMZL6FZL2CQDxD3p5
+         +d1s0Rt0Q4+SujN76o8o74w1oCyA7y1WFwY77LkyB417b4Y+lpTMBNBnXs5LWveJTP+U
+         Yb4r93f3aJHuqi8xtHFcNmzcMfX00ieRXSHaCg5aBTO+Hzy1HCFpU+P0NPLYZ/CBuG13
+         tfdVQX+Zy52TI36f20hVDPctyfHG7NoDwU/1A/AbuNniPzHPEqguKCvbKEb4HPElzWwo
+         F9uQ7PBfe6qI0xaWFD74tAutuJ00cbXyKqTqwZcziq9603v6nzthLOsWmfQ4LBz1riDw
+         PgOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789991995; x=1790596795;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1789992018; x=1790596818;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vm99IYdaFdSFEgRLWbOM1gyDbfw+zjAxHYiDcpK5GD8=;
-        b=c9VYbk7hYOK/eCw5Sm/0wXrCImZMKRNBGdQgW1Bgf5BDc4RT8s+ewoSJ7HA1lM/VSk
-         g9GxIUPapR8GZdIb1w0cBND9rIAddagAsAp9G19LzCSLEgph7JX5BmblLD375/jX1tHK
-         8j0Y333P5ZMrXKZRJRhPbHjgdEdTX7R/LTwU/g25RpvfTOB5Q0RZpjTKOkhqFWUbYBeg
-         px12jKnoe8PO91T/eQHcdXhFP+OFTH7sm3UJWTeglYyKqc5ZJlgSPLTyJOc06pCfbE4k
-         AdQs8SxaMtDtO+PbYuXMCn94Pv+9zB0TazGxyg2FBrlZ5q06LytgzDRnkHJ1HgjT7zJe
-         wSlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy5fVpuVrCKDYUt9eU4ZEupuuswt1ckJlxoPrp5SYtIvWYKBuBAOvnYLV5TuOP5Ncp782ncpciehIb4cxo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nP96M0V+OeWmW6QbLnlaix76DDFrIGHtcWL9+I/WYjGP2PYot0
-	raZGToiJPcP5rm1T0JhMerZ6U212wa72Fz6YzQc+ZW/F0Y2P8CzYYi7EjR5yBgOFUws=
-X-Gm-Gg: AYBFou0ncX2gzzYUMYu4ryoSOFAE47huUlJ6u5vzpA2mmKg/X+VOqJEWW9bQMizm+bm
-	N4ednhJjpR3PhlGuu7OBbUbuofQyZHMsEkiVE8Zj8biyOBJo+74Zmp1PZMSEspjRHqx7nhX+yIQ
-	QncFkeCCX7WJnW+c1MTXcjzXNK578or+8xTQXk9bfPxKZjHeK43FPewagEV+7kLJmVmH0QHJL9V
-	jW9HgbP69AdrU21FFOY0JB3+EH2Qla50dbei+NluOGZH8YIxXHh+CTCY6F0LpNf4VEVjhRfYtPW
-	aPVBgmudXkV5yyTc4Y848sKRtLyQ45+/rLTorPzerpe08r+esyWYoohyS16TGk0+JJkfM5BEg/C
-	Q1yc/7v6mGxxN9AyRUwi+zPxW1qGyJNqheqbhZ9ga2MwOUrbH+D1WwtpVd41LbFepU2V4/pOu18
-	t/lzYr/R6t6O5i6jAnM1U2Gw4riBox54m2ZeWAbTpe6ERYBTXnexejFHynEU4nejHVSflhYTl1
-X-Received: by 2002:a17:906:c10b:b0:c26:19de:9138 with SMTP id a640c23a62f3a-c2a15cf34efmr955118766b.43.1789991995191;
-        Mon, 21 Sep 2026 04:59:55 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([80.233.32.56])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a3523816dsm290466766b.2.2026.09.21.04.59.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 04:59:54 -0700 (PDT)
-Date: Mon, 21 Sep 2026 13:59:53 +0200
-From: Conor <mail@conchuod.ie>
-To: Chang Yu <marcus.yu.56@gmail.com>
-CC: Jonathan Cameron <jic23@kernel.org>, Conor Dooley <conor@kernel.org>,
- Joshua Crofts <joshua.crofts1@gmail.com>,
- David Lechner <dlechner@baylibre.com>,
- =?ISO-8859-1?Q?Nuno_S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Shi Hao <i.shihao.999@gmail.com>,
- "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: light: add as7343
-User-Agent: K-9 Mail for Android
-In-Reply-To: <arCp0DQpBiOk3zvz@zephyrus-g14.localdomain>
-References: <20260907210042.32552-1-marcus.yu.56@gmail.com> <20260907210042.32552-2-marcus.yu.56@gmail.com> <20260908-dinner-shelve-1d61e19ee3b7@spud> <20260913014203.2bae2222@jic23-hlaptop> <20260915-gleeful-jester-c8114edf28ff@spud> <20260917034823.03940ac4@jic23-hlaptop> <aq3rdBcMw1XcHnkL@gmail.com> <20260920010448.114fc597@jic23-hlaptop> <77D15400-6ECD-4661-8733-E1F4F85077AF@conchuod.ie> <arCp0DQpBiOk3zvz@zephyrus-g14.localdomain>
-Message-ID: <0FB27C18-FADD-4791-8159-41FE6D04D8F3@conchuod.ie>
+        bh=QA57d0MWfONjf/OW7F8GGaeRDnISGbQSvosg5yrwN8E=;
+        b=y/MwpPiaznmogHiKL+hVH2LBSrgigDxw8FXM9NqL7KkaoCIxnWSRzwtppriPwu3sse
+         AQdcrNJ51mWM1YAwZ47Ozn1bg3iGAHI0HrhB7tARv18FkSh6/+aGpSGqd36bpaWW5tX4
+         jAPx4BbqFkdqmYeV53NxbrukwTC+wvG54+seNoJLo5maennRskE4G+jG56yCwTNPnpNP
+         kTPPzZH8rssfcSFa1V5PkBE+0E4bissNFqnC8vvK6SuK+0fqMTmwEQN3Piyj/dOh5b4m
+         VNE++DDc/M7BP0rWPQrTs5nKba0cO0JT4JLCnecXT2yBXNB//H6icRU+roCkpgXLBRu0
+         sNCw==
+X-Forwarded-Encrypted: i=1; AKwUvBzUknNXMAhoReMjPOQphRAjLPyehbS4RdIpJ6dVUps55RostJdoXdA3xJz7/9qgKIh36Z7hgaW9D5hRl9c=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgtauvfvXm1MNDgizkZ7OO4SvUIXAK2Vvmxh6aUxChJi6Gkj/h
+	Fv4L6wyK2wpffvSiQYlgoly90W3kwzN7u1CGgnt+ZQAdW7g6LQEpIlBw
+X-Gm-Gg: AYBFou3wmS/KX/QG1qteSxn6MpedhcRAfizGa60IUVLpwOkVT+3Og2I5ZXZZCS+2cEb
+	V9BUgEwbQpBGjLhwuTyWLBsmXnGwbF3ubXwPnFcfn5fwTLHE+F6voukbtHj5VMEuUtP9kgsfeCo
+	GYcsOrl+aCC6mnbafcpQySTQP1KqeKkgaAfORCgyuWEOas8NWE4EVrsdiR2lV0oO5wpVBu5RSsm
+	mwglWivNGqziv12IfrT/CFCzxqHmZe/FtDdBZIVXbjETSAdmgZQEzQoLTW+cD5Ocaf5s5Q7ciPm
+	TwGtyadbR3iqd0Gkpx0knbq3FEYkNEU8ANi2MBmDV3bU1rrUr7wBUUDKppDfXOZu4i7WTSfFzCz
+	ZeBFlzc4gRO5AmDOC2/BDLA7jehTEV57IEufcVj/fcl/ex9twTLVrlR5kBfqnp+OiPsU7zkxYtT
+	Fl2aK6nNYp6wntUHhuTdMLJndKHr3CiKUbXFrGhz2y2EqexpQ3bTY5F5IM5yVdqXmZwniL
+X-Received: by 2002:a05:6000:18a9:b0:486:fe41:804d with SMTP id ffacd0b85a97d-4871e3b6a68mr15005637f8f.47.1789992018016;
+        Mon, 21 Sep 2026 05:00:18 -0700 (PDT)
+Received: from krava ([176.74.159.170])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487245a58a0sm20252895f8f.36.2026.09.21.05.00.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 05:00:17 -0700 (PDT)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Mon, 21 Sep 2026 14:00:15 +0200
+To: Jim Cromie <jim.cromie@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+	bpf@vger.kernel.org
+Subject: Re: [PATCH 0/3] kallsyms: Accelerate symbol name lookups by ~19x
+Message-ID: <arEcT1iyMl0tFiIJ@krava>
+References: <20260919-ksyms-tune-v1-0-d85c97da1a32@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919-ksyms-tune-v1-0-d85c97da1a32@gmail.com>
+
+On Sat, Sep 19, 2026 at 09:58:54PM -0600, Jim Cromie wrote:
+> kallsyms_lookup_names() resolves symbol names to addresses using a
+> 17-step binary search over kallsyms_names[] (~191k symbols on x86_64).
+> At each step of the search, two bottlenecks compound to create
+> substantial lookup latency:
+> 
+> 0. Marker scanning: get_symbol_offset() scans sequentially from the
+>    nearest 256-symbol marker, decoding an average of ~128 ULEB128 record
+>    headers per probe (~2,176 header decodes per lookup).
+> 
+> 1. Redundant string expansion: kallsyms_expand_symbol() decompresses
+>    the entire candidate symbol into a 512-byte stack buffer (namebuf)
+>    before calling strcmp(), even though ~94% of binary search probes
+>    mismatch on the first 1-2 characters.
+> 
+> Together, these bottlenecks impose a ~4.3 us latency penalty per hit and
+> ~3.8 us per miss.
+> 
+> This 3-patch series eliminates both overheads while keeping the symbol
+> table strictly in sequential address order:
+> 
+> 0. Patch 1 adds lib/test_kallsyms_perf.ko, a microbenchmark module to
+>    measure name hits, name misses, sprint_symbol(), and table iteration
+>    latency, with built-in correctness validation and a sysfs trigger.
+> 
+> 1. Patch 2 introduces kallsyms_names_offsets, a build-time 3-byte direct
+>    index into kallsyms_names[].  This turns get_symbol_offset() into an
+>    O(1) table lookup, dropping the ~2,176 marker hops per lookup and
+>    eliminating the legacy kallsyms_markers[] table.
+> 
+> 2. Patch 3 introduces kallsyms_strcmp_symbol() to compare ASCII queries
+>    against compressed tokens incrementally on the fly, bailing out on
+>    the first mismatched character without expanding subsequent tokens.
+>    This drops the 512-byte namebuf buffer from the kernel stack.
+> 
+> Context & Lineage:
+> 
+> This series was originally developed and benchmarked on mainline (v7.3-rc3).
+> To ensure compatibility with Lorenzo Stoakes' kbuild speedup series (v3),
+> it has been rebased on top of commit c1c0fd58e281 ("kbuild: compress the
+> kernel with pigz if available").
+> 
+> Rebasing required only a trivial mechanical fix in scripts/kallsyms.c to
+> align Patch 2 ("Add 3-byte index into compressed symbols") with Lorenzo's
+> direct binary streaming path (write_incbin).
+> 
+> Glomming onto Lorenzo's build-time acceleration push extends the speedup
+> theme into runtime: his series speeds up the compile and link, and this
+> series speeds up runtime symbol lookups by ~18x.
+> 
+> Live Microbenchmark Results (via test_kallsyms_perf, 100k iters):
+> 
+> Metric                    Baseline      Patched       Speedup
+> -----------------------------------------------------------------
+> Name Search Hit           4,370 ns      247 ns        17.7x
+> Name Search Miss          3,860 ns      195 ns        19.8x
+> sprint_symbol               440 ns      441 ns        parity
+> sprint_symbol_no_offset     315 ns      307 ns        parity
+> Table Full Walk           14,500 us   14,437 us       parity
+> 
+> Address-to-name resolution (sprint_symbol) and sequential table walks
+> (/proc/kallsyms) remain completely unaffected, maintaining full L1/L2
+> hardware prefetching.
+> 
+> Hardware PMU Event Counters (perf stat via sysfs run_test trigger):
+> 
+> $ perf stat -e cycles,instructions,branches,branch-misses,cache-misses \
+>     sh -c 'echo 1 > /sys/module/test_kallsyms_perf/parameters/run_test'
+> 
+> Counter                 Baseline          Patched           Delta
+> ------------------------------------------------------------------------
+> Wall-clock elapsed      1.746 s           0.852 s           -51.2%
+> CPU cycles              7,320,048,030     3,628,523,081     -50.4%
+> Instructions            9,943,172,792     5,034,260,318     -49.4%
+> Branches                2,391,663,821     1,173,258,010     -51.0%
+> Branch-misses             117,241,513        99,805,938     -14.9%
+> Cache-misses               84,996,149           731,025     -99.1%
+> 
+> Dropping marker scans and avoiding redundant string expansions cuts
+> 4.91 billion instructions (-49.4%) and drops 84.2 million cache misses
+> (-99.1%) across the test workload.
+> 
+> Memory footprint: +573 KiB .rodata for kallsyms_names_offsets (191k
+> symbols * 3 bytes on x86_64 defconfig), minus ~2 KiB from dropping
+> kallsyms_markers[].
+> 
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+
+nice, fyi I checked on tracing_multi benchmark and got bit of
+speedup as well
+
+before:
+
+serial_test_tracing_multi_bench_attach: found 64021 functions
+serial_test_tracing_multi_bench_attach: attached in   2.884s
+serial_test_tracing_multi_bench_attach: detached in   1.149s
+
+    16,515,655,329      cycles:k
+    41,935,382,635      instructions:k
+
+after:
+
+serial_test_tracing_multi_bench_attach: found 64021 functions
+serial_test_tracing_multi_bench_attach: attached in   2.633s
+serial_test_tracing_multi_bench_attach: detached in   1.159s
+#558     tracing_multi_bench_attach:OK
+
+    15,880,929,751      cycles:k
+    40,444,002,354      instructions:k
+
+we call kallsyms_lookup_name for each attached symbol
+
+jirka
 
 
-
-On 21 September 2026 05:51:44 GMT+02:00, Chang Yu <marcus=2Eyu=2E56@gmail=
-=2Ecom> wrote:
->On Sun, Sep 20, 2026 at 03:14:30PM +0200, Conor wrote:
->>=20
->>=20
->> On 20 September 2026 02:04:48 GMT+02:00, Jonathan Cameron <jic23@kernel=
-=2Eorg> wrote:
->> >On Fri, 18 Sep 2026 18:55:00 -0700
->> >Chang Yu <marcus=2Eyu=2E56@gmail=2Ecom> wrote:
->> >
->> >> On Thu, Sep 17, 2026 at 03:48:23AM +0100, Jonathan Cameron wrote:
->> >> > On Tue, 15 Sep 2026 18:11:17 +0100
->> >> > Conor Dooley <conor@kernel=2Eorg> wrote:
->> >> >  =20
->> >> > > On Sun, Sep 13, 2026 at 01:42:03AM +0100, Jonathan Cameron wrote=
-: =20
->> >> > > > On Tue, 8 Sep 2026 19:13:55 +0100
->> >> > > > Conor Dooley <conor@kernel=2Eorg> wrote:
->> >> > > >    =20
->> >> > > > > On Mon, Sep 07, 2026 at 02:00:41PM -0700, Chang Yu wrote:   =
-=20
->> >> > > > > > Add binding for AMS AS7343 which is a 14-channel multi-spe=
-ctral sensor
->> >> > > > > > with i2c address of 0x39=2E
->> >> > > > > >=20
->> >> > > > > > The GPIO pin is described as a generic GPIO for now=2E Bin=
-ding design for the
->> >> > > > > > more advanced measurement/LED synchronization use cases ar=
-e deferred to
->> >> > > > > > future patches=2E     =20
->> >> > > > >=20
->> >> > > > > Unfortunately, you can't change what you document, so pickin=
-g something
->> >> > > > > correct now is needed - even if the driver doesn't use it ye=
-t=2E   =20
->> >> > > >=20
->> >> > > > Definitely needs an outline of how it would be backwards compa=
-tible and
->> >> > > > an explanation of why not now=2E  Sometimes a portion of the b=
-inding is
->> >> > > > so uncertain that we do kick it back from initial version but =
-we 'must'
->> >> > > > be sure we can extend the binding to new configurations=2E  No=
-rmally this
->> >> > > > is one of those we are fairly sure, but not entirely sure case=
-s - or
->> >> > > > picking between two options where consensus isn't being reache=
-d=2E
->> >> > > >=20
->> >> > > > Chang Yu: This sort of things needs discussion and is one of t=
-he reasons to
->> >> > > > go slowly=2E   =20
->> >> > >=20
->> >> > > Ye, I note that there are 2 more versions of this since I left t=
-his
->> >> > > comment, but you seem to be on top of that=2E
->> >> > >  =20
->> >> > > > > > Datasheet: https://look=2Eams-osram=2Ecom/m/5f2d27fff9a874=
-d2/original/AS7343-14-Channel-Multi-Spectral-Sensor=2Epdf
->> >> > > > > > Signed-off-by: Chang Yu <marcus=2Eyu=2E56@gmail=2Ecom>
->> >> > > > > > ---
->> >> > > > > > Changes in v2:
->> >> > > > > >   - Add the LDR, the interrupt pin, and the GPIO pin to th=
-e bindings=2E
->> >> > > > > >   - Fix node name and unit address mismatch=2E
->> >> > > > > >   - Include MAINTAINERS changes=2E
->> >> > > > > >=20
->> >> > > > > >  =2E=2E=2E/bindings/iio/light/ams,as7343=2Eyaml        | 6=
-9 +++++++++++++++++++
->> >> > > > > >  MAINTAINERS                                   |  6 ++
->> >> > > > > >  2 files changed, 75 insertions(+)
->> >> > > > > >  create mode 100644 Documentation/devicetree/bindings/iio/=
-light/ams,as7343=2Eyaml
->> >> > > > > >=20
->> >> > > > > > diff --git a/Documentation/devicetree/bindings/iio/light/a=
-ms,as7343=2Eyaml b/Documentation/devicetree/bindings/iio/light/ams,as7343=
-=2Eyaml
->> >> > > > > > new file mode 100644
->> >> > > > > > index 000000000000=2E=2Eb06d445b92b3
->> >> > > > > > --- /dev/null
->> >> > > > > > +++ b/Documentation/devicetree/bindings/iio/light/ams,as73=
-43=2Eyaml
->> >> > > > > > @@ -0,0 +1,69 @@
->> >> > > > > > +# SPDX-License-Identifier: GPL-2=2E0-only OR BSD-2-Clause
->> >> > > > > > +%YAML 1=2E2
->> >> > > > > > +---
->> >> > > > > > +$id: http://devicetree=2Eorg/schemas/iio/light/ams,as7343=
-=2Eyaml#
->> >> > > > > > +$schema: http://devicetree=2Eorg/meta-schemas/core=2Eyaml=
-#
->> >> > > > > > +
->> >> > > > > > +title: AMS AS7343 14-Channel Multi-Spectral Sensor
->> >> > > > > > +
->> >> > > > > > +maintainers:
->> >> > > > > > +  - Chang Yu <marcus=2Eyu=2E56@gmail=2Ecom>
->> >> > > > > > +
->> >> > > > > > +description: |
->> >> > > > > > +  The AMS AS7343 is a 14-channel multi-spectral sensor wi=
-th i2c address of 0x39=2E
->> >> > > > > > +  https://look=2Eams-osram=2Ecom/m/5f2d27fff9a874d2/origi=
-nal/AS7343-14-Channel-Multi-Spectral-Sensor=2Epdf
->> >> > > > > > +
->> >> > > > > > +properties:
->> >> > > > > > +  compatible:
->> >> > > > > > +    enum:
->> >> > > > > > +      - ams,as7343
->> >> > > > > > +
->> >> > > > > > +  reg:
->> >> > > > > > +    description:
->> >> > > > > > +      I2C address of the device (0x39)=2E
->> >> > > > > > +    maxItems: 1
->> >> > > > > > +
->> >> > > > > > +  interrupts:
->> >> > > > > > +    description:
->> >> > > > > > +      Open drain output active low interrupt pin=2E
->> >> > > > > > +    maxItems: 1
->> >> > > > > > +
->> >> > > > > > +  vdd-supply: true
->> >> > > > > > +
->> >> > > > > > +  ams,led-current-microamp:
->> >> > > > > > +    description:
->> >> > > > > > +      The driver current for the external LED connected t=
-o the LDR pin=2E
->> >> > > > > > +    minimum: 4000
->> >> > > > > > +    maximum: 258000
->> >> > > > > > +    multipleOf: 2000
->> >> > > > > > +    default: 12000     =20
->> >> > > > >=20
->> >> > > > > Rather than a custom property, the tsl2772 uses led-max-micr=
-oamp:
->> >> > > > > tsl2772=2Eyaml
->> >> > > > > 46:  led-max-microamp:
->> >> > > > > 81:                led-max-microamp =3D <100000>;
->> >> > > > >=20
->> >> > > > > I wonder if the same should be done here, or if there should=
- be an leds
->> >> > > > > subnode? Perhaps the IIO folks can comment on that=2E   =20
->> >> > > >=20
->> >> > > > I don't think we've ever bothered with a subnode as there only=
- tends
->> >> > > > to be one of them=2E  Given the enabling etc is all hardware c=
-ontrolled
->> >> > > > I'm not sure a more generic LED binding makes sense=2E I don't=
- know that
->> >> > > > much about the led bindings though so maybe it is worth doing =
-a subnode
->> >> > > > just to use the leds/common=2Eyaml definition of led-max-micro=
-amp?   =20
->> >> > >=20
->> >> > > Could always just put a ref in to leds/common=2Eyaml and not bot=
-her with a
->> >> > > child node=2E I'd stick with the additionalProperties: false, si=
-nce
->> >> > > there's lots of leds properties that probably don't apply to a d=
-evice
->> >> > > like this=2E
->> >> > >  =20
->> >> > Sounds good to me=2E
->> >> >  =20
->> >> > > Cheers,
->> >> > > Conor=2E =20
->> >> >  =20
->> >> A quick heads up, adding a ref produces the following error when run=
-ning
->> >> dt_binding_check:
->> >>=20
->> >> properties:led-max-microamp: '$ref' should not be valid under {'cons=
-t': '$ref'}
->> >> 	hint: Standard unit suffix properties don't need a type $ref
->> >> 	from schema $id: http://devicetree=2Eorg/meta-schemas/core=2Eyaml
->> >>=20
->> >> So it looks like we can just put led-max-microamp, and not add the $=
-ref=2E
->> >
->> >Ah=2E That's a bit irritating as it is assuming the ref is to get the
->> >type rather than to make the connection to the standard definition
->> >of what it is=2E  Conor, what is the best way around this?=20
->> >Maybe a comment to say where it is documented instead of a $ref?
->>=20
->> From the error, it looks like this was done incorrectly, but impossible=
- to tell for sure without the snippet=2E
->> The ref I was talking about would be at the  top level
->>=20
->> >
->> >J
->> >
->I was doing something like:
->    led-max-microamp:
->      $ref: /schemas/leds/common=2Eyaml#/properties/led-max-microamp
->      minimum: 4000
->which gave me the error=2E
->
->IIUC, Conor was suggesting something like:
->    allOf:
->      - $ref: /schemas/leds/common=2Eyaml#
->
->From my limited understanding of dt bindings, the above should not be
->used together with additionalProperties: false ? So do we want something
-
-It can be used with it, you just need to list the property in the schema y=
-ou're writing - which you have to do anyway because you're setting constrai=
-nts on it=2E
-
-Cheers,
-Conor=20
-
->like:
->
->    allOf:
->      - $ref: /schemas/leds/common=2Eyaml#
->
->    unevaluatedProperties: false
->
->Or just stick with what's in v5?
->
+> ---
+> Jim Cromie (3):
+>       kallsyms: Add test_kallsyms_perf module to benchmark lookup latency
+>       kallsyms: Add 3-byte index into compressed symbols to replace marker scans
+>       kallsyms: Match compressed tokens on the fly during binary search
+> 
+>  kernel/kallsyms.c          | 138 ++++++++++++++-------------
+>  kernel/kallsyms_internal.h |   2 +-
+>  lib/Kconfig.debug          |  10 ++
+>  lib/Makefile               |   1 +
+>  lib/test_kallsyms_perf.c   | 228 +++++++++++++++++++++++++++++++++++++++++++++
+>  scripts/kallsyms.c         |  30 +++---
+>  6 files changed, 322 insertions(+), 87 deletions(-)
+> ---
+> base-commit: c1c0fd58e28143fd10071f51f4dcc8249a331513
+> change-id: 20260919-ksyms-tune-e22a42d8a31a
+> 
+> Best regards,
+> -- 
+> Jim Cromie <jim.cromie@gmail.com>
+> 
+> 
