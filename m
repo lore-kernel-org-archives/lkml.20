@@ -1,110 +1,113 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35FD41A918;
-	Mon, 21 Sep 2026 20:00:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98FAB2C3757;
+	Mon, 21 Sep 2026 20:00:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790020823; cv=none; b=ty9bWBzaiWoOnRAqCG+BuyoWG69/5OQ2TLfKtA1V9nR/AhkMiraphlIrynhfmwNpaKGMVIEad9/PcAWsWH+l6qFG0MOYLuKHI3cemNS+L5ns/zFHM7/cmmO84RdjSNMomxZFVkOO5mQuDA+7db9rgnpzXXL29naH655hOGwELNw=
+	t=1790020825; cv=none; b=CU1QpfmySGhbfI2MmE1v/X3TnmdfTCgwYXOEAETGS1oKVeDFwuFJBLY5RuQ3HeAGLNUfGyp2ryL78+NLnml3KMGrvVx0DZLTIU4KYRZipl2AQxJqX2tr1vHIueSfjBeyYNPgWmxIdrDyvTpS7cwn3Rm3jXSnyYMgWV/ClfM5K/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790020823; c=relaxed/simple;
-	bh=CcU4GBwyYWo0Jw8qCVnLuLYztqeFikHwQvXY+iDLvfs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=D+3Y2obywWFH0anmcSXzt3QuS6sLTj2ygTXIG92QGyta/LCUMijd8IwtHUCZKh+6KbfHj6yKl83F8pq691C74xNuqN8jJWIBobsCgeEc1H7yTeuCsNdxEDygXpCCvtcBrHVSn9GFKwwk3HBbFfwtsfcO+dMfEvQ8Ef7iFRaUIDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=ppwywcF0; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1790020825; c=relaxed/simple;
+	bh=Jle8I94CDmdb6pvC+qkgL9TgIKRqIkcLTUltvuexjhY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=j+uK4ieLedmfzoWls/TKln68Dgob3x0eXzwAYlOI3MBkgE3UgCP5qBftXJMG8Moo2GJfEPnE8oGQhj2DN0w4ugU1rVhneIt9e0e0LPoptKW9WH+A3Q97DUDe4kydZJCEcXrJIFn7tcou2yljzK5cNu1NXaXh37mnvnhcx4p2Drs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RcANY6MP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="ppwywcF0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=qPqAC8XIUQNSGAn1Xl0hkf8IfjOPmNZSVQTEu+4E3qc=; b=ppwywcF00VFv/6G5rc+Rg9RvSS
-	C06QTg2vr704qKcNHlum4hn7hK/c3sbO7yaGVe7/72riaZXwIsCZ9p7NGyVh0j8E1W4TIc983PA1f
-	4iR5aKEjP6iCGmS2mkon0LrfQ7isb49hvz2qQb2/PCd8bEF6Dk03VkLz32kPGQTxcxydP1wmjszgj
-	CPfWAGDyFsFreX441GAN1u+elq5CLnwQo2TopsHxcasriet9QOlzGvkZRxkcT1QrXmVuB8Zou85b6
-	H96f8W2Yo+iE2lqA+tnAKSKF8Wm9lBN+ZVTDUMXqhbhrSPK2aoSfyOhpzhGe5kZuXDmP3g4zQKv2a
-	LR2g+qYg==;
-Received: from [151.115.150.205] (port=53318 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1x8kBW-00000002ZZA-1zWc;
-	Mon, 21 Sep 2026 22:00:18 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Paul Moore <paul@paul-moore.com>,
-	Eric Paris <eparis@redhat.com>
-Cc: audit@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Subject: [PATCH] audit: fix exe mark UAF in kill_rules()
-Date: Mon, 21 Sep 2026 19:59:22 +0000
-Message-ID: <20260921195921.4174830-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RcANY6MP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD45C1F000FF;
+	Mon, 21 Sep 2026 20:00:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790020823;
+	bh=BWjdXfohek7UjopKrNfrvbb5fe9CUNtaKf7mkTIpAPM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=RcANY6MPoJ2cYKtAT9WPPzebl6rnP5o06GtQRzAxnS2cy1JZ5rgXmtN1t5ZGKsbbH
+	 25x3qs1W6FlHMH+KF9gdSLgkXJJDREvTRnQOsdNal5ankk+VYml4E3fGwimsdCp+vM
+	 NphSgLOkAm8GFPTWivHmIIzFeB7/OnEU35Yc3BVa4QQQv05VDFFeVgjETOBb2q9efS
+	 UfR3jAZA1LhbPlCRhFxkd+wgwhcEzqtp1K1JVxIW5XjepqiRLEQ9j3mzScmCq15cuF
+	 txdI0eKbUsdLOcCl/QC9e9PRxydnF8kcOTUTluQs+R8x/ciTLTZ7+1Y/in+RED0gUP
+	 xjPfr/4voZJnA==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Mon, 21 Sep 2026 21:58:59 +0200
+Subject: [PATCH v2 07/13] mm/sparse: remove pfn_in_present_section()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-b4-sparsemem_cleanups-v2-7-54d81d65e125@kernel.org>
+References: <20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org>
+In-Reply-To: <20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Brendan Jackman <brendan.jackman@linux.dev>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+ Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>, 
+ Oscar Salvador <osalvador@suse.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, 
+ linux-fsdevel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1195; i=david@kernel.org;
+ h=from:subject:message-id; bh=Jle8I94CDmdb6pvC+qkgL9TgIKRqIkcLTUltvuexjhY=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLI29rR5GKiXvujIEuRX+Shp77folP9Hhcre57Mi2+uuh
+ UzlW3W7o5SFQYyDQVZMkSUo+L7By5fraqvd+Jhh5rAygQxh4OIUgIl8DWNkmH3816TKqS9/GBwT
+ FvpV72i/X7Pp4S2vhPiCTQ81t7TUMDIytObKHBOrfc2cGm/kGp2tX7D0qsnpc8I8L2xSHCW7wzZ
+ zAAA=
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-kill_rules() removes mixed AUDIT_DIR and AUDIT_EXE rules when an audit
-tree is pruned. It drops entry->rule.exe before removing the rule from
-the RCU-visible filter lists.
+Unused, let's remove it.
 
-After a rule has been installed with AUDIT_ADD_RULE, which requires
-CAP_AUDIT_CONTROL, removing or moving the watched directory can race
-with another task that is still evaluating the rule. In that case,
-fsnotify can free the executable mark before the reader reaches
-audit_mark_compare(), causing a use-after-free.
-
-KASAN reports:
-
-    BUG: KASAN: slab-use-after-free in audit_mark_compare+0x8d/0xa0
-
-Remove the rule from the RCU-visible filter lists first, wait for a grace
-period, and only then drop the executable mark. audit_del_rule() already
-uses this ordering.
-
-Fixes: 34d99af52ad4 ("audit: implement audit by executable")
-Assisted-by: Codex:gpt-5
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Acked-by: Oscar Salvador <osalvador@suse.de>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- kernel/audit_tree.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ include/linux/mmzone.h | 10 ----------
+ 1 file changed, 10 deletions(-)
 
-diff --git a/kernel/audit_tree.c b/kernel/audit_tree.c
-index 1ed19b7..864a58b 100644
---- a/kernel/audit_tree.c
-+++ b/kernel/audit_tree.c
-@@ -553,11 +553,12 @@ static void kill_rules(struct audit_context *context, struct audit_tree *tree)
- 		if (rule->tree) {
- 			/* not a half-baked one */
- 			audit_tree_log_remove_rule(context, rule);
--			if (entry->rule.exe)
--				audit_remove_mark(entry->rule.exe);
- 			rule->tree = NULL;
- 			list_del_rcu(&entry->list);
- 			list_del(&entry->rule.list);
-+			synchronize_rcu();
-+			if (entry->rule.exe)
-+				audit_remove_mark(entry->rule.exe);
- 			call_rcu(&entry->rcu, audit_free_rule_rcu);
- 		}
- 	}
+diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
+index 0c2fea48c261b..a3937577fbfb2 100644
+--- a/include/linux/mmzone.h
++++ b/include/linux/mmzone.h
+@@ -2326,13 +2326,6 @@ static inline unsigned long next_valid_pfn(unsigned long pfn, unsigned long end_
+ 
+ #endif
+ 
+-static inline int pfn_in_present_section(unsigned long pfn)
+-{
+-	if (pfn_to_section_nr(pfn) >= NR_MEM_SECTIONS)
+-		return 0;
+-	return present_section(__pfn_to_section(pfn));
+-}
+-
+ static inline unsigned long next_present_section_nr(unsigned long section_nr)
+ {
+ 	while (++section_nr <= __highest_used_section_nr) {
+@@ -2362,9 +2355,6 @@ static inline unsigned long next_present_section_nr(unsigned long section_nr)
+ #else
+ #define pfn_to_nid(pfn)		(0)
+ #endif
+-
+-#else
+-#define pfn_in_present_section pfn_valid
+ #endif /* CONFIG_SPARSEMEM */
+ 
+ /*
+
 -- 
-2.47.3
+2.43.0
 
