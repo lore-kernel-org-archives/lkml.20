@@ -1,41 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6475D47F3AC;
-	Mon, 21 Sep 2026 23:26:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F468518125;
+	Mon, 21 Sep 2026 23:27:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790033217; cv=none; b=JQE6jUBukOMgC19PAo3DWIMN4l8EjqrwMoJoipXLg+NRKSvf3B0+MMl7t1SyR8cR4abCfBdVbYx2n4DooVQPhtmSJ9To6aZ7hOrNP6QD+zZ9Mjqh8UNMB65+8Kf1vJ+tr+1AoQEF1Pe/EkciLJuzCQjNEpRbKuEvR77e4OjJosE=
+	t=1790033232; cv=none; b=NwtXF53aILmzm0coJtr1ifXzlc2X7yOZyShQ0OOn6FPkBpIVjBmfjOh/kfGnHk4cDJdBjKvFG3HnHgV3wqyWYAaqCsYy9WnSGRvDlnUkT81ksJkDUfbUVn5otF76nz7pxOCC+ANqRSoJdXgfdIZQPoFoJmQVfNIE0xohjuRS0c8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790033217; c=relaxed/simple;
-	bh=qUu1tixUJ+nzZLxZJ5m3xuMM0uK7ea+9POwgqAbiad0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DHYf30dBwwJJ0olWeSg7zc00xW52IWGIK43oH6e7VAHixRylIaX1AIL5M0AHG72s2lYZeL2gMGGEZmTgMoSMbbKem903d88pcsLt4hoYfrsFIuZ6P1VVttTkG2EmXn4vvLK2dANNbvQtv3vcaYE+B6h7fK1SiL+QG/lcmbDQ2Yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FZUnQsMH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790033232; c=relaxed/simple;
+	bh=VvUq72tDxBIzxt7SgVTXcJUmDA2eBGvYAecQ8pMJWwE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BqvEyrf37HDYkSgpH1rQoVKi+0ueRxh782VpQzUQwUF+O6c1uJNRs8PwZtw6Nvtj6nKpQc6AuXWCK6Qw728Cg09KAnagsLfoKafDKOt/U+rZZ+52frh73mIHBxV/N533e106tE/CKZoTWSEsHwSHqmE+HcJ3fdvZJGfTPtEXMlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KtS1PaiN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FZUnQsMH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3D521F00893;
-	Mon, 21 Sep 2026 23:26:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KtS1PaiN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61CDF1F000FF;
+	Mon, 21 Sep 2026 23:26:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790033204;
-	bh=d5HPZjUise0qlSGegrOQwgvpW+DXll4Xp09lf+BrsqQ=;
+	s=k20260515; t=1790033216;
+	bh=IUe+Dpx+RFTCFSmdw+LyaohJ6/6qox8ai3T1sHvA7rY=;
 	h=From:To:Cc:Subject:Date;
-	b=FZUnQsMHj7+woUMN7iJUI0utWMr85BXZtrAycQ4/QJEh/6O1A6UHrUHwUhv9ES57z
-	 s3ZBm/VvdXq/g4YRMvmFW6zsrZrWhn/MifRMwnAvhPUt0IhmBedIIS2O8rGpDuAAaz
-	 5W1xgs+Coeo5eFmdmr7xc95gXEsCIuNagUh0lCAdt0SiIIaP6Cbc+Waydh8QNk/cS9
-	 HwD/QYWkiAvR/cr4n25HDHBfkGQTztLCT4zkPU4EeWQssRmtb49e1lpwaalmn30K11
-	 iHI8w/PgG3V5z7gMu1G1yIGilflWfaFKvo/XeaRUWlyvbhRFAf3RkJUtbOHIfUdCZw
-	 ZWjAhKokwDQ1Q==
+	b=KtS1PaiN5FLyH0RiiXvjRUPbH7M8MxDi0jo47WVdL/ZAQdXJcDU/zvdPR1AoDwH90
+	 iF6GsSAPgNEu2cWCVxNCXk1QhD6iXStNNSmdhO0jxjoolQ29rW7uWH+pPbCE8+XjIq
+	 zhmxbAfiZWpdhk3fY4QPassFq11YzgEH7ardEqLOngwDNFS5yxQhutXsEXBEcWpEHS
+	 lJsJp2XRSMTXm9OXOcllsWPQxLHj36dlnjfzh7aG8StFdW52oVAtWL5HJXZED0BiIA
+	 JtNcipyMzV9T3caBoX4Qk4p3Qv0wNYEA/LSRfxlzeFouCN0JZnvEi+cRGgnvNJv6y3
+	 HnE4qDDidg00Q==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Lee Jones <lee@kernel.org>,
+To: Sen Chu <sen.chu@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Macpaul Lin <macpaul.lin@mediatek.com>,
+	Lee Jones <lee@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Renner Berthing <kernel@esmil.dk>
-Cc: mfd@lists.linux.dev,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-pm@vger.kernel.org,
+	mfd@lists.linux.dev,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: mfd: ti,tps65086: Make regulators optional
-Date: Mon, 21 Sep 2026 18:26:38 -0500
-Message-ID: <20260921232639.3132083-1-robh@kernel.org>
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH] dt-bindings: mfd: Add MT6397 sound DAI cells
+Date: Mon, 21 Sep 2026 18:26:48 -0500
+Message-ID: <20260921232649.3132592-1-robh@kernel.org>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -45,33 +52,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The TPS65086 MFD driver adds the regulator child device
-unconditionally, and the regulator driver registers the regulators
-from the parent node even when there is no regulators child node
-containing init data.
-
-Do not require the regulators container in the binding. Existing
-ZynqMP boards that only describe the PMIC core and GPIO function are
-valid without regulator init data.
+Document the one sound DAI cell provided by MT6397 PMIC nodes.
 
 Assisted-by: LLM
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- Documentation/devicetree/bindings/mfd/ti,tps65086.yaml | 1 -
- 1 file changed, 1 deletion(-)
+ Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/mfd/ti,tps65086.yaml b/Documentation/devicetree/bindings/mfd/ti,tps65086.yaml
-index a8eed9065d96..64f02d1e1e4d 100644
---- a/Documentation/devicetree/bindings/mfd/ti,tps65086.yaml
-+++ b/Documentation/devicetree/bindings/mfd/ti,tps65086.yaml
-@@ -90,7 +90,6 @@ required:
-   - reg
-   - gpio-controller
-   - '#gpio-cells'
--  - regulators
+diff --git a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+index 3cbc0dc12c31..e2caa049a60b 100644
+--- a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
++++ b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+@@ -57,6 +57,9 @@ properties:
+   "#interrupt-cells":
+     const: 2
  
- examples:
-   - |
++  "#sound-dai-cells":
++    const: 1
++
+   rtc:
+     type: object
+     $ref: /schemas/rtc/rtc.yaml#
 -- 
 2.53.0
 
