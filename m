@@ -1,49 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB48A47ECF0;
-	Mon, 21 Sep 2026 12:03:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451D4493D22
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:03:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789992202; cv=none; b=SulFKrLxJg0lVowujIWE9k/IUnW3duKCPz+9ttHGnkOuGQQEFcjFp1QorRzgJpsNOBSDfKoCEFMnvb3jn2QmLvtS15D7kjTLsHHcJrqqFjUjGqRMwymZ8DJb0WWIjs/dw5vSznziNCUB2m/X5/Mf/orV5k2eyHuiFi7NyTutzic=
+	t=1789992210; cv=none; b=A6MimBNPi5g6YQ12jD364lvVTKvIjx9CuWnDMdFEun8fSstsh4lMWjx3yZnBx76ugzb3IV8GXmvajYY2+JtMoyvrmq82BS9GDr2wIa673cohSFDwhYeUZcYu18v4tMOiwpohXq5Tg8SKwulBhDh2WY0G2sNfbK3JQhglNSf6Hyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789992202; c=relaxed/simple;
-	bh=H0So/+MkpCec0oFknu4pOjgH63d0n2koBSaZ1LNmxUQ=;
+	s=arc-20240116; t=1789992210; c=relaxed/simple;
+	bh=scRw+GVm6s7wVCc9nPzG2SgvvrPpNiJqmfTKziigzDk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=slCuhXwTc6lk6/RmRossdLsfWdIpU7dLaXqJLpy/iMiPqhHQpZepqbng8gxCBZ7vl6+fZBIq55uTdNtvV9LjV9EzV7m/HB8iuHTUixIAn0mVVi07DZi72TzV9uAe0KqM3DM2CTul1Lig3etNI2sxfDpnOnDWmeWtBy5vW63znzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gg+fJKlx; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=nWE8vizW5Rt58agxI48MCQNUYM1KWebG+0bWnZfiqJxskD/jYMpf+MsB52WvL5O1NO3yYTlSpD2NKkCDdYedVskwnf/deX5oYlbhfdpY2T1wEef/PUDvMfIUsqhahhWv07rASN6+9CaI72nwxnyNp8baKWIxvEk8vgF2LBlmp0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OGkLbO9g; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GKFxn0dZ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gg+fJKlx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D732B1F000FF;
-	Mon, 21 Sep 2026 12:03:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789992201;
-	bh=ZSkmJtXL7WUnfY0TRuru1PuhPDtpUorFFaCq4i0ogiM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Gg+fJKlxBLTrl/SOVvdc/MFTvGp7WFSDmdkHklDMOKY5Ds45e6mpUkt0UR56r8bai
-	 6tK8pPdYdyO7yTw2WypRtgizXItRBHvX8S5H/4PUCmfrL+w2kwhNnrsUrbCWNnm2JX
-	 AO1ayb2mZTCxhcXx366fnkk3wGSjoLTwD7GEd2/gOmFFkm6Vz0MQuu4D7LKHkYzscE
-	 ZZPoylgQzGxEBBG/05saCGEQ9j+vr3u6gfdBfbna/4cXG5pPqEPmtQB0hPuAFVrVDb
-	 grxsWteKBuVUYGn9WYJTsHiS38ExMjy6pj//h3C89EHqSjWHfoKBxCDTcyQMxqsFcg
-	 mcT8HuHdMzjDQ==
-Date: Mon, 21 Sep 2026 13:03:19 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
-	Pedro Falcato <pfalcato@suse.de>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	linux-hardening@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jason Xing <kerneljasonxing@gmail.com>, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
-	Jiayuan Chen <jiayuan.chen@linux.dev>, Willem de Bruijn <willemb@google.com>, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v4 1/7] mm/slab: Mark the kmem_buckets_create() context
- as a Context: section
-Message-ID: <arEcRFw3mQ6frlDq@thinkstation>
-References: <20260921075811.too.775-kees@kernel.org>
- <20260921075820.1718334-1-kees@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OGkLbO9g";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GKFxn0dZ"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAe2WM287522
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:03:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=LuUiIezO2nuT5fNMnrZdAnpP
+	J1LY+LflVe+Qi9hbePE=; b=OGkLbO9gyndnffTpRHHgHLpbV5cjhfg+nKcTfTa+
+	iQ5TftiIuo05x8opyACoMOENJxGBZ/3Xk88+FzDvmm5oK8oui4RXMS6xxGDx37Dz
+	sUSufxNELrGaLW9WSwkuS9TDsT390CgC+l5qp0uE8z1BOamsnqPO7HL6VvJhmKIo
+	OKmCidjWsNcIB7NGKksHTC85XUCAn3f585XpVoMgBmJGCMt522w4dhqqOtcLE4+w
+	Eu9fK6MhdJKLYdc+9NAlZE5ePTgcob+OyfP8eT0FITrgXsXfSIz/vTpzCGGHGJgU
+	4ycX/kPYsDs4H6MltVlwYzqEPf5VzlSgKklrRqRI/QgRSg==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu0rj0xk9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:03:26 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-79013d05471so706846137.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:03:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789992206; x=1790597006; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LuUiIezO2nuT5fNMnrZdAnpPJ1LY+LflVe+Qi9hbePE=;
+        b=GKFxn0dZNTejF/A1JgrOKgXwo7ZStSE09ahu/Ml4Dc4Vn5gZh5E1izNBZNd4VyrG1z
+         B9ocngMyfBqkONzW9At+ZbW1h6/aAZs5o7ZSp1hp93BL00DdBESCs1oLCkDAbZ9hZAMK
+         pQKs83UJNFSPeoVIcW+IDg6T4ivYXw55EjwpcWarLj0V3lXTcPMmW02/WbuhzqbVP4aq
+         +DFoF/uzpoyCCwlTSHnWkDi2RExJ0XSxNRBj0t5L5l67MS3ZaNVEbEsG4/WsLNEIC+jM
+         43Ub+qim96jiy02QApVEy+mJqg+YTZj88DYNyKf+4hl9SB995r0xejyxAAfsjKBa+6n2
+         aXwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789992206; x=1790597006;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LuUiIezO2nuT5fNMnrZdAnpPJ1LY+LflVe+Qi9hbePE=;
+        b=IYDRhwYytFJutEQACKDEv7UEBdgeRUs5yw4WVqX6phjaGK9vRZAiI1W9qH2oSOBq9B
+         5nieulkKPxccASXzvPtokmajBrt5O8K9abIo/R2gPHeA3IzWFLL2DkRBF+wm6P0IinVp
+         ycupcWD8zaCxeZoXO6ivhZS/SlAx2DzafDbpS1s8Ci5TCvdmJcqdhVSFBWRS7ePXO96v
+         rcZEA/9cwIUC84HXjF3sTwqlGlpcsIjUEHCsXIV97odDn5OQvxc8Sc5nup1YDDDTLOKg
+         WsnrVq4FVRfceYtfs/mfNm9PBUcLDm5bAIX2epCYTySmPaxiMqIsMPdq0uQ6g0uLVZAK
+         jjJw==
+X-Forwarded-Encrypted: i=1; AKwUvBwrfgrWcd0vnS8bz/lW6u+38Ara4BgNnjcqNhwmQFraFES7ZTeQZrsv9NYKCbTQ4NrUf8PJVJ+Orj9oI48=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/lp7tVVFk/DMXc2/0/Qfq284VgLOAHJ2fZEVHaVuqB2bS7BLB
+	1skp9EbcHlqoCPK0tV+ZayNgSozFwldg/XIksn4ng3gQ4OxSlNGxDJEOL4SMsU6S20lndTSBZzh
+	8UpGIUWbi/Xzag7/sZgk/v871yBQN4DDz6x2ChXqh2NPEEx7VcwReRnO4R3S0gMIQWTw=
+X-Gm-Gg: AYBFou2p5TXaRriB2lJ73wSQ3N7zH7ORFj2v8LC8JMXdRaiRMy3jC8anilK2z+fqRSp
+	KnzBUrZaWRqCk5dxzJca0kplZ6A1D8CmdUg0qr92ewhaObf3/UQKn5nc+kR2XBfBhj9Jtfra29V
+	fZ+FmuYzm11LmpSAeFetWyNmiLf/khQbZhbQQcnMuoU5T59uOYO0y1SS7uW6FpajY+h+qOtjBC0
+	2NviUA/Kl/up0dC/BDDX5H8pv7iFmvY7IAbHnY79BBd74LogRF89XxLEp2ASIJtKmB0WPtAbyC0
+	LVk4FrbwtXjVw/kYdughTRAGkuEWk4+GYx2scxWG85ACn7TnWI7adpJJowJHWQY7in+TDfUZYvr
+	93VsHVvJ63BDeKQ==
+X-Received: by 2002:a05:6102:3e87:b0:7a7:bbf2:182e with SMTP id ada2fe7eead31-7a7bbf21e16mr1506164137.9.1789992206068;
+        Mon, 21 Sep 2026 05:03:26 -0700 (PDT)
+X-Received: by 2002:a05:6102:3e87:b0:7a7:bbf2:182e with SMTP id ada2fe7eead31-7a7bbf21e16mr1506089137.9.1789992205486;
+        Mon, 21 Sep 2026 05:03:25 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0735c9sm222876985e9.6.2026.09.21.05.03.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 05:03:24 -0700 (PDT)
+Date: Mon, 21 Sep 2026 15:03:22 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Georgi Djakov <djakov@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Varadarajan Narayanan <quic_varada@quicinc.com>,
+        Dmitry Baryshkov <lumag@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
+        Sricharan Ramabadhran <quic_srichara@quicinc.com>,
+        Kathiravan T <quic_kathirav@quicinc.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-pm@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 02/11] clk: qcom: ipq5332: add 24MHz rate for USB UTMI
+ clock
+Message-ID: <mfzlmrhupyqxj3pj2h7rhqigek2gptimcpcvtn2sk7zfzhj34a@od22z2qpdynv>
+References: <20260921-ipq_clk_changes-v1-0-d242e3d49648@oss.qualcomm.com>
+ <20260921-ipq_clk_changes-v1-2-d242e3d49648@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,24 +109,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260921075820.1718334-1-kees@kernel.org>
+In-Reply-To: <20260921-ipq_clk_changes-v1-2-d242e3d49648@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE3NCBTYWx0ZWRfX0w7cPypmp84l
+ p+hbLUkT3dgvJuYyc4gpdp2Nr3pHiz4IXc7nK4CwxSpeEMC5UVtpD+Eb78JNcvU3CJLtZyfxhiH
+ CWzKTOZqdc4Cjr67JpkJbIScevM61F4=
+X-Authority-Analysis: v=2.4 cv=AsR7T+9P c=1 sm=1 tr=0 ts=6ab11d0e cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=JaUoqYncsU2g2DIqJJIA:9 a=CjuIK1q_8ugA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-GUID: T7rQsNdu3WssEGOJ3L0Q66eGymWqKNu6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE3NCBTYWx0ZWRfX5qM2qUhoWrf7
+ IKP1NYx60651gJciTH6cwibiGu1jIrhm+cMaPFLYVacDT6cSaPmg9xrf478Nwz1MwjVToYgAuTR
+ cuqY7exVTR89b+opexHPV8si5K/k9psnMnCAOv5XTyRDk7/AoV6x0lSVn8wBrd6aduNm6pJ76Rc
+ Q3KN1br00w/eN0T2kdeNyEtWEN5bM4m+iKLE0Y8in3R85fWeMBnQ2y00jJVGxqzR7LHUHZGzh42
+ 0uMtS7FZWzDA77tcWbtYL2GN7dZUzeUrISeEi6+SRvRUZCLVnXPPTwVoESXcbl8pAJYD9HullKI
+ mW/PHu/1mMeSSYtY4MQNS4YV2AR8cFChXqEGq9YPIWPygzgVCSAUMIqBklg6+/Tr3Yz0/KpA6WS
+ E5AVdKN5hSFrm/Rfoc3RIshhpcPIbe3Zreh7b+5pCD/IMAMSbFkId5a5s5rNCpiLeRXkeszEIRy
+ D31o45UInHoRcguedKA==
+X-Proofpoint-ORIG-GUID: T7rQsNdu3WssEGOJ3L0Q66eGymWqKNu6
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 malwarescore=0 suspectscore=0 clxscore=1015
+ impostorscore=0 adultscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210174
 
-On Mon, Sep 21, 2026 at 12:58:12AM -0700, Kees Cook wrote:
-> kmem_buckets_create() had the same sentence about calling context as
-> kmem_cache_create(), but lacked the "Context:" prefix, so kernel-doc
-> rendered in the body instead of as a "context" section.
+On 26-09-21 11:49:35, Kathiravan Thirumoorthy wrote:
+> The USB UTMI reference clock must operate at 24 MHz, as recommended
+> by the hardware team, for reliable USB operation.
 > 
-> Give it the missing prefix. Additionally fix the "a interrupt" typo
-> __kmem_cache_create_args() had.
+> Validation showed that USB 3.2 hub enumeration with USB 2.0 devices
+> fails when the UTMI reference clock is not configured to the required
+> 24 MHz rate. Configuring the UTMI reference clock to 24 MHz to resolve
+> the enumeration failure and ensure successful device detection.
 > 
-> Fixes: b32801d1255be ("mm/slab: Introduce kmem_buckets_create() and family")
-> Assisted-by: LLM
-> Signed-off-by: Kees Cook <kees@kernel.org>
-> ---
+> Cc: stable@vger.kernel.org
+> Fixes: 3d89d52970fd ("clk: qcom: add Global Clock controller (GCC) driver for IPQ5332 SoC")
+> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
-Looks good to me,
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-
--- 
-Cheers,
-Harry / Hyeonggon
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
