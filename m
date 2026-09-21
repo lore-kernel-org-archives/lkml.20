@@ -1,174 +1,143 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3617C471246;
-	Mon, 21 Sep 2026 14:34:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4131F4A43EB
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:34:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790001269; cv=none; b=X7fJedxOIUu4kNO5FpjkMBMEGMURFlv9a8xAr/4gjkxWL4k8zOJh5U1FyUsXMaaMjmMoJBLrM8h5UJGXGZCgzgRHsBlD5sjSpKq785/iD8C3fxTi/eevuE5wmnXBzAJ03onLdq42Upi00cHMuBy5OQqdr+kRDYPOj97IjRXoEaE=
+	t=1790001275; cv=none; b=NNdFogNxd5+TGDJ958VXpVulUeQBg37K55rjTOv5Vfqt84ZNjAGGVjHM3z0klbC3HoVx2QG5LZuXABrYn4Mxt69CBjF8JRFAbLOECUZuG7tkPxaAurMHZSryZPChLrtStUFMvPGE+FNfwP0wBb8iQU3wkArfqPqKEWuuqEsRTwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790001269; c=relaxed/simple;
-	bh=2/0wGrB+8o4Y73yBsvH7MeZ+LxU4/IXLLLFr1CIZMRw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XDukN1CRxjAHJ6IhqkZoPuuDSYMb7OhAFg0t+yjc2I5ByuE6smyy4EIhjKIrhoCTm6raXiPv9/GuCaTlF3Df0MxOLn1/5fNTB2qWbJCqmrDyahWODyj+yWVk3cEBsOsTkJw4t24g4mv6iOmRzBFMdMWRISThYVROAQTY+spEjfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=LMTC2K4R; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790001275; c=relaxed/simple;
+	bh=AlTk06HzLBHHE5X5apCoXfFR9gCpau/oSF99eQyifQQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JHWWQq7e9wGNFtoWFdvXyhCTFFYzmkEKmMUk9h6whtihuto1nfJOTKnCNX/AruclK97lVwQuhqoUDXIOKGUwgwVQfbuje3wT1GiL11z9Ut7OL/lqN/8iC4cB3iXU5KN5FjiSsyZH9BBLV2Z+kyP5VRUrZF9Q+fIAGrCUotZiqZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=NEOdHQsc; arc=none smtp.client-ip=74.125.230.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="LMTC2K4R"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LE5KtH1735437;
-	Mon, 21 Sep 2026 14:34:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=hPVcO2
-	fTiSn9Cgqz2uE06qQzsAi1kuBDSpXamgeVd84=; b=LMTC2K4R3PSCNb6A9R3KVJ
-	XMoJmTKJb0ZZTuwu6M0JOX+LpbjiLwZDOj0134nvnZ0lPEXN318gjrU0ztcKUeX1
-	BWR3QeT6cyOdlVp0Q6FkkkHQxAxMl8+FSFcVZDuaRRcstdk/spvY+mPfyVDbHGNs
-	0aLk2KXiiycfE+tfJ+f0KQXRrzgzGt9kp7pMAcBwHOHn78KyW4nVYUVKyf36oom/
-	SfS2S7JOrQ/UFHdFTqQk6P4XGScQzqfuo8IyGYLZFWJS50VLwUn7OsEyRZ252k7f
-	UibWBSktaGnSb1WTviBk5TN037aY8RhD8nWlBt3//PpcdDlJy5BEh2f8UsW6PvOg
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgs13d1-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 21 Sep 2026 14:34:21 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68LEIl1d1409274;
-	Mon, 21 Sep 2026 14:34:20 GMT
-Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gt4qq5uk5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 21 Sep 2026 14:34:20 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
-	by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68LEYJr333096222
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 21 Sep 2026 14:34:20 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BBF135805C;
-	Mon, 21 Sep 2026 14:34:19 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 07EA55805B;
-	Mon, 21 Sep 2026 14:34:13 +0000 (GMT)
-Received: from [9.39.17.204] (unknown [9.39.17.204])
-	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 21 Sep 2026 14:34:12 +0000 (GMT)
-Message-ID: <2cd4adea-9b70-4951-be8b-40c1bcc7ecd6@linux.ibm.com>
-Date: Mon, 21 Sep 2026 20:04:10 +0530
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="NEOdHQsc"
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a5e21a5408so22621241fa.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:34:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790001272; x=1790606072; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=up7la13N5P698qqLdVjKevYqSqg9Pb2eoFO9uiD7Mlg=;
+        b=NEOdHQsc/PX87hReIguePCpUO9xiGcppARF3q6B8+n3Lfkztusy+KjvicwX73WlJgs
+         8tEUaiR1f9vUBKSsE/bgDznoNku8dgpMdr0X95y5jbwwPa2rqNHkjrswd+crwBxXaSFN
+         uho6/4FATiqLM+aNejBaZh3s2yc5oKVSQYxXE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790001272; x=1790606072;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=up7la13N5P698qqLdVjKevYqSqg9Pb2eoFO9uiD7Mlg=;
+        b=KUe+KdOGJ/JB6RYgBCPJU8hmrT5ik3vJ0QQ2Cr8O5/paOIXp1Gk+A8WCq0zGP0qWxy
+         iTeoqqqvQebRDadYCJ63ZOOEBznUtBTp0AVm78e9XsS08/SuQiQwemwhluDLrnHEN/HQ
+         aS5nQNup+MWwYCxfyUxRNduq9vrBn7HtaGmWplxIQZuxqp6AOrT5XAsTX7/9BI4gsHXx
+         Tr7F244LONXlWulrvEL3m2XKCf0E8juMo/ku+LBbnbg3VEz56YcofUKQMtF/WQ3KwhXL
+         BnG4XMNXkv+NZaf4o4RrPh6PQpD4LD4I/4blKE/LWHlW2TCia3O+k7aKmawty+9oWX6K
+         cAqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxckAjQFwoweRrXvckSqkiUD5hJhXpwBvf8mWotEFzwbsJ7W0wNgxNU9e/KS9eQLjH+SoMyNTXaZ25dXf8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3Ulq/Kz37pbHEUJWu3tQ4zu2X0XEtpCqtoXA9BhSyRqYHOr0y
+	vU3p/WxJG62vFZlDqKXQevyWE9XIcPak/hT9Z7Og5XmDKPajDvGHI7Wlo3SRymE3UM2AJ7mipkj
+	Y8Wj+Nw==
+X-Gm-Gg: AYBFou0chIo1eZv6LunSL+qrBRPgDaGZwnJAtKB6R/QBzAO4d1M8X3AU8BTZgQCvniS
+	bOHJ0l2vat9e8k9byp4KC9I247o5ZIWbcyB4JaRmysyNQKOkWP8q9hzYAljU7Uy8AwjVlSNTcXH
+	LTW8OlTNlsiV8dGLPrdYIB2b/zN1tpkyTW0/hvdRJFj/B1PSPFZHpEeip6YGYgu3onP0hEhlK+K
+	qzUdZm9jZdbLCkQfZF9BeljoNY0attUKQmGUukg4wqXKI1O8Trz2xoJIfuul+uFYnUaLx+P6JfT
+	uXLc+/KjtkZzTY8tCstQrD7WiMMxVWex2NpaF7qlQztRC0timSD8JsM1lKqRyAMdDENeqpJZ1gq
+	scH1Ou1FsO9pjLW3OZOB9DkL5dl3tBKWaFBeImE306Vd5+K2bN0VK5pUKwEIxafcf2XHibrmmKL
+	iEdzkdlThp3CKtAdyV72gIUbkyqY4JXLCmPKBNxgHd91gCrlJ6Pw8uFnqGzn5r24MaktGlfXueL
+	5jAOc5pY2VRbdDn+w5WKWFTXoWGKlAr7cBftmI=
+X-Received: by 2002:a2e:be2b:0:b0:3a1:9562:732 with SMTP id 38308e7fff4ca-3a5fbe36d93mr25085711fa.1.1790001271938;
+        Mon, 21 Sep 2026 07:34:31 -0700 (PDT)
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com. [74.125.229.204])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a6163d7119sm13611261fa.30.2026.09.21.07.34.27
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 07:34:28 -0700 (PDT)
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1744fso5044016e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:34:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByAb43tIhSgpv28IZ9Qb2zOJdur8nYFl/H2WJ9tiWocG5NqcO5aTQ47fNz+Tor/uoYTgVk4NDrUQJo1BXo=@vger.kernel.org
+X-Received: by 2002:a05:6512:33c6:b0:5b6:177f:b86e with SMTP id
+ 2adb3069b0e04-5b8c18055camr3271431e87.19.1790001266246; Mon, 21 Sep 2026
+ 07:34:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] module: init-failure path can free a module with live
- try_module_get() users
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
-        Daniel Gomez <da.gomez@kernel.org>,
-        Sami Tolvanen <samitolvanen@google.com>,
-        Aaron Tomlin <atomlin@atomlin.com>, linux-modules@vger.kernel.org,
-        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-        linux-s390@vger.kernel.org, "D. Wythe" <alibuda@linux.alibaba.com>,
-        Dust Li <dust.li@linux.alibaba.com>,
-        Sidraya Jayagond
- <sidraya@linux.ibm.com>,
-        Tony Lu <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>,
-        Alexandra Winter <wintera@linux.ibm.com>,
-        Halil Pasic <pasic@linux.ibm.com>,
-        Hidayath Khan <hidayath@linux.ibm.com>
-References: <5dc1fe2b-289e-4786-b9e9-e181dda8d4e9@linux.ibm.com>
- <20260918142241.55a6630a@pumpkin>
-Content-Language: en-US
-From: Mahanta Jambigi <mjambigi@linux.ibm.com>
-In-Reply-To: <20260918142241.55a6630a@pumpkin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=V/XoQuni c=1 sm=1 tr=0 ts=6ab1406e cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
- a=YvAVsvIxy3shiQVTEy0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: nTipSvQcDklONTshWfQZaWkCujhuVyll
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDIwNSBTYWx0ZWRfX16sjj/DfXDpU
- mPvi3YyZDg2sLX4bjPbOR/0jYsZRGcr51Cb6fNWzigwtLPUb/NLcEDQL4Hjq9BIA+wdlRF7rgUk
- 5wOG2wFie1ju4D06R6x+aZGrpMCUbl9CZOX0qYMW6kVGwrSySJxY5cvDXok6MQeyCwcLb15A0Un
- fiugiF4ybwDFxNgWbG4QYDdx9Knm4AOWdbpAYuvC3luVGIyUuQk3pbb2Spc1dghA6Eer690Y2EX
- IB+JAtVozO/VVqu5tH4zcC2dS0uUc9k59IaV9UbIEX5hxO+oUHfoY0yweMKS9PEPW+3c5AwfGWc
- vCWNc9VeKxcEtipWEzJscvm87GsHov2/pHp8L5IeexYpZXuMd8Eh+0f64UknOyfEXoG/hqtx7vk
- tgxh55pkmEBLYVANG6vVzuaTNUx01akmNkRVLseBuF0sXmIRLlEIC03ibLmhg5VhavtoBPyhvcG
- msLj7V391uelXo61DXg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDIwNSBTYWx0ZWRfX8H4e7tHd9R5e
- J/iG9eIRMZ/932/tf0PduiI+h53ZGqOzbJ5p+YOrlox+4UJ1d4bkwsHFs4GIlbqYS7MoYjRt2Ry
- XJal1g8gEP8zieexIpd1zjAIZSwDeWw=
-X-Proofpoint-GUID: vqkJvofST-7iaBHmYvcrgHmhxYpo8Svl
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_04,2026-09-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210205
+References: <20260918120515.595782-1-srinivas.kandagatla@oss.qualcomm.com> <20260918120515.595782-3-srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <20260918120515.595782-3-srinivas.kandagatla@oss.qualcomm.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 21 Sep 2026 07:34:13 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=V1wkKjXi06HDKtmCZfBSF-mrUphFSUHZHz182Lv55GGw@mail.gmail.com>
+X-Gm-Features: AcwNN1XkYY9zKiJQugffglLcLBvktTTAOkyuKYc5ncbh4pswEfbFSP6yXWFImyw
+Message-ID: <CAD=FV=V1wkKjXi06HDKtmCZfBSF-mrUphFSUHZHz182Lv55GGw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] drm/panel-edp: add CSOT MNE007QB1-1 entry
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi,
 
+On Fri, Sep 18, 2026 at 5:05=E2=80=AFAM Srinivas Kandagatla
+<srinivas.kandagatla@oss.qualcomm.com> wrote:
+>
+> 14" 1920x1200 IPS panel used on Lenovo ThinkPad T14s Gen 7 (Mahua).
+> The panel identifies as CSW 0x1465 over eDP AUX and is not in
+> edp_panels[] today, so probe falls back to conservative timings.
+>
+> EDID, read over the panel's DP AUX DDC bus:
+>
+>   00 ff ff ff ff ff ff 00 0e 77 65 14 00 00 00 00
+>   00 23 01 04 a5 1e 13 78 07 37 3a a3 55 4d 9c 25
+>   0c 50 55 00 00 00 01 01 01 01 01 01 01 01 01 01
+>   01 01 01 01 01 01 35 3c 80 a0 70 b0 23 40 30 20
+>   66 00 2d bc 10 00 00 18 00 00 00 fd 00 1e 3c 4a
+>   4a 10 01 0a 20 20 20 20 20 20 00 00 00 fe 00 43
+>   53 4f 54 20 54 33 0a 20 20 20 20 20 00 00 00 fc
+>   00 4d 4e 45 30 30 37 51 42 31 2d 31 0a 20 01 6a
+>
+>   70 20 79 02 00 20 00 0c 40 8b f6 65 14 00 00 00
+>   00 00 19 00 21 00 1d c8 0b 5d 07 80 07 b0 04 00
+>   3d 7a 54 cc 94 99 66 52 0f 02 35 54 00 80 00 80
+>   00 80 12 78 26 00 09 02 00 00 00 00 00 01 00 00
+>   22 00 14 0f 5a 02 05 7f 07 9f 00 2f 00 1f 00 af
+>   04 22 00 05 00 05 00 81 00 15 74 1a 00 00 03 51
+>   1e 3c 00 00 00 00 00 00 3c 00 00 00 00 8d 00 00
+>   00 00 00 00 00 00 00 00 00 00 00 00 00 00 11 90
+>
+>   Manufacturer: CSW
+>   Model: 0x1465
+>   Made in: 2025
+>   Display Product Name: 'MNE007QB1-1'
+>   ASCII String: 'CSOT T3'
+>   DTD 1: 1920x1200 60.006199 Hz 16:10 (302 mm x 189 mm)
+>
+> Datasheet was not available, so timings are not datasheet-derived.
+> The delay_200_500_e50 preset matches the sibling CSOT MNE007QB/QS
+> entries already in the file.
+>
+> Assisted-by: Claude:claude-opus-4-7
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/panel/panel-edp.c | 1 +
+>  1 file changed, 1 insertion(+)
 
-On 18/09/26 6:52 pm, David Laight wrote:
-> On Mon, 24 Aug 2026 11:43:46 +0530
-> Mahanta Jambigi <mjambigi@linux.ibm.com> wrote:
-> 
->> Hi Luis, Petr, Daniel, Sami, Aaron,
->>
->> I'm writing to ask about what looks like a generic module-init failure
->> lifetime problem in the module loader. I ran into it while working on
->> the SMC networking module (net/smc/), but after several patch
->> iterations, it seems the root issue may belong in kernel/module/main.c
->> rather than in SMC itself. I'd appreciate your guidance on whether this
->> reading is correct, and if so, what fix direction would be preferred.
->>
->> THE ISSUE IN do_init_module()
->> =============================
->>
->> include/linux/module.h has a long-standing FIXME in module_is_live():
->>
->>     /* FIXME: It'd be nice to isolate modules during init, too, so they
->>        aren't used before they (may) fail. But presently too much code
->>        (IDE & SCSI) require entry into the module during init. */
->>     static inline bool module_is_live(struct module *mod)
->>     {
->>         return mod->state != MODULE_STATE_GOING;
->>     }
->>
->> Because MODULE_STATE_COMING is not MODULE_STATE_GOING, try_module_get()
->> can succeed once a module's __init is executing. If __init makes the
->> module externally reachable partway through and then later fails, the
->> failure path in do_init_module() appears to do:
-> 
-> It is rather worse that that.
-> If sock_create() auto-loads a module (eg sctp) then nothing stops a second
-> sock_create() entering the protocol code before the initialisation completes.
-> That can be hit by two separate applications, I hit it from an out of tree
-> kernel module and avoided the problem by putting a mutex() around the
-> sock_create() call.
-> 
-> It might help by letting try_module_get(THIS_MODULE) always succeed
-> while blocking other requests until initialisation completes.
-> The code making the call must own a reference (otherwise the code could
-> just disappear), and that reference stops the module being unloaded.
-> That would let the initialisation code grab extra references (eg for
-> a worker thread) without allowing other codes paths enter the
-> part-initialised driver.
+Pushed to drm-misc-next:
 
-Thanks David — you're right that the race is broader. This patch
-addresses only the UAF on the __init failure path: once we set
-MODULE_STATE_GOING and call synchronize_rcu(), new callers see GOING and
-fail; we then drain existing refs before free_module().
-
-The concurrent-init race you describe — two callers entering
-MODULE_STATE_COMING simultaneously during a successful init — is not
-addressed here and would require changes to try_module_get() itself, as
-you suggest. That is the long-standing FIXME in module_is_live() and is
-a separate, larger change.
+[2/3] drm/panel-edp: add CSOT MNE007QB1-1 entry
+      commit: 8a43738e56d9eb76a573cabab4c9c0e73eab23b2
