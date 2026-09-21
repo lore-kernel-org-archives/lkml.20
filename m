@@ -1,86 +1,124 @@
-Received: from outbound.baidu.com (mx15.baidu.com [111.202.115.100])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id 63BF0331EB5;
-	Mon, 21 Sep 2026 03:40:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.202.115.100
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789962030; cv=none; b=B7Ylwaa68hzytEVo3djWGA21fnDm+LpVibVDy86ouKulA6BBLlPTZlscRTGTa8JsV8XYmrZ3eN8w4urwd4u0/nrTnFhXjn7DyMFy1JMIJRZUm/giuVT2tECLykjDALAm0HpRIYdgO49a5iG4elbwfSe28QNu0BCxTNpZ1hJs+Xs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789962030; c=relaxed/simple;
-	bh=zFSc73ByU5dvbW48g0HgFzom4E+XKXGbY//slp92TM8=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=d1FStdIVxttJz0yWGMlBjJJTdFGhq6zvdJoxQqqZmcYsGpeE/D9KnH4dc5xpl0Xd3aUp91wvih0HdIy5+IpIamjUTl4kr+F+dcLk6hnSjB1d8dov6tqb0B5KlImKsJGF0y0+4fPYV2FCTrarKvfrJF+cEfFlfGhbjBwOx4UyIoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com; spf=pass smtp.mailfrom=baidu.com; dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b=d+JWlAFz; arc=none smtp.client-ip=111.202.115.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43A1843AB0;
+	Mon, 21 Sep 2026 03:41:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789962103; cv=pass; b=IdjR4GalhkPKiWSzU1f9yRUOKovJs/neYh68NUH3/IIS5HUovGYD2hoYaRwrd8gmV0nWjT+jn3fT5sBeDF5zITZ+e8mRnqATMnnlZYiIlUASWgcpeMo+2t0v3nmgPH7F0tUsSPqQnKC79XdzjJ4SgtQBKNBR2m+516j7Xd+aM7A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789962103; c=relaxed/simple;
+	bh=ct1Y8laxYTB/3w6Vg9zeWZ4IUgz1j3gsDtqDeWDoQhE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=AI8RYqkqMHb/9z4clPe/bldSDgXXNZnKfrfIGdMmDZRJgB5FtqRDsTgmT8QdkwqFnFCI09OeLNl/wwO4o6WwjGZ0R/u3aDxj44afnC8XnaMTtZpdirn2mTGR1QXGTGka2LT/nmRomCWxj9njfBdu5awRTl0i59YHIqSm1aUhVm4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=KKyxMWkr; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b="d+JWlAFz"
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.47
-From: lirongqing <lirongqing@baidu.com>
-To: Sagi Grimberg <sagi@grimberg.me>, Max Gurtovoy <mgurtovoy@nvidia.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Jenny
- Derzhavetz <jennyf@mellanox.com>, Doug Ledford <dledford@redhat.com>,
-	<linux-rdma@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Li RongQing <lirongqing@baidu.com>
-Subject: [PATCH] RDMA/iser: Unmap Data-Out header DMA on send failure
-Date: Mon, 21 Sep 2026 11:39:49 +0800
-Message-ID: <20260921033949.1803-1-lirongqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="KKyxMWkr"
+ARC-Seal: i=1; a=rsa-sha256; t=1789962091; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=eUpZbo6UGPiXN2S6WVP1wk0hx+PmToMYHyOYTTguBgJ4H9sVslZFlrxBnfQT4mM3Z5AZ7UOy3rZNvo17i3UdqfpsEgNaqu68X0/0JwomkhLkf2qjtxxXiGRxn37yIBJqRx2YqxUALC17XGIE2yqpJRIJ5jxeOc4Nu3E1+uny24o=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789962091; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=ct1Y8laxYTB/3w6Vg9zeWZ4IUgz1j3gsDtqDeWDoQhE=; 
+	b=LlH1IOfz33DnRYAxx9I6GoXSqRBEmqI9o/RsJEmtsUKDnGaWqGJBG906d7dSp2Dj+BzNXlBX47SKvktceUb4Bzku5DCFlQn9RA02jMAwb8sNqFnlQdzNyNDPMBI4QM4pNsCCRKnx6aiBFxkdKiwrp0sPigjFXChVV/AedprbU9Q=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789962091;
+	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=ct1Y8laxYTB/3w6Vg9zeWZ4IUgz1j3gsDtqDeWDoQhE=;
+	b=KKyxMWkr1Oqh8lrvqaWs7m1N6FzlBaoLhknnkzLltncc3AkkgB5WY2M96m6WIter
+	mYQMF5NjtFKuGpzN60dP7oDOTxsApCfGkLIJqLFG1nRZk/hDxeqtXJS8ZiYTSCdTslQ
+	m2rNeSh56U+5rJfMkxZpQnKZOzu83HvQDklD0/IPXjBGk/xm99NGA3HMl7CWXzC5B3R
+	wbMoy4euTn/gbWJYViQdBwhypOZCc/k9a3XHxwL/gWYQUQCAwZNFDLOtFKGmGyb7yHY
+	WpJKF0cvTBInpl0ITZfI6jSAncFGxZ+qI7g3Y+FaCzxwtFsWE0MUm995EQvAbc7AlWr
+	545ZoCVD/w==
+Received: by smtp.zohomail.com with SMTPS id 1789962090652102.41171456130746;
+	Sun, 20 Sep 2026 20:41:30 -0700 (PDT)
+Message-ID: <e96ddd73ca83f0d8b6f08ff63a14b5f0d1bcee57.camel@icenowy.me>
+Subject: Re: [PATCH 2/3] pmdomain: spacemit: Add power domain driver
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Yixun Lan <dlan@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org
+Date: Mon, 21 Sep 2026 11:41:25 +0800
+In-Reply-To: <20260921033540-GKG297024@kernel.org>
+References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
+	 <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
+	 <56e5f32102c67575ded8af9e81a06dc9f1dcf0ee.camel@icenowy.me>
+	 <20260921033540-GKG297024@kernel.org>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: bjkjy-exc8.internal.baidu.com (172.31.50.52) To
- bjkjy-exc3.internal.baidu.com (172.31.50.47)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1789962016;
-	bh=/eJTJQWvSCed/B3fvVg859B7AD9IdJ+KSlC6xZuw16A=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=d+JWlAFzvanA+r6Nbu3gmW6Sue4kvKLVgz4BzYnxYC7SfteA25iMwjIsuu773crGy
-	 FReXRT4ghUXCDiMWcPeVlsNXZKZs3cQPqPIt5IKe1ByASmD+/QO2dxBf32K/1Q9aLS
-	 3ew7ZlKZS6gXdP0LfUKBhCOlDdXt60A9QRGbIwO7q6iNQu3v5q8U5N1oj4bMP4yfcZ
-	 8tFhqmuAFw0PRQSd3VRfbdex2oeOYUyaLDIXoDKD23tZ8ECZuWPxwnEYmW19i8dS5p
-	 lZM2bPdiDkTJdViTBhLkxPURWe8UUF79WYGUvbprGII1xTt9Edd47UvHba4aktM1X1
-	 BHu4d9rF8ZxbQ==
+X-ZohoMailClient: External
 
-From: Li RongQing <lirongqing@baidu.com>
+=E5=9C=A8 2026-09-21=E4=B8=80=E7=9A=84 03:35 +0000=EF=BC=8CYixun Lan=E5=86=
+=99=E9=81=93=EF=BC=9A
+> Hi Icenowy,
+>=20
+> On 20:56 Sun 20 Sep=C2=A0=C2=A0=C2=A0=C2=A0 , Icenowy Zheng wrote:
+> > =E5=9C=A8 2026-09-18=E4=BA=94=E7=9A=84 02:40 +0000=EF=BC=8CYixun Lan=E5=
+=86=99=E9=81=93=EF=BC=9A
+> > > =C2=A0 SpacemiT's PMU (Power Management Unit) consist of several powe=
+r
+> > > domains
+> > > which can be managed independently, depending on different
+> > > application
+> > > scenario, each domain can be powered on/off for saving power.
+> > >=20
+> > > =C2=A0 The driver is implemented based on Linux Generic PM Domain
+> > > framework.
+> > > From a hardware perspective, either of two distinct power-on
+> > > sequences
+> > > are supported, in software mode (SW mode), the driver is
+> > > responsible
+> > > for
+> > > controlling the states of bits such as sleep1, sleep2, isolation
+> > > and
+> > > pwr_state, while in hardware mode (HW mode), the PMU hardware
+> > > will
+> > > complete
+> > > the sequence automatically without requiring software
+> > > intervention.
+> >=20
+> > This driver is tested to be able to power up the GPU on SpacemiT
+> > K3,
+> > however the following warning appears in the kernel log:
+> >=20
+> > ```
+> > genpd_provider audio: Fail to power-off domain: 2
+> > ```
+> >=20
+> This is kind of an expected issue, due to hardware design, the audio
+> power switch is coupled with rcpu core, which means power off it will
+> also shut down the rcpu, so the power switch currently is configured
+> as always on from software perspective, it's unable to power-off even
+> in Linux or rcpu once system up.
+>=20
+> I will drop audio power domain control in next version
+>=20
+> > (BTW I built it as a module to prevent whole kernel being rebuilt)
+> >=20
+> that's fine
 
-iser_send_data_out() maps the tx_desc header for DMA via
-iser_initialize_task_headers() (which sets tx_desc->mapped and calls
-ib_dma_map_single()).  The normal completion path hands unmap and free
-off to the iser_dataout_comp() completion callback.
+In this case, do you consider to make the Kconfig option in your patch
+tristate instead of bool?
 
-However, if a later step fails -- the bounds check
-(buf_offset + data_seg_len > data_len) or iser_post_send() -- control
-jumps to send_data_out_error, which only calls kmem_cache_free() without
-ib_dma_unmap_single().  Because the WR was never posted, the completion
-callback never fires to unmap it, so the DMA mapping is leaked.
-
-Unmap the header DMA in the error path when tx_desc->mapped is set,
-mirroring the pattern already used in iscsi_iser_cleanup_task().
-
-Signed-off-by: Li RongQing <lirongqing@baidu.com>
----
- drivers/infiniband/ulp/iser/iser_initiator.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/infiniband/ulp/iser/iser_initiator.c b/drivers/infiniband/ulp/iser/iser_initiator.c
-index 7ea6888..9685e0a 100644
---- a/drivers/infiniband/ulp/iser/iser_initiator.c
-+++ b/drivers/infiniband/ulp/iser/iser_initiator.c
-@@ -464,6 +464,10 @@ int iser_send_data_out(struct iscsi_conn *conn, struct iscsi_task *task,
- 		return 0;
- 
- send_data_out_error:
-+	if (tx_desc->mapped)
-+		ib_dma_unmap_single(iser_conn->ib_conn.device->ib_device,
-+				    tx_desc->dma_addr, ISER_HEADERS_LEN,
-+				    DMA_TO_DEVICE);
- 	kmem_cache_free(ig.desc_cache, tx_desc);
- 	iser_err("conn %p failed err %d\n", conn, err);
- 	return err;
--- 
-2.9.4
-
+Thanks,
+Icenowy
