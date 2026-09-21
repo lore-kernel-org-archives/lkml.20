@@ -1,93 +1,283 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89944A0924
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:02:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B5A351C34;
+	Mon, 21 Sep 2026 14:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999344; cv=none; b=t5p/nwBUQ22aEe83gkj7O7LdSsJMXZO8KeIDxZnfOUKjiPnvUqE+jgdG2sjRJt961ihueP9pfdIKLzjhhr4N1ZAmtXk9S/halvv5Fs922BjyigUB5PsqaWY+VJYqeXV9NrLey/qnBd/5oH5+GQIZgqoDYfNtgUdWwltJ9/ZnKT0=
+	t=1789999386; cv=none; b=gdr0Ii5182nlu116iZnKVtKmxBPMiTSP9SAo4hQwxftxT7nXqVNS3bBhJKTYYoHQe9hz1fl4ik94tWoTuRn6k4ivzbOnLgM4IO7NO2CJRXerL331juIXzquixIMylSfd6KVlAkHVHmyEkKCDphL23Q2OjuVmXvTgJCTbIvoBNls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999344; c=relaxed/simple;
-	bh=d9wqUJmpH5uLASKu/y+N22vJym4WyRByfBRA78L07L0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Rlpn/Uy+XM/pd9t8RvpyYxRDiCUvNj0yg8mKrd4EY2TgV5XQn7AG4WCN8yrcC0yqZKIiG9EjiSRfyYhaA1gQg1Ujtpq+WSeVeeB2cBmK8RyBqIxRZDn2JOT33dn4Krq2q2tqkcnRyC3VwqQi7TQDGJ609XXeDXzTdRHhpTewoWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bIIY4XmZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789999386; c=relaxed/simple;
+	bh=wvcVtNVHw0w89loJmyZoHAtimw2msTfW4eXm7/Yf2O4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FDw6m3ttcdkjnbwIZaPYb36gcxGfmsJfkKbWbjHEvRcsgybgX2CoLD61rv87h1BBavT7bq9lR4lYJXIFngHR+nQTYqi50es+iv/3v/UXfvvvZZw02PIG3CKPiW/AqfDNepU9QnFYiHK1k/k3b7pEzRmDKVyFBFyw2AjdHjkvTdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=PH18mTLD; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=GgqVZvP9; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=rzufyGvI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=TZexhXNd; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bIIY4XmZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 662C71F0089A
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:02:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789999343;
-	bh=FHCOo0228Ui6llFBqgoOKNDXI90TVjQN+WDSq4RM2V4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=bIIY4XmZ0InIqvjL46Gzjedgt5Lv3velFSfRAngCeyWaKpRjsY2iF3T31Mc6MIClU
-	 tMZtR4gPxPHQv1NqN8aYG5/OpVW7HvZY2BPF0sfC0oQJkbhhXfF0csssnaKxTW48QI
-	 3A5hjfyLIJW+L1rrlf4rsnp0Sb4QxCbWW/cJzS/o/HZ/uLjI/izKwcZVm63Hf9e0tX
-	 j1wHhl5w41dLgK2wKlWJx9nwXY0B4yA/3HOH3tIduBV5B9Ok9m5KdABybIOh6Pggkp
-	 wLO82J9ehSFs2Z8cUsVpzJSNfqAfv2Kh0NFVjtqVXs5AuDZBnXOfQFxGpreqci/Vv2
-	 CddaR6b2oYswA==
-Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-9832c759198so1495515241.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:02:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzUASJH8+q+/gYJQd79jwFIaE9wyUJkmA7HFWjUgbqsCOOZxES1uwJl8jxtyejeWKseGHk+XjHxS5GQwLg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l40kQRTM8cpzuKbvOi7DRTneZd5N7rwrZSsYqUo2Tl4QvhGbKf
-	i+WJDxO/JLDm04YoZzyxBBGfn5LQ4mAUG+WR4L8MY+OMKrhwDS4THp5PmmP32lTLIHs5k1PhgZn
-	17K8nBcldqVle65QhPKsMy0WUr4Ywukc=
-X-Received: by 2002:a05:6122:3106:b0:5c9:c60e:5cf4 with SMTP id
- 71dfb90a1353d-5c9c60e60efmr3123384e0c.18.1789999342617; Mon, 21 Sep 2026
- 07:02:22 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PH18mTLD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="GgqVZvP9";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rzufyGvI";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="TZexhXNd"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8381A21CBF;
+	Mon, 21 Sep 2026 14:02:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789999378; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TYnLpBD6VChvMLhsnFkWnEOep75Cg9uT1zXGo8tzMGE=;
+	b=PH18mTLDEuT+4jA3Dl5h3ire/PKuFISKuNdcAS15WL3ddw+w1gsaIjnnN46NlN32x0X2jk
+	7MS3dmTP2fQEkgVEKFvRGUPnjJSzgMVuVGv0ACsaGTKcP3bbqjBOyznYfBWda5ItbkOTDk
+	97MYbwxoEJL05+xZgJ7WvLHWqIweCn4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789999378;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TYnLpBD6VChvMLhsnFkWnEOep75Cg9uT1zXGo8tzMGE=;
+	b=GgqVZvP96goz2cebgwE/jL2gcKygLAvc/5QYuGVTSZOA4wJU2JgDb5QS0C3RjLQ8rB5QRy
+	AtTJsEYEjamXucDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789999374; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TYnLpBD6VChvMLhsnFkWnEOep75Cg9uT1zXGo8tzMGE=;
+	b=rzufyGvIKnIDNJuR5oz617+wG9bsFIHx/C2XRInCCCce10uF/5C+0eJF919s4X0QZU9YQv
+	tbbF3DDSz1AtIUFHM/o4KS0Cc6yz6jvsN1KLGabNMnQM4pxpJJy8BuHMhx+8f8tnC28V3C
+	5cOJJIhMT6ZHRzJ/yeX26ooqoA3whwE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789999374;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TYnLpBD6VChvMLhsnFkWnEOep75Cg9uT1zXGo8tzMGE=;
+	b=TZexhXNdyI06936j9G2ay4FWZ6UHFU/v2Add6yvw9gJbA0Dyy55IWxjjEXzi0kWm4KxrZO
+	HDHSaORw0dkLX0Bg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 22903139E7;
+	Mon, 21 Sep 2026 14:02:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id JmiHOgw5sWrjJQAAD6G6ig
+	(envelope-from <hare@suse.de>); Mon, 21 Sep 2026 14:02:53 +0000
+Message-ID: <ab97f32b-31dd-4975-a8b2-b445110ae3a9@suse.de>
+Date: Mon, 21 Sep 2026 16:02:52 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920022659.3145724-1-peng.fan@oss.nxp.com>
-In-Reply-To: <20260920022659.3145724-1-peng.fan@oss.nxp.com>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Mon, 21 Sep 2026 22:02:08 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H7N7d_FTE9FT8cR-ONar+DkGtYN8KbxuMmDSw8xZbY=+g@mail.gmail.com>
-X-Gm-Features: AcwNN1XbrtOjyAjk34lMhPRdk74NuYmtXDM7SIXKrX-neV2ZyPTLfYjVkINbpsY
-Message-ID: <CAAhV-H7N7d_FTE9FT8cR-ONar+DkGtYN8KbxuMmDSw8xZbY=+g@mail.gmail.com>
-Subject: Re: [PATCH] LoongArch: use assign_bit() where applicable
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: WANG Xuerui <kernel@xen0n.name>, Jiaxun Yang <jiaxun.yang@flygoat.com>, 
-	Peng Fan <peng.fan@nxp.com>, Li Jun <lijun01@kylinos.cn>, Arnd Bergmann <arnd@arndb.de>, 
-	linux-kernel@vger.kernel.org, loongarch@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/7] nvme: fcloop: Add set_marginal_rport to sysfs
+To: Jesse Taube <jtaubepe@redhat.com>, linux-nvme@lists.infradead.org
+Cc: linux-scsi@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Keith Busch <kbusch@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
+ Sagi Grimberg <sagi@grimberg.me>, Justin Tee <justin.tee@broadcom.com>,
+ Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+ Paul Ely <paul.ely@broadcom.com>, Chaitanya Kulkarni <kch@nvidia.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Nilesh Javali <njavali@marvell.com>, GR-QLogic-Storage-Upstream@marvell.com,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ John Meneghini <jmeneghi@redhat.com>, Bryan Gurney <bgurney@redhat.com>,
+ Chris Leech <cleech@redhat.com>, "Ewan D . Milne" <emilne@redhat.com>,
+ shinichiro.kawasaki@wdc.com, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org
+References: <20260902200547.184734-1-jtaubepe@redhat.com>
+ <20260902200547.184734-8-jtaubepe@redhat.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20260902200547.184734-8-jtaubepe@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[26];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,lwn.net,linuxfoundation.org,kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,hansenpartnership.com,oracle.com,marvell.com,redhat.com,wdc.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
 
-Applied, thanks.
-
-Huacai
-
-On Sun, Sep 20, 2026 at 10:29=E2=80=AFAM Peng Fan (OSS) <peng.fan@oss.nxp.c=
-om> wrote:
->
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Convert open-coded if/else with set_bit/clear_bit to the assign_bit API.
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+On 9/2/26 10:05 PM, Jesse Taube wrote:
+> To allow testing of multipath failover, add a sysfs attribute to set a
+> remote port as marginal. This will allow the fcloop LLDD to set the
+> marginal flag on a remote port, simulating a marginal link.
+> 
+> Example:
+> Turn on marginal for a remote port matching wwnn and wwpn:
+> `echo 'wwnn=0x200000109b5f2956,wwpn=0x100000109b5f2956,marginal=1' >
+> /sys/class/fcloop/ctl/set_marginal_rport`
+> 
+> Turn off marginal for a remote port matching wwnn and wwpn:
+> `echo 'wwnn=0x200000109b5f2956,wwpn=0x100000109b5f2956,marginal=0' >
+> /sys/class/fcloop/ctl/set_marginal_rport`
+> 
+> Suggested-by: John Meneghini <jmeneghi@redhat.com>
+> Signed-off-by: Jesse Taube <jtaubepe@redhat.com>
+> V10 -> V1:
+>   - New patch
+> V1 -> V2:
+>   - Fix reference count leak in error path
 > ---
->  arch/loongarch/kernel/env.c | 5 +----
->  1 file changed, 1 insertion(+), 4 deletions(-)
->
-> diff --git a/arch/loongarch/kernel/env.c b/arch/loongarch/kernel/env.c
-> index 652456768b55..c529a14deb18 100644
-> --- a/arch/loongarch/kernel/env.c
-> +++ b/arch/loongarch/kernel/env.c
-> @@ -25,10 +25,7 @@ void __init init_environ(void)
->         int efi_boot =3D fw_arg0;
->         char *cmdline =3D early_memremap_ro(fw_arg1, COMMAND_LINE_SIZE);
->
-> -       if (efi_boot)
-> -               set_bit(EFI_BOOT, &efi.flags);
-> -       else
-> -               clear_bit(EFI_BOOT, &efi.flags);
-> +       assign_bit(EFI_BOOT, &efi.flags, efi_boot);
->
->         strscpy(boot_command_line, cmdline, COMMAND_LINE_SIZE);
->         strscpy(init_command_line, cmdline, COMMAND_LINE_SIZE);
-> --
-> 2.51.0
->
+>   drivers/nvme/target/fcloop.c | 50 ++++++++++++++++++++++++++++++++++++
+>   1 file changed, 50 insertions(+)
+> 
+> diff --git a/drivers/nvme/target/fcloop.c b/drivers/nvme/target/fcloop.c
+> index b63af3b643a6..9977c2a71bd5 100644
+> --- a/drivers/nvme/target/fcloop.c
+> +++ b/drivers/nvme/target/fcloop.c
+> @@ -6,6 +6,7 @@
+>   #include <linux/module.h>
+>   #include <linux/parser.h>
+>   #include <uapi/scsi/fc/fc_fs.h>
+> +#include <uapi/scsi/fc/fc_els.h>
+>   
+>   #include "../host/nvme.h"
+>   #include "../target/nvmet.h"
+> @@ -21,6 +22,7 @@ enum {
+>   	NVMF_OPT_FCADDR		= 1 << 3,
+>   	NVMF_OPT_LPWWNN		= 1 << 4,
+>   	NVMF_OPT_LPWWPN		= 1 << 5,
+> +	NVMF_OPT_MARGINAL	= 1 << 6,
+>   };
+>   
+>   struct fcloop_ctrl_options {
+> @@ -31,6 +33,7 @@ struct fcloop_ctrl_options {
+>   	u32			fcaddr;
+>   	u64			lpwwnn;
+>   	u64			lpwwpn;
+> +	u32			marginal;
+>   };
+>   
+>   static const match_table_t opt_tokens = {
+> @@ -40,6 +43,7 @@ static const match_table_t opt_tokens = {
+>   	{ NVMF_OPT_FCADDR,	"fcaddr=%x"	},
+>   	{ NVMF_OPT_LPWWNN,	"lpwwnn=%s"	},
+>   	{ NVMF_OPT_LPWWPN,	"lpwwpn=%s"	},
+> +	{ NVMF_OPT_MARGINAL,	"marginal=%d"	},
+>   	{ NVMF_OPT_ERR,		NULL		}
+>   };
+>   
+> @@ -120,6 +124,13 @@ fcloop_parse_options(struct fcloop_ctrl_options *opts,
+>   			}
+>   			opts->lpwwpn = token64;
+>   			break;
+> +		case NVMF_OPT_MARGINAL:
+> +			if (match_int(args, &token)) {
+> +				ret = -EINVAL;
+> +				goto out_free_options;
+> +			}
+> +			opts->marginal = token;
+> +			break;
+>   		default:
+>   			pr_warn("unknown parameter or missing value '%s'\n", p);
+>   			ret = -EINVAL;
+> @@ -199,6 +210,9 @@ fcloop_parse_nm_options(struct device *dev, u64 *nname, u64 *pname,
+>   
+>   #define TGTPORT_OPTS	(NVMF_OPT_WWNN | NVMF_OPT_WWPN)
+>   
+> +#define MARGINAL_OPTS	(NVMF_OPT_WWNN | NVMF_OPT_WWPN | \
+> +			 NVMF_OPT_MARGINAL)
+> +
+>   
+>   static DEFINE_SPINLOCK(fcloop_lock);
+>   static LIST_HEAD(fcloop_lports);
+> @@ -1663,6 +1677,40 @@ fcloop_set_cmd_drop(struct device *dev, struct device_attribute *attr,
+>   	return count;
+>   }
+>   
+> +static ssize_t
+> +fcloop_set_marginal_rport(struct device *dev, struct device_attribute *attr,
+> +		const char *buf, size_t count)
+> +{
+> +	struct fcloop_nport *nport;
+> +	struct fcloop_ctrl_options opts = {};
+> +	unsigned long flags;
+> +	int ret;
+> +
+> +	ret = fcloop_parse_options(&opts, buf);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* everything there ? */
+> +	if ((opts.mask & MARGINAL_OPTS) != MARGINAL_OPTS)
+> +		return -EINVAL;
+> +
+> +	nport = fcloop_nport_lookup(opts.wwnn, opts.wwpn);
+> +	if (!nport)
+> +		return -ENOENT;
+> +
+> +	spin_lock_irqsave(&fcloop_lock, flags);
+> +	if (!nport->rport || !nport->rport->remoteport) {
+> +		spin_unlock_irqrestore(&fcloop_lock, flags);
+> +		fcloop_nport_put(nport);
+> +		return -ENOENT;
+> +	}
+> +
+> +	nvme_fc_set_remoteport_fpin(nport->rport->remoteport, opts.marginal);
+> +	spin_unlock_irqrestore(&fcloop_lock, flags);
+> +	fcloop_nport_put(nport);
+> +
+> +	return count;
+> +}
+>   
+>   static DEVICE_ATTR(add_local_port, 0200, NULL, fcloop_create_local_port);
+>   static DEVICE_ATTR(del_local_port, 0200, NULL, fcloop_delete_local_port);
+> @@ -1671,6 +1719,7 @@ static DEVICE_ATTR(del_remote_port, 0200, NULL, fcloop_delete_remote_port);
+>   static DEVICE_ATTR(add_target_port, 0200, NULL, fcloop_create_target_port);
+>   static DEVICE_ATTR(del_target_port, 0200, NULL, fcloop_delete_target_port);
+>   static DEVICE_ATTR(set_cmd_drop, 0200, NULL, fcloop_set_cmd_drop);
+> +static DEVICE_ATTR(set_marginal_rport, 0200, NULL, fcloop_set_marginal_rport);
+>   
+>   static struct attribute *fcloop_dev_attrs[] = {
+>   	&dev_attr_add_local_port.attr,
+> @@ -1680,6 +1729,7 @@ static struct attribute *fcloop_dev_attrs[] = {
+>   	&dev_attr_add_target_port.attr,
+>   	&dev_attr_del_target_port.attr,
+>   	&dev_attr_set_cmd_drop.attr,
+> +	&dev_attr_set_marginal_rport.attr,
+>   	NULL
+>   };
+>   
+Please don't make it a fabrics option. Setting is via sysfs is 
+sufficient seeing it's for testing only.
+
+Cheers,
+
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
