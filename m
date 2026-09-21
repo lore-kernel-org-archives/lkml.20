@@ -1,108 +1,153 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A7F083B3BF5;
-	Mon, 21 Sep 2026 07:38:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B41439332
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:38:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789976284; cv=none; b=HZ/vd+SDbPh//Z0G3up+iVOVWosAL8TH7lq2e/9xNYXyTTbHZPj5cLqyQXPI9CQkZ1BjP1/jvwM36YOqM74MiAtNlAhiowazvERXljP3gPaJ3KvVKjl1ieeTE7xcE//PMRFW2Ly/TrNXJV4oHwUq6D4MSMyVYAi7sr40M5gppuw=
+	t=1789976341; cv=none; b=pE01NxpfOCcngn7+ax/TBaFgidrUqcORXMLxHN8BRRK53JPAzw+4lSLA+VIde1cmlk/V4YxSH2tfF0NihT0m58QaFSI9Phi7GBTBGgAsEMH/9wiKsMFXi9vAMk0F+FufyMpc5yQittFdNgnEfh/rYWhVzkO82nUpun30Dx8eBoc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789976284; c=relaxed/simple;
-	bh=nrUjuFhT3s2+v/gwSala4pCbrkVM+7IhP9tittz2bGU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EkTxHPA9J2G54wSuw29t252701+/D82Ul1NxOIZZQMpFcJYWB5ryr8IMaDDt4n6uDwA7bKpuDDY4vtBbpC/5nKOwqCWOE0OIGZifPM9ou98tZz2cO0qYXP9v0IqDw5dVvDZEm+jg1r1OQda9zZTGG/FmqeDvtzyQgs5nuK1GdJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=l6ko2rle; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789976341; c=relaxed/simple;
+	bh=1oGHKBzHrxoX8CDM/z524FTQ57Egw9xruprsovBKdbg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I3SqZgdB80yRaYGSFbS8l0Ksxtlmszrfo+LveLWQImhNtCFIYn+gOjg+6VJbd8o1zj1uXLCHNv/SMOi60GJ//LJ/dUtMfhLe4koBfR5BUKnRDsv8V9TT4I9Ex4YpwGhqMH9q44iyFBUuzkPOYUFHcqTrPwjuLywqaXJFiM+6MtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WRy+Vz3y; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="l6ko2rle"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5BB42175A;
-	Mon, 21 Sep 2026 00:37:58 -0700 (PDT)
-Received: from [10.57.83.12] (unknown [10.57.83.12])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DC0733F86F;
-	Mon, 21 Sep 2026 00:37:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789976281; bh=nrUjuFhT3s2+v/gwSala4pCbrkVM+7IhP9tittz2bGU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=l6ko2rleUboMNNtjiHiGjklemMccKDrVkhFCxBZ8Sdh5DR4atC+hN8GMVuMwMP5mz
-	 35t8eGH82Xntk2lduJ6VuzvD4tP1J1d2XqoJr0PaLohuTpW2PjZwo3fxqWq6vXhlxV
-	 DDTrpBYl7OVsuGeT/5runOY5gbLovztguwJGGIsY=
-Message-ID: <8d36a988-f6e2-446b-92fd-dc13a4fa691a@arm.com>
-Date: Mon, 21 Sep 2026 08:37:55 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WRy+Vz3y"
+Received: by mail-pz2-f41.google.com with SMTP id 41be03b00d2f7-cc50d1b048eso2147567a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:38:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789976338; x=1790581138; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V1aVBw9zdrM4El40DQjPRHAcTE50i+bnMPj3LzqLGDw=;
+        b=WRy+Vz3y5ozcfYa7Mv5blem/dBCCjHCyRcAtjn2OdhtCr0Yefuz8oR44C63e1N/JMQ
+         FrkGY4iBZsXBnal9JeS7exsefo7MonEDFjxlTRD0/7P279F2Rbb41fTbb1/78UrV0dYL
+         EVI6JUf1qgtHxTm3jQMHvtiLA06aUcQNV7PomtL2dDwDPLacwlYlFAVZHmqK10bvlpOs
+         c4y0xCI6oT6MrKNV5NT/0k0snuGQRN5eBWqP+iJLQaSyptqQR4QQjPQYVOg7Wf86P9CW
+         Eem4xjzEjihnBezO0sEMLP7Z+KbnuoMYILwj3h6J8AY/lcbxkrzCbKPTwApd4YHyQ62c
+         xiww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789976338; x=1790581138;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V1aVBw9zdrM4El40DQjPRHAcTE50i+bnMPj3LzqLGDw=;
+        b=SLQi1wNDudgcEwPoBbn0ZYpslDXJo4U/rLEN92ZZKaos9Y6NFH56Plv1CsornkH5bb
+         VzHepI4XT7kwzTQtpfI4SrJk6hqDaicmVOl6+CNXOiCtVPn+7qKYwBqLnUdFhWH9VziA
+         rTtqkIEgMBll77hsh5mf77FCc3MEEVoXsg49uO5KHEv1jH1O2NvcaCpRsAES1MWWpMJ+
+         6QjyuFvKbNQInXcRCQwstM8bfpZYyDNkE+NCAbNy1/oQiQtMaONF4WR9B+f6P7RqjhA1
+         AguEF4123qo7NYEMu/23+TV3F/7YOJSnw2BjF6uAmtoJqXgCbbXUz8hPl1bf36zrcUBB
+         8e1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwKRKn0MG7Ui88NNpK1BPOIHQzySpLwMG/5OlxCpBOqEadtIPbj9AQtqa2niOiwodWcuZWOtagpjTOuaOI=@vger.kernel.org
+X-Gm-Message-State: AFuF++ky7SD86TStolK/w1GV5OEymNmCUI4RpxSw3ccM0FLnmDIKTfWK
+	SJPhiCQ4kSbmnOiv6efQ4afBiwSVVQVBbJJKyYrsvznk0rGnyqp4YmKA
+X-Gm-Gg: AYBFou2XA30A8qlyTmziJVFGCl8co4hUbQWkHWymnELYVRYCKmAEVPIOGvQ/toNKkyZ
+	cweA6dOjsgdQm/RgbxMgr2FwRIh6v4lIHTRM+wJ8tYH74cXNLXkcXaqGosSjfb8PpC7IFNeOSBp
+	/Og/glouWVXZJ2eJH2E+BC5vMZQe6o7Jy56f8ZXv9kCfIJRyIWxzvqbfN7Ak/Jt8j9vlHtn4gHw
+	p0XAmNX9O/mxKNYC7RT9wy8/x+b9Lo40UNUTZf6GtflJrXlPOgrNPMpvUyvi5nSV1jONK/8b6Z7
+	p/QfHNma5ulq8Fznd2GRbFttqGGuhl9vcAeDRB2Cvj4qLkG1PRwLt0SHDuPx3hTgEJISjt8Ssuh
+	F6zduQ5ymZg5i4I/3GO9Llij1koD7emwOC0Bf9rN5RDRZr8pHt4GOidjXZiWbauBYIAb8clWNlE
+	u0sqyTRpIeWlZ5ZVnQ2Eh8n0iAsl15bbuXnwYIFU8Bdux0pcjJ8hKMAg==
+X-Received: by 2002:a05:6a21:7481:b0:3dd:a196:69dc with SMTP id adf61e73a8af0-3dda19677c2mr9204200637.55.1789976337848;
+        Mon, 21 Sep 2026 00:38:57 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72ae71fe3sm2981178a12.8.2026.09.21.00.38.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 00:38:57 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Thorsten Blum <thorsten.blum@linux.dev>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] ASoC: Intel: SST: fix platform device leak on probe failure
+Date: Mon, 21 Sep 2026 15:38:47 +0800
+Message-ID: <20260921073847.63505-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] arm64: use hw_pte_t for fixmap HW PTEs
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Muhammad Usama Anjum <usama.anjum@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Alexander Potapenko <glider@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-efi@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org
-References: <20260914-pte0_arm-v1-0-bb53b663e396@arm.com>
- <20260914-pte0_arm-v1-4-bb53b663e396@arm.com>
- <829523cd-85a4-4f8e-b9f2-f3c1d7ce4fb1@arm.com>
- <1d1e38d8-cc1a-4a53-80c7-c0ef75a70105@kernel.org>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <1d1e38d8-cc1a-4a53-80c7-c0ef75a70105@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18/09/2026 21:00, David Hildenbrand (Arm) wrote:
-> On 9/18/26 18:03, Ryan Roberts wrote:
->> On 14/09/2026 14:51, Muhammad Usama Anjum wrote:
->>> fixmap_pte() returns a pointer into bm_pte, and early_fixmap_init_pte()
->>> installs those arrays as page tables. Their elements are therefore
->>> HW PTEs.
->>>
->>> Change the element type of bm_pte to hw_pte_t so it matches the HW PTE
->>> pointers returned and passed to the accessors. This is needed before
->>> ARCH_HAS_HW_PTE_T makes HW PTEs and SW PTE values distinct types; the
->>> array dimensions and placement are unchanged.
->>>
->>> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
->>> ---
->>>  arch/arm64/mm/fixmap.c | 2 +-
->>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
->>> index 237a9136bc73b..709a97fe327d8 100644
->>> --- a/arch/arm64/mm/fixmap.c
->>> +++ b/arch/arm64/mm/fixmap.c
->>> @@ -31,7 +31,7 @@ static_assert(NR_BM_PMD_TABLES == 1);
->>>  
->>>  #define BM_PTE_TABLE_IDX(addr)	__BM_TABLE_IDX(addr, PMD_SHIFT)
->>>  
->>> -static pte_t bm_pte[NR_BM_PTE_TABLES][PTRS_PER_PTE] __bss_pgtbl;
->>> +static hw_pte_t bm_pte[NR_BM_PTE_TABLES][PTRS_PER_PTE] __bss_pgtbl;
->>
->> I think in my original proposal it was impossible to have a hw_pte value; only a
->> hw_pte pointer was possible. Being able to create hw_pte values means that it is
->> possible that a hw_pte_t pointer is not actually pointing to an entry in a HW
->> pgtable. The main motivation for this is that we want to dereference neighbours
->> of a hw pte based on it's pointer and be confident that it is safe. I think this
->> removes some of the safety.
-> 
-> If you follow some of the related discussions on the core-mm series, there is a
-> path forward to go further into that direction.
+sst_acpi_probe() registers platform devices for the SST platform and
+machine drivers using platform_device_register_data(), but does not
+unregister them when later probe steps fail.
 
-OK, as long as we have a path to the "full" solution if we ever need it, then
-sounds good to me.
+If machine device registration fails, the already registered SST platform
+device is left registered. The same leak happens when
+sst_platform_get_resources() or sst_context_init() fails after both
+platform devices have been successfully registered.
 
-> 
-> People instantiating a hw_pte_t on the stack are not really a concern right now.
-> 
+A registered platform device owns resources allocated by the platform
+device core and must be released with platform_device_unregister() so
+that the device reference is dropped and platform_device_release() can
+free the backing platform_object.
+
+Unregister the created platform devices on all failure paths to restore
+the missing cleanup.
+
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
+
+Fixes: caf94ed8629a ("ASoC: Intel: bytcr_rt5640: fixup DAI codec_name with HID")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ sound/soc/intel/atom/sst/sst_acpi.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/intel/atom/sst/sst_acpi.c b/sound/soc/intel/atom/sst/sst_acpi.c
+index 73624e1b138a..a1f16083bd3d 100644
+--- a/sound/soc/intel/atom/sst/sst_acpi.c
++++ b/sound/soc/intel/atom/sst/sst_acpi.c
+@@ -352,7 +352,8 @@ static int sst_acpi_probe(struct platform_device *pdev)
+ 	if (IS_ERR(mdev)) {
+ 		dev_err(dev, "Failed to create machine device: %s\n",
+ 			mach->drv_name);
+-		return PTR_ERR(mdev);
++		ret = PTR_ERR(mdev);
++		goto err_unregister_plat_dev;
+ 	}
+ 
+ 	/* Fill sst platform data */
+@@ -361,15 +362,21 @@ static int sst_acpi_probe(struct platform_device *pdev)
+ 
+ 	ret = sst_platform_get_resources(ctx);
+ 	if (ret)
+-		return ret;
++		goto err_unregister_mdev;
+ 
+ 	ret = sst_context_init(ctx);
+ 	if (ret < 0)
+-		return ret;
++		goto err_unregister_mdev;
+ 
+ 	sst_configure_runtime_pm(ctx);
+ 	platform_set_drvdata(pdev, ctx);
+ 	return ret;
++
++err_unregister_mdev:
++	platform_device_unregister(mdev);
++err_unregister_plat_dev:
++	platform_device_unregister(plat_dev);
++	return ret;
+ }
+ 
+ /**
+-- 
+2.43.0
 
