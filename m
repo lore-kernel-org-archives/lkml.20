@@ -1,182 +1,177 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9710B3AEF46
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:32:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 193761F94F
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:33:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789975979; cv=none; b=b8MCEYoU4GAGqSeTGRlsjAiTAZzMOmvK97eV3wY59aWk0t32EtFh6s17L7xU3bYthCvl+e/Dsxx2xex+lDME36w/SDK2b2zdjmG1Xuh3waPGGWagxyiMQWA7V4IpaK+9ZCgf3cGvjkAvpIdPYpriKMAFOfMOnmyaiP97RDYTB6I=
+	t=1789976036; cv=none; b=adrFAqVP+6z2KMufFo43wmC6uEyFdnhAg2f8ZTjnUsDdFQTo12zs6/14FxTBbd8ffp4HmwLkQixPMdOV1PhEODw3eO2zkFBj5GEE/Pw4x+G8dz8cVWVDQCMrS0pi3boI1mHmw0EoH4c4ZhyBPSlPcQzIg2/or/4D8GXM9eGaROI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789975979; c=relaxed/simple;
-	bh=adZvlINEsMAvwxha5qZotDk5fgCUf4YSk8i9/nH5zvU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R1ZTNUH8OMzXwijqke+YHGN9kAEgfQvWmqukTKmEaqepTahrgRqN5YxCjmMoHdIzkRzOMo3KJt955xv9SbPaZG8uXWN9GJ5Ufi+eueudA9hTKw58dulyvDr9YSu7tv0abrxe5TrwFNXtQ+OLsN6cZ7fAvNeZTzTCfpiJHVBeSyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=avlUYIXs; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789976036; c=relaxed/simple;
+	bh=XfSdxzmZWx4srzyl29mnMiw6iFLODHOQBwto2w+Mqfg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FxkBzURkUSStGYj1jKtRsWDXfRPOA2j+2CmRoAnefabOgWWvPXYmvLcZywbCc8NcUs6HFytEc5Rbev1a+DgYfJEpsTYemnfKVMWTneLGh09PfOeOTcGqYb05FKoWr1siA4fZtQZAdS4Kw1nMVWAoBl1AfNnWHkIa5qwE04R40B8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=LlMFiP/1; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Qqr3kZZL; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=UjRIBUvk; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=n35693Up; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="avlUYIXs"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4b11so13149925e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:32:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789975975; x=1790580775; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=feqkDAo3psQqEeeV5D6w+0v2eNiDg14CK6zySTrGKK4=;
-        b=avlUYIXsFDdVrrmgj30kPR4NuzZ/TTzj1G/1xZeUehmyeSjKbDzxSouabat2HIlAkF
-         GC+ADrHUGotm5MlCG3bYlD+g56PFvEnFDMFnVPZTjguuigjBY6CCU8fA8eJ3qZg5zD8a
-         dxgmKRZs/51tcBeZAYTdHRsM7N4+aaw+qtk8NfY0aKR6Y6YbEpHWwUiHhTfD7V9P98z3
-         YaMhpmQlfurDnXyD5NbD3Tr2E06Fx57rlNFVA0yebY5ZB9/gJPPOp8XKo0Wm/d9m+uw3
-         1EJGSDqAAmd2ej1kWFQkFUR3dG4znjuyWVyoOFOXN3zcPtG1gNmEaO6IyH2d8uUPpLnI
-         I6Eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789975975; x=1790580775;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=feqkDAo3psQqEeeV5D6w+0v2eNiDg14CK6zySTrGKK4=;
-        b=nf+Ao+Gmn8lB5AdCUGqeo0DRzNZp2W+lBbHhpqb7Hik9jeVqtszgqTaO73B/f+NacT
-         zoyownX+NOXWh3es41KwzjKxGict0D5y0E3d7xPChBTC2KiFjlMU/nC+hU6FRn1Z4mmE
-         yP/2pAw9pznyBGonle1+KQWjsZkZC9/+YE+uXmJJ3tZw7qz/o0Vv9A703wc0IO26QRRG
-         +URxvx13bfSc+oZt82AFx6p0vKjUgWE1XGH9hsS0yjTbjKlDumBSbrue14KYNMWP2iU+
-         5QgQ2z0NX5HI/KnDfhdamq5XmYTsg7xx4upZdL/OzLgAg4rfP6YFRgQNaAgxdR6CgOmI
-         Ou6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwiS0Zb7tKCD7BaQ5JAuZX6PjUg0qEM/Xa6YVeoNJywAbmJtb45EvB6ejqIUbFPwkgFkQ0sQf+tPvVNxKo=@vger.kernel.org
-X-Gm-Message-State: AFuF++n50zr82yXcjksWvJS3X54PaantvAUytkS/RCitnxyWlgeyoklS
-	7O8xNtJ8fwSx5Z6sqQN4LmeURWybkeKCQa9a51jDkCyFero5XTcaCeSj
-X-Gm-Gg: AYBFou3NZGWrvI0CQnoy1SiEzHnJsUuT74Q8blKkjieux/2BpxL4GnRHfM+bJZ76YNl
-	QmsDmTY00bNAHB6anJTA1RnE6mb5qMJmZH1A35vjosU88/5TDRY6n1r/8zmR8Ao3XutNvy8O1/1
-	KjKcuFcA2dg5EVZFICw9eZhaQuuOSTfGQIi0QBvPShfVJyotC/Wa1KKVim5J1CubWAofGT1GC+B
-	2AJSrCV9Clmu/dU9v9YbFiN+KoRItatomodNDDONniJJXd4JUsw82cUHF+L1ehyn/FkkewCzXsZ
-	tSZCTnTjQM9LodiKfI/GRvMzoMUDEQLoXBTMytM3yZKTG7eta6AD3tX4PKbr5gLi5dOmsmsqxwa
-	SSYg8LnFD5zdafdDNjQM6DkZWVuhKHytUw0HMrFCfKL1WNiyj3wCGb2hkzYTVWuCtBNOYA3YfuH
-	/a2veNZApH5tyQlRjYEzFmndq9L//JihfkMLYa04u10QC7lQrCTHalDLC4NUFIOt51xjWaJIIzn
-	zXUjsppnRtDorlYbgE/Tr1ZawXdQYOpiC0=
-X-Received: by 2002:a05:600c:1552:b0:49c:fc6e:a3df with SMTP id 5b1f17b1804b1-49fcc2b2785mr119785285e9.30.1789975975149;
-        Mon, 21 Sep 2026 00:32:55 -0700 (PDT)
-Received: from royzah-ThinkPad-T14-Gen-4.tii.local ([213.42.107.24])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd068059sm219343885e9.5.2026.09.21.00.32.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 00:32:53 -0700 (PDT)
-From: Royyan Zahir <royzah@gmail.com>
-To: linux-arm-msm@vger.kernel.org
-Cc: andersson@kernel.org,
-	konradybcio@kernel.org,
-	aesteve@redhat.com,
-	linux-kernel@vger.kernel.org,
-	Royyan Zahir <royzah@gmail.com>
-Subject: [PATCH] firmware: qcom: scm: clear download mode and SDI before a restart
-Date: Mon, 21 Sep 2026 11:32:31 +0400
-Message-ID: <20260921073231.3254159-1-royzah@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LlMFiP/1";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Qqr3kZZL";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="UjRIBUvk";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="n35693Up"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id DCB901F793;
+	Mon, 21 Sep 2026 07:33:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789976029; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tg9cRM+4M2mivrssvF4ZICidxGAnybcojJhtY8m+yOY=;
+	b=LlMFiP/1/FEhYj3hjR3TvoY/IlBJDFmFdwHtsCABtRXuB5PWQah4aIYxHSmsQtbthubWxr
+	AcTrafh9Mt9JeURFs9KOxt5bc3Xy9Ek3dq4oQ05FitIG0HANqdLhaPw8G0fWhuud7htuhx
+	ztXatEXpNbMcy/2szDyHKP0C+vhxGf4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789976029;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tg9cRM+4M2mivrssvF4ZICidxGAnybcojJhtY8m+yOY=;
+	b=Qqr3kZZLpBM6CTGW5xTPy0XpGh5+qug6ORDuD1XLDJTBEEzZiygNWNPM9Z4KEoTwul813M
+	55hV7RQW798TJ2Cg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=UjRIBUvk;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=n35693Up
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789976024; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tg9cRM+4M2mivrssvF4ZICidxGAnybcojJhtY8m+yOY=;
+	b=UjRIBUvkhi1E/J3KV02WkwY/zFSEttH89a2AMm2yOUV7Ydj7pUEKjGwuSwl0T/J2GmCElw
+	oX7VztseVNQpWB84d6uIMB0V4uhvJ0/y6Hi2UEPNU5K9G5f85M4wsER2ApnDPH0BjMgsPb
+	yC9rSGMlFmSAf2lTjUKZlCCX66OqmZE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789976024;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tg9cRM+4M2mivrssvF4ZICidxGAnybcojJhtY8m+yOY=;
+	b=n35693Upk+cDIG5lz8kqRWh8Jlt7H8LTGQqMqujuAI9APAkNU9++ooaWoWELp4tYh9s/9y
+	QmyOh5ZOAtdYocAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 57E1D1368D;
+	Mon, 21 Sep 2026 07:33:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 5LJeCdjdsGoPdgAAD6G6ig
+	(envelope-from <hare@suse.de>); Mon, 21 Sep 2026 07:33:44 +0000
+Message-ID: <a08ef541-fdaa-4d52-bde8-9d753c5b343a@suse.de>
+Date: Mon, 21 Sep 2026 09:33:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 12/18] nvme-fc: start error recovery instead of aborting
+ timed out IOs
+To: Mohamed Khalfella <mkhalfella@purestorage.com>,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
+Cc: Justin Tee <justin.tee@broadcom.com>,
+ Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+ Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+ Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>,
+ Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260918181614.3947933-1-mkhalfella@purestorage.com>
+ <20260918181614.3947933-13-mkhalfella@purestorage.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20260918181614.3947933-13-mkhalfella@purestorage.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: DCB901F793
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[broadcom.com,gmail.com,kernel.org,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,purestorage.com:email];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.51
 
-With qcom_scm.download_mode=1 an IQ-9075 never completes a warm reboot.
-XBL stops in download mode and only a cold power cycle recovers the board:
+On 9/18/26 8:14 PM, Mohamed Khalfella wrote:
+> Aborts issued from the timeout handler run outside the FCCTRL_TERMIO
+> window, so they are not counted in ctrl->iocnt and
+> nvme_fc_delete_association() does not wait for them. The association
+> can be torn down while the LLDD is still working on the abort.
+> 
+> Instead of aborting the timed out command, reset the controller like
+> the other fabrics transports do. All aborts now happen in
+> nvme_fc_delete_association(), where they are counted and waited for.
+> 
+> The new nvme_fc_start_ioerr_recovery() queues ioerr_work directly in
+> CONNECTING (abort the IOs so the connect attempt fails) and in
+> DELETING/DELETING_NOIO (tear down the association so the IOs the
+> delete path is draining get completed - the timeout handler no longer
+> aborts them, and a dead target would otherwise hang controller
+> deletion). In all other states it moves the controller to RESETTING
+> first. Connectivity loss, disconnect LS and IO errors now go through
+> the same entry point.
+> 
+> With nvme_fc_timeout() no longer aborts timedout IOs the reset code
+> in nvme_fc_reset_ctrl_work() needs to be updated to teardown the
+> association before stopping the controller. This is important because
+> nvme_stop_ctrl() waiting for ana_work or fw_act_work to be flushed can
+> get stuck forever.
+> 
+> Link: https://lore.kernel.org/all/20250529214928.2112990-1-mkhalfella@purestorage.com/
+> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+> ---
+>   drivers/nvme/host/fc.c | 54 ++++++++++++++++++++++++++++--------------
+>   1 file changed, 36 insertions(+), 18 deletions(-)
+> 
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
-  B -    857233 - TCSR reg value 0x10
-  B -    865071 - RamDump -  Image Load, Start
-  B -    884317 - boot_dload_entry
-  B -   6774477 - USB DUMP failed, because USB cable disconnect
+Cheers,
 
-0x10 is FIELD_PREP(QCOM_DLOAD_MASK, QCOM_DLOAD_FULLDUMP), so the cookie
-written at probe is still set when XBL reads it, even though systemd
-stopped every unit in order and nothing panicked.
-
-Two latches have to come down and neither reliably does.
-qcom_scm_shutdown() clears the cookie from .shutdown, which
-device_shutdown() calls after the SCM device's own dependencies may
-already be torn down, so the write can fail with nothing left to report
-it to. SDI is disabled only from probe, and only when download_mode was
-zero at that moment, so a board booted with download mode on keeps
-watchdog debug armed for the life of the boot. Writing "off" to the
-module parameter later clears the cookie but never reaches SDI, which is
-why that runtime workaround does not restore warm reboot.
-
-Clear both from a reboot notifier. kernel_restart_prepare() calls the
-reboot_notifier_list before device_shutdown(), so the SCM device and its
-interconnect path are still up. SYS_OFF_MODE_RESTART_PREPARE is not
-usable here: kernel_restart() runs do_kernel_restart_prepare() after
-kernel_restart_prepare(), which is after device_shutdown().
-
-The notifier reaches its instance with container_of() rather than the
-global, so it does not conflict with the series dropping __scm [1].
-
-Registration warns rather than failing probe, because the instance is
-already published at that point and callers may be using it.
-
-.shutdown stays for the power-off path.
-
-Tested on an IQ-9075 EVK with download mode armed: warm reboot returns in
-~36s, and a console capture across a cold boot and the warm reboot shows
-two complete boot cycles with no TCSR cookie read and no boot_dload_entry.
-
-[1] https://lore.kernel.org/linux-arm-msm/20260914-scm-device-api-v1-0-3573e2596c51@redhat.com/
-
-Signed-off-by: Royyan Zahir <royzah@gmail.com>
----
- drivers/firmware/qcom/qcom_scm.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
-
-diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
-index 3eaa4c9..06cba43 100644
---- a/drivers/firmware/qcom/qcom_scm.c
-+++ b/drivers/firmware/qcom/qcom_scm.c
-@@ -27,6 +27,7 @@
- #include <linux/of_platform.h>
- #include <linux/of_reserved_mem.h>
- #include <linux/platform_device.h>
-+#include <linux/reboot.h>
- #include <linux/reset-controller.h>
- #include <linux/remoteproc.h>
- #include <linux/sizes.h>
-@@ -63,6 +64,8 @@ struct qcom_scm {
- 
- 	struct qcom_tzmem_pool *mempool;
- 	unsigned int wq_cnt;
-+
-+	struct notifier_block reboot_nb;
- };
- 
- struct qcom_scm_current_perm_info {
-@@ -2790,6 +2793,20 @@ static const struct kernel_param_ops minidump_dest_param_ops = {
- module_param_cb(minidump_dest, &minidump_dest_param_ops, NULL, 0644);
- MODULE_PARM_DESC(minidump_dest, "Minidump SRAM destination: usb (default) or storage");
- 
-+/* reboot_notifier_list runs before device_shutdown(); RESTART_PREPARE does not. */
-+static int qcom_scm_reboot_notify(struct notifier_block *nb, unsigned long action,
-+				  void *data)
-+{
-+	struct qcom_scm *scm = container_of(nb, struct qcom_scm, reboot_nb);
-+
-+	qcom_scm_set_download_mode(scm, QCOM_DLOAD_NODUMP);
-+
-+	/* Separate latch: probe only disables SDI when download mode is off. */
-+	qcom_scm_disable_sdi();
-+
-+	return NOTIFY_DONE;
-+}
-+
- static int qcom_scm_probe(struct platform_device *pdev)
- {
- 	struct qcom_tzmem_pool_config pool_config;
-@@ -2941,6 +2958,11 @@ static int qcom_scm_probe(struct platform_device *pdev)
- 	/* Initialize the Gunyah watchdog platform device. */
- 	qcom_scm_gunyah_wdt_init(scm);
- 
-+	scm->reboot_nb.notifier_call = qcom_scm_reboot_notify;
-+	ret = devm_register_reboot_notifier(&pdev->dev, &scm->reboot_nb);
-+	if (ret)
-+		dev_warn(scm->dev, "failed to register reboot notifier: %d\n", ret);
-+
- 	return 0;
- 
- err_rmem:
+Hannes
 -- 
-2.55.0
-
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
