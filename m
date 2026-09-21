@@ -1,99 +1,110 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A08429037;
-	Mon, 21 Sep 2026 10:43:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B4D47B439
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:43:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789987388; cv=none; b=klpbEYGgvXV5Hb7vNqjUCxBczCLTbKld0qVJCelGoaP80/TSLa1uNwimucNkNLfdQasl06wWvYqr9dlhjAM/Fv/YQDHltigG8Nvvu1ZO3fwi2KfGCi6q0crpiFYf/gSobzxYx2L0pNapPqq53oHV47k8FyPOrZHXFgmK7IPOOa0=
+	t=1789987399; cv=none; b=PZBepBnFAKzsXbM0ov0w8gEQQGWWlaLIkItzBhN/WEcE7XETDhUzmIEPhJYlCUDyHCJx+uTctga/ZlGCI/cA40Zd7TR1ENqyLbAtOE2U8zCF+YkUGK70qTb6WT4xFh2BG/rOG4OABJFbxy+MQhsQ6b+nemnuOb+7/vNvqVh8rps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789987388; c=relaxed/simple;
-	bh=Jgwpcker6k9rDea0kRKtirRFxf58xRqNK/1bFIhkyeg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=YQcD2If1VEMHxC3iHH5tFKyVrEI8nJSK/4nU7QBMoJ6kXB2KJu8ddfvzCWY2r0UB7JhRyW8bYb1IAiQZ9uNJOqFwMAQIbCtkFm5oov+ofmGBMb7H18C2EGspkTYWKM9imgo/2tODmBKysmgJfLeb0dNv/2HqwvblD1u5Vw+mSw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=oMTNaCUU; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789987399; c=relaxed/simple;
+	bh=HrgUTYm+rQYlaefjTDnzVgQ/IOugymTnai8JLExScwo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=s79Izdlc0h6ysLl+Tro+/RFdFXLUoeq2TtRhZrzrYyDbl1xKxs6JyL+ms4fMdeKQUKyRTB+XNg3wuPSlv3TMpN/uFQq+6daCyXjxUtS82vuaGsXnBOtRHSuX+mh3PUkRcJEYpRZjmoUiCIP/td8c8Q24jHeisw7sr+qfqZ46u5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SkFc3WrE; arc=none smtp.client-ip=192.198.163.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="oMTNaCUU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789987384;
-	bh=Jgwpcker6k9rDea0kRKtirRFxf58xRqNK/1bFIhkyeg=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=oMTNaCUUQMOFVvWtgJ8FpNZ78+radWm4cFtglDxYayHg0KljOdwH8twiOXi86vS+U
-	 P3VUGiXZmygGnudp9xbNeTLWgolxWIBtpw50uZp180Qt5J6bwhxGXRSHalytZTM+6E
-	 2zxNom4zWTDpnpi/BFF1YgFfhfMoLnQE3suBwwbogv6IekEHfTDrFHDuJrXjjSDohm
-	 6v50HbEataNqYDAVG6gHO69vfRYaEz3UtKyFlL7EmlZNEoGJ11fi/hJYypEtBORh4u
-	 xNxx8Qt4b9iGK7fOa/1MsShkRNlvXC0pUMqKDGSQLNt3bI4p447TOs6WYGN4plBFxQ
-	 2eNtJ8McJQ3/g==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3C7EA17E09D6;
-	Mon, 21 Sep 2026 12:43:03 +0200 (CEST)
-Message-ID: <bffc0927-26c0-4b36-9d66-d75dc5aa3b89@collabora.com>
-Date: Mon, 21 Sep 2026 12:43:02 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SkFc3WrE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789987395; x=1821523395;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=HrgUTYm+rQYlaefjTDnzVgQ/IOugymTnai8JLExScwo=;
+  b=SkFc3WrECGyXN1/mrImH/OT/YZtYU+cc/uyRJIN2Lk6DuMJWlIBtCQ9i
+   CYPGR+5jxdO61Xocd8vR/LnsLiZ8elGYWogMYA0xdMU4Cs1OAvKKo9z7T
+   WYXHpL10wvNKItkYXdNoFgUw5H8vTffi2ReX3RqdMcG0tOgNAGhls5P8V
+   MBlj9qLTffjEyU+QsyBQc/uuqYrCyu0pmxpJG33vV6STcQvcgFl2HJ/7P
+   epbs4GyKhrDxBJrsDP8fQcdE7UeIFWsj+almLMPNaqNuedc3v39pkAbYq
+   CiJP5Q0TSaxi8YIgFyrB8knuudC9sUPsbBopc4/uOnQ4ipZY57J4VAzBr
+   Q==;
+X-CSE-ConnectionGUID: hC/m4kXjRga1hOF4QfLmKg==
+X-CSE-MsgGUID: GsO6h3HZQJSUYPDviDijLA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="995469"
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="995469"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 03:43:14 -0700
+X-CSE-ConnectionGUID: znoIhxjORJWJFEc2a2LaUQ==
+X-CSE-MsgGUID: 8ojwJ6voTL2BfIN5PbF4qg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="272759840"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.180])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 03:43:12 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Hui Peng <benquike@gmail.com>, airlied@redhat.com, sean@poorly.run,
+ tzimmermann@suse.de, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/udl: reject short USB EDID control transfers and
+ fix URB init cleanup
+In-Reply-To: <20260919223511.3889061-1-benquike@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260919223511.3889061-1-benquike@gmail.com>
+Date: Mon, 21 Sep 2026 13:43:09 +0300
+Message-ID: <e53ce901a913d9b660d682d8206a2167770c02b4@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: dt-bindings: Correct white-space style
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Keke Li <keke.li@amlogic.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Zhi Mao <zhi.mao@mediatek.com>,
- Tiffany Lin <tiffany.lin@mediatek.com>,
- Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
- Yunfei Dong <yunfei.dong@mediatek.com>, Bin Liu <bin.liu@mediatek.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Xia Jiang
- <xia.jiang@mediatek.com>, Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org
-References: <20260801195528.235230-2-krzysztof.kozlowski@oss.qualcomm.com>
- <1505ca0c-4a31-4673-bbe0-8474133fc504@kernel.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <1505ca0c-4a31-4673-bbe0-8474133fc504@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 9/18/26 12:46, Krzysztof Kozlowski wrote:
-> On 01/08/2026 21:55, Krzysztof Kozlowski wrote:
->> Correct a few white-space issues, like double space after '=' or before
->> bracket '{' characters, which will be flagged by dt-check-style.  No
->> functional changes.
->>
->> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->> ---
->>   .../bindings/media/amlogic,c3-mipi-csi2.yaml  |  4 +-
->>   .../bindings/media/i2c/galaxycore,gc05a2.yaml |  2 +-
->>   .../media/mediatek,vcodec-encoder.yaml        |  2 +-
->>   .../bindings/media/mediatek-jpeg-decoder.yaml |  4 +-
->>   .../bindings/media/mediatek-jpeg-encoder.yaml |  2 +-
->>   .../bindings/media/qcom,msm8996-venus.yaml    | 40 +++++++++----------
->>   .../bindings/media/raspberrypi,pispbe.yaml    |  2 +-
->>   7 files changed, 28 insertions(+), 28 deletions(-)
-> 
-> This received reviews, is trivial, waits on the lists for 1.5 monts and
-> it seems people are repeating what I did.
-> 
-> I understand this won't be picked up by media.
-....in any case, for MediaTek:
+On Sat, 19 Sep 2026, Hui Peng <benquike@gmail.com> wrote:
+> In drivers/gpu/drm/udl/ (udl_drv.c, udl_edid.c), check that
+> usb_control_msg() returns the full 2-byte response in
+> udl_read_edid_block() before copying read_buff[1], and clean up
+> allocated URBs if udl_Driver initialization fails.
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+One change per patch please.
+
+>
+> Fixes: 5320918b9a87 ("drm/udl: initial UDL driver (v4)")
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> diff --git a/drivers/gpu/drm/udl/udl_drv.c b/drivers/gpu/drm/udl/udl_drv.c
+> index 1922988625eb..239a6983f49f 100644
+> --- a/drivers/gpu/drm/udl/udl_drv.c
+> +++ b/drivers/gpu/drm/udl/udl_drv.c
+> @@ -97,8 +97,10 @@ static int udl_usb_probe(struct usb_interface *interface,
+>  		return PTR_ERR(udl);
+>  
+>  	r = drm_dev_register(&udl->drm, 0);
+> -	if (r)
+> +	if (r) {
+> +		udl_drop_usb(udl);
+>  		return r;
+> +	}
+>  
+>  	DRM_INFO("Initialized udl on minor %d\n", udl->drm.primary->index);
+>  
+> diff --git a/drivers/gpu/drm/udl/udl_edid.c b/drivers/gpu/drm/udl/udl_edid.c
+> index af4cff2a7c51..b7c462436573 100644
+> --- a/drivers/gpu/drm/udl/udl_edid.c
+> +++ b/drivers/gpu/drm/udl/udl_edid.c
+> @@ -36,7 +36,7 @@ static int udl_read_edid_block(void *data, u8 *buf, unsigned int block, size_t l
+>  		if (ret < 0) {
+>  			drm_err(dev, "Read EDID byte %zu failed err %x\n", i, ret);
+>  			goto err_drm_dev_exit;
+> -		} else if (ret < 1) {
+> +		} else if (ret != 2) {
+>  			ret = -EIO;
+>  			drm_err(dev, "Read EDID byte %zu failed\n", i);
+>  			goto err_drm_dev_exit;
+
+-- 
+Jani Nikula, Intel
