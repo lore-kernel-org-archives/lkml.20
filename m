@@ -1,199 +1,101 @@
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B094E0B86
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:54:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF42E4E0B6E
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:54:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790009652; cv=none; b=FNomdwY+mZAg7RjUQe7EeYmGlpawjuhYkJ+4XOkhEt36d3HxpNFMnXPt6AKwKsCRbLb4chG2HUmLTFQrMcDoOGiBmdpMhBIhohHBg810x7ZM16WJ5NSFF8PRszx0M2kfy61kQTUrT5gNLEeV8XgH37JPbgvShaYOhAnzD9jrRlI=
+	t=1790009670; cv=none; b=YglIvJg41EJkulP59zQo4+pKc07y5SEJ7+vSxvHWo5fGmT+4cBKkWNPntZpfCxvBDTJ+f/cOBgkU31gV51QlncszxrgWdj0JGBP+Qbm/bwswxUk8pgD1GqAYhPrFb7UP7BlXlTz0qnlJN27P3ItwQsTi6iW/Z6LVexflP5tEgPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790009652; c=relaxed/simple;
-	bh=1qgx7WO1ODz0uzZ0PV4p/UIMKqQiae0iH1KRXidMcvY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UwzYxkwT/XFPu3OqkR8S0VQyxL7W1BLmxLYu8WMND4QbdORftJKW5J+i8Bg+K021ambde8ID8oNnFtXkk9lXpC0oEAKPlh1iMlze/cw295BcNVXKgT+qnW0JKXkXY/A7wZKqr85VSf1UZDDHS5tTQLDfrKcKn/+G7o4bMIhAg2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TzRYSL0o; arc=none smtp.client-ip=74.125.231.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1790009670; c=relaxed/simple;
+	bh=hK+61oik5gsxN96IHn3CnokMCdTIaajwpmg47B7x+JA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=vFiy5GdPlKi1BTLgNHlQKIpnU3z6+iUK8DBBUam5WRl6A0ywcASUnPAc/fQ1S5G2518XT2nH+cE9C7a6qrcsN63d5PzJtIfw03EuLQtksyYmoPARjV9kDNJp1QIqUsvEw0AWn0zxYAgyNzs6WnvNRQwN2ziKKmHyPVXT31kz8Pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=black-desk.cn; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=black-desk.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TzRYSL0o"
-Received: by mail-oi2-f13.google.com with SMTP id 46e09a7af769-804f7045f3eso1183612a34.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:54:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790009648; x=1790614448; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tvfdmXPJ30DEketzEq5aXVKBwOS7ewPYMj6rBpY0hhM=;
-        b=TzRYSL0o+MpnwNBRJpqqA0Jzs+X+BizeBR8Xs4t/NZDUnnjVj/IPAgy+bMB0mEaBjJ
-         fFL1VPPamn21NLHMGuA1qas1GqibT8ksabxhUoWfniQBvynsJces+DeL157WMjxwoYiF
-         yuE2QKY8/gvogRsntZabuP0YSmBQ8mge4BkYHLnTOjxfHYNz6J4jimucok2MSt48tKyI
-         etnqLkaLRsdwlGUT21xHuENi3hfcLDsMWVd2tWHYA2CyJrIrWgg8JvRg6QxMlEH6Z1p3
-         TsvShJsG2gze47Us3D2zh1vB53JodlwmulORilbuiZ7dfaHbWWife/0dvvVi0Tn/bmZB
-         WasA==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c1b8d7b5so2487720e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:54:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790009648; x=1790614448;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790009665; x=1790614465;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tvfdmXPJ30DEketzEq5aXVKBwOS7ewPYMj6rBpY0hhM=;
-        b=wZKzeBiBZKXP9D4tNVLhnfcuXiC1L/GRkyUDcOn/eIxtK3gpKxszKzuu6sRSPy2eYQ
-         jVI91BU7Y0aJ92oNL+01ppyTQguQMGQX+nD5k6tv89UXQqiC+hrLmax0ziPtcKtDC3qw
-         FkVUiRpoiuo05l/s6U8lZE104HZexffXPK0E6QGuubZk+nP1ZToNlJbODOjJnDGRD9X3
-         YrBwOyZJlCEZk7x0E7zkoftRWUn1H613VZbOErKsCADw/o5k1yZREzheR8W7JS3PwPb5
-         GBn2U199PD0WJtr9ufuEPsQRmguEGeVIs7HGcvkCkQPxcOaIaDVLHHkpN2EfubGZhvZx
-         4maA==
-X-Forwarded-Encrypted: i=1; AKwUvBxQAltGrjg4/pCdaa8Na5Dy6SwdAm9LcE+7mIU9BjFFGMMcFENYXimb2XVI4WFncLByZDGlhuHC2z9pfrA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTSApFYo5hq1b/TA+YP8PberjX8g58mDTHmtNsveq9dZkcwEq0
-	G5KQtYX1EZf43ZiExOsOV3ae3NTb2Id6pnosHfEOkBLaq/1acWp030Ru
-X-Gm-Gg: AYBFou08ir9TfEF86Ib2gxSC8KzSMtJJdJSl6tk/sGpuPkT7f9FvEjCnI8wFtwc3wfR
-	k53+phEPncz2OOkQGCIsTaaKEUOZ9UHC5hSO/6+GPU9opTRygm7MmjU178sFcpB0+by8yHGG7ux
-	9uYoWbN0U5F1bsOcgNbZ/F1QkKL5vQ5qYpcg+QvOgC91wiEbFAKHteuCI5RGZ1xAOLFgn8X6Xp5
-	fC2uXpXEO/l3QsuIgAUkZsAQX+QRVBslG9A1HkNDncpiaLYRJgDV/C7v4G/fSoZpX4obmeJZzCU
-	Z1DtLj0W8Vtoe8B9t/ajQLXh2zmpQIWc1nis6DRZOW1GLSrAJFY6V04ADw1LHbaj4AIws5/Qdmz
-	5apFWMqqZYGJrmZDLF4p3TyfgvRe8uaAmXm4J/dgCuMGKhu6Y876M4UsSG1GF/Vb572sCt2gow/
-	5p7QgybBC7jKPZRh1X5OLGvjUZLQUt1OngO49w5M8cGQBfiLuxUW9X++aQNLfqOWFLeZlazbADL
-	KFmGNWQln9pAjMgy2D/11wZllg23uyz2SFws3Hq8SF6J9ljvmTS0TgXZUPDhRpkfKDsW5yFMiAg
-	zBLMyvhKkFqPs5W9R70fTvCbo/Om6y2UNf4utaQYwDzkjlsxSNzk7fpFTKWiCufZBqF6kh8RkbQ
-	RvuTq0chLMHX8iHCEHFbGfw==
-X-Received: by 2002:a05:6820:f00b:b0:6bd:760a:a8ce with SMTP id 006d021491bc7-6ca9d451e13mr9761450eaf.62.1790009648212;
-        Mon, 21 Sep 2026 09:54:08 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d145bc40e6sm510481eaf.5.2026.09.21.09.54.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 09:54:07 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 21 Sep 2026 10:54:04 -0600
-Subject: [PATCH net 3/3] net: stmmac: close the interface after failed
- hardware resume
+        bh=hK+61oik5gsxN96IHn3CnokMCdTIaajwpmg47B7x+JA=;
+        b=ldms1DrtLwSd+yyLjNITzQ3kS5BHUU2oHWNZE/2S3LhyV67lUF7GRUv4UiwCYtWN2y
+         6KmdjnQSr+k8GdQomu4/8yxnIwQDDFPy1vYQuK7/fz9HLbg2WtI9GN1xj4oYv5V9nXF1
+         KsJR4sqKIWh2C80GZlsJLGRVm7rZzSK2wlnNhdzV0YORd6jp9Z0cqNk9r7+ziHQ1DFpN
+         CnNOdls8qolzWLhh4pnsEw6FQ8etXonETTsx0QXdKn2eGod3agT5y76b0MS6DgcQb2gK
+         pV8oUtDGpRwBWB3+1EL9AAXGQb7i4XlUuqcrBDdNddPn189qdqa5fEzw1JjJb5T3a68d
+         SRRA==
+X-Forwarded-Encrypted: i=1; AKwUvByQ6qmLxWBpqEUqt43BX86O//HdDUGex6+w/7ssnYW89fAma1pvVWV2mMaTnvxrBxScEXAN6/3032FC0/A=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8bvkz69oCErxKoP8S6TAlqQMvnscEt1CsJxbQrhknItSqCMhF
+	y6LWJgjxkcVx5wmD3B5Bjj06jVCs5/LxdWN5/YlXmK2RQMQazqKtobH1WlBPXA0QDWqk1Q==
+X-Gm-Gg: AYBFou3MnRHPXqIviomlj6J7Zm7aROiZ+0DQQga8ZONxBpK0qh00qxaGwUl4MK+IEDQ
+	y2zr7JjCzg8n3BITm/D7zjCzEZJQkwn6DXiKxZJqFqeE1VknaTcHMSdLFEvaEwkWRREXVK2llP+
+	F9UK5ryQN4cTgaFu9+Vhf4he9xbQmUf6j/LQLl1OPuwpqvIlEPsJfFoaJ3X4Ghr5eY79tjbZgqI
+	o0uOhzlVw4xs6KBJ1d6jlYcM6fBQ/blaEOlQ5+4d/Ly2DzE3DM5FGzJ2l9LKb1bXm5jC6X80Emw
+	R7AZch4sHafdSgWpRaCWdCP8ssdZ8EJ73pj+GikKKkiAlYJ+jarBLyWcc/iMWrHNuzdRb/237Xn
+	ENssSVai56jb7gOewazB7vEpydnztitc/YTB/Uxfk//JlG6x5gqXD6NHBbsyKQUIHlnvps5Su2i
+	echtu09FGqmENDUdfo9osibmDG8gXTksS3vwLQr6hgk4Vp7+ssX2YgUDcaP0n7rI8lCmUuqADg9
+	n+61DJtqR63cNZop5v3pwtNDtL24xrGaaAQWLTdFt/qwxZUSZHaQhvmgYt+OSYU
+X-Received: by 2002:a2e:a99d:0:b0:3a5:f044:fcbe with SMTP id 38308e7fff4ca-3a5fc0ddceamr27775861fa.24.1790009665282;
+        Mon, 21 Sep 2026 09:54:25 -0700 (PDT)
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com. [74.125.229.204])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a607598061sm23259351fa.15.2026.09.21.09.54.24
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 09:54:24 -0700 (PDT)
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f15so3404670e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:54:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxKQJVOVKmt5goOWPb0k2GHFyGznuNdya1p950pZM65PedMvoeWOPVlZpXW0R1T4i+eUxYJOEG66rjEcmM=@vger.kernel.org
+X-Received: by 2002:ac2:4c4e:0:b0:5ad:55f6:1ec3 with SMTP id
+ 2adb3069b0e04-5b8c181f45bmr3718755e87.5.1790009663874; Mon, 21 Sep 2026
+ 09:54:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-submit-stmmac-reset-fixes-v1-v1-3-87a4e431ee00@gmail.com>
-References: <20260921-submit-stmmac-reset-fixes-v1-v1-0-87a4e431ee00@gmail.com>
-In-Reply-To: <20260921-submit-stmmac-reset-fixes-v1-v1-0-87a4e431ee00@gmail.com>
-To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
- Heiner Kallweit <hkallweit1@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Joakim Zhang <qiangqing.zhang@nxp.com>, 
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Christian Marangi <ansuelsmth@gmail.com>, 
- Tiezhu Yang <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>
-Cc: Richard Genoud <richard.genoud@bootlin.com>, 
- Alastair D'Silva <alastair@d-silva.org>, Maxime Ripard <mripard@kernel.org>, 
- James Hilliard <james.hilliard1@gmail.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.15.2
+References: <20260831-pidfd-get-paths-v2-0-c59ea6a21b72@black-desk.cn>
+ <lhuecf9cbl8.fsf@oldenburg.str.redhat.com> <CAC1kPDPu41RxMLHpPtz4VqfkEZeu-fYXG76XVZMh8bbQa3okaw@mail.gmail.com>
+In-Reply-To: <CAC1kPDPu41RxMLHpPtz4VqfkEZeu-fYXG76XVZMh8bbQa3okaw@mail.gmail.com>
+From: Chen Linxuan <me@black-desk.cn>
+Date: Tue, 22 Sep 2026 00:54:11 +0800
+X-Gmail-Original-Message-ID: <CAC1kPDMCFoVsPDZgoCF6mHqHQafCkDc3Pohpp6pNOLJzE2OTYg@mail.gmail.com>
+X-Gm-Features: AcwNN1U1zJ5xAFsdo7eYagPVPgcyEU2aovVJcIoR_uPclCIazBY4PYSmw97k5Co
+Message-ID: <CAC1kPDMCFoVsPDZgoCF6mHqHQafCkDc3Pohpp6pNOLJzE2OTYg@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] pidfd: add task path ioctls
+To: Chen Linxuan <me@black-desk.cn>, Jann Horn <jannh@google.com>
+Cc: Florian Weimer <fweimer@redhat.com>, 
+	Chen Linxuan via B4 Relay <devnull+me.black-desk.cn@kernel.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	Kees Cook <kees@kernel.org>, John Johansen <john.johansen@canonical.com>, 
+	Georgia Garcia <georgia.garcia@canonical.com>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, apparmor@lists.ubuntu.com, 
+	linux-security-module@vger.kernel.org, linux-api@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-System suspend disables NAPI and suspends phylink but retains the IRQs
-and DMA resources. If hardware setup fails during resume, the interface
-remains administratively up with NAPI still disabled. Closing it later
-calls napi_disable() a second time and can hang indefinitely.
+Hi Jann,
 
-On hardware-setup failure, stop DMA and disable the MAC, then release the
-suspended data path without repeating NAPI disable. Stop phylink directly
-from its suspended state rather than restarting the link on hardware
-which failed to resume. Drop the driver mutex before teardown, retaining
-RTNL across cleanup and network-core close.
+Christian suggested adding you to the discussion on this series.
+I sent a follow-up reply with you, but I=E2=80=99m not sure whether it
+reached you.
 
-Close the netdev to detach the PHY, release its runtime-PM reference and
-clear its administrative state. Reattach the now-down netdev so a later
-open can allocate new resources and retry. Preserve the original resume
-error and leave successful resume unchanged.
+When you have a chance, could you please take a look at the thread and
+let me know if you have any concerns?
 
-Fixes: 6896c2449a18 ("net: stmmac: Check stmmac_hw_setup() in stmmac_resume()")
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 29 ++++++++++++++++-------
- 1 file changed, 21 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 44b59d0f56b5..87cb0978ed6a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4245,7 +4245,7 @@ static int stmmac_open(struct net_device *dev)
- 	return ret;
- }
- 
--static void __stmmac_release(struct net_device *dev)
-+static void __stmmac_release(struct net_device *dev, bool napi_disabled)
- {
- 	struct stmmac_priv *priv = netdev_priv(dev);
- 	u8 chan;
-@@ -4258,7 +4258,9 @@ static void __stmmac_release(struct net_device *dev)
- 	/* Stop and disconnect the PHY */
- 	phylink_stop(priv->phylink);
- 
--	stmmac_disable_all_queues(priv);
-+	/* Suspend has already disabled NAPI when hardware resume fails. */
-+	if (!napi_disabled)
-+		stmmac_disable_all_queues(priv);
- 
- 	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
- 		hrtimer_cancel(&priv->dma_conf.tx_queue[chan].txtimer);
-@@ -4297,7 +4299,7 @@ static int stmmac_release(struct net_device *dev)
- 	if (device_may_wakeup(priv->device))
- 		phylink_speed_down(priv->phylink, false);
- 
--	__stmmac_release(dev);
-+	__stmmac_release(dev, false);
- 
- 	stmmac_legacy_serdes_power_down(priv);
- 	phylink_disconnect_phy(priv->phylink);
-@@ -6174,7 +6176,7 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
- 			return PTR_ERR(dma_conf);
- 		}
- 
--		__stmmac_release(dev);
-+		__stmmac_release(dev, false);
- 
- 		ret = __stmmac_open(dev, dma_conf);
- 		if (ret) {
-@@ -8356,10 +8358,7 @@ int stmmac_resume(struct device *dev)
- 	ret = stmmac_hw_setup(ndev);
- 	if (ret < 0) {
- 		netdev_err(priv->dev, "%s: Hw setup failed\n", __func__);
--		stmmac_legacy_serdes_power_down(priv);
--		mutex_unlock(&priv->lock);
--		rtnl_unlock();
--		return ret;
-+		goto error_stop_dma;
- 	}
- 
- 	stmmac_init_timestamping(priv);
-@@ -8386,6 +8385,20 @@ int stmmac_resume(struct device *dev)
- 	netif_device_attach(ndev);
- 
- 	return 0;
-+
-+error_stop_dma:
-+	stmmac_stop_all_dma(priv);
-+	stmmac_mac_set(priv, priv->ioaddr, false);
-+	mutex_unlock(&priv->lock);
-+	/* Release the suspended data path before ndo_stop(), which must not
-+	 * disable NAPI or free these resources a second time.
-+	 */
-+	__stmmac_release(ndev, true);
-+	netif_close(ndev);
-+	netif_device_attach(ndev);
-+	rtnl_unlock();
-+
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(stmmac_resume);
- 
-
--- 
-2.53.0
-
+Thanks,
+Chen Linxuan
