@@ -1,160 +1,114 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B43643B4423;
-	Mon, 21 Sep 2026 10:23:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221F93C3C07;
+	Mon, 21 Sep 2026 10:24:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789986229; cv=none; b=W0lTiui2VEAymqtrNpYCuaz7QDwZAaHg2U3LYgaA8nFv0zhFOJh4ZnPGRl+xfm2Tg/o9ImG9ZLzsfOxGXzday4g8Zer31H7OGuRBFmFJV33k0dzfoc+nyk3wInGrdR1qgvD1VNJ5UfpzKqbt5ppflsoALg5TmoTpAP96TELrEwg=
+	t=1789986252; cv=none; b=j9kq2Kplq2Nnw24jLpI7um17BBGBtQgnHNZJYaapdVTiM9R9qPSxvIqhebh6J73JM0oxeDHsPEva2o0bvsSk5n+1pY1ZPRJ/w6vY9iHr9NJJq1vFuBKppowNecPiQaIOsl/csiPXNwIi1xZcBNIbw3TBHsNDUWI07EYrXydKh40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789986229; c=relaxed/simple;
-	bh=SGxlfflnoEUE8PQna8EIobdZGBeut1mKJI2YDTFNBSk=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=VE8Xhunv27KRLGVHvIuEkh4YvNpUbjITmXQ7lpvbyNMXJS8mfdNL3EA0xdDGcy9peB+zT3VdPtXrfqWee2liUAAVbGqqkEuLJA1A+aZfvxfcPkuGcX4DfJlUqkhsOG8hYzpxJVzyI8T5pEJY+6JAeQakVQiZ1+8KEAFuUmOXc2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=Gu8aXN/Y; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789986252; c=relaxed/simple;
+	bh=Ub/+kGpAAP6+lsoiaCw9Klc1Wvd0seH12psmBQ0pa4g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NO90f5cyGo3gmoXxucVU8yPXgm7PFGr1dB4VnWpj54DUUN61BV5itD/mNPWHLBjkN7iSGkuyt5IdVYeyV2KwQtWSEWLulXEz2mAtb5HP7pvMfahXn15OKR6uMNqoERw/hELCCl7lujMfBApOLFpVASq7qeoo/Ao4nedIvTLi3es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kkp/F6R7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="Gu8aXN/Y"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5A63DA4A31;
-	Mon, 21 Sep 2026 12:23:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789986221; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=sYTyf2NzK31tnC6ydhPwUeBuS5CmfMmG+CeRjqUuIfE=;
-	b=Gu8aXN/YGk9qhL59VL0nIyWichBQRIS8ZytYfql2XkgbGzV9TMGQHQThHKrpZtmKkRK37S
-	yF1g9z5XUrNH1IbOFixDvcY4BU3R4QRQJ1yNgKEZtY6NrVvH8q/by6vcDdl3sArYyg0jlK
-	7PI/ljHWHKv5rS31XbgkX3lbeQeovU0rYY3nHQ/+cIc+ftJIbX5RZltwMsvi5yHSzcxQkJ
-	1ufZ0NpRTIW8QYIgSbviE/5cjzbegDKLtb98ipZtZaAWtM0RFW0pvkRZBwTxw4ooNjRDQL
-	leLQf/jUls/M6DnK682xY5UjK3uXOJBPOP6cn4eTLA8yLhmecJU3LYCQXkMLMQ==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kkp/F6R7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1EE61F000FF;
+	Mon, 21 Sep 2026 10:24:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789986250;
+	bh=lwX4uKLsOTYT1SCuUhODQ6rGv8tZpp4S5pftAMN0UFY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Kkp/F6R7RcrV996+F2BmiS0mCBFkfoMw0mo2+WHNo8tu51/jvdlk4oaGmKZm/H+rq
+	 Rfg9Oy3pOswCWSS2mFm2Ig9BkjTbwZVtieTQQC4948ZJ6m6bK03o6VM2QUbUC4vDej
+	 eVr2+evJZqWtqkTAMcXNaAswZ6ZlmByPatJNMfpcIOFWlNukFZWINhDB9+JyWdRdYG
+	 XQJhMSddxMNv1AOlhFYrs69jT7rJtWClnEnLG/dWR1NHJ2g0E7OEn6nIIE2TgkfuxQ
+	 p+0XUC+PHM5DTUO5aZ44f8G9ueuQ16XCR8dyI1LKJvjs3ooZcMQm+1Zce+y2f6vfny
+	 X0PG7re0U9OWg==
+Date: Mon, 21 Sep 2026 12:24:07 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Jon Hunter <jonathanh@nvidia.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v2 0/3] soc/tegra: fuse: Add Tegra264 support
+Message-ID: <arEFuSVya1BcQcrN@orome>
+References: <20260917-tegra-tegra264-fuse-v2-0-4936068c2168@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 21 Sep 2026 12:23:37 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, richardcochran@gmail.com,
- kory.maincent@bootlin.com, vadim.fedorenko@linux.dev, jjc@jclark.com,
- florian.fainelli@broadcom.com, opendmb@gmail.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: don't require the hwtstamp NDOs when a PHY
- provides timestamping
-In-Reply-To: <178998466913.2160803.80702009306181180@kernel.org>
-References: <20260918095540.34286-1-nb@tipi-net.de>
- <178998466913.2160803.80702009306181180@kernel.org>
-Message-ID: <8037c32ce6fef79a74ee56973bf185c2@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="c473hq6sfnp3kpw7"
+Content-Disposition: inline
+In-Reply-To: <20260917-tegra-tegra264-fuse-v2-0-4936068c2168@nvidia.com>
 
-Hi (S|Cl)ashiko
 
-On 21.9.2026 11:57, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let 
-> patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your 
-> reply
-> (one such reply per series is enough).
-> 
-> - [Medium] Incomplete fix: the ethtool-netlink tsconfig path still
->   rejects PHY-only devices, so the two documented-equivalent uAPIs now…
-> 
-> --
-> 
-> [...]
+--c473hq6sfnp3kpw7
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 0/3] soc/tegra: fuse: Add Tegra264 support
+MIME-Version: 1.0
 
-> [Severity: Medium]
-> With the checks relocated here, the ioctl entry points now reach
-> phy_hwtstamp_get()/phy_hwtstamp_set() for a device whose MAC implements
-> neither NDO but whose phydev satisfies phy_is_default_hwtstamp().  The
-> ethtool netlink peers of those ioctls keep the old unconditional gates,
-> and they run before these helpers are ever called.
-> 
-> net/ethtool/tsconfig.c:tsconfig_prepare_data() {
-> 	...
-> 	if (!dev->netdev_ops->ndo_hwtstamp_get)
-> 		return -EOPNOTSUPP;
-> 
-> 	ret = ethnl_ops_begin(dev);
-> 	...
-> 	ret = dev_get_hwtstamp_phylib(dev, &cfg);
-> 	...
-> }
-> 
-> net/ethtool/tsconfig.c:ethnl_set_tsconfig_validate() {
-> 	const struct net_device_ops *ops = req_base->dev->netdev_ops;
-> 
-> 	if (!ops->ndo_hwtstamp_set || !ops->ndo_hwtstamp_get)
-> 		return -EOPNOTSUPP;
-> 
-> 	return 1;
-> }
-> 
-> Does this leave the two interfaces disagreeing on the same hardware?  
-> On
+On Thu, Sep 17, 2026 at 10:16:00AM +0100, Jon Hunter wrote:
+> This series adds support for the FUSE block found on Tegra264. The first
+> two patches were originally posted by Thierry Reding and add the device
+> tree binding and FUSE node. The third patch adds the Tegra264 FUSE SoC
+> data, including the register range and keepouts.
+>=20
+> Changes in v2:
+> - Reword the device tree binding commit message following review
+>   feedback
+> - Correct the register range for the efuse block to map the complete
+>   address space.
+> - Add Tegra264 FUSE driver support
+>=20
+> Link: https://lore.kernel.org/linux-tegra/20260320233822.2578569-1-thierr=
+y.reding@kernel.org/
+> Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
+> ---
+> Jon Hunter (1):
+>       soc/tegra: fuse: Add Tegra264 support
+>=20
+> Thierry Reding (2):
+>       dt-bindings: fuse: Document compatible string for Tegra264 FUSE
+>       arm64: tegra: Add FUSE block on Tegra264
+>=20
+>  .../bindings/fuse/nvidia,tegra20-fuse.yaml         |   1 +
+>  arch/arm64/boot/dts/nvidia/tegra264.dtsi           |   7 +
+>  drivers/soc/tegra/fuse/fuse-tegra.c                |  11 +-
+>  drivers/soc/tegra/fuse/fuse-tegra30.c              | 168 +++++++++++++++=
++++++-
+>  drivers/soc/tegra/fuse/fuse.h                      |   7 +-
+>  5 files changed, 191 insertions(+), 3 deletions(-)
 
-Yes, but they already disagreed before this patch (EOPNOTSUPP).
+All there patches applied, thanks.
 
-The ioctls are the regression and AFAIU TSCONFIG_GET/SET never worked
-here. Both gates are part of 6e9e2eed4f39 (~ a year before 
-5062245a5a7f).
+Thierry
 
-> the bcmgenet plus BCM54213PE setup named in the changelog,
-> SIOCGHWTSTAMP/SIOCSHWTSTAMP would succeed after this patch, while
-> ETHTOOL_MSG_TSCONFIG_GET and ETHTOOL_MSG_TSCONFIG_SET would still 
-> return
-> -EOPNOTSUPP, even though Documentation/networking/ethtool-netlink.rst
-> lists those netlink operations as the replacements for the two ioctls 
-> in
-> its ioctl-to-netlink mapping table.
-> 
-> The note about this ("tsconfig keeps its own copy of the check ... IMHO
-> this is an extra patch for net-next") sits below the --- separator, so 
-> it
-> does not end up in git history.  Could it be moved into the commit 
-> message
-> so that maintainers and stable backporters can see that PHY-only
-> timestamping devices are only fixed on the ioctl path?
+--c473hq6sfnp3kpw7
+Content-Type: application/pgp-signature; name="signature.asc"
 
-That would suggest the regression is half fixed. It isn't, the tsconfig
-gap is a separate and older bug. I placed it deliberately below ---.
+-----BEGIN PGP SIGNATURE-----
 
-> 
-> One detail for whoever narrows the tsconfig gates later: the fix is not 
-> a
-> mechanical copy of this one.  The HWTSTAMP_SOURCE_NETDEV branch in
-> dev_get_hwtstamp_phylib() still calls the callback with no NULL test:
-> 
-> net/core/dev_ioctl.c:dev_get_hwtstamp_phylib() {
-> 	...
-> 	if (hwprov->source == HWTSTAMP_SOURCE_NETDEV)
-> 		return dev->netdev_ops->ndo_hwtstamp_get(dev, cfg);
-> 	...
-> }
-> 
-> dev->hwprov is only ever assigned in ethnl_set_tsconfig(), which is
-> reached through ethnl_set_tsconfig_validate(), so that branch is safe
-> today precisely because of the check under discussion.  Should the two
-> sites be changed together?
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqxBccACgkQ3SOs138+
+s6G+mhAAmQERE+9oglvjMFq0bGHSrMhFsWXzwxwRfRHRzKRRRif+Vd5AS1hjELXh
+18+jEiHRVDluV54BaO6hOFLL+CuIZv9Jy1UATKMYXooS6UwE3lCo2yP0TH8L6RHB
+ni9wfveRpkkUEgHgelvaY2KaWUsw4sfoY8I4AzzUMfoymLOHjoUdWkx0h5C0uvAk
+Onbn81XBcvUH48zlhF4wJbxQqZZzi3Q0QleTD8I8wv6YSC3IqZVZzpgtdxDFYYLP
+msLHUKNNE0xcjJLvAJJqJHfvk7oNA0lae+pFqLn4MXWDe2BREkGr0Z91O31OsMZP
+drAzzfU6YVW8sNix9W4zQinQgpZm2jXE4b7smp4XzxNxPt9yx/7FgsP609KVHZ4g
+cOLaf4eOJ4Pn9tDQAAxc8FTuZErfSqC2Xww+44sJA9FDxeDHlIiN2LeiIcBlmH38
+EWCvgHjxRXtazi2UVG8wHbLIPD4AG8p+Agz9lHr0LSlngt5Q3ohoR+deN0WR875l
+eRVk8WfYGbgohxatiBGKI9CrvXukNewROrVTmzcXJGJucRM0BP7+LfJWEVOnLnsk
+f8Bnytnz6TdLXsSrj7E4Qs0LpM3kQHhoOd1NzcPegNDZ+PCs/v0VTQk+JtByfVvW
+ELiQn4jWlGF/BwX4c1gLPdgzWnnCO8dz2D/biz7aeIoUmvN05/M=
+=K4L1
+-----END PGP SIGNATURE-----
 
-No, IMHO not here. It would change change behaviour that never worked.
-Thus I would suggest fixing this with a follow-up to net-next.
-
-> 
-> [ ... ]
-
-Thanks,
-Nicolai
+--c473hq6sfnp3kpw7--
