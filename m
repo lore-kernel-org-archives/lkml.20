@@ -1,179 +1,149 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2F45172EC
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1604517BC4
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:57:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790027741; cv=none; b=BnoTEovwRMutLGqKo+HhQYBHMskY4XLIEy31RHGRU2T2NrT21pm/L2uDxAQ8y8KTYBWzzS5QrOIO68Rq341fXevm80tEzADs3RFQRFEQorw3FDHbrgNLrh22n87/R8Wy0VJTZiVLiJ6xA+gVtZnGs9VUuzDq/a7kNWinHvUN4As=
+	t=1790027823; cv=none; b=UReOzYS92SvIye+BMloJBR+Bgp3TKT93pZKW3qmCtXbpzhzDVHzDygqBVsv3/NbzOm21fYp9ZgmK+3CsXx6SaLV7kgp6wR4U3AIMRc4q9b7a1DM96JaTktkXou4DSTYcM4V+2wmqUpbiZ0OhnlM7Mt1A/0H4EbVK0vdhEFAMPms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790027741; c=relaxed/simple;
-	bh=HCdxYoKJS4JXP84pYdyR7ipBqIPncIEkdtGfKAzM21A=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=OP+BS6Qmz7HFE0RvwZghCuvE1+fwRgpvLIqcTHUY/x1pIpLzcs8GHW18rS45iOwXdviB3CsqgzSpPa5XzCqDwhjX4Nwu8A1+TfojW9Ow1qA+0yWYBTvmjL79Y5aYSa7Oqois2xJe+WHD7H2UUfHhzwvJntY5K2aU0LhkVt4l22M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=at+3b0JI; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790027823; c=relaxed/simple;
+	bh=SzM2SvHPjiWBwoSeU0UqgGIeTyIUlBCr8zzL/bbLfb4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=f0ZyTO5+IjoxgNcEvMXJsjzHb86zIUS/Qjz5oRC5esCMhoVt6D01cecK8oYr/3XonKOagDRX47gU5mGwXaWlMYIXxbMZObAE9k4syqHTVAoQqafZJShVlq0riO08OEqFeSEki5LVsCj13vJi8pWxs1bl3lk2/Pc3dkOeyOBHtWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UWLymRA4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="at+3b0JI"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b350c69b4so3053092a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:55:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790027740; x=1790632540; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=JR/I8dSNLWX0oO0TxgyXU1KNRLBlNCoS227EjBBu2Z0=;
-        b=at+3b0JIil/2xgXzEBxyhfV7aqGwE4aK81Ne5s4I2/YA4HlkxJ3KflJfq9ExkDNf4O
-         8X0wJeVliAlGeV9j9+GJ1KveSGtg+j1Y5RWFy81NaZ3MHjcpRGV0h0Eqd3HCQbUEl+cu
-         vpmrgc/yFOZzGRIqYipoGVqAUfJ4Fb9EIelikwhY+aWRXiQ0zdX1E6Wf2dgKrHtGWYtT
-         qJqwWKKOgJ6Qdt46zXN+kIaHJjdACVsjgkVfLaLCyR/gCgxLzWI5ep16SzlK7gYubLxp
-         fk1DUWRJk3WoDG6wCLLsmaFxJtZtP2ap9YiGKZ0Lm6/kHuI543nZzeeuuwR5Ja/iq8QI
-         inQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790027740; x=1790632540;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JR/I8dSNLWX0oO0TxgyXU1KNRLBlNCoS227EjBBu2Z0=;
-        b=LcIB6ZK+0M5zzFBJ5y0SG4ZQvVcpR1yDDFH/fmEOIomOLDi7xeO4qzhEZyttRbeNVO
-         /icjfPWLNQlFeYs5W1jqpq3FfQFnTsHMkiur1q4665fHo0Iv2ygI7NUe77/XJCKSFHni
-         yMAd/4c2w4Ja/Ku6+rHG28flB+aSyyWhJ7NeslyLvNlc2UsKBVmCOALvAaIxH9vRP3Ob
-         14UnCFIrnYCRMkCzUpyzvpEh2RKNLqIu+JmKp+YNt27BaYHZzasfJI+sQUXeQ4iqyCeZ
-         5SKODFyk88aW83TaLWSpzP/XeVqEQq39pdEi/lCrKFMxt9nge/DiKLVjx+DtEzfeuMLP
-         j2Vg==
-X-Forwarded-Encrypted: i=1; AKwUvBxbI3DdKy82xvev4sB5SxAS52pV26kNHst3nTWY9sPvW2FndTME50/Nx7NUVY1KJ1jvbScFK3v/PpYtW5Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqYwQmI8yNrnVmctzJS7ZLGZ8O7tljBN8T5JN9uzCsQlSoCHh8
-	QPwEJKPT/UOLUKlS2MZU1exlbNy/hZ9rNP2Nvp/Zb4zQ504Te+Ts0BGA
-X-Gm-Gg: AYBFou09oUjnV9efEXpxv7y+GY08NmlgkCcB5eUCNitK5lZkmrujRq/GmQGbCn33qBt
-	kU0Eq4VmU2Lv9zjzoMtUeY0fS+aLLtYp/Dt61DTifyPZfjpSq7IpUjlAh2HbJBqwO4DomHJo+B+
-	9LNJjI7KOQFWuAFfKDFb9zP1DPxHAgwuyFTn8wuKiSwB9wE465yCxVpf5zl9iqxbwoNVDf/M8wn
-	f54RPtYLoryAmcw9akuP3vCCCrcoaKgJNJPIIAEKbmYENOVN0NIlRWnetwM71lZqp5LS3q8KPdX
-	PltUqPWit1UbZDQTYiW8MgtT49UsqL1bqI8+0GupWga9DV8Di88KNd7B7X146d3HqkYMypjc1bx
-	Jy4ElQZ2yfJCyZ66p6H0vi6VtmF3lxlMz5u5NgwcUNpRDP2U+nVD0w9aRLEjuz8JCcLcpdPvgMN
-	cGyb7d6a/DKM2T6xAYRN83qg+ftzf3TjqxjtNOJNAYUK6VZEI5hYorCCLWWECmKjbEioQaL7sYf
-	I/+4wNn1G8jIBCAFzEnc30m4Xglqj7yGmIC7hrOKbpFIoRnrpaF3kkR7A/dniOfwyDkDjaoGMFn
-	BNI=
-X-Received: by 2002:a17:90b:3909:b0:39e:3558:f925 with SMTP id 98e67ed59e1d1-39e54d86a97mr17008107a91.24.1790027739732;
-        Mon, 21 Sep 2026 14:55:39 -0700 (PDT)
-Received: from localhost ([153.61.198.249])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0699c5486sm640851a91.14.2026.09.21.14.55.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 14:55:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UWLymRA4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C2F21F008A2
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:57:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790027821;
+	bh=qSVVL7TW61oF74m7rSQbYkMlEzrUZT28aAJlLtjv558=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=UWLymRA4dRaUVCNgxbyFuI0sgH1RptweTBoHL1aoPAuEMPHD2GwK9pr0Y2/F8IjtC
+	 AzsMOelpBRu0ibT+YgaKcQhY81MQunCrgiY+70Hj0oQsicaHoDvg6wzTkgWnekys1o
+	 nH7DX+jrIEledtA+S+0dPk5Gq2D1lzBOG37kumVi5PzgS9UymwW6pillHTZq/mv/oL
+	 g3c/aJpf021oj019kcIeqxkxwSe2KcGcCKuIfazdIUADNGLvQU2/+s9zuMNrre1uHN
+	 nMEU85phY2UHu8nW59GB50G6dPJ9t6WeC20yS8fp5o1FO1Na3An/OIR6q4HgDIOiXW
+	 TZ3uhGwcAxTCg==
+Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93bfd70b08cso204817985a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:57:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw/PsGpVtr57NUMhBI5TNIes8Q3Ru2LMn8Y91ealKLamjOxpn3bmkkAZjv7d39BNMm31Ozz0yc/di3mdY8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kVydA262ToyZFFtCNeEaMDHSMQH4W+Sv+0OxJcmssBatqSMxgh
+	7GjDj+dNsw1y9SIl7zcJRoqONFn1yVs0b9I56GkODxU6a1mDgwlpYsq+ccSAOoJd/iAZ2e3bMNC
+	RQoy9f3Cu53YxZHuh0pWlFcogiP0n48o=
+X-Received: by 2002:a05:620a:2893:b0:937:d6e8:59b0 with SMTP id
+ af79cd13be357-93c15d69efdmr230732985a.10.1790027820912; Mon, 21 Sep 2026
+ 14:57:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260921152449.629486-1-alex@ghiti.fr> <70cae945-3a4a-40db-96ac-5ce66a3fa186@kernel.org>
+In-Reply-To: <70cae945-3a4a-40db-96ac-5ce66a3fa186@kernel.org>
+From: Barry Song <baohua@kernel.org>
+Date: Tue, 22 Sep 2026 05:56:49 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4y8-wD0yMV8GCtCz5MfNrOKqUaTd+UgH=8MoP_nuvPnGg@mail.gmail.com>
+X-Gm-Features: AcwNN1VSw5Rr4NROqiaRDFlkbhVNl6ttklStB_B4KIyo7Yo7DDoF7gUuyR6ZS_s
+Message-ID: <CAGsJ_4y8-wD0yMV8GCtCz5MfNrOKqUaTd+UgH=8MoP_nuvPnGg@mail.gmail.com>
+Subject: Re: [PATCH] mm: madvise: drop MADV_PAGEOUT folios at swap writeback completion
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Alexandre Ghiti <alex@ghiti.fr>, akpm@linux-foundation.org, willy@infradead.org, 
+	jack@suse.cz, liam@infradead.org, ljs@kernel.org, vbabka@kernel.org, 
+	jannh@google.com, chrisl@kernel.org, kasong@tencent.com, 
+	shikemeng@huaweicloud.com, nphamcs@gmail.com, baoquan.he@linux.dev, 
+	youngjun.park@lge.com, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
+	axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, 
+	hannes@cmpxchg.org, mhocko@kernel.org, yosry@kernel.org, 
+	chengming.zhou@linux.dev, kunwu.chan@gmail.com, tz2294@columbia.edu, 
+	hch@lst.de, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 21 Sep 2026 21:55:38 +0000
-Message-Id: <DLLBVIU33MLC.ITFPYGMFKWUT@gmail.com>
-To: "Eduard Zingerman" <eddyz87@gmail.com>, "Vineet Gupta"
- <vineet.gupta@linux.dev>
-Cc: "Alexei Starovoitov" <ast@kernel.org>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>, "Kumar
- Kartikeya Dwivedi" <memxor@gmail.com>, "Martin KaFai Lau"
- <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong Song"
- <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
- Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, "John Fastabend" <john.fastabend@gmail.com>,
- "Shuah Khan" <shuah@kernel.org>, "bpf" <bpf@vger.kernel.org>, "LKML"
- <linux-kernel@vger.kernel.org>, "open list:KERNEL SELFTEST FRAMEWORK"
- <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH bpf-next v2 03/13] bpf: track low-32 scalar equality
- across zero-extending movs
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-X-Mailer: aerc 0.17.0
-References: <20260910164635.459558-1-vineet.gupta@linux.dev>
- <20260910164635.459558-4-vineet.gupta@linux.dev>
- <DLDKI0ZXYI7H.1XQZZE2RCU7IF@gmail.com>
- <4ab75099-0e95-4fee-81da-6f4198e3e6a0@linux.dev>
- <CAADnVQ+N9tzBJ0Bbvp8_8QvR+QcCP4ej5CgV_kRHt=iw4BANSQ@mail.gmail.com>
- <202c45e2-58ba-4ad5-a234-c90703031f91@linux.dev>
- <CAADnVQ+Si9Au8J_j2nt+ZzFq6WPaz8hpmh0n=_dFysZmSOeipA@mail.gmail.com>
- <ff18ccb77a554000a030199e8c1fbb7d8d298e18.camel@gmail.com>
- <DLL84IMPTRQF.3DOQQTN2KCAEW@gmail.com>
- <e9aad352ba82dadd97a17867108b5db1865fa38d.camel@gmail.com>
- <DLL8Q69N7BUD.1HI0MKU2M2UGE@gmail.com>
- <951923920747d8dcba3d56ca8858e106d9c7ba4e.camel@gmail.com>
-In-Reply-To: <951923920747d8dcba3d56ca8858e106d9c7ba4e.camel@gmail.com>
 
-On Mon Sep 21, 2026 at 7:44 PM UTC, Eduard Zingerman wrote:
-> > > > >=20
-> > > > > Where:
-> > > > > - id =3D=3D 0 =3D> no id link
-> > > > > - full =3D> all 64-bits of the register are identical to
-> > > > >           all 64-bits of a scalar value `id' (let's call it X).
-> > > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D full}, rB{X,ful=
-l} =3D> rA =3D=3D rB
-> > > > > - zext =3D> lower 32-bits of the register are identical to
-> > > > >           lower 32-bits of a scalar value X,
-> > > > >           upper 32-bits of the register are null.
-> > > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D ?}, rB{X,zext} =
-=3D> rA % 32 =3D=3D rB % 32
-> > > > > - sext =3D> lower 32-bits of the register are identical to
-> > > > >           lower 32-bits of a scalar value X,
-> > > > >           upper 32-bits of the register are either 0 or 1,
-> > > > >           depending on the bit 31 value.
-> > > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D ?}, rB{X,sext} =
-=3D> sext(rA % 32) =3D=3D sext(rB % 32)
-> > > >=20
-> > > > hmm.
-> > > > there is also 32-bit link with delta, right?
-> > >=20
-> > > My point is that delta is independent of 32-bit/64-bit property.
-> > > `delta' can be used to propagate in both directions:
-> > > - full 64 bit -> 32 bit sign/zero-extened
-> > > - 32 bit sign/zero-extened -> full 64-bit
-> >=20
-> > both? how ?
-> > I was under impression that in 32-bit domain delta is one way.
-> > rX =3D ...
-> > wY =3D wX
-> > wY +=3D 5
-> >=20
-> > if wY =3D=3D 10
-> > We cannot do -5 to rX
+On Mon, Sep 21, 2026 at 11:37=E2=80=AFPM David Hildenbrand (Arm)
+<david@kernel.org> wrote:
 >
-> Why?
-> It is still valid to transfer r32 and tnum_subreg knowledge from wY to rX=
-.
+> On 9/21/26 17:24, Alexandre Ghiti wrote:
+> > On an asynchronous swap device MADV_PAGEOUT only marks the folio
+> > PG_reclaim and rotates it to the tail of the inactive list once its
+> > writeback completes, so the memory is not actually freed until a later
+> > reclaim scan removes the by then clean swap cache folio.
+> But we have the same behavior when just reclaiming memory ordinarily? It'=
+s added
+> to the swapcache and only the next scan actually frees up the memory.
 >
->   wY + 5 =3D=3D rX % 32 + 5 =3D> hence rX % 32 knowledge can be recovered=
-.
->
-> If rX itself had some delta, e.g.:
->
->   rX =3D ...
->   rX +=3D 7
->   wY =3D wX
->   wY +=3D 5
->
-> Then it would still be possible:
->
->   wY + 5 =3D=3D (rX - 7) % 32 + 5 =3D rX % 32 - 2.
->
-> Again, in case of this direction, only lower 32-bits of the 'full'
-> register can be inferred.
+> Wouldn't we memory we reclaim ... just gone, like in the sync case?
 
-Ok, so we're argeeing that it's not 'full' in your above definition.
-Your enum id_link_kind needs a 4th category : apply-delta-to-lower-32bit-..=
-.
-and it's not bi-directional.
+For synchronous I/O, such as zswap and zram, the memory is released
+immediately after sync I/O is done.
 
-rX =3D ...
-wY =3D wX
-wY +=3D 5
-if wY =3D=3D 10
-here can apply -5 to lower 32-bit of rX only.
+For asynchronous I/O, such as NVMe, the swapcache is currently
+expected to be rotated back to the tail of the LRU and wait for
+another scan. Alexandre once mentioned that when he tried handling
+async I/O the same way as sync I/O=E2=80=94releasing the memory once the I/=
+O
+completed=E2=80=94he saw some regression. So, delaying the release until a
+later scan may allow swapcache hits before the folios are eventually
+reclaimed.
 
-rX =3D ...
-wY =3D wX
-wY +=3D 5
-if rX =3D=3D 10
-here can apply +5 to lower 32-bit of wY _and_ do zero extend into full rY.
+But we actually have a problem here: this rotation, which puts
+writeback folios at the tail of the LRU, is not reliable at all.
 
-I don't see a value of 'zext' kind alone that doesn't do 'add delta'.
+`folio_rotate_reclaimable()` would only work reliably if the endio
+happens after the folio has been put back on the LRU head, rather than
+while it is still isolated.
+
+But nowadays NVMe is very fast. If we isolate N pages and perform
+shrink on them, M pages may finish writeback during the isolation,
+while the remaining N-M pages are still under writeback. M can easily
+be more than 50% of N.
+
+As a result, we can end up with the following cold/hot inversion:
+
+LRU head
+----- M pages whose writeback completed during isolation
+----- other pages
+----- N-M pages that are successfully rotated to the LRU tail
+LRU tail
+
+Now we can see that the M pages were expected to be reclaimed, but
+they are not only left unreclaimed, but are effectively promoted to
+the LRU head.
+
+For MGLRU, commit 359a5e1416ca ("mm: multi-gen LRU: retry folios
+written back while isolated") added the following code to reclaim
+those M pages that finish writeback during isolation by retrying
+`shrink_folio_list()` on them:
+
+                /* retry folios that may have missed
+folio_rotate_reclaimable() */
+                if (!skip_retry && !folio_test_active(folio) &&
+!folio_mapped(folio) &&
+                    !folio_test_dirty(folio) && !folio_test_writeback(folio=
+)) {
+                        list_move(&folio->lru, &clean);
+                        continue;
+                }
+
+This somehow resolves the cold/hot inversion, but leaves the M and
+N-M pages with inconsistent behavior: some are actually reclaimed,
+while others remain at the tail of the LRU.
+
+For the active/inactive LRU and `MADV_PAGEOUT`, we don't have a
+mechanism to restore the missed reclaim opportunity. Ridong's patch[1]
+addresses this cold/hot inversion in the active/inactive LRU reclaim
+path. To my knowledge, there has never been a patch to address the
+same cold/hot inversion in `MADV_PAGEOUT`.
+
+BTW, if `MADV_PAGEOUT` is an explicit hint from userspace to reclaim
+the memory, would it make sense to skip the later scan and reclaim the
+folios immediately once the I/O completes?
+
+[1] https://lore.kernel.org/linux-mm/20260920132519.3369946-1-ridong.chen@l=
+inux.dev/
+
+Best Regards
+Barry
