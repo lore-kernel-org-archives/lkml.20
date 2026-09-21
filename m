@@ -1,86 +1,299 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB09C515982
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:44:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021E3516154
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:46:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790027055; cv=none; b=rs4rVNPSmIbzdM21hjXxH+cs5IN4UnIGdlOO14S6+CtDtuqFNg90N0RWj2s4N9LpFnoPaSI5fqsNAQAyYbOERKqTIHxdDfHK/ULygy3p4ZX4nwCfV0X2v02Me5GQ6ryU2cMShDcuexd5WRKsuOswY8vMTSHJ//eOAA+XNZ38p4w=
+	t=1790027202; cv=none; b=MG1FP9SJIEMs3plWC4Rg6m7xHxw9FGleYCF7msNYHATUVXnzwDFuX5Isb7MTJuX57l6W/oDO3lkJvcT8rVacUdv9alx7QbJLsE/CLyb8T3Vp0WHDr/m17nTy+2ZvQf2qpoUfe9fabshkWXesUnlCV2Psc4YnBqW/LUhUBE/ORYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790027055; c=relaxed/simple;
-	bh=ITSFGhBCgCYWwEXlvak+PK/ROh9aqcx9mXeYFcC0aJw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KjKhL0CjSKjWGWO+p/byFeONZ+l/YRZp6BidP8JaMwH3hwDt52L5DKN+tl43qUj/FG6SrtZc5g6L6Gyn94wmwxfEAxrVDYMwC+/wgHm9CdFoblIITjhfARiE2srEaJiJC1SLJngiumTUiVDD3LVpAWbSsQ0RlWkmav5mBEor1Fo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WexRML7w; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790027202; c=relaxed/simple;
+	bh=QShqD0mzsgr5KsP5VmTpDyoWzdUjfsO4sL+xZPZ8Kno=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=V8cXK6IhD2EppvoDIuFXwN2+y4q/sSIQZMHfjzyxaDxASQXCkwLaekPtU4kqvYfeSuQz7wBpokPMj9AlaKN5qFjNEXKKDWtullilB9E1Jyj8a+vEDl64Q6H1eMTH+snOh9SOW1+ZLZoIIWoOoTf0lh1fv4IC8swL7tnsNRRE2eA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EFoJNMx1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gZsFX//Q; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WexRML7w"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350faaso1871597f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:44:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EFoJNMx1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gZsFX//Q"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LKelxX2741019
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:46:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ZfOg9XYdQ5/vxidE+9pPRR6RYjJCbLCLOIt2gCT+9Gg=; b=EFoJNMx1X6Pv4FDS
+	tMUSGAa9LvqoGHZBedDqvdBcDA7Cvae9SnITto4f09jRtlbuekCrbMc/2MAKvf6x
+	gy2p3mZ2bhW8HdOSvKsdo/MKLNoMpVqXD90eb3NjmicVlbPWXm3gn48rxPFjxWVd
+	ccE3FYDFyB3GFotA+QlERyQZ16B85/XCfZXm5v3vSsXF7AER0i7zlTvSQHCun1zu
+	nfalxcV7idp0hPZlhBnqfZke+HLmsbX2Sc7DCOy8jejO2OtTqVCkLWdLV1vBiXSp
+	9DeQc19R9BUJCDEQgouChdIxMP4QiqIcIk83GTs5CpiOtWouC/iXLzm7qBgeMsWJ
+	YRLYVw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu01d3fdb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:46:38 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so8352457a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:46:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790027052; x=1790631852; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ITSFGhBCgCYWwEXlvak+PK/ROh9aqcx9mXeYFcC0aJw=;
-        b=WexRML7wNY9HYHVsSLgAdJ1X8hq8E9SbazwD/0JPQLRmJHuWJ2731Zpik7tOudgSOa
-         G9juTmXT56C9FkAAZ8eESwPY8of6wjvVYqMKruOfiXF5yt29+ui3kaahHRldS6qbQmQJ
-         UBzumqhrIJEYjckC38tUy8qRCvTpTkebtoo2koAPc0KlxXXACERqEHoNodtQiXHJx3IZ
-         X5iNUM33fTgMrGkW4XIZ2tOMWtVtrGY+5lB3QxP6XjUTG5Dg4JZGj5Tngo9kqajI0jX6
-         F0fbrX1JJYL/zCrnLaS3gjrsC5+MATlfb3ABcPwWKd5N3vOsYokY0J8WtAIvZm6UqaDW
-         Qt8A==
+        d=oss.qualcomm.com; s=google; t=1790027198; x=1790631998; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ZfOg9XYdQ5/vxidE+9pPRR6RYjJCbLCLOIt2gCT+9Gg=;
+        b=gZsFX//QG9D6bwbjzukJJyUpL8+3eeG4XWZOeVez/SqYo+ydZPf0gJn//KwuBSrYiq
+         OnArKanj18OJm3BJUZyqMTDldBcoBpvDSAxLqvF/9uB9YcvfK6WNL/zIOB/tOFZKzmuu
+         /Q0JXfQboH9T/b+L+jKjupwg8rnWACVGZmJ8k6rl6xzndw+aUNJKNpq4a31TMGz+2QZ6
+         WrUaDs5nhUruEvQb0OivxyyYvn8ZbBYDB1CSd7RshCGjtYcaSM7pfvLhzTcOeeaRMS4g
+         +rJ/J83jxkLS3PXNGOSYunXWUBgfUPMVAf/KPqZ3OHYiUkTk3gLtOVDS32LWPPFo73cc
+         DPhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790027052; x=1790631852;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ITSFGhBCgCYWwEXlvak+PK/ROh9aqcx9mXeYFcC0aJw=;
-        b=IBGZ3DusZ0tJUByp1am51YOivjaDbtEjJyOGmwboz3i1Z3plRvLIi4yp1o4RPP4nl8
-         0GhgHlvS2pdyr2QnV2paT47pUaN3wmOwPRDuVsGn2CyCzl5B2I/KdV/1pOeHBNgSffbQ
-         JttzOAnAXui6hbWhUkhzmyTAFD8JNhijbhJG9CH8AsxGcpOebPq8twtVgFxGHJ8WI97X
-         K66cne6uoeT6NIBUaP6F0fTVGDHq6pe/WDfNjjuqkOcg4tlJ935H7xGD3JedCE8+14Tg
-         GqAJlZ89vWCOtL0Hak7S0eqh3kWrGtfiRXt3PyhcVXyCM0DB/koWO6eO07KlZGco3Dl5
-         wAhA==
-X-Forwarded-Encrypted: i=1; AKwUvByyNa5qWGNXvenKcGvYo74ZBKnYidvq0wapr8hY4zmGXpD4sfLt+ZsSxa5ICz65QAV/Fkp0fMsjmNNWcaA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lEpNvsf6RncF18gqD3S5d0NeQPNKo6yJTTg8WTSN3D1kj/ngoC
-	S911KZpNe1FYPvalAPvzqtBHDxWdWBvCKTP85K9Yx+PgGa+jC/rfzxKc
-X-Gm-Gg: AYBFou131SUuVm7t76NSMgGTOcWzSuvUAeIH9wqC3xGBtaPUJY0T625NrfF9wCUSEch
-	2GwHPKI9wSx7UVVDl6yUsDcpYyHAsn+qvWImeawd1csOpcBanui1xyhGafPQgYBjNywR5uW2iA0
-	TG3GID4Cy8SZaAlK5tv0N136TdB8ypV7K2yKcmwV0lKxUvk5EfqgQKMYjqpYXP3N4Xx72DrDzZQ
-	W08v0N0fhlD5xVj9ypjti8zU1YA19WKwn51a5nkGFGlWpw6Gdv+iGNYVzu6rAENC6l5HipLsakb
-	SfOeEtRO1qZDlasQUIXRhwKKCX6SgM8gXs38ccOYjU7vhZtqhaMsZee7VL+HwAab2ZHyt1bu1AX
-	5NrH+6ErcDn04kZzQkkKvbpHDANWsCXAK6Ont8JXKgapAdNfHLLgsyt2rM3+y2lmCf2IOyNBshQ
-	Mz8ipMzzS7nBo1ko/eANPmOqodjUZtVumOarEwrUFW1ZI5l7RInA5sfMtMiySbjAG0CM1DEVWhm
-	vWJcVXVQ3pPtCofFBZx0oxXvAOWQckmIQeS9qvnyzA4BG0q
-X-Received: by 2002:a05:6000:2410:b0:486:f404:e833 with SMTP id ffacd0b85a97d-4871e363fd5mr17751590f8f.44.1790027052088;
-        Mon, 21 Sep 2026 14:44:12 -0700 (PDT)
-Received: from linus-personal-clanker ([102.164.100.122])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886224427bsm447839f8f.8.2026.09.21.14.44.09
+        d=1e100.net; s=20260707; t=1790027198; x=1790631998;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZfOg9XYdQ5/vxidE+9pPRR6RYjJCbLCLOIt2gCT+9Gg=;
+        b=EUomaKa7ELV+11S7vb9mab0lfqITnUHBq7mlvPY8HX9KhpwIK1Ivi6sQrAEQAdI/ri
+         jejlHCbmtI68tyUmbEfHtHosgg3ZLz3Bj2+ADd3oqJdnelrDoJZUTmDzjfxyP8epBfen
+         UYVc+j0msI2CIbuSbx9Qn/y386sEIvOZKeCJBNmYXaW2oVFzfShur3Bne6bB2bX0VKfR
+         hfaUYztTa2isB70mhShaAMIqtXqzZzY0iKJh5tm0k1W0BqC7xsYHst92A7SYYw4eqyVe
+         Mla8ZeyKzNpisp9/mwmT+JVeLOObtIXueqcOrE29dE+yED8mF9vRN/qqD9wqzIjr3gGW
+         ubbg==
+X-Forwarded-Encrypted: i=1; AKwUvBy4H+JHrteCW2ix+BtlOCTXXkhcoPtrDWv1p4xS4MXPkyyZDYBLm7PzGbJjgGKuD0nbpRA9bP1upANcDJI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJ62a3wd/JntaEGp+d5raexMurRSByrOJAkTqHedtSk7N8iKjr
+	/15wYd3u6ono7KKd+kWn6MoS2pjsKKk4ilk+bbgp7cBvlGfVoXXqqwEuOKQ+Uiru6OcAryRCEEF
+	ex7n/VF1f684/CplX5RUDoYrMrKEqHkp2P+g6iEt4KIA8hz1nUIRT3HPagkCn3TBIkGI=
+X-Gm-Gg: AYBFou1Ksu446CxUiopEcOqVfyb5fJ4llwmF7TWxIhTb7MnvvtiaLfAGwwdcQ4zhZyr
+	c/DkLWGy132b1XR0nxcn/s/QsmhSpzIvzBuvTLV5OJXJIOKwWFii4CYYU9mjY0FLnXS60bvnmSO
+	ehxjr9pB+IiM27VGv3TNyrhbgqNWBwbwFidAqjo/KUE7mhsJ/b7REJ+mnoldnh2p4sTu4S0c/MN
+	7OqrrG3Rjx2F+m+dQ+Q2z/nf7ADcQHsC4DIrkgveNLWvVwz5yuBfOphOgq7J3azUXOXqh6Ne2c+
+	79PZ+SfbM9NCQiZRUPmiwLxc/VAIsNaZxNHN/oxgx2SZ/9+ViZqhidxl6xMpbSV97Wzat3zL7BY
+	va3i1o3smPjY5HAM0dScMHvPPNA==
+X-Received: by 2002:a17:90b:2dc3:b0:39e:3ce1:d22f with SMTP id 98e67ed59e1d1-39e54d3674bmr17165987a91.16.1790027197634;
+        Mon, 21 Sep 2026 14:46:37 -0700 (PDT)
+X-Received: by 2002:a17:90b:2dc3:b0:39e:3ce1:d22f with SMTP id 98e67ed59e1d1-39e54d3674bmr17165954a91.16.1790027197022;
+        Mon, 21 Sep 2026 14:46:37 -0700 (PDT)
+Received: from localhost ([50.35.44.179])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f0c7e0d1sm439586c88.10.2026.09.21.14.46.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 14:44:11 -0700 (PDT)
-From: "David .B. Dull" <monderasdor@gmail.com>
-To: adrianox@gmail.com
-Cc: fw@strlen.de,
-	horms@verge.net.au,
-	ja@ssi.bg,
-	linux-kernel@vger.kernel.org,
-	lvs-devel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	pablo@netfilter.org
-Subject: Re: [PATCH v5 nf-next 3/3] selftests: netfilter: ipvs: add per-service secure_tcp test (David Dull)
-Date: Mon, 21 Sep 2026 23:44:05 +0200
-Message-ID: <20260921214405.7003-1-monderasdor@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260921213031.6160-1-monderasdor@gmail.com>
-References: <20260921213031.6160-1-monderasdor@gmail.com>
+        Mon, 21 Sep 2026 14:46:35 -0700 (PDT)
+Date: Mon, 21 Sep 2026 14:46:31 -0700
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+        will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+        aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+        joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+        linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+        sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+        WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Subject: Re: [PATCH v18 4/7] firmware: arm_rmm: Add support for SRO
+Message-ID: <20260921144631.00007440@oss.qualcomm.com>
+In-Reply-To: <bbb2f1db-5d42-495f-b34e-184a6cd894ce@arm.com>
+References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
+	<20260912083611.2513845-5-suzuki.poulose@arm.com>
+	<178978126542.2352296.15676256806777454164.b4-review@b4>
+	<bbb2f1db-5d42-495f-b34e-184a6cd894ce@arm.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 21nKvomrg2bs8umTLYtTBjywj9Xx-G1p
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDMxOCBTYWx0ZWRfXxJKfMpBuGnzF
+ 0HHWBknZ6U6INZX3U/kfq2trkuD57gPvUeEjefeOka2Z6v8B2SOk4IALljxGTlMoPllTa9OLhb1
+ kAt2D8lhFy5LmKfcov+Rt0DWCTZfF5I=
+X-Proofpoint-GUID: 21nKvomrg2bs8umTLYtTBjywj9Xx-G1p
+X-Authority-Analysis: v=2.4 cv=Ht7jiETS c=1 sm=1 tr=0 ts=6ab1a5be cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=aNnz9XPx1a4JIXSYt2cE/A==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=yke8hGA7Qea92797WwgA:9 a=CjuIK1q_8ugA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDMxOCBTYWx0ZWRfXypw8AgV/+C9Y
+ 8N7XpkdD1CxvJP14pSBcxjR/AOL4/2yTgRMFIslVS3Cscs5gkFDMXW72Z4ogCOgV6bVgJG3dol1
+ XALbrKdiXlvwV2A1q3fz4hFYrjG0C1nz65gfezqIY16DKKSZrDlIv5uFtIG21JsZnBPIDpU4abP
+ mvx1/tqydcJ0y8GC8RM59TL2vKwvckgqLOSoXdn8ymFMRUGETqXXXW/0vT8eV8F7YUGc14JZlR4
+ PRLtcQRy/pY7gX4EIal42oM8nYWnPfhXhZhlMde58ZjSaoMHFhPLTVm71xL082EKatZXhzbvpkM
+ QBIA3WpmMBmjlKiTBETKIfIxq4CTrIWri4zNGh7HucuvziR9Wg5ZyUBjPHgzXVgXnYw6YAS7p2e
+ pwUZZ/gzDu9LPMAlebntT6ctlS+4xdzGqKRc9bGbO1gJIHLQ1nJsXoiuDTIsNTvMb0IlJH/3t1L
+ aMZd7Olv24K1U1+7cNg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_06,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0 impostorscore=0
+ suspectscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210318
 
-Also to avoid misunderstanding. git added the signed-off line unintentionally. please ignore it.
+
+> >> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
+> >> index 5b0e342ce3d5..4f9898ece754 100644
+> >> --- a/drivers/firmware/arm_rmm/rmi.c
+> >> +++ b/drivers/firmware/arm_rmm/rmi.c
+> >> @@ -15,6 +15,59 @@
+> >>   #define RMI_FEAT_REG_COUNT	2
+> >>   static unsigned long rmi_feat_reg_cache[RMI_FEAT_REG_COUNT] __ro_after_init;  
+> >   
+> 
+> Was there a question here you missed ? FWIW:
+
+I think inaccurate cropping only!  Have been using b4 review tui
+(which is excellent btw!) Not sure I've gotten the hang of it fully yet.
+
+> 
+> I have expanded this to cover all 5 RmiFeatureRegisters exposed by RMM, 
+> and it looks something like this now, with the use of ARRAY_SIZE() to
+> limit accesses.
+...
+
+
+> 
+> >> +
+> >> +	/* Keep just the blocks the RMM didn't use in addr_list */
+> >> +	for (int i = consumed_blocks; i < count; i++)
+> >> +		sro->addr_list[addr_list_start + i - consumed_blocks] =
+> >> +			sro->addr_list[addr_list_start + i];  
+> > 
+> > Maybe memmove to make it clear you are shifting a chunk of the array
+> > down.  This might be worth some asci art showing each step in brief.
+> > Anyhow, something along these lines:
+> > 
+> >        memmove(&sro->addr_list[addr_list_start],
+> > 	      &sro->addr_list[addr_list_start + consumed_blocks],
+> > 	      (count - consumed_blocks) * sizeof(*sro->addr_list));
+> > 
+> > Obviously doesn't save code, but maybe simpler to understand than
+> > the loop.
+> > 		  
+> 
+> Does the following hunk look better with the comment ?
+> 
+>          /*
+>           * Keep just the blocks the RMM didn't use in addr_list.
+>           * RMM claimed consumed_blocks entries from addr_list_start.
+>           * Move the entries left out at the end i.e.
+>           * [ addr_list_start + consumed_blocks, addr_list_start + found)
+>           * to the rest of the valid entries and adjust the addr_count to
+>           * reflect the available entries.
+>           */
+>          for (int i = 0, src = addr_list_start + consumed_blocks;
+>                  i < found - consumed_blocks; i++)
+>                  sro->addr_list[addr_list_start + i] = 
+> sro->addr_list[src + i];
+> 
+>          sro->addr_count -= consumed_blocks;
+
+Good enough.  Not sure there is a perfect answer for this one!
+
+> 
+> >   
+> >> +}
+> >> +
+> >> +static int rmi_sro_reclaim(struct rmi_sro_state *sro,
+> >> +			   unsigned long sro_handle,
+> >> +			   struct arm_smccc_1_2_regs *out_regs)
+> >> +{
+> >> +	unsigned long capacity;
+> >> +
+> >> +	if (rmi_sro_ensure_capacity(sro, 1))
+> >> +		rmi_sro_free(sro);  
+> > 
+> > Maybe a comment on why you free the whole lot rather than a smaller
+> > amount to make some room.  
+> 
+> We don't do partial free of the list today, and having that is
+> unnecssarily complicating the logic/code. We are going to do a reclaim 
+> anyways. Sure, I could add a comment.
+
+Might be useful as a breadcrumb in future but indeed not vital.
+That was what I was assuming was the case.
+
+> 
+> 
+> >   
+> >> +
+> >> +	capacity = RMI_MAX_ADDR_LIST - sro->addr_count;
+> >> +
+> >> +	rmi_op_mem_reclaim(sro_handle,
+> >> +			   virt_to_phys(&sro->addr_list[sro->addr_count]),
+> >> +			   capacity, out_regs);
+> >> +
+> >> +	/*
+> >> +	  * RMI_OP_MEM_RECLAIM always return RMI_INCOMPLETE, except when the
+> >> +	  * input parameters were invalid.
+> >> +	  */
+> >> +	if (WARN_ON_ONCE(RMI_RETURN_STATUS(out_regs->a0) != RMI_INCOMPLETE))
+> >> +		return -EINVAL;
+> >> +	if (WARN_ON_ONCE(out_regs->a1 > capacity))
+> >> +		out_regs->a1 = capacity;  
+> > I guess this should never happen, but bit ugly to fixup the register
+> > return rather than perhaps using a local variable instead.  
+> 
+> We pass/get the out_regs, so local variable doesn't work, unless
+> I missed what you were hinting at..
+
+Ahh. Indeed, I wasn't thinking ahead to it being visible after. 
+
+> >   
+> >> +long rmi_sro_execute(struct arm_smccc_1_2_regs *regs)
+> >> +{
+> >> +	bool cancelled = false;
+> >> +	unsigned long sro_handle = regs->a1;
+> >> +
+> >> +	rmi_smccc_invoke(regs);
+> >> +
+> >> +	sro_handle = regs->a1;
+> >> +	while (RMI_RETURN_STATUS(regs->a0) == RMI_INCOMPLETE) {
+> >> +		bool can_cancel = RMI_RETURN_CAN_CANCEL(regs->a0) == RMI_OP_CAN_CANCEL;
+> >> +
+> >> +		switch (RMI_RETURN_MEMREQ(regs->a0)) {
+> >> +		case RMI_OP_MEM_REQ_NONE:
+> >> +			rmi_op_continue(sro_handle, RMI_CONTINUE_KEEP_GOING,
+> >> +					regs);
+> >> +			break;
+> >> +		default:
+> >> +			WARN_ON_ONCE(1);
+> >> +			if (!can_cancel)
+> >> +				return regs->a0;
+> >> +			/* If we have already cancelled, don't retry this */  
+> > 
+> > Maybe expand that comment a little to say if we can get here under a
+> > valid sequence and if so are we guaranteed that cancel is complete
+> > given that is what caller will probably expect if it gets -ECANCELED.
+> > 
+> > My reading of spec would suggest we can't hit this path for the
+> > calls that are not memory tranferring. Then again we can't hit the
+> > first cancel either so all bets are off.  So maybe this is the
+> > bet we can do.  Also can_cancel shouldn't be true after
+> > rmi_op_cancel() as I assume you can't cancel a cancel.  
+> 
+> Ack.  This was to handle a buggy RMM (and soothing an LLM bot)
+
+Modern job titles: LLM Soother!
+
+I aggressively cropped previous email. For avoidance of doubt
+the rest all looked good to me.
+
+> 
+> Thank you for the review.
+You are welcome. Thanks for pushing this forwards
+
+Jonathan
+
+> 
+> Cheers
+> Suzuki
+> 
+> 
+> >   
+> 
+
