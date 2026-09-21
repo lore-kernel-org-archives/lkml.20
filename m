@@ -1,129 +1,93 @@
-Received: from mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
+Received: from mail-oo1-f79.google.com (mail-oo1-f79.google.com [209.85.161.79])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D842E35F5E7
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:19:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C202545D5E7
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:22:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.79
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790011178; cv=none; b=bVqaPdYxTnWNclUqjIDiBz26jjGafb73N0PTMUHe9DuOLUvvPscTHIUOEXKXm8YOMmMleodBiurh2wJfD1XPqQSMPqpRiLQGulq+hpbAmA4qHchHLQEuki/1YLZWHBnlDoFUfYVe7E+asqKcDsrvUL87b9FNqNzWPgQjAPNxjcU=
+	t=1790011354; cv=none; b=SlkB4VZ2gqH9k+DP9VfC30bSjK2EQEUxzDqrhb0yE03/M8kOTIDdMFokPh1EJXCCmrEvwRMgknllSbs9z0YQpLeDHSKCZM8Piz6ZsYyGC6aBPZ5kiTPxC7z1+tUYdc1pEPQSa/rmc5EngClFWbXZyD+gXFpEA3rPpXODJzyIgns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790011178; c=relaxed/simple;
-	bh=n/3rqR1SXylUiKu59lxbqN9I91XnW8ne6Ykqya3PxMc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=i2SF5J6DDFGM6AvT49irav5uriWRLmEnmABP0FOpulFk19yrqGSWVke4Med5R1hB1P+ps5w7kbIjuIvUtYksna+szWTrNCT3OPdIVQG7j69rDOFexUTd0mYcTyMG53uqU9isJiEAeXrdx1H6EdK2xd8920n0BBY0Fxr2k5PKHz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QmXBbpzO; arc=none smtp.client-ip=91.218.175.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QmXBbpzO"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=n/3rqR1SXylUiKu59lxbqN9I91XnW8ne6Ykqya3PxMc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790011173; v=1; x=1790615973;
- b=QmXBbpzOOrSqSQb9i1uT/MVkGfoxtU8eM6EmJk9GgSnTFlPIBBv7vg5CrmPhPCVbA2I5px7e
- IBxXl4zRX/qlBmnQIIPPauLKaIiHWgtgQzsqRYx6hyZL8ACvKUvRuobrlnBUZeXM1h+xy6ed8gF
- C/deVg3WO9fR/wvRwOHxXOD4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 00ae2178923f4c09;
-	Mon, 21 Sep 2026 17:19:33 +0000
-X-Mizu-Trace-ID: 00ae2178923f4c09
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: arighi@nvidia.com,
-	bpf@vger.kernel.org,
-	bsegall@google.com,
-	changwoo@igalia.com,
-	dietmar.eggemann@arm.com,
-	etsal@meta.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	sched-ext@lists.linux.dev,
-	tj@kernel.org,
-	vincent.guittot@linaro.org,
-	void@manifault.com,
-	vschneid@redhat.com,
-	yphbchou0911@gmail.com
-Cc: Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH] sched_ext: Specialize the DSQ hashtable compare
-Date: Mon, 21 Sep 2026 10:19:28 -0700
-Message-ID: <20260921171928.1639407-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1790011354; c=relaxed/simple;
+	bh=mvNgLCROV5oyZsDY0F1K6muk548ic2H09AXWwOZx+7k=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=IKfFN6TSqkTqYGpanJq/5Xp5/bK/9RndNYbeEP7s0wXpDJvyKw6pC0i1+17vjSpH6OtqluMataacmQAA3YoQm3FpeKOP+BIh5KFMxmk5fv+9rV3MXW8f5VvR8kgCs2M6GrLF/K9VFPE50LI5VTUFetXMzOhvtRO7obqVXouBOrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f79.google.com with SMTP id 006d021491bc7-6c18e7d53b9so172639eaf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:22:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790011351; x=1790616151;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AlDHDLELkO4nPhGDWafvkxUtA8l9S+GRK7gvd/Qw2IA=;
+        b=enAfo2B/72LKmgX3nDt/L2x0HE+BALx6silwXvJXbkZFIZkfkq4QpIpKxH8HeoMR+N
+         SCIm6wbWQjwrJDwc72YjJDePz49wLjq71gVzdFHjT4auA58zuLe0wMtOrlFqh6VlAnu1
+         gzl+1WLk6NYEHqiIffmeYCOLBW5NP3luG4JvTa2tX7qcCht3PNSAlWjkmXz5YpEDtl0A
+         zMOHM3ryMPrCpAIjWbYsdfjdcSLA5rIHygymZMuo+xPUC+Dwk6Xw8OD5SG+WscTvk5Py
+         utwGM5WXQEavMCZQP8Ovm3awF+9hzbydKmWKMoL4YrKz1qO26ALu0f7e3nV/IGhkCO4k
+         j0Yg==
+X-Gm-Message-State: AFuF++luGAXxHUGygk8NIZRZ40V7vuHRvrbRJMaxRelpIx3GFV/D4p4/
+	r4La/+yY2KwFRG0RmUJa4HO35bqbaXLzbYUJgrQ9fkojtIHtxMpzogLvqTNL3nDgTlfho9ai+AC
+	G5naNTkiF/X2FWSA5+jk4z14RBfJ9/0OdjFCfvCvrmUjuHzZD44lE00daknvBuA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:1c9b:b0:6c7:8dab:ca1a with SMTP id
+ 006d021491bc7-6d158e54d27mr304491eaf.17.1790011351515; Mon, 21 Sep 2026
+ 10:22:31 -0700 (PDT)
+Date: Mon, 21 Sep 2026 10:22:31 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab167d7.e548f532.1ca396.0015.GAE@google.com>
+Subject: [syzbot] upstream test error: SYZFATAL: image testing failed w/o
+ kernel bug (11)
+From: syzbot <syzbot+1a99f0e8eb3e7d411ac9@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-rhashtable is a generic container: it does not know what a key is, so it
-carries the key's shape as data. dsq_hash_params declares key_len,
-key_offset and head_offset and nothing else, so lookups fall back to
-rhashtable_compare(), which reads both the offset and the length back out
-of ht->p at runtime:
+Hello,
 
-	memcmp(ptr + ht->p.key_offset, arg->key, ht->p.key_len)
+syzbot found the following issue on:
 
-The key is one naturally aligned u64, but neither the offset nor the
-length is a compile-time constant there, so the compiler cannot narrow
-the call and emits an out-of-line memcmp() for every element walked -
-two loads, a call and a length dispatch to compare eight bytes. The
-interpretation costs more than the comparison it is interpreting.
+HEAD commit:    40288c9206c1 Merge tag 'drm-fixes-2026-09-19' of https://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=11ecf7f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c3be6e434b07ebb6
+dashboard link: https://syzkaller.appspot.com/bug?extid=1a99f0e8eb3e7d411ac9
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: i386
 
-find_user_dsq() sits on the __schedule() path, and scx_layered calls
-scx_bpf_dsq_nr_queued() once per layer per dispatch decision. On Meta's
-fleet the lookup has a significant cost and shows up in fleet wide
-profile.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/cb72d5005ea8/disk-40288c92.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/44b1efb29806/vmlinux-40288c92.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ccb688f31d59/bzImage-40288c92.xz
 
-Let's supply an obj_cmpfn. dsq_hash_params is a const object passed by
-value into the __always_inline __rhashtable_lookup(), so
-params.obj_cmpfn is a compile-time constant, the ternary that selects it
-folds away and the callback inlines: the compare becomes a single cmp
-against dsq->id. Every consumer of the result only tests it against
-zero, so the ordering memcmp() also carries is never observed. No
-functional change intended.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+1a99f0e8eb3e7d411ac9@syzkaller.appspotmail.com
 
-An in-kernel A/B over the DSQ ids scx_layered creates, both parameter
-sets compiled into the same kernel, makes the lookup 2.9x faster.
 
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
+
 ---
- kernel/sched/ext/ext.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 9f40f366a1c13..646affba4e3c4 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -189,10 +189,21 @@ static DEFINE_PER_CPU(struct scx_tid_alloc, scx_tid_alloc);
-  */
- static DEFINE_PER_CPU(struct task_struct *, direct_dispatch_task);
- 
-+static __always_inline int dsq_cmpfn(struct rhashtable_compare_arg *arg,
-+				     const void *ptr)
-+{
-+	const struct scx_dispatch_q *dsq = ptr;
-+
-+	BUILD_BUG_ON(sizeof_field(struct scx_dispatch_q, id) != sizeof(u64));
-+
-+	return dsq->id != *(const u64 *)arg->key;
-+}
-+
- static const struct rhashtable_params dsq_hash_params = {
- 	.key_len		= sizeof_field(struct scx_dispatch_q, id),
- 	.key_offset		= offsetof(struct scx_dispatch_q, id),
- 	.head_offset		= offsetof(struct scx_dispatch_q, hash_node),
-+	.obj_cmpfn		= dsq_cmpfn,
- };
- 
- static LLIST_HEAD(dsqs_to_free);
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-base-commit: d9ecc8c5e754065159bdd5cb580eb9295f7256b2
--- 
-2.53.0-Meta
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
