@@ -1,176 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D552E26ED3E;
-	Mon, 21 Sep 2026 02:31:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C9E8305E28
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:32:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789957887; cv=none; b=Zdj20dnLlfJNz6bS/CYGbjcmQaZoo0ZOktxliF2vWupw2pEaHSZSuEjP6Vs3S9J4hg6xN/5b3IggkI892bj6L7hRk3K0kZg9SCPFXn7CMxWnDvF0OuYPRxABAKfMHySH+HUMBpssKuHniwxmUoZlwbNM1pE2bEfXNH2uzXAX9fk=
+	t=1789957948; cv=none; b=SOSy16uDqA68UP0dBLb3VUe0XW7VzVZkszVEeFbbRlxVoXhtxQbSRjIwUaiAgQO30BsEiE80vU69aYC7t14XFQ46CKYUaULUe1vUr/HsVIM7Hgo6sePcMmYLmjwLRheRGBnTth6Qx5By5HK440FIA2oO1mFB665litpfYPlxbdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789957887; c=relaxed/simple;
-	bh=51Havl/1lx9zjGMqJFs5HDOQporm497Kobf8wp16rRI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=WB8kSUD+qoKoLdHp4UBPQ6VcZlRkN3kKvgnQBKSp4I/UALz5zK1ylp4euaPOjOXwVJQUPCMzGBZ2Pf8nTG0t6RW0Y+KAkz+SkB2sF08cJCPqEuLogOeR/uzK8Vil4lcuhNN/JZSHziM6cZAZ82xZPRo1gazwkDzTiGdtU8ReMcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KPfoS1RI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789957948; c=relaxed/simple;
+	bh=m0r56S3hSQhBRPkhqPMSwiBxYhJrLIiWQ/I9kkwF/hU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HhaO6an8BS5us6KjSrj8YR2G9yGkS/KJzibblxCtCeqX3DVXhzX2uqOnbwfPAcLtnFJY+0D8iO8J+2wSFar9ACLSFoYbIvVOK0nbHUsSsF/DJcb+T29ub2AqL3CMEyX1e7ZNVjwj7s2M0SaMaiLdmpxOkXQ3lU2vxU9s8BYdqtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=Aezj6kIP; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=dq2CF8eZ; arc=none smtp.client-ip=103.168.172.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KPfoS1RI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BCC11F000FF;
-	Mon, 21 Sep 2026 02:31:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789957885;
-	bh=WeO44XQC8oAMreeb/1Lw/6wTrRUe9Z4cPgrcCLTW7hA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=KPfoS1RI1whnBJkMi34DGEZOA2NEOauuDY+EOGe0yr33eaK6yLvK/6ZMNi8A13sjC
-	 qx8aklXa5Cu397/VToyixDYHhq+ZXNsoDeR6ieroipEzG/PVceRnAPAj7EUiWtsHac
-	 u60pSBW9NXK1dANW+NtAQpkza9UD0tp33rTUu/TqC9AJC5HDg/RP+jU6rAhH5gZhT0
-	 8TtNz+dT9hXJqXCX3WxDi8AtjAW9XLD1MaALJCJMiHdvSDaRuIX6t6exJL48LhD/uS
-	 7fZlb0KYEut41dQXB095czosw3IWQOi7rSjkfmnnqx/oVoPsReX8b32wlx18HQXvyc
-	 Zy31oW2uqPJIQ==
-Subject: Re: [PATCH net-next] octeontx2-af: nix: Log TX scheduler queue
- validation failures
-From: netdev-bot+sashiko@kernel.org
-To: rkannoth@marvell.com
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, sgoutham@marvell.com, sbhatta@marvell.com
-Date: Mon, 21 Sep 2026 02:31:24 +0000
-Message-ID: <178995788476.2160803.6094995582609949480@kernel.org>
-In-Reply-To: <20260917021327.1124199-1-rkannoth@marvell.com>
-References: <20260917021327.1124199-1-rkannoth@marvell.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="Aezj6kIP";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="dq2CF8eZ"
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfout.phl.internal (Postfix) with ESMTP id 3416BEC00DB;
+	Sun, 20 Sep 2026 22:32:25 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-08.internal (MEProxy); Sun, 20 Sep 2026 22:32:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1789957945; x=
+	1790044345; bh=Sh3Ngw+fLWXxQtXc209KEnM9p9GrBTpJNLc3pNKdO8g=; b=A
+	ezj6kIPRiWSKFqGCw+wZYJaC0i37Y0lCJF4cPCvEUV0j+zTa7miTsN4bMaOvkkOV
+	7yeV1YGQAVsCqFDboolLiPWFIwuM1qr6DMjTlF/jbgmgkgl4NL/WyzQNEjeYPa86
+	BldS3hrN3uuIEM2LAqSBMdjk82w5Q598usR2vjOH0nlGlNaXT312uFpjzKJiMyiO
+	AYQoACbZfzMSqYB0Hn2Itd83iiQxxudd0EzHe9wpV+mb11APp8SK2tGIjcNihS6g
+	wxyvab1FzIUBu4DSyCnxD2lzgaoKlDLc59SRthqmnq+BHgxG39d5f8wMKvrIaULW
+	l2PoOAcSilkra+enp+WnA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1789957945; x=1790044345; bh=Sh3Ngw+fLWXxQtXc209KEnM9p9GrBTpJNLc
+	3pNKdO8g=; b=dq2CF8eZcY74y1wpXZ3ZkAYdmHcWFJe5Uuq3FBGfgU5uax2YVFx
+	fcY1LJekpP9AWhIGR3DAGmcB11N+A4PvDWMGfD+vt4nAKkfIrW11RJef3MSdMKsp
+	T0IPr2QmxejzXzb99/lox/xC+Tt6TWkbwkyXyKFWfvO3JyYnIiFGbUnrL6OdVZiA
+	exiGBZUlHczH22ruhJZGM1Z20JWZIPOH4mOlhE6E5vmjqUd0v6xJTFaR0Fw1uPiJ
+	5nrjYBSIKJcCP3Rgsr+Jt3KQxG6UArtyLdjTvkulzXr+DGGwV+vk9XX83zGCStl0
+	u1i6mB2GPsZsTtoryz6Gp1I1uItR92hk87A==
+X-ME-Sender: <xms:OZewasmDxiv0gmXzpKJpxicWBpiFjsqNEOkRZwMZhyad8Vv6twoPOQ>
+    <xme:OZewapz7EvEbHqeXKrrpDhFjgX_NCOUcZXT0lh30x_v5N74IZt4kIXPksi18jQdDR
+    b7drGuuc7QhaWismybBtppWyFnWnCQvUGgS_Y4cn2LOIshSvjrvuMYv>
+X-ME-Received: <xmr:OZewaiPHudgzS_JR24yMfpd9aCuQEElVO3TB2Gcwa-7tESBBz4cyUTxo9uyx3l8YOIUwWs9dKp3V4qHDo8-4ItejFCuDyA>
+X-ME-Proxy-Cause: dmFkZTG0Qy4X2C1dloPveVYrRoerhcxQbiuuw0gT1WLqK4F83i/25qUblydC0tY7lmSIE6
+    kBrUrPK/qyfCl3lrSQ6Ju9QZdIQ+qcyPNcsrBJAEs+186KA5S0Yc/u3RcKp9hj40Wvgol6
+    gkg2NWLdvn7w2pDm5UJlfG3kEb0Uj6fbFzjxtyGsKo11wz9fQ9kWB0Aji1d9SYmOzeJnN+
+    dTUWfE4eHEt3fthpEGzP+nidU+XGN+Pdlr7ilTUVYjfBTnC4yA7OR7JGrK0C96zz+ODLke
+    9u0vSt5bWeC22cyJdAJxaIeALjIXtR1G4X03Esh3lU8kFmup0kbTYZWtdEZ/5n664C2Gfl
+    EtUMllZWPpTXlmkJM+BIgSlkMbwap/TTSjBHMyRLkilJUuh/o0OHptxiu1QAF2+OpoI3Lh
+    LOqwz05L2xHbXaySKLddvREV8TbSRHn/1xjl7050FfLQny/0Xp6mD0tkbAJoxA3qtWjKuK
+    EYfUNpqpjhaMlV8VlAMwVbD0hvt5JoMjzh2+8vk7l8YL0Xvjro8+z792bjN8Cn1BDAE1hS
+    3zEru5/mYudxNid/KxrAv5t9DV7ypZOYBuEt0ktizlKUZndKq4R73upT+CjCfkSvQxE1kH
+    0T44pZzgaSeRCKuQExDIxRdvi4hE48LvX13BTAYx8qAW326HTevMYPoStuYw
+X-ME-Proxy: <xmx:OZewalQn37s0Dp2SKI_0iUyq5mRiM86yI4qUxehNHNh4JEicRskFJA>
+    <xmx:OZewaobpXXDihwRJyGx3vbHVbti0WJ882K2ICfYEzzO3C4WP5nDCgA>
+    <xmx:OZewaq3JJGVuQ69H7-NRI4t4nbdPtXY88u6kwVJc3rLnZXszQD673w>
+    <xmx:OZewagVV1UMsgxpb0DqBv3Tgbit-4Cio2LT0STE5wbV84l11qhTyVw>
+    <xmx:OZewam5D8-TIhXJjRCBKRkSLQecBiCrhJ0HyxlSO-RM-o9Xb6hhxNzEB>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 20 Sep 2026 22:32:24 -0400 (EDT)
+Date: Mon, 21 Sep 2026 11:32:21 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/5] firewire: cdev: refactor for bus reset event filling
+Message-ID: <20260921023221.GA279001@sakamocchi.jp>
+Mail-Followup-To: linux1394-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org
+References: <20260920071501.77785-1-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260920071501.77785-1-o-takashi@sakamocchi.jp>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Sun, Sep 20, 2026 at 04:14:56PM +0900, Takashi Sakamoto wrote:
+> Hi,
+> 
+> In the cdev layer, there are two places where bus reset events are filed;
+> the update path for the associated fw_device instance and the get_info
+> ioctl call. There is still some code that can be refactored in these
+> paths.
+> 
+> This series refactors the code to make the memory ordering and locking
+> scope more explicit, and adds a KUnit test for the bus reset event UAPI
+> structure.
+> 
+> Takashi Sakamoto (5):
+>   firewire: cdev: use memory barrier to access fw_device members
+>   firewire: cdev: refactor using scoped_guard() for get_info ioctl call
+>   firewire: cdev: refactor copy_to_user() in get_info ioctl call
+>   firewire: cdev: add annotations and comments about race condition of
+>     bus_reset_closure
+>   firewire: cdev: add KUnit test for bus reset event UAPI structure
+> 
+>  drivers/firewire/core-cdev.c | 63 +++++++++++++++++++++++-------------
+>  drivers/firewire/uapi-test.c | 20 ++++++++++++
+>  2 files changed, 60 insertions(+), 23 deletions(-)
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+Applied to for-next branch.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
 
-- [Medium] Unrate-limited dev_err() on a PF/VF mailbox-driven validation
-  failure path in is_valid_txschq()…
-- [Medium] The diagnostics added by this patch do not achieve the stated
-  purpose.
+Regards
 
---
-
-octeontx2-af: nix: Log TX scheduler queue validation failures
-
-This adds dev_err() calls to two of the rejection paths in
-is_valid_txschq() so that scheduler queue mapping failures show up in the
-kernel log.  The braces around the existing return statements are adjusted
-accordingly.
-
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-> index d80d2c00bd843..593c5ff70e9fb 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-> +++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-> @@ -325,14 +325,22 @@ static bool is_valid_txschq(struct rvu *rvu, int blkaddr,
->  		if ((nix_get_tx_link(rvu, map_func) !=
->  		     nix_get_tx_link(rvu, pcifunc)) &&
->  		     (rvu_get_pf(rvu->pdev, map_func) !=
-> -				rvu_get_pf(rvu->pdev, pcifunc)))
-> +				rvu_get_pf(rvu->pdev, pcifunc))) {
-> +			dev_err(rvu->dev,
-> +				"Invalid tx link: pcifunc %x map pcifunc %x\n",
-> +				pcifunc, map_func);
->  			return false;
-> -		else
-> +		} else {
->  			return true;
-> +		}
->  	}
->  
-> -	if (map_func != pcifunc)
-> +	if (map_func != pcifunc) {
-> +		dev_err(rvu->dev,
-> +			"pcifunc %x map pcifunc %x not equal\n", pcifunc,
-> +			map_func);
->  		return false;
-> +	}
->  
->  	return true;
->  }
-
-[Severity: Medium]
-Are these two new prints reachable directly from PF/VF mailbox messages,
-and if so should they be rate limited?
-
-The schq value that decides the outcome comes straight out of the mailbox
-request in is_txschq_hierarchy_valid():
-
-	schq = TXSCHQ_IDX(reg, TXSCHQ_IDX_SHIFT);
-	/* Check if this schq belongs to this PF/VF or not */
-	if (!is_valid_txschq(rvu, blkaddr, lvl, pcifunc, schq))
-		return false;
-
-and rvu_mbox_handler_nix_txschq_cfg() only rejects the request with
-NIX_AF_INVAL_TXSCHQ_CFG:
-
-	if (!is_txschq_hierarchy_valid(rvu, pcifunc, blkaddr,
-				       txsch->lvl, reg, regval))
-		return NIX_AF_INVAL_TXSCHQ_CFG;
-
-nix_txschq_cfg_read() and the SMQ check in rvu_nix_blk_aq_enq_inst() are two
-more requester-controlled paths into the same helper.  Since the request is
-just rejected, a PF/VF (including a guest-owned VF whose messages are
-forwarded to the AF) can resend a request naming an in-range schq owned by
-another function in a loop, and each attempt emits a line on the host
-console.  Would dev_err_ratelimited(), dev_dbg(), or a counter be a better
-fit here?
-
-As a smaller point, the message also prints the owning pcifunc of another
-function's scheduler queue into the shared host log.
-
-[Severity: Medium]
-Do these messages give enough information to diagnose the failure the
-commit message describes?
-
-is_valid_txschq() has four ways to return false, and two of them are still
-silent:
-
-	nix_hw = get_nix_hw(rvu->hw, blkaddr);
-	if (!nix_hw)
-		return false;
-
-	txsch = &nix_hw->txsch[lvl];
-	/* Check out of bounds */
-	if (schq >= txsch->schq.max)
-		return false;
-
-An out of range scheduler queue looks like the most likely symptom of a
-misconfigured TX scheduler allocation, but that path produces no output at
-all while the caller still returns NIX_AF_INVAL_TXSCHQ_CFG or
-NIX_AF_ERR_AQ_ENQUEUE.  Should those returns be instrumented too, given the
-commit message says the intent is that "misconfigured TX scheduler
-allocations are easier to diagnose"?
-
-Also, both new messages print only pcifunc and map_func, with no lvl or
-schq.  is_txschq_hierarchy_valid() calls the helper for both the queue and
-its parent across several levels, for example:
-
-	if (regbase == NIX_AF_MDQX_PARENT(0) &&
-	    !is_valid_txschq(rvu, blkaddr, NIX_TXSCH_LVL_TL4, pcifunc, parent))
-		return false;
-
-so a line like "pcifunc 4 map pcifunc 0 not equal" does not say which level
-or which queue was rejected.  Could lvl and schq be added to both messages?
-
-One more wording question: the first message is labelled "Invalid tx link",
-but the branch is only taken when the TX link differs and the parent PF
-differs.  Would something naming the ownership mismatch be less misleading
-for an operator looking at link configuration?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917021327.1124199-1-rkannoth%40marvell.com
+Takashi Sakamoto
