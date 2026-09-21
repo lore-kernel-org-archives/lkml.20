@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75F436921B;
-	Mon, 21 Sep 2026 04:23:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 886A236F8EA;
+	Mon, 21 Sep 2026 04:23:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789964613; cv=none; b=HWbaUHzDlEOTbh2tgLuqJkwTZYotnBHPkyU5yTyMpKJWIa7CuuQkJ3wlvSHicV72uSrQ9YSmhUM4LEnW34PbTMCWIB45Pkq20SocWFzE7G6AdEhrpUToXslRX2fln4G7MKaHY0jlrX/Ik4W9jkAjgM7rEDzQrB3lPSGRv0iqh2w=
+	t=1789964614; cv=none; b=soDQ96HZRYCUVnja3cp0aUptrzP+kLc1IoL3aT6BilNWyPNYA4dZn/25ZIlZo1xWb8uHf5hP1ED41cyw8gosU3rWsm/QEZyV3r66PX6Lcgazik97bKgtjC6eyYRt4u9IB0XOfDMsAAQt2MqFNpH4MT/rTK7Y0HFQofmdaETy0G4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789964613; c=relaxed/simple;
-	bh=vAVNxCy2lujT/Mz9zizBwtDlkr+zp6HCEu8hVGrQTJM=;
+	s=arc-20240116; t=1789964614; c=relaxed/simple;
+	bh=+WMyT5QYNJ2+LJTTM6tk634ik9WZZSoCmnkpwqz0ObU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=q4Ruc7IEvKhh5XXcrhw8yM5A0TwlMAvsM98lUB24tkxqVJUrJnZvVlB8z855FWv5+IZlWmteMvmd3GVjvmnwS/yUe87IubQIAxsamHGZE7I93BJH81chKsdRMpTT6xThXFjBW7Q1cxpAh8kOZ2JLABw7mQ4KSlML+zbKo39m3oI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gAQcPqs2; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=pTFGHzoqpIYAx67b7VlM/QKSYpswQn5L4z4Xb4cRgFc7XPRtDAZo9Bgs08N3bgsCbsdfRXP51yoiCX8NIABRU3eI7il6j/M1reqJhC/JE9VarvdCp8jo+OZLqKWafRmHbCUpyWsXfZ5gyz/eBwSBd4dR/pGhf3DAw4ciCP2ItgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kBGCESco; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gAQcPqs2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9A12DC2BCFA;
-	Mon, 21 Sep 2026 04:23:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kBGCESco"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 09572C4AF12;
+	Mon, 21 Sep 2026 04:23:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789964613;
-	bh=vAVNxCy2lujT/Mz9zizBwtDlkr+zp6HCEu8hVGrQTJM=;
+	s=k20201202; t=1789964614;
+	bh=+WMyT5QYNJ2+LJTTM6tk634ik9WZZSoCmnkpwqz0ObU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=gAQcPqs2jd2hBqW+8kxBbgv9/2YtN+SID90EJ0bxMYcz5s9pcRFwtkWyMU5XHx5f/
-	 CofE1Iib3D7+cI5pYjDTld74dO8719NHECkRbDWhZOiq3AAFKVK1f/rAVHr0CvJBOz
-	 Zfi612ptTosdiv4t+FcmV7PlVGwTvFRs+xzT2Sh3JM8ygy++G0/ccsE8u2LKA8fdkC
-	 G4rk+Wpjp5+Io0Qv6xUXhPtgIK8qTxqO3n1mMDszGnwwHruC7W3yAh/sUh6ejPTSI8
-	 FicwtwLj7JWCGy+VE47j9i/5owpsYosy+AwttIvtx11QXl4UddCqA5/x6AsmLcyYvN
-	 uBNVJ+J3pZidw==
+	b=kBGCEScoIpsyFInhGS3EGHeLQHNAn4u9KguMXBY0iFuniyYhye17lE71ExRK1W2Ew
+	 YKDXWfu5ZUIbQNzznDqF3ezRZ479tKlurKq6eSy7p+RTbBiaPvoUcPud9xaWjDUTzG
+	 TrQlMBadnBH513vJPm3aBetaI+FbcQF1ac2JPcWarg/WtU/6r3qbPXZEUBlGJ77i55
+	 8hqHesuXxH0laJJ2+KWo3PLprkA4xpZOMq/67g/0oXWSK1pkHUgFuZQ24oQRJ1/W9H
+	 tPWJXnJmBL5E423vMwIFD6a6LqQIb3NdWfcuDtQF5QKxUQnJf4VKaQb75FEhSxYAVy
+	 RrPyEDc0Zg/YQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 83D09C982F5;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E55ACC982F6;
 	Mon, 21 Sep 2026 04:23:33 +0000 (UTC)
 From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Mon, 21 Sep 2026 12:23:32 +0800
-Subject: [PATCH v8 13/18] gpio: pl061: switch data path to gpio-regmap
+Date: Mon, 21 Sep 2026 12:23:34 +0800
+Subject: [PATCH v8 15/18] pinctrl: ambarella: add CV75 pin controller
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-cv75-v5-v8-13-282ff5d98dda@ambarella.com>
+Message-Id: <20260921-cv75-v5-v8-15-282ff5d98dda@ambarella.com>
 References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
 In-Reply-To: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
 To: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
@@ -62,11 +62,11 @@ Cc: Long Zhao <longzhao@ambarella.com>, Rob Herring <robh@kernel.org>,
  linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789964608; l=20663;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789964608; l=33272;
  i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=MP71CXfoORD6gdy8uA/zoAtI0dkVFGoChcqw6gDcx6M=;
- b=oXwzDxlLPCqgr9k2DI3ss8IyOx5jGhgm0EUTWTmAV7pgsHnQW3f3PYlWyXPj3aJTa4g2sugJ1
- +xHmTokgNG9CVuIIizVGYbOjDxwyf7LSh3/3u2wh8jBzQtaCdthX0hN
+ bh=kzm8lidRjLl/Ft5S5GTBOgsSYKQkEiOU0P3HBd9ofWw=;
+ b=QWKj0Jf4B1Gmuy2FkvntVAr3nauBtjGv+WznA808O6WYRwrxR6ACjYOzJkq51tsRNb6QkX6ou
+ 7MZPFgzNPiJDF8c3kVpVuuSf7A3x1XSpJxakcxcTt2k9wfsO1ex85X5
 X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
  pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
 X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
@@ -76,701 +76,1237 @@ Reply-To: longzhao@ambarella.com
 
 From: Long Zhao <longzhao@ambarella.com>
 
-Keep a custom irqchip and irq domain. The gpio_chip is owned by
-gpio-regmap, so gpio_regmap_get_chip() is used to wire the domain.
-
-Check the chained-handler regmap_read() return and always
-run chained_irq_exit(). irq_type keeps the MMIO write style
-and uses cleanup helpers from the previous patch.
-
-irq_set_parent() nests the GPIO irq_desc under the AMBA parent
-for irq_set_wake() and lockdep; checked with PROVE_LOCKING on CV75.
+Add an Ambarella pinmux-only pinctrl driver with CV75 function/group
+tables. GPIO is handled by the PL061 driver.
 
 Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
- drivers/gpio/Kconfig      |   1 +
- drivers/gpio/gpio-pl061.c | 485 +++++++++++++++++++++++++++-------------------
- 2 files changed, 287 insertions(+), 199 deletions(-)
+ drivers/pinctrl/Kconfig                  |  17 +
+ drivers/pinctrl/Makefile                 |   2 +
+ drivers/pinctrl/pinctrl-ambarella-cv75.c | 587 +++++++++++++++++++++++++++++++
+ drivers/pinctrl/pinctrl-ambarella.c      | 533 ++++++++++++++++++++++++++++
+ drivers/pinctrl/pinctrl-ambarella.h      |  40 +++
+ 5 files changed, 1179 insertions(+)
 
-diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-index 2a1487bd1a94..55a129836158 100644
---- a/drivers/gpio/Kconfig
-+++ b/drivers/gpio/Kconfig
-@@ -583,6 +583,7 @@ config GPIO_PL061
- 	depends on ARM_AMBA || COMPILE_TEST
- 	select IRQ_DOMAIN
- 	select GPIOLIB_IRQCHIP
-+	select GPIO_REGMAP
- 	select REGMAP_MMIO
+diff --git a/drivers/pinctrl/Kconfig b/drivers/pinctrl/Kconfig
+index c2cdd7b2c49b..08fbe3dc041b 100644
+--- a/drivers/pinctrl/Kconfig
++++ b/drivers/pinctrl/Kconfig
+@@ -37,6 +37,23 @@ config DEBUG_PINCTRL
  	help
- 	  Say yes here to support the PrimeCell PL061 GPIO device.
-diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
-index c821a5117eed..604129a68948 100644
---- a/drivers/gpio/gpio-pl061.c
-+++ b/drivers/gpio/gpio-pl061.c
-@@ -12,155 +12,102 @@
- #include <linux/bitops.h>
- #include <linux/cleanup.h>
- #include <linux/device.h>
--#include <linux/errno.h>
-+#include <linux/err.h>
- #include <linux/gpio/driver.h>
--#include <linux/init.h>
-+#include <linux/gpio/regmap.h>
- #include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/ioport.h>
- #include <linux/irq.h>
- #include <linux/irqchip/chained_irq.h>
-+#include <linux/irqdomain.h>
- #include <linux/log2.h>
- #include <linux/module.h>
--#include <linux/pinctrl/consumer.h>
- #include <linux/pm.h>
- #include <linux/regmap.h>
- #include <linux/seq_file.h>
--#include <linux/slab.h>
- #include <linux/spinlock.h>
+ 	  Say Y here to add some extra checks and diagnostics to PINCTRL calls.
  
--#define GPIODIR 0x400
--#define GPIOIS  0x404
--#define GPIOIBE 0x408
--#define GPIOIEV 0x40C
--#define GPIOIE  0x410
--#define GPIORIS 0x414
--#define GPIOMIS 0x418
--#define GPIOIC  0x41C
--
- #define PL061_GPIO_NR	8
- #define PL061_DATA_OFFSET	2
- 
--struct pl061_context_save_regs {
--	u8 gpio_data;
--	u8 gpio_dir;
--	u8 gpio_is;
--	u8 gpio_ibe;
--	u8 gpio_iev;
--	u8 gpio_ie;
-+#define PL061_DIR		0x400
-+#define PL061_IS		0x404
-+#define PL061_IBE		0x408
-+#define PL061_IEV		0x40c
-+#define PL061_IE		0x410
-+#define PL061_MIS		0x418
-+#define PL061_IC		0x41c
++config PINCTRL_AMB
++	bool "Ambarella pin controller support"
++	depends on ARCH_AMBARELLA || COMPILE_TEST
++	depends on HAS_IOMEM
++	default y if ARCH_AMBARELLA
++	select GENERIC_PINCONF
++	select GENERIC_PINCTRL_GROUPS
++	select GENERIC_PINMUX_FUNCTIONS
++	select GPIOLIB
++	select GPIO_PL061
++	select MFD_SYSCON
++	select PINCONF
++	select PINMUX
++	help
++	  Say Y here to enable the Ambarella pinmux/pinconf controller.
++	  GPIO is provided by the PL061 driver.
 +
-+struct pl061_regs {
-+	unsigned int dat;
-+	unsigned int dir;
-+	unsigned int is;
-+	unsigned int ibe;
-+	unsigned int iev;
-+	unsigned int ie;
-+	unsigned int mis;
-+	unsigned int ic;
-+	unsigned int mask;
-+	unsigned int enable;
+ config PINCTRL_AMD
+ 	bool "AMD GPIO pin control"
+ 	depends on HAS_IOMEM
+diff --git a/drivers/pinctrl/Makefile b/drivers/pinctrl/Makefile
+index a35d71135abf..ce0825f4fc1b 100644
+--- a/drivers/pinctrl/Makefile
++++ b/drivers/pinctrl/Makefile
+@@ -10,6 +10,8 @@ obj-$(CONFIG_GENERIC_PINCONF)	+= pinconf-generic.o
+ obj-$(CONFIG_GENERIC_PINCTRL)	+= pinctrl-generic.o
+ obj-$(CONFIG_OF)		+= devicetree.o
+ 
++obj-$(CONFIG_PINCTRL_AMB)	+= pinctrl-ambarella.o
++obj-$(CONFIG_PINCTRL_AMB)	+= pinctrl-ambarella-cv75.o
+ obj-$(CONFIG_PINCTRL_AMD)	+= pinctrl-amd.o
+ obj-$(CONFIG_PINCTRL_AMDISP)	+= pinctrl-amdisp.o
+ obj-$(CONFIG_PINCTRL_APPLE_GPIO) += pinctrl-apple-gpio.o
+diff --git a/drivers/pinctrl/pinctrl-ambarella-cv75.c b/drivers/pinctrl/pinctrl-ambarella-cv75.c
+new file mode 100644
+index 000000000000..eb25fd94ece8
+--- /dev/null
++++ b/drivers/pinctrl/pinctrl-ambarella-cv75.c
+@@ -0,0 +1,587 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Ambarella CV75 pinctrl data
++ *
++ * Copyright (C) 2026, Ambarella, Inc.
++ */
++
++#include <linux/array_size.h>
++#include <linux/build_bug.h>
++#include <linux/types.h>
++
++#include <linux/pinctrl/pinctrl.h>
++
++#include "pinctrl-ambarella.h"
++
++#define CV75_EXPAND(...) __VA_ARGS__
++#define CV75_GROUP_PINS_ALTS(_name, _pin_list, _alt_list)		\
++	static const unsigned int cv75_##_name##_pins[] = { CV75_EXPAND _pin_list }; \
++	static const u8 cv75_##_name##_alts[] = { CV75_EXPAND _alt_list }; \
++	static const struct pingroup cv75_##_name##_grp =		\
++		PINCTRL_PINGROUP(#_name, cv75_##_name##_pins,		\
++				 ARRAY_SIZE(cv75_##_name##_pins));	\
++	static_assert(ARRAY_SIZE(cv75_##_name##_pins) ==		\
++		      ARRAY_SIZE(cv75_##_name##_alts))
++
++#define CV75_GROUP(_name)						\
++{									\
++	.grp = &cv75_##_name##_grp,					\
++	.alts = cv75_##_name##_alts,					\
++}
++
++#define CV75_FUNCTION(_name) \
++	PINCTRL_PINFUNCTION(#_name, cv75_##_name##_groups, ARRAY_SIZE(cv75_##_name##_groups))
++
++/* UART */
++CV75_GROUP_PINS_ALTS(uart0, (44, 45), (1, 1));
++CV75_GROUP_PINS_ALTS(uart1, (46, 47), (1, 1));
++CV75_GROUP_PINS_ALTS(uart1_flow, (48, 49), (1, 1));
++CV75_GROUP_PINS_ALTS(uart2_a, (46, 47), (2, 2));
++CV75_GROUP_PINS_ALTS(uart2_b, (50, 51), (2, 2));
++CV75_GROUP_PINS_ALTS(uart2_c, (66, 68), (2, 2));
++CV75_GROUP_PINS_ALTS(uart2_flow_a, (48, 49), (2, 2));
++CV75_GROUP_PINS_ALTS(uart2_flow_b, (65, 67), (3, 3));
++CV75_GROUP_PINS_ALTS(uart3_a, (70, 72), (3, 3));
++CV75_GROUP_PINS_ALTS(uart3_b, (80, 79), (3, 3));
++CV75_GROUP_PINS_ALTS(uart3_flow_a, (71, 69), (3, 3));
++CV75_GROUP_PINS_ALTS(uart3_flow_b, (81, 82), (3, 3));
++CV75_GROUP_PINS_ALTS(uart4_a, (29, 30), (3, 3));
++CV75_GROUP_PINS_ALTS(uart4_b, (76, 77), (3, 3));
++CV75_GROUP_PINS_ALTS(uart4_flow_a, (28, 31), (3, 3));
++CV75_GROUP_PINS_ALTS(uart4_flow_b, (74, 75), (3, 3));
++
++/* Flash */
++CV75_GROUP_PINS_ALTS(snand, (79, 80, 81, 82, 83, 84), (1, 1, 1, 1, 1, 1));
++CV75_GROUP_PINS_ALTS(spinor, (79, 80, 81, 82, 83, 84, 85),
++		     (2, 2, 2, 2, 2, 2, 2));
++
++/* SD/MMC */
++CV75_GROUP_PINS_ALTS(sdmmc0_cd, (6), (1));
++CV75_GROUP_PINS_ALTS(sdmmc0_wp, (7), (1));
++CV75_GROUP_PINS_ALTS(sdmmc0_reset, (8), (1));
++CV75_GROUP_PINS_ALTS(sdmmc0_hs_sel, (93), (1));
++CV75_GROUP_PINS_ALTS(sdmmc0_1bit, (0, 4, 5), (1, 1, 1));
++CV75_GROUP_PINS_ALTS(sdmmc0_4bit, (0, 1, 2, 3, 4, 5), (1, 1, 1, 1, 1, 1));
++CV75_GROUP_PINS_ALTS(sdmmc1_cd, (15), (1));
++CV75_GROUP_PINS_ALTS(sdmmc1_wp, (16), (1));
++CV75_GROUP_PINS_ALTS(sdmmc1_reset, (17), (1));
++CV75_GROUP_PINS_ALTS(sdmmc1_hs_sel, (94), (1));
++CV75_GROUP_PINS_ALTS(sdmmc1_1bit, (9, 13, 14), (1, 1, 1));
++CV75_GROUP_PINS_ALTS(sdmmc1_4bit, (9, 10, 11, 12, 13, 14), (1, 1, 1, 1, 1, 1));
++
++/* Ethernet */
++CV75_GROUP_PINS_ALTS(enet_ext_osc_clk, (77), (1));
++CV75_GROUP_PINS_ALTS(enet_2nd_ref_clk_a, (78), (1));
++CV75_GROUP_PINS_ALTS(enet_2nd_ref_clk_b, (76), (2));
++CV75_GROUP_PINS_ALTS(enet0_ptp_pps_o, (74), (1));
++CV75_GROUP_PINS_ALTS(rgmii0, (62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 75, 76),
++		     (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1));
++CV75_GROUP_PINS_ALTS(rmii0, (62, 63, 64, 67, 68, 71, 72, 73, 75),
++		     (1, 1, 1, 1, 1, 1, 1, 1, 2));
++
++/* I2C */
++CV75_GROUP_PINS_ALTS(i2c0_a, (67, 68), (2, 2));
++CV75_GROUP_PINS_ALTS(i2c0_b, (86, 87), (1, 1));
++CV75_GROUP_PINS_ALTS(i2c1_a, (22, 23), (2, 2));
++CV75_GROUP_PINS_ALTS(i2c1_b, (69, 70), (2, 2));
++CV75_GROUP_PINS_ALTS(i2c2, (88, 89), (1, 1));
++CV75_GROUP_PINS_ALTS(i2c3_a, (24, 25), (2, 2));
++CV75_GROUP_PINS_ALTS(i2c3_b, (48, 49), (3, 3));
++CV75_GROUP_PINS_ALTS(i2c3_c, (58, 59), (3, 3));
++CV75_GROUP_PINS_ALTS(i2cs_a, (19, 21), (2, 2));
++CV75_GROUP_PINS_ALTS(i2cs_b, (60, 61), (3, 3));
++CV75_GROUP_PINS_ALTS(i2cs_c, (71, 72), (2, 2));
++CV75_GROUP_PINS_ALTS(i2cs_d, (86, 87), (2, 2));
++
++/* CAN, IR, WDT */
++CV75_GROUP_PINS_ALTS(can0, (50, 51), (1, 1));
++CV75_GROUP_PINS_ALTS(can1, (52, 53), (1, 1));
++CV75_GROUP_PINS_ALTS(ir, (18), (1));
++CV75_GROUP_PINS_ALTS(wdt_a, (20), (2));
++CV75_GROUP_PINS_ALTS(wdt_b, (27), (3));
++CV75_GROUP_PINS_ALTS(wdt_c, (39), (2));
++CV75_GROUP_PINS_ALTS(wdt_d, (83), (3));
++CV75_GROUP_PINS_ALTS(wdt_e, (85), (4));
++CV75_GROUP_PINS_ALTS(wdt_f, (90), (1));
++
++/* I2S */
++CV75_GROUP_PINS_ALTS(i2s0, (54, 55, 56, 57), (1, 1, 1, 1));
++CV75_GROUP_PINS_ALTS(i2s1, (58, 59, 60, 61), (1, 1, 1, 1));
++CV75_GROUP_PINS_ALTS(dmic0, (54, 55), (2, 2));
++
++/* PWM */
++CV75_GROUP_PINS_ALTS(pwm0, (40), (1));
++CV75_GROUP_PINS_ALTS(pwm1, (41), (1));
++CV75_GROUP_PINS_ALTS(pwm2, (42), (1));
++CV75_GROUP_PINS_ALTS(pwm3, (43), (1));
++CV75_GROUP_PINS_ALTS(pwm4_a, (19), (3));
++CV75_GROUP_PINS_ALTS(pwm4_b, (32), (4));
++CV75_GROUP_PINS_ALTS(pwm5_a, (20), (3));
++CV75_GROUP_PINS_ALTS(pwm5_b, (33), (4));
++CV75_GROUP_PINS_ALTS(pwm6_a, (21), (3));
++CV75_GROUP_PINS_ALTS(pwm6_b, (34), (4));
++CV75_GROUP_PINS_ALTS(pwm7_a, (22), (3));
++CV75_GROUP_PINS_ALTS(pwm7_b, (35), (4));
++CV75_GROUP_PINS_ALTS(pwm8_a, (23), (3));
++CV75_GROUP_PINS_ALTS(pwm8_b, (36), (4));
++CV75_GROUP_PINS_ALTS(pwm9_a, (24), (3));
++CV75_GROUP_PINS_ALTS(pwm9_b, (37), (4));
++CV75_GROUP_PINS_ALTS(pwm10_a, (25), (3));
++CV75_GROUP_PINS_ALTS(pwm10_b, (38), (4));
++CV75_GROUP_PINS_ALTS(pwm11_a, (26), (3));
++CV75_GROUP_PINS_ALTS(pwm11_b, (39), (4));
++
++/* SPI */
++CV75_GROUP_PINS_ALTS(spi0, (19, 20, 21), (1, 1, 1));
++CV75_GROUP_PINS_ALTS(spi1, (24, 25, 26), (1, 1, 1));
++CV75_GROUP_PINS_ALTS(spi2, (28, 29, 30), (1, 1, 1));
++CV75_GROUP_PINS_ALTS(spi3_a, (32, 33, 34), (5, 5, 5));
++CV75_GROUP_PINS_ALTS(spi3_b, (40, 41, 43), (2, 2, 2));
++CV75_GROUP_PINS_ALTS(spi3_c, (58, 59, 60), (2, 2, 2));
++CV75_GROUP_PINS_ALTS(spi_slave_a, (24, 25, 26, 27), (4, 4, 4, 4));
++CV75_GROUP_PINS_ALTS(spi_slave_b, (28, 29, 30, 31), (2, 2, 2, 2));
++CV75_GROUP_PINS_ALTS(spi_slave_c, (36, 37, 38, 39), (5, 5, 5, 5));
++CV75_GROUP_PINS_ALTS(spi_slave_d, (50, 51, 52, 53), (3, 3, 3, 3));
++CV75_GROUP_PINS_ALTS(spi_slave_e, (81, 82, 83, 84), (4, 4, 4, 4));
++
++/* VIN master sync */
++CV75_GROUP_PINS_ALTS(vin_master_sync_a, (91, 92), (1, 1));
++CV75_GROUP_PINS_ALTS(vin_master_sync_b, (91, 92), (2, 2));
++CV75_GROUP_PINS_ALTS(vin_master_sync_c, (40, 41), (3, 3));
++CV75_GROUP_PINS_ALTS(vin_master_sync_d, (46, 47), (3, 3));
++CV75_GROUP_PINS_ALTS(vin_master_sync_e, (79, 80), (4, 4));
++CV75_GROUP_PINS_ALTS(vsync0, (32), (1));
++CV75_GROUP_PINS_ALTS(vsync1, (33), (1));
++CV75_GROUP_PINS_ALTS(vsync2, (34), (1));
++CV75_GROUP_PINS_ALTS(vsync3, (35), (1));
++CV75_GROUP_PINS_ALTS(hsync0, (36), (1));
++CV75_GROUP_PINS_ALTS(hsync1, (37), (1));
++
++static const struct amb_pinmux_group cv75_pin_groups[] = {
++	/* UART */
++	CV75_GROUP(uart0),
++	CV75_GROUP(uart1),
++	CV75_GROUP(uart1_flow),
++	CV75_GROUP(uart2_a),
++	CV75_GROUP(uart2_b),
++	CV75_GROUP(uart2_c),
++	CV75_GROUP(uart2_flow_a),
++	CV75_GROUP(uart2_flow_b),
++	CV75_GROUP(uart3_a),
++	CV75_GROUP(uart3_b),
++	CV75_GROUP(uart3_flow_a),
++	CV75_GROUP(uart3_flow_b),
++	CV75_GROUP(uart4_a),
++	CV75_GROUP(uart4_b),
++	CV75_GROUP(uart4_flow_a),
++	CV75_GROUP(uart4_flow_b),
++	/* Flash */
++	CV75_GROUP(snand),
++	CV75_GROUP(spinor),
++	/* SD/MMC */
++	CV75_GROUP(sdmmc0_cd),
++	CV75_GROUP(sdmmc0_wp),
++	CV75_GROUP(sdmmc0_reset),
++	CV75_GROUP(sdmmc0_hs_sel),
++	CV75_GROUP(sdmmc0_1bit),
++	CV75_GROUP(sdmmc0_4bit),
++	CV75_GROUP(sdmmc1_cd),
++	CV75_GROUP(sdmmc1_wp),
++	CV75_GROUP(sdmmc1_reset),
++	CV75_GROUP(sdmmc1_hs_sel),
++	CV75_GROUP(sdmmc1_1bit),
++	CV75_GROUP(sdmmc1_4bit),
++	/* Ethernet */
++	CV75_GROUP(enet_ext_osc_clk),
++	CV75_GROUP(enet_2nd_ref_clk_a),
++	CV75_GROUP(enet_2nd_ref_clk_b),
++	CV75_GROUP(enet0_ptp_pps_o),
++	CV75_GROUP(rgmii0),
++	CV75_GROUP(rmii0),
++	/* I2C */
++	CV75_GROUP(i2c0_a),
++	CV75_GROUP(i2c0_b),
++	CV75_GROUP(i2c1_a),
++	CV75_GROUP(i2c1_b),
++	CV75_GROUP(i2c2),
++	CV75_GROUP(i2c3_a),
++	CV75_GROUP(i2c3_b),
++	CV75_GROUP(i2c3_c),
++	CV75_GROUP(i2cs_a),
++	CV75_GROUP(i2cs_b),
++	CV75_GROUP(i2cs_c),
++	CV75_GROUP(i2cs_d),
++	/* CAN, IR, WDT */
++	CV75_GROUP(can0),
++	CV75_GROUP(can1),
++	CV75_GROUP(ir),
++	CV75_GROUP(wdt_a),
++	CV75_GROUP(wdt_b),
++	CV75_GROUP(wdt_c),
++	CV75_GROUP(wdt_d),
++	CV75_GROUP(wdt_e),
++	CV75_GROUP(wdt_f),
++	/* I2S */
++	CV75_GROUP(i2s0),
++	CV75_GROUP(i2s1),
++	CV75_GROUP(dmic0),
++	/* PWM */
++	CV75_GROUP(pwm0),
++	CV75_GROUP(pwm1),
++	CV75_GROUP(pwm2),
++	CV75_GROUP(pwm3),
++	CV75_GROUP(pwm4_a),
++	CV75_GROUP(pwm4_b),
++	CV75_GROUP(pwm5_a),
++	CV75_GROUP(pwm5_b),
++	CV75_GROUP(pwm6_a),
++	CV75_GROUP(pwm6_b),
++	CV75_GROUP(pwm7_a),
++	CV75_GROUP(pwm7_b),
++	CV75_GROUP(pwm8_a),
++	CV75_GROUP(pwm8_b),
++	CV75_GROUP(pwm9_a),
++	CV75_GROUP(pwm9_b),
++	CV75_GROUP(pwm10_a),
++	CV75_GROUP(pwm10_b),
++	CV75_GROUP(pwm11_a),
++	CV75_GROUP(pwm11_b),
++	/* SPI */
++	CV75_GROUP(spi0),
++	CV75_GROUP(spi1),
++	CV75_GROUP(spi2),
++	CV75_GROUP(spi3_a),
++	CV75_GROUP(spi3_b),
++	CV75_GROUP(spi3_c),
++	CV75_GROUP(spi_slave_a),
++	CV75_GROUP(spi_slave_b),
++	CV75_GROUP(spi_slave_c),
++	CV75_GROUP(spi_slave_d),
++	CV75_GROUP(spi_slave_e),
++	/* VIN master sync */
++	CV75_GROUP(vin_master_sync_a),
++	CV75_GROUP(vin_master_sync_b),
++	CV75_GROUP(vin_master_sync_c),
++	CV75_GROUP(vin_master_sync_d),
++	CV75_GROUP(vin_master_sync_e),
++	CV75_GROUP(vsync0),
++	CV75_GROUP(vsync1),
++	CV75_GROUP(vsync2),
++	CV75_GROUP(vsync3),
++	CV75_GROUP(hsync0),
++	CV75_GROUP(hsync1),
 +};
 +
-+struct pl061_drvdata {
-+	const struct regmap_config *regmap_config;
-+	const struct pl061_regs *regs;
-+	unsigned int ngpio;
-+	bool write_data_after_dir;
-+	bool clear_irq_on_type;
-+	bool pm;
-+	int (*reg_mask_xlate)(struct gpio_regmap *gpio, unsigned int base,
-+			      unsigned int offset, unsigned int *reg,
-+			      unsigned int *mask);
- };
- 
- struct pl061 {
- 	raw_spinlock_t		lock;
- 
- 	struct regmap		*regmap;
--	struct gpio_chip	gc;
-+	const struct pl061_drvdata *data;
-+	struct irq_domain	*irq_domain;
- 	int			parent_irq;
- 
--	struct pl061_context_save_regs csave_regs;
-+	u32			saved_dat;
- };
- 
--static bool pl061_is_data_reg(unsigned int reg)
--{
--	return is_power_of_2(reg) &&
--	       reg >= BIT(PL061_DATA_OFFSET) &&
--	       reg <= BIT(PL061_DATA_OFFSET + PL061_GPIO_NR - 1);
--}
--
--static bool pl061_volatile_reg(struct device *dev, unsigned int reg)
--{
--	switch (reg) {
--	case GPIOMIS:
--	case GPIOIC:
--		return true;
--	default:
--		return pl061_is_data_reg(reg);
--	}
--}
--
--static const struct regmap_config pl061_regmap_config = {
--	.reg_bits = 16,
--	.val_bits = 8,
--	.reg_stride = 4,
--	.max_register = GPIOIC,
--	.volatile_reg = pl061_volatile_reg,
--	.fast_io = true,
--	.use_raw_spinlock = true,
--};
--
--static int pl061_get_direction(struct gpio_chip *gc, unsigned offset)
--{
--	struct pl061 *pl061 = gpiochip_get_data(gc);
--	unsigned int gpiodir = 0;
--
--	regmap_read(pl061->regmap, GPIODIR, &gpiodir);
--
--	if (gpiodir & BIT(offset))
--		return GPIO_LINE_DIRECTION_OUT;
--
--	return GPIO_LINE_DIRECTION_IN;
--}
--
--static int pl061_direction_input(struct gpio_chip *gc, unsigned offset)
--{
--	struct pl061 *pl061 = gpiochip_get_data(gc);
--
--	guard(raw_spinlock_irqsave)(&pl061->lock);
--	regmap_update_bits(pl061->regmap, GPIODIR, BIT(offset), 0);
--
--	return 0;
--}
--
--static int pl061_direction_output(struct gpio_chip *gc, unsigned offset,
--		int value)
-+static struct pl061 *pl061_from_gpio_chip(struct gpio_chip *gc)
- {
--	struct pl061 *pl061 = gpiochip_get_data(gc);
--	unsigned int mask = BIT(offset);
--
--	guard(raw_spinlock_irqsave)(&pl061->lock);
--	regmap_write(pl061->regmap, BIT(offset + PL061_DATA_OFFSET),
--		     !!value << offset);
--	regmap_update_bits(pl061->regmap, GPIODIR, mask, mask);
--
--	/*
--	 * gpio value is set again, because pl061 doesn't allow to set value of
--	 * a gpio pin before configuring it in OUT mode.
--	 */
--	regmap_write(pl061->regmap, BIT(offset + PL061_DATA_OFFSET),
--		     !!value << offset);
--
--	return 0;
-+	return gpio_regmap_get_drvdata(gpiochip_get_data(gc));
- }
- 
--static int pl061_get_value(struct gpio_chip *gc, unsigned offset)
-+static unsigned int pl061_line_mask(struct pl061 *pl061, irq_hw_number_t hwirq)
- {
--	struct pl061 *pl061 = gpiochip_get_data(gc);
--	unsigned int val = 0;
--
--	regmap_read(pl061->regmap, BIT(offset + PL061_DATA_OFFSET), &val);
--
--	return !!val;
-+	return BIT(hwirq % pl061->data->ngpio);
- }
- 
--static int pl061_set_value(struct gpio_chip *gc, unsigned int offset, int value)
-+static int pl061_arm_reg_mask_xlate(struct gpio_regmap *gpio, unsigned int base,
-+				    unsigned int offset, unsigned int *reg,
-+				    unsigned int *mask)
- {
--	struct pl061 *pl061 = gpiochip_get_data(gc);
--
--	regmap_write(pl061->regmap, BIT(offset + PL061_DATA_OFFSET),
--		     !!value << offset);
-+	if (base == 0)
-+		*reg = BIT(offset + PL061_DATA_OFFSET);
-+	else
-+		*reg = base;
-+	*mask = BIT(offset);
- 
- 	return 0;
- }
- 
--static int pl061_irq_type(struct irq_data *d, unsigned trigger)
-+static int pl061_irq_type(struct irq_data *d, unsigned int trigger)
- {
- 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
--	struct pl061 *pl061 = gpiochip_get_data(gc);
-+	struct pl061 *pl061 = pl061_from_gpio_chip(gc);
-+	const struct pl061_regs *regs = pl061->data->regs;
- 	int offset = irqd_to_hwirq(d);
- 	unsigned int gpiois = 0, gpioibe = 0, gpioiev = 0;
- 	unsigned int bit = BIT(offset);
- 
--	if (offset < 0 || offset >= PL061_GPIO_NR)
-+	if (offset < 0 || offset >= pl061->data->ngpio)
- 		return -EINVAL;
- 
- 	if ((trigger & IRQ_TYPE_LEVEL_MASK) && (trigger & IRQ_TYPE_EDGE_BOTH)) {
-@@ -171,12 +118,11 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
- 		return -EINVAL;
- 	}
- 
--
- 	guard(raw_spinlock_irqsave)(&pl061->lock);
- 
--	regmap_read(pl061->regmap, GPIOIEV, &gpioiev);
--	regmap_read(pl061->regmap, GPIOIS, &gpiois);
--	regmap_read(pl061->regmap, GPIOIBE, &gpioibe);
-+	regmap_read(pl061->regmap, regs->iev, &gpioiev);
-+	regmap_read(pl061->regmap, regs->is, &gpiois);
-+	regmap_read(pl061->regmap, regs->ibe, &gpioibe);
- 
- 	if (trigger & IRQ_TYPE_LEVEL_MASK) {
- 		bool polarity = trigger & IRQ_TYPE_LEVEL_HIGH;
-@@ -228,10 +174,11 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
- 			 offset);
- 	}
- 
--	regmap_write(pl061->regmap, GPIOIS, gpiois);
--	regmap_write(pl061->regmap, GPIOIBE, gpioibe);
--	regmap_write(pl061->regmap, GPIOIEV, gpioiev);
--
-+	regmap_write(pl061->regmap, regs->is, gpiois);
-+	regmap_write(pl061->regmap, regs->ibe, gpioibe);
-+	regmap_write(pl061->regmap, regs->iev, gpioiev);
-+	if (pl061->data->clear_irq_on_type)
-+		regmap_write(pl061->regmap, regs->ic, bit);
- 
- 	return 0;
- }
-@@ -240,32 +187,34 @@ static void pl061_irq_handler(struct irq_desc *desc)
- {
- 	unsigned long pending;
- 	unsigned int mis = 0;
--	int offset;
-+	int offset, ret;
- 	struct gpio_chip *gc = irq_desc_get_handler_data(desc);
--	struct pl061 *pl061 = gpiochip_get_data(gc);
-+	struct pl061 *pl061 = pl061_from_gpio_chip(gc);
- 	struct irq_chip *irqchip = irq_desc_get_chip(desc);
- 
- 	chained_irq_enter(irqchip, desc);
- 
--	regmap_read(pl061->regmap, GPIOMIS, &mis);
-+	ret = regmap_read(pl061->regmap, pl061->data->regs->mis, &mis);
-+	if (ret)
-+		goto out;
++static const char * const cv75_uart0_groups[] = {
++	"uart0",
++};
 +
- 	if (mis) {
- 		pending = mis;
--		for_each_set_bit(offset, &pending, PL061_GPIO_NR)
--			generic_handle_domain_irq(gc->irq.domain,
--						  offset);
-+		for_each_set_bit(offset, &pending, pl061->data->ngpio)
-+			generic_handle_domain_irq(pl061->irq_domain, offset);
- 	}
- 
-+out:
- 	chained_irq_exit(irqchip, desc);
- }
- 
- static void pl061_irq_mask(struct irq_data *d)
- {
- 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
--	struct pl061 *pl061 = gpiochip_get_data(gc);
--	u8 mask = BIT(irqd_to_hwirq(d) % PL061_GPIO_NR);
-+	struct pl061 *pl061 = pl061_from_gpio_chip(gc);
-+	unsigned int mask = pl061_line_mask(pl061, irqd_to_hwirq(d));
- 
--	guard(raw_spinlock)(&pl061->lock);
--	regmap_update_bits(pl061->regmap, GPIOIE, mask, 0);
-+	regmap_update_bits(pl061->regmap, pl061->data->regs->ie, mask, 0);
- 
- 	gpiochip_disable_irq(gc, d->hwirq);
- }
-@@ -273,13 +222,12 @@ static void pl061_irq_mask(struct irq_data *d)
- static void pl061_irq_unmask(struct irq_data *d)
- {
- 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
--	struct pl061 *pl061 = gpiochip_get_data(gc);
--	u8 mask = BIT(irqd_to_hwirq(d) % PL061_GPIO_NR);
-+	struct pl061 *pl061 = pl061_from_gpio_chip(gc);
-+	unsigned int mask = pl061_line_mask(pl061, irqd_to_hwirq(d));
- 
- 	gpiochip_enable_irq(gc, d->hwirq);
- 
--	guard(raw_spinlock)(&pl061->lock);
--	regmap_update_bits(pl061->regmap, GPIOIE, mask, mask);
-+	regmap_update_bits(pl061->regmap, pl061->data->regs->ie, mask, mask);
- }
- 
- /**
-@@ -293,16 +241,16 @@ static void pl061_irq_unmask(struct irq_data *d)
- static void pl061_irq_ack(struct irq_data *d)
- {
- 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
--	struct pl061 *pl061 = gpiochip_get_data(gc);
--	u8 mask = BIT(irqd_to_hwirq(d) % PL061_GPIO_NR);
-+	struct pl061 *pl061 = pl061_from_gpio_chip(gc);
-+	unsigned int mask = pl061_line_mask(pl061, irqd_to_hwirq(d));
- 
--	regmap_write(pl061->regmap, GPIOIC, mask);
-+	regmap_write(pl061->regmap, pl061->data->regs->ic, mask);
- }
- 
- static int pl061_irq_set_wake(struct irq_data *d, unsigned int state)
- {
- 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
--	struct pl061 *pl061 = gpiochip_get_data(gc);
-+	struct pl061 *pl061 = pl061_from_gpio_chip(gc);
- 
- 	return irq_set_irq_wake(pl061->parent_irq, state);
- }
-@@ -314,7 +262,8 @@ static void pl061_irq_print_chip(struct irq_data *data, struct seq_file *p)
- 	seq_puts(p, dev_name(gc->parent));
- }
- 
--static const struct irq_chip pl061_irq_chip = {
-+static const struct irq_chip pl061_irqchip = {
-+	.name			= "pl061",
- 	.irq_ack		= pl061_irq_ack,
- 	.irq_mask		= pl061_irq_mask,
- 	.irq_unmask		= pl061_irq_unmask,
-@@ -325,64 +274,187 @@ static const struct irq_chip pl061_irq_chip = {
- 	GPIOCHIP_IRQ_RESOURCE_HELPERS,
- };
- 
-+static int pl061_irq_domain_map(struct irq_domain *d, unsigned int virq,
-+				irq_hw_number_t hwirq)
++static const char * const cv75_uart1_groups[] = {
++	"uart1",
++	"uart1_flow",
++};
++
++static const char * const cv75_uart2_groups[] = {
++	"uart2_a",
++	"uart2_b",
++	"uart2_c",
++	"uart2_flow_a",
++	"uart2_flow_b",
++};
++
++static const char * const cv75_uart3_groups[] = {
++	"uart3_a",
++	"uart3_b",
++	"uart3_flow_a",
++	"uart3_flow_b",
++};
++
++static const char * const cv75_uart4_groups[] = {
++	"uart4_a",
++	"uart4_b",
++	"uart4_flow_a",
++	"uart4_flow_b",
++};
++
++static const char * const cv75_snand_groups[] = {
++	"snand",
++};
++
++static const char * const cv75_spinor_groups[] = {
++	"spinor",
++};
++
++static const char * const cv75_sdmmc0_groups[] = {
++	"sdmmc0_cd",
++	"sdmmc0_wp",
++	"sdmmc0_reset",
++	"sdmmc0_hs_sel",
++	"sdmmc0_1bit",
++	"sdmmc0_4bit",
++};
++
++static const char * const cv75_sdmmc1_groups[] = {
++	"sdmmc1_cd",
++	"sdmmc1_wp",
++	"sdmmc1_reset",
++	"sdmmc1_hs_sel",
++	"sdmmc1_1bit",
++	"sdmmc1_4bit",
++};
++
++static const char * const cv75_enet0_groups[] = {
++	"enet_ext_osc_clk",
++	"enet_2nd_ref_clk_a",
++	"enet_2nd_ref_clk_b",
++	"enet0_ptp_pps_o",
++	"rgmii0",
++	"rmii0",
++};
++
++static const char * const cv75_i2c0_groups[] = {
++	"i2c0_a",
++	"i2c0_b",
++};
++
++static const char * const cv75_i2c1_groups[] = {
++	"i2c1_a",
++	"i2c1_b",
++};
++
++static const char * const cv75_i2c2_groups[] = {
++	"i2c2",
++};
++
++static const char * const cv75_i2c3_groups[] = {
++	"i2c3_a",
++	"i2c3_b",
++	"i2c3_c",
++};
++
++static const char * const cv75_i2cs_groups[] = {
++	"i2cs_a",
++	"i2cs_b",
++	"i2cs_c",
++	"i2cs_d",
++};
++
++static const char * const cv75_can0_groups[] = {
++	"can0",
++};
++
++static const char * const cv75_can1_groups[] = {
++	"can1",
++};
++
++static const char * const cv75_ir_groups[] = {
++	"ir",
++};
++
++static const char * const cv75_wdt_groups[] = {
++	"wdt_a",
++	"wdt_b",
++	"wdt_c",
++	"wdt_d",
++	"wdt_e",
++	"wdt_f",
++};
++
++static const char * const cv75_i2s0_groups[] = {
++	"i2s0",
++};
++
++static const char * const cv75_i2s1_groups[] = {
++	"i2s1",
++};
++
++static const char * const cv75_dmic0_groups[] = {
++	"dmic0",
++};
++
++static const char * const cv75_pwm0_groups[] = {
++	"pwm0",
++};
++
++static const char * const cv75_pwm1_groups[] = {
++	"pwm1",
++};
++
++static const char * const cv75_pwm2_groups[] = {
++	"pwm2",
++};
++
++static const char * const cv75_pwm3_groups[] = {
++	"pwm3",
++};
++
++static const char * const cv75_pwm4_groups[] = {
++	"pwm4_a",
++	"pwm4_b",
++};
++
++static const char * const cv75_pwm5_groups[] = {
++	"pwm5_a",
++	"pwm5_b",
++};
++
++static const char * const cv75_pwm6_groups[] = {
++	"pwm6_a",
++	"pwm6_b",
++};
++
++static const char * const cv75_pwm7_groups[] = {
++	"pwm7_a",
++	"pwm7_b",
++};
++
++static const char * const cv75_pwm8_groups[] = {
++	"pwm8_a",
++	"pwm8_b",
++};
++
++static const char * const cv75_pwm9_groups[] = {
++	"pwm9_a",
++	"pwm9_b",
++};
++
++static const char * const cv75_pwm10_groups[] = {
++	"pwm10_a",
++	"pwm10_b",
++};
++
++static const char * const cv75_pwm11_groups[] = {
++	"pwm11_a",
++	"pwm11_b",
++};
++
++static const char * const cv75_spi0_groups[] = {
++	"spi0",
++};
++
++static const char * const cv75_spi1_groups[] = {
++	"spi1",
++};
++
++static const char * const cv75_spi2_groups[] = {
++	"spi2",
++};
++
++static const char * const cv75_spi3_groups[] = {
++	"spi3_a",
++	"spi3_b",
++	"spi3_c",
++};
++
++static const char * const cv75_spi_slave_groups[] = {
++	"spi_slave_a",
++	"spi_slave_b",
++	"spi_slave_c",
++	"spi_slave_d",
++	"spi_slave_e",
++};
++
++static const char * const cv75_vin_master_sync_groups[] = {
++	"vin_master_sync_a",
++	"vin_master_sync_b",
++	"vin_master_sync_c",
++	"vin_master_sync_d",
++	"vin_master_sync_e",
++};
++
++static const char * const cv75_vsync0_groups[] = {
++	"vsync0",
++};
++
++static const char * const cv75_vsync1_groups[] = {
++	"vsync1",
++};
++
++static const char * const cv75_vsync2_groups[] = {
++	"vsync2",
++};
++
++static const char * const cv75_vsync3_groups[] = {
++	"vsync3",
++};
++
++static const char * const cv75_hsync0_groups[] = {
++	"hsync0",
++};
++
++static const char * const cv75_hsync1_groups[] = {
++	"hsync1",
++};
++
++static const struct pinfunction cv75_pin_functions[] = {
++	CV75_FUNCTION(uart0),
++	CV75_FUNCTION(uart1),
++	CV75_FUNCTION(uart2),
++	CV75_FUNCTION(uart3),
++	CV75_FUNCTION(uart4),
++	CV75_FUNCTION(snand),
++	CV75_FUNCTION(spinor),
++	CV75_FUNCTION(sdmmc0),
++	CV75_FUNCTION(sdmmc1),
++	CV75_FUNCTION(enet0),
++	CV75_FUNCTION(i2c0),
++	CV75_FUNCTION(i2c1),
++	CV75_FUNCTION(i2c2),
++	CV75_FUNCTION(i2c3),
++	CV75_FUNCTION(i2cs),
++	CV75_FUNCTION(can0),
++	CV75_FUNCTION(can1),
++	CV75_FUNCTION(ir),
++	CV75_FUNCTION(wdt),
++	CV75_FUNCTION(i2s0),
++	CV75_FUNCTION(i2s1),
++	CV75_FUNCTION(dmic0),
++	CV75_FUNCTION(pwm0),
++	CV75_FUNCTION(pwm1),
++	CV75_FUNCTION(pwm2),
++	CV75_FUNCTION(pwm3),
++	CV75_FUNCTION(pwm4),
++	CV75_FUNCTION(pwm5),
++	CV75_FUNCTION(pwm6),
++	CV75_FUNCTION(pwm7),
++	CV75_FUNCTION(pwm8),
++	CV75_FUNCTION(pwm9),
++	CV75_FUNCTION(pwm10),
++	CV75_FUNCTION(pwm11),
++	CV75_FUNCTION(spi0),
++	CV75_FUNCTION(spi1),
++	CV75_FUNCTION(spi2),
++	CV75_FUNCTION(spi3),
++	CV75_FUNCTION(spi_slave),
++	CV75_FUNCTION(vin_master_sync),
++	CV75_FUNCTION(vsync0),
++	CV75_FUNCTION(vsync1),
++	CV75_FUNCTION(vsync2),
++	CV75_FUNCTION(vsync3),
++	CV75_FUNCTION(hsync0),
++	CV75_FUNCTION(hsync1),
++};
++
++const struct amb_pinctrl_data ambarella_cv75_pinctrl_data = {
++	.groups = cv75_pin_groups,
++	.functions = cv75_pin_functions,
++	.ngroups = ARRAY_SIZE(cv75_pin_groups),
++	.nfunctions = ARRAY_SIZE(cv75_pin_functions),
++	.nr_banks = 3,
++	.npins = 96,
++	.ds0 = {
++		0x314, 0x320, 0x32c,
++	},
++	.ds1 = {
++		0x318, 0x324, 0x330,
++	},
++	.ds2 = {
++		0x31c, 0x328, 0x334,
++	},
++	.pull_en = {
++		0x60, 0x64, 0x68,
++	},
++	.pull_dir = {
++		0x7c, 0x80, 0x84,
++	},
++	.have_ds2 = true,
++};
+diff --git a/drivers/pinctrl/pinctrl-ambarella.c b/drivers/pinctrl/pinctrl-ambarella.c
+new file mode 100644
+index 000000000000..83afef6a123f
+--- /dev/null
++++ b/drivers/pinctrl/pinctrl-ambarella.c
+@@ -0,0 +1,533 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Pinctrl driver for Ambarella SoCs
++ *
++ * Copyright (C) 2012-2026, Ambarella, Inc.
++ */
++
++#include <linux/array_size.h>
++#include <linux/bitops.h>
++#include <linux/bits.h>
++#include <linux/device.h>
++#include <linux/err.h>
++#include <linux/errno.h>
++#include <linux/init.h>
++#include <linux/io.h>
++#include <linux/mfd/syscon.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++#include <linux/slab.h>
++#include <linux/spinlock.h>
++#include <linux/string_helpers.h>
++#include <linux/types.h>
++
++#include <linux/pinctrl/pinconf-generic.h>
++#include <linux/pinctrl/pinconf.h>
++#include <linux/pinctrl/pinctrl.h>
++#include <linux/pinctrl/pinmux.h>
++
++#include "core.h"
++#include "pinmux.h"
++#include "pinctrl-ambarella.h"
++
++#define IOMUX_REG(bank, n)		(((bank) * 0xc) + ((n) * 4))
++#define IOMUX_CTRL_SET			0xf0
++
++#define PINID_TO_BANK(p)		((p) >> 5)
++#define PINID_TO_OFFSET(p)		((p) & 0x1f)
++
++struct amb_pinctrl {
++	struct pinctrl_desc desc;
++	void __iomem *iomux_base;
++	struct regmap *ds_regmap;
++	struct regmap *pull_regmap;
++	const struct amb_pinctrl_data *data;
++	struct device *dev;
++	struct pinctrl_dev *pctl;
++	spinlock_t lock;
++};
++
++static const int amb_ds1_ma[] = { 2, 4, 8, 12 };
++static const int amb_ds2_ma[] = { 3, 4, 6, 8, 9, 12 };
++
++static const struct pinctrl_ops amb_pctrl_ops = {
++	.get_groups_count	= pinctrl_generic_get_group_count,
++	.get_group_name		= pinctrl_generic_get_group_name,
++	.get_group_pins		= pinctrl_generic_get_group_pins,
++	.dt_node_to_map		= pinconf_generic_dt_node_to_map_all,
++	.dt_free_map		= pinconf_generic_dt_free_map,
++};
++
++static void amb_iomux_commit(struct amb_pinctrl *ipc)
 +{
-+	struct gpio_chip *gc = d->host_data;
-+	struct pl061 *pl061 = pl061_from_gpio_chip(gc);
++	writel(0x1, ipc->iomux_base + IOMUX_CTRL_SET);
++	writel(0x0, ipc->iomux_base + IOMUX_CTRL_SET);
++}
 +
-+	irq_set_chip_data(virq, gc);
-+	irq_set_chip_and_handler(virq, &pl061_irqchip, handle_bad_irq);
-+	irq_set_noprobe(virq);
-+	irq_set_parent(virq, pl061->parent_irq);
++static void amb_pinmux_set_altfunc(struct amb_pinctrl *ipc, u32 bank,
++				   u32 offset, u32 altfunc)
++{
++	if (bank >= ipc->data->nr_banks)
++		return;
++
++	for (unsigned int i = 0; i < 3; i++) {
++		unsigned long data;
++
++		data = readl_relaxed(ipc->iomux_base + IOMUX_REG(bank, i));
++		__assign_bit(offset, &data, altfunc & BIT(i));
++		writel_relaxed(data, ipc->iomux_base + IOMUX_REG(bank, i));
++	}
++}
++
++static int amb_pinmux_set_mux(struct pinctrl_dev *pctldev,
++			      unsigned int selector, unsigned int group)
++{
++	struct amb_pinctrl *ipc = pinctrl_dev_get_drvdata(pctldev);
++	struct group_desc *grp;
++	const u8 *alts;
++	unsigned long flags;
++
++	(void)selector;
++
++	grp = pinctrl_generic_get_group(pctldev, group);
++	if (!grp || !grp->data)
++		return -EINVAL;
++
++	alts = grp->data;
++
++	spin_lock_irqsave(&ipc->lock, flags);
++	for (unsigned int i = 0; i < grp->grp.npins; i++) {
++		unsigned int pin = grp->grp.pins[i];
++
++		amb_pinmux_set_altfunc(ipc, PINID_TO_BANK(pin),
++				       PINID_TO_OFFSET(pin), alts[i]);
++	}
++	amb_iomux_commit(ipc);
++	spin_unlock_irqrestore(&ipc->lock, flags);
 +
 +	return 0;
 +}
 +
-+static void pl061_irq_domain_unmap(struct irq_domain *d, unsigned int virq)
++static int amb_pinmux_gpio_request_enable(struct pinctrl_dev *pctldev,
++					  struct pinctrl_gpio_range *range,
++					  unsigned int pin)
 +{
-+	irq_set_chip_and_handler(virq, NULL, NULL);
-+	irq_set_chip_data(virq, NULL);
++	struct amb_pinctrl *ipc = pinctrl_dev_get_drvdata(pctldev);
++	unsigned long flags;
++
++	if (!range || !range->gc)
++		return -EINVAL;
++
++	if (pin >= ipc->data->npins)
++		return -EINVAL;
++
++	spin_lock_irqsave(&ipc->lock, flags);
++	amb_pinmux_set_altfunc(ipc, PINID_TO_BANK(pin), PINID_TO_OFFSET(pin), 0);
++	amb_iomux_commit(ipc);
++	spin_unlock_irqrestore(&ipc->lock, flags);
++
++	return 0;
 +}
 +
-+static const struct irq_domain_ops pl061_irq_domain_ops = {
-+	.map	= pl061_irq_domain_map,
-+	.unmap	= pl061_irq_domain_unmap,
-+	.xlate	= irq_domain_xlate_twothreecell,
++static const struct pinmux_ops amb_pinmux_ops = {
++	.get_functions_count	= pinmux_generic_get_function_count,
++	.get_function_name	= pinmux_generic_get_function_name,
++	.get_function_groups	= pinmux_generic_get_function_groups,
++	.set_mux		= amb_pinmux_set_mux,
++	.gpio_request_enable	= amb_pinmux_gpio_request_enable,
++	.strict			= true,
 +};
 +
-+static void pl061_remove_irq(void *data)
++static int amb_drive_strength_to_reg_ds1(u32 strength)
 +{
-+	struct pl061 *pl061 = data;
-+
-+	irq_set_chained_handler_and_data(pl061->parent_irq, NULL, NULL);
-+
-+	for (unsigned int i = 0; i < pl061->data->ngpio; i++) {
-+		unsigned int virq;
-+
-+		virq = irq_find_mapping(pl061->irq_domain, i);
-+		if (virq)
-+			irq_dispose_mapping(virq);
++	for (unsigned int i = 0; i < ARRAY_SIZE(amb_ds1_ma); i++) {
++		if (amb_ds1_ma[i] == strength)
++			return i;
 +	}
 +
-+	irq_domain_remove(pl061->irq_domain);
++	return -EINVAL;
 +}
 +
-+static bool pl061_arm_is_data_reg(unsigned int reg)
++static int amb_drive_strength_to_reg_ds2(u32 strength)
 +{
-+	return reg >= BIT(PL061_DATA_OFFSET) &&
-+	       reg <= BIT(PL061_DATA_OFFSET + PL061_GPIO_NR - 1) &&
-+	       is_power_of_2(reg);
-+}
++	/* Hardware steps are 3, 4, 6, 8, 9, 12 mA; 5 and 7 are accepted aliases */
++	if (strength == 5)
++		strength = 4;
++	else if (strength == 7)
++		strength = 8;
 +
-+static bool pl061_arm_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case PL061_MIS:
-+	case PL061_IC:
-+		return true;
-+	default:
-+		return pl061_arm_is_data_reg(reg);
++	for (unsigned int i = 0; i < ARRAY_SIZE(amb_ds2_ma); i++) {
++		if (amb_ds2_ma[i] == strength)
++			return i;
 +	}
++
++	return -EINVAL;
 +}
 +
-+static const struct regmap_config pl061_arm_regmap_config = {
-+	.reg_bits = 16,
-+	.val_bits = 8,
-+	.reg_stride = 4,
-+	.max_register = PL061_IC,
-+	.volatile_reg = pl061_arm_volatile_reg,
-+	.cache_type = REGCACHE_FLAT_S,
-+	.fast_io = true,
-+	.use_raw_spinlock = true,
-+};
++static int amb_drive_strength_to_reg(const struct amb_pinctrl *ipc, u32 strength)
++{
++	if (ipc->data->have_ds2)
++		return amb_drive_strength_to_reg_ds2(strength);
 +
-+static const struct pl061_regs pl061_arm_regs = {
-+	.dir	= PL061_DIR,
-+	.is	= PL061_IS,
-+	.ibe	= PL061_IBE,
-+	.iev	= PL061_IEV,
-+	.ie	= PL061_IE,
-+	.mis	= PL061_MIS,
-+	.ic	= PL061_IC,
-+};
++	return amb_drive_strength_to_reg_ds1(strength);
++}
 +
-+static const struct pl061_drvdata pl061_arm = {
-+	.regmap_config		= &pl061_arm_regmap_config,
-+	.regs			= &pl061_arm_regs,
-+	.ngpio			= PL061_GPIO_NR,
-+	.write_data_after_dir	= true,
-+	.pm			= true,
-+	.reg_mask_xlate		= pl061_arm_reg_mask_xlate,
-+};
++static int amb_reg_to_drive_strength(const struct amb_pinctrl *ipc, u32 ds)
++{
++	if (ipc->data->have_ds2) {
++		if (ds >= ARRAY_SIZE(amb_ds2_ma))
++			return -EINVAL;
++		return amb_ds2_ma[ds];
++	}
 +
- static int pl061_probe(struct amba_device *adev, const struct amba_id *id)
- {
- 	struct device *dev = &adev->dev;
-+	const struct pl061_drvdata *data;
-+	const struct pl061_regs *regs;
-+	struct gpio_regmap_config config = {};
-+	struct gpio_regmap *gpio_regmap;
-+	struct gpio_chip *gc;
- 	struct pl061 *pl061;
--	struct gpio_irq_chip *girq;
- 	void __iomem *base;
- 	int ret, irq;
- 
-+	data = id->data;
-+	if (!data)
-+		return -ENODATA;
++	if (ds >= ARRAY_SIZE(amb_ds1_ma))
++		return -EINVAL;
 +
-+	regs = data->regs;
++	return amb_ds1_ma[ds];
++}
 +
- 	pl061 = devm_kzalloc(dev, sizeof(*pl061), GFP_KERNEL);
--	if (pl061 == NULL)
-+	if (!pl061)
- 		return -ENOMEM;
- 
-+	pl061->data = data;
-+	raw_spin_lock_init(&pl061->lock);
++static int amb_pinconf_set(struct pinctrl_dev *pctldev, unsigned int pin,
++			   unsigned long *configs, unsigned int num_configs)
++{
++	struct amb_pinctrl *ipc = pinctrl_dev_get_drvdata(pctldev);
++	u32 bank = PINID_TO_BANK(pin);
++	u32 offset = PINID_TO_OFFSET(pin);
++	unsigned int mask = BIT(offset);
++	int ret;
 +
- 	base = devm_ioremap_resource(dev, &adev->res);
- 	if (IS_ERR(base))
- 		return PTR_ERR(base);
- 
--	pl061->regmap = devm_regmap_init_mmio(dev, base, &pl061_regmap_config);
-+	pl061->regmap = devm_regmap_init_mmio(dev, base, data->regmap_config);
- 	if (IS_ERR(pl061->regmap))
- 		return PTR_ERR(pl061->regmap);
- 
--	raw_spin_lock_init(&pl061->lock);
--	pl061->gc.request = gpiochip_generic_request;
--	pl061->gc.free = gpiochip_generic_free;
--	pl061->gc.base = -1;
--	pl061->gc.get_direction = pl061_get_direction;
--	pl061->gc.direction_input = pl061_direction_input;
--	pl061->gc.direction_output = pl061_direction_output;
--	pl061->gc.get = pl061_get_value;
--	pl061->gc.set = pl061_set_value;
--	pl061->gc.ngpio = PL061_GPIO_NR;
--	pl061->gc.label = dev_name(dev);
--	pl061->gc.parent = dev;
--	pl061->gc.owner = THIS_MODULE;
-+	if (regs->enable) {
-+		ret = regmap_write(pl061->regmap, regs->enable, ~0U);
++	if (bank >= ipc->data->nr_banks)
++		return -EINVAL;
++
++	for (unsigned int i = 0; i < num_configs; i++) {
++		enum pin_config_param param = pinconf_to_config_param(configs[i]);
++		u32 arg = pinconf_to_config_argument(configs[i]);
++		int ds;
++
++		switch (param) {
++		case PIN_CONFIG_BIAS_DISABLE:
++			ret = regmap_assign_bits(ipc->pull_regmap, ipc->data->pull_en[bank],
++						 mask, false);
++			if (ret)
++				return ret;
++			break;
++		case PIN_CONFIG_BIAS_PULL_DOWN:
++		case PIN_CONFIG_BIAS_PULL_UP:
++			ret = regmap_assign_bits(ipc->pull_regmap, ipc->data->pull_dir[bank],
++						 mask, param == PIN_CONFIG_BIAS_PULL_UP);
++			if (ret)
++				return ret;
++			ret = regmap_assign_bits(ipc->pull_regmap, ipc->data->pull_en[bank],
++						 mask, true);
++			if (ret)
++				return ret;
++			break;
++		case PIN_CONFIG_DRIVE_STRENGTH:
++			ds = amb_drive_strength_to_reg(ipc, arg);
++			if (ds < 0)
++				return ds;
++			if (ipc->data->have_ds2) {
++				ret = regmap_assign_bits(ipc->ds_regmap, ipc->data->ds0[bank],
++							 mask, ds & BIT(0));
++				if (ret)
++					return ret;
++				ret = regmap_assign_bits(ipc->ds_regmap, ipc->data->ds1[bank],
++							 mask, ds & BIT(1));
++				if (ret)
++					return ret;
++				ret = regmap_assign_bits(ipc->ds_regmap, ipc->data->ds2[bank],
++							 mask, ds & BIT(2));
++				if (ret)
++					return ret;
++			} else {
++				ret = regmap_assign_bits(ipc->ds_regmap, ipc->data->ds0[bank],
++							 mask, ds & BIT(1));
++				if (ret)
++					return ret;
++				ret = regmap_assign_bits(ipc->ds_regmap, ipc->data->ds1[bank],
++							 mask, ds & BIT(0));
++				if (ret)
++					return ret;
++			}
++			break;
++		default:
++			return -ENOTSUPP;
++		}
++	}
++
++	return 0;
++}
++
++static int amb_pinconf_group_set(struct pinctrl_dev *pctldev,
++				 unsigned int selector,
++				 unsigned long *configs,
++				 unsigned int num_configs)
++{
++	const unsigned int *pins;
++	unsigned int npins;
++	int ret;
++
++	ret = pinctrl_generic_get_group_pins(pctldev, selector, &pins, &npins);
++	if (ret)
++		return ret;
++
++	for (unsigned int i = 0; i < npins; i++) {
++		ret = amb_pinconf_set(pctldev, pins[i], configs, num_configs);
 +		if (ret)
 +			return ret;
 +	}
-+	if (regs->mask) {
-+		ret = regmap_write(pl061->regmap, regs->mask, ~0U);
++
++	return 0;
++}
++
++static int amb_pinconf_get(struct pinctrl_dev *pctldev,
++			   unsigned int pin, unsigned long *config)
++{
++	struct amb_pinctrl *ipc = pinctrl_dev_get_drvdata(pctldev);
++	enum pin_config_param param = pinconf_to_config_param(*config);
++	u32 bank = PINID_TO_BANK(pin);
++	u32 offset = PINID_TO_OFFSET(pin);
++	u32 pull_en, pull_dir, ds0, ds1, ds2, ds;
++	bool en, dir, b0, b1, b2;
++	int ret, strength;
++
++	if (bank >= ipc->data->nr_banks)
++		return -EINVAL;
++
++	switch (param) {
++	case PIN_CONFIG_BIAS_DISABLE:
++	case PIN_CONFIG_BIAS_PULL_DOWN:
++	case PIN_CONFIG_BIAS_PULL_UP:
++		ret = regmap_read(ipc->pull_regmap, ipc->data->pull_en[bank],
++				  &pull_en);
 +		if (ret)
 +			return ret;
-+	}
- 
- 	/*
- 	 * irq_chip support
- 	 */
--	regmap_write(pl061->regmap, GPIOIE, 0); /* disable irqs */
-+	regmap_write(pl061->regmap, regs->ie, 0); /* disable irqs */
 +
- 	irq = adev->irq[0];
- 	if (!irq)
--		dev_warn(&adev->dev, "IRQ support disabled\n");
-+		dev_warn(dev, "IRQ support disabled\n");
- 	pl061->parent_irq = irq;
- 
--	girq = &pl061->gc.irq;
--	gpio_irq_chip_set_chip(girq, &pl061_irq_chip);
--	girq->parent_handler = pl061_irq_handler;
--	girq->num_parents = 1;
--	girq->parents = devm_kcalloc(dev, 1, sizeof(*girq->parents),
--				     GFP_KERNEL);
--	if (!girq->parents)
--		return -ENOMEM;
--	girq->parents[0] = irq;
--	girq->default_type = IRQ_TYPE_NONE;
--	girq->handler = handle_bad_irq;
--
--	ret = devm_gpiochip_add_data(dev, &pl061->gc, pl061);
--	if (ret)
--		return ret;
-+	config.parent = dev;
-+	config.regmap = pl061->regmap;
-+	config.ngpio = data->ngpio;
-+	config.reg_dat_base = GPIO_REGMAP_ADDR(regs->dat);
-+	config.reg_set_base = GPIO_REGMAP_ADDR(regs->dat);
-+	config.reg_dir_out_base = regs->dir;
-+	config.reg_mask_xlate = data->reg_mask_xlate;
-+	config.write_data_after_dir = data->write_data_after_dir;
-+	config.drvdata = pl061;
-+
-+	gpio_regmap = devm_gpio_regmap_register(dev, &config);
-+	if (IS_ERR(gpio_regmap))
-+		return PTR_ERR(gpio_regmap);
-+
-+	gc = gpio_regmap_get_chip(gpio_regmap);
-+
-+	if (irq) {
-+		pl061->irq_domain = irq_domain_create_linear(dev_fwnode(dev),
-+							     data->ngpio,
-+							     &pl061_irq_domain_ops,
-+							     gc);
-+		if (!pl061->irq_domain)
-+			return -ENOMEM;
-+
-+		ret = gpiochip_irqchip_add_domain(gc, pl061->irq_domain);
-+		if (ret) {
-+			irq_domain_remove(pl061->irq_domain);
++		ret = regmap_read(ipc->pull_regmap, ipc->data->pull_dir[bank],
++				  &pull_dir);
++		if (ret)
 +			return ret;
++
++		en = !!(pull_en & BIT(offset));
++		dir = !!(pull_dir & BIT(offset));
++
++		if (param == PIN_CONFIG_BIAS_DISABLE) {
++			if (en)
++				return -EINVAL;
++			*config = pinconf_to_config_packed(param, 0);
++			return 0;
 +		}
 +
-+		ret = devm_add_action_or_reset(dev, pl061_remove_irq, pl061);
++		if (!en)
++			return -EINVAL;
++		if (param == PIN_CONFIG_BIAS_PULL_UP && !dir)
++			return -EINVAL;
++		if (param == PIN_CONFIG_BIAS_PULL_DOWN && dir)
++			return -EINVAL;
++
++		*config = pinconf_to_config_packed(param, 1);
++		return 0;
++
++	case PIN_CONFIG_DRIVE_STRENGTH:
++		ret = regmap_read(ipc->ds_regmap, ipc->data->ds0[bank], &ds0);
 +		if (ret)
 +			return ret;
 +
-+		irq_set_chained_handler_and_data(irq, pl061_irq_handler, gc);
-+	}
- 
- 	amba_set_drvdata(adev, pl061);
- 	dev_info(dev, "PL061 GPIO chip registered\n");
-@@ -390,28 +462,38 @@ static int pl061_probe(struct amba_device *adev, const struct amba_id *id)
- 	return 0;
- }
- 
-+static void pl061_cache_ctrl_regs(struct pl061 *pl061, unsigned int *dir)
-+{
-+	const struct pl061_regs *regs = pl061->data->regs;
-+	unsigned int val;
++		ret = regmap_read(ipc->ds_regmap, ipc->data->ds1[bank], &ds1);
++		if (ret)
++			return ret;
 +
-+	regmap_read(pl061->regmap, regs->dir, dir);
-+	regmap_read(pl061->regmap, regs->is, &val);
-+	regmap_read(pl061->regmap, regs->ibe, &val);
-+	regmap_read(pl061->regmap, regs->iev, &val);
-+	regmap_read(pl061->regmap, regs->ie, &val);
++		b0 = !!(ds0 & BIT(offset));
++		b1 = !!(ds1 & BIT(offset));
++		if (ipc->data->have_ds2) {
++			ret = regmap_read(ipc->ds_regmap, ipc->data->ds2[bank],
++					  &ds2);
++			if (ret)
++				return ret;
++
++			b2 = !!(ds2 & BIT(offset));
++			ds = (b2 << 2) | (b1 << 1) | b0;
++		} else {
++			ds = (b0 << 1) | b1;
++		}
++
++		strength = amb_reg_to_drive_strength(ipc, ds);
++		if (strength < 0)
++			return strength;
++
++		*config = pinconf_to_config_packed(param, strength);
++		return 0;
++
++	default:
++		return -ENOTSUPP;
++	}
 +}
 +
- static int pl061_suspend(struct device *dev)
- {
- 	struct pl061 *pl061 = dev_get_drvdata(dev);
--	unsigned int val = 0;
--	int offset;
--
--	pl061->csave_regs.gpio_data = 0;
--	regmap_read(pl061->regmap, GPIODIR, &val);
--	pl061->csave_regs.gpio_dir = val;
--	regmap_read(pl061->regmap, GPIOIS, &val);
--	pl061->csave_regs.gpio_is = val;
--	regmap_read(pl061->regmap, GPIOIBE, &val);
--	pl061->csave_regs.gpio_ibe = val;
--	regmap_read(pl061->regmap, GPIOIEV, &val);
--	pl061->csave_regs.gpio_iev = val;
--	regmap_read(pl061->regmap, GPIOIE, &val);
--	pl061->csave_regs.gpio_ie = val;
--
--	for (offset = 0; offset < PL061_GPIO_NR; offset++) {
--		if (pl061->csave_regs.gpio_dir & (BIT(offset)))
--			pl061->csave_regs.gpio_data |=
--				pl061_get_value(&pl061->gc, offset) << offset;
-+	unsigned long dir_mask;
-+	unsigned int dir = 0, val;
-+	unsigned int offset;
++static const struct pinconf_ops amb_pinconf_ops = {
++	.is_generic		= true,
++	.pin_config_get		= amb_pinconf_get,
++	.pin_config_set		= amb_pinconf_set,
++	.pin_config_group_set	= amb_pinconf_group_set,
++};
 +
-+	if (!pl061->data->pm)
-+		return 0;
++static int amb_pinctrl_add_groups(struct amb_pinctrl *ipc)
++{
++	const struct amb_pinctrl_data *data = ipc->data;
 +
-+	pl061_cache_ctrl_regs(pl061, &dir);
++	for (unsigned int i = 0; i < data->ngroups; i++) {
++		const struct amb_pinmux_group *g = &data->groups[i];
++		int ret;
 +
-+	pl061->saved_dat = 0;
-+	dir_mask = dir;
-+	for_each_set_bit(offset, &dir_mask, pl061->data->ngpio) {
-+		val = 0;
-+		regmap_read_bypassed(pl061->regmap,
-+				     BIT(offset + PL061_DATA_OFFSET),
-+				     &val);
-+		pl061->saved_dat |= val;
- 	}
- 
- 	return 0;
-@@ -420,23 +502,27 @@ static int pl061_suspend(struct device *dev)
- static int pl061_resume(struct device *dev)
- {
- 	struct pl061 *pl061 = dev_get_drvdata(dev);
--	int offset;
-+	const struct pl061_regs *regs;
-+	unsigned long dir_mask;
-+	unsigned int dir = 0, offset;
- 
--	for (offset = 0; offset < PL061_GPIO_NR; offset++) {
--		if (pl061->csave_regs.gpio_dir & (BIT(offset)))
--			pl061_direction_output(&pl061->gc, offset,
--					pl061->csave_regs.gpio_data &
--					(BIT(offset)));
--		else
--			pl061_direction_input(&pl061->gc, offset);
--	}
-+	if (!pl061->data->pm)
-+		return 0;
- 
--	regmap_write(pl061->regmap, GPIOIS, pl061->csave_regs.gpio_is);
--	regmap_write(pl061->regmap, GPIOIBE, pl061->csave_regs.gpio_ibe);
--	regmap_write(pl061->regmap, GPIOIEV, pl061->csave_regs.gpio_iev);
--	regmap_write(pl061->regmap, GPIOIE, pl061->csave_regs.gpio_ie);
-+	regs = pl061->data->regs;
- 
--	return 0;
-+	regmap_read(pl061->regmap, regs->dir, &dir);
++		if (!g->grp || !g->grp->name || !g->grp->pins ||
++		    !g->grp->npins || !g->alts)
++			return -EINVAL;
 +
-+	regcache_mark_dirty(pl061->regmap);
-+	regcache_sync_region(pl061->regmap, regs->dir, regs->dir);
++		for (unsigned int j = 0; j < g->grp->npins; j++) {
++			if (g->grp->pins[j] >= data->npins)
++				return -EINVAL;
++		}
 +
-+	dir_mask = dir;
-+	for_each_set_bit(offset, &dir_mask, pl061->data->ngpio)
-+		regmap_write(pl061->regmap,
-+			     BIT(offset + PL061_DATA_OFFSET),
-+			     !!(pl061->saved_dat & BIT(offset)) << offset);
++		ret = pinctrl_generic_add_group(ipc->pctl, g->grp->name,
++						g->grp->pins, g->grp->npins,
++						(void *)g->alts);
++		if (ret < 0)
++			return ret;
++	}
 +
-+	return regcache_sync_region(pl061->regmap, regs->is, regs->ie);
- }
- 
- static DEFINE_SIMPLE_DEV_PM_OPS(pl061_dev_pm_ops, pl061_suspend, pl061_resume);
-@@ -445,6 +531,7 @@ static const struct amba_id pl061_ids[] = {
- 	{
- 		.id	= 0x00041061,
- 		.mask	= 0x000fffff,
-+		.data	= (void *)&pl061_arm,
- 	},
- 	{ 0, 0 },
- };
++	return 0;
++}
++
++static int amb_pinctrl_add_functions(struct amb_pinctrl *ipc)
++{
++	const struct amb_pinctrl_data *data = ipc->data;
++
++	for (unsigned int i = 0; i < data->nfunctions; i++) {
++		int ret;
++
++		ret = pinmux_generic_add_pinfunction(ipc->pctl,
++						     &data->functions[i], NULL);
++		if (ret < 0)
++			return ret;
++	}
++
++	return 0;
++}
++
++static int amb_pinctrl_register(struct amb_pinctrl *ipc)
++{
++	struct pinctrl_pin_desc *pindesc;
++	char **names;
++	int ret;
++
++	pindesc = devm_kcalloc(ipc->dev, ipc->data->npins, sizeof(*pindesc),
++			       GFP_KERNEL);
++	if (!pindesc)
++		return -ENOMEM;
++
++	names = devm_kasprintf_strarray(ipc->dev, "io", ipc->data->npins);
++	if (!names)
++		return -ENOMEM;
++
++	for (unsigned int pin = 0; pin < ipc->data->npins; pin++) {
++		pindesc[pin].number = pin;
++		pindesc[pin].name = names[pin];
++	}
++
++	ipc->desc.name = dev_name(ipc->dev);
++	ipc->desc.pins = pindesc;
++	ipc->desc.npins = ipc->data->npins;
++	ipc->desc.pctlops = &amb_pctrl_ops;
++	ipc->desc.pmxops = &amb_pinmux_ops;
++	ipc->desc.confops = &amb_pinconf_ops;
++	ipc->desc.owner = THIS_MODULE;
++
++	ret = devm_pinctrl_register_and_init(ipc->dev, &ipc->desc, ipc, &ipc->pctl);
++	if (ret)
++		return ret;
++
++	ret = amb_pinctrl_add_groups(ipc);
++	if (ret)
++		return ret;
++
++	ret = amb_pinctrl_add_functions(ipc);
++	if (ret)
++		return ret;
++
++	return pinctrl_enable(ipc->pctl);
++}
++
++static int amb_pinctrl_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct amb_pinctrl *ipc;
++	int ret;
++
++	ipc = devm_kzalloc(dev, sizeof(*ipc), GFP_KERNEL);
++	if (!ipc)
++		return -ENOMEM;
++
++	ipc->dev = dev;
++	ipc->data = device_get_match_data(dev);
++	if (!ipc->data)
++		return dev_err_probe(dev, -ENODATA, "missing SoC data\n");
++
++	if (!ipc->data->nr_banks || ipc->data->nr_banks > AMBA_MAX_BANKS ||
++	    !ipc->data->npins ||
++	    !ipc->data->groups || !ipc->data->ngroups ||
++	    !ipc->data->functions || !ipc->data->nfunctions)
++		return dev_err_probe(dev, -EINVAL, "invalid SoC data\n");
++
++	ipc->iomux_base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(ipc->iomux_base))
++		return PTR_ERR(ipc->iomux_base);
++
++	ipc->ds_regmap = syscon_regmap_lookup_by_phandle(dev_of_node(dev),
++					"ambarella,drive-strength-syscon");
++	if (IS_ERR(ipc->ds_regmap))
++		return dev_err_probe(dev, PTR_ERR(ipc->ds_regmap),
++				     "missing drive-strength syscon\n");
++
++	ipc->pull_regmap = syscon_regmap_lookup_by_phandle(dev_of_node(dev),
++					"ambarella,pull-syscon");
++	if (IS_ERR(ipc->pull_regmap))
++		return dev_err_probe(dev, PTR_ERR(ipc->pull_regmap),
++				     "missing pull syscon\n");
++
++	spin_lock_init(&ipc->lock);
++
++	ret = amb_pinctrl_register(ipc);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to register pinctrl\n");
++
++	platform_set_drvdata(pdev, ipc);
++
++	return 0;
++}
++
++static const struct of_device_id amb_pinctrl_dt_match[] = {
++	{
++		.compatible = "ambarella,cv75-pinctrl",
++		.data = &ambarella_cv75_pinctrl_data,
++	},
++	{ }
++};
++MODULE_DEVICE_TABLE(of, amb_pinctrl_dt_match);
++
++static struct platform_driver amb_pinctrl_driver = {
++	.probe = amb_pinctrl_probe,
++	.driver = {
++		.name = "ambarella-pinctrl",
++		.of_match_table = amb_pinctrl_dt_match,
++	},
++};
++
++static int __init amb_pinctrl_drv_register(void)
++{
++	return platform_driver_register(&amb_pinctrl_driver);
++}
++arch_initcall(amb_pinctrl_drv_register);
++
++MODULE_AUTHOR("Cao Rongrong <rrcao@ambarella.com>");
++MODULE_DESCRIPTION("Ambarella SoC pinctrl driver");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/pinctrl/pinctrl-ambarella.h b/drivers/pinctrl/pinctrl-ambarella.h
+new file mode 100644
+index 000000000000..37e9c420662c
+--- /dev/null
++++ b/drivers/pinctrl/pinctrl-ambarella.h
+@@ -0,0 +1,40 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Ambarella pinctrl SoC data
++ *
++ * Copyright (C) 2012-2026, Ambarella, Inc.
++ */
++
++#ifndef _PINCTRL_AMBARELLA_H
++#define _PINCTRL_AMBARELLA_H
++
++#include <linux/types.h>
++
++#define AMBA_MAX_BANKS			8
++
++struct pingroup;
++struct pinfunction;
++
++struct amb_pinmux_group {
++	const struct pingroup *grp;
++	const u8 *alts;
++};
++
++struct amb_pinctrl_data {
++	const struct amb_pinmux_group *groups;
++	const struct pinfunction *functions;
++	unsigned int ngroups;
++	unsigned int nfunctions;
++	unsigned int nr_banks;
++	unsigned int npins;
++	unsigned int ds0[AMBA_MAX_BANKS];
++	unsigned int ds1[AMBA_MAX_BANKS];
++	unsigned int ds2[AMBA_MAX_BANKS];
++	unsigned int pull_en[AMBA_MAX_BANKS];
++	unsigned int pull_dir[AMBA_MAX_BANKS];
++	bool have_ds2;
++};
++
++extern const struct amb_pinctrl_data ambarella_cv75_pinctrl_data;
++
++#endif /* _PINCTRL_AMBARELLA_H */
 
 -- 
 2.34.1
