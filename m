@@ -1,96 +1,196 @@
-Received: from mta0.migadu.com (out-146.mta0.migadu.com [91.218.175.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0315578F3A
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:44:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882B93358B9;
+	Mon, 21 Sep 2026 03:45:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789962245; cv=none; b=c5APWaYARB/ZSjCluQtrCq35ASdAVruo+7hLLuObGadrpWlj4PqqHZ9OPpum7v7kPLuLmVZd4TJExh2Qljwt8Bg0fb8K8+dgDeanfsr0DsYMVzaUrWn4XEcrxd+DuzARyBZqOgp9grAGWPk5FLjcXG+ZDGYIxdJpZrua0FTclI0=
+	t=1789962313; cv=none; b=XMqrDRVyp9l4E3gGDhITXly7mZbcYmYcl8iv8179qM3nVakes2Ae3WE7yR+F+Sl5iwDbApco+EzbAmLKoQ3yyTWb8ls2VVKGYQo+S3NaO+GzcLJwxbnU/VSPtpdAAKxmoaYliAaCbbqUbozG9uxSRRwWTeka5e3hRNXXTinRorA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789962245; c=relaxed/simple;
-	bh=OGERyTp5CrbGXz3u1lwBm+Mkoof0KEPSvGD6/69fiBc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PcFb/pR3cOfzm9wpNitGkYl20c1SaSmtO7YfL460NKODUFJ5HuFRIae+EuE1lRAMbZel0QNeOcd5vqR6LTQu9/PpJ4lr5Qdihi5/cJQoBMBa32W+K+3GAGHiLOMD+xvMEAaouSjMeBRyTwbUqxMFedIscTDwzF+6MKLoO+So9as=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=q6i3Cc4v; arc=none smtp.client-ip=91.218.175.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789962313; c=relaxed/simple;
+	bh=2mqcYQ13Dtq6iawIx/ixajTzHx5R5w48dlxlvQDoVOA=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ePkEXtfF/FOGxzSPdCxGSGJ/cihIFckh3y8txQ6y2I41mR54/628m9HQEmW9fIN/wzu50DhVhpFInZ3Y7UJM0dFl09T6GBZbHv8d2F0kPI5p/ifCmBqeClnULBCEn/4M4G9wCEYKmFFdcoQi7JmStiGxzq/LaQfSdkNGyGZ/MKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PBB8gG92; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="q6i3Cc4v"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OGERyTp5CrbGXz3u1lwBm+Mkoof0KEPSvGD6/69fiBc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789962241; v=1; x=1790567041;
- b=q6i3Cc4vPqW2HACNC1Kbcz5AWkNrBAYd+5bKQYabHMNoOlMMuY3LgSJDfb1uNhWzk0yXNWQ/
- H6nBlVUvtNQacO2ypx/6s3g+F0Qqoq+o8ycUPanwPWEII6LLiBx6wFzMsVCccjETiUbB0bUqndW
- gxfcR9gm2LW9kj92Cy41XQnA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f06bd7d5875bb714;
-	Mon, 21 Sep 2026 03:44:01 +0000
-X-Mizu-Trace-ID: f06bd7d5875bb714
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <95d326cb-ebb4-492c-9062-5d373609e18b@linux.dev>
-Date: Mon, 21 Sep 2026 11:43:51 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PBB8gG92"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40EEF1F000FF;
+	Mon, 21 Sep 2026 03:45:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789962311;
+	bh=EPx5RwoBp9LAbXGjS27mFFa+JbitlsUoPMjfbGclCkc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=PBB8gG92IM/PrR38dvMf4EXaL5oYQYXQSr1qwoUyDVMJmGFCrOmku8iGiQNtrZ2l4
+	 ELo65qyFgSTyHg1hU9dDVKthroJazlNSMjueYf8pJhWUiUMpjKYpGkz0aZE+muDGuJ
+	 lJm7c7CVMjMiXKqh1xE9tF2I+Bq01zIHHcN1WjMvk92z4oiRGly+OeQvo9nW/xjOpo
+	 bpTBjaeOnS1E9VFEUnBzEXUBkGRX4Kx0KPT2BCtJC0NrF8R0BMFMwK27ZPLOi+UPGi
+	 IIVnep7WRrZXcCIn3+gBdO0HNmmRWNEiS1K7ViVywndkWRKdWz3sTQAHOpNniOsaJr
+	 FJbvsTNrr+SOQ==
+Subject:
+ Re: [PATCH net-next v2] selftests: net: fou_mcast_encap: load the fou module
+From: netdev-bot+sashiko@kernel.org
+To: fuqingshuang@kylinos.cn
+Cc: apw@canonical.com, joe@perches.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ shuah@kernel.org, willemb@google.com, littlesmilingcloud@gmail.com,
+ netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 21 Sep 2026 03:45:09 +0000
+Message-ID: <178996230975.2160803.17640968761180621275@kernel.org>
+In-Reply-To: <20260917033049.792209-1-fuqingshuang@kylinos.cn>
+References: <20260917033049.792209-1-fuqingshuang@kylinos.cn>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] mm/sparse-vmemmap: drop VMEMMAP_POPULATE_DAX
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, Mike Rapoport <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>,
- Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20260913083734.86802-1-songmuchun@bytedance.com>
- <20260913083734.86802-2-songmuchun@bytedance.com>
- <186ee2ba-daf3-4120-a3e3-101cac1ff5a1@linux.dev>
- <4AA6C66B-0FD8-49F3-8447-959A3E438FC2@linux.dev>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <4AA6C66B-0FD8-49F3-8447-959A3E438FC2@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
-On 9/19/26 10:07 PM, Muchun Song wrote:
-> 
-> 
->> On Sep 19, 2026, at 22:01, Qi Zheng <qi.zheng@linux.dev> wrote:
->> On 9/13/26 4:37 PM, Muchun Song wrote:
->>> VMEMMAP_POPULATE_DAX currently distinguishes DAX vmemmap population in two
->>> places: it keeps allocations on the normal path and takes a reference when
->>> a backing page is supplied for reuse.
->>> After Device DAX switched to the common per-zone shared tail page, both
->>> conditions can be determined locally. DAX supplies ptpfn for every shared
->>> tail mapping and requests an allocation only for compound head mappings,
->>> whose PFNs are not optimizable. Therefore, vmemmap_optimizable_pfn() alone
->>> selects the correct allocation path.
->>> When ptpfn is supplied, the caller is reusing an existing backing page.
->>> Once the slab allocator is available, take a reference for each reused
->>
->> Does the availability of slab mean the buddy allocator is already being
->> used? Could there be a window where the buddy allocator is functional
->> but slab hasn't become available yet?
-> 
-> Yes, because the slab allocator is based on buddy allocator. But I want to know
-> what's your concern here?
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-The goal here is to check if the buddy allocator is ready, but the code
-actually checks for slab.
+- [High] The new IPv4 gate in
+  tools/testing/selftests/net/fou_mcast_encap.sh (`if modprobe -q fou;…
+- [Low] The IPv4 subtest is now gated solely on the exit status of
+  `modprobe -q fou` (tools/testing/selftests/net/fou_mcast_encap.sh:162).
 
-I'm concerned there could be a gap between these two:
+--
 
-buddy is ready <-- gap --> slab is ready
+selftests: net: fou_mcast_encap: load the fou module
 
-Thanks,
-Qi
+The patch replaces the unconditional IPv4 subtest invocation in
+fou_mcast_encap.sh with a modprobe -q fou guard, running setup_ipv4() and
+run_ping_test() only when the modprobe succeeds and calling log_test_skip()
+otherwise.
 
+Link (v1): https://lore.kernel.org/all/20260911100158.854183-1-fuqingshuang@kylinos.cn/
 
+> diff --git a/tools/testing/selftests/net/fou_mcast_encap.sh b/tools/testing/selftests/net/fou_mcast_encap.sh
+> index 70210d39fba33..5f84d58d3075b 100755
+> --- a/tools/testing/selftests/net/fou_mcast_encap.sh
+> +++ b/tools/testing/selftests/net/fou_mcast_encap.sh
+
+[ ... ]
+
+> @@ -160,8 +158,13 @@ run_ping_test() {
+>  }
+>  
+>  setup_common
+> -setup_ipv4
+> -run_ping_test -4 eoudp4 "$TUN4_R" "FOU/GRETAP IPv4 multicast encap resubmit"
+> +
+> +if modprobe -q fou; then
+> +	setup_ipv4
+> +	run_ping_test -4 eoudp4 "$TUN4_R" "FOU/GRETAP IPv4 multicast encap resubmit"
+
+[Severity: High]
+
+Does this guard actually cover the CONFIG_NET_FOU=m case described in the
+commit message?
+
+The encap ops needed by "ip link add ... type gretap ... encap fou" are only
+compiled in under CONFIG_NET_FOU_IP_TUNNELS:
+
+net/ipv4/fou_core.c:
+#ifdef CONFIG_NET_FOU_IP_TUNNELS
+	... fou_iptun_ops / gue_iptun_ops ...
+#else
+static int ip_tunnel_encap_add_fou_ops(void)
+{
+	return 0;
+}
+
+and net/ipv4/Kconfig has:
+
+config NET_FOU_IP_TUNNELS
+	bool "IP: FOU encapsulation of IP tunnels"
+	depends on NET_IPIP || NET_IPGRE || IPV6_SIT
+	select NET_FOU
+
+Since a bool=y selecting a tristate forces it to y, doesn't CONFIG_NET_FOU=m
+imply CONFIG_NET_FOU_IP_TUNNELS=n?
+
+In that configuration the module init still returns success and registers no
+TUNNEL_ENCAP_FOU ops, so modprobe -q fou exits 0, setup_ipv4() runs, and:
+
+	ip -n "$NSENDER" link add eoudp4 type gretap \
+		remote "$MCAST4" local 10.0.0.1 \
+		encap fou encap-sport "$FOU_PORT4" encap-dport "$FOU_PORT4" \
+		key "$MCAST4"
+
+still fails, because ipgre_newlink_encap_setup() -> ip_tunnel_encap_setup() ->
+ip_encap_hlen() returns -EINVAL when no ops are registered for the encap type.
+
+setup_ipv4() checks none of its command exit statuses and the script does not
+use set -e, so get_rx_packets() yields an empty string, rx_delta becomes 0, and
+run_ping_test() logs exactly the line quoted in the commit message:
+
+  TEST: FOU/GRETAP IPv4 multicast encap resubmit (received 0/100)  [FAIL]
+
+The commit message also states:
+
+  This matches the existing fou6 handling in this script and the pattern used
+  in pmtu.sh.
+
+setup_fou_or_gue() in pmtu.sh does both halves:
+
+	modprobe fou || return $ksft_skip
+	run_cmd ${ns_a} ip fou add port 5555 ipproto ${ipproto} || return $ksft_skip
+	run_cmd ${ns_a} ip link add ${encap}_a type ${type} ${mode} local ${a_addr} remote ${b_addr} encap ${encap} encap-sport auto encap-dport 5556 || return $ksft_skip
+
+Only the modprobe half is adopted here, and that half cannot express the
+CONFIG_NET_FOU_IP_TUNNELS gate. Would a capability probe, mirroring
+setup_ipv6() and returning $ksft_skip when the "ip fou add" or the gretap
+creation fails, work better for this?
+
+As an aside, the IPv6 branch only degrades to a skip incidentally: the last
+command in setup_ipv6() is
+
+	ip -n "$NSENDER" neigh add "$TUN6_R" lladdr "$recv_mac" dev eoudp6
+
+which fails when the tunnel was never created, so setup_ipv6() happens to
+return non-zero.
+
+> +else
+> +	log_test_skip "FOU/GRETAP IPv4 multicast encap resubmit"
+> +fi
+
+[Severity: Low]
+
+The commit message says:
+
+  modprobe is a no-op when CONFIG_NET_FOU=y, so default selftest builds
+  remain unchanged.
+
+Is that accurate when /lib/modules/$(uname -r) is not populated?
+
+With CONFIG_NET_FOU=y (which is what tools/testing/selftests/net/config sets),
+modprobe can only resolve a built-in module name through the modules.builtin
+files and modules.dep that depmod generates during make modules_install. On a
+freshly built kernel booted without installing modules, or on a minimal
+initramfs or VM image where modprobe is not on PATH (exit 127), modprobe -q fou
+returns non-zero even though FOU is fully available, and this else branch is
+taken.
+
+In that case setup_ipv4() and run_ping_test() never run, so a real regression
+in the __udp4_lib_mcast_deliver() resubmit path would be reported as a clean
+skip. The -q also suppresses any diagnostic, unlike pmtu.sh which uses plain
+modprobe.
+
+Would running modprobe -q fou for its side effect only, and then gating the
+subtest on an actual capability check, avoid turning a working built-in
+configuration into a skip?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917033049.792209-1-fuqingshuang%40kylinos.cn
