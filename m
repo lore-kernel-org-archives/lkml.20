@@ -1,110 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-113.mta1.migadu.com [95.215.58.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F409F2BE7AB;
-	Mon, 21 Sep 2026 03:12:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB9592F25F3
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:13:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789960352; cv=none; b=X+DYujS5YX2e5/hV+kIO9dqGgL8RmPm6RK1X79M7hQdfjVVHSMjpCuKyQinvAKg+q3c8qRsleMVdoX1O3jEj4Dg0M69J+mfMUikAmixGs6MRmDMiXKKgKSGeumvAkcz+SX2HH6wxnVEwv0RmHf78o74gMZ0bQKshOkpH6RQTYuU=
+	t=1789960384; cv=none; b=G8Ua45JwG53HyW1KiWIvDlmK12743P5DFPXEYJLQAPB0zSYCm8c6iNqsxGnU07GIz5F0GxCJj4WTIvOROQ9PP22fiUbnOYVnDV3SpbpG3E8+AaWEi+zHrnB9GOl7BPhNE+P5SQkiH4P4fTaEqK4SEG852JcOaZt2Z0fNBINFK9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789960352; c=relaxed/simple;
-	bh=/TgW0izMlLvXwZCoaKmgo+gMum7TBSerwnEC+Uhng/A=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LqRlPW2asBFm7JGSW9EgAN0UNOJ6diGTcQFE36pA7aUGgJnluhaefLLgvJsEQwMQJVf9dY15os1OHKJOoDRZBW8/gbqgNNsY/jqlKF9mUbXJgO+S/aKpy7I5W1/kNC937aZZjcXRiFe1glXNV1upq/F5SjRkc8yNzDhAuTN31Xk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DuEgcyOU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789960384; c=relaxed/simple;
+	bh=kYwPJHefIcd3j/mUVBOTLl0dZ495s6fSJBX/6Kc2h1c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=emdMU5wdwwNg04UQ8bEJ2b1L9KEbfXR+xm8jruhomK8+R7USk0Veka/gREqZxBxpjeBhprqhzRQYC1qxQlV06olwoqEFZXn8ZMuEXMSL84Vj4LiUgGlLEULOL9fFuSS0DCKtfmzY1puxP4NTSoCk0eSqACq0oFYI6JYIVtht82k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iFmxSval; arc=none smtp.client-ip=95.215.58.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DuEgcyOU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 857401F000FF;
-	Mon, 21 Sep 2026 03:12:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789960350;
-	bh=zWCK6aanCSv1/HqMYDhAojJGa1rXakbbnFRunDjG5qU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DuEgcyOU9QMbevZ7VjJ0V52RoL0Fj26OU2vpOYnu8zGMvWrhcITAzRq7Ng2U8vRkU
-	 ltk5FCVJjVrJgv4GRBgrGH3b/4zYARcYn3XltDR6ionyWh3CRPJl/Vx2euj3PypkUV
-	 FTBuIXvvIC5GiC8ZJ9ABsON6Xhie4OtD6RHB0viLKu2XueWK6qZM3qaih/wuJVV10f
-	 1litv7ZF9fTkdeMx1O0D7Bs2swS+RUcvmPDWURuNKv9R9BscxX9D5SnDrwJ7S7M1ei
-	 CbVHIzWBYKGUduDfSzgipDtRAeB1L/RHhK3W7/xqaUVUSwd8FaxZA8kPaEpimIDlkA
-	 RNkn/vV/MAUKA==
-Date: Mon, 21 Sep 2026 04:12:27 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Linmao Li <lilinmao@kylinos.cn>, Antoniu Miclaus
- <antoniu.miclaus@analog.com>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, linux@analog.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: adc: ade9000: fix NULL pointer dereference in
- clkout registration
-Message-ID: <20260921041227.61e00143@jic23-hlaptop>
-In-Reply-To: <20260831005728.4c2b80b9@jic23-huawei>
-References: <20260826083156.2287106-1-lilinmao@kylinos.cn>
-	<20260831005728.4c2b80b9@jic23-huawei>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iFmxSval"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kYwPJHefIcd3j/mUVBOTLl0dZ495s6fSJBX/6Kc2h1c=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789960380; v=1; x=1790565180;
+ b=iFmxSvalnUslZXL0kd8YNNoLzaBa6WM5AMIYEcBAU4SzYoaLQlJNiHmSGnlRf9Mmhd6NcGPK
+ Tuxsv3uozIZFNuh+agf+QiU9WpUcxnNlgyf0fY9l5IAkuPyBuk/gdeiziuF09cQgnAsLsHNwgZp
+ B/4FYyHB35Aii+KH0+CqwxYE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 47738e8af7178da5;
+	Mon, 21 Sep 2026 03:13:00 +0000
+X-Mizu-Trace-ID: 47738e8af7178da5
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <8bfe6312-79c2-495f-a336-e96360c26998@linux.dev>
+Date: Mon, 21 Sep 2026 11:12:55 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v1] ip_gre: Reject enabling collect metadata through
+ changelink
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ tgraf@suug.ch, pshelar@nicira.com, linux-kernel@vger.kernel.org,
+ Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+References: <20260917095016.71937-1-xuanqiang.luo@linux.dev>
+ <20260920102659.GA1897785@shredder>
+From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+In-Reply-To: <20260920102659.GA1897785@shredder>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, 31 Aug 2026 00:57:28 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
-
-> On Wed, 26 Aug 2026 16:31:56 +0800
-> Linmao Li <lilinmao@kylinos.cn> wrote:
+在 2026/9/20 18:26, Ido Schimmel 写道:
+> On Thu, Sep 17, 2026 at 05:50:16PM +0800, Xuanqiang Luo wrote:
+>> diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
+>> index 82309efd417e0..7b1b0f17f60b9 100644
+>> --- a/net/ipv4/ip_gre.c
+>> +++ b/net/ipv4/ip_gre.c
+>> @@ -1464,6 +1464,9 @@ static int ipgre_changelink(struct net_device *dev, struct nlattr *tb[],
+>>   	if (!rtnl_dev_link_net_capable(dev, t->net))
+>>   		return -EPERM;
+>>   
+>> +	if (data && data[IFLA_GRE_COLLECT_METADATA] && !t->collect_md)
+>> +		return -EOPNOTSUPP;
+>> +
+>>   	err = ipgre_newlink_encap_setup(dev, data);
+>>   	if (err)
+>>   		return err;
+>> @@ -1496,6 +1499,9 @@ static int erspan_changelink(struct net_device *dev, struct nlattr *tb[],
+>>   	if (!rtnl_dev_link_net_capable(dev, t->net))
+>>   		return -EPERM;
+>>   
+>> +	if (data && data[IFLA_GRE_COLLECT_METADATA] && !t->collect_md)
+>> +		return -EOPNOTSUPP;
 > 
-> > ade9000_setup_clkout() passes NULL as the register address when
-> > registering a divider clock. During clock registration, the common
-> > clock framework calls clk_divider_recalc_rate(), which dereferences
-> > the address through readl(). As a result, probing an ADE9000 configured
-> > as a clock provider with an external input clock crashes.
-> > 
-> > CLKOUT passes CLKIN through without changing its rate. Register it as
-> > a 1:1 fixed-factor clock, which does not require register access.
-> > 
-> > This change does not affect the configuration using the internal clock,
-> > for which the driver does not register a clock provider.
-> > 
-> > Fixes: 81de7b4619fc ("iio: adc: add ade9000 support")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Linmao Li <lilinmao@kylinos.cn>  
+> Both functions have extack, so please add a rejection message to make it
+> clear to user space. Something like:
 > 
-> Looking for a tag from Antoniu for this one.
-Antoniu
+> "Enabling collect_md on an existing device is not supported"
 
-Please take a look at this.
+Thanks for the suggestion!
 
-Jonathan
+I'll address this in v2.
 
 > 
-> > ---
-> > Changes in v2:
-> > - Clarify that the configuration using the internal clock is unaffected.
-> > 
-> >  drivers/iio/adc/ade9000.c | 5 +++--
-> >  1 file changed, 3 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/iio/adc/ade9000.c b/drivers/iio/adc/ade9000.c
-> > index e57e24b6acdf7..4e96cc37fbedf 100644
-> > --- a/drivers/iio/adc/ade9000.c
-> > +++ b/drivers/iio/adc/ade9000.c
-> > @@ -1647,8 +1647,9 @@ static int ade9000_setup_clkout(struct device *dev, struct ade9000_state *st)
-> >  		return 0;
-> >  
-> >  	/* CLKOUT passes through CLKIN with divider of 1 */
-> > -	clkout_hw = devm_clk_hw_register_divider(dev, "clkout", __clk_get_name(st->clkin),
-> > -						 CLK_SET_RATE_PARENT, NULL, 0, 1, 0, NULL);
-> > +	clkout_hw = devm_clk_hw_register_fixed_factor(dev, "clkout",
-> > +						      __clk_get_name(st->clkin),
-> > +						      CLK_SET_RATE_PARENT, 1, 1);
-> >  	if (IS_ERR(clkout_hw))
-> >  		return dev_err_probe(dev, PTR_ERR(clkout_hw), "Failed to register clkout");
-> >  
-> > 
-> > base-commit: 6b9f23b5460818aaf199dda90210d5fc08d66c8f  
-> 
+> Also, I assume you audited other tunnels and confirmed that they don't
+> suffer from this problem?
 > 
 
+Yes, I checked the relevant paths in other tunnels and found no
+similar issues.
+
+Thanks,
+Xuanqiang
