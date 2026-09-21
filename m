@@ -1,67 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43E647A898;
-	Mon, 21 Sep 2026 23:29:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9BD73F5BEC;
+	Mon, 21 Sep 2026 23:31:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790033353; cv=none; b=Vf+QW/cGpg2hIjhdsjHHLeAzWSRpR3zvVUoB+TIIFQtzX42tSHUuUh/mEC17RI7yUg4A0ezc8zVc1nYEx0JESvjY69F+ouV/tjwBYBe1TchpOXcOU9novt4k/daQRNpfexELHqDWaapTJvMd+uuCeoCKaTe2HsfOWhnrrKu9II4=
+	t=1790033484; cv=none; b=lZDo4DZMU41kz7ozs1Tv2basx3sH/4lIviDqX1gUKgbPbPyxrq78cVLHyUzmIckBwNbtkaS5Odi99r65Jb6U1x4hNsmhjr/b6QZ2i30TIoD78lwQcrOBx3bYdbUCtbAbAW0MImNCDhXHQd2GKQImeNwZGbjjT68JluDTyCuP23A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790033353; c=relaxed/simple;
-	bh=lFsc1GojGmU3K5BpyRT66DQ0L55nkb7Z08ORNGTHHeU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=g3mF6Rd5kdaNcb4aw4d+hdpwIE7NMd6xi5fot2tU5mkhO4K72nYPfHyavkvRxK/k8NX4+PUL+hxVzY5F7eh1920r4gssT0fLRplQ/7EqN6dqQoUab2xDFWG1Ysc3WfKXvKrZ7EehxxR7EMqvKYkN5ceH3GRyqgvm1gB7YlyzT38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d4kWmp9o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790033484; c=relaxed/simple;
+	bh=TbIZaUcrAgeVlrrw+mWj+Xg7htFjC0fcSeHNUlLnncY=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=s5VS4SR2If9tZXNX6Hk7DOFiX6U+kmb1PDcO0ziDM2o0cgZ//Ov/AO4r8PzaIyLIGyeUBnmMo0x3jHjiE2K+emcvN6RDixNM0tioVUaIEx/DHgDVaBLPaQ56GpHlwNo1SNEAx8VXyTpvt5yjgGHSNP2kJNZ0oJ2ZtnjOjDGb3hQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kUn7gCl2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d4kWmp9o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 878951F000FF;
-	Mon, 21 Sep 2026 23:29:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kUn7gCl2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FE9D1F00893;
+	Mon, 21 Sep 2026 23:31:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790033346;
-	bh=3rdTZZ6oKBMbejVEbYel2wDyhsKjwmIkaR2bmVVCYog=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=d4kWmp9oAfCVa6isFY4AxMe6iGhxntTMfvA+hZKnMmjmYhNgz8JHyRr+WK4ttMtUb
-	 7uqRWnH7teYCec/1iQCQSiGmA2dkT6fcswYoJjSXNjvaSgvsWlUX4S+Em7fDibGMB7
-	 v6wdORpZ2LhzmEDMWcCos8YCszMrsrxRiFPmCYK0qqt5QZpsdh4HZLL2L+gyad5G4y
-	 JwGMnbT8XRv3iCMy2XPXbvKJm2P6PzK6Kec2M0CobyKpk7M2wyermQnflGmIrwqkz/
-	 AU7p5gaLT0T6CTP30sEqW+dmvG/pl0AHps+ptdhva3C0u1RJw55VvMBtDuvMf0CuAT
-	 2n6+CBBHFXIQA==
-Date: Mon, 21 Sep 2026 16:29:05 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, horms@kernel.org, sdf@fomichev.me,
- bobbyeshleman@meta.com, almasrymina@google.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v3 1/3] net: devmem: replace gen_pool with
- freelist
-Message-ID: <20260921162905.48e76338@kernel.org>
-In-Reply-To: <20260917181116.3319017-2-sdf@fomichev.me>
-References: <20260917181116.3319017-1-sdf@fomichev.me>
-	<20260917181116.3319017-2-sdf@fomichev.me>
+	s=k20260515; t=1790033478;
+	bh=A7SZzCuIKRwIGT2Fvpei1TqB9ntX9B7E0WRRS/Vpg+s=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=kUn7gCl2OnI6tGz67h6lKqBDdug3RMg7LmM7RFCJR1MoZpF3SZc0kp9F7xvwWoQM/
+	 rzxApucN+FrzZw/VY9M9578x2HMhMokRy3yQkqLG/lIfUSFA8SiPTp9BGIUTkBj2Tj
+	 Vo6n3WrGFouSYtk4j0Ta1G3urzYEWiCQFfLG/fEBcdj835f5m0m0QBQ9ray+sifAht
+	 y0IjXBwv4q3anBGff1HVU4FUAAnQQM6/BQdBfdeMGMUz5vMnplYR8z+h0VjArZMrnj
+	 PxS1MBTlyit9a3ofzoIIpQa/BGWOIOf5SzR9mduO/17Nb6QfoXhrN/21iCx9sAElH6
+	 m2lLPj2S8E7Kw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 197C23927048;
+	Mon, 21 Sep 2026 23:30:11 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] octeontx2-af: Fix memory scaling limitation in SR-IOV
+ mode
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179003340964.3287147.15335729283521445845.git-patchwork-notify@kernel.org>
+Date: Mon, 21 Sep 2026 23:30:09 +0000
+References: <20260916022111.1083017-1-rkannoth@marvell.com>
+In-Reply-To: <20260916022111.1083017-1-rkannoth@marvell.com>
+To: Ratheesh Kannoth <rkannoth@marvell.com>
+Cc: davem@davemloft.net, gakula@marvell.com, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, sgoutham@marvell.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, leon@kernel.org
 
-On Thu, 17 Sep 2026 11:11:14 -0700 Stanislav Fomichev wrote:
->  struct netlink_ext_ack;
-> +struct dmabuf_genpool_chunk_owner;
+Hello:
 
-watch out for unnecessary forward decl
-(next patch deletes this one so doesn't matter)
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
->  struct net_devmem_dmabuf_binding {
->  	struct dma_buf *dmabuf;
-> @@ -26,7 +27,7 @@ struct net_devmem_dmabuf_binding {
->  	 * dereferenced.
->  	 */
->  	void *vdev;
-> -	struct gen_pool *chunk_pool;
-> +	struct dmabuf_genpool_chunk_owner *chunk_owner;
->  	/* Protect dev */
->  	struct mutex lock;
+On Wed, 16 Sep 2026 07:51:11 +0530 you wrote:
+> The original code used DMA_ATTR_FORCE_CONTIGUOUS, which could exhaust
+> the CMA pool when a large number of VFs were requested.
+> 
+> Fix this by switching to the DMA streaming API. This is equivalent on
+> Octeon platforms, which provide full I/O coherency via the SMMU.
+> 
+> Cc: Leon Romanovsky <leon@kernel.org>
+> Fixes: 73d33dbc0723 ("octeontx2-af: Use DMA_ATTR_FORCE_CONTIGUOUS attribute in DMA alloc")
+> Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
+> 
+> [...]
+
+Here is the summary with links:
+  - [net] octeontx2-af: Fix memory scaling limitation in SR-IOV mode
+    https://git.kernel.org/netdev/net/c/d06f2ebf67ff
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
