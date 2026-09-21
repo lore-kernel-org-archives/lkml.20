@@ -1,288 +1,113 @@
-Received: from mail-pj2-f34.google.com (mail-pj2-f34.google.com [74.125.227.162])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC01489FB2
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:16:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.162
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11968484239;
+	Mon, 21 Sep 2026 11:17:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789989414; cv=none; b=XaPe3pENxGAcs0vpJOYbdhZtDKtcQ7lh6RFNzbc5G080VT7572E78cG2+QE74xoWMxoITlWyn5bnnudOP3HA1YIQg+aI8UE2rgdckcCaCM1do5FOwo0ar/d5LM+v+tx7DaEbM8g/1W2QweHxLyfjEg488f5PrEi19FdXmP4bGyo=
+	t=1789989426; cv=none; b=lMevxPubRd+L+nfjnTH9hb4x4BNgggHLT4Qvod8JxsA93y20QohNHKlsYfvU9YKppzHHNF5U5WGKGx3TdHyH3obo//v533n+Bj52NWX5kS2vQRoqpxlo+Ndw8TG7nUIMJKOFzpacxSwYJaQxo87TS1cZGHug04FOOXD3aBqGsW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789989414; c=relaxed/simple;
-	bh=6j/r9yvub7FH1ktXyNHoVKCJiNGlNg0k7LU+GyyCF9o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T8iWJDI7j/674LUQOrBvVQbh4+FlCGyLwLPtBxvmJprV9ks6esi5nE/OixXeyDNiRygh0AmHTMcYqBnoPECVC69UhXCmZcqmdLBrmH3xgF5Q1paTPaak4qsJ8G+jHmnoTeVAoJNKL9YPRfQH2vzGpynlKD0T6Ge6owOO8cNEskU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=AhdgyaWm; arc=none smtp.client-ip=74.125.227.162
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1789989426; c=relaxed/simple;
+	bh=FPcITbEeIe3Lobqhom3a6DbS0CEVv1Mv3OpksN4M5LU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZvlMz27a6oAmvgHmNx7CIzbslkEuu2EH+N13mQtPRTjEHpOSqb+qRf3SKB6R5TQ38Pip7I+59pV67UVCWFfw/c6TVnv26BBu9dfD7c9l7Sad5m5xFV0JpbwSTfbk0UxSYJZwspw+/alhUepWYLHWiR7EUyATdE8cjSeC3EuS7nM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LhfZ6J3S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="AhdgyaWm"
-Received: by mail-pj2-f34.google.com with SMTP id d9443c01a7336-2d747eb79f7so18938975ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:16:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1789989411; x=1790594211; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=slvqYs+iaXZQUFiWP3raPQ3MYOooTUinSrFApU/wWdw=;
-        b=AhdgyaWm8UkNABHKDWFTlNX2IN/lX1KTX3OCuASLm23yMrhtHPNFfgCi1GjFNjSHgo
-         A90Yin1LZlYloPz5zikdtFLNObXT+C98pPryLlQkZevfXDy9NgDTZn05cZxuvbyvLf0k
-         rUgVALDeB8Gti5pJZGKEHtLSOfIpdRTrF8LUfiNjP3I+vnQ6La/hXRAj8TJyJPs97rVL
-         KgG2yUPBURITG9LPU2xTWmlLf1me+2pLrsYuV1QNYvK4QFMTmye0+66ngOmq/Y7qI0AL
-         ksQXqyDQpX8ScwphU4WLvnXU3OqIFalINLVT/LAs8P8/wXxTgm5y0Mc8nJ+SGaUyyK7Y
-         m4tA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789989411; x=1790594211;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=slvqYs+iaXZQUFiWP3raPQ3MYOooTUinSrFApU/wWdw=;
-        b=bT51Axb/3BynZUk1FInDCyp7XN2U14RtPieb7l0tZpk5cyPdWYgtXSstzSW5+SFsWH
-         eq2J/usauzIwOkkBHVLiiGjEUWGlJBdOP5nE9KD7lvXr7NE00O0Pa/x/LSRfB9wiwPWu
-         cuw1DlG7AgVjz+6N4s9yFtJCdfhzq/dIZDJ9tDM2WLCsqugBghifbTPwCoDTTCBPORCN
-         1RV3Oks9wJEVwPpuicZAL+TVJFi+XpZ4SLBrnnHpt/sHw0PEgReOiG0E5/fVmR/Xfyyg
-         mQXIUYr6VG56n8Gqm7Jer9IMB0Duw3Z3C1c/w3yDCk3honbUSZkgSNRgYe7N4uwMb4TD
-         aSxA==
-X-Forwarded-Encrypted: i=1; AKwUvBzfYOBJYNuAG4iVzL3H26ZUvYMFlPzcDiRbN8Oye+scq9F5kh79KLLJDJ3gQMwLQ8Zqu8MPqQ5nbLHPqKs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFYaQkFjG2kwfJSfhUMMYu4FcvtT/U8Gb0DK3k7h+HnIGFx83h
-	NIN8khbdkThog3jgEqia1kfZ1A7KyZcwFJvIaD9mNf4itn/3ZrbGEUR7QyqB6ppUp58=
-X-Gm-Gg: AYBFou1LhnoFi8JUlSydAtzmewrE4Xyea6U9KVpqd2BZAtqIKpUvtsFg46fX1yH3c0Z
-	tF2vpygWUbPZWHS9kJRU1OIhDD/u7laK5zywwdYuNhdvPxkKRNxB1MoME7zP+SMAcOkpYPCJMvr
-	edZB4Cv2mSg0xZoL4rzZTAbwash7LabAQRJz6RxMNLS5WYZsKmSdM4dT+iPaUegb4UjRZV8vUX6
-	hDPKR7BviMGq2GIoWlmZTdXgJS3rpFjLxXUCSbwLmWCnU4jIE+lgY4YahelZb8VYWUjQaUhgDQP
-	7l1zZR0EcMiBlrsFgsEM8Qb/83yxKTUULKl5Hnia8D3PjMfcY/Yrc4oy8kBOR9xUF6/9ZD/Z0ws
-	XCxOWqqgtejvftW0eQJds/yTCo/ptxdAS1LNpTkNy5xL+my1hynGS/DHI5E3SeONGO1ULlKeEqx
-	rEQcf/4v5K3rA2+W3iYlJ8ZWbYhgP0k/3ojoEa4F4dkOY08oMzLocK0PHAtaRtuHAbBIUwcrDjB
-	VQ/fb1Yh4/pQq+fvGcvvjHLDdM1gJxMVguVrh+HaXv+5Q==
-X-Received: by 2002:a17:902:d2cb:b0:2df:45f7:6386 with SMTP id d9443c01a7336-2df45f76498mr38924045ad.15.1789989410710;
-        Mon, 21 Sep 2026 04:16:50 -0700 (PDT)
-Received: from FJ7FR2JRQ3.bytedance.net ([240e:694:e20:401::8])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17ba651sm31831125ad.53.2026.09.21.04.16.26
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 21 Sep 2026 04:16:50 -0700 (PDT)
-From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>,
-	Conor Dooley <conor@kernel.org>,
-	Anup Patel <anup@brainfault.org>
-Cc: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <cleger@rivosinc.com>,
-	Yunhui Cui <cuiyunhui@bytedance.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Will Deacon <will@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Yuanzhu <yuanzhu@bytedance.com>,
-	Yicong Yang <yang.yicong@picoheart.com>,
-	Susheng Yang <yang.susheng@zte.com.cn>,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-Subject: [PATCH v10 RESEND 3/9] riscv: sse: mask events during shutdown and kexec
-Date: Mon, 21 Sep 2026 19:15:00 +0800
-Message-ID: <03472b45125793a768f3e5bbc168f167e673d4cc.1789974241.git.zhangzhanpeng.jasper@bytedance.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <cover.1789974241.git.zhangzhanpeng.jasper@bytedance.com>
-References: <cover.1789974241.git.zhangzhanpeng.jasper@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LhfZ6J3S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BA791F00893;
+	Mon, 21 Sep 2026 11:16:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789989423;
+	bh=EWpvnS9sJSHrGCy+MFZE6qg3yzgkz6vfigCSQ78iMBA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LhfZ6J3SDa1TNs3WY8M7GWvBfvuJ1Gf+IzRAbT9jLnwEskR2+sCXEQki59C3fFHNM
+	 kCWJk1MOaJlXTnuPx6JT9+Jv76qTZgTspxBO1ZEi7SO/OA1u+mUTFFO+ZkLJrh8x+M
+	 T6uxRFUx23szXsImepIHkY4328i7Wf0zquQ98Odwki9IFnVTdVyBsl9lr5ApuLDL3Q
+	 eP94wzVnqzBxJ5SvV/gMgisLtWrp9CnD2TdhuOTvg3bgw67Qyd9pKUp/4wNbnprZbC
+	 dS8+e+ucvdBdDMUNCryhioCUoZ0zHg3bDANz4nOp9fzanrjZxwxTw+d1tmMA6tYhzy
+	 Rg4xDX07oikPg==
+Date: Mon, 21 Sep 2026 13:16:55 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Qiang Yu <qiang.yu@oss.qualcomm.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH 0/4] PCI: qcom: Align PHY init sequence with HPG
+Message-ID: <u76xfze53ilx6pd7wydsutax7urcbvlhlos64o6cvzku6e5wrs@jugdukoksabu>
+References: <20260915-align_pcie_init_sequence_0916-v1-0-0b2195836f30@oss.qualcomm.com>
+ <20260916155504.GA926264@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260916155504.GA926264@bhelgaas>
 
-SSE delivery is independent of normal S-mode interrupts. Firmware may also
-retain an event registration until Linux explicitly unregisters it. A hart
-must therefore stop accepting SSE events before Linux stops servicing the
-registered handler.
+On Wed, Sep 16, 2026 at 10:55:04AM -0500, Bjorn Helgaas wrote:
+> On Tue, Sep 15, 2026 at 11:04:20PM -0700, Qiang Yu wrote:
+> > HPG requires the controller/PHY GDSCs to be powered up and all
+> > clocks enabled, then the controller's reset and the PHY's reset
+> > toggled together as one group, with PARF_DEVICE_TYPE set right
+> > after. This series adds the callbacks needed on both sides to
+> > realize that sequence: a phy_reset() call the controller makes as
+> > part of its own reset, and matching phy_ops::init/phy_ops::reset on
+> > the PHY side.
+> 
+> This observation is not related to this series; it's a question about
+> PCI host controller initialization ordering in general because it
+> seems like this is a perennial issue.  Is there anything we can do to
+> converge on some sort of generic standard or typical ordering across
+> drivers?
+> 
+> For example, while looking at a patch that changed ordering in a
+> different driver (not qcom), I asked Gemini for some guidance and it
+> came up with the following ordering recommendations, which seem
+> pretty generic:
+> 
+>   - assert downstream PERST# so physical lanes remain quiet while
+>     setting up the host
+> 
+>   - assert local resets (core & PHY)
+> 
+>   - enable and stabilize power (IP core, I/O rails, PHYs)
+> 
+>   - enable and stabilize clocks, including refclk and T_PERST_CLK
+> 
+>   - initialize PHYs
+> 
+>     - deassert PHY reset or allow register access to PHY
+> 
+>     - wait for PHY PLL lock to refclk
+> 
+>     - program PHY parameters & calibration
+> 
+>     - verify PHY ready
+> 
+>   - deassert local core reset
+> 
+>   - configure RC (device type, MPS, max link speed, width, etc)
+> 
+>   - deassert downstream PERST#
+> 
+>   - enable LTSSM
+> 
+> If this could be made generic enough, maybe something like it could be
+> included in Documentation/PCI/controller/pci-controller-drivers.rst?
 
-Mask SSE on the local hart before panic stop, CPU stop, restart, poweroff,
-and crash shutdown paths. This prevents firmware from entering Linux-owned
-handler state after the corresponding CPU or kernel context is no longer
-valid.
+Some of these sequences could be generalised, but the problem is, pretty much
+each controller sequence follow a hardware reference manual and those
+recommend a specific sequence. So if we diverge from that recommended sequence,
+then getting help from the hardware team for any issue would be tricky. Atleast,
+this is the case with Qcom controllers.
 
-A crash kernel cannot identify or take ownership of registrations
-inherited from the crashed kernel. Reject a later normal kexec while such
-SSE state may still exist, rather than transferring unknown firmware state
-to another kernel.
+- Mani
 
-Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
----
- arch/riscv/kernel/machine_kexec.c | 11 +++++++++++
- arch/riscv/kernel/reset.c         | 18 ++++++++++++++++++
- arch/riscv/kernel/smp.c           | 17 +++++++++++++++++
- 3 files changed, 46 insertions(+)
-
-diff --git a/arch/riscv/kernel/machine_kexec.c b/arch/riscv/kernel/machine_kexec.c
-index 738df176ff6f..24e7affae70b 100644
---- a/arch/riscv/kernel/machine_kexec.c
-+++ b/arch/riscv/kernel/machine_kexec.c
-@@ -14,10 +14,13 @@
- #include <asm/set_memory.h>	/* For set_memory_x() */
- #include <linux/compiler.h>	/* For unreachable() */
- #include <linux/cpu.h>		/* For cpu_down() */
-+#include <linux/crash_dump.h>
- #include <linux/reboot.h>
- #include <linux/interrupt.h>
- #include <linux/irq.h>
- 
-+#include <asm/sse.h>
-+
- /*
-  * machine_kexec_prepare - Initialize kexec
-  *
-@@ -36,6 +39,13 @@ machine_kexec_prepare(struct kimage *image)
- 	unsigned int control_code_buffer_sz = 0;
- 	int i = 0;
- 
-+	/* A crash kernel cannot tear down registrations inherited from firmware. */
-+	if (is_kdump_kernel() && image->type != KEXEC_TYPE_CRASH &&
-+	    riscv_sse_available()) {
-+		pr_err("Normal kexec from a crash kernel is unsupported with SSE\n");
-+		return -EOPNOTSUPP;
-+	}
-+
- 	/* Find the Flattened Device Tree and save its physical address */
- 	for (i = 0; i < image->nr_segments; i++) {
- 		if (image->segment[i].memsz <= sizeof(fdt))
-@@ -127,6 +137,7 @@ void
- machine_crash_shutdown(struct pt_regs *regs)
- {
- 	local_irq_disable();
-+	riscv_sse_mask_current_hart();
- 
- 	/* shutdown non-crashing cpus */
- 	crash_smp_send_stop();
-diff --git a/arch/riscv/kernel/reset.c b/arch/riscv/kernel/reset.c
-index 14eb08a6db85..fdab37e7ae52 100644
---- a/arch/riscv/kernel/reset.c
-+++ b/arch/riscv/kernel/reset.c
-@@ -6,6 +6,20 @@
- #include <linux/efi.h>
- #include <linux/reboot.h>
- #include <linux/pm.h>
-+#include <linux/smp.h>
-+
-+#include <asm/sse.h>
-+
-+#ifndef CONFIG_SMP
-+void __noreturn panic_smp_self_stop(void)
-+{
-+	riscv_sse_mask_current_hart();
-+	local_irq_disable();
-+
-+	for (;;)
-+		cpu_relax();
-+}
-+#endif
- 
- static void __noreturn default_power_off(void)
- {
-@@ -18,6 +32,8 @@ EXPORT_SYMBOL(pm_power_off);
- 
- void machine_restart(char *cmd)
- {
-+	riscv_sse_mask_current_hart();
-+
- 	/*
- 	 * UpdateCapsule() depends on the system being reset via ResetSystem().
- 	 */
-@@ -30,12 +46,14 @@ void machine_restart(char *cmd)
- 
- void machine_halt(void)
- {
-+	riscv_sse_mask_current_hart();
- 	do_kernel_power_off();
- 	default_power_off();
- }
- 
- void machine_power_off(void)
- {
-+	riscv_sse_mask_current_hart();
- 	do_kernel_power_off();
- 	default_power_off();
- }
-diff --git a/arch/riscv/kernel/smp.c b/arch/riscv/kernel/smp.c
-index fa66f9c97d74..7f0d4e7332f1 100644
---- a/arch/riscv/kernel/smp.c
-+++ b/arch/riscv/kernel/smp.c
-@@ -23,10 +23,13 @@
- #include <linux/irq.h>
- #include <linux/irq_work.h>
- #include <linux/nmi.h>
-+#include <linux/panic.h>
- 
- #include <asm/tlbflush.h>
- #include <asm/cacheflush.h>
- #include <asm/cpu_ops.h>
-+#include <asm/sbi.h>
-+#include <asm/sse.h>
- 
- enum ipi_message_type {
- 	IPI_RESCHEDULE,
-@@ -79,8 +82,18 @@ int riscv_hartid_to_cpuid(unsigned long hartid)
- 	return -ENOENT;
- }
- 
-+void __noreturn panic_smp_self_stop(void)
-+{
-+	riscv_sse_mask_current_hart();
-+	local_irq_disable();
-+
-+	for (;;)
-+		cpu_relax();
-+}
-+
- static void ipi_stop(void)
- {
-+	riscv_sse_mask_current_hart();
- 	set_cpu_online(smp_processor_id(), false);
- 	while (1)
- 		wait_for_interrupt();
-@@ -91,6 +104,7 @@ static atomic_t waiting_for_crash_ipi = ATOMIC_INIT(0);
- 
- static inline void ipi_cpu_crash_stop(unsigned int cpu, struct pt_regs *regs)
- {
-+	riscv_sse_mask_current_hart();
- 	crash_save_cpu(regs, cpu);
- 
- 	atomic_dec(&waiting_for_crash_ipi);
-@@ -254,6 +268,8 @@ void smp_send_stop(void)
- {
- 	unsigned long timeout;
- 
-+	riscv_sse_mask_current_hart();
-+
- 	if (num_online_cpus() > 1) {
- 		cpumask_t mask;
- 
-@@ -301,6 +317,7 @@ void crash_smp_send_stop(void)
- 		return;
- 
- 	cpus_stopped = 1;
-+	riscv_sse_mask_current_hart();
- 
- 	/*
- 	 * If this cpu is the only one alive at this point in time, online or
 -- 
-2.50.1 (Apple Git-155)
-
+மணிவண்ணன் சதாசிவம்
