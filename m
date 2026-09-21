@@ -1,163 +1,163 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from www62.your-server.de (www62.your-server.de [213.133.104.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BEB0493D54
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:12:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1603D45C5;
+	Mon, 21 Sep 2026 12:12:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.133.104.62
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789992747; cv=none; b=mWx1ph+eMlVkQBAkpxP8dJ9EeRTLyRzWEOSkWoMWTOVb+xfJEn3d0xQmOQoHtgilLStwFo1z+is5EfBTGUOFgh5UDphoH1rBaFyCnH5+zTFxh5gtWen6hlcnE9eKt7kDUWrjJXzx7uKWbhYP8PZejjGCfg2MduLq61UhMQ9YDys=
+	t=1789992766; cv=none; b=F9bH+t5qDolyVX8ovVn4DskaScg24dtZarcK0eFksM9Vf4hPSQz0nhDhrCCW2T8XXHYDzbZh85/AGewD4INrkrdNxSe5htFYg0Fl6VXhqnaRJeVezw8z7B3EglN53AAAa1SGTByZxvnHSi6LaFczZmML+9n7kez9LQX80EQwmK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789992747; c=relaxed/simple;
-	bh=C5CqAbIBYojRahKDMYFkV5V+YuwntGhRs70Hkua634w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RNZ3XedioR4jHt2UDzoGUr3rc5C9TCvsFs1muCD5HnJWReMec8Ty96sMBBJSMWYNWfDPcpdR2dt3uUYbjw+A8oZns8l8rOWIMZX3LhIticZqOGLxStke8lfT6GtisukZKRasfNgWMFWko0ZSZMSxH99ELoQULBMhjJVQHojNi5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZhaTLzjQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Re6uaI/l; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789992766; c=relaxed/simple;
+	bh=eRRj97S6eF2KTLu4vsFeP1AS15pEdUjed2RS3FtCnHI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TtgVotgmTq7blTiX5NkEKsiMPtCCx7O3x8+//lbQw5gMco6gmUcZvAZptgkX83+wV4CLdCv1T1xVXkMJguA/+JA1k+FbR9o0nYdQigP7VCIxehQ5xA3zhz6KheBdfBiE7i075Da6xmzTXeQE0dEezuVTzYXoZi/ogKkNrhTMus0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net; spf=pass smtp.mailfrom=iogearbox.net; dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b=VyMH+Ap1; arc=none smtp.client-ip=213.133.104.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iogearbox.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZhaTLzjQ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Re6uaI/l"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAdxYi934217
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:12:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=p049Drg8l5sadIccCCFWkY6i
-	QG1vQj2D0+87Sxiwffw=; b=ZhaTLzjQpE9uwnA8Bn3WwYs/Uh4o+nbcYbN/mVd2
-	dabpaCHCGZLEpBU8S59sGrtOVR1wGhcQat9sJJU5WFjT6fUrDVOmHkJg25jUODtF
-	rIZf2LlUWBgg3mxhH8x9uBXh6J9/vM07y8Tonf2fmqprCaqgiEQuT2LsTt2qhs+p
-	Ld741EiZAEoyX2VpW0eqm9zlD8IHWTkwmGt3I/v/rQ4kTSHlPXPVTQlBvfDmFuF8
-	axdEp+MeClvc2k7BmGxlXWeEIhh91WXZ8pKnSFSaG3YP71TqavxsbUCosUbZKpVJ
-	B7DbYpnHb9zFWHuIbuzN12XFX2HtXZmalJiQXxiVRibcZQ==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtq8bahgj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:12:23 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-79cdabf7d89so3125284137.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:12:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789992742; x=1790597542; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=p049Drg8l5sadIccCCFWkY6iQG1vQj2D0+87Sxiwffw=;
-        b=Re6uaI/lmOCNnMpS+40sqH3OpVd+n72A1ToZP3aanD4MYUjqK//w3sUeS9HmiytWKN
-         RuLMgVGSn/vioAs3+1xerUyRDqMZlBBLaPRyJ0ofus0UIbz+MocK/9F01+bQypSfNSF8
-         aQikgq239dqHLfIGLAajGnwT2kmfKLgbmnPG7dn0vQ/tp6pO/qDE8ywbnYMj+iDECPP9
-         WKz243W4Lw5gD1v85hu9W676Panm5O17If8hwq4ko7GVdWZWg3j8BzI9oTvvN/kivIyO
-         gXKqVKOtTh52dZjGEGm9U4oAPjQFjMqJQkOhgSy+qlxll5cGke/AVG2O0Arx1LL7f7ak
-         VpsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789992742; x=1790597542;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p049Drg8l5sadIccCCFWkY6iQG1vQj2D0+87Sxiwffw=;
-        b=tJd3/FbX8Y2ObIM/PCQDmP/lULHL9mSPFrQOabXovayB/WvDp0V1WfvjyVRv+ECp8k
-         xzR9MJvPcNLaDT+wWuYa0xnPLpiBnf6sv06UwINgQlqw5ybhWqcRHETLJVTpn6AO+616
-         w03duoMjJgWHEBGxJYbJBGQ7TbUemc7hn41kRiTNvgar5U1JMyc/awX9lCHS8gBmzm1O
-         MowXd9Q5FxJf7P9Q7I/P73GqaJfBRKy4fdWWM2cRzI1Dry9r/iemJA1B9tRBv0aVF8Ju
-         +W7lmA3PslIj4EA2HT51L8OLlxsyaxKlZkjG7h+QtvG9VnqhLam7P++r3gzII2bfKA9O
-         Pp/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxySYukrXP2mrC79Inpp2+w0OZ5hxRgAGcRRjmgvX+W6fyy9XK7OzR/xBpLSGOoddz4ouU7L/VU2QT/2/Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmZZSaDEooJ0VNcVu54YAi9guNSD9NNxBVZ3kL9mcUM0XZofpV
-	BgG8igWmosrjUFmaFxG/5xz8Tkf9BoIDl69Mr1m1rJPsKBdGf6uU7DU3ZE72iJ05X8733RyWOwS
-	rqqSpN2uEcEUK8JmN/Ri1av7WnzQWYXFhO9yFf3/nw9nxowra4+RTkutZdy+YZIJ40cg=
-X-Gm-Gg: AYBFou1w3nYzxMnMEMUYaIi9nN27Pmgp6/jHncBcrAH+BFLkoqCCjAOMEBycNAZJs6l
-	ltA+NLf+lqIBbQ4LhDa1vORiHr8926muhZte3n7fVfO5J8FmmWKButZchHxDUv9u8+y9sjasMB1
-	n9jXu4uwCuICcp65+F5BBvArVSb4ejv4fP+JeaUTWnYV8R4g4+TgN9BBFyl2uZKIgN4UugfamWw
-	Egq1E6Ch10LtxgwEnATBu8pIrGxGoPvviahlJ43FVs//mRH0mUH3bzTg9fKHHJ5cFI5hZheh07L
-	nl9FYIxRJS24Tqfm8QmvMwDhv/iHFxUFxausJk+rcKr9OgHqymPwZhcUTbGzgqQXuIIKaA/v/aN
-	yCwD+vMbZSLi8Bw==
-X-Received: by 2002:a05:6102:14a8:b0:7a7:1db6:c75f with SMTP id ada2fe7eead31-7a71db70ec9mr2160547137.17.1789992742336;
-        Mon, 21 Sep 2026 05:12:22 -0700 (PDT)
-X-Received: by 2002:a05:6102:14a8:b0:7a7:1db6:c75f with SMTP id ada2fe7eead31-7a71db70ec9mr2160481137.17.1789992741775;
-        Mon, 21 Sep 2026 05:12:21 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd103325sm263684855e9.9.2026.09.21.05.12.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 05:12:20 -0700 (PDT)
-Date: Mon, 21 Sep 2026 15:12:19 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, linux-kernel@vger.kernel.org,
-        Peng Fan <peng.fan@nxp.com>, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH] soc: qcom: use assign_bit() where applicable
-Message-ID: <3nr3krue7zqpguca4yhm7rgxpnfw3vtamlkj2caxrmutatrytg@uosrsfrui4ll>
-References: <20260918141833.3023124-1-peng.fan@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b="VyMH+Ap1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=iogearbox.net; s=default2302; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=mTnuL4Z821ec449HQHfv+JzD9+UKtm8/FD+1W/Om3tM=; b=VyMH+Ap1tXwLFbfTMZWBdGSO1t
+	VtQIEeqmOBC1Dc7BRK8EMZiRzaXThyY+KClL2L2xUteKWQqsGedl5CdDckQXdAF6AywIK3frNBQMF
+	SiQGgC8blhhJOmBmIiJDAhPiEW4HOpH1ZnXZilqSZV7rAmEz6YH9Hj7qLNt5UtIs3LHGfGE+a+VDT
+	KW+eANIG9RPf5R+msbc0VBz7Olejo1YatjQlEL+aJoksohRVQiAlBKZuKaAHbJbJKp96IggX71h5m
+	WT/SWYptyUGGVeAI1OLdYzTzNf498mQKgBEhIUPQ7dX2Rxs6coWWPftTIBuZpVp1xq5pkh95vIXM3
+	AqYQSkdA==;
+Received: from sslproxy04.your-server.de ([78.46.152.42])
+	by www62.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <daniel@iogearbox.net>)
+	id 1x8cst-000EL4-1H;
+	Mon, 21 Sep 2026 14:12:35 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy04.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <daniel@iogearbox.net>)
+	id 1x8css-000N5u-1R;
+	Mon, 21 Sep 2026 14:12:34 +0200
+Message-ID: <76cdee19-3547-45de-a220-c71dadb0100c@iogearbox.net>
+Date: Mon, 21 Sep 2026 14:12:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918141833.3023124-1-peng.fan@oss.nxp.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE3NiBTYWx0ZWRfXy+48t0ky50tk
- LSgHm+zt6LUbWhNJCTnV2wQrqqCMUgrTSE+afVDYbRw/XL04Udwtoe48pav8BpTfdJZ50kCLLzI
- dflajyezPd1NCZOnMUuMTYJHBzdg8witWp+1JtRZNNJgi/8Oat1HIMI3Vbme407M4bmrSndTuY0
- 6TS/lmI+WABeZ0ym4T+7BFzycm1iKxAVbwqx6BLb7fO6ytabnoXa66a+s5Dtftk0ZnvN9e8elED
- 7r3J3lyh4gGc7zjc7QPUc+NacGZBjsckWKb64XF94mEMAONVyOWrFq7wvotKxVo/Mt9aY+k08xS
- QmmTYhgv8gXeQkOEivEDBdlJFI7WSAAKn+k7+pUrWE+06sk3jVCo4Y7ns0frk9FzIO5ULCUemYV
- xMSEWfOwfeFfKO/L5aFbPFINy8iOF4o3sPBuAXN4mQ1D3jETCB1gVRnt6Aimo4p4LOGyY25iPLS
- h2Fa8gr2WH8Pi7W/qhQ==
-X-Proofpoint-GUID: BQvONiv06uKccP9PEpJkv6aogKlFmX0a
-X-Authority-Analysis: v=2.4 cv=T/8Z3PKQ c=1 sm=1 tr=0 ts=6ab11f27 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=8AirrxEcAAAA:8 a=EUspDBNiAAAA:8 a=nSpsjYtsPra2AegJnUsA:9 a=CjuIK1q_8ugA:10
- a=crWF4MFLhNY0qMRaF8an:22 a=ST-jHhOKWsTCqRlWije3:22
-X-Proofpoint-ORIG-GUID: BQvONiv06uKccP9PEpJkv6aogKlFmX0a
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE3NiBTYWx0ZWRfX/qwBM0eI7P9T
- LbfXGXbL0Z1WdXOY36ngHY2CddTccuB/qjfEoerRAQJ13jWadjqCx/Cxp2eegAQVkGIDWd5cd2j
- p6pCZ2bxamUavLKrxWTmXdPb3rYMy2w=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 phishscore=0 spamscore=0 adultscore=0
- clxscore=1015 malwarescore=0 lowpriorityscore=0 suspectscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609210176
+User-Agent: Mozilla Thunderbird
+Subject: Re: linux-next: manual merge of the bpf-next tree with the bpf tree
+To: Mark Brown <broonie@kernel.org>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Eduard Zingerman <eddyz87@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>,
+ Networking <netdev@vger.kernel.org>
+Cc: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+References: <arD9pUBavrJQ8TRT@sirena.co.uk>
+Content-Language: en-US
+From: Daniel Borkmann <daniel@iogearbox.net>
+Autocrypt: addr=daniel@iogearbox.net; keydata=
+ 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
+In-Reply-To: <arD9pUBavrJQ8TRT@sirena.co.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28130/Mon Sep 21 08:24:29 2026)
 
-On 26-09-18 22:18:32, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
+On 9/21/26 11:49 AM, Mark Brown wrote:
+> Hi all,
 > 
-> Convert open-coded if/else with set_bit/clear_bit and their
-> non-atomic __set_bit/__clear_bit variants to the assign_bit/__assign_bit
-> API.
+> Today's linux-next merge of the bpf-next tree got a conflict in:
 > 
-> Done with Coccinelle semantic patch:
->     // set_bit -> clear_bit => assign_bit
+>    kernel/bpf/helpers.c
 > 
->     @@
->     expression cond, bit, addr;
->     @@
+> between commit:
 > 
->     -if (cond)
->     -        set_bit(bit, addr);
->     -else
->     -        clear_bit(bit, addr);
->     +assign_bit(bit, addr, cond);
+>    81c975aae375d ("bpf: Require CAP_PERFMON for kfuncs reading memory")
 > 
->     // clear_bit -> set_bit => assign_bit
+> from the bpf tree and commit:
 > 
->     @@
->     expression cond, bit, addr;
->     @@
+>    3f9d98dfed79f ("bpf: Add user memory access kfuncs for mm_struct")
 > 
->     -if (cond)
->     -        clear_bit(bit, addr);
->     -else
->     -        set_bit(bit, addr);
->     +assign_bit(bit, addr, !cond);
+> from the bpf-next tree.
 > 
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> I fixed it up (see below) and can carry the fix as necessary. This
+> is now fixed as far as linux-next is concerned, but any non trivial
+> conflicts should be mentioned to your upstream maintainer when your tree
+> is submitted for merging.  You may also want to consider cooperating
+> with the maintainer of the conflicting tree to minimise any particularly
+> complex conflicts.
+> 
+> diff --cc kernel/bpf/helpers.c
+> index 712dca5a2c5bd,82402d97ce67c..0000000000000
+> --- a/kernel/bpf/helpers.c
+> +++ b/kernel/bpf/helpers.c
+> @@@ -4920,12 -5049,14 +5049,14 @@@ BTF_ID_FLAGS(func, bpf_wq_set_callback
+>    BTF_ID_FLAGS(func, bpf_wq_start)
+>    BTF_ID_FLAGS(func, bpf_preempt_disable)
+>    BTF_ID_FLAGS(func, bpf_preempt_enable)
+>   -BTF_ID_FLAGS(func, bpf_iter_bits_new, KF_ITER_NEW)
+>   +BTF_ID_FLAGS(func, bpf_iter_bits_new, KF_ITER_NEW | KF_PERFMON)
+>    BTF_ID_FLAGS(func, bpf_iter_bits_next, KF_ITER_NEXT | KF_RET_NULL)
+>    BTF_ID_FLAGS(func, bpf_iter_bits_destroy, KF_ITER_DESTROY)
+>   -BTF_ID_FLAGS(func, bpf_copy_from_user_str, KF_SLEEPABLE)
+>   -BTF_ID_FLAGS(func, bpf_copy_from_user_mm, KF_SLEEPABLE)
+>   -BTF_ID_FLAGS(func, bpf_copy_from_user_mm_str, KF_SLEEPABLE)
+>   -BTF_ID_FLAGS(func, bpf_copy_from_user_task_str, KF_SLEEPABLE)
+>   -BTF_ID_FLAGS(func, bpf_get_kmem_cache)
+>   +BTF_ID_FLAGS(func, bpf_copy_from_user_str, KF_SLEEPABLE | KF_PERFMON)
+> ++BTF_ID_FLAGS(func, bpf_copy_from_user_mm, KF_SLEEPABLE | KF_PERFMON)
+> ++BTF_ID_FLAGS(func, bpf_copy_from_user_mm_str, KF_SLEEPABLE | KF_PERFMON)
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+LGTM, yes, we need to mark the added kfuncs from Anastasios with KF_PERFMON.
+
+>   +BTF_ID_FLAGS(func, bpf_copy_from_user_task_str, KF_SLEEPABLE | KF_PERFMON)
+>   +BTF_ID_FLAGS(func, bpf_get_kmem_cache, KF_PERFMON)
+>    BTF_ID_FLAGS(func, bpf_iter_kmem_cache_new, KF_ITER_NEW | KF_SLEEPABLE)
+>    BTF_ID_FLAGS(func, bpf_iter_kmem_cache_next, KF_ITER_NEXT | KF_RET_NULL | KF_SLEEPABLE)
+>    BTF_ID_FLAGS(func, bpf_iter_kmem_cache_destroy, KF_ITER_DESTROY | KF_SLEEPABLE)
+
