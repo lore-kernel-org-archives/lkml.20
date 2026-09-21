@@ -1,328 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5AFB499F27;
-	Mon, 21 Sep 2026 09:35:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EAD349B458
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:35:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789983335; cv=none; b=goCUVBkWLhByIgTMChIzMxOvM+V9+nOqU7pbmcLNxwchDNbWPVYxgETZSEluibthigmLVfmY+1o0VqKSwlmaK2dS1IrlQQif3hWLOt7XXLOZXMHG9hWIUihrLTDC5JaGOHweYM7p5PxwX8/+fM7gzO3gcPWXoV9pvOVygPAZYXw=
+	t=1789983346; cv=none; b=toeUNeYaTbIDAD/HlTlv5z9Inbdj5Kl6RbzJJMhsgpLOGfNEK6q3CJmPb8pW9BWpEg7kzkhUFW7ydPE7niAU1e2Mk2ff21bxYki7MPVi4SK6++7UVmB4Eyo2oPgD+pPADL4zcnGLIh0//x9u3H0CxPJyfDXCHUeJP/+tAMbRZTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789983335; c=relaxed/simple;
-	bh=2fx0gGNpJJopbueNjiaGNeqxnVxGgXTC314wtJ4/y0w=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=o0vD6Lg861Qpa3uToos5zQooqEdVIyxFdvMucjqwYF1l392GdzXSsiayyGo8wOD+wFHwmtagVyQtL1Gi2oUNw+AKzohTy5caHIqc+Laid4K+dmjLymFNfwur81JwZqjECPpFuWnixKRom4326Oea77poRipm53f3hNHyERuz4Ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g0YHY5DN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789983346; c=relaxed/simple;
+	bh=ViUeWJk96PNqJrIhaEIWN5xsXuhaArFaHhFVC6OOLhg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=vEMHYNwdRUTW4tqFHE6isvqOH8FWt98CFDeB4A6bYaS4hDJ9kbfCBus+XwI0bRQbxP8gYovn66mwaSErCRquXfAUs1MSX9HlaSH3RgiCc9Xa6R2UuRrNeNRTYVO0R8mLxGtg6Bcd0JyYQo76xM2trPI/6qJtI3z1QLAYywIDTpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KFvsOztY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a7lsuEWN; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g0YHY5DN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30551F000FF;
-	Mon, 21 Sep 2026 09:35:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789983333;
-	bh=YMwOLTG56jwERBfAtojuwEAnWnxIxlP6/aR60IPV2YA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=g0YHY5DNQmRnzw5ZnVAGKe4+tlVVwu9JhGYX0aHoaTop83aX8l147sED440xeyoS6
-	 NRDK7ruQlUQzF455YG76kXawczR5ewflUXa7oBx71oFCwG+O3WZ4v1nxLbAxh89jk/
-	 pyLjTfFFFD+xBaOskDj0uk6IWJdiqWpEEV/BuV6ulQLGvA32g+/NZaUOJVCCLWHu3x
-	 jHI4iy3tDjvQbZe+ku00EHrPmUS2MGzDE9nDk74T+fTOKmrb3FBcyzuTFZS6QtygjF
-	 bxhFFUKiA8aTMIiEAOd/JcCyV41tPj4WGOZlSldmAMxO57UtFs4LYtbQN71PXW1HAt
-	 OBzfDOANWrlng==
-Subject: Re: [PATCH net-next v8 6/6] net: dsa: motorcomm: Add support for
- Motorcomm YT922x
-From: netdev-bot+sashiko@kernel.org
-To: kyle.switch@motor-comm.com
-Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, mmyangfl@gmail.com,
- horms@kernel.org, linux@armlinux.org.uk, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
- xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com, wei.zhang@gl-inet.com,
- sijia.huang@gl-inet.com
-Date: Mon, 21 Sep 2026 09:35:32 +0000
-Message-ID: <178998333228.2160803.11818290223147794708@kernel.org>
-In-Reply-To: <20260917082236.3427168-7-kyle.switch@motor-comm.com>
-References: <20260917082236.3427168-7-kyle.switch@motor-comm.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KFvsOztY";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a7lsuEWN"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L8aWTd4146737
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:35:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=mJTrOvpF8hQYLxtXvCLsRNpc5rO6U96I10x
+	yU4upylA=; b=KFvsOztYpIvT7BiVlSUrkjRCgWpqbz7bevnuNrjNQe16G2UiTgH
+	PZo7psoXfBCpj9WB7kWN+OgdDB7C1DeBKSUyMz5EdFCftCas1aY8ZJ3OkduKiiEo
+	HnZ6nYO6PPfhc4aUa1HfFMLR+BWmQ6kYDh3YTw2dYQeGg0j0u7fab/0Sg8HxQ3aa
+	WymnoUzuIjScFHkCUlrwBawf56lPMwT9VsHyxZrTHUYAkdCsXNb2udEszd3bdS6e
+	FeuQkF2qZq9+DJoGGPPi+FTSorhIxHo6DbYjKO3Q77744xcxKcWOYUi6kGqLMai9
+	ek7RbkSKjsdQVqA9anN5Ksicq+QM8sVsGkQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu17gr8sg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:35:43 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a3f673221so455353585a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:35:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789983343; x=1790588143; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mJTrOvpF8hQYLxtXvCLsRNpc5rO6U96I10xyU4upylA=;
+        b=a7lsuEWNLlqeiim+gwnOQy5YGR1YMWLGacklyczwPXV7xJ1GYX8wUitc9BEOjEkHs2
+         0C2gCnMlNJkhjSG2BZYXxpmUAXKF3unGz/wmrNbJQd0pWLiNflYxXgsyEsE/2ftRzMjy
+         rf+ltCrP4DtQ43BL518FPjybeO7i7Bjzf8CyPtDygKPeDYqn4Giz+ytYUYYJ1+DtYwMI
+         ovcnS85Yq5I2L0UreDkTPN/Rgwmd8mEro8SSWab6EiTLHAOXJ1zHsEi5p8mSpUe0Hl7D
+         c3iP/pmZSxTzHuwiAH6HA9RvsQq00QftACuFcdScyKoiLK9PLB/fpRxk/xNNp61ubNqQ
+         5UaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789983343; x=1790588143;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mJTrOvpF8hQYLxtXvCLsRNpc5rO6U96I10xyU4upylA=;
+        b=iU/MGl98uBD85KyJ6rAQTCgq58zZI2dXllTgHdvUq74H0rn8AudQkB3vUDR5SV/GHl
+         Qb5QuHm7IvKikEwduwssAJSpD+ZVOAR82W4fiOSu+qRP+8B2kbLHxVd7fHMcWaVE18D5
+         1iM+ZwqqVgeH6nrH467bAMGtY4rKA9HlK2VThnk42Amy184uQCakLGoWu2zHc2nap2Oe
+         xNKimEf61MlFXmF/3XS815O05upF8+nV0yfbepD9uNrsN8lYb1pDe4dU9GbWfp2nVD/Q
+         nbrPuBm7JUS3cqTjI/SJQigX3s7fkECMxo6OFu4YkPLNhFFXHAXBsqRoDiVfyDoVKWgD
+         +90g==
+X-Forwarded-Encrypted: i=1; AKwUvBx4ovYnb8II7ehkRa1zr8Dp6sZ0ZrxtXIE3Rt4sDL9vbfP4n9I+bivmcH9SN+kjE3d5so9y/kswq/l299Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++mlhVAv7F7vS09rZMdGZKuzA0V6vYGRrNaCW0MoBmWz2sorA9M2
+	zNQRrWzrWhMzlj+YX+Z/YQu4nU5m1LjnMYpaTksPtDYptxPrpe4ooIU9MM5cSAmf5M0s8+lom7c
+	n6hP+iXaFYQgti8U9yTSIMVwdKvZZE8YS8mBch2oq6bXojVZJrSyj2lZ120H0biwaN44=
+X-Gm-Gg: AYBFou2e2dCl0tBFLEDgV4FQH00iYgociIGOie3P6EyBFJ9An8e1hPW9twwxg9Y7b5Y
+	Oaxg7tDgjMx7aTTfx9vVMU//iKDseoVeKmbU4zDOewauSoQh3HyUUmkgVqzPvTLdaqo1i5ksJRQ
+	UN2T49Z2ybGPORlX8eD4IW7Ls4IKKSCDDPhx3Fs8P/MzZcjziBQvY7NshjvYUKPjvKH/hIky6C/
+	SPFypFe6Xvz6ZZYudlvHqTUJhcm8/v5TwcbcM+si1MGTRqwI9nwy5oYkzbgsj8lHT0PstEdTYuW
+	nCa/PF7FXbBQg2xdQwmE2BYPJqHiSDHw/hxjhXtS5VfHKFisPTw5psOibvY45njUviBLgYeN7+t
+	9XY1cNAz4TZ476nijC0eSKN2cYg==
+X-Received: by 2002:a05:620a:1a14:b0:93b:d7a1:ba10 with SMTP id af79cd13be357-93bf576ab1amr994781285a.59.1789983342844;
+        Mon, 21 Sep 2026 02:35:42 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a14:b0:93b:d7a1:ba10 with SMTP id af79cd13be357-93bf576ab1amr994778685a.59.1789983342499;
+        Mon, 21 Sep 2026 02:35:42 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:d04:d483:faad:1e4e])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872456301dsm21897253f8f.18.2026.09.21.02.35.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 02:35:41 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        KrzysztofKozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [GIT PULL] power sequencing dependencies for v7.4-rc1
+Date: Mon, 21 Sep 2026 11:35:29 +0200
+Message-ID: <20260921093529.45596-1-bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: G-s-1jG7KkvTRclVtSva7bYqNBeSbPWK
+X-Authority-Analysis: v=2.4 cv=IewSymqa c=1 sm=1 tr=0 ts=6ab0fa6f cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=Dtz6quo8gWpENlhL4bYA:9
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEzNiBTYWx0ZWRfX5K27250jIm4E
+ 3hKE3Iharr4Xrx9DwS0Op5AbmXWZC0EqkBbjo7wy4A8L7W+MXLimaldj3eDYAQZ5sCr4l9D7Qfp
+ v9elnx21vJPCGVYJs4eN72HNQjIJJFViYP3/51qqUluF/lRZcLeMu81wRrZ3wz4g/RxHKSjBDH4
+ zysOUfU0SzGslP0bEc/Z987R+cnWR6gmJ1laDN9LoggLjUlEl553Nf5FupbdV7kx6js2Uuu3Tmv
+ uZmuyQXERLwm9XILmPWZ+ccdC4eONE8+pzvem+fe24URJpINT7YmVerhFBKsso2hXkyYSNQk3ZI
+ +ciaJjcl00KPhVD09vnUfNHUHEGg5+D53wpqEDiEElZ1MO+0hpuFoTiD1SnIuXDsM916kMSQpYr
+ /33B38768OyXaXXp68jELtRWaaA+kSfbt1RhQHL5a7K2IZwvoe00FFVdHHStmeaRMSSmirwWEat
+ I4F3VGlm+lNREhXFm6w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEzNiBTYWx0ZWRfX/rUvN3bDJZEd
+ ukjWcEq5LHpK0b+ZTnETcZ0OU1PGkTQAKeTQzPJaFKkIqto4hSDsSW1xTOypICDEcwf4p74SybR
+ nNf+R2FJiEya24Dpb32syrK38UQkt68=
+X-Proofpoint-ORIG-GUID: G-s-1jG7KkvTRclVtSva7bYqNBeSbPWK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 spamscore=0 phishscore=0 malwarescore=0 adultscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210136
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider.
+Hi!
 
-Critical: 0 · High: 2 · Medium: 1 · Low: 2
+Please pull the following set of power sequencing updates into the Bluetooth
+tree to satisfy the dependencies for supporting BT on Monza.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Thanks,
+Bartosz
 
-- [High] yt922x_pcs_config() violates the documented phylink PCS
-  contract: it ignores neg_mode, advertising and permit_pause_to_mac and…
-- [High] net: devm_ leak and sysfs crash in DSA .setup callback
-- [Medium] The driver advertises a new device-tree compatible
-  "motorcomm,yt9224" in yt921x_of_match[], but no DT binding documents…
-- [Low] drivers/net/dsa/motorcomm/Kconfig: the NET_DSA_YT921X prompt is
-  updated to "Motorcomm YT9215 and YT9224 ethernet switch chip support"…
-- [Low] net/dsa/tag_yt922x.c defines YT922X_TAG_RX_PRIO_M (bits 15:13 of
-  the received control word) but yt922x_tag_rcv() reads that same word…
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
---
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-net: dsa: motorcomm: Add support for Motorcomm YT922x
+are available in the Git repository at:
 
-This adds YT922x (YT9224 only for now) support to the existing Motorcomm
-YT921x DSA driver: a new chip info entry, a new yt92xx series entry with
-its own dsa_switch_ops and phylink_mac_ops, a PCS implementation for the
-internal SerDes ports, and a new "motorcomm,yt9224" OF compatible.
+  git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git tags/pwrseq-is-controllable-for-v7.4
 
-A few questions below.
+for you to fetch changes up to 295eeaf2c6543f746c1c7d9871f6d2f71a7ed4cc:
 
-> diff --git a/drivers/net/dsa/motorcomm/Kconfig b/drivers/net/dsa/motorcomm/Kconfig
-> index 79cdd79a1fd25..ab2b548c216f3 100644
-> --- a/drivers/net/dsa/motorcomm/Kconfig
-> +++ b/drivers/net/dsa/motorcomm/Kconfig
-> @@ -1,7 +1,8 @@
->  # SPDX-License-Identifier: GPL-2.0-only
->  config NET_DSA_YT921X
-> -	tristate "Motorcomm YT9215 ethernet switch chip support"
-> +	tristate "Motorcomm YT9215 and YT9224 ethernet switch chip support"
->  	select NET_DSA_TAG_YT921X
-> +	select NET_DSA_TAG_YT922X
->  	select NET_IEEE8021Q_HELPERS if DCB
->  	help
->  	  This enables support for the Motorcomm YT9215 ethernet switch
+  power: sequencing: qcom-wcn: Report power controllability (2026-09-21 11:28:12 +0200)
 
-[Severity: Low]
-This isn't a bug, but the prompt now mentions YT9224 while the help text
-right below it still says:
+----------------------------------------------------------------
+power: sequencing: provide and use pwrseq_is_controllable()
 
-	  This enables support for the Motorcomm YT9215 ethernet switch
-	  chip.
+Add a new core power sequencing consumer functions:
+pwrseq_is_controllable(). This allows users to check whether the
+sequencer's target is actually host-controllable.
 
-Should the help text mention YT9224 too?
+----------------------------------------------------------------
+Loic Poulain (3):
+      power: sequencing: Add pwrseq_is_controllable() API
+      power: sequencing: pcie-m2: Report power controllability
+      power: sequencing: qcom-wcn: Report power controllability
 
-> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-> index 2412fe2f696f8..1cf5e859d8af0 100644
-> --- a/drivers/net/dsa/motorcomm/chip.c
-> +++ b/drivers/net/dsa/motorcomm/chip.c
-
-[ ... ]
-
-> @@ -4694,6 +4725,637 @@ static const struct dsa_switch_ops yt921x_dsa_switch_ops = {
-
-[ ... ]
-
-> +static void
-> +yt922x_phylink_mac_config(struct phylink_config *config, unsigned int mode,
-> +			  const struct phylink_link_state *state)
-> +{
-> +}
-
-[ ... ]
-
-> +static int yt922x_pcs_config(struct phylink_pcs *pcs, unsigned int neg_mode,
-> +			     phy_interface_t interface,
-> +			     const unsigned long *advertising,
-> +			     bool permit_pause_to_mac)
-> +{
-> +	struct yt921x_port *pp = pcs_to_yt921x_port(pcs);
-> +	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
-> +	int res, port;
-> +	u16 data;
-> +	u16 ctrl;
-> +	int addr;
-> +
-> +	port = pp->index;
-> +	if (!yt922x_port_is_internal_sds(port))
-> +		return -EINVAL;
-> +
-> +	mutex_lock(&priv->reg_lock);
-> +	addr = yt922x_sds_phyaddr_get
-> +		(port, YT922X_PHY_REG_TYPE_SDS_COMMON_EXT);
-> +	if (addr < 0) {
-> +		res = addr;
-> +		goto err;
-> +	}
-> +	/* write protect */
-> +	res = yt921x_intif_ext_write(priv, addr, 0x4be, 0xd);
-> +	if (res)
-> +		goto err;
-> +	switch (interface) {
-> +	case PHY_INTERFACE_MODE_SGMII:
-> +		ctrl = YT922X_SERDES_MODE_SGMII;
-> +		break;
-> +	case PHY_INTERFACE_MODE_1000BASEX:
-> +		ctrl = YT922X_SERDES_MODE_1000BASEX;
-> +		break;
-> +	case PHY_INTERFACE_MODE_2500BASEX:
-> +		ctrl = YT922X_SERDES_MODE_2500BASEX;
-> +		break;
-> +	case PHY_INTERFACE_MODE_USXGMII:
-> +		ctrl = YT922X_SERDES_MODE_USXGMII;
-> +		break;
-> +	default:
-> +		res = -EINVAL;
-> +		goto err;
-> +	}
-> +	res = yt921x_intif_ext_read(priv, addr, YT922X_PORT_SDSn, &data);
-> +	if (res)
-> +		goto err;
-> +	data &= ~YT922X_SERDES_MODE_M;
-> +	data |= ctrl;
-> +	res = yt921x_intif_ext_write(priv, addr, YT922X_PORT_SDSn, data);
-> +	if (res)
-> +		goto err;
-> +	mutex_unlock(&priv->reg_lock);
-> +
-> +	return res;
-
-[Severity: High]
-Is this safe on a second .setup() call?
-
-DSA .setup() is not a once-per-device callback: the tree is torn
-down and set up again whenever the conduit goes away and comes back
-(dsa_tree_teardown() / dsa_tree_setup()), while the mdio_device that
-owns the devm allocations stays bound the whole time. So the devm
-resources taken in yt921x_mbus_int_init() (devm_mdiobus_alloc() plus
-devm_of_mdiobus_register()) are only released when the mdiodev
-itself unbinds, not when the switch is torn down.
-
-That means on the second yt922x_dsa_setup() the first internal MDIO
-bus is still registered, priv->mbus_int gets overwritten (leaking
-the first allocation), and the of_mdiobus_register() for the new bus
-hits a duplicate sysfs name for the same bus id, which fails the
-re-setup and leaves the switch half-configured.
-
-Making it worse, yt922x_dsa_switch_ops has no .teardown at all,
-unlike yt921x_dsa_switch_ops which supplies yt921x_dsa_teardown(),
-so there is nothing on the yt922x path that can unwind anything
-allocated or registered from .setup().
-
-How do you want to fix this? Either register the internal bus with
-the plain mdiobus_alloc()/of_mdiobus_register() and drop it from a
-new yt922x .teardown callback, or move the bus registration out of
-.setup() into yt921x_mdio_probe(), where the devm lifetime actually
-matches the device. If the yt921x path has the same issue today,
-please say so and fix both consistently rather than copying the
-pattern into the new ops.
-
-[Severity: High]
-Can the SerDes ports negotiate a link with this pcs_config()?
-
-The callback only rewrites the 3-bit SERDES_MODE field of the ext register
-YT922X_PORT_SDSn. neg_mode, advertising and permit_pause_to_mac are unused,
-so MII_BMCR.BMCR_ANENABLE is never set or cleared and MII_ADVERTISE is
-never programmed.
-
-The kerneldoc for pcs_config in include/linux/phylink.h states:
-
- * When operating in %MLO_AN_INBAND, inband should always be enabled,
- * otherwise inband should be disabled.
- ...
- * For 1000BASE-X, the advertisement should be programmed into the PCS.
- ...
- * When an autonegotiation restart is required for 802.3z modes, .pcs_config()
- * should return a positive non-zero integer (e.g. 1)
-
-Here res is 0 on the success path, so phylink never triggers the restart:
-
-drivers/net/phy/phylink.c:phylink_change_inband_advert() {
-	ret = phylink_pcs_config(pl->pcs, pl->pcs_neg_mode, &pl->link_config,
-				 !!(pl->link_config.pause & MLO_PAUSE_AN));
-	if (ret < 0)
-		return ret;
-
-	if (ret > 0)
-		phylink_pcs_an_restart(pl);
-}
-
-which means an ethtool advertisement change never reaches
-yt922x_pcs_an_restart(), and yt922x_pcs_an_restart() itself only sets
-BMCR_ANRESTART, so it cannot enable in-band AN either.
-
-Meanwhile yt922x_pcs_get_state() hands MII_LPA to
-phylink_mii_c22_pcs_decode_state() (and phylink_decode_usxgmii_word() for
-USXGMII) as if it were a completed negotiation word, and
-yt922x_phylink_mac_link_up() -> yt922x_port_up() then force-writes that
-speed/duplex/pause into YT922X_PORTn_CTRL. Since
-yt922x_phylink_mac_config() is empty, nothing else applies the interface
-change either.
-
-Is there also anything that resets or re-times the SerDes when the mode
-changes between rates (SGMII 1.25G, 2500BASEX 3.125G, USXGMII 10.3125G)?
-
-For YT9224 external_mask is BIT(0) | BIT(8), so this affects the ports that
-normally carry the CPU link.
-
-[ ... ]
-
-> +static enum dsa_tag_protocol
-> +yt922x_dsa_get_tag_protocol(struct dsa_switch *ds, int port,
-> +			    enum dsa_tag_protocol m)
-> +{
-> +	return DSA_TAG_PROTO_YT922X;
-> +}
-
-[Severity: Low]
-On the tagger added earlier in this series (net/dsa/tag_yt922x.c), is
-YT922X_TAG_RX_PRIO_M used anywhere? yt922x_tag_rcv() reads the same control
-word only for the source port:
-
-	rx = ntohs(tag[2]);
-	port = FIELD_GET(YT922X_TAG_RX_PORT_M, rx);
-	skb->dev = dsa_conduit_find_user(netdev, 0, port);
-
-while the sibling yt921x_tag_rcv() does:
-
-	skb->priority = FIELD_GET(YT921X_TAG_RX_PRIO_M, rx);
-
-Was the skb->priority assignment meant to be there as well, or should the
-unused macro be dropped?
-
-[ ... ]
-
-> @@ -4825,8 +5501,9 @@ static int yt921x_mdio_probe(struct mdio_device *mdiodev)
->  }
->  
->  static const struct of_device_id yt921x_of_match[] = {
-> -	{ .compatible = "motorcomm,yt9215" },
-> -	{}
-> +	{ .compatible = "motorcomm,yt9215", },
-> +	{ .compatible = "motorcomm,yt9224", },
-> +	{ /* sentinel */ }
->  };
->  MODULE_DEVICE_TABLE(of, yt921x_of_match);
-
-[Severity: Medium]
-Should this series also update the binding? The only Motorcomm DSA schema in
-the tree, Documentation/devicetree/bindings/net/dsa/motorcomm,yt921x.yaml,
-still has:
-
-properties:
-  compatible:
-    const: motorcomm,yt9215
-
-so a node with compatible = "motorcomm,yt9224" is matched by the driver but
-rejected by dt_binding_check/dtbs_check.
-
-The binding prose also disagrees with the topology added here. The schema
-describes "up to 8 internal GbE PHYs and up to 2 GMACs" with "PHY 0-7 are
-used for Port 0-7 respectively", while the new chip info entry is:
-
-	{
-		"YT9224", YT9224_MAJOR, 0, 0,
-		YT922X_PORT_MASK_INTm_n(4, 7),
-		YT922X_PORT_MASK_EXT0 | YT922X_PORT_MASK_EXT1,
-	},
-
-i.e. internal PHYs on ports 4-7 and SerDes on ports 0 and 8, with
-YT922X_PORT_NUM = 9 (no port 9). Following the current binding text, would a
-device tree author end up describing ports the driver cannot drive?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917082236.3427168-1-kyle.switch%40motor-comm.com
+ drivers/power/sequencing/core.c            | 49 ++++++++++++++++++++++++++++++
+ drivers/power/sequencing/pwrseq-pcie-m2.c  | 26 ++++++++++++++++
+ drivers/power/sequencing/pwrseq-qcom-wcn.c | 30 ++++++++++++++++++
+ include/linux/pwrseq/consumer.h            |  7 +++++
+ include/linux/pwrseq/provider.h            |  8 +++++
+ 5 files changed, 120 insertions(+)
