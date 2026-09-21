@@ -1,108 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15909457E42
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55B945D91B
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:09:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789981744; cv=none; b=qMuknYk0Owx8y5aI3KPd1GuGgMvwgP9IkqJjdoWpElp+cbTd+J863PbkO/6zDkWFk1l9FjWOmWai5xUITWAwZ2WcKsbqM+HMPP7aWfiT0/eGuPY76YHYlATtZWAI0NUeq4DisSniyuN+0SzWCDo4e5tIzM/+2Kuq+ZENDpoAuho=
+	t=1789981745; cv=none; b=DwwAG4fWl+aKY12oGKrCA+nQ8pymfblm6KZxpAf7p5LKI37Xru9jll2Tgk7N0ewrwIwEMlitNW9NfWloqvCFjt1+n2oJOnGJ4O9FynBgQBm9dQ8/IXyLd745C2vADrJmJm6IEk5Mr2UU3cvcqEv6eIudHq2wc//UuvVQyPECOi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789981744; c=relaxed/simple;
-	bh=6jCtNbzvAFfnCkQvIJdZvE2yI4m1pEyatz+z0ebGt7Q=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N8QHLeaHYZPa2dbuQBB7hbNVoFZ8+Lu3fVv67iv+eOOu8gybCme+o+hTuOUW/VgVlwc/seiu8XJZKpeGH+Bgnrmzg4VgmrrztcP9cGr/+fMLEChpjKvyFIBGBcJXbTxEB2uyit7DA0defTj8WTvv57WMeVwIcdrCtTAVAxLCCPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LjmuDHjb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789981745; c=relaxed/simple;
+	bh=SBPNKt21pg+g6fDAxFgLSyTyhC1gJ7gWZdrt1RHNvd8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=u4Z3bGTa8itzFZ+7pYjPHXuXxnxcGXUX1aJkvPsfY8chviqmjyTDTmrpALJQ3iFxEAofDD3xC1wBUi+r/ZCvEP4zb8OuAj9p+mnoJ1NIDmzfNMwxYwLSrD04m1CVjoOhrMvHrxw6HANur4YMOui4n6ugKk3v2mjDPRjLzMKIgmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jm+/X7EP; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LjmuDHjb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3E71F0089C
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:09:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789981741;
-	bh=6jCtNbzvAFfnCkQvIJdZvE2yI4m1pEyatz+z0ebGt7Q=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=LjmuDHjbkOR3/7rHtGdfeVrBzYXeLYJMOatv4fto1oYsMSduTQ6p1BSpZrkjSNqjU
-	 aJ4ezS/BKOdfPGlMC8sErOlNKw2hszGXbpCXglYmJibp1wO5Po/QqueVB9r8IWKbJN
-	 NP/2cvqPuJzJ2ZEr2B/EPZ3Yae3TvFmf8JtJ3SHC5FQIEuORjcxxh1VyQ9IypER/me
-	 EfXbH9DQl0mSnMfXO5ErytVrwpDzx5Zb9VHM1FPkSfuYY8lEv9HxN6XMHgdZUwrTCC
-	 GsCXfYfy1wrtgSWgCyx1qpHxfy9e+PrcIumAClL/EysBcVu+5RplzLy5U2cYh77mY1
-	 VOgQs63lmwlAg==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b74e0c2e4dso2389600e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:09:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByZer4iHc09syQSi9MJiT5MyX2KMeoPffounL3FA8NKmLdCwRBzo4qYt6ux0m80M9ARO/lmG8f/YzPltLA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9a/EBvdVrRcaH5NkVdtIdGHHNymA3MDFu//hRZ6MWjyd9J3U7
-	8Cl6+NatKMupex8TAAz5DZbkS1SahhYq3fEB2ws5DFBMsrU6UzcVsOE0EFPEJxB6T11A7spkf8S
-	24sjCQzu2ebA3CtR2ARtI0GsE1zAvyWgYb2sP+YjxxA==
-X-Received: by 2002:ac2:4e15:0:b0:5b8:bc5e:b580 with SMTP id
- 2adb3069b0e04-5b8c19583a7mr3502274e87.56.1789981740260; Mon, 21 Sep 2026
- 02:09:00 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 05:08:58 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 05:08:58 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <p2qiwwig7ap74puja6mgnz37lofljhexiapmpp6y3xmwkhs2dn@v2mxawoivkn4>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jm+/X7EP"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b91369d18so19912815e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:09:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789981741; x=1790586541; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=if/RxwdeVH9lYKeVFMTHpGthhaeX73Ye43H7ksvDSZk=;
+        b=Jm+/X7EPpuQKERZwkozJ0RXF/AdVMyW9TIDomvzmypOcf64BruTvy0EpGBKreR1uMi
+         FT8+GFX5snXQv/wPb2KP0noHEWQWXiZ6PCM+jdg2zUHKfIefIPoyQWfuYqtzb9pHta6a
+         oakXI5zq9W/5nlWAz00/M7uKmmkcPq1VRqqWH6UZAdW959RVUwFFhSq4oVRvkFZxyrO1
+         ki/vWEa5qj/cpm8khvkZPmwK3IrzkQEFxV0X3zR+ApGoUY8KB1CCo4ghOsTHXF5L4xlv
+         KHki7VoteWH6MLDOV1C34TeOdvBS2gMrLLPtii/R/hLb3TzLnQp/a1/EH88WxtPCFoUz
+         N10g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789981741; x=1790586541;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=if/RxwdeVH9lYKeVFMTHpGthhaeX73Ye43H7ksvDSZk=;
+        b=yoxOgdXrv+AnjlER4qN6dIpA/RivK+DXj9Y2hd6U2Ctma2cFhjqbWYG8PoJca0XMl2
+         UWsDeGbkY0AUm5E24TIf+Aul4q9p1qugkcoV4qQRUUYCw70rx6aNQKMBu3HtYZjt7f38
+         /qT6w3uumdLw9jOI8KIKFVOpOlhTXx3x3tfRkpcF1r9tNCyT6x/CklyPu+WiSkErxD7C
+         aapja/L8FFGfgDfeeskZ/8MktflkhSmlqPAjD/aUbfHCQpa9bfoCOejAxFvLqySukQAz
+         AP/sYXSklyQTup60AadHA8553nrVzXQ+2Ah8bcxtdt/I4LPoQ89fN8u7uwq9tTBQUHJ/
+         ZD4g==
+X-Forwarded-Encrypted: i=1; AKwUvBzJAh0rxD1KJOAKK4yRb2ryZAluv6G7ONcj0dJoKRVvDCYbz6424TFhPf3iD6hd0knmiKIDJtsg02whHJQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6ZqWkiI9Epo90lDYa97zPSUqvs2pWN8NQxYCDu5g7XUv93OwE
+	Vu/Al1n3whErYV+ortQTSxTpUeF8CY5Lzhy5g/VVxupfei625oeuPTEb
+X-Gm-Gg: AYBFou0kdRe/3dbgKFXkakR7D6KnhHDVQV/oPTxo3cjWzhQeJ/ONpl6+7ja1MufSoHi
+	FafRYZYLXgFGJrlgaSt+wiP4jZnKdr9nhDaI1GOevWlbPArfDbRS3J1KlInSJ3NOYgxQ9oVJ1CV
+	PZ4gJB/fczutQZXCYti6vlFiq4bmu7BgvKk3jc/XR4iof40Nq2zn0gjL/wSK4W/LOUn6eHKrfNp
+	VXrjSRYYvn+ekrGnTqEraLaXqTdXa+f1tMRVAfy8bOiiGkdvollxZinWZwlwMfTaWC4zwYyFNmw
+	IwUc5CHmlysoRYxB/kbUnOJgb9/6LS/sq2uiechOY19cCs/HCMNqG/4r2gIqLwvhn/1hoiKZO/z
+	4wh6RGPPtrGGoPYXlC1j9TG8AeOdl2G68mJLG3Nrk9+n9+ho/eRh1fTPTsqeICrXh2Fbh6jJ/HW
+	iKMeIMtoPo+NkXCF2D8GIjo41omZxb7Ywlb47gBJTrlzg79yW6wmly/ZRWLGugsZ1M8UZWtTCbh
+	9Mqm3erZ6y9MJ3IQ7hBf4FKGDE4N/RpHt0=
+X-Received: by 2002:a05:600c:1e24:b0:49c:fc6e:a3d2 with SMTP id 5b1f17b1804b1-49fc574f74bmr135450395e9.17.1789981740730;
+        Mon, 21 Sep 2026 02:09:00 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd074336sm210758555e9.8.2026.09.21.02.09.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 02:09:00 -0700 (PDT)
+Date: Mon, 21 Sep 2026 10:08:59 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Hui Peng <benquike@gmail.com>
+Cc: Harry Morris <h.morris@cascoda.com>, Alexander Aring
+ <alex.aring@gmail.com>, Miquel Raynal <miquel.raynal@bootlin.com>, Stefan
+ Schmidt <stefan@datenfreihafen.org>, linux-wpan@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH net v2 1/3] ieee802154: ca8210: prevent stack buffer
+ overflow in ca8210_rx_done()
+Message-ID: <20260921100859.3869db3d@pumpkin>
+In-Reply-To: <20260921074205.2289211-1-benquike@gmail.com>
+References: <20260919213637.3316595-1-benquike@gmail.com>
+	<20260921074205.2289211-1-benquike@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915-pci-m2-bt-rework-v1-0-3c7d9cf9c010@oss.qualcomm.com>
- <20260915-pci-m2-bt-rework-v1-3-3c7d9cf9c010@oss.qualcomm.com>
- <CAMRc=MdJgXDUb-Uac0TRB8u1WUpLng51C4yMH6iMEMoK56tQYA@mail.gmail.com> <p2qiwwig7ap74puja6mgnz37lofljhexiapmpp6y3xmwkhs2dn@v2mxawoivkn4>
-Date: Mon, 21 Sep 2026 05:08:58 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MdHy6M9cY-ZqMXP_F6yLuVuipDkZwHoBF0D9W3A5VkOSQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WxEae6jjegpliI2fL_J2GC3AMnE_px_o8YJ5SvWUKC9-5ouNBZ6FP8184
-Message-ID: <CAMRc=MdHy6M9cY-ZqMXP_F6yLuVuipDkZwHoBF0D9W3A5VkOSQ@mail.gmail.com>
-Subject: Re: [PATCH 3/5] power: sequencing: pcie-m2: Create auxiliary device
- for the M.2 BT interface
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-pm@vger.kernel.org, Rahul Samana <rahul.samana@oss.qualcomm.com>, 
-	Wei Deng <wei.deng@oss.qualcomm.com>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Amitkumar Karwar <amitkumar.karwar@nxp.com>, 
-	Neeraj Kale <neeraj.sanjaykale@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, 21 Sep 2026 09:58:27 +0200, Manivannan Sadhasivam
-<mani@kernel.org> said:
-> On Wed, Sep 16, 2026 at 04:19:16AM -0500, Bartosz Golaszewski wrote:
->> On Tue, 15 Sep 2026 16:24:04 +0200, Manivannan Sadhasivam via B4 Relay
->> <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org> said:
->> > From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
->> >
->> > Currently, the driver instantiates the BT interface of the WCN6855 and
->> > WCN7850 combo modules by creating a devicetree node at runtime using an
->> > of_changeset, with the compatible passed through the PCI ID table. But this
->> > method of creating a devicetree node just for matching with the driver is
->> > not recommended.
->> >
->> > So create an auxiliary device for the BT interface instead. The serdev
->> > transport is still allocated here and handed over to the Bluetooth driver
->> > through the auxiliary device, along with the power sequencing target used
->> > to power up the controller. Also extend the provider match so that the
->> > auxiliary device created for this connector is matched as its power
->> > sequencing consumer.
->> >
->> > Since the runtime node creation is now gone, select AUXILIARY_BUS in
->> > place of OF_DYNAMIC.
->> >
->> > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
->> > ---
->>
->> That's some nice stuff, thanks for doing it!
->>
->> It looks like there's no build-time dependency on this, only run-time? Can I
->> take it independently?
->>
->
-> Yeah sure!
->
+On Mon, 21 Sep 2026 07:42:03 +0000
+Hui Peng <benquike@gmail.com> wrote:
 
-Nevermind that, it still needs is_controllable().
+> In ca8210_rx_done(), the packet length len = buf[1] + 2 is only checked
+> against CA8210_SPI_BUF_SIZE (256). When buf[0] & SPI_SYN is set and
+> priv->sync_command_response is non-NULL, memcpy() copies up to 256 bytes
+> into priv->sync_command_response, which points to a struct mac_message
+> object (sizeof(struct mac_message) = 250 bytes) on the synchronous
+> caller's stack, overflowing the stack buffer by up to 6 bytes:
+> 
+>   BUG: KASAN: stack-out-of-bounds in ca8210_rx_done+0xc4/0xe0
+>   Write of size 256 at addr ffff888001907660 by task init/1
+>   Call Trace:
+>    <TASK>
+>    dump_stack_lvl+0x70/0xa0
+>    print_report+0x153/0x4c6
+>    kasan_report+0xf1/0x120
+>    kasan_check_range+0x125/0x200
+>    __asan_memcpy+0x3c/0x60
+>    ca8210_rx_done+0xc4/0xe0
+>    ca8210_spi_exchange+0x12e/0x190
+>   ...
+>   The buggy address belongs to stack of task init/1
+>    and is located at offset 32 in frame:
+>    ca8210_spi_exchange+0x0/0x190
+>   This frame has 1 object:
+>    [32, 282) 'response'
+> 
+> Bound the synchronous response memcpy() length to
+> min_t(size_t, len, sizeof(struct mac_message)).
 
-Bart
+Why min_t() ?
+len is unsigned so min() is fine.
+
+Shouldn't there also be some kind of indication the data was truncated?
+
+David
+
+> 
+> Tested in QEMU with KASAN enabled by passing a 256-byte SPI_SYN response
+> into ca8210_rx_done().
+> 
+> Fixes: ded845a781a5 ("ieee802154: Add CA8210 IEEE 802.15.4 device driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> Changes in v2:
+> - Split the ca8210 fixes into three single-issue patches (1/3..3/3).
+> 
+>  drivers/net/ieee802154/ca8210.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ieee802154/ca8210.c b/drivers/net/ieee802154/ca8210.c
+> index 01af4f9..c009930 100644
+> --- a/drivers/net/ieee802154/ca8210.c
+> +++ b/drivers/net/ieee802154/ca8210.c
+> @@ -697,7 +697,8 @@ static void ca8210_rx_done(struct cas_control *cas_ctl)
+>  
+>  	if (buf[0] & SPI_SYN) {
+>  		if (priv->sync_command_response) {
+> -			memcpy(priv->sync_command_response, buf, len);
+> +			memcpy(priv->sync_command_response, buf,
+> +			       min_t(size_t, len, sizeof(struct mac_message)));
+>  			complete(&priv->sync_exchange_complete);
+>  		} else {
+>  			if (cascoda_api_upstream)
+
