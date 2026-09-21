@@ -1,56 +1,56 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E5441DE01
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:07:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0385C3CA4BC
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:07:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790032032; cv=none; b=CQnDQX8h+tio9B0vMBRKmrXaAEPyKFO1Ip7gVWKoPNM+DjcuJYFqAMyS7fmOcwOiLdY1FRnFViZ1/aV1BBwqN/MlEzoO1+Pjc2uhpXo7LkatiYcHMBudP4fJg1wIFAagxu+v4OXaKubq8em4CnrsA59d2Sphzhts3PRKyQGsKn8=
+	t=1790032034; cv=none; b=uLFXbzJ8LJXSdUMksBDX+Q5mJZAjyWbkI1zHVnZQICWWeVDY0Y8cN4CiKfuiyofKz/n2chRk9c6XE+/xjtTj7NWv6tkvciCckygCTvETzIIA4qU5kU9uHUIvYfXXhOba4YrMmtHNx3MnItFkSwdvRQjAuZvScBVJ/n3zjgBN664=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790032032; c=relaxed/simple;
-	bh=1kqLnj+8FvoNP8Iyva2qZ+5nUXP82oQZlgmxYX2kTFA=;
+	s=arc-20240116; t=1790032034; c=relaxed/simple;
+	bh=uJfzgfSGRNqdmsECGrwEUb3o+9fvnIN5kQou+V0cHC8=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ZfhenjIYjJu8n6tDrNWg7CZ9/eMLIvTkx19yaeGIoGC9lAQkoCFl+okHH869jp50KV6z10uqz4XVl0hvw4lp2Ccc3m4cpnTMzcMrzO/nFksffIx2K25iP982KD9jaRpx9NUYo3G0ymUdpIIp0jw5xpeZRvqcdarj5N3Z86HZ59M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--samagazaryan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=olGKUuNc; arc=none smtp.client-ip=209.85.215.197
+	 To:Cc:Content-Type; b=F6WAERPiUhAKtEgfu7y1yvjNVTmlT2JwnX7bTpGTswqwo9clHs7XlOVGpGlb3PN5cDtbAhcBgxkkCLsb6Qr5JbJ79a4bNINP1kJydXyqFN6kXu0l2dhszb57M6M/KQEqjQ65y2Ad3Fhyp1vDwcTf7Ah/KVA4kUMbCBXJvE3oP1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--samagazaryan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tKjMuWpN; arc=none smtp.client-ip=209.85.216.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--samagazaryan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="olGKUuNc"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1b80835d5so4735162a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:07:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tKjMuWpN"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38f97b3f853so5272247a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:07:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790032030; x=1790636830; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790032031; x=1790636831; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rN3UiEVeD5JTvm5L/WrJ3sMgipX1w5Id3f3Ngl73Mok=;
-        b=olGKUuNctDQHyfzUJ1BsQDZOqh52iEYhIA646YOE7tsQ5v5cnhlzuvx1G73xRPie51
-         CGB0NjOMCM5DHah+/GgDQ3aaQptVLeODxyHaBAwxAJ5WQ/XcihYfaRdMfFP3qza77Iav
-         OAnOmabeiCy6OLOq6YvaLbgWv9VHgxvhkaJUo9jukSilSabtN4Phlxq4SXiIoPEKueyC
-         bjEHS3TsNpBe/mOwxCQMVmtC7CFHWuQ5kWiPr1vXekeGsmOUo0d6glhvUYsobGrFNXK6
-         WK+Cws8804XYICqUy+0V3GFGkoKJWkG3Uv35dYTpzAf3lCzdRrf96Jy2BeXSCdTSeLTC
-         jjCQ==
+        bh=R6tln3zzXyXdjXIsZYRibDgjhT6eLkPrDJnsUsI23uA=;
+        b=tKjMuWpN92sQ6reT6fgQnabnGwuCY4wF99Oz5M0Crwj98CtH17KzA264CQfYCHvPyr
+         5HYCY0MjlkVvuohPEJiUi3/URHDF0zmfHIA3oD7YYfbub12dmYtwCIdfs4GzrSD07tNs
+         wfMNIvsYci5+N1U4QEqi8nfINiDWDXRh2febfj6T6Pbq9IE8XQBOnKnaODDZhLnaft+A
+         HznMGiuK0vcT/BJauw6y2Cd2q83L/jTGCm6wBU4B9C5kX7fl4vU5UK1h6t29Wfdzuuh0
+         uFB+nF8GPpSHzBQp536kU67N++GKTOnjJ62Wgg2H9SraxheFSx53a5B1QlidR6c/xs3e
+         9UGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790032030; x=1790636830;
+        d=1e100.net; s=20260707; t=1790032031; x=1790636831;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rN3UiEVeD5JTvm5L/WrJ3sMgipX1w5Id3f3Ngl73Mok=;
-        b=fJ2PxG4AzoCFDY6GppRbJjI9HfzY2Bt/dsaHr3NhSPkWYBFqSVpITzPMq8Ynm4btA7
-         p2Yx7VzSrBw2eGiprORONsmTX8JvtiEHzyEf0zdqwh935JANHhT0CrgFDPI0Ap+kMGBC
-         9XXI8uGYKq9jqVfLRjf15fW6D26hk8JiqbO8V09knAAKVY+R73TUdE7cNGwL/obkGxUx
-         FonGucmYpBEbfk5iFZc6O69GJsjKWukChPIKIVctNNc8hqXns/+a8vntBV+hhTPobCjJ
-         pzS66z05rWolHrw7h5pcAWJoKEd1yvB0UT8okM2ALscmVCODZfw57WbAlhZOjSNpHA6C
-         kvwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw+RwnmkEE5pV3UO8O5ePP94gdvksWCJmUnRzGyMn8hV2s5nZ6QwJCAW13STbdxmG8B6fE5foZzj1RswoE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lvw1bqf5DCw5HCxVXJfNJcZSaghYdhgaALhtBQ+OVKd9txGBWe
-	SZljTLzK77vpjKI5tY3xBC2m6z6jhRjCt6fmyn5Vhpt0IisGUVq/tUdpliTigoK+7ZywZhkOCYJ
-	roXyoGjhOZCYo5Q5pLCGF9Eeui0HWhQ==
-X-Received: from dleb16-n2.prod.google.com ([2002:a05:701b:4250:20b0:144:dc13:586b])
+        bh=R6tln3zzXyXdjXIsZYRibDgjhT6eLkPrDJnsUsI23uA=;
+        b=Sg/ExhFpV/VZByBsoyoOUN61IQjqlMErHaD2tZDk1AarcdijOjZRYre9TB9H8PNrEi
+         dXIU9FTOnKrb3vltwI+6yyXN0F5jG60PrwRPyhTPr0Xdm92KN1LvTdVN2YmmHJZXhBLu
+         e0vm8KEe4wqPDEstS6CN3sqmupSwMSY+e5ChMZmUlhqcPL52Og177NGMpnoQI45yrhVs
+         UpRwDUhhQQzufOQpNrp3W0t+arR0TtDIoymDGOkjGL6e3bJlkHmM7n7pQS+cXmwADK8o
+         dLSI6F8aRh8wzCpZGp9augC0d6ptWw1wMjKcEayjKGBXwLzI6vtVWScKgq0/rORYqJaw
+         QVAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwQ6ZoPYNk2eyXkWrMb2ROxdRcfS4ulGfPjjA2Hu58tqTSoMIFJRPEyLSi2MyMZAzhdHVRtgQhm3xKrQTY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kM50cFvrVQ4AdolxDgR5RMD/Lqre0oRiCWv3DzI1gziJBKCUvi
+	dNrikIgeJ71v/IkWFowlGj3dwBstMscNzte6d5jnA6HRuJOKMmiIlxusyEssKgwmV844PQxWXT+
+	JcfJwoRiqahI1g8y9ETamFgZDfpksmA==
+X-Received: from dyrt38.prod.google.com ([2002:a05:7300:4f26:b0:339:6b44:abf5])
  (user=samagazaryan job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:7704:b0:3cc:ec12:a788 with SMTP id adf61e73a8af0-3dd8c3f1681mr17721014637.4.1790032029435;
- Mon, 21 Sep 2026 16:07:09 -0700 (PDT)
-Date: Mon, 21 Sep 2026 23:06:00 +0000
+ 2002:a17:90b:3909:b0:39e:3558:f925 with SMTP id 98e67ed59e1d1-39e54d86a97mr17168028a91.24.1790032030595;
+ Mon, 21 Sep 2026 16:07:10 -0700 (PDT)
+Date: Mon, 21 Sep 2026 23:06:01 +0000
 In-Reply-To: <20260921230603.2518652-1-samagazaryan@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260921230603.2518652-1-samagazaryan@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260921230603.2518652-3-samagazaryan@google.com>
-Subject: [PATCH v5 2/5] i3c: master: add i3c_for_each_dev helper
+Message-ID: <20260921230603.2518652-4-samagazaryan@google.com>
+Subject: [PATCH v5 3/5] i3c: use actual_len for read transfers
 From: Sam Agazaryan <samagazaryan@google.com>
 To: linux-i3c@lists.infradead.org, 
 	Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>
@@ -74,45 +74,157 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sam Agazaryan <samagazaryan@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-From: Vitor Soares <vitor.soares@toradex.com>
+Currently only the amd and svc I3C controller drivers populate
+i3c_xfer.actual_len on reads, while dw-i3c-master and mipi-i3c-hci
+overwrite i3c_xfer.len with the received byte count and leave actual_len
+as 0. Because of this inconsistency, mctp-i3c reads xfer.len instead of
+xfer.actual_len, making it fail on controllers that do not mutate len.
 
-Introduce i3c_for_each_dev(), an i3c device iterator for use by i3cdev.
+Unify read length reporting across the subsystem:
+- Clarify in <linux/i3c/device.h> that actual_len reflects the actual
+  number of bytes transferred on reads.
+- Update adi, cdns, dw, mipi-i3c-hci, and renesas controller drivers to
+  populate actual_len on read transfers without mutating len.
+- Update mctp-i3c to read xfer.actual_len instead of xfer.len.
 
-Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
+Co-developed-by: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
+Signed-off-by: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
 Signed-off-by: Sam Agazaryan <samagazaryan@google.com>
 ---
- drivers/i3c/internals.h | 2 ++
- drivers/i3c/master.c    | 6 ++++++
- 2 files changed, 8 insertions(+)
+ drivers/i3c/master/adi-i3c-master.c    |  5 ++++-
+ drivers/i3c/master/dw-i3c-master.c     |  2 +-
+ drivers/i3c/master/i3c-master-cdns.c   |  5 ++++-
+ drivers/i3c/master/mipi-i3c-hci/core.c |  2 +-
+ drivers/i3c/master/renesas-i3c.c       |  3 +++
+ drivers/net/mctp/mctp-i3c.c            | 10 +++++-----
+ include/linux/i3c/device.h             |  2 +-
+ 7 files changed, 19 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/i3c/internals.h b/drivers/i3c/internals.h
-index cbc00c862104..3c53a5108b81 100644
---- a/drivers/i3c/internals.h
-+++ b/drivers/i3c/internals.h
-@@ -79,4 +79,6 @@ static inline struct i3c_master_controller *i3c_bus_to_i3c_master(struct i3c_bus
- 	return container_of(i3cbus, struct i3c_master_controller, bus);
- }
+diff --git a/drivers/i3c/master/adi-i3c-master.c b/drivers/i3c/master/adi-i3c-master.c
+index b35386260350..d033bfd4ecc2 100644
+--- a/drivers/i3c/master/adi-i3c-master.c
++++ b/drivers/i3c/master/adi-i3c-master.c
+@@ -412,8 +412,11 @@ static int adi_i3c_master_i3c_xfers(struct i3c_dev_desc *dev,
  
-+int i3c_for_each_dev(void *data, int (*fn)(struct device *, void *));
-+
- #endif /* I3C_INTERNAL_H */
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index e8a9f8c3041e..07540ea73aec 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -4011,6 +4011,12 @@ void i3c_dev_free_ibi_locked(struct i3c_dev_desc *dev)
- }
- EXPORT_SYMBOL_GPL(i3c_dev_free_ibi_locked);
+ 	ret = xfer->ret;
  
-+int i3c_for_each_dev(void *data, int (*fn)(struct device *, void *))
-+{
-+	return bus_for_each_dev(&i3c_bus_type, NULL, data, fn);
-+}
-+EXPORT_SYMBOL_GPL(i3c_for_each_dev);
+-	for (i = 0; i < nxfers; i++)
++	for (i = 0; i < nxfers; i++) {
+ 		xfers[i].err = adi_i3c_cmd_get_err(&xfer->cmds[i]);
++		if (xfers[i].rnw)
++			xfers[i].actual_len = xfer->cmds[i].rx_len;
++	}
+ 
+ 	return ret;
+ }
+diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
+index 4563d8761ba0..28e8eb293747 100644
+--- a/drivers/i3c/master/dw-i3c-master.c
++++ b/drivers/i3c/master/dw-i3c-master.c
+@@ -1029,7 +1029,7 @@ static int dw_i3c_master_i3c_xfers(struct i3c_dev_desc *dev,
+ 		struct dw_i3c_cmd *cmd = &xfer->cmds[i];
+ 
+ 		if (i3c_xfers[i].rnw)
+-			i3c_xfers[i].len = cmd->rx_len;
++			i3c_xfers[i].actual_len = cmd->rx_len;
+ 	}
+ 
+ 	ret = xfer->ret;
+diff --git a/drivers/i3c/master/i3c-master-cdns.c b/drivers/i3c/master/i3c-master-cdns.c
+index 2d98c1ce9b12..331062c10b31 100644
+--- a/drivers/i3c/master/i3c-master-cdns.c
++++ b/drivers/i3c/master/i3c-master-cdns.c
+@@ -795,8 +795,11 @@ static int cdns_i3c_master_i3c_xfers(struct i3c_dev_desc *dev,
+ 
+ 	ret = cdns_xfer->ret;
+ 
+-	for (i = 0; i < nxfers; i++)
++	for (i = 0; i < nxfers; i++) {
+ 		xfers[i].err = cdns_i3c_cmd_get_err(&cdns_xfer->cmds[i]);
++		if (xfers[i].rnw)
++			xfers[i].actual_len = cdns_xfer->cmds[i].rx_len;
++	}
+ 
+ 	cdns_i3c_master_free_xfer(cdns_xfer);
+ 
+diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/mipi-i3c-hci/core.c
+index dadf049bd4b5..f74c02fab9e3 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/core.c
++++ b/drivers/i3c/master/mipi-i3c-hci/core.c
+@@ -509,7 +509,7 @@ static int i3c_hci_i3c_xfers(struct i3c_dev_desc *dev,
+ 		goto out;
+ 	for (i = 0; i < nxfers; i++) {
+ 		if (i3c_xfers[i].rnw)
+-			i3c_xfers[i].len = RESP_DATA_LENGTH(xfer[i].response);
++			i3c_xfers[i].actual_len = RESP_DATA_LENGTH(xfer[i].response);
+ 		if (RESP_STATUS(xfer[i].response) != RESP_SUCCESS) {
+ 			ret = -EIO;
+ 			goto out;
+diff --git a/drivers/i3c/master/renesas-i3c.c b/drivers/i3c/master/renesas-i3c.c
+index 28c0927a0179..a3dcb4cd9b0e 100644
+--- a/drivers/i3c/master/renesas-i3c.c
++++ b/drivers/i3c/master/renesas-i3c.c
+@@ -918,6 +918,9 @@ static int renesas_i3c_i3c_xfers(struct i3c_dev_desc *dev, struct i3c_xfer *i3c_
+ 		time_left = renesas_i3c_wait_xfer(i3c, xfer);
+ 		if (!time_left)
+ 			xfer_failed = true;
 +
- static int __init i3c_init(void)
- {
- 	int res;
++		if (i3c_xfers[i].rnw)
++			i3c_xfers[i].actual_len = cmd->rx_count;
+ 	}
+ 
+ 	if (xfer_failed)
+diff --git a/drivers/net/mctp/mctp-i3c.c b/drivers/net/mctp/mctp-i3c.c
+index 6d2bbae7477b..5f94c11a1712 100644
+--- a/drivers/net/mctp/mctp-i3c.c
++++ b/drivers/net/mctp/mctp-i3c.c
+@@ -131,12 +131,12 @@ static int mctp_i3c_read(struct mctp_i3c_device *mi)
+ 	if (rc < 0)
+ 		goto err;
+ 
+-	if (WARN_ON_ONCE(xfer.len > mi->mrl)) {
++	if (WARN_ON_ONCE(xfer.actual_len > mi->mrl)) {
+ 		/* Bad i3c bus driver */
+ 		rc = -EIO;
+ 		goto err;
+ 	}
+-	if (xfer.len < MCTP_I3C_MINLEN) {
++	if (xfer.actual_len < MCTP_I3C_MINLEN) {
+ 		stats->rx_length_errors++;
+ 		rc = -EIO;
+ 		goto err;
+@@ -145,15 +145,15 @@ static int mctp_i3c_read(struct mctp_i3c_device *mi)
+ 	/* check PEC, including address byte */
+ 	addr = mi->addr << 1 | 1;
+ 	pec = i2c_smbus_pec(0, &addr, 1);
+-	pec = i2c_smbus_pec(pec, xfer.data.in, xfer.len - 1);
+-	if (pec != ((u8 *)xfer.data.in)[xfer.len - 1]) {
++	pec = i2c_smbus_pec(pec, xfer.data.in, xfer.actual_len - 1);
++	if (pec != ((u8 *)xfer.data.in)[xfer.actual_len - 1]) {
+ 		stats->rx_crc_errors++;
+ 		rc = -EINVAL;
+ 		goto err;
+ 	}
+ 
+ 	/* Remove PEC */
+-	skb_trim(skb, xfer.len - 1);
++	skb_trim(skb, xfer.actual_len - 1);
+ 
+ 	cb = __mctp_cb(skb);
+ 	cb->halen = PID_SIZE;
+diff --git a/include/linux/i3c/device.h b/include/linux/i3c/device.h
+index 971d53349b6f..f868a7bf2bc9 100644
+--- a/include/linux/i3c/device.h
++++ b/include/linux/i3c/device.h
+@@ -59,7 +59,7 @@ enum i3c_xfer_mode {
+  * @rnw: encodes the transfer direction. true for a read, false for a write
+  * @cmd: Read/Write command in HDR mode, read: 0x80 - 0xff, write: 0x00 - 0x7f
+  * @len: transfer length in bytes of the transfer
+- * @actual_len: actual length in bytes are transferred by the controller
++ * @actual_len: actual length in bytes transferred by the controller on read
+  * @data: input/output buffer
+  * @data.in: input buffer. Must point to a DMA-able buffer
+  * @data.out: output buffer. Must point to a DMA-able buffer
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
