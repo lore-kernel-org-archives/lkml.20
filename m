@@ -1,157 +1,182 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F85471D16;
-	Mon, 21 Sep 2026 09:54:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA12443C07C
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:55:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984502; cv=none; b=ky23voaae1FGRXu81Da0V50Y0D9t33nY7gwvAWtfXwtYRKFVKzZc2cmGwle68QuGKhYAoq+sli/2DVdol/wiNk/eIwNJRR7iHmOgz4y0KhAWrzmBqkDwAGu97CYS4PXDMg4sT39ariZ8U7gMkflvf/bPDGcf6IyocFA3ReO0p/8=
+	t=1789984523; cv=none; b=WG+5Lt8YVmht1+KtvqRDgdfqiUEwqpqr/UUODSr58B/vXoxYMYQ3ggX3iSwBBZl3nlqdhpB7hSf1mYvgJaesol1W4irRvqQu/SUpsbhpXlGCCK0XU+TiwGA47bY4Hs9h8MlsBaa5IEdCMDglvWnH3JWseEMAHeqZ09t6/+Vp+xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984502; c=relaxed/simple;
-	bh=7tFr5FjdokzetP5ldv/GI4zVZmpjqz3KsTqnTclTAL4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
-	 References:In-Reply-To; b=fVhTavapg2L6Q6a28XTVYNYqJUH+3BMGj3Q5AWrFGzn47nCGQSPcxbcqlXrfZ4XhuzqJb8G1fGeK3KduxpDyh89QXGGJv3K1yJUD0pBh4K1efGd3JzZdfhvc8v2PttdmLtf5HjwIRSyZqtAGKZRWWDSTt//2U8PwA5RHLUOiuDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Kv5DvEl3; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789984523; c=relaxed/simple;
+	bh=7UPq8U/iRVN8XOda/8iZfxpKbzPPyb6X7CAqcWoNFFU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BqRQZDO9aP7aDUI5y6fjZuQ13w1VYr1Nn27qMSjQ/6Pm2zsBBbE90rAzVzKlWhTco0TiNFvx1+VK3qq64RsuRSjxJI6jDBlej8oOq/gd0NSioHepFK2WidNqFmEJMtUYddBODqqnzZMCoFMuclXCpnvlJtg4Fb76fp+TuQYoL+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nu+2xLyL; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Kv5DvEl3"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 02FC34E41021;
-	Mon, 21 Sep 2026 09:54:58 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B937A60339;
-	Mon, 21 Sep 2026 09:54:57 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C52C3103291A5;
-	Mon, 21 Sep 2026 11:54:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789984492; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=zX58uZu3w+zdG1XL39epL0OZBsWXhoPxyMcNgKxTruo=;
-	b=Kv5DvEl3ovOd0EiMggpPrHPaIqH8es1iZTqahh7epnNAz7prajpD4dmcgQJK5d1GcYLIwE
-	+LCY9ZtMRjAkyX+YscoyTdIidOZpyj6GSPwMv7MrdjbRtB3AUiJNc7llDRKm4B3g0y78KM
-	Q3rBwgyyUXK+nSZcsQWWJOwJOdlCOM+1wgSD7lsSxQ/Vj6GJCzbZ86TY0t6CbDFVXRYf1D
-	F90996gsFbkJfNdXdVYDqdKgiLLPxmye8LI75J7dUiZjKOwTXi6jlHWPZv50dGUmuBGhtk
-	X/dfJHj/9+NxyGBey91DywGV7C9+4xk+VJ+bOQrXAYEW0UB+q4rcVRBAhw8aVw==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nu+2xLyL"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7d2bb404so8567855e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:55:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789984520; x=1790589320; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JfR8P12V2dfyx7WlZJfhBwYaBNVarwlPbqKqcSq6ZrQ=;
+        b=Nu+2xLyLn/kj0yTLZuoytUnKkMUFgfxij0tOX2NaCXvlyFUXyawb5gPdHkp9Hp+FEH
+         Qdrbcby9PKezy8+EjB8Dfu2eQeS/vZYiAb7KbgwJdyM4ko5aF10ES3h1KSG2pC7wFVCw
+         EEO19wFt9xoe5w/xnGMzVOjqPkkgGZK9/FbDZU9D6Ny60hZeETH1+xJHjonxoD29yvL3
+         C7IYLPae7dBSqeKtb+rMXt+Z/FjpqULgnSTumhVlz6gwGrW0rt+v3rwOAYM7SucjV4EQ
+         WjvgPyOIvrGfcbLcAA/BguYh8RX6UV7oMr+K9UMPEZVWaVZW4oBnjzsIfFZ12rHVxiGH
+         nsaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789984520; x=1790589320;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JfR8P12V2dfyx7WlZJfhBwYaBNVarwlPbqKqcSq6ZrQ=;
+        b=Tf/BlzwT7tauaR+mID+gDW8bAfGggvN7FuoBQiTE7Bhldhns1e6+vMBMMDJtDybQ8P
+         eRKDKzaCFXadWK2UQMTvS9ixsDgrXBrhc6fnHnYQV9aGgPoUtBHm9LauO/L6bXfr+qX/
+         iDs3H/dzhlXE/kMV2wrAn0TVEoQQUyx8ubs4lvVFruWf5DSt4efoklVF/7Ta1L6g4XX7
+         NswPheaW9aq62xba8Bdj3CozG8FNgI2sCaJCpGXru5Sp5k0MBEKWfZJyOBeF5kfdxp6o
+         R5eoDY22ceFvxuz65KlVAcKoAcl6e0caDCY/mt8LaX8IviZ6xzwgrhteHvMXj9HtOAan
+         1KUg==
+X-Forwarded-Encrypted: i=1; AKwUvBy4Kt7/4a4OSXNqA9ZobgDnUgrYvKZuWNr257hjtny3h+LrmsvWggvw2osF8PgvTSezPWNZLOPrKiX6AMA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkaVm+nJROf8n6JDJQZv7tgLejzkSwUHyItU9875rIDLjUW2HD
+	a6Ro2BvIiiJWV3LDqZ5GtWCyF5GXkFxLUfB23I+qUK5jaRTdSrTLYeVu
+X-Gm-Gg: AYBFou1ohchBvP57Q8jiaQ3M67Z5c1hLvK1OIDmt2x6hNb5uLTHSOAJejT4/vRV6ETT
+	gz1XdFtyoDyluwgLDz860dRiSwrwQJK7jVyR8X4BhN2i7XHIuF6/3ntaH2ph9iiQCTP7g4FWYuX
+	cxG/zVA05526BmYhj5v9AWRpZqKIiU2Jt+LTaWF9WsszQvtQzI2mMnTwo9bk5yyfoEvmp2yhJN3
+	vrEOIfdn6vMAEOk8KsDkrMouitfq2hslknIn5gkOoCjJGHYLv9R0McUbMk46I/pY+ELMNStwYSY
+	vG1rPNcdHCjdyiEIKE/zatU+LbzQSPF/JJ/MEcJuE0Z8x0tJcFBfEF+V3D5sRIBl5RpRdDHLCAY
+	7M/lJwM5DSpys9M9K4eg9/8Un6UiRdiIKNMlS2CJ/H1T+id68Xf3ZejXKgGuaSd6pWPFGS814fX
+	yYcGtxVcYluqX1UlSpkU2qMoj665xj0B4xCIG9X7rDyVALmIgZ81p744hnNHYFIUn5r2jGJ2ftE
+	Wu3n+GhwvJhj9PjmGszS//ObRorFgom19GNZBXfepeb+LQ=
+X-Received: by 2002:a05:600c:3f06:b0:49d:257c:a735 with SMTP id 5b1f17b1804b1-49fc4ff42b4mr158855435e9.11.1789984519697;
+        Mon, 21 Sep 2026 02:55:19 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0eabfcsm225054205e9.3.2026.09.21.02.55.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 02:55:19 -0700 (PDT)
+Date: Mon, 21 Sep 2026 10:55:18 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Heiko Carstens <hca@linux.ibm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>, Sven Schnelle
+ <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, Christian
+ Borntraeger <borntraeger@linux.ibm.com>, Mete Durlu <meted@linux.ibm.com>,
+ Peter Zijlstra <peterz@infradead.org>, Mark Rutland <mark.rutland@arm.com>,
+ Juergen Christ <jchrist@linux.ibm.com>, Ilya Leoshkevich
+ <iii@linux.ibm.com>, linux-kernel@vger.kernel.org,
+ linux-s390@vger.kernel.org
+Subject: Re: [PATCH v3 11/11] s390/percpu: Rework to simplify percpu_entry()
+ and percpu_exit()
+Message-ID: <20260921105518.26f3dcf7@pumpkin>
+In-Reply-To: <20260921084005.4022574-12-hca@linux.ibm.com>
+References: <20260921084005.4022574-1-hca@linux.ibm.com>
+	<20260921084005.4022574-12-hca@linux.ibm.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 21 Sep 2026 11:54:45 +0200
-Message-Id: <DLKWJKREQ9YZ.307UELMFWUL0Q@bootlin.com>
-Cc: "Conor Dooley" <conor.dooley@microchip.com>, "Andrew Lunn"
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo
- Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>, "Nicolas
- Ferre" <nicolas.ferre@microchip.com>, "Sean Anderson"
- <sean.anderson@linux.dev>, "Antoine Tenart" <atenart@kernel.org>, "Russell
- King" <linux@armlinux.org.uk>, <netdev@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Vladimir Kondratiev"
- <vladimir.kondratiev@mobileye.com>, "Gregory CLEMENT"
- <gregory.clement@bootlin.com>, "Tawfik Bayouk"
- <tawfik.bayouk@mobileye.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, "Maxime Chevallier"
- <maxime.chevallier@bootlin.com>, <stable@vger.kernel.org>
-To: "Nicolai Buchwitz" <nb@tipi-net.de>
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Subject: Re: [PATCH 2/3] net: macb: propagate RX ring refill errors
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260918-macb-close-v1-0-221d916b7961@bootlin.com>
- <20260918-macb-close-v1-2-221d916b7961@bootlin.com>
- <0eeb123ad32558ac42762827eb509110@tipi-net.de>
-In-Reply-To: <0eeb123ad32558ac42762827eb509110@tipi-net.de>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello Nicolai,
+On Mon, 21 Sep 2026 10:40:05 +0200
+Heiko Carstens <hca@linux.ibm.com> wrote:
 
-On Mon Sep 21, 2026 at 9:05 AM CEST, Nicolai Buchwitz wrote:
-> On 18.9.2026 22:32, Th=C3=A9o Lebrun wrote:
->> gem_rx_refill() is responsible for Rx SKB allocation, including at=20
->> open,
->> but its prototype indicates a void return value.
->>=20
->> Therefore we change the code to propagate allocation and DMA mapping
->> errors back up the stack, making sure the open fails if it occurs.
->> Change all those to return errno-style ints:
->>  - gem_rx_refill()
->>  - its parent gem_init_rx_ring()
->>  - its grand-parent gem_init_rings()
->>  - the macbgem_ops.mog_init_rings function pointer
->>  - its grand-uncle macb_init_rings()
->>=20
->> Theoretical bugfix, never encountered in practice. To reproduce,
->> introduce memory pressure (less than 512 SKBs of free memory) and open
->> the interface. I expect the last queue to be unuseable because it has
->> zero usable rx buffers. Nothing will ever trigger a refill on that
->> queue which only happens once a frame has been received.
->>=20
->> Note that other callers of refill (resume, HRESP error task, NAPI)
->> cannot do anything useful with that error and keep their best-effort
->> refill, hoping it will improve.
->>=20
->> Fixes: 4df95131ea80 ("net/macb: change RX path for GEM")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Th=C3=A9o Lebrun <theo.lebrun@bootlin.com>
->> ---
->
->> [...]
->
->> diff --git a/drivers/net/ethernet/cadence/macb_main.c=20
->> b/drivers/net/ethernet/cadence/macb_main.c
->> index 751fa9e68099..c418f859cc34 100644
->> --- a/drivers/net/ethernet/cadence/macb_main.c
->> +++ b/drivers/net/ethernet/cadence/macb_main.c
->
->> [...]
->
->>  	for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue) =
-{
->> @@ -2813,11 +2820,15 @@ static void gem_init_rings(struct macb *bp)
->>  		queue->tx_head =3D 0;
->>  		queue->tx_tail =3D 0;
->>=20
->> -		gem_init_rx_ring(queue);
->> +		err =3D gem_init_rx_ring(queue);
->> +		if (err)
->> +			last_err =3D err;
->
-> A partly filled queue refills itself on the next gem_rx().  AFAIU only a
-> queue with zero buffers can get stuck. Fail the open just for that case?
+> The percpu code section functionality uses a rather complex method to
+> figure out if the register, which contains the address of the current
+> cpu's percpu variable, needs to be adjusted.
+> 
+> If an interrupt happens within a percpu code section (indicated by a
+> lowcore field), the instruction at the interrupted location is
+> checked. If it is not a specific AG instruction, the register needs to
+> be updated. This mechanism needs to take kprobes into account, and
+> enforces a specific instruction ordering.
+> 
+> Mark Rutland provided a different solution for arm64 [1] which comes
+> without such limitations, but requires to use one more instruction, and
+> two more registers. Given that this simplifies percpu_entry() and
+> percpu_exit() it seems to be worth to go that route.
+> 
+> Change s390 to implement a similar approach. This requires to encode
+> three register numbers into the "percpu_register" field, which is used
+> to indicate if a percpu code section is executed.
+> 
+> The used mviy instruction can write only one byte, which allows to
+> encode only two register numbers. Use a register pair for the inline
+> assemblies, and only encode the even register number of the register
+> pair to work around this.
+> 
+> The generated code changes like this for e.g. a simple this_cpu_inc():
+> 
+> Old:
+> 
+> c0 20 00 00 00 00  larl    %r2,c6 <foo+0x6> <-- load address of percpu var
+> b9 04 00 32        lgr     %r3,%r2          <-- pointless copy of address
+> eb 03 03 c0 00 52  mviy    960,3            <-- start of percpu code section
+>                                                 - gpr 3 contains percpu var address
+> e3 30 03 b8 00 08  ag      %r3,952          <-- add percpu offset
+> eb 01 30 00 00 7a  agsi    0(%r3),1         <-- atomic inc
+> eb 00 03 c0 00 52  mviy    960,0            <-- end of percpu code section
+> 
+> New:
+> 
+> c0 10 00 00 00 00  larl    %r1,c6 <foo+0x6> <-- load address of percpu var
+> eb 21 03 c0 00 52  mviy    960,33           <-- start of percpu code section
+>                                                 33 == 0x21:
+> 						- gpr 1 contains percpu var address
+> 						- gpr 2 used for percpu offset
+>   					        - gpr 2+1 == 3 used for current cpu's percpu var address
+> e3 20 03 b8 00 04  lg      %r2,952          <-- load percpu offset
+> 41 32 10 00        la      %r3,0(%r2,%r1)   <-- generate current cpu's percpu var address
+> eb 01 30 00 00 7a  agsi    0(%r3),1         <-- atomic inc
+> eb 00 03 c0 00 52  mviy    960,0            <-- end of percpu code section
+> 
+> In the above "new" code example 33 (0x21) is used as indicator value to
+> mark that a percpu code section is executed. This value implies that
+> registers 2 and 3 will (only) hold the percpu offset and the current
+> cpu's percpu var address. Those registers will be updated by
+> percpu_exit() if the process was migrated to a different cpu to contain
+> the percpu offset and percpu var address of the new cpu.
+> 
+> Note that because of the pointless lgr instruction in the "old" code
+> example the two code sequences have identical size, and it looks like
+> only one more register is used. However this is because of suboptimal
+> gcc code generation.
 
-Ah so gem_init_rx_ring()/gem_rx_refill() would check the total allocated
-slots count (not just count of slots allocated on this call). Then we
-fail only if that is zero. I agree it sounds better.
+In both cases the register dependency chain length is 3 (ignoring the
+pointless lgr) so the execution time is likely to be the same.
 
->
->> [...]
->
->>  static void macb_reset_hw(struct macb *bp)
->> @@ -3162,7 +3175,9 @@ static int macb_open(struct net_device *netdev)
->>  		goto pm_exit;
->>  	}
->>=20
->> -	bp->macbgem_ops.mog_init_rings(bp);
->> +	err =3D bp->macbgem_ops.mog_init_rings(bp);
->> +	if (err)
->> +		goto free_rings;
->
-> macb_set_ringparam() ignores macb_open()'s error, so NAPI stays disabled
-> with netif_running() =3D=3D true and the next close will hang in=20
-> napi_disable().
->
-> Should macb_set_ringparam() return the error?
+...
+> +	regpcp = FIELD_GET(PCPU_REG_PCP, regval);
+> +	regoff = FIELD_GET(PCPU_REG_OFF, regval);
+...
+> +#define PCPU_REG_PCP_SHIFT		0
+> +#define PCPU_REG_PCP			GENMASK(3, 0)
+> +#define PCPU_REG_OFF_SHIFT		4
+> +#define PCPU_REG_OFF			GENMASK(7, 4)
+...
+> +#define __PCPU_CALC_REGVAL(regpcp, regoff)					\
+> +	"(" regpcp " << " __stringify(PCPU_REG_PCP_SHIFT) ") |"			\
+> +	"(" regoff " << " __stringify(PCPU_REG_OFF_SHIFT) ")"
 
-Yes. I ignored that codepath because I know context
-swapping will land soon. :-)
+I'm not a big fan of GENMASK() + FIELD_GET() and I'm not at all sure it
+really helps here.
+Maybe:
+	regpcp = (regval >> PCPU_REG_PCP_SHIFT) & 15;
+	regoff = (regval >> PCPU_REG_OFF_SHIFT) & 15;
+Which at least uses the same constants for encode and decode.
 
-Thanks,
+But I might just comment that the pcp register is in the high nibble
+(twice) and remove the 'crud'.
+#define __PCPU_CALC_REGVAL(regpcp, regoff) "(" regpcp " << 4 ) | " regoff
+	regpcp = regval >> 4;
+	regoff = regval & 15;
 
---
-Th=C3=A9o Lebrun, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+David
