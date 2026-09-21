@@ -1,289 +1,168 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011060.outbound.protection.outlook.com [40.107.130.60])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE4C421224
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:36:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.60
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789994222; cv=fail; b=UBQRO8MwEe1f2XnJlhbJv5YjyXS2DGrO8ffUo9KaH7S9A56x7pNfrMAlVW+3yrMaErEw18XsnoFDqM6bH2XqJZJYjHwnznLCIAXK+mS5o36hW9sbIdhy0SoK87Z8dEFtXiAFCuxWcK7lNdNwgu+7QcD2h6pRD4HLDvtQiLd/PRQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789994222; c=relaxed/simple;
-	bh=umXTb/1OOHTWKEpQtm9AR3N5YXms8K/tOA2z5ZHGSMA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gmpODVY/KE2RuwCXHPW6uPo8YsuGESxvSr8s0t14uYpzg5exgw6XTnHMxznEA8cYZYFsZ1XPJSIXdOr9ya2TmHpMaKyIrFadomb/6dVh1j9bSiT6c7WL9thNrY2nXiUPjgTY7FZ9OdQewkemN+8A0zumSKEciCDpdXsla14fPFo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=PEpe8Dg6; arc=fail smtp.client-ip=40.107.130.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8201449AA4B;
+	Mon, 21 Sep 2026 12:37:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789994227; cv=none; b=VKtSMR9Fse6cn0kJK+wWIyVwDGHF/jyiuC3P6MAU+B1XG1LngDwwxR5kWBraXKwv+xeXvVAmZSQY65aeX9IpAFAPFZuwOEB86zYc0UNUHT9vW4zo81WC7e1PvX8RKK6eBRPu9i1LWdIC+qWu9+A0MA5QCYR/YHeOxMy9521Gy2s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789994227; c=relaxed/simple;
+	bh=lQ7+ODtYODGQ2WtkpanJMBFN8HKPdBl6D6z2gi762NQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=sw9QqsxCHWrmP8mJ8i7YXhbC0nVPVt3JSycOkfedmu/Ag9sCOzfoHF14aWjQR6LLgjABXy9HkCBE8pegf+Zhx5WAW+oJ1F2YWJdpqYhOjb2hkezlA0ftpxx6GKFm/nAbRMUj1GFSHwK1+/Ni6hK82sNRQLofwiPR9MRyW6Rhcgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cb3PSJDo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="PEpe8Dg6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ap5+/sMN/kUP5b08POsqzSiFNXsOIJTxPp6/zxZt1BVEKGjT7IPat5Mh4gTAp8u5GrLEObELTYt4yMX22SfI0OBb4K90HVRyeNWEAkA7AB3uGVFaUGV/3pxWfvd+E/h+0j7PSpDqiGCtdgofeWi7GZPyd6m5oYacDFzaASBAJD6y9OuEAOecPbB9zwYVUed2CO3K/ppbiMsKPvtiBjtva89by2xzbbysLcLM7WMYnkAuNqEXO5kuO56nnHEtsrBI2XiAMOYNvVu2vvNSFsXSPfyZLzOeVCSmyLgJMw7vGeg6rVF8D+qJYVyKv8K6Qh9x3nirxdiG+yUjpbaExEt+Ew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OBkujC1NXZxovgDMvI/zTLqcyC6O12+DyBcBm7tIcZw=;
- b=E1kJusHrbfn35lqdHWJqFGYD9+0BbyqTzVUJtGLmmodJYDkRbi68IjuDbIJaHdVNMFfNcHZ5Nuq8pkMUrFSE6nznR5/mIOG6MPBW0+CRQMqxGc44jhu2WprDt2gHAh8UJx4CTRI6/8I9E2ylskW+I0wqRU5EQVIHT7xvVgWhOT+N75khr7wpbCOdrhbZHNgvsVl00RO7eDIy1bHQGgGVRoaa0Gx13zn1jkuQmeSkGPLd7+dJ+XsxANxgZCwO78/nzmCoVUOFVrB9nosy/lG8ZSQGLyXPzvuhp73CB8EDkZ+1WnGu781xp9S6A7AayCuZd21jdhLnOS6bcHzTvID+QQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OBkujC1NXZxovgDMvI/zTLqcyC6O12+DyBcBm7tIcZw=;
- b=PEpe8Dg6Lf9NSxN9lM6LxoxZFDj389/xIcvcN1r9DiE0BrvTc9FfKRXkTWdbPMB4mFNLrE4H2sioRmm3ZdplpPhmHtJJvys0BrRIqhqTGhW4QAD+e9eXTajbclefWMGXuiC1RvHzpAY/lsRGhZ0oo4oon5H4HDZL7wdYFweyWeMM+F2jloEB9GmaihrACLHlhSGYWOCDVeBcpANLQZ9gcKrwJgB+UBTrhEeD/1AuXZRYlg5fp+MTWE+QCq+owGpEDROcYwl8XUgILXGcwHn2f7bWv8SLm/SuoujqlGPr5H2HAmMBllgF/zGEAVk1CK3linRKYZvFagVGUPKF2o3Q3Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by AM8PR04MB7907.eurprd04.prod.outlook.com (2603:10a6:20b:237::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 12:36:54 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 12:36:54 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-To: will@kernel.org,
-	robin.murphy@arm.com,
-	joro@8bytes.org,
-	jpb@kernel.org,
-	jgg@ziepe.ca
-Cc: linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	peng.fan@nxp.com
-Subject: [PATCH RFC v2 4/4] iommu/arm-smmu-v3: Wire up shared-SID STE ordering and feature gating
-Date: Mon, 21 Sep 2026 20:41:13 +0800
-Message-Id: <20260921124113.1664326-1-peng.fan@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260921-smmu-shared-sid-v2-0-4b656ce68178@nxp.com>
-References: <20260921-smmu-shared-sid-v2-0-4b656ce68178@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA5P287CA0073.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b3::6) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cb3PSJDo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EC6B1F0089C;
+	Mon, 21 Sep 2026 12:36:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789994224;
+	bh=mVyAaJeaChtzQ6OF0Z5CWn+l4xCID2ZJZHbDAUH1Op4=;
+	h=From:Subject:Date:To:Cc;
+	b=Cb3PSJDoFupnIoWd1GQH18R2JGcVBY1qlSvdhg0SUlsd91j6uKpsDGa9RYJSNTof+
+	 Rr4q0bQyAdKu5gB4++6Fnqdj6479DwoYyc00MFD96zfCWVFbrR9qYQ4TG1NMEJIEtn
+	 THOlLph1EH+UVECUYaqAerPkQs/bG0s7cYvKH5vDZ9mt1/oNJQkHQB/26gVuHVxP7g
+	 2y0oDaENCPQtXfwLKLuAFsYY0AYGJYf51lPnJCFWb1Gyw3WRTEp3nDhgmomE4Jf6Z4
+	 PlvElUPTAa4EQLNSbzf6IwPbFV5f6v4bwrNlKBSTxfrVyI3jsl8ijAP3zTlrc1gaFn
+	 dtebure/CcxeA==
+From: Yixun Lan <dlan@kernel.org>
+Subject: [PATCH v6 0/2] Add UFS Host driver support for SpacemiT K3 SoC
+Date: Mon, 21 Sep 2026 12:36:19 +0000
+Message-Id: <20260921-08-k3-ufs-support-v6-0-3479768a2299@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AM8PR04MB7907:EE_
-X-MS-Office365-Filtering-Correlation-Id: 22419541-643b-42f3-f47f-08df17dd0452
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|19092799006|6133799003|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	RR+QwofzL0L81ZxfO0ybUdAeVtzTyr32g8wAv02OGgTuRjXHVLUU/DDPzq46nK2S8n63hUaIgscBGa7FI9UhTbzQd++lRBUBGZ57Z6N+rX7jDnP7t51UCtIBkRSh8ZlBcpnJ+xo1PzfpLVeyH/b1OWkFl33ECIMtE3nMX9UZXxRviR8TIRS1kjhFIj6EdlYSSLvjnUpCKqnpKKfQ4uyteaLmqGXATQYDFgh/ADfIR2YYlEV9X2AwZdctklMNrP3N8wov1NDhOwKZEkSpCf8zBnyYRPFm9KWXYY0uaEgrklrlRq7wSDqI+HCeq/0ggR/fLdVljMlflPIGesfw9Kzke/JBNU5w3qBpRR/oFQjrvG2cN14f8i145TSCDYyXAKdAb8Mz248L+lykViztWyZdi/ZMIcn3CsBAN/ZBgg8AD45xREFXEhjeRULW1ZKquOVgu1KlFhCe2+IobsNkZlEADEguujv9E//iv7JhaEdd2RlvgqKIPzu40YldTYw5eJf5vQ16zltmP1eXhapoMRqjuu31RgwkyCTZWHIPFCm6XGWgpesRJ2jqKnF9515F2P6hjTRsetaC5r2oVvizuQYIwb74SigZHj+0bv3ndQ+3Rj/t57BkDUU9ehY21aRw+oK8rR/8IcGtQt/rxQSS19U40UcoTxB7I/Sezt4CB2/vcPU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(19092799006)(6133799003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?anIG1HqGhBZY/yT5VnE2EnIh7LWZhyoEYqciMtazGt9jDi+MZIuIqJNKDAmp?=
- =?us-ascii?Q?dW12bZiksVD8Jy8p918ZJF2lANlGLrfnFOJfFLEhuqU09LWzoTjQKSp9kDxM?=
- =?us-ascii?Q?uiUAsQmQNdm9MCJZNtAk1lA0Hma50ol1N5f4YfOyp7UJj75oz7krUe46cuBv?=
- =?us-ascii?Q?Ho2bqd/PEURix6NicAo8B+zE8kcNUi7mZDjqbb1sqUCvbIUtWZGp7snStbPs?=
- =?us-ascii?Q?bd1r4CHmGwPd1TxZgxFwBgT8gYAlmjAsF+pxlsOwZ7uVd4BvFz8mJ6fLW2d7?=
- =?us-ascii?Q?YwesHif+KXN3YAiMxecS3wuuPHeOqEex17DK4Z5CTVjOsXmAnBpIjOjU/yPi?=
- =?us-ascii?Q?XolQavoM/9BAAFGG31iYqaJKqVKDRJj4/Pnb7MmhJsNcKKEEFdtXoKhehyNK?=
- =?us-ascii?Q?TIA64V8PXtv9giWUjOCLPTr4ISHvSGI+8JcQwaa46BW9c7+4/EsRdsnOyKKu?=
- =?us-ascii?Q?l8YHj6HIV4bps/6HqTLNmiL9pdhtmD0K+7JAmfQ5JD65dZqj3lPf6TeAxXfn?=
- =?us-ascii?Q?f25Wa5eWXFabIeG8JPc4E6jFtOuWkQblXafNuFzNKusD3ktjzYDCoq/Gf2h1?=
- =?us-ascii?Q?HrHBoLbjYGIRNcC4ANBQd0CAIHAmYXulQeU08x6oreIWUuBlfMZmODthcx5C?=
- =?us-ascii?Q?Ds6A6zdC9IPJGzdu3qx1XJ7tWd1Yz088MAxwjrU9/OC3PPYlpiFPBSdfoevg?=
- =?us-ascii?Q?osfQ8JgPyGpwAI9oeVcwisRFHOqWIN2VFfvidC3nMtk5W16DEYgsvAa+R/vd?=
- =?us-ascii?Q?2nI4pBalUqNtB7tOKI4OkSdeqhQXOSjGh3JudPKDslEYofNxpClSbj8SAdVb?=
- =?us-ascii?Q?iCxqG4IptDLCqw9yLREzObHgm6j14Og7x08g2mUYZkQ73vNcJ5HB1Db91yn+?=
- =?us-ascii?Q?FSBjaKAcg7NolbYRF8QajpYivSC4bUKLzz8yAayNrHxeDHZfwsGB1GxdwAPB?=
- =?us-ascii?Q?bDTbp5pJISco1KHRdRK5QYe+/l8jwxRiVgMh+PvLBd+jj0cGBeaofL3R0DqW?=
- =?us-ascii?Q?ANFDzP3n4KsYkqqvPeo+dcjiikMANgBCdklopC8j7OClmbu2eH51YJnLlgIT?=
- =?us-ascii?Q?VmEJNwyc/TKxfTO1ldPGRUiSJCfxxaYkCOLZrbVfG+9tWCFTZn0lflclJrwC?=
- =?us-ascii?Q?0eyqEaSuGxi7lOyHJyZQyTqDU2vEc1yr5ekKwYdQUEWqhHl76hI35hAdZWn+?=
- =?us-ascii?Q?2n+OnB3I7z2smaVMhboYasbG8Er//bGiaS7JRnQ85HNIeHqSHzF5TkextuoU?=
- =?us-ascii?Q?bLwm0/Dpe+aTKEnrNdDu1q2YD8PfrQZz+gUKFle89St15wiBY+YyHEP4PVqg?=
- =?us-ascii?Q?NRuJjW0zauvFeGrhsPt+Yys3X1NcQnkd9hmYxA0/PxlwtMr84LwxcqHzJlbD?=
- =?us-ascii?Q?s3GCT5x89gzQ9cO+cgq1UoxH/EmQiA9NkcaqJ6/SJ36/NND8dooU6+2K43HN?=
- =?us-ascii?Q?tkIAXyIRC0n452oUuR4EpBZEQQUsUY2HfN5tukxdacdHvxRZvSZ/nUZ37tLg?=
- =?us-ascii?Q?J3mjaNi10ukSC+v35e2pF8FUv9afR7AM7/4Tf/RJuWsUOshQI8UscxGq3Fmv?=
- =?us-ascii?Q?/d8xNs1KFUTIGav/5xhxjsDAuwaBkq97F5A0KQurPkziQ7vmMytHKlgsRjKs?=
- =?us-ascii?Q?WYZt2QqfGq8h3PWOsk3Z8mkBIOWGYS/rUv2rDoZ8DbVM9db3IuEErB9LO+hA?=
- =?us-ascii?Q?MjmkQjlX2UQKrsX7Ri4d/M0zkqNhY6onj+KG2xVLoduUWpyRO7XMWIww9yMH?=
- =?us-ascii?Q?2cUmKlBsR5b3dwnBB2d4X1Bh5uI2E03Xq6vEvhyA7Gk/fAEcRFeS?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22419541-643b-42f3-f47f-08df17dd0452
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 12:36:54.0488
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kMe6bi42weT9wt+X4C9kL1Q6N6sNNuzf0Ep253sdzxUUbcRaGAeByoUYYGkhm+SQVebWuX8Zvq412JLaAKaBoWraEUB8BcFjaQ2wgxNCUan2oeiR4ZVI1t2Sj7LDJCg5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7907
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23QTW7DIBAF4KtErEs1DL/pqveougADCU1lW2Bbr
+ SLfvThZJJVZPmneN6O5khJyCoW8Ha4khyWVNPQ1qJcD6c62PwWafM0EARUokBQMvXA6x0LLPI5
+ DnmhnHAcTBJMBSe2NOcT0czM/Pu+5zO4rdNMGbRPnVKYh/96WLmybu/sasOEvjAJlVgnLrWNo4
+ vsl5D58vw75RLYFCz4R2DpxqS4VEriyaFEwsyP4gzCgWgSvBHAdHUe0nXc7QjyIY+03CFGJWrb
+ o/FF7vifkE8GaV8jtF1F6zSID1P4fsa7rH92GlxTRAQAA
+X-Change-ID: 20260605-08-k3-ufs-support-c8b308e415e2
+To: Alim Akhtar <alim.akhtar@samsung.com>, 
+ Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, "Martin K. Petersen" <mkp@kernel.org>
+Cc: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
+ Aurelien Jarno <aurelien@aurel32.net>, 
+ Jennifer Berringer <jberring@redhat.com>, linux-scsi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Yixun Lan <dlan@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3817; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=lQ7+ODtYODGQ2WtkpanJMBFN8HKPdBl6D6z2gi762NQ=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqsSTQ7e8a31139KrE6Adk1R3CN0MdH8LwlkJ+K
+ Jedq922pfWJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCarEk0BsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+0RjA/+MyuPt3j9QGkFqyVuGBTCm563VmObHNLZ+Gp4wQqw7qhirpiTQtdUr
+ sOk74KSvNGTjl8lIWPxj9o1k9+MczqPH3HV1+UFzo5QIgzvRT+ww44xZj/Q1uUR+0/QREAfe+WQ
+ CrK6/AkCnRFXoj+sb30JPxu9v4Nvgox3g1DkEUU0pkVIoWUzp8wy8b7AQo3x1wC0KE+HCHDAeJS
+ twFcHOu+TVaRM2aWIGpyzSEmApg9CQHGYWgk2jyS+teXcPTSo1/GFDsrYsw3wbaQ/qeex4FzusJ
+ nEFG8bhMClsYPsViE8IwIa9yB+Z5odVQkQMyKDQG6XKsS2X7RdnQY0v/aUqUYgrC2bh2xwwdRnf
+ G22at6LJM4FRpIYfBkBsaRtRIUKIF6W4f6eMrpS3P9aEOg8ymV3s9grN+W4pH5KAPn+B6L5o02M
+ qZ4A2IhFtu7pQ2Y/s7oKyZi3d0frB6YGzzXtsPR0KMBWxi1u9NMapRl+RbYe6zftRYJeXXS0N9J
+ J9U5sKCLY3TVFBY41q33D3M+OghPczc43H0u/AoUUxbLA/K71ltoBeo0NWZdo9LECpU3ObL9SPg
+ 7KDhQQsJ3As4yKvfmhfOWr1ABQzix4kNcFThMVNx+n/61d/lm2mQMuItv0WGc/NrEYn97SkAhLJ
+ 37lcO4WDZUJVkFZec18GJJJf1LLNG0=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-From: Peng Fan <peng.fan@nxp.com>
+This series try to add UFS support for SpacemiT K3 SoC, the controller
+components consists of System Bus Interface Unit, UFS Host Controller
+Interface, UFS Transport Protocol Layer, UFS Host Registers, Device
+Management Entity (DME), Transport Layer, Network Layer, Data Link
+Layer, PHY Adapter Layer, and M-PHY Interface. A more detail functional
+block diagram can be found in SpacemiT website, chapter 9.7.3 [1]
 
-For shared SIDs, only the first master to attach writes the STE
-(tracked by ste_installed under streams_mutex); subsequent masters
-skip the write. On teardown, only the last master writes the ABORT
-STE (ref_count == 1). This is handled by arm_smmu_skip_shared_ste().
+The DTS patch has been dropped in this series [2], and will send
+in separate series once this patch accepted. For people who want to
+test UFS driver, please grab the DT patch from version v5 [3].
 
-Fault events on shared SIDs cannot be attributed to a specific master,
-so arm_smmu_find_master() returns NULL when ref_count > 1.
+One known issue is that the device will occasionally raise BKOPS interrupt
+when doing some high load test, log from dmesg shows
 
-Disable SVA, IOPF/stall, and vSMMU nesting for shared-SID masters
-since all three require unambiguous SID-to-device mapping.
+[  806.710763] ufshcd-spacemit c0e00000.ufshc: ufshcd_bkops_exception_event_handler: device raised urgent BKOPS exception for bkops status 1
 
-Assisted-by: Claude:claude-opus-4-6
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
+Link: https://spacemit.com/community/document/info?nodepath=hardware/key_stone/k3/k3_docs/k3_usermanual/09_memory_storage.md&lang=en [1]
+Link: https://lore.kernel.org/all/20260918-belligerent-succinct-kraken-7fa592@quoll/ [2]
+Link: https://lore.kernel.org/all/20260916-08-k3-ufs-support-v5-3-1f5d71f1027d@kernel.org/ [3]
+Signed-off-by: Yixun Lan <dlan@kernel.org>
 ---
- .../arm/arm-smmu-v3/arm-smmu-v3-iommufd.c     |  4 +-
- .../iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c   |  7 +++
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c   | 59 +++++++++++++++++--
- 3 files changed, 65 insertions(+), 5 deletions(-)
+Changes in v6:
+- drop unused macro and dev_req_params
+- use global PX_xx macros
+- fix axi clock name
+- drop dts patch
+- collect tags
+- Link to v5: https://patch.msgid.link/20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org
 
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c
-index ab1078a97d801..258ca42917f07 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c
-@@ -308,8 +308,10 @@ static int arm_vsmmu_vdevice_init(struct iommufd_vdevice *vdev)
- 	/*
- 	 * arm_vsmmu_vsid_to_sid() maps a vSID to master->streams[0] alone, so
- 	 * more streams would leave the rest stale and none reads out of bounds.
-+	 * Shared SIDs are also unsupported for vSMMU since the STE is shared
-+	 * between multiple masters.
- 	 */
--	if (master->num_streams != 1)
-+	if (master->num_streams != 1 || master->shared_sid)
- 		return -EOPNOTSUPP;
- 	return 0;
- }
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-index 0a429c64fbf3e..43f8cc81bfdd1 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-@@ -271,6 +271,13 @@ static int arm_smmu_sva_set_dev_pasid(struct iommu_domain *domain,
- 	if (!(master->smmu->features & ARM_SMMU_FEAT_SVA))
- 		return -EOPNOTSUPP;
- 
-+	/*
-+	 * SVA requires stall-based fault handling which cannot be supported
-+	 * when multiple devices share a SID (fault routing is ambiguous).
-+	 */
-+	if (master->shared_sid)
-+		return -EOPNOTSUPP;
-+
- 	/* Prevent arm_smmu_mm_release from being called while we are attaching */
- 	if (!mmget_not_zero(domain->mm))
- 		return -EINVAL;
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index bb3ee25d10d6e..13968191b1452 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -2034,6 +2034,13 @@ arm_smmu_find_master(struct arm_smmu_device *smmu, u32 sid)
- 	stream = xa_load(&smmu->streams, sid);
- 	if (!stream)
- 		return NULL;
-+	/*
-+	 * For shared SIDs (ref_count > 1) we cannot determine which master
-+	 * triggered the fault, so return NULL to let the caller handle it
-+	 * as an unresolvable event.
-+	 */
-+	if (stream->ref_count > 1)
-+		return NULL;
- 	return stream->master;
- }
- 
-@@ -2944,11 +2951,43 @@ arm_smmu_get_step_for_sid(struct arm_smmu_device *smmu, u32 sid)
- 	}
- }
- 
-+/*
-+ * For shared SIDs, check whether this master should skip the STE write.
-+ *
-+ * Setup path: only the first master writes the STE; subsequent masters
-+ * skip because ste_installed is already true.
-+ *
-+ * Teardown path (ABORT): skip while other masters still share the SID
-+ * (ref_count > 1).  Only the last remaining master writes the ABORT STE.
-+ *
-+ * Returns true if the STE write should be skipped for this SID.
-+ */
-+static bool arm_smmu_skip_shared_ste(struct arm_smmu_device *smmu,
-+				     u32 sid, bool is_abort)
-+{
-+	struct arm_smmu_stream *stream;
-+	bool skip = false;
-+
-+	mutex_lock(&smmu->streams_mutex);
-+	stream = xa_load(&smmu->streams, sid);
-+	if (stream) {
-+		if (is_abort)
-+			skip = stream->ref_count > 1;
-+		else if (stream->ste_installed)
-+			skip = true;
-+		else
-+			stream->ste_installed = true;
-+	}
-+	mutex_unlock(&smmu->streams_mutex);
-+	return skip;
-+}
-+
- void arm_smmu_install_ste_for_dev(struct arm_smmu_master *master,
- 				  const struct arm_smmu_ste *target)
- {
- 	int i, j;
- 	struct arm_smmu_device *smmu = master->smmu;
-+	bool is_abort;
- 
- 	master->cd_table.in_ste =
- 		FIELD_GET(STRTAB_STE_0_CFG, le64_to_cpu(target->data[0])) ==
-@@ -2957,10 +2996,12 @@ void arm_smmu_install_ste_for_dev(struct arm_smmu_master *master,
- 		FIELD_GET(STRTAB_STE_1_EATS, le64_to_cpu(target->data[1])) ==
- 		STRTAB_STE_1_EATS_TRANS;
- 
-+	is_abort = (FIELD_GET(STRTAB_STE_0_CFG, le64_to_cpu(target->data[0])) ==
-+		    STRTAB_STE_0_CFG_ABORT);
-+
- 	for (i = 0; i < master->num_streams; ++i) {
- 		u32 sid = master->streams[i].id;
--		struct arm_smmu_ste *step =
--			arm_smmu_get_step_for_sid(smmu, sid);
-+		struct arm_smmu_ste *step;
- 
- 		/* Bridged PCI devices may end up with duplicated IDs */
- 		for (j = 0; j < i; j++)
-@@ -2969,6 +3010,11 @@ void arm_smmu_install_ste_for_dev(struct arm_smmu_master *master,
- 		if (j < i)
- 			continue;
- 
-+		if (master->shared_sid &&
-+		    arm_smmu_skip_shared_ste(smmu, sid, is_abort))
-+			continue;
-+
-+		step = arm_smmu_get_step_for_sid(smmu, sid);
- 		arm_smmu_write_ste(master, sid, step, target);
- 	}
- }
-@@ -3116,8 +3162,13 @@ static int arm_smmu_enable_iopf(struct arm_smmu_master *master,
- 	if (!master->stall_enabled)
- 		return 0;
- 
--	/* We're not keeping track of SIDs in fault events */
--	if (master->num_streams != 1)
-+	/*
-+	 * We're not keeping track of SIDs in fault events, and stall/PRI
-+	 * cannot be supported when multiple devices share a SID because page
-+	 * fault responses are routed by RID/SID and we cannot distinguish
-+	 * which device triggered the fault.
-+	 */
-+	if (master->num_streams != 1 || master->shared_sid)
- 		return -EOPNOTSUPP;
- 
- 	if (master->iopf_refcount) {
--- 
-2.34.1
+Changes in v5:
+- adjust clock names
+- add runtime power support
+- collect tags
+- Link to v4: https://patch.msgid.link/20260908-08-k3-ufs-support-v4-0-22aa2bd97d3b@kernel.org
+
+Changes in v4:
+- fix clock and reset settings
+- drop function which retrieve value of tx_lanes
+- propagate return error of ufs_spacemit_dme_set()
+- check return value ufs_spacemit_check_hibern8()
+- drop call to ufshcd_vops_phy_initialization()
+- handle compiling warning if CONFIG_OF not enabled
+ add __maybe_unused to ufs_spacemit_of_match
+- Link to v3: https://patch.msgid.link/20260806-08-k3-ufs-support-v3-0-037fb322acdb@kernel.org
+
+Changes in v3:
+- collect tags
+- fix dt-binding warning reported-by sashiko
+- fix low freq in opp-2 table
+- fix err checking in check_hibern8()
+- propagate err code in link_startup_notify()
+- update documents for event_notify()
+- ufs clock driver is merged into v7.3-rc1, update cover letter
+- Link to v2: https://patch.msgid.link/20260725-08-k3-ufs-support-v2-0-45036a2a2418@kernel.org
+
+Changes in v2:
+- fix missing interrupts property
+- move ufs node to k3-com260.dtsi
+- convert freq-table-hz to operating-points-v2
+- rework reset_control, fix header and drop global variable
+- drop dump_host_regs() debug interface
+- converge and refactor dme_set() operations
+- massive reduce of busy delay() loops
+- drop vendor specific hce_enable_notify(), fallback to default
+- drop unused member from struct ufs_spacemit_host
+- add COMPILE_TEST support to Kconfig
+- comment style fix
+- Link to v1: https://patch.msgid.link/20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org
+
+---
+Yixun Lan (2):
+      scsi: ufs: spacemit: dt-bindings: Add UFS controller for K3 SoC
+      scsi: ufs: spacemit: k3: Add UFS Host Controller driver
+
+ .../devicetree/bindings/ufs/spacemit,k3-ufshc.yaml |  56 ++
+ drivers/ufs/host/Kconfig                           |  12 +
+ drivers/ufs/host/Makefile                          |   1 +
+ drivers/ufs/host/ufs-spacemit.c                    | 649 +++++++++++++++++++++
+ drivers/ufs/host/ufs-spacemit.h                    |  77 +++
+ 5 files changed, 795 insertions(+)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260605-08-k3-ufs-support-c8b308e415e2
+
+Best regards,
+--  
+Yixun Lan <dlan@kernel.org>
 
