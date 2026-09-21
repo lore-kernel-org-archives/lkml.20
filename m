@@ -1,164 +1,253 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013005.outbound.protection.outlook.com [40.107.159.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A6048A2A9
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:29:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0395748986E;
+	Mon, 21 Sep 2026 11:29:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.5
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789990178; cv=pass; b=DNkCSu25sHoRTkRZpehWwZWnwZswSYNb8ARfshjsE7unzygzW5eLqGAxpccAhFChLWpA1oFCNNU70z8gke0Eb12nuN2xrV9tq2VhizfsewnUpI6NKkZtxKM1rWHo0FX1alNT/EVZRaSYLHSnntioIt9a5YG5Q6aEmDyyOlioHb4=
+	t=1789990199; cv=fail; b=b6r59AP5DtIzjucgDEqnb3GxuRjFWiUIrXJUPbO/ZtRmZtG07/+C4wPhZ9/UDRiPeuIUMkam9vqHEKPTffkDr5b+DCgxcs0hHbKoCPv/jJQfqglnLn0d+qCfjVSq35cHG4cOI3WpFl7xmSvz+Incji1y29nDPgpPztlKovx8lYs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789990178; c=relaxed/simple;
-	bh=ptOPvpl8Jn4/467WKDIfcKUlrqRNuCJaQOy7TpWYDfM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ELUCDiqBIWgYf3K5ALRx9loAoWlvTCycBNxPpnZJMlG7LHjFfvwGKxDC8JaZKJNry44Q3BKNx1G3GRFGGRw84ChltZxnJRhN50ISFYLBuveWNorGLD/KCO8XE460AN0pAcygh44ZzdRtoEb6RdMM+popaoU7ucWo0EnSidOnE4I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=O6ageLli; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hFjosavz; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789990199; c=relaxed/simple;
+	bh=xX22YuXjqr98aFI3s13sWdMIlR83n7aG7glnehC+Ak8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=u1Nh0C9nUZUp371+DehABWkGbJJ16EREuq+sEh/a0KtEP6L3Xp0aNbqOARyeagZ1czftNiiv61D8plR3NuJg89T2yOu+vstythiN3tZEoRsn75mysy3CvZSyxU9IRvsU/2ILGS4qQ8PmfM+OH0pgjBqepPWW8AxaVXroeviuP/o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=B+vtpJEt; arc=fail smtp.client-ip=40.107.159.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="O6ageLli";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hFjosavz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789990175;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ptOPvpl8Jn4/467WKDIfcKUlrqRNuCJaQOy7TpWYDfM=;
-	b=O6ageLlihfDB6076/yHJyZKSoLL3nKRi/zQLTHfzt81mczUIQ9IS0tgvRJ1NlCjqBb4DoF
-	GZrYoV3RbM1da3b462HvAx/mn3gZn/RrTsYJoZiIFO2UQUxFL/1TZPIy0U7ZqqGb/oJSYY
-	phAiGePIBp/H+zTMNVR59vJJTguhh7A=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-83-klKRYCtvOSSXxQ3IFdtlkQ-1; Mon, 21 Sep 2026 07:29:34 -0400
-X-MC-Unique: klKRYCtvOSSXxQ3IFdtlkQ-1
-X-Mimecast-MFC-AGG-ID: klKRYCtvOSSXxQ3IFdtlkQ_1789990173
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-487038bc9b8so1735220f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:29:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789990173; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Nfvpx69PuC1jr+MvPvp9uLPn2XQ7PYpoX7ifowXMsGO/pG7gMTioHfq4Ddq6m3J3t7
-         Rq24pqA6nLUe7DIhSeVZVlsfC/2o4OncgAAEethHu4FfzFvdnqS3CJntb9DdZAjq1fcX
-         4Pt8nYhk3a08JRRIXu6uSZi+t72mDNncTPb4mHrOgvhnaSVZVJMlNLYcVKe1iX1+ZrZr
-         mKWptg2/zZ7BjxE+y9VrqNE1hT3zFMNtTu0bhhPRn8LJXSkeYtyHvGmvtNq9M+v0c52c
-         i7aN905/h4+0JT5/zeghtqdXsVy012hsQU2L6uA6CDFT9MwRSRzibW4s1otb6Riiw32h
-         Nmcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ptOPvpl8Jn4/467WKDIfcKUlrqRNuCJaQOy7TpWYDfM=;
-        fh=XhI5WuTT6uQ+67sHTj1iVumkdaeG6Z3D+MUUyGefo48=;
-        b=RritebPkR7r3Dt2t+DBMDTX9k7X1dQbEk7ubzYjknHa8kvaPSFWXmig1SbNBT9NwwG
-         eP2aVHO86hhQm9uIr7q7lqoKe3eB5kFS0Neo2Yrz95WPpwtrz0R6N3bvJmY3f2UZybCH
-         I4C4TLXvtWHFFJBfOpwe5rFW3NKZB+z2vgtyPVh1n0KhBnyvXG36ELErbocLh048ksW/
-         LiCCYuRs7RU4B32uulEErsMIIhPjymP8RP5Vj2C7kuHc5J3vSiAaQUBt2eHfFzxfFjU8
-         T0FMIJQQCsITGMMJ4iWKoavwmW3LxjSb7bMzrc4lSC1Fuui71taies+yM7w6Cae0ukfF
-         hLnA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789990173; x=1790594973; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ptOPvpl8Jn4/467WKDIfcKUlrqRNuCJaQOy7TpWYDfM=;
-        b=hFjosavzTEBg7sS+/amQKm0DVwQIeND1Et6uVLHGgp9oztjbPFCj1GSVjXpTtW1o4K
-         Bc/WtO6t3w0BAV929yBDSAi710gt9i8vIG6G4IyZ6GylRBVB41jc975KGZ4C1vu8jtTJ
-         x7xcrV9Z/Uk9xBkxBfaUqamjFEOwqtWIVJnzLrJGEKAvBb06h8yPiHXwvPyE6czoy7I2
-         +8i/fivrjJ4mfrJsjj/GSjzW25mhmbFvGSLW+leI/NDqeBUQcrHQxaHhM2koGsHWO/cA
-         SqniDp40toI3F8H6TS7Y1ucl7zgJL2l4gWnJOBTOA0JIIEQ+e05bwbUp/oqKz+wPpNep
-         JPqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789990173; x=1790594973;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ptOPvpl8Jn4/467WKDIfcKUlrqRNuCJaQOy7TpWYDfM=;
-        b=nH25iFxuATjbIMLAkGfR49VWPCdKYc2v1ICT9t+SRdZjxvIleA5YvcyUnS6SuXlRL7
-         K8Zye3185ta2Ixdg6u8VuvDXOENBAF+59OXAVLzzehbmXlUAcOa1AvDGLPn5f6qG9Wqh
-         4n4YsMF+nDaSWN/vFSY0zPtE1o65kflxGAjMbvRM2X/Tg3zVzmqkYGeF4NkLqcvWgH7W
-         9cqL4t0iTQ7u30l1ErDhtfJosMcIT+FYLwL9DCPpVESKmQC5KuxdZjNK2YK4HCCXqw6W
-         wbnVcPP7xg1pbFiB0ajFrGC6UDfXXie863oNrr7MtTvtDGRssk15DpUghbWORGi0NUVK
-         8mEg==
-X-Forwarded-Encrypted: i=1; AKwUvBx3aSg++EmH3CuNj5iQKNr9WPhHCEV2ElL3MFvbFKT46mGUSOM+R1sdC5APqidgWyiW6D7CWTaJewfe2ds=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGbi+qLdA9FQ5j6hgZ0B9FdEtftQbp6nKY1WhdNXLmw+QGUjr7
-	e2m5a1JM61IlGtcaurhpjdcFyqpSOVWqfpWgM04f0OIrW9uM7XpV2PcQp8e8U6HV2loN3GtgumW
-	ib3otP/TsYlXofMJR2Si9+koKA/xQeTwXAqAOklrF25g6xucELmSqXUtodWTZMqO479cNNgIgsf
-	+ls8E4m26DOc4LKgORfIYviMGxq8yX9jzprCgVjJYC
-X-Gm-Gg: AYBFou0Uc5lTFsteSDCvQXWIurupMLdn6cbHVr3bdH+LxH4euDvXLeECrgNtgYXtWKe
-	1hk6n9jIqyILzsdpYk3YRYMCyEgQHeCwCOE9ZQvX8Fc9CWpvbP2AlSykxpNs/micBJfVTQMQkDO
-	0X55e+XHu6VwnVIX+8zbSwu94B7DLq4JIZq0sXevlXH209Sf2per0Xf4MxGgb4KnxCHtP9v7ge3
-	c6f0zAOTvlijj33Ak71TQw3ijiJAo/vaV02FeHW+xE36itch2/8ec4v7U9k/A==
-X-Received: by 2002:a05:6000:491e:b0:487:84:96d7 with SMTP id ffacd0b85a97d-4871e373189mr14673931f8f.53.1789990172844;
-        Mon, 21 Sep 2026 04:29:32 -0700 (PDT)
-X-Received: by 2002:a05:6000:491e:b0:487:84:96d7 with SMTP id
- ffacd0b85a97d-4871e373189mr14673903f8f.53.1789990172510; Mon, 21 Sep 2026
- 04:29:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="B+vtpJEt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NY/AUOqGCKdP9xLxbP1D54Wyl5zz61Hjv+GhYDMJgHA3/3BMTLWMUEZNyb/UqaIl4ip9MqjHnBnvr/TLiOeobUFnw3gH5kiO/alFKGYflHKgDr4uObLlQ1280mY4ESArtOMkFNT4+QZUQAzdVxugXz+Tt5LbngY7GK5X0muFCg2Hkn7JiPXP4paIluBdbJA9Dk0SHVX6d08okDvgZPChBEqK3Oc/dLmOZq+TWi0g2N++nNGa5jkry9nsTx+vPYPis5/XHmrZ+9sqv0l2agAyl+BXwIS3A9amDGFPuwOimIlTVuGx4rwWH7rQgpXKUvTQM+ooa2WDlgzn10PY7OnfCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HvL7BG05ZeRq1GFvVRMx2BzjsZDoy573dvUJqt8HDtc=;
+ b=nZJAuF+3oARjZmC2LZ/6MlxRGEggYzEgILsRdq0NDraThoQOwTBG8W4x67vltYyfFrK8hK02Tyq7+yg51OIyeUTNNEWZ3/hdF0a2ZRJC9fyZHmBgn6DkQsjm15GH8PkAPscp5qL2PjSj+9SypWboJqYmXYGzQybrVc2uTPKxtozDqPfYsNg3yQl+GMKHlf1P2GOgO6l+hlG2vI3xx3zlZ8I2g4nPongyDsSESMkX6PA07OaSfszy4cTK7EzkRphwugMhsn1M14HO1JMBaSW95k31NrA73bod4jNQwBHzatGFm/hTEHlL3s+S9mufe+FbAJQSYRGI179O0Es1xN0L7Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HvL7BG05ZeRq1GFvVRMx2BzjsZDoy573dvUJqt8HDtc=;
+ b=B+vtpJEtT8ONeS4s9c9WCeqFtK7RR/aiN2lZX5oTxUpxdJBnKAiyC8PpfQeguCK1fi0A8Pfu+jeR1B1TyFhl6MohSUm+gOldq53gRCAVgRVdx386ESOEU4icuWdyGsFh62WKWsLQC/n1r8BLiamy4uEbafBtE7iGy6tjcoO0aEzPtamPyF9ErPUyIqHwS55jpSCX+k5M2eNN0SWvdvjVfLTT1XsshnTiKH9HjibN/K6zER6UbsTqKLJzOzl9+OqVHuaGcCG0j8g9MpaYUj2A3C8EZxknOR/wgtHrg0ueCMbJiYQIfyWRv8lQzq3Vx7USTql7n4slETF0CheTWmeAbg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
+ by AMBPR04MB11811.eurprd04.prod.outlook.com (2603:10a6:20b:6f4::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 11:29:50 +0000
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023%4]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 11:29:50 +0000
+Date: Mon, 21 Sep 2026 14:29:46 +0300
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: netdev@vger.kernel.org, Zefir Kurtisi <zefir.kurtisi@westermo.com>,
+	Claudiu Manoil <claudiu.manoil@nxp.com>,
+	Wei Fang <wei.fang@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Simon Horman <horms@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Yangbo Lu <yangbo.lu@nxp.com>,
+	Ioana Ciornei <ioana.ciornei@nxp.com>, imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH v3 net 4/7] net: enetc: pad short frames in software
+Message-ID: <20260921112946.edo5uw6cl7jx6oez@skbuf>
+References: <20260915222735.1016937-1-vladimir.oltean@nxp.com>
+ <20260915222735.1016937-5-vladimir.oltean@nxp.com>
+ <20260917111127.577d344b@pumpkin>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917111127.577d344b@pumpkin>
+X-ClientProxiedBy: WA1PEPF00005B7F.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d8::607) To AM0PR04MB6900.eurprd04.prod.outlook.com
+ (2603:10a6:208:17d::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <272c0fdf9e5eb9a1caf6a5c0bf674e3c006ac2ea.camel@infradead.org> <20260921112131.274-1-hdanton@sina.com>
-In-Reply-To: <20260921112131.274-1-hdanton@sina.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Mon, 21 Sep 2026 13:29:21 +0200
-X-Gm-Features: AcwNN1Xi_H7uo3XvFAj5sLWKjk7Urm5G8ShkD2xSWIid9H62cmytfHb-xU95uPA
-Message-ID: <CABgObfYZKfSV=Ykmjkey+t1pA4rEEk8=a-VMho4=A0=xNLmKcA@mail.gmail.com>
-Subject: Re: [PATCH 01/17] KVM: pfncache: Use atomic SRCU for readers instead
- of a rwlock
-To: Hillf Danton <hdanton@sina.com>
-Cc: David Woodhouse <dwmw2@infradead.org>, linux-kernel@vger.kernel.org, rcu@vger.kernel.org, 
-	kvm@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
-	linux-kselftest@vger.kernel.org, Sean Christopherson <seanjc@google.com>, 
-	"Paul E. McKenney" <paulmck@kernel.org>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|AMBPR04MB11811:EE_
+X-MS-Office365-Filtering-Correlation-Id: 52a4183a-9305-40de-bcfe-08df17d3a60b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|19092799006|1800799024|366016|10070799003|11063799006|6133799003|10067099003|56012099006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	pWOhlHDc+yMm8PVaWo7yRVtuZk9mO7yJ6x9JRa95TQom344WomSMeUFPpt3LrsumPapZclowoQ/XATyPGhleAIcOTHFErNPbmh9zVuPjeIeuxSk5eEAlk9djYPElmUpt+gV8NBnc5k0ESraRxhTdhQaMV9QYrCpxRMtB01QDvxN09nKNgIa+6h6VYNfaY+joH4CyTggi4n6grgQx+Hw2TeQAVhR6U+8h2vX8d9lw01llSdkIz8jz2rzD3OXmVCpP8U15LsNOJg5C1Ihh0KfjfkVyQjmYh11DG4nQ6I4dBNslrs4iaydDzeQo22xAIYKKho39F79oaehn1huSSWqgUB+KOWZEC1rZmNclqRu822UuB1nupAPPCokLiexXwd0YdFnt4TNkPJtsZ4IMEjEkSFIiQtb96jiQ49SPHMcAhA4wtrnz7bUN/7xS9yBl4o3hVLG/60xQfquFCZOv4gqCeB6MWRNU8w2VehFBkyLLbpYjfMFeTUQKhUcMP5H/WPt9hkvnnt43Jd2OXXsWfoNQI+RLCYTSgnN2mtiJe3V7J6M3xPklSqjAs5wXFEaAl41X6OikDIsEe/bZyjUYtyFd1JvvCgYSen9aWUkTLxRLePbdXblkuqG5kwVSZ5TqA5JC
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(19092799006)(1800799024)(366016)(10070799003)(11063799006)(6133799003)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/chdVW1XdAA3etp0WF5WrQOiuSHgpFBqz3E79BRcc2SjXasWQIq4r70ee82F?=
+ =?us-ascii?Q?XQ4Mg+jVOcNH5exR8x+z5hTMQPYPVWAqx7P8THF4tM7yGxflyZJAyyqFBBCm?=
+ =?us-ascii?Q?OF5MLLxRsLZCbtuwyYubFiCyKw+ni1FFym6FnbN1P4+j91+6VeRHHM6Z2rAa?=
+ =?us-ascii?Q?GobNWB8oBUgzRhIb4TbWv880f6UXwqAjLeCo/7C7fVYXGtkECv2Lvkncxyep?=
+ =?us-ascii?Q?ni4hCEV+jrIPD1woyVT1VQ/Bi4Kxj5zQuTTUvNm9RgbQntuWbal3D1GZF7rX?=
+ =?us-ascii?Q?7LNQzoSSMgRE0+NrKFgtQv1sXsMmzuT6kELcCXmC/1CDU/i72L4cwIBPp8Va?=
+ =?us-ascii?Q?Zga25kymxa1W5/wYz08qWMIoJRMgXx0fYE+WJRss+YYJvHXBHn3FnYQhiTwt?=
+ =?us-ascii?Q?VkRRvNtW19KlXsigbdron9HPiDPHFIzc2olpQQPzKzJdl1wXijD5OJGGILkh?=
+ =?us-ascii?Q?wNjqq1iqWTv0SUXAF3K8UPsNAEHfKH+1WFhJ+UgHc6NMrNnKJlQYizwgGchI?=
+ =?us-ascii?Q?hgRPMkH5aqNY6VbbFngZH2/TMtFK9Q863sbZe/odcmt3ob8/svvwpV533748?=
+ =?us-ascii?Q?GegYqyooglJR0BBYqBpCtgCtHbm/zYVMQISDVNH+A2QJtePNLQK2Xy940hzt?=
+ =?us-ascii?Q?9Vg75Lb3Vi29OcRgcjP4xVvegItZK8OSgfqMj87k8Nv12ilJr2hazd41llZv?=
+ =?us-ascii?Q?Ri6UoDhq+MZHE6u8G59iiwaTGZMM6sPWZy+IlHD2qpQ5+5ixKBSMrM6vjEwg?=
+ =?us-ascii?Q?y39RYHDqVrus7Oti6C9qCp9I+9HDNCxgeGoJf/1LIMtmoIH4YKUd/CBP/xcX?=
+ =?us-ascii?Q?ougZ6hsGSj2pQYMIJp9Kc67EjSBtuoWQqmRovkrWqrjbB6mwSftDyj0iD1da?=
+ =?us-ascii?Q?BkykulX39KBXVxwDII+PhEGLGeOKgkPyUFG9saHnsofehxBi+pvNlrZJ62UF?=
+ =?us-ascii?Q?FxXyktHNc1f3si6wTA9NfNTGHHrJ6g/kq10t90rw/V4P5UIvDWHUYw/jeypn?=
+ =?us-ascii?Q?Pd/t4Y7uEODpFRJQ8YP7/G5hS+xKU52+2Cmm0VT7SinGbwWk09rZzMGe+20h?=
+ =?us-ascii?Q?aRgnAzSmI9l0bhuvtwNx9cr2uhuhzlOZ9FwNiiPfHFN9yGsxSsRW7yL0u9Dg?=
+ =?us-ascii?Q?LxLEzqxW96MaPRKaE6qm1oKjKGmJuv8cGeVzKgnFxgMnG1o/iSvTESOGwNQR?=
+ =?us-ascii?Q?KEy8Gm3FnuQfGf0EzkR5dXKNVUy7DBVumY0tQurSGmc17gR9saXAyYkx5Smj?=
+ =?us-ascii?Q?X7tnKyywEQ2NmH9pB6yS8U1YQG4/kDRNVQWY7uhSjSjAi10ImnkIabWTyBEN?=
+ =?us-ascii?Q?Zuyt5QmZ+8nceyboTJUl9ypWg+1u+MSPc+Ppjn1q2a/yufPKumcNfGlgJByE?=
+ =?us-ascii?Q?pDJCRnxAfBw3CGN+OWUNSnteT+hhkSmp++ZCa9flbNBUkE8KM13F7WVVS5FY?=
+ =?us-ascii?Q?TLhS8dVJQNfT46bmRlqj0/akY0SQzcldvwEIx9kdHFyrgcEkNAMi3eDj4mNQ?=
+ =?us-ascii?Q?n/dotnvYJK24vyUnNexQPqGeyYrwvw3/lhK+RWyiBMmcaOPDFC2bqsp5q0xx?=
+ =?us-ascii?Q?M9fV9VLCRHcsHR/sd+DJwsXV21p266WJMI+VaN2P5sL2xVw4LVsTAoQd20kW?=
+ =?us-ascii?Q?qwnuh5ukqH9DbYvZsGT4DAx6EV8zDCAZnTk8FLn+ORBsC+OFm1a3Vn9QOGDd?=
+ =?us-ascii?Q?cr+JNR7CIr+3vluZxD115wppPrBfubK+bf0rriH9o3N0gRc6tF/CZ8fPRdHp?=
+ =?us-ascii?Q?iQPgiAAFUS7gElp5PD4+UnSaonXW3WV1OMIbD8sfd+GzNjDmxa3SfIlMntJD?=
+X-MS-Exchange-AntiSpam-MessageData-1: 4FoMVe6u4vGjOUWA6z1VMwItQ7Qtqm3y2Hw=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52a4183a-9305-40de-bcfe-08df17d3a60b
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 11:29:50.3179
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HVDwxNvhmbCGMrFMcqYxiMBx48d+MmzhPog34XbSBymvyJRI3353/Xjp806KjP8NwxRrVJNHOeS1SYOJ4LW0Gw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB11811
 
-On Mon, Sep 21, 2026 at 1:21=E2=80=AFPM Hillf Danton <hdanton@sina.com> wro=
-te:
->
-> On Mon, 21 Sep 2026 11:54:36 +0200 David Woodhouse wrote:
-> > On Mon, 2026-09-21 at 09:42 +0800, Hillf Danton wrote:
-> > > On Sun, 20 Sep 2026 21:49:29 +0100 David Woodhouse wrote:
-> > > >
-> > > > Replace the per-cache rwlock with a dedicated per-VM atomic SRCU
-> > > > domain (kvm->gpc_srcu) for the read side. Readers now run under
-> > > > srcu_read_lock_atomic() alone =E2=80=94 preemption disabled and non=
--blocking
-> > > > enforced, which every GPC read-side section already satisfied as a
-> > > > former rwlock critical section. It works in any context
-> > > > (including hardirq and sched-out paths) and never fails or spins,
-> > > > eliminating the
-> > > > read_trylock() contortions in the atomic paths, the double-lock dan=
-ce
-> > > > with the lockdep subclass hack in the runstate update, and the
-> > > > PREEMPT_RT problems inherent to taking an rwlock in those contexts.
-> > > > In particular, kvm_xen_set_evtchn_fast() is called from hardirq
-> > > > context (timer callback, kvm_arch_set_irq_inatomic()), where taking
-> > > > gpc->lock is a sleeping-lock-in-atomic-context bug on PREEMPT_RT.
-> > >
-> > > Given the preempt_disable() in srcu_read_lock_atomic(), as PREEMPT_RT
-> > > has no way of handling preempt_disable(), you need to add another
-> > > version of srcu_read_lock_atomic() with preempt_disable() replaced wi=
-th
-> > > something like rcu_read_lock().
+On Thu, Sep 17, 2026 at 11:11:27AM +0100, David Laight wrote:
+> On Wed, 16 Sep 2026 01:27:31 +0300
+> vladimir.oltean@nxp.com wrote:
+> 
+> > The ENETC does not support BUF_LEN or FRM_LEN in TX buffer descriptors
+> > less than 16. This is written in the reference manual of all SoCs
+> > supported by the driver: LS1028A, i.MX943, i.MX95 etc.
 > >
-> > Hm? What's wrong with preempt_disable()? It works OK, but is generally
->
-> How is preempt_disable() handled by RT?
+> >   Frames must not have a FRM_LEN that is less than 16 bytes. Frames of
+> >   0-15 bytes are not supported.
+> >   (...)
+> >   The first descriptor in a chain must not have a BUFF_LEN that is less
+> >   than 16 bytes.
+> >
+> > I don't think proper attention was paid to this during development, we
+> > found the text at the end of a bug investigation. Therefore, the driver
+> > does not enforce this.
+> >
+> > But the frame length is out of the driver's control, and the network
+> > stack can actually send packets with skb->len smaller than that. The
+> > result is unpleasant, as will be explained below, so for simplicity
+> > sake, we just pad anything shorter than ETH_ZLEN.
+> >
+> > Zefir Kurtisi found a case where transmitting L2 WNM keep-alive frames
+> > through ENETC would soft-lockup the host through an IRQ storm. He later
+> > distilled this into a small enetc-killer.c user space program which
+> > sends a packet with MAC DA, MAC SA and EtherType IPv4 (14 octets in
+> > length) through an AF_PACKET raw socket.
+> >
+> > The IRQ storm is actually a curious effect of a chain of events.
+> >
+> > The hardware behaviour, when an invalid BD is put in its TX ring, is
+> > that it would transmit the packet as normal, update counters, raise
+> > completion interrupt as normal, but it would just not advance the
+> > consumer index of the ring (TBaCIR) to signify that the BD has been
+> > consumed and is available for software to free. The ring will also get
+> > its TBaSR[BUSY] bit persistently set to 1 afterwards.
+> >
+> > It deserves an explanation why the behaviour above would lead to an
+> > IRQ storm, since ENETC interrupts are message-based (MSI-X), and an
+> > unhandled interrupt would typically just be lost rather than retrigger
+> > itself as a wired interrupt would.
+> >
+> > NAPI processing in ENETC has 3 steps:
+> >
+> > I. the enetc_msix() hardirq handler disables RBaIER, TBaIER and sets
+> >    softirq processing to the 'pending' state.
+> >
+> > II. the enetc_poll() softirq handler for the IRQ vector walks through
+> >     the TX rings affine to that vector, checks which ones have a TBCIR
+> >     updated since last time - enetc_bd_ready_count() - processes those
+> >     completed frames, and clears pending interrupts in these updated TX
+> >     rings by writing to TBaIDR. (I've excluded RX processing due to it
+> >     being irrelevant).
+> >
+> > III. After the softirq handler does its round of checking all RX and TX
+> >      rings for updates, it re-enables all interrupts in RBaIER and
+> >      TBaIER that were previously disabled by the hardirq handler, and
+> >      exits.
+> >
+> > Because the TX ring with the short frame is skipped at step II (TBCIR
+> > wasn't updated as part of HW malfunction), its pending IRQ is not
+> > cleared in TBaIDR by enetc_clean_tx_ring().
+> >
+> > But because enetc_msix() disables TBaIER at step I and re-enables it at
+> > step III, another MSI will be fired upon re-enabling it. This is what
+> > completes the cycle and the driver goes back to step I.
+> >
+> > So the driver misinterprets the mixed signals it's getting from the
+> > hardware, and ends up causing a software-amplified IRQ storm.
+> >
+> > Fixes: d4fd0404c1c9 ("enetc: Introduce basic PF and VF ENETC ethernet drivers")
+> > Reported-by: Zefir Kurtisi <zefir.kurtisi@westermo.com>
+> > Closes: https://lore.kernel.org/netdev/b3d9136c-2803-4203-b1ea-1f9e62de80a1@gmail.com/
+> > Tested-by: Zefir Kurtisi <zefir.kurtisi@westermo.com>
+> > Reviewed-by: Wei Fang <wei.fang@nxp.com>
+> > Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+> > ---
+> > v1->v3: none
+> > ---
+> >  drivers/net/ethernet/freescale/enetc/enetc.c | 13 +++++++++++++
+> >  drivers/net/ethernet/freescale/enetc/enetc.h |  2 ++
+> >  2 files changed, 15 insertions(+)
+> >
+> > diff --git a/drivers/net/ethernet/freescale/enetc/enetc.c b/drivers/net/ethernet/freescale/enetc/enetc.c
+> > index 0216f7d08e19..bbad942041f5 100644
+> > --- a/drivers/net/ethernet/freescale/enetc/enetc.c
+> > +++ b/drivers/net/ethernet/freescale/enetc/enetc.c
+> > @@ -1077,6 +1077,19 @@ netdev_tx_t enetc_xmit(struct sk_buff *skb, struct net_device *ndev)
+> >       u8 udp, msgtype, twostep;
+> >       u16 offset1, offset2;
+> >
+> > +     /* Hardware does not support transmit buffer descriptors with a total
+> > +      * length of less than 16 bytes, or a first buffer size of less than
+> > +      * 16 bytes.
+> > +      */
+> > +     if (unlikely(skb_headlen(skb) < ENETC_MIN_BUFF_SIZE &&
+> > +                  skb_linearize(skb))) {
+> 
+> Isn't it only necessary to pull a few bytes into the linear region?
 
-It disables preemption. :)
+It looks like pskb_may_pull() is an adequate improvement over
+skb_linearize(), so I'll use that, thanks.
 
-The difference is that *spinlocks* (by virtue of becoming sleeping
-locks) do not disable it, but the low-level primitives preempt_disable
-and get_cpu do not change their behavior.
+> > +             dev_kfree_skb_any(skb);
+> > +             return NETDEV_TX_OK;
+> > +     }
+> > +
+> > +     if (eth_skb_pad(skb))
+> > +             return NETDEV_TX_OK;
+> 
+> That could be inside the (skb_headlen(skb) < ENETC_MIN_BUFF_SIZE) test.
 
-Older PREEMPT_RT patches had get_cpu_light() which did
-migrate_disable() instead of preempt_disable(), but then
-migrate_disable() was deprecated.
-
-Paolo
-
+There was an undocumented reason why it's done unconditionally for any
+packet < ETH_ZLEN and not just < ENETC_MIN_BUFF_SIZE. It is to avoid a
+separate potential erratum. I'll make sure to mention that in the commit
+message.
