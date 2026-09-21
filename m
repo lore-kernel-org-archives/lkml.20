@@ -1,50 +1,50 @@
 Received: from mail-wm2-f9.google.com (mail-wm2-f9.google.com [74.125.225.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 223BD495028
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:57:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68CF14ABBCE
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:57:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002652; cv=none; b=SY9HP8Agx1W7FjeYAtS+lNhyt/aDsnjJhQaGK31yRZ51wpk9TITm6t5DIT33EeG2nxmopBRWGLahWccQdQEv+lmYOEItKLjAcggeeaqbrbJ/48y2g8czcxwnBwht8liLTWSCeN3Q2D+WOaa3oPCLGdeaJC2mDDPBZ5tDV85kAUo=
+	t=1790002650; cv=none; b=T/bM/CiTAELjUdpGJUuoTge6VWvmbRSk3jFvNjOlbqXKs85KjygmlIoZ5OomhAJ+QyHJE4M+yTJIYMxIY3GW2ux0NpjDfN/Cai6qS55zjrOpewX8PGvGYBDRbInLgvivfg9qgMlOckUt67SvvZ06K+vksEAGtWdq1VyXkHdNya4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002652; c=relaxed/simple;
-	bh=agbzHpR/PKZ0LLlY2lgVEH4d4x1op12XsKxqX/dfCv8=;
+	s=arc-20240116; t=1790002650; c=relaxed/simple;
+	bh=TzIqUe2bPr+rCrYGN26hULTVXKps5YUGqZ1r3naQPKI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q/x8sdykRSf12Azuy15Kk4srCbmPiSQOsgEmcnruXct9a9HJpXL9AsRDTU98AWBtWxlv2JFe+z0342VjIZwSU8pYHR/VqKpnls54B3yFlWN46LQZW8R0mH3/FEq3xmHFB/96LeaHiJgb0ffXGkva/Et3y9MowAx1n2vU4GxrRmA=
+	 MIME-Version; b=hSZyZtJptTpVzVN315JrXj1sUsKoSSR3qG6eR0X7++YmoNYwGlwOxjWw7bezEzjk8kL8iGX9eKxm8D7j8fNxnSt0QYUmwIKIHplFBAJTmj1g0SV2I3L7MnZdMzWMGhB6ZdqbqMgVaFn9Bt9+gwVe2OKovAJTYP0M6FpjZTJdsrE=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.137
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm2-f9.google.com with SMTP id 5b1f17b1804b1-49e6bd65693so20717145e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:57:28 -0700 (PDT)
+Received: by mail-wm2-f9.google.com with SMTP id 5b1f17b1804b1-49e6eb11e9cso14239985e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:57:24 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790002645; x=1790607445;
+        d=1e100.net; s=20260707; t=1790002640; x=1790607440;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0GaJZ+uFEU0tQWZqiav7JnKznavtITsSwryC+6XFRoE=;
-        b=A8w7zBRLHFuF0FdTamNi0jszJK4zhNEZrLRc2ttiXOGmcqxoKwt/7eBWQh14ZFa9K8
-         J+RpIJl+HneyApGHaRpQxMHW/XymVo3z5ZFuN88fp+VFw1DSgvKIou1u8GpUnQJIhZ0e
-         PlJaEXOkM1cINsGxs+Upm+1Y4oOVQaQ/PsSlgvFqk25VH26sJ1+MZiiWuEQhFS9O+Mf2
-         xmX6MlrJuAwa7Pne8XRXwHpoUAydSLDSi/LvkjxCewLzNfz6psPydWxbszeg9l5KTxan
-         5bo9XWVVjRbmNk/RUePMmmytWGukmJVKQjx4/Snw2OgWXVrJKio2x1bOQfxUlK1VIyLF
-         q8lQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxOHm+2ndr0BZanMKILT/QZeR/UCfT0p4lZpWnG3+Ly4hKj1tpI2p40BTvAPRJwYpGSIVafYhNOMFKQzeM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKkb8fdfQPlNUZeEWAuGP4+2CI9Hlk4HwCNrLDOfoTZWozic3h
-	b2J8EqV4tf8/0h996WlvNB/Mx87Kl9MsAT5ilh/enIh2C38JVfOq3pkn
-X-Gm-Gg: AYBFou0i3Ar1OXnYjcgJGepy2da/J7JpuOyL9fccuXZ9yPmaEdZphemZyxrv0jHgYkE
-	c+LJDAsyjLdF75S/YeAry0BDwt+3gozpIJdFaRjCBtkjc/QblMKQ3Ovkcb2JJxYcUR+bNVl+67D
-	To3PsIjmnMDszPJqE/ANy7+RAf90Z/vDHUss1jAcMusKUvV7H2w2jLR9BOxH9GVI4eNzMevemsZ
-	AVaRj7ymxbiwfZdnghQO3U93xYouHC7TYqXH1scUQ8rrzz47B/vSM/l1qQOayrSg/+Q+OJ/u1QA
-	e+ZMo3qWAntfBbjlJrnRNlzNEPDfxtV5nPmrmJ1SeBNqDnafHmlchYF5V3PN9dMrRVfgt15bTNe
-	TElApN4nZ5AWmlwfw/fdTuNXllxQAwYiFG4myCbsCZnMWePWTy2DOk9S1X9A8nomkUOEHaT9e9w
-	9ojzwkshlrZiZ7I3hS5+pUdULawcAAZ0b65osk/lIh/9ztVTL8lrdKvQoGJBMeRkTShfY//9RWL
-	dsliEnYvUwhj92haJzHxlPt3ihGN4M55qj+wH19lXQ3XiOuIDgHHcLljr4YojQ=
-X-Received: by 2002:a05:600c:530e:b0:49c:cfbe:5a76 with SMTP id 5b1f17b1804b1-49fc568157amr140231615e9.2.1790002645153;
-        Mon, 21 Sep 2026 07:57:25 -0700 (PDT)
+        bh=r/iG3o43oIJZJaCYcUSYeC2n62gq4cdWVmWrUdZeO8U=;
+        b=cFSakplkjI6i1P+HEGhcVypBZvG/TUDi6lp9SKiYolvtL0wdQiqSvjAIKTKuV3/hbn
+         PjXLfvyJUJ+gROinRsoKf13caxVN8mo2QRnvhQtb7IbM1+w5SxBWfvkkNGhProk9fATG
+         A1Pd3+IACaxeXIPlU1yAKlXyZ+Ehc7+Ul6K/282M+s56Udq5Eu3PXsKsNtZH85c7X6bp
+         QWe0+1e/Iv7h3dRzTMC2SYb6Vl083YRu8lJRCSs33k3YDoDKAgirKKefRbLGD4xrOitU
+         U/gG54bKmGNAnE3SPknRE9zvLxihmwyfZ0hyPiT424ctIh2SNAAIiwA/Ngnx1sNNflXe
+         pKIg==
+X-Forwarded-Encrypted: i=1; AKwUvBwuXtd2vRJ2d0Yj1FJe4TW6H6GyLw5/HaY8n9rAFjsZqzxVzBlE/hym4wXJC2RZNsCKIVj/rDMMW5z+zyk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nOm1LaQxHRmx/XDxNzVTCKwgLcv11UxcLg7qumBwQq/MfOrkYO
+	xhymUSPSesOW9Y8zHXsquAM5HY+OwHLUMoqoR8OcApQ04+YE65J5IaCL
+X-Gm-Gg: AYBFou0VJneFFjKvq4RvJzw9Geh9zYsqU2i85OnzcLhwFoZE8tnsBdlGQ+cKgLs7jW8
+	ZivdE7bmDoi8yFRvM+z0aY58oqhCkQKiTHfcV6SLiJB+K6PtvuKz8yWh/TN+LgRCHu8sNebdwRB
+	l3NJlAikmvvt2WmSw4p59cYbF5sIEDjQd+8tn+YpCV/BT21QuA0PI/mA4ZaxkMFgRFkxYDUQpV1
+	bZSSoGOnwkGE1i61WEJveQAOsvV7gNrdMSz+QiGynm5vp05fiKJxfKx7wg3TcN56ZMhGr7Yr0GP
+	IS1SZo/bzgnMr5OicKikpu1Egb9Q9B9IOt8umvdocg4VPZ4MZMbokepELYriGbUuMeYHyeUuEfP
+	ZhJKD8QihjC8gbgwcvVhp5uaYQJBr9BpQoL0T724H2zJYkUyh8NlJJpkoOekex56lyc9jM2bBXq
+	w2Qq6cyGzl0olCENwO5OIVZdUNYJD/hro/LEoQgzJj1bzO9Bbj+UHpTKZAVqyw5LuUGF8KMp/Wj
+	pIfdnVwCqgvaPPX/FZ/AXUvqrfdhv77PR/vf1nkt1VXFlFTrmvIV0BFETvxovA=
+X-Received: by 2002:a05:600c:4e86:b0:499:8b13:3a98 with SMTP id 5b1f17b1804b1-49fc56715d6mr143236515e9.4.1790002639706;
+        Mon, 21 Sep 2026 07:57:19 -0700 (PDT)
 Received: from im-t490s.redhat.corp (78-80-107-225.customers.tmcz.cz. [78.80.107.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0eabfcsm243153905e9.3.2026.09.21.07.57.23
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0eabfcsm243153905e9.3.2026.09.21.07.57.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 07:57:24 -0700 (PDT)
+        Mon, 21 Sep 2026 07:57:19 -0700 (PDT)
 From: Ilya Maximets <i.maximets@ovn.org>
 To: netdev@vger.kernel.org
 Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
@@ -66,10 +66,11 @@ Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
 	linux-kernel@vger.kernel.org,
 	dev@openvswitch.org,
 	Ilya Maximets <i.maximets@ovn.org>,
-	stable@vger.kernel.org
-Subject: [PATCH net 5/6] net/sched: act_ct: remove 'add_helper' dead code
-Date: Mon, 21 Sep 2026 16:55:47 +0200
-Message-ID: <20260921145655.3167436-6-i.maximets@ovn.org>
+	stable@vger.kernel.org,
+	Axel Mierczuk <axel.mierczuk@1password.com>
+Subject: [PATCH net 3/6] net: openvswitch: conntrack: fix helper UAF due to extensions realloc
+Date: Mon, 21 Sep 2026 16:55:45 +0200
+Message-ID: <20260921145655.3167436-4-i.maximets@ovn.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260921145655.3167436-1-i.maximets@ovn.org>
 References: <20260921145655.3167436-1-i.maximets@ovn.org>
@@ -81,46 +82,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This variable can only become 'true' when the connection is not
-confirmed, but it is only checked when it is confirmed.  So, it can be
-treated as being always false and just removed.
+While calling the helpers, a raw pointer to the extensions area is
+wired into expectations list:
 
-Fixes: a21b06e73191 ("net: sched: add helper support in act_ct")
+  -> nf_ct_helper()
+   -> helper->help()
+    -> nf_ct_expect_related_report()
+     -> nf_ct_expect_insert()
+      -> hlist_add_head_rcu(&exp->lnode, &master_help->expectations)
+
+In case the connection is not confirmed yet, more extensions can be
+added afterwards with *_ext_add() calls reallocating the extension
+space and leaving the now invalid pointer in the expectations list
+that is later accessed while removing the expectation.
+
+Make sure that helpers are called at the end after all the other
+extensions are already added.
+
+Note that the helper rejection now leaves the mark and labels set,
+but that's not different from how the NAT was handled before or how
+the mark and the labels were handled on confirmation failure.  And
+there are no atomicity guarantees provided by the API anyway.
+
+Fixes: cae3a2627520 ("openvswitch: Allow attaching helpers to ct action")
 Cc: stable@vger.kernel.org
+Reported-by: Axel Mierczuk <axel.mierczuk@1password.com>
 Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
 ---
- net/sched/act_ct.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ net/openvswitch/conntrack.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
-diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
-index e72143d36b119..f62051ec9d57d 100644
---- a/net/sched/act_ct.c
-+++ b/net/sched/act_ct.c
-@@ -986,7 +986,6 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
- 	struct nf_hook_state state;
- 	int nh_ofs, err, retval;
- 	struct tcf_ct_params *p;
--	bool add_helper = false;
- 	bool skb_is_ours = false;
- 	bool skip_add = false;
- 	bool defrag = false;
-@@ -1096,14 +1095,14 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
- 		err = __nf_ct_try_assign_helper(ct, p->tmpl, GFP_ATOMIC);
- 		if (err)
- 			goto drop;
--		add_helper = true;
-+
- 		if (nat && !nfct_seqadj(ct)) {
- 			if (!nfct_seqadj_ext_add(ct))
- 				goto drop;
+diff --git a/net/openvswitch/conntrack.c b/net/openvswitch/conntrack.c
+index c20f096eef40e..d3326edcabf76 100644
+--- a/net/openvswitch/conntrack.c
++++ b/net/openvswitch/conntrack.c
+@@ -817,11 +817,14 @@ static int __ovs_ct_lookup(struct net *net, struct sw_flow_key *key,
+ 			}
  		}
- 	}
  
--	if (nf_ct_is_confirmed(ct) ? ((!cached && !skip_add) || add_helper) : commit) {
-+	if (nf_ct_is_confirmed(ct) ? (!cached && !skip_add) : commit) {
- 		err = nf_ct_helper(skb, ct, ctinfo, family);
- 		if (err != NF_ACCEPT)
- 			goto nf_error;
+-		/* Call the helper only if:
+-		 * - nf_conntrack_in() was executed above ("!cached"), or
+-		 * - When committing an unconfirmed connection.
++		/* Call the helper only if nf_conntrack_in() was executed
++		 * above ("!cached").
++		 *
++		 * For unconfirmed connections it will be called later during
++		 * commit as we need to have all the other extensions allocated
++		 * before the call.
+ 		 */
+-		if ((nf_ct_is_confirmed(ct) ? !cached : info->commit)) {
++		if (nf_ct_is_confirmed(ct) && !cached) {
+ 			int err = nf_ct_helper(skb, ct, ctinfo, info->family);
+ 
+ 			err = verdict_to_errno(err);
+@@ -1025,6 +1028,14 @@ static int ovs_ct_commit(struct net *net, struct sw_flow_key *key,
+ 			return err;
+ 
+ 		nf_conn_act_ct_ext_add(skb, ct, ctinfo);
++
++		/* Call the helpers now.  We couldn't do this before as
++		 * all the extensions must be allocated before the call.
++		 */
++		err = nf_ct_helper(skb, ct, ctinfo, info->family);
++		err = verdict_to_errno(err);
++		if (err)
++			return err;
+ 	} else if (IS_ENABLED(CONFIG_NF_CONNTRACK_LABELS) &&
+ 		   labels_nonzero(&info->labels.mask)) {
+ 		err = ovs_ct_set_labels(ct, key, &info->labels.value,
 -- 
 2.55.0
 
