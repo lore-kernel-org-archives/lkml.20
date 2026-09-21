@@ -1,97 +1,130 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB16F38F62F
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:21:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2286A32B99F
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:22:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789978895; cv=none; b=ZR8w09Pu6Mohwe6lj5Lp+nQBS5xwn50Qz9P8RNdeAtRj6twXUfVhAC6q0Ldx1rGRkKQn8fAZis0QU69v1HJS0ChphTAtx6kfi8KmuxlKRXMK0oFxbeq1tuVrxBFb2ZOiliyZt1P+POMlgkXhqbZcI7WDe2LA8FzTDMnIsfXOYjA=
+	t=1789978940; cv=none; b=cwzopI8OdGgpRemHSZNEJYYqZ+Vui6XBZhW+qc1JvoGO5HPgoWXy8xPK6eB9c7cXdVpkANRywTZYBauYKpOTSnvakEiODLwMGGP5ofIGoMVGWjAlGl5BHhaBkwBfygDlgkXKlSOvDdlP64eVAB8Ok+B97yfvZSofdwE7h/4h9lA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789978895; c=relaxed/simple;
-	bh=kYpH0mw43j9vzAS3E4O0iTdYMYnhnDs69zNgVXlnPWw=;
-	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=AJ2C0rg/biyvXrgQJ3eU3EV9mZM49dmuHvchl8g9szPJ5+5y0So3Uy3KPgp9QVGoTlkPozCPrEnu8qXa8CfKQn2tejUGgBPvi7Ate7PDcDR0rBiPizSS/5SHPGEzTL92ptUmQ1FZBPvOFHMUeuroyfC98mUUKHHHZ418W0C6Mg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=QCbHQvhL; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789978940; c=relaxed/simple;
+	bh=SMcDrXDqlMLMSWItZhzONWpiQQwJGuLMdSYPsacLrYQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LuAl9+ZGYz3p8O1M+zfw8FRgv/So3KDM2xMbM88ULIpQ64BekAEil/AeSKvpfeF2t+I+rZvHj47UHTBDhkpQDIIRXd/hiAyI/DgBPLaXRftGG91bBCIiypNcyNCbA4ToUZT3dTIvNHquSHnTE9JBltHFZ1TRtibOL5RLdC92t7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RoJoQddb; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="QCbHQvhL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=kYpH0mw43j9vzAS3E4O0iTdYMYnhnDs69zNgVXlnPWw=; b=Q
-	CbHQvhL1la32aid/bFeytrfOea8yT+hoG6TavLVRIa1Xevl5+MasuHJjz57yfgpA
-	+nR+WRHmtddbi5K7M/l3GulTbrNcsSCbjL6iPG2wij1Nj/cWnzLRISx0b3mtEUnL
-	EkCHk1kUKlMdyE+LLYlGkSuzwTgKFs0CgmrjtVVxYs=
-Date: Mon, 21 Sep 2026 16:21:08 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: lgirdwood@gmail.com, broonie@kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [BUG] regulator: fixed: KASAN slab-out-of-bounds in
- reg_fixed_voltage_probe
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2TC/Wct0At7iGfZekdmEsTju82UcS4ufQl245Xc/sEuADE1wYGfV5FGUX59tmTLwSKmzOZcTJQ8uBIdIhWjSwgQbR73d/vphzmPqyULg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RoJoQddb"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8686f46e4adso2260855b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:22:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789978938; x=1790583738; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oroj33Lk2vXbfhyXWgQGSCksQ6cUFJmkYowA5JxOAlU=;
+        b=RoJoQddb4uchlqXHykM7A5DA0hHgsTQxd6w3ppr/vHUbNXoFw6RvEFmU0xDeDW28wB
+         R0+7U/fNHLOeWkyEtHKArLnGGGD6TJ3Tu/7O673l97T3gbpCM9aYp/TqUA56qHb9zoWH
+         8mHTJFHqhsTgf84LMxdaZR5vFEW+Y+a5GGMufMx+/130kZ2JO8ASA3SV0+1FhbnWrVcT
+         Yf/fs+zlxwPQNDKqveOLoz3urLEpj5LyUkQX3PIF6YDhNDsMlLegNhNhJtHDi563cDPn
+         E3affXEMOWeUfNQBX/zfXJnoo/G2MdoevDdY89a0wzLy12rHaDOEIx6aC7s1lgWGd57S
+         VDKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789978938; x=1790583738;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oroj33Lk2vXbfhyXWgQGSCksQ6cUFJmkYowA5JxOAlU=;
+        b=VR7qMi5E+nEuOiozTynTidaqSO0Wu4dBzH4IHrVSI7A4zTK4HnPvJ9FdsgOvtkzM6G
+         8N/2tczjAymAO0Qtadcz3BqiV9bdKyWaS49NRd8PsKNiOi4fCchf7SMpfp6Xbv9YaiHl
+         rVKRAU1Txa2rNaIlhgZg0bPw5XhW20RnoQB5ALixidM87Hz35dMGeXGxHQ7G97/wyjOl
+         ifntp8PJOKzle/jbMwAAjV/smjEDrRI//XfctkvUTtBT1RzG6bpxoQSyoJN1w4+wUxKm
+         JckYxV3vNVBEV9O1AKri13OxfFXcOXVIcPaS4leUNz8Fddv7OaTArA2baNfHJvkUOBIl
+         H4sw==
+X-Forwarded-Encrypted: i=1; AKwUvBxp5qHp3XdnSwUYcd2W585w00orikAK8wAjLxs5vL6NPZlvjXVmYIEYcbtGWcQ44iOX/p2w0VPFuvToHnw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZNs/SGDdfL2Y5W4XzYepA/SgxdqNH5qCDLKnG8LaasZK9X6mL
+	T1xIRInLXfuX+pPukReIM/k0OfhuTPGbk2v3pAUeu9m95k+jGsHBPDty
+X-Gm-Gg: AYBFou0VK6Pbj4tDQ3g1FSKYWKcofYd7HD1FM4NB/BWosc7X7x+aV3SC2IBAqv+qhQr
+	gFiN0V//o8upT+gMVRMoNtwtor1OdZNmea70mk/7Has4KCCSDqmHUGj5nxB7anky9fXMCMe1S49
+	4yZrEP5RAVlbRqWRXGb3GHR2JH/tA03HZHCv9kALayayZ0Afjxyt+wXDzfz2E+0cbHz1IbyHoo0
+	z5y+sAHf/H4PWapBxUBxxni0d+9QzCqJXlEVpLCgB3qw03FwabEmC78NusvBAzNze9xmgla+FDQ
+	MoGxRsxq1dWqV7rCtvmD0zfHM+Y608StyfF1fil1p4aEo7ujh5f+sjh6uI/FURVEUP88RJONWy7
+	LusBvfc4Q24uQHMHX1+18KxWnJ+D5XIeme+0OP7aR3Ts5plFcpraVnf51OWbDJ0hSAKv9jm9tRN
+	Ah+HZDMxMmv3Lt60GzbgW0PoOWIcTFCzDtmEQn5a4SyqtTZzu7TEaUPm1QPpqefky2vw==
+X-Received: by 2002:a05:6a00:893:b0:871:9e1b:8a75 with SMTP id d2e1a72fcca58-874dd7f8ab2mr13461980b3a.20.1789978938500;
+        Mon, 21 Sep 2026 01:22:18 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877aa104197sm2861748b3a.45.2026.09.21.01.22.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 01:22:18 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Thierry Reding <thierry.reding@kernel.org>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Dmitry Osipenko <digetx@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] gpu: host1x: fix runtime PM reference leak on remove
+Date: Mon, 21 Sep 2026 16:22:06 +0800
+Message-ID: <20260921082206.234421-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <6cb9ff3f.7b64.1a0c30df9d1.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:cSgvCgD3v1P16LBquzVLAA--.43790W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3hU+72qw6PW9SwAA3r
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGFuIGlzc3VlIHRyaWdnZXJlZCBieSBhIHN5emthbGxlciBy
-ZXByb2R1Y2VyIG9uIExpbnV4CjcuMy4wLXJjMi4gVGhlIGlzc3VlIGlzIHJlcHJvZHVjaWJsZSB3
-aXRoIEhFQUQgY29tbWl0CmRmMjkwODA5MGNkYTM2OGIwMWZmNDM3MDlmNTE4OTAwNzZjNTYxNTcu
-CgoKVGhlIHJlcHJvZHVjZXIgbW91bnRzIHN5c2ZzLCBvdmVycmlkZXMgdGhlIGRyaXZlciBvZiB0
-aGUgZXhpc3RpbmcKZHVtbXlfdWRjLjAgcGxhdGZvcm0gZGV2aWNlIHdpdGggcmVnLWZpeGVkLXZv
-bHRhZ2UsIHVuYmluZHMgdGhhdCBkZXZpY2UgZnJvbQppdHMgb3JpZ2luYWwgZHJpdmVyLCBhbmQg
-dGhlbiB3cml0ZXMgdGhlIGRldmljZSBuYW1lIGludG8gdGhlCnJlZy1maXhlZC12b2x0YWdlIGJp
-bmQgYXR0cmlidXRlLiBUaGF0IGJpbmRzIHRoZSBmaXhlZC12b2x0YWdlIHJlZ3VsYXRvcgpkcml2
-ZXIgdG8gYSBwbGF0Zm9ybSBkZXZpY2UgdGhhdCB3YXMgbmV2ZXIgaW5zdGFudGlhdGVkIGZvciBp
-dC4KCgpyZWdfZml4ZWRfdm9sdGFnZV9wcm9iZSgpIHRoZW4gcmVhZHMgdGhlIHBsYXRmb3JtIGRh
-dGEgb2YgdGhhdCBkZXZpY2UgYXMgaWYKaXQgd2VyZSBhIHJlZ3VsYXRvciBkZXNjcmlwdGlvbi4g
-S0FTQU4gcmVwb3J0cyBhIDQtYnl0ZSBvdXQtb2YtYm91bmRzIHJlYWQKaW4gcmVnX2ZpeGVkX3Zv
-bHRhZ2VfcHJvYmUoKSBpdHNlbGYsIHJlYWNoZWQgdGhyb3VnaCBiaW5kX3N0b3JlKCkgLT4KZGV2
-aWNlX2RyaXZlcl9hdHRhY2goKSAtPiBfX2RyaXZlcl9wcm9iZV9kZXZpY2UoKSAtPiByZWFsbHlf
-cHJvYmUoKSAtPgpwbGF0Zm9ybV9wcm9iZSgpLiBUaGUgcmVhZCBoYXBwZW5zIGluIHRoZSB0YXNr
-IHRoYXQgcGVyZm9ybWVkIHRoZSBzeXNmcwp3cml0ZS4KCgpUaGlzIGxvb2tzIGxpa2UgdGhlIHBy
-b2JlIHBhdGggdHJ1c3RpbmcgcGxhdGZvcm1fZGF0YSB0aGF0IGJlbG9uZ3MgdG8gYQpkaWZmZXJl
-bnQgZGV2aWNlLiBUaGUgZHJpdmVyIGRvZXMgbm90IHZlcmlmeSB0aGF0IHRoZSBwbGF0Zm9ybSBk
-ZXZpY2UgaXQgaXMKYm91bmQgdG8gYWN0dWFsbHkgY2FycmllcyByZWd1bGF0b3IgZGF0YSwgc28g
-dGhlIGZpZWxkcyBpdCByZWFkcyBjb21lIGZyb20Kd2hhdGV2ZXIgYWxsb2NhdGlvbiB0aGUgb3Jp
-Z2luYWwgZGV2aWNlIGhhZC4gQSBsZW5ndGggb3IgdHlwZSBjaGVjayBvbiB0aGUKcGxhdGZvcm0g
-ZGF0YSwgb3IgcmVmdXNpbmcgdG8gcHJvYmUgYSBkZXZpY2UgdGhhdCB3YXMgbm90IGNyZWF0ZWQg
-Zm9yIHRoaXMKZHJpdmVyLCB3b3VsZCBiZSB0aGUgbmF0dXJhbCBndWFyZC4gSSBoYXZlIG5vdCBj
-b25maXJtZWQgd2hpY2ggcmVhZCBvZiB0aGUKcHJvYmUgaXMgdGhlIGZpcnN0IHRvIGdvIHBhc3Qg
-dGhlIGFsbG9jYXRpb24gYm91bmRhcnkuCgoKVGhpcyBmYWlsdXJlIHdhcyByZXBvcnRlZCBlYXJs
-aWVyIGFnYWluc3QgdGhlIGxpbnV4LTYuMSBsb25ndGVybSBzZXJpZXMgYXQKaHR0cHM6Ly9zeXpr
-YWxsZXIuYXBwc3BvdC5jb20vYnVnP2V4dGlkPTA2MmVlNzIzMzEwZDIzNDk2ZjliLCBhbmQgdGhl
-CnJlcHJvZHVjZXIgYmVsb3cgaXMgdGhlIG9uZSBmcm9tIHRoYXQgcmVwb3J0LiBJdCBzdGlsbCBy
-ZXByb2R1Y2VzIG9uIHRoZQp0ZXN0ZWQgbWFpbmxpbmUga2VybmVsLgoKClJlcHJvZHVjZXI6CgoK
-c3l6IHJlcHJvZHVjZXI6ClRoZSByZXByb2R1Y2VyIGlzIHRoZSBwcm9ncmFtIGJlbG93LCB3aGlj
-aCByZXF1aXJlcyBubyBsYXJnZSBlbmNvZGVkIGltYWdlOgoKCm1rZGlyYXQoMHhmZmZmZmZmZmZm
-ZmZmZjljLCAmKDB4N2YwMDAwMDAwMDAwKT0nLi9zeXNceDAwJywgMHgxZmYpCm1vdW50KDB4MCwg
-JigweDdmMDAwMDAwMDAwMCk9Jy4vc3lzXHgwMCcsICYoMHg3ZjAwMDAwMDAxMDApPSdzeXNmc1x4
-MDAnLCAweDAsIDB4MCkKcjAgPSBvcGVuYXQoMHhmZmZmZmZmZmZmZmZmZjljLCAmKDB4N2YwMDAw
-MDAwMjAwKT0nLi9zeXMvYnVzL3BsYXRmb3JtL2RldmljZXMvZHVtbXlfdWRjLjAvZHJpdmVyX292
-ZXJyaWRlXHgwMCcsIDB4MSwgMHgwKQp3cml0ZShyMCwgJigweDdmMDAwMDAwMDMwMCk9J3JlZy1m
-aXhlZC12b2x0YWdlXHgwMCcsIDB4MTIpCnIxID0gb3BlbmF0KDB4ZmZmZmZmZmZmZmZmZmY5Yywg
-JigweDdmMDAwMDAwMDQwMCk9Jy4vc3lzL2J1cy9wbGF0Zm9ybS9kcml2ZXJzL2R1bW15X3VkYy91
-bmJpbmRceDAwJywgMHgxLCAweDApCndyaXRlKHIxLCAmKDB4N2YwMDAwMDAwNTAwKT0nZHVtbXlf
-dWRjLjBceDAwJywgMHhiKQpyMiA9IG9wZW5hdCgweGZmZmZmZmZmZmZmZmZmOWMsICYoMHg3ZjAw
-MDAwMDA2MDApPScuL3N5cy9idXMvcGxhdGZvcm0vZHJpdmVycy9yZWctZml4ZWQtdm9sdGFnZS9i
-aW5kXHgwMCcsIDB4MSwgMHgwKQp3cml0ZShyMiwgJigweDdmMDAwMDAwMDcwMCk9J2R1bW15X3Vk
-Yy4wXHgwMCcsIDB4YikKCgpjb25zb2xlIG91dHB1dDrCoGh0dHBzOi8vcGFzdGViaW4uY29tL3Jh
-dy80QzJkUGowVAprZXJuZWwgY29uZmlnOiBodHRwczovL3N5emthbGxlci5hcHBzcG90LmNvbS90
-ZXh0P3RhZz1LZXJuZWxDb25maWcmeD0zMWRmZWZjNGExNGVmZWEzCgoKS2VybmVsOgoKCkhFQUQg
-Y29tbWl0OiBkZjI5MDgwOTBjZGEzNjhiMDFmZjQzNzA5ZjUxODkwMDc2YzU2MTU3CmdpdCB0cmVl
-OiBtYWlubGluZQprZXJuZWwgdmVyc2lvbjogNy4zLjAtcmMyCnRlc3RlZCB0YWc6IHY3LjMtcmMy
-IChhbm5vdGF0ZWQgdGFnIG9iamVjdCA1ZTAzNmNlMTJkZTkxYzZmZDY3NGRhZDMzYjE2OWM2MTUw
-YmUyYTdhKQoKCkxldCBtZSBrbm93IGlmIHlvdSBuZWVkIG1vcmUgZGV0YWlscyBvciB0ZXN0aW5n
-LgoKCkJlc3QgcmVnYXJkcywKQ2hhbmdqaWFuIExpdQ==
+host1x_probe() calls pm_runtime_resume_and_get() and intentionally keeps
+the runtime PM usage reference for the lifetime of the driver because
+host1x is not yet ready for dynamic runtime PM.
+
+The probe error path drops this reference with
+pm_runtime_put_sync_suspend(), but the remove path only calls
+pm_runtime_force_suspend().
+
+pm_runtime_force_suspend() disables runtime PM and invokes the runtime
+suspend callback when necessary, but it does not decrement the runtime
+PM usage counter. As a result, the reference acquired by
+pm_runtime_resume_and_get() remains held after the driver is unbound.
+Repeated bind and unbind cycles can therefore leave the runtime PM
+usage counter increasingly unbalanced.
+
+Drop the usage reference with pm_runtime_put_sync_suspend() before
+forcing the device into suspend during removal.
+
+This issue was found by manual code inspection.
+
+Fixes: 6b6776e2ab8a ("gpu: host1x: Add initial runtime PM and OPP support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+v2:
+  - Replace pm_runtime_force_suspend() with pm_runtime_disable() after
+    dropping the runtime PM usage reference, as suggested by Mikko Perttunen.
+
+ drivers/gpu/host1x/dev.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/host1x/dev.c b/drivers/gpu/host1x/dev.c
+index d2c64728f804..123143b2836b 100644
+--- a/drivers/gpu/host1x/dev.c
++++ b/drivers/gpu/host1x/dev.c
+@@ -729,7 +729,8 @@ static void host1x_remove(struct platform_device *pdev)
+ 	host1x_unregister(host);
+ 	host1x_debug_deinit(host);
+ 
+-	pm_runtime_force_suspend(&pdev->dev);
++	pm_runtime_put_sync_suspend(&pdev->dev);
++	pm_runtime_disable(&pdev->dev);
+ 
+ 	host1x_intr_deinit(host);
+ 	host1x_syncpt_deinit(host);
+-- 
+2.43.0
+
