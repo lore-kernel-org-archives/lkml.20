@@ -1,452 +1,173 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F81D51A12F
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:11:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDB44E020E;
+	Mon, 21 Sep 2026 22:14:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790028714; cv=none; b=hvWYR5lgfJ3tEZalDY/Xeer8+h1PSZyJfxkC5NFqJK6DWDbsbAeHskfHDSVPszaSkN/qwiaYCPoHdji8Bq/bQvoShKGJpJcVVgWuzqXl4Nz3rKucEYnSMHDdydigkUghp6fLYnXJzjYY2sIl7BS7exsBOJR7jfzJ7G4dYZejI4c=
+	t=1790028892; cv=none; b=bDPD7nws1wsUznbSkAv8EfRej6ihQ5TW32gESW9dTyfY+p9UIsg8c5mF1gMv81d/J8YJwfWwhMUFdBqhwiOeW/zWiLAAKz2kKFdRksLmMUruWei3ndlmcKPfG+IE0clVeuKN1TLUanVrRtnYyoaNgJFTp8v+pst1S+fTenhR/2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790028714; c=relaxed/simple;
-	bh=q0b06H+N0ITPh2NinCByKwKWrM2C2VKLzILYbz5IuNs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xy9lqU89BOqn0/lVSzXXWg6wiWeEESgl97zoE5hRMtb4g6/xk0EVRc6Pe14j75qh4WEBdEcDdrGFxqfjs3+kTZPpSUP2DQaYw32sI8hbfBI9pZgbEICkpnv6gOmiytuMWeojhd2EXGbztkg0bmt+tn+9B9RrvwEp4VJL74dKxYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Yhdfh/nr; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=O2NKIQeI; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790028892; c=relaxed/simple;
+	bh=iWSVobGmyww2Uyy12C8qu+uuk49zSpwTgV4nyoZ4I/k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aIHYSfJ/joU8Q1E4uenvZdks9E8MqqPrx/AnSnEtmisGwAa0OveZ/6ssTOoSbbNDT6p3USqrOmtOtRPxYHHe70Zp6fsPdap62Qcyn50/4bGpnqjW94Y5IiFeyzjmPEaRcvPhj9hLxyfdZU6U61Mv+/lFkc+ns3F/xecvSa3hz/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=T2qRDUMm; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Yhdfh/nr";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="O2NKIQeI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790028708;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AEt+ciqD7T2EQYKNoKayyfuhYvhsmv+e842rE5yabjs=;
-	b=Yhdfh/nr/iQ6yDBnbJI7fnoXv5OO7Ji2RpLamsaqlTvljhEUdqNxiD6g0Va7aMoAiLIYev
-	IBKysKPODTsTJN3xnZaheKZEfIS8BL3MHXyGcSoNM7kk+wR3QYRPSEFJj2CHn4ZPElDLFg
-	g+cCZmeB8fKiATpuXYxdXXD9PEfdhiU=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-196-F4Qdo0d1Oti0ZhdyjsMPHg-1; Mon, 21 Sep 2026 18:11:46 -0400
-X-MC-Unique: F4Qdo0d1Oti0ZhdyjsMPHg-1
-X-Mimecast-MFC-AGG-ID: F4Qdo0d1Oti0ZhdyjsMPHg_1790028706
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49e65f2f1baso39760795e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:11:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790028705; x=1790633505; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AEt+ciqD7T2EQYKNoKayyfuhYvhsmv+e842rE5yabjs=;
-        b=O2NKIQeI2xkarFxNJgA9sY+8oiRfNmyTSl0LuH3Sf7BnASx7ixjfyojUu7x1RTcQwf
-         +dMGXdpbcTZfb8SPfZ00Nsayis1XJK8dWTB+wKHQlXaMXddqyqG+CMmbaZ7J5w2ZFV8E
-         2gxYzokfX3wHYMH+HWasJOXbj17XChtYvXudv/vUOhnApgGSCcita9v1V0N1qNzRDDTL
-         y7vDBm4Fz0XJK7hzfJYbubdCf/uH+1GZtirwJdndBnynmyDwxrFHppmmKJBqDCE6Uudm
-         MtSDVgRpw7dzsco6nW3+tLo12ioSzQQkbzuVwOMp8BsiRXnzq+rzQI6zwF00uPOVofCM
-         djew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790028705; x=1790633505;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AEt+ciqD7T2EQYKNoKayyfuhYvhsmv+e842rE5yabjs=;
-        b=AGy0gw45MZvLTqbJMTHB074uT4I88JZluAXUb5hxeYdo+rqgJtwB7NjQTv61o1w96L
-         YyBQite/QyenC9Q9Gpi0U4xM5HNlioSMDTr/8fC/2X8+ECO0q3ARUe5z1TF8g9NaVdS1
-         MI2LvDkh25YjwMp/6JMROehqkl92umhHBKP9x5FY5nmeRX65u6yVzi13xNo2OFf5vmag
-         f/BlpjFP0Ewoji05nuXYSGNJ7A6vAGq1g6O1Q5M2IqfZbzrPh81JtfdwmVZdHFfCO1//
-         mqkOUlpCpwvW52jrQMdva1DCCBN7wjuMpG6K95NF5s5nfkV9MjAw2BP758LOpb2sos61
-         KwBg==
-X-Forwarded-Encrypted: i=1; AKwUvBz4cHkGY7pwk4E/8kYacsZr+1+C2OawhPz0WWb5fUkzWb7gY5iRSg4nj+cNn90FWMjvhM9+i4dAeJH9e98=@vger.kernel.org
-X-Gm-Message-State: AFuF++nY8hEUbKC9G7QRripRG5xcUV2hdox7bopvwkxc0r6yF6WBJCNZ
-	oIfFo2XEA6v/i0Z9D8oRt/XgB8hEVCq9HwOumtKdXT4d5BffHlJ3bYp9YARggZwBA3I+IConz89
-	WqJmJ7wu2mpmEg/1PXIhvBbLWzOL0qJlBSMkvZNf33ilFGFhSNXvs0m8d4pDiroJ2HA==
-X-Gm-Gg: AYBFou2Hpn3oGkOsmOZBhLJXRCuo4uBA0DQ30NmV/NRh4Ao8zAgdPLmFt4RxMOP7J5j
-	rvxcP6OVra96XU4wV5ECu+JMpg4Qo5AL/U+2CdmjYD8GlJNAdicMtwjvZ0f1y0cG/N3TIZEiqLE
-	JlcmgV8E0W+yMgyds/qtYnu/Xgi2c3mHAoBW1hpwsPt/TVVybEmCjGhR5yd764L8+rZceUhlhba
-	JSJmo2XzukE9pM3zwVJ1DgddcBzZXbvJ/dFcGNyUUnTIXKaekrhkdt+LX4Z9tLQ6xfjWgIxjOVJ
-	60GefVJZdhw3WUsfFjyIsJ2D3G35jA/sXimzJ61BdjZ9bxEQO9DD6oXBuBuabPE7DvixcCmZt0H
-	9B8AWxCL6F4koQzMD+ap4K7s=
-X-Received: by 2002:a05:600c:4f09:b0:493:aa0a:45ad with SMTP id 5b1f17b1804b1-49fc56692c6mr166467295e9.2.1790028705427;
-        Mon, 21 Sep 2026 15:11:45 -0700 (PDT)
-X-Received: by 2002:a05:600c:4f09:b0:493:aa0a:45ad with SMTP id 5b1f17b1804b1-49fc56692c6mr166467095e9.2.1790028704912;
-        Mon, 21 Sep 2026 15:11:44 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fda8f04f7sm2635925e9.0.2026.09.21.15.11.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 15:11:44 -0700 (PDT)
-Date: Mon, 21 Sep 2026 18:11:39 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Paulos Yibelo <habte.yibelo@gmail.com>
-Cc: netdev@vger.kernel.org, richard@nod.at, anton.ivanov@cambridgegreys.com,
-	johannes@sipsolutions.net, willemdebruijn.kernel@gmail.com,
-	jasowangio@gmail.com, eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com, andrew+netdev@lunn.ch,
-	pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, razor@blackwall.org,
-	idosch@nvidia.com, dsahern@kernel.org, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, linux-um@lists.infradead.org,
-	virtualization@lists.linux.dev, netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org, bridge@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v5 1/2] net: validate virtio checksum start after
- network header
-Message-ID: <20260921181115-mutt-send-email-mst@kernel.org>
-References: <20260920004733.6473-1-habte.yibelo@gmail.com>
- <20260921025341.44846-1-habte.yibelo@gmail.com>
- <20260921025341.44846-2-habte.yibelo@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="T2qRDUMm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790028890; x=1821564890;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=iWSVobGmyww2Uyy12C8qu+uuk49zSpwTgV4nyoZ4I/k=;
+  b=T2qRDUMmyVKJBUNb/s3p8QBd1uq9x3MIxLvEQzRSUUuW83JiuOuO1XQN
+   Mc8qIp8WaamtGT+oTeUOIUb1xa4uL0O1791IWgd0WxS7clZ4ssyzP6557
+   U28SUFa76jPQeQ7KwUGWVSAUOUO/73fK6V77p3i4hXjU+kVSNjkyLgTTw
+   Ty8KI+bhwXZbrGJiqhXBGv0Df0NORYZx9UKAuA5dpmxTQPxjtc6aL2no3
+   dFfUHExv+P+KI/1vcmOD7m4bNNu03ABwg/RpEy/O/2JFe13UwezNHeOGS
+   ypF3zeKNfJQkDwrN+ws5nNWdsFHKrSNUFTZdSVAVDKEJoR+uoOpkGENDa
+   g==;
+X-CSE-ConnectionGUID: nIVESCgeRrqGWlU333OHMg==
+X-CSE-MsgGUID: 3x6O7fD9RiuDIzAWcTYJvg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="89718478"
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="89718478"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 15:14:49 -0700
+X-CSE-ConnectionGUID: 260ZPTpMTsm5Ie0txO7RgQ==
+X-CSE-MsgGUID: heG+YXPPTl2C5FqK3rHAww==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="4163225"
+Received: from jjgreens-desk24.amr.corp.intel.com (HELO [10.125.109.249]) ([10.125.109.249])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 15:14:49 -0700
+Message-ID: <a4a562cf-f195-47fb-a402-e7bba06937ef@intel.com>
+Date: Mon, 21 Sep 2026 15:14:49 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921025341.44846-2-habte.yibelo@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/4] x86/tdx: Add helper to query maximum TD Quote size
+To: Peter Fang <peter.fang@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
+ linux-coco@lists.linux.dev, kvm@vger.kernel.org,
+ Xiaoyao Li <xiaoyao.li@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>,
+ Tony Lindgren <tony.lindgren@linux.intel.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Artem Bityutskiy <artem.bityutskiy@intel.com>
+References: <20260915092632.2822169-1-peter.fang@intel.com>
+ <20260915092632.2822169-2-peter.fang@intel.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20260915092632.2822169-2-peter.fang@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 20, 2026 at 10:53:40PM -0400, Paulos Yibelo wrote:
-> __virtio_net_hdr_to_skb() rejects a CHECKSUM_PARTIAL start smaller than
-> an estimated minimum network-header length. Its input offsets are relative
-> to skb->data.
-> 
-> Using skb_network_offset() here is unsafe. TUN/TAP, virtio-net, and UML
-> parse a received virtio header before skb->network_header is established.
-> On an skb with headroom, the resulting negative offset enlarges the
-> apparent distance to the transport header and can admit a checksum start
-> inside the network header.
-> 
-> Pass the data-relative L3 offset to the converter explicitly. IFF_TUN uses
-> zero, AF_PACKET supplies its established network offset, and Ethernet
-> receive paths parse Ethernet and nested VLAN headers with
-> skb_header_pointer(), without changing skb state. Use the same origin for
-> tunnel-offset validation, and make UML propagate conversion failures.
-> 
-> This does not require a virtual-machine guest. A TUN or TAP device with
-> virtio-net header support is sufficient to reach these paths.
-> 
-> Fixes: 49d14b54a527 ("net: test for not too small csum_start in virtio_net_hdr_to_skb()")
-> Fixes: a2fb4bc4e2a6 ("net: implement virtio helpers to handle UDP GSO tunneling.")
-> Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
-> Link: https://lore.kernel.org/netdev/20260920004733.6473-2-habte.yibelo@gmail.com/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Paulos Yibelo <habte.yibelo@gmail.com>
-
-
-v4 had assisted-by tag? same q for patch 2.
-
-> ---
-> Changes in v5:
-> - Replace the not-yet-established skb network-header offset with an
->   explicit data-relative L3 origin.
-> - Cover all in-tree callers, including Ethernet/VLAN receive paths,
->   tunnel metadata, and UML error propagation.
-> - Drop the prior Acked-by and Reviewed-by tags because the code changed.
-> 
-> Changes in v4:
-> - State that a TUN device is sufficient and no guest is required, as
->   noted by Michael S. Tsirkin.
-> 
-> Changes in v3:
-> - Keep the network-relative comparison on one line for readability, as
->   requested by David Ahern.
-> 
-> Changes in v2:
-> - Make nh_min_len an int and remove the casts, as suggested by Michael S.
->   Tsirkin.
-> 
->  arch/um/drivers/vector_transports.c | 10 +++-
->  drivers/net/tun_vnet.h              | 28 ++++++++++-
->  drivers/net/virtio_net.c            |  8 ++-
->  include/linux/virtio_net.h          | 76 +++++++++++++++++++++++------
->  net/packet/af_packet.c              |  6 ++-
->  5 files changed, 106 insertions(+), 22 deletions(-)
-> 
-> diff --git a/arch/um/drivers/vector_transports.c b/arch/um/drivers/vector_transports.c
-> index ddd127ee9..79bc05fc6 100644
-> --- a/arch/um/drivers/vector_transports.c
-> +++ b/arch/um/drivers/vector_transports.c
-> @@ -197,6 +197,7 @@ static int raw_verify_header(
->  	uint8_t *header, struct sk_buff *skb, struct vector_private *vp)
->  {
->  	struct virtio_net_hdr *vheader = (struct virtio_net_hdr *) header;
-> +	int network_offset;
->  
->  	if ((vheader->gso_type != VIRTIO_NET_HDR_GSO_NONE) &&
->  		(vp->req_size != 65536)) {
-> @@ -209,8 +210,13 @@ static int raw_verify_header(
->  	if ((vheader->flags & VIRTIO_NET_HDR_F_DATA_VALID) > 0)
->  		return 1;
->  
-> -	virtio_net_hdr_to_skb(skb, vheader, virtio_legacy_is_little_endian());
-> -	return 0;
-> +	network_offset = virtio_net_hdr_get_l3_offset(skb, vheader);
-> +	if (network_offset < 0)
-> +		return network_offset;
-> +
-> +	return virtio_net_hdr_to_skb(skb, vheader,
-> +				     virtio_legacy_is_little_endian(),
-> +				     network_offset);
->  }
->  
->  static bool get_uint_param(
-> diff --git a/drivers/net/tun_vnet.h b/drivers/net/tun_vnet.h
-> index f4c652b1f..1c83c359d 100644
-> --- a/drivers/net/tun_vnet.h
-> +++ b/drivers/net/tun_vnet.h
-> @@ -177,10 +177,27 @@ static inline int tun_vnet_hdr_put(int sz, struct iov_iter *iter,
->  	return __tun_vnet_hdr_put(sz, 0, iter, hdr);
->  }
->  
-> +static inline int
-> +tun_vnet_hdr_get_l3_offset(unsigned int flags, const struct sk_buff *skb,
-> +			   const struct virtio_net_hdr *hdr)
-> +{
-> +	if ((flags & TUN_TYPE_MASK) != IFF_TAP)
-> +		return 0;
-> +
-> +	return virtio_net_hdr_get_l3_offset(skb, hdr);
-> +}
-> +
->  static inline int tun_vnet_hdr_to_skb(unsigned int flags, struct sk_buff *skb,
->  				      const struct virtio_net_hdr *hdr)
->  {
-> -	return virtio_net_hdr_to_skb(skb, hdr, tun_vnet_is_little_endian(flags));
-> +	int network_offset = tun_vnet_hdr_get_l3_offset(flags, skb, hdr);
-> +
-> +	if (network_offset < 0)
-> +		return network_offset;
-> +
-> +	return virtio_net_hdr_to_skb(skb, hdr,
-> +				     tun_vnet_is_little_endian(flags),
-> +				     network_offset);
->  }
->  
->  /*
-> @@ -199,10 +216,17 @@ tun_vnet_hdr_tnl_to_skb(unsigned int flags, netdev_features_t features,
->  			struct sk_buff *skb,
->  			const struct virtio_net_hdr_v1_hash_tunnel *hdr)
->  {
-> +	const struct virtio_net_hdr *vnet_hdr = (const struct virtio_net_hdr *)hdr;
-> +	int network_offset = tun_vnet_hdr_get_l3_offset(flags, skb, vnet_hdr);
-> +
-> +	if (network_offset < 0)
-> +		return network_offset;
-> +
->  	return virtio_net_hdr_tnl_to_skb(skb, hdr,
->  				features & NETIF_F_GSO_UDP_TUNNEL,
->  				features & NETIF_F_GSO_UDP_TUNNEL_CSUM,
-> -				tun_vnet_is_little_endian(flags));
-> +				tun_vnet_is_little_endian(flags),
-> +				network_offset);
->  }
->  
->  static inline int tun_vnet_hdr_from_skb(unsigned int flags,
-> diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-> index e34c52d05..059eeb18e 100644
-> --- a/drivers/net/virtio_net.c
-> +++ b/drivers/net/virtio_net.c
-> @@ -2502,6 +2502,7 @@ static void virtnet_receive_done(struct virtnet_info *vi, struct receive_queue *
->  {
->  	struct virtio_net_common_hdr *hdr;
->  	struct net_device *dev = vi->dev;
-> +	int network_offset;
->  
->  	hdr = skb_vnet_common_hdr(skb);
->  	if (dev->features & NETIF_F_RXHASH && vi->has_rss_hash_report)
-> @@ -2515,9 +2516,12 @@ static void virtnet_receive_done(struct virtnet_info *vi, struct receive_queue *
->  		goto frame_err;
->  	}
->  
-> -	if (virtio_net_hdr_tnl_to_skb(skb, &hdr->tnl_hdr, vi->rx_tnl,
-> +	network_offset = virtio_net_hdr_get_l3_offset(skb, &hdr->hdr);
-> +	if (network_offset < 0 ||
-> +	    virtio_net_hdr_tnl_to_skb(skb, &hdr->tnl_hdr, vi->rx_tnl,
->  				      vi->rx_tnl_csum,
-> -				      virtio_is_little_endian(vi->vdev))) {
-> +				      virtio_is_little_endian(vi->vdev),
-> +				      network_offset)) {
->  		net_warn_ratelimited("%s: bad gso: type: %x, size: %u, flags %x tunnel %d tnl csum %d\n",
->  				     dev->name, hdr->hdr.gso_type,
->  				     hdr->hdr.gso_size, hdr->hdr.flags,
-> diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
-> index c381b916c..a4c005796 100644
-> --- a/include/linux/virtio_net.h
-> +++ b/include/linux/virtio_net.h
-> @@ -48,11 +48,49 @@ static inline int virtio_net_hdr_set_proto(struct sk_buff *skb,
->  	return 0;
->  }
->  
-> +/*
-> + * Return the L3 offset of an Ethernet frame starting at skb->data.
-> + * The offset is unused without NEEDS_CSUM, so avoid parsing and return zero.
+On 9/15/26 02:26, Peter Fang wrote:
+> +/**
+> + * tdx_get_max_quote_size() - Get the maximum TD Quote size
+> + *
+> + * Read the maximum size of a TD Quote from a 4-byte TD metadata field. The TDX
+> + * guest driver uses it to size the buffer for Quotes. Older TDX modules do not
+> + * support this field and return an error.
+> + *
+> + * The reported size covers every Quote type supported by the platform,
+> + * including SGX-based Quotes.
+> + *
+> + * A runtime TDX module update does not change the reported size.
+> + *
+> + * Return: Maximum Quote size in bytes on success, or 0 on failure.
 > + */
-> +static inline int
-> +virtio_net_hdr_get_l3_offset(const struct sk_buff *skb,
-> +			     const struct virtio_net_hdr *hdr)
+> +u32 tdx_get_max_quote_size(void)
 > +{
-> +	unsigned int parse_depth = VLAN_MAX_DEPTH;
-> +	const struct ethhdr *eth;
-> +	struct ethhdr ethbuf;
-> +	__be16 protocol;
-> +	int depth = ETH_HLEN;
+> +	u64 val, ret;
 > +
-> +	if (!(hdr->flags & VIRTIO_NET_HDR_F_NEEDS_CSUM))
-> +		return 0;
+> +	ret = tdg_vm_rd(TDCS_QUOTE_MAX_SIZE, &val);
 > +
-> +	eth = skb_header_pointer(skb, 0, sizeof(ethbuf), &ethbuf);
-> +	if (!eth)
-> +		return -EINVAL;
-> +
-> +	protocol = eth->h_proto;
-> +	while (eth_type_vlan(protocol)) {
-> +		const struct vlan_hdr *vh;
-> +		struct vlan_hdr vhdr;
-> +
-> +		vh = skb_header_pointer(skb, depth, sizeof(vhdr), &vhdr);
-> +		if (!vh || !--parse_depth)
-> +			return -EINVAL;
-> +
-> +		protocol = vh->h_vlan_encapsulated_proto;
-> +		depth += VLAN_HLEN;
-> +	}
-> +
-> +	return depth;
+> +	return ret ? 0 : (u32)val;
 > +}
-> +
->  static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
->  					  const struct virtio_net_hdr *hdr,
-> -					  bool little_endian, u8 hdr_gso_type)
-> +					  bool little_endian, u8 hdr_gso_type,
-> +					  int network_offset)
->  {
-> -	unsigned int nh_min_len = sizeof(struct iphdr);
-> +	int nh_min_len = sizeof(struct iphdr);
->  	unsigned int gso_type = 0;
->  	unsigned int thlen = 0;
->  	unsigned int p_off = 0;
-> @@ -98,16 +136,20 @@ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
->  		u32 start = __virtio16_to_cpu(little_endian, hdr->csum_start);
->  		u32 off = __virtio16_to_cpu(little_endian, hdr->csum_offset);
->  		u32 needed = start + max_t(u32, thlen, off + sizeof(__sum16));
-> +		int transport_offset;
->  
->  		if (!pskb_may_pull(skb, needed))
->  			return -EINVAL;
->  
->  		if (!skb_partial_csum_set(skb, start, off))
->  			return -EINVAL;
-> -		if (skb_transport_offset(skb) < nh_min_len)
-> +
-> +		transport_offset = skb_transport_offset(skb);
-> +		if (transport_offset < nh_min_len || network_offset < 0 ||
-> +		    network_offset > transport_offset - nh_min_len)
->  			return -EINVAL;
->  
-> -		nh_min_len = skb_transport_offset(skb);
-> +		nh_min_len = transport_offset;
->  		p_off = nh_min_len + thlen;
->  		if (!pskb_may_pull(skb, p_off))
->  			return -EINVAL;
-> @@ -206,9 +248,11 @@ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
->  
->  static inline int virtio_net_hdr_to_skb(struct sk_buff *skb,
->  					const struct virtio_net_hdr *hdr,
-> -					bool little_endian)
-> +					bool little_endian,
-> +					int network_offset)
->  {
-> -	return __virtio_net_hdr_to_skb(skb, hdr, little_endian, hdr->gso_type);
-> +	return __virtio_net_hdr_to_skb(skb, hdr, little_endian, hdr->gso_type,
-> +				       network_offset);
->  }
->  
->  /* This function must be called after virtio_net_hdr_from_skb(). */
-> @@ -287,7 +331,7 @@ static inline int virtio_net_hdr_from_skb(const struct sk_buff *skb,
->  	return 0;
->  }
->  
-> -static inline unsigned int virtio_l3min(bool is_ipv6)
-> +static inline int virtio_l3min(bool is_ipv6)
->  {
->  	return is_ipv6 ? sizeof(struct ipv6hdr) : sizeof(struct iphdr);
->  }
-> @@ -297,18 +341,19 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
->  			  const struct virtio_net_hdr_v1_hash_tunnel *vhdr,
->  			  bool tnl_hdr_negotiated,
->  			  bool tnl_csum_negotiated,
-> -			  bool little_endian)
-> +			  bool little_endian, int network_offset)
->  {
->  	const struct virtio_net_hdr *hdr = (const struct virtio_net_hdr *)vhdr;
-> -	unsigned int inner_nh, outer_th, inner_th;
-> -	unsigned int inner_l3min, outer_l3min;
->  	u8 gso_inner_type, gso_tunnel_type;
->  	bool outer_isv6, inner_isv6;
-> +	int inner_nh, outer_th, inner_th;
-> +	int inner_l3min, outer_l3min;
->  	int ret;
->  
->  	gso_tunnel_type = hdr->gso_type & VIRTIO_NET_HDR_GSO_UDP_TUNNEL;
->  	if (!gso_tunnel_type)
-> -		return virtio_net_hdr_to_skb(skb, hdr, little_endian);
-> +		return virtio_net_hdr_to_skb(skb, hdr, little_endian,
-> +					     network_offset);
->  
->  	/* Tunnel not supported/negotiated, but the hdr asks for it. */
->  	if (!tnl_hdr_negotiated)
-> @@ -332,19 +377,22 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
->  	outer_isv6 = gso_tunnel_type & VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6;
->  	inner_isv6 = gso_inner_type == VIRTIO_NET_HDR_GSO_TCPV6;
->  	inner_l3min = virtio_l3min(inner_isv6);
-> -	outer_l3min = ETH_HLEN + virtio_l3min(outer_isv6);
-> +	outer_l3min = virtio_l3min(outer_isv6);
->  
->  	inner_th = __virtio16_to_cpu(little_endian, hdr->csum_start);
->  	inner_nh = le16_to_cpu(vhdr->inner_nh_offset);
->  	outer_th = le16_to_cpu(vhdr->outer_th_offset);
-> -	if (outer_th < outer_l3min ||
-> +	if (network_offset < 0 ||
-> +	    outer_th < outer_l3min ||
-> +	    network_offset > outer_th - outer_l3min ||
->  	    inner_nh < outer_th + sizeof(struct udphdr) ||
->  	    inner_th < inner_nh + inner_l3min)
->  		return -EINVAL;
->  
->  	/* Let the basic parsing deal with plain GSO features. */
->  	ret = __virtio_net_hdr_to_skb(skb, hdr, true,
-> -				      hdr->gso_type & ~gso_tunnel_type);
-> +				      hdr->gso_type & ~gso_tunnel_type,
-> +				      network_offset);
->  	if (ret)
->  		return ret;
->  
-> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-> index 50cae32ae..04c80e23d 100644
-> --- a/net/packet/af_packet.c
-> +++ b/net/packet/af_packet.c
-> @@ -2901,7 +2901,8 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
->  		}
->  
->  		if (has_vnet_hdr) {
-> -			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le())) {
-> +			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le(),
-> +						  skb_network_offset(skb))) {
->  				tp_len = -EINVAL;
->  				goto tpacket_error;
->  			}
-> @@ -3103,7 +3104,8 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
->  	packet_parse_headers(skb, sock);
->  
->  	if (vnet_hdr_sz) {
-> -		err = virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le());
-> +		err = virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le(),
-> +					    skb_network_offset(skb));
->  		if (err)
->  			goto out_free;
->  		len += vnet_hdr_sz;
-> -- 
-> 2.46.0
+> +EXPORT_SYMBOL_GPL(tdx_get_max_quote_size);
 
+This is an awful lot of stuff I'm not fond of like packed in very few
+lines of code.
+
+1. An unscoped, unmentioned, uncommented export
+2. Ternary form
+3. Casting
+4. A kerneldoc comment that is quite verbose and restates the TDX specs
+5. kerneldocs for something that's not a widely-used API
+6. Comments that say the same thing as the function name
+7. Multiple variables declared on one line
+
+Rather than start trying to cram failure codes into the return code,
+just do:
+
+/*
+ * Ask the TDX module what the largest possible quote might be.
+ */
+int tdx_get_max_quote_size(u64 *max_quote_size)
+{
+	int ret = tdg_vm_rd(TDCS_QUOTE_MAX_SIZE, max_quote_size);
+
+	/* Old modules do not support this. Tell the caller. */
+	if (ret)
+		return -EINVAL;
+
+	return 0;
+}
+
+That's the normal pattern. Or, heck, just return a long and return
+-errnos in there.
