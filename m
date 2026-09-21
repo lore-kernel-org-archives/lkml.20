@@ -1,112 +1,98 @@
-Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DCF42F709;
-	Mon, 21 Sep 2026 11:09:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.136.29.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89A1421239;
+	Mon, 21 Sep 2026 11:10:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789988996; cv=none; b=h1aW7CGiGhForExt/hRIFeqJ/17dGt8Gy6WAz/EThL+9QyF6u1kLqQDjY2Wy+ayiH2aRGQua7MZeVOkWGlHmQNhwL0D/CVJCz58ggtUs/xwJNChvWmIB89MUnfJwYgwli66U5W7IjNeX1oh15sPylOYUBqSeqwBnxGE/M35vcQI=
+	t=1789989032; cv=none; b=NruZC06kbBhyqCTBQUqpENm78dqJ1Xcj+21cEcPqTI5JoYucIha/GoDyuTSndplAYQTILJ/EzUpciCRlaNxG74obnQBy1i55DY/XEHlD3e0ASkKjIH9a+VSzYDRT9cu07NIl/nU7Pgl/bvzgSEKrnGuCIjx01wQBpI2hVgMVS9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789988996; c=relaxed/simple;
-	bh=Q8gJqCIgi+pxa0KnX6JaLruSoUbY0JF7Il1toHFsN54=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q+6LTYKXWL2lFD/z0itxo7HNck2pEAr1DW8u6xwx3qEaLJ+kdSE3RcY3MArB65nTCPiA9iV/RGWqdDPespURtAQ4b5s0BiHaUZoK46fbG9WmivRUepE/t06ME1O4HvU/tW66DGRDOACY68XCR90TklAsGu4uJeurZ4C4lEcJ2xU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com; spf=pass smtp.mailfrom=proxmox.com; arc=none smtp.client-ip=94.136.29.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
-Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
-	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id E264E40C61;
-	Mon, 21 Sep 2026 13:09:45 +0200 (CEST)
-Date: Mon, 21 Sep 2026 13:09:44 +0200
-From: Gabriel Goller <g.goller@proxmox.com>
-To: Ido Schimmel <idosch@nvidia.com>
-Cc: David Ahern <dsahern@kernel.org>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Roopa Prabhu <roopa@cumulusnetworks.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] ipv4: fib: treat an unbuildable encapsulation as a
- nexthop mismatch
-Message-ID: <arEQHeBlqKWCu3l5@luna.proxmox.com>
-References: <20260918152836.1173368-1-g.goller@proxmox.com>
- <20260920090818.GA1846216@shredder>
+	s=arc-20240116; t=1789989032; c=relaxed/simple;
+	bh=1BhpQZoAXGVHhCY2yPQOy2cprPNEspiRapZr8208ImA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=Ei5hXY6kZgK+KgSplcBOuPFdfv3gbFuCQgb8tVoUxDyXaJ5eyZLOyAA4+KGzEJywNGUieBMvUNBPsAY99/tH5UTBXWgJHmuS2D+1uTn0HPnect+8Gj2ooPIgx0zP5MT9lZ55xWUQ6Ei6WjJrmqk+yavdoNso1dnM6PZVhrb7c7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=e+cHLb2E; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="e+cHLb2E"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=1BhpQZoAXGVHhCY2yPQOy2cprPNEspiRapZr8208ImA=; b=e
+	+cHLb2EsoCJmyv5IQM9q0sqiir1Lv71mBv80vQnaKLgpB66FeKfHDB22f4OxAXsT
+	YlEkv1c5YP+QgfMfc3gFGTFXs/blWnWK4cAhKXR1FQtwWLlZDbUifAVtv52YRxA6
+	VyiDIwOpZjj1P+MtR2DXrhnthimjQTFHDMsLDQarek=
+Date: Mon, 21 Sep 2026 19:08:48 +0800 (CST)
+From: zl020895  <zl020895@163.com>
+To: "Bartosz Golaszewski" <brgl@kernel.org>
+Cc: longzhao@ambarella.com,
+	"Long Zhao via B4 Relay" <devnull+longzhao.ambarella.com@kernel.org>,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Conor Dooley" <conor+dt@kernel.org>,
+	"Michael Turquette" <mturquette@baylibre.com>,
+	"Stephen Boyd" <sboyd@kernel.org>,
+	"Jerome Brunet" <jbrunet@baylibre.com>,
+	"Linus Walleij" <linusw@kernel.org>,
+	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+	"Jiri Slaby" <jirislaby@kernel.org>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Catalin Marinas" <catalin.marinas@arm.com>,
+	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>,
+	"Arnd Bergmann" <arnd@arndb.de>,
+	"Krzysztof Kozlowski" <krzk@kernel.org>,
+	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re:Re: [PATCH v8 00/18] Ambarella CV75 SoC minimal bring-up
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <CAMRc=Mf-0oLOPZsPboE0dzOGE2AzNE0LXmv9fcmgWO47FtGu1g@mail.gmail.com>
+References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
+ <CAMRc=Mf-0oLOPZsPboE0dzOGE2AzNE0LXmv9fcmgWO47FtGu1g@mail.gmail.com>
+X-NTES-SC: AL_Qu2TC/WTt0Ep7iiZZukcn0wRhug/UMa4u/sm3YNXc+oEoxnL1BEgV2ZqNGrf3+6vEQOojDKXWThy0/tgZolRgdClO9P1d1YqDPcyYtmcnA==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260920090818.GA1846216@shredder>
-User-Agent: NeoMutt/20260504
-X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
-X-Bm-Transport-Timestamp: 1789988985117
+Message-ID: <c90c1c.9973.1a0c3a77d36.Coremail.zl020895@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:ZSgvCgD3d8BAELFqlexLAA--.37435W
+X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbCxgAbjGqxEEAmzQAA3x
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On 20.09.2026 12:08, Ido Schimmel wrote:
-> On Fri, Sep 18, 2026 at 05:28:33PM +0200, Gabriel Goller wrote:
-> > fib_encap_match() builds the requested lwtunnel state and compares it
-> > against the nexthop of a candidate route. When lwtunnel_build_state()
-> > failed it left result at 0, which is interpreted as "the nexthop
-> > matches", so fib_nh_match() continues to compare only oif and gateway.
-> > 
-> > So if there comes along a RTM_DELROUTE which carries an encapsulation
-> > the kernel rejects, it could delete a different route with a different
-> > encapsulation.
-> 
-> Did you hit this in practice? Can you share details?
-
-Nope, found this in the code while writing
-https://lore.kernel.org/netdev/arD-5t6LiBiPXAAa@luna.proxmox.com/
-
-> Note that the modern alternative is to install nexthop objects with
-> encapsulation and then associate these objects with routes.
-
-Yep.
-
-> > Fixes: 571e722676fe ("ipv4: support for fib route lwtunnel encap attributes")
-> > Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
-> > ---
-> >  net/ipv4/fib_semantics.c | 14 +++++++-------
-> >  1 file changed, 7 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
-> > index 50e96f86ca59..951e48ae87da 100644
-> > --- a/net/ipv4/fib_semantics.c
-> > +++ b/net/ipv4/fib_semantics.c
-> > @@ -911,17 +911,17 @@ static int fib_encap_match(struct net *net, u16 encap_type,
-> >  			   struct netlink_ext_ack *extack)
-> >  {
-> >  	struct lwtunnel_state *lwtstate;
-> > -	int ret, result = 0;
-> > +	int result;
-> >  
-> >  	if (encap_type == LWTUNNEL_ENCAP_NONE)
-> >  		return 0;
-> 
-> This is also "unbuildable", but will match.
-> 
-> lwtunnel_build_state() returns an error in this case, so you can just
-> remove this check.
-
-Makes sense, will send a v2 soon.
-
-Thanks for the review!
-Gabriel
-
-
-> > -	ret = lwtunnel_build_state(net, encap_type, encap, AF_INET,
-> > -				   cfg, &lwtstate, extack);
-> > -	if (!ret) {
-> > -		result = lwtunnel_cmp_encap(lwtstate, nh->fib_nh_lws);
-> > -		lwtstate_free(lwtstate);
-> > -	}
-> > +	if (lwtunnel_build_state(net, encap_type, encap, AF_INET, cfg,
-> > +				 &lwtstate, extack))
-> > +		return 1;
-> > +
-> > +	result = lwtunnel_cmp_encap(lwtstate, nh->fib_nh_lws);
-> > +	lwtstate_free(lwtstate);
-> >  
-> >  	return result;
-> >  }
-
+VGhhbmtzLCBCYXJ0LiAKClBsZWFzZSBxdWV1ZSB0aGUgR1BJTyBwYXRjaGVzIHlvdXJzZWxmIGFu
+ZCBwcm92aWRlIGFuIGltbXV0YWJsZQpicmFuY2ggZm9yIHRoZSBTb0MgdHJlZS4KClRoZSBHUElP
+IHBhcnQgaXM6CiAgZ3Bpb2xpYjogcmVnbWFwOiBhZGQgd3JpdGVfZGF0YV9hZnRlcl9kaXIgcXVp
+cmsKICBncGlvbGliOiByZWdtYXA6IGFkZCBncGlvX3JlZ21hcF9nZXRfY2hpcCgpCiAgZ3Bpbzog
+cGwwNjE6IGNvbnZlcnQgcmVnaXN0ZXIgYWNjZXNzIHRvIHJlZ21hcAogIGdwaW86IHBsMDYxOiB1
+c2UgSVJRX1RZUEVfTEVWRUxfTUFTSyBhbmQgSVJRX1RZUEVfRURHRV9CT1RICiAgZ3BpbzogcGww
+NjE6IHVzZSBjbGVhbnVwIGhlbHBlcnMgZm9yIGxvY2tzCiAgZ3BpbzogcGwwNjE6IHN3aXRjaCBk
+YXRhIHBhdGggdG8gZ3Bpby1yZWdtYXAKICBncGlvOiBwbDA2MTogYWRkIEFtYmFyZWxsYSByZWdp
+c3Rlci1sYXlvdXQgdmFyaWFudAoKSSB3aWxsIHNlbmQgYSBmb2xsb3ctdXAgZm9yIGdwaW9fcmVn
+bWFwX2dldF9jaGlwKCkgd2l0aCB0aGUgbWlzc2luZwprZXJuZWwtZG9jLiBUaGUgcmVzdCBvZiB0
+aGUgc2VyaWVzIChjbGssIHBpbmN0cmwsIFVBUlQsIERUKSBjYW4gc3RheQp3aXRoIHRoZSBTb0Mg
+dHJlZSBvbmNlIHRoYXQgR1BJTyBicmFuY2ggaXMgYXZhaWxhYmxlLgoKQmVzdCByZWdhcmRzLApM
+b25nIFpoYW8KCkF0IDIwMjYtMDktMjEgMTg6MzE6NDUsICJCYXJ0b3N6IEdvbGFzemV3c2tpIiA8
+YnJnbEBrZXJuZWwub3JnPiB3cm90ZToKPk9uIE1vbiwgMjEgU2VwIDIwMjYgMDY6MjM6MTkgKzAy
+MDAsIExvbmcgWmhhbyB2aWEgQjQgUmVsYXkKPjxkZXZudWxsK2xvbmd6aGFvLmFtYmFyZWxsYS5j
+b21Aa2VybmVsLm9yZz4gc2FpZDoKPj4gVGhpcyBzZXJpZXMgYWRkcyBtaW5pbWFsIEFtYmFyZWxs
+YSBDVjc1IHN1cHBvcnQgZm9yIGVhcmx5IGJyaW5nLXVwIHdpdGgKPj4gYSBzZXJpYWwgY29uc29s
+ZTogRFQgYmluZGluZ3MsIFJDVCBjbG9ja3MsIHBpbmN0cmwsIFBMMDYxIEdQSU8gdmlhCj4+IGdw
+aW8tcmVnbWFwLCA4MjUwX2R3IFVBUlQgcXVpcmtzLCBBUkNIX0FNQkFSRUxMQSwgQ1Y3NSBFVksg
+RFQsIGFuZAo+PiBNQUlOVEFJTkVSUy4KPj4KPj4gVGhpcyBpcyBhIHNpbmdsZSB1bmlmaWVkIHNl
+cmllcy4gUGxlYXNlIGFwcGx5IHZpYSB0aGUgU29DCj4+IHRyZWU7IHN1YnN5c3RlbSBtYWludGFp
+bmVycyBhcmUgQ2MnZCBmb3IgdGhlaXIgcGllY2VzLgo+Pgo+Cj5BcyBJIHNhaWQgYmVmb3JlOiB0
+aGlzIGJyaW5ncyBpbiBhIGxvdCBvZiBwb3RlbnRpYWxseSBjb25mbGljdGluZyBjb2RlIGludG8K
+PmRyaXZlcnMvZ3Bpby8gc28gSSdsbCBuZWVkIGFuIGltbXV0YWJsZSBicmFuY2ggdG8gcHVsbCBv
+ciBJIGNhbiBxdWV1ZSB0aGUgR1BJTwo+cGFydCBteXNlbGYgYW5kIHByb3ZpZGUgYW4gaW1tdXRh
+YmxlIGJyYW5jaCB0byBvdGhlciB0cmVlcy4KPgo+QmFydG9zego=
