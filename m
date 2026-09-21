@@ -1,1144 +1,390 @@
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8A94D488A;
-	Mon, 21 Sep 2026 16:27:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.177.32
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B24B63F1064;
+	Mon, 21 Sep 2026 16:28:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790008074; cv=none; b=LioE9V5iRseWr+iZlpVMHn923U6KzGtUWOwNB4WgePy3eKRZM5rFxXeVPrLw2r+zHHv8nqkOjnOjkZvAJ5PwkJVMpPIGI9oFB34KD5us9sxqyrXeBabZI74gsqtFF32HqMDQM3uPANYqvbiBdpVfpKNlihfzhWrykgq4MJetTJA=
+	t=1790008116; cv=none; b=dcs0zzUHu4DP4Q0/ZXp/Pw66Ioj1QWC4SVykjg62tPKkIgSNTLuGkg9PWLlAStt2QhDA1gxIpSvGpAURysmZBDeRMhVf5H3GNEZs2OWdthlsz4ToKd6nYPsJNHyFwuW1wYZQLTwyWzgX5uT6pDy54s0qD3gVkMOsrJn6QzcmmTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790008074; c=relaxed/simple;
-	bh=LE2/Jw/dzFq6HsH2rAJcP0GhY7EwC23AEzqsjsSOQj4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bNNDmazYZpdICCqm4VmLhv4tfcCBHGmCLpZ7+1UiaF2BDDEOLKZEs5xk6UtLyVerT0pys6mn0QqXTDo4UvTeOlY99cJ0vbAyfQFd9F+r06jDA21Lhh9j/7bFoTfNz36u/LuKi0I0aVq5SiNX2lKGYx0nT24UwGmSkEAY0mmRM5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=C4wQ9Dc+; arc=none smtp.client-ip=205.220.177.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	s=arc-20240116; t=1790008116; c=relaxed/simple;
+	bh=m2dl8YTZY3DsOKp5evDCX+Sh9buB1ABpJyTpyMJd9O4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RCgSRL3v+K67CT72iZ8Ks9A0rxZ7JBIRaRvp7lQZnBVi+o0tMyIWlALBBd0aDNfV2g5Elim6T6Xgv9cCKhMnq7nRAm+rc0s/f7O4c20bzgrpwc93QdFe76ELkQXhMrYHJlaAGxl29Ao2uxh/6ObAAACJQxhG59xDxhWL7yxsftQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=blHh5Wg1; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="C4wQ9Dc+"
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LDtlAv1635004;
-	Mon, 21 Sep 2026 16:27:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=wx3JI7y5SQuIVmLpBPmrwTMBLXOxe1VE8gBskFNlCgw=; b=
-	C4wQ9Dc+zt542XTn4K09smA8OzrhTKvsqOJ0ethspTB75X4ISjSPQ7Cfhp7bOhrv
-	g+04KnVDtQQO/eApV+f3Ve4dHeuhfoaM11kcBLCMz/jCPRNSYLXhSGUoZYUw43Y/
-	wHH2sPbLV3u0ArCQxq20p6xp2lclIc6vZagg8BC7mhwEa0cSHzmkaGFxhJXBw99r
-	nwO1OvcZxhBL6yZjLCwOKI5TWdZEcr8G/BayuvS1tYyMO9zVNdyQtNFsquhNzewe
-	2ZrKn9YGL1mUA8I/Q7tbOSPATAQ6DXyZndU5ypMbBJsl1uFp67LAERjKrkZdU9iW
-	woR/lawvEQRKMSz0/HULNQ==
-Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gsk1ganmf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 21 Sep 2026 16:27:39 +0000 (GMT)
-Received: from pps.filterd (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 68LGP95b019791;
-	Mon, 21 Sep 2026 16:27:38 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4gtegjen1b-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 21 Sep 2026 16:27:38 +0000 (GMT)
-Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 68LGRUVt026549;
-	Mon, 21 Sep 2026 16:27:37 GMT
-Received: from lab61.no.oracle.com (lab61.no.oracle.com [10.172.144.82])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4gtegjemsy-2;
-	Mon, 21 Sep 2026 16:27:37 +0000 (GMT)
-From: =?UTF-8?q?H=C3=A5kon=20Bugge?= <haakon.bugge@oracle.com>
-To: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
-        Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-        Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Shuah Khan <shuah@kernel.org>
-Cc: John Stultz <jstultz@google.com>,
-        =?UTF-8?q?H=C3=A5kon=20Bugge?= <haakon.bugge@oracle.com>,
-        linux-kselftest@vger.kernel.org
-Subject: [PATCH v2 1/1] kernel/locking: Add mutual exclusion self-test
-Date: Mon, 21 Sep 2026 18:27:20 +0200
-Message-ID: <20260921162722.212610-2-haakon.bugge@oracle.com>
-X-Mailer: git-send-email 2.43.5
-In-Reply-To: <20260921162722.212610-1-haakon.bugge@oracle.com>
-References: <20260921162722.212610-1-haakon.bugge@oracle.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="blHh5Wg1"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5EE0119F0;
+	Mon, 21 Sep 2026 09:28:28 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1FD443F9A2;
+	Mon, 21 Sep 2026 09:28:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790008111; bh=m2dl8YTZY3DsOKp5evDCX+Sh9buB1ABpJyTpyMJd9O4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=blHh5Wg1HCyYhZ47HleWhM7X3QjSNO2lfWc1seBLPiwZk09O2S8W1EGTbgtBxy52d
+	 hbH5ewugIHjHlpZBhD2voZtBkFGHzzzsMCYQaLmJYxh+xPeOfd7baIzFGQcItA6Une
+	 lUqYpsvXQStERXx2BCL+HoNehG6y80Ulvmb+lXNM=
+Message-ID: <d96cbb8f-631c-433f-a553-6a6e20531f68@arm.com>
+Date: Mon, 21 Sep 2026 17:28:27 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 12/14] arm_mpam: detect and enable MPAM-Fb PCC support
+To: Andre Przywara <andre.przywara@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo
+ <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ James Morse <james.morse@arm.com>,
+ Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+ Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+ Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
+ Trilok Soni <tsoni@quicinc.com>, Srinivas Ramana <sramana@qti.qualcomm.com>,
+ Niyas Sait <niyas.sait@arm.com>, Lee Trager <lee@trager.us>,
+ Ritwick Sharma <ritwick.sharma@arm.com>, Gavin Shan <gshan@redhat.com>,
+ linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260911112835.714162-1-andre.przywara@arm.com>
+ <20260911112835.714162-13-andre.przywara@arm.com>
+ <3e7bdafd-d6ea-422c-82ff-e278a17280ff@arm.com>
+ <a314ee8f-4152-4b29-8348-6cd750eced40@arm.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <a314ee8f-4152-4b29-8348-6cd750eced40@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- mlxlogscore=999 lowpriorityscore=0 spamscore=0 mlxscore=0 suspectscore=0
- phishscore=0 adultscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2609040000 definitions=main-2609210239
-X-Proofpoint-GUID: nm5KKrQDt8Dhv425Y6wlhjDzGW8kw4uV
-X-Authority-Analysis: v=2.4 cv=T6sZ3PKQ c=1 sm=1 tr=0 ts=6ab15afb cx=c_pps
- a=OOZaFjgC48PWsiFpTAqLcw==:117 a=OOZaFjgC48PWsiFpTAqLcw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22 a=x4eqshVgHu-cdnggieHk:22
- a=yPCof4ZbAAAA:8 a=YHNDNSdmkXTikWg6I18A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDI0MCBTYWx0ZWRfX6yGoKmOTqOJW
- r5v7S/K8weIIIcFEtwV1CeoZ3SwZdXrFLllstDyesaHfQrORoC3Vb9l4+ljqxhONXvx7WT0Mw3I
- gnqxSnhvq2EPw+AegTW5SqhlBlswOnnIoeKATZv9vTDWuKsDxeFJ
-X-Proofpoint-ORIG-GUID: nm5KKrQDt8Dhv425Y6wlhjDzGW8kw4uV
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDI0MCBTYWx0ZWRfX0RH0OxlfR0KT
- IKSyNLD66tss64yoaXtLW9yJB84IelCgDZQP7mwGSa5VaXNmZPYIfIFHeiJyHkCMPvXhEXwpmZI
- S6zGhDTfTSkE1FWcI7tgkPkiDrPBd1KmikUSxqmnnSYVnP3PEQesBEg2Yi+ZhbgIrFNA+MY5rfk
- LaSX10USuC2onu6Y+FQFe6VpDbWEEWbppmxkE4wi33yy+Wko4C70gbc4vJcHkaSt9oYKtOuqgli
- sPbV2Fm/9Kzd5xitE+KOhCixBrcuFj8W65g05J0d0krqinD1zmuz8N86Kh0BjQxj03UXhGPyq2m
- h44nqQW4K6P1qbKYg5ULOgk0zGa0HJHtE9L7wQhevXDXdPPywOEaOZKJf4hQO8V/08mDg5pUJ/m
- 4+akmxTUEmHVXaDNEJT2B/XpJbKYWOitOKtYstKMTx+L3wTvsDUR/oDrjCQxii6S/k3xbKjRFHD
- knDTXvUnJTBW6iUiA/Q==
 
-Add a stress test for locking and atomic synchronization primitives.
+Hi Andre,
 
-The test maintains an array of elements containing counters
-initialized to zero. It creates four worker threads per online CPU. On
-each iteration, a worker chooses two elements at random, increments
-the first counter, and decrements the second. Each completed pair of
-updates therefore preserves the sum of all counters.
+On 21/09/2026 17:09, Andre Przywara wrote:
+> Hi Ben,
+> 
+> On 9/11/26 17:09, Ben Horgan wrote:
+>> Hi Andre,
+>>
+>> On 11/09/2026 12:28, Andre Przywara wrote:
+>>> The Arm MPAM-Fb specification [1] describes a protocol to access MSC
+>>> registers through a firmware interface. This requires a shared memory
+>>> region to hold the message, and a mailbox to trigger the access.
+>>> For ACPI this is wrapped as a PCC channel, described using existing
+>>> ACPI abstractions.
+>>>
+>>> Add code to parse those PCC table descriptions associated with an MSC,
+>>> and store the parsed information in the MSC struct.
+>>> There can be multiple PCC channels, and each channel can serve multiple
+>>> MSCs, so we need to keep track of the channel usage, using a list and
+>>> a refcount.
+>>>
+>>> This will be used by the MPAM-Fb access wrapper code.
+>>>
+>>> [1] https://developer.arm.com/documentation/den0144/latest
+>>>
+>>> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+>>> Tested-by: Ritwick Sharma <ritwick.sharma@arm.com> # on Arm AGI CPU
+>>> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+>>> Tested-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
+>>> Reviewed-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
+>>> Reviewed-by: Gavin Shan <gshan@redhat.com>
+>>> ---
+>>>   drivers/resctrl/Kconfig         |   1 +
+>>>   drivers/resctrl/mpam_devices.c  | 119 +++++++++++++++++++++++++++++++-
+>>>   drivers/resctrl/mpam_fb.c       |  41 +++++++++++
+>>>   drivers/resctrl/mpam_internal.h |   2 +
+>>>   4 files changed, 161 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/resctrl/Kconfig b/drivers/resctrl/Kconfig
+>>> index 9591d792736e5..3f81638f57be3 100644
+>>> --- a/drivers/resctrl/Kconfig
+>>> +++ b/drivers/resctrl/Kconfig
+>>> @@ -2,6 +2,7 @@ menuconfig ARM64_MPAM_DRIVER
+>>>       bool "MPAM driver"
+>>>       depends on ARM64 && ARM64_MPAM
+>>>       select ACPI_MPAM if ACPI
+>>> +    select PCC if ACPI
+>>>       select MAILBOX
+>>>       help
+>>>         Memory System Resource Partitioning and Monitoring (MPAM) driver for
+>>> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+>>> index 14dc8461e4b8f..150a529458388 100644
+>>> --- a/drivers/resctrl/mpam_devices.c
+>>> +++ b/drivers/resctrl/mpam_devices.c
+>>> @@ -20,14 +20,19 @@
+>>>   #include <linux/irqdesc.h>
+>>>   #include <linux/list.h>
+>>>   #include <linux/lockdep.h>
+>>> +#include <linux/mailbox_client.h>
+>>>   #include <linux/mutex.h>
+>>>   #include <linux/platform_device.h>
+>>>   #include <linux/printk.h>
+>>> +#include <linux/property.h>
+>>>   #include <linux/srcu.h>
+>>>   #include <linux/spinlock.h>
+>>>   #include <linux/types.h>
+>>>   #include <linux/workqueue.h>
+>>>   +#include <acpi/pcc.h>
+>>> +#include <acpi/acpi_io.h>
+>>> +
+>>>   #include "mpam_internal.h"
+>>>     /* Values for the T241 errata workaround */
+>>> @@ -50,6 +55,87 @@ static LIST_HEAD(mpam_all_msc);
+>>>     struct srcu_struct mpam_srcu;
+>>>   +/* PCC channels might be serving multiple MSCs, so keep a refcounted list. */
+>>> +static DEFINE_MUTEX(pcc_chan_list_lock);
+>>> +static LIST_HEAD(pcc_chan_list);
+>>> +
+>>> +static void mpam_pcc_chan_release(struct kref *ref)
+>>> +{
+>>> +    struct mpam_pcc_chan *cur = container_of(ref, struct mpam_pcc_chan,
+>>> +                         refcount);
+>>> +
+>>> +    pcc_mbox_free_channel(cur->pcc_chan);
+>>> +    list_del(&cur->pcc_chans);
+>>> +    mutex_destroy(&cur->pcc_chan_lock);
+>>> +    kfree(cur);
+>>> +}
+>>> +
+>>> +static struct mpam_pcc_chan *mpam_pcc_chan_get(struct device *dev,
+>>> +                           int subspace_id)
+>>> +{
+>>> +    struct mpam_pcc_chan *cur;
+>>> +
+>>> +    guard(mutex)(&pcc_chan_list_lock);
+>>> +
+>>> +    list_for_each_entry(cur, &pcc_chan_list, pcc_chans) {
+>>> +        if (cur->subspace_id == subspace_id) {
+>>> +            kref_get(&cur->refcount);
+>>> +
+>>> +            return cur;
+>>> +        }
+>>> +    }
+>>> +
+>>> +    cur = kzalloc_obj(*cur);
+>>> +    if (!cur)
+>>> +        return ERR_PTR(-ENOMEM);
+>>> +
+>>> +    cur->pcc_cl.tx_block = true;
+>>> +
+>>> +    cur->pcc_chan = pcc_mbox_request_channel(&cur->pcc_cl, subspace_id);
+>>> +    if (IS_ERR(cur->pcc_chan)) {
+>>> +        long err = PTR_ERR(cur->pcc_chan);
+>>> +
+>>> +        kfree(cur);
+>>> +        return ERR_PTR(err);
+>>> +    }
+>>> +
+>>> +    /*
+>>> +     * Timeout based on the "nominal latency" in us, from the
+>>> +     * PCC ACPI table. tx_tout is in ms.
+>>> +     * Add some margin here to be on the safe side.
+>>> +     */
+>>> +    cur->pcc_cl.tx_tout = DIV_ROUND_UP(cur->pcc_chan->latency * 5, 1000);
+>>> +
+>>> +    mutex_init(&cur->pcc_chan_lock);
+>>> +
+>>> +    cur->subspace_id = subspace_id;
+>>> +    kref_init(&cur->refcount);
+>>> +
+>>> +    list_add_tail(&cur->pcc_chans, &pcc_chan_list);
+>>> +
+>>> +    return cur;
+>>> +}
+>>> +
+>>> +static int mpam_pcc_chan_put(struct mpam_pcc_chan *pcc_chan)
+>>> +{
+>>> +    struct mpam_pcc_chan *cur, *tmp;
+>>> +
+>>> +    if (!pcc_chan)
+>>> +        return 0;
+>>> +
+>>> +    guard(mutex)(&pcc_chan_list_lock);
+>>> +
+>>> +    list_for_each_entry_safe(cur, tmp, &pcc_chan_list, pcc_chans) {
+>>> +        if (cur == pcc_chan) {
+>>> +            kref_put(&cur->refcount, mpam_pcc_chan_release);
+>>> +
+>>> +            return 0;
+>>> +        }
+>>> +    }
+>>> +
+>>> +    return -ENOENT;
+>>> +}
+>>> +
+>>>   /*
+>>>    * Number of MSCs that have been probed. Once all MSCs have been probed MPAM
+>>>    * can be enabled.
+>>> @@ -2285,6 +2371,8 @@ static void mpam_msc_drv_remove(struct platform_device *pdev)
+>>>       if (!msc)
+>>>           return;
+>>>   +    mpam_pcc_chan_put(msc->pcc_chan);
+>>> +
+>>>       mutex_lock(&mpam_list_lock);
+>>>       mpam_msc_destroy(msc);
+>>>       mutex_unlock(&mpam_list_lock);
+>>> @@ -2295,7 +2383,7 @@ static void mpam_msc_drv_remove(struct platform_device *pdev)
+>>>   static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
+>>>   {
+>>>       int err;
+>>> -    u32 tmp;
+>>> +    u32 pcc_subspace_id;
+>>>       struct mpam_msc *msc;
+>>>       struct resource *msc_res;
+>>>       struct device *dev = &pdev->dev;
+>>> @@ -2339,7 +2427,7 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
+>>>       if (err)
+>>>           return ERR_PTR(err);
+>>>   -    if (device_property_read_u32(&pdev->dev, "pcc-channel", &tmp))
+>>> +    if (device_property_read_u32(dev, "pcc-channel", &pcc_subspace_id))
+>>>           msc->iface = MPAM_IFACE_MMIO;
+>>>       else
+>>>           msc->iface = MPAM_IFACE_PCC;
+>>> @@ -2360,6 +2448,33 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
+>>>           }
+>>>           msc->mapped_hwpage_sz = msc_res->end - msc_res->start;
+>>>           msc->mapped_hwpage = io;
+>>> +    } else if (msc->iface == MPAM_IFACE_PCC) {
+>>> +        u32 mpam_fb_msc_id;
+>>> +
+>>> +        msc->pcc_chan = mpam_pcc_chan_get(dev, pcc_subspace_id);
+>>> +        if (IS_ERR(msc->pcc_chan)) {
+>>> +            pr_err("Failed to request MSC PCC channel\n");
+>>> +            return ERR_CAST(msc->pcc_chan);
+>>> +        }
+>>> +
+>>> +        err = mpam_fb_check_shared_buffer_size(msc);
+>>> +        if (err) {
+>>> +            mpam_pcc_chan_put(msc->pcc_chan);
+>>> +
+>>> +            return ERR_PTR(err);
+>>> +        }
+>>> +
+>>> +        err = mpam_fb_check_protocol_version(msc);
+>>> +        if (err) {
+>>> +            mpam_pcc_chan_put(msc->pcc_chan);
+>>> +
+>>> +            return ERR_PTR(err);
+>>> +        }
+>>> +
+>>> +        if (device_property_read_u32(&pdev->dev, "mpam-fb-msc-id",
+>>> +                         &mpam_fb_msc_id))
+>>> +            mpam_fb_msc_id = msc->id;
+>>> +        msc->mpam_fb_msc_id = mpam_fb_msc_id;
+>>
+>> This looks like the change earlier in the series to drivers/acpi/arm64/mpam.c makes no functional
+>> effect unless the proposed spec changes are accepted; the default is msc->id. I'd just move the
+> 
+> Yes, but it reduces churn, and more importantly, is more true to the MPAM-Fb spec, which says:
+> "The MSC identifiers are sequential and start from 0 for each agent which uses this protocol."
+> So this requires that we have per-channel IDs for the MSCs, that's why I think it's justified to
+> introduce this already now, even when it's somewhat redundant as the code stands now, as we always
+> assign the system-wide ID to it.
+> 
+> I can of course move that out (and have that already on top of v9, internally), but wanted to check
+> this with you.
 
-The harness supports variants that protect the counters with an
-explicit locking primitive and variants that use allegedly lock-free
-primitives. A common operations interface allows the same workload to
-exercise different primitives.
+I don't really mind. If Lorenzo/Sudeep are happy with doing the preparation work in
+drivers/acpi/arm64/mpam.c then I'm ok with it. It's currently a non-functional change but does make
+the expected path forward slightly clearer.
 
-The module accepts the following parameters:
+> 
+>> earlier drivers/acpi/arm64/mpam.c to your last patch and introduce this device_property_read_u32()
+>> their too (or a separate patch if it's easier for anyone). That way all but the last two patches can
+>> be considered for merging without knowing what's going to happen with the spec.
+> 
+> Well, sure, though I think a separation of MPAM-FB MSC IDs and system-wide MSC IDs is inevitable,
+> regardless of which spec is changed and how the numbers are assigned, exactly.
 
-    mx_nmbr_elems:
-        Number of elements in the array. The default is 2048.
+It seems so.
 
-    mx_test:
-        Test variant to run. Supported variants include spin_lock,
-        spin_lock_irq, spin_lock_irqsave, and write_lock. Specifying an
-        unknown variant causes the module to print the complete list of
-        supported variants. The default is osq_lock.
+Thanks,
 
-    mx_scnds_per_test:
-        Duration of each test run, in seconds. The default is 1.
+Ben
 
-After all workers have stopped, the test sums the counters and reports
-a failure if the result is nonzero. Such a result indicates that the
-expected invariant was violated. Because this is a stress test, a zero
-result means only that no failure was observed during that run.
-
-The test can expose ordering regressions in atomic bit operations. For
-example, reverting commit 415d83249709 ("locking/atomic: Make
-test_and_*_bit() ordered on failure") causes the
-"test_and_clear_bit_innov" and "test_and_set_bit_innov" variants to
-fail on weakly ordered Arm systems. These variants rely on a failing
-test_and_*_bit() operation to enforce visibility of updates to other
-processors, rather than using smp_mb__before_atomic(). They therefore
-provide regression coverage for commit 415d83249709.
-
-The harness also includes variants that reproduce known incorrect uses
-of these primitives. Before commit 1422f28826d2 ("rds: introduce
-acquire/release ordering in acquire/release_in_xmit()"), RDS used them
-without the required acquire/release ordering. The "rds_busted"
-variant models that bug and fails on Arm systems.
-
-The "osq_lock_busted" locking type fails when the Optimistic Spin
-Queue (OSQ) helpers are treated as providing mutual exclusion: under
-the tested conditions, they do not. Whether the helpers should provide
-that guarantee remains under discussion.
-
-Regardless of the intended semantics, this test documents the behavior
-observed in v7.3-rc4. If the helpers are changed to guarantee mutual
-exclusion, the test can then serve as regression coverage for that
-change.
-
-The patch also adds a shell script for the CI kselftest framework. The
-script first runs the "busted" variant, which performs the updates
-without synchronization and is expected to fail. If that variant does
-not fail, the script skips the remaining tests because the run did not
-expose even the intentional race, making successful results from the
-other variants inconclusive.
-
-The script then loads the module with an unsupported mx_test value to
-obtain the list of available variants from the kernel log. It parses
-that list and runs every variant whose name does not contain "busted".
-
-For interactive use, the script accepts "-e low", "-e medium", or
-"-e high" to select the test effort.
-
-Signed-off-by: Håkon Bugge <haakon.bugge@oracle.com>
-
----
-
-v1 -> v2:
-   * Added "osq_lock_busted" as locking primitive. It is "busted"
-     because the osq_lock helpers do not provide mutual exclusion.
-   * Added "atomic_xchg" locking type, in order to mimic the sequence
-     atomic_xchg() in osq_lock() and corresponding
-     atomic_try_cmpxchg_release() in osq_unlock()
-   * Refactored the big union to simplify mx_add
-   * Added "atomic64_add" lockless test type
-   * Having the counters, when needed, as a separate array, which
-     removes the need for the padding logic
-   * Rebased on v7.3-rc4
----
- kernel/locking/Makefile                    |   1 +
- kernel/locking/mx_test.c                   | 723 +++++++++++++++++++++
- lib/Kconfig.debug                          |  10 +
- tools/testing/selftests/locking/Makefile   |   2 +-
- tools/testing/selftests/locking/mx_test.sh | 171 +++++
- 5 files changed, 906 insertions(+), 1 deletion(-)
- create mode 100644 kernel/locking/mx_test.c
- create mode 100755 tools/testing/selftests/locking/mx_test.sh
-
-diff --git a/kernel/locking/Makefile b/kernel/locking/Makefile
-index cee1901d4cff8..240084b4abbb7 100644
---- a/kernel/locking/Makefile
-+++ b/kernel/locking/Makefile
-@@ -38,3 +38,4 @@ obj-$(CONFIG_QUEUED_RWLOCKS) += qrwlock.o
- obj-$(CONFIG_LOCK_TORTURE_TEST) += locktorture.o
- obj-$(CONFIG_WW_MUTEX_SELFTEST) += test-ww_mutex.o
- obj-$(CONFIG_LOCK_EVENT_COUNTS) += lock_events.o
-+obj-$(CONFIG_MX_TEST) += mx_test.o
-diff --git a/kernel/locking/mx_test.c b/kernel/locking/mx_test.c
-new file mode 100644
-index 0000000000000..6a2dd23cdbf4c
---- /dev/null
-+++ b/kernel/locking/mx_test.c
-@@ -0,0 +1,723 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+#include <linux/completion.h>
-+#include <linux/errno.h>
-+#include <linux/init.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#ifdef CONFIG_LOCK_SPIN_ON_OWNER
-+#include <linux/osq_lock.h>
-+#endif
-+#include <linux/random.h>
-+#include <linux/rwlock.h>
-+#include <linux/slab.h>
-+#include <linux/smp.h>
-+#include <linux/spinlock.h>
-+#include <linux/vmalloc.h>
-+#include <linux/workqueue.h>
-+#include <linux/ww_mutex.h>
-+
-+#if IS_MODULE(CONFIG_MX_TEST) && defined(CONFIG_LOCK_SPIN_ON_OWNER)
-+#include "osq_lock.c"
-+#endif
-+
-+/*
-+ * The default here is derived from an empirical test, where
-+ * "osq_lock_busted" was run 100 times of one second, varying the
-+ * number of elements. This was run on a 160 CPU Arm BM system. The
-+ * percentage failures were:
-+ *    #elements	      percent failures
-+ * ===================================
-+ *	   1024		     90
-+ *	   2048		     95
-+ *	   4096		     92
-+ *	   8192		     94
-+ *	  16384		     85
-+ *	  32768		     79
-+ *	  65536		     66
-+ */
-+static unsigned int mx_nmbr_elems = 2048;
-+static unsigned long mx_scnds_per_test = 1;
-+static char *mx_test = "spin_lock";
-+
-+module_param(mx_nmbr_elems, uint, 0444);
-+MODULE_PARM_DESC(mx_nmbr_elems, "Number of elements (default 2048)");
-+
-+module_param(mx_scnds_per_test, ulong, 0444);
-+MODULE_PARM_DESC(mx_scnds_per_test, "Number of seconds to run for each test iteration (default is 1)");
-+
-+module_param(mx_test, charp, 0444);
-+MODULE_PARM_DESC(mx_test,
-+		 "Mutual exclusion method or lock-free method (spin_lock, spin_lock_irq, spin_lock_irqsave, write_lock, ...)");
-+
-+#define MX_RDS_IN_XMIT 2
-+#define MX_SOME_BIT 13
-+static DEFINE_WD_CLASS(wd_class);
-+static DEFINE_WW_CLASS(ww_class);
-+
-+enum mx_test {
-+	MX_ILLEGAL,
-+	MX_BUSTED,
-+	MX_SPIN_LOCK,
-+	MX_SPIN_LOCK_IRQ,
-+	MX_SPIN_LOCK_IRQSAVE,
-+	MX_RW_LOCK_W,
-+	MX_RW_LOCK_W_BH,
-+	MX_RW_LOCK_TRW,
-+	MX_RW_LOCK_TRW_BH,
-+	MX_MUTEX,
-+	MX_ATOMIC_ADD,
-+	MX_ATOMIC64_ADD,
-+	MX_CMPXCHG,
-+	MX_RDS_BUSTED,
-+	MX_TEST_AND_SET_BIT_LOCK,
-+	MX_TEST_AND_SET_BIT_INNOV,
-+	MX_TEST_AND_SET_BIT_PLAIN,
-+	MX_TEST_AND_CLEAR_BIT_INNOV,
-+	MX_TEST_AND_CLEAR_BIT_PLAIN,
-+	MX_SINGLE_WW_MUTEX_WW,	/* Wound-Wait */
-+	MX_SINGLE_WW_MUTEX_WD,	/* Wait-Die */
-+#ifdef CONFIG_LOCK_SPIN_ON_OWNER
-+	MX_OSQ_LOCK_BUSTED,
-+#endif
-+	MX_ATOMIC_XCHG,
-+};
-+
-+struct mx_locks {
-+	/* This union contains locks and lock-free data types */
-+	union {
-+		/* Protecting the counter below */
-+		spinlock_t spinlock;
-+		rwlock_t rwlock;
-+		/* Protecting the counter below */
-+		struct mutex mutex;
-+		atomic_t atomic_lock;
-+		atomic_t atomic_counter;
-+		atomic64_t atomic64_counter;
-+		long cmpxchg_counter;
-+		unsigned long bits;
-+		struct ww_mutex ww_mutex;
-+#ifdef CONFIG_LOCK_SPIN_ON_OWNER
-+		struct optimistic_spin_queue osq_lock;
-+#endif
-+	};
-+};
-+
-+struct mx_inc_dec_params {
-+	struct work_struct work;
-+	struct mx_locks *locks;
-+	long *counters;
-+	unsigned int nelems;
-+	unsigned long timeout;
-+	enum mx_test mx_type;
-+	u64 iter;
-+	struct completion completion;
-+};
-+
-+static bool mx_lockless_test(enum mx_test typ)
-+{
-+	return
-+		(typ == MX_ATOMIC_ADD)  ||
-+		(typ == MX_ATOMIC64_ADD)  ||
-+		(typ == MX_CMPXCHG);
-+}
-+
-+static inline unsigned int mx_rand(unsigned int *seed)
-+{
-+	*seed = *seed * 69069 + 111;
-+	return *seed;
-+}
-+
-+static inline void mx_acquire(struct mx_locks *locks, enum mx_test typ, unsigned long *flags_ptr)
-+{
-+	int ret;
-+
-+	switch (typ) {
-+	case MX_BUSTED:
-+		break;
-+	case MX_SPIN_LOCK:
-+		spin_lock(&locks->spinlock);
-+		break;
-+	case MX_SPIN_LOCK_IRQ:
-+		spin_lock_irq(&locks->spinlock);
-+		break;
-+	case MX_SPIN_LOCK_IRQSAVE:
-+		spin_lock_irqsave(&locks->spinlock, *flags_ptr);
-+		break;
-+	case MX_RW_LOCK_W:
-+		write_lock(&locks->rwlock);
-+		break;
-+	case MX_RW_LOCK_W_BH:
-+		write_lock_bh(&locks->rwlock);
-+		break;
-+	case MX_RW_LOCK_TRW:
-+		while (!read_trylock(&locks->rwlock))
-+			;
-+		read_unlock(&locks->rwlock);
-+		write_lock(&locks->rwlock);
-+		break;
-+	case MX_RW_LOCK_TRW_BH:
-+		while (!read_trylock(&locks->rwlock))
-+			;
-+		read_unlock(&locks->rwlock);
-+		write_lock_bh(&locks->rwlock);
-+		break;
-+	case MX_MUTEX:
-+		mutex_lock(&locks->mutex);
-+		break;
-+	case MX_ATOMIC_ADD:
-+	case MX_ATOMIC64_ADD:
-+	case MX_CMPXCHG:
-+		break;
-+	case MX_RDS_BUSTED:
-+		while (test_and_set_bit(MX_RDS_IN_XMIT, &locks->bits))
-+			;
-+		break;
-+	case MX_TEST_AND_SET_BIT_LOCK:
-+		while (test_and_set_bit_lock(MX_RDS_IN_XMIT, &locks->bits))
-+			;
-+		break;
-+	case MX_TEST_AND_SET_BIT_INNOV:
-+	case MX_TEST_AND_SET_BIT_PLAIN:
-+		while (test_and_set_bit(MX_SOME_BIT, &locks->bits))
-+			;
-+		break;
-+	case MX_TEST_AND_CLEAR_BIT_INNOV:
-+	case MX_TEST_AND_CLEAR_BIT_PLAIN:
-+		while (!test_and_clear_bit(MX_SOME_BIT, &locks->bits))
-+			;
-+		break;
-+	case MX_SINGLE_WW_MUTEX_WW:
-+	case MX_SINGLE_WW_MUTEX_WD:
-+		ret = ww_mutex_lock(&locks->ww_mutex, NULL);
-+		WARN_ONCE(ret, "ww_mutex_lock returned %d for the single w/w mutex case\n", ret);
-+		break;
-+#ifdef CONFIG_LOCK_SPIN_ON_OWNER
-+	case MX_OSQ_LOCK_BUSTED:
-+		preempt_disable();
-+		while (!osq_lock(&locks->osq_lock)) {
-+			preempt_enable();
-+			cond_resched();
-+			preempt_disable();
-+		}
-+		break;
-+#endif
-+	case MX_ATOMIC_XCHG:
-+		while (atomic_xchg_acquire(&locks->atomic_lock, 1) != 0)
-+			cpu_relax();
-+		break;
-+	default:
-+		WARN_ON_ONCE(true);
-+	}
-+}
-+
-+static inline void mx_release(struct mx_locks *locks, enum mx_test typ, unsigned long *flags_ptr)
-+{
-+	switch (typ) {
-+	case MX_BUSTED:
-+		break;
-+	case MX_SPIN_LOCK:
-+		spin_unlock(&locks->spinlock);
-+		break;
-+	case MX_SPIN_LOCK_IRQ:
-+		spin_unlock_irq(&locks->spinlock);
-+		break;
-+	case MX_SPIN_LOCK_IRQSAVE:
-+		spin_unlock_irqrestore(&locks->spinlock, *flags_ptr);
-+		break;
-+	case MX_RW_LOCK_W:
-+	case MX_RW_LOCK_TRW:
-+		write_unlock(&locks->rwlock);
-+		break;
-+	case MX_RW_LOCK_W_BH:
-+	case MX_RW_LOCK_TRW_BH:
-+		write_unlock_bh(&locks->rwlock);
-+		break;
-+	case MX_MUTEX:
-+		mutex_unlock(&locks->mutex);
-+		break;
-+	case MX_ATOMIC_ADD:
-+	case MX_ATOMIC64_ADD:
-+	case MX_CMPXCHG:
-+		break;
-+	case MX_RDS_BUSTED:
-+		clear_bit(MX_RDS_IN_XMIT, &locks->bits);
-+		/* Deliberately outside the critical region, as RDS did prior to 1422f288 */
-+		smp_mb__after_atomic();
-+		break;
-+	case MX_TEST_AND_SET_BIT_LOCK:
-+		clear_bit_unlock(MX_RDS_IN_XMIT, &locks->bits);
-+		break;
-+	case MX_TEST_AND_SET_BIT_INNOV:
-+		/*
-+		 * Ensuring global visibility on other processors by
-+		 * means of a failing test_and_set_bit()
-+		 */
-+		(void)test_and_set_bit(MX_SOME_BIT, &locks->bits);
-+		clear_bit(MX_SOME_BIT, &locks->bits);
-+		break;
-+	case MX_TEST_AND_SET_BIT_PLAIN:
-+		/* Ensure the counter gets global visiblity before releasing the lock*/
-+		smp_mb__before_atomic();
-+		clear_bit(MX_SOME_BIT, &locks->bits);
-+		break;
-+	case MX_TEST_AND_CLEAR_BIT_INNOV:
-+		/*
-+		 * Ensuring global visibility on other processors by
-+		 * means of a failing test_and_clear_bit()
-+		 */
-+		(void)test_and_clear_bit(MX_SOME_BIT, &locks->bits);
-+		set_bit(MX_SOME_BIT, &locks->bits);
-+		break;
-+	case MX_TEST_AND_CLEAR_BIT_PLAIN:
-+		/* Ensure the counter gets global visiblity before releasing the lock*/
-+		smp_mb__before_atomic();
-+		set_bit(MX_SOME_BIT, &locks->bits);
-+		break;
-+	case MX_SINGLE_WW_MUTEX_WW:
-+	case MX_SINGLE_WW_MUTEX_WD:
-+		ww_mutex_unlock(&locks->ww_mutex);
-+		break;
-+#ifdef CONFIG_LOCK_SPIN_ON_OWNER
-+	case MX_OSQ_LOCK_BUSTED:
-+		osq_unlock(&locks->osq_lock);
-+		preempt_enable();
-+		break;
-+#endif
-+	case MX_ATOMIC_XCHG:
-+		atomic_set_release(&locks->atomic_lock, 0);
-+		break;
-+	default:
-+		WARN_ON_ONCE(true);
-+	}
-+}
-+
-+static inline void mx_add(struct mx_locks *locks, long *counters, enum mx_test typ, long addend)
-+{
-+	long old;
-+
-+	switch (typ) {
-+	case MX_BUSTED:
-+	case MX_SPIN_LOCK:
-+	case MX_SPIN_LOCK_IRQ:
-+	case MX_SPIN_LOCK_IRQSAVE:
-+	case MX_RW_LOCK_W:
-+	case MX_RW_LOCK_W_BH:
-+	case MX_RW_LOCK_TRW:
-+	case MX_RW_LOCK_TRW_BH:
-+	case MX_MUTEX:
-+	case MX_RDS_BUSTED:
-+	case MX_TEST_AND_SET_BIT_LOCK:
-+	case MX_TEST_AND_SET_BIT_INNOV:
-+	case MX_TEST_AND_SET_BIT_PLAIN:
-+	case MX_TEST_AND_CLEAR_BIT_INNOV:
-+	case MX_TEST_AND_CLEAR_BIT_PLAIN:
-+	case MX_SINGLE_WW_MUTEX_WW:
-+	case MX_SINGLE_WW_MUTEX_WD:
-+#ifdef CONFIG_LOCK_SPIN_ON_OWNER
-+	case MX_OSQ_LOCK_BUSTED:
-+#endif
-+	case MX_ATOMIC_XCHG:
-+		*counters += addend;
-+		break;
-+	case MX_ATOMIC_ADD:
-+		atomic_add(addend, &locks->atomic_counter);
-+		break;
-+	case MX_ATOMIC64_ADD:
-+		atomic64_add(addend, &locks->atomic64_counter);
-+		break;
-+	case MX_CMPXCHG:
-+		do {
-+			old = READ_ONCE(locks->cmpxchg_counter);
-+		} while (cmpxchg(&locks->cmpxchg_counter, old, old + addend) != old);
-+		break;
-+	default:
-+		WARN_ON_ONCE(true);
-+	}
-+}
-+
-+static inline long mx_read(struct mx_locks *locks, long *counters, enum mx_test typ)
-+{
-+	switch (typ) {
-+	case MX_BUSTED:
-+	case MX_SPIN_LOCK:
-+	case MX_SPIN_LOCK_IRQ:
-+	case MX_SPIN_LOCK_IRQSAVE:
-+	case MX_RW_LOCK_W:
-+	case MX_RW_LOCK_W_BH:
-+	case MX_RW_LOCK_TRW:
-+	case MX_RW_LOCK_TRW_BH:
-+	case MX_MUTEX:
-+	case MX_RDS_BUSTED:
-+	case MX_TEST_AND_SET_BIT_LOCK:
-+	case MX_TEST_AND_SET_BIT_INNOV:
-+	case MX_TEST_AND_SET_BIT_PLAIN:
-+	case MX_TEST_AND_CLEAR_BIT_INNOV:
-+	case MX_TEST_AND_CLEAR_BIT_PLAIN:
-+	case MX_SINGLE_WW_MUTEX_WW:
-+	case MX_SINGLE_WW_MUTEX_WD:
-+#ifdef CONFIG_LOCK_SPIN_ON_OWNER
-+	case MX_OSQ_LOCK_BUSTED:
-+#endif
-+	case MX_ATOMIC_XCHG:
-+		return *counters;
-+	case MX_ATOMIC_ADD:
-+		return atomic_read(&locks->atomic_counter);
-+	case MX_ATOMIC64_ADD:
-+		return atomic64_read(&locks->atomic64_counter);
-+	case MX_CMPXCHG:
-+		return locks->cmpxchg_counter;
-+	default:
-+		WARN_ON_ONCE(true);
-+	}
-+	return 0;
-+}
-+
-+static inline void mx_init(struct mx_locks *locks, enum mx_test typ)
-+{
-+	switch (typ) {
-+	case MX_SPIN_LOCK:
-+	case MX_SPIN_LOCK_IRQ:
-+	case MX_SPIN_LOCK_IRQSAVE:
-+		spin_lock_init(&locks->spinlock);
-+		break;
-+	case MX_RW_LOCK_W:
-+	case MX_RW_LOCK_W_BH:
-+	case MX_RW_LOCK_TRW:
-+	case MX_RW_LOCK_TRW_BH:
-+		rwlock_init(&locks->rwlock);
-+		break;
-+	case MX_MUTEX:
-+		mutex_init(&locks->mutex);
-+		break;
-+	case MX_TEST_AND_CLEAR_BIT_INNOV:
-+	case MX_TEST_AND_CLEAR_BIT_PLAIN:
-+		set_bit(MX_SOME_BIT, &locks->bits);
-+		break;
-+	/* The following relies on the vzalloc below */
-+	case MX_BUSTED:
-+	case MX_ATOMIC_ADD:
-+	case MX_ATOMIC64_ADD:
-+	case MX_CMPXCHG:
-+	case MX_RDS_BUSTED:
-+	case MX_TEST_AND_SET_BIT_LOCK:
-+	case MX_TEST_AND_SET_BIT_INNOV:
-+	case MX_TEST_AND_SET_BIT_PLAIN:
-+	case MX_ATOMIC_XCHG:
-+		break;
-+	case MX_SINGLE_WW_MUTEX_WW:
-+		ww_mutex_init(&locks->ww_mutex, &ww_class);
-+		break;
-+	case MX_SINGLE_WW_MUTEX_WD:
-+		ww_mutex_init(&locks->ww_mutex, &wd_class);
-+		break;
-+#ifdef CONFIG_LOCK_SPIN_ON_OWNER
-+	case MX_OSQ_LOCK_BUSTED:
-+		osq_lock_init(&locks->osq_lock);
-+		break;
-+#endif
-+	default:
-+		WARN_ON_ONCE(true);
-+	}
-+}
-+
-+static inline void mx_fini(struct mx_locks *locks, enum mx_test typ)
-+{
-+	switch (typ) {
-+	case MX_SPIN_LOCK:
-+	case MX_SPIN_LOCK_IRQ:
-+	case MX_SPIN_LOCK_IRQSAVE:
-+	case MX_RW_LOCK_W:
-+	case MX_RW_LOCK_W_BH:
-+	case MX_RW_LOCK_TRW:
-+	case MX_RW_LOCK_TRW_BH:
-+	case MX_TEST_AND_CLEAR_BIT_INNOV:
-+	case MX_TEST_AND_CLEAR_BIT_PLAIN:
-+	case MX_BUSTED:
-+	case MX_ATOMIC_ADD:
-+	case MX_ATOMIC64_ADD:
-+	case MX_CMPXCHG:
-+	case MX_RDS_BUSTED:
-+	case MX_TEST_AND_SET_BIT_LOCK:
-+	case MX_TEST_AND_SET_BIT_INNOV:
-+	case MX_TEST_AND_SET_BIT_PLAIN:
-+#ifdef CONFIG_LOCK_SPIN_ON_OWNER
-+	case MX_OSQ_LOCK_BUSTED:
-+#endif
-+	case MX_ATOMIC_XCHG:
-+		break;
-+	case MX_MUTEX:
-+		mutex_destroy(&locks->mutex);
-+		break;
-+	case MX_SINGLE_WW_MUTEX_WW:
-+	case MX_SINGLE_WW_MUTEX_WD:
-+		ww_mutex_destroy(&locks->ww_mutex);
-+		break;
-+	default:
-+		WARN_ON_ONCE(true);
-+	}
-+}
-+
-+static void mx_inc_dec(struct work_struct *_work)
-+{
-+	struct mx_inc_dec_params *params;
-+	unsigned long flags;
-+	struct mx_locks *locks;
-+	unsigned int seed;
-+	u64 iter = 0;
-+
-+	params = container_of(_work, struct mx_inc_dec_params, work);
-+	locks = params->locks;
-+
-+	get_random_bytes(&seed, sizeof(seed));
-+	do {
-+		unsigned int inx1 = mx_rand(&seed) % params->nelems;
-+		unsigned int inx2 = mx_rand(&seed) % params->nelems;
-+		struct mx_locks *rnd_el1 = locks + inx1;
-+		struct mx_locks *rnd_el2 = locks + inx2;
-+
-+		++iter;
-+
-+		mx_acquire(rnd_el1, params->mx_type, &flags);
-+		mx_add(rnd_el1, params->counters + inx1, params->mx_type, 1);
-+		mx_release(rnd_el1, params->mx_type, &flags);
-+
-+		mx_acquire(rnd_el2, params->mx_type, &flags);
-+		mx_add(rnd_el2, params->counters + inx2, params->mx_type, -1);
-+		mx_release(rnd_el2, params->mx_type, &flags);
-+	} while (time_before(jiffies, params->timeout));
-+
-+	params->iter = iter;
-+	complete(&params->completion);
-+}
-+
-+#define pr_notice_or_err(err, fmt, ...)				\
-+	do {							\
-+		if (err)					\
-+			pr_err(fmt, ##__VA_ARGS__);		\
-+		else						\
-+			pr_notice(fmt, ##__VA_ARGS__);		\
-+	} while (0)
-+
-+static int run_test(const enum mx_test test, const char *mnemonic, const int threads)
-+{
-+	struct mx_inc_dec_params *params = kzalloc_objs(*params, threads);
-+	unsigned long start_jf = jiffies;
-+	u64 total_iters = 0;
-+	struct mx_locks *locks;
-+	long *counters = NULL;
-+	unsigned long ms;
-+	long sum = 0;
-+	int ret = 0;
-+	int i;
-+
-+	locks = kvmalloc_array(mx_nmbr_elems, sizeof(*locks), GFP_KERNEL | __GFP_ZERO);
-+
-+	if (!mx_lockless_test(test)) {
-+		counters = kvmalloc_array(mx_nmbr_elems, sizeof(*counters),
-+					  GFP_KERNEL | __GFP_ZERO);
-+		if (!counters) {
-+			ret = -ENOMEM;
-+			goto exit_free;
-+		}
-+	}
-+
-+	if (!locks || !params) {
-+		ret = -ENOMEM;
-+		goto exit_free;
-+	}
-+
-+	for (i = 0; i < mx_nmbr_elems; ++i)
-+		mx_init(locks + i, test);
-+
-+	for (i = 0; i < threads; ++i) {
-+		struct mx_inc_dec_params *p = params + i;
-+
-+		p->locks = locks;
-+		p->counters = counters;
-+		p->nelems = mx_nmbr_elems;
-+		p->timeout = jiffies + mx_scnds_per_test * HZ;
-+		p->mx_type = test;
-+		init_completion(&p->completion);
-+
-+		INIT_WORK(&p->work, mx_inc_dec);
-+		queue_work(system_dfl_wq, &p->work);
-+	}
-+
-+	for (i = 0; i < threads; ++i) {
-+		struct mx_inc_dec_params *p = params + i;
-+
-+		wait_for_completion(&p->completion);
-+		total_iters += p->iter;
-+	}
-+
-+	for (i = 0; i < mx_nmbr_elems; ++i)
-+		mx_fini(locks + i, test);
-+
-+	if (total_iters > LONG_MAX)
-+		pr_warn_once("mx_test: Total number of iterations %llu exceeds LONG_MAX; consider reducing mx_scnds_per_test\n",
-+			     total_iters);
-+
-+	for (i = 0; i < mx_nmbr_elems; ++i)
-+		sum += mx_read(locks + i, counters + i, test);
-+
-+	ms = jiffies_to_msecs(jiffies - start_jf);
-+
-+	pr_notice_or_err(sum,
-+			 "mx_test: %-27s result: %s sum: %ld elements: %7d elapsed: %lu.%03lu seconds\n",
-+			 mnemonic, !sum ? "SUCCESS" : "FAILURE", sum, mx_nmbr_elems,
-+			 ms / 1000, ms % 1000);
-+	if (sum)
-+		ret = -EFAULT;
-+
-+exit_free:
-+	kvfree(counters);
-+	kvfree(locks);
-+	kfree(params);
-+	return ret;
-+}
-+
-+static int __init mx_test_init(void)
-+{
-+	unsigned int threads = 4 * num_online_cpus();
-+	enum mx_test test = MX_ILLEGAL;
-+	char *mnemonic;
-+	unsigned int i;
-+	int sts;
-+	struct {
-+		enum mx_test test;
-+		char *mnemonic;
-+	} mx_test_types[] = {
-+		{
-+			.test = MX_BUSTED,
-+			.mnemonic = "busted",
-+		},
-+		{
-+			.test = MX_SPIN_LOCK,
-+			.mnemonic = "spin_lock",
-+		},
-+		{
-+			.test = MX_SPIN_LOCK_IRQ,
-+			.mnemonic = "spin_lock_irq",
-+		},
-+		{
-+			.test = MX_SPIN_LOCK_IRQSAVE,
-+			.mnemonic = "spin_lock_irqsave",
-+		},
-+		{
-+			.test = MX_RW_LOCK_W,
-+			.mnemonic = "write_lock",
-+		},
-+		{
-+			.test = MX_RW_LOCK_W_BH,
-+			.mnemonic = "write_lock_bh",
-+		},
-+		{
-+			.test = MX_RW_LOCK_TRW,
-+			.mnemonic = "read_trylock_write_lock",
-+		},
-+		{
-+			.test = MX_RW_LOCK_TRW_BH,
-+			.mnemonic = "read_trylock_write_lock_bh",
-+		},
-+		{
-+			.test = MX_MUTEX,
-+			.mnemonic = "mutex",
-+		},
-+		{
-+			.test = MX_ATOMIC_ADD,
-+			.mnemonic = "atomic_add",
-+		},
-+		{
-+			.test = MX_ATOMIC64_ADD,
-+			.mnemonic = "atomic64_add",
-+		},
-+		{
-+			.test = MX_CMPXCHG,
-+			.mnemonic = "cmpxchg",
-+		},
-+		{
-+			.test = MX_RDS_BUSTED,
-+			.mnemonic = "rds_busted",
-+		},
-+		{
-+			.test = MX_TEST_AND_SET_BIT_LOCK,
-+			.mnemonic = "test_and_set_bit_lock",
-+		},
-+		{
-+			.test = MX_TEST_AND_SET_BIT_INNOV,
-+			.mnemonic = "test_and_set_bit_innov",
-+		},
-+		{
-+			.test = MX_TEST_AND_SET_BIT_PLAIN,
-+			.mnemonic = "test_and_set_bit_plain",
-+		},
-+		{
-+			.test = MX_TEST_AND_CLEAR_BIT_INNOV,
-+			.mnemonic = "test_and_clear_bit_innov",
-+		},
-+		{
-+			.test = MX_TEST_AND_CLEAR_BIT_PLAIN,
-+			.mnemonic = "test_and_clear_bit_plain",
-+		},
-+		{
-+			.test = MX_SINGLE_WW_MUTEX_WW,
-+			.mnemonic = "single_ww_mutex_wound_wait",
-+		},
-+		{
-+			.test = MX_SINGLE_WW_MUTEX_WD,
-+			.mnemonic = "single_ww_mutex_wait_die",
-+		},
-+#ifdef CONFIG_LOCK_SPIN_ON_OWNER
-+		{
-+			.test = MX_OSQ_LOCK_BUSTED,
-+			.mnemonic = "osq_lock_busted",
-+		},
-+#endif
-+		{
-+		  .test = MX_ATOMIC_XCHG,
-+			.mnemonic = "atomic_xchg",
-+		},
-+	};
-+
-+	/* Select the test type */
-+	for (i = 0; i < ARRAY_SIZE(mx_test_types); ++i)
-+		if (!strcmp(mx_test, mx_test_types[i].mnemonic)) {
-+			test = mx_test_types[i].test;
-+			mnemonic = mx_test_types[i].mnemonic;
-+			break;
-+		}
-+
-+	if (test == MX_ILLEGAL) {
-+		pr_err("mx_test: unknown test type %s\n", mx_test);
-+		pr_notice("mx_test: legitimate test types:\n");
-+		for (i = 0; i < ARRAY_SIZE(mx_test_types); ++i)
-+			pr_notice("mx_test_types:	 %s\n", mx_test_types[i].mnemonic);
-+		return -ENOPROTOOPT;
-+	}
-+
-+	if (mx_nmbr_elems < 1) {
-+		pr_err("Number of elements must be greater than equal to one\n");
-+		return -EINVAL;
-+	}
-+
-+	if (mx_scnds_per_test > MAX_JIFFY_OFFSET / HZ) {
-+		pr_err("mx_scnds_per_test too large\n");
-+		return -EINVAL;
-+	}
-+
-+	sts = run_test(test, mnemonic, threads);
-+
-+	return sts;
-+}
-+
-+static void __exit mx_test_exit(void)
-+{
-+}
-+
-+module_init(mx_test_init);
-+module_exit(mx_test_exit);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Håkon Bugge <Haakon.Bugge@oracle.com>");
-+MODULE_DESCRIPTION("mutual exclusion tests");
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 134b15a44625e..6b60c66e92627 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -1691,6 +1691,16 @@ config CSD_LOCK_WAIT_DEBUG_DEFAULT
- 	  This option causes the csdlock_debug= kernel boot parameter to
- 	  default to 1 (basic debugging) instead of 0 (no debugging).
- 
-+config MX_TEST
-+	tristate "miscellaneous lock-full and lock-less selftests"
-+	help
-+	  This option provides a kernel module that runs tests using
-+	  different locking primitives and lockless operations.
-+
-+	  Say M if you want these self tests to build as a module.
-+	  Say N if you are unsure.
-+
-+
- endmenu # lock debugging
- 
- config TRACE_IRQFLAGS
-diff --git a/tools/testing/selftests/locking/Makefile b/tools/testing/selftests/locking/Makefile
-index 6e7761ab35360..d9cfb0e565275 100644
---- a/tools/testing/selftests/locking/Makefile
-+++ b/tools/testing/selftests/locking/Makefile
-@@ -5,6 +5,6 @@
- # No binaries, but make sure arg-less "make" doesn't trigger "run_tests"
- all:
- 
--TEST_PROGS := ww_mutex.sh
-+TEST_PROGS := ww_mutex.sh mx_test.sh
- 
- include ../lib.mk
-diff --git a/tools/testing/selftests/locking/mx_test.sh b/tools/testing/selftests/locking/mx_test.sh
-new file mode 100755
-index 0000000000000..6db2caafd4629
---- /dev/null
-+++ b/tools/testing/selftests/locking/mx_test.sh
-@@ -0,0 +1,171 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+
-+declare mx_min_log2_elems=11
-+declare mx_max_log2_elems=11
-+declare mx_inc_log2_elems=1
-+declare mx_seconds=1
-+
-+# Kselftest framework requirement - SKIP code is 4.
-+declare ksft_skip=4
-+
-+set_low_params() {
-+	mx_min_log2_elems=11
-+	mx_max_log2_elems=11
-+	mx_inc_log2_elems=1
-+	mx_seconds=1
-+}
-+
-+set_med_params() {
-+	mx_min_log2_elems=6
-+	mx_max_log2_elems=14
-+	mx_inc_log2_elems=2
-+	mx_seconds=2
-+}
-+
-+set_high_params() {
-+	mx_min_log2_elems=1
-+	mx_max_log2_elems=23
-+	mx_inc_log2_elems=2
-+	mx_seconds=5
-+}
-+
-+usage() {
-+	printf "Usage: %s [-e low|medium|high] [-h]\n" "$(basename "$0")"
-+}
-+
-+unload_module_exit_on_error() {
-+	local str="$1"
-+	local sts
-+
-+	if [ -d /sys/module/mx_test ]; then
-+		/sbin/modprobe -q -r mx_test
-+		sts=$?
-+		if (( sts != 0 )); then
-+			echo "mx_test: $str Exit status: $sts"
-+			exit 1
-+		fi
-+	fi
-+}
-+
-+run_test() {
-+	local test=$1
-+	local log2_elems
-+	local sts
-+
-+	# Paranoia check. Unload if loaded.
-+	unload_module_exit_on_error "Failed to unload preloaded mx_test module."
-+
-+	for log2_elems in $(seq $mx_min_log2_elems $mx_inc_log2_elems $mx_max_log2_elems); do
-+		/sbin/modprobe -q mx_test mx_test="$test" \
-+			       mx_nmbr_elems=$((1 << log2_elems)) \
-+			       mx_scnds_per_test="$mx_seconds"
-+		sts=$?
-+
-+		if (( sts == 0 )); then
-+			unload_module_exit_on_error "Failed to unload module after test \"$test\"."
-+		else
-+			return $sts
-+		fi
-+	done
-+
-+	return 0
-+}
-+
-+find_eligible_tests() {
-+	local test
-+
-+	# Note, the following modprobe will fail and module is not loaded afterwards
-+	/sbin/modprobe -q mx_test mx_test=non_existing_test
-+
-+	# Skip "busted" and any "foo_busted"
-+	for test in $(dmesg -t | \
-+			      grep mx_test_types: | \
-+			      awk '{ print $2; }' | \
-+			      sort -u | \
-+			      grep -v busted); do
-+		echo $test
-+	done
-+}
-+
-+# Run kernel selftests for lock-full and lock-less mutual exclusion tests.
-+# First, check module availability.
-+if ! /sbin/modprobe -q -n mx_test; then
-+	echo "mx_test: module mx_test is not found [SKIP]"
-+	exit $ksft_skip
-+fi
-+
-+# Parse arguments
-+while getopts :e:h arg; do
-+	case $arg in
-+		e)
-+			case $OPTARG in
-+				low)
-+					set_low_params
-+					;;
-+				medium)
-+					set_med_params
-+					;;
-+				high)
-+					set_high_params
-+					;;
-+				*)
-+					echo "mx_test: Invalid effort level: $OPTARG"
-+					usage
-+					exit 1
-+					;;
-+			esac
-+			;;
-+		h)
-+			usage
-+			exit 0
-+			;;
-+		:)
-+			echo "mx_test: Option -$OPTARG requires an argument"
-+			usage
-+			exit 1
-+			;;
-+		\?)
-+			echo "mx_test: Unknown option -$OPTARG"
-+			usage
-+			exit 1
-+			;;
-+	esac
-+done
-+
-+shift "$((OPTIND - 1))"
-+
-+if (($# != 0)); then
-+	echo "mx_test: Unexpected argument: $1"
-+	usage
-+	exit 1
-+fi
-+
-+# First, run "busted" to verify the test environment. If this test
-+# doesn't fail, there is no point in performing more tests in this
-+# environment.
-+run_test "busted"
-+sts=$?
-+if (( sts == 0 )); then
-+	echo mx_test: The test \"busted\" did not fail. Probable cause: UP kernel or too few CPUs online.
-+	echo mx_test: Hence, skipping the rest of the tests.
-+	exit $ksft_skip
-+fi
-+
-+eligible_test="$(find_eligible_tests)"
-+if [ -z "$eligible_test" ]; then
-+	echo mx_test: No tests found. Skipping.
-+	exit $ksft_skip
-+fi
-+
-+for test in $eligible_test; do
-+	run_test "$test"
-+	sts=$?
-+	if (( sts != 0 )); then
-+		echo mx_test: Test \"$test\" failed
-+		exit 1
-+	fi
-+done
-+
-+echo mx_test: All tests passed
-+exit 0
--- 
-2.43.5
+> >> The struct msc property mpam_fb_msc_id is a bit long. Better as msc->fb_id?
+> 
+> Sure, can shorten that.
+> 
+> Cheers,
+> Andre.
+> 
+>>>       } else {
+>>>           return ERR_PTR(-EINVAL);
+>>>       }
+>>> diff --git a/drivers/resctrl/mpam_fb.c b/drivers/resctrl/mpam_fb.c
+>>> index 98212f761de38..8fc1d78a7b5ab 100644
+>>> --- a/drivers/resctrl/mpam_fb.c
+>>> +++ b/drivers/resctrl/mpam_fb.c
+>>> @@ -20,10 +20,15 @@
+>>>   #define MPAM_FB_PROTOCOL_ID        0x1a
+>>>     #define MPAM_PROTOCOL_VERSION_CMD    0x0
+>>> +#define MPAM_FB_VERSION_MAJOR_MASK        GENMASK_U32(31, 16)
+>>> +#define MPAM_FB_VERSION_MINOR_MASK        GENMASK_U32(15, 0)
+>>> +
+>>>   #define MPAM_MSC_READ_CMD        0x4
+>>>   #define MPAM_MSC_WRITE_CMD        0x5
+>>>     #define MPAM_FB_PROT_HEADER_LEN        sizeof(u32)
+>>> +/* The longest message is MPAM_MSC_WRITE, with 4 parameters. */
+>>> +#define MPAM_FB_MAX_MSG_SIZE        (4 * sizeof(u32))
+>>>     #define MPAM_FB_SUCCESS         0
+>>>   #define MPAM_FB_ERR_NOT_SUPPORTED    -1
+>>> @@ -209,3 +214,39 @@ int mpam_fb_send_write_request(struct mpam_msc *msc, u16 reg, u32 value)
+>>>       return mpam_fb_send_request(msc, msc->mpam_fb_msc_id, reg, &value,
+>>>                       MPAM_MSC_WRITE_CMD);
+>>>   }
+>>> +
+>>> +/* We only support MPAM-Fb protocol version 1.x */
+>>> +int mpam_fb_check_protocol_version(struct mpam_msc *msc)
+>>> +{
+>>> +    u32 version;
+>>> +    int ret;
+>>> +
+>>> +    ret = mpam_fb_send_request(msc, 0, 0, &version,
+>>> +                   MPAM_PROTOCOL_VERSION_CMD);
+>>> +    if (ret)
+>>> +        return ret;
+>>> +
+>>> +    if (FIELD_GET(MPAM_FB_VERSION_MAJOR_MASK, version) != 1) {
+>>> +        pr_err("Incompatible MPAM-Fb protocol version %d.%d\n",
+>>> +               FIELD_GET(MPAM_FB_VERSION_MAJOR_MASK, version),
+>>> +               FIELD_GET(MPAM_FB_VERSION_MINOR_MASK, version));
+>>> +
+>>> +        return -EINVAL;
+>>> +    }
+>>> +
+>>> +    return 0;
+>>> +}
+>>> +
+>>> +int mpam_fb_check_shared_buffer_size(struct mpam_msc *msc)
+>>> +{
+>>> +    int min_buffer_size = MPAM_FB_MAX_MSG_SIZE +
+>>> +                  sizeof(struct acpi_pcct_ext_pcc_shared_memory);
+>>> +
+>>> +    if (msc->pcc_chan->pcc_chan->shmem_size < min_buffer_size) {
+>>> +        pr_err("MPAM-Fb PCC channel size too small.\n");
+>>> +
+>>> +        return -ENOMEM;
+>>> +    }
+>>> +
+>>> +    return 0;
+>>> +}
+>>> diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
+>>> index e5a2804facd2d..314d3b48ca9fd 100644
+>>> --- a/drivers/resctrl/mpam_internal.h
+>>> +++ b/drivers/resctrl/mpam_internal.h
+>>> @@ -538,6 +538,8 @@ static inline void mpam_resctrl_teardown_class(struct mpam_class *class) { }
+>>>   /* MPAM-Fb Firmware-backed protocol wrappers */
+>>>   int mpam_fb_send_read_request(struct mpam_msc *msc, u16 reg, u32 *result);
+>>>   int mpam_fb_send_write_request(struct mpam_msc *msc, u16 reg, u32 value);
+>>> +int mpam_fb_check_protocol_version(struct mpam_msc *msc);
+>>> +int mpam_fb_check_shared_buffer_size(struct mpam_msc *msc);
+>>>     /*
+>>>    * MPAM MSCs have the following register layout. See:
+>>
+> 
 
