@@ -1,118 +1,98 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77EDD36495D
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:24:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B22EE331EC5;
+	Mon, 21 Sep 2026 06:26:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789971898; cv=none; b=EIsDGJzHm/0c7SMiiKhC5EyKDO/AjhFMkc5lcnw06j4dengUlwffYZkvGOUe3z5Ge0B8XHsQw5vIZ6bVTZGz/1I59SZnVrkNvcJUB0Lu0TskpIwwwIkocGEEQqNZiKvqaDhN4zVj/ScnXXAzJroTHJUUWi6SU5OnBMI8g1I9paY=
+	t=1789972005; cv=none; b=j90LgNy9e+i6rfxfZ+KzVyGPaa/zXjlE7q7/Gl9NirRo6Rb+RDSOzbxs5gAetcH6ooNN27MGT97TS64WDV3LL60oulf9Qm5Oxvzup2H6ESoqYGbEKDgSUZ2DmdJHKzZWWMr3QBU9oo0/cgpxoz7C5Q6NqvGeefKj9tInP23foPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789971898; c=relaxed/simple;
-	bh=pA549//OYM7fyJIc7yxSbMcyjzH13X8kC3Rw7VmSaNM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mb0vMp/sRrg+UPo2hLvWOAj05L30DG8w74YvR9unKw2MkuqFYDdKUlgDX4DIZvLBag2OTx4jYYtmecef71pvEpOYYhGysQn8ObNFyFdZU/lbBfneq1TfXnMGaIcdVok/BZE80wja0RPjuYbbPlYi9u8jTZV6TjD1JL3tI2tThjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jnTBVffg; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jnTBVffg"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469a3490bso2743153b3a.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 23:24:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789971897; x=1790576697; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AJ/GHRkp98XLTockNWA7TYk+PmU+zv6J0kw1z2p9qwE=;
-        b=jnTBVffgHqBZ/BoaQr/dBO5sR2a3IJRsZIIzh+KqeVFwl9/JlkJpAJG2zVFcSwDJA6
-         zZjCZPCzdHspLtLZyPO9bAGSEC3fUpDahXZ/Hny3BrxPqgK1sxqEF/wFHIjJlfQ1pUB7
-         5ZjowWh2Q5t/hFQOmxYkOXe3P8U+zvg0RMCrx5y7hsg1PRBIUbiOTkwEZo4eNSKiXsux
-         3iAF/pwYF1Hy1iwOb/VxndYAHeKKEOX1N+KdCK60Xugt30yVtbG+z8GCYdhz7orolGFZ
-         n5mFuXMC8t82ulLzmyN2n+ujl8TzdawfX7/F+Unq3NVjrlku8vOtGwkyn9KGLbIXCDb9
-         ey3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789971897; x=1790576697;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AJ/GHRkp98XLTockNWA7TYk+PmU+zv6J0kw1z2p9qwE=;
-        b=mH1ALSClaN1l6JcSTe8x7LH9WRQhTKcbHGzllNUIWkaUa6L3cYlWhky/TdKWygOmGY
-         97gizqUnCoFz5XnRRnKEZad/G4FM30WV63jdukz6WEECfwlLmz09o4pwViFSbpw8R5PN
-         S03ftBg0cpLHsJ0C9kiJd2i3dyOVI7rTdHEt1VrDJEaw5R7FVEO7TmZptMr60WqYOn3U
-         59ZD8RZJ7NWTalOoswOpUJVUR8ei5qiT2G48jQuTt+9DF6aOBMJY/Vo9h54tb8zIEaIr
-         eEu7ISxtMOp6gaWwpQhd6bYWkZLWJqZyNYMyj+U62CeSCiRy+NE5jsIMPut0JqDTDwdl
-         c4Dw==
-X-Forwarded-Encrypted: i=1; AKwUvBxjIADiaXdv3pJbDRuaXrAN9nCcxkVmn7I3PNvvK66Zzdrg7/41QP710LIwrU4ZNndJdnEUfPq9vp+ePCQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nw2faHpP+dDoATkVBdWPIWeWjYJD1pySOGdBKlkJIJhDJUxRzi
-	5hLjlga+XQUs8ZFFnVORuErPcNOcNHxVW4MWhRtzdQjbo1vUC1yeUvex
-X-Gm-Gg: AYBFou1c+YXeuHBxmydz49j6mon+BTtbsgpUN1jEYYZC8PBgYifpPfLUVBu6tnKbqQt
-	Nb5Bo/AL7uy7hW2RxGFcAM+yy1YUQrGvLG8adaEdbRPRBtgGW2PiwAxsCKrv6vSDmtNGE8CHy3P
-	0pimYmEuPCTvbDFqtJHNZkhajHcxyH1EvD9a0OJq5bXN3o8nUTMq10OSE1wunZsQtFW01iGR7OD
-	qklVYMxzbUeNBGBbtwPri41l68qSMnvNBSlo1HNbF3XxarxpYPShcuFo3lQKEr4aUIR4oKLCh/+
-	wNax0LQH979cjb08RYQ4gvY2vVzlLbDv4ObPt1g3o1mzSgDg37F94noNl4lh+UeaJTsM+tW7ttl
-	ksuzb+7cmR5GDGzwH5YcMCapN+KfvmXPZPwpxxihrz+50eE5dtogmeVgoHTkeP2SzaBVmF87OJE
-	RupOAUkwYgF/eRQ/jhTZR2IuWz1Pe+cW661mYiyvubyDPX/8TfY9A0Ih/MRW6B/tQMDBPHY96Ka
-	8IFPNYHEKAbd55Micr4MfpStoxFjtN7hiDSdUB19ErfxWXDZkXL/SxEwxMYvNKlVjvjcI4+Veqa
-	dc8nxOI=
-X-Received: by 2002:a05:6a00:f0b:b0:878:34d7:697c with SMTP id d2e1a72fcca58-87834d76ce7mr6330562b3a.42.1789971896493;
-        Sun, 20 Sep 2026 23:24:56 -0700 (PDT)
-Received: from DESKTOP-G3E0OSP.localdomain ([58.224.60.243])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877aa107908sm2750128b3a.46.2026.09.20.23.24.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 23:24:56 -0700 (PDT)
-From: Jinseob Kim <kimjinseob88@gmail.com>
-To: jic23@kernel.org
-Cc: dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] iio: buffer: serialize buffer teardown with mode claims
-Date: Mon, 21 Sep 2026 15:24:21 +0900
-Message-ID: <20260921062421.64647-1-kimjinseob88@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1789972005; c=relaxed/simple;
+	bh=NmGN6e8J6coRAC42nWLIGI+S2PP+7A8W5HG1gMG093I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gxqx3qgfzo866W8PRNV/I1cw2I/l0XOnAAlcGM7UfGIsMkcyeZUs8+oZbcL4A3lz7HYXKgt4FhAxnDOCtQHS3mz6FpbsRn7qW+DWE5Q6ZwhRGJDE8tOApsQ02PklVsbhDpJBj/uc+tWbhof2hXrjlnaMx6S+bKypBSwbXEuvbtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 66f378e0b58511f19a56ed5b684f684d-20260921
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:f32c37c2-ce9e-4767-a67b-29758daf25ef,IP:0,U
+	RL:0,TC:0,Content:0,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:7db8b62,CLOUDID:2deeda972b34a92ef3b5b386088d1f70,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|83|102|865|898,TC:nil,Content:0|15|50|99,EDM
+	:2,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,
+	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 66f378e0b58511f19a56ed5b684f684d-20260921
+X-User: zhangheng@kylinos.cn
+Received: from [172.25.120.77] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zhangheng@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 308103737; Mon, 21 Sep 2026 14:26:38 +0800
+Message-ID: <cff155e7-5391-4704-9f8c-915663e23071@kylinos.cn>
+Date: Mon, 21 Sep 2026 14:26:35 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ALSA: hda/realtek: Match Yoga Pro 9 16IAH10 quirk by
+ codec SSID
+To: Matt Barr <matthewjaybarr@gmail.com>, tiwai@suse.com, perex@perex.cz
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260921024011.2115055-1-matthewjaybarr@gmail.com>
+Content-Language: en-US
+From: Zhang Heng <zhangheng@kylinos.cn>
+In-Reply-To: <20260921024011.2115055-1-matthewjaybarr@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Buffer-mode claims hold mlock to guarantee that the device remains in
-buffer mode until the claim is released. Normal buffer updates take
-info_exist_lock followed by mlock in iio_update_buffers().
+Thanks for the patch.
+I agree this needs to be fixed, since it affects other sound cards.
 
-However, iio_device_unregister() disables and deactivates all buffers
-without taking mlock. This can invalidate buffer state, including
-active_scan_mask, while a buffer-mode claim is held.
+I think it might be cleaner to reuse the existing quirk and drop the 
+separate entry, something like this:
 
-Take mlock in iio_disable_all_buffers() so that unregister honors the
-mode-claim lifetime guarantee. The info_exist_lock -> mlock ordering
-matches iio_update_buffers().
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -8214,7 +8214,6 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+         SND_PCI_QUIRK(0x17aa, 0x3834, "Lenovo IdeaPad Slim 9i 14ITL5", 
+ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
+         SND_PCI_QUIRK(0x17aa, 0x383d, "Legion Y9000X 2019", 
+ALC285_FIXUP_LEGION_Y9000X_SPEAKERS),
+         SND_PCI_QUIRK(0x17aa, 0x3843, "Lenovo Yoga 9i / Yoga Book 9i", 
+ALC287_FIXUP_LENOVO_YOGA_BOOK_9I),
+-       SND_PCI_QUIRK(0x17aa, 0x3846, "Lenovo Yoga Pro 9 16IAH10", 
+ALC287_FIXUP_YOGA9_SPEAKER2_TO_DAC1),
+         /* Yoga Pro 7 14IMH9 shares PCI SSID 17aa:3847 with Legion 7 
+16ACHG6;
+          * use codec SSID to distinguish them
+          */
+@@ -8308,7 +8307,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+         SND_PCI_QUIRK(0x17aa, 0x3912, "Lenovo Xiaoxin 14 GT", 
+ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+         SND_PCI_QUIRK(0x17aa, 0x3913, "Lenovo 145", 
+ALC236_FIXUP_LENOVO_INV_DMIC),
+         SND_PCI_QUIRK(0x17aa, 0x391f, "Yoga S990-16 pro Quad YC Quad", 
+ALC287_FIXUP_TXNW2781_I2C),
+-       SND_PCI_QUIRK(0x17aa, 0x3920, "Yoga S990-16 pro Quad VECO Quad", 
+ALC287_FIXUP_TXNW2781_I2C),
++       SND_PCI_QUIRK(0x17aa, 0x3920, "Yoga S990-16 pro Quad VECO Quad", 
+ALC287_FIXUP_YOGA9_SPEAKER2_TO_DAC1),
+         SND_PCI_QUIRK(0x17aa, 0x3929, "Thinkbook 13x Gen 5", 
+ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
+         SND_PCI_QUIRK(0x17aa, 0x392b, "Thinkbook 13x Gen 5", 
+ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
+         HDA_CODEC_QUIRK(0x17aa, 0x3936, "Legion R9000P ADR10H", 
+ALC287_FIXUP_LENOVO_LEGION_AW88399),
 
-Fixes: 0a8565425afd ("iio: core: introduce iio_device_{claim|release}_buffer_mode() APIs")
-Suggested-by: Jonathan Cameron <jic23@kernel.org>
-Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
----
- drivers/iio/industrialio-buffer.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Since both entries use the same external amplifier,
+reusing the existing quirk seems more consistent.
 
-diff --git a/drivers/iio/industrialio-buffer.c b/drivers/iio/industrialio-buffer.c
-index 2c9ec93dff47..d60bad5492e7 100644
---- a/drivers/iio/industrialio-buffer.c
-+++ b/drivers/iio/industrialio-buffer.c
-@@ -1377,6 +1377,10 @@ EXPORT_SYMBOL_GPL(iio_update_buffers);
- 
- void iio_disable_all_buffers(struct iio_dev *indio_dev)
- {
-+	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
-+
-+	guard(mutex)(&iio_dev_opaque->mlock);
-+
- 	iio_disable_buffers(indio_dev);
- 	iio_buffer_deactivate_all(indio_dev);
- }
-
-base-commit: dceba8e581e3e8f475da0efbd7a73f3d9524ddd2
--- 
-2.43.0
-
+Does that look reasonable to you?
