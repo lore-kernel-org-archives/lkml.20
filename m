@@ -1,64 +1,69 @@
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F38854E325F
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:06:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE96C50278A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:06:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790024781; cv=none; b=Vdt7/KkcXZqwSxOURuql47JRGotlS+1cIy+ukOw8Z3bQkebjeTFGj6axxuA04rnbYgfrWlffnv1gdZ6nD4tqXJ25ZY3mPxbrksbLDnFzo3ZShzZRAntTrLXgFduvY2veVCGxKMwGv7aV7JWzuGodO5wvRlFmSrBtSnBpFDE0+/Y=
+	t=1790024784; cv=none; b=g6xxtn1Bwq8s1PJfNOChr9zqkLj9wy5pTsNwT+IeQOjmLITp1sZCbkMf+IHVRGoeFdiBtKPvExgumKRfi5u7KCdlPEAGS/6jHT26jzZ2QrXbCblXjAneJkYnr2kywif5OVFDggmhQ7ylMiBfSHg6immfWc8w8fwJUvpImHx+rGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790024781; c=relaxed/simple;
-	bh=EsP/vKlSxJA0fJFCSs6j+lGsFsd6oJ5jn9r6xdttnwI=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=k5N0sbOK6w716/eSpxLmWTG182OSsH1JzGu/IQ/j2qMa7TYJOnQ5L1jg/oBtBd7f5Tia2hubjVW42Tin0NeMlY+QpSr9rIE35gSZj25y50R/g8FhVIcTTZwkdkEMIDkO475uJaiJ+lTMCXByEDSApM3LO3okxDMTTvquPVq9fDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fo7AjzpB; arc=none smtp.client-ip=209.85.210.199
+	s=arc-20240116; t=1790024784; c=relaxed/simple;
+	bh=+OgMs5FTH885W5hqbW9mZemd9t74Q3YKNRON5By5iS4=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=t6CnX9SJIFfNmRGc2kxH+BtRbRm7s5IDz44LOF1VAOu/+2gG+nkZquHnRSLEdnuJa03SFaTEqSTeLCJJlayJbHSHbu3EDdblnI1hAkJuhw+fisxyDhbqyD7PRt+iMx8dA2tjoHWNcdoBQZzpkbWfU2GaobxQng3MMDC8S0lT9yg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=n4OA6sjE; arc=none smtp.client-ip=209.85.214.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fo7AjzpB"
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-862a0aa7d2aso5552671b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:06:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="n4OA6sjE"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d7443e0f0bso63878915ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:06:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790024779; x=1790629579; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lfJqSQNg8bmCVfzuPOvk2+p5qJGaADimVhWmTWvwWUI=;
-        b=fo7AjzpBT2Pl/yR3L/E/AKmTtTFnIk67VGFd8J77RgFfKstq03xjxlLB7IL5yXlCPV
-         K47o8gl0sOKm15STPcbqJb0j+WHrEtEkozW5N9s94XHrRCMIfD8lwzS1qE+TkAv7FzA3
-         kYFTb4tjO0DPxs54ckk94SzFzrdQ4lPHo4lzw75hqCH4DpcPravI41cKZFN6HV9V3fDv
-         FSsHl/emQkQd6V1txtDcUmEr4UtXsDcsiqepny2xKINqikGi/GTbcLgNNnJrPrq0VeCT
-         N2EDAAscNPr8BiWVAw2dkntsf1dIYzWJchgwKfadx6Cr+d5zX96X90fLObMIMWjQhdCL
-         rzYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790024779; x=1790629579;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=google.com; s=20251104; t=1790024782; x=1790629582; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=lfJqSQNg8bmCVfzuPOvk2+p5qJGaADimVhWmTWvwWUI=;
-        b=Xj143b0TR6hYTZZi/nomNKoJOX1JdZZdhDoV+/CZxyaWAqIYsi/NH0zggqn3cfUQXQ
-         faGKGVrZw0IN42WDKXBhCH+EXn1QIkY4YKfHGTXMu5MXexXnnnqCLQ/XT88hIOCYpjCP
-         5LSAOfdDLXJgXw8NrRQPWjdaUl4WKYJ5DmvToOPstbnBnDWUOQPTTSymxFCIYXaS514/
-         q25tp7eESsPBoqlRli9rBHZ2/MYuX7+31qPgWRih7zQFBiIF30sQAGOTlbma56Z4Sdz+
-         SM+hOw7v3L/X4yLr0gTsBk1GrJWLFQZ4vykR6FFPNcNxBN19yDoziy6LhADmL/BXymEC
-         1iWA==
-X-Forwarded-Encrypted: i=1; AKwUvBzmrBul2HiAKeaYtyRbxea1Eqm56UxTQd3EQbiT9xaMj9TvM2eb7ErPdb247vJRhfUXPaK70FZ5vzNKXlU=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljCNzUlQamUo1MyoyKNunqx/9SQGckNR8z5fDPmekVZIyJPJz+
-	0NA3/ZMzN9iA2GDUjzdQjN52yjjFUpZOtMfv5WRLFVmxxc6BYMxPpd3D6oEhpXMHbU9im0VgkWt
-	EXNPQhA==
-X-Received: from pfcy13.prod.google.com ([2002:a05:6a00:93cd:b0:87b:bcd7:4df9])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:1496:b0:879:ffd9:1278
- with SMTP id d2e1a72fcca58-87bffba3391mr175404b3a.9.1790024779078; Mon, 21
- Sep 2026 14:06:19 -0700 (PDT)
+        bh=TG/mu75XYT0SNXMXtTJlKEYyCMKeyuwB8Y7qCUcxVbg=;
+        b=n4OA6sjEZF92BAlbp9JU2aCPRd4P9PDwQMeHV01g7L0eFn0MCo7YpRfMgRtslmhoxU
+         Ul4bjRW/BUlrEijbHnc7/XAFNUy83bv1zMemZ5PV0m8q1NYbWvAqSntntJC+qun9y5G7
+         9gDfZpi+c3ImGUjcB8wbmXMIvqkgb1OrItXukDiybgepHCybZZNvi4L2SQLmE/97FWE6
+         zeS0AZ8QukRIz9CqHikAraNkPu3H3K8KnEDQiQxQKCm+/xdD1rVXBw7U1lbFjNB0M67u
+         dpdSLQDyy4clOKG5qtPAMpu+wPWWkyEKWin5aF8DRg0wDyikps2UHpKw6Wlnlydy7KIv
+         VR0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790024782; x=1790629582;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TG/mu75XYT0SNXMXtTJlKEYyCMKeyuwB8Y7qCUcxVbg=;
+        b=0muEtDZKi+gaXuyRvDutMXJlDmHado0RO5fT7srW7oQI8Dn2Xv1WtXlY415deHQmck
+         a5y9GnvojX8YtiMiQ8HO7WNpx5wKD0Y8W/Nw8V1xwAuh1ctIWyoUq8HMOWCNZ6P5HJa0
+         aog5d2yHlBWoDVfJymISC3FnTGujGwcekGAktOs5YTEg02vUK1sQbk9toRp1HvrVbVzS
+         svtwhKzHTAdG4XC+mnJ7/Zf23rgAik4hY/D4yxfFN+s7FpDFbd1+lP+G+LQeNhiEQtwY
+         WGRrj3i7TdvC6LRWG+P02CPBNHBIrsYqAIV6+eyOGVToB5iQfeBUNQc1X2Yffj46lMfw
+         p7yQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzCsoFVtlXVUrOdyD9dBvrmgxv2QTgVLvxIas72tlFb55O8KCNQ4vOzAnL8ej6533sGwamO2WWCkjqEq60=@vger.kernel.org
+X-Gm-Message-State: AFuF++mftu875fKKfSrxufQOQWAg2BBP8fRpQo+Ts/MTqQemQeeYJqa2
+	ydzD97RvGZpJb+ePMQxFrOOjhGGKWiI0a3MathBpS7bxN3ebdPUH0aoluctRVd83zC3MlZ+Y+h1
+	8bxKACA==
+X-Received: from ploc3.prod.google.com ([2002:a17:902:8483:b0:2dd:fc2:99fe])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:4b28:b0:2dd:c100:a5e7
+ with SMTP id d9443c01a7336-2ddc100a6e5mr106367345ad.59.1790024780575; Mon, 21
+ Sep 2026 14:06:20 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Mon, 21 Sep 2026 14:06:11 -0700
+Date: Mon, 21 Sep 2026 14:06:12 -0700
+In-Reply-To: <20260921210616.1024168-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20260921210616.1024168-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260921210616.1024168-1-seanjc@google.com>
-Subject: [PATCH v4 0/5] KVM: guest_memfd: Fix binding bugs
+Message-ID: <20260921210616.1024168-2-seanjc@google.com>
+Subject: [PATCH v4 1/5] KVM: guest_memfd: Gracefully handle xarray errors when
+ binding a memslot
 From: Sean Christopherson <seanjc@google.com>
 To: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>
 Cc: David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -67,54 +72,73 @@ Cc: David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger
 	Yan Zhao <yan.y.zhao@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Fix guest_memfd bugs related to binding to a memslot:
+If inserting a memslot into a guest_memfd's bindings xarray fails,
+propagate the error back to the caller, i.e. fail memslot creation as well.
+Signalling success and continuing on with memslot creation results in
+use-after-free, as the guest_memfd instance will remain reachable via the
+memslot after the file is freed (kvm_gmem_release() won't nullify the file
+pointer due to lack of a valid binding).
 
- - Handle errors when inserting into guest_memfd's binding xarray, e.g. to
-   do the right thing on ENOMEM.
+Opportunistically WARN and reject binding if KVM_MEMSLOT_GMEM_ONLY is
+already set, partly to guard against goofs elsewhere, but mostly so that
+KVM doesn't need to worry about clobbering flags when unwinding on failure.
 
- - Bind a memslot only once the memslot is fully prepared (because it becomes
-   reachable/visible once its inserted into gmem's bindings arraxy).
+Regarding the unwind, the slot must be fully prepared before inserting it
+into the bindings, at which point the slot becomes reachable.  I.e. waiting
+to update the slot in order to avoid the ugly unwind isn't an option.  And
+as part of the unwind, explicitly nullify the relevant bindings, as xarray
+can store a subset of entries when populating a range.
 
-Patch 5 is a related cleanup to remove a superflous WRITE_ONCE() (unwinding
-the slot update on insertion failure isn't an option if the slot is observable,
-i.e. if the WRITE_ONCE() is actually necessary).
+Fixes: a7800aa80ea4 ("KVM: Add KVM_CREATE_GUEST_MEMFD ioctl() for guest-specific backing memory")
+Cc: stable@vger.kernel.org
+Reported-by: Stefan Teodorescu <fane@google.com>
+Reported-by: Dennis Tighe <dtighe@google.com>
+Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260823135031.4F6DC1F000E9%40smtp.kernel.org
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ virt/kvm/guest_memfd.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-v4:
- - Drop intermediate xar variable. [David, Ackerley]
- - Collect reviews. [David, Ackerley]
- - Restrict kvm_gmem_bind() to CREATE as calling kvm_arch_free_memslot() on
-   FLAGS_ONLY changes is unsafe, and doing the right thing for dirty bitmaps
-   is tricky for similar reasons.  As a bonus, this eliminates the ugly
-   almost-duplicate code that David pointed out.
- - Explain why KVM must deal with the unwind during bind(). [Ackerley]
-
-v3:
- - https://lore.kernel.org/all/20260904004342.3162959-1-seanjc@google.com
- - Nullify bindings on error before dropping invalidat lock. [Sashiko x3]
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index 63943aa253d4..c094611f7c7a 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -654,6 +654,9 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
+ 	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
  
-v2:
- - https://lore.kernel.org/all/20260902182020.2615443-1-seanjc@google.com
- - Fix the binding-too-early bug. [Sashiko]
- - Explicitly zero the bindings entry on failure to ensure there are no
-   partial entries. [Sashiko]
-
-v1: https://lore.kernel.org/all/20260826165154.766699-2-seanjc@google.com
-
-Sean Christopherson (5):
-  KVM: guest_memfd: Gracefully handle xarray errors when binding a
-    memslot
-  KVM: Use goto to handle errors during memslot preparation
-  KVM: Only bind memslot to guest_memfd instance for CREATE operations
-  KVM: guest_memfd: Establish memslot<=>guest_memfd bindings *after*
-    memslot is ready
-  KVM: guest_memfd: Drop superfluous WRITE_ONCE() when binding a memslot
-
- virt/kvm/guest_memfd.c | 14 ++++++++--
- virt/kvm/kvm_main.c    | 62 ++++++++++++++++++++++--------------------
- 2 files changed, 44 insertions(+), 32 deletions(-)
-
-
-base-commit: 70c944caf570fda2d79baa71435589a8db39f048
++	if (WARN_ON_ONCE(slot->flags & KVM_MEMSLOT_GMEM_ONLY))
++		return -EINVAL;
++
+ 	file = fget(fd);
+ 	if (!file)
+ 		return -EBADF;
+@@ -692,7 +695,13 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	if (kvm_gmem_supports_mmap(inode))
+ 		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
+ 
+-	xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL);
++	r = xa_err(xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL));
++	if (r) {
++		xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
++		slot->gmem.file = NULL;
++		slot->gmem.pgoff = 0;
++		slot->flags &= ~KVM_MEMSLOT_GMEM_ONLY;
++	}
+ 	filemap_invalidate_unlock(inode->i_mapping);
+ 
+ 	/*
+@@ -700,7 +709,6 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	 * not the other way 'round.  Active bindings are invalidated if the
+ 	 * file is closed before memslots are destroyed.
+ 	 */
+-	r = 0;
+ err:
+ 	fput(file);
+ 	return r;
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
