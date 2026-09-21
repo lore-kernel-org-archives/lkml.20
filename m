@@ -1,36 +1,36 @@
 Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011015.outbound.protection.outlook.com [40.93.194.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA24BA45
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:28:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF6E3033DF;
+	Mon, 21 Sep 2026 02:28:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.15
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789957708; cv=fail; b=rCO8dyACr7ZhM/Z7TlAapIhQ83fv2vEHK7H7jGUtN9basPJRb0bXS87f8VGFwTVDVlFcwLLMXvTQwVhSjPS5yEbPDObbg9nGWjzZ4KW+1GKUC8RYycEtJzi676K6ZJRx5cOZv5qnYdjIMDnoviq/xsl5onraeyhjQ3IjDRhLNYg=
+	t=1789957710; cv=fail; b=MxKfTHbIuOyWF/HlBKNIjgNZmjNRjKj1Wq8RyXOXjZmtO/1SRhQVJMdfeWMRKEfg5/zfckBgh09qz07kX+ZkUwS/iJEmP6ZEHNDPyGmEGjB7RwqQXkLsrvFnnxBqsNC/6lBUyZxStdB9QkhTb1vNytomm6PhrDFV1fBKfgZ0X9w=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789957708; c=relaxed/simple;
-	bh=osTjKQ2gAP5I3gZyLW8ReHffHqpU1QaQloH2raq6hYM=;
+	s=arc-20240116; t=1789957710; c=relaxed/simple;
+	bh=LA7ZnXqPsAszfR1Ql4sikyCXEX9QkFYqkT6HbKr3v84=;
 	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=dxN+gfEowLa2ep2kGK/HjJsKhw0OVpDAApr1g1p+pOptSi9Cy62ra8xcRZWevS8hJlamWEPZk7+8ieYBPnbvh5VmQJbXyxfdcWRUnsUUNkUV0EQHgT+Mxf6ux/5GMHKbuNvLjUlFYlBsM3G9Yk92SbJjGSTETHOsuT5JLgGBl1w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=CR7Or2zB; arc=fail smtp.client-ip=40.93.194.15
+	 To:Cc:MIME-Version; b=FUgDj8r+6YHREnJXKbN9BgFZ1hfjZ/QD4wAyy4JhKbDfCv5cRzUcEzieJUM+cjXgP54Rl/Wtyf13pGRE4G5TFusMAC5qKTv1uO21RSp5McDQG8SwEFVNqLurx1hQmCmdTHbWtdqu0bsisCgDRlnpVd/P4K3hexFwC4fPB1RQFIQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GFrTE7qk; arc=fail smtp.client-ip=40.93.194.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="CR7Or2zB"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GFrTE7qk"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ooao1XNUX/X7BQCL17PHG2+OTFEIAjsPzf8VTw/cmbe3wAeWmlQ/tDsLW1MKK5zYfeAIvuNOrcKcdixMyrKKfNaJv7C1OGs+f3QuvCsL+DaExzrHisL0f7zxz8WnGDGWpGZNTy2KQfj64lz3FLOLrELLgdyl30zgwxviPI+UkFULmfglihOMc5PMMTzywoJq1pSyXd93DEqHtr87tnaLSiFY7VJHgdylIb/7EjAxzdJc4zNEMxw9pvNmsdtJ4jbKkPrM4/SRZg5tvMqFwS3YEdfKCpaVBmsnTsJHzUpV93kp3vBFd53QGrbmz+FHYHrnizh6jj80TgG3tGnvA+GsLQ==
+ b=ggs2EDfCGpVTrZsdLn6IJVsIs64rGg9TugBMz/gMx1ucU8ZC6QUYAhL0iJ7sRtlaUERIbyPEd6P0tl/739QONWJQbvisra+42J4mr5wq+TeVwL8zF8n6gld4u2DKEAO4+xuXt1oodci+fMhxjn8ef6KT9f9mrFeH3OU0/ujqTS3B4TqTrjj9sEM6IrxVCTuJnmX46cRWTTRymuBwl0KECR+QzN78BGLwIZfOeLec9KaVzTtDR2DTHHkEQZNGpylW0OjTCze60NTuZaOxK5/FsCHCrwKrtLvRTjn9ESi15JrjBQCLZuiDISiSPFWQwSd8hH3CzK06ooi8bYhWis0xhQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2exs/HrKls73cpHbMG/JtXwC2lJhkBDc5l1lfu+a19A=;
- b=xa7RgjkgAxgW/KZPea5Y+uyHnu2x94SnpWPtmxtzeo6vg9k7J0jJJ8JIT2DHKlWntgqlB1DshMfDlnlJLMDPOeK3GbRqdaihB4UYBIUi1ODuuUIaGhXKxqnS1jF/UiisuKirurPP30TNndoh8ULWLRqvAJ/NYGIz+caGYW8LOGQ7TO94oBWPx1wU+UuG2EQ2XERaeRyRUhmP8aIGTha0aADqwWIJtfDVEgUyQcURRF6lAbF60wktlxGy+LeY3AZZFV02ECbH5CSvLXnjI2/swA/zLLrTroFC9W/ER/7p/NLuicSI9H3tuzeYoq2v+OSgCBwvZWf9nIGn6sLZJoax3Q==
+ bh=gpnw9Gpg4JeqTBKlcim2Ze+bj98VqYRU3sYXsAgbZDY=;
+ b=vBIw5oGpHbF58ghKcykBM3/NH1T6rnXX8dEE6w9tvxdqrgEHCp6zI60Al000hszhS35BihqWxPlFzvhSttYp1jIT5aQg4v2RoMyf1OuUd2rR0EDlN7VMNmf9QTD2NXIA+5BzjYYx8ZomzMmrQXxi8qEB05CUvzSv9DCiDjbT5fUR70GpYNHxg++x5lkw0owhW+IPmHJGcAxbj/MRoM7tcBAvSDcECfvKf0LdFLaO5n5EHaQF7tTr/kPIrXEdyEIV8rt1O0B1SIhplDed4YjiK/+JcpP+0mQFXf3hDkZ38ABPWUZc9nNFibTV80hqD0hjFcX23jc8XbBfYncndEhP1g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2exs/HrKls73cpHbMG/JtXwC2lJhkBDc5l1lfu+a19A=;
- b=CR7Or2zBviiJFyz67NaDg0JkL5AL9AZtEob9R5DSpscJKymMbJ7LQ4QP+PCjk4eL729UGWg+Csiu694c2lzRIdyD4SjlV3nIcXmERvPPB/Tlny2IrQw5KH0G4lUh6mkm9FStuYA9aOy+wbOwHBpq9eK4t3Z3HjnROqwGR0yYfAUsgdQYFXqkw1G/YDhUjW+PWmTvsWT0YZmYijpnfarHrftrcZ15AySEsqQ3F/eh+HjLE5A7tLLLzBJD8Mlz6RF2cewMmHkZEPXYEDzAvDFhu0LVfwANem4yCZJ4KXI3X/Rd7jKOYSqsHJR4t0jbPqEjrRVHdSl2FNDyskAOBFmgkw==
+ bh=gpnw9Gpg4JeqTBKlcim2Ze+bj98VqYRU3sYXsAgbZDY=;
+ b=GFrTE7qkTeg76thzaKrcjPgcwWdwX/besl7dVcHkKyqlcpbaK7kmo9ChyI1NqCs95sCJOkUUBehzWMa28sI//6jwPMlXTIwJvxur3GC+lvsZnSuFPwpJVDTCBAW+6jpf3KH6qQGXksKTVimbATuyLGUHK3Y/dAphhMH04Elwe8eR1kjYNSWmcc7OrcDmtvloDgm76l0eFXgq2D+ETukTZwJ2RgIha4zXTcE+SirTChMOC3mcmucnnVlBy2JwvvHnFvZFPp0p+zCeP5COJ+ZJSJvw05NLfUgq/FovESfbdXBsN9+0QZE3TTmDNoFQf4fn41V1dMHDpAcgI3Hm4grdOg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
@@ -43,12 +43,12 @@ Received: from IA0PR12MB8374.namprd12.prod.outlook.com
  ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0428.014; Mon, 21 Sep 2026
  02:28:21 +0000
 From: Zi Yan <ziy@nvidia.com>
-Date: Sun, 20 Sep 2026 22:27:57 -0400
-Subject: [PATCH v5 01/17] mm/zsmalloc: replace PG_private with pointer
- comparison
+Date: Sun, 20 Sep 2026 22:27:58 -0400
+Subject: [PATCH v5 02/17] perf/ring_buffer: stop using PG_private as AUX
+ page high-order marker
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-remove-pg_private-v5-1-bb68b6a21869@nvidia.com>
+Message-Id: <20260920-remove-pg_private-v5-2-bb68b6a21869@nvidia.com>
 References: <20260920-remove-pg_private-v5-0-bb68b6a21869@nvidia.com>
 In-Reply-To: <20260920-remove-pg_private-v5-0-bb68b6a21869@nvidia.com>
 To: David Hildenbrand <david@kernel.org>, 
@@ -67,11 +67,19 @@ To: David Hildenbrand <david@kernel.org>,
  Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
  Kairui Song <kasong@tencent.com>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Zi Yan <ziy@nvidia.com>, Minchan Kim <minchan@kernel.org>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>
+ Zi Yan <ziy@nvidia.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, "H. Peter Anvin" <hpa@zytor.com>, 
+ linux-perf-users@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-ClientProxiedBy: BL1PR13CA0126.namprd13.prod.outlook.com
- (2603:10b6:208:2bb::11) To IA0PR12MB8374.namprd12.prod.outlook.com
+X-ClientProxiedBy: MN0PR03CA0013.namprd03.prod.outlook.com
+ (2603:10b6:208:52f::24) To IA0PR12MB8374.namprd12.prod.outlook.com
  (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -81,190 +89,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DM4PR12MB7719:EE_
-X-MS-Office365-Filtering-Correlation-Id: 51394719-9726-4384-7bc5-08df17880101
+X-MS-Office365-Filtering-Correlation-Id: 2ff938b0-761c-4f8a-10d8-08df17880173
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|921020|10067099003|56012099006|11063799006|22082099003|18002099003;
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|921020|3023799007|10067099003|56012099006|11063799006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	8o6ozca3sc14Wyc5c4TKwCRVyrPqLuGAi4Vb6M9SDYCuQH+3ZKZ4iFe/uKZW8z0XcdzQzWO6l7OL9N+BFaN2NWnCStp97Gf9B55ojuX6/LUft/26pqGWPsLliRAWGaJe4/n/6r03kjymmP9h6JNjWiiGFpibc+cBbXDLMsno62/2DK/Qc5X0y67oj/Fsy6PP5DtghBJRwgj2/s5BTJwRNnljztIQSjGDq9+UCu1BRt2/0YFhMEKntWfylI6xERN7CnbFo/pISaF2mZra3jJrinXDkoKuS1ddcWVK1MwAobwkDva5FHeHEhffj7SVCCtgwGnyDEqpUqclUtl1zKsa/pxvexbuxJtHSI0SIVItnWnusegI+g3Rm7fmm7tCXJTSnVxrLlJwQFt5H95P3DtLbj7I0BuAXR4CxYJwM5DL3ToOQljgoRH8R3I7uPkDM5brQNuz0Y9/OKxrwIkF4M1SUXEU5t2g/AA+cfHS/A7N4B8WBUllHbEVzOaUrqMoznP0y1B4DeeUWOu+bqozWY4eu3p/qNvOrQZrBsXxpc78/DVDSL3R77ellbYVXcAQRPofFM7PTwZPcE4ycwQVQ3JzT1NyrLTHs0iuiUMNzTAX8V+F9XYae1C6awkEfIu8tUZDbmigGw9IucfmN69K77Ekmy3E1p5Gk2bzZ6mzHZW77kwtSb+SLrz9WFMDBSiQ0ddoqhI4LQ1eMloSicXRbulpQQ==
+	x7haXqulnn0NrzXWHeD894/aas2dxmbwspaDtEpZOSwnzj0omSZBKNLD2pLxhN0geqDumfs2A1Z+dRtqHerSene4txUwQbOrQXrNVklJrba740bAnolu5Yuo7RtdU4aiSouyawpGO4rZfcjwOGYeVK30jzLLODYhE7SAiQdmSItoxmPEQiHDjWuNPHd3UK7rgV1NpC8qkS86tHbW+qJvLmgVfFF2R2ogTVJ6nEntCI8KAs7eaeBOsS2dIoa8Thak2bfDY+wHBKBkSP976mOmj8CPP2c906GSpvr4YoBoddxQXKYgS3mKoBwJMTSVp2e4wwLzgpOVsuQW3RwE8ZjoCqbN56oy5BlZ69HcfXrDilvhAxrYKQZTw/aQ4t6BBMA2JzWcGLZKorG/oc+UX+Jg4AlaNKaWYbqtziymqiBoYDTnK0CIxo+0hsocDRcCx+oW6hBw7Rk39rhWVgVzOchu8dSZCFgpM9/ZBUw8dMLnlO1O0wMiOElQCcWnli+6ZhpAQIXCtz5E7YPPoFuS2Bfe4ixaZwnEy/Kkc8/MzCZdPx6WKVtcW0aheRZZf6cnH0lIe10ZCrWT8IaED7ka9Rdpi1LVsKbJZItLj4RCvmmq43ByJwRsjmT38K17oRocJRrrIyp5JU/MNFro3A5hjKLWIywSpR2iCJ/lqgN2dMgWYIwagJABlStSF9/TEdZQwmFjn0aMkpolFTdaQ1ZghNvDLw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(921020)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(921020)(3023799007)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cVRHMmo5a044eU5xVVZmVHRUZzh1bUg5ekxwRW5LeEpLRmdZNjJ4WFk1Q1Vj?=
- =?utf-8?B?VHI3N2Y0QWowcjBxakI4THhkWWJVSlFqWlU5ZnN4UUdsa1QrRnJvTW8rZTBl?=
- =?utf-8?B?OFB1Q1BFNG5MUWVtVjB4ZCt6Vm9CYXk4blBLa2VkK0FjdFhUOGx5MG5hb2Z2?=
- =?utf-8?B?eFpQSUwva1ZsMEtTNnZBNnh2K2o4MDlxRGpheUJUVlpWcG5zNkJrMmgrM3o3?=
- =?utf-8?B?Wm80Um5nWW5QNVo1UDdMUmNYSVdGNjZteS9PZUFpVm1WYjlRczRidnhEeDlo?=
- =?utf-8?B?eGt6Ni9WS2R2NU5RUzdST3ZOYnJlVWVDU1c4VmVWWi9wV1N5U0NXY1V4WUly?=
- =?utf-8?B?djRpeUt3UlZORWFrcFMyRGw2WEcvM2NWUVlTczlnMWNxdThMK1NQSTZQWHFZ?=
- =?utf-8?B?UW9rTkRieWQ2dXBlblZBbVV0TVZEQ2hwZ05INzRLWDRxUE8ydjBoSDVsbEVr?=
- =?utf-8?B?QkdJTDY4QUVnVjVtSFdML2h1WXVyYVJEQkttYkw3K2F6TzRBZ3RtblA5QlMv?=
- =?utf-8?B?RzluTkgxN3dxcU4yOENaQXBkTjBrQW5GaGZnaGtCcXNKQ2xHVFFiR2owTGxy?=
- =?utf-8?B?bGk1NzZxSlppenZySU5SaEY5eUhJVlQyUUhCZURWejdkKysvakZlVWVnL0VT?=
- =?utf-8?B?bWRrVW1UYjZBZjJxWTh6Um9kTUYzNVUwRkREcFA3OU9lM1lCS3cyUmtwL0xF?=
- =?utf-8?B?bGRNTGlDM0VOYlJmUmk2NklxN1hjMzFQRXJSSUdqK1JyR1J2NjQwWmRwaDR6?=
- =?utf-8?B?elFTMU5ac2U2UXNTN0l4eFAvZ2hKQTFLU2hreUdvMnNqaTRzOTlJaFQyaHRs?=
- =?utf-8?B?NGtDNEltakRnTDFYZEJHOUpOVHhhZFhVMGxYdStHbHV5NTYvckhzMW16aWlJ?=
- =?utf-8?B?bzluRndzNmdtMUZlN1R4Y3Y4QUNLOEh0WTFQd3hub1YzYmFlYkVxNEF1OTBD?=
- =?utf-8?B?VHdHVExWd0RZei9OYTN0c2k0NGcvak00WkJqamlGYmtBUld2cnRQa2tNVnZz?=
- =?utf-8?B?UllISWhDN1d5MHIwYUpMK1dLK2Q4WFhsckhCU0FiUTVvY2l2TnBHeTdtVkJJ?=
- =?utf-8?B?SzhVTVhVWlUyYmVicjBmalNBY0ZncjU5bllpT0dUeDVwbGtmU29ja09aNFNa?=
- =?utf-8?B?K1hoYmw1ZU1DbS9teG12VFg3MnVObmJDc1VqU2NWK056NzVmU2R0NW5OQ0R4?=
- =?utf-8?B?ajFjMmw3YmRKTXFrYlJNQzU4b2NSRHRyRTBmckFpckxQbWw2Z29jd2hkUXVh?=
- =?utf-8?B?QjZaTTJZOUNTMTVjY0YvUW0zME5QeFVTTmlWdlJWVFZFOXpxM0JUdkFYQU1u?=
- =?utf-8?B?OXV1SVh5dkl6UVpudXEveWwvZ3hVdUxTeVdxYjZ6VkNOdzBqT1hyQ0pQV3d1?=
- =?utf-8?B?b3pSVENiMUM0blBXWDY5ODJTT1NZNWg4dmVuVDdhZ0RROGlkOVZLekErVzIy?=
- =?utf-8?B?M2lZR052QkdseVVOWlpXaUxYSXRwZEdLY3dZeWE3VEJtZklVU1RNT3E5UlNp?=
- =?utf-8?B?ZWVrTnhXTVE0aTk0cHk1ckRSUmRNbGlKdngxYUE5d3pYMEVyanhESk54T2hp?=
- =?utf-8?B?eFFVUWYxM3BNbkgxdkw3ZTJNTFF3ZEFQbFQzc2J3aGlMdGNFMm1pd1lFM0Vr?=
- =?utf-8?B?TGEvM2VGSEdBQmdvNjh4ZlBQTFhhSUVrRWl6YjRKZWRoYjNjRkVSN1ZIUEpF?=
- =?utf-8?B?cUY1Yng5MXE1SEVMWCtIRzhjaWlDdDE4ZjB2NURrOU4vWlRRVTBBSGNFdC9E?=
- =?utf-8?B?VGhYQW1CV2ExRkpKNG1lZUtTSHdmU1RkWjR2dlJHUDl2eWxpSzhZdisrelJW?=
- =?utf-8?B?azVKcTIwUUR4WUkyamNleFZ4MG9lT1h4cXUyWjljNzN6dWg5WGE3blZYeVpY?=
- =?utf-8?B?em1Pai9JbktuNitONTd4L1VDem5iU1AwK2w1ZHQrQTVieXhOSjMwUC9jOTBQ?=
- =?utf-8?B?SXhmd2RYdjNVZTJISmRNZ2RpSytFTENQZ05RV0Q1dGlRWUdpNkIrbS9xUVcy?=
- =?utf-8?B?RlA2b2plSDZuVjkxNDcyVjZpbTh0L2pxdW01ZWtsN3l0NzNIdmhCMG9sZS95?=
- =?utf-8?B?VjBISlpGTy9BTG1ta1d5aGRqaHhONFlTTUltZk9leG9ZWXl3bmdCMUVFRERJ?=
- =?utf-8?B?OEdJdGZhVUdFb25oQjlNenV1Z2pPRUlXUnJjWERaZEdMc1hWcjZSTWI4UkEy?=
- =?utf-8?B?MXphT2J4Nzh2V1dic3BQUnZJb3NsOVVUTDFhZGU2SVFCUEl5N2ZJOVlvR2RE?=
- =?utf-8?B?bWFwNytpUWx5Y3Q2UmpaOFJNY3o4cnRBOHdIUE5HOFJWNHhJS2k4Z2NMSVNV?=
- =?utf-8?Q?kVBBHcTsjdnNCn/yJn?=
+	=?utf-8?B?eWV5U0JySlp3THhaNHJBWDVNcnQ0WW84dFRWMlZVU1llZlJRU2tSbUdSK2RO?=
+ =?utf-8?B?b2U2aFNSVlRNaG8rek5GQzBhV25hamREVzJxUlZOTVk0WGJoUUozbmg1eUNj?=
+ =?utf-8?B?SVJTTnFHNDJINHNuWGNMUDRTOFAyZ2xCVFB3NU15OEVCSmIrVDBGam9kZlRK?=
+ =?utf-8?B?aUFuZ0JlZHNRU1hTVUczYmRpL1crVGpXbnA4V01CWENqejB4R3ZBT05VN1hC?=
+ =?utf-8?B?YUI5elNRODMrTGJmK0h4aEQrbmNhMmxCZm9Ma3NNZVJUR2JyOTdsbXJ3blZw?=
+ =?utf-8?B?amFCTEd3cFBRa1IxcWw0ZGpwY2pOUjFoK0R3ZWxNdnNtSGJaa1ZxWTB3dFls?=
+ =?utf-8?B?emFKWm9lMjZEeVdodHA0SnhIQ1YzMTFab1ArdXBUVlF4Wm5LMjBFL2cxYzMy?=
+ =?utf-8?B?WEgySkFZV2ZDQ2x3TDVPVlR1TDZCbDhVekFnZVRsTWhSbFJnWGVFQkROcG4y?=
+ =?utf-8?B?WUxtc2VBdDhtM1NVWEtGd1c1R1hVYkExTjdxem5LaCsvcUdwYVNYMG8yT3BC?=
+ =?utf-8?B?VXJobXhzb09lT2NnQzRVODRVaFZLem9zNmJWRkpmL1BnRUdTMUpDa3ZreTRS?=
+ =?utf-8?B?MlJYbmpuQlZHR3RscHo4VTVBRy80dVFRMDBmcVRxWWtIYU9tV1RnOWt1c0xU?=
+ =?utf-8?B?czlkQzU3QnhvQm9IRHl0MGg3NStUMGc5bXJXSWcwV2VjTzB4ZTZCR3owOVpj?=
+ =?utf-8?B?a1F4ZXppNjRVMEthM3B4VDRSYzhoL0tqNkJXOXBXYzJLbVgwUUVsaU8wcDE0?=
+ =?utf-8?B?UTdYdTdiSkdZTFNQUTRPVFJ1WFhQN0xUQ3VnQXV2NXdrYS8ySlZzL2RNc1Rn?=
+ =?utf-8?B?QnRPcTlQUUcwbEoveGtyTnIxbkZoV1JpUFNCN0dJQTdheE1hR1FvWjQwdkxj?=
+ =?utf-8?B?ejM3bldJbG9QbzZBaG1wTWVZN0hTbFlhQXp5ZGliRTlueEFqS242SFZBcnh0?=
+ =?utf-8?B?WTNsKzY2a3VlTjV6Z2JZSlpWL3VXb25NbmxKaUdwTS91bm10WG5NRHBPYWpL?=
+ =?utf-8?B?Y0d2cEFsNjQrY01LOXV6QWhLanlhd09iQmYrUG9SZnNEUU5JMHh3NGVKQ2Fy?=
+ =?utf-8?B?Tzk1QXZFaFpJbVR5VEdUd1E2KzlJTHBzQnNFdVRFWEljSVZ6VitIRTdENTRr?=
+ =?utf-8?B?bEF0Q3lMTzVWRnpyUDRqU0ZjNlUzUVVrYkphclZLNjBqRzk2bW1WbFVwSXZx?=
+ =?utf-8?B?RFJ2QkhxRDJlRGtuYTJ2WkxSQmlvcFNKY29TZ0dPMXBhTXh4U2xmbmJVRmJ0?=
+ =?utf-8?B?MnZuaGE0WitQQ2hIZWdjajBhU1BoNC9icjZGcHM2bTI5WGNuUjRQa21pMGFz?=
+ =?utf-8?B?V3VpTFV1K3U3bVdFL0F1S2hLN0hpZG13Um81RFYwUGt4Q0pDZFpQZGlFVjF5?=
+ =?utf-8?B?U0VpNVA3SG1JcjFCUXBYM0Q5SFV5OUd2bWRpM1VsamxwZHQySFFiVFVZKzUy?=
+ =?utf-8?B?bm1LMmVReXd4U3VoQjRaWnA1N3VMWW9SdTJPMnFua1JreTkzNjI5UU81NENV?=
+ =?utf-8?B?T3MxOXBYeFdIMnZsOHBNQ0N3YXRNZnRmV01CNlByZkFOMUtaY1l1NmlzVmtC?=
+ =?utf-8?B?SzAvVVI0emRCQ3hDUE1mL1l4RVZLRGFmYkhrKzdXVEl1OHlGRnhReEkxNDlV?=
+ =?utf-8?B?c2lOOHlzWmVmWk1rdHdId1ArbUhsd1dzeW9MWElPT3hkdnM1QjBIZytxa0Ft?=
+ =?utf-8?B?Ui9FdmUvRlZ5bmErYld5K3BZbHh5MThJeElKaktiZVg5d0VTbmlsMmVTK1lF?=
+ =?utf-8?B?dUdIMlVsR1pxM1pLNGF6enhqSURsZkNkVW1NcUhrcGE3S0IyT1RvUXliRXFE?=
+ =?utf-8?B?K2RTOERadldtdnF3bU1mOW13YXpxM2tROFFzcThYbXQ4Qjc3SDBuYkNQVnMv?=
+ =?utf-8?B?KzM2NzdDSXY0NjJvTmVnc0dhMml6emtKcjVvandINHJ0N2hGQzVPRzRnYmVM?=
+ =?utf-8?B?V0pyN0RFc3hRTzNDQVhVZ2szd2tsa2h2V0dqaXc3N1RwUkNMSCtKZ3M0dVZY?=
+ =?utf-8?B?STl6R0xPR0kyb0gyWG5oVmpqNnRmS0NEU2RiOGtkOTZJTG5zeDRjNDlQWDZD?=
+ =?utf-8?B?bTVmVXNXNXBtVjhqRkNEcXMyT2FjbGpvMDl0c3d5OFRBNjBNbjBvS0JTT0lz?=
+ =?utf-8?B?a2QvWFMwdy95K3lLeGlmWmdzMXdtNTZXOCtNQ3VRdlV6UE82SVhJTGF3bU9z?=
+ =?utf-8?B?bWNaQVJLUHNENjI1THVVeWpyRzRvdGVkTXdyZm52eHd5OHZ2ZTZ0Rlhsd1Rz?=
+ =?utf-8?B?TXBkUVZJTHVWS21tb3lWaFVOcXBhaDBLT0h0UVM2bmE2T3BzbjNMV1N2T1RS?=
+ =?utf-8?Q?WwPQIdP4wlBNC+Z0ZS?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51394719-9726-4384-7bc5-08df17880101
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ff938b0-761c-4f8a-10d8-08df17880173
 X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 02:28:21.0817
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 02:28:21.7946
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yHJ18d5xEOMyCONjhjnCYgHxnxce/Dt87QXpH6Gr/8KCUJ+RJhe0fIqk2VkB3eB2
+X-MS-Exchange-CrossTenant-UserPrincipalName: RsMroYURnNclzEm3mUc0sBDZ5NZbOh0xs7kzioKBtIcFj7b+BStuV+h9uD1y4fRj
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7719
 
-zsmalloc uses PG_private to indicate first zpdesc in a zspage chain. It is
-equivalent to check zpdesc == zspage->first_zpdesc. Replace
-is_first_zpdesc() with zpdesc == zspage->first_zpdesc in obj_allocated().
-
-For get_first_zpdesc(), first_zpdesc is from zspage->first_zpdesc, so
-replace is_first_zpdesc() with first_zpdesc->zspage == zspage, the second
-requirement of a zspage chain, where all zpdescs point to the same zspage.
-
-is_first_zpdesc(), is only used in VM_BUG_ON_PAGE(), so performance impact
-should be negligible. While at it, change VM_BUG_ON() to
-VM_WARN_ON_ONCE_PAGE().
+A high-order AUX page sets PG_private on its first page and stores the
+order in first_page->private. Stop using PG_private and check
+first_page->private for AUX page order only in the ring buffer and its
+users. This is fine because page->private is 0 for order-0 AUX pages,
+matching the page order.
 
 It prepares for a future commit that remove PG_private.
 
 No functional change intended.
 
 Assisted-by: LLM
-To: Minchan Kim <minchan@kernel.org>
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org
+To: Peter Zijlstra <peterz@infradead.org>
+To: Ingo Molnar <mingo@redhat.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>
+To: Borislav Petkov <bp@alien8.de>
+To: Dave Hansen <dave.hansen@linux.intel.com>
+To: x86@kernel.org
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>
+Cc: Jiri Olsa <jolsa@kernel.org>
+Cc: Ian Rogers <irogers@google.com>
+Cc: Adrian Hunter <adrian.hunter@intel.com>
+Cc: James Clark <james.clark@linaro.org>
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: linux-perf-users@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
-Acked-by: Johannes Weiner <hannes@cmpxchg.org>
-Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Acked-by: Usama Arif <usama.arif@linux.dev>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Zi Yan <ziy@nvidia.com>
 ---
- mm/zpdesc.h   |  2 +-
- mm/zsmalloc.c | 24 ++++++------------------
- 2 files changed, 7 insertions(+), 19 deletions(-)
+ arch/x86/events/intel/bts.c | 3 ---
+ arch/x86/events/intel/pt.c  | 6 ++----
+ kernel/events/ring_buffer.c | 7 +++----
+ 3 files changed, 5 insertions(+), 11 deletions(-)
 
-diff --git a/mm/zpdesc.h b/mm/zpdesc.h
-index b8258dc78548d..4fd81c2e80769 100644
---- a/mm/zpdesc.h
-+++ b/mm/zpdesc.h
-@@ -26,8 +26,8 @@
-  * with memcg_data.
-  *
-  * Page flags used:
-- * * PG_private identifies the first component page.
-  * * PG_locked is used by page migration code.
-+ * The first component page has zpdesc->zspage->first_zpdesc == zpdesc
-  */
- struct zpdesc {
- 	unsigned long flags;
-diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
-index 11be37c431718..7ef80e0da6267 100644
---- a/mm/zsmalloc.c
-+++ b/mm/zsmalloc.c
-@@ -290,11 +290,6 @@ struct zs_pool {
- 	atomic_t compaction_in_progress;
- };
+diff --git a/arch/x86/events/intel/bts.c b/arch/x86/events/intel/bts.c
+index cbac54cb3a9ec..5849392cf26d5 100644
+--- a/arch/x86/events/intel/bts.c
++++ b/arch/x86/events/intel/bts.c
+@@ -66,9 +66,6 @@ static struct pmu bts_pmu;
  
--static inline void zpdesc_set_first(struct zpdesc *zpdesc)
--{
--	SetPagePrivate(zpdesc_page(zpdesc));
--}
--
- static inline void zpdesc_inc_zone_page_state(struct zpdesc *zpdesc)
+ static int buf_nr_pages(struct page *page)
  {
- 	inc_zone_page_state(zpdesc_page(zpdesc), NR_ZSPAGES);
-@@ -476,11 +471,6 @@ static void record_obj(unsigned long handle, unsigned long obj)
- 	WRITE_ONCE(*(unsigned long *)handle, obj);
+-	if (!PagePrivate(page))
+-		return 1;
+-
+ 	return 1 << page_private(page);
  }
  
--static inline bool __maybe_unused is_first_zpdesc(struct zpdesc *zpdesc)
--{
--	return PagePrivate(zpdesc_page(zpdesc));
--}
--
- /* Protected by class->lock */
- static inline int get_zspage_inuse(struct zspage *zspage)
+diff --git a/arch/x86/events/intel/pt.c b/arch/x86/events/intel/pt.c
+index 5754cd4055628..49349afee6119 100644
+--- a/arch/x86/events/intel/pt.c
++++ b/arch/x86/events/intel/pt.c
+@@ -781,8 +781,7 @@ static int topa_insert_pages(struct pt_buffer *buf, int cpu, gfp_t gfp)
+ 	struct page *p;
+ 
+ 	p = virt_to_page(buf->data_pages[buf->nr_pages]);
+-	if (PagePrivate(p))
+-		order = page_private(p);
++	order = page_private(p);
+ 
+ 	if (topa_table_full(topa)) {
+ 		topa = topa_alloc(cpu, gfp);
+@@ -1296,8 +1295,7 @@ static int pt_buffer_try_single(struct pt_buffer *buf, int nr_pages)
+ 	if (!intel_pt_validate_hw_cap(PT_CAP_single_range_output))
+ 		goto out;
+ 
+-	if (PagePrivate(p))
+-		order = page_private(p);
++	order = page_private(p);
+ 
+ 	if (1 << order != nr_pages)
+ 		goto out;
+diff --git a/kernel/events/ring_buffer.c b/kernel/events/ring_buffer.c
+index 9fe92161715e0..061b5cb222266 100644
+--- a/kernel/events/ring_buffer.c
++++ b/kernel/events/ring_buffer.c
+@@ -630,11 +630,10 @@ static struct page *rb_alloc_aux_page(int node, int order)
+ 		/*
+ 		 * Communicate the allocation size to the driver:
+ 		 * if we managed to secure a high-order allocation,
+-		 * set its first page's private to this order;
+-		 * !PagePrivate(page) means it's just a normal page.
++		 * set its first page's private to this order, otherwise page's
++		 * private remains zero.
+ 		 */
+ 		split_page(page, order);
+-		SetPagePrivate(page);
+ 		set_page_private(page, order);
+ 	}
+ 
+@@ -645,7 +644,7 @@ static void rb_free_aux_page(struct perf_buffer *rb, int idx)
  {
-@@ -496,7 +486,8 @@ static struct zpdesc *get_first_zpdesc(struct zspage *zspage)
- {
- 	struct zpdesc *first_zpdesc = zspage->first_zpdesc;
+ 	struct page *page = virt_to_page(rb->aux_pages[idx]);
  
--	VM_BUG_ON_PAGE(!is_first_zpdesc(first_zpdesc), zpdesc_page(first_zpdesc));
-+	/* the first zpdesc must point back to this zspage */
-+	VM_WARN_ON_ONCE_PAGE(first_zpdesc->zspage != zspage, zpdesc_page(first_zpdesc));
- 	return first_zpdesc;
- }
- 
-@@ -838,7 +829,8 @@ static inline bool obj_allocated(struct zpdesc *zpdesc, void *obj,
- 	struct zspage *zspage = get_zspage(zpdesc);
- 
- 	if (unlikely(ZsHugePage(zspage))) {
--		VM_BUG_ON_PAGE(!is_first_zpdesc(zpdesc), zpdesc_page(zpdesc));
-+		/* only first zpdesc holds the handle */
-+		VM_WARN_ON_ONCE_PAGE(zspage->first_zpdesc != zpdesc, zpdesc_page(zpdesc));
- 		handle = zpdesc->handle;
- 	} else
- 		handle = *(unsigned long *)obj;
-@@ -853,9 +845,6 @@ static inline bool obj_allocated(struct zpdesc *zpdesc, void *obj,
- 
- static void reset_zpdesc(struct zpdesc *zpdesc)
- {
--	struct page *page = zpdesc_page(zpdesc);
--
 -	ClearPagePrivate(page);
- 	zpdesc->zspage = NULL;
- 	zpdesc->next = NULL;
- 	/* PageZsmalloc is sticky until the page is freed to the buddy. */
-@@ -1006,8 +995,8 @@ static void create_page_chain(struct size_class *class, struct zspage *zspage,
- 	 * 1. all pages are linked together using zpdesc->next
- 	 * 2. each sub-page point to zspage using zpdesc->zspage
- 	 *
--	 * we set PG_private to identify the first zpdesc (i.e. no other zpdesc
--	 * has this flag set).
-+	 * The first zpdesc has its zspage->first_zpdesc set to itself, no
-+	 * other zpdesc has this set.
- 	 */
- 	for (i = 0; i < nr_zpdescs; i++) {
- 		zpdesc = zpdescs[i];
-@@ -1015,7 +1004,6 @@ static void create_page_chain(struct size_class *class, struct zspage *zspage,
- 		zpdesc->next = NULL;
- 		if (i == 0) {
- 			zspage->first_zpdesc = zpdesc;
--			zpdesc_set_first(zpdesc);
- 			if (unlikely(class->objs_per_zspage == 1 &&
- 					class->pages_per_zspage == 1))
- 				SetZsHugePage(zspage);
++	set_page_private(page, 0);
+ 	__free_page(page);
+ }
+ 
 
 -- 
 2.53.0
