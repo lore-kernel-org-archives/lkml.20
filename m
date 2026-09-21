@@ -1,158 +1,106 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208A049DBA8;
-	Mon, 21 Sep 2026 13:27:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789997266; cv=none; b=k5zIoPgefZfVs6AHEYKiiTfiBteGh1YHFQ2HcGWcKQfzsLHOLY2VBVLd/3SKSuYpFj8vfRjlENx6bQvsRmpqj/Fe1uWp3B4iCoxo5YWYhZke8Cv49HPGnfu8ReK0EkwGeZVnd7xPbeP9GWxxQxcHuVTPJ9FwOq2WRV2l6avA5/k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789997266; c=relaxed/simple;
-	bh=4nmoxw2ZHQofaj8EJj1UInlqle9eASAx4yPihU0NGKE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=mJbE2s2CZ6YrLPkhrc6jKP52T1TqewXzS96701XOONsgVshEBNlG2dCbtJA6vgPt8XxAEabyZuXce26x6cWVAKY+yK6ejOzYFc1zJX+j+qh0g0HQ9c4ZaFJ0GoNRbyFiIt9Ke76U0g7Pt/3u9DGzSV4csZXlqssrqb4qPOS11yQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gSVwtMYm; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA17749B44C
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:28:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789997292; cv=pass; b=sCYSdEopIZfdm/vPKInzlquhqJhjFWsE5FbYdarKoaNmLaqccbu1IDIdoGtOU9AG74mx0ItPnmlD3eZSBlVdCVGyDakIRELDR0xTBG3sk/v/ejoe54FGWpxg/EsEbj274Xw9qAkV8JaF7DYmCyR5beJBBiz+9vE3C6S2N87sIqI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789997292; c=relaxed/simple;
+	bh=ayinjUi8Pgp9G+S1LnRNG4EOwgo3RpV/l+nq7MHooFw=;
+	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=knA59s+7dKJ2PC/H202ox1KF02L9zb4msp3+urvEne/gmV1zSXly1C/Vm49vmYfxgatnFXny1W45Y4kuSDcqhNn2biP8iIkg6qG/9CgQXEEMxSNCVRW8xOeAV+I3c9aQyzov4Mc5q+Yhc8ScULci6dGCIVGoUi4Vn+eO9dR2Zsk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nJ4RNPHT; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gSVwtMYm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789997265; x=1821533265;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=4nmoxw2ZHQofaj8EJj1UInlqle9eASAx4yPihU0NGKE=;
-  b=gSVwtMYm9u8/TvRU/wBpgudO9Ehtse7UBnIlKa8lG/1MTfjZbfpLPAYx
-   +aTSirdYG17fXPQsa0/CjgrNyG/2X5D9OnBuZMgRyh7GC/W3sQjkpkIGU
-   g6QLJyJmTibkQa/yAdOMti5XmDK2iK91IcxklHYPijov10qlzhNnRrN9r
-   QPcsnXXeQddQ7n3JVC1wcMShUVIGW9iEjmqWcOPIvfjSrUOBmCJ1d0l6V
-   iF77jyoMenpeXvXfcJsGVxrTw+9aPFgSVd49KTGQlDpaoeECgqVOF99kr
-   DFdn1/SNN6GImu1J0DYU3ib1Zik14r9xJYBcVwhmYYcsI2nAoBo5iBpGG
-   g==;
-X-CSE-ConnectionGUID: UFScwykFTZGXSlN5VY0WkQ==
-X-CSE-MsgGUID: 506UoGJZRaO0PnY5xV6hpw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="89434438"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="89434438"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 06:27:44 -0700
-X-CSE-ConnectionGUID: 5cCwDP5/TEOO04pH4+JPkA==
-X-CSE-MsgGUID: YiaHkgBaTpKNVdfgWlxTsQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="269165565"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.155]) ([10.245.244.155])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 06:27:38 -0700
-Message-ID: <51ddde08ece4ca9dc277d799b3ea4f1f3cdf7e10.camel@linux.intel.com>
-Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
- direct peer-to-peer route
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Christoph Hellwig <hch@lst.de>
-Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- Logan Gunthorpe <logang@deltatee.com>, Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman	 <gregkh@linuxfoundation.org>, Jens Axboe
- <axboe@kernel.dk>, Alex Williamson	 <alex@shazbot.org>, Ankit Agrawal
- <ankita@nvidia.com>, Jonathan Corbet	 <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, "Joerg Roedel (AMD)"	 <joro@8bytes.org>, Will
- Deacon <will@kernel.org>, Robin Murphy	 <robin.murphy@arm.com>, Randy
- Dunlap <rdunlap@infradead.org>, Sumit Semwal	 <sumit.semwal@linaro.org>,
- linux-pci@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,  Tushar Dave
- <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 	linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-Date: Mon, 21 Sep 2026 15:27:36 +0200
-In-Reply-To: <20260921131055.GP11599@ziepe.ca>
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
-	 <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
-	 <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
-	 <20260918121500.GV13683@unreal>
-	 <b517070d0b9236b03962fcba649faffcacda23eb.camel@linux.intel.com>
-	 <20260918170524.GH11599@ziepe.ca>
-	 <f9ced8cab6eb929a5f65d789fe6922458c6f3396.camel@linux.intel.com>
-	 <20260921131055.GP11599@ziepe.ca>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nJ4RNPHT"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a98505364aso4904711a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:28:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789997289; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QbmW0Wf3A9nvSo7FKQ0VIfeXBF9a+ZywAOdpv3p70zEu2zUYTlIdaldKNr6tbQZG1n
+         etLYy0wrbqe6xt0oOSdUoLjiq6gnu1FJQ2R3vSuqs3lUjys9XdOkmiWmiiNmwyFLGVFP
+         1j5WBOHa2dVK3FyrUKlJ3mfNw7fO3etNrVYnfsJeBH7YLdKurDVNChdPN4Ri30XI1TY5
+         9RdNByPhlxwvsEqZ1Qr52ais4lCdssOw5cdmz2VMl7mprCu79dfj+0gJ3/cVxOQMSfw0
+         5QUxWA+9g0/Q+VH92qWgOlEcK5lzK7HStDbwY5GIow+Pwt9sfGXnA0rRIX6fI3LQN0xQ
+         4vJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:references:in-reply-to
+         :mime-version:dkim-signature;
+        bh=ayinjUi8Pgp9G+S1LnRNG4EOwgo3RpV/l+nq7MHooFw=;
+        fh=DCCpk750PVBTTCk5PKpnYTAXMpcxyvcFNGYx4zDw6Ac=;
+        b=o9csI40Lj0gDeJ2LoKpY79ugyA/ElZEjq90Xo3rp+AID9M2FhYor/AsmYqnP6P0J4T
+         7ukTsPD8RgEptCq2rAfyDPh6Rrtf/MTuZCB1D1dgw0W18iw9YJIc3gY8H6mvc7IRY7hF
+         C3JuAVeDtBp2ms9Z5hKifj1/Wg6cEFNl4XmfFb5AeFxfsd3wviG/QUNEuej0QM9s31Kl
+         IzFSm6ga6fbqkEEPrv0w9Opo2r3plgWgOu8oOq/rBtaB9VGgkpN3W001bCAshyhDMRFA
+         vDsZ8ChyyMEkOoudOK90fHWoBM4qDynX00VT8Jzut3vIIzqLMnMv9R+FUaYrv5+jCTGr
+         YYxA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789997289; x=1790602089; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ayinjUi8Pgp9G+S1LnRNG4EOwgo3RpV/l+nq7MHooFw=;
+        b=nJ4RNPHT2Tdrpq8mOOplE6tLzDf5+B/dgdK5CYpVR0I+5CknfJ8TEAi5eWt1qPh7m6
+         4me1VDPsGCE1LpwhIaoTIzeP4aCHxmY1M5JleDB0SQEgzfzB3nXXWArHypw1vnX1TCcJ
+         Sjv8KIIQwlt9XwmEbx03hRBQWqoK/rsfMSfwr3TlQD6I6eV2r5T+bZ2J5K+dpilGTcBU
+         miqbKkoU2qhSJai8Uh/CJhJpmcw9R13EMcRpEsxXIfe27oHUoJ4vcIAA/sRzllqFddT0
+         A+3j0xPaixl7Th1xPWjgaGVuyg6d4ZrqNTcQlyu52LmvB+zkUP9RxZgNATnuTFNYqDW2
+         Tw0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789997289; x=1790602089;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ayinjUi8Pgp9G+S1LnRNG4EOwgo3RpV/l+nq7MHooFw=;
+        b=G12fG5GexUqW6AgXC3MbIlMONp7c+LavNVwC9kjdnPZWenzu7+mVO5IVC3aR5UVu3S
+         rOCfCqhMRX0OV6tn3ylqdwb8Ncyr+mnkufrqdYRwpXmUDPx+SXSi7mvH8owYqFm646hC
+         7TjHcJ9RGBrt6jgVykxnI9mCwCYy0PQlWaihLmf8rqwxwdx8woNsGplA3D+vHKvUuPuf
+         vL8ZAqFxmuvqwTh7R+AG65mjYI18Obl3B/L8TpSnHA6tvqHFav/3LmkWLguRKMGB8isw
+         iY8oKUiDqEIdC31u7N00l0TcFbl3qJsdM8YtZLuARXYc/ql1aKMdaD0vhx1PBBpLyVV5
+         +5rg==
+X-Forwarded-Encrypted: i=1; AKwUvBw6pFkyFcyDtS2CVFiD45Or0R2f0pFe/NVW1KSeCT3fQY1WI4WMsEplSzYYuaEAcmWDx1YCnMT9jOUzphI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mhu8k75506nZt+IxLJLc7uUTiWmetqY8Jexm5movsnS9eqKu+M
+	LvhpSxupFg95FWGBSyVJimN4m7vM9lQWSgQZljsZtELmQjZ6lXXUJVuXXAFgWiOBIPZyPAVIKm6
+	jdGnl2lMh3P202AWaq7nyUAvKghyhYYWOMs/dRnI=
+X-Gm-Gg: AYBFou3oIw7bZJmSV4DSqhTk6/Qeycr6bbaX/HS+8YdUerzxbtO3P2kPB4Ek4WqRDaf
+	w5kjZUnziIcOe5yDN3BS078PTMHZAXAW4R2H1ylrchfgMD7viF1HAdQYG6YyAJtr/27v4b+KejF
+	PfC2W21eK6FW6qWMd7mVqaaTaiYNc8FH49RefrFD6twnab2rwn6xoWFAu3q5v5VAW7WydxNL0b2
+	4l9TegLdBFIZlKRerfujURRxHaQyfYvvsVX/awKr/zKeueUsCx5waSrA9JbX4QHYUdKbsfjD5YY
+	Iw81+WPMTepOr8Amtt8lGE8opl6ywcXtN6dSEE30W0Sw2wckojTCyVZrDw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Received: by 2002:a05:6402:324d:b0:6aa:4d8d:a08b with SMTP id
+ 4fb4d7f45d1cf-6aa5316a711mr6298513a12.14.1789997288686; Mon, 21 Sep 2026
+ 06:28:08 -0700 (PDT)
+Received: from 292895732794 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 21 Sep 2026 06:28:08 -0700
+Received: from 292895732794 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 21 Sep 2026 06:28:08 -0700
+In-Reply-To: <<arEkgM15qewERAOJ@pedro-suse.tail5790ac.ts.net>>
+References: <20260725182628.221603-1-nsd.project.dev@gmail.com>
+ <CAFLp9PEQQVuDpJPwrNvLN1-u3w3TMwZPUUrf0+rOBrvDjBBf1A@mail.gmail.com>
+ <anlByPDZmvEhWeXI@casper.infradead.org> <ffcij36vnozf3rginqd2opd2dwqyki7xhtdo4veuty734hhgba@utjav2k263o6>
+ <nsd.1787001235.35928@mail.gmail.com> <w7vte4itudtkw2yf4vbmuofiumfffmp2y52dpu2bqvqtdgjvpd@5femyiozss3e>
+ <CAFLp9PGkVYZcQT5qAx-RKFOF-urZ92m417zpAeF7ZQempbS1HQ@mail.gmail.com> <arEkgM15qewERAOJ@pedro-suse.tail5790ac.ts.net>
+From: =?UTF-8?B?YXloYW4gYXlkxLFu?= <nsd.project.dev@gmail.com>
+Date: Mon, 21 Sep 2026 06:28:08 -0700
+X-Gm-Features: AcwNN1WBEO2eUe_0S1kQSTFGaynIVHRfEIP-ijo60mrzoXWfLkGAo2lMMObTUKE
+Message-ID: <CAFLp9PGgfLJtqeSaTqrG0jcFAu4stP0og4Txy=ewCw0ZxFdCMQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/3] Neural Storage Driver - learning page cache prefetcher
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Jan Kara <jack@suse.cz>, Matthew Wilcox <willy@infradead.org>, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 2026-09-21 at 10:10 -0300, Jason Gunthorpe wrote:
-> On Mon, Sep 21, 2026 at 08:40:41AM +0200, Thomas Hellstr=C3=B6m wrote:
-> > On Fri, 2026-09-18 at 14:05 -0300, Jason Gunthorpe wrote:
-> > > On Fri, Sep 18, 2026 at 03:42:28PM +0200, Thomas Hellstr=C3=B6m wrote=
-:
-> > > >=20
-> > > > 1) Xe attachment check if pci_p2pdma_distance() returns OK for
-> > > > the
-> > > > path. Then Xe always sets up dma-addresses using
-> > > > dma_map_resource().=20
-> > >=20
-> > > Open coding pci_p2pdma_distance() in drivers is a hack. Using
-> > > dma_map_resource() like this was never "allowed".
-> > >=20
-> > > We've fixed things so these hacks are not needed, the drivers
-> > > need to
-> > > move over to things like dma_buf_phys_vec_to_sgt() and the hmm
-> > > helpers
-> > > to use the DMA API correctly.
-> > >=20
-> > > > 1a) Let's say the importer (Xe) has ATS enabled, and the
-> > > > exporter
-> > > > is
-> > > > supposed to map dma_addresses.
-> > > > In between there is a switch that allows direct traffic.
-> > > > Now with your patch series, How would the exporter know that Xe
-> > > > has
-> > > > ATS
-> > > > enabled and therefore should return IOVA mappings rather than
-> > > > the
-> > > > BUS
-> > > > addresses representing the shortcut.
-> > >=20
-> > > The thing that does the DMA map must be aware of what PCI TLPs
-> > > the
-> > > PCIe initiator will use to compute the proper P2P mapping mode.
-> > >=20
-> > > ATS always needs an IOVA but that still doesn't mean the P2P will
-> > > work.
-> > >=20
-> > > > It seems to me that a pci-device settable flag "ATS always
-> > > > enabled"
-> > > > should be enough to fix both issues?
-> > >=20
-> > > It should be be per-mapping to support the NIC workflow that
-> > > isn't a
-> > > global operation.
-> >=20
-> > OK. It looked to me from the series like the NIC workflow was to
-> > adapt
-> > its ATS settings per mapping depending on the p2p mapping type
-> > returned
-> > rather than vice versa. If so it would just clear "ATS always
-> > enabled".
-> >=20
-> > Admittedly a per-mapping flag would be more flexible, but also
-> > would
-> > require changed internal APIs?
->=20
-> Ah you didn't send this to the list, was it intentional?
-
-No, Just hit the wrong reply-button. +lists again.
-
->=20
-> mlx5 has both cases, some DMA is flexable and can do either, some is
-> non-ATS only.
-
-OK.
-
->=20
-> Jason
-
-Thanks,
-Thomas
+Thanks for the heads up, Pedro, fair point. I had an LLM help draft
+these mails and it shows. I will write them myself from here on, and
+noted on Assisted by, will add it wherever one was involved.
