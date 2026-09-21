@@ -1,87 +1,72 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F849466B03;
-	Mon, 21 Sep 2026 10:03:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52362E1746;
+	Mon, 21 Sep 2026 10:03:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984988; cv=none; b=M0rFn3rz9u/nSJFUY8obRnFMVH+TuaAgGnwhVt0iD/bKHwQUTmuUg8HvShi8qvrRMwFYb/wpKPaohTa7Us0coeK50x5hR1VSecOct6aubiR0LhVqW9RRSRyb3eYvdUOMyJ0Q4/voZyxj4j3ARun6KLDe7GdWq92pets2EtSJH0Y=
+	t=1789984999; cv=none; b=l0jN3Nv/Jki265OUY+zhfsm7DT1zAFg+VmTxUct9SO8m6rUWv7DJrPVf4mO59ef3+09nvMgemw3U0sm0SruMC1hkeLU9BqX+wde6wnaJcoBM5S3U2KBQtjv2ImCC51nuF0CutKIhelET4JMGVuALC7giTU5+wzsm2l3w2GK8Svg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984988; c=relaxed/simple;
-	bh=wse+kezUK4OPr1Q8vimIEyV46wqlvIFGwwV3Za4Rx2E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UNEfZsQmHmfTbKJDQXGLF4EeD8wf1QemYUGORtfQUS0gdm8mqQOlcfrLEBbnNvn0LsyTTAG94azZmPq7jBXKUwWduLCu/GOBsw/V0Wc5mzOIPCVrkytISbleFdEjI7TIDMJhC8YShJp4wpKv16OQhJmbacnCF7nVlgtvPqzgUfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=cuLLnOrI; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1789984999; c=relaxed/simple;
+	bh=CLClXsDVSZdWSZ+ZbqLqcjL6xZU67jKJmKuirQM6Jfw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=FDKkxEsHGXteCLvYAN8Voq9YrtTRsrun3dxShjFjD8GTv2uwRv05CQ0tQl8hATdcrlCGuSEg5qUDPGJPKohfdxloiHk6B5fO98AXJEaS4QJIeAJsIQY0wuU/2hy0Oos9BFUmtlE8JM6vA02tftFJFtTTlrmRTH74TD8xZ7NGtPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oyh6FW7l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="cuLLnOrI"
-Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 1A4FC1F947;
-	Mon, 21 Sep 2026 12:03:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1789984984;
-	bh=4lv/4qA49zZhVU6Mtn/HDxpZJGQJyADrP9l8XahpZC0=; h=From:To:Subject;
-	b=cuLLnOrIpN8MYL71+U54afnRLtYNj/apQyXqHsXD9V/kHSFYbwoBTBFnCQcYdNKDH
-	 fMg36K1GT5vECr5fNb2Db3WPSzoY1SLhnGhqu8eYP4g1TnaBRQxUZ92knI4Ka3haIW
-	 +P2RCIwINK245R2oFTShmrgCQJcLEfMR79X9ovppMS2DxPcGQdDacjfU8LwDyRu4nE
-	 JAy9bK13RJq9ryRnODkiNkcdIr/RtUDSo0YvvkB7DBaYELvv5NFoSGOdaRujsitttc
-	 wGenHDupm2H7gCaGJ98fMkAx1rkJUNRn72umjS/GD/kz5KbhwC/qzbmeDNK+HGsL3t
-	 mMY8HON3Y+o9Q==
-Date: Mon, 21 Sep 2026 12:02:59 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v1 0/3] drm/bridge: Add Thine THC63LVD827 LVDS encoder
- and 10inch LVDS panel on Colibri iMX7
-Message-ID: <20260921100259.GA61633@francesco-nb>
-References: <20260908100230.83796-1-francesco@dolcini.it>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oyh6FW7l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 586971F000FF;
+	Mon, 21 Sep 2026 10:03:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789984998;
+	bh=oVZBHT++EBLpm974p4QU/ut5BA2+uMVDbG/JtjHvgkg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=oyh6FW7lupTBTUog7zx4gidxY+uG1fQBoiSF6o7PI9o5fOwsub9ApPgPaOkQuMZQV
+	 D64iXXdeaDA6mFZR0II4n1vvpLn2W1EVO9WKojkwOuqK7XDg7qlttg3ub/43LIvQat
+	 aVocXdVi48AzOpCL6Oq6Ye7KX9A/MLTYbk2BaGX2xwq6BSx+uWjffHCuIxxR83LjHN
+	 tJG4eTZNhs1qk2C7j0yttsY7WSTAwSSSnAA/vIKoS1aaDimu7qpmSWDe2ReasaafLI
+	 xHcSxHD6+J/P+d+X/9AE9khzFwVKvByCNKTE8elmRsPOV3sVMNQdyuv5P0BD4QrgLk
+	 5nMcAlUB/cPyg==
+From: Niklas Cassel <cassel@kernel.org>
+To: Damien Le Moal <dlemoal@kernel.org>, Hui Peng <benquike@gmail.com>
+Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20260921032556.1160734-1-benquike@gmail.com>
+References: <20260919222625.3797581-1-benquike@gmail.com>
+ <11314f1d-ee6a-45d1-a7aa-3bc1cca0c82f@kernel.org>
+ <20260921032556.1160734-1-benquike@gmail.com>
+Subject: Re: [PATCH v2] ata: libata-scsi: abort multi-sector pass-through
+ commands when multi_count is 0
+Message-Id: <178998499708.2887554.8560091477968447397.b4-ty@kernel.org>
+Date: Mon, 21 Sep 2026 12:03:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908100230.83796-1-francesco@dolcini.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-Hello,
-just a gentle ping on this.
-
-On Tue, Sep 08, 2026 at 12:02:24PM +0200, Francesco Dolcini wrote:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+On Mon, 21 Sep 2026 03:25:55 +0000, Hui Peng wrote:
+> When an ATA_12, ATA_16, or ATA_32 pass-through command with a
+> multi-sector PIO command opcode (ATA_CMD_READ_MULTI,
+> ATA_CMD_WRITE_MULTI, ATA_CMD_READ_MULTI_EXT, ATA_CMD_WRITE_MULTI_EXT, or
+> ATA_CMD_WRITE_MULTI_FUA_EXT) is submitted via SG_IO on a device where
+> multiple-sector mode is not configured (dev->multi_count == 0),
+> ata_scsi_pass_thru() currently logs a warning and still dispatches the
+> taskfile. When the DRQ interrupt fires, ata_pio_sectors() triggers
+> WARN_ON_ONCE(qc->dev->multi_count == 0) and computes
+> nsect = min((qc->nbytes - qc->curbytes) / qc->sect_size, 0) = 0, failing
+> to transfer any sectors:
 > 
-> This series adds support for the Thine THC63LVD827 DPI to LVDS encoder and
-> afterward uses it to add a DT overlay to enable the Toradex 10inch LVDS panel
-> on Colibri iMX7 / Iris
+> [...]
 
-I did not get any feedback on the binding (apart a small comment from
-Frank -> thanks!) and zero feedback on the driver. Maybe some DT and DRM
-bridge people can have a look?
+Applied to libata/linux.git (for-7.4), thanks!
 
-Thanks a lot, appreciated.
+[1/1] ata: libata-scsi: abort multi-sector pass-through commands when multi_count is 0
+      https://git.kernel.org/libata/linux/c/3bab8c7e
 
-Francesco
-
+Kind regards,
+Niklas
 
