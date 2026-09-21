@@ -1,141 +1,113 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C6998468C38;
-	Mon, 21 Sep 2026 09:51:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD7CA38F92D
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:51:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984275; cv=none; b=Agcryb/lPYXv0xl+yso66I+X/43a2acB+fdzA2kAU8OHNCAD6dWyj6WXN47fr9nNaWWPnmXrAIHbF/noyzl8mNdvyro/c4uI5X34sb3/BazmKT1u91SdZq/sEEPCWDnYQWqgYL9LPKFGdcESEe+mxzAYQ4UyD2S4kq7fFVJigIQ=
+	t=1789984293; cv=none; b=cNK/BRkt0QvR2ghGPMQGu58NkaHqohjbEunYWSO547A/CVq3BoHeK11bkrC21fywks5hKtuCouScm5BHOrIE+8Akc8XUy0MTtQ6ygoTbGW7HZ4bOehuv2qe5PTOkDl6Cn9Czee7I3ujgCvZqceMvrPB1uLQUpvDQDxUAUF+5QXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984275; c=relaxed/simple;
-	bh=Yh04mAUW/tMDEOlWdN+OXJwoGQ3qq3vUxi4DFjfm1GY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LU0YpL9tx6m1Zf3O/descXuNKTOEMaFuB/aHVszr33j5FUQEYKItdYRVPUYTAoVajSRewq01w7CAF5uhSLPWRXHF1Mny6JAq1Q7K0p98Ip1TrEeAJUwfHl5L4jMx4vkd3xe4PPuL2toRGD/xOHdQ7e/I8mPydV/AFcjD4TsJzgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=PwNXaD+0; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789984293; c=relaxed/simple;
+	bh=R9F7eCs5hlVe0XrQOYg+00J2R1c/rmdJwPU5ijIE2p4=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=E2tHnWNJTuiPisyl3pqcYITpfwjJ18iM/9paxo8t4Bl8jboImpZD5LXu4+IR1y+MKVB8qLlqnyDHolOPa8U9FuJnOtqIaqC/UtZaWxrwrV+IaYpt4YDnygU04tdns/wXG7/ItQgOJs9ETEYmO9q9xgffcb7URiASgI4wOWVFXJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J0w6cxpR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="PwNXaD+0"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8A778153B;
-	Mon, 21 Sep 2026 02:51:09 -0700 (PDT)
-Received: from [10.57.83.12] (unknown [10.57.83.12])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2F7573F86F;
-	Mon, 21 Sep 2026 02:51:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789984273; bh=Yh04mAUW/tMDEOlWdN+OXJwoGQ3qq3vUxi4DFjfm1GY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=PwNXaD+0WUdgUn9Bq7v/HPrz6iSdG1Ka6YECPv9iF0/ZzjF26pxz1O08q0ccMYQOB
-	 bwL5+mucY5hunLe30UlgLiO6VVb5ARI9CGDPOGyQ+uv4FlLL6YtNVCUQHpoIMJEw4b
-	 NXAtZ3P9Af5w6Y40kU8Ymb3s0bMrOwUXnW+78CFE=
-Message-ID: <27fb625b-7117-4666-9a34-3b8aa9a43833@arm.com>
-Date: Mon, 21 Sep 2026 10:51:07 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J0w6cxpR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F41F1F0089A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:51:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789984291;
+	bh=R9F7eCs5hlVe0XrQOYg+00J2R1c/rmdJwPU5ijIE2p4=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=J0w6cxpROIX6TE4J6DIgJu76eJyynKDstTTr+tfblPFjw2DpF0VReVyWoC8LMaHGO
+	 r1/PyRV3pBHDz2rfJkTnrbV1korY59q41VfoZZ3HWiHwYt5oF0nV3BLMA1e2xLmXSB
+	 mkU5CfqPdkI94cNEUd7p+fiS1Z1bEI0Up8CZzMk+QIgu/atRjd0/F6za9Gwv4ObiE/
+	 ET3v/p9ig6JEpn4PNtqCU/y9HiM52wJQqzDPgQDLFz8e5klse5Dp+3S+3/ucCIDUnW
+	 0bBn8c+UEBJA2Ika5GCuU4YTXyn9buv3OkjlGYZph77CSkHoka8ezapPxlziSh9+cG
+	 RbipTfsze7Kow==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16c81so2326786e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:51:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxIm5qeC8WMW1T5Mi/AOL4UGE9RnTSXbLWiJfKzbV0MRnvOcWKU+fTNd+5hwJVxz1aSHWmvpNZ5EuXNxCE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0WaZsEsC/xhxhFpZmgz0x8xfVj2xOA7hDSc7yvXuJki58i/z0
+	1/HyqdPBAEMb0AG8KFBplw+fKIcUSoHSqQRERd0oMvWODWyCDTdGBuan82OFatTuCipKlIDAUqn
+	FTk2AHbUqd9uiCrhgaZC3EOrOdDTb+Uz0kPslDSSRJw==
+X-Received: by 2002:a05:6512:4023:b0:5b6:1a7c:fd96 with SMTP id
+ 2adb3069b0e04-5b8c197532bmr3127147e87.60.1789984290166; Mon, 21 Sep 2026
+ 02:51:30 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 21 Sep 2026 05:51:28 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 21 Sep 2026 05:51:28 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <CAMRc=MdHy6M9cY-ZqMXP_F6yLuVuipDkZwHoBF0D9W3A5VkOSQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] arm64: distinguish HW PTE pointers from SW PTE value
- pointers
-To: Muhammad Usama Anjum <usama.anjum@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Alexander Potapenko <glider@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-efi@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org
-References: <20260914-pte0_arm-v1-0-bb53b663e396@arm.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260914-pte0_arm-v1-0-bb53b663e396@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260915-pci-m2-bt-rework-v1-0-3c7d9cf9c010@oss.qualcomm.com>
+ <20260915-pci-m2-bt-rework-v1-3-3c7d9cf9c010@oss.qualcomm.com>
+ <CAMRc=MdJgXDUb-Uac0TRB8u1WUpLng51C4yMH6iMEMoK56tQYA@mail.gmail.com>
+ <p2qiwwig7ap74puja6mgnz37lofljhexiapmpp6y3xmwkhs2dn@v2mxawoivkn4> <CAMRc=MdHy6M9cY-ZqMXP_F6yLuVuipDkZwHoBF0D9W3A5VkOSQ@mail.gmail.com>
+Date: Mon, 21 Sep 2026 05:51:28 -0400
+X-Gmail-Original-Message-ID: <CAMRc=McfFtRi_kwPh6Dfz6MwGEy_Q7ojFmJ3ibJ6V4PiEDPetw@mail.gmail.com>
+X-Gm-Features: AcwNN1XisqOT1G4P_pz-zd8sYeXwsQoqqLC2dtscBpTlrZOqZnjSykzHCvQdieE
+Message-ID: <CAMRc=McfFtRi_kwPh6Dfz6MwGEy_Q7ojFmJ3ibJ6V4PiEDPetw@mail.gmail.com>
+Subject: Re: [PATCH 3/5] power: sequencing: pcie-m2: Create auxiliary device
+ for the M.2 BT interface
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>, 
+	linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org, 
+	linux-pm@vger.kernel.org, Rahul Samana <rahul.samana@oss.qualcomm.com>, 
+	Wei Deng <wei.deng@oss.qualcomm.com>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Marcel Holtmann <marcel@holtmann.org>, 
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Amitkumar Karwar <amitkumar.karwar@nxp.com>, 
+	Neeraj Kale <neeraj.sanjaykale@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Manivannan Sadhasivam <mani@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 14/09/2026 14:51, Muhammad Usama Anjum wrote:
-> Hi,
-> 
-> The generic series introduces hw_pte_t for HW PTEs, while SW PTE values
-> use pte_t. This series enables the distinct type on arm64 so the
-> compiler can distinguish HW PTE pointers (hw_pte_t *) from SW PTE value
-> pointers (pte_t *).
-> 
-> The conversion updates HW PTE pointers and accessors, including atomic
-> updates, fixmap, and early page-table construction, before selecting
-> ARCH_HAS_HW_PTE_T. Higher-level entry types remain out of scope, and
-> shared helpers retain explicit casts.
-> 
-> The linked generic series is a prerequisite. Its cover contains the
-> Coccinelle script used for most pointer conversions; the remaining sites
-> were converted by hand.
-> 
-> Link: https://lore.kernel.org/all/20260903103002.1091859-1-usama.anjum@arm.com/
-> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+On Mon, 21 Sep 2026 11:08:58 +0200, Bartosz Golaszewski <brgl@kernel.org> said:
+> On Mon, 21 Sep 2026 09:58:27 +0200, Manivannan Sadhasivam <mani@kernel.org> said:
+>> On Wed, Sep 16, 2026 at 04:19:16AM -0500, Bartosz Golaszewski wrote:
+>>> On Tue, 15 Sep 2026 16:24:04 +0200, Manivannan Sadhasivam via B4 Relay
+>>> <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org> said:
+>>> > From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+>>> >
+>>> > Currently, the driver instantiates the BT interface of the WCN6855 and
+>>> > WCN7850 combo modules by creating a devicetree node at runtime using an
+>>> > of_changeset, with the compatible passed through the PCI ID table. But this
+>>> > method of creating a devicetree node just for matching with the driver is
+>>> > not recommended.
+>>> >
+>>> > So create an auxiliary device for the BT interface instead. The serdev
+>>> > transport is still allocated here and handed over to the Bluetooth driver
+>>> > through the auxiliary device, along with the power sequencing target used
+>>> > to power up the controller. Also extend the provider match so that the
+>>> > auxiliary device created for this connector is matched as its power
+>>> > sequencing consumer.
+>>> >
+>>> > Since the runtime node creation is now gone, select AUXILIARY_BUS in
+>>> > place of OF_DYNAMIC.
+>>> >
+>>> > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+>>> > ---
+>>>
+>>> That's some nice stuff, thanks for doing it!
+>>>
+>>> It looks like there's no build-time dependency on this, only run-time? Can I
+>>> take it independently?
+>>>
+>>
+>> Yeah sure!
+>>
+>
+> Nevermind that, it still needs is_controllable().
+>
 
-I've been through this as best I can and provided some minor comments. This all
-looks ok over all. But given the number of small changes, it would probably be
-wise to go big on testing; what level of testing has been performed? I'd suggest
-mm selftests (with all the magic to make all the tests actually run) at minimum
-and all the fastpath benchmarks as a stress test.
+Patch 3/5 also needs the header patch 1/5 adds, so we'll need a different
+merge strategy here.
 
-I think it's quite ugly (and adds a bit to the cognitive load) to have this
-intermediate state where only ptes are converted. But I understand the need to
-do this incrementally. Hopefully you can follow up with the other levels soon :)
-
-Thanks,
-Ryan
-
-
-> ---
-> Muhammad Usama Anjum (6):
->       arm64: use hw_pte_t for HW PTE pointers
->       arm64: use hw_pte_val for HW PTE atomics
->       arm64: convert between HW PTEs and SW PTE values
->       arm64: use hw_pte_t for fixmap HW PTEs
->       arm64: use HW PTE accessors in early map_range()
->       arm64: enable a distinct type for HW PTEs
-> 
->  arch/arm64/Kconfig                |   1 +
->  arch/arm64/include/asm/hugetlb.h  |  19 ++---
->  arch/arm64/include/asm/pgalloc.h  |   2 +-
->  arch/arm64/include/asm/pgtable.h  | 157 ++++++++++++++++++++------------------
->  arch/arm64/include/asm/vmalloc.h  |   2 +-
->  arch/arm64/kernel/efi.c           |   3 +-
->  arch/arm64/kernel/pi/map_kernel.c |   4 +-
->  arch/arm64/kernel/pi/map_range.c  |  20 +++--
->  arch/arm64/kernel/pi/pi.h         |   3 +-
->  arch/arm64/mm/contpte.c           |  49 ++++++------
->  arch/arm64/mm/fault.c             |  11 +--
->  arch/arm64/mm/fixmap.c            |   8 +-
->  arch/arm64/mm/hugetlbpage.c       |  48 ++++++------
->  arch/arm64/mm/kasan_init.c        |   4 +-
->  arch/arm64/mm/mmu.c               |  46 ++++++-----
->  arch/arm64/mm/pageattr.c          |   4 +-
->  arch/arm64/mm/trans_pgd.c         |   4 +-
->  include/linux/pgtable_types.h     |   6 ++
->  18 files changed, 215 insertions(+), 176 deletions(-)
-> ---
-> base-commit: ead700ca770c82167af32622cf8b68c9f87c3c7c
-> change-id: 20260911-pte0_arm-f1b7df7c0b51
-> prerequisite-message-id: 20260903103002.1091859-1-usama.anjum@arm.com
-> prerequisite-patch-id: 0114fcc6ab0dbb739b5bb6fc0fe6b1c8f1fa37a1
-> prerequisite-patch-id: 09fcf65970074620dd3a9cce6850b901beb01db8
-> prerequisite-patch-id: 9b2fdab97c99effabb85526fa7f141c933b3aa23
-> prerequisite-patch-id: 1aa309a26d98a1e93a54742705a03567ee93be71
-> prerequisite-patch-id: ebe32f52c95ad0542982f0b37798d209595e25e1
-> prerequisite-patch-id: a60d249f52d092524176851b2570d7245bb24434
-> prerequisite-patch-id: 81ebd1378e25d40a1771b53973abcc4defa87535
-> prerequisite-patch-id: d982f2b00c5eddb2459f69008a73e4f4ae4d8299
-> 
-> Best regards,
-> --  
-> Usama
-> 
-
+Bart
