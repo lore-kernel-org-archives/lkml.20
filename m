@@ -1,191 +1,67 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 323003B3894
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:22:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ADE33B7769;
+	Mon, 21 Sep 2026 07:23:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789975347; cv=none; b=dbK3YzTUMgbBFDDbZ+VeosP+I68gSXyCuLUoRPETR2SDQOnmqWkea2yUQOtrx1wPcc09TWFWBj1KmJjMQtP+HwfRfh19S1WlFxEHutgAPn+vztTOY/lnnc8NAnPSxQlVuIWPkq6A4N+YVlok1Jp1IgekmRTRku6gaPXw6ri5+tI=
+	t=1789975426; cv=none; b=afR4NIkDojKYVCLCDNibDGr8Kc+Z5UcCddqL61RnCbVTMkyY4XeSXnkesC52j1zKweotBBbw6OBVPEp/Bob2nkSMl0ka9fugxdkdJXmKHv0BmE31IaZuJODaXzD4piFkcXutqaHSkomUfjt0OjVVYd4J0HEQv9rV+z3QqMx+uy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789975347; c=relaxed/simple;
-	bh=EBgrAWwtjlcrDmIQ0EPHYAlc0Bv7t4n6qiHHZCoAB1M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=tfqc6Mdz6R3z55dZvOwDFVzeOOZg7zHlXlRvvtO6Rl4ReahmBrYv7kwOSolxlpF9zHesM/TqVez4coxRgauED8nQiIWSIIO9V1Wp95LZevqGe2d2xLekl8Pdl5bdyHdCeXQUI04xdTcIN5NGsz9uS/uRzV82w5hv/QOc3W+1/HA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=X3c0ANGZ; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789975426; c=relaxed/simple;
+	bh=2IeiAtviJVOScjys9wMB10jEZ83IZ70PKF88/Q563ts=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TGaSwgeveDOpVDrQxXF096svCzww3zhP2Nm6YEtH4mVYzq6GpKvoXSBnT1M4ZbCIMvZ6Y/3Bwug8jykHJR1sbk4XxkscHc8bJJvIr4l43TQpQLrhiVb/WORmVLmiEntvg1UCPgHPhQimLQIj4tbGFIemb+uyTO2EesQBRGLLAo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=VmHxVjas; arc=none smtp.client-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="X3c0ANGZ"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L3ab7U3307136;
-	Mon, 21 Sep 2026 07:22:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pp1; bh=rI68eMAogd7yGrbvuVog6inzAtN+
-	RQWxPU3hSW8KEbQ=; b=X3c0ANGZkNndMmOgfr4p+WkeVFz68bL1PsTNh0v0BofB
-	EhziArojEav9WMZWfmhQzSNKdj6lAeQ/+AdGKHb5mHEQ/AtMYvVslE9t80/EFIWU
-	iGCeJBbjZZcIWdvyybMvUgdClWez9qkQ4oae4Kf3SUUIJU7gd4JrFSmGj2mZHlVA
-	3PhmuDYrpPspuXIjSzkx4emGGT6/nhX8Jlp3ADuYbultmba+ZfIPLnCUqrgixs/v
-	WYyiSU6NhuGEYJquWfSz0jXzaQqzT/2TbDtUtIbOIygRFzptO3lDXgezu9Enecsz
-	ueSsAKi6Q2D9tGqqSq9BN3U2uuJ/N+GlFU+uiZUFOg==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgq72up-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 21 Sep 2026 07:22:00 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7HslD868114;
-	Mon, 21 Sep 2026 07:22:00 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gt53vcc2v-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 21 Sep 2026 07:22:00 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68L7LuWp51052860
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 21 Sep 2026 07:21:56 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6402620043;
-	Mon, 21 Sep 2026 07:21:56 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B3E1120040;
-	Mon, 21 Sep 2026 07:21:53 +0000 (GMT)
-Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.124.208.199])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 21 Sep 2026 07:21:53 +0000 (GMT)
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-To: maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org
-Cc: sshegde@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-        christophe.leroy@csgroup.eu, linux-kernel@vger.kernel.org,
-        msuchanek@suse.de, ritesh.list@gmail.com, hbathini@linux.ibm.com,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Subject: [PATCH v2] powerpc/ftrace: Don't restore r13 during ftrace_regs_caller
-Date: Mon, 21 Sep 2026 12:51:50 +0530
-Message-ID: <20260921072151.35531-1-sshegde@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="VmHxVjas"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=XEDgATaedwWWfZwNDoZgC9IjsQAV1C6R17+WXlc80kk=;
+	b=VmHxVjasd3JzrOJ1hIHNvzGhrOixjKlpGKEFEIhiPvG4nZssVeQ2WrM/1K6bkBjTAZS869c1Z
+	kAwwM1eYCK9/iUSA3GfkXMHt6mC7nqCCKsnBBCNOpzJ41asbYhuMIcMOTp53qGq+H3JPLlhF/Nf
+	ihfu6DsJrRFQognbTH53bPo=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hpDv667k8zcbP5;
+	Mon, 21 Sep 2026 15:12:18 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id 37CB240575;
+	Mon, 21 Sep 2026 15:23:39 +0800 (CST)
+Received: from huawei.com (10.50.85.155) by whupemo200011.china.huawei.com
+ (7.152.185.179) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 21 Sep
+ 2026 15:23:38 +0800
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+To: <song@kernel.org>, <yukuai@fygo.io>, <neil@brown.name>
+CC: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<chengzhihao1@huawei.com>, <yangerkun@huawei.com>, <yi.zhang@huawei.com>
+Subject: [PATCH 0/3] md: Fix three raid5/raid10 bugs
+Date: Mon, 21 Sep 2026 15:15:33 +0800
+Message-ID: <20260921071537.2902362-1-chengzhihao1@huawei.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=G+OJgNk5 c=1 sm=1 tr=0 ts=6ab0db19 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=5793ORmOmheN9jAXARAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEwMCBTYWx0ZWRfX22kF53TqveLz
- zwVA3+oC180J18iUKAFD9fM3DI2R1vqhoWP81bRKuHiS8BswX46RLGjej/GJuCzOMaMoeTuEShV
- sZGZ/xHNt9fg6jWX5uzzNmMBsCJzI4IsBhyT+YsFHvWptGMKMxI5zmddOK+AspAaHL8CJCquv10
- iwPxJ69v5JllQVIgaDoKeb6ZMBuNasOy3w6AUb/8nzltku4gQLT6tqOu8uNJ8HycAj9Kt+2HBym
- mRFQQWCbxKyOfXGBaXzsL1f+v19VJq2NjWTb5+GQbv/c5wrS3NYgkak1PHsVIcsy6ECuEftL0eC
- RAVMTf1d25x7gMBris0kqL3+VHRB/5q9cMGVPMrPqh0vGAxKzPZ2ES0IowTxsSCV/5Hbk4kUn0U
- W/nkSmGkSwVp1FG6+8E5tYDHi9vrig45ltM5tat4dK1u9GlrgDT8reiaXtnWIoB/450V5P/XvQo
- 0jqO9vLmtXo35BxaoSw==
-X-Proofpoint-ORIG-GUID: cDym8uBQ-pY4gP309kVjxl-uzfNx6P6z
-X-Proofpoint-GUID: rnBTgEvrACJgNb84zebxHt4GfWrmf1Az
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEwMCBTYWx0ZWRfX8iIzUuG4yjh+
- VCpOChh12Xq1r13OB4MfN9zrgbisNp6d/X7axNExXeQcRmozV7OcsiH2IXsLtpJLB2yro8G8Z6k
- RIJ0pgyS94U5Tm5JJJaAuGAdsj/mxuU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
- bulkscore=0 priorityscore=1501 clxscore=1015 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210100
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-Michal reported a stack-protector failure and subsequent panic when
-running kernel builds. This was observed with full/lazy preemption.
-Initially it was suspected as KVM, but later turned out to be due
-to a bcc tool running in parallel.
+Fix three raid5/raid10 bugs in error injection case.
 
-Issue was recreated using a bcc tool. 
-For example, running below in parallel leads to crash.
-./funccount sched* -d 100 and make -j 64
+Zhihao Cheng (3):
+  md/raid5: Hide the origin mddev->thread before takeover
+  md/raid5: Don't free conf on raid5_run failure
+  md/raid10: Don't free conf on raid10_run failure
 
-The same crash was observed when running kprobe for schedule() function,
-while simpler function tracer for schedule() didn't cause the crash.
-This helped to narrow it down to ftrace backed kprobes area.
+ drivers/md/raid10.c | 22 ++++++++++------------
+ drivers/md/raid5.c  | 39 ++++++++++++++++++++++++++++-----------
+ 2 files changed, 38 insertions(+), 23 deletions(-)
 
-The crash occurs as follows:
-
-ftrace_regs_caller entry on CPU A
-    |
-    +-> save r13 = CPU A PACA into pt_regs
-    |
-    +-> call kprobe_ftrace_handler()
-            |
-            +-> ftrace_test_recursion_unlock()
-                    |
-                    +-> preempt_enable
-                    +-> task can schedule and migrate to CPU B
-                    +-> task resumes with live r13 = CPU B PACA
-    |
-    +-> REST_GPRS(2, 31)
-            |
-            +-> restore saved r13 = CPU A PACA
-    |
-    |-> The task then continues running on CPU B with r13 pointing
-    |   to CPU A's PACA.
-
-The stack-protector canary is accessed through the PACA. After the task
-migrates, CPU A may run a different task and update its PACA with that
-task's canary. Restoring the saved r13 then causes the migrated task's
-saved stack canary to be compared against the canary in CPU A's PACA,
-resulting in a stack-protector failure.
-
-Similarly, current is resolved through the PACA. With a stale r13,
-preempt_count() can access the state of the task referenced by CPU A's
-PACA instead of the task running on CPU B. This results in corrupted
-preempt-count warnings and scheduling-while-atomic failures.
-
-This path for example is called when using kprobes and parallel kernel
-builds can cause preemptions during ftrace_test_recursion_unlock.
-
-Do not restore r13 from the saved register frame. If the task did not
-migrate, the live r13 already has the saved value. If it migrated, the
-live r13 contains the correct PACA pointer for the CPU on which the task
-resumed.
-
-On PPC32, r13 is regular register. So do this fix only for PPC64
-
-Fixes: 153086644fd1 ("powerpc/ftrace: Add support for -mprofile-kernel ftrace ABI") 
-Reported-by: Michal Suchánek <msuchanek@suse.de>
-Closes: https://lore.kernel.org/all/aqKfsVArHHaIK6M9@kunlun.suse.cz/
-Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-Reviewed-by: Hari Bathini <hbathini@linux.ibm.com>
-Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
----
-v1->v2: 
-- On PPC32 r13 is regular register. So continue to restore it.
-- Picked up the tags.
-v1: https://lore.kernel.org/all/20260918150811.1743769-1-sshegde@linux.ibm.com/
-
- arch/powerpc/kernel/trace/ftrace_entry.S | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/arch/powerpc/kernel/trace/ftrace_entry.S b/arch/powerpc/kernel/trace/ftrace_entry.S
-index 6599fe3c6234..5eb8eee32549 100644
---- a/arch/powerpc/kernel/trace/ftrace_entry.S
-+++ b/arch/powerpc/kernel/trace/ftrace_entry.S
-@@ -220,7 +220,13 @@
- 
- 	/* Restore gprs */
- 	.if \allregs == 1
-+#ifdef CONFIG_PPC64
-+	REST_GPRS(2, 12, r1)
-+	/* Do not restore a stale PACA pointer if the task migrated */
-+	REST_GPRS(14, 31, r1)
-+#else
- 	REST_GPRS(2, 31, r1)
-+#endif
- 	.else
- 	REST_GPRS(3, 10, r1)
- #if defined(CONFIG_LIVEPATCH_64) || defined(CONFIG_PPC_FTRACE_OUT_OF_LINE)
 -- 
 2.52.0
 
