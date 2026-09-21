@@ -1,147 +1,183 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A154D475348
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:57:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D6446D540;
+	Mon, 21 Sep 2026 09:57:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984666; cv=none; b=GT/bjKIoATw9X7+Ed6diHBDwjv8tS7hczaMyheUCcYfxlG3o0Cl1phoU/CJ3lLEBeC6Dk8u/NH2VAEKMhZeTLgPLME7pxZ+6bnOs7Ej6V3uchvHrIWgHoI+sTsqjTG8ulcfYTUDc4wK9ucQ9FCvrMgIVsamf2O9iRFdhVWFFaAU=
+	t=1789984672; cv=none; b=Dca+U0QGx8EpkIgPItORjaylzlcsfG9HP9TUCOCNPQwuezCP54I1Bv+jYwtWHTJEyvrvNRGF7WiULdQZBLHQZF3Pq5Bpp5r77QfTY3CIlQ/6XWCdb3r+AgCs7euzuquldPtqzJdOvgHtVjloaLDFDPjJqvxJP5hfH81DtkDNLGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984666; c=relaxed/simple;
-	bh=g8ArJ/OKChRPzb8qhim0ptPdcxny/b3SFpmVWrXASoA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PI/QFmOo6dIPCG+rElWkxXPnz13jmM3HNkNRldIYWWkaBA0TCn25gPUN/VtR6YzOJiD9X6YEFHVQAFpOZYOyXLXfNe+VR2XDaJnk1QT9fyu/8nTwSnPYcqt4Wlzyf20Mo9QH4ccNaFzMLlVoMPDsjKl38oMKdIZC7MB2LfUU9zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=YeUTcEz2; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789984672; c=relaxed/simple;
+	bh=LkyOuO48Am+yJ1OXWE3MbaROGlTK7J6JilxoxnXKs1k=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=u28NDm6y5PeGMqnna+LB4EP3f11BuUErcnG4LXXY4Uimf3nloEK4ByHVwu9iDF/y5DaQTty05U/pQttGp62u26ICu8cvMGcbZ0tPbD0P2UO1FAco7MTygc9eCDeoXClGGf2MRgN05WfKFkmi7wDYZLqzaQ+8Ll70TVtsFZRo45k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZqyMndfd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="YeUTcEz2"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4885d4825adso218807f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:57:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789984663; x=1790589463; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A2xc+qsQafrugpGNmAo+OH/htlYRtASP8SBfEBu5jl0=;
-        b=YeUTcEz262X9EI3l9mDT6eFJDByN867N2jOA87YrPcZqaIgMIOcDfmOQAHThSTzJ/K
-         OS6B7qSBmEhhL2FEU54jTJOnoEztk2FPbx0wVHfHRAqAxCMOh8Ichuh9Uo0YDDto5lQ7
-         tsLEjinNaazDR1LsE3niGw8EhJ9MbtjXHcoIKXtXkEL0eYOD/2CxijHPjw5xQNSH++Yq
-         N22VzEvRt+QjQOtwipKZWBxEjo0UaZOZUWm3Qj6BM3D5QB6A6jR96a71mzlnqkXXOoQr
-         +92lHPp9YRE4ZD26kTKKSvbMk7/JlX1v1xEr3UQJpcQjJvmkLukhavoSYAlilPvcGA5w
-         zREA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789984663; x=1790589463;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A2xc+qsQafrugpGNmAo+OH/htlYRtASP8SBfEBu5jl0=;
-        b=hc5ocuZWgrqlzasxmlhvT1V/FCaZ1bUmesotWygZkZ+ASiCWyEOrDBpdwOF+OcuHyP
-         jOQcajtvUmXpDpaS+Rpq/bAixbm0rdgMGWzrkW3p8CH17BcavUdkZIrZhHGfga9Fx6Vm
-         fvunv2CPoqVfPIERgnRJJOGoUh3XPYoUKP6QkukkrIOfjQsg1uIhLIKasXChzdzvqJEJ
-         FST3IeCup6Hj8fPLUmiShvHRQWmTvihQS5RR9BAmUzDB+SAL1/XSbEYpDh6uHBgYnRQ9
-         VNn9NsGxamoYMdM7OK6incEpz+5gV14Wr95TO7cR2gK9F57WH4UKGAS/MqkefD2+CPRt
-         wpUA==
-X-Forwarded-Encrypted: i=1; AKwUvByuoYVb3pRziy55wGIuyDhUD84dZ5KpD1wnwxvnx7fwxBEzCo4dBJg/+AUOf9EtTJAc8Gi0tnz5jD2jk9w=@vger.kernel.org
-X-Gm-Message-State: AFuF++nGgApd3eRFJkrW47BZz8aNt3WLwJXzcIXaRupgYLO4Ke05H9wF
-	oJGe+EdeGupJnITgXYfz2OZS0oZHjjlpFp+RThypkolpQSn2RII49LA3SXKWdoREeX0=
-X-Gm-Gg: AYBFou0x68Ubkxqg2QhoXmyda9qeDra3JbeGmFsK33G2H/zKxS3fQ1Mw5ekg87D6joy
-	8dLBCK906ZSa2E5+M5GWGz8IpuRAVxfaJ0KH39IxSzwyLMKzx1JKA8ilRLmI0eW9lHwR9T55dYD
-	XcwsyQZQxLWr474Kr8t5DG/1+Pppo15vp2EbOe0ryNp2esgzoi5YsQUOz1bB92Gb+jSUCohvFca
-	qjGSErGlU0qPpg0Ljl4m7pJK65rTvqMqjSn0cm8F922ZWaLgy7uZPNkVX/XHUAvb6kajN9pN8SV
-	+JfqXj7VIRp0ZSG/LZeW31qBg/gOqw0KhKmFVBwQDAylrsH4nPWcX77JBPKqCFJ1uKvwrvjsNON
-	NLlHqiM6PCWcJuVf8RGgfoIcaqQUjyjaRi6SNDNcRmO9jgPkELppJGPoMvVO9DTHd69zJcUXiLb
-	ZzZq1Vj67YHWYErgt83Kp2dg06g/uUfJCzryvfOz6YmAOJ0c/Ol4PpbtJMl6VFtM8B+C28f/1nH
-	uDOwYpCwdVEWv4W7PM=
-X-Received: by 2002:a5d:5f4f:0:b0:486:f4ae:72a2 with SMTP id ffacd0b85a97d-4871e2131a7mr14971582f8f.1.1789984662478;
-        Mon, 21 Sep 2026 02:57:42 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487243cede9sm23826513f8f.0.2026.09.21.02.57.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 02:57:41 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Mon, 21 Sep 2026 11:57:34 +0200
-Subject: [PATCH v3 2/2] drm/msm/a6xx: Use CX AO Counter register for
- timestamp on a750 GPUs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZqyMndfd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A1081F000FF;
+	Mon, 21 Sep 2026 09:57:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789984670;
+	bh=LWDf7Z4urWWk1OLakaZebmc5Ei86IWbtJatcDASCO2E=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ZqyMndfdFlOk7NVkd9QfEfzFHMfD+3k5Xfm5HsNs6FzlE0voWRlvb0YbZno/nB9dG
+	 wCGCh9RAT6/uK1SOYaaBUKpyR+a9unpo2G37CxJKObHI1C9Sd+R/a26x7Hr6Y35Z6m
+	 lu36ylZvZlQ+auC8a0qWSi4mQVitNoLQpO7hDwc1Xl2mQJAt+D4+yASHM8hHnkJs6f
+	 75cf/dT+pslptD0a04C7R7UBEUDywCIzS8UI85dbJTQa4C0zmZyaNUzHPxy9lq9CcB
+	 Jou6n8vV/aOjBWNMbEe7b5ArCsMjZ0VckdA3+dOMwKEzCwvIbtNUUJZW10AvjFioQT
+	 H7OQ8FXpxP/Sg==
+Subject: Re: [PATCH net] net: don't require the hwtstamp NDOs when a PHY
+ provides timestamping
+From: netdev-bot+sashiko@kernel.org
+To: nb@tipi-net.de
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, richardcochran@gmail.com,
+ kory.maincent@bootlin.com, vadim.fedorenko@linux.dev, jjc@jclark.com,
+ florian.fainelli@broadcom.com, opendmb@gmail.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 21 Sep 2026 09:57:49 +0000
+Message-ID: <178998466913.2160803.80702009306181180@kernel.org>
+In-Reply-To: <20260918095540.34286-1-nb@tipi-net.de>
+References: <20260918095540.34286-1-nb@tipi-net.de>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-topic-sm8650-gmu-a750-timestamp-reg-v3-2-2b9015106553@linaro.org>
-References: <20260921-topic-sm8650-gmu-a750-timestamp-reg-v3-0-2b9015106553@linaro.org>
-In-Reply-To: <20260921-topic-sm8650-gmu-a750-timestamp-reg-v3-0-2b9015106553@linaro.org>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1799;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=g8ArJ/OKChRPzb8qhim0ptPdcxny/b3SFpmVWrXASoA=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqsP+Sfg9qJ/ZVvzGxGlJdiPX0JbGHW7fcR4nvmEuR
- oOVvyweJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCarD/kgAKCRB33NvayMhJ0Z/pD/
- 0bggloxuYi0GcmMUXzlQAMYt0+k4/uwsup8W0CncampfsIwDSTPe4CLw54pq5pYeh/95EW4S7OfZfi
- HZoqM5zuA6pdxsc1TIlSvnvyyhTe1jFPlzYLMR08tMbFjtn8AoQ+3FWPGRbbpGzUoCHE8mg8FB9bD9
- rzC6D6Y/ikMh54rurR/UWqWdXjLTNGNuzLMxfEQ3YxwmKFOTPIQ56YTv3Zzb1FS2CSUsYa/z2uiM18
- B7DmYa+yz8PNgPR26+EfITAJyPFZsgME+gI2Ne9h+SXS4RyJgZWKu5WRsYb75xl9R4uY5DXv7Pziy1
- HPLz+kiedtOcn2VraI4sKhN70aUoV5vAWquaFEbgZhelRCiDMzf+LztSoXXh3yKHhHbO0SZGd00FKa
- +FFuNtWxT5TyLErGH35QmIr1/HsimWsVFnrgQmvXbPlSmop5elxOb/3Nzt043h6mO4G8+WAzfyyr/B
- heeKChS9GvWg7SOJeR/gnMeEBhmMhjMxtvY8Tyg+l5xbMt/fFiP7eBCMKQnSpYu69ho+EmYu5HhP3X
- qkbjc32OXOeobIo/iqZP2UURjpxX8uZk5G4s3UfBSxvbP5gTs+20BSythfEojbKh69ghMEDf1HUOyI
- yf5xIzxmEARPOPGbIsVGW0V7ztHsUDlqRdkdLdsuMwdWqP452Ni4XNDf1ZSA==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-The a750 uses the GMU CX AO Counters instead of the GMU_ALWAYS_ON_COUNTER
-register on A6xx and other A7xx GPUs, use it when running a A750 GPU.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-The GMU_ALWAYS_ON_COUNTER at offset 0x1f888 doesn't seem to exist
-on the SM8650 A750 GMU and returns 0, but the CX AO counter at offset
-0x1f880 returns some proper timestamp data.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Fixes: cfc8b48649e1 ("drm/msm/a8xx: Fix the ticks used in submit traces")
-Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index f9de9329dee3..081e79ea4652 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -23,9 +23,15 @@ static u64 a6xx_gmu_get_timestamp(struct msm_gpu *gpu)
- 	u64 count_hi, count_lo, temp;
- 
- 	do {
--		count_hi = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
--		count_lo = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_L);
--		temp = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
-+		if (adreno_is_a750_family(adreno_gpu)) {
-+			count_hi = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_H);
-+			count_lo = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_L);
-+			temp = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_H);
-+		} else {
-+			count_hi = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
-+			count_lo = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_L);
-+			temp = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
-+		}
- 	} while (unlikely(count_hi != temp));
- 
- 	return (count_hi << 32) | count_lo;
+- [Medium] Incomplete fix: the ethtool-netlink tsconfig path still
+  rejects PHY-only devices, so the two documented-equivalent uAPIs now…
+
+--
+
+net: don't require the hwtstamp NDOs when a PHY provides timestamping
+
+This moves the ndo_hwtstamp_get/ndo_hwtstamp_set presence checks out of
+dev_get_hwtstamp()/dev_set_hwtstamp() and the generic_hwtstamp_*_lower()
+helpers, and puts them where the callbacks are actually invoked, so a
+device that only timestamps in its PHY can use SIOCGHWTSTAMP and
+SIOCSHWTSTAMP again.
+
+> diff --git a/net/core/dev_ioctl.c b/net/core/dev_ioctl.c
+> index a320e264eaaf..164643140a52 100644
+> --- a/net/core/dev_ioctl.c
+> +++ b/net/core/dev_ioctl.c
+> @@ -276,19 +276,18 @@ int dev_get_hwtstamp_phylib(struct net_device *dev,
+>  	if (phy_is_default_hwtstamp(dev->phydev))
+>  		return phy_hwtstamp_get(dev->phydev, cfg);
+>  
+> +	if (!dev->netdev_ops->ndo_hwtstamp_get)
+> +		return -EOPNOTSUPP;
+> +
+>  	return dev->netdev_ops->ndo_hwtstamp_get(dev, cfg);
+>  }
+>  
+>  static int dev_get_hwtstamp(struct net_device *dev, struct ifreq *ifr)
+>  {
+> -	const struct net_device_ops *ops = dev->netdev_ops;
+>  	struct kernel_hwtstamp_config kernel_cfg = {};
+>  	struct hwtstamp_config cfg;
+>  	int err;
+>  
+> -	if (!ops->ndo_hwtstamp_get)
+> -		return -EOPNOTSUPP;
+> -
+>  	if (!netif_device_present(dev))
+>  		return -ENODEV;
+>  
+> @@ -359,12 +358,18 @@ int dev_set_hwtstamp_phylib(struct net_device *dev,
+>  	cfg->source = phy_ts ? HWTSTAMP_SOURCE_PHYLIB : HWTSTAMP_SOURCE_NETDEV;
+>  
+>  	if (phy_ts && dev->see_all_hwtstamp_requests) {
+> +		if (!ops->ndo_hwtstamp_get)
+> +			return -EOPNOTSUPP;
+> +
+>  		err = ops->ndo_hwtstamp_get(dev, &old_cfg);
+>  		if (err)
+>  			return err;
+>  	}
+>  
+>  	if (!phy_ts || dev->see_all_hwtstamp_requests) {
+> +		if (!ops->ndo_hwtstamp_set)
+> +			return -EOPNOTSUPP;
+> +
+>  		err = ops->ndo_hwtstamp_set(dev, cfg, extack);
+>  		if (err) {
+>  			if (extack->_msg)
+
+[Severity: Medium]
+With the checks relocated here, the ioctl entry points now reach
+phy_hwtstamp_get()/phy_hwtstamp_set() for a device whose MAC implements
+neither NDO but whose phydev satisfies phy_is_default_hwtstamp().  The
+ethtool netlink peers of those ioctls keep the old unconditional gates,
+and they run before these helpers are ever called.
+
+net/ethtool/tsconfig.c:tsconfig_prepare_data() {
+	...
+	if (!dev->netdev_ops->ndo_hwtstamp_get)
+		return -EOPNOTSUPP;
+
+	ret = ethnl_ops_begin(dev);
+	...
+	ret = dev_get_hwtstamp_phylib(dev, &cfg);
+	...
+}
+
+net/ethtool/tsconfig.c:ethnl_set_tsconfig_validate() {
+	const struct net_device_ops *ops = req_base->dev->netdev_ops;
+
+	if (!ops->ndo_hwtstamp_set || !ops->ndo_hwtstamp_get)
+		return -EOPNOTSUPP;
+
+	return 1;
+}
+
+Does this leave the two interfaces disagreeing on the same hardware?  On
+the bcmgenet plus BCM54213PE setup named in the changelog,
+SIOCGHWTSTAMP/SIOCSHWTSTAMP would succeed after this patch, while
+ETHTOOL_MSG_TSCONFIG_GET and ETHTOOL_MSG_TSCONFIG_SET would still return
+-EOPNOTSUPP, even though Documentation/networking/ethtool-netlink.rst
+lists those netlink operations as the replacements for the two ioctls in
+its ioctl-to-netlink mapping table.
+
+The note about this ("tsconfig keeps its own copy of the check ... IMHO
+this is an extra patch for net-next") sits below the --- separator, so it
+does not end up in git history.  Could it be moved into the commit message
+so that maintainers and stable backporters can see that PHY-only
+timestamping devices are only fixed on the ioctl path?
+
+One detail for whoever narrows the tsconfig gates later: the fix is not a
+mechanical copy of this one.  The HWTSTAMP_SOURCE_NETDEV branch in
+dev_get_hwtstamp_phylib() still calls the callback with no NULL test:
+
+net/core/dev_ioctl.c:dev_get_hwtstamp_phylib() {
+	...
+	if (hwprov->source == HWTSTAMP_SOURCE_NETDEV)
+		return dev->netdev_ops->ndo_hwtstamp_get(dev, cfg);
+	...
+}
+
+dev->hwprov is only ever assigned in ethnl_set_tsconfig(), which is
+reached through ethnl_set_tsconfig_validate(), so that branch is safe
+today precisely because of the check under discussion.  Should the two
+sites be changed together?
+
+[ ... ]
 
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260918095540.34286-1-nb%40tipi-net.de
