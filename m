@@ -1,99 +1,61 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00924908D8
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:18:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CAF14963D2;
+	Mon, 21 Sep 2026 12:18:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789993083; cv=none; b=AuPlfIiWQRwI14dNUG/POp4F+pFH0gLmtktlZ7LZJvO57cOohI9m4b9vk6a5s/E/GlDWcIz3EKRkAi0liAg5XJ2RQ9EDDq7PAJ96Zz5xEQSmQeVzcixZMGujf0+0aXXMXdtM+bEVRU+rNwY9uy9l1EGtr9koCQaFhkN5JMTRaD0=
+	t=1789993094; cv=none; b=qoQP4ROjAyQV8JhYawtROgVe/4fQAy+4AOOuYgkMOvnLZ2sLFeIYfAp3ZJPSbH1+lgIGSL2pRH2WqIBow/qzJT19Wo0V556PFR/mXkcaOZrPNqOR2VFlZPpU5QPs/jWBRNvXuZ0/GAByiJ2i0SKctBzeOQWhqjNzaCnp7sWq9fM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789993083; c=relaxed/simple;
-	bh=UZGB3K2JcnX4lOV4vLAtC2gzRNE80zgmQkUEh7WGGpE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GNXd1raRO8AdzbtMRCh7beU3NiKB00yidwEv4H1UPhr5bOvnWjAedYEJFvOr/uCSNhxIU2tIukS4S4NeDS52ql2n+1t7ONs1w52cq/0ul/S+8PLFUigv5t4ZKHieRvG8R+WlU6jstUNxpZflf1CkTS6W0t8s55s82Lp9kW97P4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jZTrJO0+; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789993094; c=relaxed/simple;
+	bh=Sbn2uEgpIS3SsSMIhAEvouD2WRMXJ/ObifdBHQakeF8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l35PXJkGRHkK3/tWegesA3bRmnODE89Tf9qsazXletJlTd2RaVLvyi1Bz0qARuaR78QKMr4Xu3pxNTB7U54N8FKwLWTDqGdqusmAtcQnp2V1/POyN/N/akbLMUV3QkMtO70apIdkaewCfdwYWqcarwD0z+b7+WFEBwMIoZ3dCo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=m4Gc+8Wb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jZTrJO0+"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2940ef15d3so361574066b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:18:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789993080; x=1790597880; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UZGB3K2JcnX4lOV4vLAtC2gzRNE80zgmQkUEh7WGGpE=;
-        b=jZTrJO0+fauueQL9TtT4/Dld7m7bmK/cJxXkmA074KiULrS3+IxFCCDiYYlTfZYmBT
-         cinvcICsh00cYtoOtnQemcRz48VN9p2FR0RENoahW2eH/YUpOcTvJrFdkRdF+N5p4tAx
-         UiGnRXQtZb/hDRFuVEUWm5PJe7Ovplz1UhV0MDs/x3EKliRd+ocR66FsIeR/mEq08iUp
-         YBAXpdlHNagZPHD7NcGjllYzVwMZfGJ3O8rIoP2zOWizj3xNpGAdhh2m4Jr3IXzyxPXf
-         jz359vv/07t8ddYVbSAz0sjFhhLSYwymm/ckMlBICvRchhlOuGGu1edgGUj5wxj1NcIR
-         cb7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789993080; x=1790597880;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UZGB3K2JcnX4lOV4vLAtC2gzRNE80zgmQkUEh7WGGpE=;
-        b=J7G1hTyMcCjzx88fHgYw2YQoH9ka4CcMAYQFCEKIpgj4jeSdXr9HUu+/vqa7RumGGk
-         HFjeX3/IQlngOcQoYttuJ7JaU12peVOAE6TTr1TA3cSJ9g5oo4txV+xvsbX775o/zLXv
-         O0uDZIbUAd1vjFvm6rrlHHRjuVzzxZakTFy6I9lBg+ceNo70aQTMf6S7ArSE/9EU8pmg
-         zf6Fju+LQdIlfT3JCQgAUXqHXzp09aaxPd9B/iDMNCa31U61WrFTnL2Es7uz9Kd5/NWU
-         ThjWZODO0eT2DtoFoJb3vbKB9GOy2LRfbvAedsZshNSzko5s23g9y8lbRMz0xRU6gD1O
-         +EUA==
-X-Forwarded-Encrypted: i=1; AKwUvByxEKL0jkg39wVghezd7VkQS4B+eyjrkN4po5T855l4PxqQrC9B7bymHobKfUf3+/iUe48s/qMnelVxC+Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++nUpuFq9q3hxgQ+5pMNwMT1QrXuLOJ5F7uYdf6Ghzx4ba7eSjAK
-	tdotRrRefbBFpg7TB2sNaLsgobIbW1q3vIQ58uuyNmjaX87aGaSfOR+l
-X-Gm-Gg: AYBFou06wBNQUMDqHoAW4bwx4eDdIN7qunlijl7/gwZkXTcUGATXjJwYWuVRMehTcyo
-	FT/HPLBY9pVITD/e5Bq2EqV/9LJs+Es2he3omIq1dxVf2TCUwO/YO7T3x56xzKszL3UrxycEdz2
-	OKVit9fzfHD7tmGh4VuIrIanYnLkptOLdkx+n4aCs4CuJ/OUSKrg57EMYBcIxb5Ea4hSPokYBr0
-	UD5VHnUTyX0m5TVV8elddArGHMyqRVMWfxD8uUEOJ21rK+K3JFvIYYOPGydAKiav1XvUMUtYpW8
-	7ABqATRUbKBuMAc6LVLLf4Mor+C7Rbs85yxT1y8S2+Ezn+IpcpXz7UA9AtDumDDXxpRbGILnkVt
-	3mEgWcmmn5+4AdJNURCiseFZB3g7HVnz/dmRvQpExG6WbVDZH8pAch1NtWsqLXfv4vQ8pNZDysX
-	f9lqLCo9AK4mYu3nh/ik/VWTlOs9bRiKbqYPcu33VfiUPdh642+kFfERMcx5snyzLo3jox1EXI+
-	ezKn6/70w==
-X-Received: by 2002:a17:907:9484:b0:c25:c7a9:7b8a with SMTP id a640c23a62f3a-c2a156d4a6dmr916170866b.12.1789993079677;
-        Mon, 21 Sep 2026 05:17:59 -0700 (PDT)
-Received: from localhost.localdomain ([194.154.195.114])
-        by smtp.googlemail.com with ESMTPSA id a640c23a62f3a-c2a359037aasm308205866b.63.2026.09.21.05.17.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 05:17:59 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: glymur-lenovo-yoga-slim7x: add the embedded controller
-Date: Mon, 21 Sep 2026 14:17:51 +0200
-Message-ID: <178999307097.27086.2572116331075139440@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <165d1eb4-f5e7-4f54-9f9c-22a210976d71@oss.qualcomm.com>
-References: <165d1eb4-f5e7-4f54-9f9c-22a210976d71@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="m4Gc+8Wb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEC8E1F00899;
+	Mon, 21 Sep 2026 12:18:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789993092;
+	bh=5chGrERlO2JNtoli6TVR+2hC3D7Ro/hKBKe4Ig2fTuM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m4Gc+8WbhMx3kjj7myVNcyW4eJyefQYnDR8akkiblmjrFGl6mzATLDmZsB07Jxd+W
+	 6r7FRMAXWBZT9Jx3GavyVc724XLDcA82glLPX/ktt11yQls1VMJvT/forufU9otmq/
+	 s5ILrt1xH7SvlOye608ik3thcvajO0Cz3I8kNUOM=
+Date: Mon, 21 Sep 2026 14:18:05 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: =?utf-8?B?67CV7YOc7ISgL+y7tO2TqO2EsMK3QUntlZnrtoA=?= <ts930@dgu.ac.kr>
+Cc: Hans de Goede <hansg@kernel.org>, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: fix buffer overflow and OOB accesses
+ in rtw_check_beacon_data()
+Message-ID: <2026092142-awoke-bacteria-94d9@gregkh>
+References: <20260921073730.83679-1-ts930@dgu.ac.kr>
+ <2026092127-rigid-anchovy-3aa3@gregkh>
+ <CAFPGN2jhZhPW1zeJc9f7OjSYP4SvvCi1uVf3uG=fddiKiF7Piw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAFPGN2jhZhPW1zeJc9f7OjSYP4SvvCi1uVf3uG=fddiKiF7Piw@mail.gmail.com>
 
-Hi Konrad,
+On Mon, Sep 21, 2026 at 06:12:13PM +0900, 박태선/컴퓨터·AI학부 wrote:
+> > How did you find this?
+> 
+> I am a computer science student and I have been studying the staging
+> drivers to learn more about kernel development.
 
-On Mon, Sep 21, 2026, Konrad Dybcio wrote:
-> No, merging a node without dt-bindings would cause DT validation errors
-> (which you can check via make dtbs_check / make CHECK_DTBS=1 qcom/foo.dtb)
+<snip>
 
-Got it. Please drop this patch. It will come back as the last patch of
-the EC driver series.
+Please respond in non-html as html emails are deleted by the mailing
+list.
 
-Thanks,
-Oleg
+thanks,
+
+greg k-h
