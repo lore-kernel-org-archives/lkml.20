@@ -1,226 +1,276 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB8C4A8418
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:14:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003688; cv=none; b=H+CEYglA1f1vTIIQOeLhQ1H1UrxJs+tliEYjwdCL1sxIQ00haCWb44XPYzCpqeS4/GliC2LrQLxlDPJMlk+YOgzOT+3zF0iLlpxQwfpmXPsAElJSlfciFPPrlVoLumeLkl3LtC8wAOp1yRFMBgmAa2Nj6tokilcHSm+fMIXIfZY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003688; c=relaxed/simple;
-	bh=Whvk5RInjRcT7w4OABrB+OhDGuJK29mos0BwOanD3hU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=UCF0VHCT6yl8tQTQNOuVcPq2v3g5wCSj3/F5LHM5Guuk24FFL1ENwQejl4zFxCizxhNqT61a9H7sYeX5FbikhKE4iomLQJ7rOI4jnRpA8x6kSA4S/BhebGya5TKKIkTCzHhjGPCat521QQgzH5HRTIf9LqQaWbR6DnjWxyInHIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dcH+Et1y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A84mEo39; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388254A5EAF
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:15:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.226.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790003715; cv=pass; b=Hnygvk6U+Gef5ASz/ZuolCs6dfT1R2Nnve61df5KdtoPNea16J5o0ahYTlxgKL9xRBvUdPccZBTsMusvHEjqKh13ryIRDJnmDHIhdbPihO8kCDZRvqpjCtGBC3H4wFY/5RSoaciojWuRqLUYqvVbJPGZX2A/1nDjBf30HalXuj0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790003715; c=relaxed/simple;
+	bh=E1DA6eJVvIMFAljzS7SN9tcSVSmcyDpJjIEWFM1xV2U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ml5TZhHx3+0Vgd0Q3gZ6V1X2xPSIk+u9MNLJIPAEbhhiQ5v3YEaxeusW1ele27YSo+769bSBE1MR2QBHM55EzqX/WvcPxr/5MFo54OvkXmvhwdyPZpWV7+geRACjO9nMUCR9cMMTUQX941VVy2/Ath57NCW/t01b6WGvkJuVw9g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YYcejnEZ; arc=pass smtp.client-ip=74.125.226.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dcH+Et1y";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A84mEo39"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LFAinO2012924
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:14:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=+sC0Yvqh8Q5nitoPDOO2xt
-	DXj5k7Je/RXYaZIXdOYtg=; b=dcH+Et1yC92Lu5dw7AEjH/U1yXQ6mEHF6MbfJO
-	ePttSzU0pXW3tGBgh0USunt9zJbIWlj3bdB5t0Cn98Ns/BgFdhw+YUAC9/UQ9LtS
-	sPzLhE4A3NC8i+VRr9SOmn5wmtolZqWZ64HNcKwQfvt8+3GwTRyecnobNZxqoyTE
-	Kq4iYbAHg9N66jlxI6xfRt1lZUWRrJG1kwOTEeC56ZQEhe95yokRMwleVnIpHlzp
-	4fwRt16x5LK2thprq9Q0h3V9qAV+3FGNVrBVECSgQHLfNTydcB6UMe/qwSxMPiw2
-	sFBI1incax2uGm8Mv68+yAvwhxYxcABM9I7tZSfs0C13IXdQ==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu01d1x2m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:14:45 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2dd53f2b27cso39194035ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:14:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YYcejnEZ"
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97cb5cb0af4so71362241.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:15:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790003713; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bVI3JLfpkYD6WSCpaKwMARXWg6pZAtGwH/2oSpNJ6P7SugDiqIWfF4NkZWSUjkrKAp
+         Iq9batXqtClghuV3u8b3uDi44AlTaow2AdX5Y6ggDVUa3+fj48DKxdujJsCfjkqHlrVH
+         CGvjg4mzjVY1/ecR98qgK3sz8dUZmlLp++retyYVUKCoo9jv4eFJgrr+4NeOGT0gpHZf
+         adxDnbo+V0TuAjoQeNZ6zM3cH8mNhK1LKY1mQCpN941G3UAhqjWH5ophPSp6UevZR7ea
+         lXCZl9R0goep/T18BH+stc7wDLANFBSyeu/eCBunHCL5mWuW2MFGu0IOST1Hu+lLPfnw
+         53vw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=z6taRN1yfrJhXingP4b7nQEv0S92qILvbAb+oYWwjHI=;
+        fh=NoJla7ShuTwnvfoK1HapEoiydgOIjwLxM+lqmoHrzXY=;
+        b=YKITkfMOXDDGpc5dnr+sn5Ex4DCs+Lwjvfaok+d4LLKTYZ/ZuT2Qdh4f1+EyHhWVqL
+         KNN+PRf6ckkHIp3tVsLjV/+uSzPLzALIOKj7ktYglyc10r9KxeoCRs7BIQkOs5fRCmjM
+         WtCAI9jfK+XFzDKdgi9W4xn3L+M47KrtIZLrGsqi68bSRViHlTeSPkdzWI6a4Sc2MOB+
+         2DyykA+r7jgqi/FN0SlKHIYm3752Rx5BT1q+DpmeNgxT+v6U5WMcUxa7U6TVc39cuuXs
+         P0AbWjeNbJU5S3yejMRyRowuTjiabiYXiitwPZ5GlaY4DUs76A7COegBbW4IP9jzk1Cg
+         xyFQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790003685; x=1790608485; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+sC0Yvqh8Q5nitoPDOO2xtDXj5k7Je/RXYaZIXdOYtg=;
-        b=A84mEo39MHf/Vt9SY82ZOIfJHjtgSIi4o3BLDeIU9lGvON2r59LQrNMToZc11nSFL3
-         JzSRIX09NJDSrYGMaaF4/7F95t0YYRECuPR32zIHfLtkek/t7D6uvI0GQQMZyx9fU9Ba
-         39L09h5DU46RQKyexgw7ezmfqEFgBw+7/JUrVsEOh1PmxQSLZNcuorX7MYeX2RYRmOKL
-         aXiC3Y8XwDWchxylh0LQ+vk58/Q6zQgsVd1BE64CQzWo1u0lO+QKAI9W4er+pmYc44Tu
-         oIMUQUZ7XNNbItG132zjaLZ3beoM/7jFKJwAaH073hrlnzAm3po0JGIAabcVMV7hZIHR
-         +VVw==
+        d=gmail.com; s=20251104; t=1790003713; x=1790608513; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=z6taRN1yfrJhXingP4b7nQEv0S92qILvbAb+oYWwjHI=;
+        b=YYcejnEZUgXmxS+DBiRdXO4VYJ3EkCmVURstwalAAXBeZyJcM53rKczeAGMIpyfnbE
+         lTZHz/YTf+kwkyuZ3lPn40CRhta35f1qzui/vUpObOnDKtNwJ2PBrHoxoavPvm2XaR17
+         pKGwpY44RO8uPDhkrOGkZ/28cPUegfJ5HQMqaKzA74G7Ze7sTRE3brsBgRgv5h8K7heq
+         Xwqiva/zVcyMZ8lDRpoYzwnr+99BS8CSZ/jDlTev+N7FVRBxaAFOTvsXzDEzRyFDkgiF
+         s7Djc5Gnd0xNDxiBkSO1MBJ0EArkcqMCU5PPeMZLL4B2P8NebjRm3o7FW9eU3eahZRvu
+         mYHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790003685; x=1790608485;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=+sC0Yvqh8Q5nitoPDOO2xtDXj5k7Je/RXYaZIXdOYtg=;
-        b=Bq7wqrmhVtIYk1bWAXmksov5v2tcsvwMbUFJFAAH++ak2xlkOX9nzNd02cVk9N1U9/
-         XjpSSq/SA6CtNW2Ikr4crQwOFPNhggPyRTyraj6qZIV6Clqj3U8OhBMMwjQugqmWkO0s
-         TmN0lqs1ZdAOh5CdNUdel9wylGRUR1P0wjOnLbmV1LnjLnMrOb5hePVnpAVLUPxEzIkz
-         dMyIh8D9i1avPN81rGzqtRQsIjRijWkOPh8p0qBqKdqXbpw5tSe0TymIkHH7TnLgitQ7
-         ZtST6mUUbdOEHWxx+Bb+DzmKkm2pJkqtKzI7JZLb+MpQqFBOj5CB+/knjYeEvOYut6Xm
-         zAfg==
-X-Forwarded-Encrypted: i=1; AKwUvBwqNh3J5KEuYeYmtGufSZ/OU2Gu2S1h//eBSpVFvsIXi8gjJgTbm+dQNZ4MOxDJ6J1VflZfJlhm1GdCVc0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwP4VwuhlyRedHaIqHnUhYQzTcibyUzcdmEnioMXv5HnlHvsuQ
-	oJScrO1GYjaBGFY8rtP5rxg4hz3Uh5ogOBe9vhTEFt48cmrf1bUxdQwYnae5dGUkm4J7e/zEVcq
-	cX/UjWHHQFVcNq1UgvH8P3BqSj7ELWo2mE5BYND1fYcj15dNUH+g/2sDfCqOKw0re2a0=
-X-Gm-Gg: AYBFou2uytoMp37lQEQvW0J+zryyw2cIsRauJ2LdtQd5QiRdD/liJhSyCa3CQItlo6x
-	T0a5dYKyoBtXwVRSxAcpYkLO5/L9moHXnQ57EPw6UVkDyr3Jlvylz0yv4kOkjGmBxKnxTQiW16I
-	fpNII+pnjzZf73RaM25SpQa6AAY4Ir7xekeWM5GqWpVdoEoeG36Pwpz9tiwlblm5BF+Ii3xQGSx
-	rojmSzGk1h7gZyNGev+UfVuKw1YrepmpD4wWkXI/s5nc95tpsuD1US+bNGpnXuYBYUjqlKRnHBE
-	PM9zHgMSzgv7syZf1kg3WZRPj8hl8ZqFXd/KQVBaojLkQFJuWF+4m2h49cPpFkVJEgvI4rxxq8A
-	SmI+Q0Hg9kdxphZF3RUxjkA5H4VLv9h6oBH5BdWFu4/6SVgaS6PrmCu9n2tp75OHeZp+Zw1jTsz
-	brjE2Xm2/u11f726LFX+gx
-X-Received: by 2002:a17:902:e741:b0:2c0:a555:80d6 with SMTP id d9443c01a7336-2ddb1aaf260mr174889325ad.2.1790003685024;
-        Mon, 21 Sep 2026 08:14:45 -0700 (PDT)
-X-Received: by 2002:a17:902:e741:b0:2c0:a555:80d6 with SMTP id d9443c01a7336-2ddb1aaf260mr174888945ad.2.1790003684406;
-        Mon, 21 Sep 2026 08:14:44 -0700 (PDT)
-Received: from hu-pankpati-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17ba54dsm35708185ad.54.2026.09.21.08.14.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 08:14:43 -0700 (PDT)
-From: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 20:43:41 +0530
-Subject: [PATCH] dma-buf: system_heap: align allocation orders to ARM64
- hugepage sizes
+        d=1e100.net; s=20260707; t=1790003713; x=1790608513;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z6taRN1yfrJhXingP4b7nQEv0S92qILvbAb+oYWwjHI=;
+        b=lCIm/lGzkGhmbQO2ghIOJ0uRjfO0pwPBsouaT9Y8vTz6TTOzqbpkN3pmqAgvVR64Tx
+         j+FRPtfCeSYQEKfqBw3fMtYZbb9kwZx1o2qsz40sXZ7GgbkHCaehpIpUgJvt5+VmtJge
+         ufdgc762sMEz/O7905Hy+f/71IOZsOZjbQaHubqHdqeaAf3myz3Bc8LIoCsznrEooqmE
+         tjlKl3Y3kvw7Z6remcevVm9eMKWDLcpAtS6JKl4Z9bNWz0vKH9YPvU+sVGeMGtWDWQND
+         RTZMfoA9dI4GkTiaeB+CR9C+CzuvrjBJP7KEb4VDt6pnZCfe2qs5imL8ckr+2W5y8zwr
+         m1vA==
+X-Forwarded-Encrypted: i=1; AKwUvBy6LrSnse4oJ57Q8Dn3VwqlY9RUe2KmTFiJ/rCdSN9X1yr1wWRZbuAiw0hzQ2qWi5oJSWDwf9C9xMZzp+M=@vger.kernel.org
+X-Gm-Message-State: AFuF++lzZ/huNe0SJdkKvhmlZj224hYwkxd3JiwjJ3QyuaMUCUCj4TKy
+	3mslrLA2TEOlELm/TXPVMaapPPz+KB75GyClKfNBJpc+NAuBKdQbgPDIi2Yp5Lz1QG6w39XmUar
+	it5g5qFWU6pQ1KxgTSkmrV8+MnkHeu9M=
+X-Gm-Gg: AYBFou0tPYUKuMQStQwckjUCf2W+P0OPw43e0JDh9ZTI3SaNrK7sn960SGp4hJnIdYm
+	hB1IY5V7H8KX+VheXGNtF1icEjAoYkcmiWDXSCA/rlDtriRowk3etFBm9sijovPc8RpUywjDujf
+	mBTwXzcFW4o2w1NUFsULundtBJWhvvJjEbxXOAhB4h8abttip5nBtoiOiovGaix11JyCasetLUT
+	yX8XgIpC2qve3OLZP6s+hK7sCjeMXmlAj4A/sVa7Xdf8YvGg0mavBZ5Zlu7FBu385JJTnB1fljw
+	4Ty/+lttGoXA8QtInB17W16+P6w5pPt+v1oAwb4L11hGmYO3+hWQaAG72w==
+X-Received: by 2002:ac5:c802:0:b0:5c9:937a:4670 with SMTP id
+ 71dfb90a1353d-5c9b89cddc0mr4130358e0c.1.1790003712920; Mon, 21 Sep 2026
+ 08:15:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-dma_buf_improvement-v1-1-23d82e771dec@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAKRJsWoC/yXM0QqDIBTG8VeRcz2HFRr1KiPC7LidC7WpSRC9+
- 2Rd/j74/ickjIQJRnZCxEKJgq9oHgzMR/s3clqroRWtEkOj+Or0vOx2JrfFUNChz1yLQWqUqkd
- poT63iJaOf/U13Y743Ws83yMsOiE3wTnKIyv9s+PRdDBd1w+O3lTQkQAAAA==
-X-Change-ID: 20260916-dma_buf_improvement-a095ae567e5f
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-        Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-        Brian Starkey <Brian.Starkey@arm.com>,
-        John Stultz <jstultz@google.com>,
-        "T.J. Mercier" <tjmercier@google.com>,
-        =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-        Philipp Stanner <phasta@kernel.org>, Juan Yescas <jyescas@google.com>,
-        Prakash Gupta <prakash.gupta@oss.qualcomm.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
-        linux-mm@kvack.org, Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790003679; l=3701;
- i=pankaj.patil@oss.qualcomm.com; s=20251121; h=from:subject:message-id;
- bh=aYodpMjhjueRZKnta3cynI3TH/uCot98oWss+KQn/3k=;
- b=+fXkiGBUsgSDeAWL8tAR41f8+8vf5VxpHd5B7u4dqwtqgoHWuab3DmhyN+j3ssNg9tGAgFslE
- FlGWAWAqZ27D0cmreba2JmnHXGa9MWxZGkFmQY4Q8A/GxWgPpu+fdk7
-X-Developer-Key: i=pankaj.patil@oss.qualcomm.com; a=ed25519;
- pk=pWpEq/tlX6TaKH1UQolvxjRD+Vdib/sEkb8bH8AL6gc=
-X-Proofpoint-ORIG-GUID: 5k74A4P3mU00G8PEIBmDPgGD_2ir0OXG
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDIyMiBTYWx0ZWRfXzAFR0Lx+hXOd
- /b9fdZXzhBSfWfKsm0305M8wRRelWYkWe57y2l5tYWVoSaugKWMxy5Ep3uc9OIAoY+Ua4qvLYis
- uo9RevQXh+cGGY9rlEE7YCLw5DQHa+8=
-X-Proofpoint-GUID: 5k74A4P3mU00G8PEIBmDPgGD_2ir0OXG
-X-Authority-Analysis: v=2.4 cv=Ht7jiETS c=1 sm=1 tr=0 ts=6ab149e6 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=1XWaLZrsAAAA:8 a=EUspDBNiAAAA:8 a=Y-RT13NjMWaHgGG2EaEA:9
- a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDIyMiBTYWx0ZWRfX2O3dK3grhxKo
- ayOY5aVlFpEY7i2M02mkASFIOztdIpx5d+r5EdRTz9RmXXTTPhOiFdmZONw+F7FNN7LDQObC3nn
- 2LwcnqUKx2v823U7kXszaZBdbr+l4IEGkz+mtHfFeRg8nyx7jFcyHTKdHtMX/0sxfgwZVlPKwON
- YwYggeGG0efH6+TGzAuhbV4H7I161QCmiFs4NhP221g8Ay57o0/A/f78rrm8nxqRHJigIKkbfUI
- oMIZ3GteeJXTsuEwWs7IyKqjZmNDK8RaBsovqz/2w001EtxJd89bU7R4HTxch3A1EKaDMWf4pxT
- 6OUc1UkJSLIm2QieuPDsTxP49Xi8dDFxdAQ6Ff1+bQIBOdM3P0GKXwM8zihMU54orsulF7zA/bQ
- pWGPX0TBy84BtFz1HWgryqVRBLRpYbGWrCZiq6fgYIVyr9IW0Yi1WdGmUQjyuz/xZOGMWZJzesZ
- OgiImOKTEs43OSnG4iw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0 impostorscore=0
- suspectscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210222
+References: <20260804181951.5206-1-saileshnandanavanam@gmail.com>
+In-Reply-To: <20260804181951.5206-1-saileshnandanavanam@gmail.com>
+From: Sailesh Nandanavanam <saileshnandanavanam@gmail.com>
+Date: Mon, 21 Sep 2026 20:45:01 +0530
+X-Gm-Features: AcwNN1UK3NxgU8L7a7p0OqKo7KlHJ1rZX_wdea6dW2DleRXUVx778GaLAT1KLDM
+Message-ID: <CAF+TLO1woWAd2WFKBV5T67OsmnV-7JbzAPyotRUz8azyn4+8Rg@mail.gmail.com>
+Subject: Re: [PATCH v4] remoteproc: qcom_q6v5_pas: Fix dtb firmware lifecycle
+ and leak
+To: andersson@kernel.org, mathieu.poirier@linaro.org, 
+	mukesh.ojha@oss.qualcomm.com
+Cc: neil.armstrong@linaro.org, linux-arm-msm@vger.kernel.org, 
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Prakash Gupta <prakash.gupta@oss.qualcomm.com>
+Hi Mukesh, Bjorn, Mathieu,
 
-System heap currently uses a fixed allocation order, {8, 4, 0} while
-requesting pages from the buddy allocator which correspond to 1 MiB,
-64 KiB and 4 KiB only on systems using 4 KiB page size.
+Gentle ping on this v4. It moves the DTB firmware request/release
+into qcom_pas_start() as Mukesh suggested on v1, so the reference is
+released on every failure path after the request, including a failure
+in qcom_q6v5_prepare(), and on the success path.
 
-Extending on patch from Juan [1] for ARM64 targets with LPAE, a 1 MiB
-allocation does not correspond to a PMD block size. For a 4 KiB-granule
-IOMMU, a 2 MiB allocation can be mapped using a single PMD block entry,
-reducing IOMMU TLB pressure by requiring fewer translation entries.
+It still applies cleanly on next-20260918 and builds for arm64.
+Mukesh, could you take another look and let me know if this now
+matches what you had in mind?
 
-Use allocation orders corresponding to the ARM64 PMD block and
-contiguous-PTE sizes for 4 KiB, 16 KiB and 64 KiB page configurations.
-ARM64 applicable orders are selected for ARM64 targets with default
-orders being used for rest of the architectures.
+Thanks,
+Sailesh
 
-[1] https://lore.kernel.org/all/20250417201913.2393655-1-jyescas@google.com/
 
-Co-developed-by: Juan Yescas <jyescas@google.com>
-Signed-off-by: Juan Yescas <jyescas@google.com>
-Co-developed-by: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Signed-off-by: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Signed-off-by: Prakash Gupta <prakash.gupta@oss.qualcomm.com>
----
- drivers/dma-buf/heaps/system_heap.c | 27 +++++++++++++++++++++++----
- 1 file changed, 23 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
-index c8959eadc71d..7a3e26c3dd43 100644
---- a/drivers/dma-buf/heaps/system_heap.c
-+++ b/drivers/dma-buf/heaps/system_heap.c
-@@ -22,6 +22,7 @@
- #include <linux/module.h>
- #include <linux/pgtable.h>
- #include <linux/scatterlist.h>
-+#include <linux/sizes.h>
- #include <linux/slab.h>
- #include <linux/vmalloc.h>
- 
-@@ -57,12 +58,30 @@ struct dma_heap_attachment {
- 				| __GFP_COMP)
- static gfp_t order_flags[] = {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_ORDER_GFP};
- /*
-- * The selection of the orders used for allocation (1MB, 64K, 4K) is designed
-- * to match with the sizes often found in IOMMUs. Using order 4 pages instead
-- * of order 0 pages can significantly improve the performance of many IOMMUs
-- * by reducing TLB pressure and time spent updating page tables.
-+ * For ARM64, allocation orders correspond to the PMD block and CONT PTE
-+ * hugepage sizes for each CPU page granule, which also align with the
-+ * TLB entry sizes of a 4K-granule IOMMU (arm-smmu, arm-smmu-v3).
-+ * Each order = (level_shift - PAGE_SHIFT), derived from:
-+ *   PMD_SHIFT      = (PAGE_SHIFT - 3) * 2 + 3
-+ *   CONT_PTE_SHIFT = CONFIG_ARM64_CONT_PTE_SHIFT + PAGE_SHIFT
-+ *
-+ * 4K  CPU (PAGE_SHIFT=12): PMD=2MiB   (21-12=9),  CONT_PTE=64KiB  (16-12=4)
-+ * 16K CPU (PAGE_SHIFT=14): PMD=32MiB  (25-14=11), CONT_PTE=2MiB   (21-14=7)
-+ * 64K CPU (PAGE_SHIFT=16): PMD=512MiB (29-16=13), CONT_PTE=2MiB   (21-16=5)
-+ */
-+#if defined(CONFIG_ARM64) && (PAGE_SIZE == SZ_4K)
-+static const unsigned int orders[] = {21 - PAGE_SHIFT, 16 - PAGE_SHIFT, 0};
-+#elif defined(CONFIG_ARM64) && (PAGE_SIZE == SZ_16K)
-+static const unsigned int orders[] = {25 - PAGE_SHIFT, 21 - PAGE_SHIFT, 0};
-+#elif defined(CONFIG_ARM64) && (PAGE_SIZE == SZ_64K)
-+static const unsigned int orders[] = {29 - PAGE_SHIFT, 21 - PAGE_SHIFT, 0};
-+#else
-+/* Fallback to default allocation order for non-arm64 architectures
-+ * On 4K-page systems, these orders correspond to 1MiB, 64KiB and 4KiB,
-+ * matching sizes commonly supported by IOMMUs.
-  */
- static const unsigned int orders[] = {8, 4, 0};
-+#endif
- #define NUM_ORDERS ARRAY_SIZE(orders)
- 
- static int system_heap_set_page_decrypted(struct page *page)
-
----
-base-commit: c2cd463d6ee7d55a3ec0719d93c49ff99022d58f
-change-id: 20260916-dma_buf_improvement-a095ae567e5f
-
-Best regards,
--- 
-Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-
+On Tue, Aug 4, 2026 at 11:50=E2=80=AFPM Sailesh Nandanavanam
+<saileshnandanavanam@gmail.com> wrote:
+>
+> DTB co-firmware was previously requested and loaded in
+> qcom_pas_load(), but its lifetime did not match the actual
+> start/stop lifecycle of the remoteproc. As a result, the firmware
+> reference could be retained across restart cycles, leading to a
+> leak for each successful boot.
+>
+> Additionally, if qcom_pas_start() failed after loading the DTB
+> firmware, the remoteproc core would not invoke .stop(), leaving
+> no opportunity to release the associated firmware reference.
+>
+> Fix this by moving DTB firmware request and loading into
+> qcom_pas_start(), so that its lifetime is strictly tied to the
+> remoteproc start sequence.
+>
+> Update qcom_pas_start() to ensure proper cleanup on all paths:
+> - release PAS metadata on failure
+> - release DTB firmware on both success and failure paths
+> - unmap DTB carveout where applicable
+>
+> Remove DTB firmware handling from qcom_pas_load(), as it does not
+> match the correct ownership and lifecycle model.
+>
+> With this change, request_firmware() and release_firmware() are
+> properly paired within the start path, avoiding leaks and ensuring
+> consistent behavior across restart and failure scenarios.
+>
+> Fixes: 29814986b82e ("remoteproc: qcom_q6v5_pas: add support for dtb co-f=
+irmware loading")
+> Signed-off-by: Sailesh Nandanavanam <saileshnandanavanam@gmail.com>
+> ---
+> v4:
+> - Rebase onto linux-next
+> - Remove unused int ret from qcom_pas_load()
+>
+> v3:
+> - Remove the unused release_dtb_firmware label
+> - Release DTB firmware under the existing dtb_pas_id check
+>
+> v2:
+> - Move DTB firmware request/load from qcom_pas_load() to qcom_pas_start()
+> - Fix firmware reference leak across restart cycles
+> - Handle start() failure paths where .stop() is not invoked
+> - Ensure firmware is released on all success and failure paths
+> - Remove DTB handling from load() and drop release from stop()
+> ---
+>  drivers/remoteproc/qcom_q6v5_pas.c | 47 +++++++++++++++++-------------
+>  1 file changed, 26 insertions(+), 21 deletions(-)
+>
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
+_q6v5_pas.c
+> index ca8e61254c44..864446a484f1 100644
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> @@ -231,7 +231,6 @@ static int qcom_pas_unprepare(struct rproc *rproc)
+>  static int qcom_pas_load(struct rproc *rproc, const struct firmware *fw)
+>  {
+>         struct qcom_pas *pas =3D rproc->priv;
+> -       int ret;
+>
+>         /* Store firmware handle to be used in qcom_pas_start() */
+>         pas->firmware =3D fw;
+> @@ -241,23 +240,6 @@ static int qcom_pas_load(struct rproc *rproc, const =
+struct firmware *fw)
+>         if (pas->lite_dtb_pas_id)
+>                 qcom_pas_shutdown(pas->lite_dtb_pas_id);
+>
+> -       if (pas->dtb_pas_id) {
+> -               ret =3D request_firmware(&pas->dtb_firmware, pas->dtb_fir=
+mware_name, pas->dev);
+> -               if (ret) {
+> -                       dev_err(pas->dev, "request_firmware failed for %s=
+: %d\n",
+> -                               pas->dtb_firmware_name, ret);
+> -                       return ret;
+> -               }
+> -
+> -               ret =3D qcom_mdt_pas_load(pas->dtb_pas_ctx, pas->dtb_firm=
+ware,
+> -                                       pas->dtb_firmware_name, &pas->dtb=
+_mem_reloc);
+> -               if (ret) {
+> -                       qcom_pas_metadata_release(pas->dtb_pas_ctx);
+> -                       release_firmware(pas->dtb_firmware);
+> -                       return ret;
+> -               }
+> -       }
+> -
+>         return 0;
+>  }
+>
+> @@ -282,9 +264,23 @@ static int qcom_pas_start(struct rproc *rproc)
+>         struct qcom_pas *pas =3D rproc->priv;
+>         int ret;
+>
+> +       if (pas->dtb_pas_id) {
+> +               ret =3D request_firmware(&pas->dtb_firmware, pas->dtb_fir=
+mware_name, pas->dev);
+> +               if (ret) {
+> +                       dev_err(pas->dev, "request_firmware failed for %s=
+: %d\n",
+> +                               pas->dtb_firmware_name, ret);
+> +                       return ret;
+> +               }
+> +
+> +               ret =3D qcom_mdt_pas_load(pas->dtb_pas_ctx, pas->dtb_firm=
+ware,
+> +                               pas->dtb_firmware_name, &pas->dtb_mem_rel=
+oc);
+> +               if (ret)
+> +                       goto release_dtb_metadata;
+> +       }
+> +
+>         ret =3D qcom_q6v5_prepare(&pas->q6v5);
+>         if (ret)
+> -               return ret;
+> +               goto release_dtb_metadata;
+>
+>         ret =3D qcom_pas_pds_enable(pas, pas->proxy_pds, pas->proxy_pd_co=
+unt);
+>         if (ret < 0)
+> @@ -352,6 +348,11 @@ static int qcom_pas_start(struct rproc *rproc)
+>         if (pas->dtb_pas_id)
+>                 qcom_pas_metadata_release(pas->dtb_pas_ctx);
+>
+> +       if (pas->dtb_pas_id) {
+> +               release_firmware(pas->dtb_firmware);
+> +               pas->dtb_firmware =3D NULL;
+> +       }
+> +
+>         /* firmware is used to pass reference from qcom_pas_start(), drop=
+ it now */
+>         pas->firmware =3D NULL;
+>
+> @@ -361,8 +362,6 @@ static int qcom_pas_start(struct rproc *rproc)
+>         qcom_pas_unmap_carveout(rproc, pas->mem_phys, pas->mem_size);
+>  release_pas_metadata:
+>         qcom_pas_metadata_release(pas->pas_ctx);
+> -       if (pas->dtb_pas_id)
+> -               qcom_pas_metadata_release(pas->dtb_pas_ctx);
+>
+>  unmap_dtb_carveout:
+>         if (pas->dtb_pas_id)
+> @@ -381,6 +380,12 @@ static int qcom_pas_start(struct rproc *rproc)
+>         qcom_pas_pds_disable(pas, pas->proxy_pds, pas->proxy_pd_count);
+>  disable_irqs:
+>         qcom_q6v5_unprepare(&pas->q6v5);
+> +release_dtb_metadata:
+> +       if (pas->dtb_pas_id) {
+> +               qcom_pas_metadata_release(pas->dtb_pas_ctx);
+> +               release_firmware(pas->dtb_firmware);
+> +               pas->dtb_firmware =3D NULL;
+> +       }
+>
+>         /* firmware is used to pass reference from qcom_pas_start(), drop=
+ it now */
+>         pas->firmware =3D NULL;
+> --
+> 2.34.1
+>
