@@ -1,91 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D55340400;
-	Mon, 21 Sep 2026 04:52:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 712F6345736;
+	Mon, 21 Sep 2026 04:52:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789966332; cv=none; b=DY285WHHovB5fYimJJdpbcnt/67EnLtXxLG7ELiSdikRXUMwNMpx6iLKoOrAeqiedPPg06vkvu/dTAcVfyJtOPW2B3szCW83Dq7Rk1uTSlv8TDw3AcePm7F0Kgi3yZrPdQy4/Zw4YONN6vcfIgtESAxNsexI5NB/icRYGECzFmk=
+	t=1789966337; cv=none; b=GCUtsxJePlVdq9ICHfcrK4Gg/lgBAgYvRy8R6IInOSzECbGOZsm64vzj1Jn+mTAjHXVj3UC+ocu1BiAiDCUxsseSHCY6uQ1V2i6pXQSkCnEd5LjjOEuq13YLoSxE8DE+2kM/0OpDTjppRG0HCPdHNwRr2S+l3APQpdrTzDCoZRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789966332; c=relaxed/simple;
-	bh=bTqmrvpUXlA1mQVCiLQ2/VKxw52s1dgUdWL4gFNXhXk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P8dRMYV23iUlE+m70lLOhYfTdLyrTo9lQpASy2DeC3VKlwymrr5ki/pSxRCN8TKggXAVMPiiKKUJityOmR6psUfbX32QEKiIlkGE1jUNF4pdYcmftjlvIm8ktDnzdQJBw2H4uQhC4mU443VmbW2vNT6gnyyp91p4oWo1mzmCwTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F+COzuW7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789966337; c=relaxed/simple;
+	bh=8kMF8rBimaKR13vElBQ7E2iTbUTLoPrvjEkzyOHFPes=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tzCOq9xifbgXVEJ0Y1SQUBRy0vBtP/Rg+BW0l6dC73LlLTSnsFVwammiHdrp6GjVIR8r47ZPZcu5hm+NSBAJJ7usDZ1rdH4reaPjXdlFFkufW4LbEevpeVQXCt4BhgZCT5lwE76XOK/v+5JGQ8LF/oFRAuv9Q89rPoGJ8322Ado=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SJB1IWcr; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F+COzuW7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ADA61F000FF;
-	Mon, 21 Sep 2026 04:52:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789966330;
-	bh=MVet7qYLYYdgVfZXBN8sKyK1xnl2RfzVXflZkC/ZMYA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=F+COzuW7/pACggwXYD5vef5yxInElwke2g5sdSnQVO+NknSy7RyK3/+CRZCV4VwEy
-	 5d4FduQKxn32lrhko804uUa3dRF0yl5qyVgvIpmytzKkKZAvJ1o3+8S1Y3x4/W7ssM
-	 elFGsxyvtL9sWmliVhOodjUfhQYCiZVnAkW4Nz7CIC3weke8FuSNUbwP4ghLoRnAKq
-	 OSziOK3ezK6tdUKiERfpz+Qk4jzvv6KP7o6XQBKdWYEjqFKgrpD+//db6CPHGu0ujp
-	 jA0VA5TWrk78R53PvghofnOruuNZ7v1wllhePj88XcXMtC1ctonkid2FEICjUmtfh4
-	 uuPfgj/ZwkAKQ==
-Message-ID: <15cebf13-1e28-40e1-9113-19205ee8d604@kernel.org>
-Date: Sun, 20 Sep 2026 23:52:08 -0500
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SJB1IWcr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789966337; x=1821502337;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=8kMF8rBimaKR13vElBQ7E2iTbUTLoPrvjEkzyOHFPes=;
+  b=SJB1IWcr8sJ3TOr4etRE6dAwX7/WL5EeDG1jpXgSxtZTYSYKhi7z+olY
+   WPYOsJb0sQPPvjkfZgM5zzoA9Rl4+lWvuTydAS0QJJNQ0iGe2YeDWkt0w
+   0XuTq39b9+kHxFH1n+dVTqmF88xIZ7jEsODRfq8kolfn3372ssM1yw/sQ
+   Ea6/ouSllSRay6Ttaco4b9Hn6hDbKL4D7BOD0ly66pUcbpzCqIt4dUr/Y
+   kZJGuk1I9PL5/ywkqX8oWCAHiDFyUiQACE6n9/u5+oT9MV6yrD+17sDKG
+   /8/gCgdzdPCoE9N7ATjzIQ1BBp9iiEyt/MZnIeCvs0gHTL6LOsaC/judd
+   A==;
+X-CSE-ConnectionGUID: 0W+kaXJ/QByLB+rc/R8UxQ==
+X-CSE-MsgGUID: YWDwZCN6SgSTSXyMkl/rvw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="101051116"
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="101051116"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Sep 2026 21:52:16 -0700
+X-CSE-ConnectionGUID: MItRL1SEQU+PADvh8ZG6qg==
+X-CSE-MsgGUID: Ps6tTfHOTIKYy6/HtaSfWA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="271036526"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa006.fm.intel.com with ESMTP; 20 Sep 2026 21:52:09 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 020F299; Mon, 21 Sep 2026 06:51:55 +0200 (CEST)
+Date: Mon, 21 Sep 2026 06:51:55 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+	Mika Westerberg <westeri@kernel.org>,
+	Shyam Sundar S K <shyam-sundar.s-k@amd.com>,
+	Elie Morisse <syniurge@gmail.com>,
+	Benson Leung <bleung@chromium.org>,
+	Guenter Roeck <groeck@chromium.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Devyn Liu <liudingyuan@h-partners.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Khalil Blaiech <kblaiech@nvidia.com>,
+	Asmaa Mnebhi <asmaa@nvidia.com>,
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Dmitry Osipenko <digetx@gmail.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Israel Cepeda <israel.a.cepeda.lopez@intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans Hu <hanshu@zhaoxin.com>, George Cherian <gcherian@marvell.com>,
+	linux-i2c@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org, linux-tegra@vger.kernel.org
+Subject: Re: [PATCH 2/2] i2c: busses: use named initializers for
+ acpi_device_id
+Message-ID: <20260921045155.GL106095@black.igk.intel.com>
+References: <20260918-acpi-i2c-v1-0-caf4bea4886c@thegoodpenguin.co.uk>
+ <20260918-acpi-i2c-v1-2-caf4bea4886c@thegoodpenguin.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] Fix for storage corruption w/ AMD IOMMU on 64-bit
- addressing
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Damien Le Moal <dlemoal@kernel.org>,
- Niklas Cassel <cassel@kernel.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
- "H . Peter Anvin" <hpa@zytor.com>,
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- "open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)"
- <linux-kernel@vger.kernel.org>,
- "open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)"
- <linux-ide@vger.kernel.org>
-References: <20260908190600.226485-1-mario.limonciello@amd.com>
-Content-Language: en-US
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260908190600.226485-1-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260918-acpi-i2c-v1-2-caf4bea4886c@thegoodpenguin.co.uk>
 
-On 9/8/26 2:05 PM, Mario Limonciello wrote:
-> An issue has been reported by a number of people that corruption
-> was occurring on storage for desktop systems.  It's notably reported
-> on SATA, but the same issue also appears on NVME.
+On Fri, Sep 18, 2026 at 02:01:51PM +0100, Pawel Zalewski wrote:
+> Use a designated initializer for the acpi_device_id fields which makes the
+> code more readable and consistent with how lists are initialized in the
+> rest of the kernel code base. Also drop explicitly setting fields to 0
+> where it is redundant.
 > 
-> At a glance it looks like an IOMMU issue as turning off the IOMMU helps
-> the issue, but it's actually a problem that occurs specifically with any
-> IOVA addressed >58 bits.
+> Unify the list terminator to have a single space between the brackets and
+> no trailing comma.
 > 
-> This is because the BIOS on these systems is enabling a feature of the
-> root port called 'enhanced atomics' which repurposes those upper 5 bits
-> of address space.  That feature should only be enabled by the BIOS when
-> the partner device supports it, but it's instead needlessly enabled on a
-> number of root ports.
+> Unify list item alignment to have a single space padding between the
+> brackets.
 > 
-> As some of these systems probably won't receive BIOS updates and there is
-> active reports of data corruption root caused to this add a quirk to
-> disable it on affected models, and also remove the quirk that was
-> introduced to work around this issue in drivers/ata.
-> 
-> v2:
->   *  Added resume fixups for the affected AMD PCIe ports
-> 
-> Mario Limonciello (2):
->    x86/PCI: Disable enhanced atomics on some AMD PCIe ports
->    Revert "ata: ahci: force 32-bit DMA for JMicron JMB582/JMB585"
-> 
->   arch/x86/pci/fixup.c | 99 ++++++++++++++++++++++++++++++++++++++++++++
->   drivers/ata/ahci.c   | 18 --------
->   2 files changed, 99 insertions(+), 18 deletions(-)
-> 
+> Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+> ---
+>  drivers/i2c/busses/i2c-amd-asf-plat.c       |  2 +-
+>  drivers/i2c/busses/i2c-amd-mp2-plat.c       |  2 +-
+>  drivers/i2c/busses/i2c-cros-ec-tunnel.c     |  2 +-
+>  drivers/i2c/busses/i2c-designware-platdrv.c | 42 ++++++++++++++---------------
 
-Gentle ping on this series.
+For i2c-dw:
+
+Acked-by: Mika Westerberg <westeri@kernel.org>
