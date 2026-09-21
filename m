@@ -1,206 +1,216 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF684BF941;
-	Mon, 21 Sep 2026 16:21:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790007681; cv=none; b=WtN7u9yR5/gmhwCaIIZghF15XiVyxGETZ3Pz0S2klyT0ydOJaBlbi81F0h5hmE9WERPSlfsFxIDae1YX+qI5WfE8b6g921cIgPEP76wCpoKlYpvAwF2t5DuujFpKVminVgS5qsGIdsuN+cys5yMz3PZ0Ywy6PC7uGaUmEBYLHhw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790007681; c=relaxed/simple;
-	bh=oGrCEH101JYJ0TwgVUxNMjImKrJahWj0BvTmscqgBZ8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Tb0peq0Q/dwMLkrjlTv3DbfBIYdIyKKyoavgHH5JcG69s7baHNhxmxeHyFe+H+DZhf6J/odPIxyBn647gcjbBaHwtNjPHtW8hlT187KwSMJPNKHBVZOw3JxNp1SoPa59VoeO7OxKa+rwYfBURahz/Xs0fGSDEAI/Ms637ksKAXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=pUf8M6np; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED134D17A0
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:21:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790007687; cv=pass; b=jRLQy4uNbm1bmmQG9hdhjUTO5QCZa5at5A5viWk+A10mpFwkLAz7eNOVVTXV2sBQjzkkoxu9e+L4FlXTjdCstwbzhGxCe9b708IhyVIRP9HRcNmfEM2RkbpQPZm22/PasjmIv5vxIWm1mj6heeDNf+N6t8dS7qEYrvpPGpndqRY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790007687; c=relaxed/simple;
+	bh=lwo+qtgHhggI0M4y9uJX2oJZaaSUrOh3zbbAT36q7nI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=e6M0d7KOsASKjUMpf9HKtQMVTxxNTOItDLtqEvmhBMbhwbZnIIETu035VDZUa/RLluEJkS8Y1Y4uleAEKQ+L0amcGSeI7yg032/yZFVdEQLDucudfdOfUAQaD4P/UxhftssO/0hGzanql9Bmsce1suBjSTP+vdS5axLPedf7mIA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SX29uYhI; arc=pass smtp.client-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="pUf8M6np"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=/p/wcPtAYiIR16GkUrLsbGWfaNUG1APNWwlFrFY+MPk=; b=pUf8M6npYUllN36pF1Jjui7cUH
-	0cJnXOLLz8IMSoZFJYPgc5lro6QvvcAllD8kT8yvE2oXFQprRQN7QLqZcTyDV+/8rFVjXMhuvVI4c
-	mWHFSIlZyvQAbCSPpjRnrW7h03Dt13F+2Qa/Di9V411h9xwD421wQBb0B8hrQkPwEnoZSwLlA8b3c
-	Kfkv8In7DpmocmZwhpAHIvZc9azVaZuBZ7uGZh5Y7LrzlnECHlH4ORj71wjsVVkvIkxXQY7w3Ow7z
-	53Tv7T57hxQw+gODKEoIK9DtM5Pxbl1EDRuIQGHtUrD4gv23z7yDTkKGm1qzW6a6kZ4r/O3ZyUV15
-	Yc6W3yIg==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x8gl0-00000002oNa-486R;
-	Mon, 21 Sep 2026 16:20:43 +0000
-Message-ID: <c0c67459-6b75-4bcd-b068-3752e23afbf6@infradead.org>
-Date: Mon, 21 Sep 2026 09:20:40 -0700
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SX29uYhI"
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-53113d72966so502041cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:21:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790007685; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Oe5fd3rSj8MpnwXYjN/xQ5TgH3ZAxM6yQeshbUNdWwiXdz68kEp91M4WXwZa+seh2I
+         sU7mv2FY2LsnHgwHP+tigqO0KmkapLyq9hPTYb354GjofajX/K0L3jB6c/gv3+TJuWXv
+         Q593yaHAwdTxwSg90T4Qu32nfTXzLIS2Rz5Z/A89sjMoszMORUKJHirzHQ3kR88u1Y3+
+         x4kju+ZFV9S2al3iw9t6qDADUfRXcaTGpVy/LbF6QkO9al7+DORrWdPZ+xA4foZkb4ya
+         G5zXpTCHcY/PQI6t7PcZ/RKMxdFa1KD+kG/dMtf6/T0vdl8COC2mP4RQP7J8+nSmo9kc
+         XurQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xk7Q0swZ4Ds1t7boohhglrST5MnHaW9AqFXnNH+nuUM=;
+        fh=SFHBkIAxqL4LVu4FfyOz9UhiHdeCRPklZAnowbYiNfg=;
+        b=VZdlcmFeMS2z/VkJhoHJFPtd4OeozqJY7ql0uVlIG4ydCgquAIRR9zymx2XUJgAkh3
+         9nCHhsIVb38Ure3reKc5uLARr4Jpl9steU6jns+zezr+V+cpQB2PvmvlarA7K4OVRS8n
+         rZSdwiZMdG/c4UVV9a/uEKFCYpbR4riiVeQDlQrtRnwBPGxFpbnhWH/K3fEuEmGprnCB
+         4Htdv5s3deeTpi2JDxftsQibORvjFi015eEt1aJyU6leBPo9v+tOPJNnF3KwFKSYLhcA
+         kIxPwOQRSAGcOmv0p8TclTkL6yhEQzsrbsULLOFgt9KtH8IPG/b4qYsfsJ/mq5b+/5x/
+         UPRg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790007685; x=1790612485; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xk7Q0swZ4Ds1t7boohhglrST5MnHaW9AqFXnNH+nuUM=;
+        b=SX29uYhIP0J9u5S2tCdRdRXOt/UEmlLj++ago/n+eB/4EQcCjKDT3qIS9FCDumnHtV
+         L9Cnrsegn4lFn6fva6rjl/LfivFBWpTLTWtqt7Vq8bw78D3FwFzUD8Ssz+tQFvkiBrC9
+         i906YfHCeqqk6DwPx8AwHfspYgLhY564e99wbvePYRNFiaHsfmmKgSIgJE6nqccivc2x
+         bI/KwT1iST6Q8322NqjnnVnYSPn7KRhDELnViwH5hrirWyJMmRQQsf0oEozBhCOkM3Bq
+         C+UFNa3s5bRu/GF57wCp3f1FjHSUin/18uA/eGOCAwYVX0MEe6dsX5FQ+uqWFRn4Wcxs
+         uwfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790007685; x=1790612485;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xk7Q0swZ4Ds1t7boohhglrST5MnHaW9AqFXnNH+nuUM=;
+        b=puTkC1+sW/lhYpNp9G2km2Cv3KF3ezi7/1xdFYN5yz5hfbxkWNzrpDu6VUrTdyRnsI
+         4BB8Ic+rMtE395Em+oP83lmB/AMc5Y0nBH7eWdWzgISOcJOeGr+gGf2xpweTtpJXeS6D
+         FGuneUQ0VIrBZ5RTtjWpLcjcXKNM27mi0aiR3A6Zska//62ZXPc8lNSjd9X8MTqMLHFa
+         QcOXsFkSGZfREnZ7D0LOjGDcNG9jfbuQG4YZoow1fh9OUeJ5tj+evtIr5y13uzeiOsU5
+         IDxPkQ60OhgwoMMq3NT8bP6GFg10qAN2kwup29UaB08ZXJ7dGvCcTihTwYzzJws75mz1
+         LE+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxRp/lEWc6MwesmEYmMulr2iUQUFqqz+ZrOsxOExQD2+mAZO2trFzNZmev7l0Fa0/eUrh37elKwZM/kbUc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kE1oR8FdhOlY8MqzKBgz5UIA0yRMvZ0tT2LFkGrLUaG7k0NJbM
+	eAIobYDKo3Jr64/KPAXo3JNFip9et4bTuNMIhZtAlquo2odnyglYlNHoOmg41m8PVjm7M8R/wFQ
+	PEjRb46PapXZFQT6KYQLUN1shoYzg26WYLRKSeGcB
+X-Gm-Gg: AYBFou0dyKCDV4Eh26ILG3ZRqT+6IPod4PWBq3dg4jR4kB2qjozVcloD1Gtj5cGqgt1
+	IQrs+P/4t/Wnkl4XEeN3hs86qDF0aMTwpgm66g6adY9bylM2Bw5CnhquogT8nH7qEBh30XIk2pO
+	n9QrpGygliOxlGuepvNchbSAM3VC3yqCXPwSw7sxjahKldJHgPUTmfmzQpg7LnYMCyapaeEXAAG
+	Tw6wySbFnIJo4WDX9zE/L4xWWMQbJlHXMvo60M7WX76cinM0dVQCNvqydgYmmIoWzSj77Ij1DUe
+	1DrglulJEPPcQXUoujp1kKW7dtosl3+ZqQWO+9bV+YSrL/cwj/g/U28pkkL+/JDoqVBDRYLOA7U
+	1F3J+Spt0
+X-Received: by 2002:ac8:5c90:0:b0:532:9d15:2e5a with SMTP id
+ d75a77b69052e-532d8d31243mr5133341cf.1.1790007684100; Mon, 21 Sep 2026
+ 09:21:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 21/21] Documentation: mm: clarify behaviour of
- compile-time folded page tables
-To: Yeoreum Yun <yeoreum.yun@arm.com>, Russell King <linux@armlinux.org.uk>,
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, Andrew Morton <akpm@linux-foundation.org>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>,
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Tianrui Zhao <zhaotianrui@loongson.cn>,
- Bibo Mao <maobibo@loongson.cn>, Anup Patel <anup@brainfault.org>,
- Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Dave Hansen <dave.hansen@linux.intel.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jonas Bonn <jonas@southpole.se>,
- Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
- Stafford Horne <shorne@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org,
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-openrisc@vger.kernel.org
-References: <20260921-dummy_ptxp3-v1-0-cd40cf68242e@arm.com>
- <20260921-dummy_ptxp3-v1-21-cd40cf68242e@arm.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260921-dummy_ptxp3-v1-21-cd40cf68242e@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260915091112.333308-1-dapeng1.mi@linux.intel.com> <024fd251-a4ba-443f-8aff-f5b1cdb062a3@linux.intel.com>
+In-Reply-To: <024fd251-a4ba-443f-8aff-f5b1cdb062a3@linux.intel.com>
+From: Ian Rogers <irogers@google.com>
+Date: Mon, 21 Sep 2026 09:21:11 -0700
+X-Gm-Features: AcwNN1WlRuT2junyV5TVza_msH6V6SCAykTC56KHUponUO2k358vwY1g1Z7ZAmY
+Message-ID: <CAP-5=fUc_WOHAe4EkLVYuBgvQmxk7_XY4N+v8yJKNJQpCSObHg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] perf alsr: Add missing SIMD handling in aslr_tool__process_sample()
+To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Zide Chen <zide.chen@intel.com>, 
+	Falcon Thomas <thomas.falcon@intel.com>, Dapeng Mi <dapeng1.mi@intel.com>, 
+	Xudong Hao <xudong.hao@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Sun, Sep 20, 2026 at 11:42=E2=80=AFPM Mi, Dapeng <dapeng1.mi@linux.intel=
+.com> wrote:
+>
+> Kindly ping ...
+>
+> @Arnaldo, @Namhyung, @Ian, not sure if you have bandwidth to review this
+> small patchset which fixes the Sashiko found minor issues for the "Perf
+> tools: Support eGPRs/SSP/SIMD registers sampling" patchset?
+>
+> If possible, it's better to be queued in this cycle, then we don't need
+> extra backporting. Thanks.
 
+Reviewed-by: Ian Rogers <irogers@google.com>
 
-On 9/21/26 3:55 AM, Yeoreum Yun wrote:
-> From: "David Hildenbrand (Arm)" <david@kernel.org>
-> 
-> Compile-time folded page tables are not necessarily easy to understand, and even
-> people the were once familiar with the concept might need to refresh their memory.
-> 
-> Add proper documentation, including a nice diagram, for the current design.
-> Mention details about dummy functions, including the recently changed pXdp_get()
-> helpers.
-> 
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> On 9/15/2026 5:11 PM, Dapeng Mi wrote:
+> > Currently the SIMD register sampling is supported, but the correspondin=
+g
+> > handling is missed in aslr_tool__process_sample(). This can break parsi=
+ng
+> > of the sample record.
+> >
+> > Add the missing SIMD register handling in aslr_tool__process_sample().
+> >
+> > Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+> > ---
+> >
+> > These two patches fix Sashiko reported defects for the patchset:
+> > "Perf tools: Support eGPRs/SSP/SIMD registers sampling"
+> > https://lore.kernel.org/all/20260914014049.2061519-1-dapeng1.mi@linux.i=
+ntel.com/
+> >
+> >  tools/perf/util/aslr.c | 31 +++++++++++++++++++++++++++++++
+> >  1 file changed, 31 insertions(+)
+> >
+> > diff --git a/tools/perf/util/aslr.c b/tools/perf/util/aslr.c
+> > index 027695d96779..a097084201a0 100644
+> > --- a/tools/perf/util/aslr.c
+> > +++ b/tools/perf/util/aslr.c
+> > @@ -19,6 +19,7 @@
+> >  #include <internal/lib.h>  /* page_size */
+> >  #include <linux/compiler.h>
+> >  #include <linux/zalloc.h>
+> > +#include <linux/overflow.h>
+> >  #include <errno.h>
+> >  #include <inttypes.h>
+> >  #include <unistd.h>
+> > @@ -992,6 +993,34 @@ static int aslr_tool__process_sample(const struct =
+perf_tool *tool,
+> >                               COPY_U64();
+> >               }
+> >       }
+> > +
+> > +#define CHECK_SIMD() \
+> > +     do { \
+> > +             if (abi & PERF_SAMPLE_REGS_ABI_SIMD) { \
+> > +                     u64 nr_vector, vec_qwords; \
+> > +                     u64 nr_pred, pred_qwords; \
+> > +                     u64 header_len, vec_len, pred_len, simd_len; \
+> > +                     if (CHECK_BOUNDS(nr + 4, nr + 4)) { \
+> > +                             ret =3D -EFAULT; \
+> > +                             goto out_put; \
+> > +                     } \
+> > +                     header_len =3D 4; \
+> > +                     nr_vector =3D in_array[i + nr]; \
+> > +                     vec_qwords =3D in_array[i + nr + 1]; \
+> > +                     nr_pred =3D in_array[i + nr + 2]; \
+> > +                     pred_qwords =3D in_array[i + nr + 3]; \
+> > +                     if (check_mul_overflow(nr_vector, vec_qwords, &ve=
+c_len) || \
+> > +                         check_mul_overflow(nr_pred, pred_qwords, &pre=
+d_len) || \
+> > +                         check_add_overflow(vec_len, pred_len, &simd_l=
+en) || \
+> > +                         check_add_overflow(header_len, simd_len, &sim=
+d_len) || \
+> > +                         check_add_overflow(nr, simd_len, &nr) || \
+> > +                         nr > max_i - i) { \
+> > +                             ret =3D -EFAULT; \
+> > +                             goto out_put; \
+> > +                     } \
+> > +             } \
+> > +     } while (0)
+> > +
+> >       if (orig_sample_type & PERF_SAMPLE_REGS_USER) {
+> >               u64 abi;
+> >
+> > @@ -1007,6 +1036,7 @@ static int aslr_tool__process_sample(const struct=
+ perf_tool *tool,
+> >                               ret =3D -EFAULT;
+> >                               goto out_put;
+> >                       }
+> > +                     CHECK_SIMD();
+> >                       i +=3D nr;
+> >               }
+> >       }
+> > @@ -1061,6 +1091,7 @@ static int aslr_tool__process_sample(const struct=
+ perf_tool *tool,
+> >                               ret =3D -EFAULT;
+> >                               goto out_put;
+> >                       }
+> > +                     CHECK_SIMD();
 
-Documentation/mm/page_tables.rst:197: WARNING: Bullet list ends without a blank line; unexpected unindent. [docutils]
+nit: at the end of the function you could #undef CHECK_SIMD to make it
+more explicit that the macro only makes sense within the function.
 
-See below for a fix.
+Thanks,
+Ian
 
-> ---
->  Documentation/mm/page_tables.rst | 84 +++++++++++++++++++++++++++++++++++-----
->  1 file changed, 75 insertions(+), 9 deletions(-)
-> 
-> diff --git a/Documentation/mm/page_tables.rst b/Documentation/mm/page_tables.rst
-> index 126c876282509..84f2715c7de0a 100644
-> --- a/Documentation/mm/page_tables.rst
-> +++ b/Documentation/mm/page_tables.rst
-> @@ -143,15 +143,81 @@ pointers on each level is architecture-defined.::
->  Page Table Folding
->  ==================
->  
-> -If the architecture does not use all the page table levels, they can be *folded*
-> -which means skipped, and all operations performed on page tables will be
-> -compile-time augmented to just skip a level when accessing the next lower
-> -level.
-> -
-> -Page table handling code that wishes to be architecture-neutral, such as the
-> -virtual memory manager, will need to be written so that it traverses all of the
-> -currently five levels. This style should also be preferred for
-> -architecture-specific code, so as to be robust to future changes.
-> +Not all architectures support 5-level page tables; while for some of them
-> +the exact number of supported page table levels is known at compile time,
-> +others can determine the number of page table levels at runtime based on
-> +hardware support and address space sizes.
-> +
-> +Generic page table walking code always assumes that 5 levels of page table
-> +exist. To make page table walking code not have to worry about that,
-> +`compile-time folding` and `runtime folding` of page tables are used.
-> +Compile-time folding is mostly handled in common code, whereas runtime folding
-> +is exclusively handled in architecture code.
-> +
-> +This description focuses on generic compile-time folded page tables; for
-> +architecture-specific variants, some details can vary, however, without
-> +affecting common page table walkers.
-> +
-> +When walking folded page tables, all upper page table levels up to the supported
-> +level are skipped in page table walkers: this is achieved by (a) treating
-> +entries in upper page table levels as present and pointing at a page table; and
-> +(b) having page table walkers cast the entry pointer to the next-level entry
-> +instead of dereferencing that table. From the perspective of a page table
-> +walker, the entry points at itself.
-> +
-> +Assuming compile-time folded 4-level page tables, to achieve (a), pgd_present()
-> +and pgd_leaf() are hard-coded to indicate a present page table entry that
-> +points at a page table, and to achieve (b) p4d_offset() and
-> +p4d_offset_lockless() simply cast the page table entry pointer to the next
-> +lower level.
-> +
-> +In the current design, this is further modeled by having the P4D have a
-> +single page table entry::
-> +
-> +        PGD
-> +  --> +------+          NOP4D
-> +      | ptr0 |-------> +------+           PUD
-> +      | ptr1 |-        | ptr0 |-------> +-----+
-> +      | ptr2 | \       +------+         | ptr |-------> ...
-> +      | ptr3 |  \                       | ptr |
-> +        ...      \                        ..
-> +                  \        NOP4D
-> +                   +----> +------+           PUD
-> +                          | ptr1 |-------> +-----+
-> +                          +------+         | ptr |-------> ...
-> +                                           | ptr |
-> +                                             ...
-> +
-> +Note that the arrows from PGD to NOP4D represent page-table-walker
-> +transitions, not pointers stored in the pgd entries.
-> +
-> +Using p4d as an example, `nop4d`/`p4d folded` translates to the following:
-> +
-> +- p4d is considered folded into pgd; both are operating on the same page
-> + table.
-
-     table.
-(add one more prefix space to align the indentation)
-
-> +
-> +- Most pgd_* helpers are hard-coded dummy functions that ignore the passed
-> +  pgd_t values entirely. Exceptions are pgd_val() and low-level helpers
-> +  set_pgd() + pgd_page_vaddr(), which effectively translate to set_p4d()/
-> +  p4d_pgtable() to keep existing arch code working.
-> +
-> +  Architectures must provide p4d_* helpers (unless further common
-> +  compile-time folding applies).
-> +
-> +- PTRS_PER_P4D is hard-coded to 1. Architectures must define PTRS_PER_PGD.
-> +
-> +To avoid reading a value that will never be used but cannot be entirely
-> +optimized out, compile-time folded page table code also makes pXdp_get()
-> +return a constant dummy value.
-> +
-> +In common code, this only affects pXd_val() when used for printing page
-> +table entries for debugging purposes. As we don't want architecture code
-> +that uses set_pXd(), pgd_page_vaddr() or pXd_pgtable() to accidentally
-> +operate on dummy values, the compiler will error out if it detects that the
-> +helpers are used with dummy values. For a folded level, pXd_page() must not
-> +be used and unconditionally triggers a compiler error. Architecture code must
-> +instead call the helpers on the proper first page table level: e.g., set_p4d()
-> +instead of set_pgd().
->  
->  
->  MMU, TLB, and Page Faults
-> 
-
--- 
-~Randy
-
+> >                       i +=3D nr;
+> >               }
+> >       }
+> >
+> > base-commit: 91b0782fc9e9d2f0a40b5256146e014802fdbb36
