@@ -1,160 +1,94 @@
-Received: from mail-ej2-f21.google.com (mail-ej2-f21.google.com [74.125.228.149])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07D4E33F8C4
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:04:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.149
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789977846; cv=pass; b=l+Al6OajZ5bYpVfsSNjAOcQ5bfRg8HitYCCmI2XJ6A/w4ZmTuO5oTJl9qdAbWWUHAYnGMzjjYzmsW3EMntT4ZiVLjkGR6+p3/JJOq/wn8WTqb3pdYJQF9Jm43mbjz06cfWGTzKydumeKuuuA25dxWJ8XnAWFalLLRMCbk16yYlE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789977846; c=relaxed/simple;
-	bh=BHHvVxXhYf7butuU7G97wcIknchQm2zDSthXzdW2JCg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=T/CKGgAer9XFKymk+iOXz89zMtmdLYtoNMHre88qtE3kTNrZdEPqF3QTeYtAwxeaVYb4TuZx4f8CPy2lpyMEq47HohOLG+lN7bitVEDN+M6/0cfKKHZXR1Co9BcsZ9jzkE+nQI1Mf5bFYg+fSj9YhulOuGhQyneO0pXp0bHlyhI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vt5TA66T; arc=pass smtp.client-ip=74.125.228.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2417044A725;
+	Mon, 21 Sep 2026 08:04:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789977857; cv=none; b=ir3lYcsyxy3vRNUiEO4p44RVY10tNrOLVNLsWYurH2ck76WcwAUkv5yqB8UPMjOvPzb4lYtphwXs5QXtWWsy9QKpWAYdxnldmumiTXz3LJjVtIM5iw+sbBwunUBBXGJt/enahsjS8Ek42pESQpf33tsx1jV1QaRlECn4RCQqsBQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789977857; c=relaxed/simple;
+	bh=2+MPneEC8c6gMfIIvCxJ05wEMHIdcFqJRHelEWlO9qE=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=YDDSHm4mhPmaz6EJd8e/EZVvRpW4UnVeU/szgN8zv53z4eLvEiAU2Vq7wewgJJb2U0tM+rghz+/ubCtnpI3pWAI0BnIHuA4hkNkASlTtWtLC74Ga9VgKgUrNyi96ooW/BJueO1f8RvUS/r5Mtk6hSwoE7EUSFlo0HZfSCALeatk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=FrFzVX6H; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vt5TA66T"
-Received: by mail-ej2-f21.google.com with SMTP id a640c23a62f3a-c2a1f611461so154747766b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:04:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789977843; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GS8y2x0ZQH3sgl9AcoOD2ZbgRzEP7DubRdtki/lhypr+66EccV1jKUwEO9AA+OYvHr
-         D7Pd5MNySe78kZ+l6CvxZplNTUsz4c9KSeWQGf6PjvfgIhGb6VxW26gSZ7ZBcHQ9ovjz
-         +WcOKdI8WhmoGL1zdO4T3V2C/KtpNg43CSq/8dz4FDKq01T0t4d6IlbVWfdRvj6roHEA
-         1QU8ygGqGH5HWeojpeKGdyKeZu6a2FmgHbOPP9cP1PEdeSTY8ppj0BFaP9EZSwr0D0YY
-         HibotKmeSdpCJb6k95/02d6OUbgujcBPWF3/bDkc6ZTx5qcsSFVHmF2YsIRzj9qxcS5L
-         Qayw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3CPPlAz7rOVaKGzBH75ziRlUSLV2fWYbKF5sY/yYeVg=;
-        fh=TLQHgzTQJQ2Y+6ie4fQfEjgUN120SjGGfF43PFkz/2U=;
-        b=b+0mExufocMf9xqSLDeYCOUDdPLgkRhjY3mveFVDb5xT9zjAr5yFvibNhBDLbfuvK4
-         6Ro/XWG/S8tjeCvsahrImlidHsmMOqogUK/qM7T0nx5HVjLxMs3k782fiw3naPXVYPWi
-         fL199oSgQVDOGU3em5/ZvAHDDAfR5UTzhH3NV0JGljicnZPSv9FkRIfJXw1WHuoVoydY
-         +3rHv0mhFD9QO4V055hnij/WXfit4g3hAxGpElhCA2Jlh2iSe+Kl4Pg29lgRRklwBNjx
-         OLBmqnVRatIh8uZ+eT5Nwepc6YLTMLrG6LeEEKXjU6x3/1HMIdZunZk/Gw17bTbipfQd
-         l8Qg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789977843; x=1790582643; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3CPPlAz7rOVaKGzBH75ziRlUSLV2fWYbKF5sY/yYeVg=;
-        b=Vt5TA66Td35vOXhN+ngAezqAQ0ypMQj+19anC6Aarm8jkKAuak/WziCHPlRL/N+CSf
-         GGPFY4IJ4wv5ScwbL5q+t52UJigbDsVqtVke2Z3u0v42+A6bpaJdBGefLqxolCbn03oh
-         flOD7D5jUJmBfQfYr8NrzQ1AGit/BScAXfq2Xo/4O+E2b7lzcwDGDPjRXUS6uSRDOCr9
-         qfiyrECa65CVMEfnYWgl24NCnZNKuhQGw7PFb1GyuX1ijqSmCfWvbxTQcbXz2CVM0kKZ
-         dQOOHxpzdZcCUKLczfzH5C8WhThXdCyfrMRmSR1Xn0JIE5TstrN7qiYQXG8fakF32oeU
-         DmZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789977843; x=1790582643;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3CPPlAz7rOVaKGzBH75ziRlUSLV2fWYbKF5sY/yYeVg=;
-        b=vLTbSUHQlWbglRhuLB8guk5M+NFnVspfBC/YyWglz6t2oTjrDsyI93K0NS6E6C6ZKA
-         8PJ1Dk2DH0O0vbxT4AGlaFaJ767X/xsQzoHEeHCR+G/5/GutGAIv3swCXHdytZTAH0Xn
-         /CE5x36cCgOqCiD9zVYQMFkdcldb9UQ9C0XlHH1HPuZmRy4MLn/CFFi2GgxxFLXFnRjA
-         ZkCintPkIyH4ONHcHljm3Kt2q5+E4OR7ce0783MPEP63graY0YqNCpsb6uAiN+IwpTHl
-         tnMJJtJpuq8qfEO45Dkl3Z0EbS2yHLlZ/sHC3/tCjt9DrGyYqTKsxalZvMmOnxvhwm34
-         Nqrg==
-X-Forwarded-Encrypted: i=1; AKwUvBwIaTIAI7hFS0TTnC+Sc/O2qXDvIZOcNC/dwwVkzpYoD5GfW1ucqpJ/YLhWJ+6G9eKDHkTaswo4EJgMvWc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nohLmDLHz9jCFLYXwLrtISTRUQJtGjdIynlv3rSgDo1UrMfXJ3
-	rR51lPEM0BHCgTidRdrXF2XOKv74dgv/iOn/wwqBGHdLdsEdunrrsKyg3NYTQI2gLJAIsiCAoeb
-	oMjLTeE7TmSOJct9dipRHGagOFCxwDt8=
-X-Gm-Gg: AYBFou2kPwqt5uha2vGo71vEDOjjDiiPFmKRy6VGKAd5X7oCbxdyyBIV4oVBn1i/xsv
-	R/Oc0F32QvF4IwYdE0Pkhn0qhiLTpDg4/rlSlUIcbZ1D2/RJm5dCJZ840HZj4h4jIDg15CQcXPa
-	CW/HmboEYifzPEhr8YwwMs7LlJYnXyneFyMJ62Q6U9JfoAot1h9m0nb3voYuBnkPD+rZKDenlWF
-	E6Bos2KSBSJCyNy+EtnT6Gw9Nsu8WTz/JATBY4/V6ehME/95mVNjxETNT2q3j0KH1RW8R7Bh3Z6
-	MZhtY8jTdtA3wFtV1Uh3rEsOphQEnjLgnDp5i1s/6r9M2Mu3wMxuDRsOdA==
-X-Received: by 2002:a17:907:1c94:b0:c25:f7db:4be9 with SMTP id
- a640c23a62f3a-c2a16555e01mr963430766b.15.1789977843025; Mon, 21 Sep 2026
- 01:04:03 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="FrFzVX6H"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=xv+EVXdkYcjZnUBkDlxkGt1+yajUwqqEUYIuSmBmRUg=;
+	b=FrFzVX6HxZQlXWZzst69uTPQ4CoYdrR4RdJqw3WxYNMxdju+kUq/iQ8tu23hvkTqOPFlzRGA2
+	0aAnLPM4O4adq4z2MeqRbrdIRSA6g7LCISauc6e09xU4O1FgqmRNO3VTZdajFfofRESq6Khzwe/
+	eGYZgE/3MOMuRH2BwlizVec=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hpFnD3SDXzpSvD;
+	Mon, 21 Sep 2026 15:52:16 +0800 (CST)
+Received: from kwepemf100015.china.huawei.com (unknown [7.202.181.14])
+	by mail.maildlp.com (Postfix) with ESMTPS id BFDBA40538;
+	Mon, 21 Sep 2026 16:04:10 +0800 (CST)
+Received: from dggphicprd10024.huawei.com (10.243.6.112) by
+ kwepemf100015.china.huawei.com (7.202.181.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 21 Sep 2026 16:04:09 +0800
+From: Abbott Liu <liuwenliang@huawei.com>
+To: <guohanjun@huawei.com>, <tony.luck@intel.com>, <bp@alien8.de>,
+	<ardb@kernel.org>, <mchehab+huawei@kernel.org>, <rafael.j.wysocki@intel.com>,
+	<jic23@kernel.org>, <jason@os.amperecomputing.com>,
+	<danielf@os.amperecomputing.com>, <luoshengwei@huawei.com>,
+	<linux-edac@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<liuwenliang@huawei.com>
+CC: <yangzhuohao1@huawei.com>, <douzhaolei@huawei.com>,
+	<zouyipeng@huawei.com>, <wangbing6@huawei.com>, <nixiaoming@huawei.com>
+Subject: [PATCH v5 1/3] RAS: Fix inverted context info bounds check in ARM processor errors
+Date: Mon, 21 Sep 2026 16:03:35 +0800
+Message-ID: <20260921080337.3000957-2-liuwenliang@huawei.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260921080337.3000957-1-liuwenliang@huawei.com>
+References: <20260921080337.3000957-1-liuwenliang@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920203239.2876221-2-Jeremy.Jean@oss.cyber.gouv.fr>
-In-Reply-To: <20260920203239.2876221-2-Jeremy.Jean@oss.cyber.gouv.fr>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Mon, 21 Sep 2026 10:03:52 +0200
-X-Gm-Features: AcwNN1VudlXF5OHLlFt9yKN5UFF-jnenTZ3p01flmg9bU-PwfkvO2WJR11Q6HV4
-Message-ID: <CAOQ4uxjgZ8e=M2yEhqO3mq7WeAUxX3fCNmVwaLStE_Ucqu2EDA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] ovl: disable nfs_export for mixed-idmap same-sb
- lower layers
-To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>, 
-	brauner@kernel.org
-Cc: miklos@szeredi.hu, linux-unionfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemf100015.china.huawei.com (7.202.181.14)
 
-On Sun, Sep 20, 2026 at 10:33=E2=80=AFPM J=C3=A9r=C3=A9my Jean
-<Jeremy.Jean@oss.cyber.gouv.fr> wrote:
->
-> Amir, this v2 addresses your comments on v1.
->
-> I have split the v2 into 3 commits:
->
-> * 1/3 is the actual fix, where only nfs_export is disabled. It caches the
->   first lower idmap in each ovl_sb to avoid rescanning all lower layers
->   for every repeated superblock.
->
-> * 2/3 checks that the targeted layout indeed forces nfs_export=3Doff
->   and that decodable handle requests fail with EOPNOTSUPP.
->
-> * 3/3 keeps index=3Don,nfs_export=3Doff and verifies copy up still preser=
-ves
->   hardlinks and mapped ownership.
->
-> I have made this split so that you may decide to include 1 or 2 selftests=
-.
->
-> I have reproduced the bug through nfsd with the help of AI. The reproduce=
-r
-> exports an overlay containing a mode 0600 uid 0 file, obtains a real NFSv=
-3
-> handle, drops a client to uid/gid 1000, then replays the saved handle aft=
-er
-> unmount, reclaim, and remount. On an unpatched kernel, the replay
-> initializes the overlay inode with uid 1000 and the client can read and
-> overwrite the file. TBH, I don't know whether this layout may actually
-> happen in production, but it looks like a weird feature.
+Commit 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past
+allocated memory") added bounds checks for malformed ARM processor
+error records but contained a bug:
 
-I do not know either.
+  In log_arm_hw_error(), the ctx_info bounds check is inverted. The
+  condition "sz + (long)ctx_info - (long)err >= err->section_length"
+  adds ctx_info->size when the context header is already past the end
+  of the section instead of when it is within bounds. So change the
+  comparison to <=.
 
-I would like to get feedback from Christian on that, because if this
-setup is not expected I'd rather fail the mount.
+Fixes: 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past allocated memory")
+Signed-off-by: Abbott Liu <liuwenliang@huawei.com>
+Reviewed-by: Hanjun Guo <guohanjun@huawei.com>
+---
+ drivers/ras/ras.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-Amir.
+diff --git a/drivers/ras/ras.c b/drivers/ras/ras.c
+index 03df3db62334..2540538a16a8 100644
+--- a/drivers/ras/ras.c
++++ b/drivers/ras/ras.c
+@@ -74,7 +74,7 @@ void log_arm_hw_error(struct cper_sec_proc_arm *err, const u8 sev)
+ 	for (n = 0; n < err->context_info_num; n++) {
+ 		sz = sizeof(struct cper_arm_ctx_info);
+ 
+-		if (sz + (long)ctx_info - (long)err >= err->section_length)
++		if (sz + (long)ctx_info - (long)err <= err->section_length)
+ 			sz += ctx_info->size;
+ 
+ 		ctx_info = (struct cper_arm_ctx_info *)((long)ctx_info + sz);
+-- 
+2.43.0
 
->
-> Changes since v1:
-> - disable only nfs_export (keep index enabled),
-> - cache the first lower idmap in struct ovl_sb instead of rescanning,
-> - add separate selftests for handle rejection and index copy up.
->
-> v1: https://lore.kernel.org/all/20260911194201.1334086-2-Jeremy.Jean@oss.=
-cyber.gouv.fr/
->
-> J=C3=A9r=C3=A9my Jean (3):
->   ovl: disable nfs_export for same-sb lower layers with different idmaps
->   selftests: overlayfs: reject handles for mixed lower idmaps
->   selftests: overlayfs: keep index copy up with mixed lower idmaps
->
->  fs/overlayfs/ovl_entry.h                      |   2 +
->  fs/overlayfs/super.c                          |  28 ++-
->  .../filesystems/overlayfs/idmapped_mounts.c   | 201 +++++++++++++++++-
->  3 files changed, 226 insertions(+), 5 deletions(-)
->
-> --
-> 2.47.3
