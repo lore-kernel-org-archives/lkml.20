@@ -1,149 +1,256 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9293B0AE8
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:38:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA28F3AFCEC;
+	Mon, 21 Sep 2026 19:44:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790019485; cv=none; b=G+031+lqX6KP84NWUx4Dtgfo+iqSp1pZOI01w4g5YW7QbnN3dKOgEDw/4A8iPGWO8riGEGhEckf2u9/85P23BqikKZ9dEq0d3HaLh2Bdqw5H9CP5kfHVwWCZicxXfTnQmE5VsYY/HCtXSOYgTR+MF0rAGmJvJ6AJWaZK6xazNEU=
+	t=1790019854; cv=none; b=c24Zl2EMH43LT+f3u3noWWBOt2MJns1WxDZQ0ngonlDsPSEMZIMOmVwitt1ZeUdJHCgqUqEVMauQU//m4vR0/ZwQ+zpGT/7QKlQ05BqheOXn6vo7U4jCL6L6QtPwyiPwh9EI2yaJv5zSmZtz4ynLUEUHqfC+KX1ynUE8NGaIgnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790019485; c=relaxed/simple;
-	bh=oViEkXVK9OigDsmZPkXR5EFjP711e/j4sF5FEc2sAgk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KO9HWWCLsFXog5GceJhgkgrHFwfuUGGuy0oSluZCr5HOT7xt+4CeMqRS2LqPUD8SM2RgplusijPN7kBQh0xeyBM6Sexoh/mNVjtKcgrlPZk9Zz1rOxnQI/cpfHxFCBJbo95rfCSveIBNxhCGQYgTPaxDe9kRdpmhyRfHYZ1qajY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nu5j5FI/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=T4cjDUa+; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790019854; c=relaxed/simple;
+	bh=iLU+T4dsvu0FgybBcA0IX3oa9P9+HMULBx/wVylofiI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hx2Th8607UofVi/M7h+YCJJy3bj9gscaXK8u4svwRKnn3IyDlx4jcrbI5euX3n1ql9b+FimJGuqIBkGt41cDTllCoWn47LPgQrcA+PTiLn17DATkq9WI7EROy7cZj+OcnAbQEeBSq9bOPNLHXrmauG8MW9r2VFbAUSnnMScmmqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hn2cY2yh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nu5j5FI/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="T4cjDUa+"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LFAFmq1677396
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:38:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=yg8fqfhdOq1FGXzjyINIOF0z
-	qOC81zrYO3mOQgWrdMU=; b=nu5j5FI/gFomZKmxRIbuUvFXfm965h/KNeohaYIN
-	zV0cr+4EzrDG+2ZZj7wEB9dj01ndT4HStY7awYKvFMcQzwWJv3M4Zte1Mrl5vWLp
-	m+tGZiSN6chVCljzf2tmGQSMY5aN1Zjdzglsnq085By00yPC1r0o7H9VrKD+3c25
-	EJDwEt65h9QihfPMHQhCMDq5XLo0rexbZMNcO3m0nNmQZe+Rfp4IJ4DBM/Ec/LiU
-	Jr3RNDiLTmZZMVAgUqAolRlLOS4+TGRZimw6zL7K6DKMV5XtscV3nUch5OWtKp6D
-	/C1TNnW4EtLtcDgPin1RAwdDaS5InSTb/7DEmuU6JrpZ+w==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu3csj6g5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:38:03 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d94f086fedso48883105ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:38:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790019482; x=1790624282; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yg8fqfhdOq1FGXzjyINIOF0zqOC81zrYO3mOQgWrdMU=;
-        b=T4cjDUa+LC2D1Ec8lM6e7jEAlyhoRWwcYJKimcT+5qsSKpqIeXjYSRH7wt0sY40Bi6
-         YdMY7cxdppueZz7agcbRTx5DtS5i2gRzOkn59JHmsr73SHV1EGt/JHg4hBgJd/+et3zj
-         W1SzpnoMdi16+xwtKT+SrTrYtsTxZU3P004+aVpR2APoeh3KXbN3WcawwT59c12yNgZQ
-         uS+VdfM/I/PpZzKwzkzd764cfDgixjGJZcnvR4BDUexB6eveVK+BFoti2mkXK1ZgylVO
-         L0SavqJvoWyBHVanWPde1Shgt+ehrUShZnlicPUhvVj9Y/vU0HzA2NfxCq8m89m2Bhfe
-         KQHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790019482; x=1790624282;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yg8fqfhdOq1FGXzjyINIOF0zqOC81zrYO3mOQgWrdMU=;
-        b=UP9zIbzfKb5exL8BuymRCG+qdEi2/4vYuZOaf7DfBGya9/cJY+A/f+xprXnEeQJsFk
-         rUImXONhjgEEB03zt1KSs71ZTX0BemnpJWUs/OGgbPgYZOGXXQqjTjdPJWc7RtHJOcUQ
-         6Pj50ctJrX/FpV64noAvXZFwMawcKXW54nusW/6vC9aXTSA+Cpb7U7rDyHvwOxkYyyyV
-         pIkcbB3Cf+0ZHylfyGppRD6RAC+gN3dVzUDJNK7J0M54rHEM/H7cBGr+89ohegTijoxe
-         uy9Wa1ANykhHeIsVAmJDfjHBjH0AZtbX5VfV1jT5EIeURLksBwrbgSSVIwg3BC5HWoJ4
-         rCHA==
-X-Forwarded-Encrypted: i=1; AKwUvBzASnSvv8rlZ2qTiUt7wqaoftSMby5LjJb5j87V6vZFFkHyLbj3Xwvhud3DRK+/UumWjf2eaPhxypXaE1A=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2EAFIKoM4RT+wzpYOick4MnMNAtfs8Tp93rVPPMHvYnIThlwt
-	GImAdgcLw/u3kvAZ/rRDMRPXYJh1ak2ugDdU8qFfuLjLuLz0Pv3mpkkKL5wvFHM+avioCL8S77R
-	kSyWUjktv+p+r8Sz6sMKn3KcwpD+OrcRWDdPgqfdrWcQURo96IaktadRHm8bVNwZf4B1kvz5iwl
-	k=
-X-Gm-Gg: AYBFou2FLFdUqW+1TdF+83d2vD5+f9B9MFn5GscRyr7uldSMm3KdvUi2b1RPZLT09kt
-	jijKLPsXNOfTRmlQzzwn1+dg8/aM553DtXNKNUmUF514e279lAzfZQSudZUpmQQi88BHLvkVHnU
-	tcO6QDFvVdFVowPrH5lPiOoQGv4+8NMlclFF3USe1PwgZrEUlukLz2HvwCM7cGX2g9QfI3d6Kso
-	OEcPd26Y9EpP6yYGg3iij2nlQsTNv0cbsDbmooIWGVOYL68rxBiLshQ3UvimO5r/IR5OMqgnuyG
-	YV//eamVIY+WtGNkMljfrmk6HyqB9B8C5zBHzk6EEOjX1e7d4G5vRvzQphVOv2QAjwrrfpZt0vu
-	bfBtgJ5XcsCFbKhbcQuCG+va2IA==
-X-Received: by 2002:a17:902:db0b:b0:2dd:3ddf:b87a with SMTP id d9443c01a7336-2ddb16d5a08mr177252095ad.0.1790019482310;
-        Mon, 21 Sep 2026 12:38:02 -0700 (PDT)
-X-Received: by 2002:a17:902:db0b:b0:2dd:3ddf:b87a with SMTP id d9443c01a7336-2ddb16d5a08mr177251815ad.0.1790019481787;
-        Mon, 21 Sep 2026 12:38:01 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e5ebcdbd8sm288669eec.16.2026.09.21.12.37.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 12:38:01 -0700 (PDT)
-Date: Tue, 22 Sep 2026 01:07:54 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rishabh Bhatnagar <rishabhb@codeaurora.org>,
-        Siddharth Gupta <sidgup@codeaurora.org>
-Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] remoteproc: fix wakeup source leak when crash
- handler sees RPROC_CRASHED
-Message-ID: <20260921193754.2ulkssymszoz66oi@hu-mojha-hyd.qualcomm.com>
-References: <20260730085437.1240215-1-mukesh.ojha@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hn2cY2yh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AA361F000FF;
+	Mon, 21 Sep 2026 19:44:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790019852;
+	bh=XLCkND4IduTpuyRUPB3YnBAfzMrdpMsjQcaALhgXvs4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Hn2cY2yhJ6Cyaoz6UxCVhhqDm6FVOkHbNmTu0Fsp4zLKVODJhD3gQ321Dbvvv8ahB
+	 rLHVyXST66B+80bwuI8DfNMYQsMKi55kNeKOaujUOUoam10RJbQZqFH6ddejjvh9gb
+	 z6A0e8GqggI5mwn3ApRkV+Gkb6fi6/y/9a/GE5gaZzh79sj4L3Mb9IsNA5Ye+Hpb6L
+	 bk0GqqEuM1l+oUUtCgUIqtVHaFPbK+Yww3UmSNoQ+K8NEm1pVHtWwl3XJJS/QqAWlq
+	 lndfTB1ydXPdnASza2s2niBYpx0rdn8t39Y7azJQPDcyqurQzPLnlkIhPSGRLtSnIu
+	 rUSCWDL72pH7Q==
+Subject: Re: [PATCH net-next v3 3/8] net: dsa: motorcomm: Check port type with
+ runtime info
+From: netdev-bot+sashiko@kernel.org
+To: mmyangfl@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux@armlinux.org.uk, linux-kernel@vger.kernel.org
+Date: Mon, 21 Sep 2026 19:44:11 +0000
+Message-ID: <179001985166.2160803.9562894284788810196@kernel.org>
+In-Reply-To: <20260917185010.3189199-4-mmyangfl@gmail.com>
+References: <20260917185010.3189199-4-mmyangfl@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260730085437.1240215-1-mukesh.ojha@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDI4NiBTYWx0ZWRfX8GzDdGK0PwVd
- OJaQHhXRImFyISLzCiluL/ORVNogpA48NfrfUhIUXkBRWr8GqnhUI9816AauREk/KliOLuJO7uR
- xbPqjyq0j5bbAsp0wJylrLOfYOwkOZs=
-X-Proofpoint-GUID: 4xNGIQVIPAdCLVPfnf3PRJsiZLCQmZrJ
-X-Authority-Analysis: v=2.4 cv=QovLTlyd c=1 sm=1 tr=0 ts=6ab1879b cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=W9w1WEFyLmScbr2sSkQA:9 a=CjuIK1q_8ugA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDI4NiBTYWx0ZWRfXxgsB/WWYg1kI
- Y+Rc2UHBa6U+etBfHt6+heuCInqqHp8uDH1vOM90FE6NVhuzIBPa5mjIbErq9vmOU5N3lzbdwfS
- 8IYmPqm/J9RqeFUNp5NnlZFQ/e8uLMm2tdUFfQ1DEU58pB7C6/XJowWn1TfbGsOVZj4viATPq4t
- y3l1T7JZVJG5lJTpr6isYWq7xxC7U2rqbbbROFuR2onGGrO8M2TfjMvXQWT0YqhgYBKWhxfThF9
- X/PNp9t3YTFnxIxxJtjIl5/naqYWM+5gT1ppHujoKgAW5yxVsfKq2IZaDGOg6rOpqSEpKgxx3YO
- 5xvVaXrNiLOyBqWq9NnhKXB1erDf7cKXtwjk/7mgBuKqOhzapGX+guL+Gk69thk2kQzx9xbW/O7
- VQwSxAO1YhkChMxepPRzffo5YdGX1D+4XpZ1OTjE1a/rwSXM4bpMYVJHjKKjq19wcs/cWCM5pBF
- NDoh4sSMvhm2UnAdnjA==
-X-Proofpoint-ORIG-GUID: 4xNGIQVIPAdCLVPfnf3PRJsiZLCQmZrJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 bulkscore=0 impostorscore=0 priorityscore=1501
- spamscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210286
 
-On Thu, Jul 30, 2026 at 02:24:35PM +0530, Mukesh Ojha wrote:
-> When rproc_crash_handler_work() finds the remoteproc is already in
-> RPROC_CRASHED state, it exits via a bare return, bypassing the out:
-> label and its pm_relax() call.  Since rproc_report_crash() always
-> calls pm_stay_awake() before queuing the work, every crash reported
-> after the first leaves the wakeup source permanently active, preventing
-> system suspend until the device is removed.
-> 
-> Change the bare return to goto out so pm_relax() is reached on all
-> exit paths.
-> 
-> Fixes: a781e5aa5911 ("remoteproc: core: Prevent system suspend during remoteproc recovery")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Request for review, series still applies cleanly on linux-next.
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] yt921x_port_up() (drivers/net/dsa/motorcomm/chip.c) selects
+  between the SerDes register block and the xMII register block solely…
+- [Low] Concern (not confirmed as a defect): the patch carries no Fixes:
+  tag and does not name the chip/port failure it corrects, although the…
+
+--
+
+net: dsa: motorcomm: Check port type with runtime info
+
+This drops the yt921x_port_is_internal/external() macros, which hardcoded
+ports 8 and 9 as external on every chip, and instead derives the port type
+from the per-chip masks in struct yt921x_info plus a new per-port pp->serdes
+flag set by yt921x_port_config().
+
+A couple of questions below about the new pp->serdes flag and about the
+missing Fixes: tag.
+
+> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+> index b527a9cfd3e86..bcc9542370c2f 100644
+> --- a/drivers/net/dsa/motorcomm/chip.c
+> +++ b/drivers/net/dsa/motorcomm/chip.c
+> @@ -3746,12 +3747,13 @@ static int yt921x_port_down(struct yt921x_priv *priv, int port)
+>  	if (res)
+>  		return res;
+>  
+> -	if (yt921x_port_is_external(port)) {
+> +	if (BIT(port) & info->serdes_mask) {
+>  		mask = YT921X_SERDES_LINK;
+>  		res = yt921x_reg_clear_bits(priv, YT921X_SERDESn(port), mask);
+>  		if (res)
+>  			return res;
+> -
+> +	}
+> +	if (BIT(port) & info->xmii_mask) {
+>  		mask = YT921X_XMII_LINK;
+>  		res = yt921x_reg_clear_bits(priv, YT921X_XMIIn(port), mask);
+>  		if (res)
+
+[Severity: High]
+Here the teardown is gated on info->xmii_mask, but yt921x_port_up() below
+picks the xMII branch based on pp->serdes instead.  Can the two disagree?
+
+For port 8 of YT9215SC/YT9215S/YT9214NB the yt921x_infos entries have the
+port in serdes_mask but not in xmii_mask:
+
+	{ "YT9215S", YT9215_MAJOR, 2, 0, GENMASK(4, 0), BIT(9), BIT(8), },
+
+If yt921x_port_up() takes the else branch for such a port it sets
+YT921X_XMII_LINK on YT921X_XMIIn(port), and yt921x_port_down() will then
+never clear it again because BIT(port) & info->xmii_mask is zero.
+
+> @@ -3800,7 +3804,10 @@ yt921x_port_up(struct yt921x_priv *priv, int port, unsigned int mode,
+>  	if (res)
+>  		return res;
+>  
+> -	if (yt921x_port_is_external(port)) {
+> +	if (!(BIT(port) & (info->serdes_mask | info->xmii_mask)))
+> +		return 0;
+> +
+> +	if (pp->serdes) {
+>  		mask = YT921X_SERDES_SPEED_M;
+>  		switch (speed) {
+>  		case SPEED_10:
+
+[Severity: High]
+The capability gate above accepts a port that is only in serdes_mask, and
+after that the register block is chosen purely from pp->serdes, not from
+info->xmii_mask.  Is "!pp->serdes" equivalent to "this port has an xMII
+block"?
+
+That looks like the same hardcoded-layout assumption the changelog sets out
+to remove, only expressed through a flag rather than a port number.
+
+> @@ -3836,7 +3843,7 @@ yt921x_port_up(struct yt921x_priv *priv, int port, unsigned int mode,
+>  					     mask, ctrl);
+>  		if (res)
+>  			return res;
+> -
+> +	} else {
+>  		mask = YT921X_XMII_LINK;
+>  		res = yt921x_reg_set_bits(priv, YT921X_XMIIn(port), mask);
+>  		if (res)
+
+[Severity: High]
+Can this else branch be reached with pp->serdes stale-false on a port that
+was already muxed to SerDes in hardware?
+
+yt921x_port_config() commits the mux first and only sets pp->serdes at the
+very end of the SerDes case:
+
+	mask = YT921X_SERDES_CTRL_PORTn(port);
+	res = yt921x_reg_set_bits(priv, YT921X_SERDES_CTRL, mask);
+	if (res)
+		return res;
+	...
+		pp->serdes = true;
+
+So if any register access between those two points fails (an SMI/MDIO
+transfer error), yt921x_port_config() returns early with the port muxed to
+SerDes while pp->serdes is still false.
+
+yt921x_phylink_mac_config() is void and can only log it:
+
+	res = yt921x_port_config(priv, port, mode, state->interface);
+	mutex_unlock(&priv->reg_lock);
+
+	if (res)
+		dev_err(dp->ds->dev, "Failed to %s port %d: %i\n", "config", port, res);
+
+phylink only forces the link down when pl->major_config_failed is set, and
+that flag comes from mac_select_pcs/mac_prepare/pcs_config/mac_finish
+errors, not from mac_config:
+
+drivers/net/phy/phylink.c:phylink_resolve() {
+	...
+	if (pl->major_config_failed)
+		link_state.link = false;
+	...
+}
+
+phylink then proceeds to mac_link_up() -> yt921x_port_up(), which passes
+the serdes_mask|xmii_mask gate and takes this else branch: it writes
+YT921X_XMII_LINK and YT921X_MDIO_POLLINGn(port) for a port that may have no
+xMII block, and never asserts YT921X_SERDES_LINK or the SerDes
+speed/duplex/pause fields, so the port stays down while the kernel reports
+carrier up.
+
+Nothing re-derives pp->serdes afterwards, since phylink re-runs the major
+config only on interface change or forced reconfiguration.
+
+Would gating the else branch on BIT(port) & info->xmii_mask, or deriving the
+branch from the validated interface argument, avoid this?  Alternatively,
+recording the mux selection as soon as YT921X_SERDES_CTRL is committed would
+keep pp->serdes in sync with the hardware.
+
+> @@ -3928,13 +3937,21 @@ yt921x_port_config(struct yt921x_priv *priv, int port, unsigned int mode,
+>  		if (res)
+>  			return res;
+>  
+> +		/* The order is quite arbitrary - we can't return to a safe
+> +		 * state on IO errors.
+> +		 */
+> +		pp->serdes = true;
+>  		break;
+
+[Severity: High]
+This is the only writer of pp->serdes, and it runs after the mux writes
+(YT921X_SERDES_CTRL set, YT921X_XMII_CTRL cleared) and after the SERDES mode
+update, each of which returns on error.  The comment acknowledges that a
+safe state cannot be restored, but the flag is later used to decide which
+register block yt921x_port_up() touches.  Should the flag be set before the
+fallible writes so that software and hardware do not end up disagreeing, or
+should yt921x_port_up() not depend on it at all?
+
+This was verified to still be the case at the end of the series (the
+"net: dsa: motorcomm: Add SerDes PCS" commit keeps both the "if (pp->serdes)"
+test and the late "pp->serdes = true"), so no later patch changes this.
+
+> diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
+> index 83e76cefbccd5..fd552f7dced4d 100644
+> --- a/drivers/net/dsa/motorcomm/chip.h
+> +++ b/drivers/net/dsa/motorcomm/chip.h
+> @@ -858,9 +858,6 @@ enum yt921x_fdb_entry_status {
+>  
+>  #define YT921X_NAME	"yt921x"
+>  
+> -#define yt921x_port_is_internal(port) ((port) < 8)
+> -#define yt921x_port_is_external(port) ((port) == 8 || (port) == 9)
+> -
+
+[Severity: Low]
+This isn't a bug, but the changelog describes these macros as wrong while
+the patch carries no Fixes: tag and does not name a chip or port that
+misbehaves.  They were added in 186623f4aa724c and refined in f2596ce59b151b,
+both recent enough for a tag.
+
+As far as could be checked, the paths the changelog mentions are already
+gated: yt921x_dsa_phylink_get_caps() advertises PHY_INTERFACE_MODE_INTERNAL
+only for info->internal_mask ports and the SerDes modes only for
+info->serdes_mask ports, and phylink_create() rejects an empty
+supported_interfaces set:
+
+	if (phy_interface_empty(config->supported_interfaces)) {
+		dev_err(config->dev, "phylink: error: empty supported_interfaces\n");
+		return ERR_PTR(-EINVAL);
+
+so the dummy ports and xMII-only ports never reach these callbacks, and the
+new "if (!(BIT(port) & info->serdes_mask)) goto err;" check rejects
+something phylink would not request either.
+
+Is this intended as a hardening/refactor step ahead of the SerDes PCS work,
+or as a fix?  If the latter, could a Fixes: tag and the affected chip/port be
+named?
 
 -- 
--Mukesh Ojha
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917185010.3189199-1-mmyangfl%40gmail.com
