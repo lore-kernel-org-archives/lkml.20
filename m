@@ -1,118 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B654052D1;
-	Mon, 21 Sep 2026 19:59:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1C83C456B;
+	Mon, 21 Sep 2026 19:59:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790020759; cv=none; b=Z8eaBT41N1GQndpujSO3CRYQdLO/5ixT5jSr4PJbaHKUL86Q5Wb8pEcqRwADPZl1tEspU45SwOpt7n+EUWaAAC+jn5dqbzsEiVmtz4UCNdiTjf/oEn1GjR63uBMwry7LV+HOq/8qvLLvBLyICwS51d4DR9MB4VH2q2/KXGoc5vw=
+	t=1790020764; cv=none; b=BP1vNRQlwfgjzGuZWk+LmFQ0PTPB0/xaM7zQiTnJVjHmjJ1kruyQaAisg3PmELjT6i18o81RxrggM9kvVCY7UJHbLhkTDnITZWBXBHKx7cuTBjKpgGIjrmuEFQdpwFW3aIT8YVOdvEQHAyBRWWJbLh0coi0jNCwOyUiGFKCxkcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790020759; c=relaxed/simple;
-	bh=xjv9gw19jajbPTwOCvMFsEvootNb3/SGqtxLJD462n0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fE2gnOJdJ3ea3PzUbV4zeRl/pIYR7xwRuueOWpEqa+5zZhLGhTvfc/gJVnp0CnjOnTEbLOPUmemtfoaCe1C9RV1bMqjc8qGF4lLoEbLBU4rdA6v8noRZUVNhyq93NpDDMerewAjZJdo3fDdmwe6t/flXK6U3nLbFDgKjYrbQ5Os=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LJMUchJq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790020764; c=relaxed/simple;
+	bh=RDUKgR4Zh55foA1PVaXPqBWcOHxguZt1tds+dCAcB5o=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=oiiy013jrT7Z9UY2n/TRr2r4qcPtKspMLt7eJh9lJXvdH6T0b5tpsTPt4SBaULK1BsDQD7uCtYv9kszo8j3/s9BDRjZYxEVfYE2y21UAo4IqxA2xuqIEba0iwBqbTkCkyGcIj5Qi26PdG1CGI2AkxTxAHZxqLuUE0bjYEOHgN1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=goOJO+Ju; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LJMUchJq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E1FE1F00893;
-	Mon, 21 Sep 2026 19:59:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="goOJO+Ju"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 907511F00898;
+	Mon, 21 Sep 2026 19:59:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790020758;
-	bh=OJ0j+leg3y+Dpt5s4ny9DBNrD2A1KCj7Cpe/XpV27PM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LJMUchJq4XPhBwwniY+m7JZkvTDeHbUY5uyTkX0G05IqLNA6EH3+lQHO0F3undOJe
-	 Em9rOFh9y54stRVtWOT9ltk7rw4wzV5ISTEuKXzmn1+B53EUPrGDanCqq+wc3EY7C4
-	 JSiBlogkHgPTiFOFSqFOUxrtQIxXt9Hop5CyFNS8/BJgDIlp5TUHIKYQY2BuOiA6hc
-	 XwpOSpzVpr2LaJjGR7MSoMH4SpOYbaoCPdtbSvIv69G5xETyO/2hJaVv8rul5kt74O
-	 v/UKkHf0XTi+FrYAvK9+UHlUO6QImrQmOaU0XspiAZGlafld7GrXFInYxK88sSND0H
-	 d8kukbBC/zKGg==
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-To: Linux ACPI <linux-acpi@vger.kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo <guohanjun@huawei.com>,
- Sudeep Holla <sudeep.holla@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Ard Biesheuvel <ardb@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, linux-efi@vger.kernel.org,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- "Derek J. Clark" <derekjohn.clark@gmail.com>,
- Hans de Goede <hansg@kernel.org>,
- Ilpo =?UTF-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org, David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, Shenghao Ding <shenghao-ding@ti.com>,
- Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
- Sen Wang <sen@ti.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Binbin Zhou <zhoubinbin@loongson.cn>,
- Andreas Noever <andreas.noever@gmail.com>,
- Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat <YehezkelShB@gmail.com>
-Subject:
- [PATCH v1 05/17] platform/x86: yogabook: Switch to use
- acpi_bus_get_primary_device()
-Date: Mon, 21 Sep 2026 21:48:30 +0200
-Message-ID: <1973238.CQOukoFCf9@rafael.j.wysocki>
-Organization: Linux Kernel Development - Intel
-In-Reply-To: <7995179.EvYhyI6sBW@rafael.j.wysocki>
-References: <7995179.EvYhyI6sBW@rafael.j.wysocki>
+	s=k20260515; t=1790020762;
+	bh=f3OLDjTedsbgC3rcZhdOQN0X2zBug4ET6xkZFH6DZFY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=goOJO+JucOQyVJhwBfpMh557Mt7X9EpUqiE/EPsXm4eYLVfpDHY4Sz7us7rwrdmnQ
+	 Bfe9PXXPxI2rtkVy5TKC1kpPBhNLS0Dfks+8osZBKG+2uxCn93k+LsvLN55gPfnomd
+	 4HcmAsTeQgH22E7n2fE/ONBJ6/4uD9CmmdAep74u34s6N+wXG4C7Wx7N0YyhxML3nn
+	 nHXmHNHxzhBBZCOy63EBsxd4Sq90Vlm7Vfz/L/J2QJTZenlQBdgLulgN1JQQDYH3fP
+	 U9RH3bGbIYac9um1zcYtRfW35E3dnGxbfY5n/IBwFi+RPzRAEMMBRrUOaGCqgxviVb
+	 B2Z/oHF0sdVVg==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Mon, 21 Sep 2026 21:58:53 +0200
+Subject: [PATCH v2 01/13] mm/sparse: move mem_section init to
+ sparse_extreme_init()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-b4-sparsemem_cleanups-v2-1-54d81d65e125@kernel.org>
+References: <20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org>
+In-Reply-To: <20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Brendan Jackman <brendan.jackman@linux.dev>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+ Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>, 
+ Oscar Salvador <osalvador@suse.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, 
+ linux-fsdevel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2075; i=david@kernel.org;
+ h=from:subject:message-id; bh=RDUKgR4Zh55foA1PVaXPqBWcOHxguZt1tds+dCAcB5o=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLI29rQqTbnO8DPl8RKB1sUK0hNk3s8y2fL9/Szpe6K7H
+ Nadqok61FHKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBEkvwY/kr/UXzOzb2/r9fs
+ yu09Wm8rfa8/a+vamDFbU0OUfd+FlemMDP+jP+p8mDLpZB93zpJFEi3mBRu03Q1VzZ0Fj9xLrq4
+ tZwIA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+Let's just avoid another pair of ifdef inside a function. While at it,
+switch to INTERNODE_CACHE_BYTES by just defining a fallback in cache.h
+as well, given that the x86 variant already provides one.
 
-Replace acpi_get_first_physical_node() that is slated for removal
-with acpi_bus_get_primary_device() that takes a reference to the
-device it is about to return.
-
-This addresses a potential use-after-free that may occur if the
-device returned by acpi_get_first_physical_node() is removed right
-after dropping its ACPI companion's physical_node_lock in that
-function.
-
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Acked-by: Oscar Salvador <osalvador@suse.de>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- drivers/platform/x86/lenovo/yogabook.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ include/linux/cache.h |  1 +
+ mm/sparse.c           | 19 ++++++++++++-------
+ 2 files changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/platform/x86/lenovo/yogabook.c b/drivers/platform/x86/lenovo/yogabook.c
-index 1a4b2ab1f35d..8a91d440724b 100644
---- a/drivers/platform/x86/lenovo/yogabook.c
-+++ b/drivers/platform/x86/lenovo/yogabook.c
-@@ -353,13 +353,13 @@ static int yogabook_wmi_probe(struct wmi_device *wdev, const void *context)
- 		goto error_put_devs;
- 	}
+diff --git a/include/linux/cache.h b/include/linux/cache.h
+index e69768f50d532..b6e857b985bca 100644
+--- a/include/linux/cache.h
++++ b/include/linux/cache.h
+@@ -89,6 +89,7 @@
+  */
+ #ifndef INTERNODE_CACHE_SHIFT
+ #define INTERNODE_CACHE_SHIFT L1_CACHE_SHIFT
++#define INTERNODE_CACHE_BYTES (1 << INTERNODE_CACHE_SHIFT)
+ #endif
  
--	data->kbd_dev = get_device(acpi_get_first_physical_node(data->kbd_adev));
-+	data->kbd_dev = acpi_bus_get_primary_device(data->kbd_adev);
- 	if (!data->kbd_dev || !data->kbd_dev->driver) {
- 		r = -EPROBE_DEFER;
- 		goto error_put_devs;
- 	}
+ #if !defined(____cacheline_internodealigned_in_smp)
+diff --git a/mm/sparse.c b/mm/sparse.c
+index b75921c622ede..8cd2b06b231ac 100644
+--- a/mm/sparse.c
++++ b/mm/sparse.c
+@@ -103,11 +103,22 @@ int __meminit sparse_index_init(unsigned long section_nr, int nid)
  
--	data->dig_dev = get_device(acpi_get_first_physical_node(data->dig_adev));
-+	data->dig_dev = acpi_bus_get_primary_device(data->dig_adev);
- 	if (!data->dig_dev || !data->dig_dev->driver) {
- 		r = -EPROBE_DEFER;
- 		goto error_put_devs;
+ 	return 0;
+ }
++
++static void __init sparse_extreme_init(void)
++{
++	const unsigned long size = sizeof(struct mem_section *) * NR_SECTION_ROOTS;
++
++	mem_section = memblock_alloc_or_panic(size, INTERNODE_CACHE_BYTES);
++}
+ #else /* !SPARSEMEM_EXTREME */
+ int __meminit sparse_index_init(unsigned long section_nr, int nid)
+ {
+ 	return 0;
+ }
++
++static void __init sparse_extreme_init(void)
++{
++}
+ #endif
+ 
+ /*
+@@ -196,13 +207,7 @@ void __init sparse_sections_init(void)
+ 	unsigned long start, end;
+ 	int i, nid;
+ 
+-#ifdef CONFIG_SPARSEMEM_EXTREME
+-	unsigned long size, align;
+-
+-	size = sizeof(struct mem_section *) * NR_SECTION_ROOTS;
+-	align = 1 << (INTERNODE_CACHE_SHIFT);
+-	mem_section = memblock_alloc_or_panic(size, align);
+-#endif
++	sparse_extreme_init();
+ 
+ 	for_each_mem_pfn_range(i, MAX_NUMNODES, &start, &end, &nid)
+ 		memory_present(nid, start, end);
+
 -- 
-2.51.0
-
-
-
+2.43.0
 
