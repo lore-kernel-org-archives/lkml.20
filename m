@@ -1,117 +1,87 @@
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945CF48EBF6;
-	Mon, 21 Sep 2026 12:21:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE554908D4
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:21:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789993312; cv=none; b=qJGmGP4Q9Zurg9VEYwPXHuUUXYW8d97MLkhncMeIpUEbXWUr1DaKRvfQcEH1iXsmPVNI4SxlI+LAXzzJrolE/twUm/NpbRffLn0wm1+Otgqv+QynFyV9AN1WhmyCGj7RV3PMj0++iZghmm1JnX2XB91e+9XXIoSTFAnA6ucovBo=
+	t=1789993313; cv=none; b=VE40dTGE+XvLql8eWO2oupbjgzbOFWs88C2v3Dz6ASgnIRU7H4SbSGZqup5qzOt9jZZ5KYQPOdhO39B3VHL8cZRT1fBekIfWNpHN46VKjDW/9ZhFj5pLqasHvAyYmG2GSnh4x/KSzA2qvbu3a2RgxzAaVvYQzUiRJaF0HM6LjFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789993312; c=relaxed/simple;
-	bh=NV4qdg6H+nYZCHCMrKyGhFgQhHvTjqaLdup/kouP4Ac=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=OJDfnRyVzBOyrOOwgSeG3B0brpTnNXxe/VZeUNtcQPA0ZqGL3fdqIY9uVfAHANVgpW1KWNrKDtHRkEjzX2+6fRuRrvF37LO4rPO0Gb53scYJWNDDr+1oahrQn4eQElZID8yvyauMGhbhtrL8hEeFj2jpCQ5fR2yAchaXqVSVIs0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=guCSztVJ; arc=none smtp.client-ip=113.46.200.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="guCSztVJ"
-dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=qki1kFQ6gVLwf8MQ8saLgKHA3ydWA1c2aSG7gxHdc9M=;
-	b=guCSztVJm23fU6fARnnvD1L2TWkdWxoi++z8C527sOPB/twVbS7HNfZm+fxmQD66p9BMWxZqg
-	SX+YioKNwHmh0dqimISu5gE4hvmNKbE2ahaHZk4sTcVAtWwe08MmEjVocNtkzXwW+nOTlc0C0Xt
-	m6hqxbL8CpvTvyCjOVBBY5U=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hpMW04mdGzcb44;
-	Mon, 21 Sep 2026 20:10:20 +0800 (CST)
-Received: from kwepemp200006.china.huawei.com (unknown [7.202.195.217])
-	by mail.maildlp.com (Postfix) with ESMTPS id 7C08240591;
-	Mon, 21 Sep 2026 20:21:41 +0800 (CST)
-Received: from kwepemp500015.china.huawei.com (7.202.195.9) by
- kwepemp200006.china.huawei.com (7.202.195.217) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 21 Sep 2026 20:21:41 +0800
-Received: from [10.67.120.108] (10.67.120.108) by
- kwepemp500015.china.huawei.com (7.202.195.9) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 21 Sep 2026 20:21:40 +0800
-Message-ID: <bab95bba-3091-30e5-91ba-0fd459db0101@huawei.com>
-Date: Mon, 21 Sep 2026 20:21:40 +0800
+	s=arc-20240116; t=1789993313; c=relaxed/simple;
+	bh=gbasc2hDh8Eq5I9Be/BPz7ZOvPfHE8gkgMkmvhKkwME=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=KtRD4OTnr1AZ++yfqZt4+8aAn5yyMw9hlLSpg0RfXjCERbUcLV/4+/QzP0RC7kPmp6+6bzUkpjONt3loF67phkdTBVZP9SUgmO1onfcX50pu5js2rfk3Kf2SYajgipNG0qkcIuUv9zRdJJxefIq2gQsZfftQSRUJx2/Q0zWMc6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-81447a16061so93551a34.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:21:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789993311; x=1790598111;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LArLA6g96djrgNV8bJlsAZJHe6OZQ9AwK1xHl3+AQng=;
+        b=rdW865+76L0+WTMzo0dXqze/+l6g4FT4ZQnFvSPyMi7AcKY2fd3hExJh3laRyDvIhx
+         oIxm1PkLXRLlL4tNYPFDknZBhawxF7GKegH8vjTyEVwDetbnAS5zP8aduspXTAWimFFO
+         4jZYVi4fGgs+6agQO4+1CkmPXpmvzyGTPe/GxZ2JGdylcHgHVZPh1brxI/xdvivisAhf
+         Z2gJoYKthWqw8Yok6mLvWO0ltCydpcD5SgB3KHTP0Mh4l0wIFER/TNhjH4jnDwAGBcw1
+         d5bDmpQ2DcEYDyYwudsph7of8nzUWYDIcO0HYzSCnuAcdczllk8c1Z3TNqsGjbJhzgU+
+         9Ckg==
+X-Gm-Message-State: AFuF++kJreMUkrAk5iKUI1JHVaT82WpYoY+fMSjF4d9sRcA0zb0hmJs8
+	ytLl9d7q/cBN3S29boPEbhmqBtr59LPVGmnyJHrfLoGwpaWt/DShrV1GBgnH43whpyKiNMNZKx1
+	wR54NrGGNO5CJSfVSHI/goCkF0QNKcMcKqJk6rbTVG5gcttvePAsj6hzhqa8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.1
-Subject: Re: [PATCH v3] scsi: libsas: Fix SMP IO deadlock during HA resume
-Content-Language: en-CA
-To: John Garry <john.garry@linux.dev>, <yanaijie@huawei.com>,
-	<jejb@linux.ibm.com>, <mkp@kernel.org>
-CC: <linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linuxarm@huawei.com>, <liuyonglong@huawei.com>, <kangfenglong@huawei.com>
-References: <20260918070307.381207-1-yangxingui@huawei.com>
- <9a72eeb3-ca32-4241-9e21-74cf894a9bf1@linux.dev>
-From: yangxingui <yangxingui@huawei.com>
-In-Reply-To: <9a72eeb3-ca32-4241-9e21-74cf894a9bf1@linux.dev>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemp500015.china.huawei.com (7.202.195.9)
+X-Received: by 2002:a05:6820:f005:b0:6cd:3ffc:acfd with SMTP id
+ 006d021491bc7-6cd3ffcbb20mr6691476eaf.77.1789993310971; Mon, 21 Sep 2026
+ 05:21:50 -0700 (PDT)
+Date: Mon, 21 Sep 2026 05:21:50 -0700
+In-Reply-To: <6aad94ac.87c06881.1db2b3.0023.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab1215e.3179f8cd.1e36b2.001e.GAE@google.com>
+Subject: Forwarded: [PATCH] net: e1000: fix warning in iounmap on probe failure
+From: syzbot <syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi, John
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-On 2026/9/21 19:37, John Garry wrote:
-> On 9/18/26 08:03, Xingui Yang wrote:
->> When the controller resumes, sas_resume_ha() -> sas_drain_work()
->> processes the DISCE_RESUME work, which restores the ATA ports through
->> the libata error handler (ata_sas_port_resume() requests ATA_EH_RESET)
->> and waits for it in sas_ata_flush_pm_eh(). For an expander-attached
->> ATA device the hard reset in that recovery is an SMP PHY CONTROL
->> command sent to the expander:
->>
->>    ata_eh_recover() -> ata_eh_reset() -> sas_ata_hard_reset()
->>      -> lldd_I_T_nexus_reset() -> sas_phy_reset()
->>        -> sas_smp_phy_control() -> smp_execute_task_sg()
-> 
-> This seems like an obvious issue. How come it was not found earlier? It 
-> is apparently fixing a patch which is 5 years old.
+***
 
-The deadlock was not reachable for most of those 5 years - it is a
-regression of 3dbbbf656b85 ("scsi: libsas: Fix HA resume deadlock and
-hisi_sas disk-wake race"), which restored the draining sas_resume_ha()
-in hisi_sas.
+Subject: [PATCH] net: e1000: fix warning in iounmap on probe failure
+Author: nsvatoslav515@gmail.com
 
-0da7ca4c4fd9 was part of the same 2021 series as fbefe22811c3 ("Don't
-always drain event workqueue for HA resume"), which switched hisi_sas
-to the non-draining sas_resume_ha_no_sync(). The two were designed
-together: without the drain, nothing in the resume path waits on the
-ATA error handling, so the pm_runtime_get_sync() in
-smp_execute_task_sg() could at most delay the EH until the resume
-callback returned - no circular wait.
+Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+---
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 704340f1cd0d
 
-3dbbbf656b85 restored the drain to fix the disk-wake race (the
-controller autosuspending while disks were still waking up), which for
-the first time made the resume wait on the ATA EH - and with it the
-SMP PHY CONTROL for an expander-attached ATA device. So the deadlock
-window is really since 3dbbbf656b85, not since 0da7ca4c4fd9.
+ drivers/net/ethernet/intel/e1000/e1000_main.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-It is also a narrow trigger: a directly-attached ATA device resets its
-phy via lldd_control_phy() (no SMP IO), so it needs an expander-
-attached ATA device whose EH lands inside the drain of a runtime
-resume - which is why the testing of 3dbbbf656b85, whose scenario was
-the disk-wake race, did not catch it.
-
-Given that, should Fixes: point at 3dbbbf656b85 instead? I kept
-0da7ca4c4fd9 as that is where the pm_runtime_get_sync() being fixed
-comes from, but the deadlock itself only exists where 3dbbbf656b85
-is.
-
-Thanks,
-Xingui
-
-
+diff --git a/drivers/net/ethernet/intel/e1000/e1000_main.c b/drivers/net/ethernet/intel/e1000/e1000_main.c
+index d7f5c6f16142..156903089fa6 100644
+--- a/drivers/net/ethernet/intel/e1000/e1000_main.c
++++ b/drivers/net/ethernet/intel/e1000/e1000_main.c
+@@ -1227,8 +1227,10 @@ static int e1000_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	kfree(adapter->rx_ring);
+ err_dma:
+ err_sw_init:
+-	iounmap(hw->ce4100_gbe_mdio_base_virt);
+-	iounmap(hw->hw_addr);
++	if (hw->ce4100_gbe_mdio_base_virt)
++		iounmap(hw->ce4100_gbe_mdio_base_virt);
++	if (hw->hw_addr)
++		iounmap(hw->hw_addr);
+ err_ioremap:
+ 	disable_dev = !test_and_set_bit(__E1000_DISABLED, &adapter->flags);
+ 	free_netdev(netdev);
+-- 
+2.47.3
 
