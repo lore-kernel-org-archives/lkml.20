@@ -1,112 +1,179 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF279488DAF;
-	Mon, 21 Sep 2026 12:09:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B898488DAF;
+	Mon, 21 Sep 2026 12:10:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789992580; cv=none; b=Fhs/BEDrQxxqE3wAm0GsmkTwhGzUzKhdCxWJi4c1ohHBYWEwOoX4z62kgipXKtZqaxHJn9lz2b2rO7jSS8iLT4Fyuop7445zJchEKfHh7jw9dTG8Iz4DPsIjWTHN0dDSga1IsnHsraGBb4yux7Kr55jQ70ypdIA/j4LcadNHKMw=
+	t=1789992621; cv=none; b=V1kOzRuh1x3pECSjJf1YXEtojjVi06KM0JB7Q7fjhNwiaSigzX1KBUmcYP4mBUDHpx7vUDKklglQl1shD8jTlKtGGGIasZ1bfbV31+uOAcPorLDqxlmhOYjIxwRxh8U0aAyDRACbW1nmv15IpJY0nf7YZkv2LOVY6HgaTn6V7Sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789992580; c=relaxed/simple;
-	bh=u9UJ5FPD/iawT9BypdKY9UQHnXff5vFR5/his7/VTkk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Lp0JeUuFdst4xQCGFOb3AfrHm4QQx7AWgtbeVZlDHhF1fBi14No+TyCMoAahs3nuVAJeKjzxDdYPHWG8JXXDigOrZqQVcLMCs+J6/LNqEr8N96jk4MpkIFKCjI1599LQTiyEPFpxe0KnKFsXQ4XMHEaMvxH0T5JuZh1rF2N7Lqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XZwdLRFg; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789992621; c=relaxed/simple;
+	bh=FG6tH/Y8T9b0/2uVNUkAWRpyGeXjSLQD/gEba+dtlXg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UL1iKedbE6OPJ6F0SO3vyTO6uCWD5jpDFWKCNmPKEl3PnvKeuF4MhQMTCADZvsoWRc2JMztiXCcDI1gOr75+NKDYMx/CXRuq24XnTUTcpkRiD6AZuBu7C8USDRruJKcTuE76ZzLcucpc8IeGZVFrFk0XQlZoFQsC0hdxMexMVRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NOpaGtJ8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XZwdLRFg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789992579; x=1821528579;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=u9UJ5FPD/iawT9BypdKY9UQHnXff5vFR5/his7/VTkk=;
-  b=XZwdLRFgzkuEzvvcpbI2ab/Kw2rXVMIEQLKR+OD2RBZSXu2d9h3p0x+x
-   kifB56uYOoXMvbSSsI0ZWvVjmxLtHIVnOkOrbH5r+RspB/OA5ZLRSAacE
-   L7IVJRJC2ng75YrpSsexMhQqPO4Mjca8FSRPwbTOGKpgl+OODc/VD8oUK
-   Y0nLjC7XzhK4uIGFFejoeS5PHSTuYqfrfkuexR920V2W0fgy2ENTd5Kbl
-   FaLkUTJ6KQTycC9HZkc14NEq1fmRA/5DvgMEN8Rcl6gX2Q+7AEYzRR6I3
-   PTJSQ9TUT1klGpd7wlL632ZPevRm734nJUITQeD/+ra8R+gavaAugQUVf
-   g==;
-X-CSE-ConnectionGUID: 6G6L2wXXRMyhtBHGSgplmw==
-X-CSE-MsgGUID: 2C4D+OH6SzC5QdGKU3RdFQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="101093377"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="101093377"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 05:09:33 -0700
-X-CSE-ConnectionGUID: W0f4H5asSJaS6m7Gt56H4g==
-X-CSE-MsgGUID: SYS7McWiRMag8Rx/VxvOaA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="271149277"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.180])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 05:09:20 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Petr Pavlu <petr.pavlu@suse.com>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Nathan Chancellor
- <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, Nick Desaulniers
- <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, Justin Stitt
- <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, Alexey
- Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo
- Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
- <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, Ilias Apalodimas
- <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, Peter
- Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun
- Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6r?=
- =?utf-8?Q?n?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, Onur
- =?utf-8?Q?=C3=96zkan?=
- <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, Randy Dunlap
- <rdunlap@infradead.org>, Kees Cook <kees@kernel.org>, "Gustavo A. R.
- Silva" <gustavoars@kernel.org>, linux-kbuild@vger.kernel.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
- linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org,
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, Jens Axboe
- <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v2 13/21] modpost: emit module descriptors as assembly
-In-Reply-To: <95baacfb-d8d9-4d2f-bc89-592df6f6f8e3@suse.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
- <20260914-build-speedup-v2-13-39817ec5db23@kernel.org>
- <95baacfb-d8d9-4d2f-bc89-592df6f6f8e3@suse.com>
-Date: Mon, 21 Sep 2026 15:09:14 +0300
-Message-ID: <2f22f2ae7e5ddd8049994aceb2e52e2993f8c6fe@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NOpaGtJ8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FE441F000FF;
+	Mon, 21 Sep 2026 12:10:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789992619;
+	bh=3uAtYTanQvdsf1B+VPerfl6h7vAqJMoph6hxUBqYX7Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NOpaGtJ8d++Zjqk+UoXhakEjmOlnVQIsuHpbXfFYV7K8jr4hyOGCVgwc3IAF2ni5w
+	 p1uvEkfp9voac0b7T8ihJV0NM2Q68FaNxdCAGlv/f+CLHPK45HP7IzejYj81Ylz2HJ
+	 +QuWP1387BZap0C4UNLw1ceCBKNpcnPezEY5lbrThWRyOM/V0Phx4YqGxyGEc28xUH
+	 oZlcD8tzG9DuLVRxOdQnCR879W9saNzv26PHUVOQvaFhKpXpga0d2EnYJ2nIghTC/y
+	 twDPiKShfjwM90J4jSLynS47kyx0geFk9lM0oXqfT/xzzUqwL4OaH3pmkHFW2Yfcvj
+	 +xaneJMo9qBRQ==
+Date: Mon, 21 Sep 2026 14:10:17 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>, 
+	Matthias Fend <matthias.fend@emfend.at>, Mikhail Rudenko <mike.rudenko@gmail.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Michael Riesch <michael.riesch@collabora.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
+	Sylvain Petinot <sylvain.petinot@foss.st.com>, Paul Elder <paul.elder@ideasonboard.com>, 
+	Martin Kepplinger <martin.kepplinger@puri.sm>, Quentin Schulz <quentin.schulz@theobroma-systems.com>, 
+	Tommaso Merciai <tomm.merciai@gmail.com>, Svyatoslav Ryhel <clamor95@gmail.com>, 
+	Richard Acayan <mailingradian@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux@ew.tq-group.com, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>, David Heidelberg <david@ixit.cz>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Quentin Schulz <quentin.schulz@cherry.de>
+Subject: Re: [PATCH v6 0/6] dt-bindings: Orientation defines
+Message-ID: <arEeG06MiZ_97uzH@orome>
+References: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com>
+ <CAMuHMdWWOB48AUCbXh=9ZGCK2qZyVH06kJ2paRY-wxkq5NC16A@mail.gmail.com>
+ <CAMuHMdVhK0vm_Ksze_=jG8D_=8Q45v+ezNbxwL7JntTt_v_fkg@mail.gmail.com>
+ <20260921073538.GA1466037@killaraus.ideasonboard.com>
+ <arEVs0FDleyHeeLj@orome>
+ <178999124332.1723501.13535584681937232110@ping.linuxembedded.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-
-On Mon, 21 Sep 2026, Petr Pavlu <petr.pavlu@suse.com> wrote:
-> As a side note, I'm currently working on cleaning up what linux/module.h
-> includes. This was also originally motivated by an effort to reduce the
-> compilation time of .mod.c files, though cleaning up that header makes
-> sense in general, since it is the most explicitly included file in the
-> kernel.
-
-You might find this [1] helpful.
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vnshuij5kqlf56wu"
+Content-Disposition: inline
+In-Reply-To: <178999124332.1723501.13535584681937232110@ping.linuxembedded.co.uk>
 
 
-BR,
-Jani.
+--vnshuij5kqlf56wu
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 0/6] dt-bindings: Orientation defines
+MIME-Version: 1.0
 
-[1] https://lore.kernel.org/r/20260915104331.255636-1-jani.nikula@intel.com
+On Mon, Sep 21, 2026 at 12:47:23PM +0100, Kieran Bingham wrote:
+> Quoting Thierry Reding (2026-09-21 12:33:54)
+> > On Mon, Sep 21, 2026 at 10:35:38AM +0300, Laurent Pinchart wrote:
+> > > On Mon, Sep 21, 2026 at 09:07:01AM +0200, Geert Uytterhoeven wrote:
+> > > > On Mon, 21 Sept 2026 at 09:05, Geert Uytterhoeven wrote:
+> > > > > On Fri, 18 Sept 2026 at 12:55, Kieran Bingham wrote:
+> > > > > > Add a new dt-bindings/media/video-interface-devices.h header th=
+at
+> > > > > > initially supports the Orientation types and convert existing u=
+sers
+> > > > > > throughout the code base.
+> > > > >
+> > > > > Just noticed these are already in since commit 6ab5acfb8dd38729
+> > > > > ("dt-bindings: media: Add macros for video interface devices") in
+> > > > > media/master (next-20260903 and later)?
+> > > > >
+> > > > > > v3 collects tags, and fixes the typo, but drops all hunks that =
+do not
+> > > > >
+> > > > > [...]
+> > > > >
+> > > > > > v2:
+> > > > >
+> > > > > Interesting changelog order ;-)
+> > > > >
+> > > > > [...]
+> > > > >
+> > > > > > v3:
+> > > > >
+> > > > > [...]
+> > > > >
+> > > > > > -v4:
+> > > > >
+> > > > > [...]
+> > > > >
+> > > > >
+> > > > > > -v5:
+> > > > > >  - Definitions now accepted in linux-media, rebased to get conv=
+ersions in.
+> > > > >
+> > > > > Oh, you say so here ;-)
+> > > > >
+> > > > > >       arm64: dts: renesas: Convert to new media orientation def=
+initions
+> > > > >
+> > > > > So it's been safe for me to pick this up since v5?
+> > > >=20
+> > > > No it's not, there is a hard dependency.
+> > >=20
+> > > The whole series needs to be postponed by one kernel cycle :-/ It's n=
+ot
+> > > urgent so it's not a big deal. Kieran will have the priviledge of
+> > > rebasing and sending a v7 :-)
+> >=20
+> > If all platform maintainers Ack this series, they could go through the
+> > media tree where the shared include was already merged. Alternatively
+> > the media maintainers could provide a shared branch for everyone to pull
+> > into their platform trees.
+> >=20
+> > But given that this is simply replacing a literal with a preprocessor
+> > macro, maybe not worth the extra hassle.
+>=20
+> Indeed, I'm not personally worried here. I thought that because Sakari
+> had accepted the main patches these could go in now, so I refreshed the
+> series.
+>=20
+> I don't really care which route they go, or when. I'd rather not have to
+> re-re-rebase again in two months ... but I can cope whatever :D There's
+> certainly no urgency here.
 
+You already have my Acked-by and I'm fine with anyone picking up the
+Tegra DT changes. I don't think there's going to be any conflict with
+any other work in the Tegra tree. If they don't get applied, I'll pick
+it up for the next release.
 
--- 
-Jani Nikula, Intel
+Thierry
+
+--vnshuij5kqlf56wu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqxHqkACgkQ3SOs138+
+s6GCVA/8CTjCU06x7t4Mbm966PsuhGx8Q1j3ntV2PiowxzhJwEyb68oBkfVXTkrL
+9rGbkF8OnuoiY/uxupgsIUa+x2hplNqTs6J/OxG5LLbOhdnv1OpzXUBaXlg6ahe2
++7XwSzG2TQcYExblLuZqsViN21+KOWOJAcTGTnxP/X0lbLQYLjSRmzkVlOPjhtEU
+uhszVibjBBSQjotx1SMbk0C2Mxmko7X+ocCxsZ+APwIO3xvrxRRefs3s5nWXRaZH
+mb8ywwgh0WqojUcfOLazhhfUQ/wIn5WTNutOymPP17QgoUVluJOu9TUz1KEnSDVg
+B5NLXtC37c4Ap7iy4ZZMbs95EpkH6c6Dg5qF6avcs3nDUt/g94yCb3eQ20JBveBj
+jOBT9Gpc5pz0s5wLzVzCNWmKk1tQYABslMzcS5aQLBy85HUIwDH/DcCXBOQMm5Tu
+ukBohOeV+nvFWVkT5gDK+zRzaHqPpYpajvemCYUJrw5eXZp53X0L8JV+4HvhGgnW
+uUHIqXFNgXiRGiSfAs+24+jaUhU/W8Wpj5svPEsD2/OeW2jjUTKpo58pQEo7X4up
+XVVNGOuxJaT/8Rh62gC7rHMnM2sVlBE9I0rpRtghOzA8EBdyFnq22rDy/xIx/86j
+aXnoCcK0YUHzkj4lzswo2sohi0nE4T9nDsfYTN14FxH3WvRPoFk=
+=3wJh
+-----END PGP SIGNATURE-----
+
+--vnshuij5kqlf56wu--
