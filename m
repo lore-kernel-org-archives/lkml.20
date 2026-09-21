@@ -1,82 +1,195 @@
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E08851C064;
-	Mon, 21 Sep 2026 22:17:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D56FF51C064
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:17:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790029026; cv=none; b=YNh5F4EWKCTzzVePJczWPE6pNd2Qj8tERMLwLmxXdnRmsP2ldMflt0gHNz8fg5ID6KuB85KAcyz5zGkZTDtW90SFM11L6LCkm7LTpA3D4psVxOlaLsj78FmGBWB/PPyX0vLHhu6gjGwBUXQ4lDGbxGkSEewUiw3Kyckg7Pjmpdo=
+	t=1790029031; cv=none; b=IQecJvN93PSK2QWvzcN5z2tsQJon3trOaPlhGwO41kdTbZQjl9dpCkA2ltq5AYla77hWMOqplZc1oe5YlJ3HY2kq5kOWgHyzwPvDZ+KOXb3UXQSB0pYnGwIQdpZlvNOIAkrdixBe6ygvQeEPoIlB9P9BhkULbObENaEI+dtwlPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790029026; c=relaxed/simple;
-	bh=qZS43diFWuKFB0VBv8plxFaiwRVC4Irdx/++kTMpBxo=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Subject; b=FsOv1NSZ43CMWDrgC5ALxh7Hh4qQOVAr4XOx9eweLQGGd6sntfJN8YEISPzvGPSdBf2F66x/o+Mf9e76XGKX3eQ61y8SHPOrEvvGE50lEvhQBDbxcblXfhHf3NTWCmoa6xx7amGASMDGQHsegVASz76xD9Pm+BjhpKXRW3djOr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=gyPjGwgQ; arc=none smtp.client-ip=204.191.154.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	s=arc-20240116; t=1790029031; c=relaxed/simple;
+	bh=i+nL9jSpz0eRtAS0Q2BIMZbPF3IYP2ss12701pXlPRI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ecYzqyLeaw1luATeKX32GHx7Lvv51nyH1X4YXxwA3Ugxj9/3Bfecy2BjhDcMBDWzca7AFjVUuflWEcm1BYR/Pmkk2llymK2WF0gXfJrkpzh69R3ovDiUCY7449qNKgxdbzCEv0NOZH5bsUOqtRZer9+oHrjHLm5jpa6lqOkwhkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gfGBWrrh; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="gyPjGwgQ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
-	MIME-Version:Date:Message-ID:content-disposition;
-	bh=qZS43diFWuKFB0VBv8plxFaiwRVC4Irdx/++kTMpBxo=; b=gyPjGwgQcjCiyKhPbAXmYXw3xl
-	+buvxHWSp3dQP9gg+OFi4M/6hYfsK9hkbTOt+ZvqPIGXQOdn5PU89otUyejBoLdwzF8gSa3NCjV98
-	lz9UjLBaq3YW2PjpxssUBJNyxcwoWW10iFN/pSwPlVTuHtKzvXVkxbhw5DGsy7/XnnHEQLU/NjxW2
-	LQX/gwFq0FxkNvESlQz0OyVDfnDGP5D0KSVxMysAdcUzk+IEM07qO4sFfRGEIWR6XNjL0vMGIpo0a
-	H+jfAaaHqUub5uXEZz+NZ/KTIo7bmibu/gMd53QCePldE1dSdT1wo37SkjCqDEmdx+nhjJePGNp8X
-	U0f8N5jA==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
-	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1x8mJo-0000000F5pd-2GHB;
-	Mon, 21 Sep 2026 16:17:01 -0600
-Message-ID: <85bb90f0-5a02-4e35-9ed6-ad7e67c1c0d8@deltatee.com>
-Date: Mon, 21 Sep 2026 16:16:56 -0600
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gfGBWrrh"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39dbdfaef3cso2953076a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:17:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790029029; x=1790633829; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=46Oxsbf5zuDUQc7C52Kj3PElaB6G7AgxwRfexhKeRrA=;
+        b=gfGBWrrhU5uuGuFxNWyuGynNfWPrfyRn5x0YnYf/N8k1886oqpFz03EwjxeK3rSqtD
+         WEeWry1jwFvcTdoWBEy0RhPlcntFzD00ingg/6m56zh8i07JKu+sNyj4jmu+uRjmQUBg
+         J8ZybOJknIQ5c4bshhNWkXbm/mhVjnAbJeY+vKImVbofXG65Iiy18XRI5jVHkGLDhNoL
+         ohk9fiX0zSdY+Q4/gwqVvPTl4A8JN4I9eK9aF3o0hErNXJ6T43h4bi55aRuRejlbCRig
+         CC9DX/PXGbjr3jtqHUPzqJnennSAlY/JKPRh1Oicxs5DQuzUDLqahg5kXZA1xwTA6dC/
+         btPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790029029; x=1790633829;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=46Oxsbf5zuDUQc7C52Kj3PElaB6G7AgxwRfexhKeRrA=;
+        b=ATHfgpnjHqlh5iq1p/CAwFcavdu3UNNxgU9YgeXfr5teQqZabIeuoY21SC2eKt5BpC
+         VktOcRwyvIvliU1mpsp1ELexX948WFlvBLnw+VNgxunRRDaLM4DabcSn2+2pEQMdTiy9
+         SPDBVTEJvKLEww8RzBaDAKAexjdnr5w3RnLYMvZGs1DWtpJSEDgmFBJuSFa2gcEUp+/x
+         yEZkicwE3B7DC7+grxskKA2ALYCYWRwQG7K/hvmLNPo3N8Akeacnvc/cvslcS9buNxRY
+         kzTzT9gRHNialU339n1VQOgZxzUa7kXNXpOELyDqBnMXRk3+DDbYQo/E2+g3BY8S7/Uo
+         TnUg==
+X-Forwarded-Encrypted: i=1; AKwUvBzfs8Y3ORXIyiwypfbq2vJ4Am8GAy1PAIYud//uZP8v1xmTGpYws6N554r4BHt77J/W6yKTzAdUikrg7O8=@vger.kernel.org
+X-Gm-Message-State: AFuF++khRL3SVBTAipH8Z2SYjnNesNzUjLd8Y+y0Yh2Kw+9woTmgAzkU
+	ARA6C0cVO4JSsXryg9OxrCT3g+iLxyRdNjwxowPCPade2IGKd52EapD4
+X-Gm-Gg: AYBFou0F5l0ewOhL0YV1qY9tdC/az48Vn/9UWvMsIcFXarQkTFZzbQayNcWOU1Aqfvw
+	4CYT2vlxuhki5iOpVzFj7NSSa3RV6ZKy7DmlGDjy2HdGbbbBnfymQsYeZTmBfVoMCufJc21d+dz
+	gJSVh5o3KU8fkoNxqjwTxcp/FUGch4j817SLboleb2p7lq8fSvuIvF117m09uLnE+DFXRjzUHVH
+	V8aQSCx8a7BJ7UAqniBRocwtgCrQ7jhEiAfYcDPZIcvuJqq9/Iv5weiI8U5tLUUIudcyTs+KJU9
+	3+rP7BWz1YdcFhakiJ3sPfeDTWky1NN+q3R3m1zPjK9RK67hQSS1weL3EQApVk2lTDdxL3tcriR
+	g0D5VF+Ik8nVmUSTLUTdIw1QE9xwP4V5+dgkra/O2ZwwToRtpsa0yJDSJAoRGhVCo4Zdx5GCDxZ
+	W5w6MGzv2+ZRKZ+2UkERr3PYn4ASpPXCz4tnRE0gfdduP9fpkJB2HqSr7EzDBb4FpDA/JulSV3t
+	GvqB2/aHS3FGfBMFPRU8HsvG6CxzCpwLBDHFfYRXsUu9bUF3mIclUso1A==
+X-Received: by 2002:a17:90b:38cc:b0:3a0:41ad:6b9b with SMTP id 98e67ed59e1d1-3a041ad747dmr5731325a91.34.1790029029157;
+        Mon, 21 Sep 2026 15:17:09 -0700 (PDT)
+Received: from ?IPv6:2a03:83e0:115c:1:9de9:26b9:a969:69d7? ([2620:10d:c090:500::5:f95e])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f0bfc7fdsm571510c88.3.2026.09.21.15.17.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 15:17:08 -0700 (PDT)
+Message-ID: <f4a616cf9241589fd093bbd0b34e8c8a162d579a.camel@gmail.com>
+Subject: Re: [PATCH bpf-next v2 03/13] bpf: track low-32 scalar equality
+ across zero-extending movs
+From: Eduard Zingerman <eddyz87@gmail.com>
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, Vineet Gupta
+	 <vineet.gupta@linux.dev>
+Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>,  Andrii Nakryiko <andrii@kernel.org>, Kumar
+ Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau	
+ <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song	
+ <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis	
+ <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, John
+ Fastabend	 <john.fastabend@gmail.com>, Shuah Khan <shuah@kernel.org>, bpf	
+ <bpf@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, "open
+ list:KERNEL SELFTEST FRAMEWORK"	 <linux-kselftest@vger.kernel.org>
+Date: Mon, 21 Sep 2026 15:17:06 -0700
+In-Reply-To: <DLLBVIU33MLC.ITFPYGMFKWUT@gmail.com>
+References: <20260910164635.459558-1-vineet.gupta@linux.dev>
+	 <20260910164635.459558-4-vineet.gupta@linux.dev>
+	 <DLDKI0ZXYI7H.1XQZZE2RCU7IF@gmail.com>
+	 <4ab75099-0e95-4fee-81da-6f4198e3e6a0@linux.dev>
+	 <CAADnVQ+N9tzBJ0Bbvp8_8QvR+QcCP4ej5CgV_kRHt=iw4BANSQ@mail.gmail.com>
+	 <202c45e2-58ba-4ad5-a234-c90703031f91@linux.dev>
+	 <CAADnVQ+Si9Au8J_j2nt+ZzFq6WPaz8hpmh0n=_dFysZmSOeipA@mail.gmail.com>
+	 <ff18ccb77a554000a030199e8c1fbb7d8d298e18.camel@gmail.com>
+	 <DLL84IMPTRQF.3DOQQTN2KCAEW@gmail.com>
+	 <e9aad352ba82dadd97a17867108b5db1865fa38d.camel@gmail.com>
+	 <DLL8Q69N7BUD.1HI0MKU2M2UGE@gmail.com>
+	 <951923920747d8dcba3d56ca8858e106d9c7ba4e.camel@gmail.com>
+	 <DLLBVIU33MLC.ITFPYGMFKWUT@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
- <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-References: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
- <20260920-fix-p2p-acs-v4-0-v7-15-ca0828ab697c@nvidia.com>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20260920-fix-p2p-acs-v4-0-v7-15-ca0828ab697c@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com, gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org, ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org, sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev, tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: Re: [PATCH v7 15/19] PCI/P2PDMA: Document TLP-class routing
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
+On Mon, 2026-09-21 at 21:55 +0000, Alexei Starovoitov wrote:
+> On Mon Sep 21, 2026 at 7:44 PM UTC, Eduard Zingerman wrote:
+> > > > > >=20
+> > > > > > Where:
+> > > > > > - id =3D=3D 0 =3D> no id link
+> > > > > > - full =3D> all 64-bits of the register are identical to
+> > > > > >           all 64-bits of a scalar value `id' (let's call it X).
+> > > > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D full}, rB{X,f=
+ull} =3D> rA =3D=3D rB
+> > > > > > - zext =3D> lower 32-bits of the register are identical to
+> > > > > >           lower 32-bits of a scalar value X,
+> > > > > >           upper 32-bits of the register are null.
+> > > > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D ?}, rB{X,zext=
+} =3D> rA % 32 =3D=3D rB % 32
+> > > > > > - sext =3D> lower 32-bits of the register are identical to
+> > > > > >           lower 32-bits of a scalar value X,
+> > > > > >           upper 32-bits of the register are either 0 or 1,
+> > > > > >           depending on the bit 31 value.
+> > > > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D ?}, rB{X,sext=
+} =3D> sext(rA % 32) =3D=3D sext(rB % 32)
+> > > > >=20
+> > > > > hmm.
+> > > > > there is also 32-bit link with delta, right?
+> > > >=20
+> > > > My point is that delta is independent of 32-bit/64-bit property.
+> > > > `delta' can be used to propagate in both directions:
+> > > > - full 64 bit -> 32 bit sign/zero-extened
+> > > > - 32 bit sign/zero-extened -> full 64-bit
+> > >=20
+> > > both? how ?
+> > > I was under impression that in 32-bit domain delta is one way.
+> > > rX =3D ...
+> > > wY =3D wX
+> > > wY +=3D 5
+> > >=20
+> > > if wY =3D=3D 10
+> > > We cannot do -5 to rX
+> >=20
+> > Why?
+> > It is still valid to transfer r32 and tnum_subreg knowledge from wY to =
+rX.
+> >=20
+> >   wY + 5 =3D=3D rX % 32 + 5 =3D> hence rX % 32 knowledge can be recover=
+ed.
+> >=20
+> > If rX itself had some delta, e.g.:
+> >=20
+> >   rX =3D ...
+> >   rX +=3D 7
+> >   wY =3D wX
+> >   wY +=3D 5
+> >=20
+> > Then it would still be possible:
+> >=20
+> >   wY + 5 =3D=3D (rX - 7) % 32 + 5 =3D rX % 32 - 2.
+> >=20
+> > Again, in case of this direction, only lower 32-bits of the 'full'
+> > register can be inferred.
+>=20
+> Ok, so we're argeeing that it's not 'full' in your above definition.
+> Your enum id_link_kind needs a 4th category : apply-delta-to-lower-32bit-=
+...
+> and it's not bi-directional.
 
+It's not really a category, it's just a direction in a sync function:
+- if known_reg is 'full' -> sync to sext/zext register recovers lower
+  32-bits and infers upper
+- if known_reg is sext/zext -> sync to 'full' register recovers only
+  lower 32-bits and keeps upper untouched (counting on cross-domain
+  bounds sync logic).
+- 'full' -> 'full' and 'sext/zext' -> 'sext/zext' syncs are trivial.
 
-On 2026-09-20 05:41, Leon Romanovsky wrote:
-> +A path is bus addressable only where both directions route directly, so with
-> +nothing enabled every class is.
+> rX =3D ...
+> wY =3D wX
+> wY +=3D 5
+> if wY =3D=3D 10
+> here can apply -5 to lower 32-bit of rX only.
+>=20
+> rX =3D ...
+> wY =3D wX
+> wY +=3D 5
+> if rX =3D=3D 10
+> here can apply +5 to lower 32-bit of wY _and_ do zero extend into full rY=
+.
+>=20
+> I don't see a value of 'zext' kind alone that doesn't do 'add delta'.
 
-I don't understand the sentence.
-
-
-Logan
+Exactly, that's why I suggest this as a completely orthogonal encoding.
+Effectively for an abstract scalar value X it would encode whether
+the particular register is:
+- X + delta
+- zext(X + delta)
+- sext(X + delta)
