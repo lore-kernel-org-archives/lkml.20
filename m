@@ -1,46 +1,47 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011058.outbound.protection.outlook.com [52.101.65.58])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010010.outbound.protection.outlook.com [52.101.69.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B3447FB10;
-	Mon, 21 Sep 2026 10:46:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.58
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAF147FAFB;
+	Mon, 21 Sep 2026 10:46:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.10
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789987613; cv=fail; b=u4QVYKwptAzsP8B2aBcdCq1oVf7nX2atW7h3du8zYF/WzfXXhoOBmM4Zj2sx59qMetGxdd98aDTgDoK2oXfMVsgZ26eULSyF6yhYyUI0wfpqhN5QNSsfcIo+irEggwxN7VJbPGrf7Ok13wG+MP71+0ESeqtLJ0MG+8Tu6nF591c=
+	t=1789987621; cv=fail; b=SyuoiIh3UxV+N4oubrB0YWQxdYIh/TTL/DCb7OPAz9XNl3LKVSkKh4B7yb3DX49JKcRC2qtUTEn2FhggQQxOHNP6KbHhyrQjkCYMJzIpDEY01ctdXAPYn4Nc3GmaZWDvIBxfkgTht15FLdCOEdBqB987zpQHTgGkiHHkfkFCbdc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789987613; c=relaxed/simple;
-	bh=K9+5X//Un8/t2PRlvYTRAuAWbx+SWMeTK18dikc8+7E=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=cBjSklxOqgMEvd50n71lUIrFa0NQPctAsftFs9rN/Oz/oIe4qrFOUH5LGpQ5zrQKk80rbTC4kLFIhRa/maT/tp60Ant4GcDuTQl03yvQvNDQUwQ8itoE6T40UZDARTIV4Zf0AL52UEIj4elVxNbIW4N7c+jAhr9vbQtr+k1uQwY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=pjOaqCh/; arc=fail smtp.client-ip=52.101.65.58
+	s=arc-20240116; t=1789987621; c=relaxed/simple;
+	bh=c7xnN5kAv/DZQbbn8SLYdEX5Ut8bjYu9XqB5HOe924o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Lo+hJwPVZAQ3u/ayrHP3CUfJfTmzn25sXVInNFvI5tbw6/p9mflg8ubIl/+Lg1ZGi4bcn9sc9niL/ZxVwZEjuFU7Z9uhKEb+gNKEQ2dSOEvMqZfzT6UzqILmPXoAvd3zv2aAR+Mh0I/EXFps9AF8acInt1/wzNkmOv9ul4XcCjs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=iAlzu/zC; arc=fail smtp.client-ip=52.101.69.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="pjOaqCh/"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="iAlzu/zC"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eJCdLnub37o3gXolYmnCgtusYTHlHpVoxhqPqKZIDIKNMmhkCRm1LjVH2m4WPgV8IsULgEnnCp45jbGf+YU2GbXGn1vijo8WgdbhS7L45WaIEqSuHdrFL7iKPkD5TsVUItXftxULTUg5oMrRBF9tYsLD86hEhOgcNXo/aiQgdyF5M3zO2uLiopTonkHUSwfMRamba6gvBikoBtiUUqafUfGB3gy/HKCkXguPXxNSJtCdswgRoy3f5948pJ2MKlx7rFlE80kVHySB+3LElNY38y1C4rH9NY/JD5cnYOBaU/3tgwAVss81/bm6KPq6sIjbpDoBIG/5TF8rctRA19ehPw==
+ b=opJX0PivM5UhgT5GDb1hU5Mx/vLmjOl51zBEEpeddR+depbymhskrdMTFza0OkejUxYZMDgaNxkshVjy5Vw5K7mcR8YiTzoACpyhz6FwTbCiQCatFxgdRh/ElRwQG6dtoc43ufuuHsEVM6CDd9czt3eI5nlTxqbfi8xDiaL+SxlWkoLn4SM3G/tkgrWSjJ1U2ICVEY2zpt9zcpsIZV/K8feHwc59BEI3EMGeJ+NNLCYdb+n1Aj3FbKCssGtduf3fWOHJh9WzP9zCyxB7XnvKYEZnXUz8uxDe/i4D+kmPMgn2CqMTm1lr/WRnfjRSBtM1U5UBm00AkqIsT8vXMjCIgQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xdkCxLJo2mrqWtwupTv7WE+X2EGbg2klql+zvTZ+TdI=;
- b=pQRfils1EPac6b4MBQBo6I4t/11PETXBEJ6QvY37XvBh3aELCqx2cPIvf1O8Ie4jamk+FEEyegMeqWbMFiBtyRWO1eiw3F4F2ulocjgVF2BABqF+Ih9qy4pWDTyHEa+kvk0IbJm0EumFbWkPyuFpoVc56+8ldukhMWt4Df9NEQA7CinFOkH6WAoZoaDn+trr3ii5qYvkfFo5xn1H3dS0vqqAJzhJ60E+pnU1cI8akafPIq13GbpKOQqnrBH29oSxs/9ojrtdvl9wVJeuTlDqwXOmWsVNgRwwEpQjg5fbw+orMzE/IaC9q9dxKUsNymo8eS3+pOa+RAhGRIs31G/EVw==
+ bh=ZZQVQZf/6Uuyp9pKwkWGP7D52T71N5AtDOq4Fwo3zvo=;
+ b=JAMwxQbd/PqCvH//XfkQUfoFYtjpMqYZepOF2WOQTyLIcy5sNWeffnrnGdEgyZz2xenojcCq3dp3ZbMtWcH1G7T8ahMLSFPQwMVf6oj1RoV8v45yOTGvgFCorQ+snxyAmKurSjs7e1LVPwUKl6xgPg4uQDNE/2Ljr+1cKNd8VkWNHCBYQ9Mk+sY1jT+JE7pLvlJaVK/X9IwVR3HckLyq9YqmCCVn37r8K9vJpF64HXBjx1hsgLFEPrubPmcbIvGbwCQG3fddzZA2PVCiinhhOl2Xy44E3W+rxXUrylC2PvDRNKXsIRmI9UYAENumI+DKmLUJMvxJg0YkCoyeS/jenw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xdkCxLJo2mrqWtwupTv7WE+X2EGbg2klql+zvTZ+TdI=;
- b=pjOaqCh/EcW908DYwbZPxGnQSMjjxi0nk3TWeCPwuAvk02U3Jy6sJ9s/SW4gj6SWMfzyXv0dBLDa0hbSpIBfrLdmIrl/VrlL4U2daxNkPtqM1dEAi9Z8Svc6Vq8hOdsC9InBNh6p+2Ak2T4jhsfug7+aRDVrz8pnOYZvk1h5vfgV/AAHGKGsE1kg7WlQE4NbOidtcOfVAXsH7lwb5HZ4YaDllmHJfOlLF55jBxWNffnc4tEaYi6dv6mhX1djYvsEenW/nWHVTRDfVR/0EYIU1AF6Aw7OyRjzbSy5T9zz0PKvLSvvPRmwEg+lqPIO1/1q72GyrmrF7pBbjuslyBFlFQ==
+ bh=ZZQVQZf/6Uuyp9pKwkWGP7D52T71N5AtDOq4Fwo3zvo=;
+ b=iAlzu/zCMoFZVP1s4rdkpExvL/c5GOlr3VGm5rTp0UEjA+OhH/P71j+nMfCKUFDiSA/KH+uj+z+Nv4g/7DZRS8EYGIkQ9cDKtgKY4CclnHFEmuw7tFCo7rJh9Xqgv7mkVdqwkzbnEwk5ysBtdA7tyB/HjzPzTlwsR9vCwxGuDyGamQGrBq1Gtyop7UwLJX53WFqep0DI7VSK40vZXIQvSpsprcZA9yabNDtnvoQ8Lkgl8Me60m9okebhfiMUQwL3/Ux1jCNU41KM0HAeu0ikMny4xf8mTvq5c870vu6uKXxDmpgq8oURHCsf/MbzJra62OgR5A2Vpy3ZhwCibNLAPg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
  (2603:10a6:150:112::20) by FRWPR04MB11198.eurprd04.prod.outlook.com
  (2603:10a6:d10:171::8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 10:46:48 +0000
+ 2026 10:46:55 +0000
 Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
  ([fe80::d247:853:3e16:1994]) by GVXPR04MB10021.eurprd04.prod.outlook.com
  ([fe80::d247:853:3e16:1994%5]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 10:46:48 +0000
+ 10:46:55 +0000
 From: Chancel Liu <chancel.liu@oss.nxp.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -52,14 +53,16 @@ Cc: Support Opensource <support.opensource@diasemi.com>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	patches@opensource.cirrus.com
-Subject: [PATCH 00/21] ASoC: codecs: Fix resource leaks across card bind/unbind
-Date: Mon, 21 Sep 2026 19:46:19 +0900
-Message-ID: <20260921104640.1941554-1-chancel.liu@oss.nxp.com>
+Subject: [PATCH 01/21] ASoC: cpcap: Fix devm resource leaks across card bind/unbind
+Date: Mon, 21 Sep 2026 19:46:20 +0900
+Message-ID: <20260921104640.1941554-2-chancel.liu@oss.nxp.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260921104640.1941554-1-chancel.liu@oss.nxp.com>
+References: <20260921104640.1941554-1-chancel.liu@oss.nxp.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SEWP216CA0123.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2b9::12) To GVXPR04MB10021.eurprd04.prod.outlook.com
+X-ClientProxiedBy: SEWP216CA0125.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2b9::19) To GVXPR04MB10021.eurprd04.prod.outlook.com
  (2603:10a6:150:112::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -69,151 +72,217 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: GVXPR04MB10021:EE_|FRWPR04MB11198:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8f258d5f-aa01-47ad-9cdb-08df17cda28c
+X-MS-Office365-Filtering-Correlation-Id: e2ca388e-b8df-4710-e1f7-08df17cda77d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|1800799024|366016|19092799006|376014|10067099003|56012099006|3023799007|18002099003|11063799006;
+	BCL:0;ARA:13230040|23010399003|7416014|1800799024|366016|19092799006|376014|10067099003|56012099006|6133799003|18002099003|22082099003|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	TEHZ/cFpwuyi4JEgiabzPWo4VdFGWpqNUm7G/cDTtAMIzlivvqLRUGGnKYP1KrZ287RHUFgjhgH+eW+ipIuz0Ksv8SZPloKls3XRRtUldCBjPi3naLwSAfQbgwKs+DB+MpNCod5+acCsAHx0u1RRI1nebgckt9hvxq4R1DOlF8oVZNOmbSGsuB4JDkQJPOqU5OGcEfTIn/iqqIiJkqziMCS1ZoXSQlIOSRp/hQz8EUlEFdCMfYuIOtGey5fCye51Hr7jpduj0/9p7aUSBx1vjHcEq34JTFxPs1IGhmrJZZXlKYJJYtiSraU654cy+rZ/Q3TTYjqgS6Lr92BxB3T78HCv7sq8QifDPCCtEUiPiY3ogFcd3wsORaiaDjcsDSedhiFVZl0sLP3Vdoy60L/uvGHoYWEmoHSPdzO0c5MjUz1b5YP1EzLFyUoF6eDn5u6fH9dHVMKeSFTbxVYofc/FBktUZ/5Yy0nbQBrKCrZvOUE98FHdtX8yxIQyAsa+5TD3fIdZhAKj8DJMpBcnspkOg1zFVVl7SrSvn9IQgKglkC3tjCu9mr+o+VNIK8BqseYPywO3JgPyzOBk6tT5V/fcWG3MbXQwstnYxyegIAk2Z64NB51EEmVAV42kh3Kny6UV
+	AWMjRtqiMsWJFVstERL2XDFptSXLtlQbRZx/TFCbv5GDW2T7v3/pWf8zJBcOdh+gItB7Fn7g+rWrhMTmN155pGcni2oqcclg6mAjWp9ahtQbgtUxo+s7XaAXkzgrOnczGokvlzqVxwqTHu5C+j7ejRH0l75mW5tb4wRHs8KihoDTcGaSSOs/0t4EnQGiquU44HCpjREai/tJkqM4Hm8nNzAQXC/duShVThtOxt4uR+SkTDjOZHP2STfWa/qoLEBqwdJTsgiFb2r0Pr2LyQq8CZIUuB4QweJxXoVjwv0bPKT5WiTV9ICTnw69V1KeoITasJy0NDB/k0EoRH+PQbD2s+SRQ4gGodpB2FoiM4AtDH489oQubjECG9y+xhKrzTfnBDgt2+uEuVNCUcc1ib6C2cRE4sLhMYrRLaJisEcyUv5RrUaH/1o9aMcuyhb7TyDfQCzD5a3ari1Qy5Q543nx3orRgZ2WrShaBH1Sjnkv9EtPYM2T1dx/6smoK3OZSJM6RGbRJa9veIAPjjb1yuRSCt1DTG9XuCBKjQ0Xmre1Q/fJCz6zfBfKwqxpjGtiy+MB5iyxa1HRGKziwReKfVjxobkYGkutxIxGMMuoj0i/qcLXz5+ff2N2bmGiwDfeNT+HE3Z0FS6MOnpk9Y0usxcRWV7hCkTRI2AIjyFXXhNU0n0=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB10021.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(366016)(19092799006)(376014)(10067099003)(56012099006)(3023799007)(18002099003)(11063799006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB10021.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(366016)(19092799006)(376014)(10067099003)(56012099006)(6133799003)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?wWszUauPIYNngVYLdbsyl4HP4alUrUXaxqHNY5nZ3w9lYjctucS+s9CryPS9?=
- =?us-ascii?Q?Xnn88kqaGURKY1orMNd0g2uzswd3AGXMAtDH+h6lw69wWl0GHAaXGfAwJhwm?=
- =?us-ascii?Q?0rG6SH6XgySMTx8YtplYqnMEOm0x/UYXEnGqtCDfz2CXAGNT9hzJEwM/fR+k?=
- =?us-ascii?Q?tLQuS7uvCmwJwGWK5wx9hJ+hPccWNaLUhXkPCDwQtl9urtqA7eR0gRwX0lbW?=
- =?us-ascii?Q?1GgiLsZLPjKibx6PdMzkc0itp43ZhvniEI2j82SlmaAAokrWmLZ2Hdkmosj2?=
- =?us-ascii?Q?+25OUUvn4F3JU6Gc0mxmga8uZG1SNcTdI4IBAMp0zMfzw03BVqoF/LcNtP7c?=
- =?us-ascii?Q?dej19jq+DxZ/3NXuRA1lvr7nKmg21pYZJa0j/Nw0AZ/pJBizaciZTKZ/QHA9?=
- =?us-ascii?Q?QoF4iWdovvkRW1h2y0T0XppIFigVTv7lpZgjubK2OlPdS6AVOZ+H6TfXOuQg?=
- =?us-ascii?Q?GUqCtwT3W2co+ZZTB0P2o/ixtM9SZ1SzsJLnrihRl/DHbjdbmEv/uSwvbOUA?=
- =?us-ascii?Q?kyZNpc8UsDfe02emyT4PnMY6UF53BBdnG5KtsYnB9dgqZZUKHcf+wHatejD2?=
- =?us-ascii?Q?Bj8uTSeBvRWcoBel8M0IKmxbilMzeVCrUgKF3zRCkYwwBT6gqqyCbjmsSpWi?=
- =?us-ascii?Q?Cv+CpYjW3GdQNoZyzfQCllkbBnucYZR0t4IumkPmy3C3yLnsHyUo1um5ohal?=
- =?us-ascii?Q?BenonzB+ewFDTX0o6+67w5Z/1Qakvia59K/dG6vlFnQrIv3sS8ALmirgZBPi?=
- =?us-ascii?Q?TtYmz9qXgrelt9lzD1KCQWOgvmPtHxx4N7ndLX/MsAiMON1nHt4qxWD8V6CB?=
- =?us-ascii?Q?j/tj4AK1NrvuDRup2htQy6y5hw9yfb2Skl04Fei5bvvQ0HkldaZKqf09IaC9?=
- =?us-ascii?Q?PcYO7ioq4HCAz7zl1WcziLHPwIjqVamajYVESRgDDFlz2/VODotyQSeVxGdl?=
- =?us-ascii?Q?fOUtdmUUXzYylUXoc/ia7Rz1oNmkCCvKX1J8TU6eyN6ug8KF5Vjo9BaFWGNI?=
- =?us-ascii?Q?slDN9NxJvYVhj+VWQg3Xa7WIinyao8s0D5lD4bTvsE0zQDpPWXfjrEIajW5g?=
- =?us-ascii?Q?EYDYJ2jl+DTvGmoY8YJUJrOemSXqWOIx+lKCsaO72UeWEBxIoEfzEXkuxTVq?=
- =?us-ascii?Q?4lKZRu803EcBCHQNMIdYPSJSpv4TOToUlF982tZJTV65PRyFnePtZkrXWWRf?=
- =?us-ascii?Q?m4W3HmyMaoLGVvdtr9uPtrSY5R1Maxr+QyuqNNQjoVDn9ZQZpFs4zC93B+HE?=
- =?us-ascii?Q?XXLgY1s7EatE1CxfWuLQ6Fhy3+eLoiwfAqNlpvXQeJo0mBCAOkhkT1I2EIAD?=
- =?us-ascii?Q?ktTlxpSd3qbrsRnaFzO7OLxQ1fcnGfP66aDtQrvtCQeu6BTBrjv8DjzszY/Q?=
- =?us-ascii?Q?GvPCLaicgZ0ij1ZOM7ikIy6K6wa1h9J/vJkyP035wz7vQtTdJTJJ1S5pQpnE?=
- =?us-ascii?Q?Iw4AdITjIz3GWJqqY2cJruUrzr9UlQXJyKrJcD8GXa69M7WqJ6zfSXVmHZVl?=
- =?us-ascii?Q?CzXL4Wj4HxqUkuB2fGkVc+HXgf/I59yH+5BcO7WMOZyxTMfa3dGMH/CwLJMo?=
- =?us-ascii?Q?+5fqVI++1tXmBQwEpcqCpMYkewS9grpoLPB1s7JEzrBM5XxHM7WN0TxYTo99?=
- =?us-ascii?Q?GYwrGjpVm24G+tB3A7gCzxdkK2xkFkc19n2VL1Iv7UKuYh23rG0UN7+KN11z?=
- =?us-ascii?Q?grLHPvaG/vtwR9B6F10hf6uJAiJ6bX3b2gEESZt3JWO0jjzAdyBelWQ2v9e+?=
- =?us-ascii?Q?1usAB6rHva/bGrz45nUdpl/qpZyclXTvmiSq8wcI2Zbb3nZ9XTvw?=
+	=?us-ascii?Q?kzm9jXqYgbNSeHY5PEQxdYUNEMIj37id7Ua3bQx1IojqrEv5MGzKxPp9NLGH?=
+ =?us-ascii?Q?5nBlvP4uMM35I/5JmYJ/h4Yi4OGrW47urq8S7qXuh5vOJcUxvzABeHDmK1r9?=
+ =?us-ascii?Q?7L2Tv3teFucys5ubWgLejPdist0bEWZmX0VeF4W5RjuFShwver8EFKug/v/0?=
+ =?us-ascii?Q?admmTwGxl1yoU5B6uc78Cay73xbZXvxAKr6OpLe2mSQjbt3oVBx6UjKv8+zt?=
+ =?us-ascii?Q?s060NNEp9vpiduQk3eENeVABsOEEqUYU8+BqtbkPZWCvl7nX9Y56wek4eayw?=
+ =?us-ascii?Q?Y5xTh33kUrczHEE8htGfnEvttaFWD6YagmFXMDkdn7UAAM84rLsvtfh/szDB?=
+ =?us-ascii?Q?aGvNvUpUbAtO8jrQOXKWB61zgyrMnkcdsXLnrKUDysYtqB9RNejX+mgUnQEC?=
+ =?us-ascii?Q?dywfNrkaj4oNQQg+VVFO+1lnpm930/oTCiGFv8bW4RQ0JQEohxJQzqVjXTjQ?=
+ =?us-ascii?Q?v52HFgbMtHaP/PPDhxTpI6M2or5KLvQAgwoeVkP+bcHrx870PEsAY0NmG6gA?=
+ =?us-ascii?Q?qGj5B3VFPN0QL1EFGzNzEHGMEe1BFRtO+G931wvwj0eWoELD66lXTyrxYQ6u?=
+ =?us-ascii?Q?K1bRpWzxVsLNbr3oSiagLXoUhgDEG1m1P4/xRxMJRQpLYmxBP/jDXd5GU5sx?=
+ =?us-ascii?Q?IDxIfzQxd/BBS8nWwMiGXMd42dXRPYxahwAJaqT3qImHZYRdyZVOAPEXy/0+?=
+ =?us-ascii?Q?NU6k7kxmHbt3bVz0dU5GuVh/ZrZjkFk6VBYibkzsHsVKpC0MJCQr34Z1LOjL?=
+ =?us-ascii?Q?gTlWSLfRdoGYDj+EhstrndUP/eT3xED76tJYHBtHNlj8dZqZIQuDNrcl8619?=
+ =?us-ascii?Q?dL4j3ArvackpAFMnN1d8tvbkCvtE5BU3UUrnGwucOgUxl7vYql+iMf9Ue71A?=
+ =?us-ascii?Q?AZ96LqkQZDE5xZEHQop2a+1arU0VHZDbE6a6b4AuIruxKql662j9jh7sOvJ7?=
+ =?us-ascii?Q?UFp/oHYNG7rqVOse20BTbBGqByMaPWkQUqmS/BC3Lte2ss9PmtUS79IZfTm/?=
+ =?us-ascii?Q?gpdeRTPNF7oR5yugWneyivhWnEfVbs13dO4M5S8dXe55JoFA15hhYysOEbS4?=
+ =?us-ascii?Q?KPo+NoUd+3fpbiJVpxhK6KbFtvW5j68PX6UuSqv0HBgQ/w2LLxATeT5qoiWB?=
+ =?us-ascii?Q?P1MNQAdUD5F4rnEzv0Pd6kK7cbyHrywlhvwytZZ9ymKcbwyzoAv16i8HXj01?=
+ =?us-ascii?Q?1c2hGk+bJQd/t8lO5VxdkF4vtvqvzhmSdH4g577D4713FLn5NH8cJv9vd/cy?=
+ =?us-ascii?Q?OBTVlS/zpRaUr+qCAKojGEY++BJuD2+8HcEhxI0fxo2n98Nti3F2ptELgXPN?=
+ =?us-ascii?Q?55q0zoxp21p9dFcwucLKVMmVgUQgsO1iiAaVxok+rVB3oHkSy5UCFIL/eNtF?=
+ =?us-ascii?Q?9IyngF8TxHsFb5Wx/LqhATqyXSpqBxdhRN9y2eSX6KOuDO1KTQwrC8dt7TSn?=
+ =?us-ascii?Q?F1S841f3W4vSbWVZP0OHsbi0pIPIb63oiirLuiMx/oUZbvgX0cjFwtw/FomI?=
+ =?us-ascii?Q?lJa5diz6yGrFm6OvuvJJTBqCnvDsTadcqjxj/0VQI65QhtjNzjBtW2j8QOlP?=
+ =?us-ascii?Q?6tioTIM/N20VQIK5l3oMvBcF7YYQq/jKdBx2gOS1quKpQQnXGpPKIzqEC6tM?=
+ =?us-ascii?Q?fcQ7wPi7z7hGLdWLkQ0EION1DLNAyEM9h3LBnIANpdXL5KXs/fJQTQuWuzQ0?=
+ =?us-ascii?Q?BhPRdn9zYjqrRfYyJASef+q3Mesom0gcEgQVUw/+XunzC0TxOUhkfvkQGPK9?=
+ =?us-ascii?Q?XczI5vCp4fIfrG+Ei1YLlJfDGGkq/oalt8X7nE+R0sZW5rR3CaTH?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f258d5f-aa01-47ad-9cdb-08df17cda28c
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2ca388e-b8df-4710-e1f7-08df17cda77d
 X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB10021.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 10:46:47.9930
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 10:46:55.7589
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: m5mT91Yqdt3kNjGoy8yQa3IgO35vlNMWafweJRsyte3YJVVHRNKI2xMYJrOGrKDIFkM2xar9cwhJvA7fta4ki1bkHUzi1QMCkcqJEpXgvGkJmMI2oby4UaSrQrxFMNGH
+X-MS-Exchange-CrossTenant-UserPrincipalName: +M4HFtojRrBMq8uFs8HRrWB3E3mo0jF3MbIPXQS//8iQw3dYkvKR9pRnYS2OvuGvCGP0HhgZ3RR9Fv5wgO8KvpiRNLoudiXv3sGTvbBu2PEIx/W/d8lu5bzXZ1IbuVrT
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR04MB11198
 
 From: Chancel Liu <chancel.liu@nxp.com>
 
-For an ASoC component, component->dev is the underlying bus device
-(I2C / SPI / platform). Its devres lifetime is tied to the physical
-device's probe/remove, not to the ASoC card's bind/unbind.
+The ASoC component .probe/.remove are called on card bind/unbind, but
+component->dev is the underlying platform device. Resources requested
+with devm_*(component->dev, ...) or request_irq() in the component
+.probe are only released when the platform device is removed, not on
+card unbind, leaking on every bind/unbind cycle.
 
-A card bind (snd_soc_bind_card()) / unbind (snd_soc_unbind_card())
-runs the component .probe / .remove callbacks, but the bus device
-itself stays bound across the cycle. Resources requested from the
-component .probe (or from a runtime DAI callback) with
-devm_*(component->dev, ...), or allocated there and only released when
-the bus device is removed, therefore outlive a card unbind and
-accumulate one extra copy on every bind/unbind cycle.
+The VAUDIO regulator is a pure hardware resource that only depends on
+the platform device, so acquire it with devm_regulator_get() in the
+platform probe where its devres lifetime matches the device.
 
-Each codec is fixed following one of two principles, chosen by what the
-resource actually depends on:
+The headset/mic-button IRQs genuinely depend on the component, so
+keep them in cpcap_soc_probe() but request them with the non-devm
+request_irq() API and free them explicitly in cpcap_soc_remove().
 
-1. Pure hardware resources (clk / regulator / regmap / GPIO / board
-   description) only depend on the physical device, not on the ASoC
-   component.
+Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+---
+ sound/soc/codecs/cpcap.c | 74 ++++++++++++++++++++++++----------------
+ 1 file changed, 45 insertions(+), 29 deletions(-)
 
-   Their acquisition is moved to the bus probe (i2c / spi / platform probe)
-   using devm_*(&client->dev, ...), so their devres lifetime correctly
-   follows the device and they are not re-requested on every bind.
-
-2. Resources that genuinely depend on the card/component (they are bound
-   to the component, or must be torn down when the card is unbound)
-
-   They are kept in the component .probe, but switched from devm to
-   plain allocation and released in a paired component .remove:
-   memory (kzalloc/kcalloc + kfree), IRQ (request_irq + free_irq),
-   delayed work (cancel), wakeup source and mutex.
-
-While working on the card re-bind resource leaks fixed in
-https://lore.kernel.org/linux-sound/20260913101531.2787654-1-chancel.liu@oss.nxp.com/
-
-I noticed that the same devm-on-component->dev pattern is present in
-many other codecs, leaking resources in the same way.
-
-This series is the result of code analysis only, based on the same
-devm-without-remove leak pattern I confirmed by repeated card bind/unbind
-with wm8962. The individual fixes have not been tested on hardware, as I
-do not have access to these codecs; review of the resource lifetimes
-is therefore appreciated.
-
-Chancel Liu (21):
-  ASoC: cpcap: Fix devm resource leaks across card bind/unbind
-  ASoC: da7218: Fix devm resource leaks across card bind/unbind
-  ASoC: tlv320aic32x4: Fix clock leak from runtime callbacks
-  ASoC: twl4030: Acquire board params and hs_extmute GPIO in the
-    platform probe
-  ASoC: es8316: Move mclk acquisition to the i2c probe
-  ASoC: es8323: Move mclk acquisition to the i2c probe
-  ASoC: es8311: Move mclk acquisition to the i2c probe
-  ASoC: es8328: Move clk acquisition to the bus probe
-  ASoC: rt5640: Move mclk acquisition to the i2c probe
-  ASoC: rt5616: Move mclk acquisition to the i2c probe
-  ASoC: rt5514: Move clk acquisition to the i2c probe
-  ASoC: rt5682s: Move mclk acquisition to the i2c probe
-  ASoC: max98090: Move mclk acquisition to the i2c probe
-  ASoC: max98095: Move mclk acquisition to the i2c probe
-  ASoC: wm8985: Move regulator acquisition to the bus probe
-  ASoC: wm8955: Move regulator acquisition to the i2c probe
-  ASoC: es8389: Move regulator and mclk acquisition to the i2c probe
-  ASoC: rt5677-spi: Free the DSP context on component remove
-  ASoC: rt1011: Free the bq/drc coefficient arrays on component remove
-  ASoC: rt5645: Free the hardware EQ parameters on component remove
-  ASoC: rt5514-spi: Free the DSP context on component remove
-
- sound/soc/codecs/cpcap.c         | 74 +++++++++++++++----------
- sound/soc/codecs/da7218.c        | 49 +++++++++--------
- sound/soc/codecs/es8311.c        | 10 ++--
- sound/soc/codecs/es8316.c        | 14 ++---
- sound/soc/codecs/es8323.c        | 15 ++---
- sound/soc/codecs/es8328.c        | 13 ++---
- sound/soc/codecs/es8389.c        | 34 ++++++------
- sound/soc/codecs/max98090.c      | 10 ++--
- sound/soc/codecs/max98095.c      | 10 ++--
- sound/soc/codecs/rt1011.c        | 30 +++++++---
- sound/soc/codecs/rt5514-spi.c    | 37 ++++++++++---
- sound/soc/codecs/rt5514.c        | 23 ++++----
- sound/soc/codecs/rt5616.c        | 10 ++--
- sound/soc/codecs/rt5640.c        | 10 ++--
- sound/soc/codecs/rt5645.c        | 11 ++--
- sound/soc/codecs/rt5677-spi.c    | 16 +++++-
- sound/soc/codecs/rt5682s.c       | 12 ++--
- sound/soc/codecs/tlv320aic32x4.c | 94 +++++++++++++++-----------------
- sound/soc/codecs/twl4030.c       | 63 ++++++++++++++-------
- sound/soc/codecs/wm8955.c        | 24 ++++----
- sound/soc/codecs/wm8985.c        | 34 ++++++++----
- 21 files changed, 340 insertions(+), 253 deletions(-)
-
---
+diff --git a/sound/soc/codecs/cpcap.c b/sound/soc/codecs/cpcap.c
+index 0262900fbb7d..dda68165b817 100644
+--- a/sound/soc/codecs/cpcap.c
++++ b/sound/soc/codecs/cpcap.c
+@@ -1622,21 +1622,12 @@ static int cpcap_soc_probe(struct snd_soc_component *component)
+ {
+ 	struct platform_device *pdev = to_platform_device(component->dev);
+ 	struct snd_soc_card *card = component->card;
+-	struct cpcap_audio *cpcap;
++	struct cpcap_audio *cpcap = dev_get_drvdata(component->dev);
+ 	int err;
+ 
+-	cpcap = devm_kzalloc(component->dev, sizeof(*cpcap), GFP_KERNEL);
+-	if (!cpcap)
+-		return -ENOMEM;
+-
+ 	snd_soc_component_set_drvdata(component, cpcap);
+ 	cpcap->component = component;
+ 
+-	cpcap->vaudio = devm_regulator_get(component->dev, "VAUDIO");
+-	if (IS_ERR(cpcap->vaudio))
+-		return dev_err_probe(component->dev, PTR_ERR(cpcap->vaudio),
+-				     "Cannot get VAUDIO regulator\n");
+-
+ 	err = snd_soc_card_jack_new(card, "Headphones",
+ 				    SND_JACK_HEADSET | SND_JACK_BTN_0,
+ 				    &cpcap->jack);
+@@ -1660,13 +1651,13 @@ static int cpcap_soc_probe(struct snd_soc_component *component)
+ 	if (cpcap->hsirq < 0)
+ 		return cpcap->hsirq;
+ 
+-	err = devm_request_threaded_irq(component->dev, cpcap->hsirq, NULL,
+-					cpcap_hs_irq_thread,
+-					IRQF_TRIGGER_RISING |
+-					IRQF_TRIGGER_FALLING |
+-					IRQF_ONESHOT,
+-					"cpcap-codec-hs",
+-					component);
++	err = request_threaded_irq(cpcap->hsirq, NULL,
++				   cpcap_hs_irq_thread,
++				   IRQF_TRIGGER_RISING |
++				   IRQF_TRIGGER_FALLING |
++				   IRQF_ONESHOT,
++				   "cpcap-codec-hs",
++				   component);
+ 	if (err) {
+ 		dev_warn(component->dev, "no HS irq%i: %i\n",
+ 			 cpcap->hsirq, err);
+@@ -1674,25 +1665,27 @@ static int cpcap_soc_probe(struct snd_soc_component *component)
+ 	}
+ 
+ 	cpcap->mb2irq = platform_get_irq_byname(pdev, "mb2");
+-	if (cpcap->mb2irq < 0)
+-		return cpcap->mb2irq;
+-
+-	err = devm_request_threaded_irq(component->dev, cpcap->mb2irq, NULL,
+-					cpcap_mb2_irq_thread,
+-					IRQF_TRIGGER_RISING |
+-					IRQF_TRIGGER_FALLING |
+-					IRQF_ONESHOT,
+-					"cpcap-codec-mb2",
+-					component);
++	if (cpcap->mb2irq < 0) {
++		err = cpcap->mb2irq;
++		goto err_free_hsirq;
++	}
++
++	err = request_threaded_irq(cpcap->mb2irq, NULL,
++				   cpcap_mb2_irq_thread,
++				   IRQF_TRIGGER_RISING |
++				   IRQF_TRIGGER_FALLING |
++				   IRQF_ONESHOT,
++				   "cpcap-codec-mb2",
++				   component);
+ 	if (err) {
+ 		dev_warn(component->dev, "no MB2 irq%i: %i\n",
+ 			 cpcap->mb2irq, err);
+-		return err;
++		goto err_free_hsirq;
+ 	}
+ 
+ 	err = cpcap_audio_reset(component, false);
+ 	if (err)
+-		return err;
++		goto err_free_mb2irq;
+ 
+ 	cpcap_hs_irq_thread(cpcap->hsirq, component);
+ 
+@@ -1700,6 +1693,13 @@ static int cpcap_soc_probe(struct snd_soc_component *component)
+ 	enable_irq_wake(cpcap->mb2irq);
+ 
+ 	return 0;
++
++err_free_mb2irq:
++	free_irq(cpcap->mb2irq, component);
++err_free_hsirq:
++	free_irq(cpcap->hsirq, component);
++
++	return err;
+ }
+ 
+ static void cpcap_soc_remove(struct snd_soc_component *component)
+@@ -1708,6 +1708,9 @@ static void cpcap_soc_remove(struct snd_soc_component *component)
+ 
+ 	disable_irq_wake(cpcap->hsirq);
+ 	disable_irq_wake(cpcap->mb2irq);
++
++	free_irq(cpcap->mb2irq, component);
++	free_irq(cpcap->hsirq, component);
+ }
+ 
+ static int cpcap_set_bias_level(struct snd_soc_component *component,
+@@ -1754,11 +1757,24 @@ static int cpcap_codec_probe(struct platform_device *pdev)
+ {
+ 	struct device_node *codec_node =
+ 		of_get_child_by_name(pdev->dev.parent->of_node, "audio-codec");
++	struct cpcap_audio *cpcap;
++
+ 	if (!codec_node)
+ 		return -ENODEV;
+ 
+ 	pdev->dev.of_node = codec_node;
+ 
++	cpcap = devm_kzalloc(&pdev->dev, sizeof(*cpcap), GFP_KERNEL);
++	if (!cpcap)
++		return -ENOMEM;
++
++	cpcap->vaudio = devm_regulator_get(&pdev->dev, "VAUDIO");
++	if (IS_ERR(cpcap->vaudio))
++		return dev_err_probe(&pdev->dev, PTR_ERR(cpcap->vaudio),
++				     "Cannot get VAUDIO regulator\n");
++
++	platform_set_drvdata(pdev, cpcap);
++
+ 	return devm_snd_soc_register_component(&pdev->dev, &soc_codec_dev_cpcap,
+ 				      cpcap_dai, ARRAY_SIZE(cpcap_dai));
+ }
+-- 
 2.50.1
 
