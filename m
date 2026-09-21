@@ -1,71 +1,51 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11EFB136351;
-	Mon, 21 Sep 2026 03:47:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC4D78F3A;
+	Mon, 21 Sep 2026 03:48:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789962454; cv=none; b=UD03tpLpx9Vr0eqsLrRb/47m9FEr/TzGBVUKfv37zROLY1ZV3aNuZyZpoPMk6lnFU2bcHhOJn+LQ/BecsZOT4yNaIbmRtFlvYq9SXjl9af6DLTMuo95WNR++2Fee7V2XsB7X+hJ8duC8TyNaOdU/2SfJ6rfKHfj4566TXAvqnW8=
+	t=1789962505; cv=none; b=GfgJcN8iBW0Tstlm6KtsPp2DPKy5m3G3X4T/QBlTnLuwRirkxL/7fDjzF/k7ZXIgtV9/W1zyza0FlCTSJ1NQcqVUKupXsSCruUV4CThwqCtYlngh5G+B9uED1ayzsv9vnwuEZpv0aptSIdOu+vm2+Ve+b1OrTNmmnASXNrsCc6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789962454; c=relaxed/simple;
-	bh=KAkKDvhFORf2LGfFzHZLo3KGCvvHSMaEiCLfrj0YM7Q=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=gn0vJnWK8/t4LnZzcicHzuHU61CwY9r5lESWKmIp8IKm/G2Pw4jjwrTTDe83C1Q7c/MLUnAxRKbzs88ukZglsnsHqW5u7eUcbpu88UCG4JxY1ahVlNaVHB4EvBTA21N7BYK1hloIY5ueKXiHsDdLZSZDUCDWSkPwpeFVJr65Jiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=VYkMiv7W; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
+	s=arc-20240116; t=1789962505; c=relaxed/simple;
+	bh=JW77XHcXbaZUmt7s44GHCJtnB/MlCkgLLVdM3c03FxY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=XghOfULz+kYzHJ2stbQv8G4o3tgou0QZYQ9jLqDh4zGiX0r6yisEUaD4cJX93y9ii4styVreAwp4Sa41xuD7ZeHBfrmiYukEBfcWt0BQyfrgfTSk7/ivhyssDhAHmwxsDPXQ4oVNKJfv/zoI35mIg0SPDsxPZ0RBrYdmLlOBhSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aXFf1lpo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="VYkMiv7W"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68L3kXoD52233309, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
-	s=dkim; t=1789962394;
-	bh=KAkKDvhFORf2LGfFzHZLo3KGCvvHSMaEiCLfrj0YM7Q=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=VYkMiv7WfFsI4wqT3xs3o0U0ksuLZwwJC0DCtuStaboWSg5GfFa8fy9PUr69YnGE6
-	 TBbYdhYw1NUPhIuA16mYTPve7ghhcbKEypQEIb2QgV14fkQ0+u93gEcec4Z+huhD/O
-	 yuJtBrIUEHjRLzK+WfbdFccEf1MhopUwQJETBCI7zL5/SAFrVEJNMwDtJ4wPw+EcWa
-	 puLDSBA7+lsECcPxoi9srQrpqZwHsnXGvfJMAmt8vD1KciIbzgpVix/utN8lIIvYqn
-	 AO44Rnb4016fdqw2gHTgoDEJrbuVx2kPL0mbfq6GKycrJLmX5LNd1Wq/SQSJy9BA/B
-	 4BTU127Ckf2Yg==
-Received: from RS-EX-MBS2.realsil.com.cn ([172.29.17.102])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68L3kXoD52233309
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 21 Sep 2026 11:46:34 +0800
-Received: from RS-EX-MBS2.realsil.com.cn (172.29.17.102) by
- RS-EX-MBS2.realsil.com.cn (172.29.17.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 21 Sep 2026 11:46:33 +0800
-Received: from RS-EX-MBS2.realsil.com.cn ([fe80::d17c:2fd0:cf8e:635]) by
- RS-EX-MBS2.realsil.com.cn ([fe80::d17c:2fd0:cf8e:635%9]) with mapi id
- 15.02.2562.049; Mon, 21 Sep 2026 11:46:33 +0800
-From: =?utf-8?B?5ZGo5a+F?= <zain_zhou@realsil.com.cn>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni
-	<alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, Liam Girdwood
-	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Vikash Bansal
-	<vikash.bansal@nxp.com>, Aman Kumar Pandey <aman.kumarpandey@nxp.com>,
-	Lakshay Piplani <lakshay.piplani@nxp.com>
-CC: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-i3c@lists.infradead.org" <linux-i3c@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"mfd@lists.linux.dev" <mfd@lists.linux.dev>, =?utf-8?B?546L54Kc?=
-	<wei_wang@realsil.com.cn>
-Subject: =?utf-8?B?5Zue5aSNOiBbUkZDIFBBVENIIDMvNF0gcmVndWxhdG9yOiBydHM0OTB4OiBBZGQgZHJpdmVyIGZvciBvbi1kaWUgcmVndWxhdG9ycw==?=
-Thread-Topic: [RFC PATCH 3/4] regulator: rts490x: Add driver for on-die
- regulators
-Thread-Index: AQHdSOfKLIR/IAtYvU2nf5+oMdLbTLbW6X4AgAF7WJA=
-Date: Mon, 21 Sep 2026 03:46:33 +0000
-Message-ID: <fe92f1275efe4451978fc473cbad39dc@realsil.com.cn>
-References: <20260920100501.4091351-1-zain_zhou@realsil.com.cn>
- <20260920100501.4091351-4-zain_zhou@realsil.com.cn>
- <58c3ea87-b7df-4c68-b22b-5102c158d5f7@kernel.org>
-In-Reply-To: <58c3ea87-b7df-4c68-b22b-5102c158d5f7@kernel.org>
-Accept-Language: en-US, zh-CN
-Content-Language: zh-CN
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aXFf1lpo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A00621F000FF;
+	Mon, 21 Sep 2026 03:48:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789962503;
+	bh=wWj4XMbi50YlwTCH4OHzPxm8EUjOl3BKv4hKfkPzX/o=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=aXFf1lpoMeKQe8s8QReZs7bK8kZkAJhdAGBQp5PGD9AVrjSJNd/Te8zXKmrlmKqxW
+	 QaKldb1DjlPBSknmGTYWU4obdIkL/vhmnqhLxoNU0kdn7wgQxLzYtvPg8h/t13xXtq
+	 5zIdOF4oLxh1WsQaghosT02cg2WtKOEYZZvErK21aUQxjuqaynVmM7ZjWFMDYF1OHI
+	 JSSSqEJDRkN6jDqqkTVizLiy07NzGvIeP4oXbe1OZi87ioxBNRkm0e+Qjdqk9VmPOu
+	 b6gn4BHsgMKM3LlGLXX3XeYaer4XUOo3WC+4mrFRFUT6aJmdQVPthpdyQ+H6uiLSts
+	 iAkdtK3SJgaCg==
+Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: qcom,bam-dmux: Add
+ memory-region and qcom,vmid properties
+From: netdev-bot+sashiko@kernel.org
+To: vishnu.santhosh@oss.qualcomm.com
+Cc: stephan@gerhold.net, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, loic.poulain@oss.qualcomm.com,
+ ryazanov.s.a@gmail.com, johannes@sipsolutions.net,
+ linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ deepak.singh@oss.qualcomm.com
+Date: Mon, 21 Sep 2026 03:48:22 +0000
+Message-ID: <178996250211.2160803.6013516663876593386@kernel.org>
+In-Reply-To:
+ <20260920-qcom-bam-dmux-vmid-ext-v2-1-ef5ca2178378@oss.qualcomm.com>
+References:
+ <20260920-qcom-bam-dmux-vmid-ext-v2-1-ef5ca2178378@oss.qualcomm.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,10 +53,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-T24gU3VuLCBTZXAgMjAsIDIwMjYsIEtyenlzenRvZiBLb3psb3dza2kgd3JvdGU6DQo+IFlvdSBs
-ZWFrIE9GIG5vZGVzLg0KDQpUaGFua3MgZm9yIHRoZSByZXZpZXcuDQoNCkJvdGggcmVndWxhdG9y
-cyBhbmQgbm9kZSBhcmUgZGVjbGFyZWQgd2l0aCBfX2ZyZWUoZGV2aWNlX25vZGUpLCBzbyB0aGUN
-CnJlZmVyZW5jZXMgcmV0dXJuZWQgYnkgb2ZfZ2V0X2F2YWlsYWJsZV9jaGlsZF9ieV9uYW1lKCkg
-c2hvdWxkIGJlDQpkcm9wcGVkIG9uIHNjb3BlIGV4aXQsIGluY2x1ZGluZyB0aGUgY29udGludWUg
-YW5kIGVycm9yIHBhdGhzLg0KDQpDb3VsZCB5b3UgY2xhcmlmeSB3aGljaCByZWZlcmVuY2UgaXMg
-bGVha2luZz8NCg0KQmVzdCByZWdhcmRzLA0KWmFpbg0K
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
+
+Low priority / nit picks for your consideration:
+
+- [Low] SERIES-RESOLVED (retained for policy combination only): the
+  concern that the newly documented `qcom,vmid`/`memory-region`…
+- [Low] The `qcom,vmid` schema contradicts its own description: the
+  description states "The local execution environment is retained…
+
+--
+
+dt-bindings: net: qcom,bam-dmux: Add memory-region and qcom,vmid properties
+
+This adds an optional memory-region property pointing at a
+restricted-dma-pool reserved-memory node for BAM-DMUX DMA mappings, plus a
+qcom,vmid property naming the remote execution environment that is granted
+access to that pool via SCM. A dependency entry makes memory-region
+mandatory whenever qcom,vmid is present.
+
+> diff --git a/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml b/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml
+> index 33746c238513..5351269b0ab7 100644
+> --- a/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml
+> +++ b/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml
+> @@ -72,6 +72,24 @@ properties:
+>        - const: tx
+>        - const: rx
+>  
+> +  memory-region:
+> +    maxItems: 1
+> +    description:
+> +      Phandle to a reserved-memory node compatible with restricted-dma-pool.
+> +      The BAM-DMUX device uses the pool for DMA mappings.
+> +
+
+[Severity: Low]
+This isn't a bug, just a note for the record on an earlier concern that
+these two properties have no in-tree consumer.
+
+The companion patch in this series, "net: wwan: qcom_bam_dmux: Assign
+restricted DMA pool to remote processor", adds bam_dmux_assign_dma_pool()
+in drivers/net/wwan/qcom_bam_dmux.c, which reads qcom,vmid, resolves
+memory-region through of_parse_phandle() and of_reserved_mem_lookup(), and
+then performs the grant:
+
+    ret = qcom_scm_assign_mem(rmem->base, rmem->size, &src, dst,
+                              ARRAY_SIZE(dst));
+
+The pool attachment itself is handled generically by
+of_dma_set_restricted_buffer() from of_dma_configure_id(), so the
+"uses the pool for DMA mappings" wording is backed by existing code too.
+Nothing further appears to be needed here.
+
+> +  qcom,vmid:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    minItems: 1
+> +    maxItems: 1
+> +    items:
+> +      minimum: 1
+> +      maximum: 63
+> +    description:
+> +      VMID of the remote execution environment that is granted access to the
+> +      restricted DMA pool through SCM. The local execution environment is
+> +      retained automatically and must not be specified.
+> +
+
+[Severity: Low]
+Does the numeric constraint on qcom,vmid contradict its own description?
+
+The description says the local execution environment "must not be
+specified", but the only constraints are minimum 1 and maximum 63, and
+include/dt-bindings/firmware/qcom,scm.h has:
+
+    #define QCOM_SCM_VMID_HLOS          0x3
+
+So qcom,vmid = <QCOM_SCM_VMID_HLOS> passes dt_binding_check even though the
+binding text declares it invalid. The 1..63 range looks like it encodes the
+width of the SCM VMID bitmask used for BIT_ULL(vmid) in a u64, not the set
+of values meaningful for this device.
+
+The driver side in this series does enforce the rule, in
+bam_dmux_assign_dma_pool():
+
+    if (vmid == QCOM_SCM_VMID_HLOS || vmid >= BITS_PER_TYPE(u64))
+            return dev_err_probe(dev, -EINVAL, "Invalid qcom,vmid %u\n", vmid);
+
+so the outcome of a bad value is a probe failure rather than anything worse.
+Would it make sense to encode the same restriction in the schema, for
+example with a not/const 3 clause or an enum of the supported remote
+execution environments, or otherwise drop the "must not be specified"
+sentence so the prose and the schema agree?
+
+For context, neither qcom,rmtfs-mem.yaml nor qcom,fastrpc.yaml places value
+constraints on their qcom,vmid / qcom,vmids properties, so an enum here
+would be a new convention rather than an existing one; the narrow point is
+just the internal inconsistency in this file.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260920-qcom-bam-dmux-vmid-ext-v2-0-ef5ca2178378%40oss.qualcomm.com
