@@ -1,155 +1,95 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8787918859B
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:45:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789965927; cv=pass; b=SgpLrs2yO+xWg/M8e0oAf+QMTBUYU+Ob0Y2ZP3RxaaOP0S62vI6AEmYepEbdpWR6j8TwWeQ37UXr5JiL95wjdesFvTzJOKBXSw9L7ao4IzIQ8aIR46DbL+25QvsBxT8kb1XP5WBA2ksxF2LnrE1jwBEmL+L/MT9o9iTAdRI3KPM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789965927; c=relaxed/simple;
-	bh=3HIETohqPRiYfSTVCCWaaA/j95DFfsx7y+xQJdoYbzY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=m3SjSLMtEQRLYTXqtLg+znXRUWuwGvIDaaqqc/O3N+diyzSXZcx48CFpSQpw3+b7qPJrqRJVPOai777tLCJeidlKrAyCbpj+nADgcvsKWI+1chrSrOW7YCuL6yL6amHQrAA5mUyJch2IiGJDKw3qOYuwYEfDbpY03bOdNV9gBGg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com; spf=fail smtp.mailfrom=uber.com; dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b=3lY+SgFF; arc=pass smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16EF3340DB0
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:45:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789965964; cv=none; b=ERCxqLsXNmhCutfqzNkHzMXrWaWIgNnGXLt1Axl2reTLQEoLbkRl9MsdSczoMaqTA9blcFMaN93nsVSS1sZifDbLWM49BUH/Ea0Bld0qzMCn8XnMxq798uFR8VoC3LSy9vxdOGmCPr9TaQ20AGwdciUSXkQYiqOtTMwd4yYi6N4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789965964; c=relaxed/simple;
+	bh=tSW0xi6H90v70y06pFGW1xsaa4aHKqbJPW12mP4qadM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=mPgHyTy040+o+s8HjFNx4URfAnKZDJR67tdN5wn4FARwZHCY9rul2dW/IrfokXB2dfbk82KinAl2LMdkAO8cKnuuqwaYCVfzcphX5fbHxGsQrl8a87LXEu/o5foOtPIhXys5m45EQIGaa3kSUQ5Nr3zc//AYqRft+JvirYobu2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=KEJWj9f/; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b="3lY+SgFF"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e56a1fe83so2086989d50.2
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:45:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789965925; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QFTBRcdVLnPm4w8oy60qWxAis/G8r2X8PwLYGObPEbn8MfDAMmGJYWGndFIrabbwj8
-         WlVUYoVsN+o+sbEf+xoH/WAsUUtxHBg5o5aQPTyi0MDHAmRkBNkMwQkcorTj57ztSGyh
-         KTV58Gj1yeVDYPTQEony67WvWMeEh/zXXU5m3QJrmOF+2AFQkkXwJ61qjRBi0isfADMf
-         gm7QuuwP5+UlPlNZ/ki7+D+f0EiqIfVNmZL8d+Tss/7OT/+UtPjv9tEpyLRqLDgQNmJp
-         7YsVTr1gZ/jgGLW2wWjrrmfH54rC6GFlYSNHNaMFf1yJrbYZR7ShaV2nzf8Hy36V86MB
-         S+WA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BI5PV8JEsmgNBkZ9uF5itWDVqgLrnZZn4wXuURr5w1k=;
-        fh=/vbcQg7W21J9JEfr/w77E6hba+b3bEKgxgTuvAcqsSc=;
-        b=K95NBDZ1/rCTsYyipzPdkskHaZ4SFcAY9p9ZrfV9yooXa6c6NIL2Bk4/E1/fqmiHLe
-         AlSKrZCMUMk6QxPrT/aKvAsEFHfOyK7jKHb+MUK4hwTuP92EO1X/rHKZgY7qBvB+W9Yz
-         sQgMzPb3nDDDAwMs3sYX25ORR59WY6p8KizBHR80Q/yj9kmJz4U2pVnis19fzCFIH1d3
-         81Aa0ifXTVU6AFIUseIpnpyQbrtbc4p4azqODIkjpRm+eWDRKgoDb/FeqaTSAc29M0lI
-         s6WWR606plRu7nMH4kPK/yFgoLwz1TLPUxki2h3pj7ZtLDXg2Ic79iJpdN8UckinRte+
-         ICnw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=uber.com; s=google; t=1789965925; x=1790570725; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BI5PV8JEsmgNBkZ9uF5itWDVqgLrnZZn4wXuURr5w1k=;
-        b=3lY+SgFFQBwsvGrfy8CaWjC7ilWULy1BDuOPv1rEK2ho9plmgQOumNOHBiIIJieF9Q
-         vx30netqkxm/DebN2WnRLLCYaPK3bjwJKsVZhD+f39WRgLe4sj5bQU6G8DWRNrqENiQi
-         muZDpormgflcF1kNGUgwShoKt6nr0qjXyoW94=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789965925; x=1790570725;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BI5PV8JEsmgNBkZ9uF5itWDVqgLrnZZn4wXuURr5w1k=;
-        b=cbWhGF46SUr4KT6b/yrByW+aK6vLVlyES2Mue2N0ZaVJ/oOAcSguIGyWwRwrUGHbp2
-         AEC9xT60LyvFhCTxr1wsHtrRyxpOB9cNu/peUSmG0RqHsVl3ZKK/A98aSdRkCaItnqsE
-         qj47F0NXxbp5zdulK79G5oPul0GiFaXq9SspHXhXxzujEONnHGQjr1iNCrNvuFXNUCTM
-         Ch9hxj2w2WMR4JbD1k9S7I4HdShUVQCKOXU7jAvYgeuc4Hmepf7gK3cXY5r+QcCkMTD0
-         YGuQYmsFchFEmCrZcseGUYMIjz5EjzUYPJ25JMMTuGWlk6qY0aJQu6uC8TSOlvN2u1EE
-         wXcA==
-X-Forwarded-Encrypted: i=1; AKwUvBzrf+IlnzOq7ZIgl/bD1OF3YzP/rwsjuQH6lJ9iTlX36Qfgceo+0RuqQtPa/CYcOe8RqLVOm5z2jijb0Ds=@vger.kernel.org
-X-Gm-Message-State: AFuF++nIPvg4UF8KuGgrh2hUIZ/CiQJ1qOZe+jBeH0rpAWcFgTRY86wC
-	qs04XARm9Fitn4J/lqXjQiWEduYhfp8ScYO2IEssHIXHTMor7xYT1jqPY/2MTi+MYOcqbS7Jh9E
-	4t2mxWF2uUaE6zN/Vv9hgWWO4faNVIp++2mprDzh4Xw==
-X-Gm-Gg: AYBFou2wXfQFm+CtDuzhHE2maTWkmQfKZRUbq84JAu989wJsZwTL1ZH4sGcCtRbsYeZ
-	6LOWVNEAm3sdCCrXiJzyXsJQlD9fL+iDk3GR8SjAsQ65kZNv9Anwvoy/ZxQwn18D2OgkWpfN5Ur
-	msW3KFe93u2lS5Rr0Mnrajjv4GRZBnGkGBmcZM3KD6QH17a11LH3fa4ViDE68jPlvDcRnz0G3sC
-	8ad6pdBdYyAXw2hD+Wgq4Wj/d0DfBMZIUpbQP0Y35aHq5IiTDG+mAYw6Uw/2y5yiCuJ4cSOKZ+c
-	hEaBElZwFnR9VeJGVLEhU0sQgIOa6ssbvzwKdDtC29vW+F7008GDeyDTs5iZFkskgPPHWQOxtx6
-	PWTlmw/nIFb1d
-X-Received: by 2002:a05:690e:806:20b0:671:631:785c with SMTP id
- 956f58d0204a3-6717fd9b0d7mr1841359d50.57.1789965923516; Sun, 20 Sep 2026
- 21:45:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="KEJWj9f/"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=Jc3d/hniVBdnamx4RuF2pd5ZOvSkp+a/d5A38FTQZiE=; b=KEJWj9f/u4HSlmpP23wU0e2Aun
+	tnV4phamj/Ry3Eb/xS88O+PkIse0esEMpat3JOm0pa2/316kHyox0/2IusbnJ0mmNFKGp+JSxEnHU
+	CkMCpmTXNrDYEx7MpuTsTZLLQYiyv2wuH3pGPuS5X/sCqyeA2vwUyKCx6L1tcHwc4TuNH9ej+GaRC
+	aUgzRReuUImkeVkOTUU+zHz5Xdl3fC+qbnrETy1/HEp87pa3sd3DZ1HbEbwASfM+W4cNHuxvX9/cn
+	KD0fWQBqgttypH5KDpjVylHIoKTOd6nBcNHzaDTJVgUAmatUNpk+jUTJId5CLTe4UQgvwt9ncjBrZ
+	kyQ37aSQ==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x8Vuf-00000000qxu-0Cs2;
+	Mon, 21 Sep 2026 04:45:57 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	=?UTF-8?q?Jean-Fran=C3=A7ois=20Lessard?= <jefflessard3@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: [PATCH] docs: ABI: auxdisplay: use literal blocks for commands
+Date: Sun, 20 Sep 2026 21:45:54 -0700
+Message-ID: <20260921044555.90187-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260919-perf-symbol-memory-send-v2-0-495b8f00ad7c@uber.com>
- <20260919-perf-symbol-memory-send-v2-3-495b8f00ad7c@uber.com> <arB4G744iWiSPAnV@z2>
-In-Reply-To: <arB4G744iWiSPAnV@z2>
-From: Alireza Haghdoost <haghdoost@uber.com>
-Date: Sun, 20 Sep 2026 21:45:07 -0700
-X-Gm-Features: AcwNN1VO_qCFY9m4mP87ZE5UPrksR7jfkJOOvczZnZ-njyecDFIgbzlRdTw4DNI
-Message-ID: <CA+w=M=R-i1+8p7SDLueMHV8Fv5yupXR+ongVCbeAKGyq8UjsQA@mail.gmail.com>
-Subject: Re: [PATCH v2 3/4] perf script: Add --lazy-load-symbols for lazy
- symbol loading
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Alexei Starovoitov <ast@kernel.org>, 
-	Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-> > +
-> > +     if (!symbol_conf.allow_aliases) {
-> > +             u32 out =3D 0;
->
-> I think we agreed to factor out this block of code.
->
+Use literal blocks for console I/O to separate it from the
+surrounding text. Otherwise the lines run together, without any
+clear break before or after the commands.
 
-You=E2=80=99re right. I interpreted the earlier request too narrowly and on=
-ly
-factored out the pairwise selection policy into symbol__choose_best().
-I=E2=80=99ll factor out the complete block in v3.
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+---
+Cc: Jean-François Lessard <jefflessard3@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>
 
+ Documentation/ABI/testing/sysfs-auxdisplay-linedisp |    9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-> > +
-> > +     /*
-> > +      * Keep an exact-path data DSO for the symbol source.  This may d=
-iffer
-> > +      * from the runtime image (for example, split debuginfo), so usin=
-g the
-> > +      * primary DSO's data cache could read an unrelated string-table =
-offset.
-> > +      * The standard DSO data cache manages descriptor eviction and re=
-opening.
-> > +      */
->
-> Yes, it's a known problem and I hope to address it soon.  Can you please
-> make the path handling a separate commit?  I think it's an independent
-> fix for split debuginfo.
->
-
-Ack. I=E2=80=99ll split the exact-path DSO data-cache support into a separa=
-te
-split-debuginfo fix and have the lazy-loading patch build on top
-of it in v3.
-
-> > +static int choose_best_symbol(struct symbol *syma, struct symbol *symb=
-)
-> > +{
-> > +     return symbol__choose_best(syma->end - syma->start,
-> > +                                symbol__type(syma), symbol__binding(sy=
-ma), syma->name,
-> > +                                symb->end - symb->start,
-> > +                                symbol__type(symb), symbol__binding(sy=
-mb), symb->name);
-> >  }
->
-> To reduce the size of the patch, I think it's better to split this as a
-> separate commit.  Please consider minimize the patch size in general to
-> help reviewers. :)
->
-
-Ack. I=E2=80=99ll move the shared duplicate-selection refactoring into a
-separate preparatory commit to keep the lazy-loading patch smaller in v3.
+--- linux-next-20260918.orig/Documentation/ABI/testing/sysfs-auxdisplay-linedisp
++++ linux-next-20260918/Documentation/ABI/testing/sysfs-auxdisplay-linedisp
+@@ -11,7 +11,8 @@ Description:
+ 
+ 		Writing an empty string clears the display.
+ 
+-		Example:
++		Example::
++
+ 		  echo "Hello World" > message
+ 		  cat message			# Returns "Hello World\n"
+ 
+@@ -23,7 +24,8 @@ Description:
+ 		Read-only attribute showing the character width capacity of
+ 		the line display device. Messages longer than this will scroll.
+ 
+-		Example:
++		Example::
++
+ 		  cat num_chars		# Returns "16\n" for 16-char display
+ 
+ What:		/sys/.../scroll_step_ms
+@@ -35,7 +37,8 @@ Description:
+ 
+ 		Setting to 0 disables scrolling. Default is 500ms.
+ 
+-		Example:
++		Example::
++
+ 		  echo "250" > scroll_step_ms	# 4Hz scrolling
+ 		  cat scroll_step_ms		# Returns "250\n"
+ 
