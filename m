@@ -1,49 +1,60 @@
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A09413403EA
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:06:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865D93AC0CD;
+	Mon, 21 Sep 2026 07:06:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789974402; cv=none; b=RuoLu6ipUNNuHfA20Nj33gh26eY9PMvUgpUpW/X0QIwcTbjEl4zXvlF6brehCl5rKzaGVp3grLppWyi6l4Em5KeCWm4bZYokTzNyZ1ac2yY7iE+SKiKfDm9YTzYNSNjMqRCKU2NAUZAchwS7ilzQjqvrcUS26XSslBr51CsjLeA=
+	t=1789974402; cv=none; b=r0Gs8CaSpmRIIWur8LvCtPBwWISdyYovx/7ZK7RDwik6bcKe+eYXSvX3/OzmnAA16RZ6WfYPLaA7IFGPwPYhR4EbLdbo3kwIXoRF/IDPomqbok+RdVyviLfuggAuaHfFkAQ3isytJYj67VhpawtNV4163cZoTtxVgUR4vkWsE6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789974402; c=relaxed/simple;
-	bh=FBRSPzbB4uukAf1sfQ5+80EUwCelQB0CoRDmp9fGQbM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=gcYi0/7UvK4tbqkeCwpbYOsKvOfXSMwUIVcJMJqn3kVqksMvnSSpYJ2mffMUOHpeD5izhpqpPeqccVrptyYulSZEyz/rrldDgIJt/RM7wtBRow58JQZ8bvioSAjRPQqwJ1G4YW356yhMg88VjPFFEKyPb5IDAg8iLOLbaWCEChw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=goVdX1Fn; arc=none smtp.client-ip=203.254.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	bh=bPFctwbE6NbE958TS53SJjhUXr8bObgY2FGH1qFcCEU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WqfQR3SmZDlpZWoPVyk5lzPDIMgTwr7EnWBiAcPvVjFnCUQ0Euu07BOfV6XACyGc/Zc6RnqCVRqfFu5N4UqsHKoC7lQ5JdycExY9Cnh4QIIi5iVgCv8MwV3hOpS0Rwd4KprKZBYERYNildEk5t+eEEd5ngGG6h5zOzFmVVNB1Cc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=S2n/r1UD; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="goVdX1Fn"
-Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260921065655epoutp040b61a7bed87cc0963737280f82b22716~XQ7OM3ewa0334903349epoutp04q
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:56:55 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260921065655epoutp040b61a7bed87cc0963737280f82b22716~XQ7OM3ewa0334903349epoutp04q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789973815;
-	bh=Sx9FOoxQvuZUypmVC0L6B51Mmvypr521KEqVNA4oNV8=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=goVdX1FncYEd3pI6dsvnVNdzUTIqA0vViaaeK8F5vtUchD0NHG62ilZxYVzTBzKvD
-	 ztBN9uJJR/0n82cIOA7QwqKUJLQ+b4KVi4lE3BarsSSVNT7EaqgnnJMdOMCNAoj1Si
-	 Gis6ngakfZdVO+mvzEjK1Po2stJnvQ1WDQNH2ifk=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20260921065654epcas5p14a6ad095d4ed94fb6d6020c63eb2bd5a~XQ7NtefSx0329703297epcas5p1v;
-	Mon, 21 Sep 2026 06:56:54 +0000 (GMT)
-Received: from epcas5p4.samsung.com (unknown [182.195.38.86]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4hpDYK5HSwz2SSKb; Mon, 21 Sep
-	2026 06:56:53 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260921065653epcas5p1c783affc2f314e0b1af785fda147c904~XQ7MIkaRz0329703297epcas5p1s;
-	Mon, 21 Sep 2026 06:56:53 +0000 (GMT)
-Received: from [107.122.5.126] (unknown [107.122.5.126]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260921065650epsmtip23f6c0e3a72a231b4984b198b7aab69cf~XQ7JWDkr72462824628epsmtip28;
-	Mon, 21 Sep 2026 06:56:49 +0000 (GMT)
-Message-ID: <ad11251d-6632-498d-95f6-04a7c6dade72@samsung.com>
-Date: Mon, 21 Sep 2026 12:26:48 +0530
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="S2n/r1UD"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L3ZgYa265483;
+	Mon, 21 Sep 2026 07:06:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=mJp+DU
+	vQW3PJ0dBQYyzLoX9Z1L7YVSe7JJAr6wex5kc=; b=S2n/r1UDmm13k8Fu8BgFPk
+	GVhiKaUvXGR4j8JRSIQ6PJOOwOqiRyGtUpvFHL8cq7dkYjbVhbhP85imMFUzb2Jh
+	GzZ8tryenMz7OhCM4rbBd31rZFoB1oqDzYv0gxcK60Q8lUo5X7sTkFS6RnBTMQBy
+	V0d+2k1Y00IVV2ixCNh68m7Eyv43pE6hxrCVfTt/pIhE4Uw/qSjdiWsKizH8ZfgP
+	i6xxWmpmCK1BCP4eCVycrK4oNBaDHAEeTKZ0atRLBAtxSXYVlL/jOcBrBBjuP3Nc
+	z6lIm3cQ8nBd+vNibEAw1xv+KYM6exF5BVfIsf4IatRe3+9+mGakM+mhbGK515Mg
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskg277pq-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 07:06:32 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68L3XYYE1596418;
+	Mon, 21 Sep 2026 07:06:31 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gt7dy3yf2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 07:06:31 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68L76ROq51118422
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 21 Sep 2026 07:06:27 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CC2B82004B;
+	Mon, 21 Sep 2026 07:06:27 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 45B8320040;
+	Mon, 21 Sep 2026 07:06:27 +0000 (GMT)
+Received: from [9.87.147.142] (unknown [9.87.147.142])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 21 Sep 2026 07:06:27 +0000 (GMT)
+Message-ID: <06158c64-6d2c-4dda-a742-0ef7b2cd0583@linux.ibm.com>
+Date: Mon, 21 Sep 2026 09:06:26 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,185 +62,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] dt-bindings: usb: Introduce samsung,snps-dwc3
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: peter.griffin@linaro.org, alim.akhtar@samsung.com,
-	gregkh@linuxfoundation.org, robh@kernel.org, conor+dt@kernel.org,
-	Thinh.Nguyen@synopsys.com, mani@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, jh0801.jung@samsung.com, h10.kim@samsung.com,
-	dh10.jung@samsung.com, akash.m5@samsung.com, hongpooh.kim@samsung.com,
-	eomji.oh@samsung.com, shijie.cai@samsung.com, muhammed.ali@samsung.com,
-	thiagu.r@samsung.com
+Subject: Re: [PATCH] KVM: s390: gmap: use assign_bit() where applicable
+To: Heiko Carstens <hca@linux.ibm.com>,
+        "Peng Fan (OSS)"
+ <peng.fan@oss.nxp.com>
+Cc: Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Steffen Eiden <seiden@linux.ibm.com>,
+        Christoph Schlameuss <schlameuss@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
+        kvm@vger.kernel.org, linux-s390@vger.kernel.org
+References: <20260920022642.3145674-1-peng.fan@oss.nxp.com>
+ <20260920161808.18515Ba3-hca@linux.ibm.com>
 Content-Language: en-US
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-In-Reply-To: <7fbcf497-a166-45d6-844d-faaece6f581c@kernel.org>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260921065653epcas5p1c783affc2f314e0b1af785fda147c904
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260916122354epcas5p401fd6470d6cef75951af732b03aa5970
-References: <20260916122229.2604003-1-selvarasu.g@samsung.com>
-	<CGME20260916122354epcas5p401fd6470d6cef75951af732b03aa5970@epcas5p4.samsung.com>
-	<20260916122229.2604003-3-selvarasu.g@samsung.com>
-	<20260918-burgundy-marmoset-of-focus-c9b9a7@quoll>
-	<fef2b2f5-3838-4eec-8118-d41f9ca0ed2f@samsung.com>
-	<7fbcf497-a166-45d6-844d-faaece6f581c@kernel.org>
+From: Christian Borntraeger <borntraeger@linux.ibm.com>
+In-Reply-To: <20260920161808.18515Ba3-hca@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: Z-Jv3k5KItJsQIGYjSeI0Z4-iqq8Q86W
+X-Authority-Analysis: v=2.4 cv=I43w19gg c=1 sm=1 tr=0 ts=6ab0d778 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=8AirrxEcAAAA:8
+ a=RxYoiiObWgdx8EDIwDoA:9 a=QEXdDO2ut3YA:10 a=ST-jHhOKWsTCqRlWije3:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEwMCBTYWx0ZWRfX7iTHgGr9/FYz
+ 2lsHuS/ZWLgpa+kyzt4FP51ZzDkKImS7LTnxp/c9vP6d2JwKk+BiJoEhUx/ls8ZkcYMpWvOkpUm
+ hf20HP1WB71BD6JWg8DbcR+dfqxoFIy/7uxJ6+0uv/84ZfAu5EtE4/7V6UYEnC3pkzC6itRH6sA
+ 7FetI4DIj4zpJYquTONfonHxX0ReU8s15pCR9IwrbxWttdJsyW767lkh7Cm0xAsZzG2V8784Xba
+ 2tZu4fLB1hXdbh1x0Oeqm/wJF3ry/gfF8BT0sPrpYIS7NXTgoGi3U5lASc/O9Bu5KVUxNex3foU
+ CzTCRmaFwgqL1/LZ2WlO9x5EIXksvKJuCaMIsQKNQyKmnbOnPFB/Ety75+krt4y2EO86+Zhfsy7
+ bg1Vi8afW73pk++ohuF9IQWnf5xFOf/pubLT9JovqZoG/iWbL2J/9tQNJS7rzcy4XmEHNhucwTr
+ 3fECrgk9YKzzHo/uxiQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEwMCBTYWx0ZWRfX5pfWzPXQ6n79
+ mPFSm7oihYJfib50oLRDAyH21tsqSgM4u5iTJK1yvDWqwE5/zZOOLH6CC1smHBF9nn8gk1p4z/E
+ ekkzlNHV/ylhDShV578bGJ4slH5x034=
+X-Proofpoint-GUID: Z-Jv3k5KItJsQIGYjSeI0Z4-iqq8Q86W
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1011 adultscore=0 suspectscore=0 impostorscore=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210100
 
 
-On 9/18/2026 7:16 PM, Krzysztof Kozlowski wrote:
-> On 18/09/2026 15:36, Selvarasu Ganesan wrote:
->> On 9/18/2026 3:24 PM, Krzysztof Kozlowski wrote:
->>> On Wed, Sep 16, 2026 at 05:52:28PM +0530, Selvarasu Ganesan wrote:
->>>> +maintainers:
->>>> +  - Krzysztof Kozlowski <krzk@kernel.org>
->>>> +  - Selvarasu Ganesan <selvarasu.g@samsung.com>
->>>> +
->>>> +description:
->>>> +  Describes the DWC3 USB controller block implemented on Samsung Exynos SoCs.
->>>> +
->>>> +select:
->>>> +  properties:
->>>> +    compatible:
->>>> +      contains:
->>>> +        const: samsung,snps-dwc3
->>>> +  required:
->>>> +    - compatible
->>> This select is not needed.
->>>
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    items:
->>>> +      - enum:
->>>> +          - samsung,exynos8855-dwc3
->>>> +      - const: samsung,snps-dwc3
->>> And this fallback is not really accurate. Samsung does not have snps
->>> device, because snps is a vendor. Anyway, generic fallbacks should go
->>> away, drop, so you are left with samsung,exynos8855-dwc3 only.
->> Hi Krzysztof,
+
+Am 20.09.26 um 18:18 schrieb Heiko Carstens:
+> On Sun, Sep 20, 2026 at 10:26:25AM +0800, Peng Fan (OSS) wrote:
+>> From: Peng Fan <peng.fan@nxp.com>
 >>
->> Thanks for your review comments.
->> And We apologize for our repeated below explanation, but we wanted to
->> ensure our intentions were clear for each point to avoid any
->> misunderstanding.
+>> Convert open-coded if/else with set_bit/clear_bit to the assign_bit API.
 >>
->> The original intent of the generic fallback was to support existing
->> Exynos dwc3 bindings from a parent/child representation from
-> How does it support existing bindings? I don't understand. There is no
-> such fallback in existing bindings.
+>> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+>> ---
+>>   arch/s390/kvm/gmap/gmap.c | 17 +++++------------
+>>   1 file changed, 5 insertions(+), 12 deletions(-)
+> ...
+>> -	if (test_bit(GMAP_FLAG_ALLOW_HPAGE_1M, &parent->flags))
+>> -		set_bit(GMAP_FLAG_ALLOW_HPAGE_1M, &child->flags);
+>> -	else
+>> -		clear_bit(GMAP_FLAG_ALLOW_HPAGE_1M, &child->flags);
+>> +	assign_bit(GMAP_FLAG_ALLOW_HPAGE_1M, &child->flags,
+>> +		   test_bit(GMAP_FLAG_ALLOW_HPAGE_1M, &parent->flags));
+>>   
+>> -	if (test_bit(GMAP_FLAG_ALLOW_HPAGE_2G, &parent->flags))
+>> -		set_bit(GMAP_FLAG_ALLOW_HPAGE_2G, &child->flags);
+>> -	else
+>> -		clear_bit(GMAP_FLAG_ALLOW_HPAGE_2G, &child->flags);
+>> +	assign_bit(GMAP_FLAG_ALLOW_HPAGE_2G, &child->flags,
+>> +		   test_bit(GMAP_FLAG_ALLOW_HPAGE_2G, &parent->flags));
+> 
+> This turns something which was easily readable into an unreadable mess.
 
-
-Sorry for the misunderstanding, Yes there is no such a fallback in 
-existing bindings.
-
-Our intention was to use new proposed generic fallback compatible string 
-that will support USB dwc3 flatted node for all Samsung soc when those 
-are migrated in the future without adding SoC specific compatible string 
-in driver.
-
-Agreed, Here using generic fallback name (samsung,snps-dwc3 as a 
-reference of qcom,snps-dwc3) is incorrect as snps is vendor not a device.
-
-As per DTS101 slide , Now we clear that the future Exynos SoCs could 
-use  samsung,exynos8855-dwc3 as a fallback when they are compatible with 
-the Exynos8855 hardware definition, rather than introducing a generic 
-samsung,snps-dwc3 fallback. The dedicated compatible would still 
-describe any SoC specific differences, such as clocks.
-
-And Understood that we were mixing the current Exynos8855 binding with 
-the longer term migration plan for the existing Exynos SoCs and future 
-SoCs.
-
-We will drop the generic fallback and use SoC specific compatible 
-samsung,exynos8855-dwc3 (vendor,device), following 
-samsung,exynos-dwc3.yaml as the reference.
-
-Regarding the binding filename, if the flattened representation is 
-expected to support multiple Exynos SoCs where there is only differences 
-in clock in the future, similar to how samsung,exynos-dwc3.yaml covers 
-multiple SoCs with the legacy (parent and child) node representation, 
-should we use a common binding filename for the flattened representation 
-instead of a SoC specific name like samsung,exynos8855-dwc3.yaml.
-For example,
-     samsung,exynos-dwc3-flattened.yaml.
-
-
->
->> (samsung,exynos-dwc3.yaml), and upcoming SoCs (Exynos 8865, 9955, and
->> 9965) can use this flattened representation without requiring a unique
->> compatible string for every project in the dwc3-generic-plat driver
-> I did not forbid you to use fallbacks, so I do not understand why you
-> would need unique compatible for every device in the driver.
-
-
-The intention was to avoid adding separate compatible entries to 
-dwc3_generic_of_match[] for each Exynos SoC.
-
-We understand that adding SoC specific compatibles is the correct 
-approach, as follow in samsung,exynos-dwc3.yaml.
-
-
->
-> This is already heavily documented and explained in beginners docs.
-> Please read writing bindings docs and maybe also DTS101 slides. I even
-> gave the talk DTS101 two months ago in your timezone...
-
-Thanks for pointing out the DTS101 slids, and we referred again the 
-binding documentation including DTS101 slids for further clarification 
-on the using of fallback.
-
->
->
->> of_match_table. We referred to qcom,snps-dwc3 as a helpful reference for
->> this approach.
-> When people argue with me, they use more often poor examples as
-> reference, not the good ones. Interesting pattern.
->
-> And why you did not take the proper example you even mentioned here -
-> Documentation/devicetree/bindings/usb/samsung,exynos-dwc3.yaml - as
-> reference?
->
-> Anyway, existing bug is not a reason to add new bug, don't you think?
-
-Agreed and As we mentioned in above comment, we will use the existing 
-samsung,exynos-dwc3.yaml as the reference for the Samsung binding and 
-drop the qcom,snps-dwc3 reference.
-
->
->
->> As seen in samsung,exynos-dwc3.yaml, our existing bindings already
->> support multiple SoCs with diverse clock requirements within a single
->> file. Similarly, we plan to use a single flattened Samsung binding to
->> manage these diverse clock requirements. for different SoCs.
->>
->> Regarding the migration for current and future SoCs, would you prefer,
-> I do not understand how any of this is relevant to my review comment.
->
->> Option A: A single flattened binding file using a common fallback
->> compatible string (instead of samsung,snps-dwc3) to minimize
->> of_match_table entries, and if/then constraints to handle diverse clock
->> requirements.
->> Option B: Separate binding files for each individual SoCs.
->>
->> Could you please let us know your preferred approach? Once confirmed, we
->> will address your other review comments based on the selected approach.
-> You do not have other bindings. You have one device. If you have more,
-> then post more. We are not making reviews based on imaginary future things.
-
-Understood. As mentioned above, we are mixing the current Exynos8855 
-binding with the longer term migration plan and will keep this binding 
-focused on Exynos8855 only and handle other SoCs when they are actually 
-migrated.
-
-Thanks,
-Selva
-
-
->
-> Best regards,
-> Krzysztof
+I agree, this is not a good use for the assign_bit helper.
