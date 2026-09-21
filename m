@@ -1,150 +1,132 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99BB24AA01E;
-	Mon, 21 Sep 2026 14:53:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8083F4A9D49;
+	Mon, 21 Sep 2026 14:53:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002429; cv=none; b=Z6QuOZ5al16Frk8QLsVdqHmM5hzhR92oMK8IDZdm/4glXW+f347/WuUcj6kxzQpsj1v+KZxz3PgSwEfdw2Envp8RSreAz+/VI3NSKWjL5vsFw5oERLNiN7GmEnpcRvIE2c2oTHjrsNWCQb6+vWPVGaSQINSkK4Nz8jcnCMyf/RM=
+	t=1790002431; cv=none; b=urz1qqx+qx/PP3rUOmCxFE0JMLiJIXYVAbDmXerFwvZ08FEJOWuMNjUUNpI6TzITRa53+AcVgqHt/0g3IQmJFqerlsVZPPSG2QBPazQUcq3hvL9tEyuhGm1LMGINrPCqULJu8213l8UrhcupHom9Pd/de8NJ9ZF/Bzbi87804ZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002429; c=relaxed/simple;
-	bh=4Bpri0Hocpd0wbzg2zXh/boalmxJpON/kxjJ8Sj/g2w=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GVPl09EYUS5SNOs7N0fSDagOAi/Rlq6IR+WxCB7K9ZUehHth3OuIqWy39Mwb4NvyVV2BoP80SVy57FHIwIMcBhKU9ZyZCsu6TxQYUHViVEIs6Xax1CsaiVj3S2f/8c7T41/xNtYqyV3cpckBhDnnvhd+cTO/fYW8o6D3cnLEP7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ugreen.com; spf=pass smtp.mailfrom=ugreen.com; dkim=pass (1024-bit key) header.d=ugreen.com header.i=@ugreen.com header.b=LtExIP4F; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ugreen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ugreen.com
+	s=arc-20240116; t=1790002431; c=relaxed/simple;
+	bh=fNgI8dSAL/QSamBcLWF2pCT0hdNYcmEfkDleWfFn9pk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=olvcka1wx4G0FQV0byJM8akGXO3EIRzuHBiwTAakSeW9OJLLsC3xRnPq150lEUfwx0jjySRReDEvBC+jJ4wyD4IVEg0C9lM7nl1dmx7qO/QPlqj/UOfZul2h8I+AdFNTuQUYDWmtFly7LpoOxo4fZoMrXnYNx+DTQQ6Tw8WbPok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=wjKH0kKw; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ugreen.com header.i=@ugreen.com header.b="LtExIP4F"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
-	s=pkvm2402; t=1790002341;
-	bh=DDAaa1F91a2uXcvELqYpoY0Uex2flJHewqG438s8Nng=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=LtExIP4F+P4zXZYWE5TxuG1kal4zya5PNys4S4wThu42SZC5yEHDGq1h12hDXEwY/
-	 z59qpBImHC3YvZKPqpZ8jR57vYQJVTQK2Cwc/4DOLRD9r4xq3lSEb9xeoA2rOsXGbY
-	 zP7V3q9+bqA1Itj+jhhZSqN+XicOCH0kFH1VT0WU=
-X-QQ-mid: zesmtpgz4t1790002339t77d810b4
-X-QQ-Originating-IP: /1zCkF4r1ByOjBgitBdFmNKv/lSkCl3l6thqO/ytb+Y=
-Received: from localhost.localdomain ( [14.153.230.193])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 21 Sep 2026 22:52:16 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 1951430817536170771
-EX-QQ-RecipientCnt: 8
-From: Haowen Bai <calvin.bai@ugreen.com>
-To: Keith Busch <kbusch@kernel.org>
-Cc: linux-nvme@lists.infradead.org,
-	linux-pci@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="wjKH0kKw"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id CDBA5C23D92;
+	Mon, 21 Sep 2026 14:54:33 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A84CB5FFB2;
+	Mon, 21 Sep 2026 14:53:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AA64210329195;
+	Mon, 21 Sep 2026 16:53:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790002426; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=bqWTaa9P4726wAp8OdJXg008Zn0xKz5pVT9+3dq+cYU=;
+	b=wjKH0kKwXUoTKdXHzriac92HdpU2dj8rCvbyOgJMh6fKpxDTH4GPexupJy9Y6HwXFysMvS
+	1Ox9sbBVk1YzqZ1hjrgRurFpOLgT4sARPhxZ2wzuQrwbmfDC5qUI2zs/bNJ5UI+8XG+UGn
+	Vh8gwiU1pHmeFt/8SOZ5chWRcMPsL2NSRbJcmVRnKcc+M6C7IUh9JGEe0HDa3ZRkRrjG9R
+	nF3QWgAnTguWT1ve1HZ3baBMJlZiDzD+V0cQJuoXhj3P5YI9BE3QC0E+u9yu5pAlKqcBF+
+	UAf5m2hUDeHzS1AWYssqXNKBiG3pXVZtyLHpP7R72xnPeylio00aVAwDHr5wxw==
+From: "Richard Genoud (TI)" <richard.genoud@bootlin.com>
+To: Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Tero Kristo <kristo@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Udit Kumar <u-kumar1@ti.com>,
+	Abhash Kumar <a-kumar2@ti.com>,
+	Beleswar Padhi <b-padhi@ti.com>,
+	Thomas Richard <thomas.richard@bootlin.com>,
+	Gregory CLEMENT <gregory.clement@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Haowen Bai <calvin.bai@ugreen.com>
-Subject: Re: [PATCH] nvme-pci: skip FLR after a failed controller reset
-Date: Mon, 21 Sep 2026 22:52:13 +0800
-Message-Id: <20260921145213.3003488-1-calvin.bai@ugreen.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260921140732.2942207-1-calvin.bai@ugreen.com>
-References: <20260921140732.2942207-1-calvin.bai@ugreen.com>
+	Richard Genoud <richard.genoud@bootlin.com>
+Subject: [PATCH v4 6/7] arm64: dts: ti: k3-j722s-ti-ipc-firmware: Reserve memory for LPM metadata
+Date: Mon, 21 Sep 2026 16:53:24 +0200
+Message-ID: <20260921145325.300025-7-richard.genoud@bootlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260921145325.300025-1-richard.genoud@bootlin.com>
+References: <20260921145325.300025-1-richard.genoud@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-1
-X-QQ-XMAILINFO: Nv1Zs1ssfOILGrJCRGOrwrgGuBp5oJ+5Z2QXhccJ9EyqEqj7+8vsMm31
-	59wwJIA9coIlFiAKUPmSKqIjMRk6dH9GdzkBb89kJmneVzqHUk/EOb6EXsb9Ul8Vv0F7lhz
-	yAh2U+AdGbA3BdwqRyamFipcXfZx0gmGlSnx4vFyTQbd/FhZ43QbUdSbnUTsyFvN860jdav
-	2WXWnMKY2nffrsff6o9iBjp0rQnMYbDCnznNapG+CEfM2+zjpq/PsXs8hb9hwS33urUG+QL
-	HtInINYe/XFM7aPrKY3xo7f50WCGuTuQgBFgUiPYf73ImzdqboZIV3KYXAs/U1Bezj01p8N
-	xmBWsc5rxFSytkxic0XfN9iabWjSSrJHBcbdXku4l/jrB3Y1W5QUKKyk8EpbBIVdXWso4/f
-	8dU+E3HwbL9TrPotF9tUEC2K3+C1bI3NQjlf6rl95gOwi3gnfvTnz+bBswGEuxidD+Uqjp7
-	6DcmH5kHRz6WJQ1Ue1gCPHtdyeR1fjI946IFVK30PzEaG2iJ1uw8e8KJmRimzWDM0eBKD5I
-	wzmSfI0DQ0mrGX4k/NnTNhH+nrcBAIyk7hoi1iiCE3zVk6OxiNThrJMozG8WkDxrUst4FSX
-	KHU/f/EWTCkjJpU3cyV5QfRVQ71sWweg6xqp5BKYIv8kj+sxitCxFUwBf5Ty9AYi6z1hXOO
-	wPGKG4O/C93VkmTumqWw5iK6Wo83N3kCx09i5F2iHDTS0Mwn8FwwMkVC/En/ez3TjaZQIKH
-	cau/wFJGdKQf2HNlMjV3yYfGPsoGE7eGx/hHpWKGqGgcMim9Elz3tsRMYwp0eJe+fK02QvG
-	tsJAX5dIBZCGK3CA7CdtIU8hvhzcOqo1+NMZGFxPo5wI/tdkrZF7tR7xTFkTOAfDNY2MaTB
-	LSBILtuF8XxhoNrLmFbdctAvxIbZSJdmbrLJuglnCGAE8Gk8/tU3tC5xio+7YKIoy0SsT4p
-	IKu+2b7ZWG8/VHBpzRF5SuD/JXwX382ImWErYLusIdGA3zIyPcXWtTd3e2ej8xpUlAvt9q8
-	G+TKUs1z5Xi7E9LqKXYF85bo7wG+jFy52jBmkvy08EI50qbHtKOUgm0wvKNgI=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+X-Last-TLS-Session-Version: TLSv1.3
 
-Keith,
+Declare a carveout memory region to store LPM metadata on J722S.
 
-Thanks for the review.
+For Jacinto devices, this memory region is needed for saving ATF context
+and the certificate information of ATF and OPTEE and DM image. This LPM
+metadata area is firewalled to be accessed only by TIFS.
 
-The goal on our side is that a dead NVMe function must not hard-lock
-the host. Losing the device (and bcache) is acceptable; an NMI
-lockup of unrelated PCI users is not. I don't want to take FLR away
-from a path that still recovers some devices — I want teardown not to
-pin pci_config_lock across a hung config cycle.
+U-Boot R5 SPL/TIFS will use this area to save and restore:
+- ATF context
+- ATF certificate information
+- OPTEE certificate information
+- DM image (which has been copied in memory at boot time by U-Boot
+  R5-SPL)
 
-> Shouldn't PCIe CTO have kicked in to fail the transaction? Do you
-> know which transaction is failing? Is the stall specific to FLR or
-> could any config access stall in your setup?
+At resume, U-Boot R5 SPL is executed and detects that the board is
+resuming (with a flag set in the PMIC), then it:
+- brings out of retention the DDR
+- retrieves the LPM memory region from DTS
+- authenticates certificates from LPM memory region and applies firewalls
+- asks TIFS to restore TFA and its own minimal context
+- starts TFA on remote proc
+- loads back DM image from memory and jumps to DM
 
-I don't know which config cycle is stuck. There is no vmcore / lock
-owner. The NMI captures the waiter (an unrelated eMMC runtime-resume
-spinning in pci_conf1_read -> acpi_pci_set_power_state), not the
-holder.
+https://software-dl.ti.com/tisci/esd/latest/2_tisci_msgs/pm/lpm.html#lpm-msg-lpm-save-addr
 
-What the pstore timestamps do show:
+As this is used by U-Boot SPL, bootph-pre-ram is added.
 
-  [t+0]     nvme_wait_ready timeout, CSTS=0x1   (MMIO, first disable)
-  [t+128s]  nvme_wait_ready timeout, CSTS=0x1   (second disable after FLR)
-  [t+139s]  hard lockup on pci_config_lock
+NB: This memory region is not part of DM memory (which is not retained
+at suspend)
 
-So the 128s gap is CAP.TO on the second nvme_disable_ctrl(), which is
-MMIO and does not take pci_config_lock. The lockup is ~11s after that
-returns, i.e. on the post-FLR teardown path (pci_free_irq_vectors /
-pci_disable_device or a config access still in flight), not inside
-nvme_wait_ready().
+Signed-off-by: Prasanth Babu Mantena <p-mantena@ti.com>
+Signed-off-by: Richard Genoud (TI) <richard.genoud@bootlin.com>
+---
+ arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-I cannot prove the stall is unique to the FLR write vs any later
-config access to that function. Both events went through
-disable-timeout -> FLR -> disable-timeout -> teardown. Linux 6.12 has
-no FLR fallback here; the same class of NVMe drop usually only took
-the cache offline. That is correlation, not a single-cycle trace.
-
-There is no AER / UR / completion-timeout message in the log. I do
-not know whether CTO was disabled, longer than the NMI watchdog
-(~10s), or not applicable because the root port never completed. I
-won't claim CTO is broken. Even if CTO should have aborted the
-cycle, it did not save the machine here.
-
-> Are you able to fix the device instead? Maybe add your device to the
-> "quirk_no_flr" list if you can't fix it.
-
-The two ZHITAI Ti600 functions (1e49:0081) each reproduced the same
-sequence independently, so I agree this is a nasty device bug. We
-are taking them out of the bcache path on the affected machines.
-
-quirk_no_flr would stop nvme from requesting FLR, but it would not
-stop pci_disable_device() from touching config on the way out, which
-is where the lockup lines up. Pinning host protection to one VID:DID
-also misses the next broken device. A bad endpoint should be allowed
-to die; it should not be able to stall pci_config_lock and take the
-rest of the platform with it. I can add a quirk as a device note if
-you want it on record; I don't think it is the host fix.
-
-> I've seen FLR recover devices both on first probe and IO timeout, so
-> skipping for RESETTING will miss recovering when it was possible
-
-Agreed — that makes v1 too broad. I'll drop the RESETTING special
-case rather than take FLR away from a path that still recovers some
-devices.
-
-If a v2 is useful, I think it needs to stop issuing config cycles to
-a function that already failed CC.EN and FLR (so teardown cannot
-hold pci_config_lock across a hung inl), without skipping FLR on the
-reset path. I have not written that patch yet.
-
-Thanks,
-Haowen
+diff --git a/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi b/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
+index a59c3648d805..5d8499a33fcd 100644
+--- a/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
+@@ -59,6 +59,12 @@ rtos_ipc_memory_region: memory@a5000000 {
+ 		alignment = <0x1000>;
+ 		no-map;
+ 	};
++
++	lpm_memory_region: memory@a6c00000 {
++		reg = <0x00 0xa6c00000 0x00 0x00300000>;
++		no-map;
++		bootph-pre-ram;
++	};
+ };
+ 
+ &mailbox0_cluster0 {
+@@ -122,8 +128,10 @@ &wkup_r5fss0 {
+ &wkup_r5fss0_core0 {
+ 	mboxes = <&mailbox0_cluster0 &mbox_wkup_r5_0>;
+ 	memory-region = <&wkup_r5fss0_core0_dma_memory_region>,
+-			<&wkup_r5fss0_core0_memory_region>;
+-	memory-region-names = "dma", "firmware";
++			<&wkup_r5fss0_core0_memory_region>,
++			<&lpm_memory_region>;
++	memory-region-names = "dma", "firmware", "lpm-metadata";
++	bootph-pre-ram;
+ 	status = "okay";
+ };
+ 
