@@ -1,139 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011067.outbound.protection.outlook.com [40.93.194.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3964A384D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DDFA495500;
 	Mon, 21 Sep 2026 14:01:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999261; cv=none; b=vDjUqY2QVGHYrRT3vlwlnFnK5LRTozIBW9zmX86tRw4wOD5OfHK6u4eB/z1/d3FbO8Nocb/J+zrAxtlAAjj6zkhUx+aNdJfIETcSvFWzVhDnevNPsv8t042ElVHYDp1fSeirCCJOAlAicmUaXwlZxkdhFBEJStJbDfz6ECaS5D8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999261; c=relaxed/simple;
-	bh=7XtlfrK40huuj6vpmOrrjxcwYCnfO4Zm2EaDXg0igmI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L/D8966ipnQ+R+xHeB6bu3HF6rDQppKjQAvfUoGxUZ46VwM7Pk2FcnBtSV/k6i1LK01astgdYFYvALy5pl8GwvgwSEB1kEtHS638FE8HDNrEFQsGoe50LeoAX3QBWXnSFXmjPR3bm4onbqvIvzo9J6u1HTltZ5fFkHIiwMY0Usg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mddYD6vf; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.67
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789999262; cv=fail; b=AKHFxxPp1fZBOOKgMYQvnJeZtkdVdZcQZ0tXkaP3kPn1/DotR4nX9l9FBiUF86n5XA/yB31JvB0QEPGgpJxVTbFs7XVMU9NwYqWj3qxtXFTJN0KyqGyVuOUmKkm5Xe0W2DUF8gKPFVyypX4mbWRGVRH9hC5N3S8Q0QLlDUPonLc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789999262; c=relaxed/simple;
+	bh=i4O0jbkfYJ5kTQd0Z6R42aih43O1INcABKlVVkD3Ewc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=LJD1T6DIqBg1hrvRjkHmLiOGwNWZproBJdC4T23JFHzDXzjsXQPIPyaeTwn8T0DtccAfa3/e2HG6bMrn74WXufML29YCg2wnX5Dm1HxtFyCAs0980ECC+qJaLoRoqv9PUik58ouG8Z6j0lWGgKBcOOVR5fxwXQCmFa9+OAelfkY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=I9YzCoME; arc=fail smtp.client-ip=40.93.194.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mddYD6vf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E76311F000FF;
-	Mon, 21 Sep 2026 14:00:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789999260;
-	bh=2xm53hiaZiodtPVHAP6+ZFPUINfjYH/ykzpiGziyEJc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mddYD6vf55soVZqs3dAWnXzK3EaIiB4+NjlJxyaKr0zBAyk0if8qRwBuBaxI5xB80
-	 +oeW0PAObK5bNsA3nb6bNfP8CttusEVK2/wTVu5rfKSBrUeE98nT3qtN1mbXXYGB7e
-	 O1bW+vzHFJrMqQJx0DOaZ+ltuS5l0AiS625/txfdYfDuGp2eTEqlJ2sqBITWgVigrx
-	 DJedp0Gt1yJLuEQOAOs1SUkxdVqBSxMFHbixQfxsHlzVima7S/+01he0QjvuGZItCa
-	 G9nrbvO9Q9rjOZbrXOu+FDXJ23nwemvw4WJYiUCtJBEd+YJ4kKxkt4w7pWroraFroA
-	 gBN2qs3eIW1bA==
-Message-ID: <6fa3b1a7-33bb-4619-a0a5-42d99c076d2f@kernel.org>
-Date: Mon, 21 Sep 2026 16:00:52 +0200
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="I9YzCoME"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=umBAK3LKHl7g4jnrsnYMBvtAYggEaE+how25rjB5t4H9sR8w64LRZJKsOGwFdTMeBJyWyMpG4HgoCKoGQ/AQMYttCwkGDlW82rTjYW7wdTTFugCBngtaDdymuTO3oe3MKIAgnUBDxZePG6vua3Od4Z9TvuztH7NO8Xt0Y1DTKgk+UeK0WuHCprEx/H7VwilmPv5l2We4FSaxeIA56JL2TGW23Q3YfLFtCZiwyd9nB4dXGPjfLHot5Cs62d8oWEaD7iD0XojwnVMQgIiaWL2fluguQaD9IFDojBq9Zkm2teL/CDjeOKFWT7W94KPrOU0grS2LnB7wbXo8X9blhhTaaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/FLfEVmQCY/n5f4V1JvmSrr3EofrKfFalqt7fz5de4M=;
+ b=mMotWNq2FUxo+E2X/OJIdEd/wYNRH2FkdLZYmPcnA6S9MDRxJ2psxYAWAMGE+TUe9JLdry5ADNb+gsbOLjKRnciwsUZ6X9TQnbQxODfykUuM4TJdg2+5/QSne4ni0uNhERfz30uLaZulxAqyKNLlNNryKRXtVlFRaquH0QSiwKqR6MbEeUdLL1JRXPL2xO5vtA3uw9ETwyvamti9qh7+eZXT6YdI8AjGDDtMM4C9Jd1rKja4OgSPpYej/bPxBTSXxhXH7YPzIr37zOaSP57NdxdHhrgwUGpk5NnWiHkLnfitmMSQ8RUPhF2fwUTxRjt6q1n32sDsHJ9WlHOdOYQTGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/FLfEVmQCY/n5f4V1JvmSrr3EofrKfFalqt7fz5de4M=;
+ b=I9YzCoMEzAnLVWVxwEynxu1q4jzYHzYvWIiI3fuQ2I1VQl5hoieDzOXRF/eTGjDyvUENLfpnO1EBR22nqG3TwBymTbOvI1Xt45+ZfNbRJuEgVI7lebfunZ8BAA47qt9wkLg1l9KhLeJgML2P+MoyD3tSlGxg0LrAK0abq+oMWjOxMf4lbkJ4Zz5yoUx0MIg4jYhduNfF4H+GDbC3+rjVEzo1qwnKr22Xjry4qE8cA2SonJrVXsdARwFrWT5lCl1zy/I324SwoQJF2q2HttoXXg4IghtPUBiNye6UkgV6CpBqFEWJPttdRf1Q6qh03IvOIDOgNsBgc2QAjUMcgGeZ0g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from SJ0PR03MB6581.namprd03.prod.outlook.com (2603:10b6:a03:393::12)
+ by MN2PR03MB4973.namprd03.prod.outlook.com (2603:10b6:208:1b2::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Mon, 21 Sep
+ 2026 14:00:56 +0000
+Received: from SJ0PR03MB6581.namprd03.prod.outlook.com
+ ([fe80::e335:b86:cf59:8b80]) by SJ0PR03MB6581.namprd03.prod.outlook.com
+ ([fe80::e335:b86:cf59:8b80%3]) with mapi id 15.21.0428.014; Mon, 21 Sep 2026
+ 14:00:56 +0000
+From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+To: dinguyen@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+Subject: [PATCH v8 0/2] arm64: dts: intel: agilex5: enable USB3.1 on SoCDK
+Date: Mon, 21 Sep 2026 22:00:33 +0800
+Message-ID: <cover.1789998962.git.adrian.ho.yin.ng@altera.com>
+X-Mailer: git-send-email 2.49.GIT
+In-Reply-To: <cover.1789114403.git.adrian.ho.yin.ng@altera.com>
+References: <cover.1789114403.git.adrian.ho.yin.ng@altera.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MA5PR01CA0152.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1ac::16) To SJ0PR03MB6581.namprd03.prod.outlook.com
+ (2603:10b6:a03:393::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: i2c: dw: Add DWC_i2c compatible
-To: Mika Westerberg <mika.westerberg@linux.intel.com>,
- Aniket Limaye <a-limaye@ti.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nirujogi Pratap <pratap.nirujogi@amd.com>,
- Bin Du <bin.du@amd.com>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, vigneshr@ti.com,
- nm@ti.com, u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
- Ritwick.Sharma@arm.com
-References: <20260919-tda54-upstream-i2c-v1-0-b0b9f77be18b@ti.com>
- <20260919-tda54-upstream-i2c-v1-1-b0b9f77be18b@ti.com>
- <20260920-warm-lurking-poodle-dd73ee@quoll>
- <de66ac18-6bc3-4693-bd76-df8113bdb914@ti.com>
- <20260921111407.GU106095@black.igk.intel.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260921111407.GU106095@black.igk.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6581:EE_|MN2PR03MB4973:EE_
+X-MS-Office365-Filtering-Correlation-Id: 98ce60b4-f703-4c60-fa3e-08df17e8c1d1
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|11063799006|56012099006|10067099003|6133799003|55112099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	v1twoh65BTwEfyq0nMck5WtrzkObe4CdOjOxeW09JrC2/WiasPJ0z25Q48suyEwjqzpB++DKJQCg2pZfX6ir81cMtSvY4Fd+pps6Eat1XgRM6PUp6/clttDCMNSFQRmYHrRq6u9ypHoz8l+Rlt9LtLGk1A7+QxUQegpnDTMaDwTSqBxrKudVVOrHPFmoVklTyCcuJ+iVtnjfeafchWdIEJoXxswzmCPmMHwg26wWcB8yZY2zM5AcGb9VCdLSdwqFgmRCTiNyMlkGECMUrXbQWyo8Drbrzv4hGT4JDZ+aPZ5y2mGSjLNn+TyrE+dC4X0rGPWjuLCGLbR158LK/IPtOXr6wUhAl3Re4+/YJiswtiMiYDB2BKCHsBED50p3YfBITDB/kqEwzgYzkalop89lAoR5ryiSHkiOkj0B0L1FPosPRBT2CCwBlycXiwjGVnwao/We3JF043sVSdgtJK2iO8YazwKe47aylHQw46g2IpZV808xuCaaykxHwWfjz0BjIMCM2X4n1bVuqhfLjeJH240NCRipAnS7s+DGI1zRiCeiJuiCMF4RBWKl9i1Dg1NJPS41Q2Q3ugZBbJ0xQiSfE/upqJb4N5k/INE/05P2SPU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6581.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(11063799006)(56012099006)(10067099003)(6133799003)(55112099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?gWL2ApgLTm3rw1ZIDEOwdUcK/MWwVsuSWQBTU2LKeR0918PCf8EiugP1f3FF?=
+ =?us-ascii?Q?nYVWmT6GDWFzuXYe6oVBlyITFKEE/qRxBSM8fhm5Otuy6EGNIdCiC/rpb6En?=
+ =?us-ascii?Q?DytAa27GZxwu+TSW+a5oIi7rCHGbqi1bzSGsZJ5M7I5I/QPTnRVETawn7SrU?=
+ =?us-ascii?Q?8UeUZ73RKpY0YY8xUTidcMQ8BBuxxkS4PJ2X0VssbHsLG/LFlMrsIdjX1C7X?=
+ =?us-ascii?Q?/xPlGZjAsqxQAZmPc8m/dNpnJev2SFOmgkszKNrg8C0UZ+UGv3uwArdVMP2p?=
+ =?us-ascii?Q?vB9bJzDwTKEhH3dKO3QIdyI/7Ahhc4dPEhHUE5cjhW/IDcYHNpM08rCISHFc?=
+ =?us-ascii?Q?qH+aEjbyaqEdCL5rPKn0oRwt5aDNY7/+jCCOnKajnS4HEU7z6fmZR4s6eh9a?=
+ =?us-ascii?Q?oBLweyH8NH/zzShdA96edCNUnvfMhodUl3E8+7mhptc34Q7jiB7XBvFQlZWj?=
+ =?us-ascii?Q?awJ40V+Rj7UC8nlyMEJqNmg5Lyo55H4Jggrj+ipb+bI3eh4VeFDzyd4/2w9H?=
+ =?us-ascii?Q?je8J8hV4XoEL91iVoEcvMZpyfrVSwAvOCYFBTEjbd9NoaYuGKMewlM7fI//M?=
+ =?us-ascii?Q?t+7QpD7ZdBr5dGSeQQRL3qK1dGyWXcfeXrj8M61TLa5tny5Lwy5nDmVBAA3J?=
+ =?us-ascii?Q?5BmaB+Va+TwFCvRjgcrbxcPQqFIGo5O1OvxhhWxIrqR8+f0+UlAB/cS3lx1H?=
+ =?us-ascii?Q?VDPdR0o9G8X8HIUuKSUxiT3bb4nVRa23J7NvyIt2jJ9jB/4VK6muLOVe+hvV?=
+ =?us-ascii?Q?0fDrZdQlabK2v6mjEvuLQnhzajNwbykhin0lRbEQff/YxWZBZRj0dbR+6O6I?=
+ =?us-ascii?Q?kqJP9vT0aW4o/EFkiLriW3T3sY0uZv4TfXQHVdZM9pSW3ccN+4QXNa1FucgW?=
+ =?us-ascii?Q?lDVKzcxh6gGCEoJLvQVgfX7ai7v/+eSd3+XHfUhhPlaWcSV1/n1ILes1V00F?=
+ =?us-ascii?Q?7j/MM5t66cQ5fMCu3lBoblfuSaO0jgitsLsGGOlBY9zVIgBz6e/XWgEarcjN?=
+ =?us-ascii?Q?eilRMWnwIhcvSOOGG1IDeCelUTRIHfatrUkQOqM7fx+xxzLBTxSogEChaY4f?=
+ =?us-ascii?Q?gLshSK/01rHb6WqcPVXroT705N53vivLzIu+cBwHn5SkAFwrDszhanNawn1Q?=
+ =?us-ascii?Q?xqVsvIyG8M5tJlvRL3Ov4VVFLEKk+ZVZBb0cHfnJMph8w+qZ2GGyvuoYDAjS?=
+ =?us-ascii?Q?z82Y2ZSDs0Ewxakhjey9oaNAIUye5ew76eh+qsrDwml+048gvxMTjWM8Vpmd?=
+ =?us-ascii?Q?wVct4rYcWhI01kqZawtgul41GWU/xuH0JPT83u5hxwccXvOqzKzoYaDBeaFp?=
+ =?us-ascii?Q?vjLdZsgDxxkYjjCiibJTGzkWFmVMJGKtTbVyjbXLm+afaW3enkqm6uCfVugd?=
+ =?us-ascii?Q?+41lsWy52qEFX24uDTDOAd8LfI5/t/v3FXsUh47vUHtYPrLN3IYLL7JjN4y4?=
+ =?us-ascii?Q?xPGAK0m89arqxdth+GNmaGglB26mnDM1kChee/Iw76JWNGZt2FRLbUPjqfbs?=
+ =?us-ascii?Q?4hw3lXvBceSJ7ZRPWW7dlAGn0CfZ/tosfmnb2WCzlcwf7bb/4gg5KQ5T/I+1?=
+ =?us-ascii?Q?zVQY9FdxeyllynFj7MCUfGrMrcCzEu4Da3ERY0QavPFO83j4a3tuJDRQcXqZ?=
+ =?us-ascii?Q?tQqkFgWvMgtpAIW4aL1t27r3+y+9zho+6kX0d0ONAppCret9qC5V+YEoin4R?=
+ =?us-ascii?Q?F2K2tU7FuQkStZ+n4b0u43OpUcvSXNzetjKDmmGjHRdTa2nLX0WsY9fyzlqF?=
+ =?us-ascii?Q?FuL5o6//4bdt8wRbR+F3D82T2G8Xoig=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98ce60b4-f703-4c60-fa3e-08df17e8c1d1
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6581.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 14:00:56.5611
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8V8TWIhIIIvC1MoHuX27JuCaN0jf3tLCLzUl4GJSkicUPfULWKonTYapxEMx8q/ZN9vy/8Ph2AwlbI11+coyghIDTmKTwugB9WMbHkMADnY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR03MB4973
 
-On 21/09/2026 13:14, Mika Westerberg wrote:
-> Hi,
-> 
-> On Mon, Sep 21, 2026 at 01:55:23PM +0530, Aniket Limaye wrote:
->>
->> On 20/09/26 23:54, Krzysztof Kozlowski wrote:
->>> On Sat, Sep 19, 2026 at 02:36:06PM +0530, Aniket Limaye wrote:
->>>> Add the "snps,dwc-i2c" compatible for Synopsys Advanced I2C Controller
->>>> referred as DWC_i2c. Compared to the existing "snps,designware-i2c"
->>> dwc is designware, so snps,dwc-i2c = snps,designware-i2c
->>>
->>> I think this is *the* argument why generic compatibles are wrong.
->>
->> These are 2 different controllers with some different registers and
->> vastly different register offsets.
->>
->> So, the official product name (short format) for the SNPS Advanced I2C
->> controller is "DWC_i2c", as per SNPS' own reference document [0].
->> Whereas the original "snps,designware-i2c" corresponds to the product
->> name "DW_apb_i2c" as per its own databook [1].
->>
->> So based on this I though it'd be best to keep "dwc-i2c" close to SNPS'
->> own naming, despite the fact that it does seem very similar to the
->> generic "snps,designware-i2c".
->>
->> If you'd prefer to make it more explicit, I could change this to something
->> like "snps,dwc-adv-i2c"? Although, again, this does deviate from the
->> convention that SNPS uses in it's own documents.
-> 
-> What about just "snps,ai2c" or "snps,advanced-i2c"?
+Add the Agilex5 USB3.1 DWC3 controller node and enable it in host mode on
+the SoCDK board. Place the controller under a simple-bus with a 40-bit
+dma-ranges window so the DMA/IOMMU stack respects the interconnect address
+width when SMMU is enabled.
 
-Can we just drop generic compatible completely instead? The block cannot
-work alone, needs SoC integration.
+The SoCDK daughter card only exposes the USB3.1 interface, so the unused
+USB0 (DWC2) board enablement is removed in a follow-up patch.
+
+This DTS series is posted separately from the USB bindings/driver series
+("[PATCH v7 0/2] usb: dwc3: add Altera Agilex5 DWC3 support"). Depends on
+compatible "altr,agilex5-dwc3" from that series.
+
+---
+changelog:
+v7->v8:
+* Rename simple-bus wrapper node from usb-bus@11000000 to bus@11000000
+  (Krzysztof Kozlowski). Use an approved simple-bus node name; do not
+  invent usb-bus.
+
+v6->v7:
+* Split out of the USB series into a standalone DTS posting.
+
+Previous DTS series (v7):
+https://lore.kernel.org/all/cover.1789114403.git.adrian.ho.yin.ng@altera.com/
+
+Previous combined series (v6):
+https://lore.kernel.org/all/cover.1788886615.git.adrian.ho.yin.ng@altera.com/
+---
+
+Adrian Ng Ho Yin (2):
+  arm64: dts: intel: agilex5: add USB3.1 controller node
+  arm64: dts: intel: agilex5: remove usb0 in Agilex5 SoCDK
+
+ .../arm64/boot/dts/intel/socfpga_agilex5.dtsi | 35 +++++++++++++++++++
+ .../boot/dts/intel/socfpga_agilex5_socdk.dts  |  4 +--
+ 2 files changed, 37 insertions(+), 2 deletions(-)
 
 
-Best regards,
-Krzysztof
+base-commit: 93f51579e7df248780214094418f205253383cc5
+-- 
+2.49.GIT
