@@ -1,332 +1,193 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011065.outbound.protection.outlook.com [52.101.65.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EBDF48EC97
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:31:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789990262; cv=none; b=DUMPVtA5di+top8t3KfB7hsnlxQgfN/EX2IObLtx5BcXMFGLZbOCFu3BsLNGxQTCGEQe8xUh4irQTwQhUDy+bb/0omTbm0jRa8pUww+3IL+w/ZGPHhlcwaQ93Temm1mZQxT+9cKwrPBlI4FOPbtGOS1BU+a55WK61o+jKwMLFb8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789990262; c=relaxed/simple;
-	bh=9dltOTY5W3st8f6o8eojKeU7GISRoJFX8HrYBAuzy68=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=VDvZaSwp+Aw5zWxMWY7x7q3D/jpJn5s3IbSlLwbECADMRo0mAXFxZuoqQWEKcAAtvUn2NpZdfJtAu7PJ2NvQt0RlRsM+LRrqn9cpJEycvr7h7myadUzyxuPOQ+pJA3iw0SYsC+lVACdST7ZTVACg1eg+0MTmb2GRq3Vms096jQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LHX4T3FV; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8272948F02A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:31:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789990263; cv=fail; b=jOjJ0c65qDgkzn1FoUC90MqBI5Yp4Sm9qk8BQJyva3c4UPellEOiieT4IGQhcfPL+M5S3fVDWPGJtVxIJb2Th4dGVfOuYJx+O0vm8Rn2DdozLNjKlHjQL8DUx29G0/vV+EDlp08LzK9mMwkHeg0gdJ10OH5nI/jbGXw9a7EbjCY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789990263; c=relaxed/simple;
+	bh=Iibbbng45ESMmjQ61fyQJdKTWK9axk06X+a7mToNgQk=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=VVgCl9BFfcT1Bc8qbHKmeTckjwMgrBQkKR0O+qbh+oFxlIdUd9ziMk0s+3Ou/F/Z7nwxBiFp/nJHF6p1ref56NH/9RQJiATgEpgPV+Lr8rg2x2FDfqswA/YJGZNq+FiCpMoVQ4u7nvb3qW+50P8d+6V7Pa318C5dohITDGkJ6no=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=s9W7jaGh; arc=fail smtp.client-ip=52.101.65.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LHX4T3FV"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc1cea50dc0so1166207a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:31:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789990260; x=1790595060; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GFqDrySe2EEhnLFCWQuL4eZJ1yzXDxQBkUH4V9YjE10=;
-        b=LHX4T3FVfn/ZutJ4CChKG2tgnT51DjOVG2VXseQXRJuZla87eoShVgC4h8HJUSIbJQ
-         QP7kI89qXL+osSj6idJLYAzj62ovlz3IrRQSWbAN0wViCsUlOD8fA/YMHG1ehyg+/T9j
-         p2x0Z4pQnJq0bnvitbvufgHOXb1rAb30B0r3CYq6TFWLap64LOReTJIR5aNhCFnJK+q1
-         xmGUtQrjRXxXyLMmISa9rAbi9yhTUC7/ejlaB+4+5GkSDE+6bghoxOSL7FiDcZ/Cqwj9
-         ygQXekvJWXfLs/LxFbjHofXLFKGmQWOMKZF6rzmjf8S/zi5obMU8TiU2sX+teO2UIWYr
-         A4dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789990260; x=1790595060;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GFqDrySe2EEhnLFCWQuL4eZJ1yzXDxQBkUH4V9YjE10=;
-        b=pXh+Y6UhEHmmYR6BQ0dp6+FZbiDwnp/ljDvynkrE7GPEvVoGZMuukgfmclJfCJ8Hon
-         UqpC1JQT/HkbeymQrDglYpsF5ApKbSKerulQrjNHoOw6gKmBbhYIlWxNOkJYFGVkKsH8
-         m7+vqbAh6gIyShAi+zt6IQz4XxJei912lY+dBpJD+2hQ7OMYxoh6cfcWcdrNzXHWQ0tC
-         VcFe2GylVPh9OyPWT8lA+W19x8F319er+jER8A+sQm9vIqQYedaKUGjmrup6GQpS/pkH
-         FfpSVZI4akQ3NOrDlPGWGRl1BJZ/bTF0aOB7xWW4zP9Dt6UYSh7kC/wBVuzgjD+a8YbC
-         3ljQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxIkLK+MSHn4b+JeGmNuCvnWdZZGchQ0REPtQ7cIse1GxyP1Q+jKbbwWkfBHKyrKsMA0NPl7ByMuKf1uzM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOcfDngiiddL2XjKYhyKF4qin5UGo7Cs8ccO+JlZz1cVZmBfMb
-	RLEvXd/Dl28u2QEcUJRmZoW1M9C8rGXbpOs4sTkbnnEbpuxG964aEKKP
-X-Gm-Gg: AYBFou2tUzwTRWlRCf/Zc5RV3qaO/QYzgEwCqKRnDefW7lZ713yWlzKh6xFGAPWwRMt
-	2JwJK5xseipqmezVhkaqCtYTfTNlJO9dHgK12s6RAtVBfAWdChkRqzmUqvlNdaiV6hOGzYuPkjM
-	cNVJoZaV1Fsvgor8M0umVCS+v+7xCZlV+691M6UOdcNAz9su78qB4Y+bjfplOuBJu21dlSRNLk9
-	/z7xvBRjNXAywixijO/ZYap8+rqZcTpnbmdyf8g3lpTtroHzKD5cznB2CBb9iPT3BJZ6U8kY+IA
-	tIVs8hmR/QiqmdYp5wzqdyykSBGAhhRWH6lC2P86VCUNYkZzGjCAnsVSeRd4Pc82edwJcqJtJya
-	hpwXPSRIv4/QgVcK3bRZoxUkjzQQhItmxnhjQ9hFJ0VzpkZNyY0fuQPw+X/CKStTbb8NzJQxei9
-	1GwvQ52qxAEvrh3kToTIN8oMJvgdLdHflqDLWZ/TzxRZ+CUokN/U7ZRkywoV6WRHkm0qCDzuGB5
-	DNrNFvtiOID6TtR4ooChexCnnruFOGBICo/DyM=
-X-Received: by 2002:a17:90b:1e42:b0:3a0:345a:3620 with SMTP id 98e67ed59e1d1-3a0345a48a4mr5578898a91.45.1789990259880;
-        Mon, 21 Sep 2026 04:30:59 -0700 (PDT)
-Received: from bj-kjy-standalone-gaoxiang17.mioffice.cn ([43.224.245.230])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6ca86d83sm14003444a91.6.2026.09.21.04.30.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 04:30:59 -0700 (PDT)
-From: Xiang Gao <gxxa03070307@gmail.com>
-X-Google-Original-From: Xiang Gao <gaoxiang17@xiaomi.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	gao xu <gaoxu2@honor.com>,
-	yinchuang1@xiaomi.com,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiang Gao <gaoxiang17@xiaomi.com>
-Subject: [PATCH v4 1/2] tracing: add ring-buffer memory usage statistics in tracefs
-Date: Mon, 21 Sep 2026 19:30:45 +0800
-Message-Id: <20260921113047.1152602-2-gaoxiang17@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260921113047.1152602-1-gaoxiang17@xiaomi.com>
-References: <20260916063322.472172-1-gaoxiang17@xiaomi.com>
- <20260921113047.1152602-1-gaoxiang17@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="s9W7jaGh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TuPZzcgtJY+Zfx9dOqIVQJSL/kjFFUF5j/J/QocitsmoH/ttAth7KMaX8100D08xaKmao/zpRiVJLhQ4fKmd/gCheIWPEiIvh0FgrmEGq/LWPAgy0t/3V5/ddrlFmf4yFGSBmShhLSqCk81FfxujH5SLxpiRGghp3YLDdQBX2NLadoNexhejd1G1q5dtSq2Rd/UJJrJgqs7ARPhqlaOoeUfdlAf/havqix5You3/wDryj2XgP2JeHSN+MzVbV+ppZuuCVXr1QWiIWXvgsBDoHCEBRO/cHxUaTUSfGXYkCH061qtLigxaEWkBN6bq8w5SXjPOBrzNyPnTtWDe9IqhqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vfwrZ1l1xWllxNEp+4vsgJ1d4hwB5IV+M8WuKlr3+Nc=;
+ b=nBCteG+87zFLOykWkc4TSTGfaQSQ6vEeuzb5f1+Q+AtX9jz6UCZpZSAH1j9A9YTHjUTrtpf9TedftFoVxcOmQjJUmXwONFpXsMwxC1/a7yhx+4umFJhcAFInUXfepftUAioxubBkaTNZSY76iQd0YgngW2quIpwUc7dLh80Q6iGt/Vns5sO1pKmxKCfgVu9niIlgpwYTL0ItKmOL14gribEVj/rN/k2Lcji9Ln/D3E2EyZmcpM50Njve0oQF6feAJTQA9yxSDASL5y0RMJ2O5GRzDdBceI/WAz12Yn9+QLvTm/o9brIbX01yxAPj4UobulM3WJPi7My4trS9vapfig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vfwrZ1l1xWllxNEp+4vsgJ1d4hwB5IV+M8WuKlr3+Nc=;
+ b=s9W7jaGh9q72MSBRUcS9s/FpZ7FAPH+ScpadbZdxrIzdzB/emzlGTTuIiEeOJS9hVjpS6AkoSExxi32NNFpph9KdAgbiNF5BLhOqr+UgeQLBCcaSR6NNTJc8LQdBOHqzuXTHU5ru/vgp7PCyA7fZWgpDQ4c97ocWowDkcbvinGmDWaB3BkEk9DfgOLEQ9jQp8qS0M9pbs6V4blBAMzVGhz/1GrT5Gy0ODfw1bgGrgQRbM2zu0CAdN+uBGgMp6g3sR1GFRnm9/A01FhknqF4X0+v4wbJOH6vn65AyqYYBMJy45KRs4C/gVeUYLDRG6WjNLiWXxrVV1h4E1jw8+bVG1g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by VI0PR04MB10637.eurprd04.prod.outlook.com (2603:10a6:800:25f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 11:30:55 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 11:30:55 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Subject: [PATCH RFC v2 0/4] iommu/arm-smmu-v3: Support shared Stream IDs
+Date: Mon, 21 Sep 2026 19:34:59 +0800
+Message-Id: <20260921-smmu-shared-sid-v2-0-4b656ce68178@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGMWsWoC/3WNwQ6CMBBEf4Xs2TUtFkRPJiZ+gFfDAdtF1qRAu
+ kAwhH8X8OxxJm/eTCAUmATO0QSBBhZu6iXEuwhsVdQvQnZLhljFqTrpFMX7HqUqAjkUdkgmy8r
+ UGmdKBcuqDVTyuBkfcL9dIf+V0j/fZLvVtWIVS9eEz/Y76A3+ezFoVJjo4yEziTIF0aUe271tP
+ OTzPH8BAZUPs8MAAAA=
+X-Change-ID: 20260916-smmu-shared-sid-e488f6c4d4f0
+To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Jean-Philippe Brucker <jpb@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+X-Mailer: b4 0.16-dev-7bc12
+X-ClientProxiedBy: MA1PR01CA0167.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:d::15) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|VI0PR04MB10637:EE_
+X-MS-Office365-Filtering-Correlation-Id: e81bf087-6ee7-40b5-db4d-08df17d3cce0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|19092799006|10067099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	gypric/cCF7f3qIXsrx8hpAFgZLie8PM6YtWH+stLDj2gteAUtPU9LMp6Lp+HZyzIBVRPHn0cuShEQZwP0aewfJhf4fKyIkocaE57L8pCvHi48AutixmpoYjHbvu7vJPLM1pvPnX3Rxe9tvanVnjOSV+CKV+NwE6LWEV1Ig9cnsHBzpZYnWLLE2teq8RpjtLli530/WGTPyv7eOLcmKsJaWrQLcdW1fO2igp+g80ghkLXpE3ZA/tzsr+HkL1h0wQINNZfahH0g10xeUx5yxf0wyPYKUugDvp7r1066ZMZpx7l5UMFxztIIGrBOWO+H4wtDYuSo9VHDRRmdFlbnBeenFIsqldLdm/RAYNKZU+QKaXp1Tu8tGSxcc/O8d3+h8l3R9AuQyB38VYCoEP68i+cs88k7O67OZUa9meL/htf35hpSDFN6+Zix7zhmbBkBwSrgo2jaGqsjn160ji1gkVZAOux4+JqqaZC/sndmISNERaE+N4zDj3/JQclSf0WCMjv0NG1bHW5s5IsGs2Fy3t3dLcGCOqUUll60aLw6F/6nKFgnebdN+5ZcsADcDDM0nm8hSrVi4pkdr7YMzkMizhT5Bcf+E5aZLNpCj3kgq42l5lFW1ms6roaMCWp7+a4tts
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(19092799006)(10067099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?enlOOEpoN054Lyt1QklTU1NramRkdHhLWUc0Q2V6TXQ4K3FIei8vMTBMb2w2?=
+ =?utf-8?B?eEVXYTBmVkEzYmx5U1JLaGUyQUxYWEcxVExPQzJiUG5QOUtRWlVBNnk1TjQ0?=
+ =?utf-8?B?Q1d1TUcwV3V2NmhVd2ZLZjN1M05MYjkxbHVhKzdiMlp3L0FSZUNabnlpV2ty?=
+ =?utf-8?B?cDNuMU5iT1FkMHpxT3JVQ1ZaQ1V2dzd4OEVOc3BrNVdFWFllUEp2WWZ0MjFQ?=
+ =?utf-8?B?V3ptRkNIbEVZenVlZXdZL3l2YWR6RkpHbmdUbWQ1aktKQUk0REJ3UjVXaVA4?=
+ =?utf-8?B?Y3d0TTJOeW42c1piYWg3ZThmbVRReFd1Y2ZIWTRkUGZ4K0dXcmEySERMRDNV?=
+ =?utf-8?B?TzNWeUhRa0gva0NpM3lOdGllcUU3bW1qbWdKdkRWblRIaGlJMW9sN0xjVmxR?=
+ =?utf-8?B?cXZWQXBEQlp5RHhUTW9oWVU0UVdNVnk3R0czVHZyQkNjYUREV0Q1QndubTJu?=
+ =?utf-8?B?ZVNpYWczWHJhdTZLZCs2T2YxV2dEenh3KzBpQWRxVVh0WHV6UHN1RExzaGhM?=
+ =?utf-8?B?eGRXQ2UvbDZVM1dnaTErVVFPbVBZbTk1ekg3clpHZEQxVTRHeWFRS2xPZi92?=
+ =?utf-8?B?RkZ1SElBUHc1UlErdTFsY0U4MTlYSmZnMXVCMHR6dE1xT044Q1JYWUROTCtX?=
+ =?utf-8?B?Q2RqYmJXWXVFU0VYeFRDWEpkK0swa2tIRkRPTEpwNTh5aTdmMXlSN0oyVmdS?=
+ =?utf-8?B?KzlMdjl2cUpHYndOU3VYdGhxa0JSV01EUnpIOWxZMDB1OGs4ZVlnd3FnYzhW?=
+ =?utf-8?B?TUhsUi8zK20zNVppampQVEJVVlF1aGxVa1ZkQmpjeGVUYzJqMEpkS0ZQVlhh?=
+ =?utf-8?B?TGd5ejBZQUdwMFRkdnNJbDAzSG42UVNwdFl2MDc2SnlBRk0rMnF0Nzd5NTlQ?=
+ =?utf-8?B?MCtRbGpZMFhjMks0VkFhQWgwcnhJZDBJZENsRzV5K21DMTJMamZ5WlBXVWs4?=
+ =?utf-8?B?MnNmdHJvV0ZtMGtHRkplcjBUZXNnQ0xEZDJjZjc5VG5qWFZCZXVUYnlsM2ho?=
+ =?utf-8?B?eFRzKzFVemlqS2FZcHpRQjlYd0tkMmxXMGlreGQyS09aN2xQZ3AxK01xKzBK?=
+ =?utf-8?B?M0lEdEtScFZldkUyMExuWVZEZDRqTWtZNEVYSzk5dGlOQUQvdVp3eWE5bGRH?=
+ =?utf-8?B?ODJjc1hSRXhxNDk3a0gweGFHVHJ5L2Rabk41MGlqNGxxVWJTcmtFajh5VmZH?=
+ =?utf-8?B?V2JoNkdmSzdPQ0ZuaFN6ekFkb25Zci9PNEVLN1U1OXRvaDgwR05ROTRoc1kr?=
+ =?utf-8?B?UytxbjF4blZBa3ZmYllyeUUwQTk5RUF6RStRbU9iSHJrdFZHYVNCOFI1Zys2?=
+ =?utf-8?B?OFRkTCthR0VqZmhLOURuK01HZXoyN3RpRklBZUQ4bm03a2xJY2pjMmlTVVNU?=
+ =?utf-8?B?ckFNZnIwVUlVM2wrSVFBdHNwN01jRmF3VDhPcDgwMldMNW9lUStVQjZDNUhP?=
+ =?utf-8?B?T2ZHeXBmSmdJNXFoZllHZFVGcmFaSUYyNTRPOEJLdjNJeTRmUFhkdjRhRS9n?=
+ =?utf-8?B?Qm1EdTF1dll5YzNFYXFqK3FHN3hUSHo2dkF5WE1icFVaajl0RFpFRFRIZUdo?=
+ =?utf-8?B?dG1rY08rcDUrSDdkRjR6bGRkWmI2TDZ3dkwzTlMwL0xHdVdiZnN0QmxaczUz?=
+ =?utf-8?B?RlF1TGs1SDMxR1p0a0NHaEVERVF3OTRNeUc2TnRxcDNmSkNBOC9BSEd5Zm5V?=
+ =?utf-8?B?Zlg0WEZXSXA0TUlFTGJyZFg2TjlUVGdFaUltejU2Uk9GcEd5Z3p1ZGdoMzVr?=
+ =?utf-8?B?OGhKZnFBRmw0SERJQWFTYVE5UXlaeHdNWExQM2ZtTXR6Z3JmZnUrQ2hsbjdX?=
+ =?utf-8?B?aENpMFdjdDg1ZGFSQ0Y5QkVTK2hTSE1vM2VOTHZYaVpzWjA5eFdUUEhWTG9W?=
+ =?utf-8?B?WVIrbEhyLzd0ZVZUYkpnU1JkdDNQZ3NpRFBXWnNpazRqbWdkVjFUdzJtZW9K?=
+ =?utf-8?B?S0VhL0NQWE9TckVlN003c3RVdENLbHhSb0VhQjZLblVqZUhJNHVYYzFuQ3Jk?=
+ =?utf-8?B?WXNKQk9sTGltVXNzN0YwMUJYUHZZZUxCTmZkTVhBcW1yQm40V0hSenV6TW51?=
+ =?utf-8?B?SVA4QWZkb0FGckhvdzBGK1B3S0dLQ3hRVFJzS09GMFozWWc5SHdHR3Iyamd3?=
+ =?utf-8?B?L1BsOVdNZGxwZHJ0enZpc0E1Z0s5N0cxWW5FbGJ5dHBEQVJ2OVZuQmxyUFFi?=
+ =?utf-8?B?eGQwQ09RRDdCaS90dHloWW4ySGlPVnppY2NTN2pUT3hHWjBYcWNENmlJczE4?=
+ =?utf-8?B?OVpBZU13MFJCZGxaVmFuRUFxVHphb0d5Z3lpQ3NNY1kzZDlhNkhYOVdkRldw?=
+ =?utf-8?B?THpnRFgzVi9OenlQWWswSnFZdzdXUmlxc21JYXRDNXU0c0RCRTNlR0x2eFdB?=
+ =?utf-8?Q?h0g4phShDj+VEz6TAjRzh4GafBYYCmBhTSgR5?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e81bf087-6ee7-40b5-db4d-08df17d3cce0
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 11:30:55.6338
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fC7LX7Cv2IZuwn7VTBskvA5Yf5kFLeZntVv+V+luGtDSXT+5e08XOl5OS1SBHSUJBVsXl2xrp1P63qaEVE3E7HAe8KTv9u72rGrlywkt4HdValir88Kvr96THpA+t3TP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10637
 
-Report the memory consumed by the tracing ring buffers, rather than the
-usable data capacity exposed by buffer_size_kb. Android low-memory
-diagnostics need this to attribute the memory used by tracing when
-calculating lost RAM.
+Some SoCs have a limited number of IOMMU Stream IDs (SIDs) and
+hardware that inherently shares them. For example, the NXP i.MX95
+only has 64 SIDs, only 6 bits for SID in the system chip bus.
+However there are many device IPs, such as SDHC, PCIE, NETC, GPU,
+NPU, Display, VPU, ISP, ISI, JPEG, SATA, DMA and etc. Each Kind IP has
+mutilple instances inside the SoC. So I introudce this patchset to
+support shared SID.
 
-The buffers can be spread across the global trace array, dynamically
-created instances, and snapshot buffers. Userspace currently has to
-discover and sum every instance, and snapshot memory is not exposed by
-the per-instance totals.
+The current ARM SMMUv3 driver rejects this with:
+  "Aliasing StreamID unsupported, expect DMA to be broken"
 
-Add a trace_stats directory with memory_usage_kb reporting:
+I took comments in [1] and implement this patchset and only want to
+support a very simple case that multiple platform devices share one SID.
 
-  buffers:
-  snapshot_buffers:
+Patch 1 converts the streams RB tree to an XArray for O(1) SID
+lookup, simplifying duplicate-SID handling.
 
-covering the global trace array, all instances, and the bootstrapping
-temp_buffer across all CPUs.
+Patch 2 adds reference counting to streams so that multiple
+masters can share a SID. Insert increments the refcount; remove
+either transfers ownership or decrements. A per-SID linked list
+tracks co-sharing masters.
 
-The values account for the full pages backing the data sub-buffers and
-reader page, plus the cached read page and mmap metadata page when
-present. Slab-allocated ring-buffer metadata is not included, as it is
-already reported through Slab and would be double-counted when
-subtracting tracing memory from lost RAM. Remote buffers, whose pages
-are externally owned, report zero.
+Patch 3 places devices that share a SID into the same IOMMU
+group, ensuring they share a single IOMMU domain.
 
-Signed-off-by: Xiang Gao <gaoxiang17@xiaomi.com>
+Patch 4 wires up STE write ordering (first master writes, last
+master tears down) and gates features that require unambiguous
+SID-to-device mapping: SVA, IOPF/stall, and vSMMU nesting are
+disabled for shared-SID masters.
+
+[1] https://lore.kernel.org/linux-iommu/DU0PR04MB94172CB3F138AD39E9B6DEEF887F9@DU0PR04MB9417.eurprd04.prod.outlook.com/
+
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
 ---
- Documentation/trace/ftrace.rst | 12 +++++
- include/linux/ring_buffer.h    |  1 +
- kernel/trace/ring_buffer.c     | 41 +++++++++++++++
- kernel/trace/trace.c           | 95 ++++++++++++++++++++++++++++++++++
- 4 files changed, 149 insertions(+)
+Changes in v2:
+- Only update cover-letter to make it clear about why introducing shared
+  SID
+- Link to v1: https://patch.msgid.link/20260916-smmu-shared-sid-v1-0-517384504aee@nxp.com
 
-diff --git a/Documentation/trace/ftrace.rst b/Documentation/trace/ftrace.rst
-index 7261f25f8b4b..99ddfe26b7cd 100644
---- a/Documentation/trace/ftrace.rst
-+++ b/Documentation/trace/ftrace.rst
-@@ -218,6 +218,18 @@ of ftrace. Here is a list of some of the key files:
- 
- 	This displays the total combined size of all the trace buffers.
- 
-+  trace_stats/memory_usage_kb:
-+
-+	This reports the memory consumed by the ring buffers, as opposed to
-+	the usable data capacity shown by buffer_size_kb. The value covers the
-+	main and snapshot buffers of the global trace array and all tracing
-+	instances. It does not include slab-allocated ring-buffer metadata.
-+
-+	Output::
-+
-+	    buffers: ...
-+	    snapshot_buffers: ...
-+
-   buffer_subbuf_size_kb:
- 
- 	This sets or displays the sub buffer size. The ring buffer is broken up
-diff --git a/include/linux/ring_buffer.h b/include/linux/ring_buffer.h
-index eac3e9080c3c..96b99e6757d4 100644
---- a/include/linux/ring_buffer.h
-+++ b/include/linux/ring_buffer.h
-@@ -167,6 +167,7 @@ int ring_buffer_iter_empty(struct ring_buffer_iter *iter);
- bool ring_buffer_iter_dropped(struct ring_buffer_iter *iter);
- 
- unsigned long ring_buffer_size(struct trace_buffer *buffer, int cpu);
-+unsigned long ring_buffer_memory_size(struct trace_buffer *buffer, int cpu);
- unsigned long ring_buffer_max_event_size(struct trace_buffer *buffer);
- 
- void ring_buffer_reset_cpu(struct trace_buffer *buffer, int cpu);
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 04bb94c29f58..efb88bf8970c 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -6559,6 +6559,47 @@ unsigned long ring_buffer_size(struct trace_buffer *buffer, int cpu)
- }
- EXPORT_SYMBOL_GPL(ring_buffer_size);
- 
-+/**
-+ * ring_buffer_memory_size - return the memory used by the buffer (in bytes)
-+ * @buffer: The ring buffer.
-+ * @cpu: The CPU to get ring buffer memory from.
-+ *
-+ * Returns the page-allocator memory consumed by @cpu, including the data
-+ * sub-buffers, the reader page, the cached read page, and the mmap
-+ * metadata page. Unlike ring_buffer_size(), which reports the usable data
-+ * capacity, this accounts for the full pages allocated to the buffer.
-+ * Remote buffers do not own page-allocator memory and report zero.
-+ */
-+unsigned long ring_buffer_memory_size(struct trace_buffer *buffer, int cpu)
-+{
-+	struct ring_buffer_per_cpu *cpu_buffer;
-+	unsigned long subbuf_size;
-+	unsigned long size;
-+
-+	if (!cpumask_test_cpu(cpu, buffer->cpumask))
-+		return 0;
-+
-+	/* Remote buffers use externally owned memory. */
-+	if (buffer->remote)
-+		return 0;
-+
-+	cpu_buffer = buffer->buffers[cpu];
-+	subbuf_size = PAGE_SIZE << READ_ONCE(buffer->subbuf_order);
-+
-+	/* Data sub-buffers plus the reader page. */
-+	size = (READ_ONCE(cpu_buffer->nr_pages) + 1) * subbuf_size;
-+
-+	/* The cached read page, if present, is a full sub-buffer page. */
-+	if (READ_ONCE(cpu_buffer->free_page.data))
-+		size += subbuf_size;
-+
-+	/* The mmap metadata page is a single system page. */
-+	if (READ_ONCE(cpu_buffer->meta_page))
-+		size += PAGE_SIZE;
-+
-+	return size;
-+}
-+
- /**
-  * ring_buffer_max_event_size - return the max data size of an event
-  * @buffer: The ring buffer.
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index e4a490d3d08c..d4a913ff8a69 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -5771,6 +5771,79 @@ tracing_total_entries_read(struct file *filp, char __user *ubuf,
- 	return simple_read_from_buffer(ubuf, cnt, ppos, buf, r);
- }
- 
-+struct trace_mem_stats {
-+	unsigned long	buffers;
-+	unsigned long	snapshot;
-+};
-+
-+static void
-+trace_array_buffer_memory(struct trace_array *tr, int cpu,
-+			  unsigned long *buffers, unsigned long *snapshot)
-+{
-+	if (tr->array_buffer.buffer)
-+		*buffers += ring_buffer_memory_size(tr->array_buffer.buffer, cpu);
-+
-+#ifdef CONFIG_TRACER_SNAPSHOT
-+	if (tr->snapshot_buffer.buffer)
-+		*snapshot += ring_buffer_memory_size(tr->snapshot_buffer.buffer, cpu);
-+#endif
-+}
-+
-+static struct trace_mem_stats trace_buffers_memory(void)
-+{
-+	struct trace_mem_stats stats = {};
-+	struct trace_array *tr;
-+	int cpu;
-+
-+	guard(mutex)(&trace_types_lock);
-+
-+	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
-+		for_each_tracing_cpu(cpu)
-+			trace_array_buffer_memory(tr, cpu, &stats.buffers,
-+						  &stats.snapshot);
-+	}
-+
-+	/*
-+	 * temp_buffer is allocated in tracer_alloc_buffers() and is never
-+	 * attached to a trace array. It temporarily holds event data for
-+	 * triggers when tracing is off. Account for its pages too.
-+	 */
-+	if (temp_buffer) {
-+		for_each_tracing_cpu(cpu)
-+			stats.buffers += ring_buffer_memory_size(temp_buffer, cpu);
-+	}
-+
-+	return stats;
-+}
-+
-+static int trace_mem_show(struct seq_file *m, void *v)
-+{
-+	struct trace_mem_stats stats = trace_buffers_memory();
-+
-+	seq_printf(m, "buffers: %lu\n", stats.buffers >> 10);
-+	seq_printf(m, "snapshot_buffers: %lu\n", stats.snapshot >> 10);
-+
-+	return 0;
-+}
-+
-+static int trace_mem_open(struct inode *inode, struct file *file)
-+{
-+	int ret;
-+
-+	ret = tracing_check_open_get_tr(NULL);
-+	if (ret)
-+		return ret;
-+
-+	return single_open(file, trace_mem_show, inode->i_private);
-+}
-+
-+static const struct file_operations trace_mem_fops = {
-+	.open		= trace_mem_open,
-+	.read		= seq_read,
-+	.llseek		= seq_lseek,
-+	.release	= single_release,
-+};
-+
- #define LAST_BOOT_HEADER ((void *)1)
- 
- static void *l_next(struct seq_file *m, void *v, loff_t *pos)
-@@ -9285,6 +9358,26 @@ static struct notifier_block trace_module_nb = {
- };
- #endif /* CONFIG_MODULES */
- 
-+static __init void init_trace_stats_tracefs(void)
-+{
-+	struct dentry *stats_dir;
-+
-+	/*
-+	 * tracer_alloc_buffers() frees tracing_buffer_mask and temp_buffer
-+	 * on failure without NULLing them, so do not iterate tracing CPUs
-+	 * here when tracing failed to initialize.
-+	 */
-+	if (tracing_disabled)
-+		return;
-+
-+	stats_dir = tracefs_create_dir("trace_stats", NULL);
-+	if (!stats_dir)
-+		return;
-+
-+	trace_create_file("memory_usage_kb", TRACE_MODE_READ, stats_dir,
-+			  NULL, &trace_mem_fops);
-+}
-+
- static __init void tracer_init_tracefs_work_func(struct work_struct *work)
- {
- 
-@@ -9293,6 +9386,8 @@ static __init void tracer_init_tracefs_work_func(struct work_struct *work)
- 	init_tracer_tracefs(&global_trace, NULL);
- 	ftrace_init_tracefs_toplevel(&global_trace, NULL);
- 
-+	init_trace_stats_tracefs();
-+
- 	trace_create_file("tracing_thresh", TRACE_MODE_WRITE, NULL,
- 			&global_trace, &tracing_thresh_fops);
- 
--- 
-2.34.1
+---
+Peng Fan (4):
+      iommu/arm-smmu-v3: Convert streams from RB tree to XArray
+      iommu/arm-smmu-v3: Support shared SIDs in insert/remove_master
+      iommu/arm-smmu-v3: Group aliasing devices into the same IOMMU group
+      iommu/arm-smmu-v3: Wire up shared-SID STE ordering and feature gating
+
+ .../iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c    |   4 +-
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c    |   7 +
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c        | 265 ++++++++++++++++-----
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h        |  34 ++-
+ 4 files changed, 247 insertions(+), 63 deletions(-)
+---
+base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
+change-id: 20260916-smmu-shared-sid-e488f6c4d4f0
+
+Best regards,
+--  
+Peng Fan <peng.fan@nxp.com>
 
