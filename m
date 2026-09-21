@@ -1,195 +1,78 @@
-Received: from mta1.migadu.com (out-233.mta1.migadu.com [95.215.58.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60746469845
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:24:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3B1450415;
+	Mon, 21 Sep 2026 09:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982689; cv=none; b=o+P6ccvxDzVY8r+MCSEp64ImlN7u15XgsBOElfS10wP2P1X8NHc8OHd4OCtwXh/sVrKArOYzaAQVXts80HMTiH/r+7mrG2Ey9le5yTq6WLJHatssy6XKUVUCA+V0h2k2/9WdAeP1J3WP/SMH0UF33NqpqLK521JitmIsbnQci/Q=
+	t=1789982732; cv=none; b=WYEqt5Euyb+rYNGqlVxB0EJ3rnmOdoemmwfU9nHoDn2DgoeVSIFZv3QAN+htyK7jMmkylWXEV+DEOujyQgvQCIIkezopsztLOuqqJjkQmf6be0JQn0oq/PF8RP1zlAXzjnQSx3KXceFekj3Ajbs/Ip3cVoHhXUoCv2H4F9p7C6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982689; c=relaxed/simple;
-	bh=0W3ikDRTYv+yUei/a0Mgw/XZMKUGQdz8H5UTyurLOdI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Rq7BpSQPHYPFSBWiMfxhmc8lIaYi0B91PpHNNbbr+6Abra6uW11ihAFcRbPN7cOTpdxbR6K665sU/anbPZ/ZWXPNdjQBlDeArLy9MAGWe64H4ghnhZDyz9afqMM0nO1fewFuw4SbwTpwlWBcXKNmAnf/3ZwgYm/qmlV/7KhJhM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FwBQ5bUJ; arc=none smtp.client-ip=95.215.58.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789982732; c=relaxed/simple;
+	bh=h0lbirbiRFTe0nqD7sNgdCQWa98rjE9GNM+G7wxNPPI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hsp0+O8rPG7Li1c3PXoaMa9YWaZSL/1wzJqbhmo1QgVlsehtzjvGOlTBKhgKSUIHP+5H7/jlgRTbJoVdpMO0QtlsL+0UjWOfYuO88lIbAJ7hOI7tXD+j0o6EU10paPA1hT/bYO2O1whFmL0/sqV8qeaeqNIZPc/eV9jYOqq/PMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=fail (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9GTjN96 reason="signature verification failed"; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FwBQ5bUJ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0W3ikDRTYv+yUei/a0Mgw/XZMKUGQdz8H5UTyurLOdI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789982684; v=1; x=1790587484;
- b=FwBQ5bUJzvbXiqI9kD+wPhtVGOuCgPk1yXA85jK65Zfk/fS84cAx1DRDcN1z+BQfS6fqe8KG
- lw/9Re1fKjn+4IxvMEqA4ZemhWuaz+d8OSSmQAsLLhLR7o3XAfn8zNE2JCr3l5Y1yomBUVHs4wo
- N6g5GQ1OMsEaArKSb4YSh+Mc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c113fa249d93a37b;
-	Mon, 21 Sep 2026 09:24:43 +0000
-X-Mizu-Trace-ID: c113fa249d93a37b
-X-Migadu-Flow: FLOW_OUT
-From: Ye Liu <ye.liu@linux.dev>
-To: Tony Luck <tony.luck@intel.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	x86@kernel.org,
-	Christian Brauner <brauner@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Jan Kara <jack@suse.cz>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Alexey Dobriyan <adobriyan@gmail.com>,
-	Ye Liu <liuye@kylinos.cn>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>
-Cc: Michal Hocko <mhocko@suse.com>,
-	SJ Park <sj@kernel.org>,
-	Gregory Price <gourry@gourry.net>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	peterz@infradead.org,
-	paulmck@kernel.org,
-	mingo@redhat.com,
-	rostedt@goodmis.org,
-	jpoimboe@kernel.org,
-	mic@digikod.net,
-	tglx@kernel.org,
-	david@kernel.org,
-	linmiaohe@huawei.com,
-	nao.horiguchi@gmail.com,
-	rafael@kernel.org,
-	gnoack3000@gmail.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	rientjes@google.com,
-	shakeel.butt@linux.dev,
-	xu.xin16@zte.com.cn,
-	chengming.zhou@linux.dev,
-	will@kernel.org,
-	boqun@kernel.org,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	joelagnelf@nvidia.com,
-	josh@joshtriplett.org,
-	urezki@gmail.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com,
-	pavel@kernel.org,
-	lance.yang@linux.dev,
-	mhiramat@kernel.org,
-	pmladek@suse.com,
-	longman@redhat.com,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	dietmar.eggemann@arm.com,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	mark.rutland@arm.com,
-	Dave.Martin@arm.com,
-	james.morse@arm.com,
-	babu.moger@amd.com
-Subject: [PATCH v4 13/15] fs: convert process/thread iterators to for_each_*_rculock
-Date: Mon, 21 Sep 2026 17:20:59 +0800
-Message-Id: <20260921092101.89285-14-ye.liu@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260921092101.89285-1-ye.liu@linux.dev>
-References: <20260921092101.89285-1-ye.liu@linux.dev>
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9GTjN96"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17C231F000FF;
+	Mon, 21 Sep 2026 09:25:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789982731;
+	bh=h0lbirbiRFTe0nqD7sNgdCQWa98rjE9GNM+G7wxNPPI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=G9GTjN96ydiq83Dx6AwgaeAwNufeqfgnbprIBt6+exthvcfj6KvKHWSrXRQ1G+fIO
+	 CR0L87npQ6Ea0jPOMswGc8AY9HnXr6SzLE6hm3nroxAsiTUCFONF1AjBiWKiNkLCdo
+	 HfU9pb7exOZunuj/m975SoxT+oZ9pYI08PLbHjYu/fAt6wyUupuuHzXfSz6mCT/nIk
+	 r3IcK0eAwtFOVdNOuyV1xOecJJtozZWu9l2Zr6l995o+kAO6IhF78/0PcvtX2Ru4hP
+	 wNiuRs4Yr9agDz8f6d2dNNu6+5doMmiXjWlo0apEAt26WEd6BL0MZpD5VMrlz6qyli
+	 Z4DPAU2m60XSw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 14/14] crash: Fix TOCTOU race in crash memory range
+ collection
+Reply-To: sashiko-reviews@lists.linux.dev
+To: kees@kernel.org, piliu@redhat.com, npiggin@gmail.com, mpe@ellerman.id.au, me@linux.beauty, bgwin@google.com, mingo@redhat.com, x86@kernel.org, baoquan.he@linux.dev, guodongtai@kylinos.cn, leitao@debian.org, driver-core@lists.linux.dev, coxu@redhat.com, pratyush@kernel.org, "Jinjie
+ Ruan" <ruanjinjie@huawei.com>, will@kernel.org, dakr@kernel.org, sourabhjain@linux.ibm.com, maqianga@uniontech.com, gregkh@linuxfoundation.org, sshegde@linux.ibm.com, liukexin@kylinos.cn, kernel@xen0n.name, thuth@redhat.com, hbathini@linux.ibm.com, linux-kernel@vger.kernel.org, mclapinski@google.com, tglx@kernel.org, kai.huang@intel.com, linuxppc-dev@lists.ozlabs.org, robh@kernel.org, seanjc@google.com, james.morse@arm.com, palmer@rivosinc.com, chleroy@kernel.org, yeoreum.yun@arm.com, loongarch@lists.linux.dev, jbouron@amazon.com, catalin.marinas@arm.com, ritesh.list@gmail.com, akpm@linux-foundation.org, rppt@kernel.org, eric.devolder@oracle.com, chenhuacai@kernel.org, vishal.l.verma@intel.com, dave.hansen@linux.intel.com, chao.gao@intel.com, pasha.tatashin@soleen.com, bp@alien8.de, mark.rutland@arm.com, takahiro.akashi@linaro.org, zhangtianyang@loongson.cn, rafael@kernel.org, tangyouling@kylinos.cn, graf@amazon.com, ruirui.yang@linux.dev, hpa@zytor.com, linux-arm-kernel@lists.infra
+ dead.org, maddy@linux.ibm.com
+Cc: kexec@lists.infradead.org, ruanjinjie@huawei.com
+In-Reply-To: <20260921090450.807575-15-ruanjinjie@huawei.com>
+References: <20260921090450.807575-1-ruanjinjie@huawei.com>
+ <20260921090450.807575-15-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 09:25:27 +0000
+Message-Id: <20260921092528.17C231F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Ye Liu <liuye@kylinos.cn>
+> The crash kernel ELF core header construction counts system memory
+> ranges via `arch_get_system_nr_ranges()`, allocates the crash_mem
+> buffer, and then populates it via `arch_crash_populate_cmem()`.
+> This sequence has a time-of-check-to-time-of-use (TOCTOU) race with
+> memory hotplug: a concurrent hotplug event between the count
+> and populate steps can increase the number of ranges beyond the allocated
+> capacity, causing an out-of-bounds write. If the event triggers
+> memblock_double_array(), the memblock array can be freed and reallocated
+> during iteration, leading to a use-after-free.
+>=20
+> Protect the entire range collection with device_hotplug_lock. Since
+> the hotplug notification path already holds that lock, add a lockless
+> helper, crash_get_memory_ranges_nolock(), for use there. The regular
+> crash_get_memory_ranges() acquires the lock and calls the helper.
+>=20
+> [ ... ]
+> Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
+> Fixes: 8acea455fafa ("RISC-V: Support for kexec_file on panic")
+> Fixes: 1bcca8620a91 ("LoongArch: Add crash dump support for kexec_file")
+> Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%=
+40huawei.com
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-Replace the manual rcu_read_lock()/rcu_read_unlock() pairs combined
-with for_each_process() and for_each_process_thread() loops in fs/
-with the for_each_*_rculock() macros, which scope the RCU read lock
-to the loop body via scoped_guard(rcu).
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-No functional change.
-
-Signed-off-by: Ye Liu <liuye@kylinos.cn>
-Acked-by: Michal Hocko <mhocko@suse.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- fs/proc/base.c        | 4 +---
- fs/resctrl/rdtgroup.c | 8 ++------
- 2 files changed, 3 insertions(+), 9 deletions(-)
-
-diff --git a/fs/proc/base.c b/fs/proc/base.c
-index 6a39de424f62..3de4f4557e4c 100644
---- a/fs/proc/base.c
-+++ b/fs/proc/base.c
-@@ -1160,8 +1160,7 @@ static int __set_oom_adj(struct file *file, int oom_adj, bool legacy)
- 	if (mm) {
- 		struct task_struct *p;
- 
--		rcu_read_lock();
--		for_each_process(p) {
-+		for_each_process_rculock(p) {
- 			if (same_thread_group(task, p))
- 				continue;
- 
-@@ -1177,7 +1176,6 @@ static int __set_oom_adj(struct file *file, int oom_adj, bool legacy)
- 			}
- 			task_unlock(p);
- 		}
--		rcu_read_unlock();
- 		mmdrop(mm);
- 	}
- err_unlock:
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 5dcbb0a964e8..b14df8b23f1a 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -709,14 +709,12 @@ int rdtgroup_tasks_assigned(struct rdtgroup *r)
- 
- 	lockdep_assert_held(&rdtgroup_mutex);
- 
--	rcu_read_lock();
--	for_each_process_thread(p, t) {
-+	for_each_process_thread_rculock(p, t) {
- 		if (is_closid_match(t, r) || is_rmid_match(t, r)) {
- 			ret = 1;
- 			break;
- 		}
- 	}
--	rcu_read_unlock();
- 
- 	return ret;
- }
-@@ -826,15 +824,13 @@ static void show_rdt_tasks(struct rdtgroup *r, struct seq_file *s)
- 	struct task_struct *p, *t;
- 	pid_t pid;
- 
--	rcu_read_lock();
--	for_each_process_thread(p, t) {
-+	for_each_process_thread_rculock(p, t) {
- 		if (is_closid_match(t, r) || is_rmid_match(t, r)) {
- 			pid = task_pid_vnr(t);
- 			if (pid)
- 				seq_printf(s, "%d\n", pid);
- 		}
- 	}
--	rcu_read_unlock();
- }
- 
- static int rdtgroup_tasks_show(struct kernfs_open_file *of,
--- 
-2.25.1
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921090450.8075=
+75-1-ruanjinjie@huawei.com?part=3D14
 
