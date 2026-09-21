@@ -1,120 +1,80 @@
-Received: from mta-65-226.siemens.flowmailer.net (mta-65-226.siemens.flowmailer.net [185.136.65.226])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99B0548F000
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3294915B4
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:33:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789983191; cv=none; b=Tbsx7FXtvbdKHnczBn4VBJ44DRRhxpeSb0nit80/TGarIRCSw13FvPisErlJkahwJBens4iAKuFr2IfiuWMFjr11FBwKU+jvwd5pgt1i74/acy4mgrrK0g06cMPXTH3rWrWwVOZts6n8WYWXcrGm9leDPiqy1SZPA6kX++KUo3s=
+	t=1789983224; cv=none; b=XsUn1WC2/ScSOCSJHms4Gqs578rynWX9RZirj4uP6NwB9egufekKH1Cc0IpMsCzDU1ZWBPO6Zqp+pvrzKGrVYBqqwLz/8RqQ8CrA3vPjZrjocgdGHjcyOsrt1/RMkkmH1wZBArmue5FALj59jFaUm4pGRdIdG1LziEynbpc7tXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789983191; c=relaxed/simple;
-	bh=Dz06NXWuU+EnWrWE7XTA4ytYS4efcQrInWMWhIbJZrw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TLrE1FjiigP6Tr7SDDi96EYjK+sCu6at+6A8JmpA0HWAlpgHIYA4DgLfSSiiutY/Wic6LZE9W4gk0OONF9220zp5rRbBdWYx1tNEz7xUIndwSLkYWm3XN9qp7nEwlmK8Tn6LWYk9mIhn+oiwjIelFR5/CBXywwTnSMQ4MjrL0p8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=Tko7g3zm; arc=none smtp.client-ip=185.136.65.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	s=arc-20240116; t=1789983224; c=relaxed/simple;
+	bh=fc2cITGdbFdsifue250a6pMT8QVpXle+kYTZx409J0o=;
+	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=NXB4tkUE9MOgn8psXyh+g/M4eu5dkTGFz5Wl5G7lFfdkDrOrEAfpOpnPfDKcH0fEic/iA3OpiD3yOOCwpMkQqMbA+JeCOWii8nPmkafFI3kcwhjhTL4FK9k0A1YpM1wwb6mszMT1rEacFXPXxPOr006BZ0Dl1EJyC8TqbVGYgVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=hrLhf1Ru; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="Tko7g3zm"
-Received: by mta-65-226.siemens.flowmailer.net with ESMTPSA id 20260921093258793c285aeb0002079e
-        for <linux-kernel@vger.kernel.org>;
-        Mon, 21 Sep 2026 11:32:58 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
- bh=b1wRbNxlwWjzN/IZUnhsSV6Ns7pCAKFvb5J/nSfORUg=;
- b=Tko7g3zmt5hGKzfnlPTVwKKvWlOq5mDB7Iy6aGVVyfSuCHbicNDARfLrL62WYwQrymasnw
- 9WpGF6/fmJWk0Zj+R/TaWDsS4L4bkvLMS8P/wLOFuXWT2Z6RcAzoBpcy74oneJ1q6VTVMWmX
- WU6NZkNglFAdK4NixMXDLyyaUvT2KuykatDvakfHbIwM9Wy08OnU+oxoiDm0KZV2kZi9XVTu
- 9bqy4LpbsQrHKlysHxuP+Tv2SkiKr3tbsNZjWLOoflCQ2dQ58YcPNviHlpyeVBljlg+hAqiK
- g7wwyn+xllxKd1q8Rdg0QTAbCzSq14yeu9iZAIRlSk1LSL4xAgLRZqwQ==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: linux-leds@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/4] leds: trigger: netdev: fix sysfs_update_group() races
-Date: Mon, 21 Sep 2026 11:32:42 +0200
-Message-ID: <20260921093249.3481413-1-alexander.sverdlin@siemens.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="hrLhf1Ru"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id F13974E40EF3;
+	Mon, 21 Sep 2026 09:33:39 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id BC4F760339;
+	Mon, 21 Sep 2026 09:33:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DC4DA1032918A;
+	Mon, 21 Sep 2026 11:33:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789983214; h=from:subject:date:message-id:to:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=XM4HQGrBz4+OFGrobuvy0488Z0TdUTFMNFt2LRu3OzE=;
+	b=hrLhf1Ru73t9aY8LochvALjZfDluturyQZxYk4k9vHEIPBORNadNTLun13Ur1AXjMSWiCc
+	s+WxQh8VBnuTNaum264n9T4ux6ASk60kXbWq+LbpY2vsPX+6zoQ+DB0O+yezTycrc3lJOa
+	IZ4MM5kQsy1wFsn/7rr2Cn/Ur9FlLqhhwRLcxQmwnti740tVOpUkMxnD9uyla1v4CegBqs
+	wBAXn8rGJmBk5BCKc7dH75gY+zrxeVLwcDnWDpnDsf6tIUBbcLahr3OJ5Lsduex0yqHkjI
+	+JbXkXXtukWs0wTTWzz4AYYrGOdL6P0grTSyidzBqkd1HcC4aL/idgVrPcQKQw==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: tomi.valkeinen@ideasonboard.com, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+ kees@kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Andreas Kemnade <andreas@kemnade.info>
+In-Reply-To: <20260908172213.446608-1-andreas@kemnade.info>
+References: <20260908172213.446608-1-andreas@kemnade.info>
+Subject: Re: [PATCH] drm/omap: dsi: print errors with device prefix
+Message-Id: <178998320945.177649.15427813145319109633.b4-ty@b4>
+Date: Mon, 21 Sep 2026 11:33:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-The netdev LED trigger refreshes the link_speed attribute group with
-sysfs_update_group() from several contexts (the NETDEV_CHANGE notifier,
-device_name writes and, indirectly, trigger (de)activation) that share no
-common lock.  On a board that emits PHY link events while the trigger is
-being (re)armed during boot this is observed as a hard sysfs failure:
+On Tue, 08 Sep 2026 19:22:13 +0200, Andreas Kemnade wrote:
+> There are two dsi controllers on OMAP4/5. If both are in use, messages
+> without device prefix have no indication which controller they are coming
+> from. That makes debugging harder.
+> Replace DSSERR/DBG macros with dev_-prefixed print functions where
+> the device is reliably accessible.
+> Also replace function names by %s ... __func__ constructs and remove
+> some debug outputs to satisfy checkpatch.
+> 
+> [...]
 
-  sysfs: cannot create duplicate filename '...green:lan/link_10'
-  ...
-  led_trigger_set
-  led_trigger_write
+Applied, thanks!
 
-The window between activate() and device_add_groups() in led_trigger_set()
-is narrow, so to reproduce it reliably I artificially widened it with the
-debug patch below:
+[1/1] drm/omap: dsi: print errors with device prefix
+      commit: af8296450df7678c94ae03054887639e3d4d35de
 
-  --- a/drivers/leds/led-triggers.c
-  +++ b/drivers/leds/led-triggers.c
-  @@ -12,6 +12,7 @@
-   #include <linux/list.h>
-   #include <linux/spinlock.h>
-   #include <linux/device.h>
-  +#include <linux/delay.h>
-   #include <linux/timer.h>
-   #include <linux/rwsem.h>
-   #include <linux/leds.h>
-  @@ -223,6 +224,8 @@ int led_trigger_set(struct led_classdev *led_cdev, struct led_trigger *trig)
-                   if (ret)
-                           goto err_activate;
-
-  +               msleep(5000);
-  +
-                   ret = device_add_groups(led_cdev->dev, trig->groups);
-                   if (ret) {
-                           dev_err(led_cdev->dev, "Failed to add trigger attributes\n");
-
-With that msleep() in place, writing the trigger while a NETDEV_CHANGE is
-delivered from the linkwatch workqueue reproduces the duplicate-filename
-splat every time.
-
-The whole series is LOCKDEP-verified.
-
-Changelog:
-v2:
-- addressed pre-existing issues found by Sashiko (patches 1&2)
-- reduced verbosity both in comments and in commit messages
-- patch 3 is a combined rework of patches 1&2 from v1
-- dropped sync from cancel_delayed_work() (worker now takes the lock)
-v1:
-https://lore.kernel.org/all/20260914132356.807004-1-alexander.sverdlin@siemens.com/
-
-Alexander Sverdlin (4):
-  leds: trigger: netdev: Put netdev on activate error path
-  leds: trigger: netdev: Access net_dev under trigger_data->lock in the
-    worker
-  leds: trigger: netdev: Fix sysfs_update_group() races
-  leds: trigger: netdev: Serialize mode/interval stores with trigger
-    lock
-
- drivers/leds/trigger/ledtrig-netdev.c | 54 +++++++++++++++++++++------
- 1 file changed, 43 insertions(+), 11 deletions(-)
-
+Best regards,
 -- 
-2.55.0
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
 
