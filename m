@@ -1,173 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010030.outbound.protection.outlook.com [52.101.228.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF17841737F;
-	Mon, 21 Sep 2026 20:00:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790020818; cv=none; b=pAuScvVExF2ysSy1bYVfizYh8zU2UHTEjkhleW4j7x/J0yWU9H+uwbQkjvFWz+5tIca3I2FZaxSr4zzxXnbQTss6RpnQKdtr1fCrHwrqLdjygdY8wXiQ+QbkCGaZW0E+omq9fSS8CpzrmJq7dG2VKJ/lITxeDF/KSJPossnaCoo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790020818; c=relaxed/simple;
-	bh=ZMj3GL7XkJQuzRyY7F15KJiefRjsZ0PhiN7MkSd9scA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=f1IYvhv3dK3MjGWRUFDcyTPTr0BKYIjBXuwzLyaeHM8xr2rItuyVJMXYeIv4klK4i6VFM4RXbGBZwwIisgNebQuXeJzDAHT+TRdQogCkj6zjbvkVIjyef1jGWpcgqTYExxctHEZWInCtOttgnXrKUSbO2IXQkEe7hdvoufscSbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jq6hV1F6; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930C933938C;
+	Mon, 21 Sep 2026 20:00:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790020820; cv=fail; b=oAhiJBQDPc6FHhZfNhAhBiTt1PqB5tl9be5ZK5fwleP/i50ukoTvlPqpH5FLzr2t7Pm37yyzMHkI0wfiWl3DNsWta2FXzU77+GaM9qv7dflSn9ic7Bt1SzAOmV0NBBYfv6WUNtNeGtkUh1C71U92ng6rPE1Ffk5hgVARTT7quW0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790020820; c=relaxed/simple;
+	bh=5GPqOXxCeI/zH4cwUI6xGOw2jePXAIOYNSJ98ea4QTo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Ls1rM3s0UQytjb7uupq0E6KeVPTpu2olHe+CMSFGHbMFVmSFRO24v/m8nTeO3y3wc14GVKJB+GhG4JvPcfdUswVT+Y8no6I954g4zkNbJP/WCdbJ0clEL2AnACMWKpgaXG6s+Q8cY4/zkg+02UBOY1lByx5IaJ86Cf0xJr+j9mY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=hu+3qFBG; arc=fail smtp.client-ip=52.101.228.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jq6hV1F6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBD441F00899;
-	Mon, 21 Sep 2026 20:00:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790020813;
-	bh=uohIE5Ud1GVLNxgqJo8HKP8fD50DZwtEDQQQXUSGv4w=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=jq6hV1F6xq6J8paTwQAAKGSZfhRwBlx2ocNzRoGzAaeORMDZmCkdqNYnfSdjAeO1b
-	 +9p6CA+RwWfuvXt10ONB9W+ARG+TRUSzP3yB/rvbPEoV7h3x7sWzTsshsCjvNmiYGY
-	 pBeNThQ0lLtRgem+7/J6YCSayEmXI1vm2Zk2k4NBkI3YmmdMrQ3cdcuezTOKG2FrFE
-	 lgDhSxeZUhIapwQdP/NIGtTHVR9WrFUgyzf1vIMzHaMAiPKF/+4ea3XVxFC/PCdRe9
-	 xOsz/YATuBG0ycnif7zegeGNKE1Iar5n84GNQdAAh5k4IHAw6h6OIYVEPlVJ1t2c0T
-	 4oV+JRhM4bYhg==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Mon, 21 Sep 2026 21:58:58 +0200
-Subject: [PATCH v2 06/13] mm/sparse: rename __highest_present_section_nr to
- __highest_used_section_nr
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="hu+3qFBG"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fKtnMQswjFLVW5sgIT5EtAYm0WjkwSxr5sf8RaXxsHiHqZuimD2l0OIMru4FV02A5v0Bhx+AkI7isrAjxTDA8KYzUmkzixd57lUWYNrOsgAOjLBP97qxWfZ3Oj3YggrDrbg86jqC4ERv7x5Iyp1e3JdQcri0XBQAo77wsyfkerSD+LcxuCruCjQGS64m4WpMEkypBaaO06RylEXYTq+mOewBkUoc36bga8qUpuvT6k2j6eWb7dzRpkR3dJR8I7VpYZwg+9lHPegg+xonZ2fXqMJc1W6x+ZtvZM+XJXG3bRCDGd2kYysEKbssWlnTw/ZQN4pWvWwZ19MRPZSQrQgA8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WYlqVV0PbzEKRmEPeFUO/QKN7aJnxBLOSZLmwT57Lo8=;
+ b=yx8oSKTQzyg0SiP9BkK8FSaRFn1pGnPv8IzIvdIZn0sq5542U9kHHpQ/QwNIEN3FMEG9A47kSUdJXtfMSzWKChpYTM3emUHqhv76UnOn3Vy+M1K/fPdJbi1pJxCCWN6dM0xzrRjMV3GFYY5H4GS49b4UHuMgdwS5NZjths2jr+M0n5pOUqEiDRFHz85m39Hbqp++qusbiTt9gnVvur+3zecQApiPSDIlGqA93Z1KsqbTsCtNex7KjrvxoHcTQGStkpJeHhLAM6evAI5cLmzN8wpgB7g5Ag+9eOew1ikDfw85PwXlyfQuVYAlXFo2CIJgh3+ZR2RPEBzrpdaAJKozzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 8.62.32.50) smtp.rcpttodomain=glider.be smtp.mailfrom=renesas.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=renesas.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WYlqVV0PbzEKRmEPeFUO/QKN7aJnxBLOSZLmwT57Lo8=;
+ b=hu+3qFBGgRTGb07Y8vWPl8I00f1Y7nFJ/NWwV9Azan3zflRBSLmitZIkcDtA2n8wqLWwDrJHM2AVIqJf4HiF38SgyifpDe8v/9xgx0NyxAuW+tcQC/ZPCL6iwpi0FWcGmz3kFCr3CNhKEvzP0zAhu2yph8TlxEpp0V3T1m+sRgA=
+Received: from TYCP286CA0092.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:2b4::10)
+ by TY3PR01MB11528.jpnprd01.prod.outlook.com (2603:1096:400:375::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 20:00:08 +0000
+Received: from TYO1EPF0000501F.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b4:cafe::44) by TYCP286CA0092.outlook.office365.com
+ (2603:1096:400:2b4::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
+ 21 Sep 2026 20:00:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 8.62.32.50)
+ smtp.mailfrom=renesas.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=renesas.com;
+Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
+ 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
+Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
+ TYO1EPF0000501F.mail.protection.outlook.com (10.167.240.4) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
+ via Frontend Transport; Mon, 21 Sep 2026 20:00:07 +0000
+Received: from vm01.adwin.renesas.com (DEU-5CG20946WF.adwin.renesas.com [10.226.92.26])
+	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id C0EAA3000240;
+	Tue, 22 Sep 2026 05:00:05 +0900 (JST)
+From: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+To: broonie@kernel.org,
+	geert+renesas@glider.be
+Cc: linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+Subject: [PATCH] spi: rspi: Fix DMA mode when the DMA controller is built as a module
+Date: Mon, 21 Sep 2026 19:59:43 +0000
+Message-ID: <20260921195943.107247-1-ovidiu.panait.rb@renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-b4-sparsemem_cleanups-v2-6-54d81d65e125@kernel.org>
-References: <20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org>
-In-Reply-To: <20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Brendan Jackman <brendan.jackman@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
- Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>, 
- Oscar Salvador <osalvador@suse.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, 
- linux-fsdevel@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3714; i=david@kernel.org;
- h=from:subject:message-id; bh=ZMj3GL7XkJQuzRyY7F15KJiefRjsZ0PhiN7MkSd9scA=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLI29rSdNVMPfzFfW2Wpj0ti81133uaDAdce7T7Wd0Gw2
- MTRMk25o5SFQYyDQVZMkSUo+L7By5fraqvd+Jhh5rAygQxh4OIUgIlIKzP8U9rU8CH6Dmtb5QHP
- w6sX/M84WP5Rv2dHk45SBPvLxqwyM4a/YhwN8mbHrj+WeuvGKmh4Y9nqR75Z1+zn/muoXe5857c
- RHwA=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYO1EPF0000501F:EE_|TY3PR01MB11528:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 7d00e4e9-e5f0-43e4-7597-08df181aef87
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|23010399003|376014|11063799006|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Em2dwfz9Poxj7kOCj8avPvfFFpO/fQCeCkd6Jb/EoCzZs9mFqz6O5CXC9f0zlH5M28fzwvVr2rNPN7Feu9xWC51HV/YwD+DjI1g47NTxyBBji1NdJ9Thz570DH4N49o8E6n23uI75O231g44hRVUDkivAeOcLQxKz+MLDKo6uGD6R39xC5AolfU8eZM8rG+B7o910mR767/4O1IoRmJ6pip9jjTMxhuxc95KgNso8Seea6lIj3TJGxem1ETR5T593KJWETIUj89ezWKp3N0gR/d7KfneQ5bwCpfpz5Dx/xkQ37maVXqCT8O6P5BsiCJ+O2JumO2etjhRIURGSuLLlzg55MM6+XaPbUcadH5ejbeh8jeqyhQfp5Mq2uQkES5u+9dLjapxc5BmjFclSefrvJ2e6pCUOi0iURL0HfCsBitvBUaZTdOoFqGV43cdsJFXhYHXTNc98xAj0MzlwY/95hBk7rXnqqEWyRM9vCVg8/OnwFmqEsuBp01LyuH6/5rFqyjvumw2TXMK4ciKYO4T3UpJq4wduFv7NvrRT9Q1JuXk5mQEOuKk9xUMSR3gDZm0v2+0JcygvRURaDrjIxpn/WmST6x/pJeU9aPwInnJ8MS7kMGmHWQI7sHUbB+8xLAow01Tg3VqYcmrPfH/XtGasI3nmP+JlHxALy9OwQj/F4vroUjrQnUj8eAGtybvp9PHC05axDpiS8WGMTWZ/6SWaQ==
+X-Forefront-Antispam-Report:
+	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(23010399003)(376014)(11063799006)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	d2Dy7M2Dy7WKrgF1ISVEyImLLjVZCThoc8YPlA5y8yPaZrFCH2oRTO2o75jne85WOEFvDJCm8fUmGHBmaECxVObA5HQfdAEvyJywZPs5e/t4VLECphtq1ottoKA6fcB8ytxSRudQFaRdb2mpXXnudKXyelhazC8IJum9p/ED8juyWSFNywvdfw7/wgzZBCaFNocWCDpuzr/JE5ilG/f++Udoghu71L+K3vNAE38XVuNxwlOb5/DC3n24tmX72JgbVHbEE2Z/eYoRKRN2/wOK2PyMIRQnxMi8eh96E1kk8YDCm5jFaJ2PAOXa1NGtWFDI/rVv3OcXrE8X927sDqtzOOKbJKRlduWfmeWb7AwPGGTlUAAL1de7ZMXX66bEI0YvHjyYn8cv2r6fue8p4BiTMLoZMvIFZvpTgl5ZV09lAr0Cgd1wvHLf9FsSPxlBnZVi
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 20:00:07.6259
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d00e4e9-e5f0-43e4-7597-08df181aef87
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
+X-MS-Exchange-CrossTenant-AuthSource: TYO1EPF0000501F.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB11528
 
-In preparation for getting rid of SECTION_MARKED_PRESENT, rename
-__highest_present_section_nr and clarify the comment.
+On the Renesas RZ/G2L platform, the RSPI driver falls back to PIO mode
+instead of using DMA when the DMA controller driver is built as a module
+(CONFIG_RZ_DMAC=m):
 
-Acked-by: Oscar Salvador <osalvador@suse.de>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+    renesas_spi 1004b000.spi: dma_request_slave_channel_compat failed
+    renesas_spi 1004b000.spi: DMA not available, using PIO
+
+The driver requests DMA channels through dma_request_slave_channel_compat()
+which returns either a valid pointer or NULL and cannot handle
+-EPROBE_DEFER. If the DMA controller has not probed yet, the driver falls
+back to PIO directly.
+
+Fix this by replacing the dma_request_slave_channel_compat() call with a
+regular dma_request_chan() call. dma_request_slave_channel_compat() is
+always passed a NULL fn_param in all code paths, so it actually behaves
+like a plain dma_request_chan() call.
+
+Fixes: e825b8dd2b36 ("spi: rspi: Add DT support to DMA setup")
+Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
 ---
- include/linux/mmzone.h |  6 +++---
- mm/compaction.c        |  2 +-
- mm/sparse.c            | 12 ++++--------
- mm/sparse.h            |  4 ++--
- 4 files changed, 10 insertions(+), 14 deletions(-)
+ drivers/spi/spi-rspi.c | 49 ++++++++++++++++--------------------------
+ 1 file changed, 19 insertions(+), 30 deletions(-)
 
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index ebbda6f311392..0c2fea48c261b 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -2181,7 +2181,7 @@ static inline struct mem_section *__pfn_to_section(unsigned long pfn)
- 	return __nr_to_section(pfn_to_section_nr(pfn));
- }
+diff --git a/drivers/spi/spi-rspi.c b/drivers/spi/spi-rspi.c
+index 38df676774ee..c61edd1c1353 100644
+--- a/drivers/spi/spi-rspi.c
++++ b/drivers/spi/spi-rspi.c
+@@ -22,7 +22,6 @@
+ #include <linux/of.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/reset.h>
+-#include <linux/sh_dma.h>
+ #include <linux/spi/spi.h>
+ #include <linux/spinlock.h>
  
--extern unsigned long __highest_present_section_nr;
-+extern unsigned long __highest_used_section_nr;
+@@ -1091,24 +1090,15 @@ static irqreturn_t rspi_irq_tx(int irq, void *_sr)
  
- static inline int subsection_map_index(unsigned long pfn)
+ static struct dma_chan *rspi_request_dma_chan(struct device *dev,
+ 					      enum dma_transfer_direction dir,
+-					      unsigned int id,
+ 					      dma_addr_t port_addr)
  {
-@@ -2280,7 +2280,7 @@ static inline unsigned long first_valid_pfn(unsigned long pfn, unsigned long end
+-	dma_cap_mask_t mask;
+ 	struct dma_chan *chan;
+ 	struct dma_slave_config cfg;
+ 	int ret;
  
- 	rcu_read_lock_sched();
+-	dma_cap_zero(mask);
+-	dma_cap_set(DMA_SLAVE, mask);
+-
+-	chan = dma_request_slave_channel_compat(mask, shdma_chan_filter,
+-				(void *)(unsigned long)id, dev,
+-				dir == DMA_MEM_TO_DEV ? "tx" : "rx");
+-	if (!chan) {
+-		dev_warn(dev, "dma_request_slave_channel_compat failed\n");
+-		return NULL;
+-	}
++	chan = dma_request_chan(dev, dir == DMA_MEM_TO_DEV ? "tx" : "rx");
++	if (IS_ERR(chan))
++		return chan;
  
--	while (nr <= __highest_present_section_nr && pfn < end_pfn) {
-+	while (nr <= __highest_used_section_nr && pfn < end_pfn) {
- 		struct mem_section *ms = __pfn_to_section(pfn);
- 
- 		if (valid_section(ms) &&
-@@ -2335,7 +2335,7 @@ static inline int pfn_in_present_section(unsigned long pfn)
- 
- static inline unsigned long next_present_section_nr(unsigned long section_nr)
- {
--	while (++section_nr <= __highest_present_section_nr) {
-+	while (++section_nr <= __highest_used_section_nr) {
- 		if (present_section_nr(section_nr))
- 			return section_nr;
+ 	memset(&cfg, 0, sizeof(cfg));
+ 	cfg.dst_addr = port_addr + RSPI_SPDR;
+@@ -1121,7 +1111,7 @@ static struct dma_chan *rspi_request_dma_chan(struct device *dev,
+ 	if (ret) {
+ 		dev_warn(dev, "dmaengine_slave_config failed %d\n", ret);
+ 		dma_release_channel(chan);
+-		return NULL;
++		return ERR_PTR(ret);
  	}
-diff --git a/mm/compaction.c b/mm/compaction.c
-index 4994e200bbecd..f1b2060eb2016 100644
---- a/mm/compaction.c
-+++ b/mm/compaction.c
-@@ -216,7 +216,7 @@ static unsigned long skip_offline_sections(unsigned long start_pfn)
- 	if (online_section_nr(start_nr))
+ 
+ 	return chan;
+@@ -1130,29 +1120,23 @@ static struct dma_chan *rspi_request_dma_chan(struct device *dev,
+ static int rspi_request_dma(struct device *dev, struct spi_controller *ctlr,
+ 			    const struct resource *res)
+ {
+-	unsigned int dma_tx_id, dma_rx_id;
++	struct dma_chan *chan;
+ 
+-	if (dev->of_node) {
+-		/* In the OF case we will get the slave IDs from the DT */
+-		dma_tx_id = 0;
+-		dma_rx_id = 0;
+-	} else {
+-		/* The driver assumes no error. */
++	if (!dev->of_node)
  		return 0;
+-	}
  
--	while (++start_nr <= __highest_present_section_nr) {
-+	while (++start_nr <= __highest_used_section_nr) {
- 		if (online_section_nr(start_nr))
- 			return section_nr_to_pfn(start_nr);
+-	ctlr->dma_tx = rspi_request_dma_chan(dev, DMA_MEM_TO_DEV, dma_tx_id,
+-					     res->start);
+-	if (!ctlr->dma_tx)
+-		return -ENODEV;
++	chan = rspi_request_dma_chan(dev, DMA_MEM_TO_DEV, res->start);
++	if (IS_ERR(chan))
++		return PTR_ERR(chan);
++	ctlr->dma_tx = chan;
+ 
+-	ctlr->dma_rx = rspi_request_dma_chan(dev, DMA_DEV_TO_MEM, dma_rx_id,
+-					     res->start);
+-	if (!ctlr->dma_rx) {
++	chan = rspi_request_dma_chan(dev, DMA_DEV_TO_MEM, res->start);
++	if (IS_ERR(chan)) {
+ 		dma_release_channel(ctlr->dma_tx);
+ 		ctlr->dma_tx = NULL;
+-		return -ENODEV;
++		return PTR_ERR(chan);
  	}
-diff --git a/mm/sparse.c b/mm/sparse.c
-index 3c19d47559090..bb89017254f4d 100644
---- a/mm/sparse.c
-+++ b/mm/sparse.c
-@@ -164,15 +164,11 @@ static void __init mminit_validate_memmodel_limits(unsigned long *start_pfn,
- }
++	ctlr->dma_rx = chan;
  
- /*
-- * There are a number of times that we loop over NR_MEM_SECTIONS,
-- * looking for section_present() on each.  But, when we have very
-- * large physical address spaces, NR_MEM_SECTIONS can also be
-- * very large which makes the loops quite long.
-- *
-- * Keeping track of this gives us an easy way to break out of
-- * those loops early.
-+ * Looping over all possible memory sections is expensive, especially if
-+ * NR_MEM_SECTIONS is large but only a fraction is actually used. Keep track of
-+ * the highest section number we ever used.
-  */
--unsigned long __highest_present_section_nr;
-+unsigned long __highest_used_section_nr;
+ 	ctlr->can_dma = rspi_can_dma;
+ 	dev_info(dev, "DMA available");
+@@ -1355,6 +1339,11 @@ static int rspi_probe(struct platform_device *pdev)
+ 	}
  
- static inline unsigned long first_present_section_nr(void)
- {
-diff --git a/mm/sparse.h b/mm/sparse.h
-index 4ee507c34b98d..242b7bab0013c 100644
---- a/mm/sparse.h
-+++ b/mm/sparse.h
-@@ -44,8 +44,8 @@ static inline void sparse_init_one_section(struct mem_section *ms,
- static inline void __section_mark_present(struct mem_section *ms,
- 		unsigned long section_nr)
- {
--	if (section_nr > __highest_present_section_nr)
--		__highest_present_section_nr = section_nr;
-+	if (section_nr > __highest_used_section_nr)
-+		__highest_used_section_nr = section_nr;
+ 	ret = rspi_request_dma(&pdev->dev, ctlr, res);
++	if (ret == -EPROBE_DEFER) {
++		dev_err_probe(&pdev->dev, ret,
++			      "failed to request DMA channels\n");
++		goto error2;
++	}
+ 	if (ret < 0)
+ 		dev_warn(&pdev->dev, "DMA not available, using PIO\n");
  
- 	ms->section_mem_map |= SECTION_MARKED_PRESENT;
- }
-
 -- 
-2.43.0
+2.34.1
 
