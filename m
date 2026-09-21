@@ -1,228 +1,105 @@
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net [217.70.183.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7723A4BA1E0;
-	Mon, 21 Sep 2026 15:14:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3412F691D;
+	Mon, 21 Sep 2026 15:14:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003661; cv=none; b=EuHtAxp5Xt7J2Ly6xqXVzHOKBJl/y8TLw9xnTrwdIOF7oYkSXCDQu4UIDaEf4Zs3gEEBd5eAWlgUtdWW43YBXFdbF483uN2OLdp3SJWZ8oubddoADxMTcTW0M2dY+Hft2yvf+45tuv8z5HmwRoOPRIkNhce/WP3wT9oRZ7MiKac=
+	t=1790003667; cv=none; b=ZvZ0qhAf2ADOMtWkNiPz1OrWdYwpx8ghe6gALnq86g84CURPs/z+HvvxBafKg5q1wY2UkBwDeP8sggELnCZb2+m/YMLQGke+OIXd+uzqGBXmvTQJrLkuAsf07fO+E8i1E2YhMrg8qaGP21S5jjh1Q6mREscwM9BDtz9WZaXJvdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003661; c=relaxed/simple;
-	bh=odZczmMOiuod/U8U6Qq754J9RoujPsTLa9emtGfnw8Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ebcadx4B7XTYiqsNUv/PodeUfDUKdMYv3VIDHsnktHH29qMrGBlGg81e93cJESlgNcK8MrSL04vAcYQ2Xk6McxE+QguqWgRguCNK2BOk/mmlgC9auMu0Gxt1LlErQMjTEf+ObkQUXXyd4VnM0vwdFYHDk8ysFx5VWKpXN1eHzTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr; spf=pass smtp.mailfrom=ghiti.fr; arc=none smtp.client-ip=217.70.183.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
-Received: by mail.gandi.net (Postfix) with ESMTPSA id AC5263EC61;
-	Mon, 21 Sep 2026 15:14:12 +0000 (UTC)
-From: Alexandre Ghiti <alex@ghiti.fr>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>
-Cc: Kairui Song <ryncsn@gmail.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Wei Xu <weixugc@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Tal Zussman <tz2294@columbia.edu>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH v6 1/3] mm: swap: move LRU insertion out of the swap cache allocator
-Date: Mon, 21 Sep 2026 17:13:02 +0200
-Message-ID: <20260921151306.625134-2-alex@ghiti.fr>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260921151306.625134-1-alex@ghiti.fr>
-References: <20260921151306.625134-1-alex@ghiti.fr>
+	s=arc-20240116; t=1790003667; c=relaxed/simple;
+	bh=IhIlpoErO6zQPf/LHi+a0obCzyy2h1v1zl7z4bCoLf8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JrbbrPLPiktY5b7lKDXULAtkN3qN0/yOzt1Nqu5ZtRmrWPRC1vx8ulzgZ6ZRu5TOe+elzYw1WqWFF30ZLZtP9z4BY+LJRH0BTt4Vqz7epe+51mh7sEIuuZD4zI+y9fkU7Qiuk2l/VEtNXOk+rrE28Y7mZDDEXhjhQv15s7b0xC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MfhoR/R/; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MfhoR/R/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8DE91F000FF;
+	Mon, 21 Sep 2026 15:14:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790003666;
+	bh=tpIxZoFZLYvOpLCQ29sIhaJI+A6RdgDAKvdZa2DVaz0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MfhoR/R/hLOP+JdkTPUvUbHpVbLShFnzEFRgffUkmroOdU31tNw8XSxqxD+cAPp2C
+	 bfzOXyOrnzLD7/Q4+I451qqTrJghuWBmXD4dVeo7Xu8U7KeFZLPfFkUYElqI2ee+YM
+	 otYDb6Mr6J7GkPleY9BrNmMfvxExfc4Xl7jgA6n/pAoVSBih+Jd5exuAPMcY/N8gZn
+	 8X470xxASVjXT7wu+hp1/R4ZkPOYglNKSEyH15m48gEb/mm0esqQW/pzMPRNkWKUaR
+	 tA3a78wkHcVsSmM4pStBoFHKS1d0MiEDMDZ67cz7AYCIf6K3LLNzuWXFGxjaP7Z+8l
+	 L2VFm9WeQ/Xzg==
+Date: Mon, 21 Sep 2026 17:14:21 +0200
+From: krzk@kernel.org
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, stable@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	Sivaprakash Murugesan <sivaprak@codeaurora.org>, Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>, 
+	linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	Govind Singh <govinds@codeaurora.org>
+Subject: Re: [PATCH] remoteproc: qcom: q6v5-wcss: remove all subdevices on
+ unbind
+Message-ID: <arFJzYqY_mdeXr4C@quoll>
+References: <20260918041321.3532355-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-GND-Sasl: alex@ghiti.fr
-X-GND-Cause: dmFkZTErTfvtT3pejKA2c3+atWyTlcQY/2uOK/WC4ZxB6ECJeRWaowlY444Pz8MwijVZahcejcCp//J/4zmYyFaV9n5+fTE2W/zk+j08buYeKqj57bfKmR/1aCQIHlePtPRPO7BFkHK0YG5Nc1HJwubtzFLSUafD39eqhbCa1WaoWlky0QU7/s0p+KOQ9WQHVlH/Z4GSeEq8dey3bbFn2mfiX3yy4C/x/sPvRb/5ajFS224lU/TDUiRGF84sCwEmKZTfv8RTO++xBjYCxbdesAxiH6ogpHphBvCw2671svHud/lqwjl9g1Z9dZdvEeBo4gqi7f4j2kALMQ4m3/C5K84EELuYnQSo0Fzqc8ZTTA0+9nAquWP+qQ4kXODBrGakDS5ipyR6CoFemQ2DOLDBdM1qT4ZrsvclOD4iQJ7U+hAbhxi/6FKTLlHA5wME7G8Il4neAhsMjSrWPfTZu8MmI7v8uk0m8wtkPm5jIfuahWyJII0jsK7SxTFI0q3mYvJhAhh2YGnkqcJ18ig/8xECLwA/IKZIRMp8oz3jXYKUV1vWkKe8OZjFCOCWxn4h/6ghpWs2bsPbzOaAGkYMKAr+H0vbErjMz6eXvlZhUKwFYR/RKgxDwiDs6qrCSZAOA+XKbsP791bK5WkKBLjHxwgcHYV/TnhJ2/K8JlECJzTmaHzTtOIbhA
-X-GND-State: clean
-X-GND-Score: -100
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260918041321.3532355-1-lgs201920130244@gmail.com>
 
-This is a preparatory patch.
 
-swap_cache_alloc_folio() adds the new folio to the LRU itself, which
-leaves its callers no way to act on the folio before it becomes visible
-to reclaim.  Two users need exactly that:
+On Fri, 18 Sep 2026 12:13:21 +0800, Guangshuo Li wrote:
+> q6v5_wcss_probe() registers GLINK, PDM and SSR remoteproc subdevices,
+> and may also register a sysmon subdevice. The probe failure path
+> removes all of these subdevices, but q6v5_wcss_remove() only removes
+> the PDM subdevice.
+> 
+> As a result, GLINK, SSR and sysmon resources and registrations can
+> remain after the WCSS driver is removed.
+> 
+> Call rproc_del() before tearing down the Qualcomm-specific resources,
+> matching the teardown order used by the other Qualcomm Q6 remoteproc
+> drivers, and remove the GLINK, sysmon and SSR subdevices together with
+> the existing PDM cleanup.
+> 
+> This issue was found by manual code inspection.
+> 
+> Fixes: 8a226e2c71bb ("remoteproc: wcss: add support for rpmsg communication")
+> Fixes: 0af65b9b915e ("remoteproc: qcom: wcss: Add non pas wcss Q6 support for QCS404")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+>  drivers/remoteproc/qcom_q6v5_wcss.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
 
- - moving the refault evaluation out of the swap cache folio allocation
-   requires it to happen before folio_add_lru(): that consumes PG_active
-   to file the folio on the inactive or the active list, and under MGLRU
-   it also reads PG_workingset to pick the generation.  Setting either
-   flag afterwards does not move the folio;
 
- - zswap writeback dropbehind needs the buffer folio to stay off the LRU
-   entirely, as the per-CPU LRU batch would hold a reference on it and
-   keep remove_mapping() from freeing it once writeback completes.
+You sent multiple independent patches, to multiple independent
+subsystems. The amount of these patches clearly suggest this was
+AI generated and most likely not tested.
 
-Defer the LRU insertion to the callers and rename the helper to
-__swap_cache_alloc_folio(): each caller adds the folio right after the
-allocation, so there is no functional change intended.
+More importantly, you sent all this work without properly organizing
+relevant patches into patchsets. This makes reviewing difficult
+and might cause multiple reviewers to address the same issue.
+Replying to the entire set is impossible and requires handling each
+patch independently, instead of applying or discarding the set.
+Maintainers also won't see the bigger picture of your work. Quite
+worrying.
 
-Suggested-by: Kairui Song <kasong@tencent.com>
-Reviewed-by: Kairui Song <kasong@tencent.com>
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
-Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-Acked-by: Usama Arif <usama.arif@linux.dev>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
----
- mm/swap.h       |  6 +++---
- mm/swap_state.c | 20 ++++++++++++--------
- mm/swapfile.c   |  2 +-
- mm/zswap.c      |  5 +++--
- 4 files changed, 19 insertions(+), 14 deletions(-)
+This is on the verge of hostile patch: bomb us with so many
+contributions, we won't be able to handle them in efficient manner,
+like responding ONCE to ask you to slow down.  Considering all this
+is untested and LLM generated, I have even more doubts whether this
+should be considered for review.
 
-diff --git a/mm/swap.h b/mm/swap.h
-index 90a551a88df6..8679cb61268e 100644
---- a/mm/swap.h
-+++ b/mm/swap.h
-@@ -312,9 +312,9 @@ bool swap_cache_has_folio(swp_entry_t entry);
- struct folio *swap_cache_get_folio(swp_entry_t entry);
- void *swap_cache_get_shadow(swp_entry_t entry);
- void swap_cache_del_folio(struct folio *folio);
--struct folio *swap_cache_alloc_folio(swp_entry_t target_entry, gfp_t gfp_mask,
--				     unsigned long orders, struct vm_fault *vmf,
--				     struct mempolicy *mpol, pgoff_t ilx);
-+struct folio *__swap_cache_alloc_folio(swp_entry_t target_entry, gfp_t gfp_mask,
-+				       unsigned long orders, struct vm_fault *vmf,
-+				       struct mempolicy *mpol, pgoff_t ilx);
- /* Below helpers require the caller to lock and pass in the swap cluster. */
- void __swap_cache_add_folio(struct swap_cluster_info *ci,
- 			    struct folio *folio, swp_entry_t entry);
-diff --git a/mm/swap_state.c b/mm/swap_state.c
-index f3961fdd857d..e5b7fa468ade 100644
---- a/mm/swap_state.c
-+++ b/mm/swap_state.c
-@@ -489,13 +489,11 @@ static struct folio *__swap_cache_alloc(struct swap_cluster_info *ci,
- 	node_stat_mod_folio(folio, NR_FILE_PAGES, nr_pages);
- 	lruvec_stat_mod_folio(folio, NR_SWAPCACHE, nr_pages);
- 
--	/* Caller will initiate read into locked new_folio */
--	folio_add_lru(folio);
- 	return folio;
- }
- 
- /**
-- * swap_cache_alloc_folio - Allocate folio for swapped out slot in swap cache.
-+ * __swap_cache_alloc_folio - Allocate folio for swapped out slot in swap cache.
-  * @targ_entry: swap entry indicating the target slot
-  * @gfp: memory allocation flags
-  * @orders: allocation orders, must be non zero
-@@ -507,13 +505,17 @@ static struct folio *__swap_cache_alloc(struct swap_cluster_info *ci,
-  * doing IO (e.g. swap in or zswap writeback). The swap slot indicated by
-  * @targ_entry must have a non-zero swap count (swapped out).
-  *
-+ * The returned folio is locked and is NOT on the LRU. The caller must either
-+ * add it to the LRU with folio_add_lru() so page reclaim can find it, or free
-+ * it directly once done; a folio left off the LRU is unreclaimable and leaks.
-+ *
-  * Context: Caller must protect the swap device with reference count or locks.
-  * Return: Returns the folio if allocation succeeded and folio is in the swap
-  * cache. Returns error code if failed due to race, OOM or invalid arguments.
-  */
--struct folio *swap_cache_alloc_folio(swp_entry_t targ_entry, gfp_t gfp,
--				     unsigned long orders, struct vm_fault *vmf,
--				     struct mempolicy *mpol, pgoff_t ilx)
-+struct folio *__swap_cache_alloc_folio(swp_entry_t targ_entry, gfp_t gfp,
-+				       unsigned long orders, struct vm_fault *vmf,
-+				       struct mempolicy *mpol, pgoff_t ilx)
- {
- 	int order, err;
- 	struct folio *ret;
-@@ -649,12 +651,13 @@ static struct folio *swap_cache_read_folio(struct swap_io_ctx *ctx,
- 		folio = swap_cache_get_folio(entry);
- 		if (folio)
- 			return folio;
--		folio = swap_cache_alloc_folio(entry, gfp, BIT(0), NULL, mpol, ilx);
-+		folio = __swap_cache_alloc_folio(entry, gfp, BIT(0), NULL, mpol, ilx);
- 	} while (PTR_ERR(folio) == -EEXIST);
- 
- 	if (IS_ERR_OR_NULL(folio))
- 		return NULL;
- 
-+	folio_add_lru(folio);
- 	swap_read_folio(ctx, folio);
- 	if (readahead) {
- 		folio_set_readahead(folio);
-@@ -690,12 +693,13 @@ struct folio *swapin_sync(swp_entry_t entry, gfp_t gfp, unsigned long orders,
- 		folio = swap_cache_get_folio(entry);
- 		if (folio)
- 			return folio;
--		folio = swap_cache_alloc_folio(entry, gfp, orders, vmf, mpol, ilx);
-+		folio = __swap_cache_alloc_folio(entry, gfp, orders, vmf, mpol, ilx);
- 	} while (PTR_ERR(folio) == -EEXIST);
- 
- 	if (IS_ERR(folio))
- 		return folio;
- 
-+	folio_add_lru(folio);
- 	swap_read_folio(&ctx, folio);
- 	swap_read_submit(&ctx);
- 	return folio;
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 53bf01d5f7f1..d678a40fcaac 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -1870,7 +1870,7 @@ void folio_put_swap(struct folio *folio, struct page *page)
-  *   CPU1				CPU2
-  *   do_swap_page()
-  *     ...				swapoff+swapon
-- *     swap_cache_alloc_folio()
-+ *     __swap_cache_alloc_folio()
-  *       // check swap_map
-  *     // verify PTE not changed
-  *
-diff --git a/mm/zswap.c b/mm/zswap.c
-index 37f34e406c8e..0d2efe21f18a 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -1001,8 +1001,8 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
- 		return -EEXIST;
- 
- 	mpol = get_task_policy(current);
--	folio = swap_cache_alloc_folio(swpentry, GFP_KERNEL, BIT(0), NULL, mpol,
--				       NO_INTERLEAVE_INDEX);
-+	folio = __swap_cache_alloc_folio(swpentry, GFP_KERNEL, BIT(0), NULL, mpol,
-+					 NO_INTERLEAVE_INDEX);
- 	put_swap_device(si);
- 
- 	/*
-@@ -1014,6 +1014,7 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
- 	 */
- 	if (IS_ERR(folio))
- 		return PTR_ERR(folio);
-+	folio_add_lru(folio);
- 
- 	/*
- 	 * folio is locked, and the swapcache is now secured against
--- 
-2.53.0-Meta
+Please read kernel documentation BEFORE posting more work. It will
+explain you how to identify subsystems, how to organize your work per
+subsystem, how to document usage of LLM and how what you should not
+do if this was posted in a good faith.
+
+Best regards,
+Krzysztof
+
+
 
