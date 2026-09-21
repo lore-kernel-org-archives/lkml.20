@@ -1,125 +1,106 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5781148F01E
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:54:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A0848F01E;
+	Mon, 21 Sep 2026 11:54:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789991659; cv=none; b=GCPFfrR8vfbnbXI5ngT0jGAMAv/0NauHjuaKVrzc4+cQOpINxqPwGbBhEimbcqAeRQTWOvzzFhyEQU+PgnZ2ZZASTuttTj50gz8+jlDx8IFOMKj9HE6fv/tByb8qNCFr1tP6aVbLyDGsV5KxMHq0ztuO/R2soRMdmzfQ7C8IxlM=
+	t=1789991664; cv=none; b=TEPXxLhShzZc/1COGgwA2No58fFSVJWWrSnZGhM2fPwwyQn2rG8EJTx93GZ3CaIEPDOcbcMHVD/W3/oBaPgjZ1Q5KjrEtRDVYP/379TS/3caTLcZb9iKR5Vu/6w9LErCAiIfvBREassVlVEDPckS0cA1banQTzfLIiOrDEzEhTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789991659; c=relaxed/simple;
-	bh=fNSpUENjKb6oRVpVNnY08zpSoVTuGiZyyybiAWMBTUY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FB7U+y8vf0roGyZOze1nSe5LGYLIg3U4A+kjcMi0p9Vd3pn3Q6FaMzWKML+sD0hnBoqBduh2X9l6D/tpKOY7v1R+40BoOnukANWuO/9RpoWhBKXFOtRcKjY+DqS1W6dzkJVWgfgQuDHX3Whu+FzPc8Ucpp5sXyocJAdkCYtnQmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=nIl7sW6x; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789991664; c=relaxed/simple;
+	bh=piPJM6h5cSD5hne9T+lzJIWQh4enQKFjOkStx3vpFik=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cHtX8ZhT9iGaPxnzigu7nCnQxNPIT7mq7nM2LPlYGoM2k1iWMWUcmllbXAliJ9sNFn+jT7Fg/jYc4Edlwte/uZK1nm9076pQcAcWp9yRcwJgQKa51PZGgSJDbJWVWzp5Ic9/5KALZXZqrfE+Slg/uoSp9MatJ6/SlyPUJWyK3+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wn524jk8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="nIl7sW6x"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 5E3A61A0FAE;
-	Mon, 21 Sep 2026 11:54:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1F0865FFB2;
-	Mon, 21 Sep 2026 11:54:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B596A103281B7;
-	Mon, 21 Sep 2026 13:53:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789991648; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=hNLbvi05R+0xppE7dvLIZ87hpi3V6sXWpbl9gw3s2SU=;
-	b=nIl7sW6xAQkxQ9/I0pwkb5XGFXtrlDtbn+4kHc3XOddvyTtw4Zd6gPaZoZMTGye1WYoORa
-	ZQNSGKYaZdGLNl6daAnfHzKmJ4VVU7SCZLu2qhTHinstvbPQRjFzWd0vgkPoIx67Bv1NgR
-	mwZQu4mo+eSZDFwq9MoR9nkukUawtmXeWtFDaW23KsOCW6qJgkLwLvEpewLcNggqSNn+Fy
-	TALkSVERiHR3oMw2+/XLgeKCoTOmVl/htowEK+7GpUn52ArsjkiNIXFgID2TC+aerk3WUb
-	tEh/SXfAa3pHTAi9ZJi7M1TprlSS8HW8tzPVQ0LZ66ask5yIGFkgTxZKuqZTBQ==
-Message-ID: <475799c2-7eaf-45ed-a6cb-80c2c2c556e7@bootlin.com>
-Date: Mon, 21 Sep 2026 13:53:52 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wn524jk8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9099A1F000FF;
+	Mon, 21 Sep 2026 11:54:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789991662;
+	bh=qud4Wph3iZCEz1fv5XvgI8tCzN7g1q0uKRPavUoX0U8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Wn524jk8ONRxvbVMkeUGnIMqkVKXUq0pKyEVh6wkZxpXeLK9RYn5E1EI/ISP+Z5nE
+	 UmG3GBm0QBeosQvCRn6tX8fM01OOktT64e/RvkOiCy7pIbGZF98ZT3SxCyV3NYWGas
+	 W1qYbbjwNueuajU8FGwnG+HHzgMg4NUsd0oXU60kTgtwYdCTSbMYMJ1D+jpAq6wyyD
+	 UQMSC+UNFpjzyYHuoI3/ce2V9n2yRWtzIP4lGFy0l0XmHV+1vuLu93cJPgczLiVjvZ
+	 RNLgk/SeZagQVAvEF4uk9UEb/qzg+2WMnZFB7dMlKx4vkJ2fRzheBnSBJh9p3BkqCt
+	 un4s4gOr1qMdA==
+Date: Mon, 21 Sep 2026 13:54:15 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/8] arm64: dts: qcom: Add t-power-on-us property for
+ PCIe root ports
+Message-ID: <rvs2a77sa5zypm4t4hxeerugm7a5o53e5htyy4mdy46letdm3j@65rgv4syurxv>
+References: <20260911-t_pwr_on-v1-0-c9eee197d082@oss.qualcomm.com>
+ <d5821380-3006-4eb6-86fd-977d6e17a8bd@oss.qualcomm.com>
+ <f2324e26-88a3-4411-acd5-9645552c4a14@oss.qualcomm.com>
+ <fbtundyvbywomj67ee3jyogqhgrvndrjqctvkb7ttp7iy7pkvq@xocvzaiq7zmg>
+ <15daa9f3-162c-43fd-b22e-0194b82f602c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v4 0/6] net: stmmac: add Allwinner H616 EMAC1
- support
-To: James Hilliard <james.hilliard1@gmail.com>,
- Richard Genoud <richard.genoud@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- Christian Marangi <ansuelsmth@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Tiezhu Yang
- <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Alastair D'Silva <alastair@d-silva.org>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Andre Przywara <andre.przywara@arm.com>
-References: <20260920-submit-h616-emac1-v1-v4-0-8347dfe2eb7d@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260920-submit-h616-emac1-v1-v4-0-8347dfe2eb7d@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <15daa9f3-162c-43fd-b22e-0194b82f602c@oss.qualcomm.com>
 
-Hi James,
-
-On 9/20/26 21:45, James Hilliard wrote:
-> The H616 secondary EMAC supports RMII at 10/100 Mbps and uses a separate
-> system-control clock register at offset 0x34. Add its binding and a
-> sun8i stmmac variant using that register. A distinct compatible without
-> an older fallback prevents the driver from using EMAC0's clock register.
+On Mon, Sep 21, 2026 at 01:44:50PM +0200, Konrad Dybcio wrote:
+> On 9/21/26 1:34 PM, Manivannan Sadhasivam wrote:
+> > On Mon, Sep 21, 2026 at 04:40:43PM +0530, Krishna Chaitanya Chundru wrote:
+> >>
+> >>
+> >> On 9/21/2026 2:09 PM, Konrad Dybcio wrote:
+> >>> On 9/11/26 8:50 AM, Krishna Chaitanya Chundru wrote:
+> >>>> The Qualcomm PCIe host controller driver added support for parsing the
+> >>>> -power-on-us property[1] from each Root Port node and programming it as
+> >>>> art of host initialization (PCI: qcom: Program T_POWER_ON) [2]. Prior to
+> >>>> this, T_POWER_ON was expected to be programmed correctly in hardware or
+> >>>> by the bootloader, but not all targets support this, which can lead to an
+> >>>> incorrectly calculated LTR_L1.2_THRESHOLD in aspm.c and improper L1.2 exit
+> >>>> behavior.
+> >>> This is a good problem description. Does it have observable effects
+> >>> that could also be mentioned here, beyond perhaps lspci reporting
+> >>> an odd value?
+> >> we haven't seen direct problem till now, but we might seen some issue due to
+> >> incorrect LTR_L1.2_THRESHOLD value.
+> > 
+> > Can you specify what issue can be seen without this series? I'd assume the
+> > link will fail to enter L1.2 and will result in slightly more power drain as
+> > the link can only enter L1.1.
 > 
-> EMAC1 connects internally to the co-packaged AC200 or AC300 EPHY and has
-> no external PHY pins. Leave PHY initialization to the PHY driver instead
-> of using the H3 internal-PHY controls. The RMII-only variant does not
-> expose the RGMII clock-delay properties.
+
+[Correcting my own reply]
+
+The power drain issue will only happen if the default value is higher than the
+programmed one. If the default is lower, L1.2 would be entered too aggressively
+and the link may fail to exit L1.2, resulting in LDn. This would be
+catastrophic.
+
+> Would that produce an explicit warning message somewhere?
 > 
-> First fix failed MTU-change reopening and hardware-resume cleanup in the
-> stmmac core so the interface is closed without repeating NAPI shutdown
-> or resource teardown. Allow phylink to stop a suspended instance without
-> restarting its link. Then move the MAC software reset from probe to the
-> DMA reset callback, after PHY initialization. This lets the MAC and its
-> MDIO bus remain registered when the PHY driver or one of its suppliers
-> is not ready yet. Clear DMA and interrupt state even if the reset times
-> out. Keep the separate H3 MDIO-mux reset sequence unchanged.
+
+Nope. PCI core would happily use whatever threshold programmed in the registers.
+
+> i.e. can I reasonably be able to tell I'm missing this change and
+> I need it?
 > 
-> The AC200/AC300 EPHY driver and package bindings are already in
-> net-next. This series separates the H616 EMAC1 MAC driver and binding
-> support from the earlier combined series. PWM, MFD and device-tree
-> enablement are being handled separately.
+> (if not, this is of course not a blocker, but the answer to that
+> question is always worth sharing)
 > 
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
-> Changes in v4:
-> - Add a prerequisite stmmac core fix closing the interface after a failed
->   MTU-change reopen without repeating DMA, IRQ or NAPI teardown.
-> - Close the interface after failed hardware resume, and let phylink
->   finish shutdown directly from its suspended state.
 
-[...]
-> ---
-> James Hilliard (6):
->       net: phylink: allow stopping a suspended instance
->       net: stmmac: close the interface after a failed MTU reopen
->       net: stmmac: close the interface after failed hardware resume
+We can warn in the pcie-qcom driver though as it parses this property. But we
+should only do so for SoCs included in this series, selectively.
 
-These new patches belong to net, don't mix the fixes and the glue code :)
+- Mani
 
-The glue can land without these, no ?
-
-Maxime
-
+-- 
+மணிவண்ணன் சதாசிவம்
