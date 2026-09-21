@@ -1,137 +1,218 @@
-Received: from mail-oi2-f14.google.com (mail-oi2-f14.google.com [74.125.231.206])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0EC48EC75
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:24:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADCA048EC75
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:25:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790015094; cv=none; b=Mico8NUrNgJTOWCC5SeEz530czljkdm1zV6xcaub8NBuOinpOOM5ejkr0rI+SXQkbPib66W/RkH/fNblphOBqLPhsuyBOy3zwWA5/P6qfsc5NuR9Z0auDFrh8XzREa1EdhzGsVN5cT+Y63BLaJmyEGDE3kH10syZetFnpxQPRXs=
+	t=1790015142; cv=none; b=s+IRlSSCbsrQL6xU3WGK1nPqi3N4FXswoYhvaG4auqNdmHDaFpmqAiN5TKeDEvCQPpVnOZReyeMzoNkB/lWA5aGtk3LddxrNvJF8QHgjYfcw7XHmffxrAjFafawNRPyKtiu1sB/+dDt/cIZu+5YuVew4fNXB7VnWxS+5UPoSpu8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790015094; c=relaxed/simple;
-	bh=/+RI1Da3sET4j7aA1zAV2C4MGFpQWaqBXLaCnc5GHEs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F5D1+wqh6ivdAjoygxicbTnISPPwhHXYl4k8Hf3HJtsCUrB+m7nKjh1MOFI2avUP6wLMH90+oGFcuJM6DHs+JJ+9GakXFUktUaKjC4un9rXNXaSa6CcR4Ex+j3wkwlGLQOoZ/HU2Fs43UxjdKrp2c90Rqa9coRRDT9/NaeG6jJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B+fqubIf; arc=none smtp.client-ip=74.125.231.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790015142; c=relaxed/simple;
+	bh=z82WFFnTz6orAZijm6PSC8AN4/nvOe4c7HMWdDPok8k=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dMAr1u0rLnMZBHFKLN/m5eVm00flIxOoBe3WLinYJXIDbJbjAJncUmI+qaL61aF7Rfii4+IjOaFqYZAKrLwLbmSBcS/N4yIp3dI57utXsDQuRnD5DeCyUHILv8V2grGnjMewPSnBT42f0JbNU8P0lCHP2gcmEOuSlzlPcM0TpDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=alDwHj3Q; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B+fqubIf"
-Received: by mail-oi2-f14.google.com with SMTP id 46e09a7af769-7f4f0c89e35so2334916a34.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:24:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="alDwHj3Q"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4d04d73b8so2795351a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:25:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790015091; x=1790619891; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jjUHpPAdtuvAei0FHz1ELJs0Q5uHpEFQEpOpyheuCag=;
-        b=B+fqubIfyD7Q9ZCrWnE1rYogNj98FHeI/rA0QGNT14hhQ3yJlB03SrSkbDQgOJanND
-         VVchJyD5eStOOmXpx6lTnO97JgINe9A3w+lClqEznViuN9jNHEQ6Du5YsRs/BemSvqTh
-         P+q5L9Hz7Knbhq+4ZZedHIjzsUhU2YRNnSBFIUqK3GRrJsDOjORFVFMU2VH8tY7Yn5D/
-         l7mOIjVNwXxx492PyDjTd0VcKHgLFDVmxsQO2gRIN4Ofx6Ep/YXBFHJfeRHRl+Rsmb31
-         ueYy1PefTKeNTDFsSSZn2lCgpJlyDYBSFcLJK90SMiyeJmLe8EoExTXUh2nRzsXEln7Q
-         VbpA==
+        d=nexthop.ai; s=google; t=1790015140; x=1790619940; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7WZ6ucwFbC6JXfCd6WZ/sAB/uQVxlCCUJ68rPn9Ax2o=;
+        b=alDwHj3QI/lWhrs4Lg9/4WFb9r+TsgL3igXJI9lbSI0scJZMS/ewePsSDUmCOQ0DOX
+         qSFw0R6ZX9LWgrBpyEjctkfi8pwWv36MpBu7gLGJ5ZnmlRg8OIpSw9gCZksFjsYRqqW2
+         zF6leilPd9g54fekuIswIk/EO4gORpVc+/BzvbUvqc/hFjMI7JECpDzjmI3bgf6ib3yY
+         ddsYWKaxgYO37dj79th2qGogowMWs7yIOm9P5YuK3a0UydP8rOQiZbpXraFMExF6Ke1X
+         mfjGSvG0XYUAMdoswAKgeE7gl0+SW6tJediVXeynGkIAePO+btr8TpJQ6PhRgFyBJX/8
+         Hxyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790015091; x=1790619891;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jjUHpPAdtuvAei0FHz1ELJs0Q5uHpEFQEpOpyheuCag=;
-        b=IimFQ11IN+V2LE/PWk69T39c2ugM+F0VC3pkmEuYKrpmFMrxVi3/+4PW1kF3oYMVR3
-         evnI3qQ0MXwZT0oGDk2f9nrmLOLjQIMYVTBxeudf2zxOQmrw9wjsumDHmn/4i7fqDK22
-         ea8xsmJw2y8HxZW0J16r+8mwSE7Dzd2srUklZ36ttVcEIo/e5+HlswjENZmy5LUAgTQ7
-         naLEmV0xda/QyRro+NS7nXc81pzl0TF/DiPpPcs00vW1VlPBM3/v9ICadoEEkhY0CH0n
-         2FYDmtzO2fbwUT6wHd+df8S2osOTwnmH3tYiGNx85mx9vvvgvXfnm5nOrjXlgqKMRcoB
-         6ogw==
-X-Forwarded-Encrypted: i=1; AKwUvBxB/eHYkPvRpJoxLgHeXBOFO00yXOeuOZChJrbF4k/0gKe+TmG/YYNlXWUhbps+IJ/uQihjQywukI6gLsY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrzsWy2RHaI/HXBe9xhvOkC5LphJODiKitbj2BYjCAz48ZDj05
-	7+oE6ovw+6u7JZxL5+0ntMua+wn3Nv3qBn/ycRsr4Ju7mysZiIYnoDxl
-X-Gm-Gg: AYBFou2WrX3+pEk3r4rX/0UEpKFr+KC/ruQf6odvGqNu8VU7uuZdU/q6uj0Dk3v6acZ
-	wvBI5oJXR6jl+wXMVlr2xhgD9fWKbDIgNCtMAmP9dGknnQZP0tDHjJnbi1pTNlE1mzGgvio/eYV
-	lMb6lauVS2KR+rkLdkmljjihVO5sefYsVaDBhFLxYxkGAVI9Q9oQ/H8qfxl0OzwGYD8AUKlb8vP
-	xwUJFjcVgQgu+iOnVdDKNXlwbZt+BYU3gvHwbhcs2U5A4uF0wPTxu7A6yGm5Thn/OfjD7hhu6kP
-	+G1VwZned2UVkYErk4GFF94rfqvIQOY3LQgKdTCilzEgns76aG6nBGfjw2iVr1/sb5M4lyt7/aw
-	qEciZABDCuTk+NSbMcQRJ2f5goDrP8JLyAzmC+hoNGvbv3YuqK8Px3qi5DeARxmP55j3Kuuc88j
-	deRjrg2mUZSbQAqffcuRdwxpNzYXQWuzDeDdJofjUcTQiyuqLnsUy70FcAbWXc5PYUsWCUxXlS4
-	mPFcRXKD0AvODHzWUX0Bp8o0L7BaAkhZIAg6RjJ
-X-Received: by 2002:a05:6830:3144:b0:805:5e7e:9bf6 with SMTP id 46e09a7af769-80de31e766dmr11051342a34.21.1790015091211;
-        Mon, 21 Sep 2026 11:24:51 -0700 (PDT)
-Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-814739aec92sm777318a34.3.2026.09.21.11.24.49
+        d=1e100.net; s=20260707; t=1790015140; x=1790619940;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7WZ6ucwFbC6JXfCd6WZ/sAB/uQVxlCCUJ68rPn9Ax2o=;
+        b=e7zJW6ZsPTPCRSz8VPD21Fa6VU87+HRHjN6YZni7Sehzlc2ilKodOcAORP3DNArpAR
+         iVyCqaRdDU71/hBCzLC//kSaAZOX8h5XGSXIwy7TJjrhFvUwRI7Ulym/1BGwAnGF912q
+         3Qtg6qeXDZFGFCkUClz87fcxSxlJa75o6DlxlEDwt0W7MznqWJsXbJ71F0F0bwS3OMKg
+         dgOAQPs89ybx7YriNv/a033Bp/2e2GIasSoc05Kq7N1XoM8vdOZymH3mEql1VWn5zZap
+         nyM9WgsaP0xzAGPSkPf82NN2Gm6EokJOaQg6QcR/gU+1HXfX+L7rsnMWdkThwrfqlBvb
+         F28w==
+X-Forwarded-Encrypted: i=1; AKwUvBx+3gomCaKOQY2ALUI/e76WrF7NCd8x2l4d8Hdgu5tnhpW8aXemOy3rhbGGGOvH9PHsnFK6xYlrxBawvQQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mByknkkSif+4tz8NtAC2mzaHppekbcIeJHkMLPEOOO9znoc1bT
+	RsgVbFpKFFNTxFMF4eOScyTP2Wut7v0hCbR9rHv1NzOMIWUXUY85TfE8nm8qUj6Sc9yjiok/WFA
+	MnkPupis=
+X-Gm-Gg: AYBFou3Z7tDnaMcQS1HqgVjVQvJjvws4Twc3u/t/ZrLCuHcryET8TWALb1UmDcV6ySZ
+	IWmmGYupSW3T+FaY6ev+JycgwGul8z0Vt/v6/H2WU0jLFkscIdXOML7ScS1egmf4vxerHXs9rmz
+	x3tu5zpaUb5Rlg1oyHgYtaEMIDdrsbEt4NN/cnYgdXtlK5b0kW1G57sAL/EmfOOnUQFg26uso3R
+	Sm013c+zby0764btbBPPM0hnZGYIMCcaco7893wdZF4mgqwDqfFd1uYf3oIBkUiHlsfwukFegWz
+	2Bq9OWLycFGPYqNSs6P8UbUGA0Uz7VKah6lcVbfTL5+gtFxqMVCTe6E7fWKaLEy4hRjGxT/YWl3
+	LI9kDtx0N5LdebVGp7Eeuxaj5kJgY8edwjprn+teQK6zVUheVKOic7Xc0vrOW5yFJeF9bg5azOL
+	5cLt2gEiT3dTFumBOT3TTAfHloaKenMeCOcmi7f6Evo6OeJ4hp5PtPR4JbcXE8wQV8I6Q8JmjWD
+	A==
+X-Received: by 2002:a05:6a21:4910:b0:3d9:6f0:b42f with SMTP id adf61e73a8af0-3dd8c541c53mr19754832637.17.1790015139867;
+        Mon, 21 Sep 2026 11:25:39 -0700 (PDT)
+Received: from [127.0.0.2] ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144df9ad683sm12408974c88.6.2026.09.21.11.25.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 11:24:49 -0700 (PDT)
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-To: Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>
-Cc: linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Danish Khateeb <danishkhateeb03@gmail.com>
-Subject: [PATCH] ata: libata-sff: replace kmap_atomic() with kmap_local_page()
-Date: Mon, 21 Sep 2026 13:24:48 -0500
-Message-ID: <20260921182448.194307-1-danishkhateeb03@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Mon, 21 Sep 2026 11:25:39 -0700 (PDT)
+From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Subject: [PATCH v5 0/3] i2c: xiic: fix SMBus block read and PEC support
+Date: Mon, 21 Sep 2026 11:25:35 -0700
+Message-Id: <20260921-i2c-xiic-v5-0-2fca81e810ea@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NwW6DMBAE0F+JfI6r3TWGuKf+R9WDbZawOUCEK
+ aKK+Pfa6SFUyXGkeTM3lXgSTur9cFMTL5JkHHKwx4OKvR/OrKXNWRFQDRU1WijqVSRq8hwsIEc
+ gr3L9OnEn633q8+svp+9w4TgXXxq9pHmcfu5fC5bei9kFNWiuCZrOeW99+zHwOvfj9c2LKrsLP
+ aRF3EnKMmJtThADWlc9SbOXZidNkTGY2DUQPJgnWT2kA7eTVZaEp7YzyK414Z/ctu0XkELjv2E
+ BAAA=
+X-Change-ID: 20260427-i2c-xiic-2aeb501ec02a
+To: Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>, 
+ Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+ Raviteja Narayanam <raviteja.narayanam@xilinx.com>, 
+ Wolfram Sang <wsa@kernel.org>, 
+ Manikanta Guntupalli <manikanta.guntupalli@amd.com>
+Cc: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>, 
+ linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Abdurrahman Hussain <abdurrahman@nexthop.ai>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790015138; l=6288;
+ i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
+ bh=z82WFFnTz6orAZijm6PSC8AN4/nvOe4c7HMWdDPok8k=;
+ b=+f2rZdGD7vVkqwFoaOq3oqWwQUpg6Ned/tAtNmC7pzEDfyE0mRnYln8DBQOhPr8/+ynDQuHaT
+ XhH0KjxjZbqD8rf3ceAC/h0Un2+vkGjKUOV9MJtbxCuReI5fg6pLDEy
+X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
+ pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-kmap_atomic() is deprecated in favour of kmap_local_page(), as described
-in Documentation/mm/highmem.rst.
+This series fixes three independent bugs in the Xilinx AXI IIC driver
+that together make SMBus block reads with PEC return -EBADMSG or -EIO
+on otherwise clean transfers. They only surface when the client has
+I2C_CLIENT_PEC set; non-PEC block reads happen to mask each issue in
+turn.
 
-ata_pio_xfer() and __atapi_pio_bytes() each map a single page, pass the
-address to ->sff_data_xfer() for one transfer and unmap it again, so the
-mapping never leaves the function that created it.
+The problems were uncovered driving an adm1266 PMBus device behind a
+Xilinx AXI IIC FPGA block and reading its 64-byte blackbox record.
 
-Neither needs the pagefault_disable() and preempt_disable() implied by
-kmap_atomic(). ->sff_data_xfer() only moves data between the device and
-the mapped buffer, and both functions are reached only through
-ata_sff_hsm_move() with the host lock held, whether from the PIO task,
-an interrupt handler or EH. kmap_local_page() is fine in all of these.
+Patch 1 stops xiic_smbus_block_read_setup() from truncating rx_msg->len.
+The i2c core appends a byte to msg->len when PEC is enabled, so
+overwriting the length to "block size + 1" silently drops the PEC byte
+and i2c_smbus_check_pec() then reads the last payload byte as the PEC.
 
-Tested on i386 with CONFIG_HIGHMEM4G and CONFIG_DEBUG_KMAP_LOCAL_FORCE_MAP
-under QEMU, with the PIIX IDE controller limited to PIO by
-libata.force=pio4: O_DIRECT and buffered reads from an ATA disk and an
-ATAPI CD-ROM, and O_DIRECT writes to the disk, all checked against the
-image files. The O_DIRECT buffers were in highmem. Both call sites ran
-in hardirq context, and ata_pio_xfer() also from the PIO task. No
-warnings with lockdep and CONFIG_DEBUG_ATOMIC_SLEEP enabled.
+Patch 2 raises the RX_FULL threshold so the interrupt only fires once
+every remaining byte (payload plus optional PEC) is already buffered in
+the FIFO. The previous threshold of rxmsg_len - 2 caused the
+bytes_rem == 1 path in xiic_read_rx() to NACK a byte still on the wire.
+The chunk-vs-defer guard now also accounts for the PEC byte so a
+rxmsg_len == IIC_RX_FIFO_DEPTH PEC-enabled read does not push
+XIIC_RFD_REG_OFFSET past its 4-bit range.
 
-Assisted-by: LLM sparse
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+Patch 3 stops the BNB handler from forcing tx_msg->len = 1 to signal
+completion. tx_msg and rx_msg alias the same i2c_msg during a receive,
+so this also clobbered rx_msg->len; and because tx_pos is already at 2
+in the PEC case, the unsigned subtraction in xiic_tx_space() underflowed
+and the STATE_DONE check fell through to STATE_ERROR. Advancing tx_pos
+up to msg->len drives tx_space to zero without touching the length.
+
+All three patches are pure bug fixes; non-PEC behaviour is unchanged.
+Tested on real hardware -- a Xilinx AXI IIC controller talking to an
+adm1266, where 64-byte PEC-checked block reads now complete cleanly.
+
+Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 ---
- drivers/ata/libata-sff.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Changes in v5:
+- Patch 1: clear smbus_actual_len in xiic_start_recv() so the trim state
+  is reset before every receive (Andi). Only the padded branch sets it,
+  and a block read aborted by arbitration loss or a TX error returns
+  through the error path without reaching the completion site, so a
+  stale value could trim the length of an unrelated later read.
+- Patch 3: drop the defensive smbus_actual_len reset in the BNB handler,
+  now redundant with the reset in patch 1, and the paragraph describing
+  it. No other change.
+- Patch 2 unchanged.
+- All three patches now carry a Fixes: tag and Cc: stable. All three
+  bugs were introduced together by e4c1ff772e1a ("i2c: xiic: Add
+  smbus_block_read functionality"), first released in v6.3, and a PEC
+  block read needs all three to complete, so they should be backported
+  as a set.
+- Shubhrajyoti Datta's Reviewed-by from v1 is still not carried over.
+  Shubhrajyoti, if the current code looks good to you, a fresh tag would
+  be appreciated.
+- Link to v4: https://patch.msgid.link/20260909-i2c-xiic-v4-0-218df31e9d3b@nexthop.ai
 
-diff --git a/drivers/ata/libata-sff.c b/drivers/ata/libata-sff.c
-index d5ef0338735c..a263f886abc7 100644
---- a/drivers/ata/libata-sff.c
-+++ b/drivers/ata/libata-sff.c
-@@ -580,9 +580,9 @@ static void ata_pio_xfer(struct ata_queued_cmd *qc, struct page *page,
- 	bool do_write = (qc->tf.flags & ATA_TFLAG_WRITE);
- 	unsigned char *buf;
- 
--	buf = kmap_atomic(page);
-+	buf = kmap_local_page(page);
- 	qc->ap->ops->sff_data_xfer(qc, buf + offset, xfer_size, do_write);
--	kunmap_atomic(buf);
-+	kunmap_local(buf);
- 
- 	if (!do_write && !PageSlab(page))
- 		flush_dcache_page(page);
-@@ -763,9 +763,9 @@ static int __atapi_pio_bytes(struct ata_queued_cmd *qc, unsigned int bytes)
- 	trace_atapi_pio_transfer_data(qc, offset, count);
- 
- 	/* do the actual data transfer */
--	buf = kmap_atomic(page);
-+	buf = kmap_local_page(page);
- 	consumed = ap->ops->sff_data_xfer(qc, buf + offset, count, rw);
--	kunmap_atomic(buf);
-+	kunmap_local(buf);
- 
- 	bytes -= min(bytes, consumed);
- 	qc->curbytes += count;
+Changes in v4:
+- No code changes; resend of v3 to collect Michal Simek's Acked-by
+  (given on the v3 cover letter) into each patch.
+- Shubhrajyoti Datta's Reviewed-by from v1 is not carried over since all
+  three patches have changed since then. Shubhrajyoti, if the current
+  code still looks good to you, a fresh tag would be appreciated.
+- Link to v3: https://patch.msgid.link/20260513-i2c-xiic-v3-0-ccb3cf70ba03@nexthop.ai
 
-base-commit: 3bab8c7e0c6ba187a47163a1f71477213a278c48
--- 
-2.55.0
+Changes in v3 (addresses the sashiko automated review of v2):
+- Patch 1: handle short SMBus block reads where the controller pads
+  rx_msg->len up to SMBUS_BLOCK_READ_MIN_LEN for its end-of-message
+  workaround. In v2 this branch left the PEC byte at the padded
+  offset rather than the actual end-of-payload, so the i2c core's
+  PEC validator read past the chip data. Track the on-wire length
+  in a new smbus_actual_len field populated in the minlen branch
+  of xiic_smbus_block_read_setup(), and trim rx_msg->len back at
+  RX_FULL completion before passing the message up. Addresses
+  sashiko's v2 note about the pec_len adjustment missing the
+  rxmsg_len < 3 padding branch; that branch was indeed the cause
+  of pmbus_check_block_register() silently failing on zero-length
+  MFR_* fields and skipping debugfs auto-discovery on affected
+  hardware.
+- Patch 3: defensively reset smbus_actual_len in the BNB completion
+  handler so a subsequent non-SMBus transfer cannot see a stale
+  trim value from a completed short block read.
+- Patch 2 is unchanged from v2. sashiko's two other v2 notes were
+  investigated and judged not to require code changes: the concern
+  about removed padding in the chunked-vs-deferred drain misread
+  the patch (the padding survives via the else branch and the new
+  PEC-aware guard preserves the original semantics), and the
+  flagged unsigned underflow in xiic_tx_space() is unreachable
+  because tx_pos is bounded by tx_msg->len at the call site.
+- Link to v2: https://patch.msgid.link/20260511-i2c-xiic-v2-0-c16380cb1594@nexthop.ai
+
+Changes in v2:
+- Patch 2: widen the chunk-vs-defer guard in xiic_smbus_block_read_setup()
+  to include pec_len, so a 16-byte PEC-enabled block read routes through
+  the chunked drain rather than writing 16 into the 4-bit
+  XIIC_RFD_REG_OFFSET register. No tree-level change to patches 1 or 3.
+- Link to v1: https://patch.msgid.link/20260427-i2c-xiic-v1-0-e6207f9aa5ad@nexthop.ai
+
+To: Michal Simek <michal.simek@amd.com>
+To: Andi Shyti <andi.shyti@kernel.org>
+To: Raviteja Narayanam <raviteja.narayanam@xilinx.com>
+To: Wolfram Sang <wsa@kernel.org>
+To: Manikanta Guntupalli <manikanta.guntupalli@amd.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-i2c@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Abdurrahman Hussain (3):
+      i2c: xiic: preserve PEC byte length in SMBus block read setup
+      i2c: xiic: defer RX_FULL until all trailing bytes are in FIFO
+      i2c: xiic: don't clobber msg->len to signal block-read completion
+
+ drivers/i2c/busses/i2c-xiic.c | 54 +++++++++++++++++++++++++++++--------------
+ 1 file changed, 37 insertions(+), 17 deletions(-)
+---
+base-commit: 70eda68668d1476b459b64e69b8f36659fa9dfa8
+change-id: 20260427-i2c-xiic-2aeb501ec02a
+
+Best regards,
+--  
+Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
