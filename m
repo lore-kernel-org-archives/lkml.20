@@ -1,83 +1,125 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4A1387378;
-	Mon, 21 Sep 2026 19:24:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184E2389114;
+	Mon, 21 Sep 2026 19:24:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790018657; cv=none; b=tpTE1BR+IcF5bixvKviyK0s4vHIfTPj3z6bCy8VRBfi5YLf3BkyPgnCj95EnMvD8AS+lgzRcusclaZpj8L+X+RGPo3bRYexXlh12P7pWqHJ70F+i/hITooyFEyQ1k4tbDqUkR2gaeCkfTqqG4s9kzeypp0+Fv2duuhY6y0biGYU=
+	t=1790018661; cv=none; b=hSIjnWtHrM31Ae7KuqDLjoQDsYvNY2/VmR68omr4FMrfBlxAs1/A5qhM9TNt7a4R1Ooz8Tfk5TR2iS6bOvhMkm6UrJq7ejwXQU3C6gexQdmam6WBKpBPcpNvpfMZ/GvhNY5tYbHAh5wiTFdQxMw5jdholsXCP/h4HIVsD6/UhRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790018657; c=relaxed/simple;
-	bh=7CQo//H0Q7Avz6tSf1FrW+CH7bCKd0ShU1A2uXjAJT0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IQ9qVfSUBaSrzknCSArVjHMS4O/7hWO6JJdRjwt99Nyf69VzXsqdbnVEzfeRt19E7TQipCLRw26iKDFewzFpXubMo18MKak9Cj99QrmSl2Y0q6Th5VeCz/W0v4KFwoUaqU02FkBzjoKwlhjRta+KTmnWuRJWCLu79KUbhEiF44I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=EMFNeLNg; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790018661; c=relaxed/simple;
+	bh=3/QrBg70Tf3/O+uM6HFgxQ6ZmwiYPIdzQnJ9xK56ymw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RIQ84x+5y+IdchCZm5vYcNXUAzL+wtmuq55Bgv7Y6nrOpbBLtkltzz7mqroAwBzXE9soVAOShVOq9LbD+Y4MTIAhTcEuNIhcC/lpoVL+kStibxVdrowGLbV4dyAFw+lL8278WRFk8O1zd5rrGigg09aAqy6s5tIwJlb7u/ElBqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=m9AP3dUp; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="EMFNeLNg"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 406931A0F5C;
-	Mon, 21 Sep 2026 19:24:12 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1243B5FFB2;
-	Mon, 21 Sep 2026 19:24:12 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1D8A6103291F5;
-	Mon, 21 Sep 2026 21:24:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790018647; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=e3BrU3adXd7hifuN5T966IaOlrTNSgLHaVwZw2bQJpQ=;
-	b=EMFNeLNg+y40EYrMNTDJwRB17KtfVR4P3kmJl1I3fegJ9k+JHWQJ5pJlGmzYTXy66ni0Fh
-	sSbuL1w77SOp5WCN57Sji5B/iYlyrxuD5m7IpXuzlIYOCPCv6u7ZCXwKi6udRRtpPj5igB
-	KfWEXB9PyfU5Uc4OSld4XgWSdnHPuhyJZ0AfRMZscR2rOigbO4/YmOIr8fjDSemZEWQh+H
-	UAmfFt85OFHoqUDPJLK+RMnbBXC02ZMS1IructHEMAzuNZDAE+55LTP/xZfJ3svkHrY4Be
-	V5aXISTVX4NWuHfqNryVxYy0qgH4e2DaIxD1ySkLcJ4cj+bHnh7l1qk0nja86A==
-Date: Mon, 21 Sep 2026 21:24:05 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Aamir Ahmed <elb12345@hotmail.co.uk>
-Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Chen-Yu Tsai <wens@kernel.org>, linux-sunxi@lists.linux.dev,
-	Kees Cook <kees@kernel.org>, linux-hardening@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] rtc: ac100: Assign .num before accessing .hws
-Message-ID: <179001863789.246818.15549615355312065254.b4-ty@b4>
-References: <AS8P251MB00013E724A77A355668B6CCEC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="m9AP3dUp"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=eFUPaANFoDFNOYt9UreR4DTZ8ERA7Hd3xPzm0VcHkU4=; b=m9AP3dUpFsmELRt1UZ51/cooba
+	zhzb9vh//xqhu3gPEhtBvir7p1yDMUxxJcCRdjbWFhnSEfQUSqYeW2n2b/U9s99R/EFAWALe5FGud
+	SMi/cl/70zZauRtVX9ygUUV4/duAdxGLoY/E2y7pNUVTvbSQiWRWI/SMj11bTrJjX1/AYEx8RXIvH
+	fG9CN2a9J/hITk9JLUNXf+/5QnNWua70xCNzbKuzIvDby0qNgn4YRhDpsWlhQV5uD/UB5H7efwaQ3
+	gwksWZO0K6fCx90IVBHZbDeS+iGLZk/pkPzc8BuDF6pDD6eirhiHp99EOJ45zUp/v8FrluRAyUm76
+	sjz4Oybg==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x8jcX-00000003DrZ-3gp7;
+	Mon, 21 Sep 2026 19:24:09 +0000
+Message-ID: <e08514b5-87f6-4a2b-8080-7d7d8e802f99@infradead.org>
+Date: Mon, 21 Sep 2026 12:24:08 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <AS8P251MB00013E724A77A355668B6CCEC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] README: rename to README.rst and make the doc
+ references links
+To: Osman Ahmadzai <osmanahmadxai@gmail.com>, Jonathan Corbet <corbet@lwn.net>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ nathan@kernel.org, nsc@kernel.org, apw@canonical.com, joe@perches.com,
+ tglx@kernel.org, gregkh@linuxfoundation.org, linux-kbuild@vger.kernel.org,
+ linux-spdx@vger.kernel.org
+References: <20260921050038.76985-1-osmanahmadxai@gmail.com>
+ <20260921070556.6909-1-osmanahmadxai@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260921070556.6909-1-osmanahmadxai@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, 05 Sep 2026 19:38:08 +0100, Aamir Ahmed wrote:
-> Commit f316cdff8d67 ("clk: Annotate struct clk_hw_onecell_data with
-> __counted_by") annotated the hws member of 'struct clk_hw_onecell_data'
-> with __counted_by, which informs the bounds sanitizer (UBSAN_BOUNDS)
-> about the number of elements in .hws[], so that it can warn when .hws[]
-> is accessed out of bounds. As noted in that change, the __counted_by
-> member must be initialized with the number of elements before the first
-> array access happens, otherwise there will be a warning from each access
-> prior to the initialization because the number of elements is zero.
-> This occurs in ac100_rtc_register_clks() due to .num being assigned only
-> after every clkout clock has been stored in .hws[]. With
-> CONFIG_UBSAN_BOUNDS and a compiler that implements __counted_by (GCC
-> 15.1+ or Clang 20.1+), this triggers an array-index-out-of-bounds report
-> during probe, and with CONFIG_UBSAN_TRAP the first store traps.
+Hi,
+
+On 9/21/26 12:05 AM, Osman Ahmadzai wrote:
+> The README points at some sixty files in the tree, but it has no
+> extension, so it shows up as plain text and none of those paths can be
+> followed.  You have to go and find each one by hand.
 > 
-> [...]
+> The content has always been reStructuredText - it uses reST section
+> syntax for its headings - so give it the extension to match, and wrap
+> each in-tree reference in an anonymous hyperlink whose link text is the
+> path itself.  The rendered text is byte-for-byte what it was before; only
 
-Applied, thanks!
+What causes README.rst to be rendered? Is it named README.html?
+I don't see it being rendered on a clean 'make htmldocs' build.
 
-[1/1] rtc: ac100: Assign .num before accessing .hws
-      https://git.kernel.org/abelloni/c/6a4117eee82d
+I see DOCS/Documentation/output/admin-guide/README.html, but that's
+a different file.
 
-Best regards,
+> the markup is new.  Anonymous because a handful of the paths are listed
+> twice and named targets would collide.
+> 
+> checkpatch.pl and get_maintainer.pl both test for a file called README to
+> find the top of the tree, and the Makefile points readers at ./README, so
+> those are updated in step.  scripts/spdxexclude lists the file as having
+> no copyrightable content; only its path changes there.
+> 
+> Signed-off-by: Osman Ahmadzai <osmanahmadxai@gmail.com>
+> ---
+> v2: Dropped the second file - you are right, two copies would be out of
+>     sync within a release.  This renames instead, so there is one copy of
+>     the content, and updates the four places that referred to the old
+>     name.  I went with the rename rather than the symlink because it
+>     leaves nothing pointing at a name that no longer describes the file,
+>     and the fixups turned out to be one line each.
+> 
+>     I did look at folding it into Documentation/index.rst, and it looks
+>     like a bigger change than this one rather than an alternative to it.
+>     The README names 55 documents; only 12 of them appear in the
+>     index.rst toctrees today, the other 43 being reachable only by
+>     descending into process/index.rst, subsystem-apis.rst and the rest.
+>     So integrating means either pulling those 43 into index.rst or
+>     dropping them, and that is an editorial call about material that
+>     landed in b9a565b3e4d8 last November rather than a presentation fix.
+>     I would rather not make it as a side effect of this patch.
+> 
+>     If you do want it, what I had in mind is a short "where to start"
+>     section near the top of index.rst - one entry per kind of reader,
+>     pointing at the existing index documents (process/index.rst for new
+>     developers, subsystem-apis.rst for internals, admin-guide/index.rst
+>     for administrators, and so on) rather than repeating the individual
+>     paths.  Around forty lines, and automarkup turns every path in it
+>     into a link with no markup needed.  The README would then shrink to a
+>     pointer at the documentation.  Say the word and I will send it as its
+>     own patch.
+> 
+>  Makefile                  |   4 +-
+>  README                    | 168 -------------------------------------
+>  README.rst                | 170 ++++++++++++++++++++++++++++++++++++++
+>  scripts/checkpatch.pl     |   2 +-
+>  scripts/get_maintainer.pl |   2 +-
+>  scripts/spdxexclude       |   2 +-
+>  6 files changed, 175 insertions(+), 173 deletions(-)
+>  delete mode 100644 README
+>  create mode 100644 README.rst
 
+thanks.
 -- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+~Randy
+
