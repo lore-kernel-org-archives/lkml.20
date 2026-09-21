@@ -1,74 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C7F484238;
-	Mon, 21 Sep 2026 11:29:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789990157; cv=none; b=Ts3r1L8eVO81Tn1hrFJ5xkc5v7xfp9oZ/KUY622GbDvbY/DBHteessNHqy+/HpxRgGqEV96x9qyFFngO9ZcPZFr9swDOvj3CjUQ9Z2QiKb+6mHcgg0Wk6jp1SF/DygKRk2tu4tIcTWRvh5K8p6GEvCYQiD2ISqBijz0loAXVGMM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789990157; c=relaxed/simple;
-	bh=2LOrNaGQ5mj1zA9I9cLkssiYpHQbuUlvMHtAVgfZL7o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MebAw2BQxEl9y4mm5K0C5ECcfaEJ4uEYyl0DbX/UNuT5XYN5KXfnOsG+V/5WO2ly/Cl9fB2LKfnof304VuLxkKillAIN5nG4Cw5vu1a8JWe0PHM+MLBFgBJgXJg4hgRKS7COacLTvFXrc14QdOgjznfrUYyzS4E6TiCB6sfBWM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MjdGLSf0; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A6048A2A9
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:29:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789990178; cv=pass; b=DNkCSu25sHoRTkRZpehWwZWnwZswSYNb8ARfshjsE7unzygzW5eLqGAxpccAhFChLWpA1oFCNNU70z8gke0Eb12nuN2xrV9tq2VhizfsewnUpI6NKkZtxKM1rWHo0FX1alNT/EVZRaSYLHSnntioIt9a5YG5Q6aEmDyyOlioHb4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789990178; c=relaxed/simple;
+	bh=ptOPvpl8Jn4/467WKDIfcKUlrqRNuCJaQOy7TpWYDfM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ELUCDiqBIWgYf3K5ALRx9loAoWlvTCycBNxPpnZJMlG7LHjFfvwGKxDC8JaZKJNry44Q3BKNx1G3GRFGGRw84ChltZxnJRhN50ISFYLBuveWNorGLD/KCO8XE460AN0pAcygh44ZzdRtoEb6RdMM+popaoU7ucWo0EnSidOnE4I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=O6ageLli; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hFjosavz; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MjdGLSf0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4444E1F000FF;
-	Mon, 21 Sep 2026 11:29:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789990155;
-	bh=ytrNY/dXC+o9MsksDs8zljUzXO8YO7DW51E9SEVgNHE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MjdGLSf0pnoFhBwFlwXKcoZ4RH6OhswMlzB+ca+LLAi4BVBhJF0Ii+BUxLGyWaY+y
-	 miWNElchQPLZ5c5juVsDDLHGHtw7kELk/QG/SjyoKE5OmS8wgREk/xYBJqq4ztOCqN
-	 +PfouMSQ6nLARjnmV29YoWBN/S3gJhXEPVPslTbTJciXPdB676gdo5Q1ElTvxKzgJp
-	 3ZUAJOfcWaP69qmZRiJOwFGoE08t86wajDcB3k9SktFzlYryVdKaUtXKumDnjwQmJ6
-	 cHnCvjpcWzZI8OI09GeuN6x8usPirLR+3K5gm6A+dZuTmKBWTcTwk0oIbh1ETFge8M
-	 vKgOW3oDLaFow==
-Message-ID: <367c1fac-a665-48c8-bc28-98b0cb6e6f5c@kernel.org>
-Date: Mon, 21 Sep 2026 13:29:12 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="O6ageLli";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hFjosavz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789990175;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ptOPvpl8Jn4/467WKDIfcKUlrqRNuCJaQOy7TpWYDfM=;
+	b=O6ageLlihfDB6076/yHJyZKSoLL3nKRi/zQLTHfzt81mczUIQ9IS0tgvRJ1NlCjqBb4DoF
+	GZrYoV3RbM1da3b462HvAx/mn3gZn/RrTsYJoZiIFO2UQUxFL/1TZPIy0U7ZqqGb/oJSYY
+	phAiGePIBp/H+zTMNVR59vJJTguhh7A=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-83-klKRYCtvOSSXxQ3IFdtlkQ-1; Mon, 21 Sep 2026 07:29:34 -0400
+X-MC-Unique: klKRYCtvOSSXxQ3IFdtlkQ-1
+X-Mimecast-MFC-AGG-ID: klKRYCtvOSSXxQ3IFdtlkQ_1789990173
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-487038bc9b8so1735220f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:29:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789990173; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Nfvpx69PuC1jr+MvPvp9uLPn2XQ7PYpoX7ifowXMsGO/pG7gMTioHfq4Ddq6m3J3t7
+         Rq24pqA6nLUe7DIhSeVZVlsfC/2o4OncgAAEethHu4FfzFvdnqS3CJntb9DdZAjq1fcX
+         4Pt8nYhk3a08JRRIXu6uSZi+t72mDNncTPb4mHrOgvhnaSVZVJMlNLYcVKe1iX1+ZrZr
+         mKWptg2/zZ7BjxE+y9VrqNE1hT3zFMNtTu0bhhPRn8LJXSkeYtyHvGmvtNq9M+v0c52c
+         i7aN905/h4+0JT5/zeghtqdXsVy012hsQU2L6uA6CDFT9MwRSRzibW4s1otb6Riiw32h
+         Nmcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ptOPvpl8Jn4/467WKDIfcKUlrqRNuCJaQOy7TpWYDfM=;
+        fh=XhI5WuTT6uQ+67sHTj1iVumkdaeG6Z3D+MUUyGefo48=;
+        b=RritebPkR7r3Dt2t+DBMDTX9k7X1dQbEk7ubzYjknHa8kvaPSFWXmig1SbNBT9NwwG
+         eP2aVHO86hhQm9uIr7q7lqoKe3eB5kFS0Neo2Yrz95WPpwtrz0R6N3bvJmY3f2UZybCH
+         I4C4TLXvtWHFFJBfOpwe5rFW3NKZB+z2vgtyPVh1n0KhBnyvXG36ELErbocLh048ksW/
+         LiCCYuRs7RU4B32uulEErsMIIhPjymP8RP5Vj2C7kuHc5J3vSiAaQUBt2eHfFzxfFjU8
+         T0FMIJQQCsITGMMJ4iWKoavwmW3LxjSb7bMzrc4lSC1Fuui71taies+yM7w6Cae0ukfF
+         hLnA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789990173; x=1790594973; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ptOPvpl8Jn4/467WKDIfcKUlrqRNuCJaQOy7TpWYDfM=;
+        b=hFjosavzTEBg7sS+/amQKm0DVwQIeND1Et6uVLHGgp9oztjbPFCj1GSVjXpTtW1o4K
+         Bc/WtO6t3w0BAV929yBDSAi710gt9i8vIG6G4IyZ6GylRBVB41jc975KGZ4C1vu8jtTJ
+         x7xcrV9Z/Uk9xBkxBfaUqamjFEOwqtWIVJnzLrJGEKAvBb06h8yPiHXwvPyE6czoy7I2
+         +8i/fivrjJ4mfrJsjj/GSjzW25mhmbFvGSLW+leI/NDqeBUQcrHQxaHhM2koGsHWO/cA
+         SqniDp40toI3F8H6TS7Y1ucl7zgJL2l4gWnJOBTOA0JIIEQ+e05bwbUp/oqKz+wPpNep
+         JPqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789990173; x=1790594973;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ptOPvpl8Jn4/467WKDIfcKUlrqRNuCJaQOy7TpWYDfM=;
+        b=nH25iFxuATjbIMLAkGfR49VWPCdKYc2v1ICT9t+SRdZjxvIleA5YvcyUnS6SuXlRL7
+         K8Zye3185ta2Ixdg6u8VuvDXOENBAF+59OXAVLzzehbmXlUAcOa1AvDGLPn5f6qG9Wqh
+         4n4YsMF+nDaSWN/vFSY0zPtE1o65kflxGAjMbvRM2X/Tg3zVzmqkYGeF4NkLqcvWgH7W
+         9cqL4t0iTQ7u30l1ErDhtfJosMcIT+FYLwL9DCPpVESKmQC5KuxdZjNK2YK4HCCXqw6W
+         wbnVcPP7xg1pbFiB0ajFrGC6UDfXXie863oNrr7MtTvtDGRssk15DpUghbWORGi0NUVK
+         8mEg==
+X-Forwarded-Encrypted: i=1; AKwUvBx3aSg++EmH3CuNj5iQKNr9WPhHCEV2ElL3MFvbFKT46mGUSOM+R1sdC5APqidgWyiW6D7CWTaJewfe2ds=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGbi+qLdA9FQ5j6hgZ0B9FdEtftQbp6nKY1WhdNXLmw+QGUjr7
+	e2m5a1JM61IlGtcaurhpjdcFyqpSOVWqfpWgM04f0OIrW9uM7XpV2PcQp8e8U6HV2loN3GtgumW
+	ib3otP/TsYlXofMJR2Si9+koKA/xQeTwXAqAOklrF25g6xucELmSqXUtodWTZMqO479cNNgIgsf
+	+ls8E4m26DOc4LKgORfIYviMGxq8yX9jzprCgVjJYC
+X-Gm-Gg: AYBFou0Uc5lTFsteSDCvQXWIurupMLdn6cbHVr3bdH+LxH4euDvXLeECrgNtgYXtWKe
+	1hk6n9jIqyILzsdpYk3YRYMCyEgQHeCwCOE9ZQvX8Fc9CWpvbP2AlSykxpNs/micBJfVTQMQkDO
+	0X55e+XHu6VwnVIX+8zbSwu94B7DLq4JIZq0sXevlXH209Sf2per0Xf4MxGgb4KnxCHtP9v7ge3
+	c6f0zAOTvlijj33Ak71TQw3ijiJAo/vaV02FeHW+xE36itch2/8ec4v7U9k/A==
+X-Received: by 2002:a05:6000:491e:b0:487:84:96d7 with SMTP id ffacd0b85a97d-4871e373189mr14673931f8f.53.1789990172844;
+        Mon, 21 Sep 2026 04:29:32 -0700 (PDT)
+X-Received: by 2002:a05:6000:491e:b0:487:84:96d7 with SMTP id
+ ffacd0b85a97d-4871e373189mr14673903f8f.53.1789990172510; Mon, 21 Sep 2026
+ 04:29:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: uvcvideo: add capture quirks for 1e4e:7102
-To: Ricardo Ribalda <ribalda@chromium.org>,
- Henry Paradiz <henry.paradiz@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260917212951.558283-1-henry.paradiz@gmail.com>
- <CANiDSCsoLGGewmpV6cL=wgkMh3qx=5dU_mVWUi_NaBdfZp+hPQ@mail.gmail.com>
- <CAMfFSnDa-nGr-mxzuK9FibOCJGFFCBjB_HiLBwGJ3btuFR=WVw@mail.gmail.com>
- <CANiDSCuUBCbiE-8Pteo=fpjT8AK9WN_s6AcR-8K43da3inteXw@mail.gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <CANiDSCuUBCbiE-8Pteo=fpjT8AK9WN_s6AcR-8K43da3inteXw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <272c0fdf9e5eb9a1caf6a5c0bf674e3c006ac2ea.camel@infradead.org> <20260921112131.274-1-hdanton@sina.com>
+In-Reply-To: <20260921112131.274-1-hdanton@sina.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Mon, 21 Sep 2026 13:29:21 +0200
+X-Gm-Features: AcwNN1Xi_H7uo3XvFAj5sLWKjk7Urm5G8ShkD2xSWIid9H62cmytfHb-xU95uPA
+Message-ID: <CABgObfYZKfSV=Ykmjkey+t1pA4rEEk8=a-VMho4=A0=xNLmKcA@mail.gmail.com>
+Subject: Re: [PATCH 01/17] KVM: pfncache: Use atomic SRCU for readers instead
+ of a rwlock
+To: Hillf Danton <hdanton@sina.com>
+Cc: David Woodhouse <dwmw2@infradead.org>, linux-kernel@vger.kernel.org, rcu@vger.kernel.org, 
+	kvm@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+	linux-kselftest@vger.kernel.org, Sean Christopherson <seanjc@google.com>, 
+	"Paul E. McKenney" <paulmck@kernel.org>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Mon, Sep 21, 2026 at 1:21=E2=80=AFPM Hillf Danton <hdanton@sina.com> wro=
+te:
+>
+> On Mon, 21 Sep 2026 11:54:36 +0200 David Woodhouse wrote:
+> > On Mon, 2026-09-21 at 09:42 +0800, Hillf Danton wrote:
+> > > On Sun, 20 Sep 2026 21:49:29 +0100 David Woodhouse wrote:
+> > > >
+> > > > Replace the per-cache rwlock with a dedicated per-VM atomic SRCU
+> > > > domain (kvm->gpc_srcu) for the read side. Readers now run under
+> > > > srcu_read_lock_atomic() alone =E2=80=94 preemption disabled and non=
+-blocking
+> > > > enforced, which every GPC read-side section already satisfied as a
+> > > > former rwlock critical section. It works in any context
+> > > > (including hardirq and sched-out paths) and never fails or spins,
+> > > > eliminating the
+> > > > read_trylock() contortions in the atomic paths, the double-lock dan=
+ce
+> > > > with the lockdep subclass hack in the runstate update, and the
+> > > > PREEMPT_RT problems inherent to taking an rwlock in those contexts.
+> > > > In particular, kvm_xen_set_evtchn_fast() is called from hardirq
+> > > > context (timer callback, kvm_arch_set_irq_inatomic()), where taking
+> > > > gpc->lock is a sleeping-lock-in-atomic-context bug on PREEMPT_RT.
+> > >
+> > > Given the preempt_disable() in srcu_read_lock_atomic(), as PREEMPT_RT
+> > > has no way of handling preempt_disable(), you need to add another
+> > > version of srcu_read_lock_atomic() with preempt_disable() replaced wi=
+th
+> > > something like rcu_read_lock().
+> >
+> > Hm? What's wrong with preempt_disable()? It works OK, but is generally
+>
+> How is preempt_disable() handled by RT?
 
-On 21-Sep-26 12:52 PM, Ricardo Ribalda wrote:
-> Hi Henry
-> 
-> Thanks for the extra info. I still do not get why the device keeps
-> suspending if you have the UVC_QUIRK_DISABLE_AUTOSUSPEND. Are you sure
-> that you do not have some kind of daemon in the system doing any kind
-> of aggressive powersaving?
+It disables preemption. :)
 
-Good point, a typical candidate for causing issues like this would
-be the TLP scripts which are somewhat popular:
+The difference is that *spinlocks* (by virtue of becoming sleeping
+locks) do not disable it, but the low-level primitives preempt_disable
+and get_cpu do not change their behavior.
 
-https://linrunner.de/tlp/index.html
+Older PREEMPT_RT patches had get_cpu_light() which did
+migrate_disable() instead of preempt_disable(), but then
+migrate_disable() was deprecated.
 
-Henry, if you are using TLP please try disabling it, or at least
-opting out the camera of TLP's management.
-
-Regards,
-
-Hans
+Paolo
 
