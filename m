@@ -1,173 +1,207 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A7049365B
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:57:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28743AEF45;
+	Mon, 21 Sep 2026 11:57:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789991847; cv=none; b=rVTpUdb6FFojB+hzQ7+iz943IvDAdbRyuCeQUcVZtwGN1M22PUsZphNPR9U7+0yrOMQxeiuvpzjAG1AjbQ28bgDgkx1jUlydFcyaBQo+B76j53rbAV/dLv8y37LxbdU1T4J4s5fnosgNJ8eGvzmiGSyX1TuaOgn5NNCZBqWSB0Q=
+	t=1789991861; cv=none; b=hw/Ub/3wsL1KtBZMHJ5o46WzGzo1Ib8gcDRHtadom/PErhBIhCocw5HrQcuve23acAKNBMkGqHlDeuyZK/y9UhgmMkkXSaCKcz3nsW64dp95YEkaf2X/+v6fjseQvdMmHkC2XYy6zx86XWPzYm4ut/S4IHPJvor51e6I96+Hobc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789991847; c=relaxed/simple;
-	bh=a46s19uWMHTS78Yk2h9EFiIv+mAg2lXYSLAayKFym3E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KEq2qJGsIstG+9rLCA/fTV7yQ1L3ZWrTtIyKfjpnL1RqSRgEyqXVzsBFqJDrN1paJ2eUY3RF4pBJfPZvaansR4OggtSFswn8e1Mf98VgC5exYEvrv3EldkNrYiluuuc9g+aYwiXbU+Agf5ftHQE9C+LWJcY3t+hB2fSnF1yYfco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pgHLobZB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NgnWTCkB; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789991861; c=relaxed/simple;
+	bh=waCNVstASiU9I8wphAy3poJkmaBwwiHYwe3+snj/cO8=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=TGwugQaVPDSAb7VvkDBx7+sts336bCsxiLWbIV9NimoB87AkZxE0gVIMd4AbMs84hI4lcl/zBpg3smIim1xVYHczTdbNMByO4AnmVA+B98huM+Ma12VSpejlBll9B2QUKUlm17+wi48E1UsbFM8TxB98SMdnJUD/R144EeHdAN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Azcx5PRW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pgHLobZB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NgnWTCkB"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAdtji2091233
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:57:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=F+U6g5gueqDjL4Suw8UleQXx
-	rIHFe/2S/+8BIIcGQr0=; b=pgHLobZBOfHsMyw+OWxY2u8iT5WDP9oh+b1DmWsl
-	dt9LLDWr0ukDkQEmOADsor2bML3KzNJEYXskT8A7puw2q26mtB/6R3kJ1Q1cZyyC
-	sAW94fGT6V9SZMFzsf6p0Dk0EpXt3eWAuLuG6WqSRlXr2lDUTQ41+J+5r5q3hj90
-	DbSjZji1h2PLdIlt2j43EGBCtfnEqGX46HsHsJOihWCcQXcVV1T+DLLp5Z1Uk3K9
-	cH96xumFOAn/cjI4+GOFbqG1u4A3PJs8lwAzXJlKpYmF7IRzT2/XiZYh2zXjpQWf
-	lLgEYJ/PlnavuzSp43wKCq14NUiwP/IuYBmY17+qqbNz1Q==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtt3wt7er-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:57:25 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38f97b3f853so4437704a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:57:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789991844; x=1790596644; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=F+U6g5gueqDjL4Suw8UleQXxrIHFe/2S/+8BIIcGQr0=;
-        b=NgnWTCkBBj20/b4g42D69Jx56HbtyEg/RDFU/uVRCeLsxhG2w4K81xWPIV1PVVNo+o
-         UKkbJ1cfvyuO70F7Cr+ckDAVBuprSCqfJeY06AV2Gxmalue0+3TgRH96cl22ps4LJaAm
-         pzEbwx59fhR4VGMJVYmVto3X1UnpUFTGH6fvMtbssKK5IheKJ98nxWqDMrLw+to1kjwT
-         9dJ8ygHSAKtuQlC52QSbAmMjB4uwKpb170n/tHrPOLWN5U49NuJTTtMLyjF3nW2lgVqU
-         Zp4LlrT6VZMBjADCi3RqPgrubAEKvNGKw8i5/OaBNEyg27VYGGPIjDtPTJInP+bgP3Ve
-         zYfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789991844; x=1790596644;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F+U6g5gueqDjL4Suw8UleQXxrIHFe/2S/+8BIIcGQr0=;
-        b=n5dyyRVuiK5Q0+cjK9us/CbH9HZXKM6GBkEKAr1KggEROAsu/LnmtPGzOJKWkWr+iz
-         rfWZZd6yvREqeKLLqePzFFVcw5HtP20jIv4Mqrz2qYwWQ3cMHffUXEhryPuUsGVW1OLI
-         5jgyHvwYG/hDxjSeDopB1FBr75+uFcFQcoBW6OTkGQFVNpmw1lTEdWh0d0//WA8gtrPa
-         RemmgOa2HhPLSMFxwyah7eU6ERJ7qo1/eflhmIjM650ZpJlJ4888dQwtDohyhkvrOmJa
-         x1vK3AXyM6iJVp7PKPRlDOpua4CMDhHv4/ldvlYf21Q6johQ7fS0Rg5v359dhWypbgqY
-         rc5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxC3G5dS2K59FRjQWqe+/FN0li2ftRbdBGd8LheHRf3cflWwosnt+xQ5lV9yCcFWuvbtreE3wyWoXLWRl8=@vger.kernel.org
-X-Gm-Message-State: AFuF++moaUT98l7uhacIlGWyi3WJR1REbWVAyGpnHw+S903J/a+mjs0p
-	4xsSkIEVfiidnNG85ktXXThLFeil29r2SGKCQOlPXXePHJ9nF1OY9Kx6BjGJc1x9CBtd3r7eW2i
-	w4asNDRKCK97rRtXjM2RFFmDg1WnLJREx0tvo3aTGrZUjQ24q8krNPTTgC6AeX129MWU=
-X-Gm-Gg: AYBFou14xND6Rbaf94RZrbA1Pa/upYBEsz0hxmK+/SSPUSsK7lsD/evDk9FpMYOdlhd
-	4GkqLK/YgLbqGggpC2gsQVOOtIZNzmoirnddzdFRuY96NhiA3s4CJqd+g/Y09PWHpLwAcQdSSQF
-	EE9hEQaDwaiqD48hUzLIGYfOq0K1BPuktKeKHqRb5ZtelKePp5wO3d1SeOKF2LfMY5LCOnXeUi8
-	v5ZEEtFjSC9abrjJizsGK/DgL1yI8fDykqD6wZt5KGuRyFtsjmXX48721bi0x+iOevyG3byf8zz
-	KvPh4+Ooxi0BIJFYgdCrvILRgYa7bXXAPEZg9MQ1eZf7ozt3hwd11EBq7ht48nHaMTUh3y1hbXR
-	vpdoknLWsOiyPYQpAEvpFHb5tITOROdJtbod8GMmKAT1CWNTlXoQRAra+EQmmvjcQcH04kplOaT
-	Fp4vz9Eygt4HiqOwc=
-X-Received: by 2002:a17:90b:5903:b0:39e:d36c:ee54 with SMTP id 98e67ed59e1d1-39ed36cef6amr9098566a91.5.1789991844499;
-        Mon, 21 Sep 2026 04:57:24 -0700 (PDT)
-X-Received: by 2002:a17:90b:5903:b0:39e:d36c:ee54 with SMTP id 98e67ed59e1d1-39ed36cef6amr9098533a91.5.1789991843977;
-        Mon, 21 Sep 2026 04:57:23 -0700 (PDT)
-Received: from hu-anancv-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c3314313esm19915703eec.14.2026.09.21.04.57.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 04:57:23 -0700 (PDT)
-Date: Mon, 21 Sep 2026 17:27:18 +0530
-From: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-To: Oleg Keri <okerixx@gmail.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
-        Sudeep Holla <sudeep.holla@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Viresh Kumar <viresh.kumar@linaro.org>, linux-kernel@vger.kernel.org,
-        driver-core@lists.linux.dev, linux-pm@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] sched/cpufreq: fix schedutil's boost frequency
- handling
-Message-ID: <arEbnqUuOroYX1oG@hu-anancv-blr.qualcomm.com>
-References: <20260908-schedutil-boost-frequency-handling-v2-0-25312a713699@oss.qualcomm.com>
- <178966110618.2386.17602156528185920946@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Azcx5PRW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FC2F1F000FF;
+	Mon, 21 Sep 2026 11:57:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789991859;
+	bh=BHuvo0BMs5lNofbYQMZ80kY1wIqL0Onu5K/sWBzZHeY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Azcx5PRWvXD2RliqeziEhQOYuCcLhWc5JF1xqnd5ZSMPj4rF+9uLJ8/RSwqTdTZPf
+	 9Q7kjd0bStpmDblAQdZ3W79iW0ti3Hze1ysDo5A5HRQWLx5CJXuEbU7A98jZTC2FoM
+	 bIwHgafDbK2MVMPG6sdXAc9X1pPcJC56JLCIoZvfzRf6oHPtFozZCYGDuSUuVufdGL
+	 mBr8YwX+jGbRXt2wlrAS6ZrPl/HTijqYX6XiFyQm29ErK/lHjcxI7q9m0p5WJRFeGE
+	 FZEoMhcbjICsARbTThKmvs9J/h41pT6VO3THPxV/I627YI5eTags8jX5d09xgSl6mP
+	 vO5Whu43UMQvg==
+Subject: Re: [PATCH net v2] net: axienet: bound TX completion cleanup by the
+ NAPI budget
+From: netdev-bot+sashiko@kernel.org
+To: maimon.sagi@gmail.com
+Cc: radhey.shyam.pandey@amd.com, netdev@vger.kernel.org,
+ robert.hancock@calian.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, michal.simek@amd.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Mon, 21 Sep 2026 11:57:38 +0000
+Message-ID: <178999185805.2160803.2118648689532400433@kernel.org>
+In-Reply-To: <20260917115657.20697-1-maimon.sagi@gmail.com>
+References: <20260917115657.20697-1-maimon.sagi@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178966110618.2386.17602156528185920946@gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE3MiBTYWx0ZWRfX+hl2J0gQkYY6
- 0HtIu6SfXaFhozM6QVSaaDe2I8SbP96qWGntPjF8XJwtJxAYF6WShZNeZ4oYJXlnxJhM81w7Bjn
- HYnQ0pSwCy3CY5tFblDdZyOrcyff1oDrqt1MFidgfXgigCjuMn6JAzoemDnfbwyp1YZYAejX5kR
- Gd4pxJAr2dUYFx2BVo1fV12q3p4aJf93Mx926wCDe/nB5SJiA+l+dhQKSPfsV700S9dbLGieAav
- zQ1t31jD5pEUWL56/tNgvQvVnwqtcd79JSe8iDOK+nycAymsGV/4GMmll9iRTturXmub46q+KPx
- sj7mxblyFj/zJtFCQ/FlQUPoew9BcAYh3H63UoNzowmmw0ZVEPHaa8S2uMZUNp7KiZufseuxwgr
- aPIyKn7ko33OVC59Ua8BSpjM3/kHZ3jdDrC3gS5FjAeC/pRKMH6nBER0Ka+Wc9s9RWcsKdMyH92
- RvR8xBBGBZkJLjAwfyQ==
-X-Proofpoint-ORIG-GUID: xfgedcZtEojRcpcDX-HJkqop_Tema4qQ
-X-Proofpoint-GUID: xfgedcZtEojRcpcDX-HJkqop_Tema4qQ
-X-Authority-Analysis: v=2.4 cv=dakVTnXe c=1 sm=1 tr=0 ts=6ab11ba5 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=pGLkceISAAAA:8 a=snW00zfRmaIRln_NaNwA:9 a=CjuIK1q_8ugA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE3MiBTYWx0ZWRfX2Uw75CBzr0Jn
- 5aqSbwz7WBGgMKSh98QP69WOMQdgeDg4OFeeXPeT4YQHGT9yQVSWXZFUoghwTz8i/NdNbNn8G+q
- UswV5JYH66P5a5CDxtyGNjkWwJMOq0U=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 spamscore=0 adultscore=0 phishscore=0
- bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210172
 
-Hi Oleg,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-On Thu, Sep 17, 2026 at 06:05:06PM +0200, Oleg Keri wrote:
-> Hi Ananthu,
-> 
-> Tested both patches on a Lenovo Yoga Slim 7x Gen 11 (Glymur,
-> scmi-cpufreq) on top of next-20260915.
-> 
-> 1/2: with boost off at boot the little cores get cpu_capacity=553,
-> which matches the 4723200 boost maximum as the reference (4032000
-> would give 647). A workload pinned to cpu6 runs at 4032000 with boost
-> off and 4723200 with boost on, 3.14 s against 2.50 s.
-> 
-> 2/2:
-> 
->   # cat policy6/scaling_max_freq
->   4032000
->   # echo 1 > boost
->   # cat policy6/scaling_max_freq
->   4723200
->   # echo 0 > boost
->   # cat policy6/scaling_max_freq
->   4032000
-> 
-> One observation: policy6/cpuinfo_max_freq still reads 4723200 after
-> boost is switched off again.
+Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
 
-cpuinfo->max_freq has a guard that only updates it upwards, so it is not
-able to come down. This is by design, to preserve driver set values. That
-is what the second patch is trying to work around. Runtime enforcement of
-boost frequency handling will try not to rely on cpuinfo_max_freq whenever
-possible with this series, allowing the value to come back to a non boost
-freq.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> Tested-by: Oleg Keri <okerixx@gmail.com> # Lenovo Yoga Slim 7x Gen 11
+- [High] Incomplete fix: the new budget guard in axienet_free_tx_chain()
+  is disabled when @budget == 0 (`if (!force && budget && packets >=…
 
-Thanks for testing the patches.
+Pre-existing issues:
+- [Medium] Pre-existing (not introduced or claimed to be fixed by this
+  patch): axienet_dma_bd_release()…
 
-Best,
-Ananthu
+--
+
+net: axienet: bound TX completion cleanup by the NAPI budget
+
+The patch adds a budget check to axienet_free_tx_chain() so the TX
+completion loop stops on a packet boundary once the NAPI budget is spent,
+and treats a budget of zero as "no limit" so the netpoll TX reclaim and the
+@force callers still drain the ring.  The kernel-doc for @budget is updated
+to match.
+
+> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+> index 1722b7038f340..039885814a5d2 100644
+> --- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+> @@ -772,7 +772,9 @@ static int axienet_device_reset(struct net_device *ndev)
+>   * @force:	Whether to clean descriptors even if not complete
+>   * @sizep:	Pointer to a u32 accumulating the total byte count of
+>   *		completed packets (using skb->len). Ignored if NULL.
+> - * @budget:	NAPI budget (use 0 when not called from NAPI poll)
+> + * @budget:	NAPI budget. When @force is false, cleanup stops after this
+> + *		many completed packets. Zero means no limit, as used by the
+> + *		netpoll TX reclaim and by callers outside NAPI poll.
+>   *
+>   * Would either be called after a successful transmit operation, or after
+>   * there was an error when setting up the chain.
+> @@ -788,6 +790,15 @@ static int axienet_free_tx_chain(struct axienet_local *lp, u32 first_bd,
+>  	dma_addr_t phys;
+>  
+>  	for (i = 0; i < nr_bds; i++) {
+> +		/* A NAPI poll must not return more than its budget.  Stop on a
+> +		 * packet boundary once it is spent - cur_p->skb is only set on
+> +		 * a packet's last descriptor, so no packet is left half-freed.
+> +		 * A zero budget means no limit: netpoll polls with a budget of
+> +		 * 0 to reclaim the TX path only, and must still clean the ring.
+> +		 */
+> +		if (!force && budget && packets >= budget)
+> +			break;
+> +
+
+[Severity: High]
+With the "budget &&" term, is the case the commit message is about still
+reachable on the netpoll path?
+
+For a budget of 0 the guard never fires, so axienet_free_tx_chain() walks up
+to lp->tx_bd_num descriptors and increments packets for every completed
+descriptor with a non-NULL cur_p->skb.  axienet_tx_poll() then returns that
+count verbatim:
+
+drivers/net/ethernet/xilinx/xilinx_axienet_main.c:axienet_tx_poll() {
+	packets = axienet_free_tx_chain(lp, lp->tx_bd_ci, lp->tx_bd_num, false,
+					&size, budget);
+	...
+	if (packets < budget && napi_complete_done(napi, packets)) {
+	...
+	return packets;
+}
+
+netpoll is the caller that enforces the invariant:
+
+net/core/netpoll.c:poll_one_napi() {
+	/* We explicitly pass the polling call a budget of 0 to
+	 * indicate that we are clearing the Tx path only.
+	 */
+	work = napi->poll(napi, 0);
+	WARN_ONCE(work, "%pS exceeded budget in poll\n", napi->poll);
+	...
+}
+
+lp->napi_tx is on dev->napi_list (netif_napi_add(ndev, &lp->napi_tx,
+axienet_tx_poll) in axienet_probe()), so netpoll_poll_dev()->poll_napi()->
+poll_one_napi() reaches axienet_tx_poll() with budget 0.  If netconsole or
+kgdboe is active on the interface and at least one TX descriptor has
+XAXIDMA_BD_STS_COMPLETE_MASK set with cur_p->skb != NULL, doesn't that poll
+return non-zero work for a budget of 0 and trip the WARN_ONCE?
+
+The "packets < budget" test is also false for budget 0, so
+napi_complete_done() is skipped on that pass, which is the secondary symptom
+the changelog describes.
+
+Would it work better to keep the unlimited reclaim for budget 0 (it is
+already bounded by lp->tx_bd_num) but have axienet_tx_poll() report
+"budget ? packets : 0", while still doing the byte/packet accounting?
+
+The new kernel-doc says zero means "no limit, as used by the netpoll TX
+reclaim".  netpoll asks for two things: drain the TX path, and report zero
+work.  Could the kernel-doc and the in-loop comment mention both?
+
+One more nit on the changelog:
+
+  "Zero therefore means no limit, which also covers the @force callers that
+  clean up after a DMA mapping failure with a budget of 0."
+
+The guard is already gated on !force, so the @force callers are unaffected by
+the value of @budget here.
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but while looking at the TX
+reclaim path: does axienet_dma_bd_release() leak the outstanding TX skbs and
+their streaming DMA mappings?
+
+The RX side walks the ring and cleans up:
+
+drivers/net/ethernet/xilinx/xilinx_axienet_main.c:axienet_dma_bd_release() {
+	for (i = 0; i < lp->rx_bd_num; i++) {
+		...
+		dev_kfree_skb(lp->rx_bd_v[i].skb);
+		...
+		dma_unmap_single(lp->dev, phys, lp->max_frm_size, DMA_FROM_DEVICE);
+	}
+	...
+	/* If we end up here, tx_bd_v must have been DMA allocated. */
+	dma_free_coherent(lp->dev,
+			  sizeof(*lp->tx_bd_v) * lp->tx_bd_num,
+			  lp->tx_bd_v,
+			  lp->tx_bd_p);
+}
+
+The TX ring is freed with no equivalent pass over lp->tx_bd_v, so descriptors
+between lp->tx_bd_ci and lp->tx_bd_tail keep their cur_p->skb and their
+dma_map_single() mapping.
+
+axienet_stop() disables TX reclamation before the release, so nothing can run
+afterwards:
+
+	napi_disable(&lp->napi_tx);
+	...
+	axienet_dma_stop(lp);
+	cancel_work_sync(&lp->dma_err_task);
+	free_irq(lp->tx_irq, ndev);
+	free_irq(lp->rx_irq, ndev);
+	axienet_dma_bd_release(ndev);
+
+So an "ip link set down" or a driver unbind with frames in flight would lose
+up to lp->tx_bd_num skbs and mappings.  The budget cap added here can leave
+completed-but-unreclaimed descriptors around for a later poll, which slightly
+widens the window, but the leak is independent of this change.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917115657.20697-1-maimon.sagi%40gmail.com
