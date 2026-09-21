@@ -1,68 +1,33 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C073ACA60
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:46:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8803749EB
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:48:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789980409; cv=none; b=InIcFpcv6dL+UDL/yBkEIzRA7BXVGqdhKmD45OtB5fPhgH1klYJesvmw/NLHttmSMQoozR56hKoC4M6NVMwB0KT6NHPyEos4BI9ze4xcM7+OUPoPOZ1teCZ3IK9ZLHLW7RPOHg2ReIzbTJGCnDrngVZ0ocdPmoD1qwYCipqJW9M=
+	t=1789980508; cv=none; b=l3HAvP6e/40P67meCja1EyPXolodqtw42cHp86k01PRseTY0J8MRlpDHTaYzmQIrcvF+1386pCtUqZTsU0sdflbmlqZlX6e9nSLVjvpM2rFm35L3cpEwizySiMhd5gT8WksDkuyuw233xHKbasY8a1ID6Wo6ZFN8i0iwluDzDIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789980409; c=relaxed/simple;
-	bh=KyBH7dhUVR4B0av3A00svT+cy5avMnDRCt6F/8hLFiQ=;
+	s=arc-20240116; t=1789980508; c=relaxed/simple;
+	bh=zRvUKmO+Djoxhsu9cNPD1xlTyXL/dJlbdvj0F4fWcsg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AIXpqNEEDLRbX6nQ/4I+jNqfPQOWWZaIg68aa+OvRQb1kX/eKYF3CwWH9RqgewkUZtusclEhZP2iFGjZrxQD5Mv+9R2TnUw7dg8BlBJwoiT92tAH6O42OFaJcQykfjOlSN+G/mzHvCBsIFsQE7WdNNttpPwb20GRHD3cQqIcZKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xde7lvO7; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=VPN1ymcTXJhDgg5/yRSGP62HbDF/vm6Feq64d6QlaDAzZdzX8MhunPEQ0pQd9VsoFDvSSl9lS4qH4HHeOOadIa9EPqudDqwI0txODtJ8Ogfz4tQWxB62CC9w/MUXxfkFSJ99FKtEoyaGLUvxDRrWNjwny2cZamjjG4KpvMSpV20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=an1bAAGy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xde7lvO7"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6056ac81fso4511741a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:46:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789980406; x=1790585206; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=U83Tc5sQYnzc1MW72+9l9dJyYEc+FCbzixyfv/lGGEw=;
-        b=Xde7lvO7wONq4WdJWo6Y4+36q0sugLQo7GicQlDObrmem8LfZ/gVLYU/J2MK+8WLTZ
-         2ivBumskyL28bEmZAOVzELbUmX0SnMH2rRtgT8ZvVnuv9C+/LaB8PBlEvN25ATL+s6HL
-         HAlIUK8ZHxacglxHdq09BfHLZi3O7HtmLllOlabGi8HV2sSF0qDwi4GiTMTSvu0XQFze
-         /ALoNlmiU//wJL4Ff2F2H+fKfGxyYHQdxbD+vQG/CrRcMIgsedNa7QjQAlOUH5Mh31zI
-         0WxL4FtQR5Ou2ds7yFd36eo+aXzqVdxNC8gcglkdlE1OnduVKtj+79o7rx0BNls/GL2A
-         XFBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789980406; x=1790585206;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U83Tc5sQYnzc1MW72+9l9dJyYEc+FCbzixyfv/lGGEw=;
-        b=RV6NLi5EHDdqha/gW3+0e3jn3L3Sc/TG5Zkyf7pXwHq5gf/d7vmGeXF463eosNtBVu
-         nERlQ7xxtf9C9WGqguaQXb9Z+0Hck7N8hGoY/3qgDFA8umiC+xuPnjeQutOfyJgFgtXI
-         XWzMyniKuQUFKIxJ4u1e4dsxrfvnwAMl4pZlqWHSrV5NranRFlJyjUyJfpecI+hvrTWu
-         TOUUnehxxTeZXR0KmducGNRCxs7sy0Fmpe8VSWNHfhMa0bKVhHV4BD1Tfnt0Z/3Hiaq1
-         v7HNKRkI3bBF0HAuGaZBHgBvA2/KKhVU9dht+Iu/T3oPKOm5AEgEm7qs//IqDmnsQOtb
-         PS8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBypjthEC4TQm4cWTYS4njVv540w1+fu1DWv54a2BZj6aOINkcnKgEN8uk2uMQS0p8xAFf9TvVmBtWWvEFQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqWiectO10DZZzRwAItyIWdqlFh1of8d0vmSdMOUycbtxHC3q2
-	87MGLWiuEdWEIdMd4jfnOHblFxrhVudUJET1yVanxkTjQio12zFCqbjj
-X-Gm-Gg: AYBFou0GYP34tWds95mVzFoGNvPvl8lJQ3I6xWkj7zllOMjyVknxhktBp5YUwYY4jV0
-	QHO9h/Zc2aJNf9O1I1vyZS3kgBvQvRlBN+hZY651ezeET67OS+3oC601Cw0JpvGMCOa4uRYd+MF
-	MHA8QjemqpjUrfCZE3UI7ZcNsRNkQazexqFblvVzhGOVgbhiFoWpFTUV8J0Z6A1rRoi8mrVRemt
-	DeuRwT00N9751VuXuNMQ7Qm3DO0ddg7c8gPmefnAxhs4yqyZjyURTxmIiZTn+wesfy8g6zEVbO8
-	eKnqlBzT0f2OeOQhIe64tb41AAp2kaS6P31c5D+k8uA1sLC3ViWDW0NYvoJo9MDW9oPsEry0Ews
-	+8GZIgYkbKNkOZFFLyvoA9YtkJYivGyhCRBm7PJwZ26toxR2j6r1DBQRmxx/4FG7YNyQkKw6s84
-	y1aQd7zS1OSkzAcA0HyqQ/kCc025UBnsZzEnSvL7m17xGfzQy16cw2jwg6N8Ke1mS9qrgsopNtr
-	oekviLnGrU=
-X-Received: by 2002:a05:6402:23c7:b0:6aa:4529:4cb7 with SMTP id 4fb4d7f45d1cf-6aa53135128mr7228644a12.16.1789980405879;
-        Mon, 21 Sep 2026 01:46:45 -0700 (PDT)
-Received: from [172.24.138.145] ([137.71.226.102])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67d821efsm3882322a12.10.2026.09.21.01.46.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 01:46:44 -0700 (PDT)
-Message-ID: <457da50e-a633-4508-a8e9-7e000933623c@gmail.com>
-Date: Mon, 21 Sep 2026 10:46:41 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="an1bAAGy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A57771F000FF;
+	Mon, 21 Sep 2026 08:48:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789980506;
+	bh=9iL1YWW2QYK9+llrDkhB96CA/vzi9wc36AEnvExuoNs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=an1bAAGyCXfni6gi1cL7qJB6SN4oBe80+IcnVmh1bAzaMpH3wQXShiOZgYMBeuZa0
+	 NSFV6UdmLrrUx/YdVfg2hKwosmpSXF657FdrpJeU30QC4ha47g3lWvbmJ0zfHjaQsn
+	 x9REz7/M0rMboflN2yX0IdDrUJDlRiTl363tT0/hzGQM0YrzITLbQ6MUdGTp3s48bt
+	 1wmE7Z6Mp4lJ4q21aUi8+2kwl/dJD+RuzRglVEJxcNrNJ5ePuqkAp0JLPs8mFe9U11
+	 qroytOZzpEOKp1Ks7neHHcmvksHPmBiazLT6puspACI/3UdGOq+JaEmGGjCC3d80bi
+	 mEZkBopVMzRFQ==
+Message-ID: <7c9f04bb-8c0e-4176-b44d-55304e7359c8@kernel.org>
+Date: Mon, 21 Sep 2026 10:48:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,54 +35,111 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 00/17] iio: adc: Add AD7768/AD7768-4 ADC driver support
-To: Jonathan Cameron <jic23@kernel.org>,
- Janani Sunil <janani.sunil@analog.com>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Olivier Moysan <olivier.moysan@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>, linux@analog.com,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-doc@vger.kernel.org, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
- <u.kleine-koenig@baylibre.com>, Conor Dooley <conor.dooley@microchip.com>,
- Andy Shevchenko <andriy.shevchenko@intel.com>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-References: <20260916-ad7768-driver-v8-0-27aa24db5225@analog.com>
- <20260921013732.6c5399e7@jic23-hlaptop>
-Content-Language: en-US
-From: Janani Sunil <jananisunil.dev@gmail.com>
-In-Reply-To: <20260921013732.6c5399e7@jic23-hlaptop>
+Subject: Re: [PATCH v2] powerpc/ftrace: Don't restore r13 during
+ ftrace_regs_caller
+To: Shrikanth Hegde <sshegde@linux.ibm.com>, maddy@linux.ibm.com,
+ linuxppc-dev@lists.ozlabs.org
+Cc: mpe@ellerman.id.au, npiggin@gmail.com, linux-kernel@vger.kernel.org,
+ msuchanek@suse.de, ritesh.list@gmail.com, hbathini@linux.ibm.com
+References: <20260921072151.35531-1-sshegde@linux.ibm.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <20260921072151.35531-1-sshegde@linux.ibm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 
-On 9/21/26 02:37, Jonathan Cameron wrote:
-> On Wed, 16 Sep 2026 13:13:49 +0200
-> Janani Sunil <janani.sunil@analog.com> wrote:
->
->> Add support for Analog Devices AD7768 and AD7768-4, 24-bit simultaneous
->> sampling Sigma-Delta ADCs with automatic power mode selection.
->> Changes in v8:
->> - Introduce the DCLK divider helper in the core patch to avoid moving its
->>    register-programming logic later in the series.
->> - Document why register caching is not used
-> Other than open question on regcache vs volatile registers
-> this series looks good to me now.  So let us get that resolved
-> nice and quickly.  If it turns out regcache can be used I don't mind
-> just tweaking that comment for now and taking a follow up patch to
-> turn regcache on when you have it ready.
->
-> Jonathan
 
-volatile_reg would handle the live GPIO and status registers. I will remove the regcache sentence from the comments, leaving just the SPI framing explanation. I'll look at enabling regcache in a separate patch.
+Le 21/09/2026 à 09:21, Shrikanth Hegde a écrit :
+> Michal reported a stack-protector failure and subsequent panic when
+> running kernel builds. This was observed with full/lazy preemption.
+> Initially it was suspected as KVM, but later turned out to be due
+> to a bcc tool running in parallel.
+> 
+> Issue was recreated using a bcc tool.
+> For example, running below in parallel leads to crash.
+> ./funccount sched* -d 100 and make -j 64
+> 
+> The same crash was observed when running kprobe for schedule() function,
+> while simpler function tracer for schedule() didn't cause the crash.
+> This helped to narrow it down to ftrace backed kprobes area.
+> 
+> The crash occurs as follows:
+> 
+> ftrace_regs_caller entry on CPU A
+>      |
+>      +-> save r13 = CPU A PACA into pt_regs
+>      |
+>      +-> call kprobe_ftrace_handler()
+>              |
+>              +-> ftrace_test_recursion_unlock()
+>                      |
+>                      +-> preempt_enable
+>                      +-> task can schedule and migrate to CPU B
+>                      +-> task resumes with live r13 = CPU B PACA
+>      |
+>      +-> REST_GPRS(2, 31)
+>              |
+>              +-> restore saved r13 = CPU A PACA
+>      |
+>      |-> The task then continues running on CPU B with r13 pointing
+>      |   to CPU A's PACA.
+> 
+> The stack-protector canary is accessed through the PACA. After the task
+> migrates, CPU A may run a different task and update its PACA with that
+> task's canary. Restoring the saved r13 then causes the migrated task's
+> saved stack canary to be compared against the canary in CPU A's PACA,
+> resulting in a stack-protector failure.
+> 
+> Similarly, current is resolved through the PACA. With a stale r13,
+> preempt_count() can access the state of the task referenced by CPU A's
+> PACA instead of the task running on CPU B. This results in corrupted
+> preempt-count warnings and scheduling-while-atomic failures.
+> 
+> This path for example is called when using kprobes and parallel kernel
+> builds can cause preemptions during ftrace_test_recursion_unlock.
+> 
+> Do not restore r13 from the saved register frame. If the task did not
+> migrate, the live r13 already has the saved value. If it migrated, the
+> live r13 contains the correct PACA pointer for the CPU on which the task
+> resumed.
+> 
+> On PPC32, r13 is regular register. So do this fix only for PPC64
+> 
+> Fixes: 153086644fd1 ("powerpc/ftrace: Add support for -mprofile-kernel ftrace ABI")
+> Reported-by: Michal Suchánek <msuchanek@suse.de>
+> Closes: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fall%2FaqKfsVArHHaIK6M9%40kunlun.suse.cz%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C3e7a545b53d440a2e67608df17b108e4%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639255721258018023%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=Wq%2FROZrTgs9UQsuUqNhFpts90JVwEpgxcNI60HlXqmQ%3D&reserved=0
+> Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+> Reviewed-by: Hari Bathini <hbathini@linux.ibm.com>
+> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+> ---
+> v1->v2:
+> - On PPC32 r13 is regular register. So continue to restore it.
 
-Best Regards,
-Jan
+Oh I missed that while reviewing. Thank you Hari for spotting it.
+
+> - Picked up the tags.
+> v1: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fall%2F20260918150811.1743769-1-sshegde%40linux.ibm.com%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C3e7a545b53d440a2e67608df17b108e4%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639255721258040669%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=J9tBTYidx4ZNPZDK66CdicI64HV5naHau%2BYnNnf4XPo%3D&reserved=0
+> 
+>   arch/powerpc/kernel/trace/ftrace_entry.S | 6 ++++++
+>   1 file changed, 6 insertions(+)
+> 
+> diff --git a/arch/powerpc/kernel/trace/ftrace_entry.S b/arch/powerpc/kernel/trace/ftrace_entry.S
+> index 6599fe3c6234..5eb8eee32549 100644
+> --- a/arch/powerpc/kernel/trace/ftrace_entry.S
+> +++ b/arch/powerpc/kernel/trace/ftrace_entry.S
+> @@ -220,7 +220,13 @@
+>   
+>   	/* Restore gprs */
+>   	.if \allregs == 1
+> +#ifdef CONFIG_PPC64
+> +	REST_GPRS(2, 12, r1)
+> +	/* Do not restore a stale PACA pointer if the task migrated */
+> +	REST_GPRS(14, 31, r1)
+> +#else
+>   	REST_GPRS(2, 31, r1)
+> +#endif
+>   	.else
+>   	REST_GPRS(3, 10, r1)
+>   #if defined(CONFIG_LIVEPATCH_64) || defined(CONFIG_PPC_FTRACE_OUT_OF_LINE)
 
