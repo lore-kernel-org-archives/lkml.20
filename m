@@ -1,97 +1,126 @@
-Received: from algol.kleine-koenig.org (algol.kleine-koenig.org [162.55.41.232])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841B24973AE;
-	Mon, 21 Sep 2026 13:10:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.55.41.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4405E3C198D;
+	Mon, 21 Sep 2026 13:11:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789996218; cv=none; b=LZq2IJVjb73vGYH6VnYanMulovbQWr30gtP8i9SQSRVjmdLL7e+u8DPDjMBqQDmy9uBcr6inuyQAciroHcSOaOIIP7yElXlhsR+7YrpIqR0oGWpZt8cuO8tnnoiHM9RHILmwE8m3chnLkfvLbyMN0R95eTtJ7fOw0OULStJgRPs=
+	t=1789996295; cv=none; b=G/Gls1elCv8XW5LN3a69azZY/Hl866YoP9jxBYG/WBS07+irKMMRLzJ9FhsOz5yOnpUYOYZQ8aywprIeDlRS2C7tqfAK7QHWKvwxsekxU2gTUsqdExMNCaufoilL/n0SDNHXGxzPah6Ky6Ex/Mmfe7Sr5DAY3Mz+v13fo+pIot0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789996218; c=relaxed/simple;
-	bh=JdC1SHfsUKy7BMrU/HzmZDlznS1XKmehOsPz9P4irUw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pf0hzY6n+QNmqH2gEZ+F9tjl8Dc+uIi+quizFIySmIkMCI0VTwecE6u/ydqDNmAat0B8BvtFDK10ymGTwysmT6eqlnaTbnjHDu09Md/pPCI0PHxousdKV++rsXbvQQbi5g61/+EScVpJGBmQJSuHjYDUBYxodXHQiVUpwxRqLg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=kleine-koenig.org; arc=none smtp.client-ip=162.55.41.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kleine-koenig.org
-Received: by algol.kleine-koenig.org (Postfix, from userid 1000)
-	id 2DFA9132F528; Mon, 21 Sep 2026 15:02:01 +0200 (CEST)
-Date: Mon, 21 Sep 2026 15:02:01 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Markus Elfring <Markus.Elfring@web.de>
-Cc: Guangshuo Li <lgs201920130244@gmail.com>, kernel@pengutronix.de, 
-	Thorsten Scherer <t.scherer@eckelmann.de>, stable@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] siox: fix master memory leak on registration failure
-Message-ID: <arEpuhA24xUlA-vw@monoceros>
-References: <20260919181051.3751829-1-lgs201920130244@gmail.com>
- <2784d61d-99d7-41f0-8c51-7736b788dc6c@web.de>
+	s=arc-20240116; t=1789996295; c=relaxed/simple;
+	bh=170G/wINedk/LpDaoAUfkaU+wcfqyh6TsCo0Nr5U4IY=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=f7mA0dFU+SS/ZmV0SBrb0/gVP0faziXxB36Jm8d7rG0PPlJpdNjB2fL/Mkyt0iuqACsjsPTCR5chvDnng3taP17wdFrJDiP9D7IxQXGdpZsQuuMNI4Awe79O8rTTmeh5ffJvhQ4slpVLtFQZ0VS8/1HwOA8ZkiNDxdOl9P9jYFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=dkFs4YnL; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="dkFs4YnL"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id E14001A0F03;
+	Mon, 21 Sep 2026 13:11:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9AF915FFB2;
+	Mon, 21 Sep 2026 13:11:27 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 54351103281DF;
+	Mon, 21 Sep 2026 15:11:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789996282; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=a/OAO1hWOHct6RHp0uO2yGO4InwES539CJG3xP9PBEQ=;
+	b=dkFs4YnLMzIYCHARnOQpHmY3nod7H7OhdhcBmN1zDBS2tadgxKDlb1G/wYhn0I7aPHShfa
+	foAHlM3tmyxsRyHVJ6LiNs2+e7nB3ewJkGyp/DxEuazB1pqSWKHahB8OVQKB2JpCz+nC32
+	FJ2DX0NmzP6Abc3LLLNtNPagkmYCa+vkIrQlyWAWfeQWtaIIJb2eUJ7AqGi/YB8cwBszSN
+	uIAgMGVfRq73aZteFRnvygrbyBb729OJgUS7puGqUNVh3hRTMpSyv2GktJg22ohJjqNU20
+	+duD+AwF0zsECpR8CpYLP11XabnrGLvmgM3GoYUbIZk3v5a4GhWe2oplkBUROg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="izhixbwlshqkotqn"
-Content-Disposition: inline
-In-Reply-To: <2784d61d-99d7-41f0-8c51-7736b788dc6c@web.de>
-
-
---izhixbwlshqkotqn
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] siox: fix master memory leak on registration failure
-MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 21 Sep 2026 15:11:13 +0200
+Message-Id: <DLL0PZY25HAD.1RWXC61P3MZRV@bootlin.com>
+Subject: Re: [PATCH net RESEND 1/2] net: macb: Preserve one-step mode on
+ rejected timestamp requests
+Cc: "Paolo Abeni" <pabeni@redhat.com>, <conor.dooley@microchip.com>,
+ <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+ <kuba@kernel.org>, <richardcochran@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+To: =?utf-8?b?4oCN6rmA7Jqw7ISdW+2VmeyDnV0o7KCE7J6Q7KCV67O064yA7ZWZIOyghA==?=
+ =?utf-8?b?7J6Q6rO17ZWZ6rO8KQ==?= <5mghybrid@khu.ac.kr>,
+ <netdev@vger.kernel.org>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <178911388614.25348.8892025153904636456.macb-resend-1@khu.ac.kr>
+ <20260915083839.71546-1-pabeni@redhat.com>
+ <CAH1Bc_yQYJ6cWyYVvfWK0pAgrXW1TMkpzmNxZvAXAKZJdiOqWQ@mail.gmail.com>
+ <CAH1Bc_z6PFc7N6XVZ2dQEH=7D9mkXwGkXP2KKMW-Emd4zcf3fA@mail.gmail.com>
+In-Reply-To: <CAH1Bc_z6PFc7N6XVZ2dQEH=7D9mkXwGkXP2KKMW-Emd4zcf3fA@mail.gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Sep 21, 2026 at 12:51:00PM +0200, Markus Elfring wrote:
-> =E2=80=A6
-> > +++ b/drivers/siox/siox-core.c
-> > @@ -753,14 +753,21 @@ int siox_master_register(struct siox_master *smas=
-ter)
-> >  	smaster->poll_thread =3D kthread_run(siox_poll_thread, smaster,
-> >  					   "siox-%d", smaster->busno);
-> >  	if (IS_ERR(smaster->poll_thread)) {
-> > +		ret =3D PTR_ERR(smaster->poll_thread);
->=20
-> Would it be nicer to use this variable assignment directly before
-> the goto statement?
+Hello Woo-seok Kim,
 
-No, please don't, IMHO it's fine to have IS_ERR and PTR_ERR together.
+On Sun Sep 20, 2026 at 11:04 AM CEST, Woo-seok Kim wrote:
+> Following up on my September 15 reply. I noticed that the series is
+> still marked "Changes Requested" in Patchwork.
+>
+> This series fixes rejected timestamp requests changing the TX mode and
+> the two PTPv1 RX filters disabling receive timestamping. As explained in
+> my reply, the additional issues predate this series and are not made
+> worse by it. I propose keeping those fixes separate so that this series
+> remains focused on the two reported bugs.
+>
+> Could you please reconsider the Changes Requested status in light of
+> that reply and continue reviewing the series as posted?
 
-But I wonder if it's sensible to create a function to all the usual init
-stuff such that the error handling in siox_master_register() can become
-just:
+To me it all depends on the intent behind your series. If you have faced
+this bug in practice and your patches are intended to fix your usecase
+and prevent others from facing it, then we can take your patches as-is.
 
-	get_device(&smaster->dev);
+If they are edge-cases cleanup patches and you never encountered the
+issue (maybe because you don't have hardware), then either
+ - the patch won't be accepted because it's overall churn or
+ - you fix the full sequence fully and we consider it a noticeable
+   improvement and take that series.
 
-	ret =3D siox_master_init(...);
-	if (ret)
-		put_device();
+About "the proper way(TM)", I expect something like:
 
-	return ret;
+int gem_set_hwtst(struct net_device *netdev,
+		  struct kernel_hwtstamp_config *tstamp_config,
+		  struct netlink_ext_ack *extack)
+{
+	struct macb *bp =3D netdev_priv(netdev);
+	u32 regval;
 
-Having said that, I wonder about the smaster->active =3D 0 assignment.
-It's quite some time ago that I wrote that code, but either it's
-useless (that's where my bet is on), or this assignment is missing in
-the error path of device_add()? Thorsten?
+	if (!macb_dma_ptp(bp))
+		return -EOPNOTSUPP;
 
-Best regards
-Uwe
+	// Step (1): tstamp_config->tx_type validation and precomputing
+	//           of TXBDCTRL and NCR values/masks.
 
---izhixbwlshqkotqn
-Content-Type: application/pgp-signature; name="signature.asc"
+	// Step (2): same for tstamp_config->rx_filter.
 
------BEGIN PGP SIGNATURE-----
+	// Step (3): read-modify-write NCR, writel TXBDCTRL & RXBDCTRL.
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqxKsYACgkQj4D7WH0S
-/k5KIwgArWd7VR7jrF2DdZF41bo+PLqWjYaiYwuGi+qh+xQIr5OxD+XEzPZYka2y
-Jfdw0Op5EczyDXTiYg6EPCERwTQBQof72MpDpK4m0yGOBb+6AC90zNWNZFGEbyT7
-/BjW5EBsaYOPvSPy/MxdzwG+Kx5UvRl7CgOlCdtri7RwdfuZiA7+LlcvrAeuNSTS
-dzt/Pj04fbFc06lh8iHPZBpDH85Pv84an3LvLXrlKYB7JoVdIio3hZz5WrgI0rPd
-QwxdZR//ClGjDETl5xfo0TRmSBK1Cqwea+LO2gNUxiq86ZkkL4LoBx1/yR9A9vUN
-6gpHa/OJ4LuLho1JkoyW3TIbdXHN1g==
-=jbTq
------END PGP SIGNATURE-----
+	bp->tstamp_config =3D *tstamp_config;
 
---izhixbwlshqkotqn--
+	return 0;
+}
+
+Improvements:
+ - we remove writel from the validation code
+ - we write to NCR once and not twice
+ - we don't have a tiny gem_ptp_set_ts_mode() function that returns an
+   int for no reason
+ - also NCR RMW probably deserves some atomicity through locking
+
+Thanks,
+
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
