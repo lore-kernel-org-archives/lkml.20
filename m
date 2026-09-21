@@ -1,157 +1,115 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF14E4EF126
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:17:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790014627; cv=pass; b=N6cT8pvaqT5vM5ytoYYLce9teNFEI7pfivGnn0U0Zy8lPO13N7E+iwXayldZQFHp0BJ/XxrfEvpRpD48yaaYj8c4XXp25wbNKkr3neT4PAkv53/a8d3kRILYaHN/6AggEbPoXvQelydB5xpdFkOosE2y1sjjXCuLUrpDnqLaAvM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790014627; c=relaxed/simple;
-	bh=i8TfSstM+nFUfHowVBq661f9yHcafviHx7y2Zv6Y+6Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hYWHv/5nIsuWFziWdQxSkLWrV1o80538tpJTI4LMf9qOZv7oEvpc2SiQKXg1dC3cjj76K+ThoDYc1SgCCtNDqwz2CtP7c6GdaS97vEtIetNyLd0NIWS/bwUIuT3Dba8O5LBVcXZR1WHGjdsVvCI+XbefheGPRkzA8QkTeAD2bHk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PoU1ScwZ; arc=pass smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF6D54F7997
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:17:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790014639; cv=none; b=sFz7CaEgbirCOc9sS1ZFLEoGENq9kjCUqn17RZ7cN07S4+TeVa7CM+riSfhXcd3zcbKvIznlpyRVyfHbFddHLh17ZKHEUca0bc7IM0y2sDte3saH3ChQdWDj84z2xoIyLyCDdXRq1YD28zc9yzHs0hLbgSfSKekiV6Q7okaYfkE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790014639; c=relaxed/simple;
+	bh=e1OnODo+uuWbbcApLIlYOF/9/C0z3kAfGZqFpd5dT1s=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
+	 References:In-Reply-To; b=a3KN5OSEVR9TEes9orMxzy/PrfX0TPhjyhLM4F/CjvFobAuEhxjFaRdmzhIXYi8GWSmqfFTZ8bCGLaxKXaxhJsMnk0HsQVfSTx/DvVSC6rzDcIHJGYxtMihdAZfsrmf6yql1wsuDRsk7LEo0qqEZd7YJZcWRACkWRItmwnvxRIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=WGBqQ2PU; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PoU1ScwZ"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6aa13d8d9d0so1381a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:17:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790014623; cv=none;
-        d=google.com; s=arc-20260327;
-        b=USoGPKOxH6xiBigR+PBKS4HIgBdMTNn3XWnLTpXzr1lSq3LWrQxuOAiOc52CydaoAe
-         2VgrtHHYC58I27Jnr4BiXdgi/JMKJMZS8urYG1pfgRCEknOHsecm0fslMP8QNYaqcZR/
-         VrcjWY+CPUlKWW1iJ7Z14tZwTVB4AcpLMsuAYIvXzg7I9Ni1HPfxyVagMdWGVcUHbEHO
-         wyigvsZidUHBIGxzWEUHfWsRRIJg12tUJ0oakZaRptcxy0taFiMX9x4iRvG2Ad7zF7NH
-         KykPP/qsb8xk1RLSYQ9VxHEIsS2z54LkBPTdy9hzaRkKDoTpOTFhp6nQ1vkAD6xzCyKt
-         b6nA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DhkO8C1Km+Np1GICbpHNNLqCS950Qr/leZl7SKXOzk4=;
-        fh=6mP3xYwm4IospoxJVAMpOF0aUldNbqprvz+OLCTafn8=;
-        b=DZ01rPciWwJ4YIcN+Ii2g545h8v/IZAkMJKz1IeP9KsDwYCwYgK4ImQegxTZQQfDo3
-         tmem0E74fpoCIACFPbopLE4rXYapLQ58xiZFyF55buUNdhvjxgmbkgEFh2TVKRFEbth3
-         fS2FrxojPn+tQf64mcUTVHtQmB0ZHYF8S0GTwX1jVK9D0MnJZEuAIRVVl3B00GWOp2/+
-         RXBJnVK9buIsz0pMfLGF1iJ/495P1zTmpQMNZZAvk9KYIXQMic99aWAmQybIjVaVyF8N
-         2jqXVxpP7vRrmOlM/8Mt696HbEJuf+aWM9MlV+wGXIta8q7yd7yvLAOpfFfwEcW0gsBQ
-         PW8w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790014623; x=1790619423; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DhkO8C1Km+Np1GICbpHNNLqCS950Qr/leZl7SKXOzk4=;
-        b=PoU1ScwZgzL7jxiwcYQR1YwcCf00EZDV1nmorhMZmMe0AcPJWuCfVa6pz1H4VlPqhQ
-         XwTA8pWKMSZ6HdU9WXVgwiYnGVzSBMI3ghSKyL+l1TdQ+EuHhxUQpbq09BbDuAuMeLxT
-         738Mr016C06w28DX208uWdJ5tId6ouwUEiigEuYsNIkKue7lF/X2Arm5jPtnvOz5m4Ly
-         zaWVY0dhpPQFsXPlDquTwZozbgLOjl8hF20gIdGmIl5OWnJYGP1wQ3wDS9g2EEr5ee2J
-         YNLGL+jP0bXUeuiAQ9KXggX6c8iTp/NCXk39b/B550GH93zalDaT7JCP7LtuMGwa1XNH
-         ME6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790014623; x=1790619423;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DhkO8C1Km+Np1GICbpHNNLqCS950Qr/leZl7SKXOzk4=;
-        b=orBz/IAT4hBoDq5AMSjJ53Zj2fXio70cdggU05sCwNYE7Y7Rs5Nfp5S+LCh48Vrn+z
-         uKCBD2DEi8595Y6wNUccbWR+6ifn0/xw6cItOO28kmiekiDWnQLbI5+bL1IscSWXO4Zt
-         8mIRrXZX+VsJbgkebpnug/GuxKEO8FHIupwp3+zKaci5miFG7o6Mv5F2WCk5OGh/JGOY
-         2h6T2o5R/515vnAOmvEczyHMhz+asuOB+hhI3TytOHlJtBputCDgQFJfnqlHNWKz0YmO
-         PdhvB6HQn+PNsTW/e2qZD6U4eOWBHo7RbfB8MLVSti9A3yD2lTARaXScUparO83nCDFL
-         qXvg==
-X-Forwarded-Encrypted: i=1; AKwUvBwNp9AMRuTOYG8ySfI0H21E5qa3R0N8PdYMcaqvTB0pTcTox7dO0QUtPiufNuFjZopK5+I2+0vtuCjLvUU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWvEnMvPj2j48s7BBIjDMdEk/Flc4GvhuWw8z0Jau5zHIvBTfi
-	XNXxdWW1hEjl9O8PdHbdAAUsUUyD3HCbRC2fQLtoWcwRVu4yA3wHeOeTunzKeESLF1Hj3RjzrQT
-	QOHA+ZIZ6sVROCMZd7Iat+C4dFI9k6odf3UZqb8Y=
-X-Gm-Gg: AYBFou3of4xzK9p5FFdZVzsJbix5DClK5bfKDHLDs2Oe1/ZXMlAzX9NMg0PIgAf2AYR
-	zmLVSLt2Mj6KTOcIozYi+dS4w/WyCifnw1Wn2Z2jheKEFPEER/AUZvDHWd4JCY8EKLLWMBAP262
-	SJpFxy6D0NirVRBFhjGEMfyO17nhibACBnDjHEzDk9mZbYoNp+XANwodv/BdMjWGuc57Xe4glpR
-	m4FMUscVFD27nSSx35JWQB5UgFZtkbxo+u7NmlCRxlm9BEcXZsq7Doam4TllozteXhMR3Clf0L+
-	ooqb+W/h+LLNK2zwjtoKRy0yjg53urMBWBWZbqSpPomwM6m6AqdogHMhBPf4KVWH4w5s8XrEtIZ
-	AGa/+T0DbhpBeq/FyMBCAVg==
-X-Received: by 2002:a05:6402:1042:b0:6a6:8513:7e14 with SMTP id
- 4fb4d7f45d1cf-6aaa0b62266mr3710a12.9.1790014622395; Mon, 21 Sep 2026 11:17:02
- -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="WGBqQ2PU"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 277541A0D72;
+	Mon, 21 Sep 2026 18:17:08 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id DD56F5FFB2;
+	Mon, 21 Sep 2026 18:17:07 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 798C2103291F5;
+	Mon, 21 Sep 2026 20:16:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790014622; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=El3dYegPgTZX3qYGBzZbbXTLYxxd2Ka23UQlt3bs7ig=;
+	b=WGBqQ2PUI0fuoEnLpBeVQUUiBcGUgU3IloGNB62kpjlgCbUMeOYf3wAeC/8yQ/Be9gp5Cd
+	Xplf4C/EQZjiLt9qlpLP6w7tqnjBOaL0Fp4sgAxDAFBVI3p1kYaOni/lGBG3rjJNd3IKSa
+	uKRBNhl6dmt7wnUMwxPNiuw/mhTBydAdcACjidEDlfnkEXZYZknirrp5kUpFtuidoY999b
+	KJIMaSGQftYMTVr+S7JcMOzZ70f+2LXTNBIyaqEjufeKvyGkkZ0q5YWED5AD8By6mW++IG
+	qjchP69/705PDJoUsU17ZmDCi+dUfzbY2gHmeaNwrY6WP60ORRcCrHVxjrxVnA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260910-snp-invalid-input-v1-1-fb2e03da614b@google.com>
- <0b2d8858-b361-4a64-986a-4c179210fbec@amd.com> <aqlWt4jb4CSPnecN@google.com>
- <d6179d34-a4b0-4548-8298-b790b333d22f@amd.com> <CAJxe5ctcVxmhRSw3Gt0POQTzRKoxXo7+Y3CPDe7cUZvC0QPK+g@mail.gmail.com>
- <aqrhFvwFJsQTaEkz@google.com>
-In-Reply-To: <aqrhFvwFJsQTaEkz@google.com>
-From: Jacky Li <jackyli@google.com>
-Date: Mon, 21 Sep 2026 11:16:49 -0700
-X-Gm-Features: AcwNN1WyjYSX1uzNk8-9L0xtWomFK3mRNzacv9CeIaSJ0csFTNXZn02hHr10_0g
-Message-ID: <CAJxe5csCb0DHZmJo9a-asXZ-tYdcyK1y0Y4Y9Uoixqn=sa8zRQ@mail.gmail.com>
-Subject: Re: [PATCH] KVM: SEV: Return INVALID_INPUT on SNP req/resp buffer
- access failure
-To: Sean Christopherson <seanjc@google.com>
-Cc: Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Michael Roth <michael.roth@amd.com>, 
-	Ashish Kalra <ashish.kalra@amd.com>, Jacob Xu <jacobhxu@google.com>, 
-	Supraja Sridhara <suprajasri@google.com>, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 21 Sep 2026 20:16:57 +0200
+Message-Id: <DLL782VNNCCH.1JND0AEPMQ462@bootlin.com>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Subject: Re: [PATCH net RESEND 1/2] net: macb: Preserve one-step mode on
+ rejected timestamp requests
+Cc: <netdev@vger.kernel.org>, <pabeni@redhat.com>,
+ <conor.dooley@microchip.com>, <andrew+netdev@lunn.ch>,
+ <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+ <richardcochran@gmail.com>, <linux-kernel@vger.kernel.org>
+To: =?utf-8?b?4oCN6rmA7Jqw7ISdW+2VmeyDnV0o7KCE7J6Q7KCV67O064yA7ZWZIOyghA==?=
+ =?utf-8?b?7J6Q6rO17ZWZ6rO8KQ==?= <5mghybrid@khu.ac.kr>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <178911388614.25348.8892025153904636456.macb-resend-1@khu.ac.kr>
+ <20260915083839.71546-1-pabeni@redhat.com>
+ <CAH1Bc_yQYJ6cWyYVvfWK0pAgrXW1TMkpzmNxZvAXAKZJdiOqWQ@mail.gmail.com>
+ <CAH1Bc_z6PFc7N6XVZ2dQEH=7D9mkXwGkXP2KKMW-Emd4zcf3fA@mail.gmail.com>
+ <DLL0PZY25HAD.1RWXC61P3MZRV@bootlin.com>
+ <CAH1Bc_yDpY1q3yLH5R+fbr_3=LicRv-qsrcPQYspZHz095TVxg@mail.gmail.com>
+In-Reply-To: <CAH1Bc_yDpY1q3yLH5R+fbr_3=LicRv-qsrcPQYspZHz095TVxg@mail.gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Sep 16, 2026 at 11:34=E2=80=AFAM Sean Christopherson <seanjc@google=
-.com> wrote:
+Hello =EA=B9=80=EC=9A=B0=EC=84=9D,
+
+On Mon Sep 21, 2026 at 5:48 PM CEST, =EA=B9=80=EC=9A=B0=EC=84=9D wrote:
+> Thanks for explaining the approach.
+
+No worries, doing it especially as you are new according to the lore
+mailing list history. Welcome!
+
+> I found both issues while validating hardware timestamp configuration
+> on the Raspberry Pi 5's Ethernet interface for my research. I reproduced
+> them on the board and tested both fixes there, as described in the
+> cover letter. These were hardware-verified failures, rather than
+> cleanup based only on source inspection.
+
+Great news. Nowadays the difference between "LLM found an issue through
+static analysis, generated bugfix and sent it" versus "someone had a
+real issue and fixed it with the LLM help" is hard to tell, and the
+first approach is sadly more common.
+
+> I've already applied the fixes locally on my Pi, so there is no
+> immediate urgency on my side. That said, the structure you suggested
+> looks like a cleaner way to handle the configuration path overall, and
+> I think it makes sense to take this opportunity to rework it in that
+> direction rather than keep the changes limited to the current fixes.
 >
-> The problem is, I don't see how the guest can know when it needs to disca=
-rd the
-> VMPCK (post-request failures) versus when the VMPCK is still "fine" (pre-=
-request
-> errors).
->
-> FWIW, I'm not terribly concerned about bleeding host issues into the gues=
-t, I'm
-> more concerned about ending up with deferred fatalities and a mess of an =
-"ABI"
-> between the guest and KVM with respect to handling failures.
->
-> What if we "tickle" the resp_gpa before doing the request?  Similar to ho=
-w CPUs
-> probe bytes early in XSAVE/XRSTOR to avoid having to unwind later on.  In=
- this
-> case, the response is restricted to a single page, so we only need to tic=
-kle a
-> single byte.  E.g.
->
+> Rather than posting a v2 limited to the current two fixes, I'll prepare
+> a new series that refactors gem_set_hwtst() along those lines and
+> incorporates both fixes. I'll link back to this series for context and
+> validate the reworked path on the Pi 5.
 
-Agree. I see your points and why this tickle idea is a great solution.
-Actually, building on that idea, what do you think about using
-kvm_vcpu_map() in the exact place that you did
-kvm_write_guest(kvm, resp_gpa, &tickle, sizeof(tickle)) instead (and
-unmapping afterwards)? A few reasons:
+Perfect. Make sure to fix your SoB: we require real names in the kernel
+and kimwooseok looks more like a username.
 
-1. Like kvm_write_guest(), kvm_vcpu_map() also checks the existence and
-   writability of the memslot via __gfn_to_hva_many(..., write=3Dtrue) and
-   faults in the host page as writable, plus it pins the page across the
-   firmware command.
+Side tangent: I wouldn't be surprised if you were even allowed to use
+Hanguls if you preferred. Though there isn't a large precedent, I hope
+we can assume (1) systems have full unicode range support and (2) no
+one expects a name to always be firstname + lastname.
 
-2. kvm_vcpu_map() has cleaner semantics of acquiring and holding the
-   guest response page in KVM until the response is delivered, rather
-   than doing a dummy write to test the waters. This is somewhat
-   consistent with the GHCB page itself, which stays mapped until the
-   response is filled in.
+=E2=9F=A9 git log torvalds/master | grep -a -P 'Signed-of.*\p{Hangul}'
+    Signed-off-by: =EC=9D=B4=EC=83=81=ED=98=B8 <...@gmail.com>
+    Signed-off-by: =EB=B0=B0=EC=84=9D=EC=A7=84 <...@samsung.com>
 
-3. Pinning the page prevents a malicious guest from converting resp_gpa
-   to private between the pre-check and kvm_write_guest() after the
-   guest_memfd in-place conversion patch series [1] is merged. (This
-   assumes a future guest_memfd implementation, so it's less convincing
-   than the first two points. This was also my original TOCTOU concern.
-   And once we have either pre-check, on upstream today the guest has
-   no way to change the memslot state before kvm_write_guest(), so I'll
-   also drop the original TOCTOU commit message.)
+My own "=C3=A9" never caused much trouble.
 
-[1] https://lore.kernel.org/lkml/20260830-gmem-inplace-conversion-v12-15-85=
-e5fd25252a@google.com/
+Thanks,
+
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
