@@ -1,93 +1,73 @@
-Received: from mail.rimpianto.com (mail.rimpianto.com [46.14.198.178])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96121468C2F;
-	Mon, 21 Sep 2026 09:15:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.14.198.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9608A45D5C9;
+	Mon, 21 Sep 2026 09:16:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982140; cv=none; b=L51rNAyFXrGSFsAeING10JEen4Zziuo3rpk1Pg4CgXyubAg7UP0cq2kjYX86nBj3QwVm12f2VpnhinXJI4WHv2g+BJVH8EREQjPRHTXUv7BxvkP5vg9aHUzDJUtOyG5n3F7RLEaLprxUkULvZMkQIbqtNpoNaqga0GZ6SVSWsak=
+	t=1789982162; cv=none; b=ef3AHdog7WOIng6/CYX9DA2fblk504VWNvtJSpD5zayBHD832T1sQksB7b5JH7p7NS8pcvdYvBYd+ZreVTLy73uuWOPEX9SmB+5wzVXMu7mhuaRWu1EFlVWvtNUmO2gTc33UADLKap6oYUgUDTrvIfKQL1CGD55JKZiyqsJi7y4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982140; c=relaxed/simple;
-	bh=oXFx1YXt+xaIe4JMI/ge4AByv3hpdIZubFru4kJuJAY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ABjgctl4MueX+yPwA5bMO/Eydaqb4iC99R1dVilQJa+0DkkxCr8+Q3FCsrVl4fTDe7c1QqmEQVSZJKAR57n9LsG1uSl8vHNJvrtnDM0aHbh8V/AJkxftSsAL0IiQTDdN6SfxMvEGIxJK9mJC2Saqfm+8GKv8U4V49TDyQ4sqPXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rimpianto.com; spf=pass smtp.mailfrom=rimpianto.com; dkim=pass (2048-bit key) header.d=rimpianto.com header.i=@rimpianto.com header.b=lqwRSxxl; arc=none smtp.client-ip=46.14.198.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rimpianto.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rimpianto.com
+	s=arc-20240116; t=1789982162; c=relaxed/simple;
+	bh=JDgKkGiV52y79Vv8IixoY+h4dSdmAbZlRqNz6R5T1OY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=DuSiD4DQjsp1C6Okk7CZsKgx3sfV9gNvVDTXo6w69yV2RDtHG4n7lXNafJ6qKsv4UortL/wsPjREOInGIWRYa41to2fIgCkWQEyN/KVjGDRXsb3gIftYEHNHfnj7mqyTa72xbjYCkhXUJnYXJskqMMWXRyfGlrQvW3oKUT032MY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eHG0fA+G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rimpianto.com header.i=@rimpianto.com header.b="lqwRSxxl"
-Authentication-Results: mail.rimpianto.com;
-	auth=pass (plain)
-From: =?UTF-8?q?Gajdos=20Tam=C3=A1s?= <tamas@rimpianto.com>
-To: netdev@vger.kernel.org
-Cc: Chris Snook <chris.snook@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Gatis Peisenieks <gatis@mikrotik.com>,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Gajdos=20Tam=C3=A1s?= <tamas@rimpianto.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 3/3] net: atl1: fix soft lockup on out-of-range cmb_tpd_next_to_clean read
-Date: Mon, 21 Sep 2026 11:13:34 +0200
-Message-ID: <20260921091334.3571525-4-tamas@rimpianto.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260921091334.3571525-1-tamas@rimpianto.com>
-References: <20260921091334.3571525-1-tamas@rimpianto.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eHG0fA+G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56B4C1F00898;
+	Mon, 21 Sep 2026 09:15:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789982161;
+	bh=iKFnnUVgMFXCyMZXDC0Gp9g2hFUBByCOSHmRiQGpkGs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eHG0fA+GVBiImiZzlsuxCmiW4QIyTR/aPZvoP9v5NylyTbUhwz4qciulTNW5LXkXq
+	 K3WKoRW+fr226xkxw7R8r5SnsneEjP6Axshr6u75njSZGCXcCVluZnG9xDRpyDY6xs
+	 EFriL5emiLA/XLPMxq58s20ogoBPHi1s/Ak8FZ6OgYDuj1unhLvxtbQY/CLkUuDL3Q
+	 1ZwP/YXZpcRKGPEnhufv0pbrNo41MXu7WUOt6ucbymZFWiH5nhO2OL77j+WD7zsECf
+	 0lyezSqj6JCNikhjuCaXKWXmVNvuRoNz090YaolbMqD14eT8wEpe3E1pvpPf0p4jC7
+	 dKFuz1EbnrY7A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 08/14] LoongArch: kexec_file: Fix a modified_cmdline
+ leak
+Reply-To: sashiko-reviews@lists.linux.dev
+To: maqianga@uniontech.com, dakr@kernel.org, kees@kernel.org, mingo@redhat.com, seanjc@google.com, gregkh@linuxfoundation.org, mpe@ellerman.id.au, driver-core@lists.linux.dev, palmer@rivosinc.com, chleroy@kernel.org, coxu@redhat.com, akpm@linux-foundation.org, piliu@redhat.com, linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, mclapinski@google.com, robh@kernel.org, maddy@linux.ibm.com, hpa@zytor.com, ruirui.yang@linux.dev, bgwin@google.com, leitao@debian.org, catalin.marinas@arm.com, jbouron@amazon.com, npiggin@gmail.com, guodongtai@kylinos.cn, kai.huang@intel.com, sourabhjain@linux.ibm.com, bp@alien8.de, baoquan.he@linux.dev, pratyush@kernel.org, pasha.tatashin@soleen.com, chenhuacai@kernel.org, zhangtianyang@loongson.cn, ritesh.list@gmail.com, vishal.l.verma@intel.com, thuth@redhat.com, x86@kernel.org, linuxppc-dev@lists.ozlabs.org, hbathini@linux.ibm.com, tglx@kernel.org, yeoreum.yun@arm.com, sshegde@linux.ibm.com, rppt@kernel.org, will@kernel.org, "Jinjie
+ Ruan" <ruanjinjie@huawei.com>, rafael@kernel.org, kernel@xen0n.name, me@linux.beauty, james.morse@arm.com, linux-arm-kernel@lists.infradead.org, dave.hansen@linux.intel.com, liukexin@kylinos.cn, graf@amazon.com, mark.rutland@arm.com, chao.gao@intel.com, takahiro.akashi@linaro.org, eric.devolder@oracle.com, tangyouling@kylinos.cn
+Cc: ruanjinjie@huawei.com, kexec@lists.infradead.org
+In-Reply-To: <20260921090450.807575-9-ruanjinjie@huawei.com>
+References: <20260921090450.807575-1-ruanjinjie@huawei.com>
+ <20260921090450.807575-9-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 09:15:57 +0000
+Message-Id: <20260921091558.56B4C1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Received: from localhost (Unknown [127.0.0.1])
-	by mail.rimpianto.com (Haraka) with ESMTPSA id C865C182-7EAA-4089-A7CF-1E4542A5B920.4
-	envelope-from <tamas@rimpianto.com>
-	tls TLS_AES_256_GCM_SHA384 (authenticated bits=0);
-	Mon, 21 Sep 2026 11:15:35 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rimpianto.com;
- h=Content-Transfer-Encoding: Content-Type: MIME-Version: References:
- In-Reply-To: Message-ID: Date: Subject: Cc: To: From; q=dns/txt;
- s=s20260314391; t=1789982136;
- bh=WIdms3fInvlDINNSk8nQtufSFWX3SIWm05qJbeVdHiw=;
- b=lqwRSxxl3A7GZmmQbPx0m8+qXBX0IhjwnmxANd3pf/RzOKJm7OEluHEMXCjHWRnioAnvXWMMz
- iO892bI28yWAbyRwf5MU+l26E/FRCY4Cxqlf0zErwd17IU9YxIr7GE3JERUar9S6KVDtJYHfosL
- fYMP5BagwirOuOTBANOB4yn2gClCyDdfHOakgCsS/qdya+mbzK7qKnxJ3CrguDpvtWzJjcKU9L9
- F+ANCjGCKMLdU/g+TvxKwB5jOGx2VdIUboIebwW5t0vhsLbdLzyGAOrhPzJ0mhN0QEF5JhCKkhA
- /Zq0UcU7ZeZReKtqXX4qz9UyOewKmBOiziwWwkJsZ9Eg==
 
-Same issue as atl1c (see the first commit in this series, "net:
-atl1c: fix soft lockup on out-of-range tpd_cons read"): the hardware
-can report an out-of-range cmb_tpd_next_to_clean (seen as 0xffff)
-while the PCIe link/MAC is resetting. An out-of-range value can
-never be reached and the loop below would spin forever. Treat it as
-"nothing new to clean" instead.
+> load_other_segments() allocates modified_cmdline and stores it in
+> image->arch.cmdline_ptr.  machine_kexec_prepare() then copies it to
+> KEXEC_CMDLINE_ADDR and overwrites the pointer, so the heap buffer is
+> leaked on every successful kexec_file_load().
+>=20
+> Free the buffer after the copy.
+>=20
+> Cc: Huacai Chen <chenhuacai@kernel.org>
+> Cc: WANG Xuerui <kernel@xen0n.name>
+> Cc: Kexin Liu <liukexin@kylinos.cn>
+> Cc: Youling Tang <tangyouling@kylinos.cn>
+> Cc: Qiang Ma <maqianga@uniontech.com>
+> Cc: Tianyang Zhang <zhangtianyang@loongson.cn>
+> Cc: George Guo <guodongtai@kylinos.cn>
+> Cc: stable@vger.kernel.org
+> Fixes: d162feec6b6e ("LoongArch: Add preparatory infrastructure for kexec=
+_file")
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-Fixes: f3cc28c797604f ("Add Attansic L1 ethernet driver.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gajdos Tamás <tamas@rimpianto.com>
----
- drivers/net/ethernet/atheros/atlx/atl1.c | 3 +++
- 1 file changed, 3 insertions(+)
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-diff --git a/drivers/net/ethernet/atheros/atlx/atl1.c b/drivers/net/ethernet/atheros/atlx/atl1.c
-index 98a4d08927..957d5598dd 100644
---- a/drivers/net/ethernet/atheros/atlx/atl1.c
-+++ b/drivers/net/ethernet/atheros/atlx/atl1.c
-@@ -2066,6 +2066,9 @@ static int atl1_intr_tx(struct atl1_adapter *adapter)
- 	sw_tpd_next_to_clean = atomic_read(&tpd_ring->next_to_clean);
- 	cmb_tpd_next_to_clean = le16_to_cpu(adapter->cmb.cmb->tpd_cons_idx);
- 
-+	if (unlikely(cmb_tpd_next_to_clean >= tpd_ring->count))
-+		cmb_tpd_next_to_clean = sw_tpd_next_to_clean;
-+
- 	while (cmb_tpd_next_to_clean != sw_tpd_next_to_clean) {
- 		buffer_info = &tpd_ring->buffer_info[sw_tpd_next_to_clean];
- 		if (buffer_info->dma) {
--- 
-2.53.0
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921090450.8075=
+75-1-ruanjinjie@huawei.com?part=3D8
 
