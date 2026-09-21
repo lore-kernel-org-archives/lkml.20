@@ -1,157 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632AC4B1D0E;
-	Mon, 21 Sep 2026 18:30:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E4C4F93D9
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:31:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790015446; cv=none; b=OD74X0gNbgGNCCOqLtFxNVg6AERsDMLXNum0IvfNZtJRlBYy7napa2d9DE96781azV50T5FOhmUhvjWMAKUUSdmLmE+xtzrPkMCiSFTfdSRNEucFaCnbXhniLMz+9oJ3TBxJWhp5Srvx4Ep5tHOsy+PRkVCDrol04XA6mBs7QQc=
+	t=1790015464; cv=none; b=snqy1O8FALqN7Ygnv09uWi4r3o3lITidjp1H0C6YD+B6JhvJpmD7NJBCemiH2AVbzezIoAsw4Zkeymd2VN3vtrgYmMvzrYadXIgdV3KftMI4t063s93j1/vcoPmwTIh7PmIH5A9sjdoBduSdqjAw73ufM5R7bHezhK+MGb3lZ4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790015446; c=relaxed/simple;
-	bh=zoJd8XJP9YtBDXKnbLMob7vj7LocMaB5vyy3tb21c9w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QRSGW9DNdZHDvvLD/Rx0EFUh9FpQrxI4SsC1gHW2RsBoWOwvj5m7j/Ew9Hlz44MINoBCYQUaOvgQmJ63L1B8zOOllo/KT7fmEp4x6+EBsM04V3M8CMmbRf6YLcRpMs1E7NL30NM1RnA2L7ZqDE3V6kEMfZH6pwO0W/bq+YZ3LNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kv8fp2ux; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790015464; c=relaxed/simple;
+	bh=TTaDVJxvd23TMPUHinu1BvIxlfSLR9eQbV5/IV4Szh4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Fcc+hvyklva1zAZguzN7FyeZqO41DqXKp0btacf5jVi/BE+q9JJ00A7TISdJ3WfLMnQAjnSM0SXOaV1hJMuNzB7h2EV+zpJ6ixjI5Gb/nQDjB9bREqymQ3L0S+OcUO5iIpPMRf5fts1oEfAbwMUZo5h5r8Wo7Qyd6Rnv+w0w8hY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pEyLUGer; arc=none smtp.client-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kv8fp2ux"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B771A1F00898;
-	Mon, 21 Sep 2026 18:30:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790015444;
-	bh=Ib44sh7lsDJZibI5A+BeUxN5HoiZznttrlHAquJEaN0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Kv8fp2uxmpSFuZSL8sfiOJfwgS7oBaBxKAIwMp8f2POqd7MIFHxY7tQ3LrR9cKLCb
-	 IDqeYbJCJf+PVdzZhftwIVSX8QPy/wHAlpevqJW2zY+gEQ2zHSNmnjI+DjfFLZDbh1
-	 Fhewq6doH1rK17BvUreOYvWqMmqeLWEM1gHjN0oV0SpIJFMAe4DqOq8GzVxCcOJdjV
-	 zPqaxz0biaVSK2p2A0/SgpKvts9jfX3kNE5gO42qhIVrZ9TzebE8qUyDEEMaLbPAAS
-	 l3I7Mm0a9lDw61vFxmetWWKxe3Urno3lg7pu9HAY4XJ15wRocqGWwdmvDkDQq3glzm
-	 Ma8TPhL5yCEuQ==
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfauth.phl.internal (Postfix) with ESMTP id E71CDF4006B;
-	Mon, 21 Sep 2026 14:30:43 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Mon, 21 Sep 2026 14:30:43 -0400
-X-ME-Sender: <xms:03exaihxp85-vHtFyTYO63I3E4Wl9ExXStrD-wcjADIA5ObUZxRjgw>
-    <xme:03exajuMhPwCmmHSXxrsyecK8uWCKsmdmp9uD_XXf13mA3VA8W2kTgUp8QTe4ojtM
-    25dr6xcX4s3c3_hmJnRU7e4WAba_AqKnN3vHIqg7D7KEXYMkIxwGg>
-X-ME-Received: <xmr:03exaoSLhVJD890C2oYy_zwBLif7oEsms5dnjNybTB5AlwTzu2LCPzkv5QoC_3jxuPAL_-hI7ck841GPKWWP6QWovAzUhomPNUc2IzIFj73A3Dds08scyC-b>
-X-ME-Proxy-Cause: dmFkZTGvJToo2pvWP5Sn4WY+99p7+fq4jo99yeu4TzF1hG6o5ep3cLUk+ciVPm/4byTwDw
-    Kw15jmV6Salor2IHfNlNPJu1mb19UQLVgLAg4rapv2Nyx0MhcGg2jaTs9K/r4Y2Hvdus2F
-    jMNPUZ+VOnwUla38oBtBj8dRqbiTkz6BdRgVbwT3Ts670W+XgP6t0A+XUqkz8SwELak4UX
-    XQzg6UvNV7m2hnXIHi652/WJVswLSMiFpjNWTCHVH7/XM9/pOajrjnk7SKm9zDdH03qX6U
-    UfNFYLb0VIbV15QAR5dLsBtJQOnumB4FnxjXFjYsG3lvBgawUZeVQtvSDIni2M1h46MSDW
-    UwOhQS6O1u8Gg9ai7sVh+pD0MZ4sJr2t2HhzKhX0DFfOnwweZ3m35BqHNxcEJx5EK/dBBn
-    p87XI9AYD/V3sfO0JOGjgItbL+ZRJaJeDxfcbzGF+3CO5jr/gRB5uWmv66WzHf6OsNjgVK
-    G5qJaWJtPSYUbFJS2oddG3NNRwd3GbZdOBtp1tmNXG82kOq0oEtl8L5D7GD5VWNQvKSwme
-    X2eqx1f+1PvRz9MSSOwk8Vbjsr/++RQlW98JaaXb6nBv15ydiUE/93+iB0La9TYCLpxy1K
-    jRy7B7bCMEvpuaya+Lks4/S04qJWXIbzscmlpHvmJBk5JIW/auT9EOVL1rAA
-X-ME-Proxy: <xmx:03exav1eMoYHb5kQjijv9DuIYoE3PIVftqE-uD9GmSQ1gDnVVlosvA>
-    <xmx:03exalsb4M8i0MPZUQsM-oF9RaPh6OKg6LqOaA1CqApxjB1NxCciQg>
-    <xmx:03exathiTItuxvaS2CwgJhHiJIySUMYyPEkgI3BJmJsNMyqsA5necA>
-    <xmx:03exau_jAPOH1Q9vfJNCAAJM_kC4QXzzpBcM3xy3TKRNDXvEtahYig>
-    <xmx:03exaovkZhsjztrf4-93o_xxGVY8GfN8TqehKdFReXW2ZgyPAnXzo3Di>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 21 Sep 2026 14:30:43 -0400 (EDT)
-Date: Mon, 21 Sep 2026 20:30:42 +0200
-From: Boqun Feng <boqun@kernel.org>
-To: Puranjay Mohan <puranjay12@gmail.com>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	rostedt@goodmis.org
-Subject: Re: [PATCH 1/7] rcu: Make call_rcu() safe to call from any context
-Message-ID: <arF30s1AAAkmq0DB@MacBook-0RXW5>
-References: <2a742578-120a-421d-9305-5de0b22bda33@paulmck-laptop>
- <20260919003258.3134343-1-paulmck@kernel.org>
- <aq6XFyrR3OiSvKl9@MacBook-0RXW5>
- <CANk7y0g5EU8T8cLiU=+tLiZCcMEhZOjhnvs4uzD8Z=8GwN+7LA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pEyLUGer"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a20f06cce6so1823611fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:31:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790015461; x=1790620261; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cK98X0r3BDRCEVKy2aZh2DV2AxA23p29nMm/EUx3t08=;
+        b=pEyLUGera5obyGqCVkZxERmBe387Qro3tAC2anEbF8GrILs4AyahMo1GNp143DPK0Z
+         t85itCgNDErCbn+10oPaJ7mGPMBDXs0dWtwsLRD0zjv6bL44/yYM7Jd6m8xV0PzMSFJ+
+         KTtJH0fT8JzUgwwS+1/ea8iln4BIbXZTY7rYMRxvAXvPdgIItucFjI9Sv+HNuuyaupZu
+         3/eBeeC6V0gtq2PTxofhLNoGrOUemCLIsHqMdYUbIApvsRSDDwEHR4DFapL2Owu7WEai
+         BkZivpZkHVLnpXnh5loCFOvsuqWU1hPvI9qVG+Uwct6N+x9sDC11MbgafZhlVTU66Gai
+         B0og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790015461; x=1790620261;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cK98X0r3BDRCEVKy2aZh2DV2AxA23p29nMm/EUx3t08=;
+        b=1g0nATGswlGkwB3uiIn7HOdqmYlKC24POGwiYUGUujXIXlElCP+ehuyLw2pPlKh/wI
+         qckmlMrYY9yecGPESCY1STQcvn3iiIBK5aB9LGBIbuYE9HwB9o6FltaogoSFBkyER0X1
+         d4QMiVK46VvYup5958ou72kD/fQyvgZSMQOeuAtLT9Ai/ya+Ta2KDdZ0Z21sziFT8zZa
+         +NbEdAdEcQFjOXCgIaCNSdA/SrGCnLvFCDdKzK2pL8Iom5YAFsW82KP3MGwwhU/P/IVR
+         jWAvHvGr0LU/GSZW0ZIduJ4wcARi+e/BoYahci/Dbxb5ka7Ga9wO8hL52kHhr5KUKRt1
+         SUPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBywTxnyL2x3WMOVzQr4sN3o9jEDqFigECOw8L06GgLJi9L11ZEbhhbA6OJgZttAG6Eu7pnbbkW2kmqbpeI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkUnBeI7WhOP2MPuFiUeJKZ1hu6wO8K10BbA1uxUFK4+ZEivPX
+	AufkqHj8YqkAGCrlJw8z2ty8e8gx9iHSJMUF9/oJGvIV1a8lk4q1vgdu
+X-Gm-Gg: AYBFou00CHzTsrtHdrYBTR6mXb38ZONo+0ardhwDbj3u9/fwzh8Ni2thxLWfCQU1a3F
+	DnC7HPavVGyy76iv847e7n3EBuvLPxsXEBvpF6PEXMGgEavHodVH2FQYrey9SHWSVrQTMnZ5hR2
+	2m9lfs8wC17k9XHErCFAnGkh1gyuHuGMY8onQXZiyWoudZHbgDZLZc49TTHoJ6gojO0JC16Lpgh
+	kF38QDv4tQqfrRLdJ3MDmK8R2TGmpmrphuSCUkUlKqWbkyni+p9xWHz67SAkjJt/FFJlGBXHN/9
+	k52PEBycaDeuy2MDW3/kotIZaZrcB4sq3ngFafdrbeH129LD9O05KOgXWoSlyOOxxHi/8gRpeJC
+	Xx3skwJ5XnaA/A5Gkh4aF08cRJc16zGYMQIvOr6/4WhuRnfd6Rrb3lknivTjvhgmtB37AHNGVfK
+	oMmVuzqmobCys3HRIKTbKcrNijZQYNl7gXbRnhDodxp2Zk3DJMNPMWP7xq/65RO1ubpZpGwFobw
+	1TYVfPDxYO46PqNS8eI2VRozyEUk6+ssp+s4Lt5N2HAuRYx3UyGewRrAG/F63H49eFouoU=
+X-Received: by 2002:a05:651c:1474:b0:3a5:d31c:71a8 with SMTP id 38308e7fff4ca-3a624c8eb8bmr1246471fa.3.1790015460867;
+        Mon, 21 Sep 2026 11:31:00 -0700 (PDT)
+Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a6075fcafbsm23739241fa.27.2026.09.21.11.30.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 11:31:00 -0700 (PDT)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Andy Shevchenko <andy@kernel.org>,
+	Bill Wendling <morbo@google.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Joel Stanley <joel@jms.id.au>,
+	Justin Stitt <justinstitt@google.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: Re: [PATCH v7 07/10] iio: pressure: dps310: read buffered samples from the hardware FIFO
+Date: Mon, 21 Sep 2026 21:30:59 +0300
+Message-ID: <20260921183059.231935-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <178992913316.706584.7705975324672941059.b4-review@b4>
+References: <20260918122517.377565-1-zoone.rupert@gmail.com> <20260918122517.377565-8-zoone.rupert@gmail.com> <178992913316.706584.7705975324672941059.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CANk7y0g5EU8T8cLiU=+tLiZCcMEhZOjhnvs4uzD8Z=8GwN+7LA@mail.gmail.com>
 
-On Mon, Sep 21, 2026 at 07:12:02PM +0100, Puranjay Mohan wrote:
-> On Sat, Sep 19, 2026 at 3:07 PM Boqun Feng <boqun@kernel.org> wrote:
-> >
-> > On Fri, Sep 18, 2026 at 05:32:52PM -0700, Paul E. McKenney wrote:
-> > > From: Puranjay Mohan <puranjay@kernel.org>
-> > >
-> >
-> > Hi,
-> >
-> > Sorry for a bit late repsonse.
-> >
-> > > RCU's per-CPU callback list is only touched with interrupts disabled: the
-> > > enqueue runs under local_irq_save() (and the nocb locks when offloaded),
-> > > as do callback invocation and grace-period work.  A call_rcu() that
-> > > arrives with interrupts already disabled, whether from an NMI or from
-> > > instrumentation that re-enters RCU, can interrupt one of those and corrupt
-> > > the list or deadlock.
-> > >
-> > > Defer instead: stage the callback on a per-CPU llist and raise an irq_work
-> > > that re-issues it once interrupts are on, straight to the enqueue so it
-> > > cannot defer again.  The gate is bare irqs_disabled(), so callers that
-> > > merely hold interrupts off are deferred too and pay one irq_work hop.
-> > > Skip it while the scheduler is down (RCU_SCHEDULER_INACTIVE): irq_work is
-> > > not usable that early, rcu_init() already calls call_rcu(), and the per-CPU
-> > > deferral state is not initialised until rcu_init_one() runs later in it.
-> > >
-> > > rcu_barrier() drains every CPU's ->defer_head before it scans the lists,
-> > > and rcutree_migrate_callbacks() drains an outgoing CPU's.  A drain
-> > > re-issues onto the draining CPU, so a barrier moves other CPUs' staged
-> > > callbacks onto
-> > > its own ->cblist; call_rcu() promises no CPU affinity for invocation.
-> > > ->defer_lock is held across llist_del_all() and the whole re-issue so the
-> > > drainers
-> > > serialize: one that finds the list empty can conclude that everything
-> > > staged before it is already on a callback list.  Interrupts stay off for
-> > > the batch.  Where the arch has an irq_work self-IPI that is what one
-> > > interrupts-disabled region could stage, normally a single callback; where
-> > > arch_irq_work_has_interrupt() is false the drain waits for the tick, so
-> > > several regions can accumulate first.
-> > >
-> > > The drain clears ->next before re-issuing.  A double call_rcu() on a head
-> > > that is already debug-object-active self-links the staged node, and
-> > > rcu_do_enqueue()'s duplicate path returns without clearing it, so the
-> > > drain would spin.  A re-add behind other staged callbacks makes a longer
-> > > cycle, which that does not bound; a double call_rcu() stays undefined.
-> > > llist_del_all() yields newest-first, so a batch is re-issued in reverse
-> > > call order; nothing depends on call_rcu() ordering.  The re-issue drops
-> > > the lazy hint, since staging records only ->func, so a deferred callback
-> > > loses its batching on CONFIG_RCU_LAZY.  kasan_record_aux_stack() moves to
-> >
-> > I'm not sure this is a good idea, because it effectively remove LAZY
-> > support when DEFER is enabled. Since the goal of this patchset supports
-> > BPF and NMI, would it be nicer that we skip the whole defer logic if the
-> > callback is LAZY? Alternatively, you can have two llist (one for hurry
-> > and one for lazy).
+On Sun, 20 Sep 2026 19:32:13 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
+
+> Given n is used in a couple of places, I'd keep the handling simple
+> by doing it as
+> 	for (i = 0, n = 0; i < DPS310_FIFO_DEPTH; i++, n++)
+
+Gone down to one counter, since n only ever tracked i here. Patch 9 adds
+a max_scans break after the store, where that form would lose the last
+entry read, so there the test moved to the top of the loop.
+
+> > +	data->fifo_hold = NULL;  
 > 
-> I had made this trade-off of removing the Lazy tag as I thought it is
-> not necessary to support lazy when call_rcu() is called from nmi and
-> bpf based instrumentation as they should not be frequent. But I like
+> Why clear fifo_hold?  Nothing ever checks if it is NULL.
 
-Ah, I missed that you only defer if irqs_disabled() is true, so this is
-much better than I used to think. So..
+Nothing does, so the function had nothing left to do and both callers
+just kfree() now. The clearing moved to the alloc side, otherwise a
+pressure session followed by a temperature-only one double frees.
 
-> the idea of two lists (skipping the defer logic is not possible as it
-> could lead to deadlocks/corruption). I will also investigate if we can
-> put the Lazy tag on the ->next pointer. But will it be acceptable if I
-> do that as a follow up? I want to get the base support fully validated
-
-.. definitely a follow-up would do, thank you!
-
-Regards,
-Boqun
-
-> with the BPF side changes. I also have more optimizations planned as
-> suggested by Sebastian.
-> 
-> Thanks,
-> Puranjay
-> 
+Rupesh
