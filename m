@@ -1,140 +1,108 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A74C33559C9
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:08:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15909457E42
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:09:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789981703; cv=none; b=HgFC+oMtfeXTpZJYx9OryuR6jGwwyOgAbwkcTqsYzETM9oqDKt4lw9DBeiNbgVH3fIq+Zyd/N/amUUbOW9FPjdLNjTjjdIX+W0iaqfnT+Tp6Bt1NTBHXRU/pfFh4AbiEZqJG6hAfGXG+igiYrqUaamypYkmf+ZKRFAKrq9VNdU8=
+	t=1789981744; cv=none; b=qMuknYk0Owx8y5aI3KPd1GuGgMvwgP9IkqJjdoWpElp+cbTd+J863PbkO/6zDkWFk1l9FjWOmWai5xUITWAwZ2WcKsbqM+HMPP7aWfiT0/eGuPY76YHYlATtZWAI0NUeq4DisSniyuN+0SzWCDo4e5tIzM/+2Kuq+ZENDpoAuho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789981703; c=relaxed/simple;
-	bh=N0b8EmSEWVJczB6H2qZwDcYiZkDK6GT7hkNKj4yRWHQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ljEKSxmLqYvicCge0158n4t5vU2lhDsmmbof9LM3YBJn6fLwCf3RhcZ33165BSHClojheTdCSbI3qH6RirRnK2mw2grJ0Y8E4NUGw6AQ9jOF5sUj50fr1vIwERLROIFl17Bz2JntCbIJV/5hdz5VNpvXt4qzJSamApTYyST5ukw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CVjPJbQH; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789981744; c=relaxed/simple;
+	bh=6jCtNbzvAFfnCkQvIJdZvE2yI4m1pEyatz+z0ebGt7Q=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=N8QHLeaHYZPa2dbuQBB7hbNVoFZ8+Lu3fVv67iv+eOOu8gybCme+o+hTuOUW/VgVlwc/seiu8XJZKpeGH+Bgnrmzg4VgmrrztcP9cGr/+fMLEChpjKvyFIBGBcJXbTxEB2uyit7DA0defTj8WTvv57WMeVwIcdrCtTAVAxLCCPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LjmuDHjb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CVjPJbQH"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea50dc1so1587162a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:08:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789981701; x=1790586501; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kZfNRDAZYMOe8/raf1+kfme6bgo4XiPP5kMyL6mrkfE=;
-        b=CVjPJbQHI+RkMEXTuT5a+DoQVzH+g5w+QFeJmSjx/uyon15H6xcOm4xetV5ybkX97N
-         7mOt4IcCP8PthhpahSMIf5mtPacJtdPLqe5rHkQPMVmlUn+oST85xI83poRv5ARtTi0o
-         OeJ+X/Ij+1tUnW71s6a7EHjbhcIchBbwJJhA1btukNGs9PKt8KF/xQD2RnRLfOXodERK
-         y69g/8KPbeIJ3Ul8AA7gRptOnjy6XtsjzwKua6Ji4U1gGuFXWj6cmRWBwUeAz3RJwK0V
-         cg5Y3NPRow0MwUTX/7D+1Sio6M78anLw2ukQTNYZeHK30kA6dj87THPx/1WI/O3GU8Dl
-         Gi6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789981701; x=1790586501;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kZfNRDAZYMOe8/raf1+kfme6bgo4XiPP5kMyL6mrkfE=;
-        b=ZoNzy3sNlRGUuMju6eehOeYic1x8VIN73LKKUplG/MLR1KbZJylxaafXlIYzg3nCbZ
-         3o3+4Qec6CoHkofiZnTayqL2lgmqYkxXscnZjMhaCjlI7i+H+adZSn9LlAI9gnsfGWpX
-         9er9JghrsZc++BgFoc3ihCRvxHZC4IqJzbSggdpltUiTLQ8tOEC7geKrL7ZRIaRDi/am
-         h0kW0bn45vY0rWXM18SycYxyqTLzehopP2UPC56/8KDX7LNNiJJMQ4P/tRB1cMo88RU5
-         N2Z7AecwhfdfW6ZiTLm6d0FkWECiDq1C+4xlMghhCyiMHkFGguVQOjtqNFgiZFWPBRmE
-         srCw==
-X-Forwarded-Encrypted: i=1; AKwUvBxp0Liz/KOD/02z7QYXeKcZui3AyODPJHPF+a+NWtAIuoEgo27UvUSDB6Nn7nR4T/FV6VGsWlZYMqqo6SE=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9pnkqejOFdtJ2Fo/qfvJEYgWC3EQ7OagQm7YjLtkPgqUJ2n3i
-	tQeynfouy6+A9U1d0Aly/Izbst3VAVcmlShExHhTz3Km7OYX2d24FUCa
-X-Gm-Gg: AYBFou0gBpi0EawH+puy2Yd5G+2Rj4EJAGgsQ6OWfJUgt3FAiZlfrzaiCx695ILOccH
-	B480zE5lmp8gJXcP3QrcGLHFpfdyoQOX8xAvMVWKJ+vfNK/Ow3bpKqUUoIF8QO+VY/9stf6jSmZ
-	TTmT9yz5rM6oYrX2EnkiIVerz2Mq+NYlNYkSdt7ydl5IW0mzCp15kSOqd/YPVsYNPlAtIN3SHhI
-	WhFgA8FyRuuSe2mNNkh14DkXBdCnn9jeuOamx30tKuYfJeLwyHS65Izm3JOiFptAzBVGN0k9D8s
-	4GQxtd5m3wzS+N+Ly3Kv4qBp9YJovRnGfUivUgx4DwsfrAlAZWXkK5eSL1oPtQdL3ILzZGVW/nM
-	QOcaA1tKsb4b9t6HENU6Nqtv9vxXXfMkCIs2QLd2Y1t5f+149it5BOH6w9O+BGBFsZllud6qY0G
-	87z9+ImyhTQHDb9Csz7Cg3bNpStUULujAfsrmOIJEZjS7y1eZYTvbg0w==
-X-Received: by 2002:a17:90b:554b:b0:39e:6c6a:4b6c with SMTP id 98e67ed59e1d1-39e6c6a54f7mr7862823a91.54.1789981700866;
-        Mon, 21 Sep 2026 02:08:20 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6f1835adsm13203772a91.6.2026.09.21.02.08.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 02:08:20 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Tomasz Figa <tfiga@chromium.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Steve Cho <stevecho@chromium.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] media: mediatek: vcodec: fix decoder child device leaks
-Date: Mon, 21 Sep 2026 17:08:08 +0800
-Message-ID: <20260921090808.336112-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LjmuDHjb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3E71F0089C
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:09:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789981741;
+	bh=6jCtNbzvAFfnCkQvIJdZvE2yI4m1pEyatz+z0ebGt7Q=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=LjmuDHjbkOR3/7rHtGdfeVrBzYXeLYJMOatv4fto1oYsMSduTQ6p1BSpZrkjSNqjU
+	 aJ4ezS/BKOdfPGlMC8sErOlNKw2hszGXbpCXglYmJibp1wO5Po/QqueVB9r8IWKbJN
+	 NP/2cvqPuJzJ2ZEr2B/EPZ3Yae3TvFmf8JtJ3SHC5FQIEuORjcxxh1VyQ9IypER/me
+	 EfXbH9DQl0mSnMfXO5ErytVrwpDzx5Zb9VHM1FPkSfuYY8lEv9HxN6XMHgdZUwrTCC
+	 GsCXfYfy1wrtgSWgCyx1qpHxfy9e+PrcIumAClL/EysBcVu+5RplzLy5U2cYh77mY1
+	 VOgQs63lmwlAg==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b74e0c2e4dso2389600e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:09:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByZer4iHc09syQSi9MJiT5MyX2KMeoPffounL3FA8NKmLdCwRBzo4qYt6ux0m80M9ARO/lmG8f/YzPltLA=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9a/EBvdVrRcaH5NkVdtIdGHHNymA3MDFu//hRZ6MWjyd9J3U7
+	8Cl6+NatKMupex8TAAz5DZbkS1SahhYq3fEB2ws5DFBMsrU6UzcVsOE0EFPEJxB6T11A7spkf8S
+	24sjCQzu2ebA3CtR2ARtI0GsE1zAvyWgYb2sP+YjxxA==
+X-Received: by 2002:ac2:4e15:0:b0:5b8:bc5e:b580 with SMTP id
+ 2adb3069b0e04-5b8c19583a7mr3502274e87.56.1789981740260; Mon, 21 Sep 2026
+ 02:09:00 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 21 Sep 2026 05:08:58 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 21 Sep 2026 05:08:58 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <p2qiwwig7ap74puja6mgnz37lofljhexiapmpp6y3xmwkhs2dn@v2mxawoivkn4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260915-pci-m2-bt-rework-v1-0-3c7d9cf9c010@oss.qualcomm.com>
+ <20260915-pci-m2-bt-rework-v1-3-3c7d9cf9c010@oss.qualcomm.com>
+ <CAMRc=MdJgXDUb-Uac0TRB8u1WUpLng51C4yMH6iMEMoK56tQYA@mail.gmail.com> <p2qiwwig7ap74puja6mgnz37lofljhexiapmpp6y3xmwkhs2dn@v2mxawoivkn4>
+Date: Mon, 21 Sep 2026 05:08:58 -0400
+X-Gmail-Original-Message-ID: <CAMRc=MdHy6M9cY-ZqMXP_F6yLuVuipDkZwHoBF0D9W3A5VkOSQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WxEae6jjegpliI2fL_J2GC3AMnE_px_o8YJ5SvWUKC9-5ouNBZ6FP8184
+Message-ID: <CAMRc=MdHy6M9cY-ZqMXP_F6yLuVuipDkZwHoBF0D9W3A5VkOSQ@mail.gmail.com>
+Subject: Re: [PATCH 3/5] power: sequencing: pcie-m2: Create auxiliary device
+ for the M.2 BT interface
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>, 
+	linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org, 
+	linux-pm@vger.kernel.org, Rahul Samana <rahul.samana@oss.qualcomm.com>, 
+	Wei Deng <wei.deng@oss.qualcomm.com>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Marcel Holtmann <marcel@holtmann.org>, 
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Amitkumar Karwar <amitkumar.karwar@nxp.com>, 
+	Neeraj Kale <neeraj.sanjaykale@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-mtk_vcodec_probe() populates decoder hardware child platform devices on
-platforms that support decoder subdevices. These children must be
-removed with of_platform_depopulate() when they are no longer needed.
+On Mon, 21 Sep 2026 09:58:27 +0200, Manivannan Sadhasivam
+<mani@kernel.org> said:
+> On Wed, Sep 16, 2026 at 04:19:16AM -0500, Bartosz Golaszewski wrote:
+>> On Tue, 15 Sep 2026 16:24:04 +0200, Manivannan Sadhasivam via B4 Relay
+>> <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org> said:
+>> > From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+>> >
+>> > Currently, the driver instantiates the BT interface of the WCN6855 and
+>> > WCN7850 combo modules by creating a devicetree node at runtime using an
+>> > of_changeset, with the compatible passed through the PCI ID table. But this
+>> > method of creating a devicetree node just for matching with the driver is
+>> > not recommended.
+>> >
+>> > So create an auxiliary device for the BT interface instead. The serdev
+>> > transport is still allocated here and handed over to the Bluetooth driver
+>> > through the auxiliary device, along with the power sequencing target used
+>> > to power up the controller. Also extend the provider match so that the
+>> > auxiliary device created for this connector is matched as its power
+>> > sequencing consumer.
+>> >
+>> > Since the runtime node creation is now gone, select AUXILIARY_BUS in
+>> > place of OF_DYNAMIC.
+>> >
+>> > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+>> > ---
+>>
+>> That's some nice stuff, thanks for doing it!
+>>
+>> It looks like there's no build-time dependency on this, only run-time? Can I
+>> take it independently?
+>>
+>
+> Yeah sure!
+>
 
-If initialization fails after the children have been populated, the
-probe error path releases the parent decoder resources without
-depopulating the child devices. This leaves the child platform devices
-registered.
+Nevermind that, it still needs is_controllable().
 
-The remove path has the same issue and leaves the child devices
-registered when the parent decoder driver is unbound.
-
-Depopulate the child devices in the probe error path and in the remove
-path before tearing down the remaining parent resources.
-
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
-
-Fixes: c05bada35f01 ("media: mtk-vcodec: Add to support multi hardware decode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- .../platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c    | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-index e936ed8dffba..592685ad522c 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-@@ -517,6 +517,8 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
- err_dec_mem_init:
- 	video_unregister_device(vfd_dec);
- err_reg_cont:
-+	if (dev->vdec_pdata->is_subdev_supported)
-+		of_platform_depopulate(&pdev->dev);
- 	if (dev->vdec_pdata->uses_stateless_api)
- 		media_device_cleanup(&dev->mdev_dec);
- 	destroy_workqueue(dev->decode_workqueue);
-@@ -569,6 +571,9 @@ static void mtk_vcodec_dec_remove(struct platform_device *pdev)
- {
- 	struct mtk_vcodec_dec_dev *dev = platform_get_drvdata(pdev);
- 
-+	if (dev->vdec_pdata->is_subdev_supported)
-+		of_platform_depopulate(&pdev->dev);
-+
- 	destroy_workqueue(dev->decode_workqueue);
- 
- 	if (media_devnode_is_registered(dev->mdev_dec.devnode)) {
--- 
-2.43.0
-
+Bart
