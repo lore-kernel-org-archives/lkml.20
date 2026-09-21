@@ -1,249 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010057.outbound.protection.outlook.com [52.101.228.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F5D522EF4;
-	Mon, 21 Sep 2026 22:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790029593; cv=none; b=H9Wli2cbj1ioBHhYnNopNx4lzneR9lrEm2DMpamEwdn+zzREURVMsGHjwSoEWDW6A4TKi9H2vVVSmuunGVXy/nQDBqfHcSSRbrmKbZiHsb2zgr/4bOGC9oJR0txiSycg4Fh6h/ZstlRY/nd53HhqWAg3VpsFTfeU/PPjWGqWbN0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790029593; c=relaxed/simple;
-	bh=g1hpG9X//J1B6B1nTr4FN0ADnVa+8yixPSkWZ3UiIwo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=E1UhcC8dhWkNSOS1tgTSrZTntnmEeuRymkivko5o8y8ausauVyuiUzayrDpkHSm/z8d6mRHf9+M1bEy9fll1uLeEI2lO2Xl8SFVJalHqcehUAPA2hsMS8l1yAMJ9Tjp4LOODJ8LcT/WVYTK1O81kMnn77u6FTGrKJANBI9+hk4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RLo/+Yff; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 352F251A12F;
+	Mon, 21 Sep 2026 22:26:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790029617; cv=fail; b=gWuJFijcELQO6mLs0fe1pLOXwhf/uD+EOF3mzBrzqC5DwFXHvbIC0OqXvu0PEMPTQAysMgpkHLARsO092ZQGVOJmO8Ar84pLnlfxnRU1JTHUPYP6w/KOkGDh/0F+vqhvh2R28NcwfMGgRYGIWLo+SUMB698jM9c5kEf5Ipopf5A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790029617; c=relaxed/simple;
+	bh=GzJ/L8DF6oZPJhvHMVPr3tAhJ43gevMJxOaMN3kzG8k=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=BRDrcRnX+kKClJ3ZKkBKrRkGB0f+JKHqttMrs2v3YR5K+zHTptnc2BjPuTcjiDjStSrncqBKkFwgnHTVtvTJ7ukxxvA8ESBRQAQV+IragwJ8ZDLMiprX7dDvaNvlj8BP1H0jqvx7OnGUZF95zQXUP4w0jzkuNkit8dEAURhL0p4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=Avam3KdS; arc=fail smtp.client-ip=52.101.228.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RLo/+Yff"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C0081F000FF;
-	Mon, 21 Sep 2026 22:26:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790029591;
-	bh=UlfYxFsZ+OYZEit5B/5bYhaHCFI3AdBcSjKvlFEhjOk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=RLo/+Yff2I75BNQhmJGclMQ+ZHsjgQLL8lfMjNWgNveEVWlUbQ3/fBP+L/IcvDd6f
-	 +I8ttwU26M6AuTo17vAYnaDOte+bIhDxoejs9ZFeS546DmbpBTjyMknJ+Z6VS8UhqK
-	 uwGBu7yx1gdOk/NG7W/mqx7EBI5DaysU79/9TliK5+QdY8Hg6Cc9d0BuASgkWa5kQ4
-	 7RBnE4/XQCmluN9l2CNmG6TOJPJj/BAZL5ONpcnY3OpY7a6JMOxk+DuFWDD7vZy1rQ
-	 3tOWi6vBlRA+i3k8k2mdnQQWgQHFA+E7Nv8wJ8rx8Q6Eo+8RN+lTAB1ZDe87v947R9
-	 CoByEUn8UFKoA==
-From: Michael Grzeschik <mgr@kernel.org>
-Date: Tue, 22 Sep 2026 00:26:00 +0200
-Subject: [PATCH 7/7] net/9p/usbg: clear stale client pointer on close
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="Avam3KdS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dYrWo+ZkYkZurqG5uVTjHAlaEyg8iZOVnG+/dYk2g4JTKj/zfdhrW+fJoExEQtKH/UR/PSQRb5JmI/c3gW2tiwcPK5eE0oXYrY79P/99N3nw3vP9XT3giSzQig7uYQkr57Fni2Lmds9usfi/hnFho7hKwEvPzRLICJYTSL3ov32V9FVawB2w0cxcEByMYFcfUQHp/Pq/ES836tDc2ZzHBufYAg8fWdNYVAajh6kWzAF8rMg28TE0nfNLVlEJS2kUZ8ruOp3RDhVRnMjbzLFdiGlzIM/tw819eB4SPVUjmLtsy24X+IIC0SZ4jNJ8/Io3IHCUirD/pdooSdOJoZu3CQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XRbtPu2IT+nmQM+t2sxA/ZqItvpMKgMcNpN/sABEZl8=;
+ b=mhtt3oYJqwVoWceo5cSkVx1dAql0sBiORuLrN5KuIoKTEyjQ8CdlUzNMwXgHAUIFX6Lz2O9bjO0OfXIPIi/C8LxsA2TELlvjT5LmoVzR2iH8uKXroNOvSArNGN7ZBpcXQEjICpyhAG3Q+y+K1wvkkIeSEJ+RMaJyMoWH3RGMrxyVrnTyruSJ63ySWSEvAN87WwQBLlq9eSvPN61aAawH9EhEsO2WlpCyKO0hameYPrUrXz39tFCgSe98Lj9nk/JkEqLrWt52PfXaf3deaE3D9d7M5RadeuL3IHKU6/BDaeupeuCzeJ7wHzPrbT4cLtHW78Df+4x3C1fJaReFUwLMXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XRbtPu2IT+nmQM+t2sxA/ZqItvpMKgMcNpN/sABEZl8=;
+ b=Avam3KdSXjZGvE3OtWb/cVjwj+2p7H9fR5xZyi2go3IFM3VrITiMDvZTUwzXuxCTGt1lxgR4QvqcD0aZNJ5ZwP795Y56v+eHyd+bcZc2Df6ehOdiRNWMXPzQRquXRXx+0XitwSodkEX4BBTWmMdfeEw1dWQGXGOla2Ff3bH9UyE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by TYCPR01MB9927.jpnprd01.prod.outlook.com (2603:1096:400:20a::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 22:26:50 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 22:26:50 +0000
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: tomm.merciai@gmail.com,
+	prabhakar.mahadev-lad.rj@bp.renesas.com
+Cc: linux-renesas-soc@vger.kernel.org,
+	biju.das.jz@bp.renesas.com,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/3] Add USB2.0 support for RZ/G3E
+Date: Tue, 22 Sep 2026 00:26:22 +0200
+Message-ID: <cover.1790005703.git.tommaso.merciai.xr@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: FR4P281CA0083.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cd::8) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-usb9pfsfixes-v1-7-9d8dcc52904c@kernel.org>
-References: <20260922-usb9pfsfixes-v1-0-9d8dcc52904c@kernel.org>
-In-Reply-To: <20260922-usb9pfsfixes-v1-0-9d8dcc52904c@kernel.org>
-To: Eric Van Hensbergen <ericvh@kernel.org>, 
- Latchesar Ionkov <lucho@ionkov.net>, 
- Dominique Martinet <asmadeus@codewreck.org>, 
- Christian Schoenebeck <linux_oss@crudebyte.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: v9fs@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Michael Grzeschik <mgr@kernel.org>, Hyungjung Joo <jhj140711@gmail.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6091; i=mgr@kernel.org;
- h=from:subject:message-id; bh=tC038ezHdlUfFI/3EG7MxZmCGxI5Nw5bzI3ZV5Lf6+Q=;
- b=owEBbQKS/ZANAwAKAb9pWET5cfSrAcsmYgBqsa8FLxLE6pEVIETB6e7CJeH3L9SkipP5VoNzo
- SNQOLrufeeJAjMEAAEKAB0WIQQV2+2Fpbqd6fvv0Gi/aVhE+XH0qwUCarGvBQAKCRC/aVhE+XH0
- qyPaEACDyC9s+vkbbAx1IalaiVxI8ZnVzGuhn9brUYjgs8n3BoMWc/LapekRt+nYoz99jCbJh4O
- piQ4iCLFIpRmc9czXR0AdijNoUA/+dSbFY6UOqZHNEbIkAsViH/V6VnCriHw/Ou0bNfmDH5igRg
- k0ObGtQSx1KMyfiq2MOoEO3z+KFlS7XGySFYh1b6ep5wHnAb3ryu9QDQQ03p7c+vRG5JfzrnkBB
- ASsfecWEeazJhRP1SYeBLxShsoSnshcVv63PTDSNDdNDS6DwGrev4MXenE+UnJO9w74uSLZLHyh
- 9oX4xh7jZ+LyMMWjy3G8sgzKKlpC2568DJX8PRCXLNa+BBANOnKzyc+fnrkYSd6cBh8oHco8QMM
- k1cYOgMofLglHdqybaNsH3aD0a3joF2kcJMgAo9LN8gypWjLAV8uAwbXymV95Y67UKMLJPjHlsW
- G0rzzsAVCgQTorSRmemTu1rB09Kx0u+gZXyrIDDXoQF359/qQPz5W2vUxj7QmLHCSKBNIGsO+Y/
- RsPovqYCvDiTF8lLNrO1iSHPiK9tJl01RLaGGWpFw+PM7W9FekLPhb+zOEYtOiytaGjTV/bLAy1
- vQLNjWGbWwG5EV3/nOS1299z83mLadLIQ4bXp3oaY3gDEuu0JWxrLt7qblYDKeryX2kv/D+no7Y
- AizUOF1x+i6nbIQ==
-X-Developer-Key: i=mgr@kernel.org; a=openpgp;
- fpr=957BC452CE953D7EA60CF4FC0BE9E3157A1E2C64
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TYCPR01MB9927:EE_
+X-MS-Office365-Filtering-Correlation-Id: db8a51dd-be5e-43d0-4e02-08df182f6de3
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|52116014|366016|38350700014|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Ch3I8iFUbrifcJ0+L/8jDK7g65uItHbgPBpAhJB1nixilCrDIg6mbhKxShjr7zhUGH9MZCXkNRFOMOOfaBBgFs+kOAYPywvnkVfS5sciJbJngmjFtBkOLnr0NJx9SKL7fxIrXHIAx3f9YL3pu4TyxRik7hZYHxMhVqY5wZH2Sk96PFz8uPMmkJzt9cSr6LjUm2Ynpq//Phx6wllyiPdjJkvb6Sf+Zn3mqnicZ36UbGu+YFm1TTR31U9tqtNp+QTdifs3r/lU7FL/FWGtW22qRPLWWQzrXMkyP2j5Lu3kvoRHpknvDpGr2x+fJc24Q1gjySCBEd99tFCNuBKrf3qfUeajv079d4GRxm7QtFTAup8tYAkFnXWIJMGXRbGOlorQRS0cQw4g7t5vGcWPc1nd3H5YIFXcDf02fHtI82ZilAvdKE/ukyTQBzznF3IekiFqSAbKliq0Ft7X3mr2HwPD6uHRtCqQMM8YalfaWyoEw3mX8Z4t0JXNGVFmxbkelTxVCsUmdcd6dwJdujNLH8kaKscPXY77J5mlRvSKtNA7pQvdKiJDG9E5FMy1xglBmnXNdtm94EE1UluS4at8pIRYNipYOmAO/I4Ba5+8j1IN+HuCEycI+QV1M3E33zbHF8KLAvvQL7lJt5YLQA2PPMnkvkEoSzA/PwsyXj8qcWr3zs4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(52116014)(366016)(38350700014)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/Yd4zIq627NTp++nvAKgN7spIgh0iqZQIT9tOcrnb/SFqNMx1fRLPMg9Tp/Y?=
+ =?us-ascii?Q?DCi54j+E4PcPU4qHPnQGtD4fA8epB6LouRphq0WFh1l4yJPZ01KcvPrYRlXs?=
+ =?us-ascii?Q?lCiRv483BD4GClDs8ueUdwv7ps9Fck0lG+p5ilUwuRuaSw8lvYjaiSNXG+u3?=
+ =?us-ascii?Q?MtF1qCU4xtOSsKInp3aHyCHxkL9rIOpOUSWibENjfxZU1QUzJcvsEriAhB4v?=
+ =?us-ascii?Q?cLjbko6PulfzXme9Glj9c8yfiCymsNMnwUS90AYVqA8DFeVo+ICuGHQpdOhy?=
+ =?us-ascii?Q?jz91xECK33B8C2LoivWFRNQc+KWZZ1ccbyMK+ZxgjGYQHH7NiVGkmHDK5Eqv?=
+ =?us-ascii?Q?bTvMQgMbuZK788SZTKIrSFR0QsGkE2NJ5ZTiKDFN2SsHCWSxrz9r0LXY/fSM?=
+ =?us-ascii?Q?bhFlSVS41lUkmdexE39POPaqEVazQyqv0S16UEIHxZQT6NZOakmjj28Wu6mD?=
+ =?us-ascii?Q?ILbjsKwuTpNyNvSXpms7cFMrLPZL0tNlBpmKpMuLSM/jAYHK6NubSJuW0ewd?=
+ =?us-ascii?Q?Cv0hLca88U6bIwuDLyvSwla7YhnRILUiwfp/Z9jAq/JMWUrG8ui1TN5xJVjs?=
+ =?us-ascii?Q?bLnXQQLcfTsZ3ucWCB0efJ/N67WcZls1mSiHjhKQr/ScuOoU57GNJ+c4gcpK?=
+ =?us-ascii?Q?s6Jt5FD687QDqK6qtjoEmWyM/hDdTpvIakyIIffuXLc0FMX4EYbUZFHFkX3K?=
+ =?us-ascii?Q?7hm444Q/4IXLgNq5z7sVLV/ItiWJ2sJHkQKd75+hDhsgVe32gEeVQimE4JLu?=
+ =?us-ascii?Q?7Cd+3/XVbaiXBjMhSBhHolHpML7ipWXxPuSThMtp+eTSxf7LUB6v008n9jlC?=
+ =?us-ascii?Q?3k6qey1TcBspnQjZ62LCLQF59NhIp4wRSt6CpYMLbpjx1q6F8VlWGct/anqL?=
+ =?us-ascii?Q?6HZWTMlDfGdaQXY/M8JuQJHPspNYv3L70mzNAjG2n0QXpk5SdsTJea+LdwMc?=
+ =?us-ascii?Q?zHIv0/6bqZx6sjp50owqfLc/o4K2sTqdYu3GJoTFqU5OHeUYTzufKFf4ugps?=
+ =?us-ascii?Q?5YVhDqHeP1ngwGWjh4KYjZz/gL5vf2y7fYJ9mlk09XQa5UbtM4xrS1TtbpC4?=
+ =?us-ascii?Q?3ACaU++WrMtclcfepH7oiGfxfE6wnwrp1YpmP0WgKRKSi06MWJidYL/AvHQP?=
+ =?us-ascii?Q?O1ie6XtcpEowHte1VO17ExLJ6+SyXy+AnapHzmmmsZi/co8XECVgGO1XBp0Q?=
+ =?us-ascii?Q?BNLMnIm+ji9KAS2uLSKcSraZp68eQNYJtVnnoLlRrRxOJjh5RcTSYnwvF27e?=
+ =?us-ascii?Q?byEiyU3N5sKTVZzVApMIWvGSR6blA4TNn2je8vx4LLfXbTj2t702Shr+TRnA?=
+ =?us-ascii?Q?d2Q0FMErQE2yBow42i+B4kokkZDEBEjnTS3+JQwpLncXFwdjlCFIRUJBC8Ou?=
+ =?us-ascii?Q?dPIROQVl1CypQFMW7taydB3lzZyvBLVYUue44/+fPZsMXTVg2UWXXWfLCSQT?=
+ =?us-ascii?Q?oKFUwTZ1brgRWptDkCiCmMGOlttRscobAoX/p29c12ifKK3YeUEWK+dV3fsO?=
+ =?us-ascii?Q?GjdzsxXSSz/YesumMr22ghBV8kA8270hwR893d8/Nr73G46RxnvB76g7gCCe?=
+ =?us-ascii?Q?fXCSHGL8uQzaFomH43SUbFI2xPJakO4R9VIzNBCNvGpLw/pkqJ1mAjpKhsWr?=
+ =?us-ascii?Q?WVDrYsyvj3aWqa3Zs26+DzTnJiN6Ef2z2OSx4Qo4d0Et3rKXktoSR1iaO9ZR?=
+ =?us-ascii?Q?Go2y1LiDawyATO+eohhx3JNxJzxZ6kOcVJS+A6FAJT2nBFolLVTsOqDLzwG9?=
+ =?us-ascii?Q?E2+5FwIFAdqJLTsXD4SIqvbJ+yq6ZwYmbhO6nhZlB1VdWrlHNkjP?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: db8a51dd-be5e-43d0-4e02-08df182f6de3
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 22:26:50.0404
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XfTf+vInTyVo9+Y59YHUd9mmcWjOyF+oX3SXddbU46pW2tSI7qZxB1nQGCQQrJ28938KFvMUFOi+Y/BCPeMGXA5mtbTyA/8OtxDLQrIE+AK67rDCy+dKwxEP0oWNRArH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB9927
 
-From: Hyungjung Joo <jhj140711@gmail.com>
+Dear All,
 
-p9_usbg_close() tears down the client transport, but usb9pfs keeps
-using usb9pfs->client from asynchronous TX and RX completion handlers.
-A late completion can therefore dereference a client that has already
-been freed during mount teardown.
+This patch series adds USB2.0 support for the Renesas R9A09G047 SoC and
+enables it on the RZ/G3E SMARK II board.
 
-Clear usb9pfs->client under usb9pfs->lock when closing the transport,
-detach any pending TX request from in_req->context, and make the TX/RX
-completion handlers bail out once the transport has been detached. This
-keeps late completions from touching a freed or rebound p9_client.
+Kind regards,
+Tommaso
 
-Fixes: a3be076dc174 ("net/9p/usbg: Add new usb gadget function transport")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyungjung Joo <jhj140711@gmail.com>
-Signed-off-by: Michael Grzeschik <mgr@kernel.org>
----
- net/9p/trans_usbg.c | 61 +++++++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 45 insertions(+), 16 deletions(-)
+v3->v4:
+ - Readded v1 RZ/G3L placeholder patch.
+ - Drop usb21_pins.
+ - Collected tag.
 
-diff --git a/net/9p/trans_usbg.c b/net/9p/trans_usbg.c
-index 544690a5c717..c6306b073089 100644
---- a/net/9p/trans_usbg.c
-+++ b/net/9p/trans_usbg.c
-@@ -149,7 +149,8 @@ static void usb9pfs_tx_complete(struct usb_ep *ep, struct usb_request *req)
- {
- 	struct f_usb9pfs *usb9pfs = ep->driver_data;
- 	struct usb_composite_dev *cdev = usb9pfs->function.config->cdev;
--	struct p9_req_t *p9_tx_req = req->context;
-+	struct p9_client *client;
-+	struct p9_req_t *p9_tx_req;
- 	unsigned long flags;
- 
- 	/* reset zero packages */
-@@ -165,18 +166,25 @@ static void usb9pfs_tx_complete(struct usb_ep *ep, struct usb_request *req)
- 		ep->name, req->status, req->actual, req->length);
- 
- 	spin_lock_irqsave(&usb9pfs->lock, flags);
--	WRITE_ONCE(p9_tx_req->status, REQ_STATUS_SENT);
-+	client = usb9pfs->client;
-+	p9_tx_req = req->context;
-+	req->context = NULL;
- 
--	p9_req_put(usb9pfs->client, p9_tx_req);
-+	if (!client || !p9_tx_req)
-+		goto unlock_complete;
- 
--	req->context = NULL;
-+	WRITE_ONCE(p9_tx_req->status, REQ_STATUS_SENT);
- 
-+	p9_req_put(client, p9_tx_req);
-+
-+unlock_complete:
- 	spin_unlock_irqrestore(&usb9pfs->lock, flags);
- 
- 	complete(&usb9pfs->send);
- }
- 
--static struct p9_req_t *usb9pfs_rx_header(struct f_usb9pfs *usb9pfs, void *buf)
-+static struct p9_req_t *usb9pfs_rx_header(struct f_usb9pfs *usb9pfs,
-+					  struct p9_client *client, void *buf)
- {
- 	struct p9_req_t *p9_rx_req;
- 	struct p9_fcall	rc;
-@@ -202,7 +210,7 @@ static struct p9_req_t *usb9pfs_rx_header(struct f_usb9pfs *usb9pfs, void *buf)
- 		 "mux %p pkt: size: %d bytes tag: %d\n",
- 		 usb9pfs, rc.size, rc.tag);
- 
--	p9_rx_req = p9_tag_lookup(usb9pfs->client, rc.tag);
-+	p9_rx_req = p9_tag_lookup(client, rc.tag);
- 	if (!p9_rx_req || p9_rx_req->status != REQ_STATUS_SENT) {
- 		p9_debug(P9_DEBUG_ERROR, "Unexpected packet tag %d\n", rc.tag);
- 		return NULL;
-@@ -212,7 +220,7 @@ static struct p9_req_t *usb9pfs_rx_header(struct f_usb9pfs *usb9pfs, void *buf)
- 		p9_debug(P9_DEBUG_ERROR,
- 			 "requested packet size too big: %d for tag %d with capacity %zd\n",
- 			 rc.size, rc.tag, p9_rx_req->rc.capacity);
--		p9_req_put(usb9pfs->client, p9_rx_req);
-+		p9_req_put(client, p9_rx_req);
- 		return NULL;
- 	}
- 
-@@ -220,7 +228,7 @@ static struct p9_req_t *usb9pfs_rx_header(struct f_usb9pfs *usb9pfs, void *buf)
- 		p9_debug(P9_DEBUG_ERROR,
- 			 "No recv fcall for tag %d (req %p), disconnecting!\n",
- 			 rc.tag, p9_rx_req);
--		p9_req_put(usb9pfs->client, p9_rx_req);
-+		p9_req_put(client, p9_rx_req);
- 		return NULL;
- 	}
- 
-@@ -231,8 +239,10 @@ static void usb9pfs_rx_complete(struct usb_ep *ep, struct usb_request *req)
- {
- 	struct f_usb9pfs *usb9pfs = ep->driver_data;
- 	struct usb_composite_dev *cdev = usb9pfs->function.config->cdev;
-+	struct p9_client *client;
- 	struct p9_req_t *p9_rx_req;
- 	unsigned int req_size = req->actual;
-+	unsigned long flags;
- 	int status = REQ_STATUS_RCVD;
- 
- 	if (req->status) {
-@@ -241,9 +251,16 @@ static void usb9pfs_rx_complete(struct usb_ep *ep, struct usb_request *req)
- 		return;
- 	}
- 
--	p9_rx_req = usb9pfs_rx_header(usb9pfs, req->buf);
--	if (!p9_rx_req)
-+	spin_lock_irqsave(&usb9pfs->lock, flags);
-+	client = usb9pfs->client;
-+	if (!client) {
-+		spin_unlock_irqrestore(&usb9pfs->lock, flags);
- 		return;
-+	}
-+
-+	p9_rx_req = usb9pfs_rx_header(usb9pfs, client, req->buf);
-+	if (!p9_rx_req)
-+		goto out_unlock;
- 
- 	if (req_size > p9_rx_req->rc.capacity) {
- 		dev_err(&cdev->gadget->dev,
-@@ -257,8 +274,11 @@ static void usb9pfs_rx_complete(struct usb_ep *ep, struct usb_request *req)
- 
- 	p9_rx_req->rc.size = req_size;
- 
--	p9_client_cb(usb9pfs->client, p9_rx_req, status);
--	p9_req_put(usb9pfs->client, p9_rx_req);
-+	p9_client_cb(client, p9_rx_req, status);
-+	p9_req_put(client, p9_rx_req);
-+
-+out_unlock:
-+	spin_unlock_irqrestore(&usb9pfs->lock, flags);
- 
- 	complete(&usb9pfs->received);
- }
-@@ -412,7 +432,9 @@ static int p9_usbg_create(struct p9_client *client, struct fs_context *fc)
- 		client->status = Disconnected;
- 	else
- 		client->status = Connected;
-+	spin_lock_irq(&usb9pfs->lock);
- 	usb9pfs->client = client;
-+	spin_unlock_irq(&usb9pfs->lock);
- 
- 	client->trans_mod->maxsize = usb9pfs->buflen;
- 
-@@ -423,12 +445,19 @@ static int p9_usbg_create(struct p9_client *client, struct fs_context *fc)
- 
- static void usb9pfs_clear_tx(struct f_usb9pfs *usb9pfs)
- {
-+	struct p9_client *client;
- 	struct p9_req_t *req;
-+	unsigned long flags;
- 
--	guard(spinlock_irqsave)(&usb9pfs->lock);
-+	spin_lock_irqsave(&usb9pfs->lock, flags);
-+	client = usb9pfs->client;
-+	usb9pfs->client = NULL;
-+	req = usb9pfs->in_req ? usb9pfs->in_req->context : NULL;
-+	if (usb9pfs->in_req)
-+		usb9pfs->in_req->context = NULL;
-+	spin_unlock_irqrestore(&usb9pfs->lock, flags);
- 
--	req = usb9pfs->in_req->context;
--	if (!req)
-+	if (!req || !client)
- 		return;
- 
- 	usb9pfs->in_req->context = NULL;
-@@ -439,7 +468,7 @@ static void usb9pfs_clear_tx(struct f_usb9pfs *usb9pfs)
- 	if (!req->t_err)
- 		req->t_err = -ECONNRESET;
- 
--	p9_client_cb(usb9pfs->client, req, REQ_STATUS_ERROR);
-+	p9_client_cb(client, req, REQ_STATUS_ERROR);
- 	usb9pfs->in_req->context = NULL;
- }
- 
+v2->v3:
+ - No changes just rebased on top of next-20260908.
+
+v1->v2:
+ - Included PATCH v7 7/9 and PATCH v7 6/9 from
+   v7: https://lore.kernel.org/all/20260812141940.246223-1-biju.das.jz@bp.renesas.com/
+ - Drop placeholder patch
+ - PATCH 4/4: Disabled RZ/G3L common nodes from r9a08g046l48-smarc.dts.
+   Update commit body, and improved usb20_pins, usb21_pins comments.
+
+Tommaso Merciai (3):
+  arm64: dts: renesas: r9a08g046: Add USB2.0 placeholder nodes
+  arm64: dts: renesas: r9a09g047: Add USB2.0 support
+  arm64: dts: renesas: r9a09g047e57-smarc: Enable USB2.0 support
+
+ arch/arm64/boot/dts/renesas/r9a08g046.dtsi    |  25 ++++
+ .../boot/dts/renesas/r9a08g046l48-smarc.dts   |  20 +++
+ arch/arm64/boot/dts/renesas/r9a09g047.dtsi    | 124 ++++++++++++++++++
+ .../boot/dts/renesas/r9a09g047e57-smarc.dts   |  31 +++++
+ .../boot/dts/renesas/renesas-smarc2.dtsi      |  25 ++++
+ 5 files changed, 225 insertions(+)
 
 -- 
-2.53.0
+2.54.0
 
