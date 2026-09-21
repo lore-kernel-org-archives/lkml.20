@@ -1,124 +1,114 @@
-Received: from www62.your-server.de (www62.your-server.de [213.133.104.62])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f29.google.com (mail-yx2-f29.google.com [74.125.224.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA03A3B14AC;
-	Mon, 21 Sep 2026 21:00:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.133.104.62
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790024420; cv=none; b=VFwtfon9dBU6yVzwSi7CRh/Ro8ZEpGdkROG390aiXJMjC4P7xGsP6kc32BqqFP8G5mBrFZoSVBZSrWAC9cUxeU0W+/OOg3O8cQqu2ZJSwH8c3qvg/CVCNJjQmVc/l/i8YjyDwW2DRIz9B7N4a+dXokRCUdH11N6TIGU3Qf+edWs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790024420; c=relaxed/simple;
-	bh=32TPzh9Nrya5EHHA8Hvy4GFUHfQ0ki03+u7hrB+Th1c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XT7s6JVLq8xVO7qNcNun+Qn0yhSVn69QAkY8mRCJegXSGy4x5EH6WI1gwxFo1iyggQDXsJz5CQRONrk5BPX1HSW16vj65xxDrSOlh8ICIUdDbLWKlhMuwfBxNEjav9TjuxvHmsGgpdUkuJ2TKyC5vA24I7U7UuS1+R4QXMfqLfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net; spf=pass smtp.mailfrom=iogearbox.net; dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b=fq2R2kwa; arc=none smtp.client-ip=213.133.104.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iogearbox.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F3D44E73BA
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:00:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.157
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790024443; cv=pass; b=Cjxv7ddGsoSajC1NEfCr2HUcM90oCmUWjyketaDLwYRJfvK1vtCqLoq+K0Nsh0/bLb6YG4HiOqKHltXQ8jgeftMeb2m9FiHjL9CAAxXmZFSyRWjz1BSr3OHpoWbjyiosrrJyZdPEhz6nfOHpVEG3jw7w/e4ihsstfyZ7aLm97Ro=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790024443; c=relaxed/simple;
+	bh=B1hmclWtNW5qs7gv3tUrEGmKb2mu5k2O0/3ZJaObbPg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Sx3alDtM1vV7rUaQtt5SCw187MD+sm/86Io5V++HglQhO11OFt1OfEgH3FZ8RK8p4mikvv4vhF1S3G2Fsk/B/9lLUwwqa2kpV51uwnxthRNM6b9n/XEnhMo2Vd3Ps76qEOJe/Zacah6BOqV0x17X0YKIYubFpDh2cetU4YO5JoM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Gf1jmbwB; arc=pass smtp.client-ip=74.125.224.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b="fq2R2kwa"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=iogearbox.net; s=default2302; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=Qdh01QQomC5xNCpWvZn2vNzt/ZEIt7fNQnQXGL/MLJg=; b=fq2R2kwaS+Sjguz20eGFZ2DZmK
-	k3DR2JFFuu+Z7KArNru1oYGG7T8BQDNXxj+AVHWbQTvFzj/oK14LzgK4Ijdx3IwL+xVMOv9UBMGL6
-	129iPDsJNkjY2m/osyZF77CnuGUOGmDvH/VbX5C2HyZQBJ/ZuLhvqQBZa/Nv2+rz2GwChoYhqUUFK
-	bClGH9LDDgwP2a70j/LkkMaqo7OeA+txnwpSRMf9V+zNvGjZBBP29s129D2+AKraVCkopcx2Yp0kK
-	jMhjWQdEzwgatFUPnNS3aI9tZpfItpdbR7st++Mru7mzgNdPB2DBbzvDzzQrbNonGGYssRYS2DbSX
-	ZjN0ILvw==;
-Received: from sslproxy08.your-server.de ([78.47.166.52])
-	by www62.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <daniel@iogearbox.net>)
-	id 1x8l7N-000Hmk-2R;
-	Mon, 21 Sep 2026 23:00:05 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy08.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <daniel@iogearbox.net>)
-	id 1x8l6p-000DSG-2E;
-	Mon, 21 Sep 2026 23:00:05 +0200
-Message-ID: <805d5d9c-6147-4e04-b122-ea30a510787b@iogearbox.net>
-Date: Mon, 21 Sep 2026 23:00:04 +0200
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Gf1jmbwB"
+Received: by mail-yx2-f29.google.com with SMTP id 00721157ae682-85d43da99easo30259407b3.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:00:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790024439; cv=none;
+        d=google.com; s=arc-20260327;
+        b=m7s4yQmjrSDNg5wWEon+6GUunrBndzNmZKdlmA3dFPF4FDa2/jyv2uXuGXwWxs2A1u
+         Eqcwm4SE0WfItGNaxe8Dv3LvbnWIBH4WWNphHkjcIdAinhxHa/rbdxYze3LO2w3R2zVE
+         CLSn9PcaulR+GhLeve+DHjJGlKYR+f+sxubYuSgOxzE5r6mXGb7gVKOHgzBOFHArHVPW
+         17eCtk9sDZ6jB7+qD96LTBZQIwLbIphK3VQtxxc5JSuQ+LYeTz7bTmdsXfiYB9yk00zU
+         6rcRWMY/45AJdNwCTAUb9ZkTD7hQ8BlBoC/E4wEnj2F/yf3ZR5lfkmBa0RmKIpj3tbY2
+         v9hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=iaWbBV3Z3yhSOyCQfwk+cCwWzxlbdn32GHZFoxrvfbI=;
+        fh=9t2vu2BX0EXBgN7zJR7QLwCjJUdQTRIr7/hb+2S+f/w=;
+        b=LJpmnznC4XznWfCJayCxceMkYbaklntZYOH83QVOUABna2r8YxKs8IjbKX7wXVffgx
+         joHcDWw5a7yO5nk1BTiqDGuG+5ZETzgPpb6bvXyHQxfG6Tn75BU5ZNAv9buc2FzbTv+3
+         zj1qkQ7sMJY/i0a2TNMSsohkameMbYdm66pq1xNcpJCXhz1kuAMLMJnYA+n5Yqo2mX9h
+         I54H86NjL//vY6Vy23NXWMMXKDd9L5rXMfalwFEa5xCHMLnhkiIeJsl1DzlqgWronJWC
+         R6Pyy5IeTZNygV3X8pp8m4rRIE4zCcULXWuKaqAstby/bQzLPgQxwOOOx1ecJIC5dg46
+         txQg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790024439; x=1790629239; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iaWbBV3Z3yhSOyCQfwk+cCwWzxlbdn32GHZFoxrvfbI=;
+        b=Gf1jmbwB+MVQzoGKFbVMx7QpxX59GMO0+lUhtvRUSm6Y64y8J1SolLaJllUWpXIBWF
+         RFLrlw0d2zhml/mYkwJtUZB3fT9MJ9C/ZOi84Yrgcq6tny+DpC/DpJiwT+pDeY7LdeVn
+         TR8e1RETFf64futJQUpluYOPFnbf9UOw5l4O0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790024439; x=1790629239;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iaWbBV3Z3yhSOyCQfwk+cCwWzxlbdn32GHZFoxrvfbI=;
+        b=fgxE7wt2UPULHtJQdlTohKN+SqeE1doe2G77w2of3Us45mxcoEvneoomGCIQvsykRl
+         IOUW59Av6DPhlZ+r+KusoiSr68d5uyxxS9rXna21W2HeElLRzGm8ty23CNvA4y49/X+u
+         yoxNh8xuzBNBnIX7iIRoVmiyFiHbHnBb+gAhpm0LjfVPV1tTfUPUvo3EZSsJvpGQtFU3
+         PKWps1sXq31JxaHMepNrOQE5PvoYL0OFHBXmZHqGdoE1vbzIY8lIduy0gZQPzwNhavOF
+         vR43O4muay4i/FSxkRFqFzr/lEVO3rINphYn2a5NWyVEYa20q67DpQeLRgV3KoHIexD6
+         2hpw==
+X-Forwarded-Encrypted: i=1; AKwUvBxegOXyYcVtXJ+By9u8mQco8twu17J1YhllUxv0KPiYwhNWK9G7A2AgJ/Y1PpXmmMyr3H+yAaz3W/4cYok=@vger.kernel.org
+X-Gm-Message-State: AFuF++kk/tdu1rKNbVr98zmDT1M+ptIQe3KnOWE0dzOJGqtPLh0tUhTM
+	JAfaaPLCrDMSJXBevFHCC9W3i0UhizL5KpeWevaM+N1YqQL6R4eqCDIuwyB4jBuRAjVIC7KHn40
+	7U7F/4EOboTgtMlEiPUNltsarR2apuYIEf9IABc+5
+X-Gm-Gg: AYBFou1jN9A6Q1oK86+QFdlF0Bc1ohfCz8v29lyP8is9lptCEidpMHmRpbYg5scFW8D
+	XJs+csfnGBh5/gPE1ld2/vI+BGE+bUmbgND5E/h/xB/E5OUIkuGyu6uNaG9ptWya6emyXesbpXP
+	qVsxpwk/cYuDJgvqVGInUhVUyP3kB/7OJTypnK/5bfpz4UXw3mhgLu67OWzxZWWI3U0klRHicAC
+	Pu/p6BCgbM6qNYmqkFq6ogwQpAcWtGwL44/yt3N+jMBMPwvmxuJReNwFktYdwx0lXaLlfVs7Lw8
+	DAHoq4XMfjCgdpTC6hd4SMl7NO4oz2oiGm1AFeshXBUs+l1PowIGCQWL
+X-Received: by 2002:a05:690c:dd3:b0:884:b55c:a8e with SMTP id
+ 00721157ae682-8973296df66mr33908207b3.5.1790024439462; Mon, 21 Sep 2026
+ 14:00:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v1] net: devmem: document that bind-tx is
- unprivileged by design
-To: Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Donald Hunter <donald.hunter@gmail.com>, Stanislav Fomichev
- <sdf@fomichev.me>, Nikolay Aleksandrov <razor@blackwall.org>,
- Bobby Eshleman <bobbyeshleman@meta.com>
-References: <20260921195545.493253-1-almasrymina@google.com>
-Content-Language: en-US
-From: Daniel Borkmann <daniel@iogearbox.net>
-Autocrypt: addr=daniel@iogearbox.net; keydata=
- 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
-In-Reply-To: <20260921195545.493253-1-almasrymina@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28130/Mon Sep 21 08:24:29 2026)
+References: <20260915-fix-headphone-plug-cirrus-dell-v3-1-6dc555b00f61@chromium.org>
+ <87fqzan7jp.wl-tiwai@suse.de> <875x05lkfl.wl-tiwai@suse.de>
+In-Reply-To: <875x05lkfl.wl-tiwai@suse.de>
+From: Steven Kendall <skend@chromium.org>
+Date: Mon, 21 Sep 2026 17:00:28 -0400
+X-Gm-Features: AcwNN1Vb4N3kkjvSCO-RgAi9ZdBd-0DzOAUMcQlhGqGdJPcF7naJQsHmd3vunJE
+Message-ID: <CAB1bpFDsVLApsW6nYOyLQYx83o9NpDrpKwoK_4KdoCV=GeWv=g@mail.gmail.com>
+Subject: Re: [PATCH v3] ALSA: hda/cs8409: Fix for Dell Cirrus audio jack detect
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/21/26 9:54 PM, Mina Almasry wrote:
-> Unlike bind-rx, which configures shared NIC RX queues to steer incoming
-> traffic into the caller's dmabuf and requires CAP_NET_ADMIN
-> (uns-admin-perm), bind-tx only DMA-maps the caller's dmabuf so the caller
-> can transmit from it on their own sockets without affecting other traffic
-> or device configuration.
-> 
-> Add a comment in netdev.yaml and above netdev_nl_bind_tx_doit() to make it
-> explicit that NETDEV_CMD_BIND_TX is unprivileged by design.
-> 
-> Signed-off-by: Mina Almasry <almasrymina@google.com>
+> > The code change looks acceptable, but the patch description gives too
+> > little information.
+> >
+> > And, should we apply it unconditionally all models with this code?
 
-Acked-by: Daniel Borkmann <daniel@iogearbox.net>
+I've submitted a v4 that only applies the delay to this specific model
+I've observed the issue on.
+
+> ... also please check sashiko's review
+>   https://sashiko.dev/#/patchset/20260915-fix-headphone-plug-cirrus-dell-v3-1-6dc555b00f61%40chromium.org
+>
+> They aren't always correct but often give good hints.
+
+I looked over the AI feedback and I'm not sure what the best action to
+take is. It seemed like it was kind of a broad criticism of delayed
+work in general, which already exists in the same file. Now that the
+patch only applies to one machine and I've tested on that one machine
+I'm more confident in the fix but I'm open to doing additional
+testing. Or if there's some tooling I should be using to make the
+abstract "timing issues" more observable I would love to learn more
+about that too.
