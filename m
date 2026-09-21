@@ -1,283 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFFA3603D5;
-	Mon, 21 Sep 2026 06:51:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B6E373C1D
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:52:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789973468; cv=none; b=PUnXbNRZchd5UKpxub+f1JzheP6N4E9tlb9W17VPlGMgP1EIXr+VcOx/xHXwGA6e+sNo87dQCjOH9DtdxqOd5RrAefBXLwRqqA8HyBiHwYdzfEhAapkim81T6wFMG4hSfajK4sVePXvBzQnpztiOvjJ8iUfQ18kXETwJ2gREdRQ=
+	t=1789973535; cv=none; b=QOlORSsPRp8ux7A++lsGPjxRmPf4s9PLcb/nBWxWp0RH6QmTMdGydub1pciD4LKMEE0Z0D65xk1CQwdvY5un9BRNB7iHdcGngMYhsyxVnz73SCeWlFybl9C0VWKmzE+n7spIeSp1e8wjmUWVaFFVV4RP5oLxcpykJqNemOhZdK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789973468; c=relaxed/simple;
-	bh=aHgwTJFT4K3I2siFVlfhslh2UNmwBahJvTxhCEU5Vhc=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VGhgbFw1e1MGfaoBuD+5ZHdQJqYUmgiFk7CwxzhToCDp5xb4A3eT7Zrr5cb+7tUDZubffo49gzrJGU4/PUT54GoO3j4se9hU/ksTiKSK5uo4O/iMB7AewEcUwA8cgBhluR2TbHmZOOmSuHzWhJhoIDXnvnWIvYx4Kmvo/mKgOr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X2o1yf3U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789973535; c=relaxed/simple;
+	bh=M9wKcZRx+UctBcFXzOs619bBCYQFQfI4WYmoZUzWH7w=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Xtu6WqDmcKvDgI2A4GJ30jvkniljhmm0oPJ7KPrn2iAkVB4kdIJeW1ZG5D/ZHJtWSwOZz0/HXhUWEGx4iaFsXek8GqJBDa5H4Nq8YEaAK4O02ffh6kyl5gw+PRuY8+CCRQI2nZ8GkIR8OKh15nkpMen2CcWH2d3i3nCrzN11/aE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Zh3TgV8s; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QjUSD+x/; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X2o1yf3U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 895251F000FF;
-	Mon, 21 Sep 2026 06:51:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789973466;
-	bh=yrFrf31CzAGMwRVxOb97SRJtR701Pk6b6btKA5i372s=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=X2o1yf3UWx/O/Wfs2sgXcw7A9oUbDTMmCY1FsrvYF2M7TvotQyraSaFEayUrfssUN
-	 fa00hrqjtmQ9DWugzLfLAcmkwQ8e/MN99UbjF3qxj8PDecQ6yqXULn/mHjn2NsGIyn
-	 l/J/nZkxmcjXMi9F+XaL6n2nfCNj3s2pWO14wcxEDlAf6gpWv2rlwIA0ev4a/9JkIZ
-	 B193k4tnt6LJs8J3QJuKVem3/k6zj9GHf70Fs5uBy5hnr4eG+TqllZKPWAlnfEp/QH
-	 7zGAnuXlTyGjvyMCe8NARC0TXpGcytfLIrE4nXXPVMZNx27mePx3SuoAu1/35Ly+nc
-	 o3b2cyN3jehSw==
-Subject: Re: [Intel-wired-lan] [PATCH net] ice: roll back the port VLAN when
- ice_eswitch_br_set_pvid() fails
-From: netdev-bot+sashiko@kernel.org
-To: xiaolinkui@126.com
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, intel-wired-lan@lists.osuosl.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, xiaolinkui@kylinos.cn,
- stable@vger.kernel.org
-Date: Mon, 21 Sep 2026 06:51:05 +0000
-Message-ID: <178997346505.2160803.11431169848249487697@kernel.org>
-In-Reply-To: <20260920064754.1935818-1-xiaolinkui@126.com>
-References: <20260920064754.1935818-1-xiaolinkui@126.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zh3TgV8s";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QjUSD+x/"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L3Z268142981
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:52:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=kmVizujLsrgmM/SgR/HB3+
+	HMHu7OihCsv3vpcpmpjj0=; b=Zh3TgV8svLg+7k3rr1Yagf6gKX40efPetnaxg/
+	UEx+BKM2jbV3Pm/Bn5HqV/hT0lbNS7tjimsLLLbNFubnRIPqhe1SD5f2c6VUk5ju
+	/FyWiD/PGaWJ8wzHU9MQhOpJkcMY8jdjXvqYQBiaWJmqeXbZZlefGwKYoFTexiXR
+	H0TrEDoyekoWypOg4G4ML4lGY8TfeGmAqbhMOFfd1Gfl2Y/y8eczl/vZ2mAmlhwA
+	Not0NEEW3uJZtZ2on9SHXnOZn0SSCMwKVoesexEtf64pPdMZ+feAfY4T9Od9PVNP
+	LID+O7riS/DgLifDINoTZTzlJkH2Ngcvl1RCHbHxSeJE8VyA==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtu1egx6e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:52:13 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc4922b7c31so2686837a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 23:52:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789973533; x=1790578333; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=kmVizujLsrgmM/SgR/HB3+HMHu7OihCsv3vpcpmpjj0=;
+        b=QjUSD+x/57gv5Qm8SscdlJWZ0xy+J+AOAns6BVr+UZBFbKmPPkRLG8nHaORTfQ3uvF
+         cR6JbK8rn/tJjRoIUxsje4DY4UnU+kRaaSlMDFbePI0X0q/JWhDk7+0ilwOOvduoM+yj
+         6QgP/m1uTWXMb+gnOtPmwngP+FMDZtD/b6O+tc7gYXNXygfeva7qOJXlEbM1CIsVnDaV
+         4GrkOdv7w9D4Hn0TIKkSi8OJx7OI82a7H7+719cG2MjrM6Mv7AbN816QrG2968u/roC1
+         /PxB9bo/9BKILpHgHHxTMgrgutIy18nzrbGHxBMG9vekIOP59YF9qZvHyfehPZ8asg8X
+         5wGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789973533; x=1790578333;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kmVizujLsrgmM/SgR/HB3+HMHu7OihCsv3vpcpmpjj0=;
+        b=j6tv5oXlElwsQYikbpFMsyi240YCbBgQQCqzFwj1mG0JKMBhygpevyJFJoH+afhknx
+         BHgeflYZSKH+IS4vZ2PoYa8r2KJzb5H6z+lhimkacDFwz4w1PUnsAV3wfU9D7sIjZ3vF
+         rtoEWPlYrWfy9SCRWb06zD6j0yPqYFAq9IRyqE8bGFkf9y3f57Qg5KkyK/6ab9wHF7lE
+         9AhJrTP8U2isenZXfCyBf50cS7etMvEr7No/5xQ3ohryvIsjx18qxNEv5ZeXqXdYBb4x
+         rar9A+3aLFSuSubirVzEW6Vp5ph9+fD7nEM4ok3BZZ6vgg1IOgUkDiUBWUC3uFZhu9PZ
+         S0mQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx55e+tf97uqS//cBQ5IKjffEMZ9rYqZDJQo/+d0hW0LL19O3aTYEwBbuyqM/54sljbZWCXZ3hA7Gse9Uw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwoATdfN+hTDqdMm7/2oHOi3d6G/Gd7/06wWp/P+TUaw6uIdqB
+	XZ0sDhs2nLEvnPAOTLA1SI3oLBJabDiVir6cWSUhOls/N6ovuef1qeIHfv851+gYHF1uAyCaPD4
+	kTZQ3whJy9sj8+QH7cm7KvpIbUicCVAycllCSriup/J6p2Fnj3Y/dj84dKlidEgPPHUo=
+X-Gm-Gg: AYBFou3hgfZcgBfvHLD3LZA1GxN2JJvoX7Gjf2rTjYWwh9h1y5IO56wFdfwEMw9Rch3
+	1naefpyhM1qlCeiaNbVESQ2rR22A2bsEqs2qxwAFIGmCNkH4F9P1wgoT+414Y2Yi9b5wmLiiKBR
+	rrz4QV0I5Ik0K9xVq1fcPIhavtUdjOwUXwreDIpmZaWQPTxoe5IFEoNIUUv5dhlLGLWeMmtW4jD
+	Es5oCvzX50AhQnZmk1FJYWz2zd4H2kq2twJX/XGlW7PdJpG8Gtsvrk5sT6uq4S9wUNC65xTsXpg
+	wOVFfJSZvkHLQcRbNAMGuSt69LfFDLy4RmAgEmJ71ParuxBSiH7Ppui6t0vMapIgIxLvjparsvq
+	ivPtJuRSyEmmf4gAlNTQ0hP30Lv1iTWLPYpgr+3hkhLMdo9s/2hbjoYtGN9U2uVjV8xwIOltDxE
+	mwmd7wdhk8STunMOeIY0eOFdzGg2nk6z043A==
+X-Received: by 2002:a05:6a20:5483:b0:3dd:a196:3090 with SMTP id adf61e73a8af0-3dda19633c6mr10931927637.64.1789973533049;
+        Sun, 20 Sep 2026 23:52:13 -0700 (PDT)
+X-Received: by 2002:a05:6a20:5483:b0:3dd:a196:3090 with SMTP id adf61e73a8af0-3dda19633c6mr10931912637.64.1789973532638;
+        Sun, 20 Sep 2026 23:52:12 -0700 (PDT)
+Received: from hu-kathirav-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55f299fsm31342975c88.15.2026.09.20.23.52.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 23:52:12 -0700 (PDT)
+From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Subject: [PATCH 0/2] Add few more SOC IDs for IPQ5210 family
+Date: Mon, 21 Sep 2026 12:21:51 +0530
+Message-Id: <20260921-ipq52xx_new_ids-v1-0-63d68a11bbff@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAfUsGoC/yXMTQqDMBBA4avIrA2YYPzpVUSkiaOOi2gz2gbEu
+ zfq8lu8dwCjJ2R4JQd4/BLT4iJkmoCd3m5EQX00qEwVWS1LQetHqxA6h7+OehbS6Co3VuclVhC
+ r1eNA4T427WPezYx2uzZwnn8c4gp6cwAAAA==
+X-Change-ID: 20260917-ipq52xx_new_ids-1b584bc547e8
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDA5NyBTYWx0ZWRfX6fIHy5cpQ5bD
+ P2qHPlP2wjhxvLxWV/x/4dMB/N5VrCExc3PBa+Xkr0ZmNNlDww0WVD33J5VnjNezmXBiEA960K5
+ 2K6zoXtVnquxZdlqTs1ZjDQB+TUMUcs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDA5NyBTYWx0ZWRfX0kurgglphmb2
+ YVvOrN/cUv1+VvGCtuZmuJFVXh7FGGP1+DFV+AOXS7t71O+9jsSRzlaV4Y4CxxbHhD99jgGK3IB
+ 101nRpnG2in5YuY/Ud0bhXvQVxZwTGxbFlVHEytd4xpJUT/YPMo8DsiRDElsWyd6/G7YqaLMVzQ
+ B6ZmK59OP2Pb/aBNFskNe3dRxFMY37z5wpyOMiAhz6Sr91nGNgr7MqlURkq/Jlze6jGVlkDaRFe
+ lmXXfwDizVp/wM7LYOM2I6wOYi0JCaTW9HKcRkjsbwrXQ1IGcpuvr1RYEjLyOuYv5I6IwlajYuQ
+ OTgBLSKdbv8m3XkVFtZAAdPxIMxW/4ygEE3erHABTUQ0Rv9eQyCOIa9ck+lN3/tGw6CuT0cDFqJ
+ XkmwU4mQxCoTaZcKNua2Gj9wcGTomsdT2JSj7ISsyZef5xRIizmLpIjp48p8Un2oZuKzOlgLiIO
+ 0luP1uJ3Pa4iOYuDP0w==
+X-Proofpoint-ORIG-GUID: YfO5d4LU3MxJJzu7DlaZQTy6CWTBL1No
+X-Proofpoint-GUID: YfO5d4LU3MxJJzu7DlaZQTy6CWTBL1No
+X-Authority-Analysis: v=2.4 cv=A6r5rKWG c=1 sm=1 tr=0 ts=6ab0d41d cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=RD-zy9ve7f5AjEsD0N8A:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ priorityscore=1501 adultscore=0 bulkscore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210097
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+QCF3211 and IPQ5211 are the new SoCs based on the IPQ5210 family. Add
+the SoC IDs for the same.
 
-Critical: 0 · High: 2 · Medium: 2 · Low: 0
+Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+---
+Kathiravan Thirumoorthy (2):
+      dt-bindings: arm: qcom,ids: add few more SOC IDs for IPQ5210 family
+      soc: qcom: socinfo: add few more SOC IDs for IPQ5210 family
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+ drivers/soc/qcom/socinfo.c         | 2 ++
+ include/dt-bindings/arm/qcom,ids.h | 2 ++
+ 2 files changed, 4 insertions(+)
+---
+base-commit: 3f2425f5b5bbbdd991ca9cdfd5502e68d8895998
+change-id: 20260917-ipq52xx_new_ids-1b584bc547e8
 
-- [High] Incomplete rollback of the VLAN ops table: the commit message
-  states the patch fixes the case where "in Double VLAN Mode, the inner…
-- [High] ice_eswitch_br_set_pvid() mutates and dispatches through the
-  per-VSI VLAN ops function-pointer table while holding only rtnl_lock,…
-- [Medium] The newly added err_clear_port_vlan label in
-  ice_eswitch_br_set_pvid()…
-- [Medium] The new unwind assumes the VF VSI was not already in port-VLAN
-  mode before ice_eswitch_br_set_pvid() ran, but…
+Best regards,
+--  
+Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
---
-
-ice: roll back the port VLAN when ice_eswitch_br_set_pvid() fails
-
-This adds two unwind labels to ice_eswitch_br_set_pvid() so that a failing
-set_port_vlan() or add_vlan() clears the port VLAN from the VSI context and
-hands the VLAN ops back to ice_port_vlan_off(), instead of returning the
-error with the VF VSI left in port VLAN mode.
-
-A few questions about the new unwind path below.
-
-> diff --git a/drivers/net/ethernet/intel/ice/ice_eswitch_br.c b/drivers/net/ethernet/intel/ice/ice_eswitch_br.c
-> index 1d8a6b95ccda..53ce98ba7007 100644
-> --- a/drivers/net/ethernet/intel/ice/ice_eswitch_br.c
-> +++ b/drivers/net/ethernet/intel/ice/ice_eswitch_br.c
-> @@ -679,16 +679,23 @@ ice_eswitch_br_set_pvid(struct ice_esw_br_port *port,
->  	vlan_ops = ice_get_compat_vsi_vlan_ops(port->vsi);
->  	err = vlan_ops->set_port_vlan(port->vsi, &port_vlan);
->  	if (err)
-> -		return err;
-> +		goto err_disable_port_vlan;
->  
->  	err = vlan_ops->add_vlan(port->vsi, &port_vlan);
->  	if (err)
-> -		return err;
-> +		goto err_clear_port_vlan;
->  
->  	ice_eswitch_br_port_vlans_flush(port);
->  	port->pvid = vlan->vid;
->  
->  	return 0;
-> +
-> +err_clear_port_vlan:
-> +	vlan_ops->clear_port_vlan(port->vsi);
-
-[Severity: Medium]
-Is it intentional to drop the return value of clear_port_vlan() here?  The
-op is declared fallible in struct ice_vsi_vlan_ops:
-
-	int (*clear_port_vlan)(struct ice_vsi *vsi);
-
-and both implementations can fail.  ice_vsi_clear_outer_port_vlan() and
-ice_vsi_clear_inner_port_vlan() start with:
-
-	ctxt = kzalloc_obj(*ctxt);
-	if (!ctxt)
-		return -ENOMEM;
-
-	ice_restore_vlan_info(&vsi->info, &vsi->vlan_info);
-	vsi->info.port_based_outer_vlan = 0;
-
-and end with:
-
-	err = ice_update_vsi(hw, vsi->idx, ctxt, NULL);
-	if (err)
-		dev_err(...);
-
-So on an ice_update_vsi() failure vsi->info has already been mutated while
-hardware keeps the port VLAN and the RX_VLAN_PRUNE_ENA bit programmed by
-the preceding set_port_vlan(), with no matching prune filter (add_vlan() is
-the call that failed).
-
-Since port->pvid stays 0 and the VLAN was never inserted into port->vlans,
-can any later path retry that clear?  ice_eswitch_br_vlan_cleanup() only
-reaches ice_eswitch_br_clear_pvid() when:
-
-	if (port->pvid == vlan->vid)
-		ice_eswitch_br_clear_pvid(port);
-
-The ops table is then handed back unconditionally, which also restores the
-real dis_rx_filtering().  ice_port_vlan_on() deliberately replaces it while
-a port VLAN is active:
-
-	/* all Rx traffic should be in the domain of the assigned port VLAN,
-	 * so prevent disabling Rx VLAN filtering
-	 */
-	vlan_ops->dis_rx_filtering = noop_vlan;
-
-Could the VF then use virtchnl to clear the prune bit while the hardware
-port VLAN is still programmed?  Would it be better to only call
-ice_vf_vsi_disable_port_vlan() when clear_port_vlan() succeeded, and log or
-propagate the failure otherwise?
-
-[Severity: High]
-Can vlan_ops->clear_port_vlan be NULL by the time this new call runs?
-
-vlan_ops points at the live table (&vsi->outer_vlan_ops or
-&vsi->inner_vlan_ops), not a snapshot, and clear_port_vlan only exists
-while the port VLAN flavour is installed by ice_port_vlan_on():
-
-	vlan_ops->set_port_vlan = ice_vsi_set_outer_port_vlan;
-	vlan_ops->clear_port_vlan = ice_vsi_clear_outer_port_vlan;
-
-ops_unsupported in ice_vsi_vlan_ops.c has no .clear_port_vlan initializer,
-and ice_port_vlan_off() never assigns it either.
-
-The bridge path holds only rtnl (ice_eswitch_br_event_blocking ->
-ice_eswitch_br_port_obj_add -> ice_eswitch_br_port_vlan_add ->
-ice_eswitch_br_vlan_create -> ice_eswitch_br_set_pvid) and
-ice_eswitch_br.c never takes vf->cfg_lock, while set_port_vlan() and
-add_vlan() sleep (kzalloc(GFP_KERNEL) plus an admin queue wait).
-
-A VF-initiated reset runs concurrently under a disjoint lockset:
-
-ice_vc_reset_vf()/ice_process_vflr_event()
-  ice_reset_vf()                      /* vf->cfg_lock + pf->lag_mutex */
-    ice_vf_reconfig_vsi()
-      ice_vsi_cfg()
-        ice_vsi_cfg_def()
-          ice_vsi_init_vlan_ops()     /* reinstalls ops_unsupported */
-
-If that lands inside the window, does the new err_clear_port_vlan label
-dereference a NULL function pointer?  The same missing serialization also
-lets a virtchnl handler fetch one flavour of the ops and execute it after
-the unwind flipped the table back.
-
-> +err_disable_port_vlan:
-> +	ice_vf_vsi_disable_port_vlan(port->vsi);
-
-[Severity: High]
-The commit message says this hand-back addresses the case where "in Double
-VLAN Mode, the inner add_vlan() and del_vlan() stop doing anything".  Does
-ice_port_vlan_off() actually restore those two?
-
-ice_port_vlan_on() sets them in DVM:
-
-	vlan_ops = &vsi->inner_vlan_ops;
-
-	if (ice_is_dvm_ena(&pf->hw)) {
-		vlan_ops->add_vlan = noop_vlan_arg;
-		vlan_ops->del_vlan = noop_vlan_arg;
-		...
-
-ice_port_vlan_off() re-points its local vlan_ops at the outer table before
-it assigns del_vlan, and never touches the inner add_vlan at all:
-
-	vlan_ops = &vsi->inner_vlan_ops;
-
-	vlan_ops->ena_stripping = ice_vsi_ena_inner_stripping;
-	...
-	if (ice_is_dvm_ena(&pf->hw)) {
-		vlan_ops = &vsi->outer_vlan_ops;
-
-		vlan_ops->del_vlan = ice_vsi_del_vlan;
-		...
-
-So after the unwind a DVM VF VSI keeps inner add_vlan/del_vlan ==
-noop_vlan_arg, where ice_vsi_init_unsupported_vlan_ops() installs
-op_unsupported_vlan_arg for a DVM VF VSI without a port VLAN.
-
-Those pointers are live for the VF: ice_vc_process_vlan_msg() calls
-
-	status = vsi->inner_vlan_ops.add_vlan(vsi, &vlan);
-
-and the matching .del_vlan() for legacy VIRTCHNL_OP_ADD_VLAN/DEL_VLAN, with
-DVM explicitly allowed there.  Is the VF's C-tag filter add/del then
-reported as success while ice_fltr_add_vlan() is never issued and
-vsi->num_vlan is not updated, until the VF VSI is rebuilt?
-
-Should ice_port_vlan_off() also restore the inner add_vlan/del_vlan, which
-would additionally cover the same residue on the existing
-ice_eswitch_br_clear_pvid() path, or should the commit message be narrowed
-to what ice_port_vlan_off() really restores?
-
-[Severity: Medium]
-What happens here when the VF VSI was already in port VLAN mode before
-ice_eswitch_br_set_pvid() ran?
-
-ice_vf_vsi_enable_port_vlan() is a plain ops-table overwrite with no
-nesting or refcount:
-
-	void ice_vf_vsi_enable_port_vlan(struct ice_vsi *vsi)
-	{
-		if (WARN_ON_ONCE(!vsi->vf))
-			return;
-
-		ice_port_vlan_on(vsi);
-	}
-
-ice_set_vf_port_vlan() has no switchdev or bridge guard, it just records
-the VLAN and resets the VF:
-
-	vf->port_vlan_info = ICE_VLAN(local_vlan_proto, vlan_id, qos);
-	...
-	ice_reset_vf(vf, ICE_VF_RESET_NOTIFY);
-
-after which ice_vf_vsi_init_vlan_ops() calls ice_port_vlan_on() because
-ice_vf_is_port_vlan_ena(vf) is true, and
-ice_vf_rebuild_host_vlan_cfg() programs it:
-
-	if (ice_vf_is_port_vlan_ena(vf)) {
-		err = vlan_ops->set_port_vlan(vsi, &vf->port_vlan_info);
-
-ice_eswitch_br_set_pvid() only inspects the bridge-tracked port->pvid,
-which is still 0 in that configuration, so it proceeds.  On a failing
-set_port_vlan() the new path calls ice_port_vlan_off() while the SR-IOV
-port VLAN is still active in hardware and vf->port_vlan_info is still set,
-which makes dis_rx_filtering the real ice_vsi_dis_rx_vlan_filtering()
-again.  On a failing add_vlan() the clear additionally zeroes
-vsi->info.port_based_{outer,inner}_vlan.
-
-Does the unwind need to restore the actual prior state rather than assume
-"port VLAN off" was the baseline?
-
-> +
-> +	return err;
->  }
->  
->  static struct ice_esw_br_vlan *
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260920064754.1935818-1-xiaolinkui%40126.com
