@@ -1,377 +1,902 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58193472552
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D338D4A205A;
+	Mon, 21 Sep 2026 15:20:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003993; cv=none; b=iBRox4mn82sDgACi/ctEd/2L+lTqNTPl8BbJv4jwyJuLjx3ufstQfQT5CnCjjb/vOCAJidMeiv8mGZPSAvifwiRnehYbgDNdfrWRVK9ogXnHEcSaf/wca39i4n79v1Ft4zTtPenIDLkMz1AEsd/v9NlA5/BxD9Hiwb5bWGUqcx0=
+	t=1790004045; cv=none; b=PjvgX6XBMwS89nl2p/rIDBK9DHSH9bMvS7rKU7TFVb5PfvH50wZTGJjlX2crV6zettASfKZi3Lig8Go36T3eGCPwVy2bGF4/Krn8kTFPnXgl9mW6lxqKWDtwyWoHZc5f8/6DPe8X+alseImMvxbB+GtNkQjcUeLH5aW6UH3jNIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003993; c=relaxed/simple;
-	bh=T5uPgrfVPAdy5ijPsKrIrWo36pCK6jIM4tGNt0BFMlo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f9s9mII1QHbzS3+dN4SpS1rGJ1LO8NNlS/MB6mR8+LNoX7gv9QCxmjW5+VuCSAudVK7c9FbptHmqCgES0wq5cJ88/LV+dIhnNh2GvkLAGCfZy7ovlBRJXdu4l5DY38RIb4WJienBc20JxM7Dty21w3gDquevn34DoEkhOzq5eJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=MB/RkZOs; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790004045; c=relaxed/simple;
+	bh=BxYTW0aXHiempGxXaHoz+R5sudZ9m1AYjueAIVsuV64=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=YBsWbanImVlwPadsykPPnm2a98Dq6nk0on2koJfSlGCFNSHdV4CQDZWQhut1euMMWAdw93ubB9Wb5NVeVyb/jp1SW7MQNrcPDniamv48qvqtdKJ/dEPqsYbyh4OlJC1SjAHh3HtgG4K6GcFFyDnzXhE6siZYZo1+j48ayfGGBhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eU51/hD5; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="MB/RkZOs"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485984ebf5cso2485606f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:19:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790003987; x=1790608787; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vV/yPDzhsjcBqB0No8n/B1gnDkpysOLtRQGRvwg7ZOw=;
-        b=MB/RkZOsAc8s+8K60hWxusTb9d998BLyw6pNj3KIlywhjqPEAbfau0BdIo/Y58L3W7
-         0tD/XREtYE+OhrM3m4MBR8w5n0YDNqZnD5EWshuiOzQvY9JpWf2hFyxmBAYe1KncL5X2
-         j4w8E2WmjQsSACQaOdtIJgwFqMPS0ZyFiVtFLedlUp8iorxw69RCah6FaZJZnRfcH6nP
-         QKNQ0ntJ7b5hMW2YluAWZWXMCdSqmNB5EXNIJjdEqcmJRfsHhg2eSOgx30MZJqorvUtU
-         qc50AcJh53Ol5PoRJlHL6bGqywZtx2d67yonc5UWZqyR4o1nrmQgF4V4VwMSYA8sQ84B
-         rGAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790003987; x=1790608787;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vV/yPDzhsjcBqB0No8n/B1gnDkpysOLtRQGRvwg7ZOw=;
-        b=PvFXCubrpBgrgcGGLyx0yBEn1nhFRUvxC3VWOhviaOQn1lVuIhzvKmOvjaEpzqpuDT
-         Id+p/GTnnhIGd7mTMKQYH8FXmpjsReAgBkyJI15rj5MujnFF25wcJ+elPkCG839HrWtf
-         E/fiH4G4+/kf/+aMPwYUHbOvs9+m9JKGmlhzXmin/r5KV5avYV6lZS9E9qgT14MGZPju
-         RAlyY7GPGzI0/UEtZdPEzfr31vUJvp1wC6UFCp5SBDI3U3M3vlMhhUwhp6lPoVtzoRJ+
-         2ugZaKYlwXvXak1SX7XBSzbNB7w2Qwx5/LGeFBJN2LpmUP0i35BVseV0keIcnQOZDpGR
-         41ug==
-X-Forwarded-Encrypted: i=1; AKwUvByWB7SnP3T+iTLPXA2rMe9hGbmHn9Mwnoxzik68MVNXTr4VIojUDnHiLNIWHs4lbPuUHs7UBZJfd49nr+Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLwn08HEnCw07PIl0RdObLJBJXz9mN1a/MjuP6h98XSLQtBcO7
-	TvqCXRUpoEy9rlw78NxXrrg4CLSDei+4Yvqzbn13LnrgEV96OS6hY7fDEQyyRiwndmE=
-X-Gm-Gg: AYBFou25cjP6+1qcROJ9i0DPu/iPyFGPzUkBBxcaL0S8jgRA/wNTvr/T7T56re0Rl3U
-	by3if2A9po9b3Mr+Ycdh8WQbtntftsQ1hPgTyEEomcCw16hRb4nRSUxLbMnrt6VzCr9Hrzr5sKE
-	uAWJr3y4pYll8YxDfR7LQtp3C3kF3+e9jXIpw61C9DVPixC/8CxkUw3rN5fH+b5ppK+AAqbpZ2D
-	OtQ1Kf6CKe+NHf1ZDeyhZU21KL6ILQxUv41eLQLfG+R7KB6kFdWBhtwIWcy8LHJZoCgdhoXXywT
-	njHItG+Sgn4Ft21Tg3XI7xFMMRyIhHJ45nJE1Mn0VviZqbEV5a6fd/Ju8eq2Rk+/k1mpAFbI5Fy
-	r/5G/tCJ9cicckZKnOg2Y5WfRn4LxU3W5AslPzdzCEqmPEEbB8Ui6627dMEkGM1E+0lVYmY9v9y
-	/DM8MN8YlCM49THD7lz5KhdA71DpMcnn6RJffBWAqwfQHWk3WlHel7Fh9ubDO3S8zmSP7WKx/jc
-	Vz3xWsLQxAgjT7cyojPvi3uha/frlOP5ePEzJWhcHIhMIF6sCRfX8MWFGOT/w==
-X-Received: by 2002:a05:6000:420a:b0:487:35c:6e6b with SMTP id ffacd0b85a97d-4871e244c95mr16766538f8f.12.1790003987507;
-        Mon, 21 Sep 2026 08:19:47 -0700 (PDT)
-Received: from localhost (p200300f65f19a904d4f76eed31f2ef79.dip0.t-ipconnect.de. [2003:f6:5f19:a904:d4f7:6eed:31f2:ef79])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48724591eaasm23509562f8f.26.2026.09.21.08.19.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 08:19:46 -0700 (PDT)
-Date: Mon, 21 Sep 2026 17:19:45 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Cristian Marussi <cristian.marussi@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>, 
-	Frank.Li@kernel.org, arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, imx@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 1/2] module: add SCMI device table alias support
-Message-ID: <arFKVhlgJge5EZyj@monoceros>
-References: <20260918092951.5656-1-johannes.goede@oss.qualcomm.com>
- <20260918092951.5656-2-johannes.goede@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eU51/hD5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790004043; x=1821540043;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=BxYTW0aXHiempGxXaHoz+R5sudZ9m1AYjueAIVsuV64=;
+  b=eU51/hD53NDATXU48BPbu+CxfQvELh/D+gjyxjHOtlWe1Rv1e8rhiKd0
+   jcuUUdCL+ecx/GO/g9Q3JBgRuyzDahf6/upiC9nV4QmOlicTF5jsfWwlx
+   63M1KBwALLIryLbG/ScF9On7w3ycJ1QBRFAaWuBbmhNBNPc4uWgvn/m2F
+   2DhaWS9zlorxwe4VPewR1WShwuIt71zxd3CFV8h64HNa/tyzaCWqWUmi+
+   T47s8X2SXTjd7mKthGUVfEEyDtLUbMq/SwOJZHl6LTQXUTsu55AnUKwkB
+   oSh1RIZ6J545ESfXWndO4U24/Ft5J/48aTLY26oJ4EotBTs1Lzlha0c4/
+   g==;
+X-CSE-ConnectionGUID: HduYtLufRlO/SFPqVgyubQ==
+X-CSE-MsgGUID: dRbvTwcrR72MXl3djTwWNA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="90549492"
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="90549492"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 08:20:42 -0700
+X-CSE-ConnectionGUID: zS4hVFq6RGah7ip7B/ixCg==
+X-CSE-MsgGUID: nCQxSuLZQpC+okiTa2i/BQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="3992224"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.215])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 08:20:37 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 21 Sep 2026 18:20:26 +0300 (EEST)
+To: Oleg Keri <okerixx@gmail.com>
+cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+    Guenter Roeck <linux@roeck-us.net>, Bjorn Andersson <andersson@kernel.org>, 
+    Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+    linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
+    linux-hwmon@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] platform/arm64: add Lenovo Yoga Slim 7x Gen 11
+ EC driver
+In-Reply-To: <20260921144953.15113-3-okerixx@gmail.com>
+Message-ID: <55181989-11d7-ce0d-f9c3-e9dceaaf1fb4@linux.intel.com>
+References: <20260921144953.15113-1-okerixx@gmail.com> <20260921144953.15113-3-okerixx@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="x3f53yyge7gbc6ag"
-Content-Disposition: inline
-In-Reply-To: <20260918092951.5656-2-johannes.goede@oss.qualcomm.com>
+Content-Type: text/plain; charset=US-ASCII
 
+On Mon, 21 Sep 2026, Oleg Keri wrote:
 
---x3f53yyge7gbc6ag
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v7 1/2] module: add SCMI device table alias support
-MIME-Version: 1.0
-
-On Fri, Sep 18, 2026 at 11:29:50AM +0200, Hans de Goede wrote:
-> From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
->=20
-> SCMI client drivers already describe their bus match data with
-> MODULE_DEVICE_TABLE(scmi, ...), but modpost does not know how to consume
-> SCMI device tables. As a result, SCMI modules do not get generated module
-> aliases from their id tables.
->=20
-> Move struct scmi_device_id to mod_devicetable.h so it has a fixed layout
-> visible to modpost, add the corresponding generated offsets and teach
-> file2alias to emit scmi:<protocol>:<name> aliases.
->=20
-> Use the same stable alias format for SCMI device uevents and sysfs
-> modaliases. The previous string included the instance-specific device
-> name, which is not useful for matching modules.
->=20
-> Assisted-by: Codex:GPT-5.5
-> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> Tested-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-> Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> The Lenovo Yoga Slim 7x Gen 11 (Qualcomm glymur / Snapdragon X2 Elite)
+> carries a Compal EF06 embedded controller on I2C at address 0x70. The
+> platform firmware describes it as an ACPI GenericSerialBus region, but the
+> machine boots from device tree, so nothing otherwise talks to it.
+> 
+> Commands are exchanged with two raw I2C block transfers: a 7 byte write to
+> register 0x02 carrying the command and up to six arguments, then a 6 byte
+> read of register 0x01 for the result, with a short delay in between before
+> the result register is valid. The EC offers no way to match a result to
+> its command; the delay is the one the vendor ACPI code uses, and the one
+> value that lives in a mailbox shared with other EC activity, the cell
+> voltages, is validated against a signature and retried.
+> 
+> Expose what the EC offers that the rest of the kernel does not already
+> provide:
+> 
+>   - five board thermistors as hwmon temperature channels. These are
+>     charger, CPU voltage regulator, 5 V rail and ambient sensors, not die
+>     sensors, and read considerably cooler than tsens
+>   - the four battery cell voltages, which live in a banked mailbox shared
+>     with other EC activity; readings are validated against a signature and
+>     retried, and cached briefly so that all four channels come from one
+>     coherent sample
+>   - CPU fan speed in RPM
+>   - the keyboard backlight as an LED, off/low/high
+>   - Fn-lock as a read/write sysfs attribute, matching the ideapad-laptop
+>     interface. The EC reports Fn+Esc as an event but keeps no state of its
+>     own, so the driver owns the bit and toggles it on the key
+>   - the mic-mute and airplane-mode keys as KEY_MICMUTE and KEY_RFKILL.
+>     These reach the host only as EC events; they are not on the keyboard's
+>     HID interface and have no GPIO of their own
+> 
+> The EC signals pending events on a dedicated line, and keeps pulsing it
+> until they are read - so the queue must be drained completely on every
+> interrupt, including codes this driver ignores. Leaving one behind makes
+> the controller pulse indefinitely.
+> 
+> Fan speed is reported but not controlled. The EC accepts a manual setpoint,
+> however it enforces no thermal floor over it: with the fan pinned at
+> roughly 2000 RPM under full load the SoC rose from 69 to 91 degrees in 30
+> seconds without the EC ever overriding. Exposing pwm1_enable or fan1_target
+> would therefore let userspace overheat the machine, so neither is
+> implemented.
+> 
+> Note this is the Gen 11 machine specifically. Its EC differs from the
+> Qualcomm reference EC that the reference designs place at address 0x76,
+> which is not populated here, and so EC_QCOM_HAMOA does not drive it.
+> 
+> Signed-off-by: Oleg Keri <okerixx@gmail.com>
 > ---
-> Changes in v7:
-> - Rebase on top of v7.3-rc3
->=20
-> Changes in v4:
-> - Drop unused driver_data member from struct scmi_device_id (Uwe)
-> - Drop device-id/scmi.h include from mod_devicetable.h (Uwe)
-> - Add device-id/scmi.h to devicetable-offsets.c and file2alias.c (Uwe)
->=20
-> Changes in v3:
-> - Adjust for ad428f5811bd ("mod_devicetable.h: Split into per subsystem
->   headers")
-> - Add '\n' to modalias_show() output, matching other subsystems' modalias
->=20
-> Changes in v2:
-> - Drop #include <linux/mod_devicetable.h> from scmi_protocol.h
-> - Link to v1: https://patch.msgid.link/20260616-scmi-modalias-v1-0-662b8d=
-d52ab2@oss.qualcomm.com
-> ---
->  MAINTAINERS                       |  1 +
->  drivers/firmware/arm_scmi/bus.c   | 21 ++++++++++-----------
->  include/linux/device-id/scmi.h    | 17 +++++++++++++++++
->  include/linux/scmi_protocol.h     |  6 +-----
->  scripts/mod/devicetable-offsets.c |  5 +++++
->  scripts/mod/file2alias.c          | 12 ++++++++++++
->  6 files changed, 46 insertions(+), 16 deletions(-)
->  create mode 100644 include/linux/device-id/scmi.h
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index c2414447892c..f351ec56a2ec 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -26604,6 +26604,7 @@ F:	drivers/pmdomain/arm/
->  F:	drivers/powercap/arm_scmi_powercap.c
->  F:	drivers/regulator/scmi-regulator.c
->  F:	drivers/reset/reset-scmi.c
-> +F:	include/linux/device-id/scmi.h
->  F:	include/linux/sc[mp]i_protocol.h
->  F:	include/trace/events/scmi.h
->  F:	include/uapi/linux/virtio_scmi.h
-> diff --git a/drivers/firmware/arm_scmi/bus.c b/drivers/firmware/arm_scmi/=
-bus.c
-> index e060edbe7e83..51de50fbc382 100644
-> --- a/drivers/firmware/arm_scmi/bus.c
-> +++ b/drivers/firmware/arm_scmi/bus.c
-> @@ -12,11 +12,12 @@
->  #include <linux/of.h>
->  #include <linux/kernel.h>
->  #include <linux/slab.h>
-> +#include <linux/string.h>
->  #include <linux/device.h>
-> =20
->  #include "common.h"
-> =20
-> -#define SCMI_UEVENT_MODALIAS_FMT	"%s:%02x:%s"
-> +#define SCMI_UEVENT_MODALIAS_FMT	SCMI_MODULE_PREFIX "%02x:%s"
-> =20
->  BLOCKING_NOTIFIER_HEAD(scmi_requested_devices_nh);
->  EXPORT_SYMBOL_GPL(scmi_requested_devices_nh);
-> @@ -185,7 +186,7 @@ static int scmi_protocol_table_register(const struct =
-scmi_device_id *id_table)
->  	const struct scmi_device_id *entry;
->  	int ret;
-> =20
-> -	for (entry =3D id_table; entry->name; entry++) {
-> +	for (entry =3D id_table; entry->name[0]; entry++) {
->  		ret =3D scmi_protocol_device_request(entry);
->  		if (ret)
->  			goto err_unrequest;
-> @@ -205,7 +206,7 @@ scmi_protocol_table_unregister(const struct scmi_devi=
-ce_id *id_table)
->  {
->  	const struct scmi_device_id *entry;
-> =20
-> -	for (entry =3D id_table; entry->name; entry++)
-> +	for (entry =3D id_table; entry->name[0]; entry++)
->  		scmi_protocol_device_unrequest(entry);
->  }
-> =20
-> @@ -219,10 +220,10 @@ static int __scmi_dev_match_by_id_table(struct scmi=
-_device *scmi_dev,
->  					const struct scmi_device_id *id_table,
->  					bool skip_transport)
->  {
-> -	if (!id_table || !id_table->name)
-> +	if (!id_table || !id_table->name[0])
->  		return 0;
-> =20
-> -	for (; id_table->protocol_id && id_table->name; id_table++)
-> +	for (; id_table->protocol_id && id_table->name[0]; id_table++)
->  		if (id_table->protocol_id =3D=3D scmi_dev->protocol_id &&
->  		    !(skip_transport && scmi_device_is_transport(scmi_dev)) &&
->  		    !strcmp(id_table->name, scmi_dev->name))
-> @@ -266,7 +267,7 @@ scmi_child_dev_find_get(struct device *parent, int pr=
-ot_id, const char *name)
->  	struct device *dev;
-> =20
->  	id_table[0].protocol_id =3D prot_id;
-> -	id_table[0].name =3D name;
-> +	strscpy(id_table[0].name, name, sizeof(id_table[0].name));
-> =20
->  	dev =3D device_find_child(parent, &id_table, scmi_match_by_id_table);
->  	if (!dev)
-> @@ -300,8 +301,7 @@ static int scmi_device_uevent(const struct device *de=
-v, struct kobj_uevent_env *
->  	const struct scmi_device *scmi_dev =3D to_scmi_dev(dev);
-> =20
->  	return add_uevent_var(env, "MODALIAS=3D" SCMI_UEVENT_MODALIAS_FMT,
-> -			      dev_name(&scmi_dev->dev), scmi_dev->protocol_id,
-> -			      scmi_dev->name);
-> +			      scmi_dev->protocol_id, scmi_dev->name);
->  }
-> =20
->  static ssize_t modalias_show(struct device *dev,
-> @@ -309,9 +309,8 @@ static ssize_t modalias_show(struct device *dev,
->  {
->  	struct scmi_device *scmi_dev =3D to_scmi_dev(dev);
-> =20
-> -	return sysfs_emit(buf, SCMI_UEVENT_MODALIAS_FMT,
-> -			  dev_name(&scmi_dev->dev), scmi_dev->protocol_id,
-> -			  scmi_dev->name);
-> +	return sysfs_emit(buf, SCMI_UEVENT_MODALIAS_FMT "\n",
-> +			  scmi_dev->protocol_id, scmi_dev->name);
->  }
->  static DEVICE_ATTR_RO(modalias);
-> =20
-> diff --git a/include/linux/device-id/scmi.h b/include/linux/device-id/scm=
-i.h
+>  .../sysfs-driver-lenovo-yoga-slim7x-gen11-ec  |  21 +
+>  drivers/platform/arm64/Kconfig                |  23 +
+>  drivers/platform/arm64/Makefile               |   1 +
+>  .../arm64/lenovo-yoga-slim7x-gen11-ec.c       | 653 ++++++++++++++++++
+>  4 files changed, 698 insertions(+)
+>  create mode 100644 Documentation/ABI/testing/sysfs-driver-lenovo-yoga-slim7x-gen11-ec
+>  create mode 100644 drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-driver-lenovo-yoga-slim7x-gen11-ec b/Documentation/ABI/testing/sysfs-driver-lenovo-yoga-slim7x-gen11-ec
 > new file mode 100644
-> index 000000000000..1b4ccfa9dcc5
+> index 000000000000..c8ab554ad452
 > --- /dev/null
-> +++ b/include/linux/device-id/scmi.h
-> @@ -0,0 +1,17 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +#ifndef LINUX_DEVICE_ID_SCMI_H
-> +#define LINUX_DEVICE_ID_SCMI_H
+> +++ b/Documentation/ABI/testing/sysfs-driver-lenovo-yoga-slim7x-gen11-ec
+> @@ -0,0 +1,21 @@
+> +What:		/sys/bus/i2c/devices/*/fn_lock
+> +Date:		August 2026
+
+??
+
+> +KernelVersion:	7.3
+
+This ship has already sailed.
+
+> +Contact:	Oleg Keri <okerixx@gmail.com>
+> +Description:
+> +		Control fn-lock mode.
 > +
-> +#ifdef __KERNEL__
+> +			* 1 -> Switched On
+> +			* 0 -> Switched Off
+> +
+> +		When switched on, the function keys act as F1..F12 and the
+> +		multimedia functions require the Fn modifier.
+> +
+> +		The embedded controller reports the Fn+Esc key as an event but
+> +		keeps no state of its own, so this attribute is the state: the
+> +		driver toggles it when the key is pressed, and writing it takes
+> +		effect immediately.
+> +
+> +		For example::
+> +
+> +		  # echo "0" > /sys/bus/i2c/devices/9-0070/fn_lock
+> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
+> index e32e01b2a9bd..7581432e69b0 100644
+> --- a/drivers/platform/arm64/Kconfig
+> +++ b/drivers/platform/arm64/Kconfig
+> @@ -90,6 +90,29 @@ config EC_LENOVO_THINKPAD_T14S
+>  
+>  	  Say M or Y here to include this support.
+>  
+> +config EC_LENOVO_YOGA_SLIM7X_GEN11
+> +	tristate "Lenovo Yoga Slim 7x Gen 11 Embedded Controller driver"
+> +	depends on ARCH_QCOM || COMPILE_TEST
+> +	depends on I2C
+> +	depends on INPUT
+> +	depends on HWMON
+> +	select NEW_LEDS
+> +	select LEDS_CLASS
+> +	help
+> +	  Say Y here to enable the EC driver for the (Snapdragon X2 Elite,
+> +	  glymur-based) Lenovo Yoga Slim 7x Gen 11 laptop. The EC provides
+> +	  thermistors, battery cell voltages and CPU fan speed as hwmon
+> +	  channels, and the keyboard backlight as an LED.
+> +
+> +	  This is the Gen 11 (glymur) machine specifically. Its EC is a Compal
+> +	  design at i2c address 0x70 and speaks a different protocol from the
+> +	  Qualcomm reference EC that the reference designs place at 0x76, so
+> +	  EC_QCOM_HAMOA does not drive it - and conversely this driver does not
+> +	  cover the X1E-based Yoga Slim 7x Gen 9.
+> +
+> +	  To compile this driver as a module, choose M here: the module will
+> +	  be called lenovo-yoga-slim7x-gen11-ec.
+> +
+>  config EC_QCOM_HAMOA
+>  	tristate "Embedded Controller driver for Qualcomm Hamoa/Glymur reference devices"
+>  	depends on ARCH_QCOM || COMPILE_TEST
+> diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
+> index 7681be4a46e9..605cca4d42a9 100644
+> --- a/drivers/platform/arm64/Makefile
+> +++ b/drivers/platform/arm64/Makefile
+> @@ -9,4 +9,5 @@ obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
+>  obj-$(CONFIG_EC_HUAWEI_GAOKUN)	+= huawei-gaokun-ec.o
+>  obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
+>  obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) += lenovo-thinkpad-t14s.o
+> +obj-$(CONFIG_EC_LENOVO_YOGA_SLIM7X_GEN11) += lenovo-yoga-slim7x-gen11-ec.o
+>  obj-$(CONFIG_EC_QCOM_HAMOA) += qcom-hamoa-ec.o
+> diff --git a/drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c b/drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
+> new file mode 100644
+> index 000000000000..c8c7928475b7
+> --- /dev/null
+> +++ b/drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
+> @@ -0,0 +1,653 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/bitops.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/container_of.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/errno.h>
+> +#include <linux/gfp_types.h>
+> +#include <linux/hwmon.h>
+> +#include <linux/i2c.h>
+> +#include <linux/input.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/kstrtox.h>
+> +#include <linux/leds.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/pm.h>
+> +#include <linux/string.h>
+> +#include <linux/sysfs.h>
 > +#include <linux/types.h>
-> +#endif
 > +
-> +#define SCMI_NAME_SIZE		32
-> +#define SCMI_MODULE_PREFIX	"scmi:"
+> +#define YOGA_EC_BLOCK_READ	0x01
+> +#define YOGA_EC_BLOCK_WRITE	0x02
+> +#define YOGA_EC_RESP_LEN	6
+> +#define YOGA_EC_REQ_LEN		7
 > +
-> +struct scmi_device_id {
-> +	__u8 protocol_id;
-> +	char name[SCMI_NAME_SIZE];
+> +#define YOGA_EC_CMD_RAM_READ	0xb0
+> +#define YOGA_EC_CMD_RAM_WRITE	0xb1
+> +#define YOGA_EC_CMD_BANK_READ	0xb4
+> +#define YOGA_EC_CMD_FAN		0x46
+> +#define YOGA_EC_FAN_GET_SPEED	0x81
+> +
+> +#define YOGA_EC_CMD_EVENT	0x84
+> +#define YOGA_EC_EVT_MAX_DRAIN	64
+> +#define YOGA_EC_EVT_FN_LOCK	0x0f
+> +#define YOGA_EC_EVT_MIC_MUTE	0x18
+> +#define YOGA_EC_EVT_FLIGHT_MODE	0x19
+> +
+> +#define YOGA_EC_SCUK		0x1c
+> +#define YOGA_EC_SCUK_FN_LOCK	BIT(7)
+> +#define YOGA_EC_SCUK_FN_LOCK_IND	BIT(5)
 
-I wonder if you tried to keep this a char *. ISTR someone did something
-similar recently and they claimed it worked. That would get rid of the
-artificial name size limit and simplify this patch.
+Add include for BIT()
 
+> +#define YOGA_EC_SCUK_FN_LOCK_MASK	(YOGA_EC_SCUK_FN_LOCK | YOGA_EC_SCUK_FN_LOCK_IND)
+> +
+> +#define YOGA_EC_KBLT		0x03
+> +#define YOGA_EC_KBLT_LEVEL	GENMASK(1, 0)
+> +#define YOGA_EC_KBLT_AUTO	3
+> +#define YOGA_EC_KBLT_MAX	2
+> +
+> +#define YOGA_EC_TEMP_FIRST	0x12
+> +#define YOGA_EC_NUM_TEMP	6
+> +#define YOGA_EC_TEMP_MAX	120
+> +
+> +#define YOGA_EC_CELL_BANK	0x0b
+> +#define YOGA_EC_CELL_SIG_LO	0x02
+> +#define YOGA_EC_CELL_SIG_HI	0x0c
+> +#define YOGA_EC_CELL_FIRST	0x04
+> +#define YOGA_EC_NUM_CELL	4
+> +#define YOGA_EC_CELL_MIN_MV	2000
+> +#define YOGA_EC_CELL_MAX_MV	5000
+> +#define YOGA_EC_CELL_TRIES	10
+> +
+> +#define YOGA_EC_CACHE		(2 * HZ)
+> +#define YOGA_EC_STALE		(10 * HZ)
+
+It would be better to have time is some time unit + include the unit into 
+name, and only convert to jiffies when a call requires jiffies/timeout 
+input.
+
+> +
+> +struct yoga_ec {
+> +	struct i2c_client *client;
+> +	/* serializes all EC access */
+> +	struct mutex lock;
+
+Consider adding lockdep asserts to the EC access functions below to ensure 
+the locking rules are never violated.
+
+> +	unsigned long temp_present;
+> +	unsigned long cell_read_at;
+> +	u16 cell[YOGA_EC_NUM_CELL];
+> +	bool cell_cached;
+> +	struct led_classdev kbd_led;
+> +	u8 kblt_level;
+> +	bool kblt_restore;
+> +	struct input_dev *keys;
 > +};
 > +
-> +#endif /* ifndef LINUX_DEVICE_ID_SCMI_H */
-> diff --git a/include/linux/scmi_protocol.h b/include/linux/scmi_protocol.h
-> index 5ab73b1ab9aa..ba53302d95f5 100644
-> --- a/include/linux/scmi_protocol.h
-> +++ b/include/linux/scmi_protocol.h
-> @@ -9,6 +9,7 @@
->  #define _LINUX_SCMI_PROTOCOL_H
-> =20
->  #include <linux/bitfield.h>
-> +#include <linux/device-id/scmi.h>
->  #include <linux/device.h>
->  #include <linux/notifier.h>
->  #include <linux/types.h>
-> @@ -951,11 +952,6 @@ struct scmi_device {
-> =20
->  #define to_scmi_dev(d) container_of_const(d, struct scmi_device, dev)
-> =20
-> -struct scmi_device_id {
-> -	u8 protocol_id;
-> -	const char *name;
-> -};
-> -
->  struct scmi_driver {
->  	const char *name;
->  	int (*probe)(struct scmi_device *sdev);
-> diff --git a/scripts/mod/devicetable-offsets.c b/scripts/mod/devicetable-=
-offsets.c
-> index b4178c42d08f..91ec3704ee2b 100644
-> --- a/scripts/mod/devicetable-offsets.c
-> +++ b/scripts/mod/devicetable-offsets.c
-> @@ -1,5 +1,6 @@
->  // SPDX-License-Identifier: GPL-2.0
->  #define COMPILE_OFFSETS
-> +#include <linux/device-id/scmi.h>
->  #include <linux/kbuild.h>
->  #include <linux/mod_devicetable.h>
-> =20
-> @@ -144,6 +145,10 @@ int main(void)
->  	DEVID(rpmsg_device_id);
->  	DEVID_FIELD(rpmsg_device_id, name);
-> =20
-> +	DEVID(scmi_device_id);
-> +	DEVID_FIELD(scmi_device_id, protocol_id);
-> +	DEVID_FIELD(scmi_device_id, name);
-> +
->  	DEVID(i2c_device_id);
->  	DEVID_FIELD(i2c_device_id, name);
-> =20
-> diff --git a/scripts/mod/file2alias.c b/scripts/mod/file2alias.c
-> index 8d36c74dec2d..5379b1def07b 100644
-> --- a/scripts/mod/file2alias.c
-> +++ b/scripts/mod/file2alias.c
-> @@ -121,6 +121,7 @@ typedef struct {
->  /* Big exception to the "don't include kernel headers into userspace, wh=
-ich
->   * even potentially has different endianness and word sizes, since
->   * we handle those differences explicitly below */
-> +#include "../../include/linux/device-id/scmi.h"
->  #include "../../include/linux/mod_devicetable.h"
-> =20
->  struct devtable {
-> @@ -852,6 +853,16 @@ static void do_rpmsg_entry(struct module *mod, void =
-*symval)
->  	module_alias_printf(mod, false, RPMSG_DEVICE_MODALIAS_FMT, *name);
->  }
-> =20
-> +/* Looks like: scmi:NN:S */
-> +static void do_scmi_entry(struct module *mod, void *symval)
+> +static int yoga_ec_command(struct yoga_ec *ec, u8 cmd, u8 arg0, u8 arg1,
+> +			   u8 resp[YOGA_EC_RESP_LEN])
 > +{
-> +	DEF_FIELD(symval, scmi_device_id, protocol_id);
-> +	DEF_FIELD_ADDR(symval, scmi_device_id, name);
+> +	u8 req[YOGA_EC_REQ_LEN] = { cmd, arg0, arg1 };
+> +	int ret;
 > +
-> +	module_alias_printf(mod, false, SCMI_MODULE_PREFIX "%02x:%s",
-> +			    protocol_id, *name);
+> +	ret = i2c_smbus_write_i2c_block_data(ec->client, YOGA_EC_BLOCK_WRITE,
+> +					     sizeof(req), req);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	usleep_range(2000, 3000);
+> +
+> +	ret = i2c_smbus_read_i2c_block_data(ec->client, YOGA_EC_BLOCK_READ,
+> +					    YOGA_EC_RESP_LEN, resp);
+> +	if (ret < 0)
+> +		return ret;
+> +	if (ret != YOGA_EC_RESP_LEN)
+> +		return -EIO;
+> +
+> +	return 0;
 > +}
 > +
->  /* Looks like: i2c:S */
->  static void do_i2c_entry(struct module *mod, void *symval)
->  {
-> @@ -1491,6 +1502,7 @@ static const struct devtable devtable[] =3D {
->  	{"virtio", SIZE_virtio_device_id, do_virtio_entry},
->  	{"vmbus", SIZE_hv_vmbus_device_id, do_vmbus_entry},
->  	{"rpmsg", SIZE_rpmsg_device_id, do_rpmsg_entry},
-> +	{"scmi", SIZE_scmi_device_id, do_scmi_entry},
->  	{"i2c", SIZE_i2c_device_id, do_i2c_entry},
->  	{"i3c", SIZE_i3c_device_id, do_i3c_entry},
->  	{"slim", SIZE_slim_device_id, do_slim_entry},
+> +static int yoga_ec_ram_read(struct yoga_ec *ec, u8 addr, u8 *val)
+> +{
+> +	u8 resp[YOGA_EC_RESP_LEN];
+> +	int ret;
+> +
+> +	ret = yoga_ec_command(ec, YOGA_EC_CMD_RAM_READ, addr, 0, resp);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val = resp[0];
+> +	return 0;
+> +}
+> +
+> +static int yoga_ec_bank_read(struct yoga_ec *ec, u8 bank, u8 addr, u8 *val)
+> +{
+> +	u8 resp[YOGA_EC_RESP_LEN];
+> +	int ret;
+> +
+> +	ret = yoga_ec_command(ec, YOGA_EC_CMD_BANK_READ, bank, addr, resp);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val = resp[0];
+> +	return 0;
+> +}
+> +
+> +static int yoga_ec_ram_write(struct yoga_ec *ec, u8 addr, u8 val)
+> +{
+> +	u8 resp[YOGA_EC_RESP_LEN];
+> +
+> +	return yoga_ec_command(ec, YOGA_EC_CMD_RAM_WRITE, addr, val, resp);
+> +}
+> +
+> +static int yoga_ec_fan_read(struct yoga_ec *ec, long *rpm)
+> +{
+> +	u8 resp[YOGA_EC_RESP_LEN];
+> +	int ret;
+> +
+> +	ret = yoga_ec_command(ec, YOGA_EC_CMD_FAN, YOGA_EC_FAN_GET_SPEED, 0,
+> +			      resp);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*rpm = resp[0] * 100;
+> +	return 0;
+> +}
+> +
+> +static int yoga_ec_refresh_cells(struct yoga_ec *ec)
+> +{
+> +	unsigned int try;
+> +	int ret;
+> +
+> +	if (ec->cell_cached &&
+> +	    time_before(jiffies, ec->cell_read_at + YOGA_EC_CACHE))
+> +		return 0;
+> +
+> +	for (try = 0; try < YOGA_EC_CELL_TRIES; try++) {
+> +		u16 cell[YOGA_EC_NUM_CELL];
+> +		u8 sig[3];
+> +		unsigned int i;
+> +		bool ok = true;
+> +
+> +		ret = yoga_ec_bank_read(ec, YOGA_EC_CELL_BANK,
+> +					YOGA_EC_CELL_SIG_LO, &sig[0]);
+> +		if (!ret)
+> +			ret = yoga_ec_bank_read(ec, YOGA_EC_CELL_BANK,
+> +						YOGA_EC_CELL_SIG_LO + 1, &sig[1]);
+> +		if (!ret)
+> +			ret = yoga_ec_bank_read(ec, YOGA_EC_CELL_BANK,
+> +						YOGA_EC_CELL_SIG_HI, &sig[2]);
+> +		if (ret)
+> +			return ret;
 
-I wonder if this is supposed to be ordered alphabetically ...
+Please don't complicate error handling flow but handle each error right 
+after the first call.
 
-Best regards
-Uwe
+> +
+> +		if (sig[0] != 0x01 || sig[1] != 0x01 || sig[2] != 0x03)
+> +			continue;
+> +
+> +		for (i = 0; i < YOGA_EC_NUM_CELL; i++) {
 
---x3f53yyge7gbc6ag
-Content-Type: application/pgp-signature; name="signature.asc"
+ARRAY_SIZE() + don't forget the include.
 
------BEGIN PGP SIGNATURE-----
+> +			u8 lsb, msb;
+> +
+> +			ret = yoga_ec_bank_read(ec, YOGA_EC_CELL_BANK,
+> +						YOGA_EC_CELL_FIRST + i * 2, &lsb);
+> +			if (!ret)
+> +				ret = yoga_ec_bank_read(ec, YOGA_EC_CELL_BANK,
+> +							YOGA_EC_CELL_FIRST + i * 2 + 1,
+> +							&msb);
+> +			if (ret)
+> +				return ret;
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqxSw8ACgkQj4D7WH0S
-/k5lIQf+Pk0pBFCMv2UlNFoYrcnt7sDd37qCqzSchh+C4VDUQJUrS+U3++VDP+w9
-qQ1uz0pIZ08N7xrsAvI2b21w1QjBsVGfuA2K79Q66sHHNPWk2x4jLyXebehylwj7
-RqUjmFBRQ6OlpZtdOfcLG0mCopgIcOa+3LMWCkac4VENvzFOQ8aHkYLCM6F8Zr3T
-QHSpbWMHoPvXSbjW2ZgFDgQZbr9fVvHMcCiX1ronBbv2mqBXRzAOrjcR0IS4fqjM
-0Wt+9Tibbskx3/E7EaOFar9w+dVwvg89nGCWvz9ke6FgJhqfsM9UFyz0Vv7R1kbz
-gnmskjzm0NxgGlfZSipyOdiObLtMnw==
-=ZEo+
------END PGP SIGNATURE-----
+Simplify error handling similar to above.
 
---x3f53yyge7gbc6ag--
+> +
+> +			cell[i] = lsb | (msb << 8);
+> +			if (cell[i] < YOGA_EC_CELL_MIN_MV ||
+> +			    cell[i] > YOGA_EC_CELL_MAX_MV)
+> +				ok = false;
+> +		}
+> +
+> +		if (!ok)
+> +			continue;
+> +
+> +		memcpy(ec->cell, cell, sizeof(cell));
+> +		ec->cell_cached = true;
+> +		ec->cell_read_at = jiffies;
+> +
+> +		return 0;
+> +	}
+> +
+> +	if (ec->cell_cached &&
+> +	    time_before(jiffies, ec->cell_read_at + YOGA_EC_STALE))
+> +		return 0;
+> +
+> +	return -EAGAIN;
+> +}
+> +
+> +static umode_t yoga_ec_is_visible(const void *drvdata,
+> +				  enum hwmon_sensor_types type,
+> +				  u32 attr, int channel)
+> +{
+> +	const struct yoga_ec *ec = drvdata;
+> +
+> +	switch (type) {
+> +	case hwmon_temp:
+> +		if (!(ec->temp_present & BIT(channel)))
+> +			return 0;
+> +		return 0444;
+> +	case hwmon_in:
+> +		return 0444;
+> +	case hwmon_fan:
+> +		return 0444;
+> +	default:
+> +		return 0;
+> +	}
+> +}
+> +
+> +static int yoga_ec_read(struct device *dev, enum hwmon_sensor_types type,
+> +			u32 attr, int channel, long *val)
+> +{
+> +	struct yoga_ec *ec = dev_get_drvdata(dev);
+> +	int ret;
+> +	u8 raw;
+> +
+> +	guard(mutex)(&ec->lock);
+> +
+> +	switch (type) {
+> +	case hwmon_temp:
+> +		ret = yoga_ec_ram_read(ec, YOGA_EC_TEMP_FIRST + channel, &raw);
+> +		if (ret)
+> +			return ret;
+> +		if (!raw)
+> +			return -ENODATA;
+> +		if (raw > YOGA_EC_TEMP_MAX)
+> +			return -EIO;
+> +		*val = raw * 1000;
+
+Can something from units.h replace this literal? Don't forget to add the 
+include if you start to use a define from there.
+
+> +		return 0;
+> +	case hwmon_in:
+> +		ret = yoga_ec_refresh_cells(ec);
+> +		if (ret)
+> +			return ret;
+> +		*val = ec->cell[channel];
+> +		return 0;
+> +	case hwmon_fan:
+> +		return yoga_ec_fan_read(ec, val);
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+> +}
+> +
+> +static const char * const yoga_ec_temp_labels[YOGA_EC_NUM_TEMP] = {
+> +	"Charger A",
+> +	"CPU VR",
+> +	"5V rail",
+> +	"Ambient",
+> +	"Charger B",
+> +	"Thermistor 6",
+> +};
+> +
+> +static const char * const yoga_ec_cell_labels[YOGA_EC_NUM_CELL] = {
+> +	"Cell 1", "Cell 2", "Cell 3", "Cell 4",
+> +};
+> +
+> +static int yoga_ec_read_string(struct device *dev, enum hwmon_sensor_types type,
+> +			       u32 attr, int channel, const char **str)
+> +{
+> +	switch (type) {
+> +	case hwmon_temp:
+> +		*str = yoga_ec_temp_labels[channel];
+> +		return 0;
+> +	case hwmon_in:
+> +		*str = yoga_ec_cell_labels[channel];
+> +		return 0;
+> +	case hwmon_fan:
+> +		*str = "CPU fan";
+> +		return 0;
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+> +}
+> +
+> +static enum led_brightness yoga_ec_kbd_led_get(struct led_classdev *led)
+> +{
+> +	struct yoga_ec *ec = container_of(led, struct yoga_ec, kbd_led);
+> +	u8 raw;
+> +
+> +	guard(mutex)(&ec->lock);
+> +
+> +	if (yoga_ec_ram_read(ec, YOGA_EC_KBLT, &raw))
+> +		return 0;
+> +
+> +	raw = FIELD_GET(YOGA_EC_KBLT_LEVEL, raw);
+> +
+> +	if (raw == YOGA_EC_KBLT_AUTO)
+> +		return YOGA_EC_KBLT_MAX;
+> +
+> +	return raw;
+> +}
+> +
+> +static int yoga_ec_kbd_led_level(struct yoga_ec *ec, u8 level, u8 *old)
+> +{
+> +	u8 raw;
+> +	int ret;
+> +
+> +	ret = yoga_ec_ram_read(ec, YOGA_EC_KBLT, &raw);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (old)
+> +		*old = FIELD_GET(YOGA_EC_KBLT_LEVEL, raw);
+> +
+> +	raw &= ~YOGA_EC_KBLT_LEVEL;
+> +	raw |= FIELD_PREP(YOGA_EC_KBLT_LEVEL, level);
+> +
+> +	return yoga_ec_ram_write(ec, YOGA_EC_KBLT, raw);
+> +}
+> +
+> +static int yoga_ec_kbd_led_set(struct led_classdev *led,
+> +			       enum led_brightness brightness)
+> +{
+> +	struct yoga_ec *ec = container_of(led, struct yoga_ec, kbd_led);
+> +
+> +	guard(mutex)(&ec->lock);
+> +
+> +	return yoga_ec_kbd_led_level(ec, brightness, NULL);
+> +}
+> +
+> +static const struct hwmon_ops yoga_ec_hwmon_ops = {
+> +	.is_visible = yoga_ec_is_visible,
+> +	.read = yoga_ec_read,
+> +	.read_string = yoga_ec_read_string,
+> +};
+> +
+> +static const struct hwmon_channel_info * const yoga_ec_hwmon_info[] = {
+> +	HWMON_CHANNEL_INFO(in,
+> +			   HWMON_I_INPUT | HWMON_I_LABEL,
+> +			   HWMON_I_INPUT | HWMON_I_LABEL,
+> +			   HWMON_I_INPUT | HWMON_I_LABEL,
+> +			   HWMON_I_INPUT | HWMON_I_LABEL),
+> +	HWMON_CHANNEL_INFO(temp,
+> +			   HWMON_T_INPUT | HWMON_T_LABEL,
+> +			   HWMON_T_INPUT | HWMON_T_LABEL,
+> +			   HWMON_T_INPUT | HWMON_T_LABEL,
+> +			   HWMON_T_INPUT | HWMON_T_LABEL,
+> +			   HWMON_T_INPUT | HWMON_T_LABEL,
+> +			   HWMON_T_INPUT | HWMON_T_LABEL),
+> +	HWMON_CHANNEL_INFO(fan,
+> +			   HWMON_F_INPUT | HWMON_F_LABEL),
+> +	NULL
+> +};
+> +
+> +static const struct hwmon_chip_info yoga_ec_chip_info = {
+> +	.ops = &yoga_ec_hwmon_ops,
+> +	.info = yoga_ec_hwmon_info,
+> +};
+> +
+> +static int yoga_ec_fn_lock_toggle(struct yoga_ec *ec)
+> +{
+> +	u8 raw;
+> +	int ret;
+> +
+> +	ret = yoga_ec_ram_read(ec, YOGA_EC_SCUK, &raw);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (raw & YOGA_EC_SCUK_FN_LOCK)
+> +		raw &= ~YOGA_EC_SCUK_FN_LOCK_MASK;
+> +	else
+> +		raw |= YOGA_EC_SCUK_FN_LOCK_MASK;
+> +
+> +	return yoga_ec_ram_write(ec, YOGA_EC_SCUK, raw);
+> +}
+> +
+> +static void yoga_ec_report_key(struct yoga_ec *ec, unsigned int code)
+> +{
+> +	if (!ec->keys)
+> +		return;
+> +
+> +	input_report_key(ec->keys, code, 1);
+> +	input_sync(ec->keys);
+> +	input_report_key(ec->keys, code, 0);
+> +	input_sync(ec->keys);
+> +}
+> +
+> +static irqreturn_t yoga_ec_irq(int irq, void *data)
+> +{
+> +	struct yoga_ec *ec = data;
+> +	unsigned int i;
+> +
+> +	guard(mutex)(&ec->lock);
+> +
+> +	for (i = 0; i < YOGA_EC_EVT_MAX_DRAIN; i++) {
+> +		u8 resp[YOGA_EC_RESP_LEN];
+> +
+> +		if (yoga_ec_command(ec, YOGA_EC_CMD_EVENT, 0, 0, resp))
+> +			break;
+> +		if (!resp[0])
+> +			break;
+> +
+> +		switch (resp[0]) {
+> +		case YOGA_EC_EVT_FN_LOCK:
+> +			yoga_ec_fn_lock_toggle(ec);
+> +			break;
+> +		case YOGA_EC_EVT_MIC_MUTE:
+> +			yoga_ec_report_key(ec, KEY_MICMUTE);
+> +			break;
+> +		case YOGA_EC_EVT_FLIGHT_MODE:
+> +			yoga_ec_report_key(ec, KEY_RFKILL);
+> +			break;
+> +		default:
+> +			break;
+> +		}
+> +	}
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static void yoga_ec_register_keys(struct yoga_ec *ec)
+> +{
+> +	struct device *dev = &ec->client->dev;
+> +	struct input_dev *input;
+> +	int ret;
+> +
+> +	input = devm_input_allocate_device(dev);
+> +	if (!input) {
+> +		dev_warn(dev, "no memory for the hotkey device\n");
+
+Add include.
+
+> +		return;
+> +	}
+> +
+> +	input->name = "Lenovo Yoga Slim 7x hotkeys";
+> +	input->phys = "lenovo-yoga-slim7x-gen11-ec/input0";
+> +	input->id.bustype = BUS_I2C;
+> +	input_set_capability(input, EV_KEY, KEY_MICMUTE);
+> +	input_set_capability(input, EV_KEY, KEY_RFKILL);
+> +
+> +	ret = input_register_device(input);
+> +	if (ret) {
+> +		dev_warn(dev, "cannot register the hotkey device: %d\n", ret);
+> +		return;
+> +	}
+> +
+> +	ec->keys = input;
+> +}
+> +
+> +static ssize_t fn_lock_show(struct device *dev, struct device_attribute *attr,
+> +			    char *buf)
+> +{
+> +	struct yoga_ec *ec = dev_get_drvdata(dev);
+> +	u8 raw;
+> +	int ret;
+> +
+> +	scoped_guard(mutex, &ec->lock)
+> +		ret = yoga_ec_ram_read(ec, YOGA_EC_SCUK, &raw);
+> +
+> +	if (ret)
+> +		return ret;
+> +
+> +	return sysfs_emit(buf, "%u\n", !!(raw & YOGA_EC_SCUK_FN_LOCK));
+> +}
+> +
+> +static ssize_t fn_lock_store(struct device *dev, struct device_attribute *attr,
+> +			     const char *buf, size_t count)
+> +{
+> +	struct yoga_ec *ec = dev_get_drvdata(dev);
+> +	bool enable;
+> +	u8 raw;
+> +	int ret;
+> +
+> +	ret = kstrtobool(buf, &enable);
+> +	if (ret)
+> +		return ret;
+> +
+> +	guard(mutex)(&ec->lock);
+> +
+> +	ret = yoga_ec_ram_read(ec, YOGA_EC_SCUK, &raw);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (enable)
+> +		raw |= YOGA_EC_SCUK_FN_LOCK_MASK;
+> +	else
+> +		raw &= ~YOGA_EC_SCUK_FN_LOCK_MASK;
+> +
+> +	ret = yoga_ec_ram_write(ec, YOGA_EC_SCUK, raw);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return count;
+> +}
+> +static DEVICE_ATTR_RW(fn_lock);
+> +
+> +static struct attribute *yoga_ec_attrs[] = {
+> +	&dev_attr_fn_lock.attr,
+> +	NULL
+> +};
+> +ATTRIBUTE_GROUPS(yoga_ec);
+> +
+> +static int yoga_ec_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct device *hwmon;
+> +	struct yoga_ec *ec;
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	if (!i2c_check_functionality(client->adapter,
+> +				     I2C_FUNC_SMBUS_I2C_BLOCK))
+> +		return dev_err_probe(dev, -ENODEV,
+> +				     "adapter does not support SMBus block transfers\n");
+> +
+> +	ec = devm_kzalloc(dev, sizeof(*ec), GFP_KERNEL);
+> +	if (!ec)
+> +		return -ENOMEM;
+> +
+> +	ec->client = client;
+> +	i2c_set_clientdata(client, ec);
+> +
+> +	ret = devm_mutex_init(dev, &ec->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for (i = 0; i < YOGA_EC_NUM_TEMP; i++) {
+> +		u8 raw;
+> +
+> +		ret = yoga_ec_ram_read(ec, YOGA_EC_TEMP_FIRST + i, &raw);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to read thermistor %u\n", i);
+> +
+> +		if (raw > 0 && raw <= YOGA_EC_TEMP_MAX)
+> +			ec->temp_present |= BIT(i);
+> +	}
+> +
+> +	if (!ec->temp_present)
+> +		return dev_err_probe(dev, -ENODEV,
+> +				     "no thermistor reported a usable value\n");
+
+Please use braces in multi-line constructs.
+
+> +
+> +	dev_dbg(dev, "thermistors present: %#lx\n", ec->temp_present);
+> +
+> +	hwmon = devm_hwmon_device_register_with_info(dev, "yoga_slim7x_ec", ec,
+> +						     &yoga_ec_chip_info, NULL);
+> +	if (IS_ERR(hwmon))
+> +		return PTR_ERR(hwmon);
+> +
+> +	ec->kbd_led.name = "platform::kbd_backlight";
+> +	ec->kbd_led.max_brightness = YOGA_EC_KBLT_MAX;
+> +	ec->kbd_led.brightness_get = yoga_ec_kbd_led_get;
+> +	ec->kbd_led.brightness_set_blocking = yoga_ec_kbd_led_set;
+> +
+> +	ret = devm_led_classdev_register(dev, &ec->kbd_led);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to register keyboard backlight\n");
+> +
+> +	if (client->irq) {
+> +		yoga_ec_register_keys(ec);
+> +
+> +		ret = devm_request_threaded_irq(dev, client->irq, NULL,
+> +						yoga_ec_irq, IRQF_ONESHOT,
+> +						"lenovo-yoga-slim7x-gen11-ec", ec);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "cannot request the EC interrupt\n");
+> +
+> +		scoped_guard(mutex, &ec->lock) {
+> +			unsigned int i;
+> +
+> +			for (i = 0; i < YOGA_EC_EVT_MAX_DRAIN; i++) {
+> +				u8 resp[YOGA_EC_RESP_LEN];
+> +
+> +				if (yoga_ec_command(ec, YOGA_EC_CMD_EVENT, 0, 0, resp))
+> +					break;
+> +				if (!resp[0])
+> +					break;
+> +			}
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int yoga_ec_suspend(struct device *dev)
+> +{
+> +	struct yoga_ec *ec = dev_get_drvdata(dev);
+> +
+> +	guard(mutex)(&ec->lock);
+> +	ec->kblt_restore = !yoga_ec_kbd_led_level(ec, 0, &ec->kblt_level);
+> +
+> +	return 0;
+> +}
+> +
+> +static int yoga_ec_resume(struct device *dev)
+> +{
+> +	struct yoga_ec *ec = dev_get_drvdata(dev);
+> +
+> +	guard(mutex)(&ec->lock);
+> +	ec->cell_cached = false;
+> +
+> +	if (ec->kblt_restore) {
+> +		ec->kblt_restore = false;
+> +		yoga_ec_kbd_led_level(ec, ec->kblt_level, NULL);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static DEFINE_SIMPLE_DEV_PM_OPS(yoga_ec_pm_ops, yoga_ec_suspend, yoga_ec_resume);
+> +
+> +static const struct of_device_id yoga_ec_of_match[] = {
+> +	{ .compatible = "lenovo,yoga-slim7x-gen11-ec" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, yoga_ec_of_match);
+> +
+> +static const struct i2c_device_id yoga_ec_i2c_id[] = {
+> +	{ "yoga-slim7x-gen11-ec" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, yoga_ec_i2c_id);
+> +
+> +static struct i2c_driver yoga_ec_driver = {
+> +	.driver = {
+> +		.name = "lenovo-yoga-slim7x-gen11-ec",
+> +		.of_match_table = yoga_ec_of_match,
+> +		.dev_groups = yoga_ec_groups,
+> +		.pm = pm_sleep_ptr(&yoga_ec_pm_ops),
+> +	},
+> +	.probe = yoga_ec_probe,
+> +	.id_table = yoga_ec_i2c_id,
+> +};
+> +module_i2c_driver(yoga_ec_driver);
+> +
+> +MODULE_AUTHOR("Oleg Keri <okerixx@gmail.com>");
+> +MODULE_DESCRIPTION("Lenovo Yoga Slim 7x Gen 11 embedded controller");
+> +MODULE_LICENSE("GPL");
+> 
+
+-- 
+ i.
+
