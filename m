@@ -1,104 +1,133 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E45450E5A3
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:30:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790026257; cv=none; b=J5ar1TxjHyztac/7W77rQzk4C5bDWiIE9cbMkBajRMs3kvcdLFxhCxKvzjt9+UIIZ2D1e4r4jcvBZWjxdZnBcUBXOcj+/zU74RvtRU8bnnU7XdiJmFs8j2EqZHcgX07F+PkHvV5iTxdWMz/hU1Tcple9+ei4ghqvQEjFxpgNVlA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790026257; c=relaxed/simple;
-	bh=SDD5uJHfK6z8nRdxuK0ng0TRvAY5EGWTNJID3QGutxE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O1nSoMXIPIh5P3Gg9FV0s/M+CtTC5X8Dy2zUUKKFwjFwxKYsGEkZ/JgsGYpkK6EhDXIlSgm06SRA23fw72d2UEbHfjRT+9AHVnpEicOuP7mlaDePvefhk2lowOraWaj4l4SlEa3fVu/f8uH+YlbrwUuSbhGoftOEkyWFvQAs/SQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NRroXxKS; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67BF5349CFC
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:31:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790026265; cv=pass; b=bL8mQ8MBtz50SIObDbtUgbHgvc6jdXFzVx/OglZ7WX9INhWBEdNUxcYZdM6Sq+dVH2RSMpEpUuiuQSZWLY+afUlMuqdbEFNYMxQnw7hQrFxZuFHTzuzS6bX/b9uuXvwaFSCajby5vnVP8iNrjXXL9IVEait9psimnB+lLK63vKM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790026265; c=relaxed/simple;
+	bh=tP2StjssledBwPOyJvu8YRc7oJxEqM351GWXVfVRDlE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WJSVsAgme1v0VYEKUwnmi3y5GUdHlAn/ge5pP7zzOvz2qd7Ates6dtQ58SVleRWNDOZVtXIlsakBzADuIQRLaaC2ZEDkz6drFWg/sPEcE+Tc0JHvdhSI7LLroG+NsQmQADKwEUelRhrfe/qqIlO/c8ssJ+r81v+K/6dt27BopVA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VSAREjXz; arc=pass smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NRroXxKS"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f63546c3so2735552f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:30:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VSAREjXz"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39666bed444so16139a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:31:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790026264; cv=none;
+        d=google.com; s=arc-20260327;
+        b=b11EScfeG45+A038XxfcvudNylSTZBfzrkCBInfdF/30oTO5Qm/zxXDNPh2N5IilSW
+         F/9PPXtoHXrltKx9T2N8GJcC5c5NaUiP58VrqXVI93qarVLBGSIs+ZnD/3pl3VxCR/Bu
+         VuFam+MUpB5ZNB5iQRK3cQq/uLFEcXZ5NWWDESiyXDgD7xLGve5OhXpORp4set1/U5r2
+         kdvSxhiVGor1uCVcFNDqbIs53aHF66KDTZXWUKjqcdRqfPSSYHRu47wzYGI/BCx4YH5K
+         P4eS0zwh6V63k7/gnhHKDJKg6vUmdCiXTb+32qi5NJTQNfwU6MpqsSkqiYs0jMf19tgB
+         wvPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=npM8Tm5310J5ykZ+cQxb8lDmWPmckdFtiw8vnwk947g=;
+        fh=hKbGe2i0i9ZQ4Napk+mzg6Z67NouekoDTM8nGJFu5+o=;
+        b=gcQoVhG/+aQl4g9RQYYBonulkltUa9kTQVkMtl/ChVsKGZE6V/dSkDMPhYCQFKslzk
+         Ihu+/goFmmFGzRARxOIK0rntN4skW5OhTWQ2f3Jw8jdrt9sg5qvach4xG+IGHTSpCgES
+         PW6aT1vwKKGoHomAIxSEf2sscVfgHF5GNRfYIeQSfZrNIkJTuJobscLR/QVaRb2Cu1fT
+         liYl/T35khNST+2rR+WBX+D1DrQQaT8kviaikadc9sBcyom4yb+ytI+G5U+WY6+hfRHA
+         aWSSzKS4MUo4XzWuPsqTuzXMCQprW8VaCOZXg2AWanMfx6hfgKQIBpE5TbUJfIjmHWgS
+         sQiw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790026253; x=1790631053; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SDD5uJHfK6z8nRdxuK0ng0TRvAY5EGWTNJID3QGutxE=;
-        b=NRroXxKSntq3xO4MSo3ErmviL4Xxw4fuz8NUWG+GV0sooY5EtQX558oSc0esSAbopE
-         XsyztbYzA2x7Dkqy2hio380jFCPzVTeSCYgqYM3aKDUa3kGTG7FfTX9ZfT6sJEONx/dr
-         knuUYZ9++zkefwgL9ghci1AJybaWRPftuwsqDAfe05Gey0dt4T+geSFR64uIvYscBtiY
-         5pGFDZy1wEAQFuTHX9McyL8Tlh+5YJqDs7rKaxCyk8e9nNGM5tzPwYIfB1bMXfgsOeZm
-         lS2lSCpIoUEd3Z73iI+sqnXuYqYL5GVZuh+a3MkXN4+2de/TEl9NXBOVDCJybNx3cf+R
-         nRVw==
+        d=gmail.com; s=20251104; t=1790026264; x=1790631064; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=npM8Tm5310J5ykZ+cQxb8lDmWPmckdFtiw8vnwk947g=;
+        b=VSAREjXz+sgUHGpF+pVYaWyRns4dYvNq8PG4bYks7MRZ6u/6QvH8MAaBpsKEUjxxKG
+         F1MpHVggC5incmcBjNVk+VAs+ANsb4B1G+11KkJIl+ZQcdt3HDu2r1X5cH8O0aOCgYB/
+         D9+BynBywKh8vHfEt2uCpAna7+26jOq55bAQ5ga1M4aLS9rxChrpM8r9QjbLe+PeZ4iF
+         Zcsjdox0kwqw/q6cRMiqOOPq3ADj1KzqWAZ05ARFOtlD1yaY20M9r2FJRChVAobI/9Lj
+         HJlkIPZr+w1vkejE4ntQgC9vS+8KWjxE+NWo4kjnNzCCSE1xJoaU8SbrNxEZrXQrnszG
+         wFWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790026253; x=1790631053;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SDD5uJHfK6z8nRdxuK0ng0TRvAY5EGWTNJID3QGutxE=;
-        b=xkpA3GJccMPWY+KJNkFqVIJ9hQPjB55I3Rnbce0aUF1tIG6E7wFBsDLY783ZQ7lmwy
-         QxHh9kIELgWJNv2vggSZssHBB2RDPPs3fqdPetbq27JeG+PcWMP5SyAtMG/WVz6phkmm
-         JvDM9uXoQFjLo/R09AX9s8cEGHIiPCjQeawpZCCRz12VfYjgVCZnDQTM1PyaadpQvJWH
-         JDY658dlBnlQPJjyG2sszq7s2st0YGywzHxmX+uFpbcb9VJK//qvPCGXQZajmpcc/t6d
-         mV+++h6f4fNmxFhR/9WV44yHlSHYjLz7QGYcniW/Aay4QYHjzLSBDbouS+ztlPBjqUXU
-         1RZg==
-X-Forwarded-Encrypted: i=1; AKwUvByJeymEBw+V2Is7c0NoEmNgzzWvlx6w8XFPLlN/cnfbzmZJziZUvY1duz60AhcN7OP2DpFtfSMRDjA6+Kk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYmgDScUhG6dzbYlaCYEzYLlVBYH8xvvXsm1pX4C+OEb8qJHR7
-	xOwuAp5mzfptAhku502y0yl0lgfIbJuyYz9GURLsj+Vachakoie2xhT1
-X-Gm-Gg: AYBFou1qv8hXYLayTy8VjXat+uGI+Kny4Qn6Dp3iyaPW5uetZzLSAV+ggoHTlmGV6by
-	iIB6/5M7zJG927Ulyzx8V/W3kTu3Z8fwooj4f+IekFuSKypoGStrx4I1/+c12dYud2qFjzGrr6W
-	8Mqbko5q/6VGHYPuH3xobDS+ZQcfTyS+S/49gcwixCT0+Qxocw21hWzfSXaPmOvj0dv+s7MwAax
-	FlU7NbwBYZrMz/6bwJ3Vyb8xpWyzuoYcfr0qAgBZADjAJ7+YmNNEXxH7CuKgslK284e3Sn64DWf
-	yzsmb9vyV7PBK5S/zNfJVbZSlR2OXEFEBv7WMGt3QNNezcBO6qq4S+0NeY3r7EtxRsA9eB3wwmc
-	Vt6OOUcCgoBYSrFXFIOZyQbvb3rIzbN5xRrjusVqmusa3L9VcLu9PL0hBNq5urN3JfifHAzXGCp
-	TANit6BDjKJMWOZAjhP1QLeHe7Jqa9KR4wSbqpBwMU0mwKMGEAJiaRDp6sz90isBzJ/YWx+6n7t
-	abc4vn7iNCYJh6HsfVxxfVcWMZuHwIhaXkZbD5pWsXQYrwq/g==
-X-Received: by 2002:a05:6000:2890:b0:486:fa7b:d3aa with SMTP id ffacd0b85a97d-4871e2273a5mr15062011f8f.23.1790026252444;
-        Mon, 21 Sep 2026 14:30:52 -0700 (PDT)
-Received: from linus-personal-clanker ([102.164.100.122])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862287b6esm239042f8f.33.2026.09.21.14.30.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 14:30:52 -0700 (PDT)
-From: "David .B. Dull" <monderasdor@gmail.com>
-To: adrianox@gmail.com
-Cc: fw@strlen.de,
-	horms@verge.net.au,
-	ja@ssi.bg,
-	linux-kernel@vger.kernel.org,
-	lvs-devel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	pablo@netfilter.org
-Subject: Re: [PATCH v5 nf-next 3/3] selftests: netfilter: ipvs: add per-service secure_tcp test
-Date: Mon, 21 Sep 2026 23:30:31 +0200
-Message-ID: <20260921213031.6160-1-monderasdor@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260921205706.1055288-4-adrianox@gmail.com>
-References: <20260921205706.1055288-4-adrianox@gmail.com>
+        d=1e100.net; s=20260707; t=1790026264; x=1790631064;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=npM8Tm5310J5ykZ+cQxb8lDmWPmckdFtiw8vnwk947g=;
+        b=Uo54c5eTJgDz3g5sm7zg6PmsPlM+3vbD0qaP2keEWGHsR814nt1rN7HpbbEjg7fvBs
+         0wNu5mAhB94BAB6CjfzlGQuTFHU4j/7cuVpnZZDpO8Y8UDHBwXnnACmUg5bZPI1cQPVw
+         n77n5noCjFuEAEwKiKvtHiXG3qozQq+qqHVAFtV7k3Z0R39CoRj+7VfRq1Lqx4ErNmCO
+         FKPd9N5uUn6IDuF2bkR71e6qRUrS5BNzBGxCFuU8PScHkRct2USUQqu5JFbM9L8RKbqQ
+         kybUGNO4jEbTqmzCA9pVDv9Egvbh96jtg8CGPRaEgmR1lHTR5CF2fhhTMghS3yIeuC/9
+         iElw==
+X-Forwarded-Encrypted: i=1; AKwUvByCRa1uAETOZ03/n+rVRsZjtdj6HDhPBuJNHi7Vf8YsGhY134Ottr+zg+MhNEF7CiV3AYjc7tc5vwmB0ww=@vger.kernel.org
+X-Gm-Message-State: AFuF++mvdhRuCeH2zQ4maetP2It+5+IH8dW+DEhIEfAw1/zcHxoKOAbI
+	a0geRkLEQPLEZOv7kXyWaTkGZo9sQbr+JoJ5mXpa95ReU2DAuYg3pjTUmF+cU8RFTkCOMXngLBO
+	SE1dwoXZv4SDgFfltBKJlbkGPxBfi5AU=
+X-Gm-Gg: AYBFou1bF5Hq3tIYox7DrAnSIrzCxVP0Mrf6gJfJv0jYHBSN5akPwSsNH9ZytQK5pV9
+	vxaLc42fBcFKJUChhYCVP8VeJPQBh1OE62hRdZar5DspsUEy9ZC+AB01l3In+00ajHtWN/+Sj+N
+	DRC0MUx/fyAR5vdYsXKInDj2j/AmyU7XMuwqFU8cDvMMlVBdXkc7cyXqlTJcwD9Jcf5Gxm4WeV+
+	ZW7D+QhB/VIN8Uxyrl72sx81F6VIgWBgC3mVG2jEs9RbDIWKj+wnc7vfNExtXwxgGMfU62TrkRk
+	EO8oYjxXvvg9Xa4oQ2BF23jh2nvbb0XScZD+VZZRXIy5Gs7VKkqDx6R3WrWa8xdf6m8uxw1Dsmw
+	KyEwgKfX1Wj7MvRI22/jIkJFhGvlmO6+gqpIOM55WtGg=
+X-Received: by 2002:a17:90b:58f0:b0:39e:261:4e13 with SMTP id
+ 98e67ed59e1d1-39e54f42eefmr24972615a91.3.1790026263555; Mon, 21 Sep 2026
+ 14:31:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260920062510.166584-1-yaolu@kylinos.cn>
+In-Reply-To: <20260920062510.166584-1-yaolu@kylinos.cn>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 21 Sep 2026 17:30:50 -0400
+X-Gm-Features: AcwNN1WjjOBi88To3FSq581QqCOsezWgyru8to2rFEhGCyGgtBQdu6CsObQOUn4
+Message-ID: <CADnq5_M19JOb6kSwUi6juWWSpMtQZtWazw5VtP7rhr5ZvC0-iA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: drop KFD_QUEUE_TYPE_DIQ note
+To: yaolu@kylinos.cn
+Cc: lingshan.zhu@amd.com, Felix.Kuehling@amd.com, alexander.deucher@amd.com, 
+	christian.koenig@amd.com, amd-gfx@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: David Dull
+Applied.  Thanks!
 
-To: Adriano Cordova
-
-Cc: Simon Horman, Julian Anastasov, Pablo Neira Ayuso, Florian Westphal, netfilter-devel, lvs-devel, netdev, linux-kernel
-
-This patch has already been reviewed by the netdev bot with Sashiko on 2026-09-21 for the v4 revision of this same selftest patch. That review found three possible issues. First the changelog wording claimed a bare SYN ACK suffices but the probe actually sends a bare SYN followed by a separate bare ACK. Second the script has no kernel side prerequisite check and no skip path for when ip_vs is unavailable. Third the secure side assertion cannot distinguish between the per service secure_tcp working correctly and the ACK probe never arriving at all.
-
-This v5 revision appears to address the first and second points by rewording the changelog to say a bare SYN followed by a bare ACK and by adding module availability checks for ip_vs and ip_vs_rr. The third concern about the assertion being ambiguous if the ACK probe fails is addressed by the addition of checking the probe exit status so a probe that dies after the SYN cannot leave the secure side SYN_RECV assertion passing incorrectly.
-
-The code itself is well structured with proper error checking in the libmnl helper for setsockopt sendto and mnl_socket_bind return values. The fallback definition for IP_VS_SVC_F_SECURE_TCP in the helper is a reasonable approach for older userspace headers. The test topology and the approach of using TTL one probes to prevent the packets from reaching the real server is sound.
-
-However there is one remaining concern. The assertion that the plain service reaches ESTABLISHED state depends on the probe successfully sending both the SYN and the ACK. If the second sendto call fails in the probe the exit status will be non zero and the test will report failure. But if the ACK packet is sent successfully and simply does not reach IPVS for some reason the connection may still be in SYN_RECV when the assertion runs. The sleep between the probe and the assertion is only one second which may not be sufficient on a heavily loaded system. Consider increasing the sleep or adding a retry loop for the state check.
-
-Overall the patch is in good shape and addresses the prior review comments appropriately.
-
-Reviewed-by: David Dull
-
-Signed-off-by: David Dull
+On Sun, Sep 20, 2026 at 2:25=E2=80=AFAM <yaolu@kylinos.cn> wrote:
+>
+> From: Lu Yao <yaolu@kylinos.cn>
+>
+> Commit e1b73b64271d ("amdkfd: remove DIQ support") removed the
+> KFD_QUEUE_TYPE_DIQ enumerator from enum kfd_queue_type but left its
+> description behind in the note block.
+>
+> Fixes: e1b73b64271d ("amdkfd: remove DIQ support")
+> Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/=
+amdkfd/kfd_priv.h
+> index d8631847f0eb..2847a5ec5ede 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -430,8 +430,6 @@ enum kfd_unmap_queues_filter {
+>   *
+>   * @KFD_QUEUE_TYPE_HIQ: HIQ queue type.
+>   *
+> - * @KFD_QUEUE_TYPE_DIQ: DIQ queue type.
+> - *
+>   * @KFD_QUEUE_TYPE_SDMA_XGMI: Special SDMA queue for XGMI interface.
+>   *
+>   * @KFD_QUEUE_TYPE_SDMA_BY_ENG_ID:  SDMA user mode queue with target SDM=
+A engine ID.
+> --
+> 2.25.1
+>
