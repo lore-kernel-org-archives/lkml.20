@@ -1,429 +1,146 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7C14A498901;
-	Mon, 21 Sep 2026 12:42:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0B3496D39
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:43:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789994541; cv=none; b=Ck0iZENCOOZtfiUgzL/8PhUOlknCgttzRaqqOiBtcPtLE4dWhuoULwS8tuSFvqG6tjT39qPGhbJpqhhehFzWNNyXEeQor5MI785/NSFTcsJ9LBuqMx1ZQVh3m4D4RvBzc8m+XlWWpsNcWCgp4Wyit0jOeq0yvytj8pkFdqAgqfA=
+	t=1789994585; cv=none; b=TQrxJblpbpj4Qz8b//ltwkYLAoBnFjumNaqByIquOK7beKIClfV4nX1BbgpEVhgVhCS3dt3dEm3EcD7U7vj9KvahZkUD5X9MLp9cAwoa+keUkHMWLIvDNXBuyS2rzsICmkUH0mnazDGmdcQ1qbVFX/eQ+60cf9ufd3OZT823Y4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789994541; c=relaxed/simple;
-	bh=IRpX+ZEp/zVlKdL3h+SzNZQpQmKb6Y0IMlPZO81/S6c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CdkgqXmFLrrBudvKjHqMWVgz3zh2c+m3M4cr9EypaIR2kOi88D2yixtjidOamUVCpl3OwB9701JeO+481qstI0BxMZJw2J343w1YPf6PhNtAxcR8zY1rHn9OsBQukv8xXIumbUNlWx6CIpW0Wopmj/6O8SwSv4AE7rzMAZ36+6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=eQGWfG0T; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="eQGWfG0T"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 36E811D13;
-	Mon, 21 Sep 2026 05:42:13 -0700 (PDT)
-Received: from [10.0.128.141] (unknown [10.0.128.141])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5ADB83F86C;
-	Mon, 21 Sep 2026 05:42:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789994536; bh=IRpX+ZEp/zVlKdL3h+SzNZQpQmKb6Y0IMlPZO81/S6c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=eQGWfG0TNldwMTREH8bTh8H+1w65s5SsyxtYASsAlYAaZhM8/Zie7v82Mz2jl0q9d
-	 zxAeSIJPe+dB5+sJ8mob10j+F/7snho7KhyQ+JbciEj5KvoFXiLNlzC3lNDR/4jHEl
-	 3xtE0k19WjVMcp+/ILdArlTZ7OInKPcsQie2e8do=
-Message-ID: <bbb2f1db-5d42-495f-b34e-184a6cd894ce@arm.com>
-Date: Mon, 21 Sep 2026 13:42:11 +0100
+	s=arc-20240116; t=1789994585; c=relaxed/simple;
+	bh=t8+PdfneDu1hxHC8QDP5ldRMtCmeAtS8ppcZKVYE45U=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=DT1+bK8TGujJ+f0FgYgc0wulhuNelvTLeHpKmWljhMBcaQT3IexwSITS07XmsOqhTS0qLaWYT4J6cxF5SyQqPsKU9HNmtVt5b2VbTehtc0cpq9lkeLUhy6Dgi1IUlxW/qDXyVzgF3C6/iE1bZbCCiUsoDjZ7QdcBHFcBNdR46yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6bc8f608979so2329442eaf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:43:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789994583; x=1790599383;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=nlciio7ok7KxUJezaVMgg7fHEPOABsp4fse8OC9WpMA=;
+        b=Gia/9GTjcEIPSNb7JkaA91vaaJwngGF/NU2G4nvGkCN3Y90xsUHELwyhM+WytVoBY7
+         9028U9bOUefR2NhJAPWRgGsip23y9GpMGM0lNH5bMM74ByUjaDU9Dy9W/tHTgKsmr0yD
+         zvSrQgyvEY9bbaHB4ydrwxsTLb1uHT8gcq4+nMQMFv4lcbD3qBuQgaGxmQOZ38bRzhSI
+         L0z4lxiWnUyOsii4Ik0nujFs5wYooHRUhxdV0ur2B6QhspKonOsWqvt3mNzaIKkNLKnK
+         v7nKDOFOHC4JPLUpxWFpVfFDVv4QNr/EV1N3qwPVcXBy6PGTKv6mchdJl6eHkzvJzk6i
+         b/AQ==
+X-Gm-Message-State: AFuF++nJ2EsDTUNXQhzRIJBsifBTCl8qzm9y39ayjLFjVZbQXMR7SJxO
+	+opJXCWfeGoIkjKXkLvDZ/qTNzZZi4FGXe3ypa3V1AAPbQaPnvE8MOOlMNyqPfAYrnb8WXIf7Ns
+	312IMLzMd6X7xmLYO6kPOKrZZC1yZExzkfMCRypYUnj6T7hW8Ipid2zSIk+Y=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 4/7] firmware: arm_rmm: Add support for SRO
-Content-Language: en-GB
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
- <20260912083611.2513845-5-suzuki.poulose@arm.com>
- <178978126542.2352296.15676256806777454164.b4-review@b4>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <178978126542.2352296.15676256806777454164.b4-review@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:198e:b0:6bd:d2ad:55a1 with SMTP id
+ 006d021491bc7-6ca9a1343b2mr9098950eaf.9.1789994583010; Mon, 21 Sep 2026
+ 05:43:03 -0700 (PDT)
+Date: Mon, 21 Sep 2026 05:43:02 -0700
+In-Reply-To: <20260921122100.6242-1-nsvatoslav515@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab12656.e548f532.1ca396.0013.GAE@google.com>
+Subject: Re: [syzbot] [kernel?] WARNING in iounmap
+From: syzbot <syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, nsvatoslav515@gmail.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 19/09/2026 02:27, Jonathan Cameron wrote:
->> RMM v2.0 introduces the concept of "Stateful RMI Operations" (SRO). This
->> means that an SMC can return with an operation still in progress. The
->> host is expected to continue the operation until it reaches a conclusion
->> (either success or failure). During this process the RMM can request
->> additional memory ('donate') or hand memory back to the host
->> ('reclaim'). The host can request an in progress operation is cancelled,
->> but still continue the operation until it has completed (otherwise the
->> incomplete operation may cause future RMM operations to fail).
->>
->> The SRO is tracked using a struct rmi_sro_state object which keeps track
->> of any memory which has been allocated but not yet consumed by the RMM
->> or reclaimed from the RMM. This allows the memory to be reused in a
->> future request within the same operation. It will also permit an
->> operation to be done in a context where memory allocation may be
->> difficult (e.g. atomic context) with the option to abort the operation
->> and retry the memory allocation outside of the atomic context. The
->> memory stored in the struct rmi_sro_state object can then be reused on
->> the subsequent attempt.
->>
->> Wrappers for SRO RMI commands are also provided here because they depend
->> on the rmi_sro_execute() implementation added by this patch.
->> Delegate/undelegate handles are also added here because they now use the
->> SRO/stateful command infrastructure and are also used for the memory
->> DONATE/RECLAIM flows.
->>
->> Signed-off-by: Steven Price <steven.price@arm.com>
->> Co-Developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> 
-> Hi Suzuki.
-> 
-> A few comments and questions on the array for the cache of
-> allocations.
-> 
-> Jonathan
-> 
->> ---
->>   drivers/firmware/arm_rmm/rmi.c | 586 +++++++++++++++++++++++++++++++++
->>   include/linux/arm-rmi-cmds.h   |  41 +++
->>   2 files changed, 627 insertions(+)
->>
->> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
->> index 5b0e342ce3d5..4f9898ece754 100644
->> --- a/drivers/firmware/arm_rmm/rmi.c
->> +++ b/drivers/firmware/arm_rmm/rmi.c
->> @@ -15,6 +15,59 @@
->>   #define RMI_FEAT_REG_COUNT	2
->>   static unsigned long rmi_feat_reg_cache[RMI_FEAT_REG_COUNT] __ro_after_init;
-> 
+Hello,
 
-Was there a question here you missed ? FWIW:
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+WARNING in drm_mm_takedown
 
-I have expanded this to cover all 5 RmiFeatureRegisters exposed by RMM, 
-and it looks something like this now, with the use of ARRAY_SIZE() to
-limit accesses.
-
-
-/* RMM defines RmiFeatureRegister0 to RmiFeatureRegister5. */
-static unsigned long rmi_feat_reg_cache[5] __ro_after_init;
-
-> 
-> 
->> +static int rmi_sro_donate_contig(struct rmi_sro_state *sro,
->> +				 unsigned long sro_handle,
->> +				 unsigned long donatereq,
->> +				 struct arm_smccc_1_2_regs *out_regs,
->> +				 gfp_t gfp)
-
-...
-
->> +	addr_range = phys & RMI_ADDR_RANGE_ADDR_MASK;
->> +	FIELD_MODIFY(RMI_ADDR_RANGE_BLOCK_SIZE_MASK, &addr_range, block_size_fld);
->> +	FIELD_MODIFY(RMI_ADDR_RANGE_COUNT_MASK, &addr_range, count);
->> +	FIELD_MODIFY(RMI_ADDR_RANGE_STATE_MASK, &addr_range, state);
->> +
->> +	sro->addr_list[sro->addr_count] = addr_range;
->> +
->> +out:
-> 
-> This doesn't smell like an 'out' - as the real works is done down
-> here.
-
-Ack, I have renamed it to "donate:"
-
->> +
->> +static int rmi_sro_donate_noncontig(struct rmi_sro_state *sro,
->> +				    unsigned long sro_handle,
->> +				    unsigned long donatereq,
->> +				    struct arm_smccc_1_2_regs *out_regs,
->> +				    gfp_t gfp)
->> +{
->> +	unsigned long block_size_fld = RMI_DONATE_BLOCK_SIZE(donatereq);
->> +	unsigned long block_size = rmi_addr_block_size_to_bytes(block_size_fld);
->> +	unsigned long count = RMI_DONATE_COUNT(donatereq);
->> +	unsigned long state = RMI_DONATE_STATE(donatereq);
->> +	unsigned long found = 0;
->> +	unsigned long donated_granules;
->> +	unsigned long granules_per_block = block_size >> PAGE_SHIFT;
->> +	unsigned long consumed_blocks;
->> +	int addr_list_start = sro->addr_count;
->> +
->> +	int ret;
->> +
->> +	for (int i = 0; i < addr_list_start && found < count; i++) {
->> +		unsigned long entry = sro->addr_list[i];
->> +
->> +		if (RMI_ADDR_RANGE_BLOCK_SIZE(entry) == block_size_fld &&
->> +		    RMI_ADDR_RANGE_COUNT(entry) == 1 &&
->> +		    RMI_ADDR_RANGE_STATE(entry) == state) {
->> +			addr_list_start--;
-> 
-> I guess putting that as a predecrement in the swap is a little
-> too obscure.
-> 
-> Maybe a comment for this whole loop that it is gathering up
-> useable entries by moving them to the end of the bit of the
-> array that is already in use.  Neat little bit of code but takes a little
-> more thinking about than might be ideal when we look at this
-> 10 years down the line.  Maybe it's just that it is Friday...
-> 
->> +			swap(sro->addr_list[addr_list_start],
->> +			     sro->addr_list[i]);
->> +			found++;
->> +			i--;
-> 
-> Rather than decrement the loop variable, maybe a goto and a label
-> for try_new_entry or something like that?  Even a comment might
-> be useful.
-
-Ack. I think a while loop makes it look a bit better with
-comments. e.g.:
-
-@@ -356,9 +356,11 @@ static int rmi_sro_donate_noncontig(struct 
-rmi_sro_state *sro,
-         unsigned long granules_per_block = block_size >> PAGE_SHIFT;
-         unsigned long consumed_blocks;
-         int addr_list_start = sro->addr_count;
--       int ret;
-+       int ret, i;
-
--       for (int i = 0; i < addr_list_start && found < count; i++) {
-+       /* Gather the suitable entries to the end of the list */
-+       i = 0;
-+       while (i <  addr_list_start && found < count) {
-                 unsigned long entry = sro->addr_list[i];
-
-                 if (RMI_ADDR_RANGE_BLOCK_SIZE(entry) == block_size_fld &&
-@@ -368,8 +370,11 @@ static int rmi_sro_donate_noncontig(struct 
-rmi_sro_state *sro,
-                         swap(sro->addr_list[addr_list_start],
-                              sro->addr_list[i]);
-                         found++;
--                       i--;
-+                       /* Continue from the swapped in entry */
-+                       continue;
-                 }
-+               /* skip past the entry */
-+               i++;
-         }
-
-> 
->> +		}
->> +	}
->> +
->> +	ret = rmi_sro_ensure_capacity(sro, count - found);
->> +	if (ret)
->> +		return ret;
-> 
-> Will this normally succeed? Feels like we could have a lot
-> of useless entrees at the start of the storage, so no room to
-> enough extra ones.
-
-That is true. In this case, we should be able to proceed to
-donate as much as we have been able to gather and retry
-the donation in the next iteration, by freeing up the
-cached ones.
-         ret = rmi_sro_ensure_capacity(sro, count - found);
--       if (ret)
--               return ret;
-+       if (ret) {
-+               /* If we have found some entries, donate them and try 
-again */
-+               if (found)
-+                       goto mem_donate;
-+               /* Otherwise, free up the list and start again */
-+               rmi_sro_free(sro);
-+       }
-
--       while (found < count) {
-+       for (; found < count; found++) {
-                 unsigned long addr_range;
-                 void *virt = alloc_pages_exact(block_size, gfp);
-                 phys_addr_t phys;
-@@ -403,12 +413,12 @@ static int rmi_sro_donate_noncontig(struct 
-rmi_sro_state *sro,
-                 FIELD_MODIFY(RMI_ADDR_RANGE_STATE_MASK, &addr_range, 
-state);
-
-                 sro->addr_list[sro->addr_count++] = addr_range;
--               found++;
-         }
-
-+mem_donate:
-         rmi_op_mem_donate(sro_handle,
-                           virt_to_phys(&sro->addr_list[addr_list_start]),
--                         count, 0, out_regs);
-+                         found, 0, out_regs);
-
->> +
->> +	while (found < count) {
-> 
-> For loop seems more natural to me given the bounds are known
-> and found is only incremented at the end.
-
-Ack
-
-> 
->> +		unsigned long addr_range;
->> +		void *virt = alloc_pages_exact(block_size, gfp);
->> +		phys_addr_t phys;
->> +
->> +		if (!virt)
->> +			return -ENOMEM;
->> +
->> +		phys = virt_to_phys(virt);
->> +
->> +		if (state == RMI_OP_MEM_DELEGATED) {
->> +			phys_addr_t delegated_phys;
->> +
->> +			if (rmi_delegate_range(phys, block_size,
->> +					       &delegated_phys)) {
-> 
-> Go long. It is shorter than the line that follows anyway!
-
-Ack
-
->> +
->> +	/* Keep just the blocks the RMM didn't use in addr_list */
->> +	for (int i = consumed_blocks; i < count; i++)
->> +		sro->addr_list[addr_list_start + i - consumed_blocks] =
->> +			sro->addr_list[addr_list_start + i];
-> 
-> Maybe memmove to make it clear you are shifting a chunk of the array
-> down.  This might be worth some asci art showing each step in brief.
-> Anyhow, something along these lines:
-> 
->        memmove(&sro->addr_list[addr_list_start],
-> 	      &sro->addr_list[addr_list_start + consumed_blocks],
-> 	      (count - consumed_blocks) * sizeof(*sro->addr_list));
-> 
-> Obviously doesn't save code, but maybe simpler to understand than
-> the loop.
-> 		
-
-Does the following hunk look better with the comment ?
-
-         /*
-          * Keep just the blocks the RMM didn't use in addr_list.
-          * RMM claimed consumed_blocks entries from addr_list_start.
-          * Move the entries left out at the end i.e.
-          * [ addr_list_start + consumed_blocks, addr_list_start + found)
-          * to the rest of the valid entries and adjust the addr_count to
-          * reflect the available entries.
-          */
-         for (int i = 0, src = addr_list_start + consumed_blocks;
-                 i < found - consumed_blocks; i++)
-                 sro->addr_list[addr_list_start + i] = 
-sro->addr_list[src + i];
-
-         sro->addr_count -= consumed_blocks;
-
-> 
->> +}
->> +
->> +static int rmi_sro_reclaim(struct rmi_sro_state *sro,
->> +			   unsigned long sro_handle,
->> +			   struct arm_smccc_1_2_regs *out_regs)
->> +{
->> +	unsigned long capacity;
->> +
->> +	if (rmi_sro_ensure_capacity(sro, 1))
->> +		rmi_sro_free(sro);
-> 
-> Maybe a comment on why you free the whole lot rather than a smaller
-> amount to make some room.
-
-We don't do partial free of the list today, and having that is
-unnecssarily complicating the logic/code. We are going to do a reclaim 
-anyways. Sure, I could add a comment.
+Console: switching to colour dummy device 80x25
+------------[ cut here ]------------
+Memory manager not clean during takedown.
+WARNING: drivers/gpu/drm/drm_mm.c:965 at drm_mm_takedown+0x62/0x280 drivers/gpu/drm/drm_mm.c:965, CPU#3: syz.0.17/6259
+Modules linked in:
+CPU: 3 UID: 0 PID: 6259 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:drm_mm_takedown+0x62/0x280 drivers/gpu/drm/drm_mm.c:965
+Code: 8b 43 38 48 39 c5 75 16 e8 8b b6 38 fc 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e e9 4a b0 00 06 e8 75 b6 38 fc 48 8d 3d fe 27 7d 0b <67> 48 0f b9 3a 48 c7 c0 00 84 65 8e 48 ba 00 00 00 00 00 fc ff df
+RSP: 0018:ffffc90003b77860 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: ffff888026e90068 RCX: 0000000000000000
+RDX: ffff8880334a4b00 RSI: ffffffff85d3669b RDI: ffffffff91508ea0
+RBP: ffff888026e900a0 R08: 0000000000000007 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000001 R12: ffff888027ef2e80
+R13: ffff888027ef2e98 R14: ffffffff85d238e0 R15: 0000000000000000
+FS:  00007ff311d0f6c0(0000) GS:ffff8880d5e59000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ff310deb840 CR3: 000000003497d000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ drm_managed_release+0x1bb/0x540 drivers/gpu/drm/drm_managed.c:75
+ drm_dev_release drivers/gpu/drm/drm_drv.c:924 [inline]
+ kref_put include/linux/kref.h:65 [inline]
+ drm_dev_put.part.0+0xca/0x140 drivers/gpu/drm/drm_drv.c:958
+ drm_dev_put+0x1f/0x30 drivers/gpu/drm/drm_drv.c:957
+ virtio_dev_remove+0xb8/0x170 drivers/virtio/virtio.c:375
+ device_remove+0xcb/0x180 drivers/base/dd.c:616
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ bus_remove_device+0x2bc/0x560 drivers/base/bus.c:664
+ device_del+0x376/0x9b0 drivers/base/core.c:3965
+ device_unregister+0x1d/0xe0 drivers/base/core.c:4006
+ unregister_virtio_device+0x39/0x60 drivers/virtio/virtio.c:608
+ virtio_pci_remove+0x7c/0x110 drivers/virtio/virtio_pci_common.c:760
+ pci_device_remove+0xb2/0x1d0 drivers/pci/pci-driver.c:535
+ device_remove+0xcb/0x180 drivers/base/dd.c:616
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ unbind_store+0xf8/0x110 drivers/base/bus.c:244
+ drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7ff310d9e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ff311d0f028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007ff311025fa0 RCX: 00007ff310d9e159
+RDX: 000000000000000d RSI: 0000200000000300 RDI: 0000000000000004
+RBP: 00007ff310e3503b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007ff311026038 R14: 00007ff311025fa0 R15: 00007ffca5d5c2c8
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	8b 43 38             	mov    0x38(%rbx),%eax
+   3:	48 39 c5             	cmp    %rax,%rbp
+   6:	75 16                	jne    0x1e
+   8:	e8 8b b6 38 fc       	call   0xfc38b698
+   d:	48 83 c4 08          	add    $0x8,%rsp
+  11:	5b                   	pop    %rbx
+  12:	5d                   	pop    %rbp
+  13:	41 5c                	pop    %r12
+  15:	41 5d                	pop    %r13
+  17:	41 5e                	pop    %r14
+  19:	e9 4a b0 00 06       	jmp    0x600b068
+  1e:	e8 75 b6 38 fc       	call   0xfc38b698
+  23:	48 8d 3d fe 27 7d 0b 	lea    0xb7d27fe(%rip),%rdi        # 0xb7d2828
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	48 c7 c0 00 84 65 8e 	mov    $0xffffffff8e658400,%rax
+  36:	48 ba 00 00 00 00 00 	movabs $0xdffffc0000000000,%rdx
+  3d:	fc ff df
 
 
-> 
->> +
->> +	capacity = RMI_MAX_ADDR_LIST - sro->addr_count;
->> +
->> +	rmi_op_mem_reclaim(sro_handle,
->> +			   virt_to_phys(&sro->addr_list[sro->addr_count]),
->> +			   capacity, out_regs);
->> +
->> +	/*
->> +	  * RMI_OP_MEM_RECLAIM always return RMI_INCOMPLETE, except when the
->> +	  * input parameters were invalid.
->> +	  */
->> +	if (WARN_ON_ONCE(RMI_RETURN_STATUS(out_regs->a0) != RMI_INCOMPLETE))
->> +		return -EINVAL;
->> +	if (WARN_ON_ONCE(out_regs->a1 > capacity))
->> +		out_regs->a1 = capacity;
-> I guess this should never happen, but bit ugly to fixup the register
-> return rather than perhaps using a local variable instead.
+Tested on:
 
-We pass/get the out_regs, so local variable doesn't work, unless
-I missed what you were hinting at..
-
-> Obviously doesn't matter in practice.
-
-> 
->> +	sro->addr_count += out_regs->a1;
->> +
->> +	return 0;
->> +}
-> 
->> +
->> +/* For RMI commands that are stateful but not memory-transferring */
-> 
-> Given this is exported, maybe some docs on return values etc?
-> Similar for the other exported funcitons.
-
-Ack
-
-> 
->> +long rmi_sro_execute(struct arm_smccc_1_2_regs *regs)
->> +{
->> +	bool cancelled = false;
->> +	unsigned long sro_handle = regs->a1;
->> +
->> +	rmi_smccc_invoke(regs);
->> +
->> +	sro_handle = regs->a1;
->> +	while (RMI_RETURN_STATUS(regs->a0) == RMI_INCOMPLETE) {
->> +		bool can_cancel = RMI_RETURN_CAN_CANCEL(regs->a0) == RMI_OP_CAN_CANCEL;
->> +
->> +		switch (RMI_RETURN_MEMREQ(regs->a0)) {
->> +		case RMI_OP_MEM_REQ_NONE:
->> +			rmi_op_continue(sro_handle, RMI_CONTINUE_KEEP_GOING,
->> +					regs);
->> +			break;
->> +		default:
->> +			WARN_ON_ONCE(1);
->> +			if (!can_cancel)
->> +				return regs->a0;
->> +			/* If we have already cancelled, don't retry this */
-> 
-> Maybe expand that comment a little to say if we can get here under a
-> valid sequence and if so are we guaranteed that cancel is complete
-> given that is what caller will probably expect if it gets -ECANCELED.
-> 
-> My reading of spec would suggest we can't hit this path for the
-> calls that are not memory tranferring. Then again we can't hit the
-> first cancel either so all bets are off.  So maybe this is the
-> bet we can do.  Also can_cancel shouldn't be true after
-> rmi_op_cancel() as I assume you can't cancel a cancel.
-
-Ack.  This was to handle a buggy RMM (and soothing an LLM bot)
-
-Thank you for the review.
-
-Cheers
-Suzuki
-
-
-> 
+commit:         704340f1 Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=177894c9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=ca1ef9e2e234b8d3599b
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=11bc9005580000
 
