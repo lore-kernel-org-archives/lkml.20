@@ -1,65 +1,65 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E6A501292
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:00:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B2042E6CB8
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:00:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790024447; cv=none; b=VwsDzkZKcOI3Mvp0ffyrDWKlbu8amkoPhJq5cHT3fhFXf2kyUmy/EAQx+bisuaYbTAgKsF1K5o+4Cg7KdGtxkPN/Na8/nqfAdRGXMnOBMt3+plE7bY/FxilZ6scelaUVX/aWsgXpFEEU2UihUymgY1ZyfeFPWTcWgJGoSIoPU08=
+	t=1790024453; cv=none; b=G2xdKJXvqemQj9XN7l99PV64RsnGNFIk780qc5So3CA93upB0adGUXjxqGHGP16kc52XpmMI0LCAjIeSW3N6dLdYu/Bob18vadgEFf818cXzrkQCNnnukGEoON3WVgub/7iYgYs8rSpbPQkeSB7tXatlhKe1ENt4ti8ym+Tz5ZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790024447; c=relaxed/simple;
-	bh=jNIfPpRT/i6OQboSDr2k2xQIDCBYNf9ia74ZJdEkxT0=;
+	s=arc-20240116; t=1790024453; c=relaxed/simple;
+	bh=ulOvPn6D9XPpcXaxHjr/meflqahNBKxZ6eL2m5ABUhg=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jdXuR2gzLeO/5aWBof4MYbXo4mA30fFjLnARKZesWdTnRb4oHSsiRFRYnF7yHJUojS+JWlXW08jJi52WEUOtZMAPYcIQEJP90zqPHntJFv9H7wffl5NddqpOZoVVQ9mBCe4KTZCgixzv5NAr53a98xLRlAavNEBwMb/YHx8smOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=kfLBWeo1; arc=none smtp.client-ip=74.125.224.140
+	 MIME-Version; b=UwgZaBDK9QhpUxUhXjTzr93pt4B71pmT2rSKOkdsLU6wb62s6Uy3fNdEvDyWNT9oxD5Xl5NA8sQA5qqPnOnAmt6SZHEs/I4k/KBXcRadxDHZWmlUJ25Z0kPkrwzrzXy+3Lji1FI70nR25LvAzeNm+BSM6mkiiOBHKlZJnSMBUSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=g/Gol0fS; arc=none smtp.client-ip=74.125.224.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="kfLBWeo1"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d46e4cdcdso28952617b3.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:00:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="g/Gol0fS"
+Received: by mail-yx2-f42.google.com with SMTP id 00721157ae682-895eaf306cfso29171597b3.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:00:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1790024443; x=1790629243; darn=vger.kernel.org;
+        d=soleen.com; s=google; t=1790024449; x=1790629249; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=LyT1gPJmowaA4BnBpSt/USFny02ugqagur5yRQ9/hu4=;
-        b=kfLBWeo1Scq9Oll4170ybgCcld0Nntf4pPKHQsG4wo1bLf78eDhyEoYksRV5vHOzhI
-         p/PmLJgMzwU+YLodtuXJR35EpEH/BTYPRpXROunLzTYf0NR/TPjF6OsKbGss2lG4q7TE
-         injrjsC9tmKHnIRlsddMy2IcIRs25BJFvqzV6Yk9+pSthtMFldbLo48SRGQbzenrCrVC
-         vxvWhgxWk7r4uLZeSU3n0gPZz9WEtc8AGcllkenTI4mkq4P3/9LudcHZM+OcOwpgDjvl
-         3i64Qjjb+iQ7jqP9Vpi1S1Xb2d2lxl4k1FqhXIUiWbsvaGld22LdnexI45W57JwR4+w0
-         kpuQ==
+        bh=4dqs3u8rw3iSD+q7sDNmdGaZSDb+sElYZHHxIFq5uRQ=;
+        b=g/Gol0fSVVDeHVDKKvh/ArlmTK5A66dfWC9hnk7Sq0Rrg1zQwG3O+0izUr9ki67khR
+         uZwffw/+Aq/hSmzHTFUbysT+cMYRlHTQlJHXN7qBr2pld2aq97izXFJ7ZAfu5pZ++grS
+         Eb4uMarCS4Q6BXB7VjXF5XlepoM6/z08Q8XdxeFIbASmoTQ6pAQhe7SKPNUXeKv0IRcJ
+         0tv9TXcKEsdChOcH8H1LddlAjBJ65cdOsNvsnzCYyVO6tAqQAyJJutYDf+1Xw5Ky30/r
+         80PeD8EnCdlLUVnfebzpSa8l3QGkfT09Q2Q/UYLm+ZTTwtAkp/sJLZV+m1P52ReVpCxX
+         KyVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790024443; x=1790629243;
+        d=1e100.net; s=20260707; t=1790024449; x=1790629249;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=LyT1gPJmowaA4BnBpSt/USFny02ugqagur5yRQ9/hu4=;
-        b=rWL1AGvHJNIsABakSL2andRjkbyPe1thVQ0CcbJxGSfeyEg0A/sqRHQGKLRWeE5CHC
-         etK6SsCTkzs/rpW0pbXWTV3tdzr4zcZhU16jpy48B5U+ZB82inWstE4i0plW6vykx/yH
-         6dD9NfmfV+6tiaKmotU69RVosuD0nppbDyj5Ru1EAt0NFpbeMviJIex+bXY25XiFA4eR
-         5efep3uqREZHz6BcPvxxggEplR4F8W38an20v5ziFuYwJIELZWq91fHimaTbBLruUkeZ
-         R+rfuOxyJmHw6U5ea+wkXgATr2uCqbknPhh3ZMowBQTs+plKnSVwCZl4qbw2zzjyniZ2
-         g7lQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzNufNFGvZbrp5TRy4KdiS4x2NZFv34Rv/6zrFj5swyQI0rLhL72UY5m4ZNtzAP0TFuqT1lLR7FsrWmmu8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nmWTI1Va+eSTcZKh4+U1b71TzRYkmlr9r41UEbNHSDbZkTYvED
-	ORlWz2Jt6WxqrwYdtukw2yPpkTUM3i0rPo2h/B4EIe3/izVmHU6b3C2CbhbLuHT5LYM=
-X-Gm-Gg: AYBFou0v8JtyPb6ikcZ8VEYBaa4P7g2sPTwj/aeTTNdWUixcM7EoiY8az2aMWv2h8bX
-	F7P6a2auoofm0YlIEqOJzASze+qDu8xw9b2lOJ4udjAeszmnd+B8wxdA/Bm84ZcRi47sFliSMA3
-	B2dBxP/GmiNOTnVXSN+rzhOaxgWnySa3zYs+9ndwVgwUYGH1pagk65NcZHmq0L6fdMkSpQhWL8/
-	ri5e+Cu+jGvnaeCXXtU10sC5+cV61Qakx0+P0RsuXnhUZbDCB6L733bZ38cuA3kB6GZRKOMNnb8
-	D4e1vAIx//dD31mtw56S7JJH2mzSc9OfEbym6/l+MhVDqOtJSf2zVqKaKRdu3LR3JUvOn/F5biH
-	7PDX76jVFubQ7Zz0BISK8qjnANxypILIjo55F5UY8uhA5kMp+sh/qZ979Sa1WUCUpZ1MfSEt7bk
-	SFVqBdnx33uuGDrtTpCBZOEdLeXtDojRSYw1HEhOgWiFm67vc+e8tiz58b+0d4Z28ieyrYpfhqU
-	4lKvGazye06LkLN0AKlzeTocVwHoH2EPeCAQrGQiWQPzlwqY0324vSbyhmDM2uwPzAXyqUh21IW
-	NrlcI9K8+0zhIbwC3mw=
-X-Received: by 2002:a05:690c:6606:b0:85b:f1ba:b111 with SMTP id 00721157ae682-89735d833a0mr60441177b3.26.1790024441836;
-        Mon, 21 Sep 2026 14:00:41 -0700 (PDT)
+        bh=4dqs3u8rw3iSD+q7sDNmdGaZSDb+sElYZHHxIFq5uRQ=;
+        b=DIcJUAar+K51OVbgKbzZsqBlxrGHX794juUJvajs6Nct8lEKS30uo7VDlJJ9LM32se
+         GrEIShHxETV3AHzhojB/wmHiYROC91xG9M6uTn4QjGY6qOpUfY0fhnJ97oESzm/fzjUe
+         15BCRlr5+1ZMOcgEAruHj5KytI/8sgGhfZLGaWBbE9Uc0jwFAKzuv6k3MsHGTNvVDc/b
+         6PLsMbQOVElkWCc/jhLPtnu9d3qngu6fJBW5PZcCo85SvEY73PJTmkgeUq3i5J7a4TI+
+         bkkHVPXCKDUu6N0FcGpZstm/Rgp0cOyAmkJif+5ncDynOfl+3Myh5sJNlDrtjDd/w3Yx
+         wWFA==
+X-Forwarded-Encrypted: i=1; AKwUvBzruExFLavmWqW1qKPx+WbC4fvb1Wm//Kerd4bagF2GFuMw8kpBD0uufD/0iO40CLm26+Ziycsow+iQsU4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzJghRctBbSDF5FNc8Zc/h/OchN2v7tbMW7u6WczrX431L+436
+	pHrCBDP6kBrSVLZFD65YtEl4JdIaHkUR2fn8YFyAAz9k6aRLfn6mfZxIru/md6mY67g=
+X-Gm-Gg: AYBFou19p3JkKdcTC0v5mgstRhh1vtZIKo/8wyFChMZWsy/Z6+MGOS0TpPtSmSYaM+8
+	aLH1PYvpMtrsHoEB2V2Bksxk9PDRIwMe1HoU5LEIHJc+u9C9EOeRHWT4HCckkViNJQCGRLfcGtC
+	Aw73zcceMg0kU2DtMAj6iNl7AF8PvGzglNQJTFNgvQkyV79FmBGno8RDd5VvZY98HndnTFCMYHH
+	klgboDGk917Hw95NeSpQ8QKbrdsYEpAnQYaKeujcARI1TbtzRIYriIFWYRZJdKAacvdO2t6rqUR
+	lSBuLkX1JIOLddY3BEPGD9awdii80lJ4BVe7aR9erbE10wx8n02QOfIu7HAV77LaIgozYlaUzlK
+	qOfdE9AgZKgZlqLRMXQGPT++/1xMm3r4KXgEdPgRlAzD4tO7iBXerTrr7VHVVxi7sdQJS2F6SBe
+	FP9gNwXSI4SshD+OqqUlLBDeYSeqskkbFX+dsHV1BGdSaipPKTd1syrIzTuN2C7a+/ICpXZk8YP
+	un7SxRVvQrCQtXnpAwa5xP5lB1FMM/dY9YupJafEqO3FqbyHVSnLJrMEoaPV4U4sV7rEf7pv1RD
+	ueXQiitFAQaCglzUECA=
+X-Received: by 2002:a05:690c:39b:b0:89a:63da:fa95 with SMTP id 00721157ae682-89a63db043amr28878177b3.80.1790024449272;
+        Mon, 21 Sep 2026 14:00:49 -0700 (PDT)
 Received: from soleen.c.googlers.com.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a23c738bdfsm1445297b3.11.2026.09.21.14.00.39
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a23c738bdfsm1445297b3.11.2026.09.21.14.00.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 14:00:41 -0700 (PDT)
+        Mon, 21 Sep 2026 14:00:48 -0700 (PDT)
 From: Pasha Tatashin <pasha.tatashin@soleen.com>
 To: linux-kselftest@vger.kernel.org,
 	legion@kernel.org,
@@ -137,9 +137,9 @@ To: linux-kselftest@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	vladimir.murzin@arm.com,
 	kas@kernel.org
-Subject: [RFC PATCH 40/46] KVM: SVM: Add Caretaker SVM assembly guest entry/exit routine
-Date: Mon, 21 Sep 2026 17:00:28 -0400
-Message-ID: <20260921210034.180424-2-pasha.tatashin@soleen.com>
+Subject: [RFC PATCH 43/46] KVM: arm64: Add Caretaker EL2 exception vectors and guest entry/exit assembly
+Date: Mon, 21 Sep 2026 17:00:31 -0400
+Message-ID: <20260921210034.180424-5-pasha.tatashin@soleen.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 In-Reply-To: <20260921210034.180424-1-pasha.tatashin@soleen.com>
 References: <20260920193650.3373435-1-pasha.tatashin@soleen.com>
@@ -152,183 +152,269 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add arch/x86/kvm/svm/caretaker_vmenter.S and caretaker.h for standalone
-AMD SVM VMRUN world switch on preserved physical cores.
+Add arch/arm64/kvm/caretaker_vmenter.S for standalone VHE EL2 guest
+entry/exit world switch and exception vector dispatch on preserved cores.
 
 Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
 ---
- arch/x86/kvm/svm/caretaker.h         | 63 +++++++++++++++++++
- arch/x86/kvm/svm/caretaker_vmenter.S | 91 ++++++++++++++++++++++++++++
- 2 files changed, 154 insertions(+)
- create mode 100644 arch/x86/kvm/svm/caretaker.h
- create mode 100644 arch/x86/kvm/svm/caretaker_vmenter.S
+ arch/arm64/kvm/caretaker_vmenter.S | 248 +++++++++++++++++++++++++++++
+ 1 file changed, 248 insertions(+)
+ create mode 100644 arch/arm64/kvm/caretaker_vmenter.S
 
-diff --git a/arch/x86/kvm/svm/caretaker.h b/arch/x86/kvm/svm/caretaker.h
+diff --git a/arch/arm64/kvm/caretaker_vmenter.S b/arch/arm64/kvm/caretaker_vmenter.S
 new file mode 100644
-index 000000000000..54a0673cb1ea
+index 000000000000..6dff9fbe931f
 --- /dev/null
-+++ b/arch/x86/kvm/svm/caretaker.h
-@@ -0,0 +1,63 @@
++++ b/arch/arm64/kvm/caretaker_vmenter.S
+@@ -0,0 +1,248 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
++ * Caretaker low-level guest entry/exit and vector table for ARM64 VHE.
++ *
 + * Copyright (c) 2026, Google LLC.
 + * Pasha Tatashin <pasha.tatashin@soleen.com>
 + */
-+#ifndef __SVM_CARETAKER_H
-+#define __SVM_CARETAKER_H
 +
-+#ifndef __ASSEMBLY__
-+#include <linux/types.h>
-+#include <linux/kvm_host.h>
-+#include <linux/oncore.h>
-+#include "svm.h"
-+#endif
-+
-+#include "../caretaker.h"
-+
-+#define CSP_VMCB_OFFSET		0x1000
-+#define CSP_HSAVE_PA_OFFSET	0x3000
-+#define CSP_VMCB_PA_OFFSET	0x3010
-+#define VMCB_RAX_OFFSET		0x5f8
-+
-+#ifndef __ASSEMBLY__
-+
-+struct caretaker_svm_page {
-+	struct caretaker_x86_page common;
-+
-+	/* Page 1 (4KB): Preserved VMCB */
-+	struct vmcb vmcb __aligned(PAGE_SIZE);
-+
-+	/* Page 2 (4KB): Preserved HSAVE area */
-+	u8 hsave_area[PAGE_SIZE] __aligned(PAGE_SIZE);
-+	u64 hsave_pa;
-+	u64 orig_hsave_pa;
-+	u64 vmcb_pa;
-+	u64 orig_efer;
-+
-+	/* Preserved MSR and I/O permission bitmaps referenced by VMCB */
-+	u8 msrpm[MSRPM_SIZE] __aligned(PAGE_SIZE);
-+	u8 iopm[IOPM_SIZE] __aligned(PAGE_SIZE);
-+} __aligned(PAGE_SIZE);
-+
-+static_assert(offsetof(struct caretaker_svm_page, vmcb) == CSP_VMCB_OFFSET);
-+static_assert(offsetof(struct caretaker_svm_page, hsave_pa) == CSP_HSAVE_PA_OFFSET);
-+static_assert(offsetof(struct caretaker_svm_page, vmcb_pa) == CSP_VMCB_PA_OFFSET);
-+
-+void svm_recalc_intercepts(struct kvm_vcpu *vcpu);
-+
-+#ifdef CONFIG_KVM_CARETAKER
-+int svm_caretaker_enter(void *page);
-+void svm_caretaker_decode_exit(void *page, struct kvm_caretaker_exit *exit);
-+void svm_caretaker_register(void);
-+void svm_caretaker_unregister(void);
-+void svm_caretaker_init(struct kvm_vcpu *vcpu);
-+#else
-+static inline void svm_caretaker_register(void) {}
-+static inline void svm_caretaker_unregister(void) {}
-+static inline void svm_caretaker_init(struct kvm_vcpu *vcpu) {}
-+#endif
-+
-+#endif /* !__ASSEMBLY__ */
-+
-+#endif /* __SVM_CARETAKER_H */
-diff --git a/arch/x86/kvm/svm/caretaker_vmenter.S b/arch/x86/kvm/svm/caretaker_vmenter.S
-new file mode 100644
-index 000000000000..e0276a34403e
---- /dev/null
-+++ b/arch/x86/kvm/svm/caretaker_vmenter.S
-@@ -0,0 +1,91 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright (c) 2026, Google LLC.
-+ * Pasha Tatashin <pasha.tatashin@soleen.com>
-+ */
 +#include <linux/linkage.h>
-+#include <linux/cfi_types.h>
-+#include <asm/asm.h>
-+#include <asm/bitsperlong.h>
-+#include <asm/nospec-branch.h>
++#include <asm/assembler.h>
++#include <asm/kvm_arm.h>
++#include <asm/kvm_asm.h>
++#include <asm/sysreg.h>
 +#include "caretaker.h"
-+#include "../caretaker_asm.h"
 +
-+.section .text.cpu_preserved, "ax"
++	.pushsection ".text.cpu_preserved", "ax"
 +
-+/**
-+ * svm_caretaker_enter - Low-level transition to SVM guest mode and back
-+ * @csp: Pointer to struct caretaker_svm_page (%rdi)
++.macro cventry target
++	.align 7
++	stp	x0, x1, [sp, #-16]!
++	b	\target
++.endm
++
++	.align 11
++SYM_CODE_START(caretaker_hyp_vector)
++	/* Current EL with SP0 */
++	cventry	caretaker_invalid
++	cventry	caretaker_el2h_irq
++	cventry	caretaker_el2h_irq
++	cventry	caretaker_invalid
++
++	/* Current EL with SPx (EL2h) */
++	cventry	caretaker_invalid
++	cventry	caretaker_el2h_irq
++	cventry	caretaker_el2h_irq
++	cventry	caretaker_invalid
++
++	/* Lower EL using AArch64 (Guest EL1/EL0) */
++	cventry	caretaker_el1_sync
++	cventry	caretaker_el1_irq
++	cventry	caretaker_el1_fiq
++	cventry	caretaker_el1_error
++
++	/* Lower EL using AArch32 */
++	cventry	caretaker_el1_sync
++	cventry	caretaker_el1_irq
++	cventry	caretaker_el1_fiq
++	cventry	caretaker_el1_error
++SYM_CODE_END(caretaker_hyp_vector)
++
++SYM_CODE_START_LOCAL(caretaker_invalid)
++	mrs	x0, elr_el2
++	mrs	x1, esr_el2
++	mrs	x2, far_el2
++	b	arm64_caretaker_handle_invalid
++SYM_CODE_END(caretaker_invalid)
++
++SYM_CODE_START_LOCAL(caretaker_el2h_irq)
++	stp	x2, x3,   [sp, #-16]!
++	stp	x4, x5,   [sp, #-16]!
++	stp	x6, x7,   [sp, #-16]!
++	stp	x8, x9,   [sp, #-16]!
++	stp	x10, x11, [sp, #-16]!
++	stp	x12, x13, [sp, #-16]!
++	stp	x14, x15, [sp, #-16]!
++	stp	x16, x17, [sp, #-16]!
++	stp	x29, x30, [sp, #-16]!
++
++	mrs_s	x0, SYS_ICC_IAR1_EL1
++	cmp	x0, #GIC_SPECIAL_INTID_START
++	b.ge	1f
++	msr_s	SYS_ICC_EOIR1_EL1, x0
++	msr_s	SYS_ICC_DIR_EL1, x0
++1:
++	/*
++	 * Silence the EL2 physical timer before returning.
++	 *
++	 * It is the only EL2 interrupt source the Caretaker arms
++	 * (arm64_caretaker_op_arm_timer() writes CNTHP_CTL_EL2.ENABLE to
++	 * drive the on-core quantum), and it is level-triggered off
++	 * CNTHP_CTL_EL2.ISTATUS.  Neither EOIR1 nor DIR clears ISTATUS, so
++	 * without disabling ENABLE here the line re-asserts the instant we
++	 * eret and the core live-locks taking the same interrupt forever --
++	 * it never reaches the run loop, which means it can never observe a
++	 * detach request and can never be reclaimed.
++	 *
++	 * This is done on the special-INTID path too: a spurious read of
++	 * IAR1 does not mean the timer has stopped asserting.  The run loop
++	 * re-arms the timer for each new quantum, so dropping it here costs
++	 * at most the remainder of the current one.
++	 */
++	msr_s	SYS_CNTHP_CTL_EL2, xzr
++	isb
++
++	ldp	x29, x30, [sp], #16
++	ldp	x16, x17, [sp], #16
++	ldp	x14, x15, [sp], #16
++	ldp	x12, x13, [sp], #16
++	ldp	x10, x11, [sp], #16
++	ldp	x8, x9,   [sp], #16
++	ldp	x6, x7,   [sp], #16
++	ldp	x4, x5,   [sp], #16
++	ldp	x2, x3,   [sp], #16
++	ldp	x0, x1,   [sp], #16
++	eret
++	sb
++SYM_CODE_END(caretaker_el2h_irq)
++
++SYM_CODE_START_LOCAL(caretaker_el1_sync)
++	mov	x0, #ARM_EXCEPTION_TRAP
++	b	caretaker_guest_exit
++SYM_CODE_END(caretaker_el1_sync)
++
++SYM_CODE_START_LOCAL(caretaker_el1_irq)
++SYM_CODE_START_LOCAL(caretaker_el1_fiq)
++	mov	x0, #ARM_EXCEPTION_IRQ
++	b	caretaker_guest_exit
++SYM_CODE_END(caretaker_el1_fiq)
++SYM_CODE_END(caretaker_el1_irq)
++
++SYM_CODE_START_LOCAL(caretaker_el1_error)
++	mov	x0, #ARM_EXCEPTION_EL1_SERROR
++	b	caretaker_guest_exit
++SYM_CODE_END(caretaker_el1_error)
++
++/*
++ * u64 caretaker_guest_enter(struct kvm_vcpu *vcpu);
++ *   x0: vcpu pointer
++ * Returns exit code in x0.
 + */
-+SYM_TYPED_FUNC_START(svm_caretaker_enter)
-+	ENDBR
-+	CARETAKER_PUSH_HOST_REGS
-+	movq %cr3, %rax
-+	pushq %rax                  /* saved_cr3 */
++SYM_FUNC_START(caretaker_guest_enter)
++	// Save host callee-saved registers on stack
++	stp	x19, x20, [sp, #-112]!
++	stp	x21, x22, [sp, #16]
++	stp	x23, x24, [sp, #32]
++	stp	x25, x26, [sp, #48]
++	stp	x27, x28, [sp, #64]
++	stp	x29, x30, [sp, #80]
++	str	x0, [sp, #96]			// Save vcpu pointer on host stack
++	mrs	x1, sp_el0
++	str	x1, [sp, #104]			// Save host sp_el0 (current task)
 +
-+	clgi
-+	sti
++	// Install caretaker vectors
++	adr_l	x1, caretaker_hyp_vector
++	msr	vbar_el1, x1
++	msr	vbar_el2, x1
++	isb
 +
-+	/* 0. Save host VMCB state (FS, GS, TR, LDTR) to host save area */
-+	movq CXP_HSAVE_PA(%rdi), %rax
-+	testq %rax, %rax
-+	jz 10f
-+	vmsave %rax
-+10:
++	// Restore guest context from ctx->ctxt
++	add	x29, x0, #CAP_CTXT_OFFSET
 +
-+	/* 1. Sync guest RAX to VMCB and load guest state (FS, GS, TR, LDTR) */
-+	leaq CSP_VMCB_OFFSET(%rdi), %rax
-+	movq CXP_REG_RAX(%rdi), %rbx
-+	movq %rbx, VMCB_RAX_OFFSET(%rax)
-+	movq CSP_VMCB_PA_OFFSET(%rdi), %rax
-+	vmload %rax
++	ldr	x1, [x29, #CPU_XREG_OFFSET(32)]	// regs.pc
++	msr	elr_el2, x1
++	ldr	x1, [x29, #CPU_XREG_OFFSET(33)]	// regs.pstate
++	msr	spsr_el2, x1
++	ldr	x1, [x29, #CPU_XREG_OFFSET(31)]	// regs.sp
++	msr	sp_el0, x1
 +
-+	/* 2. Restore guest GPRs */
-+	CARETAKER_RESTORE_GPRS_NO_RAX %rdi
++	// Restore guest GPRs x0-x28, lr (x30)
++	ldp	x0, x1, [x29, #CPU_XREG_OFFSET(0)]
++	ldp	x2, x3, [x29, #CPU_XREG_OFFSET(2)]
++	ldp	x4, x5, [x29, #CPU_XREG_OFFSET(4)]
++	ldp	x6, x7, [x29, #CPU_XREG_OFFSET(6)]
++	ldp	x8, x9, [x29, #CPU_XREG_OFFSET(8)]
++	ldp	x10, x11, [x29, #CPU_XREG_OFFSET(10)]
++	ldp	x12, x13, [x29, #CPU_XREG_OFFSET(12)]
++	ldp	x14, x15, [x29, #CPU_XREG_OFFSET(14)]
++	ldp	x16, x17, [x29, #CPU_XREG_OFFSET(16)]
++	ldp	x18, x19, [x29, #CPU_XREG_OFFSET(18)]
++	ldp	x20, x21, [x29, #CPU_XREG_OFFSET(20)]
++	ldp	x22, x23, [x29, #CPU_XREG_OFFSET(22)]
++	ldp	x24, x25, [x29, #CPU_XREG_OFFSET(24)]
++	ldp	x26, x27, [x29, #CPU_XREG_OFFSET(26)]
++	ldr	x30,      [x29, #CPU_XREG_OFFSET(30)]
++	ldp	x28, x29, [x29, #CPU_XREG_OFFSET(28)]
 +
-+	/* 3. Run guest */
-+	pushq %rdi
-+	movq CXP_REG_RDI(%rdi), %rdi
-+	movq (%rsp), %rax
-+	movq CSP_VMCB_PA_OFFSET(%rax), %rax
-+	CARETAKER_CLEAR_CPU_BUFFERS
-+	vmrun %rax
-+	cli
++	eret
++	sb
++SYM_FUNC_END(caretaker_guest_enter)
 +
-+	/* 4. Guest exited: Save guest GPRs */
-+	xchgq %rdi, (%rsp)          /* rdi = csp, stack = guest rdi */
-+	popq CXP_REG_RDI(%rdi)
++SYM_CODE_START_LOCAL(caretaker_guest_exit)
++	// Save exception code in x0 temporarily
++	str	x0, [sp, #-16]!
 +
-+	CARETAKER_SAVE_GPRS_NO_RAX %rdi
++	// Retrieve ctx pointer from host stack
++	ldr	x0, [sp, #128]
++	add	x1, x0, #CAP_CTXT_OFFSET
 +
-+	/* Stuff Return Stack Buffer to prevent guest RSB poisoning */
-+	CARETAKER_FILL_RETURN_BUFFER %rax
++	// Save guest GPRs x2-x29, lr (x30)
++	stp	x2, x3,   [x1, #CPU_XREG_OFFSET(2)]
++	stp	x4, x5,   [x1, #CPU_XREG_OFFSET(4)]
++	stp	x6, x7,   [x1, #CPU_XREG_OFFSET(6)]
++	stp	x8, x9,   [x1, #CPU_XREG_OFFSET(8)]
++	stp	x10, x11, [x1, #CPU_XREG_OFFSET(10)]
++	stp	x12, x13, [x1, #CPU_XREG_OFFSET(12)]
++	stp	x14, x15, [x1, #CPU_XREG_OFFSET(14)]
++	stp	x16, x17, [x1, #CPU_XREG_OFFSET(16)]
++	stp	x18, x19, [x1, #CPU_XREG_OFFSET(18)]
++	stp	x20, x21, [x1, #CPU_XREG_OFFSET(20)]
++	stp	x22, x23, [x1, #CPU_XREG_OFFSET(22)]
++	stp	x24, x25, [x1, #CPU_XREG_OFFSET(24)]
++	stp	x26, x27, [x1, #CPU_XREG_OFFSET(26)]
++	stp	x28, x29, [x1, #CPU_XREG_OFFSET(28)]
++	str	x30,      [x1, #CPU_XREG_OFFSET(30)]
 +
-+	/* 5. Save guest state to VMCB */
-+	movq CSP_VMCB_PA_OFFSET(%rdi), %rax
-+	vmsave %rax
-+	leaq CSP_VMCB_OFFSET(%rdi), %rax
-+	movq VMCB_RAX_OFFSET(%rax), %rbx      /* save.rax */
-+	movq %rbx, CXP_REG_RAX(%rdi)
++	// Clear Branch History Buffer (Spectre-BHB mitigation) across EL1->EL2 exit
++	mov	x2, #32
++1:	b	2f
++2:	subs	x2, x2, #1
++	b.ne	1b
++	isb
 +
-+	/* 5a. Restore host VMCB state (FS, GS, TR, LDTR) from HSAVE */
-+	movq CXP_HSAVE_PA(%rdi), %rax
-+	testq %rax, %rax
-+	jz 40f
-+	vmload %rax
-+40:
++	// Retrieve and save guest x0, x1 (from vector entry on stack)
++	ldp	x2, x3, [sp, #16]
++	stp	x2, x3, [x1, #CPU_XREG_OFFSET(0)]
 +
-+	/* 5b. Restore host CR3 if clobbered */
-+	popq %rbx                   /* saved_cr3 */
-+	movq %cr3, %rcx
-+	cmpq %rbx, %rcx
-+	je 50f
-+	movq %rbx, %cr3
-+50:
-+	stgi
++	// Save guest system registers
++	mrs	x2, elr_el2
++	str	x2, [x1, #CPU_XREG_OFFSET(32)]	// regs.pc
++	mrs	x2, spsr_el2
++	str	x2, [x1, #CPU_XREG_OFFSET(33)]	// regs.pstate
++	mrs	x2, sp_el0
++	str	x2, [x1, #CPU_XREG_OFFSET(31)]	// regs.sp
++	mrs	x2, esr_el2
++	str	x2, [x0, #CAP_FAULT_ESR]
++	mrs	x2, far_el2
++	str	x2, [x0, #CAP_FAULT_FAR]
++	mrs	x2, hpfar_el2
++	str	x2, [x0, #CAP_FAULT_HPFAR]
 +
-+	/* 6. Restore host callee-saved registers & return to C */
-+	CARETAKER_POP_HOST_REGS
-+	xorq %rax, %rax
++	// Restore return value (exception code) in x0
++	ldr	x0, [sp], #32			// pops exception code + saved x0,x1
++
++	// Restore host callee-saved registers
++	ldp	x19, x20, [sp, #0]
++	ldp	x21, x22, [sp, #16]
++	ldp	x23, x24, [sp, #32]
++	ldp	x25, x26, [sp, #48]
++	ldp	x27, x28, [sp, #64]
++	ldp	x29, x30, [sp, #80]
++	ldr	x1, [sp, #104]
++	msr	sp_el0, x1
++	add	sp, sp, #112
++
 +	ret
-+SYM_FUNC_END(svm_caretaker_enter)
++SYM_CODE_END(caretaker_guest_exit)
++
++	.popsection
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
