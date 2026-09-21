@@ -1,188 +1,341 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4864A3407;
-	Mon, 21 Sep 2026 14:04:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE9163BBFAE
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:05:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999491; cv=none; b=Qzc9ZLEYVjZGHHrQmSgr7n5G5KCCbeiQV6jlh3Br2kMzkDVy1aDNJcoyIzHTuUIXbDNmCYZp7ci9XMk6wtVeheWNlFoEAXIVWzW1Y2JUoYSVc3/21OF9k/imB5Ic5DzbUV6VAC0nwm1Ttk0wXKQKQgz1ln4lg56sTY1vzI0IuG8=
+	t=1789999517; cv=none; b=q5VNlLWaLvdyCE5WGyUDYXeh5t2bB9D1qiNACXVZzSE3efqXh7+NBIwFsswPLY9OYBZ7i8/gjEQaxaoNz7k5j9rZjOoBilMeZokGjJBFwCej2Hd2S0lnJUDF9MiAUUIYkZSxlbpxKxSAlQkkYMehBJ+gCinDKfiA+vmqX85vG/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999491; c=relaxed/simple;
-	bh=wDzL7ubQ3VJHCTQpvWmfEl1tp5YhwoLORt71FwFlY44=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sZVQoY3ZZZMRRmoI0X9HCUrdDmB6yOGurV0ND6mWJrCl3Pwzwa1sXACfsCkxYZNvtA/tmzi73NEawsM/0HT9/lTIgWLnelC0kNTMnDXBd/MyeiHv/56I63pZCZ5vh2mfCgRY4AbqTjZRF1OXqX8tKmLhFKFpNk8mnA0TN20hrLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SWfG+fnM; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789999517; c=relaxed/simple;
+	bh=1Ie1SevSPCIGABLDqoWONujVRMa2QMitJGtvOSpVubE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=K1UH5UKTb5IGb0fcTffotd/tkypQ6SD6PuBBbKwVzC8wJ74poWVzBo8Z1A7KzCeKNtMHaLHyH/LLlPEVjlwaSygFsIkZ4vOUaGoD0revrTpgtXLPHuZRmAWTTWfT7VbCZ/rvtzzZgWdDOMjAhW5Eba711iRBWMA/XgCSz/0hLew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MTmX4kHm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SWfG+fnM"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D5FA2C2BCB8;
-	Mon, 21 Sep 2026 14:04:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789999490;
-	bh=wDzL7ubQ3VJHCTQpvWmfEl1tp5YhwoLORt71FwFlY44=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=SWfG+fnM1lZMlge2IYR6cy2O42HjvOh8otEufX2wNdgJ4eVmq9U6SoeOfe0G9AXCG
-	 KZOdYGnJiQseyhPb6Z8cniZ3lx3BKmRzHTHDlyEHD/HJXNvlejD+qDEH11aZb+i9cC
-	 Seye3Edmarg+g9j/KVZk8jl25Xh6oMm1FKI4kMxxUi0kt/rqlmySXoV7lMoyPuP/i8
-	 RXpo4vZPxFPLXqDZGKOO/jPejwWORTmyOjkU3ZDdxQ5ACT0pbafSOk1QhqIyZvo6dE
-	 q0SApUWbNixLrf2ID+zs7ftci33igIxSuT8Qbz0ZgPi6yf/p1BFoXf/A72Ydtt+ern
-	 yEuBW9T1cUUqQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B1DBFC982E1;
-	Mon, 21 Sep 2026 14:04:50 +0000 (UTC)
-From: Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org>
-Date: Mon, 21 Sep 2026 07:04:47 -0700
-Subject: [PATCH] RDMA/rtrs-clt: Fix recv repost to satisfy ib_drain_rq
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MTmX4kHm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 658F71F00899
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:05:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789999515;
+	bh=QcxF0h96u3hg6AJaxWXr6Mk2WdgGgTpL71bsABI7cBg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MTmX4kHmBGqbFVLWjaohhhyCNelBN6Xy5Puyz2vEo8ndhnmH7DTfLYgz6AMBiVY5r
+	 2JoziZ8ILzNxCX0yclhvYT66jvBFLKw9C6ie9x/JZsPq4NNe1BXzZPJBdLGpVWuiDO
+	 9YRvW7B8xtWDFkuD4kaXPXR3F6XWYydGlBdT/hXOWrw6YD7Ua1dIRq9ahRPWJij74C
+	 NnbI66nUjCoqCVknBt85UBnkBN+SqokHYB6or32ZjScgfDuFd6u1QwIiQR+ThSm8S0
+	 6bdPtKM5hOawwLuElMvS5pC6Q9AwPOhid+yiVtvS8fA4lHb2qOiaPlGCBja4faEwym
+	 K1N0GhaM8cmPg==
+Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-785686d2764so518719137.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:05:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxI4DTEuz05hi265zrPHiU+6pb2+8lWS9KgZfB3JjnMV0lF/J4VyW0HiMnybVfgkkoW9hn5FmgDDhDJhlo=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9iTFwdtQ8d4Gxgkzgu8dRy1U4ZQCtX0LD0brZNTQmd+Zi6zzv
+	++HQ2cS4gi3Hrawvw1bHm9diyJsc1kMGRKCYygEYFZohArSu5P6yUCQasW/hCaeP/SKG5I7Fal7
+	Flh8YNwjNw/xG8y9rCwKk5+Di/hN+Ft0=
+X-Received: by 2002:a05:6102:6b01:b0:7a7:36ed:4b43 with SMTP id
+ ada2fe7eead31-7a736ed4c13mr1983871137.25.1789999514551; Mon, 21 Sep 2026
+ 07:05:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-rtrs-fix-ib-drain-rq-v1-1-11b1637958ba@proton.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBCF4auQWTNJ2wS0XsW4gM6o46LqDBCSh
- rtTZfkl7/0FjFXY4NIUUF7E5J0rfNtAeg75wShUDcGF3sXgUSc1vMuKMiLpIBn1i72ndO7I0am
- LUK8f5Tr5Z6+3wzaPL07TrwXbtgOecvaveAAAAA==
-X-Change-ID: 20260921-rtrs-fix-ib-drain-rq-61dc85d0d759
-To: "Md. Haris Iqbal" <haris.iqbal@ionos.com>, 
- Jack Wang <jinpu.wang@ionos.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, 
- Danil Kipnis <danil.kipnis@cloud.ionos.com>
-Cc: Jack Wang <jinpu.wang@cloud.ionos.com>, linux-rdma@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Farhad Alemi <farhad.alemi@berkeley.edu>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789999487; l=4263;
- i=quanyeyang@proton.me; s=20260801; h=from:subject:message-id;
- bh=jdc5f+VeX4vAQ0/q8YB5nswDUjlqTyT+yz3ZwEQCWWY=;
- b=+awDQrn+dez9ucZjiFAkkNLaPHDRTNQIeM5P7NDol8KqpSlUy1wmgTg9CugVwqJom/A2cBEA9
- aGVHk5ZyiFkArqRyHQcyNqHRjqw64nAXv8JeKgelmeP+Mbfrw/kzFa6
-X-Developer-Key: i=quanyeyang@proton.me; a=ed25519;
- pk=9L9FrcvzMgxPaBRU6XV0EnqTgjDqVO596rQKSZ9qZoY=
-X-Endpoint-Received: by B4 Relay for quanyeyang@proton.me/20260801 with
- auth_id=963
-X-Original-From: Quanye Yang <quanyeyang@proton.me>
-Reply-To: quanyeyang@proton.me
+References: <20260906080316.3774-1-rong.bao@csmantle.top>
+In-Reply-To: <20260906080316.3774-1-rong.bao@csmantle.top>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Mon, 21 Sep 2026 22:04:59 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H6gB2+NPgiLu409FOfkmDdyFmbwqtAHTdTgQUJ_zx0z1Q@mail.gmail.com>
+X-Gm-Features: AcwNN1W4I8_1DwbsrggD-vSyPU8bO16mwXC18cIzBE-24aztLG2EVG3qddazu2g
+Message-ID: <CAAhV-H6gB2+NPgiLu409FOfkmDdyFmbwqtAHTdTgQUJ_zx0z1Q@mail.gmail.com>
+Subject: Re: [PATCH v2] LoongArch: expose LAMCAS existence via cpuinfo and hwcap
+To: Rong Bao <rong.bao@csmantle.top>
+Cc: WANG Xuerui <kernel@xen0n.name>, Hengqi Chen <hengqi.chen@gmail.com>, 
+	Arnd Bergmann <arnd@arndb.de>, Yawei Li <liyawei@loongson.cn>, 
+	Jiaxun Yang <jiaxun.yang@flygoat.com>, Tiezhu Yang <yangtiezhu@loongson.cn>, 
+	George Guo <dongtai.guo@linux.dev>, Yangyang Lian <lianyangyang@kylinos.cn>, 
+	Kexy Biscuit <kexybiscuit@aosc.io>, Mingcong Bai <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>, 
+	Rong Bao <baorong2005@126.com>, loongarch@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Quanye Yang <quanyeyang@proton.me>
+Applied, thanks.
 
-On disconnect the client error recovery path calls ib_drain_qp(), which
-requires one free RQ slot and that no recv WQEs are posted while the
-queue is being drained.
+Huacai
 
-The legacy recv completion path deferred reposting invalidate receives
-and instead posted two empty recv WQEs when handling RDMA-with-IMM
-responses marked with invalidation.  If an invalidate receive never
-arrived, each such response increased RQ occupancy by one until
-ib_post_recv() started returning -ENOMEM and __ib_drain_rq() failed with:
-
-  failed to drain recv queue: -12
-
-Repost one empty recv WQE for every receive completion, including legacy
-SEND_WITH_INV invalidates, and only while the path is still connected
-so CQ polling cannot race with ib_drain_qp().  Size IO connection RQs to
-2 * queue_depth + 1 to match the posted recv count and leave the drain
-slot.
-
-Tested with a synthetic RTRS client flooding unpaired
-RTRS_IO_RSP_W_INV_IMM messages; error recovery no longer triggers
-__ib_drain_rq() warnings.
-
-Fixes: 6a98d71daea1 ("RDMA/rtrs: client: main functionality")
-Signed-off-by: Quanye Yang <quanyeyang@proton.me>
-Tested-by: Quanye Yang <quanyeyang@proton.me>
-Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-Link: https://lore.kernel.org/linux-rdma/CA+0ovCihE2_pxLimjmmR8NMz4g-ie8dvvq1jmAj-Om33y3Vzfg@mail.gmail.com
----
- drivers/infiniband/ulp/rtrs/rtrs-clt.c | 45 ++++++++++++----------------------
- 1 file changed, 15 insertions(+), 30 deletions(-)
-
-diff --git a/drivers/infiniband/ulp/rtrs/rtrs-clt.c b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
-index eac38b57b00d..ee6d5c3de16c 100644
---- a/drivers/infiniband/ulp/rtrs/rtrs-clt.c
-+++ b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
-@@ -577,25 +577,21 @@ static struct ib_cqe io_comp_cqe = {
- 	.done = rtrs_clt_rdma_done
- };
- 
--/*
-- * Post x2 empty WRs: first is for this RDMA with IMM,
-- * second is for RECV with INV, which happened earlier.
-- */
--static int rtrs_post_recv_empty_x2(struct rtrs_con *con, struct ib_cqe *cqe)
-+static int rtrs_clt_repost_recv(struct rtrs_clt_con *con)
- {
--	struct ib_recv_wr wr_arr[2], *wr;
--	int i;
-+	struct rtrs_clt_path *clt_path = to_clt_path(con->c.path);
-+	int err;
- 
--	memset(wr_arr, 0, sizeof(wr_arr));
--	for (i = 0; i < ARRAY_SIZE(wr_arr); i++) {
--		wr = &wr_arr[i];
--		wr->wr_cqe  = cqe;
--		if (i)
--			/* Chain backwards */
--			wr->next = &wr_arr[i - 1];
--	}
-+	if (READ_ONCE(clt_path->state) != RTRS_CLT_CONNECTED)
-+		return 0;
- 
--	return ib_post_recv(con->qp, wr, NULL);
-+	err = rtrs_post_recv_empty(&con->c, &io_comp_cqe);
-+	if (err) {
-+		rtrs_err(con->c.path, "rtrs_post_recv_empty(): %pe\n",
-+			 ERR_PTR(err));
-+		rtrs_rdma_error_recovery(con);
-+	}
-+	return err;
- }
- 
- static void rtrs_clt_rdma_done(struct ib_cq *cq, struct ib_wc *wc)
-@@ -650,19 +646,7 @@ static void rtrs_clt_rdma_done(struct ib_cq *cq, struct ib_wc *wc)
- 			rtrs_wrn(con->c.path, "Unknown IMM type %u\n",
- 				  imm_type);
- 		}
--		if (w_inval)
--			/*
--			 * Post x2 empty WRs: first is for this RDMA with IMM,
--			 * second is for RECV with INV, which happened earlier.
--			 */
--			err = rtrs_post_recv_empty_x2(&con->c, &io_comp_cqe);
--		else
--			err = rtrs_post_recv_empty(&con->c, &io_comp_cqe);
--		if (err) {
--			rtrs_err(con->c.path, "rtrs_post_recv_empty(): %pe\n",
--				 ERR_PTR(err));
--			rtrs_rdma_error_recovery(con);
--		}
-+		rtrs_clt_repost_recv(con);
- 		break;
- 	case IB_WC_RECV:
- 		/*
-@@ -678,6 +662,7 @@ static void rtrs_clt_rdma_done(struct ib_cq *cq, struct ib_wc *wc)
- 
- 			return  rtrs_clt_rkey_rsp_done(con, wc);
- 		}
-+		rtrs_clt_repost_recv(con);
- 		break;
- 	case IB_WC_RDMA_WRITE:
- 		/*
-@@ -1693,7 +1678,7 @@ static int create_con_cq_qp(struct rtrs_clt_con *con)
- 		clt_path->s.dev_ref++;
- 		/* QD * (REQ + RSP + FR REGS or INVS) + drain */
- 		max_send_wr = min(wr_limit, clt_path->queue_depth * 4 + 1);
--		max_recv_wr = min(wr_limit, clt_path->queue_depth * 3 + 1);
-+		max_recv_wr = min(wr_limit, clt_path->queue_depth * 2 + 1);
- 		max_send_sge = 2;
- 	}
- 	atomic_set(&con->c.sq_wr_avail, max_send_wr);
-
----
-base-commit: 93f51579e7df248780214094418f205253383cc5
-change-id: 20260921-rtrs-fix-ib-drain-rq-61dc85d0d759
-
-Best regards,
---  
-Quanye Yang <quanyeyang@proton.me>
-
-
+On Sun, Sep 6, 2026 at 4:03=E2=80=AFPM Rong Bao <rong.bao@csmantle.top> wro=
+te:
+>
+> Currently, neither /proc/cpuinfo nor hwcap exposes the existence of the
+> LAMCAS extension, which is part of LA64v1.1. For example, on a Loongson
+> 3B6000, /proc/cpuinfo is as follows:
+>
+>         processor               : 23
+>         package                 : 0
+>         core                    : 11
+>         global_id               : 31
+>         CPU Family              : Loongson-64bit
+>         Model Name              : Loongson-3B6000
+>         PRID                    : LA664 (0014d011)
+>         CPU Revision            : 0x11
+>         FPU Revision            : 0x01
+>         CPU MHz                 : 2200.00
+>         BogoMIPS                : 4400.00
+>         TLB Entries             : 2112
+>         Address Sizes           : 48 bits physical, 48 bits virtual
+>         ISA                     : loongarch32r loongarch32s loongarch64
+>         Features                : cpucfg lam lam_bh scq ual fpu lsx lasx
+>         crc32 complex crypto lspw lvz lbt_x86 lbt_arm lbt_mips
+>         Hardware Watchpoint     : yes, iwatch count: 8, dwatch count: 4
+>
+> ... while the CPUCFG 2 instruction reads "0x7e7ccfcf", whose bit 28 is 1,
+> indicating the actual presence of LAMCAS.
+>
+> This hinders user-space inspection and detection of LAMCAS. For example,
+> in SpiderMonkey, we need to switch to larchintrin.h and raw __cpucfg()
+> to manually perform the bit extraction. Also, a curious user reading
+> /proc/cpuinfo might be puzzled by the lack (of display) of LAMCAS.
+>
+> Expose the existence of LAMCAS via cpuinfo and hwcap. The definition
+> point of the new LOONGARCH_CPU_LAMCAS flag is chosen to match the
+> practices in commit 1dd3e8a8eeb4059fb34b07578362380cf35b7ed5 ("LoongArch:
+> Define instruction formats for AM{SWAP/ADD}.{B/H} and DBAR").
+>
+> After this patch, /proc/cpuinfo looks like the following:
+>
+>         processor               : 23
+>         package                 : 0
+>         core                    : 11
+>         global_id               : 31
+>         CPU Family              : Loongson-64bit
+>         Model Name              : Loongson-3B6000
+>         PRID                    : LA664 (0014d011)
+>         CPU Revision            : 0x11
+>         FPU Revision            : 0x01
+>         CPU MHz                 : 2200.00
+>         BogoMIPS                : 4400.00
+>         TLB Entries             : 2112
+>         Address Sizes           : 48 bits physical, 48 bits virtual
+>         ISA                     : loongarch32r loongarch32s loongarch64
+>         Features                : cpucfg lam lam_bh lamcas scq ual fpu ls=
+x
+>         lasx crc32 complex crypto lspw lvz lbt_x86 lbt_arm lbt_mips
+>         Hardware Watchpoint     : yes, iwatch count: 8, dwatch count: 4
+>
+> Note the addition of "lamcas" to the "Features" row.
+>
+> Link: https://bugzil.la/2069431 ("[loong64] Use LA64v1.1 LAMCAS
+>  extension to simplify atomic cmpxchg operations")
+> Signed-off-by: Rong Bao <rong.bao@csmantle.top>
+> ---
+> v1 -> v2:
+> - Addressed review comments and correctly re-stylized "LoongArch" in
+>   subject.
+>
+> v1: https://lore.kernel.org/loongarch/20260905032010.4962-1-rong.bao@csma=
+ntle.top/
+>
+>  arch/loongarch/include/asm/cpu-features.h |  1 +
+>  arch/loongarch/include/asm/cpu.h          | 64 ++++++++++++-----------
+>  arch/loongarch/include/uapi/asm/hwcap.h   |  1 +
+>  arch/loongarch/kernel/cpu-probe.c         |  4 ++
+>  arch/loongarch/kernel/proc.c              |  2 +
+>  5 files changed, 41 insertions(+), 31 deletions(-)
+>
+> diff --git a/arch/loongarch/include/asm/cpu-features.h b/arch/loongarch/i=
+nclude/asm/cpu-features.h
+> index 62059c5551b9cdcc63c26033f8ccb44d63b18482..19cb0ccd0fb62bbbeb80a31bc=
+447c101560bed32 100644
+> --- a/arch/loongarch/include/asm/cpu-features.h
+> +++ b/arch/loongarch/include/asm/cpu-features.h
+> @@ -36,6 +36,7 @@
+>  #define cpu_has_cpucfg         cpu_opt(LOONGARCH_CPU_CPUCFG)
+>  #define cpu_has_lam            cpu_opt(LOONGARCH_CPU_LAM)
+>  #define cpu_has_lam_bh         cpu_opt(LOONGARCH_CPU_LAM_BH)
+> +#define cpu_has_lamcas         cpu_opt(LOONGARCH_CPU_LAMCAS)
+>  #define cpu_has_scq            cpu_opt(LOONGARCH_CPU_SCQ)
+>  #define cpu_has_ual            cpu_opt(LOONGARCH_CPU_UAL)
+>  #define cpu_has_fpu            cpu_opt(LOONGARCH_CPU_FPU)
+> diff --git a/arch/loongarch/include/asm/cpu.h b/arch/loongarch/include/as=
+m/cpu.h
+> index 91b96938861eb9f81882b128ab0bd0a925ce0dbb..334ca9d69ec4a649848133d0a=
+81555bfc37fbf9d 100644
+> --- a/arch/loongarch/include/asm/cpu.h
+> +++ b/arch/loongarch/include/asm/cpu.h
+> @@ -96,41 +96,43 @@ static inline char *id_to_core_name(unsigned int id)
+>  #define CPU_FEATURE_CPUCFG             0       /* CPU has CPUCFG */
+>  #define CPU_FEATURE_LAM                        1       /* CPU has Atomic=
+ instructions */
+>  #define CPU_FEATURE_LAM_BH             2       /* CPU has AM{SWAP/ADD}[_=
+DB].{B/H} instructions */
+> -#define CPU_FEATURE_SCQ                        3       /* CPU has SC.Q i=
+nstruction */
+> -#define CPU_FEATURE_UAL                        4       /* CPU supports u=
+naligned access */
+> -#define CPU_FEATURE_FPU                        5       /* CPU has FPU */
+> -#define CPU_FEATURE_LSX                        6       /* CPU has LSX (1=
+28-bit SIMD) */
+> -#define CPU_FEATURE_LASX               7       /* CPU has LASX (256-bit =
+SIMD) */
+> -#define CPU_FEATURE_CRC32              8       /* CPU has CRC32 instruct=
+ions */
+> -#define CPU_FEATURE_COMPLEX            9       /* CPU has Complex instru=
+ctions */
+> -#define CPU_FEATURE_CRYPTO             10      /* CPU has Crypto instruc=
+tions */
+> -#define CPU_FEATURE_LVZ                        11      /* CPU has Virtua=
+lization extension */
+> -#define CPU_FEATURE_LBT_X86            12      /* CPU has X86 Binary Tra=
+nslation */
+> -#define CPU_FEATURE_LBT_ARM            13      /* CPU has ARM Binary Tra=
+nslation */
+> -#define CPU_FEATURE_LBT_MIPS           14      /* CPU has MIPS Binary Tr=
+anslation */
+> -#define CPU_FEATURE_TLB                        15      /* CPU has TLB */
+> -#define CPU_FEATURE_CSR                        16      /* CPU has CSR */
+> -#define CPU_FEATURE_IOCSR              17      /* CPU has IOCSR */
+> -#define CPU_FEATURE_WATCH              18      /* CPU has watchpoint reg=
+isters */
+> -#define CPU_FEATURE_VINT               19      /* CPU has vectored inter=
+rupts */
+> -#define CPU_FEATURE_CSRIPI             20      /* CPU has CSR-IPI */
+> -#define CPU_FEATURE_EXTIOI             21      /* CPU has EXT-IOI */
+> -#define CPU_FEATURE_PREFETCH           22      /* CPU has prefetch instr=
+uctions */
+> -#define CPU_FEATURE_PMP                        23      /* CPU has perfer=
+mance counter */
+> -#define CPU_FEATURE_SCALEFREQ          24      /* CPU supports cpufreq s=
+caling */
+> -#define CPU_FEATURE_FLATMODE           25      /* CPU has flat mode */
+> -#define CPU_FEATURE_EIODECODE          26      /* CPU has EXTIOI interru=
+pt pin decode mode */
+> -#define CPU_FEATURE_GUESTID            27      /* CPU has GuestID featur=
+e */
+> -#define CPU_FEATURE_HYPERVISOR         28      /* CPU has hypervisor (ru=
+nning in VM) */
+> -#define CPU_FEATURE_PTW                        29      /* CPU has hardwa=
+re page table walker */
+> -#define CPU_FEATURE_LSPW               30      /* CPU has LSPW (lddir/ld=
+pte instructions) */
+> -#define CPU_FEATURE_MSGINT             31      /* CPU has MSG interrupt =
+*/
+> -#define CPU_FEATURE_AVECINT            32      /* CPU has AVEC interrupt=
+ */
+> -#define CPU_FEATURE_REDIRECTINT                33      /* CPU has interr=
+upt remapping */
+> +#define CPU_FEATURE_LAMCAS             3       /* CPU has AMCAS[_DB].{B/=
+H/W/D} instructions */
+> +#define CPU_FEATURE_SCQ                        4       /* CPU has SC.Q i=
+nstruction */
+> +#define CPU_FEATURE_UAL                        5       /* CPU supports u=
+naligned access */
+> +#define CPU_FEATURE_FPU                        6       /* CPU has FPU */
+> +#define CPU_FEATURE_LSX                        7       /* CPU has LSX (1=
+28-bit SIMD) */
+> +#define CPU_FEATURE_LASX               8       /* CPU has LASX (256-bit =
+SIMD) */
+> +#define CPU_FEATURE_CRC32              9       /* CPU has CRC32 instruct=
+ions */
+> +#define CPU_FEATURE_COMPLEX            10      /* CPU has Complex instru=
+ctions */
+> +#define CPU_FEATURE_CRYPTO             11      /* CPU has Crypto instruc=
+tions */
+> +#define CPU_FEATURE_LVZ                        12      /* CPU has Virtua=
+lization extension */
+> +#define CPU_FEATURE_LBT_X86            13      /* CPU has X86 Binary Tra=
+nslation */
+> +#define CPU_FEATURE_LBT_ARM            14      /* CPU has ARM Binary Tra=
+nslation */
+> +#define CPU_FEATURE_LBT_MIPS           15      /* CPU has MIPS Binary Tr=
+anslation */
+> +#define CPU_FEATURE_TLB                        16      /* CPU has TLB */
+> +#define CPU_FEATURE_CSR                        17      /* CPU has CSR */
+> +#define CPU_FEATURE_IOCSR              18      /* CPU has IOCSR */
+> +#define CPU_FEATURE_WATCH              19      /* CPU has watchpoint reg=
+isters */
+> +#define CPU_FEATURE_VINT               20      /* CPU has vectored inter=
+rupts */
+> +#define CPU_FEATURE_CSRIPI             21      /* CPU has CSR-IPI */
+> +#define CPU_FEATURE_EXTIOI             22      /* CPU has EXT-IOI */
+> +#define CPU_FEATURE_PREFETCH           23      /* CPU has prefetch instr=
+uctions */
+> +#define CPU_FEATURE_PMP                        24      /* CPU has perfer=
+mance counter */
+> +#define CPU_FEATURE_SCALEFREQ          25      /* CPU supports cpufreq s=
+caling */
+> +#define CPU_FEATURE_FLATMODE           26      /* CPU has flat mode */
+> +#define CPU_FEATURE_EIODECODE          27      /* CPU has EXTIOI interru=
+pt pin decode mode */
+> +#define CPU_FEATURE_GUESTID            28      /* CPU has GuestID featur=
+e */
+> +#define CPU_FEATURE_HYPERVISOR         29      /* CPU has hypervisor (ru=
+nning in VM) */
+> +#define CPU_FEATURE_PTW                        30      /* CPU has hardwa=
+re page table walker */
+> +#define CPU_FEATURE_LSPW               31      /* CPU has LSPW (lddir/ld=
+pte instructions) */
+> +#define CPU_FEATURE_MSGINT             32      /* CPU has MSG interrupt =
+*/
+> +#define CPU_FEATURE_AVECINT            33      /* CPU has AVEC interrupt=
+ */
+> +#define CPU_FEATURE_REDIRECTINT                34      /* CPU has interr=
+upt remapping */
+>
+>  #define LOONGARCH_CPU_CPUCFG           BIT_ULL(CPU_FEATURE_CPUCFG)
+>  #define LOONGARCH_CPU_LAM              BIT_ULL(CPU_FEATURE_LAM)
+>  #define LOONGARCH_CPU_LAM_BH           BIT_ULL(CPU_FEATURE_LAM_BH)
+> +#define LOONGARCH_CPU_LAMCAS           BIT_ULL(CPU_FEATURE_LAMCAS)
+>  #define LOONGARCH_CPU_SCQ              BIT_ULL(CPU_FEATURE_SCQ)
+>  #define LOONGARCH_CPU_UAL              BIT_ULL(CPU_FEATURE_UAL)
+>  #define LOONGARCH_CPU_FPU              BIT_ULL(CPU_FEATURE_FPU)
+> diff --git a/arch/loongarch/include/uapi/asm/hwcap.h b/arch/loongarch/inc=
+lude/uapi/asm/hwcap.h
+> index 90e96113ba51003cd4dde5c7c79744f5e0755a03..d354787b937c3ae9eb8c3d58a=
+4e7e96bd066f6fd 100644
+> --- a/arch/loongarch/include/uapi/asm/hwcap.h
+> +++ b/arch/loongarch/include/uapi/asm/hwcap.h
+> @@ -20,5 +20,6 @@
+>  #define HWCAP_LOONGARCH_LSPW           (1 << 14)
+>  #define HWCAP_LOONGARCH_SCQ            (1 << 15)
+>  #define HWCAP_LOONGARCH_LAM_BH         (1 << 16)
+> +#define HWCAP_LOONGARCH_LAMCAS         (1 << 17)
+>
+>  #endif /* _UAPI_ASM_HWCAP_H */
+> diff --git a/arch/loongarch/kernel/cpu-probe.c b/arch/loongarch/kernel/cp=
+u-probe.c
+> index 74d31f260dfd889e66a1f55c5bcc47a3657d101f..93176e4d017b4d8fc82c817a7=
+064af0656133c15 100644
+> --- a/arch/loongarch/kernel/cpu-probe.c
+> +++ b/arch/loongarch/kernel/cpu-probe.c
+> @@ -182,6 +182,10 @@ static void cpu_probe_common(struct cpuinfo_loongarc=
+h *c)
+>                 c->options |=3D LOONGARCH_CPU_LAM_BH;
+>                 elf_hwcap |=3D HWCAP_LOONGARCH_LAM_BH;
+>         }
+> +       if (config & CPUCFG2_LAMCAS) {
+> +               c->options |=3D LOONGARCH_CPU_LAMCAS;
+> +               elf_hwcap |=3D HWCAP_LOONGARCH_LAMCAS;
+> +       }
+>         if (config & CPUCFG2_SCQ) {
+>                 c->options |=3D LOONGARCH_CPU_SCQ;
+>                 elf_hwcap |=3D HWCAP_LOONGARCH_SCQ;
+> diff --git a/arch/loongarch/kernel/proc.c b/arch/loongarch/kernel/proc.c
+> index d4ce5b585453700caf2187c3dcc8f4f3cc8a9226..f86be83ad6f134c5793667fa6=
+dbe2bf82fd58a2e 100644
+> --- a/arch/loongarch/kernel/proc.c
+> +++ b/arch/loongarch/kernel/proc.c
+> @@ -66,6 +66,8 @@ static int show_cpuinfo(struct seq_file *m, void *v)
+>                 seq_puts(m, " lam");
+>         if (cpu_has_lam_bh)
+>                 seq_puts(m, " lam_bh");
+> +       if (cpu_has_lamcas)
+> +               seq_puts(m, " lamcas");
+>         if (cpu_has_scq)
+>                 seq_puts(m, " scq");
+>         if (cpu_has_ual)
+>
+> base-commit: 654ae5d73c05bd2943d65636ce6cd0aa46e62f18
+> --
+> 2.55.0
+>
