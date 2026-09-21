@@ -1,153 +1,103 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mta1.migadu.com (out-251.mta1.migadu.com [95.215.58.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B41439332
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:38:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B719439F77
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:39:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789976341; cv=none; b=pE01NxpfOCcngn7+ax/TBaFgidrUqcORXMLxHN8BRRK53JPAzw+4lSLA+VIde1cmlk/V4YxSH2tfF0NihT0m58QaFSI9Phi7GBTBGgAsEMH/9wiKsMFXi9vAMk0F+FufyMpc5yQittFdNgnEfh/rYWhVzkO82nUpun30Dx8eBoc=
+	t=1789976363; cv=none; b=NMf6G4xCm/6U4Qkh3KgmCSM4gDu62UNaqEXjBSli8Gs5Rr6k8WmXMuktRSt3vz062vvIJ8UgJAyw8orDwPJ+M/wXUG8dl/TTd8u1BO3fIHt5XIgMvqjD2S4KMT0WCjEKFNKnw7D89I+TwrlxYnxGl331XipOjC6z284fv3eeTSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789976341; c=relaxed/simple;
-	bh=1oGHKBzHrxoX8CDM/z524FTQ57Egw9xruprsovBKdbg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I3SqZgdB80yRaYGSFbS8l0Ksxtlmszrfo+LveLWQImhNtCFIYn+gOjg+6VJbd8o1zj1uXLCHNv/SMOi60GJ//LJ/dUtMfhLe4koBfR5BUKnRDsv8V9TT4I9Ex4YpwGhqMH9q44iyFBUuzkPOYUFHcqTrPwjuLywqaXJFiM+6MtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WRy+Vz3y; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789976363; c=relaxed/simple;
+	bh=QASj6Z6chGBEQBYT8Fc20eY9OhWz9aaUtq7xvhcRKKw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rBGnEtFUrXneTywoBvV9+GjZKBv1NsLhIWrob8x/x38jQlXcqioGvOmeqK7D4PvxVlM7s9SmecEbw+/Q75bwF4LFSZla5/GNAGznkhsX8+ZpEc5XS3aPcaDtO4YRSw7es7F8iXu97pAgGa5qZGE93E/d/qro7mzrZis9PAdC9O8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MOHCbkyB; arc=none smtp.client-ip=95.215.58.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WRy+Vz3y"
-Received: by mail-pz2-f41.google.com with SMTP id 41be03b00d2f7-cc50d1b048eso2147567a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:38:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789976338; x=1790581138; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V1aVBw9zdrM4El40DQjPRHAcTE50i+bnMPj3LzqLGDw=;
-        b=WRy+Vz3y5ozcfYa7Mv5blem/dBCCjHCyRcAtjn2OdhtCr0Yefuz8oR44C63e1N/JMQ
-         FrkGY4iBZsXBnal9JeS7exsefo7MonEDFjxlTRD0/7P279F2Rbb41fTbb1/78UrV0dYL
-         EVI6JUf1qgtHxTm3jQMHvtiLA06aUcQNV7PomtL2dDwDPLacwlYlFAVZHmqK10bvlpOs
-         c4y0xCI6oT6MrKNV5NT/0k0snuGQRN5eBWqP+iJLQaSyptqQR4QQjPQYVOg7Wf86P9CW
-         Eem4xjzEjihnBezO0sEMLP7Z+KbnuoMYILwj3h6J8AY/lcbxkrzCbKPTwApd4YHyQ62c
-         xiww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789976338; x=1790581138;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=V1aVBw9zdrM4El40DQjPRHAcTE50i+bnMPj3LzqLGDw=;
-        b=SLQi1wNDudgcEwPoBbn0ZYpslDXJo4U/rLEN92ZZKaos9Y6NFH56Plv1CsornkH5bb
-         VzHepI4XT7kwzTQtpfI4SrJk6hqDaicmVOl6+CNXOiCtVPn+7qKYwBqLnUdFhWH9VziA
-         rTtqkIEgMBll77hsh5mf77FCc3MEEVoXsg49uO5KHEv1jH1O2NvcaCpRsAES1MWWpMJ+
-         6QjyuFvKbNQInXcRCQwstM8bfpZYyDNkE+NCAbNy1/oQiQtMaONF4WR9B+f6P7RqjhA1
-         AguEF4123qo7NYEMu/23+TV3F/7YOJSnw2BjF6uAmtoJqXgCbbXUz8hPl1bf36zrcUBB
-         8e1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwKRKn0MG7Ui88NNpK1BPOIHQzySpLwMG/5OlxCpBOqEadtIPbj9AQtqa2niOiwodWcuZWOtagpjTOuaOI=@vger.kernel.org
-X-Gm-Message-State: AFuF++ky7SD86TStolK/w1GV5OEymNmCUI4RpxSw3ccM0FLnmDIKTfWK
-	SJPhiCQ4kSbmnOiv6efQ4afBiwSVVQVBbJJKyYrsvznk0rGnyqp4YmKA
-X-Gm-Gg: AYBFou2XA30A8qlyTmziJVFGCl8co4hUbQWkHWymnELYVRYCKmAEVPIOGvQ/toNKkyZ
-	cweA6dOjsgdQm/RgbxMgr2FwRIh6v4lIHTRM+wJ8tYH74cXNLXkcXaqGosSjfb8PpC7IFNeOSBp
-	/Og/glouWVXZJ2eJH2E+BC5vMZQe6o7Jy56f8ZXv9kCfIJRyIWxzvqbfN7Ak/Jt8j9vlHtn4gHw
-	p0XAmNX9O/mxKNYC7RT9wy8/x+b9Lo40UNUTZf6GtflJrXlPOgrNPMpvUyvi5nSV1jONK/8b6Z7
-	p/QfHNma5ulq8Fznd2GRbFttqGGuhl9vcAeDRB2Cvj4qLkG1PRwLt0SHDuPx3hTgEJISjt8Ssuh
-	F6zduQ5ymZg5i4I/3GO9Llij1koD7emwOC0Bf9rN5RDRZr8pHt4GOidjXZiWbauBYIAb8clWNlE
-	u0sqyTRpIeWlZ5ZVnQ2Eh8n0iAsl15bbuXnwYIFU8Bdux0pcjJ8hKMAg==
-X-Received: by 2002:a05:6a21:7481:b0:3dd:a196:69dc with SMTP id adf61e73a8af0-3dda19677c2mr9204200637.55.1789976337848;
-        Mon, 21 Sep 2026 00:38:57 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72ae71fe3sm2981178a12.8.2026.09.21.00.38.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 00:38:57 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Thorsten Blum <thorsten.blum@linux.dev>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] ASoC: Intel: SST: fix platform device leak on probe failure
-Date: Mon, 21 Sep 2026 15:38:47 +0800
-Message-ID: <20260921073847.63505-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MOHCbkyB"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=QASj6Z6chGBEQBYT8Fc20eY9OhWz9aaUtq7xvhcRKKw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789976357; v=1; x=1790581157;
+ b=MOHCbkyBVQm4tJ9DsrkkobQByRHrE03xCq8KQR+8P5TLGQdvpA2xiw0OsToI6SmT3OzfUNhX
+ YUV98ukDxnv+7lT/oLUAhR6Isgqc6ZcLsMsVdHz/vkDAC+jwA5IyymPGOPbhwE797N4owb37Dky
+ 9z0gJsjcNnH0jPxfd2YE9QHs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 57f2f9324be8538a;
+	Mon, 21 Sep 2026 07:39:17 +0000
+X-Mizu-Trace-ID: 57f2f9324be8538a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b71094a8-d5b3-4d24-8423-18882fbe0cb8@linux.dev>
+Date: Mon, 21 Sep 2026 15:39:03 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 07/17] f2fs: convert the ->private flag helpers to
+ folio-only
+Content-Language: en-US
+To: Zi Yan <ziy@nvidia.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Kairui Song <kasong@tencent.com>, Tal Zussman <tz2294@columbia.edu>,
+ Jaegeuk Kim <jaegeuk@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ David Hildenbrand <david@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Mike Rapoport <rppt@kernel.org>,
+ Michal Hocko <mhocko@suse.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Alistair Popple <apopple@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Nico Pache <nico.pache@linux.dev>,
+ Dev Jain <dev.jain@arm.com>, Chao Yu <chao@kernel.org>,
+ linux-f2fs-devel@lists.sourceforge.net, Shakeel Butt
+ <shakeel.butt@linux.dev>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Barry Song <baohua@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+References: <20260920-remove-pg_private-v5-0-bb68b6a21869@nvidia.com>
+ <20260920-remove-pg_private-v5-7-bb68b6a21869@nvidia.com>
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <20260920-remove-pg_private-v5-7-bb68b6a21869@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-sst_acpi_probe() registers platform devices for the SST platform and
-machine drivers using platform_device_register_data(), but does not
-unregister them when later probe steps fail.
 
-If machine device registration fails, the already registered SST platform
-device is left registered. The same leak happens when
-sst_platform_get_resources() or sst_context_init() fails after both
-platform devices have been successfully registered.
 
-A registered platform device owns resources allocated by the platform
-device core and must be released with platform_device_unregister() so
-that the device reference is dropped and platform_device_release() can
-free the backing platform_object.
+On 2026/9/21 10:28, Zi Yan wrote:
+> page-based ->private flag helpers are used in the compression path, where
+> large folios are not enabled. They can use folio versions with
+> page_folio(). The two remaining users in data.c and segment.c can use
+> fio->folio instead of fio->page (two are in a union).
+> 
+> Drop page-based helpers after the conversion and rename
+> PAGE_PRIVATE_{GET,SET,CLEAR}_FUNC() and the PAGE_PRIVATE_* flags to
+> F2FS_FOLIO_PRIVATE_* to match. Convert the folio/page union from
+> f2fs_io_info union to folio only, since no page user is left.
+> 
+> The folio helpers do a plain read-modify-write where the page ones used
+> set_bit()/clear_bit(). It is fine because the converted code either holds
+> folio lock or, in f2fs_compress_write_end_io(), matches what the
+> non-compressed code does in f2fs_write_end_bio().
+> 
+> Assisted-by: LLM
+> Suggested-by: Tal Zussman <tz2294@columbia.edu>
+> Co-developed-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> To: Jaegeuk Kim <jaegeuk@kernel.org>
+> To: Chao Yu <chao@kernel.org>
+> Cc: linux-f2fs-devel@lists.sourceforge.net
+> Cc: linux-kernel@vger.kernel.org
+> Reviewed-by: Tal Zussman <tz2294@columbia.edu>
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> ---
 
-Unregister the created platform devices on all failure paths to restore
-the missing cleanup.
+Nice work! Feel free to add:
 
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
-
-Fixes: caf94ed8629a ("ASoC: Intel: bytcr_rt5640: fixup DAI codec_name with HID")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- sound/soc/intel/atom/sst/sst_acpi.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/sound/soc/intel/atom/sst/sst_acpi.c b/sound/soc/intel/atom/sst/sst_acpi.c
-index 73624e1b138a..a1f16083bd3d 100644
---- a/sound/soc/intel/atom/sst/sst_acpi.c
-+++ b/sound/soc/intel/atom/sst/sst_acpi.c
-@@ -352,7 +352,8 @@ static int sst_acpi_probe(struct platform_device *pdev)
- 	if (IS_ERR(mdev)) {
- 		dev_err(dev, "Failed to create machine device: %s\n",
- 			mach->drv_name);
--		return PTR_ERR(mdev);
-+		ret = PTR_ERR(mdev);
-+		goto err_unregister_plat_dev;
- 	}
- 
- 	/* Fill sst platform data */
-@@ -361,15 +362,21 @@ static int sst_acpi_probe(struct platform_device *pdev)
- 
- 	ret = sst_platform_get_resources(ctx);
- 	if (ret)
--		return ret;
-+		goto err_unregister_mdev;
- 
- 	ret = sst_context_init(ctx);
- 	if (ret < 0)
--		return ret;
-+		goto err_unregister_mdev;
- 
- 	sst_configure_runtime_pm(ctx);
- 	platform_set_drvdata(pdev, ctx);
- 	return ret;
-+
-+err_unregister_mdev:
-+	platform_device_unregister(mdev);
-+err_unregister_plat_dev:
-+	platform_device_unregister(plat_dev);
-+	return ret;
- }
- 
- /**
--- 
-2.43.0
-
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
