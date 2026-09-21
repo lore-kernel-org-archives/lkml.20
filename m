@@ -1,73 +1,77 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011059.outbound.protection.outlook.com [40.93.194.59])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9446D331ED7;
-	Mon, 21 Sep 2026 17:04:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.59
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790010295; cv=fail; b=I1WwD5TZVHrfKqqLiWBv26qpP0Mr7eMXmkSWKuHGocdYJm1Flhse/iMTI0iSFfeXD21hheftD7/5RUwwhqOSmijnmvQYQDnPpviGmF62T5c84hL4qyg2srnGP392fHDzFpBQynwsQzOtLRh8oxTVcwk8t5B598CJrWFr6xJRodQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790010295; c=relaxed/simple;
-	bh=IPJFY1knDcIv8S2+fDd0cLbPqhZ7w7ykpzBzXkLU53s=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eQsHMkUm9dpH3ln2TXqpyW6bWnWyjIMLCeyclcRufEvdN06lWWxW8/9cBHLS5RiEIum2wrIHrzWDjGcMzttGGO4YcSEJkBpKc9vQyCUNrY5A1YZ54e55Oo9PqDZmidBky1/Yf0BtQ1yNH5V0hp6jhk0hrZH7bmiesIWX2UsV0sY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=U9YBq/rH; arc=fail smtp.client-ip=40.93.194.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7AC94E2F28
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:05:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790010304; cv=none; b=t2KNW8ezDehDT0WMwDBD9t9aZ/zoS222GffE2puunLFV7o3Qyb5MNcSIrbvNb3G1/1LkrxqkhM0Rgwtque1GzVAnb3jA4sfUvXZDH4EZS2RG6V+kEyJwoE0YcqIdot+3R/Qpl2aBEf7NgUJX4BXKmkiHrJiFpyeVaZjcsZeO6z8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790010304; c=relaxed/simple;
+	bh=UE/E6CwtSRO5jTRXSvtyJcHoke+D2mQVa9MShYJdIN8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RUJRKeplunp0uwHkXZXs3XsgiLujvYd0LSkfVJQiTYgTKFluRBeq3KMTPY1SMdpNK6xNJ+H6Z05ok3KRd9KCtF1NWqDPvw4rMoig7Mpp0Su/hd5u/TioGsIcD3Bm6oIRQkhUe8TuvxBl4f/gY04+VI/Hn0gG62r1VWacVsSz1lA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oQs6olMD; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="U9YBq/rH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hnlPmBvkfbRhYDTptCnMbeh0nqX4H6B9mXFKPDODRi9MAxgq3vYKCV4YwwOzLbiAhyDdaDY3RuHxrGwiZvGsBGqgmRliA/HNzyJgFJ8rqVHgbx2VU+3YvXrh38rdlEO/EHX9guiBpj4raR5mFobmIjhYkx3JHqP7dGANM/zqyecO9btK/maAxw7J4KEbj10xNPRBTb9nPrHkUvFZU6pLLYtQh+uczqYz3He/nJ034piLrRrv83P4et6J0RIrGDUxsMC+sX0egKG+Gs6ACoa5vKH0nX82ikDbxtaNW6TnVkh30waam0N5eresZIvykIfEXbfjT0o55R4OnHgrfGphIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bg6LqkzEEc8RmB4SljDTqIQW8c7y5MlVlegAMDEntJs=;
- b=I7LCJnR0KhFLd9xbQF7Vb82KWhfpKdSTRtyfnUDG/POTH5LDtMcdK+8feuCM1O9EvFzbEEOoYqOhiKq8bf6y5nsT0SvBohkFMJ33KrOmzLCOEwZZsnI3p21YKQX4BNlPLKpkMiGdSZ6iVFPjWiaV9fN/33/LMUuUE+qvXauN2SysJU5r6ETdZMnE+AhmmJStxuJvQS6sNMnFxjwoWlQGgCfccbnUMy5wTU04jyXCOvWu9yRGS3qQv0JSNdFVNhWqbwJxjwvRMcKMFG37D2HaKeT8e6H6N+nQTRPPK7te2U7oJ6mRQeAFA1wOZ8TeumAxCkMtccLYnGTd56ca8r66OA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bg6LqkzEEc8RmB4SljDTqIQW8c7y5MlVlegAMDEntJs=;
- b=U9YBq/rHBjWhkPrLjGRg4liQjl0xVOM8cfBWcZs8RFAlAVnoUC3v9eRW9X+40DLH8eTH1+nyUnYK4Jdurix5z+J/6c/oL6jAqZGW6CkGuxeOthgL3eEczMY2dktpXlZsLUKIGSlehekofuYKOXW8eRJ+4CcqE9BtVp+ZFZ54zgk=
-Received: from PH8P221CA0009.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:2d8::12)
- by SA3PR12MB9090.namprd12.prod.outlook.com (2603:10b6:806:397::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 17:04:29 +0000
-Received: from SA2PEPF00003AE8.namprd02.prod.outlook.com
- (2603:10b6:510:2d8:cafe::93) by PH8P221CA0009.outlook.office365.com
- (2603:10b6:510:2d8::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
- 21 Sep 2026 17:04:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003AE8.mail.protection.outlook.com (10.167.248.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 17:04:28 +0000
-Received: from dogwood-dvt-marlim.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 21 Sep 2026 12:04:26 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: Hans de Goede <hansg@kernel.org>, =?UTF-8?q?Ilpo=20J=C3=A4rvinen?=
-	<ilpo.jarvinen@linux.intel.com>
-CC: "open list:AMD HETERO CORE HARDWARE FEEDBACK DRIVER"
-	<platform-driver-x86@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>, Mario Limonciello
-	<mario.limonciello@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH 2/3] platform/x86/amd: hfi: Fix out-of-bounds reads when parsing ranking data
-Date: Mon, 21 Sep 2026 12:04:10 -0500
-Message-ID: <20260921170411.1149960-3-mario.limonciello@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oQs6olMD"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39dfcef2896so423817a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:05:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790010302; x=1790615102; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Uus09vYPEXHFApWCOovYoZZLizLBAtxcjeR9wZ/FY4k=;
+        b=oQs6olMDkgYai7RNIo5dyusYz7X+5LUrKNH13iclFv6tXIWrQgaZ8+7J/5iZ41h3oa
+         4fAbJDp3Hgnst2HJM5CJnkKSDBRWqUMuESuvCZM+3FR5gUuH7jKHWDuDKE9AJnloMktc
+         rGyxh2QQ6G6FjuIkk4QldRtsb7LXNt6C19R0bTZWE2CUx57nqyGNwyJFd9nT3F1NsHPA
+         OBs0qeauDUK4hI9A6Nc1xraGp3V+Gbdrb0deVfeJeYC3nhBdsmQeLhUw+X4NR6cLBEBa
+         WI7+fBBZ2FVRKPtexU8Z553LunxzYy6C8U84oTiy8xpOBLHuJk7vfNCSfLRSv1V0YMq6
+         iHVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790010302; x=1790615102;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Uus09vYPEXHFApWCOovYoZZLizLBAtxcjeR9wZ/FY4k=;
+        b=2X6osWYg9Hq6FVlZIwUOHveSraRECXj79ANaJL0AqdKxdW4tsHfV91JdxvT9U5Yvu2
+         Jvxh9hsJto9cj+bnMH/pRGbFVrmBRlsnzdRxtMT8nkkJFJXukcndAa1e12G3zbLH9Igg
+         pNdu7TuLkhOiADo3VMdT3uK2cDELT5PmFcCYgNBdAFsIzA/GSEn3ncep6G33o0QDLx3b
+         WwiwNcnccG4fD0voGnoT3Syrfd5QCVlutVZp0Y2827lD0bLFCjJusvtaIUHifhAEherx
+         99BAaL/Wq6wnbrP5o9MZWWC/Vw+5iB7REazvGEJGMUXAWVbWjck0DMSx2JaDhmXD7cBc
+         A6PA==
+X-Forwarded-Encrypted: i=1; AKwUvBw3IBIIdwmLwxkMVffWKVPJiJOG1pSQCKXWMNIsBSJdgb2n/E6j7n7NzPpFcOCwRCDCbfT2gLwYzxl+FXM=@vger.kernel.org
+X-Gm-Message-State: AFuF++l1T0ch1o+JLj3qYdGWeCMomg9r9R8+G8t1/vxGhu3L8XIWzVkH
+	+A75YckZ3BKY+YdJTGAduDgPLZg5DcgFONc//3N4kgrvQVUEDiJpged5
+X-Gm-Gg: AYBFou2O1qBMxHakGi5cRDNkh5csCMV1SElbTDGsxol8XKk11N6VCXcI+EiPsfHach/
+	YC0RNXpZFloVTC7VYKJ4FrvbuO3nlVrSbemt+wOSezl+Gq/DUjKM4wdDd23eZOnbc+sQK0xYTqQ
+	dv+g1DUx/i5KaS9oxP/NXfLYhJiy2FE77HfEPcSgp0Gj5vMITnQf8tYRzeI+yufQ0O0NVoJgV3f
+	xpOXOGh9K+mJEqmPbJVeTeU8hOdklQ2z2Hs36N1F/n8p83kRpO1jnxjL6+siEMvkNdnWIVS00t4
+	gUyq0ySZsn3mjCCGY1neuDjhkz3lceicmhwp6X5PWHOnJKAVwwSTTZxphot+StNzxLjhP4cKozB
+	uGME2Mds585iArTvrL2CPlVGuelfGE9Xyd8MgWRo81oKLvI1iEcoVQItDfxk7+EH/hRpVGNw5Ny
+	BBVxVkW5AzWK7ELvcoQv5lEjZrl1vtfOAhzObId1Uctb5U/vUDWWtHXl7Q566xusUdRUfggoVH4
+	WnEyYHcEtBHcu3VDNOBHlqRi6GGOaV2DSNSUa3amOMeydPkYH/rSrihUu1MveKIR3cP0tf/piMv
+	u9ueJp9WhKfiCQt29a0j
+X-Received: by 2002:a17:90b:254a:b0:398:a2e4:c784 with SMTP id 98e67ed59e1d1-39e5940c49cmr20845132a91.1.1790010301926;
+        Mon, 21 Sep 2026 10:05:01 -0700 (PDT)
+Received: from cachyos-aura ([45.112.148.109])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0670b410fsm240975a91.9.2026.09.21.10.04.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 10:05:01 -0700 (PDT)
+From: Navon John Lukose <navonjohnlukose@gmail.com>
+To: Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+	linux-i2c@vger.kernel.org,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] i2c: designware: size the RX FIFO threshold to the queued transfer
+Date: Mon, 21 Sep 2026 22:34:56 +0530
+Message-ID: <20260921170456.53354-1-navonjohnlukose@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260921170411.1149960-1-mario.limonciello@amd.com>
-References: <20260921170411.1149960-1-mario.limonciello@amd.com>
+In-Reply-To: <20260921120526.GV106095@black.igk.intel.com>
+References: <20260919232647.448748-1-navonjohnlukose@gmail.com> <20260921120526.GV106095@black.igk.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,110 +79,29 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE8:EE_|SA3PR12MB9090:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85c8eb26-58c8-4f03-486f-08df18026581
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|23010399003|36860700016|1800799024|18002099003|22082099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	E/UFUusPxie62BzWFpEzuoSJe4mv81MHmZx0EgG3N7eayWXude78owDTNnRKavTyD5BghNuVMQC5sfjWxY3UZJe3cOZbJMqJYItix/nkRA+ia8NBAWMwdTk0bB7wUlAd6thbJQMtHpP7/ESmAeiF3PEp8fZKmxWZqGIiwOilL8ssjQ9ERP3H/b6v4EfeE6Rn64r8QZ2BTAKSnGqcHEc/V90c+wLcnNDXC0cs0EI+ZZWbxcrQJjnvJNz0DMsqDIRiajbKpz/2aRmSXYlYvFvUmikyiIMA4LGqwlNFEDY26BA1ES9CAu8Dniu/V+iDOYiK6y/jxmfF+xCl7+8fBQBJ0g+Z0lW7ln8HA483evLp3sNuwIZkCI9jiFoU2tYYNU3EVVlLKbDyBbtmn9ZSJ+T2Phe+ALI2sGmdjgQC1bZFZYBl4YG1/B1oDI8B/Zl7n7sMOKKIw4A41QMydf54gvg5iGsuM48xinyVXEo2+nSxhouI0MhwjGK2MDN6mr2w2/FFKff4u2p3I6tQQjZ1vZTASKxK1J08G/CUgpodlz6fAq4AL4yCfAZo8iTwscUbSS+iDXxYUKjf42GW+ip8cbvJ1Iw8oVw5i7S5pmhoIBeVaF1Qxcdbfr34fDTDSMyPuRwz924Z+gRE+aWAQo2PA3GjP0BMGKRwaAsu8QnSs39X48Tmdkavhe0sd0bqhmajVKyHH+obLJMXvBHttTa52P4AHg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(23010399003)(36860700016)(1800799024)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	vb33keZxwvoMcSoYa7aT8PC3ShUdJYPMoyuikJMPXH3huE4cN6kVsvz9SH1pST+FAHwZP6bcrpo4RKN3qDtd4b+mFGU1lG42i3i1wtnMtsgGVRZEdWVUmWXjOhhUmEvUFIk9vnuJKh72KlyTMhA2LaEnHXUIBD6iA5NoWjz9FkmZzCQ7Zd5xc5IzjdQKrrLg+iOxcbpRIUnSLiuQCrZducmoDhPTSqZBuiIXH5jkvZ1Xl7RKl/19CYtp0gUP1ioenUYJOLFasCxPCFyZTaSCAYI/zmCZmAyr+MZ9osr4xvKgT2P4OjaUjLnRGEN7oBuTW0SRxhqI70gH8gKhatRXVnF+Zv05riXXkPC973jw6CCzURqsAKjkNJGv3U4yAgnnJsli+a7wIPEK6Nkgzv7a8kK4t9XVWGvQCnLrWZ5rQBIlc+zmeFeAtrTIFyNWyfuz
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 17:04:28.1244
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85c8eb26-58c8-4f03-486f-08df18026581
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003AE8.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9090
 
-amd_hfi_fill_metadata() parses CPU core ranking data out of the
-firmware-provided PCC shared memory but trusts two values it should not:
+On Mon, Sep 21, 2026 at 02:05:26PM +0200, Mika Westerberg wrote:
+> I'm slightly worried about the latency increase here and the fact that
+> HIDIOCGINPUT is pretty much same as HID_REQ_GET_REPORT so it's not only
+> hidraw that is affected but everything else using HID_REQ_GET_REPORT as
+> well.
 
- - n_bitmaps is used to bound the outer loop that reads the APIC ID
-   bitmaps from table_data[], but it is never validated against the size
-   of the shared memory region (pcct_ext->length).  A firmware-supplied
-   count larger than the region reads past the end of table_data.
+You are right, it is every HID_REQ_GET_REPORT user, not just hidraw.
 
- - When resolving the base of the ranking data for a processor, the
-   pointer is shifted by an extra "i * nr_class" term, where i is the
-   current bitmap index.  The per-processor offset is already applied
-   through apic_index, which uses the running count of active processors
-   (apic_start).  The extra shift compounds for every logical processor
-   beyond the first bitmap (APIC ID >= 32), reading out of bounds.
+The main motivation for this patch was cutting the wakeups from the
+interrupts, and I should have made that clearer. The /dev/cpu_dma_latency
+line was just to measure where the extra latency comes from.
 
-Both result in out-of-bounds reads that can corrupt the ranking metrics,
-oops, or otherwise destabilise the system.
+What the wakeups cost, measured with a 21-byte HID GET_REPORT at 142 Hz
+pinned to one CPU, display off, 32 reps per arm in randomized order:
 
-Reject an n_bitmaps value that would not fit within the shared memory
-region, and drop the bogus "i * nr_class" term so the ranking data is
-addressed only through its correct per-processor offset.
+                        psys W
+    idle             1.87 +/- 0.28
+    patched          2.53 +/- 0.17
+    stock            4.11 +/- 0.44
 
-Cc: stable@vger.kernel.org
-Fixes: d4e95ea7a78e ("platform/x86: hfi: Parse CPU core ranking data from shared memory")
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/platform/x86/amd/hfi/hfi.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+Against the idle floor the polling costs 2.24 W without the patch and
+0.66 W with it. Paired saving 1.58 W, 95% CI [1.42, 1.75].
 
-diff --git a/drivers/platform/x86/amd/hfi/hfi.c b/drivers/platform/x86/amd/hfi/hfi.c
-index e1c776b71f3e6..6d1d3b6c28a97 100644
---- a/drivers/platform/x86/amd/hfi/hfi.c
-+++ b/drivers/platform/x86/amd/hfi/hfi.c
-@@ -20,6 +20,7 @@
- #include <linux/module.h>
- #include <linux/mailbox_client.h>
- #include <linux/mutex.h>
-+#include <linux/overflow.h>
- #include <linux/percpu-defs.h>
- #include <linux/platform_device.h>
- #include <linux/smp.h>
-@@ -168,6 +169,21 @@ static int amd_hfi_fill_metadata(struct amd_hfi_data *amd_hfi_data)
- 		return -EINVAL;
- 	}
- 
-+	/*
-+	 * The bitmaps enumerating the APIC IDs occupy the first n_bitmaps
-+	 * words of table_data.  Reject a firmware-provided count that would
-+	 * push those reads past the end of the shared memory region.
-+	 */
-+	if (struct_size(amd_hfi_data->shmem, table_data, amd_hfi_data->shmem->n_bitmaps) >
-+	    pcct_ext->length) {
-+		dev_err(amd_hfi_data->dev, "invalid number of bitmaps: %u\n",
-+			amd_hfi_data->shmem->n_bitmaps);
-+		return -EINVAL;
-+	}
-+
-+	/* The ranking data for each processor follows the bitmaps */
-+	u32 *table = amd_hfi_data->shmem->table_data + amd_hfi_data->shmem->n_bitmaps;
-+
- 	for (unsigned int i = 0; i < amd_hfi_data->shmem->n_bitmaps; i++) {
- 		u32 bitmap = amd_hfi_data->shmem->table_data[i];
- 
-@@ -192,10 +208,6 @@ static int amd_hfi_fill_metadata(struct amd_hfi_data *amd_hfi_data)
- 			info = per_cpu_ptr(&amd_hfi_cpuinfo, cpu_index);
- 			apic_index = apic_start * info->nr_class * 2;
- 			for (unsigned int k = 0; k < info->nr_class; k++) {
--				u32 *table = amd_hfi_data->shmem->table_data +
--					     amd_hfi_data->shmem->n_bitmaps +
--					     i * info->nr_class;
--
- 				info->amd_hfi_classes[k].eff = table[apic_index + 2 * k];
- 				info->amd_hfi_classes[k].perf = table[apic_index + 2 * k + 1];
- 			}
--- 
-2.55.0
-
+So the added exit latency is the package idling deeper than it can when
+the controller interrupts once per received byte.
