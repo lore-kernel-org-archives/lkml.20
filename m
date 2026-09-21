@@ -1,395 +1,145 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06BDD26ED3E;
-	Mon, 21 Sep 2026 05:58:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB5AA59
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:00:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789970294; cv=none; b=HKudMyccUpNy6OqXt4XjsWBPU2MV01bp8SUO1nWYhBSYRdv8d5n/QuUhPaQlea8Pbnt8LNNG2HTGISz+wkKweXKUKDk8FdYNm97R1Y8OoXPIErMUoLfAo4t6XKaF9WgNSgcm4e2GzrL2Jem/UoHCcb1abfF1ZsEcyWux7IsZdWU=
+	t=1789970428; cv=none; b=uQaQz49eWi8uf4K2yNc6e32wAT+aBdnorthUXZvSJPfjCyX12Pv6Scb0VGRo13Cgkqx9rk1RnltzeDleBqtvEmg/dyIIJcMWguB3C5A/JooJnl1w1Mv5szrCKjxuyD+6/p0+nEE+cDz7C428/cH4CMZA5jbR5l1bW4Cm7zRAWzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789970294; c=relaxed/simple;
-	bh=Gy0U82MW4TsD0e4b9KeSeYvK3g+Bctl2cohvlZ8HfqA=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=KgJgquovFYgjUIRLt86+6LGm5NdD+umYHn75Cuap/pD/SH+zZqTvWcvZu9Y4NQLNiyhVNU6HNR9Oo+gZ63/Y8vWEJTIfJEii2bdYMzyndT+YvZXbj3EanRxt4Au+d2vl37AZ7PM4PxPcxMeLCn+uCG8qmeh25iHW+pdSxS2PTnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=NG2jhQ8x; arc=none smtp.client-ip=52.59.177.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1789970428; c=relaxed/simple;
+	bh=r4IZ5+oRt2NTHUYf5LXmNkSjOac+QeyqRjRNuHQhAo0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EvbIDvz82kHz187W6EEUFlXL80YnP3XnMnaGmOUeSwLsFKlhL45apxuzUz2gQ1EWx6ppMxt+WjTg3X+Qba06spY7Dl7ZIdzFBXtV9PhzydaUtJ4UdQ4avmWoAyor2nnM/l6KDIL4fIfr8eoJ3FORtfSCW2939tUarILvY9rcaIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ss5zp110; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="NG2jhQ8x"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1789970156;
-	bh=pyhixoq/RXMQq/EUePQqUA2MsL1uQc0Uc52l03+BnGA=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=NG2jhQ8xrDAEU/02FRx43/3xUsx3o9PwvEikXNYunZ4fqrTikdL0mqzrQ/9A/+Apy
-	 +cKHSYmnwzMQ3AF5KViX1WvrJgQzlJMmqFp1kW7aSvTaE9X6b7x60SLA/a8ZhG9MDp
-	 WqnbslBBaZBrPRjIqwp0DF4SBqCbWbZHzmxi1ON0=
-X-QQ-mid: esmtpgz14t1789970151tf16cf137
-X-QQ-Originating-IP: QCgaxLI7jDhwJHBvAR2ArdVF5Rj/K1zGCGKIgOuRbNw=
-Received: from localhost ( [8.217.118.106])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 21 Sep 2026 13:55:42 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 18343756932076772268
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ss5zp110"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so10594165e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 23:00:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789970424; x=1790575224; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Zqp0mXAPPlkB9y/VY2ECjAIS1J7bwOQJ/4A4XQOWjYI=;
+        b=Ss5zp110uCwExkhcKMEEERZP7EmV5aqEWUhzO0nmQsFBUZtMcKhVu49ToXM7YOJnpY
+         UaFd8P+TRycRmCqILMWT4yY4vxg7CowNCkIerM26ohRTWmr8ptOX0JNk2C5+ObP183vo
+         zbAyTeeZnWs2LfIDNsgDjv2r/2Tz/eUz4X+59poqjbP+kNC3ASrmaJt3QT2Fl9Uu4Z8d
+         5twTO8KQrvz3+DBfUwhayN+FiUmRt7U+HSeStjphKKB9Kl3apXe4z7Rj3K5LloDBLpt1
+         KUO3GVB2Q0ai/aIa+RaepuNtZV6AIgQnknDAyQ/PJcnRwkIrkmusf0/Ubzt9K+9sZ55z
+         QvdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789970424; x=1790575224;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Zqp0mXAPPlkB9y/VY2ECjAIS1J7bwOQJ/4A4XQOWjYI=;
+        b=1AAQbeq7SBtECJlIqZPc9XEdx1/SS0TVHLEh5AA5XiR1lYkQ9ZOUtovy8vbv108nVa
+         wRkOknhPH7QN9LHX8K/GMh+EcxUk8nwN7y9R2Nwm1+4sEj1fiMjDHbpEjVEm8ZZFx266
+         rJVDAAmrFHIYBcyTQVDiiCF/rFr8dvYWGkUVnTlbRdw6PNkrAlZAcNHsJeP1/cGsNrNO
+         Un+HaHOGsS7tIOpGhH5a4Ojy7i9wioh+ix3sXOqKNkbaRDPHRUBAiLqLvVK8MWNVcuPO
+         QVx407phKxBkGmiLIh2eJhXGEc9a6+fY6YqH57h8zdLNyIVo57B8E7Z06woyc7YiqyZP
+         kRnA==
+X-Forwarded-Encrypted: i=1; AKwUvBwMLbZ72OyNIUPGpjU9UUffIUYzrt9T24qvtXoc9m/An34f8D5Xd5s4/39W8QZRU3wMyaGRfZGINxIVtTc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kVlxUCDmuASEjCDFxXNsciJ1T2BrySsiTR1f1vWxbtPm9f8bWG
+	smVPodIJqZPfEs2mSgIBKoVlC1Om2kHg7IUi01ET1u6QarsmxiKQLwlM
+X-Gm-Gg: AYBFou33gwTxXrEjtXZmTlCLRK+bRudKuR0XSVm7AqLaNYWRp0XtNRbe+DJL4afG3wC
+	Hr1b5FeO28VkuByjhxMGYXnAMQ1A2VdJ5pE0/PHaFJTp9m0L5gq6Blcs3STwpss1q4IkAiMvlFq
+	z+Y3apw0l7JlxwZA4LAb0nHT42RUJWKgg4ca3V8ZmoE1JG6k0ISV6KUwvl37nBbnZd6gKhl0+6C
+	2wiyAX11DFD2YOqsL5+3bpNGtFzeKMVqKAEcY3xhxA3yAAkImI779yajnsAYBtZG7B4iyYBmR4D
+	WTKDWddZkiJ5K+iU1556K0SQM3HFwEdMaKlyPioj0xELFdhRIoGIRQtediRTpUr6zwpixbVQwmF
+	HNfko3k05+oiZECDslo+IJNSoyp8pHi6idxnu+hJ/7gl0/RzMZ3oPPgPemyVCk40hheE1pep7Sw
+	yVz3gqId77t/8Rq2PrfSQg5YvLtFq5T/FlW21OtFEyAczLG8c86MWqIyxWRBBZI34oNk1BF64a0
+	aEOji48AxwXgC5nwxSElOLFuPBX1Pr1s3A4fR6Bd3mHFJkL4maIBMH1Vibpq2k2nEzYzGnqK/4D
+	CdD/qpTlYXc5QVrkxCSa0FJl+/C1DuAz7kzACGDtUDTL3sgYL8A5+tFoK5aKSoFZnTrY1tWIDA=
+	=
+X-Received: by 2002:a05:600c:468a:b0:49e:7c8c:bc77 with SMTP id 5b1f17b1804b1-49fc4fae7acmr152289065e9.7.1789970423297;
+        Sun, 20 Sep 2026 23:00:23 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a8e9-c501-f941-243b-87f6-e5a2.310.pool.telefonica.de. [2a02:3100:a8e9:c501:f941:243b:87f6:e5a2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd1149e0sm198706585e9.13.2026.09.20.23.00.22
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 20 Sep 2026 23:00:22 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Russell King <linux@armlinux.org.uk>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Radu Rendec <rrendec@redhat.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rt-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 0/4] ARM: allocate the cacheinfo early to fix the PREEMPT_RT boot warning
+Date: Mon, 21 Sep 2026 08:00:09 +0200
+Message-Id: <20260921-arm-cacheinfo-v2-5892c4531ad9-0@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <CAD++jL=7OSrPMax9GRj3D7ehjmmG2uMyws53F8U0x7YGx+RNOQ@mail.gmail.com>
+References: <20260912195552.76673-1-kmehltretter@gmail.com> <CAD++jL=7OSrPMax9GRj3D7ehjmmG2uMyws53F8U0x7YGx+RNOQ@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 21 Sep 2026 13:55:42 +0800
-Message-Id: <DLKRGJBNFVQO.15WZ2SXQLOY0T@linux.spacemit.com>
-Cc: "Alex Elder" <elder@riscstar.com>, "Yixun Lan" <dlan@kernel.org>,
- "Manivannan Sadhasivam" <mani@kernel.org>, "Lorenzo Pieralisi"
- <lpieralisi@kernel.org>, "Krzysztof Wilczynski" <kwilczynski@kernel.org>,
- "Rob Herring" <robh@kernel.org>, "Bjorn Helgaas" <bhelgaas@google.com>,
- "Danilo Krummrich" <dakr@kernel.org>, "Uwe Kleine-Koenig"
- <u.kleine-koenig@baylibre.com>, "Javier Martinez Canillas"
- <javierm@redhat.com>, <linux-kernel@vger.kernel.org>, "linux-riscv"
- <linux-riscv-bounces@lists.infradead.org>
-Subject: Re: [BUG] PCI: spacemit-k1: port C probe hard-hangs a CPU with one
- endpoint on Milk-V Jupiter
-From: "Encrow Thorne" <encrow.thorne@linux.spacemit.com>
-To: "Bruno Banelli" <bbanelli@gmail.com>, <linux-pci@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20260825052249.66921-1-bbanelli@gmail.com>
-In-Reply-To: <20260825052249.66921-1-bbanelli@gmail.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MACXe2l6e7j9A7dM9VfTYUnw6oxnzmeWixSrplKglMxJfmgzA21Op+TN
-	uKRe6BDLaUBA2SU2E9yJfEg93hrsFdtRCvuWMfdzl3xhRdG5deJy8K9vKHBmjLE1qu9Em0G
-	WyfJUXo9UYcpL8eAaYmoMnF4GoWRAtNj4xMROGtKvPevqQAxnsqm+cvuH2kb+Ce3vryu7Du
-	nBZ8R4/M/fMRE8GyyEuKlhTg1AwjXpfaxmGSjUPedvOTe61uBeRPY6lfxScslzDnCOborLB
-	1KaqCBVeBgwQEWc6PnimF+eaekTqyFMFkr3AYWhKJndn1VLNKCZ3l8LPkOnE89tallS/ELZ
-	d3uiTl/1yH8z0wADJQ/+iBc9fvwvSeOI1pb10eKVjkX1eHVc293jr71O0Y8vci7SHq27w93
-	0cKen3uMlLsIu8TrJcJIXAtY4SEAh4TlpGYBHy1ajv2rtKWAgyIrkyD4eK9EFwm90Jqxo2N
-	Cl9uJoJuD3HvOutLZLHWk89sP8riaBmtPw4rkDR46utlz2KSFsLxH9PXXE1x3s2grmW52UN
-	x87AGc3aQMHucqtOUUMwXJpnQN5YriHtroiqFi54xzC58o+usxmIFzUZsjq4mji6NWKaodB
-	HXStMo3RVYILyTuMmJayOZxYNIhHPBmtMuEbjBh4EvhIV/7s+ml0hdnKxy4XnCB1+jdXH1l
-	ClRL5pxaTokqt9ayDC8iXrnujfmzvLStoFBRgB0AnDWuRq0KEI1EJwUwaWaEg08PBYBypNg
-	E4k6hMqHHUCaD4hiCX13A3dOv+CQC4JxLOniUUX9BBRkeSsfuM+hKOGa3lOrPC5tEn3wuKJ
-	zhsh+fLkMAU3cubQxiH+tWt7pRPUqhhP7aDW7m09OY9LcnnwsodPgcdahDmjPLrkTk/nzpJ
-	3hcPS9dJ4UrKOjJ5H3tqHtMTQlAobzWin5URiRiI9sA74/ItU9F6eR130FQ62S91g9wsa7T
-	B1iXtLpClg7qUJqE2hUKVOFWenHNE8PxbuKPCmBP12stWYlLmjfBDucHbWVUbrjK48+s=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue Aug 25, 2026 at 1:22 PM CST, Bruno Banelli wrote:
-> Hi,
->
-> On a Milk-V Jupiter, probing the PCIe controller at ca800000 (port C, the
-> card slot) permanently wedges the CPU that runs the probe when one
-> particular add-in card is installed.  The CPU stops responding to NMI, an=
-d
-> because the probe is asynchronous, kernel_init() then blocks forever in
-> async_synchronize_full() and the machine never finishes booting.
->
-> The same card, in the same slot, on the same board, does *not* hang the
-> vendor 6.6 kernel -- it reports "Phy link never came up" and boots normal=
-ly.
-> Six other cards do not hang mainline either.  So whatever the electrical
-> cause, this looks like a robustness problem in pcie-spacemit-k1: an endpo=
-int
-> should not be able to hang a host-side DBI register access.
->
->
-> HARDWARE
-> --------
->   Milk-V Jupiter v1.1, SpacemiT M1 (socinfo: CPU[M1-8571] REV[C] DRO[130]=
-),
->   16 GiB LPDDR4X.
->   Firmware: stock vendor U-Boot 2022.10 (k1-bl-v2.2.9), unmodified.
->   Port B (ca400000, M.2) has a Samsung PM9B1 NVMe and works throughout.
->   Port C (ca800000) is the card slot -- an x8-length connector, silkscree=
-ned
->   PCIE_X2, wired x2.
->
->
-> REPRODUCED ON
-> -------------
->   v7.1 and v7.2, riscv defconfig (plus PHY_SPACEMIT_K1_USB2, USB_DWC3,
->   SPACEMIT_K1_TSENSOR, IGB, IGC, NVMe/ext4 built in).
->   gcc 13.3.0 (cross) and gcc 16.2.0 (native, Debian sid).
->   Identical failure in all combinations.  Not a regression -- port C has
->   never worked with this card on mainline.
->
-> Command line:
->   console=3DttyS0,115200 earlycon root=3D/dev/nvme0n1p2 rootwait rw
->   swiotlb=3D65536 clk_ignore_unused pd_ignore_unused
->
->
-> SYMPTOM
-> -------
-> Port C prints its address ranges and then never speaks again.  (Log below=
- is
-> from a run with port B disabled in DT, so nothing is interleaved.)
->
->   [ 1.290074] spacemit-k1-pcie ca800000.pcie: host bridge /soc/pcie-bus/p=
-cie@ca800000 ranges:
->   [ 1.297283] spacemit-k1-pcie ca800000.pcie:       IO 0x00b7002000..0x00=
-b7101fff -> 0x0000000000
->   [ 1.312783] spacemit-k1-pcie ca800000.pcie:      MEM 0x00a0000000..0x00=
-afffffff -> 0x00a0000000
->   [ 1.326753] spacemit-k1-pcie ca800000.pcie:      MEM 0x00b0000000..0x00=
-b6ffffff -> 0x00b0000000
->   [22.348490] rcu: INFO: rcu_sched detected stalls on CPUs/tasks:
->   [22.351764] rcu:     4-...0: (12 GPs behind) idle=3D051c/1/0x4000000000=
-000000 softirq=3D43/43 fqs=3D1908
->   [22.367040] Sending NMI from CPU 2 to CPUs 4:
->   [32.367049] After 10 seconds, these CPUS still haven't responded to the=
- NMI: 4
->
-> The CPU ignoring an NMI for ten seconds is why I read this as an MMIO acc=
-ess
-> that never receives a completion rather than a spin or a deadlock.
->
->
-> LOCALISATION
-> ------------
-> I added a dev_info() before each step of k1_pcie_init() (patch at the end=
- of
-> this mail).  The last marker port C prints is the one immediately before =
-the
-> first DBI access:
->
->   [1.347050] spacemit-k1-pcie ca800000.pcie: K1DBG 1 toggle_soft_reset
->   [1.362635] spacemit-k1-pcie ca800000.pcie: K1DBG 2 enable_resources
->   [1.370918] spacemit-k1-pcie ca800000.pcie: K1DBG 3 first DBI write (ven=
-dor/device ID)
->   <nothing further>
->
-> i.e. it dies in
->
->         dw_pcie_dbi_ro_wr_en(pci);
->         dw_pcie_writew_dbi(pci, PCI_VENDOR_ID, PCI_VENDOR_ID_SPACEMIT);
->
-> which is the first register access to the controller after
-> k1_pcie_enable_resources() has enabled the clocks and deasserted the rese=
-ts.
->
-> I also tried moving phy_init() ahead of that block, in case the DBI domai=
-n
-> needed the PHY running (port B is masked here, because vendor U-Boot
-> initialises port B's PHY and never touches port C's).  phy_init() returne=
-d
-> success and the DBI access still hung:
->
->   K1DBG 1 toggle_soft_reset
->   K1DBG 2 enable_resources
->   K1DBG 4 assert PERST# + 100ms
->   K1DBG 5 RC mode + AUX_PWR_DET
->   K1DBG 6 phy_init
->   K1DBG 3 first DBI write (vendor/device ID)     <- still the last line
->
->
-> CARD MATRIX (port C, mainline 7.2, otherwise identical boots)
-> -------------------------------------------------------------
->   empty slot                                          boots
->   Intel I210        [8086:1533]  Gen1 x1   link up, enumerates
->   HP NC360T         [8086:105e]  Gen1 x2   link up, enumerates
->   NVIDIA Quadro P400[10de:1cb3]  Gen1 x2   link up, enumerates
->   NVIDIA Quadro T400[10de:1fb2]  Gen1 x1   link up, enumerates
->   AMD Radeon RX 550 [1002:699f]  Gen1 x2   link up, enumerates
->   Sun ATLS1QGE                             "Device found, but not active"
->   HP NC375T                                "Device found, but not active"
->   Intel I225-V rev 01                      *** CPU HANG ***
->
-> Note the two cards that do not train fail *politely* -- the DWC core logs
-> "Device found, but not active", the probe completes, an empty bus 0002:00=
- is
-> created and the machine boots.  So port C is perfectly capable of handlin=
-g a
-> link that never comes up.  The I225-V is different, and it fails long bef=
-ore
-> link training is reached.
->
-> The I225-V card itself is good: it works on a MACCHIATObin (Armada 8040) =
-in
-> the same office, and it works on this same Jupiter under the vendor kerne=
-l.
->
->
-> THE VENDOR DRIVER SURVIVES THE SAME CARD
-> ----------------------------------------
-> Bianbu 2.3.5 / Linux 6.6.63, vendor k1x-dwc-pcie driver, same board, same
-> slot, same I225-V:
->
->   [ 1.657482] k1x-dwc-pcie ca400000.pcie: PCIe Gen.2 x2 link up
->   [ 2.949762] k1x-dwc-pcie ca800000.pcie: Phy link never came up
->   [ 2.952808] k1x-dwc-pcie ca800000.pcie: PCI host bridge to bus 0002:00
->   ... boots to a login prompt
->
-> The vendor driver does not do the "set the PCI vendor and device ID" DBI
-> write at that point in its sequence.
->
->
-> HYPOTHESES ELIMINATED BY EXPERIMENT
-> -----------------------------------
->   nvme driver          initcall_blacklist=3Dnvme_init  -- still hangs
->   power domains        pd_ignore_unused              -- still hangs
->   link training        dies before dw_pcie_iatu_detect()
->   kernel version       identical on v7.1 and v7.2
->   compiler             identical with gcc 13.3 and gcc 16.2
->   PHY init ordering    phy_init() first -- returns 0, still hangs
->   CLKREQ# pinmux       CLKREQ# removed from pcie2_4_cfg -- still hangs
->   port B interference  port B disabled in DT -- still hangs
->   power supply         12 V / 12.5 A bench supply, not USB-C PD
->
->
-> A POSSIBLY RELATED OBSERVATION
-> ------------------------------
-> k1_pcie_init() writes PCI_VENDOR_ID_SPACEMIT / PCI_DEVICE_ID_SPACEMIT_K1 =
-to
-> both ports.  On this board the write takes effect on port B but not on po=
-rt C
-> -- including on the boots where port C works fine:
->
->   pci 0001:00:00.0: [201f:0001] type 01 class 0x060400 PCIe Root Port
->   pci 0002:00:00.0: [1e5d:3003] type 01 class 0x060400 PCIe Root Port
->
-> 1e5d:3003 is the hardware default (ASR Microelectronics).  So that same D=
-BI
-> read-only write is being silently dropped on port C even when it does not
-> hang.  I do not know whether this is the same underlying issue, but it is=
- in
-> the same function and on the same port, so it seemed worth mentioning.
->
->
-> WORKAROUND
-> ----------
->         &pcie2 { status =3D "disabled"; };
->
-> or, from U-Boot, before booti:
->
->         fdt set /soc/pcie-bus/pcie@ca800000 status disabled
->
-> With that, mainline 7.2 boots Debian happily on this board with root on t=
-he
-> M.2 NVMe.  Nobody's board is stuck; the slot is just unusable with this c=
-ard.
->
-> Note this is not a problem with the DTS enablement of &pcie2 (added in 7.=
-1) --
-> an empty slot, and six of seven cards, work fine.
->
->
-> WHAT I AM ASKING
-> ----------------
-> I do not have the K1 documentation, so I have gone as far as I can from
-> outside.  I would appreciate a pointer to what could gate that first DBI
-> access on port C -- CLK_PCIE2_DBI/MASTER/SLAVE, RESET_PCIE2_*, or somethi=
-ng
-> in the PMU/APMU block -- and I am happy to run any test you like on this
-> board.
->
-> Separately, and regardless of the cause: a hard CPU hang on an unanswered
-> DBI read is an unpleasant failure mode, since there is no completion time=
-out
-> and no machine check to abort it on RISC-V.  If there is a sane way to bo=
-und
-> it, that seems worth having.
->
-> Full logs for every boot referenced above are available on request.
->
-> Thanks,
-> Bruno Banelli
->
->
-Hi Bruno,
+This series moves ARM cacheinfo allocation to the boot CPU to avoid
+sleeping-lock warnings during PREEMPT_RT secondary-CPU startup. It is
+rebased onto v7.3-rc1, cee9395acd8043be0644b25c34bfa86623f2b935.
 
-The issue was caused by a missing hardware configuration in the K1 PCIe
-initialization.
+Patches 1-3 prepare for early allocation: bound cache-leaf writes,
+include external caches in the allocation size, and guard CLIDR reads
+on older CPUs. Patch 4 enables early allocation. Please take all four
+patches together for stable.
 
-The PMU PCIE_CONTROL_LOGIC register contains an IGNORE_PERSTN bit (BIT(2)).
-The hardware manual describes it as follows:
+Changes in v2:
+- Rebase from post-v7.3-rc2 mainline (5225b8eec4c9) onto v7.3-rc1
+  as Linus requested [1].
+- Add Sebastian's Tested-by and links to the original patch posts.
+- Retest the full series on this base; results below.
+The four code diffs are unchanged.
 
-=E2=80=9CWhen set to 1, the PCIe controller and PHY ignore the PERSTN signa=
-l from
-the link partner in both RC and EP modes.=E2=80=9D
+Fresh testing on this v7.3-rc1 base used GCC 15.2.0 and QEMU 10.2.1.
+Three full kernel builds and W=1 checks of cacheinfo.o/topology.o passed:
+multi_v7_defconfig with and without PREEMPT_RT, and an ARMv6+ARMv7 SMP
+PREEMPT_RT configuration for ARM11 MPCore. Seven boot checks passed:
+- virt, Cortex-A15, 2 and 4 CPUs, with and without PREEMPT_RT;
+- vexpress-a9, Cortex-A9 with external PL310 L2, 4 CPUs, RT and non-RT;
+- realview-eb-mpcore, ARM11 MPCore, 4 CPUs, PREEMPT_RT.
 
-This bit was not configured during RC initialization. As a result, the
-controller and PHY could still be affected by the PERSTN input during the
-early DBI accesses. With the Intel I225-V installed, the first DBI access
-could remain pending and hang the CPU.
+With DEBUG_ATOMIC_SLEEP enabled, the RT boot warning was absent.
+CPU1 offline/online succeeded in every run, with identical cache sysfs
+output before and after. ARM11 exposed no cache leaves, as expected.
+RT and non-RT cache output also matched on each ARMv7 machine.
+All four stable patch IDs match v1.
 
-After configuring this bit during PCIe initialization, the DBI hang and
-the resulting RCU stall no longer occur in our testing.
+Earlier testing of these same diffs also covered DT cache-description
+corner cases. On September 12, the full series passed on a Raspberry
+Pi 400 with a 32-bit PREEMPT_RT 7.2.6-rc1 kernel: the boot warning was
+absent and all 12 cache sysfs entries matched the baseline. CPU hotplug
+was unavailable there. That hardware test and the DT corner-case tests
+were not repeated on this rebased tree.
 
-Regards,
-Encrow Thorne
-> -------------------------------------------------------------------------=
--------
-> Instrumentation used for the localisation above (not for merging):
->
-> diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/=
-controller/dwc/pcie-spacemit-k1.c
-> index 04241df8f..d4c08e021 100644
-> --- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> +++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> @@ -130,17 +130,21 @@ static int k1_pcie_init(struct dw_pcie_rp *pp)
->  {
->  	struct dw_pcie *pci =3D to_dw_pcie_from_pp(pp);
->  	struct k1_pcie *k1 =3D to_k1_pcie(pci);
-> +	struct device *dev =3D pci->dev;
->  	u32 reset_ctrl;
->  	u32 val;
->  	int ret;
-> =20
-> +	dev_info(dev, "K1DBG 1 toggle_soft_reset\n");
->  	k1_pcie_toggle_soft_reset(k1);
-> =20
-> +	dev_info(dev, "K1DBG 2 enable_resources\n");
->  	ret =3D k1_pcie_enable_resources(k1);
->  	if (ret)
->  		return ret;
-> =20
->  	/* Set the PCI vendor and device ID */
-> +	dev_info(dev, "K1DBG 3 first DBI write (vendor/device ID)\n");
->  	dw_pcie_dbi_ro_wr_en(pci);
->  	dw_pcie_writew_dbi(pci, PCI_VENDOR_ID, PCI_VENDOR_ID_SPACEMIT);
->  	dw_pcie_writew_dbi(pci, PCI_DEVICE_ID, PCI_DEVICE_ID_SPACEMIT_K1);
-> @@ -153,6 +157,7 @@ static int k1_pcie_init(struct dw_pcie_rp *pp)
->  	 * delay first.  Write, then read it back to guarantee the write
->  	 * reaches the device before we start the delay.
->  	 */
-> +	dev_info(dev, "K1DBG 4 assert PERST# + 100ms\n");
->  	reset_ctrl =3D k1->pmu_off + PCIE_CLK_RESET_CONTROL;
->  	regmap_set_bits(k1->pmu, reset_ctrl, PCIE_RC_PERST);
->  	regmap_read(k1->pmu, reset_ctrl, &val);
-> @@ -162,8 +167,10 @@ static int k1_pcie_init(struct dw_pcie_rp *pp)
->  	 * Put the controller in root complex mode, and indicate that
->  	 * Vaux (3.3v) is present.
->  	 */
-> +	dev_info(dev, "K1DBG 5 RC mode + AUX_PWR_DET\n");
->  	regmap_set_bits(k1->pmu, reset_ctrl, DEVICE_TYPE_RC | PCIE_AUX_PWR_DET)=
-;
-> =20
-> +	dev_info(dev, "K1DBG 6 phy_init\n");
->  	ret =3D phy_init(k1->phy);
->  	if (ret) {
->  		k1_pcie_disable_resources(k1);
-> @@ -172,11 +179,14 @@ static int k1_pcie_init(struct dw_pcie_rp *pp)
->  	}
-> =20
->  	/* Deassert fundamental reset (drive PERST# high) */
-> +	dev_info(dev, "K1DBG 7 deassert PERST#\n");
->  	regmap_clear_bits(k1->pmu, reset_ctrl, PCIE_RC_PERST);
-> =20
->  	/* Finally, as a workaround, disable ASPM L1 */
-> +	dev_info(dev, "K1DBG 8 disable_aspm_l1\n");
->  	k1_pcie_disable_aspm_l1(k1);
-> =20
-> +	dev_info(dev, "K1DBG 9 init complete\n");
->  	return 0;
->  }
-> =20
->
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+v1: https://lore.kernel.org/r/20260912195552.76673-1-kmehltretter@gmail.com/
+[1] https://lore.kernel.org/r/CAD++jL=7OSrPMax9GRj3D7ehjmmG2uMyws53F8U0x7YGx+RNOQ@mail.gmail.com/
 
+Karl Mehltretter (4):
+  ARM: cacheinfo: avoid out-of-bounds write in populate_cache_leaves()
+  ARM: cacheinfo: count external caches in early_cache_level()
+  ARM: cacheinfo: guard the CLIDR read in populate_cache_leaves()
+  ARM: topology: allocate the cacheinfo early on the boot CPU
 
+ arch/arm/kernel/cacheinfo.c | 49 +++++++++++++++++++++++----------------------
+ arch/arm/kernel/topology.c  | 13 ++++++++++++
+ 2 files changed, 38 insertions(+), 24 deletions(-)
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
