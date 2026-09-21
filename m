@@ -1,145 +1,127 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4278C3C13F5
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:28:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A14D48489A;
+	Mon, 21 Sep 2026 11:28:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789990126; cv=none; b=jjZra78eMCTmQv3w1UL7zTEwI5E1ZYcftZyxT4PfFdBuhj2EbtwA4bGIZWImVYAatUh6D9U5n9gtROaLeTFbOPB/V0LVB/8z5ASjrD019r9GRGEdy4bDmmfwZj39bZj9HUKV4+qfauuImCnUfoniWjUFUrc+tl9ArdG7zwa2lSo=
+	t=1789990136; cv=none; b=QWDf/aKY6OviqR1aPM4r3AzyeYRpqoUnUYK/TQbKnf5sm948ScDunDT5SNOCaVXSSMG13PQ1V6Kv1Wh8sohGvNOFeW2m3M4XG8xnbrCuGI9Za4hbxHxVYAwg38g/2NtFrn1fwDjQIe5t5bN1tFQ/S6wTjDrdwVr87K0FBuVosYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789990126; c=relaxed/simple;
-	bh=6x7bWgUbrJzWW4PWTaEsDx0AP8ht7m08t2wGoigcZck=;
+	s=arc-20240116; t=1789990136; c=relaxed/simple;
+	bh=23O1N9RAoRg8GUl0wqI99Kzo6mCdV07KZt4GTFKyfdw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fIYMUhcozM1sLE908dj/koD/ojVoLw+vjYXUXV5iWlqHYoanIdeiBm+3YIH1eMKcw0ENqWMr+LPAinh8orO97Qm3F0HIakHGb9VBkLMQBj4Jtd3SVm9j7MxbEQrT9v0EMdSxeRvYvYb02ZmAgMe+sn8x3ranXWwna5TSXrEFFKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VjN0N5Zl; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=0VVPFEi/; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Yv4M9aiR; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=q9sV4Syu; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qg8Oy//qBTIzqfRtPb7NFrlTPwO43b7ay5a5rSjidxwKW9WdfuOYXDZsUh2d6XfBHd5rzgxBalljsF3CfUWjVSKBBDjFWswbIeU3yKmC/1f3inucwP18XpHLTl/GEW8/P4mgxEeVQTOlLxVRTv5Kq5c+V8hQcOTCd235fnLCfGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U/e3aISV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VjN0N5Zl";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="0VVPFEi/";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Yv4M9aiR";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="q9sV4Syu"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E27AC1FAA3;
-	Mon, 21 Sep 2026 11:28:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789990119; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/NfxikMW0an5SBYmu5hTO0LNfhoBM9wQ5NRZpY/GkJg=;
-	b=VjN0N5Zl79FtE2/GBE7l7l59/Sb8ANygoLJz9KzcTbaCQoWRprCFMtqbJF2FZqTCMaEQKt
-	bH2ckt+mIE+/V8wazxX1AszFkC924RBp6wAXBAVZk99Sxi7ZMPMNDZawID1fewiWKHMpwH
-	ewo3MCKC1a1761qHfSMsciF/Ak2owjM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789990119;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/NfxikMW0an5SBYmu5hTO0LNfhoBM9wQ5NRZpY/GkJg=;
-	b=0VVPFEi/huCWgBwTVrA4LBpyCP3bMfUaCzpLE90Q1hgu/gO4iiAvGluVzozNsqbo6JPZ/B
-	pQpzzhY7PUaMBzAQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789990114; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/NfxikMW0an5SBYmu5hTO0LNfhoBM9wQ5NRZpY/GkJg=;
-	b=Yv4M9aiRuv8s2thiL4B+pzXQ7/kOW8Wjob0pG/vBHjgPXOWSZ8xbJbLnDRlsYhiexiEtPr
-	ZeWU5fE8b4NqcH4669aasiH2/G+pga6E4TFYMifC8IwjdofuW8+14KTXGa0xSSizRdbdwO
-	NiiLrJV2SUonBuUCSOr7lhtCtYk0yrI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789990114;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/NfxikMW0an5SBYmu5hTO0LNfhoBM9wQ5NRZpY/GkJg=;
-	b=q9sV4Syuc7Wxfkin30dX96s50DF4uOIkMWFpIK4WE9d3ndBN1rjWglS1I3tvXCzPuI7g1O
-	7g6j71cO/Ixi6WDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A249A1368D;
-	Mon, 21 Sep 2026 11:28:34 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id QCrYHuIUsWp0fAAAD6G6ig
-	(envelope-from <dwagner@suse.de>); Mon, 21 Sep 2026 11:28:34 +0000
-Date: Mon, 21 Sep 2026 13:28:33 +0200
-From: Daniel Wagner <dwagner@suse.de>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: Justin Tee <justin.tee@broadcom.com>, 
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, Paul Ely <paul.ely@broadcom.com>, Christoph Hellwig <hch@lst.de>, 
-	Sagi Grimberg <sagi@grimberg.me>, Chaitanya Kulkarni <kch@nvidia.com>, 
-	Daniel Wagner <wagi@kernel.org>, Hannes Reinecke <hare@suse.de>, linux-nvme@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, syzbot+77955102efac681ec73b@syzkaller.appspotmail.com
-Subject: Re: [PATCH] nvmet-fcloop: fail LS request synchronously when remote
- port is gone
-Message-ID: <2ad8b13c-b548-4574-9c61-5224833e1bad@flourine.local>
-References: <20260920163804.67858-1-ngocthang2710.1999@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U/e3aISV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C15C1F000FF;
+	Mon, 21 Sep 2026 11:28:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789990134;
+	bh=aaRbicKNfqtcJIZ5MQEU8o/qjFzZn0m/iDzkauQ3Qt4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U/e3aISV00A7ww8Hei7QixqUITRE14MzH4XqHHJarBC47v5xUeurs1Br+A2TFyzYT
+	 rW2Pa2ldvVMGIGLZHXnTqqT0jg0LBxiWzDbX4qVi/24Rv9uHMFGYm3iUn66EYHJElt
+	 cBNWgqQeQc8KZV7QkUmA98Mx6XPg3GiL3CSnvdz3YsytovHIS5CsZcsvD+QReu+8er
+	 BwAe1Z0Y3oy0xe32U8NT2wpd1S0OG2mVZrfL6xREtSkiPWikff+qiAVZ4FUn5uVqxK
+	 9bgCnwPFlLm3qfsAbQbtAVyrmmmsm/f2C9r1QcdqpvAyfRcZArOLIalco9PTsv6KYH
+	 wNdy4UdIIVzTg==
+Date: Mon, 21 Sep 2026 13:28:52 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, linux-usb@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] usb: gadget: tegra-xudc: Disable port reset work on
+ removal
+Message-ID: <arETYSjwaHytxyBu@orome>
+References: <CAGEsz8F2eKsmV_tymO+9UD5xkS_tWhZo-b9Xom1_SiKuc-BCqg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5zdctmjwsshytil5"
 Content-Disposition: inline
-In-Reply-To: <20260920163804.67858-1-ngocthang2710.1999@gmail.com>
-X-Spam-Score: -2.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_RCPT(0.00)[77955102efac681ec73b];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[broadcom.com,gmail.com,lst.de,grimberg.me,nvidia.com,kernel.org,suse.de,lists.infradead.org,vger.kernel.org,syzkaller.appspotmail.com];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[flourine.local:mid,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
+In-Reply-To: <CAGEsz8F2eKsmV_tymO+9UD5xkS_tWhZo-b9Xom1_SiKuc-BCqg@mail.gmail.com>
 
-On Sun, Sep 20, 2026 at 11:38:04PM +0700, Nguyen Ngoc Thang wrote:
-> fcloop_t2h_ls_req() handles a missing remoteport by queueing the request
-> on tport->ls_list and completing it with -ECONNREFUSED from a work item.
-> 
-> nvmet_fc_delete_assoc_work() sends the Disconnect Association LS this
-> way. When it runs during nvmet_fc_unregister_targetport(), the work is
-> queued after flush_workqueue() has started, so it is not waited for.
-> nvmet_fc_free_pending_reqs() then frees the still-pending lsop and the
-> late work item calls lsreq->done() on freed memory:
-> 
->   BUG: KASAN: slab-use-after-free in fcloop_rport_lsrqst_work+0x242/0x2e0
->   Workqueue: nvmet-wq fcloop_tport_lsrqst_work
->   Allocated by nvmet_fc_xmt_disconnect_assoc
->   Freed by nvmet_fc_free_pending_reqs
->            nvmet_fc_unregister_targetport
->            fcloop_delete_target_port
-> 
-> Return -ECONNREFUSED directly instead. __nvmet_fc_send_ls_req() unwinds
-> and nvmet_fc_xmt_disconnect_assoc() frees the lsop, so no completion is
-> left outstanding.
 
-IIRC this has been added to free memory in a different execution
-scenario. So I don't think you can just skip it.
+--5zdctmjwsshytil5
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] usb: gadget: tegra-xudc: Disable port reset work on
+ removal
+MIME-Version: 1.0
 
-And this is also a change in the behavior between HBA's behaviour in the
-loopback behavior.
+On Thu, Sep 17, 2026 at 07:20:58PM +0000, Myeonghun Pak wrote:
+> The port status interrupt can schedule port_reset_war_work to handle the
+> Tegra210 port reset workaround. The remove path does not cancel this
+> work, so it can run after the PHYs and controller resources have been
+> released and access freed memory.
+>=20
+> Disable and drain port_reset_war_work before tearing down the controller.
+> Use disable_delayed_work_sync() so that the interrupt handler cannot
+> queue the work again while the managed IRQ is still registered.
+>=20
+> This issue was identified during our ongoing static-analysis research
+> while reviewing kernel code.
+>=20
+> Fixes: 49db427232fe ("usb: gadget: Add UDC driver for tegra XUSB
+> device mode controller")
+
+Please don't wrap lines like this.
+
+> Cc: stable@vger.kernel.org # 6.10+
+> Assisted-by: LLM
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+>  drivers/usb/gadget/udc/tegra-xudc.c |    1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> --- a/drivers/usb/gadget/udc/tegra-xudc.c
+> +++ b/drivers/usb/gadget/udc/tegra-xudc.c
+> @@ -3926,6 +3926,7 @@
+>=20
+>  	pm_runtime_get_sync(xudc->dev);
+>=20
+> +	disable_delayed_work_sync(&xudc->port_reset_war_work);
+>  	cancel_delayed_work_sync(&xudc->plc_reset_work);
+>  	cancel_work_sync(&xudc->usb_role_sw_work);
+
+This is a preexisting problem, but given that we only delete the gadget
+below this cleanup, shouldn't the other two cancel_*() calls be
+disable_*() as well? Otherwise there's potentially a race condition
+between this and the interrupt handler (which is only unregistered after
+=2Eremove() completes).
+
+Either that or the existing cancel_*() calls are enough in which case
+your patch probably should be using that variant as well.
+
+Thierry
+
+--5zdctmjwsshytil5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqxFPAACgkQ3SOs138+
+s6Htpg//WPr1p2gbjuixtztjto5kgSpBtht2UIY60AmdxNMUo0WL0PUmoJ6v1s1u
+Mye/zUOsJokaRKZK1x8pply2BvTiOG7mJT3fqb345BrMXZAsIVkPVzNRuPU6uHel
+jck7pp3cZiD8RpFWhb38rPSzwchHlKLtAakrDzC/fBHhKc1gE7hAM8U50fLuiJJT
+SOXf+aa3Bm1tPN+ydwIDeihf9OBPEgBVzl88re1aVy+D5CE3ejh24OPO8IGi3bZ8
+SAAc6tNCOlNusAP9q5zMXXwTjb9nOSKS1kSkc6fSkML9cpnnKUd2LPEtiqtV6c0g
+TpCVQXFHA1QfryeCxkILu7B5ZkuPTwu0DLkqNfwocdw8FNU+HQgyjAh97buQU6LS
+h8eDya980cQ0ZTC76GlhCMMTHGNdVPpAwAQCeq9kN6QkqgfjqY9AfWt8Q0pQVJfL
+zBw2ndvzfDiLSdEMFQuHeshldcKy+kaAQW0pws4jkKJ37BAAALpQpM1OiEUAsCp+
+PQYBBpb2udeaPI6OV8zd5rPh2NDbAqIGc3CpKzLSJgSeTe9swTY3t48diNcq/rvz
+0dfUmfdpMlIFL7zFYkeCXkhm0/kA7ABHIa1BKHj1fbynXbpYmfa4PLG/XSCOz4tR
+G1ZcAee9mdfskKGYI/LQU0XByVGgZ84+JxtaIXN1Rovc80GE8Hc=
+=oxn7
+-----END PGP SIGNATURE-----
+
+--5zdctmjwsshytil5--
