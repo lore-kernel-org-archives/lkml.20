@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 616F9353A98;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C88DC360ED6;
 	Mon, 21 Sep 2026 04:23:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789964612; cv=none; b=Um8KoK/Z74nbw+vjMEVhrqNdLSOkcp0YbWJfVinI+XwWKz4iE/djpbcKri/NXXVwPT2Kc4mLNxyXjhvfWljPtfxkRTvaotzq1gjFSO/3LL2Hce7PTRr/obYxjuqGjuHXs4JocyBs57ByuaFSOaTB1wBOaKMxA3H3doIPWeMNXLg=
+	t=1789964612; cv=none; b=eTXsG2+SWj3yJVoZXmCelp1r5bbDgERNNlXwneTfQXDmqg8eu4oFOl6KopdCNW+zf3hmI4FH4fShLGzdqUh4BiuMa571vUCJWfMEQFvc4AytBSX90NrH3io8wNW4+obED5wQ2zbpOsmup4eY0lbOvQmxROUfgvuwEljufRxdJ3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789964612; c=relaxed/simple;
-	bh=iSN13jQzT5q3aGEtcq9pGlkB8alxyY2QXP+GvUaeNFQ=;
+	bh=gVLLIDHjbMni5VoIW3Uu4KnGYFcqhuw0LoFOcrTkdTk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IThmD7qvixcKRbKZs30jHwg/kjlOkwPf/g51Q9pe4ASEYzfn0DC+1VV3jJCGiTkmuvS9HKCJC76zuo+4CtMjnEtJG/v8VUis/3coZA6iY5oO8gfY3JMTwhv4Dk/zBXhUKP/Z1wjK0ra570JyuigfvdNSrqc3JFRENxqT+goKGB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N7V3g70G; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=XeoQ5OMsZpg4J8tblLBTEFNdfyof1I593HY5/9yZ6JNS1I/OA//8eNZK0nG9HquolOOfZw6WIQd+9S135PLjr2vRkR6PbCFKGVttWe2/nV7g6NDXOcEjpWTQdf4BI14JlUa8x18tbvDHPLvlu/T5bDfr/y6vGRFp6kYFnXkdKZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ODAkMBuq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N7V3g70G"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2E471C32782;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ODAkMBuq"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 96AF6C2BCFF;
 	Mon, 21 Sep 2026 04:23:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789964612;
-	bh=iSN13jQzT5q3aGEtcq9pGlkB8alxyY2QXP+GvUaeNFQ=;
+	bh=gVLLIDHjbMni5VoIW3Uu4KnGYFcqhuw0LoFOcrTkdTk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=N7V3g70G+bTOGPzDuOo6jB8D8KkRSRG1Dvt49X+paLpNP8zI1knerv/xcqiziifSf
-	 yPx2bHWWdAlzI2usVtJTyOwIhTF2nsv8wCLQ3yFSIJeEh5fB3VHb7VkuonlTxfZ9sm
-	 8UGCm3TpU1rtu2bjrvn8D3CyA55UCpKv66nc8xZ/aElujIMmwgW6eo1IqxUQyPyovh
-	 scYgNAMqQXMSvC7hzXM2d/l/eioN+cXRI8SvR6EWNfMACYyeU0CX6mNjLGbnaZVYZR
-	 +nTaBpYk+0b+OsYZWJPoGVtR6zMemL2730wiL8ZT0rU/p5n1sunE6zN3kh5Xan8xV6
-	 x/zTXby8/WD4g==
+	b=ODAkMBuq2GfUqTIyZBWh0GWwOaZOrNxpxlReyt6RQyuiBRamlFvboU4jccE3gdMmp
+	 BVpIzf0MhmiOlQ5naICb1EJ9bC124SKk1WJhc9EKjLV5zETM1EFb2G/1j87cSBwabl
+	 b7QxryX9I/5pD7VMZmEGl+2UlFUt4Ch/RzosZaA8b69+6zXTmi8D+Ymxcmx41HJMKw
+	 YstOGx3NtXmKBpdiycfX01NpdiEVqUG8q8OAlTQ/drYntByeCSB7XvMnBD9qgBo2ca
+	 mYjoQ1G4g8lgdsnu/VQVkHHwqdaRx53f2wykqY00FQBGb2+t7BG3JsG72NsU0ITQk1
+	 cDvHHdy5Zc1hg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 18C5EC982F2;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FF10C982F4;
 	Mon, 21 Sep 2026 04:23:32 +0000 (UTC)
 From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Mon, 21 Sep 2026 12:23:24 +0800
-Subject: [PATCH v8 05/18] dt-bindings: gpio: pl061: add Ambarella CV75
- variant
+Date: Mon, 21 Sep 2026 12:23:28 +0800
+Subject: [PATCH v8 09/18] gpiolib: regmap: add gpio_regmap_get_chip()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-cv75-v5-v8-5-282ff5d98dda@ambarella.com>
+Message-Id: <20260921-cv75-v5-v8-9-282ff5d98dda@ambarella.com>
 References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
 In-Reply-To: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
 To: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
@@ -63,11 +62,11 @@ Cc: Long Zhao <longzhao@ambarella.com>, Rob Herring <robh@kernel.org>,
  linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789964608; l=2025;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789964608; l=1405;
  i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=GVEIXtfx8rpLQa9TzFd09VjRop28rVpySsmXjUcyqZs=;
- b=Fo85IDH9CPKUggCRVyQ2gJURzjURGeK9VwzCX0zQQavK4eGy8LQzGOd51k3V62j04DGfXFOYr
- uA2NQBL+8O5CEp+xRahSZ2xOdeR3F1E7oyUkJgBszjw14265YYekQ84
+ bh=cRhJj4Cmnrf+otvC27C8iAwNmJZQbquKFDy2qboyeNQ=;
+ b=xlZYvrKjnFVcFpLds0vUYl/6sFDK38Bbl7y59QeayQws2YyeCYevlQXKOrV6SeYTdNPcO+CRG
+ ztc9eLhtP9cDwNJ4nu/511CwNb1JR0ZD1va34zcQZLolhyIHV2lMqhM
 X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
  pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
 X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
@@ -77,72 +76,43 @@ Reply-To: longzhao@ambarella.com
 
 From: Long Zhao <longzhao@ambarella.com>
 
-The CV75 GPIO banks sit on the AMBA PrimeCell bus but are not
-register-compatible with the ARM PL061. Each bank is 32-bit and 32
-lines, with extra mask/enable registers, so arm,pl061 must not be used
-as a fallback compatible.
-
-The AMBA core matches the PL061 driver by PrimeCell ID, not by the DT
-compatible string. These blocks do not implement the standard PL061 ID
-(0x00041061) in the ID registers, so arm,primecell-periphid is required
-and is fixed to 0x000e8061; the driver uses that ID to select the
-Ambarella layout. gpio-ranges is required because each bank is a slice
-of the SoC pinctrl pin space.
+Let drivers that implement a custom irqchip retrieve the gpio_chip
+after registration.
 
 Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
- .../devicetree/bindings/gpio/pl061-gpio.yaml       | 25 +++++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
+ drivers/gpio/gpio-regmap.c  | 6 ++++++
+ include/linux/gpio/regmap.h | 1 +
+ 2 files changed, 7 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml b/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
-index 4d970e55104b..c22dd8a1d2c1 100644
---- a/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
-+++ b/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
-@@ -15,7 +15,9 @@ select:
-   properties:
-     compatible:
-       contains:
--        const: arm,pl061
-+        enum:
-+          - arm,pl061
-+          - ambarella,cv75-gpio
-   required:
-     - compatible
+diff --git a/drivers/gpio/gpio-regmap.c b/drivers/gpio/gpio-regmap.c
+index fbd4c753525a..21e0993b89e2 100644
+--- a/drivers/gpio/gpio-regmap.c
++++ b/drivers/gpio/gpio-regmap.c
+@@ -295,6 +295,12 @@ void *gpio_regmap_get_drvdata(struct gpio_regmap *gpio)
+ }
+ EXPORT_SYMBOL_GPL(gpio_regmap_get_drvdata);
  
-@@ -25,7 +27,9 @@ properties:
- 
-   compatible:
-     items:
--      - const: arm,pl061
-+      - enum:
-+          - ambarella,cv75-gpio
-+          - arm,pl061
-       - const: arm,primecell
- 
-   reg:
-@@ -64,6 +68,21 @@ required:
-   - "#gpio-cells"
-   - gpio-controller
- 
--additionalProperties: false
-+allOf:
-+  - $ref: /schemas/arm/primecell.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ambarella,cv75-gpio
-+    then:
-+      properties:
-+        arm,primecell-periphid:
-+          const: 0x000e8061
-+      required:
-+        - arm,primecell-periphid
-+        - gpio-ranges
++struct gpio_chip *gpio_regmap_get_chip(struct gpio_regmap *gpio)
++{
++	return &gpio->gpio_chip;
++}
++EXPORT_SYMBOL_GPL(gpio_regmap_get_chip);
 +
-+unevaluatedProperties: false
+ /**
+  * gpio_regmap_register() - Register a generic regmap GPIO controller
+  * @config: configuration for gpio_regmap
+diff --git a/include/linux/gpio/regmap.h b/include/linux/gpio/regmap.h
+index d7ffc12b00a2..6bc00b9775a5 100644
+--- a/include/linux/gpio/regmap.h
++++ b/include/linux/gpio/regmap.h
+@@ -128,5 +128,6 @@ void gpio_regmap_unregister(struct gpio_regmap *gpio);
+ struct gpio_regmap *devm_gpio_regmap_register(struct device *dev,
+ 					      const struct gpio_regmap_config *config);
+ void *gpio_regmap_get_drvdata(struct gpio_regmap *gpio);
++struct gpio_chip *gpio_regmap_get_chip(struct gpio_regmap *gpio);
  
- ...
+ #endif /* _LINUX_GPIO_REGMAP_H */
 
 -- 
 2.34.1
