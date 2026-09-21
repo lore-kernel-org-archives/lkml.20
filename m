@@ -1,67 +1,75 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3F833BBCF;
-	Mon, 21 Sep 2026 20:02:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1BF388371
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:03:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790020950; cv=none; b=qHZbldeDkGB9kU6bYRdCTK/aTCJvH//oBkoYgP/1pH/HRhc35Q1IsLLl7ClX4M1NyazNulLrtZVbzjlbmiyQhcIh26VuFHHAfHpbcgM6JYbL4oJN1ZM4j8KHqzKsiOoRFZ2VBWeSKjzWLxOBs4t+xAKlPm98kIB/ksQWFLz0sVs=
+	t=1790020997; cv=none; b=WRQdgIL2CLYnvE/SBEKHcDv15WZSVT0UVFn0zGsKoX/+MtCQfbPY8ogHKHHJjffcxOLlDwjHcf0KAd+WquKxBUc7Z548NdgFqjyMCY8b7fRPwGNsAsH1d31WYZVbcf65bWoWwhoWQnIKZSwcLItebCHdGJRyViFb8LarIDeDJGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790020950; c=relaxed/simple;
-	bh=rI20NCbA4O7pDcBnsFVI6NmtS2uJtaAEiIfG4zmEu8k=;
+	s=arc-20240116; t=1790020997; c=relaxed/simple;
+	bh=p+y0PN6mR31PohlWhzq8Aw6AVr/yUxoSMYAvxtIzJlU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uyZX/dv1yUeOSTPRxKaLgyQbh2WELL1eYSqudH/EfZiZT2RnXNWs9pj4PX0uf8AP8/Nk0wAoOqT2RFAYWdulqpDLKPvCtPZ8eCd+mYBiXEsZKkuXFRqGf3tBFCXF5z/DdE4ZaxI0d+bypVPCs+ZZ/uKb4h2cb8Rd8BN7zg1Sd4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Zhog/YOa; arc=none smtp.client-ip=192.198.163.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=B/gGCACkMQS2d8ED+bhw9ox90dwxdijcqQTv1imlhKOpe3FtwQ8xbW89BHzjvogZHs8+Xfmjl6pjhfqb0Fac0ObZDY0PS7sRPLOPGkuipLgD9gzw6Wd7qEegqwgFWxOX0HhM2JnHX5kEDyY+1MsVdEhDcWeXFEsxK5bzbpCXg5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=LrluNfDp; arc=none smtp.client-ip=74.125.230.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Zhog/YOa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790020948; x=1821556948;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=rI20NCbA4O7pDcBnsFVI6NmtS2uJtaAEiIfG4zmEu8k=;
-  b=Zhog/YOa/Ket0ooSo7N7DcIgVRJUZ8/PV7r6e15S/h9zbmHKBb7Q2f/I
-   mvk3dl3pycvO9nMFpgvI+QmWo6I/Ovxb9CSGJ5IgwdlaXS5tXbxYsXTqD
-   Rqs9isYOvRl6TnrvDFFbz0piwDv2LEPs+GoSRGVz7e9MmjsU9TfVlojeW
-   pGhYqByqPoPeYAkq9Er+hDMsiJ7jvoVP0UXRicdnNf59yWKqdttYuS3+A
-   pUrT2TgmZ2crIqI1YeBkAnWZI+pxhla+z2QRNC9esLhP0IBDhsuAlEORh
-   8fBjQgLXLLSa3DQXQtWuMBBieQUIQAIujrbALjjvxobi4PkWt4Ywi+/6q
-   A==;
-X-CSE-ConnectionGUID: HGCEGqW8TO+oVgIyDY+Nlg==
-X-CSE-MsgGUID: GoPcoQlQQLyUzGTYmhmZtw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1072689"
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
-   d="scan'208";a="1072689"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 13:02:27 -0700
-X-CSE-ConnectionGUID: qRJk0B1zRxix0Sp1iNJvSg==
-X-CSE-MsgGUID: Di6u7y9xSym5EAwhGqR2uQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
-   d="scan'208";a="280881061"
-Received: from amilburn-desk.amilburn-desk (HELO kekkonen.fi.intel.com) ([10.245.244.157])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 13:02:15 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id D51251218BD;
-	Mon, 21 Sep 2026 23:02:13 +0300 (EEST)
-Date: Mon, 21 Sep 2026 23:02:13 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Leonardo Costa <leoreis.costa@gmail.com>
-Cc: Steve Longerbeam <slongerbeam@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Frank Li <Frank.li@oss.nxp.com>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, leonardo.costa@toradex.com
-Subject: Re: [RFC] media: i2c: ov5640: Implement get_mbus_config
-Message-ID: <arGNRTpmYwB2_gLk@kekkonen.localdomain>
-References: <ho5e5huh2b5biibucht2bxyj2hzih2dkqpskrxtvsaf34niboc@s5e6pok36m5i>
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="LrluNfDp"
+Received: by mail-qk2-f42.google.com with SMTP id af79cd13be357-93be29bb454so376124985a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:03:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1790020994; x=1790625794; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eQm/uwfE/blbvgLVhCQkOkUD5IsuWeBPyg1vuiu/AZE=;
+        b=LrluNfDpFLY1mdebKyaXDtoPEt+y1NpGZ7dZDXG88mYYd7mRGBo2KXQa/XlwjY8sw9
+         mehGFhzzJuBQgq0YmAI1oPvwINDo7l122D/dijhUTy6nwlF4cO3DNWdKxAxUkkbLaUtM
+         ehziGClLMSILFSso0A75UiXgFgfM4T3eBNUcxaZdduw5OAuoxi+Esq51uW/CwSG5mc8X
+         yRxck/+VaBOL5S81ynIVozA72CmIp0F3ILz2JyGKe8vPg3lfywlPM0I2ZoVOH9kcgJXW
+         jwiE6jBflCXCcVE1EOf28y/PvDcBvbMWrd04OKZLYNzMa+kMysGiHNBMgc2AGLjgNI8/
+         50Bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790020994; x=1790625794;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eQm/uwfE/blbvgLVhCQkOkUD5IsuWeBPyg1vuiu/AZE=;
+        b=VUeCffaUFVs+elftq4aDRIXpsf9NdDgLpNER3rFyqS34tXdRdyfVthfUlV04qAejCT
+         bQ8huNLuZyeGsKHVB+vUDnLzGS9fnh1JnthzGPYowSal3yrUEwQ+mCiaL9canYjFJBCm
+         56BR0Fcm1FaPrILZDJ/OsrWAPRkS3UVVTeWEVwkhBcN9i6YvDmmNC5dNSn3h5DQCgNF+
+         /dYl73DibswhekI6J8W1UsnBHd/0StbmyvCz4l84ulOnpKWhV/62Xbh992hwT07ToCaI
+         7btXKy0E/yvie8Mdmweoin/IlLUnzpLTEA1IOsGJbP6Jp87RsWTDQYWUX+IzI9l3Ibi9
+         MLdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxhLLpTFzbgbprhhc5EZyJmbzU9yS9yIY2DMAI04jRM1aLDV5Nm9kyU7rXwziLcgO3KIvS6z7d6xXIDfMc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lqnI7k5m3is5HUo6UKmAt5lSvFN18SjWYmNe8oEcICBRv/aKjl
+	GBXJ9ptrb3UdGiZwH+GSSKYL0x4q6hyW22eJzocR+h4A0eOLxMs8QqPWqM0IAd/GTN0cZfx7QdI
+	jUHpa
+X-Gm-Gg: AYBFou2+Hd5k/sf5ufxYMtm3fL1yLuFO4HUWS1J2dCwQC9NrE6exqZ+48glcnl/OlWn
+	h8cbcy9UqE0Y4vrWK19ScdBt4mAdRxsrERKl1rMDhIKmKuBI+wy3mAhURmYzFtw31528ePaw9KC
+	IaBeuWgEa+hbDxiMj8E4qmQScrEG0e7iy3M3SgSYzBLHhlm1Y1KkFdikT3Qb3M/TZ56NYkEzgLs
+	jEX6Mdj4nBP14Ac4hhZ67Lp3fLIA+kapsH8S7BFq8sh9KdB01BZvSXlscC1xjjgCZCbGCzZK7T4
+	Ov1vb5oyNnWih+ykZut7kUWy0SHg/r/yISLpiJifBJNKmQ5kBcQJTLmbcFc5UoWZjELc3igIDqE
+	5HYKAXPtz8as1Bo4QYQ71cuDakI8TnXPjrA/3KhWRl9q4owQd89iaCIwINGUeR57NiasmgK2f3D
+	MO5mAirVSM57sAQ35BBRUjNBHdZJ+OYpoWgyxGaZ1atrEdVLW7dx9M2pAC7A98HF8DZUCg
+X-Received: by 2002:a05:620a:1a11:b0:93b:c332:3d9e with SMTP id af79cd13be357-93c198e7a38mr13199385a.30.1790020993597;
+        Mon, 21 Sep 2026 13:03:13 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c19a9c777sm4296385a.27.2026.09.21.13.03.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 13:03:12 -0700 (PDT)
+Date: Mon, 21 Sep 2026 16:03:09 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Yafang Shao <laoar.shao@gmail.com>
+Cc: Liam.Howlett@oracle.com, david@kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, ljs@kernel.org, riel@surriel.com,
+	vbabka@suse.cz, ziy@nvidia.com
+Subject: Re: [RFC 2/2] mm: page_alloc: per-cpu pageblock buddy allocator
+Message-ID: <arGNfQQAVRZpEoPl@cmpxchg.org>
+References: <20260403194526.477775-3-hannes@cmpxchg.org>
+ <20260918022222.22955-1-laoar.shao@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,55 +78,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ho5e5huh2b5biibucht2bxyj2hzih2dkqpskrxtvsaf34niboc@s5e6pok36m5i>
+In-Reply-To: <20260918022222.22955-1-laoar.shao@gmail.com>
 
-Hi Leonardo,
+Hello Yafang,
 
-On Mon, Sep 21, 2026 at 03:04:59PM -0300, Leonardo Costa wrote:
-> Hi all,
+On Fri, Sep 18, 2026 at 10:22:22AM +0800, Yafang Shao wrote:
+> On Fri,  3 Apr 2026 at 15:40 PM Johannes Weiner <hannes@cmpxchg.org> wrote:
 > 
-> Some time ago, we had sent a patch that implemented the .get_mbus_config
-> function for the OV5640 camera. This change was necessary for the camera to
-> work with the i.MX6 after the v5.18 release.
+> [...]
 > 
->     https://lore.kernel.org/all/20230306063649.7387-1-marcel@ziswiler.com/T/#u
+> > @@ -2941,15 +3242,45 @@ static void __free_frozen_pages(struct page *page, unsigned int order,
+> [...]
+> > +	pcp = per_cpu_ptr(zone->per_cpu_pageset, cache_cpu);
+> > +	if (unlikely(fpi_flags & FPI_TRYLOCK) || !in_task()) {
+> > +		if (!spin_trylock_irqsave(&pcp->lock, UP_flags)) {
+> > +			free_one_page(zone, page, pfn, order, fpi_flags);
+> >  			return;
+> > -		pcp_spin_unlock(pcp, UP_flags);
+> > +		}
+> >  	} else {
+> > +		spin_lock_irqsave(&pcp->lock, UP_flags);
+> > +	}
 > 
-> The patch stirred some discussion, since .get_mbus_config wasn't supposed to be
-> implemented on drivers that don't have dynamic lane configuration. There were
-> proposals of implementing it in other points of the camera pipeline, but no
-> conclusion was reached.
+> [...]
 > 
-> We are planning to send the overlays for this camera for the Apalis iMX6, but
-> we verified that this patch is still needed for the camera to work on the
-> current mainline. Below are the commands to configure the pipeline, which
-> explicitly require a .get_mbus_config from the camera driver.
+> > @@ -3025,17 +3369,35 @@ void free_unref_folios(struct folio_batch *folios)
+> [...]
+> > +			if (!in_task()) {
+> > +				if (unlikely(!spin_trylock_irqsave(
+> > +						&pcp->lock, UP_flags))) {
+> > +					pcp = NULL;
+> > +					free_one_page(zone, &folio->page, pfn,
+> > +						      order, FPI_NONE);
+> > +					continue;
+> > +				}
+> > +			} else {
+> > +				spin_lock_irqsave(&pcp->lock, UP_flags);
+> > +			}
 > 
->     root@apalis-imx6-11367581:~# media-ctl -l "'ov5640 1-003c':0 -> 'imx6-mipi-csi2':0[1]"
->     root@apalis-imx6-11367581:~# media-ctl -l "'imx6-mipi-csi2':2 -> 'ipu1_csi1':0[1]"
->     root@apalis-imx6-11367581:~# media-ctl -l "'ipu1_csi1':2 -> 'ipu1_csi1 capture':0[1]"
->     root@apalis-imx6-11367581:~# media-ctl -V "'ov5640 1-003c':0 [fmt:UYVY8_1X16/1920x1080 field:none]"
->     root@apalis-imx6-11367581:~# media-ctl -V "'imx6-mipi-csi2':2 [fmt:UYVY8_1X16/1920x1080 field:none]"
->     [   47.438237] ipu1_csi1: entity ov5640 1-003c does not implement get_mbus_config()
->     [   47.438265] ipu1_csi1: failed to get upstream media bus configuration
->     root@apalis-imx6-11367581:~# media-ctl -V "'ipu1_csi1':2 [fmt:UYVY8_1X16/1920x1080 field:none]"
->     Unable to setup formats: Inappropriate ioctl for device (25)
->     [   62.616177] ipu1_csi1: entity ov5640 1-003c does not implement get_mbus_config()
->     [   62.616204] ipu1_csi1: failed to get upstream media bus configuration
+> Hello Johannes,
 > 
-> I am not very familiar with this subsystem, and it's been years since this
-> discussion took place, so I wanted to know what are your thoughts about this
-> patch and what the correct approach would be here. Was there any change that
-> would make this patch ok to be applied today? Do you think this still should
-> be included somewhere else on the pipeline?
+> Thank you for the great work on this series -- I hope it is still being
+> actively worked on.
 
-My objection to the approach was about adding code that does very little or
-nothing to potentially a rather large number of drivers.
+Thanks for the kind words.
 
-Since that we've gotten v4l2_get_active_data_lanes() that however seems to
-be used by the imx-mipi-csis driver only. Could using that solve the
-problem you have?
+I am still actively working on it. Since the last iteration I have
+addressed a few things:
 
--- 
-Regards,
+1. The locking bug you are seeing. Rik had also run into this during
+stress testing. The fallback to the zone buddy on PCP contention
+brought back some of the original zone->lock contention. So instead
+I'm using the zone llist introduced for lockless allocations.
 
-Sakari Ailus
+2. The PFN search for block recovery that Vlastimil pointed out. I've
+tried various solutions (counters, bitmaps) but the thing that worked
+best was having the zone buddy itself maintain free pages of owned
+blocks on a per-block loaner list (in addition to the regular zone
+freelists). This eliminates the sparse search altogether. Recovery is
+then: pcp->owned_blocks -> pbd->buddy_loans -> page. Every page
+visited gets recovered. For the loaner list_head, I'm reusing
+mapping/index space that's unused in a freed page.
+
+3. Removed the unowned buddy splitting on the PCP. Vlastimil had
+actually asked to try that separately, as an incremental step, since
+it's self contained. I tried this but realized that part was actually
+bad altogether. It violates the rmqueue_smallest policy and causes
+runaway fragmentation - just like the new block claiming did before I
+added the block recovery step beforehand.
+
+So now refilling is just block recovery -> new blocks -> unowned
+singles of the requested order.
+
+Incidentally, this also eliminated the CMA problem that Frank pointed
+out, since the other refill paths respect ALLOC_CMA.
+
+4. I realized I'm also violating the smallest-first policy in how I
+was mixing owned and unowned chunks on the same freelists. For
+example, an order-3 refill from singles sits next to order-3 fragments
+from owned blocks. Only owned fragments, which route back to and
+reassemble on that PCP, must be split. Unowned singles must be
+consumed at their native order to preserve smallest-first policy.
+
+pcp_rmqueue_smallest() could check the PagePCPBuddy() flag to tell
+which ones can be split, but that introduces another sparse search
+problem, where we might walk higher order lists in the hope to find a
+splittable owned buddy.
+
+To avoid this, I retained the legacy/unowned pcp freelists (up to
+costly order and THP), and added a second set of buddy freelists up to
+pageblock order to the PCP. This way the rule can be maintained with
+O(1) list checks instead of O(pcp size) scans.
+
+5. The on-demand merging at drain time proved problematic. Draining
+isn't exhaustive, so it can attempt to merge the same unmergeable
+fragments repeatedly. I moved merging into the pcp free path instead,
+so every page is tried for merging exactly once, which seems to
+perform a lot better in performance testing.
+
+Overall, it's gotten a bit bigger than I had hoped for. But it also
+looks much more robust. And the additions described above seem well
+offset by performance improvements in tests so far, even on smaller
+machines.
+
+I'm still testing and polishing right now, and hoping to send a new
+version soon.
+
+> We are suffering from heavy zone->lock contention on our production
+> servers as well, so I backported this series to our internal 6.18.y
+> kernel. However, since deploying it to a few dozen production servers
+> running workloads with heavy memory and I/O pressure, we have been
+> hitting hard lockups at a rate of roughly one every day or two. The
+> hard lockups look as follows:
+
+[...]
+
+> With these changes applied, the affected servers have been running
+> lockup-free for more than two weeks so far.
+
+I'm assuming you saw an improvement of zone->lock contention. Would
+you be able to share some numbers or observations?
+
+Thanks again!
