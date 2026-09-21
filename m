@@ -1,65 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082123C73D1;
-	Mon, 21 Sep 2026 10:35:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD21047534A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:35:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789986905; cv=none; b=ehnekjSZox1+8Q+QU8ynsCLuR7xt5XycPpKzA8189h3BTOSi0xJWhmjJLy4l3RbPnZ+CxthNJinSHAr6k1L+icUxfNvHb+BQOcl+aoCrhMQ+ZLAigNgzL59qxYNlnYYgnMi34ay7KxOcUG7RZ4sOb+zk7RJjWflA8qTsAXXjDT8=
+	t=1789986913; cv=none; b=mx2VgOBJnJeiEU6nRrqNK6S+ImBgbp8cmKuXIb1Q3CWYXilIEs3dITRCwGx5TA6+2mc3VZPny1Fc8V3glqE8GtfIGtDka9ECtReXC5COA2bcpiaPRTtIwSQK87zMnooQjMeLYoGvTLwzTiV5pwrycdNHZRxxUQyh45jtX74lfOg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789986905; c=relaxed/simple;
-	bh=7Mw5cMRdr8Ht7K+Gj1NHTwOgdX0VMqSfD972zxwuBVo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KHC9J831DGkdxCJjc9Nzet0n6PrOwjXJsL1yHczHTBuxaI76dvX+t196KhZkxDjmwyuYlFgCygk66WUuudSBTQXhnWGHtZHr+7mhK1KcekDFS4yavWLWbXafQoX8wM1NHM3LfpwS4mPsLJf5l0FA7vUw+NVB94aEfXhkTqTcRxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LmJq15PT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789986913; c=relaxed/simple;
+	bh=EOrTycvPaTgtJNwbvItqQE20ImaT9FxfEnEhBk/abZg=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pLZLiAnchragFBrUF9srfuCnrNNtQvELSGSl2myE43NSzQCh2V2vZzzHhBN5Dajan3t9ZAwpfXumSbHYmq6nOhUSUpHlSmhB+BgUHM73n59WmIU2PNx3sCtIECcZ868bR/xMU9SdZpwvjf5t1IKNAoDyYkftjwNIynlYbftHELw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=orNUCASL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LmJq15PT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BE911F00893;
-	Mon, 21 Sep 2026 10:35:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="orNUCASL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B2D61F008A4
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:35:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789986903;
-	bh=I30Ewh0A4iIJlrqKf0LygIu6KmBp+u8wLYMgm6eVSf4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LmJq15PTOZlTn6Qnbcley78JQ41EEFMIeZrLieQnmKzWABl0titF4b56Tb2S3xQLu
-	 yvzopubsppUb8WR6TWuZT6NAb/hicyeVuKo0Npu26qokDJLuhD1KQkSliaLd6H+nLV
-	 m6Ouaw17Xi1OVJHb4zdvLAFlTC3Sw1E6Dp2U26NsT+Pv/JnBXbICNzU6JtOMAeDee/
-	 cDAy0qmuEKRIG6tEAvwKy8aF4gr1Zms9B2NboRL6/fjunxXEoIDQCRfT38otg90Xyx
-	 WMCk8/h9Gh5hkt2Sflgc9Sq/QvfeJQc9+CdhVVGMhbkQ8vsY8FWyImaYgiMuvTM3E/
-	 LdOjdSp7YLzcQ==
-Date: Mon, 21 Sep 2026 11:34:59 +0100
-From: Simon Horman <horms@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: andrew+netdev@lunn.ch, anthony.l.nguyen@intel.com, davem@davemloft.net,
-	edumazet@google.com, intel-wired-lan@lists.osuosl.org,
-	kuba@kernel.org, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, pabeni@redhat.com,
-	przemyslaw.kitszel@intel.com, sln@onemain.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ixgbevf: fix xfrm_state reference leak in
- ixgbevf_ipsec_rx()
-Message-ID: <20260921103459.GH13925@horms.kernel.org>
-References: <20260917111418.2148632-1-vulab@iscas.ac.cn>
+	s=k20260515; t=1789986911;
+	bh=uf7K0+ckYfZ1RE4IQEUJIKlulg/YWQPSFrPzeeWpU08=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=orNUCASLJXrta2jQAt3DZfNJXG64yPkECzsZxCKUcdNrEr8sYKbeFrvYhVt6pvxRn
+	 XPaVfFVj0LFVmn5txFq7ujldG6HlnD1PJchdDGytX3zXACi0HoHW8G1xpjuJMcFjpw
+	 g5lFmheLNbd2i0jgKrnpoOmOHqlX9qQXBTw+plQvtCN2xAIQ6yXieA8FnmBr2ziQuN
+	 o5rtdr/TamlhcRr+eXDKTARMiyUoClUwvTp6zljHDD+uU4/6YMMhcu9AQtD2CmS3nz
+	 mxqFNI2wO1mm3TUpmUi6agq2nTJmbuj6wOQ+ND6sa/5ghz8haPxdfrt1ZSAhIvkz3V
+	 XBCHb0kNekbZg==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff00b8d8so22101121fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:35:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz2tepVvyeJNcquahLJl8NFnhpCjrp2AAKwwTb3x5DPqZN1MfLKH1GAilhp4GnvVL2cGAcrArzGyZ/59AM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kXLTdPSeNp2b6OhR2IvvxCgjmpJcp34paZKsspdeWh4T1+6kE3
+	wlbgsikH2W4TpWdST3fChG6rCpSUNfWcVpNhQ9k3faImgW34w/VHl3bWLSSStOm+7DQZRstIvhN
+	b4eWa6s4mKXMrNcphddATCva0e9u2FV3is3jDlvBHIw==
+X-Received: by 2002:a05:6512:3e1a:b0:5b8:b419:b90 with SMTP id
+ 2adb3069b0e04-5b8c197b251mr2961808e87.67.1789986910027; Mon, 21 Sep 2026
+ 03:35:10 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 21 Sep 2026 06:35:08 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 21 Sep 2026 06:35:08 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260921-cv75-v5-v8-9-282ff5d98dda@ambarella.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917111418.2148632-1-vulab@iscas.ac.cn>
+References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com> <20260921-cv75-v5-v8-9-282ff5d98dda@ambarella.com>
+Date: Mon, 21 Sep 2026 06:35:08 -0400
+X-Gmail-Original-Message-ID: <CAMRc=Mf7dtxvxBUF1fOuKw0mxdhCYPj=J4ckySPZUvcZ7a6cbQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VMqVgF7bm9abckTPi2_jaxdRsIFb-CjJ1kvLYDiK7JhcmYHE-hjU9EtD0
+Message-ID: <CAMRc=Mf7dtxvxBUF1fOuKw0mxdhCYPj=J4ckySPZUvcZ7a6cbQ@mail.gmail.com>
+Subject: Re: [PATCH v8 09/18] gpiolib: regmap: add gpio_regmap_get_chip()
+To: longzhao@ambarella.com
+Cc: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
+	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 17, 2026 at 11:14:18AM +0000, Wentao Liang wrote:
-> ixgbevf_ipsec_find_rx_state() returns the state with an extra reference,
-> which is handed over to the secpath on the success path. When
-> secpath_set() fails, the state has not been stored anywhere yet and the
-> reference is dropped on the floor.
-> 
-> Release it before returning.
-> 
-> Fixes: 0062e7cc955e0 ("ixgbevf: add VF IPsec offload code")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+On Mon, 21 Sep 2026 06:23:28 +0200, Long Zhao via B4 Relay
+<devnull+longzhao.ambarella.com@kernel.org> said:
+> From: Long Zhao <longzhao@ambarella.com>
+>
+> Let drivers that implement a custom irqchip retrieve the gpio_chip
+> after registration.
+>
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+> ---
+>  drivers/gpio/gpio-regmap.c  | 6 ++++++
+>  include/linux/gpio/regmap.h | 1 +
+>  2 files changed, 7 insertions(+)
+>
+> diff --git a/drivers/gpio/gpio-regmap.c b/drivers/gpio/gpio-regmap.c
+> index fbd4c753525a..21e0993b89e2 100644
+> --- a/drivers/gpio/gpio-regmap.c
+> +++ b/drivers/gpio/gpio-regmap.c
+> @@ -295,6 +295,12 @@ void *gpio_regmap_get_drvdata(struct gpio_regmap *gpio)
+>  }
+>  EXPORT_SYMBOL_GPL(gpio_regmap_get_drvdata);
+>
+> +struct gpio_chip *gpio_regmap_get_chip(struct gpio_regmap *gpio)
+> +{
+> +	return &gpio->gpio_chip;
+> +}
+> +EXPORT_SYMBOL_GPL(gpio_regmap_get_chip);
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Please provide a kernel doc for all public APIs. It should explain that this
+must not be used outside of a GPIO controller driver context.
 
+Bart
