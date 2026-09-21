@@ -1,90 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22EAE397936
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:00:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4BD83A4F3B
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:00:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789974022; cv=none; b=q6FhEbyx8SlQgVplf2IoAftukn4QKpe1Su7VbJHNv5KGsB1CLoyaYypy8OZ2qQ8UN9nYA0zfW1FUKZspb84T09vERVv1Ity4F2zOYghH0CoNG39GeYQLuBNv00jaSthDoWugyq3GQ/wedLesOjSiEMHmQfY83Dn9qSZ4TeizEfw=
+	t=1789974037; cv=none; b=e/7NpkWEUbf5Xty5LK8qJdRjy1x6hA3ZYd250xcDv+u0HWsb3kI86fvs/Y+BiBFG5NabOAAJ5RcfVK0Tl6+qoe4UfuV1q6yhdDVPOpwtBTIBw4iH6FwQPo1B6foMszLeIw54ENp8FgHnRUgptT+0BEfaEUFNn8RBVQ8i5sVMAlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789974022; c=relaxed/simple;
-	bh=URRFXhIWeaZjAZP78IbRGyiI9CUhBbapKcmpz0Nauo0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ib9Q3LNSuswH5UT8vmHBbDu0xNOjsfg6wLLDZoL9LsJz0Z0p5fX87duFuMGi1C6dhv+ECo/XfQejvAN+FJ6wQCN9Gf229Etp2VYfpT+XeWkNWyaz0YWvvHXDkjPfA8zfey/IgottZ3xZ1d2LP9eD0F8HKzR9AI127HUU7AXT5/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LLVW2EBf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789974037; c=relaxed/simple;
+	bh=Vbt4/5LAV2w0dL6pb/t0et3MVMocHRdRtbThpOXu98I=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=jeUoyn6TOPEBE+i6Ar5M4NSruVXWgPmhVsBcIb/0boxU+mXvU7W3SHJUWBzwPI44M065LFWvJbD5LCKtvzK3+9tLgQG2OhWKtyYdI2IxxTXS85WInvsfzeTA/InKTao9+Fe+CDQK0EMqkvAKLJw3Z4uuQlcsQvmZpdHNliSlMf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OTzlQF8x; arc=none smtp.client-ip=91.218.175.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LLVW2EBf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B3561F008A2
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:00:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789974020;
-	bh=gHlvbb647JYtKJVobp9L+WY+i2D3HiyuRdvv6kDImw0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=LLVW2EBfsLFXZgiNXk7HC98NkM+VwO00JhtmGfImdK507iki8Y6OysdNppSsmDdnY
-	 7sxUkdlR4mrEc0q484yRBO0IttUM6bX6F1qiMgY7iaGfQN0apb4xg1UNLLIt/hFH+9
-	 hnKBvFvwoNzq75cKGSWMNY3rTlpyzvduCY8wTr1X/qgwL+i3HD6iwYn+ip+KutTRCC
-	 M5E86/zKfV4xim5w6IflhmON1qM9TsaCZbgHcSWuZfPJ9ngR/VYFPzWjbryP9h8N5J
-	 Bja5WfzrsgT4c7/RMuEP99MyQKxjBqhM+fOUYWTctURV9bMYwa0z9hM2CI0gtR4h+5
-	 bVuMbTohk18Og==
-Received: by mail-vs2-f40.google.com with SMTP id 71dfb90a1353d-5c9a1536864so1875289e0c.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:00:20 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzzwLR9QdTuvV7mHIPHPiCMi4PV6tEyq/4MnsMxTMRJuubOUwdO5ixpNgwJdyA3Cnq87mnBVefrtiv8WvE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kfCk9jA6Vk3Pr0oWPEkH0I7uWtzIpmwTEZ9XlCGHs8jalAD05f
-	fhaN+nuJjzMoi1aoaINrahbxQfqjD2hg95cJ4lQPvPVIRHdweqDO3Uh6klZD123107AprxXa6et
-	xrhH6LYdrLU0cwkbkHXgCvfdgO7GdnFA=
-X-Received: by 2002:a05:6122:4896:b0:5c9:a60c:273d with SMTP id
- 71dfb90a1353d-5c9b59eaf2bmr4648530e0c.21.1789974019896; Mon, 21 Sep 2026
- 00:00:19 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OTzlQF8x"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Vbt4/5LAV2w0dL6pb/t0et3MVMocHRdRtbThpOXu98I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789974032; v=1; x=1790578832;
+ b=OTzlQF8x8c7RFKdIVcny1Yxlog8DnBk5TbMGtkcqgY2gJaRa5rRJdoj6aQi25QdyCHVt6DJv
+ jq29wmrPJfp9t8oB2gIMD/34/SwjxTo40bMWkc6oTaQwAMI6xleqmA4OFA8GWomU+uwKq29V8py
+ 6F/1xK9046/Tgs52AeyiLFrE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id acb919ec4e2ec370;
+	Mon, 21 Sep 2026 07:00:24 +0000
+X-Mizu-Trace-ID: acb919ec4e2ec370
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260920132519.3369946-1-ridong.chen@linux.dev>
- <CAGsJ_4zCADpQDqVj=BFipOztctBMBhw9Wcj+FLVcj-d8e=0bow@mail.gmail.com> <2e878fe2-473e-4dc1-a669-7e2e37894d6e@linux.dev>
-In-Reply-To: <2e878fe2-473e-4dc1-a669-7e2e37894d6e@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Mon, 21 Sep 2026 15:00:07 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4yrR1Wn7NjOFVcWdD+_WEEu7AY6LdsKTZDxx0VR3EzQ+g@mail.gmail.com>
-X-Gm-Features: AcwNN1XrdEZ1E-aaP9IeNffRJ6dC3Vjq8bbURZBcSwpV0urbD42mxWoj6_IQ61Y
-Message-ID: <CAGsJ_4yrR1Wn7NjOFVcWdD+_WEEu7AY6LdsKTZDxx0VR3EzQ+g@mail.gmail.com>
-Subject: Re: [PATCH mm-new v2] mm: vmscan: put rotation-missed folios at the
- LRU tail
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH v2 4/4] memcg: move memcg private ID refcount to objcg
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260921-bingfangguo-memcgid-rework-v2-4-6c0637dc0edb@tencent.com>
+Date: Mon, 21 Sep 2026 14:59:58 +0800
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Dave Chinner <david@fromorbit.com>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>,
+ David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Bingfang Guo <bfguo@icloud.com>,
+ cgroups@vger.kernel.org,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <59BF36D0-0328-4CFF-8DD6-DF73AF209118@linux.dev>
+References: <20260921-bingfangguo-memcgid-rework-v2-0-6c0637dc0edb@tencent.com>
+ <20260921-bingfangguo-memcgid-rework-v2-4-6c0637dc0edb@tencent.com>
+To: bingfangguo@tencent.com
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
-On Mon, Sep 21, 2026 at 2:05=E2=80=AFPM Ridong Chen <ridong.chen@linux.dev>=
- wrote:
-[...]
-> 3. In move_folios_to_lru, we drop the extra reference and move the folio =
-back to
-> the lruvec.
->
-> ```
-> ...
->                 if (unlikely(folio_put_testzero(folio))) {
->                         __folio_clear_lru_flags(folio);
-> ...
->                 }
->
-[...]
 
-> Therefore, I believe it should be 'folio_ref_count(folio) =3D=3D
-> folio_expected_ref_count(folio)', not 'folio_ref_count(folio) =3D=3D
-> folio_expected_ref_count(folio) + 1'.
->
 
-Yes, you're right. I missed the `folio_put_testzero()` above.
-Sorry for the noise.
+> On Sep 21, 2026, at 14:16, Bingfang Guo via B4 Relay =
+<devnull+bingfangguo.tencent.com@kernel.org> wrote:
+>=20
+> From: Bingfang Guo <bingfangguo@tencent.com>
+>=20
+> The memcg private ID is used by objects that can't afford storing a
+> whole pointer and can outlive memcgs to track the memcg (notably swap
+> entries). The current design holds a refcount to the css, preventing =
+the
+> memcg from being freed.
+>=20
+> This patch unbinds the lifetime of memcgid from the memcg so it can be
+> freed.  The idea is to move the refcount of memcgid to one of the
+> memcg's objcg. The objcg is stored in the global memcgid xarray =
+instead
+> and used for retrieving the online memcg from it.  So swapped out =
+pages
+> no longer pin the dying memcg.
+>=20
+> After the change, a memcgid can refer to a non present memcg. To =
+handle
+> this situation, when trying to get the original memcg from the id,
+> compare the memcgid passed in with that of the memcg, and return NULL =
+to
+> indicate its death if they differ. NULL checks are added for
+> list_lru_walk_node(), workingset_test_recent() to skip dead memcgs. =
+For
+> MGLRU recency test, mem_cgroup_lruvec() will substitute NULL with
+> root_mem_cgroup.
+>=20
+> In the earlier patch, an extra xarray lookup was introduced in swap
+> uncharging path.  Now that we have the objcg pointer in the function,
+> the extra overhead can be removed by using it for putting directly.
+>=20
+> Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
 
-Best Regards
-Barry
+Acked-by: Muchun Song <muchun.song@linux.dev>
+
+Thanks.
+
