@@ -1,150 +1,126 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C974582D4
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:49:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2D545FFB1;
+	Mon, 21 Sep 2026 09:49:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984162; cv=none; b=rfABE9IaIxWGl/fVkJ7EtrizBahOTcDbAILBLlROfcuxM8s03dGk8VzjPcUDnaOeKN6hAZRrt8wWxfgEPZQzGS2n1ffo99B9wI7U+b9xiUTDbO37KJudgV8wGcC4SKB7T5fmOCrgJ0BOfTz3NOHBv0WkGlEJrHxhuquOJ6LsNpI=
+	t=1789984165; cv=none; b=AqH/zTy7nHxGBI0yvYSI9/EV64xopSJdcJYRamXyBNJTmKDoMdjQyydjSgPWbHrY3/e0Yc/ilKB8k4jBsTYsKuT+HVKnR87aRC/srQQJYuexdvnMiJNW9LpM/v1/Zt1QPMORgcTDGCvQsQMvzC/jvFxrQBLaZxZZPKOQ9UDBmwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984162; c=relaxed/simple;
-	bh=RFiZzF2ElB0O7/pZu8dBVKeJi6fv0kAHLxB/68b5kK0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U7hdmwbMkxuJIyfU14yAbj8Fj4KzaAilzfs90fmuLAewKxr3pYdAtyDd5YSpI3HJfui6hGGJwiryB7vIVKbAWnkqTqitSqMtGCibTPePAWLXwZ7eGCe3+5/3UfbgTswNp8mQenpgctZJ1tgo3UDjnZcH7TxUfLyeA0BoSZLihTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n+x153h5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FYTapqGf; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789984165; c=relaxed/simple;
+	bh=Plj3ubrbq80/5zTNv+zIFt0JV/f2PwbaT0asYbrROl8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=qW2aVTpoW7TznEIImb2bKK2QCjbRqyMaM2ERWdhHyq9c2vPPO/n4OBdK+Cbk5WurIUWfg5mFakQuD4Buc8uVCkiTX3i8vsh6BxGFqgEGoF7lxmWv4gR7SoduFeZ19yHYZ0whXGgAGdl3L4EmZg9pUJrRbt8ZlVx49PT/07CW5/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CGe7oLVl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n+x153h5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FYTapqGf"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7Ajec371688
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:49:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	GsKXw03ZbXYXr3t2AeRXLXUINacd1i8dLiOD20nvC8I=; b=n+x153h5p7YMtISI
-	ngKfcrj2YibnqTzb3BTzUHRWdRrhdAAMcYciV5hIicV3VSw6+DiH1tzreYD5behH
-	zuDtvReAkXNMvDL8QaprF9Nup8hZUYrzXBqPh9IfZgWa7ifywhxEQ0fEoXm2MfWy
-	EYdkWICJpUUWfVFdGrslJay1wngk4Dhbmbr88piHgWQcJCvdPnGi/H2/xg3hxFkC
-	gHCVE0gzwfq1ko1RvWuIeLZ7fYwraHqE6TEABt6hgD2ZgbraoFuHhUbh4TgaP/3c
-	A65h8DNI4xS6Xnix64+r/MmJ1Pbzyi4ggIpS+VjogV8ffMu6dd3XmaAbMH7Avq3Y
-	1wU2Rg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtwf5h6rx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:49:19 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9349ba88188so57578085a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:49:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789984158; x=1790588958; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GsKXw03ZbXYXr3t2AeRXLXUINacd1i8dLiOD20nvC8I=;
-        b=FYTapqGfNawKXB00fDDa8Bckx3mrl23e1voc3nnZMeg1so7h6Z3ZMIqosAhp+ea5GL
-         pEU07jjBLL+joOAMeNdMzbpFQNph2Jb2WzFQXG5qqzOF/TqbLZIcKOPXHbFDr5It+pb8
-         pc6VyeEj9wRyz9/TbPT0ZmHrNFrOtfxl1rWhCmvQlbIBL21GIt2Hqq79lMrqsyeOJnmr
-         +LZLOou6iWxi/gAf8XMTkK3MKa778951lZ4OaLsJTXFZxlLcqaG1qZsqQ5nYojqJuv9L
-         4YkzZnclRHCbcJnaPqCXtVwjH1cz0QOYIDmDpnTe7khuehPFvjoun+xD4bRancTllplo
-         lcew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789984158; x=1790588958;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GsKXw03ZbXYXr3t2AeRXLXUINacd1i8dLiOD20nvC8I=;
-        b=rpBAkoD6M6XwZGJaRoyDSqeohmhysvA5ws6j0ja2XPSZTUr8NJ2Xyw4IV9MlDDwgHA
-         p4+zCuZQqfIWP+d9P4JRRkUNAfk5yudAEtAHU1ZBhELW6/vnxQRkPCeHMef0ZXW2TWD8
-         vKM7wRQyCRapIB92VzSbO196A7yrBWjCACPQsc+u38KO673tVv+bEtYQzEM3ccFFSgT8
-         s/aJe74n64/y6t0r26+aXGidovpfQjg0RSex987l5W/KITutn2SSA3M2aqtV7cLn4RJ/
-         U1VmEQ6+12xPzZ5ObDWvIBjniotu6qSvnviGe6LTiHYuBS+mcufi6F8zWCxqaZwoPzuO
-         hMEA==
-X-Forwarded-Encrypted: i=1; AKwUvBzABSrYcPiANMj9pj5zhZNYMaRT8FA2PxiQe8RCzh8Z8Yp8VGgx2hEZVWp1fMAxl9OAM2kGkDOm+Hrlzdk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lHkfisM7LgnTVNIhxxoI7wqCH5J5uwyXjvsDhsISt4N85NeopD
-	Jvt/ejbk29e/ZxrfhFZexgQOEk/Eoy2yqIjXv8cXKkRarwIhqHuq2UpsGoq3OX2l1iJhUW4zCg3
-	6EjZC0mXcmVNXNT0zIBpIci+rTqSzh7ZcwCBvVWnY331OuNjzxFCApZy6ObzwCKtQa2w=
-X-Gm-Gg: AYBFou3slWBZXWq1R8k/3Rz/VieyxjCI83miJa6WaNz4dyhC5E30hHXe8BeaiXzF/Y3
-	HBu+eRPA/ghIiEJDD7Nz5kxVZcKZKhluYJcQHl1xJoq5bFHrB7CzYD/GIBoT1+6yOiMoFyNCMc9
-	VYwVxNHc6CJQwB4uHSfc3tEFsvUKDuNbJU/4cazOX73uGP7+gjGbxsu2aKQRuZbBJDNY3EVsTle
-	f6P0hdJT8znadpI2kJZdpGPgdNezRqsxqtY8u/Jovpxi9mLbBD+T54MEfm9U+u/FceWUcqlcEOR
-	vErnSEo0YKmhbCo7drWXJ7u/qt/iGm1dhgoqLAm+Jn0eWG8vbehLLYVOdZKY3f4I3H7LhYQmwfh
-	7vNZF1en/lkbH6PuvccvAZw==
-X-Received: by 2002:a05:620a:6f05:b0:939:94c4:b799 with SMTP id af79cd13be357-93bf57bed26mr895927385a.5.1789984158619;
-        Mon, 21 Sep 2026 02:49:18 -0700 (PDT)
-X-Received: by 2002:a05:620a:6f05:b0:939:94c4:b799 with SMTP id af79cd13be357-93bf57bed26mr895924785a.5.1789984158287;
-        Mon, 21 Sep 2026 02:49:18 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a355eb33bsm288228466b.15.2026.09.21.02.49.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 02:49:17 -0700 (PDT)
-Message-ID: <36fab4e6-ca34-49a9-a8ec-d2a6607171c4@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 11:49:14 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CGe7oLVl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F01951F000FF;
+	Mon, 21 Sep 2026 09:49:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789984163;
+	bh=qOAymg80ms4ZcX4uHWsep3q5H6ndyNtx30yc62/Ry7w=;
+	h=Date:From:To:Cc:Subject;
+	b=CGe7oLVlH1/fCp1r6p9wD89LXvRSUqwa47aZjeBub18Qt84rVaFEzl5zOF9oDDAZk
+	 /L6uDDVnNmnYkpKD0HQ4w05QYXDvthBamn1RNEDOD2v/XcQNqHANKVO4JX6e2l++NH
+	 FkvRstQgk6LLCTXUEQNvGtaQwUUHVKTKxGL/Iocxhi9mNn2ZFNd3Ufkun/0rgYeNdH
+	 YWXqSVl+thO6PARVeMK13IaYlDzMejQslweamHi7GnmcEPr6zQuXDqUr/5vWOXqPxT
+	 78me/gX9OO11VjIFBy9LsT4ibLkE/ER9lJ3gs//LqhOEwWs4LHJynkeUjNSJsVo4wv
+	 l3Wnn92FDsnMA==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 99EAE1AC52F6; Mon, 21 Sep 2026 10:49:12 +0100 (BST)
+Date: Mon, 21 Sep 2026 11:49:12 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>,
+	Networking <netdev@vger.kernel.org>
+Cc: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Muchun Song <songmuchun@bytedance.com>
+Subject: linux-next: manual merge of the bpf-next tree with the mm tree
+Message-ID: <arD9mGTj9upScb9t@sirena.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: dts: qcom: sm8150: Use SM8150_CX for the SDHC
- power domain
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, sashiko-bot <sashiko-bot@kernel.org>,
-        Bhupesh Sharma <bhupesh.sharma@linaro.org>
-References: <20260915-dts-qcom-sm8150-sdhc-use-mss-for-pd-index-v2-1-a8610199483d@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260915-dts-qcom-sm8150-sdhc-use-mss-for-pd-index-v2-1-a8610199483d@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=SJLXx+vH c=1 sm=1 tr=0 ts=6ab0fd9f cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=22wPqFrHPIZlpLYNf30A:9
- a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-GUID: lQ0CbYl-tf0qLRbmRD-8mvPRi4x5lpzL
-X-Proofpoint-ORIG-GUID: lQ0CbYl-tf0qLRbmRD-8mvPRi4x5lpzL
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE0MSBTYWx0ZWRfX+zzgrnflhNiw
- pAyRpan8SprncAuhcPTV+UbNz2+Po4ln2nDJEdSJ4YevXEMrGGeAvfAJcD8ErsPv7xEArnMRByR
- owEnORV2mEXnBJHlo+rZkaVA0T6UBbo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE0MSBTYWx0ZWRfXyv4o2Nw7XrhW
- Cl27dnONRc/tyAW3aFHDYlKc0nhcmOxCfLR3bbLAVGSMmhLoFxURvIlyDtMey4au4MUUioOQlWm
- K6taIoxj2B6pKTlsaehXHzq82mh9seLwl8Wwt1dqoSFKnsCymOfldI6zRTVxn+s0Jb2dRbdlSX5
- jgueYdDWKClIbaHSxUkWmEQdHFAV3LnvgR+4HcsbiuuV0hZFAo8NDP7VAVnuA2eqJv9YIdXLbh1
- MDgSUmlDSIGxFB/QfSYpclOdfcStQ3uunvLd8q7yQeEfCBXnD2m6hpkJB+fYQ1KywyG8I9YX9sW
- kBzxvZMkGU+HkTtPWRe307z+PxSAVKLLhUSoQ7AjSiohWJW1lV0RcW6eE5K8VJy8b15RsYj2bpM
- D6qkKXLF4b97kILEWVWA0MNN4GVzL81GuOrqcqKV+hUTJRlaOaaLCm+g5B2z3dJaXZ1YIu87NC6
- NwiH/fXHU1sCkzJt2Ew==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
- malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0 spamscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609210141
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="9yycvWMy1Ul2gL/7"
+Content-Disposition: inline
 
-On 9/15/26 10:44 AM, Abel Vesa wrote:
-> Replace the raw power-domain index of SDHC2 with the SM8150_CX binding
-> constant, which is the correct power domain in this case.
-> 
-> Fixes: 876644c76034 ("arm64: dts: qcom: sm8150: Add support for SDC2")
-> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/patchset/20260914-qcom-tie-cx-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com?part=45
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+--9yycvWMy1Ul2gL/7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Konrad
+Hi all,
+
+Today's linux-next merge of the bpf-next tree got a conflict in:
+
+  mm/internal.h
+
+between commit:
+
+  c1b742df568b9 ("mm/hugetlb: localize struct huge_bootmem_page")
+
+=66rom the mm tree and commit:
+
+  69d38c792c53a ("mm: Add copy_remote_mm_str()")
+
+=66rom the bpf-next tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc mm/internal.h
+index 3b9fdb826162d,9e3be236f18c0..0000000000000
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@@ -24,7 -23,17 +24,10 @@@
+  #include "vma.h"
+ =20
+  struct folio_batch;
+ -struct hstate;
+ =20
++ int __copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
++ 		void *buf, int len, unsigned int gup_flags);
++=20
+ -struct huge_bootmem_page {
+ -	struct list_head list;
+ -	struct hstate *hstate;
+ -	unsigned long flags;
+ -};
+ -
+  /* mm/workingset.c */
+  bool workingset_test_recent(void *shadow, bool file, bool *workingset,
+  			    bool flush);
+
+--9yycvWMy1Ul2gL/7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqw/ZcACgkQJNaLcl1U
+h9DCRgf/S6rSqkJe9utzdVZ2ExVllxwc3pAqiY69HWpOGZMGfga4mBanMb8AY+nJ
+voVK0FtScwTS3ANByQZkrYs5kDgBNdnWwVvNoYSm/CQmg4kyYzIYDjXAIdLU+LeG
+GHO7V2VPf4De6Qk5L5HriEjJRoEgVapdmyhiqxVzu2qLVlzJB8SD/FCXYd7E4BOV
+Tem1436FxxrRtA7bAB6a99GORCzN7tWPGao6qIpEDRD3PPtzLARXi7ne5h5AyTxx
+OejUCwrDDMN1Fo+Q934+m/hH5sR0Ny1BzTHWIr9RuYxpQdphTmYCfb1CXQ6zkztX
+fV2KilrGFx2T9Y3UWHEvvmyRMBtAJw==
+=IlkG
+-----END PGP SIGNATURE-----
+
+--9yycvWMy1Ul2gL/7--
