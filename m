@@ -1,94 +1,94 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4506E34FF5D
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:06:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087DC4A8A39
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:06:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999589; cv=none; b=Y7AYeps6U7Zd7hMDqqvdNMnQKq3iSivg5nhvbcrK42ZkZjFSvOTPmRt6TTXB55M9XeD1CKR2ys9O+sZeVV+xEC174G/LfLExcb8/ot8x/RTJACSiHvs8DhBP6R43jsrpdlR3Tqlcycr09WFno4ZGGhza8f1kmr46NXWp5hQ2ibc=
+	t=1789999594; cv=none; b=kErjCEn5HwrOK80QC1bZ7pgV66nFId+kQxa9TNZDNkYS2/nRdAjAb7hNm6r1h2hxQERElzyVAp97U5AnuijpUg0clsleyv4p3d/FI14LYRdmBD+/84FWG0XFSGZ68PBnteozNF4VnpKAa7frMIMHeJ5oCDGarBGIw0PgWRheKT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999589; c=relaxed/simple;
-	bh=6TAqMjHBoHUiFi3wkvnVQ728BuUL5Y5HLzESWYJT0lg=;
+	s=arc-20240116; t=1789999594; c=relaxed/simple;
+	bh=OzuuWVIqtaFd/YYFW4xK7+t91VemYX3wot5lc8ID+mk=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=KC7hNkm5eIzMhsCfvLL5hIMlZP/lLnqBusD/eN5glOEBqdj6j6rO6Tp9mAt8h/OkHvJQmkZ6v7UQn2ybfI2Btb6dbx6xkxLGUXQxIKFhXABvfGZpQ5Cv2MZ/Eh7VHsa30Dg0A7PmBio0mCdG75cDjv/hYmsrd7HYQMpJyPUXaAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=R1zHkoqO; arc=none smtp.client-ip=209.85.214.199
+	 To:Cc:Content-Type; b=A8Ull3AB1WEFSLjEbxHqOpNX0frK498Zk1QF8JvoJkysEfm9gV/6j4rHEoWgS1Mo22Ab/fjooux4oUEwRTro1RDc3DayHx2fF0IdL8rChNtOzdiFJO60Cnj9vZaXDA10kOXFrATpmtZlJKGpDyt2YU8bWCLCF19qrVB4KzQ0290=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=P2APeTW1; arc=none smtp.client-ip=209.85.210.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="R1zHkoqO"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ccb687f82eso42850295ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:06:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="P2APeTW1"
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-868f443cbd0so2862342b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:06:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789999587; x=1790604387; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789999592; x=1790604392; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BZ2htXcpEf0yscnHPHdzpPSyyISdV3JRkU5aSKroXnM=;
-        b=R1zHkoqOcVx8rusEJx1Mg6tQby8QUV2fdQdkdN0OBvZRcIuycI6ZtgGe1p6spIpBgq
-         Gr/0RsURJi5nyzwQs0oGyHvPTppwyQPcTJFr3BVsBs5smV3Bxww1dy402HMAk8nxNAlH
-         dsEpMALiRCz99SPNOwelB2mzrecGK91h9otnLwcXk7lGZXy2JLdvBBfYIkyXrB3sICov
-         uUc6UHzvnOMAylutSEE2h+16CIu/W/IVYClOsNsgN2OU8ccU96gFP7TcTrTg3AYyBhYM
-         fYinEVOSyAI40wywtSxZirIN21BsrTnJkDpjAV00Zs8wb6LBbeEYyfpDzNu0zaaS6foC
-         yolQ==
+        bh=pZN6pn1oKVfiJrGbRYveJPh3MZHL0XDj4nwpj69nUOA=;
+        b=P2APeTW1AXaGq/Qi+t0Vi8GeDhueXF25n3yQUW+TuoYgtlVlLXgm1iPOAlErXNQupI
+         SC3qZrQy7aN6c4PzTB3/d4cxXO2VX6cKIGi0AXHrRLRdY0cH++ssmDGvrOMEaB3FT6Ci
+         bkOSdOHantkcimvNEhA3Cuzd1EsaLKikDDM9vzA5iZUbNamfQKcOdTLClf5fZxkAcL2F
+         xaMCGrJ2mPmdCQ7DE0msiCa4u+DeWF0H0MvCeAMDut4ULwY2wFfJIMFa3LqeLyAmJ3hu
+         IQLgFCbYbuQZWh5/sl1qmylcu9rOXcQ1vTdtJawPXZE62lHQQfSHRynSEu+QeEhatwUR
+         G1Uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789999587; x=1790604387;
+        d=1e100.net; s=20260707; t=1789999592; x=1790604392;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BZ2htXcpEf0yscnHPHdzpPSyyISdV3JRkU5aSKroXnM=;
-        b=lx1Nu7pPd3ISqiGGMCc5u2PWbY+P/ab/SUBdaWlqF1fkkhvfmtNIT8FHe7HtzqUWzn
-         J2MA7xPHNgOLbw024WA2w3TDl2i4BYDYCTFYiJ9iI3Zx2dD4rnamrUYunzvbgfv7iKJM
-         zrc9vpgHeBKYuWHNhS4SXIRQ5NIjhoYFvWHfIsVQClUkDmct5D67vjTo57RHw4vCluqv
-         gaoffYfklv/RihQ/srPe3gx2BL2oQ9+BOfwV+Qqb/U6/ilYp9wmAc8d+v4mD0UeXCKd5
-         /ZH5+LAgmR0UZci6+t1rvdtJP3FkC1NctIj0XxyRbQS/DQ3Kx0q9DPlPhRBCy997MRJG
-         K3sg==
-X-Forwarded-Encrypted: i=1; AKwUvBztjPCKi5X7HFDqDs8Y8SI19uEl7D69BsSk1/QPqvlsoDIPvCsIxt0aoJn1HG6zEdccc92jbuhzfRrkTV0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJ3u3vwrf8mzm8m66goIsLBq2QDzKKSaVL/a5TdeX3luSkNyD3
-	+oXJYGYxY9AohUOpKa4enrIai05fdpJCDYN+tvQcOPjuwqvw14IArdnLJtu8E6UwIkTeQMJL9Qy
-	G21y6AA==
-X-Received: from pleo1.prod.google.com ([2002:a17:903:2101:b0:2df:4883:3fc3])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:3803:b0:2dd:c100:b2d2
- with SMTP id d9443c01a7336-2ddc100b3b1mr113461315ad.61.1789999587464; Mon, 21
- Sep 2026 07:06:27 -0700 (PDT)
-Date: Mon, 21 Sep 2026 07:05:14 -0700
-In-Reply-To: <20260902230932.2760127-1-seanjc@google.com>
+        bh=pZN6pn1oKVfiJrGbRYveJPh3MZHL0XDj4nwpj69nUOA=;
+        b=fdw1H54tesXIHg1O4NGEyjxpnZmJcx/xRdB/i1FXWbgB5+GdRG3xZ3rKpPRzfj+G88
+         VuaWhl1CfIhr3SWCywuRaM7/IffnaYytRTeB8FkDGvBWw0GHGTjppgiTVTe12bwwuTuW
+         fHg9bZEnYw6BQXnsPsV1/bNdArhB9i4RrROs7O7IrltbPqk7xPfc1uIlN4MhXO0SEIra
+         YmwxLypIPorOkAq++mBJPvZyAftiFKC4XDEI1GkYfniKaLK9oecxm/UpPdCjHfHL5X/Y
+         WEso71U3ROTcG9KrNaS+rWgNRv0GoFnXPM+bZcyUG5Uy8OvOVSWH0DGSZkuh+nuJ+LUS
+         Ctzw==
+X-Forwarded-Encrypted: i=1; AKwUvByGZ1LIE49H5KXYmwT8+AkzV398SZTwAC9fqAHpS8+Ih4s8/N3OhhdaHHdadT0njstR+/M9/K0x/Pqm5so=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAcNTGx1UsbDvmYLWovsjrVv0Yk8rmCHT+ospg0BfPOzMtliN6
+	AAevJ3zsrEakdWTjmtUpEN6S7xiyNWgodDbvPP5G9h34+6qE4DAeTcmxJxaP2Mrwsn6am9edBe8
+	2aK2VzQ==
+X-Received: from pfbdl11.prod.google.com ([2002:a05:6a00:490b:b0:879:66b7:29a9])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:2443:b0:3d3:ae1f:d7f5
+ with SMTP id adf61e73a8af0-3dd8c4ff268mr16788092637.21.1789999592068; Mon, 21
+ Sep 2026 07:06:32 -0700 (PDT)
+Date: Mon, 21 Sep 2026 07:05:16 -0700
+In-Reply-To: <20260908160426.6547-1-tharitt97@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260902230932.2760127-1-seanjc@google.com>
+References: <20260908160426.6547-1-tharitt97@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <178999888361.743033.9908769455046597723.b4-ty@google.com>
-Subject: Re: [PATCH v3 0/3] KVM: VMX: Explicitly track TDX VMs' root level
+Message-ID: <178999676410.711234.12909851740804144889.b4-ty@google.com>
+Subject: Re: [PATCH v1 0/2] KVM: x86: cr8 reserved bit check
 From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
-	Kai Huang <kai.huang@intel.com>, Yan Zhao <yan.y.zhao@intel.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>
+To: Sean Christopherson <seanjc@google.com>, pbonzini@redhat.com, tglx@kernel.org, 
+	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, 
+	shuah@kernel.org, Tharit Tangkijwanichakul <tharitt97@gmail.com>
+Cc: hpa@zytor.com, binbin.wu@linux.intel.com, kai.huang@intel.com, 
+	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel-mentees@lists.linux.dev, 
+	skhan@linuxfoundation.org, me@brighamcampbell.com, jkoolstra@xs4all.nl
 Content-Type: text/plain; charset="utf-8"
 
-On Wed, 02 Sep 2026 16:09:29 -0700, Sean Christopherson wrote:
-> Fix a bug where a misbehaving (or niave?) userspace can configure guest CPUID
-> such that KVM will use the "wrong" root level for its mirror EPTs and trip the
-> KVM_BUG_ON() in tdx_load_mmu_pgd().
-> 
-> v3:
->  - Use kvm_mmu_get_max_tdp_level() in __kvm_mmu_create() to avoid what is
->    effectively a false positive WARN. [Sashiko]
+On Tue, 08 Sep 2026 23:04:24 +0700, Tharit Tangkijwanichakul wrote:
+> kvm_is_valid_sregs() validates the incoming CR0, CR4, and efer values on
+> KVM_SET_SREGS but never checks CR8. When userspace passes a CR8 value with
+> any reserved bit [63:4] set, __set_sregs_common() forwards it to
+> kvm_set_cr8(), which rejects the reserved bits and returns early. That
+> return value is not checked, so the ioctl reports success while the
+> requested value is silently dropped, and a subsequent KVM_GET_SREGS then
+> returns a CR8 different from the one userspace believed it had written.
 > 
 > [...]
 
 Applied to kvm-x86 misc, thanks!
 
-[1/3] KVM: x86/mmu: Use KVM's max TDP level to determine need for 32-bit TDP root
-      https://github.com/kvm-x86/linux/commit/7ed619909773
-[2/3] KVM: VMX: Explicitly track TDX VMs' root level instead of guessing it from CPUID
-      https://github.com/kvm-x86/linux/commit/cc8a8f2a90b4
-[3/3] KVM: VMX: Drop TDX_SHARED_BIT_PWL_{4,5} and dedup related code
-      https://github.com/kvm-x86/linux/commit/37e3197c50c8
+[1/2] KVM: x86: Reject reserved CR8 bits in KVM_SET_SREGS
+      https://github.com/kvm-x86/linux/commit/3e7a842fe533
+[2/2] KVM: selftests: Add CR8 reserved-bit checks to set_sregs_test
+      https://github.com/kvm-x86/linux/commit/2b0e0aa54fa2
 
 --
 https://github.com/kvm-x86/linux/tree/next
