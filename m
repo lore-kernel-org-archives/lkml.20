@@ -1,66 +1,190 @@
-Received: from mail.auroraos.dev (unknown [95.181.193.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5612A4078C1;
-	Mon, 21 Sep 2026 20:25:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.181.193.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2699343B4BD;
+	Mon, 21 Sep 2026 20:25:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790022308; cv=none; b=OiXU/oFWPYPpOKyy/0npfrNnEojENMpGJtzZHoK5EYjUULkKisQdQF5rnoe/2sU5A447NFUzm1km+BdxqpA1UA27ttYHR6u9AYpqAdcN3wQemqwqnOtaF9cPox+qDcBU/0xDSRmqmu8AamNP0rgv8RFl+VIv6iw9HzCwl4URa1g=
+	t=1790022310; cv=none; b=sVEMFwZysmqFe0VJOi+M2GCoszAqZShAXd75cc0EjRpH3k5vG5TNwyOG3JgzmHM6MR7zzCBE7JNE+JjywEmXFWb981iXITf/hqGFbGYx/dbyvX95Vh01HYyE0HFcZLHrahA9rRUp6DjEu6vRWz4PMkPzViFWgD4R43LlrXn1aQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790022308; c=relaxed/simple;
-	bh=1qHM737Do/QGbex2exKUPSjnrwiXVYmKswlC197KgGo=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:CC:References:
-	 In-Reply-To:Content-Type; b=W8WGqvSWeJcmHcghXfnEZly/IXMz/TOi//ISgu1s3abopr6vjkoppK7H1+8Ys8yPhW1bc0SU+zn9TIZYeEymLRydHIpd76rRGduwCn9hQeNe/D6JHjPp55e50AmLNIVRjNYNUxApmCaXB1sqvSNzpPBZu2CsEVGew/4EwWqcrj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev; spf=pass smtp.mailfrom=auroraos.dev; arc=none smtp.client-ip=95.181.193.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
-Received: from [192.168.2.104] (91.79.36.28) by exch16.corp.auroraos.dev
- (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Mon, 21 Sep
- 2026 23:24:58 +0300
-Message-ID: <4a2ae45f-71d0-49d4-ae44-b5a588f6ac43@auroraos.dev>
-Date: Mon, 21 Sep 2026 23:24:58 +0300
+	s=arc-20240116; t=1790022310; c=relaxed/simple;
+	bh=5aTX38hlAzLLBg7PQAMJ3viQM6pgFp+XJaTWYrtw7ig=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K8Qj1CjIkaEY8Rwc+6oyLJyLqNyTrmb3F0y4axrddBIbPntTDrmRPhYfphxNExnO4n9sDmXHXcdZtcQPn98TrBeWqLIim/yQdo2afiQ79HUunzmjUNt/5XKYUIKZjFMAg4G0ZV237giqAR4FITqhaGQJaBVPbisQippIX+7bp5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=QuEBpeOu; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="QuEBpeOu"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hpZTq64Y3zMlQy;
+	Mon, 21 Sep 2026 22:25:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790022303;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dRzP3ENc6tuYZpq9SJzScYYWeAdwA1kasfQ0tDxWbZ0=;
+	b=QuEBpeOuKwpwI2owvAPpi2sDUtIlmAI5oEYI6LHXnTxCxeNfHpEJ0cs3J6ZuX7qcuEk+Df
+	UmMYYF6iECx5iLyqmLQKZqMs/rLRmzsgc/5BYhaxdry9efXniuye8wVkVoJ//7QS87fTax
+	2V8zeCmCLCT8B8g0aStLxftktEpNonaEY+fVE3eZ8MyGJVgCy/P+O/CQe0lqVyjiW5w1lB
+	HxcKbdgBlONGuFCbMzSxULf0FoJPpM6c3tGmz5fXU8p7DPCxztPIV0JfSMx6UxYIu8UWMg
+	+LEnfKMN08OusujSt397i0pRdMdD6pCNwnQd9uMLUyK+sOnC3fPnTGIRyEOIqg==
+Message-ID: <064d546b-faf9-4dfc-bdbe-f4ed787ac44e@mailbox.org>
+Date: Mon, 21 Sep 2026 22:24:59 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2] ch9200: do return USB errors from
- control_write()
-From: Sergey Shtylyov <s.shtylyov@auroraos.dev>
-To: Jakub Kicinski <kuba@kernel.org>
-CC: <netdev-bot+sashiko@kernel.org>, <andrew+netdev@lunn.ch>,
-	<davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
-	<linux-usb@vger.kernel.org>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20260915185805.38712-1-s.shtylyov@auroraos.dev>
- <178954341078.22033.8722936070498955076@kernel.org>
- <b43350d5-09d7-4fc4-9791-16bb4322d794@auroraos.dev>
- <20260918182124.487edd13@kernel.org>
- <354d72f6-35bc-49f0-a4f4-3555b03f0ad8@auroraos.dev>
+Subject: Re: [PATCH v4 6/6] PCI: dwc: rcar-gen4: Add support for R-Car X5H
+ PCIe4
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-pci@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260905212649.360498-1-marek.vasut+renesas@mailbox.org>
+ <20260905212649.360498-7-marek.vasut+renesas@mailbox.org>
+ <ygec5dvolsujxmaxxjqnmusfj6shzszkiprlckbwqkdf6u6hc6@5sm6ayrfzkkm>
 Content-Language: en-US
-In-Reply-To: <354d72f6-35bc-49f0-a4f4-3555b03f0ad8@auroraos.dev>
-Content-Type: text/plain; charset="UTF-8"
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <ygec5dvolsujxmaxxjqnmusfj6shzszkiprlckbwqkdf6u6hc6@5sm6ayrfzkkm>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
- exch16.corp.auroraos.dev (10.189.209.38)
+X-MBO-RS-META: 94x7icccsnrx48j1podtih9k5tnwhtgc
+X-MBO-RS-ID: 56bed019913caf2c494
 
-On 9/21/26 10:59 PM, Sergey Shtylyov wrote:
-[...]
+On 9/21/26 6:03 PM, Manivannan Sadhasivam wrote:
 
->> Please explain how you discovered the issue and how you tested the fix.
+Hello Manivannan,
+
+>> +static int rcar_gen5_pcie_speed_control(struct rcar_gen4_pcie *rcar)
+>> +{
+>> +	struct dw_pcie *dw = &rcar->dw;
+>> +	u32 lnkcap = dw_pcie_readl_dbi(dw, EXPCAP(PCI_EXP_LNKCAP));
+>> +	u32 lnksta = dw_pcie_readw_dbi(dw, EXPCAP(PCI_EXP_LNKSTA));
+>> +	u32 val, retries;
+>> +
+>> +	if ((lnksta & PCI_EXP_LNKSTA_CLS) == (lnkcap & PCI_EXP_LNKCAP_SLS))
+>> +		return 0;
+>> +
+>> +	/* Retrain link */
+>> +	val = dw_pcie_readw_dbi(dw, EXPCAP(PCI_EXP_LNKCTL));
+>> +	val |= PCI_EXP_LNKCTL_RL;
+>> +	dw_pcie_writew_dbi(dw, EXPCAP(PCI_EXP_LNKCTL), val);
+>> +
+>> +	/* Wait for link retrain */
+>> +	for (retries = 0; retries <= 10; retries++) {
 > 
->    As I noted in the description of the patch [1], the issue was reported
-> by the static analyzer. For the patch [2], I saw a problem with my own eyes.
->    I don't have the hardware, so no testing; there was some hope that e.g.
-> Matthew Garret (the driver's original submitter) could be able to test but
-> his email bounced...
+> So this loop executes 11 times. Is that intented?
 
-   Sorry, it's Garrett. From searching on lore it appears he still uses that
-same email, so not sure why it bounced...
- 
+No, I don't think this is correct, or in fact sufficient. The training 
+should poll for at least 100ms.
+
+>> +		lnksta = dw_pcie_readw_dbi(dw, EXPCAP(PCI_EXP_LNKSTA));
+>> +
+>> +		/* Check retrain flag */
+>> +		if (!(lnksta & PCI_EXP_LNKSTA_LT))
+>> +			break;
+>> +
+>> +		usleep_range(1000, 1100);
+> 
+> What is the expected behavior if the Link retrain is not successfull? If it is
+> safe to continue, shouldn't the users be warned atleast?
+
+They should, I will be replacing this with this simpler option, which 
+returns -ETIMEDOUT in case the training failed:
+
+diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c 
+b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+index a5feb73864c7f..7f4bda6a492ab 100644
+--- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
++++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+@@ -183,7 +183,7 @@ static int rcar_gen5_pcie_speed_control(struct 
+rcar_gen4_pcie *rcar)
+         struct dw_pcie *dw = &rcar->dw;
+         u32 lnkcap = dw_pcie_readl_dbi(dw, EXPCAP(PCI_EXP_LNKCAP));
+         u32 lnksta = dw_pcie_readw_dbi(dw, EXPCAP(PCI_EXP_LNKSTA));
+-       u32 val, retries;
++       u32 val;
+
+         if ((lnksta & PCI_EXP_LNKSTA_CLS) == (lnkcap & PCI_EXP_LNKCAP_SLS))
+                 return 0;
+@@ -193,18 +193,10 @@ static int rcar_gen5_pcie_speed_control(struct 
+rcar_gen4_pcie *rcar)
+         val |= PCI_EXP_LNKCTL_RL;
+         dw_pcie_writew_dbi(dw, EXPCAP(PCI_EXP_LNKCTL), val);
+
+-       /* Wait for link retrain */
+-       for (retries = 0; retries <= 10; retries++) {
+-               lnksta = dw_pcie_readw_dbi(dw, EXPCAP(PCI_EXP_LNKSTA));
+-
+-               /* Check retrain flag */
+-               if (!(lnksta & PCI_EXP_LNKSTA_LT))
+-                       break;
+-
+-               usleep_range(1000, 1100);
+-       }
+-
+-       return 0;
++       /* Wait for link retrain, 500ms must be enough for all link 
+rates. */
++       return read_poll_timeout(dw_pcie_readw_dbi, lnksta, !(lnksta & 
+PCI_EXP_LNKSTA_LT),
++                                1000, 5 * PCIE_RESET_CONFIG_WAIT_MS * 
+USEC_PER_MSEC,
++                                false, dw, EXPCAP(PCI_EXP_LNKSTA));
+  }
+
+  /*
+
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>   /*
+>>    * Enable LTSSM of this controller and manually initiate the speed change.
+>>    * Always return 0.
+>> @@ -285,6 +322,49 @@ static int rcar_gen4_v4h_v4m_pcie_init(struct rcar_gen4_pcie *rcar)
+>>   	return 0;
+>>   }
+>>   
+
 [...]
 
-MBR, Sergey
+>> +static int rcar_gen5_pcie_ltssm_control(struct rcar_gen4_pcie *rcar, bool enable)
+>> +{
+>> +	u32 val;
+>> +
+>> +	val = readl(rcar->base + PCIERSTCTRL1);
+>> +	if (enable) {
+>> +		val |= APP_LTSSM_ENABLE;
+>> +		val &= ~APP_HOLD_PHY_RST;
+>> +	} else {
+>> +		val &= ~APP_LTSSM_ENABLE;
+>> +		val |= APP_HOLD_PHY_RST;
+>> +	}
+>> +	writel(val, rcar->base + PCIERSTCTRL1);
+>> +
+>> +	if (enable)
+>> +		phy_power_on(rcar->phy);
+>> +	else
+>> +		phy_power_off(rcar->phy);
+> 
+> It is quite unusual to handle PHY power on/off in the start_link() callback.
+> Should this be moved to init/deinit callbacks?
+
+This really has to be here, else the controller programming order does 
+not follow the sequence in the SoC datasheet.
