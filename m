@@ -1,44 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFFE747CA90;
-	Mon, 21 Sep 2026 23:25:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 941C53F329F;
+	Mon, 21 Sep 2026 23:25:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790033138; cv=none; b=tHFrlDTN0/07rPkqMKdwY1aXFm10K3Udoz3+oe22TviKv7VgwdWaFBGLQKULGdO+Kjil/McyYJsFw/0OlJR2lQ613dOz1CeODIwUdm8ryTioo6NGhNeT/Jk64YuBOF+lZjPUh8P+hXtCopvQQiWF/n0hANdSspPYy20hkG9SIkU=
+	t=1790033156; cv=none; b=q1GWu/H+IwDVoV17ABBQG3WrMA3b4sdKOAOgfoX2ikyGH3TrkCqevcCQmW3Nzm4JKyv+AnlvexW+OYcd10DAZH9VqlqyKHQVxaJ3nBUmnsm7JYJjHQ1eNn9WGppz0LdT2i09VZ29QQb/Kn/Z+pKytdYXzGNcc2l/dwawHTxqT60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790033138; c=relaxed/simple;
-	bh=B+L4oXR7h803QZApDavNhOgbBDI8UT+OOIjVDrYbs8Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h/0iXm1O6uIypceIxKIhFKBX0WWpSruWcN5apCGoL6H8rlehVCdKLYucfNGo8S1E85yD/QBhGvRgyfqz17j9lVQGXkkrnLBkKErg+xwbo1Q+g8Vr706CAhk+Cz1l3iRnTv67UE10xNBQLjTptwZStO1rgThFfWzrKTCOhS55M9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TthKSZEu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790033156; c=relaxed/simple;
+	bh=hW/3dZFhFdKqEMAOoI4yyvwjUsXJuHmyDQB65nwl1jI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O7buwIaqbTFvWjNtqOfvxNLbRlvVDczXkoBK4iN4VAgD79zSLcqPjkJndrlAp1VmOx8isNDSt0vT6uHAEg0gNclWlvrmQ7zwagXCrFgnfJNFPp5yc675OAfA4oyR2cKlQWDyt+S+QuOGHfvAhfzl70/KYvLhtWxG+pw2XWTBVXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iDG8KvA8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TthKSZEu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37B941F00898;
-	Mon, 21 Sep 2026 23:25:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iDG8KvA8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23A431F000FF;
+	Mon, 21 Sep 2026 23:25:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790033130;
-	bh=ubTLm44ATjRdGaaOewajLt92Nruc3KcRR6dVN/XSnfY=;
+	s=k20260515; t=1790033148;
+	bh=ybjRS2GSw3Pmydj996/wagr78u/EZ0PNM1XPfd8Tp6A=;
 	h=From:To:Cc:Subject:Date;
-	b=TthKSZEupVZgXPFzhqsbG9+b0c3xFYy1kyHb0aTTY8UQh0lQOV0lu+hQKip3t119q
-	 xQka+GQkFHdWFSPHjJDiRW0yrfphPyhp7nCA/GEmv5m1aLXlKxNcy3WuZD7ZtXxmc9
-	 7dBsLOLdGPP+mpx/ZO7ncWcIADkpARQ07nrN3KheFp0DyHg4oo2D3NMuItdC5TnwRy
-	 iS40ZhEAZ/afYcC21GGvIem+oxJ2u1r1HyLAo+tqotfpWzbsATDrDFq6hSJ2aQnV3H
-	 rpZf1eoQIQ2WlahJHIifi6BNkw/p9957Yc3gGlr19Gq0MrbuP7hUz55wg9OCJkPjAJ
-	 qYMY2koIn7VAA==
+	b=iDG8KvA8iBP4UjKFUa43QBfLhdAKoIpEd8eZNFhca3orc62mYoOuvPVcqYV+5rQoj
+	 fPnDzZILWhq9z5/DSOYCQY1RKAyAQ765aa2szZxOb+kjaWBVLjIEKn7JY+4l6vm/M6
+	 1Ge3uuf15/s8RvOghJweBg5ZMOtZ0US4jD9wex15C3yHGv+afMEpcZWHtFq5n3unpG
+	 fNj8rtyj8FIK+NJHgRqUqmi1Jq66lHunJgguh5Gofg1ONHsQGFToa0vjsJdOQaW2mg
+	 9XFPrU5KmNwwvnT5/I0ZJSrRMV2swu8ETOxCfsrHh0pkx19xv00svJnVgj5m06MYvW
+	 QWx9EH8syQiyQ==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Flora Fu <flora.fu@mediatek.com>,
-	Alexandre Mergnat <amergnat@baylibre.com>
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH] dt-bindings: soc: mediatek: Allow pwrap regs
-Date: Mon, 21 Sep 2026 18:25:26 -0500
-Message-ID: <20260921232527.3127894-1-robh@kernel.org>
+To: Wei Xu <xuwei5@hisilicon.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: soc: hisilicon: Add HIP05 CPLD
+Date: Mon, 21 Sep 2026 18:25:39 -0500
+Message-ID: <20260921232540.3128596-1-robh@kernel.org>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -48,30 +44,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The MT7622 PMIC wrapper has a regulators child node. Add the child
-schema reference so regulator subnodes are evaluated by the MT6380
-regulator binding instead of being rejected.
+Add schema for the hisilicon,hip05-cpld node on the HIP05 D02 board. The
+node only contains the compatible string and one register window on the
+local bus.
 
-Assisted-by: Codex:gpt-5-5
+Assisted-by: LLM
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- .../devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml       | 3 +++
- 1 file changed, 3 insertions(+)
+ .../soc/hisilicon/hisilicon,hip05-cpld.yaml   | 35 +++++++++++++++++++
+ 1 file changed, 35 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
 
-diff --git a/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml b/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
-index e7c4a3984c60..79b755858bad 100644
---- a/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
-+++ b/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
-@@ -105,6 +105,9 @@ properties:
-   pmic:
-     type: object
- 
-+  regulators:
-+    $ref: /schemas/regulator/mediatek,mt6380-regulator.yaml#
+diff --git a/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml b/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
+new file mode 100644
+index 000000000000..f9d48b871a4b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
+@@ -0,0 +1,35 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/soc/hisilicon/hisilicon,hip05-cpld.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- required:
-   - compatible
-   - reg
++title: HiSilicon HIP05 CPLD registers
++
++maintainers:
++  - Wei Xu <xuwei5@hisilicon.com>
++
++properties:
++  compatible:
++    const: hisilicon,hip05-cpld
++
++  reg:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    local-bus {
++        #address-cells = <2>;
++        #size-cells = <1>;
++
++        cpld@100000000 {
++            compatible = "hisilicon,hip05-cpld";
++            reg = <1 0x0 0x100>;
++        };
++    };
 -- 
 2.53.0
 
