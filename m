@@ -1,122 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8BA54A6885;
-	Mon, 21 Sep 2026 16:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790006942; cv=none; b=gv5/aPv9QxTECoHxEnv30YOEvUoJNCAG5BIRM/FSH00ntQblaIjTIlwOqkHzCOA0XS5xE1MXc2dXZJx6E5WBRIyNUS0QHj22MkK/DFBK9PYaPvDy0MrhefC+A+lbhxYO0W3lCuYUO5Lp2IMhfF/XCa4vHJHE4h/VvK58HNUu7SY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790006942; c=relaxed/simple;
-	bh=+Ca6tglu5oyhC46HUGwjSP8wMmqDs5loib6dloR0A38=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=joRKh5azkr/peNGsgUUtAhd2Og1PwFwJqGLe3SzeEdkTEwVHUABTfuza5WgvE2ez+REsqA2gfj7bqCZlM80jWSLycCHJz+Smpl3mjFcegMAup9HtoMX72HBjBRUISIbfplzGU/iegOenD2iR8ITvm6oGPoxMlzYqFg8j+EvShwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I6lco+9i; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC234BF939
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:09:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790006950; cv=pass; b=pdMndEPChm8flrvcu0sLS5U7RQ6081fxZ369o7qiVH2B78W6MH6cBUG6uRtZjQ+ryd0aTpsPc+lpyJcOsduxUN7gcPRRTzPjyrvUxPTdjoClu01r46zHSRd5EAclflDkzSxOY+7f82+jrVLWQhFmmWfAmNmuRt7uiVj6f2dsY4E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790006950; c=relaxed/simple;
+	bh=AIjc3MXIEI1WNzfDBHDw6Y+wt0nahAW6usfM1evUcdQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Q+HF1fXrmOjlJEdE8BnDILk3Jg8AJmIE0OLxw6VB+oclVhQ+IZMTD18L1pAcbs91oftI1MqP+tILSgLMJRFeBHGJTTx2XnY+eMjHHDbQ2Ng7OtXGW6AfKMvWkLUlIP4iD7xP0uxhbEZGdHFw4134hkSEbFa7RxGbD6oCW7l/gjE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HyZzq0iI; arc=pass smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I6lco+9i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 562381F00893;
-	Mon, 21 Sep 2026 16:09:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790006941;
-	bh=FOTV0PHDPjv7T4ZC0QP6/caxtiiGCzPPnekS36QsNyQ=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=I6lco+9iUwAqO3zjgvumlLA5C/VhfXUwEk6SUo3gSkM4oTj4GvL0t3U4GwpiU+aFj
-	 MuMQAuyChxeRaQp9gYkR2DtCDN4T1OrLkPS/ojp2WE1cPoM0iooDGXYr3uoSn+xBaF
-	 1C4QW+Ll5f789AvK2JwPuRCnzDwI7zwh/Z6gxDafAIWJqj29JrwN5sDfbpFTNBIxuQ
-	 RI0QQS1cRnfDeaKYL1XiMw7v1/N4mZbcxHYmuzsbK6XXOfv/eU0pbJM+zgoumIdeIW
-	 Nle6h3WO6Yslfm1dRJRE7tO9hPI5pG+0mtAOpVKKRdAa4lPpCtQWILF8WzQSn3IXYA
-	 79HqW3QApVSLQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 1541ECE086B; Mon, 21 Sep 2026 09:09:01 -0700 (PDT)
-Date: Mon, 21 Sep 2026 09:09:01 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Ye Liu <ye.liu@linux.dev>
-Cc: Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Ye Liu <liuye@kylinos.cn>, Michal Hocko <mhocko@suse.com>,
-	SJ Park <sj@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>, akpm@linux-foundation.org,
-	peterz@infradead.org, mingo@redhat.com, rostedt@goodmis.org,
-	jpoimboe@kernel.org, mic@digikod.net, tglx@kernel.org,
-	david@kernel.org, linmiaohe@huawei.com, nao.horiguchi@gmail.com,
-	rafael@kernel.org, gnoack3000@gmail.com, gourry@gourry.net,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org, rcu@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-security-module@vger.kernel.org, rientjes@google.com,
-	shakeel.butt@linux.dev, xu.xin16@zte.com.cn,
-	chengming.zhou@linux.dev, will@kernel.org, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, tony.luck@intel.com,
-	reinette.chatre@intel.com, x86@kernel.org, paul@paul-moore.com,
-	jmorris@namei.org, serge@hallyn.com, pavel@kernel.org,
-	lance.yang@linux.dev, mhiramat@kernel.org, pmladek@suse.com,
-	longman@redhat.com, mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com, qiang.zhang@linux.dev,
-	dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com, mark.rutland@arm.com,
-	Dave.Martin@arm.com, james.morse@arm.com, babu.moger@amd.com
-Subject: Re: [PATCH v4 09/15] rcu: convert process/thread iterator to
- for_each_process_thread_rculock
-Message-ID: <f0c6954c-1e43-4a01-9c9d-11d38edc1e2c@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260921092101.89285-1-ye.liu@linux.dev>
- <20260921092101.89285-10-ye.liu@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HyZzq0iI"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8d04b1077so84460e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:09:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790006947; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PJ6nzYDy0ms+NPAKrNRgbrh0SED6YjTRCMPLUvzVPodJkStVJvN7TwrSlZtUf9SG17
+         HTdyIHNHoBMC+LfVWtNNHmjck3NshE4VeRDHc6ejVnYMbFG2LnQJOze2aPYsC0n9sZB7
+         jEbom/oiAoAb2gPUSiT8v/XUS06T8gAaCrQzJLkCYXmtLlnoqw4TeIn1pn9U+lnbWZe3
+         4Sdi1EYugpjiF45ayr8sTf97ZqE4HsJoEoqwYZPsfR1GtpV3XR8IzEWvfopvW3CLdp0Y
+         vfd4kfsm7VyB2YXwbG4LomA5kwrjuB2Ylr1mYt2rweAkJbIyq7Vsa72h5HIc/fNNbVXs
+         ukeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=AIjc3MXIEI1WNzfDBHDw6Y+wt0nahAW6usfM1evUcdQ=;
+        fh=wB0NICfv+H5e8zyq/1N95x2X6TjBGUGtigZCdt4/78A=;
+        b=r5K0vJ25UU+0jm42JTof47LecR2rANJCKDxI87iOS9v7NHTSRg11dZKaXjROywOQNh
+         uU0+uiS6+5jnMEez2vn6Y/RAGg9Jy0huS3mCKh8LZBDHfz6lyUX9KDloyUyQYiTomeQK
+         vmlR8woGqvQM9sw/jVc8eehB8DmutF6F3ndyJqjBk3E1sBaRn2+DZGCeLpy8r9AXstxH
+         BupoLWrc1928brRo9V1xGGZkzMI+hpVMHksegwDRBII05gk7PeRsymjsnOhWbY0obbIB
+         yIE/nzr2YAgaKuF+Pod5Opacicx+KITy5FI48PygcQfBtCR0qAupj+E/vhDD1JTxqTkr
+         vB2g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790006947; x=1790611747; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AIjc3MXIEI1WNzfDBHDw6Y+wt0nahAW6usfM1evUcdQ=;
+        b=HyZzq0iICYBObXLKZzkAbYdHutJgeMFWvA3srR1rgB9/G3D0DM4o72UNWCWsecRCUe
+         +NL6bE5yfhrSDsN32oKwXFadspCpfpFLd1FVlcIvBLJ0Z7zpuKMJivUJvf7NL9x4W3aT
+         n0SkrBqDJiMKlMJZ+9Vnx9t1OTZrqlzc6xcMW/Xupzv5oIDUAFLlltcbALfsGedOBKfi
+         yx1qMu7wOJ7UgTqd4fu6TQxQ7AYVp7fK1aKSGdhsKFSWt7HGUX/4fU5HgWD0O0HZeGWR
+         gO0jA3unzMgTiSzuVz/0MObUlTtmZ5KNhs5IHD6lr5HmeVx1e5ZkHgMBmKwANx4S8EXm
+         2oLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790006947; x=1790611747;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AIjc3MXIEI1WNzfDBHDw6Y+wt0nahAW6usfM1evUcdQ=;
+        b=eI1QVIeXUOPWRPeo3O9rjL2kAy+F1gZShycyxCzFyHOKxtWlnASwjYHYo4KUc35hDC
+         tfW2p77pLNoKlLnooadnLRspIpM2ebjs5UVkzfcflRKV8E26owXNyLloVE6j5G572Nxd
+         Iji1ODSsvM+YO6kh7jH3ZSDFDXsHxs4LOOeK6YwWVLLTqkeIWtlS2s2ygcSfBQSS5vnY
+         rDyqcyClh6JgXXkug3xuNLvt9akJ+uQC0dRVekyjXIf/c0AYNLzoKki5QnxtriZgPUrw
+         rOdq/GLRmivRkQpNuxd/t4kZKnb0kpJJ/HiCmrtEcNxXWqXDWGIKS0NYAGQHp+Cn72xM
+         Xhvg==
+X-Forwarded-Encrypted: i=1; AKwUvBzmt24WWCZSQqRBsTozcblebNO3GqcevwUxZ3Ip/25ob9tUPtNqZA2MstXStyeLukCNxZ4sPC3QITnFK3o=@vger.kernel.org
+X-Gm-Message-State: AFuF++kX9maY6SC5HA9eCh8PLEePLZ+j+YPCzt6GvoUk3TqopCqGs1Rs
+	fwjEzEOzqRowPiyIyg7b2/olqnjXyVZz7QV+awismgUQ04RB4ramGP22DKUboyrwsV7avIhKTj8
+	m4hP2OTYy77Z+gOZPU/rN3gAeqHI6maA=
+X-Gm-Gg: AYBFou1G5dS++Qk5pJHUVF0z/vx+DCIR72suIqCjat1hBKRlImxK1pm6v9tniSQdu8N
+	KZw0fLGnWFEYszXPrUKGqz9bbWR5PRr7A7W9a4H4umk/f7WCu9ZWd+fcxAueIQPJFR+dvQ1Y2p5
+	dDlVFCDTPHIH/rgB/vn6iMo2/F+GlzG1lywaJdpP1QqSUCBHaf3D27zn/U42ILZTdw3gNTrUpxK
+	IQrWSp5J9DH8sl0ZGlC4Y5rxbGICleCzKugNH4kf+JBB+kg+7qab9KubZxEGZ+L8/q1mOgKHkUg
+	4ukHfVJqnQgr3Dz/F2aqvXfcFngyLloaIt5c1kgRNENz9AxAYXGPRh6cBxgIOGc969v28Momb/D
+	OAHffgDKRliF52NiFs0rgEBJ2kUziz4/2Y2YrrXmqCOnJ1oiSOisampyHnUbhFI9k74TIaeLb1U
+	O9wIqyzOVO+PHjYeFCGgNES5iJUpaZJwGi1EyALKgLxrR9H/2BOw==
+X-Received: by 2002:a05:6512:65d3:20b0:5b8:c6de:48f9 with SMTP id
+ 2adb3069b0e04-5b8c6de4cc7mr1586547e87.4.1790006946532; Mon, 21 Sep 2026
+ 09:09:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921092101.89285-10-ye.liu@linux.dev>
+References: <20260908225615.1732105-1-georgeandrout13@gmail.com>
+ <DLHSL43HJVOM.2LMYD808W8FPN@nvidia.com> <arFPKcA1RCecTfMD@redhat.com> <CAH5fLggOMBVi3DjQSmLtstnntgJQzDsQjEt15nRkiNi7EuLB8w@mail.gmail.com>
+In-Reply-To: <CAH5fLggOMBVi3DjQSmLtstnntgJQzDsQjEt15nRkiNi7EuLB8w@mail.gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Mon, 21 Sep 2026 18:08:46 +0200
+X-Gm-Features: AcwNN1XQ73lDz4xpLQP5yNOyxGkJdAQw7Y0pwDB52hNn7bLVuCDQdmrVcz_Iz7g
+Message-ID: <CANiq72koa5rBohoBg4zaawBUPuhBatGouBzqTWi8djxMaaLacQ@mail.gmail.com>
+Subject: Re: [PATCH] rust: clk: document overflow panics in `Hertz` constructors
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Brian Masney <bmasney@redhat.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Georgios Androutsopoulos <georgeandrout13@gmail.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, linux-clk@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 21, 2026 at 05:20:55PM +0800, Ye Liu wrote:
-> From: Ye Liu <liuye@kylinos.cn>
-> 
-> Replace the manual rcu_read_lock()/rcu_read_unlock() pair combined
-> with for_each_process_thread() loop in kernel/rcu/update.c with
-> for_each_process_thread_rculock(), which scopes the RCU read lock
-> to the loop body via scoped_guard(rcu).
-> 
-> No functional change.
-> 
-> Signed-off-by: Ye Liu <liuye@kylinos.cn>
-> Acked-by: Michal Hocko <mhocko@suse.com>
-> Reviewed-by: SJ Park <sj@kernel.org>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+On Mon, Sep 21, 2026 at 5:51=E2=80=AFPM Alice Ryhl <aliceryhl@google.com> w=
+rote:
+>
+> My understanding is that the "default" way patches land is that the
+> subsystem also takes Rust patches related to the subsystem, and that
+> the rust tree is a fallback tree.
 
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+Indeed, the idea on how we suggest setting up the `MAINTAINERS`
+entries is that, by default, maintainers keep control of both sides
+(they are the experts, after all) and that, hopefully, they get more
+involved on the Rust side etc.
 
-> ---
->  kernel/rcu/update.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
-> 
-> diff --git a/kernel/rcu/update.c b/kernel/rcu/update.c
-> index 2a778b8ab4ad..d8e0b5896db9 100644
-> --- a/kernel/rcu/update.c
-> +++ b/kernel/rcu/update.c
-> @@ -548,15 +548,13 @@ void synchronize_rcu_trivial_preempt(void)
->  	struct task_struct *t;
->  
->  	smp_mb(); // Order prior accesses before grace-period start.
-> -	rcu_read_lock(); // Protect task list.
-> -	for_each_process_thread(g, t) {
-> +	for_each_process_thread_rculock(g, t) {
->  		if (t == current)
->  			continue;  // Don't deadlock on ourselves!
->  		// Order later rcu_read_lock() on other tasks after QS.
->  		while (smp_load_acquire(&t->rcu_trivial_preempt_nesting))
->  			continue;
->  	}
-> -	rcu_read_unlock();
->  }
->  EXPORT_SYMBOL_GPL(synchronize_rcu_trivial_preempt);
->  #endif // #if IS_ENABLED(CONFIG_TRIVIAL_PREEMPT_RCU)
-> -- 
-> 2.25.1
-> 
+It makes sense for reworking the subsystem, too, since it may happen
+that a rework on the C side may need adjustments on the Rust side etc.
+
+The file is already under "COMMON CLK FRAMEWORK", so in this instance
+it seems fine.
+
+Brian: in case you want it (but it wouldn't be needed!):
+
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
+
+As Alexandre said, we may want to rework how these work (instead of
+panicking), but documenting helps for now (and whether this counts as
+a Fix or not is, I guess, up to what you usually do in your
+subsystem).
+
+I hope that helps!
+
+Cheers,
+Miguel
