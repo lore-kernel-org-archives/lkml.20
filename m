@@ -1,144 +1,74 @@
-Received: from mta1.migadu.com (out-18.mta1.migadu.com [95.215.58.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7911445FFA6
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:13:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8434534A9;
+	Mon, 21 Sep 2026 09:13:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982002; cv=none; b=Gsk5m4CAPeQszMS4/WAoqbOKeZGqWB2xbhfzn8dQ7OyYap7r69DtXRlYfWnwJQQrg68Rx0bTtlsC8I/fIgSfdnI7zASWAPNtLm6yz9+1djfu/EeXu+19tF8pQvSx2fl29w7Ct1d/qX+ndH2jafwbA2WRObKybTXn+r0MlNHdF1Q=
+	t=1789982013; cv=none; b=lDuMXBXYx7D51ZVlLFktaAk7feL1ib9946uQlVPGzU2UOD7+x8ULG0bFEfKTBi6BCwkieIUIt5u/4e7Av2hISXjHu17Ilo+2R6oLApeb+gxnPcNPIdd4OQ9mZZj98Hq4Dv//OjVnmUBsGkSuWgBXxe3aOQeml+mcj5q4atIO8H4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982002; c=relaxed/simple;
-	bh=IDs/EyWNmqJ898UTthMq8jY9Q1siEUrx/p114gn5Wns=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=niK4UfHf78BOOFzI4hdRF+ZcOC5RA4GlqneWhTCvgdzz5H9ApM4iO7Ni9pHNwBx8WwQTGnYhue83rwXMC9+VNSITPMeEpD5mF/YPtOpGnPeSLkypCpmoSKxasUzOzIDA+V2gj0U0khMePm7A/TQ/jd0tzCOUtP6Q2FUXploG4XQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=k9INECDi; arc=none smtp.client-ip=95.215.58.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789982013; c=relaxed/simple;
+	bh=ci45NQJUg16aZt0y5PeWLAJ6VMj1xm674PK6gI0wb/I=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=FyUyuSfJGmk428zO05ZD3yDeR20chR8/sddkdqQm9hhyM18Z1X2sCsMU3J9Ccc1HpxPWm6hu4yAT3vIoUuTTCeBAuzeJ8so+DDQzPrKFfkJKYtGET2IgFnyt5Mqayfc0yUGiatn2BnUTPFzN0SgTl2Nq7bByYW99Po41rQ5dkm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=fail (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BQm7ODC9 reason="signature verification failed"; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="k9INECDi"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IDs/EyWNmqJ898UTthMq8jY9Q1siEUrx/p114gn5Wns=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789981998; v=1; x=1790586798;
- b=k9INECDiU2azQYNr44eOEUMVpgjRuGHtZgw3KW/S0rCYFh5svYkyAudRiOe0RlFhOo71ZKV3
- JxstsVrQiNl/pNTeqE7qH5XfSaNomzF2QxPN3CZndi23nQYTYLmNGOFDSOlaSdlIaHSujntjOla
- SVe6LkR/PhUwmmH/pmR6Wk4I=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c126fa98069b27b1;
-	Mon, 21 Sep 2026 09:13:18 +0000
-X-Mizu-Trace-ID: c126fa98069b27b1
-X-Migadu-Flow: FLOW_OUT
-From: Hongfu Li <hongfu.li@linux.dev>
-Date: Mon, 21 Sep 2026 17:12:35 +0800
-Subject: [PATCH 2/2] mm/memcg: migrate per-node hugetlb lruvec stat
- together with hugetlb folio
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BQm7ODC9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D7991F000FF;
+	Mon, 21 Sep 2026 09:13:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789982012;
+	bh=ci45NQJUg16aZt0y5PeWLAJ6VMj1xm674PK6gI0wb/I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BQm7ODC9zYGHKV67q4Nfd43WItBUGZ+KMMxaKTqYb5AhTE8ADj41mMaTjg3RxBvWI
+	 glxoDGBTc459VqLuYagv74owIjybea8BCkEyHEdwCmH/VGab6tEu/+hGad9cF4E+ue
+	 xDuvLwRpwfVs5i/zBUDnnOntEVtA5B9SkCoPsl4itcUYjcAYbm9Hf9Rp7M8PO1dSc/
+	 KFDzRwjifRSqZchkKanhAtrLnZM5sa5GozgtkNjqy+1fiUofkSE87lzR6WP99e4rDC
+	 04xzaQbnncwm12YgbDEScupqgAvEzFrU8YDNxRun5O3k9l5kAvSR6W5ZWdMEB6okYN
+	 1cZfCEFxPvvyQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 03/14] kexec: Extract kexec_free_segment_cma() from
+ kimage_free_cma()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: dakr@kernel.org, hbathini@linux.ibm.com, npiggin@gmail.com, maqianga@uniontech.com, vishal.l.verma@intel.com, baoquan.he@linux.dev, piliu@redhat.com, ruirui.yang@linux.dev, linuxppc-dev@lists.ozlabs.org, pratyush@kernel.org, maddy@linux.ibm.com, bgwin@google.com, robh@kernel.org, "Jinjie
+ Ruan" <ruanjinjie@huawei.com>, mingo@redhat.com, me@linux.beauty, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, takahiro.akashi@linaro.org, james.morse@arm.com, yeoreum.yun@arm.com, mark.rutland@arm.com, eric.devolder@oracle.com, coxu@redhat.com, chao.gao@intel.com, ritesh.list@gmail.com, kees@kernel.org, liukexin@kylinos.cn, leitao@debian.org, sourabhjain@linux.ibm.com, tglx@kernel.org, kernel@xen0n.name, bp@alien8.de, loongarch@lists.linux.dev, rafael@kernel.org, seanjc@google.com, dave.hansen@linux.intel.com, palmer@rivosinc.com, pasha.tatashin@soleen.com, rppt@kernel.org, driver-core@lists.linux.dev, kai.huang@intel.com, graf@amazon.com, jbouron@amazon.com, guodongtai@kylinos.cn, thuth@redhat.com, chenhuacai@kernel.org, linux-arm-kernel@lists.infradead.org, hpa@zytor.com, gregkh@linuxfoundation.org, akpm@linux-foundation.org, sshegde@linux.ibm.com, will@kernel.org, x86@kernel.org, mpe@ellerman.id.au, chleroy@kernel.org, mclapinski@google.com, tangyouling@kylinos.cn, zha
+ ngtianyang@loongson.cn
+Cc: kexec@lists.infradead.org, ruanjinjie@huawei.com
+In-Reply-To: <20260921090450.807575-4-ruanjinjie@huawei.com>
+References: <20260921090450.807575-1-ruanjinjie@huawei.com>
+ <20260921090450.807575-4-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 09:13:29 +0000
+Message-Id: <20260921091330.2D7991F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-for-hugetlb_state-v1-2-8a6eec92661f@kylinos.cn>
-References: <20260921-for-hugetlb_state-v1-0-8a6eec92661f@kylinos.cn>
-In-Reply-To: <20260921-for-hugetlb_state-v1-0-8a6eec92661f@kylinos.cn>
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@suse.com>, 
- Roman Gushchin <roman.gushchin@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
- Chris Down <chris@chrisdown.name>, Johannes Weiner <hannes@cmpxchg.org>, 
- Michal Hocko <mhocko@kernel.org>
-Cc: hongfu.li@linux.dev, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
- Hongfu Li <lihongfu@kylinos.cn>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789981974; l=2700;
- i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
- bh=7maGt7gBIU3c+GPCYRQ3OHOtV+Op/E4Dxf2YD4KKGv0=;
- b=sYVTVa5VHI0QpIl9gKOtFeVmq6k72AX6PouymGlK4tZgfU/sDP/xUMQEYtPFsuetgF5HnkyHp
- Wol77pUzrqMA5+yMrquCywDFXnag9IZ0lTqCj5u9dbSqJzQakpxSiK4
-X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
- pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
 
-From: Hongfu Li <lihongfu@kylinos.cn>
+> kimage_free_cma() relies on image->nr_segments to iterate over segments.
+> When an architecture loader (e.g., arm64) truncates nr_segments on a
+> mid-way failure, CMA pages allocated beyond the new boundary become
+> unreachable, causing silent memory leaks.
+>=20
+> Extract the per-segment freeing logic into the exported helper
+> kexec_free_segment_cma(), so that architecture loaders can release
+> individual segments before nr_segments is truncated. Refactor
+> kimage_free_cma() to loop over the new helper, preserving existing
+> behavior.
+>=20
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Baoquan He <baoquan.he@linux.dev>
+> Cc: Mike Rapoport <rppt@kernel.org>
+> Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+> Cc: Pratyush Yadav <pratyush@kernel.org>
+> Cc: Breno Leitao <leitao@debian.org>
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-memory.numa_stat exposes per-node hugetlb counters from per-node lruvec
-stats. These stats are accounted against folio_nid(): incremented on
-the folio's node when handed to a user, decremented when the folio is
-returned to the pool.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-During hugetlb folio migration, mem_cgroup_migrate() moves the charge
-to the new folio and drops the memcg data of the old one, so the free
-of the old folio right after the migration skips the memcg per-node
-lruvec decrement. The hugetlb count stays attributed to the old node
-for the rest of the life of the charge, while the target folio gets no
-increment on the new node; its later free decrements a counter that
-was never incremented.
-
-Migrate the per-node lruvec accounting alongside migration. Global
-memcg totals remain balanced because they track resource consumption,
-not node placement.
-
-Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
----
- mm/memcontrol.c | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
-
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 1460cba53588..9c96ebd5436f 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -5598,6 +5598,34 @@ void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
- 	rcu_read_unlock();
- }
- 
-+#ifdef CONFIG_HUGETLB_PAGE
-+static void move_hugetlb_lruvec_stat(struct obj_cgroup *objcg,
-+				     struct folio *old, struct folio *new)
-+{
-+	long nr_pages = folio_nr_pages(old);
-+	struct mem_cgroup *memcg;
-+	int old_nid = folio_nid(old);
-+	int new_nid = folio_nid(new);
-+
-+	if (old_nid == new_nid)
-+		return;
-+
-+	rcu_read_lock();
-+	memcg = obj_cgroup_memcg(objcg);
-+	mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(old_nid)),
-+			       NR_HUGETLB, -nr_pages);
-+	mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(new_nid)),
-+			       NR_HUGETLB, nr_pages);
-+	rcu_read_unlock();
-+}
-+#else /* CONFIG_HUGETLB_PAGE */
-+static inline void move_hugetlb_lruvec_stat(struct obj_cgroup *objcg,
-+					    struct folio *old,
-+					    struct folio *new)
-+{
-+}
-+#endif /* CONFIG_HUGETLB_PAGE */
-+
- /**
-  * mem_cgroup_migrate - Transfer the memcg data from the old to the new folio.
-  * @old: Currently circulating folio.
-@@ -5635,6 +5663,9 @@ void mem_cgroup_migrate(struct folio *old, struct folio *new)
- 
- 	new_objcg = get_migration_objcg(old, new);
- 
-+	if (folio_test_hugetlb(old))
-+		move_hugetlb_lruvec_stat(new_objcg, old, new);
-+
- 	/*
- 	 * @old was charged through a non-root objcg, so its charge is in the
- 	 * page counters. If the re-derivation walked up to the root objcg -
-
--- 
-2.54.0
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921090450.8075=
+75-1-ruanjinjie@huawei.com?part=3D3
 
