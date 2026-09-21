@@ -1,108 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 751114B3364;
-	Mon, 21 Sep 2026 15:15:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881104B3364;
+	Mon, 21 Sep 2026 15:15:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003749; cv=none; b=CsZ57i9VTJe2YaPOj7tRyhMq57pFZK/tCvravBSLF30iqZzIiFRaXVmTma/h/UV0L53ksFwmcsLL+E7q6kU7VF84Zr1LFPA38Dzv+c/bSWMEYC+OMS/bMAHpLIzWN4x+WMciYWbNykyaN8RG1Z27+lZkWr1RWEYWQZbwq9V7Dww=
+	t=1790003753; cv=none; b=r81Q9DwN3E8e1iin7ED4Ps5GfSoBP+eUrR44hH2nrQgGwC59tHjFqPAO4vlOVlv7aRuiuSpn0M4dyYXnKd5nerMtdBKy3zrGs8XAOSPkxj7QbpwiRX5HZgK6AoE4BPPtkjmeVTjz5ft9xd5iSrN2hDbwcA6nAt7IYEuqxM/CpG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003749; c=relaxed/simple;
-	bh=3h2Vf7MQ6gbPIAHlTb6Tf0jJ1oiG9fyeFNnXc+/BghA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vvbwl1yk9JVxx3dCGO+kG9OV6CDyx3m0pCSGbSmH1CHmFc09hiKdn3GMNAVVs7sagShGkoUbSmhbyATL1UqVz+SUctdO1Ny+6WrmEI665pWiHA3b69od7Y1cUknhiUIfZdGU9eBCQNFICLtEQRIH8D6V+A9Fdsy9Yh7DjO5NTh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gAp0/rUu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790003753; c=relaxed/simple;
+	bh=KVcK1Y1ih5u1kIcLe/uH3njGYuZ9fXYh/XiLrz4d1/s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R5JslJVSqSB6g2n4A+XYZR0Oj0l3Xh/tN95gEtLsCBoybJcd2XamQPJMO2rrEBK1FXRMwnNj6t+ibBPkBY1l7cE4++see/YtkBnHwah2E+oqScG5Ctj0nMfBMSK8zOkQqkz9bBKgzPM0xJ0RZKislBMBvHOZUgzH04KbhLrgaLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iJ5oC3YT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gAp0/rUu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30F711F000FF;
-	Mon, 21 Sep 2026 15:15:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iJ5oC3YT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EE501F000FF;
+	Mon, 21 Sep 2026 15:15:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003747;
-	bh=q9yFLU7Unm1OdMVHZt4OUgFFo5ERQU/PMsBOuAHW9rA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gAp0/rUuz54gT2hKVndjcni1Hod4P0YhEmuKoK3Dz0Y0xT+siz4EQfqiAqlbeiBPE
-	 l6CApescfzkefaBt+jmRVsemHIh14aSUkUxkXRW0JS7Wy5AzQT2UzoiyNinOpkZzib
-	 +Pp7Kwk7MsEet7SMmbNf/99ya5xx7mhSYigrM2g5xMvkX7v8gug+bFDX6O6sfWfZ6O
-	 cyRwE1NGYo9cpsPXiNdVxPjqLRMvwJri2iqIzDl19D27nrlR7y4G3Bg/Fx5fscfLWP
-	 CUHsP2gZPqmsLdFeS3zQ7ay4utLVlXmXHvhDRU2V9pGHBk4JqN9K764rj/JP5Go4zh
-	 kdh8HjE0ZRYXQ==
-Date: Mon, 21 Sep 2026 17:15:45 +0200
-From: krzk@kernel.org
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	Hannes Reinecke <hare@suse.de>, "Martin K. Petersen" <martin.petersen@oracle.com>, 
-	linux-scsi@vger.kernel.org, Joe Eykholt <jeykholt@cisco.com>, 
-	Robert Love <robert.w.love@intel.com>, James Bottomley <James.Bottomley@suse.de>, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] scsi: libfc: fix directory server rport memory leak
-Message-ID: <arFKHueZaSQAOSbc@quoll>
-References: <20260919173405.3718408-1-lgs201920130244@gmail.com>
+	s=k20260515; t=1790003752;
+	bh=v2TT2RzKq0ySasMECuIA77pplW9JQNZIwLSdAY2y1e4=;
+	h=From:To:Cc:Subject:Date;
+	b=iJ5oC3YT2dCKI0AwnslGMi+n4gVJufBi1ZPcJxeK/Q5reOxklap/Edzae+xY9CkJx
+	 EekHs+4Iops46s7MuiHT2GCd5FyhyXyn/cp6FM7IEc30WVSSZ5VtRtc1RcqLfCfPRn
+	 Eh5hfwPTKbE4vtdqNUIBvl0k/0tEQQzxYzgcuG4HyCR92j0iNCuuxwNbFodY8YFXPm
+	 p72zzcItP45FCvQcZ1sNhW1c62aMfJImyZJaVne2f/EzFWcx2ygGtyP7L/YBSLLf6b
+	 nXiOX7VG5tG20E/3neCVwZX6jAHV3i69/ByzOwQnXWThoS7oaJpJa2xvu3EbxHWFas
+	 5MfDPTp0M0ISQ==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	Adrian Huang <adrianhuang0701@gmail.com>,
+	Karthikeyan KS <karthiproffesional@gmail.com>,
+	Liew Rui Yan <aethernet65535@gmail.com>,
+	Xuewen Wang <wangxuewen@kylinos.cn>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH 0/4] mm/damon: improvements in efficiency, error handling, documents
+Date: Mon, 21 Sep 2026 08:15:42 -0700
+Message-ID: <20260921151547.78472-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260919173405.3718408-1-lgs201920130244@gmail.com>
+Content-Transfer-Encoding: 8bit
+
+Four various improvements.  Patch 1 from Liew Rui Yan skips unnecessary
+quota setup work when relevant.  Patch 2 from Xuewen Wang propagates
+ignored damon_call() error to sysfs users.  Patch 3 from Adrian Huang
+(Lenovo) fixes typos in comments.  Patch 4 from Karthikeyan KS clarifies
+zero sample interval acceptance on kernel-doc comment.
+
+---
+Note: this is a batched reposting of DAMON patches that were
+individually posted and reviewed by the DAMON maintainer.
+
+Adrian Huang (Lenovo) (1):
+  mm/damon: fix typos in comments
+
+Karthikeyan KS (1):
+  mm/damon: document that a zero sample_interval is accepted
+
+Liew Rui Yan (1):
+  mm/damon/core: skip quota score setup when the quota is full
+
+Xuewen Wang (1):
+  mm/damon/sysfs: propagate damon_call() error in turn_damon_on
+
+ include/linux/damon.h | 3 ++-
+ mm/damon/core.c       | 8 +++++---
+ mm/damon/lru_sort.c   | 2 +-
+ mm/damon/sysfs.c      | 3 ++-
+ 4 files changed, 10 insertions(+), 6 deletions(-)
 
 
-On Sun, 20 Sep 2026 01:34:05 +0800, Guangshuo Li wrote:
-> fc_rport_recv_plogi_req() creates an rport before allocating the frame
-> used for the PLOGI LS_ACC response.
-> 
-> fc_rport_create() does not add FC_FID_DIR_SERV rports to the discovery
-> rport list. If fc_frame_alloc() fails while handling a PLOGI from the
-> directory server, the function returns without starting the rport state
-> machine or dropping the initial rport reference.
-> 
-> Since the directory server rport is not present in the discovery list,
-> there is no later teardown path that can find the object and release
-> that reference. The allocated fc_rport_priv is therefore leaked.
-> 
-> Record when the failed frame allocation leaves an unlisted directory
-> server rport behind and drop its initial reference after releasing the
-> rport mutex. Keep the existing lifetime unchanged for ordinary rports,
-> which remain owned by the discovery list.
-> 
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
-> 
-> Fixes: 3ac6f98f4113 ("[SCSI] libfc: correctly handle incoming PLOGI request.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/scsi/libfc/fc_rport.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-
-
-You sent multiple independent patches, to multiple independent
-subsystems. The amount of these patches clearly suggest this was
-AI generated and most likely not tested.
-
-More importantly, you sent all this work without properly organizing
-relevant patches into patchsets. This makes reviewing difficult
-and might cause multiple reviewers to address the same issue.
-Replying to the entire set is impossible and requires handling each
-patch independently, instead of applying or discarding the set.
-Maintainers also won't see the bigger picture of your work. Quite
-worrying.
-
-This is on the verge of hostile patch: bomb us with so many
-contributions, we won't be able to handle them in efficient manner,
-like responding ONCE to ask you to slow down.  Considering all this
-is untested and LLM generated, I have even more doubts whether this
-should be considered for review.
-
-Please read kernel documentation BEFORE posting more work. It will
-explain you how to identify subsystems, how to organize your work per
-subsystem, how to document usage of LLM and how what you should not
-do if this was posted in a good faith.
-
-Best regards,
-Krzysztof
-
-
-
+base-commit: 05b2dd9725f76b0024d387ed2226d1ab531620ce
+-- 
+2.47.3
