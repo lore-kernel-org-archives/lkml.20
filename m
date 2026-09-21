@@ -1,228 +1,168 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C2A4A8424
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:40:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD084A0120
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:42:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789998020; cv=none; b=uViyQuHG+8ga79nyeuB6FEH7LB7zW5mH8Ri60HyQeu7zZQJ6y2eYfQH34QEr14VS7PwHWfhgWaCewGmjpntru8FtAwbcQxBg05c81G3VNg7zQCVRkaSHgjNItjxUxHWysIEl/Uz8cySfRwFO8rcWgc+DBkCKqZJGsfbDkBZcL98=
+	t=1789998139; cv=none; b=pHSN5jYAEI4sqHdkEEP7UwRzfZOPyaIWJsb/FpEt2Ecpx6t2oSxi+AWk8F6MYWrR2myzpafr8Y2jwciIqyLatWkOw/mJhpp0BhDf9v9p0XVw3/6vQVtuXUR3GJaI3bXiA61Tnucll9RXc3W9I3StQkgS4SWiNT17N49DwLvHZXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789998020; c=relaxed/simple;
-	bh=/iK5tspmMe5BLiH9VQ8TvVl5j0mL+s0vIMp7F58jSuY=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=FTC59d76gOY7j0of98BYLh8Zos4Lvbm1J07nQdnnCs6Q2sn9auoLsmF3UrIWr/oiALpmhfOnqaaProPhTa1w//5BHEG5oH5EKBVxZrXjAtSqHzHxsdM2QCmCPF96w4MRL44AYemgTp7o92YLU5EBXvkjOJzYQf1i+RI6CidkRek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LmRSnMid; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LmRSnMid"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e8e864ef0so5578703a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:40:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789998016; x=1790602816; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kha/TosCiMrk/VRiX69ZYAyIdODbozYl6Tc1z7Ph1q8=;
-        b=LmRSnMidsXeVyWjAzek4Db7V0oNB8u3CsBS5DlBJMT1Bb3ppFCWbXB1k3kfrOB5tHp
-         qHM4yElnzRDxipQXdR0RTYmguQmKXO4roj82Wc/kJ4YweVmml5vc7nU49yNC8bX9inoV
-         DtO4tU3oRvc1HRUtJ8CEVGGG0ixaBApYGDJ46qlpMm8oNNYnf/v+9NEojNtw9outLNhn
-         JK0Z8tG6xXmCwmsSlGnHrg3cRyiBOPZ4fVW8KtI3eUFK5Y9HcP8+jCTa+X/0NwAgJCMk
-         r9681P23pdWAOfMpegi1gRfxTlkkbT2LpjfyYqKF1ewbefCU+LtvRoA5+lNC/UcS7YAW
-         BhTg==
+	s=arc-20240116; t=1789998139; c=relaxed/simple;
+	bh=Vims1zCPU9AefAmxXrQvYsrW+nsLqVr9UDQIK6OqpfA=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=t1HIXkNVIRt3grMkSWU8pDLrvlTw1OUF5456z3VYiKKZE2Af/wnynJFa+SEzXz+HIiipmVXn/p44/IwSbAD8glchp0LEcICpXMxAquuEEsOVN6JGKRnYV6QNEycSLlynTn1q1dBUDD5lnHojVHQN5YsxhYB+k1tVFNTNpr58VD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4a45b3f0bdfso4193243b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:42:17 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789998016; x=1790602816;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kha/TosCiMrk/VRiX69ZYAyIdODbozYl6Tc1z7Ph1q8=;
-        b=Ux+xZuTrYHGexJ9WjtCyBWRA3/xjmD+GoUcj+v0y89SeLBHcV+Ts2y54/qmW/PLlKT
-         NHCaR6NQ1yntatbsM6BO1zyH9qtLtEITAdE7Uy5wE0l64lEvXaewyXNHOBwQ+rRu9y37
-         PjoBsJ0t0CR3k/Gi7DJ2cXqrumYZ9/xMXlpmLzAIng907Lv05bD9gknCRUWVs5Ev7nb7
-         Sh1zx7Jh9HZAvsYzfhy5W4WZ+TE09mtGz2qTNiFKf2vSizqZ1W9WzWBRR4yVU0B96zrU
-         fFgmbhu3VQ7Fqm9vEFWcCjArQo6iPg0wCCzAvAotip6IX09CxMkq2lyee8IX5rQRhGzh
-         lEcg==
-X-Forwarded-Encrypted: i=1; AKwUvBw/izojB38HYEA2tPlZ3bX7UnzA2JAEpX4TECJXPGvxZVnN+HKFuKG8LLNuG4DYQr88vBi65xJfZHOHR5w=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTVFV+TO8GDo0L2/8sZjag6ppl2s48FWUz6DMCjeu/9FYbJk5l
-	Dg1ExiTzrCbps9PaJm9+EKZA9UBKJEZw+lPaWWKKDjoYiVIdCK6dCdiuVbi4Ygp5BJhu8/ZyGWJ
-	kfIvgVQ==
-X-Received: from pjbmm23.prod.google.com ([2002:a17:90b:3597:b0:39e:6e02:bf60])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:57e8:b0:39e:6c69:7774
- with SMTP id 98e67ed59e1d1-39e6c697961mr11605726a91.29.1789998015789; Mon, 21
- Sep 2026 06:40:15 -0700 (PDT)
-Date: Mon, 21 Sep 2026 06:40:15 -0700
-In-Reply-To: <aq/XwK71uNfLvUux@yzhao56-desk.sh.intel.com>
+        d=1e100.net; s=20260707; t=1789998136; x=1790602936;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=z0xyx2CKUzUlO7trGYHo+WhwXNQQH0QF0bBAisIrr6k=;
+        b=Ko5pgI6SiWYeFlkuoEroyO3GYRax23TTRHAeRoGlP7IaChpRKXAenIyqtQVOgxqnet
+         +7DyPH+CnYa7uQYloXsLbJ76xDR7LSfzc4798HTdLi+I+bzqhOhN8aH2anDgRNCo0m/a
+         QAO34THCzkOGXI8fqZW/IHwb4T7Yp4CTyQgH3vUabddLN8fkql3pC5Z7O8EMeb0BXNWg
+         NKgkalW/L+ldiHQHiyCzQ05Cjuoc3qktGQT89MB9yaKq/yicnO2mD0A9GA3CmxWpmNKm
+         xd/w3aXl6cBQeLv0Q/0SgcP41GOLRfXZhbDCjP5bFT94ITfL+szN3F7W0oE6+pEja9Lv
+         j13w==
+X-Forwarded-Encrypted: i=1; AKwUvByjPVnC9BZNbqaqYXh/AykF5+0p6SIDrZpD0dBCBCGcIcgonykdKcrQvxFI6uTvfVA1C8phjvUoHP72Iyk=@vger.kernel.org
+X-Gm-Message-State: AFuF++ld98rvqP80EsmrDTddJaTen5/mY6ngYOkco0jEm7+AhJ3ly4qh
+	NO5UQ7SrRuB36IEteF15TDhU9GywIIm2qlbDIBiGrFtk8Ay9KcIyhYWB7XAVCPFlBV75SQK+TZ+
+	PqmnFGWKqfTdfBxFQytuUJP16orQ8+9NVue0yH/LYcm7tYQ3Hbm2qPbPCBr0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260826165647.769231-1-seanjc@google.com> <aq/XwK71uNfLvUux@yzhao56-desk.sh.intel.com>
-Message-ID: <arEzv8b2IMHYcHsZ@google.com>
-Subject: Re: [PATCH v2] KVM: guest_memfd: Elaborate on how release() vs.
- get_pfn() is safe against UAF
-From: Sean Christopherson <seanjc@google.com>
-To: Yan Zhao <yan.y.zhao@intel.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Vishal Annapurve <vannapurve@google.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+X-Received: by 2002:a05:6820:2084:b0:6c2:6f93:389f with SMTP id
+ 006d021491bc7-6ca9bd48180mr11162028eaf.37.1789998136361; Mon, 21 Sep 2026
+ 06:42:16 -0700 (PDT)
+Date: Mon, 21 Sep 2026 06:42:16 -0700
+In-Reply-To: <20260918180241.3424851-1-nphamcs@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab13438.71f81b7d.15fa6d.002c.GAE@google.com>
+Subject: [syzbot ci] Re: Virtual Swap Space (Swap Table Edition)
+From: syzbot ci <syzbot+cid08c37b8dadb4c43@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, axelrasmussen@google.com, baohua@kernel.org, 
+	baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, cgroups@vger.kernel.org, 
+	chengming.zhou@linux.dev, chrisl@kernel.org, corbet@lwn.net, david@kernel.org, 
+	gourry@gourry.net, hannes@cmpxchg.org, haowenchao22@gmail.com, 
+	hughd@google.com, kasong@tencent.com, kernel-team@meta.com, 
+	kunwu.chan@linux.dev, liam@infradead.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, 
+	mhocko@kernel.org, mkoutny@suse.com, muchun.song@linux.dev, nphamcs@gmail.com, 
+	qi.zheng@linux.dev, riel@surriel.com, roman.gushchin@linux.dev, 
+	rppt@kernel.org, shakeel.butt@linux.dev, shikemeng@huaweicloud.com, 
+	skhan@linuxfoundation.org, surenb@google.com, tj@kernel.org, 
+	vbabka@kernel.org, weixugc@google.com, yosry@kernel.org, 
+	youngjun.park@lge.com, yuanchu@google.com
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Sep 20, 2026, Yan Zhao wrote:
-> On Wed, Aug 26, 2026 at 09:56:47AM -0700, Sean Christopherson wrote:
-> > Add more context and information to the comment in kvm_gmem_release() that
-> > explains why there's no synchronization on RCU _or_ kvm->srcu.  Point (b)
-> > from commit 67b43038ce14 ("KVM: guest_memfd: Remove RCU-protected attribute
-> > from slot->gmem.file")
-> > 
-> >       b) kvm->srcu ensures that kvm_gmem_unbind() and freeing of a memslot
-> >          occur after the memslot is no longer visible to kvm_gmem_get_pfn().
-> > 
-> > is especially difficult to fully grok, particularly in light of commit
-> > ae431059e75d ("KVM: guest_memfd: Remove bindings on memslot deletion when
-> > gmem is dying"), which addressed a race between unbind() and release().
-> > 
-> > See the extended on-list discussion[*] for more details about exactly what
-> > KVM guards against, and how.
-> > 
-> > No functional change intended.
-> > 
-> > Link: https://lore.kernel.org/all/CAEvNRgGmyd1yqQXsnz5hWRZpBZUs%3DpiEWbEaqP9%2Bcz9ZqEMQ6g@mail.gmail.com [*]
-> > Cc: Yan Zhao <yan.y.zhao@intel.com>
-> > Cc: Vishal Annapurve <vannapurve@google.com>
-> > Signed-off-by: Sean Christopherson <seanjc@google.com>
-> > ---
-> > 
-> > v2: Explain how this all works in even gorier detail. [Yan]
-> > 
-> > v1: https://lore.kernel.org/all/20251113232229.1698886-1-seanjc@google.com
-> > 
-> >  virt/kvm/guest_memfd.c | 50 +++++++++++++++++++++++++++++++++++++-----
-> >  1 file changed, 44 insertions(+), 6 deletions(-)
-> > 
-> > diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-> > index b596486d184c..7f1c6a0f8039 100644
-> > --- a/virt/kvm/guest_memfd.c
-> > +++ b/virt/kvm/guest_memfd.c
-> > @@ -300,17 +300,55 @@ static int kvm_gmem_release(struct inode *inode, struct file *file)
-> >  	 * dereferencing the slot for existing bindings needs to be protected
-> >  	 * against memslot updates, specifically so that unbind doesn't race
-> >  	 * and free the memslot (kvm_gmem_get_file() will return NULL).
-> > -	 *
-> > -	 * Since .release is called only when the reference count is zero,
-> > -	 * after which file_ref_get() and get_file_active() fail,
-> > -	 * kvm_gmem_get_pfn() cannot be using the file concurrently.
-> > -	 * file_ref_put() provides a full barrier, and get_file_active() the
-> > -	 * matching acquire barrier.
-> >  	 */
-> >  	mutex_lock(&kvm->slots_lock);
-> >  
-> >  	filemap_invalidate_lock(inode->i_mapping);
-> >  
-> > +	/*
-> > +	 * Note!  synchronize_srcu() is _not_ needed after nullifying memslot
-> > +	 * bindings as slot->gmem.file cannot be set back to a non-null value
-> > +	 * without the memslot first being deleted.  I.e. this relies on the
-> > +	 * synchronize_srcu_expedited() in kvm_swap_active_memslots() to ensure
-> > +	 * kvm_gmem_get_pfn() (which runs with kvm->srcu held for read) can't
-> > +	 * grab a reference to slot->gmem.file even if the struct file object
-> > +	 * is reallocated.
-> 
-> Nit:
-> 
-> Do we need to update the code comment in __kvm_gmem_unbind() from
-> 	/*
-> 	 * synchronize_srcu(&kvm->srcu) ensured that kvm_gmem_get_pfn()
-> 	 * cannot see this memslot.
-> 	 */
-> to
-> 	/*
-> 	 * synchronize_srcu_expedited() in kvm_swap_active_memslots() ensured
-> 	 * that kvm_gmem_get_pfn() cannot see this memslot.
-> 	 */
-> 
-> to align with the above comment.
+syzbot ci has tested the following series
 
-How about this?  Because the "rule" is that kvm_gmem_unbind() can only be called
-on a memslot that is unreachable, either by synchronizing SRCU after uninstalling
-the memslot *or* because the memslot was never installed.  Simply stating that
-synchronize_srcu_expedited() makes everything safe isn't the whole story, as it's
-specifically synchronzing after removing/deleting/deactivating the slot that
-makes this safe.
+[v5] Virtual Swap Space (Swap Table Edition)
+https://lore.kernel.org/all/20260918180241.3424851-1-nphamcs@gmail.com
+* [PATCH v5 01/11] mm, swap: add virtual swap device infrastructure
+* [PATCH v5 02/11] mm, swap: support zswap and zero-filled swap pages as vswap backends
+* [PATCH v5 03/11] mm, swap: prepare the swap IO path for vswap
+* [PATCH v5 04/11] mm, swap: support physical swap as a vswap backend
+* [PATCH v5 05/11] mm, swap: enable THP swapin for vswap entries
+* [PATCH v5 06/11] mm, swap: write back vswap zswap entries to physical swap
+* [PATCH v5 07/11] mm, swap: reclaim physical slots backing cache-only vswap entries
+* [PATCH v5 08/11] mm, swap: only charge physical swap entries
+* [PATCH v5 09/11] mm, swap: add debugfs counters for vswap
+* [PATCH v5 10/11] mm, swap: defer memcg_table allocation for physical swap clusters
+* [RFC PATCH v5 11/11] mm, swap: back vswap clusters with a VM_SPARSE array
 
-	/*
-	 * Note, the caller is responsible for ensuring the slot is unreachable
-	 * before unbinding, e.g. by synchronizing SRCU after deleting the slot.
-	 */
+and found the following issue:
+KASAN: null-ptr-deref Read in swap_entry_backend_has_flag
 
-> > +	 *
-> > +	 * file_ref_put() provides a full barrier, and __get_file_rcu() the
-> > +	 * matching acquire barrier, to ensure that kvm_gmem_get_file() (via
-> > +	 * __get_file_rcu()) sees refcount==0 or fails the "file reloaded"
-> > +	 * check (file != NULL due to nullifying the file pointer here).
-> > +	 *
-> > +	 * Unlike most other users of get_file_rcu(), where callers don't care
-> > +	 * if they race with a write, only that they have a reference to _a_
-> > +	 * live file, kvm_gmem_get_pfn() needs to get the exact file that is
-> > +	 * associated with the memslot.  Without the aforementioned SRCU
-> > +	 * synchronization, the following could happen:
-> > +	 *
-> > +	 *  CPU0				CPU1
-> > +	 *  kvm_gmem_get_pfn()
-> > +	 *    f = X (from slot->gmem.file)
-> > +	 *					kvm_gmem_release())
-> > +	 *					  slot->gmem.file = NULL
-> > +	 *
-> > +	 *					kvm_set_memory_region()
-> > +	 *					  slot deleted
-> > +	 *
-> > +	 *					kvm_set_memory_region()
-> > +	 *					  slot created
-> > +	 *					  slot->gmem.file = f (alloc the same object)
-> > +	 *
-> > +	 *  get_file_active()
-> > +	 *    file = f
-> > +	 *    file_reloaded = f
-> > +	 *
-> > +	 * <KVM does weird things with an old memslot+file>
-> > +	 *
-> > +	 * Obviously KVM would be broken in many places if the synchronization
-> > +	 * were omitted, but it's important to note that get_file_active() does
-> > +	 * NOT guarantee a reference to the correct file was obtained, only
-> > +	 * that the file doesn't point at a reallocated object.
-> reallocated -> reloaded?
+Full report is available here:
+https://ci.syzbot.org/series/713f2473-328a-4c16-8bce-63005d15a338
 
-No, "reallocated" is correct.  From the comment for SLAB_TYPESAFE_BY_RCU:
+***
 
-  * This delays freeing the SLAB page by a grace period, it does _NOT_
-  * delay object freeing. This means that if you do kmem_cache_free()
-  * that memory location is free to be reused at any time. Thus it may
-  * be possible to see another object there in the same RCU grace period.
-  *
-  * This feature only ensures the memory location backing the object
-  * stays valid, the trick to using this is relying on an independent
-  * object validation pass. Something like:
-  *
-  * ::
-  *
-  *  begin:
-  *   rcu_read_lock();
-  *   obj = lockless_lookup(key);
-  *   if (obj) {
-  *     if (!try_get_ref(obj)) // might fail for free objects
-  *       rcu_read_unlock();
-  *       goto begin;
-  *
-  *     if (obj->key != key) { // not the object we expected
-  *       put_ref(obj);
-  *       rcu_read_unlock();
-  *       goto begin;
-  *     }
-  *   }
-  *  rcu_read_unlock();
+KASAN: null-ptr-deref Read in swap_entry_backend_has_flag
 
-The above pseudocode is what get_file_active() is doing; it verifies the found
-file ("obj" above) is the correct file.  Specifically, from __get_file_rcu():
+tree:      linux-next
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux-next
+base:      27e4e1835109ef599d72abe6c09711e0b1916033
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/26b06329-3b1c-4c73-8ee3-64c53b995186/config
+syz repro: https://ci.syzbot.org/findings/f743742b-1934-4b4e-a590-9a36592da902/syz_repro
 
-	 * If the pointers don't match the file has been reallocated by
-	 * SLAB_TYPESAFE_BY_RCU.
+==================================================================
+BUG: KASAN: null-ptr-deref in instrument_atomic_read include/linux/instrumented.h:82 [inline]
+BUG: KASAN: null-ptr-deref in atomic_long_read include/linux/atomic/atomic-instrumented.h:3188 [inline]
+BUG: KASAN: null-ptr-deref in __vtable_get mm/vswap.h:163 [inline]
+BUG: KASAN: null-ptr-deref in vswap_to_phys mm/vswap.h:202 [inline]
+BUG: KASAN: null-ptr-deref in swap_entry_backend_has_flag+0xea/0x210 mm/vswap.h:409
+Read of size 8 at addr 0000000000000e00 by task syz.1.38/5916
+
+CPU: 1 UID: 0 PID: 5916 Comm: syz.1.38 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ check_region_inline mm/kasan/generic.c:-1 [inline]
+ kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
+ instrument_atomic_read include/linux/instrumented.h:82 [inline]
+ atomic_long_read include/linux/atomic/atomic-instrumented.h:3188 [inline]
+ __vtable_get mm/vswap.h:163 [inline]
+ vswap_to_phys mm/vswap.h:202 [inline]
+ swap_entry_backend_has_flag+0xea/0x210 mm/vswap.h:409
+ do_swap_page+0x767/0x5a20 mm/memory.c:5042
+ __collapse_huge_page_swapin mm/khugepaged.c:1152 [inline]
+ collapse_huge_page mm/khugepaged.c:1271 [inline]
+ mthp_collapse mm/khugepaged.c:1469 [inline]
+ collapse_run_pmd+0xaf1/0x5d90 mm/khugepaged.c:2811
+ madvise_collapse mm/madvise.c:1026 [inline]
+ madvise_vma_behavior+0x17cf/0x4d80 mm/madvise.c:1548
+ madvise_walk_vmas+0x576/0xb00 mm/madvise.c:1896
+ madvise_do_behavior+0x385/0x540 mm/madvise.c:2091
+ do_madvise+0x26f/0x330 mm/madvise.c:2189
+ __do_sys_madvise mm/madvise.c:2198 [inline]
+ __se_sys_madvise mm/madvise.c:2196 [inline]
+ __x64_sys_madvise+0xa6/0xc0 mm/madvise.c:2196
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f7b5939e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f7b5a1ff028 EFLAGS: 00000246 ORIG_RAX: 000000000000001c
+RAX: ffffffffffffffda RBX: 00007f7b59625fa0 RCX: 00007f7b5939e159
+RDX: 0000000000000019 RSI: 0000000000c00000 RDI: 0000200000000000
+RBP: 00007f7b5943506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f7b59626038 R14: 00007f7b59625fa0 R15: 00007ffe5f2d8d38
+ </TASK>
+==================================================================
+
+
+***
+
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
+
+---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
+
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
