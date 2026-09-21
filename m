@@ -1,214 +1,99 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-108.mta0.migadu.com [91.218.175.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A89502D4F
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:15:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F91743C7B6
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:15:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790025326; cv=none; b=hJc1KuXntjo5Uchfl+nkFPPm9aU5fDIbwFd6nhiqiA8OvsmU5jfTrPjWPrOlkkZAcpYYFwLd9SvwtbDqjnlJkD01ohnjUvYTk/B83zI/jKS/lYCETJFmmJHcash0mxJBUK1DST6eEo3jPQvorVcCwGyac0BLDcuAS8b/47YEw3w=
+	t=1790025349; cv=none; b=LSOJiQ9kYn9mGXveFIqj8W9MOx9i8Xb/Awa/BvETkgsGYpeKZdOeeXFlp17S7VxXXFw/cZhWEkLMsj/DBl0RlV4bdU+jrrnxEAf+ACRViSIsfCwya+lvL6NPcrjGhMhSCX1/s8c//9+8C0t7ylsNhXaQkjxvXvc3EUsvGAZ5t1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790025326; c=relaxed/simple;
-	bh=zSBUMa/A3JvKG97BhCYBFUPrlBsYKRWjf1MH5dSFouE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UL1RzVP5P2NAHPJt/2VG9R38hHYflrGmdAzcoC56Vtgo0oviOscaB3/KbjMAID4bPWDJALT3UhHzqs30yR87dl5gCczUwyMuqi/0iyDfxqt6qhSJOxr12hgqAewFbrMSZ427R2O5HQXErsqegnLjjqEewDQHu9Po4+UAa9CMdfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=iezdQNUO; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790025349; c=relaxed/simple;
+	bh=fQCb835gnDw0+W2Onz9aDFQLRn4B/BMH7O+wX3/9Sek=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TIighHHOgxy9DDUP2A7tYMyJ5ZRzliES3EgCwgiYKEYc26HBOtjAiZyEZPjCDBwVltSefEspaBXKzvlsRufcRZ9YYrf3Who9rAFlJrcQ5Ft9nvXDz8UOqkY0X27B2LFl4S0v/9kzTVJQS6oIN5IYHoxzu+Y+KYXBj+0KTmAigno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rRpmWb7p; arc=none smtp.client-ip=91.218.175.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="iezdQNUO"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id BF7B21A0F92
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:15:22 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 162A75FFB2;
-	Mon, 21 Sep 2026 21:15:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 63C64103291B0;
-	Mon, 21 Sep 2026 23:15:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790025317; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=CRp7RNvAsNcbrboO4eg3ynVKeONy6hZ90q9B389EWtU=;
-	b=iezdQNUO9thBhgFAoWKbyMX33ErDtaH2Gk7yhqTUX44CCM8HTW3gFcNFOaghvuTbuUvTOU
-	koS9/J3GHSHwc95W8sj/259bMA+IS0HGltA0qic4KzGiaTZcEYY4ZDxMEvz6YJYAIF7nfa
-	lqhsKi8izxkK8bAsl72dumOYjirAxJ4p7wofE77kQvza4PqrAmq3KlgHyQjc01gzb328QE
-	BuiCZdJHWE+TVOfu3Zuq33XmohiFu5ZSTD2K90gAD4rRC77f3h33yPq7kjHjO0qHm/CuZo
-	eqKa7BeBHF6QPvEIZpTrYTc6bgVbk40NxBUGznJG6h73VjtgMkPRvkwUDd61Ng==
-Date: Mon, 21 Sep 2026 23:15:13 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Lakshay Piplani <lakshay.piplani@nxp.com>
-Cc: linux-kernel@vger.kernel.org, linux-i3c@lists.infradead.org,
-	krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, broonie@kernel.org, lee@kernel.org,
-	Frank.Li@nxp.com, lgirdwood@gmail.com, vikash.bansal@nxp.com,
-	priyanka.jain@nxp.com, aman.kumarpandey@nxp.com
-Subject: Re: [PATCH v19 6/8] i3c: hub: Add support for the I3C interface in
- the I3C hub
-Message-ID: <20260921211513c7d46108@mail.local>
-References: <20260916070728.1088801-1-lakshay.piplani@nxp.com>
- <20260916070728.1088801-7-lakshay.piplani@nxp.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rRpmWb7p"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fQCb835gnDw0+W2Onz9aDFQLRn4B/BMH7O+wX3/9Sek=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790025345; v=1; x=1790630145;
+ b=rRpmWb7p4+nzI5ChhO7N3HUz64nE8oPY8u3CHZpsUSqmPX4m5AWDhSKAtDTCwITY3QgkFnbB
+ rRWv9xdQ4XzMQAWOqePLnQeyH5ofJ8PKmcipMqLmYw7w6xw2aGZzfjhjy2ZRZsKppF3tnuDswEv
+ TNayPGTHdawp+cb7pi92VJ3w=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 75550e44efdad756;
+	Mon, 21 Sep 2026 21:15:19 +0000
+X-Mizu-Trace-ID: 75550e44efdad756
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <9e055710-d607-4a4c-95c8-eb3a0b4aa1a1@linux.dev>
+Date: Mon, 21 Sep 2026 15:15:14 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916070728.1088801-7-lakshay.piplani@nxp.com>
-X-Last-TLS-Session-Version: TLSv1.3
-
-On 16/09/2026 12:37:26+0530, Lakshay Piplani wrote:
-> Add virtual I3C bus support for the hub and provide interface to enable
-> or disable downstream ports.
-> 
-> Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-> Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
-> Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> 
-> ---
-> Changes in v19:
->  - No change
-> 
-> Changes in v18:
->  - Rebased onto v7.3-rc1; no intended driver behaviour changes
-> 
-> Changes in v17:
->  - Move the lockdep-only routing-lock class assignment into a dedicated
->    helper, leaving hub context initialization unconditional when
->    CONFIG_LOCKDEP is disabled
->  - Document that hub_dev must already be registered and remove the
->    WARN_ON_ONCE checks for its descriptor and parent controller
->  - Export i3c_hub_master_ops as a const object and reference it directly
->    instead of returning it through an accessor
->  - Document that downstream ports share the parent controller's dynamic
->    address domain and that independent per-port DAA domains are not
->    provided
->  - Document that a broadcast CCC on a virtual bus reaches the parent bus
->    and devices behind other connected ports; directed CCCs must be used
->    for per-device scope
->  - Document that fixed-DT address reservations remain allocated for the
->    lifetime of the parent bus, are reused across driver reprobes, and
->    that downstream hot-join support would also require reserving static
->    addresses
-> 
-> Changes in v16:
->  - Fix the lockdep "recursive locking" false positive on the forwarding path
->    (holding the virtual bus lock while taking the parent bus lock, both
->    sharing one class). Introduce per-nesting-depth lock_class_key arrays for
->    the bus lock and the routing mutex, computed via
->    i3c_hub_controller_depth(), assigned in i3c_hub_master_bus_init() and
->    i3c_hub_init()
->  - Fix the parent-bus dynamic-address reservation: reserve by
->    "assigned-address" regardless of the static address (the old
->    static_addr != assigned_addr skip left addresses free and risked ENTDAA
->    collisions). Reserve only when the slot is currently FREE, under the
->    parent bus maintenance lock
->  - Make the reattach info update atomic w.r.t. asynchronous IBI: update
->    parent_desc.info under i3c_bus_maintenance_lock(&parent->bus) and reject
->    reattach with -EBUSY (WARN_ON_ONCE) while parent_desc.ibi is live
->  - Document and check the detach-time IBI lifecycle invariant:
->    parent_desc.ibi must already have been cleared through i3c_hub_free_ibi()
->    before the parent-facing descriptor is detached and freed. Add
->    WARN_ON_ONCE() to detect a violation. The underlying generic I3C-core
->    unregister/IBI-quiesce behaviour is a known I3C-core limitation
->  - Document that DAA is intentionally run on the parent controller because
->    downstream devices share the parent's dynamic-address space; broadcast
->    RSTDAA is intentionally not forwarded (would reset the hub address)
-> 
-> Changes in v15:
->  - Replace temporary descriptor reparenting and hub-address switching with
->    a permanent parent-facing descriptor for each downstream I3C device
->  - Keep the logical device descriptor associated with the virtual hub
->    controller while using the parent-facing descriptor for physical
->    controller operations
->  - Implement downstream device attach, reattach and detach using the new
->    controller-only helpers
->  - Forward IBI slot recycling to the physical parent controller
->  - Remove the helper that temporarily changed the logical descriptor's
->    master pointer
-> 
-> Changes in v14:
->  - Add hub route serialization around DAA, CCC, private transfer and IBI paths
->  - Add comments explaining that downstream devices behind hub target ports
->    share the parent controller address space
->  - Use i3c_bus_maintenance_lock()/unlock() instead of raw parent bus lock
->    operations
->  - Hold the parent maintenance lock across temporary hub address reattach,
->    transfer and address restore
->  - Rework IBI request/free forwarding, so downstream devices are temporarily
->    attached to the parent controller for IBI setup
->  - Clean up the preallocated virtual IBI object and workqueue before forwarding
->    the IBI request to the parent controller
->  - Avoid NULL dereference in the core IBI free path when the forwarding
->    callback has already cleared dev->ibi
-> 
-> Changes in v13:
->  - Reserve parent I3C bus address slots for downstream devices with matching static and
->    assigned addresses by parsing target-port DT nodes
->  - Keep broadcast RSTDAA blocked and add explanatory comment
->  - Add TODO for empty IBI slot recycle callback
->  - Add comments for intentional no-op callbacks
-> 
-> Changes in v12:
->  - Drop redundant depends on I3C from config I3C_HUB
->  - Return -EOPNOTSUPP for unsupported I2C transfers instead of reporting
->    success.
-> 
-> Changes in v11:
->  - Fix virtual hub address reattach handling
->  - Fix parent bus locking during address reattach operations
->  - Improve transfer and IBI request error handling
-> 
-> Changes in v10:
->  - Remove unnecessary ibi_lock handling in request/enable/disable/free
->    IBI APIs
->  - Remove redundant parent pointer from struct i3c_hub and derive upstream
->    master from hub_dev
-> 
-> Changes in v9:
->  - No change
-> 
-> Changes in v8:
->  - No change
-> 
-> Changes in v7:
->  - Convert Kconfig option to tristate
->  - Fix signedness issue in return value
->  - Fix kernel-doc warnings
-> 
-> Changes in v6:
->  - Add support for the generic I3C interface in the I3C Hub
-> ---
-> ---
->  MAINTAINERS             |   2 +
->  drivers/i3c/Kconfig     |  14 +
->  drivers/i3c/Makefile    |   1 +
->  drivers/i3c/hub.c       | 832 ++++++++++++++++++++++++++++++++++++++++
->  include/linux/i3c/hub.h |  92 +++++
->  5 files changed, 941 insertions(+)
->  create mode 100644 drivers/i3c/hub.c
->  create mode 100644 include/linux/i3c/hub.h
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 514cda5088ba..142b0f7636c1 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -19766,8 +19766,10 @@ L:	linux-kernel@vger.kernel.org
->  L:	linux-i3c@lists.infradead.org
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
-> +F:	drivers/i3c/hub.c
->  F:	drivers/mfd/p3h2840.c
->  F:	drivers/regulator/p3h2840_i3c_hub_regulator.c
-> +F:	include/linux/i3c/hub.h
->  F:	include/linux/mfd/p3h2840.h
-
-This should be moved to 7/8 so it can be applied independently of the
-p3h2840 driver itself. I'm ready to take 1,2 and 6 but to be able to
-apply the rest, I need an ack from Lee on 4/8.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] selftests/bpf: Fixes for out-of-tree builds
+To: Eduard Zingerman <eddyz87@gmail.com>,
+ =?UTF-8?B?UmljYXJkbyBCLiBNYXJsacOocmUgKFNVU0Up?= <ricardo@marliere.net>,
+ ihor.solodrai@linux.dev, nickolay.lysenko@gmail.com
+Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Emil Tsalapatis <emil@etsalapatis.com>, Jiri Olsa <jolsa@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Song Liu <song@kernel.org>,
+ Andrii Nakryiko <andrii@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ linux-kernel@vger.kernel.org, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Martin KaFai Lau <martin.lau@linux.dev>
+References: <20260728-selftests-bpf_oot-v1-0-05feb15d94db@marliere.net>
+ <6f95ec90-194a-4304-9673-c7bb50065223@linux.dev>
+ <d3a251acf5131bea732e23bbd135a5fdebec9ad6.camel@gmail.com>
+Content-Language: en-US, en-ZM
+From: "Nico Pache (Red Hat)" <nico.pache@linux.dev>
+In-Reply-To: <d3a251acf5131bea732e23bbd135a5fdebec9ad6.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+
+On 9/21/26 3:04 PM, Eduard Zingerman wrote:
+> On Mon, 2026-09-21 at 14:40 -0600, Nico Pache (Red Hat) wrote:
+> 
+> ...
+> 
+>> Given your series was defferred, and there is a "rewrite" coming, what would
+>> be the best approach to working together (between us three) to get these
+>> fixes in that series too. 
+> 
+> The, "rewrite", as you call it, had landed today.
+
+oh thats great news. I checked on Friday and didnt see it. Thanks for the update :)
+
+> So the series in question can be re-spun.
+> Regarding your patch on top of it, it appears you can just post is separately.
+> However, I am inclined to be confrontational towards changes like this one.
+> The purpose of the selftests makefile is to run selftests as appropriate
+> for current tip of the kernel tree using a very specific kernel configuration.
+> Main users of this makefile are BPF developers and BPF CI.
+
+Yeah we are trying to reincorporate BPF as part of our CI. It has bit rotted in
+the Fedora env, and our large amount of build variant is where things are
+starting to go wrong. We need to build selftests for multiple variants, and be
+able to specify which variant we are building for. Hence the out-of-tree build
+with specific vmlinux.
+
+Is there any other approach you'd suggest? I personally dont work on BPF, but am
+trying to cleanup/fix our selftests builds for Upstream/Fedora CI.
+
+Thanks,
+-- Nico
+
+> Support for distros customizing the makefile is a non-goal.
+> The "PERMISSIVE" change done enough damage already.
+> 
+> ...
+
