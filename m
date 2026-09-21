@@ -1,136 +1,164 @@
-Received: from mail-pj2-f26.google.com (mail-pj2-f26.google.com [74.125.227.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324174AA402
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:16:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C5924A4824
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:16:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790000167; cv=none; b=VV0jtMGf0dUz0AKcru99feNQ3eYZx78RDSlOZ4//jVEbvGz9V7hnhKPa+7+7ByEJwsXOHAqTMQW5AVOZ21d/0W6mxNFJBV9nkT0EisfsLNx5Yn1d2fIWx7sk8AWgnuhdEv0e9MrPukxHyZs6D0IqXhvCR5mm6xacNwUXaacugfw=
+	t=1790000192; cv=none; b=V0/3sZXoA8NXbhRU3LxRL/bBTEHlC2oxMxFKlGGX4svRLvmlmThZjX789Z9KWv7vrX5V97sefFPS2c206II2kpVYYNwVD96uj4G66QZimbbjn5AcjQEZVt3/8pkK/nQt37ckVWzBqVy2n6pXXhwLauIyeW+1DSrAgucSYPShy+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790000167; c=relaxed/simple;
-	bh=T9zxxSsw5iEbEUBAyeZAA2CKlzMZwcsqLDpDdJ0+Ya8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HfSagAAF53KfasWxefqCLkferU2x8j8RtlZ2Jt30f9Tm0JMYX1CSS7gB+taqFsOetS2lQ0QEBjkELU6IHv+Nd4SLfg5FEnQfUjyy8u/7QeDxabm/YGij2vQms0Nn3fSDaDSY1Mf4HCbkD6UQwqoKJiLvQGZrqDSH8TZPfuP83fk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M9TyhaWP; arc=none smtp.client-ip=74.125.227.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790000192; c=relaxed/simple;
+	bh=aLhhnuP9dq8Tk/mgcT9qT+9aYOSuvcvH9bNLx4gJMr8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Od8ApY4LrAzIrlxZHelPfokxqpq5kkj6shfk/ZRHH4+duHgn3T+F5bgRwEuDHr9JSLYv/sRSciZtKGUEPOQB68xZPDjs1yzy4z552rdicUx5V/6+TNB85eYH6guROH20wbAu/KI5p/ngUeqcj+pAri/8DOs7aBxlmTwCIHIW7LA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fF9x60L+; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M9TyhaWP"
-Received: by mail-pj2-f26.google.com with SMTP id d9443c01a7336-2d8fb334e72so27475475ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:16:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790000162; x=1790604962; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=V/tkXdnY7RKXLTVajOjjU/kNAmpz6uVaBIo5SF3Fby8=;
-        b=M9TyhaWPtlHF5kuSz0dy2Sra06tkkSBD9ewa/RaxrYWyJWV3pDDaX9V42IjWL7QWB3
-         h3HyX/Cy0h87rdVWkRxLYHw1Lb+tVm3wHid912JAD1EaY+qf7jb/YWRkE7c4K+hpm1I4
-         VApXScMV/PQ1VZR8pRNto2TOEPYc5yyvCsw5cHoq3FFiltfteEM7PvSe9WpixHwey8Nk
-         Ou1Rz/oWboQ/s2vfapSo9qRsI/H1sqMnZC68JTC2P0fDytMJqtgnKzewXT5Tgqg0HTFw
-         jKR3DA1eAM0ccXq2oD2j0GCutz01nt0EaRngScyQywiv18hnTUG04D395miO/Z/Fk/TD
-         cm5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790000162; x=1790604962;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V/tkXdnY7RKXLTVajOjjU/kNAmpz6uVaBIo5SF3Fby8=;
-        b=t4qnO59Eqm9m+qCMksWH8ObdxTknBX3w6TWEalQ1APN7QehB/9ZjdkBqEP0g1ZCBnm
-         Z4lBh45JVrl1jstOoCMRXd59mCgpvJj+E1Yfsp67kGJm3bm4Y43xSyG5X++LEGXvBhxP
-         sD0WeQQnbAhngAHmMYPyn25DlMEX8BmWXomCaQgBN9JPvFmWr+UOEJehTOrHgCkJQYoH
-         8V+bEvQ6+HTULib7yFHBNz+QSBHytVgaaazZ3v8eacA36po32kvKeC8pIo8+pyPtX2As
-         +Lun5bc3WPAVBMlyiN+EaLL6OBRala/+48BR0rq6uUct7pEra51nQYlPY2UYXGw6MsCl
-         31FQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzE7XyVDDiDHRrI+M50Di99ffgaly5cg+Z3axc5d0YoiCoNbsfj3dAG6go8Re7cKA8e8iNe5lZgt5ZfrWM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSVB8ld0nLKeDUkU38O5Oo2FGFdJzD4TEqasFU2yQZdX5zpWeG
-	myNyf6pBslvQUKCJlDGgjwFqqMv0n/VtwieWb+yzEfPnGiGSbodVAkAa
-X-Gm-Gg: AYBFou1z5juSBZrhCThnRtzSt2+OHZUD4TF1q7RJum5TVD1URx0aBjg3UUV/0fo/i4Z
-	oaLnJWHRLy1pdh1TlJgrkmBx1ROLbP9BZyAnW8Phz+gZwP+9CVRyHTf+yT9iipe5mOTVgIAUgH/
-	PJjSl3He3i6hvMU37teqUBqVJirbieuNNmrVjV6OOK0H4Z+gfMZwD5d7/zyCZThmweYgXxwiX2z
-	o5wSO5U8csqWcAYWjfcPM4kgv1B08LOcGCAvSL4DWOiitKRAX5n6Me2Y7bh3fa19chQsJuo8pkW
-	vV/R90FZXu6hdXhUx8aUQqSj4ZVTdH70PBoo4+JGwZiPhMbtIfvmzex4Yk96Igpu4GAlCzIfQvM
-	5MOIHzbV3r4DoqYirqss8BVXG9z0dL8KKmtaZd9Rin5MN1xl+MBR9PJv1IsSC3nf/6kQhXstHKj
-	cxrnCZtPHOGnMwtI07rnENWsPDyvJckVQ3DtajJ1J/sXmP+DNNDbMh63gsNCrx2YPWOQZ60p+5h
-	IAPHk29u31t
-X-Received: by 2002:a17:903:1b4e:b0:2d8:d4cc:be68 with SMTP id d9443c01a7336-2ddb1c15709mr147356975ad.21.1790000162187;
-        Mon, 21 Sep 2026 07:16:02 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc178900esm35337475ad.17.2026.09.21.07.16.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 07:16:01 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Mon, 21 Sep 2026 07:16:00 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Kean Ren <rh_king@163.com>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] hwmon: (spd5118) support write protected devices
-Message-ID: <1274727e-b41a-443b-9955-ac8119417edc@roeck-us.net>
-References: <20260920062230.2437291-1-rh_king@163.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fF9x60L+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790000189;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=V1nq6G0WiuHBJiMFE3WU1kHulyCOViVMS06shaIK9Z0=;
+	b=fF9x60L+SiQp7dOWJUpD1sYGimVHaDmmUHmjTwQSR+cRVmumnvdFmWhzOcO0CZhbElLlR6
+	6MYGs7+FYhDWEqYp6yott3LHSLwwnaUfPLTd/PVNeTl9+6rsxSQ1VYMpYiKsdxQgwfvKaK
+	kIBQ3IypgnQ25yHc0M0CKGZJd47FPn0=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-336-cVKy-zSvN6mPcHE7xxqbyQ-1; Mon,
+ 21 Sep 2026 10:16:25 -0400
+X-MC-Unique: cVKy-zSvN6mPcHE7xxqbyQ-1
+X-Mimecast-MFC-AGG-ID: cVKy-zSvN6mPcHE7xxqbyQ_1790000184
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7A842180A97D;
+	Mon, 21 Sep 2026 14:16:24 +0000 (UTC)
+Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0FE28180029C;
+	Mon, 21 Sep 2026 14:16:21 +0000 (UTC)
+Date: Mon, 21 Sep 2026 16:16:19 +0200 (CEST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+cc: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
+    Benjamin Marzinski <bmarzins@redhat.com>, linux-kernel@vger.kernel.org, 
+    Peng Fan <peng.fan@nxp.com>, dm-devel@lists.linux.dev
+Subject: Re: [Patch V2] dm: use assign_bit() where applicable
+In-Reply-To: <20260921081009.278532-1-peng.fan@oss.nxp.com>
+Message-ID: <23daf47a-1a1e-2a2d-1fc8-0e9a01183e0d@redhat.com>
+References: <20260921081009.278532-1-peng.fan@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260920062230.2437291-1-rh_king@163.com>
+Content-Type: text/plain; charset=US-ASCII
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Sun, Sep 20, 2026 at 02:22:24PM +0800, Kean Ren wrote:
-> Some systems do not allow writes to SPD devices. On the i801 SMBus
-> controller family this happens when the BIOS sets SPD Write Disable, in
-> which case the controller refuses writes to addresses 0x50-0x57; other
-> platforms may enforce the same in firmware. There is no way for the driver
-> to query this.
+Accepted, thanks.
+
+Mikulas
+
+
+
+On Mon, 21 Sep 2026, Peng Fan (OSS) wrote:
+
+> From: Peng Fan <peng.fan@nxp.com>
 > 
-> spd5118 assumes that it can write to the device, which does not hold on
-> such systems:
+> Convert open-coded if/else with set_bit/clear_bit to the assign_bit API.
 > 
->   - writes to the hwmon attributes always fail with -ENXIO
->   - the temperature sensor disable in spd5118_suspend() fails silently
->   - spd5118_resume() fails in regcache_sync(), and the system reports
+> Done with Coccinelle semantic patch:
+>     // set_bit -> clear_bit => assign_bit
 > 
->   spd5118 0-0050: Failed to write b = 0: -6
->   spd5118 0-0050: PM: failed to resume async: error -6
+>     @@
+>     expression cond, bit, addr;
+>     @@
 > 
-> Register 0xb in that message is the page selector register, which regmap
-> writes back from its cache at the end of regcache_sync(). The write of the
-> saved configuration register before that fails as well, but the cache code
-> does not report that error.
+>     -if (cond)
+>     -        set_bit(bit, addr);
+>     -else
+>     -        clear_bit(bit, addr);
+>     +assign_bit(bit, addr, cond);
 > 
-> Detect write protection once at probe time by writing the page selector
-> register back with the value just read from it. This is a no-op on a device
-> which accepts writes, and it fails if writes are blocked.
+>     // clear_bit -> set_bit => assign_bit
 > 
-> If writes are not possible, run the device read-only: drop the register
-> cache so that regcache_sync() cannot attempt any write, skip the writes in
-> the suspend and resume callbacks, and make the writable attributes read
-> only. Alarm attributes are read only already; stop clearing a latched
-> status from them, since that requires a write, and report the condition as
-> the device presents it.
+>     @@
+>     expression cond, bit, addr;
+>     @@
 > 
-> Reading the SPD NVRAM beyond the first page requires switching pages, which
-> is itself a write. Restrict the 'eeprom' attribute to the page which can be
-> read in that case, instead of returning errors for the accessible part.
+>     -if (cond)
+>     -        clear_bit(bit, addr);
+>     -else
+>     -        set_bit(bit, addr);
+>     +assign_bit(bit, addr, !cond);
+> 
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+> 
+> V2:
+>  Separate device-mapper and mraid
+>  https://lore.kernel.org/all/20260918141737.3023011-1-peng.fan@oss.nxp.com/
+> 
+>  drivers/md/dm-mpath.c                  | 5 +----
+>  drivers/md/dm-zone.c                   | 6 ++----
+>  drivers/md/persistent-data/dm-bitset.c | 5 +----
+>  3 files changed, 4 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/md/dm-mpath.c b/drivers/md/dm-mpath.c
+> index 7cb7bb6233b6..ae9318f5f21b 100644
+> --- a/drivers/md/dm-mpath.c
+> +++ b/drivers/md/dm-mpath.c
+> @@ -1604,10 +1604,7 @@ static void pg_init_done(void *data, int errors)
+>  		goto out;
+>  
+>  	if (test_bit(MPATHF_PG_INIT_REQUIRED, &m->flags)) {
+> -		if (delay_retry)
+> -			set_bit(MPATHF_PG_INIT_DELAY_RETRY, &m->flags);
+> -		else
+> -			clear_bit(MPATHF_PG_INIT_DELAY_RETRY, &m->flags);
+> +		assign_bit(MPATHF_PG_INIT_DELAY_RETRY, &m->flags, delay_retry);
+>  
+>  		if (__pg_init_all_paths(m))
+>  			goto out;
+> diff --git a/drivers/md/dm-zone.c b/drivers/md/dm-zone.c
+> index f29acf64429a..35916c6e490e 100644
+> --- a/drivers/md/dm-zone.c
+> +++ b/drivers/md/dm-zone.c
+> @@ -447,10 +447,8 @@ void dm_finalize_zone_settings(struct dm_table *t, struct queue_limits *lim)
+>  	struct mapped_device *md = t->md;
+>  
+>  	if (lim->features & BLK_FEAT_ZONED) {
+> -		if (dm_table_supports_zone_append(t))
+> -			clear_bit(DMF_EMULATE_ZONE_APPEND, &md->flags);
+> -		else
+> -			set_bit(DMF_EMULATE_ZONE_APPEND, &md->flags);
+> +		assign_bit(DMF_EMULATE_ZONE_APPEND, &md->flags,
+> +			   !dm_table_supports_zone_append(t));
+>  	} else {
+>  		clear_bit(DMF_EMULATE_ZONE_APPEND, &md->flags);
+>  		md->disk->nr_zones = 0;
+> diff --git a/drivers/md/persistent-data/dm-bitset.c b/drivers/md/persistent-data/dm-bitset.c
+> index 00c0a3f186b7..6680f05c25ec 100644
+> --- a/drivers/md/persistent-data/dm-bitset.c
+> +++ b/drivers/md/persistent-data/dm-bitset.c
+> @@ -59,10 +59,7 @@ static int pack_bits(uint32_t index, void *value, void *context)
+>  		if (r)
+>  			return r;
+>  
+> -		if (bv)
+> -			set_bit(bit, (unsigned long *) &word);
+> -		else
+> -			clear_bit(bit, (unsigned long *) &word);
+> +		assign_bit(bit, (unsigned long *)&word, bv);
+>  	}
+>  
+>  	*((__le64 *) value) = cpu_to_le64(word);
+> -- 
+> 2.51.0
 > 
 
-It doesn't add value to only return page 0 of NVMEM.
-
-> The temperature sensor remains fully usable; only its configuration
-> becomes read-only. Document that, and leave the shared regmap
-> configuration alone by selecting a separate one without a register
-> cache.
-> 
-
-I had thought about implementing read-only mode, but there is no guarantee
-that the BIOS doesn't select a different page during a suspend/resume
-cycle.  For that reason, the read-only mode can not be supported.
-Sorry, I am not going to apply this patch.
-
-Thanks,
-Guenter
