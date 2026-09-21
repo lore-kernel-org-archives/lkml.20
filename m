@@ -1,134 +1,99 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f14.google.com (mail-pj2-f14.google.com [74.125.227.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ABE94B44BA;
-	Mon, 21 Sep 2026 15:53:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790006032; cv=pass; b=Rea8ePeaxwISVqFjp1/h9FiOSBdv8cH2JZbYHuXqd1Tzz7b2An0drw9DrkDYnJH5+Uwfoucr+Ltqe1ZX1yjWDiDu9Ici440QEl8jTpL+K5UiB3mDOOzBvb+ttDULY/57is6MmAMopatYLlB3jX+R5Ep4B8f5J7uaw4hdG8ylU5k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790006032; c=relaxed/simple;
-	bh=VF4579qnkQUsS2t7TOtd+wRl1b1/uuZA/0FdqRnico4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=feXUXx+5ofcZ3h+K3yUQKW0rnyctSbQ+cbRduL41JmIHRaZtfOw6juG68H/6RX/WXoHQ/SN2+3MQMeVBcdEJn5c1GVALg0TfNMx8oCvWIgBImatJ+smQj7Z6HahFBD1G7RH2f54AyQkkOmuJVMWmeKqfE1s23lmsMRYUEiQQP/0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b=NWS8s+//; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE884C10CE
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:53:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.142
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790006034; cv=none; b=XV9N6zrNu4XpF99kn1XB8BeozNaVZT77OxCr6g+dB1fypKYh9rRZRIiNninQclFqNTzABfXWbYO4B4zm5Al2tqBjFBW9xqLfrneUG4b6XaTcNejMfQSm4B8AJx6cfsc7CAeaL40Kcjfq5eOlWUyCqQIQQ3Mt/anlEpzOQhxn0YQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790006034; c=relaxed/simple;
+	bh=kAV83GG8Wx3vs0tpxEdTxwn0XZCNc0tZOHUrR9Lz48M=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=CUNpiKZP4NV+lvdopoGqfEP1QnksAg+9fBEwz2HaCGizSx+Rvzjwo8nKwmlfiggHlvWkWxQZrJSdFfM8FYqO/yfrRp16CoF9HGPekOFBpUZbViM1tQK49THKqv+fTbXTmoe1W/hDfaKcyPLICdcDcp43b4L1Eo4ZmxYzGXB7rYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=eUb7/z9r; arc=none smtp.client-ip=74.125.227.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="NWS8s+//"
-ARC-Seal: i=1; a=rsa-sha256; t=1790005973; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=KwU0MvN9TIqpzV48EIVHG5F1HhDllVYkeXB3229n+SkrqogUBlq6S9Xe00OwHtVFBuXJj/uJO4J+/6r2Ag/1bwjSCFTtc6O4WjUjKoB9a9N6vOp+ytK6c2FICBGElS3vVciYhJVKSlnX3flUc0EzeOKPVl9sgnrJ+1vsGAi//m4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790005973; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=A37lvk2K4kvKDIjEQaFWtxje/hLDqdNIP4aYihLpCOA=; 
-	b=PbqlYUF+Zvl3FGv7ItmwO2PiaxxqZiPWWKmb4fQ7kiyIXS4/V+d+VV3ZDsX0AtICpZopEzKL+vwmKoe5LoxOGevpk+T46LG3JAjNb/Tr2x1+U8/8Mc6Xh3/vQmYSRHyxFBFyaYzTaJPkkAYqcjzH2GvYkIRnZ74Td727/a63BaI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
-	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790005973;
-	s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=A37lvk2K4kvKDIjEQaFWtxje/hLDqdNIP4aYihLpCOA=;
-	b=NWS8s+//mfEFTrVR4p3kwSFSobcD+KUYqBd+Ckn1TlqEtQyMPU+FzLo51YECtZTN
-	/o08VKT+AmRYkEay4XR8R0tPkQdU80OZIYY1E+bazrEX42TbQFjHrAkPO2xh6Dp7MFV
-	mBHjUVK5v+ruHKeIfLt9Dzm68w9K9Q43oeDk2S0k=
-Received: by smtp.zohomail.com with SMTPS id 1790005971883349.0752585694669;
-	Mon, 21 Sep 2026 08:52:51 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 21 Sep 2026 17:51:35 +0200
-Subject: [PATCH RFC 09/25] drm/connector: Add
- drm_display_info_is_vrr_capable
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="eUb7/z9r"
+Received: by mail-pj2-f14.google.com with SMTP id d9443c01a7336-2d747f05ffcso24075695ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:53:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790006032; x=1790610832; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kAV83GG8Wx3vs0tpxEdTxwn0XZCNc0tZOHUrR9Lz48M=;
+        b=eUb7/z9rRboiBmTpaCl6lc21MbiVYTqZq2BkuHUXMy9Qx+fjnMZz4Bb7z8d/uF2Ae3
+         sT6WmYODcw0JVzrx7KxrQz4kFJ9Q5QYBH/IqEiZzxeO41MWHpaxFo8uQ6gb/y83kY2pB
+         NP90W18zDe72xDHSnU3kKG76OQ0wDcb+Aqiz/atuxwrXdcg5t8RjpSF24W6IiaDErE2t
+         VPuD5uClKy+m5MRUoNey4jqUD9zOxYKXxKhK+bO/fRcrzUMWgASfP5k+MOb7EZPjLhIx
+         IcHGBNFRnSA/UAPQF9SrtFbt5/FJfbtqF+YAgEjAIdhAB7Kz2EOGo2WCHtpdijCvkjSW
+         bOCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790006032; x=1790610832;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kAV83GG8Wx3vs0tpxEdTxwn0XZCNc0tZOHUrR9Lz48M=;
+        b=qRG3M9wnsEgn2gISwRMu5aaQIrsdsoc/xUs6WhIOCUNLU/dxzpb/hA5pLCcPHsJXCc
+         L6DXlO7qP2w1mnPCe1tt591QDsXIhPgKQs79hhhaT4xAf4B5/J3S55buVOHOssvyngig
+         q99z/s6+25NFBT+hKL+/VgZ8QXqy+G974dkL75lfwUht8bs/C6I1UnjOHfFZKhJbvUyu
+         BOWEYzbSipKNNrZZfxJs0MvyTMwvffW/vBcCBNUDi1um6yxKe29ZIhCBALftDYgS6+KD
+         GdtSteV3q1kafCTN7rjrconCM1Q8qzQlLuBvB2b5qnETuRH/4SyHbukEwPomImySWdZ0
+         vv5Q==
+X-Forwarded-Encrypted: i=1; AKwUvByQeXuTPnr+Xe18Y03Efb+hd8G2t7rliP04iANsVoYG/58EArszXNicAaKKBgGKNP2BUKVVV9DHZBV45Sc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lzSPievjlBliYaYg69H1miHZKix7A/PQHTRbqMTyPN+4oigg3y
+	++xUcu6k1Xwi7LqQCobBF6g5aux3Mh8qD33whd/O2wSL2D+LGOde+9ZqGFFtMkvp3Dk=
+X-Gm-Gg: AYBFou1tdPg/eZ9JTcstVUPOwXiRnWhIAzh/yB53yS1/j6VbvxgPvnoOr0/gfYhJHQz
+	OlOJdn8SfvbHcTVfFv9Zlq++5sABxLzN/ifmFojipoljVyZHGG5kB8Gk3Q3HzmiSDFznc+VxqPr
+	ML4N7/fyA7ylMnLc3KAy+PSoPu617mhSHx8Xwt9e0TObYTs52wx/wHtOv2iJn7XqGoi0pMi2AJc
+	eAkQPt3XDeXAa1JpOsmjfuGycVcN9XLKBfthItJUJ0Dcd0cnQMnBwpidE1n4/riSEADnVlt2YrG
+	sOgLmdogfZtl8IJU+nEF5kPnfiu9S1Ue9k8Ak0ya3TqT2qoSWCx+jmkGqGu+JJIs5kZi9rECx97
+	26IiWZzfz50R219HJq5QlbeGes5j2RcytF4T8Z3EcAgaYBvRVsxneToHJ+Gj1o8fmclD+bA364u
+	wsUB8NDddaEejtw1KpyzxUuqjUAUMHWEPtMTlOmxtj0TmsMW81FT2FrcWA9Y1TOqXQ3b4=
+X-Received: by 2002:a17:903:98f:b0:2dd:c053:e0f4 with SMTP id d9443c01a7336-2ddc053e132mr114905975ad.35.1790006031634;
+        Mon, 21 Sep 2026 08:53:51 -0700 (PDT)
+Received: from localhost ([71.212.197.238])
+        by smtp.gmail.com with UTF8SMTPSA id d9443c01a7336-2ddc178701csm36425795ad.13.2026.09.21.08.53.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 08:53:50 -0700 (PDT)
+From: Kevin Hilman <khilman@baylibre.com>
+To: Andrew Davis <afd@ti.com>, Tony Lindgren <tony@atomide.com>, Vignesh R
+ <vigneshr@ti.com>, Andreas
+ Kemnade <andreas@kemnade.info>, Roger
+ Quadros <rogerq@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, Andrew Davis
+ <afd@ti.com>
+Subject: Re: [PATCH v2 1/8] i2c: omap: Drop bit shift for I2C register
+ addresses
+In-Reply-To: <20260908154223.116074-2-afd@ti.com>
+References: <20260908154223.116074-1-afd@ti.com>
+ <20260908154223.116074-2-afd@ti.com>
+Date: Mon, 21 Sep 2026 08:53:50 -0700
+Message-ID: <7hzexad2i9.fsf@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-vrr-limiter-uapi-v1-9-2fcd7d011646@collabora.com>
-References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
-In-Reply-To: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
- Leo Li <sunpeng.li@amd.com>, Daniel Stone <daniels@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com, 
- Derek Foreman <derek.foreman@collabora.com>, 
- wayland-devel@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain
 
-Add a function to return whether a sink, as described by a
-drm_display_info struct, is capable of receiving VRR signals.
+Andrew Davis <afd@ti.com> writes:
 
-For HDMI sinks, this can just check the HDMI specific vrr_capable field,
-which is set by the EDID parsing code. For other types of displays, the
-generally agreed-upon method appears to be to check whether the monitor
-range's minimum frequency is above 0.
+> The OMAP7xx devices used a register address shift of 1, but this device
+> has long since been removed from the kernel. So now no remaining board
+> device uses a shift other than 2, and no DT supported platform ever did.
+> We can drop this flag and use the pre-shifted register addresses. This
+> simplifies the register access.
+>
+> Signed-off-by: Andrew Davis <afd@ti.com>
+> Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
 
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/drm_connector.c | 19 +++++++++++++++++++
- include/drm/drm_connector.h     |  2 ++
- 2 files changed, 21 insertions(+)
+Acked-by: Kevin Hilman <khilman@baylibre.com>
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index d94c86bfed86..fc7d9fcf9d9f 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -1378,6 +1378,25 @@ int drm_display_info_set_bus_formats(struct drm_display_info *info,
- }
- EXPORT_SYMBOL(drm_display_info_set_bus_formats);
- 
-+/**
-+ * drm_display_info_is_vrr_capable - Check whether sink is VRR capable
-+ * @info: pointer to a &struct drm_display_info representing the sink
-+ *
-+ * Check whether the sink supports variable refresh rate signals.
-+ *
-+ * Returns:
-+ * - true if variable refresh rate is supported by the sink
-+ * - false otherwise
-+ */
-+bool drm_display_info_is_vrr_capable(const struct drm_display_info *info)
-+{
-+	if (info->is_hdmi)
-+		return info->hdmi.vrr_capable;
-+
-+	return info->monitor_range.min_vfreq > 0;
-+}
-+EXPORT_SYMBOL(drm_display_info_is_vrr_capable);
-+
- /* Optional connector properties. */
- static const struct drm_prop_enum_list drm_scaling_mode_enum_list[] = {
- 	{ DRM_MODE_SCALE_NONE, "None" },
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 6e431eb81705..b18684d039d5 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1072,6 +1072,8 @@ int drm_display_info_set_bus_formats(struct drm_display_info *info,
- 				     const u32 *formats,
- 				     unsigned int num_formats);
- 
-+bool drm_display_info_is_vrr_capable(const struct drm_display_info *info);
-+
- /**
-  * struct drm_connector_tv_margins - TV connector related margins
-  *
+Feel free to take this with the rest of the drivers/i2c/ patches.
 
--- 
-2.55.0
-
+Kevin
