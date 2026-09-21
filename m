@@ -1,324 +1,178 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010027.outbound.protection.outlook.com [52.101.69.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F96D4BEE4E
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:10:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B78FA4BFE72;
+	Mon, 21 Sep 2026 16:10:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.27
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790007026; cv=pass; b=YPovnS0Q3LBcTphs0ON/ukQMMZkEWhM5mFevJNCO9r4Y++AnHAV1UREGHAtJLuRvN2XCFrzmdFZG0MyMCy3M0QcmAKQrVgKH2610iWI8yheogUyhbzdtMh2VzcruPWnsxJp1B0GTnNCPZ1y0o8D7Mr+if4cXOk1F9+b0IFxiUR0=
+	t=1790007029; cv=fail; b=uIZjpanEdfGL1rOWPg/rTty7GFfQmn22F6DRgdmSJMAVJN3I5dfwoneU0Bpwdu1MZEA6w65QYQvSb3QdFqlKVmbU6dW+7V67/0TgXIJjd1Vb6W2xLTF5yjtoa3FNOsk4TV3cr31Vnp00EEqjX21LXw6cFx7Czv1MU1b3AaU+OtY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790007026; c=relaxed/simple;
-	bh=1nYc5ep613UZr/Xla6mXj1IFA1gfO2wtQb/LxLCCTHg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ua+yIwwEh05itdorRgUIzQesKSK4fDHQMfUls9blWUTC95C5KEC8YRisPdqxy+J4JRssllJc9rX/NwBZFckELr2GNdXoWdY33krHKbJksRdumam//eOsK19j7tKB0SEwHnvSSydUHYRrdk78C+PPn9ZsJ6weyuwBPeOGHXhiyUY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Fr0BGzJ5; arc=pass smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790007029; c=relaxed/simple;
+	bh=8H3ivygizFuKFpQy8n6N0N/zUfqREvdozIP5AIW6Y9o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=iJX+xLLgLOmTbciQS7rU7M9wUZpYmuOYrJvvZL9Cl6TzfHV6Y8SP2gd5BrEM9woGLHvrCnrKmgwxYTU7BrGz7ZAsN4mA8TM8rewiY1XaDEX+WOsran4NptcDcj3hXLorhMkMzwXUYaK7Ii6gSpdJPyOWVwfpgHNzTgwqrBb+p7E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=coM4ejlZ; arc=fail smtp.client-ip=52.101.69.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Fr0BGzJ5"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-52faa58bff5so456261cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:10:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790007023; cv=none;
-        d=google.com; s=arc-20260327;
-        b=k9+TPsxnP+riDdBnKFC8qpWL7IApzVwfyci9SXF5gZ/6ytUIb1UlHa/bfy2sIs2puM
-         rPJC/7H9XBzvJwTEM9DyMyi5IUco0L1Hnbt5x95qngSAxY/ssZfof98Q9aSTX1InA0dg
-         bMTXvQkQRdkQBkdhWoiTuJTZBAKYaJqCecS0s0Ft/oPbq6fIRcnyu7T9I7mUJPBjOrkz
-         zySCB2Ct/17hh7AwhrLnbpoUdkK0LnOvSzE/WloB0XqpaHcBgdBYQPVPuR2hhyupDwSL
-         zz0tKDydfHzwLJEoEdH/6JVU32MtAEIdF2S9sPbF5jeyiTZn/5Q0VsUSTyMkmMd3q/d+
-         YsIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nppgfPtO7aYwkfOWgYtcD6HQ+Vg1u+o5brUp6DN+HpM=;
-        fh=F4+Err7wwMovla10Zr6yzTZBmovxr+zy96NmCjTyERU=;
-        b=GvrTHjf3AhsH0Ee2osEGEXrmjrIyY52FMqrhhNUZDOtxm04eNDvI1+WFigyCWiOdJw
-         3+AXZbFvUZloIYyJ/cMj1QtXk8JBcZwSYMvca33abodVbIZ4psdZ6+wCUYwDa8Ltv7Q6
-         Kaq9/gV0xcLgV+4ccwnWrCQunZmMg9BmcavChG2QXUa43WwslvG/AgKFyWGllBKmqYzi
-         UKP+ZQesUMyCKNPF+zQXI98VrdObxsbAMi0VtfqLVGlU9b5hnAeXwPpTlOYHj98E1s2k
-         Z3R2Vxmdlpr07AHlht98qiIivONrJ57RgSwy1TFD512k8RCbRFnscHTFWM+bCzpIm8V4
-         zljw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790007023; x=1790611823; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nppgfPtO7aYwkfOWgYtcD6HQ+Vg1u+o5brUp6DN+HpM=;
-        b=Fr0BGzJ5KTT5n2pl5b8YFkiSbIke//ocwhfx9ZytcKEROWpfBXTW926/cye5LEnNsG
-         7d7B67Gc7WSp9LbEIP159s8uuNrgUifkouxIZo7dxLqSfyz1qdWRR9rds13qSD4JoKck
-         ImR8Pbr2JH3R7aIfB+egQTQBEKDazk/EGdkeoXMSTmp/uwBOxQVH0TpbhY/MlKV1DAjq
-         Hf13y53hAcnNoPgM15GlcOXqt+hOEmgqxUm0RK3zzOs4A/hckjZBP8bQwQLptIWXV/jF
-         jd0Yhuw0g8in70feSMtvVtnJBQVmmZ1W8Y4632Yisf5SZ5FkTrR9BA93/l6hJey8GBp8
-         ExPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790007023; x=1790611823;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nppgfPtO7aYwkfOWgYtcD6HQ+Vg1u+o5brUp6DN+HpM=;
-        b=chJwkEPqzsy/MRsJDRhhqehXbkCFYZnTsBrLk6BDy6rK5nDlrnnw3YHDmo053ZudkF
-         kR4iOK0bVxeMfeLEDqIV/1ZcnJ2AVGwxLT7lY6e+jrJAnuFvwkpfLaX+eKbJ8rR8bwBh
-         rtmb7kl0oeDNhCTUYq1Zti5LlgG0PQx2RP5nOiG3Wx5YMAHTNMEVlmP++WQBlOs5pGzE
-         QeumVeWxp4Eg0Uyo5JiPG4sP3/SGRyet/+Wa3v51EyR7dc0/G95/WE+N6CtqMvNLA1+w
-         mS+sS7r8PregxmLAP3+NkvskqMTncNxf63zZ0MmO4uNEdimpEtol3YDhnznawmhk7CKi
-         neqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxGi3fnKxmxBidvZu8yyx8W1VoUKrpih4kmOOP3rMpANUkAYu2LeTIRrALmmbvjvbfX0UwL81RogLb///U=@vger.kernel.org
-X-Gm-Message-State: AFuF++lX9TEXQGOioN2iHDPi7MnqEeRkqY0RhGQWfCPrWM7jaKwsIPNR
-	aEhPTW7cEiwegMWiEIvF5XOu0W2u+CWziKIWO0c28AB0Ekf51i5wAr2Bk0GH/HO/gEp4hD1x+UA
-	HEbl+ERb6xgLpvgM1CzfUSKj6W2rokoHKnrRGZ9c3
-X-Gm-Gg: AYBFou1eKte3I1p/toghebTWOcDtkfTzYys746Vjgk2g6/YDIYfcj+iGwZGyF2KO7AM
-	6ERT7dD2n+fxKHEhikxuYzl3DJ0Q1/Iwuivywy6KNpSPT7SIlBd7iVm35YvDM6M0cF9xrdYpLq9
-	7emWPy7qijaKZX7+YlT838XMJEKB7O8kD/9GtYkRw8uOGJLLWC2bpbd5CmeFTOlNFelFzGLBj6C
-	0eothULhRDsLrlJNrJkvlYv2rU10cLgdgHLpkI+39Uhvhb8CN2cZUnv4c5vtTqT4qqVS1o7W5Xz
-	39sDKLcji6O/PN+L5E5ePopAsm0aCUJR3p0qi+GZf/mVZl81fpdF6iJPswh0fcvXllo2LgwyX4V
-	JJkn8VnV6
-X-Received: by 2002:a05:622a:191c:b0:532:d36c:7094 with SMTP id
- d75a77b69052e-532d8d416cbmr4401251cf.4.1790007022511; Mon, 21 Sep 2026
- 09:10:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="coM4ejlZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FtCU9VONJLJOBbXnKz1GAyx8PveXUmO9Sevjt6Rn3bs6RmBcIvXleXak/hpQhNIggk3WlGUb3QWpFPJRaOXQYdyUKBLsxXbevTAd9jeYEVE5JvFt4vdwruKA3OJ0cAGxLS24EkQ33XdZndfHKK+gtFio74vneMfDZuGbMW5zZt0K6Gj2DVXPIjAOfuaHsyneyG+9BPShkBjMsgTFz37Oy9Cl00XKahKr4ihx7iVko25pKKkakePPs50Byto8wBAW1eGWgQbQoSLL1UPJGPfRWYzwKbe/itppgIe1cFi3pDtzVheWoZKxGlb9WlvTCWVt7+l5Jq7b3RcfYoYiMTYfDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8H3ivygizFuKFpQy8n6N0N/zUfqREvdozIP5AIW6Y9o=;
+ b=dBBDs6fGLdOwhdVoeY/21BKpXag1uQkzb64ofyK4Wi+uX7ZPjm3WBwbQkogaqR4gjPQ07EfW5TixnND6a4uvGsPlbkST5If5mHy+IOflVS/mpLdYj/RSfPpNIU7Q5X8BUrb5jbC68UDZJNgdXOzVFYYPF8mKjZDv3mnRMyCJXky7jyvbE0/6SfGy9S8kP2mz7EOSyC8Z1rx5HP/oB+nYIlitSxNnSazlY/XSDzINTmPclahGQpHUiGwB4tklMP2mU5LUczEaTJIsKYivfG8Vlj8gfMisgM7cDnx4ieohKXQ0OCqaY6BTlyY2Mqfes86Jr2Dy35g2041mpl9XtoLnVQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8H3ivygizFuKFpQy8n6N0N/zUfqREvdozIP5AIW6Y9o=;
+ b=coM4ejlZFgmQZF9AhfPdSVS91MrA8invSsKWeq5C4k4huX5NRGh7Y1lBjNyFifXkP1DwS6/CzFzLR7VtRf3LAmNdNpn+Lgf//w149pm8TMH6m4UUm/ILaGz4DG2VzpfY05ymSywYVSSIAh6IqOqdnBY09jY/UDaqlyv84d5JfS6SPNgPoY+FsV9lIhFC2PXg6pWWWcPEgYWTP+EgedzkpW6JhgEQeI3tDaHOloCWk1aT8wPAoFX2g0eIgsEw90T+UltLH0LFpeg4V8w7DEAjYSNZKMD5zlm7sIyglbiy0m1CP+eKEaW7yI9IjCXeCS/QOe3kUNZpDpQx3U2Qw3kB2Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DBBPR04MB7580.eurprd04.prod.outlook.com (2603:10a6:10:1f7::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 16:10:22 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 16:10:22 +0000
+Date: Mon, 21 Sep 2026 11:10:12 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Ming Qian <ming.qian@oss.nxp.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	Peng Fan <peng.fan@nxp.com>, Lucas Stach <l.stach@pengutronix.de>,
+	linux-pm@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Zhou Peng <eagle.zhou@nxp.com>, Xiahong Bao <xiahong.bao@nxp.com>,
+	Ming Zhou <ming.zhou@nxp.com>
+Subject: Re: [PATCH v3] pmdomain: imx8m-blk-ctrl: Serialize power on/off
+ across sibling domains
+Message-ID: <arFW5FryhHsf48Nu@SMW015318>
+References: <20260921-imx8mp-blk-ctrl-v3-1-c86b0a9d4781@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921-imx8mp-blk-ctrl-v3-1-c86b0a9d4781@oss.nxp.com>
+X-ClientProxiedBy: PH8P221CA0023.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d8::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260912031112.1814574-2-sh_def@163.com> <20260912051747.2215776-1-sh_def@163.com>
-In-Reply-To: <20260912051747.2215776-1-sh_def@163.com>
-From: Ian Rogers <irogers@google.com>
-Date: Mon, 21 Sep 2026 09:10:10 -0700
-X-Gm-Features: AcwNN1VFYDNRyA9SGd-GBHc_mhmR2tes7V3feOK9W5A-Q7WXP7CKaiBbOyoYb4c
-Message-ID: <CAP-5=fUxHz=mp=GOkZsAoXYuayYS60TKBgafTBpRjkMJU5goBg@mail.gmail.com>
-Subject: Re: [PATCH v2] perf thread_map: Deduplicate numerically equivalent
- PID and TID strings
-To: Hui Su <sh_def@163.com>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Jiri Olsa <jolsa@kernel.org>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DBBPR04MB7580:EE_
+X-MS-Office365-Filtering-Correlation-Id: c4b9750d-4c12-47f9-78d1-08df17fad68b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|376014|19092799006|366016|23010399003|6133799003|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	V9RNEeqfBVgKaLgE2doOuksPLdYTofjQCoxHjj05ydY0Gv0PkSHQSLh4qS4YPKvg0BinN+WnkkZhpP59j7No43whssZc9/DriE4NCXbmOCXVbqNqCBpcQiw6RC18iMEMujjYsuQpXeLm9zD0U/zM7ITMlEuvniEStzIb7ZsXpsS7a+eUrjSBrdL2NXNGNjVpfBQm4i+fTTkdbnTXVuCTsWj1+QjDsnsR7ON5uTWbDA/ptEhds/H3x7rKM89AmAeBfwtNubLcAs8QeSVRldyZhjt6ZqldWFUNRiwginLuQ37BneOInmaDPG5EfNOuZ/lHpJJKwubBu6+N8xpVoqlIMQbOdkVfRvLqtLfTbdw9rRJCs7AwZkzsV7jzLmRvxU9F/OFJiys1sQ34hkLVwtoxeFF2i4a2IlgwiSkdu9CKZ2XxHG0JNTfuxTVYBTGTxoUvE+CjSygq6nZeUODYIAJ5N9qlXMcnn+6782dasxS0ubZGc0F4IQD7l/Oqeqg7BWbfJ+eph0E/mLY5pCXtaUDQ/DHvF04KVVTIoQPE+cr4qoXXlzxk2hNFHvbiyXQ5wW4rYh1gcQOAkp9WzdlOyllOE9f8b27w/gC5nLs6k0puzAYC05ePdqRAQ4kqvELQOovgxKpL2yWEZWJzPSiAsbB11gi4oTistNZtg+XNWra7zro=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(19092799006)(366016)(23010399003)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?XEaVX2ACAB8ogfhIEUsVqhqlIHwz9x8p6dBuejKWUZ9HHXPgctPB/XwmkK9a?=
+ =?us-ascii?Q?pA8APsoviKTeLJtQR0Q+uKjv3fn/wiEiJelR85bAoB0/wI8B29RqbW/VZKdd?=
+ =?us-ascii?Q?f0neezsOO3FtDVY20aBr7D7JFYJaa9xGHIGyRy1XQNsPdAiY6lpJ/Hk1T3P9?=
+ =?us-ascii?Q?lsxRixYFGoqRetSm9dcpPlvaGRjNY2GRg6fh1RJ+s4QX4bM0cqFUXk/mee+O?=
+ =?us-ascii?Q?yEl7bpA1G9e5zKsryQola/NDhCvQSjMEddJmp/PhgyqhPM2HGdzItnxVMEYu?=
+ =?us-ascii?Q?guS5CVgC211o3RAupJQ7cIEidoLZtLZ8mgVd/cEGfJw4wZ/PV3yqQGol+Fyh?=
+ =?us-ascii?Q?jDHZrk1yd5G+NSnKxAKEjMV4VjVrRhIRE9f1FXvoEYL9IHdwOyZMNGZCMOsU?=
+ =?us-ascii?Q?6df35+40ZENzBT3s2YrIVxSBGNK37nbgpDbXLHl7hIYaitSEbzlFgmZGxFyq?=
+ =?us-ascii?Q?LqZg/+N3UDfiYTAR+Q85BaXjXSNcCepJ7bYsZBTeeacr53kKu9RcPo4+zdXR?=
+ =?us-ascii?Q?3adIhu+njK3lXX1LEBp+ipb1SlPk4MnzHgm3PCCQ3PdlZ2X7D2xmI0bq2Jp+?=
+ =?us-ascii?Q?xhtiSWBiTOmZqza30FyD+4mBZw/j9T8guPLkgtrEAcgaNjnc97VJy4M26YIa?=
+ =?us-ascii?Q?qE8JxC+LoP6a+peNDDfedhrospJ1kDY/pFBu5WcQ+7oAlbllQR6kZwDknkCn?=
+ =?us-ascii?Q?2OK2SRi4OFR/TcQIeU0X/NKy6pu9JihupRdoAS2ckgdNLF9Nndej6Ic8fh43?=
+ =?us-ascii?Q?OmP0E4aezxnHrn9yPmOxXtKsQoF8IT3EAUXvlaRCS1VrStE8lWVRq5ThrB7t?=
+ =?us-ascii?Q?ak3efk5UWdRaaZ+n0H8M0n2RDjSjRR6VrsAtrX4O7xYWnZCUhAJ0V21EpzM+?=
+ =?us-ascii?Q?tQ415sD4G2lK1e76sxe8jx0H4Q8ippSzuwu+7zVimbE5/GalG82EKiVwrqe4?=
+ =?us-ascii?Q?ZwooxweT7YZnpvdPssyaYMSc69AiFLH+uCzZwJv3KnhU6kgrC0qGszzz8sOA?=
+ =?us-ascii?Q?J2NWM5i5AQyA4RFJ354p71rgJ9N8vOd0lN33J30M3CNMSohuXhByQqRnGadf?=
+ =?us-ascii?Q?4cstTqc4iMDa5GMEaVyW3XoKdxMCOVJ9kdCheDv37rjraXMU8pcbo5WMA06l?=
+ =?us-ascii?Q?GZU39s+U1Gn6SB37ELBPc68jLpOiJ28HJs2qtl4dYKB6XlSOZyq3BoZ9br7g?=
+ =?us-ascii?Q?/nwpVN3afyh8Q7uOu3RBfZKrM8x4sYjel1x+ShuCoW0fWHzO44IXKdzkXrc+?=
+ =?us-ascii?Q?dbmnID/ugFPjd+4KEif6M4vqU+rM+5ItVW1ig0UaXS7A+sEUL7wj9fLL+Lrj?=
+ =?us-ascii?Q?xL05wGOR2jtLOQEqKBWhGRP93nDBv5Pu2pJj9Cz6WDUWxHf8AwK6X4SDUipB?=
+ =?us-ascii?Q?OQnnfuOpOXzSC7RxGXlIqaaI5bdx0PJ5O0f2bUzdh7g4z1YJnmo6etcxI74/?=
+ =?us-ascii?Q?khr0YG1VOcaTQlBnfXU0Yhl0tggNjALlFdlJ1wePZBzvQ87Ik0CJAS7vaQdh?=
+ =?us-ascii?Q?EOMTjdslJLbz8sUmNXZ0gj2lPE27GEZyYEQ2xCBVGJY3ptTGO9CoJb/DrUUx?=
+ =?us-ascii?Q?NYqNKPuqQD0xyGfI+6PJMOEXHmIIBayelEQw/DQMnzS6GSWQITfH1gsnvT2o?=
+ =?us-ascii?Q?8f1TIP4AzRTdYeJfmUfa2q5PIoiBYPZRd1oBAzEwdaGdKvffjDIlf9zLJg/l?=
+ =?us-ascii?Q?NJc5bqdzA2cw4PoTNZvQNatUI6BBysw1vcRGq+3EIvhxeCQiU9rrIkGwo3H9?=
+ =?us-ascii?Q?M2crnXD8bRBBoHR1knIBete66DsX/1g9xppv+90hkYdeGPe7Pa1n?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c4b9750d-4c12-47f9-78d1-08df17fad68b
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 16:10:22.2254
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CsLrfds1DfcOkmdMbcSwGxY7WZLgJ8XSLTTmdOs9Dd47Lqze3jPv9DCf+fluUAXqkLiwq9s9rqgEUGsLBNSEJP61Qn7WU+n1x1EyGQ6/cR9K5bOAanuD6XH51KCDSK5Y
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7580
 
-On Fri, Sep 11, 2026 at 10:17=E2=80=AFPM Hui Su <sh_def@163.com> wrote:
+On Mon, Sep 21, 2026 at 07:03:34PM +0900, Ming Qian wrote:
+> On i.MX8MP the VPU blk-ctrl exposes G1, G2 and VC8000E as three separate
+> genpds, each serialized only by its own genpd lock, so their power_on and
+> power_off callbacks can run concurrently on SMP.
 >
-> thread_map__new_by_pid_str() and thread_map__new_by_tid_str() attempt
-> to deduplicate adjacent PIDs/TIDs using prev_pid and prev_tid.
-> However, prev_pid and prev_tid were never updated inside the loop,
-> making the check "if (pid =3D=3D prev_pid)" dead code.
+> The sequences are not independent: they share the VPUMIX bus domain, the
+> VPU_NOC and the ADB400 handshake. On power up the GPC cannot ack-verify
+> the ADB400 handshake - the ack only completes once blk-ctrl sets the bus
+> clk-en bit - so it just waits a fixed delay instead of polling hskack. A
+> sibling transition landing inside another domain's reset window disturbs
+> that shared clock and handshake timing, the victim's reset does not take
+> effect, and its block registers read back all zeros: the decoder times
+> out or the encoder fails its format check.
 >
-> Furthermore, even if prev_pid/prev_tid were updated, strlist sorts
-> lexicographically (e.g. "010", "011", "10"), which means identical
-> numeric values with different string representations (e.g. leading
-> zeros) are not adjacent in the list and would never be deduplicated.
+> Serialize the blk-ctrl reset sequence with a per-blk-ctrl mutex; the
+> driver deliberately avoids a genpd hierarchy, so the genpd core gives no
+> cross-sibling serialization.
 >
-> Before this fix, the new tests fail at the first duplicate TID case:
->
->   $ perf test -v 35
->   35: Thread map                                                      :
->   --- start ---
->   test child forked, pid 363297
->   FAILED tests/thread-map.c:63 wrong nr for duplicate TIDs
->     (nr=3D3, expected 1)
->   test child finished with -1
->   ---- end ----
->   Thread map: FAILED!
->
-> Replace the ineffective prev_pid/prev_tid check with an intlist seen-set.
-> This ensures that any numeric duplicate PID or TID is properly
-> recognized and skipped, regardless of string formatting or order.
->
-> Add tests for numerically equivalent PID and TID strings.
->
-> After this fix:
->
->   $ perf test -v 35
->   35: Thread map                                                      :
->   --- start ---
->   test child forked, pid 363650
->   test child finished with 0
->   ---- end ----
->   Thread map: Ok
->
-> Fixes: b52956c961be ("perf tools: Allow multiple threads or processes in =
-record, stat, top")
-> Signed-off-by: Hui Su <sh_def@163.com>
+> Fixes: a1a5f15f7f6c ("soc: imx: imx8m-blk-ctrl: add i.MX8MP VPU blk ctrl")
+> Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
 > ---
-> Differences in v2:
->  - Explicitly include <stdio.h> in tools/perf/tests/thread-map.c for snpr=
-intf.
->  - Link to v1: https://lore.kernel.org/r/20260912031112.1814574-2-sh_def@=
-163.com/
+> Problem:
+> On i.MX8MP, running the VC8000E encoder and the G1/G2 decoders
+> concurrently rarely and non-deterministically leaves a VPU stuck in
+> reset: its block registers read back all zeros. A decoder then times out
+> or the encoder fails its format check.
 >
->  tools/perf/tests/thread-map.c | 34 ++++++++++++++++++++++++++++++++++
->  tools/perf/util/thread_map.c  | 28 ++++++++++++++++++++--------
->  2 files changed, 54 insertions(+), 8 deletions(-)
+> Root cause:
+> The VPU blk-ctrl exposes G1, G2 and VC8000E as three separate genpds,
+> serialized only by the per-genpd lock, so on SMP their power_on/power_off
+> callbacks can run concurrently. The sequences share the VPUMIX bus
+> domain, the VPU_NOC and the ADB400 handshake. On power up the GPC does
+> not ack-verify the ADB400 handshake - the ack only completes once
+> blk-ctrl sets the bus clk-en bit - so it just waits a fixed delay. A
+> sibling transition landing inside another domain's reset window disturbs
+> that shared clock and handshake timing, the victim's reset fails to take
+> effect, and its block is left in reset with registers reading zero.
 >
-> diff --git a/tools/perf/tests/thread-map.c b/tools/perf/tests/thread-map.=
-c
-> index 877868107455..690ccae17c31 100644
-> --- a/tools/perf/tests/thread-map.c
-> +++ b/tools/perf/tests/thread-map.c
-> @@ -1,4 +1,5 @@
->  // SPDX-License-Identifier: GPL-2.0
-> +#include <stdio.h>
->  #include <stdlib.h>
->  #include <string.h>
->  #include <sys/types.h>
-> @@ -56,6 +57,39 @@ static int test__thread_map(struct test_suite *test __=
-maybe_unused, int subtest
->         TEST_ASSERT_VAL("wrong refcnt",
->                         refcount_read(&map->refcnt) =3D=3D 1);
->         perf_thread_map__put(map);
-> +
-> +       /* test numeric deduplication of TIDs */
-> +       map =3D thread_map__new_by_tid_str("123,0123,00123");
-> +       TEST_ASSERT_VAL("failed to alloc map", map);
-> +       TEST_ASSERT_VAL("wrong nr for duplicate TIDs", map->nr =3D=3D 1);
-> +       TEST_ASSERT_VAL("wrong pid", perf_thread_map__pid(map, 0) =3D=3D =
-123);
-> +       perf_thread_map__put(map);
-> +
-> +       /* test non-adjacent numeric duplicates (strlist lexicographic: 0=
-10, 011, 10) */
-> +       map =3D thread_map__new_by_tid_str("010,011,10");
-> +       TEST_ASSERT_VAL("failed to alloc map", map);
-> +       TEST_ASSERT_VAL("wrong nr for non-adjacent duplicate TIDs", map->=
-nr =3D=3D 2);
-> +       perf_thread_map__put(map);
-> +
-> +       /* test numeric deduplication of PIDs */
-> +       {
-> +               struct perf_thread_map *base, *dup;
-> +               char pid_str[64];
-> +
-> +               base =3D thread_map__new_by_pid(getpid());
-> +               TEST_ASSERT_VAL("failed to alloc baseline map", base);
-> +
-> +               snprintf(pid_str, sizeof(pid_str), "%d,0%d", getpid(), ge=
-tpid());
-> +
-> +               dup =3D thread_map__new_str(pid_str, NULL, false);
-> +               TEST_ASSERT_VAL("failed to alloc duplicate pid map", dup)=
-;
-> +               TEST_ASSERT_VAL("wrong nr for duplicate PIDs",
-> +                               dup->nr =3D=3D base->nr);
-> +
-> +               perf_thread_map__put(dup);
-> +               perf_thread_map__put(base);
-> +       }
-> +
->         return 0;
->  }
+> Fix:
+> Serialize the blk-ctrl reset sequence with a per-blk-ctrl mutex, so a
+> sibling domain cannot run its sequence while another is inside its reset
+> window. The driver deliberately avoids a genpd hierarchy, so the genpd
+> core provides no cross-sibling serialization.
 >
-> diff --git a/tools/perf/util/thread_map.c b/tools/perf/util/thread_map.c
-> index 48c70f149e92..7b59b3f7f2e4 100644
-> --- a/tools/perf/util/thread_map.c
-> +++ b/tools/perf/util/thread_map.c
-> @@ -10,6 +10,7 @@
->  #include <unistd.h>
->  #include "string2.h"
->  #include "strlist.h"
-> +#include "intlist.h"
->  #include <string.h>
->  #include <api/fs/fs.h>
->  #include <linux/string.h>
-> @@ -163,12 +164,13 @@ static struct perf_thread_map *thread_map__new_by_p=
-id_str(const char *pid_str)
->         int items, total_tasks =3D 0;
->         struct dirent **namelist =3D NULL;
->         int i, j =3D 0;
-> -       pid_t pid, prev_pid =3D INT_MAX;
-> +       pid_t pid;
->         struct str_node *pos;
->         struct strlist *slist =3D strlist__new(pid_str, NULL);
-> +       struct intlist *seen =3D intlist__new(NULL);
+> Test:
+> i.MX8MP, Android 6.18 kernel, concurrent H.264 decode and encode. Without
+> this patch the failure reproduces within one to two hours. With it the
+> same test ran overnight, over 14 hours, without a single occurrence.
+> ---
 
-Why not parse the pid_str into the intlist and then remove duplicates?
-
-Thanks,
-Ian
-
->
-> -       if (!slist)
-> -               return NULL;
-> +       if (!slist || !seen)
-> +               goto out;
->
->         strlist__for_each_entry(pos, slist) {
->                 pid =3D strtol(pos->s, NULL, 10);
-> @@ -176,9 +178,12 @@ static struct perf_thread_map *thread_map__new_by_pi=
-d_str(const char *pid_str)
->                 if (pid =3D=3D INT_MIN || pid =3D=3D INT_MAX)
->                         goto out_free_threads;
->
-> -               if (pid =3D=3D prev_pid)
-> +               if (intlist__has_entry(seen, (unsigned long)pid))
->                         continue;
->
-> +               if (intlist__add(seen, (unsigned long)pid))
-> +                       goto out_free_threads;
-> +
->                 sprintf(name, "/proc/%d/task", pid);
->                 items =3D scandir(name, &namelist, filter, NULL);
->                 if (items <=3D 0)
-> @@ -200,6 +205,7 @@ static struct perf_thread_map *thread_map__new_by_pid=
-_str(const char *pid_str)
->         }
->
->  out:
-> +       intlist__delete(seen);
->         strlist__delete(slist);
->         if (threads)
->                 refcount_set(&threads->refcnt, 1);
-> @@ -219,17 +225,19 @@ struct perf_thread_map *thread_map__new_by_tid_str(=
-const char *tid_str)
->  {
->         struct perf_thread_map *threads =3D NULL, *nt;
->         int ntasks =3D 0;
-> -       pid_t tid, prev_tid =3D INT_MAX;
-> +       pid_t tid;
->         struct str_node *pos;
->         struct strlist *slist;
-> +       struct intlist *seen;
->
->         /* perf-stat expects threads to be generated even if tid not give=
-n */
->         if (!tid_str)
->                 return perf_thread_map__new_dummy();
->
->         slist =3D strlist__new(tid_str, NULL);
-> -       if (!slist)
-> -               return NULL;
-> +       seen =3D intlist__new(NULL);
-> +       if (!slist || !seen)
-> +               goto out;
->
->         strlist__for_each_entry(pos, slist) {
->                 tid =3D strtol(pos->s, NULL, 10);
-> @@ -237,9 +245,12 @@ struct perf_thread_map *thread_map__new_by_tid_str(c=
-onst char *tid_str)
->                 if (tid =3D=3D INT_MIN || tid =3D=3D INT_MAX)
->                         goto out_free_threads;
->
-> -               if (tid =3D=3D prev_tid)
-> +               if (intlist__has_entry(seen, (unsigned long)tid))
->                         continue;
->
-> +               if (intlist__add(seen, (unsigned long)tid))
-> +                       goto out_free_threads;
-> +
->                 ntasks++;
->                 nt =3D perf_thread_map__realloc(threads, ntasks);
->
-> @@ -251,6 +262,7 @@ struct perf_thread_map *thread_map__new_by_tid_str(co=
-nst char *tid_str)
->                 threads->nr =3D ntasks;
->         }
->  out:
-> +       intlist__delete(seen);
->         strlist__delete(slist);
->         if (threads)
->                 refcount_set(&threads->refcnt, 1);
-> --
-> 2.55.0
->
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
