@@ -1,144 +1,102 @@
-Received: from mta1.migadu.com (out-131.mta1.migadu.com [95.215.58.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CAEA48F832
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:37:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640BF3C13EE;
+	Mon, 21 Sep 2026 11:38:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789990673; cv=none; b=FcRY37/A4KJ0jP+i9ckcNRqIftQQ+iybWyMTFxiJ6XYIE+0aKY4PBYuxnchwUhtSDGhFkgzR/8bMdeU166FnMmAbSPFxmEHsbCm5xW/vZW+FV+sR1PQXsBctYd6CxKY9FxwQkFdrs4hFJumJUjaYblYCAd5p7rgzUzlsduUHwMg=
+	t=1789990687; cv=none; b=p4LCHkGW76Nbdl5wYiHGQBIiNhSFN1V90NXm3zVCDcss7j8t14X8CjxG4Yw6FIhvJ2z3TYWGmBefSjD8DBjTImjx08TCZGGxcHxzMydqTsWMmKf2arWyh93+s5N5AB7xy6DZzNHHykY5o5h2Yuq9wuNRKQADRDzU7z+WASVlBdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789990673; c=relaxed/simple;
-	bh=m7hNfSxPSwIpaL1L70GhCZJmufgA10s73TeAeGiuvaI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N7HIPw56j//JI4ctozo+JtNi54q7k0PuVhFu+8dhgLqrqAv/3/Wkdfv7qtujz3YlhH2FRIUaukZfrqdYmNu5VxiZUOnkeBT1F5Ftkr3bEbaFPnhIet4mv7n0arG38TofEzSrhuHlsA+ka93pgPXSzv75IzKBYwlQ/ok8DPdfEiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KcJZCQP+; arc=none smtp.client-ip=95.215.58.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789990687; c=relaxed/simple;
+	bh=LKzXbI2kLcQJ7w35riUsFzshPNRq5HS2uht/PL7RcmA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aGP/8943CFq863spZI2My2h8fVMR77sfK1f6gn3rTwDEXgtxMkfSTMBLmUoKsi/LDH83T2tJgvdzUmlfyPcTZzf5iLKuUVg3aF5LIXd6PVc73oXo1wbsMaZnjifde6NgTi/pCpcFpl+IEYu0L8raRdz4TsTKeTdKoGMQ/6mL86Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YxXvIXzW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KcJZCQP+"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=m7hNfSxPSwIpaL1L70GhCZJmufgA10s73TeAeGiuvaI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789990667; v=1; x=1790595467;
- b=KcJZCQP+p7Hqgr4lQ2FO79sxCsHXtnDNE1eb8EHto7rvl8iGbXdO2T/YxyXipeTHeIQyk80N
- RTtl3D5GMhzM1+yq244IQTBqw8auaOYq9LEIaGzATkuUgUUIzmdQTQg/PsaBlwZSvLkXXrsIW8Z
- rLrZF6/SVw4rv7qZkUjDg8OY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 17c102dc8b568dc9;
-	Mon, 21 Sep 2026 11:37:47 +0000
-X-Mizu-Trace-ID: 17c102dc8b568dc9
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <9a72eeb3-ca32-4241-9e21-74cf894a9bf1@linux.dev>
-Date: Mon, 21 Sep 2026 12:37:42 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YxXvIXzW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79E1E1F000FF;
+	Mon, 21 Sep 2026 11:38:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789990686;
+	bh=JiJpxQysYV6fSk6CEK85PfNN5plE47nRat7u1KxeH5o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YxXvIXzWmpbfn4wiGS/Zihc0Chst28a/ZInVrs25B36OOncqO1/xUqHXDA6NlTPmq
+	 SHRHG5wJJQ9w9nNN6tBypN+1/DQ4BV7j39R7BNxp4GTi4OUaIT3uyz44t4/F0fceQA
+	 oLO9kLorTHqkKKUYqOKe+O5MG/3zSYczteE88s6LjJ91DVF0kbPBkFV0UtHS3DAAeD
+	 P8qgUQXH7JGTomS2tdPZajuOjgK2hUxKwnXCa3O2ck9u9U04CltSSHZJa138qER7UI
+	 zs26QRTg+3BJF7+GgaL17gaiLhpOY94XoPBDpUemuejxXOOjzUWqDgNXc/bYr4DEv7
+	 EWXdTYNa8fUlA==
+Date: Mon, 21 Sep 2026 13:38:03 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Sheetal <sheetal@nvidia.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Sameer Pujar <spujar@nvidia.com>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mohan Kumar <mkumard@nvidia.com>, linux-sound@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 1/3] ASoC: tegra: Fix ASRC Stream6 input threshold
+ control
+Message-ID: <arEWz1DC2sg266Kv@orome>
+References: <20260921085704.1248920-1-sheetal@nvidia.com>
+ <20260921085704.1248920-2-sheetal@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] scsi: libsas: Fix SMP IO deadlock during HA resume
-To: Xingui Yang <yangxingui@huawei.com>, yanaijie@huawei.com,
- jejb@linux.ibm.com, mkp@kernel.org
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
- linuxarm@huawei.com, liuyonglong@huawei.com, kangfenglong@huawei.com
-References: <20260918070307.381207-1-yangxingui@huawei.com>
-Content-Language: en-US
-From: John Garry <john.garry@linux.dev>
-In-Reply-To: <20260918070307.381207-1-yangxingui@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bnyufgwgkmpbjrmp"
+Content-Disposition: inline
+In-Reply-To: <20260921085704.1248920-2-sheetal@nvidia.com>
 
-On 9/18/26 08:03, Xingui Yang wrote:
-> When the controller resumes, sas_resume_ha() -> sas_drain_work()
-> processes the DISCE_RESUME work, which restores the ATA ports through
-> the libata error handler (ata_sas_port_resume() requests ATA_EH_RESET)
-> and waits for it in sas_ata_flush_pm_eh(). For an expander-attached
-> ATA device the hard reset in that recovery is an SMP PHY CONTROL
-> command sent to the expander:
-> 
->    ata_eh_recover() -> ata_eh_reset() -> sas_ata_hard_reset()
->      -> lldd_I_T_nexus_reset() -> sas_phy_reset()
->        -> sas_smp_phy_control() -> smp_execute_task_sg()
 
-This seems like an obvious issue. How come it was not found earlier? It 
-is apparently fixing a patch which is 5 years old.
+--bnyufgwgkmpbjrmp
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC PATCH 1/3] ASoC: tegra: Fix ASRC Stream6 input threshold
+ control
+MIME-Version: 1.0
 
-> 
-> For a runtime resume ha->dev is still RPM_RESUMING while the callback
-> runs, so the pm_runtime_get_sync() in smp_execute_task_sg() blocks
-> waiting for the resume to complete, but the resume is blocked in
-> sas_drain_work() waiting for that very SMP IO — a deadlock.
-> 
-> Use pm_runtime_get_noresume() to take the reference while
-> SAS_HA_RESUMING is set, and pm_runtime_put() to drop it. The hardware
-> is already initialized by the LLDD before sas_resume_ha() runs.
-> SAS_HA_RESUMING is also set during a system sleep resume, where the
-> usage counter is still held from the sleep prepare and the put is
-> harmless.
-> 
-> Outside of the resume window, convert the pm_runtime_get_sync() call
-> to pm_runtime_resume_and_get() and check the result, so that an SMP IO
-> is not submitted to a host whose runtime resume failed (the return
-> value was previously ignored).
-> 
-> Only hisi_sas enables runtime PM among libsas LLDDs, so other drivers
-> (pm8001, isci, aic94xx, mvsas) are unaffected.
-> 
-> Fixes: 0da7ca4c4fd9 ("scsi: libsas: Resume host while sending SMP I/Os")
-> Signed-off-by: Xingui Yang <yangxingui@huawei.com>
+On Mon, Sep 21, 2026 at 08:57:02AM +0000, Sheetal wrote:
+> The Stream6 Input Threshold control points at stream index 4, which is
+> already used by Stream5. The threshold get and put callbacks derive the
+> lane ID from the register offset, so the duplicate index makes Stream6
+> operate on lane 4 and leaves lane 5 inaccessible from userspace.
+>=20
+> Use stream index 5 for Stream6.
+>=20
+> Fixes: a2df8c2d5b36 ("ASoC: tegra: Add Tegra186 based ASRC driver")
+> Signed-off-by: Sheetal <sheetal@nvidia.com>
 > ---
-> Changes since v2:
-> - Drop the reference with pm_runtime_put() instead of
->    pm_runtime_put_noidle().
-> 
-> Changes since v1:
-> - Use pm_runtime_get_noresume()/put_noidle() during HA resume instead
->    of skipping the PM reference entirely, so an in-flight SMP IO always
->    keeps autosuspend away.
-> - Convert pm_runtime_get_sync() to pm_runtime_resume_and_get() and
->    check the result (pre-existing issue flagged by sashiko).
-> 
->   drivers/scsi/libsas/sas_expander.c | 20 +++++++++++++++++---
->   1 file changed, 17 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/scsi/libsas/sas_expander.c b/drivers/scsi/libsas/sas_expander.c
-> index 811c9eb4fef1..5a8cdd3682fe 100644
-> --- a/drivers/scsi/libsas/sas_expander.c
-> +++ b/drivers/scsi/libsas/sas_expander.c
-> @@ -61,8 +61,22 @@ static int smp_execute_task_sg(struct domain_device *dev,
->   	struct sas_internal *i =
->   		to_sas_internal(dev->port->ha->shost->transportt);
->   	struct sas_ha_struct *ha = dev->port->ha;
-> -
-> -	pm_runtime_get_sync(ha->dev);
-> +	bool ha_resuming = test_bit(SAS_HA_RESUMING, &ha->state);
-> +
-> +	/*
-> +	 * While the host is resuming, ha->dev may be RPM_RESUMING and
-> +	 * the resume blocked in sas_drain_work() waiting for this very
-> +	 * SMP IO, so waiting for the host to resume here would deadlock.
-> +	 * Hold the reference without resuming, the hardware is already
-> +	 * initialized by the LLDD before sas_resume_ha() runs.
-> +	 */
-> +	if (ha_resuming) {
-> +		pm_runtime_get_noresume(ha->dev);
-> +	} else {
-> +		res = pm_runtime_resume_and_get(ha->dev);
-> +		if (res)
-> +			return res;
-> +	}
->   	mutex_lock(&dev->ex_dev.cmd_mutex);
->   	for (retry = 0; retry < 3; retry++) {
->   		if (test_bit(SAS_DEV_GONE, &dev->state)) {
-> @@ -135,7 +149,7 @@ static int smp_execute_task_sg(struct domain_device *dev,
->   		}
->   	}
->   	mutex_unlock(&dev->ex_dev.cmd_mutex);
-> -	pm_runtime_put_sync(ha->dev);
-> +	pm_runtime_put(ha->dev);
->   
->   	BUG_ON(retry == 3 && task != NULL);
->   	sas_free_task(task);
+>  sound/soc/tegra/tegra186_asrc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
+This should be a separate patch since it fixes an existing problem and
+is not related to the rework in subsequent patches. It also shouldn't be
+blocked on any discussion regarding the ABI change.
+
+Reviewed-by: Thierry Reding <treding@nvidia.com>
+
+--bnyufgwgkmpbjrmp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqxFxsACgkQ3SOs138+
+s6FBhxAAwn7+5OArHzxwqtAvb9IGEm680jpBzw++Kd8hHuDox2MQCqMzIZrlutUV
+w1ht9pDZwPfFp+46mnm4HDaVQMlFnG910O/r+2AFn7XLKzyYoc9257nL/C08fmuE
+Qpku/MoJGC+Tdiknfxx9kqTgo1G/A3SM1GK1O7mTZKOhZFVGCsxBrMYBx1AXFNGh
+SbOV3SrihaxIU5mCLvGGTLquDi1AjR+hccTJTLg9V6LlvamOiJAPDVwS7nfSZ2cv
++w9R9nRMDJNQ6UbZyt5szFtfjb9VMdv3KOhy7MoDqw39cA7vW5ZrFSaSaOZuo2Ee
+hzA6ci5OlEE556y7oTYoA7CDm6NdFVu2zcBAlx20yuaPbHaQnpYoOL41mAwhuKKf
+HRGxlVrnB0dndmp1Em94tYBL5j3NGirPoas1zLf+1RQF1ynb1tsZaknwi0LBuxyV
+asnJBnVhgKB6LNB3fy9bu86lmNy6/0PKcCj//IzDHq3tLR4EJzpcH67nMQB/Vpq+
++eigGu6wQXVYs7IAcKWZZ/Y7MKVSnMgY7BP2x2kIjqAevrHVBx63rMgQdte+qUMT
++cZ4O4sNYZy1m9aIqtV7n3GYf39JFYa/z81KZtV/MsQ9tTYLU56oiMgt82tXZAC2
+yb3G+2kt5ASJcCkHGl4+htvxRUxTuYKZfTGtIv3UAvHpNTnS1Jk=
+=ibKJ
+-----END PGP SIGNATURE-----
+
+--bnyufgwgkmpbjrmp--
