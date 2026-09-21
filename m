@@ -1,103 +1,86 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B341C695;
-	Mon, 21 Sep 2026 06:42:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED1371C695
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:43:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789972981; cv=none; b=bYUD54Vw5vcp4s250pthrE2at48cQSa1cgt2BpGFl8kvnaPOvvYp39OaEifRAWo/W4FXJUoZcNR35D+7hn2yz9nFFecGOlTthSCQPN/kRxksTdmuW5QN0biV/SRqTUbTkDNtAQBLQgP3dwB3MoXchbHBbF9ocfIjhKvhDRJqFws=
+	t=1789973025; cv=none; b=BlXLztH/UnhxFNi90bd9koZOKTLKNh47fFT0DGW+R7c/VPyRbwJrHr4OdrdjbSsDdZ1viLiY2TtPlFI1QiKIIenGWB8qU+7oq+ulo6gCN5QFwQq/LmfFxmezMwSIM9KdDW6ZyYkwSTzhZzVMUTPNcSMLICHw5ahGRrD9ckrnwvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789972981; c=relaxed/simple;
-	bh=xheYWZwm84QazUB9TG8AYCFqTost28k3R1q9BvfBgsI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Ef7BAiH/GjyRORZzq2RynOLISsszZjaU+vzry5i2w+qngO3ltExSWsf5/WdsjSYVJW0RITih/8jUmxE1wB5GlV9lBKFI0Ud4ldqNTbgzRk558nqUjHY/BIoor9uN57xcVHYC3Zx+EfRJ6nmnbqMQqj2EbxNMl5ZPxDGZAWe/W1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=H3VTRiYT; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789973025; c=relaxed/simple;
+	bh=or+OWl10I9B/tLMuVHTcmnXXtf2fey3/U/2Nl/9W1YU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=T9Z6dqI11vpR/xPIbmV+qz45IbcNZiaOMPmeCWBIIAW7nsR8reqddgNP+nWkhb/qPcYTogFLuzY8yip8W3oE82DaPLnVtSYQzKdFncAQUJdILQ/mp0gGlwaDemy7whZjALTMqI/YwCPiMrtUnSc0G4MbX4wu2MHGz9GpK/CDLaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Ejl3XGf8; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="H3VTRiYT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=s4n3l4U8YoT7N6BGdjVPFOln+aL9nFcoSNkd532a7Tk=;
-	b=H3VTRiYT1Nj+l1YzvQHyUzAIKYmrhOcyUo8Twe/NHuj189vtJEXbuysHm+aa+s
-	1xOYTBR8CtnJ/u376fzIBKJDnc53QMmBMzzlr1AhTz481S2BW6ajQcijOBqYDWEU
-	6u+jJhCIGneFbtMQZwS5K0IRBjyzhwvB8Fs4QWNAu8SGg=
-Received: from LAPTOP-EGO65D59.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD38j_R0bBqA8JWBw--.19491S2;
-	Mon, 21 Sep 2026 14:42:29 +0800 (CST)
-From: =?UTF-8?q?=E6=9E=97=E6=BF=AC=E5=93=B2?= <m18667909625@163.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Len Brown <len.brown@intel.com>,
-	Pavel Machek <pavel@ucw.cz>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	m18667909625@163.com
-Subject: [PATCH 2/2] PM: hibernate: use kstrtouint to parse resume= device numbers
-Date: Mon, 21 Sep 2026 14:42:21 +0800
-Message-ID: <20260921064221.81459-1-m18667909625@163.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Ejl3XGf8"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 7BD50C8F47E;
+	Mon, 21 Sep 2026 06:44:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 77CA260339;
+	Mon, 21 Sep 2026 06:43:41 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 02BA0103290D5;
+	Mon, 21 Sep 2026 08:43:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789973020; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Tm6Jr0pHkzuql2HODrAWfDwmqdzokVLmqYPn0PTbu2A=;
+	b=Ejl3XGf838+zrMRCwgQ4noetUcbngq0zps8nhVXmpfgno7A3NhERzzo8jS0HFb3eTbdsJ8
+	fO4PEOEGG/4vKoD3IL8pxpBXc2k8tJVQShCU6RFOC2kQGA0npLxZgMtWf2F9By3/Xd1Q2Q
+	xK5KOqmv+Fj26IabFCvr+gXkAjii8rnxCNkms2uiMuRx3mECUULFDX37jrV/SPB0q+HAqV
+	vYQtBlAa66I0/rK3C6LsYLXmVfounFG+QwNVn4ttmSjerLaaBES0MkmZoy5r2Cpw7yu8J4
+	HkvkCV624eZz/gBGLMZad/rbiyrw+JoAeKA6MurlLiXADf+TwlOVTFmDsaQgiw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Date: Mon, 21 Sep 2026 08:43:32 +0200
+Subject: [PATCH v3 01/25] mtd: spi-nor: winbond: W25Q32xW-Q/N: Enhance
+ identification of the chips
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD38j_R0bBqA8JWBw--.19491S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KrWrAr4UJFWfKF1UWF13twb_yoW8WryfpF
-	WDAa98JrW7Aw4UGasruFs2vasIqw4kG3W3GFZ2qw4fAry7trnYqrs0gr1Ygry2qrWrW3Za
-	qF45tws0qrW3GFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piYhF7UUUUU=
-X-CM-SenderInfo: bpryllixzqmlisv6il2tof0z/xtbC-hVwdmqw0dV69gAA3-
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-winbond-master-spi-nor-jw-cleanup-pw-addition-v3-1-38eef3b6a7db@bootlin.com>
+References: <20260921-winbond-master-spi-nor-jw-cleanup-pw-addition-v3-0-38eef3b6a7db@bootlin.com>
+In-Reply-To: <20260921-winbond-master-spi-nor-jw-cleanup-pw-addition-v3-0-38eef3b6a7db@bootlin.com>
+To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-mtd@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-simple_strtoul() is deprecated. Replace the base-16 parse with
-kstrtouint(); the explicit trailing-character check the old code
-needed is provided by kstrtouint() itself. As a side effect, values
-wider than 32 bits are now rejected instead of being silently
-truncated before the dev_t conversion.
+The EF 60 16 ID has been reused for:
+- DW-P/G (no SFDP support, but CMP and quad capable)
+- FW-G/Q (SFDP, CMP and quad capable)
+- JW-Q/N (SFDP, CMP and quad capable)
+Add a comment to flag these chips.
 
-Signed-off-by: 林濬哲 <m18667909625@163.com>
-Assisted-by: AI coding assistant (disclosed per kernel AI guidelines)
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- kernel/power/hibernate.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/mtd/spi-nor/winbond.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
-index d2479c69d71a..74f2d20518cc 100644
---- a/kernel/power/hibernate.c
-+++ b/kernel/power/hibernate.c
-@@ -14,6 +14,7 @@
- #include <crypto/acompress.h>
- #include <linux/blkdev.h>
- #include <linux/export.h>
-+#include <linux/kstrtox.h>
- #include <linux/suspend.h>
- #include <linux/reboot.h>
- #include <linux/string.h>
-@@ -1278,7 +1279,7 @@ static ssize_t resume_store(struct kobject *kobj, struct kobj_attribute *attr,
- 	error = lookup_bdev(name, &dev);
- 	if (error) {
- 		unsigned maj, min, offset;
--		char *p, dummy;
-+		char dummy;
- 
- 		error = 0;
- 		if (sscanf(name, "%u:%u%c", &maj, &min, &dummy) == 2 ||
-@@ -1288,9 +1289,12 @@ static ssize_t resume_store(struct kobject *kobj, struct kobj_attribute *attr,
- 			if (maj != MAJOR(dev) || min != MINOR(dev))
- 				error = -EINVAL;
- 		} else {
--			dev = new_decode_dev(simple_strtoul(name, &p, 16));
--			if (*p)
-+			unsigned int val;
-+
-+			if (kstrtouint(name, 16, &val))
- 				error = -EINVAL;
-+			else
-+				dev = new_decode_dev(val);
- 		}
- 	}
- 	kfree(name);
+diff --git a/drivers/mtd/spi-nor/winbond.c b/drivers/mtd/spi-nor/winbond.c
+index f6321c1dc7dc..55c55e41ec92 100644
+--- a/drivers/mtd/spi-nor/winbond.c
++++ b/drivers/mtd/spi-nor/winbond.c
+@@ -322,6 +322,7 @@ static const struct flash_info winbond_nor_parts[] = {
+ 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB,
+ 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
+ 	}, {
++		/* W25Q32DW-P/G, W25Q32FW-G/Q, W25Q32JW-Q/N */
+ 		.id = SNOR_ID(0xef, 0x60, 0x16),
+ 		.name = "w25q32dw",
+ 		.size = SZ_4M,
+
 -- 
-2.53.0
+2.55.0
 
