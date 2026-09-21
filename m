@@ -1,283 +1,116 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239D219E7F7
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:15:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A40118DF80
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:18:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789956934; cv=none; b=YRBhKSajL0SmyWXg/Cvp8kJLbEdmNLDJ2AXG3lcQ2Rkh0sTh/LdMsROeoA6CidwirNw+cT6/xZ7uT+ANl4cko8Tb3vCzTm490EnPJ9kQtN2VXasXDkVjjpqLgsTIPIKtFOlZfRJoJSRIwph6TlCemV1e7G5r/2PQaOrd0fh2llE=
+	t=1789957116; cv=none; b=OuT3OGJbBy4FpZK9mShJKqz9rhOFpUxTo5nZ0NskCaUlKRyDBD0FMHjKGOdvGYLItl3IqImjAxhdR7tg08TwL5EOON9r5EZlTC0y1flYPAQUR8FB+apXxqWNjB0RXEyLIBQ7ELmXfbhYTBeqFZg+FnmIJ3+/BHroeDCTTTyzE1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789956934; c=relaxed/simple;
-	bh=zeFPQWhH42Ky6P92MlkSlC7CGU+soJGaRARkvqRViQk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oMLSnlqgk23addRxvFtTbV5S5VdL7e25U9NwMfVZOxnVLoboFN1tM40APt2MK1cYFsJKXS6gt8TgkrjNXG1vYthPOBFg0Cs5HXzreCG5sOx4ygxfUzCd0k6UdhgxuhK+i5nkPsPRQxVq3EGRnzPsx9e9JVzQsX7AjFwugr0WTKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qi4lXOcl; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789957116; c=relaxed/simple;
+	bh=kB6y9EOcBHzorCVkirXWvKe4pTZ7To89vLC0KK45g1E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V7+QlpS2tMaM7ra5T1XqtBPQGkZAwIg17dIMHqG4Di+QetF2YFDcNQ6zruF5GPuYyzfzNrsc4WCzxzzCj3pZboniUBfR8WreexmhOKaHJfl2E/GDlV6+TGpsPY5di7CuzEigzA0LfUXnY5OA0z/t3XjTWu21D2JFrJmayiiznXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FOoJGRDr; arc=none smtp.client-ip=209.85.219.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qi4lXOcl"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d93ff61046so24322285ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:15:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FOoJGRDr"
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-90e9ad1a373so27299716d6.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:18:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789956932; x=1790561732; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uoEj2FUnGrlhFVnXCqAOwFHzmNPykWmrtcimpYb3s9E=;
-        b=Qi4lXOclxRdKKX8zx6MoFTmyU3jG6v+RBBgNHLxSWsAiaH+2ZCO7ySyJ02UUmjZQtX
-         qWNCTZu7fRPP4rBrQHUcKQ42wfgYDjPGEI4aqzWZWa76nQMYkdz5Z4mLTorvBVkMDOoO
-         efZqd24MhDy7AC6HuFKHwZAqgxB0yfQUmunH3gkTiyhd64gufww+pAFH4CoxIbQTDctP
-         nVtHpLs2fNhv5jEG59YPoC5H2IC0ZZCPat/HsMeW039TvIbVHZNY08gsL/aGawc773CN
-         i51UgJr0LkKH6vZOXqCVk3LtvuJWX6uIktgv+hme/S9WNL5ib8LilAbnog+VJfecSTGe
-         wkVw==
+        d=gmail.com; s=20251104; t=1789957114; x=1790561914; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cgFIK8N+wIj6Y6BlLHg+qsRFyIfDWQy8KPcErUZxRVY=;
+        b=FOoJGRDrL5uyGoEDYf9w5UF8OY9RuhDZ7pFoyc6+o4JxA4kmUrVuuTTzHGq6YKWgVk
+         Vrkn/oKvhwlnQ3Mw4pMx/7LmbB9lBsI8YeNv5nyBVhh9P/kA8hfv/Vg4xLttozY11/nK
+         Hwe+6D1Hcj48GW9cGyGUCMnvW62ZLX4vn2lgWl/qyp3T6jIK/keA10MUvgLA17uvyQix
+         lkqnuBa7aG4NPFmLQBcSrCn+1wt2Wi0sBvtFvYD2nH1mBn+4XAQTulxc0Jmoi+XtD9ha
+         ic8plIvcr1WPhhn0h+pJfj3UJJrGI3pyao2+n1RbnN+51ubcvEgo/E7hYpbbDXyWWgc5
+         p3VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789956932; x=1790561732;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uoEj2FUnGrlhFVnXCqAOwFHzmNPykWmrtcimpYb3s9E=;
-        b=SZdaF6AKqE+1Mh2ebajV5nnlEofwpVx1kXxsrDUBQjncseiQCv7I4/nYjxrGIufMAH
-         22pA1z66Q3j3gK6mflGdBc4Ds8arNOcMwOVZxbO2GCSfyK3vvW1+nDMWshIpQ5sS4hU4
-         PnIN6w1amoizW01V7Rx7bhQmla/5hSmdWCSyUdZ/yR0BvZA9yLXBFPGDc2MII2mi6s7L
-         R61oYvcqTpTpf/7B0jiF9N27GlW1LkgKzrtZX/TXldCDy9WM8acvDjdambipNrg/yBML
-         gRp9BBQDQLhSVQNDS/yClrDuPhRbhnTm0/wAHBHZdWmh29sHAkhw0j+yT1R1hJaeNjm3
-         GqQg==
-X-Forwarded-Encrypted: i=1; AKwUvBzeswAC/cFdFrQbyyOP8fz24pq4uek85mqk00cfp2tM8coIB6eo69kf08hRoRvrbIKzIiHaYRf6EIW8FUw=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6SzGaV2R1DSO7kNxXl1G5MUbqG+JXdVdUKOaB3SSGQo/J4TZ7
-	MeQWiojOxZ2g2KDgr/BofudWkXWdbi6atueqJTkNMYMtyMpsUfcYODLntEWPT0CP4j0=
-X-Gm-Gg: AYBFou31lE1U9uF5rl8m7J1EsECNYlZVd9RrlsI3W0O5tvh9hEuO4KSlgm4jsb9NiaX
-	jflKiF6SmfcxAFP87bxiHj2hi01S3qyd0AKLUNOcFdx8hB8ITIGg0+0NCo0EwqUkPpR2XZwrLJ5
-	6ev/y8sJQMSMnvxph2Cb3QA16km6V7JCdpV+kacxAxP+NJ1wMEapPJaQqoftPT7AltWip0GEEVI
-	CfKL4u2jTXA3/uNcMnidG3lEzZx4bOt4ITzhvRR2W12VWhhHi3ZndjZUFvdYLDP5EMDFOoB5hxJ
-	4fqnJmvV+uZrFTBQhVUnoi/00UVCyhHA82ZVHxemXbY7yPNzOMvxEB9WcfujoW5e758ko9ce6JD
-	JzWCeis2ww6WVMoUlwlku5CJ/5reCQCWWp0HPTIyeN5JucBLMX8cERvEycXlB9IX/8TTaEp0AD8
-	jJEeqIfVMjCfEq82BiDDbZPHppC+tPeD8i4zOPOCykAMwqGSA+puis+XnJl7KnveLaCBsvAMTyY
-	UssaGkbAy76Mcd0wBpdMMYNTRoSs5LBiWVoxKlFxEelvhRwb3pqUDmS1KOcsxTIySYO9cgjMamg
-	JSISyFuFutdOWKaXEsOO
-X-Received: by 2002:a17:902:c941:b0:2d9:3bee:4f32 with SMTP id d9443c01a7336-2ddb1b9a350mr148208115ad.20.1789956932311;
-        Sun, 20 Sep 2026 19:15:32 -0700 (PDT)
-Received: from Gracelands.reavernet (180-150-12-158.b4960c.syd.static.aussiebb.net. [180.150.12.158])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc179ddbdsm25696905ad.35.2026.09.20.19.15.29
+        d=1e100.net; s=20260707; t=1789957114; x=1790561914;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cgFIK8N+wIj6Y6BlLHg+qsRFyIfDWQy8KPcErUZxRVY=;
+        b=XCVGN7gLmWmcUujPlL3ao0KHbjPxoy5QB6JEiusoYZcsLOMlTe0AYaZPawLYy/Kfml
+         eFCNsifNjkNcXLc8QafGF+RqlGRYZkJfIbmo+Vstm7AkLXVUsBNnfMVZOSkJIuQwA2hB
+         j1NBiTdJM94zQR46xIvvu9sgNOEpJvMp4T8c53rviEtV5trF552IXww6fUQv4BTgLO4p
+         kLtwpVSFMCRvp6Vxgd9ygg5uhrEJe2IdvN4UZK2zWwzJBilVBRP4SXCad2UHpQ96+o7z
+         VpxISsWrEAyLMXik2JgHyhQc3WryzwjBUte0iTOGEyuUR8um8my8EIYESY+lz8uecc02
+         MRyg==
+X-Forwarded-Encrypted: i=1; AKwUvBxsqYlbfW1QyJhBKZJewhSfvEeKMRvCy5S0foup4rWsfP4w0Xtn/Miq+38PnmG8ZFuIrduYNUN0vLBpYJo=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+WA2iSY5RQ6cGsy60l8u+tA8cHEo4nn958WrksmdfAA0GgI9v
+	4Xj0IH0Jtk9VZaqoAyswV4aANAzX+wC9eClye4yy13L3ibAqbGhUkLn8MHNv66XOTg==
+X-Gm-Gg: AYBFou07XzMho3Bxn8KyWGZ+Qyvz83PJdk99ByOCs0eUbMPx684twatPxzIDAn/lnG6
+	jOQdPGmP8HbAQPPoIO4ElQXE93+Ngn6SyeEdCRhwh054h9t9uLlSzc4BlpCbzvNn3ElyOhM6T+n
+	OIPBraU7NbgWnyugr8WjjyXq3nwH06lO7fUknomfen02H1XiIlEWjLXyHgq96C2aHNZdUSycuDy
+	QKOgNN6YgfhOEhaYMCYdL+TsF8H7J2IBTV1rDcOwnymhukyOzCzQWNj5IUIIC6SFW8Yar4Nw5Qi
+	j+Wax4LfgWKMr9SayjAWSwPEwRy5BZJcHJdHF8huE2+T50CpQrcUfZjtI2tuGJMUCa0MEiqfJYH
+	nvS1QccMhHEBFXV/TWU4RVFMOO7+5HT/nwgI8xTMGE8S4krtAlmknT218ltPoLS0GsSVGi13Ofw
+	EUKEsrV2RKf7zw3KOg6Cov0GIkUxlIWq7fQAx8t/4uWGdAmWe0E8JBS7cCMXrt4de1wzUkeo9OY
+	lUntg/p0G3ecpR3B1Rf8IESLBqI8KA02q+3RfmSaiHSlvvrO4Xl1evBeZiXyBYhoNH2iXTWgyW9
+	b4hW4exOvsTMW0bzB64cwzDdKUx+3L4iN9zqIlo=
+X-Received: by 2002:ad4:5949:0:b0:912:ec8:f82e with SMTP id 6a1803df08f44-912a8005f65mr88008686d6.17.1789957113572;
+        Sun, 20 Sep 2026 19:18:33 -0700 (PDT)
+Received: from localhost.localdomain (ool-18ba9fde.dyn.optonline.net. [24.186.159.222])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91260aa15cdsm56221876d6.41.2026.09.20.19.18.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 19:15:31 -0700 (PDT)
-From: Stephen Bancroft <stevereaver@gmail.com>
-To: linux-mtd@lists.infradead.org
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
+        Sun, 20 Sep 2026 19:18:33 -0700 (PDT)
+From: Justin Vargas <justinyvar@gmail.com>
+To: ilpo.jarvinen@linux.intel.com,
+	hansg@kernel.org,
+	jlee@suse.com,
+	corentin.chary@gmail.com,
+	luke@ljones.dev,
+	denis.benato@linux.dev
+Cc: W_Armin@gmx.de,
+	krishna.chomal108@gmail.com,
+	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Stephen Bancroft <stevereaver@gmail.com>
-Subject: [PATCH v3] mtd: maps: add INT0800 firmware-flash map driver
-Date: Mon, 21 Sep 2026 12:14:47 +1000
-Message-ID: <20260921021459.283023-1-stevereaver@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <V2-MESSAGE-ID>
-References: <V2-MESSAGE-ID>
+	Justin Vargas <justinyvar@gmail.com>
+Subject: [PATCH v2 0/3] platform/x86: Remove unused platform_profile_support variables
+Date: Sun, 20 Sep 2026 22:17:17 -0400
+Message-ID: <20260921021720.5976-1-justinyvar@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add a read-only mapping driver that binds the ACPI INT0800 "Intel
-82802 firmware hub" device and exposes the system firmware flash as an
-MTD ROM device.
+acer-wmi, asus-wmi and hp-wmi each set a platform_profile_support flag
+once their platform profile handler is registered, but none of them ever
+reads it. Remove all three, one patch per driver.
 
-On x86 machines the boot flash is decoded into the physical address
-space below 4 GB, so a plain ioremap() of the declared resource window
-is sufficient for reads - no SPI or LPC controller access is needed.
-The window may be larger than the real flash; undecoded holes read as
-0xff.
+Compile tested only, as these are pure dead-code removals.
 
-This gives userspace a clean, safe way to read firmware flash contents
-without flashrom or relaxed /dev/mem access - for firmware analysis,
-and for extracting option ROMs stored inside EFI firmware volumes
-(e.g. the NVIDIA VBIOS on EFI-booted Apple machines, which can then be
-fed to nouveau via nouveau.config=NvBios=). There is deliberately no
-write or erase support.
+v2:
+ - Extend to asus-wmi and hp-wmi, one patch per driver, as requested
+   by Ilpo.
+ - Rebase onto review-ilpo-next.
+v1: https://lore.kernel.org/r/20260902193039.21725-1-justinyvar@gmail.com
 
-Tested on a MacBookPro4,1 (ICH8M): /dev/mtd0 reads are byte-identical
-to a flashrom dump of the 2 MiB SST25VF016B, except for live NVRAM
-variable-store regions.
+These patches were prepared with AI assistance (see the Assisted-by
+trailers). I compile tested them and take responsibility for them as
+signed off.
 
-Signed-off-by: Stephen Bancroft <stevereaver@gmail.com>
----
-Changes in v3:
-- MODULE_AUTHOR: use full author identity (per Miquèl Raynal's review)
+Justin Vargas (3):
+  platform/x86: acer-wmi: Remove unused platform_profile_support
+    variable
+  platform/x86: asus-wmi: Remove unused platform_profile_support member
+  platform/x86: hp-wmi: Remove unused platform_profile_support variable
 
-Changes in v2:
-- Per-device state via devm_kzalloc instead of globals (fixes shared
-  state corruption with multiple INT0800 devices)
-- Clean up map probe on mtd_device_register() failure (fixes
-  memory/mapping leak)
-- Use %pa for resource_size_t in dev_info (fixes format string on
-  32-bit)
-- Add missing Signed-off-by
+ drivers/platform/x86/acer-wmi.c  | 3 ---
+ drivers/platform/x86/asus-wmi.c  | 2 --
+ drivers/platform/x86/hp/hp-wmi.c | 2 --
+ 3 files changed, 7 deletions(-)
 
- drivers/mtd/maps/Kconfig   |  17 ++++++
- drivers/mtd/maps/Makefile  |   1 +
- drivers/mtd/maps/int0800.c | 108 +++++++++++++++++++++++++++++++++++++
- 3 files changed, 126 insertions(+)
- create mode 100644 drivers/mtd/maps/int0800.c
 
-diff --git a/drivers/mtd/maps/Kconfig b/drivers/mtd/maps/Kconfig
-index 1bb3dba2631d..649fd145e15d 100644
---- a/drivers/mtd/maps/Kconfig
-+++ b/drivers/mtd/maps/Kconfig
-@@ -161,6 +161,23 @@ config MTD_AMD76XROM
- 
- 	  BE VERY CAREFUL.
- 
-+config MTD_INT0800
-+	tristate "Read-only BIOS/firmware flash via ACPI INT0800"
-+	depends on X86 && ACPI
-+	select MTD_ROM
-+	help
-+	  Support for reading the system firmware (BIOS/EFI) flash chip
-+	  through the memory window described by the ACPI INT0800
-+	  "82802 firmware hub" device, present on most x86 machines.
-+
-+	  The flash is exposed read-only via the ROM chip driver, e.g.
-+	  for firmware analysis or extracting option ROMs (such as
-+	  video BIOS images embedded in EFI firmware volumes). There is
-+	  no write or erase support.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called int0800.
-+
- config MTD_ICHXROM
- 	tristate "BIOS flash chip on Intel Controller Hub 2/3/4/5"
- 	depends on X86 && MTD_JEDECPROBE
-diff --git a/drivers/mtd/maps/Makefile b/drivers/mtd/maps/Makefile
-index 01745eca1f73..2f1a7375e13c 100644
---- a/drivers/mtd/maps/Makefile
-+++ b/drivers/mtd/maps/Makefile
-@@ -14,6 +14,7 @@ obj-$(CONFIG_MTD_L440GX)	+= l440gx.o
- obj-$(CONFIG_MTD_AMD76XROM)	+= amd76xrom.o
- obj-$(CONFIG_MTD_ESB2ROM)	+= esb2rom.o
- obj-$(CONFIG_MTD_ICHXROM)	+= ichxrom.o
-+obj-$(CONFIG_MTD_INT0800)	+= int0800.o
- obj-$(CONFIG_MTD_CK804XROM)	+= ck804xrom.o
- obj-$(CONFIG_MTD_TSUNAMI)	+= tsunami_flash.o
- obj-$(CONFIG_MTD_PXA2XX)	+= pxa2xx-flash.o
-diff --git a/drivers/mtd/maps/int0800.c b/drivers/mtd/maps/int0800.c
-new file mode 100644
-index 000000000000..0188d58b168d
---- /dev/null
-+++ b/drivers/mtd/maps/int0800.c
-@@ -0,0 +1,108 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Read-only MTD access to the system firmware flash behind the ACPI
-+ * INT0800 "Intel 82802 firmware hub" device.
-+ *
-+ * On x86 systems the boot flash is decoded into the physical address
-+ * space below 4 GB, so a plain ioremap() is sufficient to read it -
-+ * no SPI or LPC controller access is required.  The declared _CRS
-+ * window may be larger than the real flash (the whole top-16MiB
-+ * decode range is commonly claimed); undecoded holes read as 0xff.
-+ *
-+ * The device is exposed read-only via the ROM chip driver; there is
-+ * deliberately no write or erase support.
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/acpi.h>
-+#include <linux/io.h>
-+#include <linux/mtd/mtd.h>
-+#include <linux/mtd/map.h>
-+#include <linux/platform_device.h>
-+#include <linux/slab.h>
-+
-+/* top-of-4GB firmware decode, used when _CRS reports no window */
-+#define INT0800_DEFAULT_PHYS	0xffe00000UL
-+#define INT0800_DEFAULT_SIZE	SZ_2M
-+
-+struct int0800 {
-+	struct map_info		map;
-+	struct mtd_info		*mtd;
-+};
-+
-+static int int0800_probe(struct platform_device *pdev)
-+{
-+	struct resource *res;
-+	struct int0800 *fw;
-+	resource_size_t end;
-+	int ret;
-+
-+	fw = devm_kzalloc(&pdev->dev, sizeof(*fw), GFP_KERNEL);
-+	if (!fw)
-+		return -ENOMEM;
-+
-+	fw->map.name = dev_name(&pdev->dev);
-+	fw->map.bankwidth = 1;
-+
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	if (res) {
-+		fw->map.phys = res->start;
-+		fw->map.size = resource_size(res);
-+	} else {
-+		fw->map.phys = INT0800_DEFAULT_PHYS;
-+		fw->map.size = INT0800_DEFAULT_SIZE;
-+	}
-+
-+	/*
-+	 * Plain ioremap on purpose: the window is already claimed by the
-+	 * ACPI/pnp resource reservation, so devm_ioremap_resource() would
-+	 * fail with -EBUSY.
-+	 */
-+	fw->map.virt = devm_ioremap(&pdev->dev, fw->map.phys, fw->map.size);
-+	if (!fw->map.virt)
-+		return -ENOMEM;
-+
-+	simple_map_init(&fw->map);
-+	fw->mtd = do_map_probe("map_rom", &fw->map);
-+	if (!fw->mtd)
-+		return -ENODEV;
-+	fw->mtd->dev.parent = &pdev->dev;
-+	platform_set_drvdata(pdev, fw);
-+
-+	end = fw->map.phys + fw->map.size - 1;
-+	dev_info(&pdev->dev, "mapped firmware window %pa-%pa\n",
-+		 &fw->map.phys, &end);
-+
-+	ret = mtd_device_register(fw->mtd, NULL, 0);
-+	if (ret)
-+		map_destroy(fw->mtd);
-+	return ret;
-+}
-+
-+static void int0800_remove(struct platform_device *pdev)
-+{
-+	struct int0800 *fw = platform_get_drvdata(pdev);
-+
-+	mtd_device_unregister(fw->mtd);
-+	map_destroy(fw->mtd);
-+}
-+
-+static const struct acpi_device_id int0800_ids[] = {
-+	{ "INT0800", 0 },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(acpi, int0800_ids);
-+
-+static struct platform_driver int0800_driver = {
-+	.probe	= int0800_probe,
-+	.remove	= int0800_remove,
-+	.driver	= {
-+		.name		= "int0800",
-+		.acpi_match_table = int0800_ids,
-+	},
-+};
-+module_platform_driver(int0800_driver);
-+
-+MODULE_AUTHOR("Stephen Bancroft <stevereaver@gmail.com>");
-+MODULE_DESCRIPTION("Read-only MTD map over the INT0800 firmware flash window");
-+MODULE_LICENSE("GPL");
+base-commit: f475845eaf3d749114a63270bf2efea459e14dd2
 -- 
-2.43.0
+2.47.3
 
