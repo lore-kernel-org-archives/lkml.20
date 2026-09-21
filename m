@@ -1,70 +1,103 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B75738B7DD
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:47:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8412466B03;
+	Mon, 21 Sep 2026 20:47:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790023627; cv=none; b=GLGJ+sATfsk7AErtUb3YInfLzjDWTyTO2eyM3gOfs4VzvrTEw5dlEm32rYTGoLLfUf1o7G+OsyS5yNoR1aKAvVuyIV0Sb63NTZXcGtZCITRk7NsbJSPnIHh7tsyeTfqYcK/6sU8ojZZnarTmgwrhnUAccylymWv7E3qXvjiF6wg=
+	t=1790023629; cv=none; b=JAKqDYlJ1UdB1Jvl6mz+wnDnnKXA6Lp3mrcyYGPpeJobUZG1VoFSvhb9TBZAqR/oaKChcFy9+aEeBfRZ0qadWlXS0aujN88nsiyNg2XgkEoBPOrNMyrQa09oLfDUK6MS+HJmJSZh1YmHlXOp30znJYxTFH6+O3FqGTIaUXVn+6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790023627; c=relaxed/simple;
-	bh=dPFt1uyiwaF4RND+NxKp9/9IOXEzMHtdmcpyf6hVMMQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qHT08WwWIiVHHsFKf3qVohz/w7XzIdHMGT4xCafcIzYZj6F8Rrb8L9gJbdawdhjz0WOcMjGFlzUtkpVEVMaRKNdVuaJkViUAIu7qwCYCqfF7wh/PLVmdY3lQ1GwI0oYJ97mHy1mEt7Jbf52XcPLsrBA6KyhIQBDpihjnPM1ID/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=gt2/U1E4; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790023629; c=relaxed/simple;
+	bh=ilpyVqJgSU3HEse/418iMePsxtaa4i5XQ3pcDEDgqMA=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iq9H1l1Hnm/UXmVqcUZwES7W1fGyNaE7X0OD5aViz6/UXKKx34tU2JJUbbKh7QRjHBQrHxeVq2wSgli56vufR5oqSAcljV2V28zCOsDK7rERunnwNX4c9uySwpSYDpge/ud+BsMD/R6l1FvQhL056GVPsAHLBgVZY5N3ysJv63c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A9MyW6Cl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="gt2/U1E4"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id CBE3D4E40772
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:47:02 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8B40E5FFB2;
-	Mon, 21 Sep 2026 20:47:02 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4EEDA10329207;
-	Mon, 21 Sep 2026 22:46:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790023618; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=pqEsQzHfIMMK9wMxPMCOeE8LGX1/NFmL9DTS5Jgu/vM=;
-	b=gt2/U1E4qkrptCXy1CafTtgPtwyUZMteSUBWpOnzY/DovZu4E4xP6dC1585WCGQN8QeBFJ
-	rOnAiyAXvGPUKWTdrSP6gMZAuxdwZsyAS7vNorZap4chhwLfda1rkffEz0AZClgf+yGcwN
-	WDrN3v2AESmEuMequxxVq8uOcxfpvRrz9CTmEsXAebXrlLy63EB+HhQBGVdpeGrB9UY+6B
-	LISQG3K5NDFMgtgwE0SEmo6LhfL8qQFxNRSGKvJLvpI+bQqkauFTrxUEdogWULWnHMTR2z
-	EEnB5YZP/fiHcqxnLffRQhNtZhpOog5iQuSYilGOeEKXu3At8vOnoppDFiqZMQ==
-Date: Mon, 21 Sep 2026 22:46:54 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] rtc: spear: initialize IRQ state before requesting alarm
- IRQ
-Message-ID: <179002360735.255596.9129646206960462050.b4-ty@b4>
-References: <20260902080318.3498434-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A9MyW6Cl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32DC61F000FF;
+	Mon, 21 Sep 2026 20:47:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790023627;
+	bh=Ko4Gf+zSQOcJcphHQgMnnkgQDY5pgWY7p9IyRHfB4/0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=A9MyW6ClUIwiasLziBkZ+OyuPfsk9bbBKG4b+RgpCY+IyOnpO8MN9pQI9jbT3lytw
+	 h63Di1QbjriRdp6mSZj/zicNtlh09KHpt7vjsInlasLwulIbpM33IxoZdPMWhX/3hV
+	 ahobY/sPbiSbdW7LhjwQcfmWMJtY9/4PbKHaYV64OBYlNl1N2J2Vq1g0t70OFOS0o8
+	 t8OtHVn2cEAqiAFqdG9iCKA2gvp6FljiF3aihnn+xoxlgp9DyufOoS/ilxE5gbkffa
+	 wbx/ZRhHxSMwIZ6X1yGbEsQpUZ1WD/NHob5Yui+WYy05RORYqh21C7ETJIHPJBQ89m
+	 1KwfWpnmVP2vw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x8kun-0000000Bj0s-04YP;
+	Mon, 21 Sep 2026 20:47:05 +0000
+Date: Mon, 21 Sep 2026 21:47:04 +0100
+Message-ID: <86y0cu49iv.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Georgi Djakov <djakov@kernel.org>, linux-kernel@vger.kernel.org,
+  linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Cc:	Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Mostafa Saleh <smostafa@google.com>,
+	Thorsten Leemhuis <regressions@leemhuis.info>
+Subject: Re: [PATCH] Revert "interconnect: qcom: x1e80100: enable QoS configuration"
+In-Reply-To: <20260915123703.3228329-1-maz@kernel.org>
+References: <20260915123703.3228329-1-maz@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902080318.3498434-1-runyu.xiao@seu.edu.cn>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: djakov@kernel.org, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org, raviteja.laggyshetty@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com, abelvesa@kernel.org, andersson@kernel.org, smostafa@google.com, regressions@leemhuis.info
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Wed, 02 Sep 2026 16:03:18 +0800, Runyu Xiao wrote:
-> devm_request_irq() enables the interrupt before it returns, so the handler
-> may run while probe is still initializing the device. Initialize the MMIO
-> address and spinlock before requesting the alarm IRQ.
+On Tue, 15 Sep 2026 13:37:03 +0100,
+Marc Zyngier <maz@kernel.org> wrote:
+> 
+> This reverts commit 5a8b2cc36e796d595c9d97eab23c2be22805cc1c.
+> 
+> Since the introduction of this QoS change, X1 machines based on the
+> Purwa SoC (such as the Lenovo Mini X) take a hard reset at boot time.
+> 
+> Other machines based on Hamoa (such as the X1E001DE Snapdragon Devkit)
+> end-up with a similar hard reset while under load, most likely due to
+> the PCIe ports being starved of traffic.
+> 
+> Revert the whole thing until someone figures out what magic parameters
+> allow QoS to work in a sensible manner, as a usable machine is somehow
+> preferable to one that crashes efficiently.
+> 
+> Link: https://lore.kernel.org/all/apgeBNSiP01YfNcs@google.com
+> Link: https://lore.kernel.org/all/86ld9d4h4n.wl-maz@kernel.org
+> Signed-off-by: Marc Zyngier <maz@kernel.org>
+> Cc: Georgi Djakov <djakov@kernel.org>
+> Cc: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+> Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Cc: Abel Vesa <abelvesa@kernel.org>
+> Cc: Bjorn Andersson <andersson@kernel.org>
+> Cc: Mostafa Saleh <smostafa@google.com>
+> Cc: Thorsten Leemhuis <regressions@leemhuis.info>
+> ---
+>  drivers/interconnect/qcom/x1e80100.c | 485 ---------------------------
+>  1 file changed, 485 deletions(-)
 
-Applied, thanks!
+Any update on applying this? These machines have been broken for the
+past 4 release candidates, and it'd be great to get them back to a
+working state.
 
-[1/1] rtc: spear: initialize IRQ state before requesting alarm IRQ
-      https://git.kernel.org/abelloni/c/055ef5ce9f67
+Thanks,
 
-Best regards,
+	M.
 
 -- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Without deviation from the norm, progress is not possible.
