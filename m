@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B49350A05;
-	Mon, 21 Sep 2026 05:16:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6990934F24E;
+	Mon, 21 Sep 2026 05:16:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789967767; cv=none; b=Y72NyEIKbUnngUtcLckIxDXGYSGHC7d6/T6Kdfl2fo6YqFYPMwsNpST2k048pCvC4JYq8wDxZcdRkMAw8kuj/mFvQ/8S/kEe3VOszrkvVsahh9SCQxYMJw5L8Vbp2YpZqENvEbkvCDz8BYZkCNLcT7lPTMkDDhrwmOBWrUCZKUs=
+	t=1789967768; cv=none; b=W/4ps9zRg+b2lx3eCnT6Ns2eHJm11vFZ9E1NkbHGxvNfk9Xqu6wjOH/voUCBkY302n2UE/IaC7ByeX49ZFyZvZVTvnrpNg1HmSS8a/Gek0xV2O7mIkzA5lTXTOSo4GbEyW87G2W+50B4HVJIxLUK2aiGLp2DGRmDzWeWOxLKSbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789967767; c=relaxed/simple;
-	bh=dwR3M5J35wTBrGyhCwiRv0p021dVC+yo5FnYeR/w+E8=;
+	s=arc-20240116; t=1789967768; c=relaxed/simple;
+	bh=vqZeM33mhFWvjBrHHGcT7w+sbnduuHJ6FS6RuzD3N4Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UdEwPbYTT9CEX8oJVSuijzfQIA2vCx8m7FpIO/3KpsUq7SlPa8l5f1ldfBO+LQ+oeTXx7NIHpHYOQEo/tIJGh+msAzH7CEc4RlBz1zdOCzFbwMnSbkHMuGwescFkfJlGWgrMioLTv/aIFC21qLQnNu2oiLGF5MvsUJsgxheatmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VgTXIipP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nU/7iwiByOUg3x5+LFa0mFbWgT6jPPguyfUYi3zYSFODP8uDc6NHKuZZe+ezIj3xxrQ9/tdC0XHzNNIefycDyXXGFtflvS2NyHXHGy/FF8TEszjAndk8WRt4UH9F00HR2ry7zsn7KYa+tNTELqTo86NNkowWeGZINTrgF0krkvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X48SLngo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VgTXIipP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F3831F00898;
-	Mon, 21 Sep 2026 05:16:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X48SLngo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B26FB1F000FF;
+	Mon, 21 Sep 2026 05:16:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789967764;
-	bh=l2e5aS3P16JVyDKjq90b4GgBp+uz5p5ORC8v/uhLgc0=;
+	s=k20260515; t=1789967766;
+	bh=xrbxpAIudFXLQj0+9acngXmOgr6mUBsVSCepUOvq0KU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VgTXIipPBuyIzUxt4YB8QdAuFiMZVdDBHQqS5I37l6gCAoBuz1sYrIRv9mp5a7CFs
-	 7BSknCugDixGBc6ncSypV6r55fcR08MRcNq0/JG7Tf9o87OFQSOnfgCSl8XwL4feYq
-	 flSvX5ZIwGYsZOR9TttT+Ypqy2Mjop5+r5DDgLn/2d2rb5mYwBuLWyb9axBu1MpxG1
-	 y7hhhepchWWxXY9R6KTd+/Lmt+x6pD+IqlYsm0+NH4HHBSYcxJCw2vj0p6PqAt+zWi
-	 lVRFy2c97BPGP672gD4dLZnkvAnfSbhdXgBdyGZJvjmRaPKM4TvP7217WSDga32xX5
-	 YO/Sv2wAj1xvA==
+	b=X48SLngoUJu+xvQlChDPm/opx1y8tBFRk2E8KAGZVoWao1w0+eZvYd/EhB5W2FUxN
+	 pFtHV/Z2PRjWXxQ03LIpqaRJVOpJ9M5hmnemuZyob5jOBmQNKuJY+8lMbfS5LsHATL
+	 JdhgbSZXOa6i4Td8mM3Nz2V0rmeCuMaDhmdEJBRcM9r5DblbFXiw734yuD1fIF7V6a
+	 aQFkPvv65XWZW4jbHYuPMV5xMB1I/CpVUZznO0Ywc2L7PewYrU4ZvqdO0jRKJkGh6a
+	 MMi0/5kbZzSV7Z3AeE2uT7Z2y5b0IzOFBA8rrs0fGUlV3bIWQutYqE72sunSTOXKqb
+	 EK3EWhWT517Yw==
 From: Eric Biggers <ebiggers@kernel.org>
 To: linux-crypto@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -35,9 +35,9 @@ Cc: linux-kernel@vger.kernel.org,
 	x86@kernel.org,
 	linux-riscv@lists.infradead.org,
 	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH 03/20] lib/crypto: x86/aes: Clean up aes-aesni.S in preparation for AES modes
-Date: Sun, 20 Sep 2026 22:08:49 -0700
-Message-ID: <20260921050910.296144-4-ebiggers@kernel.org>
+Subject: [PATCH 07/20] lib/crypto: x86/aes-xts: Add AES-NI optimization
+Date: Sun, 20 Sep 2026 22:08:53 -0700
+Message-ID: <20260921050910.296144-8-ebiggers@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260921050910.296144-1-ebiggers@kernel.org>
 References: <20260921050910.296144-1-ebiggers@kernel.org>
@@ -49,426 +49,241 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Various miscellaneous updates to the assembly code in preparation for
-adding implementations of AES modes to the same file:
+Optimize the crypto library's AES-XTS support with AES-NI, making its
+performance be at least at parity with the "xts-aes-aesni" skcipher
+algorithm that it will supersede.
 
-- Define macros for the function argument registers, function prologues,
-  and function epilogues to centralize some of the handling of 32-bit vs
-  64-bit.
+The new assembly function is written from scratch to fit well into the
+crypto library and to be more consistent with aes-xts-avx-x86_64.S than
+the code in arch/x86/crypto/aesni-intel_asm.S that it will supersede.
+At a high level it is quite similar though, including doing 4 blocks per
+iteration and supporting 32-bit mode for parity with the old code.
 
-- Refactor the actual AES encryption and AES decryption logic into
-  macros _do_aes and _do_aes_ecb so that some of the modes can reuse it.
-
-- Rename mask to expandkey_mask to differentiate it from the bswap_mask
-  that will be added.
-
-- Update the prototypes of aes_encrypt_aesni() and aes_decrypt_aesni()
-  to be dst, src, key so that they will match the mode functions.
-
-  Note that this means passing a pointer to the key struct instead of a
-  (nrounds, rndkeys) pair, similar to what arch/x86/crypto/aes*.S do.
-  Although this makes the assembly code depend on the format of the key
-  struct, having one fewer argument makes it easier to accommodate
-  32-bit mode, and the C glue code becomes slightly simpler.
+Note: the priority of xts-aes-lib is left unchanged at 110 temporarily.
+It will be increased when the AVX-optimized code is migrated too.
 
 Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- lib/crypto/x86/aes-aesni.S | 249 +++++++++++++++++++++++++------------
- lib/crypto/x86/aes.h       |  28 +++--
- 2 files changed, 185 insertions(+), 92 deletions(-)
+ lib/crypto/x86/aes-aesni.S | 146 +++++++++++++++++++++++++++++++++++++
+ lib/crypto/x86/aes.h       |  44 +++++++++++
+ 2 files changed, 190 insertions(+)
 
 diff --git a/lib/crypto/x86/aes-aesni.S b/lib/crypto/x86/aes-aesni.S
-index b8c3e104a3be..90a3765d35b8 100644
+index 24c53f1a144b..50f09ac6ef34 100644
 --- a/lib/crypto/x86/aes-aesni.S
 +++ b/lib/crypto/x86/aes-aesni.S
-@@ -8,25 +8,126 @@
- // AVX.  It does use up to SSE4.1, which all CPUs with AES-NI have.
- #include <linux/linkage.h>
+@@ -50,6 +50,17 @@
  
--.section .rodata
+ .section .rodata
+ .p2align 4
++.Lxts_gf_poly:
++	// For XTS: a constant used when advancing the tweak by one block by
++	// multiplying by the polynomial 'x' in GF(2^128).  The low 64 bits of
++	// this value represent the polynomial x^7 + x^2 + x + 1; it is the
++	// value that must be XOR'd into the low 64 bits of the tweak each time
++	// a 1 is carried out of the high 64 bits.
++	//
++	// The high 64 bits of this value is just the internal carry bit that
++	// exists when there's a carry out of the low 64 bits of the tweak.
++	.quad	0x87, 1
++
  #ifdef __x86_64__
- #define RODATA(label)	label(%rip)
--#else
+ .Lbswap_mask:
+ 	// A mask for pshufb that byte-reflects the value.
+@@ -776,3 +787,138 @@ SYM_FUNC_START(aes_ctr64_crypt_aesni)
+ 	RET
+ SYM_FUNC_END(aes_ctr64_crypt_aesni)
+ #endif // __x86_64__
 +
-+#define ARG0		%rdi
-+#define ARG1		%rsi
-+#define ARG2		%rdx
-+#define ARG2_32		%edx
-+#define ARG3		%rcx
-+#define ARG4		%r8
-+#define TMP		%rax
-+#define TMP_32		%eax
-+#define TMP_16		%ax
-+#define TMP_8		%al
-+
-+#else // __x86_64__
-+
- #define RODATA(label)	label
--#endif
- 
-+// Caller-save GPRs and the first 3 function arguments, assuming -mregparm=3
-+#define ARG0		%eax
-+#define ARG1		%edx
-+#define ARG2		%ecx
-+#define ARG2_32		%ecx
-+
-+// *Callee*-save GPRs.
-+#define ARG3		%edi
-+#define ARG3_32		%edi
-+#define ARG4		%esi
-+#define TMP		%ebx
-+#define TMP_32		%ebx
-+#define TMP_16		%bx
-+#define TMP_8		%bl
-+#endif // !__x86_64__
-+
-+// Offsets in struct aes_key
-+#define OFFSETOF_NROUNDS	4
-+#define OFFSETOF_ROUNDKEYS	16
-+#define OFFSETOF_INVROUNDKEYS	256
-+
-+.section .rodata
-+.p2align 4
-+.Lexpandkey_mask:
- 	// A mask for pshufb that extracts the last dword, rotates it right by 8
- 	// bits, and copies the result to all four dwords.
--.p2align 4
--.Lmask:
- 	.byte	13, 14, 15, 12, 13, 14, 15, 12, 13, 14, 15, 12, 13, 14, 15, 12
- 
--	// The AES round constants, used during key expansion
- .Lrcon:
-+	// The AES round constants, used during key expansion
- 	.long	0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36
- 
- .text
- 
-+// In 32-bit mode, push certain callee-saved GPRs and optionally load function
-+// arguments from the stack into them.  Do nothing in 64-bit mode.
-+//
-+// TMP is always made available as a temporary register.
-+//
-+// \uses_arg3 is 0 to not touch ARG3, 1 to make it available as a temporary
-+// register only, or 2 to actually load it as an argument from the stack.
-+// Likewise for \uses_arg4 and ARG4.
-+.macro _prologue	uses_arg3=0, uses_arg4=0
-+#ifdef __i386__
-+	.set	ARG3_OFFSET, 4
-+	.set	ARG3_PUSHED, \uses_arg3
-+	.set	ARG4_PUSHED, \uses_arg4
-+.if \uses_arg3
-+	push	ARG3
-+	.set	ARG3_OFFSET, ARG3_OFFSET + 4
-+  .if \uses_arg3 == 2
-+	mov	ARG3_OFFSET(%esp), ARG3
-+  .endif
-+.endif
-+.if \uses_arg4
-+	push	ARG4
-+	.set	ARG3_OFFSET, ARG3_OFFSET + 4
-+  .if \uses_arg4 == 2
-+	mov	ARG3_OFFSET+4(%esp), ARG4
-+  .endif
-+.endif
-+	push	TMP
-+	.set	ARG3_OFFSET, ARG3_OFFSET + 4
-+#endif // __i386__
++// Given a 128-bit XTS tweak in the xmm register \tweak, compute the next tweak
++// (by multiplying by the polynomial 'x') and write it back to \tweak.
++.macro	_next_tweak	tweak, tmp
++	pshufd		$0x13, \tweak, \tmp
++	paddq		\tweak, \tweak
++	psrad		$31, \tmp
++	pand		GF_POLY, \tmp
++	pxor		\tmp, \tweak
 +.endm
 +
-+.macro _reload_arg3
-+#ifdef __i386__
-+	mov	ARG3_OFFSET(%esp), ARG3
-+#endif
-+.endm
-+
-+// Undo any pushes that _prologue did, then return.
-+.macro _epilogue
-+#ifdef __i386__
-+	pop	TMP
-+.if ARG4_PUSHED
-+	pop	ARG4
-+.endif
-+.if ARG3_PUSHED
-+	pop	ARG3
-+.endif
-+#endif
-+	RET
-+.endm
-+
-+.macro	_aesenc		enc, rndkey, data
-+.if \enc
-+	aesenc		\rndkey, \data
-+.else
-+	aesdec		\rndkey, \data
-+.endif
-+.endm
-+
-+.macro	_aesenclast	enc, rndkeylast, data
-+.if \enc
-+	aesenclast	\rndkeylast, \data
-+.else
-+	aesdeclast	\rndkeylast, \data
-+.endif
-+.endm
-+
- // Transform four dwords [a0, a1, a2, a3] in \a into
- // [a0, a0^a1, a0^a1^a2, a0^a1^a2^a3].  \tmp is a temporary xmm register.
- //
-@@ -71,32 +172,18 @@
- .endm
- 
- .macro	_aes_expandkey_aesni	is_aes128
--#ifdef __x86_64__
- 	// Arguments
--	.set	RNDKEYS,	%rdi
--	.set	INV_RNDKEYS,	%rsi
--	.set	IN_KEY,		%rdx
-+	.set	RNDKEYS,	ARG0
-+	.set	INV_RNDKEYS,	ARG1
-+	.set	IN_KEY,		ARG2
- 
- 	// Other local variables
--	.set	RCON_PTR,	%rcx
--	.set	COUNTER,	%eax
--#else
--	// Arguments, assuming -mregparm=3
--	.set	RNDKEYS,	%eax
--	.set	INV_RNDKEYS,	%edx
--	.set	IN_KEY,		%ecx
--
--	// Other local variables
--	.set	RCON_PTR,	%ebx
--	.set	COUNTER,	%esi
--#endif
-+	.set	RCON_PTR,	ARG3
-+	.set	COUNTER,	TMP_32
- 	.set	RCON,		%xmm6
- 	.set	MASK,		%xmm7
- 
--#ifdef __i386__
--	push		%ebx
--	push		%esi
--#endif
-+	_prologue	uses_arg3=1
- 
- .if \is_aes128
- 	// AES-128: the first round key is simply a copy of the raw key.
-@@ -112,7 +199,7 @@
- .endif
- 
- 	// Generate the remaining round keys.
--	movdqa		RODATA(.Lmask), MASK
-+	movdqa		RODATA(.Lexpandkey_mask), MASK
- .if \is_aes128
- 	lea		RODATA(.Lrcon), RCON_PTR
- 	mov		$10, COUNTER
-@@ -176,11 +263,7 @@
- 	movdqu		%xmm0, 16(INV_RNDKEYS)	// => Last inverse round key
- 
- .Ldone\@:
--#ifdef __i386__
--	pop		%esi
--	pop		%ebx
--#endif
--	RET
-+	_epilogue
- .endm
- 
- // void aes128_expandkey_aesni(u32 rndkeys[], u32 *inv_rndkeys,
-@@ -195,67 +278,73 @@ SYM_FUNC_START(aes256_expandkey_aesni)
- 	_aes_expandkey_aesni	0
- SYM_FUNC_END(aes256_expandkey_aesni)
- 
--.macro	_aes_crypt_aesni	enc
--#ifdef __x86_64__
--	.set	RNDKEYS,	%rdi
--	.set	NROUNDS,	%esi
--	.set	OUT,		%rdx
--	.set	IN,		%rcx
--#else
--	// Assuming -mregparm=3
--	.set	RNDKEYS,	%eax
--	.set	NROUNDS,	%edx
--	.set	OUT,		%ecx
--	.set	IN,		%ebx	// Passed on stack
--#endif
--
--#ifdef __i386__
--	push		%ebx
--	mov		8(%esp), %ebx
--#endif
--
--	// Zero-th round
--	movdqu		(IN), %xmm0
--	movdqu		(RNDKEYS), %xmm1
--	pxor		%xmm1, %xmm0
--
--	// Normal rounds
--	add		$16, RNDKEYS
-+// AES-encrypt (\enc=1) or decrypt (\enc=0) the AESDATA registers specified in
-+// \vecs using the aes_enckey or aes_key pointed to by KEY.  RNDKEY must be set
-+// to a temporary XMM register, NROUNDS to a temporary 32-bit GPR, and
-+// RNDKEY_PTR to a temporary full-size GPR.
-+.macro	_do_aes		enc, vecs:vararg
-+	movl		OFFSETOF_NROUNDS(KEY), NROUNDS
- 	dec		NROUNDS
--.Lnext_round\@:
--	movdqu		(RNDKEYS), %xmm1
- .if \enc
--	aesenc		%xmm1, %xmm0
-+	.set		rndkey0_offs, OFFSETOF_ROUNDKEYS
- .else
--	aesdec		%xmm1, %xmm0
-+	.set		rndkey0_offs, OFFSETOF_INVROUNDKEYS
- .endif
--	add		$16, RNDKEYS
-+
-+	// Do the zero-th AES round.
-+	movdqu		rndkey0_offs(KEY), RNDKEY
-+.irp i, \vecs
-+	pxor		RNDKEY, AESDATA\i
-+.endr
-+	// Do the regular AES rounds.
-+	lea		rndkey0_offs+16(KEY), RNDKEY_PTR
-+.Lnext_round\@:
-+	movdqu		(RNDKEY_PTR), RNDKEY
-+	add		$16, RNDKEY_PTR
-+.irp i, \vecs
-+	_aesenc		\enc, RNDKEY, AESDATA\i
-+.endr
- 	dec		NROUNDS
--	jne		.Lnext_round\@
-+	jnz		.Lnext_round\@
-+	// Do the last AES round.
-+	movdqu		(RNDKEY_PTR), RNDKEY
-+.irp i, \vecs
-+	_aesenclast	\enc, RNDKEY, AESDATA\i
-+.endr
-+.endm
- 
--	// Last round
--	movdqu		(RNDKEYS), %xmm1
--.if \enc
--	aesenclast	%xmm1, %xmm0
--.else
--	aesdeclast	%xmm1, %xmm0
--.endif
--	movdqu		%xmm0, (OUT)
-+.macro	_do_aes_ecb	enc, vecs:vararg
-+.irp i, \vecs
-+	movdqu		\i*16(SRC), AESDATA\i
-+.endr
-+	_do_aes		\enc, \vecs
-+.irp i, \vecs
-+	movdqu		AESDATA\i, \i*16(DST)
-+.endr
-+.endm
- 
--#ifdef __i386__
--	pop		%ebx
--#endif
--	RET
-+.macro	_aes_crypt_aesni	enc
++.macro	_aes_xts_crypt	enc
++	// Arguments
 +	.set	DST,		ARG0
 +	.set	SRC,		ARG1
-+	.set	KEY,		ARG2
-+	.set	RNDKEY_PTR,	ARG3	// Temporary register for _do_aes
-+	.set	NROUNDS,	TMP_32	// Temporary register for _do_aes
-+	.set	AESDATA0,	%xmm0
-+	.set	RNDKEY,		%xmm1	// Temporary register for _do_aes
++	.set	NBLOCKS,	ARG2
++	.set	NBLOCKS32,	ARG2_32	// Used for improved code density
++	.set	TWEAK_PTR,	ARG3
++	.set	KEY,		ARG4
 +
-+	_prologue	uses_arg3=1
-+	_do_aes_ecb	\enc, 0
++	// Other local variables
++#ifdef __x86_64__
++	.set	RNDKEY_PTR,	%r9
++#else
++	.set	RNDKEY_PTR,	TWEAK_PTR // TWEAK_PTR is clobbered and reloaded later.
++#endif
++	.set	NROUNDS,	TMP_32
++	.set	AESDATA0,	%xmm0
++	.set	AESDATA1,	%xmm1
++	.set	AESDATA2,	%xmm2
++	.set	AESDATA3,	%xmm3
++	.set	GF_POLY,	%xmm4
++	.set	RNDKEY,		%xmm5
++	.set	TWEAK,		%xmm6
++	.set	SAVED_TWEAK0,	%xmm7
++#ifdef __x86_64__
++	.set	SAVED_TWEAK1,	%xmm8
++	.set	SAVED_TWEAK2,	%xmm9
++#endif
++
++	_prologue	uses_arg3=2, uses_arg4=2
++
++	movdqu		(TWEAK_PTR), TWEAK
++	movdqa		RODATA(.Lxts_gf_poly), GF_POLY
++
++	sub		$4, NBLOCKS
++	jl		.Lxts_loop4_done\@
++.p2align 5
++.Lxts_loop4\@:
++	// Load the next four source blocks into AESDATA[0-3] and XOR them with
++	// their tweaks, advancing the tweak three times in order to do so.
++	// Save the four tweaks for later; on 64-bit they all fit into
++	// registers, while on 32-bit two tweaks are spilled to DST.
++.irp i, 0,1,2,3
++	movdqu		\i*16(SRC), AESDATA\i
++	pxor		TWEAK, AESDATA\i
++  .if \i != 3
++#ifdef __x86_64__
++	movdqa		TWEAK, SAVED_TWEAK\i
++#else
++    .if \i == 0
++	movdqa		TWEAK, SAVED_TWEAK0
++    .else
++	movdqu		TWEAK, (\i-1)*16(DST)
++    .endif
++#endif
++	_next_tweak	TWEAK, RNDKEY
++  .endif
++.endr
++
++	// Encrypt or decrypt the blocks.
++	_do_aes		\enc, 0,1,2,3
++
++	// XOR the blocks with the saved tweaks.
++	pxor		SAVED_TWEAK0, AESDATA0
++#ifdef __x86_64__
++	pxor		SAVED_TWEAK1, AESDATA1
++	pxor		SAVED_TWEAK2, AESDATA2
++#else
++	movdqu		0(DST), RNDKEY
++	pxor		RNDKEY, AESDATA1
++	movdqu		16(DST), RNDKEY
++	pxor		RNDKEY, AESDATA2
++#endif
++	pxor		TWEAK, AESDATA3
++
++	// Store the encrypted or decrypted blocks.
++.irp i, 0,1,2,3
++	movdqu		AESDATA\i, \i*16(DST)
++.endr
++
++	_next_tweak	TWEAK, RNDKEY
++	add		$64, DST
++	add		$64, SRC
++	sub		$4, NBLOCKS
++	jge		.Lxts_loop4\@
++.Lxts_loop4_done\@:
++	add		$4, NBLOCKS32
++	jz		.Lxts_done\@
++
++.Lxts_loop1\@:
++	movdqu		(SRC), AESDATA0
++	pxor		TWEAK, AESDATA0
++	_do_aes		\enc, 0
++	pxor		TWEAK, AESDATA0
++	movdqu		AESDATA0, (DST)
++	_next_tweak	TWEAK, RNDKEY
++	add		$16, DST
++	add		$16, SRC
++	dec		NBLOCKS32
++	jnz		.Lxts_loop1\@
++
++.Lxts_done\@:
++	// Store the next tweak.  On 32-bit, reload TWEAK_PTR from stack first.
++	_reload_arg3
++	movdqu		TWEAK, (TWEAK_PTR)
 +	_epilogue
- .endm
- 
--// void aes_encrypt_aesni(const u32 rndkeys[], int nrounds,
--//			  u8 out[AES_BLOCK_SIZE], const u8 in[AES_BLOCK_SIZE]);
-+// void aes_encrypt_aesni(u8 dst[AES_BLOCK_SIZE], const u8 src[AES_BLOCK_SIZE],
-+//			  const struct aes_enckey *key);
- SYM_FUNC_START(aes_encrypt_aesni)
- 	_aes_crypt_aesni	1
- SYM_FUNC_END(aes_encrypt_aesni)
- 
--// void aes_decrypt_aesni(const u32 inv_rndkeys[], int nrounds,
--//			  u8 out[AES_BLOCK_SIZE], const u8 in[AES_BLOCK_SIZE]);
-+// void aes_decrypt_aesni(u8 dst[AES_BLOCK_SIZE], const u8 src[AES_BLOCK_SIZE],
-+//			  const struct aes_key *key);
- SYM_FUNC_START(aes_decrypt_aesni)
- 	_aes_crypt_aesni	0
- SYM_FUNC_END(aes_decrypt_aesni)
++.endm
++
++// void aes_xts_encrypt_aesni(u8 *dst, const u8 *src, long nblocks,
++//			      u8 tweak[AES_BLOCK_SIZE],
++//			      const struct aes_key *key);
++// void aes_xts_decrypt_aesni(u8 *dst, const u8 *src, long nblocks,
++//			      u8 tweak[AES_BLOCK_SIZE],
++//			      const struct aes_key *key);
++//
++// `tweak` must have already been encrypted by the tweak key; `key` is just the
++// main key.  To allow incremental computation, `tweak` is updated to contain
++// the next tweak.
++SYM_FUNC_START(aes_xts_encrypt_aesni)
++	_aes_xts_crypt	1
++SYM_FUNC_END(aes_xts_encrypt_aesni)
++SYM_FUNC_START(aes_xts_decrypt_aesni)
++	_aes_xts_crypt	0
++SYM_FUNC_END(aes_xts_decrypt_aesni)
 diff --git a/lib/crypto/x86/aes.h b/lib/crypto/x86/aes.h
-index b047dee94f57..06146fef06be 100644
+index 685b43ce6ef0..def9799302c1 100644
 --- a/lib/crypto/x86/aes.h
 +++ b/lib/crypto/x86/aes.h
-@@ -7,16 +7,21 @@
+@@ -257,6 +257,50 @@ static bool aes_ctr_arch(u8 *dst, const u8 *src, size_t len,
+ }
+ #endif /* CONFIG_CRYPTO_LIB_AES_CTR && CONFIG_X86_64 */
  
- #include <asm/fpu/api.h>
- 
--static __ro_after_init DEFINE_STATIC_KEY_FALSE(have_aes);
-+static __ro_after_init DEFINE_STATIC_KEY_FALSE(have_aesni);
++#if IS_ENABLED(CONFIG_CRYPTO_LIB_AES_XTS)
++void aes_xts_encrypt_aesni(u8 *dst, const u8 *src, long nblocks,
++			   u8 tweak[AES_BLOCK_SIZE], const struct aes_key *key);
++void aes_xts_decrypt_aesni(u8 *dst, const u8 *src, long nblocks,
++			   u8 tweak[AES_BLOCK_SIZE], const struct aes_key *key);
 +
-+/* The assembly code assumes the following offsets. */
-+static_assert(offsetof(struct aes_enckey, nrounds) == 4);
-+static_assert(offsetof(struct aes_enckey, k.rndkeys) == 16);
-+static_assert(offsetof(struct aes_key, inv_k.inv_rndkeys) == 256);
- 
- void aes128_expandkey_aesni(u32 rndkeys[], u32 *inv_rndkeys,
- 			    const u8 in_key[AES_KEYSIZE_128]);
- void aes256_expandkey_aesni(u32 rndkeys[], u32 *inv_rndkeys,
- 			    const u8 in_key[AES_KEYSIZE_256]);
--void aes_encrypt_aesni(const u32 rndkeys[], int nrounds,
--		       u8 out[AES_BLOCK_SIZE], const u8 in[AES_BLOCK_SIZE]);
--void aes_decrypt_aesni(const u32 inv_rndkeys[], int nrounds,
--		       u8 out[AES_BLOCK_SIZE], const u8 in[AES_BLOCK_SIZE]);
-+void aes_encrypt_aesni(u8 dst[AES_BLOCK_SIZE], const u8 src[AES_BLOCK_SIZE],
-+		       const struct aes_enckey *key);
-+void aes_decrypt_aesni(u8 dst[AES_BLOCK_SIZE], const u8 src[AES_BLOCK_SIZE],
-+		       const struct aes_key *key);
- 
- /*
-  * Expand an AES key using AES-NI if supported and usable or generic code
-@@ -36,7 +41,7 @@ static void aes_preparekey_arch(union aes_enckey_arch *k,
- 	u32 *rndkeys = k->rndkeys;
- 	u32 *inv_rndkeys = inv_k ? inv_k->inv_rndkeys : NULL;
- 
--	if (static_branch_likely(&have_aes) && key_len != AES_KEYSIZE_192 &&
-+	if (static_branch_likely(&have_aesni) && key_len != AES_KEYSIZE_192 &&
- 	    irq_fpu_usable()) {
- 		kernel_fpu_begin();
- 		if (key_len == AES_KEYSIZE_128)
-@@ -53,9 +58,9 @@ static void aes_encrypt_arch(const struct aes_enckey *key,
- 			     u8 out[AES_BLOCK_SIZE],
- 			     const u8 in[AES_BLOCK_SIZE])
- {
--	if (static_branch_likely(&have_aes) && irq_fpu_usable()) {
-+	if (static_branch_likely(&have_aesni) && irq_fpu_usable()) {
- 		kernel_fpu_begin();
--		aes_encrypt_aesni(key->k.rndkeys, key->nrounds, out, in);
-+		aes_encrypt_aesni(out, in, key);
- 		kernel_fpu_end();
- 	} else {
- 		aes_encrypt_generic(key->k.rndkeys, key->nrounds, out, in);
-@@ -66,10 +71,9 @@ static void aes_decrypt_arch(const struct aes_key *key,
- 			     u8 out[AES_BLOCK_SIZE],
- 			     const u8 in[AES_BLOCK_SIZE])
- {
--	if (static_branch_likely(&have_aes) && irq_fpu_usable()) {
-+	if (static_branch_likely(&have_aesni) && irq_fpu_usable()) {
- 		kernel_fpu_begin();
--		aes_decrypt_aesni(key->inv_k.inv_rndkeys, key->nrounds,
--				  out, in);
-+		aes_decrypt_aesni(out, in, key);
- 		kernel_fpu_end();
- 	} else {
- 		aes_decrypt_generic(key->inv_k.inv_rndkeys, key->nrounds,
-@@ -81,5 +85,5 @@ static void aes_decrypt_arch(const struct aes_key *key,
++/* len is always a positive multiple of AES_BLOCK_SIZE here. */
++static __always_inline bool
++aes_xts_crypt_x86(u8 *dst, const u8 *src, size_t len, u8 tweak[AES_BLOCK_SIZE],
++		  const struct aes_xts_key *key, bool cont, bool enc)
++{
++	const long nblocks = len / AES_BLOCK_SIZE;
++
++	if (!static_branch_likely(&have_aesni) || unlikely(!irq_fpu_usable()))
++		return false;
++
++	kernel_fpu_begin();
++	if (!cont)
++		aes_encrypt_aesni(tweak, tweak, &key->tweak_key);
++	if (enc)
++		aes_xts_encrypt_aesni(dst, src, nblocks, tweak, &key->main_key);
++	else
++		aes_xts_decrypt_aesni(dst, src, nblocks, tweak, &key->main_key);
++	kernel_fpu_end();
++	return true;
++}
++
++#define aes_xts_encrypt_arch aes_xts_encrypt_arch
++static bool aes_xts_encrypt_arch(u8 *dst, const u8 *src, size_t len,
++				 u8 tweak[AES_BLOCK_SIZE],
++				 const struct aes_xts_key *key, bool cont)
++{
++	return aes_xts_crypt_x86(dst, src, len, tweak, key, cont, true);
++}
++
++#define aes_xts_decrypt_arch aes_xts_decrypt_arch
++static bool aes_xts_decrypt_arch(u8 *dst, const u8 *src, size_t len,
++				 u8 tweak[AES_BLOCK_SIZE],
++				 const struct aes_xts_key *key, bool cont)
++{
++	return aes_xts_crypt_x86(dst, src, len, tweak, key, cont, false);
++}
++#endif /* CONFIG_CRYPTO_LIB_AES_XTS */
++
+ #define aes_mod_init_arch aes_mod_init_arch
  static void aes_mod_init_arch(void)
  {
- 	if (boot_cpu_has(X86_FEATURE_AES))
--		static_branch_enable(&have_aes);
-+		static_branch_enable(&have_aesni);
- }
 -- 
 2.55.0
 
