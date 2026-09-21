@@ -1,179 +1,79 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
+Received: from mta0.migadu.com (out-140.mta0.migadu.com [91.218.175.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECAB33AEF59
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:10:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789974643; cv=pass; b=ulCxu7XKOgjVoKm4p6n9VXiSeIBZnOr8S6zJiikMQW3ka0yevHScL7o79pMYdv9P74Xv+dMXWqXo3Bq1KwZAFl9xSWwwwd2mufx19McePC64CcotjERV51O98FRgycRa3/5GsTvY+ACLaQR5lDkkUAn8yFUcxhMcF6P6xedV+wo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789974643; c=relaxed/simple;
-	bh=kJH7+kos1l9lkpvaZyjlUUt9NhEpQOT2pMMtBb2piIw=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9433ACF0F
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:11:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789974665; cv=none; b=eco2NoE56Qw7Ib9NQif+WRadQuDRcb7zpY9RS0QxcboTKv7iwNm0Z18PjPITq8FHDYXp1WWSRxeyT7IvB9i9lSafxawlfriwQ1uI/IqHBehwI9CqUk+zF+bZ5YArdnlXvnhQ5Yg19G66wA9SuQi+t7zKc86IkKYAP/IIV2pdMJ4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789974665; c=relaxed/simple;
+	bh=Eux8pfzDoKUAWcecKGVOzPBlEfy59s1p123uGcIZ0h4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iua0+vAVp10erPWO/n65wxB29Ohi/rp2I/eKcC8vHO0MqLZDg7GHupLcbsLbDHVV1IjcPTY1XpI2qZzAfUfOnJzZTLV/Jrz2OkrP1Td4dD0+Pe9vio/ZQOHLqnzEqp96NwVDG0WR02YTMX51cUfz2XogWgPkAk/tCvZrZxytHoM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=Hb/5K9Kq; arc=pass smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	 To:Cc:Content-Type; b=MXay749g3P4k7+tqq2UPZ1hwUyLcq1Xd4t/RDTJblk2mD8nojLqblPDm3X/PSBg1A0qMfmFCEfOsRxF5YQ8wpVwhL2pU0dkhIgcji4tfVzBUgQe/KtvcI6+aXbChkwpc/CBGofKov7dnWptHuBXb+4oO4Wg+/LfWU2RhvMMPF5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=odhsy0lf; arc=none smtp.client-ip=91.218.175.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="Hb/5K9Kq"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5919af2eeso23371951fa.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:10:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789974638; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bUKQNIheG/Cz86zQJqFxOQIea8yREKggJmW9SLEczwfb+oiP/LQzxTM6dMCfhHLoPq
-         c5TR6E6PqlMzzxN0vYr6cIvayQKyUQ/DBkG5d2hyYvZs02AK/giDE+TwJiQs9zTqP9Yf
-         kv60p5C1Di3t892rl6wypGYFZ6hBx9haSW9dpm1vYtHZTrorWGho3Apq3MM1BXkrqpjQ
-         2DgIR4+fGdmPQFwLTSVgg9JruckxQqoPgwJaMLW84Ot1WTHt6Abf5XGPaLWSXWK4c3aq
-         XllGSg3dvNRAiJLj/v5rYNrVbxuzxFfAG1xzP3wC+sqYdq3bgnoNFwdpLpPBUO3+RbJH
-         PBGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ohcBhfXjMZ0w/piBj8Wfzyl/Cc0Gtqk0dL3r6ReUuIg=;
-        fh=eLdGdTiAdMUnFFxSxHPt5etsRVUw+c2zqTq02ORzFxU=;
-        b=Bm/xAdIrTO62yGYgqePikWtbU83YnNKn4uUH88FsVbO/1zumEvCjnauF37LII6mMnD
-         B8YupbsrlP8JHqbAjZ3iNFM9bQOU3jtNKLE6w8ORUV6PRxcxZeJSV6BM0PUyl/zPMKA9
-         LZkFJLX3fmQWWMeLeqc5BsEmZoytGSAdYbnzYpdO491bdD+hdvKRPRu9k9GWeTWjBAmg
-         70GliffwqwCSh1NbuwpxbZcDoLkKuJbZRQ69TvKZpdiRwEYFWL7z5NmR7xSD6s8VSZ5Z
-         NYji1obR2FzYJd2/6d/wO04ShemwgP0PYxbEfTqtvZVIKJ32eu/gQd/fm8DxwkBNjPyn
-         hKPA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1789974638; x=1790579438; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ohcBhfXjMZ0w/piBj8Wfzyl/Cc0Gtqk0dL3r6ReUuIg=;
-        b=Hb/5K9KqMJ3aBi2GtHACmHMerZlDcswpnDm0o6VCgfQNYkS51BtgBLF/vzt5rS9WD5
-         RCYM6xRGh1iUJpVeGwJM8qGnBh747L3cHn1P3aygbG3GFjLxe9mCKoK+eNZF1SsfxP8U
-         sqXF3U5vkCzbLJl+zHiuofQ2CdNcPi4Nn577x2yti2l5TxTXttPjKz5ESWApzFFvsDnY
-         LQK8CAbU6WFrvJd1pYQ2OQkDB+6J99qvYaq6NDrQESh2mjN4JXCxkTIM+UXwqS1joo/Q
-         OqVodN9Eiqw2N0YXKJis5u8XS+1FXZKSo8bKDANYcNzuACGASmnmPQhowBvu2f9f5aap
-         SjMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789974638; x=1790579438;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ohcBhfXjMZ0w/piBj8Wfzyl/Cc0Gtqk0dL3r6ReUuIg=;
-        b=akqp8jDnePKqQuKV77xdReBy/Eznz2eIcaUczTxh9CZlGP6Pape3HKROJ5Qy10Tw0c
-         F+l7ZU7+RkP6Kx2LYC9j+OjyeESg8lBdTDbSjFeNjeEmxF0iigeJsx7pLsIRR54QlcHY
-         4F92q9dAMrByjRSFzRM8WpfeKGvEGBpWfAdLrOpt8cFk3s5i5lsycCcaGCOqeNqx6tH6
-         qMafpByiTBHL1PQW+37/TPjrInfCqPwNmtr4EhJZWr0NT0ARjs030t5iDWsrMKDnY4Z+
-         4cEMs3XmK34WqRVKujx+8OLPqWC2iigquEOVOSq5ZQVTZ8veauBzBmcJNNGmWolB8SkF
-         hmtw==
-X-Forwarded-Encrypted: i=1; AKwUvByR9/D7FEoZSFgU8te3AA63a+H6WnfUuVapij1YD1hzaGKO4NkefD64dFIr0OGOlHHCgzaa1UHP8JZkI/o=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLnPEFc3dAh1IpVoTQ5ic2F+odKEPvumrCtV9MGr2fNaoBJNbs
-	q6piiD0gPiN1suadcxAP1JYvXiO7QAglb3TjHmxsPEbJz7wVby+AKgmt+CGHahCQg6I50qKC1Q+
-	hxybEoA9CCZUUzax1J0ParoHGK73Htv0xv8N9fbO8YbY=
-X-Gm-Gg: AYBFou2nhyISH99vdMrbXcEOuBJH3+dLTAX7NM5yhe5//gKA42zi1Sah8vas+QapNC2
-	kc6jLcUpM3fJdKwHwwKQ6NnS6xOG7KJMI0hrALwxrsbgzo0zIpt69Go4dMJVi8EQFUaUNAdsSVF
-	KWecQiLAG7vg+zSbfFwsFaxLJZmf6XkK5+YaS0tr2bTieRQEVwuGs5eFheV/ZEFM+9Vod/+6yvk
-	8rBIJKgytpz9rJpQpARstZ6ej2sd2aVQJB0N/AyVjopxFa3Ann+IQ4Ie/Rohgt1LN9IWWcz1kMT
-	X0W+DLC80igI7G5Y0pxtvizwXMdbzs/fnTRUN2fbTKbZpdQ4e3z/gWd1Si3MmWmYVOMyVsSbZU5
-	QLbXWJB4IJg==
-X-Received: by 2002:a2e:a98c:0:b0:3a5:b187:c7a1 with SMTP id
- 38308e7fff4ca-3a5fbf0215emr21570991fa.9.1789974637997; Mon, 21 Sep 2026
- 00:10:37 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="odhsy0lf"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Eux8pfzDoKUAWcecKGVOzPBlEfy59s1p123uGcIZ0h4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789974661; v=1; x=1790579461;
+ b=odhsy0lfPB08u7CB0z74GAcCLpfp6i293umH36jRRwAeyN6iV0Jxpn7dBiOQMrKuhHoVmjwM
+ QUbL6Qm+sUFEHp+JYFUKSu2XWmIp2rG0U4DMCKZmr8oDruoVBbAbaK5P8wRDZQFeXxmXcqdfWLg
+ 4tKUdnlmcXec1CXADcMqDBsI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7884e22809556f31;
+	Mon, 21 Sep 2026 07:11:01 +0000
+X-Mizu-Trace-ID: 7884e22809556f31
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b5e5aaf7deso5964e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:11:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxp9gUoUBfhRcaTLowH3WosC2VjFjx6AYX4PZIG4lORm8QtRCNRKnEu4C85rFoX9DH9hBfC5kutDlopqbQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxyC62LAAioe35aAg6dqOse9RTLiIs6yGJ9sxy7HPWwy/jeFCT
+	qQJEl773RUjlXYQkU5djmV2eSqlVZm/7n3XkM+ZHtPf67z+9q+8zznR0G7zu+UA6hkcF9EFQYgF
+	GY4NV/tmkhCCqTkhFCL+Rb8xOe/fFoa9PJiLM/dlZ
+X-Received: by 2002:a05:6512:2216:b0:5b8:d049:c45f with SMTP id
+ 2adb3069b0e04-5b8d049c61amr15291e87.14.1789974660051; Mon, 21 Sep 2026
+ 00:11:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917030301.5502-1-zihanx@nebusec.ai> <178996076640.2160803.16028832049809238100@kernel.org>
- <e1efae34-24a7-3b24-22b0-6a838aa93d52@ssi.bg>
-In-Reply-To: <e1efae34-24a7-3b24-22b0-6a838aa93d52@ssi.bg>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Mon, 21 Sep 2026 15:10:26 +0800
-X-Gm-Features: AcwNN1UcIHa_FP3_g69sLth774wwgDQwaw2Ruj6A1N9ozW6m1CE6EgqsboVPQSM
-Message-ID: <CAANe3eSYSxU_OhSSsp8aML6XH2a8qm2+nZSmdJAzZ6Q6uxwN2A@mail.gmail.com>
-Subject: Re: [PATCH net v2 1/2] ipvs: avoid stack overflow from recursive
- connection expiration
-To: Julian Anastasov <ja@ssi.bg>
-Cc: netdev-bot+sashiko@kernel.org, horms@verge.net.au, pablo@netfilter.org, 
-	fw@strlen.de, phil@nwl.cc, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org, 
-	lvs-devel@vger.kernel.org, netfilter-devel@vger.kernel.org, 
-	coreteam@netfilter.org, linux-kernel@vger.kernel.org
+References: <20260902134118.2718200-1-fuad.tabba@linux.dev>
+In-Reply-To: <20260902134118.2718200-1-fuad.tabba@linux.dev>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Mon, 21 Sep 2026 08:10:23 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTyHJjN28zXYJUF9otZvyWP5-3Ln0fy=xJ_EE-bOdvMmHQ@mail.gmail.com>
+X-Gm-Features: AcwNN1Xk01oNkxJ7UZIT8ZwQcfv1F3nhRMlj7kGCMC3JqdaEoVZDyc6bymlUU9I
+Message-ID: <CA+EHjTyHJjN28zXYJUF9otZvyWP5-3Ln0fy=xJ_EE-bOdvMmHQ@mail.gmail.com>
+Subject: Re: [PATCH] KVM: selftests: Fix arm64 sysreg header dependencies
+To: Oliver Upton <oupton@kernel.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Will Deacon <will@kernel.org>, kvmarm@lists.linux.dev, 
+	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Sean Christopherson <seanjc@google.com>, 
+	Shuah Khan <shuah@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 21, 2026 at 2:50=E2=80=AFPM Julian Anastasov <ja@ssi.bg> wrote:
->
->
->         Hello,
->
-> On Mon, 21 Sep 2026, netdev-bot+sashiko@kernel.org wrote:
->
-> > Thank you for your contribution! Sashiko AI review found 2 potential
-> > issue(s) to consider.
-> >
-> > Critical: 0 =C2=B7 High: 1 (1) =C2=B7 Medium: 0 =C2=B7 Low: 1
-> >
-> > If you believe none of the issues are legitimate, please reply to each
-> > issue of Medium severity or higher and explain why the AI is wrong.
-> > If any of them are legitimate and you plan to respin, please let patchw=
-ork
-> > know by including "pw-bot: cr" as a separate line at the end of your re=
-ply
-> > (one such reply per series is enough).
-> >
-> > - [High] ipvs: use-after-free in ip_vs_conn_expire() due to timer re-
-> >   arming race
-> > - [Low] ip_vs_conn_del_put() (net/netfilter/ipvs/ip_vs_conn.c:1333-1346=
-)
-> >   keeps its old comment "Try to delete connection while holding=E2=80=
-=A6
-> >
-> > Pre-existing issues:
-> > - [High] ip_vs_conn_del_put() (net/netfilter/ipvs/ip_vs_conn.c:1336-134=
-1)
-> >   cancels the controller's timer, drops the caller's only reference on=
-=E2=80=A6
-> >
-> > --
-> >
-> > ipvs: avoid stack overflow from recursive connection expiration
-> >
-> > This changes ip_vs_conn_del_put() to return whether it managed to delet=
-e
-> > the controller's timer, and makes ip_vs_conn_expire() loop back with th=
-e
-> > controller instead of recursing into itself.  The stated goal is to kee=
-p
-> > chain cleanup synchronous while using a single stack frame.
-> >
-> > v1 Link: https://lore.kernel.org/all/cover.1789110326.git.zihanx@nebuse=
-c.ai/
->
->         Zihan, IPVS has conn refcounting which does not look
-> natural: the hash table has reference and the timer callback
-> has no reference. Let me try today to change the refcounting,
-> so that unhashing occurs after last reference is dropped,
-> the conn lookups already use inc_not_zero, so we will try
-> to consider the timer_delete as successful stealing of
-> the refcnt from the timer callback (yes, the callback should
-> hold refcnt, not the hashing). But first let me try if the
-> idea would be successful. As result, your change should
-> be small as before, we should be able to delete conns safely.
->
-> Regards
->
-> --
-> Julian Anastasov <ja@ssi.bg>
+Hi Oliver,
 
-Hello Julian,
+On Wed, 2 Sep 2026 14:41:18 +0100, Fuad Tabba <fuad.tabba@linux.dev> wrote:
+> The rule generating the arm64 sysreg header targets the generated
+> directory, and its only prerequisites are tools/arch/arm64/tools/*,
+> which is the inner Makefile. An existing directory looks up to date,
+> so an incremental build never regenerates sysreg-defs.h. A selftest
+> referencing a register added to the table since then fails with
+> undeclared SYS_* identifiers. Clean builds are unaffected.
 
-Thanks for looking into this.
+[...]
 
-The Sashiko report was generated for v2. I have already sent v3:
-https://lore.kernel.org/all/cover.1789877273.git.zihanx@nebusec.ai/
+Gentle ping on this one. It's arm64-only (the Makefile.kvm rule that
+generates sysreg-defs.h), so I think it'd go through kvmarm rather
+than Paolo's tree. Could you take a look when you get a chance?
 
-I'll wait for your refcounting changes and then rework the iterative
-expiration fix on top of them.
-
-Regards,
-Zihan
+Cheers,
+/fuad
