@@ -1,124 +1,77 @@
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43A1843AB0;
-	Mon, 21 Sep 2026 03:41:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789962103; cv=pass; b=IdjR4GalhkPKiWSzU1f9yRUOKovJs/neYh68NUH3/IIS5HUovGYD2hoYaRwrd8gmV0nWjT+jn3fT5sBeDF5zITZ+e8mRnqATMnnlZYiIlUASWgcpeMo+2t0v3nmgPH7F0tUsSPqQnKC79XdzjJ4SgtQBKNBR2m+516j7Xd+aM7A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789962103; c=relaxed/simple;
-	bh=ct1Y8laxYTB/3w6Vg9zeWZ4IUgz1j3gsDtqDeWDoQhE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AI8RYqkqMHb/9z4clPe/bldSDgXXNZnKfrfIGdMmDZRJgB5FtqRDsTgmT8QdkwqFnFCI09OeLNl/wwO4o6WwjGZ0R/u3aDxj44afnC8XnaMTtZpdirn2mTGR1QXGTGka2LT/nmRomCWxj9njfBdu5awRTl0i59YHIqSm1aUhVm4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=KKyxMWkr; arc=pass smtp.client-ip=136.143.188.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="KKyxMWkr"
-ARC-Seal: i=1; a=rsa-sha256; t=1789962091; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=eUpZbo6UGPiXN2S6WVP1wk0hx+PmToMYHyOYTTguBgJ4H9sVslZFlrxBnfQT4mM3Z5AZ7UOy3rZNvo17i3UdqfpsEgNaqu68X0/0JwomkhLkf2qjtxxXiGRxn37yIBJqRx2YqxUALC17XGIE2yqpJRIJ5jxeOc4Nu3E1+uny24o=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789962091; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ct1Y8laxYTB/3w6Vg9zeWZ4IUgz1j3gsDtqDeWDoQhE=; 
-	b=LlH1IOfz33DnRYAxx9I6GoXSqRBEmqI9o/RsJEmtsUKDnGaWqGJBG906d7dSp2Dj+BzNXlBX47SKvktceUb4Bzku5DCFlQn9RA02jMAwb8sNqFnlQdzNyNDPMBI4QM4pNsCCRKnx6aiBFxkdKiwrp0sPigjFXChVV/AedprbU9Q=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789962091;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=ct1Y8laxYTB/3w6Vg9zeWZ4IUgz1j3gsDtqDeWDoQhE=;
-	b=KKyxMWkr1Oqh8lrvqaWs7m1N6FzlBaoLhknnkzLltncc3AkkgB5WY2M96m6WIter
-	mYQMF5NjtFKuGpzN60dP7oDOTxsApCfGkLIJqLFG1nRZk/hDxeqtXJS8ZiYTSCdTslQ
-	m2rNeSh56U+5rJfMkxZpQnKZOzu83HvQDklD0/IPXjBGk/xm99NGA3HMl7CWXzC5B3R
-	wbMoy4euTn/gbWJYViQdBwhypOZCc/k9a3XHxwL/gWYQUQCAwZNFDLOtFKGmGyb7yHY
-	WpJKF0cvTBInpl0ITZfI6jSAncFGxZ+qI7g3Y+FaCzxwtFsWE0MUm995EQvAbc7AlWr
-	545ZoCVD/w==
-Received: by smtp.zohomail.com with SMTPS id 1789962090652102.41171456130746;
-	Sun, 20 Sep 2026 20:41:30 -0700 (PDT)
-Message-ID: <e96ddd73ca83f0d8b6f08ff63a14b5f0d1bcee57.camel@icenowy.me>
-Subject: Re: [PATCH 2/3] pmdomain: spacemit: Add power domain driver
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Yixun Lan <dlan@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Paul
- Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org
-Date: Mon, 21 Sep 2026 11:41:25 +0800
-In-Reply-To: <20260921033540-GKG297024@kernel.org>
-References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
-	 <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
-	 <56e5f32102c67575ded8af9e81a06dc9f1dcf0ee.camel@icenowy.me>
-	 <20260921033540-GKG297024@kernel.org>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96966331EB5;
+	Mon, 21 Sep 2026 03:42:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789962155; cv=none; b=B/yfUbA4kQVyvwgrcBYpS+uIxj73mIUwQVHSBtnwm8GspeuaFdzx+BSI5wTBs2jyCE4obaMOttJhYxsoJmUQkS27t9xgmXuLXiOVs3o2HJZzPTj0oUjKNVrpXJc0B9DKXs5ylHL3jy1tcT+OxycvybJO6+oml4Jy+eTiUx1duAk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789962155; c=relaxed/simple;
+	bh=NdSCcVfzkkNGws8HsrAT0no3jlNrDV1Tucu8z3oaBeg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=bC0XcquKtSmnUVatGEYl/lHGt9o465bmZxxAvCipHVsaAO3Lt4CA1e0iBTC9DpRHJZS2HSBBTvtk2bHqXj/3SrGFirWwRYHwaJ944E97dnHwoNRNaI7CAGY9V5VFcH11sC4u2eAfyOolPqcuZtHBg8EihP3B+EMAVGDO69AWIxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn; spf=pass smtp.mailfrom=mails.ucas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
+Received: from fric.. (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACXATyLp7BqpO_RCA--.16449S2;
+	Mon, 21 Sep 2026 11:42:03 +0800 (CST)
+From: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+To: tung.quang.nguyen@est.tech
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	horms@kernel.org,
+	jmaloy@redhat.com,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	tipc-discussion@lists.sourceforge.net,
+	xujiakai24@mails.ucas.ac.cn
+Subject: Re: [PATCH] tipc: refuse to attach a second bearer to a netdevice
+Date: Mon, 21 Sep 2026 03:42:03 +0000
+Message-Id: <20260921034203.2416773-1-xujiakai24@mails.ucas.ac.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <DU4P189MB3750BF183DB76F1E3AF58B79C6842@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
+References: <DU4P189MB3750BF183DB76F1E3AF58B79C6842@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACXATyLp7BqpO_RCA--.16449S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUY_7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E
+	6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28Cjx
+	kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8I
+	cVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87
+	Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvE
+	ncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5McIj6I
+	8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwAC
+	jI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l42xK82IYc2Ij64
+	vIr41l4c8EcI0Ec7CjxVAaw2AFwI0_Jw0_GFyl4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2Iq
+	xVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r
+	1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY
+	6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
+	AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuY
+	vjfUoYLvDUUUU
+X-CM-SenderInfo: 50xmxthndljko6pdxz3voxutnvoduhdfq/
 
-=E5=9C=A8 2026-09-21=E4=B8=80=E7=9A=84 03:35 +0000=EF=BC=8CYixun Lan=E5=86=
-=99=E9=81=93=EF=BC=9A
-> Hi Icenowy,
->=20
-> On 20:56 Sun 20 Sep=C2=A0=C2=A0=C2=A0=C2=A0 , Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-09-18=E4=BA=94=E7=9A=84 02:40 +0000=EF=BC=8CYixun Lan=E5=
-=86=99=E9=81=93=EF=BC=9A
-> > > =C2=A0 SpacemiT's PMU (Power Management Unit) consist of several powe=
-r
-> > > domains
-> > > which can be managed independently, depending on different
-> > > application
-> > > scenario, each domain can be powered on/off for saving power.
-> > >=20
-> > > =C2=A0 The driver is implemented based on Linux Generic PM Domain
-> > > framework.
-> > > From a hardware perspective, either of two distinct power-on
-> > > sequences
-> > > are supported, in software mode (SW mode), the driver is
-> > > responsible
-> > > for
-> > > controlling the states of bits such as sleep1, sleep2, isolation
-> > > and
-> > > pwr_state, while in hardware mode (HW mode), the PMU hardware
-> > > will
-> > > complete
-> > > the sequence automatically without requiring software
-> > > intervention.
-> >=20
-> > This driver is tested to be able to power up the GPU on SpacemiT
-> > K3,
-> > however the following warning appears in the kernel log:
-> >=20
-> > ```
-> > genpd_provider audio: Fail to power-off domain: 2
-> > ```
-> >=20
-> This is kind of an expected issue, due to hardware design, the audio
-> power switch is coupled with rcpu core, which means power off it will
-> also shut down the rcpu, so the power switch currently is configured
-> as always on from software perspective, it's unable to power-off even
-> in Linux or rcpu once system up.
->=20
-> I will drop audio power domain control in next version
->=20
-> > (BTW I built it as a module to prevent whole kernel being rebuilt)
-> >=20
-> that's fine
+Hi Tung,
 
-In this case, do you consider to make the Kconfig option in your patch
-tristate instead of bool?
+Thanks for the review and the suggested patch.
 
-Thanks,
-Icenowy
+Unfortunately I don't have a reproducer that triggers the crash
+reliably, so I can't do a runtime test.  I did apply your patch and it
+builds cleanly with CONFIG_TIPC enabled, and I agree your fix is
+better: rejecting the bearer in tipc_enable_bearer() before any
+allocation or device reference is taken is cleaner than the rollback I
+proposed, and it reuses the existing "rejected" path with a proper
+netlink extended ack message.
+
+Regards,
+Jiakai Xu
+
