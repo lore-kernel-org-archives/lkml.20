@@ -1,299 +1,241 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f24.google.com (mail-qk2-f24.google.com [74.125.230.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021E3516154
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:46:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D7AC518121
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:46:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790027202; cv=none; b=MG1FP9SJIEMs3plWC4Rg6m7xHxw9FGleYCF7msNYHATUVXnzwDFuX5Isb7MTJuX57l6W/oDO3lkJvcT8rVacUdv9alx7QbJLsE/CLyb8T3Vp0WHDr/m17nTy+2ZvQf2qpoUfe9fabshkWXesUnlCV2Psc4YnBqW/LUhUBE/ORYQ=
+	t=1790027207; cv=none; b=ooXpYsdxqku22mtYS73r8qnFki2Q2xBcuOJ/uLhA+lxHAY+LayPxUg3jZw/1NJ2S4EcUOmcB4nusMTkycQUcY8oV+EYcZ4J+3/g1SntbM0H7gVVBCycwJn/KK/HBDQFHE5lv3B9VSPKHOkujEd3TvFdEL08A6tlsYh5J/S78K34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790027202; c=relaxed/simple;
-	bh=QShqD0mzsgr5KsP5VmTpDyoWzdUjfsO4sL+xZPZ8Kno=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=V8cXK6IhD2EppvoDIuFXwN2+y4q/sSIQZMHfjzyxaDxASQXCkwLaekPtU4kqvYfeSuQz7wBpokPMj9AlaKN5qFjNEXKKDWtullilB9E1Jyj8a+vEDl64Q6H1eMTH+snOh9SOW1+ZLZoIIWoOoTf0lh1fv4IC8swL7tnsNRRE2eA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EFoJNMx1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gZsFX//Q; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790027207; c=relaxed/simple;
+	bh=Yc5Uc7ZFw+ABZqHHGfrsDtaZfnUyH0lPgtl/XXBBFbM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jdrFhMVcqoV2m1fUyDmiXZ0RfwpzvOGSqgI6ddaNDwuEj9K57FmwCvbgP06O+E+rm/xHiYeU4y7+WtffLvKveKQ2HNfS/dch3C21R0ElBSgtdsm2+f6sfOfINlEwmfz2T1AzomVXDt2YbfXUUCdqjxHWV9IMPnR/S3NvXDAfVfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=usOtonDa; arc=none smtp.client-ip=74.125.230.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EFoJNMx1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gZsFX//Q"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LKelxX2741019
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:46:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZfOg9XYdQ5/vxidE+9pPRR6RYjJCbLCLOIt2gCT+9Gg=; b=EFoJNMx1X6Pv4FDS
-	tMUSGAa9LvqoGHZBedDqvdBcDA7Cvae9SnITto4f09jRtlbuekCrbMc/2MAKvf6x
-	gy2p3mZ2bhW8HdOSvKsdo/MKLNoMpVqXD90eb3NjmicVlbPWXm3gn48rxPFjxWVd
-	ccE3FYDFyB3GFotA+QlERyQZ16B85/XCfZXm5v3vSsXF7AER0i7zlTvSQHCun1zu
-	nfalxcV7idp0hPZlhBnqfZke+HLmsbX2Sc7DCOy8jejO2OtTqVCkLWdLV1vBiXSp
-	9DeQc19R9BUJCDEQgouChdIxMP4QiqIcIk83GTs5CpiOtWouC/iXLzm7qBgeMsWJ
-	YRLYVw==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu01d3fdb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:46:38 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so8352457a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:46:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="usOtonDa"
+Received: by mail-qk2-f24.google.com with SMTP id af79cd13be357-939695b5741so317282485a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:46:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790027198; x=1790631998; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ZfOg9XYdQ5/vxidE+9pPRR6RYjJCbLCLOIt2gCT+9Gg=;
-        b=gZsFX//QG9D6bwbjzukJJyUpL8+3eeG4XWZOeVez/SqYo+ydZPf0gJn//KwuBSrYiq
-         OnArKanj18OJm3BJUZyqMTDldBcoBpvDSAxLqvF/9uB9YcvfK6WNL/zIOB/tOFZKzmuu
-         /Q0JXfQboH9T/b+L+jKjupwg8rnWACVGZmJ8k6rl6xzndw+aUNJKNpq4a31TMGz+2QZ6
-         WrUaDs5nhUruEvQb0OivxyyYvn8ZbBYDB1CSd7RshCGjtYcaSM7pfvLhzTcOeeaRMS4g
-         +rJ/J83jxkLS3PXNGOSYunXWUBgfUPMVAf/KPqZ3OHYiUkTk3gLtOVDS32LWPPFo73cc
-         DPhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790027198; x=1790631998;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790027204; x=1790632004; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZfOg9XYdQ5/vxidE+9pPRR6RYjJCbLCLOIt2gCT+9Gg=;
-        b=EUomaKa7ELV+11S7vb9mab0lfqITnUHBq7mlvPY8HX9KhpwIK1Ivi6sQrAEQAdI/ri
-         jejlHCbmtI68tyUmbEfHtHosgg3ZLz3Bj2+ADd3oqJdnelrDoJZUTmDzjfxyP8epBfen
-         UYVc+j0msI2CIbuSbx9Qn/y386sEIvOZKeCJBNmYXaW2oVFzfShur3Bne6bB2bX0VKfR
-         hfaUYztTa2isB70mhShaAMIqtXqzZzY0iKJh5tm0k1W0BqC7xsYHst92A7SYYw4eqyVe
-         Mla8ZeyKzNpisp9/mwmT+JVeLOObtIXueqcOrE29dE+yED8mF9vRN/qqD9wqzIjr3gGW
-         ubbg==
-X-Forwarded-Encrypted: i=1; AKwUvBy4H+JHrteCW2ix+BtlOCTXXkhcoPtrDWv1p4xS4MXPkyyZDYBLm7PzGbJjgGKuD0nbpRA9bP1upANcDJI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJ62a3wd/JntaEGp+d5raexMurRSByrOJAkTqHedtSk7N8iKjr
-	/15wYd3u6ono7KKd+kWn6MoS2pjsKKk4ilk+bbgp7cBvlGfVoXXqqwEuOKQ+Uiru6OcAryRCEEF
-	ex7n/VF1f684/CplX5RUDoYrMrKEqHkp2P+g6iEt4KIA8hz1nUIRT3HPagkCn3TBIkGI=
-X-Gm-Gg: AYBFou1Ksu446CxUiopEcOqVfyb5fJ4llwmF7TWxIhTb7MnvvtiaLfAGwwdcQ4zhZyr
-	c/DkLWGy132b1XR0nxcn/s/QsmhSpzIvzBuvTLV5OJXJIOKwWFii4CYYU9mjY0FLnXS60bvnmSO
-	ehxjr9pB+IiM27VGv3TNyrhbgqNWBwbwFidAqjo/KUE7mhsJ/b7REJ+mnoldnh2p4sTu4S0c/MN
-	7OqrrG3Rjx2F+m+dQ+Q2z/nf7ADcQHsC4DIrkgveNLWvVwz5yuBfOphOgq7J3azUXOXqh6Ne2c+
-	79PZ+SfbM9NCQiZRUPmiwLxc/VAIsNaZxNHN/oxgx2SZ/9+ViZqhidxl6xMpbSV97Wzat3zL7BY
-	va3i1o3smPjY5HAM0dScMHvPPNA==
-X-Received: by 2002:a17:90b:2dc3:b0:39e:3ce1:d22f with SMTP id 98e67ed59e1d1-39e54d3674bmr17165987a91.16.1790027197634;
-        Mon, 21 Sep 2026 14:46:37 -0700 (PDT)
-X-Received: by 2002:a17:90b:2dc3:b0:39e:3ce1:d22f with SMTP id 98e67ed59e1d1-39e54d3674bmr17165954a91.16.1790027197022;
-        Mon, 21 Sep 2026 14:46:37 -0700 (PDT)
-Received: from localhost ([50.35.44.179])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f0c7e0d1sm439586c88.10.2026.09.21.14.46.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 14:46:35 -0700 (PDT)
-Date: Mon, 21 Sep 2026 14:46:31 -0700
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
-        will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
-        aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
-        joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
-        linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
-        sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
-        WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-Subject: Re: [PATCH v18 4/7] firmware: arm_rmm: Add support for SRO
-Message-ID: <20260921144631.00007440@oss.qualcomm.com>
-In-Reply-To: <bbb2f1db-5d42-495f-b34e-184a6cd894ce@arm.com>
-References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
-	<20260912083611.2513845-5-suzuki.poulose@arm.com>
-	<178978126542.2352296.15676256806777454164.b4-review@b4>
-	<bbb2f1db-5d42-495f-b34e-184a6cd894ce@arm.com>
-Organization: Qualcomm
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        bh=MZyT8k12LGsI6T36jz5Fg5RlaOjRcJ/zSXFiTQ+h2nQ=;
+        b=usOtonDaMYeMX3ZXgZaMup8ty4PM3XVEiN6I9tL/g6jEtooQtrH3AtpmkoV3OKDhGI
+         CzO8IsyvLopA/W4KWaJDJ0TOuGFmA8BP5aFb7z0qnz4WqAxVWyAKeU8rBM4xeYv1Wq18
+         T8psDYuiEpG+4hSUXXCkBp+RV89Kcmoqqw2Sng4JI5oVqP3kwkGwZ4ry9UsZkw/rZ78E
+         MCAsCOanEbPyYgdzjH00LujvZA1sCg5Eh2qGEptbkdreLbkHvf4zp+zoX3NnUaXAemV/
+         fozqoRz9M+kei7U5YJmCTtEHdTltjJojezjJOZtxhLi6CThD0oYhRnRkxNUxjQ30v5sd
+         uEEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790027204; x=1790632004;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MZyT8k12LGsI6T36jz5Fg5RlaOjRcJ/zSXFiTQ+h2nQ=;
+        b=K/vZvUFtC5N4tt/0oHsuastFQmSZH45boPlU2Bnr+Lj9eBnFfaRpmPu7v3kFmgv62h
+         aQvbwDA77XNTvQrixx8FvXJFVFamrNNlbb7PBzPh3ESXVK92QqeNpOTPCwLSDkURpyM2
+         /LrLpOULdwsdzqKhRLRUls6zb9e72AbgrupBV3WecXihMWB8EzfKYpPofwlON9b1n8SL
+         hAHZJ6to1CYIlZqov+RwujGF0ptsqHkQ0TKjgzJTck1rxzdpWMRgF9gtfY5pB0qa4VZ/
+         TqoW8sHfkkayCJG6y40BwmzzwbsfBNhoVkrAoAgK1YDmm2CVBT8PY8ByauS1pPY093cV
+         xd7w==
+X-Forwarded-Encrypted: i=1; AKwUvBw6ZLEJuZzqBgUIRbb4DVGIuDF3RS0XOcVoQAvfFBxkkNuFb10NhQ39zcKW6hRiPdKtzAnAshAgTl5YdEA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kDaZKkqfqizSYyHlKt8NYEO59yT6e03ww/T23ZlCKZIi0kql0n
+	jqLDiV8VMm1SSj8eg6nbJfDK+eHVqH2PLo/TPKOFw3FNM32rWPjkQZJbrkViFFW8CS4=
+X-Gm-Gg: AYBFou3wC8D/X7Ta1QkeeMIhtN0mE0xkr8zuLv2F9g8OsmsPaC3vIAPTxHkYYMED+UH
+	V2pZ3VKronYcD0esCSXoJn31IwPPCNTTV4a2MP6zS4sAosuQtL+GaiU1rHij47FFamW6V7rGRMA
+	u0fJNDBfF5XRWg8rRVKFSHCeeb1nMctzDdZMWtZhEfugajnXiMW7Wxd+WT8T1s5Zh1rpGQsfLzw
+	iiE2uxVWNSSmetd4mCFqLbKimvB6gMIwdJqXpQjYCJCiYFi4vUoONB+09nU/LwZen4UUCmX2+z5
+	/0QDm6AF1v/bl/KScykEdf6C8nPMLT1OGlqdAIl41MwDaKEaeKwWTNWlbNou0EasAx5ytbTD6zo
+	v9+7aunAqePbrQsciZMfpssuTxNnWo5ao3cnd8iJHaatLFc7Lz1ut07+2gX/719/TM4fiTb7k/e
+	fkiIqB3cBbJovjMqLOLc82SsDx6hkusc9rjQ7FKethlDmDRSko2FCqsceJg04GlMtFoZXWWxA=
+X-Received: by 2002:a05:620a:4496:b0:93b:d7d7:8739 with SMTP id af79cd13be357-93c15e4296bmr271488185a.46.1790027203515;
+        Mon, 21 Sep 2026 14:46:43 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c19a604dasm24653985a.11.2026.09.21.14.46.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 14:46:43 -0700 (PDT)
+Message-ID: <85b0e7de-e4a8-4e08-b801-a9664d366e1a@riscstar.com>
+Date: Mon, 21 Sep 2026 16:46:41 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: mfd: introduce the TC9564 config syscon
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+ kees@kernel.org, gustavoars@kernel.org, p.zabel@pengutronix.de,
+ daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, mfd@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260918165234.687224-1-elder@riscstar.com>
+ <20260918165234.687224-2-elder@riscstar.com>
+ <20260920-fiery-fanatic-manticore-6abf0a@quoll>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20260920-fiery-fanatic-manticore-6abf0a@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 21nKvomrg2bs8umTLYtTBjywj9Xx-G1p
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDMxOCBTYWx0ZWRfXxJKfMpBuGnzF
- 0HHWBknZ6U6INZX3U/kfq2trkuD57gPvUeEjefeOka2Z6v8B2SOk4IALljxGTlMoPllTa9OLhb1
- kAt2D8lhFy5LmKfcov+Rt0DWCTZfF5I=
-X-Proofpoint-GUID: 21nKvomrg2bs8umTLYtTBjywj9Xx-G1p
-X-Authority-Analysis: v=2.4 cv=Ht7jiETS c=1 sm=1 tr=0 ts=6ab1a5be cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=aNnz9XPx1a4JIXSYt2cE/A==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=yke8hGA7Qea92797WwgA:9 a=CjuIK1q_8ugA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDMxOCBTYWx0ZWRfXypw8AgV/+C9Y
- 8N7XpkdD1CxvJP14pSBcxjR/AOL4/2yTgRMFIslVS3Cscs5gkFDMXW72Z4ogCOgV6bVgJG3dol1
- XALbrKdiXlvwV2A1q3fz4hFYrjG0C1nz65gfezqIY16DKKSZrDlIv5uFtIG21JsZnBPIDpU4abP
- mvx1/tqydcJ0y8GC8RM59TL2vKwvckgqLOSoXdn8ymFMRUGETqXXXW/0vT8eV8F7YUGc14JZlR4
- PRLtcQRy/pY7gX4EIal42oM8nYWnPfhXhZhlMde58ZjSaoMHFhPLTVm71xL082EKatZXhzbvpkM
- QBIA3WpmMBmjlKiTBETKIfIxq4CTrIWri4zNGh7HucuvziR9Wg5ZyUBjPHgzXVgXnYw6YAS7p2e
- pwUZZ/gzDu9LPMAlebntT6ctlS+4xdzGqKRc9bGbO1gJIHLQ1nJsXoiuDTIsNTvMb0IlJH/3t1L
- aMZd7Olv24K1U1+7cNg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_06,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0 impostorscore=0
- suspectscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210318
 
+On 9/20/26 1:18 PM, Krzysztof Kozlowski wrote:
+> On Fri, Sep 18, 2026 at 11:52:30AM -0500, Alex Elder wrote:
+>> Define the binding for a system controller used in the Toshiba
+>> TC9564 SoC.
+>>
+>> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>> Signed-off-by: Alex Elder <elder@riscstar.com>
 
-> >> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
-> >> index 5b0e342ce3d5..4f9898ece754 100644
-> >> --- a/drivers/firmware/arm_rmm/rmi.c
-> >> +++ b/drivers/firmware/arm_rmm/rmi.c
-> >> @@ -15,6 +15,59 @@
-> >>   #define RMI_FEAT_REG_COUNT	2
-> >>   static unsigned long rmi_feat_reg_cache[RMI_FEAT_REG_COUNT] __ro_after_init;  
-> >   
-> 
-> Was there a question here you missed ? FWIW:
+Thank you for your feedback, Krzysztof.
 
-I think inaccurate cropping only!  Have been using b4 review tui
-(which is excellent btw!) Not sure I've gotten the hang of it fully yet.
+>> ---
+>>   .../bindings/mfd/toshiba,tc9564.yaml          | 56 +++++++++++++++++++
+>>   MAINTAINERS                                   |  1 +
+>>   2 files changed, 57 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml b/Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml
+>> new file mode 100644
+>> index 0000000000000..32e73a727c82a
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml
+>> @@ -0,0 +1,56 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/mfd/toshiba,tc9564.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Toshiba TC9564 System Controller
+>> +
+>> +maintainers:
+>> +  - Alex Elder <elder@riscstar.com>
+>> +  - Daniel Thompson <daniel@riscstar.com>
+>> +
+>> +description: |
+> 
+> Do not need '|' unless you need to preserve formatting.
 
-> 
-> I have expanded this to cover all 5 RmiFeatureRegisters exposed by RMM, 
-> and it looks something like this now, with the use of ARRAY_SIZE() to
-> limit accesses.
-...
+OK.
 
+>> +  The Toshiba TC9564 is an SoC accessed by a host system through the
+>> +  upstream PCIe port on the PCIe switch it implements.  The switch includes
+>> +  an embedded PCIe endpoint on one of its downstream ports that provides
+>> +  access to various SoC peripherals (including a clock and reset controller)
+>> +  via one of its BARs.  A system controller provides managed access to the
+>> +  first two pages of this memory region to ensure accesses made by these
+>> +  peripherals produce well-defined results.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - const: toshiba,tc9564-config
+>> +      - const: syscon
+>> +      - const: simple-mfd
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  ranges: true
+>> +
+>> +  '#address-cells':
+>> +    const: 1
+>> +
+>> +  '#size-cells':
+>> +    const: 1
+> 
+> Both properties and simple-mfd are redundant. You do not have children.
 
-> 
-> >> +
-> >> +	/* Keep just the blocks the RMM didn't use in addr_list */
-> >> +	for (int i = consumed_blocks; i < count; i++)
-> >> +		sro->addr_list[addr_list_start + i - consumed_blocks] =
-> >> +			sro->addr_list[addr_list_start + i];  
-> > 
-> > Maybe memmove to make it clear you are shifting a chunk of the array
-> > down.  This might be worth some asci art showing each step in brief.
-> > Anyhow, something along these lines:
-> > 
-> >        memmove(&sro->addr_list[addr_list_start],
-> > 	      &sro->addr_list[addr_list_start + consumed_blocks],
-> > 	      (count - consumed_blocks) * sizeof(*sro->addr_list));
-> > 
-> > Obviously doesn't save code, but maybe simpler to understand than
-> > the loop.
-> > 		  
-> 
-> Does the following hunk look better with the comment ?
-> 
->          /*
->           * Keep just the blocks the RMM didn't use in addr_list.
->           * RMM claimed consumed_blocks entries from addr_list_start.
->           * Move the entries left out at the end i.e.
->           * [ addr_list_start + consumed_blocks, addr_list_start + found)
->           * to the rest of the valid entries and adjust the addr_count to
->           * reflect the available entries.
->           */
->          for (int i = 0, src = addr_list_start + consumed_blocks;
->                  i < found - consumed_blocks; i++)
->                  sro->addr_list[addr_list_start + i] = 
-> sro->addr_list[src + i];
-> 
->          sro->addr_count -= consumed_blocks;
+I think ranges, #address-cells, and #size-cells might have
+been left here by mistake, and I hadn't noticed.  (They are
+required to be included within a pci-ep-bus sub-node, but
+even if that's why they're here, they're in the wrong place.)
 
-Good enough.  Not sure there is a perfect answer for this one!
+I will remove these three properties, as well as the
+"simple-mfd" compatible string in version 2.
 
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +
+>> +unevaluatedProperties: false
 > 
-> >   
-> >> +}
-> >> +
-> >> +static int rmi_sro_reclaim(struct rmi_sro_state *sro,
-> >> +			   unsigned long sro_handle,
-> >> +			   struct arm_smccc_1_2_regs *out_regs)
-> >> +{
-> >> +	unsigned long capacity;
-> >> +
-> >> +	if (rmi_sro_ensure_capacity(sro, 1))
-> >> +		rmi_sro_free(sro);  
-> > 
-> > Maybe a comment on why you free the whole lot rather than a smaller
-> > amount to make some room.  
-> 
-> We don't do partial free of the list today, and having that is
-> unnecssarily complicating the logic/code. We are going to do a reclaim 
-> anyways. Sure, I could add a comment.
+> And this should be additionalProperties instead
 
-Might be useful as a breadcrumb in future but indeed not vital.
-That was what I was assuming was the case.
+OK.
+>> +examples:
+>> +  - |
+>> +    syscon@0 {
+>> +        compatible = "toshiba,tc9564-config",
+>> +                     "syscon",
+>> +                     "simple-mfd";
+>> +        reg = <0x0 0x2000>;
+>> +        #address-cells = <1>;
+>> +        #size-cells = <1>;
+>> +        ranges;
+> 
+> As you can see here - no children.
 
-> 
-> 
-> >   
-> >> +
-> >> +	capacity = RMI_MAX_ADDR_LIST - sro->addr_count;
-> >> +
-> >> +	rmi_op_mem_reclaim(sro_handle,
-> >> +			   virt_to_phys(&sro->addr_list[sro->addr_count]),
-> >> +			   capacity, out_regs);
-> >> +
-> >> +	/*
-> >> +	  * RMI_OP_MEM_RECLAIM always return RMI_INCOMPLETE, except when the
-> >> +	  * input parameters were invalid.
-> >> +	  */
-> >> +	if (WARN_ON_ONCE(RMI_RETURN_STATUS(out_regs->a0) != RMI_INCOMPLETE))
-> >> +		return -EINVAL;
-> >> +	if (WARN_ON_ONCE(out_regs->a1 > capacity))
-> >> +		out_regs->a1 = capacity;  
-> > I guess this should never happen, but bit ugly to fixup the register
-> > return rather than perhaps using a local variable instead.  
-> 
-> We pass/get the out_regs, so local variable doesn't work, unless
-> I missed what you were hinting at..
+I have seen some examples of syscon nodes that incorporate
+sub-devices, while others do not.
 
-Ahh. Indeed, I wasn't thinking ahead to it being visible after. 
+Our purpose for defining a syscon here is to coordinate
+access for multiple devices to several registers located
+within the same page of memory.
 
-> >   
-> >> +long rmi_sro_execute(struct arm_smccc_1_2_regs *regs)
-> >> +{
-> >> +	bool cancelled = false;
-> >> +	unsigned long sro_handle = regs->a1;
-> >> +
-> >> +	rmi_smccc_invoke(regs);
-> >> +
-> >> +	sro_handle = regs->a1;
-> >> +	while (RMI_RETURN_STATUS(regs->a0) == RMI_INCOMPLETE) {
-> >> +		bool can_cancel = RMI_RETURN_CAN_CANCEL(regs->a0) == RMI_OP_CAN_CANCEL;
-> >> +
-> >> +		switch (RMI_RETURN_MEMREQ(regs->a0)) {
-> >> +		case RMI_OP_MEM_REQ_NONE:
-> >> +			rmi_op_continue(sro_handle, RMI_CONTINUE_KEEP_GOING,
-> >> +					regs);
-> >> +			break;
-> >> +		default:
-> >> +			WARN_ON_ONCE(1);
-> >> +			if (!can_cancel)
-> >> +				return regs->a0;
-> >> +			/* If we have already cancelled, don't retry this */  
-> > 
-> > Maybe expand that comment a little to say if we can get here under a
-> > valid sequence and if so are we guaranteed that cancel is complete
-> > given that is what caller will probably expect if it gets -ECANCELED.
-> > 
-> > My reading of spec would suggest we can't hit this path for the
-> > calls that are not memory tranferring. Then again we can't hit the
-> > first cancel either so all bets are off.  So maybe this is the
-> > bet we can do.  Also can_cancel shouldn't be true after
-> > rmi_op_cancel() as I assume you can't cancel a cancel.  
-> 
-> Ack.  This was to handle a buggy RMM (and soothing an LLM bot)
+I think this device was originally defined in a sub-node
+because the only memory accesses it requires are within
+the range covered by the syscon.
 
-Modern job titles: LLM Soother!
+Should we instead define the syscon to be a fairly trivial
+standalone thing, and then refer to it in the clock/reset
+device node by phandle?  (Or have the driver look it up
+by compatible string?)
 
-I aggressively cropped previous email. For avoidance of doubt
-the rest all looked good to me.
+     tc9564_config_syscon0: syscon@0 {
+         compatible = "toshiba,tc9564-config",
+                      "syscon";
+         reg = <0x0 0x2000>;
+     };
 
-> 
-> Thank you for the review.
-You are welcome. Thanks for pushing this forwards
+     clock@1004 {
+         compatible = "toshiba,tc9564-clock";
+         toshiba,config-syscon = <&tc9564_config_syscon0 0x1004>;
+         #clock-cells = <1>;
+         #reset-cells = <1>;
+     };
+> I also have doubts that this is needed - I see no updates to the misc
+> binding, which would be referencing it. But then another point would be,
+> that you do not need separate child node, which has no properties.
 
-Jonathan
+I'm sorry if I'm missing something.  I saw other examples of
+syscon nodes being defined, and tried to copy what I saw, but
+obviously got it wrong.
 
+> Well, has one - address space.
 > 
-> Cheers
-> Suzuki
-> 
-> 
-> >   
-> 
+> Lack of full picture is not helping here.
+
+I will gladly provide a better picture, but I also want to
+stay focused on what's necessary for the binding.
+
+I have more in my next message.
+
+					-Alex
+
+> Best regards,
+> Krzysztof
 
