@@ -1,62 +1,67 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090F2485955;
-	Mon, 21 Sep 2026 12:22:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E61348D860;
+	Mon, 21 Sep 2026 12:22:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789993376; cv=none; b=KCGLge+LDqNYT/ncyarHgVzUvMZzTbQPusWUELxf2xy8z8ojHaQgXmrHOZ0+9w+NZ86Kmj5xiKQGCqJYAuz/9t+pf0OwRw2ZYzIK9QXUz1HtKMgrI7SEhov7CVZD8i55a8QK6gdUWYO6T5dBC8Zn4C+GpJSSv9dXbCqvEYajH1I=
+	t=1789993381; cv=none; b=dBgPLTGk+eNV9NzoScyKxJMJrFm27KjRDl1fgFOUHALRFVGWj7NROMOiAG5Dcc2CdzfDvDHQidqbykqrT1XqZ198TkITcYgyA3yWxXL4qqxiduJNnN1dFcxjIeREeY3VBamrGpIlytGEmdfd6+9GkufGxnPJxiGjbokDuCd2Eos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789993376; c=relaxed/simple;
-	bh=wXjXxUUn1HD04mo3m/UzrxaU2YFHwcsSiiZAGPBCPvs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Egdqtikor4WJDkigvyy0KyqAa0xHy0BheigCNj1esYUhldNYzPPgRYSWFeMq9zjzMRPdtprIXvlFBM1aHfoxr6vqyGMMa9f6ZTPN4jAMfJiBZxSb4xmqRMr3lKBcsRUW0CPx8ZyfJwLfDWo5SZjqV5nxttQceY8RldemZUL3RPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 234e6604b5b711f19a56ed5b684f684d-20260921
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:cbbdb2e1-cddf-41cd-ba6d-8c245c7cb5de,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:7688aba5cf08f42704ac9fb13d48a1df,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|865|898,TC:nil,Content:0|15|50|99,EDM
-	:-3,IP:nil,URL:1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
-	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 234e6604b5b711f19a56ed5b684f684d-20260921
-X-User: zhangheng@kylinos.cn
-Received: from [172.25.120.77] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zhangheng@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 1982760554; Mon, 21 Sep 2026 20:22:40 +0800
-Message-ID: <fe055bde-3542-40ea-aec3-8d379c9599a1@kylinos.cn>
-Date: Mon, 21 Sep 2026 20:22:37 +0800
+	s=arc-20240116; t=1789993381; c=relaxed/simple;
+	bh=sHyTpWHes5t75Pc2Fmo8SNWMvQx1Uqr3FJpfTa5lMM8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YiWhSzb9aYcRiJQYCoLTzUOLLESKBLvVOuBoy9HcmV50NMO7Np3ljpMMsCsdY0Yr/eivTR/A45A4FB7CKxaQpqqrN48/6iZd4THmfojw2csXHfkVMeq/rqJcnCo68ymF2dn3P7u708nH5QB6D3Xybqzc1tAwN8RqSGty7m9S9i4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nHgIduiK; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nHgIduiK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F5CA1F000FF;
+	Mon, 21 Sep 2026 12:22:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789993379;
+	bh=lTzvc3ARjN3lgv2zB53AMrhfzCTL7oIJ4fUjptI3xGM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nHgIduiKc67QnbquwIqFxD1s7R80IYxaTWQMVhLeNACpqzTyrBiCKSeq/Et3hmo6H
+	 Z5YE/hTyKTryFjezNvMjueSraoriFXKB750dTojdph5ayOKvS4mkq+EbkVXn4QnvDd
+	 4jXalW+sqq9fu8v4OEx8MZ0rcLvLdDTY84lbAkHY=
+Date: Mon, 21 Sep 2026 14:22:52 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Huang Wei <huangwei@kylinos.cn>
+Cc: Yogesh Gaur <yogeshgaur.83@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+e7aa19176573a6992617@syzkaller.appspotmail.com
+Subject: Re: [PATCH] usb: typec: ucsi: acpi: don't dereference a missing ACPI
+ companion
+Message-ID: <2026092130-thong-secrecy-1dd4@gregkh>
+References: <20260920090711.300-1-yogeshgaur.83@gmail.com>
+ <20260921030346.1996820-1-huangwei@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: amd: yc: Add DMI quirk for MSI Thin A15 B7UCX
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260918104944.649403-1-zhangheng@kylinos.cn>
- <arEHjbt3AY06j_Vc@sirena.co.uk>
-Content-Language: en-US
-From: Zhang Heng <zhangheng@kylinos.cn>
-In-Reply-To: <arEHjbt3AY06j_Vc@sirena.co.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921030346.1996820-1-huangwei@kylinos.cn>
 
-DMI_BOARD_VENDOR: Micro-Star International Co., Ltd.
-DMI_BOARD_NAME: MS-16RK
-DMI_PRODUCT_NAME: Thin A15 B7UCX
+On Mon, Sep 21, 2026 at 11:03:46AM +0800, Huang Wei wrote:
+> Hi Yogesh,
+> 
+> I checked this over. The fix is correct - the sysfs bind path can
+> indeed hand a non-ACPI platform device to ucsi_acpi_probe(), and
+> adev->dep_unmet is the first dereference.
 
-This is the DMI information provided by the reporter.The Launchpad bug 
-https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2167333 also 
-mentions the "Thin A15 B7UC" quirk, and their names are indeed different.
+And that's the problem, don't do that.  Seriously, if userspace does it,
+it deserves the pieces the kernel ends up in.  This isn't a kernel
+issue, it's a userspace "do not do this" issue.
+
+There is now a taint flag that gets set if userspace tries to do this,
+showing us all what is really going on, so we can ignore reports like
+this.  Also syzbot now should not be attempting foolish things like
+this.
+
+thanks,
+
+greg k-h
