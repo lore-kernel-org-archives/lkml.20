@@ -1,89 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A07378D8D;
-	Mon, 21 Sep 2026 11:25:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB1A48593A;
+	Mon, 21 Sep 2026 11:26:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789989956; cv=none; b=g2xgiemIwfwWna+FYlWLGlzxF/z/Z9A6Z5500gywrz9htUu/PLhuqPiEztfhpUlRLv8jaTZZ1d/FwOSyYjCnNfVxX/dqUUi1EvmTbQv+kUNnf/jNQtnruYFJNQmnIC4r9mjvmsuV/pzotc5D2hc7d/bXr7D18GwTes0tuSybmfg=
+	t=1789989963; cv=none; b=jwUjEZHpn1Cy6Xje4+PTT0QYxIMjUHt8RSF2uHMmX1hBaZ693v1/ESc4F45bEPj3xDo3XrQuuykKsHPv2oOoi3byyvH35QlzQhMdGtg1ULRlpjsUmKyXfasSMpoA/UCcqwpUGPUZXW3AB3L0nscIWJXTHWDFMrwcqgHZQKxC/GM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789989956; c=relaxed/simple;
-	bh=uPQtscV8Z0GXUBHpFrT+jeW0D1Q6eUCptzebFCXmqdI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UMv+5semD5Bf0FAmyUZ/HpeiS2F+4CjIKHvhS/9ZnQpjv1OWDpO6wyxqxihwABh7ZpvL2C+DOgTq6FmQtGPY/XND8V5hdjMGs6PQLeN/+dZqslxgCL7kF+qyC35F8oE3U00kZEdzr3cO4+QF07nbv9tX2+9rjMIxhC9O8S+q+oM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k9sz3N4G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789989963; c=relaxed/simple;
+	bh=/adRi5bDzLLQyCvGNnyrZQWAsY8YgXE6SFZ7sUfceS8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NBW2daq3JOvvNLjC+tCCw3rInWQZoYgCmSpxVB+UA+2QGRy4kpjXKaVonBdTulwEPmYAfh+m7uwFX7L9Jv144mhIWjrUWeAa4jTQtrVv2G7F/qc2kn3ocgsfbWQxRrQzUgG3zFdmQK7TR5w82lO5cO4ZTIHOcLDong32onY8iso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F8AMelli; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k9sz3N4G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E571F1F00893;
-	Mon, 21 Sep 2026 11:25:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F8AMelli"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F321E1F000FF;
+	Mon, 21 Sep 2026 11:25:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789989955;
-	bh=+IU8t1JRfWrIGINdVDCgScYXPyiqDlZ/6ergXEl1tFY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=k9sz3N4GdpeJEzRzX4jMR2FXUFXpxSvoIQYfMv+R2t1GqT2//p4GZwP/X/5+lve4P
-	 yJIZfXwQFM7SRsc7dIWr4GDAzOp5hKtW56b2FfiEkEaAom6R0zXFsILi5cqa0nwAeB
-	 Ipbk3eVN87PthYRWyyCgEO1rsbq8CtAlwQcy3yW8u3YYfLOpzs5/aPSC6AgpZ53slR
-	 YdAvUqqm2cODG7VtK1Pe/zJm31JPk0KQgaJqFDbVat+Ci38dXlb5HDZRJ497kPDFWT
-	 bHMJ8ad+byfEUFK0AMK/xQxgqrqIFfK1246dPIBxqRILgKDGmereFtay3nJ2aZt5mr
-	 9a6T/QpCBEeWw==
-Date: Mon, 21 Sep 2026 13:25:45 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
-Cc: "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jeff Johnson <jjohnson@kernel.org>, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
-	ath12k@lists.infradead.org, Bjorn Andersson <andersson@kernel.org>, 
-	Chris Lew <christopher.lew@oss.qualcomm.com>, Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>, 
-	Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-Subject: Re: [PATCH 3/4] wifi: ath11k: Connect to the QMI server belonging to
- the device owned by this driver
-Message-ID: <zozo7e42rvf4evl2q5ugrb2ccvkb6l3um56yuqfgi7ghx5rfou@57b4pqg7fpfk>
-References: <20260918-qrtr-multi-ep-v1-0-8a06caa368d3@oss.qualcomm.com>
- <20260918-qrtr-multi-ep-v1-3-8a06caa368d3@oss.qualcomm.com>
- <da0421b8-bf31-43d1-8d71-520753c8344c@app.fastmail.com>
+	s=k20260515; t=1789989960;
+	bh=vQby94NzMPaPoZyxs7AnQ8vDfmu6KTXWzWVyEKm7s5A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=F8AMellioMREvj2Gh1jqNdxRYnqtSbarXI7+Ne8CD1rQi80gtcXlrk3/j6VtFDaCD
+	 rAn1fj79PBVHMUpNIM/Caw2KHc731T78hb349sHlRZFkDL5SahQcHvBa/wEo2Sks7I
+	 E9Vgswf4ikKv+pAUo5T/dqOWw3zUIi5piqp4UgDccW0JPtdso4uHfOjl5sz4U93oND
+	 EArj2fB3R7sC+fvFLpVdz8Yj8roOoaDmEdIHMkuqY6RF8ZQHJFU0UyXOJJc1j90dNq
+	 Petyy4CRiCNnI/QkzE1cKYfnS5eccyiNRvLVBUIgh6yfjdM/bcjOdCAN1kglH3BlLh
+	 j/+PaUKGZJAaw==
+Message-ID: <ee3735b5-6f56-4b88-a582-5bb0aaf3eda8@kernel.org>
+Date: Mon, 21 Sep 2026 13:25:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <da0421b8-bf31-43d1-8d71-520753c8344c@app.fastmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] platform: Enable ACPI WMI and ASUS WMI driver for
+ ARM64
+To: chipang_kao <prozac2734@gmail.com>, bryan.odonoghue@linaro.org,
+ ilpo.jarvinen@linux.intel.com, W_Armin@gmx.de
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <2384d8f5-106c-4cbd-a119-62d923725bf7@kernel.org>
+ <20260921093339.261306-1-chipang_kao@asus.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260921093339.261306-1-chipang_kao@asus.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026 at 07:39:09PM +0300, Juha-Matti Tilli wrote:
-> On Fri, Sep 18, 2026, at 19:28, Manivannan Sadhasivam via B4 Relay wrote:
-> > From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> > 
-> > When two identical ath11k PCIe devices are connected to the same host, both
-> > advertise the WLFW service with the same service and instance id. The QMI
-> > lookup reports both servers to each device, so a device may connect to the
-> > firmware running on the other device.
-> > 
-> > But now, QRTR provides each MHI endpoint a unique node id which is
-> > different from the node id announced by the device. So use the same id to
-> > pick the correct server. Add a get_qrtr_node_id() HIF callback that returns
-> > the node id derived from the MHI controller index and zero for transports
-> > that do not assign one. In the new_server callback, skip any service whose
-> > node id does not match. A node id of zero disables the check, so transports
-> > that do not assign one keep their current behavior.
-> > 
-> > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Hi,
+
+On 21-Sep-26 11:33 AM, chipang_kao wrote:
+> Hi Bryan, Hans,
 > 
-> Tested-by: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
-> Tested-on: 2x WCN6855 hw2.1 PCI WLAN.HSP.1.1-04685-QCAHSPSWPL_V1_V2_SILICONZ_IOE-1
+> Thanks for the review and valuable feedback.
 > 
-> (assuming the patch is the same and hasn't been updated since 17.9:
-> https://github.com/Mani-Sadhasivam/linux/commits/qrtr-multi-ep/ )
+>> On Thu, 17 Sep 2026 15:30:00 +0100, Bryan O'Donoghue <bryan.odonoghue@linaro.org> wrote:
+>> Thanks, but there's already a series to this effect under discussion:
+>>   https://lore.kernel.org/all/20260724025959.142826-1-W_Armin@gmx.de/
+>>
+>> I only now notice the second patch is not covered by Armin's series.
+>> But this duplicates Kconfig entries.
+>>
+>> I suppose the best approach would be to split drivers/platform/x86/Kconfig 
+>> into two and source the generic one here.
 > 
+> Thanks for pointing out Armin's series and the Kconfig duplication issue.
+> I had review Armin's series and make sure not to duplicate work. Regarding 
+> the driver location/Kconfig split, I agree that avoiding Kconfig duplication 
+> is necessary, and moving/refactoring the driver directly under platform/wmi 
+> (as Hans suggested below) seems to be the cleanest path forward.
+> 
+>> On Fri, 18 Sep 2026 09:38:04 +0200, Hans de Goede <hansg@kernel.org> wrote:
+>> Yes ACPI / WMI is used on some ARM64 laptops, but AFAIK all of
+>> those are currently still booting through Devicetree since
+>> the current generation ARM64 laptops is missing various info Linux
+>> needs in the ACPI tables. So for a fully functional system 
+>> Devicetree is necessary.
+>> ...
+>> Questions:
+>> 1. Has this been tested on an actual Asus ARM64 laptop or other
+>>    ARM64 device? 
+>> 2. On which laptop/device model ?
+>> 3. How was this tested, how was the laptop booted; and does booting
+>>    it this way lead to loosing any other functionality
+>> 4. Were any other kernel patches used during testing?
+> 
+> Regarding Hans's questions:
+> 
+> 1. Yes, this has been tested on an actual ASUS ARM64 laptop.
+> 2. This specific model has not been publicly released yet, so I
+>    cannot disclose the exact model name or marketing designation
+>    at this stage. However, it is an upcoming ARM64 platform 
+>    featuring ACPI firmware.
+> 3. The laptop was booted natively via ACPI firmware (UEFI). To>    verify the WMI functionality without modifying the base
+>    distribution kernel, we built and tested the modules (`wmi.ko`,
+>    `asus-wmi.ko`, and `asus-nb-wmi.ko`) out-of-tree and loaded
+>    them using `insmod`. The driver successfully bound to the WMI
+>    devices exposed by the ACPI tables and functioned as expected.
+> 4. No additional kernel patches were required. Note that we have
+>    dropped patch 1/2 from this series because Armin's patch series
+>    already removes the X86 dependency from drivers/platform/wmi/Kconfig.
+>    Since Armin's series is currently under discussion and not yet
+>    merged, our v2 will focus solely on moving the ASUS drivers to
+>    drivers/platform/wmi/asus/ while depending on the WMI updates.
 
-I just sent v2. Could you please test this version? I had made some changes
-while rebasing to net-next/main, so making sure I didn't regress, thanks!
+Thank you for your answers and this all sounds good to me.
 
-- Mani
+Based on this I've no objections against this series.
 
--- 
-மணிவண்ணன் சதாசிவம்
+Regards,
+
+Hans
+
+
