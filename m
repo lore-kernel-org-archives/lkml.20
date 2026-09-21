@@ -1,116 +1,365 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f9.google.com (mail-yx2-f9.google.com [74.125.224.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2445F50129E;
-	Mon, 21 Sep 2026 22:25:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DDC51D52B
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:25:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790029514; cv=none; b=AQmOqGNTT0+utx8c0Lp3HiYmnGtC2A4GnQaYTsIBPQhMWs/cB4djXwGQ7rF1ujy0is0pIiZTIcu5Gb/hyxeJnw1hUYQ8I0Jmg1ORwkqinPi8c6jKub6pQvpmcOY/dXY7ZuWW2YvbpME1PQOPO7xAJD34yvGdjeCJxlj7D2yTm2w=
+	t=1790029532; cv=none; b=fYndfBvsXqWnoa/xBYVLXF0YPFd1C/0FRmF7GTyhIZfmSMAIoPE0tw/e/7AD+WIt3vJMlC8iO2yAOni5SbOnRFTxA0wqiAdt1h6svoTtFWHHrpoDj6qy0aoovJ4h7NA/8AUnHYFF28PD03sJLbJ5mE86+XsLrXogKUZlyYnMhgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790029514; c=relaxed/simple;
-	bh=h5e5IrKpWCsLN6tg5FAxVpJAXqj3+QByX8OR87u2sGU=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aS3tljq4ubvBt8wkYXRvftyz/M5boaTZD2v7aIcwz+msvN55YZdLaBQrDsoAtMSu21VMC5iYFpMfUmylDJ6dbkGoV2OKXstn2EE8H0Y9N+kzVCE6c6YXwPcnaOFmDaYlAD+V9/2O/1UqhHCaZw9Kou2NL8LHmu3+ATR/V17EtSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cI/wTlCh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790029532; c=relaxed/simple;
+	bh=PT3W/nO28TBwi5wqZrs3EjZOULa8Pkq0O82+HXOv7bg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VL5zCqk9FXvqJE9nmOPyLr99FO1ibGeFSC5P3vF8+87cfaIn3LKDkEEas5loOyNxwuseuZGR3h4+CreTH7DMxyNLZlEB68dpI3T6AZ/JHDHjk5Z4ypSQvIl27P6wqURkfEmz0e7tGiVUj1v7GhIbyckgBJg8RIHx+X2gAeAgOvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com; spf=pass smtp.mailfrom=amutable.com; dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b=dYLFD8ta; arc=none smtp.client-ip=74.125.224.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cI/wTlCh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B010A1F000FF;
-	Mon, 21 Sep 2026 22:25:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790029512;
-	bh=23D3MQz3fCUCgpRz+OxP3fbdkMJEv8tAqXTKIYEwZ+Q=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=cI/wTlCh3gSvgMpcp574D01tXV9/G5XAbC26SShUYOScCVubB2uRu7bLM0K0T2I65
-	 ZpLa5U5iSuHr3brz565yy+HIvCcPvLZ3fDmRnpfOe0Z/1utYsRtjru7Ro1hKV6Owdc
-	 wXxgeyrygGqQvs/cIK2fYkwfh8HFmSwV3E+LkvMIzPuRX02b1OoBEOFs9rW8/sfwQ6
-	 IjNYFYFlosuYDOtVQXvlQAuQQWTG+4/1KgOklR+dWhR67zCwxLZM2HoApTQ+/HVPVH
-	 FGY4L/s/uckYWbF3mVlx9GKproA0aGMwUUDVic+bRK511h3EGFFbG30wO33mx32r8r
-	 UyfV2ywgW05YA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x8mRi-0000000Bl5Y-2Auk;
-	Mon, 21 Sep 2026 22:25:10 +0000
-Date: Mon, 21 Sep 2026 23:25:10 +0100
-Message-ID: <86wlse44zd.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Georgi Djakov <djakov@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mostafa Saleh <smostafa@google.com>,
-	Thorsten Leemhuis <regressions@leemhuis.info>
-Subject: Re: [PATCH] Revert "interconnect: qcom: x1e80100: enable QoS configuration"
-In-Reply-To: <2e666363-9a57-41a0-9605-db0dee304f52@kernel.org>
-References: <20260915123703.3228329-1-maz@kernel.org>
-	<86y0cu49iv.wl-maz@kernel.org>
-	<2e666363-9a57-41a0-9605-db0dee304f52@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b="dYLFD8ta"
+Received: by mail-yx2-f9.google.com with SMTP id 00721157ae682-85b8fbb56ceso2294417b3.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:25:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amutable-com.20251104.gappssmtp.com; s=20251104; t=1790029528; x=1790634328; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yHGVqmok/0GVfDYu2EI5EhSCaWnpiCB5OMGPCzXLcFA=;
+        b=dYLFD8taDP+waPb3luhu6g6oxSOEHhlH8EdTMH7rlkTwPvU7xO6on56eNDEoXOTvYe
+         dIGjrWsfI0oEgOSGFBMxejvziW00PCTgzB6YIshNU/1ipQiH+dCaHq6Z1Lnqz54NRC4R
+         YV2wK1q9WwY/ncmdIw7T6briUT8lou8wd7TRLd2+FI3YvvCMzYOO/78J30VlptFUW7dg
+         lK4iJGaB73jVfqP5Le+TMc6qmoEpr967YwCoYqYqo8eIy1T5xQsmWKpGRKQyhyqZwSc8
+         nP5FNv4Gv2HbysRqJaBpepSTrtwW5p7sZ5BWvAWGoyAgvtqvv3Dwl2ckGVCPfPmvzSM/
+         DQjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790029528; x=1790634328;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yHGVqmok/0GVfDYu2EI5EhSCaWnpiCB5OMGPCzXLcFA=;
+        b=j53k9WRy4vKEogbQnZkB1keTWnSarYf4kzFipSeH0QZnPgiNFBNUCxzH4+zVwLHyDL
+         Xie+94wll8Svl/Mqxy7y8sHTgR9BHburThB7S0wCJxnv/HSrCiJm4l5iieA0L6CRssbX
+         ivy3x4lOJpNJgHzNWAv3Xp8lWWquSWsGBJCrs8bMfgERbkCMdzrTNiaN0WJSEpKbdlIQ
+         hvwBfxqCudyJMH8QJjw1ZQUecNEVFmDewes5IK3EjX6Ec4gEDALGgyGHP74sgp4gqd51
+         5pWq+h4BrFlEfhJSYL5zV4NRrXUtBQkttFiT+20XDytLYPC+/LkQTYf3BnLdRTQfkc+g
+         3DAA==
+X-Forwarded-Encrypted: i=1; AKwUvBybCFT18S02c+jiHSKdHnLeZUi7PqEETmGm/To294YdquIoH1maFmtAHd7VdGzUnMGElOA9GSPAeVrJiDg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjv3QE3sTzo7hIGpBE80Y3dFoXRNUXOvDjKXYx41BdXuG1bFxR
+	yMephxJdzEZ4czIBhGNEpcroHMmW75QHoOzSbAf1yJJ6Qrn5zWdO9at4dgX1dDaKdDq7
+X-Gm-Gg: AYBFou3uJXb1BlgyPw9KWH0wl2AbDwGsJWvPcY82OV6snJNqUtVPqa3SZhh+cyDa7AF
+	pEbgk7wU3/TAX3SmJW3d+xt/N7ZdhB1pxAXpKM030UehRTItl6HSzqQGmZU6x921P1GrITKaNYX
+	Tjs4FZAzKcYedSDr0WISso572ee+qIqXyyhJ7/3NRwbzZ8cssl/ZVx49QN5fgJOUTQo6uzpkfSa
+	bhuWIcUU3CKznmfcu2Kq1TFbaPjUPbiCAE0CevNGRdlde2lVDG6vA+pThaYpWHq41b1h0FO7mod
+	UjlF4JnvssEXTMwzz5H6Jutf75qPFgeFzi1JTT971Uzi+M6Ot+048dzgH9qmeBiSgd27+lAH+vU
+	lezD8vlCeSxiImiMRRMMG7eQR//OI7ztWRfE29EISG72wrnQBjjY0SYILNgOxfTfjlk4y6ltDtQ
+	WRi9S2zDLqOUdJzhvbFFdhIIPEC1uj/IScUZMGDNpK3yhcEX8oWOpFu7NXKZqKr/XhfKgAfqLxW
+	GEzkU4NnddzYszvESE0q47kRIiE3TgbQPCOioAzg9g=
+X-Received: by 2002:a05:690c:e20b:20b0:873:5c6b:a324 with SMTP id 00721157ae682-8a1f902f70emr4003017b3.30.1790029527751;
+        Mon, 21 Sep 2026 15:25:27 -0700 (PDT)
+Received: from toolbx (104-53-165-62.lightspeed.stlsmo.sbcglobal.net. [104.53.165.62])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a23e676c72sm2049217b3.33.2026.09.21.15.25.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 15:25:27 -0700 (PDT)
+Date: Mon, 21 Sep 2026 17:25:34 -0500
+From: Andrew Halaney <andrew@amutable.com>
+To: Kuniyuki Iwashima <kuniyu@google.com>
+Cc: Christian Brauner <brauner@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	Alexander Mikhalitsyn <alexander@mihalicyn.com>
+Subject: Re: [PATCH v2 03/10] net: add SO_PASSPIDFD_THREAD to get a
+ thread-specific SCM_PIDFD
+Message-ID: <arGuC7Kaml0N728m@toolbx>
+References: <20260909-work-unix-passpidfd-v2-0-7bd342abb2d1@kernel.org>
+ <20260909-work-unix-passpidfd-v2-3-7bd342abb2d1@kernel.org>
+ <CAAVpQUAK8uhZtO+oza3=5qfZvxy+RHFQd2AQ2y9FpWKbK5jgyg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: djakov@kernel.org, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org, raviteja.laggyshetty@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com, abelvesa@kernel.org, andersson@kernel.org, smostafa@google.com, regressions@leemhuis.info
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAVpQUAK8uhZtO+oza3=5qfZvxy+RHFQd2AQ2y9FpWKbK5jgyg@mail.gmail.com>
 
-On Mon, 21 Sep 2026 22:36:36 +0100,
-Georgi Djakov <djakov@kernel.org> wrote:
+On Wed, Sep 09, 2026 at 10:24:47PM -0700, Kuniyuki Iwashima wrote:
+> On Wed, Sep 9, 2026 at 3:43 AM Christian Brauner <brauner@kernel.org> wrote:
+> >
+> > Currently, SCM_PIDFD carries a pidfd for the thread-group leader. A
+> > broker or the coredump server cannot learn the identity of the specific
+> > thread that sent a given message. Now that both struct pids are recorded
+> > a receiver can ask for the specific identity it needs.
+> >
+> > So add SO_PASSPIDFD_THREAD as a sibling of SO_PASSPIDFD. Either option
+> > makes recvmsg() deliver an SCM_PIDFD. SO_PASSPIDFD sends a pidfd for the
+> > thread-group leader and SO_PASSPIDFD_THREAD sends a pidfd for the
+> > specific thread.
+> >
+> > The two options are mutually exclusive. Enabling one switches the other
+> > off, so getsockopt() always reports which of the two is active.
+> >
+> > On SOCK_STREAM sockets recvmsg() only stops merging data at a thread
+> > boundary when the receiver asked for a thread pidfd. For SO_PASSCRED and
+> > SO_PASSPIDFD receivers all threads of one process remain a single
+> > writer.
+> >
+> > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> > ---
+> >  arch/alpha/include/uapi/asm/socket.h  |  2 ++
+> >  arch/mips/include/uapi/asm/socket.h   |  2 ++
+> >  arch/parisc/include/uapi/asm/socket.h |  2 ++
+> >  arch/sparc/include/uapi/asm/socket.h  |  2 ++
+> >  include/net/sock.h                    | 10 +++++++++-
+> >  include/uapi/asm-generic/socket.h     |  2 ++
+> >  net/core/scm.c                        | 19 +++++++++++++------
+> >  net/core/sock.c                       | 26 ++++++++++++++++++++++++--
+> >  net/unix/af_unix.c                    | 11 ++++++++---
+> >  9 files changed, 64 insertions(+), 12 deletions(-)
+> >
+> > diff --git a/arch/alpha/include/uapi/asm/socket.h b/arch/alpha/include/uapi/asm/socket.h
+> > index 946a5fad2691..bb3d534826bb 100644
+> > --- a/arch/alpha/include/uapi/asm/socket.h
+> > +++ b/arch/alpha/include/uapi/asm/socket.h
+> > @@ -157,6 +157,8 @@
+> >
+> >  #define SO_RIGHTS_NOTRUNC      85
+> >
+> > +#define SO_PASSPIDFD_THREAD    86
+> > +
+> >  #if !defined(__KERNEL__)
+> >
+> >  #if __BITS_PER_LONG == 64
+> > diff --git a/arch/mips/include/uapi/asm/socket.h b/arch/mips/include/uapi/asm/socket.h
+> > index f1641dde135f..269badcaa086 100644
+> > --- a/arch/mips/include/uapi/asm/socket.h
+> > +++ b/arch/mips/include/uapi/asm/socket.h
+> > @@ -168,6 +168,8 @@
+> >
+> >  #define SO_RIGHTS_NOTRUNC      85
+> >
+> > +#define SO_PASSPIDFD_THREAD    86
+> > +
+> >  #if !defined(__KERNEL__)
+> >
+> >  #if __BITS_PER_LONG == 64
+> > diff --git a/arch/parisc/include/uapi/asm/socket.h b/arch/parisc/include/uapi/asm/socket.h
+> > index f3a3815c7dc2..313aee10a52c 100644
+> > --- a/arch/parisc/include/uapi/asm/socket.h
+> > +++ b/arch/parisc/include/uapi/asm/socket.h
+> > @@ -149,6 +149,8 @@
+> >
+> >  #define SO_RIGHTS_NOTRUNC      0x4053
+> >
+> > +#define SO_PASSPIDFD_THREAD    0x4054
+> > +
+> >  #if !defined(__KERNEL__)
+> >
+> >  #if __BITS_PER_LONG == 64
+> > diff --git a/arch/sparc/include/uapi/asm/socket.h b/arch/sparc/include/uapi/asm/socket.h
+> > index 7907f3b1f0ee..bd3e69bcce7a 100644
+> > --- a/arch/sparc/include/uapi/asm/socket.h
+> > +++ b/arch/sparc/include/uapi/asm/socket.h
+> > @@ -150,6 +150,8 @@
+> >
+> >  #define SO_RIGHTS_NOTRUNC        0x005e
+> >
+> > +#define SO_PASSPIDFD_THREAD      0x005f
+> > +
+> >  #if !defined(__KERNEL__)
+> >
+> >
+> > diff --git a/include/net/sock.h b/include/net/sock.h
+> > index 51185222aac2..fc09c92e8a83 100644
+> > --- a/include/net/sock.h
+> > +++ b/include/net/sock.h
+> > @@ -356,6 +356,7 @@ struct sk_filter;
+> >    *    @sk_scm_security: flagged by SO_PASSSEC to recv SCM_SECURITY
+> >    *    @sk_scm_pidfd: flagged by SO_PASSPIDFD to recv SCM_PIDFD
+> >    *    @sk_scm_rights: flagged by SO_PASSRIGHTS to recv SCM_RIGHTS
+> > +  *    @sk_scm_pidfd_thread: flagged by SO_PASSPIDFD_THREAD to recv a thread SCM_PIDFD
+> >    *    @sk_scm_unused: unused flags for scm_recv()
+> >    *    @ns_tracker: tracker for netns reference
+> >    *    @sk_user_frags: xarray of pages the user is holding a reference on.
+> > @@ -562,7 +563,8 @@ struct sock {
+> >                                 sk_scm_security : 1,
+> >                                 sk_scm_pidfd : 1,
+> >                                 sk_scm_rights : 1,
+> > -                               sk_scm_unused : 4;
+> > +                               sk_scm_pidfd_thread : 1,
+> > +                               sk_scm_unused : 3;
+> >                 };
+> >         };
+> >         u8                      sk_clockid;
+> > @@ -2986,6 +2988,12 @@ static inline bool sk_is_stream_unix(const struct sock *sk)
+> >         return sk_is_unix(sk) && sk->sk_type == SOCK_STREAM;
+> >  }
+> >
+> > +/* SO_PASSPIDFD or SO_PASSPIDFD_THREAD asked for an SCM_PIDFD. */
+> > +static inline bool sk_scm_pidfd_wanted(const struct sock *sk)
+> > +{
+> > +       return sk->sk_scm_pidfd || sk->sk_scm_pidfd_thread;
+> > +}
+> > +
+> >  static inline bool sk_is_vsock(const struct sock *sk)
+> >  {
+> >         return sk->sk_family == AF_VSOCK;
+> > diff --git a/include/uapi/asm-generic/socket.h b/include/uapi/asm-generic/socket.h
+> > index 84ea7b92936e..d1e5c6de146d 100644
+> > --- a/include/uapi/asm-generic/socket.h
+> > +++ b/include/uapi/asm-generic/socket.h
+> > @@ -152,6 +152,8 @@
+> >
+> >  #define SO_RIGHTS_NOTRUNC      85
+> >
+> > +#define SO_PASSPIDFD_THREAD    86
+> > +
+> >  #if !defined(__KERNEL__)
+> >
+> >  #if __BITS_PER_LONG == 64 || (defined(__x86_64__) && defined(__ILP32__))
+> > diff --git a/net/core/scm.c b/net/core/scm.c
+> > index 9b9e119c353a..d69768414af4 100644
+> > --- a/net/core/scm.c
+> > +++ b/net/core/scm.c
+> > @@ -499,9 +499,13 @@ static bool scm_has_secdata(struct sock *sk)
+> >  }
+> >  #endif
+> >
+> > -static void scm_pidfd_recv(struct msghdr *msg, struct scm_cookie *scm)
+> > +static void scm_pidfd_recv(struct sock *sk, struct msghdr *msg,
+> > +                          struct scm_cookie *scm)
+> >  {
+> > +       enum pid_type type = sk->sk_scm_pidfd_thread ? PIDTYPE_PID : PIDTYPE_TGID;
+> > +       struct pid *pid = scm->pid[type];
+> >         struct file *pidfd_file = NULL;
+> > +       unsigned int flags = PIDFD_STALE;
 > 
-> On 9/21/26 11:47 PM, Marc Zyngier wrote:
-> > On Tue, 15 Sep 2026 13:37:03 +0100,
-> > Marc Zyngier <maz@kernel.org> wrote:
-> >> 
-> >> This reverts commit 5a8b2cc36e796d595c9d97eab23c2be22805cc1c.
-> >> 
-> >> Since the introduction of this QoS change, X1 machines based on the
-> >> Purwa SoC (such as the Lenovo Mini X) take a hard reset at boot time.
-> >> 
-> >> Other machines based on Hamoa (such as the X1E001DE Snapdragon Devkit)
-> >> end-up with a similar hard reset while under load, most likely due to
-> >> the PCIe ports being starved of traffic.
-> >> 
-> >> Revert the whole thing until someone figures out what magic parameters
-> >> allow QoS to work in a sensible manner, as a usable machine is somehow
-> >> preferable to one that crashes efficiently.
-> >> 
-> >> Link: https://lore.kernel.org/all/apgeBNSiP01YfNcs@google.com
-> >> Link: https://lore.kernel.org/all/86ld9d4h4n.wl-maz@kernel.org
-> >> Signed-off-by: Marc Zyngier <maz@kernel.org>
-> >> Cc: Georgi Djakov <djakov@kernel.org>
-> >> Cc: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
-> >> Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >> Cc: Abel Vesa <abelvesa@kernel.org>
-> >> Cc: Bjorn Andersson <andersson@kernel.org>
-> >> Cc: Mostafa Saleh <smostafa@google.com>
-> >> Cc: Thorsten Leemhuis <regressions@leemhuis.info>
-> >> ---
-> >>   drivers/interconnect/qcom/x1e80100.c | 485 ---------------------------
-> >>   1 file changed, 485 deletions(-)
-> > 
-> > Any update on applying this? These machines have been broken for the
-> > past 4 release candidates, and it'd be great to get them back to a
-> > working state.
-> > 
-> The revert is in linux-next already and i will propagate it as a fix in
-> a couple of days. Thank you for the report and for sending the patch!
+> nit: Please keep the reverse xmas tree order.
+> 
+> 
+> >         int len, pidfd;
+> >
+> >         /* put_cmsg() doesn't return an error if CMSG is truncated,
+> > @@ -517,10 +521,13 @@ static void scm_pidfd_recv(struct msghdr *msg, struct scm_cookie *scm)
+> >                 return;
+> >         }
+> >
+> > -       if (!scm->pid[PIDTYPE_TGID])
+> > +       if (!pid)
+> >                 return;
+> >
+> > -       pidfd = pidfd_prepare(scm->pid[PIDTYPE_TGID], PIDFD_STALE, &pidfd_file);
+> > +       if (type == PIDTYPE_PID)
+> > +               flags |= PIDFD_THREAD;
+> 
+> I'm wondering how this flag can be useful.
+> 
+> I thought this should be
+> 
+>   if (pid_has_task(pid, PIDTYPE_TGID))
+>     flags |= PIDFD_THREAD;
+> 
+> because when the sender sends TGID, this flag is set even though
+> it is a thread leader.
+> 
+> It seems PIDFD_THREAD is just feedback of whether the
+> receiver has set SO_PASSPIDFD or _THREAD, which the
+> application should already know.
+> 
 
-Ah, I hadn't looked into -next. Thanks for letting me know. I'm
-looking forward to being able to use these machines with upstream
-again!
+Isn't this flag necessary to indicate how to handle signals? i.e. its acting like
+PIDFD_THREAD acquired pidfds defaulting to pidfd_send_signal() with
+PIDFD_SIGNAL_THREAD. userspace can even read that back with fcntl() so
+if you were to pass the pidfd around with SCM_RIGHTS, etc the other end knows
+what type of pidfd they've gotten.
 
-	M.
+> 
+> > +
+> > +       pidfd = pidfd_prepare(pid, flags, &pidfd_file);
+> >
+> >         if (put_cmsg(msg, SOL_SOCKET, SCM_PIDFD, sizeof(int), &pidfd)) {
+> >                 if (pidfd_file) {
+> > @@ -539,7 +546,7 @@ static bool __scm_recv_common(struct sock *sk, struct msghdr *msg,
+> >                               struct scm_cookie *scm, int flags)
+> >  {
+> >         if (!msg->msg_control) {
+> > -               if (sk->sk_scm_credentials || sk->sk_scm_pidfd ||
+> > +               if (sk->sk_scm_credentials || sk_scm_pidfd_wanted(sk) ||
+> >                     scm->fp || scm_has_secdata(sk))
+> >                         msg->msg_flags |= MSG_CTRUNC;
+> >
+> > @@ -586,8 +593,8 @@ void scm_recv_unix(struct socket *sock, struct msghdr *msg,
+> >                 scm_detach_fds(msg, scm, READ_ONCE(u->scm_rights_notrunc));
+> >         }
+> >
+> > -       if (sock->sk->sk_scm_pidfd)
+> > -               scm_pidfd_recv(msg, scm);
+> > +       if (sk_scm_pidfd_wanted(sock->sk))
+> > +               scm_pidfd_recv(sock->sk, msg, scm);
+> >
+> >         scm_destroy_cred(scm);
+> >  }
+> > diff --git a/net/core/sock.c b/net/core/sock.c
+> > index 1ad41904db25..f9615b0de10e 100644
+> > --- a/net/core/sock.c
+> > +++ b/net/core/sock.c
+> > @@ -1571,10 +1571,25 @@ int sk_setsockopt(struct sock *sk, int level, int optname,
+> >                 break;
+> >
+> >         case SO_PASSPIDFD:
+> > -               if (sk_is_unix(sk))
+> > +               if (sk_is_unix(sk)) {
+> > +                       /* Mutually exclusive with SO_PASSPIDFD_THREAD. */
+> >                         sk->sk_scm_pidfd = valbool;
+> > -               else
+> > +                       if (valbool)
+> > +                               sk->sk_scm_pidfd_thread = 0;
+> > +               } else {
+> > +                       ret = -EOPNOTSUPP;
+> > +               }
+> > +               break;
+> > +
+> > +       case SO_PASSPIDFD_THREAD:
+> 
+> If SO_PASSPIDFD had boolean check, it would have been possible
+> to reuse SO_PASSPIDFD==2 as SO_PASSPIDFD_THREAD.
+> 
+> Given two options are mutually exclusive here, I think it's cleaner
+> to have u32 SO_PASSPIDFD_OPTIONS or something, which can
+> store 32 flags for future extension.
+> 
+> #define SO_PASSPIDFD_OPTION 86
+> #define SO_PASSPIDFD_THREAD 1
+> 
+> Then, sk_scm_pidfd_thread will be used in unix_skb_scm_eq()
+> and scm_pidfd_recv() only.
 
--- 
-Without deviation from the norm, progress is not possible.
+
+Are they really mutually exclusive? I could see a world where
+maybe you want both set. If we do treat it as exclusive is it
+a last option wins sort of thing?
+
+i.e.:
+
+    1. set SO_PASSPIDFD
+    2. set SO_PASSPIDFD_OPTION with SO_PASSPIDFD_THREAD
+
+does that just result in a SCM_PIDFD related to the thread?
+and then if we do a SO_PASSPIDFD_OPTION with 0, does that
+just stop sending the cmsg at all (or does it go back to SO_PASSPIDFD)?
+
+To me it would be kind of nice if they were unique / independent,
+i.e. if you did the above you'd get SCM_PIDFD and SCM_PIDFD_THREAD type as well
+(and I don't know if I'd make it have flags like that then and instead
+just keep it the way it is). That also seems to pair with SO_PEERPIDFD_THREAD better
+which has to be a separate option since you can't shove in any flags.
+
+Am I missing something? Happy to see it done either way but keeping them
+exclusive and adding options in kind of confuses me with expected behavior.
+
+Thanks,
+Andrew
