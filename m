@@ -1,295 +1,261 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084514B44C0;
-	Mon, 21 Sep 2026 16:03:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5A0499F25;
+	Mon, 21 Sep 2026 16:04:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790006610; cv=none; b=CKUA1aEVbf4+6EsEMbKrvsIvM6l90LD9BOv6EmXraY5bID3ipLHn8YuOSoHmtlt83e+C6uaeafLoGAvqBlx5UdjKgocx7P4iwYhC2DTR4Z4islnaa709FB5gBk+aTk+vMlr4RM0Hdalu3enALE7BiyLh6yqZFvYdUu2Kwj2fvUk=
+	t=1790006649; cv=none; b=b9mbDF1mqQ7r93C7n2QhvK+0aKsu+N3CCy6vhE0CSIp30gjcANdRASGyRXwhRY5+720E7EozSs1jkqn+R6F0zyDKr1+ZiSwn/JS0YEEdH0HyF8ANTvwpKXrnDxtc00dm8CkKzSwQi9meDrmNvBOlOA8Mxgmby6Yydvlm8yDaklU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790006610; c=relaxed/simple;
-	bh=GcQVIx0ZHlSgiMpABZs9hzeajAke/Pcr222mEOJyldw=;
+	s=arc-20240116; t=1790006649; c=relaxed/simple;
+	bh=WxHKmuPlyqXl5ZLFByhGHztObAVNEI+Mzf2YcIgIkWY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o91dKc9d6E2DAuKPzR1OWBetMNsMtwoloiE8wX6quEONfKgeYMOhRhfzdCepZuCz/k4nSZdr4tXGwGRyQZxDVrqOUMzHhBM7PdNJPl9/SJI6zTAkjEX7CttoTQhVuAKR3qZPfprgSY4Cw4zXsVlPc/EkokSim6eXwCzd/pBYJpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mfT0Auj5; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=tbN7ut1V1WZJ7lUul6PE14ZJxo59bZ6GTAqZqXxkChNC4zMWlGAoNUjEOnW2F+IJmmdv9h2bor25DADWBnYuLtsRgzo20RUfUXekETiM5C9gkM6botj7Ud8fVW0Yx18d8zNwMCjMalE0ntZ9ytxRGTPXaP+6W/RODEAbXiDAX8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kiPeRDXq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mfT0Auj5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 710321F000FF;
-	Mon, 21 Sep 2026 16:03:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kiPeRDXq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 682771F000FF;
+	Mon, 21 Sep 2026 16:04:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790006608;
-	bh=S+nMtydxu60gnpE5YP5lmUy7iVTsov6d1dYlPJMyWS8=;
+	s=k20260515; t=1790006647;
+	bh=PJtudqNQATXSC5gOLqR15Av+yGq1Ilm01aKR2BkHfvw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mfT0Auj5snoKFG1xn3/9wL5oGWbpP0gJKVay/fBgkh+vPMCLBBeyB9hSKeb5yxgW7
-	 zG3VAe0XvtqoJdUxoimZ1lX/3/UfvbPpYbtkxPWw9pLtcgqfcJPTfM17U9mfzj/GhS
-	 muGfKTc68RCMRkhxAz6bfOpK7ZrgewkX/9/JsDAn8cMQqoslvIceLybmhWkmVwJNhf
-	 KMfjKWG3SMSA8k7r23HH1NG9PrcaJ/kGD6AAJgBEs4z4nUWoJBgUrolJh1gtcbyuHT
-	 /hCi4shZbAhhWlz+zzS1YWayY8MtCjXGRzGzhRuh73wBlXawNyLDiEhFbDxZq5maNd
-	 4En6yh89p5r1A==
-Date: Mon, 21 Sep 2026 18:03:20 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-pci@vger.kernel.org, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v4 6/6] PCI: dwc: rcar-gen4: Add support for R-Car X5H
- PCIe4
-Message-ID: <ygec5dvolsujxmaxxjqnmusfj6shzszkiprlckbwqkdf6u6hc6@5sm6ayrfzkkm>
-References: <20260905212649.360498-1-marek.vasut+renesas@mailbox.org>
- <20260905212649.360498-7-marek.vasut+renesas@mailbox.org>
+	b=kiPeRDXqlsBGX8xSWU0uaG1b198NJqe5Z2Q8ky1rgKCeE0iKEezdR+vsfxtNkMmTW
+	 0OBmRPNYrZ2vgX1fpigDEPU7MJaU7SUPl7xDwMYfM6UZznny8oCiF1YzAAqxDLJYu7
+	 JwwQD05sp4tMF/xSQh1uOLXEc0VyqDx0tWfCg6zuaG+0zCTiL0qEbuLCyfKomyWfeh
+	 5Wjcn6n1TWPj0MfqliJLAvJFN2WWfSHWZhVYge45AN+hQ9Xad7UHkJQHuZev9cqosm
+	 sO4SXBapQesg3uchrFN2ovdsJe4vchgXNdEeebXtwF4Yp8ET1I9veJd3H+hMYpQy7/
+	 PuBeUTfmW662w==
+Date: Mon, 21 Sep 2026 17:04:03 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Salman Nabi <salman.nabi@arm.com>,
+	Vedashree Vidwans <vvidwans@nvidia.com>,
+	Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
+	Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
+	Varun Wadekar <vwadekar@nvidia.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 4/8] firmware: smccc: lfa: Register ACPI notification
+Message-ID: <20260921-smiling-rare-salamander-6c442d@sudeepholla>
+References: <20260918141112.2115555-1-andre.przywara@arm.com>
+ <20260918141112.2115555-5-andre.przywara@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260905212649.360498-7-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260918141112.2115555-5-andre.przywara@arm.com>
 
-On Sat, Sep 05, 2026 at 11:26:27PM +0200, Marek Vasut wrote:
-> Add support for R8A78000 (R-Car X5H) PCIe4.
+On Fri, Sep 18, 2026 at 04:11:07PM +0200, Andre Przywara wrote:
+> From: Vedashree Vidwans <vvidwans@nvidia.com>
 > 
-> This driver previously supported R-Car Gen4 S4/V4H/V4M. PCIe features
-> of R-Car X5H PCIe4 are almost all the same.
+> The Arm LFA spec describes an ACPI notification mechanism, where the
+> platform (firmware) can notify an LFA client about newly available
+> firmware imag updates ("pending images" in LFA terms).
 > 
-> The controller initialization sequence is slightly different and is
-> factored out into controller specific callbacks, in a manner similar
-> to previous R-Car Gen4 handling.
+> Add a faux device after discovering the existence of an LFA agent via
+> the SMCCC discovery mechnism, and use that device to check for the ACPI
+> notification description. Register this when one is provided.
 > 
-> The controller does have a PHY attached to it, but the PHY is operated
-> by a separate PHY driver, the PHY driver instance binding is handled
-> in rcar_gen4_pcie_get_resources() and controlled in the aforementioned
-> controller specific callbacks.
+> The notification just conveys the fact that at least one firmware image
+> has now a pending update, it doesn't say which, also there could be more
+> than one pending. Loop through all images to find every which needs to
+> be activated, and trigger the activation. We need to do this is a loop,
+> since an activation might change the number and the status of available
+> images.
 > 
-> The controller driver is deliberately using "renesas,rcar-gen5-pcie4"
-> DT compatible string to discern R-Car X5H PCIe4 controller supported
-> by this driver, from R-Car X5H PCIe6 controller which will most likely
-> use a separate driver.
-> 
-> The R-Car X5H PCIe4 controller embeds HDMA instead of EDMA embedded
-> in the R-Car Gen4 PCIe controller, "dw-edma" driver supports both
-> DMA variants.
-> 
-> Endpoint mode is currently not implemented for R-Car Gen5 PCIe4.
-> 
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> Signed-off-by: Vedashree Vidwans <vvidwans@nvidia.com>
+> [Andre: convert from platform driver to smccc bus]
+> Signed-off-by: Andre Przywara <andre.przywar@arm.com>
 > ---
-> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> Cc: Manivannan Sadhasivam <mani@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-pci@vger.kernel.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
-> V2: No change
-> V3: - Disable clock in case of PHY init failure in rcar_gen5_pcie_init()
->     - Add .deinit callback and tear down Gen5 PHY in it
->     - Use 16bit accessors on LNKCTL register
-> V4: Rebase on next-20260904
-> ---
->  drivers/pci/controller/dwc/pcie-rcar-gen4.c | 128 +++++++++++++++++++-
->  1 file changed, 126 insertions(+), 2 deletions(-)
+>  drivers/firmware/smccc/lfa_fw.c | 122 +++++++++++++++++++++++++++++++-
+>  1 file changed, 121 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> index 89472a4becc46..5c0d5fd686cb5 100644
-> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> @@ -19,6 +19,7 @@
->  #include <linux/of_address.h>
->  #include <linux/of_irq.h>
->  #include <linux/pci.h>
-> +#include <linux/phy/phy.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/reset.h>
-> @@ -36,6 +37,7 @@
+> diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa_fw.c
+> index b6ce478d3fc01..bb89fffde6856 100644
+> --- a/drivers/firmware/smccc/lfa_fw.c
+> +++ b/drivers/firmware/smccc/lfa_fw.c
+> @@ -3,12 +3,14 @@
+>   * Copyright (C) 2025 Arm Limited
+>   */
 >  
->  /* MSI Capability */
->  #define MSICAP0			0x0050
-> +#define MSICAP0_MMESCAP_MASK	GENMASK(19, 17)
->  #define MSICAP0_MSIE		BIT(16)
+> +#include <linux/acpi.h>
+>  #include <linux/arm-smccc.h>
+>  #include <linux/arm-smccc-bus.h>
+>  #include <linux/array_size.h>
+>  #include <linux/delay.h>
+>  #include <linux/fs.h>
+>  #include <linux/init.h>
+> +#include <linux/kernel.h>
+>  #include <linux/kobject.h>
+>  #include <linux/ktime.h>
+>  #include <linux/list.h>
+> @@ -18,11 +20,13 @@
+>  #include <linux/stop_machine.h>
+>  #include <linux/string.h>
+>  #include <linux/sysfs.h>
+> +#include <linux/types.h>
+>  #include <linux/uuid.h>
+>  #include <linux/workqueue.h>
 >  
->  /* PCIe Interrupt Status 0 */
-> @@ -74,6 +76,11 @@
->  #define PCIEPWRMNGCTRL		0x0070
->  #define APP_CLK_REQ_N		BIT(11)
->  #define APP_CLK_PM_EN		BIT(10)
-> +#define APP_READY_ENTR_L23	BIT(6)
-> +#define APP_REQ_ENTR_L1		BIT(5)
-> +
-> +/* PCI Express capability */
-> +#define EXPCAP(x)		(0x0070 + (x))
+>  #include <uapi/linux/psci.h>
 >  
->  #define RCAR_NUM_SPEED_CHANGE_RETRIES	10
->  #define RCAR_MAX_LINK_SPEED		4
-> @@ -98,6 +105,7 @@ struct rcar_gen4_pcie {
->  	struct dw_pcie dw;
->  	void __iomem *base;
->  	void __iomem *phy_base;
-> +	struct phy *phy;
->  	struct platform_device *pdev;
->  	struct reset_control *perst;
->  	const struct rcar_gen4_pcie_drvdata *drvdata;
-> @@ -170,6 +178,35 @@ static int rcar_gen4_pcie_speed_control(struct rcar_gen4_pcie *rcar)
+> +#define DRIVER_NAME	"ARM_LFA"
+>  #undef pr_fmt
+>  #define pr_fmt(fmt) "Arm LFA: " fmt
+>  
+> @@ -733,6 +737,112 @@ static int update_fw_images_tree(void)
 >  	return 0;
 >  }
 >  
-> +static int rcar_gen5_pcie_speed_control(struct rcar_gen4_pcie *rcar)
+> +/*
+> + * Go through all FW images in a loop and trigger activation
+> + * of all activatible and pending images.
+> + * We have to restart enumeration after every triggered activation,
+> + * since the firmware images might have changed during the activation.
+> + */
+> +static int activate_pending_image(void)
 > +{
-> +	struct dw_pcie *dw = &rcar->dw;
-> +	u32 lnkcap = dw_pcie_readl_dbi(dw, EXPCAP(PCI_EXP_LNKCAP));
-> +	u32 lnksta = dw_pcie_readw_dbi(dw, EXPCAP(PCI_EXP_LNKSTA));
-> +	u32 val, retries;
-> +
-> +	if ((lnksta & PCI_EXP_LNKSTA_CLS) == (lnkcap & PCI_EXP_LNKCAP_SLS))
-> +		return 0;
-> +
-> +	/* Retrain link */
-> +	val = dw_pcie_readw_dbi(dw, EXPCAP(PCI_EXP_LNKCTL));
-> +	val |= PCI_EXP_LNKCTL_RL;
-> +	dw_pcie_writew_dbi(dw, EXPCAP(PCI_EXP_LNKCTL), val);
-> +
-> +	/* Wait for link retrain */
-> +	for (retries = 0; retries <= 10; retries++) {
-
-So this loop executes 11 times. Is that intented?
-
-> +		lnksta = dw_pcie_readw_dbi(dw, EXPCAP(PCI_EXP_LNKSTA));
-> +
-> +		/* Check retrain flag */
-> +		if (!(lnksta & PCI_EXP_LNKSTA_LT))
-> +			break;
-> +
-> +		usleep_range(1000, 1100);
-
-What is the expected behavior if the Link retrain is not successfull? If it is
-safe to continue, shouldn't the users be warned atleast?
-
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  /*
->   * Enable LTSSM of this controller and manually initiate the speed change.
->   * Always return 0.
-> @@ -285,6 +322,49 @@ static int rcar_gen4_v4h_v4m_pcie_init(struct rcar_gen4_pcie *rcar)
->  	return 0;
->  }
->  
-> +static int rcar_gen5_pcie_init(struct rcar_gen4_pcie *rcar)
-> +{
-> +	struct dw_pcie *dw = &rcar->dw;
+> +	struct kobject *kobj;
+> +	bool found_pending = false;
+> +	struct fw_image *image;
 > +	int ret;
-> +	u32 val;
 > +
-> +	/* R-Car Gen4 and Gen5 common initialization. */
-> +	ret = rcar_gen4_pcie_common_init(rcar);
+> +	spin_lock(&lfa_kset->list_lock);
+> +	list_for_each_entry(kobj, &lfa_kset->list, entry) {
+> +		image = kobj_to_fw_image(kobj);
+> +
+> +		if (image->fw_seq_id == -1)
+> +			continue; /* Invalid FW component */
+> +
+> +		update_fw_image_pending(image);
+> +		if (image->activation_capable && image->activation_pending) {
+> +			found_pending = true;
+> +			break;
+> +		}
+> +	}
+> +	spin_unlock(&lfa_kset->list_lock);
+> +
+> +	if (!found_pending)
+> +		return -ENOENT;
+> +
+> +	ret = prime_fw_image(image);
+> +	if (ret)
+> +		return ret;
+>
+> +	ret = activate_fw_image(image);
 > +	if (ret)
 > +		return ret;
 > +
-> +	/* R-Car Gen5 specific additional initialization. */
-> +	ret = phy_init(rcar->phy);
-> +	if (ret)
-> +		goto err_unprepare;
-> +
-> +	dw_pcie_dbi_ro_wr_en(dw);
-> +
-> +	val = dw_pcie_readl_dbi(dw, PCIE_PORT_LANE_SKEW);
-> +	val &= ~PORT_LANE_SKEW_INSERT_MASK;
-> +	if (dw->num_lanes < 8)
-> +		val |= BIT(6);
-> +	dw_pcie_writel_dbi(dw, PCIE_PORT_LANE_SKEW, val);
-> +
-> +	val = dw_pcie_readl_dbi(dw, MSICAP0);
-> +	FIELD_MODIFY(MSICAP0_MMESCAP_MASK, &val, 4);
-> +	dw_pcie_writel_dbi(dw, MSICAP0, val);
-> +
-> +	dw_pcie_dbi_ro_wr_dis(dw);
-> +
-> +	val = readl(rcar->base + PCIEPWRMNGCTRL);
-> +	val |= APP_CLK_REQ_N | APP_CLK_PM_EN |
-> +	       APP_READY_ENTR_L23 | APP_REQ_ENTR_L1;
-> +	writel(val, rcar->base + PCIEPWRMNGCTRL);
+> +	pr_info("%s: automatic activation succeeded\n", get_image_name(image));
 > +
 > +	return 0;
-> +
-> +err_unprepare:
-> +	clk_bulk_disable_unprepare(DW_PCIE_NUM_CORE_CLKS, dw->core_clks);
-> +
-> +	return ret;
 > +}
 > +
->  static void rcar_gen4_pcie_common_deinit(struct rcar_gen4_pcie *rcar)
->  {
->  	struct dw_pcie *dw = &rcar->dw;
-> @@ -293,6 +373,12 @@ static void rcar_gen4_pcie_common_deinit(struct rcar_gen4_pcie *rcar)
->  	clk_bulk_disable_unprepare(DW_PCIE_NUM_CORE_CLKS, dw->core_clks);
->  }
->  
-> +static void rcar_gen5_pcie_deinit(struct rcar_gen4_pcie *rcar)
+> +#ifdef CONFIG_ACPI
+> +static void lfa_acpi_notify_handler(acpi_handle handle, u32 event, void *data)
 > +{
-> +	phy_exit(rcar->phy);
-> +	rcar_gen4_pcie_common_deinit(rcar);
+> +	int ret;
+> +
+
+DEN0147, Appendix "LFA updates", assigns notification value 0x80 to new
+LFA updates. The handler should ignore all events other than 0x80 before
+attempting automatic activation.
+
+> +	while (!(ret = activate_pending_image()))
+> +		;
+
+Some timeout mechanism needed ? Otherwise can we loop for ever if there is
+a firmware bug ?
+
+> +
+> +	if (ret != -ENOENT)
+> +		pr_warn("notified image activation failed: %d\n", ret);
 > +}
 > +
->  static int rcar_gen4_pcie_prepare(struct rcar_gen4_pcie *rcar)
->  {
->  	struct device *dev = rcar->dw.dev;
-> @@ -322,8 +408,12 @@ static int rcar_gen4_pcie_get_resources(struct rcar_gen4_pcie *rcar)
->  	struct device_node *root_port;
->  
->  	rcar->phy_base = devm_platform_ioremap_resource_byname(rcar->pdev, "phy");
-> -	if (IS_ERR(rcar->phy_base))
-> -		return PTR_ERR(rcar->phy_base);
-> +	if (IS_ERR(rcar->phy_base)) {
-> +		rcar->phy_base = NULL;
-> +		rcar->phy = devm_phy_get(dev, NULL);
-> +		if (IS_ERR(rcar->phy))
-> +			return PTR_ERR(rcar->phy);
-> +	}
->  
->  	root_port = of_get_next_available_child(dev->of_node, NULL);
->  	if (root_port) {
-> @@ -807,6 +897,28 @@ static int r8a779f0_pcie_ltssm_control(struct rcar_gen4_pcie *rcar, bool enable)
->  	return 0;
->  }
->  
-> +static int rcar_gen5_pcie_ltssm_control(struct rcar_gen4_pcie *rcar, bool enable)
+> +static int lfa_register_acpi(struct device *dev)
 > +{
-> +	u32 val;
+> +	struct acpi_device *acpi_dev;
+> +	acpi_handle handle;
+> +	acpi_status status;
 > +
-> +	val = readl(rcar->base + PCIERSTCTRL1);
-> +	if (enable) {
-> +		val |= APP_LTSSM_ENABLE;
-> +		val &= ~APP_HOLD_PHY_RST;
-> +	} else {
-> +		val &= ~APP_LTSSM_ENABLE;
-> +		val |= APP_HOLD_PHY_RST;
+> +	acpi_dev = acpi_dev_get_first_match_dev("ARML0003", NULL, -1);
+> +	if (!acpi_dev)
+> +		return -ENODEV;
+> +	handle = acpi_device_handle(acpi_dev);
+> +	if (!handle) {
+> +		acpi_dev_put(acpi_dev);
+> +		return -ENODEV;
 > +	}
-> +	writel(val, rcar->base + PCIERSTCTRL1);
 > +
-> +	if (enable)
-> +		phy_power_on(rcar->phy);
-> +	else
-> +		phy_power_off(rcar->phy);
+> +	/* Register notify handler that indicates LFA updates are available */
+> +	status = acpi_install_notify_handler(handle, ACPI_DEVICE_NOTIFY,
+> +					     lfa_acpi_notify_handler, NULL);
+> +	if (ACPI_FAILURE(status)) {
+> +		acpi_dev_put(acpi_dev);
+> +		return -EIO;
+> +	}
+> +
+> +	ACPI_COMPANION_SET(dev, acpi_dev);
+> +
+> +	return 0;
+> +}
+> +
+> +static void lfa_remove_acpi(struct device *dev)
+> +{
+> +	struct acpi_device *acpi_dev = ACPI_COMPANION(dev);
+> +	acpi_handle handle = acpi_device_handle(acpi_dev);
+> +
+> +	if (handle)
+> +		acpi_remove_notify_handler(handle,
+> +					   ACPI_DEVICE_NOTIFY,
+> +					   lfa_acpi_notify_handler);
+> +	acpi_dev_put(acpi_dev);
+> +}
+> +#else	/* !CONFIG_ACPI */
+> +static int lfa_register_acpi(struct device *dev)
+> +{
+> +	return -ENODEV;
+> +}
+> +
+> +static void lfa_remove_acpi(struct device *dev)
+> +{
+> +}
+> +#endif
+> +
+>  static int lfa_smccc_probe(struct arm_smccc_device *sdev)
+>  {
+>  	struct arm_smccc_1_2_regs reg = { 0 };
+> @@ -769,11 +879,21 @@ static int lfa_smccc_probe(struct arm_smccc_device *sdev)
+>  		destroy_workqueue(fw_images_update_wq);
+>  	}
+>  
+Looks like if update_fw_images_tree() failed, the kset and workqueue will be
+destroyed. The ACPI init below overwrites err, and both a successful
+registration and -ENODEV reach return 0(not sure if that is expected).
+Driver removal or a later notification or any activity will then use
+the destroyed global objects happily.
 
-It is quite unusual to handle PHY power on/off in the start_link() callback.
-Should this be moved to init/deinit callbacks?
+> -	return err;
+> +	if (!acpi_disabled) {
+> +		err = lfa_register_acpi(&sdev->dev);
 
-- Mani
+There is also no cleanup when lfa_register_acpi() returns another error after
+inventory setup succeeded. The probe needs some unwind path that returns
+the original enumeration error and releases the kset and workqueue on every
+later probe failure. How come the LLMs have not pointed out these issues
+already ? I see sashiko is unable to review this because of the way you have
+expressed the dependency. Or make SMCCC patches part of the series for review
+purposes.
 
 -- 
-மணிவண்ணன் சதாசிவம்
+Regards,
+Sudeep
