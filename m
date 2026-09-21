@@ -1,33 +1,40 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 700A2136351;
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8403AEF4E;
 	Mon, 21 Sep 2026 09:44:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789983864; cv=none; b=aNvkmSw5BBR+lVdRJzWv2IT0sUyES7YGj7A1P1qym7DOs6zgx+8fgf2ZiWRMCVYBjupLgNf3rTq6PtFh3g+sgPXop2YP6MQsyrWSS6tOluVebzrCpeeiRbNy5aP9kHhTwK6ErpnGOOLkxMmWaLFQDFpkVfGR/QmeHdTsIM76BtI=
+	t=1789983866; cv=none; b=QlpvJWC6IjIHGUylDXY/l/Uiqphg0J6Sy0G3fqoyV0tus33ecmGTCRHcCAyVqByjG/dMfCQoREFcEX0aQ5Uf6GQ+d1SmCAY2giq1o0/BO9zzitfdnY/uucFMSLWGBd+BqR3WL0ze8gTvnr5WHk5QW2M+J3B3/qXMkfk/scUYyws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789983864; c=relaxed/simple;
-	bh=QGwc+dAkTPXAJc9o4T5hZxy9BZq11nu1Z0f1P5saI/Q=;
+	s=arc-20240116; t=1789983866; c=relaxed/simple;
+	bh=Ny2qS2fMxi0fAcYUfnNf3pmIxiRJbqNgL/Fh4LCY4Ik=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Vb+1PhLCIXCogOszJaqt2eTdh7uT9yNkPQYtNy+W5PrRwNwr28j3oA4ySe9bFEoGteCkIltCW+PT+6ZewhkLNNArm5J3frTKHmx/Sq8BYkSX+bLJo+eNBkyai6E2iXrq+chq2AUVaQvSnyxyatgUIbA4yQe5ILpFe7nU24S+tdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qwUc8yek; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qwUc8yek"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2998F153B;
-	Mon, 21 Sep 2026 02:44:18 -0700 (PDT)
-Received: from [10.57.83.12] (unknown [10.57.83.12])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7468D3F86F;
-	Mon, 21 Sep 2026 02:44:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789983861; bh=QGwc+dAkTPXAJc9o4T5hZxy9BZq11nu1Z0f1P5saI/Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qwUc8yekPnle5iyolREB22nxPCxek0508Oh9aZKHTFLruu7FqF8h71LWhAgNuw5e8
-	 QO8MRf3saEnhCc9HduCxILbEzWErOEEfJEa25crNaoG3YkHcqnb9MTAiu+kCe9UwNQ
-	 wWUie9GNe6r5o8kHoxX5FXP83fHJqGFNHbtOiC5c=
-Message-ID: <89d44eaa-2ea8-478a-8a39-af91373485fb@arm.com>
-Date: Mon, 21 Sep 2026 10:44:15 +0100
+	 In-Reply-To:Content-Type; b=Cc3xDUbzCXJrH4Z4EUAQaK7pglHxE/7iYanB5DiVVtJqVaDi6d9FEdob5JIEvuxQrnYvTaApNTU+51EgTHaKeHdbNMUYumSX6flXM1kzynVpg0DSVHU8rrnDrI9uPEy1C+M4nDssCCIam6Crwyxj4itvPBQrdlM4xhXrqNk1SAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 03157cdab5a111f19a56ed5b684f684d-20260921
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:1c0d18b0-7032-41a2-a203-6262f7da3134,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:28c43a1190f95a13f376e43396c62bc9,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:-10|0|15|50
+	|99,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:
+	0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 03157cdab5a111f19a56ed5b684f684d-20260921
+X-User: lijiayi@kylinos.cn
+Received: from [172.25.120.57] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lijiayi@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 1376205578; Mon, 21 Sep 2026 17:44:17 +0800
+Message-ID: <60d7692e-4d8e-4b94-b45d-a530bc2cff72@kylinos.cn>
+Date: Mon, 21 Sep 2026 17:44:14 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,88 +42,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] arm64: use HW PTE accessors in early map_range()
-To: Muhammad Usama Anjum <usama.anjum@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Alexander Potapenko <glider@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-efi@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org
-References: <20260914-pte0_arm-v1-0-bb53b663e396@arm.com>
- <20260914-pte0_arm-v1-5-bb53b663e396@arm.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260914-pte0_arm-v1-5-bb53b663e396@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [RFC PATCH] usb: uas: quiesce SCSI before stopping endpoints on
+ driver unbind
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: Oliver Neukum <oneukum@suse.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Alan Stern <stern@rowland.harvard.edu>, linux-usb@vger.kernel.org,
+ linux-scsi@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
+ linux-kernel@vger.kernel.org
+References: <20260920012358.3362053-1-lijiayi@kylinos.cn>
+ <20260921092615.7402711d.michal.pecio@gmail.com>
+From: Jiayi Li <lijiayi@kylinos.cn>
+In-Reply-To: <20260921092615.7402711d.michal.pecio@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 14/09/2026 14:51, Muhammad Usama Anjum wrote:
-> map_range() uses HW PTE pointers to build early translation tables at
-> each level. Directly testing, decoding, or assigning *tbl treats an
-> HW PTE as a SW PTE value, which requires explicit conversion once
-> hw_pte_t becomes distinct.
-> 
-> Use __ptep_get() to load a SW PTE value for the empty-entry check and
-> child-table address, and __set_pte_nosync() to convert SW PTE values to
-> HW PTEs on stores. The no-sync helper performs WRITE_ONCE() without
-> adding the completion barriers used by __set_pte().
-> 
-> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Hi Michal,
 
-Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
 
-> ---
->  arch/arm64/kernel/pi/map_range.c | 13 ++++++++-----
->  1 file changed, 8 insertions(+), 5 deletions(-)
-> 
-> diff --git a/arch/arm64/kernel/pi/map_range.c b/arch/arm64/kernel/pi/map_range.c
-> index 94f06da76e333..9c4c8060c5df4 100644
-> --- a/arch/arm64/kernel/pi/map_range.c
-> +++ b/arch/arm64/kernel/pi/map_range.c
-> @@ -51,19 +51,21 @@ void __init map_range(phys_addr_t *pte, u64 start, u64 end, phys_addr_t pa,
->  
->  	while (start < end) {
->  		u64 next = min((start | lmask) + 1, PAGE_ALIGN(end));
-> +		pte_t entry = __ptep_get(tbl);
->  
->  		if (level < 2 || (level == 2 && (start | next | pa) & lmask)) {
->  			/*
->  			 * This chunk needs a finer grained mapping. Create a
->  			 * table mapping if necessary and recurse.
->  			 */
-> -			if (pte_none(*tbl)) {
-> -				*tbl = __pte(__phys_to_pte_val(*pte) |
-> +			if (pte_none(entry)) {
-> +				entry = __pte(__phys_to_pte_val(*pte) |
->  					     PMD_TYPE_TABLE | PMD_TABLE_UXN);
-> -				*pte += PTRS_PER_PTE * sizeof(pte_t);
-> +				__set_pte_nosync(tbl, entry);
-> +				*pte += PTRS_PER_PTE * sizeof(hw_pte_t);
->  			}
->  			map_range(pte, start, next, pa, prot, level + 1,
-> -				  (hw_pte_t *)(__pte_to_phys(*tbl) + va_offset),
-> +				  (hw_pte_t *)(__pte_to_phys(entry) + va_offset),
->  				  may_use_cont, va_offset);
->  		} else {
->  			/*
-> @@ -81,7 +83,8 @@ void __init map_range(phys_addr_t *pte, u64 start, u64 end, phys_addr_t pa,
->  				protval &= ~PTE_CONT;
->  
->  			/* Put down a block or page mapping */
-> -			*tbl = __pte(__phys_to_pte_val(pa) | protval);
-> +			entry = __pte(__phys_to_pte_val(pa) | protval);
-> +			__set_pte_nosync(tbl, entry);
->  		}
->  		pa += next - start;
->  		start = next;
-> 
+> This is actually an anomaly, transfer events should always point
+> to valid rings. Device sendig bogus Stream ID would be code 34:
+> Invalid Stream ID Error.
+>
+> Is this an ASMedia host controller? PCI ID doesn't looke like one...
+
+
+The original controller was not ASMedia.  It was a Zhaoxin xHCI
+controller, PCI ID 1d17:9204.
+
+
+I have now reproduced the same post-rebind failure with the same USB
+storage bridge (USB ID 2109:0715) and workload on an Intel xHCI
+controller (PCI ID 8086:a2af).  This additional run used
+6.14.0-27-generic.
+
+
+The relevant post-bind log is:
+
+
+   scsi host7: uas
+   scsi 7:0:0:0: tag#4 data cmplt err -75 uas-tag 1 inflight: CMD
+   scsi 7:0:0:0: tag#4 CDB: Inquiry 12 00 00 00 24 00
+   scsi 7:0:0:0: tag#4 uas_eh_abort_handler 0 uas-tag 1 inflight: CMD
+   usb 2-2: reset SuperSpeed USB device number 2 using xhci_hcd
+   scsi host7: uas_eh_device_reset_handler success
+   ...
+   scsi 7:0:0:0: tag#7 CDB: Test Unit Ready 00 00 00 00 00 00
+   scsi host7: uas_eh_device_reset_handler success
+   sd 7:0:0:0: Device offlined - not ready after error recovery
+
+
+There was no "Transfer event 26 for unknown stream ring" message in the
+Intel run.  Therefore, I agree that event 26 is anomalous, but it is not
+required for the storage failure and appears to be a secondary symptom
+specific to the original run.  The first post-bind failure is the
+Data-In completion error on INQUIRY, and the same error occurs on both
+controllers.
+
+
+Thanks,
+Jiayi
+
 
