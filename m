@@ -1,125 +1,197 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62B5517BAA;
-	Mon, 21 Sep 2026 22:01:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790028106; cv=none; b=H9lmc0RfqAOaQwwkUzAqkZ6xcmH+jf9iT/SWIPhEi73j7nX0bk68BKZtunHJ3+YUULDjWIipy/sqHNpfpswVBurHEwtj79YiwYW3deYPKFWXrr0tPKjFri7Dbu9LilFD36bLbKpIshP5+HeYwsVgNexUyf9BTF1CsGFSPymG8CI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790028106; c=relaxed/simple;
-	bh=g772JZu5Ugt62u3TwjLFm2h33jZ8NQVOl1wKG2ANzPk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hZ56vI+Kc8npNMkpbSUJuocOxrbs0NNQg+OkafKMCdibyPeTTmlYCREvJJj6oColtf03zch3USoqGlMtHbtZMKEqfkHTU3Nhz6+scva4GaXiJbxxhQPOXKVF5Xd2i4DQYKHMHzdMiAILrne4G4QmXeXHtqjcL2ADSw6spRe/rMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OJ/HLKSu; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462E43AE6F7
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:01:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790028108; cv=pass; b=kulJefzqQr42B03wXrAxbDjAro2/xTe0irY9AM+cuoxVRb38qaHthaZQVBgL2qmE02bY2NyVroJWcC0fPlw97ZFkcTi9OGnS1gBObwYFobEG24K1E6M//1sCbZc6uin8N+PYXx5DTCXRc2mOQlf9gx8ZMeMr1UxvEy8/AQ0ZRT8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790028108; c=relaxed/simple;
+	bh=U/IwgPrpaHxi79QzKG2CWLERd7nUYg2eWaJtoYv4Wv4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eUYabYWPjEp1QPsl3nCANnCgXQ4XB43CqPy+eD0kZnZTC5eLyp3PlGQY8ZoDuNoxYQP4zCaReLJA1c5OtFzv7YRjcNcXeAzqG1MZ6l0+fe93uoaasXP6dIcZEomLMz+3P/km7rMlgKcd/Bfz6OkYiSXWY+IP/HRPIJ3gIJ9To/0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c85lj3Lw; arc=pass smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OJ/HLKSu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6287C1F000FF;
-	Mon, 21 Sep 2026 22:01:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790028102;
-	bh=JP1mJjwKrY1zm80E+e1Ejj6Y1oTsfyKHyqpS8mqGfzI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OJ/HLKSu0E20UTtT7OaCbUHb8xih6+CzoNIYw8Ta6Pt4ee6G2hFWetr97NQeJqXKg
-	 vnOk7e1Adn5T2Ax0Y50EULK19ATfYO5/qsN4dXBQTQJ09nhJBSZrGaX+1/iXUl9H+C
-	 6XXwFp+SK3Wamjss4B70VsZLmmAEM812AvSWIvTs0xwZuCTHqnIXAXt+2b/aw8KgMd
-	 YOSIotScIEoSP0vMH9mo0Bm0On87t6SsI197vN1zM/lQGCbuKXuVIV47Kf7bnhwZkQ
-	 zvV5OkBy+0WMfLzNkeasoJMuKIz+IklkCw2AhetRQH6Re0gdlSLLIoV/wii/fikWKj
-	 3KQkRX6LRqjpg==
-Message-ID: <e8b51a7b-a2fc-459f-81d8-49d6b0235829@kernel.org>
-Date: Tue, 22 Sep 2026 00:01:38 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c85lj3Lw"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39931869b4aso221128a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:01:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790028103; cv=none;
+        d=google.com; s=arc-20260327;
+        b=szN8YMeAS+V+vbCFKUU4NlnOkiB9CS7eP+zImzFQKm7PmRgDSrurGLPfdldZLw6qpL
+         e/T0Ev552dIcYlJ1j/jQk/gNcsbJxLMY8Sjw/KrpqJV1zA35xFhFjw3N7n1YCDyMVBvQ
+         opwvyxcamQg4NJbA0h6e3SVWqHmjCKQPtMsuDC1BWyKzl14DgXF++X8csuQpSw3KnCtl
+         7eDDeyjxzkEJRYHroZQtvyZKo+qxDqFzcbCM8uO1pU5KI9fKg2e98lBwUbp2mEzTor8N
+         JhRsVZyHRH7dKrjPkeOMvSqilgR2zmsdjdwNxdFZt/NF5JD+e/X+7khli4VS+D6a53kF
+         hFNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1J+saQss82xL8Ce5qI/Gv+3joKI+8Uu+v3gbZJZO9EQ=;
+        fh=9FBTvhzehatkiCoha6Bz7qJQGDlCGmpiQKYvxZpS1ag=;
+        b=qTjIPtmKScf1/1VX+psGsfI4yVBLs7H8rrF/lCsjo0HdUV3SJcdzuGh60Tu9jMOk7a
+         RWl3tqwvzhdLtxJOl3llw08lkh0TEjRyRxcmY8FJEZLd3RRCH5hrc5qt23DHcGWbOOIO
+         q0Avmc/RtgEcE2/0wPW71MINY6hJpBkFDEw5dPXpCgbMagbFTnE8sDt5ZWvF/DrEMmyC
+         IqYdsw6EkZnfjgsGFLdTBtarfSkt4rQ5Dp4hGGXsuJE1vtpIfse3Z/0R7mBZke4WKg1v
+         dGybqVpN8eKvC/GIi+Uj1gYFixkXozRzI0jMcr9qSMhyolNwSP2MoyvKGD5TfqPRXDns
+         RB3g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790028103; x=1790632903; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1J+saQss82xL8Ce5qI/Gv+3joKI+8Uu+v3gbZJZO9EQ=;
+        b=c85lj3Lwlpy6DWSDIg6jI2pKT4YFX/DyhNGDgwgfUCb+KE59K6olrjodsONX4Ocu0e
+         EjUJUfP6Dg347oAeYCXmgPyx7eYzhjpik7cKSBNHEUfkfkaEJ7GiyqBslexWfbttaSnQ
+         m54YW1q9ZqMwwGYc19VUXj1cEEmhfqc7vjqUVKgXoJaXjaZzA+4N01qcE0+hmLi5Msli
+         YgU9atgqzIDpljF9xgg+4NhevIh93qyiTxdFTlQCKOWK7NuEEqUST0HgfczE+VTCuD1G
+         JZy92xoOFgHprPjSSU+RBJZQcYGRRCynTBf84iA23pR7r2yhvTEn76VVWNOtlnG24SGQ
+         OPCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790028103; x=1790632903;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1J+saQss82xL8Ce5qI/Gv+3joKI+8Uu+v3gbZJZO9EQ=;
+        b=o3W8S7sj6+jfO7li2EoDnm+aV0eJKQlfEMMpLtSs6QNbzVzIYdmQAPLJz5/pAc5E65
+         GaZDMmYEtaUnpRlG5fJhpXShr3gMomjC3jKXyR/SzF/iAya/zjrzrWblqfocqeJZlN7O
+         aU9mXyv0Ix0XCq88Mx1tSDDnibRQa9epNKDaQ5uMVkCjhZs1FVnZescpLDHgGNEdRyOb
+         PE6D3I3WsKW7okta8dKf5jdMdMZ+Eyb+Bj2Azy5tLkBSFGz4Yt4OHqVqHxAeRHswy4R6
+         R7knSy4Ar7rNkn5GUQcsDom9ZRT7xATfefkfIvZUZNihJrDqWWmDEP81YTgAk/JsIfTw
+         qvuw==
+X-Forwarded-Encrypted: i=1; AKwUvBySgXWrn3pY4L/+8ZGAaqhozlasSDs+X8j70gQqF4P2NipfqA56gSexBG2YMNxkqaA8iw14AfHlVltBaBE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lRFM/eVTvz4WqbbhKvH6w5340xBKCvqCf67KXYYxdWcFPVuIQr
+	UVzVdyfSYcDpkOXJjtTxHfgEtK5GoJeQjY/U4TdmrbcsyIMNz3qhJLD5CgRLnf1p5PMd/cnYcOO
+	pAF43lkB8bvCfmdfkoUZkX4VVfmAJ3JM=
+X-Gm-Gg: AYBFou2MQB+UhQpB3U0wTZEQ8V8KGv89Zzj3y7sJQXzZkamsFzNVYfPkPFniG9NUBfK
+	70lfvla1wO2GXveBiYZOTIAsJes8mI2lc+n6e8tjh976kZHZfZLrcrU61vxGjZyEaTPDZJijpwX
+	fkZpElTsL3UUdvBLY7ngyFnepORxeTk0170p0ei0/dhUkNB9X8S/wKndpyDDAyJueRkK6BZt/tk
+	cp12GCD2yezH/vPyETOjbwjA+g9G/mahSn6/8Gps9rjKr6uRMIz4ENFp86hc05iih1hBeS3Lbeb
+	lXeirq239RWLL0NVboxe3AtXgM1RoEi2YgpqMg+7roUjmguOA4JnW4AzAE2iEqWjKRT3m6J8zeQ
+	nb7kDdfr8F9K4fvqAHnQn8JRxjZS+aNll4N0jSulFmw==
+X-Received: by 2002:a17:90b:50cf:b0:39e:2f57:67c0 with SMTP id
+ 98e67ed59e1d1-39e591e3bd8mr22753640a91.0.1790028103022; Mon, 21 Sep 2026
+ 15:01:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hfs: validate drAlBlkSiz and fs_ablocks in hfs_mdb_get()
-To: Viacheslav Dubeyko <slava@dubeyko.com>, Hui Peng <benquike@gmail.com>,
- glaubitz@physik.fu-berlin.de, frank.li@vivo.com, brauner@kernel.org
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260919222605.3794529-1-benquike@gmail.com>
- <1164821496f54d2fe03af44283d48db707a5e391.camel@dubeyko.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <1164821496f54d2fe03af44283d48db707a5e391.camel@dubeyko.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260921103318.353216-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260921103318.353216-1-lgs201920130244@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 21 Sep 2026 18:01:31 -0400
+X-Gm-Features: AcwNN1WqVwSStsMay_gri4_rw5IDdLWdJymJyP5EtqkVYtYOv-9on_0dL0POVzk
+Message-ID: <CADnq5_M39zRZW57prCham1JSmUEo1dZOaaannkAsTA=LeLz8Rg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix ACP MFD device leak on init failure
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Ce Sun <cesun102@amd.com>, 
+	Tao Zhou <tao.zhou1@amd.com>, Brady Norander <bradynorander@gmail.com>, Kees Cook <kees@kernel.org>, 
+	Maruthi Srinivas Bayyavarapu <Maruthi.Bayyavarapu@amd.com>, amd-gfx@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 21/09/2026 23:33, Viacheslav Dubeyko wrote:
-> On Sat, 2026-09-19 at 22:26 +0000, Hui Peng wrote:
->> In hfs_mdb_get() (fs/hfs/mdb.c), reject images with allocation block
->> size (drAlBlkSiz) of 0 or not a multiple of HFS_SECTOR_SIZE (512), or
->> with fs_ablocks == 0, preventing a divide-by-zero trap and out-of-
->> bounds
->> bitmap scans on crafted HFS images.
->>
->> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
->> Assisted-by: LLM
->> Signed-off-by: Hui Peng <benquike@gmail.com>
->> ---
->> diff --git a/fs/hfs/mdb.c b/fs/hfs/mdb.c
->> index 277de712f9d4..9e78c561a3f1 100644
->> --- a/fs/hfs/mdb.c
->> +++ b/fs/hfs/mdb.c
->> @@ -204,6 +204,11 @@ int hfs_mdb_get(struct super_block *sb)
->>  	/* These parameters are read from the MDB, and never written
->> */
->>  	HFS_SB(sb)->part_start = part_start;
->>  	HFS_SB(sb)->fs_ablocks = be16_to_cpu(mdb->drNmAlBlks);
->> +	if (!HFS_SB(sb)->fs_ablocks) {
-> 
-> This check doesn't look like checking that it's "not a multiple of
-> HFS_SECTOR_SIZE (512)". Could you make your check more accurate?
+Applied.  Thanks!
 
-In case you were not aware of: this patch is result of huge AI
-semi-autonomous work, basically close to spam posting style. Whatever
-you review you might be actually talking to an slop-agent, thus wasting
-your time.
-
-Best regards,
-Krzysztof
+On Mon, Sep 21, 2026 at 6:51=E2=80=AFAM Guangshuo Li <lgs201920130244@gmail=
+.com> wrote:
+>
+> acp_hw_init() registers ACP child devices with mfd_add_devices() before
+> attaching them to the ACP power domain and initializing the hardware.
+>
+> If attaching a child to the power domain fails, or if the ACP reset or
+> clock enable operation times out, the failure path frees only the
+> source cell, resource, and platform-data allocations. The child
+> platform devices already registered by mfd_add_devices() remain
+> registered and are never released.
+>
+> Remove the children from the power domain and unregister the MFD
+> devices on failures that occur after mfd_add_devices() succeeds. Keep
+> mfd_add_devices() failures on the existing cleanup path since the MFD
+> core already rolls back partially registered children itself.
+>
+> The issue was identified by a static analysis tool I developed and
+> confirmed by manual review.
+>
+> Fixes: 25030321ba28 ("drm/amd: add pm domain for ACP IP sub blocks")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_acp.c
+> index 9014678d75ab..be4d00ac96b3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+> @@ -318,7 +318,7 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_blo=
+ck)
+>                 r =3D device_for_each_child(adev->acp.parent, &adev->acp.=
+acp_genpd->gpd,
+>                                           acp_genpd_add_device);
+>                 if (r)
+> -                       goto failure;
+> +                       goto failure_remove_mfd;
+>                 break;
+>         }
+>         default:
+> @@ -443,7 +443,7 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_blo=
+ck)
+>                 r =3D device_for_each_child(adev->acp.parent, &adev->acp.=
+acp_genpd->gpd,
+>                                           acp_genpd_add_device);
+>                 if (r)
+> -                       goto failure;
+> +                       goto failure_remove_mfd;
+>         }
+>
+>         /* Assert Soft reset of ACP */
+> @@ -461,7 +461,7 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_blo=
+ck)
+>                 if (--count =3D=3D 0) {
+>                         dev_err(&adev->pdev->dev, "Failed to reset ACP\n"=
+);
+>                         r =3D -ETIMEDOUT;
+> -                       goto failure;
+> +                       goto failure_remove_mfd;
+>                 }
+>                 udelay(100);
+>         }
+> @@ -479,7 +479,7 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_blo=
+ck)
+>                 if (--count =3D=3D 0) {
+>                         dev_err(&adev->pdev->dev, "Failed to reset ACP\n"=
+);
+>                         r =3D -ETIMEDOUT;
+> -                       goto failure;
+> +                       goto failure_remove_mfd;
+>                 }
+>                 udelay(100);
+>         }
+> @@ -489,6 +489,11 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_bl=
+ock)
+>         cgs_write_register(adev->acp.cgs_device, mmACP_SOFT_RESET, val);
+>         return 0;
+>
+> +failure_remove_mfd:
+> +       device_for_each_child(adev->acp.parent, NULL,
+> +                             acp_genpd_remove_device);
+> +       mfd_remove_devices(adev->acp.parent);
+> +
+>  failure:
+>         kfree(adev->acp.i2s_pdata);
+>         kfree(adev->acp.acp_res);
+> --
+> 2.43.0
+>
