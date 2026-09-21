@@ -1,183 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A1C495AF3;
-	Mon, 21 Sep 2026 12:48:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9854A48F024;
+	Mon, 21 Sep 2026 12:49:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789994937; cv=none; b=Ro3+os++gpuZTVWiKhwQ4aoZp4jW4qfs/KU8j07Nkla5X6kNrDW/Y0Hf5kWTe8kX5i9spRwyuJ7dghOxhIiwjrLn2c19/u3zk8KLqEyzE1hnfXgofmLCWT9/1RUFraTuFD4YIWLkGNBxHf2wkzq/NdUMPE86olamuQPD2eoEbio=
+	t=1789994954; cv=none; b=T5SOWWm+g6Gs5MoyQwd3DsY3Remg+oIzR3SkOnUg9A/bNrIXbPfstC8vKatKyUSq1b0mJp998GfUMyNfSgd75L2RG4fx4xo0ycMZzZqGHzk5dIYxhhsRrivm/0DwmvyXTUuR+S+7lCi2+jsYNwl1rHz0dfXKaLFfNd8mqULZ810=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789994937; c=relaxed/simple;
-	bh=Lvz1+adIfTVALde6cIc9D2krFiJkrABbwz95Yp9nPFQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=FnDrstjamqQ1kKbSOZUqHxT6zVrmbsfJKxqCza3P4sgPqFj6Px7fP969B5YjLR9+UGYRYHfoZg4Q386sbCxVpae3Ck5UqGEx3ZjvXPgzxwjnGxqeMpIMLDzskg8T00kbCF0TFpIvivlyObW46n2C6ZuPdfomEhAw08YRQs6AjT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UE6SO3WY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789994954; c=relaxed/simple;
+	bh=jExRX4G5OIZIjwoiUOBNVln0eNxdFkmvZs010Fu3Un0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TR3stX5w5vbCdloWaVqwlYKRoeDYFy9NX0EgOmv0hjQ5OxVeQsCyuseNwBKg9r3J384yn3Bl61UO5BexKWIubMgJYs6KH1JgZtSRRTkkpvr45il0QCpAczMX560K23Bk0wm8L/GjgAIPpYkQIuvo0Bb7dbKSnuQ6L/HkW998+FE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CYZuZoBS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UE6SO3WY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15BBE1F000FF;
-	Mon, 21 Sep 2026 12:48:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CYZuZoBS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27C9B1F000FF;
+	Mon, 21 Sep 2026 12:48:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789994932;
-	bh=NFKSxMIgnM898Y7oTLkz3ataAvKd+EhOD1s4RO4tj3U=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UE6SO3WY/k6pXgr3BejY0rHDo2ynd6BaUlT/AIlFdd8aM5xlG+04BJet4FBMpEqek
-	 691IzMIrJ/nI62ercdIsl436gXX0iawHxYoUNOSeNwSih0MzvVY4bT+DcEwhi0CK7d
-	 xJDnvQkwpPONuQIiiIieNvXQ4eJ1P8yzOvY+6dsPe1XCqPv8Zr4EeWsVkE9BW8XAdI
-	 nTau/53RsFNf51Of017LHrMAJA6VvxCvV9LBZoBrCgvbz0ASLW+z7g8NA7ZZpVEE7w
-	 CUbEdzSPxRJXNg05JbI0IyixBTS+7gHUCrhfd2Yp9gVq5OwJ89i1U2wZvKuwM007fU
-	 hnmOSsIuC7Xpg==
-Subject: Re: [PATCH] net/mlx5: Fix rev_entry reference leak in
- mlx5_tc_ct_shared_counter_get()
-From: netdev-bot+sashiko@kernel.org
-To: vulab@iscas.ac.cn
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, leon@kernel.org, linux-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org, mbloch@nvidia.com, netdev@vger.kernel.org,
- ozsh@mellanox.com, pabeni@redhat.com, roid@nvidia.com, saeedm@nvidia.com,
- tariqt@nvidia.com, stable@vger.kernel.org
-Date: Mon, 21 Sep 2026 12:48:50 +0000
-Message-ID: <178999493051.2160803.6214466192510331412@kernel.org>
-In-Reply-To: <20260917113131.2149024-1-vulab@iscas.ac.cn>
-References: <20260917113131.2149024-1-vulab@iscas.ac.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1789994951;
+	bh=jExRX4G5OIZIjwoiUOBNVln0eNxdFkmvZs010Fu3Un0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CYZuZoBSJafqz1gUdp9RzqB0IKQ+dGBhAKDxXduLxsehFa3rE/j7EwJk6mle0ok2S
+	 Kn2XKnlXlvc3M6Nkpk0J+ERuWqkHl3XjoR0AByqpMedzdifr/tERuEMOci5ntShoY0
+	 3BB6RqN0IBpdZ6In9mYJSndT9jm3ItxyBjkB2Bk61tsbkX2eUJaDIJuZnF1StwBNFd
+	 ekjNCgH2frChTpdzEIuOFt157B109FY9aD3KbpoaVJIEgrkXBSKpA1ixhaL2hjPlX3
+	 J+ML1u7s3cOiw6Hi6lg1BdAOYcCvaE9THduolTNeortqDnodKZHo9g8Iq5ttNwhQvH
+	 sfLBOM3SiOd6g==
+Date: Mon, 21 Sep 2026 13:48:56 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Petr Pavlu <petr.pavlu@suse.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
+	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 13/21] modpost: emit module descriptors as assembly
+Message-ID: <arEnCzzQa9XDd4LT@gremlin>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+ <20260914-build-speedup-v2-13-39817ec5db23@kernel.org>
+ <95baacfb-d8d9-4d2f-bc89-592df6f6f8e3@suse.com>
+ <arEZrFmXeCO4hZpP@gremlin>
+ <2b27bb4b-47e3-45ed-a26a-4b9de2b20542@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2b27bb4b-47e3-45ed-a26a-4b9de2b20542@suse.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Mon, Sep 21, 2026 at 02:36:30PM +0200, Petr Pavlu wrote:
+> On 9/21/26 1:57 PM, Lorenzo Stoakes (ARM) wrote:
+> > (note there's a v3 see [0])
+> >
+> > [0]: https://lore.kernel.org/linux-kbuild/20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org/
+>
+> Thanks, I missed it.
+>
+> > On Mon, Sep 21, 2026 at 01:25:09PM +0200, Petr Pavlu wrote:
+> >> On 9/14/26 11:22 AM, Lorenzo Stoakes (ARM) wrote:
+> >>> The sections were confirmed to be byte-for-byte identical to the C version
+> >>> produced - each of .modinfo, .gnu.linkonce.this_module, __ksymtab*,
+> >>> __ksymtab_strings, __kcrctab*, __kflagstab*, __versions,
+> >>> __version_ext_crcs, __version_ext_names and their relocations - for all
+> >>> 8,135 modules of a clang allmodconfig build with CONFIG_COMPILE_TEST off
+> >>> and CONFIG_MODVERSIONS, CONFIG_EXTENDED_MODVERSIONS and
+> >>> CONFIG_MODULE_SRCVERSION_ALL on, and for a sample built with gcc.
+> >>
+> >> Lowering the data to assembly loses debug information for __this_module,
+> >> specifically that it has type `struct module`. It might be worth
+> >
+> > No, it keeps it - every module includes linux/module.h, and the extern
+> > declaration of __this_module carries the type, so all of the stuff gdb
+> > needs (e.g. ptype, p & field access), DWARF etc. is all there in the same
+> > way as with .mod.c.
+> >
+> > Have confirmed locally.
+>
+> An extern declaration alone shouldn't cause its name and type to be
+> included in debug information. They should appear only when the variable
+> is referenced by some code.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+Ack yeah sorry my mistake, I had the LLM check that and should have known
+better than to trust it without reviewing what it said (as I have done for
+the most part for everything in this series).
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+>
+> Testing with a simple module that previously referenced __this_module
+> only in .mod.c and in no other file, such as lib/test_module.c, shows
+> that the .ko no longer contains debug information for this variable.
+>
+> I've verified this behavior with GCC 16 and Clang 19.
 
-- [Medium] The commit message misidentifies the condition that makes the
-  leak reachable.
-- [Medium] The Fixes: tag points at the wrong commit.
+Ack confirmed locally.
+
+Can put a fix in module-common.c.
+
+The LLM came up with a reference as an alternative:
+
+static struct module *const __this_module_dbg __used __section(".discard.this_module") = &__this_module;
+
+Would that work? Or should we go with your original suggestion? -
+
+__weak __section(".discard.this_module") struct module __this_module;
+
+>
+> --
+> Cheers,
+> Petr
 
 --
-
-net/mlx5: Fix rev_entry reference leak in mlx5_tc_ct_shared_counter_get()
-
-This adds a mlx5_tc_ct_entry_put() on the fall-through path of
-mlx5_tc_ct_shared_counter_get() so that the reverse entry reference taken by
-mlx5_tc_ct_entry_get() is dropped when the shared counter cannot be reused.
-The put itself looks correct; the questions below are about the described
-trigger condition and the Fixes tag.
-
-> Fixes: 1edae2335adf ("net/mlx5e: CT: Use the same counter for both directions")
-> Cc: stable@vger.kernel.org
-
-[Severity: Medium]
-Is this the right commit to blame?  What this patch balances is the entry
-reference taken by mlx5_tc_ct_entry_get() in
-mlx5_tc_ct_shared_counter_get(), and that reference-taking lookup plus the
-matching put on the success path came from a2173131526d ("net/mlx5e: CT:
-manage the lifetime of the ct entry object"), not from 1edae2335adf.
-
-git blame on the pre-patch file attributes this whole block to
-a2173131526d:
-
-	spin_lock_bh(&ct_priv->ht_lock);
-	rev_entry = mlx5_tc_ct_entry_get(ct_priv, &rev_tuple);
-
-	if (IS_ERR(rev_entry)) {
-		spin_unlock_bh(&ct_priv->ht_lock);
-		goto create_counter;
-	}
-
-	if (rev_entry && refcount_inc_not_zero(&rev_entry->counter->refcount)) {
-		...
-		mlx5_tc_ct_entry_put(rev_entry);
-		return shared_counter;
-	}
-
-1edae2335adf only contributed the tuple-reversal code above it; at that
-point the reverse tuple was looked up with a plain rhashtable_lookup_fast()
-and no entry reference was taken, so there was nothing to leak.
-
-With Cc: stable, does the current tag select the wrong backport range?
-Trees that contain 1edae2335adf but not a2173131526d (1edae2335adf landed
-in v5.9, a2173131526d in v5.12) would be picked, and there
-mlx5_tc_ct_shared_counter_get() holds no rev_entry reference at all, so the
-hunk cannot apply as written and a hand-resolved backport that added the put
-anyway would underflow the rev_entry refcount.
-
-> When the reverse entry is found but its counter is already being
-> released, refcount_inc_not_zero() fails and the reference taken by
-> mlx5_tc_ct_entry_get() is never dropped before falling through to
-> create_counter.
-
-[Severity: Medium]
-Can the "counter is already being released" case actually happen for a
-non-NULL rev_entry?
-
-mlx5_tc_ct_entry_get() only returns a non-NULL, non-ERR entry after both the
-valid test and the entry refcount succeed:
-
-	if (entry && mlx5_tc_ct_entry_valid(entry) &&
-	    refcount_inc_not_zero(&entry->refcnt)) {
-		return entry;
-
-So the returned rev_entry is VALID and holds a live reference, which means
-it cannot be inside mlx5_tc_ct_entry_del() - the only teardown site calling
-mlx5_tc_ct_counter_put().  The other mlx5_tc_ct_counter_put() call, in the
-err_orig path of mlx5_tc_ct_entry_add_rules(), runs before
-MLX5_CT_ENTRY_FLAG_VALID is set, so such an entry is never returned by the
-lookup either.  A shared counter owned by a live VALID entry therefore
-always has refcount >= 1.
-
-Is the reachable trigger instead the private-counter case?
-mlx5_tc_ct_counter_create() kzallocs the counter and never calls
-refcount_set():
-
-	counter->is_shared = false;
-	counter->counter = mlx5_fc_create(ct_priv->dev, true);
-
-so private counters keep refcount == 0 permanently, and
-mlx5_tc_ct_entry_add_rules() picks between the two kinds at runtime:
-
-	if (nf_ct_acct_enabled(dev_net(ct_priv->netdev)))
-		entry->counter = mlx5_tc_ct_counter_create(ct_priv);
-	else
-		entry->counter = mlx5_tc_ct_shared_counter_get(ct_priv, entry);
-
-nf_ct_acct_enabled() reads net->ct.sysctl_acct, the writable per-netns
-net.netfilter.nf_conntrack_acct sysctl, so both counter kinds coexist after
-accounting is toggled from enabled to disabled.  A new entry then takes the
-shared path, finds a live reverse entry owning a private refcount == 0
-counter, refcount_inc_not_zero() fails, and the rev_entry reference is
-leaked.
-
-Could the changelog describe that path instead?  As written the fixed branch
-reads like dead code, which makes reachability hard to judge for stable, and
-it hides the companion cleanup question: should
-mlx5_tc_ct_counter_create() refcount_set() the private counter, or should
-the consumer test is_shared explicitly?
-
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/tc_ct.c b/drivers/net/ethernet/mellanox/mlx5/core/en/tc_ct.c
-> index 6c87a1c7db095..c1841ce74d9ac 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en/tc_ct.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en/tc_ct.c
-> @@ -1082,6 +1082,9 @@ mlx5_tc_ct_shared_counter_get(struct mlx5_tc_ct_priv *ct_priv,
->  
->  	spin_unlock_bh(&ct_priv->ht_lock);
->  
-> +	if (rev_entry)
-> +		mlx5_tc_ct_entry_put(rev_entry);
-> +
->  create_counter:
->  
->  	shared_counter = mlx5_tc_ct_counter_create(ct_priv);
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917113131.2149024-1-vulab%40iscas.ac.cn
+Cheers, Lorenzo
