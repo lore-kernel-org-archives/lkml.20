@@ -1,36 +1,87 @@
-Received: from mta0.migadu.com (out-236.mta0.migadu.com [91.218.175.236])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21A7565192
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:45:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.236
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3FB457E53
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:46:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789980343; cv=none; b=UOfgSX9cb0pHgDdLD5cxRmcm6DKibUt9eYQRRhmQe/Qkik3LbQCGzCjLEdY5d9MImG+S2No0SsRMqok8/xqRw5syok9bnG4a0Avjn20B89PI2wdFCSVOCeGU2G2kYBmSAjGwWxB3qicS/AWScJxDICuWplmIAGwyq3NlJzgwJr8=
+	t=1789980381; cv=none; b=CNJg9rQsgJ2dYNT7CmF6NCoYMnY9BhA/ihSFReHJmeXfqxhJAB4JV9X0Q+eJxvmLnOgztjMQrOjktvG+YoHrEzNtrErVoNt/88yZcSV2b28RBEA4ZtdSMzXSOb0OGSajA3C0ora72i6yqgiSNaIVzsYhxYSTHgx6drzUgNLeKKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789980343; c=relaxed/simple;
-	bh=uUTNbuu97K8eZK4ytwE6k6w7euavFhJ9/KPf1WBW8ww=;
+	s=arc-20240116; t=1789980381; c=relaxed/simple;
+	bh=H/Oq7DCmmKlvAofUgjpQ4iEZ6GqCaDK/Q4LrOcGlYX8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lh6K3tJ3Ue6hqFcLE20pgqrjA74tVUprxNuFnrah6l+CRPV49whFdlLltrh4DZLSASOoPN6oebRe05T221SRxD94Vi58juHCyq/QvmRM5cAApLdlNNEpT9fzuZ/HG/Lh62B+33ErcNxXRCSkznJg0NWKPfFWsPaA5X4IDpG+P2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iGHXoEwE; arc=none smtp.client-ip=91.218.175.236
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=YMoBkSw8NWccxsPQkmSQgZECtte1TG4KcetjwyBdjo6L0fLjsU4OAqMDKmgLRbP95Nkl3rZ3C/GUjqwRtJrbgUs71bvJWvEwYoJ6LwC4TZgmuSP6WgWmFt9VyowOKyKdWVuAtjwbPzZJG99wO11jMqScv5Zf1kzqwVWYEmFwu64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kHtH7cie; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cS+yi1VW; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iGHXoEwE"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uUTNbuu97K8eZK4ytwE6k6w7euavFhJ9/KPf1WBW8ww=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789980339; v=1; x=1790585139;
- b=iGHXoEwE+22ygJgFiLiciosWND8QzLgqOeqsNQDB6g8SvUOCk36mcvAEwHIUFD95jgQUe6lC
- sUu/5aGTdaE6hBCSvAQrK+mNZY6g9FG62Iw0K4DcqTwnK9mm9f+BBur16NA3u6yS04lAstApNjw
- 4x0Ry7stp6DjpJZxrZ5otflE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6597ae8b033e4958;
-	Mon, 21 Sep 2026 08:45:22 +0000
-X-Mizu-Trace-ID: 6597ae8b033e4958
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <37d369cc-dac6-43e7-83a8-a5ecdab0d1f3@linux.dev>
-Date: Mon, 21 Sep 2026 16:45:03 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kHtH7cie";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cS+yi1VW"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L79uSj1096083
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:46:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qkBaXHoqMiFvjYL8zM/mOnKS4OOJMfb5HsorDcVrhUE=; b=kHtH7cieHkVvlPt4
+	amzlnKDl37IMwUn9NHB4e7xhpEeyJ293VQGD5i6HA24E12l+KpTEDyY8I/EFs0Dv
+	xYAvDI+A6eJMp0UEmRmYdW9WxPXs98Fcg8neSwBNeD2YYVqRRbqE7RQDzo8oW8ks
+	uUF0fK7SiLd0zv42+y9VlJgffgggRTzXWA8FBd2mndCIVNWbWMtNmRi1KQyEKZ8G
+	cuEv/0n3gWYUnzzbxXKxIworWDeYJOsuP28Sc+HQ+X1rPCdOseKB01QlXpTNOccW
+	n9o0/rjFtjf4xavMGQbrtO40u6HnMCgegUm3rde71VoOD5AsMMtLFBg+mdjFynV3
+	aKMkVg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtysw0dy0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:46:17 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92eebb130dcso88661485a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:46:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789980377; x=1790585177; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qkBaXHoqMiFvjYL8zM/mOnKS4OOJMfb5HsorDcVrhUE=;
+        b=cS+yi1VWCNWAefQ4zml/gM0cc1QgOA7mf0JWtvdgtTlbmAqwQW1g0uOwNU/cFWq0uM
+         2ameIwJ8RfH6+DSv100NLpgMBGlmNOx4JYRCJ2quGYi4aYKrRliq4fwYSCH2VwpqWPSO
+         qtMZ7icxscUCMJL8XdCVEkC3nuxo3IbGAaqB1zxIIc7LiEOvz3m5zpn0EKFLwUdHfb0D
+         0iWuyacxs+kvwbrDN0ChgDnY8YxrCyqofn5fWWusTciJWspNK7HhHIES2DgUUkZ6xeeJ
+         S6HXLLdB/RTjKyLwzi6flcv3YbSQuTkGm34dDOEwcSGx7nbLy+9SdGEbFtswE4IIgAAb
+         dwgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789980377; x=1790585177;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qkBaXHoqMiFvjYL8zM/mOnKS4OOJMfb5HsorDcVrhUE=;
+        b=zdj3l6jFMyI48Hh/oaOAGZdxrkr/F62+4UfNiqKo3sZCwvfWqe5Ky/bTdiZAIHkccN
+         m5px5cE8pW2WLia0GTF2BCMgCADqG8VQDyP1199y3eScWsCUtA/qn1qh/fWrssxxy8m7
+         FHrwIeyBTD4F931N302EqW6QdfNrZSXb/4J/+Em1TzmvxOf1oMbpelRqP99US3IfCJXR
+         6stOat7UHUIsE9kLlZxHefSRUuJbRRn/NL040z3LHuRObBQYhm2JupfXmaq1/0tvNnfz
+         b2tEtlcuNGTNOYISc9BZdBoYgGpmsvf0MHIPMU5783EmwT6KnnzyxWuHqN/k0n9MnmNR
+         UOlg==
+X-Forwarded-Encrypted: i=1; AKwUvByv8C7rMVl8iGOvzECkjPuYLgoD1L005uX2OnBL3LjYsskqMxeennAl15Q1NIJTG3vPjYFuFTYUiBLo/C0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiu0T7o1W9F0LdVQrGEqu+f2H6FwZdBxK43ekFYXskOOPtOfKf
+	JeVze/y+BCSF27S5dTg8+rWCwQdrdWo2ulWM6Bs2PzMQb7nTukTHnsWJdrbOxC6c0De5A6LCVd4
+	lWmGeHWzFXixhTzF2yI26tjiC8gYYwMqMLPQ/DLt2PRTb6VLvd07DPY2wIl+h8LtHbpY=
+X-Gm-Gg: AYBFou3PKRewpUDszypFktnFtk+wHd2WN4vv/pye9vUc/kh8yztX6npQ8CM9vkidsN5
+	JPQp2yVRH8oa5BVTN75qDdcxbUPAIC72dqLG+XCRE0AZj/BE9pcrpoHvNAP/9W7K9q62DoITQkd
+	4UILeb2UqAuFMsoFlB+BNpzSyycJkY3i7uq6YHZCEKnRBBEaZ3pfxGEd9KMltgfohf+BoA65HM0
+	GpLASaM1w1HlvbAZIc9MAF/HX6Mmnc5gvnqjz+UVusjcyyYprnv6JHkcsJAc8//FWqqeqVY8h9f
+	zK8pTUWojVrNWng93TRq/o24Px/IzFKYWvpP8F8JgCh1KPUXyloGPXN2H3cE+aEgKQYRHVyiQ1T
+	91FgxBSqEptsu56zByjspzA==
+X-Received: by 2002:a05:620a:1729:b0:93b:c6ec:780d with SMTP id af79cd13be357-93bf57df974mr940252885a.5.1789980377376;
+        Mon, 21 Sep 2026 01:46:17 -0700 (PDT)
+X-Received: by 2002:a05:620a:1729:b0:93b:c6ec:780d with SMTP id af79cd13be357-93bf57df974mr940246585a.5.1789980376913;
+        Mon, 21 Sep 2026 01:46:16 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a358ade5asm270916366b.51.2026.09.21.01.46.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 01:46:15 -0700 (PDT)
+Message-ID: <733a3b6c-4278-405a-be52-0bd22ad1584d@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 10:46:09 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,72 +89,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/17] erofs: use folio_attach/detach_private() instead
- of direct assignment
+Subject: Re: [PATCH v2 02/19] clk: qcom: Add global clock controller driver
+ for MSM8952
+To: Muzaffer Kadir <muzafferkadir@mainlining.org>,
+        Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>,
+        Amit Kucheria <amitk@kernel.org>,
+        Thara Gopinath <thara.gopinath@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+        "Guilherme G. Piccoli"
+ <gpiccoli@igalia.com>,
+        Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+        David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
+        phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
+        iommu@lists.linux.dev, mfd@lists.linux.dev,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org,
+        linux-input@vger.kernel.org
+References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
+ <20260916-msm8952-initial-support-v2-2-798c2602dde1@mainlining.org>
+ <af3f7261-e4b0-42fc-818d-80e760cddc2c@oss.qualcomm.com>
+ <a47a1a0e-559b-410c-aa99-9230908c2fe6@mainlining.org>
 Content-Language: en-US
-To: Zi Yan <ziy@nvidia.com>
-Cc: linux-mm@kvack.org, David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Dev Jain
- <dev.jain@arm.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, Gao Xiang <xiang@kernel.org>,
- Usama Arif <usama.arif@linux.dev>, Barry Song <baohua@kernel.org>,
- Chao Yu <chao@kernel.org>, Yue Hu <zbestahu@gmail.com>,
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
- Suren Baghdasaryan <surenb@google.com>, Shakeel Butt
- <shakeel.butt@linux.dev>, Jeffle Xu <jefflexu@linux.alibaba.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Sandeep Dhavale <dhavale@google.com>,
- Michal Hocko <mhocko@suse.com>, Gregory Price <gourry@gourry.net>,
- Hongbo Li <hongbohbli@tencent.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Kairui Song <kasong@tencent.com>, Chunhai Guo <guochunhai@vivo.com>,
- linux-erofs@lists.ozlabs.org, Qi Zheng <qi.zheng@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Muchun Song <muchun.song@linux.dev>
-References: <20260920-remove-pg_private-v5-0-bb68b6a21869@nvidia.com>
- <20260920-remove-pg_private-v5-9-bb68b6a21869@nvidia.com>
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <20260920-remove-pg_private-v5-9-bb68b6a21869@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <a47a1a0e-559b-410c-aa99-9230908c2fe6@mainlining.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEyNSBTYWx0ZWRfX9sedbhCoYcgU
+ fFHBEYOB8WrSg+aui4g+5MXvcF1RXUn2YX9HpyFR4G7KWCBZAh7vbpOB8Ru7G5fQOy3t3u/TKYV
+ zs3k/5IN4bFic+HGJmRJh0Al0UJyeLkOr9FgFh1hCkRN3yI9MEVslkL3MTEasI9arCC4Yd4bHyP
+ 3bzTYWq/ywg/xgDaA2+FpVOXrLe9VuNFrVsG5ryXHRdYxoFuzIaKUKqUeVoI7kFZo0ckU25vXFe
+ jZsISChWCxtbilRXBN5JwM2fY+PcasvAJVxTDPVElzw70QOVfmU10cWMmn5i53aOYH8Hit/YlSz
+ 3ngEwk5KgwdbCOf6rmE2EavUZ62Rb/NqTsHvEIga+JUEZt4v2JbXPIORVXgHkp8YziSt1FxFD5E
+ JJf6WDA/GOF2QFuJnslQhhI5ZwdHAeGz8ldvuzKFnx1Z94X+l69+eh9nJnCT3EqEfuRImmCe77J
+ DR6R66SxEqs6xN683bA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEyNSBTYWx0ZWRfXxOrLwhkWmonV
+ leaJ3OMf0Ba43puLf+RQcBvZ7MlzWFBM/isbJWsO4D6A8IDc7QjKubk4ioJyVVq8nPg3Ibv9tzQ
+ kK7J6wXi00azZSKnpTNtZ3mlhwO+Evw=
+X-Proofpoint-ORIG-GUID: kn49jc43PnZmzLwMjt-BKc-DHIFN6VII
+X-Proofpoint-GUID: kn49jc43PnZmzLwMjt-BKc-DHIFN6VII
+X-Authority-Analysis: v=2.4 cv=W7etxhWk c=1 sm=1 tr=0 ts=6ab0eed9 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=IpRBMZr9S9mwpYgRR9UA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0
+ impostorscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210125
 
-
-
-On 2026/9/21 10:28, Zi Yan wrote:
-> erofs_onlinefolio_init/split/end() use folio->private without setting
-> PG_private or increasing folio refcount and it works. But after PG_private
-> is replaced by checking folio->private in a future commit, it can break
-> folio_expected_ref_count(), since the folio has private data without
-> elevated refcount. Change them to use folio_attach/detach_private().
-> Folios during this process are locked as they are in the process of
-> readahead, so no parallel migration/folio split can happen.
+On 9/17/26 2:25 PM, Muzaffer Kadir wrote:
+> Hi Taniya,
 > 
-> Furthermore, because folio->private is used to store in-flight I/O counter
-> and the counter reaches 0 when all I/O completes successfully without error
-> or being dirty, ->private=0 causes folio_detach_private() to not drop the
-> elevated folio refcount. Solve this issue by using bias=1 for the counter,
-> so that ->private stays non NULL throughout every attach-to-detach process.
-> Add a macro EROFS_ONLINEFOLIO_BIAS=1. While at it, fix the comment about
-> ->private bit layout and add EROFS_ONLINEFOLIO_COUNT_MASK.
-> 
-> It prepares for a future commit that removes PG_private.
-> 
-> Assisted-by: LLM
-> To: Gao Xiang <xiang@kernel.org>
-> To: Chao Yu <chao@kernel.org>
-> Cc: Yue Hu <zbestahu@gmail.com>
-> Cc: Jeffle Xu <jefflexu@linux.alibaba.com>
-> Cc: Sandeep Dhavale <dhavale@google.com>
-> Cc: Hongbo Li <hongbohbli@tencent.com>
-> Cc: Chunhai Guo <guochunhai@vivo.com>
-> Cc: linux-erofs@lists.ozlabs.org
-> Cc: linux-kernel@vger.kernel.org
-> Reviewed-by: Gao Xiang <xiang@kernel.org>
-> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Zi Yan <ziy@nvidia.com>
-> ---
+> On Thu, 17 Sep 2026 09:49:07 +0530, Taniya Das wrote:
+>>> diff --git a/drivers/clk/qcom/Makefile b/drivers/clk/qcom/Makefile
+>>> index a6c676f68b79..3c3f27dcc68d 100644
 
-LGTM! Feel free to add:
+[...]
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+>>> +#include "common.h"
+>>> +#include "clk-regmap.h"
+>>> +#include "clk-pll.h"
+>>> +#include "clk-alpha-pll.h"
+>>> +#include "clk-rcg.h"
+>>> +#include "clk-branch.h"
+>>> +#include "reset.h"
+>>> +#include "gdsc.h"
+>>> +
+>>
+>> Add DT_BI_TCXO enum.
+> 
+> Should I rename the clock name to bi_tcxo?
+> Or should I use DT_XO for enum?
+
+BI_TCXO is the Qualcomm-conventional name for the clock sourced
+from the crystal oscillator. I'm not sure about the BI_ prefix,
+but TCXO stands for "Temperature-Controlled Crystal Oscillator"
+
+Konrad
