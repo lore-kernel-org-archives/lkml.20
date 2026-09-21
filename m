@@ -1,239 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74CFD48F82F;
-	Mon, 21 Sep 2026 13:08:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789996101; cv=none; b=ArecrTjVtXEC3wsdGCHzXqIbbodszEfPFWbU4DGcyy2CjL3T39ic/6cRbx8JaMJ5t8osRSUHDQ9OoS7DyZUmqGZOJQvGXCkSE7Q6daoaXrS6yEz5egwXonLR9Gh1gFTQMc1mKdIhHo8Xoy/US5BYdybTa3xEHbCg4ui7Keos76M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789996101; c=relaxed/simple;
-	bh=QSgBOvaFBCUjJ++WCPgDMRN07CnNxYlp9nFy0oqkWkA=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fa98QEk68zbhhSMdD7A6/8tJBJMupWncWlQf4ZBvz8U/0es8aVyzVNO2gZMH8ktA9SdzzWxohu2PXMkzdfp00fFWZnKvm9vqa07Eec/94zIof5odeGIearfZKQLObbfX9rBJL7d1y83JJbf/HXyPHoD+Mz/wpAT7hGPmP7jK8w8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jutjQXKQ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F83227EA4
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:08:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789996134; cv=pass; b=XLZiLQ8MCG2RUlVqkjSY1rmJBFImJLX2UvZMSb85WSGHDzcakWCxlH2TMFqPyL7B8IzRztemBK0R+ybTtCeYcg52gxSrgBIwyhnki5hOzxyaa1hNufg7178K4VUbqQ8q9Sw8B8yNd72h4tOoAz6SZOGfwV0JF7Ux21XwUD591Yo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789996134; c=relaxed/simple;
+	bh=+hw0ixHejMxgxIBfXicypL5GmAH4YPvK3kWjtYiI4pM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=U13Dz4zVd2q/lWMfF8fHBFMxydSws+mPaOhn3hK5AxdPF4Ipt+WZYd4ILGFM+oT5XVmB+TndSSmjdxnlyU2pnq8FL0+of+A2q4daM3qfTm6JCcKMetXN4q2oXJ0PXVNCdfSDKArvu8jPsQpPywjf7wwTvjGeTW+LMIZZDHP+udk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dmm5isWz; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=aNZblGnJ; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jutjQXKQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78E831F000FF;
-	Mon, 21 Sep 2026 13:08:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789996100;
-	bh=Gzz6FOV+ihb6XY6fR1yWdHLsJygnj1TQ+0PTlX8dy6o=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jutjQXKQt8K6B0xwKgv+5DKEb5jeEZ9f4C/ODLNIaJm89wXXv7vEK7sftym6VdTWZ
-	 iWmXtpr5oBvd/fTs7Pnr+UITsvv31HyGnQ+iOx3dgtyyEq4uQpeN9MZAEWN/rJ+QRd
-	 o5w8NXUfLIIFh+A6kq6qdPe/r+5hRcNYXF1atuMwz1gCfIMayhWGLIGhiWMHNAQhWS
-	 3COIgiullYPWAz7+bvYXkrumeCx8KTXqLiPGlsZq7uoeCxzB3uz2Dz/PKfKftNH2h4
-	 D7hNOPpq1slIm8JHsXKzU3vyIHlaU3U96hShCHNR8rtBPOwgutM3G6Ruk7ufnYL6j/
-	 YKfjqqT4l267g==
-Subject: Re: [PATCH v6 net-next] net: phy: mediatek: support MT7530 PHYs on
- EN71221 MCM
-From: netdev-bot+sashiko@kernel.org
-To: cjd@cjdns.fr
-Cc: netdev@vger.kernel.org, daniel@makrotopia.org, dqfext@gmail.com,
- SkyLake.Huang@mediatek.com, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- srherobrine20@gmail.com
-Date: Mon, 21 Sep 2026 13:08:19 +0000
-Message-ID: <178999609903.2160803.13587309272665638742@kernel.org>
-In-Reply-To: <20260917130534.297930-1-cjd@cjdns.fr>
-References: <20260917130534.297930-1-cjd@cjdns.fr>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dmm5isWz";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="aNZblGnJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789996132;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+hw0ixHejMxgxIBfXicypL5GmAH4YPvK3kWjtYiI4pM=;
+	b=dmm5isWzj5bcIc2JUh71jeBGf3N6hBodlAt9LnTVPdR5UsoYw2A1XLVcgYCbo7Oy009xyW
+	4O+73/XqW5/JLRPKJQZbwYnMEmVRybL139ejUBdKpSDf1Lylo9qGVlJFlK/KFcu3jbs07H
+	s0zib9tP9CSgraM+trcEMIypPx8Yctg=
+Received: from mail-lj1-f197.google.com (mail-lj1-f197.google.com
+ [209.85.208.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-376-2LWTqjAWOhiNgnl_BbwyaA-1; Mon, 21 Sep 2026 09:08:50 -0400
+X-MC-Unique: 2LWTqjAWOhiNgnl_BbwyaA-1
+X-Mimecast-MFC-AGG-ID: 2LWTqjAWOhiNgnl_BbwyaA_1789996129
+Received: by mail-lj1-f197.google.com with SMTP id 38308e7fff4ca-3a5d09935b0so15552221fa.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:08:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789996129; cv=none;
+        d=google.com; s=arc-20260327;
+        b=alxiRYZi8LY3jHpnwyGTtS/bZkNyYx/oQQuDbFukKcJMabcOwBuanD1en5RWRcge8n
+         y9JZ2S6+WCEQQ+3iUMZPNmpRoQdjC2wvhM8ZZmu6ZLJB/dsxVLI0UZUeC3+WthjUkQ/4
+         dpvHADa08nV8o0400ltIAFEeGazxSUB+GNADQ23Q5CmicDKKi6ryrGTyuNN5qOBri2nn
+         1TsTtPaiegvUelwod/mM/8Wa7txDyVcakXu+UfrmT1Md3jjosAt+0LKrqMa8iAqF072a
+         gs6tuEQabJV3oTQ7sD8taHrvl/i1GRs8MUyZMp/IZ3TXyp/FSoUTcK+w6O9azuD7SceA
+         85cA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+hw0ixHejMxgxIBfXicypL5GmAH4YPvK3kWjtYiI4pM=;
+        fh=CRyToFDQYpKcIfDpQz71IZoSkZhN7b63ePBJKag1O3Q=;
+        b=Y9zpKUvUcgKIfu9den9XE6/BTVF/M938T/fvblWXwaYobPKVUnVvYq2+mdKVwS34RB
+         MTwRgcTznaK/NowF2J73SUdotvnra3ztY89dLYh+Vjfpy9139pz0FaDEVOmq0h8AeiYu
+         qL9YcjUsfXpZ9ULcQ+GktWaiQh3r+50ePLmbuDOv9MKWbTSe+TCxhmlI4GRSBN0Hafjj
+         S51bVow88Fh7z+eG+8h7LbcLUIUe9fKLKeSr/GzrfxSAs7nfA/CAE/ct0AjB8wteCYGu
+         jiz61A1FDjbJo3VSvQ7pC0JvZ24ebg5zWyWE1qwGj7mppxp93vl0sB/d8+zDwWrxc8g5
+         A/ZQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789996129; x=1790600929; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+hw0ixHejMxgxIBfXicypL5GmAH4YPvK3kWjtYiI4pM=;
+        b=aNZblGnJvUVLe5azh7ue5oEYNMpvB9zP9Jg8jo24pdfWvvE+7HzpwwLUc6iaytHHb1
+         WBNR+L5nqoSRDIylugMO1Btg4TLZhrJHK1akFb9+n/zNdmsHhui3T0pelQBnln5FXRH1
+         ddGRmrSmb7X6fDqJRZxblvb7sIcAvtGbnAQQebU92w2SgP/Z/C8ET/geLvFsv/F3DTC1
+         E3AAcUi/nowcqdpT4WAAdGAZnJohtesdETXsu8kYWuIUcQX5i+Q1Ym0slzQdCZcDQZe2
+         JeEJmooEk/GoMO4WEAG5jAuaU0vKcEEmnx/8200XHmeHDqp27+Hjr56Cx7Arsevt2R4H
+         I32g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789996129; x=1790600929;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+hw0ixHejMxgxIBfXicypL5GmAH4YPvK3kWjtYiI4pM=;
+        b=ba/aKsOv/Jzh0XaJjOOaD2hGcrr9taJXifG+qB2OXGSRmwLywk/q50x/NZG0kAPuaw
+         cqeE3ogeXIaUx8hc5KHaaspVpU/wYLEbtJtNG/vagasID7LyGBjVlIqYtwOE5Tz4kPl6
+         t0ZJZFCBz5aiHmfLWiU9ykSUWUYl1pv44vpiE1XUVYS3j6ya+bcY1qwfi8S/7Jm7QJ5D
+         I8BKgJKzaesl/gZ90dH2vDQh8/2V/MrvhPJWDYZYUumumpf7Gbj3gvqN7M3UkHvXR4Zf
+         zbJtBykZmrpwIv6PDzmBrXNj2t9Q3m+BgYjHAzCC9Vdf83450Y9dEJ4l4KDNm+5xz47g
+         X/3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzzPebvBSjXuE7EAYmVDw3NCAB8wXX6DLh7wTFcg0tF/XfBGWq6oRz8wuZpl7PTEu/v9GIvtGmOlKlYU/E=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpiYdkvuUpyk7HUCh4iu9wRg95Q+Vh5IYFakZY26UjVtM6TISY
+	LE+jCUgXqxbPsKqPA6GQZzkHbIZLYW9fx2mCmOUtvmN60sVh6ZH59BpJGuksw6JcRv8hAJuQpC3
+	WqXKnEAwvgP5M3Q2fSzoxE2HL9bKrBjmRxJHvi2Wz+elGDKH1WVHxxU08m/lpwh/9BCong95Rjx
+	30XbBPrviXcQ9MON3oCVgC7mmChC4nFRGTO6dPq3f4
+X-Gm-Gg: AYBFou0RH/ETYbQp1ppJsIggSmdgSRppjIYrec3kIeDEhYhRE5AkSyidCTd2u9888x3
+	6wDwJ49hEzFyvXy1bwZLIv5TLGK9GmDjmuJWgKcnXl7paiMPRqVldJWjo0y2q2aOVOA4FSJToOn
+	7Q7KfyloIfrzasv2/A8kEORMSwbsI7xxnNXqKbRs54TGVf5kPuSdqvPMoe
+X-Received: by 2002:a2e:bc12:0:b0:3a5:e541:4205 with SMTP id 38308e7fff4ca-3a5fbbc2f6bmr23494921fa.0.1789996128896;
+        Mon, 21 Sep 2026 06:08:48 -0700 (PDT)
+X-Received: by 2002:a2e:bc12:0:b0:3a5:e541:4205 with SMTP id
+ 38308e7fff4ca-3a5fbbc2f6bmr23494821fa.0.1789996128490; Mon, 21 Sep 2026
+ 06:08:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260919173747.327963-1-ngocthang2710.1999@gmail.com>
+In-Reply-To: <20260919173747.327963-1-ngocthang2710.1999@gmail.com>
+From: Alexander Aring <aahringo@redhat.com>
+Date: Mon, 21 Sep 2026 09:08:37 -0400
+X-Gm-Features: AcwNN1VvpfHNYEg31n2yNqww7xoCQjLLg-_zsMOr5l7COl7EOAERHrmvGU6Y8Y8
+Message-ID: <CAK-6q+grbgqxyjX6-xpuXFTgNKShJmy=oF_-6qyYUZ88OvCiPw@mail.gmail.com>
+Subject: Re: [PATCH] dlm: make lockspace join wait killable
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: David Teigland <teigland@redhat.com>, gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	syzbot+b114bbe890d76037877c@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hi,
 
-Critical: 0 · High: 2 · Medium: 0 · Low: 0
+On Sat, Sep 19, 2026 at 1:38=E2=80=AFPM Nguyen Ngoc Thang
+<ngocthang2710.1999@gmail.com> wrote:
+>
+> do_uevent() sleeps uninterruptibly until dlm_controld answers the
+> ONLINE uevent via sysfs. If the daemon is absent or stuck, a task
+> creating a lockspace through /dev/dlm-control blocks forever in D
+> state, cannot be killed and trips the hung task detector.
+>
+> Use wait_event_killable() for the join event and return the error to
+> new_lockspace(), which already unwinds through out_recoverd. The
+> leave path is left alone as it must not skip teardown.
+>
+> Reported-by: syzbot+b114bbe890d76037877c@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3Db114bbe890d76037877c
+> Fixes: e7fd41792fc0 ("[DLM] The core of the DLM for GFS2/CLVM")
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> ---
+> Problem: syzbot reports "INFO: task hung in do_uevent"
+> (https://syzkaller.appspot.com/bug?extid=3Db114bbe890d76037877c).
+>
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I can see that syzkaller views this as a problem but syzkaller doesn't
+understand how the cluster world works. If dlm_controld dies it is
+game over for us, in this case the cluster manager should fence the
+node.
 
-- [High] The new "EcoNet EN751221 MCM PHY" driver entry can never bind,
-  because its gate en751221_is_mcm_phy() (drivers/net/phy/mediatek/mtk-…
-- [High] mt7530_is_gphy() (drivers/net/phy/mediatek/mtk-ge.c:150-154)
-  masks the raw return value of phy_read(phydev, MII_ESTATUS) with…
+- Alex
 
---
-
-net: phy: mediatek: support MT7530 PHYs on EN71221 MCM
-
-This adds a second phy_driver entry for the MT7530 PHYs found on the
-EcoNet EN751221 multi-chip module, which need extra register writes at
-config_init time.  The MT7530 entry loses PHY_ID_MATCH_EXACT and both
-entries now select hardware through custom match_phy_device callbacks.
-
-> diff --git a/drivers/net/phy/mediatek/mtk-ge.c b/drivers/net/phy/mediatek/mtk-ge.c
-> index 96d8ac5154e5e..62e3eff37b800 100644
-> --- a/drivers/net/phy/mediatek/mtk-ge.c
-> +++ b/drivers/net/phy/mediatek/mtk-ge.c
-
-[ ... ]
-
-> @@ -101,6 +102,69 @@ static int mt7530_phy_config_init(struct phy_device *phydev)
->  	return 0;
->  }
->  
-> +/*
-> + * The EcoNet EN751221 "G" multi-chip module MT7530 requires additional PHY
-> + * configuration.
-> + */
-> +static int en751221_mcm_phy_config_init(struct phy_device *phydev)
-> +{
-> +	int ret;
-> +
-> +	ret = genphy_soft_reset(phydev);
-> +	if (ret)
-> +		return ret;
-> +
-
-[ ... ]
-
-> +	return mt7530_phy_config_init(phydev);
-> +}
-> +
-> +static bool en751221_is_mcm_phy(struct phy_device *phydev)
-> +{
-> +	struct device *parent = phydev->mdio.bus->parent;
-> +
-> +	return parent && parent->of_node &&
-> +	       of_device_is_compatible(parent->of_node, "econet,en751221");
-> +}
-
-[Severity: High]
-Can en751221_is_mcm_phy() ever return true?  The string
-"econet,en751221" is documented as a root node compatible only:
-
-Documentation/devicetree/bindings/mips/econet.yaml:
-    properties:
-      $nodename:
-        const: '/'
-
-      compatible:
-        oneOf:
-          - description: Boards with EcoNet EN751221 family SoC
-
-and the only in-tree users are the root nodes of
-arch/mips/boot/dts/econet/en751221.dtsi and
-en751221_smartfiber_xp8421-b.dts.
-
-The node inspected here is the MDIO bus parent, which is the switch or
-MAC device, for example in mt7530_setup_mdio():
-
-drivers/net/dsa/mt7530.c:
-    bus->parent = dev;
-
-so parent->of_node carries a switch compatible such as
-"mediatek,mt7530" or "mediatek,mt7621", not the machine compatible.
-Does that make en751221_phy_match() always return 0, leaving the new
-"EcoNet EN751221 MCM PHY" entry unreachable and EN751221 MCM boards
-silently bound to the plain "MediaTek MT7530 PHY" entry instead?
-
-If the intent is machine level detection, would
-of_machine_is_compatible() be the matching API here?  If node level
-detection is intended, which compatible is expected on the switch or
-MDIO node?  I could not find an EN751221 switch or MDIO node or driver
-compatible upstream at all - grepping for "econet," under drivers/net/
-only turns up "econet,en7528-switch" in mt7530-mmio.c plus this new
-string - so is there any configuration in which this path runs today?
-
-Also, the subject says "EN71221 MCM" while the changelog body and the
-code use EN751221.
-
-> +
-> +/*
-> + * MTK_GPHY_ID_MT7530 ID is also used for an EcoNet SoC FE phy, but that PHY
-> + * does not advertise ESTATUS_1000_TFULL.
-> + */
-> +static bool mt7530_is_gphy(struct phy_device *phydev)
-> +{
-> +	return phydev->phy_id == MTK_GPHY_ID_MT7530 &&
-> +	       (phy_read(phydev, MII_ESTATUS) & ESTATUS_1000_TFULL) != 0;
-> +}
-
-[Severity: High]
-Should the phy_read() return value be checked for an error before it is
-masked?  ESTATUS_1000_TFULL is BIT(13):
-
-include/uapi/linux/mii.h:
-    #define ESTATUS_1000_TFULL	0x2000	/* Can do 1000BT Full          */
-
-phy_read() forwards mdiobus_read() errors as small negative values, and
-every one of those has bit 13 set (-EIO is 0xfffffffb, likewise
--ETIMEDOUT, -EOPNOTSUPP).  Does an MDIO read failure therefore read as
-"advertises 1000BASE-T full duplex" and turn the guard into an accept?
-
-Second question on the same read: register 15 is only meaningful when
-BMSR_ESTATEN is set in MII_BMSR, and a PHY that does not implement it
-may return 0xffff, which again has bit 13 set.  genphy_read_abilities()
-gates the access and checks the result:
-
-drivers/net/phy/phy_device.c:genphy_read_abilities() {
-	...
-	if (val & BMSR_ESTATEN) {
-		val = phy_read(phydev, MII_ESTATUS);
-		if (val < 0)
-			return val;
-	...
-}
-
-Would the same gate plus error check be needed here, i.e. capture the
-read in an int and return false when it is negative?
-
-This matters because the FE PHY sharing MTK_GPHY_ID_MT7530 is exactly
-the device this predicate is meant to reject.  On a false positive,
-en751221_mcm_phy_config_init() runs genphy_soft_reset() followed by the
-page 1 and vendor MMD writes against that PHY.
-
-> +
-> +static int mt7530_phy_match(struct phy_device *phydev,
-> +			    const struct phy_driver *phydrv)
-> +{
-> +	return mt7530_is_gphy(phydev) && !en751221_is_mcm_phy(phydev);
-> +}
-> +
-> +static int en751221_phy_match(struct phy_device *phydev,
-> +			      const struct phy_driver *phydrv)
-> +{
-> +	return mt7530_is_gphy(phydev) && en751221_is_mcm_phy(phydev);
-> +}
-> +
-
-[ ... ]
-
-> @@ -126,7 +190,6 @@ static int mt7531_phy_config_init(struct phy_device *phydev)
->  
->  static struct phy_driver mtk_gephy_driver[] = {
->  	{
-> -		PHY_ID_MATCH_EXACT(MTK_GPHY_ID_MT7530),
->  		.name		= "MediaTek MT7530 PHY",
-
-With PHY_ID_MATCH_EXACT gone, phy_bus_match() uses the callback result
-verbatim:
-
-drivers/net/phy/phy_device.c:phy_bus_match() {
-	...
-	if (phydrv->match_phy_device)
-		return phydrv->match_phy_device(phydev, phydrv);
-	...
-}
-
-so mt7530_is_gphy() is now the only binding gate for both entries.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917130534.297930-1-cjd%40cjdns.fr
