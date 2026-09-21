@@ -1,211 +1,148 @@
-Received: from mail-yx2-f36.google.com (mail-yx2-f36.google.com [74.125.224.164])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28F849B5B7
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC19449BD93;
+	Mon, 21 Sep 2026 13:09:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789996144; cv=none; b=ZnLIjJ+cyLe9hnivvvt3HLkcDled/aXpBF9DW9t9oCHtZ8rs+0qCv87Rk0UXpUiw3/uiCGHya/otqgau8kn7x29419s+lfvYOChZGnWENbisaQIx/MWtnHOrT/T3z4P6BFDf49mobIMykuDb+7NgHtiB4nlJMX+FKK+NWl8JRJI=
+	t=1789996147; cv=none; b=n+FQiMGEJ08pJUGa73X2MDTgr/yZnj33rr+Tre0MpuiygrX44E8Lu54fKfGa9+Hz4mr1AMcUNlI01DjeQg3GA0oWKhoTzkHVpAzSxFzwOQegiQ8i2adZq9STRFSdG7dIOzsv4eeAaSseJR523LjhTVgXL9T4WNPaUTSexo/HHts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789996144; c=relaxed/simple;
-	bh=7iRzAcHHARKyQ+ATaMDpW4DruCrP6jplXNxnuj7OqwM=;
+	s=arc-20240116; t=1789996147; c=relaxed/simple;
+	bh=ifOkwrmCxPO5sY/E09Yyp0OcBzzC1r9/BaN0dXIyDtw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WW3twCjgUv3cg+6eMoBGPKMQb5u39H6NKGV8eaJmxF2B7AncR+nC3GbDRV2SeAso3HjfIaL2xOWoIMd1qcZTeSThkEcprKMgAql2SO2iw0e8GZUd8PTZJg/sOuS/X/gIm+SrZBOcxiqTStM7S4l0b02A9kZTiRqAF8t79rGQXdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=OVbP23qH; arc=none smtp.client-ip=74.125.224.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	 Content-Type:Content-Disposition:In-Reply-To; b=q2uAF7wuUnC99+vduWTzjvW3WI/oSjWG5/D/BZkBjkYZsWOJxTI2RVPU6kTEOXlpIoaszKfrkqYEK6Wd/Lr9e1BjduOH3H2CM5ZBVVLGWloKx1Mx1obMqNxl9Q+DK01wmouHnz+TO8PEvdBcjU1Q8dftIj5UgUZnvyFBsk5JIPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PYE9wBYV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="OVbP23qH"
-Received: by mail-yx2-f36.google.com with SMTP id 956f58d0204a3-66e4aaf2ecfso2366077d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:09:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1789996141; x=1790600941; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/I4CnabOFJ3V+cBV+khghf4ltJkhcHX6gZAKyxfIiuU=;
-        b=OVbP23qHxpA1f0E25xNKG0Utb4qY1pci7lNk1dz9kSCfiFs84khz7O89QkedKxGdF/
-         0BgGqFlTDcjyoq1EhB62Hs1JbrYZYD8S5vHBJOhauPNXuaX1nb3pv3wtsBQTIyaxKlHH
-         W5RPLjfQVDytPLMyAVNbHYDlUMwBER/D7KO1XAs4nvgPFc7AW8QN2S5fU7XQBgbrQklV
-         mea3UtzB/mAP5ERVg1OpKwyibQEtCEHIyAnlL9kblIObxvClWKjATxcupqTIfL8HDbgJ
-         DArpRHVstouE13CeyOaGnHw7CHAQLXfCxKjIZToSseuODn/RSEXWdw31uTLaznBIBhdH
-         ujIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789996141; x=1790600941;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/I4CnabOFJ3V+cBV+khghf4ltJkhcHX6gZAKyxfIiuU=;
-        b=0brMdyO/dti0Cme0skLJiYKkSTr7XdLOsQU+2SiUErTZW+Zu9h2Q/i1OeXXFWd7WY3
-         8jCWAQy/GN0tA2AHZPj25h+xNcKeK6ZqKlg2u00G1GeWu0aKakT4pr7F/iFCh7WVU8ez
-         yIzWUvMih+p4zh6YZlox7zIHLN7VnxoY/suaYKEgYWStSgCUzRT73f4iBBSV0hC5EJYN
-         +835HxMjUPFQE/wSKoGC9ujJ3bzm57eimpzOuVYRSoqgEebU2cH4K1nutghxC8x1UXVw
-         30F2DJDHeTe2SODunc/miGb1TPEUPUcrpmnzzlZ6SbU1oGrjBlq8s1ABeBy2mZe5eKIz
-         Y0fw==
-X-Forwarded-Encrypted: i=1; AKwUvBztiPCKuRRKp/fA0NpJzRV4J57qPrp/4KAu2PBRxTsaPm6VySx+60dHsja18U9vuFKnn9yWsx2xVqHWqo4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCKkK/+v4DJH9/fVUKtZD/CoIlK1OxUYrVfC8I/CUFxuMK2pJk
-	X52Js8jwCcVK3KTnGRVofygvh8KmCzUB3EDlr0QsqrmovjV398tn2QxU+OMO38aAWp8=
-X-Gm-Gg: AYBFou0HXTnZ5HJNQypynBzFfpUsZ4hYALOO09ABqqNKyQgqaxNSlnFmmf1Fh6+p1lR
-	4z7SknaVuTWtchgH9MkjFVMLP+cHRrxRfqwuuLFLFzGAnrka3sHbND7130Pgh2oM8oV3qc+Fjq0
-	zI0eFdJ1dNGEZBYMMJ6gHaqmQXjxWq+o+865qkU/zKnGAyQbe6cW/uAMH+Ua6tR26XHCVKMK5iY
-	4t+ocze+PLqs6bTjH6Rm0Fzwp52fjPJJiFOtAQK6l6zJAexA8fY3v4AYW54Knkmwf/WJ3tloLzu
-	ptzEhopgUeud00oL4hL0p9eySb56m+wivSPR0ynJexV3Hgqp0rn8ljdPDgfR3g3mFLoVlSUnJRW
-	NliLSXWPqb8vUTxCAq7nhGjRsEHjlBsBpu7G65ZOnA9EYjTx22J4+pEzZ8/ztADExfUzCe3Nu06
-	J7JJHx4wcoIUMn19NfEFv7Om+nExm3tBgPRwSBw8EHZerdG/VkCGFHJD4xigitaEJCpjPAOKyam
-	e14+8aJEIpNex3hLVBZi4QfrHU3+xufeY30HDFjUlxl5PeUeT8RXspG
-X-Received: by 2002:a05:690e:11ca:b0:672:a52c:db25 with SMTP id 956f58d0204a3-672a52ce30bmr1843524d50.109.1789996140490;
-        Mon, 21 Sep 2026 06:09:00 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91260aa1db7sm67720106d6.44.2026.09.21.06.08.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 06:08:59 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x8dlS-00000006Jlj-41LR;
-	Mon, 21 Sep 2026 10:08:58 -0300
-Date: Mon, 21 Sep 2026 10:08:58 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Christoph Hellwig <hch@lst.de>, Leon Romanovsky <leon@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev, Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org
-Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
- direct peer-to-peer route
-Message-ID: <20260921130858.GO11599@ziepe.ca>
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
- <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
- <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
- <20260918121500.GV13683@unreal>
- <b517070d0b9236b03962fcba649faffcacda23eb.camel@linux.intel.com>
- <20260918170524.GH11599@ziepe.ca>
- <9656f2f9-2e39-4007-b065-3b763b53c6de@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PYE9wBYV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E07E51F000FF;
+	Mon, 21 Sep 2026 13:09:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789996145;
+	bh=B8gx0Q83Hru6sT6K+fPJFVxJySRvNozZjXezt+2+dPc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PYE9wBYVav5ozpb8Ra9SuMbtAP/vMhlV3A1n+UIS3oqvk0oyFw3C8gDoFg1s7YNx2
+	 5yjNnWuRdZMeS7DIGP5krvMTZDRoAqryl358VXxuHt8Ldp2R2eBuIEyVGPhX6eTLx+
+	 xaRBYmDPLgJw5S2E0ZmZryonpQEsVu2toIj91YN2oad0PDSC2YqNlFC41GyH4dKgU2
+	 DLpPJT22DbP76/AYPkrmG+lfqf8ZW/3cyaMsyfrR1mzmoP0HAzJL1OSEVVWSoU804b
+	 1c7sliwL8FWxgQ0KDAQV/mbpCAMQQBIPcSuTnXb415be4CUxVKLMGoOOG91gYE9WBg
+	 a0YFGEA9KSYsQ==
+Date: Mon, 21 Sep 2026 14:09:01 +0100
+From: Simon Horman <horms@kernel.org>
+To: Edoardo Canepa <edoardo.canepa@canonical.com>
+Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Shuah Khan <shuah@kernel.org>, Xu Du <xudu@redhat.com>,
+	Po-Hsu Lin <po-hsu.lin@canonical.com>,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3] selftests/net: run tun tests in a dedicated
+ network namespace
+Message-ID: <20260921130901.GP13925@horms.kernel.org>
+References: <20260917111520.2614448-1-edoardo.canepa@canonical.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9656f2f9-2e39-4007-b065-3b763b53c6de@amd.com>
+In-Reply-To: <20260917111520.2614448-1-edoardo.canepa@canonical.com>
 
-On Mon, Sep 21, 2026 at 08:43:49AM +0200, Christian König wrote:
-> On 9/18/26 19:05, Jason Gunthorpe wrote:
-> > On Fri, Sep 18, 2026 at 03:42:28PM +0200, Thomas Hellström wrote:
-> >>
-> >> 1) Xe attachment check if pci_p2pdma_distance() returns OK for the
-> >> path. Then Xe always sets up dma-addresses using dma_map_resource(). 
-> > 
-> > Open coding pci_p2pdma_distance() in drivers is a hack. Using
-> > dma_map_resource() like this was never "allowed".
-> > 
-> > We've fixed things so these hacks are not needed, the drivers need to
-> > move over to things like dma_buf_phys_vec_to_sgt() and the hmm helpers
-> > to use the DMA API correctly.
+On Thu, Sep 17, 2026 at 01:15:20PM +0200, Edoardo Canepa wrote:
+> The tun_vnet_udptnl fixture creates a fresh tap device, assigns it a
+> fixed MAC address and installs the outer neighbor entry as
+> NUD_PERMANENT.  On systems where systemd-udevd is running and a systemd
+> .link file sets
 > 
-> That is a completely broken approach as well since it limits the
-> exported resources to addresses the CPU can reach.
-
-Yes, of course it does. The DMA API only works on phy_addr_t. If you
-have a struct p2pdma_provider * then you have a phys_addr_t for it.
-
-If the exporter knows it is working with a MMIO mapping on a PCI
-device it gets to acquire a p2pdma_provider and use the helper.
-
-None of this is suposed to solve your "resources the CPU cannot reach"
-problem, that has nothing to do with DMA API or P2P. It is not broken
-just because it doesn't solve every problem.
-
-> Christoph Hellwig is right that drivers should never use that stuff
-> directly, not even through that dma_buf_phys_vec_to_sgt() function.
-
-Hellwig's point was that the subsystem needs a mapping helper that
-goes from the subsystem address representation to the HW
-representation and hides these details from the drivers.
-
-Look at what he built in nvme around biovec.
-
-The dma_buf_phys_vec_to_sgt() is the dmabuf version of the same idea,
-the subystem provides the mapping helper. We can try to do better, but
-better is not making the exporters touch the mapping algorithm.
-
-Ultimately I want to see something in lib/ handle this with a
-non-scatterlist datastructure, but there is a huge gulf between where
-dmabuf is now and it being able to work with a non-scatterlist
-datastructure.
-
-Look, it is easy to complain you don't like how it looks, but this
-stuff is hard there are lots of competing concerns, if you have a
-better idea now is a good time to present it. Maybe if you look
-closely you will appreciate how much work has gone into even getting
-things this far.
-
-> >> It seems to me that a pci-device settable flag "ATS always enabled"
-> >> should be enough to fix both issues?
-> > 
-> > It should be be per-mapping to support the NIC workflow that isn't a
-> > global operation.
+>     MACAddressPolicy=persistent
 > 
-> I just realized what you guys are doing and I'm not sure if the
-> Linux PCI subsystem should support such hacks at all.
+> (the default shipped by systemd in 99-default.link, so this is what
+> most systemd-based hosts inherit), systemd-udevd's net_setup_link
+> builtin asynchronously sends an RTM_SETLINK to reassign the freshly
+> created tap device's MAC to a machine-persistent value.  When that
+> lands after the fixture has configured the device, both directions
+> break:
+> 
+> - recv_gso_packet transmits through the tap, and the address change
+>   flushes the neighbor entry the fixture installed:
+> 
+>     do_setlink
+>     -> netif_set_mac_address
+>        -> call_netdevice_notifiers(NETDEV_CHANGEADDR)
+>           -> ndisc_netdev_event (arp_netdev_event for an IPv4 outer)
+>              -> neigh_changeaddr
+>                 -> neigh_flush_dev(tbl, dev, /* skip_perm = */ false)
+> 
+>   so the packet hits __neigh_create() and waits on neighbor resolution
+>   that never completes.
+> 
+> - send_gso_packet writes frames addressed to the MAC the fixture
+>   assigned.  Once the tap has a different address, eth_type_trans()
+>   marks them PACKET_OTHERHOST and the IP receive path drops them.
+> 
+> Either way nothing arrives before the receive timeout, and the test
+> fails with, for example:
+> 
+>   tun.c:947:send_gso_packet:Expected ret (0) == variant->data_size (1)
+>   tun.c:948:send_gso_packet:Expected r_num_mss (0) == variant->r_num_mss (1)
+>   tun.c:962:recv_gso_packet:Expected ret (0) == variant->data_size (1)
+> 
+> The failure is non-deterministic and reproduces on a plain
+> systemd-based VM with no containers.
+> 
+> Fix by calling unshare(CLONE_NEWNET) from both fixture setups.  The
+> harness runs each test in its own forked process, so every test gets a
+> private network namespace that is torn down with it, and all tap and
+> geneve devices are created in a namespace that systemd-udevd (running
+> in the init netns) does not watch, so its RTM_SETLINK never fires
+> against them.
+> 
+> Creating a network namespace needs CAP_SYS_ADMIN in the current user
+> namespace and CONFIG_NET_NS=y, neither of which the tests required
+> before.  Where they are unavailable the unshare() is reported with
+> SKIP() rather than aborting, so the binary still emits a full TAP
+> stream and a runner can tell "network namespaces unavailable" apart
+> from a real tun/tap regression.
+> 
+> Verified on a plain systemd-based VM running the affected kernel.
+> Without the fix, 1000 sequential invocations of
+> 
+>   tun -r tun_vnet_udptnl.4in6_nogsosz_1byte.recv_gso_packet
+> 
+> fail 10 times, and 2 out of 20 full runs of the test binary fail.  With
+> the fix there are no failures in either case.
+> 
+> Reported-by: Po-Hsu Lin <po-hsu.lin@canonical.com>
+> Closes: https://bugs.launchpad.net/bugs/2158217
+> Fixes: 24e59f26eef2 ("selftest: tun: Add helpers for GSO over UDP tunnel")
+> Assisted-by: LLM
+> Signed-off-by: Edoardo Canepa <edoardo.canepa@canonical.com>
+> ---
+> v3:
+>   - Drop the claim that a failure leaves the tap and geneve devices
+>     behind.  The failing checks are EXPECT_EQ()s in the test body, so
+>     FIXTURE_TEARDOWN still runs (Sashiko).
+>   - Explain the send_gso_packet failure correctly: its frames are
+>     dropped as PACKET_OTHERHOST once the tap's MAC changes.  The
+>     neighbor flush only affects recv_gso_packet.
+>   - Redo the measurements on a freshly booted host.  The v2 numbers
+>     were taken in an unclean environment.  The v1 numbers were fine,
+>     and the v2 entry saying otherwise was wrong.
+>   - Go back to "Assisted-by: LLM", the current format in
+>     Documentation/process/coding-assistants.rst.  v2 followed an older
+>     copy of that document (Sashiko).
+> v2: https://lore.kernel.org/netdev/20260914211921.3786609-1-edoardo.canepa@canonical.com/
+>   - Add the unshare(CLONE_NEWNET) to FIXTURE_SETUP(tun) and
+>     FIXTURE_SETUP(tun_vnet_udptnl) instead of replacing
+>     TEST_HARNESS_MAIN with a hand-written main() (Jakub).
+>   - Report an unshare() failure with SKIP() instead of aborting the
+>     binary before the harness starts (Sashiko).
+>   - Mention the new CAP_SYS_ADMIN / CONFIG_NET_NS prerequisite in the
+>     commit message (Sashiko).
+>   - Change the Assisted-by: format (reverted in v3).
+>   - Redo the measurements (redone again in v3).
+> v1: https://lore.kernel.org/netdev/20260905085318.3416670-1-edoardo.canepa@canonical.com/
 
-I don't know how to respond to that. It is spec complaint, it is
-shipping in enormous volumes, of course Linux needs to support the HW
-that exists.
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-> Basically from the point of view of the TA the NIC has ATS enabled
-> all the time, but has a per request option to use translated
-> addresses directly without previously translating and caching them
-> using ATS, correct?
-
-Yep. Very few devices in the world can use ATS for every single
-operation. Many have this split operating model. Some even only use
-ATS for DMA flows that are faultable.
-
-Mostly the OS can't tell what the device is doing and doesn't
-care. The P2P routing is the main issue and we have hacked around it
-in our systems till now. Leon is trying to fix it. Thomas needs it
-fixed too for Xe. So what's the issue here?
-
-DMABUF needs to learn how to do interconnect specific behaviors. PCI
-is an interconnect, it has lots and lots of crazy rules. An
-importer/exporter that chooses to use PCI for their DMA should have a
-way to exchange PCI specific information.
-
-So should UALink and all the other zoo of options we have now. It
-cannot be completely generic and meet everyones needs.
-
-Can we focus on that instead of arguing if the PCI craziness should
-exist or not?
-
-> If yes than that is extremely questionable behavior, I'm not sure if
-> that is covered by the PCIe spec.
-
-Spec doesn't say anything about when a device has to translated vs
-untranslated. The ATS flags only say translated is allowed to be used.
-
-> ATS is meant to be an optimization which moves the TLB from the root
-> complex (TA) into the devices at the cost of TLB invalidation
-> complexity. But what you do here is abusing that functionality as
-> far as I can see.
-
-ATS is for alot more than that, and there is no abuse here.
-
-Jason
