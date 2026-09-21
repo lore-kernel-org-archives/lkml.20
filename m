@@ -1,170 +1,208 @@
-Received: from mail-oa2-f9.google.com (mail-oa2-f9.google.com [74.125.231.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DA01A3160
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:35:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FAC1DA23;
+	Mon, 21 Sep 2026 01:41:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789954537; cv=none; b=SPeXNRCfeire1Nb5+3PZ+RbK9XurzChDPVormwRg33lUG7AJs+2bi7cZZQqt6eDM/Lu0HcT7fManac9CqvIj0Q72bsactVYenMRJuJuF0fQCunaIP85biwSOcJXnrULmLU7ORmp7XzdwcoNQciun0OIZrmGMOd2wBD1B12npHxM=
+	t=1789954870; cv=none; b=GwDQAZc4XIAQL3W1JBi/J9PG3pSwPdDx1u6phuCnNcbp5xb4J2xh7CpZHOWDaJPHUBedW5bv+YKD0Hnoj2NPcY8rzLPMWEaWTntUsESS3MpCB5rG3WxKTEmTJDzTx/XGUYM3n1/1EMng8lR2ZEDc/2inzTvn4YMnUFpw6oGfStM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789954537; c=relaxed/simple;
-	bh=tIc0L4VaedDVfkkGk1dxwSJaF4Vkhb+egtorqa23Iwg=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=gFoN1XUJAkm8TTXsy1vz1Ytlilu+RRVIfv3OMXjr3EQp+sE1eQN/g8PcRZTdTQQHgclWm0YJb/fvI5vd7cGAsM3ey1a27GlUL1outa9VKMEeYg3eoqNQUWv7m5zl6rlCFIaYirn0CmU9QUg8fEfDM5FSO+nYpY7q2sIyh8DZIak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f9.google.com with SMTP id 586e51a60fabf-488ed5e6f92so431735fac.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 18:35:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789954534; x=1790559334;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ru/fRZECG068TddYjsJjm7ioZJCNSezyI9G2SCw1baQ=;
-        b=MGa329cqdOmFgMAfASTf1DQ0IZDVPGHQVd7VxRm//v6ZHibvTAVyYtGjWBEcM5b6n5
-         uXEgeCxZAlIHcIxeCwRgsYBD5EcWbJPhXbOzEfGRaPtWbp5xizC5wJx1+Uq1tFRjGYN8
-         BHznhRHkpKbY6DO+V2KLQtVCdDP+2UZyJ1ZTutzxnBgmALJkX8tozlQy9ee74j0oyRug
-         qQD2FSwcT3B08fGJhN+F6gvLM6c7DbHfP6RT//yOv5OakByMwPoJv95np/G+OzxBy2bB
-         WmWw0xY8q5Z+qXOQ+iNWM7RN+HpYY/OTUssnGh18GvaD1A85dmpdU4mwXo1cuXoZ5/WX
-         oDrw==
-X-Gm-Message-State: AFuF++likmrlwIntmutiVkyA9mQDbWeyUBTBv3FZyQkMfKR2bt7xeVMl
-	tiAZztkVMRgaXBuBQTvEtP9FfVTU0hMZVpffGrIH2zy4pZn7257FYADrBYACsOIZeJs9EsTI5HM
-	CeIpI6XAb7pKzk+kRmSfdWAVjJPVIIl88sWsjj6Qub/HKEOzDBPV3F1+ta3x+yw==
+	s=arc-20240116; t=1789954870; c=relaxed/simple;
+	bh=jDiIl7/7Df+HkWggMaCl/X8Znth27zy0ovp3DM5dvSk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k5vdQB+9KqqvUfK0GGU2zDHHv/NT55spWhygPhmjqAzwa1AHIYn+Nfzz068SKQK/0dDkO+Faz2Vy7D82DVmhv7lvmAeeo8N5480IsjfpSpArKaVnuJR3UE6L5Eg8THCc6zf6xFqOSoeWe/O/kjcXQqPAmDP1zUtfe+bhHMsIyaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=cjkE9x5t; arc=none smtp.client-ip=117.135.210.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="cjkE9x5t"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=HBB22xTvlIdnnUpDmcGb9WM9KBxzgtzh1eAOBEppS6s=;
+	b=cjkE9x5tD8Olglh0wr6jrDc8SleOEYplfrtufXlmxLuRCPL2flZtr56UuzY4K4
+	XBgNIOkZbYBqKgXEMWdvO55dllBcG3Sc7A1bWe9eGQHsBw9ER2b2Bi4qep+RVXjp
+	f3Yvoj8qb5KYf7wX1+maqszaESRl9N40ufvFqgk7WPHlA=
+Message-ID: <d7ad3298-9d06-4498-9d39-dc7f43eb0efd@126.com>
+Date: Mon, 21 Sep 2026 09:39:45 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:2006:b0:6b1:4a71:775a with SMTP id
- 006d021491bc7-6ca9aa41fbemr8933720eaf.19.1789954534534; Sun, 20 Sep 2026
- 18:35:34 -0700 (PDT)
-Date: Sun, 20 Sep 2026 18:35:34 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab089e6.514bccd6.255447.0008.GAE@google.com>
-Subject: [syzbot] [raid?] kernel BUG in raid0_make_request
-From: syzbot <syzbot+422b372cabfbaa528725@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
-	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
-	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] net: stmmac: request the MDIO reset GPIO only once
+To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Linkui Xiao <xiaolinkui@kylinos.cn>, stable@vger.kernel.org
+References: <20260920054703.1897755-1-xiaolinkui@126.com>
+ <aq-UJEFIq2aHfEee@lore-desk>
+Content-Language: en-US
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <aq-UJEFIq2aHfEee@lore-desk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wD3P+vhirBqrK9QBw--.58600S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxKr15uFyxur4DKrWUXFyrJFb_yoWxGr1Up3
+	y5Zay5ArWkJr4Iqws7Xw4UZF9YkFW3tr4UCw1F9rWSyan8KrWSvr1Sqry5ZFy2krWUWFya
+	vr18uFnruF4qyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U4Vb9UUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlAKheGqwiuJbYwAA3F
 
-Hello,
+Hi Lorenzo,
 
-syzbot found the following issue on:
+On 2026/9/20 16:07, Lorenzo Bianconi wrote:
+>> From: Linkui Xiao <xiaolinkui@kylinos.cn>
+>>
+>> stmmac_mdio_reset() calls devm_gpiod_get_optional() every time it runs.
+>> A GPIO line can only be requested once, so from the second call on
+>> gpiod_request_commit() returns -EBUSY. devm_gpiod_get_optional() only
+>> turns -ENOENT into NULL, hence the error is passed straight back and
+>> stmmac_mdio_reset() bails out before pulsing "snps,reset" and before
+>> running the STE101P MDC workaround.
+>>
+>> The first call, made by of_mdiobus_register(), succeeds, so the failure
+>> is only visible later on: every resume that does not use WoL goes
+>> through stmmac_resume() -> stmmac_mdio_reset(), and that caller ignores
+>> the return value, so the PHY silently stays un-reset.
+>>
+>> The descriptor used to be requested exactly once: stmmac_mdio_reset()
+>> resolved "snps,reset-gpio" itself and cached the GPIO number in
+>> stmmac_mdio_bus_data::reset_gpio, and commit ae26c1c6cb9b ("stmmac: fix
+>> PHY reset during resume") relies on that cache to reuse the line on
+>> every call. commit 7c86f20d15b7 ("net: stmmac: use GPIO descriptors in
+>> stmmac_mdio_reset") replaced it with a devm_gpiod_get_optional() that
+>> caches nothing, so the request is repeated on every call and fails from
+>> the second one on.
+>>
+>> Request the GPIO in stmmac_mdio_register(), at probe time, and keep the
+>> descriptor in struct stmmac_priv. This is where devm-gpiod is meant to be
+>> used: the line is acquired with the device and released with it, and any
+>> failure to acquire it is reported during probe instead of being ignored
+>> by stmmac_resume(). stmmac_mdio_reset() then only pulses the cached line.
+>>
+>> The request is still gated on mdio_bus_data->needs_reset, which is the
+>> condition that installs the reset callback, and on the device using DT,
+>> as the reset itself is.
+>>
+>> Fixes: 7c86f20d15b7 ("net: stmmac: use GPIO descriptors in stmmac_mdio_reset")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+>> ---
+>> Changes in v2:
+>> - Do not request the GPIO from stmmac_mdio_reset(); request it once in
+>>    stmmac_mdio_register() at probe time instead. (Maxime Chevallier)
+>>
+>>   drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 ++
+>>   .../net/ethernet/stmicro/stmmac/stmmac_mdio.c | 19 ++++++++++---------
+>>   2 files changed, 12 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+>> index 7582fca63741..986fb43db45f 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+>> @@ -25,6 +25,7 @@
+>>   #include <net/xdp.h>
+>>   #include <uapi/linux/bpf.h>
+>>   
+>> +struct gpio_desc;
+>>   struct stmmac_pcs;
+>>   
+>>   struct stmmac_resources {
+>> @@ -287,6 +288,7 @@ struct stmmac_priv {
+>>   
+>>   	unsigned int pause_time;
+>>   	struct mii_bus *mii;
+>> +	struct gpio_desc *mdio_reset_gpio;
+>>   
+>>   	struct stmmac_pcs *integrated_pcs;
+>>   
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+>> index afe98ff5bdcb..346f93f86abe 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+>> @@ -386,15 +386,8 @@ int stmmac_mdio_reset(struct mii_bus *bus)
+>>   
+>>   #ifdef CONFIG_OF
+>>   	if (priv->device->of_node) {
+>> -		struct gpio_desc *reset_gpio;
+>>   		u32 delays[3] = { 0, 0, 0 };
+>>   
+>> -		reset_gpio = devm_gpiod_get_optional(priv->device,
+>> -						     "snps,reset",
+>> -						     GPIOD_OUT_LOW);
+>> -		if (IS_ERR(reset_gpio))
+>> -			return PTR_ERR(reset_gpio);
+>> -
+>>   		device_property_read_u32_array(priv->device,
+>>   					       "snps,reset-delays-us",
+>>   					       delays, ARRAY_SIZE(delays));
+> 
+> nit: what about moving even these properties to stmmac_mdio_register()? It
+> seems a bit odd to have half of the parsing in stmmac_mdio_register() and
+> half in stmmac_mdio_reset(). What do you think?
 
-HEAD commit:    9b87fdc9af2f Merge tag 'sched_ext-for-7.3-rc3-fixes' of gi..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=12f4ebf9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=422b372cabfbaa528725
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+Agreed, and thanks for pointing it out.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+v3 reads "snps,reset-delays-us" in stmmac_mdio_register() as well and keeps
+the three values in struct stmmac_priv, next to the descriptor, so the whole
+reset description - the line and its timings - is parsed once, at probe 
+time.
+stmmac_mdio_reset() then only waits and pulses the cached line.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/9ef5fdad4028/disk-9b87fdc9.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/a024ff7c3227/vmlinux-9b87fdc9.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/45d8bf4a87d7/bzImage-9b87fdc9.xz
+With the parsing gone, the callback doesn't need its CONFIG_OF/of_node guard
+either, so I dropped that too: stmmac_mdio_reset() no longer looks at the
+device tree at all. Where the description is absent, the cached descriptor
+is NULL and the delays are all zero, so the pulse is a no-op - exactly what
+the of_node check used to make of it. The request and the delays stay gated
+on mdio_bus_data->needs_reset and on the device using DT, in
+stmmac_mdio_register().
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+422b372cabfbaa528725@syzkaller.appspotmail.com
+Nothing else changes: struct stmmac_priv is zeroed when it is allocated, so
+a missing or short "snps,reset-delays-us" still gives the same all-zero
+delays the local initialiser did.
 
-------------[ cut here ]------------
-kernel BUG at drivers/md/raid0.c:318!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-CPU: 0 UID: 0 PID: 8394 Comm: syz.5.1013 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-RIP: 0010:find_zone drivers/md/raid0.c:318 [inline]
-RIP: 0010:raid0_map_submit_bio drivers/md/raid0.c:568 [inline]
-RIP: 0010:raid0_make_request+0xf17/0x10b0 drivers/md/raid0.c:626
-Code: b6 f9 e9 8c fb ff ff 89 d9 80 e1 07 80 c1 03 38 c1 0f 8c 04 fc ff ff 48 89 df e8 94 a6 b6 f9 e9 f7 fb ff ff e8 ea 9d 46 f9 90 <0f> 0b e8 e2 9d 46 f9 90 0f 0b 89 f9 80 e1 07 38 c1 0f 8c b6 fc ff
-RSP: 0018:ffffc9000e2a6fe0 EFLAGS: 00010287
-RAX: ffffffff88813476 RBX: 0000000000000000 RCX: 0000000000080000
-RDX: ffffc90018cee000 RSI: 0000000000001010 RDI: 0000000000001011
-RBP: ffffc9000e2a70f0 R08: ffff88802388dc33 R09: 1ffff11004711b86
-R10: dffffc0000000000 R11: ffffed1004711b87 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
-FS:  00007f90513f76c0(0000) GS:ffff888124cd1000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000000110c46e8aa CR3: 0000000074f3c000 CR4: 0000000000350ef0
-Call Trace:
- <TASK>
- md_handle_request+0xb0a/0xe60 drivers/md/md.c:417
- __submit_bio+0x27f/0x340 block/blk-core.c:681
- __submit_bio_noacct block/blk-core.c:724 [inline]
- submit_bio_noacct_nocheck+0x4e8/0xa40 block/blk-core.c:792
- bh_submit fs/buffer.c:1146 [inline]
- block_read_full_folio+0x7a6/0x810 fs/buffer.c:2373
- filemap_read_folio+0x12c/0x3a0 mm/filemap.c:2520
- do_read_cache_folio+0x354/0x590 mm/filemap.c:4156
- read_mapping_folio include/linux/pagemap.h:1015 [inline]
- read_part_sector+0xb6/0x2b0 block/partitions/core.c:724
- adfspart_check_ICS+0xb1/0x960 block/partitions/acorn.c:357
- check_partition block/partitions/core.c:143 [inline]
- blk_add_partitions block/partitions/core.c:591 [inline]
- bdev_disk_changed+0x851/0x17a0 block/partitions/core.c:695
- blkdev_get_whole+0x372/0x510 block/bdev.c:793
- bdev_open+0x324/0xd70 block/bdev.c:1002
- blkdev_open+0x461/0x600 block/fops.c:674
- do_dentry_open+0x816/0x1380 fs/open.c:996
- vfs_open+0x3b/0x340 fs/open.c:1101
- do_open fs/namei.c:4837 [inline]
- path_openat+0x1443/0x1d60 fs/namei.c:5000
- do_file_open+0x23e/0x4a0 fs/namei.c:5029
- do_sys_openat2+0x115/0x200 fs/open.c:1417
- do_sys_open fs/open.c:1423 [inline]
- __do_sys_openat fs/open.c:1439 [inline]
- __se_sys_openat fs/open.c:1434 [inline]
- __x64_sys_openat+0x138/0x170 fs/open.c:1434
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f905059e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f90513f7028 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
-RAX: ffffffffffffffda RBX: 00007f9050826450 RCX: 00007f905059e159
-RDX: 0000000000004002 RSI: 0000200000000300 RDI: ffffffffffffff9c
-RBP: 00007f905063506b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f90508264e8 R14: 00007f9050826450 R15: 00007ffd8ae5b478
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:find_zone drivers/md/raid0.c:318 [inline]
-RIP: 0010:raid0_map_submit_bio drivers/md/raid0.c:568 [inline]
-RIP: 0010:raid0_make_request+0xf17/0x10b0 drivers/md/raid0.c:626
-Code: b6 f9 e9 8c fb ff ff 89 d9 80 e1 07 80 c1 03 38 c1 0f 8c 04 fc ff ff 48 89 df e8 94 a6 b6 f9 e9 f7 fb ff ff e8 ea 9d 46 f9 90 <0f> 0b e8 e2 9d 46 f9 90 0f 0b 89 f9 80 e1 07 38 c1 0f 8c b6 fc ff
-RSP: 0018:ffffc9000e2a6fe0 EFLAGS: 00010287
-RAX: ffffffff88813476 RBX: 0000000000000000 RCX: 0000000000080000
-RDX: ffffc90018cee000 RSI: 0000000000001010 RDI: 0000000000001011
-RBP: ffffc9000e2a70f0 R08: ffff88802388dc33 R09: 1ffff11004711b86
-R10: dffffc0000000000 R11: ffffed1004711b87 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
-FS:  00007f90513f76c0(0000) GS:ffff888124dd1000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000200000001000 CR3: 0000000074f3c000 CR4: 0000000000350ef0
+Thanks,
+Linkui
+> 
+> Regards,
+> Lorenzo
+> 
+>> @@ -402,11 +395,11 @@ int stmmac_mdio_reset(struct mii_bus *bus)
+>>   		if (delays[0])
+>>   			msleep(DIV_ROUND_UP(delays[0], 1000));
+>>   
+>> -		gpiod_set_value_cansleep(reset_gpio, 1);
+>> +		gpiod_set_value_cansleep(priv->mdio_reset_gpio, 1);
+>>   		if (delays[1])
+>>   			msleep(DIV_ROUND_UP(delays[1], 1000));
+>>   
+>> -		gpiod_set_value_cansleep(reset_gpio, 0);
+>> +		gpiod_set_value_cansleep(priv->mdio_reset_gpio, 0);
+>>   		if (delays[2])
+>>   			msleep(DIV_ROUND_UP(delays[2], 1000));
+>>   	}
+>> @@ -608,6 +601,14 @@ int stmmac_mdio_register(struct net_device *ndev)
+>>   	if (!mdio_bus_data)
+>>   		return 0;
+>>   
+>> +	if (mdio_bus_data->needs_reset && dev_of_node(priv->device)) {
+>> +		priv->mdio_reset_gpio =
+>> +			devm_gpiod_get_optional(priv->device, "snps,reset",
+>> +						GPIOD_OUT_LOW);
+>> +		if (IS_ERR(priv->mdio_reset_gpio))
+>> +			return PTR_ERR(priv->mdio_reset_gpio);
+>> +	}
+>> +
+>>   	stmmac_mdio_bus_config(priv);
+>>   
+>>   	new_bus = mdiobus_alloc();
+>> -- 
+>> 2.25.1
+>>
+>>
 
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
