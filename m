@@ -1,92 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A49C93769FB;
-	Mon, 21 Sep 2026 19:45:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 296123A7597;
+	Mon, 21 Sep 2026 19:47:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790019939; cv=none; b=mpnWffzi9+jc9RnoXDeJrng04syLoQF70cMZQ1SYysEYCNKY7DtFLKtQaKqtbquca5tAZ0WkSCd1Hy7HHyupbTXb6apLysfSVlF+Ar6SpVN9bXWqwYPar2/nkcZoCY7JjNNViaMQ4Ksu1DBjioEyuGegwhhQQCaWv/g/Yv7yH50=
+	t=1790020043; cv=none; b=IaYK6rxvfmRkJB6huPXBjnXSI+Cf+6TRL3Js7PMktpaogHBNZqCu8jXlxvqKksjnbIIz6o5jDwNi0cs5iZughiI4ieC+eoW/6bLb80ilcASBJZfHAE1u/1Cn3qyRm1S7qrZc7xwP/78vhz65C/hwxXLBBOltLc3Xk3rBpPFO7t4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790019939; c=relaxed/simple;
-	bh=Pu7f8dHTmAVbcbO5Am1juduR/q4XXo7nAJWewjSIgI8=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=JVAq95q3jiRdCeDjtVqdrXFxFEoR3g0f06lQgiveaDfucK1eX67hbw9g7pJN/5Uw7UFTSpmRp8VclPZQFQ5oj26rDyq0ckWufNcFfs6cCmSqKjHpDdcwA437/hKcH32kHWh175NLCLbNgjIWJigxSvDV7TxtC/FolyWhN6RyD7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=vGeqROWP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790020043; c=relaxed/simple;
+	bh=BcnEdl8QDnPqGivNaUv7+XCrZTH93GaYtfPRvDAlIUc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TnZ0+yxBMp1AF0cc6kA0mSy2rSG2YN1CrJGjhH4AvKsPV/xKnTGHKMy8cOFKzpMAeNw1o9/uVjGSQpCjZ1iM6k0VG1DO8DqgyctdlN8Wsc3THS4nncJyVoJZIRTK4/2DiOogeom7rMHFT8BC8H/P8dKXyF8C4xIVUlVO5RorceI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nz8FspN0; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="vGeqROWP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450941F000FF;
-	Mon, 21 Sep 2026 19:45:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790019938;
-	bh=VmdfqmBH4jrhaxwTCYSeFkpBAeDxBk63Act7QDZ3RcA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=vGeqROWPC+MoRonoRVJLURAv4yAo8Fhxj7II7mEW8uh5O2dmMGBK1DkNsf3qD1iYP
-	 F0t2Nh9vLrlUE39++lWcI0DY/IMFfOT8G7kyPI3ZjX5X0FyMvGJa95n08kCprxcZof
-	 Vkoi1X4y8Q2RfEB2jsGN29k+a9T5AOyE4L5tr7Rc=
-Date: Mon, 21 Sep 2026 12:45:36 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Alexandre Ghiti <alex@ghiti.fr>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>,
- Nhat Pham <nphamcs@gmail.com>, Chris Li <chrisl@kernel.org>, Kairui Song
- <kasong@tencent.com>, Kairui Song <ryncsn@gmail.com>, Chengming Zhou
- <chengming.zhou@linux.dev>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, Jan Kara <jack@suse.cz>, Kemeng Shi
- <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, Barry Song
- <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, David
- Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Michal
- Hocko <mhocko@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, Qi
- Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Wei Xu
- <weixugc@google.com>, Yuanchu Xie <yuanchu@google.com>, Kunwu Chan
- <kunwu.chan@gmail.com>, Tal Zussman <tz2294@columbia.edu>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v6 0/3] mm: zswap: free cold writeback folios promptly
-Message-Id: <20260921124536.7a1857853ad7629f061a106b@linux-foundation.org>
-In-Reply-To: <20260921151306.625134-1-alex@ghiti.fr>
-References: <20260921151306.625134-1-alex@ghiti.fr>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nz8FspN0"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 97E3D19F6;
+	Mon, 21 Sep 2026 12:47:16 -0700 (PDT)
+Received: from [10.57.75.12] (unknown [10.57.75.12])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7769F3F86C;
+	Mon, 21 Sep 2026 12:47:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790020040; bh=BcnEdl8QDnPqGivNaUv7+XCrZTH93GaYtfPRvDAlIUc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=nz8FspN0pLBCdbpMaLV6xXFKibR6EyNm0OYxDS1JWJv0pGrc01MsCyANO9tYHfF20
+	 SYOxqilDpslCPZDQoPtPIyY2/Q1GMDfkPcGbuGznjqfgonX1i4i5ivEEUvNz3t2KhA
+	 7sSj9y8X06NV8QYcNCILO3VHs8gbhL0+iezIPg0U=
+Message-ID: <651d6392-984e-4363-8ef6-94a23be615d7@arm.com>
+Date: Mon, 21 Sep 2026 20:47:15 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/3] cpufreq: cppc: Handle Highest Performance changes
+ at runtime
+To: Jie Zhan <zhanjie9@hisilicon.com>, Xueqin Luo <luoxueqin@kylinos.cn>,
+ Sudeep Holla <sudeep.holla@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Danilo Krummrich
+ <dakr@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>
+Cc: Lifeng Zheng <zhenglifeng1@huawei.com>,
+ Pierre Gondois <pierre.gondois@arm.com>, Sumit Gupta <sumitg@nvidia.com>,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+ linux-pm@vger.kernel.org, Ionela Voinescu <Ionela.Voinescu@arm.com>
+References: <20260807060848.832929-1-luoxueqin@kylinos.cn>
+ <d02f335a-c97d-49ad-85c0-2eacd744eb0c@hisilicon.com>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <d02f335a-c97d-49ad-85c0-2eacd744eb0c@hisilicon.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Mon, 21 Sep 2026 17:13:01 +0200 Alexandre Ghiti <alex@ghiti.fr> wrote:
-
-> When zswap writes an entry back, it allocates an order-0 swap cache folio,
-> decompresses into it, and issues the write. The folio is cold by
-> construction, yet today it is left on the LRU for page reclaim to find and
-> free later. That wastes a reclaim scan and keeps cold memory resident
-> longer than necessary.
+On 9/7/26 09:49, Jie Zhan wrote:
 > 
-> Rather than implement this in zswap, extend the existing dropbehind
-> mechanism to swap cache folios and have zswap opt into it (Yosry). A
-> PG_dropbehind folio is already dropped from its cache once writeback
-> completes instead of being left for reclaim; for a swap cache folio that
-> "drop" is removing it from the swap cache.
+> 
+> On 8/7/2026 2:08 PM, Xueqin Luo wrote:
+>> Hi Rafael, Pierre,
+>>
+>> This series adds support for handling ACPI CPPC Highest Performance
+>> register changes at runtime, triggered by Notify(0x85) on a processor
+>> device.
+>>
+>> When the platform changes the Highest Performance value (e.g. due to
+>> thermal or power budget adjustments), the OSPM must re-evaluate the
+>> cached capability and propagate the change to the cpufreq policy,
+>> the scheduler's CPU capacity model, and the frequency invariance
+>> engine.
+> Any real use case of this on platforms that run cppc_cpufreq drivers?
+> Some addtional motivation may help.
+> 
+> For example, a processor can age over time and its core frequency degrades.
+> It's good if platforms can make OSPM and userspace aware of this.
 
-Thanks, I updated mm.git's mm-unstable branch to this version.
++1
+If this is still current then I'd love to see a resend with a fix to affect
+the entire policy at once, not just policy->cpu and I'd propose for now
+also limiting highest_perf at first probe and ignoring any
+highest_perf_new > highest_perf, until we have a compelling case / platform
+that uses it, because IMO it does make everything more complicated.
+(+CC Ionela)
 
-> Changes in v6:
-> - No functional change: this version only updates changelogs and collects
->   tags.
-
-Confirmed.
-
-> - Patch 1: fix the changelog. The first paragraph describes the behaviour
->   before the patch, so it must name swap_cache_alloc_folio(), not the
->   __swap_cache_alloc_folio() this patch introduces, and the last paragraph
->   now says the helper is renamed as well as that the LRU insertion is
->   deferred (Kairui).
-> - Patch 2: fix the changelog. The swap cluster lock is a spinlock taken
->   with interrupts disabled and does not sleep; the folio lock is what the
->   drop blocks on, and that is why the completion needs task context. Also
->   spell out why it blocks instead of using folio_trylock() (Barry).
-> - Collect Reviewed-by tags. Thanks to Kairui, Barry and Nhat for the
->   reviews! Kairui's tag on patch 1 was given on the posting of the zswap
->   writeback refault series [1], which carries the same patch.
-
+> [snip]
