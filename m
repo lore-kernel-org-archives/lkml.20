@@ -1,178 +1,85 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 169A44DF4DC;
-	Mon, 21 Sep 2026 16:49:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C3CD4DE701;
+	Mon, 21 Sep 2026 16:51:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790009400; cv=none; b=DmZXsJ1ghE7rMLOsz/MYvbdxiwEK3a7XmxHwR5N0pO+Y4WPTr8GG3U+OIJl23qdFvmlx1WeGYQ3d53FmPmLZo2VR+N/9fV32SD84kMCeTfhXlkhUZc3VW9NKGrIvggCcslq4U8LBB71QMFvNO3ncjc9QJ8u4awh+dfIQ/eRPSFE=
+	t=1790009489; cv=none; b=FsrcpCR+/bAiW/CtOCIdo1VehfwWqzesit1KRH+U05JX/G41eem9Sg5cX1q9vru87y52dm10kNKZcxqVG62tMDkVGZo60lNER7LdU6jguQt1k8eOXEyTLFSsr1LbP8sT3t5icdxZPt9GUG8CiO1xIBZioLLq62lySm3HFAFCR+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790009400; c=relaxed/simple;
-	bh=Wdg09chPpqQgC/K0e8SKRfjnjFGDVmMx8BswypSmTA0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m9ISGx1w0Rf62gsYpzGffypUM7QPo8E1YF2bq2Ew4vYYpLzvbYtYst1BdCb5ByHJt70xX6UY+gxKr322DeSCU6zDO/vYH40PLLUF3AZxm51CGCjDBaETQtSMo3/ImuXSGm3R2j8D4y6FzNAwOPEw0dBVQ5DZASUa60D9IeofPUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=XQmomevp; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790009489; c=relaxed/simple;
+	bh=TwCCuhT7Ima8OnppsoS1NQ7VB7yMzVzx8ASg1v8NLDc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tyEPROMuFNofJu8RliKFDHRSfMYJ7Pw3XnMvpw9yY+bc0DJNM2Ir65+/XUzApZLfBndLj1BL4M3hzipSpxMhV6yZ0NOlHlwp4VKSSZFY3OFP6RuzVaQOjyH2EvzOwgPE7tYvLQf0k42cnaGeHL8q0EzEv/CRiSO2AWX6CayVtys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W0LEWUPA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="XQmomevp"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9584919F0;
-	Mon, 21 Sep 2026 09:49:53 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7C3E73F9A2;
-	Mon, 21 Sep 2026 09:49:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790009397; bh=Wdg09chPpqQgC/K0e8SKRfjnjFGDVmMx8BswypSmTA0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=XQmomevpZT09cy6cgr1kTzu2so5J171U16ite1cLw6tf7wJFB4IdlH5QxKz6sSd/4
-	 qRHE98CmDqCVVIr1K3Cv1yP6IMXAdywdYQoc3xBrma/fZL4DL86RO08+Hgqua4e3tA
-	 tpLMTY+ABzQMH+5gDW1Tr/akzSw8iQXUsL5/7yfc=
-Message-ID: <21180ec6-b9ad-43fd-9e52-51df644e1b93@arm.com>
-Date: Mon, 21 Sep 2026 17:49:42 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W0LEWUPA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3BBF1F000FF;
+	Mon, 21 Sep 2026 16:51:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790009487;
+	bh=0Rk95nbCHvSDXKzKHRytip9QY2TC4q23JnFsZN3gYMM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=W0LEWUPAXKQ99l86x5srS05ioOguB9WT4+1+Fuc7Mx837xB1LILUehGNoa2FnUqtf
+	 9b4lnVH/yvjvQXRt6J6fxi4mZtn4KGLZHMGFUYfYG/WIzCzVEtgHuGcOIRMEpbtozj
+	 EyzS4WnrUdOIPqJl5fKHBLBgEa55c0b/RcDmmxFkCz7EGl31zZJESinWWym4pm7t8J
+	 sWYuaLXA68wN1g93BResBXSlhfFvSBDZmk3hBFcbjes9I5yIvZscIc8wa8Tx43Byur
+	 wqwqwb7yBjVLIu0dINTpY91/4khzJwPihi2i4GEDx+z0M5z16TJE+1UleT+kBG2q9D
+	 7rVbTJCi7NMjw==
+Date: Mon, 21 Sep 2026 06:51:26 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Tao Cui <cui.tao@linux.dev>
+Cc: axboe@kernel.dk, kbusch@kernel.org, hch@lst.de, sagi@grimberg.me,
+	yukuai@fygo.io, linux-block@vger.kernel.org,
+	linux-nvme@lists.infradead.org, cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org, cuitao@kylinos.cn
+Subject: Re: [RFC PATCH 1/1] block: charge passthrough requests to the
+ submitter's cgroup
+Message-ID: <arFgjkKUwYGWbV8H@slm.duckdns.org>
+References: <20260921070647.1928289-1-cui.tao@linux.dev>
+ <20260921070647.1928289-2-cui.tao@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/6] dma: swiotlb: Centralize minimal pool sizing
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Will Deacon
- <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Steven Price <steven.price@arm.com>,
- Suzuki K Poulose <Suzuki.Poulose@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Jiri Pirko <jiri@resnulli.us>,
- Jason Gunthorpe <jgg@ziepe.ca>, Mostafa Saleh <smostafa@google.com>,
- Petr Tesarik <ptesarik@suse.com>, Alexey Kardashevskiy <aik@amd.com>,
- Dan Williams <dan.j.williams@intel.com>, Xu Yilun
- <yilun.xu@linux.intel.com>, Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Russell King <linux@armlinux.org.uk>,
- Huacai Chen <chenhuacai@kernel.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
- linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, x86@kernel.org
-References: <20260921063628.362078-1-aneesh.kumar@kernel.org>
- <20260921063628.362078-4-aneesh.kumar@kernel.org>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260921063628.362078-4-aneesh.kumar@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921070647.1928289-2-cui.tao@linux.dev>
 
-On 21/09/2026 7:36 am, Aneesh Kumar K.V (Arm) wrote:
-> A default SWIOTLB pool used only for unaligned kmalloc bouncing can be
-> smaller than one required for limited DMA addressing. Arm64 and RISC-V
-> currently implement this sizing independently, using 1 MiB of SWIOTLB
-> space per GiB of RAM.
+On Mon, Sep 21, 2026 at 03:06:47PM +0800, Tao Cui wrote:
+> From: Tao Cui <cuitao@kylinos.cn>
 > 
-> The SWIOTLB core now identifies this case with SWIOTLB_POOL_MINIMAL.
-> Size that policy in swiotlb_adjust_pool_size() and remove the
-> architecture-specific adjustments.
+> Passthrough requests (SG_IO, bsg, nvme passthrough ioctls and uring
+> commands) are dispatched via blk_execute_rq{,_nowait}() without ever
+> passing through submit_bio(), so the bio mapped by blk_rq_map_user()
+> carries no blkcg association: the transferred bytes never show up in
+> cgroup io.stat, and every rq_qos policy on the queue (iocost,
+> iolatency, wbt) is bypassed, as is blk-throttle, which hooks
+> submit_bio_noacct() directly rather than going through rq_qos.
 > 
-> Explicit swiotlb= sizing remains unchanged because swiotlb_adjust_size()
-> preserves a user-configured size.
+> A quick demonstration on a scsi_debug device with iocost enabled and
+> vrate pinned to its 1% floor: a direct fio writer was throttled ~10x
+> while the same cgroup issuing sg_dd writes ran at full device speed
+> with zero io.stat accounting.
 > 
-> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
-> ---
->   arch/arm64/mm/init.c | 11 -----------
->   arch/riscv/mm/init.c |  4 ----
->   kernel/dma/swiotlb.c | 11 ++++++++++-
->   3 files changed, 10 insertions(+), 16 deletions(-)
+> Associate the mapped bio with the submitter's blkcg at dispatch time
+> and run the regular bio accounting (blk_cgroup_bio_start()) and
+> rq_qos throttle paths with it.  DRV_IN/DRV_OUT commands are mapped to
+> READ/WRITE so io.stat classifies their bytes normally; request
+> completion already pairs with the throttle through bio_endio() ->
+> rq_qos_done_bio().
 > 
-> diff --git a/arch/arm64/mm/init.c b/arch/arm64/mm/init.c
-> index 7d51fb5f5a71..95075b5c8207 100644
-> --- a/arch/arm64/mm/init.c
-> +++ b/arch/arm64/mm/init.c
-> @@ -340,17 +340,6 @@ void __init arch_mm_preinit(void)
->   {
->   	unsigned int flags = SWIOTLB_VERBOSE;
->   
-> -	if (max_pfn <= PFN_DOWN(arm64_dma_phys_limit)) {
-> -		/*
-> -		 * If no bouncing needed for ZONE_DMA, reduce the swiotlb
-> -		 * buffer for kmalloc() bouncing to 1MB per 1GB of RAM.
-> -		 */
-> -		unsigned long size =
-> -			DIV_ROUND_UP(memblock_phys_mem_size(), 1024);
-> -
-> -		swiotlb_adjust_size(min(swiotlb_size_or_default(), size));
-> -	}
-> -
->   	if (max_pfn > PFN_DOWN(arm64_dma_phys_limit))
->   		flags |= SWIOTLB_INIT_ADDRESSING_LIMIT;
->   
-> diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
-> index e0e4c103d603..96856114b387 100644
-> --- a/arch/riscv/mm/init.c
-> +++ b/arch/riscv/mm/init.c
-> @@ -183,10 +183,6 @@ void __init arch_mm_preinit(void)
->   		 * memory when DRAM starts above dma32_phys_limit.  Allocate
->   		 * ~1 MB per 1 GB of RAM.
->   		 */
-> -		unsigned long size =
-> -			DIV_ROUND_UP(memblock_phys_mem_size(), 1024);
-> -		swiotlb_adjust_size(min(swiotlb_size_or_default(), size));
-> -		swiotlb = true;
->   		swiotlb_flags |= SWIOTLB_ANY;
->   	}
->   
-> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-> index 8f86deb25be2..f368a73f4ed0 100644
-> --- a/kernel/dma/swiotlb.c
-> +++ b/kernel/dma/swiotlb.c
-> @@ -483,9 +483,18 @@ static bool __init swiotlb_kmalloc_needs_bounce(void)
->   static void __init
->   swiotlb_adjust_pool_size(enum swiotlb_pool_policy policy)
->   {
-> +	if (swiotlb_default_size_changed())
-> +		return;
-> +
+> The charge is gated by opcode (READ/WRITE/DRV_IN/DRV_OUT) and to
+> queues that already have a gendisk: commands issued during device
+> probing (SCSI INQUIRY etc.) have no gendisk yet and stay exempt,
+> following the same probe-exemption reasoning as the passthrough
+> iostats support.
 
-This appears to be entirely redundant, as ultimately the point of this 
-function is to call swiotlb_adjust_size() (if it does anything at all), 
-and the first thing that does is this same exact check. We hardly need 
-to micro-optimise short-circuiting a handful of arithmetic in a one-off 
-setup path, and it's convoluted enough as it is, so please try to avoid 
-redundancy that makes it even more confusing to follow.
+Do you have an actual use case where this matters?
 
->   	switch (policy) {
-> -	case SWIOTLB_POOL_MINIMAL:
-> +	case SWIOTLB_POOL_MINIMAL: {
-> +		unsigned long size;
-> +
-> +		/* Use 1MB per 1GB of RAM for kmalloc() bouncing. */
-> +		size = DIV_ROUND_UP(memblock_phys_mem_size(), 1024);
-> +		swiotlb_adjust_size(min(swiotlb_size_or_default(), size));
->   		break;
+Thanks.
 
-Similarly I think it would be clearer if we had a common 
-swiotlb_adjust_size() call at the end of the function, and then either 
-calculate a size or return early in each switch case as appropriate.
-
-Furthermore, swiotlb_size_or_default() is awful IMO - and in fact after 
-this series we could perhaps clean it up entirely by making the size 
-implicit in swiotlb_init_late() - not to mention misleadingly redundant. 
-I'd say just open-code "default_nslabs << IO_TLB_SHIFT" like elsewhere 
-in the file, but in fact it may as well just be IO_TLB_DEFAULT_SIZE 
-(think about it...)
-
-Thanks,
-Robin.
-
-> +	}
->   	case SWIOTLB_POOL_CC_GUEST:
->   		break;
->   	case SWIOTLB_POOL_NONE:
-
+-- 
+tejun
