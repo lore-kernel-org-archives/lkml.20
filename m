@@ -1,152 +1,156 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1951F492E2F
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:55:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61EA41A683D;
+	Mon, 21 Sep 2026 11:57:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789991760; cv=none; b=dknvt2JzV9CoBIis4+TvfSbXJEurKJJWNcskCuZ+8Pqcnv5c47qE/uI2IvIwLRqnSvvEIOnFIMFW6kOfhhvME4MuuhCKPVNWxmIzCBb0n47JEeWofsh2s8EQdOiw4xvx5JjOEsU515EXm4B7FlIaoHlwednAus4AY4PTHffN3gg=
+	t=1789991844; cv=none; b=ZmmXBwWzFTOtu11pAHnCCcTxowfh+QUVto7pkbDuk8PUmtBMx05uuyuY0IbhciUynVOBwyQFZ7TyfpOb6m4TymDxrUCdsIX95b+h/dRzbVMlYwBPDVoXTUB1UlpRvi8zuzWAgbZzvAAoj4xvD4OBjVmSY92hOm0ic//l004QaVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789991760; c=relaxed/simple;
-	bh=QM33p/EnGBtZK0CqjaAx0N/SNwLOCdwqPt4LLx0Q4pE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pMte7Y1VmhbiPm80XEyczAPmlt+d+75Qzud9a9R5Vf978TyO19myWpi8S9mG6R09FdE11Typ0Ja4KIKxp+RYkdgacNLeVoAEPZ682yy1DrMUax5fulXVzhIeTAxTqBPrRx1WRyj0GuLwYo72rK/d2jgogiv4TD+V/3IqMYjmuSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IZvYpOW3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hfWDJOHN; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789991844; c=relaxed/simple;
+	bh=z6B3gXChls0QIDLqXAw/90YZ2CIIF8h6vVMZyubyZRQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uhlJDi+bLYyEjUnJCO0ix9xbb3hSCutIh5RiDT5FusJRoRlD8Fwc8F3cNIo7ugBq3pntQeYUM5tuoMIscpq1DAJS9T1ZKmqpLZ6zwm8qVw5x2MVJlRQLbWvBp/qTlxnKu/wLQMQqVGMiq15GCUyAD1YqwiyEpa5n8uRAlNom4n0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lnZ+gk92; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IZvYpOW3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hfWDJOHN"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAe1pO1563503
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:55:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=pCz5R9OTLvUBi0/Cp+vZu+bb
-	lXkEmBIy3X7lCeXp+H8=; b=IZvYpOW3b3TUXtoEnOlI72w2mkb6PBMcLXeDSIep
-	fBUu4Tj57G9+cvNXcyN7cc1YNgY6IIwp1iHR9zDGrTe7eHREbE5SA9UxFq2ewtsE
-	qBOjHCOtwIYh79nYKgl1MgWH7ufkbpaJLEVshw8thvsHobuMyVEvhpCScIx9tU4A
-	9m6VX1ZWBcEus83jhCpw7fNJAgY7uDRbsIbD4emcZdWyXlMO5chuDoWefE6XaFBj
-	8JkYU4il+uYP83r0jtxpcc33WYAVWOujGjFkijWb17wAnOFbf5vOa88SHmuAlwni
-	TK0OruYlK5W+tOeK/oHyWi+hpFbJF/o16Srjwdh8henXSQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtysw151a-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:55:56 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-939062ecda9so471313085a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:55:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789991756; x=1790596556; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pCz5R9OTLvUBi0/Cp+vZu+bblXkEmBIy3X7lCeXp+H8=;
-        b=hfWDJOHNb2KKhtiM16HYs/p8sSpoowU7ew/q7W4jwk445BIjQk4LpaUGn6ZX0Nwxg6
-         DF1mFs2+WwM2n6scTAspWH7qddWE1SKkkKv4bdamrVbLry9VSyor62zPrXOPCBt2xmQe
-         DEjz3A46LlmWUjT+aT3U6q9g64wfCJtjir8bNtAS7oWATd7FoBOfYxrzT2ePNrg991Da
-         +18wemGhxD2EmqAsytUIrbWdmgMSmrk/55A5Nt95zUIlf0y+RvfPfSMZGjfDCtycK8K3
-         IN3PKVTz6fgKhSGC+ObbuVu7GJgwZXmkSWLXE6Xgp9lhQs0qPij0YE2LJgZRbi3S66Le
-         UZhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789991756; x=1790596556;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pCz5R9OTLvUBi0/Cp+vZu+bblXkEmBIy3X7lCeXp+H8=;
-        b=aHStZn45Bm/d8e2XdLh1Rm9/8jD1stJMNuWPPEMuKI4gzPOOUjrqMSSSsf8noStaFc
-         /mRFFQQZBXNyudxwNS8IiJPIK1CPseZvTcfsCM3/2gVSyJ86gm/AQhC0ICRIGlO8QJY7
-         brKu2o/fEAjW29Boy/fblNLR6Je3LENd1vtDiibaKFnvRDI+VoXFdFKGJen/bcHaU+fn
-         3s9qIGbqi791fGce2+x/zDcsUSrKUmgl8XkqHxmU8QCHMgxZPOGb9lBsZk14+SWtc8zb
-         /nwO2DLBBChGjC5piUJEuu0h6Hk1fbLPYsH1Eb9cxd2q0eiKgqNAFfePy3ve/h1kE4Uj
-         egjw==
-X-Forwarded-Encrypted: i=1; AKwUvBysyj2K2lJFLpKFR8l6cDxlO1nhzRdlFP6z+XbcLVYuaPA26k8WmUkPDp/36KiGmcMPie4w3UhmRnNVB9s=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVx/TePfoBUaJHYaWzvmgcH/U2koaewu5l7PvhzJdD0D4Xq9x8
-	5HVRn/YEk5MKpFrmoxJNaaxP+a6uihuTWFpjj1sKMN3JyFSxhQtZJPJVi/Pti7nudLWRdxwB7Gu
-	0QnzlFbRmsG1OrSzLiOuaSraLWY6y13Oy/T9f16+G7RCWcZk7NkqLfLfaGcRdsRDgYbc=
-X-Gm-Gg: AYBFou3Bb6u6FaJaODbVTR4rWKyu2Pb5H4420vOvAKFWUG/RryMS9nlmyFHlvA4KG6z
-	rfB4dXQYUt0wnjzY8uq1tXFRPLJidiS/8pqqsRTRnRCUNJenD+BFbUsSuZL7Ly06V+8VPcri6B6
-	52UjPqa5+KmcgSiQsO01fbqGC+6RBMztN7xt2G65zon4x8+aYocSsNl5rbAMm5P6VfztAmWqR4j
-	1nQxHr7+MNArL/SjOETLrld5TY/dzHf4o1pbClgm6cQsQo1TXiGKwV6ESDtMwyykpYmSVDDizo0
-	aCIGXhr7cxUw0ZJF1KQJkb5vGt9hJdXtrHO5Ia8AU28uzN2Ykldy692qQUrrxqIDXMyaHYBFNAS
-	4sC5OQ1jBWk2nXf8=
-X-Received: by 2002:a05:620a:17ac:b0:939:b482:d474 with SMTP id af79cd13be357-93c15e77468mr17493985a.35.1789991756131;
-        Mon, 21 Sep 2026 04:55:56 -0700 (PDT)
-X-Received: by 2002:a05:620a:17ac:b0:939:b482:d474 with SMTP id af79cd13be357-93c15e77468mr17489985a.35.1789991755512;
-        Mon, 21 Sep 2026 04:55:55 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487245645cbsm32971631f8f.20.2026.09.21.04.55.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 04:55:54 -0700 (PDT)
-Date: Mon, 21 Sep 2026 14:55:52 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Georgi Djakov <djakov@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Varadarajan Narayanan <quic_varada@quicinc.com>,
-        Dmitry Baryshkov <lumag@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
-        Sricharan Ramabadhran <quic_srichara@quicinc.com>,
-        Kathiravan T <quic_kathirav@quicinc.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, stable@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 04/11] arm64: dts: qcom: ipq9574: Wire up USB3 PHY PIPE
- clock to GCC
-Message-ID: <xac3umbsecmny7sul6zonikbuc7v2wgdoox2suvbpydzpqjdmp@ga4g3umtvjit>
-References: <20260921-ipq_clk_changes-v1-0-d242e3d49648@oss.qualcomm.com>
- <20260921-ipq_clk_changes-v1-4-d242e3d49648@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lnZ+gk92"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FFF01F000FF;
+	Mon, 21 Sep 2026 11:57:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789991843;
+	bh=ipcW4ouILRXncfth75T0aMdgYWDwKvkKwCyzRkUBAj8=;
+	h=From:To:Cc:Subject:Date:Reply-To;
+	b=lnZ+gk92+xnmffJxVfYJG3vMv/ywDsTo9M8PWnc/oWezaVrG0MYNd1hRpeh7Uj9B2
+	 xEj5tETqy90xPeigT5+D0FUVVymOIDbGSip7fJH4EJoJY0kvKl8/wqN+sR3wzKUhb/
+	 ky0Gl6xoyrpxiJLs/SsY2wdOaNE9GyzKKNE/SDAxCdukbnMIkRT9cFpmJiBES05CD4
+	 JEmtFZgQgPsDHyuD5QbbNtWW8BwF3Ra4ug0/xGk1PcJLq7i4hMMzilxjwnhuuL1/la
+	 nNMEkrewPYHUwIUrIwQ1kZuAchCwt5RmE8OFGiSFlguS6yzY6TF4zKjpi6FVTOm6BV
+	 EC8rP72HXwGXQ==
+From: Gary Guo <gary@kernel.org>
+To: Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Cc: rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] rust: proc-macro2: enable `proc_macro_span` feature
+Date: Mon, 21 Sep 2026 12:57:07 +0100
+Message-ID: <20260921115708.4009754-1-gary@kernel.org>
+X-Mailer: git-send-email 2.54.0
+Reply-To: Gary Guo <gary@garyguo.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921-ipq_clk_changes-v1-4-d242e3d49648@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE3MiBTYWx0ZWRfX9AQ1aOtE00El
- I0fecZprtsBQUHbN41YQfJA/iVqvj7vNKkkJqssm31zr+iRQDdffuyYFvRUXFkPw9n6xBxuuyF2
- Jfn/X1og3eEwx9ZqXvZ6U7H55fIOaQPVUYlBQEwDv0pNR1otbzcpIxk7Yksaubzsd+IocpjyWQl
- 5t++J5kV9aM7S1oVzyjQsQENLfeVv9DactrFxYu9N2s83NTy/8a1U6KzoGty9DjZL0qDY37yAl+
- YuqxP498owIntRK3bOy3sLI3n2krI5b3eO+S2grfzWmH8UQbA0Jz/NA3kasoQIJYnEifII0Mla8
- BQEKUPzI5S75veCNlm/QjqOf4Wx/ooW9w8hZ/wuJob6cHRDNWasjHOl5uA5ZwB0bSLU9nqDqPOt
- 8m5w0860dXb0uSU7vYsfms7T+pHP0Ik33f2EEjp6T7FfDkZDGyUZfyIxIJRA4q2+COT611R6lcH
- k6DsWE7SDvUDM7lfmWQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE3MiBTYWx0ZWRfX9/ccBQhPSK6c
- eqFnST7YTYI+9t7pZK4gGUOeSPZ4fTCnT7SJlAOQqx5OwL+DnIPFcI1DYNtPzznAz3N2SZo2pzE
- zxBbYsrAMOsf2VEm6HHtU2J7fKOYZGI=
-X-Proofpoint-ORIG-GUID: N6U87otg3xl-pVqr9tOrS63SDUQWyeQE
-X-Proofpoint-GUID: N6U87otg3xl-pVqr9tOrS63SDUQWyeQE
-X-Authority-Analysis: v=2.4 cv=W7etxhWk c=1 sm=1 tr=0 ts=6ab11b4c cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=h3Rc7G0Mu9zKJFVqRbgA:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0
- impostorscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609210172
+Content-Transfer-Encoding: 8bit
 
-On 26-09-21 11:49:37, Kathiravan Thirumoorthy wrote:
-> Connect the QMP PHY USB3 output to GCC so the USB3 PHY pipe clock can
-> propagate to the USB controller.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: a98bfb31f676 ("arm64: dts: qcom: ipq9574: Add USB related nodes")
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+From: Gary Guo <gary@garyguo.net>
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+The `Span::join` function is very important in generating useful
+diagnostics. When invoking `syn::Spanned::span`, it attempts to return a
+overall span that covers the whole expression. If the `join` function is
+unavailable, however, only the span of the first token is generated.
+
+This causes worse diagnostics quality for all macros, notably pin-init,
+when compared to the pin-init's own diagnostics test suite with the feature
+enabled.
+
+For example, this diagnostic refers to only a fragment of path and not the
+full one:
+
+    error: The field index `1` of type `PhantomPinned` only has an effect if it has the `#[pin]` attribute
+     --> tests/ui/compile-fail/pin_data/tuple_struct_missing_pin_phantom.rs:6:20
+      |
+    6 | struct Tuple<T>(T, core::marker::PhantomPinned);
+      |                    ^^^^
+
+The special "<-" syntax gets parsed as two tokens, so they are only
+partially marked in diagnostics:
+
+    error: `<-` is not supported in tuple constructor syntax; name the fields by index instead, e.g. `Type { 0 <- initializer, 1: value }`
+     --> tests/ui/compile-fail/init/no_tuple_paren_arrow.rs:7:29
+      |
+    7 |     let _ = pin_init!(Tuple(<- 1, 2));
+      |                             ^
+
+In the upcoming pin-init self-reference series, there are also custom
+diagnostics that wish to use the span of the full type instead of its first
+token.
+
+Thus, enable the `proc_macro_span` feature. This does make use of the
+unstable `Span::join` function, but this is for producing diagnostics only,
+so we do not have a hard reliance on the feature. A very small tweak of
+proc-macro2 vendored code is needed to make the code compile for 1.85.
+
+Signed-off-by: Gary Guo <gary@garyguo.net>
+---
+Miguel, please let me know if you're okay with the proc-macro2
+modification.
+
+I'd like to take this via pin-init-next if possible.
+---
+ rust/Makefile                             | 1 +
+ rust/proc-macro2/README.md                | 3 ++-
+ rust/proc-macro2/probe/proc_macro_span.rs | 8 --------
+ 3 files changed, 3 insertions(+), 9 deletions(-)
+
+diff --git a/rust/Makefile b/rust/Makefile
+index da1a7409d984..5ee9c30c324a 100644
+--- a/rust/Makefile
++++ b/rust/Makefile
+@@ -100,6 +100,7 @@ zerocopy-envs := \
+ proc_macro2-cfgs := \
+     feature="proc-macro" \
+     wrap_proc_macro \
++    proc_macro_span \
+     $(if $(call rustc-min-version,108800),proc_macro_span_file proc_macro_span_location)
+ 
+ proc_macro2-flags := \
+diff --git a/rust/proc-macro2/README.md b/rust/proc-macro2/README.md
+index af044fee4f59..c63a7434217c 100644
+--- a/rust/proc-macro2/README.md
++++ b/rust/proc-macro2/README.md
+@@ -4,7 +4,8 @@ These source files come from the Rust `proc-macro2` crate, version
+ 1.0.101 (released 2025-08-16), hosted in the
+ <https://github.com/dtolnay/proc-macro2> repository, licensed under
+ "Apache-2.0 OR MIT" and only modified to add the SPDX license
+-identifiers and to remove the `unicode-ident` dependency.
++identifiers, to remove the `unicode-ident` dependency, and to build with 1.85
++with nightly features enabled.
+ 
+ For copyright details, please see:
+ 
+diff --git a/rust/proc-macro2/probe/proc_macro_span.rs b/rust/proc-macro2/probe/proc_macro_span.rs
+index 892a7eb3e5a0..fc7dfb4ac156 100644
+--- a/rust/proc-macro2/probe/proc_macro_span.rs
++++ b/rust/proc-macro2/probe/proc_macro_span.rs
+@@ -32,14 +32,6 @@ pub fn column(this: &Span) -> usize {
+     this.column()
+ }
+ 
+-pub fn file(this: &Span) -> String {
+-    this.file()
+-}
+-
+-pub fn local_file(this: &Span) -> Option<PathBuf> {
+-    this.local_file()
+-}
+-
+ pub fn join(this: &Span, other: Span) -> Option<Span> {
+     this.join(other)
+ }
+
+base-commit: dfb6a037fd586f1ffcba3b143dab58f5c88294d1
+-- 
+2.54.0
+
