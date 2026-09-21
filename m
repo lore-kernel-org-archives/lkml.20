@@ -1,96 +1,159 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB231A683D
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:53:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF3E25A2A2
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:53:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789959206; cv=none; b=cbPZSF+b0nkAb/EFbT1B0SdQ6GtP1fmQJ9HQrKh95kbmEVEUGSQ+kaKfcUQ3l/TjlKpgs2UTiXaHLvIpL2qPxl84oftuAU6qx359nLWyMwyc0JwxKcZ2BR+4miElv/iCokeWWCM7qaPZwXlTT1urBNf/8zTOacP1r2XvL2w2BoQ=
+	t=1789959232; cv=none; b=obgdzLxQ5GrKsoye7okZvBoopOD75DnnLMg4jMRais25FlvDaUUcdKClyQKBzDJr9UQvWLhVSM9IdFK83Iw7rmo7+lyTK9L0nPIymWGaHLlYSt49+4yoSs0W/Q6WRVpCFozq44e/cHshSRtlyugyNu7+2l+FvpdERTzKTxwqISA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789959206; c=relaxed/simple;
-	bh=VHyYEAblzmgSTYDzcQ/rTwb+iNZ/FxfSAGGwjEdaK7A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pYD0p2+vq+xgs4cq9gbjGiaDFMjCMSAQNSTt8vcJL34UQ+TdA7I+QJ7peZOlIuANhJwdsYvfIpz4l0oV60S3kjDpVLf8sfgZJefg1y441bsferJhtW36wj54sAbTFINjNwJXeJbgx/ErvYD4wAv+2K/uh6ob8wcW0LfG4xMiQds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UYcJLfmA; arc=none smtp.client-ip=209.85.216.43
+	s=arc-20240116; t=1789959232; c=relaxed/simple;
+	bh=1z8hxM5s9yvUWFN2dVotJ68WWyLuICEJqjli3GIQhLA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Z7hwGI3jYSkSLp2j0qWskyRcRnzvWLkhqk/sTGW/UUBUQbQtJQjASfQIGMnL/72t4hOmcStABqgNNqKmZ/bZNv5krD3Q+FINnP8fSw2vjVMKcU/EtgjyuzG1vOsMTYLxvtncljAUVvraYyYNl10UIHqEWjg6lBqWkYMJ4F9+17g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rU/v4GBi; arc=none smtp.client-ip=74.125.230.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UYcJLfmA"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3a02551822eso1047006a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:53:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rU/v4GBi"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910ad20d4so298298585a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:53:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789959205; x=1790564005; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Se1G+XHmYZanJdo+24xpc9gmmy2jZ9LFjhb6Fx5cYxc=;
-        b=UYcJLfmATlfAb3FOZbA9bzP3BBXBSBL1VsaWvoHMydZ3svQtVebR/G7Havfn52kwDS
-         1u9AT6KSzqJC5mQjPWI3vo+J/Qs6GJNqGUny6IJtpdZvae9BcXeLhcrSg8Oq2n9SnezW
-         spA8K83dunsCbme03vb4KSSgOIjzg3B1Tj5xvDn/29qEEeLOpmsM7j5ygh5uyQTh1iMa
-         Sswhl5zxRm2jejEeK+XKJLCslLeW7M6DjSkPKJmAQGHxvrA/wfG6+j6jJYRRYgN5Aj2R
-         EExsOL7BzdrF+YE4UnZJXIG5tjKHonAqB1xgBU6nxiBdNgoxwZw6lNoTiqN0OiyQ4N1A
-         yw0g==
+        d=gmail.com; s=20251104; t=1789959229; x=1790564029; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z/1dyv75kvDtXna7My+DxwKsoa7QIaIFxsslk0GYF3w=;
+        b=rU/v4GBi+Uf82FgKKMkVvIar/ScJzSORjOU7TXZqVWZvxI419H01gqtLz4hRGyep/J
+         LXVFIdIhI0L501PYQVRWEarOo5MUDsPNQ8nSq+kuvM7zLmfdVEK41MMq8qdU05VSc7mK
+         7l6r9QD5iu+Z+XziNx2D7QCm+jwXWFH2daKp4fSKK0Rhq9unMbpKlfzCAfOYNLzo4WPV
+         y0AOcmI1NKDJAMvsKxHciD2Tw2GkCaX5vEyaDRKhmP7xxyvrdKHSJpoCulpnS+ReqhnC
+         xcnJjrvoaVS3M8T0EmL2sJejJC8XzCgckFtdXV7jXwLdYeYCGitsf/eRNnkLKy63KUuO
+         O1LQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789959205; x=1790564005;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Se1G+XHmYZanJdo+24xpc9gmmy2jZ9LFjhb6Fx5cYxc=;
-        b=lxVCLtveYW7oL5qFaGS3AmCHmhFQpveGm3a/PsUMXbvViNk9Kmb3o45hj8K0s9+3bZ
-         H8ccuwKNqHYNQzQwH0HpO9NH1ak/gzjqoR6OUsfrlzHeVkt/7CslXAQv+nqrvuPu0pDI
-         sUY7Ko/xfJR3Mj/kxiry5MXoGr6ZhpfiQ+CEgJ/DBNBpKGgCCS59E8Rqok80dLt9thFx
-         0TxMruFNQJzbKTt6iAP9e8unSICxFs8K48YIE91c77lDEWvfM0t/T2Uq1NwXoae62QI1
-         oewwEl7T5znXO5DJqPXM5b8jVBd3BKPqEmttvjXKyWENPcy8gAEulT6BYqevv2VdzL49
-         bs1g==
-X-Forwarded-Encrypted: i=1; AKwUvBxwsswH7S0U5wUFCn3swJxDsTlPWanNAPJ3U8L9hYPKU9EiD57DCxj6oL6jkEOYtgQ2UxRZt4nmz7qFSRQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntaG4BJ3WcaRnPFHWMqSK5EC0yi429bf1KdAoKtKAnZ8MUYftw
-	XynF9cdyGIHYPbdRNja8DYwvFopxGTtxafkQPFyQjTipNC1ennV6JI8+MW2V9lJl
-X-Gm-Gg: AYBFou2G2xPmOk6/XVpqwuZdUqhd75qOxMdr9t9/aT/LnTM8xpC3prCOjI29yxTDbPG
-	CjwYXnrpzm4CZzKCHqLJrK6gX08z8Nr5bh6UYgliVuRAMMOu0M+qUQSYvhguxX1Tjw6oEZRmLS5
-	95Tp534XmuSeqqLtdjRDxKeqrMHM9GdYaVdQqXsWBBHs/mZ2KQPPv5ZquQUslOUllNWsFAJWB1+
-	pUZ2e2v/woFlsMHQhLNG3YDFD+hqaUPx1/EPrXlfLIQJirQFrAzV3R1yXzxtVp2V/jN5/hrpmFF
-	xHnX3sfag/NhvHFQTFJnth8oz1h13pstZSn6663M6x0U9cRFEcaST3OJH48PnY5Caqd0RF6JyGj
-	MDIIXUmYeeC+i34jaNN1DkaqOl3M+iRPFEAdCgRQLX5TFtfC4WxRkXvlcHUJXhmeRSN2eQuFq2m
-	OlWYLZOu9E0vXA+pc6a8f5u9l5cAFOWlRQtVEhU0MWk6uttkhyJm7fMx0UHd/o363uCAKQ6Ax36
-	6OFlsECqZ4tq6LTuI/cVJY+BMN52upaVFtwAqwB
-X-Received: by 2002:a17:90b:1cd0:b0:396:7c01:553f with SMTP id 98e67ed59e1d1-39e36106b85mr17920856a91.21.1789959204603;
-        Sun, 20 Sep 2026 19:53:24 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:3844:3355:5928:66ce])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d53968afsm16719079c88.0.2026.09.20.19.53.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 19:53:23 -0700 (PDT)
-Date: Sun, 20 Sep 2026 19:53:20 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-Cc: rosencutter@gmail.com, linux-kernel@vger.kernel.org, 
-	linux-input@vger.kernel.org
-Subject: Re: [PATCH] Input: synaptics - Add LEN205b entry to smbus_pnp_ids
- for ThinkPad T490
-Message-ID: <arCcF3rLAM9AW0OY@google.com>
-References: <CAOGuaRh025eKcBf9P8UrvtXNp68vQ0HVF2EbNMp-kpdaC1HNpA@mail.gmail.com>
- <20260920200730.1836756-1-lovekeshsolanki00@gmail.com>
+        d=1e100.net; s=20260707; t=1789959229; x=1790564029;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z/1dyv75kvDtXna7My+DxwKsoa7QIaIFxsslk0GYF3w=;
+        b=MEtKxuX4gxvXTIjh+lMdTPZLXupzaRZKcoqhGQj39ZZK7+Mnlt2SW/fucN2E+uvq7q
+         a5Cyucgvt3Z1XuwfBAJ/f9zShfXycDAi5cCILs8/+XCzmgau3XK3n8/mPFm7lkWsptvN
+         f/2EnrNJK9RU6p9+luvwL+02zcBBTGIrOxCh2bx0eL6Ryl2KHSKIpO55nwhf4fOQ+m3I
+         5by76o1SCdRXGIJ7dX7HKY8N9W0KOjbV8eNnG/NrKL+ktdRpNwqlSTe62D1UsTwcOMrW
+         Tzkv9V4mOD3ofgzXzHguh/32sCzWI5+cZjshg4iZuPDZ3HTjc0OsJ3gvZQ7zsCQkOtop
+         N6ow==
+X-Forwarded-Encrypted: i=1; AKwUvByz5aA8IVMXo5NYzgwJ+JYhyd8zYJzH/ncqlESugd/AW8oYHJoFvCvf5wT2kZUSWWGnERjr+TcIokX51CI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nsaxhuawMa2+ckLFM8LbZ2uNIxQ3DUlB6REi1Eb9I8M20yrjx8
+	Jq5HRj8NpScF4UCq/2C8hYD17lhn198LwrdbakafkJK4wSJF5/mE4kD5
+X-Gm-Gg: AYBFou2GJkW3KbOLDhCgnC7wXfv7gqFMuTEathJL7zwPWR9oIl0xAaXBo/GN5Jj4wY+
+	6+U4NZfiRFWARKyQJAXQ0s3ZkfBcv6LjNLmdc28nvHHem0aspjcCbMsFV3i02W9SBB4OayplTH3
+	Vel7TjIp4vycX75Z1U36t0eyls+9EPKpIPvyf56f8HoZ+NvsX+Aieb3dsZdM0fYQIzUYopbFwuu
+	OpB/lZ6Le3BpX0TmMXWFlIC7NpwrrEQjTlVcfimXRAtXk6oRwyKUYyp6xsODB7ajht915gOeGT1
+	9wJlw1vJYRa9dgWLlAPnvxIyzmD+cRRd8aBLt0EicB2zz6AfqSR3rtBVAsIyK+/owZFNdvHYM0z
+	SxlWyvyZZKqZdNnY+heldF5hdBY2vmo093HaXdGTFIFsNmUtdDRoUlCkSlDZVs1GjdvOMo6XbM3
+	30mXPubWdNuCdtKZYa0zkoECUKfQ20jydzpuAWajvPYruZkyDa5eyWJY7tUII7Ief2LLWsj+Lqh
+	mftSul38xsHwILEm3IF+jbvldH/jB0yzbkmwzWttnTm2ifYsjVeRj3eGtGsxpRRe3dx4vSt
+X-Received: by 2002:a05:620a:3187:b0:939:d913:9a74 with SMTP id af79cd13be357-93bf56ef696mr809392485a.46.1789959228703;
+        Sun, 20 Sep 2026 19:53:48 -0700 (PDT)
+Received: from localhost.localdomain ([2601:155:4200:2c80:64b9:5e22:f77c:324e])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93bedb3de58sm528732785a.37.2026.09.20.19.53.47
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 20 Sep 2026 19:53:48 -0700 (PDT)
+From: Paulos Yibelo <habte.yibelo@gmail.com>
+To: netdev@vger.kernel.org
+Cc: richard@nod.at,
+	anton.ivanov@cambridgegreys.com,
+	johannes@sipsolutions.net,
+	willemdebruijn.kernel@gmail.com,
+	jasowangio@gmail.com,
+	mst@redhat.com,
+	eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com,
+	andrew+netdev@lunn.ch,
+	pablo@netfilter.org,
+	fw@strlen.de,
+	phil@nwl.cc,
+	razor@blackwall.org,
+	idosch@nvidia.com,
+	dsahern@kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	linux-um@lists.infradead.org,
+	virtualization@lists.linux.dev,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	bridge@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v5 0/2] net: prevent partial checksums from modifying network headers
+Date: Sun, 20 Sep 2026 22:53:39 -0400
+Message-ID: <20260921025341.44846-1-habte.yibelo@gmail.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20260920004733.6473-1-habte.yibelo@gmail.com>
+References: <20260920004733.6473-1-habte.yibelo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260920200730.1836756-1-lovekeshsolanki00@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 01:37:30AM +0530, Lovekesh Solanki wrote:
-> Lenovo ThinkPad T490 has a Synaptics Touchpad that supports SMBus/RMI4
-> mode, but is not listed in smbus_pnp_ids table.
-> 
-> Add LEN205b to smbus_pnp_ids[] passlist.
-> 
-> Reported-by: John Rosencutter <rosencutter@gmail.com>
-> Closes: https://lore.kernel.org/all/CAOGuaRh025eKcBf9P8UrvtXNp68vQ0HVF2EbNMp-kpdaC1HNpA@mail.gmail.com/
-> Signed-off-by: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+A virtio-net header can supply CHECKSUM_PARTIAL metadata whose checksum
+start resolves inside the network header after link-layer removal.
+Software checksum completion can then modify header bytes which the stack
+has already parsed.
 
-Applied, thank you.
+Patch 1 validates the checksum start against an explicit data-relative L3
+origin. It covers TUN/TAP, virtio-net, AF_PACKET, UML, nested VLAN
+headers, and tunnel metadata. It does not rely on skb header state which
+may not yet be established.
 
+Patch 2 independently validates the checksum start against the parsed
+IPv4 or IPv6 header length in all four IP fragmentation implementations
+which complete partial checksums.
+
+The v4 Sashiko findings were correct. Patch 1 used
+skb_network_offset() before all receive callers had established it.
+Patch 2 compared a signed checksum offset with an unsigned IPv4 header
+length. This revision fixes both findings and covers the corresponding
+bridge and IPv6 fragmentation paths.
+
+Validation included strict checkpatch, focused x86 and UML W=1 builds,
+an offset-boundary model, and application of the exact mail series to the
+stated base.
+
+Changes in v5:
+- Pass an explicit data-relative L3 origin through the virtio-net
+  converter and audit every in-tree caller.
+- Parse Ethernet and nested VLAN headers without mutating skb header
+  state.
+- Propagate virtio-header conversion failures in UML.
+- Keep the IPv4 comparison signed and add matching parsed-header checks
+  to the IPv4/IPv6 output and bridge-netfilter fragmentation paths.
+- Drop Michael S. Tsirkin's Acked-by and David Ahern's Reviewed-by tags
+  because both patches changed materially.
+
+Link: https://lore.kernel.org/netdev/20260920004733.6473-1-habte.yibelo@gmail.com/
+
+Paulos Yibelo (2):
+  net: validate virtio checksum start after network header
+  ip: reject partial checksums covering network headers
+
+ arch/um/drivers/vector_transports.c        | 10 ++-
+ drivers/net/tun_vnet.h                     | 28 +++++++-
+ drivers/net/virtio_net.c                   |  8 ++-
+ include/linux/virtio_net.h                 | 76 ++++++++++++++++++----
+ net/bridge/netfilter/nf_conntrack_bridge.c | 21 ++++--
+ net/ipv4/ip_output.c                       | 23 +++++--
+ net/ipv6/ip6_output.c                      | 12 +++-
+ net/ipv6/netfilter.c                       | 12 +++-
+ net/packet/af_packet.c                     |  6 +-
+ 9 files changed, 157 insertions(+), 39 deletions(-)
+
+
+base-commit: 1e24c4f2ee44be0eee94092b5d13cbdb4bdf0d60
 -- 
-Dmitry
+2.46.0
