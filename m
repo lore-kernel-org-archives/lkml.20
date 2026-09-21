@@ -1,86 +1,96 @@
-Received: from mta0.migadu.com (out-83.mta0.migadu.com [91.218.175.83])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4B3A337699
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:35:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28EC137750;
+	Mon, 21 Sep 2026 03:35:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789961745; cv=none; b=ICsis0L7ObxkVvs3BAGL6AKE5ihKqFgU7/wD+QpOxoKpxSS6QxRnRYkIUplQSz8Wxo+KAF59q4umd6qyO0ZqBdIkQOs0ro734p73W4SqnbLZIKsCfFnq1WlSB2wTY5sN1fvuPwKX3ZFIVJi7gqUhbw8h0OaEDHaCxO/RiqD5PPI=
+	t=1789961745; cv=none; b=g2kK7j5ubDrZE9mOscsiMV/yiaI65faqcE4iadGFY116DlT7s+kLwbCF/PvegVf7MzlrP+Lk0VYapJC17F4Avb7Shk4aopnmdqLosttyzi6cKVb6C59qaImqvfBBtuV6rdpIyJqAGuG0YkPqcK0YI3gRZZ7U87sPStDxBgwYEaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789961745; c=relaxed/simple;
-	bh=jw+HNZ/h0ecwFOQQg0GRnVDRu6AYuC2p1m3XOQpGwWI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gBzcLZdjrqGZvznnJXaX+sOG4XgRSCWi/0jGZr/xlpyicQOJsbAULUCNKHdFo7BvgLvzXQg37MS/wpHCW6iwTyWFAWw7BQW9wuk554PgWodau0ybEOqGfgi3JqTLKS4NqnOaBE1cQ/8bJSq+JDv0WFk1WnPThnYUASE8f+lHYR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NEFRkHck; arc=none smtp.client-ip=91.218.175.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	bh=fz6+v9N9vZnNUJRxljVDYRwQqnqDkcQzlFwG3oaBx84=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G4p7U5rlnoHVSjQGeWGJzY9kVmg/jc8/FBZlkY28AZz4GcYHrIHOE0AWcA4C6MVE+UqatkPgV9aRMcjzIs8spT/sNiHB9UjhcNaLcUx1eNMpiAtwjwQFofxvUO6BczmeBC7T7JnqsFrSNy8aPanoUUhcIJDV0nZqksSwvI6a950=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LiqM7AiO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NEFRkHck"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jw+HNZ/h0ecwFOQQg0GRnVDRu6AYuC2p1m3XOQpGwWI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789961740; v=1; x=1790566540;
- b=NEFRkHck4lXNSnugy7+OEPJf2Tyoo/UUCSrsPNfrB40Gof84+u95J0vlWQU4UnZsw5FnNjXP
- jUkugXgC28cfg1TTJcVHWpXH33RUGOetzb3dKsjMhZFqgVjojRV9pUIoVdKXKalO/5IOzhuLuf1
- vuboaOnK44nnrJRhZZDAnefI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0a6b13e55ab07a85;
-	Mon, 21 Sep 2026 03:35:40 +0000
-X-Mizu-Trace-ID: 0a6b13e55ab07a85
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: tj@kernel.org,
-	josef@toxicpanda.com,
-	axboe@kernel.dk,
-	hch@infradead.org
-Cc: cgroups@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cui.tao@linux.dev,
-	cuitao@kylinos.cn
-Subject: [PATCH v3 2/4] blk-iocost: charge zone appends as writes
-Date: Mon, 21 Sep 2026 11:34:51 +0800
-Message-ID: <20260921033453.1912971-3-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260921033453.1912971-1-cui.tao@linux.dev>
-References: <20260921033453.1912971-1-cui.tao@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LiqM7AiO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA9131F00893;
+	Mon, 21 Sep 2026 03:35:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789961743;
+	bh=/uc/dy3X3PpC2I1mymMB7hcZN+ZV0xyG3Njd3ZzgLFs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LiqM7AiO2IjBtLmcuwiHc0Xis7kACHmYKH3NlI+J0E8skSi1jdzfkMwMBj3fwgFSI
+	 ZUodi7bIfq1iHFdWccnIf3ZTZBJRaoxtjseyuhgd0FKbPtF/UBjECFi1B8mHnstAp2
+	 lJuGWTJAGPStDQm0ydIJLIIi2ut5rRDbplt/EESN5YYu7qwgEP/Eg7mqxDOUImqvA+
+	 FDBRBm7YNkrSRxSzhJ5+KCaq7yTOMKvB8emF4jRjZC6QqBNwRtRldjT+uHYu3s81jU
+	 dzUmjMZiyJl7t97QEKuwdrYZmJjnGkoLl7K/b85Zom5A1FJLVfSVKecqCKgdX3GkbK
+	 CAEOdFRyCjwxQ==
+Date: Mon, 21 Sep 2026 03:35:40 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Icenowy Zheng <uwu@icenowy.me>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH 2/3] pmdomain: spacemit: Add power domain driver
+Message-ID: <20260921033540-GKG297024@kernel.org>
+References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
+ <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
+ <56e5f32102c67575ded8af9e81a06dc9f1dcf0ee.camel@icenowy.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <56e5f32102c67575ded8af9e81a06dc9f1dcf0ee.camel@icenowy.me>
 
-From: Tao Cui <cuitao@kylinos.cn>
+Hi Icenowy,
 
-Zone append is a primary write operation for zoned devices; zoned xfs
-and btrfs use it for data writes.  It is priced at zero, so the zone
-append portion of zoned workloads runs outside the controller: a
-1%-weight cgroup issued 16000 appends at zero cost on a zoned null_blk.
+On 20:56 Sun 20 Sep     , Icenowy Zheng wrote:
+> 在 2026-09-18五的 02:40 +0000，Yixun Lan写道：
+> >   SpacemiT's PMU (Power Management Unit) consist of several power
+> > domains
+> > which can be managed independently, depending on different
+> > application
+> > scenario, each domain can be powered on/off for saving power.
+> > 
+> >   The driver is implemented based on Linux Generic PM Domain
+> > framework.
+> > From a hardware perspective, either of two distinct power-on
+> > sequences
+> > are supported, in software mode (SW mode), the driver is responsible
+> > for
+> > controlling the states of bits such as sleep1, sleep2, isolation and
+> > pwr_state, while in hardware mode (HW mode), the PMU hardware will
+> > complete
+> > the sequence automatically without requiring software intervention.
+> 
+> This driver is tested to be able to power up the GPU on SpacemiT K3,
+> however the following warning appears in the kernel log:
+> 
+> ```
+> genpd_provider audio: Fail to power-off domain: 2
+> ```
+> 
+This is kind of an expected issue, due to hardware design, the audio
+power switch is coupled with rcpu core, which means power off it will
+also shut down the rcpu, so the power switch currently is configured
+as always on from software perspective, it's unable to power-off even
+in Linux or rcpu once system up.
 
-Treat REQ_OP_ZONE_APPEND the same as REQ_OP_WRITE so it goes through
-the existing seq/rand classification and charging.
+I will drop audio power domain control in next version
 
-Fixes: 0512a75b98f8 ("block: Introduce REQ_OP_ZONE_APPEND")
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
----
- block/blk-iocost.c | 1 +
- 1 file changed, 1 insertion(+)
+> (BTW I built it as a module to prevent whole kernel being rebuilt)
+> 
+that's fine
 
-diff --git a/block/blk-iocost.c b/block/blk-iocost.c
-index 0a0352554dde..7ce68e2c2e1a 100644
---- a/block/blk-iocost.c
-+++ b/block/blk-iocost.c
-@@ -2565,6 +2565,7 @@ static void calc_vtime_cost_builtin(struct bio *bio, struct ioc_gq *iocg,
- 		coef_randio	= ioc->params.lcoefs[LCOEF_RRANDIO];
- 		coef_page	= ioc->params.lcoefs[LCOEF_RPAGE];
- 		break;
-+	case REQ_OP_ZONE_APPEND:
- 	case REQ_OP_WRITE:
- 		coef_seqio	= ioc->params.lcoefs[LCOEF_WSEQIO];
- 		coef_randio	= ioc->params.lcoefs[LCOEF_WRANDIO];
 -- 
-2.43.0
-
+Yixun Lan (dlan)
