@@ -1,103 +1,180 @@
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+Received: from mail-qk2-f27.google.com (mail-qk2-f27.google.com [74.125.230.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2677A314D1F
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:33:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C327333344A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:34:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789961612; cv=none; b=Fd7SG4XLwgEVYREacBb+RlgYhWoHuQ9mLWMGm+O53VgY96uii/L/2Cb9NwrzGsFXfwoQFG8CBEa9h/B2kG1Cua0m2cwEE3ywS/qSCZsk45Whzm+4KdYGEB4viZXr9PLll2+VoDLosbVwPk/zqnyENPs8Wou5nnGrmSqKLLL19Vc=
+	t=1789961655; cv=none; b=P8cxMTdv6+7P2nJ9dIQMbL4E0w92yYtgW9PUnpH5SH2EaeLmuqSRvAqjrAK0a/nV4QWfrnkERVsjOgyT5uV7iwYpJ4HbbbsDMsxYCi7rpyftuGroWOEYUh5eHcLp6zvnoy/BsVgJq/tLAY4uVyugI4swQ8VQkbyJ6juTcXelBjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789961612; c=relaxed/simple;
-	bh=TBh+MnelIfrQyJvDGkl7jT+Rwdd63n0DniAsx7Bxkks=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k1yxKNb/g880/5HFcHylNkI2tzGhc4sfbx8x3KMRSviieBf6TQgtqOI8HcMzF149AgcfwsP3pHUtnhqU6RDE96rXw8+HCittp/NygSVtSacC8mQox3I5CeN/+bg4s3g+E2+y0C12D1RyTISCod7fgGCpWLivQiKZSSKktR/xf/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=HfTdM8/Y; arc=none smtp.client-ip=209.85.160.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1789961655; c=relaxed/simple;
+	bh=WZqsK7BablMg3uJYAL8SiTAmrliVfgZmKZ5qsVpYP6o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S0wzPHoE6zpA6Nk1yvAmPVJJqBTUC4rn7uTjTlWKz2oWlUcE15f58Z62hyaZCYYblrTj/KlZJKsLzxf/7OlgGfgS9bYGWFVxhuaLZbPNOcohPW/IU2IqjtoLtdcGqxT8qld7ES7dSEf6vYt/ySZtBSxgXKZw17bRlhOLPVICXFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IrvVLd+w; arc=none smtp.client-ip=74.125.230.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="HfTdM8/Y"
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5306abbdccbso29303831cf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 20:33:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IrvVLd+w"
+Received: by mail-qk2-f27.google.com with SMTP id af79cd13be357-939ca12ab70so320153085a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 20:34:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789961610; x=1790566410; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=A6VHmJPAAkgAY7kGGRO3HmxKD/ZCEfTtvi3FHnUUDOE=;
-        b=HfTdM8/YKMZN8nF/1D+NzIeiZuV/PLI5lVIWmJ048CmdSgIJNkPhRuMcsRYQ0FrQyu
-         bW1yXguGbsWyiV5xPmgm404gIJc1LUGSGq2KszQQVV8oRI8dxQdozbZ9fz+vgnVErt28
-         aghplXr12rvf9UeJ6o9E9hxVWY6jQ2F/DUCrW8Jxgs+oRZuxSUu2Oys7kVUQKEHwFdyX
-         J+ddZa786GzI/Kl/YKsD/noT6R9Kc/Hb7+0x9jdstKPHpu4YORGMJjZC1EP2LV0ZuKLY
-         LCn8l9M46DK1qouysa573m+4Gnuoz2NyhwiAJoFgMOvgFRW86w2AAJigmd8HZVsALIg/
-         IFzg==
+        d=gmail.com; s=20251104; t=1789961652; x=1790566452; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EzaPtthhhqRzlEoVTWSoFvonGQWTcr1AilXJoZMQT/A=;
+        b=IrvVLd+wjYHYcyC0zRM1HV+gPEs35Chff2MnTrh+Tikt6cj1xS0OJg5sYow+aVKsfW
+         wPliTM2yxKUBVrCEfiriGQMLtjRrjdwSCyovtMqbVkET3YLaiVGh06muYqaE17c/ROx6
+         /bHAknD9+t72Cb+NO1K7CROiP3MMy1BtyaFf3I4Hw8WCib2yuy9/LRbepe1x/oMkWdRv
+         7+rcRiQhQRlM2mivrKTGCOqHFy+jTbNggr17ThZTAwMCUz1l9mnTcyjHn3sWzFfBc7fH
+         Fqy4nLKkFvSPlkHXo4/fE93mH33t0FbVXhQQ8Whhw24AO3pdVG/VHSyC2fiVFXB8bmt5
+         OO0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789961610; x=1790566410;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A6VHmJPAAkgAY7kGGRO3HmxKD/ZCEfTtvi3FHnUUDOE=;
-        b=u3oxgzi9RCbfn7bJ5+4ntTS1KlaNrlfaz0gkzmj07HUwqu/WDFP7SPv6ybCRfQmKvq
-         0twZCY7ucImC5i+sczbiXriRZm/EZO4FgoRS7kWQAWq1o4pcn6Lf3gGaMuAQep6dc1cF
-         Xa7Rfy+7/S6mpfQCTJcDcHu8egqV2vK+1BdPSXNsoKswnSzS7ZVuiHIhssfHDWQ0D2+R
-         vurJVySjqrnrTZIlrhE1Hkgqbd/1ZhZN2jb8saPUSa7h5A5Ef6wSLaU1RZtoEEvRIqmI
-         0lTd5NIZiOOEAPx64FMb1DnXiKLY0cPvuVSin2EAvWSeH6A97yWbV0FkqeSTIA3hXlMU
-         EDPw==
-X-Forwarded-Encrypted: i=1; AKwUvByhkkiggavdxQwbI4bZlCIcNbKZ4VRevGyRVNbQOuo5u9sg4Sm1+APevqEyJilrgfLKmQ8BurgbrHOCfcQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lVihJbhi1aQvc7z7r/4U/W72Pbtwj84GR5yGFwMKz4X5xVYsBe
-	iwJrKNG/secNBN95c8S+VtqCoxLj/WHqZwnCV2F9c7mysz/eHjj7a/2lGBQmaTx5+Zg=
-X-Gm-Gg: AYBFou0lOaoK8j987z/uihMgVy0GN2zwfLe41CrqPs27DzkLscFdcQIpnVETPHJihUr
-	iMwJrfxmU/oU4KNu5/Xnr5Z/5vnAYVZSxMH1zIetGvIw2lKOBI5NuyNsL3NM161/7AxyzZfZzCW
-	DFLt4EUcGAfzfvgaXl5ak0RywBE3YMAEYdwo5flwK/0LAoMQ7F8SQT93CCxKuK08mmwphk9UWTN
-	bMQkTIV7Ny8T991fwmaOI+zKGAfIS4xl/Y5plDAKZFAVLSjPcfTT5+28NWO8AlyEFVZzv0a02j5
-	gz+fjFtq5WOWkdDdzrrUJ8U637STKPvPar15JirVsreKn4ATKKAaiUm5qlRt8t5YyHFUfztIYob
-	5jtGJXs4tVwIieWFX5omtMYG4VHG+JPKsDlz0JzKGJPGLlnjmIBwGY+tcFjsoC5/kQAqWggXzIi
-	/9itsxe1DUHupvlmcgI+B/2Hxhj3LGGvg2QoJTcrexsTZInJ3Vkb/AHluFc4KG2hA3fx20jz4Ey
-	LQkrIy2rcbDmX+3ywljBAC5c+nSUzCK2E+WiCedd9o60nGcztT32oU=
-X-Received: by 2002:a05:622a:5918:b0:531:2087:63a7 with SMTP id d75a77b69052e-532b73277d4mr83973791cf.19.1789961609053;
-        Sun, 20 Sep 2026 20:33:29 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91260aa1db7sm57867246d6.44.2026.09.20.20.33.28
+        d=1e100.net; s=20260707; t=1789961652; x=1790566452;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EzaPtthhhqRzlEoVTWSoFvonGQWTcr1AilXJoZMQT/A=;
+        b=mtFuu6rH9TlmVzlIeSqtMplLLNgK4sSPIu/lY5YF0QlhDM44YURSoDSmQQoHa1L3as
+         DUm6UelaAKtLWcNPBRqXVbQ4tAIiF+o9la/BzuU2Oo8amMRfJYQXFOeQbUMuITP66w3X
+         CSNO1r/H93ARcLknr05irTrrBKQQqH+/2BdoPtqFSFzG+sm84dfRBYD3VZFroREBXj9A
+         YxhMAEfLxpoGRfQflLq4HKJiTOEIxrXHw9P0/JYloC7xozj5LbRL5FUfuDPNUwSsUz8T
+         HpHN+v3csTYT1iUlhes7EGf92EsrLQzKFE13tRviHtJ6YDsJ6/8FluOL5xb65jOf4+/l
+         nCOA==
+X-Forwarded-Encrypted: i=1; AKwUvBzAiQrieWn6xn9/LOI0CF2rhMtu5bHeZ2fH+jIkqU8BMYmiXhokvGGWOtca6MokNspC0BSyIgM80qoZYTE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lidKSnUOVfMUXNfbFMWjo56Mc/3RACxlhg2bFRD0xIZgT1pb1b
+	hY1BH/axSfNKM9qSzTgnuGNyV5p7QaRocJC7+KIK5dAFAi88UHjFy8bK
+X-Gm-Gg: AYBFou2TCnNi3E6A3kKhkXUxsPHvffZLjWlh5ucb3GNeUOJDIL5E4m/FfWKCFXb3waX
+	EdKmAUu3c2FZnNgdqEdOR85ANOjWSjRfprASQC6qtAodWTwUM7w3sK7CBSEvf0Ozf3DK0MWVL7o
+	VEW88nTSZANeQbi9ZaF33f0i+o6rHaCKHT4DGm8HGqeKoduG1UZy4Hs6dWHKvPohXnKaR1zld3n
+	BQvKrNgbeyJ3Gu5kUOejBk342Hg47X3kjKEXYB96uOcP8GYA62rhV5+AMJGRe2SJj76I5p5/bdc
+	U7B2F+Lu4h2kadMRaOepDo5Ps59+oGda0WpWx7vFpRxEVHUNt1vK0xnbtr2i7dIXdSnZybnuREX
+	OggEwjUMGaJ8RrY5FVndqTLFPGBjbRzh/qxgHugnuUngKxpXlqEo9b2KL/TEmaExKh4YPSXfIiE
+	8YE1Xd1901bONd4FxH0hDUPfkoPbGL+euHunlCPozNAHu6cgvtt9hTsTiuDH0STGfKEkMZsyXEM
+	r5mhbzvdzzs7mU7RX4UI3/3GBcH
+X-Received: by 2002:a05:620a:600c:b0:939:a834:98f2 with SMTP id af79cd13be357-93bf5524001mr917952985a.15.1789961651826;
+        Sun, 20 Sep 2026 20:34:11 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93beda707c2sm549277685a.16.2026.09.20.20.34.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 20:33:28 -0700 (PDT)
-Date: Sun, 20 Sep 2026 23:33:26 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Zi Yan <ziy@nvidia.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
-	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
-	brendan.jackman@linux.dev, hannes@cmpxchg.org
-Subject: Re: [PATCH v2 2/2] mm/page_alloc: refactor build_node_zonelist() out
- of build_zonelists()
-Message-ID: <arCkv_0nk-BtW_DW@gourry-fedora-PF4VCD3F>
-References: <20260912030424.2889731-1-gourry@gourry.net>
- <20260912030424.2889731-3-gourry@gourry.net>
- <DLKNHNP6LH59.3MEEBCAJGFEVK@nvidia.com>
- <DLKNKTQHSA6H.6XC9WV37LSVR@nvidia.com>
+        Sun, 20 Sep 2026 20:34:11 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
+	Jack Wang <jinpu.wang@ionos.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [BUG] RDMA/rtrs-clt: race between close_work submission and synchronous close
+Date: Sun, 20 Sep 2026 23:33:36 -0400
+Message-ID: <20260921033339.1320291-1-shuangpeng.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DLKNKTQHSA6H.6XC9WV37LSVR@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 20, 2026 at 10:53:13PM -0400, Zi Yan wrote:
-> >> +static void build_node_zonelist(pg_data_t *pgdat, const nodemask_t *candidates,
-> >> +				int zlidx)
-> 
-> Is build_numa_aware_zonelist() a better name? Since the old comment said
-> "NUMA-aware ording of nodes" and the code uses find_next_best_node_in().
-> 
+Hi Kernel Maintainers,
 
-I think that's a vestige of older version having different ordering
-options.  Now the zonelists are always numa aware (except for
-!CONFIG_NUMA, which... duh). 
+I hit the following report while testing current upstream kernel:
 
-Anyway numa-aware is implied by "node" in the name.
+KASAN: slab-use-after-free in rtrs_clt_stop_and_destroy_conns
 
-But I don't have strong feelings about the name either way.
+on commit: 93f51579e7df248780214094418f205253383cc5 (2026-09-20)
 
-~Gregory
+To help trigger the bug more reliably, we applied a minimal diagnostic patch
+that only adds delays and print statements.
+
+The reproducer and .config files are here.
+https://gist.github.com/shuangpengbai/1b0782d283051b34df6548d387be90a6
+
+I'm happy to test debug patches or provide additional information.
+
+Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+
+[   86.996512] ==================================================================
+[   86.996866] BUG: KASAN: slab-use-after-free in rtrs_clt_stop_and_destroy_conns (./include/linux/instrumented.h:82 ./include/linux/atomic/atomic-instrumented.h:32 drivers/infiniband/ulp/rtrs/rtrs-clt.c:2237)
+[   86.996866] Read of size 4 at addr ffff8881038672fc by task kworker/0:0/9
+[   86.996866]
+[   86.999871] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   86.999871] Workqueue: rtrs_client_wq rtrs_clt_close_work
+[   86.999871] Call Trace:
+[   87.001599]  <TASK>
+[   87.001599]  dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+[   87.001599]  print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+[   87.001599]  kasan_report (mm/kasan/report.c:595)
+[   87.001599]  kasan_check_range (mm/kasan/generic.c:? mm/kasan/generic.c:200)
+[   87.001599]  rtrs_clt_stop_and_destroy_conns (./include/linux/instrumented.h:82 ./include/linux/atomic/atomic-instrumented.h:32 drivers/infiniband/ulp/rtrs/rtrs-clt.c:2237)
+[   87.001599]  rtrs_clt_close_work (drivers/infiniband/ulp/rtrs/rtrs-clt.c:2364)
+[   87.001599]  process_scheduled_works (kernel/workqueue.c:3396 kernel/workqueue.c:3479)
+[   87.001599]  worker_thread (kernel/workqueue.c:3560)
+[   87.001599]  kthread (kernel/kthread.c:436)
+[   87.001599]  ret_from_fork (arch/x86/kernel/process.c:158)
+[   87.001599]  ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+[   87.001599]  </TASK>
+[   87.001599]
+[   87.001599] Allocated by task 1 on cpu 1 at 34.840929s:
+[   87.001599]  kasan_save_track (mm/kasan/common.c:57 mm/kasan/common.c:78)
+[   87.001599]  __kasan_kmalloc (mm/kasan/common.c:398 mm/kasan/common.c:415)
+[   87.001599]  alloc_path (./include/linux/slab.h:991 ./include/linux/slab.h:1312 drivers/infiniband/ulp/rtrs/rtrs-clt.c:1544)
+[   87.001599]  rtrs_clt_open (drivers/infiniband/ulp/rtrs/rtrs-clt.c:2870)
+[   87.001599]  rnbd_clt_map_device (drivers/block/rnbd/rnbd-clt.c:1268 drivers/block/rnbd/rnbd-clt.c:1551)
+[   87.001599]  rnbd_clt_map_device_store (drivers/block/rnbd/rnbd-clt-sysfs.c:612)
+[   87.001599]  kernfs_fop_write_iter (fs/kernfs/file.c:345)
+[   87.001599]  vfs_write (fs/read_write.c:595 fs/read_write.c:687)
+[   87.001599]  ksys_write (fs/read_write.c:739)
+[   87.001599]  do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
+[   87.001599]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+[   87.001599]
+[   87.001599] Freed by task 1 on cpu 1 at 56.591404s:
+[   87.001599]  kasan_save_track (mm/kasan/common.c:57 mm/kasan/common.c:78)
+[   87.001599]  kasan_save_free_info (mm/kasan/generic.c:584)
+[   87.001599]  __kasan_slab_free (mm/kasan/common.c:253 mm/kasan/common.c:285)
+[   87.001599]  kfree (./include/linux/kasan.h:235 mm/slub.c:2748 mm/slub.c:6508 mm/slub.c:6801)
+[   87.001599]  kobject_put (lib/kobject.c:689 lib/kobject.c:720 ./include/linux/kref.h:65 lib/kobject.c:737)
+[   87.001599]  rtrs_clt_close (drivers/infiniband/ulp/rtrs/rtrs-clt.c:2933)
+[   87.001599]  free_sess (drivers/block/rnbd/rnbd-clt.c:754 drivers/block/rnbd/rnbd-clt.c:766)
+[   87.001599]  rnbd_clt_put_dev (drivers/block/rnbd/rnbd-clt.c:48 drivers/block/rnbd/rnbd-clt.c:61)
+[   87.001599]  rnbd_clt_unmap_device (drivers/block/rnbd/rnbd-clt.c:1703)
+[   87.001599]  rnbd_clt_unmap_dev_store (drivers/block/rnbd/rnbd-clt-sysfs.c:334)
+[   87.001599]  kernfs_fop_write_iter (fs/kernfs/file.c:345)
+[   87.001599]  vfs_write (fs/read_write.c:595 fs/read_write.c:687)
+[   87.001599]  ksys_write (fs/read_write.c:739)
+[   87.001599]
+[   87.001599] Last potentially related work creation:
+[   87.001599]  kasan_save_stack (mm/kasan/common.c:57)
+[   87.001599]  kasan_record_aux_stack (mm/kasan/generic.c:556)
+[   87.001599]  insert_work (kernel/workqueue.c:2272)
+[   87.001599]  __queue_work (kernel/workqueue.c:2448)
+[   87.001599]  queue_work_on (kernel/workqueue.c:2501)
+[   87.001599]  rtrs_clt_close_conns (./include/linux/workqueue.h:700 drivers/infiniband/ulp/rtrs/rtrs-clt.c:1967)
+[   87.001599]  rtrs_clt_rdma_cm_handler (drivers/infiniband/ulp/rtrs/rtrs-clt.c:2063)
+[   87.001599]  cma_cm_event_handler (drivers/infiniband/core/cma.c:2181)
+[   87.001599]  cma_process_remove (drivers/infiniband/core/cma.c:5313 drivers/infiniband/core/cma.c:5346)
+[   87.001599]  cma_remove_one (drivers/infiniband/core/cma.c:5453)
+[   87.001599]  remove_client_context (drivers/infiniband/core/device.c:810)
+[   87.001599]  disable_device (drivers/infiniband/core/device.c:1325)
+[   87.001599]  __ib_unregister_device (drivers/infiniband/core/device.c:1571)
+[   87.001599]  ib_unregister_device_and_put (drivers/infiniband/core/device.c:1636)
+[   87.001599]  nldev_dellink (drivers/infiniband/core/nldev.c:1902)
+[   87.001599]  rdma_nl_rcv (drivers/infiniband/core/netlink.c:? drivers/infiniband/core/netlink.c:239 drivers/infiniband/core/netlink.c:259)
+[   87.001599]  netlink_unicast (net/netlink/af_netlink.c:1338 net/netlink/af_netlink.c:1364)
+[   87.001599]  netlink_sendmsg (net/netlink/af_netlink.c:1919)
+[   87.001599]  __sock_sendmsg (net/socket.c:800 net/socket.c:815)
+[   87.001599]  __sys_sendto (net/socket.c:2281)
+[   87.001599]  __x64_sys_sendto (net/socket.c:2288 net/socket.c:2284 net/socket.c:2284)
+[   87.001599]  do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
+[   87.001599]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+[   87.001599]
+[   87.001599] The buggy address belongs to the object at ffff888103867000
+[   87.001599]  which belongs to the cache kmalloc-2k of size 2048
+[   87.001599] The buggy address is located 764 bytes inside of
+[   87.001599]  freed 2048-byte region [ffff888103867000, ffff888103867800)
+[   87.001599] ==================================================================
+
+
+Best,
+Shuangpeng
