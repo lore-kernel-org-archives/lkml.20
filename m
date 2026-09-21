@@ -1,272 +1,209 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010002.outbound.protection.outlook.com [52.101.201.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6597E517BCA
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:46:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790027209; cv=none; b=HlBokWbYw4/uk4dEgzPnUIRcyIsqpTt02rplRczSFIhXJ34zU1mB45L1OgVQR6hjzYJvk8gqKsMODs9HfN7utNyPekDEI+CpBT8DOrxNrt7wTE11pIlblbUI6UBl23098OWc1EHDKHkS5rldMk58Uo/6GwYSNyrdCrjQnNggcGs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790027209; c=relaxed/simple;
-	bh=Fuc9EQUGqj6/GUb+IkWC45tdACOWCnFci3TWQu04GjE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B1cchcEk1mQ1xEQB49T6uRau6oLP22N+qybbSW/wWV5XqAPVWlWHw8HcYcbOp8FtYR2qqaenLeAcMgiwixJ3pvltSxuCrWprmKK3d1J/senmwZQ9VCRIJQfGPzHRSOwHebadM0kjCaqRxaOI75d9+SMZJLxDyNZY4sgQ0b4J7Sg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=bVwlSd05; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30ABA2E4257;
+	Mon, 21 Sep 2026 21:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.2
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790027297; cv=fail; b=M41s8LEibRJHmhmsAUXw3Da2zTChNCJIDpPgRv3gsbnPslh638IZVFW+z+ymwvZUc+hQW06YL/kn3mMYWRYxwsmTA/ZzwY+ZJcRJBTCDkM4ue4HSWppkg5JrvqZVqpwfHSUMQqp8iIuif8f7/pWKltorOHuXfg26AelG6soBPtM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790027297; c=relaxed/simple;
+	bh=jGwVd6sawiDZVO2mQmQNRYPRn/S/O5cIBCNwrh2VoJ0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=e44tj0ZUXY8CiaHj4Mg6vMdmBXkPgXYPuU6oyiq83KTr6KN3jD3K9QXsXeUt5+D1qEn7PdEq7rvYfnpp6WAElcoFJxknYDEZGpZYI52aMMEPTWblGTRGihy19eJbE5LrS8wSVuNJa8/xm8speXnO1G6QsSzKEIh3xF+Z57x8lbI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=mf91jAtP; arc=fail smtp.client-ip=52.101.201.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="bVwlSd05"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910c3e6b1so148481585a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:46:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790027205; x=1790632005; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lXu8IvNyQbPRE1tCCCvzelxBcNDsxBYdOKmM6QDYS5E=;
-        b=bVwlSd05ex9oSZYY9XR2LQAkdxEm49vuz4VoFyn4Y9lyPm/Itf0yU0f9JKsmck9DK1
-         ENrjtTsQgrF4EhnurVnpkZYsTipdgeY+DDJup2yttvN8TmFkQkq9wM3gnSk95jjjkozG
-         XrxitRKIboxsfd4HdC64OJ5D7D5FMQlmD0Mty9d2SzxMkWiw5K7FNuxfh1gXKYjOhcmx
-         Oinl0h7eawAvVG7t9/cz/2eGRmyc88Fmon0b2/x9H6Um4Q3zizDJrfbEeDbMQbM2vAPt
-         3ObdDVZ75eXzrW1FCNhcl+ak1nVKWdhc/wP8H7pG4xoSkMogkZhhA+ZcXgQoKBcTyfeA
-         qOLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790027205; x=1790632005;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lXu8IvNyQbPRE1tCCCvzelxBcNDsxBYdOKmM6QDYS5E=;
-        b=Mt//pbh3hsTtdQj42nOdNKctxj6qaAw3z8tKwJthGPBs+AJEmm40mv1Oz8I1SAM7pK
-         QFSRPOGuTZK25c9u7QEL0NtKrkzE2ljg1FexkL3m9mIf4UndI9EFSopTAXs+OKf5hQv5
-         /yQ3/kmoAOlbxVWAZg32WkCH/oc1NniaHBGV41/aC5s8hwRCcYqqWjlAnF7a4sqoiSLn
-         sTJ984Tuxa0Ya1j6BaZf3IKd2DwcUURdf4wBMi2w0JPW4r0hmNlroFEJ65hcXhQ1qEpj
-         3h3QGd6zf9jrLbowFUVMkAcipncFhRxZkhIuFx3S7EfJZpvSIbns5m5GcVBSQIhMthXN
-         bCZA==
-X-Forwarded-Encrypted: i=1; AKwUvBzoOI0K6l+arsimqYZndZn17clSoL31OoqOmar2Zdz5D5EmZP5nYawZsufshrezcSsk2PkmLoBiOCmbdnA=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1TkQ/DmKBjGfCQ/uqt9zH3xfTQBMfDx2ZKXPQrap5AmDp0AHq
-	3jKkwL8i2uKcUlxi6+t6AvmhQm/+mTCo3K1L1bdxb9RvNkzYYjKDaS5f+6QWkH3DQRc=
-X-Gm-Gg: AYBFou2LB8Wf98K5av4toItmnG6Sk2y3S8PAauWmp4DFfj07oSMi02pxtXs3eUca8/4
-	VLcwj5yODGgShCLaG2EW5DBJbqZ7gJ9aspw4AIx1uaAZzKjOoulYEMRQG1gScmaAx7Qgnzfd+YY
-	0IXznWgWXI7ofDYSk7OI+EGDPF16KHW2HxRe3dISZDnnoLv96Y3WPGfQ0P50RoaNf2IwJDEGl9B
-	I9I16et0Zk/eOajWoQPgZwXyfr5z4rNmm9p3QFrPgX7xkU37uKjOeVc/JMo//BhMdRhHlJVesYx
-	ZnT5YHuLtQ6KlTJqn3AtmGxg8lpR9dYJpcunjjE9dOzd/8sb+J3gGLAlNeLJWw+5esoKQW2ej+1
-	ic2KBHrO/cWeZm+CsEZw0hlNlysN0lkVq6wgHdAdOcmhY9AeiP5vOiuZgQXY1bYW1CBsFU6WExn
-	rL/DiGSsmqw5pQfFuT43BVLQICqEAZsEAlEILteIn9xIKR3YDglCWjsyPN2rBG/Xdo6JE1gC0=
-X-Received: by 2002:a05:620a:90c4:10b0:93c:10ea:d740 with SMTP id af79cd13be357-93c17e324d8mr109812085a.2.1790027205403;
-        Mon, 21 Sep 2026 14:46:45 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c19a604dasm24653985a.11.2026.09.21.14.46.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 14:46:45 -0700 (PDT)
-Message-ID: <cea6054c-904b-4632-8004-f2c0fc15d934@riscstar.com>
-Date: Mon, 21 Sep 2026 16:46:43 -0500
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="mf91jAtP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=guvqv8wJaBUC/w1C8zfSE5hvu4HG14+7667kjhfE9NjT9u2yPetMhQbFE6xVeGDe3jmIXefWhYE3HI9vlJ4ynP5CG1F+HguIU396gbzDb0B2UKP1Jz7o2LrEVFwNX4nqiHHkVSBOuxXD3qHqsBtLNNC+QcA+og1KTTT2/AzBol+2oipr3RtaGuygmjGTv+JS1ovzwSQz/hrRDiLRM1Uk5KddfP+LaCnRK0xZcqHuoVPth7XjZ3z9D/iX/jGaFA3WBNA40S+zcfnlaWY9OfinPxxggpVV9BDP0EheuLJBuRij0mMXwow38xHBjDA0wZxgSa6ouXjGs2AomiuIxSaLgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Phl0XDoLnCKHedKQ5e8lTSRh/kF6vHKMJ+RpEkPHwo8=;
+ b=WZonSwMCW0qpGx1evvbTLPFz7Tgf5uizdCf4/xSZyP8/l7jftBByCAgS6RaNFaSVYhxd2c0ZoqXgfO7L951UHCRcvIAVxlqDkEHkN0K3nunAB7WCuzyUWfgWS9qPaFav5COI3LP1Yt3vU2s2GvkH4W3F+nCgyYRSIGlXoWbK181Up/WUeSMUFiV66l3tTT6RNvZMOD2369inJKjm/H6aq0lsIu0sShIt69Uh0FiL2pOOaDdw0Qhto0rwu9tiEnhKTv7gxclbDzLtbETztzwpi7R7ENGkDkIr5jp/cLUWsD0sSIyPNYhAkIZdPLXiUQh6o2ZSBOukq0FQu2tc+pSATw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Phl0XDoLnCKHedKQ5e8lTSRh/kF6vHKMJ+RpEkPHwo8=;
+ b=mf91jAtPSS3hAODC9BPtQ4IK8Qkgf9NBIxkYEkN/vdEDcnaQ1GeG/zQYRzMNrWlKpqagqJ5e/gcyrEptKbo84ohBz+dX/uIeQxPcpJw+PlGwcxtb/edISgtUkh5/n8ERZ4apugmvA+TOIWc9SZFAXoS3rQoN+zGmQ87nwWn6wqA=
+Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
+ by DS0PR12MB8248.namprd12.prod.outlook.com (2603:10b6:8:f3::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Mon, 21 Sep
+ 2026 21:48:12 +0000
+Received: from BN9PR12MB5146.namprd12.prod.outlook.com
+ ([fe80::535a:591e:27f6:c23]) by BN9PR12MB5146.namprd12.prod.outlook.com
+ ([fe80::535a:591e:27f6:c23%3]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 21:48:12 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: Theo Andersen Carton <andersen.theo@gmail.com>, "Koenig, Christian"
+	<Christian.Koenig@amd.com>
+CC: "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch"
+	<simona@ffwll.ch>, "kai.heng.feng@canonical.com"
+	<kai.heng.feng@canonical.com>, "amd-gfx@lists.freedesktop.org"
+	<amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+	<dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [PATCH] drm/amdgpu: skip the noirq suspend reset for a
+ switcheroo-parked GPU
+Thread-Topic: [PATCH] drm/amdgpu: skip the noirq suspend reset for a
+ switcheroo-parked GPU
+Thread-Index: AQHdRtjsJhAlU4pWWUSLFVt7JlfmK7bZl/Ug
+Date: Mon, 21 Sep 2026 21:48:12 +0000
+Message-ID:
+ <BN9PR12MB5146F83D9193E17FA95CFE63F7842@BN9PR12MB5146.namprd12.prod.outlook.com>
+References: <20260917191512.38838-1-andersen.theo@gmail.com>
+In-Reply-To: <20260917191512.38838-1-andersen.theo@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-09-21T21:48:04.0000000Z;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD
+ Public
+ v26;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|DS0PR12MB8248:EE_
+x-ms-office365-filtering-correlation-id: 2990785c-695b-43c2-ee8b-08df182a08ec
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|10067099003|11063799006|22082099003|18002099003|56012099006|38070700021;
+x-microsoft-antispam-message-info:
+ RLFwlqa3TohDUR01IHqDZEIS1d7KOY46ZfEY8RHnuMktLHsxnZbmI66Xl2sLFg2LEEj3/1J8/HnzAXUgzPXXjKHi8AIaPs7VuFj6btcqKbcH9VzhDwJdUBRgjHtJdjhztwWp4NT/5ioWRMMyjyyrA+w9Xn8kHqCx0tU+v5ZDRh0jAWW1zlfU9rMgtsP8B3Y6MLwaiX+2TUBtFeUK45G1DaUgsfOMAFbc1hLWr5ZeRxtS7HFrxryK/ju5MornfyXMUEBA0JHVKL/0hOEPSHRB+i/jY0QfXsq8BNZSTD/pe7TC4DjQ6PSYvAQLrtC0Ui2AWDLWp8EK+3w4ZI9ej60umcaftLOcR1nhS8D6tM4fNJS92eOQegDLrquRIYm8qNyiFo1l50XDxLBI/F+5VPuWUbvWY8YSv2v8wgy5Rx+TvNFiy2mR3TBCoJVA30avO81776Ae2nCJQPbQLn0CVx/Reajv+lbdNDbT8848pXmKX6zkJOpZHqrq8ommgIPgqREt2GqFcfrj8O5QKtLnRpQeNVj3XbGxaE2X0cG+n8ntxi8bFRWNP7i28GZRt1mlF0uiOv2jNa3dQvcmav1MWDsdCIOGU64qaTvs3a7+2SXlL6VwBUi1LZycswr7yTdsqPNP1y+k5urrTUTF9s0uyQTMHzRSeX6KCyplmBWWaeDWiajQ1ZsFWF+ot6IMfX5G++xtUef3fAJjfMnejReobdLVQ3sf6VpDSunx6ZQOsYv+FnI=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5146.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?BDpBHsAivHK5WA6uvvqnjEtxX4iM9j/4flNlsmVTzt+4YsIvsfLJm8yicenv?=
+ =?us-ascii?Q?TiVEeP7Lph8gxRYmHsS71CYaWrZ+6vXhCJVzatO660bd1feDVXjFwRXsEUGb?=
+ =?us-ascii?Q?6+Ggg+KV1RaxM/gcVQVaGSKi688YpSZqft+ejW1y+1NBcHbaRNs3d1PQ81RQ?=
+ =?us-ascii?Q?Ys9ffOgK3+Utbqja541k3JCTta5014M78xiIsFxK0Q/ZlbvMw0LF5iMDsGjf?=
+ =?us-ascii?Q?QiiOA2A0aI9deW+GPsdKeumWaNPq0gRNOT5PFxZvRcvTp8zCtC/fMyxdLbzy?=
+ =?us-ascii?Q?R14SKjj8PYLZ5yFhI+56hqrPjhDYrGx/waL4QA3dKJ++ECNR9D5vgpo15cnw?=
+ =?us-ascii?Q?1TIWub7rTE6LDwni7W4BSTeXj6pkvkHnOBcbZTRUFYO6Dz2muqEGmbrSWG3n?=
+ =?us-ascii?Q?RhZuF7DY0b2m5AXa0mTFTVAj3DbKDKWhdgSuZlsO952QAnFLy8ZhJhmbLqwJ?=
+ =?us-ascii?Q?W5iHb9P1RfaSaDdRpfXe5ogEanmNSYl/lfHc1RsAQBrUG7ZxllAInx6LhqhH?=
+ =?us-ascii?Q?tn9W4WiDzNZQ78MiQ3KbdbJPaXzNJ/87eb9kMHkf/iJ+t19p5PGmTG+kUyT/?=
+ =?us-ascii?Q?s/Tuxer4uz0+M2tcEL+BzEWut8XsrR1auMXu1+ngY5oFhdApTa2p6Ubu6b5W?=
+ =?us-ascii?Q?hGNrtgLjE8zxdLta0qIu4fHf2Zt86ds99NLHu5ipWy97fqpl2WkjP6z9Z0dV?=
+ =?us-ascii?Q?Af8C4SeO9uKiiu7t1lz4b6ngdwZV9/Cn5Kxb+zbk6dN5fk0zvq2BocJF4Rog?=
+ =?us-ascii?Q?j9+nMU0AsTmr2Bp2V1ysQIwSNyQvJG22pCMye4bfro+YzJE9IIe/vdN6ZTku?=
+ =?us-ascii?Q?wV1GlmlH7ugE+MtMGksSNUX/nO8dvkUosWxnjkmay3gfBZX/duq2QCf76Q4F?=
+ =?us-ascii?Q?j5AL+Iw2ij77UrhYfJY/cWCBDr+2d7R+7nh9FKIgHzm8rYWS4yFFuneXjGRt?=
+ =?us-ascii?Q?OyZZxZSjLJ3N9Pt4OXnp5xBD1JpINf2pZlwxjdQirru2cvEWoJhxT9kEIvP8?=
+ =?us-ascii?Q?125nSeA9OCFzR1MZByLipL7xJ475WvKMCkSdnl6DBI/YP96Tx9jmpClWPdEr?=
+ =?us-ascii?Q?GrAJ88Pys4a6wYm0HJYdZVG8NxrCYzLmkpv3lONjTpOQkmd8dzlLPfXyokgU?=
+ =?us-ascii?Q?PwOmtR626yQEodeoAxoD1vNT49m01X7+yKtKKDQz6h2N8Jsi2Kk7b55RF5A/?=
+ =?us-ascii?Q?kcZicc4w6J0ca6znLhLTiauzOfeVHtgahIKY/pKMJ5kxK/M8XBd+w6EJus5+?=
+ =?us-ascii?Q?U/Mn1pqhnpe/EagNjC0TK68PhnnC2DYzqCrgxm1QqViLb8LerDb3Qw1vd/+X?=
+ =?us-ascii?Q?r2d6Co042vvBeF8zbQxzo9H5v681T+cRjY5WP88AYbfO9Kuc1gZ454x+2fh+?=
+ =?us-ascii?Q?kPxiS5vlTAK6DlsoXnO1WoJDwkoVp3vo28taPOxcUsA63xL/shnGOVruaQJW?=
+ =?us-ascii?Q?7djdVDRdhmjwfWuKDlezFfk6DIv/lmXOIM+FKAhKc0sq4YAMTSLI7e9hU2dT?=
+ =?us-ascii?Q?iMHTGI40ajqlskudVLH0pxX6yNOwfoXPDAOChxtkVT3iBvZ/ixSp+CuTrldH?=
+ =?us-ascii?Q?RCsCfDA0iDaaM/+0gfd8jjWB7qpqzzeGDpoUwH/Uz1s0HRaKfxw8TS4uLSnz?=
+ =?us-ascii?Q?hpcGBavRnlfvx/g/Di7U4rMjEmAma13v0cTtaFuSsKPzvyW/jMOiqzaJ9TkQ?=
+ =?us-ascii?Q?TZP3qf3EU+LEgFbMxAtiPlCLjE1XXkqmdM4PPji3/zsPF/Dc?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] dt-bindings: clock: introduce
- toshiba,tc9564-clock.yaml
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org,
- andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
- kees@kernel.org, gustavoars@kernel.org, p.zabel@pengutronix.de,
- daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, mfd@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260918165234.687224-1-elder@riscstar.com>
- <20260918165234.687224-3-elder@riscstar.com>
- <20260920-messy-successful-caracara-fcdbcd@quoll>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20260920-messy-successful-caracara-fcdbcd@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2990785c-695b-43c2-ee8b-08df182a08ec
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Sep 2026 21:48:12.7182
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Kp0oZudeKUb0V1EWMpOsD2/FIraSpSYw2B1oudMgBh87mnyq3iPXn2HT4siMmZIVE95K4UEvGL2rwWlx+nPdaw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8248
 
-On 9/20/26 1:21 PM, Krzysztof Kozlowski wrote:
-> On Fri, Sep 18, 2026 at 11:52:31AM -0500, Alex Elder wrote:
->> +description: |
+Public
 
-I suppose I don't need the '|' here either.
+Applied.  Thanks!
 
->> +  The Toshiba TC9564 is an SoC accessed by a host system through the
->> +  upstream PCIe port on the PCIe switch it implements.  The switch
->> +  includes an embedded PCIe endpoint that provides access to various
->> +  SoC peripherals (including a clock/reset controller) via its BARs.
->> +
->> +  The SoC is represented using a devicetree PCI endpoint bus, so the
->> +  clock controller is bound to its driver using a platform driver
-> 
-> Do not mention drivers here. Just say that host can access clocks etc
-> via PCI.
-
-Daniel and I discussed this this morning, and in the next version
-I'll explain things from a little different perspective, and I
-think it will help keep this focused on the hardware.
-
-This particular binding should not even mention anything about
-PCI.  Using the PCI endpoint bus means that the devices can be
-bound based on compatible string (i.e. with platform drivers),
-with no knowledge of access being provided by PCI.
-
-> But then more questions. This is PCI, yes? So how are the clocks from
-> PCI routed BACK to the main soc, which would justify having this in DTS
-> in the first place?
-
-This clock+reset controller is one of several IP blocks
-within an SoC (Toshiba TC9564).  Most of these clock and
-reset signals control things internal to this SoC, but at
-least one clock signal and a few reset lines are exposed
-externally, allowing them to be used by the platform that
-incorporates the SoC.
-
-Ultimately the TC9564 SoC has a single 25 MHz input clock,
-and internal to the SoC there is an internal PLL that then
-drives other clocks at rates derived from that.  We can
-only enable/disable the clocks (we have no rate control).
-
-
-But I think you have more and deeper questions too.
-
-We are using the *PCI endpoint bus* model to represent this
-SoC.  To me it seems that there is not full agreement on
-some aspects of this model.
-
-It is a weird situation, where the use of this *software*
-model provides a means of more completely describing (using
-devicetree) details of the hardware "behind" a PCI endpoint.
-
-
-Despite PCI doing its own enumeration, PCI_DYNAMIC_OF_NODES
-allows the PCI hierarchy to *also* have devicetree nodes
-representing bridges and endpoints.
-
-Building on that, a PCI function with a devicetree node
-can include a "pci-ep-bus" sub-node.  That sub-node
-provides a place to describe IP blocks (devices) that
-can be accessed via the endpoint bus.
-
-In our case, in addition to this clock+reset device, the
-TC9564 SoC implements a UART, a GPIO controller, a network
-interface, and so on.  All of these are accessed via the
-endpoint bus associated with the PCI function's BAR 4
-address space.
-
-So this model differs from "normal" PCI devices in that a
-single PCI endpoint (function) can expose more than just
-one capability (in contrast with, for example, a PCI
-function that implements only an Ethernet interface).
-
->> +  compatible string.  All of the clocks are simple gate clocks.
->> +
->> +  A total of 21 clocks are implemented, though two of these are not
->> +  controllable.  Access to the clock controller relies on PCIe being
->> +  functional, so the PCIe clock is assumed to be always on.  Similarly,
->> +  the PCIe controller relies on I2C, so the I2C clock is also assumed
->> +  to be always on.
->> +
->> +  In addition, 13 resets are implemented.  Similar to clocks, the PCIe
->> +  and I2C resets are assumed to be deasserted and cannot be controlled.
->> +
->> +  Clock and reset ids are defined in <dt-bindings/clock/toshiba,tc9564.h>.
->> +
->> +properties:
->> +  compatible:
->> +    const: toshiba,tc9564-clock
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  "#clock-cells":
->> +    const: 1
->> +
->> +  "#reset-cells":
->> +    const: 1
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - "#clock-cells"
->> +  - "#reset-cells"
->> +
->> +unevaluatedProperties: false
->> +
->> +examples:
->> +  - |
->> +    #include <dt-bindings/clock/toshiba,tc9564.h>
->> +
->> +    clock@1004 {
->> +        compatible = "toshiba,tc9564-clock";
->> +        reg = <0x1004 0x20>;
->> +        #clock-cells = <1>;
->> +        #reset-cells = <1>;
-> 
-> No resources except small address space, so does not look like a
-> separate device and should be folded into the parent node.
-
-Modeling the TC9564 as an SoC using pci-ep-bus, this
-*is* sensibly a separate device.
-
-We actually started with everything rolled into the
-stmmac networking driver, but after some discussion
-we concluded that the pci-ep-bus model would be simpler
-(and other than some challenges related to it being a
-relatively new thing, it *is* quite a bit simpler and
-better partitioned).
-
-					-Alex
-
-> 
->> +    };
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index b2d3257b8f892..66d0e7e65adcb 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -27670,6 +27670,13 @@ F:	Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt
->>   F:	drivers/media/i2c/tc358743*
->>   F:	include/media/i2c/tc358743.h
->>   
->> +TOSHIBA TC9564 CLOCK DRIVER
->> +M:	Alex Elder <elder@kernel.org>
->> +M:	Daniel Thompson <danielt@kernel.org>
->> +S:	Maintained
->> +F:	Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
->> +F:	include/dt-bindings/clock/toshiba,tc9564.h
->> +
->>   TOSHIBA TC9564 PCI DRIVER
->>   M:	Alex Elder <elder@kernel.org>
->>   M:	Daniel Thompson <danielt@kernel.org>
->> diff --git a/include/dt-bindings/clock/toshiba,tc9564.h b/include/dt-bindings/clock/toshiba,tc9564.h
->> new file mode 100644
->> index 0000000000000..75732fddd3025
->> --- /dev/null
->> +++ b/include/dt-bindings/clock/toshiba,tc9564.h
->> @@ -0,0 +1,54 @@
->> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
->> +
->> +/*
->> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
->> + */
->> +
->> +#ifndef __ClOCK_TOSHIBA_TC9564_H__
->> +#define __ClOCK_TOSHIBA_TC9564_H__
->> +
->> +/* Clock IDs */
->> +
->> +#define CLOCK_MCU		0
->> +#define CLOCK_INTC		1
->> +/* #define CLOCK_PCIE		2 */
->> +/* #define CLOCK_I2C		3 */
-> 
-> Drop both, and SRAM is number 2. Or enable and implement them.
-> 
-> Best regards,
-> Krzysztof
+> -----Original Message-----
+> From: Theo Andersen Carton <andersen.theo@gmail.com>
+> Sent: Thursday, September 17, 2026 3:15 PM
+> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>
+> Cc: airlied@gmail.com; simona@ffwll.ch; kai.heng.feng@canonical.com; amd-
+> gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-
+> kernel@vger.kernel.org; Theo Andersen Carton <andersen.theo@gmail.com>;
+> stable@vger.kernel.org
+> Subject: [PATCH] drm/amdgpu: skip the noirq suspend reset for a switchero=
+o-
+> parked GPU
+>
+> amdgpu_pmops_suspend_noirq() resets the ASIC unconditionally. When the
+> GPU has been parked by vga_switcheroo it has neither power nor a PCIe lin=
+k,
+> so the reset cannot reach it: pci_set_power_state() reports the device as
+> inaccessible and amdgpu_asic_reset() returns -EINVAL. A failure there abo=
+rts
+> the entire noirq suspend phase, and with it the system suspend, so the
+> machine cannot sleep at all while the GPU is switched off.
+>
+> amdgpu_device_prepare(), amdgpu_device_suspend() and
+> amdgpu_device_resume() all bail out early on DRM_SWITCH_POWER_OFF.
+> This callback was added later, for an unrelated reason, and did not inher=
+it the
+> check. nouveau guards every one of its PM callbacks the same way.
+>
+> Bail out the same way here. On a single-GPU system switch_power_state is
+> never DRM_SWITCH_POWER_OFF, so this is a no-op there.
+>
+> Found on a MacBookPro11,5, where the Radeon is powered down through
+> apple-gmux so that the internal panel can be driven by the iGPU instead.
+> Every suspend failed in amdgpu_pmops_suspend_noirq() while the card was
+> off; with this check a full S3 cycle completes.
+>
+> Fixes: 9e051720f9d3 ("drm/amdgpu: Ensure HDA function is suspended
+> before ASIC reset")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 5c33c19fd9bc..d9d794a7db96 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2664,6 +2664,14 @@ static int amdgpu_pmops_suspend_noirq(struct
+> device *dev)
+>       struct amdgpu_device *adev =3D drm_to_adev(drm_dev);
+>       int r;
+>
+> +     /*
+> +      * A GPU parked by vga_switcheroo has no power and no PCIe link, so
+> the
+> +      * ASIC reset below would fail and abort the whole noirq suspend
+> phase.
+> +      * Bail out like amdgpu_device_prepare/suspend/resume() already do.
+> +      */
+> +     if (drm_dev->switch_power_state =3D=3D DRM_SWITCH_POWER_OFF)
+> +             return 0;
+> +
+>       if (amdgpu_acpi_should_gpu_reset(adev)) {
+>               amdgpu_device_lock_reset_domain(adev->reset_domain);
+>               r =3D amdgpu_asic_reset(adev);
+>
+> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+> --
+> 2.55.0
 
