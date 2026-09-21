@@ -1,210 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D335A496D3B;
-	Mon, 21 Sep 2026 12:52:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CE6BE499F0B;
+	Mon, 21 Sep 2026 12:52:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789995127; cv=none; b=R0h2UH0+ZUmfoSPjvdbcLTiamMrLhZ7TdNQZz3sLpU7MlFAPCnB7DRo7z45j4slj6c6dCpeHHjalUfOAIY7vKTPXN3q/ri3mJB9xr/BVa79Xm+Kfu56wfmnAKhLQYoVuA1O/Z2IlHmCtAvWDhkQ60NgjZRQ+y+Kjii9NtTHhmH8=
+	t=1789995160; cv=none; b=mrNW4nA6Nt642Mfud0JKTnmZhJLtjHI7c82zPfoNhTfohldSdCqkRMirDDUS2GGBOHrQYvrZxJPYyw/yIqW64l5tvOWdo0oIv+dzW7n5w8v9JlTw8qFq2yBfTFD3epdq07HT6RXei5NkSAxMYsvM7Ft/TYCUbmBcx1V0KlBRkkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789995127; c=relaxed/simple;
-	bh=wk8WqgVggF8LJTmOp5H6FQx6D/MULWBtpqoasVAAaqM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AqP84pk79HyD9bF13tBvx7R6DXRbEHmVn4Y2hqt1PMZpEZatiU9OWQi3RZOMfYCBf+SD4p55mdcNcIkbtIi5xOoskD22/rYh9Q+qSkKX13W0aX6P8k9LGWGhU+NHMbwnqovvzermx9zOVq90tPHJETbKneZvvI7mc1SsjDKSoko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UEoXuMgk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789995160; c=relaxed/simple;
+	bh=K/50ZomrN1bFLTBeeVPhJwuc1yciBmPSu8YX6Qsus9I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=empT3pxpSk6g9t9ko6NsLB/T/+FhS3RHtuhLtVyVsicr0QhK7oZMMiRvEelP0rKGVfeJHN/GwdPw9b0Z5S1BlGRYlv7XiZMnEqSVFg6H9fQ5fNfV9ksawc7QwvyTbc3x3nXxSg85q6tauV0UTVeLYh95OsqyjX/ZWkFKrHk2u6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UFZe4bpR; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UEoXuMgk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D81E81F000FF;
-	Mon, 21 Sep 2026 12:52:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789995125;
-	bh=gBrB4ZvsDxz9T+FKuvYovOtJhOMUC4zhQspG5dCkzqI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UEoXuMgk3tQR7VKss5G7TCH5r2PNVxKIgUqvy03V3f2uk/2Ph6lX19r0ed/+h2e4e
-	 bDVJ8hMF7A6V8+AvzTV0lrEBHMw8lyCzO0N1Xud2ENdLe8BpvuiiBRZz2J/riVAs9r
-	 iliuMt+mIA+BPEmVnZ5Cae07HGJfPl/vOW+t+HSil3Aj4EAQrQTMbVLuyfpp+5d+gX
-	 OhBP10nnepB70F532dZSrX99wGzghWQb63X3l2HQ1Ppk5NFoDDMCGMDH8irTojud2I
-	 qHlMVWV5j2Ty8l4FhvbQDGRFKr7w1lCUTKNByQC7w24IQDeWpshm9HlTaLjQPiUH1i
-	 A5LSb3N8CAV8g==
-Subject: Re: [PATCH] mlxsw: spectrum_flower: Fix port range register leak
-From: netdev-bot+sashiko@kernel.org
-To: vulab@iscas.ac.cn
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- idosch@nvidia.com, kuba@kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, pabeni@redhat.com, petrm@nvidia.com,
- stable@vger.kernel.org
-Date: Mon, 21 Sep 2026 12:52:04 +0000
-Message-ID: <178999512438.2160803.8624213916637783363@kernel.org>
-In-Reply-To: <20260917113236.2149095-1-vulab@iscas.ac.cn>
-References: <20260917113236.2149095-1-vulab@iscas.ac.cn>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UFZe4bpR"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B2F87176C;
+	Mon, 21 Sep 2026 05:52:34 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B7E673F86C;
+	Mon, 21 Sep 2026 05:52:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789995158; bh=K/50ZomrN1bFLTBeeVPhJwuc1yciBmPSu8YX6Qsus9I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UFZe4bpR5E17t5D1Lm9j6zlnOoMKygimSB1DPY+3+q0C6iJgg+EiBHxg6xnrKV8uS
+	 ne9l4ZgvIvWxD6dQ7eM1P+nFVo3S70EXtWpP4Lh2XJhn7wUJFW+NV19QrXwjpC/RJ4
+	 gyNTyjuCs5XZdDcvhmAKMYX8J4AXAbctL+YOlquU=
+Date: Mon, 21 Sep 2026 13:52:28 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [PATCH v5 3/6] dma: swiotlb: Centralize minimal pool sizing
+Message-ID: <arEojDWvwtMZnmBx@arm.com>
+References: <20260921063628.362078-1-aneesh.kumar@kernel.org>
+ <20260921063628.362078-4-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921063628.362078-4-aneesh.kumar@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Mon, Sep 21, 2026 at 12:06:25PM +0530, Aneesh Kumar K.V (Arm) wrote:
+> A default SWIOTLB pool used only for unaligned kmalloc bouncing can be
+> smaller than one required for limited DMA addressing. Arm64 and RISC-V
+> currently implement this sizing independently, using 1 MiB of SWIOTLB
+> space per GiB of RAM.
+> 
+> The SWIOTLB core now identifies this case with SWIOTLB_POOL_MINIMAL.
+> Size that policy in swiotlb_adjust_pool_size() and remove the
+> architecture-specific adjustments.
+> 
+> Explicit swiotlb= sizing remains unchanged because swiotlb_adjust_size()
+> preserves a user-configured size.
+> 
+> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] Incomplete fix: the port-range register leak the commit message
-  claims to close remains fully reachable.
-
---
-
-mlxsw: spectrum_flower: Fix port range register leak
-
-Adds an unwind to mlxsw_sp_flower_parse_ports_range() so that the source
-port range register is released when acquiring the destination port range
-register fails.  The commit message motivates this by callers that pass a
-stack allocated rule info and never release it.
-
-> diff --git a/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c b/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c
-> index 353fd9ca89a68..4cad6c46b07e9 100644
-> --- a/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c
-> +++ b/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c
-> @@ -486,8 +486,14 @@ mlxsw_sp_flower_parse_ports_range(struct mlxsw_sp *mlxsw_sp,
->  
->  		err = mlxsw_sp_port_range_reg_get(mlxsw_sp, &range,
->  						  f->common.extack, &prr_index);
-> -		if (err)
-> +		if (err) {
-> +			if (rulei->src_port_range_reg_valid) {
-> +				mlxsw_sp_port_range_reg_put(mlxsw_sp,
-> +							    rulei->src_port_range_reg_index);
-> +				rulei->src_port_range_reg_valid = false;
-> +			}
->  			return err;
-> +		}
->  
->  		rulei->dst_port_range_reg_index = prr_index;
->  		rulei->dst_port_range_reg_valid = true;
-
-[Severity: High]
-
-Does this hunk actually close the leak the changelog describes?
-
-mlxsw_sp_flower_parse() has two callers.  The first is
-mlxsw_sp_flower_replace(), which uses the heap rulei owned by the rule and
-routes every error through mlxsw_sp_acl_rule_destroy() ->
-mlxsw_sp_acl_rulei_destroy(), which already drops both registers:
-
-drivers/net/ethernet/mellanox/mlxsw/spectrum_acl.c:mlxsw_sp_acl_rulei_destroy() {
-	if (rulei->src_port_range_reg_valid)
-		mlxsw_sp_port_range_reg_put(mlxsw_sp,
-					    rulei->src_port_range_reg_index);
-	if (rulei->dst_port_range_reg_valid)
-		mlxsw_sp_port_range_reg_put(mlxsw_sp,
-					    rulei->dst_port_range_reg_index);
-	kfree(rulei);
-}
-
-So on the replace path the new put looks redundant.
-
-The second caller is the stack rulei one named in the changelog,
-mlxsw_sp_flower_tmplt_create():
-
-	struct mlxsw_sp_acl_rule_info rulei;
-	...
-	memset(&rulei, 0, sizeof(rulei));
-	err = mlxsw_sp_flower_parse(mlxsw_sp, block, &rulei, f);
-	if (err)
-		return err;
-	ruleset = mlxsw_sp_acl_ruleset_get(mlxsw_sp, block,
-					   f->common.chain_index,
-					   MLXSW_SP_ACL_PROFILE_FLOWER,
-					   &rulei.values.elusage);
-
-	/* keep the reference to the ruleset */
-	return PTR_ERR_OR_ZERO(ruleset);
-
-This never calls mlxsw_sp_acl_rulei_destroy() (it cannot, that function ends
-in kfree(rulei)), and mlxsw_sp_flower_tmplt_destroy() only drops ruleset
-references.  Isn't every port range register recorded in that stack rulei
-still leaked?
-
-The new unwind only covers the narrow window "source acquired, destination
-acquisition failed".  For the template caller the reference is still dropped
-on the floor in these cases:
-
-  - the success path, where one or two registers stay pinned per template
-    (this is the common case)
-  - later failures inside mlxsw_sp_flower_parse() after
-    mlxsw_sp_flower_parse_ports_range() already succeeded, namely
-    mlxsw_sp_flower_parse_tcp() rejecting reserved flags,
-    mlxsw_sp_flower_parse_ip() rejecting a non-IP n_proto, and
-    mlxsw_sp_flower_parse_actions() failing:
-
-	err = mlxsw_sp_flower_parse_ports_range(mlxsw_sp, rulei, f, ip_proto);
-	if (err)
-		return err;
-
-	err = mlxsw_sp_flower_parse_tcp(mlxsw_sp, rulei, f, ip_proto);
-	if (err)
-		return err;
-
-	err = mlxsw_sp_flower_parse_ip(mlxsw_sp, rulei, f, n_proto_key & n_proto_mask);
-	if (err)
-		return err;
-
-	return mlxsw_sp_flower_parse_actions(mlxsw_sp, block, rulei,
-					     &f->rule->action,
-					     f->common.extack);
-
-  - mlxsw_sp_acl_ruleset_get() returning an error in
-    mlxsw_sp_flower_tmplt_create()
-
-Is the template key really non-zero here?  fl_tmplt_create() in
-net/sched/cls_flower.c fills tmplt->dummy_key and tmplt->mask from the user
-attributes via fl_set_key(), fl_set_key_port_range() sets
-mask->tp_range.tp_min.src/dst to all ones for TCP/UDP/SCTP, and
-fl_hw_create_tmplt() hands that dissector, key and mask to the driver.
-FLOW_DISSECTOR_KEY_PORTS_RANGE is in the accepted key mask in
-mlxsw_sp_flower_parse(), so mlxsw_sp_port_range_reg_get() takes a real
-reference for a template such as:
-
-	tc chain add dev swp1 ingress protocol ip \
-		flower ip_proto tcp src_port 100-200
-
-The pool is small and fixed.  mlxsw_sp_port_range_init() sets
-pr_core->prr_ids.max from MLXSW_CORE_RES_GET(core, ACL_MAX_L4_PORT_RANGE)
-and warns above 16 entries:
-
-	max = MLXSW_CORE_RES_GET(core, ACL_MAX_L4_PORT_RANGE);
-
-	/* Each port range register is represented using a single bit in the
-	 * two bytes "l4_port_range" ACL key element.
-	 */
-	WARN_ON(max > BITS_PER_BYTE * sizeof(u16));
-
-Once it is exhausted, mlxsw_sp_port_range_reg_create() fails:
-
-	err = xa_alloc(&pr_core->prr_xa, &prr->index, prr, pr_core->prr_ids,
-		       GFP_KERNEL);
-	if (err) {
-		if (err == -EBUSY)
-			NL_SET_ERR_MSG_MOD(extack, "Exceeded number of port range registers");
-
-Can repeated template add/delete with distinct port ranges therefore pin all
-registers for the lifetime of the device, keep devlink prr_count inflated,
-and make mlxsw_sp_port_range_fini()'s WARN_ON(!xa_empty(&pr_core->prr_xa))
-fire on teardown?
-
-Would it be better to drop this hunk and instead release the rulei's port
-range registers in mlxsw_sp_flower_tmplt_create(), for example through a
-non-freeing rulei cleanup helper that mirrors mlxsw_sp_acl_rulei_destroy(),
-or to skip register acquisition altogether when parsing a template?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917113236.2149095-1-vulab%40iscas.ac.cn
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
