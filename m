@@ -1,128 +1,139 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E283A4A4848;
-	Mon, 21 Sep 2026 14:00:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3964A384D;
+	Mon, 21 Sep 2026 14:01:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999261; cv=none; b=MiebInfShj2pKzXl3Xk5w/U0KbrQBrVUOP/pAhyXoY6LsvnDEYRtHcTsGT8Q4ILQMmjWufBMnb7Mixq486obbmcc+4bcFOGD9pT9HdsqfYwaPBqwVMLgmOUZSlIot72zWJ1f6sIB7uQ0TI/Sb7DZMfwHV+FC5t9HWi0wr7wITM4=
+	t=1789999261; cv=none; b=vDjUqY2QVGHYrRT3vlwlnFnK5LRTozIBW9zmX86tRw4wOD5OfHK6u4eB/z1/d3FbO8Nocb/J+zrAxtlAAjj6zkhUx+aNdJfIETcSvFWzVhDnevNPsv8t042ElVHYDp1fSeirCCJOAlAicmUaXwlZxkdhFBEJStJbDfz6ECaS5D8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789999261; c=relaxed/simple;
-	bh=BjKTZbAvk8PZTX6NDEPBbU5QxCiJduqiAoJFAirt5G0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=DFNkc1bxZcZR3gnEox+S/6zzPGQtQFJF4l/0uNL29cXKBQhi7J8QdZyLonEuJ5BN7EyTWOh/sBVuO4NP5iJobhvTf0aaZatyx/IbTssJ7bQKqIH5EuFZwXfAod4Ktrn6v7mtH+b0W9qjtHAaLaCuAYy7w4TUSIrk7iDiQAwrcEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=lwzOx/o4; arc=none smtp.client-ip=52.59.177.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	bh=7XtlfrK40huuj6vpmOrrjxcwYCnfO4Zm2EaDXg0igmI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=L/D8966ipnQ+R+xHeB6bu3HF6rDQppKjQAvfUoGxUZ46VwM7Pk2FcnBtSV/k6i1LK01astgdYFYvALy5pl8GwvgwSEB1kEtHS638FE8HDNrEFQsGoe50LeoAX3QBWXnSFXmjPR3bm4onbqvIvzo9J6u1HTltZ5fFkHIiwMY0Usg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mddYD6vf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="lwzOx/o4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1789999214;
-	bh=BjKTZbAvk8PZTX6NDEPBbU5QxCiJduqiAoJFAirt5G0=;
-	h=Mime-Version:Date:Message-Id:From:To:Subject;
-	b=lwzOx/o4gvVpZRvqkofD7NRSobSfd8818rJqmlrJx/dzgjPVvUgjcsjNpeZllIxCR
-	 E23oMhdTm/brnMFPlNXjnSPZ2RbYb9W+bDV2VV+L0XL5hbzca/uNfx1N9tw8AWit7i
-	 ErGuQT60OP6jAVKBgn6XnDIJlEite//pqCSJ0XtI=
-X-QQ-mid: esmtpsz11t1789999213tcee6ff1c
-X-QQ-Originating-IP: e1USqraHe/XK8utXY0OK78zXThfLDLub5KhFAHGc3ZA=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 21 Sep 2026 22:00:11 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 5811935857291138792
-EX-QQ-RecipientCnt: 15
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mddYD6vf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E76311F000FF;
+	Mon, 21 Sep 2026 14:00:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789999260;
+	bh=2xm53hiaZiodtPVHAP6+ZFPUINfjYH/ykzpiGziyEJc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mddYD6vf55soVZqs3dAWnXzK3EaIiB4+NjlJxyaKr0zBAyk0if8qRwBuBaxI5xB80
+	 +oeW0PAObK5bNsA3nb6bNfP8CttusEVK2/wTVu5rfKSBrUeE98nT3qtN1mbXXYGB7e
+	 O1bW+vzHFJrMqQJx0DOaZ+ltuS5l0AiS625/txfdYfDuGp2eTEqlJ2sqBITWgVigrx
+	 DJedp0Gt1yJLuEQOAOs1SUkxdVqBSxMFHbixQfxsHlzVima7S/+01he0QjvuGZItCa
+	 G9nrbvO9Q9rjOZbrXOu+FDXJ23nwemvw4WJYiUCtJBEd+YJ4kKxkt4w7pWroraFroA
+	 gBN2qs3eIW1bA==
+Message-ID: <6fa3b1a7-33bb-4619-a0a5-42d99c076d2f@kernel.org>
+Date: Mon, 21 Sep 2026 16:00:52 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=8db083407c1172cd2c3ba6047b5480e3683357a2fb171ccebc9ea7e618e4;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Mon, 21 Sep 2026 22:00:08 +0800
-Message-Id: <DLL1RG8HO5F4.3SW5317Y4S1F8@linux.spacemit.com>
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Muhammad Bilal" <meatuni001@gmail.com>, <andrew+netdev@lunn.ch>
-Cc: <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
- <pabeni@redhat.com>, <dlan@kernel.org>, <wangruikang@iscas.ac.cn>,
- <vadim.fedorenko@linux.dev>, <maxime.chevallier@bootlin.com>,
- <troy.mitchell@linux.spacemit.com>, <netdev@vger.kernel.org>,
- <linux-riscv@infradead.org>, <spacemit@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] net: spacemit: clear TX descriptor on fragment mapping
- failure
-X-Mailer: aerc 0.21.0-reader-ipc2
-References: <20260919191937.271202-1-meatuni001@gmail.com>
-In-Reply-To: <20260919191937.271202-1-meatuni001@gmail.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NMLz7BNYansuq7cBx9b01GSNSYrAlBj/Jj69MhypwF17CBPuklNDug9z
-	1JO5hBk7YrdxiYOSnn3efUVnPQLhCB7Nb1Z1tKjvxqX908deYXSFrbmfRj8m1x0IIPMUQqc
-	5nCvzQdXSLfWyDbJVt2BSlSz/u6r4HmWBdD7sB3FA07upKy/Fc2CZ0SGHWm2rd9+NrHaHSr
-	f9ONHvl/wpQ+ZCHBNAxVkFFOuDl4RCLRyyo9uFyaPbjdryg9Mus7OBjZ4c0UkjxSHrPpt77
-	EwLEm6m6DyVIb9fWXIDaigFNuaYY0q3K8b30AUUgBRxmVraLMR1Auk6Ur1pjN973LuJyBHq
-	XpUTZfIyN8uasLW6/+OIUy9Z7/uYeR2EwwwfhU01tAX+EBypwjSdxCPvyrM8o//90KodSet
-	yyCQB6p7qwabEENZ+sSjPLbLyWTEYm4Wb50n//YNuH1IrSKm5rbITrG3pmUHNcCR5BzQVNu
-	EXrQkhQLdrqwROrWlgBPnlpPYK1bm344bqV9WY3gVWgB7h7VAnKhq3XUSi8FcrK3nq1z6dO
-	JDukbLY6nZ9/vkO7zpH4DLD861fqAC8f0CVq/1gQCsqU9PezqTo4JLFpxXE8DKam6TEUv2o
-	hbztu+rkTX++H7m1XGP3XzDnB1rgwr31PsJBFlyiCziC4aN4zjYRlERCiLNWjocCx4TBahc
-	/66bYLCcVOY1oY+1yA+wqQ3uZT59oxe45pogLq7mUXYhIduvQ4Y1fzVGTaQfWlYqjwy10iu
-	+CE+KvjW1DR+FF+VKivsDfd4dvGzTVKe7sIiGo++aFAxtm3pQYVGfLX3kW3BQGdfZMeqHHP
-	mELuBewDppfcd4zkTcP5ETRx8hw9XI3A224NaQy41qm/UN9teQ8MrPTH3THUHLC8F+6ssVL
-	nAeoKNMUG7+wd+sEHr7cVGA2AIZAYDBAKf3C5MdjlG1p5yVoi3MfWMEtAWHfJTQWVz9jedC
-	lO4NzixRuv5OnNzUqz/0fC639E12YAfrnQgRzh1/LDHnWh7ffJ0thVi+13+BWeEPRY2Hv2q
-	G10vPHm3kKtp5wDYy0Vgm5VkuI3f3LroWb6lf4gW21r+RIEr3i/MDN2Vo1X+z1czQ4EvHTd
-	S7YxbYCS6na9SjHDdol12pnaULy/Evg+v46zuq3UT8cT1c1sUnx6KFICAbQVpnX9g==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
-
---8db083407c1172cd2c3ba6047b5480e3683357a2fb171ccebc9ea7e618e4
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: i2c: dw: Add DWC_i2c compatible
+To: Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Aniket Limaye <a-limaye@ti.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nirujogi Pratap <pratap.nirujogi@amd.com>,
+ Bin Du <bin.du@amd.com>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, vigneshr@ti.com,
+ nm@ti.com, u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
+ Ritwick.Sharma@arm.com
+References: <20260919-tda54-upstream-i2c-v1-0-b0b9f77be18b@ti.com>
+ <20260919-tda54-upstream-i2c-v1-1-b0b9f77be18b@ti.com>
+ <20260920-warm-lurking-poodle-dd73ee@quoll>
+ <de66ac18-6bc3-4693-bd76-df8113bdb914@ti.com>
+ <20260921111407.GU106095@black.igk.intel.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260921111407.GU106095@black.igk.intel.com>
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun Sep 20, 2026 at 3:19 AM +08, Muhammad Bilal wrote:
-> emac_tx_mem_map() writes TX_DESC_0_OWN into the ring descriptor for
-> every slot beyond old_head as soon as that slot's memset()'d local
-> copy is committed with "*tx_desc_addr =3D tx_desc", i.e. before the
-> buffers for that slot have necessarily all been mapped successfully.
-> If emac_tx_map_frag() then fails on a later fragment, the err_free_skb
-> path calls emac_free_tx_buf() to unmap and drop the skb, but leaves
-> the already-written descriptor memory untouched, and tx_ring->head is
-> never advanced past old_head (the "tx_ring->head =3D head" store is
-> skipped by the goto).
->
-> So a slot between old_head and the rolled-back head can be left with
-> TX_DESC_0_OWN set and buffer_addr_{1,2} pointing at DMA mappings that
-> emac_free_tx_buf() just tore down, while software considers that slot
-> free again. The next successful emac_tx_mem_map() call only rebuilds
-> old_head itself; if the DMA engine auto-advances into the following
-> descriptor once it finishes old_head's packet, it will fetch that
-> stale, already-unmapped address.
->
-> emac_tx_clean_desc() already treats emac_free_tx_buf() and clearing
-> the descriptor as a pair when reclaiming completed descriptors; do
-> the same in the mapping failure path.
->
-> Fixes: bfec6d7f2001 ("net: spacemit: Add K1 Ethernet MAC")
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+On 21/09/2026 13:14, Mika Westerberg wrote:
+> Hi,
+> 
+> On Mon, Sep 21, 2026 at 01:55:23PM +0530, Aniket Limaye wrote:
+>>
+>> On 20/09/26 23:54, Krzysztof Kozlowski wrote:
+>>> On Sat, Sep 19, 2026 at 02:36:06PM +0530, Aniket Limaye wrote:
+>>>> Add the "snps,dwc-i2c" compatible for Synopsys Advanced I2C Controller
+>>>> referred as DWC_i2c. Compared to the existing "snps,designware-i2c"
+>>> dwc is designware, so snps,dwc-i2c = snps,designware-i2c
+>>>
+>>> I think this is *the* argument why generic compatibles are wrong.
+>>
+>> These are 2 different controllers with some different registers and
+>> vastly different register offsets.
+>>
+>> So, the official product name (short format) for the SNPS Advanced I2C
+>> controller is "DWC_i2c", as per SNPS' own reference document [0].
+>> Whereas the original "snps,designware-i2c" corresponds to the product
+>> name "DW_apb_i2c" as per its own databook [1].
+>>
+>> So based on this I though it'd be best to keep "dwc-i2c" close to SNPS'
+>> own naming, despite the fact that it does seem very similar to the
+>> generic "snps,designware-i2c".
+>>
+>> If you'd prefer to make it more explicit, I could change this to something
+>> like "snps,dwc-adv-i2c"? Although, again, this does deviate from the
+>> convention that SNPS uses in it's own documents.
+> 
+> What about just "snps,ai2c" or "snps,advanced-i2c"?
+
+Can we just drop generic compatible completely instead? The block cannot
+work alone, needs SoC integration.
 
 
---=20
-Troy Mitchell
-
-
---8db083407c1172cd2c3ba6047b5480e3683357a2fb171ccebc9ea7e618e4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCarE4aA0caUB0cm95LXku
-b3JnAAoJEJgJ74D5MzQvPdQA/ioqCUd+mMep/heePmg5POSbHw82i4VRu6knBx0i
-8jH8AQDj75L3k8wrRYCpPUky/Qvp1psGOvf7SoMGSkxnf3IVBQ==
-=ZUei
------END PGP SIGNATURE-----
-
---8db083407c1172cd2c3ba6047b5480e3683357a2fb171ccebc9ea7e618e4--
+Best regards,
+Krzysztof
