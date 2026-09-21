@@ -1,314 +1,452 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891E851AEDD;
-	Mon, 21 Sep 2026 22:10:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F81D51A12F
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:11:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790028667; cv=none; b=IBNeLMC0A4caCAsS6d8YDRgXlv7phFKKxg1+QJLqC/OQGl5ryja3MZRWStw+1yU52KPEinLn/UJ5dh8aoiqxr+rqz5NKIt4qrDHZHkIYrWSNX3jT6P9kvzOgDLebGQYtZoFTCvBAuk3NGPK8T0s3o4gtuUC2oTXpiK/r32cHi0s=
+	t=1790028714; cv=none; b=hvWYR5lgfJ3tEZalDY/Xeer8+h1PSZyJfxkC5NFqJK6DWDbsbAeHskfHDSVPszaSkN/qwiaYCPoHdji8Bq/bQvoShKGJpJcVVgWuzqXl4Nz3rKucEYnSMHDdydigkUghp6fLYnXJzjYY2sIl7BS7exsBOJR7jfzJ7G4dYZejI4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790028667; c=relaxed/simple;
-	bh=ahvApTuV93FnF7RlCR5yIQ7UANPnWf6Mi3CgsRYjUAA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=klNWEjdV5JIHQrYiB3c/6o/YLKrITog/qntPfvjCeOv59uRnTOmGrvUi9PH2SSuCvv0z5eNKAsaqXlOA+eYuQe8pBVi9mMugWMvEhVUXAGwGJ+33P/Vrwyq6IzRYITnCZkRf9YHV6SzN8bQpPTiluJsRLYurkw48y2fB+Ooom8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KiShhQDr; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790028714; c=relaxed/simple;
+	bh=q0b06H+N0ITPh2NinCByKwKWrM2C2VKLzILYbz5IuNs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xy9lqU89BOqn0/lVSzXXWg6wiWeEESgl97zoE5hRMtb4g6/xk0EVRc6Pe14j75qh4WEBdEcDdrGFxqfjs3+kTZPpSUP2DQaYw32sI8hbfBI9pZgbEICkpnv6gOmiytuMWeojhd2EXGbztkg0bmt+tn+9B9RrvwEp4VJL74dKxYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Yhdfh/nr; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=O2NKIQeI; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KiShhQDr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790028657; x=1821564657;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ahvApTuV93FnF7RlCR5yIQ7UANPnWf6Mi3CgsRYjUAA=;
-  b=KiShhQDrEvBWxC7HsEzPFQ1VRHFkX5ABYx+XmL8EHLgLdX0Ig2vI4qYj
-   GHVqynA+bDGPOX1J882krxTuSlcC+K1BxcgDtOJzUyiObtoElRc+DN6HI
-   JyS82nuznO8EiYPF/yctbuA6lMpfZhCGaGotCZdGr30ogUTFRbnDdWPtC
-   v6xcO4Z/Z6BpU+Nc2drNf5mS2bLFxyhGz6/RqWL70azINoXmD/pjfUUvw
-   k//rtY8WQQfc1aGQX8YjEbgyWCvf5eV1znZYXIiQPeZVR6xZ2d3ea6BPv
-   yb+Paf2x0o8aMsmmznZdlbP5lK7YKdqH1MypEa5U46YdWWtVXrMWEG+Mq
-   Q==;
-X-CSE-ConnectionGUID: s+NDD+wZTJSQcS7gLJ9tnQ==
-X-CSE-MsgGUID: URi8DdzURIeSB579hx4GpQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="90702320"
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
-   d="scan'208";a="90702320"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 15:10:53 -0700
-X-CSE-ConnectionGUID: 7IERfhlGR2G5paaxUJA6iA==
-X-CSE-MsgGUID: eYn6C2dCRESg/jcyOaTySw==
-X-ExtLoop1: 1
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO [10.245.244.175]) ([10.245.244.175])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 15:10:51 -0700
-Message-ID: <9c0f7132-995e-464c-b9f1-b6f240af5abb@linux.intel.com>
-Date: Tue, 22 Sep 2026 01:10:48 +0300
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Yhdfh/nr";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="O2NKIQeI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790028708;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AEt+ciqD7T2EQYKNoKayyfuhYvhsmv+e842rE5yabjs=;
+	b=Yhdfh/nr/iQ6yDBnbJI7fnoXv5OO7Ji2RpLamsaqlTvljhEUdqNxiD6g0Va7aMoAiLIYev
+	IBKysKPODTsTJN3xnZaheKZEfIS8BL3MHXyGcSoNM7kk+wR3QYRPSEFJj2CHn4ZPElDLFg
+	g+cCZmeB8fKiATpuXYxdXXD9PEfdhiU=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-196-F4Qdo0d1Oti0ZhdyjsMPHg-1; Mon, 21 Sep 2026 18:11:46 -0400
+X-MC-Unique: F4Qdo0d1Oti0ZhdyjsMPHg-1
+X-Mimecast-MFC-AGG-ID: F4Qdo0d1Oti0ZhdyjsMPHg_1790028706
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49e65f2f1baso39760795e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:11:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790028705; x=1790633505; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AEt+ciqD7T2EQYKNoKayyfuhYvhsmv+e842rE5yabjs=;
+        b=O2NKIQeI2xkarFxNJgA9sY+8oiRfNmyTSl0LuH3Sf7BnASx7ixjfyojUu7x1RTcQwf
+         +dMGXdpbcTZfb8SPfZ00Nsayis1XJK8dWTB+wKHQlXaMXddqyqG+CMmbaZ7J5w2ZFV8E
+         2gxYzokfX3wHYMH+HWasJOXbj17XChtYvXudv/vUOhnApgGSCcita9v1V0N1qNzRDDTL
+         y7vDBm4Fz0XJK7hzfJYbubdCf/uH+1GZtirwJdndBnynmyDwxrFHppmmKJBqDCE6Uudm
+         MtSDVgRpw7dzsco6nW3+tLo12ioSzQQkbzuVwOMp8BsiRXnzq+rzQI6zwF00uPOVofCM
+         djew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790028705; x=1790633505;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AEt+ciqD7T2EQYKNoKayyfuhYvhsmv+e842rE5yabjs=;
+        b=AGy0gw45MZvLTqbJMTHB074uT4I88JZluAXUb5hxeYdo+rqgJtwB7NjQTv61o1w96L
+         YyBQite/QyenC9Q9Gpi0U4xM5HNlioSMDTr/8fC/2X8+ECO0q3ARUe5z1TF8g9NaVdS1
+         MI2LvDkh25YjwMp/6JMROehqkl92umhHBKP9x5FY5nmeRX65u6yVzi13xNo2OFf5vmag
+         f/BlpjFP0Ewoji05nuXYSGNJ7A6vAGq1g6O1Q5M2IqfZbzrPh81JtfdwmVZdHFfCO1//
+         mqkOUlpCpwvW52jrQMdva1DCCBN7wjuMpG6K95NF5s5nfkV9MjAw2BP758LOpb2sos61
+         KwBg==
+X-Forwarded-Encrypted: i=1; AKwUvBz4cHkGY7pwk4E/8kYacsZr+1+C2OawhPz0WWb5fUkzWb7gY5iRSg4nj+cNn90FWMjvhM9+i4dAeJH9e98=@vger.kernel.org
+X-Gm-Message-State: AFuF++nY8hEUbKC9G7QRripRG5xcUV2hdox7bopvwkxc0r6yF6WBJCNZ
+	oIfFo2XEA6v/i0Z9D8oRt/XgB8hEVCq9HwOumtKdXT4d5BffHlJ3bYp9YARggZwBA3I+IConz89
+	WqJmJ7wu2mpmEg/1PXIhvBbLWzOL0qJlBSMkvZNf33ilFGFhSNXvs0m8d4pDiroJ2HA==
+X-Gm-Gg: AYBFou2Hpn3oGkOsmOZBhLJXRCuo4uBA0DQ30NmV/NRh4Ao8zAgdPLmFt4RxMOP7J5j
+	rvxcP6OVra96XU4wV5ECu+JMpg4Qo5AL/U+2CdmjYD8GlJNAdicMtwjvZ0f1y0cG/N3TIZEiqLE
+	JlcmgV8E0W+yMgyds/qtYnu/Xgi2c3mHAoBW1hpwsPt/TVVybEmCjGhR5yd764L8+rZceUhlhba
+	JSJmo2XzukE9pM3zwVJ1DgddcBzZXbvJ/dFcGNyUUnTIXKaekrhkdt+LX4Z9tLQ6xfjWgIxjOVJ
+	60GefVJZdhw3WUsfFjyIsJ2D3G35jA/sXimzJ61BdjZ9bxEQO9DD6oXBuBuabPE7DvixcCmZt0H
+	9B8AWxCL6F4koQzMD+ap4K7s=
+X-Received: by 2002:a05:600c:4f09:b0:493:aa0a:45ad with SMTP id 5b1f17b1804b1-49fc56692c6mr166467295e9.2.1790028705427;
+        Mon, 21 Sep 2026 15:11:45 -0700 (PDT)
+X-Received: by 2002:a05:600c:4f09:b0:493:aa0a:45ad with SMTP id 5b1f17b1804b1-49fc56692c6mr166467095e9.2.1790028704912;
+        Mon, 21 Sep 2026 15:11:44 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fda8f04f7sm2635925e9.0.2026.09.21.15.11.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 15:11:44 -0700 (PDT)
+Date: Mon, 21 Sep 2026 18:11:39 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Paulos Yibelo <habte.yibelo@gmail.com>
+Cc: netdev@vger.kernel.org, richard@nod.at, anton.ivanov@cambridgegreys.com,
+	johannes@sipsolutions.net, willemdebruijn.kernel@gmail.com,
+	jasowangio@gmail.com, eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com, andrew+netdev@lunn.ch,
+	pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, razor@blackwall.org,
+	idosch@nvidia.com, dsahern@kernel.org, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, linux-um@lists.infradead.org,
+	virtualization@lists.linux.dev, netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org, bridge@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v5 1/2] net: validate virtio checksum start after
+ network header
+Message-ID: <20260921181115-mutt-send-email-mst@kernel.org>
+References: <20260920004733.6473-1-habte.yibelo@gmail.com>
+ <20260921025341.44846-1-habte.yibelo@gmail.com>
+ <20260921025341.44846-2-habte.yibelo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] usb: xhci: Allow custom op for
- usb_link_tunnel_mode reporting
-To: Konrad Dybcio <konradybcio@kernel.org>,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Mathias Nyman <mathias.nyman@intel.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- usb4-upstream@oss.qualcomm.com,
- Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Sven Peter <sven@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260901-topic-dwc3_tunneling_state-v3-0-22fdced8de55@oss.qualcomm.com>
- <20260901-topic-dwc3_tunneling_state-v3-3-22fdced8de55@oss.qualcomm.com>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <20260901-topic-dwc3_tunneling_state-v3-3-22fdced8de55@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921025341.44846-2-habte.yibelo@gmail.com>
 
-On 9/1/26 13:05, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Sun, Sep 20, 2026 at 10:53:40PM -0400, Paulos Yibelo wrote:
+> __virtio_net_hdr_to_skb() rejects a CHECKSUM_PARTIAL start smaller than
+> an estimated minimum network-header length. Its input offsets are relative
+> to skb->data.
 > 
-> The Thunderbolt framework relies on the USB core to create device links
-> for tunneled ports, so that the USB3 controller is only kept
-> runtime-resumed for the duration of the tunneling.
+> Using skb_network_offset() here is unsafe. TUN/TAP, virtio-net, and UML
+> parse a received virtio header before skb->network_header is established.
+> On an skb with headroom, the resulting negative offset enlarges the
+> apparent distance to the transport header and can admit a checksum start
+> inside the network header.
 > 
-> Currently, retrieving that information is only possibe on Intel XHCI
-> hosts, through a vendor-specific capability. Extend xhci-plat to allow
-> plumbing a custom one.
+> Pass the data-relative L3 offset to the converter explicitly. IFF_TUN uses
+> zero, AF_PACKET supplies its established network offset, and Ethernet
+> receive paths parse Ethernet and nested VLAN headers with
+> skb_header_pointer(), without changing skb state. Use the same origin for
+> tunnel-offset validation, and make UML propagate conversion failures.
 > 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> This does not require a virtual-machine guest. A TUN or TAP device with
+> virtio-net header support is sufficient to reach these paths.
+> 
+> Fixes: 49d14b54a527 ("net: test for not too small csum_start in virtio_net_hdr_to_skb()")
+> Fixes: a2fb4bc4e2a6 ("net: implement virtio helpers to handle UDP GSO tunneling.")
+> Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
+> Link: https://lore.kernel.org/netdev/20260920004733.6473-2-habte.yibelo@gmail.com/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Paulos Yibelo <habte.yibelo@gmail.com>
+
+
+v4 had assisted-by tag? same q for patch 2.
+
 > ---
->   drivers/usb/host/xhci-hub.c  | 13 +++++++++----
->   drivers/usb/host/xhci-plat.c |  2 ++
->   drivers/usb/host/xhci-plat.h |  1 +
->   drivers/usb/host/xhci.c      |  3 ++-
->   drivers/usb/host/xhci.h      |  5 ++++-
->   5 files changed, 18 insertions(+), 6 deletions(-)
+> Changes in v5:
+> - Replace the not-yet-established skb network-header offset with an
+>   explicit data-relative L3 origin.
+> - Cover all in-tree callers, including Ethernet/VLAN receive paths,
+>   tunnel metadata, and UML error propagation.
+> - Drop the prior Acked-by and Reviewed-by tags because the code changed.
 > 
-> diff --git a/drivers/usb/host/xhci-hub.c b/drivers/usb/host/xhci-hub.c
-> index 80f07bd5081d..c585e4d02d84 100644
-> --- a/drivers/usb/host/xhci-hub.c
-> +++ b/drivers/usb/host/xhci-hub.c
-> @@ -749,7 +749,7 @@ static int xhci_exit_test_mode(struct xhci_hcd *xhci)
->   }
->   
->   /**
-> - * xhci_port_is_tunneled() - Check if USB3 connection is tunneled over USB4
-> + * xhci_port_tunnel_mode() - Check if USB3 connection is tunneled over USB4
->    * @xhci: xhci host controller
->    * @port: USB3 port to be checked.
->    *
-> @@ -763,7 +763,7 @@ static int xhci_exit_test_mode(struct xhci_hcd *xhci)
->    * detecting USB3 over USB4 tunnels. USB_LINK_NATIVE or USB_LINK_TUNNELED
->    * otherwise.
->    */
-> -enum usb_link_tunnel_mode xhci_port_is_tunneled(struct xhci_hcd *xhci,
-> +enum usb_link_tunnel_mode xhci_port_tunnel_mode(struct xhci_hcd *xhci,
->   						struct xhci_port *port)
->   {
->   	struct usb_hcd *hcd;
-> @@ -782,8 +782,13 @@ enum usb_link_tunnel_mode xhci_port_is_tunneled(struct xhci_hcd *xhci,
->   	/* Fall back to the legacy Intel-specific ext_cap */
->   	hcd = xhci_to_hcd(xhci);
->   	if (!dev_is_pci(hcd->self.controller) ||
-> -	    to_pci_dev(hcd->self.controller)->vendor != PCI_VENDOR_ID_INTEL)
-> -		return USB_LINK_UNKNOWN;
-> +	    to_pci_dev(hcd->self.controller)->vendor != PCI_VENDOR_ID_INTEL) {
-> +		/* Last chance - if the controller has a custom tunnel_mode op, try that */
-> +		if (xhci->tunnel_mode)
-> +			return xhci->tunnel_mode(xhci_to_hcd(xhci), port->hcd_portnum);
-> +		else
-> +			return USB_LINK_UNKNOWN;
+> Changes in v4:
+> - State that a TUN device is sufficient and no guest is required, as
+>   noted by Michael S. Tsirkin.
+> 
+> Changes in v3:
+> - Keep the network-relative comparison on one line for readability, as
+>   requested by David Ahern.
+> 
+> Changes in v2:
+> - Make nh_min_len an int and remove the casts, as suggested by Michael S.
+>   Tsirkin.
+> 
+>  arch/um/drivers/vector_transports.c | 10 +++-
+>  drivers/net/tun_vnet.h              | 28 ++++++++++-
+>  drivers/net/virtio_net.c            |  8 ++-
+>  include/linux/virtio_net.h          | 76 +++++++++++++++++++++++------
+>  net/packet/af_packet.c              |  6 ++-
+>  5 files changed, 106 insertions(+), 22 deletions(-)
+> 
+> diff --git a/arch/um/drivers/vector_transports.c b/arch/um/drivers/vector_transports.c
+> index ddd127ee9..79bc05fc6 100644
+> --- a/arch/um/drivers/vector_transports.c
+> +++ b/arch/um/drivers/vector_transports.c
+> @@ -197,6 +197,7 @@ static int raw_verify_header(
+>  	uint8_t *header, struct sk_buff *skb, struct vector_private *vp)
+>  {
+>  	struct virtio_net_hdr *vheader = (struct virtio_net_hdr *) header;
+> +	int network_offset;
+>  
+>  	if ((vheader->gso_type != VIRTIO_NET_HDR_GSO_NONE) &&
+>  		(vp->req_size != 65536)) {
+> @@ -209,8 +210,13 @@ static int raw_verify_header(
+>  	if ((vheader->flags & VIRTIO_NET_HDR_F_DATA_VALID) > 0)
+>  		return 1;
+>  
+> -	virtio_net_hdr_to_skb(skb, vheader, virtio_legacy_is_little_endian());
+> -	return 0;
+> +	network_offset = virtio_net_hdr_get_l3_offset(skb, vheader);
+> +	if (network_offset < 0)
+> +		return network_offset;
+> +
+> +	return virtio_net_hdr_to_skb(skb, vheader,
+> +				     virtio_legacy_is_little_endian(),
+> +				     network_offset);
+>  }
+>  
+>  static bool get_uint_param(
+> diff --git a/drivers/net/tun_vnet.h b/drivers/net/tun_vnet.h
+> index f4c652b1f..1c83c359d 100644
+> --- a/drivers/net/tun_vnet.h
+> +++ b/drivers/net/tun_vnet.h
+> @@ -177,10 +177,27 @@ static inline int tun_vnet_hdr_put(int sz, struct iov_iter *iter,
+>  	return __tun_vnet_hdr_put(sz, 0, iter, hdr);
+>  }
+>  
+> +static inline int
+> +tun_vnet_hdr_get_l3_offset(unsigned int flags, const struct sk_buff *skb,
+> +			   const struct virtio_net_hdr *hdr)
+> +{
+> +	if ((flags & TUN_TYPE_MASK) != IFF_TAP)
+> +		return 0;
+> +
+> +	return virtio_net_hdr_get_l3_offset(skb, hdr);
+> +}
+> +
+>  static inline int tun_vnet_hdr_to_skb(unsigned int flags, struct sk_buff *skb,
+>  				      const struct virtio_net_hdr *hdr)
+>  {
+> -	return virtio_net_hdr_to_skb(skb, hdr, tun_vnet_is_little_endian(flags));
+> +	int network_offset = tun_vnet_hdr_get_l3_offset(flags, skb, hdr);
+> +
+> +	if (network_offset < 0)
+> +		return network_offset;
+> +
+> +	return virtio_net_hdr_to_skb(skb, hdr,
+> +				     tun_vnet_is_little_endian(flags),
+> +				     network_offset);
+>  }
+>  
+>  /*
+> @@ -199,10 +216,17 @@ tun_vnet_hdr_tnl_to_skb(unsigned int flags, netdev_features_t features,
+>  			struct sk_buff *skb,
+>  			const struct virtio_net_hdr_v1_hash_tunnel *hdr)
+>  {
+> +	const struct virtio_net_hdr *vnet_hdr = (const struct virtio_net_hdr *)hdr;
+> +	int network_offset = tun_vnet_hdr_get_l3_offset(flags, skb, vnet_hdr);
+> +
+> +	if (network_offset < 0)
+> +		return network_offset;
+> +
+>  	return virtio_net_hdr_tnl_to_skb(skb, hdr,
+>  				features & NETIF_F_GSO_UDP_TUNNEL,
+>  				features & NETIF_F_GSO_UDP_TUNNEL_CSUM,
+> -				tun_vnet_is_little_endian(flags));
+> +				tun_vnet_is_little_endian(flags),
+> +				network_offset);
+>  }
+>  
+>  static inline int tun_vnet_hdr_from_skb(unsigned int flags,
+> diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+> index e34c52d05..059eeb18e 100644
+> --- a/drivers/net/virtio_net.c
+> +++ b/drivers/net/virtio_net.c
+> @@ -2502,6 +2502,7 @@ static void virtnet_receive_done(struct virtnet_info *vi, struct receive_queue *
+>  {
+>  	struct virtio_net_common_hdr *hdr;
+>  	struct net_device *dev = vi->dev;
+> +	int network_offset;
+>  
+>  	hdr = skb_vnet_common_hdr(skb);
+>  	if (dev->features & NETIF_F_RXHASH && vi->has_rss_hash_report)
+> @@ -2515,9 +2516,12 @@ static void virtnet_receive_done(struct virtnet_info *vi, struct receive_queue *
+>  		goto frame_err;
+>  	}
+>  
+> -	if (virtio_net_hdr_tnl_to_skb(skb, &hdr->tnl_hdr, vi->rx_tnl,
+> +	network_offset = virtio_net_hdr_get_l3_offset(skb, &hdr->hdr);
+> +	if (network_offset < 0 ||
+> +	    virtio_net_hdr_tnl_to_skb(skb, &hdr->tnl_hdr, vi->rx_tnl,
+>  				      vi->rx_tnl_csum,
+> -				      virtio_is_little_endian(vi->vdev))) {
+> +				      virtio_is_little_endian(vi->vdev),
+> +				      network_offset)) {
+>  		net_warn_ratelimited("%s: bad gso: type: %x, size: %u, flags %x tunnel %d tnl csum %d\n",
+>  				     dev->name, hdr->hdr.gso_type,
+>  				     hdr->hdr.gso_size, hdr->hdr.flags,
+> diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
+> index c381b916c..a4c005796 100644
+> --- a/include/linux/virtio_net.h
+> +++ b/include/linux/virtio_net.h
+> @@ -48,11 +48,49 @@ static inline int virtio_net_hdr_set_proto(struct sk_buff *skb,
+>  	return 0;
+>  }
+>  
+> +/*
+> + * Return the L3 offset of an Ethernet frame starting at skb->data.
+> + * The offset is unused without NEEDS_CSUM, so avoid parsing and return zero.
+> + */
+> +static inline int
+> +virtio_net_hdr_get_l3_offset(const struct sk_buff *skb,
+> +			     const struct virtio_net_hdr *hdr)
+> +{
+> +	unsigned int parse_depth = VLAN_MAX_DEPTH;
+> +	const struct ethhdr *eth;
+> +	struct ethhdr ethbuf;
+> +	__be16 protocol;
+> +	int depth = ETH_HLEN;
+> +
+> +	if (!(hdr->flags & VIRTIO_NET_HDR_F_NEEDS_CSUM))
+> +		return 0;
+> +
+> +	eth = skb_header_pointer(skb, 0, sizeof(ethbuf), &ethbuf);
+> +	if (!eth)
+> +		return -EINVAL;
+> +
+> +	protocol = eth->h_proto;
+> +	while (eth_type_vlan(protocol)) {
+> +		const struct vlan_hdr *vh;
+> +		struct vlan_hdr vhdr;
+> +
+> +		vh = skb_header_pointer(skb, depth, sizeof(vhdr), &vhdr);
+> +		if (!vh || !--parse_depth)
+> +			return -EINVAL;
+> +
+> +		protocol = vh->h_vlan_encapsulated_proto;
+> +		depth += VLAN_HLEN;
 > +	}
->   
->   	base = &xhci->cap_regs->hc_capbase;
->   	offset = xhci_find_next_ext_cap(base, 0, XHCI_EXT_CAPS_INTEL_SPR_SHADOW);
-> diff --git a/drivers/usb/host/xhci-plat.c b/drivers/usb/host/xhci-plat.c
-> index 6fd595f81a30..c19bc5d7a7b5 100644
-> --- a/drivers/usb/host/xhci-plat.c
-> +++ b/drivers/usb/host/xhci-plat.c
-> @@ -244,6 +244,8 @@ int xhci_plat_probe(struct platform_device *pdev, struct device *sysdev, const s
->   		priv = hcd_to_xhci_priv(hcd);
->   		/* Just copy data for now */
->   		*priv = *priv_match;
 > +
-> +		xhci->tunnel_mode = priv->tunnel_mode;
->   	}
->   
->   	device_set_wakeup_capable(&pdev->dev, true);
-> diff --git a/drivers/usb/host/xhci-plat.h b/drivers/usb/host/xhci-plat.h
-> index 00751d851831..c5042766a486 100644
-> --- a/drivers/usb/host/xhci-plat.h
-> +++ b/drivers/usb/host/xhci-plat.h
-> @@ -22,6 +22,7 @@ struct xhci_plat_priv {
->   	int (*suspend_quirk)(struct usb_hcd *);
->   	int (*resume_quirk)(struct usb_hcd *);
->   	int (*post_resume_quirk)(struct usb_hcd *);
-> +	enum usb_link_tunnel_mode (*tunnel_mode)(struct usb_hcd *hcd, int portnum);
->   };
->   
->   #define hcd_to_xhci_priv(h) ((struct xhci_plat_priv *)hcd_to_xhci(h)->priv)
-> diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-> index 5fb78613a993..a7e3c46937fa 100644
-> --- a/drivers/usb/host/xhci.c
-> +++ b/drivers/usb/host/xhci.c
-> @@ -4762,7 +4762,8 @@ static int xhci_update_device(struct usb_hcd *hcd, struct usb_device *udev)
->   	if (hcd->speed >= HCD_USB3 && !udev->parent->parent) {
->   		port = xhci->usb3_rhub.ports[udev->portnum - 1];
->   
-> -		udev->tunnel_mode = xhci_port_is_tunneled(xhci, port);
-> +		udev->tunnel_mode = xhci_port_tunnel_mode(xhci, port);
+> +	return depth;
+> +}
 > +
->   		if (udev->tunnel_mode == USB_LINK_UNKNOWN)
->   			dev_dbg(&udev->dev, "link tunnel state unknown\n");
->   		else if (udev->tunnel_mode == USB_LINK_TUNNELED)
-> diff --git a/drivers/usb/host/xhci.h b/drivers/usb/host/xhci.h
-> index 480fcbac4525..2b5c0b304c6b 100644
-> --- a/drivers/usb/host/xhci.h
-> +++ b/drivers/usb/host/xhci.h
-> @@ -1675,6 +1675,9 @@ struct xhci_hcd {
->   	struct list_head	regset_list;
->   
->   	void			*dbc;
+>  static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
+>  					  const struct virtio_net_hdr *hdr,
+> -					  bool little_endian, u8 hdr_gso_type)
+> +					  bool little_endian, u8 hdr_gso_type,
+> +					  int network_offset)
+>  {
+> -	unsigned int nh_min_len = sizeof(struct iphdr);
+> +	int nh_min_len = sizeof(struct iphdr);
+>  	unsigned int gso_type = 0;
+>  	unsigned int thlen = 0;
+>  	unsigned int p_off = 0;
+> @@ -98,16 +136,20 @@ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
+>  		u32 start = __virtio16_to_cpu(little_endian, hdr->csum_start);
+>  		u32 off = __virtio16_to_cpu(little_endian, hdr->csum_offset);
+>  		u32 needed = start + max_t(u32, thlen, off + sizeof(__sum16));
+> +		int transport_offset;
+>  
+>  		if (!pskb_may_pull(skb, needed))
+>  			return -EINVAL;
+>  
+>  		if (!skb_partial_csum_set(skb, start, off))
+>  			return -EINVAL;
+> -		if (skb_transport_offset(skb) < nh_min_len)
 > +
-> +	enum usb_link_tunnel_mode (*tunnel_mode)(struct usb_hcd *hcd, int portnum);
-> +
-
-I don't think we should add another function pointer here.
-
-I think it makes more sense that pci and platform driver override hc_driver .update_device.
-
-The PCI override side would handle the intel parts, the platform override the dwc3 case,
-and the generic part would check the new PORTSC.TM bit
-
-PCI and generic parts would look something like this: (untested)
-
-diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
-index a8889081ae82..ad7571aeffc4 100644
---- a/drivers/usb/host/xhci-pci.c
-+++ b/drivers/usb/host/xhci-pci.c
-@@ -103,11 +103,13 @@ static int xhci_pci_setup(struct usb_hcd *hcd);
-  static int xhci_pci_run(struct usb_hcd *hcd);
-  static int xhci_pci_update_hub_device(struct usb_hcd *hcd, struct usb_device *hdev,
-  				      struct usb_tt *tt, gfp_t mem_flags);
-+static int xhci_pci_update_device(struct usb_hcd *hcd, struct usb_device *udev);
-  
-  static const struct xhci_driver_overrides xhci_pci_overrides __initconst = {
-  	.reset = xhci_pci_setup,
-  	.start = xhci_pci_run,
-  	.update_hub_device = xhci_pci_update_hub_device,
-+	.update_device = xhci_pci_update_device,
-  };
-  
-  /*
-@@ -606,6 +608,42 @@ static int xhci_pci_update_hub_device(struct usb_hcd *hcd, struct usb_device *hd
-  	return xhci_update_hub_device(hcd, hdev, tt, mem_flags);
-  }
-  
-+static void xhci_intel_port_is_tunneled(struct usb_hcd *hcd,
-+					struct usb_device *udev)
-+{
-+	struct xhci_hcd	*xhci = hcd_to_xhci(hcd);;
-+	struct xhci_port *port;
-+	void __iomem *base;
-+	u32 offset;
-+
-+	if (xhci->portsc_tunnel_reporting || udev->parent->parent)
-+		return;
-+
-+	port = xhci->usb3_rhub.ports[udev->portnum - 1];
-+
-+	base = &xhci->cap_regs->hc_capbase;
-+	offset = xhci_find_next_ext_cap(base, 0, XHCI_EXT_CAPS_INTEL_SPR_SHADOW);
-+
-+	if (offset && offset <= XHCI_INTEL_SPR_ESS_PORT_OFFSET) {
-+		offset = XHCI_INTEL_SPR_ESS_PORT_OFFSET + port->hcd_portnum * 0x20;
-+
-+		if (readl(base + offset) & XHCI_INTEL_SPR_TUNEN)
-+			udev->tunnel_mode = USB_LINK_TUNNELED;
-+		else
-+			udev->tunnel_mode = USB_LINK_NATIVE;
-+	}
-+}
-+
-+static int xhci_pci_update_device(struct usb_hcd *hcd, struct usb_device *udev)
-+{
-+	struct pci_dev *pdev = to_pci_dev(hcd->self.controller);
-+
-+	if (pdev->vendor == PCI_VENDOR_ID_INTEL && hcd->speed >= HCD_USB3)
-+		xhci_intel_port_is_tunneled(hcd, udev);
-+
-+	return xhci_update_device(hcd, udev);
-+}
-+
-  /*
-   * We need to register our own PCI probe function (instead of the USB core's
-   * function) in order to create a second roothub under xHCI.
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index d61ed5de69a2..945f6647ffad 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -4752,7 +4752,7 @@ static int xhci_set_usb2_hardware_lpm(struct usb_hcd *hcd,
-  	return 0;
-  }
-  
--static int xhci_update_device(struct usb_hcd *hcd, struct usb_device *udev)
-+int xhci_update_device(struct usb_hcd *hcd, struct usb_device *udev)
-  {
-  	struct xhci_hcd	*xhci = hcd_to_xhci(hcd);
-  	struct xhci_port *port;
-@@ -4760,9 +4760,13 @@ static int xhci_update_device(struct usb_hcd *hcd, struct usb_device *udev)
-  
-  	/* Check if USB3 device at root port is tunneled over USB4 */
-  	if (hcd->speed >= HCD_USB3 && !udev->parent->parent) {
--		port = xhci->usb3_rhub.ports[udev->portnum - 1];
--
--		udev->tunnel_mode = xhci_port_tunnel_mode(xhci, port);
-+		if (xhci->portsc_tunnel_reporting) {
-+			port = xhci->usb3_rhub.ports[udev->portnum - 1];
-+			if (xhci_portsc_readl(port) & PORT_TM)
-+				udev->tunnel_mode = USB_LINK_TUNNELED;
-+			else
-+				udev->tunnel_mode = USB_LINK_NATIVE;
-+		}
-  
-  		if (udev->tunnel_mode == USB_LINK_UNKNOWN)
-  			dev_dbg(&udev->dev, "link tunnel state unknown\n");
-@@ -5696,6 +5700,8 @@ void xhci_init_driver(struct hc_driver *drv,
-  			drv->update_hub_device = over->update_hub_device;
-  		if (over->hub_control)
-  			drv->hub_control = over->hub_control;
-+		if (over->update_device)
-+			drv->update_device = over->update_device;
-  	}
-  }
-  EXPORT_SYMBOL_GPL(xhci_init_driver);
-diff --git a/drivers/usb/host/xhci.h b/drivers/usb/host/xhci.h
-index 2b5c0b304c6b..1071879366c6 100644
---- a/drivers/usb/host/xhci.h
-+++ b/drivers/usb/host/xhci.h
-@@ -1697,6 +1697,7 @@ struct xhci_driver_overrides {
-  			    struct usb_tt *tt, gfp_t mem_flags);
-  	int (*hub_control)(struct usb_hcd *hcd, u16 typeReq, u16 wValue,
-  			   u16 wIndex, char *buf, u16 wLength);
-+	int (*update_device)(struct usb_hcd *hcd, struct usb_device *udev);
-  };
-  
-  #define	XHCI_CFC_DELAY		10
-@@ -1897,6 +1898,8 @@ int xhci_check_bandwidth(struct usb_hcd *hcd, struct usb_device *udev);
-  void xhci_reset_bandwidth(struct usb_hcd *hcd, struct usb_device *udev);
-  int xhci_update_hub_device(struct usb_hcd *hcd, struct usb_device *hdev,
-  			   struct usb_tt *tt, gfp_t mem_flags);
-+int xhci_update_device(struct usb_hcd *hcd, struct usb_device *udev);
-+
-  int xhci_disable_slot(struct xhci_hcd *xhci, u32 slot_id);
-  int xhci_disable_and_free_slot(struct xhci_hcd *xhci, u32 slot_id);
-  int xhci_ext_cap_init(struct xhci_hcd *xhci);
-
-Thanks
-Mathias
+> +		transport_offset = skb_transport_offset(skb);
+> +		if (transport_offset < nh_min_len || network_offset < 0 ||
+> +		    network_offset > transport_offset - nh_min_len)
+>  			return -EINVAL;
+>  
+> -		nh_min_len = skb_transport_offset(skb);
+> +		nh_min_len = transport_offset;
+>  		p_off = nh_min_len + thlen;
+>  		if (!pskb_may_pull(skb, p_off))
+>  			return -EINVAL;
+> @@ -206,9 +248,11 @@ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
+>  
+>  static inline int virtio_net_hdr_to_skb(struct sk_buff *skb,
+>  					const struct virtio_net_hdr *hdr,
+> -					bool little_endian)
+> +					bool little_endian,
+> +					int network_offset)
+>  {
+> -	return __virtio_net_hdr_to_skb(skb, hdr, little_endian, hdr->gso_type);
+> +	return __virtio_net_hdr_to_skb(skb, hdr, little_endian, hdr->gso_type,
+> +				       network_offset);
+>  }
+>  
+>  /* This function must be called after virtio_net_hdr_from_skb(). */
+> @@ -287,7 +331,7 @@ static inline int virtio_net_hdr_from_skb(const struct sk_buff *skb,
+>  	return 0;
+>  }
+>  
+> -static inline unsigned int virtio_l3min(bool is_ipv6)
+> +static inline int virtio_l3min(bool is_ipv6)
+>  {
+>  	return is_ipv6 ? sizeof(struct ipv6hdr) : sizeof(struct iphdr);
+>  }
+> @@ -297,18 +341,19 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+>  			  const struct virtio_net_hdr_v1_hash_tunnel *vhdr,
+>  			  bool tnl_hdr_negotiated,
+>  			  bool tnl_csum_negotiated,
+> -			  bool little_endian)
+> +			  bool little_endian, int network_offset)
+>  {
+>  	const struct virtio_net_hdr *hdr = (const struct virtio_net_hdr *)vhdr;
+> -	unsigned int inner_nh, outer_th, inner_th;
+> -	unsigned int inner_l3min, outer_l3min;
+>  	u8 gso_inner_type, gso_tunnel_type;
+>  	bool outer_isv6, inner_isv6;
+> +	int inner_nh, outer_th, inner_th;
+> +	int inner_l3min, outer_l3min;
+>  	int ret;
+>  
+>  	gso_tunnel_type = hdr->gso_type & VIRTIO_NET_HDR_GSO_UDP_TUNNEL;
+>  	if (!gso_tunnel_type)
+> -		return virtio_net_hdr_to_skb(skb, hdr, little_endian);
+> +		return virtio_net_hdr_to_skb(skb, hdr, little_endian,
+> +					     network_offset);
+>  
+>  	/* Tunnel not supported/negotiated, but the hdr asks for it. */
+>  	if (!tnl_hdr_negotiated)
+> @@ -332,19 +377,22 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+>  	outer_isv6 = gso_tunnel_type & VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6;
+>  	inner_isv6 = gso_inner_type == VIRTIO_NET_HDR_GSO_TCPV6;
+>  	inner_l3min = virtio_l3min(inner_isv6);
+> -	outer_l3min = ETH_HLEN + virtio_l3min(outer_isv6);
+> +	outer_l3min = virtio_l3min(outer_isv6);
+>  
+>  	inner_th = __virtio16_to_cpu(little_endian, hdr->csum_start);
+>  	inner_nh = le16_to_cpu(vhdr->inner_nh_offset);
+>  	outer_th = le16_to_cpu(vhdr->outer_th_offset);
+> -	if (outer_th < outer_l3min ||
+> +	if (network_offset < 0 ||
+> +	    outer_th < outer_l3min ||
+> +	    network_offset > outer_th - outer_l3min ||
+>  	    inner_nh < outer_th + sizeof(struct udphdr) ||
+>  	    inner_th < inner_nh + inner_l3min)
+>  		return -EINVAL;
+>  
+>  	/* Let the basic parsing deal with plain GSO features. */
+>  	ret = __virtio_net_hdr_to_skb(skb, hdr, true,
+> -				      hdr->gso_type & ~gso_tunnel_type);
+> +				      hdr->gso_type & ~gso_tunnel_type,
+> +				      network_offset);
+>  	if (ret)
+>  		return ret;
+>  
+> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+> index 50cae32ae..04c80e23d 100644
+> --- a/net/packet/af_packet.c
+> +++ b/net/packet/af_packet.c
+> @@ -2901,7 +2901,8 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+>  		}
+>  
+>  		if (has_vnet_hdr) {
+> -			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le())) {
+> +			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le(),
+> +						  skb_network_offset(skb))) {
+>  				tp_len = -EINVAL;
+>  				goto tpacket_error;
+>  			}
+> @@ -3103,7 +3104,8 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+>  	packet_parse_headers(skb, sock);
+>  
+>  	if (vnet_hdr_sz) {
+> -		err = virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le());
+> +		err = virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le(),
+> +					    skb_network_offset(skb));
+>  		if (err)
+>  			goto out_free;
+>  		len += vnet_hdr_sz;
+> -- 
+> 2.46.0
 
