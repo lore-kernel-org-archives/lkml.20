@@ -1,236 +1,357 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B1D486B8C;
-	Mon, 21 Sep 2026 09:27:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6971E47045A;
+	Mon, 21 Sep 2026 09:27:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982879; cv=none; b=NwBM08mOjpB2sqRofwuzLRHE6S3GFf9Ht5i9710LlHf0x8NojDaM8kZXJrKrZCFAcCIvsYk8ISoYvlTsf+xMmW2QtnxvSd/ozJjKVHPBivR1GNuotO3nF/kfpUDrtxv0WO5fb9cMDfVw8ax+kTspuv0CC8tO1uPSKbsAJwB65WU=
+	t=1789982879; cv=none; b=Gw8QlcKp0tF2DnL0JbnY1MlUxbqs93wE7atl8tLQwhOLTCUGXsWADla0UU21XqQdUmmlE5g4M2middO5/ON1+AEpkX9Ns7qlEDZbACcqqBVOU7yPZfIY1R6D2q5QQR0GolxF2CSdGTcN0DguZGMpgEIr7xhR7vq9mzqjtsw4t/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789982879; c=relaxed/simple;
-	bh=Lfy9YAv6jx6DjVpOddlqgLw4/5DRZPaX0OZJ0J1SJcc=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=mjt4drMEaSQQ3jpfPJ/SVvPNt4bmZNpoQhT5sS/bvhu8Mmu8h44YqhTFfKq4UaDBGE2s/1lIqD4gYQl5g2Tx3DVVjtOSHxUHc4tTATig+HlhvUw7EPkJLTIXJw3OKUlffJKFyHRdGtQVWHKx1XwNBH42tnL85k/tpPDMZvqsnC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Q9nBifls; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=L0ymX43K; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	bh=ZTBtfMgrW8AVZtlxHjrB7je5cwXndDnFsVDtzCf5SAk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XTgg/QNgEeVZvtTZh6IifWAUQzGpiZMy0OJv5Gewq2Z8xoLTwCmDi9CsC1OoUBWu+N6RzY0+Cb7Axb/X9ORxwLJEwF5nKHX/zjarJ/L5BPlE6/b6p5ETrF1Gy0YWMqplLIJZB7lhbK3MUUN7POqzvsFL0ry859VTjF8TE+29VcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=TkC2tykb; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Q9nBifls";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="L0ymX43K"
-Date: Mon, 21 Sep 2026 09:27:54 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789982876;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JtAzH+Qh7jUrJKHfegqSnBcUvUvC9Jvv0Oc1TmzcJWM=;
-	b=Q9nBifls+ggosE6M87rQ/V2pHEQ1AOD1O0L95qHeSy/kUBe3a8r+IxiXiNPwfifsAiI/ny
-	EvIfcZBp86bZm9UbIrkXBjGh+nRvgssS0uyU+HrsP8hX7x2f3CvM1hmMG8auYJlXKZY+wI
-	hzCmejLnwwAp1JeZK7OaM8kL5SI5Fr1ulpUlakwS13xOR+rO+BFlxQ7owfgzODmuW1b/zT
-	MC3L1yrkxm0xmyQXiEHTmY36u8VLfZenoYFc56pXItAgzuRHdSoHq/wEl674ACK+nSMsEk
-	UseQ+c/+kaTh26QHvvaTYu4a+2W4QbilFI2wX/EaWmL2h2S1pN33cpumicwTCA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789982876;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JtAzH+Qh7jUrJKHfegqSnBcUvUvC9Jvv0Oc1TmzcJWM=;
-	b=L0ymX43KALwdI/gZdU/v4wOd6Mpx1pFFsIUvQdtLvP2UZPWqGJUp/l8DPhgWpsG1CUhRH8
-	rAuNbZmUj9q1xMCA==
-From: "tip-bot2 for Song Liu" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: objtool/core] objtool/klp: Add test for __bug_table, __ex_table
- and __mcount_loc extraction
-Cc: Song Liu <song@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
- Ingo Molnar <mingo@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260916184351.2720310-41-song@kernel.org>
-References: <20260916184351.2720310-41-song@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="TkC2tykb"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 98B4F1476;
+	Mon, 21 Sep 2026 02:27:47 -0700 (PDT)
+Received: from [10.0.128.141] (unknown [10.0.128.141])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D74603F86F;
+	Mon, 21 Sep 2026 02:27:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789982871; bh=ZTBtfMgrW8AVZtlxHjrB7je5cwXndDnFsVDtzCf5SAk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=TkC2tykbS6fuXOOVNsxlJt/ZCdRJVqaSv+ZbV/fy/dp/i/FCK5r7pviztK8PJrsmN
+	 K5OUDt8Ib1Lkz4NnQEx7A4QnQ+0SH/pH/XRwppfJvtueM/pGYpy8q3aUtfoiwsuBNO
+	 kc2IYVS2cwBgcv0sa8gPseAz1rwmBbj4wCSB5zwk=
+Message-ID: <d7ccaf22-5bde-4344-8bf0-a5a17dcac0f3@arm.com>
+Date: Mon, 21 Sep 2026 10:27:46 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178998287491.2819794.4267780323283873093.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 1/7] firmware: arm_rmm: Add SMC definitions for
+ calling the RMM
+Content-Language: en-GB
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
+ <20260912083611.2513845-2-suzuki.poulose@arm.com>
+ <178978126540.2352296.16845657485139032765.b4-review@b4>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <178978126540.2352296.16845657485139032765.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The following commit has been merged into the objtool/core branch of tip:
+On 19/09/2026 02:27, Jonathan Cameron wrote:
+>> The RMM (Realm Management Monitor) provides functionality that can be
+>> accessed by SMC calls from the host.
+>>
+>> The SMC definitions are based on DEN0137[1] version 2.0-bet3
+>>
+>> [1] https://developer.arm.com/documentation/den0137/2-0bet3/
+>>
+>> Signed-off-by: Steven Price <steven.price@arm.com>
+>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> 
+> With Gavin's nitpicks and the GENMASK_ULL() from sashiko, just a few
+> comments inline.  Mostly on subtle inconsistencies that really don't
+> matter that much.
+> 
+>>   include/linux/arm-smccc-rmi.h | 497 ++++++++++++++++++++++++++++++++++
+>>   1 file changed, 497 insertions(+)
+>>   create mode 100644 include/linux/arm-smccc-rmi.h
+>>
+>> diff --git a/include/linux/arm-smccc-rmi.h b/include/linux/arm-smccc-rmi.h
+>> new file mode 100644
+>> index 000000000000..214d6228dfc2
+>> --- /dev/null
+>> +++ b/include/linux/arm-smccc-rmi.h
+>> @@ -0,0 +1,497 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 */
+>> +/*
+>> + * Copyright (C) 2023-2026 ARM Ltd.
+>> + *
+>> + * The values and structures in this file are from the Realm Management Monitor
+>> + * specification (DEN0137) version 2.0-bet3:
+>> + * https://developer.arm.com/documentation/den0137/2-0bet3/
+>> + */
+>> +
+>> +#ifndef __LINUX_ARM_SMCCC_RMI_H_
+>> +#define __LINUX_ARM_SMCCC_RMI_H_
+>> +
+>> +#include <linux/arm-smccc.h>
+>> +#include <linux/bitfield.h>
+>> +#include <linux/bits.h>
+>> +#include <linux/build_bug.h>
+>> +#include <linux/sizes.h>
+>> +
+>> +#include <asm/page.h>
+>> +
+>> +#define SMC_RMI_CALL(func)				\
+>> +	ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,		\
+>> +			   ARM_SMCCC_SMC_64,		\
+>> +			   ARM_SMCCC_OWNER_STANDARD,	\
+>> +			   (func))
+> 
+> Obviously it is v18 so probably a future thing but nothing about this
+> is RMI specific.  Could be used for ARM_SMCCC_TRNG_RND64 for instance.
+> I'm not entirely sure what we'd call such a macro
+> 
+> ARM_SMCCC_CALL_VAL64_STD() maybe?
 
-Commit-ID:     ce30479ff1d69654e455cf06b043839d43b63628
-Gitweb:        https://git.kernel.org/tip/ce30479ff1d69654e455cf06b043839d43b=
-63628
-Author:        Song Liu <song@kernel.org>
-AuthorDate:    Wed, 16 Sep 2026 11:43:33 -07:00
-Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Mon, 21 Sep 2026 11:12:07 +02:00
+ARM_SMCCC_STD_CALL64_VAL() ?
 
-objtool/klp: Add test for __bug_table, __ex_table and __mcount_loc extraction
+But, I would leave it as a wider cleanup in the tree as a separate
+series.
 
-Three special sections with no coverage.  An entry that is not carried into
-the patch is not a build failure: the patched function simply loses its
-WARN_ON location, its exception fixup, or its ftrace callsite, and nobody
-finds out until one of them is needed.
+> 
+> I'm not just not keen on macros whose names to me hint at something
+> special. FWIW this also matches SMC_RSI_FID() and FFA_SMC64().
+> Isn't it nice when we have a predictable naming scheme :)
+> 
+> FID (for Function IDentifier) is in the spec, so maybe?
+> 
+> Anyhow, I don't really care that much.
+> 
+>> +
+>> +#define SMC_RMI_VERSION				SMC_RMI_CALL(0x0150)
+>> +
+> 
+> 
+>> +#define RMI_ABI_MAJOR_VERSION	2
+>> +#define RMI_ABI_MINOR_VERSION	0
+>> +
+>> +#define RMI_ABI_VERSION_GET_MAJOR(version) ((version) >> 16)
+> 
+> I'd mask it.  Mostly because that would shout that it is only 15 bits.
+> 
 
-Assisted-by: Claude:claude-opus-4
-Based-on-test-by: Joe Lawrence <joe.lawrence@redhat.com>
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Song Liu <song@kernel.org>
-Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Link: https://patch.msgid.link/20260916184351.2720310-41-song@kernel.org
----
- tools/objtool/tests/x86/fixtures/special_sections.c | 77 ++++++++++++-
- tools/objtool/tests/x86/test-special-sections.sh    | 42 +++++++-
- 2 files changed, 119 insertions(+)
- create mode 100644 tools/objtool/tests/x86/fixtures/special_sections.c
- create mode 100755 tools/objtool/tests/x86/test-special-sections.sh
+Ack
 
-diff --git a/tools/objtool/tests/x86/fixtures/special_sections.c b/tools/objt=
-ool/tests/x86/fixtures/special_sections.c
-new file mode 100644
-index 0000000..d427988
---- /dev/null
-+++ b/tools/objtool/tests/x86/fixtures/special_sections.c
-@@ -0,0 +1,77 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * A special section entry belonging to a patched function.  SPECIAL_SEC pic=
-ks
-+ * which section, since klp diff treats eight of them alike and each needs
-+ * extracting for the patched function and no other.
-+ *
-+ * The entry is written out by hand so the fixture builds without kernel
-+ * headers.  Only the leading relocation matters to klp diff; the rest is
-+ * padded to the section's real entry size, because the entries have to be t=
-he
-+ * right length for the boundaries between them to fall in the right places.
-+ *
-+ * SPECIAL_RELOCS covers __ex_table, whose entries relocate both the faulting
-+ * instruction and its fixup; objtool rejects one with only the first.
-+ */
-+
-+#ifndef SPECIAL_SEC
-+#define SPECIAL_SEC "__bug_table"
-+#endif
-+#ifndef SPECIAL_ENTSIZE
-+#define SPECIAL_ENTSIZE 12
-+#endif
-+#ifndef SPECIAL_RELOCS
-+#define SPECIAL_RELOCS 1
-+#endif
-+
-+#define STR_(x) #x
-+#define STR(x) STR_(x)
-+
-+static const char __modinfo[]
-+	__attribute__((section(".modinfo"), used, aligned(1))) =3D "\0name=3Dvmlinu=
-x";
-+
-+/*
-+ * other() gets an entry of its own, so that "the untouched function's entry
-+ * was not dragged in" is a question the section can actually answer.  With
-+ * only target() contributing, there is nothing for klp diff to leave behind
-+ * and the negative assertion holds however the extraction behaves.
-+ */
-+int other(int x)
-+{
-+	asm volatile(
-+		"3:	nop\n\t"
-+		"4:\n\t"
-+		".pushsection " SPECIAL_SEC ", \"aM\", @progbits, "
-+			STR(SPECIAL_ENTSIZE) "\n\t"
-+		".long 3b - .\n\t"
-+#if SPECIAL_RELOCS > 1
-+		".long 4b - .\n\t"
-+		".fill " STR(SPECIAL_ENTSIZE) " - 8, 1, 0\n\t"
-+#else
-+		".fill " STR(SPECIAL_ENTSIZE) " - 4, 1, 0\n\t"
-+#endif
-+		".popsection\n\t");
-+
-+	return x + 9;
-+}
-+
-+int target(int x)
-+{
-+	asm volatile(
-+		"1:	nop\n\t"
-+		"2:\n\t"
-+		".pushsection " SPECIAL_SEC ", \"aM\", @progbits, "
-+			STR(SPECIAL_ENTSIZE) "\n\t"
-+		".long 1b - .\n\t"
-+#if SPECIAL_RELOCS > 1
-+		".long 2b - .\n\t"
-+		".fill " STR(SPECIAL_ENTSIZE) " - 8, 1, 0\n\t"
-+#else
-+		".fill " STR(SPECIAL_ENTSIZE) " - 4, 1, 0\n\t"
-+#endif
-+		".popsection\n\t");
-+#ifdef PATCHED
-+	return x + 2;
-+#else
-+	return x + 1;
-+#endif
-+}
-diff --git a/tools/objtool/tests/x86/test-special-sections.sh b/tools/objtool=
-/tests/x86/test-special-sections.sh
-new file mode 100755
-index 0000000..8dfaa4f
---- /dev/null
-+++ b/tools/objtool/tests/x86/test-special-sections.sh
-@@ -0,0 +1,42 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# klp diff extracts entries from eight special sections.  Between them the
-+# existing tests reach .kcfi_traps, __jump_table, .static_call_sites and
-+# .altinstructions; __bug_table, __ex_table and __mcount_loc are covered by
-+# nothing, though the same extraction code serves all of them.
-+#
-+# Losing an entry is quiet in every case and wrong in a different way for ea=
-ch:
-+# a WARN() in patched code that no longer reports where it came from, an
-+# exception fixup that is simply not there when the faulting instruction tra=
-ps,
-+# a function ftrace can no longer see.
-+
-+. "$(dirname "$0")/../lib.sh"
-+
-+
-+# section, entry size, relocations per entry
-+for spec in "__bug_table 12 1" "__ex_table 12 2" "__mcount_loc 8 1"; do
-+	set -- $spec
-+	sec=3D$1
-+
-+	# A fresh workdir per section: run_diff caches its checksums.
-+	setup
-+	build_pair special_sections.c \
-+		-DSPECIAL_SEC=3D"\"$1\"" -DSPECIAL_ENTSIZE=3D"$2" -DSPECIAL_RELOCS=3D"$3"
-+
-+	assert_input_section "$sec"
-+	run_diff
-+
-+	# Extracted, and pointing at the function that was patched.
-+	assert_section "$sec"
-+	assert_reloc_sym "$sec" target
-+	assert_patched target
-+
-+	# Nothing belonging to the function that was not.
-+	assert_not_patched other
-+	assert_no_reloc_sym "$sec" other
-+
-+	cleanup
-+done
-+
-+pass "__bug_table, __ex_table and __mcount_loc entries extracted"
+>> +#define RMI_ABI_VERSION_GET_MINOR(version) ((version) & 0xFFFF)
+>> +#define RMI_ABI_VERSION(major, minor)      (((major) << 16) | (minor))
+> 
+> I'd go all in on FIELD_PREP() / FIELD_GET() + GENMASK just for the
+> sake of consistency + not having to be careful that everything is
+> checked for fit to keep the LLM bots happy.
+> 
+>> +
+>> +#define RMI_RETURN_STATUS_MASK		GENMASK(7, 0)
+>> +#define RMI_RETURN_INDEX_MASK		GENMASK(15, 8)
+>> +#define RMI_RETURN_MEMREQ_MASK		GENMASK(9, 8)
+>> +#define RMI_RETURN_CAN_CANCEL_MASK	BIT(10)
+>> +
+>> +#define RMI_RETURN_STATUS(ret)		FIELD_GET(RMI_RETURN_STATUS_MASK, ret)
+>> +#define RMI_RETURN_INDEX(ret)		FIELD_GET(RMI_RETURN_INDEX_MASK, ret)
+> 
+> What's this one?  I can't find anything in the spec that matches it
+> and as far as I can tell you don't use it in this series.
+
+This is coming from RmiResultDataLevel. See RmiResult type.
+This was renamed after we introduce the RmiResultDataIncomplete.
+It is used in the KVM code to find the "level" where a command
+failed/walked.
+
+I could rename it to RMI_RESULT_DATA_LEVEL() ?
+Similarly RMI_RESULT_STATUS instead of RMI_RETURN_*
+
+> 
+>> +#define RMI_RETURN_MEMREQ(ret)		FIELD_GET(RMI_RETURN_MEMREQ_MASK, ret)
+>> +#define RMI_RETURN_CAN_CANCEL(ret)	FIELD_GET(RMI_RETURN_CAN_CANCEL_MASK, ret)
+
+> These are obscure enough to find in the spec I'd give a comment just
+> to save the sanity of anyone looking for them.
+
+As above, they are really RMI_RESULT_DATA_INCOMPLETE_*
+
+> 
+>> +/*
+>> + * Note many of these fields are smaller than u64 but all fields have u64
+>> + * alignment, so use u64 to ensure correct alignment.
+> 
+> Obviously this is only going to run on arm64 so it's not critical, but
+> more generally u64s aren't always 64 bit aligned.  So if you 'really'
+> care aligned_u64 is there to ensure it.  Meh, arm64 so fine.
+
+Agreed, I am worried about the churn in the consumer code. Also, like
+you said, this is only for ARM64. So, I would pass it.
+
+> 
+>> + */
+>> +struct rmm_config {
+>> +	union { /* 0x0 */
+>> +		struct {
+>> +			u64 tracking_region_size;
+>> +			u64 rmi_granule_size;
+>> +		};
+>> +		u8 sizer[SZ_4K];
+>> +	};
+>> +};
+>> +
+>> +static_assert(sizeof(struct rmm_config) == SZ_4K);
+>> +
+>> +#define RMI_REALM_PARAM_FLAG_SVE		BIT(1)
+>> +#define RMI_REALM_PARAM_FLAG_PMU		BIT(2)
+>> +#define RMI_REALM_PARAM_FLAG_DA			BIT(3)
+>> +#define RMI_REALM_PARAM_FLAG_LFA_POLICY		GENMASK(6, 5)
+>> +#define RMI_REALM_PARAM_FLAG_MEC_POLICY		GENMASK(8, 7)
+> 
+> Tiny bit inconsistent. When do you decide _MASK is needed and when
+> not?  Seems a little too random for multibit fields.
+
+I will try to clean this up.
+
+>> +
+>> +struct rec_params {
+>> +	union { /* 0x0 */
+>> +		u64 flags;
+>> +		u8 padding0[0x100];
+>> +	};
+>> +	union { /* 0x100 */
+>> +		u64 mpidr;
+>> +		u8 padding1[0x100];
+>> +	};
+>> +	union { /* 0x200 */
+>> +		u64 pc;
+>> +		u8 padding2[0x100];
+>> +	};
+>> +	union { /* 0x300 */
+>> +		u64 gprs[REC_CREATE_NR_GPRS];
+>> +		u8 padding3[0xd00];
+>> +	};
+>> +};
+>> +
+>> +static_assert(sizeof(struct rec_params) == SZ_4K);
+> Whilst the assert works and is need to prevent oversized the
+> dos never seem to provide any indication of the final trailing
+> padding other than indirectly and I don't like maths on Fridays ;).
+
+Agree it is a bit obscure, but ...
+
+> Maybe union the inner union set with a u8 [SZ_4K]?
+> 
+
+That doesn't help if the other one runs past SZ_4K ?
+
+>> +
+>> +struct rec_exit {
+>> +	union { /* 0x000 */
+>> +		u8 exit_reason;
+>> +		u8 padding0[0x100];
+>> +	};
+>> +	union { /* 0x100 */
+>> +		struct {
+>> +			u64 esr;
+>> +			u64 far;
+>> +			u64 hpfar;
+>> +			u64 rtt_tree;
+>> +		};
+>> +		u8 padding1[0x100];
+>> +	};
+>> +	union { /* 0x200 */
+>> +		u64 gprs[REC_RUN_GPRS];
+>> +		u8 padding2[0x100];
+>> +	};
+>> +	union { /* 0x300 */
+>> +		u8 padding3[0x100];
+> 
+> Why does this one exist rather than padding above
+> by 0x200?  Other structures don't seem to keep
+> to a specific stride so I'm not sure what this gives
+> you here.
+
+
+That looks like a field was removed over the RMM spec iterations.
+I will fold this into the padding above.
+
+> 
+>> +	};
+>> +	union { /* 0x400 */
+>> +		struct {
+>> +			u64 cntp_ctl;
+>> +			u64 cntp_cval;
+>> +			u64 cntv_ctl;
+>> +			u64 cntv_cval;
+>> +		};
+>> +		u8 padding4[0x100];
+>> +	};
+>> +	union { /* 0x500 */
+>> +		struct {
+>> +			u64 ripas_base;
+>> +			u64 ripas_top;
+>> +			u8 ripas_value;
+>> +			u8 padding5[0xf];
+> 
+> In various other places you just use a u64 for a u8
+> + padding. Why is this one special? And for that matter
+> various other fields later in this particular structure?
+
+Please feel free to point out, if you spot any. I am happy
+to fix them.
+
+> 
+>> +			u64 s2ap_base;
+>> +			u64 s2ap_top;
+>> +			u64 vdev_id_1;
+>> +			u64 vdev_id_2;
+>> +			u64 dev_mem_base;
+>> +			u64 dev_mem_top;
+>> +			u64 dev_mem_pa;
+>> +		};
+>> +		u8 padding6[0x100];
+>> +	};
+>> +	union { /* 0x600 */
+>> +		struct {
+>> +			u16 imm;
+>> +			u8 padding7[0x6];
+>> +			u64 plane;
+>> +		};
+>> +		u8 padding8[0x100];
+>> +	};
+>> +	union { /* 0x700 */
+>> +		struct {
+>> +			u8 pmu_ovf_status;
+>> +			u8 padding9[0xf];
+>> +			u64 vsmmu;
+>> +		};
+>> +		u8 padding10[0x100];
+>> +	};
+>> +};
+>> +
+>> +static_assert(sizeof(struct rec_exit) == SZ_2K);
+> 
+>> +
+>> +/* RMI_RTT_UNPROT_MAP_FLAGS definitions */
+> 
+> How this counts as a 'flags' field is slightly beyond me, but
+> indeed matches the spec naming even though it's a grab bag
+> of small fields...
+> 
+>> +#define RMI_RTT_UNPROT_MAP_FLAGS_OADDR_TYPE	GENMASK(1, 0)
+>> +#define RMI_RTT_UNPROT_MAP_FLAGS_LIST_COUNT	GENMASK(15, 2)
+>> +#define RMI_RTT_UNPROT_MAP_FLAGS_MEMATTR	GENMASK(18, 16)
+>> +#define RMI_RTT_UNPROT_MAP_FLAGS_S2AP		GENMASK(22, 19)
+> 
+> Nothing signficant enough in here to absolutely require changes so
+> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+
+Thanks
+
+Suzuki
+
+
+> 
+
