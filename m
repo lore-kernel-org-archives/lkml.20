@@ -1,167 +1,215 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010064.outbound.protection.outlook.com [52.101.228.64])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010030.outbound.protection.outlook.com [52.101.193.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2FC64A205D;
-	Mon, 21 Sep 2026 13:45:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9439C4A2A61;
+	Mon, 21 Sep 2026 13:45:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.30
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789998316; cv=fail; b=RGXU8RyipjRAU60/ng5sN7ILyCBOnhGZDRiDpRDr9QRNiKaN0XdN8HyaiT/pWtJgDktshtMkFfFKptHk8omc5M8XahDZdhkuYiDQUgXrcEsY/XnKOMa0ZTLlqYpfSPN9OnY3EvVZO6bSSvVwkrLSEazBCRnULw6LbXTI+ydWAVo=
+	t=1789998318; cv=fail; b=XDhDXYFKA+NAaJR+jBpaoczRtr5iwkaUbE2K66eM2Gstwia1IDoQgGfDaQ0UYs2PlpLlaGQJr/1ix9TaOo5B21I2uH4WDcXC/melFcxvq8Se8eHGWM1tYcUitRG2/m6kf//dwnUOxo+w1zOvxcTR6sRpbsq96oueKwH2qCTtKTc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789998316; c=relaxed/simple;
-	bh=n0skHPz4Oqo5XrGHqYC63r79XTAJOc3dsMzQWAJ7OTg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=V2nnRVZ7OXtlhbRRO4muT5POyZmQ8KybWrLU4t6gDsDcl9secrMZQw/K8KfL4rfloB3m/kApKyT3O9ddFPYcQqOuH2k1tEgzxAhuAI6MoOBSZ+0thk8sC0fptIT8yYDWA60GDgDvNKNeelbnjZBcS59nvN0d3An+cVssXphZxwQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=MKDZMs+1; arc=fail smtp.client-ip=52.101.228.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	s=arc-20240116; t=1789998318; c=relaxed/simple;
+	bh=kPcjrhE3Xio0zYDCTtFCB4jelpVm9a8wGSIHrcIRfvI=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ECpkzdoOsr6XLZ7bKZWynx1emdNOkgkJ+Slz27Gu8GgWBj8iTpYqUZwXnp0Leu3ATe9wd6izd2MgmbYFjev5NGwpjj5/oO+q5lU/TtzsGMMRQIiGnJRl95CJd1Yh9d+sMufpfYSxlis+T3dfjkVfdeUf5jBGBlr/dxTu2FHHVXM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=IBEw9ZqA; arc=fail smtp.client-ip=52.101.193.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="MKDZMs+1"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="IBEw9ZqA"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aimhwKofuHnrVqanSfUolR4WVG0Hv1QNMoOdiqmtgWXf/nj4u6ywBzS4ako7gdZvKHou8t/txXAUPPSiqOqsFj3MwzXzLtmUt+VhxPpS0lMgA6iCbX3jiK1bG09ZAFyKJ79QrGjMK6vkx9idInv7Wa17H/Ll7hQg37moONj85tvkvZhg6azPKW2/9Uxsdf3pDzODblDVXx9g/xP/yy5KflcS7twloSChPkZzagyUaXB9FNihi6ELMTKYESqgOFTQOhwcAow44DuP8+HMYuOSetOJEA9pv3ShHc3RDkgi/+FhW9eW9OgNJpJUYQG6uYk5EA64xNffVYKnjg93lkxjaw==
+ b=rzftqxOh7OZ6QVzMSSTObsyp3vRhSNgRG95D2bzyR1MFavDY40/s/i7yPg5zjJONhUvRCI/mq/Gi8QkG1OVmesnXwZrhI2NDU71DhwiWfK0U5G8ZdKWP+VHlXKWNc3le2Wo0T6fsb2v3ts62N5WO+mVI2sciVVLOxn8WJHZvxsFgZrlIHSuSJ5sxCf32rw2SDaXJCtfUNYZjsLqpO8yCa4aARsFLoOAV7I7ApZUbzgnlzy47c0R5krls5v8rcpKhP+WPSW08CtecOdiDI4v7c/aCORzI6Kzf/GyHt78RPCYigMt866hOme9bEJwkaBTMFCPRVaZ8dYMZdUjN4bDHMg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p87POCrQ8h3/zE8xfaiJQX/lheKpY3Z9C8m2arFVDME=;
- b=jsRjj8KPk51tA/aTcc1ue86wkXWdrnH3I2Ypaq7oi/kLCg6O7XQ4MRxybSJR3biCqwz2G7PpBn+ShEe+1a4uhePV2sIjJuLiPLl5ifLo9P6FYx4X3Sxg2rnDQs8q+7XDuqyFDCQHxFiPYDJpQcCec2P7p+9kveyinp4l771Yc5l308ralOJEp2+o8O7p5mOw0GHgkf2ZCZ1Vd4K35G+a2I3x/BNFyGexxsty2Vxeu2h9IJxEM56uSmUKzAL1GKLxdgxMcMdtgKIUF7X++MkBjPKMOg+/MdoZIpilH0cUA48ZsbPfUw8E9JmtpqWzw7jpWUM3Qh0hd2LNzcTZD2dS6A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 8.62.32.50) smtp.rcpttodomain=bp.renesas.com smtp.mailfrom=renesas.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
+ bh=5UbjuMBLhEjF/nyRqWu5kM0yRAUEnWtA0eYquV6bLQ4=;
+ b=xAjyG0vX5iLHY5m3+sam2eB/JxWAPh6P51bfUq3Ohp3kJw2jQCGBAKlp7TPRHG2IQx3WC+JxA9IVkHuMZf+txD9tCshO10VPwNiNGZfXoJJsAd/lHApTI6GneOWcNhPkInp4j/MetJYnWEf9BEv242JcJULpDM4zUi0SwbeZOQeMfOgGqjwSVjqATHFFvWy/flRKWuJRCJlO4HgIq5y+N8JP7DzHXsldCMyW/uxsxZiiNHeIeQDrQKiyYEI98U+qglcORkVaAhaOofiYVTltsJ2+gOrWj/GWs/7ZAMvIh3MFRdR8/OmEyGoolEH4FhJEsFOJXonKqoOV7ZgFUvlcgQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p87POCrQ8h3/zE8xfaiJQX/lheKpY3Z9C8m2arFVDME=;
- b=MKDZMs+1YDZ5Ii7mJ2DKXSml1/aSBzDcsJ32lc31bEB6COTlPe57TqckU2pedwXPqeCFV+Fd/wOtFuKlKRRsPq7CvHsXYHOcmkypvsHj9S2SvZRVC9vGv0it8d89Hb9z0B7F7u54a4Q+3qvMlRTMkJVDOil/BRPtQa/ZYeVwwOo=
-Received: from TY6P286CA0040.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:3b7::9)
- by OSZPR01MB7035.jpnprd01.prod.outlook.com (2603:1096:604:13c::6) with
+ bh=5UbjuMBLhEjF/nyRqWu5kM0yRAUEnWtA0eYquV6bLQ4=;
+ b=IBEw9ZqAWZCeZB+Zk7X4Sp47nCsRDqLQ0fNYYgH6bZ7m8FDM+zJBFuMwc1d8VXutxM8JcIESLGoaA62HnY1RKJMjQDDWkKQRNtedjJG40He00cW5JtgBRUXYK7xH9lAkW1Kj3pjimedETUp2YwY6fnNEXAG3UQs6AeJKGrDUiQ8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by DS0PR12MB6581.namprd12.prod.outlook.com (2603:10b6:8:d3::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 13:45:09 +0000
-Received: from TY2PEPF00005622.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:3b7:cafe::29) by TY6P286CA0040.outlook.office365.com
- (2603:1096:405:3b7::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
- 21 Sep 2026 13:45:09 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 8.62.32.50)
- smtp.mailfrom=renesas.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=renesas.com;
-Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
- 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
-Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
- TY2PEPF00005622.mail.protection.outlook.com (10.167.240.53) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
- via Frontend Transport; Mon, 21 Sep 2026 13:45:09 +0000
-Received: from laptop.adwin.renesas.com (GBR-5CG34119KX.adwin.renesas.com [10.226.37.103])
-	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id 9A837300025F;
-	Mon, 21 Sep 2026 22:45:05 +0900 (JST)
-From: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Chris Paterson <Chris.Paterson2@renesas.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v2 2/9] dt-bindings: power: Add r8a774a3 SYSC power domain definitions
-Date: Mon, 21 Sep 2026 13:44:22 +0000
-Message-ID: <20260921134432.50338-3-ayman.chaudhry.kc@renesas.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260921134432.50338-1-ayman.chaudhry.kc@renesas.com>
-References: <20260921134432.50338-1-ayman.chaudhry.kc@renesas.com>
+ 2026 13:45:12 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 13:45:12 +0000
+Message-ID: <4d5e3cff-03a5-45f0-8fa8-a6c99e82cdf6@amd.com>
+Date: Mon, 21 Sep 2026 08:45:09 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] pinctrl-amd: Don't clear S4 wake bits at probe
+ causes power off to reboot AMD Ryzen laptop
+Content-Language: en-US
+To: Mario Limonciello <superm1@kernel.org>, Olzhas
+ <marat.olzhasss@gmail.com>, linusw@kernel.org
+Cc: linux-gpio@vger.kernel.org, regressions@lists.linux.dev,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org, sashal@kernel.org
+References: <CANzgjV0YWUX6=ZGTbn4KEKqQmVhsZTsDPeRf0Nfq=YFT1eoPzA@mail.gmail.com>
+ <de1b64ff-ee8c-4b76-aae8-ca29628b2db1@kernel.org>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <de1b64ff-ee8c-4b76-aae8-ca29628b2db1@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SN7PR18CA0030.namprd18.prod.outlook.com
+ (2603:10b6:806:f3::7) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF00005622:EE_|OSZPR01MB7035:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 2645ca26-67f5-402e-61c2-08df17e68d7f
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|DS0PR12MB6581:EE_
+X-MS-Office365-Filtering-Correlation-Id: a0e11bae-ad2e-4072-6b55-08df17e68eeb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|10067099003|56012099006|11063799006|22082099003|18002099003;
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|10067099003|3023799007|6133799003|22082099003|18002099003|56012099006|11063799006|4143699003;
 X-Microsoft-Antispam-Message-Info:
-	1x4XBE1/UnSBmdTUBr/3Y+8DleoGvd2vCcFHxXPS8eAUT9bI+d55VHvMeysRaG3kra6yPFvc/HebrvMcBnnbU5+b8xMcMVezSNmRavRZYx/fLeeYzLx8Kb0+b2rxohK6DB32rTWW0lkTz6RfPdVZvteY4Bz38O4yhuIxH76cJKRX54px9Q6WDFeMQ0s12o2hW6n9pcYbeLPCjJ/971eGCF53jobcCANlgEsWsVv6HNdF2RzfNuzroZjrREm+AFUejMjVxZsxBQjkxdAx/x0xpXL/jwgH5qTjYAkzslXWnOFeVj9NJXqmYLhSm6dD5lxRKbdxLlr/q6zDTo4rHYvEBQt+fGKLiaxl53gdKwOvvGhEc/WwYBHJbdxPEhfN1hA9I8ZvUffRNXajJUOL+dbeps4eG4OjMQ39cMgXGaOmqsZzKTSFJ5LOeseg5nHMRmCPIp3md8LHXx1AlQ63TLMCPpzm+lqAzKvVDGQ8BauN/yIlFInXq1FeQgTtIGuCvoAnMCdiQ1RE1I0WiXJqm/88+LYP1wprF7c7mCACYjq5+F7nhw4JD/0941a7w2W1hjWWcNCbGHmiXNtPARDsKnbfsx3nuvUsZGZz/iSRE995fjmz6QHKhPuqZdNpWZFxjnL0RDKuctqkH9SVyz/aD4M2C432zm54LAwCOktcOztOH6WJbfeGmO6uxhx4omeypUFjI+kvkt1Qs6u4HDWQ/Tx7Vg==
+	GgEDS68fNTcXr20DJyndl3Roic/OrGuEyoQni3FOAzh+SRWARBuhYgatn6oHXqQep17cr/fkl+hNRcttSJ62tSYOII/z1tuVxjE0713tfDmP7IbhfSX9Ct/8jwD9PfjUBMQVkL/pcihEqSHF5JrbnTMZYIBiZ+sGjpv+Fl2suytWV2Cbh98skp3xggZ9e4YBhI3WYwY8qL1uxyZIle5SNhpGANcgFDObQH9eUQ8QMtPmU93vZv4UyoPLILlNypYthfGld5Ou00bEXzj435U7EtYAC/OjijWteptwJEaA/LrYcIEjzc4e0hXpmxVBeDcjOQvtWtcxMBSS5uLfgjXDihE1akmho1F+CMMdfvj/GaK36uPmgq649ilAzEhy4C3aBDk79E9f4FoW60t+VixSEboWrV8f6+GPLfQqOab9uZyeNzwClsKokPCyenZFHZv7y1VghkMqzs5HLMp72fMDLtS1c3Bd+wDB7hSGIRnBNwZaB5OCY+VrQaT3dbSjM+xxJ+8PCv8Owz5sKcIs3R13f1QNk9UO5S6fAxcAYTBPKrtB4aTsV9yuCMykGXChRC0GnqABKT9rgELU6DLIayaPpoxfvZ2QgNh+Pizos+6Mx1ZUfMnLhel2GMWPHHj3W6Cz
 X-Forefront-Antispam-Report:
-	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(10067099003)(3023799007)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	E7u7pkkLs11TkeXFwiom4gRBpUsUPHv/c+Qg2n2CZ+WVTYiRIttgSN8gDCe3s1B4xnCnO5RizFKBCOEM9pBjrxqvS49JaphTAuqDmBRHvns5QCYldWRoy/zgAEpqD0W5UOJTRwVFCWH4UJwjBuXd+JuhBoIQG7ujRnW0nXuujyI5a4lUk0xTx5LBk2n1ppAdXkLNZlUgo985/HNYGmtTLn3yKw/XTOBt/SaVqRbewsUB/sLNG2DlFouXsBqhI1CKOTVrpshej35Vs6B1KVdeIL9vcB4Pj8uiq9mAkk7u090zvXjDSIUsF4sgTelKpAs2lAxr0jLEvMMuq4pGtjs8PT6HfBaIFTngZ2qiWvGXGqwOtYo0b7s/acEqeHi8CwN+rQarlYtcdzZCwlDzcAA0Y6gxRtAQH6tsmN/Ati9MNWaKoT1LDe7NdZrJ0xOgG3wv
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 13:45:09.3256
+	=?utf-8?B?WlgydCtMT1pqeGFKYjlZQ3kvSzE2bmZoUUQ2Nmd0b2ZpQ0RBVzQ0NmxTS1Jw?=
+ =?utf-8?B?UHVZYWlEOGFieE92cUpUNTZ0UWdrdHd6VllJZUQ4L3ZxVG0rZGptS0p5QjNP?=
+ =?utf-8?B?ZW5XMTdidkpUaFZFek1Vbm54aVlEMEUybms5WnAvbTQ3QTN5eGRnZzFMMFMv?=
+ =?utf-8?B?RTVJaWhFUG05NGdmV0swYlBOU2NEYmtKeTRGZVNZVHRWMEJ5ZkhPekowRU9t?=
+ =?utf-8?B?VGNtc3lWbVd0Tmcxc2ZhVVVab1g2d1lzNXhkT2NoSnVOckEyejVCTnV4bktw?=
+ =?utf-8?B?azZiRmlrQ29iNzVBYmViajZiVUF5VmVjZ2VSOTQxdDJJYTdkTUZVbkdsQW11?=
+ =?utf-8?B?UkVWWVFhZ2I5WkxEQlpqQ3h6aGxFdHZMNjRWUUhZenIrV285bnhWRWVDL1E5?=
+ =?utf-8?B?ZXlxaGJTcVZiaVlRbExzWGdCUFE0Qm5zdVJORzdQTkc1TUNWdnByYm4vTWpY?=
+ =?utf-8?B?aXFpeGlBVmZOdURFVGlodDgxcml2SFlwWDJJT2tpRDJTUFVRQjJxMFdta3dY?=
+ =?utf-8?B?dWlNUnh1cnpjeWErMHdYODVxdmdjUzNBRHhzSEpaUnR4cFJOZ2tSR2dPSEs3?=
+ =?utf-8?B?ZXUreDlmZDBNRUsrNFA4ekxqU3JXUkxubFFBUytCRUdvMitQWndoVis0S2Rm?=
+ =?utf-8?B?YWFGK294NHpmamI0aU95SVZhVXkxQ2krWks5Q1YxSS9zengrbElFUUg5ekE1?=
+ =?utf-8?B?TEVhRVluRHR2WjNmblZISWZJTWZFV01qUENLQ0tYVHUyaHh1VWpYRTNKbW9G?=
+ =?utf-8?B?Ly9tZTlBeW9JWnZOWnV6L2VtclBOa2E3Nm53RFpvbkVGMHVwTzl1OWp1Nkpr?=
+ =?utf-8?B?bFA2VElORXdHL1FHK3U1czhzOU50TVVNc2xOMDBvM0pGbGlRR2NOeGIxSDFS?=
+ =?utf-8?B?T2FQT2Vpb2RocEFlcWNRSWhqRlBPbSs5SDVkTGgxdi9ieTBpa05hTUo1NWhT?=
+ =?utf-8?B?TlF0MFVkYVllb3RiNGlDUW1hWWI1cERidktXRFRacnhOWGdoZHE4ZFAwckxH?=
+ =?utf-8?B?YUNrYzNEN2ZxdWVPTFJSZmxPK3ZyZE81UllIYkNQelUyT21lY2tXd2VsUDlN?=
+ =?utf-8?B?ZXdJWjZQSW9YY2I2STJpTndwR0hMaTk3S2lmL2NtSkFucVRuSWRtS2pleFdH?=
+ =?utf-8?B?dWNnWmhCVmw4QjRIVXUxUU1oNDF2THZKeUNIeGo3TW5DL0UwejRSSjd0SVZo?=
+ =?utf-8?B?cWJjaVdLYml5SUJFT0tpTzRuKytMUVVzUjdLc2FCYThPUkhUdHpIRFRRTmpR?=
+ =?utf-8?B?eC9lWm5qRGF2UzBwK3lBQytVWERBa3dwT0w1ZkFDWi9oODkyZm9QcmExQndZ?=
+ =?utf-8?B?MWRmRytPREliY0FiNmZ4ZTI5d1JmSmdIemJHZlZEYUI2UnBEQ2Y2aHlMcWgw?=
+ =?utf-8?B?QU5mMFJhTDZQU0VCMkQ1dENxSVpXbXFNY2FWdlJHbXU0SGFvcktWUlRLUUpX?=
+ =?utf-8?B?RXFjeitZNGdqSHZHcnhYYjd0RFBWaTNQQjNQRHA1WGwzRUd3ejFyNVlHM0Ix?=
+ =?utf-8?B?N1M2cndaSDVwOTJreEhPYXlyaXFBTW8vMGJHb1Z2bW42a1FWMjNPTTdBVGdH?=
+ =?utf-8?B?ZktvYm5ycy90d01sbWsya0g1eitVNFBlQS8wdloxamFRdWFWTkg4THl5cDdO?=
+ =?utf-8?B?V0Q0aDcrYXBybnZ1N2krVTZraEVXNWR6YU16bjNKWTA2elgvV01ZWGFlUE5k?=
+ =?utf-8?B?VXhzNENaVjRVSlRZYTNqd20rR2NQL0hsNFBHRnc3K3hnKzAxNHJQQ1VHZmRn?=
+ =?utf-8?B?M1pwYXVSV1JJTFlCNmpBRFJvWjRrbkJSR0JIb2VoM05pWHJCTWgvR2FNWC8y?=
+ =?utf-8?B?VkpnLytvVURhYnNyUVUzNmlrT0dxNC92d0dOUEQ2dERrNndvRzNMdnpOVFlp?=
+ =?utf-8?B?QUFlNi9oaHV3K2JJR2U4OFk2NjNqZkhtS0Y2WXBkMzdkYVV0emZkNitpVDBp?=
+ =?utf-8?B?REM5L3JwclZXakhTRWJnZ081blZldmdWQVl3Qm5nYzRxUnZIZ0RTQlhMZmp0?=
+ =?utf-8?B?b2d6L01HdEpXaG1lZmdoWFltbUJ5UmRMaFFhMURPRUcvbmNWOVBXRUVZNGhZ?=
+ =?utf-8?B?OVdacmhoOXc2dGp5MCtrVWEvRitGdU1Bd1N3anhjNlovdjNsS2hnMmZSTWZD?=
+ =?utf-8?B?R29nTDZ6T1NXQWlZbGlNWGJRU2VvMG5HMGxGb3dNZ2FibkpNbjF4K3VicDVX?=
+ =?utf-8?B?bVM0ekYwOC80VFF6QURFUERXaVVHcjhSK254cU4ra3hETGRVK1hVMlZHcEpN?=
+ =?utf-8?B?cjdPeUREaVkvNFc5Z0p1V1ExbXF6RXdlQm5tVEdocjdUVUZOL1J5WTh6UWVw?=
+ =?utf-8?Q?B+SLQIZDNw4hmSxGna?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0e11bae-ad2e-4072-6b55-08df17e68eeb
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 13:45:12.1576
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2645ca26-67f5-402e-61c2-08df17e68d7f
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
-X-MS-Exchange-CrossTenant-AuthSource: TY2PEPF00005622.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB7035
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: i5fzJ8VpBVKIJdhEsmm8s5YIya7xpVyNv5H+G67ai3VU5BwFcdFRbbsFhIv1C2wqSI+CMbdpjCjlSJBcrgkN5g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6581
 
-Add power domain indices for the Renesas RZ/G2M v3.0 (a.k.a. R8A774A3)
-SoC.
 
-Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
----
-v1->v2:
-- Updated commit message
-- Renamed file to include vendor prefix
-- Added vendor prefix to include macros
-- Added Reviewed-by tag
 
- .../dt-bindings/power/renesas,r8a774a3-sysc.h | 30 +++++++++++++++++++
- 1 file changed, 30 insertions(+)
- create mode 100644 include/dt-bindings/power/renesas,r8a774a3-sysc.h
+On 9/20/26 12:05, Mario Limonciello wrote:
+> 
+> 
+> On 9/20/26 12:00 PM, Olzhas wrote:
+>> Hi Mario,
+>>
+>> I am experiencing a regression on my laptop where attempting to power
+>> off the machine results in an immediate reboot instead of a shutdown.
+>>
+>> The last known good kernel is v7.1.7, while v7.1.8 is the first known
+>> bad release.
+>>
+>> I bisected the regression across 9 kernel builds and identified the
+>> following commit as the first bad commit:
+>>
+>> a7c855969b1a ("pinctrl-amd: Don't clear S4 wake bits at probe")
+>>
+>> With this commit present, running:
+>>
+>>      systemctl poweroff
+>>
+>> causes the laptop to power off and then immediately power back on.
+>>
+>> I reverted this specific commit on top of v7.3.0-rc3 and the issue is
+>> completely resolved. The laptop now powers off correctly and remains
+>> off.
+>>
+>> Hardware:
+>> - Laptop: Chuwi CoreBook Plus 16
+>> - DMI board vendor: Default string
+>> - DMI board name: Default string
+>> - DMI BIOS version: AB8139_S_2C_V00.01_007
+>> - DMI BIOS date: 2025-08-05
+>> - CPU reported by the system: AMD Ryzen 5 7430U with Radeon Graphics
+>> - The CPU/hardware appears to correspond to Ryzen 5 5500U / Lucienne
+>>    silicon, although I am not certain whether this is relevant.
+>>
+>> Software:
+>> - Distribution: Arch Linux
+>> - Last known good: v7.1.7
+>> - First known bad: v7.1.8
+>> - Current test kernel: v7.3.0-rc3 with a7c855969b1a reverted
+>>
+>> I have verified the fix by booting the reverted kernel and testing
+>> poweroff successfully.
+>>
+>> Since the DMI board strings are generic ("Default string"), I would be
+>> happy to provide an ACPI dump, dmesg output, kernel configuration,
+>> bisect log, or perform additional testing if needed.
+>>
+>> I suspect this may be related to an S4 wake source left enabled by the
+>> firmware, but I have not identified the exact wake source yet.
+>>
+>> Best regards,
+>> Olzhas Marat
+>>
+>> #regzbot introduced: a7c855969b1a
+>>
+> 
+> This is most likely a BIOS bug, but we need to dig into the details to 
+> understand more and decide what to do.  It could also be a driver bug, 
+> most likely in a WLAN driver.
+> 
+> Can you please open a kernel bugzilla with the following information:
+> 
+> 1) /sys/kernel/debug/gpio without the commit
+> 2) /sys/kernel/debug/gpio with the commit
+> 3) acpidump (just once)
+> 4) amd-s2idle report (this will capture and associate some information 
+> that will make this easier to triage)
+> 
+> Please CC me into the bug report.
+> 
+> Thanks
 
-diff --git a/include/dt-bindings/power/renesas,r8a774a3-sysc.h b/include/dt-bindings/power/renesas,r8a774a3-sysc.h
-new file mode 100644
-index 000000000000..ddee6812e9a4
---- /dev/null
-+++ b/include/dt-bindings/power/renesas,r8a774a3-sysc.h
-@@ -0,0 +1,30 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+/*
-+ * Copyright (C) 2026 Renesas Electronics Corp.
-+ */
-+#ifndef __DT_BINDINGS_POWER_RENESAS_R8A774A3_SYSC_H__
-+#define __DT_BINDINGS_POWER_RENESAS_R8A774A3_SYSC_H__
-+
-+/*
-+ * These power domain indices match the numbers of the interrupt bits
-+ * representing the power areas in the various Interrupt Registers
-+ * (e.g. SYSCISR, Interrupt Status Register)
-+ */
-+
-+#define R8A774A3_PD_CA57_CPU0		 0
-+#define R8A774A3_PD_CA57_CPU1		 1
-+#define R8A774A3_PD_CA53_CPU0		 5
-+#define R8A774A3_PD_CA53_CPU1		 6
-+#define R8A774A3_PD_CA53_CPU2		 7
-+#define R8A774A3_PD_CA53_CPU3		 8
-+#define R8A774A3_PD_CA57_SCU		12
-+#define R8A774A3_PD_A3VC		14
-+#define R8A774A3_PD_3DG_A		17
-+#define R8A774A3_PD_3DG_B		18
-+#define R8A774A3_PD_CA53_SCU		21
-+#define R8A774A3_PD_A2VC1		26
-+
-+/* Always-on power area */
-+#define R8A774A3_PD_ALWAYS_ON		32
-+
-+#endif /* __DT_BINDINGS_POWER_RENESAS_R8A774A3_SYSC_H__ */
--- 
-2.34.1
+FYI for others, a bug report is opened here:
 
+https://bugzilla.kernel.org/show_bug.cgi?id=222041
+
+We are working on narrowing down which GPIO is causing problems for this 
+machine and then will decide what to do.
