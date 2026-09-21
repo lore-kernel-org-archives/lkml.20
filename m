@@ -1,219 +1,116 @@
-Received: from mta1.migadu.com (out-219.mta1.migadu.com [95.215.58.219])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381BD446821
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:47:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.219
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706AD45041A;
+	Mon, 21 Sep 2026 09:47:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984030; cv=none; b=PZzA3zXr2UM4rLnztmR8vQk2YGr2Npm47QwmzhPjVgyOicla9p3V4LfpysJPTG1sz3FR0YmvaMz7eXspz4npDLdhQ+KN3WUAB0fRuyOo3ZU2FB4gHDI49q6HyOKkf3KV5yKv6/5FYNlEqnY6EKsVTBmf4TbmCXqSXqNEICzJvGI=
+	t=1789984041; cv=none; b=HQZv7l5vg8g0kxyjHBcOc9qeIx50wnv5WWuTRBupi6faXM5AqHrCoATj70IiPExUB6gUbSje+YsL3YHGoZ0VDN512N7rhucZ+sUKs93NJdUa4vuaptMgOkuvL1Bi5X+oF24krlCwhLDhbYpWQhGhJtNSNILUG3ZenjZ4TqRq8sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984030; c=relaxed/simple;
-	bh=wecnKx7LkqikUqo4Dhub5mbay8oFhGFKDyVeaaaa/eI=;
+	s=arc-20240116; t=1789984041; c=relaxed/simple;
+	bh=sV0Q6DZmJiFlK9XXKaWqVq6Mfzdz2G1bKukcbBWU5B8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O88Y4lgOthdXxHYCLN0kMc9Qvt5YlInKfacAWu9oxGgtFP8wakHG8CRjMZSMPYJ+xoXii0JqOTLQ+pVg3U2kS0LVKtD58/02k0AICWGP08u0i/tDt0D12ybjwHNU8n8BfGQjIRH3G9fEPCNGn4eK7tESsXvH+XDgih67Rk1GtKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pqrtHUwB; arc=none smtp.client-ip=95.215.58.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=bNG5Xr8ZyPGXeqqxXoce6xDyfMf53uHN2szrxLAdn4Lu+qG1mtvt8tT1PHKtS78dFFkPCAnV6yZrDdnrlDagoVHKlh+z73tXbiOcTknmr1FPPPbM83Q1keT056l1PuXen/sIUVCLmQ4glgjx6w74+g9YyQMKEOp0efnpBdRq8xM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=klq8REdx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pqrtHUwB"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wecnKx7LkqikUqo4Dhub5mbay8oFhGFKDyVeaaaa/eI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789984025; v=1; x=1790588825;
- b=pqrtHUwBQXyidBzFZ5OeyJevCtvhaUswAIEbifvApETF3SStsNiHWKHzq7KCqA/Nty6nmmzu
- DgrXoKaPPszE/c4LufCjrRoFSG5m2+K2PuxWEYWQwYmbgxgoXQ//f2MfX21XSLXflV/Rk/147hp
- 1JnT46qlh9IicNUKcuOBDDRo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 04cc045a125c398a;
-	Mon, 21 Sep 2026 09:47:04 +0000
-X-Mizu-Trace-ID: 04cc045a125c398a
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 21 Sep 2026 17:46:46 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: netdev-bot+sashiko@kernel.org
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, donald.hunter@gmail.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	liuhangbin@kylinos.cn
-Subject: Re: [PATCH net-next 5/6] netlink: specs: rt-route: describe lwt BPF
- program options
-Message-ID: <arD89olLH_d2Y29A@fedora>
-References: <20260917-ynl_rt_encap-v1-5-fbbe6e680571@kylinos.cn>
- <178997269710.2160803.17529308820161087653@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="klq8REdx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CBF01F000FF;
+	Mon, 21 Sep 2026 09:47:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789984040;
+	bh=j9QVrwUd/zyMk2v12UJUCTpAd4hx99UpQ0/hWJbYrsU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=klq8REdxl8ZgT3mCL6ywQU7IYNeY8eJH6AmNdOqJ99amOA1XFJkISekZyd2h9FV39
+	 zEkA9uo324HNijwK462aE3Q5rf/JSUpMSyDOc/U/ylRsIIK7R0F/9WCRjtU3C193Y/
+	 WgOdu00GMVx55h4UHTZVpMwh5snbVSy/5jroppCAZQSuUD5/37D7BrSD5yB9VBbHq8
+	 45DysSh9HzsGanYdfvWVKFFaGaqr1r/TcWUXBt7gW8fqeVXG8v52fKHH+KHTGPGXji
+	 +Dmx4yB61uCVAyTpvIdv6RbeO82+Sigz/TQoUvVIRRSt/7ii2a9xjFh+ddH9nCQYAs
+	 /59+bAZP3I81Q==
+Date: Mon, 21 Sep 2026 11:47:17 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] pwm: tegra: Check for match_data being NULL
+Message-ID: <arD7N6A6ncBNR1Jk@orome>
+References: <cover.1789741839.git.u.kleine-koenig@baylibre.com>
+ <ed943d9be3b785514e0f65a5b8c13a78aba7a090.1789741839.git.u.kleine-koenig@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bjkyzysa7eclgr2f"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <178997269710.2160803.17529308820161087653@kernel.org>
+In-Reply-To: <ed943d9be3b785514e0f65a5b8c13a78aba7a090.1789741839.git.u.kleine-koenig@baylibre.com>
 
-On Mon, Sep 21, 2026 at 06:38:17AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] Documentation/netlink/specs/rt-route.yaml re-points the
->   seg6-local `bpf` attribute (SEG6_LOCAL_BPF) at the newly added `lwt-…
 
-Thanks, I will update the SEG6_LOCAL_BPF attrs in the seg6 update (patch 06).
-in v3.
+--bjkyzysa7eclgr2f
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 2/3] pwm: tegra: Check for match_data being NULL
+MIME-Version: 1.0
 
-Hangbin
+On Fri, Sep 18, 2026 at 04:33:46PM +0200, Uwe Kleine-K=C3=B6nig wrote:
+> It's unlikely but not impossible that of_device_get_match_data() returns
+> NULL. Handle this case instead of triggering a NULL pointer exception.
+>=20
+> Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com>
+> ---
+>  drivers/pwm/pwm-tegra.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>=20
+> diff --git a/drivers/pwm/pwm-tegra.c b/drivers/pwm/pwm-tegra.c
+> index efb7ab60f602..b461d3877f43 100644
+> --- a/drivers/pwm/pwm-tegra.c
+> +++ b/drivers/pwm/pwm-tegra.c
+> @@ -323,6 +323,14 @@ static int tegra_pwm_probe(struct platform_device *p=
+dev)
+>  	int ret;
+> =20
+>  	soc =3D of_device_get_match_data(dev);
+> +	if (!soc) {
+> +		/*
+> +		 * This can only happen if pdev was matched via pdev->name
+> +		 * (which should not happen today) or in combination with a
+> +		 * driver override.
+> +		 */
+> +		return dev_err_probe(dev, -ENODEV, "Unsupported device\n");
+> +	}
 
-> - [Low] The new `lwt-bpf-prog` `name` attribute in
->   Documentation/netlink/specs/rt-route.yaml (lines 624-626) is declared…
-> 
-> --
-> 
-> netlink: specs: rt-route: describe lwt BPF program options
-> 
-> This changes the lwt-bpf in/out/xmit attributes and the seg6-local bpf
-> attribute in Documentation/netlink/specs/rt-route.yaml from binary to a
-> nest, and adds a new shared lwt-bpf-prog attribute set with fd and name
-> members.
-> 
-> > diff --git a/Documentation/netlink/specs/rt-route.yaml b/Documentation/netlink/specs/rt-route.yaml
-> > index 6030d7cb8d0d1..5e9537f7dfad4 100644
-> > --- a/Documentation/netlink/specs/rt-route.yaml
-> > +++ b/Documentation/netlink/specs/rt-route.yaml
-> 
-> [ ... ]
-> 
-> > @@ -503,7 +506,8 @@ attribute-sets:
-> >          type: u32
-> >        -
-> >          name: bpf
-> > -        type: binary
-> > +        type: nest
-> > +        nested-attributes: lwt-bpf-prog
-> 
-> [Severity: Medium]
-> Should the seg6-local bpf attribute point at the lwt-bpf-prog set?  This
-> attribute lives in the seg6-local set, which carries
-> header: linux/seg6_local.h, but lwt-bpf-prog below uses
-> name-prefix: lwt-bpf-prog-, so its members document and generate as
-> LWT_BPF_PROG_FD / LWT_BPF_PROG_NAME.
-> 
-> Those identifiers come from linux/lwtunnel.h:
-> 
->     enum {
->             LWT_BPF_PROG_UNSPEC,
->             LWT_BPF_PROG_FD,
->             LWT_BPF_PROG_NAME,
->             __LWT_BPF_PROG_MAX,
->     };
-> 
-> while the seg6-local nest is a separate uAPI namespace in
-> linux/seg6_local.h:
-> 
->     enum {
->             SEG6_LOCAL_BPF_PROG_UNSPEC,
->             SEG6_LOCAL_BPF_PROG,
->             SEG6_LOCAL_BPF_PROG_NAME,
->             __SEG6_LOCAL_BPF_PROG_MAX,
->     };
-> 
-> The values (1, 2) and payload types happen to coincide, so the wire format
-> still decodes, but does this end up documenting SRv6 attributes with
-> lwtunnel.h names?  There also seems to be no header: value that can be
-> correct for a set shared between linux/lwtunnel.h and
-> linux/seg6_local.h.
-> 
-> Would a separate seg6-local-bpf-prog set with
-> header: linux/seg6_local.h be more accurate here?
-> 
-> Separately, the commit message says only:
-> 
->     Replace binary BPF attributes with a nested lwt-bpf-prog to support
->     lwt bpf prog options.
-> 
-> Could it also mention that the seg6-local bpf attribute is being re-typed,
-> since that is a different attribute space?
-> 
-> > @@ -610,6 +614,16 @@ attribute-sets:
-> >        -
-> >          name: hwid
-> >          type: u8
-> > +  -
-> > +    name: lwt-bpf-prog
-> > +    name-prefix: lwt-bpf-prog-
-> > +    attributes:
-> > +      -
-> > +        name: fd
-> > +        type: u32
-> 
-> [Severity: Medium]
-> Is fd the right name for attribute 1 in both directions?  In requests
-> parse_nla_bpf() in net/ipv6/seg6_local.c does treat it as a descriptor:
-> 
->     fd = nla_get_u32(tb[SEG6_LOCAL_BPF_PROG]);
->     p = bpf_prog_get_type(fd, BPF_PROG_TYPE_LWT_SEG6LOCAL);
-> 
-> but on GET/dump put_nla_bpf() emits a program id, not a descriptor:
-> 
->     if (nla_put_u32(skb, SEG6_LOCAL_BPF_PROG, slwt->bpf.prog->aux->id))
->             return -EMSGSIZE;
-> 
-> So a spec-driven decoder would print slwt->bpf.prog->aux->id under a field
-> called fd, and feeding that value back into a request would resolve an
-> unrelated descriptor or fail.  On the lwt-bpf side bpf_fill_lwt_prog() in
-> net/core/lwt_bpf.c never emits attribute 1 at all and only puts
-> LWT_BPF_PROG_NAME.
-> 
-> Would it be worth naming this member after the program reference/id, or at
-> least documenting the id-versus-fd asymmetry?
-> 
-> Note this appears unchanged at the end of the series (30e3ec46f708 still
-> has name: bpf with nested-attributes: lwt-bpf-prog and the fd member).
-> 
-> > +      -
-> > +        name: name
-> > +        type: string
-> 
-> [Severity: Low]
-> Should this string carry a max-len?  Both kernel consumers of this nest
-> bound it to MAX_PROG_NAME (256).
-> 
-> net/core/lwt_bpf.c:
-> 
->     static const struct nla_policy bpf_prog_policy[LWT_BPF_PROG_MAX + 1] = {
->             [LWT_BPF_PROG_FD]   = { .type = NLA_U32, },
->             [LWT_BPF_PROG_NAME] = { .type = NLA_NUL_STRING,
->                                     .len = MAX_PROG_NAME },
->     };
-> 
-> net/ipv6/seg6_local.c:
-> 
->     static const struct nla_policy bpf_prog_policy[SEG6_LOCAL_BPF_PROG_MAX + 1] = {
->             [SEG6_LOCAL_BPF_PROG]      = { .type = NLA_U32, },
->             [SEG6_LOCAL_BPF_PROG_NAME] = { .type = NLA_NUL_STRING,
->                                            .len = MAX_PROG_NAME },
->     };
-> 
-> As written the spec advertises an unbounded string, so tooling generated
-> from it will build a request that the kernel rejects with -EINVAL.
-> MAX_PROG_NAME is a private define in those two .c files, so the numeric
-> bound would need to be spelled out in the spec, and max-len does not count
-> the NUL terminator.
-> 
-> This is also still missing at the end of the series (30e3ec46f708).
-> 
-> >  
-> >  operations:
-> >    enum-model: directional
-> 
-> -- 
-> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917-ynl_rt_encap-v1-0-fbbe6e680571%40kylinos.cn
+We don't usually do this. Matching via anything other than OF device ID
+tables (or ACPI, I suppose) is a programming error and you deserve the
+crash which forces you to fix things rather than continue with an error
+that is easy to miss.
+
+Driver overrides aren't going to work with these devices anyway, so I'm
+beginning to think it might be worth looking into opting out of the
+override behaviour for select drivers.
+
+Thierry
+
+--bjkyzysa7eclgr2f
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqw/SUACgkQ3SOs138+
+s6Havw/7B5w1CD5lp5uwLJdPafHuXtDGoHKTN3ztzrJdCydAYqXbzQYY6XqYm83y
+S+kw2+ln/qDGJ/bfDFHDUv2hSGhTVC+W7VOt1SvXUbDqjanEdym4AC3/H/qqRgPL
+D3ZKf+uoO02t9Yy2KAelpkHuM+n6aNG/6j5fVBTofYQjrSo1xyoWLonptcnHxl6S
+AoxjV3+7KWiL879P8GKJiPxXO/HyeJLA3tcv3DG/MG2Igdm1SVYgpJrCfPA9Fq3d
+2/2jB5xQW5DL8YdTkh2nP8brJKaFB5hXuiK/M7za9zBUCJjEr2kc5vS67BY7o8u/
+SDcC3J1RSpEf2TLrFlv9xWcl+/ssAqP1YhQQduvubpCvFoQ3h7rrZP2/mGQPsrsw
+7SoB/5dfeaOuk2z1jW84Hb79SR6d3TKxLGcINhf08d8WFG7IGaZe/X824WTpkm9e
+x8Qau4fq2q9QYcHXvGRdEJ7oD/ZozwTB74clTUl4zrPPU77D0xCLAcp/egYhheeU
+dGAlalh1+5HStb2gzURTL8iSESD0FJckkhjE9EUSurZfj+4D3D3Vz5NSjkaXq14k
++rJwAfvB6wrmcmTOzCwXyl3DzL3o4FFgLMwxhs/x0hbR6yK/TPWF0rcQgte8+N0y
+Wb6ee9hNkmFA6pUpGXxKJOXhaEOyJOXyQc46aIsrLY1KXausKls=
+=ip4m
+-----END PGP SIGNATURE-----
+
+--bjkyzysa7eclgr2f--
