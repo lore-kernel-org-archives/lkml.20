@@ -1,183 +1,106 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27F44A3877
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:00:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BA92F4A2615;
+	Mon, 21 Sep 2026 14:00:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999240; cv=none; b=aF84Majcg6Cahl1kUcVLCZMVQJ8JBzH9sLgJqh07LL9SOKmXj5zChTQzyGnZcEJ9UBtz8/zzF95iQjZts3StPnORUE6Wa9MCZ0+BmLNBzoJpCDP1riQ2jXIqC4JXK50BgZjpQduhBOkMKp8l4T5gHjI5MN9hQ/vfIZKT6xawN3w=
+	t=1789999254; cv=none; b=O0jkRmhDlO9z0x4RK4kwNNi5QNNlyu7XrONW91xYVHP4MK4dduoD4wscJKaeFxqRc1JCkUCF1OnGWpP5LZU0cA3Wg8fyz8Ust7qTSvuixBUL25i8zHAfvYWGDfK1y0+53VMQj+naxEFbj2fssHZ6SaCjjyksjBEZDVMlicOd+E4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999240; c=relaxed/simple;
-	bh=OeyvfHgi0AM3S4WMT38BkWK6VSxmsJwFB/n9ks+exd0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b+4mNXwGoJhMVU3LmgiQBlBDXVRJnCtMENKzfliObenM9xWTvQ8mC3V5/5JBUbDfTcpzwDiAlOonOPo3TId88kqIRj/3ebuIbKxsS7rTVRx545yWm/oB37pc1noxoK8EuOu3XBMAWGPno7x2xyRQhu04PEXNxmaAT/JJ8SaIGQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fy3lm4mW; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789999254; c=relaxed/simple;
+	bh=196CWRrTsBXNGEh3O1halF0+Yb/A+7t5R7xVTmSSTuQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p37uEWGmNlS6vftKSBO+5WS5uoXRuVdS9Ah0xtWKICmaYH3OJSbXwy5k4ApIwMjwDVNvXysNgfbDX/T+UDPz2eM0QGo+gVs+jcyke6W9iZEiRxr4ZOPnhHp42rRZYLLJDvkOh6fAwpetvTf7gqMo10VzbX1kiFWEpTpG34t6SD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=RIH1OhFf; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fy3lm4mW"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60590a85cso5624346a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:00:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789999236; x=1790604036; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YF4hTPZsf1CzF+RjsRJpL1NqJMDoLq3jkvr85glNVqI=;
-        b=fy3lm4mWVVfxCbiB/3/idnBoWiGR7Ak2D36Mzxp6PBr2+Q8laVBrWpIRYVMTFrcp/0
-         jFF0hAEuenju7k/fW2j0/C1Jli1UP8WnHH/Of94Gvk1sgDsM7fWI2uyyOZHUsjkVJJPb
-         0JtH6BP+SVZlH0HMjkU4m57nlQhEUE2RAVPRXvprm0BKQC1hQgaD4/dvBt4EOAFUDnL8
-         rpAJY91Fcg/OygM5CEK/CUumLCPykTEC3z5vkEPe3zTfIl3UWEN1JSUp6/FvaR+dRraE
-         jovk046obSWMIph957RrWPJMVfeJ6kFVMrFj0Hqvcqs0jI8QC8TubZvfnFnAJXJHjE1h
-         Ikjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789999236; x=1790604036;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YF4hTPZsf1CzF+RjsRJpL1NqJMDoLq3jkvr85glNVqI=;
-        b=q1ps6gHHzhxN1qi81EnyPkL9urHxHhemRn+jcSMO+7oU3J1xNhLeBWcFMGlbEUth1m
-         /Q3rU5+TGrgf7k/sh5UqlIno76tP6+DqvE+aIp0VbOH+igIZRup8iYQw/uUb34AtdRqJ
-         cdwnBDpy50qDubyqowel3KhXDn6h5QYxqJXdmJlB1/HPRFpNAJ8pZYjpJOpVyE2+mSaw
-         1aZywTsx7AOgmrUnuL9z7BB7jGaUp7NpDQ8Zx/UPuQf9MYzhEd3+aPQqKdzDH3w2VrPn
-         pshiOfew1MUAG+uYmzbcfSchsS3JFrM/PV0KCJBcae4Xq4EParCDga8xloC4W3N12Dem
-         zQIg==
-X-Forwarded-Encrypted: i=1; AKwUvBxdgwjeZyjLJGtKJnL+li8fy6ySiqasIQI4acYcTt4FEBfnKplBnRnsQ17F4pfLv5cxyWZNcu8d7fSvZRs=@vger.kernel.org
-X-Gm-Message-State: AFuF++ncvk7IFFnCWr4SIy1cmvvIxvJbVXpHfJVlXQnvHroDy2peCdBq
-	pfEjUJxoyFbydlPcZvTHxRCmrgyLCuo4K9taikXdCXp2AMXjKM2B3ItBxr+e3EeO
-X-Gm-Gg: AYBFou1pMiWSImcnRUhhu99iNGR3l1elj/ENcJCbF6ZS5c+YtG4hPF0IusEhAg3Zhdm
-	/N0CRwLcvLj5Li/TyXZHEOBXx56oQpXuy+i13f6l34YlkmUDU6KSsglBHXVZ/cTBoN+m7wnr4ZO
-	aTwaivCt8M+LMIJ7EQXMvRxPTyHrk2FCbOF6dH9mPkD2Od0nmnDJWhZ95D1nT9qQN5dRPO//8bT
-	PK7G7uSMcTkeKZQT7Pc7Ml4c+eG+Y2uxwYZNjWm5sShzuji25fsCWSElG22DCkupz5zuIsT4WKU
-	4i4iXAmfrFEaspn48mPjVZ9tMNXtcEGzqFBLZaiab2BwuehWBaVez0PFRJxK3KaGD2RKuxFLa1j
-	q3I5QnAUTFRcxqC8f2zSo9+iqm5CDDoDSdVqrulsfi9Fsa2ypriytxQbhD7KjlSjcXlQpSKfcJ8
-	ITog7TIvtzDoi5ancyFgKp3rx5o17sFxpVZ14V+qUpJexnauZRdsK3nyomdSFbUnhhd7robwAwV
-	0HrNmo6muC7pDf5PuMUiYKiUdKBdd230mRfeM5O2Mgt4KgA9GN/HJFlG2tt8eGKnz2Ii2HbMWe1
-	0rJOViV8VeSDsJiqZBoFpOEzUA==
-X-Received: by 2002:a05:6402:210f:b0:6a9:aead:4e98 with SMTP id 4fb4d7f45d1cf-6aa577f5cfdmr8223981a12.1.1789999236010;
-        Mon, 21 Sep 2026 07:00:36 -0700 (PDT)
-Received: from [10.54.182.141] (82-132-213-26.dab.02.net. [82.132.213.26])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67e1a45esm4427483a12.25.2026.09.21.07.00.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 07:00:35 -0700 (PDT)
-Message-ID: <14db93d0-b41b-43c6-8934-82d10cc50168@gmail.com>
-Date: Mon, 21 Sep 2026 15:00:27 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="RIH1OhFf"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6A6651D13;
+	Mon, 21 Sep 2026 07:00:48 -0700 (PDT)
+Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A03C33F528;
+	Mon, 21 Sep 2026 07:00:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789999251; bh=196CWRrTsBXNGEh3O1halF0+Yb/A+7t5R7xVTmSSTuQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=RIH1OhFfFFabunQv0YPirHG+CsJ71/CgYQj6MJ4sSGsVQuJMZyLB4jJmRSzQ1LE2K
+	 rDCaxiiaeeqFrS4tkZ+PYRwgV01eC7wlP+F6GgTQZZnRsOz7ERB9k7nxd8o4rA2K2p
+	 j0e+0RpvqbHK5mmk+msSNDIq0m0LAKukZXJLpUeI=
+Date: Mon, 21 Sep 2026 15:00:45 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Vladimir Murzin <vladimir.murzin@arm.com>, paulmck@kernel.org
+Cc: Chunfeng Yun <chunfeng.yun@mediatek.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [BUG/PATCH] drivers/usb/mtu3: Work around mtu3_log_ep
+ double-indirection issue
+Message-ID: <arE4jcn4dCD9gos_@J2N7QTR9R3.cambridge.arm.com>
+References: <a3ee0655-d818-48e0-84d1-475e6c16c991@paulmck-laptop>
+ <d7bb2cf4-11c3-468c-8749-99cc408299c7@arm.com>
+ <b6c621eb-6d20-4e00-ac05-af122b630ca5@paulmck-laptop>
+ <aae79c1c-8738-4b97-b1b9-d82d19d82d49@arm.com>
+ <20260909093524.249c2a1a@gandalf.local.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Linaro-mm-sig] Re: [PATCH v4 01/14] dma-buf: introduce initial
- file I/O infrastructure
-To: Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Nitesh Shetty
- <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
- Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>,
- Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
- Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
- nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
- ceph-devel@vger.kernel.org
-References: <cover.1785274111.git.asml.silence@gmail.com>
- <bc20381e8daf85ac58811c344325d8192cde9d1e.1785274111.git.asml.silence@gmail.com>
- <181b08be-04bc-4ae9-bb88-15321a82440f@amd.com>
- <anPlbjhpPmj2VZxm@gsse-cloud1.jf.intel.com>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <anPlbjhpPmj2VZxm@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909093524.249c2a1a@gandalf.local.home>
 
-On 8/6/26 02:37, Matthew Brost wrote:
-> On Wed, Aug 05, 2026 at 10:27:49AM +0200, Christian König wrote:
->> On 7/28/26 23:29, Pavel Begunkov wrote:
-...>>> +	/*
->>> +	 * There are no more requests using the map, we can signal the fence.
->>> +	 * It should be done before taking the resv lock as someone could be
->>> +	 * waiting for the fence while holding the lock.
->>> +	 */
->>> +	dma_fence_signal(&fence->base);
->>
->> Signaling fences has a whole bunch of very strict rules associated with it. E.g. you can't alocate memory for example.
->>
+On Wed, Sep 09, 2026 at 09:35:24AM -0400, Steven Rostedt wrote:
+> On Wed, 9 Sep 2026 11:31:28 +0100
+> Vladimir Murzin <vladimir.murzin@arm.com> wrote:
 > 
-> Yes, and the rules around signaling fences from worker threads become
-> interesting as well. In practice, the entire workqueue (or any work item
-> scheduled on that workqueue) effectively becomes part of the fence
-> signaling and reclaim path.
+> > I've done a little bit massaging and here is what worked for me
+> > 
+> > 
+> > diff --git a/drivers/usb/mtu3/mtu3_trace.h b/drivers/usb/mtu3/mtu3_trace.h
+> > index 89870175d635..4d4bae25fa1f 100644
+> > --- a/drivers/usb/mtu3/mtu3_trace.h
+> > +++ b/drivers/usb/mtu3/mtu3_trace.h
+> > @@ -224,6 +224,7 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
+> >                 __field(unsigned int, flags)
+> >                 __field(unsigned int, direction)
+> >                 __field(struct mtu3_gpd_ring *, gpd_ring)
+> > +               __field(dma_addr_t, gpd_ring_dma)
+> >         ),
+> >         TP_fast_assign(
+> >                 __assign_str(name);
+> > @@ -235,12 +236,13 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
+> >                 __entry->flags = mep->flags;
+> >                 __entry->direction = mep->is_in;
+> >                 __entry->gpd_ring = &mep->gpd_ring;
+> > +               __entry->gpd_ring_dma = mep->gpd_ring.dma;
+> >         ),
+> >         TP_printk("%s: type %s maxp %d slot %d mult %d burst %d ring %p/%pad flags %c:%c%c%c:%c",
+> >                 __get_str(name), usb_ep_type_string(__entry->type),
+> >                 __entry->maxp, __entry->slot,
+> >                 __entry->mult, __entry->maxburst,
+> > -               __entry->gpd_ring, &__entry->gpd_ring->dma,
+> > +               __entry->gpd_ring, &__entry->gpd_ring_dma,
+> >                 __entry->flags & MTU3_EP_ENABLED ? 'E' : 'e',
+> >                 __entry->flags & MTU3_EP_STALL ? 'S' : 's',
+> >                 __entry->flags & MTU3_EP_WEDGE ? 'W' : 'w',
 > 
->> Are you sure you actually need and want a dma_fence here?
->>
->>> +
->>> +	dma_resv_lock(dmabuf->resv, NULL);
+> LGTM,
 > 
-> So this is illegal because code is allowed to hold dma-resv locks while
-> waiting on dma-fences. See dma_resv_lockdep / __dma_fence_might_wait /
-> dma_fence_begin_signalling.
-> 
->>> +	ctx->dev_ops->unmap(ctx, map);
->>> +	dma_resv_unlock(dmabuf->resv);
->>> +
->>> +	dma_fence_put(&fence->base);
->>
->> You should probably set map->fence to NULL after that.
->>
->>> +	percpu_ref_exit(&map->refs);
->>> +	kfree(map);
->>> +
->>> +	if (refcount_dec_and_test(&ctx->refs)) {
->>> +		/*
->>> +		 * Destruction needs to wait for I/O and dma fences. Defer it to
->>> +		 * simplify locking.
->>> +		 */
->>> +		INIT_WORK(&ctx->release_work, dma_buf_io_ctx_destroy_work);
->>> +		queue_work(system_wq, &ctx->release_work);
->>> +	}
->>> +}
->>> +
->>> +static void dma_buf_io_map_refs_release(struct percpu_ref *ref)
->>> +{
->>> +	struct dma_buf_io_map *map = container_of(ref, struct dma_buf_io_map, refs);
->>> +
->>> +	/* might sleep, use a worker */
->>> +	INIT_WORK(&map->release_work, dma_buf_io_map_release_work);
->>> +	queue_work(system_wq, &map->release_work);
-> 
-> You can't guarantee that a GFP_KERNEL allocation won't be performed from
-> a system worker thread, so you can't safely signal a fence from one. The
-> pathological case is when all threads in system_wq are running work
-> items that perform GFP_KERNEL allocations, enter reclaim, and then wait
-> on a fence that is signaled by another work item queued on system_wq.
-> Since all worker threads are occupied, the signaling work item cannot be
-> scheduled, resulting in a deadlock. We actually hit this exact deadlock
-> early in Xe.
-> 
-> So, as Christian says, think carefully about whether you really need a
-> dma-fence here. If you do, then you need to play by the rules.
+> Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
 
-I started with moving it out of wq, which was a good idea anyway,
-but as mentioned in another email, in the end I just got rid of
-fences as I believe Christian was suggesting / hinting on. I cc'ed
-you on v6 if you'd be curious.
+On v7.3-rc4 I still see the splat Paul reported initially, and the above
+fixes that, so FWIW:
 
--- 
-Pavel Begunkov
+Tested-by: Mark Rutland <mark.rutland@arm.com>
 
+Steve, I assume you were expecting someone to send the above as a full
+patch.
+
+Paul, do you intend to send a v2, or should Vladimir send out his
+version as its own patch? I assume you're happy with a Reported-by, if
+he does that?
+
+Mark.
