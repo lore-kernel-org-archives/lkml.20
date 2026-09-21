@@ -1,80 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9BD73F5BEC;
-	Mon, 21 Sep 2026 23:31:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076C847CC6C
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:33:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790033484; cv=none; b=lZDo4DZMU41kz7ozs1Tv2basx3sH/4lIviDqX1gUKgbPbPyxrq78cVLHyUzmIckBwNbtkaS5Odi99r65Jb6U1x4hNsmhjr/b6QZ2i30TIoD78lwQcrOBx3bYdbUCtbAbAW0MImNCDhXHQd2GKQImeNwZGbjjT68JluDTyCuP23A=
+	t=1790033610; cv=none; b=AOPSAsPR0wtPcDbngR6quJugsmC8oB9MxMKRELqcToJBYTT6qqJX9jEWVc3IOxZW+DhG+x3KRxrh9+pzg+7dgvInkRmu6SM9KYplcN2BUpx6cxlKMeAC72fjoplaxbh6gY0MW6pzvrc+fX8790ZrgIdNckm3sMGA6rSO7zGk9q4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790033484; c=relaxed/simple;
-	bh=TbIZaUcrAgeVlrrw+mWj+Xg7htFjC0fcSeHNUlLnncY=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=s5VS4SR2If9tZXNX6Hk7DOFiX6U+kmb1PDcO0ziDM2o0cgZ//Ov/AO4r8PzaIyLIGyeUBnmMo0x3jHjiE2K+emcvN6RDixNM0tioVUaIEx/DHgDVaBLPaQ56GpHlwNo1SNEAx8VXyTpvt5yjgGHSNP2kJNZ0oJ2ZtnjOjDGb3hQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kUn7gCl2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790033610; c=relaxed/simple;
+	bh=TK8vynwt56h1/lh5GOESnWLn7GvtD231+8bBTqY2ilU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UFw+lhbtu112e2zJCoySZufC29iklwIYzay/IK9SLZ5hHxaO6486ZssohB3pYZQwIxNQqP6nzmRuz3cG8r0yKvwIptyDYW0XGDQUhUjn2PymcLplC7IH9piBaIM1hKmMOdGJBj8F52QCtVH5SvU0fwpRo3k8Qq7PSO8swyBV08I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QEDTQovK; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kUn7gCl2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FE9D1F00893;
-	Mon, 21 Sep 2026 23:31:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790033478;
-	bh=A7SZzCuIKRwIGT2Fvpei1TqB9ntX9B7E0WRRS/Vpg+s=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=kUn7gCl2OnI6tGz67h6lKqBDdug3RMg7LmM7RFCJR1MoZpF3SZc0kp9F7xvwWoQM/
-	 rzxApucN+FrzZw/VY9M9578x2HMhMokRy3yQkqLG/lIfUSFA8SiPTp9BGIUTkBj2Tj
-	 Vo6n3WrGFouSYtk4j0Ta1G3urzYEWiCQFfLG/fEBcdj835f5m0m0QBQ9ray+sifAht
-	 y0IjXBwv4q3anBGff1HVU4FUAAnQQM6/BQdBfdeMGMUz5vMnplYR8z+h0VjArZMrnj
-	 PxS1MBTlyit9a3ofzoIIpQa/BGWOIOf5SzR9mduO/17Nb6QfoXhrN/21iCx9sAElH6
-	 m2lLPj2S8E7Kw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 197C23927048;
-	Mon, 21 Sep 2026 23:30:11 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QEDTQovK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790033603;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=GfmqB6JuBizDNUwxv97w/Essk/BhafXJXBqyGzj1pBk=;
+	b=QEDTQovKc9LftHpdGPvurcpegK47ObaAYVpbUBvjW1SAPEObMHOYlO0aWnumiYc0VyruHw
+	TKfwwjhJzJ4uM6/k9Q+oasDfL62zs74FkDuWCy7vXWKfjIABztyFBEi65lP4xQ+vGqG3KB
+	F8JAV2nmFb78Xcfvwlt9pzgPBXdVvNM=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-551-HstY9_eCO92IpaeFyHACoA-1; Mon,
+ 21 Sep 2026 19:33:20 -0400
+X-MC-Unique: HstY9_eCO92IpaeFyHACoA-1
+X-Mimecast-MFC-AGG-ID: HstY9_eCO92IpaeFyHACoA_1790033599
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4B9D91953973;
+	Mon, 21 Sep 2026 23:33:19 +0000 (UTC)
+Received: from [100.90.56.12] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1426D3001072;
+	Mon, 21 Sep 2026 23:33:17 +0000 (UTC)
+Message-ID: <59a45f81-8cb2-4794-a529-eab72a45b93a@redhat.com>
+Date: Tue, 22 Sep 2026 01:33:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] octeontx2-af: Fix memory scaling limitation in SR-IOV
- mode
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179003340964.3287147.15335729283521445845.git-patchwork-notify@kernel.org>
-Date: Mon, 21 Sep 2026 23:30:09 +0000
-References: <20260916022111.1083017-1-rkannoth@marvell.com>
-In-Reply-To: <20260916022111.1083017-1-rkannoth@marvell.com>
-To: Ratheesh Kannoth <rkannoth@marvell.com>
-Cc: davem@davemloft.net, gakula@marvell.com, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, sgoutham@marvell.com, andrew+netdev@lunn.ch,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, leon@kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] KVM: x86/hyperv: do not overwrite hc->ingpa for slow
+ SIGNAL_EVENT hypercall
+To: James Houghton <jthoughton@google.com>,
+ Sean Christopherson <seanjc@google.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+References: <20260918094322.152817-1-pbonzini@redhat.com>
+ <arG1Nh2yuMQyAdhV@google.com>
+ <CABgObfatLAp3AsPktQVtVq0MgeJV1Bw+54i5LKye5KzjVPqbyQ@mail.gmail.com>
+ <arG3L3TL5_xCBtc9@google.com>
+ <CABgObfZTbj7cSUdGEcA2xgGkSgFqZ2NnNrHJ7+uYAHP3_9idqg@mail.gmail.com>
+ <arG5raFJQO0hA-Uz@google.com>
+ <CADrL8HWS3SLqGfj0CrHhODscUq3fPdKd6Mg1M_53BFdFh4eLvw@mail.gmail.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Content-Language: en-US
+Autocrypt: addr=pbonzini@redhat.com; keydata=
+ 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
+In-Reply-To: <CADrL8HWS3SLqGfj0CrHhODscUq3fPdKd6Mg1M_53BFdFh4eLvw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Hello:
+On 9/22/26 01:23, James Houghton wrote:
+>> James, how are you feeling about an early morning PUCK in the near future?
+> No problems here; the 23rd is fine. The only day I can't do in the
+> near-ish future is Oct 14. Thanks!
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Great.  To sum up what I would like to understand, this is it:
 
-On Wed, 16 Sep 2026 07:51:11 +0530 you wrote:
-> The original code used DMA_ATTR_FORCE_CONTIGUOUS, which could exhaust
-> the CMA pool when a large number of VFs were requested.
-> 
-> Fix this by switching to the DMA streaming API. This is equivalent on
-> Octeon platforms, which provide full I/O coherency via the SMMU.
-> 
-> Cc: Leon Romanovsky <leon@kernel.org>
-> Fixes: 73d33dbc0723 ("octeontx2-af: Use DMA_ATTR_FORCE_CONTIGUOUS attribute in DMA alloc")
-> Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
-> 
-> [...]
+1) the overlap between memory protection attributes and kvm-userfault. 
+It seems to me that they are almost the same, but I may be wrong.
 
-Here is the summary with links:
-  - [net] octeontx2-af: Fix memory scaling limitation in SR-IOV mode
-    https://git.kernel.org/netdev/net/c/d06f2ebf67ff
+In particular, they are almost the same in that they are both 
+stop-and-retry interfaces, unlike userfaultfd which hides the 
+stop-and-retry behind a page fault and a stopped thread.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+2) what strategy you have implemented, or you have in mind, to handle 
+stop-and-retry for code that does many consecutive memory accesses.  The 
+main one is nested vmentry/vmexit.  I have here some mostly untested 
+code that splits them into prepare/commit/cancel phases, but I haven't 
+dared posting it.
 
+(Secondarily, we have a TDX-sized dependency between planes, memory 
+attributes, VBS, and kvm-userfault.  That is probably something worth 
+discussing too, sooner or later).
+
+Paolo
 
