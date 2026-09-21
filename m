@@ -1,79 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB32847CC78;
-	Mon, 21 Sep 2026 23:37:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EC3471CFB
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:39:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790033868; cv=none; b=NNOblpVT1U2ER6RKnFGHRBnlQpF10nXhH/uaywHKl7fL9S0UN1IGmaBJepPqrikACTKU/AZnTWdVdlY3egE87EfG9+WA6sclv/0a2w2zZW7YnGSheB1+oy5FLUOXcc000LT3ET5MH6a/xj5e87h+dtbEOVRMTtoquS+GRjl5K6k=
+	t=1790033944; cv=none; b=dHjS7VpgEZzjCNEfP0xFuLlbLHW26hmQsdY7JwzPOxLWjUWa2gI/3i3uAkxwRqnOz+hisJWSPI2x8V/+fN1eXPZje6B+gfBa1tZhJm1eGJPLctbb6ZCnHOTd7Emk3iXSAqxAZ5thBj4O903taM5yCstJ9YYvUX2grinFHUE5n6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790033868; c=relaxed/simple;
-	bh=pXyaiQnZtAeP7rLSBmA1iQaPG8ekDfFidf3w4+9OPvg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=luQkj5lHpdJmz/89lk3VZ/pHJ0yDqj+THg3vWpj+yDyMVei5WJNC/kizshBOuI/tokDH4SwHKCt5znWu+ReE5CmVYWxO7rSr+MTzap0/kRnCQ5Ecavq52PuTzgwi/SJfAPI9Tqkg7fcxYWIUmQGJAG/JwBd8iVLULpKPGmZ+dxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TXHLRQkU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790033944; c=relaxed/simple;
+	bh=Vi0byBQ6eTPn8Hm3DwBTt1QuqWUnBnxfF9vYCnJkVaI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uagV8xTiZBslH7fnacnqXy5iL7S9SbXA189V8mti2mH/s3c1HdajopXiAYwg3oNIsfjkX0WQnQ2ZtO6/K0sqf8gI+Z4ddayb6B68lqI0M5+ofI4Lau1AaYSFJjxkwRgpRvn/5YiMGZl4QK4qH9QCCopI5BJunSXYkHTA5iMuwqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dq9i+0yx; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TXHLRQkU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F00DD1F000FF;
-	Mon, 21 Sep 2026 23:37:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790033867;
-	bh=/4trmqFPsL7oNwrkhGXWPZao4cWrt9a6hBxAYGtJFE4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=TXHLRQkUtnEWsQvNon8eJ5W06gvMx1xjGLE33ZjXSV9ukeeqX/LDTAf5t52v+hW5m
-	 f83wWQ1bNlDs6niPgZEQTsZsUgy+t4eEuGI5Ubolkq1fytrMUifZxTadbGzqFxiht9
-	 ubB9dcxcwY5DD3r36hkTmUmWZXP/w2AYQT7sjl/OOQJKF+4Z+TlQ7h/47mkXzBQAFe
-	 c3xTgkgJvskLZA9QGUiazElHDgoJYuaweg5xSTkhN8NqFb4Pj/zZzSOT2gNNq+xM1Z
-	 FMeBXD1rvVDCJ7h+2pzUFyYh0YTkrr+Y/6ryarqZkoZLEGZ2AS27torpPBSj70R/NJ
-	 UrWal6lBTVE0g==
-Date: Mon, 21 Sep 2026 16:37:46 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: netdev-bot+sashiko@kernel.org, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, horms@kernel.org, richardcochran@gmail.com,
- kory.maincent@bootlin.com, vadim.fedorenko@linux.dev, jjc@jclark.com,
- florian.fainelli@broadcom.com, opendmb@gmail.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: don't require the hwtstamp NDOs when a PHY
- provides timestamping
-Message-ID: <20260921163746.5d5d0070@kernel.org>
-In-Reply-To: <8037c32ce6fef79a74ee56973bf185c2@tipi-net.de>
-References: <20260918095540.34286-1-nb@tipi-net.de>
-	<178998466913.2160803.80702009306181180@kernel.org>
-	<8037c32ce6fef79a74ee56973bf185c2@tipi-net.de>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dq9i+0yx"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d8facae850so33105ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:39:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790033943; x=1790638743; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JYSc9TZJl70xsfiMBgdeHeiAhwqgPx8+5Bf/0PtU6RE=;
+        b=dq9i+0yx4OjldeB0529SwpiRmpsSiXuJn0XMzfU8hPS0n8mTZI0d3EhPzuy5yjtk+D
+         1bbf11wNsuKl4N0ZDZcYjkXry7OldA+Q3mIx+ZVwOqZe+ET/4p7ZlF/A12gL1HsStuuR
+         jfpyoCKDpLO7W4Z4T6UgwVY0Z/Irs9mcNyvvPG6p92UPeqU3KJiS0g6yy+TPQCdjlv36
+         eo9dHh5tIcgt6iocGVaKRwrOPeqimjr0Ddal2Diuh5EfzFsD2uQXlYt1MF7pkxZSFO8x
+         voGBe3XSy/NuksrU4jyK0jdPN9phD2Ddf6ejWJFZEb43kKIXqLN3P/Q6bTnuGaoF36w1
+         7e+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790033943; x=1790638743;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JYSc9TZJl70xsfiMBgdeHeiAhwqgPx8+5Bf/0PtU6RE=;
+        b=gNG/ILDKy8RaLmf0Fb8Yog6jDVfAWyvbn34Q15iustc4vBbxVZKwad7R/cGiUQRWky
+         kA1iE1BFb9ln1suC9Y89eoo82foGz/rrZf1p/1yx6cPYH3KEB2mwdcGFHFv4NgYG/s63
+         B+AqA0VWH8U8Gm+bS1jXiJSlpe43SsuBcTmxAu/kbQme45pmtgeznGg8vClxoDG5UMGP
+         w1HF5m6WpcMxSebxIfXg+bCcxBHpZayYLlIgzS+kYHsvd0C/THzdNUMVdnBhbybKPoEN
+         sU+/0/0rWA//wG4+I0S+gcRHHA/PqqU3LIYrPqZyA3fiP83n7OcPnT1+O3+Bk2yw1gb9
+         BXug==
+X-Forwarded-Encrypted: i=1; AKwUvBxajI4lnakFusJevnrcU663mXW7ZzSnDPy16AiNq5L68nymeouUIrxsDMAqS88TPPB0tap1BbUi3ABXfgo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYJIAezUxJwucV+nviyhEXsUophRADzwqNfQeqiMPhN7V/vSjt
+	VUOrcaZKsZFW39sKFn7cF+xkCMIQlzXvmH2x1Y5UoPCnpy8xC+OBq2RHSWp7571gcg==
+X-Gm-Gg: AYBFou2BHmzoaxW/jUciu8lS/GZ+KXSFeNsIcdzmp90fvdp4lEON2njsRxGJacHD9fg
+	8eyFbcQG6h2xjTQX4wc8JyHRAuYGu2Gfm1UihXmpw+bFWg1rX5qvRM2HbVI/xA4hmw1EpJkPXt+
+	k+AjsUXZDmdGkYNcgpFCTKNHOhnDJT1iUzNKvZT7kgHBPpwOXVIoYs2DE64bMwQaezyCl1c8g72
+	AaqDYeaqe/Oi9Ba5exRBhmtHDzb9mVEHRTNkCfKaHQnp4/Bf99njcqaM0WOjpaqEkACa2wOjy/R
+	irPLm785SVxxa40PZa+TKDHfq/wmiwczltQ1dufbjpPpUJqIA1pxA0G6tqCJWb6E2YOSK5GQALp
+	EMA7W5UOsMk2JGr4cmstev/d7ClGgmoVthaRiYMxgbJshogq4rxmRt5c2mQFtP9G6QvC+h2beIP
+	01bSgYs4k0qwqCO9F9HWQLQ/k54cgYrUjLheJ6heKlnl+c9brJexxPswaux1LVEjsiqSu76RyIJ
+	sUHOMmHYPAhx1cBGzIqWJpOmrUDXBBZ2yjElm39KQ7b2UCz7s1iGQJ8AUNLCR8HfVD00LcykQOc
+	CCIsrL7O70uXJxfiKbfLXSUEqlfJ6grJ7AzUqWgkrK4A9Z0=
+X-Received: by 2002:a17:902:fc8d:b0:2d5:db38:8010 with SMTP id d9443c01a7336-2df5b83635bmr2369315ad.15.1790033942078;
+        Mon, 21 Sep 2026 16:39:02 -0700 (PDT)
+Received: from google.com (99.95.125.34.bc.googleusercontent.com. [34.125.95.99])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0691fe5ddsm1049674a91.3.2026.09.21.16.39.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 16:39:01 -0700 (PDT)
+Date: Mon, 21 Sep 2026 23:38:56 +0000
+From: Carlos Llamas <cmllamas@google.com>
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Arve =?iso-8859-1?B?SGr4bm5lduVn?= <arve@android.com>,
+	Todd Kjos <tkjos@android.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH] binder: use irrefutable let patterns
+Message-ID: <arHAEA0JT7T1v1GR@google.com>
+References: <20260921-binder_let-v1-1-0cfc4c535544@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921-binder_let-v1-1-0cfc4c535544@nvidia.com>
 
-On Mon, 21 Sep 2026 12:23:37 +0200 Nicolai Buchwitz wrote:
-> > One detail for whoever narrows the tsconfig gates later: the fix is not 
-> > a
-> > mechanical copy of this one.  The HWTSTAMP_SOURCE_NETDEV branch in
-> > dev_get_hwtstamp_phylib() still calls the callback with no NULL test:
-> > 
-> > net/core/dev_ioctl.c:dev_get_hwtstamp_phylib() {
-> > 	...
-> > 	if (hwprov->source == HWTSTAMP_SOURCE_NETDEV)
-> > 		return dev->netdev_ops->ndo_hwtstamp_get(dev, cfg);
-> > 	...
-> > }
-> > 
-> > dev->hwprov is only ever assigned in ethnl_set_tsconfig(), which is
-> > reached through ethnl_set_tsconfig_validate(), so that branch is safe
-> > today precisely because of the check under discussion.  Should the two
-> > sites be changed together?  
+On Mon, Sep 21, 2026 at 12:49:28AM +0900, Alexandre Courbot wrote:
+> Replace matches on infallible results with irrefutable let patterns,
+> which are available since Rust 1.82.
 > 
-> No, IMHO not here. It would change change behaviour that never worked.
-> Thus I would suggest fixing this with a follow-up to net-next.
+> This removes boilerplate for handling impossible error variants.
+> 
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
 
-Not sure I agree that it's separate but whatever, I don't want the ioctl
-fix to miss rc5.
+Thanks for the cleanup Alexandre.
 
-I'd prefer the netlink fix to also target net, tho. Netlink
-functionality should match the IOCTL, targeting -next would put user
-space in an awkward position when deciding between the two.
+Acked-by: Carlos Llamas <cmllamas@google.com>
