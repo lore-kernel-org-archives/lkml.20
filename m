@@ -1,69 +1,74 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012039.outbound.protection.outlook.com [52.101.48.39])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011047.outbound.protection.outlook.com [40.107.130.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C7D47ACC4
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:18:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6E54CA78F;
+	Mon, 21 Sep 2026 16:18:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790007507; cv=fail; b=QKnbbDyQ4SkO+/dbMsNdaU4ZmguPw0gnB2oFbZaAU3555IgjOYFE+vkyGiTPjtheiwtCy+3rHqGgXZAv/CFFlKKKdgGGQdefGz4Tf8y3nuNGFd26GroUfOSglGtDqxTBWZSZfOXFKom9QsW5v1EitHMKaql0w7JkXUNDOxmQex8=
+	t=1790007511; cv=fail; b=YlV3dQviaSQl02K7z2yb2yolzjtOLVcFesCo/ua+gsZDYfLgJbwgmkczwE5MpT5Kqo57mionmRypRcZBzMNRUocmwuC1IVa06GyV8XZKlSMH30LYdxFiV3ueSxtkq1kg2aNpBKEkl5chUb77sudYTCNHOnohaIUIs6+Kpgh8Aaw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790007507; c=relaxed/simple;
-	bh=vnAXQsANfoo7TAXBcjZb/52A56JJGjPJeYZsPIq2Br4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=eRv5MWia2fWM0OP085cnMAXE9IV7kH5A7UEUmbjyxFduznsUh0mYOsR6iWCuSMftBzgtH3lW2eXuxEcRJEXfNb9sJE0ZVL9fbPBYMHUkDvPTKCpQvcJ6JXyXvgP7uaCM4+mO0uJY4skYP5b4nlXUl2mpPO6/oBMa24dDHP3m9w8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Hf8TL5qk; arc=fail smtp.client-ip=52.101.48.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1790007511; c=relaxed/simple;
+	bh=zI4mpo5wbkRD+aWr8mgr9wPZ8ynQOdTqjf3G63e4sbs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=MKGkOH0xFo/QMf+D3+lUadbHoPxTTsuDb+KAhFLpMQO8qvxPMLnjoqwm1bhLUk7fSSRR7h/+ZyblUnM1irOX6yT1TUtuu6A8OQbOwHKlMkbRqlvGjU5lyZMMmwBD0Q+K1uVo1wqTfIscuRDl3isaZDYt9GF8X10aDJAvp7MGbtI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=anduyiVz; arc=fail smtp.client-ip=40.107.130.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Hf8TL5qk"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="anduyiVz"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ka7QPKPqwaKmPp7EpWeB52chPwalikFUpXRQYdHD94YO44lIkrGgIyJROUeFbRiv4ORwjUFo7x4W9YwV3gUWC27TRo08CHV7r71OkdSh+KHXwh5zqPIbzfxq+aTmZfZMHYiMAlc8IGuz7V6wQ15k7dIor+9DCJB69854cKY2+Qb4pgnN1TbblKRze49GuQ0r/trIqVBXdLrAGSvOVHRJTOye+nLC8uCLzhDBcGObt7mtweSKVL6K2cZHlbalWGaX5d9F12PM5wgxLSrHFzwanEhxHqmvRkBnqFTitZOMYRzYFccR0VQXu9kvRFjv2Oh+qYr/3G5ahSMKCUjZ8zE+NA==
+ b=VtWuhU/vPIDfSwP00wbQdjrc/3lIrizjAnp/XtAWCbsRMUbPOPs+089Zoocb/HJclmSG0/QLYGprKitYu+HFgj8s0iYysj28i9yQ+Zi2V0qjFHicEXIGrY/fFxrgAXY7ByB3tuyDY61fgscv4SaOj8VdBLlaRh8AXSDJt5lA8wPyhudQ0x3IMjC4mIGRa1nqEeqNbr3jziV3d70FZcth1hdjM0ukg7ksv4JCPCvm4Kht9K9CSAo7nN+vV151KgBKRe38uqVCgiFfaIdZrM5TgoCmXjNE6wwvBfKnCSLvVz+VwQnbTlfYCIpGjKhSYLjNWiKT7WIhCFThupjfTP5RNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p6j3Gx+2s8BaYFzoXW0hHjDmoZn5hVdxcxjlzqJX7uk=;
- b=lLF+rZdF1VTSv38TIowazCB51kOJzp3gpB50N6JMgpC4kG4sTRkykjDt3iC/5/tOl1pVFjl5r5KR7eHp7SR78BQ5jqS1YdbcT/G3MsoOA4YGlStiWhDlhmySgh35+JXDTEHdOLuJvcE+BPnDvWfKvosdQwLaGXSlcBB19LZjksaf87VZJBcjP759p38Qy87WqxGXijj6ExSMk3ZmU9Xz9iTL0QcILK5l6LJH/fVWJtyBPknhEcn8iglv0ezVPd4fBHRiCD6GIWt20WkjWsFWLJtfipKfg2ENQ6phmo4WeirxQLDr4u7Ip/ZjZSlAh+PHWho6FNzsi6c2gnrrTS1DlA==
+ bh=viQ8Pa7bxbar9OqjxUEGq6AWHmgpVP6SF83VGdMogDs=;
+ b=v4RT9xnmCNG4K1livoyp9I85KWU63ehi082xEF683xeHwFq0qiIA5UuhRSJZF9RnJKCx0MLB8zhyJxIRUHHnC246mJnmGZP2ecYBvsXzENLJMEFJKhO7MbhqH7eaoK5WdXs/G3O5CO+2hL3ifV1u11J6rj6fowPdWfFhvfwFcYgbQUU+mHh639AegAnFY9sHDXMUYPTw66mWeZOaHNQxB64cPgn+pBuww7waTPuJgLIAh1ciwRUC4L2VNe1gZvVF4oCIBAaTfEF/AVY2JS5GA/8HLS7SCkh+w+ppOIM/k6sO0OED/cQnfnO7WcDvPnFgYMjVSYsYR5ucJXp8IvQi/g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p6j3Gx+2s8BaYFzoXW0hHjDmoZn5hVdxcxjlzqJX7uk=;
- b=Hf8TL5qk0ATp25JraRJ2RstlpfOSEEXcYxSUVursECaq7i6U0QguYUfNxX3U7Z1epMyAr14Mll9LkLtMhl5gs4o9OFR0/gflFHjvej5fvPPuTQVqVFs6HL+z0Qd3HcrSFv9hxNlJe0+utEZs7USLkj8+M+YpdcR5jwdAw0ODTZMTDOENYP2KbfX21sFlOlIw/UXU8NmfIEcB1vLXV/jt6M9B/GLV2q7/ZHsXigG6mEDXQxAUpYbMGmIs/8KRi5LzVVrmpnxO2i3qrsQRErtL/bNz/43mRTlALdUwJquyh7Du2vVzcjlVFAvHDiMW7W1QpDFPMKpiDi9t4lXhqCCDeg==
+ bh=viQ8Pa7bxbar9OqjxUEGq6AWHmgpVP6SF83VGdMogDs=;
+ b=anduyiVzdWvp0xGARez7O7stfgzRm13U7dPNJtEMiIXz3eRdy2vtBnrFGiYUuWlsa+JUnI3AxLupafaRlUa86x8ENDdTVOGm6iyg7J3+Yi1EgW5t7ex33mp7QxjYW1+troJyuFBqAuTlJxvrJc58GZ/WLvefNuq84rdcUq3FWdGE1xPMT4BoV1frGmLukmD0BGShTGJeTRxp+rxJ2tl9ekLViYq5OWUZ+lVwAXIg/rfvRjJvVXWcFNeZDZF4i9hPiniY57IxMtXXXvKTfYIysGVAH5fkRedtbP6SZ5tkyRq4CPVhS9qb5M6ay4QHR48+rjc1/UIYcgA8V+RI4Uxc7Q==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by IA1PR12MB8263.namprd12.prod.outlook.com (2603:10b6:208:3f8::9) with
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DU2PR04MB8647.eurprd04.prod.outlook.com (2603:10a6:10:2de::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 16:18:14 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 16:18:14 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: Gregory Price <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
- akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, brendan.jackman@linux.dev, hannes@cmpxchg.org
-Subject: Re: [PATCH v2 2/2] mm/page_alloc: refactor build_node_zonelist() out
- of build_zonelists()
-Date: Mon, 21 Sep 2026 12:18:12 -0400
-X-Mailer: MailMate (3.0r7032)
-Message-ID: <C7A2977A-CDD8-4EEF-9448-A130411878B6@nvidia.com>
-In-Reply-To: <arCeH_aD5PUM1tNE@gourry-fedora-PF4VCD3F>
-References: <20260912030424.2889731-1-gourry@gourry.net>
- <20260912030424.2889731-3-gourry@gourry.net>
- <DLKNHNP6LH59.3MEEBCAJGFEVK@nvidia.com>
- <arCeH_aD5PUM1tNE@gourry-fedora-PF4VCD3F>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BN0PR02CA0006.namprd02.prod.outlook.com
- (2603:10b6:408:e4::11) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+ 2026 16:18:25 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 16:18:25 +0000
+Date: Mon, 21 Sep 2026 11:18:14 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: phucduc.bui@gmail.com
+Cc: Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, rafael.j.wysocki@intel.com,
+	Jacky Bai <ping.bai@nxp.com>, Lucas Stach <l.stach@pengutronix.de>,
+	Peng Fan <peng.fan@nxp.com>, Xu Yang <xu.yang_2@nxp.com>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Ming Qian <ming.qian@oss.nxp.com>, u.kleine-koenig@baylibre.com,
+	Marco Felsch <m.felsch@pengutronix.de>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Guoniu Zhou <guoniu.zhou@oss.nxp.com>, linux-pm@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] pmdomain: imx8m-blk-ctrl: Use
+ pm_runtime_resume_and_get()
+Message-ID: <arFYxkfN_WDpDtRb@SMW015318>
+References: <20260921033708.14433-1-phucduc.bui@gmail.com>
+ <20260921033708.14433-3-phucduc.bui@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921033708.14433-3-phucduc.bui@gmail.com>
+X-ClientProxiedBy: PH8PR21CA0022.namprd21.prod.outlook.com
+ (2603:10b6:510:2ce::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,154 +76,120 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|IA1PR12MB8263:EE_
-X-MS-Office365-Filtering-Correlation-Id: 671e75d8-e61d-4461-cc40-08df17fbf037
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU2PR04MB8647:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7fc45745-29e6-47d0-9427-08df17fbf650
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|7416014|366016|23010399003|5023799004|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|19092799006|11063799006|56012099006|4143699003|10067099003|6133799003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	35M4bVUxS6xHm0HVdle32yQ/42rEmGMQHKJiG7pJzxwZaD5pq1pivrnvaWFanUVyL+UCm+IsPl12f1PGGycrKUindHeitVlMWsg0RGVpZkxO/gImCpC2T3K/BZQ4S0vt+Z9n5V2TEIRp/kuU65Vm4EL7faYalHD+dmSCcZByIWEdD4xy+f9PaiE7S2MFmE0oMxUVH811yljO2SKoxiDhVRLhFGzAj5dPMQhTEzek1Vis5hpECBU6QsrFv9AX51/HEnr0fKJScTqPM6hucJv5wCbn7zkdGC3DgVJcbseupaIHzDbLOolK4Fu+1hwOjYXUU/v8oebzz/jMQifjM2/+lmpeUIu+lbmM9Vl2dYo1Njfzw4gq5OTqlqkfqDDZLEtZ3Vad+G9y/VfddLE4uh65Vux4+hzVD2Jngahivg6GrAResrpqEtgMs+A8kdKWoZ93/pREn769vLoDkUiIGNRcG1o0ATy5ZMlbXSLUw9Oj5x7TZm4RpELoGqhMFz7S0mlcgQjfeYsuAG408Tjlk/SFo2snMLaIcOImaPUY+c5URtux6hw39dDhI52Ctegb8ATGYtqGgZNfo/GzwJNfjbxJ/p38dUakkj+jnxv6IiN6200cNy+alvybVdGvmfHvld6qWKK/sRWvWR4ZWzTMwTB45je33cGJ0h485oqGgiqT4/A=
+	/WilahWaOz6WqqTCPmi97hHZkd/9o2vHGryeJXc724yJKzKqIBWwH8zu/+MMcEkrnFO8F/lbh6dFSMbnHBxVLUcy24rMosHQnvxAOjSN3EyZZaN14CzvFlszQDd1PDFuw+CYxJ17jd4+V4l2pQNnzwhQQJfzAIhIgPi00LfREc/8T4+DwK4I4INJTTRCrnbmZ7/4+OAq9s4UboktHbsL8aLFxLJB+KQvfBjNsMJnJCf6o+CQSc0S0rZmHjGLzLajWMb7GZPEBxRHq+10rukj+FGqUnKwvPtN1rTn1raQRjQ4h3ZMCZoZEmcdrO3X3wEecthOlijfSi7BM+fOQH1Ta4FL4oTQCzHpJbIOCxshrnjN+rDDJZGyJOR09IEONUTyc6EICywh1VZKgQEGIK04szz7HnN580gOUkyWhs+MZyC01mn7g7eOG/2vERzERvRYy3NwYzywNY6LtKAHnL2kX191ThPjDzhf6M8Ly2EWFyB0C7xFrBokjjNOteI30tfVyFBDsGLWhlDubqP708zhHXE8LrfSCADD/KTSkZWg9kx1TlP8I4eFC8Hk88IG9TMDjomVMTxeSHs6O/LuOU9Wboafps0W+SMPxQ9fBuqWbCLKyvssTJbTNXjvYuZRwBChe1k1sSJQTbWnqlYvgBavy8z20bZRBMwYHq2zdKEcfRI=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(366016)(23010399003)(5023799004)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(19092799006)(11063799006)(56012099006)(4143699003)(10067099003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZitoVHhBQ0JZMzZlbldLRFdQU09FSmMwV282bGQ0ZUgvb0RjMDBTbnM3WHQ4?=
- =?utf-8?B?ZTJkTHdSQWZZakhIR2grY2xiWExPR0UrSlQvV1NoczNhQWdiVmFIVjNoL2pQ?=
- =?utf-8?B?UkR6TTEydUdWcUZaOGcrb3IxeHkveGZBMktwR0wvcWRzMlI4VTkwSG1XNUZD?=
- =?utf-8?B?a01kYXJEYWkzTHJhQkExWkx0a09jamsrLzNtTUltQlpuWlFST3I3NG1IYmNy?=
- =?utf-8?B?SXdJanhnVjJsL2ZwMDRRWGNMS0NhRitDS1NCVUd2NUJIVGFBenZkMGN0dW1k?=
- =?utf-8?B?YnRIL0k2T2ZnWlF5cm9QeUdPYSt0R2htMG83WmFzenF5aTA5cXB3dzJaa0I4?=
- =?utf-8?B?Wlg2MVRRWDVXb0o0dHU2UnJScHFQSmFNY25RMWs2dzNlSmdPbVVDZG05OFU4?=
- =?utf-8?B?YTRxMVdHT2FqK2QwcVdMcXNhZVBSMUh0Q3QwNmN3VFVrL0dNWEUzdXQrZnNR?=
- =?utf-8?B?TWdMdDlrOVlSbHFLQk50OERiVE13UDZ0S0s0UXdNZk5oVW1Gdnk0VlZWMXox?=
- =?utf-8?B?TEVPY29NdEVRcm5LS25DZFFwMmRpckdOaVJnbldPa1F5QjcrVWdrZmdTb0c3?=
- =?utf-8?B?SUlLL3JDajFFVnljaHlEWnNXWG5nYkh0Nk9rVDlCNFArVDdheGFnaVpyVE9F?=
- =?utf-8?B?emZnY3U5ZzZHYUhzbndSUG92c1ZMT1dQcFZSQXZvRGlnaTFXUm1aYjF4dnQ5?=
- =?utf-8?B?L1RoNjZTdWZGSlVqTUpRNjhzSWM2ZFNNVjIrUnAxdzV4bWZ5cnlUVENQa1A1?=
- =?utf-8?B?SEtiUEo2SWsxQUVvbEZqVExGWTJoSTZKM2tQS1pNd1pSWnBLakY5RXZLWUQz?=
- =?utf-8?B?NCtManp4UzdKa3lZcFd2V0xQMmZRUnYybGd1eUd5QXlVUHgwTnhiYzgzQ3Fp?=
- =?utf-8?B?Nnp1Z05UYmlCMDFaWndvQ0QzSElwNTFZcnlNVTZ2OUpreTJXY1Rmc2N4U1NG?=
- =?utf-8?B?NEJsMXlBOE51UXlJRWJJRVFGejQxOFgyUEtvOFZpeEdIYlI5RzZYem5oRHhQ?=
- =?utf-8?B?Ly9ucWZ4bmlHNVo4NFZVcVZxNzZ3MW85RTFQaUNjYW11Qk0yUlJOQStlNTlR?=
- =?utf-8?B?ZDRnVEVxUEgwOFA1bnF2dmhtQ2MyenVhSFJVQm40N1JRUGs0NkV1Wk1vVktJ?=
- =?utf-8?B?akJjMFZ4Z2t5QjVFOERjOWQwblJ5eEJnTHFCSFZmeDJjdWwvQW9OWEZzSTFw?=
- =?utf-8?B?MHNVNnU1V25Tdit0cnZnVXhlMkwybWlRUE9MK0paSVpGUHFoY3RQSkkrc1gr?=
- =?utf-8?B?bCtHZDloNThlMW5ZanRZcmxsaXVpL3JxYTMvN2dRQWIrdnNiTjNDUDFibExJ?=
- =?utf-8?B?QnZLRTJTZTFMbzNiUTZOYmxMd3g4YnZMRk85Nk5rR1VaM0JwZ29SOW5JaWxo?=
- =?utf-8?B?aC90bkJkNUZXdWtjZEFhUmlZR3RhTTZaeHYrUkNBUHR6ajMrTUNjMkV4YU5l?=
- =?utf-8?B?ZnhkL2YvYkoySWFiRnFRbTg0YlE3RUUyN1haUFVsRnFQNGFGaDJteXUrQzA5?=
- =?utf-8?B?QWVWZHZEZEVCMm9BWjNtYm1ObGdlSHRaRUJDMjlyMS9JK1pFMnIreERWNUFW?=
- =?utf-8?B?ZkVWaS9FYkh3QzlEZWI3QkJVbmdJZkJDUmZOSmNzWGpnMC9UN3dldDE4M0NX?=
- =?utf-8?B?aWhDWXk3TlJrWWJqMGE3MWExdW1ydUZRMkszY2hHdnVzaklFZlpHWXRrODFM?=
- =?utf-8?B?cGI4QVpYS1IwbzhuWnNZM1hQcVdRRjR4K0k3cU5iWDFpUnh4R09ySGRvNk5N?=
- =?utf-8?B?SnA3WEVmR0pyMjM2NGlCTDBhVEQxcjFSZHR4c1RRaFRKeXZCTmRYVExRR2l0?=
- =?utf-8?B?RkhadlltaFM0TEZ1dGxtUGVZRng1SUZhZERQV1M0emFXd2YySHBsN2xJWlly?=
- =?utf-8?B?ZExaL0RETlhhRmdTWk5ZS1JKMThkTHpvbEJDRFFic1BBSEtEZHl4Y1pVNlZG?=
- =?utf-8?B?L3h1d1NpcU5FQXNyeitsRGtPRVYrRzd2Y1ljMy9Cd0RDdDNzaUc1QzF1MHdx?=
- =?utf-8?B?bGx4R0htU1Zrak1pRnB1VnVZU1VZdUpwT0FIb2o1blNZMndkaUJxazZxWHNV?=
- =?utf-8?B?SkhhNm4rbi83b0JKUEloSDZlQkU1L0R5eWpCd09sbkV3NHNMLzVlRTdjUERD?=
- =?utf-8?B?NmpwWDdsWjlKbjhFYVQwMkZ4dXcxV0orR0p4TmhYMDkvSy83cks5ZzhNeG00?=
- =?utf-8?B?aHNCUjNsMVhSUWFKQUQ3a1NFTXlKNkVuWkx6TkM4MkdkTzNmdFkrcW11R1Z5?=
- =?utf-8?B?eFdlV3BxL2lvY0pucUZqYXhqWFBwV0lCdDVxUytTK2RCcjRhZzUxYVJUVzdH?=
- =?utf-8?B?VUR6M3R5NytkS2lNZU94WWtkTDNPUklrWWRiV1ljYVdUNWJzZnZ6Zz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 671e75d8-e61d-4461-cc40-08df17fbf037
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+	=?us-ascii?Q?NNBp3JFO/nIi2EcdRPgZFtHVsUdJtXW6tHoJJmh5btYCgCX3nB/JcP6KEJGh?=
+ =?us-ascii?Q?4fzzNbYW8GsOMl4Ym1BBRNGtPdO3aoMk+C4VXfOyfeP1/HtMy5xPOnLyrSC0?=
+ =?us-ascii?Q?4ej+DIDwpMqbEyO6JwfAJzR+/OxLB/4JvKmYpguhS6RNse8Uo7PTqMMzHlN+?=
+ =?us-ascii?Q?A3MdQxVKZvdECsxt6XPBpK7hVNf4nx8kcGipYRsaG2MemjSS3OGr8R7xKyf+?=
+ =?us-ascii?Q?ojjnajXVG8dvFzdqPjz2qFSllkkxeiTI6SkNQ7hhpfsWXWp7+7byO4/mPHsJ?=
+ =?us-ascii?Q?qGCn3XIdFnuFC4n9ijAEBJP+CfuwT4ggYv0EHmzTJ+mHTMBKcEQto5oXIhpj?=
+ =?us-ascii?Q?I1LXBq79st5ENYdhRdNwUBZo9AV1YvjdKX7Nh1iwvGkvbeMMoUZqu+KhY5sz?=
+ =?us-ascii?Q?u2v0xsiQcvFh90vlAbuW0WS9a9CZMbwYVEWqa4yZ5ksbFNM1AcK5kONCTAjX?=
+ =?us-ascii?Q?f1IeAeGLvftXEefIYzYs84DRsKWcX7cIPqbJ8OQHXfxUk8e9V5nqzlRC2kU5?=
+ =?us-ascii?Q?NgUUcOfPnmORudlIPQ2hk35T7cIHz2C96uv38tA+163aP0rRvmP1Y7nhZaSA?=
+ =?us-ascii?Q?2yjcsf+2pnh+dUcYtY8bj97vtBRY4JC1FVlUeQ/zcIq1HW8b09/RjR2jE4kL?=
+ =?us-ascii?Q?9wsi37dVy0OV/6jiHYry6j+6kbDMBuUmZUkDuUXetPf9s9q8OTpay+hDEAN8?=
+ =?us-ascii?Q?V4SggbYk1i7s6eO1PvWLCs62ovsuRS65+2KKd57fO55fT9AiVAfMjy6ePY4M?=
+ =?us-ascii?Q?PzFSsJ7qpCub2XtGW9u9g+pYqXPeNRhlYyD/hcnVk44ktqxM5XuaThkqb2bA?=
+ =?us-ascii?Q?UjhUtPRSYDS3hbLljx1NSzjsAx78BclPn6rLQSfjekfRd/TGiP3VUV/aMEhd?=
+ =?us-ascii?Q?ajbF99dvUihxiD3geOVx1njATkoDPrfdqwaTpTk+TxiN0eFa+S6AuHFPhPHa?=
+ =?us-ascii?Q?y5J6JyEewtZTuGUJbqBRiaJWBPQDRo+CZ9vp655FHpBna+2lzUqjln1/SDqL?=
+ =?us-ascii?Q?2oam5SitOf+zxmLjng3cRf3CRUy61UmJuPSyONAsIsqW/19Eu203Jcu9YMts?=
+ =?us-ascii?Q?+U1SPVcjLE9x14LlObu0PT9Ju0N3zBgygwuPFwq406nRzt4lQu5gP51fQsxw?=
+ =?us-ascii?Q?wPhkmsC3F77n0T+BsHc687bEsEpk/VHhk44jhwFrDwM5IoZmsDUs1wSnUdrW?=
+ =?us-ascii?Q?BnG7pXOVf1aBpNUw+Hyapv83wi0hAR+Q+9fq3fWoewvGu9I2pRcqDgkyNL/B?=
+ =?us-ascii?Q?nhEwsTX+y/A/g0bw8hj18KPRYU6qXFhUP9jE1a3zv0OnJlbg/DHJAZ8HoOd3?=
+ =?us-ascii?Q?S1HmXHIxe2x7e4M1kTN3q+Kd1y7NAF8HRf0MHlxeVYRBoVyXnciPDRw+m53g?=
+ =?us-ascii?Q?LWzZeC1w2yTCG9c8/3jrvaP4zaRy2KHHyg2ZmatbxG+8CIgfqt39kdUOSN3s?=
+ =?us-ascii?Q?QlEpZNNbFQM5SWsCMk+8AXX1icuGEBhpDIehbbwp770Qz0b616S7Oi6HXofA?=
+ =?us-ascii?Q?R6loZknem8cKG0RGtjMq8lFC75t027GTY8CR4pXN7xN8ucdYjtpSTc2utn7P?=
+ =?us-ascii?Q?RyMZYMcrWcDqRnPsn5s3qQDJv4aVkn1BOsCj802S5T5nFW9i98syaUO2hw5t?=
+ =?us-ascii?Q?wwR1MzokTX/28fmIYatfPNwB59ieJeheiFMMULrKN1ZQJ206PITR00VyyUmT?=
+ =?us-ascii?Q?CdUvBUdyn1w44BYBfO4usO6VgchlcB1tVNZwBeEXFf0+JaXBw2jDbNui8B97?=
+ =?us-ascii?Q?5wYiO6KOrlrFydRHI8h+IhQEp+EHFR0LL1msuyPRxQ/LZnEyYx3x?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7fc45745-29e6-47d0-9427-08df17fbf650
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 16:18:14.5743
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 16:18:24.9826
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KC5Liim3WJORtd90J+1+zfm/OjrdUcoJES8JPeEIrdlhm1fFZPc3yiJ4ugQ3dz8f
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8263
+X-MS-Exchange-CrossTenant-UserPrincipalName: v3cjY90bK7S27IAhC1Vr1QcrB3jZnJC9IqSTi9XOyeSkisqaGEoofO5S/uJa8NGzn0PAAkbxt4A9/8UTU2huZX4jLy4JZcGxXn66fY6L1IuYdNk+XvhVShnZVgwsRspS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8647
 
-On 20 Sep 2026, at 23:29, Gregory Price wrote:
-
-> On Sun, Sep 20, 2026 at 10:49:05PM -0400, Zi Yan wrote:
->> On Fri Sep 11, 2026 at 11:04 PM EDT, Gregory Price wrote:
->>> +static void build_node_zonelist(pg_data_t *pgdat, const nodemask_t *candidates,
->>> +				int zlidx)
->>>  {
->>> -	static int node_order[MAX_NUMNODES];
->>> -	int node, nr_nodes = 0;
->>> +	struct zoneref *zonerefs = pgdat->node_zonelists[zlidx]._zonerefs;
->>
->> Why does build_node_zonelist() need to have a new zlidx instead of using
->> ZONELIST_FALLBACK like build_zonelists_in_node_order() did?
->>
+On Mon, Sep 21, 2026 at 10:37:07AM +0700, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
 >
-> The intent is to build new zonelist over a set of candidate nodes, and
-> it's also just clearer: build ZONELIST_FALLBACK from N_MEMORY.
+> Replace the open-coded pm_runtime_get_sync() + pm_runtime_put_noidle()
+> error handling pattern with pm_runtime_resume_and_get(), which already
+> does this internally.
 >
-> With this we get:
+> No functional change.
 >
-> build_node_zonelists(pgdat, &node_states[N_MEMORY_COMMON], ZONELIST_FALLBACK);
-> build_node_zonelists(pgdat, &node_states[N_MEMORY], ZONELIST_PRIVATE);
-> #ifdef PAGEALLOC_KTEST
-> nodemask_andnot(&private_only, &node_states[N_MEMORY],
-> 		&node_states[N_MEMORY_COMMON]
-> build_node_zonelists(pgdat, &private_only, ZONELIST_KTEST);
-> #endif
+> Found by manual code inspection.
 >
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+> ---
 
-OK, ZONELIST_PRIVATE and ZONELIST_KTEST are not upstream yet, right?
-In theory, the new zlidx can be added when you add new ZONELIST_ types.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-I am OK with adding it now, but you could mention this change in
-the commit message to avoid confusion. Something like,
-for bulid_node_zonelist(), use ZONELIST_FALLBACK explicitly.
-
-
+>  drivers/pmdomain/imx/imx8m-blk-ctrl.c | 15 +++++----------
+>  1 file changed, 5 insertions(+), 10 deletions(-)
 >
->>> +static void build_zonelists(pg_data_t *pgdat)
->>> +{
->>> +	build_node_zonelist(pgdat, &node_states[N_MEMORY], ZONELIST_FALLBACK);
->>> +	build_thisnode_zonelists(pgdat);
->>
->> If build_thisnode_zonelists() means ZONELIST_NOFALLBACK, why
->> cannot build_node_zonelist() imply ZONELIST_FALLBACK?
->>
+> diff --git a/drivers/pmdomain/imx/imx8m-blk-ctrl.c b/drivers/pmdomain/imx/imx8m-blk-ctrl.c
+> index 479789009c7f..fe083b1e7251 100644
+> --- a/drivers/pmdomain/imx/imx8m-blk-ctrl.c
+> +++ b/drivers/pmdomain/imx/imx8m-blk-ctrl.c
+> @@ -99,9 +99,8 @@ static int imx8m_blk_ctrl_power_on(struct generic_pm_domain *genpd)
+>  	int ret;
 >
-> thisnode actually means ZONELIST_X+1 as opposed to ZONELIST_NOFALLBACK.
+>  	/* make sure bus domain is awake */
+> -	ret = pm_runtime_get_sync(bc->bus_power_dev);
+> +	ret = pm_runtime_resume_and_get(bc->bus_power_dev);
+>  	if (ret < 0) {
+> -		pm_runtime_put_noidle(bc->bus_power_dev);
+>  		dev_err(bc->dev, "failed to power up bus domain\n");
+>  		return ret;
+>  	}
+> @@ -382,20 +381,16 @@ static int imx8m_blk_ctrl_suspend(struct device *dev)
+>  	 * in the system suspend/resume paths due to the device parent/child
+>  	 * hierarchy.
+>  	 */
+> -	ret = pm_runtime_get_sync(bc->bus_power_dev);
+> -	if (ret < 0) {
+> -		pm_runtime_put_noidle(bc->bus_power_dev);
+> +	ret = pm_runtime_resume_and_get(bc->bus_power_dev);
+> +	if (ret < 0)
+>  		return ret;
+> -	}
 >
-> Since folks are adamant about not allowing another GFP flag for zonelist
-> selection (beyond GFP_THISNODE), the result of this is that all future
-> zonelist additions must carry a FALLBACK + NOFALLBACK variant.
+>  	for (i = 0; i < bc->onecell_data.num_domains; i++) {
+>  		struct imx8m_blk_ctrl_domain *domain = &bc->domains[i];
 >
-> The question you actually want to ask is why build_thisnode_zonelists()
-> even exists - it should be part of build_node_zonelist()
+> -		ret = pm_runtime_get_sync(domain->power_dev);
+> -		if (ret < 0) {
+> -			pm_runtime_put_noidle(domain->power_dev);
+> +		ret = pm_runtime_resume_and_get(domain->power_dev);
+> +		if (ret < 0)
+>  			goto out_fail;
+> -		}
+>  	}
 >
-> I can probably follow up this series by just folding eveything into
+>  	return 0;
+> --
+> 2.43.0
 >
-> /* build zlidx and zlidx+1 (nofallback) */
-> build_node_zonelists(pgdat, candidates, zlidx);
 >
-> And add a BUILD_ON_BUG/ASSERT that forces any CONFIG_NUMA to have
-> balanced zonelist additions.
-
-Got it. Thank you for the explanation. Are all combinations of
-{ZONELIST_FALLBACK, ZONELIST_PRIVATE, ZONELIST_KTEST} x
-{N_MEMORY_GENERAL, N_MEMORY, /* private only */} allowed?
-Any enforcement if not? This is more related your “private node” series,
-instead of this patchset.
-
->
-> But I don't think it's strictly necessary for any of this, and we're
-> just shuffling code from one place to another.  Probably I can just add
-> that improvement when we add the next zonelist.  In the meantime - this
-> makes it easier to add new zonelists as-is (and just makes the code more
-> readable).
-
-Sure, no rush.
-
-Feel free to add
-
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-
-after you add some text on the added zlidx in the commit message.
-
-
-Best Regards,
-Yan, Zi
