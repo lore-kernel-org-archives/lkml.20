@@ -1,188 +1,92 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC414FC320
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:19:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F232F501290;
+	Mon, 21 Sep 2026 21:19:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790025548; cv=none; b=f5QeOfixcAQ1fJw9DflXCc66iBHp8EraMCD/zFUzX3iuyqlqnxL0wigSQpIxCWqXzCKQEu0Uupj7O8OD5wIEfkJnck3ILAKu2l13hO9AsYSzhk6Jpa1lWImXrF0Rr8Gk7Zy7SdnAIGpkYIqIEX0oNpn+w8tg42VKlLa+VoBaimU=
+	t=1790025599; cv=none; b=WyVsvtz+9FBp/ixmQS3KGY876R6hYMTbtNXphNikyyRMdTI+O6vcGt780BCdt+8JcATWorYBMODNd0BpKI9fOJ+YLgcQIEEVsbgprcPWV0IrzHikbmwzvjqQuGiwgzwaxiiBu9DjB6EP6NNZWBjoxtPYkOX/kikNaP4ZXeFPzBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790025548; c=relaxed/simple;
-	bh=daI+uoJTwAJNPFsiYNIKF4nGANBOMqaEr2zEXBBJpic=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=YW7jO+nm8RnlQ7kiMqQvgihcVaQ09Ixo2a5dfbggwIxTQiaxap6CxGXGyECD42Ei5X7yH8KvHFRrEa39ygCnbTCwDhZF9TjpBOfhjqkBwSpENi/fHjVQn1Qeblvolf1UbAkOiYh6CGKWRXgcEMQpAwrEC6ouF9nKkOJs8Mg+nhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=q/4q9lll; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1790025599; c=relaxed/simple;
+	bh=pVFVNpryK/50omAZCNkcvjfe5nFPxxjWqY4zKIS+Wco=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=eQm8JtdEPGsZ/eMSa1ZK4vI3BVhsdakB6+C5CskiDr35W9xD8Oi0ESayWUYXSYBj0fFDOlAjM44WS7TxISJpE0rB6uKU+nna8/m5DPCFxOfZB5XSzzeEbFBU4yQfr+qgedL0iZXrgYmIBRSw61RsQNegVt0Qytnwhsr0QRJ0dlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=ErRE0zur; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="q/4q9lll"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43ac6072so35123137b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:19:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790025545; x=1790630345; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jWxX95kFbMSLZvLmrVlSWvwPBFxFPw+F25Fx/dZ/knc=;
-        b=q/4q9lll0ka7ayWEjV1wpKXUF8cQSFYIDbaVQClQNOaOXBADCMb0EVDqluz70nT3qJ
-         H6KwT7EZSpHrBNf92pkQvB4SEnxYCXf/w47WbSJo6Vq+Q+Fip3hWD64jPYfPZnZ+41Tl
-         p+0arIFtsfaWj0iogRivxXDhcwgbviK57x/84QlHyIZxMbu1gTqUVfIDydhvHJQE+ff/
-         b23CCnXjZ85koD5uxQ0Gdh04DOUU735+/evdAoV/qNsl4EtQ78iy2swNUnX6v7I2brdF
-         KjPkZxGIh6lXq0ln1WRetGk5n8pqyDWweWGFoWaz+0iP057Ln/r+0mRfWHBzHB3Sfnqp
-         2BRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790025545; x=1790630345;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=jWxX95kFbMSLZvLmrVlSWvwPBFxFPw+F25Fx/dZ/knc=;
-        b=qPyixQpGbVKUKhWqInJSM0keAUbWQok9rddBh0uK6KNiJkbcGEldD6RWkZVBz1LEQ3
-         zcPa43Gh8ge4i5dH9V8LPR8DokJZPUd/3NQdQOd9/xNlH26h18lu+5/twzuJbKp6yFvW
-         BV8QaUUu2it3Tf9QmV9vxk6E2G3hi5LlgEP/EjSfJrDYnBKXjNabtYJYRBOXiNG3WjaC
-         QHoUAZ4edYL/1G54U90e1gEx1SY1+9IwtxUarPacEN/xodvMop9gTi6x1dmdIWTrKtkQ
-         FGz5neoHN7uiMm5lePCq1hVWHWiYOnAKJ3KHq9k7LvWwYy7tymV0tWGTXGu4dTjBRkxC
-         oxgg==
-X-Forwarded-Encrypted: i=1; AKwUvBwEQEesFjIxC0xFJPaRnk8QsUMFlgCQ859gknZifE9++EUzSckyjZyi6qi/BG1LUddp5XsAc0210JxlJvk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nc+xhxyrrOZi15iGCWDZcln+5DyNYVtbtKHUK7VzVXdHvkgLUC
-	pieel1B08+C3yNb8PDjHGFSdiR6QbKZolrvbCU9DLXbUIkY1IKq3nHf6InuWVFoQXwS4nEFln43
-	eHC2TWSEcbw==
-X-Gm-Gg: AYBFou1csjSFT2/1mt3qa8zu+PyucBSCHTbZ9t8VJo5NM+jBr279ArKCQg8TAXPXcld
-	49I75VTGq1f+B3KLk4MGGymHxr018VGDO7iFc1JyNMPjMzJxYz/zUNn9noHJai7FJnxfHXx8/Sy
-	5/U+rHCuqUyLLP76Us+TAQk4sUthRYwovsefwO4meWbdm5DNYAL/8NzpU+QXwaDOfUu8ikr2U17
-	IYwS7dwE6NdKo1oMtGcWM3wJelwNecftJOZSl6uuT96qwNGRAch2k4urHmSXEj360XdVOjNytTH
-	IW0KVA5c2hgOvsG7c/337voPV4lsi/rE96KUOkH1XZ4ASTDFC213lioa9ds0hVOXnJZZ6Xtg40X
-	YKYKVs4S1tnaHUfj4/p/U/S41nnml+MVcIkmIbI8s5OcAcO42YSGeGKVG6Req9RaA+8AlAWvU91
-	xVQCW8mgjM3aP4wb4djAj11MCA+iLTUDYRIrUMKpG4GmpeG6iAEwUvtl/c0GU1CwIsxgSmA4hkW
-	Kd8pA3rzNuXAnOlNJT3WiED31RUfW9wbSPHO+5M3jzwiAnrMNMF+vNRgtt2doSnZ+Ez1dnWbmO5
-	UhiMKql3q231k4j9sl4nRbtlMvOHijpnDCrUSBQZl0ObXtOPC7dhOComAiePgkSA
-X-Received: by 2002:a05:690c:560d:b0:890:659e:3c84 with SMTP id 00721157ae682-897363672ffmr39041997b3.57.1790025544875;
-        Mon, 21 Sep 2026 14:19:04 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:8475:e6ce:2d2c:ddc2? ([2600:1700:6476:1430:8475:e6ce:2d2c:ddc2])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a23c738beasm1587077b3.13.2026.09.21.14.19.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 14:19:03 -0700 (PDT)
-Message-ID: <4fdba50ccb0327d7dedaa937774d0c6ae7b77919.camel@dubeyko.com>
-Subject: Re: [PATCH] hfs: propagate extent B-tree insertion errors
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Davy Felipe <davyfelipe34@gmail.com>, John Paul Adrian Glaubitz
-	 <glaubitz@physik.fu-berlin.de>, Yangtao Li <frank.li@vivo.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 21 Sep 2026 14:19:02 -0700
-In-Reply-To: <20260920160213.285316-1-davyfelipe34@gmail.com>
-References: <20260920160213.285316-1-davyfelipe34@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="ErRE0zur"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=g1ST6U2BpQn/s3D8UpgYd2KCtTjj3ldN0h2dyB/bZ1Q=; b=ErRE0zursoMY+UMyjDwlvee3Ni
+	KA0G6w/m3ydbimYpQQUck96YqgySKBEOmHmVTKRDnOSBjXwLk823Iyzn19FH5wIRNyOd8lHCcCOKF
+	P4e0/xf7B99zvFBls/UtyMwxWMPlkopEgNqDz2HBzZ+BN0XiC2bQLmA9ey2luseNU9pagmqqvcRBg
+	X5WL28iC9i3rfIjgzKuHTOMbAZBQXwEdIErvGXDZfX/f15ftDFp1bId1GIvg6+M9qgvuceibqnwk3
+	gV7hSE5AohGjlJ+NEsDquVHADVHT9YX5Kzbjm+P60e79A2ZT0irlax3JIJfDcRd7sn2BOJDrjfqsg
+	6x4VUOpQ==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1x8lQX-0000000F5FQ-0Kc5;
+	Mon, 21 Sep 2026 15:19:54 -0600
+Message-ID: <9e868c06-be53-436c-a78d-790ed2b91c3e@deltatee.com>
+Date: Mon, 21 Sep 2026 15:19:40 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
+ <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+References: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
+ <20260920-fix-p2p-acs-v4-0-v7-11-ca0828ab697c@nvidia.com>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260920-fix-p2p-acs-v4-0-v7-11-ca0828ab697c@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com, gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org, ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org, sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev, tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v7 11/19] PCI/P2PDMA: Log detailed ACS routing diagnostics
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-On Sun, 2026-09-20 at 13:02 -0300, Davy Felipe wrote:
-> hfs_brec_insert() may fail while inserting a new extent record, but
-> __hfs_ext_write_extent() currently ignores its return value and
-> clears
-> HFS_FLG_EXT_DIRTY and HFS_FLG_EXT_NEW as if the insertion had
-> succeeded.
->=20
-> Propagate the error returned by hfs_brec_insert() and only clear the
-> extent flags after a successful insertion.
->=20
-> Fault injection of -EIO into the extent B-tree insertion path
-> confirmed
-> that __hfs_ext_write_extent() returned success despite the insertion
-> failure. With the error propagated, the failure is returned to the
-> caller instead.
 
-How HFS driver behaves when we return error from hfs_brec_insert()? Are
-we capable to properly process it? I assume that everything should work
-well. But have you tested failure use-case?=20
 
->=20
-> Signed-off-by: Davy Felipe <davyfelipe34@gmail.com>
-> ---
-> =C2=A0fs/hfs/extent.c | 5 ++++-
-> =C2=A01 file changed, 4 insertions(+), 1 deletion(-)
->=20
-> diff --git a/fs/hfs/extent.c b/fs/hfs/extent.c
-> index f066a99a863b..77ba0f63fcb9 100644
-> --- a/fs/hfs/extent.c
-> +++ b/fs/hfs/extent.c
-> @@ -121,7 +121,10 @@ static int __hfs_ext_write_extent(struct inode
-> *inode, struct hfs_find_data *fd)
-> =C2=A0		res =3D hfs_bmap_reserve(fd->tree, fd->tree->depth +
-> 1);
-> =C2=A0		if (res)
-> =C2=A0			return res;
-> -		hfs_brec_insert(fd, HFS_I(inode)->cached_extents,
-> sizeof(hfs_extent_rec));
-> +		res =3D hfs_brec_insert(fd, HFS_I(inode)-
-> >cached_extents,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sizeof(hfs_extent_rec));
-> +		if (res)
-> +			return res;
-> =C2=A0		HFS_I(inode)->flags &=3D
-> ~(HFS_FLG_EXT_DIRTY|HFS_FLG_EXT_NEW);
-> =C2=A0	} else {
-> =C2=A0		if (res)
+On 2026-09-20 05:41, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+> 
+> When P2PDMA rejects a mapping, existing warnings identify only the final
+> ACS or host-bridge result. They omit topology, live controls, divergence
+> ports, cache state, and intermediate routing decisions.
+> 
+> Emit debug-level messages for verbose calculations and cache lookups.
+> Report both paths, decoded ACS controls, directional decisions, host
+> fallback, and the final mapping. This keeps incidental unsupported probes
+> quiet while allowing the diagnostics to be enabled when needed.
+> 
+> Tested-by: Tushar Dave <tdave@nvidia.com>
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 
-We ignore potential errors from hfs_bnode_write(). Should we start
-processing it too?
+Looks good to me:
 
-	} else {
-		if (res)
-			return res;
-		hfs_bnode_write(fd->bnode, HFS_I(inode)-
->cached_extents, fd->entryoffset, fd->entrylength);
-		HFS_I(inode)->flags &=3D ~HFS_FLG_EXT_DIRTY;
-	}
-
-Thanks,
-Slava.
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
