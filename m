@@ -1,398 +1,174 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FB19427FBF;
-	Mon, 21 Sep 2026 16:19:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A9283BED78;
+	Mon, 21 Sep 2026 16:19:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790007565; cv=none; b=onDsgu9bqIwlCqT0bSe0sIsyntUuNJldLBbtljeQnV+NiSkEWIXtM0AVVfVxaQoU8yle/utN2svJEgnKS+t9+xo9Jj9S7oJxX3dUk+NWLrtj3DZN0dXXR6ReMjhLnXG0ek5IfjTQEn4F4uZNvugr7hRNeHb1dRoRxxD8KVrPet4=
+	t=1790007573; cv=none; b=LNgJCdxNwmR13KVTlOvz9DctUwvdtX2rHgeF431l6+HRxJZJcqTfqBFPeczLQqSPm6MsXMBwhMS+Pz1R1cWpEfrLs6evbxmwgHFGCJQpYZGI+cqcVtZdj396oggFqpGsvJ858wvPDUjEvxbqJj3TW6W7WB5B3uID1UTwzcs3fxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790007565; c=relaxed/simple;
-	bh=oeCO+v7fNM5KTV5sAaLeGlTHPLLd/AV5Bs9zK/WDLVk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qVMd9wstj+WQa2h5jJdoRFUbGUdm0FlZC6+E4B5iUnV/e/XdsZWn+0alrmsY5IsgaT+LK89R0OoXEQbWNJ5gXQrjL+qTen2eW+ixQT6U3/XK5aOY7t/PPQr7klep8p+mTntG4RyjX/AUdjUKhxXbzYw3R1hWViikKKq/avFzHJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=SGYJK5B6; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1790007573; c=relaxed/simple;
+	bh=887MquzIHSe/iEOnfLb6yCNYFWPX/CoUsvP1EJyQ5h8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=neqxJ9zhhkTLfSFWdaGstK9495PpdVym/AXr7AeSGiZMQKlFPGZa3/SmdXOUFDM6KaHyxi2AJDyudmAC47zZwV0yQO4l2696stJo4Odw/6Uj6i3wRAPPl9Fod0Isz4IHShgwDWXGbQle6rmRoGR5yrIy/lJMcnoe88wn3TMUT/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=j+hESakO; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="SGYJK5B6"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hpT2J1cR7zMlGJ;
-	Mon, 21 Sep 2026 18:19:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790007560;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xsVGfcwq8Q6m8URuxO/CCkmwXeLUMEyKJp/gAc4kZEc=;
-	b=SGYJK5B6Al38O6s3vdB/qL59Le1F3uWGCLOz+v//dSYqdtxkidh4ukqAMI3ZYmMiFOzDZq
-	Zg8MxmQ7fM1Azi3vxQkR2bxewWqTnXGjM/i5vSDQG+1c2uwRFcRyn3VOlmesDvkyVIl05E
-	5sqeEEnuu1O841i6gb23/El13uyr0PDfrm62oq6xB324VtTmH9wP1VyPWlMQ2qfSkCK9lr
-	vtlWIxeF4uUdRQEqeZgSesEzmH7Z7q7ZF6BO3l/ZKPPC7JEH2GXSHMACYfTRJpvhIksxZO
-	nTZ22QgLk8X+2F31iAIBuNfq5ZEsjtezEesVx4Zyh7Vocu0nic6UblfuUVNMbQ==
-From: Simon Polack <spolack+git@mailbox.org>
-To: andrew+netdev@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: f.fainelli@gmail.com,
-	javen_xu@realsil.com.cn,
-	chad@monroe.io,
-	vladimir.oltean@nxp.com,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 3/3] net: phy: realtek: add LED support for RTL8261C/D
-Date: Mon, 21 Sep 2026 18:18:17 +0200
-Message-ID: <20260921161817.565185-4-spolack+git@mailbox.org>
-In-Reply-To: <20260921161817.565185-1-spolack+git@mailbox.org>
-References: <20260921161817.565185-1-spolack+git@mailbox.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="j+hESakO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790007570; x=1821543570;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=887MquzIHSe/iEOnfLb6yCNYFWPX/CoUsvP1EJyQ5h8=;
+  b=j+hESakOZzYQHTocnIBgIDxKgGflOb/FsvJc2Sg1QZDjwPEtQytwo26x
+   V/pEosWWtqqghrYkA3P0LQj8nM+zmX+SZXbVzbZ4JMhorek07fmchC+8A
+   LHAS1AMSKZvuft36rlkIzruGG/txHNyevvpyhvMSoox4QsLGWTnjdELvL
+   izCRHJ4pS/jWUo3vmfm/7LQ6S4SoNz/5G+IEY+kPrzFoSlwMRWLQ3SaB4
+   1VYfxhKUzG7bkNw+MxIYVucR7F/SkWatneY5r7hJ2UtBM5yT5tnDmZEIL
+   eCToM6Rxdx/I+f9nV1T4W4OBzkyAFlQTS/S2DmV1ZlM2xdOTX9QSzuO9H
+   A==;
+X-CSE-ConnectionGUID: YxfcYW0OS4SS6XGlHMgABA==
+X-CSE-MsgGUID: 3Bt+NmviRZKnjdkZesZxtA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1043761"
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="1043761"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 09:19:29 -0700
+X-CSE-ConnectionGUID: tLmR9Ml+Sx+36mkelsPfCg==
+X-CSE-MsgGUID: Ymk9WNNWS32bFWMSP/oKtg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="3705836"
+Received: from ssimmeri-mobl2.amr.corp.intel.com (HELO [10.125.109.204]) ([10.125.109.204])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 09:19:30 -0700
+Message-ID: <f2e54889-ff66-469c-8144-8a7da2291055@intel.com>
+Date: Mon, 21 Sep 2026 09:19:29 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: 6ohhx57ocn7is86qpo9q4b513styo75c
-X-MBO-RS-ID: 9a657350ea5382c8198
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/mm: don't apply va_align to hugetlb mappings on AMD
+ F15h
+To: Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>,
+ Borislav Petkov <bp@alien8.de>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260828135747.724789-1-l.wandrebeck@quelquesmots.fr>
+ <3faecf65-7edb-4cec-be7a-e5266dd3a649@intel.com>
+ <20260829174704.GAapMbGAZMwImcvIN7@fat_crate.local>
+ <0B48BE2C-2E72-4961-91D9-35E215F537A9@quelquesmots.fr>
+ <20260829185120.GBapMqKFM35KtL0Mod@fat_crate.local>
+ <78225f07785ed89e0c3e5def8a8bb1a48e444322.camel@quelquesmots.fr>
+ <20260916200247.GFaqr15333nu5IAfjU@fat_crate.local>
+ <45dc4a4f62e49107de788b4be9a4039e0d772fa1.camel@quelquesmots.fr>
+Content-Language: en-US
+From: Dave Hansen <dave.hansen@intel.com>
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ xsFNBE6HMP0BEADIMA3XYkQfF3dwHlj58Yjsc4E5y5G67cfbt8dvaUq2fx1lR0K9h1bOI6fC
+ oAiUXvGAOxPDsB/P6UEOISPpLl5IuYsSwAeZGkdQ5g6m1xq7AlDJQZddhr/1DC/nMVa/2BoY
+ 2UnKuZuSBu7lgOE193+7Uks3416N2hTkyKUSNkduyoZ9F5twiBhxPJwPtn/wnch6n5RsoXsb
+ ygOEDxLEsSk/7eyFycjE+btUtAWZtx+HseyaGfqkZK0Z9bT1lsaHecmB203xShwCPT49Blxz
+ VOab8668QpaEOdLGhtvrVYVK7x4skyT3nGWcgDCl5/Vp3TWA4K+IofwvXzX2ON/Mj7aQwf5W
+ iC+3nWC7q0uxKwwsddJ0Nu+dpA/UORQWa1NiAftEoSpk5+nUUi0WE+5DRm0H+TXKBWMGNCFn
+ c6+EKg5zQaa8KqymHcOrSXNPmzJuXvDQ8uj2J8XuzCZfK4uy1+YdIr0yyEMI7mdh4KX50LO1
+ pmowEqDh7dLShTOif/7UtQYrzYq9cPnjU2ZW4qd5Qz2joSGTG9eCXLz5PRe5SqHxv6ljk8mb
+ ApNuY7bOXO/A7T2j5RwXIlcmssqIjBcxsRRoIbpCwWWGjkYjzYCjgsNFL6rt4OL11OUF37wL
+ QcTl7fbCGv53KfKPdYD5hcbguLKi/aCccJK18ZwNjFhqr4MliQARAQABzUVEYXZpZCBDaHJp
+ c3RvcGhlciBIYW5zZW4gKEludGVsIFdvcmsgQWRkcmVzcykgPGRhdmUuaGFuc2VuQGludGVs
+ LmNvbT7CwXgEEwECACIFAlQ+9J0CGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJEGg1
+ lTBwyZKwLZUP/0dnbhDc229u2u6WtK1s1cSd9WsflGXGagkR6liJ4um3XCfYWDHvIdkHYC1t
+ MNcVHFBwmQkawxsYvgO8kXT3SaFZe4ISfB4K4CL2qp4JO+nJdlFUbZI7cz/Td9z8nHjMcWYF
+ IQuTsWOLs/LBMTs+ANumibtw6UkiGVD3dfHJAOPNApjVr+M0P/lVmTeP8w0uVcd2syiaU5jB
+ aht9CYATn+ytFGWZnBEEQFnqcibIaOrmoBLu2b3fKJEd8Jp7NHDSIdrvrMjYynmc6sZKUqH2
+ I1qOevaa8jUg7wlLJAWGfIqnu85kkqrVOkbNbk4TPub7VOqA6qG5GCNEIv6ZY7HLYd/vAkVY
+ E8Plzq/NwLAuOWxvGrOl7OPuwVeR4hBDfcrNb990MFPpjGgACzAZyjdmYoMu8j3/MAEW4P0z
+ F5+EYJAOZ+z212y1pchNNauehORXgjrNKsZwxwKpPY9qb84E3O9KYpwfATsqOoQ6tTgr+1BR
+ CCwP712H+E9U5HJ0iibN/CDZFVPL1bRerHziuwuQuvE0qWg0+0SChFe9oq0KAwEkVs6ZDMB2
+ P16MieEEQ6StQRlvy2YBv80L1TMl3T90Bo1UUn6ARXEpcbFE0/aORH/jEXcRteb+vuik5UGY
+ 5TsyLYdPur3TXm7XDBdmmyQVJjnJKYK9AQxj95KlXLVO38lczsFNBFRjzmoBEACyAxbvUEhd
+ GDGNg0JhDdezyTdN8C9BFsdxyTLnSH31NRiyp1QtuxvcqGZjb2trDVuCbIzRrgMZLVgo3upr
+ MIOx1CXEgmn23Zhh0EpdVHM8IKx9Z7V0r+rrpRWFE8/wQZngKYVi49PGoZj50ZEifEJ5qn/H
+ Nsp2+Y+bTUjDdgWMATg9DiFMyv8fvoqgNsNyrrZTnSgoLzdxr89FGHZCoSoAK8gfgFHuO54B
+ lI8QOfPDG9WDPJ66HCodjTlBEr/Cwq6GruxS5i2Y33YVqxvFvDa1tUtl+iJ2SWKS9kCai2DR
+ 3BwVONJEYSDQaven/EHMlY1q8Vln3lGPsS11vSUK3QcNJjmrgYxH5KsVsf6PNRj9mp8Z1kIG
+ qjRx08+nnyStWC0gZH6NrYyS9rpqH3j+hA2WcI7De51L4Rv9pFwzp161mvtc6eC/GxaiUGuH
+ BNAVP0PY0fqvIC68p3rLIAW3f97uv4ce2RSQ7LbsPsimOeCo/5vgS6YQsj83E+AipPr09Caj
+ 0hloj+hFoqiticNpmsxdWKoOsV0PftcQvBCCYuhKbZV9s5hjt9qn8CE86A5g5KqDf83Fxqm/
+ vXKgHNFHE5zgXGZnrmaf6resQzbvJHO0Fb0CcIohzrpPaL3YepcLDoCCgElGMGQjdCcSQ+Ci
+ FCRl0Bvyj1YZUql+ZkptgGjikQARAQABwsFfBBgBAgAJBQJUY85qAhsMAAoJEGg1lTBwyZKw
+ l4IQAIKHs/9po4spZDFyfDjunimEhVHqlUt7ggR1Hsl/tkvTSze8pI1P6dGp2XW6AnH1iayn
+ yRcoyT0ZJ+Zmm4xAH1zqKjWplzqdb/dO28qk0bPso8+1oPO8oDhLm1+tY+cOvufXkBTm+whm
+ +AyNTjaCRt6aSMnA/QHVGSJ8grrTJCoACVNhnXg/R0g90g8iV8Q+IBZyDkG0tBThaDdw1B2l
+ asInUTeb9EiVfL/Zjdg5VWiF9LL7iS+9hTeVdR09vThQ/DhVbCNxVk+DtyBHsjOKifrVsYep
+ WpRGBIAu3bK8eXtyvrw1igWTNs2wazJ71+0z2jMzbclKAyRHKU9JdN6Hkkgr2nPb561yjcB8
+ sIq1pFXKyO+nKy6SZYxOvHxCcjk2fkw6UmPU6/j/nQlj2lfOAgNVKuDLothIxzi8pndB8Jju
+ KktE5HJqUUMXePkAYIxEQ0mMc8Po7tuXdejgPMwgP7x65xtfEqI0RuzbUioFltsp1jUaRwQZ
+ MTsCeQDdjpgHsj+P2ZDeEKCbma4m6Ez/YWs4+zDm1X8uZDkZcfQlD9NldbKDJEXLIjYWo1PH
+ hYepSffIWPyvBMBTW2W5FRjJ4vLRrJSUoEfJuPQ3vW9Y73foyo/qFoURHO48AinGPZ7PC7TF
+ vUaNOTjKedrqHkaOcqB185ahG2had0xnFsDPlx5y
+In-Reply-To: <45dc4a4f62e49107de788b4be9a4039e0d772fa1.camel@quelquesmots.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Chad Monroe <chad@monroe.io>
+On 9/19/26 01:47, Laurent Wandrebeck wrote:
+>  static unsigned long get_align_mask(struct file *filp)
+>  {
+> -       if (filp && is_file_hugepages(filp))
+> +       if (is_file_hugepages(filp))
+>                 return huge_page_mask_align(filp);
+>         /* handle 32- and 64-bit case with a single conditional */
+>         if (va_align.flags < 0 || !(va_align.flags & (2 - mmap_is_ia32())))
 
-The RTL8261C/D use the same LED register block as the RTL8221B: one
-control register per LED at VEND2 0xd032 + 2 * index selecting the link
-speeds that light it, activity blink bits in LCR6 and per-LED polarity
-and enable bits in LCR7. Compared to the RTL8221B there are four LEDs
-instead of three, and two more speed bits for 5G and 10G.
+I'd just leave that hunk out for now. It's harmless to leave.
 
-Reuse the existing RTL822X_VND2_* definitions and add the two speed bits
-and the enable bit. The callbacks follow rtl822xb_led_*() closely, with
-two additions:
+> @@ -50,9 +50,13 @@ static unsigned long get_align_mask(struct file *filp)
+>   * value before calling vm_unmapped_area() or ORed directly to the
+>   * address.
+>   */
+> -static unsigned long get_align_bits(void)
+> +static unsigned long get_align_bits(struct file *filp)
+>  {
+> -       return va_align.bits & get_align_mask(NULL);
+> +       /* hugetlb mappings must stay on the huge page boundary. */
+> +       if (is_file_hugepages(filp))
+> +               return 0;
 
- - led_polarity_set() honours active-low LEDs. The polarity bit in LCR7
-   doubles as the manual on/off level in led_brightness_set(), so the
-   configured polarity is cached in the private data and restored by
-   led_hw_control_set().
+I don't find that comment helpful. The function is kinda misnamed a bit
+too. Maybe a comment like this?
 
- - led_hw_control_set() and led_brightness_set() set the output enable
-   bit, which firmware normally leaves set already.
+	/*
+	 * va_align.bits is smaller than the huge page size and will
+	 * lead to misaligned huge pages. Ignore it for huge mappings.
+	 */
 
-The callbacks duplicate most of rtl822xb_led_*(), differing only in the
-LED count, the speed mask and the LCR7 handling. Making the RTL8221B code
-table-driven and sharing it would be the right end state, but that
-touches a working driver and wants testing on an RTL8221B, so it is left
-for a follow-up series.
+> +       return va_align.bits & get_align_mask(filp);
+>  }
+>  
+>  static int __init control_va_addr_alignment(char *str)
+> @@ -157,7 +161,7 @@ arch_get_unmapped_area(struct file *filp, unsigned long addr, unsigned long len,
+>         }
+>         if (filp) {
+>                 info.align_mask = get_align_mask(filp);
+> -               info.align_offset += get_align_bits();
+> +               info.align_offset += get_align_bits(filp);
+>         }
+>  
+>         return vm_unmapped_area(&info);
+> @@ -222,7 +226,7 @@ arch_get_unmapped_area_topdown(struct file *filp, unsigned long addr0,
+>  
+>         if (filp) {
+>                 info.align_mask = get_align_mask(filp);
+> -               info.align_offset += get_align_bits();
+> +               info.align_offset += get_align_bits(filp);
+>         }
 
-The callbacks are wired to the RTL8261C_CG and RTL8261CE_CG entries,
-which between them cover the parts this was tested on. RTL8261D_VM is
-left out for lack of hardware.
-
-Tested on a Gemtek W1700K (Airoha AN7581) with an RTL8261CE: index 2
-drives a yellow and index 3 a green LED on each 10G port. Under hardware
-control the link speed bits, the activity blink and the combined
-TRIGGER_NETDEV_LINK all take effect and offloading is confirmed through
-the netdev trigger. The polarity bit was verified to be active-high when
-clear on that board. Also tested on AN7581 and MT7988A boards with an
-RTL8261C and RTL8261D.
-
-Signed-off-by: Chad Monroe <chad@monroe.io>
-Co-developed-by: Simon Polack <spolack+git@mailbox.org>
-Signed-off-by: Simon Polack <spolack+git@mailbox.org>
-Assisted-by: LLM
----
- drivers/net/phy/realtek/realtek_main.c | 228 +++++++++++++++++++++++++
- 1 file changed, 228 insertions(+)
-
-diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
-index 04d397f0a2d8..b1f020aa7760 100644
---- a/drivers/net/phy/realtek/realtek_main.c
-+++ b/drivers/net/phy/realtek/realtek_main.c
-@@ -183,12 +183,15 @@
- #define RTL822X_VND2_LCR_LINK_100		BIT(1)
- #define RTL822X_VND2_LCR_LINK_1000		BIT(2)
- #define RTL822X_VND2_LCR_LINK_2500		BIT(5)
-+#define RTL822X_VND2_LCR_LINK_5000		BIT(6)
-+#define RTL822X_VND2_LCR_LINK_10000		BIT(4)
- 
- #define RTL822X_VND2_LCR6			0xd040
- #define RTL822X_VND2_LED_ACT(x)			BIT(x)
- 
- #define RTL822X_VND2_LCR7			0xd044
- #define RTL822X_VND2_LED_POLAR(x)		BIT(x)
-+#define RTL822X_VND2_LED_EN(x)			BIT((x) + 4)
- 
- #define RTL8224_MII_RTCT			0x11
- #define RTL8224_MII_RTCT_ENABLE			BIT(0)
-@@ -305,6 +308,7 @@
- #define FW_SUB_MAGIC_8261D		0x32363144
- #define RTL8261X_POLL_TIMEOUT_MS	100
- #define RTL8261X_MAX_MMD_DEV		31
-+#define RTL8261X_LED_COUNT		4
- 
- #define RTL8261C_CE_FW_NAME	"rtl_nic/rtl8261c.bin"
- #define RTL8261D_FW_NAME	"rtl_nic/rtl8261d.bin"
-@@ -364,6 +368,11 @@ struct rtl8261x_priv {
- 	const char *fw_name;
- 	u32 fw_sub_magic;
- 	bool fw_loaded;
-+	/* LCR7's polarity bit doubles as the manual on/off level in
-+	 * led_brightness_set(), so the configured polarity is kept here
-+	 * to restore it whenever hardware control is set up again.
-+	 */
-+	u8 led_active_low;
- };
- 
- static int rtl821x_read_page(struct phy_device *phydev)
-@@ -2530,6 +2539,215 @@ static int rtl822xb_led_brightness_set(struct phy_device *phydev, u8 index,
- 					  RTL822X_VND2_LED_POLAR(index));
- }
- 
-+static int rtl8261x_led_hw_is_supported(struct phy_device *phydev, u8 index,
-+					unsigned long rules)
-+{
-+	const unsigned long act_mask = BIT(TRIGGER_NETDEV_RX) |
-+				       BIT(TRIGGER_NETDEV_TX);
-+	const unsigned long link_mask = BIT(TRIGGER_NETDEV_LINK) |
-+					BIT(TRIGGER_NETDEV_LINK_10) |
-+					BIT(TRIGGER_NETDEV_LINK_100) |
-+					BIT(TRIGGER_NETDEV_LINK_1000) |
-+					BIT(TRIGGER_NETDEV_LINK_2500) |
-+					BIT(TRIGGER_NETDEV_LINK_5000) |
-+					BIT(TRIGGER_NETDEV_LINK_10000);
-+
-+	if (index >= RTL8261X_LED_COUNT)
-+		return -EINVAL;
-+
-+	/* Filter out any other unsupported triggers. */
-+	if (rules & ~(link_mask | act_mask))
-+		return -EOPNOTSUPP;
-+
-+	/* RX and TX are not differentiated, they are not possible
-+	 * without combination with a link trigger.
-+	 */
-+	if ((rules & act_mask) && !(rules & link_mask))
-+		return -EOPNOTSUPP;
-+
-+	return 0;
-+}
-+
-+static int rtl8261x_led_hw_control_get(struct phy_device *phydev, u8 index,
-+				       unsigned long *rules)
-+{
-+	const u16 all_links = RTL822X_VND2_LCR_LINK_10 |
-+			      RTL822X_VND2_LCR_LINK_100 |
-+			      RTL822X_VND2_LCR_LINK_1000 |
-+			      RTL822X_VND2_LCR_LINK_2500 |
-+			      RTL822X_VND2_LCR_LINK_5000 |
-+			      RTL822X_VND2_LCR_LINK_10000;
-+	int val;
-+
-+	if (index >= RTL8261X_LED_COUNT)
-+		return -EINVAL;
-+
-+	val = phy_read_mmd(phydev, MDIO_MMD_VEND2, RTL822X_VND2_LED(index));
-+	if (val < 0)
-+		return val;
-+
-+	if (val & RTL822X_VND2_LCR_LINK_10)
-+		__set_bit(TRIGGER_NETDEV_LINK_10, rules);
-+
-+	if (val & RTL822X_VND2_LCR_LINK_100)
-+		__set_bit(TRIGGER_NETDEV_LINK_100, rules);
-+
-+	if (val & RTL822X_VND2_LCR_LINK_1000)
-+		__set_bit(TRIGGER_NETDEV_LINK_1000, rules);
-+
-+	if (val & RTL822X_VND2_LCR_LINK_2500)
-+		__set_bit(TRIGGER_NETDEV_LINK_2500, rules);
-+
-+	if (val & RTL822X_VND2_LCR_LINK_5000)
-+		__set_bit(TRIGGER_NETDEV_LINK_5000, rules);
-+
-+	if (val & RTL822X_VND2_LCR_LINK_10000)
-+		__set_bit(TRIGGER_NETDEV_LINK_10000, rules);
-+
-+	if ((val & all_links) == all_links)
-+		__set_bit(TRIGGER_NETDEV_LINK, rules);
-+
-+	val = phy_read_mmd(phydev, MDIO_MMD_VEND2, RTL822X_VND2_LCR6);
-+	if (val < 0)
-+		return val;
-+
-+	if (val & RTL822X_VND2_LED_ACT(index)) {
-+		__set_bit(TRIGGER_NETDEV_RX, rules);
-+		__set_bit(TRIGGER_NETDEV_TX, rules);
-+	}
-+
-+	return 0;
-+}
-+
-+static int rtl8261x_led_hw_control_set(struct phy_device *phydev, u8 index,
-+				       unsigned long rules)
-+{
-+	struct rtl8261x_priv *priv = phydev->priv;
-+	u16 lcr7 = RTL822X_VND2_LED_EN(index);
-+	u16 val = 0;
-+	bool act;
-+	int ret;
-+
-+	if (index >= RTL8261X_LED_COUNT)
-+		return -EINVAL;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK, &rules) ||
-+	    test_bit(TRIGGER_NETDEV_LINK_10, &rules))
-+		val |= RTL822X_VND2_LCR_LINK_10;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK, &rules) ||
-+	    test_bit(TRIGGER_NETDEV_LINK_100, &rules))
-+		val |= RTL822X_VND2_LCR_LINK_100;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK, &rules) ||
-+	    test_bit(TRIGGER_NETDEV_LINK_1000, &rules))
-+		val |= RTL822X_VND2_LCR_LINK_1000;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK, &rules) ||
-+	    test_bit(TRIGGER_NETDEV_LINK_2500, &rules))
-+		val |= RTL822X_VND2_LCR_LINK_2500;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK, &rules) ||
-+	    test_bit(TRIGGER_NETDEV_LINK_5000, &rules))
-+		val |= RTL822X_VND2_LCR_LINK_5000;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK, &rules) ||
-+	    test_bit(TRIGGER_NETDEV_LINK_10000, &rules))
-+		val |= RTL822X_VND2_LCR_LINK_10000;
-+
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND2,
-+			    RTL822X_VND2_LED(index), val);
-+	if (ret < 0)
-+		return ret;
-+
-+	act = test_bit(TRIGGER_NETDEV_RX, &rules) ||
-+	      test_bit(TRIGGER_NETDEV_TX, &rules);
-+
-+	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND2, RTL822X_VND2_LCR6,
-+			     RTL822X_VND2_LED_ACT(index), act ?
-+			     RTL822X_VND2_LED_ACT(index) : 0);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Enable the output and restore the configured polarity, which
-+	 * led_brightness_set() may have used as a level.
-+	 */
-+	if (priv->led_active_low & BIT(index))
-+		lcr7 |= RTL822X_VND2_LED_POLAR(index);
-+
-+	return phy_modify_mmd(phydev, MDIO_MMD_VEND2, RTL822X_VND2_LCR7,
-+			      RTL822X_VND2_LED_EN(index) |
-+			      RTL822X_VND2_LED_POLAR(index), lcr7);
-+}
-+
-+static int rtl8261x_led_brightness_set(struct phy_device *phydev, u8 index,
-+				       enum led_brightness value)
-+{
-+	struct rtl8261x_priv *priv = phydev->priv;
-+	u16 lcr7 = RTL822X_VND2_LED_EN(index);
-+	bool active_low, on;
-+	int ret;
-+
-+	if (index >= RTL8261X_LED_COUNT)
-+		return -EINVAL;
-+
-+	/* clear HW LED setup */
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND2,
-+			    RTL822X_VND2_LED(index), 0);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* clear HW LED blink */
-+	ret = phy_clear_bits_mmd(phydev, MDIO_MMD_VEND2, RTL822X_VND2_LCR6,
-+				 RTL822X_VND2_LED_ACT(index));
-+	if (ret < 0)
-+		return ret;
-+
-+	/* With no link condition selected the output sits at its idle
-+	 * level, so inverting the polarity turns the LED on.
-+	 */
-+	active_low = priv->led_active_low & BIT(index);
-+	on = value != LED_OFF;
-+	if (on != active_low)
-+		lcr7 |= RTL822X_VND2_LED_POLAR(index);
-+
-+	return phy_modify_mmd(phydev, MDIO_MMD_VEND2, RTL822X_VND2_LCR7,
-+			      RTL822X_VND2_LED_EN(index) |
-+			      RTL822X_VND2_LED_POLAR(index), lcr7);
-+}
-+
-+static int rtl8261x_led_polarity_set(struct phy_device *phydev, int index,
-+				     unsigned long modes)
-+{
-+	struct rtl8261x_priv *priv = phydev->priv;
-+	bool active_low = false;
-+	u32 mode;
-+
-+	if (index >= RTL8261X_LED_COUNT)
-+		return -EINVAL;
-+
-+	for_each_set_bit(mode, &modes, __PHY_LED_MODES_NUM) {
-+		switch (mode) {
-+		case PHY_LED_ACTIVE_LOW:
-+			active_low = true;
-+			break;
-+		case PHY_LED_ACTIVE_HIGH:
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+	}
-+
-+	if (active_low)
-+		priv->led_active_low |= BIT(index);
-+	else
-+		priv->led_active_low &= ~BIT(index);
-+
-+	return phy_modify_mmd(phydev, MDIO_MMD_VEND2, RTL822X_VND2_LCR7,
-+			      RTL822X_VND2_LED_POLAR(index),
-+			      active_low ? RTL822X_VND2_LED_POLAR(index) : 0);
-+}
-+
- static int rtl822xb_led_hw_is_supported(struct phy_device *phydev, u8 index,
- 					unsigned long rules)
- {
-@@ -3494,6 +3712,11 @@ static struct phy_driver realtek_drvs[] = {
- 		.soft_reset		= genphy_c45_pma_soft_reset,
- 		.suspend		= genphy_c45_pma_suspend,
- 		.resume			= genphy_c45_pma_resume,
-+		.led_brightness_set	= rtl8261x_led_brightness_set,
-+		.led_hw_is_supported	= rtl8261x_led_hw_is_supported,
-+		.led_hw_control_get	= rtl8261x_led_hw_control_get,
-+		.led_hw_control_set	= rtl8261x_led_hw_control_set,
-+		.led_polarity_set	= rtl8261x_led_polarity_set,
- 	}, {
- 		PHY_ID_MATCH_EXACT(RTL_8261CE_CG),
- 		.name			= "Realtek RTL8261CE 10Gbps PHY",
-@@ -3507,6 +3730,11 @@ static struct phy_driver realtek_drvs[] = {
- 		.soft_reset		= genphy_c45_pma_soft_reset,
- 		.suspend		= genphy_c45_pma_suspend,
- 		.resume			= genphy_c45_pma_resume,
-+		.led_brightness_set	= rtl8261x_led_brightness_set,
-+		.led_hw_is_supported	= rtl8261x_led_hw_is_supported,
-+		.led_hw_control_get	= rtl8261x_led_hw_control_get,
-+		.led_hw_control_set	= rtl8261x_led_hw_control_set,
-+		.led_polarity_set	= rtl8261x_led_polarity_set,
- 	}, {
- 		PHY_ID_MATCH_EXACT(RTL_8261D_VM),
- 		.name			= "Realtek RTL8261D_VM 10Gbps PHY",
--- 
-2.55.0
-
+That looks fine too. I would rather this whole mechanism die,
+personally. But this is a fine, backportable fix.
