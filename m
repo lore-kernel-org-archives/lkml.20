@@ -1,102 +1,349 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55CDC485936;
-	Mon, 21 Sep 2026 11:17:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B199548A2D1
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:18:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789989473; cv=none; b=SovZwkoDw5Myskh0rjGH6cVaYszBtDMmWOp69V1dpYIsXsL+00I3r43DH73ePFh02yoA5Wff9joXtsYRFT3A1t+L4q+0ikc2N7j8eiu+ZIRPMGT1hp1wcYSKQO3Yd2KMqZWbjXpxDjZImE4ehyaz5JN7s3OeiPlDrSFOU+i9Fjw=
+	t=1789989483; cv=none; b=JT28phq+aqnksE8eh7v87MWfmaYQlYb0lOe1L9610m2v8v7CYy0vo2q7euVPiKyvsCIaipGYmeRP7OmReXvv+qR9LL2XwODX4Ie3phakz0ZAlXqjCHI/Puk42ZiE/irFwGBqfFoJaU4gLiYZtkJqe+TxqaDu3sjIAl/FWRxGDzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789989473; c=relaxed/simple;
-	bh=EZ21ncQrjQNm7o8Cw+zlBh2DjaJdXZNMq93zx34x0jU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fAMTrFj6pfz/44PUwwJGH9ZSR3YWM9fOIOQGYOAA4P/4XvonEDFn7Ty7qcWI+/Hvsln4UEkiM6LnR0Npfh2Ag4EBafNBfI8JFLNeE6Q17fBbwDVDAfUmcjDMrRxqA+vDifqTqy4LfPnqPdSswQj+KHbmarBxSQyImJZt1n/h0SA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [192.168.0.107] (unknown [123.116.51.226])
-	by APP-03 (Coremail) with SMTP id rQCowACnrTtGErFq+tZHCA--.11992S2;
-	Mon, 21 Sep 2026 19:17:27 +0800 (CST)
-Message-ID: <7d96c999-20db-427e-be57-3a79b0ec5119@iscas.ac.cn>
-Date: Mon, 21 Sep 2026 19:17:26 +0800
+	s=arc-20240116; t=1789989483; c=relaxed/simple;
+	bh=l9cbhsR6oIcRYl+I2g1jCIa/WhsXA/dARjMt3kDigl0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BXA0NvaGtjd9xGQ+fKUYPh7KBpViq5LvDCoJcmSa+2YbT5i0b6H5ycWhGOH9KI/UhjMAtSVCEBmeFO0uyVfoEAYp8t8eiZvdQXle8ANETs7UuxWrrx8f6YgrfFQwVtemey5DfC0FAZsaUEL/Hm9zSSCZp37xM0pngeB9GhKSHg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=jenZNvHq; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="jenZNvHq"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed1368so33830545ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:18:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1789989480; x=1790594280; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jS32Dx5IynGZ/Y/2aGGAGztAdcoBdPlUNApcd4RXZUY=;
+        b=jenZNvHqVOq7BaieRqOS48emO4JyrhHQYVA7mvNKIVsRb9xdgaFAuGWgOJ0jtPM/fz
+         CDWx2AzGibPiBkf061LwHxisZe3a5er5mhYD5O/SkFdRSrTQqb+AlSC1MeXgsrudt8tZ
+         l6WDHrPlKNKPQs2rOrrbq26ULBR5NrniVkaLoyCqASd3DcQlJnmQzTJUtK1irRf9uykt
+         yFJhseZWPbkOgJEc9Wk+LIi18irvlwcoDUgo+bYys+cXGDemJseATnaJzPjN5slYCA4b
+         zG6l/cBs/OoyR3mN0q3LhlPWvP8uN29mfufGnxdQQYjEM3qnt1eaKONzCK26SMzNZ6IR
+         xHkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789989480; x=1790594280;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jS32Dx5IynGZ/Y/2aGGAGztAdcoBdPlUNApcd4RXZUY=;
+        b=gcCGJekeKPMToaO+gRJNV3B5uBBtmfg5XJI73oc13UQtoEdSVNb2iRCKHqTutg0Cqx
+         2gqibjl5u/7a6cLtAcn8Myg7gOzrNbu8jDEbETT05YOKJt/bBvusoyzuHHkGRYqBMxXQ
+         ZX+mGFNfVMAhzhWw6BmUwh0N4/V3YRTLA4BxpKF7mzZ0iCMVd9By75YTROTfEEGp6dAS
+         i3nPKtdv0R865DKVIN0nae83uNTr9ohqPYgE7unZ6n6tD1V78r3+Cd5H7lQx7mod/jrF
+         XL8uT6K0LTyHQQylNeRPUgq+p8w13h9bNVL22L7oUeTo2TG1tLrMIKXXaI8D0IinZHXg
+         MF8g==
+X-Forwarded-Encrypted: i=1; AKwUvBxWlJAumlE/VFLDP3GFbwYU+pVURjd/x+CefLxk04GwgMXEnVzSB3QhSddJs1wRStQM+aPX+x1ttHS1eOw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kORNqhM0jumuqQSBYWGqjIFMSNWUF8yMoEIEiiNDD6Ab7TX/MG
+	BR5XyQkfe+/mFUEqduVZwsi0r4iWUGRMbxITxeOmsp6AuFLi4F1Bo2EZMWL2HIZzFwk=
+X-Gm-Gg: AYBFou14Zs+cAd2ge91c78t2h7CBW/TLiWb7NRyppSqLge9al7Td7PRZ9RnYLl7AkuH
+	SNH2jhbg8XxKotjQDE9Bsk1zg16c1j2lwBbMDwnagreGyps6wYI6R9XaNeacL8aJxvMeOlM8R3O
+	nVj9Psgg5W081HzQ6RP8Yv7ZYw9a//KHuc8xSkuYBZK/2RhxolEeT9EStw9Ry2adag4r1xQ6Zvz
+	J3J65ErOIEH5+zDz83FLy4wZdd0MtAhS1aMuPASTKPhau81wyhpHva84JIWB9nGlNA70et0m44G
+	560m8ZTPd5Dmv2OY5567PQSclH+io7r2aCxWyT8bzZ+b2lLhU/jAGYhtpvRvxBr87zrAJtHSa9B
+	XTOvKLJJv5+D37X62OaKCdFttXBEGBuwhiQ+w1wUGllj2XUIsUydDvxFgrR3xzxNkOdGBYsFoFu
+	yR/4zr1E86YdQsZSQfgmFLQblOvAP8RV5h17SGAE5yCJoUcMhoSPW1NMjW2vi2d1XqZ0InCCdbV
+	QCUH4nLtXy3A4ZWupc3VMIRyekMdRuFo94=
+X-Received: by 2002:a17:903:1112:b0:2dd:c053:c20a with SMTP id d9443c01a7336-2ddc053c2a1mr103690755ad.38.1789989479599;
+        Mon, 21 Sep 2026 04:17:59 -0700 (PDT)
+Received: from FJ7FR2JRQ3.bytedance.net ([240e:694:e20:401::8])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17ba651sm31831125ad.53.2026.09.21.04.17.38
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 21 Sep 2026 04:17:59 -0700 (PDT)
+From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>,
+	Conor Dooley <conor@kernel.org>,
+	Anup Patel <anup@brainfault.org>
+Cc: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <cleger@rivosinc.com>,
+	Yunhui Cui <cuiyunhui@bytedance.com>,
+	Atish Patra <atish.patra@linux.dev>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Will Deacon <will@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Yuanzhu <yuanzhu@bytedance.com>,
+	Yicong Yang <yang.yicong@picoheart.com>,
+	Susheng Yang <yang.susheng@zte.com.cn>,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+Subject: [PATCH v10 RESEND 6/9] perf: RISC-V: support callchains with SSE delivery
+Date: Mon, 21 Sep 2026 19:15:03 +0800
+Message-ID: <270f3bcd3a9933c8be59492ae4d7c6ff2414d7d7.1789974241.git.zhangzhanpeng.jasper@bytedance.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <cover.1789974241.git.zhangzhanpeng.jasper@bytedance.com>
+References: <cover.1789974241.git.zhangzhanpeng.jasper@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] net: spacemit: clear TX descriptor on fragment mapping
- failure
-To: Muhammad Bilal <meatuni001@gmail.com>, andrew+netdev@lunn.ch
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, dlan@kernel.org, vadim.fedorenko@linux.dev,
- maxime.chevallier@bootlin.com, troy.mitchell@linux.spacemit.com,
- netdev@vger.kernel.org, linux-riscv@infradead.org, spacemit@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260919191937.271202-1-meatuni001@gmail.com>
-Content-Language: en-US
-From: Vivian Wang <wangruikang@iscas.ac.cn>
-In-Reply-To: <20260919191937.271202-1-meatuni001@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:rQCowACnrTtGErFq+tZHCA--.11992S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cry7ur18Gw4fWrW7urWfKrg_yoW8AFWfpF
-	ZYvFsIkr1DJr43Kw4xCF1xGry0vayxC34UZ3yYvrZY9Fs8AF4SkFW2y3W5JryUAr1kAw1F
-	yr4DZa48GFyDA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
-	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
-	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
-	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
-	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
-	ZFpf9x07betCcUUUUU=
-X-CM-SenderInfo: pzdqw2pxlnt03j6l2u1dvotugofq/
+Content-Transfer-Encoding: 8bit
 
-On 9/20/26 03:19, Muhammad Bilal wrote:
+PMU overflow delivery through SSE enters Linux with a synthetic supervisor
+context on a dedicated event stack. The perf unwinder must use the context
+interrupted by the overflow rather than treating the SSE handler frame as
+the sampled frame.
 
-> emac_tx_mem_map() writes TX_DESC_0_OWN into the ring descriptor for
-> every slot beyond old_head as soon as that slot's memset()'d local
-> copy is committed with "*tx_desc_addr = tx_desc", i.e. before the
-> buffers for that slot have necessarily all been mapped successfully.
-> If emac_tx_map_frag() then fails on a later fragment, the err_free_skb
-> path calls emac_free_tx_buf() to unmap and drop the skb, but leaves
-> the already-written descriptor memory untouched, and tx_ring->head is
-> never advanced past old_head (the "tx_ring->head = head" store is
-> skipped by the goto).
->
-> So a slot between old_head and the rolled-back head can be left with
-> TX_DESC_0_OWN set and buffer_addr_{1,2} pointing at DMA mappings that
-> emac_free_tx_buf() just tore down, while software considers that slot
-> free again. The next successful emac_tx_mem_map() call only rebuilds
-> old_head itself; if the DMA engine auto-advances into the following
-> descriptor once it finishes old_head's packet, it will fetch that
-> stale, already-unmapped address.
->
-> emac_tx_clean_desc() already treats emac_free_tx_buf() and clearing
-> the descriptor as a pair when reclaiming completed descriptors; do
-> the same in the mapping failure path.
->
-> Fixes: bfec6d7f2001 ("net: spacemit: Add K1 Ethernet MAC")
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> ---
->  drivers/net/ethernet/spacemit/k1_emac.c | 3 +++
->  1 file changed, 3 insertions(+)
+Use the interrupted pt_regs published by the RISC-V SSE entry path. Walk a
+kernel callchain only when the interrupted PC, SP, and frame pointer are
+consistent with the current task stack. For sensitive entry windows and
+IRQ stacks whose bounds cannot be proven, retain the interrupted PC without
+following an unsafe frame chain.
 
-Reviewed-by: Vivian Wang <wangruikang@iscas.ac.cn>
+User callchains continue through the existing nofault RISC-V user unwinder.
+If hstatus.SPV says the interrupted context was a guest, do not interpret
+the guest stack through the host address space.
 
-Much appreciated. I indeed did not consider this.
+DWARF callchains additionally copy a raw user stack. The generic
+arch_perf_out_copy_user() implementation can take an exception-table
+handled fault when a source page is not resident. Repeated nested faults
+from the SSE handler can corrupt the interrupted kernel context under load.
 
-Also, a minor nit, but it should probably be:
+Provide an SSE-specific RISC-V copy path. Verify that the active page table
+belongs to current, use fast-only GUP to acquire each resident source page
+without falling back to a faulting slow path, and copy through the kernel
+mapping while holding the page reference. Stop at the first unavailable
+page and preserve perf's existing truncated-user-stack semantics. Keep the
+generic in-atomic user copy unchanged outside an SSE handler.
 
-Fixes: 86292155bea5 ("net: spacemit: Fix error handling in emac_tx_mem_map()")
+Susheng Yang reported this failure with perf callchain workloads.
 
-Thanks,
-Vivian "dramforeve" Wang
+Reported-by: Susheng Yang <yang.susheng@zte.com.cn>
+Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+---
+ arch/riscv/include/asm/perf_event.h |  10 ++
+ arch/riscv/kernel/perf_callchain.c  | 142 ++++++++++++++++++++++++++++
+ 2 files changed, 152 insertions(+)
+
+diff --git a/arch/riscv/include/asm/perf_event.h b/arch/riscv/include/asm/perf_event.h
+index bcc928fd3785..ddc404794751 100644
+--- a/arch/riscv/include/asm/perf_event.h
++++ b/arch/riscv/include/asm/perf_event.h
+@@ -18,6 +18,16 @@
+ 	(regs)->sp = current_stack_pointer; \
+ 	(regs)->status = SR_PP; \
+ }
++
++#ifdef CONFIG_RISCV_SBI_SSE
++/*
++ * Raw user-stack sampling can run in the NMI-like SSE context. Route it
++ * through an implementation that does not fault on a non-resident page.
++ */
++unsigned long riscv_perf_out_copy_user(void *dst, const void *src,
++				       unsigned long n);
++#define arch_perf_out_copy_user riscv_perf_out_copy_user
++#endif
+ #endif
+ 
+ #endif /* _ASM_RISCV_PERF_EVENT_H */
+diff --git a/arch/riscv/kernel/perf_callchain.c b/arch/riscv/kernel/perf_callchain.c
+index b465bc9eb870..ec75689c7aec 100644
+--- a/arch/riscv/kernel/perf_callchain.c
++++ b/arch/riscv/kernel/perf_callchain.c
+@@ -1,9 +1,15 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /* Copyright (C) 2019 Hangzhou C-SKY Microsystems co.,ltd. */
+ 
++#include <linux/kallsyms.h>
++#include <linux/mm.h>
+ #include <linux/perf_event.h>
++#include <linux/sched/task_stack.h>
++#include <linux/thread_info.h>
+ #include <linux/uaccess.h>
+ 
++#include <asm/csr.h>
++#include <asm/sse.h>
+ #include <asm/stacktrace.h>
+ 
+ static bool fill_callchain(void *entry, unsigned long pc)
+@@ -11,6 +17,128 @@ static bool fill_callchain(void *entry, unsigned long pc)
+ 	return perf_callchain_store(entry, pc) == 0;
+ }
+ 
++#ifdef CONFIG_RISCV_SBI_SSE
++static bool sse_addr_on_task_stack(unsigned long addr, unsigned long size)
++{
++	unsigned long end = addr + size;
++	unsigned long stack;
++
++	if (end < addr)
++		return false;
++
++	stack = (unsigned long)task_stack_page(current);
++	if (addr >= stack && end <= stack + THREAD_SIZE)
++		return true;
++
++	return false;
++}
++
++static bool sse_kernel_regs_safe(struct pt_regs *regs)
++{
++	unsigned long fp = frame_pointer(regs);
++	unsigned long pc = instruction_pointer(regs);
++	unsigned long sp = user_stack_pointer(regs);
++
++	if (!__kernel_text_address(pc))
++		return false;
++	if (!sse_addr_on_task_stack(sp, sizeof(unsigned long)))
++		return false;
++	if (fp < sizeof(struct stackframe))
++		return false;
++
++	return sse_addr_on_task_stack(fp - sizeof(struct stackframe),
++				      sizeof(struct stackframe));
++}
++
++static bool sse_callchain_is_guest(const struct riscv_sse_interrupted_context *context)
++{
++	return context && (context->hstatus & HSTATUS_SPV);
++}
++
++static bool sse_callchain_kernel(struct perf_callchain_entry_ctx *entry,
++				 struct pt_regs *regs)
++{
++	const struct riscv_sse_interrupted_context *context;
++	unsigned long pc;
++
++	context = riscv_sse_get_interrupted_context();
++	if (!context || context->regs != regs)
++		return false;
++
++	/* A guest stack cannot be walked using the host kernel address space. */
++	if (sse_callchain_is_guest(context))
++		return true;
++
++	if (user_mode(regs))
++		return true;
++
++	if (sse_kernel_regs_safe(regs)) {
++		walk_stackframe(NULL, regs, fill_callchain, entry);
++		return true;
++	}
++
++	/*
++	 * Keep the sample useful for sensitive entry paths and IRQ stacks. The
++	 * generic walker does not take explicit IRQ stack bounds, and its
++	 * THREAD_SIZE alignment assumption fails for non-vmapped IRQ stacks.
++	 * Conservatively avoid walking IRQ stacks in every configuration.
++	 */
++	pc = instruction_pointer(regs);
++	if (__kernel_text_address(pc))
++		perf_callchain_store(entry, pc);
++
++	return true;
++}
++
++unsigned long riscv_perf_out_copy_user(void *dst, const void *src,
++				       unsigned long n)
++{
++	unsigned long addr = (unsigned long)src;
++	unsigned long copied = 0;
++
++	/* Keep the generic fast path unchanged outside an SSE handler. */
++	if (!riscv_sse_get_interrupted_context()) {
++		unsigned long ret;
++
++		pagefault_disable();
++		ret = __copy_from_user_inatomic(dst, src, n);
++		pagefault_enable();
++		return ret;
++	}
++
++	if (!access_ok(src, n))
++		return n;
++
++	/* Do not sample user memory through an unrelated active page table. */
++	if (!current->mm ||
++	    (csr_read(CSR_SATP) & SATP_PPN) != virt_to_pfn(current->mm->pgd))
++		return n;
++
++	while (copied < n) {
++		unsigned long offset = offset_in_page(addr);
++		unsigned long chunk = min(n - copied, PAGE_SIZE - offset);
++		struct page *page;
++
++		/*
++		 * Fast-only GUP cannot fault. This follows perf_virt_to_phys():
++		 * local interrupts remain disabled throughout SSE processing, so a
++		 * concurrent unmap cannot complete its TLB teardown before this
++		 * temporary reference is put.
++		 */
++		if (!get_user_page_fast_only(addr, 0, &page))
++			break;
++
++		memcpy((char *)dst + copied,
++		       (char *)page_address(page) + offset, chunk);
++		put_page(page);
++		addr += chunk;
++		copied += chunk;
++	}
++
++	return n - copied;
++}
++#endif
++
+ /*
+  * This will be called when the target is in user mode
+  * This function will only be called when we use
+@@ -28,6 +156,15 @@ static bool fill_callchain(void *entry, unsigned long pc)
+ void perf_callchain_user(struct perf_callchain_entry_ctx *entry,
+ 			 struct pt_regs *regs)
+ {
++#ifdef CONFIG_RISCV_SBI_SSE
++	const struct riscv_sse_interrupted_context *context;
++
++	context = riscv_sse_get_interrupted_context();
++	/* A guest stack cannot be walked using the host address space. */
++	if (sse_callchain_is_guest(context))
++		return;
++#endif
++
+ 	if (perf_guest_state()) {
+ 		/* TODO: We don't support guest os callchain now */
+ 		return;
+@@ -39,6 +176,11 @@ void perf_callchain_user(struct perf_callchain_entry_ctx *entry,
+ void perf_callchain_kernel(struct perf_callchain_entry_ctx *entry,
+ 			   struct pt_regs *regs)
+ {
++#ifdef CONFIG_RISCV_SBI_SSE
++	if (sse_callchain_kernel(entry, regs))
++		return;
++#endif
++
+ 	if (perf_guest_state()) {
+ 		/* TODO: We don't support guest os callchain now */
+ 		return;
+-- 
+2.50.1 (Apple Git-155)
 
