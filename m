@@ -1,69 +1,76 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013007.outbound.protection.outlook.com [40.107.159.7])
+Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com [205.220.166.238])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9F0481A99;
-	Mon, 21 Sep 2026 10:47:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945BD4825B4;
+	Mon, 21 Sep 2026 10:47:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.166.238
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789987644; cv=fail; b=o56gw7izHJVvTnRpNSuoHbUkwqu8cEP7X75+aHLNGKcs8hIuqc660MVEDww40v0KnQbhYXvWuFWLIXUNDDjNp3bh5NCGbgO5di5B+N5mFpFA1qxnwB34D2W5Ga+Q/uN+dRABqLgLZpHfKBG73955ukUw1oqo5MMTnGkg87ze1bM=
+	t=1789987644; cv=fail; b=IwPwWR9EC7SQDjymdGHTigNZry/PivNBcLB9HUDbhNm7N8reO8sU3LcRAZQtMvjvWz8UE4CY9RDkAMvoo3tybv9xZVC4MyEp2lMHu3gydfHuJ3zEvVT2hrHQCsMdQUPHTDTg+jazKNdfTztw7K6HfPUglp6ir08S0DkPBr4+Vg4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789987644; c=relaxed/simple;
-	bh=XP5kDniofYKa/9VQ7QhRDEBhaOJNuAK7XrVXn9wZjdU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kWAx2Q+dQqRjKJWP0NUfv+fr7g7cHKm54cW/kpJsy+3vYPjqRtSpe4qrvrzwhMJlB+gWCSOljf64hjiXoi53BZMjYFTCGN/2biYxnUSMYiK/nYAadjltMjkSXuMEV8q+B5O2rytgnyFu6/ucesv7+KcrbXv3+Aqa3NNJSDJACfM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Hj5ysARA; arc=fail smtp.client-ip=40.107.159.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	bh=fP6qGGp3rmWppzIu4icVu1QMih/RKJneZxEE65Cnl2s=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=L1ztz/obR67Ry3uLnzIoV+cC3yE/kf0sgewK8u3d4df0RD4jAZyVRiQHrufuueNoYeArW7c4EycJIy9LMyIaG0nxhwRGEEyERWCMwIoyx/Ex5rBvys8k5U37BUCDpMV6LPnkZXrN3APKCOJn8XtxgIxEr5WJcyTb93j2/OF0Zqk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=fail smtp.mailfrom=windriver.com; dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b=I9g2Ywd1; arc=fail smtp.client-ip=205.220.166.238
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=windriver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Hj5ysARA"
+	dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b="I9g2Ywd1"
+Received: from pps.filterd (m0250809.ppops.net [127.0.0.1])
+	by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAfwJT1474455;
+	Mon, 21 Sep 2026 03:46:28 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	PPS06212021; bh=eNdmB+wYxh2UNNpo3d62CuO9Y9SRrD1zSjWd0dBJcL8=; b=
+	I9g2Ywd1FSsjy0Fi7v1ma1+f3DEz8NZUx4VsvWaRGj0Om/xRUj+BcKvKtHK6eoER
+	0zClDqcLlZKwAZAzsO5Cqv8kcrqsi1s6jQqbae6PdDLAhHruzSvOdEzoQLsg3KZA
+	dzxpvYq9zKiTshqOatgTzJuY4rM8lDsKPRQgCyay7J1PIQB3aeZ9aLMyGL/dQbK9
+	ztYMjSWdWhEY1fQ1d1U9exj/Y2Vp4Pmtd+KU6qaTXr2oKX0HFqXGgbfL71rLVxJn
+	n/Ou0MOn/Lm9W3Gh8E/93faB1hWnkLago7x6ujSQ+LSTITLXNHNfQsbMruPS50Ei
+	6KE5Esf6nNJSNouASjz93A==
+Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11020099.outbound.protection.outlook.com [52.101.46.99])
+	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 4gsswe20tj-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 03:46:28 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ydGd43OCXCmiYhRX/152jOa7ftTvi4RmqPyJembuwKT/2iX51CnSOtxFvo9hEsNDhfkjFrSdq8gni8OOLDhl2MfnVyU5ULgBRn/qB+A+U1/ab/HLdDrYHoOoaqcfrul6r5aDuHmEs3xye50pOtuF3wRMEs/dJEWnd6wZ7zOcvSA6Jlq/c0Txgaix/L0K8sglDVQKERKfO6IsqKimD4Pu+R6X6zXiM3MDJM4Vvp2xRwRlC+/K5b5rsVA30VytNcu/fAolCID+oWKVEIPGq5Rr5CosqB77vTFgsweW7VlJQHatJXMD8Ekb+V/gYXoMcsNaYNiNEFjl2jE2pD/JOaw8Fg==
+ b=Yqemwc2yUfDF6SrtBlhtlM5i+DfchNGejjFv0pjaD+YgO1TDDsGAF5Nogep+GzVCi50K3fj9XbsWT7MgPgEl83OTxRPLCkaRaTjqUocWdnEO+N9L5KH6SUjeU3JKI2ug5VZNvwj5Wae+aH9wl4DjVNFlidOfw/ij1MdXjjmGu7BXpQ64Pi1skEeLnRmapkgDIp5G5Kx2Zzpq2pHjZJwfxp3x7MfAezuzf+C+kHuJUhp8vj+gPUrlTrFwAvHCjFsHN88nb9jFwYJPgddHCkjlEOdSRiEjEvMAgEMcWFUZWmTfiUWYDGYjcC8cDGWoeQD9nLxxyZsdLdHJecUFfLKXag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DcavGUxELXPW98RJksf9nLoEG+k/mtu5EkghU1zE0dA=;
- b=tpMzmZGuHKd37IX1h6NMNXthXXIVFIOwvYCO73buvumyYuUEWIy0At2stDfxIBUopJJtdPV82/+pE8IXMrNMm2sMLADR+18xHtXLZZQboLY+YXyDps0td2Eg/MXoG2xKa9KPGE0U9eqyQkWaEAopBukNLeGTI3xLuGEy/Kn06cJvMwFn6ZSrlSG1VC7Av+VNOxveTZTKX1qSFKEOU6KkuV/7Z2EtYG2vqnSvDyhTVz4nU/5QxJGQOTYLrwpTrudybpGx23ZSBvRLJTHFtTqu6hLX2+xC2fztHEVpTi3CwjHtslABPcELfB8iu9RPoS/ntY+5XGi5vnYvgfeLWJoDZg==
+ bh=eNdmB+wYxh2UNNpo3d62CuO9Y9SRrD1zSjWd0dBJcL8=;
+ b=PssQzsxiQnMYMtjqLxxsxAUfgcV6OhcGsXAcDRmhbXXCFA3KdMeMVEbCbfwqs/Q0d0tyL+DfD+X9l9YpnJM/I6+F5Y9MxTY/JowzpGQYO97Rsj6/gh73gSDT91vRcQtJhe6ToWhpoJLoF9nkC5CtdTfY29cdlisZH7HTfW0xvdXFXEEHo4RtGbaUeLNkxmZ0JdmEosMPLRA6JuC+XWBQA7Zw37jLUANJWrFICiXCiWeRuocrxOJ09wF3CwMUAyJ6XK0ttOnlpcBY5idyYI4RBjjqhyqGqtEWCJpY9DNFNUtP7Pr4ikktTqR/l0rOM7QFrw66reGp2Dggft5SQDZQ+Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DcavGUxELXPW98RJksf9nLoEG+k/mtu5EkghU1zE0dA=;
- b=Hj5ysARAh4XPf8aArRn4InvrQWLf/lQWN/ikexMPC1msvBAunKRODdkFfLYpaXx91QPwOhGLYSS5A1k7MfVGsw6saxoFC0QoRhJYaF6geAGlmEclaPCGLDE8YWlLfvgMT0s4IzKjHnkb9+xQKTqkCRUmYfg78T+SrFntugFHwC/loQ75TLD+TaXx/fBWom7tDcysb0/QNX/eIFUqFbD6MLq5+7/oFf4L8KTx3eMjQoPtCIHuVrss66ggd8NhPcLqut8io9ybAcIAjYNETTkKrPn1lSXbSHVI6pMXD5e0lQ1IBX35h6BxEqacx4uChZqMH0CnBhZ9oFf8jdYWs21aAQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
- (2603:10a6:150:112::20) by VI1PR04MB6862.eurprd04.prod.outlook.com
- (2603:10a6:803:130::22) with Microsoft SMTP Server (version=TLS1_2,
+ smtp.mailfrom=windriver.com; dmarc=pass action=none
+ header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
+Received: from CH0PR11MB5332.namprd11.prod.outlook.com (2603:10b6:610:bf::17)
+ by IA4PR11MB9443.namprd11.prod.outlook.com (2603:10b6:208:55e::14) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 10:47:18 +0000
-Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
- ([fe80::d247:853:3e16:1994]) by GVXPR04MB10021.eurprd04.prod.outlook.com
- ([fe80::d247:853:3e16:1994%5]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 10:47:18 +0000
-From: Chancel Liu <chancel.liu@oss.nxp.com>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Oder Chiou <oder_chiou@realtek.com>
-Cc: Support Opensource <support.opensource@diasemi.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	patches@opensource.cirrus.com
-Subject: [PATCH 04/21] ASoC: twl4030: Acquire board params and hs_extmute GPIO in the platform probe
-Date: Mon, 21 Sep 2026 19:46:23 +0900
-Message-ID: <20260921104640.1941554-5-chancel.liu@oss.nxp.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260921104640.1941554-1-chancel.liu@oss.nxp.com>
-References: <20260921104640.1941554-1-chancel.liu@oss.nxp.com>
+ 2026 10:46:25 +0000
+Received: from CH0PR11MB5332.namprd11.prod.outlook.com
+ ([fe80::8f86:8d08:45bf:ec13]) by CH0PR11MB5332.namprd11.prod.outlook.com
+ ([fe80::8f86:8d08:45bf:ec13%6]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 10:46:25 +0000
+Message-ID: <3e23a695-d3dc-4a77-88b7-afc68869853d@windriver.com>
+Date: Mon, 21 Sep 2026 18:46:16 +0800
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net v4] net: erspan: set lltx to avoid sch_direct_xmit
+ deadlock
+To: netdev-bot+sashiko@kernel.org
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+        horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260916061314.936440-1-yun.zhou@windriver.com>
+ <178988609227.2160803.11846126417836059113@kernel.org>
+Content-Language: en-US
+From: "Zhou, Yun" <yun.zhou@windriver.com>
+In-Reply-To: <178988609227.2160803.11846126417836059113@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SE2P216CA0167.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2cb::17) To GVXPR04MB10021.eurprd04.prod.outlook.com
- (2603:10a6:150:112::20)
+X-ClientProxiedBy: TYCPR01CA0201.jpnprd01.prod.outlook.com
+ (2603:1096:405:7a::18) To CH0PR11MB5332.namprd11.prod.outlook.com
+ (2603:10b6:610:bf::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,221 +78,184 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVXPR04MB10021:EE_|VI1PR04MB6862:EE_
-X-MS-Office365-Filtering-Correlation-Id: a078f764-b4d5-4baf-a648-08df17cdb4cb
+X-MS-TrafficTypeDiagnostic: CH0PR11MB5332:EE_|IA4PR11MB9443:EE_
+X-MS-Office365-Filtering-Correlation-Id: cea7daed-0ffa-4462-9829-08df17cd953f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|19092799006|366016|1800799024|22082099003|18002099003|56012099006|11063799006|10067099003|3023799007;
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|10067099003|6133799003|18002099003|22082099003|56012099006|4143699003|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	jZl+/vkNCVzaW0/IFcC6VaHt749J3tAgYj1sW7IP0Q6FZqQL+agyqdl8SzR1IPyYzXqp8u2cxLoddV5EYZwPNzIM/hIWsMMjO3KRudLf51ZJRfnjAp8WNfqMum/Z1sIaRzaupIZAjwiUIMkJWxQ2FY+C3SdBSMacUuj/TtJI5tCRN9E9lFMtA6Ob9MNrEuoF8yIr2DKSfsxVcUU8lfVK2+9YrUCbfwStWieooyAv8bJyvXxAAYmQgKrsYGTw1KM+0fy69Q7ZiunzYMBQjS49wPrnn22mAmGWBx3JMUiR/jYVMK0QR3H+GiXsnRgdfEz3RopwemeA7azlysTSS5set+u/IyodWI8rFteINUwRkfFlL8/f7iLTby053G0CmYr8hZj8PL+pu79x0/PzpGNhjFecLZwR05p4YlR6f8fs+x37DV/Bd9QjjxYp23QpvobNAes1BXqnBClFw6wtrJwLLFGUM8DsxQ/O0LZoGtEl184UhAvFp3bqrfIN7WyDn9nuFmSRj4xiyolj0Quj/96tmB0MDgAS9lND1Danjr1YFp8IVgjoyQPSHRY8goNMvQqPQI5ppVmKANVXr4Jdl7xrmacW5Ig1w7jQ1ru/CvKLnIda/GvLgWrPUg5mpw7ba5o4FL+PmDMtB3MuxaTwr1niwRgjOJnQrJYJwtMFXgOs7Y8=
+	7bj4zTeXSW+heVly3aODsh6w7Dd6ihQtH0zRnP5QdgbA4f7Gtmn6dJTWTkLaHQDOfkZ7nYsH8A+GN4ozHuSpe77wr0ztv3VxYTRRdrELVaUFoE2LdydaBCk3Qq57guk19C3Bvu6ynnI9+R28Cg1QVsDz/RrI/gqIz+gy8uy1hWSvtxT0tANTs1wdH+CkkDc1p4yhisDrlbSmB+XTIsxhjAhD4h35+hm0NgsH/HXNZF5HU6yWSS4o3fna0SujfDWJmHk8ReelRUrF5QUHpnp3RVYxu7BIkfDTiYT2v9zXIlydaLaN1dPGo50nGIk1P3UwGNaw9zb/F8b5LFW2OxiTALxXJvXuAq4tHN2oabPP0EviKlv8+W8ivVutZE+ybO78irQt2geacOZhQtAYTDKD1chH9NKvPzSCuOvJoIskbr/5I5Wpw+A1zhkSEZUIwcQGTLyWnDQATGYFkYeg/c5DnIdtuTPHJPnowZpMvacuZdbziPbG6RYag8C7TbROH3ApyAt8MZ2DCaQSaIQxV4azv/965yNjRcSova5MFxazrtv8Fc3aWZrUEOeAsnZfY9BC3wTphdqnGOoAkhKnDLzjxbluHwE/8Zkroj9o9nQ/iwAL8TrUQ1sCecrubyHsm7ZE
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB10021.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(19092799006)(366016)(1800799024)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR11MB5332.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?VTAQH/gjr7RAtNa2BSqUcgruQ6gKInyWlv/rVqZyRq9OiqF8IN4zheeHVwfG?=
- =?us-ascii?Q?3JmJ7wxv9TRlNn3gTzfU0F/4WDQbuC0pTR7bXr+zO9RgJccd59taLHB0XUPd?=
- =?us-ascii?Q?HDSlEV97L1XYlhD6RM7Jedfg0jS4SUHNpFopzBcSlHSRQ65qpf/E+mOjrW+W?=
- =?us-ascii?Q?1cF1hk9OyQ82O7HQPy9rHk8mZN3DqVrSKxCBUd0i1PjQvlDiuWQSqDgm+ERa?=
- =?us-ascii?Q?Ad3tEp+wKQf/3cpYo5KH5HVqCSvSr/85NKqbCad/s4DLFUc/+71cjPg/+Dk+?=
- =?us-ascii?Q?Gv91jnuwmxX5m3BA4B5lGGujcja7gGQOOvWPJFtQUcipHPVoG7S2BTfOj1/3?=
- =?us-ascii?Q?5972DBz/kGmgjTfgzKatYERreQn5kYaYhrXDbcoV14Tl2GJzca9395emYkfo?=
- =?us-ascii?Q?0sD9OjZHMvDZd0Yo7KXrLoQwxxFE2SUj5AeCOlkgjSJ2LMI0iMoPyD5YU0p6?=
- =?us-ascii?Q?0OCrHtf49lNw7SivwihH02Z4NMp8RhnmYbaxQq5ei11JzaQLDIJLNo0+2SPy?=
- =?us-ascii?Q?d9U6kJIIjnrLBlqNhW/f8Isz0ZOwk+N9TiXVsDphmbyWGc6ejPh7nlEsZ7Mb?=
- =?us-ascii?Q?4hEElZOp4oQ8jLGOSsTUKOEP7d2SMALHjU1lF35sYGgJUrDhfksCljraAthN?=
- =?us-ascii?Q?17dIUaF/v4EqCyWxUH7C/0HawZ6Kp4HyePyyGhzQonEfVDVZNavaCsoW7wOM?=
- =?us-ascii?Q?lABJcyy1SCsOc+xhmoA4ZyORZTIjQuB8euMpYcuwDXKKQ10Vh2OxcMZ3t+B8?=
- =?us-ascii?Q?hLUcYLipwNdOAmpKmNNliwiXPhRfuKbSKUOTegZ66E5YM9athFAuwmw6uKcl?=
- =?us-ascii?Q?kKMjt4T/4qZEgAoyLKVh1tLDadpDiYMXwzTEKHZyru5Semdi3HVdqclkNfnb?=
- =?us-ascii?Q?DTA71DVSHCgc0oZN+5eibKvhT80JN+JxbVKkWBZt8tDEFSECcUO7pVgskYgn?=
- =?us-ascii?Q?ssCYQ69iMREESYozMgVgehAgU5uVXDG+r//ZmrpA6L4h0f6NpH9xruLIZyh5?=
- =?us-ascii?Q?cacKUjoLxxKdBF23SjJpoTodnSAgMyi7GjbDDhzG6TdMUNWPKdzJT7X5l0n3?=
- =?us-ascii?Q?jP+5B5nlktbLx10u5yClQ0yhnL3jmXDcqBA6su8omvLPbNVPvmFKd0LTzx39?=
- =?us-ascii?Q?CdGM9459WpKZFqST23Rifci4Q610G+m6tuYCqSIhmReDnK2V55z4b7BLHzVP?=
- =?us-ascii?Q?cjpuhUV144sB5CpztBJpUO3yH4GgfLCVJLiC1NFPuB/7x1dqhJGyxc/uwL+l?=
- =?us-ascii?Q?c+2EMks/xkJhz3Bk77RVFjM5BhSchQUX3ig4TYKk9Ny5xDhy5MjSS39XUh29?=
- =?us-ascii?Q?HDtk69mtcQJQl+CPOFoDOfohewP1hRXLXpMLQobeu1WSWyTgdXVKNND3m6Zt?=
- =?us-ascii?Q?Y4urlZ8/hX/QHz85Cn0wjFZWIo4+Mm6az26pvD/HcXrWSrx94z+z5r0biHrM?=
- =?us-ascii?Q?lNVeQRsp3Gs13s93uge+e1aS2OG7JGVyd7sMOk+wrkT/eCdFDx3D9ngzgGaQ?=
- =?us-ascii?Q?isGi3PYFUIdlkCWTcGOZo+i8tBok8Waxd8E5kRbT4uL11essWcrBGe4vC6Xn?=
- =?us-ascii?Q?RdjI25VnM1ck+7Ycq8XNN3c5iJ0IGooIkb+UXDKo6G4IXZ+Rnp2JuieppZE5?=
- =?us-ascii?Q?uQNengCEcSgns9DRkkEL932UHqpGgdjOJt/OFdI9sA5Sedxl4tur0B/GovlO?=
- =?us-ascii?Q?27uRaUA+m9gKInelS6JoSXlAwcWQ7CBsqpfFwEJBxK156EdEFRJ9sF0XS20G?=
- =?us-ascii?Q?MHeHHFyVcGLpBB+2afTR025VNvHr2rhqFWSsg4Fg/BaZclbPzhtX?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a078f764-b4d5-4baf-a648-08df17cdb4cb
-X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB10021.eurprd04.prod.outlook.com
+	=?utf-8?B?RVhONWE0Um1OQk1WY0tqWnFPd3UvcytyN2dRdDZuZEV1dzFldEw5SXhCY3F2?=
+ =?utf-8?B?bzNwRHhsLzlDcWdYRkNHb2hPS1BicGxNN3F4VURBRjZqYjBVS05JdzZGSksy?=
+ =?utf-8?B?OGFBVnpYUDhBNUtROTVuU1l2Zmd3azJBUVc1UllYaVhqQkhlQXV0em9iTlRX?=
+ =?utf-8?B?OHlRYWJqZDQ5ZnpaS0FmdFYvR0NlZERxeHZjcVhiNzNxTHJ6NXJsL3pyTkUv?=
+ =?utf-8?B?VUl1V1p6TXhRTGtsTTI5Qm5pbmpiSG9kY2VYYkRyaldQVWRKdGR4Y1dqU2tl?=
+ =?utf-8?B?VTMrd280RDZ3Y0dUbHpXY05EVHI1eFZLOERXakFDTVFyUmFUdlpqOXY3NDhP?=
+ =?utf-8?B?QjJNY25GS0Ywa0dEazF2bDBZWmFYbmdaTmwySFc5SWpHVEI4UEZnT0NFM3hI?=
+ =?utf-8?B?dU1JdkNkMFZuTnVDQnREQlpUMnlpVnZWVkJhamJuQmZ4WGFMOWEwV0plMFJB?=
+ =?utf-8?B?SnhNTjdGcnhsQVJLNUpOc2pRQUxjNmwycFczTFV0cWo4bU56ZFdMZ0tPU2Mz?=
+ =?utf-8?B?aUdqVTdMTDBObDE5Z2JhY000MEdscExaeEJidFpxL0hjVjBWcEx2OTdyc3Zw?=
+ =?utf-8?B?Ui9peGJabDdzQ1lmMWlablpFK253WkExOXlDVEIrdDU2ZDlMdEo2Y20vZGo1?=
+ =?utf-8?B?VkZFc0M3VlBpdUo2VEMzbm1tb2p1VU5RNXhxTE8yVytqb0N3MmlUazhqTHd0?=
+ =?utf-8?B?cXNudWw2alJJMDF0WWlyWUxTV3FvekpLTWdkTTRaWlhpMElFSTQ1QjZlL2hx?=
+ =?utf-8?B?bVhkdGwvQ3RDNzg3azdIYitJOFFPRlBwdUJhNkYwdVRMS2RONGsyM3hDTFNB?=
+ =?utf-8?B?RnppU0VVQ1E5Qm5YdjRNbjNGa3p0aTlJUTBGMkZrK1lTWHV0T0F6dHNicWhY?=
+ =?utf-8?B?YTBXdTVIVFc2Wk5LWFU4SFpHRm0wZGJYNWk0Y0FxUUVkdnBXT1ZTUDFidm5F?=
+ =?utf-8?B?YzRaeWlramh6b2lKWitqb2pPSE1CWngrcDdkMkZZZUxjSW50MEF2K2dTRFNC?=
+ =?utf-8?B?WE4vOGpxUU1XNU1BWVhMNWtnWkFCZ1J3RVNvelUycVlzTzk2cE81allpTitK?=
+ =?utf-8?B?anRsMGVVeFA0R1JUYVlwT2lFdEUrbG5PMGF6MkVEbXlTQ241cmRIRk9YNjEx?=
+ =?utf-8?B?VzRZVGg2Y0pzMWUyemZpeHdFbzhydTF4VWFON0RGZUhqNXhkM2t2VDJRdnpx?=
+ =?utf-8?B?RlpqSVhxOU9nVU83aisyZmxpenJYdkltbHNNajFIa2tIV3didE0wUDZKU2VX?=
+ =?utf-8?B?bUwvMUNGL2h6cXZoS2tWOGxhQmIvZXJxR0hQMWFhMWZJR1VKM0FESThYRStH?=
+ =?utf-8?B?cXVLdEkxZEdOdHRWSlBlN2NUL0dJRW9mdFNadDJLL2dVb2crN0FOckhwUUd0?=
+ =?utf-8?B?bEttUnlYalRqaGVINTJaVkt5dGg3S04weElZUFFlZUZOc0IwYjVWaU1UaEt0?=
+ =?utf-8?B?dTZJZnJITWhsdGxpVmpjTlI1TGx1MllPVUlHM0NSYlowSHdCd2g4THd1VDhD?=
+ =?utf-8?B?LzRsb1NoR2xEWEtlL1pFcGVMM0xVOTRkdndnYTBka3EzcUZuaXJBUUNjaVBy?=
+ =?utf-8?B?MTg1ejgrT2FnZm9zN29HVitmdjFORjRxZzdXVHAzZGlFaFlkTXBVaE15U1JF?=
+ =?utf-8?B?bGxKODJoUUtOUTJZdlF5VEpIbUpsTG85dWtQQWhkR3ZFdm1vT3orVGR1QitH?=
+ =?utf-8?B?Rk4zTmRSOSsySmtEZDh2QzRnNkNxTFlkdUNrT2ljUmladDB3Wi9QR2hVcFJO?=
+ =?utf-8?B?K1ZkV1p3ZlcvNDlvWXVhaGxoUWhxejhGZlByVW9ianB1SXN5dlBtNXV3NXAv?=
+ =?utf-8?B?WnovU1MzanpvVVUwenRUdVBVSnhDdTVZS09KV3FUMXU0RUM4QmliSXI1clU4?=
+ =?utf-8?B?aGVHNUR3QmJoVENybXA5eTVkVlVVKzFORlovdWNLN2tIaUVHTWFEQ2IyK2NX?=
+ =?utf-8?B?WmRyTVlmSkVNS2tyOHRVNFdxbGdORzJaVWMyU2RCK2VEbTJJdjZHTUxrZ0k5?=
+ =?utf-8?B?bUFqRG1LUVg0a0M1QTB3WUNURkNjMHlObmw4UWFVTG54a1NEMEJzVzczb0xW?=
+ =?utf-8?B?bDd4Ny8xV1I5MmtFcU1JNElmcTN0aE5GTHhaU21IZk5xZkd0VXlQZ1dSQlpv?=
+ =?utf-8?B?VlJ4WXpzZ0xOY25NdGl3RHQ4cXhOQ1AzbHY2SWNPZ25tU1VtazdZRVpqMDAy?=
+ =?utf-8?B?MnB6YVZ5d2FzdmxENUc4VnZndEsrZ3dHUWFpU0xGYUFwaktJRHQ2WU9qSHk4?=
+ =?utf-8?B?R3hvZk9reFhRb3R4aU54OFRDbEdxWXppVSttOFdydHgrdUZIbnFuNC9QSE1I?=
+ =?utf-8?B?RU1heklqTVJ3RlR0OFBpUWRKTDhsaitpaG51a2MvcFpCTlhidTRwQT09?=
+X-Exchange-RoutingPolicyChecked:
+	lYETDFgeG/uc4Wr+OiDewJbbviLFFPXGxzH6k4HUa+F2XC2Akorr2rFXMKrL/JLTkJ+NE8xrJGsKnwddlOfZDGKAAHhF/2kxknWviruVoe9bo4ybPTH8SL8xic+xcA+PaGQJOkZ1Iw62zAYR58ZH7nfMz+MPIa1jbVPmwaWgz2ZboxNGAje1LufjRoyamvrNynhpHAGwY359a/a3KESPdP6EAAh4R4Q8+PGgpITnHUxSJ0sxV8aMIkkgc8nTiARVzNv9/44CaH/Dp63L2WGuLt3Z24x7AG6aeV+FzTvUP2EI6ZwBEPDSiaCjmXcBd8s2qSKt/PfEbiWmpq3zSAkT9A==
+X-OriginatorOrg: windriver.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cea7daed-0ffa-4462-9829-08df17cd953f
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR11MB5332.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 10:47:18.0659
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 10:46:25.2989
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4OsifC+X1wyNvIf/QCalEbXkPNK+9UPeR5NrlpgIMOn6YF3putZ4/4K4OP8IGsAQYGPqMw1w1tkEOREuqao02MS3t2M6sOo9UoxbOTYhYVz5Xf2QPJi2VOVjQPzFnyUm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6862
+X-MS-Exchange-CrossTenant-UserPrincipalName: sb5B4iV135lXOzzTI0/1l7KVhO3M6Ccccd3hYt/etsfsWqjzDajsWBl0n18dWUiYDV7y82LSiqZnwmBOAdDB2A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR11MB9443
+X-Proofpoint-GUID: AMv8OGi7lRRFd3VPvMyQiKGegiOIUNGR
+X-Authority-Analysis: v=2.4 cv=WLrqzXsR c=1 sm=1 tr=0 ts=6ab10b04 cx=c_pps
+ a=s8W5O/SPP/itI6RUWNtt8g==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=bi6dqmuHe4P4UrxVR6um:22 a=iKiJcTA2PjBS6x5JeXcw:22
+ a=edf1wS77AAAA:8 a=VwQbUJbxAAAA:8 a=gLIKHLzNw2RV7LWUXAsA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=DcSpbTIhAlouE1Uv7lRv:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE1MyBTYWx0ZWRfX1kNalmeokIWW
+ 8y5CYLITSowDsqV71f625c1n/aRFxH2laNzqD4T0oFeioXBMCnUjJVTxjljgSzqE8C9o02NMEV2
+ rtdL8SKmUOlEDpleG6wHwL5bDHN1F0McdGSiI8ohamP+3Ke4vx7+0VUalHffGpMYmMpoD/aEuXY
+ d5t7MLx4NBZ+jovU4pW7G5TLASzGU5iIbt1kclVv5UOOGko+QhcSEBxVh1C6Om5iyy5WtBsThIX
+ bt6VCHmLh+o+afqRw6z0zXVg/hRB5jLWuQhOao0RF2zd+ut3M5PMc+SxdqE/OHhPj7+nDm/Rw05
+ LkVwFOcyF3VrhJ8qTBLN33kU68o4e2CxJi6/ejOsEANQCftl9Rk1/rz0gsr5R6qd1hfRjOj8IiV
+ k0an/69F99NeyNiEB90yXeeYogy9Yw2bmHFDGNP7GOmUkD2YENEvl6Ruz/nqIED26M+CapVxn4d
+ UlP0m/78Mnp4/SL1CDw==
+X-Proofpoint-ORIG-GUID: AMv8OGi7lRRFd3VPvMyQiKGegiOIUNGR
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE1MyBTYWx0ZWRfX1ofNwzUkmOw8
+ iOnnsXPI/LZH8JO5GtoeDYCRkNm4h1StE4vCzJ6sYaXqC1AVf8v3u9u86AC+yCFhDJIBH0T6PBn
+ nQ0Tz12jAfQy1h1d7qaFY8uIfDAeZ629haPAbZhjIIp1woSLwawe
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 phishscore=0 clxscore=1011 spamscore=0
+ priorityscore=1501 adultscore=0 bulkscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210153
 
-From: Chancel Liu <chancel.liu@nxp.com>
 
-The component .probe/.remove callbacks fire on ASoC card bind/unbind, but
-component->dev is the underlying platform device whose devres is only
-released on physical device removal. Resources allocated with
-devm_*(component->dev, ...) in the component probe are therefore never
-freed on card unbind, leaking one copy per bind/unbind cycle and leaking
-the hs_extmute GPIO descriptor (which can also fail to be re-acquired on
-re-bind).
 
-The board parameters and the hs_extmute GPIO are pure hardware/device
-level resources: they only depend on the physical device and the DT, not
-on the ASoC component. Acquire them (together with the driver context)
-in twl4030_codec_probe() using devm on the platform device, and hand the
-context to the component through drvdata. Their devres lifetime then
-correctly follows the device rather than the card bind/unbind, so no
-explicit component .remove is needed. The component probe keeps only the
-codec register initialisation that genuinely needs the component.
-
-Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
----
- sound/soc/codecs/twl4030.c | 63 +++++++++++++++++++++++++-------------
- 1 file changed, 42 insertions(+), 21 deletions(-)
-
-diff --git a/sound/soc/codecs/twl4030.c b/sound/soc/codecs/twl4030.c
-index b986ece55d5a..442624cf2a31 100644
---- a/sound/soc/codecs/twl4030.c
-+++ b/sound/soc/codecs/twl4030.c
-@@ -212,21 +212,21 @@ twl4030_get_board_param_values(struct twl4030_board_params *board_params,
- }
- 
- static struct twl4030_board_params*
--twl4030_get_board_params(struct snd_soc_component *component)
-+twl4030_get_board_params(struct device *dev)
- {
- 	struct twl4030_board_params *board_params = NULL;
- 	struct device_node *twl4030_codec_node = NULL;
- 
--	twl4030_codec_node = of_get_child_by_name(component->dev->parent->of_node,
-+	twl4030_codec_node = of_get_child_by_name(dev->parent->of_node,
- 						  "codec");
- 
- 	if (twl4030_codec_node) {
--		board_params = devm_kzalloc(component->dev,
-+		board_params = devm_kzalloc(dev,
- 					    sizeof(struct twl4030_board_params),
- 					    GFP_KERNEL);
- 		if (!board_params) {
- 			of_node_put(twl4030_codec_node);
--			return NULL;
-+			return ERR_PTR(-ENOMEM);
- 		}
- 		twl4030_get_board_param_values(board_params, twl4030_codec_node);
- 		of_node_put(twl4030_codec_node);
-@@ -235,21 +235,22 @@ twl4030_get_board_params(struct snd_soc_component *component)
- 	return board_params;
- }
- 
--static int twl4030_init_chip(struct snd_soc_component *component)
-+static int twl4030_get_hw_params(struct device *dev,
-+				 struct twl4030_priv *twl4030)
- {
- 	struct twl4030_board_params *board_params;
--	struct twl4030_priv *twl4030 = snd_soc_component_get_drvdata(component);
--	u8 reg, byte;
--	int i = 0;
- 
--	board_params = twl4030_get_board_params(component);
-+	board_params = twl4030_get_board_params(dev);
-+	if (IS_ERR(board_params))
-+		return PTR_ERR(board_params);
- 
- 	if (board_params && board_params->hs_extmute) {
--		board_params->hs_extmute_gpio = devm_gpiod_get_optional(component->dev,
-+		board_params->hs_extmute_gpio = devm_gpiod_get_optional(dev,
- 									"ti,hs_extmute",
- 									GPIOD_OUT_LOW);
- 		if (IS_ERR(board_params->hs_extmute_gpio))
--			return dev_err_probe(component->dev, PTR_ERR(board_params->hs_extmute_gpio),
-+			return dev_err_probe(dev,
-+					     PTR_ERR(board_params->hs_extmute_gpio),
- 					     "Failed to get hs_extmute GPIO\n");
- 
- 		if (board_params->hs_extmute_gpio) {
-@@ -257,7 +258,7 @@ static int twl4030_init_chip(struct snd_soc_component *component)
- 		} else {
- 			u8 pin_mux;
- 
--			dev_info(component->dev, "use TWL4030 GPIO6\n");
-+			dev_info(dev, "use TWL4030 GPIO6\n");
- 
- 			/* Set TWL4030 GPIO6 as EXTMUTE signal */
- 			twl_i2c_read_u8(TWL4030_MODULE_INTBR, &pin_mux,
-@@ -269,6 +270,18 @@ static int twl4030_init_chip(struct snd_soc_component *component)
- 		}
- 	}
- 
-+	twl4030->board_params = board_params;
-+
-+	return 0;
-+}
-+
-+static int twl4030_init_chip(struct snd_soc_component *component)
-+{
-+	struct twl4030_priv *twl4030 = snd_soc_component_get_drvdata(component);
-+	struct twl4030_board_params *board_params = twl4030->board_params;
-+	u8 reg, byte;
-+	int i = 0;
-+
- 	/* Initialize the local ctl register cache */
- 	tw4030_init_ctl_cache(twl4030);
- 
-@@ -288,8 +301,6 @@ static int twl4030_init_chip(struct snd_soc_component *component)
- 	if (!board_params)
- 		return 0;
- 
--	twl4030->board_params = board_params;
--
- 	reg = twl4030_read(component, TWL4030_REG_HS_POPN_SET);
- 	reg &= ~TWL4030_RAMP_DELAY;
- 	reg |= (board_params->ramp_delay_value << 2);
-@@ -2163,15 +2174,9 @@ static struct snd_soc_dai_driver twl4030_dai[] = {
- 
- static int twl4030_soc_probe(struct snd_soc_component *component)
- {
--	struct twl4030_priv *twl4030;
-+	struct twl4030_priv *twl4030 = dev_get_drvdata(component->dev);
- 
--	twl4030 = devm_kzalloc(component->dev, sizeof(struct twl4030_priv),
--			       GFP_KERNEL);
--	if (!twl4030)
--		return -ENOMEM;
- 	snd_soc_component_set_drvdata(component, twl4030);
--	/* Set the defaults, and power up the codec */
--	twl4030->sysclk = twl4030_audio_get_mclk() / 1000;
- 
- 	return twl4030_init_chip(component);
- }
-@@ -2193,6 +2198,22 @@ static const struct snd_soc_component_driver soc_component_dev_twl4030 = {
- 
- static int twl4030_codec_probe(struct platform_device *pdev)
- {
-+	struct twl4030_priv *twl4030;
-+	int ret;
-+
-+	twl4030 = devm_kzalloc(&pdev->dev, sizeof(*twl4030), GFP_KERNEL);
-+	if (!twl4030)
-+		return -ENOMEM;
-+
-+	/* Set the defaults, and power up the codec */
-+	twl4030->sysclk = twl4030_audio_get_mclk() / 1000;
-+
-+	ret = twl4030_get_hw_params(&pdev->dev, twl4030);
-+	if (ret)
-+		return ret;
-+
-+	platform_set_drvdata(pdev, twl4030);
-+
- 	return devm_snd_soc_register_component(&pdev->dev,
- 				      &soc_component_dev_twl4030,
- 				      twl4030_dai, ARRAY_SIZE(twl4030_dai));
--- 
-2.50.1
-
+On 9/20/26 14:34, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] The patch enables `dev->lltx = true` for both IPv4 ERSPAN
+>    (`erspan_tunnel_init()`, net/ipv4/ip_gre.c:1371) and IPv6 ERSPAN…
+> 
+> --
+> 
+> net: erspan: set lltx to avoid sch_direct_xmit deadlock
+> 
+> This sets dev->lltx = true for the IPv4 and IPv6 ERSPAN tunnel devices so
+> that HARD_TX_LOCK() skips the txq _xmit_lock, avoiding the nested
+> _xmit_lock acquisition when erspan_xmit() re-enters the stack through the
+> underlay device.  The change is tagged for stable with Fixes tags pointing
+> at 84e54fe0a5ea and 5a963eb61b7c.
+> 
+> Closes: https://syzkaller.appspot.com/bug?extid=9bda1b9fbb7fbdf9b62b
+> 
+>> diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
+>> index 82309efd417e0..0058cb20e36a1 100644
+>> --- a/net/ipv4/ip_gre.c
+>> +++ b/net/ipv4/ip_gre.c
+>> @@ -1367,6 +1367,8 @@ static int erspan_tunnel_init(struct net_device *dev)
+>>        dev->features           |= GRE_FEATURES;
+>>        dev->hw_features        |= GRE_FEATURES;
+>>        dev->priv_flags         |= IFF_LIVE_ADDR_CHANGE;
+>> +     /* Skip TX lock: xmit re-enters stack, risking ABBA with underlay */
+>> +     dev->lltx = true;
+>>        netif_keep_dst(dev);
+>>
+>>        return ip_tunnel_init(dev);
+> 
+> [Severity: Medium]
+> The commit message justifies the change with:
+> 
+>    "This is safe as erspan_xmit() has no shared mutable state: o_seqno is
+>     atomic, TX stats are per-CPU u64_stats, dst_cache is per-CPU, and
+>     o_flags is no longer modified in the xmit path since commit 9958e69b9893"
+> 
+> That statement holds in this tree, but the patch also carries Cc:
+> stable@vger.kernel.org with Fixes tags on 84e54fe0a5ea and 5a963eb61b7c.
+> Commit 9958e69b9893 ("gre: fix ERSPAN o_flags race/corruption in xmit and
+> fill_info") has neither a Fixes tag nor Cc: stable, so it is not queued for
+> any stable tree.
+> 
+> Both hunks here only touch the *_init() functions, so they apply cleanly to
+> any tree that has the dev->lltx bitfield (6.12 and later) even when
+> 9958e69b9893 is absent.  In such a tree erspan_xmit() still does the
+> read-modify-write on the shared per-tunnel word:
+> 
+> net/ipv4/ip_gre.c:erspan_xmit() (pre-9958e69b9893) {
+>          ...
+>          __clear_bit(IP_TUNNEL_SEQ_BIT, tunnel->parms.o_flags);
+>          ...
+>          __clear_bit(IP_TUNNEL_KEY_BIT, tunnel->parms.o_flags);
+>          __gre_xmit(skb, dev, &tunnel->parms.iph, proto);
+>          ...
+> }
+> 
+> Once lltx is set, is anything left serializing two concurrent
+> erspan_xmit() calls on the same single-queue device, given that the txq
+> _xmit_lock was the only thing keeping those __clear_bit() sequences from
+> overlapping?  The same question applies to the race against
+> erspan_fill_info(), which in those trees sets IP_TUNNEL_KEY_BIT back into
+> tunnel->parms.o_flags under RTNL only.
+> 
+> If a lost update resurrects IP_TUNNEL_KEY_BIT or IP_TUNNEL_SEQ_BIT, can
+> gre_build_header() then emit optional GRE fields that tunnel->tun_hlen
+> never accounted for, i.e. exactly the header corruption described in
+> 9958e69b9893?
+> 
+> Would it make sense to name 9958e69b9893 as an explicit stable
+> prerequisite in a note below the --- line, or to fold the equivalent
+> o_flags localization into this series, so stable maintainers do not apply
+> the lltx change on its own?
+> 
+Okay, I will add the prerequisite in v5.
