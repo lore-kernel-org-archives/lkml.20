@@ -1,94 +1,89 @@
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087DC4A8A39
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:06:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E602B4A2623
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:06:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999594; cv=none; b=kErjCEn5HwrOK80QC1bZ7pgV66nFId+kQxa9TNZDNkYS2/nRdAjAb7hNm6r1h2hxQERElzyVAp97U5AnuijpUg0clsleyv4p3d/FI14LYRdmBD+/84FWG0XFSGZ68PBnteozNF4VnpKAa7frMIMHeJ5oCDGarBGIw0PgWRheKT4=
+	t=1789999600; cv=none; b=IrSMgFju4DpdokMAgJXEyJ4tQcwiOcCpCre++gbG+kNCPOf7596FZPzQwmdbq8zFp1izz5ZsNFO69NdNEPhPAACoXPMsblpQOU8/A/8vUoFEaDzO6cfMnZ+YJCPD444WfiG/II7pckAYtXMtvHgq5CvhR/QqURP/5OLrZD7DA+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999594; c=relaxed/simple;
-	bh=OzuuWVIqtaFd/YYFW4xK7+t91VemYX3wot5lc8ID+mk=;
+	s=arc-20240116; t=1789999600; c=relaxed/simple;
+	bh=A2LrtQ7ZtBWMR03+zbci/R9MzI5Pc2F2QMHjFZMlWAU=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=A8Ull3AB1WEFSLjEbxHqOpNX0frK498Zk1QF8JvoJkysEfm9gV/6j4rHEoWgS1Mo22Ab/fjooux4oUEwRTro1RDc3DayHx2fF0IdL8rChNtOzdiFJO60Cnj9vZaXDA10kOXFrATpmtZlJKGpDyt2YU8bWCLCF19qrVB4KzQ0290=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=P2APeTW1; arc=none smtp.client-ip=209.85.210.199
+	 To:Cc:Content-Type; b=mBhFQ2fEdwYy/vB2kJgl2buRD0D9oGcx3JuOTBQR0Ix9ZijrgaO9r78Dpel1jzR07wYox4Ea6EfhmdDOVnBWxxRzffXyK21LU0OOuOZf+YMQ1EYgqxE2KxYoUqbM41tt7Cn9pOpsr5riZA0gbt6px0Jf2afMWIC+v/kgo/l3PKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OCtmNoT6; arc=none smtp.client-ip=209.85.214.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="P2APeTW1"
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-868f443cbd0so2862342b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:06:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OCtmNoT6"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2dd53f2b27cso38337575ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:06:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789999592; x=1790604392; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789999598; x=1790604398; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pZN6pn1oKVfiJrGbRYveJPh3MZHL0XDj4nwpj69nUOA=;
-        b=P2APeTW1AXaGq/Qi+t0Vi8GeDhueXF25n3yQUW+TuoYgtlVlLXgm1iPOAlErXNQupI
-         SC3qZrQy7aN6c4PzTB3/d4cxXO2VX6cKIGi0AXHrRLRdY0cH++ssmDGvrOMEaB3FT6Ci
-         bkOSdOHantkcimvNEhA3Cuzd1EsaLKikDDM9vzA5iZUbNamfQKcOdTLClf5fZxkAcL2F
-         xaMCGrJ2mPmdCQ7DE0msiCa4u+DeWF0H0MvCeAMDut4ULwY2wFfJIMFa3LqeLyAmJ3hu
-         IQLgFCbYbuQZWh5/sl1qmylcu9rOXcQ1vTdtJawPXZE62lHQQfSHRynSEu+QeEhatwUR
-         G1Uw==
+        bh=i/muhDVYe/u/0a8VSASygMA0PeAhT5QoDIzy8zL1loI=;
+        b=OCtmNoT6uKHszyBLCmdGVgtz4gbWl1Gh+5iiscbZuc1Kp79bZqJ3UOrhHqd3ezjG3s
+         kzP3E/q0JE+k/HnwiU5XlpNKMXlenXATWlfZv3JOqY99ApIrfw1XJmeDZqOKKA7dI4rb
+         hYSI0t4niNJM9+8XFuAtVQHa4qM2s7fbAMmudjslW/XNBYIy8N2O+JpSPu/IzXRh0E4I
+         gxhapg1f0+cEL2uyOudemkaL+K/PHOXsRWw2tyzgEWfw1UyGnVcOTfPGk0cgsx14cO+g
+         /1ktYqoSQxjcqCvHjU6IZQ2iiMaAmSqETbSy2omTD734QoIiZjNQBbFnvElczS/1A7CD
+         AJAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789999592; x=1790604392;
+        d=1e100.net; s=20260707; t=1789999598; x=1790604398;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pZN6pn1oKVfiJrGbRYveJPh3MZHL0XDj4nwpj69nUOA=;
-        b=fdw1H54tesXIHg1O4NGEyjxpnZmJcx/xRdB/i1FXWbgB5+GdRG3xZ3rKpPRzfj+G88
-         VuaWhl1CfIhr3SWCywuRaM7/IffnaYytRTeB8FkDGvBWw0GHGTjppgiTVTe12bwwuTuW
-         fHg9bZEnYw6BQXnsPsV1/bNdArhB9i4RrROs7O7IrltbPqk7xPfc1uIlN4MhXO0SEIra
-         YmwxLypIPorOkAq++mBJPvZyAftiFKC4XDEI1GkYfniKaLK9oecxm/UpPdCjHfHL5X/Y
-         WEso71U3ROTcG9KrNaS+rWgNRv0GoFnXPM+bZcyUG5Uy8OvOVSWH0DGSZkuh+nuJ+LUS
-         Ctzw==
-X-Forwarded-Encrypted: i=1; AKwUvByGZ1LIE49H5KXYmwT8+AkzV398SZTwAC9fqAHpS8+Ih4s8/N3OhhdaHHdadT0njstR+/M9/K0x/Pqm5so=@vger.kernel.org
-X-Gm-Message-State: AFuF++mAcNTGx1UsbDvmYLWovsjrVv0Yk8rmCHT+ospg0BfPOzMtliN6
-	AAevJ3zsrEakdWTjmtUpEN6S7xiyNWgodDbvPP5G9h34+6qE4DAeTcmxJxaP2Mrwsn6am9edBe8
-	2aK2VzQ==
-X-Received: from pfbdl11.prod.google.com ([2002:a05:6a00:490b:b0:879:66b7:29a9])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:2443:b0:3d3:ae1f:d7f5
- with SMTP id adf61e73a8af0-3dd8c4ff268mr16788092637.21.1789999592068; Mon, 21
- Sep 2026 07:06:32 -0700 (PDT)
-Date: Mon, 21 Sep 2026 07:05:16 -0700
-In-Reply-To: <20260908160426.6547-1-tharitt97@gmail.com>
+        bh=i/muhDVYe/u/0a8VSASygMA0PeAhT5QoDIzy8zL1loI=;
+        b=P3JfhR4pfWLdTwcQw+Uv0mXBRdsZ+lZqL+mu6SBb6MvfP77gDaSW1LS1eOhGp49Zmb
+         VuMnwGe2YOozytRxVvIqxr3z5TZDqBfZhNw1xiYgPreHe392rLeKsIa2S8Tqbw/HGCEX
+         WzNpkb1grHlREExPBSz9C/x97oBsSFW6bBdkzayf25E8mpJSfrjpnLKeIZL4g8A7cmHI
+         EW2wML3AKUJMslwyGJ4xDkWqErb/3voMsQqCTks/BXqKFA0XTIjxrTSBV81OajuK01oi
+         U0L7ta7+tP/0c/Pcn5zRl9UTuH6T7+fcJzmJMZ98BEUMK+0YxtRqNDikj4wdVwxjwI08
+         fvMA==
+X-Forwarded-Encrypted: i=1; AKwUvBzkqGlWZqXvDVItuImtp/BX6FSooNP17Sx5sRzlaXjXAYs4YxjpYxKWvznJw1CegDx8M5IJlp+3WkWC8hs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mo2UyZc2bKAUvBi9nsvAjdpqFfLB8H8uSoCf15mG3AtI47I7S8
+	ohTo0dAJh8AOrcFEq+KPlt+E2XKyO5o0dTKk9MRa8xmMTw3jyBvpC+2+s1JlkMlGZEs+2l1Zj79
+	DrO2FJw==
+X-Received: from pltt2.prod.google.com ([2002:a17:902:d142:b0:2dd:86da:afaf])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2349:b0:2dd:c100:4b73
+ with SMTP id d9443c01a7336-2ddc1005ee4mr92173005ad.42.1789999597950; Mon, 21
+ Sep 2026 07:06:37 -0700 (PDT)
+Date: Mon, 21 Sep 2026 07:05:18 -0700
+In-Reply-To: <20260827112200.866476-1-zeng_chi911@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260908160426.6547-1-tharitt97@gmail.com>
+References: <20260827112200.866476-1-zeng_chi911@163.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <178999676410.711234.12909851740804144889.b4-ty@google.com>
-Subject: Re: [PATCH v1 0/2] KVM: x86: cr8 reserved bit check
+Message-ID: <178999879184.740271.10237391317724062011.b4-ty@google.com>
+Subject: Re: [PATCH] KVM: Mask off the address space ID in kvm_set_internal_memslot()
+ check
 From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, pbonzini@redhat.com, tglx@kernel.org, 
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, 
-	shuah@kernel.org, Tharit Tangkijwanichakul <tharitt97@gmail.com>
-Cc: hpa@zytor.com, binbin.wu@linux.intel.com, kai.huang@intel.com, 
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel-mentees@lists.linux.dev, 
-	skhan@linuxfoundation.org, me@brighamcampbell.com, jkoolstra@xs4all.nl
+To: Sean Christopherson <seanjc@google.com>, pbonzini@redhat.com, imbrenda@linux.ibm.com, 
+	xiaoyao.li@intel.com, schlameuss@linux.ibm.com, 
+	Zeng Chi <zeng_chi911@163.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, zengchi@kylinos.cn
 Content-Type: text/plain; charset="utf-8"
 
-On Tue, 08 Sep 2026 23:04:24 +0700, Tharit Tangkijwanichakul wrote:
-> kvm_is_valid_sregs() validates the incoming CR0, CR4, and efer values on
-> KVM_SET_SREGS but never checks CR8. When userspace passes a CR8 value with
-> any reserved bit [63:4] set, __set_sregs_common() forwards it to
-> kvm_set_cr8(), which rejects the reserved bits and returns early. That
-> return value is not checked, so the ioctl reports success while the
-> requested value is silently dropped, and a subsequent KVM_GET_SREGS then
-> returns a CR8 different from the one userspace believed it had written.
+On Thu, 27 Aug 2026 19:22:00 +0800, Zeng Chi wrote:
+> kvm_set_internal_memslot() is supposed to reject memslot IDs that belong
+> to userspace, i.e. IDs below KVM_USER_MEM_SLOTS, but it compares the raw
+> "slot" field, which packs both the address space ID and the memslot ID
+> (as_id << 16 | id).  For any address space other than 0, the packed value
+> is always >= 65536, which is larger than KVM_USER_MEM_SLOTS, and so the
+> sanity check is a nop regardless of the actual memslot ID.
 > 
 > [...]
 
 Applied to kvm-x86 misc, thanks!
 
-[1/2] KVM: x86: Reject reserved CR8 bits in KVM_SET_SREGS
-      https://github.com/kvm-x86/linux/commit/3e7a842fe533
-[2/2] KVM: selftests: Add CR8 reserved-bit checks to set_sregs_test
-      https://github.com/kvm-x86/linux/commit/2b0e0aa54fa2
+[1/1] KVM: Mask off the address space ID in kvm_set_internal_memslot() check
+      https://github.com/kvm-x86/linux/commit/7d2a727f44d8
 
 --
 https://github.com/kvm-x86/linux/tree/next
