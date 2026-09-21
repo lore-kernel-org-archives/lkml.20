@@ -1,87 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B9A4BEE3C
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:09:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F5D491586
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:09:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790006953; cv=none; b=J78mmjo0BtvJd90eIN9//54omO3DnWheiOSV9ff+25twBoR7d/kjYol8kZkBrA1A3kB9Nnz++/g0VcCEllOaHsJj/hLyBK7ifIdOZMNBv7HvHtBUDglPho/scvUeboSQd41e8gvZlFXqrimPRhbE7osiVrBFG6nhht5K0VLjbKY=
+	t=1790006966; cv=none; b=eu7uzJNxhGW5BLdbdkFF55uKCutqXkUZ6TfIJ+3h8BDRqYuJxzRH3c5ZeMtEfHuZRqukhyxYcJpJx1njVypNNRLy13dvv7PexD5c2XXypmPxKU1onI0RqUdzM1LRGi6N8kRbG62EBg3S0B3zQITPEUqQg0p+3QtCTTnX/D1v0EA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790006953; c=relaxed/simple;
-	bh=SwXDXkJwIoYgN9JLjT1MHlSGl5vnljq5mibJtxzwng4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oqPfvqyF0jEgkO/Xj276+s7WVsSjP7tdi2FLwGW4Sr60LuUtNaOftcUg6vm4WkTFJSCowv48AzS4xoXRziFnru5zzIjoKRnDgZ0BTBnmYQbnFa8zRcNqMSVMxKFuE3CxFe3oy3ovSICTId3Y6gsYyKMb28sk1WFcCev2wFTDEMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lf2Q2Hu3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790006966; c=relaxed/simple;
+	bh=3LMw4T4W608eHVe74i57LLlCeTrnVHo2JK/BD0br1xE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pujW1EeQXX09W46Uhd2JUbFETZBRSPmzVNytj30MJRqQGMSeLCkSI/4hveL3TP+AOzlTrOAGV2IEC08HrZgalT2rDV9I63qP/KJo6yHloJCpHBAMKoh1gcFrlvck5pbwbPI4+Wf5SKkIPwQaeu+8FOsgbmxWNQt9W+e93kalqR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=K0YMifBW; arc=none smtp.client-ip=74.125.231.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lf2Q2Hu3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27B371F0089F
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:09:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790006951;
-	bh=SwXDXkJwIoYgN9JLjT1MHlSGl5vnljq5mibJtxzwng4=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=Lf2Q2Hu3d6HNlYFo89SJgU18eXG8uRVKiKwUhsd+93SLd+aqiy1Yy+ltU3zt0b+Z3
-	 pIAQmtELu8125y9YHJz2d7eaNdHi27RweXHZd1E1bbxwOXS7E4V/nA686g+MgAZ3BR
-	 kqv8CQcmN7qhO7tRIUbJOwKNgA+Ttsb/C6DRTwHP7cxOcOZZYa10jLwHhdGrHT1QFG
-	 Y0w+29iurwcDa8y2uSYID309ABk1bDlStPQRBuuK7Cyrm3/UaM8fWgegvsI22PrAiz
-	 5FtNpVchW4TpxKuwhdYKZJLZPLGUZdQbKX3azwj03zUe9swnFkC4HqhdehAs7tC10S
-	 041a8XzneOrLQ==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a30521edd8so11560311fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:09:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzjNcWPcTwFWgFD8NHnGpab88OioyQf7CUkV6Qj/KQLXZJpGJmrFiLMQOkEH3O0elbpCEGxtp8zHnajjMI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOngkr9X1wAl1ehWIxsuJNn1COlfXsact8eh0q1ZtSZdBsAFoZ
-	Wq1xlwuaiwV2tx0/GvF8Z5LQnGznHV5QfwWRlg5f8hskOimoPnva5rRGC565DgRL+pvV3z+XT4b
-	jvEJNJvNC7F9RjiTuZ1gffw6YSZtUdr0=
-X-Received: by 2002:a2e:a593:0:b0:3a4:88c9:c51c with SMTP id
- 38308e7fff4ca-3a624c861b2mr334421fa.1.1790006949528; Mon, 21 Sep 2026
- 09:09:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="K0YMifBW"
+Received: by mail-oi2-f12.google.com with SMTP id 5614622812f47-4c54eed93e4so1220982b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:09:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1790006962; x=1790611762; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rtkQcjEvwfbB2YWb57GKh9JqxleBPJHBXHu8WM179d0=;
+        b=K0YMifBWaKbotJyEtC9no77bBo06p37eXqiaMnQRdmD+wqvUeY8SKUAtQhOwpksbeI
+         WmUCB9iJ3RHR3HXDDx0nC5vxqd8Or0MiMZyQCyDCWubN/oyxEQ/xskfDOs3zM6eFWMoO
+         KwhVIvoN0jSVivggG9bnQsEH1ynEUKL+uZxfZQ5Yy+oe2GPOPox8I4z09sSRDSzsMyuk
+         LG+v1XzuT1BQzVp2JCztsd8xlQ9UJU/dbSRVDSJjnjg/Flprb31ERGR5Ob0HGOXFvSUV
+         t5GxEYLMs4OT6DdPYCTgx+H7RCLMELdN93uYZd1fnxKQlHlo/F1nDvchQkvXfLQEQzaz
+         ih1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790006962; x=1790611762;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rtkQcjEvwfbB2YWb57GKh9JqxleBPJHBXHu8WM179d0=;
+        b=umdKt+yhOlBWJwkmq8SptGE6IOsfSOTeXf7C7KTj7v4ugS8MAP51FCfWo5XIbdQKGb
+         g1CzB+aNVobtcPoyKL/olLNFgq/vWBjb7bNOIBKTm4WOwT0Y8WodIAnlIhtEhN3kT/ac
+         t7VYx4RIZsmuLL85qWjwMxAVfRJZWcK7BHs1D6zAH1PnqYOrnwOMVsjPq9eTX9fronDp
+         s4F3C09Va9MCqpBdL5qsgyxcW0Hul/0Nki4YWlxoPW3JvJELVkAKpAHmpfsULIXAk6Bt
+         lasyxHkuip4tp9n3uzN1MSWAaYxrcaHGG/wqIBwIiTUANmtVl924wb1zqA7K9ckE5+71
+         Y8iw==
+X-Forwarded-Encrypted: i=1; AKwUvBx2ShVOI8iU36vln199wKm+NjVi+DEYOvnYlB0nP2EMMX2PBVloENlxg44gmrMj9neRrz4y5fRA3e8gk+Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQaiRWuz97Ub0Y3sJQ0PlEf/8Oe9fIWYFUCiaoiKYyQfVQd0Pt
+	SWFWvv20zO2FB9a6m/34zTypMTQbAE1kkPBeruXDrh1eaSOkBms68ms0D64/1bb1Fvf/vnCwJ1O
+	ltCnOt2nWdg==
+X-Gm-Gg: AYBFou1O0p4sthgMiFuFJBH5zehvQ/hPviCDHgDtI0FIYWxMxEMge2NnnAH1LDDS0fY
+	+KrFfhGQE6yqYiy+L/VOneB1bB+cXy+l/MW5oFKvu8dIrerQWFbUXrTHiXiEFKzPbFUeBHAW4XO
+	g6BdCbTNgvKrGskZsOCOngLXnXmDgekPzS9sd+a66i3G6lge+Ly7h4d01IikzuBzH2iLMu4RciN
+	C1zwxDIlDtyxUSAcbGegJ+HkEitNscGtw5LC6NwiwANp85oUKSAtQT724cq8qxOEQkMn8Yq/hjW
+	dx7yg0ptBStB61JiquBbY4bTA4nQpZttoi9Nf/TsnAAAkHVmUyS6jopfakHLW3e+g5BWeAsrw4r
+	jOkzq4b6iV8lDpQBlDICAFaiDUlSVFidVTyereqh8aEvNOsaphCH4InQuYxPZuOp/5tPtHEpbHL
+	3IzQscHbXxdkOoUE9EDxa8qj3T3fXWe2Tn2xouoKlHVpUgElBX/ZxwpbYrtshsgiJMEfz2GvryD
+	Lg5oGPSuH8MeO39CwmbNd3yzg==
+X-Received: by 2002:a05:6808:c2b6:b0:4c4:6b5c:30c3 with SMTP id 5614622812f47-4ccf25b39ddmr10875999b6e.0.1790006962306;
+        Mon, 21 Sep 2026 09:09:22 -0700 (PDT)
+Received: from [172.19.0.10] ([99.196.129.128])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4d423d091d0sm401953b6e.13.2026.09.21.09.09.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 09:09:20 -0700 (PDT)
+Message-ID: <60200f9e-0b37-4f8d-a309-65fd817eaa53@kernel.dk>
+Date: Mon, 21 Sep 2026 10:09:07 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260604120201.116925-1-vo.kratky@seznam.cz> <20260604120201.116925-3-vo.kratky@seznam.cz>
- <rfot56KMT1aR8vVOIe5xxg@gmail.com>
-In-Reply-To: <rfot56KMT1aR8vVOIe5xxg@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Tue, 22 Sep 2026 00:08:55 +0800
-X-Gmail-Original-Message-ID: <CAGb2v66iTrHY-MHTKsFM=Wqf3vVLy-g8eg6M8eP573YX92MDig@mail.gmail.com>
-X-Gm-Features: AcwNN1VBgQvCEUdLs4z1ZySLJQVZFDsISBDYum893VnssHpsSzgjjYNxMBzotzE
-Message-ID: <CAGb2v66iTrHY-MHTKsFM=Wqf3vVLy-g8eg6M8eP573YX92MDig@mail.gmail.com>
-Subject: Re: [PATCH v2 02/11] iio: adc: change from %ld to %pe for PTR_ERR() printing
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>, 
-	linux-iio@vger.kernel.org, =?UTF-8?B?Vm9qdMSbY2ggS3LDoXRrw70=?= <vo.kratky@seznam.cz>, 
-	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Samuel Holland <samuel@sholland.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Linus Walleij <linusw@kernel.org>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] io_uring/bpf_filter: Set src->bpf_filters_cow in
+ io_bpf_filter_clone()
+To: Hui Peng <benquike@gmail.com>
+Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260919112523.3872581-1-benquike@gmail.com>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <20260919112523.3872581-1-benquike@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Jonathan,
+On 9/19/26 5:25 AM, Hui Peng wrote:
+> When io_bpf_filter_clone() clones a struct io_bpf_filters table from a
+> source restriction set to a destination restriction set, it increments
+> src->bpf_filters->refs and sets dst->bpf_filters_cow = true, but forgets
+> to set src->bpf_filters_cow = true.
+> 
+> As a result, subsequent IORING_REGISTER_BPF_FILTER registrations on an
+> io_uring instance or task holding the source restriction set bypass
+> copy-on-write and mutate the shared io_bpf_filters table in place,
+> corrupting the BPF filter rules of already-cloned rings.
+> 
+> Fix this by setting src->bpf_filters_cow = true alongside
+> dst->bpf_filters_cow = true in io_bpf_filter_clone().
 
-On Sat, Jun 13, 2026 at 4:06=E2=80=AFPM Jernej =C5=A0krabec <jernej.skrabec=
-@gmail.com> wrote:
->
-> Dne =C4=8Detrtek, 4. junij 2026 ob 13:59:22 Srednjeevropski poletni =C4=
-=8Das je Vojt=C4=9Bch Kr=C3=A1tk=C3=BD napisal(a):
-> > Replace numeric PTR_ERR() logging with the %pe format specifier
-> > so that error values are printed in a more readable form.
-> >
-> > This change was identified using a Coccinelle semantic patch.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Vojt=C4=9Bch Kr=C3=A1tk=C3=BD <vo.kratky@seznam.cz>
->
-> Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+This one looks fine. But:
 
-Any chance you can still pick this up?
+> Found by code inspection; build tested only, no reproducer.
 
+run the test suite. As far as I can tell from your patches, "code inspection"
+simply means an LLM looked at it for you. Do you even look at the code? It's
+clear it hasn't been run.
 
-Thanks
-ChenYu
+In the future, don't send patches without having tested them. And tell your
+LLM to refrain from both the overly verbose and alarmist writing.
+
+-- 
+Jens Axboe
+
