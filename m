@@ -1,65 +1,64 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D0C44F557
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:02:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707FA45D921
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:02:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789981339; cv=none; b=XLj8JXe/g6cQRnNblrGNYMQkwGYrIQnTPj9K2pJeKdQtHnH3DTUdi73Iw+nxhX5Q0QLcVLJmB/xhwAMOhSioCoWnMKyrQT7wEIwj3qOmfILox9y6B/F49hBNpFK5zOKZnaqUmd26tRXt/HpvVLp+PhsS1db4SD0FvuDmDuqw0S0=
+	t=1789981341; cv=none; b=hEXoRfDpLaibf2fGPi2yRS4jo2Sxmas6QmeSG/QjqAIBX8wy7MVnlRj/L0lxICmX5lv5MI6kY8LoBxIUBRLCbky2vtp2gGBqjZWQKsnZyWj176Ju1woXgNT9UMyAdXipQ9OQBDFy1jFCBdprWojWU6kDn9wHVEGRN8nMeVKLFVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789981339; c=relaxed/simple;
-	bh=q3rSQpMqXdqGa6NGybjKQFu7pH08QJieEYjPCb+VkgE=;
+	s=arc-20240116; t=1789981341; c=relaxed/simple;
+	bh=ho9oslYS8QwxC5bv+4XQhFJx7pBTM14MwGrBHvKEXiM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jluWe8dNiXE7N/1hzIrcnogkB28o5lpvR4B8RoTh9zigLnxjtQyClq1o81Ygh0F+EXZozIhwhxAJyyeooGFy7X5gJHbZJ3/1cNFm2REMgKlJaZ6Kkjv0wwChcZBySVRR/DGjfUFrybJf498D+Oj5CbZyzJTbT8j6AoE2TWHVy0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=E1qv7fL5; arc=none smtp.client-ip=148.163.156.1
+	 MIME-Version; b=QvdSeAs27P5SALoMhglh1QvaviOrEJXdOIaSpySCsQvijNg1iJidL95MOIKyi6+K874dOl5sA1cQpx+/F9iekHtXvR4AoRVHe7N5N34uxzRaALdi2sxCSpV2Mwr5dwnhtTPbISujgFX16oXfvYoJcTnfXgf82FrcuHfX1Bmpae4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=JhhnsZaJ; arc=none smtp.client-ip=148.163.158.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="E1qv7fL5"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7ZSEv830148;
-	Mon, 21 Sep 2026 09:02:10 GMT
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JhhnsZaJ"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7ZlNo863477;
+	Mon, 21 Sep 2026 09:02:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=IyH8SfAnpy5B4C68J
-	7roIDpBOmLZS4dDF/EGDRIypTQ=; b=E1qv7fL5bsaPOefIQakqQUPvUEG299kPE
-	ShZ+QDZpUc41DMhulrVpkSOy8VzzZSxGxA6QRbSqaaJoXc6EdUKPn0zp1/YeWyED
-	oi1Z84ESxcHi5xCEkFBd4KAKM6dU+lpkPdVHzqXtTw5P3XnC0fSp9WjMw02cGU9B
-	SP1Ko5QCBLypfC6cvMbVEsM+o4wE1C+2q2Ee9NeGH8+lu/Sk0Xdv6qGcrwl2IbON
-	bieOD1i4nkN1dWmZksAl+z51omwCF4iUV+3I2m2EPBrr9kEsuIXMAOQaRgye+bqj
-	2EwP5SYtpZDsp1mqEDIyhGRD3yHM055gTfUMPjXhnPwoSOohvU6xA==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgryn0b-1
+	:mime-version:references:subject:to; s=pp1; bh=wsR8i4T/yAVaKBPaf
+	7AfWISz4QNuITwiqJ9gP+aFl8s=; b=JhhnsZaJiWM0epFM2OVOQAEMVfELOUTyi
+	9ZXP/gXCjvirJ8luk7Hg6vFI44Ce0RXFobU2YWA+WsjDBiSY1L/xiuqDUtHiQ+Ga
+	DoqfCORVrbEgEctTSYdaktQCnivRjoCXXSWKPo0gjvPhAVhs/SqdWdKijp1Iv6Pe
+	YrsZIsHq0pCSoNTZfP2z8EXwGxfRtFr4Aj1esm9mSAmejzKmWnJkCDZLnUKuzJ7t
+	lLzyLtO7zthl7g33NiR0juC7UWPCBok1Z0cQcF3VeuWkbHO/OzuTSYnAOfAESTVo
+	iazpBDqxu4lRGpKN6aDvAhmmbPapDU2h/ux2mukWtyzn/8wSHn4vw==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskduygga-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 21 Sep 2026 09:02:09 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7HhY5924903;
-	Mon, 21 Sep 2026 09:02:08 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gt4qq4q2w-1
+	Mon, 21 Sep 2026 09:02:11 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7HdUb867852;
+	Mon, 21 Sep 2026 09:02:11 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gt53vcnw5-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 21 Sep 2026 09:02:08 +0000 (GMT)
+	Mon, 21 Sep 2026 09:02:11 +0000 (GMT)
 Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68L924aE46924100
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68L927AC42074608
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 21 Sep 2026 09:02:04 GMT
+	Mon, 21 Sep 2026 09:02:07 GMT
 Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 93F3E2004D;
-	Mon, 21 Sep 2026 09:02:04 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 102DF20043;
+	Mon, 21 Sep 2026 09:02:07 +0000 (GMT)
 Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6E44020040;
-	Mon, 21 Sep 2026 09:02:02 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 02ECC2004D;
+	Mon, 21 Sep 2026 09:02:05 +0000 (GMT)
 Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.124.208.199])
 	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 21 Sep 2026 09:02:02 +0000 (GMT)
+	Mon, 21 Sep 2026 09:02:04 +0000 (GMT)
 From: Shrikanth Hegde <sshegde@linux.ibm.com>
 To: maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org
 Cc: sshegde@linux.ibm.com, christophe.leroy@csgroup.eu,
-        linux-kernel@vger.kernel.org, ritesh.list@gmail.com, tglx@kernel.org,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Subject: [PATCH v3 2/3] powerpc/irq: Make irqstats array based
-Date: Mon, 21 Sep 2026 14:31:52 +0530
-Message-ID: <20260921090153.54745-3-sshegde@linux.ibm.com>
+        linux-kernel@vger.kernel.org, ritesh.list@gmail.com, tglx@kernel.org
+Subject: [PATCH v3 3/3] powerpc/irq: Suppress unlikely interrupt stats by default
+Date: Mon, 21 Sep 2026 14:31:53 +0530
+Message-ID: <20260921090153.54745-4-sshegde@linux.ibm.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260921090153.54745-1-sshegde@linux.ibm.com>
 References: <20260921090153.54745-1-sshegde@linux.ibm.com>
@@ -72,373 +71,173 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=V/XoQuni c=1 sm=1 tr=0 ts=6ab0f291 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+X-Proofpoint-ORIG-GUID: qoLIfXWHTEa_n6_c-o5nV5M_lsejku6H
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEyMyBTYWx0ZWRfX8+RHOjlMqwRv
+ LXV+McCiumU8t3rAp7jMq1WGGcpMoJCeH7BBm24vjMbXJxXseStnqB7LvJA5OJrVAvnURdneEeg
+ rtc1CKNatzTRmfDo15R0RGgsPBajtQY=
+X-Authority-Analysis: v=2.4 cv=FLiOVOos c=1 sm=1 tr=0 ts=6ab0f293 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
  a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=Nt6gJGhAC5hH5tf_ggoA:9
-X-Proofpoint-ORIG-GUID: PZFVDy2w8j9Ss-kX5ZCVt2NG1Ght8jBz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEyMyBTYWx0ZWRfX0lrYmliRW3wr
- S+Zg7QGPNKxqyHUgmvJydXX/p1wlU8pLkE1KbdVAN6fa04aQsceynGF2RGF/FHqMlJemdiBKN3H
- GsMNyuyIU77BNz5S1r8JR0pihwE5kv9eGvRvB1fC99Mb3MnGvTYcfY2JSYwGX5aqkN0sXVjrgEY
- aMXwNmsoz4Vjo1FnRqTZ4cZFCRZzU/6e8F1JE6VeKtQ1Rte5w6fLBJVJ/DFb7K1cgXxQAkD1G0D
- 4R7XfjpHEp13BBii+Te79KbpHfX2cYJu4cTBFK2SRbz6Cm/r+Kc2DAsjESubbPwvWi/kp2DPIBh
- BekgoqgkxRIUPgdlPATGodJY4+c/ZbjO+G+Bfo8e9NKfIAOBkq9jK664OyOVE837jaCy86O1t49
- eCfklxK6Ot5f1iLtECRf7Id29JqdmlafMws5NCM0K87ClcwYtzY7IkZCj/JzXn4ydEjYoNHmNV/
- yJ1u7CzJHPQT7CQAiRg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEyMyBTYWx0ZWRfX7uqD3I+S3R0F
- blE/fCCx7Qzk8HLFOfOqbOfJldMqCkbdcXFUZWJg+Af1NvRe793f3BwIAjNgdC3vgGFyvnjW+Y+
- INL4pRMjAliYTex0g/w1kEnnxttENIE=
-X-Proofpoint-GUID: MQHm7vLtgyb2-BtvvNFksmzkx1sh2j8A
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=HwhMAjjRhnxDVlPREfwA:9
+X-Proofpoint-GUID: 25ebQ2YNnNaIjQtOH07N0uQz3UXBZr0T
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEyMyBTYWx0ZWRfX7JgKSFzvqh5H
+ rPC634gnAo9Go1plJsXkmTfTur2ABlVEFhZJmL2xrcMbtN6XuoM7hBJXlKt88NO1IS/q3kScnjb
+ IK79g9NM+T5YaO3Hu8hNYijDu2QLsawEm5U8bRDoJ/ohzvOH3GC3hpRUSCGekpkLBGCKJlY8iVr
+ wgeEYyPh+hzTHpfx6OvqsTlJMCtWFwkgpuCTWoiGPwtCgc0CgyHzu1xl2CIe7NK41u9K0PoB117
+ YlJ8Sr+HvfH0ok4Nr+fYtsfWTVN+cz/hE534fpHBdjdMOSRkIJCHcjixQIlEe5GQKzIG8hHjEzW
+ QBdo+SEcgqgmTktVeRjASsi+oqcrKi9skuIjvzIvGygHSoYUPYBA9mixCljnZPSfb5wrE8burSu
+ mQl6z/aiwjn/T0yeS77OjIQf89aqLkb5AkWCwAVYr7RI6VRa/WzbwP6YSyJePpSc254dyv0fyvi
+ WxsJLcRe+T4ztv/mFXQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210123
+ adultscore=0 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
+ suspectscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210123
 
-Current irq_cpustat_t has separate member for handling each arch
-specific interrupt type. The same can be achieved with array instead
-indexed by corresponding irq counter type.
+Some interrupts are always zero and that is expected since they occur
+very rarely and are mostly error indications. Don't print them by
+default.
 
-This helps to,
+"MCE" -  "Machine check exceptions"
+"NMI" -  "System Reset interrupts"
 
-- Make it easy to integrate into genirq improvements by calling
-  genirq provided irq_proc_emit_counts. That speeds up quite a bit
-  by printing all 0's once as much as possible.
-
-- Adding a new vector or software counter only requires to update the table
-  and everything just works
-
-- Remove ifdef usage a bit.
-
-- Instead of going through each member, it simply becomes an array
-  traversal.
+Print them if they occur once. Maintain a bitmap to know which
+interrupts are to be printed.
 
 Time taken to read /proc/interrupts 1000 times.
 Base and v6 details can be found in cover-letter.
-Base		:  103us
-v6		:   63us
-v6+this_patch	:   57us
+Base            :  103us
+v6              :   63us
+v6+patch 1+2    :   57us
+v6+patch 1+2+3  :   54us
 
-A Decent 10% reduction can be seen in a system 240 CPUs. As the system
-size increases the gain would be more as emitting 0 would reduce more
-and more.
+Patch 3 shows an additional 5% gain compared to patch 1+2. So it does
+make sense to print them only if they are ever set.
 
-Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+Note: Since /proc/interrupts depend on kconfig and arch dependent,
+userspace tools don't make explicit assumptions.
+
 Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
 ---
- arch/powerpc/include/asm/hardirq.h |  27 +++++---
- arch/powerpc/kernel/dbell.c        |   2 +-
- arch/powerpc/kernel/irq.c          | 107 ++++++++++-------------------
- arch/powerpc/kernel/time.c         |   6 +-
- arch/powerpc/kernel/traps.c        |  11 ++-
- arch/powerpc/kernel/watchdog.c     |   2 +-
- 6 files changed, 64 insertions(+), 91 deletions(-)
+ arch/powerpc/include/asm/hardirq.h |  1 +
+ arch/powerpc/kernel/irq.c          | 37 +++++++++++++++++++++++++++---
+ arch/powerpc/kernel/traps.c        |  4 ++--
+ 3 files changed, 37 insertions(+), 5 deletions(-)
 
 diff --git a/arch/powerpc/include/asm/hardirq.h b/arch/powerpc/include/asm/hardirq.h
-index bf3926a0c69c..38098e35b241 100644
+index 38098e35b241..be6cd5aab016 100644
 --- a/arch/powerpc/include/asm/hardirq.h
 +++ b/arch/powerpc/include/asm/hardirq.h
-@@ -5,26 +5,33 @@
- #include <linux/threads.h>
- #include <linux/irq.h>
- 
--typedef struct {
--	unsigned int timer_irqs_event;
--	unsigned int broadcast_irqs_event;
--	unsigned int timer_irqs_others;
--	unsigned int pmu_irqs;
--	unsigned int mce_exceptions;
--	unsigned int spurious_irqs;
--	unsigned int sreset_irqs;
-+enum irq_stat_counts {
-+	IRQ_COUNT_LOC_TIMER,
-+	IRQ_COUNT_BCT_TIMER,
-+	IRQ_COUNT_OTHER_TIMER,
-+	IRQ_COUNT_SPURIOUS,
-+	IRQ_COUNT_PMI,
-+	IRQ_COUNT_MCE,
-+	IRQ_COUNT_NMI_SRESET,
- #ifdef CONFIG_PPC_WATCHDOG
--	unsigned int soft_nmi_irqs;
-+	IRQ_COUNT_WATCHDOG,
- #endif
- #ifdef CONFIG_PPC_DOORBELL
--	unsigned int doorbell_irqs;
-+	IRQ_COUNT_DOORBELL,
- #endif
-+	IRQ_COUNT_MAX,
-+};
-+
-+typedef struct {
-+	unsigned int counts[IRQ_COUNT_MAX];
- } ____cacheline_aligned irq_cpustat_t;
- 
- DECLARE_PER_CPU_SHARED_ALIGNED(irq_cpustat_t, irq_stat);
- DECLARE_PER_CPU(unsigned int, __softirq_pending);
+@@ -31,6 +31,7 @@ DECLARE_PER_CPU(unsigned int, __softirq_pending);
  #define local_softirq_pending_ref       __softirq_pending
  
-+#define inc_irq_stat(index)	__this_cpu_inc(irq_stat.counts[IRQ_COUNT_##index])
-+
+ #define inc_irq_stat(index)	__this_cpu_inc(irq_stat.counts[IRQ_COUNT_##index])
++void inc_irq_stat_and_enable(enum irq_stat_counts which);
+ 
  #define __ARCH_IRQ_STAT
  #define __ARCH_IRQ_EXIT_IRQS_DISABLED
- 
-diff --git a/arch/powerpc/kernel/dbell.c b/arch/powerpc/kernel/dbell.c
-index 5712dd846263..f5e298a4c4c0 100644
---- a/arch/powerpc/kernel/dbell.c
-+++ b/arch/powerpc/kernel/dbell.c
-@@ -31,7 +31,7 @@ DEFINE_INTERRUPT_HANDLER_ASYNC(doorbell_exception)
- 		do_hard_irq_enable();
- 
- 	kvmppc_clear_host_ipi(smp_processor_id());
--	__this_cpu_inc(irq_stat.doorbell_irqs);
-+	inc_irq_stat(DOORBELL);
- 
- 	smp_ipi_demux_relaxed(); /* already performed the barrier */
- 
 diff --git a/arch/powerpc/kernel/irq.c b/arch/powerpc/kernel/irq.c
-index 0a4daceee293..cfbec8363f99 100644
+index cfbec8363f99..bce546931a13 100644
 --- a/arch/powerpc/kernel/irq.c
 +++ b/arch/powerpc/kernel/irq.c
-@@ -84,79 +84,57 @@ u32 tau_interrupts(unsigned long cpu);
- #endif
- #endif /* CONFIG_PPC32 */
+@@ -87,9 +87,13 @@ u32 tau_interrupts(unsigned long cpu);
+ struct irq_stat_info {
+ 	const char	*symbol;
+ 	const char	*text;
++	int		optional;
+ };
  
-+struct irq_stat_info {
-+	const char	*symbol;
-+	const char	*text;
-+};
+-#define ISE(idx, sym, txt)[IRQ_COUNT_##idx] = { .symbol = sym, .text = txt}
++/* ISE - IRQ STAT ENABLED, ISC - IRQ STAT CONDITIONAL */
++#define ISE(idx, sym, txt)[IRQ_COUNT_##idx] = { .symbol = sym, .text = txt, .optional = 0}
++#define ISC(idx, sym, txt)[IRQ_COUNT_##idx] = { .symbol = sym, .text = txt, .optional = 1}
 +
-+#define ISE(idx, sym, txt)[IRQ_COUNT_##idx] = { .symbol = sym, .text = txt}
-+
-+static struct irq_stat_info irq_stat_info[IRQ_COUNT_MAX] __ro_after_init = {
-+	ISE(LOC_TIMER,		"LOC", "  Local timer interrupts for timer event device\n"),
-+	ISE(BCT_TIMER,		"BCT", "  Broadcast timer interrupts for timer event device\n"),
-+	ISE(OTHER_TIMER,	"LOC", "  Local timer interrupts for others\n"),
-+	ISE(SPURIOUS,		"SPU", "  Spurious interrupts\n"),
-+	ISE(PMI,		"PMI", "  Performance monitoring interrupts\n"),
-+	ISE(MCE,		"MCE", "  Machine check exceptions\n"),
-+	ISE(NMI_SRESET,		"NMI", "  System Reset interrupts\n"),
-+#ifdef CONFIG_PPC_WATCHDOG
-+	ISE(WATCHDOG,		"WDG", "  Watchdog soft-NMI interrupts\n"),
-+#endif
-+#ifdef CONFIG_PPC_DOORBELL
-+	ISE(DOORBELL,		"DBL", "  Doorbell interrupts\n"),
-+#endif
-+};
+ 
+ static struct irq_stat_info irq_stat_info[IRQ_COUNT_MAX] __ro_after_init = {
+ 	ISE(LOC_TIMER,		"LOC", "  Local timer interrupts for timer event device\n"),
+@@ -97,8 +101,8 @@ static struct irq_stat_info irq_stat_info[IRQ_COUNT_MAX] __ro_after_init = {
+ 	ISE(OTHER_TIMER,	"LOC", "  Local timer interrupts for others\n"),
+ 	ISE(SPURIOUS,		"SPU", "  Spurious interrupts\n"),
+ 	ISE(PMI,		"PMI", "  Performance monitoring interrupts\n"),
+-	ISE(MCE,		"MCE", "  Machine check exceptions\n"),
+-	ISE(NMI_SRESET,		"NMI", "  System Reset interrupts\n"),
++	ISC(MCE,		"MCE", "  Machine check exceptions\n"),
++	ISC(NMI_SRESET,		"NMI", "  System Reset interrupts\n"),
+ #ifdef CONFIG_PPC_WATCHDOG
+ 	ISE(WATCHDOG,		"WDG", "  Watchdog soft-NMI interrupts\n"),
+ #endif
+@@ -107,11 +111,25 @@ static struct irq_stat_info irq_stat_info[IRQ_COUNT_MAX] __ro_after_init = {
+ #endif
+ };
+ 
++/*
++ * Used for default disabled counters to increment the stats and to enable the
++ * entry for /proc/interrupts output.
++ */
++static DECLARE_BITMAP(irq_stat_count_show, IRQ_COUNT_MAX) __read_mostly;
++void inc_irq_stat_and_enable(enum irq_stat_counts which)
++{
++	__this_cpu_inc(irq_stat.counts[which]);
++	set_bit(which, irq_stat_count_show);
++}
 +
  int arch_show_interrupts(struct seq_file *p, int prec)
  {
--	int j;
-+	const struct irq_stat_info *info = irq_stat_info;
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(irq_stat_info); i++, info++) {
-+		seq_printf(p, "%*s:", prec, info->symbol);
-+		irq_proc_emit_counts(p, &irq_stat.counts[i]);
-+		seq_puts(p, info->text);
-+	}
+ 	const struct irq_stat_info *info = irq_stat_info;
  
- #if defined(CONFIG_PPC32) && defined(CONFIG_TAU_INT)
- 	if (tau_initialized) {
-+		int j;
- 		seq_printf(p, "%*s:", prec, "TAU");
- 		for_each_online_cpu(j)
- 			seq_put_decimal_ull_width(p, " ", tau_interrupts(j), 10);
- 		seq_puts(p, "  PowerPC             Thermal Assist (cpu temp)\n");
- 	}
- #endif /* CONFIG_PPC32 && CONFIG_TAU_INT */
--
--	seq_printf(p, "%*s:", prec, "LOC");
--	for_each_online_cpu(j)
--		seq_put_decimal_ull_width(p, " ", per_cpu(irq_stat, j).timer_irqs_event, 10);
--        seq_printf(p, "  Local timer interrupts for timer event device\n");
--
--	seq_printf(p, "%*s:", prec, "BCT");
--	for_each_online_cpu(j)
--		seq_put_decimal_ull_width(p, " ", per_cpu(irq_stat, j).broadcast_irqs_event, 10);
--	seq_printf(p, "  Broadcast timer interrupts for timer event device\n");
--
--	seq_printf(p, "%*s:", prec, "LOC");
--	for_each_online_cpu(j)
--		seq_put_decimal_ull_width(p, " ", per_cpu(irq_stat, j).timer_irqs_others, 10);
--        seq_printf(p, "  Local timer interrupts for others\n");
--
--	seq_printf(p, "%*s:", prec, "SPU");
--	for_each_online_cpu(j)
--		seq_put_decimal_ull_width(p, " ", per_cpu(irq_stat, j).spurious_irqs, 10);
--	seq_printf(p, "  Spurious interrupts\n");
--
--	seq_printf(p, "%*s:", prec, "PMI");
--	for_each_online_cpu(j)
--		seq_put_decimal_ull_width(p, " ", per_cpu(irq_stat, j).pmu_irqs, 10);
--	seq_printf(p, "  Performance monitoring interrupts\n");
--
--	seq_printf(p, "%*s:", prec, "MCE");
--	for_each_online_cpu(j)
--		seq_put_decimal_ull_width(p, " ", per_cpu(irq_stat, j).mce_exceptions, 10);
--	seq_printf(p, "  Machine check exceptions\n");
--
- #ifdef CONFIG_PPC_BOOK3S_64
- 	if (cpu_has_feature(CPU_FTR_HVMODE)) {
-+		int j;
- 		seq_printf(p, "%*s:", prec, "HMI");
- 		for_each_online_cpu(j)
- 			seq_put_decimal_ull_width(p, " ", paca_ptrs[j]->hmi_irqs, 10);
- 		seq_printf(p, "  Hypervisor Maintenance Interrupts\n");
- 	}
- #endif
--
--	seq_printf(p, "%*s:", prec, "NMI");
--	for_each_online_cpu(j)
--		seq_put_decimal_ull_width(p, " ", per_cpu(irq_stat, j).sreset_irqs, 10);
--	seq_printf(p, "  System Reset interrupts\n");
--
--#ifdef CONFIG_PPC_WATCHDOG
--	seq_printf(p, "%*s:", prec, "WDG");
--	for_each_online_cpu(j)
--		seq_put_decimal_ull_width(p, " ", per_cpu(irq_stat, j).soft_nmi_irqs, 10);
--	seq_printf(p, "  Watchdog soft-NMI interrupts\n");
--#endif
--
--#ifdef CONFIG_PPC_DOORBELL
--	if (cpu_has_feature(CPU_FTR_DBELL)) {
--		seq_printf(p, "%*s:", prec, "DBL");
--		for_each_online_cpu(j)
--			seq_put_decimal_ull_width(p, " ", per_cpu(irq_stat, j).doorbell_irqs, 10);
--		seq_printf(p, "  Doorbell interrupts\n");
--	}
--#endif
--
+ 	for (unsigned int i = 0; i < ARRAY_SIZE(irq_stat_info); i++, info++) {
++		if (info->optional && !test_bit(i, irq_stat_count_show))
++			continue;
++
+ 		seq_printf(p, "%*s:", prec, info->symbol);
+ 		irq_proc_emit_counts(p, &irq_stat.counts[i]);
+ 		seq_puts(p, info->text);
+@@ -138,6 +156,19 @@ int arch_show_interrupts(struct seq_file *p, int prec)
  	return 0;
  }
  
-@@ -165,24 +143,15 @@ int arch_show_interrupts(struct seq_file *p, int prec)
-  */
- u64 arch_irq_stat_cpu(unsigned int cpu)
- {
--	u64 sum = per_cpu(irq_stat, cpu).timer_irqs_event;
-+	irq_cpustat_t *p = per_cpu_ptr(&irq_stat, cpu);
-+	u64 sum = 0;
++static int __init irq_init_stats(void)
++{
++	struct irq_stat_info *info = irq_stat_info;
 +
-+	for (unsigned int i = 0; i < ARRAY_SIZE(irq_stat_info); i++)
-+		sum += p->counts[i];
- 
--	sum += per_cpu(irq_stat, cpu).broadcast_irqs_event;
--	sum += per_cpu(irq_stat, cpu).pmu_irqs;
--	sum += per_cpu(irq_stat, cpu).mce_exceptions;
--	sum += per_cpu(irq_stat, cpu).spurious_irqs;
--	sum += per_cpu(irq_stat, cpu).timer_irqs_others;
- #ifdef CONFIG_PPC_BOOK3S_64
- 	sum += paca_ptrs[cpu]->hmi_irqs;
- #endif
--	sum += per_cpu(irq_stat, cpu).sreset_irqs;
--#ifdef CONFIG_PPC_WATCHDOG
--	sum += per_cpu(irq_stat, cpu).soft_nmi_irqs;
--#endif
--#ifdef CONFIG_PPC_DOORBELL
--	sum += per_cpu(irq_stat, cpu).doorbell_irqs;
--#endif
--
- 	return sum;
- }
- 
-@@ -252,7 +221,7 @@ static void __do_irq(struct pt_regs *regs, unsigned long oldsp)
- 
- 	/* And finally process it */
- 	if (unlikely(!irq))
--		__this_cpu_inc(irq_stat.spurious_irqs);
-+		inc_irq_stat(SPURIOUS);
- 	else
- 		generic_handle_irq(irq);
- 
-diff --git a/arch/powerpc/kernel/time.c b/arch/powerpc/kernel/time.c
-index 11145c40183d..e00dcda8240b 100644
---- a/arch/powerpc/kernel/time.c
-+++ b/arch/powerpc/kernel/time.c
-@@ -615,13 +615,13 @@ DEFINE_INTERRUPT_HANDLER_ASYNC(timer_interrupt)
- 	now = get_tb();
- 	if (now >= *next_tb) {
- 		evt->event_handler(evt);
--		__this_cpu_inc(irq_stat.timer_irqs_event);
-+		inc_irq_stat(LOC_TIMER);
- 	} else {
- 		now = *next_tb - now;
- 		if (now > decrementer_max)
- 			now = decrementer_max;
- 		set_dec_or_work(now);
--		__this_cpu_inc(irq_stat.timer_irqs_others);
-+		inc_irq_stat(OTHER_TIMER);
- 	}
- 
- 	trace_timer_interrupt_exit(regs);
-@@ -634,7 +634,7 @@ EXPORT_SYMBOL(timer_interrupt);
- void timer_broadcast_interrupt(void)
- {
- 	tick_receive_broadcast();
--	__this_cpu_inc(irq_stat.broadcast_irqs_event);
-+	inc_irq_stat(BCT_TIMER);
- }
- #endif
- 
++	for (unsigned int i = 0; i < ARRAY_SIZE(irq_stat_info); i++, info++) {
++		if (info->optional == 0)
++			set_bit(i, irq_stat_count_show);
++	}
++
++	return 0;
++}
++late_initcall(irq_init_stats);
++
+ /*
+  * /proc/stat helpers
+  */
 diff --git a/arch/powerpc/kernel/traps.c b/arch/powerpc/kernel/traps.c
-index 629f2a2d4780..0d605600dee6 100644
+index 0d605600dee6..3a8f5416e3f6 100644
 --- a/arch/powerpc/kernel/traps.c
 +++ b/arch/powerpc/kernel/traps.c
-@@ -459,8 +459,7 @@ DEFINE_INTERRUPT_HANDLER_NMI(system_reset_exception)
+@@ -459,7 +459,7 @@ DEFINE_INTERRUPT_HANDLER_NMI(system_reset_exception)
  	}
  
  	hv_nmi_check_nonrecoverable(regs);
--
--	__this_cpu_inc(irq_stat.sreset_irqs);
-+	inc_irq_stat(NMI_SRESET);
+-	inc_irq_stat(NMI_SRESET);
++	inc_irq_stat_and_enable(IRQ_COUNT_NMI_SRESET);
  
  	/* See if any machine dependent calls */
  	if (ppc_md.system_reset_exception) {
-@@ -817,7 +816,7 @@ static void __machine_check_exception(struct pt_regs *regs)
+@@ -816,7 +816,7 @@ static void __machine_check_exception(struct pt_regs *regs)
  {
  	int recover = 0;
  
--	__this_cpu_inc(irq_stat.mce_exceptions);
-+	inc_irq_stat(MCE);
+-	inc_irq_stat(MCE);
++	inc_irq_stat_and_enable(IRQ_COUNT_MCE);
  
  	add_taint(TAINT_MACHINE_CHECK, LOCKDEP_NOW_UNRELIABLE);
  
-@@ -1932,8 +1931,7 @@ DEFINE_INTERRUPT_HANDLER(vsx_unavailable_tm)
- DECLARE_INTERRUPT_HANDLER_NMI(performance_monitor_exception_nmi);
- DEFINE_INTERRUPT_HANDLER_NMI(performance_monitor_exception_nmi)
- {
--	__this_cpu_inc(irq_stat.pmu_irqs);
--
-+	inc_irq_stat(PMI);
- 	perf_irq(regs);
- 
- 	return 0;
-@@ -1943,8 +1941,7 @@ DEFINE_INTERRUPT_HANDLER_NMI(performance_monitor_exception_nmi)
- DECLARE_INTERRUPT_HANDLER_ASYNC(performance_monitor_exception_async);
- DEFINE_INTERRUPT_HANDLER_ASYNC(performance_monitor_exception_async)
- {
--	__this_cpu_inc(irq_stat.pmu_irqs);
--
-+	inc_irq_stat(PMI);
- 	perf_irq(regs);
- }
- 
-diff --git a/arch/powerpc/kernel/watchdog.c b/arch/powerpc/kernel/watchdog.c
-index c40c69368476..582ee3fd71c1 100644
---- a/arch/powerpc/kernel/watchdog.c
-+++ b/arch/powerpc/kernel/watchdog.c
-@@ -381,7 +381,7 @@ DEFINE_INTERRUPT_HANDLER_NMI(soft_nmi_interrupt)
- 	if (!cpumask_test_cpu(cpu, &wd_cpus_enabled))
- 		return 0;
- 
--	__this_cpu_inc(irq_stat.soft_nmi_irqs);
-+	inc_irq_stat(WATCHDOG);
- 
- 	tb = get_tb();
- 	if (tb - per_cpu(wd_timer_tb, cpu) >= wd_panic_timeout_tb) {
 -- 
 2.52.0
 
