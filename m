@@ -1,159 +1,94 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF72449BD6B;
-	Mon, 21 Sep 2026 13:16:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78EC849B5CB;
+	Mon, 21 Sep 2026 13:17:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789996608; cv=none; b=kAUhQgS6Eb5bXbOszZrXmgd5er+20SqYM3tZU080Kqm8tPlJPuji+x784Qbc225Os9OHBJHQl3KSXUan6JByqwzt9XGEoht5IHcpeX0xlH9VirJVuU2GUa+kJEUQDgQaQ0GsjehxvKAH9t1FOXVFp5NFnGb4PBVhddcdeVg2qcg=
+	t=1789996635; cv=none; b=FwWVMrzKl/qvgcM1caF1zMm8WpKy8JaAokLLd3wGHGLu2SzFbw+4pybAliknblckhXO5IaYU/oRV4/eWPV7q6e16Zj6P2cU6Q1yLTwG2Bhfdh8K08WTrPKmKkub/l4MD4+izHeEQZSLXux9kdFPscYS1F9gA0hh8+0FYF3iwqwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789996608; c=relaxed/simple;
-	bh=alMkwpLLq8o/W5ksx/Aslq+G/hhCkBzj+g1lvIR3Qj0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ema3s7r75O3TIN7fl2bX5yZhFqJoQ64PLFxWWl/559W3RfPZnk8oOpKHeyO9yvGMB8yJf8BliBlqj9ddB9DWnkfwqDWNisfx9TDdg2v8ETpaIifVf93vGU+GOh0+GAGp+czeqB2ZLVQtKr1ozUzymCzBvwvtK6cRakBkCTQOsew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: a8bc8a8ab5be11f19a56ed5b684f684d-20260921
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
-	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NAME, HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, SA_TRUSTED
-	SA_EXISTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
-	CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO
-	GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:2e4e5417-57c3-4e8f-a228-bea0547a69f9,IP:10,
-	URL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:-15
-X-CID-INFO: VERSION:1.3.19,REQID:2e4e5417-57c3-4e8f-a228-bea0547a69f9,IP:10,UR
-	L:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-15
-X-CID-META: VersionHash:7db8b62,CLOUDID:5facdd19d369d6921df06601d3987007,BulkI
-	D:2609212116331NOFBL1S,BulkQuantity:0,SF:10|66|78|81|82|102|127|865|898,TC
-	:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil
-	,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: a8bc8a8ab5be11f19a56ed5b684f684d-20260921
-X-User: sunshaojie@kylinos.cn
-Received: from sunshaojie-pc [(223.70.159.239)] by mailgw.kylinos.cn
-	(envelope-from <sunshaojie@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1807090; Mon, 21 Sep 2026 21:16:30 +0800
-From: Shaojie Sun <sunshaojie@kylinos.cn>
-To: Tejun Heo <tj@kernel.org>,
-	cgroups@vger.kernel.org
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
-	mkoutny@suse.com,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Li Wang <li.wang@linux.dev>,
-	Hongfu Li <lihongfu@kylinos.cn>,
-	Shakeel Butt <shakeel.butt@linux.dev>
-Subject: [PATCH 1/2] selftests/cgroup: read the entire file in read_text()
-Date: Mon, 21 Sep 2026 21:15:55 +0800
-Message-ID: <20260921131556.444661-2-sunshaojie@kylinos.cn>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260921131556.444661-1-sunshaojie@kylinos.cn>
-References: <20260921131556.444661-1-sunshaojie@kylinos.cn>
+	s=arc-20240116; t=1789996635; c=relaxed/simple;
+	bh=hUlZOxiPqaYeyhAjcneShlAmQuBczSGK+w0NobMzCgA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UGxh3UO8VZQW3jPFRYoD8UBQSAO2ky/10tN7o9hCkkAleW0/FmtHCId97KOcP/pxaL+396YdNmFFB3+2/bRcPRsB2dhZABCtGeYKtSsbCYdQGBjFzZ/hZ0gk7RjfVDlxdK+/X5q+XbqVkzNvSEzao2v+WN2ctk+crYZPfPDbiW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D79ZY4ew; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D79ZY4ew"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 634F31F000FF;
+	Mon, 21 Sep 2026 13:17:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789996632;
+	bh=hUlZOxiPqaYeyhAjcneShlAmQuBczSGK+w0NobMzCgA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=D79ZY4ewCJ0VKDoutfkRTAEzYxc8Xrq8rscEUJPMYw/cd5e9Nmfxc/YhVQ2JE4O4e
+	 3lmtrAEci14D0ExE2smWHtVk7CTaPJIMpk72Qatz81XlF2QkoVwtAGrF2Dz1P7HbV0
+	 tK1Uph6pnViITA4Z2EIiOHHcpdEU+Gjz5DHjSy4YZqimix6pvWcES5VmYoosPCoBNv
+	 dwi7copD/3bGbgjYFSiKomO9uQnONNl/n8kG8RNgRgwg6SVWQfQNEPnrkIUGYOIeAU
+	 AXot0/5sZBcjoqdbpcusgED7AhLuUUvYi2kL1PQw1rzEgQh6F/88Onj6fPpQQ6kBEI
+	 7mYWFzjSbbC9A==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 044111AC55A7; Mon, 21 Sep 2026 14:17:06 +0100 (BST)
+Date: Mon, 21 Sep 2026 15:17:06 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Chancel Liu <chancel.liu@oss.nxp.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Oder Chiou <oder_chiou@realtek.com>,
+	Support Opensource <support.opensource@diasemi.com>,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	patches@opensource.cirrus.com
+Subject: Re: [PATCH 06/21] ASoC: es8323: Move mclk acquisition to the i2c
+ probe
+Message-ID: <arEuUlpxzLbIYetu@sirena.co.uk>
+References: <20260921104640.1941554-1-chancel.liu@oss.nxp.com>
+ <20260921104640.1941554-7-chancel.liu@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="N8ldy4y5k8ZVllNZ"
+Content-Disposition: inline
+In-Reply-To: <20260921104640.1941554-7-chancel.liu@oss.nxp.com>
+X-Cookie: Too clever is dumb.
 
-read_text() issues a single read(2) and returns whatever it got, so a
-caller that asks for a whole file silently gets a prefix of it instead.
-For a seq_file larger than one page it never gets more than that prefix:
-seq_read_iter() copies out at most one internal PAGE_SIZE buffer per call
-and leaves the rest for the next read(2), no matter how much room the
-caller's buffer has.
 
-/proc/self/mounts is one of those files, so cg_find_root() only ever sees
-the first 4K of the mount table.  On a machine with ~80 mounts the cgroup2
-entry already sits past that limit: the file is 7177 bytes, the single
-read(2) into the 40K buffer in cg_find_root() returns 4035 bytes, and the
-cgroup2 line starts at offset 4953.  cg_find_root() then fails, and every
-test that calls cg_find_unified_root() -- test_core, test_cpu, test_cpuset,
-test_freezer, test_hugetlb_memcg, test_kill, test_kmem, test_memcontrol,
-test_pids and test_zswap -- exits with SKIP "cgroup v2 isn't mounted"
-without running a single test.
+--N8ldy4y5k8ZVllNZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-proc_mount_contains() searches only that same prefix, so a mount option
-listed later in /proc/mounts is reported as absent, which is what the
-probes in test_memcontrol and test_hugetlb_memcg are based on.
+On Mon, Sep 21, 2026 at 07:46:25PM +0900, Chancel Liu wrote:
+> From: Chancel Liu <chancel.liu@nxp.com>
+>=20
+> component->dev is the underlying i2c device whose devres is only
+> released on physical device removal, not on ASoC card unbind. Getting
+> the mclk with devm_clk_get_optional(component->dev, ...) in the
+> component probe therefore leaks a clk reference on every card
+> bind/unbind cycle.
+>=20
+> Move the devm_clk_get_optional() to es8323_i2c_probe() so the clk
+> reference is tied to the i2c device lifetime.
 
-Read until the buffer is full or EOF instead.  A partial read is still
-possible when max_len is too small, so callers that deliberately read a
-prefix, such as cg_read_strcmp(), keep working.
+There's also some devm memory allocations in the DT parser which is run
+in component probe.
 
-Signed-off-by: Shaojie Sun <sunshaojie@kylinos.cn>
----
- .../selftests/cgroup/lib/cgroup_util.c        | 35 +++++++++++++++----
- 1 file changed, 29 insertions(+), 6 deletions(-)
+--N8ldy4y5k8ZVllNZ
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/tools/testing/selftests/cgroup/lib/cgroup_util.c b/tools/testing/selftests/cgroup/lib/cgroup_util.c
-index 2596c12cd864..65cd85c467bb 100644
---- a/tools/testing/selftests/cgroup/lib/cgroup_util.c
-+++ b/tools/testing/selftests/cgroup/lib/cgroup_util.c
-@@ -24,20 +24,43 @@ bool cg_test_v1_named;
- /* Returns read len on success, or -errno on failure. */
- ssize_t read_text(const char *path, char *buf, size_t max_len)
- {
--	ssize_t len;
-+	size_t total = 0;
-+	ssize_t len, ret;
- 	int fd;
- 
- 	fd = open(path, O_RDONLY);
- 	if (fd < 0)
- 		return -errno;
- 
--	len = read(fd, buf, max_len - 1);
--
--	if (len >= 0)
--		buf[len] = 0;
-+	/*
-+	 * A single read() is not enough.  procfs and sysfs are backed by
-+	 * seq_file, and seq_read_iter() copies out at most one internal
-+	 * buffer (PAGE_SIZE) per call, leaving the rest for the next read().
-+	 * Reading only once therefore silently drops everything past the
-+	 * first page, no matter how big the caller's buffer is.
-+	 *
-+	 * Loop until the buffer is full or EOF.  A full buffer still means
-+	 * the file may be longer than max_len, but that is now limited by
-+	 * the caller's buffer rather than by a page of seq_file output.
-+	 */
-+	while (total < max_len - 1) {
-+		len = read(fd, buf + total, max_len - 1 - total);
-+		if (len < 0) {
-+			if (errno == EINTR)
-+				continue;
-+			ret = -errno;
-+			goto out;
-+		}
-+		if (!len)
-+			break;
-+		total += len;
-+	}
- 
-+	buf[total] = 0;
-+	ret = total;
-+out:
- 	close(fd);
--	return len < 0 ? -errno : len;
-+	return ret;
- }
- 
- /* Returns written len on success, or -errno on failure. */
--- 
-2.50.1
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxLk8ACgkQJNaLcl1U
+h9DD2Qf+Mue7REYnjbGxAVFVTwgQ7tvyrhMo5iaNlvGtBuR6e4KKR9tdCKNj/Mc/
+27ncil6aN+zIU+aiWbayQzVdw5izaZUXgygX6GgufuC2YQhqtDtrT60IAsJfLYS/
+ZAXfZAbGMhFbPNByyr/pXm6Auhp8rlHf5VdD838d+pMFrLZGxrVWoTJXid4/eu91
+6ExAVgLgMnrRTAJuKF1qqGtQAuHSWNXouD4YXnF6AuRy0/T4XsaX95VG84hrKs7P
+meN4B9e4kl735REXCdq1K0qvRnJRL2FVF0pxfeUZhRmZwH09OGavS+sHslKlrwnr
+rW8eYW2u5H+qW+Ufjusbq63/DxkrNw==
+=lYJq
+-----END PGP SIGNATURE-----
+
+--N8ldy4y5k8ZVllNZ--
