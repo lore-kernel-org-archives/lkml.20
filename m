@@ -1,160 +1,165 @@
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+Received: from mail-wm1-f98.google.com (mail-wm1-f98.google.com [209.85.128.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2745C3B6359
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:54:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08213C10B3
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:55:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790034861; cv=none; b=V6agU7+faioH+nIy/+riivwUZkdrDzBEatZwMtkEsHIZK4IGdyMqLSEzmS6ZIjiWgR9ehldU2HKnsB3KO6ejPdXyGOT8sIhsaG4EfaIOvZGfl+vcSGuMEEgID8wyv2ArPzKFctDM4Mt0DZo77/kfSMeqcsVlqlFSc85LuXYaA/Q=
+	t=1790034956; cv=none; b=BkYyUxkShTWj77tKnOYopbN6lWpFxeT/UZ+KRnx92AVOW3THqM+eELLtw7RvVFGIdASaD1hoDse35Nivx8MclY5gzRg4agpVmi3/MhmQmeTZpxUxYWrwEG1Jrc3+chy4bZsr/Mydn+gnOKrtNCa3fF4JLRTz4XV9fwHLyQYC/m0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790034861; c=relaxed/simple;
-	bh=9PMut9MJ7Pm5HqjHWQNgH6ctD3cXraH94O6ZKVbfEt8=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Oh4AGqPg9KKwcRaWExW7mOJ5PCSZ/u3X/1OncDXb019Opd+4JB6E03YqW1CDTzpF2++YwsKeic9ZBeTqVePP4afe0vhKDJqEhFmeCWGUbTZkpdLnAiGWcFG8KMt4jDX9LuwiInoyJ8/Yrspy1wNlv4q6w8C9psa6nwD8pqYOhHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JWHOQgKZ; arc=none smtp.client-ip=209.85.216.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790034956; c=relaxed/simple;
+	bh=ZlZmmE0Ud4HtB8YhKVNsPgOQtYjW6bg/mZoU2cnlRYg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rLYe4QYZITL7TYzbWUiti4YNhGjbd7Qajk6M1YEaObOfgnqaKy5jSo6iEGGtpeqKwZaGZW1W2TQsBFf2x1OVbtV5BsLC4cnCWN88gp0WCBuzV/OZyuTnRObkSHCi0wM4oVdsvRwBDSpym9g8jHRyoD04/UCmB+z4zYd59SQJjAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com; spf=pass smtp.mailfrom=everpuredata.com; dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b=ER2Q7Ts5; arc=none smtp.client-ip=209.85.128.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JWHOQgKZ"
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39d865b11b4so4798858a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:54:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b="ER2Q7Ts5"
+Received: by mail-wm1-f98.google.com with SMTP id 5b1f17b1804b1-49e6ba045ceso10916665e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:55:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790034859; x=1790639659; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JaYY0Y9Mba393n7XnQYCgbjSbi+4Gy3l5WhAEzkfleI=;
-        b=JWHOQgKZV7q7zoIHYNeCFyOTLndhtvYAsWbIS1wo2q3fwm9lTMr135kee2eCv2ecnN
-         Nopjj0lUyoqTYkuxq/dDsdz5bbCD0I+zLBtjWEL69q8Snd/H8xNI5bD+kD4FHtPLG3RJ
-         bDjoJ16NwByiGHstp4P6dN7GolmTCIOOjeC57uQHFLmAx8Ca3ANnpx9woQ352DoRYrv0
-         8+2PAXjsGrThXfLeVy1LT+lcnWGhGQ6Kg3khAJZTOxLAt7TFCVpSLYWsIAcIviw4QEsB
-         9OgCEj0f53svRVmvUmnDJtxjCBFgkL8uJ3hMnYm0xFX0d3rjIkXTnStyjqqwXPvaydvF
-         NlCQ==
+        d=everpuredata.com; s=google; t=1790034952; x=1790639752; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DC4z4qLDl0mYRFHdnAjlB1ZKHEqGD7UBjetsY7bEK80=;
+        b=ER2Q7Ts5YbfRlmJ9MXUTJbYwo53bCwYEhkicRq3+tFf/MdyHXBv8cEJbxiWOnN7zs3
+         8nV8jJ24CKQmOKMlIT4kqpNoAdK6pwxW12+GfiafTmn4P5G/6qCSBai3S5R/F+h6nb/w
+         6t/a93CW8g4nRDzVcYH8n8dZbEk94ueYq3L9YQ1nCchZrt1X5lSJ6GLe+i6D4kw6hYm0
+         c3h97E1XvWzAGVyCVnAh3ANX+wmSJKxbN7d9rTsurNoZARNVthKqq1JNEIGvqt/empXr
+         2pB0CK3CRPV0TZBs0hAen0WWd2IHz/CodACJtGehWDrn26YB1BltdgvQd6sLPDzrztKD
+         ZsXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790034859; x=1790639659;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790034952; x=1790639752;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JaYY0Y9Mba393n7XnQYCgbjSbi+4Gy3l5WhAEzkfleI=;
-        b=nXIVNnnC8onuXUL+SV3ta66RjqJDFDcUzXDg2eYsc85ZNnre/evC3m4L4d3Pluvx9K
-         b5EJcMFUBcBw9psjzCMxLgQZmzHog2aYySURt1bO/McGT/7ynSBQMtMFjNeCBZkxVyFH
-         +/+QKEwAfHv/fwGzPmiDl8Ry+j+5ZHfWk1Wqoh4Icg3YX1Rf5lcBkTdVTe2dpMJhMepx
-         QL6PL+WQV4/IpMZuC/jWxLC44vZ8Wa1smuC0T9OxGDeKBxQkVdHVfwV4VzFFlwc6XE+8
-         b7uQema4HeWpcJOb2OIkuHyE/8M+U7eHVIMUz+9JWBX38jexO1OTytM0/abGYWVhoPEV
-         W4rA==
-X-Forwarded-Encrypted: i=1; AKwUvBxJr65KnH31VkHFRCGpyxFlMjzx36VCFRZjGyfdp8AvQXiTwFin/7Mgo7aVofGPViz3B0LDKC2TxZrr0No=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFW96vhkFOMqnJMlcTj2P4KTufuMr5fhfhwFYVg8g86LbjbFNu
-	aAevjQ0qsXjzK6RF38fW2ngfbfB/0CgVW4e5qnMK9b98sfcw2FKOFSB/zslUyr4XYIN0qMI847S
-	1T0B7gQ==
-X-Received: from pjbcn8.prod.google.com ([2002:a17:90a:f088:b0:3a0:6cbc:62ac])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:586f:b0:39e:6a81:f34d
- with SMTP id 98e67ed59e1d1-39e6a81fcedmr12603411a91.39.1790034859165; Mon, 21
- Sep 2026 16:54:19 -0700 (PDT)
-Date: Mon, 21 Sep 2026 16:54:18 -0700
-In-Reply-To: <20260819094903.3060020-4-xiaoyao.li@intel.com>
+        bh=DC4z4qLDl0mYRFHdnAjlB1ZKHEqGD7UBjetsY7bEK80=;
+        b=su/5Qv8nAbTy+i0/sWV2+BOJ3DJPSpCvZrwpgjEkn4ajzeiOeOxWL+ihIghuzGjxFD
+         5izpYU4fcocbG2+PSK3nzyTUXeVa3zldlQ2Cc6Wt9K7LKQLner2S3TqNbimtyZF8db/h
+         CUebjh3drN0SzkSlVt3u7gT2R77DB64JEHpwzxgTatVJ0xPd/E/tT72WgIwUG1J99xiU
+         lMxVxCJus0YlPMaq07RniCEALGteW014uBZeOsFJ3dSYti84BPc2DpXpEKYeHjIVLGc/
+         +u1Sk9z539EnsTq8hR7nabBj5j0/gKJdL3mnWIuWSrkmGmq7RLclGceyOB7V02rOf29Q
+         zqeg==
+X-Forwarded-Encrypted: i=1; AKwUvBxuod5ckSqzYodhP7rNvVPjINVHnuzuLH6oeWnDOeoX2DNJUlL6WVQDCx446JZIIUZLGWI1sVYAqpyYlME=@vger.kernel.org
+X-Gm-Message-State: AFuF++moG5i+Ij4wfg1l4VjTwTfVWePMgVctDkkKe0glqZ0UcPZjsWk4
+	guRHPXGideW7GHnAEHi/JaCewkSLPg+6hbMxkFRn8veIbuyFQeyGVVx7YV37OACFksymoLFkK3A
+	epltcKq/9xOyDk3x8k73Hz76Vyc4HicymzP4W
+X-Gm-Gg: AYBFou279cYW6wnQrEzI8YWQMkUI4S2qGT3RMc2ZIAEB0qdmioQjeRKmwBrw+FmSrO2
+	7c1LWP9AhfL9K3D55HLv+BL29PPAJmJfwbxTEhZPPyKxBes2f38TsgIruW5UTHxVs2Db8dniFyx
+	Cb7XHF+lF5g51nfNAYDD0sRaWTirAQvC2TzKYcAyjD/Hxlbih2yz7JkkEDA0kVF7zIBFnxi0Sjj
+	0lYBK945DMe7lNrx6AefWgbJa16Xy/OSDHRQypCwkSGMnyxmc4KQddBFkyuHjGEbCUw1tr1tkPs
+	z5v6l0gH5Z5i9MGlGJNLdZ3kkVVUxmN4k5iWDXyipWQgVn1YoiIOxoT0ZYfxe8vMiTqh/ESZQpz
+	ljlaH1A9eGAvWNJFSJ45JVigijKdPIOtPGrlYMo4=
+X-Received: by 2002:a05:600c:1daa:b0:49c:fc6c:bdfc with SMTP id 5b1f17b1804b1-49fc574643bmr157725415e9.19.1790034952055;
+        Mon, 21 Sep 2026 16:55:52 -0700 (PDT)
+Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.129])
+        by smtp-relay.gmail.com with ESMTPS id 5b1f17b1804b1-49fdab8660esm1052625e9.0.2026.09.21.16.55.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 16:55:52 -0700 (PDT)
+X-Relaying-Domain: everpuredata.com
+Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
+	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 6F2F73417EA;
+	Mon, 21 Sep 2026 16:55:20 -0700 (PDT)
+From: Tim Menninger <tmenninger@everpuredata.com>
+To: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Eric Badger <ebadger@everpuredata.com>,
+	Jon Curley <jcurley@everpuredata.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] NFSv4/pNFS: Preserve layoutreturn seqid while lsegs drain
+Date: Mon, 21 Sep 2026 23:55:20 +0000
+Message-Id: <20260921235520.502987-1-tmenninger@everpuredata.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260819094903.3060020-1-xiaoyao.li@intel.com> <20260819094903.3060020-4-xiaoyao.li@intel.com>
-Message-ID: <arHDqhdvgvH8HsvO@google.com>
-Subject: Re: [PATCH v4 3/9] KVM: TDX: Set bits 31:16 to 0 for the synthesized
- Exit Reason
-From: Sean Christopherson <seanjc@google.com>
-To: Xiaoyao Li <xiaoyao.li@intel.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, 
-	nik.borisov@suse.com
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 19, 2026, Xiaoyao Li wrote:
-> Set bits 31:16 to 0 instead of all-1s for KVM's synthesized Exit Reason.
-> 
-> KVM is going to support Bus Lock VM exit for TDX, after which bit 26 of
-> the Exit Reason becomes meaningful and indicates that a bus lock happened.
-> The existing synthesized Exit Reason, -1u, will cause a false positive in
-> that case.  Change the synthesized Exit Reason from -1u to U16_MAX, so that
-> bits 31:16 are set to 0.  This also avoids the potential issues when other
-> bits in 31:16 become valid in the future.
-> 
-> As a bonus, the check for synthesized Exit Reason in tdx_failed_vmentry()
-> becomes unnecessary.  Just drop it.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
-> Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-> ---
-> Note, the checking of tdx_failed_vmentry() looks to miss the case where
-> a real EPT_MISCONFIG happens with failed_vmentry being set.  First, in
-> practice, EPT_MISCONFIG cannot happen with failed_vmentry being set.
-> Second, even if it can, this is a pre-existing issue and the next
-> patch can address it.
-> 
-> Changes in v4:
-> - Collect R-b from Rick.
-> 
-> Changes in v3:
-> - split from the patch 2 in v2.
-> - define a MARCO for the synthesized invalid Exit Reason.
-> ---
->  arch/x86/kvm/vmx/tdx.c | 15 +++++++++++----
->  1 file changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-> index 1dead84e6077..4e275cb6927a 100644
-> --- a/arch/x86/kvm/vmx/tdx.c
-> +++ b/arch/x86/kvm/vmx/tdx.c
-> @@ -935,13 +935,21 @@ static __always_inline bool tdx_is_exit_reason_valid(u64 vp_enter_ret)
->  	}
->  }
->  
-> +/* Synthesized invalid Exit Reason */
-> +#define TDX_INVALID_EXIT_REASON		U16_MAX
+Commit e20772cbdf46 ("NFSv4/pNFS: Fix a layoutget livelock loop")
+changed pnfs_set_plh_return_info() so that a zero seq argument is
+replaced with the current layout stateid seqid. This ensures that a
+pending layout return has a nonzero plh_return_seq and does not
+continually invalidate newly acquired layout segments.
 
-I very strongly prefer exposing VMX's magic "0xdead", i.e. not having two different
-magic values when the exit reason is undefined.  I'll post a standalone patch,
-and fixup this series when applying.
+pnfs_cache_lseg_for_layoutreturn() already passed zero to this helper.
+Before e20772cbdf46, that call updated the pending return iomode and
+NFS_LAYOUT_RETURN_REQUESTED state, but did not change plh_return_seq.
+After e20772cbdf46, it also snapshots the current layout stateid seqid.
 
-diff --git arch/x86/include/asm/vmx.h arch/x86/include/asm/vmx.h
-index 3f1b3096ff04..e49b836c7313 100644
---- arch/x86/include/asm/vmx.h
-+++ arch/x86/include/asm/vmx.h
-@@ -20,6 +20,14 @@
- #include <asm/trapnr.h>
- #include <asm/vmxfeatures.h>
- 
-+/*
-+ * UNDEFINED is a KVM-defined value used to indicate that the basic exit reason
-+ * is undefined/invalid, e.g. on VM-Fail or if TDX never attempted VM-Enter.
-+ * The value itself is arbitrary, it just needs to not collide with a real exit
-+ * reason.
-+ */
-+#define EXIT_REASON_UNDEFINED                  0xdead
-+
- struct vmcs_hdr {
-        u32 revision_id:31;
-        u32 shadow_vmcs:1;
-diff --git arch/x86/kvm/vmx/vmx.c arch/x86/kvm/vmx/vmx.c
-index 612ab07d4100..c897dbf0e954 100644
---- arch/x86/kvm/vmx/vmx.c
-+++ arch/x86/kvm/vmx/vmx.c
-@@ -6388,6 +6388,8 @@ static int (*kvm_vmx_exit_handlers[])(struct kvm_vcpu *vcpu) = {
- static const int kvm_vmx_max_exit_handlers =
-        ARRAY_SIZE(kvm_vmx_exit_handlers);
- 
-+static_assert(EXIT_REASON_UNDEFINED >= ARRAY_SIZE(kvm_vmx_exit_handlers));
-+
- void vmx_get_exit_info(struct kvm_vcpu *vcpu, u32 *reason,
-                       u64 *info1, u64 *info2, u32 *intr_info, u32 *error_code)
+This is problematic when an lseg that was already selected for return
+takes time to drain its outstanding references. For example, suppose a
+return is established with plh_return_seq S. While an lseg covered by
+that return is draining, successful LAYOUTGET operations can advance the
+layout stateid to T, where T is newer than S.
+
+When the lseg's final reference is released, the path is:
+
+    pnfs_put_lseg()
+    -> pnfs_cache_lseg_for_layoutreturn()
+       -> pnfs_set_plh_return_info(seq=0) # advances plh_return_seq
+    -> pnfs_put_layout_hdr()
+       -> pnfs_layoutreturn_before_put_layout_hdr()
+          -> pnfs_layout_need_return()
+             -> pnfs_mark_layout_stateid_return(seq=lo->plh_return_seq)
+                -> pnfs_mark_matching_lsegs_return(seq)
+
+The zero argument causes pnfs_cache_lseg_for_layoutreturn() to advance
+plh_return_seq from S to T. pnfs_layout_need_return() then uses T as the
+upper bound when selecting lsegs for return, so layout segments acquired
+after the original return was requested can also be invalidated and have
+their I/O cancelled.
+
+Under sustained I/O, those cancellations cause more lsegs to drain,
+whose final puts can advance the return boundary again. This can form a
+positive feedback loop in which newly acquired layouts are repeatedly
+invalidated and cancelled.
+
+This was observed on a one-client one-DS system under sustained
+direct-read I/O over pNFS/RDMA after restarting the nfs service on the
+DS, where the repeated layout invalidation and cancellation caused
+severe throughput collapse.
+
+When the draining lseg is already covered by plh_return_seq, pass the
+existing return seqid to pnfs_set_plh_return_info() instead of zero so
+that caching the lseg does not move the return boundary. If there is no
+return seqid yet, or the lseg is newer than the recorded boundary,
+retain the existing behavior and snapshot the current layout stateid.
+
+Fixes: e20772cbdf46 ("NFSv4/pNFS: Fix a layoutget livelock loop")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
+---
+ fs/nfs/pnfs.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/fs/nfs/pnfs.c b/fs/nfs/pnfs.c
+index 4f9c0f639014..69b085482921 100644
+--- a/fs/nfs/pnfs.c
++++ b/fs/nfs/pnfs.c
+@@ -596,9 +596,17 @@ static bool
+ pnfs_cache_lseg_for_layoutreturn(struct pnfs_layout_hdr *lo,
+ 		struct pnfs_layout_segment *lseg)
  {
-@@ -7474,7 +7476,7 @@ static noinstr void vmx_vcpu_enter_exit(struct kvm_vcpu *vcpu,
-        vmx_enable_fb_clear(vmx);
- 
-        if (unlikely(vmx->fail)) {
--               vmx->vt.exit_reason.full = 0xdead;
-+               vmx->vt.exit_reason.full = EXIT_REASON_UNDEFINED;
-                goto out;
-        }
++	u32 seq = lo->plh_return_seq;
++
+ 	if (test_and_clear_bit(NFS_LSEG_LAYOUTRETURN, &lseg->pls_flags) &&
+ 	    pnfs_layout_is_valid(lo)) {
+-		pnfs_set_plh_return_info(lo, lseg->pls_range.iomode, 0);
++		/*
++		 * Avoid resnapshotting the current layout stateid for an lseg that
++		 * is already covered by the pending return.
++		 */
++		if (!seq || pnfs_seqid_is_newer(lseg->pls_seq, seq))
++			seq = 0;
++		pnfs_set_plh_return_info(lo, lseg->pls_range.iomode, seq);
+ 		list_move_tail(&lseg->pls_list, &lo->plh_return_segs);
+ 		return true;
+ 	}
+-- 
+2.34.1
+
