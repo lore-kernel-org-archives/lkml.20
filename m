@@ -1,191 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71644B3364;
-	Mon, 21 Sep 2026 17:34:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12CC24A6CE5
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:36:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790012059; cv=none; b=HmPxFHGxigqAhw+Tk/fgC77C3EF78JJKYqqjaMe894cBTKCCfqeLHJKYqLo1DuhuFaURmi1HmVxzg++yvvDIlyOMwWZGNp7pHRdc2fWOscaBKB8fSRCiCCuSDiA5AOLTjH3Xb6+2DYPxdZSc78CHHn/RXKpg35sX2m1Qn7UY7h4=
+	t=1790012170; cv=none; b=RrGkPg10KwC7M7Vm/V/RiRmBzJ/IYTfKgKDcuf3gUv1ieoTXcyGjFYW05qzpZKrN4iOq7xzOG+dt8X8fCl1XVGOgpsseXU1qj2/rCDGDanzK+sHzLkhR6qjDepdbM/0w/zaSfJsPbfyZ1m5Tmv3J+2V2MKyGuOdXXwv0but49qM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790012059; c=relaxed/simple;
-	bh=NWPMLmKR5H+NciSlzSpaXKEQ9o8CFGTkrapK+qDVBsQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZGag79ZfFV75bbM04PZwD0eNdVI1clUEVa0PYwgrE/d1VOGvpZerPLYoghD8UAx536TZDKnhd9CTK6mJFecEnOZyjJcvFjvryVN2ylATqA4pdoCEl8zqSr0pwbYtd+T4Ql+f8F3fkk4pCG8aOeHoGBh9pnwRZLLvh55W+FVUjxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ntfIleXt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790012170; c=relaxed/simple;
+	bh=2V1x5bmrpF/vhKpiH5mf0dEr4dZwjgAvoqn4u93zAfs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=n/38Ixkq+stQScEJSmJwxexPts07OcCfozNT8P94GYWCJtCfQQmG9Kcdp+HjEBNwrqvOFVSFbt4kztEccFWf9O+Ouf4mjq557IItAMR4j405ZyUtI9FalBwX/O4wYCo0VXqPIa4YkhcF8tEasV9CFNnmpBpb1Ac9bGSzzdBTHAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=AC7tKe1Q; arc=none smtp.client-ip=209.85.167.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ntfIleXt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D4CF1F000FF;
-	Mon, 21 Sep 2026 17:34:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790012057;
-	bh=alPDCc/SUV227jYN2Mo1xAda//QTLk70i3b6IwDM7UI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ntfIleXtOngS9kgtd13aXHkN8riuMFwNMcUzajbCcBRQQBzBVoBr8ak1m1TfU92GE
-	 JI84svf3uFDwrccHoW+x64Ww2sS0QtdqhKvj91gutkuCzXF0exSukcQ5vInYuvLjpL
-	 PqqEDW5cX3eOn3T8ucVJx1OBRf0lJnMrk4oqUOOkZuD82IVo35bb8m7AR8LOvHuZF/
-	 s8Pkcvg2VNUxARnEhCpojVMdqOsKLjIjOR0E7/KE+VXw/t6Bakr0GKzvEf2mJKaQf4
-	 q4cb8gEn2UvgHB6qUTJXvV7QBgspz1ciY3EX+z/8AFZGYFDbMTXhrkAk/rctKHJp9Y
-	 vhn9X1eUgqahA==
-Subject: Re: [PATCH] net/smc: Fix socket use-after-free in smc_shutdown()
-From: netdev-bot+sashiko@kernel.org
-To: vulab@iscas.ac.cn
-Cc: alibuda@linux.alibaba.com, davem@davemloft.net, dust.li@linux.alibaba.com,
- edumazet@google.com, guwen@linux.alibaba.com, horms@kernel.org,
- kgraul@linux.ibm.com, kuba@kernel.org, linux-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
- mjambigi@linux.ibm.com, netdev@vger.kernel.org, pabeni@redhat.com,
- sidraya@linux.ibm.com, tonylu@linux.alibaba.com, wenjia@linux.ibm.com,
- stable@vger.kernel.org
-Date: Mon, 21 Sep 2026 17:34:15 +0000
-Message-ID: <179001205598.2160803.12068131189751847433@kernel.org>
-In-Reply-To: <20260917163956.2162779-1-vulab@iscas.ac.cn>
-References: <20260917163956.2162779-1-vulab@iscas.ac.cn>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="AC7tKe1Q"
+Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-4c0cd10d56fso88809b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:36:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1790012167; x=1790616967; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aQXqx3kypLayD7YI2GHlSyGrESOzJpPnn3LvqeJEGpM=;
+        b=AC7tKe1Q/9V2Rd/33TeRhjX9pCRBrlMy/dNS9t6QHvY4n/dp0aM4oINNlupZENQlQ9
+         2Vh4Mm9lg7fvpN5hqqDx4b1iysrWXA3rniaooDeC4LQSOOAAEB+w/CZgyrpppGzHw+qb
+         OQySTBc15aMAh1d7injCkSsZlfnqLeel9bd0dhqvuipFG5bZEr4ppLgE3JtGXybKurhR
+         ngaKX2aAAbUAt5oa/WT7BaWqbewKMjW23B3Wa93fIc6/78TNYaQCs3hMMDY60zVwTDSq
+         X0R2uPVLuhAAgZaMwLp/qT5jqAXNhdX4yleztl8TWXEU/EiVvY1ukIBZRz370TCIjyXx
+         /32Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790012167; x=1790616967;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aQXqx3kypLayD7YI2GHlSyGrESOzJpPnn3LvqeJEGpM=;
+        b=NISVRgMnEkDXglzU3lntsbXzMicW8k8JfMTH0ccr4ESUieEBQ6FwDZ0BPkewa+qSjA
+         +C+JQE5IsCTtFfxT4raBd5/+FuXalSO3qiOjqBZXsRZNzGMI4hQB4CEYXAyloq2awFmt
+         BFsfwdlgi/JN9XvYIqrcMre3Z+q/yfp+E8Rw8cP4UCaxPNg33oEK0oTD2jKKsGiuf7O6
+         7oV2DfpaHy92KebgWPoBv6gKM0atthmej9KM9Zz6ObxRhWOPY3WZksUm8hQVdCMDNkMO
+         XC1GP35u1TAkhB7+mbs+pVClr8lTioE+nwQuodRBfeSwXBjad2uBr5yq9KhKlqtaw8Fr
+         OfFw==
+X-Forwarded-Encrypted: i=1; AKwUvBzIDpR/he/yH0npMQHfMZXIVsC7jqNFS+MrvJ5QTMfIBfckeYCeS1mdFLq+1TpAgYs17uo1CrssDMtuDGs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNGEhr3ziPncVUhlI3cVFEQ48TILy/8X57nsn/sYfAb4YXIx1n
+	iE6qLjsLnuiYOnPskcCn9bylv3hmb/bnViEBvEnWujAlMPFm4etBD9EXJ7v6Lgilg9kA9SQLPCy
+	DvCWl6Q54wA==
+X-Gm-Gg: AYBFou1jrFRdWFgJPIdBCyl8VXTmZ1A6SHJm02LYduJ9bw1f0cviwlS6Jv/oXwHf169
+	jQLTaFQP7C8NEEbaDAbWc6svm/1+0XNniHgh756NUQnlceXCr5W5XCWYct3lCipY1R1TJGaTMDx
+	Ir3yibNyJepcFyZuxqLFDolRvH3rBdqbBQuz/Vl6F7CTpn973tSIo7qnQ4A30q+3NxqiGG1WxxY
+	iG09g7lxkBzSvZ5pF0csWlulwLgvp9C81xw2B/+O52m+uoDtzgwSWcJ7Qs8nD0YqCGTxQITONvi
+	UPKl50vnrEU31hEBe8oYji/H3oyn57y1l1AA0SepRWFCytYQZvnTM0MhnvX5G8mxG8Ycb4c/Cll
+	wzQ+jLDTNYXfAb062g1yO4Fz8dyjhMBB7Q8f9lboW3goAR64B+9svAdgVdei+NwuV8Tn7zY94oH
+	PiNvcVCCIc6kThBStJgY8Patb1jZIVI1kjU/2OX8wDEIhv0iYKMClF+14U5F1SAB+A8rOTAavh/
+	/r6JmGHYz+vMgfzwI0CzFYVlQ==
+X-Received: by 2002:a05:6808:150b:b0:4af:aaca:7be3 with SMTP id 5614622812f47-4d43708da96mr333033b6e.12.1790012166717;
+        Mon, 21 Sep 2026 10:36:06 -0700 (PDT)
+Received: from [172.19.0.10] ([99.196.129.128])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4d422effcf3sm704029b6e.6.2026.09.21.10.35.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 10:36:05 -0700 (PDT)
+Message-ID: <9ca64fc2-c1b3-4978-8610-0c844ee6238a@kernel.dk>
+Date: Mon, 21 Sep 2026 11:35:52 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 00/15] io_uring: thread identity handoff for blocking
+ inline issue
+To: "Eric W. Biederman" <ebiederm@xmission.com>
+Cc: io-uring@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, tglx@kernel.org, mingo@redhat.com,
+ peterz@infradead.org, Oleg Nesterov <oleg@redhat.com>
+References: <20260911154148.644489-1-axboe@kernel.dk>
+ <87a4pdami2.fsf@email.froward.int.ebiederm.org>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <87a4pdami2.fsf@email.froward.int.ebiederm.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On 9/18/26 10:33 PM, Eric W. Biederman wrote:
+> Jens Axboe <axboe@kernel.dk> writes:
+> 
+>> Hi,
+>>
+>> io_uring issues requests inline with IO_URING_F_NONBLOCK and punts to
+>> io-wq when that isn't possible. For a range of opcodes it isn't possible
+>> at all, as there's no nonblocking path in the kernel for them: fsync,
+>> statx, openat, the *at family, xattr, fadvise, splice, etc. Those are
+>> punted unconditionally, and the punt costs a thread wakeup, a context
+>> switch and a task_work completion round trip per request. io_uring HAS
+>> to be cautious to prevent accidental blocking in the kernel, even if the
+>> operations predominantly never block. Sad story. Examples of that are
+>> things like an fdatasync that doesn't block, statx that hits dcache,
+>> openat for O_TMPFILE, etc. All of those would've completed inline just
+>> fine, but io_uring just cannot rely on that.
+>>
+>> This series issues those requests inline in blocking mode instead, and
+>> only pays for the offload if the request actually blocks. But by the
+>> time it blocks, the submitter is deep in the kernel with the request on
+>> its stack, so the work can't be moved to another thread. What we can
+>> move is the identity. If the submitting task blocks, an idle io-wq
+>> worker takes over its user visible identity (tid, signal state,
+>> credentials, scheduling attributes, cgroup, user register state),
+>> finishes the io_uring_enter() call and returns to userspace as the
+>> submitter. The original task finishes the request as an
+>> io-wq worker and joins the pool. Userspace is none the wiser, hopefully,
+>> the same tid came back from the syscall, it's just on a different
+>> task_struct. Folks that have been around a while may remember earlier
+>> attempts at this about 20 years ago.
+> 
+> I don't see anything immediately wrong, but I suspect I am just
+> not looking hard enough.
+> 
+> In my time working with the kernel I have never seen anyone actually get
+> this kind of thing correct.
+> 
+> The handoff that we do during exec has a bug with posix timers that
+> I think is 23 years old that we just caught, and still hasn't been
+> merged to Linus.
+> 
+> There was the old daemonize call that got it wrong so often I added
+> kthreadd.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+I agree entirely with you, which is why this is (deeply) and RFC and I
+mostly pulled it to (some notion of) completion so I could run some
+testing and see how it performs.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> Maybe you want something like the old solaris doors, or vfork.
+> Perform a synchronous task switch to this other thread, and call this
+> function in the other thread.  Then block waiting on the other thread
+> until the other thread blocks, or the function you called finishes.
+> 
+> Is there a reason you didn't try and do it that way?
+> Just a synchronous switch to and from a thread in your thread pool?
+> 
+> You aren't changing the mm so I really doubt changing the stack pointer
+> and a registers will be that expensive.
 
-- [High] net/smc/af_smc.c:smc_shutdown() — the commit claims to fix a
-  use-after-free where the passive-closing sock_put() frees sk before…
+And replies like this are also why I wanted to get it out, because I
+think it's a problem worth solving, and it's the best way to solicit
+ideas. I think there's some potential in your suggestion, let me try and
+dig at it a little bit and experiment...
 
---
-
-net/smc: Fix socket use-after-free in smc_shutdown()
-
-This moves the passive-closing sock_put() in the smc->use_fallback branch
-of smc_shutdown() past release_sock(), using a new passive_close flag, on
-the grounds that the put could otherwise free sk before release_sock()
-runs.  It carries a Fixes: tag and Cc: stable.
-
-> diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
-> index e9f93b3ab435b..70d6da4c6267d 100644
-> --- a/net/smc/af_smc.c
-> +++ b/net/smc/af_smc.c
-> @@ -2946,6 +2946,7 @@ int smc_shutdown(struct socket *sock, int how)
->  {
->  	struct sock *sk = sock->sk;
->  	bool do_shutdown = true;
-> +	bool passive_close = false;
->  	struct smc_sock *smc;
->  	int rc = -EINVAL;
->  	int old_state;
-> @@ -2983,7 +2984,7 @@ int smc_shutdown(struct socket *sock, int how)
->  		if (sk->sk_shutdown == SHUTDOWN_MASK) {
->  			sk->sk_state = SMC_CLOSED;
->  			sk->sk_socket->state = SS_UNCONNECTED;
-> -			sock_put(sk);
-> +			passive_close = true;
->  		}
->  		goto out;
->  	}
-
-[Severity: High]
-Can the use-after-free described in the changelog actually happen here?
-
-smc_shutdown() is only installed as proto_ops->shutdown (af_smc.c and
-smc_inet.c), so it is entered from __sys_shutdown() or
-kernel_sock_shutdown() while a struct socket/file reference is alive.  The
-socket's own reference on sk is dropped only in smc_release():
-
-net/smc/af_smc.c:smc_release() {
-	...
-	sock_orphan(sk);
-	sock->sk = NULL;
-	release_sock(sk);
-
-	sock_put(sk); /* sock_hold above */
-	sock_put(sk); /* final sock_put */
-}
-
-and smc_release() cannot run while the shutdown syscall holds the fd.  With
-that reference plus the passive-closing reference, wouldn't sk_refcnt be at
-least 2 at the old sock_put(), making the release_sock()-on-freed-sk path
-unreachable?
-
-The commit message also states the reference may be gone because "the
-passive closing reference was already consumed by an abort of the active
-link group".  Can that state be reached in this branch?  This branch runs
-only for smc->use_fallback sockets, and the abort paths leave sk_state at
-SMC_CLOSED, SMC_PEERABORTWAIT or SMC_PROCESSABORT:
-
-net/smc/smc_close.c:smc_close_active_abort() {
-	case SMC_ACTIVE:
-	case SMC_APPCLOSEWAIT1:
-	case SMC_APPCLOSEWAIT2:
-		sk->sk_state = SMC_PEERABORTWAIT;
-		...
-		sk->sk_state = SMC_CLOSED;
-		sock_put(sk); /* (postponed) passive closing */
-}
-
-net/smc/smc_close.c:smc_close_passive_abort_received() {
-	case SMC_INIT:
-	case SMC_ACTIVE:
-	case SMC_APPCLOSEWAIT1:
-		sk->sk_state = SMC_PROCESSABORT;
-		sock_put(sk); /* passive closing */
-}
-
-All three of those states are rejected earlier in smc_shutdown() with
--ENOTCONN:
-
-	rc = -ENOTCONN;
-	if ((sk->sk_state != SMC_ACTIVE) &&
-	    (sk->sk_state != SMC_PEERCLOSEWAIT1) &&
-	    (sk->sk_state != SMC_PEERCLOSEWAIT2) &&
-	    (sk->sk_state != SMC_APPCLOSEWAIT1) &&
-	    (sk->sk_state != SMC_APPCLOSEWAIT2) &&
-	    (sk->sk_state != SMC_APPFINCLOSEWAIT))
-		goto out;
-
-so the fallback branch is never reached after such an abort.  Could a
-reachable path (ideally a KASAN splat) be added to the changelog?
-
-> @@ -3014,6 +3015,8 @@ int smc_shutdown(struct socket *sock, int how)
->  		sock->state = SS_DISCONNECTING;
->  out:
->  	release_sock(sk);
-> +	if (passive_close)
-> +		sock_put(sk); /* passive closing */
->  	return rc ? rc : rc1;
->  }
-
-[Severity: High]
-If the premise in the changelog did hold, does this reordering remove the
-problem or just move it?
-
-passive_close is derived solely from sk_shutdown == SHUTDOWN_MASK, which
-says nothing about whether this call still owns the passive-closing
-reference.  The same unconditional decrement therefore still runs, just
-later.
-
-If it drops the last reference, sk is freed while sock->sk still points at
-it for an open fd, and the next fd operation touches freed memory:
-
-net/smc/af_smc.c:smc_release() {
-	struct sock *sk = sock->sk;
-	...
-	sock_hold(sk); /* sock_put below */
-
-Wouldn't an ownership check (or bracketing the region with
-sock_hold()/sock_put() as smc_release() does) be needed instead of a
-reordering, if there really is a stray put to fix?
+I'll be back with more details.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917163956.2162779-1-vulab%40iscas.ac.cn
+Jens Axboe
