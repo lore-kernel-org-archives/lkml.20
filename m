@@ -1,114 +1,217 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A6FC49DB8E;
-	Mon, 21 Sep 2026 13:21:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC05B49CF43;
+	Mon, 21 Sep 2026 13:21:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789996876; cv=none; b=h78h+1HymqQPazfidaPV6HaImNlJzGLtED+HxSe6mBnt5hLiEtyC/fTd7NXTOOYCyChhV7MkWH7RqeP+0WCXJGW/aZRzfFB+6ezms3wSYI4jtfrucNfLQZo1Kg9EyLkq2931SWq03AcuuGZsBqA3ppqxlg+f1rcSu5ZyUwBo0JA=
+	t=1789996880; cv=none; b=RWsIlHlM84fBkJm/IX/n666b8GdQQY3C/yfSn5rm31WIz/Mo4bsM2QLoqeiCY1d6t5CM9xFSnY+TY4x3e1eNishsmcs5809e4P3y8QkEqJIz1ewbCmNJhRe8X+MAH0cD+cswX3JI+FESob9bW8GgNsU8veuJg8W4Z/yB6vRNWf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789996876; c=relaxed/simple;
-	bh=DMmrU7374bXu7rpn27MZ+FOc1NoZqY19Bvh/QjgStqo=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=aZbtJhITeBsH8utQkHFQDuk7YeCMEoUpzhV2jSqq9+76f7iL7SShUplpIxobZl69qBY7X1anlmAP3zSlKho40CZiQtw/k16trpiYH3c3Q8e7qs21dhEaZIrID6V4YtqcpZ8v17Ho+ZDoGbBdnTKwl/8G4YwPX12SJy8A35u/uis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=DV1UxTr0; arc=none smtp.client-ip=60.244.123.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1789996880; c=relaxed/simple;
+	bh=9KCV0Isfm5NCv42LoTot0OpHp4tbSNJhFOGM+fnhpV8=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=oPL6FndCm7RVh8bFiiJWHRddUvb3JTihxHKd8kw4r+8sadPr3zokbh50WvpPEnQvQNpEYohGf2sFIpDb4u5BXcMrxMgLX0wDCz+j4NHjJO1VmH/CIqYGLLmickEy572jBAckqdniY5D0L0IcSUPZyW+XqjQAbWpC6MupspVxiHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dsiLQZ1Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="DV1UxTr0"
-X-UUID: 4a7dc5fab5bf11f1b1788b6acf885367-20260921
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=DMmrU7374bXu7rpn27MZ+FOc1NoZqY19Bvh/QjgStqo=;
-	b=DV1UxTr03H8GCBIx3mQ+Vw3MVf1aGm4xa8AcR977qfxTfiORCJIvDDSMOkBNzgb9LyYt1R9rZmCkUrKyn1pfc5Zn1aMd6O9wWH9BBSBSkNyLm1HJelv5qmKZOmUHJFNaDJSanFctwTQek1wbaSD8VHaJx7fJlKkJD9cFLVxu76Y=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:0cbcca74-5cdf-4efb-ae70-ddfb28c89eef,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:0afd9728-9ebf-4787-bb42-3cd26eee85aa,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|836|865|888|898,TC:-5,Content:
-	0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,
-	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 4a7dc5fab5bf11f1b1788b6acf885367-20260921
-Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by mailgw01.mediatek.com
-	(envelope-from <peter.wang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1480194666; Mon, 21 Sep 2026 21:21:01 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- MTKMBS09N2.mediatek.inc (172.21.101.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 21 Sep 2026 21:21:00 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Mon, 21 Sep 2026 21:21:00 +0800
-Message-ID: <21231fed9487b88316da067d9a7f6fbb812e7f98.camel@mediatek.com>
-Subject: Re: [PATCH v1] scsi: ufs: core: Hold a clock reference across the
- probe
-From: Peter Wang <peter.wang@mediatek.com>
-To: Naomi Chu <naomi.chu@mediatek.com>, <linux-scsi@vger.kernel.org>,
-	<mkp@kernel.org>, <avri.altman@sandisk.com>, <alim.akhtar@samsung.com>,
-	<James.Bottomley@HansenPartnership.com>, <bvanassche@acm.org>
-CC: <wsd_upstream@mediatek.com>, <alice.chao@mediatek.com>,
-	<chun-hung.wu@mediatek.com>, <linux-mediatek@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <ed.tsai@mediatek.com>
-Date: Mon, 21 Sep 2026 21:21:00 +0800
-In-Reply-To: <20260909091045.1134956-1-naomi.chu@mediatek.com>
-References: <20260909091045.1134956-1-naomi.chu@mediatek.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dsiLQZ1Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2FCA1F000FF;
+	Mon, 21 Sep 2026 13:21:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789996878;
+	bh=TVH4gdfHIjrlW/sC4pd4Pp6xDgotmIlq12Mx8bnqRl8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=dsiLQZ1ZAPndrzcseRm2HQOfoi850/scAxAcGNKtOx7+aXJ7FJJ895UehV6+LdHAp
+	 XEWXuwOBMJvmU5J6HjRP3oYgDTYYJJrCoSNWFbMYRVOzvnAG4Qhkn3YBgaYGet1kjs
+	 cBMWxZ0dfF4wKl7yhKFD4aQhTca4Z+ntgy9tEj3a9uU+Mm7UWphRb9C5w0ur3GLavw
+	 TCVxE8GbqTmBX19p4mhYgZuRAiO4+dz31+nxboYIdI2c4HZgw97J+D+AGo2tD6kiqS
+	 B4zQ5Lpekv07ii5BF2mxQf4Vv42/70+4fvG+pag+kFvtdJVpsJHvSeIEo4E21xTzLC
+	 lCO9f0pMv8kKQ==
+Subject: Re: [PATCH] net: ethernet: sunplus: Fix ethernet-ports node leak in
+ spl2sw_probe()
+From: netdev-bot+sashiko@kernel.org
+To: vulab@iscas.ac.cn
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ pabeni@redhat.com, wellslutw@gmail.com, stable@vger.kernel.org
+Date: Mon, 21 Sep 2026 13:21:17 +0000
+Message-ID: <178999687739.2160803.3482833492987734211@kernel.org>
+In-Reply-To: <20260917114118.2149439-1-vulab@iscas.ac.cn>
+References: <20260917114118.2149439-1-vulab@iscas.ac.cn>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MTK: N
 
-On Wed, 2026-09-09 at 17:10 +0800, Naomi Chu wrote:
-> Clock gating becomes possible as soon as ufshcd_init_clk_gating() has
-> run, and from that point on the probe keeps accessing host registers
-> without ever taking a clock reference. This has been safe only
-> because
-> of the state check in __ufshcd_release(): gate_work is not queued
-> unless hba->ufshcd_state is UFSHCD_STATE_OPERATIONAL, and the
-> promotion
-> to that state used to happen after the last register access of the
-> probe, at the end of ufshcd_probe_hba().
->=20
-> That is fragile: it only works while the promotion happens after the
-> register accesses. Commit a390e6677f41 ("scsi: ufs: core: Expand the
-> ufshcd_device_init(hba, true) call") changed that ordering by moving
-> the promotion into ufshcd_init(), which schedules ufshcd_async_scan()
-> afterwards. ufshcd_probe_hba() therefore now runs with the state
-> already promoted, and it accesses host registers without holding a
-> clock reference:
->=20
-> =C2=A0- on hosts with UFSHCD_QUIRK_REINIT_AFTER_MAX_GEAR_SWITCH it calls
-> =C2=A0=C2=A0 ufshcd_hba_stop() and ufshcd_hba_enable() before
-> =C2=A0=C2=A0 ufshcd_device_init() sets the state back to UFSHCD_STATE_RES=
-ET,
-> and
-> =C2=A0=C2=A0 both read REG_CONTROLLER_ENABLE, so gated clocks stall there
-> instead
-> =C2=A0=C2=A0 of just losing a write.
-> =C2=A0- it ends with an ufshcd_configure_auto_hibern8() write, which its
-> =C2=A0=C2=A0 other callers do take a clock reference for.
->=20
-> Take a clock reference as soon as clock gating has been initialised
-> and
-> keep it until the probe is over. It then does not matter who drops a
-> clock reference while the probe is running, and the register accesses
-> of the probe no longer depend on hba->ufshcd_state. The reference is
-> dropped by ufshcd_async_scan() once the scan has finished, or by the
-> new out_release label if the probe fails after it was taken.
->=20
-> Fixes: a390e6677f41 ("scsi: ufs: core: Expand the
-> ufshcd_device_init(hba, true) call")
-> Signed-off-by: Naomi Chu <naomi.chu@mediatek.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Critical: 0 · High: 0 · Medium: 2 (2) · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] Incomplete fix: the 'port@i' OF node references obtained in
+  spl2sw_probe() are still leaked.
+- [Medium] The patch mixes goto-based unwinding with scope-based cleanup
+  in the same function, which include/linux/cleanup.h explicitly forbids.
+
+Pre-existing issues:
+- [Medium] phy-handle OF node references are leaked on spl2sw_probe()
+  failure paths.
+- [Medium] DMA descriptor memory and preallocated RX skbs are leaked on
+  all late spl2sw_probe() failure paths.
+
+--
+
+net: ethernet: sunplus: Fix ethernet-ports node leak in spl2sw_probe()
+
+This changes the eth_ports_np local in spl2sw_probe() to be declared with
+__free(device_node) so the reference taken by of_get_child_by_name() on the
+"ethernet-ports" child node is dropped when the function returns. No other
+code in the function is changed.
+
+> diff --git a/drivers/net/ethernet/sunplus/spl2sw_driver.c b/drivers/net/ethernet/sunplus/spl2sw_driver.c
+> index 5e0e4c9ecbb07..fdc9c31967381 100644
+> --- a/drivers/net/ethernet/sunplus/spl2sw_driver.c
+> +++ b/drivers/net/ethernet/sunplus/spl2sw_driver.c
+> @@ -319,7 +319,7 @@ static struct device_node *spl2sw_get_eth_child_node(struct device_node *ether_n
+>  
+>  static int spl2sw_probe(struct platform_device *pdev)
+>  {
+> -	struct device_node *eth_ports_np;
+> +	struct device_node *eth_ports_np __free(device_node) = NULL;
+>  	struct device_node *port_np;
+
+[Severity: Medium]
+Does this leave the larger sibling leak in the same function unfixed?  The
+port_np pointer right below also holds a reference.  spl2sw_get_eth_child_node()
+returns the matching child straight out of the iterator:
+
+drivers/net/ethernet/sunplus/spl2sw_driver.c:spl2sw_get_eth_child_node() {
+	for_each_child_of_node(ether_np, port_np) {
+		...
+		if (port_id == id)
+			return port_np;
+	}
+
+for_each_child_of_node() only drops the reference when the loop advances, so
+the early return hands a held reference to the caller.  In spl2sw_probe() that
+reference lands in a plain local:
+
+		port_np = spl2sw_get_eth_child_node(eth_ports_np, i);
+		if (!port_np)
+			continue;
+
+and I can't find any of_node_put(port_np) in spl2sw_driver.c.  Does this leak
+one port@i node reference per iteration on the two "continue" paths
+(of_get_phy_mode() failure and missing phy-handle), on every goto to
+out_unregister_dev / out_free_mdio, and on the successful return as well?
+
+Would declaring port_np with __free(device_node) too, or switching the helper
+to for_each_child_of_node_scoped() and returning the node with an explicit
+of_node_get(), cover that case?
+
+[Severity: Medium]
+Is mixing __free() with the existing goto unwinding here in line with what
+cleanup.h asks for?  spl2sw_probe() keeps three unwind labels and eight goto
+statements:
+
+out_unregister_dev:
+	for (i = 0; i < MAX_NETDEV_NUM; i++)
+		if (comm->ndev[i])
+			unregister_netdev(comm->ndev[i]);
+
+out_free_mdio:
+	spl2sw_mdio_remove(comm);
+
+out_clk_disable:
+	clk_disable_unprepare(comm->clk);
+	return ret;
+
+include/linux/cleanup.h says:
+
+ * expectation is that usage of "goto" and cleanup helpers is never
+ * mixed in the same function.
+
+There is no functional failure today, since of_node_put(NULL) is a no-op for
+the gotos taken before the assignment, but the implicit release now runs after
+all of the label code and is not visible at any goto site.
+
+The same file also recommends defining and assigning in one statement.  Here
+the declaration is "= NULL" at the top of the function while the acquisition
+happens much later:
+
+	eth_ports_np = of_get_child_by_name(pdev->dev.of_node, "ethernet-ports");
+
+Would an explicit of_node_put() on the three exits, or converting all of the
+resources in this function to scope-based cleanup, fit better than converting
+just this one?
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but the phy-handle node references
+look like they leak on the probe error paths too, and they are in the same
+family of probe-time OF leaks the commit message describes.
+
+of_parse_phandle() takes a reference:
+
+		phy_np = of_parse_phandle(port_np, "phy-handle", 0);
+
+If spl2sw_nvmem_get_mac_address() returns -EPROBE_DEFER, or spl2sw_init_netdev()
+fails, control leaves before mac->phy_node = phy_np runs:
+
+		ret = spl2sw_nvmem_get_mac_address(&pdev->dev, port_np, mac_addr);
+		if (ret == -EPROBE_DEFER) {
+			goto out_unregister_dev;
+
+so the only handle on that reference is lost.  For failures after the transfer
+(spl2sw_mac_addr_add(), a later loop iteration, spl2sw_phy_connect()), the
+out_unregister_dev label only calls unregister_netdev().  The single
+of_node_put(mac->phy_node) in the driver lives in spl2sw_phy_remove():
+
+drivers/net/ethernet/sunplus/spl2sw_phy.c:spl2sw_phy_remove() {
+			phy_disconnect(ndev->phydev);
+			of_node_put(mac->phy_node);
+
+and that is only reached from spl2sw_remove(), which does not run when probe
+fails.  Does the -EPROBE_DEFER case then leak another reference on every
+deferred-probe retry?
+
+[Severity: Medium]
+This is a pre-existing issue, but the descriptor memory looks like it leaks on
+exactly the out_free_mdio and out_unregister_dev paths the commit message
+mentions.
+
+spl2sw_descs_init() allocates non-devm memory:
+
+drivers/net/ethernet/sunplus/spl2sw_desc.c:spl2sw_descs_alloc() {
+	comm->desc_base = dma_alloc_coherent(&comm->pdev->dev, desc_size, &comm->desc_dma,
+					     GFP_KERNEL);
+
+plus the RX skbs and their DMA mappings in spl2sw_rx_descs_init().  These are
+released only by spl2sw_descs_free():
+
+drivers/net/ethernet/sunplus/spl2sw_desc.c:spl2sw_descs_free() {
+		dma_free_coherent(&comm->pdev->dev, comm->desc_size, comm->desc_base,
+				  comm->desc_dma);
+
+In spl2sw_probe(), spl2sw_descs_free() is called only in the "if (ret)" block
+immediately after spl2sw_descs_init().  None of out_unregister_dev,
+out_free_mdio or out_clk_disable calls it, and spl2sw_remove() does not run
+when probe returns an error.
+
+Does that mean a device tree without an "ethernet-ports" child (goto
+out_free_mdio) or an -EPROBE_DEFER from spl2sw_nvmem_get_mac_address() (goto
+out_unregister_dev) leaks the coherent descriptor buffer, the 32 RX skbs and
+their streaming DMA mappings, with the -EPROBE_DEFER case repeating on each
+retry?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917114118.2149439-1-vulab%40iscas.ac.cn
