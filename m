@@ -1,170 +1,214 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013012.outbound.protection.outlook.com [40.107.162.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F2442E8E6
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:12:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789978337; cv=none; b=u874+f0tR/F3/rZOQ62OBSsWQAJ4cHl1+WL6OXhI3Np0KpIAscfqhxUzieN+kcuWnIWT9a+k1rTrw4Ju4TGS89/OOP/BShI4zwLkppqwPT1rlu/K6RDNGOlfVaRZln+Ce8L3cODnzBBjpVygtBO5XM1LD6h5lvY/pQ+JImlWg5E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789978337; c=relaxed/simple;
-	bh=81sN4Ta0dN01LUppLMSjudvBu+gzjzhGtkGCssIxgO0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cI4rExSne68TIA/SPcCwLx/sjbrZJ3tNM+YQtCx5vo1EROde99xcx4V6bRz4ixpdrdtZ/05kauCC6F3we5uwWc8981dd1LxhIvJqcAyjtgriAvLlrZ2pnIyv1pX6uV85xDXp1caV3FLd3HaU5d3baJZKoMIq54DqKZkAVIXIVsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eKdy3u9G; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DBCB42E8E6
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:12:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789978358; cv=fail; b=kmNR//NJ9OOjTkNSd1oH6UmF/ym8/eWbG8lj7RmTq6mTtZyIX7QeAerOLUH2DI9KTv6d7WcjTLNw6RKZHIktZM3YKz+OjUeDxCUSoKw/MKQHhivztZOseebWljSLnhQg4s/i5gSmC40ZTX4og6TWN6+suZOgxdKNS7N+DnS5Smc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789978358; c=relaxed/simple;
+	bh=Qtta1kndAX/sb5iypsqzcZrv/wZGu6H7gJLNnjnuxqk=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=lQjZ+2pIhHoJOWmNKCwI6+ra02+6oWPdhhONn+DV3HllLo8h0UcbYdFEDmPY3oGImG26yfpRH33qqmTl0CXM+EiGRj5oX1ccVlFXaAppsxEwAf+eYvZvmmQeIeUaK93avqzcKzKFmXrKCjn6AWoHls8oTixQZsdtvAba3VhQvHQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=TyLfwg/r; arc=fail smtp.client-ip=40.107.162.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eKdy3u9G"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6356256so858202f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:12:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789978334; x=1790583134; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XMXYjGcZu2otoIEYefWcT0cnIVDjtKD7spkJocISLVM=;
-        b=eKdy3u9G3hKrgX3qtDSEvx2x0pzbY7psv2KyDny0IU9czqCQeV4+JduZ8KlZwk0JU9
-         qwumDh8KVmdzLZtEOvwtfIGDBKcHzKJYjIf/f6DoVoHgzdgnLfqf3ZjWFQpJoh+Ti6/N
-         aeAI1Y+XES5amwGigFLMhKJFmoY12txcf01UsZKjOq1CaJazL6cXzN7KGwKowXFsmu17
-         bH59N9mFwkpCzZoYWapusKMFMHRW8Slru49ehV7GWh8levkg7CTUd35+PizLCmGVGeqs
-         H1ooaA+1ksuwf8fvrE8u8Oqsobx+Yl/REccpN5BXWlqij3VUU8WIkdJ2Nv9ZbTIquE+u
-         ovTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789978334; x=1790583134;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XMXYjGcZu2otoIEYefWcT0cnIVDjtKD7spkJocISLVM=;
-        b=eJxsoI9wZtecuz4LaX4PACpGC5+98lSahErm1vx0Q7BnInAafC+G2spbXISv7oxO6y
-         C39SnNBE0enKWU6VkUq543U9ros4KFfKgxZPZ5m2PCkNbUmwEAEimEoxEjbuk0S8dqvM
-         p1fUADH4CjAmfXUejYfkfVpNiUXn+SF6y84WTngNm9j3n4ykXWvYqICvK7bfoHOj9f38
-         0HA4mpB7Lfvz2CYgQX9CgbDouQqH57Jty4KxVYviwYtTBYfA0KaPv/43dz5OgMLUSs3P
-         38qbEC+NOkIAd4xcB7NIFzCeLVgT24zQcxf3Z2/RASDx+rKWhaHGvTgOP+5XPKmWmTh/
-         SGSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxhMomVkeaVnGUgxqS/HBKfsCmNPLCU4pTgVOqDpmxHB4l6y546bDVF0pdPC9Ck+Nl9w6pEEmcbghnVQ88=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFfesVGLNpIGCy60UB3pCiYUiAb49ONdMhLH49CEB5e6p1e25L
-	TRZLfKU0QzqyfppcVFxYcFi7zUBQpKmVJDR7r4RaJFCBMxJoQvhpH1PSnuwJ0kth6A==
-X-Gm-Gg: AYBFou2XlM9BgQep9ouydna8CPFzzDqqBK6FnlN3dPIXVuAdssSCRfYOSbD+hPvU2GP
-	68iopTgt8AesC6UX6j3Py8VY9pdGbRHzzvZtoQ7sj/MDrNnCABgnytKkRnc4en54CvG2rWhak4y
-	6gPQAxefDiyWIxFMmdEmQJ2NzZurY0QYCGc40k0iXkaN+9zN39YhXxWcaQ9Em0T8+D9ZAHKRKyI
-	1RNV+78W1v/SNNim8wD8CV7G5gWE9FGh28ki3pKbbfyV2hUHvQxHQwpI/lOn5GrBTju1aUv9A/U
-	Jkxt9pE2EdbhlP+6TkKeiSQFWq7oXSPvgTgw0k80VFP9U4QxLPzvitIeSPhfCJb2R2INsaU8oIw
-	1P5A6bNB2R4l8BAD88Ldai+BUIDyekntexKBAebx/BD76uv/gLO1U7x43wYGpGVvVpCFDWWBlMc
-	YVEKDRY34MW0JoaAc7Ak1/GrQ3hTlZdR27a2rKI+vGJKbyIdlGodm8M15BG9OmAZDeQhTpa32I5
-	+ExvAdzvjTaQlQEX2u5GhtCL4KkOGxJ9aTGT1yAs34=
-X-Received: by 2002:a05:600c:a49:b0:49e:6865:904e with SMTP id 5b1f17b1804b1-49fc500055cmr155390395e9.12.1789978332658;
-        Mon, 21 Sep 2026 01:12:12 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcda2140bsm232663265e9.1.2026.09.21.01.12.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 01:12:12 -0700 (PDT)
-Date: Mon, 21 Sep 2026 09:12:08 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: syzbot <syzbot@kernel.org>
-Cc: syzkaller-bugs@googlegroups.com,
-	Krystian Kaniewski <krystianmkaniewski@gmail.com>,
-	linux-trace-kernel@vger.kernel.org,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org,
-	mathieu.desnoyers@efficios.com, syzbot@lists.linux.dev
-Subject: Re: [PATCH] ring-buffer: Fix false warning in
- ring_buffer_map_get_reader()
-Message-ID: <arDm2LvdlWVe9JC1@google.com>
-References: <15bc282f-669e-4a94-911d-bb435513461f@mail.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="TyLfwg/r"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WB3mFFBYSnCRsaRLEuE5oMfx9tUai+4D7V8Pn7wM9SPqch1bMzGI0eZmt4engTnyFoPY5cC6fVp1I85alllTx1hfyPYpWuzCjiPqIxQI09URclnR0Hg3yZ9vUS4XuP3dvYh598ZPrWeEPHNVgltUWDB3Qissr7Rliq/18U2qQvVjyLoMfvvjGIjcidcWbImq5LJpebh/xknmsE1J5P/wdUQeCmZ6CKDwISNazPy7hY0Awk++gmxVrw0SoEsxeUIin9giHSvdV/eFMzaLGFVDzLzX0/uMgNL7nIgHd4zesrVASdsh5sRr6kYKxwdv/Cvm5g5Z35j6qsfFtfXAuZu9VQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wLX4xOt8BwBzOrINlmh635oOTyEg8+Y8X+QrJDKPLKc=;
+ b=TK8fgApw92BzBjchhgxEVaIEjz2RQ2A9Gb47RnawABal5O2i4zmolDOcTdIq+TnEo/0EqotSAE47d5Y1wIAanxgqgd/v6T0YdM9ef58HGuS1k7UMHdSnPeKMXFHFklaS+fhpedgIalMUCh7lXj/1Fi4q8nVd5AgNqrI0/uRwpty0803j7N1HRQpsK3AeGPUdQ3lino+uu4sp4aApAZTlRtTLNmM8plVw4MCovTKKBPk5GBc2WHhoiwzH73/UboHvl5+0xgUQf5YtmwuG1a9ZscXctHAJ1YxIZTE5VDyAJMNw2vyBZ7MGLf7UvxJAsqFHGma1uIiye/3NfPy1ElBy9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wLX4xOt8BwBzOrINlmh635oOTyEg8+Y8X+QrJDKPLKc=;
+ b=TyLfwg/rfPX3uExRplopxXjTeXtbFGZCAc5vJ73AMfjmKuwBBTE78Ehp/989GGYX7QdCWoZ/8QskZnns9bRmYRjQnupd9xcV48mZyQjBvNoNJYgHMCCbFFGv8sC3mEgmgcRGsqGHOrEQfIyXNtuYLg2cDZDYyZhtQLIeUvmRBwDKeSwuueAIuKZMoOVcqFh3fWyDU5ku1HAFsuMJ4staLZcL/e642Lurzp8tLNm56IzAdNd7BAX2FtvHi1+3Hx9s6cOVf6hTF+ZhpAsFJHO+wguMVSYSHRqg2P3z2rVx9gsW30FAZ/wR7pzGg3aFI2cTb29MmMLjoK9+stZblPh9Tg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by AS5PR04MB11322.eurprd04.prod.outlook.com (2603:10a6:20b:6c7::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 08:12:34 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 08:12:34 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+To: Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>
+Cc: linux-kernel@vger.kernel.org,
+	Peng Fan <peng.fan@nxp.com>,
+	dm-devel@lists.linux.dev
+Subject: [Patch V2] dm: use assign_bit() where applicable
+Date: Mon, 21 Sep 2026 16:10:07 +0800
+Message-ID: <20260921081009.278532-1-peng.fan@oss.nxp.com>
+X-Mailer: git-send-email 2.51.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MA1PR01CA0174.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:d::12) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <15bc282f-669e-4a94-911d-bb435513461f@mail.kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AS5PR04MB11322:EE_
+X-MS-Office365-Filtering-Correlation-Id: 044c8239-5df7-4995-ebe9-08df17b81762
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|19092799006|23010399003|11063799006|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	UYznF3eBYKqik7nAB5E4da7BfMgvf+A+8Tyai/hqS+HYo+qTrxO9PUeLx+dzw1k8HjtYilFbfRTWhsnoB+vHDTPwBtO78VqOp+iQZFMBqxgDtvmyDzaLINTtL2OCgZxjj42RTk5nWw2nG+pblhf54ptix1v+dAJFKOkszQGeB/XDXpR2nXxz1i5OnpuxwwEUmPMWYkBmCTfWXkEV8y55eDe+HQ1r+44pY+NSzZ/bxW7TQL7vm7/t51UdOCC9CsbZRlH8H9tRGCX6KiRYRZojTxKacGlRL61wEabI89QewroL5mXgct3ABOTUwIcXLxNEGh1IgKJQJl65AjU1+X+zfBWQuwjscOKqnnbMhHeOU9SrvtZcHnGcmHK/9+3bxKxrAwPozWX4NaVTttVlBY1L9NDPTl0KVQel70YKKULFUq56U14sMw6WYRldwyI6MTle/rUS7FL5otuuFYvfYy4nrgchLdO+wS8bAJa217410EHi7lTok9HSun2StHx+lukL+nh/bYXLBGCb74kueAJ4dB6zrK9VDM57P91zskfeJ9gfmkAWl65LpWXStlBF4aI/Ogwzc/z9SKvK1fG1udV+tFyJG4GKCvNhcH+SeC0Ipjbw/Jg9QS1o1Zy1EjdyxlywtCIlgSYWwX3nyCUKDZX3FHiYSbF8hgNbSnH911Xwbz8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(19092799006)(23010399003)(11063799006)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?TvraXKd93i7VeKO/f4pUXN1g2HQWMt+WrOcIAOEQFDGGYXb4sSW/LbIrNt6u?=
+ =?us-ascii?Q?oQVu3Y8Hnp03kphHqP3UnlxzIQWo4cKqMoT1cmp7fxqJCmcfEZPbk0t2p9Cw?=
+ =?us-ascii?Q?GV5SVk8h43+tTiywGn19/0ZDTqXki8QAg3pR+lBVPjGOEEYvx10VD2S/TWr8?=
+ =?us-ascii?Q?oypFWXbPKnJlK2sfbA7r6MIlOUPSGWa7wyw71Zn2V4JBoEpcsSbqVBgp9eq9?=
+ =?us-ascii?Q?N2+wap6DBoEwbkiJg+zfNZxMxzIOghrtSBwkdooMvPEbEMc03IgR2wJV2UFY?=
+ =?us-ascii?Q?wFXKdtYrfeJcUcShiJ9Aqp9I+cvx1qO2oUf3a1M1Bq7NDiv2tTq/x05ItgfU?=
+ =?us-ascii?Q?hosVZeShx+hlN6n5LWgN+t00eCSpxDcsorkjNUsWJEJKk01rIVBH69CLGa8X?=
+ =?us-ascii?Q?Q9+a4fo24CEM8f8+TGfCkBenSyVb/Eoq0hD56zRjjuzg8wOv+QVZU4qXQ/6v?=
+ =?us-ascii?Q?fhGE+KZzyiFsa+zq17HKYC838tCNMwJ8vxeN4TtymGGD6XEGPhNqM5/RNOTr?=
+ =?us-ascii?Q?EpvjGI3wzZ7szWv9M01+bcx1ORb4Kn0XPNkxQX51pH0PCglVTOeOD83IyPtC?=
+ =?us-ascii?Q?Z3K6a7E9PJQjtrx8CDQY8d3DzMK+az9qKb1RHKOkYqW0IEWMRb4hBngJb5gB?=
+ =?us-ascii?Q?YD27A+s/Cjs+KErPSAZwDF2peDhEDU6Qe5fa44yFuwUf/dD2G6K0T5BJoI3Q?=
+ =?us-ascii?Q?NpxzCmOyf5wWg8pD6ZuITJ19GuTRhAda+9QcRLqt2au5qyDHqeu8fHlThnzL?=
+ =?us-ascii?Q?qIW/GNh5pxAQ1l3gRv4ojyrMAaPj1WmJCWjuMedSqsUrN992oBY29NmTyOHK?=
+ =?us-ascii?Q?8tghYzHfWSw3mNPwgm7Ign2qWi3ErvuY5jSXN3Z0vXblhXFivc9bgCCuyyLb?=
+ =?us-ascii?Q?QbV5HaXE8wOYNbWw2GF6h3k/hT9skmld5xFSfyQcJ5nk6YBbbyJvQ45hAAs2?=
+ =?us-ascii?Q?mr/Zhlc/jt51pRstXxVyq6QQEYL69IgKzDUHUAXJvHUNvXuH3VIIyJMLrUTU?=
+ =?us-ascii?Q?P7JKIq8nVUxyNBEi9L/OFmoU7ypTkXzvgjeMBFCF+bFyKTzCBA0NE09hKUOy?=
+ =?us-ascii?Q?i3BhxKhC8QHaR9/ObSOfip7uKmSO2pd6McVpdzkt/kGkaU0kWPV6RCB4tPYA?=
+ =?us-ascii?Q?CP9iN83UFOv5bwh5/JkK+rbF3kys2KqoqnQCzAPDeAMcxR+TwtTSyDLchDDV?=
+ =?us-ascii?Q?KV5TmIknGGAXaRmKNvwPE1P180JIT2H27DiFBJO+xGoE5fkpRlgj3SHxB2/Z?=
+ =?us-ascii?Q?cVfSWul38u4Y5yPptHLNZz1tggFdC7v/nyqxhiMtd2o6u7BcYhtCO51m4SM2?=
+ =?us-ascii?Q?XgZcjO/OSvFi5RpQzNsJsdDp0o9XDkk3/buWknTsxvCeWPRO4r1XMzFYPPAA?=
+ =?us-ascii?Q?MWT8rhnfeFcH2aHrLeXBrfmZNxGnePnq1CjD10QEIhF/mxfyhci66VUOBFr+?=
+ =?us-ascii?Q?wHwQe02HTz9EvwGa477/ooEWOaRd9u5VOn+6jVHe9XI/3aoJLEc9qOiii93I?=
+ =?us-ascii?Q?lgTaU7nhLzeVstMUy0CyQWs3aw6I+xrAfSenLHuSbWanKkOsV8ZKM6w+O5D4?=
+ =?us-ascii?Q?ITYV+zI2i7wB/lGeSCu+u9wpikpF/+wiF1M6tvZV86kMdkj+U1B2vqznUsLZ?=
+ =?us-ascii?Q?oQaW0066t+NOa8Upnn950zpWMgxdoDhMZTvvNB8MyF2OQ3FrFAubCK9wcuYx?=
+ =?us-ascii?Q?KGJGbkjJ7gAqyKsVZQPODxMm/yTgQ5qvleb+47ptWcJ0tohdE11LwpidiFfd?=
+ =?us-ascii?Q?gkPGkjUR5IS6x7RLHm/qMDViNubP78R+sEhuxYeWbwP2ipB/vY0S?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 044c8239-5df7-4995-ebe9-08df17b81762
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 08:12:34.5199
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VcjxphSWq9NnWJ9pImkp7DU1KB/KIBe7p+owpL0bLXhbYQmlkxTibvwQU1+N2Mxqr9SLDvCf/SM7fLSlhp2ehJdwiNgDsr8U8D2tHWr95QmvaqRGrsQ9877TT06N/YIY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB11322
 
-On Fri, Sep 18, 2026 at 02:34:25PM +0000, syzbot wrote:
-> From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-> 
-> In ring_buffer_map_get_reader(), an unconditional WARN_ON(!reader) is
-> triggered when rb_get_reader_page() returns NULL:
-> 
-> WARNING: CPU: 1 PID: 5906 at kernel/trace/ring_buffer.c:7998
-> ring_buffer_map_get_reader+0x940/0x9d0
-> CPU: 1 UID: 0 PID: 5906 Comm: task Not tainted
-> RIP: 0010:ring_buffer_map_get_reader+0x940/0x9d0
-> kernel/trace/ring_buffer.c:7998
-> Call Trace:
->  <TASK>
->  tracing_buffers_ioctl+0x258/0x300 kernel/trace/trace.c:7381
->  __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
->  do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
->  </TASK>
-> 
-> This warning is triggered due to a race between a writer committing events
-> and a reader mapping the ring buffer via TRACE_MMAP_IOCTL_GET_READER. When
-> a writer commits an event in rb_set_commit_to_write(), it advances
-> cpu_buffer->commit_page to cpu_buffer->tail_page in its first loop before
-> updating the commit counter (commit_page->page->commit) in the second loop.
-> If a reader invokes ring_buffer_map_get_reader() at this moment, the
-> initial check cpu_buffer->reader_page == cpu_buffer->commit_page is false,
-> and it calls rb_get_reader_page(). Inside __rb_get_reader_page(), the
-> reader swaps reader_page with the head page (which is the new commit_page).
-> Because the writer has not yet updated the commit count on the new page,
-> rb_page_size() is zero and reader_page->read < rb_page_size() evaluates to
-> false. __rb_get_reader_page() then checks if cpu_buffer->commit_page ==
-> cpu_buffer->reader_page. Since both now point to the swapped page, the
-> condition evaluates to true and rb_get_reader_page() legitimately returns
-> NULL to indicate the reader caught up to the writer.
+From: Peng Fan <peng.fan@nxp.com>
 
-This seems to make the check above reader_page == commit_page redundant. Doesn't
-it?
+Convert open-coded if/else with set_bit/clear_bit to the assign_bit API.
 
-> 
-> Furthermore, rb_get_reader_page() can legitimately return NULL when there
-> is no data to read. Re-checking mutable writer state such as
+Done with Coccinelle semantic patch:
+    // set_bit -> clear_bit => assign_bit
 
-We are checking rb_per_cpu_empty() with the reader_lock held few lines above. I
-don't believe we expect NULL here for that reason.
+    @@
+    expression cond, bit, addr;
+    @@
 
-> cpu_buffer->reader_page != cpu_buffer->commit_page is insufficient because
-> a writer on another CPU can advance commit_page before the check is
-> evaluated without being stopped by reader_lock.
-> 
-> Because WARN_ON must not be used for conditions that can legitimately
-> happen, and pr_err should be used instead if necessary, remove the
-> WARN_ON() entirely since returning NULL here is an expected condition.
-> 
-> Fixes: 117c39200d9d ("ring-buffer: Introducing ring-buffer mapping functions")
-> Assisted-by: Gemini:gemini-3.8-flash syzbot
-> Reported-by: syzbot+de3d7f9bcc9212f3fae1@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=de3d7f9bcc9212f3fae1
-> Link: https://syzkaller.appspot.com/ai_job?id=488adc18-a10e-42d2-a205-25327c38837f
-> Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-> 
-> ---
-> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> index 9c03a555a..1a4da3d47 100644
-> --- a/kernel/trace/ring_buffer.c
-> +++ b/kernel/trace/ring_buffer.c
-> @@ -7995,7 +7995,7 @@ int ring_buffer_map_get_reader(struct trace_buffer *buffer, int cpu)
->  		goto out;
->  
->  	reader = rb_get_reader_page(cpu_buffer);
-> -	if (WARN_ON(!reader))
-> +	if (!reader)
->  		goto out;
->  
->  	/* Check if any events were dropped */
-> 
-> 
-> base-commit: df2908090cda368b01ff43709f51890076c56157
-> -- 
-> See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
-> The person who has signed off on the patch is responsible for
-> addressing comments.
-> syzbot engineers can be reached at syzkaller@googlegroups.com.
+    -if (cond)
+    -        set_bit(bit, addr);
+    -else
+    -        clear_bit(bit, addr);
+    +assign_bit(bit, addr, cond);
 
+    // clear_bit -> set_bit => assign_bit
+
+    @@
+    expression cond, bit, addr;
+    @@
+
+    -if (cond)
+    -        clear_bit(bit, addr);
+    -else
+    -        set_bit(bit, addr);
+    +assign_bit(bit, addr, !cond);
+
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+
+V2:
+ Separate device-mapper and mraid
+ https://lore.kernel.org/all/20260918141737.3023011-1-peng.fan@oss.nxp.com/
+
+ drivers/md/dm-mpath.c                  | 5 +----
+ drivers/md/dm-zone.c                   | 6 ++----
+ drivers/md/persistent-data/dm-bitset.c | 5 +----
+ 3 files changed, 4 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/md/dm-mpath.c b/drivers/md/dm-mpath.c
+index 7cb7bb6233b6..ae9318f5f21b 100644
+--- a/drivers/md/dm-mpath.c
++++ b/drivers/md/dm-mpath.c
+@@ -1604,10 +1604,7 @@ static void pg_init_done(void *data, int errors)
+ 		goto out;
+ 
+ 	if (test_bit(MPATHF_PG_INIT_REQUIRED, &m->flags)) {
+-		if (delay_retry)
+-			set_bit(MPATHF_PG_INIT_DELAY_RETRY, &m->flags);
+-		else
+-			clear_bit(MPATHF_PG_INIT_DELAY_RETRY, &m->flags);
++		assign_bit(MPATHF_PG_INIT_DELAY_RETRY, &m->flags, delay_retry);
+ 
+ 		if (__pg_init_all_paths(m))
+ 			goto out;
+diff --git a/drivers/md/dm-zone.c b/drivers/md/dm-zone.c
+index f29acf64429a..35916c6e490e 100644
+--- a/drivers/md/dm-zone.c
++++ b/drivers/md/dm-zone.c
+@@ -447,10 +447,8 @@ void dm_finalize_zone_settings(struct dm_table *t, struct queue_limits *lim)
+ 	struct mapped_device *md = t->md;
+ 
+ 	if (lim->features & BLK_FEAT_ZONED) {
+-		if (dm_table_supports_zone_append(t))
+-			clear_bit(DMF_EMULATE_ZONE_APPEND, &md->flags);
+-		else
+-			set_bit(DMF_EMULATE_ZONE_APPEND, &md->flags);
++		assign_bit(DMF_EMULATE_ZONE_APPEND, &md->flags,
++			   !dm_table_supports_zone_append(t));
+ 	} else {
+ 		clear_bit(DMF_EMULATE_ZONE_APPEND, &md->flags);
+ 		md->disk->nr_zones = 0;
+diff --git a/drivers/md/persistent-data/dm-bitset.c b/drivers/md/persistent-data/dm-bitset.c
+index 00c0a3f186b7..6680f05c25ec 100644
+--- a/drivers/md/persistent-data/dm-bitset.c
++++ b/drivers/md/persistent-data/dm-bitset.c
+@@ -59,10 +59,7 @@ static int pack_bits(uint32_t index, void *value, void *context)
+ 		if (r)
+ 			return r;
+ 
+-		if (bv)
+-			set_bit(bit, (unsigned long *) &word);
+-		else
+-			clear_bit(bit, (unsigned long *) &word);
++		assign_bit(bit, (unsigned long *)&word, bv);
+ 	}
+ 
+ 	*((__le64 *) value) = cpu_to_le64(word);
 -- 
-Vincent
+2.51.0
+
