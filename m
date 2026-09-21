@@ -1,164 +1,249 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E27518125
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:57:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790027872; cv=pass; b=ZmpbSRmIs6teaH0eCcqbD1afGKSZnQp1edTFlFdfAkNejJbHWJN1PNFYPOyNes/dUU08ETOlMzjfYT1cmtRdssPsTE1BEnlZu3Y7/IR5AutHBwcoTn5kDniDyA54dpMQ5epjF4Lb2pUzBLUXXodKP4+tONdt+Jm64XHuTLxugY8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790027872; c=relaxed/simple;
-	bh=z/GhqHnrayzMkq4XP/AAv5bpwGxws0vq/kqMqhVEtNc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OI8lAgMSsY9vm/ndLuIZUthxK34r8hQb8bfkrC2KeJxIsV4xS2e/PcGrhIlbFC6Ah2XiDex2zcdgK7X4i8h8AbRvlZK1AW/b7iclaKl4xIKluU0nCpJezRt0onFUIoP42nRj7CvGCzSdKg2595s1mZhss2SFPBE2/F3XcAF5s6w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RsagRWjH; arc=pass smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B055158B9
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:58:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790027928; cv=none; b=HoFzZYl2HtncYubOv5AaA38x6JHLG/Hyvw1ivXs3x6J3iQMfId6PXd4akhvM/+hpkiZFz0OAuSMGCoo99tLWXacuyL9sdq0G+JODXG7UdBHxqrtkstGvmyrz/3sAVORrn6R8VoKy6h2n7YTamI+XPIii/n2cJBV2zOhogV4MnOI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790027928; c=relaxed/simple;
+	bh=oQnCHtOLAC2VK421zR3NYbi26SLJxa0u/brSYBeX6uo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OrlSdgxRuHUyz7hhYPnSh7+1DZGy0fAki5tXZUuACKTHCEfL/jHNhZ/0xDDSIpnGoP3cE++KyWxV6PMCkbu18xzBbexNgqAI8qhXZR1mF/PLqGkZa1rO7cO/bqF2URUhcjR+y7YO35FBOz8t/LbEch/QiI8IXOLMp1dT20GQyCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZLmyTnAZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aHipJNoT; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RsagRWjH"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-399026951a2so607693a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:57:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790027868; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pc4NlvOyzjnNKZ+pSw86wqKWxKMW5g7AyaQPp6lD4GJvZ6XdVZDkftVQbAUhM24UgY
-         iKwssXT6LgAczoRydPUrocwUgYrurVRTHFGYmd249KOQurroEtbpkLULNYeTzztK7N2q
-         V8U1WFT0LR2DSu9HO0WLI2T9G+6z9+u9hbX+2Z/O6dvgdkLIJo3pATzdbXFjpTX/7da0
-         4KMV87Dr7n7oemvD5snx2uo/kqffCPrHH9SV+tbTL/NERulH9nxSlt9Lq18tbexm4S65
-         ZhuU63U6izudQImbmT8S8zHwALiVSHnxCsp71OCeM29rjEjL5b840HuqlfI3jDeLhJmu
-         JixA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RwYh6OjRPIh/KNj842KS6LrZRkmlRh26aRS3vty9X+g=;
-        fh=Qg/8GcP1CrfrYWZJcvMStfbPc0VPj98OAl9fo3xWQ6A=;
-        b=fbjOtAcrELo6XB2WFXzrK5c7P8w5x2tvuT3fbp3r/Oz07UpjzEbFzrFrKova+Ah8vg
-         se3lQuLpSg66XY3NWildx8PbBoG2OjiL0txTdXl40WdtYZvdvjhkKi+SjvBYfe1CV/lp
-         j1eZBTZVSfXwhfAuK8mBXOND7sen1jyEYGAnU1WQAIE9RDVEyjka4FkizwiG2Nwdgvve
-         lZ44Ht/BdO0v2p3VeglNUViuAsCzphukcGuqGyNX5Ox4obRdEry3BzIjLAOJhLkiHSrH
-         YO/dzPxUAR2ARZXwsKBVsDwj05m13XAWA7vcI34AS/ZBhWZi3R3/Jy8eq+wFStboxOpG
-         7mBQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZLmyTnAZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aHipJNoT"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LKf2Z12546661
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:58:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	G4FuUHpGIZcp5Oatw0o6fh2s3f4mtV+T4R77+69YOVc=; b=ZLmyTnAZCsDJbxf9
+	oqVbVpjtTsP7rUB66vDktHclSGqyjK9Pz/QB59+mKZ354Rn0zo5yxCjo+UawpXMo
+	UUimFTofLn+raC8bHrpZunkJOyFlF8d9QTRy7ypZ6i25gigEbbhtMk6vtw/2nCRe
+	VXc4f7d/2cbHyzchfeEn6IsybHVLAHIHZH4mF565ma6n5M7aQoRQAn/Gm8plOfN2
+	cdCW0+pgNkqJyqt1EuDSixZud/wGP3TrUS8La5r+Qa/+Ar/dL17IwSZIO3hO41ww
+	R1YD7d5+xjxwi2iyd3E5/WD2EeAr0ukcw7ds6+eqVan7S2Da9cdW5vN+8OZi2vaK
+	gO2b0w==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu011bjea-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:58:45 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2df375fb9b2so26276955ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:58:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790027868; x=1790632668; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RwYh6OjRPIh/KNj842KS6LrZRkmlRh26aRS3vty9X+g=;
-        b=RsagRWjH7XnJjLU/v5Zhta2QaJUJE3zowStUVKirz6SixA7y1I+ffgktVJ29JP8aza
-         JSeF5+dNLFnAknn5vHBDZkX3+0zIVPxW7AMfDc8HK1yTIRDf4SkAYwkX+fxI0ht8zq3A
-         8r470CQR/ZbMsHCbjkzigSZoZaCMkXudc4Q94lK1I9z9b366+arMvH1bdAwWAgs28Zp4
-         iRDiCfJPo6yq96yrxxM+EEvGcmqwjj5G9SDCYrI8al5HDpA4GNqm1dwxinMZwMxTvksE
-         wS0tVNcmJzwltzjf6Gv0eq+vxsiWawWTWfMt3FMAKAg5r5ATxr84hOTciY72SFcyzBGd
-         5WVg==
+        d=oss.qualcomm.com; s=google; t=1790027924; x=1790632724; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=G4FuUHpGIZcp5Oatw0o6fh2s3f4mtV+T4R77+69YOVc=;
+        b=aHipJNoTzEZ0kLKfgtsnMUGg0LA+7DgxRU3o8RJVZpD/lFd/VGBSUFeVj9Y2Zk6IWb
+         z7dWHnqKG8C2uCnGGonE7+C+Q94Lag6BWiQDxpNMpTJgGaQv1svdlOWHOUKt8jDIgT2D
+         mgLzKR0InoJg1/gXFSMDtvQAQTUjGUGR1EcR8Ij1H9YAz1Nr5JHvjHV5qp9ew+wFQuul
+         9cC7lBLxuHMmk9owrVy89+BtgPPiThU5wyQUkBhk743OYgaLv3aflM1jO7vKB7P6+AGY
+         NVFC3Wszdz3WtaD7iPISUd7sAoVPYTHiQLMobdEfk3Up9K4acfhvFQHWd4CUGYx/BI+T
+         dfUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790027868; x=1790632668;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790027924; x=1790632724;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RwYh6OjRPIh/KNj842KS6LrZRkmlRh26aRS3vty9X+g=;
-        b=qgOruzsPV3UvZ6HcRKyUCuNPjkLRZqf5jbX1Az8VJR0cSg950q8A9oRCdyx3DaQkLr
-         dvLBExw/73krNtN6otuvVEFP38pKc7xp3VAPdd4KEaN4wy6QFb2QdqQIYz+2X4YsxQHI
-         RmJAB7yBk569rhIiP3kVrokwAXyfAU4/S9uDh7P9CooyLes4mwL0PVBlQIdecM3fHG93
-         lK24iRky8f0wkWVrFo3Vr1rfp8kuUgV5+KOOXniWB1936dNCcl9G+F1nxZyOYB0gx95o
-         ROw/4q4w/uQMZG61A1bn7yEDUQ0W327kTm3Y6MhdtLudYo9ELVBV8RZGZCX5UdvrrCj9
-         JRVw==
-X-Forwarded-Encrypted: i=1; AKwUvBwlTuI6JnmGbMpRqvStB3Ygoj1fqDBOsqRY6pCO4/nJVxdOVxoctuowo1Y0fqLZ3ogGmCYdUJCqx4++ZZg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9S+Z0uLeZyXJy+STPZKT0VKcZftweKZPM2d36sx1aB24l1B9/
-	dHkavWNqzzkllFCw4uk4A1Udoaq2qYfui8RuG9xMO4BQROdVQPCagnnHKpDjkkMBrdSypTuB77R
-	kQWHoKtuMY9uD4T6mz+wLNaAa9C3OwQE=
-X-Gm-Gg: AYBFou3Nd21Xk2NGZn4c3Tx8f0KTTJFIfdW6kHtthEGOc/+bau8w79/5yVBupvF3OFy
-	Ptvab1SY7U20e1H1UQdKBFxa4dDU909wIiIi89xFspaStXJT8O9QOOO97iUzmQa86zXhwhUa3jX
-	6/jS16nN/Mrg5G/pTWtTMm1aYFOVnRrAchdDYizOKSI/Fu1oWGH5Yj2UPqb4JTM6XAKbMXjAkmB
-	C2TtBQI7MXWP0bMGi4qp4VYIA2ZJGGsFiQPfjcPsUp6cg/XdLZ8cSlJpegMZNY47J9Pa0poFp++
-	mgQ0flh6xsg7FYqNunYSQNhHg2SI9N0xR67P1svbWH2qGeNi/mE95IKoB3eHaZzqkL904Htolxk
-	KeNTX13zd9NHPMJTRJi85FgZ9gSHwVtyRVTz71RrQaQ==
-X-Received: by 2002:a17:90b:50c6:b0:39d:e1f2:3400 with SMTP id
- 98e67ed59e1d1-39e599ff59cmr21734363a91.5.1790027868375; Mon, 21 Sep 2026
- 14:57:48 -0700 (PDT)
+        bh=G4FuUHpGIZcp5Oatw0o6fh2s3f4mtV+T4R77+69YOVc=;
+        b=PCgr5d6dw/jYaH13NwK7rnDf0/YLoD1RCXw5intbntpyHLHFO7iIavySE4oa4GYhhD
+         LCh/ZC1ZHCfgVpWrikRwNwenMeSXZT6u7NIj/FGmAOIyC8bABwdVv0aVAWtaWFjcv4Fv
+         0VBkfucuCHjhsmVLZQXlLjrvxTG7THv4huygmZbdY0SvT9TAVdBOW9uG2RoDXt36Vhpq
+         ASt9snssisnhOAh4RV+hV+3ebGzJepfFdkbFodCcFdhxD3EaD45Uv0VeiC1fwZ+Ay57L
+         ZGLWuz/mqrvs0ATFPmIbdmvdnp5WihDR7zJIOEstcLKBfDU7yJKgIU2V0AtsOGcJxnMi
+         JBEg==
+X-Forwarded-Encrypted: i=1; AKwUvBxByY1XM1pbIEfLDlISV957DRlThg7xI1XaIYFfkE16syiVLhGToPh0e56fVrGnbcb5M4wxovxF2zjCUgU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4AXSHDzWPR1Vl5HbzKWNbCmaXwR7M/agsDJpEOQltkZ+7+mVR
+	EqaP23n15D1RBMgeiaKoD9C0fZYWI/dV7LdZi5F+JqhdTtSkjhuKbVet9421QzKi9NZRDllP3+w
+	1odUa3sUs0sdiUuuwu8WtGtIq9VTXrH9effivkPvLzjLENrESjoa51VJkYkmf0CDIpOg=
+X-Gm-Gg: AYBFou1hz/mkF+VMBZUL+wPSQnZ980DvDM1ZK1Gfq2qsnmvUn48ncGKHb1OUp7qZ/y2
+	76N7h9WMJUgl3dZymnn2ydUw5e11/DnUSWfFysrBddkEUpWdKT78Nte+gHPydVINCvP01SfKPY9
+	q2gmynO8phnjq5llU0xS7eVunpM/iEWALCoqI5g7BTit2SVOXGgmPW646W+XmN/6fQV8DZlNgd2
+	SRUgNt58xcv9LRtZxCK5JyL+VIg93jRiIi1KjCpRsdjN6Lsbz3AH+lrAEy0m3Ovx8h0qqfQocPJ
+	LHKYety7nMfGxqL45jvBZKQBDv1k4lCAvfErqQdW/6nrgD31UOLB2kGyw5KB0dkia571q+zC3q3
+	aMTFivPrcMTV32xNqyrZ734ug2Q==
+X-Received: by 2002:a17:903:1a0b:b0:2dd:7549:39d0 with SMTP id d9443c01a7336-2ddb1b86d77mr166867155ad.18.1790027923999;
+        Mon, 21 Sep 2026 14:58:43 -0700 (PDT)
+X-Received: by 2002:a17:903:1a0b:b0:2dd:7549:39d0 with SMTP id d9443c01a7336-2ddb1b86d77mr166866905ad.18.1790027923453;
+        Mon, 21 Sep 2026 14:58:43 -0700 (PDT)
+Received: from localhost ([50.35.44.179])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e5ebc658esm835412eec.12.2026.09.21.14.58.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 14:58:43 -0700 (PDT)
+Date: Mon, 21 Sep 2026 14:58:38 -0700
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+        will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+        aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+        joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+        linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+        sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+        WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Subject: Re: [PATCH v18 6/7] firmware: arm_rmm: Ensure the RMM has GPT
+ entries for memory
+Message-ID: <20260921145838.00003b04@oss.qualcomm.com>
+In-Reply-To: <93aea89c-0a05-4b5a-905d-2e8c14a9e894@arm.com>
+References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
+	<20260912083611.2513845-7-suzuki.poulose@arm.com>
+	<178978126543.2352296.12214136703168879825.b4-review@b4>
+	<65b0c03b-36b9-4e60-aa55-c3b4b85e21ee@arm.com>
+	<93aea89c-0a05-4b5a-905d-2e8c14a9e894@arm.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260919165511.3687822-1-lgs201920130244@gmail.com> <b483d12d-f34a-4740-929b-28423d9c9b17@amd.com>
-In-Reply-To: <b483d12d-f34a-4740-929b-28423d9c9b17@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 21 Sep 2026 17:57:35 -0400
-X-Gm-Features: AcwNN1UohLrK7gSjDi2UGC9O6aoP5YtKGJPc1vCQfKTwGIeZ-NrCeJY0S5T4r_c
-Message-ID: <CADnq5_MSwTURavbU8ryixhPdsUfgBf64brJpALhkCeLq12BhXg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix IP instance memory leak on kobject add failure
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: Guangshuo Li <lgs201920130244@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Hawking Zhang <Hawking.Zhang@amd.com>, Likun Gao <Likun.Gao@amd.com>, 
-	Mario Limonciello <mario.limonciello@amd.com>, Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>, 
-	Tim Huang <tim.huang@amd.com>, Luben Tuikov <luben.tuikov@amd.com>, amd-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: K3j6VXAsmtd_vqd_sULjfhSRvfoC3e-v
+X-Authority-Analysis: v=2.4 cv=dPczC+Zb c=1 sm=1 tr=0 ts=6ab1a895 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=aNnz9XPx1a4JIXSYt2cE/A==:17
+ a=8nJEP1OIZ-IA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=L8e4LJ7mbMe5yfr_-rMA:9 a=wPNLvfGTeEIA:10 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDMyMCBTYWx0ZWRfX2pXbradLI1np
+ wLanLuXdmThMwbRn3Ayb6pruJPARcBm1K0PS6jjFo1ryPfMqHBHJR59Bxeo3+V5Y+HO38R4adPL
+ Y+kcau8ASLjArUYHHyHCkhgwgWLl/LCtSi3THZAksyfFA1lkUv4+IgAXd+KN8cMY3ICra/S4wlr
+ NiKJioQU67glifKkw1UgrBKJCDUcer88CcKblNk8xGQuPDBSPbhWAAPOB1ietyE9YEr4P+bdqud
+ l9QALVTJ37aSgDM5ZyBeVPJFiakOfv6IV7Gr4yuOOFCQwlAp7wNQZ2tgod1LbAdA9Dt5edv2qVR
+ ONOk8NwnqYi+JnbMeUogBCsdKFKt7/53682xD4eecEKvVPcb2GeOHSdgh/zvVkkywuV2mxGaE7n
+ sldHI3ppiwgR15/pJE8K5pxdsNnJJMgbLsHMXr2ESEOo3ADGFqp+El8avb1VheXjBEGdKeiIhvk
+ GwZNCM9K3k+SYPb8ZSA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDMyMCBTYWx0ZWRfXynvyy1/ZX2tn
+ DyOUfFcxLjZb63zVpxZ05OfSmS9hHdnb4DU+on72Wx2/Qsj2aJeOfVQPjwMjVApZyWZr8IIzwSg
+ NJHgez2EHsVlgdMCvS6bXyzTpspMmCA=
+X-Proofpoint-ORIG-GUID: K3j6VXAsmtd_vqd_sULjfhSRvfoC3e-v
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_06,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210320
 
-Applied.  Thanks!
 
-On Mon, Sep 21, 2026 at 1:16=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> wr=
-ote:
->
->
->
-> On 19-Sep-26 10:25 PM, Guangshuo Li wrote:
-> > amdgpu_discovery_sysfs_ips() allocates ip_hw_instance with
-> > kzalloc_flex() and initializes its embedded kobject before calling
-> > kobject_add().
-> >
-> > If kobject_add() fails, the return value is ignored and execution
-> > continues without dropping the initial kobject reference. The failed
-> > kobject is not retained in the kset list, so the normal sysfs teardown
-> > path cannot find it. As a result, ip_hw_instance_release() is never
-> > called and the ip_hw_instance allocation is leaked.
-> >
-> > Call kobject_put() when kobject_add() fails so the initial reference is
-> > dropped and ip_hw_instance_release() can free the allocation. Keep the
-> > existing best-effort sysfs behavior by continuing with the remaining IP
-> > entries after the failed registration.
-> >
-> > The issue was identified by a static analysis tool I developed and
-> > confirmed by manual review.
-> >
-> > Fixes: a6c40b178092 ("drm/amdgpu: Show IP discovery in sysfs")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 2 ++
-> >   1 file changed, 2 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_discovery.c
-> > index a404d8aa13ee..4b1ad1c0a10b 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> > @@ -1314,6 +1314,8 @@ static int amdgpu_discovery_sysfs_ips(struct amdg=
-pu_device *adev,
-> >                       ip_hw_instance->kobj.kset =3D &ip_hw_id->hw_id_ks=
-et;
-> >                       res =3D kobject_add(&ip_hw_instance->kobj, NULL,
-> >                                         "%d", ip_hw_instance->num_insta=
-nce);
-> > +                     if (res)
-> > +                             kobject_put(&ip_hw_instance->kobj);
->
-> Adding a message that this instance got skipped also will help.
->
-> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
->
-> Thanks,
-> Lijo
->
-> >   next_ip:
-> >                       if (reg_base_64)
-> >                               ip_offset +=3D struct_size(ip, base_addre=
-ss_64,
->
+> >>> =A0 static int __init arm64_init_rmi(void)
+> >>> =A0 {
+> >>> =A0=A0=A0=A0=A0 int ret;
+> >>> @@ -786,8 +970,24 @@ static int __init arm64_init_rmi(void)
+> >>> =A0=A0=A0=A0=A0 if (ret) {
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 pr_err("RMM activate failed\n");
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 ret =3D ret < 0 ? ret : -ENXIO;
+> >>> +=A0=A0=A0=A0=A0=A0=A0 return ret; =20
+> >>
+> >> Why did this change? =20
+> >=20
+> > Rebase messed up. I will restore it. =20
+>=20
+> Actually this is not. We dont have to check the metadata if
+> we couldn't activate the RMM. Also, the failure path at the
+> bottom has "deactivate", which again is not needed. So
+> it is the right thing to do.
+
+Only after this patch? Not from the previous patch?
+
+>=20
+> >  =20
+> >> =20
+> >>> =A0=A0=A0=A0=A0 }
+> >>> +=A0=A0=A0 ret =3D rmi_init_metadata();
+> >>> +=A0=A0=A0 if (ret) =20
+> >>
+> >> And this is hitting another bit of guidance in cleanup.h.
+> >> Functions shouldn't be mixing __free and friends with
+> >> gotos.=A0 Again, not a bug here but there are large ugly
+> >> monsters around this stuff, hence the blanket guidance.
+> >> I haven't thought that hard on how you avoid it here, but
+> >> usually it's a combination of suitable helpers and wrappers
+> >> and resulting code is often more readable as a result. =20
+>=20
+> I could change the hunk to something like, but that looks ugly.
+>=20
+> @@ -1010,20 +1010,12 @@ static int __init arm64_init_rmi(void)
+>                  return ret;
+>          }
+>=20
+> -       ret =3D rmi_init_metadata();
+> -       if (ret)
+> -               goto out_deactivate;
+> +       if (!rmi_init_metadata() &&=20
+> !register_memory_notifier(&rmi_memory_nb)) {
+> +               arm64_rmi_is_available =3D true;
+> +               pr_info("RMI configured\n");
+> +               return 0;
+> +       }
+>=20
+> -       ret =3D register_memory_notifier(&rmi_memory_nb);
+> -       if (ret)
+> -               goto out_deactivate;
+> -
+> -       arm64_rmi_is_available =3D true;
+> -       pr_info("RMI configured\n");
+> -
+> -       return 0;
+> -
+> -out_deactivate:
+>          WARN_ON(rmi_sro_memxfer_cmd(sro, GFP_KERNEL,=20
+> SMC_RMI_RMM_DEACTIVATE));
+>          return ret;
+>   }
+>=20
+>=20
+> Either ways, we have to cleanup the object on return, no matter
+> the route we take. So the original form is much more readable
+> for me.
+
+Agree to more readable, but that fragility of mixing __free() and
+goto is a real problem that has tripped many folk up - hence
+the perhaps overly strict guidance.  Rather than avoiding the goto, I'd just
+not use __free()  - go old school and have two labels for errors
+and an extra manual free in the good path.
+
+	pr_info("RMI configured\n:);
+	kfree(sro);
+
+	return 0;
+
+out_deactivate:
+	WARN_ON(rmi_sro_memxfer_cmd(sro, GFP_KERNEL, SMC_RMI_RMM_DEACTIVATE));
+out_free_sro:
+	kfree(sro);
+	return ret;
+}
+
+Sometime the new toys aren't the right answer.
+
+Jonathan
+
+
+
+
+>=20
+> Cheers
+> Suzuki
+>=20
+> >> =20
+> >=20
+> > I will see if I can improve it.
+> >=20
+> > Cheers
+> > Suzuki
+> >  =20
+>=20
+
