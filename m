@@ -1,186 +1,165 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415EC3B9DA6
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:53:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78D983B42CC
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:53:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789977205; cv=none; b=PibMclC3oN93ZPELgOs/E1ay436EMmADxtA+OPoXwscYGNsTBuQ2nrKbkt4DQ3WdwEG2eIUXSCcKrhClQQpTSZJ0OKqAiC/n2vDG8DN1Gk2/SRDmizKYuXm9GTCZkrPPO77rkwmP9meqpO0jewy57f4AosOk3L1LYBcYs64Nagw=
+	t=1789977208; cv=none; b=nbV5ltA+KqKsQVRSZckLJEOeB99zv2uAPeLupdorTySQ8cxfX1g8X9wsyaXEW4MjIRa7MHqKNmAG68ahzeT8bsF3dAuQP4EZUpsWnhNasnAnMxiL/6zOrfnu7i7zRptBG+vuuxgw+lwxs3862f+xuWN+mTbLoSnDBnT5qOKuD1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789977205; c=relaxed/simple;
-	bh=9jVvDTNMlifeWHalrehEJ9MSMBp7ROdLwpLKuSgTo60=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QiVXul73U4Z/nYBs82lDJOv72dI0D7rvMdn32jCpnnWgwLPBGTNgsfAs+wepQ4+x9zfb47ydyxlzp55NXYhF61OKpdCe6wa7GDYRbriwtDaulhzySkkXmkLMMmzb2KTnKCacm0Kz910cydoN7DR85ooCAaDDXBVXhWrztbjOchw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=adPkZDyu; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789977208; c=relaxed/simple;
+	bh=32NrmXH9Vsmw2N1F2SLSyk8oTsLvpCiP90z+KAgZXFM=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=NGN5aNEvJNUooxRSJa542/ujzV4VrBihwnQnb078TNbc6abM/cTsKvGxSYa92g98KVy0FHtYeY1DZxGyqbqU15po6ZfK9fNvtxLzR4PLuUodplcEfk9+umWvydX5Dr0DSbveQHpzKsFbVMYeCgkxY6AG7thB7QSk5HNSxt2WmVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oPekytlN; arc=none smtp.client-ip=91.218.175.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="adPkZDyu"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4afso1863097a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:53:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789977203; x=1790582003; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XL6pKrFrkkzHRuFW00rA0h4XTY4p2ooSEMR1SrVlXM0=;
-        b=adPkZDyuQBkAi9YeL/0AzuuADoZeEjtZUdrZwEoGF7xvzd0XyNwW2QJFX+ELYhEAzC
-         nqRUrRzFXjfmVGZYLobkL+5gqJ2zfhqzFLitlYPZIJlEMW00kS0JhFsOkVD6ZqSq+tO7
-         imS3jCLqoMAxRC3KqUe2OWzpZfNOmUC4bK2TxugfmHx9h3iFeTkkM7Qm09WqNcOwX2jV
-         Lh2rz0oqusL2jZ31VYeSuOOcgXG/mkrWdl6IanfcFi2Y6vsOleirwR16lXdxaQ34Y3KL
-         3/RZEtmUclPxOjZYAOnaHtCn8zsHJfIg7GrxHc64aNULi5VZTbFQUQ1hxvmK90nYktlB
-         Uo7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789977203; x=1790582003;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XL6pKrFrkkzHRuFW00rA0h4XTY4p2ooSEMR1SrVlXM0=;
-        b=tw7b4vOA8B7Pmc6riVNHAu3G4797vWYcyxbw92TlO6+vFm8HobSSQ0Tq4JIeKSI2vn
-         y2Lf58QrnahRWKjbr7VEjK3+efRfIEex+WtR6/+pAV1V1UHBzlLhSEqt3szA1OiOl5Qr
-         AV2c/Zu29JrzZbl3n6vvh53Fq4DMnfeMY26erRuiHMr9/XC8TWbKkkywYAt9izLMtM0k
-         kVf6DgZeGLMQBn4hjdMisTPsMm7XazL8LTwn3i9h6Urst856zMOxjXidSn12l7CFh9WF
-         fE9lvQj6v2AMoelNYFTO5fEpuBhvOc/nay2Z2/MpYGav/h/QUAtXeVB2WINIllkCJ5Y3
-         TzAA==
-X-Forwarded-Encrypted: i=1; AKwUvBywF59c39zY894HsyzbgBEDrU5SHcpTITsSPDSxdOOkNTUjE5TvAji431JLwgqjEdtkBB39hL99+mE7j44=@vger.kernel.org
-X-Gm-Message-State: AFuF++kReXzn2UQR4exqcxmdewTxG9uFdTxHtwTJBnrpCdQKQC17XXAS
-	z0KhdP144fjkwpJ6L1gSJaRGujdaAHcgSw0tVTfRNEe8aankVzzeuTPy
-X-Gm-Gg: AYBFou07xLCARpDjjmuGp6JMAG2OczSsZGOBShaAL9O6dI3K1Zfi4fQ0Q7HQ2Nw1Zkx
-	vZFMI0y/MriFM+SSwaLuVQDZ7HOz0rgMgi++n9uzXk3b7IJKNBAT1j7dbtTbmiZtKPczoyREweF
-	KnY6HCyVCrGodFrYLDHJ/LVK1/U+SnTbk4AHf2P7F1nbbCu/Ok+7IoqDfYCjjxZTXF6wx2PDZrW
-	gzNZ9AyG7dUl/t+mOIwLffQvMg+7p7/PtkxmaX+gz2Rt3UcM6OEStM6MvgVoXtXd06orcIFFTLg
-	sAJVTRe3dtA4Dl+Yttv9GH2U6uyaj/SN+CLsRhGoZscxRByFNNqi/Wq4RxA4a7qmozJFMdaBJ+2
-	9V5d4fL3LPu6HDKadgxkfQwZUOobcPDehlJmXTtGBFYkNwPAMNgNa+dhGO621rbOpeFOewR23HH
-	DBiP0zTlJOUPOVskp/Fm9uqy2X2YCiidKpSb6uSRpG9Gea4I3DD0j6cQ==
-X-Received: by 2002:a17:90b:17c5:b0:39d:ecc8:73b1 with SMTP id 98e67ed59e1d1-39e54df9c06mr20858242a91.7.1789977203496;
-        Mon, 21 Sep 2026 00:53:23 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6bd191aesm13132465a91.0.2026.09.21.00.53.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 00:53:23 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Bao Cheng Su <baocheng.su@siemens.com>,
-	Benedikt Niedermayr <benedikt.niedermayr@siemens.com>,
-	Tobias Schaffner <tobias.schaffner@siemens.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Henning Schild <henning.schild@siemens.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] platform/x86: simatic-ipc: fix platform device leak on registration failure
-Date: Mon, 21 Sep 2026 15:53:12 +0800
-Message-ID: <20260921075312.120983-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oPekytlN"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=32NrmXH9Vsmw2N1F2SLSyk8oTsLvpCiP90z+KAgZXFM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789977203; v=1; x=1790582003;
+ b=oPekytlNXG9Z5ueRHgUmz25qKzIRQi1UU96C+Cr4dyinP6DSJzTEmocfyCThtf3skn8QUJ1V
+ QTyf+uHvkg0Tf9dCYnGzaStdN16/1+da4x7zV4w/LKNJgCz8RVxmVnNvBVKo7/zhmAonteWWd+/
+ sst/biBDnhyEw163f+5PabKA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 00947d7dc7e59382;
+	Mon, 21 Sep 2026 07:53:13 +0000
+X-Mizu-Trace-ID: 00947d7dc7e59382
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <1d135368-6b2c-443c-a946-45f0be2040fb@linux.dev>
+Date: Mon, 21 Sep 2026 15:53:08 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@linux.dev, Ulf Hansson <ulfh@kernel.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ =?UTF-8?B?6ZmI5paH6LaFIChXZW5jaGFvIENoZW4p?= <Wenchao.Chen@unisoc.com>,
+ =?UTF-8?B?5byg5aaC5rOJIChSYWluIFpoYW5nKQ==?= <Rain.Zhang@unisoc.com>,
+ =?UTF-8?B?5ZSQ5pyI5p6XIChZdWVsaW4gVGFuZyk=?= <yuelin.tang@unisoc.com>,
+ "cixi.geng@linux.dev" <cixi.geng@linux.dev>,
+ Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Subject: Re: [PATCH v2] mmc: core: Optimize polling delay in
+ __mmc_poll_for_busy()
+To: =?UTF-8?B?5p2O5pmT5rSBIChYaWFvamllIExpLzEzMjMzKQ==?=
+ <xiaojie.li2@unisoc.com>
+References: <308e39324361468db136bb14a22f422b@zeshmbx09.spreadtrum.com>
+From: Shawn Lin <shawn.lin@linux.dev>
+In-Reply-To: <308e39324361468db136bb14a22f422b@zeshmbx09.spreadtrum.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-register_platform_devices() creates multiple platform devices using
-platform_device_register_data(), but returns directly when a later
-platform device registration fails.
+On 2026/09/20 Sun 13:40, 李晓洁 (Xiaojie Li/13233) wrote:
+>> No, that's the whole point. We don't want open coded polling loops, it's just a nightmare to maintain. Please try to extend the existing
+>> __mmc_poll_for_busy() instead.
+> 
+> Hi Uffe,
+> 
+> Following your suggestion to extend __mmc_poll_for_busy() instead of using open-coded polling loops, here is the proposed optimization.
+> 
+> In our actual testing, we found that setting udelay_max = 8000 (8ms) is more time-efficient than udelay_max = 10000 (10ms).
+> For CMD1 (SEND_OP_COND), the polling intervals are 4ms, 6ms, and 8ms, capped at a maximum of 8ms.
+> Attached are the recorded per-boot phase latencies for udelay_max=8000 (8ms) and udelay_max=10000 (10ms), with timestamps in seconds.
+> Please let me know if you cannot open the attachment, and I will resend it.
+> 
+> diff --git a/drivers/mmc/core/mmc_ops.c b/drivers/mmc/core/mmc_ops.c
 
-If LED or watchdog platform device registration fails, previously
-registered platform devices are left registered. Since module init
-failure does not invoke the module exit cleanup path, these platform
-devices remain allocated and their backing platform_object memory is
-leaked.
+I think the CMD1-specific branch can be avoided altogether. The reason
+CMD1's tail latency is high is that __mmc_poll_for_busy() limits udelay
+to a maximum of 32768 and, more importantly, the sleep upper bound is
+udelay * 2.
 
-Unregister successfully created platform devices on registration failure
-paths to restore the missing cleanup.
+Would it be possible to parameterize the maximum delay instead? E.g.
 
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
+   int __mmc_poll_for_busy(host, period_us, udelay_max_us, timeout_ms, 
+cb, cb_data)
 
-Fixes: dd123e62bded ("platform/x86: simatic-ipc: add main driver for Siemens devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/platform/x86/siemens/simatic-ipc.c | 40 ++++++++++++++++++----
- 1 file changed, 34 insertions(+), 6 deletions(-)
+and limit both the backoff step and the sleep upper bound to
+udelay_max_us:
 
-diff --git a/drivers/platform/x86/siemens/simatic-ipc.c b/drivers/platform/x86/siemens/simatic-ipc.c
-index 7039874d8f11..9bf8b2d8248c 100644
---- a/drivers/platform/x86/siemens/simatic-ipc.c
-+++ b/drivers/platform/x86/siemens/simatic-ipc.c
-@@ -92,6 +92,7 @@ static int register_platform_devices(u32 station_id)
- 	u8 wdtmode = SIMATIC_IPC_DEVICE_NONE;
- 	u8 battmode = SIMATIC_IPC_DEVICE_NONE;
- 	char *pdevname;
-+	int ret;
- 	int i;
- 
- 	for (i = 0; i < ARRAY_SIZE(device_modes); i++) {
-@@ -118,8 +119,11 @@ static int register_platform_devices(u32 station_id)
- 			platform_device_register_data(NULL, pdevname,
- 				PLATFORM_DEVID_NONE, &platform_data,
- 				sizeof(struct simatic_ipc_platform));
--		if (IS_ERR(ipc_batt_platform_device))
--			return PTR_ERR(ipc_batt_platform_device);
-+		if (IS_ERR(ipc_batt_platform_device)) {
-+			ret = PTR_ERR(ipc_batt_platform_device);
-+			ipc_batt_platform_device = NULL;
-+			goto err_unregister;
-+		}
- 
- 		pr_debug("device=%s created\n",
- 			 ipc_batt_platform_device->name);
-@@ -139,8 +143,11 @@ static int register_platform_devices(u32 station_id)
- 				pdevname, PLATFORM_DEVID_NONE,
- 				&platform_data,
- 				sizeof(struct simatic_ipc_platform));
--		if (IS_ERR(ipc_led_platform_device))
--			return PTR_ERR(ipc_led_platform_device);
-+		if (IS_ERR(ipc_led_platform_device)) {
-+			ret = PTR_ERR(ipc_led_platform_device);
-+			ipc_led_platform_device = NULL;
-+			goto err_unregister;
-+		}
- 
- 		pr_debug("device=%s created\n",
- 			 ipc_led_platform_device->name);
-@@ -153,8 +160,11 @@ static int register_platform_devices(u32 station_id)
- 				KBUILD_MODNAME "_wdt", PLATFORM_DEVID_NONE,
- 				&platform_data,
- 				sizeof(struct simatic_ipc_platform));
--		if (IS_ERR(ipc_wdt_platform_device))
--			return PTR_ERR(ipc_wdt_platform_device);
-+		if (IS_ERR(ipc_wdt_platform_device)) {
-+			ret = PTR_ERR(ipc_wdt_platform_device);
-+			ipc_wdt_platform_device = NULL;
-+			goto err_unregister;
-+		}
- 
- 		pr_debug("device=%s created\n",
- 			 ipc_wdt_platform_device->name);
-@@ -169,6 +179,24 @@ static int register_platform_devices(u32 station_id)
- 	}
- 
- 	return 0;
-+
-+err_unregister:
-+	if (ipc_wdt_platform_device) {
-+		platform_device_unregister(ipc_wdt_platform_device);
-+		ipc_wdt_platform_device = NULL;
-+	}
-+
-+	if (ipc_led_platform_device) {
-+		platform_device_unregister(ipc_led_platform_device);
-+		ipc_led_platform_device = NULL;
-+	}
-+
-+	if (ipc_batt_platform_device) {
-+		platform_device_unregister(ipc_batt_platform_device);
-+		ipc_batt_platform_device = NULL;
-+	}
-+
-+	return ret;
- }
- 
- static void request_additional_modules(u32 station_id)
--- 
-2.43.0
+   unsigned int sleep_max = min(udelay * 2, udelay_max_us);
+   usleep_range(min(udelay, udelay_max_us), sleep_max);
+
+Then mmc_send_op_cond() passes its own maximum delay (8ms), while all
+other callers keep passing 32768 so their behaviour is unchanged. That
+is two lines of code, no busy_cb pointer comparison, and the tail bound
+(8ms) is actually tighter than the linear +2ms schedule (10ms).
+
+Could you try to see if the linear step is still needed once the sleep
+upper bound is limited to the maximum delay?
+
+
+> index a952cc8..9c4762c 100644
+> --- a/drivers/mmc/core/mmc_ops.c
+> +++ b/drivers/mmc/core/mmc_ops.c
+> @@ -539,9 +539,23 @@
+>   
+>   		/* Throttle the polling rate to avoid hogging the CPU. */
+>   		if (busy) {
+> -			usleep_range(udelay, udelay * 2);
+> -			if (udelay < udelay_max)
+> -				udelay *= 2;
+> +			/*
+> +			 * Special delay handling is required for mmc_send_op_cond;
+> +			 * otherwise, for slower memory particles, the time required to
+> +			 * wait for the status change will increase.
+> +			 */
+> +			if (busy_cb == __mmc_send_op_cond_cb) {
+> +				udelay_max = 8000;
+> +				usleep_range(udelay, udelay + 2000);
+> +				if (udelay < udelay_max)
+> +					udelay += 2000;
+> +				else
+> +					udelay = udelay_max;
+> +			} else {
+> +				usleep_range(udelay, udelay * 2);
+> +				if (udelay < udelay_max)
+> +					udelay *= 2;
+> +			}
+>   		}
+>   	} while (busy);
+> 
+> 
+> Best regards,
+> Xiaojie.Li
+> 
+> -----邮件原件-----
+> 发件人: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+> 发送时间: 2026年9月11日 23:47
+> 收件人: 李晓洁 (Xiaojie Li/13233) <xiaojie.li2@unisoc.com>
+> 抄送: Ulf Hansson <ulfh@kernel.org>; linux-mmc@vger.kernel.org; linux-kernel@vger.kernel.org; 陈文超 (Wenchao Chen) <Wenchao.Chen@unisoc.com>; 张如泉 (Rain Zhang) <Rain.Zhang@unisoc.com>; 唐月林 (Yuelin Tang) <yuelin.tang@unisoc.com>; cixi.geng@linux.dev
+> 主题: Re: [PATCH] mmc: core: Modify the CMD1 transmission interval
+> 
+> 
+> 注意: 这封邮件来自于外部。除非你确定邮件内容安全，否则不要点击任何链接和附件。
+> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you recognize the sender and know the content is safe.
+> 
+> 
+> 
+> On Fri, Sep 11, 2026 at 4:45 AM 李晓洁 (Xiaojie Li/13233) <xiaojie.li2@unisoc.com> wrote:
+>>
+>> Hi Uffe:
+>>          Thank you for your reply.
+>>          However, I noticed that __mmc_poll_for_busy() and mmc_poll_for_busy() are invoked either directly or indirectly by many other functions within the MMC driver.
+>> Modifying them directly could potentially introduce unintended side effects.
+>>
+>>          Would it be acceptable to implement a dedicated function specifically for CMD1? We could create a CMD1-specific variant based on the existing __mmc_poll_for_busy().
+>> This approach would significantly minimize the potential impact on the rest of the codebase.
+> 
+> No, that's the whole point. We don't want open coded polling loops, it's just a nightmare to maintain. Please try to extend the existing
+> __mmc_poll_for_busy() instead.
+> 
+> And next time, please don't top post.
+> 
+> [...]
+> 
+> Kind regards
+> Uffe
 
