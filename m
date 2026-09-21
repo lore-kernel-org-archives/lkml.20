@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E13662494D8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1236246783;
 	Mon, 21 Sep 2026 00:26:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789950403; cv=none; b=exFsPF3V99S+o9brcDDA+oFPrUWNDLAl9zrkdoZm3T0NNv8DomriuBL7oo2xj4Nqec5lDeoUbCfUeA7PJDfj4bdGjJ4cXh3E42+7qX9b2501AtzcGHIE060OvFMqO0377Q30TRuOhAwi6OI2xvp/F+7nuhWZNx1Cbwh+GzCEAqI=
+	t=1789950403; cv=none; b=ptXLls9JYph500a80ihuemFcLCDDcyy1xkzmYCks1UaDxLXRd5qf6Nmnr13nG0w0ILwRjyH2b6zJP+YnRqwIMCUn3scrlHttb6Gkq2R/CboY82aaLLd7D4TDNKebUY03BRzrVje3avvUFePMcfiBT8dmDckyo+LiOFmB6UPf+xM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789950403; c=relaxed/simple;
-	bh=dNUT0kDT3b3XLAmEsoO2sAzFA0JRGU+rhWu+Hm0JxlI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OxlkN5Sr1cZQ6Go0te7vZNdRXdQLSa/WB+65SDqWAWj4nfRs4y9jdCC9HUX2GHOzBtc8UEHEk7VjirpVe1xJ5DY/WkNXm2SWgJoXGwXYjHpbD2O8nIAr6yNJrffffUalM2bQVDtRQKMGsTVGDZsM59cA7jpv6u5RWtd5UrRonQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BsFjUt4r; arc=none smtp.client-ip=10.30.226.201
+	bh=XcuXphc1NoAzr+3izm2WNxf/h73O4syl9fen+5x9GFE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Ly7ZQXcriGxW/vZ2jmcHFIkWWuKg4r2ZDc6h0Nnuvg4AlxA8G/hBEZEFIzQ9smfnZvQvlwGruH+8oo9+/GG0kfmCCqQJoGRliQ+RRHzrInimMjXBgk6Hqw5tkXGgJWzXP64GdYthKkpEpcJlog+b0J8cNEFVghhaweSOUpFsVYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KOVbqPvq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BsFjUt4r"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 65756C2BCB3;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KOVbqPvq"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 940D9C2BCFB;
 	Mon, 21 Sep 2026 00:26:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789950402;
-	bh=dNUT0kDT3b3XLAmEsoO2sAzFA0JRGU+rhWu+Hm0JxlI=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=BsFjUt4rJiAAjBOfoJWNq1Xz33RmTpRwneWpqr+R5mX426Lb0bTC3wE0hEdVroAGX
-	 vr07BxeW9tQJbzDSN/XPWh5EzwZUL8ANB/1uVxTZQ7oSXTJHtYQQijZx4kfx4dJuTS
-	 Ct4kqfOLG2UMPmy+fuNP1UwjbHAHYJ66Hyiy3oiS1qechHCArKxl3CePmfi1ieyrbb
-	 dKmATXbFuUvkVBd1D9OLm2515SVrbzrpZeySy94TDW7fJyDUthhlGN4oDcEgNH3j9W
-	 xKWEndynmus+NER7l0YWp+Wcn/bWBuWC9ZgTBf6QKfRIH/Ua5aTD4eO4zMfqXQUl9W
-	 L1DmSZrqecpUA==
+	bh=XcuXphc1NoAzr+3izm2WNxf/h73O4syl9fen+5x9GFE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=KOVbqPvq1vBXyqbdqs7PpMq3ThwcQmdWEHSE9qT9JCf56vNzh5yEdjEc7LfkRAgWF
+	 42wc63sz0Z+ST45zGZFrC8F5cmrLG43LQDzn4oOJycnHz69ocswtX7eAQrL2zOhcCy
+	 qQIDeDbnQX6JVSho6Qlrlitqtvhdbcwy9c/ig4slRzWlfK/F3QVSnOQiZ5lsi2XWVJ
+	 Wny75Z8fE6VAAtw28nuXBSGPUtWH/i+8DqT1Xfj40dxYozXx8hopZbiZG3f3EPiN5p
+	 X6v1DD7BfCVxGSS1jP9YssKxe43O33ZNO2CmoonxgVd1U3y3mDhSfgi/MoYq6gc37u
+	 j2EMGdy32Pqlg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5273CC982E1;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 81FC6C982EE;
 	Mon, 21 Sep 2026 00:26:42 +0000 (UTC)
 From: Nicolo Giuliani via B4 Relay <devnull+nicolo.giuliani6.studio.unibo.it@kernel.org>
-Subject: [PATCH v2 0/3] arm64: dts: marvell: Add Sophos XGS 107w NPU
-Date: Mon, 21 Sep 2026 02:26:40 +0200
-Message-Id: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
+Date: Mon, 21 Sep 2026 02:26:43 +0200
+Subject: [PATCH v2 3/3] arm64: dts: marvell: Add Sophos XGS 107w NPU board
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,25 +40,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAMB5sGoC/2WNQQ6CMBBFr0JmbUlboIgr72FYUDrIuGhJpxAN4
- e4CLl2+5P33V2CMhAy3bIWICzEFv4O+ZNCPnX+iILczaKmNbFQjGL0TLgljrZPXrqyl07DbU8S
- B3mfp0f6YZ/vCPh3zwxiJU4if82pRh/dfXZSQojCVUVVXlzgUd06zo5DPnmzIKUG7bdsXFNAr9
- 7YAAAA=
-X-Change-ID: 20260919-send-dt-6bbd08a470d2
+Message-Id: <20260921-send-dt-v2-3-fb6b81002ad7@studio.unibo.it>
+References: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
+In-Reply-To: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
  Gregory Clement <gregory.clement@bootlin.com>, 
  Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, 
- Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789950400; l=2526;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789950401; l=5800;
  i=nicolo.giuliani6@studio.unibo.it; s=20260919; h=from:subject:message-id;
- bh=dNUT0kDT3b3XLAmEsoO2sAzFA0JRGU+rhWu+Hm0JxlI=;
- b=jCcYMwDRL4FfG3CYkYSLcVQ165SHglPXqLKfLrqsX6uIdWB4yp8CmD5dYyhykI8Uv4NHYLPjG
- AhWGnt9VltsB2wKq0nxYpBAgb9pb3rLO7ne9Ux0GPuB1fqMZoqj7pD+
+ bh=8wZTzfWWfxJCcfQhfgPWj+G5wLPzig9U9sVX6n8unng=;
+ b=jikZ4TlVOrU/oqutu3YHm0CZ1r9460ZPVE66bWr3bSskobA8LRZJN4NPV3CRfRtuucJkd4C9n
+ DnWWhORYFGnD4dYHCg+OdFNdfU9wu74yPg24S2fYvRkVgu7ruj/HC/b
 X-Developer-Key: i=nicolo.giuliani6@studio.unibo.it; a=ed25519;
  pk=D652ecdT01GkA1eoFWNFNX85xIg5ZnFwUWyjfestgQw=
 X-Endpoint-Received: by B4 Relay for
@@ -66,59 +63,246 @@ X-Endpoint-Received: by B4 Relay for
 X-Original-From: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
 Reply-To: nicolo.giuliani6@studio.unibo.it
 
-The Sophos XGS 87/107 desktop firewalls pair an AMD x86 host with a
-separate network processing unit (NPU): a Marvell Armada CN9130 SoC with
-its own eMMC and SPI NOR flash. The NPU serves the eight RJ45 ports and
-the SFP cage through a Marvell 88E6193X switch on its MDIO bus, which is
-connected to the SoC by a 10GBASE-R link, and reaches the x86 host over
-PCIe.
+From: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
 
-This series adds the Sophos vendor prefix, the compatible string of the
-NPU board and a device tree that describes the NPU as a standalone system:
-UART console, eMMC, SPI NOR flash, the SFP cage and the switch with its
-ports. The port LEDs, the USB ports and the PCIe link to the x86 host (the
-CN9130 acts as a PCIe endpoint towards it, which needs endpoint support
-that is not part of this series) are not described.
+Add a device tree for the network processing unit (NPU) of the Sophos
+XGS 87/107 desktop firewalls. The appliance pairs an AMD x86 host with the
+NPU, a Marvell Armada CN9130 SoC with its own eMMC and SPI NOR flash that
+runs independently of the host and serves the front panel ports.
+
+The eight RJ45 ports and the SFP cage are connected through a Marvell
+88E6193X switch on the MDIO bus of the SoC, at address 2. Switch port 0
+is the CPU port, a 10GBASE-R link to the first mvpp2 port. Ports 1 to 8
+are the RJ45 ports, which use the internal PHYs of the switch, and
+port 9 is the SFP cage, connected over 1000BASE-X.
+
+Describe the UART console, the eMMC, the SPI NOR flash that holds the boot
+loader and its environment (read-only), the SFP cage and the switch with
+its ports. The port LEDs, the PCIe link to the x86 host and the USB ports
+are not described.
+
+The switch is reset through CP GPIO2 pin 17.
 
 Tested on an XGS 107w with Linux 6.18: boot from eMMC, eMMC and SPI NOR
 access, the mvpp2 link to the switch at 10 Gb/s, the 88E6193X probing with
-its eight user ports, and 936 Mbit/s through a front port. The SFP cage
-is untested.
+its eight user ports, and 936 Mbit/s through a front port. The SFP cage is
+untested.
 
-dt_binding_check passes for vendor-prefixes.yaml and armada-7k-8k.yaml,
-and CHECK_DTBS=y on marvell/cn9130-sophos-xgs107w.dtb reports no warning
-specific to this board.
-
-Based on the mvebu/dt branch of the mvebu tree (008e9faade).
-
+Assisted-by: LLM
 Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
 ---
-Changes in v2:
-- Patch 1: drop the second sentence of the commit message, add Acked-by
-- Patch 2: move the entry before the SolidRun ones and list only
-  marvell,cn9130 after the board compatible, as the other CN9130 boards do
-- Patch 3: use the compatible list of patch 2; pass the switch reset as
-  reset-gpios and drop the boot loader workaround; remove the LED
-  expander node and the SFP address comment
-- Link to v1: https://patch.msgid.link/20260919-send-dt-v1-0-365615a74ef3@studio.unibo.it
-
----
-Nicolo Giuliani (3):
-      dt-bindings: vendor-prefixes: Add Sophos
-      dt-bindings: arm: marvell: Add Sophos XGS 107w NPU
-      arm64: dts: marvell: Add Sophos XGS 107w NPU board
-
- .../bindings/arm/marvell/armada-7k-8k.yaml         |   7 +
- .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
  arch/arm64/boot/dts/marvell/Makefile               |   1 +
  .../boot/dts/marvell/cn9130-sophos-xgs107w.dts     | 188 +++++++++++++++++++++
- 4 files changed, 198 insertions(+)
----
-base-commit: 008e9faadef8c0aaa9b8a3ff05a2126e3c5b08b7
-change-id: 20260919-send-dt-6bbd08a470d2
+ 2 files changed, 189 insertions(+)
 
-Best regards,
---  
-Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+diff --git a/arch/arm64/boot/dts/marvell/Makefile b/arch/arm64/boot/dts/marvell/Makefile
+index 09d1544041..3e301c8265 100644
+--- a/arch/arm64/boot/dts/marvell/Makefile
++++ b/arch/arm64/boot/dts/marvell/Makefile
+@@ -32,6 +32,7 @@ dtb-$(CONFIG_ARCH_MVEBU) += ac5x-rd-carrier-cn9131.dtb
+ dtb-$(CONFIG_ARCH_MVEBU) += ac5-98dx35xx-rd.dtb
+ dtb-$(CONFIG_ARCH_MVEBU) += cn9130-cf-base.dtb
+ dtb-$(CONFIG_ARCH_MVEBU) += cn9130-cf-pro.dtb
++dtb-$(CONFIG_ARCH_MVEBU) += cn9130-sophos-xgs107w.dtb
+ dtb-$(CONFIG_ARCH_MVEBU) += cn9131-cf-solidwan.dtb
+ dtb-$(CONFIG_ARCH_MVEBU) += cn9132-clearfog.dtb
+ 
+diff --git a/arch/arm64/boot/dts/marvell/cn9130-sophos-xgs107w.dts b/arch/arm64/boot/dts/marvell/cn9130-sophos-xgs107w.dts
+new file mode 100644
+index 0000000000..da6a1da1cc
+--- /dev/null
++++ b/arch/arm64/boot/dts/marvell/cn9130-sophos-xgs107w.dts
+@@ -0,0 +1,188 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Device tree for the network processing unit (NPU) of the Sophos XGS 87/107
++ * firewalls: a Marvell CN9130 SoC with a Marvell 88E6193X switch.
++ *
++ * The x86 host on the same board is not described here.
++ */
++
++/dts-v1/;
++
++#include "cn9130.dtsi"
++#include <dt-bindings/gpio/gpio.h>
++
++/ {
++	model = "Sophos XGS 107w (CN9130 NPU)";
++	compatible = "sophos,xgs107w-npu", "marvell,cn9130";
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++
++	aliases {
++		ethernet0 = &cp0_eth0;
++		i2c1 = &cp0_i2c1;
++	};
++
++	memory@0 {
++		device_type = "memory";
++		reg = <0x0 0x0 0x0 0x80000000>;
++	};
++
++	reserved-memory {
++		/* OP-TEE, reserved by the firmware */
++		tee@4400000 {
++			reg = <0x0 0x4400000 0x0 0x1000000>;
++			no-map;
++		};
++	};
++
++	/* Front-panel SFP cage "F1", wired to switch port 9 */
++	sfp: sfp {
++		compatible = "sff,sfp";
++		i2c-bus = <&cp0_i2c1>;
++		los-gpios = <&cp0_gpio1 1 GPIO_ACTIVE_HIGH>;
++		tx-fault-gpios = <&cp0_gpio1 2 GPIO_ACTIVE_HIGH>;
++		mod-def0-gpios = <&cp0_gpio1 3 GPIO_ACTIVE_LOW>;
++		tx-disable-gpios = <&cp0_gpio1 7 GPIO_ACTIVE_HIGH>;
++	};
++};
++
++&uart0 {
++	status = "okay";
++};
++
++/* eMMC on the AP */
++&ap_sdhci0 {
++	bus-width = <8>;
++	non-removable;
++	mmc-ddr-1_8v;
++	status = "okay";
++};
++
++/*
++ * The MPP pin muxing is left as configured by the boot loader; the pin
++ * controller node only exists to back the GPIO banks.
++ */
++&cp0_syscon0 {
++	cp0_pinctrl: pinctrl {
++		compatible = "marvell,cp115-standalone-pinctrl";
++	};
++};
++
++&cp0_i2c1 {
++	/* I2C bus of the SFP cage */
++	clock-frequency = <100000>;
++	status = "okay";
++};
++
++/* 4 MB SPI NOR with U-Boot and its environment, read-only on purpose */
++&cp0_spi0 {
++	status = "okay";
++
++	flash@0 {
++		compatible = "jedec,spi-nor";
++		reg = <0>;
++		spi-max-frequency = <40000000>;
++
++		partitions {
++			compatible = "fixed-partitions";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			partition@0 {
++				label = "u-boot";
++				reg = <0x0 0x3f0000>;
++				read-only;
++			};
++
++			partition@3f0000 {
++				label = "u-boot-env";
++				reg = <0x3f0000 0x10000>;
++				read-only;
++			};
++		};
++	};
++};
++
++&cp0_ethernet {
++	status = "okay";
++};
++
++/* 10G link to switch port 0 */
++&cp0_eth0 {
++	phy-mode = "10gbase-r";
++	phys = <&cp0_comphy4 0>;
++	managed = "in-band-status";
++	status = "okay";
++};
++
++&cp0_mdio {
++	status = "okay";
++
++	switch@2 {
++		compatible = "marvell,mv88e6190";
++		reg = <2>;
++		reset-gpios = <&cp0_gpio2 17 GPIO_ACTIVE_LOW>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				ethernet = <&cp0_eth0>;
++				phy-mode = "10gbase-r";
++				managed = "in-band-status";
++			};
++
++			port@1 {
++				reg = <1>;
++				label = "p1";
++			};
++
++			port@2 {
++				reg = <2>;
++				label = "p2";
++			};
++
++			port@3 {
++				reg = <3>;
++				label = "p3";
++			};
++
++			port@4 {
++				reg = <4>;
++				label = "p4";
++			};
++
++			port@5 {
++				reg = <5>;
++				label = "p5";
++			};
++
++			port@6 {
++				reg = <6>;
++				label = "p6";
++			};
++
++			port@7 {
++				reg = <7>;
++				label = "p7";
++			};
++
++			port@8 {
++				reg = <8>;
++				label = "p8";
++			};
++
++			port@9 {
++				reg = <9>;
++				label = "sfp";
++				phy-mode = "1000base-x";
++				managed = "in-band-status";
++				sfp = <&sfp>;
++			};
++		};
++	};
++};
+
+-- 
+2.48.1
 
 
