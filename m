@@ -1,231 +1,168 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012018.outbound.protection.outlook.com [40.107.200.18])
+Received: from mail-m12784.qiye.163.com (mail-m12784.qiye.163.com [115.236.127.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AEB72C11D9;
-	Mon, 21 Sep 2026 06:40:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789972821; cv=fail; b=Al07sVLJCKEZLE7Jo83Gg1K55c+XHuhVJXvNZDWpmpcGdvjApRSqJf5LunCdJ0prYFSzf5J0gqF4hLxJoyal2c6/Lopbeg1l71zdJJqxc7VUIRHFBVjRIFQMrtbXU+zW+48sWTj4fCzzgWKBcAInfeFk2+teBuJcd0Oit/mUomc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789972821; c=relaxed/simple;
-	bh=dITOFR7PDdhNNdYMkUQ7K+qP92Mwp90+Hp0cmoTJUEs=;
-	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=aUSHWg/brKu0BJN5eav4rahvU+3+jG9hsnoX59z6oMPc7EKn8EzAlEKcf6QC6f39sa3Xq79g5u0jtW0YtQvX5/rlGDf9/09CJ9eAUcX++1UVl5Pd6svQ5GDeiKUvZJXHpRXQuhu9fnFEZkNNacfqy9coeS3djjAto+2WbCPcIqk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=Y4CPi8mp; arc=fail smtp.client-ip=40.107.200.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938B5371043;
+	Mon, 21 Sep 2026 06:40:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.84
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789972828; cv=none; b=TMTUZOHAHWKtlGHdAtg0JSccLLhwkrl8YKJCS3lCccqg3Q5NpfkKnRr6qF65s3GtL6ntJNECBFNDH587i9z9xLMgR6e0mSv9lDAdcBwmfae8AK4R5MM6KzEGZnnRyKsqo9fFvFmGli9PpRWQU5xrjIi9eUBHQU4lJUXX4Hs8o/E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789972828; c=relaxed/simple;
+	bh=zogB3eIaVFO5Hr0oK5SvadmLRtsVFE2O34heUjlZQ/c=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Pg4yGT+GR2MdTakO4KG7FTxHGxxtobPWrlujkIBr+XwGLzL1jQAcLybiDyaOVuhNEc8JK+oKJsG6Wc9c0SrKka+4JT+KfDdAFOJC543ZKnaYfg5NniP7VsV6vfPmrqsWI68PO/z26SAcKcx+jCrF1GoRHT2POILHNx/av9YSXJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=ZHOwku2D; arc=none smtp.client-ip=115.236.127.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="Y4CPi8mp"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M7izwJbRPSD8huCqTho9DpoaQ3e+nHyrmPoGDDuGQ0lH0XecmRCQOkjCa/mdRfO0ZSCHka5Gk7UcTBWFeUgYF92X+ZfzjlNQuv/PVeqq4IHUtvIZj0HhbwXSeOgRhJtf1A9yzEHBnOl0oHTgUnt2Z+79FqDz1xn0XGq26eWfhQuYJs9Elt+svyyWTmNLI5qcGRLVoSlH1Q6qUWVD7oC4GHPLbVHTKsJVrljvvBCbJDFScSpwLdfUAv37QkVeo6AjipC208/nkdYn2Lb2yZx6tNll614wxxPvu6T+WsxHOUUVmAA2c+ImNqBd4zqaCXXBKuvGFGcmz+7IoF6y7O6xHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R6kySTsP8vV9/dxK8KPEdvHotJRta/vYzUtrr4a4PgI=;
- b=GqWpUQVot0E7dmGdlSHsAm1blKPKHJMq3VfOA757rrpEG8cobOxmyMtn5vkb+cWTdpkvcANh7SBx1YIlgEoV+LbVSUSmWoJFuPFLxKyQ3UHsAjBQ/kKdy8WabcnbqZ8dl4NXuOKR2KVAt9OLB8j8lcw6gdr/sBwey975X2v+QA25y/Y7WYjNTCiREQeHLDjBNWc3ADSlP06uaW7XNBulh3Fv4ZSb8ORLw/wLzCMsiuwnx7CB4kyQvIQH3gYFopvQCWCWxuGQwgykHicTvUadqHDseeGJMU8XEXlyj2eq5t4/O8BPV6MxKhXLPWVKIf77P13cSah3+8xpNDvbVtq3Bw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R6kySTsP8vV9/dxK8KPEdvHotJRta/vYzUtrr4a4PgI=;
- b=Y4CPi8mpLaSnEh3yrS3kwbMwzj3l7OeuYh14A0JtajgUPKusfDTwCezociMC24yRt6WYsRDD0ZOx7vrJaZCtCR6+rt4x6Qmhp6U9UwXx9YzOhJO4qmF4cKpRRDPtzQQF7UatNbicj+0wF2YjNBqUyEAHYES2zX4aSyXWtP/ekXBl7qPw3OTfBaB/XGUY1AATfdfuUO+2lrsgQz1Iy/YgUdebIfPRNgOkatQNv8NI7PC0+RcBgSJIlGnX1t5ftbXvJIZIuG/eC46YCDdNQdYytN5XwgipLwt0rNTgptvB4au1cAG7xBSrEIH7e6rLmbg/xp/2Ef12eYCwzVCG6ynCDg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from SJ0PR03MB5950.namprd03.prod.outlook.com (2603:10b6:a03:2d3::20)
- by DS7PR03MB5381.namprd03.prod.outlook.com (2603:10b6:5:2c2::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 06:40:17 +0000
-Received: from SJ0PR03MB5950.namprd03.prod.outlook.com
- ([fe80::53a0:bf93:6b6b:de01]) by SJ0PR03MB5950.namprd03.prod.outlook.com
- ([fe80::53a0:bf93:6b6b:de01%5]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 06:40:17 +0000
-Message-ID: <a7641b0d-ff7e-451f-834b-23514e6789fd@altera.com>
-Date: Mon, 21 Sep 2026 14:40:11 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: Fw: [PATCH v3 0/4] stratix10: Add Interrupt support for
- asynchronous communication with SDM
-To: Dinh Nguyen <dinguyen@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Mahesh Rao <mahesh.rao@altera.com>,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <cover.1786600929.git.tze.yee.ng@altera.com>
- <SJ0PR03MB5950C6799C40C5724B048197A1842@SJ0PR03MB5950.namprd03.prod.outlook.com>
-Content-Language: en-US
-From: "NG, TZE YEE" <tze.yee.ng@altera.com>
-In-Reply-To: <SJ0PR03MB5950C6799C40C5724B048197A1842@SJ0PR03MB5950.namprd03.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI2PR01CA0022.apcprd01.prod.exchangelabs.com
- (2603:1096:4:192::14) To SJ0PR03MB5950.namprd03.prod.outlook.com
- (2603:10b6:a03:2d3::20)
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="ZHOwku2D"
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4e87d7a93;
+	Mon, 21 Sep 2026 14:34:59 +0800 (GMT+08:00)
+Message-ID: <96882735-091f-49c6-a47b-5da8be711818@rock-chips.com>
+Date: Mon, 21 Sep 2026 14:34:57 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|DS7PR03MB5381:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa92de36-18f7-401f-96a7-08df17ab32c2
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|13003099007|11063799006|5023799004|6133799003|4133799003|10067099003|4143699003|56012099006|55112099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	VHxK/M86LSAd5qLlCwIaWZ3VkmRF6onnF478NfuMN0/AEvFEU3dmgGaL8totlKEn510mGQHA6XhdciZWKxDQR/HVcAvp6A9hgO12vH69s784JnjeKpH8AZyAcL8X4PwDg2xuK0SALYsmyGR3zdXivOqEK+uu8p5jfOUVIrk0PVWcqalq/OgP/ORqLziBLmcJlT6ShDRsrgG4jVS2TB5REL8vmuT7s9b6j8X2WHuzYqXzAJogxAUzjuGAvBMwqmwZwYqfJ3tfGoUHV+DCG6zqFa2P0lAO+jzPcDlbr2dm4BTauR5wXKRGXT8GaJcRpDZ0RIrKVcdAsLdNhBaa1UokNPMalSt8WKvsaiZMHa+0r0SgEM+ANcpqMdBkLJ7td/hAga66yhBItkqtC0d6U5pqIQTMUai3FK24FP0tWnlGhhqHe2oFREu/8LjNEoQu5S85oNGBatpuxMUGAZ5FbR+cya36W9LEblPiuVbpjyDnXunaHzb2IuFClYa+MKBpSR+hRqNhWmyXqOcOglZ9JnGb5kcBtZ28iKTicJvzx74H+pbaS+4RM0ogFcSOvKcHtAdOCKrJ0hpN3MfiXxfouC+H6xT8e+B74MWEBwa+kV/aUJ/dODZNajm4sqrjiJ2eAhV3
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(13003099007)(11063799006)(5023799004)(6133799003)(4133799003)(10067099003)(4143699003)(56012099006)(55112099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cjZCRngxZkp6VHFFblptQnpoZ3d5VnJVTEJjVnp2NXRvTWxQRlFQMXRMaDdz?=
- =?utf-8?B?ejBpamdVMU9veFdONlVkTkNyWmQvVFpzaE9VMDltSURsWTdkSy9qOFJmU1Ry?=
- =?utf-8?B?RkE2YitlTlVEbStNdHRZMHRTUXZZc0RXZFRKVnRNNENxY2QxNlBibDVOU01n?=
- =?utf-8?B?Y21jN0ZaRGpFeTJpY0RtRHl0Rm05MnNOTEhHenh1bjAxOEZjdFpYVjBKRjNo?=
- =?utf-8?B?c1VoU0t0RmxpZzlzTzcveVNsRUZuNkhiVTByVFZSSjZHSngxVkl3bHhORUZu?=
- =?utf-8?B?d0dmNFdCKy9INHNnWHZNVzI3VFY3NTF0MDlyVWlxZ1pscHEreXpISEwzemdT?=
- =?utf-8?B?cDBDN3U5REpoamVqMVhqRHNFVWpSdXp4RG5qNVNrZ2FjN3FDdTUrOWU1QnVF?=
- =?utf-8?B?SGRxbnZNdy90dzhJN1p6WGV0ZlBURFFOVk8yelNaQU43bmR1c2xLOUhkSWkz?=
- =?utf-8?B?L1pMeVd1Uko1MC9YR3ZOeUhGYUQ3emNubEdadXdMRStqbFdjV1NqRlFFMU9R?=
- =?utf-8?B?UHZRZ1hjMXZ2LzYrWGtsWEFjVGdJZldwcG10bkJZbElWRW9SUFltWm8wOUt2?=
- =?utf-8?B?MlBWU2hQbkJPNUxUemZtMEFXWkpWNUJHeVNHOVRIV0FVY3Nuejc0YzF1Y1JZ?=
- =?utf-8?B?b1hhRlZza1dCdTJKOXZzdmhYamptM216bTJWcXhCNnIrN0Y4TkdzWnMzNUxs?=
- =?utf-8?B?ai96NWdQY085YjlMQUpab1ZhVDkwbjJVYXNCeXd2N3ZtazcrOFZERHdpZFNG?=
- =?utf-8?B?TnRwbnBVRlMyck90UVdrRk4zQjFXVTF1aUlmcVNsYnI4a0wrQll3NFgvR00w?=
- =?utf-8?B?RUFlVnBhekRPQmhNRktkMlc1YUdLMmk0NXkrWlBBbHkveDBtMnQ4dFNDSTBI?=
- =?utf-8?B?ZUN4RlN1MTdkejZWeEJOa29IbVdVVFdVS01Nc01JU3ZXQTBOUG01OVBuTGtJ?=
- =?utf-8?B?MFBWak1CUHdTY05QRHhyeGo1cHd6YkY3L2JidTRRK1RheFEzc2ZRTUU1UGIr?=
- =?utf-8?B?UE55cFJyTDMxWkJFd3dnNE52U3R5RzhETzZlRUYwMTNRQ1gvNVlSVm1jR3Zu?=
- =?utf-8?B?T0JtK0ZpWFBJTjVVcGtDUDdRQnJHUmdYZ2tmMTlMZFIxNEpGczY3WWVqN2Rh?=
- =?utf-8?B?ak92WE0zWHludnNPeEpieXhCbkFGVFBaZCtOOVNPUzNuM1RKYzJ0TUltSWVE?=
- =?utf-8?B?MkxRanVPcmczMjZVQTFFY05SdkNGajNubGgyeHdXcmo3L2lZa1ZtWFVkSytr?=
- =?utf-8?B?RGU4UVYyblo4Z0thUGUxc0Nza0hGemRZMm4wMklNaXVnZWYzcTh5UjJrNTJY?=
- =?utf-8?B?V2htbkcvTjZwRmNtTWpRN2cvZkpYNWpYS0FUR2tjaVBVaFJxQ1JZemN1YTJa?=
- =?utf-8?B?eEFEWnF2L0xkKzFNbDhibFJ6Mjl3Z3hXRGVCV3B2RDlLTGtCb2ZHWVMyNVk0?=
- =?utf-8?B?WnY5anlSdEVKbEpqVWJEb0pJMnQ2aTNuQ0gwcUk5OGdqZmVtOXlWR2crRkIy?=
- =?utf-8?B?NU1RaTJCTmNJMEw2VEdOOWU4ZGtMVGJRbjVRZnVWTk9mbVdKRUVJR0FNeGF0?=
- =?utf-8?B?dHdXeXk5QkZ3NVdSYS9SblhienljSWtMQkdZd1lnNlllbWs0b1dWMHhUS0h6?=
- =?utf-8?B?N3JPRWdUMDFqc3cyWUNLbG5HbEtra2NCcFZrcmdhb3QwUVhrMjBIUkRXTVYz?=
- =?utf-8?B?MGd3ZHVIU1dkT2Zjb2k2WHZJVnIwS2JTTVlKT0hUdEF4ZGRMOXFNZXM1Qkl4?=
- =?utf-8?B?UTBkZHhDNFB6R3ZWQ0RSNVh1MDRrS09ab050Szk0bzYwRW9odE5hTGNBbHRZ?=
- =?utf-8?B?NE5YS2Y5NDhFbWQ0R00xODNwdGZtM2ZxTGQyQWFsWHRaVVVXL2E3MHMyenhv?=
- =?utf-8?B?ZXJDL2ZVSUo0RGhpY1FMZm5TZHRjOVl6cWUyemtmQ3B1dWdWay9JOVIvM0lT?=
- =?utf-8?B?YktCVmh1L256Wm9oWE1DRHpDUTdTWkZNT3dMTjQyeDdsWkdKMUVkaUZybHJ1?=
- =?utf-8?B?QTRDRWEyZEg4czR3dmVsVHNhbjFsck5Kc09XVTZISGxHeDNPcGd5bmQyL1dr?=
- =?utf-8?B?Y0o0UnhnQ1hVQXlrQTFvNlpyMWZnUlVDT1RPbGVGSEVIaHRxU012b0JjS3hD?=
- =?utf-8?B?N083U3lDTlg5Yy9aa05GTEpWMkszWEhEaGtYZlIyS2V0aDhXNlpCVm0waXJX?=
- =?utf-8?B?dmJHV2RzREhTbVJFa0xuREt0WFFJNzBPdGcvS1hBeHArc3QvU0FWRWNYWGRO?=
- =?utf-8?B?bCtObVVyUkoxQW8zTEVzWXBiT2FoN0pFYUI0Z3BzaDdzWlNEdWpSMXN0NVVO?=
- =?utf-8?B?NEFvY3JyVUtBVi9Zd0dRTy80Lyt0WFZoUlpQdERUMkFzL0tkdDl2QT09?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa92de36-18f7-401f-96a7-08df17ab32c2
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5950.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 06:40:17.0920
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: M9rlpr4eCWJP3XekakyyZvqYZnFHUJ7CdfQG8ad9BokIAz6YFMEBLY3C8ZomvJiOwHrNhi3YPyUenkOQjb4k4Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5381
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 19/19] drm/bridge: analogix_dp: don't create a
+ panel_bridge
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
+ Paul Kocialkowski <paulk@sys-base.io>, Linus Walleij <linusw@kernel.org>,
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, Sean Paul <sean@poorly.run>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: Albert Esteve <aesteve@redhat.com>, Anusha Srivatsa
+ <asrivats@redhat.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-mips@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, asahi@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>
+References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
+ <20260916-drm-bridge-every-panel-v3-19-83afb4f1a707@bootlin.com>
+ <975a4d45-9a61-4858-b498-8bc0a1e44746@rock-chips.com>
+Content-Language: en-US
+In-Reply-To: <975a4d45-9a61-4858-b498-8bc0a1e44746@rock-chips.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0c2acc9e403a8kunm657b9e77980220
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQx9KVh9PGB9MT0kfGB1ITFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQkxVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=ZHOwku2DSYkcme2HF6miD3tsHrohcDCgQN32pWRYnUFFJhMdcqTLpQQOBt1nASCVshzWCK1Rf2jUBn74aj5YAYiAlPuBMp3c1pQ2RZPJiSymLL/avNTAW5fYkrdsl8AUfIfftyZEjxzoezMDLxmwH2o4F6DAq4wXT1lyFhMzJFI=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=TrLtgz6x2U7PEO6IDlWwEQdJyY8ByiWJ0svyu3eBk3I=;
+	h=date:mime-version:subject:message-id:from;
 
-On 21/9/2026 2:37 pm, NG, TZE YEE wrote:
+On 9/21/2026 11:07 AM, Damon Ding wrote:
+> Hi Luca,
 > 
-> *From:* NG, TZE YEE
-> *Sent:* Thursday, August 13, 2026 2:35 PM
-> *To:* Dinh Nguyen <dinguyen@kernel.org>; Rob Herring <robh@kernel.org>; 
-> Krzysztof Kozlowski <krzk+dt@kernel.org>; Conor Dooley 
-> <conor+dt@kernel.org>; Rao, Mahesh <mahesh.rao@altera.com>; linux- 
-> kernel@vger.kernel.org <linux-kernel@vger.kernel.org>; 
-> devicetree@vger.kernel.org <devicetree@vger.kernel.org>
-> *Subject:* [PATCH v3 0/4] stratix10: Add Interrupt support for 
-> asynchronous communication with SDM
-> From: Tze Yee Ng <tze.yee.ng@altera.com>
+> On 9/16/2026 9:45 PM, Luca Ceresoli wrote:
+>> Now a panel_bridge is automatically created for every drm_panel and the
+>> panel-bridge API is just a deprecated wrapper to access it.
+>>
+>> Update and simplify the code by just getting a reference to the
+>> already-existing bridge using of_drm_get_bridge_by_endpoint().
+>>
+>> As of_drm_get_bridge_by_endpoint() returns a refcounted bridge, take care
+>> of putting the bridge reference. This is not easily done in the remove 
+>> path
+>> due to the different probe paths of the user drivers, so add a devm 
+>> action
+>> to ensure the reference is put only when it was taken.
+>>
+>> Assisted-by: opencode:deepseek-v4-flash-0731
+>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>> ---
+>>   drivers/gpu/drm/bridge/analogix/Kconfig            |  1 -
+>>   drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 40 ++++++++++++ 
+>> +---------
+>>   drivers/gpu/drm/exynos/exynos_dp.c                 | 36 + 
+>> +-----------------
+>>   drivers/gpu/drm/rockchip/analogix_dp-rockchip.c    |  9 -----
+>>   include/drm/bridge/analogix_dp.h                   |  1 -
+>>   5 files changed, 25 insertions(+), 62 deletions(-)
+>>
+
+[snip]
+
+>> @@ -488,14 +487,6 @@ static void rockchip_dp_remove(struct 
+>> platform_device *pdev)
+>>   {
+>>       struct rockchip_dp_device *dp = platform_get_drvdata(pdev);
+
+The above unused &rockchip_dp_device could be also remved.
+
+>> -    /*
+>> -     * Release the probe-time reference from of_drm_find_panel(). If 
+>> bind
+>> -     * ran, the panel_bridge holds a second reference that devm cleanup
+>> -     * will release when the bridge is destroyed after remove() returns.
+>> -     */
+>> -    if (dp->plat_data.panel)
+>> -        drm_panel_put(dp->plat_data.panel);
+>> -
+>>       component_del(&pdev->dev, &rockchip_dp_component_ops);
+>>   }
+>> diff --git a/include/drm/bridge/analogix_dp.h b/include/drm/bridge/ 
+>> analogix_dp.h
+>> index 0e0b87abee59..6033137b651e 100644
+>> --- a/include/drm/bridge/analogix_dp.h
+>> +++ b/include/drm/bridge/analogix_dp.h
+>> @@ -35,7 +35,6 @@ static inline bool analogix_dp_is_rockchip(enum 
+>> analogix_dp_devtype type)
+>>   struct analogix_dp_plat_data {
+>>       enum analogix_dp_devtype dev_type;
+>> -    struct drm_panel *panel;
+>>       struct drm_bridge *next_bridge;
+>>       struct drm_encoder *encoder;
+>>       struct drm_connector *connector;
+>>
 > 
-> This patch-set adds support for interrupt from Secure Device Manager (SDM)
-> to Stratix10 SoC for asynchronous communication.
+> I apply this patch series with the related one[0], and the eDP work well 
+> on my RK3576 board.
 > 
-> Following things are added in this patch-set:
-> - Add support for interrupt from SDM to Stratix10 SoC.
-> - Add documentation for SDM interrupt in Stratix10 SoC.
-> - Enable SDM interrupt in Stratix10 SoC.
-> - Enable SDM interrupt in Agilex SoC.
+> Tested-by: Damon Ding <damon.ding@rock-chips.com>
 > 
-> I am taking over this series from Mahesh Rao and posting v3 on his behalf.
-> Reference:
-> https://lore.kernel.org/r/20250812-sip_svc_irq- 
-> v2-0-53098e11705a@altera.com <https:// 
-> nam10.safelinks.protection.outlook.com/? 
-> url=https%3A%2F%2Flore.kernel.org%2Fr%2F20250812-sip_svc_irq- 
-> v2-0-53098e11705a%40altera.com&data=05%7C02%7Ctze.yee.ng%40altera.com%7Ceafe6fcdec264d130fd408df17aad714%7Cfbd72e03d4a54110adce614d51f2077a%7C0%7C0%7C639255694657134969%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=hOumheIvzlbZt1UApZy2F9CCpJFiH25iWSaYeCcdjKo%3D&reserved=0>
+> In my patch series for Analogix DP HPD support, Heiko also pointed out 
+> that devm_drm_of_get_bridge()(deprecated now) can be used to get the 
+> panel bridge directly, and the redundant &analogix_dp_plat_data.panel 
+> can be removed[1]. Since your patch series already contains these 
+> optimizations, I will rebase my patch series on top of yours for 
+> subsequent updates.
 > 
-> Changes in v3:
-> - Reflow commit message body to ~75 columns (fix Dinh's comment in v2
->    review)
-> - Add a newline before stratix10_async_workqueue_handler
->    description (fix Dinh's comment in v2 review)
-> - Treat of_irq_get() failure as irq <= 0, since 0 is also a
->    failing value (fix Dinh's comment in v2 review)
-> - Fix IRQ disable race: only call disable_irq_nosync() when
->    queue_work() newly queues work, and disable the fired irq
->    argument rather than actrl->irq
-> - Do not invoke client callbacks under trx_list_lock; copy
->    cb/cb_arg under the lock and call the callback after unlock
-> - Use disable_irq() + flush_work() + devm_free_irq() on
->    teardown, and treat unset IRQ as 0
-> - Demote successful IRQ registration log from dev_alert() to
->    dev_info(), and demote async poll failure log from
->    dev_err() to dev_dbg()
-> - Clarify INTEL_SIP_SMC_ASYNC_POLL_ON_IRQ kdoc to match
->    a1-a4 bitmap usage
-> - Drop Reviewed-by: Matthew Gerlach from all patches
->    (no longer at Altera)
-> - Link to RESEND v2:
-> https://lore.kernel.org/r/20250812-sip_svc_irq- 
-> v2-0-53098e11705a@altera.com <https:// 
-> nam10.safelinks.protection.outlook.com/? 
-> url=https%3A%2F%2Flore.kernel.org%2Fr%2F20250812-sip_svc_irq- 
-> v2-0-53098e11705a%40altera.com&data=05%7C02%7Ctze.yee.ng%40altera.com%7Ceafe6fcdec264d130fd408df17aad714%7Cfbd72e03d4a54110adce614d51f2077a%7C0%7C0%7C639255694657165509%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=uDzBqNLWQSLSTmXyM72mbyHy5JfchKhk9a6xhrFF5pc%3D&reserved=0>
+> Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
 > 
-> Changes in v2:
-> - Separated from the larger SIP SVC upstream series into a
->    dedicated interrupt-support series as requested
-> - Link to v1:
-> https://lore.kernel.org/r/20250722-sip_svc_irq-v1-0- 
-> c5b9e02c1ce6@altera.com <https:// 
-> nam10.safelinks.protection.outlook.com/? 
-> url=https%3A%2F%2Flore.kernel.org%2Fr%2F20250722-sip_svc_irq-v1-0- 
-> c5b9e02c1ce6%40altera.com&data=05%7C02%7Ctze.yee.ng%40altera.com%7Ceafe6fcdec264d130fd408df17aad714%7Cfbd72e03d4a54110adce614d51f2077a%7C0%7C0%7C639255694657185496%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=dSLMGTCQPtY6nHXWwKPeen2XIuPzs1vZ6NKBcMYVwEA%3D&reserved=0>
-> 
-> Mahesh Rao (4):
->    dt-bindings: firmware: Add interrupt specification for Intel Stratix
->      10 Service Layer.
->    dts: stratix10: Add support for SDM mailbox interrupt for Intel
->      Stratix10 SoC FPGA.
->    dts: agilex: Add support for SDM mailbox interrupt for Intel Agilex
->      SoC FPGA.
->    firmware: stratix10-svc: Add for SDM mailbox doorbell interrupt
-> 
->   .../firmware/intel,stratix10-svc.yaml         |  10 ++
->   .../boot/dts/altera/socfpga_stratix10.dtsi    |   4 +
->   arch/arm64/boot/dts/intel/socfpga_agilex.dtsi |   2 +
->   drivers/firmware/stratix10-svc.c              | 135 ++++++++++++++++--
->   include/linux/firmware/intel/stratix10-smc.h  |  21 +++
->   5 files changed, 161 insertions(+), 11 deletions(-)
-> 
-> -- 
-> 2.43.7
+> [0] https://lore.kernel.org/all/20260915-drm-bridge-drm_panel-cleanup- 
+> v4-0-30401d9406f3@bootlin.com/
+> [1] https://lore.kernel.org/all/5609825.iZASKD2KPV@diego/
 > 
 
-Hi,
-
-Gentle ping on this patch. It has been over a month with no feedback.
-
-Happy to address any review comments.
-
-Thanks,
-Tze Yee
+Best regards,
+Damon
 
