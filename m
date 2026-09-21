@@ -1,172 +1,96 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DBDB318146
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:13:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B6543DED7;
+	Mon, 21 Sep 2026 08:14:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789978387; cv=none; b=KAFEufUtTMwfLyrKZ0Uy6ioHnaUVQ5FTBDHPed8EjaR+eFUm8dudOWOkxskKj3Sh9dZnZynWO1akYlAGdNN/TpTz90NSZ4cs0GKTJ2mTz+Qamrb42Fblp18mmG1+W/cmTpcxrg8JMErzL6VGWGngP8GCnDRwhayDNLnG2iGSG0c=
+	t=1789978452; cv=none; b=prOZLD57Vipw08sBxAL9qALACG5OA05XIC1IA2TANyCJTTdNzKyWX1mbLePKonO4P7Xm8ABzTBBd3eOmN8s8dAIOa9GzXzFNPo9Tc4C1ZIYA1AxMn4wbFYYeqLULIajU7w3GGa2NYm/9spGM/KQ+CRXZ60P1BVeJtKplgOcLJr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789978387; c=relaxed/simple;
-	bh=aNU5dOHyjx3B0OrBqHU5wo7OpHA83xrF2NROUJpGXHA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qC346OJaEmmUdK2600kYMpEIN3zxbSSG3dACvA4teI5aeXP4v1X8y5bhwQa+sApp1bQ7056rfI7Z6grF8a1Qe2Jve1UCfVzcYudXEY9FqEbrh1afLmifsZr/sCrzp5GKM4W4vmU/cVrC+3KNMEAj0RXJQQNXnhaiHEJTdMQcmTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=wIjM55/r; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=GVBroZHa; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=G0y/1Jme; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=j71dVwbu; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789978452; c=relaxed/simple;
+	bh=l86fcK3hzGtcAhCB4Bph5mI/Y/C58kNNTjHtXO0F+DQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Og12WSdWM3/iUsvykuTeiC5t7VzArk2dyv1uyXYzSAdJvq0juyFlXpD+raSzVySHksIVoc79LXGNEXxydJ3uM6LRp+e6qAFL+0WmI3ucuX5TZSUMyIP+XkAeYE3TiEZOgm6K5CrVs15ecE/WOneIG7n+vIuYqhK7asCJP0qK0xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lv1Wwrl4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wIjM55/r";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="GVBroZHa";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="G0y/1Jme";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="j71dVwbu"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 2C0371F810;
-	Mon, 21 Sep 2026 08:12:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789978380; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eocv3+CyE8Q3Pw2FFGy3jXMj6dAV64/waqi6O7npLqY=;
-	b=wIjM55/rgO0dTHy41UbA/FYYX1vy+V3da5WhNJmSKpt3S0XT3E1mGbeAvCdMUP8jxBOsOp
-	7AZ6IbMTjhujHxKdhi32Y1wQqmCrSK2aCWA0WuMTbRaG2pn8liuhy/0uDwPsR+45lKCoZV
-	cS0iMwfEyebg3kNcEE5Fr7kMsRx1iFY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789978380;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eocv3+CyE8Q3Pw2FFGy3jXMj6dAV64/waqi6O7npLqY=;
-	b=GVBroZHab8IP+Eyzyg96gczapRXJMr3sr4ODGRaHyxvlbSnZkpaZ+HjGdCpS4nDfy8QMd7
-	chx/Vy8CRBGcP5Cw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="G0y/1Jme";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=j71dVwbu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789978376; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eocv3+CyE8Q3Pw2FFGy3jXMj6dAV64/waqi6O7npLqY=;
-	b=G0y/1JmeuhIEUtM3+kr+AYxjIduJ8hlesNZdxqCkva3Aqw3Ea3NkyX0hd3CfHeod0Qpwbl
-	wcTqpz2tRvyk0TTa+v1yGU4PfSotklcasyoCLo7kKbA+Wn6v4xpiD2uxGSEYCPyEq1Zod0
-	Zc79C+hqer4ORSz1EDRKGDPf9x5DkFM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789978376;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eocv3+CyE8Q3Pw2FFGy3jXMj6dAV64/waqi6O7npLqY=;
-	b=j71dVwbuFhvNPBJn4C+zExxs5XL1a1uf1kpROpFtaX0wq2mmpRUbFNQCNLnfKVb8ovL/9x
-	PEVY0CGROJkgvPDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8CB99139D0;
-	Mon, 21 Sep 2026 08:12:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 8C10FAfnsGo4IgAAD6G6ig
-	(envelope-from <hare@suse.de>); Mon, 21 Sep 2026 08:12:55 +0000
-Message-ID: <ad652a54-a1b4-4a47-91da-d1e6922904d2@suse.de>
-Date: Mon, 21 Sep 2026 10:12:54 +0200
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lv1Wwrl4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 105141F00893;
+	Mon, 21 Sep 2026 08:14:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789978450;
+	bh=QV2/QXe484Gw8p7XltnERZH+6cG8HTSHFECBhKmtXKc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lv1Wwrl4uTm0a4TZD1SB3DeteIWPupRg0iisUPbSxYynHo0rfVBmw6n+ttQroo2T6
+	 88juhH8uHCYZegj+pPVvmW3WrzOn5bWGxwAsYKq0laBIhKLRy3Oj7bbuAjrrxFoSuE
+	 XFD8O2kpyNbMi8indT59lJaZsaOSEOkeb6ZIOyBw=
+Date: Mon, 21 Sep 2026 10:13:59 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Park Tae-sun <ts930@dgu.ac.kr>
+Cc: Hans de Goede <hansg@kernel.org>, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: fix buffer overflow and OOB accesses
+ in rtw_check_beacon_data()
+Message-ID: <2026092127-rigid-anchovy-3aa3@gregkh>
+References: <20260921073730.83679-1-ts930@dgu.ac.kr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 18/18] nvme: let controller deletion wait out a fencing
- window
-To: Mohamed Khalfella <mkhalfella@purestorage.com>,
- Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
-Cc: Justin Tee <justin.tee@broadcom.com>,
- Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
- Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
- Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>,
- Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260918181614.3947933-1-mkhalfella@purestorage.com>
- <20260918181614.3947933-19-mkhalfella@purestorage.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20260918181614.3947933-19-mkhalfella@purestorage.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -4.51
-X-Rspamd-Queue-Id: 2C0371F810
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[broadcom.com,gmail.com,kernel.org,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,purestorage.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921073730.83679-1-ts930@dgu.ac.kr>
 
-On 9/18/26 8:14 PM, Mohamed Khalfella wrote:
-> DELETING is not reachable from FENCING or FENCED, so during a fencing
-> window nvme_delete_ctrl() fails with -EBUSY. Its callers assume
-> deleting a live controller cannot fail: a sysfs disconnect is silently
-> dropped after the delete_controller node is already gone, rdma device
-> removal returns with the controller still holding resources on the
-> outgoing device, and module unload leaks live controllers.
+On Mon, Sep 21, 2026 at 04:37:30PM +0900, Park Tae-sun wrote:
+> In rtw_check_beacon_data(), the Information Element (IE) parsing logic
+> has boundary validation issues and search window calculations that can
+> lead to out-of-bounds accesses:
 > 
-> Fencing is time-bounded and always ends in a state that allows
-> deletion. Add nvme_delete_ctrl_wait(), which waits on ctrl->state_wq
-> for the fencing window to end and retries, and use it in the tcp/rdma
-> module exit paths and rdma device removal. Make nvme_delete_ctrl_sync()
-> wait the same way so a sysfs disconnect during fencing is delayed
-> instead of dropped.
+> First, IEEE 802.11 beacon frames contain 12 bytes of fixed parameters
+> (Timestamp, Beacon Interval, Capability Info) before variable IEs start
+> at _BEACON_IE_OFFSET_ (12). The function checks len < 0, but if len is
+> smaller than _BEACON_IE_OFFSET_, (pbss_network->ie_length -
+> _BEACON_IE_OFFSET_) underflows on the u32 field, and reading the beacon
+> interval at offset 8 via rtw_get_beacon_interval_from_ie() accesses
+> out-of-bounds data if len < 10.
 > 
-> nvme-fc's remoteport unregister with dev_loss_tmo == 0 keeps the
-> non-waiting call since it runs under rport->lock; it does not need to
-> wait, as dev_loss_end has already expired and the reconnect path
-> deletes the controller once fencing completes.
+> Second, the manual vendor IE loops for WPA and WMM advance p by
+> (ie_len + 2) on non-matching elements, but calculate the limit passed
+> to rtw_get_ie() as:
+>   (pbss_network->ie_length - _BEACON_IE_OFFSET_ - (ie_len + 2))
+> This only subtracts the previous element's length rather than the
+> accumulated offset (p - start), causing p + limit to extend past the
+> end of the buffer on subsequent iterations. In addition, calling
+> memcmp() without checking ie_len can read past short vendor elements.
 > 
-> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+> Third, in the WMM loop, once the OUI matches, bytes up to *(p + 22)
+> are modified without checking whether the IE contains the full
+> 24-byte WMM parameter payload (WLAN_WMM_LEN). A truncated element
+> leads to out-of-bounds writes.
+> 
+> Address these by:
+>   1. Checking len < _BEACON_IE_OFFSET_ at function entry.
+>   2. Using the existing rtw_get_ie_ex() helper which validates
+>      element boundaries and OUI lengths before calling memcmp().
+>   3. Passing ie_len directly to rtw_parse_wpa_ie() without +2,
+>      because rtw_get_ie_ex() already includes the 2-byte header.
+>   4. Verifying that the WMM element has at least WLAN_WMM_LEN + 2
+>      bytes before modifying the parameter records.
+> Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Park Tae-sun <ts930@dgu.ac.kr>
 > ---
->   drivers/nvme/host/core.c | 41 ++++++++++++++++++++++++++++++++++++++--
->   drivers/nvme/host/nvme.h |  1 +
->   drivers/nvme/host/rdma.c |  4 ++--
->   drivers/nvme/host/tcp.c  |  2 +-
->   4 files changed, 43 insertions(+), 5 deletions(-)
-> 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+>  drivers/staging/rtl8723bs/core/rtw_ap.c | 81 ++++++++++---------------
+>  1 file changed, 33 insertions(+), 48 deletions(-)
 
-Cheers,
+How did you find this?
 
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+How did you test it?
+
+You need a blank line before the Fixes: tag, right?  Didn't checkpatch
+catch this?
+
+thanks,
+
+greg k-h
