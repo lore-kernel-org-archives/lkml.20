@@ -1,266 +1,316 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC2314E06FE;
-	Mon, 21 Sep 2026 16:49:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA85A47F794;
+	Mon, 21 Sep 2026 16:49:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790009368; cv=none; b=MIGpkCVQQ7wS/5txtTml3ObpA7uvwAXWS+n6Q3Czqv1zKggY87ApIY+5o93ZgeseL3lkU0oRwjNLAZugI6zA5rwj1rdOU71cgCXireLRK2t0qHpYpTaFfVJdCE5Knef6g1vo/PEYFWh/1XtbSl05YUSOa/hHXdHiGUhQvORNkXM=
+	t=1790009370; cv=none; b=poFwuFDfqvey4mrHQek7utM7Kot8Vx84mEoNY97vyWc1s5dVehyYlArVedUy6nEqGAw0bUpiFfiMvGrPVlUh5hdkJ9zI1Og68TqXL5eEl+eri1w9Y0Vs80dp5N+uVogo9VOCSlS+ldkyrRvX55qDv6plMAYFBaq2vDtxJkkCDgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790009368; c=relaxed/simple;
-	bh=NX5IbQBC9tvW32ED0IkNvx5/a3Fl6E4GFGAoGst6Clw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k3+7MmHVHR9NhpvhGjEEhPJ/O75/sw+wxtP/Z3btUb1aMhpF4YFBdK3I2NK25GPOpEKBZnKMmAri/gIg3yBQvGRpVmLh1QMh8dPgVzMoPyhxxMVDOBPL8MwtQGHlyf/qaxKwslw3UGmXEGNRudhKh3+5dX9Hay5nTQOy5iKkjiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=euYDOh6v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790009370; c=relaxed/simple;
+	bh=DItT6+jUMo41lHHGp2/QkV1TE00un6jPRSKJmOv+sRo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T097svqVzI6smfxuvslx96M1W76llq3M2yzHbLHQicpiPQ6xKBMWYH4Oqk7f1DZfhwMeE0ZsJMMLnkOqzjtHGFiYs5wJicAfGkd9hW+h6H8yyup72MFe3kq0Yudt1KF3ms7uD6z588XEaEjTsAeeyNZbo/pLsShqn53Qio3r5bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nArLOPjq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="euYDOh6v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30F511F000FF;
-	Mon, 21 Sep 2026 16:49:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nArLOPjq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7831F00893;
+	Mon, 21 Sep 2026 16:49:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790009362;
-	bh=MHL0Zm9FExTTcnRuFH4KvXCWMqeeqIFgEGVtpkRNCVk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=euYDOh6vjE5N2Rtq4o60jnmZwm8gCvwDx4MvHykZll44WEm8wy0lXoTyReva+l2VW
-	 ZxX+ptlquIxAqlp3XciTKF/gr6xicARMsbtuhZ9vpTmfDfxctSBpzXHGIJfqwblo2h
-	 T1fiFIIawxQ0PPr1Q7w74rh4DFT2h2UA6OixvLwJha4A5c8GvPURJ6D3BO+HPAe+fF
-	 XX8IuTxxYQT0BE2mMTfp4vLKsSTQYv/e20GgTgY26QA1h7v/Kt3P5Qe+Rp5RkHhpZ0
-	 vt6l4SJJBFyuDwr2xyBkoZgHzqWlkLYYNeRswDLuzGGkb7q2sou4HbS/425HHvnTEB
-	 CjrTuJwSDkArg==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	Ravi Bangoria <ravi.bangoria@amd.com>
-Subject: [PATCH 7/7] perf mem record: Use the IBS swfilt filter when available
-Date: Mon, 21 Sep 2026 18:48:13 +0200
-Message-ID: <20260921164813.6727-8-acme@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260921164813.6727-1-acme@kernel.org>
-References: <20260921164813.6727-1-acme@kernel.org>
+	s=k20260515; t=1790009365;
+	bh=+J3/YHVbBQ5+4l3XP0POplmrrM0EDMUaHXcBAgmqJoE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nArLOPjqQ86XZDoP/wqJ8Z5P6jVVew0WFkWDL1xuh0asWfiIldnXTpzfNQBLP6lNr
+	 ymRlxkTbEwAhjH8voxxiU0nlc8aZ3H3rKLQn4xW1skfY939SNEphn8XH/yJk3EIbON
+	 W3slieT9/sw0n8MgiE/Iqv7a1FSce1Zz4WEmIMW3E/hwCUkYztSgV8d/yGDGfAugMc
+	 0XhHtRoYJwyBSwK9+507GKlkjvbORBMVJ7DXdgwjvMlHTmL4v90jARHoNbOJItf4lz
+	 CfbSRNpunpgT3qVLjUV2cQd6vzoZZLrzeIPYGrrm3QliNJRVMFZow/WQ9BFIM023Vt
+	 oka1wK95EpwAg==
+Date: Mon, 21 Sep 2026 18:49:17 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: claudiu beznea <claudiu.beznea@tuxon.dev>
+Cc: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>, 
+	lpieralisi@kernel.org, kwilczynski@kernel.org, robh@kernel.org, bhelgaas@google.com, 
+	p.zabel@pengutronix.de, linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, John Madieu <john.madieu.xa@bp.renesas.com>, 
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Subject: Re: [PATCH v3 7/7] PCI: rzg3s-host: Re-enumerate the bus on PCIe
+ link-state changes
+Message-ID: <n7cafny3y6rr63tx6rkt5umxl3f4rsxpu2ojze7luudzzr4flb@egj7dru2bnhq>
+References: <20260814141312.2947972-1-claudiu.beznea+renesas@tuxon.dev>
+ <20260814141312.2947972-8-claudiu.beznea+renesas@tuxon.dev>
+ <a7koqtuhya3psx7mmest3io5h775jxscivumouv64kbu23pssv@xkkqondobxui>
+ <9c8fe3e4-1dcc-4663-8e3f-684ec4e09daa@tuxon.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <9c8fe3e4-1dcc-4663-8e3f-684ec4e09daa@tuxon.dev>
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+On Fri, Sep 11, 2026 at 03:14:25PM +0300, claudiu beznea wrote:
+> Hi, Mani,
+> 
+> On 9/10/26 17:38, Manivannan Sadhasivam wrote:
+> > On Fri, Aug 14, 2026 at 05:13:12PM +0300, Claudiu Beznea wrote:
+> > > From: John Madieu <john.madieu.xa@bp.renesas.com>
+> > > 
+> > > The RZ/G3{E, S}, RZ/V2{H(P), N} PCIe controllers does not expose the
+> > > standard PCIe Slot Capability registers, so the generic pciehp driver
+> > > cannot be used. The only link-state signal the hardware provides is the
+> > > DL_UpDown bit in the PEIS0 event status register, which is raised on every
+> > > Data Link layer up/down transition.
+> > > 
+> > > Enable DL_UpDown in PEIE0 and hook up an interrupt handler so the driver
+> > > can react to link-state changes: a device that trains after boot gets
+> > > enumerated, and a device that disappears on link loss is removed. This
+> > > provides hotplug-like behavior without the PCI hotplug core, which is
+> > > unavailable for the reason above.
+> > > 
+> > > On a DL_UpDown event the handler acks the W1C status bit and schedules a
+> > > worker that inspects PCSTAT1.DL_DOWN_STS:
+> > > 
+> > >    - link up: re-run max link speed negotiation, wait for the link to
+> > >      settle and pci_rescan_bus() the root bus;
+> > >    - link down: reset the root port, walk the bus in reverse and
+> > >      pci_stop_and_remove_bus_device() each child.
+> > > 
+> > > Both paths take pci_lock_rescan_remove() to serialize against the PCI
+> > > core.
+> > > 
+> > > While enumeration succeeds without resetting the root port, performing
+> > > reads and writes to an NVMe endpoint after a link down/link up cycle
+> > > results in failures on some devices. Address this by implementing
+> > > pci_host_bridge::reset_root_port() for the RZ/G3S PCIe driver.
+> > > 
+> > > The implementation of pci_host_bridge::reset_root_port() masks all
+> > > enabled interrupts and synchronizes them before resetting the controller
+> > > to prevent asynchronous events from interfering with the reset operation.
+> > > 
+> > > After the controller is reset, all previously masked interrupts are
+> > > restored.
+> > > 
+> > > Since rzg3s_pcie_host_stop() or rzg3s_pcie_host_start() can fail
+> > > during a root port reset, introduce struct rzg3s_pcie_host::state to
+> > > track the host controller state. The interrupt handlers and register
+> > > access paths consult this state to avoid accessing the controller after a
+> > > failed reset. This was implemented to be able to re-use the
+> > > rzg3s_pcie_host_stop()/rzg3s_pcie_host_start() as is (since they call
+> > > functions which can sleep).
+> > > 
+> > > The introduced states are START, STOP, PROCESS, and PORT_RESET. The initial
+> > > state is STOP. After the controller is initialized, the state is switched
+> > > to START. Any API exposed through struct pci_ops switches the controller
+> > > to the PROCESS state, as do the interrupt handlers.
+> > > 
+> > > rzg3s_pcie_host_reset_root_port() switches the state to PORT_RESET to
+> > > prevent any controller access while the Root Port reset is in progress.
+> > > 
+> > > A controller left in a broken state (STOP) after a failed root port reset
+> > > can recover after a system suspend/resume cycle, since
+> > > rzg3s_pcie_host_start() is invoked again during resume.
+> > > 
+> > > Link events are processed only after the controller has been fully
+> > > initialized.
+> > > 
+> > > While at it, make probe tolerant of an absent device. Previously, if the
+> > > link failed to come up during rzg3s_pcie_host_init(), probe tore the
+> > > controller back down and failed. Distinguish this case with -ENODEV,
+> > > leave the controller and refclk running, and let the link-up path
+> > > enumerate the device once it appears.
+> > > 
+> > 
+> > Please split the DL_UpDown addition and reset_root_port() into separate patches.
+> 
+> If splitting, it would mean the DL_UpDown patch will be broken (at least for
+> RZ/G3S SoC). Would that be OK with you?
+> 
 
-IBS events with exclude_{user,kernel} bits, as used for per-thread
-recording when kernel samples are not allowed, are rejected by the
-kernel on hardware without the privilege filter, so per-thread 'perf mem
-record' fails on AMD:
+It will not be broken, but just that the RP won't be reset through platform
+specific reset hook. So it is OK to have the successive commit add that
+functionality, provided it is mentioned in the commit message.
 
-  $ perf mem record -o /dev/null -- true
-  Error:
-  Failure to open event 'ibs_op/ldlat=0/u' on PMU 'ibs_op' which will be removed.
-  Invalid event (ibs_op/ldlat=0/u) in per-thread mode, enable system wide with '-a'.
+> > 
+> > > Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+> > > Co-developed-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> > > Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> > > ---
+> > > 
+> > > Changes in v3:
+> > > - added RZG3S_PCI_PEIE0_DL_UPDOWN
+> > > - re-worked the support by implemeting
+> > >    struct pci_host_bridge::reset_root_port()
+> > > - introduced the struct rzg3s_pcie_host::state to:
+> > > -- avoid touching the controller while a reset root port is in progress
+> > > -- and avoid touching the controller in case a reset root port failed
+> > > -- and to be able to re-use the already existing code in the reset
+> > >     root port function
+> > > -- and added CLASS() constructs helpers for it to keep the state handling
+> > >     code simpler
+> > > - updated the patch description to reflect the updates
+> > > 
+> > >   drivers/pci/controller/pcie-rzg3s-host.c | 375 +++++++++++++++++++++--
+> > >   1 file changed, 356 insertions(+), 19 deletions(-)
+> > > 
+> > > diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/controller/pcie-rzg3s-host.c
+> > > index 4765ac1befba..b3531468ef38 100644
+> > > --- a/drivers/pci/controller/pcie-rzg3s-host.c
+> > > +++ b/drivers/pci/controller/pcie-rzg3s-host.c
+> > > @@ -86,6 +86,7 @@
+> > >   #define RZG3S_PCI_MSGRCVIS_MRI			BIT(24)
+> > >   #define RZG3S_PCI_PEIE0				0x200
+> > > +#define RZG3S_PCI_PEIE0_DL_UPDOWN		BIT(9)
+> > >   #define RZG3S_PCI_PEIS0				0x204
+> > >   #define RZG3S_PCI_PEIS0_RX_DLLP_PM_ENTER	BIT(12)
+> > > @@ -310,6 +311,24 @@ struct rzg3s_pcie_port {
+> > >   	u32 device_id;
+> > >   };
+> > > +/**
+> > > + * enum rzg3s_pcie_host_state - RZ/G3S PCIe Host state
+> > > + * @RZG3S_PCIE_HOST_STATE_STOP: Host is stopped (initial state, reached from
+> > > + *                              PORT_RESET, START)
+> > > + * @RZG3S_PCIE_HOST_STATE_START: Host is started (reached from STOP, PROCESS,
+> > > + *                               PORT_RESET)
+> > > + * @RZG3S_PCIE_HOST_STATE_PROCESS: Host is started and is processing requests
+> > > + *                                 (reached from START)
+> > > + * @RZG3S_PCIE_HOST_STATE_PORT_RESET: Host root port is resetting (reached from
+> > > + *                                    START)
+> > > + */
+> > > +enum rzg3s_pcie_host_state {
+> > > +	RZG3S_PCIE_HOST_STATE_STOP,
+> > > +	RZG3S_PCIE_HOST_STATE_START,
+> > > +	RZG3S_PCIE_HOST_STATE_PORT_RESET,
+> > > +	RZG3S_PCIE_HOST_STATE_PROCESS,
+> > > +};
+> > > +
+> > >   /**
+> > >    * struct rzg3s_pcie_host - RZ/G3S PCIe data structure
+> > >    * @axi: base address for AXI registers
+> > > @@ -323,6 +342,8 @@ struct rzg3s_pcie_port {
+> > >    * @msi: MSI data structure
+> > >    * @port: PCIe Root Port
+> > >    * @hw_lock: lock for access to the HW resources
+> > > + * @state: PCIe controller state
+> > > + * @event_irq: PCIe event interrupt for DL_UpDown detection
+> > >    * @intx_irqs: INTx interrupts
+> > >    * @max_link_speed: maximum supported link speed
+> > >    * @controller_id: PCIe controller identifier, used for System Controller access
+> > > @@ -340,6 +361,8 @@ struct rzg3s_pcie_host {
+> > >   	struct rzg3s_pcie_msi msi;
+> > >   	struct rzg3s_pcie_port port;
+> > >   	raw_spinlock_t hw_lock;
+> > > +	atomic_t state;
+> > > +	int event_irq;
+> > >   	int intx_irqs[PCI_NUM_INTX];
+> > >   	int max_link_speed;
+> > >   	enum rzg3s_pcie_controller_id controller_id;
+> > > @@ -348,6 +371,61 @@ struct rzg3s_pcie_host {
+> > >   #define rzg3s_msi_to_host(_msi)	container_of(_msi, struct rzg3s_pcie_host, msi)
+> > > +/**
+> > > + * struct rzg3s_pcie_host_atomic_state - RZ/G3S PCIe state data structure
+> > > + * @state: Atomic state variable to operate on. Should point to
+> > > + *         struct rzg3s_pcie_host::state.
+> > > + * @expect: Expected host state. The host state is not changed if the
+> > > + *          current host state differs from the expected state.
+> > > + * @saved: Saved host state. When the host state is changed, the previous
+> > > + *         state is saved in this variable. This is necessary to restore
+> > > + *         the previous state after the protected section is executed.
+> > > + *
+> > > + * This structure is necessary for state setting and restoration using
+> > > + * CLASS() constructs.
+> > > + */
+> > > +struct rzg3s_pcie_host_atomic_state {
+> > > +	atomic_t *state;
+> > > +	enum rzg3s_pcie_host_state expect;
+> > > +	enum rzg3s_pcie_host_state saved;
+> > > +};
+> > > +
+> > > +static struct rzg3s_pcie_host_atomic_state
+> > > +rzg3s_pcie_host_atomic_state_save(atomic_t *state, int expect, int newval)
+> > > +{
+> > > +	return (struct rzg3s_pcie_host_atomic_state){
+> > > +		.state = state,
+> > > +		.expect = expect,
+> > > +		.saved = atomic_cmpxchg(state, expect, newval),
+> > > +	};
+> > > +}
+> > > +
+> > > +static void
+> > > +rzg3s_pcie_host_atomic_state_restore(struct rzg3s_pcie_host_atomic_state state)
+> > > +{
+> > > +	if (state.saved == state.expect)
+> > > +		atomic_xchg(state.state, state.expect);
+> > > +}
+> > > +
+> > > +DEFINE_CLASS(rzg3s_pcie_host_state_lock,
+> > > +	     struct rzg3s_pcie_host_atomic_state,
+> > > +	     rzg3s_pcie_host_atomic_state_restore(_T),
+> > > +	     rzg3s_pcie_host_atomic_state_save(state, expect, newval),
+> > > +	     atomic_t *state, int expect, int newval)
+> > > +
+> > > +/* Use it to change the state w/o the need to restore it on function exit. */
+> > > +#define RZG3S_PCIE_HOST_STATE_CHANGE(_state, _from, _to) \
+> > > +	CLASS(rzg3s_pcie_host_state_lock, _lock) \
+> > > +	      (_state, RZG3S_PCIE_HOST_STATE_##_from, \
+> > > +		       RZG3S_PCIE_HOST_STATE_##_to) \
+> > > +
+> > > +/*
+> > > + * Use it to check if the state change failed. _from is the initial state.
+> > > + * Use it in conjunction with RZG3S_PCIE_HOST_STATE_CHANGE().
+> > > + */
+> > > +#define RZG3S_PCIE_HOST_STATE_CHANGE_FAILED(_from) \
+> > > +	(_lock.saved != RZG3S_PCIE_HOST_STATE_##_from)
+> > > +
+> > 
+> > I don't really see a need for all these state management. None of the other
+> > controller drivers are doing and the serialization provided by the PCI core
+> > using pci_lock should be enough. If you find any issue or race, please share it
+> > here.
+> 
+> The problems I see are the following:
+> 
+> 1/ In theory, the rzg3s_pcie_host_start() in .reset_root_port() can fail. If
+>    that happens the controller is left with the clocks and resets disabled.
+>    Accessing  it later in this state may lead to sync aborts, and the system
+>    being fully blocked. This is how the HW behaves. Re-enabling clocks and
+>    resets in this situation may lead to unbalanced  reference counters for them.
+> 
 
-Kernel v6.14 added swfilt, a software privilege filter exposed as the
-'swfilt' format term, making those events usable per-thread:
+Once reset_root_port() fails, the controller is literally dead and the error is
+propagated to the PCI core. So who is going to access it later?
 
-  $ perf record -e ibs_op/ldlat=0,swfilt=1/ -- true
+> 2/ In theory, struct pci_ops::{read, write} ops could be called while the reset
+>    is in progress, if I'm not wrong. That can be avoided by using a common spin
+>    lock but we can't use it in .reset_root_port() since this calls APIs
+>    that could sleep (e.g. clk_prepare_enable()/clk_disable_unprepare())
+> 
 
-Give the ibs_op memory events extra tables with the swfilt term in the
-event names, selected in perf_pmu__arch_init() when the PMU exposes the
-term, keeping the names that need system wide mode otherwise, with the
-knowledge that IBS needs this staying in the arch code: the generic
-mem-events table and name builder don't know about it.  The variant is
-used even for records that end up without exclude bits: 'perf record'
-adds those bits itself when the first open fails, after the name was
-built, and that retry needs the term.  With the term in the event name,
-the per-thread 'perf mem record' done by the 'data type profiling' shell
-test works on AMD kernels with swfilt, so the skip 29f320d2 added to it
-no longer triggers there, and the 'Test data symbol' shell test adjusts
-its event regex for the added term.
+AFAICS, 'block_cfg_access' will be set for the entire duration of the
+reset_root_port() invocation and it will prevent config space accessors to race
+with the reset.
 
-Suggested-by: Namhyung Kim <namhyung@kernel.org>
-Suggested-by: Ravi Bangoria <ravi.bangoria@amd.com>
-Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
----
- tools/perf/arch/x86/util/mem-events.c      | 24 ++++++++++++++++++++++
- tools/perf/arch/x86/util/mem-events.h      |  2 ++
- tools/perf/arch/x86/util/pmu.c             | 10 +++++++--
- tools/perf/tests/shell/test_data_symbol.sh |  6 ++++--
- tools/perf/util/mem-events.c               | 11 ++++++----
- 5 files changed, 45 insertions(+), 8 deletions(-)
+> 3/ Since at the moment the .suspend() is called the IRQs are enabled, the link
+>    event and the .suspend() can race. This could also be avoided by using
+>    a spin lock but, again, there are APIs on .reset_root_port() that can sleep.
+> 
 
-diff --git a/tools/perf/arch/x86/util/mem-events.c b/tools/perf/arch/x86/util/mem-events.c
-index b38f519020ff8c6f..2052750cd707c7e5 100644
---- a/tools/perf/arch/x86/util/mem-events.c
-+++ b/tools/perf/arch/x86/util/mem-events.c
-@@ -21,14 +21,38 @@ struct perf_mem_event perf_mem_events_intel_aux[PERF_MEM_EVENTS__MAX] = {
- 	E(NULL,			NULL,				NULL,		false,	0),
- };
- 
-+/*
-+ * IBS events with exclude_{user,kernel} bits set, as used by perf to
-+ * record per-thread when kernel samples are not allowed, are rejected
-+ * by the kernel on hardware without the privilege filter unless the
-+ * swfilt software filter is used, so there are extra sets of tables
-+ * with the swfilt term in the event names, selected in
-+ * perf_pmu__arch_init() when the PMU exposes the term.  The term is not
-+ * conditional on the event already having exclude bits: perf record
-+ * adds those bits itself when the first open fails with EACCES on an
-+ * unprivileged setup, after the name was built, and that retry only
-+ * succeeds with the term in it.
-+ */
- struct perf_mem_event perf_mem_events_amd[PERF_MEM_EVENTS__MAX] = {
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E("mem-ldst",	"%s//",		NULL,	false,	0),
- };
- 
-+struct perf_mem_event perf_mem_events_amd_swfilt[PERF_MEM_EVENTS__MAX] = {
-+	E(NULL,		NULL,		NULL,	false,	0),
-+	E(NULL,		NULL,		NULL,	false,	0),
-+	E("mem-ldst",	"%s/swfilt=1/",	NULL,	false,	0),
-+};
-+
- struct perf_mem_event perf_mem_events_amd_ldlat[PERF_MEM_EVENTS__MAX] = {
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E("mem-ldst",	"%s/ldlat=%u/",	NULL,	true,	0),
- };
-+
-+struct perf_mem_event perf_mem_events_amd_ldlat_swfilt[PERF_MEM_EVENTS__MAX] = {
-+	E(NULL,		NULL,			NULL,	false,	0),
-+	E(NULL,		NULL,			NULL,	false,	0),
-+	E("mem-ldst",	"%s/ldlat=%u,swfilt=1/",	NULL,	true,	0),
-+};
-diff --git a/tools/perf/arch/x86/util/mem-events.h b/tools/perf/arch/x86/util/mem-events.h
-index 11e09a256f5bb084..f707de38037017c1 100644
---- a/tools/perf/arch/x86/util/mem-events.h
-+++ b/tools/perf/arch/x86/util/mem-events.h
-@@ -6,6 +6,8 @@ extern struct perf_mem_event perf_mem_events_intel[PERF_MEM_EVENTS__MAX];
- extern struct perf_mem_event perf_mem_events_intel_aux[PERF_MEM_EVENTS__MAX];
- 
- extern struct perf_mem_event perf_mem_events_amd[PERF_MEM_EVENTS__MAX];
-+extern struct perf_mem_event perf_mem_events_amd_swfilt[PERF_MEM_EVENTS__MAX];
- extern struct perf_mem_event perf_mem_events_amd_ldlat[PERF_MEM_EVENTS__MAX];
-+extern struct perf_mem_event perf_mem_events_amd_ldlat_swfilt[PERF_MEM_EVENTS__MAX];
- 
- #endif /* _X86_MEM_EVENTS_H */
-diff --git a/tools/perf/arch/x86/util/pmu.c b/tools/perf/arch/x86/util/pmu.c
-index 2c24ef3140da5e9b..fd4491fda117e51a 100644
---- a/tools/perf/arch/x86/util/pmu.c
-+++ b/tools/perf/arch/x86/util/pmu.c
-@@ -333,6 +333,7 @@ static void uncore_cha_imc_adjust_cpumask_for_snc(struct perf_pmu *pmu, bool cha
- void perf_pmu__arch_init(struct perf_pmu *pmu)
- {
- 	struct perf_pmu_caps *ldlat_cap;
-+	bool swfilt_format;
- 
- 	if (!strcmp(pmu->name, INTEL_PT_PMU_NAME)) {
- 		pmu->auxtrace = true;
-@@ -348,7 +349,10 @@ void perf_pmu__arch_init(struct perf_pmu *pmu)
- 		if (strcmp(pmu->name, "ibs_op"))
- 			return;
- 
--		pmu->mem_events = perf_mem_events_amd;
-+		swfilt_format = perf_pmu__has_format(pmu, "swfilt");
-+		pmu->mem_events = swfilt_format ?
-+				  perf_mem_events_amd_swfilt :
-+				  perf_mem_events_amd;
- 
- 		if (!perf_pmu__caps_parse(pmu))
- 			return;
-@@ -358,7 +362,9 @@ void perf_pmu__arch_init(struct perf_pmu *pmu)
- 			return;
- 
- 		perf_mem_events__loads_ldlat = 0;
--		pmu->mem_events = perf_mem_events_amd_ldlat;
-+		pmu->mem_events = swfilt_format ?
-+				  perf_mem_events_amd_ldlat_swfilt :
-+				  perf_mem_events_amd_ldlat;
- 	} else {
- 		if (pmu->is_core) {
- 			if (perf_pmu__have_event(pmu, "mem-loads-aux"))
-diff --git a/tools/perf/tests/shell/test_data_symbol.sh b/tools/perf/tests/shell/test_data_symbol.sh
-index d61b5659a46d9a77..52c837fddb639595 100755
---- a/tools/perf/tests/shell/test_data_symbol.sh
-+++ b/tools/perf/tests/shell/test_data_symbol.sh
-@@ -65,15 +65,17 @@ if (($is_amd >= 1)); then
- 	# --ldlat on AMD:
- 	# o Zen4 and earlier uarch does not support ldlat
- 	# o Even on supported platforms, it's disabled (--ldlat=0) by default.
-+	# o Kernels with the swfilt term add it even when ldlat is not
-+	#   supported, so only check ldlat when the term is present.
- 	ldlat=${BASH_REMATCH[1]}
--	if [[ -n $ldlat ]]; then
-+	if [[ $ldlat == *ldlat=* ]]; then
- 		if ! [[ "$ldlat" =~ ldlat=0 ]]; then
- 			echo "ERROR: ldlat not initialized to 0?"
- 			exit 1
- 		fi
- 
- 		mem_events="$(perf mem record -v --ldlat=150 -e list 2>&1)"
--		if ! [[ "$mem_events" =~ ^mem-ldst.*ibs_op/ldlat=150/.*available ]]; then
-+		if ! [[ "$mem_events" =~ ^mem-ldst.*ibs_op/ldlat=150[,/].*available ]]; then
- 			echo "ERROR: --ldlat not honored?"
- 			exit 1
- 		fi
-diff --git a/tools/perf/util/mem-events.c b/tools/perf/util/mem-events.c
-index 0b49fce251fcc184..0b07011939d7d7c3 100644
---- a/tools/perf/util/mem-events.c
-+++ b/tools/perf/util/mem-events.c
-@@ -82,6 +82,7 @@ static const char *perf_pmu__mem_events_name(struct perf_pmu *pmu, int i,
- 					     char *buf, size_t buf_size)
- {
- 	struct perf_mem_event *e;
-+	const char *name;
- 
- 	if (i >= PERF_MEM_EVENTS__MAX || !pmu)
- 		return NULL;
-@@ -90,24 +91,26 @@ static const char *perf_pmu__mem_events_name(struct perf_pmu *pmu, int i,
- 	if (!e || !e->name)
- 		return NULL;
- 
-+	name = e->name;
-+
- 	if (i == PERF_MEM_EVENTS__LOAD || i == PERF_MEM_EVENTS__LOAD_STORE) {
- 		if (e->ldlat) {
- 			if (!e->aux_event) {
- 				/* ARM and Most of Intel */
- 				scnprintf(buf, buf_size,
--					  e->name, pmu->name,
-+					  name, pmu->name,
- 					  perf_mem_events__loads_ldlat);
- 			} else {
- 				/* Intel with mem-loads-aux event */
- 				scnprintf(buf, buf_size,
--					  e->name, pmu->name, pmu->name,
-+					  name, pmu->name, pmu->name,
- 					  perf_mem_events__loads_ldlat);
- 			}
- 		} else {
- 			if (!e->aux_event) {
- 				/* AMD and POWER */
- 				scnprintf(buf, buf_size,
--					  e->name, pmu->name);
-+					  name, pmu->name);
- 			} else {
- 				return NULL;
- 			}
-@@ -117,7 +120,7 @@ static const char *perf_pmu__mem_events_name(struct perf_pmu *pmu, int i,
- 
- 	if (i == PERF_MEM_EVENTS__STORE) {
- 		scnprintf(buf, buf_size,
--			  e->name, pmu->name);
-+			  name, pmu->name);
- 		return buf;
- 	}
- 
+suspend/resume callbacks are only invoked in the no_irq phase.
+
+> 4/ To keep sane the reference counted resources, handled in
+>    rzg3s_pcie_host_stop()/rzg3s_pcie_host_start(), the state track would be
+>    needed, for .reset_root_port() failure case and racing, since these functions
+>    are also called in suspend/resume
+> 
+
+You can solve it using a simple bool flag.
+
+So I still do not see a real need for these complex state management.
+
+- Mani
+
 -- 
-2.53.0
-
+மணிவண்ணன் சதாசிவம்
