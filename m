@@ -1,56 +1,56 @@
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F0A1288505
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:48:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E4F2EB856
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:48:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789951734; cv=none; b=rKlaJWt47bjw8YwW6fT0khpTx/Iqep7+gQEZYpSoWtB3nNaLtGRxijvECDelFVcTyGH6lvccZdLYvZfnGfQZg+e1rL5AoeKX7tRniNUv3JmZIMjbAUKp1+haFVrVUP0nuqaWBYqi9xu336ngj3dJUfmlSw9pHa81vTpf96vIYKs=
+	t=1789951736; cv=none; b=ESIH3YvIZZTQXYpyPClxobmOjq/sH6YWrv8jsX8gaiQX9B6iQzwVjReSCRLTslwTglTf1VlJA+EJeAnp5VrvlXkcfGOmOOXXaW+wgIvk6SZBueH0rO21ZMWUh2GtBgCsJhvSAEetSDHAN9mkHkOu8cxAl9IFpi9zMhYOxZFyE5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789951734; c=relaxed/simple;
-	bh=zjw0Tnp8stathm9nlmJFxU761/AklxkMadgSeSWjsjE=;
+	s=arc-20240116; t=1789951736; c=relaxed/simple;
+	bh=bViJJwbrDWXP/RQSx7nYGasTuiaqPBrsxDARAbursxo=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=uTQv7eHsLFfYT+dEev3+f9TSVVDwb+v3zWBLXUB2Rf+fsJEmv3rHASx67Nf74r2w/JupOaUkECE6+S6UfoKEcidlxN5JLdwCCWoVw4TP9OtwZd3h26rnPsuYqe4stlCpu2b7xxS4qRj2hM+rvzsROSKt9OtpoUMeYQhpOW4583Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=H0Nvy92a; arc=none smtp.client-ip=209.85.214.198
+	 To:Cc:Content-Type; b=LjQOMuvHnCBVFF2jUVVzz2KOGTeavgtv5af7VTTzLb9aU9Hy0PMrgZLPAc5BRrkKyU2eyYCAtxu10C16jxjX7+RWQt9kYIwLEXYkmbfa6DDIb7zwxpmj395OZMF2FWd9qPSRrEVke2MmQCTQVbY0/C6SM2eNQMLk3mQMeMvJGWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VPhReC8D; arc=none smtp.client-ip=209.85.210.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="H0Nvy92a"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d63bad3d09so35784625ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:48:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VPhReC8D"
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-86a74698972so2851597b3a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:48:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789951731; x=1790556531; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789951732; x=1790556532; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6I3SvizF5qvgyNRrC3PScbaNSFdWu6HfLifwVu0oFvU=;
-        b=H0Nvy92aCgW3Sjm5Gl47CQu9WN0/YH/yuDp/IynJv4+mUwUuRUcSu5Mbe7kM2hIeX6
-         hDNFYr7iD59hzJEZRCPd6G03iHXbvwAmMyqiNlO/M8RkRkAzJUWvm61vzv5XbZooP81Y
-         oHLJR33oavIiCeb3DS+GVVsP5iMuD2snricXhClth6vrO7+7fsksszt9hSeuwwu/c2BM
-         3M8fjS3N7tCGDRua5eQayAIqQqOg+OWDgvmpDBX0Eb86ZpUjU6xbjvVHCgRK5IjRTK9g
-         L/aBTP2n9y5hZ+jMLyWeZfyEJk1HtsZ0pdrei2e0UFJD3slk0HnH6GIY/tmH/muSdC62
-         ZYcg==
+        bh=dbOQml2BXHpzMYBrRxpebYsHTJLnApuit/nNvL/j2sY=;
+        b=VPhReC8DkxkRkjb4l1QvHWyX/m8uAp8D6KnSVET9n+bpM9326E/5XahPN3C40XbJzq
+         0JfZp+rGsjiyb0G0BAzatdj4ArVG0G94lsxoMzaqFVYs4PmSCVvxNDT/WUujJQRWVgoV
+         aOuyyVTFXmlgbJrtogGQIQnGltl9j5Ojmkrn9VHBjx5Qx81Kr4sK/s2vlQ8AKyrEgmMp
+         Qtovcyql1MeUleggbqsGoN8vsLft9JW59eoqiH0rKbvuSzLPtxNsS4eQXP5zpAQL0Pgc
+         gdqp6PI4pNcBULrhwKD1B2ivvWirWy7GcvKtaqBL0SfzaXVnn3RH9XBmyCVhxMskPnif
+         yWkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789951731; x=1790556531;
+        d=1e100.net; s=20260707; t=1789951732; x=1790556532;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6I3SvizF5qvgyNRrC3PScbaNSFdWu6HfLifwVu0oFvU=;
-        b=LIRchIkirmh+QxGeQcwYLstZzVQ48Gb/tsTV0oJAkg2qiNeeT1XllzASKaj6ucXy4L
-         3BPBYp1RzMba2/PBknHVPhtfWhWbBCkWqoHMEuGmCBkf6wfHADkaj/qr48Lxq3gkGi5i
-         /x0QDolH6Xht99l6dsEJiD6He5ftChWUUuGPbW3Um7+s1WWVBfC8FAQ4fHZVGbACoDtv
-         rbRF0w9qtCXEJjLUFN5i1nUluk8lbJMZRPjpp7G1RZxXifNRxwBo+YqHbk7eZRGLXe5A
-         iumLknUf+6FQS+uOMj6r5M4E18msgPBh2Q8MUmwGMIyYiw919aVVIKX6o8ww028Grqui
-         XIrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx9NUTzUgrmmbqAnpBbBwTfZiOefcOrTJdPiYnsDu1fPVhUv7X9+254hHLgAzb7d2dEmvns7DHKO5T6bHg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWsAN40jratP+4CO9g1EEi/3aX8qvhCUjaPCQ/ZxlGt+HrhCrf
-	HAr6yxfcBvE09Bl5Pm6OAKsl4NKhFSG78ZYgppUyIpPU/MRuUtEtnVVXWZnOuob9YInU6YloC2i
-	Ph+FBl3BCOvHzsQ==
-X-Received: from plmm2.prod.google.com ([2002:a17:902:c442:b0:2df:4477:df93])
+        bh=dbOQml2BXHpzMYBrRxpebYsHTJLnApuit/nNvL/j2sY=;
+        b=i9B7kPcpuPjKttmIMGWwtBl/LSzwRbqhxrUyIuAPPkb6urEX15ydsLbqGrLzJ0gJeN
+         xVZSa7WDucVbeDMesn4wGEOJDpytZKeQglQ1K3Pi2DxPr4t6G/rp0ntcYTW6ZPYYC2Ri
+         WJytJ4Ggy3+0pwwCn2empOTRvA7KfJrsU+89KV0T54PVPDt8JPSqmYFrDlt2L6+fFD0g
+         3KOSPZPqmABO32cdjQ5VU/WHzXC6R+oQ6MnHU6ZqgNZpqqFoLIjyCr6tGhxUTyJMwt0j
+         UNXNCbuAzh7cQKslOB8GP1bfrRkJywPvZFEL3u32JhhtxforvR+j/STsqWZ+dHYFV86g
+         Ku5w==
+X-Forwarded-Encrypted: i=1; AKwUvBzGew+JkffeF5xxSb9QjI3Yx05H1BGjVmNQB5m39vEjFmT3IutNmXS1DYRGEfVbJLAj9bBr4c87SL5nLOI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2YQeYsvqIo7qmYGSLE0Pu3Lhd9ws2SHItVdn9/U7249pQQQP0
+	zfoixgeoXCS6gX/lts6gnKLBbIBc+v65uAVcIiFgBQYZR3EnPubTnGNJdXExLQlyvUZZMvT4yB6
+	U79IgwpFHD19SOQ==
+X-Received: from pgax32.prod.google.com ([2002:a05:6a02:2e60:b0:cc4:e5ec:35b9])
  (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:bf46:b0:2dd:c100:4b79 with SMTP id d9443c01a7336-2ddc1005efcmr55134685ad.48.1789951730815;
- Sun, 20 Sep 2026 17:48:50 -0700 (PDT)
-Date: Mon, 21 Sep 2026 00:48:28 +0000
+ 2002:a05:6a00:2e83:b0:874:705d:f639 with SMTP id d2e1a72fcca58-874dd9f6be9mr12281098b3a.27.1789951731594;
+ Sun, 20 Sep 2026 17:48:51 -0700 (PDT)
+Date: Mon, 21 Sep 2026 00:48:29 +0000
 In-Reply-To: <20260921004834.2601285-1-skhawaja@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260921004834.2601285-1-skhawaja@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260921004834.2601285-13-skhawaja@google.com>
-Subject: [PATCH v5 12/18] iommu/vt-d: Handle reattach of the restored domain
+Message-ID: <20260921004834.2601285-14-skhawaja@google.com>
+Subject: [PATCH v5 13/18] iommu/vt-d: Preserve PASID table of preserved device
 From: Samiullah Khawaja <skhawaja@google.com>
 To: David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>, 
 	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
@@ -73,301 +73,294 @@ Cc: Samiullah Khawaja <skhawaja@google.com>, Robin Murphy <robin.murphy@arm.com>
 	Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Reattach the restored domain to the preserved device using restored
-domain ID. While reattaching do not setup the context and PASID entries
-as those are preserved during liveupdate.
+In scalable mode the PASID table is used to fetch the io page tables.
+Preserve and restore the PASID table of the preserved devices.
 
 Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
 ---
- drivers/iommu/intel/iommu.c      |  32 +++++--
- drivers/iommu/intel/iommu.h      |  14 +++
- drivers/iommu/intel/liveupdate.c | 159 +++++++++++++++++++++++++++++++
- 3 files changed, 197 insertions(+), 8 deletions(-)
+ drivers/iommu/intel/liveupdate.c | 141 +++++++++++++++++++++++++++++--
+ drivers/iommu/intel/pasid.c      |  10 ++-
+ drivers/iommu/intel/pasid.h      |   8 ++
+ include/linux/kho/abi/iommu.h    |  17 ++++
+ 4 files changed, 169 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index c5044e834337..6d3cbe0745c9 100644
---- a/drivers/iommu/intel/iommu.c
-+++ b/drivers/iommu/intel/iommu.c
-@@ -2819,6 +2819,9 @@ static int blocking_domain_attach_dev(struct iommu_domain *domain,
- {
- 	struct device_domain_info *info = dev_iommu_priv_get(dev);
- 
-+	if (dev_iommu_restored_state(dev))
-+		return -EBUSY;
-+
- 	iopf_for_domain_remove(info->domain ? &info->domain->domain : NULL, dev);
- 	device_block_translation(dev);
- 	return 0;
-@@ -3187,6 +3190,9 @@ static int intel_iommu_attach_device(struct iommu_domain *domain,
- {
- 	int ret;
- 
-+	if (dev_iommu_restored_state(dev))
-+		return intel_iommu_restore_device(domain, dev);
-+
- 	device_block_translation(dev);
- 
- 	ret = paging_domain_compatible(domain, dev);
-@@ -3317,7 +3323,8 @@ static struct iommu_device *intel_iommu_probe_device(struct device *dev)
- 	info->iommu = iommu;
- 	RB_CLEAR_NODE(&info->node);
- 	if (dev_is_pci(dev)) {
--		if (ecap_dev_iotlb_support(iommu->ecap) &&
-+		if (!dev_iommu_restored_state(dev) &&
-+		    ecap_dev_iotlb_support(iommu->ecap) &&
- 		    pci_ats_supported(pdev) &&
- 		    dmar_ats_supported(pdev, iommu)) {
- 			info->ats_supported = 1;
-@@ -3421,12 +3428,16 @@ static void intel_iommu_release_device(struct device *dev)
- 	struct device_domain_info *info = dev_iommu_priv_get(dev);
- 	struct intel_iommu *iommu = info->iommu;
- 
--	iommu_disable_pci_pri(info);
--	iommu_disable_pci_ats(info);
-+	if (!dev_iommu_restored_state(dev)) {
-+		iommu_disable_pci_pri(info);
-+		iommu_disable_pci_ats(info);
- 
--	if (info->pasid_enabled) {
--		pci_disable_pasid(to_pci_dev(dev));
--		info->pasid_enabled = 0;
-+		if (info->pasid_enabled) {
-+			pci_disable_pasid(to_pci_dev(dev));
-+			info->pasid_enabled = 0;
-+		}
-+	} else {
-+		intel_iommu_detach_restored_device(dev);
- 	}
- 
- 	mutex_lock(&iommu->iopf_lock);
-@@ -3434,11 +3445,13 @@ static void intel_iommu_release_device(struct device *dev)
- 		device_rbtree_remove(info);
- 	mutex_unlock(&iommu->iopf_lock);
- 
--	if (sm_supported(iommu) && !dev_is_real_dma_subdevice(dev) &&
-+	if (!dev_iommu_restored_state(dev) && sm_supported(iommu) &&
-+	    !dev_is_real_dma_subdevice(dev) &&
- 	    !context_copied(iommu, info->bus, info->devfn))
- 		intel_pasid_teardown_sm_context(dev);
- 
--	intel_pasid_free_table(dev);
-+	if (!dev_iommu_restored_state(dev))
-+		intel_pasid_free_table(dev);
- 	intel_iommu_debugfs_remove_dev(info);
- 	kfree(info);
- }
-@@ -3900,6 +3913,9 @@ static int identity_domain_attach_dev(struct iommu_domain *domain,
- 	struct intel_iommu *iommu = info->iommu;
- 	int ret;
- 
-+	if (dev_iommu_restored_state(dev))
-+		return -EBUSY;
-+
- 	device_block_translation(dev);
- 
- 	if (dev_is_real_dma_subdevice(dev))
-diff --git a/drivers/iommu/intel/iommu.h b/drivers/iommu/intel/iommu.h
-index 3a2cb08c0ac1..25104644317c 100644
---- a/drivers/iommu/intel/iommu.h
-+++ b/drivers/iommu/intel/iommu.h
-@@ -1310,6 +1310,9 @@ void intel_iommu_unpreserve(struct iommu_device *iommu,
- void clear_unpreserved_context_entries(struct intel_iommu *iommu);
- void intel_iommu_liveupdate_restore_root_table(struct intel_iommu *iommu,
- 					       struct iommu_hw_ser *iommu_ser);
-+int intel_iommu_restore_device(struct iommu_domain *domain,
-+			       struct device *dev);
-+int intel_iommu_detach_restored_device(struct device *dev);
- #else
- static inline void clear_unpreserved_context_entries(struct intel_iommu *iommu)
- {
-@@ -1319,6 +1322,17 @@ static inline void intel_iommu_liveupdate_restore_root_table(struct intel_iommu
- 							     struct iommu_hw_ser *iommu_ser)
- {
- }
-+
-+static inline int intel_iommu_restore_device(struct iommu_domain *domain,
-+					     struct device *dev)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+static inline int intel_iommu_detach_restored_device(struct device *dev)
-+{
-+	return -EOPNOTSUPP;
-+}
- #endif
- 
- #ifdef CONFIG_INTEL_IOMMU_SVM
 diff --git a/drivers/iommu/intel/liveupdate.c b/drivers/iommu/intel/liveupdate.c
-index c9e553379683..6e6707eefc8c 100644
+index 6e6707eefc8c..b9467fb7195f 100644
 --- a/drivers/iommu/intel/liveupdate.c
 +++ b/drivers/iommu/intel/liveupdate.c
-@@ -351,6 +351,165 @@ void intel_iommu_liveupdate_restore_root_table(struct intel_iommu *iommu,
- 	BUG_ON(iommu_for_each_preserved_device(_restore_used_domain_ids, iommu));
+@@ -14,6 +14,7 @@
+ #include <linux/pci.h>
+ 
+ #include "iommu.h"
++#include "pasid.h"
+ #include "../iommu-pages.h"
+ 
+ /* 2 tables per bus in scalable mode with upper table at odd bit */
+@@ -510,6 +511,69 @@ int intel_iommu_detach_restored_device(struct device *dev)
+ 	return 0;
  }
  
-+static void domain_detach_reattached_iommu(struct dmar_domain *domain,
-+					   struct intel_iommu *iommu)
++enum pasid_lu_op {
++	PASID_LU_OP_PRESERVE = 1,
++	PASID_LU_OP_UNPRESERVE,
++	PASID_LU_OP_RESTORE,
++};
++
++static int pasid_lu_do_op(void *table, enum pasid_lu_op op)
 +{
-+	struct iommu_domain_info *info;
++	int ret = 0;
 +
-+	guard(mutex)(&iommu->did_lock);
-+	info = xa_load(&domain->iommu_array, iommu->seq_id);
-+	if (--info->refcnt == 0) {
-+		xa_erase(&domain->iommu_array, iommu->seq_id);
-+		kfree(info);
-+	}
-+}
-+
-+static int domain_reattach_iommu(struct dmar_domain *domain,
-+				 struct intel_iommu *iommu,
-+				 struct iommu_device_ser *device_ser)
-+{
-+	struct iommu_domain_info *info, *curr;
-+	struct iommu_domain_ser *domain_ser;
-+	struct iommu_hw_ser *iommu_hw_ser;
-+	int restored_did;
-+	int ret;
-+
-+	if (!iommu_domain_restored_state(&domain->domain))
-+		return -EINVAL;
-+
-+	if (!device_ser->domain_iommu_ser.domain_phys ||
-+	    !device_ser->domain_iommu_ser.iommu_phys)
-+		return -EINVAL;
-+
-+	domain_ser = phys_to_virt(device_ser->domain_iommu_ser.domain_phys);
-+	if (domain_ser->restored_domain != &domain->domain)
-+		return -EINVAL;
-+
-+	iommu_hw_ser = phys_to_virt(device_ser->domain_iommu_ser.iommu_phys);
-+	if (iommu_hw_ser->type != IOMMU_INTEL ||
-+	    iommu_hw_ser->intel.phys_addr != iommu->reg_phys)
-+		return -EINVAL;
-+
-+	restored_did = device_ser->domain_iommu_ser.attachment_id;
-+	if (!ida_exists(&iommu->domain_ida, restored_did))
-+		return -EINVAL;
-+
-+	info = kzalloc_obj(*info);
-+	if (!info)
-+		return -ENOMEM;
-+
-+	guard(mutex)(&iommu->did_lock);
-+	curr = xa_load(&domain->iommu_array, iommu->seq_id);
-+	if (curr) {
-+		curr->refcnt++;
-+		kfree(info);
-+		return 0;
++	switch (op) {
++	case PASID_LU_OP_PRESERVE:
++		ret = iommu_preserve_pages(table);
++		break;
++	case PASID_LU_OP_UNPRESERVE:
++		iommu_unpreserve_pages(table);
++		break;
++	case PASID_LU_OP_RESTORE:
++		iommu_restore_pages(virt_to_phys(table));
++		break;
 +	}
 +
-+	info->refcnt	= 1;
-+	info->did	= restored_did;
-+	info->iommu	= iommu;
-+	curr = xa_cmpxchg(&domain->iommu_array, iommu->seq_id,
-+			  NULL, info, GFP_KERNEL);
-+	if (curr) {
-+		ret = xa_err(curr) ? : -EBUSY;
-+		goto err_unlock;
-+	}
-+
-+	return 0;
-+
-+err_unlock:
-+	kfree(info);
 +	return ret;
 +}
 +
-+/**
-+ * intel_iommu_restore_device() - Restore device domain attachment after live update
-+ * @domain: Restored domain
-+ * @dev: Restored device
-+ *
-+ * Return: 0 on success, or negative error code.
-+ */
-+int intel_iommu_restore_device(struct iommu_domain *domain,
-+			       struct device *dev)
++static int pasid_lu_handle_pd(struct pasid_dir_entry *dir,
++			      u32 max_pasid, enum pasid_lu_op op)
 +{
-+	struct iommu_device_ser *device_ser = dev_iommu_restored_state(dev);
-+	struct device_domain_info *info = dev_iommu_priv_get(dev);
-+	struct dmar_domain *dmar_domain = to_dmar_domain(domain);
-+	struct intel_iommu *iommu = info->iommu;
-+	unsigned long flags;
-+	int ret;
++	int max_pde = max_pasid >> PASID_PDE_SHIFT;
++	struct pasid_entry *table;
++	int i, ret;
 +
-+	if (!device_ser)
-+		return -EINVAL;
++	for (i = 0; i < max_pde; i++) {
++		table = get_pasid_table_from_pde(&dir[i]);
++		if (!table)
++			continue;
 +
-+	if (dev_is_real_dma_subdevice(dev))
-+		return -EOPNOTSUPP;
++		ret = pasid_lu_do_op(table, op);
++		if (ret)
++			goto err;
++	}
 +
-+	ret = domain_reattach_iommu(dmar_domain, iommu, device_ser);
-+	if (ret)
-+		return ret;
-+
-+	info->domain = dmar_domain;
-+	info->domain_attached = true;
-+	spin_lock_irqsave(&dmar_domain->lock, flags);
-+	list_add(&info->link, &dmar_domain->devices);
-+	spin_unlock_irqrestore(&dmar_domain->lock, flags);
-+
-+	ret = cache_tag_assign_domain(dmar_domain, dev, IOMMU_NO_PASID);
-+	if (ret)
-+		goto err;
-+
-+	ret = iopf_for_domain_set(domain, dev);
++	ret = pasid_lu_do_op(dir, op);
 +	if (ret)
 +		goto err;
 +
 +	return 0;
 +
 +err:
-+	/*
-+	 * Detach the restored domain from device and iommu on failure, but keep
-+	 * the hardware state intact.
-+	 */
-+	info->domain_attached = false;
-+	cache_tag_unassign_domain(info->domain, dev, IOMMU_NO_PASID);
-+	spin_lock_irqsave(&info->domain->lock, flags);
-+	list_del(&info->link);
-+	spin_unlock_irqrestore(&info->domain->lock, flags);
++	if (op != PASID_LU_OP_PRESERVE)
++		return ret;
 +
-+	domain_detach_reattached_iommu(info->domain, iommu);
-+	info->domain = NULL;
++	while (i > 0) {
++		table = get_pasid_table_from_pde(&dir[--i]);
++		if (!table)
++			continue;
++
++		pasid_lu_do_op(table, PASID_LU_OP_UNPRESERVE);
++	}
++
 +	return ret;
-+}
-+
-+int intel_iommu_detach_restored_device(struct device *dev)
-+{
-+	struct device_domain_info *info = dev_iommu_priv_get(dev);
-+	struct intel_iommu *iommu = info->iommu;
-+	struct iommu_domain *domain;
-+	unsigned long flags;
-+
-+	if (!info->domain_attached || !info->domain)
-+		return -EINVAL;
-+
-+	domain = &info->domain->domain;
-+	if (!iommu_domain_restored_state(domain))
-+		return -EINVAL;
-+
-+	iopf_for_domain_remove(domain, dev);
-+	cache_tag_unassign_domain(info->domain, dev, IOMMU_NO_PASID);
-+	info->domain_attached = false;
-+
-+	spin_lock_irqsave(&info->domain->lock, flags);
-+	list_del(&info->link);
-+	spin_unlock_irqrestore(&info->domain->lock, flags);
-+
-+	domain_detach_reattached_iommu(info->domain, iommu);
-+	info->domain = NULL;
-+
-+	return 0;
 +}
 +
  /**
   * intel_iommu_preserve_device() - Intel IOMMU callback to preserve device state
   * @dev: Target device
+@@ -521,6 +585,7 @@ int intel_iommu_preserve_device(struct device *dev,
+ 				struct iommu_device_ser *device_ser)
+ {
+ 	struct device_domain_info *info = dev_iommu_priv_get(dev);
++	struct pasid_table *pasid_table;
+ 	int ret;
+ 
+ 	if (!dev_is_pci(dev)) {
+@@ -543,6 +608,22 @@ int intel_iommu_preserve_device(struct device *dev,
+ 
+ 	device_ser->domain_iommu_ser.attachment_id = domain_id_iommu(info->domain,
+ 								     info->iommu);
++
++	if (!sm_supported(info->iommu))
++		return 0;
++
++	pasid_table = intel_pasid_get_table(dev);
++	if (!pasid_table)
++		return -EINVAL;
++
++	ret = pasid_lu_handle_pd(pasid_table->table,
++				 pasid_table->max_pasid,
++				 PASID_LU_OP_PRESERVE);
++	if (ret)
++		return ret;
++
++	device_ser->intel.pasid_table = virt_to_phys(pasid_table->table);
++	device_ser->intel.max_pasid = pasid_table->max_pasid;
+ 	return 0;
+ }
+ 
+@@ -554,15 +635,33 @@ int intel_iommu_preserve_device(struct device *dev,
+ void intel_iommu_unpreserve_device(struct device *dev,
+ 				   struct iommu_device_ser *device_ser)
+ {
++	struct device_domain_info *info = dev_iommu_priv_get(dev);
++	struct pasid_table *pasid_table;
++
++	if (!dev_is_pci(dev))
++		return;
++
++	if (!info)
++		return;
++
++	if (!sm_supported(info->iommu))
++		return;
++
+ 	/*
+ 	 * The context tables preserved during device preservation, in the
+ 	 * preserve_device() callback, might be shared with other devices, so
+-	 * those are unpreserved in the iommu unpreserve() callback. So this
+-	 * callback is kept empty.
+-	 *
+-	 * Once device PASID tables are preserved, the unpreservation of PASID
+-	 * tables will be added here.
++	 * those are unpreserved in the iommu unpreserve() callback.
+ 	 */
++	if (!device_ser->intel.pasid_table)
++		return;
++
++	pasid_table = intel_pasid_get_table(dev);
++	if (!pasid_table)
++		return;
++
++	pasid_lu_handle_pd(pasid_table->table,
++			   pasid_table->max_pasid,
++			   PASID_LU_OP_UNPRESERVE);
+ }
+ 
+ /**
+@@ -607,3 +706,35 @@ void intel_iommu_unpreserve(struct iommu_device *iommu_dev,
+ 	unpreserve_iommu_context_tables(iommu, ser);
+ 	iommu_unpreserve_pages(iommu->root_entry);
+ }
++
++/**
++ * intel_pasid_restore_table() - Restore preserved PASID table for a device
++ * @dev: Restored device
++ * @max_pasid: Maximum supported PASID
++ *
++ * Return: Pointer to restored PASID table directory, or NULL if not preserved.
++ */
++void *intel_pasid_restore_table(struct device *dev, u64 max_pasid)
++{
++	struct iommu_device_ser *ser = dev_iommu_restored_state(dev);
++
++	if (!ser || !ser->intel.pasid_table)
++		return NULL;
++
++	/*
++	 * MAX PASID of a device should not change as it is read from
++	 * capabilities.
++	 */
++	BUG_ON(ser->intel.max_pasid != max_pasid);
++
++	if (ser->intel.restored)
++		goto out;
++
++	BUG_ON(pasid_lu_handle_pd(phys_to_virt(ser->intel.pasid_table),
++				  ser->intel.max_pasid,
++				  PASID_LU_OP_RESTORE));
++	ser->intel.restored = 1;
++
++out:
++	return phys_to_virt(ser->intel.pasid_table);
++}
+diff --git a/drivers/iommu/intel/pasid.c b/drivers/iommu/intel/pasid.c
+index e4f24d3f19a6..59cc69383799 100644
+--- a/drivers/iommu/intel/pasid.c
++++ b/drivers/iommu/intel/pasid.c
+@@ -13,6 +13,7 @@
+ #include <linux/cpufeature.h>
+ #include <linux/dmar.h>
+ #include <linux/iommu.h>
++#include <linux/iommu-liveupdate.h>
+ #include <linux/memory.h>
+ #include <linux/pci.h>
+ #include <linux/pci-ats.h>
+@@ -60,8 +61,13 @@ int intel_pasid_alloc_table(struct device *dev)
+ 
+ 	size = max_pasid >> (PASID_PDE_SHIFT - 3);
+ 	order = size ? get_order(size) : 0;
+-	dir = iommu_alloc_pages_node_sz(info->iommu->node, GFP_KERNEL,
+-					1 << (order + PAGE_SHIFT));
++
++	max_pasid = 1 << (order + PAGE_SHIFT + 3);
++	if (dev_iommu_restored_state(dev))
++		dir = intel_pasid_restore_table(dev, max_pasid);
++	else
++		dir = iommu_alloc_pages_node_sz(info->iommu->node, GFP_KERNEL,
++						1 << (order + PAGE_SHIFT));
+ 	if (!dir) {
+ 		kfree(pasid_table);
+ 		return -ENOMEM;
+diff --git a/drivers/iommu/intel/pasid.h b/drivers/iommu/intel/pasid.h
+index 48d3bb6b68de..801768cdea16 100644
+--- a/drivers/iommu/intel/pasid.h
++++ b/drivers/iommu/intel/pasid.h
+@@ -301,6 +301,14 @@ static inline void pasid_set_eafe(struct pasid_entry *pe)
+ 
+ extern unsigned int intel_pasid_max_id;
+ int intel_pasid_alloc_table(struct device *dev);
++#ifdef CONFIG_IOMMU_LIVEUPDATE
++void *intel_pasid_restore_table(struct device *dev, u64 max_pasid);
++#else
++static inline void *intel_pasid_restore_table(struct device *dev, u64 max_pasid)
++{
++	return NULL;
++}
++#endif
+ void intel_pasid_free_table(struct device *dev);
+ struct pasid_table *intel_pasid_get_table(struct device *dev);
+ int intel_pasid_setup_first_level(struct intel_iommu *iommu, struct device *dev,
+diff --git a/include/linux/kho/abi/iommu.h b/include/linux/kho/abi/iommu.h
+index 5aaa29da6832..308cd83fd3e3 100644
+--- a/include/linux/kho/abi/iommu.h
++++ b/include/linux/kho/abi/iommu.h
+@@ -129,6 +129,19 @@ struct iommu_dev_map_ser {
+ 	u64 iommu_phys;
+ } __packed;
+ 
++/**
++ * struct iommu_device_intel_ser - Intel specific state of serialized device
++ * @restored: Whether the device state is restored
++ * @pasid_table: Physical address of pasid table
++ * @max_pasid: Maximum supported pasid
++ */
++struct iommu_device_intel_ser {
++	u8 restored;
++	u8 padding[7];
++	u64 pasid_table;
++	u64 max_pasid;
++} __packed;
++
+ /**
+  * struct iommu_device_ser - Serialized state of a device
+  * @hdr: Common object header
+@@ -136,6 +149,7 @@ struct iommu_dev_map_ser {
+  * @pci_domain_nr: PCI domain number
+  * @dma_owner_token: Token to identify the DMA owner of this device
+  * @domain_iommu_ser: Domain and IOMMU mapping
++ * @intel: Intel specific serialization data
+  */
+ struct iommu_device_ser {
+ 	struct iommu_hdr_ser hdr;
+@@ -143,6 +157,9 @@ struct iommu_device_ser {
+ 	u32 pci_domain_nr;
+ 	u64 dma_owner_token;
+ 	struct iommu_dev_map_ser domain_iommu_ser;
++	union {
++		struct iommu_device_intel_ser intel;
++	};
+ } __packed;
+ 
+ /* There are maximum 256 buses, so maximum 512 context tables */
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
