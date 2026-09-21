@@ -1,149 +1,162 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40983331207;
-	Mon, 21 Sep 2026 15:33:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289DE360EE2
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:33:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790004826; cv=none; b=LtwLFNmZmE0jUFQgVjdT0czK5u7MTrwH/1u+1w43X9OdVb3EmPr6H5j/vrCid44LCJdUnmGBY/WGJvqseewf7rmYJIgM+bdAt1zpgH17QyzunNHYBKBGTiK28r/Z5gOpFbEvK9nYLjIE8xsnvYvGam9Rtfq442NL7gtDTFNQZbY=
+	t=1790004832; cv=none; b=VyrEDXZkx+CG6K7RVwBKyOxoXr5ObsA6kAzrktYF13ichFP4+lEVtCsHEh2HLebWOn8uXGkdf95V5XImNflKWuthoaQeczodgI06ct2xavDkvFP9WrqSGt9Izndu8RDezAu0agG0jBAtfZgWwP3so0msk6L41FxsT9Z+qJmBSUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790004826; c=relaxed/simple;
-	bh=ECga6oDpoCruvyTKSpfjLdMo1wBocXlUoX6lA7eLn7Y=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SEtVS6Jf4ez3wmT863AlNzVtGI9exoxI3fJHNZo/Vyxr8uuZGuQKXWL2VsBrvd4dbBou784x6QwZUKlH4tiX8TfrPL0wYUnoEkTg0bAF1MY/Wc0+DssRHkkWz+/yjqfmg+Su18O5vFjK7zT4BsakA1JBo2wNZ8EtO5Hh6AlqeK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=efgwaBKk; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	s=arc-20240116; t=1790004832; c=relaxed/simple;
+	bh=I7UesNNzihhfUM3T9kkjRfplteVqAEnYJpPI/ePgiEY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oa6plmwkmtPB6gN+eRTWwwcYOzHNbtL9W3vGG65TzBRsD8gTLycWpYrPa274Os1MRqJkyXy8Z80c4It9db2mGQfAHMdnh/XOvzD9x8/9fat+bYwwQnYYUvwGEv+ShcBf3nk18hQr/y+f/iBn1knQJ15dDoctQy6J02YUo0qyHc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dz0t2q82; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="efgwaBKk"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=ECga6oDpoCruvyTKSpfjLdMo1wBocXlUoX6lA7eLn7Y=; b=efgwaB
-	Kkp8U69RMu9ga/r9YVd2154V7Qfkh9sTTMQNQBFdl2dHB4xFcwxIAqj8a9RghJaLSqG2s4Z+fiFff
-	zxWyOF6kYoI+Lv3SUjDp7cMZBfZl0qwMDpiKXBX/nsYvT9nIEdrJA29VspiDjz1BNCpaYmRHPYVvC
-	n/HgcL9zB+Kj/dS2BgV1T6KCwegd86XvB589ElAvWnNFqyEm1D7qZaq/2xvqLg1RgDDzZRkgVtgzJ
-	myGRxsnHIO4J99uyCl2mavzcKjOo6GzaD7GFdFmnU/GkmOlUXlFu1OlWGgZxsW1Ex5thke8SuE6w+
-	agrU0syzmCcVpxgJwBh6LD0xeZFg==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1x8fvt-0000000D3Zy-41sO;
-	Mon, 21 Sep 2026 15:27:53 +0000
-Message-ID: <f3af5902412b9ff1c1a37211eeeb9c0ffc22f814.camel@surriel.com>
-Subject: Re: Path forward for Virtualized Swap?
-From: Rik van Riel <riel@surriel.com>
-To: Gregory Price <gourry@gourry.net>, Kairui Song <ryncsn@gmail.com>
-Cc: Chris Li <chrisl@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
- Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>, Michal
- Hocko <mhocko@kernel.org>,  Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
- David Hildenbrand	 <david@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Kemeng Shi	 <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>,
- YoungJun Park	 <youngjun.park@lge.com>, Chengming Zhou
- <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)"	 <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)"
- <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
- =?UTF-8?Q?Baghdasaryan=EF=BF=BC?=	 <surenb@google.com>, Qi Zheng
- <qi.zheng@linux.dev>, Axel Rasmussen	 <axelrasmussen@google.com>, Yuanchu
- Xie <yuanchu@google.com>, Wei Xu	 <weixugc@google.com>, Wenchao Hao
- <haowenchao22@gmail.com>, Jonathan Corbet	 <corbet@lwn.net>, Hugh Dickins
- <hughd@google.com>, Baolin Wang	 <baolin.wang@linux.alibaba.com>, Tejun Heo
- <tj@kernel.org>, Michal =?ISO-8859-1?Q?Koutn=FD?=	 <mkoutny@suse.com>,
- Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan	 <kunwu.chan@linux.dev>,
- Meta kernel team <kernel-team@meta.com>, Linux Memory Management List	
- <linux-mm@kvack.org>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>, 	linux-doc@vger.kernel.org, "open
- list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
- <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Joshua Hahn	 <joshua.hahnjy@gmail.com>
-Date: Mon, 21 Sep 2026 11:27:53 -0400
-In-Reply-To: <arEotFqE7ZZoxMHd@gourry-fedora-PF4VCD3F>
-References: 
-	<CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
-	 <aqJXx2vtbKaRLt3x@fedora> <aqLi6cIjD2wJwk0B@cmpxchg.org>
-	 <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
-	 <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F>
-	 <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
-	 <CAMgjq7CJBHkoZmg9oKNgGA8czL0djyBTCAkPz8ETm-tX=Qci4g@mail.gmail.com>
-	 <arEotFqE7ZZoxMHd@gourry-fedora-PF4VCD3F>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dz0t2q82"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f63546c3so2473064f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:33:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790004829; x=1790609629; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ATQztYCMyMu3k6DnS/zHcGXiDiuEanDgsZ8XIDNR40k=;
+        b=Dz0t2q82wSX3pw4NUPNIMWFDFyaMLzrpHR3XlMeTROMDG6hkfv3lKtMy+t8UX4DCYZ
+         Yre0uZY0ohhZB/m8uZy+7NKSld+RQl4WeeH3lKWxRJDlI0jTU9kTZYktWnVPoRcdO0tM
+         O02PStEdyvZA/1ewe3YZi37vUbtncXVXn3bg/EPbqaWhOYHpbpwP8SIbHTRblKzE9q7l
+         nGBRSfYcad+DgIL8MobJBaUsECApzuOnQ/nsRfROKkFu03Gms5lDbF3Tihr3PUiStNA7
+         M0LzqB6uep7UWHhTP43YO6bWVcjxoa7FsoT+/mFMmL/xcKoHjtxanaXNqCzWNQDUnag3
+         +Amw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790004829; x=1790609629;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ATQztYCMyMu3k6DnS/zHcGXiDiuEanDgsZ8XIDNR40k=;
+        b=q+cVLtTty8Ea/h4zMpJcedfMh3WB6wE+XOsUjTDxufK/YvcjRzXclO/EeqfeAm1ujy
+         EmYhqgFpmsh9Yh5YplBR6rqQzlklG4n2wL3yax9fiD/N2jqKarIBEji0+DTVj7aeAr/l
+         6V7clQ+Wl7TasfW2JY8q+0Ku9kVvVzEi+4UuQC/CDj95Bh5YhUF8I/VuQ6LHLdYIWLAS
+         aNNPtw5mtDLZdoC55ScI8GVBCExhtu8Z+juXwzG/mnsDV9GlCSQ9AllHrDufCTNhMqHk
+         PJEuRPwDoJIM7KLfZlPxPb+d5dnb3EAIFZTEtzRWB14Mp1LZj99+eFqlPClcknmNoOD0
+         Ko9A==
+X-Forwarded-Encrypted: i=1; AKwUvByWzItnQvZ6AaY5lESLFj33Pr/cuGUQWcNgu+bs9tz922vD557AErXCWb7JYC9J0DNjrIOQV9Xe5BvSC+Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkRjmUoW5JTkFBtFPaozmwc0rGfwv4X4yBjAOk7oyk1SkVQQI0
+	SdPdLEui3ox5CWfUfSOpc6FQH198k3+aFOt/LiRgowH6awLp5k0+el1j
+X-Gm-Gg: AYBFou2baB0bJFMqWmbJJ7lbI5WTucjpYGnLIxLOgM/AKtZblSWj36J6AY4ALWoI4WN
+	7iNmdmvwQwRbQbjIpHDf2Up8rZ2as94sf5JSqeNy5X5fO0AWKYUni9RG1Oq+2A4XEOIrC6YnW4s
+	Imp4hNS/i0MgsT9/TsaE17NENywxwOU9MGtugxhIwv2K698bnWes60UsK6bDvq10HFv71ykmjCr
+	XWc0wAVcP2c8/MrbpmHSSYgjq2yHSbn+CHn2gnXnC4v4injzBcYYN/jiGwVUHW/BYt5mNxTkKHk
+	6GKKDYEerJTcQDLqcTVqgQaDDIrPynzz54HuTKFXWvw1PU0yrx2X8eaUpPPtLOJdd6L5ETfPUD3
+	f4TMnt5lpUCkpvGMyqDhU/ERt3NXlVCgGOV7xK8A3qa1P5Zat2BL4H2uisRooAGROIW0Dj3eO11
+	QOifLZwvMyNGJrMEQWVC0bKLYMYMcSnvnKyOw7EfL0dOgcpsCRFuFZX/4TwUFZCJzMZU0I7BsZa
+	DkueNMOZANb/nyTr+nINWdUYc071tb5Q/Tj
+X-Received: by 2002:a05:6000:38f:b0:487:c48:5dae with SMTP id ffacd0b85a97d-4871e21d900mr14510363f8f.17.1790004829281;
+        Mon, 21 Sep 2026 08:33:49 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872446067asm24137495f8f.12.2026.09.21.08.33.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 08:33:48 -0700 (PDT)
+Date: Mon, 21 Sep 2026 16:33:47 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Mahanta Jambigi <mjambigi@linux.ibm.com>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen
+ <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-s390@vger.kernel.org, "D. Wythe"
+ <alibuda@linux.alibaba.com>, Dust Li <dust.li@linux.alibaba.com>, Sidraya
+ Jayagond <sidraya@linux.ibm.com>, Tony Lu <tonylu@linux.alibaba.com>, Wen
+ Gu <guwen@linux.alibaba.com>, Alexandra Winter <wintera@linux.ibm.com>,
+ Halil Pasic <pasic@linux.ibm.com>, Hidayath Khan <hidayath@linux.ibm.com>
+Subject: Re: [RFC] module: init-failure path can free a module with live
+ try_module_get() users
+Message-ID: <20260921163347.2630a6f4@pumpkin>
+In-Reply-To: <2cd4adea-9b70-4951-be8b-40c1bcc7ecd6@linux.ibm.com>
+References: <5dc1fe2b-289e-4786-b9e9-e181dda8d4e9@linux.ibm.com>
+	<20260918142241.55a6630a@pumpkin>
+	<2cd4adea-9b70-4951-be8b-40c1bcc7ecd6@linux.ibm.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2026-09-21 at 09:27 -0400, Gregory Price wrote:
+On Mon, 21 Sep 2026 20:04:10 +0530
+Mahanta Jambigi <mjambigi@linux.ibm.com> wrote:
+
+> On 18/09/26 6:52 pm, David Laight wrote:
+> > On Mon, 24 Aug 2026 11:43:46 +0530
+> > Mahanta Jambigi <mjambigi@linux.ibm.com> wrote:
+> >  =20
+> >> Hi Luis, Petr, Daniel, Sami, Aaron,
+> >>
+> >> I'm writing to ask about what looks like a generic module-init failure
+> >> lifetime problem in the module loader. I ran into it while working on
+> >> the SMC networking module (net/smc/), but after several patch
+> >> iterations, it seems the root issue may belong in kernel/module/main.c
+> >> rather than in SMC itself. I'd appreciate your guidance on whether this
+> >> reading is correct, and if so, what fix direction would be preferred.
+> >>
+> >> THE ISSUE IN do_init_module()
+> >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D
+> >>
+> >> include/linux/module.h has a long-standing FIXME in module_is_live():
+> >>
+> >>     /* FIXME: It'd be nice to isolate modules during init, too, so they
+> >>        aren't used before they (may) fail. But presently too much code
+> >>        (IDE & SCSI) require entry into the module during init. */
+> >>     static inline bool module_is_live(struct module *mod)
+> >>     {
+> >>         return mod->state !=3D MODULE_STATE_GOING;
+> >>     }
+> >>
+> >> Because MODULE_STATE_COMING is not MODULE_STATE_GOING, try_module_get()
+> >> can succeed once a module's __init is executing. If __init makes the
+> >> module externally reachable partway through and then later fails, the
+> >> failure path in do_init_module() appears to do: =20
+> >=20
+> > It is rather worse that that.
+> > If sock_create() auto-loads a module (eg sctp) then nothing stops a sec=
+ond
+> > sock_create() entering the protocol code before the initialisation comp=
+letes.
+> > That can be hit by two separate applications, I hit it from an out of t=
+ree
+> > kernel module and avoided the problem by putting a mutex() around the
+> > sock_create() call.
+> >=20
+> > It might help by letting try_module_get(THIS_MODULE) always succeed
+> > while blocking other requests until initialisation completes.
+> > The code making the call must own a reference (otherwise the code could
+> > just disappear), and that reference stops the module being unloaded.
+> > That would let the initialisation code grab extra references (eg for
+> > a worker thread) without allowing other codes paths enter the
+> > part-initialised driver. =20
 >=20
-> In short:
+> Thanks David =E2=80=94 you're right that the race is broader. This patch
+> addresses only the UAF on the __init failure path: once we set
+> MODULE_STATE_GOING and call synchronize_rcu(), new callers see GOING and
+> fail; we then drain existing refs before free_module().
 >=20
-> =C2=A0 memory.swap=C2=A0=C2=A0 =3D logical swap=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 - workload/SLO limit
-> =C2=A0 memory.pswap=C2=A0 =3D physical swap=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - storage limit
-> =C2=A0 memory.zswap=C2=A0 =3D compressed memory=C2=A0 - RAM limit
->=20
-> This would preserve the existing memory.swap semantics while allowing
-> both backing resources to be constrained independently.
->=20
-My first thought was "this is confusing", but
-after a minute I realized that most users will=C2=A0
-never set those options to anything=C2=A0other than=C2=A0
-"0" or "max", and the few who do only need to
-touch one of them.
-=20
+> The concurrent-init race you describe =E2=80=94 two callers entering
+> MODULE_STATE_COMING simultaneously during a successful init =E2=80=94 is =
+not
+> addressed here and would require changes to try_module_get() itself, as
+> you suggest. That is the long-standing FIXME in module_is_live() and is
+> a separate, larger change.
 
-Some people may want to limit a particular
-workload to having no more than 8 GB in a
-place that is not directly accessible.
+I suspect it is also much more common.
+Module load doesn't normally fail, but if you can persuade the system to
+unload an unused module I'd expect a non-root user can hit the concurrent
+init race.
 
-They would set memory.swap =3D 8G
-
-
-Other people may want to limit how much
-memory is used for the zswap pool.
-
-They use memory.zswap.
-
-
-Yet other people may want to limit how much
-physical swap space is used for a particular
-cgroup. They use memory.pswap.
-
-
-Almost nobody would use all three.
-
-Which one you use depends on your use case.
-
---=20
-All Rights Reversed.
+David
