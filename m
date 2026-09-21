@@ -1,275 +1,165 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87CF442E428
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:15:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789978510; cv=pass; b=JzbCZt/EvTmbVbikutrLKeqfshHon8BVsCjUrl4z5DSV0Tf6HatHF91QIjTUxS+kU9NWaKDHlLfBHEUsic66pNZpUWgKjAwnY07LJejZ3962HmblZPxbF2wPSD72EAmlwKFd7CN4GU1X9xJ629N8BpvEN3c2JyyZuuzez9/Vqds=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789978510; c=relaxed/simple;
-	bh=ZuB6ygpndjsOpo+e/6By11Si9o/wgm2eyRuJxVmjzBc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=crH9yXPIEboRDZqYI8YdK7s7aNn18QKXWBTIo7iLuIfP7BgpBnCOWeU1PaIZczTVk27ZcQ1UhAbQSjRg38CiJc9qjI/0mDAcWelZ+9ZwHC5sDhSk6vUtj51raX6Jod4nwLSxg5yYMCNGgEyNOY/fB4rHt3a1FBjk1N5iWgb04Gk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M/SV0WPa; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0355838DC66;
+	Mon, 21 Sep 2026 08:15:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789978525; cv=none; b=SXrUivQcACWkAUcrfFSFLeFKnrCLHxN4i5G+hxWaxhaNPtKZesqE/ue191Yjlk0X1JKtPmPW/ZBuCJ40cMo8zBIjtX+ypksI0y6+g/lOOzKU5xmy307zGG2HJI1omPTSu/Y8MTAS8SBIOrRSXPYsOxCODPx5aUNekmsNtjE9LMg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789978525; c=relaxed/simple;
+	bh=vf8mDZyVbSQRjdKAyjOQMpWaRj0nfFKwGoUzbwcIdsI=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=Z1dMwAuUD0clwm05Hmhsa6kLnPVxTsEPqmyT7nXY+4D08IeUCNU1On9BHQ73LNf/d9347C+rJGYaKHppVQLTHvxBa0oBFKcEslFbmbw083+OM2J8WBpiI/3BqDaMiZfUAkjMAnyvtrVD/pXFxQ97WDpSAAaqOm0oseU2dnxRmV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=6Dq9FiWQ; arc=none smtp.client-ip=113.46.200.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M/SV0WPa"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f6c7a4aso304513266b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:15:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789978507; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oZLmHZg0soTFkApAr772Rv4bmM34nPsvTNWp3cu9Pk5L6/5M2MubtOkEFvS6vpSMIo
-         IhD6ZDf1+rKQIgEB6c7APJObLkwEqQHweST0pS40ARJMXzb+wpto1EJMxyqBVvLGuHp4
-         ELIXRVWa5bed8j2tupztMO2NFIHyHQwYh3jqt8lIKBYD33bUWSUsdiscTD7znkPLS6X/
-         +JkQGgOqSwxIY8xL/4O0zNhu8obY7GP55c9wqLdhSU62+cCUe8NNC+GQhxOjV/SxMfnr
-         h7YD0MCVvzBY5pewmSGU9u7z0wmwV9A0j7KgtK2knYd0ugRM45k16TT3XJumfJbhXkpK
-         1rUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UhW2cidclEmuAluUEKhOZS7Y3pI88Y4LmjXMPyC5ARY=;
-        fh=aSyc/KWyqmfMmdpl0VUTD+NevOPKuwUOGB88RcLI4jk=;
-        b=Motn7sTnPYtUl4DkQx3sN7MzCPQuSST7VUrRWstYngIS8vePVPdsmbhQifuIwJPId5
-         elbvRUVZjwt0iEn/7o3W44o4y8Pwl8l1S97AzSm4wNiDY/ZCTLnlzdcAlDLebsRj5r2k
-         kmdxqpy8WKYryFzUGwG204PM1igKJYsWsHc5m2QuekxWvu9gFNZzz6x2uN4uVhGsZZIf
-         9htf7TBDQOc8/IS26RXWadK64CvH3ZyuY8Fnj/qT8Eoyn7SnguxjSHx/jA2xGEZNkzli
-         Rsncn6DS+EZ/bJRViFYndXWGXmNUOzlBwJ4Pe5gQ/xnw9gj3crTUS/YOULB6+PLjQg4s
-         iHZw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789978507; x=1790583307; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UhW2cidclEmuAluUEKhOZS7Y3pI88Y4LmjXMPyC5ARY=;
-        b=M/SV0WPaNud9GUwWvtJszxd+826jNK8DJrcwKkNIwpha1l5QGYWop63zT8V/O12Y9z
-         MJzs5xdxa/uHHicoiKm5pBqaQxTldsjYfs1BdPUwxYOiq4jEWwU/pqthqRLLliI/zCmk
-         CDr/QpFcFgUeRJTAskxYaVV52FZUAuVfcOtIn6gpzGSlWNwSlrE9dPhxM8YALIsmoSH9
-         e/BMVySnHP6gfMG81SAKDwNxICMdUkmbZSE1O+GZdhKuBpjXRP/ojyw1TFhfgVMk6Oqu
-         +E+/0LsSEpP7xh6lAP6c3TzMCnhiMV0HIdGIGQDNhsaZvrycySlBDRSEpNjQGss1Qmqa
-         zAeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789978507; x=1790583307;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UhW2cidclEmuAluUEKhOZS7Y3pI88Y4LmjXMPyC5ARY=;
-        b=ikwQfVYQaDq9mpObkAt7RGugsPj4jPBZ6OiP43w0+Y8xYc4vKo9N7PEDasBw5/Sfte
-         P3ShcUHUBHa0B1H+ArdHtGB5j3+nCt20K3JpomDKCr/r7J+mtwbtWfp+/oQdiNsTS6a7
-         z7XcUTuahRDiQXhnPyK6tLYyMup+2APOIVwLb6D+dx63vX4GJGb3IEBqfsMqnRDhCI+E
-         aBR1wdmfND/zto3XtfTRAX/t5lHNzEXB6dgBU+gtNyi1e7H1/NKfSv2PONd8HrngfcB+
-         EC9ZgMZlW3xwidEnK1GwLZLiu4Gn/YJ2NPzgjn0haT2rs46MlmDwznKkFEaiBjECZJn9
-         l1HQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxC2PZoK207YQxN9RC80mcM94NWwAnwEWE+AiA3Vr5zWl+pkPjMNCbnKkRFjdzrxKHJHsLaAE7ne60eCxA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lH6KLMOluMid9dB4yPTBwC+GkfJZwm4z9DUpj20UP9AvLkpLYN
-	jCNEvGeRU5U2WyDL7zXgDHnuR1yFOaeag2GY85g6nHiD5z6dBPFZrpLTvRQ9en2EzBvNutLyxJz
-	owhtG8zbzbjSy1/yzTRyMyEkk41m9VbI=
-X-Gm-Gg: AYBFou2OFsv5DHPU0ePgO5Z1c9x1gWo62SEVcLvUYwzjwIb1OmVRqvYAHWG+DejxNkj
-	/yqlgZeVMBdEXAzNlEjq8h9xWe7uCVkG9BhUzZdSd7bhapxFSiFnSb03cMXuKTFiRcyTizV7n0M
-	i491OV6EO4c1lb1SZG9V1vl5V6O4jzmaOQ3DBSmNBGj40g1bNgG68DVEgPlC+WjjSc/pEiKLLo+
-	n40FEo/mVeUQB3CyrnLt2gjBnG1YeOoE8dyOXoLPdZefD5Q67FLjILsQg6Y/kJoWiRZ4y2og/8Y
-	Ylka7XRVi7Y5Ie8D/F1Vvwm3QH3d+1xzG6ynzdcjgy/hBgQVROmf5hQTJA==
-X-Received: by 2002:a17:907:9285:b0:c29:5340:182e with SMTP id
- a640c23a62f3a-c2a15788ecamr847167466b.2.1789978506086; Mon, 21 Sep 2026
- 01:15:06 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="6Dq9FiWQ"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=XtebusF9cX+jQ39t+1Pzo72GTvdeOb0RVjzhJ/U/eVs=;
+	b=6Dq9FiWQJ3Mp7IdtfLkhPAptCWarlNlS6X58PQt39l8LJ7zPh74xkWuMFF7iSNL3NLCG0JYL4
+	zMwGQUE1Rr266Yl4hW2DFwrOXdsipQk3vyOhjmsa0lY2V6Gp+ZeDkCuysYa6chBpFnbgQsC8syZ
+	GIBaWyjwaJGfP9841EXC2xE=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hpG3007VVznTZf;
+	Mon, 21 Sep 2026 16:04:12 +0800 (CST)
+Received: from whupemk100014.china.huawei.com (unknown [7.152.184.20])
+	by mail.maildlp.com (Postfix) with ESMTPS id 3B3CD40565;
+	Mon, 21 Sep 2026 16:15:14 +0800 (CST)
+Received: from [10.67.121.110] (10.67.121.110) by
+ whupemk100014.china.huawei.com (7.152.184.20) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 21 Sep 2026 16:15:13 +0800
+Subject: Re: [PATCH v4 1/2] hisi_acc_vfio_pci: fix NULL dereference in
+ reset_prepare on PF passthrough
+To: Alex Williamson <alex@shazbot.org>
+CC: <alex.williamson@redhat.com>, <jgg@nvidia.com>, <kvm@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20260918084244.1485837-1-liulongfang@huawei.com>
+ <20260918084244.1485837-2-liulongfang@huawei.com>
+ <20260920082641.64d66616@shazbot.org>
+From: liulongfang <liulongfang@huawei.com>
+Message-ID: <f0a43a0f-b317-964f-207c-f96d1f0a6478@huawei.com>
+Date: Mon, 21 Sep 2026 16:15:12 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920203239.2876221-2-Jeremy.Jean@oss.cyber.gouv.fr> <20260920203239.2876221-4-Jeremy.Jean@oss.cyber.gouv.fr>
-In-Reply-To: <20260920203239.2876221-4-Jeremy.Jean@oss.cyber.gouv.fr>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Mon, 21 Sep 2026 10:14:55 +0200
-X-Gm-Features: AcwNN1UbcG29pyU5X3cJMyM7lMwffUz3zVeuQCo9MypS9XqzCrCk_TNC4ujot-o
-Message-ID: <CAOQ4uxjdY3ppNiZf7bHxwmpXqSyx0oGrjXxgmmYy2gyK4VzrMg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] selftests: overlayfs: reject handles for mixed
- lower idmaps
-To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>, 
-	brauner@kernel.org
-Cc: miklos@szeredi.hu, linux-unionfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260920082641.64d66616@shazbot.org>
+Content-Type: text/plain; charset="gbk"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ whupemk100014.china.huawei.com (7.152.184.20)
 
-On Sun, Sep 20, 2026 at 10:33=E2=80=AFPM J=C3=A9r=C3=A9my Jean
-<Jeremy.Jean@oss.cyber.gouv.fr> wrote:
->
-> Add an idmapped overlay test for two lower layers that share a backing
-> superblock but use different idmaps. Mount with index=3Don,nfs_export=3Do=
-n and
-> verify decodable handle requests fail with EOPNOTSUPP after overlayfs fal=
-ls
-> back to nfs_export=3Doff.
->
-> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> ---
->  .../filesystems/overlayfs/idmapped_mounts.c   | 98 ++++++++++++++++++-
->  1 file changed, 94 insertions(+), 4 deletions(-)
->
-> diff --git a/tools/testing/selftests/filesystems/overlayfs/idmapped_mount=
-s.c b/tools/testing/selftests/filesystems/overlayfs/idmapped_mounts.c
-> index 44a75839f4ed..0e94bd464f1c 100644
-> --- a/tools/testing/selftests/filesystems/overlayfs/idmapped_mounts.c
-> +++ b/tools/testing/selftests/filesystems/overlayfs/idmapped_mounts.c
-> @@ -159,8 +159,16 @@ static int idmapped_layer_fd(const char *path, int n=
-sid, int hostid, int range)
->         return fd_tree;
->  }
->
-> -/* Overlay with a layer passed by fd (idmapped) plus a plain upper/work.=
- */
-> -static int ovl_mount_lower_fd(const char *upper, const char *work, int f=
-d_lower)
-> +static int layer_fd(const char *path)
-> +{
-> +       return sys_open_tree(AT_FDCWD, path,
-> +                            OPEN_TREE_CLONE | OPEN_TREE_CLOEXEC);
-> +}
-> +
-> +/* Overlay with lower layers passed by fd plus a plain upper/work. */
-> +static int ovl_mount_lower_fds(const char *upper, const char *work,
-> +                              int fd_lower1, int fd_lower2,
-> +                              const char *index, const char *nfs_export)
->  {
->         int fsfd, ovl;
->
-> @@ -171,8 +179,19 @@ static int ovl_mount_lower_fd(const char *upper, con=
-st char *work, int fd_lower)
->         if (sys_fsconfig(fsfd, FSCONFIG_SET_STRING, "source", "test", 0) =
-||
->             sys_fsconfig(fsfd, FSCONFIG_SET_STRING, "upperdir", upper, 0)=
- ||
->             sys_fsconfig(fsfd, FSCONFIG_SET_STRING, "workdir", work, 0) |=
-|
-> -           sys_fsconfig(fsfd, FSCONFIG_SET_FD, "lowerdir+", NULL, fd_low=
-er) ||
-> -           sys_fsconfig(fsfd, FSCONFIG_CMD_CREATE, NULL, NULL, 0))
-> +           sys_fsconfig(fsfd, FSCONFIG_SET_FD, "lowerdir+", NULL, fd_low=
-er1))
-> +               goto err;
-> +       if (fd_lower2 >=3D 0 &&
-> +           sys_fsconfig(fsfd, FSCONFIG_SET_FD, "lowerdir+", NULL, fd_low=
-er2))
-> +               goto err;
-> +       if (index &&
-> +           sys_fsconfig(fsfd, FSCONFIG_SET_STRING, "index", index, 0))
-> +               goto err;
-> +       if (nfs_export &&
-> +           sys_fsconfig(fsfd, FSCONFIG_SET_STRING, "nfs_export",
-> +                        nfs_export, 0))
-> +               goto err;
-> +       if (sys_fsconfig(fsfd, FSCONFIG_CMD_CREATE, NULL, NULL, 0))
->                 goto err;
->
->         ovl =3D sys_fsmount(fsfd, 0, 0);
-> @@ -183,6 +202,23 @@ static int ovl_mount_lower_fd(const char *upper, con=
-st char *work, int fd_lower)
->         return -1;
->  }
->
-> +static int ovl_mount_lower_fd(const char *upper, const char *work, int f=
-d_lower)
-> +{
-> +       return ovl_mount_lower_fds(upper, work, fd_lower, -1, NULL, NULL)=
-;
-> +}
-> +
-> +static int setup_extra_layer(const char *base, const char *name)
-> +{
-> +       char path[PATH_MAX];
-> +
-> +       snprintf(path, sizeof(path), "%s/%s", base, name);
-> +       if (mkdir(path, 0755) && errno !=3D EEXIST)
-> +               return -1;
-> +       if (chown(path, ID_HOST, ID_HOST))
-> +               return -1;
-> +       return 0;
-> +}
-> +
->  /*
->   * Mount an overlay inside user namespace @u1 (so the overlay sb's s_use=
-r_ns is
->   * not the initial namespace) and idmap that overlay mount with @u2.  Ru=
-ns in a
-> @@ -498,4 +534,58 @@ TEST_F(idmapped_overlay, nfs_export_handles)
->         EXPECT_EQ(close(ovl), 0);
->  }
->
-> +/*
-> + * Lower file handles cannot be decoded safely when two lower layers sha=
-re a
-> + * superblock but use different idmaps.  nfs_export should be disabled f=
-or that
-> + * layout, so a normal decodable handle request must fail with EOPNOTSUP=
-P.
-> + */
-> +TEST_F(idmapped_overlay, nfs_export_same_sb_mixed_idmaps)
-> +{
-> +       char lower1[PATH_MAX], lower2[PATH_MAX], upper[PATH_MAX], work[PA=
-TH_MAX];
-> +       char path[PATH_MAX], mnt[128];
-> +       union {
-> +               struct file_handle fh;
-> +               char buf[sizeof(struct file_handle) + MAX_HANDLE_SZ];
-> +       } fhu;
-> +       struct file_handle *fh =3D &fhu.fh;
-> +       int fd_lower1, fd_lower2, ovl, mount_id;
-> +
-> +       if (!ovl_supported())
-> +               SKIP(return, "overlayfs not supported");
-> +
-> +       snprintf(lower1, sizeof(lower1), "%s/l", self->base);
-> +       snprintf(lower2, sizeof(lower2), "%s/l2", self->base);
-> +       snprintf(upper, sizeof(upper), "%s/u", self->base);
-> +       snprintf(work, sizeof(work), "%s/w", self->base);
-> +       ASSERT_EQ(setup_extra_layer(self->base, "l2"), 0);
-> +
-> +       snprintf(path, sizeof(path), "%s/l2/file", self->base);
-> +       ASSERT_EQ(mknod(path, S_IFREG | 0644, 0), 0);
-> +       ASSERT_EQ(chown(path, ID_HOST + 7, ID_HOST + 7), 0);
-> +
-> +       fd_lower1 =3D idmapped_layer_fd(lower1, ID_HOST, ID_NS, ID_RANGE)=
-;
-> +       ASSERT_GE(fd_lower1, 0);
-> +       fd_lower2 =3D layer_fd(lower2);
-> +       ASSERT_GE(fd_lower2, 0);
-> +
-> +       ovl =3D ovl_mount_lower_fds(upper, work, fd_lower1, fd_lower2, "o=
-n", "on");
-> +       if (ovl < 0)
-> +               SKIP(return, "overlayfs nfs_export not supported");
-> +       EXPECT_EQ(close(fd_lower1), 0);
-> +       EXPECT_EQ(close(fd_lower2), 0);
-> +
-> +       snprintf(mnt, sizeof(mnt), "%s/mnt", self->base);
-> +       ASSERT_EQ(mkdir(mnt, 0755), 0);
-> +       ASSERT_EQ(sys_move_mount(ovl, "", AT_FDCWD, mnt,
-> +                                MOVE_MOUNT_F_EMPTY_PATH), 0);
-> +
-> +       snprintf(path, sizeof(path), "%s/file", mnt);
-> +       fh->handle_bytes =3D MAX_HANDLE_SZ;
-> +       errno =3D 0;
-> +       EXPECT_EQ(name_to_handle_at(AT_FDCWD, path, fh, &mount_id, 0), -1=
-);
-> +       EXPECT_EQ(errno, EOPNOTSUPP);
-> +
-> +       EXPECT_EQ(close(ovl), 0);
-> +}
-> +
->  TEST_HARNESS_MAIN
 
-The expected behavior depends on whether Christian says this
-setup is legit in production.
+On 2026/9/20 22:26, Alex Williamson wrote:
+> On Fri, 18 Sep 2026 16:42:43 +0800
+> Longfang Liu <liulongfang@huawei.com> wrote:
+> 
+>> When a PF is bound to the driver via driver_override and passed
+>> through to a VM, its pf_qm stays NULL. The PCI error handler
+>> reset_prepare() runs during open_device through
+>> pci_try_reset_function(), before the mig_ops gate, and dereferences
+>> the NULL pf_qm for the timeout log, crashing the kernel.
+>>
+>> Move the mig_ops check to the entry of reset_prepare() and
+>> aer_reset_done() so non-migration devices skip the QM_RESETTING
+>> coordination. Also clear set_reset_flag together with QM_RESETTING
+>> in aer_reset_done(); the flag was never cleared before, so a later
+>> timed-out reset could release a foreign lock. Replace
+>> pci_iov_vf_id() >= 0 with pdev->is_virtfn in probe() for clearer
+>> on-VF gating.
+>>
+>> Fixes: b0eed085903e ("hisi_acc_vfio_pci: Add support for VFIO live migration")
+>> Fixes: a22099ed7936f ("hisi_acc_vfio_pci: fix VF reset timeout issue")
+>> Signed-off-by: Longfang Liu <liulongfang@huawei.com>
+>> ---
+>>  .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    | 19 ++++++++++++-------
+>>  1 file changed, 12 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+>> index 86362ec424a5..8ff69c8d1ff7 100644
+>> --- a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+>> +++ b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+>> @@ -1154,9 +1154,14 @@ static void hisi_acc_vf_pci_reset_prepare(struct pci_dev *pdev)
+>>  {
+>>  	struct hisi_acc_vf_core_device *hisi_acc_vdev = hisi_acc_drvdata(pdev);
+>>  	struct hisi_qm *qm = hisi_acc_vdev->pf_qm;
+>> -	struct device *dev = &qm->pdev->dev;
+>> +	struct device *dev = &pdev->dev;
+>>  	u32 delay = 0;
+>>  
+>> +	if (!hisi_acc_vdev->core_device.vdev.mig_ops) {
+>> +		dev_err(dev, "device not support migration\n");
+>> +		return;
+>> +	}
+> 
+> Why is not supporting migration worthy of a dev_err()?!  Resets are a
+> normal operation.  Generating a log to nag the lack of migration
+> support on every reset is unacceptable.
 
-Apart from the that you may add:
+How about changing it to a dev_info() then? Since users will notice errors when initiating
+a migration, an explicit log is necessary to pinpoint the cause and facilitate subsequent
+troubleshooting.
 
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+> 
+>> +
+>>  	/* All reset requests need to be queued for processing */
+>>  	while (test_and_set_bit(QM_RESETTING, &qm->misc_ctl)) {
+>>  		msleep(1);
+>> @@ -1174,12 +1179,14 @@ static void hisi_acc_vf_pci_aer_reset_done(struct pci_dev *pdev)
+>>  	struct hisi_acc_vf_core_device *hisi_acc_vdev = hisi_acc_drvdata(pdev);
+>>  	struct hisi_qm *qm = hisi_acc_vdev->pf_qm;
+>>  
+>> -	if (hisi_acc_vdev->set_reset_flag)
+>> -		clear_bit(QM_RESETTING, &qm->misc_ctl);
+>> -
+>>  	if (!hisi_acc_vdev->core_device.vdev.mig_ops)
+>>  		return;
+>>  
+>> +	if (hisi_acc_vdev->set_reset_flag) {
+>> +		clear_bit(QM_RESETTING, &qm->misc_ctl);
+>> +		hisi_acc_vdev->set_reset_flag = false;
+>> +	}
+>> +
+>>  	mutex_lock(&hisi_acc_vdev->state_mutex);
+>>  	hisi_acc_vf_reset(hisi_acc_vdev);
+>>  	mutex_unlock(&hisi_acc_vdev->state_mutex);
+>> @@ -1670,13 +1677,11 @@ static int hisi_acc_vfio_pci_probe(struct pci_dev *pdev, const struct pci_device
+>>  	struct hisi_acc_vf_core_device *hisi_acc_vdev;
+>>  	const struct vfio_device_ops *ops = &hisi_acc_vfio_pci_ops;
+>>  	struct hisi_qm *pf_qm;
+>> -	int vf_id;
+>>  	int ret;
+>>  
+>>  	pf_qm = hisi_acc_get_pf_qm(pdev);
+>>  	if (pf_qm && pf_qm->ver >= QM_HW_V3) {
+>> -		vf_id = pci_iov_vf_id(pdev);
+>> -		if (vf_id >= 0)
+>> +		if (pdev->is_virtfn)
+>>  			ops = &hisi_acc_vfio_pci_migrn_ops;
+>>  		else
+>>  			pci_warn(pdev, "migration support failed, continue with generic interface\n");
+> 
+> I still reject the redundant is_virtfn check here.  I don't find
+> support for the claim that it's a convention among variant drivers, nor
+> does it do anything here or to the next patch.  pf_qm is
+> deterministically NULL for pdev->is_virtfn.  Thanks,
+>
 
-Thanks,
-Amir.
+Even if left unchanged here, a later patch will anyway replace this complex logic with an is_virtfn check
+to handle the pci_resource_len inspection during probe.
+
+Thanks.
+Longfang.
+
+> Alex
+> .
+> 
