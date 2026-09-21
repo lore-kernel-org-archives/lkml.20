@@ -1,128 +1,267 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB4F342A176
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295603C3C07
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:09:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790032140; cv=none; b=UI/ApVlaUqptpr05QIWc1LLkmrOqQAxxRhIWAbasfc+QOQMBnw1ZvqAGfb9AeACPtOqDw/lmzZyuz6nr/fn11aqpDLtzLcWZvs180tvhotEvjQSvXvwGkiQ4IjnwiYHwCDVE4ouQ7rsXAXIvBKYEkp3FzcywAQx9PFthYuis/s0=
+	t=1790032150; cv=none; b=T1sLczrw/KCHSsAn9HA/5qWgkM3+l5OuoNyJjKKQii1Q7ccFdHMVqF17fvYymdFnM1KgZSTdRyfBVI9Y9f2R3oS/xRjR2uSm0CYi8L4kGb+jM1aR+mwmUkqtF9pZvyBvb6119hNEPWm9q2YJzcK7H0DPsSNyHW+2BfFJvSgYkpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790032140; c=relaxed/simple;
-	bh=kAvYqeh9lhIbm8YtKATUVDPt4SSV0dL/01lCzjcwo3Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rUGevKPkAV4VSUwUkZDmXNyEqWQWTlYjjJDZ8Cv+zUXizXhhE3BIf96kYAmiqu8U515eg3KrjlsGqrI4GgZLPq+/ObtZrFr4FoQBtxtHHHS4OfG1VkX+2BPQ6czgWbHY6gQP+EuffKf/MGRZ7uzeLL2ePkyfbOF3eSCR2dp+l9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QyZUYmCF; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790032150; c=relaxed/simple;
+	bh=ArWFFIpBekvbrO70QQbAqVt8dwdk5uDBhXPKRg8R56I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JGkhXgK/UoM6lTDIJmiYmG8udbfV20UUdDqGFaZ8GFw6xwpORM1LePlduLmmE2lS9gw52mFMJwPkbthQkNYLbwKHa7BJgFHBfGoBcOKaOAHRsQIX1pNuL7rwa3npI3etb+ZORgRQ39CQ1CzQCjpZ6Hyq2kOTw5+zlXY7n+QrEDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KcFT6sPs; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QyZUYmCF"
-Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910ca5aa7so318936385a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:08:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790032138; x=1790636938; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=81aKjimYrYOGXnfGd1vfh7o17MNAV+GZaQTkl+KjGW8=;
-        b=QyZUYmCFqcGdPDyj4LBCoxHGM3l8H92abHSqBj5QZZpXopqZSyK2Q5bFOaguO9b/IO
-         amUpJJWphzwIfhp3awJ0SEoCjqA2VbDlYzYpgOKHbPlesrGdT0qY/Jz84vj6s17+ua89
-         1pvcqTcZo8KcPzZlN9W8Lll3MUCQd9md+Clz6fqwOISzSx+mRNW0oXxexnynFvql6sC2
-         qzFI9M5TvlTf/k5I7pxJDKtj8xhEGw2i9ZuWQ0J2ou2tF06iXVDSsYTYvc+n+ZXCt/+F
-         qVmrGJY8P+2Mk/JUgyJ7MOSeF0tn7BiBDUJCXiMgq2YE1awp3nDuFx5EDA2643Rb1U9w
-         lR8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790032138; x=1790636938;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=81aKjimYrYOGXnfGd1vfh7o17MNAV+GZaQTkl+KjGW8=;
-        b=YQ6FcA7ncyEjYxVaNCv+GkD/wOGL4k/opUwGOghKEfAv/OzAVsvn3LMhAAHTnfrRMC
-         mj89i+6OOzVXnZJfeWlPu+SQ8G5ZticB+5ilmxbQ6Cf5yuPpzImKZw8DbHxudT258r3h
-         vqX2z7ve1p78NNSlnqDebaSMTARtZqg7k9oV52+eLkxD/AMvIxhK1CHm1aKCyzzZGxX8
-         bFWfnDgf+lGXiwQKtFRk6lfTIc1+e0GnrfOFkuOGHhRU0Fg5f3ZW1xloEs2oaRI6MZ5J
-         gy4/RIS+QgFZ/oDLpG9FLqO7r75UOLjXh4XRs9P6w+5TWirlVcwuwcjKmHjhyJiJKiTc
-         TVdw==
-X-Forwarded-Encrypted: i=1; AKwUvBzcLUGPADieJ732QP/gT+qV4SXNmpGO+ZJpHKR0iLjeHpcYkylhuttO4Xa5OnRUD+ant2Lblo1mP/G9wnM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmEB7+YwqqEnpiVIxwXuXKolrrVznmEQD/w0ojfgohCGZPn/kW
-	sq/2JZw81kH9pCkjAt3sXFN5x9jFLflOJ53Hd56db9LlUTlrKogL/6Y=
-X-Gm-Gg: AYBFou1kHqZTjC8GSHJwSkmM2LBVhnl8zN0YNR8QjFErYuuUOBDQUrjvHQSJ6f3I6ui
-	eBwZ3tULCcOD+dDifpTgSxwGKpNvf0U+QX//SFOlh2SixT4VxRfjbM/gq0YLaWxnknOiVigrivi
-	oxRMC4xmm1AwATXYmvyKYOO3gbp6TvVVj7kMJ7AYbXTwoaRvcsg9/shbn5zk47VShPcIeynjWx4
-	+BFXIX+oAXdjMZLnEKMR9p4nT4tCX0RbiI6vCrwQLkk6StP/+3t4VjXwnFpuNMCJilEpdKhdvyq
-	Dly3t9LLD45XdbYfNA7rEv/4biW024yBKYagEyvN18C2EMJdpUQIKWpYfspZSJokBIw4zkl3IgP
-	nQZwzLf7nl9fKrYjZ+uoEByoprR9/tNJquuoSOTZsTWo2vJg7lolCNwAmuUx5x/zPUnXSW/Sfx6
-	rcYHRvoypYE5hFTQYmqRoGEwoZGoed+2OYw0xlUB21y/SBk4rHF9qe07KWG6gCf5NXuOCJq2BIa
-	JakUwYEnsxa/vRvfGkmGuVf6jIejRCv7v9j0TGakEGu7mDSprci/ucj6IY9+Gh/2d2NZQaYKlOq
-	n1VXX1QuqKxMfIcodUQ15rCVxTRZ
-X-Received: by 2002:a05:620a:6f0c:b0:939:feaa:949c with SMTP id af79cd13be357-93c15eed484mr268135185a.36.1790032137800;
-        Mon, 21 Sep 2026 16:08:57 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c19a7f592sm39933985a.17.2026.09.21.16.08.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 16:08:57 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>
-Cc: linux-usb@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/2] usb: gadget: tegra-xudc: Disable reset delayed works
-Date: Mon, 21 Sep 2026 19:08:48 -0400
-Message-ID: <20260921230849.502492-3-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260921230849.502492-1-mhun512@gmail.com>
-References: <20260921230849.502492-1-mhun512@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KcFT6sPs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790032149; x=1821568149;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=ArWFFIpBekvbrO70QQbAqVt8dwdk5uDBhXPKRg8R56I=;
+  b=KcFT6sPsbYJlgjG5KBxat0i2KATPC71xaAzbwbC4AbFUxECBCzpOwlmM
+   vHqOhF77p03SG1lwJLJbzP8xd9oLIOU/w4FQ1NNW/9YJgfq1U101RBRO4
+   Rph1SfDteoPjIY07oCbrT01aYVH6eKpodbixfYD11tuDaGzZeNb/k7t1S
+   4XpgVMd4V6IioYSdq//L9P/EMlq1aoAevBjvX4F8hjAUj8R3DIkRWrF99
+   W11NmCMjF3OgA1g13eTh6TJIK8f6noHwmqDVhxMthpgo0yr1rtJMQ9BBb
+   38BpzoU7a2raQHf1B9wEJtg0x+IstumHchuwivto26yC9ZA9+NMDqJ/xc
+   Q==;
+X-CSE-ConnectionGUID: 2CPr1MyETyWps+L3nJv5Xw==
+X-CSE-MsgGUID: QvE7sxKyRY2kRoA1k1M8ew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="116114427"
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="116114427"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 16:09:08 -0700
+X-CSE-ConnectionGUID: /zDupwKcT7eJSFM/59g1nA==
+X-CSE-MsgGUID: S+xvSuQITuGOrTPzmi+bVw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="299106959"
+Received: from aschende-mobl.amr.corp.intel.com (HELO [10.125.109.234]) ([10.125.109.234])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 16:09:05 -0700
+Message-ID: <cb8b0e2a-dadb-45dc-a1dc-80b9944fb06b@intel.com>
+Date: Mon, 21 Sep 2026 16:09:04 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] ntb: use dmaengine_get_dma_device() instead of
+ chan->device->dev
+To: Frank.Li@oss.nxp.com, Jon Mason <jdmason@kudzu.us>,
+ Allen Hubbe <allenbh@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ "open list:NTB DRIVER CORE" <ntb@lists.linux.dev>,
+ open list <linux-kernel@vger.kernel.org>
+Cc: imx@lists.linux.dev, vkoul@kernel.org
+References: <20260921203910.1350228-1-Frank.Li@oss.nxp.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20260921203910.1350228-1-Frank.Li@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The devm port-status IRQ stays registered through remove() and can
-queue port_reset_war_work and plc_reset_work after
-cancel_delayed_work_sync() returns.  remove() never stops the first.
 
-disable_delayed_work_sync() drains both and rejects a later queue.
-usb_role_sw_work stays on cancel_work_sync().  The PHY notifier is its
-producer and is unregistered before this cancel.
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+On 9/21/26 1:39 PM, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> Replace direct dma_chan::device::dev access with the proper
+> dmaengine_get_dma_device() accessor in NTB DMA consumers.
+> 
+> chan->device->dev is not always the device used for DMA mapping.
+> Some DMA engines support per-channel IOMMU mappings, so different
+> channels may use different DMA devices.  dmaengine_get_dma_device()
+> returns the correct device for each channel.
+> 
+> This also prepares for making the DMA engine provider data structures
+> private. DMA consumers should not access DMA engine internals directly.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
-Fixes: 49db427232fe ("usb: gadget: Add UDC driver for tegra XUSB device mode controller")
-Cc: stable@vger.kernel.org # 6.10+
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Changes in v2:
-- Keep the Fixes tag on one line. (Thierry Reding)
-- Disable plc_reset_work too.  The port-status IRQ can requeue it.
-  (Thierry Reding)
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
 
- drivers/usb/gadget/udc/tegra-xudc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/gadget/udc/tegra-xudc.c b/drivers/usb/gadget/udc/tegra-xudc.c
-index a0585a1f19f0..dd0a033b4a7f 100644
---- a/drivers/usb/gadget/udc/tegra-xudc.c
-+++ b/drivers/usb/gadget/udc/tegra-xudc.c
-@@ -3932,7 +3932,8 @@ static void tegra_xudc_remove(struct platform_device *pdev)
- 						&xudc->vbus_nb);
- 	}
- 
--	cancel_delayed_work_sync(&xudc->plc_reset_work);
-+	disable_delayed_work_sync(&xudc->port_reset_war_work);
-+	disable_delayed_work_sync(&xudc->plc_reset_work);
- 	cancel_work_sync(&xudc->usb_role_sw_work);
- 
- 	usb_del_gadget_udc(&xudc->gadget);
--- 
-2.53.0
+> ---
+> change in v2
+> - fix commit message wrong mention IIO (copy-parste error). (report by
+> sashkio)
+> ---
+>  drivers/ntb/ntb_transport.c | 29 +++++++++++++++++------------
+>  drivers/ntb/test/ntb_perf.c | 14 ++++++++------
+>  2 files changed, 25 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+> index f9caa1a653c5b..890697cfc6b96 100644
+> --- a/drivers/ntb/ntb_transport.c
+> +++ b/drivers/ntb/ntb_transport.c
+> @@ -1519,6 +1519,7 @@ static int ntb_async_rx_submit(struct ntb_queue_entry *entry, void *offset)
+>  	struct ntb_transport_qp *qp = entry->qp;
+>  	struct dma_chan *chan = qp->rx_dma_chan;
+>  	struct dma_device *device;
+> +	struct device *dma_dev;
+>  	size_t pay_off, buff_off, len;
+>  	struct dmaengine_unmap_data *unmap;
+>  	dma_cookie_t cookie;
+> @@ -1526,27 +1527,28 @@ static int ntb_async_rx_submit(struct ntb_queue_entry *entry, void *offset)
+>  
+>  	len = entry->len;
+>  	device = chan->device;
+> +	dma_dev = dmaengine_get_dma_device(chan);
+>  	pay_off = (size_t)offset & ~PAGE_MASK;
+>  	buff_off = (size_t)buf & ~PAGE_MASK;
+>  
+>  	if (!is_dma_copy_aligned(device, pay_off, buff_off, len))
+>  		goto err;
+>  
+> -	unmap = dmaengine_get_unmap_data(device->dev, 2, GFP_NOWAIT);
+> +	unmap = dmaengine_get_unmap_data(dma_dev, 2, GFP_NOWAIT);
+>  	if (!unmap)
+>  		goto err;
+>  
+>  	unmap->len = len;
+> -	unmap->addr[0] = dma_map_phys(device->dev, virt_to_phys(offset),
+> +	unmap->addr[0] = dma_map_phys(dma_dev, virt_to_phys(offset),
+>  				      len, DMA_TO_DEVICE, 0);
+> -	if (dma_mapping_error(device->dev, unmap->addr[0]))
+> +	if (dma_mapping_error(dma_dev, unmap->addr[0]))
+>  		goto err_get_unmap;
+>  
+>  	unmap->to_cnt = 1;
+>  
+> -	unmap->addr[1] = dma_map_phys(device->dev, virt_to_phys(buf),
+> +	unmap->addr[1] = dma_map_phys(dma_dev, virt_to_phys(buf),
+>  				      len, DMA_FROM_DEVICE, 0);
+> -	if (dma_mapping_error(device->dev, unmap->addr[1]))
+> +	if (dma_mapping_error(dma_dev, unmap->addr[1]))
+>  		goto err_get_unmap;
+>  
+>  	unmap->from_cnt = 1;
+> @@ -1856,6 +1858,7 @@ static int ntb_async_tx_submit(struct ntb_transport_qp *qp,
+>  {
+>  	struct dma_async_tx_descriptor *txd;
+>  	struct dma_chan *chan = qp->tx_dma_chan;
+> +	struct device *dma_dev = dmaengine_get_dma_device(chan);
+>  	struct dma_device *device;
+>  	size_t len = entry->len;
+>  	void *buf = entry->buf;
+> @@ -1872,14 +1875,14 @@ static int ntb_async_tx_submit(struct ntb_transport_qp *qp,
+>  	if (!is_dma_copy_aligned(device, buff_off, dest_off, len))
+>  		goto err;
+>  
+> -	unmap = dmaengine_get_unmap_data(device->dev, 1, GFP_NOWAIT);
+> +	unmap = dmaengine_get_unmap_data(dma_dev, 1, GFP_NOWAIT);
+>  	if (!unmap)
+>  		goto err;
+>  
+>  	unmap->len = len;
+> -	unmap->addr[0] = dma_map_phys(device->dev, virt_to_phys(buf),
+> +	unmap->addr[0] = dma_map_phys(dma_dev, virt_to_phys(buf),
+>  				      len, DMA_TO_DEVICE, 0);
+> -	if (dma_mapping_error(device->dev, unmap->addr[0]))
+> +	if (dma_mapping_error(dma_dev, unmap->addr[0]))
+>  		goto err_get_unmap;
+>  
+>  	unmap->to_cnt = 1;
+> @@ -2026,6 +2029,7 @@ ntb_transport_create_queue(void *data, struct device *client_dev,
+>  	struct ntb_transport_qp *qp;
+>  	u64 qp_bit;
+>  	unsigned int free_queue;
+> +	struct device *tx_dev;
+>  	dma_cap_mask_t dma_mask;
+>  	int node;
+>  	int i;
+> @@ -2089,11 +2093,12 @@ ntb_transport_create_queue(void *data, struct device *client_dev,
+>  
+>  	qp->tx_mw_dma_addr = 0;
+>  	if (qp->tx_dma_chan) {
+> +		tx_dev = dmaengine_get_dma_device(qp->tx_dma_chan);
+>  		qp->tx_mw_dma_addr =
+> -			dma_map_resource(qp->tx_dma_chan->device->dev,
+> +			dma_map_resource(tx_dev,
+>  					 qp->tx_mw_phys, qp->tx_mw_size,
+>  					 DMA_FROM_DEVICE, 0);
+> -		if (dma_mapping_error(qp->tx_dma_chan->device->dev,
+> +		if (dma_mapping_error(tx_dev,
+>  				      qp->tx_mw_dma_addr)) {
+>  			qp->tx_mw_dma_addr = 0;
+>  			goto err1;
+> @@ -2142,7 +2147,7 @@ ntb_transport_create_queue(void *data, struct device *client_dev,
+>  	while ((entry = ntb_list_rm(&qp->ntb_rx_q_lock, &qp->rx_free_q)))
+>  		kfree(entry);
+>  	if (qp->tx_mw_dma_addr)
+> -		dma_unmap_resource(qp->tx_dma_chan->device->dev,
+> +		dma_unmap_resource(tx_dev,
+>  				   qp->tx_mw_dma_addr, qp->tx_mw_size,
+>  				   DMA_FROM_DEVICE, 0);
+>  	if (qp->tx_dma_chan)
+> @@ -2192,7 +2197,7 @@ void ntb_transport_free_queue(struct ntb_transport_qp *qp)
+>  		dma_sync_wait(chan, qp->last_cookie);
+>  		dmaengine_terminate_all(chan);
+>  
+> -		dma_unmap_resource(chan->device->dev,
+> +		dma_unmap_resource(dmaengine_get_dma_device(chan),
+>  				   qp->tx_mw_dma_addr, qp->tx_mw_size,
+>  				   DMA_FROM_DEVICE, 0);
+>  
+> diff --git a/drivers/ntb/test/ntb_perf.c b/drivers/ntb/test/ntb_perf.c
+> index dfd175f79e8f0..b936f15079df2 100644
+> --- a/drivers/ntb/test/ntb_perf.c
+> +++ b/drivers/ntb/test/ntb_perf.c
+> @@ -799,7 +799,7 @@ static int perf_copy_chunk(struct perf_thread *pthr,
+>  		goto ret_check_tsync;
+>  	}
+>  
+> -	dma_dev = pthr->dma_chan->device->dev;
+> +	dma_dev = dmaengine_get_dma_device(pthr->dma_chan);
+>  
+>  	if (!is_dma_copy_aligned(pthr->dma_chan->device, offset_in_page(src),
+>  				 offset_in_page(dst), len))
+> @@ -869,6 +869,7 @@ static bool perf_dma_filter(struct dma_chan *chan, void *data)
+>  static int perf_init_test(struct perf_thread *pthr)
+>  {
+>  	struct perf_ctx *perf = pthr->perf;
+> +	struct device *dma_dev;
+>  	dma_cap_mask_t dma_mask;
+>  	struct perf_peer *peer = pthr->perf->test_peer;
+>  
+> @@ -890,19 +891,20 @@ static int perf_init_test(struct perf_thread *pthr)
+>  			pthr->tidx);
+>  		goto err_free;
+>  	}
+> +	dma_dev = dmaengine_get_dma_device(pthr->dma_chan);
+>  	peer->dma_dst_addr =
+> -		dma_map_resource(pthr->dma_chan->device->dev,
+> +		dma_map_resource(dma_dev,
+>  				 peer->out_phys_addr, peer->outbuf_size,
+>  				 DMA_FROM_DEVICE, 0);
+> -	if (dma_mapping_error(pthr->dma_chan->device->dev,
+> +	if (dma_mapping_error(dma_dev,
+>  			      peer->dma_dst_addr)) {
+> -		dev_err(pthr->dma_chan->device->dev, "%d: Failed to map DMA addr\n",
+> +		dev_err(dma_dev, "%d: Failed to map DMA addr\n",
+>  			pthr->tidx);
+>  		peer->dma_dst_addr = 0;
+>  		dma_release_channel(pthr->dma_chan);
+>  		goto err_free;
+>  	}
+> -	dev_dbg(pthr->dma_chan->device->dev, "%d: Map MMIO %pa to DMA addr %pad\n",
+> +	dev_dbg(dma_dev, "%d: Map MMIO %pa to DMA addr %pad\n",
+>  			pthr->tidx,
+>  			&peer->out_phys_addr,
+>  			&peer->dma_dst_addr);
+> @@ -1003,7 +1005,7 @@ static void perf_clear_test(struct perf_thread *pthr)
+>  	 */
+>  	(void)dmaengine_terminate_sync(pthr->dma_chan);
+>  	if (pthr->perf->test_peer->dma_dst_addr)
+> -		dma_unmap_resource(pthr->dma_chan->device->dev,
+> +		dma_unmap_resource(dmaengine_get_dma_device(pthr->dma_chan),
+>  				   pthr->perf->test_peer->dma_dst_addr,
+>  				   pthr->perf->test_peer->outbuf_size,
+>  				   DMA_FROM_DEVICE, 0);
 
