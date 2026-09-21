@@ -1,83 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f21.google.com (mail-ej2-f21.google.com [74.125.228.149])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A544B44A725;
-	Mon, 21 Sep 2026 08:03:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789977836; cv=none; b=LVhf0bWFefP1Mi71fBRr2LdlMznZkFUq5KpCgM3IVJWns1gQpJ+wEdVL4m5+ULaJ6VYXZ/sHm88oubvWTORrisfp1ErkzG1i7bQtU0xd3Ru2nx2EcbLHeLsw21sDG31OcwShK46t3HhkqItwxEtyH6rGe1c4ElkZPv4EI6/3hn4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789977836; c=relaxed/simple;
-	bh=EW74lXzDEC4ksALgbe1BO7LXRzfjlQY1fOBlGDazMQw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G5TxROVponagOTIU3mU1oIS61Dg37rd5VmQLVutDeKHBKhEdOGJWJFpUPKfSrZ1wy+Ta+jhdz9D8EwRehhzgmRK2ZMCgwbA9A99U8lR6yvIVj0TEc+3JmcJGFTS6H0HLEIXS6uJBcvadh8HCQtSqE6AEm9x6R8HLMFPZfzh8zvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iyvcyeVt; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07D4E33F8C4
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:04:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.149
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789977846; cv=pass; b=l+Al6OajZ5bYpVfsSNjAOcQ5bfRg8HitYCCmI2XJ6A/w4ZmTuO5oTJl9qdAbWWUHAYnGMzjjYzmsW3EMntT4ZiVLjkGR6+p3/JJOq/wn8WTqb3pdYJQF9Jm43mbjz06cfWGTzKydumeKuuuA25dxWJ8XnAWFalLLRMCbk16yYlE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789977846; c=relaxed/simple;
+	bh=BHHvVxXhYf7butuU7G97wcIknchQm2zDSthXzdW2JCg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=T/CKGgAer9XFKymk+iOXz89zMtmdLYtoNMHre88qtE3kTNrZdEPqF3QTeYtAwxeaVYb4TuZx4f8CPy2lpyMEq47HohOLG+lN7bitVEDN+M6/0cfKKHZXR1Co9BcsZ9jzkE+nQI1Mf5bFYg+fSj9YhulOuGhQyneO0pXp0bHlyhI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vt5TA66T; arc=pass smtp.client-ip=74.125.228.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iyvcyeVt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 828281F000FF;
-	Mon, 21 Sep 2026 08:03:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789977835;
-	bh=KsQ90edjAsrAFhgm0/rE7PgtI+eNbFXo/5sMFQhaex8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iyvcyeVtgEssGNPqi5AqV9YcLohVP5PW4hfA+04vJnkWBxNwXDtjUJuJzu8N5gZtG
-	 onJzbXPynz2tvKP4yxiUjnAax/oTMIIEYHAYckQc94cCQ/Pj91ZbDnQR86AmYKBwcy
-	 m7jrqwIbDIo6FuCVYmsgJJPpPSiTibcDPAy/Io7lL3PovVQ832ShqgYRG5/4UNc1lK
-	 NWXYRHjSsQZLnZoQBeI7+LncGpxLQx7P4RaOZORt68k6IDd9QSlIgP99CL97QF1+jr
-	 Z2Pbl7GS4U5NdJ9ux9VO8pz0kpGxcA7tPE25y+v0o8Aso4rXjMDGW7FO1dCozHbNya
-	 uhMthxWfECFzQ==
-Date: Mon, 21 Sep 2026 10:03:46 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Encrow Thorne <encrow.thorne@linux.spacemit.com>
-Cc: Bruno Banelli <bbanelli@gmail.com>, linux-pci@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, Alex Elder <elder@riscstar.com>, 
-	Yixun Lan <dlan@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Krzysztof Wilczynski <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Uwe Kleine-Koenig <u.kleine-koenig@baylibre.com>, Javier Martinez Canillas <javierm@redhat.com>, 
-	linux-kernel@vger.kernel.org, linux-riscv <linux-riscv-bounces@lists.infradead.org>
-Subject: Re: [BUG] PCI: spacemit-k1: port C probe hard-hangs a CPU with one
- endpoint on Milk-V Jupiter
-Message-ID: <xuafb5qshj6rowe3v6sxyfvtemy4wg2ttqs7lcwu3txu2mpyzm@fr72njh6zgvi>
-References: <20260825052249.66921-1-bbanelli@gmail.com>
- <DLKRGJBNFVQO.15WZ2SXQLOY0T@linux.spacemit.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vt5TA66T"
+Received: by mail-ej2-f21.google.com with SMTP id a640c23a62f3a-c2a1f611461so154747766b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:04:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789977843; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GS8y2x0ZQH3sgl9AcoOD2ZbgRzEP7DubRdtki/lhypr+66EccV1jKUwEO9AA+OYvHr
+         D7Pd5MNySe78kZ+l6CvxZplNTUsz4c9KSeWQGf6PjvfgIhGb6VxW26gSZ7ZBcHQ9ovjz
+         +WcOKdI8WhmoGL1zdO4T3V2C/KtpNg43CSq/8dz4FDKq01T0t4d6IlbVWfdRvj6roHEA
+         1QU8ygGqGH5HWeojpeKGdyKeZu6a2FmgHbOPP9cP1PEdeSTY8ppj0BFaP9EZSwr0D0YY
+         HibotKmeSdpCJb6k95/02d6OUbgujcBPWF3/bDkc6ZTx5qcsSFVHmF2YsIRzj9qxcS5L
+         Qayw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3CPPlAz7rOVaKGzBH75ziRlUSLV2fWYbKF5sY/yYeVg=;
+        fh=TLQHgzTQJQ2Y+6ie4fQfEjgUN120SjGGfF43PFkz/2U=;
+        b=b+0mExufocMf9xqSLDeYCOUDdPLgkRhjY3mveFVDb5xT9zjAr5yFvibNhBDLbfuvK4
+         6Ro/XWG/S8tjeCvsahrImlidHsmMOqogUK/qM7T0nx5HVjLxMs3k782fiw3naPXVYPWi
+         fL199oSgQVDOGU3em5/ZvAHDDAfR5UTzhH3NV0JGljicnZPSv9FkRIfJXw1WHuoVoydY
+         +3rHv0mhFD9QO4V055hnij/WXfit4g3hAxGpElhCA2Jlh2iSe+Kl4Pg29lgRRklwBNjx
+         OLBmqnVRatIh8uZ+eT5Nwepc6YLTMLrG6LeEEKXjU6x3/1HMIdZunZk/Gw17bTbipfQd
+         l8Qg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789977843; x=1790582643; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3CPPlAz7rOVaKGzBH75ziRlUSLV2fWYbKF5sY/yYeVg=;
+        b=Vt5TA66Td35vOXhN+ngAezqAQ0ypMQj+19anC6Aarm8jkKAuak/WziCHPlRL/N+CSf
+         GGPFY4IJ4wv5ScwbL5q+t52UJigbDsVqtVke2Z3u0v42+A6bpaJdBGefLqxolCbn03oh
+         flOD7D5jUJmBfQfYr8NrzQ1AGit/BScAXfq2Xo/4O+E2b7lzcwDGDPjRXUS6uSRDOCr9
+         qfiyrECa65CVMEfnYWgl24NCnZNKuhQGw7PFb1GyuX1ijqSmCfWvbxTQcbXz2CVM0kKZ
+         dQOOHxpzdZcCUKLczfzH5C8WhThXdCyfrMRmSR1Xn0JIE5TstrN7qiYQXG8fakF32oeU
+         DmZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789977843; x=1790582643;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3CPPlAz7rOVaKGzBH75ziRlUSLV2fWYbKF5sY/yYeVg=;
+        b=vLTbSUHQlWbglRhuLB8guk5M+NFnVspfBC/YyWglz6t2oTjrDsyI93K0NS6E6C6ZKA
+         8PJ1Dk2DH0O0vbxT4AGlaFaJ767X/xsQzoHEeHCR+G/5/GutGAIv3swCXHdytZTAH0Xn
+         /CE5x36cCgOqCiD9zVYQMFkdcldb9UQ9C0XlHH1HPuZmRy4MLn/CFFi2GgxxFLXFnRjA
+         ZkCintPkIyH4ONHcHljm3Kt2q5+E4OR7ce0783MPEP63graY0YqNCpsb6uAiN+IwpTHl
+         tnMJJtJpuq8qfEO45Dkl3Z0EbS2yHLlZ/sHC3/tCjt9DrGyYqTKsxalZvMmOnxvhwm34
+         Nqrg==
+X-Forwarded-Encrypted: i=1; AKwUvBwIaTIAI7hFS0TTnC+Sc/O2qXDvIZOcNC/dwwVkzpYoD5GfW1ucqpJ/YLhWJ+6G9eKDHkTaswo4EJgMvWc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nohLmDLHz9jCFLYXwLrtISTRUQJtGjdIynlv3rSgDo1UrMfXJ3
+	rR51lPEM0BHCgTidRdrXF2XOKv74dgv/iOn/wwqBGHdLdsEdunrrsKyg3NYTQI2gLJAIsiCAoeb
+	oMjLTeE7TmSOJct9dipRHGagOFCxwDt8=
+X-Gm-Gg: AYBFou2kPwqt5uha2vGo71vEDOjjDiiPFmKRy6VGKAd5X7oCbxdyyBIV4oVBn1i/xsv
+	R/Oc0F32QvF4IwYdE0Pkhn0qhiLTpDg4/rlSlUIcbZ1D2/RJm5dCJZ840HZj4h4jIDg15CQcXPa
+	CW/HmboEYifzPEhr8YwwMs7LlJYnXyneFyMJ62Q6U9JfoAot1h9m0nb3voYuBnkPD+rZKDenlWF
+	E6Bos2KSBSJCyNy+EtnT6Gw9Nsu8WTz/JATBY4/V6ehME/95mVNjxETNT2q3j0KH1RW8R7Bh3Z6
+	MZhtY8jTdtA3wFtV1Uh3rEsOphQEnjLgnDp5i1s/6r9M2Mu3wMxuDRsOdA==
+X-Received: by 2002:a17:907:1c94:b0:c25:f7db:4be9 with SMTP id
+ a640c23a62f3a-c2a16555e01mr963430766b.15.1789977843025; Mon, 21 Sep 2026
+ 01:04:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <DLKRGJBNFVQO.15WZ2SXQLOY0T@linux.spacemit.com>
+References: <20260920203239.2876221-2-Jeremy.Jean@oss.cyber.gouv.fr>
+In-Reply-To: <20260920203239.2876221-2-Jeremy.Jean@oss.cyber.gouv.fr>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Mon, 21 Sep 2026 10:03:52 +0200
+X-Gm-Features: AcwNN1VudlXF5OHLlFt9yKN5UFF-jnenTZ3p01flmg9bU-PwfkvO2WJR11Q6HV4
+Message-ID: <CAOQ4uxjgZ8e=M2yEhqO3mq7WeAUxX3fCNmVwaLStE_Ucqu2EDA@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] ovl: disable nfs_export for mixed-idmap same-sb
+ lower layers
+To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>, 
+	brauner@kernel.org
+Cc: miklos@szeredi.hu, linux-unionfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 21, 2026 at 01:55:42PM +0800, Encrow Thorne wrote:
+On Sun, Sep 20, 2026 at 10:33=E2=80=AFPM J=C3=A9r=C3=A9my Jean
+<Jeremy.Jean@oss.cyber.gouv.fr> wrote:
+>
+> Amir, this v2 addresses your comments on v1.
+>
+> I have split the v2 into 3 commits:
+>
+> * 1/3 is the actual fix, where only nfs_export is disabled. It caches the
+>   first lower idmap in each ovl_sb to avoid rescanning all lower layers
+>   for every repeated superblock.
+>
+> * 2/3 checks that the targeted layout indeed forces nfs_export=3Doff
+>   and that decodable handle requests fail with EOPNOTSUPP.
+>
+> * 3/3 keeps index=3Don,nfs_export=3Doff and verifies copy up still preser=
+ves
+>   hardlinks and mapped ownership.
+>
+> I have made this split so that you may decide to include 1 or 2 selftests=
+.
+>
+> I have reproduced the bug through nfsd with the help of AI. The reproduce=
+r
+> exports an overlay containing a mode 0600 uid 0 file, obtains a real NFSv=
+3
+> handle, drops a client to uid/gid 1000, then replays the saved handle aft=
+er
+> unmount, reclaim, and remount. On an unpatched kernel, the replay
+> initializes the overlay inode with uid 1000 and the client can read and
+> overwrite the file. TBH, I don't know whether this layout may actually
+> happen in production, but it looks like a weird feature.
 
-[...]
+I do not know either.
 
-> Hi Bruno,
-> 
-> The issue was caused by a missing hardware configuration in the K1 PCIe
-> initialization.
-> 
-> The PMU PCIE_CONTROL_LOGIC register contains an IGNORE_PERSTN bit (BIT(2)).
-> The hardware manual describes it as follows:
-> 
-> “When set to 1, the PCIe controller and PHY ignore the PERSTN signal from
-> the link partner in both RC and EP modes.”
-> 
-> This bit was not configured during RC initialization. As a result, the
-> controller and PHY could still be affected by the PERSTN input during the
-> early DBI accesses. With the Intel I225-V installed, the first DBI access
-> could remain pending and hang the CPU.
-> 
+I would like to get feedback from Christian on that, because if this
+setup is not expected I'd rather fail the mount.
 
-What does this 'PERSTN' bit controls? PERST# or something else? PERST# is
-controlled only by the Root Complex btw. Also, why does this missing register
-configuration only affecting Intel I225-V endpoint and not others?
+Thanks,
+Amir.
 
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
+>
+> Changes since v1:
+> - disable only nfs_export (keep index enabled),
+> - cache the first lower idmap in struct ovl_sb instead of rescanning,
+> - add separate selftests for handle rejection and index copy up.
+>
+> v1: https://lore.kernel.org/all/20260911194201.1334086-2-Jeremy.Jean@oss.=
+cyber.gouv.fr/
+>
+> J=C3=A9r=C3=A9my Jean (3):
+>   ovl: disable nfs_export for same-sb lower layers with different idmaps
+>   selftests: overlayfs: reject handles for mixed lower idmaps
+>   selftests: overlayfs: keep index copy up with mixed lower idmaps
+>
+>  fs/overlayfs/ovl_entry.h                      |   2 +
+>  fs/overlayfs/super.c                          |  28 ++-
+>  .../filesystems/overlayfs/idmapped_mounts.c   | 201 +++++++++++++++++-
+>  3 files changed, 226 insertions(+), 5 deletions(-)
+>
+> --
+> 2.47.3
