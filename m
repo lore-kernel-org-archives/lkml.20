@@ -1,87 +1,111 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CEAF43BDAE
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:43:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1277C3F927B;
+	Mon, 21 Sep 2026 07:46:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.96.220.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789976642; cv=none; b=RLwEtqVXmhDv0GFZge/OKcjqw48Ir+5g8mewUOSzfj2x2P+M/oPJlrRIAGXVJddtx9nch6A/DF6cgPnDp8KmLTST6Z/ZgJQgnYngcHAAAJTKFhk6cSueT+NKsvPN62TAJfNLfTv2XOxPc6U1MpH2u3oRkuStJOLzwXi1bNHNPoQ=
+	t=1789976822; cv=none; b=WBtWH/ZCIWjPxyAPWtijiQuiqHNpI3iZz8qZSBw/Bhb9rTAbGIKi1+Z0Ztrkg1k1Ii737nKOElscaR4WCqJuzzP5zoE9PfbOG9DUNfhFJ7U1IDmUu1R3bwVWTlP7zp0HiSRwW4MqmgFcrt8C+22OGNhIIKfbpqj11ILhm0rYEuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789976642; c=relaxed/simple;
-	bh=pT3zhQGzQoC6KFvw+xpIK42KloeUcQ8Mqpy+IyyOAdk=;
-	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=ETTMPexXAVAoq/czJXf/BP271VqV0/3hjtD7pNcmmbe8eWVbV95Fs4zMEeSoeR10k3sHMz30B/yXgUMudoKO/spXn0edw26z4JZuVcd+B1eAA81gIfKcRwQ53bXHnq6XcQEKcr3v9DCwcWHiNwdXueewP9NNun+TzD//t8fvRA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ifO9RGYy; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789976822; c=relaxed/simple;
+	bh=VLUdS02NRRno6GLL+tr+sk9bKjuGY7lFkc5FZ9tEJq4=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=a3I9F4J5f3oV4JMI686zGGEBpQat6Ml01P5SygdJolKq1bu9/NU4LEiSHDfFR9fhwVAoq//X//5iXPIvtVQkzNep4txhkLwxCZbli7J2aWNt2xXFdMVaQsAx5UuG0nuhLppdxg4UUmR2+wk32EujcG3QyWpOX3EKna6F/yu5cR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com; spf=pass smtp.mailfrom=secunet.com; dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b=P8ZkK8xM; arc=none smtp.client-ip=62.96.220.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ifO9RGYy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=pT3zhQGzQoC6KFvw+xpIK42KloeUcQ8Mqpy+IyyOAdk=; b=i
-	fO9RGYyOv5+prB4pPC8sEfxLeniKIyIWnArRUwkgTcs0OVAqmlviH/EqAhKrNGAv
-	vvPVdTMtB0pBN0iS5YZ5Ej/Ic/ZUFwus4fB4Qlpe5yAQYzhBYTOhMr5aeg498V/Q
-	7mglDsVQyqndkbS6aD6NDnQLS/dMvm+foJBUIhottE=
-Date: Mon, 21 Sep 2026 15:43:48 +0800 (CST)
-From: CJ  <firefly0158@163.com>
-To: jack@suse.com
-Cc: jack@suse.com, linux-kernel@vger.kernel.org
-Subject: [BUG] ext2: WARNING in ext2_get_group_desc when allocating a block
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2TC/WcuU4p7iSdbOkdmEsTju82UcS4ufQl245Xc/sEuADE1wYGfV5FGUX59tmTLwSKmzOZcTJQ8uBIdIhWkzMXJ2dZjA83aBBl31idHg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b="P8ZkK8xM"
+Received: from localhost (localhost [127.0.0.1])
+	by mx1.secunet.com (Postfix) with ESMTP id 8A25120728;
+	Mon, 21 Sep 2026 09:46:52 +0200 (CEST)
+X-Virus-Scanned: by secunet
+Received: from mx1.secunet.com ([127.0.0.1])
+ by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id sB1aWwUjRQfB; Mon, 21 Sep 2026 09:46:52 +0200 (CEST)
+Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.secunet.com (Postfix) with ESMTPS id 055E120704;
+	Mon, 21 Sep 2026 09:46:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 055E120704
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
+	s=202301; t=1789976812;
+	bh=J22Zw0SkQCK/M+p7X5FLSZuVRrlKG7w+gt8YvGfV6+w=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
+	b=P8ZkK8xMBnWrFkVbzWb1WU2mGkOP0wcnXbRJPMtT4+zggJL8naG6XDHI2XnY4knm3
+	 4Q/PjPJ2RuL80ORr4VfsODmUxy71un9Oyv+7wPw2z6fMH7cwahnJjgOBmfYyiqpm5P
+	 o7hm5foVM7sEWe0WWDfifJRSTuHwTcQXAE63ZbJyXCN8Htq1IrG9i1LF70873q3LJj
+	 wU59XP3w5++LuYKYZQJlnB8baZs8gYRcU8uptEhqTpgLP8nQzDuXAP1hA/0w4UhF6j
+	 n2Mn5evVEej91ag2teEzjVLzI6mlTvKoS3nBfgYNfPTvqavIDLY4VUCWuzplM9MFKd
+	 jJ5zt1p307gYw==
+Received: from secunet.com (10.182.7.193) by EXCH-01.secunet.de (10.32.0.171)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 21 Sep
+ 2026 09:46:51 +0200
+Received: (nullmailer pid 1751865 invoked by uid 1000);
+	Mon, 21 Sep 2026 07:46:50 -0000
+Date: Mon, 21 Sep 2026 09:46:50 +0200
+From: Steffen Klassert <steffen.klassert@secunet.com>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+CC: Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, Florian Westphal <fw@strlen.de>,
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH net v2] xfrm: retry inexact policy lookup after node
+ reinsertion
+Message-ID: <arDg6mhqpIy1kPSc@secunet.com>
+References: <20260903145735.468999-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <1a273395.6db8.1a0c2ebccf1.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:cSgvCgDXv1Y04LBqvyNLAA--.43520W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3hQMvWqw4DTYBgAA3r
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260903145735.468999-1-nicoyip.dev@gmail.com>
+X-ClientProxiedBy: EXCH-04.secunet.de (10.32.0.184) To EXCH-01.secunet.de
+ (10.32.0.171)
 
-CgpIaSwKCgpJIGFtIHJlcG9ydGluZyBhbiBpc3N1ZSB0cmlnZ2VyZWQgYnkgYSBzeXprYWxsZXIg
-cmVwcm9kdWNlciBvbiBMaW51eAo3LjMuMC1yYzIuIFRoZSBpc3N1ZSBpcyByZXByb2R1Y2libGUg
-d2l0aCBIRUFEIGNvbW1pdApkZjI5MDgwOTBjZGEzNjhiMDFmZjQzNzA5ZjUxODkwMDc2YzU2MTU3
-LgoKClRoZSByZXByb2R1Y2VyIG1vdW50cyBhIGNyYWZ0ZWQgZXh0MiBpbWFnZSBjYXJyeWluZyB1
-c2VyX3hhdHRyIG9wdGlvbnMsCnR1cm5zIHF1b3RhIGFjY291bnRpbmcgb24gZm9yIGl0IHRocm91
-Z2ggYSBsb29wIGRldmljZSwgYW5kIHRoZW4gcGVyZm9ybXMgYQp3cml0ZSBvbiBhIGZpbGUgaW4g
-dGhhdCBmaWxlc3lzdGVtLiBFeHRlbmRpbmcgdGhlIGZpbGUgbWFrZXMgZXh0MiBhbGxvY2F0ZSBh
-CmZyZXNoIGJsb2NrLCB3aGljaCBpcyB3aGVyZSB0aGUgZmFpbHVyZSBpcyByZWFjaGVkLgoKCldo
-aWxlIGFsbG9jYXRpbmcsIGV4dDIgZGVyaXZlcyB0aGUgdGFyZ2V0IGJsb2NrIGdyb3VwIGZyb20g
-dGhlIGJsb2NrIG1hcHBpbmcKZmllbGRzIG9mIHRoZSBtb3VudGVkIGltYWdlIGFuZCBsb29rcyB0
-aGF0IGdyb3VwIHVwIHdpdGgKZXh0Ml9nZXRfZ3JvdXBfZGVzYygpLiBUaGUgZ3JvdXAgbnVtYmVy
-IGl0IGNvbXB1dGVzIGxpZXMgcGFzdCB0aGUgbGFzdCBncm91cApyZWNvcmRlZCBpbiB0aGUgc3Vw
-ZXJibG9jaywgc28gdGhlIHJhbmdlIGNoZWNrIGluIGV4dDJfZ2V0X2dyb3VwX2Rlc2MoKQpyZXBv
-cnRzIGl0LiBUaGUgc3lzY2FsbCBjb250ZXh0IGlzIGEgcGxhaW4gd3JpdGUgZnJvbSB0aGUgc3l6
-a2FsbGVyIHRhc2s7CnRoZSBjYWxsIHBhdGggcnVucyBleHQyX25ld19ibG9ja3MoKSAtPiBleHQy
-X2dldF9ibG9ja3MoKSAtPgpleHQyX2dldF9ibG9jaygpIC0+IF9fYmxvY2tfd3JpdGVfYmVnaW5f
-aW50KCkgLT4gYmxvY2tfd3JpdGVfYmVnaW4oKSAtPgpleHQyX3dyaXRlX2JlZ2luKCkgLT4gZ2Vu
-ZXJpY19wZXJmb3JtX3dyaXRlKCkuCgoKVGhpcyBsb29rcyBsaWtlIGFuIG9uLWRpc2sgYmxvY2sg
-bnVtYmVyIHRoYXQgcG9pbnRzIG91dHNpZGUgdGhlIGZpbGVzeXN0ZW0KYmVpbmcgYWNjZXB0ZWQg
-d2hpbGUgdGhlIGZpbGUgaXMgZXh0ZW5kZWQuIGV4dDJfZ2V0X2Jsb2NrcygpIGlzIHRoZSBwbGFj
-ZQp0aGF0IHR1cm5zIGEgbG9naWNhbCBibG9jayBpbnRvIGEgcGh5c2ljYWwgb25lIGZvciBhbiBl
-eGlzdGluZyBtYXBwaW5nLCBhbmQKdGhlIHJlc3VsdGluZyBwaHlzaWNhbCBibG9jayBpcyB0aGVu
-IHVzZWQgYXMgdGhlIGJhc2lzIGZvciB0aGUgZ3JvdXAgbG9va3VwCmluIGV4dDJfbmV3X2Jsb2Nr
-cygpIHdpdGhvdXQgYW4gZWFybGllciBib3VuZHMgY2hlY2sgY2F0Y2hpbmcgaXQuIEkgaGF2ZSBu
-b3QKdHJhY2VkIHdoaWNoIHNwZWNpZmljIG1hcHBpbmcgZmllbGQgY2FycmllcyB0aGUgb3V0LW9m
-LXJhbmdlIHZhbHVlLCBzbwp0cmVhdGluZyB0aGUgbWlzc2luZyB2YWxpZGF0aW9uIGluIHRoZSBt
-YXBwaW5nIHBhdGggYXMgdGhlIGNhbmRpZGF0ZSB3b3VsZApuZWVkIGNvbmZpcm1hdGlvbiBmcm9t
-IHNvbWVvbmUgZmFtaWxpYXIgd2l0aCB0aGUgYWxsb2NhdG9yLgoKClRoaXMgZmFpbHVyZSB3YXMg
-cmVwb3J0ZWQgZWFybGllciBhZ2FpbnN0IHRoZSBsaW51eC02LjEgbG9uZ3Rlcm0gc2VyaWVzIGF0
-Cmh0dHBzOi8vc3l6a2FsbGVyLmFwcHNwb3QuY29tL2J1Zz9leHRpZD0wMGNlOWVjZTQ0ZDM5NTYw
-NmJhZSwgYW5kIHRoZQpyZXByb2R1Y2VyIGJlbG93IGlzIHRoZSBvbmUgZnJvbSB0aGF0IHJlcG9y
-dC4gSXQgc3RpbGwgcmVwcm9kdWNlcyBvbiB0aGUKdGVzdGVkIG1haW5saW5lIGtlcm5lbC4KCgpS
-ZXByb2R1Y2VyOgoKCnN5eiByZXByb2R1Y2VyOsKgwqBodHRwczovL3Bhc3RlYmluLmNvbS9yYXcv
-Q0xEQ1NMWmoKCmNvbnNvbGUgb3V0cHV0OiBodHRwczovL3Bhc3RlYmluLmNvbS9yYXcvV0xLV3lF
-RWYKCmtlcm5lbCBjb25maWc6IGh0dHBzOi8vc3l6a2FsbGVyLmFwcHNwb3QuY29tL3RleHQ/dGFn
-PUtlcm5lbENvbmZpZyZ4PTg3MmMwNDQ2NjE3OTgzM2YKCgpLZXJuZWw6CgoKSEVBRCBjb21taXQ6
-IGRmMjkwODA5MGNkYTM2OGIwMWZmNDM3MDlmNTE4OTAwNzZjNTYxNTcKZ2l0IHRyZWU6IG1haW5s
-aW5lCmtlcm5lbCB2ZXJzaW9uOiA3LjMuMC1yYzIKdGVzdGVkIHRhZzogdjcuMy1yYzIgKGFubm90
-YXRlZCB0YWcgb2JqZWN0IDVlMDM2Y2UxMmRlOTFjNmZkNjc0ZGFkMzNiMTY5YzYxNTBiZTJhN2Ep
-CgoKTGV0IG1lIGtub3cgaWYgeW91IG5lZWQgbW9yZSBkZXRhaWxzIG9yIHRlc3RpbmcuCgoKQmVz
-dCByZWdhcmRzLApDaGFuZ2ppYW4gTGl1
+On Thu, Sep 03, 2026 at 10:57:34PM +0800, Chengfeng Ye wrote:
+> An inexact policy lookup first records pointers to candidate hlist heads
+> and then traverses the lists.  A concurrent policy insertion can merge
+> inexact tree nodes between those operations:
+> 
+>   lookup                         policy insertion
+>   ------                         ----------------
+>   find inexact candidates
+>     save obsolete hlist head
+>                                  write_seqcount_begin(&bin->count)
+>                                  merge inexact tree nodes
+>                                    hlist_del_rcu(&policy->bydst)
+>                                    reinsert policy->bydst in survivor
+>                                  write_seqcount_end(&bin->count)
+>   evaluate saved candidate list
+>     miss the moved policy
+> 
+> The merge immediately reinserts the same hlist node into the surviving
+> tree node.  RCU keeps the policy alive, but it does not provide a
+> consistent view while its list node is moved.  A lookup that selected the
+> obsolete list can observe it empty.  A lookup already traversing a moved
+> policy can instead follow the next pointer rewritten by the reinsertion.
+> Either case can return an incorrect IPsec policy result.
+> 
+> The per-bin sequence counter already brackets calls to
+> xfrm_policy_inexact_insert_node(), including node merges.  The read side,
+> however, currently validates the counter only while searching an
+> individual rb-tree.  A successful search returns without validation, and
+> the later candidate-list traversal is outside that read-side section.
+> 
+> Snapshot the per-bin sequence before discovering candidate heads and
+> validate it after evaluating all candidate lists.   Retry the lookup if
+> the inexact policy tree changes while it is being searched.
+> 
+> Fixes: 9cf545ebd591 ("xfrm: policy: store inexact policies in a tree ordered by destination address")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+
+Applied, thanks a lot!
