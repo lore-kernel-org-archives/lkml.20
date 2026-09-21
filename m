@@ -1,75 +1,123 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE71244667;
-	Mon, 21 Sep 2026 02:58:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B540110F2
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789959540; cv=none; b=pTfUAm8rCuw+fg0skwA79dY8Uh66qYLveEoUa5gVRoZK4IULeDP2/Oi8NrT3w9ZVqGOqGBbbIGm5UJ5ZPzYRXD8fZy94ZDKTjcDAPwa/XfPTxgyViOwb/5D0oE1xCdX7JNXfxmukOyU5XtkrddzhO0hl9UU2ni3xh0RkXc3Z+hk=
+	t=1789959635; cv=none; b=G90gqQoJJoKljSWdD6OGayT9XRa3m/Qm8asVJ4fSY9KN++o9zq8W3P+jZUz2MP331w0wlednuhuMvu6i1jqY3q6B5sUmEw2I1nao2nRNVqHPzHg2c/Xgj8MI5D2FPR54CJB0d31DG4pG3uR8X10m31KlX4gQcxUME3EAJavHxjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789959540; c=relaxed/simple;
-	bh=qq/HrIxA/bL6/wJjEKuTI/VAopTwbzecn/dAsqEIv20=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=I6L2kvhjcE5HbK95MNh8lJ+Ndom1MeMCycWDIdDl9Q9BrmsDV+AGE4YzicCJPCdkI/VQLsLqSJ8023nVR5JSNpNw7c8kVNBzO9dtG5QyuUd5mnB1pMeDfqZtyMJRvov60Cv9HblFCpWLvY4+NXXUQPHdSXMUg3iHxqZ6H6HL/d4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 5dec6558b56811f19a56ed5b684f684d-20260921
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:1a93c21b-53ac-496b-9bb0-fd3d18fea442,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:605a76c4cd180f63604284486b04e2f6,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|50|99,
-	EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 5dec6558b56811f19a56ed5b684f684d-20260921
-X-User: lijiayi@kylinos.cn
-Received: from [172.25.120.57] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <lijiayi@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 1694522496; Mon, 21 Sep 2026 10:58:48 +0800
-Message-ID: <3e392e3e-ec27-43b5-a361-bebca45ce087@kylinos.cn>
-Date: Mon, 21 Sep 2026 10:58:43 +0800
+	s=arc-20240116; t=1789959635; c=relaxed/simple;
+	bh=pISPWpePI2fbjerIovJ72lXMoOtbL057TYF6mnwpPPs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oESQFzmORaq/QYbcwUGm92khSp3KbPsHyP0wTgvI3U2fPgjelZdu4B01ecoYRu9a9a8Thj456NOgZ4LGpqraplh3sZ7cEDy20lu4tNYr7ZkKiFxOX0bToiXMBuv3EUxEuYUw+bXYxoAciljUOGZ4xv2axBmaqdVKEbCqIOlGgGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=KSgVA/sl; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=LpBM/8tH; arc=none smtp.client-ip=103.168.172.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="KSgVA/sl";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LpBM/8tH"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id 9F80AEC00DD;
+	Sun, 20 Sep 2026 23:00:32 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Sun, 20 Sep 2026 23:00:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1789959632; x=
+	1790046032; bh=uAByvWQJS+Z0ymh8ZD3uSiicICsBkN3AGPiqs8PdNHc=; b=K
+	SgVA/slxQazt0vBAKeEEYkpwDVyimkGdLXvpoMd2UPK0B2emtCKQxSWMcfVB8MEq
+	PiGd44fxjTOLx846zww94WC+9ujmexXOtDETFQG2xuwJgxbAik7uxLfdxaVkleXE
+	0jhVdOq0N0u82VK6VsB+jufkpzCDQhKuXUtZvfD2w8oKXHyq6U4PCy/9L4B04UI/
+	EsCwJ9yq2oDpnTedKwxzGBRcd6j7KzA7eJ3sqlzf5HGR2HGVZ/ONkZtpukFTbkSy
+	bxtUrXdeEI0O0Cv6cLPUBAwau+qKhxx/45WtowvsCe50TPB4fWyjM84WKdMw13Jt
+	ZTnTm1mGXPj2hsVWqYOVg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1789959632; x=1790046032; bh=uAByvWQJS+Z0ymh8ZD3uSiicICsBkN3AGPi
+	qs8PdNHc=; b=LpBM/8tHxqSgKPgdTxHoHPYeTZtSz2wBSkYqB+Ny/sfeiziLOo9
+	xGfINXDyo/sAcjA7JcOkwhvZ/cAqTRKOcnSmtgsxux97zd6yAlO1PWKO7d8hT1gl
+	S1md3QGXwvc1195vbkUWWVze6CcJtFLHu9fLCjZ4ZDZBjr68C9Tvtznmx4x+1dqW
+	vjPMV3AW9xhfXaASb2JQZatgT/fQ6nDjs97P8pznABVz6ktDZ+zgZER6/3UAtmBF
+	NOl+ulLK3JelNspexImZZnvjLuazC8RFG/q3W86IkSI34IR386ZNhSdF7d0jIObW
+	Ca/YI3EZKwxlV94yzEEr05+n7vovr3bLN+w==
+X-ME-Sender: <xms:0J2wagfOTOrDsXLHWEEM5cogpCzzXIL7kX-H7HcL0c2__BgxtKhS_w>
+    <xme:0J2wagJMHOyPtPHYpqczgFcE3EB7Vkh_Ghn5zvI4llbvJ0vsdSrt9ej_KSmngyhE7
+    k-kuv5SuBZnGmnBr7UmnJkmEX67UV6yeiX8c5ruOpDG8-2mkrGqOzFC>
+X-ME-Received: <xmr:0J2wapGm9Kud5wacN6TdI8Fn3RkfD2JiSoZ0ZGAF8ofKFS0J6qLsJonGN2FSgK4eyi33yysc2ubSUNVnuTJ119czH-VRFg>
+X-ME-Proxy-Cause: dmFkZTEbnTz28j5lBdezYK6M9WYp3tbJ5RB0a+kHGiqAqCOHKXdmIvAAN9rNzMEABE6KCr
+    qKpoppEQ/dFKrLSirqV9kOISw46HXhGWVn56P8yeBr8geUs7kOEuK6G3Zlu7NWvtT87fXH
+    M4t4Poi/m4OWmTOZ+a879GgeidlfsPH72x5wdOvXghOS1LTsfic01GtXbptT6GpKlNO+Ax
+    JjFv2QwMpKRY8pwSqOtH/G788p8V6RacAiGCoYSJw+NZRarouxAxNXdPE8ONSHEpN3dU86
+    tQagKugjbOMakt7/esiU21yl0JMsVrppWmN3UQ3nOSXBJvQLET9K+BDTLjXQ8MYNkEbZfr
+    yW7iPOU8CKu/rF8I/XNY2gfeHqy5G7u2mZfLhVG36G6rkvclKW3Rm2EZl2P2O1W2EhMhL/
+    9Di6sn9nykFUEB7zZ5xvegg3yeGTUFKLR6uE5AY5XfaybqzxQsal/D8+PczikoEO0pyZmn
+    ziHFbql5BxAOx22se3yxLUaiTV+i5wYwxlthUS1sRvHoTNpvvL/eDSm45gh2lK7ApOMNel
+    7C0G9jjKhwqpW3mKvbjfyNiguakgKumbphI7yOAFs+k1rex0QiX4OpM7wbYRCcv4eTpbeJ
+    nmf3/BY+stxZTb8Z5os+mHF4XsbR7wiLTCXoNb0F7LJa6ogQ0LbZ5czJOyvQ
+X-ME-Proxy: <xmx:0J2waiodFe53SDuLMfWhLNSROPcny0Y7wn_YH9Tr0O7WoUTSnGO12w>
+    <xmx:0J2waqTZfYG_oVOVGrzKxdNIYRCgeMYInZyGKCgTW8cZ0KrmHqL3Rw>
+    <xmx:0J2wanP6IMEO-vuDdApOS5JcRaORavNY-wNvk8IfnifayWwKlIJp6w>
+    <xmx:0J2walP9j6x2Za5EIKFPJp6y09jTNl--qi91S0Ktj2nWDo3Ekf3A9w>
+    <xmx:0J2wahyK00IlbeehnnE__YS7XikpeIBQmV-KAcijm7-jZeUiX5NACjcn>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 20 Sep 2026 23:00:31 -0400 (EDT)
+Date: Mon, 21 Sep 2026 12:00:29 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/5] firewire: cdev: refactor packet callbacks in process
+ context
+Message-ID: <20260921030029.GA283306@sakamocchi.jp>
+Mail-Followup-To: linux1394-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org
+References: <20260920083659.191855-1-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Jiayi Li <lijiayi@kylinos.cn>
-Subject: Re: [RFC PATCH] usb: uas: quiesce SCSI before stopping endpoints on
- driver unbind
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Oliver Neukum <oneukum@suse.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-scsi@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
- linux-kernel@vger.kernel.org
-References: <20260920012358.3362053-1-lijiayi@kylinos.cn>
- <98374a38-eb18-44c7-8da4-d5e34944e72f@rowland.harvard.edu>
-In-Reply-To: <98374a38-eb18-44c7-8da4-d5e34944e72f@rowland.harvard.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260920083659.191855-1-o-takashi@sakamocchi.jp>
 
-Hi Alan,
+On Sun, Sep 20, 2026 at 05:36:54PM +0900, Takashi Sakamoto wrote:
+> Hi,
+> 
+> The address handlers in the cdev layer are now invoked in process context,
+> following the change to use a workqueue for all packet callbacks in the
+> 1394 OHCI driver[1]. This allows the cdev layer to use GFP_KERNEL for
+> memory allocation and replace a spinlock with a mutex where appropriate.
+> 
+> This series first updates the kerneldoc for the address handler, and then
+> refactors the cdev layer accordingly.
+> 
+> [1] https://lore.kernel.org/lkml/20260919115017.859169-1-o-takashi@sakamocchi.jp/
+> 
+> 
+> Takashi Sakamoto (5):
+>   firewire: core: fulfill kerneldoc for address handler
+>   firewire: cdev: use mutex for phy receiver list
+>   firewire: cdev: use GFP_KERNEL in address handler
+>   firewire: cdev: refactor add_client_resource() to drop GFP flags
+>     argument
+>   firewire: cdev: refactor add_client_resource() to have release
+>     callback function
+> 
+>  drivers/firewire/core-cdev.c        | 50 +++++++++--------------------
+>  drivers/firewire/core-transaction.c |  8 ++---
+>  include/linux/firewire.h            | 22 +++++++++----
+>  3 files changed, 34 insertions(+), 46 deletions(-)
 
-Thank you for the clarification.
-> In general, a class driver like uas shouldn't care whether an unbind is
-> what you call "driver-only".  It should take the same steps whether it
-> can communicate with the device or not.  (Note that the patch's test for
-> USB_STATE_NOTATTACHED isn't fully reliable -- there is a window after a
-> device is unplugged before the state gets updated.)
-I understand that uas should not distinguish a driver-only unbind from a
-physical disconnect based on USB_STATE_NOTATTACHED.  I will remove that
-test and use the same teardown ordering for all disconnect paths.
+Applied to for-next branch.
 
-I will retest the revised patch and send v2 after allowing some time for
-the uas maintainers to comment.
 
-Thanks,
-Jiayi
+Regards
+
+Takashi Sakamoto
