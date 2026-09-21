@@ -1,84 +1,93 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08BE44A92C4
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:08:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0B74A3F34
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:08:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999711; cv=none; b=TMJxirIS1lescZfggmKW09/pwsGdRF21U2UBqHDKxYSq9bkSNWhXqBLmoDYKvTPkosCYUHhdIO8uIVaIOklO8jsmh6F9vmgr2aNgorBEec9uDPmnnMo9G60h+9xLXwsvNjitIF9ehTGKFfJ/Jw1De7UoXf3sDOyfGg0VeSXbnQE=
+	t=1789999718; cv=none; b=N8LEcI21Wqg2PyUfmY3199jdeLB7R0JgT1flFvmWf+/yYftSJ6Ymt4RGF//kPxEmI3eCqd8rX9IiWKvw0j8/+nJwyWUDQ5FNUrglWzrjekyY3oIxZY8nwJ6ZKhgv1tvPVwjDkVC94UIygKDePiTNQlu5CTQ33qtpl1PN7sFwnZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999711; c=relaxed/simple;
-	bh=j0ztyi8BRj9ZAgxfq5AEEOgdvPZN7dBWtgWca/AQdxg=;
+	s=arc-20240116; t=1789999718; c=relaxed/simple;
+	bh=8CDei7I2dwKtLMkV4KDigeNWCjfyQIhXMwKsrKI5/i8=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=peYEQhLYmn9HKkz5WGHjFBt9OTq83g82eTWDtF3KmgYidBd4DO8kCKO+pMeQaIey0J7GwTz4MQ7ZLM2aL4TYqb3FWMaHml2gu1m2nz6NGJqELJ8+w2Kqk5pW4VE6neTpR84+gq0GS3MMB8Kkn987IOdoTG+YjNCWCNHcbA9H0+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=viZ3rQjf; arc=none smtp.client-ip=209.85.216.71
+	 To:Cc:Content-Type; b=eNikuQiS9vHSrIudMtJoP1oDXWBh/NU3YMv/5nimufUZAzJs5OsImKWtHDwOW2+/0BMNZZHW+uHZ9ZLnZwj66QVt2WyIAm4pkijzdsLKTh6PhbadI+UTTAbK8qJxR49daAxrfa6JupCLZqC+REnR0ZnfLIdKQg6YoUjJbDi2lt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=swXQ/nQp; arc=none smtp.client-ip=209.85.215.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="viZ3rQjf"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39e3f521346so3553283a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:08:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="swXQ/nQp"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4922b7c31so3008651a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:08:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789999709; x=1790604509; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789999716; x=1790604516; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0JSL+jp94xbf/lxQkqH/mrTlexIUids4W7HCXSAS67g=;
-        b=viZ3rQjfnzVDMEbEpFi1taWFMXGH9453uNvRvs5aqubo8Ztl2MlZMg8uERyavOLWrG
-         ZVXDTBSfuHjVT5taI6oY8Qx+W7ZA74Hkj+ID0etp1CdI76u0HWvyCzSa7b7uU4DizOro
-         N6zUxYbnPSl+1Bmg1su4ArsnYPOudpW72D6Y5je6/asTmvKvm2gxTK2MCsy31UlJPyS4
-         EBk52rzQHCWcAXZD+rs8QVOaSxsZSboNHgM9G9CSOxgRfcVg5XjieMgLkY7e8oLAH2jZ
-         WCcdjWgZ4kgGxdHtH2+LvUnL6KvTLisq/Uknnil1SHJnpTwcZLO279rqpI7CuLMy4+NW
-         v5+A==
+        bh=ktenTgNfl0o5XPgbYG2l9v0n5O01ShbD6SpvOdfsUBg=;
+        b=swXQ/nQpGJxl8rPWUedpPEh2Tz6g7fxvWjRvLCTsZ7djHddeaPiHGfTsyuqNTXa/8h
+         xMrSwBac2dIcc5mIjBw9kb+9A3E8frxLNQflkUpyRzeq1yVs4Tgcn67gf8yQXKD9xDvh
+         N7HzXjVvNy06DJghHPJrTxbI1PYedeZ9EcVgv2iuWJG/TRMOLKD7X2ZLMzXumx4HF3Xw
+         raCFmRYFI6mU5wosbamiw1O3hNi1JgM9IFqHfZB6LhrsvOsyGm4lqpvuPLq28jWKe2Ea
+         wc91EaMjYjQou88PiFDpqtwLVmksOpHSbK/dCSVBHUxwg7o/WuC7TlYolN9bBiwrmikH
+         x8Tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789999709; x=1790604509;
+        d=1e100.net; s=20260707; t=1789999716; x=1790604516;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0JSL+jp94xbf/lxQkqH/mrTlexIUids4W7HCXSAS67g=;
-        b=u+ug6RoID8pB80IrRNMsTaSb0qEu4+IzAj8uK2uyenNvbbQPsuR/ZnLkRDt06TpHS2
-         JHxhL0jBvm3af7FXxpEgD6v3nJQYJ6TWz4FcXAa/ujbbkmJ4esJ/Pv0fRiYpxW41cwcH
-         SgM6toHaef0lZ6IWFkspGA3VqP1A4h28gIscZs4Q3aPXhJ9r8ix2dwd46o0prnPez0ib
-         iC4GU2jeEyIz7o4Zihe9Sdj77/x3QbLv3n+y5d5uSGu6zSiuj0UjUgOzlXNmi79sBCs0
-         nBcu2KTfkY2KnVgMSqi6HFzu94qwqrpQ9eRhLopeKu2FEk6bhwdHtd/tuKZmoLywUlZf
-         UpXg==
-X-Forwarded-Encrypted: i=1; AKwUvBws4Du988dJJeLLDMhVmQD34TKC+Wcw5YK7ewPiMdqBimX2wxThXjVEBet9x8mpjFQ4R11QIXSGP6Tt+Ks=@vger.kernel.org
-X-Gm-Message-State: AFuF++kE45MlHTokol8wL9mIAQCgDrv8JQQUrqvJiPya/J9Pl5pzV3x7
-	tGJp0Yn0P63j2dzsozqI+dZfbyngiH4+eXRPP6m15A92pAgfsvQEj23wPSmSXy5B7IlT6ReZK4P
-	jJPFhvw==
-X-Received: from pjbml8.prod.google.com ([2002:a17:90b:3608:b0:3a0:3146:faf2])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:548d:b0:398:c3ca:1ebc
- with SMTP id 98e67ed59e1d1-39e54d11d8dmr16902921a91.18.1789999709296; Mon, 21
- Sep 2026 07:08:29 -0700 (PDT)
-Date: Mon, 21 Sep 2026 07:05:52 -0700
-In-Reply-To: <20260826100321.1309685-1-nik.borisov@suse.com>
+        bh=ktenTgNfl0o5XPgbYG2l9v0n5O01ShbD6SpvOdfsUBg=;
+        b=KaPaIMoLcpO9GHYsK8syRGencGYcBeBaoQkGWxlA+o56i5a6SHPds2LMW9eeAvGrZO
+         gJmhdruhhgjdg4Uod/VxmZkwRCXmuBBoAdlpzgUqEycvD2Fjn86hfpMKG+H1zxBwU6Vb
+         GABnczA8QXI/DIgAdYqxNokuB7ssuCpyGFjFBpJtmGgSyt5lGGjuBg+x/yVyDnhnwwUa
+         P5Zgu5qharrP/ydBM7uHjOyURnWZ4o7gFkVm5Sax/QdnizsGt/laHoViwnMPjIWr6ni7
+         i2Uv4amGtuj8YTvG0upwSxQ6847fvI9i64fWPuP//XZKdIF+eDlxwReCskE0ZBeaVkSM
+         zoNA==
+X-Forwarded-Encrypted: i=1; AKwUvBxiL3Ba6cTI1Jqm+iF+r+/nqna2mNoqa+VEHOf0xDTK5pfQ1foaHxTxbR9afYGUU1lXcO8WzQ7ik7wkOQU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8PpNM9g16OPgCk3xNnrLskz8T9TeoJP6PNtBwJHS9aZIRxu9g
+	RP7Z6yEGgxwcuO1btXILo6l9UOgNevg8vae95PBh59HtlneSVR1Di4qcsmjBAlgZ23wgdP2Bvx/
+	rnyh3Bw==
+X-Received: from pgcg11.prod.google.com ([2002:a05:6a02:14b:b0:cc5:2a1:89d1])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:9204:b0:3c3:875d:7053
+ with SMTP id adf61e73a8af0-3dd8c2aa877mr15946660637.8.1789999716501; Mon, 21
+ Sep 2026 07:08:36 -0700 (PDT)
+Date: Mon, 21 Sep 2026 07:05:54 -0700
+In-Reply-To: <20260806170602.4112602-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260826100321.1309685-1-nik.borisov@suse.com>
+References: <20260806170602.4112602-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <178999854901.734873.2676734555894955612.b4-ty@google.com>
-Subject: Re: [PATCH] KVM: TDX: Remove always true ifdef
+Message-ID: <178999690496.715919.3769178910150533654.b4-ty@google.com>
+Subject: Re: [PATCH v2 0/2] KVM: TDX: INIT_MEM_REGION fixes
 From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Nikolay Borisov <nik.borisov@suse.com>
-Cc: pbonzini@redhat.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sashiko Bot <sashiko-bot@kernel.org>, Yan Zhao <yan.y.zhao@intel.com>, 
+	Binbin Wu <binbin.wu@linux.intel.com>, Ackerley Tng <ackerleytng@google.com>, 
+	Haotian Jiang <jianghaotian.sunday@gmail.com>
 Content-Type: text/plain; charset="utf-8"
 
-On Wed, 26 Aug 2026 13:03:21 +0300, Nikolay Borisov wrote:
-> CONFIG_KVM_INTEL_TDX depends on KVM_TDX_HOST, which in turn depends on
-> CONFIG_X86_64. So it's guaranteed that any code under ifdef
-> CONFIG_KVM_INTEL_TDX is also running under CONFIG_X86_64 being true,
-> remove pointless ifdef guard.
+On Thu, 06 Aug 2026 10:06:00 -0700, Sean Christopherson wrote:
+> I completely lost track of this, meant to post these patches weeks ago.
+> Compile tested only.
 > 
+> v2:
+>  - Fix an off-by-one bug.
+>  - Use gpa_t instead of raw u64.
+>  - Tweak the order of checks to bundle similar checks together, and to perform
+>    the super basic checks (alignment, size, etc.) first.
 > 
+> [...]
 
 Applied to kvm-x86 vmx, thanks!
 
-[1/1] KVM: TDX: Remove always true ifdef
-      https://github.com/kvm-x86/linux/commit/363479c41f02
+[1/2] KVM: TDX: Reject INIT_MEM_REGION if number of bytes would overflow a u64
+      https://github.com/kvm-x86/linux/commit/7c9a2e3a4564
+[2/2] KVM: TDX: Fix a benign off-by-one bug on the end GPA for INIT_MEM_REGION
+      https://github.com/kvm-x86/linux/commit/872aae89167c
 
 --
 https://github.com/kvm-x86/linux/tree/next
