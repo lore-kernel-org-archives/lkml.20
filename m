@@ -1,64 +1,65 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30AF73B05A9
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:38:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD683B05BA
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:38:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790019482; cv=none; b=rEefZPaoRPy7RlvSmyt0SXEskzOoPmgIpYyfJXDqxhFIxMCiRhXcHhVv8oyLbIkhMq8Hfo1TlNfSOb0ptuMeqXyFPlmetV7WmzSKzSZggj+VAj47bwqnAD2YYJTksKYHUfArH7aqtCjjX1IA6CcprXvcrXlkKSypMYYqhx2vW4o=
+	t=1790019485; cv=none; b=nFLR+9m70376Ii/QyV2l/vnFImjVzIOrp0UloWNVTYp3YkKG8OZ6j5gmA4fEFShNbQPMnRiBITjLrnr38A1u2MdIBMd4D+wj4L2u2/kc2O6tMfObnSHuRmnQZ6d1gQQnob0wheCGDklb/oiOZqwJAKZb7w+noHVBsZiT+4fDWVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790019482; c=relaxed/simple;
-	bh=+WF0ufBR+LDxG6agMdm+AutmEyBysbg4FlgD0FxUJno=;
+	s=arc-20240116; t=1790019485; c=relaxed/simple;
+	bh=sd9V/QvVMf4cDvXMBa/UsWtjf2wjncnMpYTMCvePqXw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HUrc82MGTydXCyiSZZmaZnkvHr45SIVKQDYl2KEYnM2nb0LfdJYkhlROQYKzZuvnovLJZLAGxHXzwfcqbSTEyVWTqbCsc4DGPwGDs3GrqtZ2bbGnIu3Zz3lsk/TeigJuMBr+dYIQGYK/VJ0ozMkDO27gIEDhUTL31GJfTXqv1ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=FXPGgt0d; arc=none smtp.client-ip=74.125.228.41
+	 MIME-Version; b=M4KA4596RsyzOdPsCLQjme2ypSTQEY1QRs8gXiUwkhjSECtIoWrBMDngMtq6IGgR4rSQOCZnznr9YY+g8hf3sAM7xyTZ0fwwgF99ay1Gw+vNtnUWW8nHthmTX0X6MLn8fFpJ+tVbuH4GGhHdQ6MWZoik1mmpego5TbgnjKa0EO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=aHi7DrnP; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="FXPGgt0d"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469d249c4so3017414b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:38:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="aHi7DrnP"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fbef5018so42004875ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:38:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790019480; x=1790624280; darn=vger.kernel.org;
+        d=trailofbits.com; s=google; t=1790019483; x=1790624283; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=38v0xzft1ji55CfZ4GZ3Vuw4C0dyByFRbLq8VXUI3wE=;
-        b=FXPGgt0dasQYyN6YhoBLWCSz48K8rrRt2vBB6iUHEyNR8AkBXXz+SCYjegWzbT8fm6
-         8FEXRttURSbeoZFgBfUzZavNa6aVi/OezKOStwE4M3P0VYFXjvv6cx4yaehvtogEe2va
-         YisId50a7HYmsapPIPcGXrVB6Lo6OS+xEEcGTP+d1M59/AYLS3chAJKHXpHQzPD9t9Zl
-         R+kxBdTvlr0SW3E2Y2/5PLVcJxRwwBYpZXj3KG+OEn1VNqH/HwUn5bMWR/4yIKeouYfK
-         tAUzRYvp+9bMmU1A1Rgwgq1RbD5y/vL8AdjEwmR23gNR7F06NuCJp5JLk7ANluJlXW11
-         IW/Q==
+        bh=aowiel30ampr5Np1wAm1rSTNGQWP2GBWcWmQbn6pvmU=;
+        b=aHi7DrnPGBnSY4cGD1rFZgLaZXH2Hg+1X2YKW5zDx/CS4/wiF/TIBsJbBkNWyItfty
+         0wmrHcBr79wiBXX0Mz+ACFRZRCBM6p/vsa3h82OTxwaUwk0j+UID0+Xwlj/P4gDlZAC3
+         j74vHbn+jBTIxwz5L54s691wA7A5IpDjRB4xFuVJePRivE0ZlypdWzJevP9cFP0zthAA
+         2S9YmVO9FBpLv+ppdghZIXf34ZFRnM7g2XdqJ1igH8PA3CIGyoExZc8hD1ishjkv6maA
+         QPc9jLGAd5hBm1MfDsjb4zB8iNAsDs69S9BSugIxmOu0a04u2xyQAg8al9pu08cYqesR
+         eUlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790019480; x=1790624280;
+        d=1e100.net; s=20260707; t=1790019483; x=1790624283;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=38v0xzft1ji55CfZ4GZ3Vuw4C0dyByFRbLq8VXUI3wE=;
-        b=HSLCCljyJxuTg1Wb5+dJTRRqVPnozedRWH0b5ipLapMPLsomYoVhWAAcxjvVnQNcYU
-         Ld1ZLw4E3h8PRn8iThnXmvWe7+tF0MhX0Rwiflc1BIAn+Xi9LBKSCJUqfhgdapp22oe2
-         RbPE2DHWnWvzZEt3if2AF/U9/NEYzyM6HXcFX6AUsr/50LLiUolsYDEunMrcLKnQQiPn
-         2n4fJoSEkCHT1BTPQLtzimzqKq+8otF2bEdtJDybK9otfFIQZ7KE2ctTZO61pRG8pT95
-         EnbqxyxT36ap+GwyX3FgjZiqNRPwzDLLOUn8Bqzx0WUNy4jZUZJzhKjCqDgeNYWaV9fq
-         ViWA==
-X-Forwarded-Encrypted: i=1; AKwUvBwiAtWDC43yw727fhqJ9ikpRLVHSh4m6lf6DVkqgoWQBSWpp/akoaK6JRXpiDe/0Ys9saoKRLMwM0kN8Rg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lx+3PfHdsiLbKsY2CSAxSVfS1hr5pgzsOzA+ZI1E+KDRFodEMn
-	t4++FNPz9rvfVumW3xkrzhwVBu72JXRioItoRmGQbT/FUSNDUJwhEhtCDb9HgxcALNg=
-X-Gm-Gg: AYBFou0Rvql+ownlbFSyK2Vz9LoOIUlWuE1mK6AvDg8DlM02o7BjDDFZZMDP3caYYiR
-	wiAWuR5KJXL5rqyXCL6JFTX1v/FvdoXdSvOM7CavNtUP+UclvcLlCV+ESqxfzMZ8CS90Qj2enkg
-	AJsquXOMG9v1aIhJmAbW+6HhFi1g051YMg4YyH7XewFauUuzpheuXWCHFz5PTMQ1u/Uo1eBNJPu
-	UH+M4+qai0u7US54ixRHbgXi9W/jd3F9rNZUMXqtlAFU2SoGElYBHsOFkZFV5RuuCKj6wfwmLtE
-	z8je+4VRLKE/mtAttQIhArcYbgJZtq2mLGCIZNLPjPTehA+XX6BJNRlKI63YpaWPDZCJ826k+4l
-	DG+lYFSKi9/oKSvt/s8tcVFVS9PUvRYFPVMw08EP2X1y+D8rQ7NBOzH0j//IwpZo5envanJLzR9
-	50r9ToFf0INBI31zXveopfNwvSttQtVXfhW63EOu267ckQda4/c6dZfLNv7ri0bC3P/DY10AuAR
-	sZ4GlVziqhS6ZLSZbx5WY3vRHZrs2Zf1UROoC+GcE4Hh7RE3TUsV01YIa/Hyi3kPqFVXI8=
-X-Received: by 2002:a05:6a20:7289:b0:3dd:a196:5393 with SMTP id adf61e73a8af0-3dda1965464mr11523095637.53.1790019480599;
-        Mon, 21 Sep 2026 12:38:00 -0700 (PDT)
+        bh=aowiel30ampr5Np1wAm1rSTNGQWP2GBWcWmQbn6pvmU=;
+        b=pnhMvnlUH48UrQ+r38ESxPLvzpCWBeWngPsBKcyhE2gtc8gC3PYq47zn8F0iruunhp
+         HHRlfbjdU7zQ3ofSpcEWwwKJ5hfjJIgT99YPwWs+gtAzK6SHeF/I4UMrEIZ2o1c3IuhA
+         HrBCTHDtSTmsT+RgF7xOqfmUHYVUgHwOdTmv4GjMW5RVVuSVZdjHWO/naPLHh6iojEU2
+         aT6K2CX+19xuiEnu2qNxTNIoSe6I8beAdzm5t94UajsHSmLi79EPEy/Gj/79w5+KjXpc
+         KFytHcZUxwA5y5rtIFMzaNfajdp5rFqgY4G4IhZJok7wkLrS4wogdT3Xm05WSkv1dBhB
+         Okxg==
+X-Forwarded-Encrypted: i=1; AKwUvBydV9eSIBB/f4bANUeokcvVF6v3cL8fKxnqioMLh0D+BSBDHzog0PRFPsuiEs9xhgg60K5W0LddJI4XrHI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIZWot84WJVFOccvB6gXlQ2EV+D2YUjJ3XO9kmMc813ixVNf3I
+	7YoU1ikTvrC8Mkiszuv5S6VAgMy70QjofYVzOHOL5kBqb+QD2GYRBw8LhKhQNWUSak8=
+X-Gm-Gg: AYBFou2ngtEzqJRleyHlqiqLEqJoOXg/aQsB4876GMUadraTnxU4a5jg83TrpTOWM1t
+	e4l3lrKCsUfx0/RWUlmeyl5O7ddbupmjd7clTCUbY9Rd97R6FXsUYXDaVOW1pjHK4jOXHsldLGU
+	6Qvy1xo/bgrCiWfWB9ds9iwKCbJ32tSC87/QM16sls2V0kOZJdb3kNH7yu+KdIeA7qBTIXGk638
+	31fVuMMIrnCQmOpoNjU0rDv875sML9uA5BvivX8W6oORkmcO8D1MuWWMfr8dFaVg2DhS7dILfMz
+	XCSiHHEkbN6vBq5oZX5JTqrRTkLAOi7EjPih/Ge1dHAJCrTLuzZNEfpMgYo2pv4/t79JtD3C5zz
+	wv3opkoO3tsCTmX6bLMTzAGD3HzoGBAQ9ZOpRzUIfPTQ/CFDrYUUgsPFPt1mLoihXK5tA0seQsj
+	KYdaYj6cpQdnacAzmOgqMRadVrUNGNxy+4oEn9XcPaPM+kGenuz4dVYxPw2zOpeCJqzGsZMVpNv
+	lwndzBTlPcYdA8c5uwQApdLrulGiWb2NjdDXZsMsYJySmogYCSGI2Gxung+gNBzKvkpg7gQ+ZNM
+	yZN4wQ==
+X-Received: by 2002:a17:903:bcf:b0:2dd:c100:3141 with SMTP id d9443c01a7336-2ddc100323cmr76353145ad.61.1790019483005;
+        Mon, 21 Sep 2026 12:38:03 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:289a:f600:f11e:a45c])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e5ebcdbd8sm288500eec.16.2026.09.21.12.37.59
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e5ebcdbd8sm288500eec.16.2026.09.21.12.38.01
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 21 Sep 2026 12:38:00 -0700 (PDT)
+        Mon, 21 Sep 2026 12:38:02 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: Artem Dinaburg <artem@trailofbits.com>,
@@ -79,9 +80,9 @@ Cc: Artem Dinaburg <artem@trailofbits.com>,
 	linux-kernel@vger.kernel.org,
 	Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
 	Dan Carpenter <error27@gmail.com>
-Subject: [PATCH 6.1.y 1/2] ASoC: SOF: avoid a NULL dereference with unsupported widgets
-Date: Mon, 21 Sep 2026 15:37:47 -0400
-Message-ID: <20260921193750.82134-2-artem@trailofbits.com>
+Subject: [PATCH 6.1.y 2/2] ASoC: SOF: ipc4-topology: Clarify bind failure caused by missing fw_module
+Date: Mon, 21 Sep 2026 15:37:48 -0400
+Message-ID: <20260921193750.82134-3-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260921193750.82134-1-artem@trailofbits.com>
 References: <20260921193750.82134-1-artem@trailofbits.com>
@@ -93,57 +94,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-[ Upstream commit e3720f92e0237921da537e47a0b24e27899203f8 ]
+[ Upstream commit de6aa72b265b72bca2b1897d5000c8f0147d3157 ]
 
-If an IPC4 topology contains an unsupported widget, its .module_info
-field won't be set, then sof_ipc4_route_setup() will cause a kernel
-Oops trying to dereference it. Add a check for such cases.
+The original patch uses a feature in lib/vsprintf.c to handle the invalid
+address when tring to print *_fw_module->man4_module_entry.name when the
+*rc_fw_module is NULL.
+This case is handled by check_pointer_msg() internally and turns the
+invalid pointer to '(efault)' for printing but it is hiding useful
+information about the circumstances. Change the print to emmit the name
+of the widget and a note on which side's fw_module is missing.
 
-Cc: stable@vger.kernel.org # 6.2
-Signed-off-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Fixes: e3720f92e023 ("ASoC: SOF: avoid a NULL dereference with unsupported widgets")
+Reported-by: Dan Carpenter <error27@gmail.com>
+Link: https://lore.kernel.org/alsa-devel/4826f662-42f0-4a82-ba32-8bf5f8a03256@kili.mountain/
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://lore.kernel.org/r/20230329113828.28562-1-peter.ujfalusi@linux.intel.com
+Rule: 'Cc: stable@vger.kernel.org' or 'commit <sha1> upstream.'
+Link: https://lore.kernel.org/r/20230403090909.18233-1-peter.ujfalusi@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 
-[ Backport to 6.1.y: although the upstream stable tag names 6.2, the
-  same module_info dereference is present here; the source change is
-  otherwise unchanged. ]
+[ Backport to 6.1.y follow-up to e3720f92e023: replace its (efault)
+  pointer formatting with source/sink diagnostics; only hunk locations
+  differ. ]
 Assisted-by: LLM
 Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
-Stable submission note: patch 1/2 in the CVE-2023-54233 series for Linux
+Stable submission note: patch 2/2 in the CVE-2023-54233 series for Linux
 6.1.y.
 
 CVE: CVE-2023-54233
 
 Build: This patch was included in the x86_64 allmodconfig and
 CONFIG_WERROR=y build.
-It produced vmlinux and 9,075 modules; the same four baseline objtool
-notices appeared, with no new warnings or errors.
 
- sound/soc/sof/ipc4-topology.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ sound/soc/sof/ipc4-topology.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 49289932ba7e69..9540ba6ef659e6 100644
+index 9540ba6ef659e6..ee6f6edec970c4 100644
 --- a/sound/soc/sof/ipc4-topology.c
 +++ b/sound/soc/sof/ipc4-topology.c
-@@ -1600,6 +1600,14 @@ static int sof_ipc4_route_setup(struct snd_sof_dev *sdev, struct snd_sof_route *
- 	int dst_queue = 0;
+@@ -1601,10 +1601,12 @@ static int sof_ipc4_route_setup(struct snd_sof_dev *sdev, struct snd_sof_route *
  	int ret;
  
-+	if (!src_fw_module || !sink_fw_module) {
-+		/* The NULL module will print as "(efault)" */
-+		dev_err(sdev->dev, "source %s or sink %s widget weren't set up properly\n",
-+			src_fw_module->man4_module_entry.name,
-+			sink_fw_module->man4_module_entry.name);
-+		return -ENODEV;
-+	}
+ 	if (!src_fw_module || !sink_fw_module) {
+-		/* The NULL module will print as "(efault)" */
+-		dev_err(sdev->dev, "source %s or sink %s widget weren't set up properly\n",
+-			src_fw_module->man4_module_entry.name,
+-			sink_fw_module->man4_module_entry.name);
++		dev_err(sdev->dev,
++			"cannot bind %s -> %s, no firmware module for: %s%s\n",
++			src_widget->widget->name, sink_widget->widget->name,
++			src_fw_module ? "" : " source",
++			sink_fw_module ? "" : " sink");
 +
- 	dev_dbg(sdev->dev, "bind %s -> %s\n",
- 		src_widget->widget->name, sink_widget->widget->name);
+ 		return -ENODEV;
+ 	}
  
 -- 
 2.39.5
