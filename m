@@ -1,88 +1,111 @@
-Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69580499F30
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:40:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C23F4A0EE2;
+	Mon, 21 Sep 2026 14:41:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790001634; cv=none; b=a3n16gXmRuysZD3mUq9WfNzgRjIJYpSPUYiPM5SIenEayHCBFTT0kIdi+8QzmePzGssxBDNHWq2OZzvrxLLxrKWC/sLhh0E3osPa90iF3V/ZasDNpEVvs99QcaOX+qLqdNnKWjyJv+eQszPtPfEuLFwJW5JOUD2A2oC5rBdC2Vk=
+	t=1790001686; cv=none; b=hCA7JKgL7dxI1iB9PlzOazSy03rfSraXeFKCAZJflCxSOBMDQYtmK9RH+qnHE69WBhHwri4tJfi3+Exg8JCF54T6dKKqkNXIeRqcffMvKXvR3PDd18cR9fuMYNdQ4lqJy5pWm6HjIIf7DIzLNNS+uE+6C0AeUP0pjenIBPkVzxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790001634; c=relaxed/simple;
-	bh=Vl0OH64ORajM0i6lG8nxGo2msKO1rkc+VGS7OyBftRE=;
-	h=Mime-Version:From:References:In-Reply-To:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ijDPA59pkHhqXsOruRM8d6JXRvjbedqFDpRLUJq2hD0M6oqBByUhBjQPx9/GqV1vEi/Td7ixAKgCOgDdu4W9pwBmWUs2oewFuA13u8Zf6UGnS+Kv5GYZywMcDVjZdT+AX8q0VKmnD7PiIAlOwfJYmyQCn4nnlwxnh+OK5zS4nj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=black-desk.cn; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.230.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=black-desk.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a612404718so14818131fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:40:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790001630; x=1790606430;
-        h=content-type:cc:to:subject:message-id:date:in-reply-to:references
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wK8Ax2x0Vv+Ao4SYzfPnuD71riCqpwrI+YZyG1LhWaM=;
-        b=PV31QhH3QJK8ToTegCyHeX3cNn+zOzoFUZ1dD2wEDAsP4gipGcBTB5jqUWZvikB58W
-         +/nqwxXcqstRlJ3RdTVFY2DXbkDrrQeSdpzC/z0NY+is5lL/sqDnM6wymVjziiDBQqk8
-         oxGs1IXn/+Evhnevt8K8+8HwVCB97iPB3Smp/VM0kthS9sOwbYqMQQ9DASd8/vwIlF/b
-         6XMlxpfW2eBIX4LYG+kI7z3B9awmbf5CTEPF3GTOwLcyXh4I/A/5XdMb/qsGtSk2PMTH
-         rsFS7xvY1/yx4Fb0suxFyaw/JWS+i34Q6mw+qPkGAgbIz9FyWO5a6CkJTjE/X8MFXXIc
-         XOOw==
-X-Forwarded-Encrypted: i=1; AKwUvBykeg21QRNolinsmcZ2vA4nqKKJH9yiLogIUdUwMaH1W7m1wZe4aaqJ94fkPLZk3T3SZmDJG3r3jWCpYeg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbe3Y7WK93FGBHaFHjfRa+043Zq5irRn7q+GGR/hjXOAMjcRN0
-	3G8RpbTmmnkmUV8JxsSOJ3gUE9eL+9ExhNIdh+Vx3fDrgcIU7Q9Mb9biw5KB0uYG9wc=
-X-Gm-Gg: AYBFou2LsU6SI1tToRVqLyjRRVs1YtQCJ0wN5ZX0gP9DKsthBDypn+ICBM2ESmKYYvu
-	f6QCdhmO+6L6DhLZWhKME7RDTeNjSvdfUa3SqPuQgOqBqByrohJkS7prt6jt5JhuUZ1l1/KXwAy
-	68/HaVXLbdpZnCP/Cd4YB/tZFhXVQu0iI7pj7M+1CNGqfXG1lVYo/rbki1ZSF5/SKsGnbMoASDV
-	T1LZ4yxObTC4je3iv7sFnugMr35hhGuCEdCKGTkKuqNh7e3ssfgs0qoqfHq0W56fghz2PRdElbU
-	4X29pX1R6Jx0oNBloYGk0cEQ2i0cb/pPvljr3H9Nt3jLNp9uAJq02B0U7lxNFzGbKsg6xuA1eUp
-	zozFUPp0etmkW5oPDK+mUxBa9UYaWt+Y/zsIqIoGSw8vSaAwR1BG2ZlcqeoL7rNk/VhOZlVjDf1
-	aDW8ecbFmPyQF10yS85CUDBH+4ZDCWAQVrCo+SGf02Iz49Y9nNLWbuTEYgCVn6QLscSMAWT8Iwc
-	YG4C9RwvX1arHXizAe2BmK34McrfxXvwpqOseg8TzUh4IW/stF1j63HkdcrP5tCQL73RjFbJgM=
-X-Received: by 2002:a05:651c:222b:b0:3a1:476:74b3 with SMTP id 38308e7fff4ca-3a5fbe55a7emr24669051fa.9.1790001630092;
-        Mon, 21 Sep 2026 07:40:30 -0700 (PDT)
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com. [74.125.229.205])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a607598061sm22411141fa.15.2026.09.21.07.40.29
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 07:40:29 -0700 (PDT)
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c5231570so2535857e87.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:40:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByZd0XNHqMGdnG5nJivvQ2xlLlGnXDFQevrm8wTdRW8g1jv3vtGOOTdgC4uU6ai4E1KsQTcsWSm9zAH88c=@vger.kernel.org
-X-Received: by 2002:a05:6512:110c:b0:5b8:997b:c5e9 with SMTP id
- 2adb3069b0e04-5b8c184ca3dmr3514194e87.48.1790001629394; Mon, 21 Sep 2026
- 07:40:29 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 07:40:28 -0700
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 07:40:28 -0700
+	s=arc-20240116; t=1790001686; c=relaxed/simple;
+	bh=6CGx7zVA+L58eCa8NaOb43Ibvn6UrpF9zmAhX5T538k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BYq6QMxSJGqalmroocbxKeviTbE/mfMFOLh/6KXhluhkNjLdUkmwAFGsmtsF1HHNED3On8+P+5pTaciZZmhOL20sx7o7XfzIR7Wp/ZwI6AtAS+SvnewyCkDufzJrxjI8zgoEH7tVaBxqww1aypKxpDfzJMvJ+xjHj726hkes058=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=HdLW9ymA; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="HdLW9ymA"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=vz6ig8BRPBVwJCqjuHXD5UgGHX45kboKMUHzdcfP0c0=; b=HdLW9ymAtaR/QoHJnbc/xctj+X
+	vLC6axC88Oof0X6bBC7oI+HtAK4V5+LVJTgJTXgkzns9NFSp+wZEMGj0Dip8AG8Yyv/R6Cx0cZCuu
+	jFOqI/lP5w3zqc/QvREMeb1kYunONbrUvEGDXR83GQu3aOgrKcq3HhNtYhf5T1h6KdouCkK1guBAz
+	24yzTSGrW74FPLXbpYZE//H913yCahQ043x7YNr73kNqu1ujqSnAENYsqgHnNv6e0tRd2U6OBFNKi
+	LtAIPGi8oaLW0EC7Z57crscy6OiwBk0y6xVixaOVhw0Mki4M9ajmlfbqkbjZc0Cmk5ZMbgwqdc9vT
+	qz80Jijw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x8fCO-002H76-2h;
+	Mon, 21 Sep 2026 14:40:53 +0000
+Date: Mon, 21 Sep 2026 07:40:46 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Will Deacon <will@kernel.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	Christian Loehle <christian.loehle@arm.com>, Srikar Dronamraju <srikar@linux.ibm.com>, 
+	Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Lee Trager <ltrager@nvidia.com>, Vikram Sethi <vsethi@nvidia.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] sched/fair: Honor asymmetric SMT priority in idle
+ selection
+Message-ID: <arFBm0EzMcz1RI-l@gmail.com>
+References: <20260917140707.3807229-1-arighi@nvidia.com>
+ <20260917140707.3807229-2-arighi@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: Chen Linxuan <me@black-desk.cn>
-X-Mailer: aerc 0.22.0
-References: <alpine.DEB.2.21.2609191504030.27665@angie.orcam.me.uk>
-In-Reply-To: <alpine.DEB.2.21.2609191504030.27665@angie.orcam.me.uk>
-Date: Mon, 21 Sep 2026 07:40:28 -0700
-X-Gmail-Original-Message-ID: <CAC1kPDMo9WCLwuqBYAa3WJhgCjYAth=T66wg9+WRQ1F5CQ8ocw@mail.gmail.com>
-X-Gm-Features: AcwNN1VAir1nnbSI5uURp46t4W_M-ZztrmEs-WQGJqbvT5kjopuQVRFVgrr5PXw
-Message-ID: <CAC1kPDMo9WCLwuqBYAa3WJhgCjYAth=T66wg9+WRQ1F5CQ8ocw@mail.gmail.com>
-Subject: Re: [PATCH v3 0/7] MIPS: Resolve build problems on decstation_64
-To: "Maciej W. Rozycki" <macro@orcam.me.uk>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: WangYuli <wangyuli@aosc.io>, Chen Linxuan <chenlinxuan@uniontech.com>, 
-	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917140707.3807229-2-arighi@nvidia.com>
+X-Debian-User: leitao
 
-On Sat Sep 19, 2026 at 11:14 PM CST, Maciej W. Rozycki wrote:
-> Hi Thomas,
->
->  I chose to rework this patchset on behalf of WangYuli after all; I'm not
-> sure if his address cc'd works.  I've reordered the changes to put fixes
+On Thu, Sep 17, 2026 at 04:05:20PM +0200, Andrea Righi wrote:
+> POWER7 uses SD_ASYM_PACKING at the shared-capacity SMT level to order
+> hardware threads, and NVIDIA Olympus benefits from the same policy. Idle
+> CPU selection does not consult that order, so a task can wake on an
+> arbitrary sibling and remain there until load balancing corrects the
+> placement. On these systems, that initial choice can prevent the core
+> from entering its preferred lower-thread resource mode and cause a large
+> and persistent performance loss.
+> 
+> When idle selection finds an available CPU in an SMT core, choose the
+> highest-priority available sibling. On SMT2 Olympus this only changes
+> selection on fully idle cores. A partially idle core has only one
+> available CPU. On wider SMT systems such as POWER7, it also fills
+> available siblings in priority order while the core is partially busy.
+> 
+> Apply the preference to idle-core and idle-CPU scans,
+> asymmetric-capacity scans, target, previous, recently-used CPU fast
+> paths and the slow path. Inspect the lowest scheduling domain directly,
+> but require both CPUs to share its span because isolcpus can split
+> hardware siblings across scheduling domains.
+> 
+> Keep physical-core capacity selection independent from SMT sibling
+> ordering. SD_ASYM_CPUCAPACITY first selects among cores with different
+> maximum capacities, then SD_ASYM_PACKING selects the preferred available
+> sibling inside the chosen core, whose siblings continue to share equal
+> capacity.
+> 
+> Reviewed-by: Srikar Dronamraju <srikar@linux.ibm.com>
+> Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+> Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+> Signed-off-by: Andrea Righi <arighi@nvidia.com>
 
-Thanks for taking this over. Just as a quick update, I checked with WangYuli
-offline. He did receive your email. But he's been quite busy recently.
+Tested-by: Breno Leitao <leitao@debian.org>
 
-Chen Linxuan
+I tested v6 on top of linux-next 20260918 with a KASAN + PROVE_LOCKING
+arm64 kernel and etst on my own 2-socket NVIDIA Olympus system (88 cores
+per socket, SMT2, 352 CPUs, 36 NUMA nodes).
+
+With sched_smt_asym_packing=on, SD_ASYM_PACKING appears on the SMT
+domain only; MC and NUMA are untouched, and the override is reapplied
+on every domain rebuild (~400 hotplug operations, including offlining
+and re-onlining all 176 second siblings). A task woken on the
+higher-numbered sibling is redirected to the lower-numbered one on
+800/800 wakeups, against 13/800 without the series. auto, off and an
+invalid value behave as documented. No WARN/BUG/KASAN/lockdep under
+stress-ng and perf bench sched.
+
+I did not measure throughput.
