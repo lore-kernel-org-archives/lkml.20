@@ -1,79 +1,75 @@
-Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com [74.125.225.138])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D14FE4AD4D5
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:57:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C093949F113
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:59:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002653; cv=none; b=YUHKor26uQ0pb1SQrWP6TZAV2Uzq4cOfaw4K4qxfd+Z1BAZn8fRSoqyVFKyYkm4JuamXoEOKCMepoaTfujEYLa+trfoDbIsxD9LDcSSCs07ZGI8+bcfFIH9vbbuMYuWmd3+BDE2tVS7PAPBqQq8rNn8aZsdHuaU74vFnn8FIiDY=
+	t=1790002750; cv=none; b=OaOSrdRrs249PHbodlWMb0ZQ/EI217fCb/eETWtb8gPB8vw5rkS1B61QrO9EffO7U4NtEbcp9YLBEUMkdUqqRntG9/LhTdL8ZTtDe23Dau6lbFhslh+j8YkyHEGyoiWJS7CzGFJIcAx6GHuEQ9oxtbWTtBTQNSs0+yx707WK97k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002653; c=relaxed/simple;
-	bh=O84UlgIt22qVXOTeLEKlJ+J21Nne9exAai0M6IVznd0=;
+	s=arc-20240116; t=1790002750; c=relaxed/simple;
+	bh=8M0SLTDrRIVLkoqoQEzUO3vyglUBCE6RNBc4XzgC9jo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qDujWzBCjB9/tMfUZU3Tq1sXK6cOT9RDGIbW9qecDKtGMTVHchGeOXI3F5urKD7dME1QAshS/hCE9oeCAOLtJ8i9Arv/HnqGeR9nLuJ1AXUQlSUbrF4pHKaNhQyKtYkkA6Oc/FhD89A5/MLDn/ew2SogWDHkugvi1xPD250DYno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+	 MIME-Version; b=Ru7NIMHWOyqCSEUnqPkYXlV9uE7PFkX10FFnANoM15J6EsO7O/lUKUQcelyCRRWPHctaYzcD+WOvSO7FBYsz3bU2QqKasoKJtyLGAYeesu2nGwrNRUwyYJNu7tHyLypqERRq6fY5jc42+pKUozchfck6IctsPdvlsTohGdn5goA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zd4Faamo; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm2-f10.google.com with SMTP id 5b1f17b1804b1-49b963f51f6so13081635e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:57:30 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zd4Faamo"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-868a9c48f9eso3696806b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:59:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790002748; x=1790607548; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6gXmW4UXVfkRmgjmxz6ooHCPLTvMZVSsUjwaz8wmJfM=;
+        b=Zd4FaamoKn32Cvhejs2Rb2PPB315EMBa7zDnk4DMHZsHTm8+SQUzVEyZywYHuHVqOG
+         t2dmzLkLu0/gO1ra4wQquQ7VzzdOijpsddfWz1Fm4PmAdiF3F2epFIsCtlcF0od3YpSR
+         EjnGkoc3rFhb2oOfDDO2ihgOOYdYwrtLwITy3ASrrtjGsTk+09d5jhaJxEzaiVFql0DO
+         eN8DDDliaVutT6N5rD/DeiBGadwOB+FclA3mP6TMSzceT9RoVSDg62TJzd83jb/FlK/U
+         6/33SHp2nEC7dvbuWdB8Ce8V8j+jZWkqJErtN7GMjFbniqBLg7d5Ttf/7CkvZpCebg5K
+         5/dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790002648; x=1790607448;
+        d=1e100.net; s=20260707; t=1790002748; x=1790607548;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D5yxLi0HeeDyCNaoa/cXH7lPCvNUM8Mh94Wvp96R2LI=;
-        b=MP1c9CzXiYHJ770APFAlK5pdk8ckTF68azi4aXS1xYxtdEaG7guqWWjVjRJgF8AsjV
-         IIHscM9SZETl64v2xRMSfVoHPHq46NAjUHxR00AKUJFSqEjT4F/CNoNS7OR1r5EkIiTS
-         fsfBBrPC2JGzCjSuEfFuw9BODGkPWWoOONl8oH8zA+9s1PTSu7F7tSs5j5So5k6zrU3y
-         dJgZSf5RPr+0ZyAGY8ozd4noZbOOI77polyWjCCK1+mvcw8+/HlJTY3r00gEdM5PpM5n
-         uNRxdwmj2FMoaGl0gB/a07Q0ZhXGlocRLflOQoPaYiXqfarj+ELl+sRXVehR3it2MiZj
-         biCA==
-X-Forwarded-Encrypted: i=1; AKwUvByvUpyDM973C1xrD/wXXtVvoMjePHXbsphPdE0+D3DAe+kEniklms/jFzGG3WEcIGIy616YuG2dndu7oMc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mN/1hJ0CNq4WY6scJEPR/FwM7JC7TlYgZs024DBBUV9186kVkQ
-	oiEz8Fj333AqbiA8prHh/LA15FXE813GaGXKbKL7+aNc82Q/Zix+FIw0
-X-Gm-Gg: AYBFou2AHoAz6GoVFzu8iCJ5J/zoJqFhWqUa7MQkh+wAtlK2UhF0ZRMJuWQGLitzf6w
-	EJYcR1dDqtjwytbgfjRwQJ0oy9O8J9YWUJjKQ5uWUwYQ7NEeM1fpgJkYTjsaQUCPy3zsXgapQGj
-	Npg1KP952ux1QCwHjdNQvAQQ51aYNw8u6PrrlMUDzXTs+7Oh/kLSPeECthiY69EGC36LXpx4qs3
-	vg6r148CP898pnXGmxvzyLC60AuiGadpVw0ZXTqPZ3emYTfZLhEQNLCRl3x5COXrEMkk4z9x+up
-	UGOty0c3QH4lPKUPmd1V1Dund7B2qBL801qheMdS2w0ywJfjZ3bzthgg2gm0nc5YQmKgqeAKY8z
-	e9DPQjnlRng5d423YD6P+bwBoLNDR5GFIBvPGnEe/2h1ii1wBYuayMutgcDBw7AcJdWJAQN4ml3
-	kRD6hsbn5pcxGliWNoq6hDMBJBv59fq5Q/vFx6zJIQ2pAs1ozBKA8NYvY8+thBkcJMeIHLdwOAA
-	1XYd+RX8IwGhzilIOYC/+Ma17uob72YWZhlY/Y5h/EPO4OH5P0u3ZM=
-X-Received: by 2002:a05:600c:34c3:b0:49c:fa21:e74a with SMTP id 5b1f17b1804b1-49fc5757f73mr156995365e9.32.1790002647731;
-        Mon, 21 Sep 2026 07:57:27 -0700 (PDT)
-Received: from im-t490s.redhat.corp (78-80-107-225.customers.tmcz.cz. [78.80.107.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0eabfcsm243153905e9.3.2026.09.21.07.57.26
+        bh=6gXmW4UXVfkRmgjmxz6ooHCPLTvMZVSsUjwaz8wmJfM=;
+        b=He5/ZwC5S8/qS+liUbpyMWW3RMsLPYfmGgIg69q+rE1LEowvqX9XmpGrK8ydKRAR0l
+         e68Ve91F+uC2JZ/RnzZGc/7dKYFzeM+r2tpOAJmeo+BGu6y+ksASP2cgDXubuZXkNllu
+         VsBVxZilGrdTpnAqB1LMqTIz19y9aow2KsnWzY7X+lLBpSy/LTmIZi1kV4XamdpRFfq2
+         YT1rKz5zAFI4FPTVjeiQeMbl4OMVXNxsKi6w02g8t1O8a1ZuZx2gZMIlDI4VtadXOovE
+         TLmwPLPiVAh7gYXfyfpKyWDXMvFxj+y3LoO0dDPsolufJjmuO3dfAxthh4+ZKkN+3dZG
+         Ifzw==
+X-Forwarded-Encrypted: i=1; AKwUvBwEOO42skzyG7+KXFZ46P/VTF6u0aS6Oi1IgcKziIshFVoB767dvhQxB7npdzi6Wtmigu90YUMupl0/1UM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lX8riglesYGr99O74oowO/sre/oZ3vmWTqlOm/bUJ77ePAi+mr
+	ybxzYnYUHse6Sg1HRmRWtgF/ZDolSCSwponGO4A31p99xFCkxxM0C0iP
+X-Gm-Gg: AYBFou1z0k5ug1jQJulYWrC/6XzuZgrPQk1sza1iZ8VWPjt4RmS1uUVn5kJezL3TL9G
+	Z0DxW8blqNJWZEUgIc2CMm7FhukVMkOfGByB02C6ymn/mjBKxYjTIlkwvQmPS2lop74lTc0lxKq
+	TF0Lhr6YReA4HuDh05Nf96K39UQaM2qDQoCIpKv7r91lNzh7Vff+N+mAL8tJFsevuSJRnwYtGDy
+	BRVck8LXoy6QQVfmcvZi27DsrBelwt1YpKB/WJpND+goDE9xAAnUrFd1jvjKVsOIJ8LuWjvN184
+	Tf1+KPeLKPaxcilMVCoEIggTGtzRyEQIuluimVsrGzWz6ybfVVnpeWhVfuthTs7xzhofko9P2dH
+	2NyOfL+Ta2vKvsQpwnGCwzO6Ie8iVTkBjHPOAyPEW+zSB/+FbQU92mourCYFiV51K9MR+DoOlGL
+	4ihQHdMstbzWok0+rhou/bEU77dduP5RpqvE/moF0+IiWB4yYypTQTnvGt27gHZ78yIrKCZJWta
+	41MuDmRMGmQQL9q/M8BXWpnzg==
+X-Received: by 2002:a05:6a00:174b:b0:879:757b:4cd6 with SMTP id d2e1a72fcca58-879757b6aafmr5596402b3a.3.1790002747974;
+        Mon, 21 Sep 2026 07:59:07 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:70bd:a3d:dfa4:3859])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a8dfe20dsm3536613b3a.19.2026.09.21.07.59.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 07:57:27 -0700 (PDT)
-From: Ilya Maximets <i.maximets@ovn.org>
-To: netdev@vger.kernel.org
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Aaron Conole <aconole@redhat.com>,
-	Eelco Chaudron <echaudro@redhat.com>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Xin Long <lucien.xin@gmail.com>,
-	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	linux-kernel@vger.kernel.org,
-	dev@openvswitch.org,
-	Ilya Maximets <i.maximets@ovn.org>,
-	stable@vger.kernel.org,
-	Axel Mierczuk <axel.mierczuk@1password.com>
-Subject: [PATCH net 6/6] net/sched: act_ct: fix helper UAF due to extensions realloc
-Date: Mon, 21 Sep 2026 16:55:48 +0200
-Message-ID: <20260921145655.3167436-7-i.maximets@ovn.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260921145655.3167436-1-i.maximets@ovn.org>
-References: <20260921145655.3167436-1-i.maximets@ovn.org>
+        Mon, 21 Sep 2026 07:59:07 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Daniel Wagner <dwagner@suse.de>
+Cc: Hannes Reinecke <hare@suse.de>,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] nvmet-fcloop: fail LS request synchronously when remote port is gone
+Date: Mon, 21 Sep 2026 21:59:02 +0700
+Message-ID: <20260921145902.17223-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2ad8b13c-b548-4574-9c61-5224833e1bad@flourine.local>
+References: <2ad8b13c-b548-4574-9c61-5224833e1bad@flourine.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,72 +78,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-While calling the helpers, a raw pointer to the extensions area is
-wired into expectations list:
+Hi Daniel,
 
-  -> nf_ct_helper()
-   -> helper->help()
-    -> nf_ct_expect_related_report()
-     -> nf_ct_expect_insert()
-      -> hlist_add_head_rcu(&exp->lnode, &master_help->expectations)
+Thanks for the review, you are right: the async -ECONNREFUSED completion
+is how an HBA would behave, so failing synchronously in fcloop changes
+that.
 
-In case the connection is not confirmed yet, more extensions can be
-added afterwards with *_ext_add() calls reallocating the extension
-space and leaving the now invalid pointer in the expectations list
-that is later accessed while removing the expectation.
+I dropped the fcloop change. v2 keeps fcloop as is and flushes nvmet_wq a
+second time in nvmet_fc_unregister_targetport(), so the LS completion
+queued by nvmet_fc_delete_assoc_work() during the first flush has run
+before nvmet_fc_free_pending_reqs() frees the remaining requests:
 
-Make sure that helpers are called at the end after all the other
-extensions are already added.
+  [PATCH v2] nvmet-fc: flush nvmet_wq twice on targetport unregister
+  Message-ID: <20260921145651.17131-1-ngocthang2710.1999@gmail.com>
 
-Note that the helper rejection now leaves the mark and labels set,
-but that's not different from how the NAT was handled before or how
-the mark and the labels were handled on confirmation failure.  And
-there are no atomicity guarantees provided by the API anyway.
+Hannes' blktest request is covered by nvme/071, sent separately to
+linux-block. It fails with a UAF on an unpatched kernel and passes with v2.
 
-Fixes: a21b06e73191 ("net: sched: add helper support in act_ct")
-Cc: stable@vger.kernel.org
-Reported-by: Axel Mierczuk <axel.mierczuk@1password.com>
-Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
----
- net/sched/act_ct.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
-
-diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
-index f62051ec9d57d..411e3dd92d072 100644
---- a/net/sched/act_ct.c
-+++ b/net/sched/act_ct.c
-@@ -1102,19 +1102,25 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
- 		}
- 	}
- 
--	if (nf_ct_is_confirmed(ct) ? (!cached && !skip_add) : commit) {
--		err = nf_ct_helper(skb, ct, ctinfo, family);
--		if (err != NF_ACCEPT)
--			goto nf_error;
--	}
--
- 	if (commit) {
- 		tcf_ct_act_set_mark(ct, p->mark, p->mark_mask);
- 		tcf_ct_act_set_labels(ct, p->labels, p->labels_mask);
- 
- 		if (!nf_ct_is_confirmed(ct))
- 			nf_conn_act_ct_ext_add(skb, ct, ctinfo);
-+	}
- 
-+	/* Run helpers for the connection if nf_conntrack_in() was executed
-+	 * or if we're about to commit.  This has to be done after all the
-+	 * extensions are already added.
-+	 */
-+	if (nf_ct_is_confirmed(ct) ? (!cached && !skip_add) : commit) {
-+		err = nf_ct_helper(skb, ct, ctinfo, family);
-+		if (err != NF_ACCEPT)
-+			goto nf_error;
-+	}
-+
-+	if (commit) {
- 		/* This will take care of sending queued events
- 		 * even if the connection is already confirmed.
- 		 */
--- 
-2.55.0
-
+Thanks,
+Thang
