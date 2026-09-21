@@ -1,93 +1,101 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84CF04AF682
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:07:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC00438E8CB
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:07:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999665; cv=none; b=GEQDSFRvso3BJpw/CnQpcCjdRlsK+uWw+Y4bYlko8rjwwQamQrfYDc+5nNv60ipiVTIDgh4WkOhkdcgyxgfdY4QXx1Fk0ycwdIumYxlrohAsbg4N2chQ3dLL971UnTT8cP/6fgdICd8m9O8XiJjjvGdiLCaxMOFSA7RYIUneUsU=
+	t=1789999669; cv=none; b=c4UXNNW8m2m/6nzIga4jDatT2AT3oQNPKAgRVbdikRmWWAPFzwUqtoaCuWCLICjHroDafW4bWSqtoNYGkX8qXQ1dktxXmpFIU8JqNSZOFLYoTh8zj/U04gbne0Ig5rumkJPCaQh5/H7dTVtSxicKlSvPy/IY0KVTYK6oXw4SIhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999665; c=relaxed/simple;
-	bh=SNKPV6UrKCfJ529hmf4OShP47j/0dvs3b3pSPkZc4CM=;
+	s=arc-20240116; t=1789999669; c=relaxed/simple;
+	bh=PnTxVapAI072TI1mWddiiW06LTNn+rrIrioNwXne5Ow=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=i63DF+evPLZRk13Juwj6lbRLc6JToufoiYWzHeqJ88/APZyLrtrCWRKVe9TH5+oTqSmkIfrPJ2M2I+NpJV/STohVjkkmZXopTmsfjNlmcAXPISB/XtcRYawHjT9xqNaAQ7VelqhRsXsIUq5QCsbhjY8Tv3XTkeY+yot1oquGHnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FfvVcHSr; arc=none smtp.client-ip=209.85.214.197
+	 To:Cc:Content-Type; b=ih9vmFVV7LMhg0LSwbWQtD2gRUCCKBShq/V+qT5WNONTAb59CNBRazy3ofajIg1erYw9lVovYUwxCjaGVwFmBAOIXPGlUTIloR6zRSunvNLXw/yNUyAflc6nUr/ie4Xd9pTLF1qp+AaDaLGzqO83SiRuaQkl0UyYG4G3ZKxCvL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UXVeHLp8; arc=none smtp.client-ip=209.85.215.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FfvVcHSr"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2dd753a52bbso56735495ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:07:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UXVeHLp8"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc7348bd56fso2272558a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:07:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789999663; x=1790604463; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789999667; x=1790604467; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WLvavujDz2n2dXeBxbSsPOw7vcv9z3d5aQqffb1F4Pc=;
-        b=FfvVcHSrFI7iAf47U2uG1Wn0V/Nn1yPMB7AawEHAUhbCbJGvTca9yy4mAjRmoOzotw
-         UDv1CTNPgF5NWZpVpxlWhz43uaVJf/4+32seqt+dlQJX+lgKb+VpagjrzgQDnO7Jb6lD
-         Rzz4DljIBVJZyvjj2ktOZ+xjKmnTRq7P6rmodYToMSHDc9kY4oI5QMCoA5Edu9y8iApX
-         1CY7xmoIAlcHGEAZMsHfVSCi2KDF2MDoMrELSqp27FMT2hS3OWen8lbMwHMsYPxILCdx
-         w6PYsgCOK0FKVGtP7ndqmNEJyO+0b4YEkt6cmHitkeYsBEm+82vILK0xzB5Zj6dDpLBy
-         o5xA==
+        bh=Bnx/BHDMvq/zoLxBByuVjVwNb3H5wxZ7w/D6NMBnNTk=;
+        b=UXVeHLp8Aftj5lTQpTVB8NyFGA9aCsY7v0KOezMTfGOEU7MSbu9k3b5iK/LjMefntL
+         CgPSO59i9ffJM0AwN6z+EK/LHL7RHIsoDW3GbkbZ63Uooos9JqhT1dihZecgHo+aMO4+
+         eHQ8Pmh9sEukQlD3F9s2aVvklstlneDj+tF9clXZriIdsQU7R0ZupRm3+d3ZJerjZjYZ
+         b+c5F/sgDew2ImaPFdoU2Bvz8EVsKHGNT37vkVa/QaDevSqGF0qKxUgdjetQrIR5M285
+         tINUeAXuW/zmIM1bTmXfDFfxXbBY9H1byZp4OtDV/ET4UeSc9MruOR3UfiiU5vg5Fy/v
+         Qe+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789999663; x=1790604463;
+        d=1e100.net; s=20260707; t=1789999667; x=1790604467;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WLvavujDz2n2dXeBxbSsPOw7vcv9z3d5aQqffb1F4Pc=;
-        b=yydQVXNFCsYjH++VSBb4ilz9CsD1vU9RcjmRktWJn6iEa/cR1HZZ/1KYl7iiB1dvSL
-         BC2toMPJy6aPPbMQiSIJBBNVshE/c+ySp55zif8R7sZF78axf63UsjejYc0yyTXlGTil
-         0RhZMqGG6CC1Pr9vxHc3+JJyMBnVMOJ9TEwfb6WSjJfqx6Otrb6VVMnMOqqKquO8mw5U
-         44YyRHAzUCl8ntUDdzpWp7tlaOHHU+T6B+c3KtXlK8Q0sY9zL7IjpWViE2jONkxfH2V+
-         wYWrlCl9Ge3vxs+ldOs7F0SvP0b1ASl6c7agiIZage3c4Ycs9CHOzJG0qMqfVb0nM6tD
-         +hEw==
-X-Forwarded-Encrypted: i=1; AKwUvBz0T/0s9noZu5+9kpO2iUb63y4A65ZTTkjCRQoUvnb9S6tAeutHi0wtvpqLen1yXj2xppVvyFZWYiRuyjQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCHXTXfpTV18M/4bCYOPROoaPBCUTrJHbmu3+4vC+LJ0NKDkK6
-	FoxYIGaapab1F8OlupRXyZUM9ovhAE2M2mnkDZ5RHPfsLRPrhDihoFj0QzrkCW149ngkXNgBJBu
-	XSPu2Jw==
-X-Received: from plaq20.prod.google.com ([2002:a17:903:2054:b0:2dd:b81a:9893])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:c947:b0:2dd:ad73:c93a
- with SMTP id d9443c01a7336-2ddb1bca6e2mr158501825ad.27.1789999662773; Mon, 21
- Sep 2026 07:07:42 -0700 (PDT)
-Date: Mon, 21 Sep 2026 07:05:40 -0700
-In-Reply-To: <20260904052033.3648259-1-nagachaithanya9911@gmail.com>
+        bh=Bnx/BHDMvq/zoLxBByuVjVwNb3H5wxZ7w/D6NMBnNTk=;
+        b=VFnvblhZyb5nQ1f7UI3uvxwOJvtgT4yvmqU2ttws8oH69TjOOJor2f0MrnoGU8u+rr
+         kitKLgbb4YBrf2N4tHyAAjMFMwPJpmnFF9ims0NZz5p/KzTgi2WKSclWdEBtiAbJ3pyK
+         ie2wU7ZmIn0MPO5HW8Xs8Vgh4Rx+m0JhRRTPr/sD4lX+OgrMky7hmk0kIvuTBPsTUDVg
+         jEtso1CUPeORSTrudkz3CK5Ks0Lt1P1oR1weFLgxUX/bxFj37BKZx49WuNM5DrSdoEGP
+         SsOTw112ozxvjzHKoS33+oOkWy5CpRIfK1jZMdn2r7w8xR4D+2oNi2sNwfg2EYylrdVQ
+         WaKA==
+X-Forwarded-Encrypted: i=1; AKwUvByl9kIXawDl1meIdH215zU6lHBP3LQ0jVllbym/HwaUnnZy1xUnAZfy73fBlc4E5Do75FVic1dtmlLfk6A=@vger.kernel.org
+X-Gm-Message-State: AFuF++no3kPf/zu7Iqn2up7Co3yDNLmx5pqdErHoPXVtKJPCjg+Ah0ir
+	JWR5FPZ9BqxmSeofXbiZ19X3//06IgMbwFFiVjEEn6Uy9+q+bBvIK5GSxFzmVz1fusUuAJCEf1d
+	WbYeFQw==
+X-Received: from pjbbd16.prod.google.com ([2002:a17:90b:b90:b0:3a0:5e07:c6cb])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:57e8:b0:39e:6c69:34cc
+ with SMTP id 98e67ed59e1d1-39e6c693638mr11049201a91.48.1789999667184; Mon, 21
+ Sep 2026 07:07:47 -0700 (PDT)
+Date: Mon, 21 Sep 2026 07:05:42 -0700
+In-Reply-To: <20260903001625.2792367-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260904052033.3648259-1-nagachaithanya9911@gmail.com>
+References: <20260903001625.2792367-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <178999930104.756417.9813560375893651858.b4-ty@google.com>
-Subject: Re: [PATCH] selftests: kvm: Fix transposed calloc() arguments in the
- uffd helper
+Message-ID: <178999926338.754170.2692559524716409337.b4-ty@google.com>
+Subject: Re: [PATCH 0/7] KVM: selftests: Fix maxnodes bugs and cleanup related code
 From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, pbonzini@redhat.com, 
-	Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
-Cc: shuah@kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Shivank Garg <shivankg@amd.com>
 Content-Type: text/plain; charset="utf-8"
 
-On Fri, 04 Sep 2026 05:20:33 +0000, Chaithanya Lagisetty wrote:
-> uffd_setup_demand_paging() passes the element size as the first argument
-> to calloc() and the element count as the second:
+On Wed, 02 Sep 2026 17:16:18 -0700, Sean Christopherson wrote:
+> This is a spin-off of Shivank's series[*] to fix "flaws" in KVM selftests
+> handling of @maxnode in various sycalls.  In quote because the flaw is that
+> KVM selftests followed the docs, and the kernel has a longstanding, poorly
+> documented off-by-one bug.
 > 
-> 	uffd_desc->pipefds = calloc(sizeof(int), num_readers);
-> 
-> calloc() expects the number of elements first and the size of each element
-> second. The product, and therefore the allocation size, is the same either
-> way, so this is not a functional change, but the arguments are misleading
-> and GCC 14 diagnoses them with -Wcalloc-transposed-args, which is enabled
-> by -Wextra.
+> Along the way, massage the xAPIC IPI test to automatically run its page
+> migration testcases when possible, because that's the entire reason the
+> test exists.
 > 
 > [...]
 
 Applied to kvm-x86 selftests, thanks!
 
-[1/1] selftests: kvm: Fix transposed calloc() arguments in the uffd helper
-      https://github.com/kvm-x86/linux/commit/202378243192
+[1/7] KVM: selftests: Account for kernel's off-by-one bug in NUMA node syscalls
+      https://github.com/kvm-x86/linux/commit/be3c6888e1ab
+[2/7] KVM: selftests: Fix maxnode argument to migrate_pages() in xapic_ipi_test
+      https://github.com/kvm-x86/linux/commit/8883d2410c45
+[3/7] KVM: selftests: use BITS_PER_TYPE() for NUMA masks
+      https://github.com/kvm-x86/linux/commit/d2dde5c387fc
+[4/7] KVM: selftests: Compute node masks on-demand in xAPIC IPI test
+      https://github.com/kvm-x86/linux/commit/3a2a37d2d48e
+[5/7] KVM: selftests: Add common helper to get mask+number of usable memory NUMA nodes
+      https://github.com/kvm-x86/linux/commit/0be096bbc9cc
+[6/7] KVM: selftests: Automatically run xAPIC IPI migration test when possible
+      https://github.com/kvm-x86/linux/commit/92ed4d5c78fd
+[7/7] KVM: selftests: Skip xAPIC IPI migration test when forced but unsupported
+      https://github.com/kvm-x86/linux/commit/d5aa06fbfec2
 
 --
 https://github.com/kvm-x86/linux/tree/next
