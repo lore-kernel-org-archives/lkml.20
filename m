@@ -1,62 +1,64 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E24F372ECB
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:25:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FE83BED4F
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:25:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789986330; cv=none; b=N+tF+R86IoUnhLbySumKlgG53wvU9krgu+ObuDUzrUI+upvF5U3P889D2aVfok1tj7lNNjwbXoPu/eo9c8sjGbTB5LXm7fabX7/fW0wv02Rd9m6sNsC9ssxGNI1RdiOBfTc8zAHH8wnBnCFzAiL9F9681Jb6IgUbCicvW5QDH4E=
+	t=1789986333; cv=none; b=GTfKeccW6fpQ7uAp+4cpxpbpPTCCVotR3e8g8lgwdJ4TACU93ndd4NIq/5UKROWcZ6MeOhaSrVPhL638/1DbjERHnDmUEZEin0Y9H4QfukGpGQxSonjZQ1zvPoK+sEaRH4VZWllfN/1z7HkNxNoqWke06Fr85pWJ3tT16oL0LAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789986330; c=relaxed/simple;
-	bh=2eomYsKhtyUjg78mXiDsoL3CzLp2fP0U1GQBuUbeoJM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CbyAYu2Bj4fDSsBglPAmHaBiQ3CC8tBIpGik9dhY8mY8Tlo+hW9LgUlBX6TNLt94Fku4rFxq6e3hUAeU2pYt6xhope0UlzqR6gfh0Yk8IoiIF72hCqLv0XAmmkxgesnSuz4pUnP8DQOQPhPLksfFDNBfOJAK2xiVSLDrCZQLlbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eXpvxE8s; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1789986333; c=relaxed/simple;
+	bh=hxR49B7RQPbJ/d0d+ntWb/hxk2eeZJ7iiyVvihgn58U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=B5abfLZGHbVd98qtGd2Bhh6nJFu6BrQkyGoGFjIhafCs269ddEcG4VXuDHSb24NmE1zl4HkF4FAY404Jm0D2f9r1AF+t34VKyFqgFCkR4Vu8vhp8F3WYn0WbJxNQ/zU0d885nIu/i+bmyExov6izN5NB3pfFWix7HkuznTtt2GE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fsq8sCx/; arc=none smtp.client-ip=74.125.228.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eXpvxE8s"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8692a856865so2558171b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:25:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fsq8sCx/"
+Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-86e6d007703so2319461b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:25:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789986328; x=1790591128; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TT5lRmym0T1mzXaOaX/8a6/gNfD3HTc1xl19TrAEELM=;
-        b=eXpvxE8sBD4ik3g/WHokPk6zdAIubfdm/S+e1wlUY+AjGnsaKXmwiJ+g4A9C0iBjQ8
-         kRR2X+hCX0A6sI0Qgwra4Mu1O/ComapYzd+CBMv3aYJ0OE9F4x5O5V/8m8Tm1NSWPM62
-         D/DfnudoHRslKf6bdso/0Oh4hwNjhpKK0pLiXls5wX6bC7ww/S+Y9/DpBRqq151ikxKz
-         GOliGE8XVzgt0Xiy2/pb7jehsZytoSwcnrSyM0phGDQHB29cfTyNJ1N72kEtVfOMsJvx
-         DeKHJMZDXhHGHaVWAjiX9+/Iph3yl9cYKj6/QcOmMEsMQc2YmdzMglH+RtDOoGl7EmTb
-         OyeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789986328; x=1790591128;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789986331; x=1790591131; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TT5lRmym0T1mzXaOaX/8a6/gNfD3HTc1xl19TrAEELM=;
-        b=BfpmfkvgHHIi9TzdoBVEgkDtzhlD8HpdEH6SwW9+56nMy/iXA0HdTHnz2nZizJCUpX
-         t9HMg26UCVA13oDIepNYFlD9tICF+o3HTMeA0a0s4BrAC5tsrQVXVZmsZXQToLfVmkon
-         4d2bgQ0DYl8eqFDRgBwVTkXE2FyUHNHbf//zLleplqAsPQEUvJEFUzbqB0gFpDev+6v4
-         ONt5DZmrA+opclv9Aw1uKtXW2C00wQes+mnBsFT96S6H5CxzBAgJbWrlRn4Qo9qGvlzw
-         2MLEJLkFnukBlMdxjgLqsC0Yo6exF5+VddtuA4knfOeT2s6KayqvIYGgda9DCI00hUPp
-         n99A==
-X-Forwarded-Encrypted: i=1; AKwUvBxslm9tCHLyjnDa+ufkBwhRBBtZCELC6pc46L5uC7C32S5SGSwcR11F6K/uRSZNPwp3f6BpTeYjIFr3KwI=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/wbcUXT90xrd2+zzqHLKoa78uDfZr72qlZWSEbfwOjWq1q/UX
-	opLoVTxfrVdSwgA3KsMfPofHTDhSgufzMs+6Zf/vulqlPVPL8HJiZH/E
-X-Gm-Gg: AYBFou0/MbKiVX/++D66QmoPjheBe+283CsQnUl6aSHDDB0cHOrAda5/nWUkz8LAxRS
-	I9ttH/WBC7n1sX3T0hKnt5Awg1q4cjn8z5GTmjPM3wEBOkAOLYQ5txnAQY5AvJxDCeiVrU2C0R3
-	blza9QW7Wyq4mlnASCVOD0Bb6KrVhWa70xLbyV/gHO3EcxaDdI6dqO85ysEGWAPkzDXu1gyh5B3
-	MMc00JOY094RKuJS/mvud4Rz1I4lTl/P1ss6fC5GuDjd3MqidVM+WLTBw2q86C6VOof4UX5CGNg
-	RinqZIbLzwtIz68BwPmsV7408lu4/gz1FpSfOZ1a3HGNtNeiDCDzRGgw9fPLORsFqQinSPHpr78
-	o8ZQEfd/0rpCwRT/zJJ5VUI/GHsnBypfzHCOkDvnaAdz4/5K4AkaqjXdBdpdWOWHtYEF7avK4aa
-	22S7yE6FBwT/M7YhtIAJLrKM/YRZL86XNx3iNC3buR50wLvMdDFYvMjGkU1W0ccd9dI1iC1Z7KT
-	RYWz+dJr45siymoMApjp1gfEvKr
-X-Received: by 2002:a05:6a00:1911:b0:878:34e7:9a3c with SMTP id d2e1a72fcca58-87834e7a3a3mr7459656b3a.53.1789986328468;
-        Mon, 21 Sep 2026 03:25:28 -0700 (PDT)
+        bh=HfP1uEXGcD/7otSfEPp8la4bNX0YkoLMLW/Ix00hlGk=;
+        b=fsq8sCx/J0sEfUh9BhCM2v8ooJP5nBDhi8HI6AoqcMJv/rVLuKimbBW+XXV5s+xR6D
+         L11pxTw/4v4rp4+EE6HGc9G7fAMfHblOZ9YQRgI/Fok7F2GEi2HiAmzqqN7tdp8H745l
+         YgyFEE+pHKfjefAeKcDzor/9Xq4qI+RWE52FiPA5hZPIgeCQvadjlqebDsTakjlkpP8V
+         QjG8KrW7l5r+F4WbZFHeuqHxHfeqzVswVrHraYSSnKsADT2uN7LSVkoyDw5epsdTooy/
+         OKEJonTRusbYwXD0wvWWaiLR8o41kUcweBJGVwRpNHP8joIkli/kJdFsqneis8Egmn8+
+         T/OA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789986331; x=1790591131;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HfP1uEXGcD/7otSfEPp8la4bNX0YkoLMLW/Ix00hlGk=;
+        b=JQl3DzeeOtappYMcW/ZjtmIBEComdrb0e901YisMyOQFxhFBEivguPJ75vXJPr+frP
+         sVzOQlCVYW/t1TouBm1F0NgzMwhw/tSrf6MGfcHPFtS1xq+Ei9J0whOyESQ8n3Qg+3TN
+         XUqCOuENfu8Gh5siKsLdwNUf9wJNs5TRRRh1ZVWTQwX+cZCQvqnmO93J2iiNvV8TEDQ4
+         2REWK4WDbLKsBMwOJFimP3R3bgQgGxEojfsFRuPHOxcySmp/9xKaUNqiWPhCdvKueh5A
+         dWRiGtRjYCiWnJuiifxfZs8lCszhJEPWUM9ziUnz/GNe+ZnxPKw0Xmn5Kj8KtOYRwB2m
+         Fi2A==
+X-Forwarded-Encrypted: i=1; AKwUvBwCGrz/1Bxntkcp9TyAjWARTt9vmwz9iGdKIwWLppVS6iPm1DSJyy2hCVaGjaXbdYHGXtx0hcxWpKZWM3E=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTsKYhNRe+5ztuzXW86KsO+Gzs52ubipV1Amj2pSVFE0JC44G5
+	UsHrxHNMBcczqTrk1WpOpQGiRiAgURmeehYgDQ2ekIeENweQMI9L7UG5
+X-Gm-Gg: AYBFou21qw+vua54TUNiaVMoADOnMivu5EY5wI1dcKgxbfpejUyyz/iEVmuUq/qSJhS
+	FFk/QBzxe+TnqXeObCKuHa0gStJJgy8sT9aLAuZIn65LSj7+t1bKHffmR0Y89IMewPL8SvDbYqV
+	QnR59FwkO7Nk37KDErZ4fBwzxU3L/GPYsz8oXNtxax2tPxILUiuf2ysh6soorkje0e/p5LGaJEX
+	9pNJXt70yYA3D2xtHmq4qA3LtZqFXoBpjtJcge1X/NezJU/skwA9sVTyA4JZT+wL5xubEZ+KgSn
+	QEL9ROkxiuxJfAVdX6XXk1K4bckFvB9sff9OCoyUMhi1RpV2CXE5hgX2xvLXoctdsJyIARspzRL
+	gpqfraJ0jPi+UX0yQTVhUWTz0s6tt0u5Xp16+VKQdFCu6qwa2QtjH2b9H6o29HmeXG+XfOJrK8M
+	NHJvr7k5Dllhjy5Vy5QoTNhg6pz/qlu5r36ESvJEeU+CHHoFYqBGcOyBNRQCOYwURWPYBzHIob/
+	YRl5IrqlhYIIy1mtA3qtPuOYnBRXGxQyD3zvow=
+X-Received: by 2002:a05:6a00:1943:b0:878:3811:239 with SMTP id d2e1a72fcca58-87838207541mr6896051b3a.53.1789986331385;
+        Mon, 21 Sep 2026 03:25:31 -0700 (PDT)
 Received: from buffalo-ssd.taila54753.ts.net ([240b:253:4760:f400:1ebf:ceff:fe7f:5e0b])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a94f238csm2909174b3a.21.2026.09.21.03.25.25
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a94f238csm2909174b3a.21.2026.09.21.03.25.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 03:25:28 -0700 (PDT)
+        Mon, 21 Sep 2026 03:25:31 -0700 (PDT)
 From: Akari Tsuyukusa <akkun11.open@gmail.com>
 To: Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney+clk@redhat.com>,
@@ -76,10 +78,12 @@ Cc: Takashi Sakamoto <o-takashi@sakamocchi.jp>,
 	linux-kernel@vger.kernel.org (open list:ARM/Mediatek SoC support),
 	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
 	linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC support)
-Subject: [PATCH 0/6] clk: mediatek: Fix descriptor clock ID allocation
-Date: Mon, 21 Sep 2026 19:25:16 +0900
-Message-ID: <20260921102522.1640072-1-akkun11.open@gmail.com>
+Subject: [PATCH 1/6] clk: mediatek: Fix MT6779 clock onecell IDs
+Date: Mon, 21 Sep 2026 19:25:17 +0900
+Message-ID: <20260921102522.1640072-2-akkun11.open@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260921102522.1640072-1-akkun11.open@gmail.com>
+References: <20260921102522.1640072-1-akkun11.open@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,39 +92,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Several MediaTek clock providers have clock IDs that do not match the
-size of the clock array allocated by the common descriptor-based probe.
+Add the missing dummy slot for clock ID 0 in the MT6779
+audio, camera, image, IPE, MFG, multimedia, VDEC and VENC
+clock providers.
 
-Add dummy entries for missing IDs so that the allocated onecell data
-covers the complete clock ID space used by each provider.
+Also register the missing SSPM infracfg clock and reserve
+the binding-defined MDP WDMA0 slot in the multimedia provider.
 
-Akari Tsuyukusa (6):
-  clk: mediatek: Fix MT6779 clock onecell IDs
-  clk: mediatek: Fix MT6797 clock onecell IDs
-  clk: mediatek: Reserve missing MT8167 clock ID
-  clk: mediatek: Reserve missing MT8173 topckgen IDs
-  clk: mediatek: Reserve missing MT8196 MDP clock IDs
-  clk: mediatek: Reserve missing MT8516 top clock IDs
+This fixes the onecell clock data allocation so all registered
+clock IDs are within bounds.
 
- drivers/clk/mediatek/clk-mt6779-aud.c      | 1 +
- drivers/clk/mediatek/clk-mt6779-cam.c      | 1 +
- drivers/clk/mediatek/clk-mt6779-img.c      | 1 +
- drivers/clk/mediatek/clk-mt6779-ipe.c      | 1 +
- drivers/clk/mediatek/clk-mt6779-mfg.c      | 1 +
- drivers/clk/mediatek/clk-mt6779-mm.c       | 2 ++
- drivers/clk/mediatek/clk-mt6779-vdec.c     | 1 +
- drivers/clk/mediatek/clk-mt6779-venc.c     | 1 +
- drivers/clk/mediatek/clk-mt6779.c          | 1 +
- drivers/clk/mediatek/clk-mt6797-img.c      | 1 +
- drivers/clk/mediatek/clk-mt6797-mm.c       | 1 +
- drivers/clk/mediatek/clk-mt6797-vdec.c     | 1 +
- drivers/clk/mediatek/clk-mt6797-venc.c     | 1 +
- drivers/clk/mediatek/clk-mt8167.c          | 1 +
- drivers/clk/mediatek/clk-mt8173-topckgen.c | 7 +++++++
- drivers/clk/mediatek/clk-mt8196-mdpsys.c   | 2 ++
- drivers/clk/mediatek/clk-mt8516.c          | 2 ++
- 17 files changed, 26 insertions(+)
+Assisted-by: GPT-5.6 Luna
+Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
+---
+ drivers/clk/mediatek/clk-mt6779-aud.c  | 1 +
+ drivers/clk/mediatek/clk-mt6779-cam.c  | 1 +
+ drivers/clk/mediatek/clk-mt6779-img.c  | 1 +
+ drivers/clk/mediatek/clk-mt6779-ipe.c  | 1 +
+ drivers/clk/mediatek/clk-mt6779-mfg.c  | 1 +
+ drivers/clk/mediatek/clk-mt6779-mm.c   | 2 ++
+ drivers/clk/mediatek/clk-mt6779-vdec.c | 1 +
+ drivers/clk/mediatek/clk-mt6779-venc.c | 1 +
+ drivers/clk/mediatek/clk-mt6779.c      | 1 +
+ 9 files changed, 10 insertions(+)
 
+diff --git a/drivers/clk/mediatek/clk-mt6779-aud.c b/drivers/clk/mediatek/clk-mt6779-aud.c
+index 30c290fd6b84..6be054816a4b 100644
+--- a/drivers/clk/mediatek/clk-mt6779-aud.c
++++ b/drivers/clk/mediatek/clk-mt6779-aud.c
+@@ -33,6 +33,7 @@ static const struct mtk_gate_regs audio1_cg_regs = {
+ 		&mtk_clk_gate_ops_no_setclr)
+ 
+ static const struct mtk_gate audio_clks[] = {
++	GATE_DUMMY(CLK_DUMMY, "aud_dummy"),
+ 	/* AUDIO0 */
+ 	GATE_AUDIO0(CLK_AUD_AFE, "aud_afe", "audio_sel", 2),
+ 	GATE_AUDIO0(CLK_AUD_22M, "aud_22m", "aud_eng1_sel", 8),
+diff --git a/drivers/clk/mediatek/clk-mt6779-cam.c b/drivers/clk/mediatek/clk-mt6779-cam.c
+index f397b55606de..35c313b48b16 100644
+--- a/drivers/clk/mediatek/clk-mt6779-cam.c
++++ b/drivers/clk/mediatek/clk-mt6779-cam.c
+@@ -23,6 +23,7 @@ static const struct mtk_gate_regs cam_cg_regs = {
+ 		&mtk_clk_gate_ops_setclr)
+ 
+ static const struct mtk_gate cam_clks[] = {
++	GATE_DUMMY(CLK_DUMMY, "cam_dummy"),
+ 	GATE_CAM(CLK_CAM_LARB10, "camsys_larb10", "cam_sel", 0),
+ 	GATE_CAM(CLK_CAM_DFP_VAD, "camsys_dfp_vad", "cam_sel", 1),
+ 	GATE_CAM(CLK_CAM_LARB11, "camsys_larb11", "cam_sel", 2),
+diff --git a/drivers/clk/mediatek/clk-mt6779-img.c b/drivers/clk/mediatek/clk-mt6779-img.c
+index 474a59a4ca9e..b5efc2cfe189 100644
+--- a/drivers/clk/mediatek/clk-mt6779-img.c
++++ b/drivers/clk/mediatek/clk-mt6779-img.c
+@@ -23,6 +23,7 @@ static const struct mtk_gate_regs img_cg_regs = {
+ 		&mtk_clk_gate_ops_setclr)
+ 
+ static const struct mtk_gate img_clks[] = {
++	GATE_DUMMY(CLK_DUMMY, "img_dummy"),
+ 	GATE_IMG(CLK_IMG_LARB5, "imgsys_larb5", "img_sel", 0),
+ 	GATE_IMG(CLK_IMG_LARB6, "imgsys_larb6", "img_sel", 1),
+ 	GATE_IMG(CLK_IMG_DIP, "imgsys_dip", "img_sel", 2),
+diff --git a/drivers/clk/mediatek/clk-mt6779-ipe.c b/drivers/clk/mediatek/clk-mt6779-ipe.c
+index c2314654f43a..284d5adb8a6e 100644
+--- a/drivers/clk/mediatek/clk-mt6779-ipe.c
++++ b/drivers/clk/mediatek/clk-mt6779-ipe.c
+@@ -23,6 +23,7 @@ static const struct mtk_gate_regs ipe_cg_regs = {
+ 		&mtk_clk_gate_ops_setclr)
+ 
+ static const struct mtk_gate ipe_clks[] = {
++	GATE_DUMMY(CLK_DUMMY, "ipe_dummy"),
+ 	GATE_IPE(CLK_IPE_LARB7, "ipe_larb7", "ipe_sel", 0),
+ 	GATE_IPE(CLK_IPE_LARB8, "ipe_larb8", "ipe_sel", 1),
+ 	GATE_IPE(CLK_IPE_SMI_SUBCOM, "ipe_smi_subcom", "ipe_sel", 2),
+diff --git a/drivers/clk/mediatek/clk-mt6779-mfg.c b/drivers/clk/mediatek/clk-mt6779-mfg.c
+index 21793cb6e6e3..dd7d98d7de7d 100644
+--- a/drivers/clk/mediatek/clk-mt6779-mfg.c
++++ b/drivers/clk/mediatek/clk-mt6779-mfg.c
+@@ -24,6 +24,7 @@ static const struct mtk_gate_regs mfg_cg_regs = {
+ 		&mtk_clk_gate_ops_setclr)
+ 
+ static const struct mtk_gate mfg_clks[] = {
++	GATE_DUMMY(CLK_DUMMY, "mfg_dummy"),
+ 	GATE_MFG(CLK_MFGCFG_BG3D, "mfg_bg3d", "mfg_sel", 0),
+ };
+ 
+diff --git a/drivers/clk/mediatek/clk-mt6779-mm.c b/drivers/clk/mediatek/clk-mt6779-mm.c
+index 30bbab308388..3b3053385021 100644
+--- a/drivers/clk/mediatek/clk-mt6779-mm.c
++++ b/drivers/clk/mediatek/clk-mt6779-mm.c
+@@ -32,6 +32,7 @@ static const struct mtk_gate_regs mm1_cg_regs = {
+ 		&mtk_clk_gate_ops_setclr)
+ 
+ static const struct mtk_gate mm_clks[] = {
++	GATE_DUMMY(CLK_DUMMY, "mm_dummy"),
+ 	/* MM0 */
+ 	GATE_MM0(CLK_MM_SMI_COMMON, "mm_smi_common", "mm_sel", 0),
+ 	GATE_MM0(CLK_MM_SMI_LARB0, "mm_smi_larb0", "mm_sel", 1),
+@@ -76,6 +77,7 @@ static const struct mtk_gate mm_clks[] = {
+ 	GATE_MM1(CLK_MM_26M, "mm_26m", "f_f26m_ck", 7),
+ 	GATE_MM1(CLK_MM_MM_R2Y, "mm_mmsys_r2y", "mm_sel", 8),
+ 	GATE_MM1(CLK_MM_DISP_RSZ, "mm_disp_rsz", "mm_sel", 9),
++	GATE_DUMMY(CLK_MM_MDP_WDMA0, "mm_mdp_wdma0_dummy"),
+ 	GATE_MM1(CLK_MM_MDP_AAL, "mm_mdp_aal", "mm_sel", 10),
+ 	GATE_MM1(CLK_MM_MDP_HDR, "mm_mdp_hdr", "mm_sel", 11),
+ 	GATE_MM1(CLK_MM_DBI_MM_CK, "mm_dbi_mmck", "mm_sel", 12),
+diff --git a/drivers/clk/mediatek/clk-mt6779-vdec.c b/drivers/clk/mediatek/clk-mt6779-vdec.c
+index 458d012f023c..1e4922f8a037 100644
+--- a/drivers/clk/mediatek/clk-mt6779-vdec.c
++++ b/drivers/clk/mediatek/clk-mt6779-vdec.c
+@@ -33,6 +33,7 @@ static const struct mtk_gate_regs vdec1_cg_regs = {
+ 		&mtk_clk_gate_ops_setclr_inv)
+ 
+ static const struct mtk_gate vdec_clks[] = {
++	GATE_DUMMY(CLK_DUMMY, "vdec_dummy"),
+ 	/* VDEC0 */
+ 	GATE_VDEC0_I(CLK_VDEC_VDEC, "vdec_cken", "vdec_sel", 0),
+ 	/* VDEC1 */
+diff --git a/drivers/clk/mediatek/clk-mt6779-venc.c b/drivers/clk/mediatek/clk-mt6779-venc.c
+index 70cebc274031..0d3ffdf50beb 100644
+--- a/drivers/clk/mediatek/clk-mt6779-venc.c
++++ b/drivers/clk/mediatek/clk-mt6779-venc.c
+@@ -24,6 +24,7 @@ static const struct mtk_gate_regs venc_cg_regs = {
+ 		&mtk_clk_gate_ops_setclr_inv)
+ 
+ static const struct mtk_gate venc_clks[] = {
++	GATE_DUMMY(CLK_DUMMY, "venc_dummy"),
+ 	GATE_VENC_I(CLK_VENC_GCON_LARB, "venc_larb", "venc_sel", 0),
+ 	GATE_VENC_I(CLK_VENC_GCON_VENC, "venc_venc", "venc_sel", 4),
+ 	GATE_VENC_I(CLK_VENC_GCON_JPGENC, "venc_jpgenc", "venc_sel", 8),
+diff --git a/drivers/clk/mediatek/clk-mt6779.c b/drivers/clk/mediatek/clk-mt6779.c
+index 4b9dcb910b03..70d8a970b5bd 100644
+--- a/drivers/clk/mediatek/clk-mt6779.c
++++ b/drivers/clk/mediatek/clk-mt6779.c
+@@ -1014,6 +1014,7 @@ static const struct mtk_gate infra_clks[] = {
+ 		    "fufs_sel", 13),
+ 	GATE_INFRA2(CLK_INFRA_MD32_BCLK, "infra_md32_bclk",
+ 		    "axi_sel", 14),
++	GATE_DUMMY(CLK_INFRA_SSPM, "infra_sspm_dummy"),
+ 	GATE_INFRA2(CLK_INFRA_UNIPRO_MBIST, "infra_unipro_mbist",
+ 		    "axi_sel", 16),
+ 	GATE_INFRA2(CLK_INFRA_SSPM_BUS_HCLK, "infra_sspm_bus_hclk",
 -- 
 2.55.0
 
