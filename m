@@ -1,106 +1,115 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA17749B44C
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:28:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789997292; cv=pass; b=sCYSdEopIZfdm/vPKInzlquhqJhjFWsE5FbYdarKoaNmLaqccbu1IDIdoGtOU9AG74mx0ItPnmlD3eZSBlVdCVGyDakIRELDR0xTBG3sk/v/ejoe54FGWpxg/EsEbj274Xw9qAkV8JaF7DYmCyR5beJBBiz+9vE3C6S2N87sIqI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789997292; c=relaxed/simple;
-	bh=ayinjUi8Pgp9G+S1LnRNG4EOwgo3RpV/l+nq7MHooFw=;
-	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=knA59s+7dKJ2PC/H202ox1KF02L9zb4msp3+urvEne/gmV1zSXly1C/Vm49vmYfxgatnFXny1W45Y4kuSDcqhNn2biP8iIkg6qG/9CgQXEEMxSNCVRW8xOeAV+I3c9aQyzov4Mc5q+Yhc8ScULci6dGCIVGoUi4Vn+eO9dR2Zsk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nJ4RNPHT; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CFA649E134;
+	Mon, 21 Sep 2026 13:28:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789997299; cv=none; b=kGX7lZo5/LIerE0mHftjXeCo2th7TArEYNtbA5GpxvM93DpZ3JmjtsCBlHSEHBbVSfmXk+Zpe2YmP1WRtb/5c0B0RWl9b5kYv7tNIQOIBbFExGmZ9yXmeS2mgAX/dv7HVF28xq81rp1KVT/DbnVzBLmX1MX0WyJy8xwCBMnucNY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789997299; c=relaxed/simple;
+	bh=bU1l6F/FpVpyanPTk2wALJj2RtXeYDJAPQOFYHff/8E=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=eecHoN0wpQlOG0u4rBRvb0gKn5wvjHwamLM3e3laPafx6898nTq7e3lwLyQfwC/eoyH75Xk99E+fTi+QfRzbNy/Bq4Jg3iztTf5eEnRtR/r56DncFUI6vGVKS9NEjraSsDkl5x2HISRq7GBNB3HOhrPX4Nrcs2Ah2j6CURycrPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oUM45XqD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nJ4RNPHT"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a98505364aso4904711a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:28:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789997289; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QbmW0Wf3A9nvSo7FKQ0VIfeXBF9a+ZywAOdpv3p70zEu2zUYTlIdaldKNr6tbQZG1n
-         etLYy0wrbqe6xt0oOSdUoLjiq6gnu1FJQ2R3vSuqs3lUjys9XdOkmiWmiiNmwyFLGVFP
-         1j5WBOHa2dVK3FyrUKlJ3mfNw7fO3etNrVYnfsJeBH7YLdKurDVNChdPN4Ri30XI1TY5
-         9RdNByPhlxwvsEqZ1Qr52ais4lCdssOw5cdmz2VMl7mprCu79dfj+0gJ3/cVxOQMSfw0
-         5QUxWA+9g0/Q+VH92qWgOlEcK5lzK7HStDbwY5GIow+Pwt9sfGXnA0rRIX6fI3LQN0xQ
-         4vJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:references:in-reply-to
-         :mime-version:dkim-signature;
-        bh=ayinjUi8Pgp9G+S1LnRNG4EOwgo3RpV/l+nq7MHooFw=;
-        fh=DCCpk750PVBTTCk5PKpnYTAXMpcxyvcFNGYx4zDw6Ac=;
-        b=o9csI40Lj0gDeJ2LoKpY79ugyA/ElZEjq90Xo3rp+AID9M2FhYor/AsmYqnP6P0J4T
-         7ukTsPD8RgEptCq2rAfyDPh6Rrtf/MTuZCB1D1dgw0W18iw9YJIc3gY8H6mvc7IRY7hF
-         C3JuAVeDtBp2ms9Z5hKifj1/Wg6cEFNl4XmfFb5AeFxfsd3wviG/QUNEuej0QM9s31Kl
-         IzFSm6ga6fbqkEEPrv0w9Opo2r3plgWgOu8oOq/rBtaB9VGgkpN3W001bCAshyhDMRFA
-         vDsZ8ChyyMEkOoudOK90fHWoBM4qDynX00VT8Jzut3vIIzqLMnMv9R+FUaYrv5+jCTGr
-         YYxA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789997289; x=1790602089; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ayinjUi8Pgp9G+S1LnRNG4EOwgo3RpV/l+nq7MHooFw=;
-        b=nJ4RNPHT2Tdrpq8mOOplE6tLzDf5+B/dgdK5CYpVR0I+5CknfJ8TEAi5eWt1qPh7m6
-         4me1VDPsGCE1LpwhIaoTIzeP4aCHxmY1M5JleDB0SQEgzfzB3nXXWArHypw1vnX1TCcJ
-         Sjv8KIIQwlt9XwmEbx03hRBQWqoK/rsfMSfwr3TlQD6I6eV2r5T+bZ2J5K+dpilGTcBU
-         miqbKkoU2qhSJai8Uh/CJhJpmcw9R13EMcRpEsxXIfe27oHUoJ4vcIAA/sRzllqFddT0
-         A+3j0xPaixl7Th1xPWjgaGVuyg6d4ZrqNTcQlyu52LmvB+zkUP9RxZgNATnuTFNYqDW2
-         Tw0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789997289; x=1790602089;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ayinjUi8Pgp9G+S1LnRNG4EOwgo3RpV/l+nq7MHooFw=;
-        b=G12fG5GexUqW6AgXC3MbIlMONp7c+LavNVwC9kjdnPZWenzu7+mVO5IVC3aR5UVu3S
-         rOCfCqhMRX0OV6tn3ylqdwb8Ncyr+mnkufrqdYRwpXmUDPx+SXSi7mvH8owYqFm646hC
-         7TjHcJ9RGBrt6jgVykxnI9mCwCYy0PQlWaihLmf8rqwxwdx8woNsGplA3D+vHKvUuPuf
-         vL8ZAqFxmuvqwTh7R+AG65mjYI18Obl3B/L8TpSnHA6tvqHFav/3LmkWLguRKMGB8isw
-         iY8oKUiDqEIdC31u7N00l0TcFbl3qJsdM8YtZLuARXYc/ql1aKMdaD0vhx1PBBpLyVV5
-         +5rg==
-X-Forwarded-Encrypted: i=1; AKwUvBw6pFkyFcyDtS2CVFiD45Or0R2f0pFe/NVW1KSeCT3fQY1WI4WMsEplSzYYuaEAcmWDx1YCnMT9jOUzphI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mhu8k75506nZt+IxLJLc7uUTiWmetqY8Jexm5movsnS9eqKu+M
-	LvhpSxupFg95FWGBSyVJimN4m7vM9lQWSgQZljsZtELmQjZ6lXXUJVuXXAFgWiOBIPZyPAVIKm6
-	jdGnl2lMh3P202AWaq7nyUAvKghyhYYWOMs/dRnI=
-X-Gm-Gg: AYBFou3oIw7bZJmSV4DSqhTk6/Qeycr6bbaX/HS+8YdUerzxbtO3P2kPB4Ek4WqRDaf
-	w5kjZUnziIcOe5yDN3BS078PTMHZAXAW4R2H1ylrchfgMD7viF1HAdQYG6YyAJtr/27v4b+KejF
-	PfC2W21eK6FW6qWMd7mVqaaTaiYNc8FH49RefrFD6twnab2rwn6xoWFAu3q5v5VAW7WydxNL0b2
-	4l9TegLdBFIZlKRerfujURRxHaQyfYvvsVX/awKr/zKeueUsCx5waSrA9JbX4QHYUdKbsfjD5YY
-	Iw81+WPMTepOr8Amtt8lGE8opl6ywcXtN6dSEE30W0Sw2wckojTCyVZrDw==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oUM45XqD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FD8D1F00898;
+	Mon, 21 Sep 2026 13:28:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789997298;
+	bh=d1Ey5jvylOJ79erdc6vFg11uZt+7Y6QIOD5AR/uXzi4=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=oUM45XqDtzWwZZYljoA4P7DWKZEpTfJ76UlTv1j0mdNtdwOHwn48ioFrdxC4REojT
+	 qiJ2SxvPwm7J6fl5mSCgukfIcT25vcRGG1lpxYmj104py1YPLi7Yvjw45RxaxklDjg
+	 gdtoA0eBO0mpt/1hmBntc1nmtSAw3c0mPY5lsaDxGKwY2rcrHR39Iw6iWUPRurp11e
+	 tHfNAWq5dMts5iww3Ezw5xQTDalTDXbUGFSHjWbYeJQjzdJ7SEdu+J+qnb/CshMEJv
+	 3yS9oYDBLEdspuae6zOsWKPnetslrYv8Ma8NhbsxooUBOlEYLrxVxKqhGmdUZt98/l
+	 JGrfmluZDsxbw==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id A8619F40067;
+	Mon, 21 Sep 2026 09:28:16 -0400 (EDT)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Mon, 21 Sep 2026 09:28:16 -0400
+X-ME-Sender: <xms:8DCxaonF3EdorBzUB-A3zDG6gpYbcSTunYIOd3VIQ6llDAtnqN08aw>
+    <xme:8DCxaioFVLZcXc0dhlSsGk3XHczLbOfkcTD0NQMEhEt-pysK8Q1RvG9bqZfpntw4X
+    p1FVeK1GWYg9Dwbn54XJnBDhfcls2VUklRnwk1_S_RK-Iw43Iah5MI>
+X-ME-Proxy-Cause: dmFkZTEOiXdpmpFDaaGkDmXKiq3VQKWyRpQ3W7SRvAo/XC35Gow0yHxFrHMUycyHFE9ULR
+    En1DsBtaQ21QLmXdW3cjWvmQKU90scopAn7B1Dd7Qd8i9t+wLQMGy0Aw/6EKW++8UefdJQ
+    ZedoTGCcJpcGTrFI81onA5/HF6GS8qRthPQ6kqjPUNfGEBwOhBEeoyJqGS6Wk/MD0/njUQ
+    e8NLcoqrpRKFF/tOIZLiBxTuVWzCrtcR4oeLeWWuGvJEoRQ7tnVerL3h4sZc4ULgjBfiA3
+    9UAKkpwCKJWnycInpAbKfPNxCBkDaJu91tDfuhqp9Nd0R0cDIaFvf8Wxwy7HfX/P1r4xWj
+    5Pvb0WJkigO+Vh8fg072TZr7GU3HEW9L8BpknkxV/YDRXelApIRdcafgJNfWM9pgGWedqt
+    ZWeXTsH3u1HJDvzOQJiV7VBqGckEUbMDzpr6a5CRHNXVFE/NkoU2xideJM6ZRMTHWs+UF6
+    Hc01Y0FjlAaUkT8RDrykCVj9fpvU6/V6+4WbCjYcRXd+EpccC2037SdwyjHgOfb+6lLolX
+    4Bw8O4vT21ry0nJY+jNWQBx4DiKxn2I4OMcwBqqLcMf3C0saSM3uM87ybpdu7RwiPS2mPd
+    z3QfPmwmPcJcpTwLIaUHyYhyvIflirHKhHrCIk/zYz6+ufhFclyu1rl7jrjA
+X-ME-Proxy: <xmx:8DCxatHXMi5a0bL5hhrtPbYtoS04EF7Y0jZGuWpqeqVBYPeprr6YeQ>
+    <xmx:8DCxauWn72wzTM5fNcZRCu66F8rSp-iEPMR9QbSn9pZPuiAnl3-t5Q>
+    <xmx:8DCxahWLwZI3MHz-DqhLvhChOotkfFb7Q5uh-sUkv3EQCo1QjuN1iw>
+    <xmx:8DCxakL2bP8UXVRrSSRqCCusZ_mjuWpeIf2Bz_fhI5AraeQPOVBd-A>
+    <xmx:8DCxahD7mW7Yao5d-4wvPab8ebkt2f_CPg0tlXM8i3Z3TNb_PNwhkPwn>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 3B5B5780070; Mon, 21 Sep 2026 09:28:16 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6402:324d:b0:6aa:4d8d:a08b with SMTP id
- 4fb4d7f45d1cf-6aa5316a711mr6298513a12.14.1789997288686; Mon, 21 Sep 2026
- 06:28:08 -0700 (PDT)
-Received: from 292895732794 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 06:28:08 -0700
-Received: from 292895732794 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 06:28:08 -0700
-In-Reply-To: <<arEkgM15qewERAOJ@pedro-suse.tail5790ac.ts.net>>
-References: <20260725182628.221603-1-nsd.project.dev@gmail.com>
- <CAFLp9PEQQVuDpJPwrNvLN1-u3w3TMwZPUUrf0+rOBrvDjBBf1A@mail.gmail.com>
- <anlByPDZmvEhWeXI@casper.infradead.org> <ffcij36vnozf3rginqd2opd2dwqyki7xhtdo4veuty734hhgba@utjav2k263o6>
- <nsd.1787001235.35928@mail.gmail.com> <w7vte4itudtkw2yf4vbmuofiumfffmp2y52dpu2bqvqtdgjvpd@5femyiozss3e>
- <CAFLp9PGkVYZcQT5qAx-RKFOF-urZ92m417zpAeF7ZQempbS1HQ@mail.gmail.com> <arEkgM15qewERAOJ@pedro-suse.tail5790ac.ts.net>
-From: =?UTF-8?B?YXloYW4gYXlkxLFu?= <nsd.project.dev@gmail.com>
-Date: Mon, 21 Sep 2026 06:28:08 -0700
-X-Gm-Features: AcwNN1WBEO2eUe_0S1kQSTFGaynIVHRfEIP-ijo60mrzoXWfLkGAo2lMMObTUKE
-Message-ID: <CAFLp9PGgfLJtqeSaTqrG0jcFAu4stP0og4Txy=ewCw0ZxFdCMQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/3] Neural Storage Driver - learning page cache prefetcher
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Jan Kara <jack@suse.cz>, Matthew Wilcox <willy@infradead.org>, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, linux-fsdevel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-ThreadId: A3W2oquP0uN-
+Date: Mon, 21 Sep 2026 09:27:47 -0400
+From: "Chuck Lever" <cel@kernel.org>
+To: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+ "Jeff Layton" <jlayton@kernel.org>, "Trond Myklebust" <trondmy@kernel.org>,
+ "Anna Schumaker" <anna@kernel.org>
+Cc: linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <c0704c72-ea15-4e2b-b145-d6de6d469b85@app.fastmail.com>
+In-Reply-To: <20260920210712.2887738-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20260920210712.2887738-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: Re: [PATCH v2] SUNRPC: restrict integrity replies to authenticated payload
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for the heads up, Pedro, fair point. I had an LLM help draft
-these mails and it shows. I will write them myself from here on, and
-noted on Assisted by, will add it wherever one was involved.
+
+
+On Sun, Sep 20, 2026, at 5:07 PM, J=C3=A9r=C3=A9my Jean wrote:
+> gss_unwrap_resp_integ() authenticates only databody_integ. The checksum
+> object and any bytes after it are not covered by the integrity check, =
+but
+> remain visible to the XDR decoder.
+>
+> This makes RPCSEC_GSS reply payloads malleable by bypassing crypto
+> integrity. A modified reply can contain only the RPCSEC_GSS sequence
+> number in databody_integ, reuse the reply verifier MIC as the body MIC,
+> and append bytes that the decoder consumes without invalidating the MI=
+C.
+>
+> Decode the checksum length into mic.len and truncate the decode stream
+> after MIC verification so only the authenticated payload remains visib=
+le.
+> Reject bodies shorter than the mandatory sequence number before using =
+the
+> body length.
+>
+> Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> ---
+> Changes in v2:
+> - Drop the redundant xdr_stream_remaining() guard before truncation.
+>
+> v1:=20
+> https://lore.kernel.org/all/20260919212024.2335794-2-Jeremy.Jean@oss.c=
+yber.gouv.fr/
+>
+>  net/sunrpc/auth_gss/auth_gss.c | 13 ++++++++-----
+>  1 file changed, 8 insertions(+), 5 deletions(-)
+
+Reviewed-by: Chuck Lever <cel@kernel.org>
+
+--=20
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
