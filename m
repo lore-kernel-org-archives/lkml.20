@@ -1,408 +1,111 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E59849A3CD;
-	Mon, 21 Sep 2026 13:24:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F09B449DBA7
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:25:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789997078; cv=none; b=No/ZTUQqsqMtojrq5sMOrB8GYPj8SXVfhjq68BSkJnqZVP7RCbFoEqfwdqqGKY0LpU1s6ZI+0YmiRPD79+AEgb4ydjHLP7XH49GsrNXBTe6gK6l82YbXWxVPDv8g4UjK9N1AkgrADaXhjM7vMnKqIqAypIAwih6Jd6yUdl/h71g=
+	t=1789997121; cv=none; b=QnU1z34436EMr77lRi/DgZ7n/Iy5d5ewyULNZlLYXePvEaigGb1UevlAjpNJgE04/LNHHQBrkQeWzEsl6Ku4TTjMZnb8hKouc/xiossJ1C+Pvd4Uy71eMkTirnIbiuslE20cIw7IcvycePu4Mn0F2Zl+1g9fdiKk1MAtkCVTJDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789997078; c=relaxed/simple;
-	bh=/ue91Tk5BtCTbltSeaKEf0vbUjC7fVMzKREU5hRknWo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s4LrD5/Vapm/Md3sEuubyG808bUuw/Zm35p9QdnnW0Rzrqna4D/nJYwS54Qd2IyKIG4j+/xSYU0XqxN06QJUvW301ki4b9BZuldoz2bvhBZEZiTrhXuWe6PWq2a7b7lXrEf3ZWY/yz+GzUAa48XsHlMeUrRSBQ+yeESTyO8UGYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=ZqZQgvnl; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	s=arc-20240116; t=1789997121; c=relaxed/simple;
+	bh=/xqjr+2Xo3jrZ5ZkfrAm2z8zJAmMGGRPHRuSgWfh7Wg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lj33zgeNPfKqs6At3DgxmByXBs8t8uL6LoZQSEJf9Saw2+ghcqcmF/lJD+EX9Pt88iU2+sUtj7cwvtLR2xDjfS8BjOngLaES7BrzyPgyGKqIoFcM3S31JIJG7WtypeFYM8J8v/BYb2tJWRo3rlUb9GXsMgLfgB1YORjauRw4ar8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pu+kDZoT; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="ZqZQgvnl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1789997046;
-	bh=YmbeLyN9lFPvSxPTtdVAFvstiIMvvyGrodaMi6mz/UU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ZqZQgvnlOixmyv1wKeMqlAi244ep9oZJSM5TKKfjuRPZRbaSezyO6LyjrFr27Cc9p
-	 T0VrqLY5m/QFV0zB2SxqztJEAYdGcgsCh/fNhrXU9M87aX0LM8xTMaiCL91hy87PqU
-	 NzQYjlEpmw2dKVnHndbe8LGyxN0ht14Sx6luEg6gTCbr9J7enJXpXpWpzJfLjJ8ObJ
-	 L0QS+6ZsIVAhha0tvMVcDAPLNaTWBnlip//miaiO0uqoX7RYLNIYK9DCPIJVgqdbRU
-	 mvZLjHDJ8r4VQY85xCdEszZJdDQdLQyzrftwlQNuTPXTcRmxwQI3Ti1RHMXqSj9k6t
-	 K+iY0qaLXk+WA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4hpP7x5LXgz4wGx;
-	Mon, 21 Sep 2026 23:23:56 +1000 (AEST)
-Message-ID: <4f26dd49-0985-4049-a1fe-6a0a493c7a51@ozlabs.org>
-Date: Mon, 21 Sep 2026 14:24:15 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pu+kDZoT"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa663c1so349059366b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:25:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789997118; x=1790601918; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FWvOU2HFy2dN0GRMEA1Wtav+7uL5wo2+wayGCttWH+A=;
+        b=Pu+kDZoT+l8RAm5kI3IT+kP1F4F6dvYP+SGh5VkNusGRRhet4fTEQK2x4eAR8Wjss0
+         NdpDx0X8100q7ebUMnNv/jGRNDylHRDsqq5zQ4ljGJtnKTFEYMjKa9hX6Xue60k6jlU9
+         d+bfS5x45ymR9xf5FhdO/yozoH1D7V92X1kSMSdKpxR8cu3eTt5AyDkCTahn2wTfMGej
+         flMzadXpjAvW0Ul7p/Rkx97efonEjqb2pTdd0HbivyE4XrBhLhGRrpVU537obYEIWdGV
+         gl+EuIDutA1rLvwWLtmcph/iAkOb2avaOY1y6tapWPJZTeTal+Pa4eAYwDMaWigSFopx
+         uLHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789997118; x=1790601918;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FWvOU2HFy2dN0GRMEA1Wtav+7uL5wo2+wayGCttWH+A=;
+        b=fyvy1kHkHS7yGqbMirD7j3noNb9pqsxA0/u5S3Be6UnlNwgbnl9z687IMcmd8ER559
+         D08fOGcmzlmbc80NGQE/Dcaw/a9xLew5ruT9v+wctJkawUX/f3j/mkNh9rZb4yxG+sul
+         sWdeZU2YmJQAoxOcPlxGLABCB5JEu+CHQY4wMl7TDSYimigWuE4jvdExFV1EE3kEftkE
+         7RrgLSHbCQLMdfQR79HQNftqFDWy1hf8JpRjl/O6RbPtkdyORZi9dx79uu4OP43CMCDW
+         DcfWf+yKD5mK4GcZ583dvJphknJQn3ybHw1krkyIwDUipFcASQebfUmuQrlklhSN9Uts
+         bUrw==
+X-Forwarded-Encrypted: i=1; AKwUvByu1eA8MnVyw3Xj/QrGeJAWyyh2oVV4pntFxTb2rZfv1bQX4N0fJdbVfhW5n0n48qJZfQ6NhLrDBksXh8E=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPtNiLD3slHmI2LHnJ61JNkL0hsbIg49sTQ5YDp7G1JlKE7DCd
+	huQpKbLVSMQ+oaI1AUYMhLZnbS1Pdchwl4wvTdX+XuKrhEQoHNkZz8oB
+X-Gm-Gg: AYBFou36rbUkhEQzxkq4urRTwKlfhhadHtGmncaYsFXrE8mlXAzPkgDgmlMnXnlkzO3
+	EkKgYnhFWWN+YcHCbgvSLhYxpmPa/0JFSfCxVntN5lRR67rtnEIS/7cfpW6veR8PuZ2qUhzC6Ja
+	Jq3bEAqINtU6nWDhCxMOfWRHXn/Z9WG4Dyh45zSDszdxH3fNd9w4VdvtoU+5rUsUQkEL/eql1Nw
+	ElEn2/yAcfrMsylEAHJzczvmIUqWc4jNOGZgZ9nhn2Zur/fB4aayEoIQvuvY+wJouPj+AwekG6h
+	ajQiibqbgOM1wDOKG1tA/Gozq3KKgbzqyFDxKzcBNfdbcDqseDjpXIqCwD+26I5BJ0uBXLA1e1T
+	K4Fr+ciUwh8x6GGFa6Z8YUgU4C7jWLCJrX5jJ+H9kAVnmzPDfoXQy9NooGhxGaR63UnM/MdJxKW
+	/zZDDAa7axeKGt/AYKUFFXdRj4O/3ho9L4HYg5mwzPir1YxSlpsrU13teFEfUFoSCUuLs=
+X-Received: by 2002:a17:906:99c1:b0:c29:f5d5:5a97 with SMTP id a640c23a62f3a-c2a15841808mr872916566b.33.1789997117983;
+        Mon, 21 Sep 2026 06:25:17 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67c71c59sm4377622a12.1.2026.09.21.06.25.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 06:25:17 -0700 (PDT)
+Date: Mon, 21 Sep 2026 16:25:13 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: UgwuRhema <hikarialiyev@gmail.com>
+Cc: johan@kernel.org, Rui Miguel Silva <rmfrfs@gmail.com>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: greybus: gpio: add comment describing irq_lock
+ mutex
+Message-ID: <arEwOc588OzriAf0@stanley.mountain>
+References: <20260921122844.42816-1-hikarialiyev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 5/9] vfio/pci: Add a helper to create a DMABUF for a
- BAR-map VMA
-Content-Language: en-GB
-To: liulongfang <liulongfang@huawei.com>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260911214200.33793-1-matt@ozlabs.org>
- <20260911214200.33793-6-matt@ozlabs.org>
- <1d59a556-c131-4608-e194-d51be3259541@huawei.com>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <1d59a556-c131-4608-e194-d51be3259541@huawei.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921122844.42816-1-hikarialiyev@gmail.com>
 
-Hi Longfang,
-
-On 15/09/2026 13:16, liulongfang wrote:
-> On 2026/9/12 5:41, Matt Evans wrote:
->> This helper, vfio_pci_core_mmap_prep_dmabuf(), creates a single-range
->> DMABUF for the purpose of mapping a PCI BAR.  This is used in a future
->> commit by VFIO's ordinary mmap() path.
->>
->> This function transfers ownership of the VFIO device fd to the
->> DMABUF, which fput()s when it's released.
->>
->> Refactor the existing vfio_pci_core_feature_dma_buf() to split out
->> export code common to the two paths, VFIO_DEVICE_FEATURE_DMA_BUF and
->> this new VFIO_BAR mmap().
->>
->> By exchanging the VMA file, we lose the original device path in
->> /proc/<pid>/maps, lsof, etc.  Generate a debug-oriented synthetic
->> 'filename' for BAR mappings based on the cdev, plus BDF, plus resource
->> index.  (This does not apply to explicitly-exported DMABUFs which are
->> named by DMA_BUF_SET_NAME.)
->>
->> Signed-off-by: Matt Evans <matt@ozlabs.org>
->> ---
->>  drivers/vfio/pci/vfio_pci_dmabuf.c | 211 +++++++++++++++++++++++------
->>  drivers/vfio/pci/vfio_pci_priv.h   |   5 +
->>  2 files changed, 171 insertions(+), 45 deletions(-)
->>
->> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
->> index 9f10b10fc436..faa9239e66f8 100644
->> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
->> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
->> @@ -3,6 +3,7 @@
->>   */
->>  #include <linux/dma-buf-mapping.h>
->>  #include <linux/pci-p2pdma.h>
->> +#include <linux/dma-buf.h>
->>  #include <linux/dma-resv.h>
->>  
->>  #include "vfio_pci_priv.h"
->> @@ -82,6 +83,8 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
->>  		up_write(&priv->vdev->dmabuf_lock);
->>  		vfio_device_put_registration(&priv->vdev->vdev);
->>  	}
->> +	if (priv->vfile)
->> +		fput(priv->vfile);
->>  	kfree(priv->phys_vec);
->>  	kfree(priv);
->>  }
->> @@ -246,6 +249,167 @@ int vfio_pci_dma_buf_find_pfn(struct vfio_pci_core_device *vdev,
->>  	return ret;
->>  }
->>  
->> +/*
->> + * Create a DMABUF corresponding to priv, add it to vdev->dmabufs list
->> + * for tracking (meaning cleanup or revocation will zap it), and take
->> + * a vfio_device registration.
->> + */
->> +static int vfio_pci_dmabuf_export(struct vfio_pci_core_device *vdev,
->> +				  struct vfio_pci_dma_buf *priv, u32 flags)
->> +{
->> +	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
->> +
->> +	if (!vfio_device_try_get_registration(&vdev->vdev))
->> +		return -ENODEV;
->> +
->> +	exp_info.ops = &vfio_pci_dmabuf_ops;
->> +	exp_info.size = priv->size;
->> +	exp_info.flags = flags;
->> +	exp_info.priv = priv;
->> +
->> +	priv->dmabuf = dma_buf_export(&exp_info);
->> +	if (IS_ERR(priv->dmabuf)) {
->> +		vfio_device_put_registration(&vdev->vdev);
->> +		return PTR_ERR(priv->dmabuf);
->> +	}
->> +
->> +	kref_init(&priv->kref);
->> +	init_completion(&priv->comp);
->> +
->> +	/* dma_buf_put() now frees priv */
->> +	INIT_LIST_HEAD(&priv->dmabufs_elm);
->> +
->> +	/*
->> +	 * dmabuf_lock synchronises access (R) or updates (W) to the
->> +	 * vdev->dmabufs list and to bars_revoked (see below).  The
->> +	 * revocation state of DMABUF elements in the list is written
->> +	 * holding both dmabuf_lock(W) and resv, and tested with
->> +	 * either.
->> +	 *
->> +	 * (memory_lock, if held ->) dmabuf_lock -> resv
->> +	 *
->> +	 * NOTE: memory_lock is strictly avoided here, to avoid a
->> +	 * dependency on memory_lock when mmap_lock is held, when
->> +	 * mmap() leads to export.  vfio-pci variant drivers are
->> +	 * permitted to hold memory_lock across actions that might
->> +	 * fault (such as user access); a deadlock could result when
->> +	 * that fault path attempts to take mmap_lock (if held by an
->> +	 * export waiting for memory_lock).
->> +	 *
->> +	 * vdev->bars_revoked tracks the BAR revocation status updated
->> +	 * via vfio_pci_dma_buf_move(), so the initial DMABUF state
->> +	 * follows the same criteria that later update the DMABUF
->> +	 * state (BAR zap, etc.).
->> +	 */
->> +	lockdep_assert_not_held(&vdev->memory_lock);
->> +
->> +	down_write(&vdev->dmabuf_lock);
->> +	dma_resv_lock(priv->dmabuf->resv, NULL);
->> +	priv->revoked = vdev->bars_revoked;
->> +	list_add_tail(&priv->dmabufs_elm, &vdev->dmabufs);
->> +	dma_resv_unlock(priv->dmabuf->resv);
->> +	up_write(&vdev->dmabuf_lock);
->> +
->> +	return 0;
->> +}
->> +
->> +int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
->> +				   struct vm_area_struct *vma,
->> +				   u64 phys_start, u64 req_len,
->> +				   unsigned int res_index)
->> +{
->> +	struct vfio_pci_dma_buf *priv;
->> +	unsigned long vma_pgoff = vma->vm_pgoff & (VFIO_PCI_OFFSET_MASK >> PAGE_SHIFT);
->> +	char *bufname;
->> +	int ret;
->> +
->> +	priv = kzalloc_obj(*priv);
->> +	if (!priv)
->> +		return -ENOMEM;
->> +
->> +	priv->phys_vec = kzalloc_obj(*priv->phys_vec);
->> +	if (!priv->phys_vec) {
->> +		ret = -ENOMEM;
->> +		goto err_free_priv;
->> +	}
->> +
->> +	/*
->> +	 * Maximum size of the friendly debug name is
->> +	 * vfio1048575:ffff:ff:1f.7/5 = 26.  This fits within
->> +	 * DMA_BUF_NAME_LEN, so dma_buf_set_name() below won't fail.
->> +	 */
->> +	bufname = kasprintf(GFP_KERNEL, "%s:%s/%x",
->> +			    dev_name(&vdev->vdev.device), pci_name(vdev->pdev),
->> +			    res_index);
->> +
->> +	if (!bufname) {
->> +		ret = -ENOMEM;
->> +		goto err_free_phys;
->> +	}
->> +
->> +	/*
->> +	 * The DMABUF begins from the mmap()'s BAR offset, i.e. the
->> +	 * start of the VMA corresponds to byte 0 of the DMABUF and
->> +	 * byte (vma_pgoff << PAGE_SHIFT) of the BAR.
->> +	 *
->> +	 * vfio_pci_dma_buf_find_pfn() reverses this offset using
->> +	 * vma_pgoff_adjust, so that ultimately a fault's offset from
->> +	 * the start of the _VMA_ has a consistent usage whether the
->> +	 * VMA originates from an mmap() of the VFIO device here or a
->> +	 * direct DMABUF mmap().  Note vma_pgoff_adjust also includes
->> +	 * the encoded VFIO region index, which cancels out the index
->> +	 * encoded in vm_pgoff.
->> +	 */
->> +	priv->vdev = vdev;
->> +	priv->size = req_len;
->> +	priv->nr_ranges = 1;
->> +	priv->vma_pgoff_adjust = vma->vm_pgoff;
->> +
->> +	priv->provider = pcim_p2pdma_provider(vdev->pdev, res_index);
->> +	if (!priv->provider) {
->> +		ret = -EINVAL;
->> +		goto err_free_name;
->> +	}
->> +
->> +	priv->phys_vec[0].paddr = phys_start + ((u64)vma_pgoff << PAGE_SHIFT);
->> +	priv->phys_vec[0].len = priv->size;
->> +
->> +	ret = vfio_pci_dmabuf_export(vdev, priv, O_RDWR);
->> +	if (ret)
->> +		goto err_free_name;
->> +
+On Mon, Sep 21, 2026 at 12:28:43PM +0000, UgwuRhema wrote:
+> Add a description comment for irq_lock to clarify what the mutex
+> protects and satisfy checkpatch checks.
 > 
-> In the current patch, the PCIe device's BAR2 configuration space can be mapped as a DMABUF.
-> However, on an OS with a 64K page size, if a VF device's BAR2 is smaller than 64K,
-> a problem arises where the space is forced to page-align to 64K, it will causing the VM to
-> access memory beyond the actual size of the VF device's BAR2 space.
+> Signed-off-by: UgwuRhema <hikarialiyev@gmail.com>
+> ---
+>  drivers/staging/greybus/gpio.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> How does your solution handle these cases where the BAR2 space is smaller than the Host OS's page size?
+> diff --git a/drivers/staging/greybus/gpio.c b/drivers/staging/greybus/gpio.c
+> index 12185f7a9..7f19b3275 100644
+> --- a/drivers/staging/greybus/gpio.c
+> +++ b/drivers/staging/greybus/gpio.c
+> @@ -39,7 +39,7 @@ struct gb_gpio_controller {
+>  
+>  	struct gpio_chip	chip;
+>  	struct irq_chip		irqc;
+> -	struct mutex		irq_lock;
+> +	struct mutex		irq_lock; /* protects IRQ configuration and hardware state */
 
-Even on a 4K host, there can be BARs < PAGE_SIZE so 64K (or 16K) hosts
-aren't a new case.  These small BARs cannot be mmap()ed and DMABUFs
-cannot be exported from them.  (vfio_pci_core_mmap() errors out when
-!bar_mmap_supported[index].  And, a DMABUF needs to be an aligned
-multiple of PAGE_SIZE, plus vfio_pci_core_fill_phys_vec() won't allow a
-DMABUF to be created off the end of a BAR.)
+No, I wouldn't say this is accurate at all.
 
-So, although this series allows a DMABUF to be mmap()ed, the preexisting
-checks prevent a sub-page DMABUF from existing and so there is no new
-route to mapping a sub-page BAR.
+regards,
+dan carpenter
 
-What's the concern on BAR2 specifically, out of interest?  This logic is
-applied to all resources equally, and tests pci_resource_len(...) so
-there shouldn't be a PF/VF distinction either.
-
-
-Matt
-
-> 
-> Thanks.
-> Longfang.
-> 
->> +	if (dma_buf_set_name(priv->dmabuf, bufname)) {
->> +		/* Shouldn't happen, but don't leak if it does: */
->> +		dev_dbg_ratelimited(&vdev->pdev->dev,
->> +				    "Failed to set map name '%s'\n",
->> +				    bufname);
->> +		kfree(bufname);
->> +	}
->> +
->> +	/*
->> +	 * Ownership of the DMABUF file transfers to the VMA so that
->> +	 * other users can locate the DMABUF via a VA.  Ownership of
->> +	 * the original VFIO device file being mmap()ed transfers to
->> +	 * priv, and is put when the DMABUF is released.  This
->> +	 * intentionally does not use get_file()/vma_set_file()
->> +	 * because the references are already held, and ownership
->> +	 * moves.
->> +	 */
->> +	priv->vfile = vma->vm_file;
->> +	vma->vm_file = priv->dmabuf->file;
->> +	vma->vm_private_data = priv;
->> +
->> +	return 0;
->> +
->> +err_free_name:
->> +	kfree(bufname);
->> +err_free_phys:
->> +	kfree(priv->phys_vec);
->> +err_free_priv:
->> +	kfree(priv);
->> +	return ret;
->> +}
->> +
->>  /*
->>   * This is a temporary "private interconnect" between VFIO DMABUF and iommufd.
->>   * It allows the two co-operating drivers to exchange the physical address of
->> @@ -364,7 +528,6 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
->>  {
->>  	struct vfio_device_feature_dma_buf get_dma_buf = {};
->>  	struct vfio_region_dma_range *dma_ranges;
->> -	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
->>  	struct vfio_pci_dma_buf *priv;
->>  	size_t length;
->>  	int ret;
->> @@ -424,49 +587,9 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
->>  	kfree(dma_ranges);
->>  	dma_ranges = NULL;
->>  
->> -	if (!vfio_device_try_get_registration(&vdev->vdev)) {
->> -		ret = -ENODEV;
->> +	ret = vfio_pci_dmabuf_export(vdev, priv, get_dma_buf.open_flags);
->> +	if (ret)
->>  		goto err_free_phys;
->> -	}
->> -
->> -	exp_info.ops = &vfio_pci_dmabuf_ops;
->> -	exp_info.size = priv->size;
->> -	exp_info.flags = get_dma_buf.open_flags;
->> -	exp_info.priv = priv;
->> -
->> -	priv->dmabuf = dma_buf_export(&exp_info);
->> -	if (IS_ERR(priv->dmabuf)) {
->> -		ret = PTR_ERR(priv->dmabuf);
->> -		goto err_dev_put;
->> -	}
->> -
->> -	kref_init(&priv->kref);
->> -	init_completion(&priv->comp);
->> -
->> -	/* dma_buf_put() now frees priv */
->> -	INIT_LIST_HEAD(&priv->dmabufs_elm);
->> -
->> -	/*
->> -	 * dmabuf_lock synchronises access (R) or updates (W) to the
->> -	 * vdev->dmabufs list and to bars_revoked (see below).  The
->> -	 * revocation state of DMABUF elements in the list is written
->> -	 * holding both dmabuf_lock(W) and resv, and tested with
->> -	 * either.
->> -	 *
->> -	 * dmabuf_lock -> resv
->> -	 *
->> -	 * vdev->bars_revoked tracks the BAR revocation status updated
->> -	 * via vfio_pci_dma_buf_move(), so the initial DMABUF state
->> -	 * follows the same criteria that later update the DMABUF
->> -	 * state (BAR zap, etc.).
->> -	 */
->> -	down_write(&vdev->dmabuf_lock);
->> -	dma_resv_lock(priv->dmabuf->resv, NULL);
->> -	priv->revoked = vdev->bars_revoked;
->> -	list_add_tail(&priv->dmabufs_elm, &vdev->dmabufs);
->> -	dma_resv_unlock(priv->dmabuf->resv);
->> -	up_write(&vdev->dmabuf_lock);
->> -
->>  	/*
->>  	 * dma_buf_fd() consumes the reference, when the file closes the dmabuf
->>  	 * will be released.
->> @@ -477,8 +600,6 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
->>  
->>  	return ret;
->>  
->> -err_dev_put:
->> -	vfio_device_put_registration(&vdev->vdev);
->>  err_free_phys:
->>  	kfree(priv->phys_vec);
->>  err_free_priv:
->> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
->> index 48d9f574a3df..3ec676e12e21 100644
->> --- a/drivers/vfio/pci/vfio_pci_priv.h
->> +++ b/drivers/vfio/pci/vfio_pci_priv.h
->> @@ -30,6 +30,7 @@ struct vfio_pci_dma_buf {
->>  	size_t size;
->>  	struct phys_vec *phys_vec;
->>  	struct p2pdma_provider *provider;
->> +	struct file *vfile;
->>  	u32 nr_ranges;
->>  	struct kref kref;
->>  	struct completion comp;
->> @@ -134,6 +135,10 @@ int vfio_pci_dma_buf_find_pfn(struct vfio_pci_core_device *vdev,
->>  			      unsigned long address,
->>  			      unsigned int order,
->>  			      unsigned long *out_pfn);
->> +int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
->> +				   struct vm_area_struct *vma,
->> +				   u64 phys_start, u64 req_len,
->> +				   unsigned int res_index);
->>  
->>  #ifdef CONFIG_VFIO_PCI_DMABUF
->>  int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
->>
+>  };
+>  
 
