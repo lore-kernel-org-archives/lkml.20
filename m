@@ -1,362 +1,165 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010009.outbound.protection.outlook.com [52.101.201.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613D533E347;
-	Mon, 21 Sep 2026 09:18:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982292; cv=none; b=AhZrLUPTkaNLKsxrX57qekmxecpbDAEI55Tg66ZXBqvKQ5HjkTjYD7RpFceCc7eqvpuzSbSEdBT8fY5rVzBNoz8sU0LF/YTzs9pzsIxrP2+F2dAarwjgj8glSKHrD6/B98RybB5bg1J0/yCztDAC9g/VaeHPpJAfEHmS6DNyAAk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982292; c=relaxed/simple;
-	bh=85y/0z1iTonA1/UenLD2541Ftfl31arO/GJG5ggZYf4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=U2tmgmaZGHrIC4shEbJjrB+LpF7frZ1azLcLymuMXaOueCh0meEQqmh0/hyzJZ6BHRmw84QBqgoY9Gj+zPhzgJerInVfazJZqEn/yRA5IkB8zGu62uxV+kawu+G7Sjze6nbYlsda2bl438pciD76BPulojP4kUIrhKO3M4VUynI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=zYCJXt6c; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9947342510
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:18:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789982309; cv=fail; b=VMXw4Eu0atVr9R6ApNEBOokdv+7wJ3GH07Ldmamc+SMltTKfGzGNRNgwm/N6LvQlWjpsXTPrmvO1R0Pi2UvVQ+E0kuvu+2pZ9D+fxTbMHxtEH9yBhe4mN/24adLmxuS/yyH3FvFPoWHLPm/PDHQdnPfoi3WcBDPO8xLyRM4yt3w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789982309; c=relaxed/simple;
+	bh=9r210deUjQX01QzMzNknHAs2B+pvZaJk1JmXzVDf//Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=kxtr58Z/WyKvRGXFKZMXkczalqzRyYQOE9J9n9O+D7LW7LsM1ERuXI9acGjqpvOcQN5qkiUY6+qbmvNLqWj9RVhizffYNyhH+gGVEDz582rTUYeBNu2cZVKr5oRbUtek83XzTc3NQGXDOTS8V6uuclHFOnq558KxZUiYmTV1N1w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=2qdIR6i9; arc=fail smtp.client-ip=52.101.201.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="zYCJXt6c"
-Received: from hawking.lan (ntp.lan [10.0.1.1])
-	by www.nmnhosting.com (Postfix) with ESMTPSA id 9522B40168;
-	Mon, 21 Sep 2026 19:17:51 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1789982271;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=D2GTRxbXMjywRSPQ1pkKGRQAf5vSn636H0p7D2nPk/I=;
-	b=zYCJXt6cRWyJTnrsNCYYpXcwxOUYpL6hmq5hxU4fPHz1ez4WwGF1VIYt/x61JYSHHIr2lR
-	KdfuL2n4RVGzLOvu7IPK2ZiOpqvj3Arcbe4xQ/2wmmzGH2U1htzW20NDLRU6+ZY+bqsDeg
-	4Kn6K+i830S98GxWyeXswCIQpit2xA0HnFVk9e40DESEkpNV3wI8PyOaWOv6lqlERSSpEK
-	VQZsjyYkeN43iUNlCJawksOy037NWLqEvFnkFsHNMr8wVlAqGB9cedISMC6PvHAJ6AGW3R
-	S8hMy06/JQIETlG3XTpNqCL2iC31nUuJNzoJ0LQO6uY+jgNJQKzJ/35JbQvJiQ==
-X-GPT-Reason: legitimate; This is a technical, professional email
-	regarding a Linux kernel driver patch ([PATCH] wifi: rtw88: sdio)
-	that aligns perfectly with the sender's identity (alastair@d-silva.org)
-	and the technical nature of the content; The message contains highly
-	specific engineering details about interrupt storms, register clearing
-	(w1c semantics), and hardware telemetry from a "mellow fly c5 board" which
-	is consistent with open-source kernel development; There are no
-	phishing indicators, no suspicious URLs, and the communication flow
-	appears to be a standard technical discussion between developers.
-Message-ID: <4662c1bbc73df10449a3925161979c130d94492b.camel@d-silva.org>
-Subject: Re: [PATCH] wifi: rtw88: sdio: Fix unhandled RX request interrupt
- storm
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Ping-Ke Shih <pkshih@realtek.com>, Kalle Valo <kvalo@kernel.org>, Martin
- Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org"
-	 <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	 <stable@vger.kernel.org>
-Date: Mon, 21 Sep 2026 19:17:51 +1000
-In-Reply-To: <5ff354336f4748b9bb45621dd899156a@realtek.com>
-References: <20260916040635.205094-1-alastair@d-silva.org>
-		 <ea3434d849b34a4286b0a193351a610e@realtek.com>
-		 <58a857e3b0614e2b9a520024b9932685@realtek.com>
-	 <919109e886399f09db41ef5800e7335440ed4971.camel@d-silva.org>
-	 <5ff354336f4748b9bb45621dd899156a@realtek.com>
-Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
- keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
- VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
- Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
- KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
- muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
- fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
- 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
- QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
- duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
- KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
- EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
- DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
- ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
- N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
- ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
- MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
- hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
- SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
- 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
- uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
- mPNRYYcR0u2mNy1EJII04w==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="2qdIR6i9"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pWjvM7o+KD43DzvzYIe+ycKPL3NcFmVGhHz3eU43+ldJsOliKZkFZ+eQ6yKsp5WcSRmqKsZl36pHLCdGJe+2ibEi3dpZfme+TpgFjERkJKJ+Kk/euicX6ur00u38pgiPmzTOFfvbXxPe0R2DpO4cHAs0EewEK6Tuzvy6t8TnNHdhpggoJVC/dT93Uq0+82HIStHseAjUBhw9/92t+FbRvqrwTgObd9zn49aB50y6mt+fNhmTTsTRxvLHE8CSYfw5laZWOOaQtgecZrIoGSovcm6SwoGsiI5ghpmDJmF32dVa87uI6l04nw374bDELFFqNQqrb16VzeG/CfD039DPvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pBf/rxbNAT+Ejqqz5xrSdIM3R7P9tHJJRcSUNqkCKsU=;
+ b=jOZPIefyA5ZYIgVFugr/SU8aN9BRoxeDX/vtVX4Bd9vtwfZolT6Xkmxng99hFBhYFh6SqjEam8vyPa0JQPz3JGFmgB5E22vnZDputHLokHFFPCCCyGuFLrPN0lTDcro9gBQyEEV5cfmrAwpa79bSpwl/FmZXYBF2lBR2AIZ5fD+MVBQsdBtjyGHmx1oztIU2VeLpRHbLR0MgMcLmVuy7a894Ipvf1i0J+Yz+X/s3znVryoQUFM34OOuusAHVZ1lrp2yXsFrDospebPB2yVDD/ryPyjEbBe25MvLRL4hJMkNrfgw5dpVgxI/nF+DlLqj4Q/kw/6dEmeQZOmdWBM5SOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pBf/rxbNAT+Ejqqz5xrSdIM3R7P9tHJJRcSUNqkCKsU=;
+ b=2qdIR6i9ufZvAa7aN5f6EPAUQb9UERJgRnddAhb0BRIrTamMwloAc34Lyp24pJKLXbAL/90LBNIcdUm9DlB389GMlTbmCQQnUeCjbwdxVEnkxsf/nukg6E8/hz+f+4vszL+bxZF846UQMxXWx3fIxZ3riqBFr/VreRLSEq42azA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6085.namprd12.prod.outlook.com (2603:10b6:8:b3::16) by
+ MN2PR12MB4375.namprd12.prod.outlook.com (2603:10b6:208:24f::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 09:18:25 +0000
+Received: from DM4PR12MB6085.namprd12.prod.outlook.com
+ ([fe80::9d84:7eb1:a785:bda1]) by DM4PR12MB6085.namprd12.prod.outlook.com
+ ([fe80::9d84:7eb1:a785:bda1%6]) with mapi id 15.21.0406.007; Mon, 21 Sep 2026
+ 09:18:25 +0000
+Date: Mon, 21 Sep 2026 11:18:20 +0200
+From: Robert Richter <rrichter@amd.com>
+To: Borislav Petkov <bp@alien8.de>
+Cc: "Naveen N Rao (AMD)" <naveen@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	linux-kernel@vger.kernel.org, x86@kernel.org,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Bharata B Rao <bharata@amd.com>,
+	Manali Shukla <manali.shukla@amd.com>,
+	Nikunj A Dadhania <nikunj@amd.com>,
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: Re: [PATCH RESEND v4 1/3] perf/amd/ibs: Limit the max EILVT register
+ count for AMD family 0x10
+Message-ID: <arD2XOBh5SQnKjof@rric.localdomain>
+References: <cover.1788425679.git.naveen@kernel.org>
+ <b98bf368f4c0e2af51ab8f9dbe3acaf11ebfee40.1788425679.git.naveen@kernel.org>
+ <20260919034035.GDaq4EM5Z41kzGVw1i@fat_crate.local>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919034035.GDaq4EM5Z41kzGVw1i@fat_crate.local>
+X-ClientProxiedBy: BE1P281CA0087.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:78::17) To DM4PR12MB6085.namprd12.prod.outlook.com
+ (2603:10b6:8:b3::16)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6085:EE_|MN2PR12MB4375:EE_
+X-MS-Office365-Filtering-Correlation-Id: 01cf3a90-516f-456a-4698-08df17c14a30
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|10067099003|5023799004|18002099003|22082099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	/5sffgGwDaflySfN68jMnPBx42dGBHXqX0K5JekS/IzaTzQrEjdzF9hON2FCNeetEXv6+6H6EAcTEhAjMGs8VfiIqQ5QpYv6ObJeNgxzyrti8GizCveWzfLTt3ixoM39Xg1ZBr0KsM9dd3tgM+dEC12d7hI0I1Yt1QhG7w4Sp+WRJk4idn9O4MYwwbPx7ddGgUIKJ1+lsb/Y6ufHk4dUjO5CCoq5ZTdSz+e5y+ggc8RntZ7iHAro5zmQJrNOuG9Poo3i1geo6W0Shf62E6PKRb438/HAAtBAIv5y6K4+tI0IannzCWqM62W/R2MYNdAdscNDhGJKuxpaTYQJHg9lw1RSybw2aXHfJfU+h0an7yvr44QcPTtTsdwZzJ8hzUh0MTJPLpOF55qOLg/+1Q1TYvRoNzqfliNLc/2Yz9z/+OJsoXpEOuWpWquPnBxRSwqmsNqeMsmPsJozDihQOxAS+gEVY5Dkyf98JM9ij8JRzMlF3w5CRFzVGKaAbJgudaELBedF4gOrUin3Ayjv0IxcDcdO4wG6RZ3LYQwWGPzNZ+fS9RnQSg6sMFVp7WtA/BKxltxGBHwmrtEmTgY88VgVnWWnyfLFN92q7JSbBm1dcIp72Om5RgWUrZZx13Hy9fPvGrQSJ3f8BrMsmQS3cQyc8CTFM6p3o/dUGbk6XqJoshQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6085.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(5023799004)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?9vI9oydVztPGVLnv1YiRXdyFA6OVayEcfK4maUtkrGvhPIbljHgnq/jlDueo?=
+ =?us-ascii?Q?M+cxRLeFZCj88WapeA1U8M4IT2t3nhOlS2cXLJ/AUjYNFzidsYoyerPEVAvV?=
+ =?us-ascii?Q?9/uRiVsjbzLhEWSaJuRna4nb1iTzVw0cbGApT2DUcdYKFgz32ZJJjEL2l5yN?=
+ =?us-ascii?Q?K0kyQGyr9COw6lOXiI+IGniZQr34otjyq2iZjigII4aOfiUuEeCgcAsNKDLE?=
+ =?us-ascii?Q?1GXI0H+luAJ0vz+RY7vYvu04OK4POU5fczHAhNbKgPGsAh6KS2u5u0KiJdVT?=
+ =?us-ascii?Q?FvR0gUQ9gO9tY22GIKs2AqceVYlDNwe+McrIWfcGv0GYainkT84HyB0zgYoD?=
+ =?us-ascii?Q?46qxYBaR0u2gG86I1bvB2vbz7oQe9YNzw+pEmxpAdeKTA33gtiOdWVdOalG/?=
+ =?us-ascii?Q?5zjE6ecL3BQ1K0keBDSPUqMXfGnxMQbycg/f2wTn2TC5i9Iy9lm+BzQReGYe?=
+ =?us-ascii?Q?iNp1RVmW5DaNnLiDC2wfUBh0B152e42vNtHv7iaACp8xAlzowx1kVsuomKtD?=
+ =?us-ascii?Q?5QK3UVtsPrJ5q4nYdFt9pf8IS/GrlJrZdKoskTp+TLh9CCIbiG/q2/7fDi9/?=
+ =?us-ascii?Q?0P+MKEeJoQX6vN9lJHZo95BhzDb3hyvo0aI1tsksxVUhiSxByzAM51FjDyvy?=
+ =?us-ascii?Q?E/XqFNbkz1CdfYMps3EjhxzBw8gAxB6Vaze+wKd33uatOimwyXSBnN80Hyci?=
+ =?us-ascii?Q?0fCRikA3GWuuXE4i6HK5nEUQFupmjULoeInza6dk1B+nSPBif02QIsE348vv?=
+ =?us-ascii?Q?XgNQhomoMT3TSjF7FPd/kQNs9JpD6NTkcq8lS7yVhW94Y2UEMdy4/aIeQT4+?=
+ =?us-ascii?Q?kvNmLqW16NQr2I6j15X4MYWqv8lZ7jAMmPvK8Fv5F5c98XsOzEW7PuCZL31V?=
+ =?us-ascii?Q?l1ihtA+zYcTMUnKUnICDYYGQR1GvK4hRI4UBsynNzRfs+NDJif6ua1TZuO7y?=
+ =?us-ascii?Q?ql73YDX2dYGcu7wYohBLM5zPh8B0Q9+6W5lzwrhPjGAJEKona131JpRbWHVW?=
+ =?us-ascii?Q?8masahtJiXqBxptKvvIivVAEVpS2HhxGA3oPVzN6TWuLjMrXx6wmmOEns2N6?=
+ =?us-ascii?Q?LE+n2ks9dqDfCVxMDpHoOAJl8S+b1WhFBPl4M/oSVG6YifEAx4PjlLCjKTaF?=
+ =?us-ascii?Q?x4GmSPrQVTU8825pb00doUCcgANVqNbzmBkTPizSv6ou6aYe062SSHZtkoCa?=
+ =?us-ascii?Q?VEszggxhL3DFELLVtCRNS5+RTdAxzegTKogpac5yoLRCYa6D8+lUNV66qzxV?=
+ =?us-ascii?Q?SAFidr4UOVxFBefjx8X96MGewkYWTj3Fc5YP4mvGTUnXo4IkJ+1XdK/bqXEN?=
+ =?us-ascii?Q?yOMS/T4WysvAffS6BQIVug17xSN6ls84KCnVu1xNoLGecFRHZrX1vfSCh7oW?=
+ =?us-ascii?Q?29byr4L46lDHcgiRF6xsmFlVEZMCxTtRatnlFbAANRActZtbw96iKgjJekyL?=
+ =?us-ascii?Q?QQQtO3XhouxnZ4wHLuEyHi0BwvDs6eJsz6JwTTgxoZLw5V2Vg402VdESDoVi?=
+ =?us-ascii?Q?8hWoebVShG1Q5N65H9QRSVRXp/T89HgwDwXQGO+Q6jvSl4s4PGUhW4kIvHFC?=
+ =?us-ascii?Q?k56K3doYuYqdZcW4/nl6s2c9L7cT8sGG4rHPQ4QayHropu6k1by76m+4Ybmh?=
+ =?us-ascii?Q?13t7CbWaXDtglqXuqKMQJuZeWYIn1m8eDGqyMNT22srFpsqydZWDsfIrQ+ds?=
+ =?us-ascii?Q?Gssh99Omd4GH+PFYakNsgUUt/nCKNzBJiP41xKT+63UzzVZH?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01cf3a90-516f-456a-4698-08df17c14a30
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6085.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 09:18:25.2021
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JbPzDxXbsG7xtCpB0OeFL5nRZpzMFfH5rx6mBQijOhgNDCMSi1P41m7uQe5LvujlMwurWs2bGE61kEDak2BVHQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4375
 
-On Mon, 2026-09-21 at 02:44 +0000, Ping-Ke Shih wrote:
-> Alastair D'Silva <alastair@d-silva.org> wrote:
-> > On Thu, 2026-09-17 at 09:09 +0000, Ping-Ke Shih wrote:
-> > > Ping-Ke Shih wrote:
-> > > >=20
-> > > > Hi Martin,
-> > > >=20
-> > > > Alastair D'Silva <alastair@d-silva.org> wrote:
-> > > > > In rtw_sdio_handle_interrupt(), the HISR status register is
-> > > > > cleared using
-> > > > > Write-1-to-Clear (W1C) semantics. However, the driver masks out
-> > > > > the
-> > > > > REG_SDIO_HISR_RX_REQUEST bit in the local 'hisr' variable before
-> > > > > writing
-> > > > > it back, causing a 0 to be written to that bit.
-> > > >=20
-> > > > I feel this patch makes sense.
-> > > >=20
-> > > > Did you remember why you clear the bit locally? Can you share
-> > > > vendor
-> > > > driver you referenced?
-> > > >=20
-> > >=20
-> > > I asked internal expert who said this bit will be cleared
-> > > automatically
-> > > if all packets in RX buffer are received. If we clear this bit here,
-> > > the interrupt will not raise again if no newly incoming packet even
-> > > there are remaining packets in RX buffer.
-> > >=20
-> > > Checking rtw_sdio_rx_isr(), we can see it reads hisr for each
-> > > iteration,
-> > > which this is also the evidence that the bit will be cleared
-> > > automatically.
-> > >=20
-> > > Therefore, we need to dig further why the RX buffer can't be empty
-> > > and get stuck.
-> > >=20
-> > > Ping-Ke
-> > >=20
-> >=20
-> > Hi Ping-Ke and Martin,
-> >=20
-> > Thank you for following up and consulting with the internal hardware
-> > team. We have extensive test telemetry and logs from our bring-up of
-> > the Mellow Fly-C5 board in Armbian that provide full context on this
-> > issue.
-> >=20
-> > 1. Test Platform & Failure Telemetry:
-> > -------------------------------------
-> > - Hardware: Mellow Fly-C5 (Allwinner H618 SoC, sun50i-h618).
-> >=20
-> > - Wi-Fi Chip: Onboard Realtek RTL8821CS connected over SDIO (mmc1 /
-> > sunxi-mmc).
-> >=20
-> > - Kernels: Tested on mainline Linux 6.18 and 7.x branches using
-> > rtw88_8821cs.
-> >=20
-> > - Reproduction: On stock mainline kernels, immediately upon interface
-> > bring-up and association (wlan0: associated), the CPU core servicing
-> > the SDIO IRQ became 100% pegged in an interrupt storm, triggering RCU
-> > stalls:
-> > =C2=A0=C2=A0=C2=A0 rcu: INFO: rcu_preempt detected stalls on CPUs/tasks=
-:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0-..=
-.0: (1 GPs behind) idle=3D... softirq=3D...
-> > =C2=A0=C2=A0=C2=A0 rcu: rcu_preempt kthread starved for 5126 jiffies!
->=20
-> Does it mean even if RX buffer is empty, interrupt is still triggered?
->=20
-> >=20
-> > - Verification: With this patch applied (leaving
-> > REG_SDIO_HISR_RX_REQUEST set so W1C acknowledges it), the board
-> > completed 100/100 consecutive reboots under active network traffic
-> > (continuous ping, SSH, Moonraker HTTP) with zero RCU stalls and zero
-> > packet loss.
-> >=20
-> >=20
-> > 2. Why the bit was cleared locally (Vendor driver reference):
-> > -------------------------------------------------------------
-> >=20
-> > In Realtek's vendor drivers (such as rtl8822bs and rtl8723ds):
-> > - In hal/rtl8822b/sdio/rtl8822bs_io.c:
-> > =C2=A0=C2=A0=C2=A0 if (phal->sdio_hisr & BIT_RX_REQUEST_8822B) {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* No need to write 1 clear =
-for RX_REQUEST */
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 phal->sdio_hisr ^=3D BIT_RX_=
-REQUEST_8822B;
-> > - In include/hal_com_reg.h:
-> > =C2=A0=C2=A0=C2=A0 MASK_SDIO_HISR_CLEAR explicitly excludes SDIO_HISR_R=
-X_REQUEST.
-> >=20
-> > Martin appears to have ported this comment and software-clearing
-> > convention directly into rtw88_sdio_handle_interrupt().
->=20
-> Thanks for the info. It looks like every SDIO chip does the same thing.
->=20
-> >=20
-> >=20
-> > 3. Difference between 8051 and 3081 chips in rtw_sdio_rx_isr():
-> > ---------------------------------------------------------------
-> >=20
-> > Regarding the observation that rtw_sdio_rx_isr() re-reads HISR in each
-> > iteration:
-> >=20
-> > Notice that in rtw_sdio_rx_isr() (sdio.c:1057-1073):
-> > =C2=A0=C2=A0=C2=A0 if (rtw_chip_wcpu_8051(rtwdev)) {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hisr =3D rtw_read32(rtwdev, =
-REG_SDIO_HISR);
-> > =C2=A0=C2=A0=C2=A0 } else {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* RTW_WCPU_3081 chips have =
-improved hardware or
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * firmware and can use=
- rx_len unconditionally.
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hisr =3D REG_SDIO_HISR_RX_RE=
-QUEST;
-> > =C2=A0=C2=A0=C2=A0 }
-> >=20
-> > RTL8821CS (and RTL8822C/B) has wlan_cpu =3D=3D RTW_WCPU_3081. For 3081
-> > chips, rtw_sdio_rx_isr() never actually reads REG_SDIO_HISR! It sets
-> > hisr to REG_SDIO_HISR_RX_REQUEST unconditionally and loops purely based
-> > on REG_SDIO_RX0_REQ_LEN.
->=20
-> Indeed. I also found that after sending previous mail...
->=20
-> >=20
-> >=20
-> > 4. The RX buffer IS empty when the storm occurs:
-> > ------------------------------------------------
-> >=20
-> > The buffer is not getting stuck with unread data. In our testing:
-> >=20
-> > - rtw_sdio_rx_isr() drains all available packets until
-> > REG_SDIO_RX0_REQ_LEN reads as 0, and then breaks out of the loop.
-> >=20
-> > - rtw_sdio_handle_interrupt() then writes back to REG_SDIO_HISR with
-> > =C2=A0 REG_SDIO_HISR_RX_REQUEST masked out (writing 0).
-> >=20
-> > - Because the bit was not cleared in hardware via W1C (and was not
-> > automatically de-asserted by hardware when rx_len reached 0), the SDIO
-> > host controller sees the IRQ line still asserted and immediately re-
-> > invokes the handler.
-> >=20
-> > - On re-entry, REG_SDIO_HISR_RX_REQUEST is still 1, but
-> > REG_SDIO_RX0_REQ_LEN is 0. rtw_sdio_rx_isr() immediately breaks out,
-> > hisr writes 0 again, and the CPU is trapped in a 100% spin loop.
->=20
-> This answers my question above.
->=20
-> >=20
-> >=20
-> > 5. Effect on future interrupts:
-> > -------------------------------
-> >=20
-> > Regarding the internal expert's concern that clearing the bit prevents
-> > future interrupts: in our testing, writing 1 to clear
-> > REG_SDIO_HISR_RX_REQUEST after the FIFO is drained did NOT prevent
-> > subsequent RX interrupts. When new packets arrived over the air, the
-> > hardware asserted REG_SDIO_HISR_RX_REQUEST again normally.
-> >=20
-> > If there is concern about edge cases (such as hitting the 64KB
-> > total_rx_bytes limit before the FIFO is completely empty), would it be
-> > acceptable to only clear REG_SDIO_HISR_RX_REQUEST if
-> > REG_SDIO_RX0_REQ_LEN reads 0, or re-read REG_SDIO_HISR at the end of
-> > rtw_sdio_rx_isr()?
->=20
-> I guess there is a racing between W1C REG_SDIO_HISR_RX_REQUEST and
-> REG_SDIO_RX0_REQ_LEN =3D=3D 0.
->=20
-> With a suggestion from internal, if we want to disable the RX request,
-> the better way is to disable/enable it by IMR. The corresponding=20
-> functions are:
->=20
-> =C2=A0=C2=A0 rtw_sdio_enable_interrupt()
-> =C2=A0=C2=A0 rtw_sdio_disable_interrupt()
->=20
-> To avoid interrupt storm, I personally suggest to combine NAPI, which
-> disable interrupt when it processes RX budget (I think we can W1C
-> REG_SDIO_HISR_RX_REQUEST by the way). If (RX) budget is full, it can
-> poll again by estimated time. Until budget is not full, it re-enable
-> interrupt.=20
->=20
-> Ping-Ke
+On 18.09.26 20:40:35, Borislav Petkov wrote:
+> On Thu, Sep 03, 2026 at 02:58:39PM +0530, Naveen N Rao (AMD) wrote:
+> > For AMD family 0x10, EILVT offsets are not assigned by BIOS and is
+> > instead assigned by picking the next available EILVT offset.  Use the
+> > maximum EILVT count for family 0x10 (APIC_EILVT_NR_AMD_10H) rather than
+> > an arbitrary maximum EILVT count when looking for the next available
+> > EILVT offset.
+> 
+> Huh?
+> 
+> #define         APIC_EILVT_NR_MAX       APIC_EILVT_NR_AMD_10H
 
-Thanks for the feedback.
+Right, found that too.
 
-Regarding using NAPI and IMR: While NAPI and IMR masking is the standard ap=
-proach for PCIe,
-implementing true NAPI for the SDIO interface is problematic. napi_poll run=
-s in NET_RX_SOFTIRQ
-context (which cannot sleep), but reading from the SDIO bus requires sdio_c=
-laim_host(), which takes
-a mutex and must be able to sleep.
+> 
+> What is this "fixing"?
 
-Fortunately, the kernel's MMC core already runs sdio_irq_thread in process =
-context specifically to
-handle this. If we simply leave the REG_SDIO_HISR_RX_REQUEST bit asserted i=
-n hardware (by
-conditionally skipping the W1C), the sdio_irq_thread acts exactly like a NA=
-PI polling loop. It will
-immediately re-invoke our handler in the next cycle, yielding to the schedu=
-ler as needed, but safely
-in process context.
+Nothing to do as long APIC_EILVT_NR_MAX does not change.
 
-This achieves the budget-limited polling you suggested, but avoids the heav=
-y overhead of extra SDIO
-bus transactions to toggle the IMR on and off.
+It shouldn't be sent as a standalone patch. Instead, embed it in a
+broader change to keep it in that context.
 
+-Robert
 
-Before I spin a V2 and run through my testing, can you please confirm this =
-aligns with what you were
-expecting?
-
-diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wirele=
-ss/realtek/rtw88/sdio.c
-index 5b40d74b16ee..933e51a980a8 100644
---- a/drivers/net/wireless/realtek/rtw88/sdio.c
-+++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -1037,7 +1037,16 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtw=
-dev, u32 rx_len)
- 	}
- }
-=20
--static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
-+/**
-+ * rtw_sdio_rx_isr() - Process RX packets from SDIO hardware buffer
-+ * @rtwdev: The rtw88 device context
-+ *
-+ * Reads packets from the hardware RX FIFO until the buffer is empty or th=
-e
-+ * 64K packet budget is reached.
-+ *
-+ * Return: true if packets are still pending (budget reached), false other=
-wise.
-+ */
-+static bool rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- {
- 	u32 rx_len, hisr, total_rx_bytes =3D 0;
-=20
-@@ -1072,6 +1081,8 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- 			hisr =3D REG_SDIO_HISR_RX_REQUEST;
- 		}
- 	} while (total_rx_bytes < SZ_64K && hisr & REG_SDIO_HISR_RX_REQUEST);
-+
-+	return rx_len > 0;
- }
-=20
- static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
-@@ -1091,8 +1102,14 @@ static void rtw_sdio_handle_interrupt(struct sdio_fu=
-nc *sdio_func)
- 	if (hisr & REG_SDIO_HISR_TXERR)
- 		rtw_sdio_tx_err_isr(rtwdev);
- 	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
--		hisr &=3D ~REG_SDIO_HISR_RX_REQUEST;
--		rtw_sdio_rx_isr(rtwdev);
-+		bool rx_pending =3D rtw_sdio_rx_isr(rtwdev);
-+
-+		/* If budget was reached and packets are still pending, do not W1C
-+		 * the RX_REQUEST bit. This leaves the hardware IRQ asserted,
-+		 * causing sdio_irq_thread to poll again like a NAPI loop.
-+		 */
-+		if (rx_pending)
-+			hisr &=3D ~REG_SDIO_HISR_RX_REQUEST;
- 	}
-=20
- 	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
---=20
-2.53.0
-
---=20
-Alastair D'Silva
+> 
+> Also,
+> 
+> + Robert
+> 
+> who happens to know something about that code. Don't forget to use git
+> annotate, do some git archeology and CC the relevant people on patches.
+> 
+> Leaving in the rest for him.
+> 
+> > Signed-off-by: Naveen N Rao (AMD) <naveen@kernel.org>
+> > Tested-by: Manali Shukla <manali.shukla@amd.com>
+> > ---
+> >  arch/x86/events/amd/ibs.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
