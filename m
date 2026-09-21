@@ -1,175 +1,95 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3BE3B95E0
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:59:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CDCF3B95E0
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:59:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789981169; cv=none; b=phVuiYR7tyaZ4xo+aNQSyZTPu2F+7r54xe68ZyBJTkb0TUYoU+CnOjM3nbAmSyIKA34qn0Zhw9w5UBtZYlOLQ0t8W8NwfDCxqnJ2d1QM02XAyILThzYZCUGh+cncnPX5T3q4VanatZcYOIQhNgMgQcUeuRI3Ms5xjXGcIfiJzFQ=
+	t=1789981184; cv=none; b=XAHyYIRTjESJRfrZ8Y2lINL8sdBEOFmYXqjd+ZGl121OHjWeIT6mf26Nt+aEHYha0WAftOH+L75bVMrrO26g1OGV4kjpl1FWTfCpGIbgwwZJdE/dEJrkiposh8BDNo07v3BBJ/FmIPjEwcfU5nQXLe8gTz+BnHBdjFHJ34hEQMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789981169; c=relaxed/simple;
-	bh=c13K8Wd9tq7uHJpMmN2Y+Sds28GX4rj3Ruto93r67Yg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Qd/ine9bhlVeU/yyk1b+oFvpxZTaxx892ZTIEEwQxrEVe+PB/oBgDDLTsthgn9L2m/JnPRTmgYf6qqfR6JlsS6/lSsY3LAm1ZSUstHNMJ9S9DT1uWjr49U1rKNfBtM9v7Fa4gBbGAgyrhFhnq5kLy5J4S1C6LBDaCszwa+/m9y4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ECyBVnQJ; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1789981184; c=relaxed/simple;
+	bh=g2PzXxo1nAfiLbbWF0TW7v6I7XOSfEg0vPe+YU/85Io=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ofTNfPr+MNkld5JYNVV/td5FiFAcC4DqxVNccqDp2gEfoMPSvQ/knxZCJ/IhTeDXovpoz95nGKOM8O4vk7IeKGRxGexFakn3qG0oQyuab4ktcBx/zVvGgvcBe16DFHXBMrkmg6pge2JycTNMBbTzwRSRGGUmj6VgVmmvsNK90tI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ve67i/Jf; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ECyBVnQJ"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b24c3so1373243f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:59:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ve67i/Jf"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so2331160a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:59:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789981166; x=1790585966; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1789981182; x=1790585982; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Vo4X1gyksG3IrTY1hUwlLoQK1ASX088BlxfO3PRFUAI=;
-        b=ECyBVnQJ4ynjaFIrubGkLXsFmgXeNCnw8av72RyhlzRmEvsXLkCUv/L2M2aXIpW/3G
-         9InkJ8q47z/emjjR4eZJvlzATtIBvLHnqWAAV2UHwK9MfRNhIkAfl0Cll14uMyheRisI
-         GNYIbzDZGwUXLRH2bHKnMj1/s5MXXcMLj5Qe5ktpvb7NLkHXAOECa9Q3T7zHPIonC732
-         MZRiheZ5p9gLY60kNFMpmLtRrBDMFWcQ6mJjJHi90h/kVS+MUjl8T6Q3mrJImE1S1pDX
-         wfLpsPTL0Dd2YaMkrGTuSf4/P6axHF37lpZ1F3vdVe3h9ABCCgKJvmZAqeF+6F9SddvW
-         WW5g==
+        bh=w1PMcAHhFfs+SSNmNZjsu4ds+YA4TIgtvu8dO0EmsxI=;
+        b=Ve67i/Jfw4Y1v/OvHNhKATjTTr+mWvCWFPIjYEoag3bJVQH2Flx8Nc0np8yZG2If6r
+         8hGRMi0F4GyX6qIhG1pl7Y9KyoDpVUs1ufQq7pmvgNzWMePDpoL4jKH29H1mvHgI/wYf
+         sjTydgiJeJ5ydhdXQZZo7EHXMQsFrFik58pp5Zmb46pHeGk0fhrwsJ8dKrg8FPW6Pmek
+         4ooPCkyRCO036wg9DosmfAbqP1uIpmhgJdlSyc70sUw4xgF0ImE2XLL04XksuatyLB8g
+         E1R+HoBWmbXvXnit6QWMOIvqVHnQpwxCaU2tU3QjIipOu3mt+tEN1sStm8GI64EpYCZl
+         t9dA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789981166; x=1790585966;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1789981182; x=1790585982;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Vo4X1gyksG3IrTY1hUwlLoQK1ASX088BlxfO3PRFUAI=;
-        b=I89upsXbHdRJFqQeMeNonB1jmMMEkhBvP0qa4+8g0pvDgdQ2oEDr8T/kYnw9jGRLZB
-         kOlGofsZfngQ84sqxznSAbFjafhZ3QgIOqjdUnObrvGQed5TeX04iP4V+mOAEoWAP7rt
-         EE994VtUfVphh5djk5EibSk89B9pTsDFDImurfJTrP/B+OZdzcIb4HR06rPQAbSqH9JC
-         Vdsr6RzIR5V/UAnus64yUQAEPVzxNqAWnLwxCttJ7lYbS+9mPYQXU8BVXVla/Rd5w/nb
-         TeK1fo4cCKTJHe/DYX4XRu6+A3Z4LKp5BN93RuFdmyveR59pSQBnQN7FYaZY4sfZgHeO
-         VU2g==
-X-Forwarded-Encrypted: i=1; AKwUvBwPdgFe+LTfXPHa5TqzcqLU3KJeMfCYyCPqL86Y/Gakws3f7w3MUf1XMBqMZ05LI/wTnjhp0TDvfYw/dnE=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0kkyZKS1WOZr9Ub0byefZv7ebAnA1Kw7dKrxQ/zhmEcYiYed1
-	cQyC6hsZr4scKciNoHz7ELVaNvIK4koAxoZT4qSjzffqdjKqe2jMx37h
-X-Gm-Gg: AYBFou0IPR/MBAyHRDQbQFsFWaJuQ8NGBv9sFLoWywzLU8K3kbHnHgS5zBep8FkG0C6
-	75vgRXzN5cSh5zju5Th6/otfsHrXLy782KdThSvshYxf0Ejsrt2fjNT0YfFzoJnUP+ZEg5o32rM
-	cfqw7Rnnqv9WIOu+fW1WS12uSFDI++oEZ+u7hDdrwkLpT2tjRfo7xxemZ7yhUhPgq/bbpaU4ITy
-	3PLvZ9t22+JlJw3vuG18fPzkuD0jSGKVTdfFxObipUUtZnwC1YY8GSfSLiuFTDl8grRF/1RQBOJ
-	ZzPkX9ELLbgnsiSTaqTo5FrNG5oKiVZBj63fkpcIM8vEK/FPLgqEjQm2akU3ruei/FqOy8zIops
-	CBTArGXBZbch+/ZAGrsKjwHW6PUIv+NjrJZV+fcrxpIpIOhiGd2fNF7e0MLZA/ZChPk842DV7Pf
-	VaPweGwnuXjYijb5BfEns9nhkFDK11I9vivXhotVyYNCl776/jQ6al7/s1s9/A0rp7HRy6E3wFx
-	t1V9/wwwA+oq4339+ABxjZmFvvKcZLAS5ql4/CMYwZKdYBQ
-X-Received: by 2002:a5d:5f04:0:b0:487:a15:dbee with SMTP id ffacd0b85a97d-4871e225ae5mr11911859f8f.21.1789981165887;
-        Mon, 21 Sep 2026 01:59:25 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872456325esm21322512f8f.15.2026.09.21.01.59.25
+        bh=w1PMcAHhFfs+SSNmNZjsu4ds+YA4TIgtvu8dO0EmsxI=;
+        b=l47hhsrdXR9eFHcrcE0ytRSJk5D6UTA46I910NbaURJjx/l48yzfBJpGUAIP6oIkWU
+         Z51QbT6o56MapTXHVkNJ9vH5OPMfI6lVO4pOEavyNRiApkNcx/Rr8Tk+BE32eeOzPlyY
+         ekdoaABOHi0hMGjPdzvpQPoSjpfCH8tCfe0mgY7fvL7nw4Fvo6rGWTWQt9gT6QKQhrqx
+         Lqm7uMaopHhWXm6Mdx0b9nJUgkddb/Ss78Fy2ywUist8N+UTgqv+Y64Ebaux+sejp5wQ
+         2TJnBlNjOH8pD9g3KeDv/uAVeurCb5vgr3E8l/95mBE6DFV81Ghta2ylnC9Je2NkF5FI
+         ZONg==
+X-Forwarded-Encrypted: i=1; AKwUvBw7rxwR61zWfRpMugapEQbomMCizHJGvJJsTfp4n0lGp/QJHwn6LRkj76XeHhRqBzJPvRcfPlUozRakMtI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kM3rEcllnfqR93Dh9E670i4vTIGFj0rkTwrwgt6KMEExgEtL5q
+	k5+sUAWDIvzJo+g6Ya7yiIITCnOVptdZNjxtBFdyQ5G7rQt7LUyr4WYa
+X-Gm-Gg: AYBFou2jDO91r3+Y77XGeVrqkgTusQcD6XnAKvEeHH67D8JahimkUPZ2srj4kZLfrVr
+	qSbffw4Whars1heVVxC1jUOSsiLdE0ixchQ/ObRekBoqyoU67QXl6Y1Sq0gRaa0rYtAYUBZk0ju
+	ZYDCG8R0Jr9Ci8FK8/9VpdYT3tV+P4oMfjXRVy/7oxqGJJKUPFwCu1OoS0JKFwG0/31WfIKU1s0
+	sa0CzVAnPdF44FwPQghXxh/2TXZxBhhB9E4qtn97IYyFwrITYwtiQnnqMMfmCc/5rT7eqdMSI2M
+	dqIJtrRosr/jDOMtVDpUVt4K5YiITadfnfU+F4Js6VORBL6mLkCXU7dZ2ZevdzlQPUMy02ykVCP
+	LSCv/ZlQdnlEVwQ3tHcfEnExnyztWswsvW5MIwlQjaz+A7Ju0YvFOMSJhAyP4idJKGO2aVhqJxT
+	9mZmmmQFtQgi7gm7rXJNWfRv7ITMz6nIBCsAyMaXGgAj2Jc66GuEMjFweZ6JeERRxn7sDQ5z17q
+	HQhGOmYI93jgbJRxer5afDO2XnVPoJ8voJkKTdbPufYjQcbKdSutFtxRdRSdEE5YIV5tUe9w7Qu
+	dTwihQ1jUyU=
+X-Received: by 2002:a17:90b:2584:b0:39e:6c68:c787 with SMTP id 98e67ed59e1d1-39e6c68ca2emr9039676a91.61.1789981182536;
+        Mon, 21 Sep 2026 01:59:42 -0700 (PDT)
+Received: from nxpwireless-Inspiron-14-Plus-7440 (61-228-227-192.dynamic-ip.hinet.net. [61.228.227.192])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6ca50118sm13589453a91.4.2026.09.21.01.59.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 01:59:25 -0700 (PDT)
-Date: Mon, 21 Sep 2026 09:59:24 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: "Michael Walle" <mwalle@kernel.org>
-Cc: "Arnd Bergmann" <arnd@kernel.org>, "Pratyush Yadav"
- <pratyush@kernel.org>, "Miquel Raynal" <miquel.raynal@bootlin.com>,
- "Richard Weinberger" <richard@nod.at>, "Vignesh Raghavendra"
- <vigneshr@ti.com>, "Arnd Bergmann" <arnd@arndb.de>, "Takahiro Kuwano"
- <takahiro.kuwano@infineon.com>, "Tudor Ambarus" <tudor.ambarus@linaro.org>,
- "HyeongJun An" <sammiee5311@gmail.com>, <linux-mtd@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] mtd: spi-nor: reduce stack usage in
- spi_nor_parse_sfdp()
-Message-ID: <20260921095924.2f845215@pumpkin>
-In-Reply-To: <DLKU0CTP0OES.30VZXJXDXRLNW@kernel.org>
-References: <20260915194203.3511147-1-arnd@kernel.org>
-	<DLKU0CTP0OES.30VZXJXDXRLNW@kernel.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Mon, 21 Sep 2026 01:59:41 -0700 (PDT)
+From: Jeff Chen <chunfan.chen@gmail.com>
+X-Google-Original-From: Jeff Chen <jeff.chen_1@nxp.com>
+Date: Mon, 21 Sep 2026 16:59:37 +0800
+To: Heyang Tan <thy15333007817@163.com>
+Cc: francesco@dolcini.it, johannes@sipsolutions.net,
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] wifi: nxpwifi: bound debug info output
+Message-ID: <arDx+VzL2IVXeZPx@nxpwireless-Inspiron-14-Plus-7440>
+References: <20260919040253.590-1-thy15333007817@163.com>
+ <20260919044439.1042-1-thy15333007817@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919044439.1042-1-thy15333007817@163.com>
 
-On Mon, 21 Sep 2026 09:55:37 +0200
-"Michael Walle" <mwalle@kernel.org> wrote:
-
-> Hi Arnd,
+On Sat, Sep 19, 2026 at 12:44:39 PM +0800, Heyang Tan wrote:
+> nxpwifi_debug_read() provides a PAGE_SIZE buffer to
+> nxpwifi_debug_info_to_buffer(), which formats debug state with
+> unbounded sprintf() calls. The same helper is also used for the firmware
+> dump.
 > 
-> On Tue Sep 15, 2026 at 9:40 PM CEST, Arnd Bergmann wrote:
-> > From: Arnd Bergmann <arnd@arndb.de>
-> >
-> > Two large spi_nor_flash_parameter structures on a function stack
-> > is really too much, and this can exceed an otherwise reasonable
-> > frame limit:
-> >
-> > drivers/mtd/spi-nor/sfdp.c: In function 'spi_nor_parse_sfdp':
-> > drivers/mtd/spi-nor/sfdp.c:1717:1: error: the frame size of 1600 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
-> >
-> > Change one of them to a dynamic allocation to make this more reasonable.  
+> Pass the output size to the helper and use scnprintf() while formatting.
+> Clamp the debug table counts and window size to the backing array lengths
+> before accessing them.
 > 
-> Thanks for taking care of that. Will you respin the patch with what
-> David suggested?
 
-This compiles...
-David
-
-diff --git a/drivers/mtd/spi-nor/sfdp.c b/drivers/mtd/spi-nor/sfdp.c
-index 641f17ad51a0..cec699b52f27 100644
---- a/drivers/mtd/spi-nor/sfdp.c
-+++ b/drivers/mtd/spi-nor/sfdp.c
-@@ -1519,9 +1519,9 @@ int spi_nor_check_sfdp_signature(struct spi_nor *nor)
-  */
- int spi_nor_parse_sfdp(struct spi_nor *nor)
- {
-+       struct spi_nor_flash_parameter sv_params __free(kfree) = kmalloc_objs(*sv_params, 2);
-        const struct sfdp_parameter_header *param_header, *bfpt_header;
-        struct sfdp_parameter_header *param_headers = NULL;
--       struct spi_nor_flash_parameter params, params2;
-        struct sfdp_header header;
-        struct device *dev = nor->dev;
-        struct sfdp *sfdp;
-@@ -1533,7 +1533,9 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
-         * Get a backup of all the parameter to roll back to in case of an
-         * error.
-         */
--       memcpy(&params, nor->params, sizeof(params));
-+       if (!sv_params)
-+               return -ENOMEM
-+       sv_params[0] = nor->params;
-
-        /* Get the SFDP header. */
-        err = spi_nor_read_sfdp_dma_unsafe(nor, 0, sizeof(header), &header);
-@@ -1653,7 +1655,7 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
-
-        /* Parse optional parameter tables. */
-        for (i = 0; i < header.nph; i++) {
--               memcpy(&params2, nor->params, sizeof(params2));
-+               sv_params[1] nor->params;
-                param_header = &param_headers[i];
-
-                switch (SFDP_PARAM_HEADER_ID(param_header)) {
-@@ -1691,7 +1693,7 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
-                         * spi_nor_flash_parameter data.
-                         */
-                        err = 0;
--                       memcpy(nor->params, &params2, sizeof(*nor->params));
-+                       nor->params = sv_params[1];
-                }
-        }
-
-@@ -1712,7 +1714,7 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
- free_param_headers:
-        kfree(param_headers);
-        if (err)
--               memcpy(nor->params, &params, sizeof(*nor->params));
-+               nor->params = sv_params[0];
-
-        return err;
- }
---
-
-> 
-> -michael
-> 
-> > Fixes: d20029474a76 ("mtd: spi-nor: push the rollback mechanism into the sfdp module")
-> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> > ---
-> >  drivers/mtd/spi-nor/sfdp.c | 10 +++++++---
-> >  1 file changed, 7 insertions(+), 3 deletions(-)  
-
+Reviewed-by: Jeff Chen <jeff.chen_1@nxp.com>
