@@ -1,200 +1,156 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A087E227EA4;
-	Mon, 21 Sep 2026 13:09:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F1E2147F9
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:09:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789996169; cv=none; b=EENmNr2oGft6NJ5ieHdrIdZe8Lh+MxlxDBM+XCmbihQbnpBAJ2ibP2EJgi2iQ7NlHowy6GJjksakvAW6YypvlKEHUwwvtSYUXqH0Rj49qMLa2KRNo6rsoiEOx0VBC0EmDaXkXn4EpXsCZDxe3Ln9oneXWeK9+v1OBv38mHtCY0M=
+	t=1789996184; cv=none; b=O2Z7SWnldmED99Rj8J5ALetqjBs7XpwPwZExeDrhXWZRnxC4L2esCS294Kx1f97fNogx8xs1A4g6TWTZ7Hs/vJtkQSliVo5wrXHhAA9/vkgjxuOq/FVzhtKQ0HMHfuxEwvPxIIAw/A8BT0dN5XAwLV1blngw0xuxodie4vPmuNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789996169; c=relaxed/simple;
-	bh=Eo+VrB6JJOwbs8IsxgYASPnp1ZE7MEEhUtA6BWTn5Xk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ASBAwTf0Q0yaH3SbY3XniBP47BeKLG0al3QXsZCRBIBfakH0Uu2UMWgOT6cnYWp97DsetbDyOfGiBBmKIaXqA+j18iXVBp/z1cFHCepS9mTySsmO+dvNXyuyAzgUF1h2VBp1LyLlKpabIkrsd3pPxwKObB1mKiBAhqR1yzy7a8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b=cQUZTT8q; arc=none smtp.client-ip=212.227.17.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+	s=arc-20240116; t=1789996184; c=relaxed/simple;
+	bh=eiuWmlpWIrVmvRukmtMzZVNhvzYKEvXfj3/9QCPxu5Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OCRk4IWGSPR2WnbDQ/Ng4BxJFdsYAs1f2bZYyK/Dy7aNrKd9rsv+nqLw4GOBCp9abz1Jjs7y9sZZO9zlOyY8Ck5pa4oXaX3e40KMJk2DXhjnf80bySf3TsyLqetIDYqms1fjUCobqDw9oDBvuF3Xgncm7yNG2pW6/kQ/QKKlYxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gbH46PJU; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b="cQUZTT8q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1789996165; x=1790600965; i=wahrenst@gmx.net;
-	bh=Eo+VrB6JJOwbs8IsxgYASPnp1ZE7MEEhUtA6BWTn5Xk=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=cQUZTT8qVsRkuhDWGj8sobHpdfBPpDdkKF5PI01kcFS93c3n5bwXxGMpqJDx9onm
-	 SNIHTAKA1Mdy80IZV4t3pusLf0xGTJRDzrzUVOsc/r9UvbZFwVeBXMsXKGDSl06z0
-	 FS/dRX4OG7ZcqDt3npJzJ6qfcCjfRSblkdze9yLEAkjUUoCtvlcUs+sI/Kt16PWHp
-	 2FEoFHIFQTQ0K+J48Nym6+6OpRFaxT4gufFq+/dwmjug3PBmua5mPD4sEPLRz96UW
-	 LwHqjIaNW/27DQ+0G3Yr1kvi+Uc8uWAPQjogvTJYd5nAE8T6QXiRhK3nWUHa4FdCB
-	 uGGfxc1NOmXKD+9Gjg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N5GE1-1wjEfY1YYf-016pyi; Mon, 21
- Sep 2026 15:09:25 +0200
-Message-ID: <9cb548d3-f3cf-4757-a9ff-5f878479c7d7@gmx.net>
-Date: Mon, 21 Sep 2026 15:09:23 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gbH46PJU"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1ceb47d55so533662a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:09:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789996182; x=1790600982; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=snQf0hJkQsH7Jj4aS5id74hgw0NIowrU4G8FGq6/9fI=;
+        b=gbH46PJURVM7ZTREuV2r1oNue8DRiPFq/kT5g7aJL3XK4lYzByd8eOkTSgiiB7jnpj
+         yQDsXEZXreurjXy/ZoNr1+ONL802AjHj7Gy5kEiP1t8/hJAnRp63CCQWzhaGFo5L6sv8
+         CTEzWr1vfh9Dx/HSYjTHUhHbIz6gXR3CB2eaPug6/0RyHeXHCvVNby/EouSqxEpocaUd
+         dYmz5PBMW9SooxNapP4pl7MriU+wEGI49pN/wxKRVNVBBzq5pLs9SggDkDplycfIrC27
+         F63d7oFB61q0NFezBPL0d3YYRcNdC6TLu0wIVcQ5+AUbTzUJu56hMrMNPZJ1A7bNs8rj
+         icHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789996182; x=1790600982;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=snQf0hJkQsH7Jj4aS5id74hgw0NIowrU4G8FGq6/9fI=;
+        b=lpAvIcnhBYBOMAokJccaiTg1b7wY/S0Vbu+NGiyIYhKOpBPYmPkAqENZBguD/fzhNN
+         3RNgt05V0x7ok3xeK6sKe+Nhx4Q5g4yTmSBOeUK9/JsIaxPAayLSWjcLWN0bLVhmlmDt
+         6dE4C5/U2cwroFRrSQb4neJL+/neT6f0mpK4IAhzoXhz0k2ubKs2jJoR1V/hB/6oDPE4
+         CGA37DUop/vKCgGCcWNcnme9xDrcUI/odSkKwdOYKV7zGaLUKxHsRMMADSi9hQquBCfC
+         9xJS3CYLyvWmNPzcdn0ZJH8ikHaSOc8ydHKxhTbfwHG65+dq9MvMlHyGJae8VYxkr4Qr
+         yI0g==
+X-Forwarded-Encrypted: i=1; AKwUvBwUUUkBRtJ2qd34B4OR4qG1pd28U0IzMN77Ee43379kORBHbfdqI+goKr9YfIfBVskVlWnmBPCxfSHf1Vo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nIqfmAUlbpZME8/goyiRGPNS7qLphS1HmNfPDhwIXmWKDwAmW2
+	tyArX1YWjmxeNS3MmaghMyHtm+j6o3rsbiIdst6F9R9eZfTycgytvEmL
+X-Gm-Gg: AYBFou3temrHtXKgQbRqV+VE+TCa4K02alQd7WvPqEhlJG+5RqKysu8ZFBz9Bzzeb6u
+	UjRkU3Wuj4c3DJZRvATz+9j92gda6grlPL/5yiA/Sq5KWou8BqIPEuBHGrOVycTHRfFM7sDm4xT
+	Ec3qK/+dtFqTQcmiQjB2l0LkQDosOcBStC3yDSGIPOawWHqSQeLrG7AE0og2MbBKBk+GpFDuJ0A
+	J68yrxkrCaqtg9fU9o4ncu1doEvH9DXc4fMCHp7LIdKRoqCFhznOyALiXWALw34zH/Zn/dH9EHb
+	U2qFTEsHkwF24mTqGk50jE07votbUIHlk5txoBerOqT8b8xXBPaocsE8twUpA75B/JJPS3Wr+WJ
+	Qn24dLcIUt1AAa0fgV1s6k7IhaTHTkNjRc/cnDktpDLzjZ1nsqfxX7S37ws2hlHGw+9wzLtTbZr
+	mwbkdDyKb3OBTVJTaZHYQ79Wm7qAyhSUfY3lOaYDyZdANsc/F2pnvsnQ==
+X-Received: by 2002:a17:90b:2890:b0:39e:3dad:684f with SMTP id 98e67ed59e1d1-39e5546c89dmr10847172a91.4.1789996182395;
+        Mon, 21 Sep 2026 06:09:42 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a023e44854sm5275079a91.4.2026.09.21.06.09.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 06:09:41 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Justin Chen <justin.chen@broadcom.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	bcm-kernel-feedback-list@broadcom.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: bcmasp: fix MDIO child device leaks
+Date: Mon, 21 Sep 2026 21:09:29 +0800
+Message-ID: <20260921130929.403129-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V5 0/4] arm64: dts: freescale: Add chargebyte Charge
- Control Y
-To: Frank Li <Frank.Li@nxp.com>
-Cc: Christoph Stoidner <c.stoidner@phytec.de>, Vinod Koul <vkoul@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Fabio Estevam
- <festevam@gmail.com>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Marc Kleine-Budde <mkl@pengutronix.de>, devicetree@vger.kernel.org,
- linux-can@vger.kernel.org, linux-phy@lists.infradead.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- Rob Herring <robh@kernel.org>, Vincent Mailhol <mailhol@kernel.org>,
- Aswath Govindraju <a-govindraju@ti.com>
-References: <20260907150420.18787-1-wahrenst@gmx.net>
-Content-Language: en-US
-From: Stefan Wahren <wahrenst@gmx.net>
-Autocrypt: addr=wahrenst@gmx.net; keydata=
- xjMEZ1dOJBYJKwYBBAHaRw8BAQdA7H2MMG3q8FV7kAPko5vOAeaa4UA1I0hMgga1j5iYTTvN
- IFN0ZWZhbiBXYWhyZW4gPHdhaHJlbnN0QGdteC5uZXQ+wo8EExYIADcWIQT3FXg+ApsOhPDN
- NNFuwvLLwiAwigUCZ1dOJAUJB4TOAAIbAwQLCQgHBRUICQoLBRYCAwEAAAoJEG7C8svCIDCK
- JQ4BAP4Y9uuHAxbAhHSQf6UZ+hl5BDznsZVBJvH8cZe2dSZ6AQCNgoc1Lxw1tvPscuC1Jd1C
- TZomrGfQI47OiiJ3vGktBc44BGdXTiQSCisGAQQBl1UBBQEBB0B5M0B2E2XxySUQhU6emMYx
- f5QR/BrEK0hs3bLT6Hb9WgMBCAfCfgQYFggAJhYhBPcVeD4Cmw6E8M000W7C8svCIDCKBQJn
- V04kBQkHhM4AAhsMAAoJEG7C8svCIDCKJxoA/i+kqD5bphZEucrJHw77ujnOQbiKY2rLb0pE
- aHMQoiECAQDVbj827W1Yai/0XEABIr8Ci6a+/qZ8Vz6MZzL5GJosAA==
-In-Reply-To: <20260907150420.18787-1-wahrenst@gmx.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:dTkV2oD5YpD92t0EBpOUdk3SgFF0jb3vhQ1NQAolFNEcEJ8+VhK
- 5+vGQ0Mllj2A/Ry0j03P/CET45XfCdP565A801Nq4zLUwcrhE68OhrQJnheYR5UV17d0DYN
- hZmXQv7FH1A7ZxDo8UIk6IIH5n+NgZJkinmJJEHY6OOwbmDkltRRS2C2NuB7pq9Gbq88p8v
- hovzxizSKDZnZRnHbl47A==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:NIjBCQGh9cU=;eTisrmx80CVgm0Ugyb+PN7+ZfwT
- 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
+Content-Transfer-Encoding: 8bit
 
-Hi Frank,
+bcmasp_probe() populates MDIO child platform devices using
+of_platform_populate(). If initialization later fails, the probe error
+paths clean up interfaces and clock state without depopulating those
+child devices.
 
-Am 07.09.26 um 17:04 schrieb Stefan Wahren:
-> This series adds support for the chargebyte Charge Control Y, which is
-> an Electrical Vehicle Supply Equipment (EVSE) for MCS (Megawatt
-> Charging System) charging stations.
->
-> sashiko reported in the first version of the series [1] that X_nRST_LAN
-> is available via GPIO line names, but there is no reset mechanismn in th=
-e
-> device tree. This finding is valid. Since the reset line feature isn't
-> implemented for LAN8651 driver yet, I like to proceed with the current
-> version. The LAN8651 handles reset via SPI commands and in rare cases
-> we still have the possibility to control the reset from userspace.
-> Btw the pin has a pull resistor in hardware, so it's not floating.
->
-> sashiko complained in the fourth version of the series [2] about the
-> reset polarity of ethphy2 and the different drive strength across the
-> data lines. Both is intended.
->
-> [1] - https://lore.kernel.org/linux-devicetree/20260818093147.E556C1F000=
-E9@smtp.kernel.org/
-> [2] - https://lore.kernel.org/linux-devicetree/20260903082122.A777C1F000=
-E9@smtp.kernel.org/
->
-> Changes in V5:
-> - fix delete-node for pinctrl_leds (reported by sashiko)
-> - add Krzysztof's Reviewed-by
-I didn't received any feedback for V5 yet. Do you have any comments or=20
-could it be merged?
+The normal remove path has the same issue and leaves the populated
+MDIO devices registered after the ASP driver is unbound.
 
-Best regards
+Add a separate error path for failures that occur after the MDIO
+devices have been populated, and call of_platform_depopulate() there.
+Also depopulate the child devices during normal driver removal.
+
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
+
+Fixes: 490cb412007d ("net: bcmasp: Add support for ASP2.0 Ethernet controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/net/ethernet/broadcom/asp2/bcmasp.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/broadcom/asp2/bcmasp.c b/drivers/net/ethernet/broadcom/asp2/bcmasp.c
+index 972474893a6b..c4087408a822 100644
+--- a/drivers/net/ethernet/broadcom/asp2/bcmasp.c
++++ b/drivers/net/ethernet/broadcom/asp2/bcmasp.c
+@@ -1309,14 +1309,14 @@ static int bcmasp_probe(struct platform_device *pdev)
+ 					 sizeof(*priv->mda_filters), GFP_KERNEL);
+ 	if (!priv->mda_filters) {
+ 		ret = -ENOMEM;
+-		goto err_clock_disable;
++		goto err_depopulate;
+ 	}
+ 
+ 	priv->net_filters = devm_kcalloc(dev, priv->num_net_filters,
+ 					 sizeof(*priv->net_filters), GFP_KERNEL);
+ 	if (!priv->net_filters) {
+ 		ret = -ENOMEM;
+-		goto err_clock_disable;
++		goto err_depopulate;
+ 	}
+ 
+ 	bcmasp_core_init_filters(priv);
+@@ -1327,7 +1327,7 @@ static int bcmasp_probe(struct platform_device *pdev)
+ 	if (!ports_node) {
+ 		dev_warn(dev, "No ports found\n");
+ 		ret = -EINVAL;
+-		goto err_clock_disable;
++		goto err_depopulate;
+ 	}
+ 
+ 	i = 0;
+@@ -1369,6 +1369,8 @@ static int bcmasp_probe(struct platform_device *pdev)
+ 
+ err_cleanup:
+ 	bcmasp_remove_intfs(priv);
++err_depopulate:
++	of_platform_depopulate(dev);
+ err_clock_disable:
+ 	clk_disable_unprepare(priv->clk);
+ 
+@@ -1383,6 +1385,7 @@ static void bcmasp_remove(struct platform_device *pdev)
+ 		return;
+ 
+ 	bcmasp_remove_intfs(priv);
++	of_platform_depopulate(&pdev->dev);
+ }
+ 
+ static void bcmasp_shutdown(struct platform_device *pdev)
+-- 
+2.43.0
+
