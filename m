@@ -1,161 +1,283 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011063.outbound.protection.outlook.com [52.101.65.63])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC68E2741B6;
-	Mon, 21 Sep 2026 02:13:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.63
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789956840; cv=fail; b=NFUo1Eh/EEjfanmfx+mqB/lGhxD1YN10hUoTXSamTHwrAE9lWBzOVkDOjEEhPOq8fhCEtlilVRArdiUzkOYMrAmx5SEl5E9Q34YtG9otfoTkki6wTlIpqRjFwbqq3DA91tXzmjLTCqmryyuQcWevtoan3VYfj78XSWUEH+YYs/Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789956840; c=relaxed/simple;
-	bh=pxUEXonCnCSGEwLLUK4Y4YHwv82dfWJVpY2wOMZjTvo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=D5zs3vix/Iyv8u8F1kkOTPl16/fGfL7iUR31d2OGnlkHgs7MGQkzVG2nGmUswdwjoXjS63xbnpwRECitFwRr5HrvGDiVMJdlSA4hQ7X697z6ctyk3vTebeucoTGKl+zSXq0J3a2LLDB4So8wK6vyXKP4YqNyvw0wzQxeRTZhBxk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=vJpkixZl; arc=fail smtp.client-ip=52.101.65.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239D219E7F7
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:15:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789956934; cv=none; b=YRBhKSajL0SmyWXg/Cvp8kJLbEdmNLDJ2AXG3lcQ2Rkh0sTh/LdMsROeoA6CidwirNw+cT6/xZ7uT+ANl4cko8Tb3vCzTm490EnPJ9kQtN2VXasXDkVjjpqLgsTIPIKtFOlZfRJoJSRIwph6TlCemV1e7G5r/2PQaOrd0fh2llE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789956934; c=relaxed/simple;
+	bh=zeFPQWhH42Ky6P92MlkSlC7CGU+soJGaRARkvqRViQk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oMLSnlqgk23addRxvFtTbV5S5VdL7e25U9NwMfVZOxnVLoboFN1tM40APt2MK1cYFsJKXS6gt8TgkrjNXG1vYthPOBFg0Cs5HXzreCG5sOx4ygxfUzCd0k6UdhgxuhK+i5nkPsPRQxVq3EGRnzPsx9e9JVzQsX7AjFwugr0WTKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qi4lXOcl; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="vJpkixZl"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=opw5cn+7WdvHbp6SDTwEcczQGc3QrgMKqKqdSYDpgXg6e2rg1GFtbCotFI8CmVB8tSx4AtR5AX505Gw9CVo6rstQREKIGm81BaabF9e8rXGAnMipAgCs7tFrzRiLfUhL2epEss0b/zSf4ks+BIVkqhuZbhn5Wp/j1/uTaBOM2me4x7tBdycdp3On/zVO5z51zdo2jyd4Cu4iYLMqsZnvtXe3hgjezNVS62NWOScqaaQyXE+nX94TONXHRwiA8a7uuq9ZwoBciQjI/Z8R5kzDM0vijNpvzsv4G+UB2KeRaEeGZUNX0/KSkdgGy5J4WWPVx7cZM5YKtUX9W6ZVaZw8Qg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rdt11uVtN0OqbnItQibhHw2ubBzl4zv9f/9eziWfab8=;
- b=HlMuyxUSAkNRKTfC19zQRTi0vm4u1d1yPtsPwyc8BxlXwNvr8wcO9wPG5q6v8j9d2Yuxm7lI7uyGbrqOeckSzY5aJNIMcKRIkT4sOW6HFsg6kWWmc77l2KQREqqco1HPWUmAGICm9IGIDap8VN1i1vm4e+0DNJGCTCQ9Sf9LdkdwdUQUG81znLyprmzPsoutSCClp9YZuVowWJcMC628GuE18qhUd3W/n5ZEg8UX+Nk2JeBy1DYv7GTVMPCwy3SQ1ESceEZLi5aCoWmNMm/ry9HK4K4h709pNWxDjbLYMFpodhFN23eJO9DWaftS53Yh+JCrqu12E7Efsupt6ioxmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rdt11uVtN0OqbnItQibhHw2ubBzl4zv9f/9eziWfab8=;
- b=vJpkixZlHlwS+bhwBuPv+oNO72BQSrEHU08HP0lMyR63GIURyFmhvV+QY2p1nfu2cM/1kCgGwMKyvCONWharXwlEIy4lRrQhvFMxwJKRgA/BpVCMEP+2Gjv4ZpG39MX6Zg2IofN6GuoPEQtXR5AuWY42i6P2ukTkU/wfvuquDl/HWjVX6B6icdEdgbT5H6Iv4gFOj7f8rucHVsZkey6q+wYMB4aDAqIpHin42LoOLI8YVhSXxk+6+1dFzurQhZuSPDFpF8yKrMOFO38dP8KWsMmps0f9euJleIe6H6dZ2hD7vUfZcvsiVqeYgrbGzbvSsLQEiWLnHZJImrmf3Hby4A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com (2603:10a6:102:2b4::21)
- by PAXPR04MB9491.eurprd04.prod.outlook.com (2603:10a6:102:2c3::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Mon, 21 Sep
- 2026 02:13:54 +0000
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d]) by PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d%3]) with mapi id 15.21.0428.011; Mon, 21 Sep 2026
- 02:13:54 +0000
-Date: Mon, 21 Sep 2026 10:11:24 +0800
-From: Xu Yang <xu.yang_2@oss.nxp.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: badhri@google.com, gregkh@linuxfoundation.org, 
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
-	jun.li@nxp.com
-Subject: Re: [PATCH] usb: typec: tcpm: advance vdm_discovery_state on
- Discover Identity Not_Supported
-Message-ID: <4nih3ww5gsbrculihsyvs5p2g3b3mhbdqm5f2zjurtqri2wk6d@rvyaofe45x2q>
-References: <20260914093828.1910201-1-xu.yang_2@oss.nxp.com>
- <aqzt7dDNdHd22rY3@black.igk.intel.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqzt7dDNdHd22rY3@black.igk.intel.com>
-X-ClientProxiedBy: FR3P281CA0041.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4a::17) To PAXPR04MB9422.eurprd04.prod.outlook.com
- (2603:10a6:102:2b4::21)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qi4lXOcl"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d93ff61046so24322285ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:15:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789956932; x=1790561732; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uoEj2FUnGrlhFVnXCqAOwFHzmNPykWmrtcimpYb3s9E=;
+        b=Qi4lXOclxRdKKX8zx6MoFTmyU3jG6v+RBBgNHLxSWsAiaH+2ZCO7ySyJ02UUmjZQtX
+         qWNCTZu7fRPP4rBrQHUcKQ42wfgYDjPGEI4aqzWZWa76nQMYkdz5Z4mLTorvBVkMDOoO
+         efZqd24MhDy7AC6HuFKHwZAqgxB0yfQUmunH3gkTiyhd64gufww+pAFH4CoxIbQTDctP
+         nVtHpLs2fNhv5jEG59YPoC5H2IC0ZZCPat/HsMeW039TvIbVHZNY08gsL/aGawc773CN
+         i51UgJr0LkKH6vZOXqCVk3LtvuJWX6uIktgv+hme/S9WNL5ib8LilAbnog+VJfecSTGe
+         wkVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789956932; x=1790561732;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uoEj2FUnGrlhFVnXCqAOwFHzmNPykWmrtcimpYb3s9E=;
+        b=SZdaF6AKqE+1Mh2ebajV5nnlEofwpVx1kXxsrDUBQjncseiQCv7I4/nYjxrGIufMAH
+         22pA1z66Q3j3gK6mflGdBc4Ds8arNOcMwOVZxbO2GCSfyK3vvW1+nDMWshIpQ5sS4hU4
+         PnIN6w1amoizW01V7Rx7bhQmla/5hSmdWCSyUdZ/yR0BvZA9yLXBFPGDc2MII2mi6s7L
+         R61oYvcqTpTpf/7B0jiF9N27GlW1LkgKzrtZX/TXldCDy9WM8acvDjdambipNrg/yBML
+         gRp9BBQDQLhSVQNDS/yClrDuPhRbhnTm0/wAHBHZdWmh29sHAkhw0j+yT1R1hJaeNjm3
+         GqQg==
+X-Forwarded-Encrypted: i=1; AKwUvBzeswAC/cFdFrQbyyOP8fz24pq4uek85mqk00cfp2tM8coIB6eo69kf08hRoRvrbIKzIiHaYRf6EIW8FUw=@vger.kernel.org
+X-Gm-Message-State: AFuF++k6SzGaV2R1DSO7kNxXl1G5MUbqG+JXdVdUKOaB3SSGQo/J4TZ7
+	MeQWiojOxZ2g2KDgr/BofudWkXWdbi6atueqJTkNMYMtyMpsUfcYODLntEWPT0CP4j0=
+X-Gm-Gg: AYBFou31lE1U9uF5rl8m7J1EsECNYlZVd9RrlsI3W0O5tvh9hEuO4KSlgm4jsb9NiaX
+	jflKiF6SmfcxAFP87bxiHj2hi01S3qyd0AKLUNOcFdx8hB8ITIGg0+0NCo0EwqUkPpR2XZwrLJ5
+	6ev/y8sJQMSMnvxph2Cb3QA16km6V7JCdpV+kacxAxP+NJ1wMEapPJaQqoftPT7AltWip0GEEVI
+	CfKL4u2jTXA3/uNcMnidG3lEzZx4bOt4ITzhvRR2W12VWhhHi3ZndjZUFvdYLDP5EMDFOoB5hxJ
+	4fqnJmvV+uZrFTBQhVUnoi/00UVCyhHA82ZVHxemXbY7yPNzOMvxEB9WcfujoW5e758ko9ce6JD
+	JzWCeis2ww6WVMoUlwlku5CJ/5reCQCWWp0HPTIyeN5JucBLMX8cERvEycXlB9IX/8TTaEp0AD8
+	jJEeqIfVMjCfEq82BiDDbZPHppC+tPeD8i4zOPOCykAMwqGSA+puis+XnJl7KnveLaCBsvAMTyY
+	UssaGkbAy76Mcd0wBpdMMYNTRoSs5LBiWVoxKlFxEelvhRwb3pqUDmS1KOcsxTIySYO9cgjMamg
+	JSISyFuFutdOWKaXEsOO
+X-Received: by 2002:a17:902:c941:b0:2d9:3bee:4f32 with SMTP id d9443c01a7336-2ddb1b9a350mr148208115ad.20.1789956932311;
+        Sun, 20 Sep 2026 19:15:32 -0700 (PDT)
+Received: from Gracelands.reavernet (180-150-12-158.b4960c.syd.static.aussiebb.net. [180.150.12.158])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc179ddbdsm25696905ad.35.2026.09.20.19.15.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 19:15:31 -0700 (PDT)
+From: Stephen Bancroft <stevereaver@gmail.com>
+To: linux-mtd@lists.infradead.org
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	linux-kernel@vger.kernel.org,
+	Stephen Bancroft <stevereaver@gmail.com>
+Subject: [PATCH v3] mtd: maps: add INT0800 firmware-flash map driver
+Date: Mon, 21 Sep 2026 12:14:47 +1000
+Message-ID: <20260921021459.283023-1-stevereaver@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <V2-MESSAGE-ID>
+References: <V2-MESSAGE-ID>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB9422:EE_|PAXPR04MB9491:EE_
-X-MS-Office365-Filtering-Correlation-Id: 068b17b9-6f88-4e50-c082-08df1785fc6d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|19092799006|366016|1800799024|23010399003|10067099003|11063799006|56012099006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	rR8Qj8xNisbgM4/YOTIOL/865S8lqvPlb8q2Kpf7//ZXHDroS/Ch/XVm79CZHRU+z8PgGFJu8OT7woUv7cGhCAOFy6JsiXvBtqhI3C1xDg+3Rz/FGT7b+9l4cEdLUciFodM3t2A714/gFyjuVcOcZQmYIX+aSRqTcZ9airWERxgexNRCKZcl78jvXSeq3DFjoeaNlLF3763Xw95QE2rGKqm4GcWWT3BuiLjeiKIKq0yPDDm0zbiImbhWjx6ozWZgLperMxou0A6Oe6p9B6m9wPqh1nX+nXt3aeNMykG+xfb6cc4duINx0zUhM/Y4E4nBzp34eXAZsPFRQyVXplGJYCZJiAlbX2D1VFirToZZIfUkzF55kRFZDrhx5Nd+uFh6vsRWXKhrRyN6o1qQR46DgHzP8zFehon9WZsleaL4An+/NJ0xZMun4KvmDr5j1ZOghnTFrkmaXvK1vbKOAv7XA6dcUjEiux2QWHxPmZgKZr3on+242vh+jmhz/eE+4D8DFZp2s5MAyqoem5S1BE23+aIYo1NOjP4mjrrkUZeWfVIuILLlq775ykeJjixUi/Rg6JAL/9gIWa9sd4N7wszot+vZnf+nYha+SeJwxSj9EOmn2PTUgAkczNIyi3HQaeai
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9422.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(366016)(1800799024)(23010399003)(10067099003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?JwDofSnjQCEls9mImK0sgjymE0X9obdunz2lxooJuMqARivksQlODYt0swwb?=
- =?us-ascii?Q?cFuA30VB+10lDeTHkGzgtcqFQ8L2s7uf0Wz4va/RMsd0s0SiCY5r+9/QY8/1?=
- =?us-ascii?Q?6AlVGifGSiOsLBiAltfz8ES3p7LrP5smJMrmv+NTN2K5hlrIBKHBTD/3fWAW?=
- =?us-ascii?Q?y0iG+AT771k4fv/2nf/fYG1H/Hlr/svOs1auY7f3NjgnEPjzLnIgDNZNdPtA?=
- =?us-ascii?Q?kiYn1RETcsrBc2TBRxcvBbmjWayQKoM8fCgdUxc98Sk7AzUeMuf7wj8oJ84G?=
- =?us-ascii?Q?7ej8wfY+5RIKUqMwtigfpXA1s+y1X/VRkKKsS5H2iX4kaXX7GRjdlPuh3ohW?=
- =?us-ascii?Q?BDt62fpsy+OsrjJE5poHm6bVtGCsyH6kYb/sTgG+EDcVTrSFzh6r1C3n/bRh?=
- =?us-ascii?Q?4EbDVkeI2ojEw1OH8G9czhwjr4uyh37TvPM76QqMpYmv9KVy2NBjnetpfsML?=
- =?us-ascii?Q?c79vrNE8biDKmHPoM7NGKrjUtXtkSCfmbavNpUMhGUkR6KORO/OCKEetHaet?=
- =?us-ascii?Q?Q0S7nK0tJFgrtU80jQaiY3eyM6ibYg5/TfRw9x48QpRrO+7WQyzabjca1ILK?=
- =?us-ascii?Q?V8ppEAIHyr8XY5NxiMFYLxyxhagPuzAlO9ws3vbE+Es/ez8YfQlH1eYdgfsm?=
- =?us-ascii?Q?q6cJroNPz5EX59J0hjvG91uqkE3pVDFqvb2pv9jgt7wt4Y/sLb31MQ9b5Y+P?=
- =?us-ascii?Q?6PccUD5k4qtdMNs403J8DbjY/SsB8jo0RBuSLcKZKmBIOMAT2gg3a1Ld1Kag?=
- =?us-ascii?Q?Qz6dUpHYMEdgRigJRCLWqYOkrqwtTP2jiXCrO7ELyFG/2O2sDgWC3MPzrWNh?=
- =?us-ascii?Q?jeD1q81JfbcjwtLnPemwQRLW+RfPx1fPUBvERUZpXYfEGBQL1NtKHRk27xPL?=
- =?us-ascii?Q?89R5nM7+wk9SCRKOHS2J/AOqmO/Jh9zTgYxMyS8zkQ3JRKJ6StPGSrLUpq11?=
- =?us-ascii?Q?/8yy+CRwdKKZd2e1i1/tNiTzU+6izzI//2sDm4W4FiEXrJA6nKRSaw9m9xtL?=
- =?us-ascii?Q?pC75DxO+b4RyfIFcAbv/XXwicQm0b+kP76S0M6gvYX1WOjeE1WBuQ+CLh7W+?=
- =?us-ascii?Q?0kIkFS9+TYOQJUF0Ym/AS3GSIQY7Fp/vgk+QwqmsEoynyeWKDOwwAUeXCK7m?=
- =?us-ascii?Q?rgKIDPZwK3S6mWJ17vvU/uswHJ3xLqFmSB3LFjFHVH/y5XILOrFyORsdig98?=
- =?us-ascii?Q?rSIg5AdHjW8kLGlwye4UZyByYhGm1woirj3jcnuixiElb1negyEMUQB8lLy8?=
- =?us-ascii?Q?ZMv0kXm7aQ7oq2OiOSqP9hdxrXbYbcDFV5QztN0/dGMgDE8wPhgXYJrCyJ7s?=
- =?us-ascii?Q?3LFpnKxmfbiHpACwR3nij5qFgbsifLe+ZPaiEmObikFWxhDda5WL1M8EGm1f?=
- =?us-ascii?Q?yE5fXCEgC2n4X+3h0Jka80A8SXw8pw1htT7bFuSZ22n9jJsgq9lSq730cTHN?=
- =?us-ascii?Q?sa6Qjb2vnnDmgyWh4/N6i+BCj6R9YC1zHMPgD9astXDQu7uefLo0jKDVkXPE?=
- =?us-ascii?Q?NK0t/7Dsa/gxQRGqLS/7/XncAEbcBr4JCv4Z9aJzqKVIrk/J0p9ZCxYQdxXy?=
- =?us-ascii?Q?DlUwmKdgI7lqP+sN6yWhN1jetDqblOH3DX/KQMxwixanOjef2W1BjwRJK/o9?=
- =?us-ascii?Q?O9abh3529zo3Ho8+S5p5uAX7xkeryeN72jymF9g2xD+BxD6yxL2R2O3IT19J?=
- =?us-ascii?Q?2RFmA0XOnIWk8Hae9m8Qft3oyHGIatfg8os4FDiGeEmBSxlqD6qQ7NCInZTN?=
- =?us-ascii?Q?cuU3bsYSwlUZw/e8xb72a+GW/bVJUWfplNGGVByvRfSDcx5AWh7r?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 068b17b9-6f88-4e50-c082-08df1785fc6d
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9422.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 02:13:54.6847
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rrXuUJ+HoMoEQLKQqUyI6HfOvRAifgKpD5RwR9Wf+2uC8TpzdqSuc98mbU2CVnmV6rqiA8f0CIFsJPaCkhc2xUqvYikndDqIcZPujQQmbRgslz8XFw/ytSJ2WXQb23o9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9491
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Heikki,
+Add a read-only mapping driver that binds the ACPI INT0800 "Intel
+82802 firmware hub" device and exposes the system firmware flash as an
+MTD ROM device.
 
-On Fri, Sep 18, 2026 at 09:53:17AM +0200, Heikki Krogerus wrote:
-> On Mon, Sep 14, 2026 at 05:38:28PM +0800, Xu Yang wrote:
-> > From: Xu Yang <xu.yang_2@nxp.com>
-> > 
-> > Commit fa4d0a7cd036 ("usb: typec: tcpm: fix Discover Identity retry loop
-> > on Control Message reject") advances vdm_discovery_state to
-> > VDM_DISCOVERY_COMPLETE when a CMDT_RSP_NAK is received, but it does not
-> > advance the state when a non-modal port returns PD_CTRL_NOT_SUPP.
-> > 
-> > This can re-arm another vdm_discovery_work if the port is going to
-> > respond with PD_CTRL_NOT_SUPP to the partner.
-> > 
-> >   tcpm_pd_handle_msg(port, PD_MSG_CTRL_NOT_SUPP, NONE_AMS);
-> >     tcpm_queue_message();
-> >       mod_tcpm_delayed_work();
-> >         tcpm_state_machine_work()
-> >           tcpm_send_queued_message()  -> send PD_MSG_CTRL_NOT_SUPP
-> >           run_state_machine()
-> >             case SRC_READY:
-> >             case SNK_READY:
-> >               mod_vdm_discovery_delayed_work(port, 0);
-> > 
-> > If both the port and its partner do not support modal operation, they
-> > will send DISCOVER_IDENTITY to each other infinitely.
-> > 
-> > Advance vdm_discovery_state to VDM_DISCOVERY_COMPLETE in this path as
-> > well, mirroring the existing handling for the SVDM CMDT_RSP_NAK case.
-> > 
-> > Fixes: fa4d0a7cd036 ("usb: typec: tcpm: fix Discover Identity retry loop on Control Message reject")
-> 
-> I can't find that commit from anywhere?
+On x86 machines the boot flash is decoded into the physical address
+space below 4 GB, so a plain ioremap() of the declared resource window
+is sufficient for reads - no SPI or LPC controller access is needed.
+The window may be larger than the real flash; undecoded holes read as
+0xff.
 
-It's a mistake, and I sent v2 to correct it:
-https://lore.kernel.org/linux-usb/20260916043957.3362995-1-xu.yang_2@oss.nxp.com/
+This gives userspace a clean, safe way to read firmware flash contents
+without flashrom or relaxed /dev/mem access - for firmware analysis,
+and for extracting option ROMs stored inside EFI firmware volumes
+(e.g. the NVIDIA VBIOS on EFI-booted Apple machines, which can then be
+fed to nouveau via nouveau.config=NvBios=). There is deliberately no
+write or erase support.
 
-Thanks,
-Xu Yang
+Tested on a MacBookPro4,1 (ICH8M): /dev/mtd0 reads are byte-identical
+to a flashrom dump of the 2 MiB SST25VF016B, except for live NVRAM
+variable-store regions.
+
+Signed-off-by: Stephen Bancroft <stevereaver@gmail.com>
+---
+Changes in v3:
+- MODULE_AUTHOR: use full author identity (per Miquèl Raynal's review)
+
+Changes in v2:
+- Per-device state via devm_kzalloc instead of globals (fixes shared
+  state corruption with multiple INT0800 devices)
+- Clean up map probe on mtd_device_register() failure (fixes
+  memory/mapping leak)
+- Use %pa for resource_size_t in dev_info (fixes format string on
+  32-bit)
+- Add missing Signed-off-by
+
+ drivers/mtd/maps/Kconfig   |  17 ++++++
+ drivers/mtd/maps/Makefile  |   1 +
+ drivers/mtd/maps/int0800.c | 108 +++++++++++++++++++++++++++++++++++++
+ 3 files changed, 126 insertions(+)
+ create mode 100644 drivers/mtd/maps/int0800.c
+
+diff --git a/drivers/mtd/maps/Kconfig b/drivers/mtd/maps/Kconfig
+index 1bb3dba2631d..649fd145e15d 100644
+--- a/drivers/mtd/maps/Kconfig
++++ b/drivers/mtd/maps/Kconfig
+@@ -161,6 +161,23 @@ config MTD_AMD76XROM
+ 
+ 	  BE VERY CAREFUL.
+ 
++config MTD_INT0800
++	tristate "Read-only BIOS/firmware flash via ACPI INT0800"
++	depends on X86 && ACPI
++	select MTD_ROM
++	help
++	  Support for reading the system firmware (BIOS/EFI) flash chip
++	  through the memory window described by the ACPI INT0800
++	  "82802 firmware hub" device, present on most x86 machines.
++
++	  The flash is exposed read-only via the ROM chip driver, e.g.
++	  for firmware analysis or extracting option ROMs (such as
++	  video BIOS images embedded in EFI firmware volumes). There is
++	  no write or erase support.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called int0800.
++
+ config MTD_ICHXROM
+ 	tristate "BIOS flash chip on Intel Controller Hub 2/3/4/5"
+ 	depends on X86 && MTD_JEDECPROBE
+diff --git a/drivers/mtd/maps/Makefile b/drivers/mtd/maps/Makefile
+index 01745eca1f73..2f1a7375e13c 100644
+--- a/drivers/mtd/maps/Makefile
++++ b/drivers/mtd/maps/Makefile
+@@ -14,6 +14,7 @@ obj-$(CONFIG_MTD_L440GX)	+= l440gx.o
+ obj-$(CONFIG_MTD_AMD76XROM)	+= amd76xrom.o
+ obj-$(CONFIG_MTD_ESB2ROM)	+= esb2rom.o
+ obj-$(CONFIG_MTD_ICHXROM)	+= ichxrom.o
++obj-$(CONFIG_MTD_INT0800)	+= int0800.o
+ obj-$(CONFIG_MTD_CK804XROM)	+= ck804xrom.o
+ obj-$(CONFIG_MTD_TSUNAMI)	+= tsunami_flash.o
+ obj-$(CONFIG_MTD_PXA2XX)	+= pxa2xx-flash.o
+diff --git a/drivers/mtd/maps/int0800.c b/drivers/mtd/maps/int0800.c
+new file mode 100644
+index 000000000000..0188d58b168d
+--- /dev/null
++++ b/drivers/mtd/maps/int0800.c
+@@ -0,0 +1,108 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Read-only MTD access to the system firmware flash behind the ACPI
++ * INT0800 "Intel 82802 firmware hub" device.
++ *
++ * On x86 systems the boot flash is decoded into the physical address
++ * space below 4 GB, so a plain ioremap() is sufficient to read it -
++ * no SPI or LPC controller access is required.  The declared _CRS
++ * window may be larger than the real flash (the whole top-16MiB
++ * decode range is commonly claimed); undecoded holes read as 0xff.
++ *
++ * The device is exposed read-only via the ROM chip driver; there is
++ * deliberately no write or erase support.
++ */
++
++#include <linux/module.h>
++#include <linux/acpi.h>
++#include <linux/io.h>
++#include <linux/mtd/mtd.h>
++#include <linux/mtd/map.h>
++#include <linux/platform_device.h>
++#include <linux/slab.h>
++
++/* top-of-4GB firmware decode, used when _CRS reports no window */
++#define INT0800_DEFAULT_PHYS	0xffe00000UL
++#define INT0800_DEFAULT_SIZE	SZ_2M
++
++struct int0800 {
++	struct map_info		map;
++	struct mtd_info		*mtd;
++};
++
++static int int0800_probe(struct platform_device *pdev)
++{
++	struct resource *res;
++	struct int0800 *fw;
++	resource_size_t end;
++	int ret;
++
++	fw = devm_kzalloc(&pdev->dev, sizeof(*fw), GFP_KERNEL);
++	if (!fw)
++		return -ENOMEM;
++
++	fw->map.name = dev_name(&pdev->dev);
++	fw->map.bankwidth = 1;
++
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	if (res) {
++		fw->map.phys = res->start;
++		fw->map.size = resource_size(res);
++	} else {
++		fw->map.phys = INT0800_DEFAULT_PHYS;
++		fw->map.size = INT0800_DEFAULT_SIZE;
++	}
++
++	/*
++	 * Plain ioremap on purpose: the window is already claimed by the
++	 * ACPI/pnp resource reservation, so devm_ioremap_resource() would
++	 * fail with -EBUSY.
++	 */
++	fw->map.virt = devm_ioremap(&pdev->dev, fw->map.phys, fw->map.size);
++	if (!fw->map.virt)
++		return -ENOMEM;
++
++	simple_map_init(&fw->map);
++	fw->mtd = do_map_probe("map_rom", &fw->map);
++	if (!fw->mtd)
++		return -ENODEV;
++	fw->mtd->dev.parent = &pdev->dev;
++	platform_set_drvdata(pdev, fw);
++
++	end = fw->map.phys + fw->map.size - 1;
++	dev_info(&pdev->dev, "mapped firmware window %pa-%pa\n",
++		 &fw->map.phys, &end);
++
++	ret = mtd_device_register(fw->mtd, NULL, 0);
++	if (ret)
++		map_destroy(fw->mtd);
++	return ret;
++}
++
++static void int0800_remove(struct platform_device *pdev)
++{
++	struct int0800 *fw = platform_get_drvdata(pdev);
++
++	mtd_device_unregister(fw->mtd);
++	map_destroy(fw->mtd);
++}
++
++static const struct acpi_device_id int0800_ids[] = {
++	{ "INT0800", 0 },
++	{ }
++};
++MODULE_DEVICE_TABLE(acpi, int0800_ids);
++
++static struct platform_driver int0800_driver = {
++	.probe	= int0800_probe,
++	.remove	= int0800_remove,
++	.driver	= {
++		.name		= "int0800",
++		.acpi_match_table = int0800_ids,
++	},
++};
++module_platform_driver(int0800_driver);
++
++MODULE_AUTHOR("Stephen Bancroft <stevereaver@gmail.com>");
++MODULE_DESCRIPTION("Read-only MTD map over the INT0800 firmware flash window");
++MODULE_LICENSE("GPL");
+-- 
+2.43.0
+
