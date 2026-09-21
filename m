@@ -1,96 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040224BE433;
-	Mon, 21 Sep 2026 15:16:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003764; cv=none; b=NAYs6Enh1UPhuWpzNr/4vT4EIKqRidyg89e7lrTNG//pkAKFA5bA210o7VgRKUo+DC8FnFTJF5OPR7TP8YTdSljnBU0fFsl08DZ6yu9uRDpFz9CrWJM9ZE6SWyDA/LufvymSO64iYx/SDsgE8cqYI0AtAs8XKSgE8JNvjOlt2lM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003764; c=relaxed/simple;
-	bh=DHEQNVH304dFHicWq52GyticC8lXMEruY2thjkBwJ8g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jXTlqb3855spkYnOa1nwLhiU3onFebtL4IIWri9lJfz2YmD7/0MxYWCNl/e0uV//qwt3KDPNwtFQauhXRAL0g3JO6jhWOxrwVozZte6f7D5ZcjW2t8WIaMpdBOT4IkB5Sd/OFbzPntYPTd4s/1Mqf8F6NCA06HQex4oTJT+wbPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lNF9xyVL; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9CD4B7A24
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:16:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790003776; cv=pass; b=BsdsjqFMQ+1bfw54UkjN00alpw5tosQHd7QTE2oZh+ogiAiWTGJGYLrKSFPVasgRGSS4m+9gXxYte0JwUBm3ioZvq/VutzoTWAVAYG+P0Aev5Q3qxoZUC9lnxGlRk+ejpdv61IGFsAUQxsFAPD/kFJnvk6N7fGKBtrRL8b8ewXc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790003776; c=relaxed/simple;
+	bh=XHPO43iPwGf/8rDqm86qoTqT4DK9heTLxM81CKZvxYw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OKn0fBQKYDiBO3orMSqsuHD0n6glfY5Kslk+nAJ/PY8Mxd5JJOHnWt4hjcCYLfHZjiJBVao+QlvDNyVCnfToMNMcY04XIpXSD3yhmrwq+mmRec5AJ4ie/ph4AZrSPwqZLUzEbN8sNNkQYxM1CBCjYZs3ci7QIFP52ksOUjUh7R8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=criticallink.com; spf=pass smtp.mailfrom=criticallink.com; dkim=pass (2048-bit key) header.d=criticallink.com header.i=@criticallink.com header.b=MlAuWMAw; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=criticallink.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=criticallink.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lNF9xyVL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C537A1F00893;
-	Mon, 21 Sep 2026 15:16:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003762;
-	bh=hOvG/uo1bcbPermo8brtuzKlqeWj0xatwdIh6bjgz5k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lNF9xyVLj41JefydyGx3JzxqT5j0YaN32U2Of7wQEspNIopu0YEFYUyAkCkfCw8cr
-	 FCtVPu3/wHKKG2DsljiMyt/yZuL+/Fa9aui+A+uBZg+Vc0ti+qEroNjZSkvpNgGKJU
-	 pNsGpvuSAVaY6jQI3hobjXB9oLvLsEGHwMZ6jiRwnfRGbvr5e6UFh59vJP+irwm4ql
-	 5pEk4jcRocgT27DGtPS0DzBuT4nx/PKL6n0cuBn/SgbBl5RdKteVS5VasCmucA3UpD
-	 B3YJoRf5mzIC/TkyG4Hv9YEJP8wXB8hq0DYs2IninuqjATB0FNKhXm9VimeZ42JP0u
-	 xCn1LrwjvY1tA==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Karthikeyan KS <karthiproffesional@gmail.com>,
-	Adrian Huang <adrianhuang0701@gmail.com>,
-	Liew Rui Yan <aethernet65535@gmail.com>,
-	SJ Park <sj@kernel.org>,
-	Xuewen Wang <wangxuewen@kylinos.cn>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 4/4] mm/damon: document that a zero sample_interval is accepted
-Date: Mon, 21 Sep 2026 08:15:46 -0700
-Message-ID: <20260921151547.78472-5-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260921151547.78472-1-sj@kernel.org>
-References: <20260921151547.78472-1-sj@kernel.org>
+	dkim=pass (2048-bit key) header.d=criticallink.com header.i=@criticallink.com header.b="MlAuWMAw"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9adcso5332469a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:16:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790003772; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HT6NE64xTE44BzLk+dyWc05GUMXaXvBoSWHfKmwAhyu92W5kj3D4S8ozmzv6lEagnb
+         modiVJnzzGVlx8xbtzCMye1CR0VV6n2WMfpl4TA6fB00coiX/2UD0NixTdEyj9tpQ6hT
+         Cqh7VA/nAw7dxWQZKoizcZUGl2BINEUu8UAthVkdcjw2WWBAgbftmckQjQxGMduyBfZ9
+         42HDNcCbvQSyzd/j9kWvPDkIIRlqYov7bTlxY/jWXA7PRpkDJ3Hf4Fq/ymEkfhanBISs
+         hodX92FUi7ouHlN/we5NbWCholusbOfUelauviW5+42r8ZnurQCMoZUHks4WNaBnVVxd
+         Jgxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HX8wdI5S2tl2VsV0b3cC7CFvQKR8NtMSXQBbxVkBhOM=;
+        fh=/mpZIZAD6hyDdVCWw1/plMnYVqAOxEI/LEwaOihISSs=;
+        b=m6jzMDvFc5+wiIG3CNNehzKiSrmL3Yg6GZOEcIRF67TExgkqMUdJI8XD3E802cFvgV
+         J1TyF43f62BipEm14gCwm8n1Q73UtSV6HNzNVXaZ2LiWXTRDNK4Ys8Htt/OJ1JYEmPJc
+         FLDU7Q2HyuGs7k4f3nToxfHQR8hNWshw/RadHvIVzBSFuIOOjH9BOWgk5D/P7vsSX6O7
+         tNt/UtCFbhgenCKNaNMi88UsgxJOoiFT8v519+Apk6xXCHejpZczwQrGynw28UHfBkYs
+         7ry/e1WN6DubTi9xUiCXR9WrQOAFWdoD6mDnZAVfHZfBCM2R8cbJAGdFW8XOcmlVFtAC
+         DGzQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=criticallink.com; s=google; t=1790003772; x=1790608572; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HX8wdI5S2tl2VsV0b3cC7CFvQKR8NtMSXQBbxVkBhOM=;
+        b=MlAuWMAwbjpYzJtw6TBu52HvGXYbcslY8xaCfxUrYPzU9bDyOjDbHfqEDIRVacsDeM
+         /tFHlhXgsaAHLTTlwW7qwpnV+mXH0JoJFS11M4+u1Qk6N+/T2VW4aNM1Q/Zt5E75Vs76
+         lEaufwQgwsnvCEJtKfNGrtVb6H2pOmFnQP8V9g497VHGXsdCBlOnWgUlka1Yuoz0/j4t
+         iSINgCEg3C2FvVOlvEyHlNYjkyszX75D0C4LdyZrBfZDK8rIZKwFfeBTZ8vKTa6Ejg9A
+         1RF+io1ZIWhI764yfnveupU0Gn+H5XYZF1GKyHO74vOyfszv4mHxOKzmaycIchooOZ1i
+         08GA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790003772; x=1790608572;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HX8wdI5S2tl2VsV0b3cC7CFvQKR8NtMSXQBbxVkBhOM=;
+        b=bfnuscYTkJLF182LpfmCIeZFpAWrh5W6JN6sCOm296k5ufUPGs8+nSnTWlyZf5ABzT
+         P0SIeJb8jC2p+yFkG1BM6EujYCfSCptQYG3BfReoSBLGa+MJtLc/ViYH3cYxynfI75/e
+         Gkk51acy9hVfxBDkr5CxQTJc/9ftLpUP+bg9dVq/85jbtV7BQadW3CVP6/9Vozm/fCSe
+         NbtZ56b48cB3PiFluU55Gpsib/PkwPcXfYV/SR4B0fWkTKBKCk5HlpemnN4lxWsSesJp
+         UlV3hR2n89EHHdD5l0KdfCHOzJunva8uoUnwP6gUbHP40PL5z/8Se7ZNSuDAEGBNsPs1
+         XEJA==
+X-Forwarded-Encrypted: i=1; AKwUvByrKotQp7J17abr+S30SvBPRhBAD9mUhI9Z99zETU0E/TSEk9HV8P7Bpr7uVboNE9+jD3dxA8Pa9N6Qpz0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lxydbfNP+3XD23cTQn2xwsyoWqDFP/PgTLtaC86nF22UaipXip
+	tTfAAcAckGZ5vO8q4TiXOTE4kd3V7tMgyZAMzZsoAL/ojir494BWLThePHVMrIx+UgH8ZI8Imvd
+	dfztqeJJkqRXdbZDsFbWZ/7KvNdQUSg6HNqZTOqRB
+X-Gm-Gg: AYBFou0yJQSvsbSs06mD8v1M5K59KPbLlCrhCaSY0aHc1Ky1nxmWAg/IZ4pxM0YoRQm
+	k60phhE5d5IFhTeocl58y+NV3OIlIoWwcvBw/807S9xXFRrA/6e3RsmJ+xgu3J57u1ucKGKNWH8
+	KSdindECJklr9evizCwekUAvbbFIzzu3YjMR0xv3gbmUGaJBEOhNswiGpYhEQ1NqaPDM1+9dx/g
+	OLkRJ7Yr/MnPWFcNbJ0BVqSnbtawE1zwMzx5h5OljkXmszkQYL+b5Z7A+X1GA7LxoJ6pPiBEiE5
+	r7R4MXww0QXx30LfvPY00iPvxsArvv5vq7BdAJsYjahqxtJcz+X8Ww==
+X-Received: by 2002:a05:6402:4382:b0:6a9:6944:57f2 with SMTP id
+ 4fb4d7f45d1cf-6aa564ce3c7mr7698906a12.10.1790003772167; Mon, 21 Sep 2026
+ 08:16:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260919171100.90430-1-kmehltretter@gmail.com> <20260919171100.90430-2-kmehltretter@gmail.com>
+In-Reply-To: <20260919171100.90430-2-kmehltretter@gmail.com>
+From: Jon Cormier <jcormier@criticallink.com>
+Date: Mon, 21 Sep 2026 11:15:59 -0400
+X-Gm-Features: AcwNN1XBrxH6m24bVAE90lwMgAyLcIq43xhby1tZife3cbQ2oW2ZxE_IChsMK9A
+Message-ID: <CADL8D3bOOK0ER+rk3kGLaRKH0LBpTYj64SX57OCzZo4WeTZCHg@mail.gmail.com>
+Subject: Re: [PATCH 1/3] gpio: tps65219: Fix GPIO input value reads
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Jerome Neanne <jneanne@baylibre.com>, Andy Shevchenko <andy.shevchenko@gmail.com>, 
+	Shree Ramamoorthy <s-ramamoorthy@ti.com>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
+	Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, linux-omap@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Karthikeyan KS <karthiproffesional@gmail.com>
+On Sat, Sep 19, 2026 at 1:11=E2=80=AFPM Karl Mehltretter <kmehltretter@gmai=
+l.com> wrote:
+>
+> TPS65219_MFP_GPIO_STATUS_MASK is already BIT(4). Passing it to BIT()
+> again tests bit 16, which cannot be set in the 8-bit MFP_CTRL register,
+> so GPIO0 is always reported low when configured as an input.
+>
+> Test the register value with the mask directly.
+>
+> Fixes: 57e30e00bd5b ("gpio: tps65219: add GPIO support for TPS65219 PMIC"=
+)
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+> Testing:
+>
+>   - A temporary KUnit test instantiated the driver with a RAM-backed
+>     regmap under x86_64 QEMU 10.2.1.  The TPS65219 input-high test
+>     failed on the base commit and passes with this series.
+>   - This has not been tested on real hardware; testing on affected
+>     hardware is welcome.
+>
+>  drivers/gpio/gpio-tps65219.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpio/gpio-tps65219.c b/drivers/gpio/gpio-tps65219.c
+> index 457fd8a589e89..b25c6f7277680 100644
+> --- a/drivers/gpio/gpio-tps65219.c
+> +++ b/drivers/gpio/gpio-tps65219.c
+> @@ -79,7 +79,7 @@ static int tps65219_gpio_get(struct gpio_chip *gc, unsi=
+gned int offset)
+>         if (ret)
+>                 return ret;
+>
+> -       ret =3D !!(val & BIT(TPS65219_MFP_GPIO_STATUS_MASK));
+> +       ret =3D !!(val & TPS65219_MFP_GPIO_STATUS_MASK);
+>         dev_warn(dev, "GPIO%d =3D %d, MULTI_DEVICE_ENABLE, not a standard=
+ GPIO\n", offset, ret);
+>
+>         /*
+> --
+> 2.53.0
 
-damon_set_attrs() accepts sample_interval == 0.  This was reported as a
-bug in v1 of this patch (rejecting it in damon_set_attrs()).  A similar
-patch was already declined for the same reason: a zero interval is
-intentionally supported [1].
+Makes sense to me, our hardware has this pin connected as an input so
+I must not have tested this case.
+Reviewed-by: Jonathan Cormier <jcormier@criticallink.com>
 
-Document the behavior instead of changing it.
 
-[1] https://lore.kernel.org/all/20260722094304.3132750-1-dayou5941@163.com/
+--=20
+Jonathan Cormier
+Senior Software Engineer
 
-Signed-off-by: Karthikeyan KS <karthiproffesional@gmail.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
----
-Changes from v2
-- v2: https://lore.kernel.org/20260918131301.75879-1-karthiproffesional@gmail.com
-- Collect R-b: from SJ.
-- Rebas to the latest mm-new.
-Changes from v1:
-- Dropped the damon_set_attrs() rejection and the KUnit cases that
-  tested it.
-- Added a kernel-doc note on struct damon_attrs's @sample_interval
-  instead.
+Office:  315.425.4045 x222
 
- include/linux/damon.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index 836353c4ab9a..844b175120f0 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -836,7 +836,8 @@ struct damon_probe {
- /**
-  * struct damon_attrs - Monitoring attributes for accuracy/overhead control.
-  *
-- * @sample_interval:		The time between access samplings.
-+ * @sample_interval:		The time between access samplings.  Zero is
-+ *				accepted.
-  * @aggr_interval:		The time between monitor results aggregations.
-  * @ops_update_interval:	The time between monitoring operations updates.
-  * @intervals_goal:		Intervals auto-tuning goal.
--- 
-2.47.3
+http://www.CriticalLink.com
+6712 Brooklawn Parkway, Syracuse, NY 13211
