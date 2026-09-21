@@ -1,218 +1,289 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011060.outbound.protection.outlook.com [40.107.130.60])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E79498921;
-	Mon, 21 Sep 2026 12:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789994212; cv=none; b=GbUkOexaBWd93Iwlx7YH11DvBUjuUClvUvp1acg8xhotD2hN9ASGTCNVSLpxFBljS8EZooGE0EpGOCv678enljgrf/alWFehwim2yvZ90e3dABJpUN395LceZ16ozIxA+FHfFdGl2cnHaqLAzV5Hj2B4SpETrzrrNfrnGXC43xc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789994212; c=relaxed/simple;
-	bh=B2lUr6zFuI1tOzoihbpvAp+HxvFfKN4QaVW3YerzlYc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JZXeJf0zd5GuaYnbnblEzwpHNoijxVuu3EuDjJMp7IeiNIgEAdxILi4cHNOAB4xw7IxbGwIOz+ImjF3lQ9KR/BDf66mg4vOJ/cpeJKmBxj5lfysd9qP9p/6Vc/6YKjJSydAXmzmyIfRAgPSWnHB9ykq6mEYSRi4GmHw5o9fg0As=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=HKVQrNyW; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=OD9EmZus; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=cHHrtVLq; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=CSecNRpc; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE4C421224
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:36:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.60
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789994222; cv=fail; b=UBQRO8MwEe1f2XnJlhbJv5YjyXS2DGrO8ffUo9KaH7S9A56x7pNfrMAlVW+3yrMaErEw18XsnoFDqM6bH2XqJZJYjHwnznLCIAXK+mS5o36hW9sbIdhy0SoK87Z8dEFtXiAFCuxWcK7lNdNwgu+7QcD2h6pRD4HLDvtQiLd/PRQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789994222; c=relaxed/simple;
+	bh=umXTb/1OOHTWKEpQtm9AR3N5YXms8K/tOA2z5ZHGSMA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=gmpODVY/KE2RuwCXHPW6uPo8YsuGESxvSr8s0t14uYpzg5exgw6XTnHMxznEA8cYZYFsZ1XPJSIXdOr9ya2TmHpMaKyIrFadomb/6dVh1j9bSiT6c7WL9thNrY2nXiUPjgTY7FZ9OdQewkemN+8A0zumSKEciCDpdXsla14fPFo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=PEpe8Dg6; arc=fail smtp.client-ip=40.107.130.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HKVQrNyW";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="OD9EmZus";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cHHrtVLq";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CSecNRpc"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 31FFA1F79C;
-	Mon, 21 Sep 2026 12:36:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789994190; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KmKS7vgZjryTeBZ+ib7L48JK7MuFB51dHdQeosw3LQk=;
-	b=HKVQrNyW0PujYUrfNIOmuleTTSxxTpFxmY8ftBGt3h7T4CNzL0bnb2b9+bNQ2BQCGshM/g
-	DWrJX2ipGhw+f0ez89lE3mzVUpaB7hyCm9ZuOxWPTECUleJ7QhsjjgifO3FkqTMqbGt4ag
-	EWZ2nWgYa3up3Ks4A+F/WJgtbQ6W254=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789994190;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KmKS7vgZjryTeBZ+ib7L48JK7MuFB51dHdQeosw3LQk=;
-	b=OD9EmZusZV0ghtKl3GVXtAhKF796oMJvfJl2KALuwhm9BBdfkyeBngkI5Vv4FLOsZ7rdUo
-	PCkm5OmJ11RWxNCg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=cHHrtVLq;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=CSecNRpc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789994186; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KmKS7vgZjryTeBZ+ib7L48JK7MuFB51dHdQeosw3LQk=;
-	b=cHHrtVLqY1veO2gvOxhdj29S6Ykkt5fi4s8Ju8EMh850xgEPdd2gWjLJK16JdNLD+456AA
-	jh/dSaO0BuimasECzYrd13F6zGPTbecPLvjlRQYrPBiOk9ABMPL3uBXhIyLCHK9Qt0kEpP
-	SVXZ/laSHvpa/msD/LWwv5ckuduntW8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789994186;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KmKS7vgZjryTeBZ+ib7L48JK7MuFB51dHdQeosw3LQk=;
-	b=CSecNRpc0BOLGYO4qK3Xc2+1nIvCVfFI6XHUaAXzALOxJvdC0/MND1spvgcxpwX6afDUfw
-	YCjrJqitCopj0vAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 91FAD13793;
-	Mon, 21 Sep 2026 12:36:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id swsyGMkksWrpRwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Mon, 21 Sep 2026 12:36:25 +0000
-Date: Mon, 21 Sep 2026 13:36:23 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: ayhan =?utf-8?B?YXlkxLFu?= <nsd.project.dev@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, Matthew Wilcox <willy@infradead.org>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [RFC PATCH 0/3] Neural Storage Driver - learning page cache
- prefetcher
-Message-ID: <arEkgM15qewERAOJ@pedro-suse.tail5790ac.ts.net>
-References: <20260725182628.221603-1-nsd.project.dev@gmail.com>
- <CAFLp9PEQQVuDpJPwrNvLN1-u3w3TMwZPUUrf0+rOBrvDjBBf1A@mail.gmail.com>
- <anlByPDZmvEhWeXI@casper.infradead.org>
- <ffcij36vnozf3rginqd2opd2dwqyki7xhtdo4veuty734hhgba@utjav2k263o6>
- <nsd.1787001235.35928@mail.gmail.com>
- <w7vte4itudtkw2yf4vbmuofiumfffmp2y52dpu2bqvqtdgjvpd@5femyiozss3e>
- <CAFLp9PGkVYZcQT5qAx-RKFOF-urZ92m417zpAeF7ZQempbS1HQ@mail.gmail.com>
- <o5ihhfa252cjfspqlag65xhnmehz3a5feyclmlyy4xlrcmceck@njmhyu7oom3d>
- <CAFLp9PF+6KUY7ZAGQZ_X9AN4VYbkdW_aDk1QSth3ZAVVqLTqsQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="PEpe8Dg6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ap5+/sMN/kUP5b08POsqzSiFNXsOIJTxPp6/zxZt1BVEKGjT7IPat5Mh4gTAp8u5GrLEObELTYt4yMX22SfI0OBb4K90HVRyeNWEAkA7AB3uGVFaUGV/3pxWfvd+E/h+0j7PSpDqiGCtdgofeWi7GZPyd6m5oYacDFzaASBAJD6y9OuEAOecPbB9zwYVUed2CO3K/ppbiMsKPvtiBjtva89by2xzbbysLcLM7WMYnkAuNqEXO5kuO56nnHEtsrBI2XiAMOYNvVu2vvNSFsXSPfyZLzOeVCSmyLgJMw7vGeg6rVF8D+qJYVyKv8K6Qh9x3nirxdiG+yUjpbaExEt+Ew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OBkujC1NXZxovgDMvI/zTLqcyC6O12+DyBcBm7tIcZw=;
+ b=E1kJusHrbfn35lqdHWJqFGYD9+0BbyqTzVUJtGLmmodJYDkRbi68IjuDbIJaHdVNMFfNcHZ5Nuq8pkMUrFSE6nznR5/mIOG6MPBW0+CRQMqxGc44jhu2WprDt2gHAh8UJx4CTRI6/8I9E2ylskW+I0wqRU5EQVIHT7xvVgWhOT+N75khr7wpbCOdrhbZHNgvsVl00RO7eDIy1bHQGgGVRoaa0Gx13zn1jkuQmeSkGPLd7+dJ+XsxANxgZCwO78/nzmCoVUOFVrB9nosy/lG8ZSQGLyXPzvuhp73CB8EDkZ+1WnGu781xp9S6A7AayCuZd21jdhLnOS6bcHzTvID+QQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OBkujC1NXZxovgDMvI/zTLqcyC6O12+DyBcBm7tIcZw=;
+ b=PEpe8Dg6Lf9NSxN9lM6LxoxZFDj389/xIcvcN1r9DiE0BrvTc9FfKRXkTWdbPMB4mFNLrE4H2sioRmm3ZdplpPhmHtJJvys0BrRIqhqTGhW4QAD+e9eXTajbclefWMGXuiC1RvHzpAY/lsRGhZ0oo4oon5H4HDZL7wdYFweyWeMM+F2jloEB9GmaihrACLHlhSGYWOCDVeBcpANLQZ9gcKrwJgB+UBTrhEeD/1AuXZRYlg5fp+MTWE+QCq+owGpEDROcYwl8XUgILXGcwHn2f7bWv8SLm/SuoujqlGPr5H2HAmMBllgF/zGEAVk1CK3linRKYZvFagVGUPKF2o3Q3Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by AM8PR04MB7907.eurprd04.prod.outlook.com (2603:10a6:20b:237::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 12:36:54 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 12:36:54 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+To: will@kernel.org,
+	robin.murphy@arm.com,
+	joro@8bytes.org,
+	jpb@kernel.org,
+	jgg@ziepe.ca
+Cc: linux-arm-kernel@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	peng.fan@nxp.com
+Subject: [PATCH RFC v2 4/4] iommu/arm-smmu-v3: Wire up shared-SID STE ordering and feature gating
+Date: Mon, 21 Sep 2026 20:41:13 +0800
+Message-Id: <20260921124113.1664326-1-peng.fan@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260921-smmu-shared-sid-v2-0-4b656ce68178@nxp.com>
+References: <20260921-smmu-shared-sid-v2-0-4b656ce68178@nxp.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MA5P287CA0073.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b3::6) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAFLp9PF+6KUY7ZAGQZ_X9AN4VYbkdW_aDk1QSth3ZAVVqLTqsQ@mail.gmail.com>
-X-Spam-Score: -3.01
-X-Rspamd-Queue-Id: 31FFA1F79C
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_TLS_ALL(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,pedro-suse.tail5790ac.ts.net:mid,suse.de:dkim];
-	RCVD_COUNT_TWO(0.00)[2];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AM8PR04MB7907:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22419541-643b-42f3-f47f-08df17dd0452
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|19092799006|6133799003|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	RR+QwofzL0L81ZxfO0ybUdAeVtzTyr32g8wAv02OGgTuRjXHVLUU/DDPzq46nK2S8n63hUaIgscBGa7FI9UhTbzQd++lRBUBGZ57Z6N+rX7jDnP7t51UCtIBkRSh8ZlBcpnJ+xo1PzfpLVeyH/b1OWkFl33ECIMtE3nMX9UZXxRviR8TIRS1kjhFIj6EdlYSSLvjnUpCKqnpKKfQ4uyteaLmqGXATQYDFgh/ADfIR2YYlEV9X2AwZdctklMNrP3N8wov1NDhOwKZEkSpCf8zBnyYRPFm9KWXYY0uaEgrklrlRq7wSDqI+HCeq/0ggR/fLdVljMlflPIGesfw9Kzke/JBNU5w3qBpRR/oFQjrvG2cN14f8i145TSCDYyXAKdAb8Mz248L+lykViztWyZdi/ZMIcn3CsBAN/ZBgg8AD45xREFXEhjeRULW1ZKquOVgu1KlFhCe2+IobsNkZlEADEguujv9E//iv7JhaEdd2RlvgqKIPzu40YldTYw5eJf5vQ16zltmP1eXhapoMRqjuu31RgwkyCTZWHIPFCm6XGWgpesRJ2jqKnF9515F2P6hjTRsetaC5r2oVvizuQYIwb74SigZHj+0bv3ndQ+3Rj/t57BkDUU9ehY21aRw+oK8rR/8IcGtQt/rxQSS19U40UcoTxB7I/Sezt4CB2/vcPU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(19092799006)(6133799003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?anIG1HqGhBZY/yT5VnE2EnIh7LWZhyoEYqciMtazGt9jDi+MZIuIqJNKDAmp?=
+ =?us-ascii?Q?dW12bZiksVD8Jy8p918ZJF2lANlGLrfnFOJfFLEhuqU09LWzoTjQKSp9kDxM?=
+ =?us-ascii?Q?uiUAsQmQNdm9MCJZNtAk1lA0Hma50ol1N5f4YfOyp7UJj75oz7krUe46cuBv?=
+ =?us-ascii?Q?Ho2bqd/PEURix6NicAo8B+zE8kcNUi7mZDjqbb1sqUCvbIUtWZGp7snStbPs?=
+ =?us-ascii?Q?bd1r4CHmGwPd1TxZgxFwBgT8gYAlmjAsF+pxlsOwZ7uVd4BvFz8mJ6fLW2d7?=
+ =?us-ascii?Q?YwesHif+KXN3YAiMxecS3wuuPHeOqEex17DK4Z5CTVjOsXmAnBpIjOjU/yPi?=
+ =?us-ascii?Q?XolQavoM/9BAAFGG31iYqaJKqVKDRJj4/Pnb7MmhJsNcKKEEFdtXoKhehyNK?=
+ =?us-ascii?Q?TIA64V8PXtv9giWUjOCLPTr4ISHvSGI+8JcQwaa46BW9c7+4/EsRdsnOyKKu?=
+ =?us-ascii?Q?l8YHj6HIV4bps/6HqTLNmiL9pdhtmD0K+7JAmfQ5JD65dZqj3lPf6TeAxXfn?=
+ =?us-ascii?Q?f25Wa5eWXFabIeG8JPc4E6jFtOuWkQblXafNuFzNKusD3ktjzYDCoq/Gf2h1?=
+ =?us-ascii?Q?HrHBoLbjYGIRNcC4ANBQd0CAIHAmYXulQeU08x6oreIWUuBlfMZmODthcx5C?=
+ =?us-ascii?Q?Ds6A6zdC9IPJGzdu3qx1XJ7tWd1Yz088MAxwjrU9/OC3PPYlpiFPBSdfoevg?=
+ =?us-ascii?Q?osfQ8JgPyGpwAI9oeVcwisRFHOqWIN2VFfvidC3nMtk5W16DEYgsvAa+R/vd?=
+ =?us-ascii?Q?2nI4pBalUqNtB7tOKI4OkSdeqhQXOSjGh3JudPKDslEYofNxpClSbj8SAdVb?=
+ =?us-ascii?Q?iCxqG4IptDLCqw9yLREzObHgm6j14Og7x08g2mUYZkQ73vNcJ5HB1Db91yn+?=
+ =?us-ascii?Q?FSBjaKAcg7NolbYRF8QajpYivSC4bUKLzz8yAayNrHxeDHZfwsGB1GxdwAPB?=
+ =?us-ascii?Q?bDTbp5pJISco1KHRdRK5QYe+/l8jwxRiVgMh+PvLBd+jj0cGBeaofL3R0DqW?=
+ =?us-ascii?Q?ANFDzP3n4KsYkqqvPeo+dcjiikMANgBCdklopC8j7OClmbu2eH51YJnLlgIT?=
+ =?us-ascii?Q?VmEJNwyc/TKxfTO1ldPGRUiSJCfxxaYkCOLZrbVfG+9tWCFTZn0lflclJrwC?=
+ =?us-ascii?Q?0eyqEaSuGxi7lOyHJyZQyTqDU2vEc1yr5ekKwYdQUEWqhHl76hI35hAdZWn+?=
+ =?us-ascii?Q?2n+OnB3I7z2smaVMhboYasbG8Er//bGiaS7JRnQ85HNIeHqSHzF5TkextuoU?=
+ =?us-ascii?Q?bLwm0/Dpe+aTKEnrNdDu1q2YD8PfrQZz+gUKFle89St15wiBY+YyHEP4PVqg?=
+ =?us-ascii?Q?NRuJjW0zauvFeGrhsPt+Yys3X1NcQnkd9hmYxA0/PxlwtMr84LwxcqHzJlbD?=
+ =?us-ascii?Q?s3GCT5x89gzQ9cO+cgq1UoxH/EmQiA9NkcaqJ6/SJ36/NND8dooU6+2K43HN?=
+ =?us-ascii?Q?tkIAXyIRC0n452oUuR4EpBZEQQUsUY2HfN5tukxdacdHvxRZvSZ/nUZ37tLg?=
+ =?us-ascii?Q?J3mjaNi10ukSC+v35e2pF8FUv9afR7AM7/4Tf/RJuWsUOshQI8UscxGq3Fmv?=
+ =?us-ascii?Q?/d8xNs1KFUTIGav/5xhxjsDAuwaBkq97F5A0KQurPkziQ7vmMytHKlgsRjKs?=
+ =?us-ascii?Q?WYZt2QqfGq8h3PWOsk3Z8mkBIOWGYS/rUv2rDoZ8DbVM9db3IuEErB9LO+hA?=
+ =?us-ascii?Q?MjmkQjlX2UQKrsX7Ri4d/M0zkqNhY6onj+KG2xVLoduUWpyRO7XMWIww9yMH?=
+ =?us-ascii?Q?2cUmKlBsR5b3dwnBB2d4X1Bh5uI2E03Xq6vEvhyA7Gk/fAEcRFeS?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22419541-643b-42f3-f47f-08df17dd0452
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 12:36:54.0488
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kMe6bi42weT9wt+X4C9kL1Q6N6sNNuzf0Ep253sdzxUUbcRaGAeByoUYYGkhm+SQVebWuX8Zvq412JLaAKaBoWraEUB8BcFjaQ2wgxNCUan2oeiR4ZVI1t2Sj7LDJCg5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7907
 
-Can you please reply with something that isn't copied straight out of an LLM?
-And, ideally, add the Assisted-by: LLM's where necessary.
+From: Peng Fan <peng.fan@nxp.com>
 
-On Sun, Sep 20, 2026 at 03:39:20PM -0700, ayhan aydın wrote:
-> Hi Honza, hi Willy,
-> 
-> First, my Aug 20 follow-up bounced on the HTML part. My mistake, resending
-> as plain text. Below is that content updated with six more weeks of
-> measurement. Two self corrections first, before any numbers.
-> 
-> What changed since the RFC (same out of tree module):
-> Automated prefetch never exceeds ra_pages now. Overhangs get trimmed
-> or dropped, all counted. The only exception is our own measured
-> willneed ranges up to io_pages. That follows Ming Lei's RFC direction
-> and the MADV_POPULATE precedent. It is toggleable, Mod A means strict cap.
-> 
-> Fault path first, as you asked in Q3. filemap_fault hook observes, then
-> prefetches with depth capped at 2 and bounded by the cap. One more
-> thing on this: the fault path stands down explicitly at 1M windows and
-> up. There is a straight s_bdi->ra_pages check in nsd_process(). The
->   parity we see at 256K and 512K is a different thing. Our code still
->   fires there. The kernel just catches up on its own at those sizes.
-> 
-> A sleeping in atomic bug in our fast path got found through a stack
-> trace and fixed. vfs_fadvise was called from fprobe context. It now
-> goes through a workqueue.
-> 
-> A len==0 fadvise footgun got found through our own counters. Len 0
-> means to end of file, so those sends preloaded whole files. All our
-> earlier big mmap and SQLite speedups traced back to it. Retracted.
-> Sends with len 0 are now dropped and counted.
-> 
-> Narrowed claims after all that. Interleaved A/B, drop_caches before
-> every run, checksums verified, 500+ runs in total:
-> 
->   sparse mmap scan, about 64KB stride, 512MB to 20GB files, 128K window,
->   SSD: ON ~47s vs OFF ~88s median over 30+30 reps, no overlap.
->     The threshold lines up exactly with FAULT_AROUND_ORDER=4 (65536B).
->     Below it the kernel fault around covers the fault by itself.
->     Above it, it does not.
->   same setup at 256K, 512K, 1024K windows: parity, kernel catches up.
->   dense mmap, rand 4K, seq read, SQLite, THP, and HDD sparse mmap:
->   parity everywhere. The early small HDD lean got remeasured with
->   current code and traced to the same len 0 accident, retracted too.
->   No workload regresses. dmesg tracked throughout, no new warnings.
-> 
-> So the scope is sparse mmap scans at default size windows on
-> SSD. That is where the fault path underprovisions while the read path
-> is already saturated. Dense, random, 1M tuned and HDD cases are parity
-> by measurement.
-> Separately, one thing that might be useful here too: p99 tail latency
-> is about 4x worse at 1M than at 128K regardless of NSD state. Another
-> practical reason to keep windows small.
-> 
-> Open questions, updated:
->   Q1, fadvise beyond ra_pages: we stopped doing it silently. Only
->       measured willneed ranges up to io_pages, and that can be turned
->       off. Acceptable shape?
->   Q2, ra_state integration: we prototyped window steering from the
->       module. The kernel keeps our window but wall clock does not move
->       because there is just not enough volume from outside. Real
->       integration needs in kernel changes, so we drafted a minimal one:
->       2 stream slots plus stride state in file_ra_state, every window
->       bounded by ra_pages, read path only. Want me to post it separately
->       for direction feedback before any boot testing?
->   Q3: fault path first as described above, with timely versus correct
->       accounting running underneath.
-> 
-> For Willy: backward patterns get detected near perfectly (strides with
-> negative deltas, counted separately) but they do not move the wall on
-> SATA SSD, so throttled now. Fault path is covered as you asked.
-> PG_readahead replacement stays an in kernel question as above.
-> 
-> Full data and the retraction notes are in the tree. Happy to run any
-> counter matrix you ask for.
-> 
-> Thanks,
-> Ayhan
-> 
+For shared SIDs, only the first master to attach writes the STE
+(tracked by ste_installed under streams_mutex); subsequent masters
+skip the write. On teardown, only the last master writes the ABORT
+STE (ref_count == 1). This is handled by arm_smmu_skip_shared_ste().
 
+Fault events on shared SIDs cannot be attributed to a specific master,
+so arm_smmu_find_master() returns NULL when ref_count > 1.
+
+Disable SVA, IOPF/stall, and vSMMU nesting for shared-SID masters
+since all three require unambiguous SID-to-device mapping.
+
+Assisted-by: Claude:claude-opus-4-6
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+ .../arm/arm-smmu-v3/arm-smmu-v3-iommufd.c     |  4 +-
+ .../iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c   |  7 +++
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c   | 59 +++++++++++++++++--
+ 3 files changed, 65 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c
+index ab1078a97d801..258ca42917f07 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c
+@@ -308,8 +308,10 @@ static int arm_vsmmu_vdevice_init(struct iommufd_vdevice *vdev)
+ 	/*
+ 	 * arm_vsmmu_vsid_to_sid() maps a vSID to master->streams[0] alone, so
+ 	 * more streams would leave the rest stale and none reads out of bounds.
++	 * Shared SIDs are also unsupported for vSMMU since the STE is shared
++	 * between multiple masters.
+ 	 */
+-	if (master->num_streams != 1)
++	if (master->num_streams != 1 || master->shared_sid)
+ 		return -EOPNOTSUPP;
+ 	return 0;
+ }
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
+index 0a429c64fbf3e..43f8cc81bfdd1 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
+@@ -271,6 +271,13 @@ static int arm_smmu_sva_set_dev_pasid(struct iommu_domain *domain,
+ 	if (!(master->smmu->features & ARM_SMMU_FEAT_SVA))
+ 		return -EOPNOTSUPP;
+ 
++	/*
++	 * SVA requires stall-based fault handling which cannot be supported
++	 * when multiple devices share a SID (fault routing is ambiguous).
++	 */
++	if (master->shared_sid)
++		return -EOPNOTSUPP;
++
+ 	/* Prevent arm_smmu_mm_release from being called while we are attaching */
+ 	if (!mmget_not_zero(domain->mm))
+ 		return -EINVAL;
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+index bb3ee25d10d6e..13968191b1452 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+@@ -2034,6 +2034,13 @@ arm_smmu_find_master(struct arm_smmu_device *smmu, u32 sid)
+ 	stream = xa_load(&smmu->streams, sid);
+ 	if (!stream)
+ 		return NULL;
++	/*
++	 * For shared SIDs (ref_count > 1) we cannot determine which master
++	 * triggered the fault, so return NULL to let the caller handle it
++	 * as an unresolvable event.
++	 */
++	if (stream->ref_count > 1)
++		return NULL;
+ 	return stream->master;
+ }
+ 
+@@ -2944,11 +2951,43 @@ arm_smmu_get_step_for_sid(struct arm_smmu_device *smmu, u32 sid)
+ 	}
+ }
+ 
++/*
++ * For shared SIDs, check whether this master should skip the STE write.
++ *
++ * Setup path: only the first master writes the STE; subsequent masters
++ * skip because ste_installed is already true.
++ *
++ * Teardown path (ABORT): skip while other masters still share the SID
++ * (ref_count > 1).  Only the last remaining master writes the ABORT STE.
++ *
++ * Returns true if the STE write should be skipped for this SID.
++ */
++static bool arm_smmu_skip_shared_ste(struct arm_smmu_device *smmu,
++				     u32 sid, bool is_abort)
++{
++	struct arm_smmu_stream *stream;
++	bool skip = false;
++
++	mutex_lock(&smmu->streams_mutex);
++	stream = xa_load(&smmu->streams, sid);
++	if (stream) {
++		if (is_abort)
++			skip = stream->ref_count > 1;
++		else if (stream->ste_installed)
++			skip = true;
++		else
++			stream->ste_installed = true;
++	}
++	mutex_unlock(&smmu->streams_mutex);
++	return skip;
++}
++
+ void arm_smmu_install_ste_for_dev(struct arm_smmu_master *master,
+ 				  const struct arm_smmu_ste *target)
+ {
+ 	int i, j;
+ 	struct arm_smmu_device *smmu = master->smmu;
++	bool is_abort;
+ 
+ 	master->cd_table.in_ste =
+ 		FIELD_GET(STRTAB_STE_0_CFG, le64_to_cpu(target->data[0])) ==
+@@ -2957,10 +2996,12 @@ void arm_smmu_install_ste_for_dev(struct arm_smmu_master *master,
+ 		FIELD_GET(STRTAB_STE_1_EATS, le64_to_cpu(target->data[1])) ==
+ 		STRTAB_STE_1_EATS_TRANS;
+ 
++	is_abort = (FIELD_GET(STRTAB_STE_0_CFG, le64_to_cpu(target->data[0])) ==
++		    STRTAB_STE_0_CFG_ABORT);
++
+ 	for (i = 0; i < master->num_streams; ++i) {
+ 		u32 sid = master->streams[i].id;
+-		struct arm_smmu_ste *step =
+-			arm_smmu_get_step_for_sid(smmu, sid);
++		struct arm_smmu_ste *step;
+ 
+ 		/* Bridged PCI devices may end up with duplicated IDs */
+ 		for (j = 0; j < i; j++)
+@@ -2969,6 +3010,11 @@ void arm_smmu_install_ste_for_dev(struct arm_smmu_master *master,
+ 		if (j < i)
+ 			continue;
+ 
++		if (master->shared_sid &&
++		    arm_smmu_skip_shared_ste(smmu, sid, is_abort))
++			continue;
++
++		step = arm_smmu_get_step_for_sid(smmu, sid);
+ 		arm_smmu_write_ste(master, sid, step, target);
+ 	}
+ }
+@@ -3116,8 +3162,13 @@ static int arm_smmu_enable_iopf(struct arm_smmu_master *master,
+ 	if (!master->stall_enabled)
+ 		return 0;
+ 
+-	/* We're not keeping track of SIDs in fault events */
+-	if (master->num_streams != 1)
++	/*
++	 * We're not keeping track of SIDs in fault events, and stall/PRI
++	 * cannot be supported when multiple devices share a SID because page
++	 * fault responses are routed by RID/SID and we cannot distinguish
++	 * which device triggered the fault.
++	 */
++	if (master->num_streams != 1 || master->shared_sid)
+ 		return -EOPNOTSUPP;
+ 
+ 	if (master->iopf_refcount) {
 -- 
-Pedro
+2.34.1
+
