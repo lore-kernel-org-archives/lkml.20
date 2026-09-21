@@ -1,46 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E644DD3BB;
-	Mon, 21 Sep 2026 19:44:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7891947532E
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:44:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790019859; cv=none; b=DMjPGst+Kx8JChUQbT5/g23KwWtBojOn+dG/OOoItsnmREjnUFuOSaTzp5d5gZt4U1qqbcSHAlOGt32DRqcXN0nfH0VAtA5cvSOt8r1fni4KON3mUV0lTEz4yA4BRmQRCOyc1Z2Xu9bql4ZxhDj0xJlLoBvs2yu4cwDIKPBp3fo=
+	t=1790019879; cv=none; b=G/ThPfPuQNmaek+LOjA0bGwyFtJAbTzuEEIoJIYNG55fLut3bs8TcC9lF0YEfUKrp72yEqLWLew0RLugOZOJyRqwNKBcWfCV6LEeZqS7tVZl4UTlcOnJfjfZ5bICNExkgpdLrIS4v1WtQ70tv2KdOH9JB2PPOgvi2T3t9kMTS0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790019859; c=relaxed/simple;
-	bh=9Jb38Zl9Ea0cTAcTPnkGqYXl4M9Z/2drgsu7yqL2+YM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kUL2iRr22tKLMX9fzMrfPxAD21kIrhWh1+InfFL1KyCq3GmiqIav6cpRj+2CaR6Q6RKDzuErW06E78dBM/ah0QKCcxb+EzrFquy61cdnvPPRz6phNzsQtyo4M8LEYOiuVRHM7y8yhIvkHnrS3SUZSj/+tISCCX5OZm37XFSRzJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kSlBuvtd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790019879; c=relaxed/simple;
+	bh=97s/8iT6zoeWzj5BFrEjbnzOOXlWZdXh//bjwqi4OXk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=g72gVSd33JAcXOF/gUxwiBkcLUcwRfk42M5/4Alct4n4F6sTqT4HdhBauXRLbH5G3bLP8xyc554lptyHW7uSQz8ib/fC6AEp8kEWi8JGASGfxnWN5qR3JS9gUQ6i/cS5kfpIeNcF3y2CpWZNzRudPXYour0PoBmwc+ZPyDeUZJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pNjUD6Wb; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kSlBuvtd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DA7D1F000FF;
-	Mon, 21 Sep 2026 19:44:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790019857;
-	bh=0K2vgToZE2CglgABkp7jD6RfdHXj/wkxzKwvBvFmv9Y=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=kSlBuvtdV7wjqnb42jwSYMeukQpBTJYOBSu37+55tkiAe5NcNlpqNsUKmnLfJcg6L
-	 koh5lny4XO0Fv5hAyDkpDAbQZ1Z/zkeerKzsHBpCfswn39R8pnBL0dDeXjEu1MntT3
-	 Q1IX1iovCCrvjuCVo4uB9csr1WrN7C86m7ZReyZCRqb/gpiJx3rDANqSMhZ34a3WRp
-	 843r4INLEX0Mn8IYHnlo3csFWhdukatT4m4xoIg+1Q1gzTLVOvi83IgIaUf6AU9RsE
-	 5R7X99lEStaVqapc/mXjpXolOaQzFkoa7O/X3BowbSZpDcH7nArBTDbHAT9Nt25dzr
-	 8F5TXXyxjxi9w==
-Subject:
- Re: [PATCH] net: gemini: Free the shared queue after removing the ports
-From: netdev-bot+sashiko@kernel.org
-To: mhun512@gmail.com
-Cc: linusw@kernel.org, ulli.kroll@googlemail.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, ae878000@gmail.com
-Date: Mon, 21 Sep 2026 19:44:16 +0000
-Message-ID: <179001985660.2160803.5573342179556752795@kernel.org>
-In-Reply-To: <20260917192835.58126-1-mhun512@gmail.com>
-References: <20260917192835.58126-1-mhun512@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pNjUD6Wb"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d91ede8035so41229835ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:44:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790019878; x=1790624678; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=7EWfsQUamIev2TGG4Ye/VRFYZNi1syArJoSYx9L81TM=;
+        b=pNjUD6WbURdMR1fZMclQZgtrt94TDEAOLFI7lzTW/a8PfejEZgaOqczn5ROLbxm64e
+         7Wzg+dATmgk0mxrdJj60ldJJsPCzAcwt5j6IqkqwhB05vOdRJyrEO536CpfgKmlY5csG
+         PWcGmzldT/W97HuHJKV1yX3h8dr6E/r6obifnxWwVFWMWSVTp35AIvj2VRXRjzpGt3+c
+         g1JXFWKjuDTItGGMnIjpyHk2ztRuGfMlolIW7q4Ya/YyksOUfzNmeYWSxx/3gwCYKZJS
+         YKxKxYOFK/cntQgzywYL/XPwhNpQwmRPQyKINfzQytEpFKDK5m+W4y4+8+RvE91yz9O0
+         scHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790019878; x=1790624678;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7EWfsQUamIev2TGG4Ye/VRFYZNi1syArJoSYx9L81TM=;
+        b=yDm4iLK6/gZHApELatu7be5yhHJib7Z+/VWH9DR1ZJVvSdvMmw5VbKlMJJXj4ZJnRO
+         81pGnGt91dKd4ZNntQdF/0bUmGSeu8mdqyl/l3G1rbJZfJOMEY1abrlL4tqoa0aaowCE
+         OhPAX3tfO/p0Lxr+Uj0qGykZnEV12JXzdiUAF0RjkKoKfPtmp92UDOVuuSZVjBrHtVKo
+         hwd23YVxk9MkgjAlAMt9dwFa068L9Qy7yqY141sF16CpJwEe+CjJy3UBvTEVwHW1/qdA
+         K1YdsaFX73Pb/6617ijK9OsROG3OiyCGY1MNt9wZ8+BoPV6S3xfZFjdnotIqyxePrf6i
+         kuzg==
+X-Forwarded-Encrypted: i=1; AKwUvBwfDkQiGCHGP59WypbDeDll3u/H5AikEO2RoIMzrmg6QRgz1sZfKyzZSIwn8riS8BXZjlnj7iAoHWmxTvw=@vger.kernel.org
+X-Gm-Message-State: AFuF++medqBWAeD1YtISWjEDdxGkBcOUAunxp7cWjClMfOxR6XQT0Fgf
+	J6dqsD7v5yu59El+aOzKFAFtW+w/xcmWuMtp/IICtm1p9kjXghT3PZ0L
+X-Gm-Gg: AYBFou2DEAW0CWVuv7INJxhYSlzQoCik0UqxyftaZ33+Qr429Zo4KuxP9+F1gc+ifeH
+	HIdTCRReOXuH1Hg156M8cgnVqOHV/byxIiUXJ5HlkCVLmODJY6x//KIXLvjETnEzMyOuVjAMM2L
+	SSWRGAi0klgoX8bQkqdj6ahRby5TL8Omwq05FocHXY2h8LN7RaEiminnwszGQJqiwDSXsUXyhdr
+	rkpd5P70ugVEOIla3XBdqjUcPMnspZ9Ob9Y4679WG1ATJy+SIv6BwLhuC42YONX16i0bQZHoqGH
+	CgVGJpusgxP0o0k6mbdaimEo72QMY6AJZ331KpYe4Et0hR30jSEDlFZc+IzrdMYorQ/gMDxvepP
+	EV/6rePXUs4TUkDcg5xGcQ6SWwloKKXcGmzlrDIFBnm3+z+5FXdf9gB3fwUC/ownkpSHfhrg7AC
+	yDpX1/8BV+7NP4To590oN4HbW74eV61IxG34E5GDjP4VBjDgR19n42IaO/A28AaDb790XQ6KAUW
+	/ThpwcCmMxla73bKP/OOtrukQ6mbQ4isCLF/ZEFCLrg+fZRwE0Dii3PowO7H8DugZ2P
+X-Received: by 2002:a17:903:1448:b0:2dd:c100:943f with SMTP id d9443c01a7336-2ddc1009c5fmr105596185ad.61.1790019877522;
+        Mon, 21 Sep 2026 12:44:37 -0700 (PDT)
+Received: from ?IPv6:2a03:83e0:115c:1:9de9:26b9:a969:69d7? ([2620:10d:c090:500::5:f95e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e5eabe0b5sm261383eec.1.2026.09.21.12.44.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 12:44:37 -0700 (PDT)
+Message-ID: <951923920747d8dcba3d56ca8858e106d9c7ba4e.camel@gmail.com>
+Subject: Re: [PATCH bpf-next v2 03/13] bpf: track low-32 scalar equality
+ across zero-extending movs
+From: Eduard Zingerman <eddyz87@gmail.com>
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, Vineet Gupta
+	 <vineet.gupta@linux.dev>
+Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>,  Andrii Nakryiko <andrii@kernel.org>, Kumar
+ Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau	
+ <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song	
+ <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis	
+ <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, John
+ Fastabend	 <john.fastabend@gmail.com>, Shuah Khan <shuah@kernel.org>, bpf	
+ <bpf@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, "open
+ list:KERNEL SELFTEST FRAMEWORK"	 <linux-kselftest@vger.kernel.org>
+Date: Mon, 21 Sep 2026 12:44:34 -0700
+In-Reply-To: <DLL8Q69N7BUD.1HI0MKU2M2UGE@gmail.com>
+References: <20260910164635.459558-1-vineet.gupta@linux.dev>
+	 <20260910164635.459558-4-vineet.gupta@linux.dev>
+	 <DLDKI0ZXYI7H.1XQZZE2RCU7IF@gmail.com>
+	 <4ab75099-0e95-4fee-81da-6f4198e3e6a0@linux.dev>
+	 <CAADnVQ+N9tzBJ0Bbvp8_8QvR+QcCP4ej5CgV_kRHt=iw4BANSQ@mail.gmail.com>
+	 <202c45e2-58ba-4ad5-a234-c90703031f91@linux.dev>
+	 <CAADnVQ+Si9Au8J_j2nt+ZzFq6WPaz8hpmh0n=_dFysZmSOeipA@mail.gmail.com>
+	 <ff18ccb77a554000a030199e8c1fbb7d8d298e18.camel@gmail.com>
+	 <DLL84IMPTRQF.3DOQQTN2KCAEW@gmail.com>
+	 <e9aad352ba82dadd97a17867108b5db1865fa38d.camel@gmail.com>
+	 <DLL8Q69N7BUD.1HI0MKU2M2UGE@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,238 +98,100 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Mon, 2026-09-21 at 19:27 +0000, Alexei Starovoitov wrote:
+> On Mon Sep 21, 2026 at 7:10 PM UTC, Eduard Zingerman wrote:
+> > On Mon, 2026-09-21 at 18:59 +0000, Alexei Starovoitov wrote:
+> > > On Mon Sep 21, 2026 at 5:28 PM UTC, Eduard Zingerman wrote:
+> > > > On Wed, 2026-09-16 at 17:30 -0700, Alexei Starovoitov wrote:
+> > > > > On Wed, Sep 16, 2026 at 5:08=E2=80=AFPM Vineet Gupta <vineet.gupt=
+a@linux.dev> wrote:
+> > > > > >=20
+> > > > > > It ended up with full testsuite run parity - after 4 incrementa=
+l patches.
+> > > > > > But the pattern of all those patches was adding some predicate =
+/
+> > > > > > special-casing to reg->add_const
+> > > > > >=20
+> > > > > > hunk 1
+> > > > > >=20
+> > > > > > -       if (src_reg->add_const)
+> > > > > > +       if (src_reg->add_const && src_reg->delta)
+> > > > >=20
+> > > > > why? It should not.
+> > > > > My point is that zero is not special.
+> > > > > It should be handled within the current framework.
+> > > > > All these extra hunks are not correct.
+> > > > > ADD_CONST_32 logic should work for delta =3D=3D 0 just like
+> > > > > it works for delta =3D=3D 1.
+> > > >=20
+> > > > After thinking about it some more, I agree that having an orthogona=
+l
+> > > > encoding would be nice. However, it appears that the split should b=
+e
+> > > > somewhat different:
+> > > >=20
+> > > >   struct bpf_reg_state {
+> > > >     ...
+> > > >     s32 delta;
+> > > >     u32 id;
+> > > >     enum id_link_kind { full, zext, sext } link_kind;
+> > > >     ...
+> > > >   }
+> > > >=20
+> > > > Where:
+> > > > - id =3D=3D 0 =3D> no id link
+> > > > - full =3D> all 64-bits of the register are identical to
+> > > >           all 64-bits of a scalar value `id' (let's call it X).
+> > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D full}, rB{X,full}=
+ =3D> rA =3D=3D rB
+> > > > - zext =3D> lower 32-bits of the register are identical to
+> > > >           lower 32-bits of a scalar value X,
+> > > >           upper 32-bits of the register are null.
+> > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D ?}, rB{X,zext} =
+=3D> rA % 32 =3D=3D rB % 32
+> > > > - sext =3D> lower 32-bits of the register are identical to
+> > > >           lower 32-bits of a scalar value X,
+> > > >           upper 32-bits of the register are either 0 or 1,
+> > > >           depending on the bit 31 value.
+> > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D ?}, rB{X,sext} =
+=3D> sext(rA % 32) =3D=3D sext(rB % 32)
+> > >=20
+> > > hmm.
+> > > there is also 32-bit link with delta, right?
+> >=20
+> > My point is that delta is independent of 32-bit/64-bit property.
+> > `delta' can be used to propagate in both directions:
+> > - full 64 bit -> 32 bit sign/zero-extened
+> > - 32 bit sign/zero-extened -> full 64-bit
+>=20
+> both? how ?
+> I was under impression that in 32-bit domain delta is one way.
+> rX =3D ...
+> wY =3D wX
+> wY +=3D 5
+>=20
+> if wY =3D=3D 10
+> We cannot do -5 to rX
 
-Critical: 0 · High: 1 (4) · Medium: 0 · Low: 0
+Why?
+It is still valid to transfer r32 and tnum_subreg knowledge from wY to rX.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+  wY + 5 =3D=3D rX % 32 + 5 =3D> hence rX % 32 knowledge can be recovered.
 
-- [High] The commit message states the goal of keeping the shared free
-  queue from being "free[d] ... while a port or its threaded free-queue…
+If rX itself had some delta, e.g.:
 
-Pre-existing issues:
-- [High] Stale free-queue state after a failed re-allocation:
-  `geth_cleanup_freeq()`…
-- [High] `gemini_port_remove()`
-  (drivers/net/ethernet/cortina/gemini.c:2377-2384) calls…
-- [High] `geth_cleanup_freeq()` force-drops every reference on the RX
-  pages: `while (page_ref_count(gpage->page) > 0)…
-- [High] `gemini_port_remove()`
-  (drivers/net/ethernet/cortina/gemini.c:2377-2384) never clears the…
+  rX =3D ...
+  rX +=3D 7
+  wY =3D wX
+  wY +=3D 5
 
---
+Then it would still be possible:
 
-net: gemini: Free the shared queue after removing the ports
+  wY + 5 =3D=3D (rX - 7) % 32 + 5 =3D rX % 32 - 2.
 
-This moves ownership of the shared software free queue to the parent
-device: the per-port remove callback no longer calls geth_cleanup_freeq(),
-and gemini_ethernet_remove() depopulates its children first, masks the
-free-queue interrupt, and only frees the queue if freeq_ring is set.
+Again, in case of this direction, only lower 32-bits of the 'full'
+register can be inferred.
 
-A few questions about the surrounding teardown paths below.
-
-> diff --git a/drivers/net/ethernet/cortina/gemini.c b/drivers/net/ethernet/cortina/gemini.c
-> index 2dd2fa801829c..498285caebe3d 100644
-> --- a/drivers/net/ethernet/cortina/gemini.c
-> +++ b/drivers/net/ethernet/cortina/gemini.c
-> @@ -2381,7 +2381,6 @@ static void gemini_port_remove(struct gemini_ethernet_port *port)
->  		unregister_netdev(port->netdev);
->  	}
->  	clk_disable_unprepare(port->pclk);
-> -	geth_cleanup_freeq(port->geth);
->  }
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since the new
-devm_of_platform_depopulate() call makes the parent drive this path, is the
-ordering in gemini_port_remove() safe when the interface is still up?
-
-phy_disconnect() runs before unregister_netdev():
-
-	if (port->netdev) {
-		phy_disconnect(port->netdev->phydev);
-		unregister_netdev(port->netdev);
-	}
-
-phy_disconnect() -> phy_detach() clears the back pointer:
-
-drivers/net/phy/phy_device.c:phy_detach() {
-	...
-		phydev->attached_dev->phydev = NULL;
-		phydev->attached_dev = NULL;
-	...
-}
-
-If the device is still IFF_UP, unregister_netdev() ->
-unregister_netdevice_many_notify() -> netif_close_many() calls ndo_stop,
-which is gmac_stop():
-
-	phy_stop(netdev->phydev);
-
-and phy_stop() dereferences it right away:
-
-drivers/net/phy/phy.c:phy_stop() {
-	struct net_device *dev = phydev->attached_dev;
-	...
-}
-
-Can this oops on phy_stop(NULL) when a port is unbound (or the parent is
-removed) while the interface is up?  Would calling unregister_netdev()
-before phy_disconnect() avoid it?
-
-[Severity: High]
-This is a pre-existing issue, but the new depopulate sequence widens the
-window: gemini_port_remove() never clears geth->port0 / geth->port1 (or
-geth->initialized).  The port structure is netdev_priv() of a netdev
-allocated on the child device with devm_alloc_etherdev_mqs(), so it is
-released by the child's devres as soon as its remove() returns, while the
-parent keeps the pointer.
-
-geth_resize_freeq() then dereferences the sibling unconditionally:
-
-	if (netdev->dev_id == 0)
-		other_netdev = geth->port1->netdev;
-	else
-		other_netdev = geth->port0->netdev;
-
-	if (other_netdev && netif_running(other_netdev))
-		return -EBUSY;
-	...
-	if (other_netdev) {
-		other_port = netdev_priv(other_netdev);
-		new_size += 1 << (other_port->rxq_order + 1);
-
-Does this read freed memory after unbinding one gemini-ethernet-port child
-while the parent stays bound, and then bringing the surviving port up
-(gmac_open() -> geth_resize_freeq()) or calling gmac_set_ringparam()?  The
-rxq_order value read from the freed structure also feeds new_order, which
-sizes the dma_alloc_coherent() ring and the freeq_pages array.  The same
-half-removed state exists inside the new devm_of_platform_depopulate()
-window, where one child's devres is already released while the other netdev
-is still registered and openable.  Should gemini_port_remove() also clear
-the parent's port0/port1 pointer?
-
->  
->  static void gemini_ethernet_init(struct gemini_ethernet *geth)
-
-[ ... ]
-
-> @@ -2673,7 +2672,10 @@ static void gemini_ethernet_remove(struct platform_device *pdev)
->  {
->  	struct gemini_ethernet *geth = platform_get_drvdata(pdev);
->  
-> -	geth_cleanup_freeq(geth);
-> +	devm_of_platform_depopulate(&pdev->dev);
-> +	writel(0, geth->base + GLOBAL_INTERRUPT_ENABLE_4_REG);
-> +	if (geth->freeq_ring)
-> +		geth_cleanup_freeq(geth);
->  	geth->initialized = false;
->  }
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the new freeq_ring sentinel
-relies on an invariant that the free path does not maintain.
-geth_cleanup_freeq() frees both allocations and leaves the pointers stale:
-
-	kfree(geth->freeq_pages);
-
-	dma_free_coherent(geth->dev,
-			  sizeof(*geth->freeq_ring) << geth->freeq_order,
-			  geth->freeq_ring, geth->freeq_dma_base);
-
-Only geth_setup_freeq()'s error path clears one of them:
-
-	kfree(geth->freeq_pages);
-err_freeq:
-	dma_free_coherent(...);
-	geth->freeq_ring = NULL;
-	return -ENOMEM;
-
-so after a failed re-allocation freeq_pages still points at the kfree()d
-array and num_freeq_pages keeps the new count.  geth_resize_freeq() then
-re-arms the interrupt without looking at ret:
-
-	ret = geth_setup_freeq(geth);
-	...
-	en |= SWFQ_EMPTY_INT_BIT;
-	writel(en, geth->base + GLOBAL_INTERRUPT_ENABLE_4_REG);
-
-and because freeq_order was already set to new_order before the failed
-setup, every later call returns early:
-
-	if (geth->freeq_order == new_order)
-		return 0;
-
-Does that leave the interface openable with no free queue while the
-free-queue interrupt is armed, so gemini_port_irq_thread() ->
-geth_fill_freeq() reads the freed array:
-
-		gpage = &geth->freeq_pages[pn];
-		page = gpage->page;
-
-and geth_freeq_alloc_map_page() writes through the NULL freeq_ring?  Would
-it make sense for geth_cleanup_freeq() to clear freeq_ring, freeq_pages and
-num_freeq_pages so the new "if (geth->freeq_ring)" test actually reflects
-allocation state?
-
-[Severity: High]
-This is a pre-existing issue, but it is the cleanup the patch now calls
-after unregistering the children.  geth_cleanup_freeq() force-drops every
-reference on the RX pages:
-
-		gpage = &geth->freeq_pages[pn];
-		while (page_ref_count(gpage->page) > 0)
-			put_page(gpage->page);
-
-Those pages are handed to the stack as SKB fragments in gmac_rx():
-
-		skb_fill_page_desc(skb, frag_nr, page, page_offs, frag_len);
-
-and geth_fill_freeq() explicitly avoids reusing entries whose page is still
-referenced elsewhere:
-
-		if (page_ref_count(page) > 1) {
-
-Can this loop drop references owned by live SKBs, returning the page to the
-allocator while an SKB queued in a socket or in GRO still maps it?
-Unregistering the netdevs first drains NAPI, but does it end the lifetime of
-SKBs already delivered to sockets?
-
-[Severity: High]
-The commit message says the goal is to avoid "free[ing] the queue while a
-port or its threaded free-queue IRQ handler still uses it", but is that true
-for the other free site?
-
-geth_resize_freeq() performs the identical free, protected only by masking
-the enable bit:
-
-	spin_lock_irqsave(&geth->irq_lock, flags);
-	en = readl(geth->base + GLOBAL_INTERRUPT_ENABLE_4_REG);
-	en &= ~SWFQ_EMPTY_INT_BIT;
-	writel(en, geth->base + GLOBAL_INTERRUPT_ENABLE_4_REG);
-	spin_unlock_irqrestore(&geth->irq_lock, flags);
-
-	/* Drop the old queue */
-	if (geth->freeq_ring)
-		geth_cleanup_freeq(geth);
-
-geth_cleanup_freeq() holds neither freeq_lock nor irq_lock and there is no
-synchronize_irq().  Since gemini_port_irq() masks the same bit itself and
-returns IRQ_WAKE_THREAD, an already-dispatched gemini_port_irq_thread() ->
-geth_fill_freeq() can run concurrently, take only geth->freeq_lock (a lock
-the cleanup path never takes), walk the freed freeq_ring[]/freeq_pages[],
-and then re-enable the interrupt the resize path just masked.
-
-The freeq threaded IRQ is registered at probe independent of netif state, so
-can this race be hit on a sibling port's gmac_open() or on
-gmac_set_ringparam() for a down port, leaving the bug the commit claims to
-close still reachable?  Should the resize path get the same drain treatment,
-or should the queue free be serialized against freeq_lock?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917192835.58126-1-mhun512%40gmail.com
+> and we cannot use your above 'full' encoding for wY +=3D 5.
+> Currently we use BPF_ADD_CONST32 for wY +=3D 5
+> I don't see how 'full' can work.
