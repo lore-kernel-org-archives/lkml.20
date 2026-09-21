@@ -1,174 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42DC8475342;
-	Mon, 21 Sep 2026 15:46:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC644B95B3
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:47:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790005592; cv=none; b=n3/kYN3/eiG5wUqeawIURwh3h89qrMQ0+6R1aePTiaiCUMdezoMUlHx1yUkwdQ6qGACmgtIqGqnQWTjx9AgDpjg3kc19ROnPVftYpbbvDR1eDjTUaYkjZRRldqptAlRI02ycg8MJh6AB4CiMyY/54UM50ymEPDufc8TTbJSptDs=
+	t=1790005630; cv=none; b=Rd9D6TH2xdG0HFQ3z+Mp/7Ei99J06uHAd40TGr3gVpedZhCULpub5JE+wp0kz+1ouJN2VoDbDWwwIQuhQ6IdEcJEKhE1oYiutl7sJwkQBPYb6vpo6X6ly/+TeOZFG1eDlG9lLeEHZwKgujxjbfzFCyFpS0LQ/tdnCxjE2F6/Uvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790005592; c=relaxed/simple;
-	bh=YH7dd7nmVDIYpExQlL40HE59/Q1O3Y6Z22Cro4sosHA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aC1ZMXUTVypl+u6UNylwBYnNsnzZ32qCs8aOgRmRAIaYBclH/Bp7/WJ7mcPYUxWGlE027uRzt9yGRtXv/UT3aWvsVhoM0YhtOK5XrKdwFMgQDwccbCBtvZbHiWRMXmQIukQkxBm4ST/jctOBbq68tjQIOrxBwC86Ql6ehJuhYoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Awjc7CQ5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790005630; c=relaxed/simple;
+	bh=C4xwW2mOduY+1qJomfHxU2ms1BcQsIMtec0pb8iWWZE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RfFkwFrbhvfd3MU5tKguj8plkVI4/Yoo40ZNjQFgsx5hmAJzMsj5udAEgJHidOL9afV2YZAXciyOjDpJbKgkzsfysFELmzr8ArGYUAK7x0sCU91u+V5aJu1FTD6zAtQDGP0813z3kZqkWbCVmUK0rnL9xbcgYOIgcvuNMrdaLe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EeY0AY4C; arc=none smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Awjc7CQ5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3DDB1F000FF;
-	Mon, 21 Sep 2026 15:46:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790005590;
-	bh=wtAWY4UOgMsDtGmwPaOVo/YohvZdMJTG3nDB7UNWK3c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Awjc7CQ5UAPLZEFbtu6Dr7+Ugo9fVa98qwiPwJ4+sPPjKHIR+2lq5Py4bYSRcD9vU
-	 BN+msvop/XqRX2hXl9RkOiuyIMuHTn158g29NB6tapfs6Z9XInEPOS3qpNadBCf4mp
-	 S/kxtfKP4ganLGDw9slJQhrEZqe4H/+Y7YOlbhcqDzNG6pcR4slGz3HNEUeT5a6ib2
-	 5k0IMdDenXatIBX8YNx/nTnJcP9SsWftWtI3cDOJyGALoDRoZ6ty8nq7KaAHSdgOkV
-	 MBpGKsoj6GV2zajYYBl32o1mVen6VO3jRoBdjf3QGszzBh/OvbxA3b4f1FvjvqRPOQ
-	 270qpH7qVD0KQ==
-Date: Mon, 21 Sep 2026 17:46:22 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-pci@vger.kernel.org, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v4 5/6] PCI: dwc: rcar-gen4: Handle PERST via reset
- subsystem
-Message-ID: <zwdqspl2uno35uffgzsel57ed2umpejgfeqrkwvxiqd2pgfpm6@h6w3qsgc6rny>
-References: <20260905212649.360498-1-marek.vasut+renesas@mailbox.org>
- <20260905212649.360498-6-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EeY0AY4C"
+Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc750a1482fso167601a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:47:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790005628; x=1790610428; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vqoyuLnxl7hAbksadhiNpkBzn5St1OFv+pfKgvkEAqY=;
+        b=EeY0AY4CEzemyQ/eUCBkvoGnbNL7SrzBiOo5U8J+MEVOqEN138vceTAVwqSPSvTa6a
+         TEOqD0VJAuS/nYTcJUrx/8Wjp3c2JX62gU+VgZ9JU4S8g0RhL2tDeaK7J0umGpgeFWSV
+         sfkbJ0yLF2QYjMBXPFVMn8JxyshNORytUA7qt7plrdbFCcM5uypbDdBqpC0LYumyqyQW
+         BwZ+KqBk0Oiv1waiMoSNXHq8q7Exo2eaEE3kf7L/gOAhinmpeROxEURbvr4v2WoIVWc/
+         qnDebq1PeknrO2pCpJ/a9vOW7hgcjpewabTbUIFkMwKl4gYjRAkNKzy7SqaOZPmMnxwB
+         zEAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790005628; x=1790610428;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vqoyuLnxl7hAbksadhiNpkBzn5St1OFv+pfKgvkEAqY=;
+        b=iyvfRK5hyIi+Y1Du0k+v6d4fg8bcSLnwUlaTfXwsd1LLGY7vd0wBNGg70sGg5hi56J
+         ZXoS0o2C+gnnHMGKqrE9Qh8J5D28Yxp/SKlQYEdHRDH45lD3PwFlyf8ihJFzUG4/51y/
+         Ohk+x1AQg0As+7qUANIdMzFXbtvxmzu0GAzXCFjpc6l4CyeHrXA/iFyoALUjgHlDcZGC
+         KyLrJsI7DjaWbFVMHQLwucvBK15ReKGZnRq9A0aJs32PTGvcdzX8UCCpHhEM+qP/xEJi
+         QPVcZj4hmTCUrC1VxBuvE8WZ/Kh2XKUblXZwMZGt9GcUMneUsm1nUlNyqxkk2cBFyvp8
+         rJqw==
+X-Forwarded-Encrypted: i=1; AKwUvBzFcrsaTU/tZGo3jkFXNtpmmLx9PZJJADxtzr9Y8/vegtfjCCT/i+ySEBZLlrbt4YNu62Wh3exFl0UZPrU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrauwQJ8h1z6zvS4xkv0RnWYo+GB3lWS0pTTK1Ljn/l0a2x4co
+	DgFo8kzlYxRBX9zI/ePfbRlcD0QvOYsULl87PezqTjzZsD/hBSFPnhGi
+X-Gm-Gg: AYBFou0sVJ9ZDF9S/KetisbI4aSmRLUgo/9tVKdYh4VdGd9rcISNcwnchz/7c3zLfBe
+	QfnzJ/IiTBH+wf4M+4gy/qm/niiZZt+c/1FiRxVGpI3mHLk3wvtHvHpdhgK1zFAC7jrcRh2IBCs
+	WfY8NQKSgRGMvlB1wQw+TeofJcclc2o+O1Rc/bzbHcNiIcpP44bkksCgLXtUncpEYZfDpt/H6F1
+	ZBNbMv9Kfz9LSUT7fk68ewyqWAI+uYD/yHFbt3+9/wfh/Pi7zJ+pQHpHAFVc/qEcZiXdbi6mAMv
+	syHfjivicFemb141JHI5+5P8ZCgMVzjm4FGvXogwzg2bmFtIdfucz09BP9f7czrkGKvJUX63Cjr
+	ldEAT+0Td6GDBlY3ERaRySU4lHrLznowbUbdWXZ4Wrq3FMmSaDlPm+KSdRhfHG1ljar9YcI4gAP
+	vUkmhu2slAWDJpNe4HWtk5RfxMUzQiO1LwtSZfRCH2Vf6y0CKfKE6PQEdFZNnFbLQ8J/arQWvis
+	+dYkCqy7U7BfeCuBm9kfgJaw4VHU0IpAmd9SB2CDWj/b2Sm
+X-Received: by 2002:a17:90a:d648:b0:39e:6c6a:6577 with SMTP id 98e67ed59e1d1-39e6c6a67b4mr9499408a91.58.1790005627594;
+        Mon, 21 Sep 2026 08:47:07 -0700 (PDT)
+Received: from archlinux ([205.254.163.69])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e554e5529sm7838802a91.4.2026.09.21.08.47.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 08:47:07 -0700 (PDT)
+From: Suchit Karunakaran <suchitkarunakaran@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev
+Cc: song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	john.fastabend@gmail.com,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Suchit Karunakaran <suchitkarunakaran@gmail.com>
+Subject: [PATCH] bpf: add diagnostics for rejected memory and map accesses
+Date: Mon, 21 Sep 2026 21:16:50 +0530
+Message-ID: <20260921154650.130677-1-suchitkarunakaran@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260905212649.360498-6-marek.vasut+renesas@mailbox.org>
 
-On Sat, Sep 05, 2026 at 11:26:26PM +0200, Marek Vasut wrote:
-> Handle PERST via both GPIO and reset subsystem. On R-Car Gen4, the
-> PERST signal is operated as a GPIO, on R-Car Gen5 it might only be
-> accessible via SCMI reset via reset subsystem. Support both options.
-> This is a preparatory patch for R-Car Gen5 support.
-> 
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> Cc: Manivannan Sadhasivam <mani@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-pci@vger.kernel.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
-> V2: - Use dev_err_probe() for perst in rcar_gen4_pcie_get_resources()
->     - Use of_get_next_available_child() to obtain root port OF node
->     - Switch to of_reset_control_get_optional_exclusive() to deal with
->       R-Car Gen4, where the PERST is handled as GPIO instead of reset
->     - Rename rcar_gen4_pcie_host_perst() to rcar_gen4_pcie_host_perst_assert()
->       and use bool type for assert and deassert selection
->     - Add missing reset_control_put() into rcar_gen4_pcie_probe() fail path
-> V3: - Handle controllers without root port DT node
->     - Swap fail path order
-> V4: Rebase on next-20260904
-> ---
->  drivers/pci/controller/dwc/pcie-rcar-gen4.c | 44 +++++++++++++++++++--
->  1 file changed, 40 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> index c768a9c7b3b76..89472a4becc46 100644
-> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> @@ -99,6 +99,7 @@ struct rcar_gen4_pcie {
->  	void __iomem *base;
->  	void __iomem *phy_base;
->  	struct platform_device *pdev;
-> +	struct reset_control *perst;
->  	const struct rcar_gen4_pcie_drvdata *drvdata;
->  };
->  #define to_rcar_gen4_pcie(_dw)	container_of(_dw, struct rcar_gen4_pcie, dw)
-> @@ -317,12 +318,27 @@ static void rcar_gen4_pcie_unprepare(struct rcar_gen4_pcie *rcar)
->  
->  static int rcar_gen4_pcie_get_resources(struct rcar_gen4_pcie *rcar)
->  {
-> +	struct device *dev = rcar->dw.dev;
-> +	struct device_node *root_port;
-> +
->  	rcar->phy_base = devm_platform_ioremap_resource_byname(rcar->pdev, "phy");
->  	if (IS_ERR(rcar->phy_base))
->  		return PTR_ERR(rcar->phy_base);
->  
-> +	root_port = of_get_next_available_child(dev->of_node, NULL);
-> +	if (root_port) {
-> +		rcar->perst = of_reset_control_get_optional_exclusive(root_port, "perst");
-> +		of_node_put(root_port);
-> +		if (IS_ERR(rcar->perst))
-> +			return dev_err_probe(dev, PTR_ERR(rcar->perst), "Failed to get PERST#\n");
-> +	} else {
-> +		rcar->perst = NULL;
+Emit structured verifier diagnostics when BPF programs are rejected for
+unsupported or prohibited memory operations. Cover sign-extending arena
+loads without JIT support, read/write access restrictions on maps, writes
+through read-only pointers, direct packet writes, and modifying helpers
+used with BPF_F_RDONLY_PROG.
 
-'rcar->perst' is NULL by default.
+Signed-off-by: Suchit Karunakaran <suchitkarunakaran@gmail.com>
+---
+ kernel/bpf/fixups.c   |  5 +++++
+ kernel/bpf/verifier.c | 16 ++++++++++++++++
+ 2 files changed, 21 insertions(+)
 
-> +	}
-> +
->  	/* Renesas-specific registers */
->  	rcar->base = devm_platform_ioremap_resource_byname(rcar->pdev, "app");
-> +	if (IS_ERR(rcar->base))
-> +		reset_control_put(rcar->perst);
->  
->  	return PTR_ERR_OR_ZERO(rcar->base);
->  }
-> @@ -494,6 +510,22 @@ static int rcar_gen4_pcie_enable_device(struct pci_host_bridge *bridge,
->  	return 0;
->  }
->  
-> +static void rcar_gen4_pcie_host_perst_assert(struct dw_pcie_rp *pp, bool assert)
-> +{
-> +	struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
-> +	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
-> +
-> +	gpiod_set_value_cansleep(dw->pe_rst, assert);
-> +
-> +	if (!rcar->perst)
-> +		return;
-> +
-> +	if (assert)
-> +		reset_control_assert(rcar->perst);
-> +	else
-> +		reset_control_deassert(rcar->perst);
-
-So the controller will only have one form of PERST# implemented at a time. Even
-though this code is technically correct, it also gives an impression that both
-form could co-exist.
-
-So I'd recommend using:
-
-        if (dw->pe_rst) {
-                gpiod_set_value_cansleep(dw->pe_rst, assert);
-        } else {
-                if (assert)
-                        reset_control_assert(rcar->perst);
-                else
-                        reset_control_deassert(rcar->perst);
-        }
-
-to makes it clear that only one form of PERST# is supported.
-
-I'll implement both of these changes while applying.
-
-- Mani
-
+diff --git a/kernel/bpf/fixups.c b/kernel/bpf/fixups.c
+index 2add8001c3ec..b8baf77d933e 100644
+--- a/kernel/bpf/fixups.c
++++ b/kernel/bpf/fixups.c
+@@ -9,6 +9,7 @@
+ #include <linux/sort.h>
+ #include <linux/perf_event.h>
+ #include <net/xdp.h>
++#include "diagnostics.h"
+ #include "disasm.h"
+ 
+ #define verbose(env, fmt, args...) bpf_verifier_log_write(env, fmt, ##args)
+@@ -958,6 +959,10 @@ int bpf_convert_ctx_accesses(struct bpf_verifier_env *env)
+ 			if (BPF_MODE(insn->code) == BPF_MEMSX) {
+ 				if (!bpf_jit_supports_insn(insn, true)) {
+ 					verbose(env, "sign extending loads from arena are not supported yet\n");
++					bpf_diag_policy(
++						env, i + delta, "sign-extending arena load",
++						"the current JIT does not support this load instruction for arena memory",
++						"Use a kernel and architecture with JIT support for this arena load.");
+ 					return -EOPNOTSUPP;
+ 				}
+ 				insn->code = BPF_CLASS(insn->code) | BPF_PROBE_MEM32SX | BPF_SIZE(insn->code);
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index 3a676fc70f4b..ebfa53930276 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -4365,12 +4365,18 @@ static int check_map_access_type(struct bpf_verifier_env *env, struct bpf_reg_st
+ 	if (type == BPF_WRITE && !(cap & BPF_MAP_CAN_WRITE)) {
+ 		verbose(env, "write into map forbidden, value_size=%d off=%lld size=%d\n",
+ 			map->value_size, reg_smin(reg) + off, size);
++		bpf_diag_policy(env, env->insn_idx, "map value write",
++				"this map does not permit BPF programs to write its values",
++				"Remove the write, or use a map that allows writes from BPF programs.");
+ 		return -EACCES;
+ 	}
+ 
+ 	if (type == BPF_READ && !(cap & BPF_MAP_CAN_READ)) {
+ 		verbose(env, "read from map forbidden, value_size=%d off=%lld size=%d\n",
+ 			map->value_size, reg_smin(reg) + off, size);
++		bpf_diag_policy(env, env->insn_idx, "map value read",
++				 "this map does not permit BPF programs to read its values",
++				 "Remove the read, or use a map that allows reads from BPF programs.");
+ 		return -EACCES;
+ 	}
+ 
+@@ -6527,6 +6533,9 @@ static int check_mem_access(struct bpf_verifier_env *env, int insn_idx, struct b
+ 		if (t == BPF_WRITE && rdonly_mem) {
+ 			verbose(env, "%s cannot write into %s\n",
+ 				reg_arg_name(env, argno), reg_type_str(env, reg->type));
++			bpf_diag_policy(env, insn_idx, "write through a read-only memory pointer",
++					"this pointer permits reads only",
++					"Use a writable destination, or copy the data into a writable buffer before modifying it.");
+ 			return -EACCES;
+ 		}
+ 
+@@ -6613,6 +6622,9 @@ static int check_mem_access(struct bpf_verifier_env *env, int insn_idx, struct b
+ 	} else if (reg_is_pkt_pointer(reg)) {
+ 		if (t == BPF_WRITE && !may_access_direct_pkt_data(env, NULL, t)) {
+ 			verbose(env, "cannot write into packet\n");
++			bpf_diag_policy(env, insn_idx, "direct packet write",
++					"direct packet writes are disabled for this program type",
++					"Remove the direct write, or perform the modification in a program type and hook that support packet writes.");
+ 			return -EACCES;
+ 		}
+ 		if (t == BPF_WRITE && value_regno >= 0 &&
+@@ -11188,6 +11200,10 @@ record_func_map(struct bpf_verifier_env *env, struct bpf_call_arg_meta *meta,
+ 	     func_id == BPF_FUNC_map_push_elem ||
+ 	     func_id == BPF_FUNC_map_pop_elem)) {
+ 		verbose(env, "write into map forbidden\n");
++		bpf_diag_policy(env, insn_idx,
++				bpf_diag_fmt(env, "call to %s", func_id_name(func_id)),
++				"this helper modifies the map, but BPF_F_RDONLY_PROG forbids modifications from BPF programs",
++				"Remove the modifying helper call, or use a map created without BPF_F_RDONLY_PROG if updates from BPF programs are intended.");
+ 		return -EACCES;
+ 	}
+ 
 -- 
-மணிவண்ணன் சதாசிவம்
+2.55.0
+
