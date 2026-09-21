@@ -1,209 +1,107 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5111F4A092E
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:26:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEB13BE631;
+	Mon, 21 Sep 2026 14:26:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790000769; cv=none; b=ai9G/CAQpv3DiQwSDng4Fd4SXWrMVmMYc3QdDvTo1tT5i9Asmbuq5L1L1mgD5kWkhVwYhlYTYHYQE79wJV/trMyZmvCctJdSYU+7AGLgE0cLb1Yk3Gjv9tBSjtQLFfM+jlxl16m0ViIxlrDe5p46TlCTWoFb4Ov3uszhu94oWk8=
+	t=1790000781; cv=none; b=l9FCD2cGyXHfQuEBd5mKRJN8VS1au1H/xrn+/7kjqbGyE2Jqqdq7fROj53QEGmzb/DUhGt0OuxJSCp6a5ZMZLXO0irf5vof1KUqWMpBnX0HS2uRX2c96K7TmvadoRtos/jOAayZruDMOFoxghF0CZfObmqfJlEIZWY2XiSx4wtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790000769; c=relaxed/simple;
-	bh=u79GVvIrNgovGs36Fao9Rh6cQHN/TgXSWpa2Q+lis6o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MKs6KRsVRL3MJom6EyxyT7kuwoXyrk/Cq2gGt1x6kPbf3mVKcXOun45D0AhpkGCkbTl7wiJweNYVSMGDNjJBp98IWD2C43n/zX5Q91SwZbVe27U6d0u1RuR7jVTzQZ4TtB41HgRnKsMAFKYPNkLP2SVlk4nQBpmk2cMwqRd7NvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=l1Ea1RHV; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790000781; c=relaxed/simple;
+	bh=mp3SIzHgzjXTyT2ROhofVtctd6WZrfVD8Gqbw4AhVMI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=djHyxsRZTGGcNzC3cKgI+0UXoQnZ3Ndjav/d+bwJUxTXF4NK8bTSYk7F6HYS/qQ8DK3HSaflj3l1padWNjCohgW4E9CXAyqpD3Q/mEl8OaTrkL1Hz6Q+gB5UzQ2EfThhU6glA++oo55RuR4zTx/vTe3WnpZL4sbaY+93mZST6fk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Rm6o13Rw; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="l1Ea1RHV"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d822dso21250825e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:26:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790000765; x=1790605565; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fKaXtSv/kbKul4ZN5Cjuy3lIzweY+anlAeJnxQKsOuk=;
-        b=l1Ea1RHVmAsB0z7ojHjSr2xmmjYcjdH0qvg0JMOGJQm6HSEco0QARF+Rot97So+0Y/
-         ZlBB6qtQCXX4ZD337dxI2fAvQc3yjy2AZn/pbHgEqZqQDAXN9ftI9i/DYoGpFQXCxJU3
-         MiHACGJOxC9SKBWXtPs6jj7NKH7tilEDNChcgcDne8CE9OubcnSt54bEH+yquwgIJO4L
-         gdPwFGCOWuaJWPnC3NppLC1Ay6xqzewUGfyFCrSV/g4BMhCmlftKFYdAZPvQKjLbFeeD
-         lQqNgz9xk3VeYRoDoB59ZO89uJSyqG5YsUt1bvVD9Y5WutWv055qKBvofEqxmGvmhObw
-         kjtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790000765; x=1790605565;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fKaXtSv/kbKul4ZN5Cjuy3lIzweY+anlAeJnxQKsOuk=;
-        b=vnwn70UIYVBm9DcMmGfWnS2fYRqyaRb9ZgKyJloE4+PX/poJglavugXUP25JJKtwKx
-         Zw+hdOM0Xz4I3BHIbbo4oiVTzTmGsmldMI9SBh+WFPBuDS4pti2GW2mMN3/IXUmSPrpE
-         nR07l9a2obhf7ga1b7wo7iAgf474lMq8ML5+cUITzgStVDAANrRFMtNF9++zVYa7Tv4z
-         rYXxC0o13nyymuikBvfcVta/vXAxDY7PAU81+mRBQnDqKfhw1Oq4vDMaK5cnjpQPLj1y
-         4rYSrbdIUtPO88dn54baCLOsitbQ/SCXB4tDUWOhHi9duPPqaFl9RrRpZcaTQgazgeSW
-         WXNg==
-X-Forwarded-Encrypted: i=1; AKwUvBx1PYax0xD4GmOorBvQxgoo/V4Fj6coDHBojO5vUr9bSMrGhWgfMPXASD3XFnYDemVwmFqG//yNEnUQA48=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmDEU7adg+QaFRWEVtno8Jb0LLRIta1KNvJoT4j98sF9802Vcw
-	pSM4ApmL6Ydm5LBpGc8Nwd9cSTNDHIYALwo7erA3PSyDkF3jrOOd53ZJWK8GztlOuRs=
-X-Gm-Gg: AYBFou1va3DXOQNgrv8rbyVk7Cdid0E9cuBQbIawl0J1JZYeXGgniYvrj9VauLo0fLw
-	ospo0SsgifbHi7PJ6pLHLWj4eZ8eZBbjQpw5Rrg8SDasp0Hr0AgEHaK4pOGCqrTRAcW0B4u7RSq
-	ELtROxhnIrNW3ENrPeRvqVOsyqOejaADpSzIYKr6QDworEOJisyaH+kLfkvjK+FWNSpaZ/0IzuZ
-	7IP6GwUl/N+5MgsZ0+vXkHdq6mJqu4dMzsjaJlvqFqxVB0ixLp5KSwZn1Mt5dyUKfXTDjRx/0Na
-	agvd6YfVwsh7BsQi7JLrMQWtfI0PyarzKVoAGCjA8a42aL+wsL8hqwe55L82FJ+uhFtwiSxhM/h
-	Eoab7GnXYJv3yTXdQGMNVcnWrtbj6g8f8dT/v8NsGeUmUfAVaISVvHbISmaWuzy771l+F6EYfA8
-	QQzVm4fwECj/7zv6LeN0CCbn7/LZrDUFoMnK31iP1al225b5Pz1+sZ5cMAqb/NcyiI1tcRCeFNm
-	aWFNkDKeQwpSOeOhZmO8ZxWRal394cXrncr1Ck2mqoIpFax9gcb+DDgonWmlQ==
-X-Received: by 2002:a05:600c:c8f:b0:49e:6c9b:4e94 with SMTP id 5b1f17b1804b1-49fc5743124mr150664255e9.28.1790000765458;
-        Mon, 21 Sep 2026 07:26:05 -0700 (PDT)
-Received: from localhost (p200300f65f19a904d4f76eed31f2ef79.dip0.t-ipconnect.de. [2003:f6:5f19:a904:d4f7:6eed:31f2:ef79])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4872459f446sm21874677f8f.35.2026.09.21.07.26.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 07:26:04 -0700 (PDT)
-Date: Mon, 21 Sep 2026 16:26:03 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	"Ola Chr. Vaage" <ola.christoffer.vage@scoutdi.com>
-Subject: Re: [PATCH v2 3/3] pwm: tegra: Implement .get_state()
-Message-ID: <arE932ZcHGB8RAN6@monoceros>
-References: <cover.1789741839.git.u.kleine-koenig@baylibre.com>
- <b72b16cf704aa662a1b49805db284379d4fa4050.1789741839.git.u.kleine-koenig@baylibre.com>
- <arEAjOHU4rH5aGqb@orome>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Rm6o13Rw"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4e975bb44;
+	Mon, 21 Sep 2026 22:26:14 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Kristen Carlson Accardi <kristen.c.accardi@intel.com>,
+	Kenji Kaneshige <kaneshige.kenji@jp.fujitsu.com>,
+	Jesse Barnes <jbarnes@virtuousgeek.org>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] PCI: pciehp: Make poll mode parameter read-only
+Date: Mon, 21 Sep 2026 22:26:08 +0800
+Message-Id: <20260921142608.270312-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qkbghpdorbcu5kso"
-Content-Disposition: inline
-In-Reply-To: <arEAjOHU4rH5aGqb@orome>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0c45c3c0703a1kunm1f89033851d4c
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQxoaVkJLHR8fTkxKGh1CSlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=Rm6o13RwsZf9tAms+rS6ujTjIIyt2GZXSpiTdPZPA8UBgYBTgLkBGabe1+FXkmcYPTRp7vuMlit5tiUEXgoUwuvqKfPLSiu3ZDfFZf+2myKjrcEmVr7ahMNyYXkWDDqbCKeSngvsQVjP7LKVdCwag/0UdBvZWFujmObVD17kAdU=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=wGeHVqHuI581tDU0SIFx8MRzBjVOO5nbwQIbAHzuQq4=;
+	h=date:mime-version:subject:message-id:from;
 
+pciehp_request_irq() and pciehp_free_irq() select different resources
+based on the global pciehp_poll_mode parameter. The parameter is
+currently writable through sysfs, so changing it while a controller is
+active can make teardown stop a nonexistent polling thread or call
+free_irq() for an IRQ that was not requested.
 
---qkbghpdorbcu5kso
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 3/3] pwm: tegra: Implement .get_state()
-MIME-Version: 1.0
+Keep the parameter available for boot and module configuration, but
+prevent runtime changes to the registration mode.
 
-Hello Thierry,
+Reproducer:
+Boot an x86_64 guest in QEMU with a native PCIe hotplug root port and an
+e1000 device, using these device options:
 
-On Mon, Sep 21, 2026 at 12:18:16PM +0200, Thierry Reding wrote:
-> On Fri, Sep 18, 2026 at 04:33:47PM +0200, Uwe Kleine-K=C3=B6nig wrote:
-> > The registers of the PWM IP are readable. Use that to implement the
-> > .get_state() callback.
-> >=20
-> > Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
-> > Tested-by: Ola Chr. Vaage <ola.christoffer.vage@scoutdi.com>
-> > Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com>
-> > ---
-> >  drivers/pwm/pwm-tegra.c | 48 +++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 48 insertions(+)
-> >=20
-> > diff --git a/drivers/pwm/pwm-tegra.c b/drivers/pwm/pwm-tegra.c
-> > index b461d3877f43..0520d025c776 100644
-> > --- a/drivers/pwm/pwm-tegra.c
-> > +++ b/drivers/pwm/pwm-tegra.c
-> > @@ -310,8 +310,56 @@ static int tegra_pwm_apply(struct pwm_chip *chip, =
-struct pwm_device *pwm,
-> >  	return err;
-> >  }
-> > =20
-> > +static int tegra_pwm_get_state(struct pwm_chip *chip, struct pwm_devic=
-e *pwm,
-> > +			       struct pwm_state *state)
-> > +{
-> > +	struct tegra_pwm_chip *pc =3D to_tegra_pwm_chip(chip);
-> > +	int rc;
-> > +	u32 val;
-> > +
-> > +	rc =3D pm_runtime_resume_and_get(pwmchip_parent(chip));
-> > +	if (rc)
-> > +		return rc;
-> > +
-> > +	val =3D tegra_pwm_readl(pwm, pc->soc->enable_reg);
-> > +	if (val & TEGRA_PWM_ENABLE) {
-> > +		u32 scale, pwm0;
-> > +
-> > +		if (pc->soc->enable_reg !=3D TEGRA_PWM_CSR_0)
-> > +			val =3D tegra_pwm_readl(pwm, TEGRA_PWM_CSR_0);
-> > +
-> > +		scale =3D (val >> TEGRA_PWM_SCALE_SHIFT) & ((1 << pc->soc->scale_wid=
-th) - 1);
-> > +		pwm0 =3D (val >> TEGRA_PWM_DUTY_SHIFT) & (2 * TEGRA_PWM_DEPTH - 1);
-> > +
-> > +		if (pwm0 > TEGRA_PWM_DEPTH)
-> > +			pwm0 =3D TEGRA_PWM_DEPTH;
->=20
-> It feels like this has too many assumptions built-in. That's mostly a
-> predefined issue, but I think if we want to get accurate hardware read-
-> out, we need to address this.
->=20
-> According to the register documentation, the PWM depth is 16 bits wide
-> (on generations where it can be programmed). The value defaults to 255
-> (which is n - 1 encoded, hence TEGRA_PWM_DEPTH), but it can technically
-> be reprogrammed to any 16-bit value, as far as I can tell.
->=20
-> So I think for this to be correct we'd need to read out the actual value
-> before overwriting with TEGRA_PWM_CSR_0 contents above. At that point I
-> think we'd need to either adjust the mask to be (2 * depth) - 1, or
-> maybe better yet, avoid masking it out arbitrarily based on the depth
-> and instead cap it at depth so we never exceed the 1:1 ratio for duty
-> cycle vs. period.
+    -device pcie-root-port,id=rp1,chassis=1,slot=1
+    -device e1000,bus=rp1
 
-As long as .apply() also hardcodes TEGRA_PWM_DEPTH, it's IMO fine that
-=2Eget_state() does so, too.
+Pass pcie_ports=native pciehp.pciehp_poll_mode=1 to the guest kernel.
+As root in the guest, replace the device name below with a bound pciehp
+service device and run:
 
-> > +		/*
-> > +		 * scale + 1 is at most 1 << 17, TEGRA_PWM_DEPTH is 256, so the
-> > +		 * multiplication for .period doesn't overflow a u64. With
-> > +		 * pwm0 =E2=89=A4 TEGRA_PWM_DEPTH, .duty_cycle is also fine.
-> > +		 */
-> > +		*state =3D (struct pwm_state){
-> > +			.period =3D DIV64_U64_ROUND_UP((u64)(scale + 1) * TEGRA_PWM_DEPTH *=
- NSEC_PER_SEC, pc->clk_rate),
-> > +			.duty_cycle =3D DIV64_U64_ROUND_UP((u64)(scale + 1) * pwm0 * NSEC_P=
-ER_SEC, pc->clk_rate),
->=20
-> Maybe as part of the above this can be broken down a bit to make it
-> easier to read? Something like:
->=20
-> 	u64 duty_cycle =3D (u64)(scale + 1) * pwm0 * NSEC_PER_SEC;
-> 	u64 period =3D (u64)(scale + 1) * depth * NSEC_PER_SEC;
->=20
-> 	...
->=20
-> 	*state =3D (struct pwm_state) {
-> 		.period =3D DIV64_U64_ROUND_UP(period, pc->clk_rate),
-> 		.duty_cycle =3D DIV64_U64_ROUND_UP(duty_cycle, pc->clk_rate),
-> 		...
-> 	};
->=20
-> is a bit easier on the eye and would make checkpatch happy (or happier).
+    dev=0000:00:1c.0:pcie004
+    driver=/sys/bus/pci_express/drivers/pciehp
+    echo 0 > /sys/module/pciehp/parameters/poll_mode
+    echo "$dev" > "$driver/unbind"
+    dmesg | grep 'Trying to free already-free IRQ'
 
-Fine for me, will address in the next revision.
+The unfixed kernel accepts the runtime mode change and reports the warning
+when the service device is removed. The fixed kernel rejects the write and
+removes the device without the warning. The mode change is a deliberate
+privileged test action and is not expected during ordinary operation.
 
-Best regards
-Uwe
+Fixes: 2aeeef119995 ("pciehp: Clean up pcie_init()")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM Codex
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/pci/hotplug/pciehp_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---qkbghpdorbcu5kso
-Content-Type: application/pgp-signature; name="signature.asc"
+diff --git a/drivers/pci/hotplug/pciehp_core.c b/drivers/pci/hotplug/pciehp_core.c
+index 2cafd3b26f344..5ce32dc7e178f 100644
+--- a/drivers/pci/hotplug/pciehp_core.c
++++ b/drivers/pci/hotplug/pciehp_core.c
+@@ -38,7 +38,7 @@ int pciehp_poll_time;
+  * not really modular, but the easiest way to keep compat with existing
+  * bootargs behaviour is to continue using module_param here.
+  */
+-module_param(pciehp_poll_mode, bool, 0644);
++module_param(pciehp_poll_mode, bool, 0444);
+ module_param(pciehp_poll_time, int, 0644);
+ MODULE_PARM_DESC(pciehp_poll_mode, "Using polling mechanism for hot-plug events or not");
+ MODULE_PARM_DESC(pciehp_poll_time, "Polling mechanism frequency, in seconds");
+-- 
+2.34.1
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqxPnkACgkQj4D7WH0S
-/k77Kwf9HxX3gL2kjGUKkvvjXebMyyfQxZRXgqCU/pg12x5boLb18HblbZUDfnsX
-d19SKdoOiLJ/HAWUgKF9O9XA1RN60DhMjkBSUQgOKWd8J0397yW5YcTyoXsWM7FU
-+dLfLHUj9S4Mv12ZWdpUOsAzdqOeJmdcGwby+OE7WjUc7B7mgcHg+SiBL+0QhA+z
-iye5Tag5LBtF/E6nCniBQV40ZFYME87gLKhtnZ6TrIKjGcw0TIEMb+fprw1Zm0ST
-gV1hPx94YVT37Gf1sOCC945uutgq6b7iivRlk0o+wetKxUANXbdbjRbOZ3S98OOL
-8L8Ibx6QLCqRAH4q0ud2Vk+nhi1FQQ==
-=KT2n
------END PGP SIGNATURE-----
-
---qkbghpdorbcu5kso--
