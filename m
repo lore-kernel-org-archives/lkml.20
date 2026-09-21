@@ -1,109 +1,127 @@
-Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com [74.125.225.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from 1.mo564.mail-out.ovh.net (1.mo564.mail-out.ovh.net [178.33.106.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D614F93C7
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:33:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D48564570EE;
+	Mon, 21 Sep 2026 18:34:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.33.106.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790015618; cv=none; b=Fl4uJg+uE35OO0ku8QDxkyiyytdK4yaqGUnDL/tIIw0VsIXSQj4C48RAIN5Zdmn7ywbR/j8VcGnB5uru0njFvcQT55TDVXF1rMGYtishPqeqAtYZMjo9TMkWndCqgVhzgzIW+Ki3ff/4YHRYQTNVjTKBrcFJoGJe/Y4ivVlpWsQ=
+	t=1790015692; cv=none; b=mRQyYzVkBdhmBz39g7PgroL25Ly0cZPMVXNRnAfj2exx3lZPwEsB1HfkH2yGojUrfDirWDojXrBWnqAdA/qDE3fMPziKhgeH4FDOQtLEIqqfbuLatJyWZXf5r7KOLuPgcPZeftiy6H/3HGEhmtf6t3vhnrYtY17oNgbJuW2XIUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790015618; c=relaxed/simple;
-	bh=imLjrTU5t3+H3A0cVIp6sUg0tHEbyxjPqqF20TYdT/Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VUjVZKmtJYMi8E9lN2M8SCbTkzRNcEq7LPXa2ehy0ax1JsaJ5uGyx9xIHtCMBefIOJxLqYsoVJjLHcQcY4BxHXl1wonceHXU1qFUQX3TvElO1cmTw6PQXeDRYJzSK1zuxeOsnd632sdpsGPKQV2uouC5Kj07Zi5Hr7R/Xbzg8TM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PtQPH/ZH; arc=none smtp.client-ip=74.125.225.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790015692; c=relaxed/simple;
+	bh=IevpoNZUdNHiZNaAd8TIxxp6Ai1AoI8OzFr7NwXjpT8=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=Xy8JjDMjzICJaW/e11oY+idXWPaYpQsdvRHxzgPmpsYGyevl9UmnyPytiUIkOUuBB8m75D7rTzv0G2pra7f89OkQdc7jdIWKX84izu25qJLdxM5l8AuuA8MlQIaGEjaOM2YxnjP66zrASn5ZF5AFEWRwa6HAXKf4duP0bXal9rM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=trinity-net.com; spf=pass smtp.mailfrom=trinity-net.com; dkim=pass (2048-bit key) header.d=trinity-net.com header.i=@trinity-net.com header.b=SWCas21S; arc=none smtp.client-ip=178.33.106.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=trinity-net.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trinity-net.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PtQPH/ZH"
-Received: by mail-wr2-f11.google.com with SMTP id ffacd0b85a97d-48351e5bb47so1121678f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:33:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790015615; x=1790620415; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8qwDua38LIyW1TawgxN9o1m0hOow5CaSBoRxma0znMA=;
-        b=PtQPH/ZHdy+itixSuLw+kW0HSNxEJXpuPMVZVJWFbK6pAfGD1mAlz7bxeZAt7ZpY16
-         BnLHaafkJCojR83SDQ7YEqlIoobnVUBpQMz9mbOggapIo6/J6y2GBPg4onlPhcZF4qQR
-         n2d4mo6zwPI6R9UIQR5nyRx4A2YnOSr2kG8vXLA+r3fPRbavOhzxj2vmGqCa94Kre2r4
-         nvc1c7eZ89Kuitn+VimTIifXw5UjX39bs9+OpazRwQfeHbJ/28Wk3QaBWwdtet24n3Ao
-         kBSPlN+42xlAjjQvlXmDepXdX3TOhnNDjzJfpol+vtM+gaJpHl6B5eymyN2GlfBxg7lh
-         c37A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790015615; x=1790620415;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8qwDua38LIyW1TawgxN9o1m0hOow5CaSBoRxma0znMA=;
-        b=obaQvnHJcm8i1Jkft7RyG3hSOoJNTocA48ZszEv3QbVJTj9JOSIOqANamF7SIQIHOZ
-         cuSCaUfLeXhbPYxISNSYOti8J4+uhEYbGi4U35vzhVs5Bikz/hs//scwi4fw0rRvZNBu
-         YxqBTTcVkAfQ/rU+YtcVBGOo0NMzzc6xHdLr+bbcbZPzOFQ5av/URnF18c4PxmV+Ww7s
-         D6Qyasm87NHbg9eA2Zb15NUuat6h1wbkPV8xxlNbm9nTYiIuDJb21WIvv/V7XBG634PX
-         phloW62x/SSRg/G73gQU8TH0pUB4LDrnWIRyWUw5UickMrIPDUlRyNJHxyt20n56UO7n
-         cIWA==
-X-Forwarded-Encrypted: i=1; AKwUvBzgZsC5/wUxKShRYTz2uyrEonuTRTqNubx0lBqf5lMJ2zBSpBp8Q6oLETOgowxRyvWrnd5EFKZqv8mvCHU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kUjMZPFfaN7cpNMH/rvutbB4vE3e+j/1dLYlnPzHKSwFG4YD0u
-	FUIQBteJxlAwT4LPTBH8mXXL4KZjuvivFIM225lgK4EW4ZdZ456OjfWk
-X-Gm-Gg: AYBFou2Bv1ElOeVtBws8ZlfP8Qc+WcE8PUSC1Ba9oBOssMrjrJrc8BKiPzOzIEMCcaK
-	ZjI0QE+PisfrRFVi+vq2m6sMnGH3OMzNmd3zGq4IHkVSmokcZNgOnPTT4HviNmoX8yOu4ygpCkk
-	1wVSNCQewYtFoJlPOAOjPglSZiEGI7EyAYKsBEHy60Sbn0BHbAYLtmMqG98AIGkW2XrdVBTWvEI
-	zo/LkP6M8WI95ePq7h3KCzYr6OuckwDrhSmGAKhcDSiOAV4ZEo02AxtlGe3ws4eU3Kt+bQEelmw
-	VQ1UvKIQ89osc8f8mZ2/jC4f8rcfJIGcHhnNvkjVZuWW6ubGvFyU/XRSMlxUU5tquRKC7W5KiQU
-	KH+4NqCnMS5pBLGUTiBaSCLxxcl0K5D4NbrfBez66PtY6B/oFqyqcY7QNvj0lw+eHJvWO8ii1hN
-	+kJLbBm9asPmQmYMnS4uCokS1S9yq+CBv8PnAEl8tvubbo8hrz5609DF9nb2EjJMHO6pIiXCDAa
-	JpEaKA60ITycVv1
-X-Received: by 2002:a05:6000:2584:b0:487:27f6:a4d5 with SMTP id ffacd0b85a97d-48727f6a645mr11933217f8f.37.1790015614392;
-        Mon, 21 Sep 2026 11:33:34 -0700 (PDT)
-Received: from gbox.chicasongroup.com ([197.210.105.26])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872456ee4esm23679114f8f.21.2026.09.21.11.33.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 11:33:32 -0700 (PDT)
-From: UgwuRhema <hikarialiyev@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: Andy Shevchenko <andy@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] staging: fbtft: fbtft-bus: remove space before close parenthesis
-Date: Mon, 21 Sep 2026 18:33:12 +0000
-Message-ID: <20260921183313.92795-1-hikarialiyev@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=trinity-net.com header.i=@trinity-net.com header.b="SWCas21S"
+Received: from director2.derp.mail-out.ovh.net (director2.derp.mail-out.ovh.net [79.137.60.36])
+	by mo564.mail-out.ovh.net (Postfix) with ESMTPS id 4hpWwY16nJz87rB;
+	Mon, 21 Sep 2026 18:29:33 +0000 (UTC)
+Received: from director2.derp.mail-out.ovh.net (director2.derp.mail-out.ovh.net. [127.0.0.1])
+        by director2.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+        for <marmarek@invisiblethingslab.com>; Mon, 21 Sep 2026 18:29:33 +0000 (UTC)
+Received: from mta7.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.109.231.30])
+	by director2.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4hpWwY0Jt5z1xp3;
+	Mon, 21 Sep 2026 18:29:33 +0000 (UTC)
+Received: from mailstore7.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.1.8.7])
+	by mta7.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTP id 2C3E3B81C5B;
+	Mon, 21 Sep 2026 18:29:32 +0000 (UTC)
+Date: Mon, 21 Sep 2026 18:29:32 +0000 (UTC)
+From: Support TRINITY <support@trinity-net.com>
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: 
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>, 
+	regressions <regressions@lists.linux.dev>, 
+	linux-acpi <linux-acpi@vger.kernel.org>, 
+	linux-pm <linux-pm@vger.kernel.org>, 
+	xen-devel <xen-devel@lists.xenproject.org>, 
+	linux-kernel <linux-kernel@vger.kernel.org>, 
+	Stable <stable@vger.kernel.org>
+Message-ID: <1909296988.289641012.1790015372050.JavaMail.zimbra@trinity-net.com>
+In-Reply-To: <CAJZ5v0geSD8ig9_kcrPZp9FEzF+Oh34HV4F_aqyGF89TYVjDzw@mail.gmail.com>
+References: <905771062.272724286.1789919301858.JavaMail.zimbra@trinity-net.com> <CAJZ5v0gg7kBtEhagR9SYKaPNstPC6aSyP7W4xBjP1r-kzbcH1A@mail.gmail.com> <arFe7-xa3HtCUOHs@mail-itl> <750088883.289173062.1790012799166.JavaMail.zimbra@trinity-net.com> <CAJZ5v0geSD8ig9_kcrPZp9FEzF+Oh34HV4F_aqyGF89TYVjDzw@mail.gmail.com>
+Subject: Re: [REGRESSION] ACPI processor/cpuidle change in 6.18.52 breaks
+ bare-metal Xen dom0 boot
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Authenticated-User: support@trinity-net.com
+Thread-Topic: ACPI processor/cpuidle change in 6.18.52 breaks bare-metal Xen dom0 boot
+Thread-Index: NJLEBWSSWTxHlP+F8t+OBJCvRxFPqg==
+x-ovh-tracer-id: 8614541665962587675
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTGlMSjzMXFz4ipw5mo6C1GD1JTY1bhHZVs/p5Nv78Znzkhq/k5NZSemwOJrLkzTGnUzuV0P/CTidewhj7HXiC0xfdN+5BaQEY8b3Kwct82UB6zjNGfqm7kJb4ttjwgACxdgPLh28GyRgxbQdrzMMGLFU4TEKIBs/Hh/ceN1Ms8ygaAkZa73h/yWpK10Zk+rPH2CFV4DqCBe6v/FcGsC5wPEGnDFVYlvd9IBdmSLOpOraDnlklBSiGLwer90wPuuQCpMujjVvhFtN0P1Oz74+OkrfJx/Jy5A4CUoHvG19uKnRaPEM3CpSTQsCAUgou9SCvuq9JVZsKk9ivIous6fBlSjZ7Z7/Jjn5OzVnC++aJqeBliXUKmxjzvGg2M6Fd0m0BF5aPPVc2cc37vdPCpjL5mXCfVqvzWz4U18syj1KDv4yjaiMSHUk46h3992+zDjBAWdKcBQ6W7VWeiG9YtWP5EimiGuAjzW05zdL4fyq5avG/IGV9b4I/zT3euOpFSSmXC60MqmO9zIXqVc3KJH753bxtVK4VKSCbhNwoX2cX3XzYsiLX8Yvh8tULu32jL5zJ423LULpLitttfsvYREBBOP4sKgzZmb719gBBRa/EV02sDW8ufbUjS6z10SAS7esMwLu1EOHzNBh3dEpP0E4RRroixZggB5S1JvVPhXSCiYtA
+DKIM-Signature: a=rsa-sha256; bh=IevpoNZUdNHiZNaAd8TIxxp6Ai1AoI8OzFr7NwXjpT8=;
+ c=relaxed/relaxed; d=trinity-net.com; h=From; s=ovhmo-selector-1;
+ t=1790015373; v=1;
+ b=SWCas21S6jgUkey7Pctwpi5A1HH+1Teaj1FMFU60FF+y6ADgSfJkAx0zCroA2Q+A+PuHs1+s
+ 1g0+8j4nyaGafOo/4es9hi5OFB+M5U7l00jYO38PRNAQNnGL+DcOBaBlcMynflLysfjtgbK9STj
+ K7peWk5eJEJs2dHYQ+PzyDaJ+nfqJR8HQc7Nq2xTzZ7Z3Di2xncyVKULZt/8C/VfSmKy1tVV3be
+ lVhVJS16oZDxnDLi4BwQgPWxE1DXQLXMexKnIjff0a+HNED62AYx0U8TabTrTaztf4RhgVRR7Gd
+ x4HFNYwju0WotFHLv5drWc7SVfZOP++XWpGv89qzL33hw==
 
-Fix checkpatch.pl errors regarding prohibited spaces before closing
-parentheses in fbtft-bus.c while retaining trailing commas required
-by macro definitions.
+Hello,
 
-Signed-off-by: UgwuRhema <hikarialiyev@gmail.com>
----
-v2: Keep trailing commas in define_fbtft_write_reg invocations to prevent
-    preprocessor build errors from missing macro arguments.
----
- drivers/staging/fbtft/fbtft-bus.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Thank you, that makes sense and matches the behavior I observed.
 
-diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fbtft-bus.c
-index 30e436ff1..38697992f 100644
---- a/drivers/staging/fbtft/fbtft-bus.c
-+++ b/drivers/staging/fbtft/fbtft-bus.c
-@@ -62,9 +62,9 @@ out:									      \
- }                                                                             \
- EXPORT_SYMBOL(func);
- 
--define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
-+define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8,)
- define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
--define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, )
-+define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16,)
- 
- void fbtft_write_reg8_bus9(struct fbtft_par *par, int len, ...)
- {
--- 
-2.55.0
+The Alpine 6.18.52 kernel fails as Xen dom0, while restoring the previous
+ACPI idle registration lifecycle makes it boot again. That is consistent
+with 13ebeef6a1b9 being present in 6.18.y without the later dependency
+that avoids calling acpi_processor_power_init() in the !cpuidle_get_driver(=
+)
+case.
 
+I will try testing 6.18.52 with commit 0089ce1c056a ("ACPI: processor:
+Update cpuidle driver check in __acpi_processor_start()") applied,
+instead of using my lifecycle revert.
+
+If that boots successfully on the affected Alpine Xen dom0 hosts, I will
+report the result here.
+
+Thanks,
+Tony
+
+
+-----Message original-----
+De: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+=C3=A0: Support TRINITY <support@trinity-net.com>
+Cc: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>; Rafa=
+el J. Wysocki (Intel) <rafael@kernel.org>; regressions <regressions@lists.l=
+inux.dev>; linux-acpi <linux-acpi@vger.kernel.org>; linux-pm <linux-pm@vger=
+.kernel.org>; xen-devel <xen-devel@lists.xenproject.org>; linux-kernel <lin=
+ux-kernel@vger.kernel.org>; Stable <stable@vger.kernel.org>
+Envoy=C3=A9: lundi 21 septembre 2026 20:07 CEST
+Sujet : Re: [REGRESSION] ACPI processor/cpuidle change in 6.18.52 breaks ba=
+re-metal Xen dom0 boot
+
+
+On Mon, Sep 21, 2026 at 7:46=E2=80=AFPM Support TRINITY <support@trinity-ne=
+t.com> wrote:
+>
+> Hello,
+>
+> Thank you, this matches what I see on the affected Alpine Xen dom0
+> systems.
+>
+> I also tested Linux 6.18.52 with processor=3Dnocst on the Linux kernel
+>
+> Result: it still fails with the same black screen before dom0 userspace
+> and networking come up.
+>
+> Marek's trace looks consistent with the failure mode I isolated: the
+> crash happens from acpi_processor_power_init() while registering the
+> cpuidle device.
+
+I think I know what the problem is, see
+
+https://lore.kernel.org/linux-acpi/CAJZ5v0h4giv53a2mPvJYT=3DfvBTj7vVXs=3Db7=
++qC2Q2L35qSTOSA@mail.gmail.com/
