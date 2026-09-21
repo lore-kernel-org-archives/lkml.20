@@ -1,265 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.162])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB4C2D8DA8;
-	Mon, 21 Sep 2026 10:01:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE2E2E1746;
+	Mon, 21 Sep 2026 10:01:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.162
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984889; cv=none; b=MLGP+uTGLhHBXQpCfhfbpXmYFh+pWbys5LqV/Ef+24GSxB3kNmAwPOGO1Yy5bBc1DW5MRsiE2PDxgpo7IjChk/fXlSNI+TfMT+CsGKDYc6BlDm046ujW903jCCES6YWt37wcJymwc+ZG4YlsP1qsxX/xFjpaRyIEkKiK3pSpaG4=
+	t=1789984892; cv=none; b=tLm7ltO/8PbLqIyF4Eu0+cMQDhCAPLnBQrvF1oM3XNGg4+3PGwXh2oIlpXSDZFmg6cb8v5CrgTSRvA83KyOIrnCAb7zILw+OyklEtAdNQN/hg+juGU8NKz+XdIZazVheSU3XQ4VvEPzdXySFJu6enI4k5uBKMxyLM3QvRirANtI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984889; c=relaxed/simple;
-	bh=wxaewxrEB+uoU5ttmH9zstsQaabickXV4tjVmy5lPQA=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=lgRLAZi+g2L0SMOImMLtcZfR6LOVNpFwkZ5m31ODNFA4mcA7xu0Yz8aXafZjyySWj1rQWeVHSQV5gVjR6rlxdwgReXVBranpL5/HDVDfXa5wvxHkCjLFchMfCSS5PboEy3KQDMAdNf6+OPg8hBHm82mjwjT6mO4y83EzU/YP/20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QzR4lN1k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789984892; c=relaxed/simple;
+	bh=8EDrVz3B5Ui9t+59/tsVLp1aP1KLxbEoqN01RrOD6w8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=XMq8IQ8U64QovbxYwKaSsqBEE5kEPc/dWwK1GRaRBNzNnWWmXg14CW+iwH4Qsva275cPFZyU76sxhpiKdXc7EgzgTEZ21iKLh66TMzVR7ZQt3n8p4N5JfOS2FI6TtW52n1LmPmht75LXJ6DdM2ad6xiQEiYv0tLqbWpv50cti9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=N+muyZXc; arc=none smtp.client-ip=188.68.63.162
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QzR4lN1k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBBB41F000FF;
-	Mon, 21 Sep 2026 10:01:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789984887;
-	bh=Bsp5Dl9hE7Sk5T9zUzuExl2x6QwWgmYKxou+GHV1kSU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=QzR4lN1kg0hi30PUyeisbzsjNgASRRd0KFFzSlCz3/ozGXL6ceMorp2PDzDhCEQni
-	 wNQx2GO11dP98gSN8DljVDsZmgxsdIra5Je7k++XTAnRx1DphdE0s/8uNLwEmxX8oh
-	 BfU2ws+YoTDp0mWtUErt9o3nDTb8+dD5iapmF6bw2QatLmHC4Xc9gO60vmbZnCG0AT
-	 tqgDpgIQvTp7cOnloG6cTMNDM2jXJFHjTnqYmLYh96shMksTbAviGYjWNInCfX2UcM
-	 wz30fyiGmY5cVNMT/Hnwha087hHZB13XiPr6/2/kMSg7WgGtde54Sz0kuzyh3Kc+H4
-	 UmUE8jRJxCLqA==
-Subject:
- Re: [PATCH] net: macb: rate limit netdev error info print in the data path
-From: netdev-bot+sashiko@kernel.org
-To: taozj888@163.com
-Cc: maintainer@kernel.org, linux-kernel@vger.kernel.org,
- theo.lebrun@bootlin.com, conor.dooley@microchip.com, andrew+netdev@lunn.ch,
- netdev@vger.kernel.org, kuba@kernel.org
-Date: Mon, 21 Sep 2026 10:01:26 +0000
-Message-ID: <178998488647.2160803.1346494444640418442@kernel.org>
-In-Reply-To: <20260920095839.62852-1-taozj888@163.com>
-References: <20260920095839.62852-1-taozj888@163.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="N+muyZXc"
+Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4hpJdV2sb7z4NRn;
+	Mon, 21 Sep 2026 12:00:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789984846;
+	bh=8EDrVz3B5Ui9t+59/tsVLp1aP1KLxbEoqN01RrOD6w8=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=N+muyZXc8ymigm1X4WJYdQfg2FAM32UXD62GkYAoXAwUrk7y9wSeo8wrc/kijMJRV
+	 y5tWKY3o2n02jG8BFKiSIVU0+QItf44A8F/uAvgSzG094QdLpHkIhB2vYGkX46B20i
+	 VN8otbW9QVGTprs7yAikun99LjJZdMuY8JvNPtYmNbSMCRCvzKBQOTZyd8gdjxZZ5l
+	 DyvixvqPU0uzZ2XY48NNI84277giq0riOIyvt5KdUAjXgXxXqYHUF2UnaCKvpjyJhB
+	 wokbeEO1V5wZCwoLz8JbmY9fO/UzY31upQSqXV2mNt9yhCmfs119MpbQUfndGp34Ma
+	 0jJsS2X3dDAMA==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4hpJdV27C2z4NRh;
+	Mon, 21 Sep 2026 12:00:46 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+X-Spam-Flag: NO
+X-Spam-Score: -2.898
+X-Spam-Level: 
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hpJdS65cXz8td8;
+	Mon, 21 Sep 2026 12:00:44 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 5AA1A5FA21;
+	Mon, 21 Sep 2026 12:00:39 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <8aaad113-1952-4655-978d-0cdd8b048064@leemhuis.info>
+Date: Mon, 21 Sep 2026 12:00:37 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] ACPI processor/cpuidle change in 6.18.52 breaks
+ bare-metal Xen dom0 boot
+To: Support TRINITY <support@trinity-net.com>,
+ regressions <regressions@lists.linux.dev>,
+ linux-acpi <linux-acpi@vger.kernel.org>, linux-pm
+ <linux-pm@vger.kernel.org>, stable <stable@vger.kernel.org>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>
+References: 
+ <905771062.272724286.1789919301858.JavaMail.zimbra@trinity-net.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: 
+ <905771062.272724286.1789919301858.JavaMail.zimbra@trinity-net.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178998483973.134331.13310613659725459518@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 5AA1A5FA21
+X-NC-CID: jHAYD1xjKcSrG8HKUMDccnDoibkQCgWtGfye6GROeeyolTZ1i1c=
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 9/20/26 17:48, Support TRINITY wrote:
+>
+> I am reporting a bare-metal *Xen* dom0 boot regression seen with *Linux
+> 6.18.52.*
 
-Critical: 0 (1) · High: 1 · Medium: 0 · Low: 1
+Thx for the report. There is one somewhat important detail that was
+missing (hope I didn't miss it):
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Is latest 7.3-rc also affected? And if it is: does that partial revert
+help there, too?
 
-- [High] Incomplete fix: the patch rate-limits only 4 netdev_err() sites,
-  leaving the equally floodable peer prints in the very same RX/TX data…
-- [Low] The commit message describes a user-visible defect (unbounded
-  console flooding from gem_rx() delaying boot) but carries only a…
+Ciao, Thorsten
+> On affected systems, Linux 6.18.51 boots successfully as Xen dom0 on
+> bare metal, while Linux 6.18.52 *consistently black-screens before dom0
+> userspace/networking comes up.*
+> 
+> #regzbot introduced: v6.18.51..v6.18.52
+> #regzbot title: ACPI processor/cpuidle lifecycle change breaks bare-
+> metal Xen dom0 boot
+> #regzbot link: https://gitlab.alpinelinux.org/alpine/aports/-/
+> work_items/18447 <https://gitlab.alpinelinux.org/alpine/aports/-/
+> work_items/18447>
+> 
+> Tested results:
+> 
+>   * Linux 6.18.51-r0, Xen dom0, bare metal: boots
+>   * Linux 6.18.52-r0, Xen dom0, bare metal: black screen before
+>     userspace/network
+>   * Linux 6.18.52-r0, Xen domU: boots
+>   * Linux 6.18.52-r0 with Xenbus notifier change reverted: still fails
+>   * Linux 6.18.52-r0 with only ACPI processor/cpuidle changes reverted:
+>     boots
+>   * Linux 6.18.52-r0 with refined ACPI idle lifecycle patch: boots
+> 
+> Affected hardware tested:
+> 
+>   * Intel Core i7-4785T thin mini-ITX, 16 GB DDR3
+>   * Intel N305 thin mini-ITX, 16 GB DDR5
+>   * Supermicro / Intel Xeon E5-1650, 32 GB DDR3
+> 
+> The successful boot used the regular Xen command line:
+> 
+> multiboot2 /boot/xen.gz cpufreq=xen:performance
+> module2 /boot/vmlinuz-lts modules=loop,squashfs,sd-mod,usb-storage,xfs quiet
+> module2 /boot/initramfs-lts
+> 
+> No IOMMU workaround, serial console parameter, debug parameter, storage
+> workaround, or Xen command-line change was required.
+> 
+> The regression was narrowed to *ACPI processor/cpuidle* changes between
+> 6.18.51 and 6.18.52, specifically the idle-driver registration lifecycle.
+> 
+> The working 6.18.51-style behavior registers the ACPI idle driver from
+> *acpi_processor_power_init()* and unregisters it from
+> *acpi_processor_power_exit().*
+> 
+> The failing 6.18.52 behavior registers the ACPI idle driver globally
+> from *acpi_processor_driver_init()* before *driver_register().*
+> 
+> A first ACPI-only revert confirmed the regression source. A refined
+> candidate patch was then prepared to preserve the working ACPI idle
+> lifecycle while keeping unrelated 6.18.52 safety fixes, including:
+> 
+>   * _LPI bounds checks
+>   * cpufreq notifier cleanup on *acpi_processor_driver_init()* failure
+> 
+> The refined candidate patch modifies only:
+> 
+>   * *drivers/acpi/processor_driver.c*
+>   * *drivers/acpi/processor_idle.c*
+>   * *include/acpi/processor.h*
+> 
+> It does not modify Xen, Xenbus, IOMMU, APIC, PCI/ASPM, intel_idle,
+> syscore, USB, storage, XFS, networking, printk, or the cpuidle core API.
+> 
+> The earlier cpuidle_disabled() workaround is not included.
+> 
+> The refined patch has been rebuilt and boot-tested successfully as Xen
+> dom0 on bare metal on TRINITY-EDGE.
+> 
+> This issue is currently visible to *Alpine* users because the *Alpine
+> v3.24 *stable repository contains:
+> 
+> alpine-release 3.24.2-r0
+> *linux-lts 6.18.52-r0*
+> 
+> Systems tracking Alpine 3.24 stable / latest-stable may therefore
+> receive Linux 6.18.52 as the default LTS kernel.
+> 
+> Attachments:
+> 
+>   * revert-acpi-idle-registration-lifecycle.patch
+>   * APKBUILD
+> 
+> The original Alpine report is here:
+> 
+> https://gitlab.alpinelinux.org/alpine/aports/-/work_items/18447
+> <https://gitlab.alpinelinux.org/alpine/aports/-/work_items/18447>
+> 
+> Please let me know if this should be submitted as a formal patch with
+> Signed-off-by, or if there is a better upstream fix/dependency that
+> should be backported instead.
+> 
+> Regards,
+> 
+> *Tony BONNIN*
+> 
 
-Pre-existing issues:
-- [Critical] Use-after-free of the skb the network stack still owns:
-  macb_start_xmit() calls macb_pad_and_fcs(&skb, netdev) at…
 
---
-
-net: macb: rate limit netdev error info print in the data path
-
-The patch wraps five netdev_err() calls in the macb receive and transmit
-paths with net_ratelimit(), so a flood of bad descriptors or LSO errors no
-longer prints unbounded messages.  The motivating case is "not whole frame
-pointed by descriptor" repeating from gem_rx() during boot.
-
-No Link: tags were present in the commit header.
-
-[Severity: Low]
-This isn't a bug in the code, but the changelog describes a user-visible
-defect (boot delayed by unbounded printing from gem_rx()) and the patch
-carries only:
-
-  Signed-off-by: Zijin Tao <taozj888@163.com>
-
-Should this carry a Fixes tag and name the intended tree?  The unconditional
-print in gem_rx() goes back to commit 4df95131ea80 ("net/macb: change RX
-path for GEM"), which isn't referenced, and there is no note about whether
-this is aimed at net or net-next.
-
-> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-> index b8234ac4b602..c32d48d03008 100644
-> --- a/drivers/net/ethernet/cadence/macb_main.c
-> +++ b/drivers/net/ethernet/cadence/macb_main.c
-> @@ -1617,16 +1617,16 @@ static int gem_rx(struct macb_queue *queue, struct napi_struct *napi,
->  		count++;
->  
->  		if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
-> -			netdev_err(bp->netdev,
-> -				   "not whole frame pointed by descriptor\n");
-> +			if (net_ratelimit())
-> +				netdev_err(bp->netdev, "not whole frame pointed by descriptor\n");
->  			bp->netdev->stats.rx_dropped++;
->  			queue->stats.rx_dropped++;
->  			break;
->  		}
->  		skb = queue->rx_skbuff[entry];
->  		if (unlikely(!skb)) {
-> -			netdev_err(bp->netdev,
-> -				   "inconsistent Rx descriptor chain\n");
-> +			if (net_ratelimit())
-> +				netdev_err(bp->netdev, "inconsistent Rx descriptor chain\n");
->  			bp->netdev->stats.rx_dropped++;
->  			queue->stats.rx_dropped++;
->  			break;
-
-[Severity: High]
-The changelog says the change will "rate limit the netdev error information
-print in the receive and transmit data path", but several equally floodable
-netdev_err() calls in the same paths are left as they are.  Can the same
-console flood still be produced through them?
-
-In the receive path, gem_rx() ends with gem_rx_refill(queue), which prints
-once per NAPI poll while allocations keep failing:
-
-drivers/net/ethernet/cadence/macb_main.c:gem_rx_refill() {
-	...
-			skb = netdev_alloc_skb(bp->netdev, bp->rx_buffer_size);
-			if (unlikely(!skb)) {
-				netdev_err(bp->netdev,
-					   "Unable to allocate sk_buff\n");
-				break;
-			}
-	...
-}
-
-In the transmit path, macb_start_xmit() -> macb_tx_map() prints once per
-skb, and a dma_map failure tends to persist:
-
-drivers/net/ethernet/cadence/macb_main.c:macb_tx_map() {
-	...
-	/* Should never happen */
-	if (unlikely(!tx_skb)) {
-		netdev_err(bp->netdev, "BUG! empty skb!\n");
-		return 0;
-	}
-	...
-dma_error:
-	netdev_err(bp->netdev, "TX DMA map failed\n");
-	...
-}
-
-The at91ether entry points in the same file are in the same situation.
-at91ether_start_xmit() returns NETDEV_TX_BUSY from the busy branch, so
-sch_direct_xmit() -> dev_requeue_skb() -> __netif_schedule() retries the
-same skb and the message can repeat at softirq rate:
-
-drivers/net/ethernet/cadence/macb_main.c:at91ether_start_xmit() {
-	...
-		if (dma_mapping_error(dev, bp->rm9200_txq[desc].mapping)) {
-			dev_kfree_skb_any(skb);
-			netdev->stats.tx_dropped++;
-			netdev_err(netdev, "%s: DMA mapping error\n", __func__);
-			return NETDEV_TX_OK;
-		}
-	...
-	} else {
-		netdev_err(netdev, "%s called, but device is busy!\n",
-			   __func__);
-		return NETDEV_TX_BUSY;
-	}
-}
-
-And at91ether_interrupt() prints from hard IRQ on every receive overrun,
-which is the same remotely triggered error storm the changelog describes:
-
-drivers/net/ethernet/cadence/macb_main.c:at91ether_interrupt() {
-	...
-	if (intstatus & MACB_BIT(ISR_ROVR))
-		netdev_err(netdev, "ROVR error\n");
-	...
-}
-
-Would it make sense to convert these as well, or to narrow the changelog to
-the sites that are actually covered?
-
-[ ... ]
-
-> @@ -2511,7 +2513,8 @@ static netdev_tx_t macb_start_xmit(struct sk_buff *skb,
->  		else
->  			hdrlen = skb_tcp_all_headers(skb);
->  		if (skb_headlen(skb) < hdrlen) {
-> -			netdev_err(bp->netdev, "Error - LSO headers fragmented!!!\n");
-> +			if (net_ratelimit())
-> +				netdev_err(bp->netdev, "Error - LSO headers fragmented!!!\n");
->  			/* if this is required, would need to copy to single buffer */
->  			return NETDEV_TX_BUSY;
->  		}
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but while looking at the
-NETDEV_TX_BUSY returns in macb_start_xmit(): can the non-LSO ring-full
-return use an skb that was already freed?
-
-macb_start_xmit() calls macb_pad_and_fcs(&skb, netdev) early on, and that
-helper can free the pointer the transmit core still holds:
-
-drivers/net/ethernet/cadence/macb_main.c:macb_pad_and_fcs() {
-	...
-	if (cloned || tailroom < padlen) {
-		nskb = skb_copy_expand(*skb, 0, padlen, GFP_ATOMIC);
-		if (!nskb)
-			return -ENOMEM;
-
-		dev_consume_skb_any(*skb);
-		*skb = nskb;
-	}
-	...
-}
-
-Execution then continues, and the ring-full check can return
-NETDEV_TX_BUSY:
-
-drivers/net/ethernet/cadence/macb_main.c:macb_start_xmit() {
-	...
-	if (CIRC_SPACE(queue->tx_head, queue->tx_tail,
-		       bp->tx_ring_size) < desc_cnt) {
-		netif_stop_subqueue(netdev, q);
-		...
-		ret = NETDEV_TX_BUSY;
-		goto unlock;
-	}
-	...
-}
-
-NETDEV_TX_BUSY is not a completion status, so the core writes into the skb
-it passed in and then requeues it:
-
-net/core/dev.c:dev_hard_start_xmit() {
-	...
-		rc = xmit_one(skb, dev, txq, next != NULL);
-		if (unlikely(!dev_xmit_complete(rc))) {
-			skb->next = next;
-			goto out;
-		}
-	...
-}
-
-sch_direct_xmit() then hands that pointer to dev_requeue_skb(), which
-stores it in q->gso_skb for a later dequeue and transmit.
-
-Both conditions look independently satisfiable: a short or tailroom-poor,
-non-CHECKSUM_PARTIAL, cloned or nonlinear frame on a NETIF_F_HW_CSUM
-interface gets replaced by macb_pad_and_fcs(), and CIRC_SPACE() can be
-below desc_cnt at that moment under sustained transmit load.
-
-The LSO branch shown in this hunk avoids the sequence only because
-macb_pad_and_fcs() returns 0 early when skb_shinfo(*skb)->gso_size is set.
-Is the non-LSO ring-full path meant to return NETDEV_TX_BUSY after the skb
-may have been replaced?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260920095839.62852-1-taozj888%40163.com
+#regzbot introduced: 6cffb59ee50ea4
