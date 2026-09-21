@@ -1,197 +1,166 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0F4E2F7EE8
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:03:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF7F2F7EE8
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:04:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789967041; cv=none; b=DJveMrK+rKwN36I2tJT7fag0SitmXQL9prKw5eG5sipw3xHoiUXYxNwytG3kFkE7gvYcmDtGiA0sfcheHg/eFgIOjwGMhq2cpelxg0pldm4XP4SG45uE+kgdV4zjgjcAH0Xwt4uNyPuLIlu7DQwVpiT8kNEDTA8Sh9t1nX8pOMw=
+	t=1789967095; cv=none; b=jcv1B8tnimN/WyJVE6DyHJ3k6R4X0rd7yT8uJwWpa3NQOWHveoRpWlRk08rcUnbgRICkdTmfk/zWnj8SkARSMuuQBkNCYD/LxQz02rMNBYoLX8+fT9Cvju8P3CfC/9+P5EIUXl6xrfrhdoWNUjTdHLH1pAKu0fHsIyt9DWG2fYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789967041; c=relaxed/simple;
-	bh=0rKL/sntDWjhjNag3YhT5JgZlGagP+D5gz7cHsvcXq4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZCSsgiyKSfNxcOXkTQHiwDkVUloLYJmUCXvadq9iar3fOMOerChjUtlbhcmLBgJwHZkRC24wWy7+8jX4r3QRqlXrJtDJrf1CW1XTpDxoIF6SgL3vCS75CH/w3DBMSagiCJg29pnqC0GtgyZds0WL5a1fkraxxnwMDHuvSA+JEUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=oFZtMjZz; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789967095; c=relaxed/simple;
+	bh=SxZcuc9GcxETuDN4Dem/i05+97xrgTmNCvTtQ/Y7enc=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:In-Reply-To:
+	 Content-Type:References; b=CxDYmRbku2DkuvpRDEi6ODSokc9wxt0fXkwYRk1xuLvuQLK05PVqVeBBG6yG9gHPGJ44Apvzja9tagC86eb/sBtuMccCJfj4DZtTedb742Rr9WlKB3rpgVyVsZJYQbu+sj1opZ2dJSqB1yyOhHkV682Gn9cOZLqjf46qW1ORH90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=ZeaCbRe7; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="oFZtMjZz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=yMh2mWXeWvA8NfyONSqN0Rmq/409N/eVHMWQHvqQi+c=;
-	b=oFZtMjZzdrJr2/JHikUy911wxW8jdzyfBUqySExqOmaQ3gEP1f7M18DBDlF5dJ
-	K9dmukiBPexXJVtWteJ/WCjxOuvzpGqJyN2ZiVkgBN9OO7yec9ZU+V66tsc8dSmo
-	q8oGF1PyyxCQc2Ju3+GTvOGqUhM2HaQhCBKG3b+trg2IU=
-Received: from LAPTOP-EGO65D59.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wBXZHmMurBqntMWCA--.22003S2;
-	Mon, 21 Sep 2026 13:03:14 +0800 (CST)
-From: =?UTF-8?q?=E6=9E=97=E6=BF=AC=E5=93=B2?= <m18667909625@163.com>
-To: Petr Mladek <pmladek@suse.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	linux-kernel@vger.kernel.org,
-	m18667909625@163.com
-Subject: [PATCH] printk: fold consecutive duplicate messages
-Date: Mon, 21 Sep 2026 13:03:04 +0800
-Message-ID: <20260921050304.73440-1-m18667909625@163.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="ZeaCbRe7"
+Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260921050446epoutp02bf98f71336076cac9973cb1fd18ebac9~XPZTOJn0m2888028880epoutp02f
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:04:46 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260921050446epoutp02bf98f71336076cac9973cb1fd18ebac9~XPZTOJn0m2888028880epoutp02f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789967086;
+	bh=d0QjUqvmVUNs1ggaTfEs9R1PKNgZmXcKBNFogy3IWTE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=ZeaCbRe7BTgzeOVxeUDTrR5h1FOeEjPxf5na0sXhC9iovBvJuyeTP8eo9P1lqyLO4
+	 +W4W8Q920Xmui6UXLCjqqfWlq1JV6XhnXZC2QrQi8Sbq8BW+I6LQVLNDsay8YB6lFu
+	 1PPOzPD9Ngvw6jIrtvJWZCIu7PamOgyT1521+tUQ=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
+	20260921050446epcas2p342dc4bf247be022411c56129f74a0f52~XPZTC4xBi0320303203epcas2p3x;
+	Mon, 21 Sep 2026 05:04:46 +0000 (GMT)
+Received: from epcas2p3.samsung.com (unknown [182.195.38.202]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4hpB3x4ySPz3hhT9; Mon, 21 Sep
+	2026 05:04:45 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
+	20260921050445epcas2p3615e4d6e209fbe40545e0ebac7a43a68~XPZSKskOl3096030960epcas2p3o;
+	Mon, 21 Sep 2026 05:04:45 +0000 (GMT)
+Received: from ubuntu (unknown [12.81.221.204]) by epsmtip2.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20260921050445epsmtip2a9809c58f286c64510ac656725fe903e~XPZSJCI5Y2089020890epsmtip2A;
+	Mon, 21 Sep 2026 05:04:45 +0000 (GMT)
+Date: Mon, 21 Sep 2026 14:01:02 +0900
+From: Daehwan Jung <dh10.jung@samsung.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>, open list
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] usb: gadget: u_serial: fix stale req->dep warn on
+ disconnect/reconnect
+Message-ID: <aqimTFTUGIjijeVY@ubuntu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBXZHmMurBqntMWCA--.22003S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuF4rtr4fJryDWF1UXFyfCrg_yoWrZF1xpF
-	s3WF43CF4kAr1xZ3yfXa1jvr1S93W8Cry7tF90kFWUAa13tr45Zwn2qr1YvF1UWryxCry3
-	JFnxXryqkr42v3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRQJ5bUUUUU=
-X-CM-SenderInfo: bpryllixzqmlisv6il2tof0z/xtbC4hKZn2qwupLvygAA3h
+In-Reply-To: <20260727051335.1745955-1-dh10.jung@samsung.com>
+X-CMS-MailID: 20260921050445epcas2p3615e4d6e209fbe40545e0ebac7a43a68
+X-Msg-Generator: CA
+Content-Type: multipart/mixed;
+	boundary="----rcuXGdnugs8S4waa-1E6HIXGjxa.6k2zyxtbMQI1gQTmk2wj=_525ee_"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260727051638epcas2p11f7b91e0be7604331bfe0f46beef9ce1
+References: <CGME20260727051638epcas2p11f7b91e0be7604331bfe0f46beef9ce1@epcas2p1.samsung.com>
+	<20260727051335.1745955-1-dh10.jung@samsung.com>
 
-A kernel bug can flood the console with thousands of copies of the
-same message, drowning out everything else. Fold consecutive
-duplicates into a single "last message repeated N times" summary,
-flushed when 10 repeats accumulate or a 1s window elapses.
+------rcuXGdnugs8S4waa-1E6HIXGjxa.6k2zyxtbMQI1gQTmk2wj=_525ee_
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
 
-The dedup key is built from facility, level and the format string
-address; format parameters are not part of the key since va_list can
-only be consumed once and hashing rendered text would put string
-comparisons on the printk fast path.
+On Mon, Jul 27, 2026 at 02:13:35PM +0900, Daehwan Jung wrote:
+> When DWC3_EP_DELAY_STOP defers ENDXFER, giveback of -ESHUTDOWN requests
+> arrives after gserial_disconnect(). These stale requests then accumulate
+> in read_pool via gs_rx_push(). After gadget exit frees the old endpoint,
+> req->dep becomes a dangling pointer. On the next gserial_connect(),
+> gs_start_rx() queues these stale requests onto a new endpoint, triggering:
+> 
+>   WARNING: CPU: 0 at drivers/usb/dwc3/gadget.c:1990
+>   request 00000000e6e350a5 belongs to ''
+> 
+>   Call trace:
+>    dwc3_gadget_ep_queue+0x158/0x1e8
+>    usb_ep_queue+0x60/0xe8
+>    gs_start_rx+0xa4/0x128
+>    gs_start_io+0x128/0x254
+>    gserial_connect+0xb4/0x14c
+>    acm_set_alt+0xa0/0x114
+>    set_config+0x22c/0x384
+>    composite_setup+0x37c/0xc7c
+>    configfs_composite_setup+0x5c/0x88
+>    dwc3_ep0_interrupt+0x6c8/0xbcc
+>    dwc3_thread_interrupt+0xa0/0x1284
+>    irq_thread_fn+0x48/0xa8
+>    irq_thread+0x150/0x31c
+>    kthread+0x150/0x27c
+>    ret_from_fork+0x10/0x20
+> 
+> Fix by discarding -ESHUTDOWN requests immediately in gs_read_complete()
+> while ep is still valid, preventing stale reqs from entering read_pool.
+> 
+> Fixes: 937ef73d5075 ("USB: serial gadget: rx path data loss fixes")
+> Signed-off-by: Daehwan Jung <dh10.jung@samsung.com>
+> ---
+> Changes in v3:
+> - Add missing version tag in subject
+> Link to v2: https://lore.kernel.org/linux-usb/20260727042632.1726391-1-dh10.jung@samsung.com/
+> 
+> Changes in v2:
+> - Correct the name of author
+> - Modify commit subject (panic -> warn)
+> Link to v1: https://lore.kernel.org/all/20260721013509.2327242-1-dh10.jung@samsung.com/
+> ---
+>  drivers/usb/gadget/function/u_serial.c | 18 +++++++++++++++---
+>  1 file changed, 15 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
+> index cdd1dfc666c4..97ee1b9cb065 100644
+> --- a/drivers/usb/gadget/function/u_serial.c
+> +++ b/drivers/usb/gadget/function/u_serial.c
+> @@ -459,10 +459,22 @@ static void gs_read_complete(struct usb_ep *ep, struct usb_request *req)
+>  {
+>  	struct gs_port	*port = ep->driver_data;
+>  
+> -	/* Queue all received data until the tty layer is ready for it. */
+>  	spin_lock(&port->port_lock);
+> -	list_add_tail(&req->list, &port->read_queue);
+> -	schedule_delayed_work(&port->push, 0);
+> +	if (req->status == -ESHUTDOWN) {
+> +		/*
+> +		 * Discard shutdown completions here while ep is still valid.
+> +		 * Returning them to read_pool after gserial_disconnect() has
+> +		 * reset the counters causes stale reqs (with req->dep pointing
+> +		 * to the old ep) to be queued onto a new ep at reconnect time,
+> +		 * triggering a req->dep != dep WARN.
+> +		 */
+> +		gs_free_req(ep, req);
+> +		port->read_started--;
+> +	} else {
+> +		/* Queue all received data until the tty layer is ready for it. */
+> +		list_add_tail(&req->list, &port->read_queue);
+> +		schedule_delayed_work(&port->push, 0);
+> +	}
+>  	spin_unlock(&port->port_lock);
+>  }
+>  
+> -- 
+> 2.34.1
+> 
+> 
 
-Messages at LOGLEVEL_ERR and above are never folded, and dedup is
-skipped after suppress_printk / panic take effect since the call site
-sits behind those checks. The dedup state is protected by a raw
-spinlock, and the summary is printed only after dropping the lock to
-avoid recursive self-deadlock.
+Hi,
+This is gentle ping. Any comments would be appreciated.
 
-Disable with printk_dedup=0 on the kernel command line or via the
-printk_dedup module parameter.
+Best Regards,
+Daehwan Jung
 
-Known limitation: dedup_lock is not NMI safe; a message from NMI
-context while another CPU holds the lock will spin.
+------rcuXGdnugs8S4waa-1E6HIXGjxa.6k2zyxtbMQI1gQTmk2wj=_525ee_
+Content-Type: text/plain; charset="utf-8"
 
-Signed-off-by: 林濬哲 <m18667909625@163.com>
-Assisted-by: AI coding assistant (disclosed per kernel AI guidelines)
----
- kernel/printk/printk.c | 89 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 89 insertions(+)
 
-diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index 6d3d18a50da7..0c93767d041f 100644
---- a/kernel/printk/printk.c
-+++ b/kernel/printk/printk.c
-@@ -20,6 +20,7 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- 
- #include <linux/kernel.h>
-+#include <linux/hash.h>
- #include <linux/mm.h>
- #include <linux/tty.h>
- #include <linux/tty_driver.h>
-@@ -104,6 +105,91 @@ DEFINE_STATIC_SRCU(console_srcu);
-  */
- int __read_mostly suppress_printk;
- 
-+static u32 dedup_last_key;
-+static u32 dedup_repeat;
-+static bool dedup_active;
-+static u64 dedup_window_start;
-+#define PRINTK_DEDUP_WINDOW_NS	1000000000ULL	/* 1s */
-+static bool printk_dedup = true;
-+module_param(printk_dedup, bool, 0644);
-+MODULE_PARM_DESC(printk_dedup, "fold consecutive duplicate printk messages");
-+/* protects the dedup state above; never held while printing */
-+static DEFINE_RAW_SPINLOCK(dedup_lock);
-+
-+static int __init printk_dedup_setup(char *str)
-+{
-+	return kstrtobool(str, &printk_dedup);
-+}
-+early_param("printk_dedup", printk_dedup_setup);
-+
-+/*
-+ * Detect consecutive duplicate printk messages and fold them away.
-+ * Returns true if this message should be dropped.
-+ *
-+ * The dedup key is built from facility, level and the format string.
-+ * Format parameters are intentionally not part of the key: va_list
-+ * can only be consumed once, and hashing rendered text would put
-+ * string comparisons on the printk fast path.
-+ */
-+static bool outputs_dedupe(int facility, int level, const char *fmt)
-+{
-+	unsigned long flags;
-+	bool drop;
-+	u64 now;
-+	u32 key;
-+	u32 n;
-+
-+	/* error and above must never be folded */
-+	if (level <= LOGLEVEL_ERR || !printk_dedup)
-+		return false;
-+
-+	key = hash_64((unsigned long)(fmt ? : ""), 32) ^
-+	      hash_32(facility ^ level, 32);
-+	now = ktime_get_ns();
-+
-+	raw_spin_lock_irqsave(&dedup_lock, flags);
-+
-+	if (dedup_active && key == dedup_last_key) {
-+		dedup_repeat++;
-+		/*
-+		 * Force a flush when 10 repeats have accumulated or
-+		 * the 1s window has elapsed, so the summary shows up.
-+		 */
-+		if (dedup_repeat >= 10 ||
-+		    now - dedup_window_start > PRINTK_DEDUP_WINDOW_NS) {
-+			n = dedup_repeat;
-+			dedup_repeat = 0;
-+			dedup_window_start = now;
-+			drop = false;
-+		} else {
-+			drop = true;
-+		}
-+	} else {
-+		if (dedup_active && dedup_repeat) {
-+			n = dedup_repeat;
-+			drop = false;
-+		} else {
-+			n = 0;
-+			drop = false;
-+		}
-+		dedup_last_key = key;
-+		dedup_repeat = 0;
-+		dedup_window_start = now;
-+		dedup_active = true;
-+	}
-+
-+	raw_spin_unlock_irqrestore(&dedup_lock, flags);
-+
-+	/*
-+	 * Print only after dropping the lock: pr_info() re-enters
-+	 * vprintk_emit() and would deadlock on dedup_lock otherwise.
-+	 */
-+	if (n)
-+		pr_info("last message repeated %u times\n", n);
-+
-+	return drop;
-+}
-+
- #ifdef CONFIG_LOCKDEP
- static struct lockdep_map console_lock_dep_map = {
- 	.name = "console_lock"
-@@ -2441,6 +2527,9 @@ asmlinkage int vprintk_emit(int facility, int level,
- 	    !panic_triggering_all_cpu_backtrace)
- 		return 0;
- 
-+	if (outputs_dedupe(facility, level, fmt))
-+		return 0;
-+
- 	printk_get_console_flush_type(&ft);
- 
- 	/* If called from the scheduler, we can not call up(). */
--- 
-2.53.0
-
+------rcuXGdnugs8S4waa-1E6HIXGjxa.6k2zyxtbMQI1gQTmk2wj=_525ee_--
