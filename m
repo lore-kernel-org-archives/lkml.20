@@ -1,94 +1,98 @@
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5A63CCA02;
-	Mon, 21 Sep 2026 20:51:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622204D17A0
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:53:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790023918; cv=none; b=AQEWVITaixkD5Qrl49DbYY0DoKYhptC6KZTKcXTqRhh/+3FyhWud3j3yWW+S0prnFJ9Lw8yWO17shQnE9Y3qt2hD8C8mxzhcy8E6bf3kWydf8/hCG2xUFZI2getW6a1Kw6AVpXRJ+QZyCdDYKWnOgYNBExFJy6tXbahRYJCNfg4=
+	t=1790024031; cv=none; b=Z/dKhS9vaDwC2fEve2H6BqtqeeQMOap+sJDxc1FCv3Q6puXbQBN0krcRpDXEmVS2d+MxyFLUrhwsFIdSyOD5bfjsQdGtnOppsry6hTOQzGyfDf54WWlf7r9xXndzbiNzyu4ZB1Mv03r/Wx+P1coan1QDDbOXxCh9pJKpg1DanEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790023918; c=relaxed/simple;
-	bh=1CDELqiiofivXiZl5QErg8K2kh1qvy2PGzpNAH+s/Ak=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Subject; b=E7E1i79wnpbhGwrKd1+8uHSqIsK5zBKgki1dbNL6mSl0/krdeEFfHw8fQObwo6U1Ddomqa8gwdq4NeUnHUnOqMizAHIC6L2G+tpB2NhcT1U9mp58KXNeEUzcQSvRZWExmUBu3jvGTHvJeDLXuWnCHXQWCLKWCeaNRgA8xN6RPLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=X2MF/i4M; arc=none smtp.client-ip=204.191.154.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	s=arc-20240116; t=1790024031; c=relaxed/simple;
+	bh=flLZILgRxV6MOvXyOHSJVnQ0K4KrHdK/sSdeDPvGUCU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pBCVnHHVbedgiVrTOstK06isyWRuLLVdgNDBVafQBK5ik52+KSzw5dNEy774YS3dQYQrA6//QLMR+DOjZ0K9x2o9pg9s83ye6e6ymoq2ThzpR46aE1vJB7nGvHsitPuNL5VmB+bqDuIwzZTXHu7fNz5mW9k6XOQtaE2OtpgTQQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r2MVGNst; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="X2MF/i4M"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
-	MIME-Version:Date:Message-ID:content-disposition;
-	bh=BpVc1oOlMNPMnv8BG9zWt0tN3zKEilatFXc42t7lFMQ=; b=X2MF/i4M59hS2XH8iC5SkeBMCq
-	UW4T2hxrNk/lFHCJtbIFG03BljH0G1+JThASbEgwqqzeswupAYCkYxdNvSsYljfmHd6nizAKAZEsw
-	uXi7lrUjextbyIn0shF78Kbi4olRNAoeDbF+to0ksD1wdK/xXJoUh3AcHksF9eNxAHaFnqEcbxFEm
-	jLdTfD0ZhDTjjSDnO/KdwrIRcmFtQIz6zsqzlY+ICNdacwJNXqa1hZprAom2PNkTE0LEeuF3eBHOr
-	gMej4EeqHr4Os+wecDS3tXlmZOD+au5N6HrShSzH4Og+s7WH6Q+EUv4TuA/wcc9vF/f2NKac/NgRD
-	3LIhTFrA==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
-	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1x8kzQ-0000000F4ow-3YlI;
-	Mon, 21 Sep 2026 14:51:53 -0600
-Message-ID: <a9aad34b-949d-4e35-96db-7a969aef78ef@deltatee.com>
-Date: Mon, 21 Sep 2026 14:51:50 -0600
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r2MVGNst"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-868b2e5be4eso1752177b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:53:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790024030; x=1790628830; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ji7VlLhSAfjl/1tXHHTuDHH3apn48szfrKbyZ5VnSZQ=;
+        b=r2MVGNstgVKsRVTHbu8WdjjFp3uQhG+gKGgr/zu2FGAHBcprwlTMeasXVW1LhsMS2L
+         3X1/lwdeLXvvd7kXRfXRMtgzsHOIKO3HYTtL+EfWGuKzEFt4VxkaJ7itxxOYAAuS4wFT
+         Et860yUwcJ6IPKnawKALYfo94QJBH7d44hf1DAsSruX7LCBQlBJ9Ml+81ErDNUtj5SRm
+         Lc820JJ1pcFbhFyxs5VwoumAmIp+qqZi3sx9lymf1kxKXGb1RcIA6Y+Y2ps9EYSyenmo
+         jb6pzIhgaKnqb8F5SpTyNYEx2uAd0uXdAe7atGnmfXoTj8pTv8anmzyLIUNkUpEyWipL
+         +dAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790024030; x=1790628830;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ji7VlLhSAfjl/1tXHHTuDHH3apn48szfrKbyZ5VnSZQ=;
+        b=J+gv0wBFCX87ObQNLvYKBQyfspC2Zm2d45QxcTne5lWzLGKFBLcXhoHZi3jt3SqdBf
+         qyuJcZn4QB24tGNbCc42w2iog4lNdAiN+AFLl+uKw5afiYD/Q6usV2IEcZhe+mBwwnJQ
+         SSTbk5EdUhS5utHKdy3iDml3M39Uk80Nh1oyO5nX3A7N4kLfre3ya2+5kIqw1XuxBv0E
+         cT8p6bJ0+3vcYXd0kcSvTiHE0SyTe9iNew1vMfvrkFkCHiduguiDO7lyZ8ANkHqSitKU
+         EyEB/Dzx+nXjiefpQdvYPo2dALL12KMpddJEhBmGfXpJAg1WLkHPerz3GXUY0dCzfNM4
+         SOdA==
+X-Forwarded-Encrypted: i=1; AKwUvBzj2w9pEea9LCCRHSennVfvhQcqBjvC/lelBVdp2WeFUKSgNRm9F/tX5bCRIQOgAnIhaBwVaon6GpOPHg0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRTVlNEx+5QcDuDXpEz24C6Esp9LH7sTT4KXFOFWGDzrDFsMy+
+	/cDb+FHmBGPQ8op4ve8g8sbGkP4Hqhz9Z6JoHpM0k4RwVXiTC73k9IMY
+X-Gm-Gg: AYBFou3hWdbKay8r9BgNW15jLZ3NsXpoa/t8+/glKVBJ2hZcychSAvYbOyaBQEvcx+f
+	+qrXuW617fOci0czND2kEV1vT/U0+TI/YqC9FK3E6YJvOUU1ns6h08AMZ3BHFfz2prkkmKqOq6A
+	6xA1vLFLn7iGQ11OaUlfW5UMLlLB5Ws0yCQgrcH8cFrSlaGDy2khTd5dsBmNX5kN849vanaUyvx
+	ArttmcqMb+MLPgZFR2YC8F/rQeP1zyKLIqch1GCwI2xJoAhoxgSKn260pyZvPFSH1uQjULYh/uj
+	nA90GH0ViQeM7fXuan2VWe3IWLFEaJor45Xpf4nc0USHoo5Da9nbqXmE34ciLNFPpfbRpUWi2FJ
+	E5AjavaPD4T2Ux+uwe7hapLTTIz9TyZ9dEbwFPvcDfsRgFfmKCMl2aXS6skZoFl5FzNiiSFRv3f
+	HhL+g4LigkSWmDIIGJrHev4cdps276jnVMeXZmlUvMojqUOfMGTAMYC8rj+syYjQNy
+X-Received: by 2002:a05:6a20:a123:b0:3dd:85aa:4529 with SMTP id adf61e73a8af0-3dd8c52ec1fmr17760091637.36.1790024029652;
+        Mon, 21 Sep 2026 13:53:49 -0700 (PDT)
+Received: from dev ([163.43.103.131])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72aeea64asm3948747a12.27.2026.09.21.13.53.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 13:53:48 -0700 (PDT)
+From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: Yuya Kusakabe <yuya.kusakabe@gmail.com>,
+	Andrea Mayer <andrea.mayer@uniroma2.it>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Justin Iurman <justin.iurman@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] seg6: keep room for the mac header when growing the headroom
+Date: Tue, 22 Sep 2026 05:53:38 +0900
+Message-ID: <20260922055338.510267-1-yuya.kusakabe@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <178994173434.2160803.11042494148021854491@kernel.org>
+References: <20260917-seg6-maclen-headroom-v1-1-02ccec50f096@gmail.com> <178994173434.2160803.11042494148021854491@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
- <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-References: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
- <20260920-fix-p2p-acs-v4-0-v7-10-ca0828ab697c@nvidia.com>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20260920-fix-p2p-acs-v4-0-v7-10-ca0828ab697c@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com, gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org, ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org, sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev, tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: Re: [PATCH v7 10/19] PCI/P2PDMA: Route Translated Requests under
- Direct Translated P2P
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
+On Sun, 20 Sep 2026 22:02:14 +0000 netdev-bot+sashiko@kernel.org wrote:
+> Should the same change also cover net/ipv6/rpl_iptunnel.c and
+> net/ipv6/ioam6_iptunnel.c?  Those two files were converted to
+> dst_dev_overhead() by the same series, and they still have the pattern this
+> commit message describes.
 
+Yes.  v2 covered both, and v3 moves the clamp into dst_dev_overhead()
+itself so that every caller gets it:
 
-On 2026-09-20 05:41, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
-> 
-> A Downstream Port with ACS Direct Translated P2P enabled routes a Request
-> whose Address Type is Translated "to the peer Egress Port without
-> redirection, regardless of ACS P2P Request Redirect and ACS P2P Egress
-> Control", per PCIe r7.0 sec 6.12.3. P2PDMA assumes every Request carries an
-> Untranslated address, so it sends an ATS client through the host bridge
-> even where the fabric would route it straight to the peer.
-> 
-> Add PCI_P2PDMA_TLP_TRANSLATED and consult Direct Translated P2P for the
-> Requests it describes.
-> 
-> Tested-by: Tushar Dave <tdave@nvidia.com>
-> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-
-Looks good to me:
-
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+  https://lore.kernel.org/r/20260922-seg6-maclen-headroom-v3-1-7b2f982ef79d@gmail.com
