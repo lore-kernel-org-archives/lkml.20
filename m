@@ -1,133 +1,102 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 124D5276050
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:54:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0564245D92C;
+	Mon, 21 Sep 2026 09:54:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984478; cv=none; b=nuBJ0oD0oFzsA0/yzHAzB1C9PDSZCqGNyOk/EGpzcy62bilraMzxs2L7VN58lGMcDi5Fmtd7SbKaJv1Ze0TBRPdNykeT0HhbonymbMI/OpL/JDqx94MijICBENICm51+sZnYOkaewIE0xAX9W4LuXddXoMLTlrNvxzoHbKqL18I=
+	t=1789984481; cv=none; b=Gvj23fuOSmMGeg4Y8I/zQf/DwUpscMz0QQz1W7PUtJO1Umgq9zdoMX49V/MnoIrzGefTrtQ15BL971uxOnuE8hvGkWKWVCgFVJ/ClC8AuVcQcxJCu3m3Yjs7P/6Z00dViRHxLr7qNqtCmXtpqk/Y60riNTDYjSACp8Ygy/hGjK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984478; c=relaxed/simple;
-	bh=d4jtbExCLc+aioYOAZPMs0UpCGo0VE2UG0UB2bCsuLI=;
-	h=To:Date:Cc:Message-Id:Content-Type:From:Subject:Mime-Version; b=UjG8vigPxS3WTgRMPS36DkOZkA5DpfKsMuwoJchrAWX9cEwn8YG/LEWWnJdkZKpjS2Eo+kpTqfbIrztLuokInhV+ut/CYpeyHeX4A29y/g8BTVfLbKYcOuaP7MJQklpdXkL2gwNpveMFdNfy+xj7I9Wpfa6PE4+UjIZM9n9ZN0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=lCtCIkfe; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1789984481; c=relaxed/simple;
+	bh=jYcxfkf4tR4CCN/lTq9CiR/Ig9QNlNc7qvq4KdFeAMU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kczsnm/jpjtkOyi3G7kC1OtXodv/zhyw/9W5mHVpQUmgMPA+ssYqHdJ7KscAOWK+XM0KZEjyoarTmOwQcjabkOXOte9dWm3rQ8aS9YneEWmseBwwxixjBGsJ1q5aVGn4rKCA1YF4YiKETaViRc2j8/YCInh+EWHk1KoTQ/ifWac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=mxnJFNJ1; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="lCtCIkfe"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1789984462; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=jB7dOy2BGlPKcT4AvTjH8qh3lpiLavE7Sh1Dp6DJ+4w=;
- b=lCtCIkfe4d+usYVPJPpqafIze8+xIJ4IrSoTbD7xgN9zIrxu+vF9DT9xaZZ1GyXi2dikZG
- GgLX9XZ0pmvOaNIgGdICgX50DJF0CwXWKYenqqCuA0pKhWLnu5oBgJ2bK9pjh2ESokPW5M
- iJA7Qp+GSob6pWpJB2P3Lmm3wWUz+SKUtsx/XSHRyOizytqyFRWTYrnVrWuM2gdXvbyeXk
- TSIoGgQhfTI7R9cmqRnBAfoeBAB3TdgJj1H9H3/xuQIMruvV5KPA8NdSFMl1+rpU+j0fyR
- zzpckQ/yGSPr7RmnhD3prQnJllwkSfndD3O6ROiyJQ/S8ySS0mIPMcYSG0XjUg==
-To: <tglx@kernel.org>, <mingo@redhat.com>, <luto@kernel.org>, 
-	<peterz@infradead.org>, <paulmck@kernel.org>, <muchun.song@linux.dev>, 
-	<bp@alien8.de>, <dave.hansen@linux.intel.com>, <pbonzini@redhat.com>, 
-	<bigeasy@linutronix.de>, <clrkwllms@kernel.org>, <rostedt@goodmis.org>, 
-	<nadav.amit@gmail.com>
-Date: Mon, 21 Sep 2026 17:53:54 +0800
-Content-Transfer-Encoding: 7bit
-Cc: <linux-kernel@vger.kernel.org>, "Chuyi Zhou" <zhouchuyi@bytedance.com>
-Message-Id: <20260921095359.3784458-1-zhouchuyi@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-From: "Chuyi Zhou" <zhouchuyi@bytedance.com>
-Subject: [PATCH 0/5] x86/mm: Allow preemption while waiting for kernel TLB flushes
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="mxnJFNJ1"
+Received: by linux.microsoft.com (Postfix, from userid 1186)
+	id B062920B7167; Mon, 21 Sep 2026 02:53:52 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B062920B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1789984432;
+	bh=LGY2veuH4DF4OfX4IZ5zQkf2eApYb+BnVa7cOizC518=;
+	h=From:To:Cc:Subject:Date:From;
+	b=mxnJFNJ1IK2bzIH8ypYFwZWoaBULmlPV2as3E1tckxly+AHDfsHrwDoh5jKc4NZYc
+	 /AW8sD2Qb4u/1gpq15tnHcm4L8Nw1PV5A8UzuR3kN5Uyq2Dg9PaTFJ8wov8Pl+I6ur
+	 vUff3ZA9RihuaM5omSZiXCVR9W+IDsIFpTQOwm68=
+From: Konstantin Taranov <kotaranov@linux.microsoft.com>
+To: kotaranov@microsoft.com,
+	snsanghvi@microsoft.com,
+	longli@microsoft.com,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH rdma-next v3 0/5] RDMA/mana_ib: Streamline kernel UD/GSI posting and completion handling
+Date: Mon, 21 Sep 2026 02:53:47 -0700
+Message-ID: <20260921095352.3524691-1-kotaranov@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Original-From: Chuyi Zhou <zhouchuyi@bytedance.com>
-X-Mailer: git-send-email 2.20.1
-X-Lms-Return-Path: <lba+26ab0fecc+e30d18+vger.kernel.org+zhouchuyi@bytedance.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-This series follows up on the IPI completion preemption work [1] and
-addresses the deferred flush_tlb_kernel_range() changes. The generic SMP
-completion waits are already preemptible, and commit a5a162fe1ae1
-("x86/mm: Re-enable preemption before flush_tlb_multi()") allows the mm
-flush paths to use them. The kernel-range change was deferred during
-review [2].
+From: Konstantin Taranov <kotaranov@microsoft.com>
 
-Container teardown and BPF map destruction can trigger kernel TLB
-flushes through reclamation of unused per-CPU memory. Services that
-spawn and reap many workers can also trigger flushes when vmalloc-backed
-kernel stacks are reclaimed.
+This series updates the kernel UD/GSI work-request and completion paths in
+the MANA RDMA driver. The existing completion path copies CQE information
+into shadow entries and then walks the QPs attached to a CQ to produce
+work completions. This adds bookkeeping and a second pass over information
+that is already available when processing the CQE.
 
-On the IPI backend, flush_tlb_kernel_range() flushes the local CPU,
-sends flush requests to all other online CPUs, and waits synchronously
-for completion. The target set is system-wide even when the container
-or application is confined to a small subset of CPUs.
+Generate work completions directly from CQEs and the corresponding posted
+shadow entries instead. Keep only QPs requiring software flushing on the
+CQ's error lists, and use the caller's remaining completion budget to
+retire their outstanding requests. The explicit GSI send-drain path adds
+the QP to the error list and invokes the CQ handler.
 
-The synchronous wait can become longer as the number of online CPUs
-grows. Completion depends on the slowest participating CPU, so a remote
-CPU with interrupts disabled can delay the entire operation.
-flush_tlb_kernel_range() keeps preemption disabled throughout that wait,
-delaying higher-priority tasks on the initiating CPU.
+The shared GDMA SGE writer and explicit-index doorbell helper are included
+with their first users so this series does not depend on a later GDMA
+change. The WQE definitions and polling context also provide groundwork
+for a separate kernel RC series. RC posting, PSN/FSN processing, hardware
+error-CQE handling and automatic ERR-state flushing are not included here.
 
-The kernel path still uses init_flush_tlb_info(), which initializes
-initiating_cpu with smp_processor_id(). Simply removing the outer
-preemption guard would allow that initialization to run in a preemptible
-context and could trigger a CONFIG_DEBUG_PREEMPT warning. The earlier
-version used raw_smp_processor_id() to suppress that warning, but this
-also removed the CPU-pinning check from the shared initializer used by
-the mm paths.
+Changes in v3:
+- Patch 5: Track unsignaled send WRs in the shadow queue.
+- Patch 5: Validate the CQE target before retiring a shadow wqe.
+- Patch 5: Notify the send CQ after posting to an already-flushing QP,
+  outside the CQ lock, so GSI draining does not need another hardware CQE.
+- Patches 1-4 are unchanged.
 
-A smaller change could keep preemption disabled only around the
-init_flush_tlb_info() call in flush_tlb_kernel_range() and restore it
-before dispatching the flush. With separate protection for INVLPGB and
-TLBSYNC, this would also allow the final IPI wait to be preempted while
-preserving the smp_processor_id() check.
+Changes in v2:
+- Patch 5: Hold the corresponding CQ lock while resetting each shadow
+  queue and removing the QP from the error list, serializing RESET with
+  hardware polling and software flushing.
+- Patch 5: Return the unmasked WQE start offset from GDMA posting to
+  discard mismatching CQEs without producing a WC.
+- Patches 1-4 are unchanged.
 
-Kernel flushes do not use initiating_cpu or the other mm-specific
-fields. This series separates their data from flush_tlb_info to remove
-the unused initialization and its preemption requirement. Full flushes
-need no descriptor, and range flushes need only start/end. The
-smp_processor_id() check remains in the initializer for the mm paths.
+Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
 
-Removing the outer preemption guard then lets higher-priority tasks
-preempt the final IPI completion wait when the calling context permits
-it. Both flush backends remain synchronous, and the INVLPGB helpers
-keep their required preemption protection.
+Konstantin Taranov (5):
+  RDMA/mana_ib: Optimize shadow queue bookkeeping
+  RDMA/mana_ib: Revise UD send posting and WQE definitions
+  RDMA/mana_ib: Revise UD receive posting with GDMA_WR_IB_SGL
+  RDMA/mana_ib: Make kernel CQ arming robust
+  RDMA/mana_ib: Poll UD completions and flush software error QPs
 
-The changes are split into five patches:
+ drivers/infiniband/hw/mana/cq.c               | 344 +++++++++++++-----
+ drivers/infiniband/hw/mana/mana_ib.h          | 105 +++++-
+ drivers/infiniband/hw/mana/qp.c               |  84 +++--
+ drivers/infiniband/hw/mana/shadow_queue.h     |  61 ++--
+ drivers/infiniband/hw/mana/wr.c               | 158 ++++----
+ .../net/ethernet/microsoft/mana/gdma_main.c   |  49 ++-
+ include/net/mana/gdma.h                       |  11 +-
+ 7 files changed, 586 insertions(+), 226 deletions(-)
 
-  1. Account for kernel TLB flush requests in NR_TLB_REMOTE_FLUSH,
-     including ranges promoted to full flushes and both IPI and INVLPGB
-     backends.
 
-  2. Make flush_tlb_all() use kernel_tlb_flush_all(), sharing backend
-     dispatch and accounting while counting each request once.
-
-  3. Extract the range-to-full-flush threshold predicate without changing
-     its arithmetic or the existing flush policy.
-
-  4. Decouple kernel flushes from flush_tlb_info. Full flushes need no
-     descriptor, and range flushes need only start/end. Use a private
-     stack descriptor for IPI callbacks, preserving its lifetime through
-     the synchronous wait. Keep the smp_processor_id() check in the mm
-     descriptor initializer.
-
-  5. Remove the outer preemption guard from flush_tlb_kernel_range().
-     Keep the INVLPGB range loop and TLBSYNC protected inside their
-     backend helper; the full INVLPGB helper already has that protection.
-
-[1] https://lore.kernel.org/lkml/20260709122933.4021501-1-zhouchuyi@bytedance.com/
-[2] https://lore.kernel.org/9cd743e8-4d60-4a5b-906f-07e4ae82dafb@bytedance.com/
-
-Chuyi Zhou (5):
-  x86/mm: Account for remote kernel TLB flush requests
-  x86/mm: Share the full TLB flush dispatch
-  x86/mm: Extract the TLB range flush threshold check
-  x86/mm: Decouple kernel TLB flushes from flush_tlb_info
-  x86/mm: Re-enable preemption before waiting for kernel TLB flushes
-
- arch/x86/mm/tlb.c | 71 +++++++++++++++++++++++++++++++++----------------------
- 1 file changed, 43 insertions(+), 28 deletions(-)
-
-base-commit: e81ee06308379a5f2ededf997bcf17551bce5db7
+base-commit: 63367df6e7255067ad6a83abe0d2799dfa491876
+-- 
+2.43.0
