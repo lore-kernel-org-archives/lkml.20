@@ -1,203 +1,170 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012014.outbound.protection.outlook.com [40.107.200.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 229A0492E33
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:24:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789993473; cv=fail; b=CW4xQjmR2ZDbYbcJUXEnV53Qmb/e5p0yD9peFNBMmfVv1Ucu8KeJY7izkOLh018PucXFOfcDTT0QfwLS2xGJBD2i3TLMLSdkG0G7Wl7hsXcCDEhVq239aY/JwhRGu3xFu6g54VfOHqxbpGEgGZQj6LspuxAj9bJiD4iIDckPNI4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789993473; c=relaxed/simple;
-	bh=W8JvNEkyckKpR+piV7BTydusjcCA4C4lZD0t2TCoBbM=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=saelPEYAnvk/b7qcsr/30Bxi/aTYKjToMwr9N6ASYd/iD8v0Rijyhohki45Tl6KdfoHG/3HCtxguU6zsrgMGXza3ASyql85NIQrK+0p3IF452O3AJMnlB7M7YniunEkKsR2x2N/50fN3xVE4qhwZ3P3mHrFyhNPpShsa7DYRqjE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=oEWcd/q1; arc=fail smtp.client-ip=40.107.200.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B38F34973BD
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:25:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789993509; cv=none; b=QFL9pzX7NZvqEZ2zyJzJEorAGq682f6ZrCYFwgJ+88Y001x2Zl/nhJkGE6ylziKU7geKn+9/JMx1c1f46c4idZdVXZayM7b7T/C+ACsrJxmMFbMVjAq9TKqJ2NHXSQCdOxI9O6jmIJtEJ17BUDwyrYj6ThleiNRhLVrw4K/OJFs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789993509; c=relaxed/simple;
+	bh=Y5U2M0IMBc45XTMcbO64QLv1LrJr5qtSmRYz5xM4BsQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IwPUgfJyhpQCu9PsvlaH1mWdE6LjsVw6FK9sozoG1vkqnd0+A8DrbvO+KECl43WR1T+h1E4s68rEiR3jQ+UNSFYAG+AI+rNGsxaXmlfZ3Bri/IOSKW1oE74Nc35soYa4JKzqM+RbVH5ioDrW8rVVLVuUjykQzrS+LmY2bzmZoDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iNj6P50U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="oEWcd/q1"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UZZEHssjfAg9NaIdY09ebtBshwKH0o8YnLiMGc8g0fkqP9LiHiFRlXmj1FDqh29mrUYH2E3m98Pg7FpoP+XsH+W3/wQYuMqFbYt3s0JNQExbb99mblWIg+UFYtmJXMVWzb1bidmlG/dkNOl333GuBzw31L3pmBXn3JG4zNEowZnfdv9eQyz+z9YhB0IOizRlDtoLGXp4S0ByyUMXMQRK3cb1tZjRvw6SlNJNk2iQKVCthylAo4O+5oRJvQTosLLvzeVNqrp0Ae47m1ah4BhGL8ietYksVg6OxFG1uT/+/mcznJ08B3D436/6HYwZTxhsUIR8jnOnG5bF7ydPxEy3DQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XJD27SdHjExqbshGBowv6iX/lgun1FP45WS5Ldmazqs=;
- b=UWgG/82/0/KNiLEAdOeabI0FWEd5D5usDtQ0Rnbl1qDfkBwcY5P1cpdioTExs8b0Rvi4H5397kRaKx+zHpAtL1H2TIIoLZrORUXTlOxdVZFfesrrdVvs2s6/aht5YDpvcBN7eAaUawebMpcDuyyBT3Nx27gaQ0oM8pByOkC84Na6y0IeNUgzTAQWSvVBP4wZ+HUnzEK0H26FL0/nkf7s+NY07BzNzj3QzlMoZkF2MyCcizQ8+jBdX36ObX5fEwWF5tqYv6TJLAA86QZZMMba2F5UdIpYlwy7Ugci44N9IBjeqONmy3UZaj3/3FMDyw+MJdrejyG9AgenoCi30ifNHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XJD27SdHjExqbshGBowv6iX/lgun1FP45WS5Ldmazqs=;
- b=oEWcd/q13LEi9GcHjlucRo8V1SaUaRuPGnrZ5QWJF1UfKXtnyMVtKOI5G5ybPF5uFcyKomWK9Oh3JKlPHEQrgAww7G15Ho7d5k9sPFm3bQno3hIn6UK2wjWgkOqcqvVE2j2O5Fv5V0woY2ZsmnyvVywq5AsSwSs/ENeOVjAYq9A=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
- by CY8PR12MB7098.namprd12.prod.outlook.com (2603:10b6:930:62::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 12:24:28 +0000
-Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
- ([fe80::c3e5:48f8:beb6:ea68]) by SJ0PR12MB5673.namprd12.prod.outlook.com
- ([fe80::c3e5:48f8:beb6:ea68%6]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 12:24:27 +0000
-Message-ID: <cd2b32dc-5a80-4ef5-82bc-dd41ea96dc01@amd.com>
-Date: Mon, 21 Sep 2026 14:24:21 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 7/9] dma-buf: system_heap: Enforce shared-granule
- alignment for cc-shared buffers
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
- "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
- linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, Marc Zyngier <maz@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Thomas Gleixner
- <tglx@kernel.org>, Will Deacon <will@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, "T.J. Mercier" <tjmercier@google.com>
-References: <aq1V3oeDdvXobt8J@arm.com>
- <97c30fce-9bda-4c61-b1b9-10297b89c8d9@amd.com>
- <20260918153642.GD11599@ziepe.ca>
- <d8123f21-d5ce-415b-a05a-392d97b8b57d@amd.com>
- <20260918165315.GF11599@ziepe.ca>
- <6115eaf7-21bc-49ce-8a74-08fd37a1e2c9@amd.com>
- <20260921115141.GJ11599@ziepe.ca>
- <45dd7a2f-8474-4388-b383-2dee3ee62206@amd.com>
- <20260921121739.GM11599@ziepe.ca>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260921121739.GM11599@ziepe.ca>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR16CA0061.namprd16.prod.outlook.com
- (2603:10b6:208:234::30) To SJ0PR12MB5673.namprd12.prod.outlook.com
- (2603:10b6:a03:42b::13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iNj6P50U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AD7A1F000FF;
+	Mon, 21 Sep 2026 12:25:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789993505;
+	bh=1M6p5SOy+SM0nOL2SmY16j3B6xH1lik+zLKQU4/iFH8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iNj6P50UtRgQl2RU7gqsAGidmnThd6QdCIOvkbBRbf/0BE6OIZbomw4twQQLLngqD
+	 P7lpuahOvCgxP8soBxNKczoacZ+EFeAgzvxVhBt32IRjBsO0PtRyyR/N5I08ozroKm
+	 VvLogotQf7osq6E+/NWiXZ56nqljL2IBMhC5cnf2LMhwWHfunbfHh5OC+bXC4Zt5Us
+	 +uxXmWX1m8g7mI/9piFMSd+RquSont/e8ZEJV2GDjO60IXL58wZemyMZRbSldqHxcC
+	 XA4KZrvSeV/mCrC+J05Jrnb9TmvnQz6vTf0OkXjmvbSiWhXTgQD9LLKDekoO0kVqaN
+	 ynpT0Ib1KJpcg==
+Date: Mon, 21 Sep 2026 17:55:00 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Mahantesh Salimath <mahantesh@nvidia.com>
+Cc: Jens Wiklander <jenswi@kernel.org>, op-tee@lists.trustedfirmware.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] tee: optee: ffa: support shared memory offsets on
+ large-page kernels
+Message-ID: <arEiHFtNB3p6g4WB@sumit-xelite>
+Mail-Followup-To: Mahantesh Salimath <mahantesh@nvidia.com>,
+	Jens Wiklander <jenswi@kernel.org>,
+	op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org
+References: <20260904134732.1072541-1-mahantesh@nvidia.com>
+ <20260910161124.1561170-1-mahantesh@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|CY8PR12MB7098:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1747a5d3-1703-4331-08f2-08df17db476b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|7416014|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	wEEfVGGSX0O3g9iZ8gyekY4tnnnJ95Cl3wdt6QrxYcvS4OwxswBEoUxKmz1S1kSKxoYhqSBSvaqbTKIPwgbmYbmfy4wDjdA9GnPo+R6hnUDIKbc+FiX9HQeEKg92qggWFmnbzwq0lv9YGls2VmUbCv2semvKAGErx8Uj4jl+i8iXgTtCFfugMx7OFI8nfLWlgsCKWEVf4WUp0nsTA+3s8xQIvOvPDAwJuGatZGg+AjkSbugCGK68vo9+FUVdTgE0aphXCPJQvNWA0ZwvoVRVyIstwAHxviU+EkXcdXkVJ3evqQiSPp/5tMKXuG6IW+zhTMI2Mk1M3vrf8fWFz6Dp2x0JqefwjzNJD5t7SM/H0t7ppBYyag7MtHRbjNbz1EdyvQCg1ouNiqKQREkZdqbyaxEBpqTevl7UrvJ2nUiXjvk4Sxsa4OJcKFH5sgaa4vAhRVThAGJfz9nL78Uin6tmIqB1aPIOzNJzdPR2ORZes08+Qc4gMcBASUcs8u7R56MgZ5U3sYmqN4RvPlFXsKoghlN4V16C7P83wd9newWxoqTJmmVFiPiBRNYGbPV6nFOodeTHZoTulKUYn5OJzCJ03MMgPrK6dFbuFaU4ZTtEzqeGH2p6e+p5PDUQAbjk9oBG
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR12MB5673.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(7416014)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eEZiQk1jWmU0dVBXdXVoSkl1RG1rOWNFdm9kQ1JOVjdtU21lckJWdU9tTEdP?=
- =?utf-8?B?K09qd0tJdHNnN25nU3BBT3pUZjRkU0plZkR0Tno0cFlSK1dwdTBvSVF5QjZ3?=
- =?utf-8?B?RThES0pFZVdNeFVPakt1bU5VaHNPM0FMUzgwSEtuUnRlSXhjVUtGTUpmendV?=
- =?utf-8?B?Mnp1Qkh4ZjJKdnNTR0NIT3BnaU1DUkcxU2M3Um9WM3NRemRlRE5sZm9zM0dY?=
- =?utf-8?B?MXE4TS8wSnFET2cydE9Ecm5JeDNndmQwRE1aSW5IVEJoaFFuMEppa3lJM0Fm?=
- =?utf-8?B?YU5BNG9nenNhZ0htdWRYNlBzamU0SlNORlp6SnRzSjdUeVA2WEpiQWNMWHhw?=
- =?utf-8?B?TGdGbUJ1Q2lXWFhuMEJ4TWRVQ3c2bTRFSlBmMVkxWE9CRDMzRHdyMmpHRnJh?=
- =?utf-8?B?ZFJVZHNOWnFtSitPdTlmODQxcDBETFZBRXFhR3ozQ2pYWnErZU0vb0ZxOWJo?=
- =?utf-8?B?WTUyL1pGcU1FNWNTaGZpc1E0SzlLM2pycUNnTllFaEt6amNMRU8wV013NExk?=
- =?utf-8?B?V0x1TmVZVmR6VHhBQUMxeWgvZ1krakszcUxNVnJxNFFQUE9WdUxaOVlqTXow?=
- =?utf-8?B?UnBNRXQ2VjExWVdUQzBOTjRPeDZHRGxSa203dndQTVg2MDBRZnRpVXNBNmZp?=
- =?utf-8?B?Tlh3MFY3QmxseWd4N3d1WDNnYUhPOThVM0l4cmZuN0RmZXR6S0NZRDhaaTNN?=
- =?utf-8?B?ZlpYcmIzQngycmNaWFJFSlhKWnhQdmtjc3BYS0Z0cmdzd3FwcFlRWjQydStZ?=
- =?utf-8?B?eXJoNTR0bElISkF0L2lneVFYV2dYZnE2QUF4VUYzUjFReUtndDJvYUlhVVYr?=
- =?utf-8?B?aVl1cHlpQTdMbStYT0hRVzRrckc4NGRFV3FaaCtYNGtrZ3VGL2dLTUJnZHdp?=
- =?utf-8?B?YmxTak5SNmVORzF3RzRDZ2Qvam1uVmFrcXRCZEN6Wk9oTkpWaW8ycFRheEJO?=
- =?utf-8?B?Szh4aURLUXI2ZWxxY2toTFcxYm1JMTQvR3B5Z0lvTjVOV0t5UnpXQW5SWWdG?=
- =?utf-8?B?ZXBaOTVyL2NqSURDeEc3RjJvdHo1TEhZUVdVdmRtS1FhZFlXRHVGKzJjdGpR?=
- =?utf-8?B?czFLODlvdHhzaHJUelZhKy94VWN1WFdDMWYwVEEybVljaUhPNGNtVFVycktX?=
- =?utf-8?B?ck9mMk4xMUlDdWV1aUNIZnltUEZCNlp5Ky94ciswcW5hUndyM3h2Q0tUVU9E?=
- =?utf-8?B?VkVlNUU3OVdRdGJ0Y1daeFpRRDhJMUpRQjF4VWZ6eDZLYVhKZmhOZFNBc2Ji?=
- =?utf-8?B?TXlaUXNnb3ZMRzEzZFg1VmlhbWs1bGg1NGdEcHA1aFBVeEYxT3VpYStLaE5Y?=
- =?utf-8?B?UXNpTTZ1WlZkem1XOUUyUkUrQXlIeE04Ymx2dmtOZEpGOEE3c2JPeDcvUlhx?=
- =?utf-8?B?eGFHY2tRemYwSEU4bFJuTlk1UzhyaXJhU29UaEU4QjNjSjhhdk4rd25zVXdY?=
- =?utf-8?B?Z2VHdEZ2djdieHBlaVhMeWZrYmN6MWwvR3NGUDBiSXJZQjVKM1dXSFNvQ3RD?=
- =?utf-8?B?eE9zUkZuV2MwaiszWm1ENGNXTjlDUmkxM085QmRpb1ovMjVuWkVJVGFWSm40?=
- =?utf-8?B?OVlDUFFxa3IrUlJhR0dWcVZkRnkxN1c1R0VVKzhxTmEwZ3hHVFFNeWhtcVZu?=
- =?utf-8?B?KzdLcDc2N0ZUZlpYK0I5bHZaSlcvU1RPMXp4Z0lQeGZ3Rkw1SFEvbUhTTkdx?=
- =?utf-8?B?NXEySXNzS3FpYXM3ZFlvaGdOK3VtcXRJVkxtblQ5NFZFVjgrbTU3VlBqRGpk?=
- =?utf-8?B?S0NTUWNPaTJRclcxSkRjNng0MnNjSnFrV3hDVmNHL0t6N3l3akZtWUtRNEF0?=
- =?utf-8?B?WEZWR002a3ZsSjRpaFIxY1IzOGFaL3E3RjdNNksra2NwMTNqZHV0OVNqU1lM?=
- =?utf-8?B?a1FHRVZIWHBGTTREZE1acTBEZWZCWVRwWjk3ekN3UjZ0YzU1amhNK0FVcFdP?=
- =?utf-8?B?dE1GK0RaSmFUVVF5V1FlSmpxa2NwOUNFajJRejEyRXkveDErakJ2OU1kYmdT?=
- =?utf-8?B?UVBBYW0wV0xPczNBTi9HOWFzTENQUlAzcm5zQ3J0eXhCUWF1QVlWeFZJM203?=
- =?utf-8?B?MG5heGtLZDVvUTV4RUNXVFdHOUZQQ0d4d0VrMzVKZFFPeWRKc0dsdjRBQlJh?=
- =?utf-8?B?UU5kRU1DWjJGRHZzb0d2RHV2bEFickdIZng4aDJRVkd0cUlvWUNmaC9WeGsw?=
- =?utf-8?B?MlNnL3hKdmpmWWtPcmR5MWRMM1ZsdXRnUkZGTk1uS0hZZXgyQzRUYVZuaVgw?=
- =?utf-8?B?eVhITDNPd2hFZzRYMUZhYnJ3RTYvT1JvWnl4d0kvZ1lrSSt0a1plaVBPTWUy?=
- =?utf-8?Q?gKCmaPjyLeFcYtu1dO?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1747a5d3-1703-4331-08f2-08df17db476b
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 12:24:27.5159
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yYcgW0Aw4GEuO3a3v2G9z4I5Vf4efVmWfST/wB53rq2Vb9l0Is6l3kuIKbNQw22Z
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7098
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260910161124.1561170-1-mahantesh@nvidia.com>
 
-On 9/21/26 14:17, Jason Gunthorpe wrote:
-...
->>>> That userspace provides this cc_shared flag is a NO-GO to begin
->>>> with.
->>>
->>> What do you mean? We discussed this with the heap maintainers and we
->>> all agreed this was a kind of heap just like any of the other kinds of
->>> heaps that userspace can request.
->>>
->>> It is *exactly* the "special allocation requirements" you are talking
->>> about above.
->>
->> I only see a fraction of the patch set (because no DMA-buf
->> maintainer was CCed) and to me it looked like the cc_shared flag was
->> added as an additional parameter to the allocation and not a
->> separate heap created.
-> 
-> ?
-> 
-> It was merged months ago, and you were CC'd:
-> 
-> https://lore.kernel.org/all/20260325192352.437608-1-jiri@resnulli.us/
+On Thu, 10 Sep 2026 at 16:11:24 +0000, Mahantesh Salimath wrote:
+>OP-TEE FF-A memory objects use 4 KiB pages, while the kernel page
+>size may be larger. Consequently, tee_shm->offset can be greater than
+>or equal to FFA_PAGE_SIZE, but OP-TEE rejects such a value in
+>internal_offs.
+>
+>Do not encode the excess page offset in offs_low/offs_high. Those
+>fields describe the logical memref offset and are copied back into
+>tee_param->shm_offs on return. Folding the page offset into them breaks
+>parameter round trips when a memref is reused. They are also ignored by
+>the OPTEE_RPC_CMD_SHM_ALLOC response path, which uses only global_id and
+>internal_offs to construct the shared-memory mobj.
+>
+>Instead, start the FF-A descriptor at the 4 KiB page containing the
+>shared buffer, the same approach as optee_fill_pages_list() in the SMC
+>ABI. Store the remaining in-page offset in internal_offs and preserve
+>shm_offs in offs_low/offs_high. This keeps internal_offs within the
+>FF-A page size, maps RPC allocations at the correct address, and
+>preserves normal memref offsets across repeated invocations.
+>
+>Tested on ARMv8-A with 64 KiB PAGE_SIZE. OP-TEE OS ran as a secure
+>partition under Hafnium (SPMC) over FF-A. Verified registered shared
+>memory with tee_shm->offset >= 4 KiB, memref reuse on the same
+>TEEC_Operation, and RPC OPTEE_RPC_CMD_SHM_ALLOC (xtest regression
+>6007-6009). optee_hello_world, optee_aes, and xtest regression 1005,
+>1007, 1008, 4001-4003 and 6001-6003 also passed.
+>
+>Fixes: 4615e5a34b95 ("optee: add FF-A support")
+>Acked-by: Liming Sun <limings@nvidia.com>
+>Acked-by: James Hurley <jahurley@nvidia.com>
+>Acked-by: Dave Thompson <davthompson@nvidia.com>
+>Signed-off-by: Mahantesh Salimath <mahantesh@nvidia.com>
+>---
+>v2:
+>- Drop helper indirection; mask internal_offs inline (Sumit Garg)
+>- Keep a single ffa_offs local in optee_ffa_shm_register()
+>
+>Link: https://lore.kernel.org/lkml/20260904134732.1072541-1-mahantesh@nvidia.com/
+>
+> drivers/tee/optee/ffa_abi.c   | 22 ++++++++++++++++++----
+> drivers/tee/optee/optee_msg.h |  4 ++--
+> 2 files changed, 20 insertions(+), 6 deletions(-)
 
-Ah! I though the flag was added in this patch set.
+Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-> 
-> It follows the design the dma heaps maintiners guided to create a new
-> named heap:
-> 
-> +	exp_info.name = "system_cc_shared";
-> +	exp_info.priv = &system_heap_cc_shared_priv;
-> 
-> Along side the normal heap:
-> 
->  	exp_info.name = "system";
-> 
-> It is identical to "system" except the pages are "CC shared" meaning
-> the hypervisor and every DMA device can access them.
-> 
-> This series is just adjusting the rules around how
-> set_memory_decrypted() works. It isn't changing any uAPI or adding
-> anything new to dmabuf heaps.
+-Sumit
 
-Yeah that was absolutely not clear to me since I only got added to this single patch.
-
-I also don't see where mem_cc_shared_granule_size is added?
-
-> Yes, it ends up as a flag in the internal code flow, that is just how
-> it got coded..
-
-In that case this is probably ok as it is.
-
-Christian.
-
-> 
-> Jason
-
+>
+>diff --git a/drivers/tee/optee/ffa_abi.c b/drivers/tee/optee/ffa_abi.c
+>index 633715b98625..fdedcab50f23 100644
+>--- a/drivers/tee/optee/ffa_abi.c
+>+++ b/drivers/tee/optee/ffa_abi.c
+>@@ -198,7 +198,8 @@ static int to_msg_param_ffa_mem(struct optee_msg_param *mp,
+> 	if (shm) {
+> 		u64 shm_offs = p->u.memref.shm_offs;
+>
+>-		mp->u.fmem.internal_offs = shm->offset;
+>+		mp->u.fmem.internal_offs = tee_shm_get_page_offset(shm) &
+>+					   (FFA_PAGE_SIZE - 1);
+>
+> 		mp->u.fmem.offs_low = shm_offs;
+> 		mp->u.fmem.offs_high = shm_offs >> 32;
+>@@ -284,14 +285,26 @@ static int optee_ffa_shm_register(struct tee_context *ctx, struct tee_shm *shm,
+> 		.nattrs = 1,
+> 	};
+> 	struct sg_table sgt;
+>+	size_t ffa_offs;
+> 	int rc;
+>
+>+	if (!num_pages)
+>+		return -EINVAL;
+>+
+> 	rc = optee_check_mem_type(start, num_pages);
+> 	if (rc)
+> 		return rc;
+>
+>-	rc = sg_alloc_table_from_pages(&sgt, pages, num_pages, 0,
+>-				       num_pages * PAGE_SIZE, GFP_KERNEL);
+>+	/*
+>+	 * Start the FF-A descriptor at the 4 KiB page containing the shared
+>+	 * buffer, skipping unused leading 4 KiB pages when PAGE_SIZE is
+>+	 * larger. Same approach as optee_fill_pages_list() in the SMC ABI.
+>+	 * This leaves only the offset into that 4 KiB page for internal_offs.
+>+	 */
+>+	ffa_offs = round_down(tee_shm_get_page_offset(shm), FFA_PAGE_SIZE);
+>+	rc = sg_alloc_table_from_pages(&sgt, pages, num_pages, ffa_offs,
+>+				       num_pages * PAGE_SIZE - ffa_offs,
+>+				       GFP_KERNEL);
+> 	if (rc)
+> 		return rc;
+> 	args.sg = sgt.sgl;
+>@@ -458,7 +471,8 @@ static void handle_ffa_rpc_func_cmd_shm_alloc(struct tee_context *ctx,
+> 		.attr = OPTEE_MSG_ATTR_TYPE_FMEM_OUTPUT,
+> 		.u.fmem.size = tee_shm_get_size(shm),
+> 		.u.fmem.global_id = shm->sec_world_id,
+>-		.u.fmem.internal_offs = shm->offset,
+>+		.u.fmem.internal_offs = tee_shm_get_page_offset(shm) &
+>+					(FFA_PAGE_SIZE - 1),
+> 	};
+>
+> 	arg->ret = TEEC_SUCCESS;
+>diff --git a/drivers/tee/optee/optee_msg.h b/drivers/tee/optee/optee_msg.h
+>index 7d9b12e71c03..6c3043f8da33 100644
+>--- a/drivers/tee/optee/optee_msg.h
+>+++ b/drivers/tee/optee/optee_msg.h
+>@@ -136,8 +136,8 @@ struct optee_msg_param_rmem {
+>  * struct optee_msg_param_fmem - FF-A memory reference parameter
+>  * @offs_low:		lower bits of offset into shared memory reference
+>  * @offs_high:		higher bits of offset into shared memory reference
+>- * @internal_offs:	internal offset into the first page of shared memory
+>- *			reference
+>+ * @internal_offs:	offset into the first 4 KiB page of the FF-A shared
+>+ *			memory region
+>  * @size:		size of the buffer
+>  * @global_id:		global identifier of the shared memory
+>  */
+>-- 
+>2.43.0
+>
