@@ -1,111 +1,159 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C23F4A0EE2;
-	Mon, 21 Sep 2026 14:41:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1942B4A6881;
+	Mon, 21 Sep 2026 14:42:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790001686; cv=none; b=hCA7JKgL7dxI1iB9PlzOazSy03rfSraXeFKCAZJflCxSOBMDQYtmK9RH+qnHE69WBhHwri4tJfi3+Exg8JCF54T6dKKqkNXIeRqcffMvKXvR3PDd18cR9fuMYNdQ4lqJy5pWm6HjIIf7DIzLNNS+uE+6C0AeUP0pjenIBPkVzxo=
+	t=1790001736; cv=none; b=kDZEQqlLeF86e0gxbKVLa96u8sHQOwW14XA8p1wXnXG/63oVloja+pLGOXdIqxPHxcdB4zxXxdvC8ZF3V33UWtPnu9AyHlA9KTKCKU03OYOMjcIIbQSO8FtFOD+ntRBEkhcNfgknZP6d1JKu4FRKLk6wj2YWa7Y16MbLqaHUOns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790001686; c=relaxed/simple;
-	bh=6CGx7zVA+L58eCa8NaOb43Ibvn6UrpF9zmAhX5T538k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BYq6QMxSJGqalmroocbxKeviTbE/mfMFOLh/6KXhluhkNjLdUkmwAFGsmtsF1HHNED3On8+P+5pTaciZZmhOL20sx7o7XfzIR7Wp/ZwI6AtAS+SvnewyCkDufzJrxjI8zgoEH7tVaBxqww1aypKxpDfzJMvJ+xjHj726hkes058=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=HdLW9ymA; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1790001736; c=relaxed/simple;
+	bh=sGruuTORCOH7Md2a1q1vZDJ3XOsnCuOVCxA101Q3I20=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oilkgfomNO4o/u4/oU3f+GpnsDpHUFXPg77bzfvUcViIK2r+mozyxzCbuwamzLvZb3NdFMIQ1T4w8jyk7JzAHwQQpeTXq5ffWB2o4v8yi7Mw4Wo/CHrhMoQIIUM4p/G38Gf0xAm0TPBwGntUZNjk/umyWu5rb3lC7rdO8Ddh87M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=N2RN0ZfN; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="HdLW9ymA"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=vz6ig8BRPBVwJCqjuHXD5UgGHX45kboKMUHzdcfP0c0=; b=HdLW9ymAtaR/QoHJnbc/xctj+X
-	vLC6axC88Oof0X6bBC7oI+HtAK4V5+LVJTgJTXgkzns9NFSp+wZEMGj0Dip8AG8Yyv/R6Cx0cZCuu
-	jFOqI/lP5w3zqc/QvREMeb1kYunONbrUvEGDXR83GQu3aOgrKcq3HhNtYhf5T1h6KdouCkK1guBAz
-	24yzTSGrW74FPLXbpYZE//H913yCahQ043x7YNr73kNqu1ujqSnAENYsqgHnNv6e0tRd2U6OBFNKi
-	LtAIPGi8oaLW0EC7Z57crscy6OiwBk0y6xVixaOVhw0Mki4M9ajmlfbqkbjZc0Cmk5ZMbgwqdc9vT
-	qz80Jijw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x8fCO-002H76-2h;
-	Mon, 21 Sep 2026 14:40:53 +0000
-Date: Mon, 21 Sep 2026 07:40:46 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Will Deacon <will@kernel.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Christian Loehle <christian.loehle@arm.com>, Srikar Dronamraju <srikar@linux.ibm.com>, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Lee Trager <ltrager@nvidia.com>, Vikram Sethi <vsethi@nvidia.com>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] sched/fair: Honor asymmetric SMT priority in idle
- selection
-Message-ID: <arFBm0EzMcz1RI-l@gmail.com>
-References: <20260917140707.3807229-1-arighi@nvidia.com>
- <20260917140707.3807229-2-arighi@nvidia.com>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="N2RN0ZfN"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4e975bd86;
+	Mon, 21 Sep 2026 22:42:07 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: William Hubbs <w.d.hubbs@gmail.com>
+Cc: Chris Brannon <chris@the-brannons.com>,
+	Kirk Reiser <kirk@reisers.ca>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	speakup@linux-speakup.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] speakup: handle serial IRQ request failure
+Date: Mon, 21 Sep 2026 22:42:01 +0800
+Message-Id: <20260921144201.302823-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917140707.3807229-2-arighi@nvidia.com>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0c46ac5dc03a1kunma0f451da52895
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTB1NVklPTEIeGE9MHU4dGFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=N2RN0ZfNQYf3rnlweQGuBtfuTiOfYuErv1fFwFfxxw8zUh44GOhRsmc+kdy1Q6ghfet+JAgmUAn9HtMrsQUx4UL/ybsbdBo3muJYZZ816flAmzFZZD1n8Wo2ILK8K+7mJASFgnGLGHsAxqDTbnz9NRlC3jlvejQc5YiyrKo7K/o=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=u2wIf+IGyx/+O0OgWCp4shQ0MgaWvz2EtUhSKy/AUig=;
+	h=date:mime-version:subject:message-id:from;
 
-On Thu, Sep 17, 2026 at 04:05:20PM +0200, Andrea Righi wrote:
-> POWER7 uses SD_ASYM_PACKING at the shared-capacity SMT level to order
-> hardware threads, and NVIDIA Olympus benefits from the same policy. Idle
-> CPU selection does not consult that order, so a task can wake on an
-> arbitrary sibling and remain there until load balancing corrects the
-> placement. On these systems, that initial choice can prevent the core
-> from entering its preferred lower-thread resource mode and cause a large
-> and persistent performance loss.
-> 
-> When idle selection finds an available CPU in an SMT core, choose the
-> highest-priority available sibling. On SMT2 Olympus this only changes
-> selection on fully idle cores. A partially idle core has only one
-> available CPU. On wider SMT systems such as POWER7, it also fills
-> available siblings in priority order while the core is partially busy.
-> 
-> Apply the preference to idle-core and idle-CPU scans,
-> asymmetric-capacity scans, target, previous, recently-used CPU fast
-> paths and the slow path. Inspect the lowest scheduling domain directly,
-> but require both CPUs to share its span because isolcpus can split
-> hardware siblings across scheduling domains.
-> 
-> Keep physical-core capacity selection independent from SMT sibling
-> ordering. SD_ASYM_CPUCAPACITY first selects among cores with different
-> maximum capacities, then SD_ASYM_PACKING selects the preferred available
-> sibling inside the chosen core, whose siblings continue to share equal
-> capacity.
-> 
-> Reviewed-by: Srikar Dronamraju <srikar@linux.ibm.com>
-> Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
-> Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
-> Signed-off-by: Andrea Righi <arighi@nvidia.com>
+start_serial_interrupt() currently logs a failed request_irq() but
+continues enabling UART interrupts and reports a successful serial
+synthesizer probe. A later release then calls free_irq() without a
+matching registration.
 
-Tested-by: Breno Leitao <leitao@debian.org>
+Return the request error to spk_serial_init() and unwind the I/O region
+and serial state when registration fails. This keeps the UART disabled
+and prevents teardown from freeing an IRQ that was never requested.
 
-I tested v6 on top of linux-next 20260918 with a KASAN + PROVE_LOCKING
-arm64 kernel and etst on my own 2-socket NVIDIA Olympus system (88 cores
-per socket, SMT2, 352 CPUs, 36 NUMA nodes).
+Reproducer:
 
-With sched_smt_asym_packing=on, SD_ASYM_PACKING appears on the SMT
-domain only; MC and NUMA are untouched, and the override is reapplied
-on every domain rebuild (~400 hotplug operations, including offlining
-and re-onlining all 176 second siblings). A task woken on the
-higher-numbered sibling is redirected to the lower-numbered one on
-800/800 wakeups, against 13/800 without the series. auto, off and an
-invalid value behave as documented. No WARN/BUG/KASAN/lockdep under
-stress-ng and perf bench sched.
+  Build an x86_64 kernel with CONFIG_ACCESSIBILITY=y,
+  CONFIG_SPEAKUP=m, and CONFIG_SERIAL_8250=m. Disable ACPI, PNP, and
+  SERIAL_8250_CONSOLE so that QEMU's COM1 remains available at 0x3f8 on
+  IRQ4. Build an out-of-tree module that first claims IRQ4 with a
+  non-shared handler and then registers a Speakup serial synthesizer for
+  ttyS0. Boot the kernel in QEMU with its default COM1, for example:
 
-I did not measure throughput.
+    qemu-system-x86_64 -machine pc -m 1024 -smp 2 -no-acpi \
+      -display none -monitor none -serial file:/dev/null \
+      -kernel arch/x86/boot/bzImage -initrd test.cpio.gz \
+      -append 'console=hvc0 rdinit=/init loglevel=7'
+
+  In the guest, load the modules in this order:
+
+    insmod speakup.ko
+    insmod speakup_irq_failure_poc.ko
+
+  The second module keeps the non-shared IRQ4 owner installed, so the
+  Speakup request_irq(..., IRQF_SHARED, ...) fails with -EBUSY. On the
+  unfixed kernel, the probe still returns success and the harness removes
+  the published synthesizer, producing "Trying to free already-free IRQ
+  4". On the fixed kernel, the probe returns an error and no unmatched
+  free_irq() warning is emitted. The IRQ conflict is deliberately
+  injected to exercise the error path and is not expected during normal
+  operation.
+
+Fixes: c6e3fd22cd53 ("Staging: add speakup to the staging directory")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM Codex
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/accessibility/speakup/serialio.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/accessibility/speakup/serialio.c b/drivers/accessibility/speakup/serialio.c
+index 3418ea31d..56efc76a7 100644
+--- a/drivers/accessibility/speakup/serialio.c
++++ b/drivers/accessibility/speakup/serialio.c
+@@ -17,7 +17,7 @@
+ #define SERIAL_PORT_DFNS
+ #endif
+ 
+-static void start_serial_interrupt(int irq);
++static int start_serial_interrupt(int irq);
+ 
+ static const struct old_serial_port rs_table[] = {
+ 	SERIAL_PORT_DFNS
+@@ -106,7 +106,13 @@ const struct old_serial_port *spk_serial_init(int index)
+ 	speakup_info.port_tts = ser->port;
+ 	serstate = ser;
+ 
+-	start_serial_interrupt(ser->irq);
++	err = start_serial_interrupt(ser->irq);
++	if (err) {
++		synth_release_region(ser->port, 8);
++		speakup_info.port_tts = 0;
++		serstate = NULL;
++		return NULL;
++	}
+ 
+ 	return ser;
+ }
+@@ -125,18 +131,20 @@ static irqreturn_t synth_readbuf_handler(int irq, void *dev_id)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static void start_serial_interrupt(int irq)
++static int start_serial_interrupt(int irq)
+ {
+ 	int rv;
+ 
+ 	if (!synth->read_buff_add)
+-		return;
++		return 0;
+ 
+ 	rv = request_irq(irq, synth_readbuf_handler, IRQF_SHARED,
+ 			 "serial", (void *)synth_readbuf_handler);
+ 
+-	if (rv)
++	if (rv) {
+ 		pr_err("Unable to request Speakup serial I R Q\n");
++		return rv;
++	}
+ 	/* Set MCR */
+ 	outb(UART_MCR_DTR | UART_MCR_RTS | UART_MCR_OUT2,
+ 	     speakup_info.port_tts + UART_MCR);
+@@ -148,6 +156,7 @@ static void start_serial_interrupt(int irq)
+ 	inb(speakup_info.port_tts + UART_IIR);
+ 	inb(speakup_info.port_tts + UART_MSR);
+ 	outb(1, speakup_info.port_tts + UART_FCR);	/* Turn FIFO On */
++	return 0;
+ }
+ 
+ static void spk_serial_send_xchar(struct spk_synth *synth, char ch)
+-- 
+2.34.1
