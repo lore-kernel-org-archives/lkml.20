@@ -1,115 +1,68 @@
-Received: from linkmauve.fr (linkmauve.fr [82.65.109.163])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA403C3F58;
-	Mon, 21 Sep 2026 17:01:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.65.109.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C1F3BF68D;
+	Mon, 21 Sep 2026 17:01:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790010067; cv=none; b=gZUNrBz/tasVCVgZpnOR9cQk4tYxXEMP1BrfVaWKgxoYekDwwLjPoqZQkUg21AUiqpHJpSlj4wu7Qmd0hE1kD6X676vYt0Am69qsfvWHhrQUBd+6JD+9gBQl+TtYjksqhDrnEns76CbTQq4aIiTbhW5nWcLb85wWVvZsjZDy5r8=
+	t=1790010090; cv=none; b=nsSl7RAFWLN2aRRFu7VoQiLdDEvFCjAlOZqsqbuK0KjShvFoEoKo+CBJIQeb7uWjYM7WXM98Ux5aKb/nNQNgyzV895AbyAL8y12c8QYngehx+GIVOHCg+xx+LAJCQX+wgp8UNAMTEuC3q8qw1iP1Tugmdq3VaoMH6iKbjAzZ5Rg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790010067; c=relaxed/simple;
-	bh=R4OKlJp4JXlTiXm11kLsKOkSES+Pu8hmJ514GfVGpWo=;
+	s=arc-20240116; t=1790010090; c=relaxed/simple;
+	bh=MA+ZcYIUn/C28DKNLCi4W6hUtQhlgmcukjYPAcPtLjs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NeIEsG+gmWU93aK4rGhHZL8wrMqZH2oJ+Ry4bSkUfOLxnRZ1ikSGeWw5NHY1Is73be9wKKFlOIiyJmHGrWLTizilxbo7J1WwNF9hOiIpqgV/AhyLVizIkhisaixEIle1P3ADg9gNiv8p7gJMwDA/9exE21dJXe0nzlaBUQRP6gI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr; spf=pass smtp.mailfrom=linkmauve.fr; arc=none smtp.client-ip=82.65.109.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linkmauve.fr
-Received: by linkmauve.fr (Postfix, from userid 1000)
-	id 6F6CD718B250; Mon, 21 Sep 2026 19:00:55 +0200 (CEST)
-Date: Mon, 21 Sep 2026 19:00:55 +0200
-From: Link Mauve <linkmauve@linkmauve.fr>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Link Mauve <linkmauve@linkmauve.fr>, linux-media@vger.kernel.org,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Bradford Love <brad@nextdimension.cc>, Kees Cook <kees@kernel.org>,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] media: ts2020: put regmap_config on the stack
-Message-ID: <arFixwvATR2hkp68@desktop>
-References: <20260804114625.2314430-1-linkmauve@linkmauve.fr>
- <20260804114625.2314430-4-linkmauve@linkmauve.fr>
- <arA3TaFiFOx7ubjj@monoceros>
+	 Content-Type:Content-Disposition:In-Reply-To; b=i/zc0X/OGTD6buhsAefrEBgDNWXd9TJxsAfDVAgW6EXwwzSHANoVti0tca7nYcFDUsXihOhTZczzkZMKLO0mPWqMYYjUynmwaFDkn3BLb7MH4oEYotO0X6ua3QUxZKYRW78oj8RDmnznPEfmpsPPLRFAQtGbNuzfbi0plTcJmuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YIvufl2K; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YIvufl2K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 010741F000FF;
+	Mon, 21 Sep 2026 17:01:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790010089;
+	bh=LDYfj0q0WBbc27zJfQKY47KhE5CkSTCe0tT5qQ5LOuk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YIvufl2KQ/GmFXyad1oCBKcuqybWf/Yt8lXLGX5IJCfSonNJA4vvhaTFnghQMVcmo
+	 xdZBV+4sQAm0MAZe2kCCVhSY30RNqNxUvsldGpqSGxRkkxNaGT3eCYF3uUUT+jMx43
+	 Mh5KIxaE7RZ8rWrfkvHrO4ZJVENXvA/8Ucw5xPJZnIrL87+27oVEfLw8rdqhXoICrs
+	 3sVK9FxEYzg140DNb+DzWI9anb5AyljUp9yfDsATkHmOxiBSVr4Wt2x6yv5oX9ao+r
+	 E0ztA/vE4eVQsSBun/CZE7RW9fKl3NYMl1TjWTFArFGYHf3c4WA94/525bvdra3x9T
+	 ywdZn8rCcHRNw==
+Date: Mon, 21 Sep 2026 12:01:27 -0500
+From: Rob Herring <robh@kernel.org>
+To: Yureka Lilian <yureka@cyberchaos.dev>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>, Hector Martin <marcan@marcan.st>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH v2 2/7] dt-bindings: arm: apple: apple,pmgr: Add t8140
+ compatible
+Message-ID: <20260921170127.GA894200-robh@kernel.org>
+References: <20260911-apple-a18-pro-initial-devicetrees-v2-0-08d06cf011d4@cyberchaos.dev>
+ <20260911-apple-a18-pro-initial-devicetrees-v2-2-08d06cf011d4@cyberchaos.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <arA3TaFiFOx7ubjj@monoceros>
-Jabber-ID: linkmauve@linkmauve.fr
+In-Reply-To: <20260911-apple-a18-pro-initial-devicetrees-v2-2-08d06cf011d4@cyberchaos.dev>
 
-On Sun, Sep 20, 2026 at 09:46:42PM +0200, Uwe Kleine-König wrote:
-> Hello,
+On Fri, Sep 11, 2026 at 06:58:39PM +0200, Yureka Lilian wrote:
+> The PMGR blocks on the Apple silicon A18 Pro SoC (t8140) is compatible
+> with the M1-M4 SoCs. Add "apple,t8140-pmgr" as A18 Pro specific
+> compatible.
 > 
-> On Tue, Aug 04, 2026 at 01:46:23PM +0200, Link Mauve wrote:
-> > diff --git a/drivers/media/dvb-frontends/ts2020.c b/drivers/media/dvb-frontends/ts2020.c
-> > index 8775083f4dd6..27f096ce522e 100644
-> > --- a/drivers/media/dvb-frontends/ts2020.c
-> > +++ b/drivers/media/dvb-frontends/ts2020.c
-> > @@ -18,7 +18,6 @@
-> >  struct ts2020_priv {
-> >  	struct i2c_client *client;
-> >  	struct mutex regmap_mutex;
-> > -	struct regmap_config regmap_config;
-> >  	struct regmap *regmap;
-> >  	struct dvb_frontend *fe;
-> >  	struct delayed_work stat_work;
-> > @@ -559,6 +558,12 @@ static int ts2020_probe(struct i2c_client *client)
-> >  	u8 u8tmp;
-> >  	unsigned int utmp;
-> >  	char *chip_str;
-> > +	struct regmap_config regmap_config = {
-> > +		.reg_bits = 8,
-> > +		.val_bits = 8,
-> > +		.lock = ts2020_regmap_lock,
-> > +		.unlock = ts2020_regmap_unlock,
-> > +	};
-> >  
-> >  	if (!pdata) {
-> >  		dev_err(&client->dev, "platform data is mandatory\n");
-> > @@ -574,12 +579,8 @@ static int ts2020_probe(struct i2c_client *client)
-> >  
-> >  	/* create regmap */
-> >  	mutex_init(&dev->regmap_mutex);
-> > -	dev->regmap_config.reg_bits = 8;
-> > -	dev->regmap_config.val_bits = 8;
-> > -	dev->regmap_config.lock = ts2020_regmap_lock;
-> > -	dev->regmap_config.unlock = ts2020_regmap_unlock;
-> > -	dev->regmap_config.lock_arg = dev;
-> > -	dev->regmap = regmap_init_i2c(client, &dev->regmap_config);
-> > +	regmap_config.lock_arg = dev;
-> 
-> If desired you can keep all the assignments here using:
-> 
-> 	regmap_config = (typeof(regmap_config)){
-> 		.reg_bits = 8,
-> 		.val_bits = 8,
-> 		.lock = ts2020_regmap_lock,
-> 		.unlock = ts2020_regmap_unlock,
-> 		.lock_arg = dev,
-> 	};
-> 
-> > +	dev->regmap = regmap_init_i2c(client, &regmap_config);
+> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+> ---
+>  Documentation/devicetree/bindings/arm/apple/apple,pmgr.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-I think I still prefer my approach, there is very little usage of the
-typeof() pattern in the kernel, the only benefit would be to keep
-lock_arg in the same location as the rest of the initial values.
-
-> 
-> With or without that approach:
-> 
-> Acked-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
-
-Thanks!
-
-> 
-> Best regards
-> Uwe
-
--- 
-Link Mauve
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
