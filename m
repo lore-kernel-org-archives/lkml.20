@@ -1,42 +1,41 @@
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED1371C695
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:43:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDBA536728D
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:43:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789973025; cv=none; b=BlXLztH/UnhxFNi90bd9koZOKTLKNh47fFT0DGW+R7c/VPyRbwJrHr4OdrdjbSsDdZ1viLiY2TtPlFI1QiKIIenGWB8qU+7oq+ulo6gCN5QFwQq/LmfFxmezMwSIM9KdDW6ZyYkwSTzhZzVMUTPNcSMLICHw5ahGRrD9ckrnwvk=
+	t=1789973025; cv=none; b=H9gym/zbdgKTQZru3p8IwjNA/FR3KKXd1tC9Y6ARsOB7QzxVWF4/az2e4Lepviw8p4pGQn+tO7gN9Sb2t/jnxl0suiQ5hRpHj4nkhAEq1XeOARC1uXRrOx28v5y0KByJtoWPiDnX6ybxI247faBVgWgKH2ZfvBj2V1eAwGfHOPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789973025; c=relaxed/simple;
-	bh=or+OWl10I9B/tLMuVHTcmnXXtf2fey3/U/2Nl/9W1YU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=T9Z6dqI11vpR/xPIbmV+qz45IbcNZiaOMPmeCWBIIAW7nsR8reqddgNP+nWkhb/qPcYTogFLuzY8yip8W3oE82DaPLnVtSYQzKdFncAQUJdILQ/mp0gGlwaDemy7whZjALTMqI/YwCPiMrtUnSc0G4MbX4wu2MHGz9GpK/CDLaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Ejl3XGf8; arc=none smtp.client-ip=185.171.202.116
+	bh=TiCo3J5cWfYccKXszuJeEyD66hZkLrWFTaz56ZW3C8c=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mSJuGCnbOaX4xMWkEYoI3fxtovvhCWUxcKOueL51DM80iUUDP1wLTZkulH/axVKaweOrgpeGRqn606zbrt4VoP3UK7lrkRDMrqWz7XfLx1sTt0NGJHcFsUSv0r5F7Yb4GmEH3+rVBtCwivgu0il7Ka74dHeuBP9NywKx1poFtDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xJh5bLR+; arc=none smtp.client-ip=185.171.202.116
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Ejl3XGf8"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xJh5bLR+"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 7BD50C8F47E;
-	Mon, 21 Sep 2026 06:44:27 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id AC5BEC8F47D;
+	Mon, 21 Sep 2026 06:44:25 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 77CA260339;
-	Mon, 21 Sep 2026 06:43:41 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 02BA0103290D5;
-	Mon, 21 Sep 2026 08:43:38 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A1C3D60339;
+	Mon, 21 Sep 2026 06:43:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C2860103290D2;
+	Mon, 21 Sep 2026 08:43:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789973020; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Tm6Jr0pHkzuql2HODrAWfDwmqdzokVLmqYPn0PTbu2A=;
-	b=Ejl3XGf838+zrMRCwgQ4noetUcbngq0zps8nhVXmpfgno7A3NhERzzo8jS0HFb3eTbdsJ8
-	fO4PEOEGG/4vKoD3IL8pxpBXc2k8tJVQShCU6RFOC2kQGA0npLxZgMtWf2F9By3/Xd1Q2Q
-	xK5KOqmv+Fj26IabFCvr+gXkAjii8rnxCNkms2uiMuRx3mECUULFDX37jrV/SPB0q+HAqV
-	vYQtBlAa66I0/rK3C6LsYLXmVfounFG+QwNVn4ttmSjerLaaBES0MkmZoy5r2Cpw7yu8J4
-	HkvkCV624eZz/gBGLMZad/rbiyrw+JoAeKA6MurlLiXADf+TwlOVTFmDsaQgiw==
+	t=1789973018; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=nq2N5CNQkEOykHaLoOBsM4AN5HE/XlIcHsQWDjLbxYs=;
+	b=xJh5bLR+/WVPS3S1qEIL2gkW0PAlU/t8QXa62tUq6eIMK93YPMMfTPq9mKOnV54Qe+f7aN
+	vGlvZ11GI5pEG1Zqd+ksA8Xft5QUyC/3ALBU3h/WV00b01RalQGIeBBMdg/b/YFw/LfPUh
+	OzHNFM4da2BJpMUho17BqnMddxehN1ey80jSeQ2qm2jRlTQ4jujmrewymJjw0i6Y8kEtMx
+	3u9GxPmgZmNvntUfGmgMPtPE1mKyue/1n8J+Km4qXzNrTu5oPeuu9CLJBLdd+KbpXgcvg/
+	zHr1EiWvDyMz9lmPE4KSZs5vtOHvKrsov3FncvRrU8L0MSoMb33swhhXnNStRw==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Mon, 21 Sep 2026 08:43:32 +0200
-Subject: [PATCH v3 01/25] mtd: spi-nor: winbond: W25Q32xW-Q/N: Enhance
- identification of the chips
+Subject: [PATCH v3 00/25] mtd: spi-nor: winbond: Cleanup JW family, add
+ support for PW chips
+Date: Mon, 21 Sep 2026 08:43:31 +0200
+Message-Id: <20260921-winbond-master-spi-nor-jw-cleanup-pw-addition-v3-0-38eef3b6a7db@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,9 +44,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-winbond-master-spi-nor-jw-cleanup-pw-addition-v3-1-38eef3b6a7db@bootlin.com>
-References: <20260921-winbond-master-spi-nor-jw-cleanup-pw-addition-v3-0-38eef3b6a7db@bootlin.com>
-In-Reply-To: <20260921-winbond-master-spi-nor-jw-cleanup-pw-addition-v3-0-38eef3b6a7db@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5XNwRKCIBSF4VdpWHcbwCRp1Xs0LRAwb6PggGmN4
+ 7uHtqmly3MW3z+RaAPaSM67iQQ7YETv0sj2O6Jr5e4W0KRNOOWCCi5gRFd6Z6BVsbcBYofgfID
+ HCLqxyj076EZQxmCfJGC5VVl+LHIhC5LMLtgKX2vveku7xtj78F7zA1veb0lSubE0MKCgWcmpz
+ qQxrLqU3vcNuoP2LVlaA//xOd3q8+SrUmopisLQE/v353n+AFfaI5tMAQAA
+X-Change-ID: 20260626-winbond-master-spi-nor-jw-cleanup-pw-addition-15ea35485698
 To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
  Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
@@ -57,30 +58,64 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-The EF 60 16 ID has been reused for:
-- DW-P/G (no SFDP support, but CMP and quad capable)
-- FW-G/Q (SFDP, CMP and quad capable)
-- JW-Q/N (SFDP, CMP and quad capable)
-Add a comment to flag these chips.
+Compared to the previous ones, this series is super straightforward
+since it leverages all the core changes that have already been done for
+the JV/RV families. Like the former JV/RV series, it first cleans up the
+table for JW chips. As I have access to a lot of devices, I made test
+runs with almost all of them. This way I could extract the SFDP data,
+the capabilities of the chips, proof that they passed all the tests,
+etc. I then add support for the PW parts, also showing a full test run
+in each case.
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/mtd/spi-nor/winbond.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v3:
+- The 33PW chips do not have ECC support. Now that this was properly
+  explained in a comment, Sashiko raised that the commit logs were wrong
+  because they were still mentioning the capability. Fix the commit
+  logs.
+- Link to v2: https://lore.kernel.org/r/20260920-winbond-master-spi-nor-jw-cleanup-pw-addition-v2-0-ab9c9688d071@bootlin.com
 
-diff --git a/drivers/mtd/spi-nor/winbond.c b/drivers/mtd/spi-nor/winbond.c
-index f6321c1dc7dc..55c55e41ec92 100644
---- a/drivers/mtd/spi-nor/winbond.c
-+++ b/drivers/mtd/spi-nor/winbond.c
-@@ -322,6 +322,7 @@ static const struct flash_info winbond_nor_parts[] = {
- 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB,
- 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 	}, {
-+		/* W25Q32DW-P/G, W25Q32FW-G/Q, W25Q32JW-Q/N */
- 		.id = SNOR_ID(0xef, 0x60, 0x16),
- 		.name = "w25q32dw",
- 		.size = SZ_4M,
+Changes in v2:
+- Fix comment pointed out by Michael.
+- Resend the series, hopefully all patches will go through this time.
+- Link to v1: https://lore.kernel.org/r/20260909-winbond-master-spi-nor-jw-cleanup-pw-addition-v1-0-c1b20c39dd1f@bootlin.com
 
+---
+Miquel Raynal (25):
+      mtd: spi-nor: winbond: W25Q32xW-Q/N: Enhance identification of the chips
+      mtd: spi-nor: winbond: W25Q64xW-Q/N: Enhance identification of the chips
+      mtd: spi-nor: winbond: W25Q32xW-Q/N: Fill locking information
+      mtd: spi-nor: winbond: W25Q64xW-Q/N: Fill locking information
+      mtd: spi-nor: winbond: W25Q128JW-Q/N: Fill locking information
+      mtd: spi-nor: winbond: W25Q32JW-M: Fill locking information
+      mtd: spi-nor: winbond: W25Q64JW-M: Fill locking information
+      mtd: spi-nor: winbond: W25Q128JW-M: Fill locking information
+      mtd: spi-nor: winbond: W25Q256JW-Q/N/M: Fill locking information
+      mtd: spi-nor: winbond: W25Q32JW-Q/N: Add quad page program capability
+      mtd: spi-nor: winbond: W25Q64JW-Q/N: Add quad page program capability
+      mtd: spi-nor: winbond: W25Q128JW-Q/N: Add quad page program capability
+      mtd: spi-nor: winbond: W25Q32JW-M: Add quad page program capability
+      mtd: spi-nor: winbond: W25Q64JW-M: Add quad page program capability
+      mtd: spi-nor: winbond: W25Q128JW-M: Add quad page program capability
+      mtd: spi-nor: winbond: Prepare introduction of W25QxxPW-Q/N parts
+      mtd: spi-nor: winbond: Add support for W25Q33PW-Q/N
+      mtd: spi-nor: winbond: Add support for W25Q64PW-Q/N
+      mtd: spi-nor: winbond: Add support for W25Q12PW-Q/N
+      mtd: spi-nor: winbond: Add support for W25Q25PW-Q/N
+      mtd: spi-nor: winbond: Prepare introduction of W25QxxPW-M parts
+      mtd: spi-nor: winbond: Add support for W25Q33PW-M
+      mtd: spi-nor: winbond: Add support for W25Q64PW-M
+      mtd: spi-nor: winbond: Add support for W25Q12PW-M
+      mtd: spi-nor: winbond: Add support for W25Q25PW-M
+
+ drivers/mtd/spi-nor/winbond.c | 91 ++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 77 insertions(+), 14 deletions(-)
+---
+base-commit: 21373f9588a0df4fd2ad7bbd120b04fccfaf0677
+change-id: 20260626-winbond-master-spi-nor-jw-cleanup-pw-addition-15ea35485698
+
+Best regards,
 -- 
-2.55.0
+Miquel Raynal <miquel.raynal@bootlin.com>
 
