@@ -1,160 +1,56 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A2148664F
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:55:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B990B276050;
+	Mon, 21 Sep 2026 09:55:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.136.29.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984534; cv=none; b=Fo+WoYXmazxEp7vFIN4NT/y9fTEj59CoyHqC7kYR5ke7/tdv6ryp+3wz9KofXhwjA+03ZOmoEDrsf2LjPTs7sZ/BQ+gO/Ker4TMorRMD7CLZOiq1o5/hO+7+gAIXBHHcrpVMiw3HTSi4JIEps038yFB/Jl5KZbuALwtzHWJtrJE=
+	t=1789984541; cv=none; b=eT9Dsckk9NsmUQeduBmXhK0lbjnRcE+8xiys5M0mh5Uh+iiFxWbhMW9r0ZyiakUaEXU8JrP/5HZfYIsGacU9DUdU/UQ+H8r0hDhpL2zOkwMKUIL8atocSYA/c3EDlcC1ooS+mCGHXY6WWeOdYhUgZgeBQrMu8mfzOZvgmcLMBf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984534; c=relaxed/simple;
-	bh=tdJ4y6W831MfrcRxzWcbmDc9h7zfEQgucTZ56tqe1KY=;
-	h=In-Reply-To:References:Date:Message-Id:Mime-Version:Content-Type:
-	 Cc:From:Subject:To; b=GO+MGWMlciBsdVjr6hvMIDiESwuhOtj/UCP24twaqnDfGuAg97auNcHSJv0U052WbHsPVW+Z6x7+dnzWnRnGe1J6WXQvh2DXAUX+aA9QUpE7QRRvVkJbItVrP1KRf6GWNIAhZKcBbaLtHqN9CyRaRLIBBzeKtDFWPRkH0aM5u1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=WKSB034A; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="WKSB034A"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1789984523; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=pYrQpTWYHD0kCaq3gvxtuTIuMINfoyz5/m2rYD7GMAg=;
- b=WKSB034ALjcT2M3oZVB41lwzw63UGV4NDZ1DVBq0SEgsxhUOUWROepyweO67MbqCsLP2st
- NfbUkk5/1jcMz0bVVcjTf9YDbBz4SfThACuuRs6yu/Mkza99sysG5Q1XQydmIohVQ4Va2F
- 87s9OgeU9Z31hkb+aZYyvhJEv8qa2Y8o7phcQl5jOTnNjwdAqohK+D/tVoTBvO+Y9XW/UA
- LoEM4YIueYoiDskgzxu4rscYx+2m+E3wkJ/HC3c++ZEXZkzQ7wHjExaz48f2nbpdXq7g/8
- mPB57TP6cmKY865MxoVyTCmppTUFZkn0sibfOoZNlZS0SEqgqJaHPASPTqB0lQ==
-X-Original-From: Chuyi Zhou <zhouchuyi@bytedance.com>
-In-Reply-To: <20260921095359.3784458-1-zhouchuyi@bytedance.com>
-References: <20260921095359.3784458-1-zhouchuyi@bytedance.com>
-X-Mailer: git-send-email 2.20.1
-Date: Mon, 21 Sep 2026 17:53:58 +0800
-Message-Id: <20260921095359.3784458-5-zhouchuyi@bytedance.com>
+	s=arc-20240116; t=1789984541; c=relaxed/simple;
+	bh=HtktVx/5wu8n4HrwStgefIj+KDjkCZNU89AbZotB19E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bBNpQcKeSukU/37QWt9uOzPlcATOqg9FnWOxpBXNvOAAakC8omwX0bJAkg1JCE1FzfNfbzPkdfIQV4+isGZojAIZOPnNUXgQIespWWfo497OZ2ofxdMPqZu5ELd05p0rGKt4mdoC7wr1rax8pJYFc2kiokg8KoSCZ+pBjHjduas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com; spf=pass smtp.mailfrom=proxmox.com; arc=none smtp.client-ip=94.136.29.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
+Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
+	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id DD4D340C36;
+	Mon, 21 Sep 2026 11:55:29 +0200 (CEST)
+Date: Mon, 21 Sep 2026 11:55:27 +0200
+From: Gabriel Goller <g.goller@proxmox.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Andrea Mayer <andrea.mayer@uniroma2.it>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH net-next 2/2] selftests: seg6: check extack messages on
+ SRv6 lwtunnel setup
+Message-ID: <arD-5t6LiBiPXAAa@luna.proxmox.com>
+References: <20260918153544.1178884-1-g.goller@proxmox.com>
+ <20260918153544.1178884-3-g.goller@proxmox.com>
+ <20260918150256.1a1ca82e@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Cc: <linux-kernel@vger.kernel.org>, "Chuyi Zhou" <zhouchuyi@bytedance.com>
-From: "Chuyi Zhou" <zhouchuyi@bytedance.com>
-Subject: [PATCH 4/5] x86/mm: Decouple kernel TLB flushes from flush_tlb_info
-Content-Transfer-Encoding: 7bit
-To: <tglx@kernel.org>, <mingo@redhat.com>, <luto@kernel.org>, 
-	<peterz@infradead.org>, <paulmck@kernel.org>, <muchun.song@linux.dev>, 
-	<bp@alien8.de>, <dave.hansen@linux.intel.com>, <pbonzini@redhat.com>, 
-	<bigeasy@linutronix.de>, <clrkwllms@kernel.org>, <rostedt@goodmis.org>, 
-	<nadav.amit@gmail.com>
-X-Lms-Return-Path: <lba+26ab0ff0a+db09ae+vger.kernel.org+zhouchuyi@bytedance.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260918150256.1a1ca82e@kernel.org>
+User-Agent: NeoMutt/20260504
+X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
+X-Bm-Transport-Timestamp: 1789984528102
 
-Kernel range flushes only need the start and end addresses, but reuse
-flush_tlb_info and its initialization of mm state, TLB generations and
-the initiating CPU. None of those fields is consumed by the kernel
-flush callbacks. In particular, initializing initiating_cpu imposes a
-CPU-pinning requirement on a path that does not use it.
+On 18.09.2026 15:02, Jakub Kicinski wrote:
+> On Fri, 18 Sep 2026 17:35:16 +0200 Gabriel Goller wrote:
+> > Add a ksft/ynl test that shoves invalid RTA_ENCAP payloads to
+> > RTM_NEWROUTE and asserts both the errno and the extack message are
+> > correct.
+> 
+> Please be judicious when adding tests.
 
-Select the full or range flush directly in flush_tlb_kernel_range(),
-using the shared threshold predicate and an explicit TLB_FLUSH_ALL
-check. Keep init_flush_tlb_info() and its smp_processor_id() check for
-the mm paths.
+Got it. We can either drop the whole second patch or I can simplify it and only
+add test cases for a few error messages.
 
-Pass start and end directly through the kernel range helpers. Package
-them in a private kernel_tlb_range only for the IPI callback, retaining
-the existing payload alignment. The synchronous on_each_cpu() call
-keeps the stack descriptor alive until all callbacks have completed.
-
-Retain the outer preemption guard in flush_tlb_kernel_range() so the
-descriptor refactoring does not change the preemption behavior.
-
-Signed-off-by: Chuyi Zhou <zhouchuyi@bytedance.com>
-Link: https://lore.kernel.org/20260522104818.CbT5fyN8@linutronix.de/
----
- arch/x86/mm/tlb.c | 41 +++++++++++++++++++++++++----------------
- 1 file changed, 25 insertions(+), 16 deletions(-)
-
-diff --git a/arch/x86/mm/tlb.c b/arch/x86/mm/tlb.c
-index f0dfeb271c66..4f9f0a18dbbc 100644
---- a/arch/x86/mm/tlb.c
-+++ b/arch/x86/mm/tlb.c
-@@ -1469,12 +1469,12 @@ void flush_tlb_all(void)
- }
- 
- /* Flush an arbitrarily large range of memory with INVLPGB. */
--static void invlpgb_kernel_range_flush(struct flush_tlb_info *info)
-+static void invlpgb_kernel_range_flush(unsigned long start, unsigned long end)
- {
- 	unsigned long addr, nr;
- 
--	for (addr = info->start; addr < info->end; addr += nr << PAGE_SHIFT) {
--		nr = (info->end - addr) >> PAGE_SHIFT;
-+	for (addr = start; addr < end; addr += nr << PAGE_SHIFT) {
-+		nr = (end - addr) >> PAGE_SHIFT;
- 
- 		/*
- 		 * INVLPGB has a limit on the size of ranges it can
-@@ -1487,38 +1487,47 @@ static void invlpgb_kernel_range_flush(struct flush_tlb_info *info)
- 	__tlbsync();
- }
- 
-+/* Preserve the alignment of the IPI payload shared with remote CPUs. */
-+struct kernel_tlb_range {
-+	unsigned long start;
-+	unsigned long end;
-+} __aligned(FLUSH_TLB_INFO_ALIGN);
-+
- static void do_kernel_range_flush(void *info)
- {
--	struct flush_tlb_info *f = info;
-+	const struct kernel_tlb_range *range = info;
- 	unsigned long addr;
- 
- 	/* flush range by one by one 'invlpg' */
--	for (addr = f->start; addr < f->end; addr += PAGE_SIZE)
-+	for (addr = range->start; addr < range->end; addr += PAGE_SIZE)
- 		flush_tlb_one_kernel(addr);
- }
- 
--static void kernel_tlb_flush_range(struct flush_tlb_info *info)
-+static void kernel_tlb_flush_range(unsigned long start, unsigned long end)
- {
- 	count_vm_tlb_event(NR_TLB_REMOTE_FLUSH);
- 
--	if (cpu_feature_enabled(X86_FEATURE_INVLPGB))
--		invlpgb_kernel_range_flush(info);
--	else
--		on_each_cpu(do_kernel_range_flush, info, 1);
-+	if (cpu_feature_enabled(X86_FEATURE_INVLPGB)) {
-+		invlpgb_kernel_range_flush(start, end);
-+	} else {
-+		struct kernel_tlb_range range = {
-+			.start = start,
-+			.end = end,
-+		};
-+
-+		on_each_cpu(do_kernel_range_flush, &range, 1);
-+	}
- }
- 
- void flush_tlb_kernel_range(unsigned long start, unsigned long end)
- {
--	struct flush_tlb_info info;
--
- 	guard(preempt)();
--	init_flush_tlb_info(&info, NULL, start, end, PAGE_SHIFT, false,
--			    TLB_GENERATION_INVALID);
- 
--	if (info.end == TLB_FLUSH_ALL)
-+	if (end == TLB_FLUSH_ALL ||
-+	    tlb_range_exceeds_ceiling(start, end, PAGE_SHIFT))
- 		kernel_tlb_flush_all();
- 	else
--		kernel_tlb_flush_range(&info);
-+		kernel_tlb_flush_range(start, end);
- }
- 
- /*
--- 
-2.20.1
