@@ -1,226 +1,233 @@
-Received: from mta1.migadu.com (out-73.mta1.migadu.com [95.215.58.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8801B3AEB49
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:07:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.73
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AE7BB31E82E
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789974427; cv=none; b=Z6esZurulmquLn66wY7fxBRBrzQWseEZqBnJHjACsfvOkS/TvL35k0hUVd4MNZc5HJqS/S3+mKu5N6NR1sv85D7OmBe6LWN06udKWlOLZh2OoNaZZ3Vc1esYTh59EU4yiI+2SY693orwF7MsJ6K/6gDVJula2qC9VGlH8CF/fhY=
+	t=1789974447; cv=none; b=btiJK931DuguKCvG9xWHGzOSGdabw6GFzTO0QHuy6w1T1/RrHR1Hv74CH0W62cCeBh5zdtXy0JH6Dgjr/c1K5uJp+gvr7Zmqd4oqP18K7VxXACuIb2bgBlplPuWKt3e8lPW3o/BoP94F43jCdL0di/xeHJADVvvLSxYMCQ3gcZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789974427; c=relaxed/simple;
-	bh=P/yCX0dnYM3gWr3ZFgRoRyEBmvke2naC9owtFoJ45zE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R4D61Xc27nTd0/ha7Q/i3v/izZBn5W9kEPJ4mWNm6HOzFE4kLcator++JDF5UWMrUQJPR7M/fyVyTy5i070ZYAkVCK8XGRMxwdEMfCc4ginwPT9gL1iEEylGtFBc/2+Vb7WregfrmnHbvjjpJluyDN0Aa6ahSI4sktPQn6kY868=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fMYQKYLp; arc=none smtp.client-ip=95.215.58.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789974447; c=relaxed/simple;
+	bh=m1QdZ/Hm+98ilJl7TB+DXpR549wphng53e2SVlfWEzo=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=F3cAw+0v3e9UgoFTlhYQ2lZkLTfxm9dYFkPqLmXsE0rMY113mc7zo3wdkN1bl900K+Jm8lYIOBi4Dj1XRqO9wLsunW8FhXhl/gP/UBAvFOGO8bYJgRlYYZnAfZEYSbqhdp09LQhi5YywaIuqI2ymw/PQm00N0NK/OnxzaDQjqDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FxDHtHQr; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fMYQKYLp"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=P/yCX0dnYM3gWr3ZFgRoRyEBmvke2naC9owtFoJ45zE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789974422; v=1; x=1790579222;
- b=fMYQKYLpjl/c4Xo3IXfhaHQrM+E68NgEk6PDAyOr4u81BIi5mga7X3y01IKNEd9d9yrYNLxT
- 9ALIQEVE6RMmp5/06esVLjt0MWhNHVW0aRWVZLeMOLmf8kbimNakHikYSdDaDCbbzbTrIPJzgz6
- ijjW5D8hp88useNC0rwJrmFM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 53a3e59b4fe32a04;
-	Mon, 21 Sep 2026 07:07:02 +0000
-X-Mizu-Trace-ID: 53a3e59b4fe32a04
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: axboe@kernel.dk,
-	kbusch@kernel.org,
-	tj@kernel.org,
-	hch@lst.de,
-	sagi@grimberg.me,
-	yukuai@fygo.io
-Cc: linux-block@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cui.tao@linux.dev,
-	cuitao@kylinos.cn
-Subject: [RFC PATCH 1/1] block: charge passthrough requests to the submitter's cgroup
-Date: Mon, 21 Sep 2026 15:06:47 +0800
-Message-ID: <20260921070647.1928289-2-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260921070647.1928289-1-cui.tao@linux.dev>
-References: <20260921070647.1928289-1-cui.tao@linux.dev>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FxDHtHQr"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 84217175A;
+	Mon, 21 Sep 2026 00:07:18 -0700 (PDT)
+Received: from [10.164.19.30] (unknown [10.164.19.30])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A32793F86F;
+	Mon, 21 Sep 2026 00:07:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789974442; bh=m1QdZ/Hm+98ilJl7TB+DXpR549wphng53e2SVlfWEzo=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
+	b=FxDHtHQr4WfgB3nbBYQjT1jkO08pSgurjoKEOszdKh7BoIVhb691+Lrpbb4EVSfAt
+	 V5vWHdUwOiBpU7JqHcW46hXHhDcWfqaNUpnCPF4C/d8dY/DMpF1T8BJmrKc8ojAdlY
+	 9vQnhZNbVXpT1EliLnVQzmJFnd9cynhJrivnK6S0=
+Message-ID: <62b4c932-4717-4366-906b-21aceae0c24b@arm.com>
+Date: Mon, 21 Sep 2026 12:37:16 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Dev Jain <dev.jain@arm.com>
+Subject: Re: [RFC 0/2] mm: page_alloc: pcp buddy allocator
+To: Johannes Weiner <hannes@cmpxchg.org>, linux-mm@kvack.org
+Cc: Vlastimil Babka <vbabka@suse.cz>, Zi Yan <ziy@nvidia.com>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Rik van Riel
+ <riel@surriel.com>, linux-kernel@vger.kernel.org
+References: <20260403194526.477775-1-hannes@cmpxchg.org>
+Content-Language: en-US
+In-Reply-To: <20260403194526.477775-1-hannes@cmpxchg.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Tao Cui <cuitao@kylinos.cn>
 
-Passthrough requests (SG_IO, bsg, nvme passthrough ioctls and uring
-commands) are dispatched via blk_execute_rq{,_nowait}() without ever
-passing through submit_bio(), so the bio mapped by blk_rq_map_user()
-carries no blkcg association: the transferred bytes never show up in
-cgroup io.stat, and every rq_qos policy on the queue (iocost,
-iolatency, wbt) is bypassed, as is blk-throttle, which hooks
-submit_bio_noacct() directly rather than going through rq_qos.
 
-A quick demonstration on a scsi_debug device with iocost enabled and
-vrate pinned to its 1% floor: a direct fio writer was throttled ~10x
-while the same cgroup issuing sg_dd writes ran at full device speed
-with zero io.stat accounting.
+On 04/04/26 1:10 am, Johannes Weiner wrote:
+> Hi,
+> 
+> this is an RFC for making the page allocator scale better with higher
+> thread counts and larger memory quantities.
+> 
+> In Meta production, we're seeing increasing zone->lock contention that
+> was traced back to a few different paths. A prominent one is the
+> userspace allocator, jemalloc. Allocations happen from page faults on
+> all CPUs running the workload. Frees are cached for reuse, but the
+> caches are periodically purged back to the kernel from a handful of
+> purger threads. This breaks affinity between allocations and frees:
+> Both sides use their own PCPs - one side depletes them, the other one
+> overfills them. Both sides routinely hit the zone->locked slowpath.
+> 
+> My understanding is that tcmalloc has a similar architecture.
+> 
+> Another contributor to contention is process exits, where large
+> numbers of pages are freed at once. The current PCP can only reduce
+> lock time when pages are reused. Reuse is unlikely because it's an
+> avalanche of free pages on a CPU busy walking page tables. Every time
+> the PCP overflows, the drain acquires the zone->lock and frees pages
+> one by one, trying to merge buddies together.
+> 
+> The idea proposed here is this: instead of single pages, make the PCP
+> grab entire pageblocks, split them outside the zone->lock. That CPU
+> then takes ownership of the block, and all frees route back to that
+> PCP instead of the freeing CPU's local one.
+> 
+> This has several benefits:
+> 
+> 1. It's right away coarser/fewer allocations transactions under the
+>    zone->lock.
+> 
+> 1a. Even if no full free blocks are available (memory pressure or
+>     small zone), with splitting available at the PCP level means the
+>     PCP can still grab chunks larger than the requested order from the
+>     zone->lock freelists, and dole them out on its own time.
+> 
+> 2. The pages free back to where the allocations happen, increasing the
+>    odds of reuse and reducing the chances of zone->lock slowpaths.
+> 
+> 3. The page buddies come back into one place, allowing upfront merging
+>    under the local pcp->lock. This makes coarser/fewer freeing
+>    transactions under the zone->lock.
+> 
+> The big concern is fragmentation. Movable allocations tend to be a mix
+> of short-lived anon and long-lived file cache pages. By the time the
+> PCP needs to drain due to thresholds or pressure, the blocks might not
+> be fully re-assembled yet. To prevent gobbling up and fragmenting ever
+> more blocks, partial blocks are remembered on drain and their pages
+> queued last on the zone freelist. When a PCP refills, it first tries
+> to recover any such fragment blocks.
 
-Associate the mapped bio with the submitter's blkcg at dispatch time
-and run the regular bio accounting (blk_cgroup_bio_start()) and
-rq_qos throttle paths with it.  DRV_IN/DRV_OUT commands are mapped to
-READ/WRITE so io.stat classifies their bytes normally; request
-completion already pairs with the throttle through bio_endio() ->
-rq_qos_done_bio().
+Hi Johannes,
 
-The charge is gated by opcode (READ/WRITE/DRV_IN/DRV_OUT) and to
-queues that already have a gendisk: commands issued during device
-probing (SCSI INQUIRY etc.) have no gendisk yet and stay exempt,
-following the same probe-exemption reasoning as the passthrough
-iostats support.
+I have been working on anti-fragmentation algorithms in the buddy. After
+thinking a lot I converged onto a "per-cpu, per-pageblock" buddy allocator
+of sorts. Overall I think we can kill two birds with one stone -
+performance and external fragmentation.
 
-RFC notes:
- - validated on linux-next with scsi_debug + sg_dd (SG_IO) and qemu
-   emulated nvme + a NVME_IOCTL_IO64_CMD loop: in both cases the
-   transferred bytes are fully accounted (wbytes/wios) in the issuing
-   cgroup, and the issuing task is observed waiting on the iocost
-   waitqueue with vrate clamped;
- - iolatency gains the same coverage for free, and so does wbt:
-   passthrough writes now pass through wbt_wait() like bio-path
-   writes, a behavior change worth calling out even though wbt
-   targets buffered writeback and direct passthrough rarely hits it;
-   blk-throttle does not: it hooks
-   submit_bio_noacct() directly and is not an rq_qos policy, so
-   io.max stays unenforced for passthrough (measured).  Its
-   queue-and-resubmit throttling model would also need a synchronous
-   variant for request-bound bios;
- - nvme uring commands share the same blk_execute_rq_nowait()
-   dispatch as the validated ioctl path;
- - the charge runs in the submitter's context and may sleep in
-   rq_qos throttling; all data-op callers found run in sleepable
-   context, but this deserves reviewer attention.
+I will list my ideations here (perhaps something clicks to anyone) in no
+particular order, and then show how I eventually reach a design similar to yours:
 
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
----
- block/blk-mq.c | 72 ++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 72 insertions(+)
+Suppose we are trying for order-2 allocs. An order-0 alloc request comes
+on a cpu, the pcpu list is empty, the zone freelist for order-0 is empty.
+We end up breaking an order-1 or higher block, even when other cpus may
+have order-0 free pages.
 
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index a26a11c73ee3..2dd59f6df321 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -10,6 +10,7 @@
- #include <linux/backing-dev.h>
- #include <linux/bio.h>
- #include <linux/blkdev.h>
-+#include "blk-cgroup.h"
- #include <linux/blk-integrity.h>
- #include <linux/kmemleak.h>
- #include <linux/mm.h>
-@@ -1400,6 +1401,73 @@ static void blk_add_rq_to_plug(struct blk_plug *plug, struct request *rq)
- 	plug->rq_count++;
- }
- 
-+/*
-+ * Passthrough bios are mapped directly onto requests via
-+ * blk_rq_map_user() and never pass through submit_bio(), so they carry
-+ * no blkcg association and are invisible to cgroup io.stat and to every
-+ * rq_qos policy (iocost, blk-throttle, iolatency).  Charge the ones that
-+ * carry data to the submitter's blkcg at dispatch time and run the
-+ * regular bio accounting and rq_qos throttle paths with the associated
-+ * bio.
-+ *
-+ * Gated by opcode (READ/WRITE/DRV_IN/DRV_OUT, the latter two mapped
-+ * to READ/WRITE for io.stat classification) and to queues that
-+ * already have a gendisk: commands issued during device probing (SCSI
-+ * INQUIRY and friends) have no gendisk yet and stay exempt.  The
-+ * request bios may carry a stale ->bi_blkg from the mempool; the
-+ * association helper drops the old reference and re-associates.
-+ */
-+static void blk_mq_pt_charge(struct request *rq)
-+{
-+	struct bio *bio = rq->bio;
-+	enum req_op op = req_op(rq);
-+
-+	if (!bio || !rq->q->disk)
-+		return;
-+
-+	switch (op) {
-+	case REQ_OP_READ:
-+	case REQ_OP_WRITE:
-+	case REQ_OP_DRV_IN:
-+	case REQ_OP_DRV_OUT:
-+		break;
-+	default:
-+		return;
-+	}
-+	if (op == REQ_OP_DRV_IN)
-+		op = REQ_OP_READ;
-+	else if (op == REQ_OP_DRV_OUT)
-+		op = REQ_OP_WRITE;
-+
-+	if (!bio->bi_bdev)
-+		bio->bi_bdev = rq->q->disk->part0;
-+	bio->bi_opf &= ~REQ_OP_MASK;
-+	bio->bi_opf |= op;
-+#ifdef CONFIG_BLK_CGROUP
-+	/*
-+	 * Issued from kthreads the css is root and the charge is a
-+	 * no-op through the root exemptions; data-op issuers that
-+	 * matter run in the submitter's task context.
-+	 */
-+	{
-+		struct cgroup_subsys_state *css;
-+
-+		rcu_read_lock();
-+		css = task_css(current, io_cgrp_id);
-+		bio_associate_blkg_from_css(bio, css);
-+		rcu_read_unlock();
-+	}
-+#endif
-+	blk_cgroup_bio_start(bio);
-+
-+	/*
-+	 * The rq_qos throttle path may sleep on the waitqueues like any
-+	 * bio submitter; all callers found (ioctl / uring_cmd submit,
-+	 * target and error handling kthreads) run in sleepable context.
-+	 */
-+	rq_qos_throttle(rq->q, bio);
-+}
-+
- /**
-  * blk_execute_rq_nowait - insert a request to I/O scheduler for execution
-  * @rq:		request to insert
-@@ -1412,6 +1480,7 @@ static void blk_add_rq_to_plug(struct blk_plug *plug, struct request *rq)
-  * Note:
-  *    This function will invoke @done directly if the queue is dead.
-  */
-+
- void blk_execute_rq_nowait(struct request *rq, bool at_head)
- {
- 	struct blk_mq_hw_ctx *hctx = rq->mq_hctx;
-@@ -1419,6 +1488,7 @@ void blk_execute_rq_nowait(struct request *rq, bool at_head)
- 	WARN_ON(irqs_disabled());
- 	WARN_ON(!blk_rq_is_passthrough(rq));
- 
-+	blk_mq_pt_charge(rq);
- 	blk_account_io_start(rq);
- 
- 	if (current->plug && !at_head) {
-@@ -1484,6 +1554,8 @@ blk_status_t blk_execute_rq(struct request *rq, bool at_head)
- 	WARN_ON(irqs_disabled());
- 	WARN_ON(!blk_rq_is_passthrough(rq));
- 
-+	blk_mq_pt_charge(rq);
-+
- 	rq->end_io_data = &wait;
- 	rq->end_io = blk_end_sync_rq;
- 
--- 
-2.43.0
+I figured that just by disabling pcp lists, we can delay triggering
+compaction (got 2% more order-2 THP allocations without triggering
+compaction/reclaim) by not hiding order-0 free pages from order-0 alloc requests.
+So, a "PCP stealing" algorithm may be needed.
+
+
+I then thought of a "sorting" algorithm on the freelists: either sort
+by PFN (causing allocations to cluster on the lower half of memory space)
+or by fragmentation score (per pageblock). Any such sorting algorithm
+requires two things:
+
+1. When to trigger the algorithm - can't be wasting time doing sorting on
+every alloc and free
+
+2. What portion of the list to sort: sorting should not push a block
+recently freed to the back of the list because it is cache hot, so let us take
+a major portion of the list from the tail and sort it
+
+3. The sorting algorithm should be cheap: bucket sort by sqrt(RAM) number of
+buckets or some other number if sorting by PFN, or bucket sort by frag score,
+buckets being [0, 511]).
+
+All of this helps, but the more fundamental problem is that for a block of contiguous
+memory, their lifetimes are *not* tied together.
+
+Consider VMA1 of Process P1 and VMA2 of Process P2, being the only allocators
+(by the process faulting in) and contending on the zone lock. Usually a process
+will start faulting into the VMA contiguously. So, if we have four pages:
+
+0 0 0 0
+
+and both processes are faulting in, then the configuration most probably would
+look like
+
+1 2 1 2
+
+meaning that VMA1 will have pages 0 and 2, VMA2 will have pages 1 and 3, because
+dropping the zone lock will cause the other one to enter, and so on. Had this not
+been the case, we could have got "1 1 2 2" which is clearly better.
+
+(Although we have pcp lists which consume from zone lists in batches, the
+logic above quickly starts holding true because the lifetime of each order
+list on the pcp is not tied together, so eventually the pcp is filled with
+non contiguous memory).
+
+I then researched around and found that reclaim is one of the biggest factors
+of fragmentation, but again the fundamental problem is lifetime. I found out
+an attempt to do reclaim in blocks:
+
+https://lore.kernel.org/all/exportbomb.1164300519@pinky/
+
+which got reverted: active and inactive pages are clustered together.
+
+
+So then I thought, how do I tie the lifetime together? Probably have a
+task_struct steal a block of memory? That sounds like something very
+complex to get right. Instead, I can use a CPU being an analogue to
+the process.
+
+So now the zone just becomes a provider of blocks.
+A process when faulting in, assuming doesn't get bounced around cpus
+like anything, can now get allocations physically close to each other.
+
+The crux is that doing allocations from a global state like the zone
+means that just as you drop the lock you let the other guy enter, which
+breaks contiguity. Having contiguity per cpu means the same process can
+use it up.
+
+I would assume implementing a pure per-cpu based allocator could get you
+blazing fast performance, with all of the above extfrag benefits,
+at the cost of figuring out an algorithm for cpus to steal from other cpus.
+
+I assume some bitmask tricks could work wherein each cpu advertises free
+blocks to the other.
+
+I think there are existing cpu-stealing concepts in scheduler etc which
+we can borrow, and perhaps I should also take a look at slab once again
+for per-cpu ideas (although they had a radical sheaves change which I am
+not familiar with).
+
+I will play around with your patchset and see if I can improve it!
+
+
+> 
+> On small or pressured machines, the PCP degrades to its previous
+> behavior. If a whole block doesn't fit the pcp->high limit, or a whole
+> block isn't available, the refill grabs smaller chunks that aren't
+> marked for ownership. The free side will use the local PCP as before.
+> 
+> I still need to run broader benchmarks, but I've been consistently
+> seeing a 3-4% reduction in %sys time for simple kernel builds on my
+> 32-way, 32G RAM test machine.
+> 
+> A synthetic test on the same machine that allocates on many CPUs and
+> frees on just a few sees a consistent 1% increase in throughput.
+> 
+> I would expect those numbers to increase with higher concurrency and
+> larger memory volumes, but verifying that is TBD.
+> 
+> Sending an RFC to get an early gauge on direction.
+> 
+> Based on 0257f64bdac7fdca30fa3cae0df8b9ecbec7733a.
+> 
+>  include/linux/mmzone.h     |  38 ++-
+>  include/linux/page-flags.h |   9 +
+>  mm/debug.c                 |   1 +
+>  mm/internal.h              |  17 +
+>  mm/mm_init.c               |  25 +-
+>  mm/page_alloc.c            | 784 +++++++++++++++++++++++++++++++------------
+>  mm/sparse.c                |   3 +-
+>  7 files changed, 622 insertions(+), 255 deletions(-)
 
