@@ -1,127 +1,152 @@
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F2A4A093D
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D7C04A0929;
+	Mon, 21 Sep 2026 14:05:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999542; cv=none; b=fta3nrLFBkgQUr7Qx8cN+T84KAoW3VEyb7dt2LUHEt231ekNPHC2y0q5WAWmG6mctLKOTy9tbdn1eSdw4ByxSZWQ9UFuWAbWUI5+BP5xoaa4T2KUw2qB5B/nW9sb21vvYxEPHGyKb0edygQk94GY8eFKD7mzZHJBGAJDmMlDTHk=
+	t=1789999554; cv=none; b=LJ/EzATviVlBlRbciUHOsBzrz/m4bk/qy2rxrmgBAJ8n/Q3NkbyJ3lDwThLNanGMBfefliaExaHg+zfuvbF3UyTb+2HtgZpjsQNljjm31n+FIdD77DGAhNTSnNraoKpMoZ8UXdIqC2jPxJHT3c4AEtMOLFlb4VRVlrfLtPJ7fiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999542; c=relaxed/simple;
-	bh=ehiR32Gn7n/lXSBdkqVIOBvCJF2Aoz0ld9K8B3T6mdk=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=DhTD0VQzCjTqgySV236WPnhQ+tGKrmgXIKtTEyYehZYYashzfEK8xJdipgQi4ssvn5O21pi+WuyUwPSPXFWrfE4werozhz6Ip5Dson8yvmgwNEMoCh21iDxfdwM06kIAWyOByz8Q1XeYSemmIetOKGDACreP2CktnrHTzaA9crM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=W2ihu4ju; arc=none smtp.client-ip=209.85.210.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789999554; c=relaxed/simple;
+	bh=LItPg0eEICI8licPO1z3Hy7+q6MSXIvcWWOYjosZBio=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j0thoj9HybI9JVzZQa9Yp/LQQwvkEhk7SfJCrNbh9vfnzvTnZ/miTL+PvPsn15O8VRy/LItz4rsvvJ2BFed+9emFSbAFQAGfuNvQtG1ZpYAEEFdbJyQz0JnlbMoQ04Lg7++K4aFeNHbD1+worYCrco9XiZENol8fo4twvLfYo9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R2JSulfR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="W2ihu4ju"
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8627258ef12so6728186b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:05:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789999540; x=1790604340; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y1UYnXCxuzBYy7emDqeed9xrR2iKFbDHhQtYLJlfFEE=;
-        b=W2ihu4ju9WBD6VyEQRWsSCSn5mYyronVRuDqiE6pJ4FQ6KHQk52E8vGyh1q451PK8C
-         22e/GazJkrcX7G6fS0nibfBMk+dxbaJjaVWUFqyHDgm6luTW1Gzg34ApEaAfSU3mvDKI
-         wIFtTD7nKg/RIOc+asV6AKUAjerRm9dwMphO0sfoH5drZBL67UBAzODt534Q4CMuY9k6
-         IFCZd72kYhkvdRIL/feqCXF99VA2o/51ldqczbpeAdkGxRyCkn545+Hr2+oAQ3tp+PKG
-         DVv+82+kOJtOZHDY17ay2a+qkySgjNIwJXzNUe3RSJFJOO6ukFM7m9rEmopfwPM8ea5o
-         sZ3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789999540; x=1790604340;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y1UYnXCxuzBYy7emDqeed9xrR2iKFbDHhQtYLJlfFEE=;
-        b=AnNOp5KWUua6FgWikJ3iwEHq3pJLikBDhUXXbutgPWhRYcb1CsqWhtaZluwoYa4s6s
-         09lMpoXiN7+XCYdNH+VsgWi6wuJr8v4xD7LSlr8xC70VGWsU2r67Nlbqnmo6hZdEMCAH
-         lFbs+1CXWiUXoHgc/cukk9OEHiw3GyyhtxXoA2xsQQbq+0Ld8zp8C5b8KeB6cUQ1Q6Nl
-         4ScSAckc7nQZJ1JHX4+T5GE8guzVN/8IBAnRaxQHTEI7b/dEFKDcx0maUx+YMom6EoiO
-         26+lhyJ8BcMfWki7HGNxCMlYVG57MltciyFIf/LqpU4KT468Wdgw7j4CKVGPyBrs67hV
-         9J9g==
-X-Forwarded-Encrypted: i=1; AKwUvBw+98XXaJmUMmTzRu0o9yxGZphH5CN6tMufgRSjIU5QS35Y191HckMXrFzm4VxqBbkBSPYzkNOk+ypdJxQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nM+zbdbf7aeoS77uOOG0HXabHU2kUfimXtt43H8onqRQbMaKm8
-	FJUGpzI7BMaAjZ2dCRDdBqmw7+ZuytVEi8fuENEyFK3nUIFyfAwzPqq+GZJww69mk+Dj/xlbZsw
-	BsITesQ==
-X-Received: from pfbgb5.prod.google.com ([2002:a05:6a00:6285:b0:877:1a5e:530a])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2450:b0:878:34d7:6a32
- with SMTP id d2e1a72fcca58-87834d76df6mr8044053b3a.38.1789999539608; Mon, 21
- Sep 2026 07:05:39 -0700 (PDT)
-Date: Mon, 21 Sep 2026 07:04:58 -0700
-In-Reply-To: <20260826213303.914988-1-seanjc@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R2JSulfR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE4001F000FF;
+	Mon, 21 Sep 2026 14:05:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789999553;
+	bh=LItPg0eEICI8licPO1z3Hy7+q6MSXIvcWWOYjosZBio=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R2JSulfRRKgDq4nWYVx/wIl9Lk3SBwlo74AheX2WFPr9LmiHUdQD371FGOawu1ayx
+	 1fov8PWMy0WOGRmQcskYgxZbJk35Tc5V7ux+XrFi4gSBZZGAvJBe2cCFYnG8UQPF42
+	 YXwi24ZQSEppcHTJI1jeGhhs+HQAhBDKTtRrZkVKjHluGrJPJOj9cPZjTsKqAB/Tvr
+	 87EOuvi/P9sN43dlUwvDL2CSpwkyz5FdnjjK2kgrZjTrOTApEU3eVFvoZyZ4SXbId+
+	 G/Nj72pOen1eumCXhi5oR3Xg6vDHRyeYQ5Slwdil1v1QqYwZoqeNaSKVci4EGpUnhG
+	 WSoq5DaspTNkg==
+Date: Mon, 21 Sep 2026 15:05:42 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Petr Pavlu <petr.pavlu@suse.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
+	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 13/21] modpost: emit module descriptors as assembly
+Message-ID: <arE5dDlwgEJxvjKn@gremlin>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+ <20260914-build-speedup-v2-13-39817ec5db23@kernel.org>
+ <95baacfb-d8d9-4d2f-bc89-592df6f6f8e3@suse.com>
+ <arEZrFmXeCO4hZpP@gremlin>
+ <2b27bb4b-47e3-45ed-a26a-4b9de2b20542@suse.com>
+ <arEnCzzQa9XDd4LT@gremlin>
+ <58605613-8a43-40e7-a00a-b0d09f089ec8@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260826213303.914988-1-seanjc@google.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <178999887060.742658.18392421628866750785.b4-ty@google.com>
-Subject: Re: [PATCH v10 00/21] KVM: x86: Cleaning up the KVM clock mess, part 1
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Paul Durrant <paul@xen.org>, David Woodhouse <dwmw@amazon.co.uk>, Dongli Zhang <dongli.zhang@oracle.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <58605613-8a43-40e7-a00a-b0d09f089ec8@suse.com>
 
-On Wed, 26 Aug 2026 14:32:40 -0700, Sean Christopherson wrote:
-> Part 1 of David's series to clean up the host-side mess of kvmclock.  The cut
-> point in this version is still quite arbitrary, but what's left for "part 2"
-> fits nicely into 2-3 buckets:
-> 
->   1: Masterclock overhaul
->   2. New uAPI and tests
-> 
-> [...]
+On Mon, Sep 21, 2026 at 03:50:06PM +0200, Petr Pavlu wrote:
+> On 9/21/26 2:48 PM, Lorenzo Stoakes (ARM) wrote:
+> > On Mon, Sep 21, 2026 at 02:36:30PM +0200, Petr Pavlu wrote:
+> >> On 9/21/26 1:57 PM, Lorenzo Stoakes (ARM) wrote:
+> >>> (note there's a v3 see [0])
+> >>>
+> >>> [0]: https://lore.kernel.org/linux-kbuild/20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org/
+> >>
+> >> Thanks, I missed it.
+> >>
+> >>> On Mon, Sep 21, 2026 at 01:25:09PM +0200, Petr Pavlu wrote:
+> >>>> On 9/14/26 11:22 AM, Lorenzo Stoakes (ARM) wrote:
+> >>>>> The sections were confirmed to be byte-for-byte identical to the C version
+> >>>>> produced - each of .modinfo, .gnu.linkonce.this_module, __ksymtab*,
+> >>>>> __ksymtab_strings, __kcrctab*, __kflagstab*, __versions,
+> >>>>> __version_ext_crcs, __version_ext_names and their relocations - for all
+> >>>>> 8,135 modules of a clang allmodconfig build with CONFIG_COMPILE_TEST off
+> >>>>> and CONFIG_MODVERSIONS, CONFIG_EXTENDED_MODVERSIONS and
+> >>>>> CONFIG_MODULE_SRCVERSION_ALL on, and for a sample built with gcc.
+> >>>>
+> >>>> Lowering the data to assembly loses debug information for __this_module,
+> >>>> specifically that it has type `struct module`. It might be worth
+> >>>
+> >>> No, it keeps it - every module includes linux/module.h, and the extern
+> >>> declaration of __this_module carries the type, so all of the stuff gdb
+> >>> needs (e.g. ptype, p & field access), DWARF etc. is all there in the same
+> >>> way as with .mod.c.
+> >>>
+> >>> Have confirmed locally.
+> >>
+> >> An extern declaration alone shouldn't cause its name and type to be
+> >> included in debug information. They should appear only when the variable
+> >> is referenced by some code.
+> >
+> > Ack yeah sorry my mistake, I had the LLM check that and should have known
+> > better than to trust it without reviewing what it said (as I have done for
+> > the most part for everything in this series).
+> >
+> >>
+> >> Testing with a simple module that previously referenced __this_module
+> >> only in .mod.c and in no other file, such as lib/test_module.c, shows
+> >> that the .ko no longer contains debug information for this variable.
+> >>
+> >> I've verified this behavior with GCC 16 and Clang 19.
+> >
+> > Ack confirmed locally.
+> >
+> > Can put a fix in module-common.c.
+> >
+> > The LLM came up with a reference as an alternative:
+> >
+> > static struct module *const __this_module_dbg __used __section(".discard.this_module") = &__this_module;
+> >
+> > Would that work? Or should we go with your original suggestion? -
+> >
+> > __weak __section(".discard.this_module") struct module __this_module;
+>
+> With GCC, the LLM's suggestion produces debug information for both
+> __this_module_dbg and __this_module. However, Clang only generates debug
+> information for __this_module_dbg, so it is not quite what is needed.
 
-Applied to kvm-x86 clocks, thanks!
+Ack will go with your suggestion then, thanks! Will be applied to v4.
 
-[01/21] KVM: x86: Update "last guest TSC" snapshot prior to enabling IRQs/preemption
-        https://github.com/kvm-x86/linux/commit/ba78382f34c1
-[02/21] KVM: x86: Improve accuracy of KVM clock when TSC scaling is in force
-        https://github.com/kvm-x86/linux/commit/d4f54ed48e00
-[03/21] KVM: x86: Explicitly disable TSC scaling without CONSTANT_TSC
-        https://github.com/kvm-x86/linux/commit/dd0a8675f4ba
-[04/21] KVM: x86: Activate master clock immediately on vCPU creation
-        https://github.com/kvm-x86/linux/commit/7254e09bb5e9
-[05/21] KVM: x86: Compute kvmclock base without pvclock_gtod_data
-        https://github.com/kvm-x86/linux/commit/7ffdb9d111c3
-[06/21] KVM: x86: Avoid NTP frequency skew for KVM clock on 32-bit host
-        https://github.com/kvm-x86/linux/commit/4c710e8182f4
-[07/21] KVM: x86: Drop unnecessary CPU pinning when computing/getting kvmclock
-        https://github.com/kvm-x86/linux/commit/796b73bba577
-[08/21] KVM: x86: Move "no master clock" fallback from __get_kvmclock() to get_kvmclock()
-        https://github.com/kvm-x86/linux/commit/1a926fb39304
-[09/21] KVM: x86: Wrap all of __get_kvmclock_master_clock() with CONFIG_X86_64=y
-        https://github.com/kvm-x86/linux/commit/8e7e24b88e26
-[10/21] KVM: x86: Fall back to non-master-clock if clockread fails in get_kvmclock()
-        https://github.com/kvm-x86/linux/commit/25f75fb43fd5
-[11/21] KVM: x86: Fix KVM clock precision in get_kvmclock() with TSC scaling
-        https://github.com/kvm-x86/linux/commit/abdef42276d8
-[12/21] KVM: x86: Use get_kvmclock() in kvm_get_wall_clock_epoch()
-        https://github.com/kvm-x86/linux/commit/c56419275caa
-[13/21] KVM: x86: Fix compute_guest_tsc() to handle negative time deltas
-        https://github.com/kvm-x86/linux/commit/d9173f59df3a
-[14/21] KVM: x86: Disable preemption, not IRQs, when getting TSC+freq pair
-        https://github.com/kvm-x86/linux/commit/917a53a4b461
-[15/21] KVM: x86: Make master clock logic in guest PV clock updates 64-bit only
-        https://github.com/kvm-x86/linux/commit/f21b04302404
-[16/21] KVM: x86: Upscale TSC to "now", not master clock when updating PV clocks
-        https://github.com/kvm-x86/linux/commit/92fac63cc739
-[17/21] KVM: x86: Simplify and comment kvm_get_time_scale()
-        https://github.com/kvm-x86/linux/commit/2918af628d0d
-[18/21] KVM: x86: Remove implicit rdtsc() from kvm_compute_l1_tsc_offset()
-        https://github.com/kvm-x86/linux/commit/d4bbf2a8eb82
-[19/21] KVM: x86: Use kernel timekeeping snapshots for getting kvmclock time since boot
-        https://github.com/kvm-x86/linux/commit/ef7d809987c9
-[20/21] KVM: x86: Use kernel timekeeping snapshot for monotonic clock
-        https://github.com/kvm-x86/linux/commit/0a0ab23b05f0
-[21/21] KVM: x86: Use kernel timekeeping snapshot to get walltime+TSC
-        https://github.com/kvm-x86/linux/commit/d7841275e1fb
+I am aiming for ~midweek for sending that that out to give people a chance to
+respond and because it'll be based on other pending commits that need a bit of
+time before they're in-tree.
+
+I have added you to the cc-list so you should get mailed when I send it out!
+
+Thanks for the feedback :)
+
+>
+> --
+> Thanks,
+> Petr
 
 --
-https://github.com/kvm-x86/linux/tree/next
+Cheers, Lorenzo
