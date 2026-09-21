@@ -1,89 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net [217.70.183.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B44E4A8418;
-	Mon, 21 Sep 2026 15:16:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 062ED3C10A7;
+	Mon, 21 Sep 2026 15:16:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003789; cv=none; b=D8hZepv/yLW92kVnBo3HKBA2LNdp5pZ7KIvmLPXM9oJJRocNxQ6i4X59ZdyV4iq4yMOW0FF4mwSOz5DNTP6uKw2Z9HwhZUBw9HuNWaY6X35/+KGI9gP5vPCWsWvb4ug04CW+8LIP+OHWgpPzsPPfVN1iYYXqB19CU/hrl5mihF0=
+	t=1790003799; cv=none; b=mphJYNegKLJ+b8wYWzO2GCCo2FE8j1NsUWVZKbrl9x5+jepweL/WmKNu/YOKDKzkoMMaeXWJCg0UarKrKv3bfb5BtRwEaeq64gXcBmRRIR3uJqdIYoI/hjNfmfy3H7fxZtqWjlVhDZ/5f874j0A2xrxZuvJnmOUjIlCm1ZbNYbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003789; c=relaxed/simple;
-	bh=KaqL/InmAr946gzZ9RxUGpN8vi1n6pHbS0s43B6mpvI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hCP5ezLd5DaKXFu0SbBtaP39jRgnkj7qkcloYHCsrqD2Zm7gMcf+S6l/8+VXVqJ2n8tz5A0f2f5O2R5bsZNhVJNKnoV3SPtIISmpP5YRdpySZ+gCLwTw2DSmz9GlXIDcBKoszvlT7IBIyLIwDLtDcTCdWKYVSmwogux5gIzRSW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CKoTmb/N; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CKoTmb/N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AFC21F000FF;
-	Mon, 21 Sep 2026 15:16:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003788;
-	bh=pUplAqI0T/vC9i94K4G8o/0LOgXdEtNWcNU4n393ysc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CKoTmb/N5IutXaJ6GkJU0Cnc+AWqz/iwccCkrzi/u8LlfN8xcTgWj+H3Z18YIMblV
-	 3vBlNk06lwl8VUImPYezIMw5D8D5IxW7qbByHAyrSILJT4EPcnTGGw2iUIXSTZXbST
-	 ZLn2tHwkynbypesH2qaLB1EvpGMISgbnuOh70VT0nhJmXuVoUt3YRNlNPiJW5BLIZe
-	 yzyXDM+5wFdUwk3EpHRjxpBMiwmxbKEJ4gPRZv2JRU200zQztt0S++x3LGCdij6L8M
-	 SvBDzvKfu36uJZ/TTVMyetCyAzQCv7Ii7pep5467+HeVKRSMczV+HCdLTd3IERXhKm
-	 1+mNhUzTMSHJw==
-Date: Mon, 21 Sep 2026 17:16:25 +0200
-From: krzk@kernel.org
-To: Hui Peng <benquike@gmail.com>
-Cc: linux-kernel@vger.kernel.org, marcel@holtmann.org, 
-	luiz.dentz@gmail.com, linux-bluetooth@vger.kernel.org
-Subject: Re: [PATCH] Bluetooth: hidp: fix out-of-bounds reads on short frames
- and report_return skb leak
-Message-ID: <arFKSC0NALKj3BkD@quoll>
-References: <20260919221741.3709254-1-benquike@gmail.com>
+	s=arc-20240116; t=1790003799; c=relaxed/simple;
+	bh=6UkOOgSYQ2RsZFW63ooaHnq8belFDQLyzUab5uagDTY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RiX/078tDuZNO5aKAcrQpr5rtwXHQyMBPr31KzhDttemFHsqLrsg5F5hBMNX/5HaGgVJ9wvo2jc8bfLDqf4bmjMQkPy+xmoa4spearPy8RAxMZh7slYminxvIdhv6lfPBNTVacFP3q8FQf/dnweihUTbB2mk751bdj2ry6njarA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr; spf=pass smtp.mailfrom=ghiti.fr; arc=none smtp.client-ip=217.70.183.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 68AEC20CF6;
+	Mon, 21 Sep 2026 15:16:22 +0000 (UTC)
+From: Alexandre Ghiti <alex@ghiti.fr>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>
+Cc: Kairui Song <ryncsn@gmail.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Wei Xu <weixugc@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	Tal Zussman <tz2294@columbia.edu>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	Alexandre Ghiti <alex@ghiti.fr>
+Subject: [PATCH v6 3/3] mm: zswap: drop cold writeback folios via swap dropbehind
+Date: Mon, 21 Sep 2026 17:13:04 +0200
+Message-ID: <20260921151306.625134-4-alex@ghiti.fr>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260921151306.625134-1-alex@ghiti.fr>
+References: <20260921151306.625134-1-alex@ghiti.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260919221741.3709254-1-benquike@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-GND-Sasl: alex@ghiti.fr
+X-GND-Score: -100
+X-GND-Cause: dmFkZTE0SYM0WXNjdwubovITJrTYXyTSCwr/PlRPkkCz6KhxaAixi/QamYFRTWojpv77hYY7HjUcktzM93E0S7aP74KErDRnXAJ+8qBUZxDaDQ5JnexSaYr1F6K/qzS9RP6Q9NI0CX3RagQv2c/zqGxQWHxXflkOyoED1Sdwit9/i76dx7VxOUiBK8Q/gl4KmGjDzdQItBSNGWeNMb/7oLm/w9+WdgNkyz1o/4STbT4WL3/jko4pyhjinYBBZBp9KOF1J5FSuZ+4olXkmIuTnf3/D2n3GGfFEmJXsZU+tWWpUdrPtJniqkZUNoy4ZSEspEQMmwoGgTXrRtbYeOlg8rcIdNUZWXA9n5/PlSFk5VE9dwj5B2btg/LeyHrb4ABOY49XQIHak0YNNcycGU778Jq/RcxfzfS9/OkijGlqH6xM8TJRPm34TO8QzBEEplujliQBBl4g1MrFlGeuIL/HWzCO+aXF9QWrFXo3wwSNPvN70PwS4JpAAM8WVlDhfhDJMRKJ9RH2d4/ZKSW2PYTT5Yj+vqvmHHgVMLlTov0N1kJn9YynFmvhzKCargpgIRdwwp9rEjQ/9He1XjXC4a4bWw9fxO3R09ZKij8kswkeSR3egkE8ZzzZEU6Fzzhr//lwcRaGtZZAsXf/Q/YSr4s+b8Ncxxi3GEt0Y/7qxKV+jvAvbAw07w
+X-GND-State: clean
 
+zswap writeback decompresses an entry into a fresh swap cache folio and
+writes it back. The folio is cold by construction, yet it is left on the
+LRU for reclaim to find and free later, wasting a reclaim scan and keeping
+cold memory resident longer than necessary.
 
-On Sat, 19 Sep 2026 22:17:41 +0000, Hui Peng wrote:
-> In hidp_recv_intr_frame() and hidp_recv_ctrl_frame()
-> (net/bluetooth/hidp/core.c), check skb->len >= 1 with pskb_may_pull()
-> before dereferencing skb->data[0] and skb_pull(skb, 1), and free any
-> stale session->report_return skb before overwriting it or when tearing
-> down the HIDP session.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
+Allocate the folio off the LRU and mark it PG_dropbehind so the swap
+dropbehind path frees it from the swap cache once writeback completes.
 
+__swap_cache_alloc_folio() evaluates a refault on the new folio, and
+workingset_refault() sets PG_active when it looks recent. Until now
+folio_add_lru() consumed that flag and __page_cache_release() cleared it
+once the folio left the LRU. This folio never reaches the LRU, so nothing
+would clear PG_active and the folio would be freed with a
+PAGE_FLAGS_CHECK_AT_FREE flag set, tripping bad_page() under
+CONFIG_DEBUG_VM. Clear it after allocation.
 
-You sent multiple independent patches, to multiple independent
-subsystems. The amount of these patches clearly suggest this was
-AI generated and most likely not tested.
+That is a workaround: the refault should not be evaluated on a writeback
+buffer at all. A fix for that is on the mailing list [1].
 
-More importantly, you sent all this work without properly organizing
-relevant patches into patchsets. This makes reviewing difficult
-and might cause multiple reviewers to address the same issue.
-Replying to the entire set is impossible and requires handling each
-patch independently, instead of applying or discarding the set.
-Maintainers also won't see the bigger picture of your work. Quite
-worrying.
+Link: https://lore.kernel.org/linux-mm/20260911092012.92399-1-alex@ghiti.fr/ [1]
+Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
+Suggested-by: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
+---
+ mm/zswap.c | 33 +++++++++++++++++++++++----------
+ 1 file changed, 23 insertions(+), 10 deletions(-)
 
-This is on the verge of hostile patch: bomb us with so many
-contributions, we won't be able to handle them in efficient manner,
-like responding ONCE to ask you to slow down.  Considering all this
-is untested and LLM generated, I have even more doubts whether this
-should be considered for review.
-
-Please read kernel documentation BEFORE posting more work. It will
-explain you how to identify subsystems, how to organize your work per
-subsystem, how to document usage of LLM and how what you should not
-do if this was posted in a good faith.
-
-Best regards,
-Krzysztof
-
-
+diff --git a/mm/zswap.c b/mm/zswap.c
+index 0d2efe21f18a..dc8425d6b21e 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -1014,7 +1014,8 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
+ 	 */
+ 	if (IS_ERR(folio))
+ 		return PTR_ERR(folio);
+-	folio_add_lru(folio);
++
++	folio_clear_active(folio);
+ 
+ 	/*
+ 	 * folio is locked, and the swapcache is now secured against
+@@ -1028,12 +1029,12 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
+ 	tree = swap_zswap_tree(swpentry);
+ 	if (entry != xa_load(tree, offset)) {
+ 		ret = -ENOMEM;
+-		goto out;
++		goto err;
+ 	}
+ 
+ 	if (!zswap_decompress(entry, folio)) {
+ 		ret = -EIO;
+-		goto out;
++		goto err;
+ 	}
+ 
+ 	xa_erase(tree, offset);
+@@ -1047,18 +1048,30 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
+ 	/* folio is up to date */
+ 	folio_mark_uptodate(folio);
+ 
+-	/* move it to the tail of the inactive list after end_writeback */
+-	folio_set_reclaim(folio);
++	folio_set_dropbehind(folio);
++
++	/*
++	 * Drop our reference before starting writeback so the swap cache holds
++	 * the only one: the drop in folio_end_writeback() needs that for
++	 * remove_mapping_set_shadow() to succeed, otherwise the folio is
++	 * handed back to reclaim instead.
++	 *
++	 * Nothing can free the folio in the meantime: we hold the folio lock
++	 * until writeback starts, PG_writeback then blocks swap cache removal,
++	 * and folio_end_writeback() takes its own reference before clearing
++	 * PG_writeback and donates it to the drop.
++	 */
++	folio_put(folio);
+ 
+ 	/* start writeback */
+ 	__swap_writepage(&ctx, folio);
+ 	swap_write_submit(&ctx);
+ 
+-out:
+-	if (ret) {
+-		swap_cache_del_folio(folio);
+-		folio_unlock(folio);
+-	}
++	return 0;
++
++err:
++	swap_cache_del_folio(folio);
++	folio_unlock(folio);
+ 	folio_put(folio);
+ 	return ret;
+ }
+-- 
+2.53.0-Meta
 
