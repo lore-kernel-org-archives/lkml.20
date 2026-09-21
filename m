@@ -1,138 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-52.mta1.migadu.com [95.215.58.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F112D1F40;
-	Mon, 21 Sep 2026 13:17:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3CD497381
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:17:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789996647; cv=none; b=BiaRLgJENNG/TVJiqKJKdHy824Qm2oal6T7n4HBjzAEbvjFAzCHkZvM6fxTzlX6qplbszVmOKGqVa9sO8E5cRJwvQD8jDAT6wAaqMmPsZqUoGZD7saZZsQbjdP/WfMDJFkvRn6BMtOSju59EtyDu2DBIr8Gf6uhSpicEdD88RBM=
+	t=1789996665; cv=none; b=KEJYSYpXzpRsGGEfwzB2utSuztzpY1EXtbMjGNL24dBJvjfCQ2H7kaPb5n4P1g812VLndFqtR9gcqTbz1lhuVxYWxTDW9JABmKYkVN7A9+/3td6M49SsC5BQ4JHPUcIRVz3K2fZWMnBtQgGVZjOH9Qle4zp+Qq4kaz+pkAh+v3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789996647; c=relaxed/simple;
-	bh=oxHrbd2wvnbnaG3pchytyrG7/FodabB9PQrNp8bSYrk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cofytR3Q0y/qZ7lZAoAiasHwUY7ZbrIQTfLcw2X1Hb4AbWGHMZyhMZ7zcMM73aC+1FzEtLUuNUiOSIBXddnSJ4QUI8z3rSFGOMn7qQ9/XxJ6A6+FE1TkqwSSz4c9hteWf1RbkDHL7uuhCchkaj2xhAG9elCXtTDLe/c/ZRaTDBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YOp7P/Hh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789996665; c=relaxed/simple;
+	bh=XGKeaZZkegvCape3qQBQEln+i9bC30nsXnPlSXlaifg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nsMlONZ0hHOjOmMhJ2ah2N0wLY958btuLABCJPrM7xvM8kB+Xfu5gDwuQFGPAQ6LTI3EHfee8/IMRcWR2gPcIo9xA/SxJzx5/CxBtl3imIxVxM+ldNpj26eFWcmh00cj+Xnpqwyqjx4stZ/MYak9spWW6KGgAI/XGO2FUDkR6UA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=EWfXz3SF; arc=none smtp.client-ip=95.215.58.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YOp7P/Hh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 889C81F000FF;
-	Mon, 21 Sep 2026 13:17:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789996644;
-	bh=mdO/1qNOWoyatEwYn7xF77VAMMYfSFesr52raVoM2g0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YOp7P/HhFoWCbFNP1Kg1DcohDthKn7Vk8/kd4iFNUPUy2kIIUrBYBD7eYpRgqKvCT
-	 T9k3EmIJRky8Jd7bmpBG1s37nMaSnfpPKlG3YBEZsMl2HCHoPxF67Yphnmx5TH8B6G
-	 W1rTkNZRz9hm13HD5c7e+gaE9NaU8LAx+3+O7eldHrtHwiHs+XNQtNT+GgEA9HYUrH
-	 GSXFSUXZgyWi1re8DchivL48dUbbNI8TZcoZ5AFSzRNxQljbuEQC/Ck1tcdD0ZCfx/
-	 Q/DBQnOAfixhhnr69hLosb8a+mw14SYsKX+fDgNxfdv3pDPH2iYH/FJpSsQp0UHQCW
-	 Jp6twnn4+BWFA==
-Date: Mon, 21 Sep 2026 14:17:21 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
-	Pedro Falcato <pfalcato@suse.de>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	linux-hardening@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jason Xing <kerneljasonxing@gmail.com>, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
-	Jiayuan Chen <jiayuan.chen@linux.dev>, Willem de Bruijn <willemb@google.com>, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v4 2/7] mm/slab: Give bucket caches the alignment of the
- caches they mirror
-Message-ID: <arEdcaJz4i5HP26a@thinkstation>
-References: <20260921075811.too.775-kees@kernel.org>
- <20260921075820.1718334-2-kees@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="EWfXz3SF"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XGKeaZZkegvCape3qQBQEln+i9bC30nsXnPlSXlaifg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789996660; v=1; x=1790601460;
+ b=EWfXz3SFxahkBrxnVvRXGkVXmPA/DSmsYBjLNUX5od6izbSpmcQS8L/z2W+rZxIQclFpAkU+
+ 8sxXxkmD+VJrP8fqPP4l33KVqQQgqIczhQZqkg01seg36/eqkgxqQuOi56MqZj+0REpHG/CU/6b
+ AuUSZvEdYJGJaCufn2pxtfEI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ba4558021e9b6db7;
+	Mon, 21 Sep 2026 13:17:40 +0000
+X-Mizu-Trace-ID: ba4558021e9b6db7
+X-Migadu-Flow: FLOW_OUT
+From: Ye Liu <ye.liu@linux.dev>
+Subject: [PATCH v2 0/3] mm/vmalloc: fix vmalloc_dump_obj VA lookup
+Date: Mon, 21 Sep 2026 21:17:20 +0800
+Message-Id: <20260921-vmalloc_dump_obj-v2-0-73fceb3ed1c8@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921075820.1718334-2-kees@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGAusWoC/32OywqDMBREf0XuuikxDT668j+KyNVca4omktRgE
+ f+9Uei2ywNzZmYDT06Th3uygaOgvbYmgrgk0A1onsS0igyCi4yXacbChONou0Yt09zY9sVUwUt
+ eSJnfshKiNjvq9XpWPurILXpirUPTDUfRz3eE6ogP2r+t+5wHQnpIf7ZCyjjLESUXSgip+mrUZ
+ lmvigLU+75/AWLiVEvPAAAA
+X-Change-ID: 20260916-vmalloc_dump_obj-d80908447369
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, Ye Liu <liuye@kylinos.cn>
+X-Mailer: b4 0.14.3
 
-On Mon, Sep 21, 2026 at 12:58:13AM -0700, Kees Cook wrote:
-> A bucket set is created with kmem_cache_create_usercopy(..., align = 0),
-> so calculate_alignment() falls back to arch_slab_minalign(), typically 8
-> bytes. The general kmalloc caches it stands in for are created through
-> create_boot_cache(), which starts from ARCH_KMALLOC_MINALIGN and raises
-> it to the largest power-of-two divisor of the size:
-> 
-> 	if (flags & SLAB_KMALLOC)
-> 		align = max(align, 1U << (ffs(size) - 1));
-> 
-> This is only a problem when slab metadata is enabled with
-> CONFIG_KASAN=y, CONFIG_SLUB_DEBUG_ON=y, or "slab_debug=...", because
-> metadata changes the stride size off a power of two, for example:
->
-> 	size 128:  bucket align=8 size=224  | kmalloc align=128  size=384
-> 	size 512:  bucket align=8 size=608  | kmalloc align=512  size=1536
-> 	size 2048: bucket align=8 size=2144 | kmalloc align=2048 size=6144
+vmalloc_dump_obj() has two bugs that cause it to miss vmalloc
+allocations, plus a minor optimization opportunity:
 
-Hmm... I think what adds confusion here is that in new_kmalloc_cache()
-we adjust the size based on alignment, but in create_boot_cache() we
-don't do that. Perhaps let's make it consistent and move it to
-new_kmalloc_cache()?
+  1. PAGE_ALIGN() rounds up, pushing last-page addresses to va_end
+     and outside the VA lookup range.
 
-> So bucket allocations will fail the IS_ALIGNED(p, ARCH_DMA_MINALIGN)
-> check, potentially creating problems for non-coherent DMA situation.
+  2. The function searches only one vmap node, but allocations
+     larger than 64 KiB may span multiple vmap zones whose VA
+     is stored in a different node's rb-tree.
 
-I was wondering "Why should they respect kmalloc alignment..." but yeah,
-It makes sense if the users were using kmalloc and depended on its
-alignment.
+Patch 1 fixes the alignment, patch 2 fixes the cross-zone search,
+patch 3 adds an early is_vmalloc_or_module_addr() check to skip non-vmalloc
+addresses without traversing all nodes.
 
-Well, but that's already done in new_kmalloc_cache() and
-kmem_buckets_create() should already honor ARCH_KMALLOC_MINALIGN? 
+Signed-off-by: Ye Liu <liuye@kylinos.cn>
+---
+Changes in v2:
+- Use is_vmalloc_or_module_addr() instead of is_vmalloc_addr() to
+  avoid filtering module/BPF/execmem addresses. (sashiko-bot)
+- Link to v1: https://lore.kernel.org/r/20260916-vmalloc_dump_obj-v1-0-7aa402d224df@linux.dev
 
-The largest-power-of-two-divisor-alignment guarantee was introduced by
-commit ad59baa31695 ("slab, rust: extend kmalloc() alignment guarantees
-to remove Rust padding")
+---
+Ye Liu (3):
+      mm/vmalloc: fix vmalloc_dump_obj address alignment for last-page lookups
+      mm/vmalloc: fix vmalloc_dump_obj cross-zone VA lookup
+      mm/vmalloc: skip vmalloc_dump_obj for non-vmalloc addresses
 
-...which makes me wonder what you're trying to fix here?
+ mm/vmalloc.c | 29 ++++++++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 7 deletions(-)
+---
+base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
+change-id: 20260916-vmalloc_dump_obj-d80908447369
 
-> Take the alignment from the cache being mirrored, which is where the
-> size and the name suffix already come from. Nothing changes where the
-> alignment was already implied by the size.
->
-> Fixes: b32801d1255be ("mm/slab: Introduce kmem_buckets_create() and family")
-> Assisted-by: LLM
-> Signed-off-by: Kees Cook <kees@kernel.org>
-> ---
-> Cc: Vlastimil Babka <vbabka@kernel.org>
-> Cc: Harry Yoo <harry@kernel.org>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Hao Li <hao.li@linux.dev>
-> Cc: Christoph Lameter <cl@gentwo.org>
-> Cc: David Rientjes <rientjes@google.com>
-> Cc: Roman Gushchin <roman.gushchin@linux.dev>
-> Cc: <linux-mm@kvack.org>
-> Cc: Pedro Falcato <pfalcato@suse.de>
-> Cc: Kuniyuki Iwashima <kuniyu@google.com>
-> Cc: <linux-hardening@vger.kernel.org>
-> ---
->  mm/slab_common.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/slab_common.c b/mm/slab_common.c
-> index 270408ce5a9d..cc58f192f349 100644
-> --- a/mm/slab_common.c
-> +++ b/mm/slab_common.c
-> @@ -487,7 +487,8 @@ kmem_buckets *kmem_buckets_create(const char *name, slab_flags_t flags,
->  			if (WARN_ON(!cache_name))
->  				goto fail;
->  			(*b)[aligned_idx] = kmem_cache_create_usercopy(cache_name, size,
-> -					0, flags, cache_useroffset,
-> +					kmalloc_caches[KMALLOC_NORMAL][idx]->align,
-> +					flags, cache_useroffset,
->  					cache_usersize, ctor);
->  			kfree(cache_name);
->  			if (WARN_ON(!(*b)[aligned_idx]))
-> -- 
-> 2.34.1
-
+Best regards,
 -- 
-Cheers,
-Harry / Hyeonggon
+Ye Liu <ye.liu@linux.dev>
+
