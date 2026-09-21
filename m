@@ -1,260 +1,181 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012020.outbound.protection.outlook.com [52.101.48.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF54502786
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:02:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790017346; cv=none; b=hv+2qdnXtTDFijMtkoEIHqBsQparvV3LunFlJyB74KyKvyVSfL7I4La7gaCgWVMhtV3SQhOJedPLwpZSG+t3Nr+pn6ITWZ2S9iJ8fLs30/CDfttiLvJ6D2FILY9vKsJEg+YESM7r3auyRaqa7JJs7W9GGPP1Ud5q2SDCrhw5XDY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790017346; c=relaxed/simple;
-	bh=Xt2My9d1ZnGzWqEb1isRLvU2Ix5KpWtA+uFdwmPk1pc=;
-	h=Message-ID:Date:MIME-Version:From:To:Cc:Subject:Content-Type; b=T3GW1MAdJRpbj+PhE/qiQRDk0qyms4/TCdnIOqqsVCFRws3VDvGrrAkZlN1NVCOtyLDWs7XJldePR1UwxTaFmqxlSkkozRW35tD/C5+SbpIdnGgBKIv/tBOXoaZN+SLZRdJG5GOYWhukcEw+Nzg//t9p9qYGycm3NNWYl+eCqF8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=brivo.com; spf=pass smtp.mailfrom=brivo.com; dkim=pass (2048-bit key) header.d=brivo.com header.i=@brivo.com header.b=x7e3d25Y; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=brivo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=brivo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 180545012AA;
+	Mon, 21 Sep 2026 19:02:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790017369; cv=fail; b=qS28VKQLneh4knGTZg27h6id223cY+wK/OL27cucZSZuzbi7+AbZGr350cGhWxvu/xhkPcTlGoRpKqZFYRSMVJyE6hZ5YNYGY2/BkFOSGhlPLZuva9WYnREfAGDD4hfUy/Q3GbJoIUrGM7zBJE7ZZ1ARIA0lwBXTHTDnghY0sgI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790017369; c=relaxed/simple;
+	bh=QtR5UYKYee9GoiKdDdHm2qjWX2H1K6VxdGDNDH0OV8o=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FVs0u546535DxZWFM4OSwU0lOw6iogZvDBeqsjN+nUIGfBUZrGMI4rlRQn0bCOGWlZTaZnLisEgFIu+hj0NsBeHblI14PD7zNKS+QTIPI49VXh2zRtbWq6PyOhQIdixZlNj5Foc5RmzY9YK5+ao/333bjyUD51/WroamqIgdA1g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=GqNartzY; arc=fail smtp.client-ip=52.101.48.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brivo.com header.i=@brivo.com header.b="x7e3d25Y"
-Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-785692e59a4so1869650137.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:02:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brivo.com; s=google; t=1790017341; x=1790622141; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:cc:to:from
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GFcZ8v2IrQlVXsS28/gxish2Yf7RjcBy4ak1q2e8MoU=;
-        b=x7e3d25YPd75gL8HlZ1xRpCnjjWqYlhmInOSVC2ddsvhBGE5so2kUtibji2AC5t6Me
-         2Sq3TVxI2i2IxpLNruy9NVxiEtQIIOk5ecev0yBJ9VKKyXSXUqB0ZgIpbdgWHV6HH35r
-         JSQlDiJuJBIitTj5cfcjs9s7EoDjC5AcmRN+lJftkSStajXLg72+d8IxbAt8r/+pYTER
-         GGz41jmnLSDr1Gf3OZw0dfAak+9Lew5gF2x68JAOzNEfudwd8zv3xaHG5e4S1ABlyNem
-         7O1Ggnuwbjm2Cr4PDUmZz9GReBqjzyNGLXNQLSDMOBLOXzVmTdJjq6u4mfAs3xDzBr/3
-         lw0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790017341; x=1790622141;
-        h=content-transfer-encoding:content-type:subject:cc:to:from
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GFcZ8v2IrQlVXsS28/gxish2Yf7RjcBy4ak1q2e8MoU=;
-        b=WB7Zb8wkOwzcHhhj/kP6ILeby7eGt05CSTlcNnOhZYZR9KMGpuBoIjhxbdNEDCcUoD
-         DKh6VcgFiQRJj04nR9v9Nsb0xppzcJLFIj+PH0PikGmT55t1yx8MdEb6aWW8fZdDJ2cP
-         032kOM868U05H/WcHLugy3PFpCmUKAIy+EY9eaRwp2X/wfemyZJdanLk5ogITmoN8c8L
-         /+XTzkl8jDFgP3zzutZpKxXvh/sb/fWDqg3kDFv8FndLExgH1epRoc2QCDgIC9dU85o+
-         k5tUZU4V7IbaBsvNzCFnZQC3FNrrjWmBZWgfG893xKtZ9OotQacrbE+3FQPZzOqZjFbw
-         wfPg==
-X-Forwarded-Encrypted: i=1; AKwUvBxBiWE+xywXcZXU6VLLu9qSxRoHRJM+2LVncgkNBzweqK6KPrpcW0GHzM524/ggWJfmjp8TwVxAK3ZidGM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lHnTO7hkGmgXxoiiVFR83cg1zQeeNEGm35LyWfoRmWg80xDVKI
-	YNOt9Cq0s3FA9+5kMC8+fEEEWDXu8rVA6TTemg73RCIoQHMqor0m64LDcE3MAY8V+50n7vNnoJR
-	OSsamv2r8E6env5wcTaarfO07xitmxM/dFMC1xfqybqwgIKCteZUsegcyqOE=
-X-Gm-Gg: AYBFou37DUxpWurvquqCo/RlTrSic/fTOv1JVxCOE38iuEor/OQtSRA41jCV1p2r03T
-	8RruVYpPkxMAcFyUsRr+KoPY2TIPCv4+RBcT1N8OVW8Us/nCg8jkKb+PxoYjVWbwSJq88yMZxo1
-	/2f8rPbuXCiV7mVKQlty6h00oDyco2BkVs5aVnbzcnLb04KIq79vtSQiR7JSXrB6hgi3gTDuR0C
-	sZybX2s+/8X+8e4UdyEz2qfOrLcSWDyx450gDyuXf/0pVHRB2N98vRE1YpAppGLx3wncNmqPV+Y
-	gh0uZCUY748tGigksjbUcjo4ZL2NixctlXu2HIv5/PyTSWCDo5OsEgVpFwFoHAdGomdDEVUUIWu
-	YFtmNJFj1V7uuhCuycVEAIScn1+VU1KXXqSQoQhw56g8TjWGzKyW45mz67FveX2hIscfmUdX5ST
-	mrh+JA3OVrbM8jxkBFgiP8JGLp8qougRQl7CKxTlJHXJ4ogldeOEgIH5E+mi0bWIxR0f12EWWkI
-	Yt0
-X-Received: by 2002:a05:6102:2922:b0:7a3:4e75:d1f0 with SMTP id ada2fe7eead31-7a55d38b2b7mr6284952137.23.1790017341074;
-        Mon, 21 Sep 2026 12:02:21 -0700 (PDT)
-Received: from [10.200.233.210] ([71.163.254.246])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7aad2e36ea7sm8429137.4.2026.09.21.12.02.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 12:02:20 -0700 (PDT)
-Message-ID: <d90c0eec-728b-4607-b480-86b2534559c4@brivo.com>
-Date: Mon, 21 Sep 2026 15:02:19 -0400
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="GqNartzY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BrFaFLFgwd8H/hWEdzAzt3ZtjS7HVt6K0nkAc5BkclUiCuxm2V25zD3dHqakrvj8MrbEfNImzxbYvSHYyrtXYql0IhlzirzVmtcROhKbfJGjeNRB4oD9Sa8MZp9JmYIninlL9mi3MxGFYXvb8XwHVOP6F0GV2rmUFk9i6P5lLRR5n7SiFd2NhKdT0hOM5MPC7nHNULGT06Pvk00Oa4QkfJdshlCKj5174UIMdv38pk+yXfbjJ6V/pvz8UW/FYI74wWseL8riwx64nety41B8Bp3QKFjenP8lTMdcLBRNJzMBpZg+7yqH3nLU+EjwP3WiXG+FqZdleKTvQtFTw64EIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pBKcd/rkU6RsTUkrw1pfPypjswwvJKoiX304qgAekuc=;
+ b=POGwqZXinn6w1sPtbY89WgrD7MgDY+8fq8vj/Iy1m7WthKmfxZf8nzeS323hvcE5KzPeKNY9fsHG0W8X+4bMAvmdJrYfrO/0Q6jyZrO8u86sWyRQeKYhwmV0UG3g+KsRgEjEOkoyZK6IddM+zGpJXcbkrtnWejfd7ia89NjTi0GBezm+HA/DwsWdtsEI0STxtUIDFMicq65x1Z9FWryu0IFYY7wv50WfiuDV57UItkRDYLSltjl36/hQw0o64rN3WnYCO6gU7wvZl2VRicdbos/90Cz8RsOAGPWQvqaeRPqlk7L911wQuPT/bAWYBIVD3+bItLJERrjW5pF+XsgV0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pBKcd/rkU6RsTUkrw1pfPypjswwvJKoiX304qgAekuc=;
+ b=GqNartzYWbAVZRz9jM+0DkESgBGWxL6gnaXGwPq9SPZyVHgdKTyjtV9tqDOI/FCOCzuNCMPoNgUtYzmGmj/o7rVny8QXl4t40cJ17w3zHGAiB1ucbm1Tt3EGX3QpSZCNmQLSYd6Rz9uY4lVi5D3xB35eQPQIuBlUX+wkH/8Et3w=
+Received: from BN1PR10CA0021.namprd10.prod.outlook.com (2603:10b6:408:e0::26)
+ by IA3PR12MB718185.namprd12.prod.outlook.com (2603:10b6:208:61d::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 19:02:46 +0000
+Received: from BN1PEPF00018545.namprd05.prod.outlook.com
+ (2603:10b6:408:e0:cafe::a5) by BN1PR10CA0021.outlook.office365.com
+ (2603:10b6:408:e0::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
+ 21 Sep 2026 19:02:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00018545.mail.protection.outlook.com (10.167.248.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 19:02:46 +0000
+Received: from ausmlimonci-lx1.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
+ 2026 14:02:43 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: K Prateek Nayak <kprateek.nayak@amd.com>
+CC: Perry Yuan <perry.yuan@amd.com>, "open list:X86 ARCHITECTURE (32-BIT AND
+ 64-BIT)" <linux-kernel@vger.kernel.org>, "open list:CPU FREQUENCY SCALING
+ FRAMEWORK" <linux-pm@vger.kernel.org>, Mario Limonciello
+	<mario.limonciello@amd.com>
+Subject: [PATCH 3/4] cpufreq: amd-pstate-ut: Tolerate aliased EPP preferences in the EPP test
+Date: Mon, 21 Sep 2026 14:02:34 -0500
+Message-ID: <20260921190235.3651688-3-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260921190235.3651688-1-mario.limonciello@amd.com>
+References: <20260921190235.3651688-1-mario.limonciello@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-From: Sean Anderson <sanderson@brivo.com>
-To: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- linux-pwm@vger.kernel.org
-Cc: Brian Masney <bmasney@redhat.com>, linux-kernel@vger.kernel.org,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org
-Subject: Potential deadlock in clk-pwm
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018545:EE_|IA3PR12MB718185:EE_
+X-MS-Office365-Filtering-Correlation-Id: a2f4a25d-34b8-454e-e24e-08df1812ec59
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|6133799003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	Jg4VqUqRL3d5MqXz3tNkfruG4H9eOWfF185Db/HhtezePGnZjVrzupupNeS1QCEfrGN8tKrPRsQ0lUpVwO1iqPrn/AklXX8gm8TzwN1hkK95nO+jePtLCI0ffyEpUqny8r6sgBtRUS+6Nxmz42SMRjyeZAcHVOntiOA7CiCn8TGgoBEL2X7tq9iFE9I0qnZSEKdV1h6N+3JNEBv7020jsahVHLbmIKIWM6UOkqXaTFvShsRYJseFvHAcBN4Tn5x6WJlvH0qio0wKYXojQju7grZBMuqCn+3GFdpIjWzsHI7XHsPv6Kssz4Je7r6b7oQ6l5FfJTVjJFQm5QntZTPpY/iNwUzc9q5N51tDDL7QkAP7hVDQ20DyZrsS4Ic5fN+SJY27ng+nGjKuDWg4otTZNZS5NMtda0jTp8M9tJnrjQtoWouz+ObORFSqwBWCQ/pCpIMERSSfKx89TC9uL3er4/T/OYGIulosiQoYzGWMx9F1gPicQTLHZzIBZmRUiVBgqiHqvyN7YAQ5LQpc7c6vaztausXyiGq6YkqQ6EN1XziCRPixXcmXMPubXjgue6ChbKWv5jEooRncElY6mHc7LgFeQm8g/nQx/UHeR6sPG3c7b82le6svuxCpssvOjMcP7fTZ8T8MSsBE8ysTsMGwhjV5UY15v6I8xfK7BjpzeYjWOj5lpso24DEVAiaaUYgWX5T9bMybWBNOkvTTu8v6/w==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	wKy3wMsfqA7dM40NaYnZ4fCXFYC5nyTrZVgtcG1VP+EzDe16xXy0OwhHFNuYKBtWaBWXYe8DQFcdH4PFmPXOkEaVePShY8mcImviYYuqqKuzZgNzmoZW9etp774q2gGrgaB9oIW9LrH2REtIlJ6CQxTgOpDZt++5N1+JkH4Rogtxfj6aYqnKc/hsbNjgQU4OiqXVb3n117DkFvBT+juktEIY5+8hEG43UIwZ28M0Y3oVGVRz9dS0E5LJBjWlF0xwOBpj2svApMfWZJYwsgqbe+eSmX87KzgfBCMTmuX4zDp7S93uhcPlFlFObdG9guDq4JqG9IXrSpcPzJDzOS2o+16i8gCkVJZ9pl+QdiuFXlFP+jLWlWA8wDm5b/ZsIZBSldcC9bgVJW9xiYnK1Q24rGhOVkABqJueQ3i0Sf1+rVusRNo056DkoigA/eyyW4c2
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 19:02:46.3261
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2f4a25d-34b8-454e-e24e-08df1812ec59
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00018545.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB718185
 
-Hi,
+amd_pstate_ut_epp() writes each named EPP preference and requires it to
+read back as the same string.  That assumes a one-to-one mapping between
+named preferences and raw EPP values, which does not hold on all
+platforms.  Zen6 client, for example, programs the same raw EPP value for
+more than one named preference (power and balance_power are both 64 on
+performance cores), so show_energy_performance_preference() reports the
+first name matching that value and the string comparison fails:
 
-I found a potential deadlock in clk-pwm with lockdep. The problem occurs
-when a multi-channel PWM calls a clock function (such as clk_get_rate) in
-its apply callback. If one channel of the PWM is used for a clk-pwm, and
-another channel is used for some other purpose, then the following deadlock
-can occur:
+  amd_pstate_ut: String EPP value mismatch: balance_power != power
+  amd_pstate_ut: 5    amd_pstate_ut_epp     fail: -22!
 
-CPU0                        CPU1
-====================== =========================
-pwm_get_state_hw(chip)
-  guard(pwmchip)(chip)
-		       clk_get_scaled_duty_cycle(clkb)
-		        clk_prepare_lock()
-		        clk_pwm_get_duty_cycle(clkb)
-		         pwm_get_state_hw(chip)
-		          guard(pwmchip)(chip)
-  chip->get_state()
-   clk_get_rate(clka)
-    clk_prepare_lock()
+Instead of comparing the strings, record the raw EPP value programmed by
+the written preference, then re-write whatever name show() reported and
+confirm it programs the same raw EPP value.  This tolerates several
+preferences aliasing to one value while still catching a genuinely
+inconsistent show()/store() mapping.
 
-The same scenario can play out with apply instead of get_state.  I don't
-think this can really be fixed in clk-pwm. That driver doesn't have control
-over whether it's called with prepare_lock held or not, and it has to call
-into the PWM API in order to do anything.
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/cpufreq/amd-pstate-ut.c | 24 +++++++++++++++++++++---
+ 1 file changed, 21 insertions(+), 3 deletions(-)
 
-One approach could be to convert the PWM drivers to avoid calling any
-(sleeping) clock functions from apply. Fortunately, it seems like there are
-not that many drivers used in-tree:
+diff --git a/drivers/cpufreq/amd-pstate-ut.c b/drivers/cpufreq/amd-pstate-ut.c
+index c2c1a166b3a9e..f5888beb767a8 100644
+--- a/drivers/cpufreq/amd-pstate-ut.c
++++ b/drivers/cpufreq/amd-pstate-ut.c
+@@ -372,11 +372,14 @@ static int amd_pstate_ut_epp(u32 index)
+ 	}
+ 
+ 	for (i = 0; i < ARRAY_SIZE(epp_strings); i++) {
++		u8 want_epp, got_epp;
++
+ 		memset(buf, 0, PAGE_SIZE);
+ 		snprintf(buf, PAGE_SIZE, "%s", epp_strings[i]);
+ 		ret = store_energy_performance_preference(policy, buf, strlen(buf));
+ 		if (ret < 0)
+ 			goto out;
++		want_epp = FIELD_GET(AMD_CPPC_EPP_PERF_MASK, cpudata->cppc_req_cached);
+ 
+ 		memset(buf, 0, PAGE_SIZE);
+ 		ret = show_energy_performance_preference(policy, buf);
+@@ -385,12 +388,27 @@ static int amd_pstate_ut_epp(u32 index)
+ 		strreplace(buf, '\n', '\0');
+ 		/*
+ 		 * "dynamic" mode reports the EPP as "dynamic(profile:X)"
+-		 * Trim at "(" and just compare tie the epp string.
++		 * Trim at "(" and just keep the preference name.
+ 		 */
+ 		strreplace(buf, '(', '\0');
+ 
+-		if (strcmp(buf, epp_strings[i])) {
+-			pr_err("String EPP value mismatch: %s != %s\n", buf, epp_strings[i]);
++		/*
++		 * The preference read back may legitimately differ from the one
++		 * written: some platforms (e.g. Zen6) program the same raw EPP
++		 * value for more than one named preference, so show() reports the
++		 * first name that matches that value. Rather than compare the
++		 * strings, re-write whatever name was reported and confirm it
++		 * programs the same raw EPP value. This verifies the show()/store()
++		 * mapping stays consistent while tolerating such aliasing.
++		 */
++		ret = store_energy_performance_preference(policy, buf, strlen(buf));
++		if (ret < 0)
++			goto out;
++		got_epp = FIELD_GET(AMD_CPPC_EPP_PERF_MASK, cpudata->cppc_req_cached);
++
++		if (want_epp != got_epp) {
++			pr_err("EPP mapping inconsistent: %s programmed %u but %s programmed %u\n",
++			       epp_strings[i], want_epp, buf, got_epp);
+ 			ret = -EINVAL;
+ 			goto out;
+ 		}
+-- 
+2.43.0
 
-- pwm-imx27
-- pwm-meson (by far the most prolific user)
-- pwm-renesas-tpu
-- pwm-tiecap (doesn't call any clock functions from apply/get_state)
-
-and none of the in-tree users use any of the other channels AFAICT.
-
-Unfortunately, converting these drivers to be atomic is non-trivial.
-All of them enable/prepare their parent clock only when necessary to save
-power. Converting them to prepare/disable in request/free could result
-in increased power usage if the parent turns on in prepare instead of
-enable. Additionally, pwm-meson also sets the clock rate for improved
-accuracy, and this would have to be removed.
-
-I suspect that removing these features to fix a bug that can't occur on
-existing hardware would be well-received. On the other hand, pwms are
-exposed to userspace, so I think a privileged user could deadlock the
-system just by reading /sys/kernel/debug/pwm and
-/sys/kernel/debug/clk/<name>/clk_duty_cycle repeatedly.
-
-Does anyone have better ideas? I don't know if there's a way to catch this
-bug at runtime without lockdep. Non-atomic drivers are still OK as long as
-they don't take prepare_lock.
-
---Sean
-
-======================================================
-WARNING: possible circular locking dependency detected
-6.18.52-yocto-standard-00169-gbc0cb063dbe7-dirty #1 Not tainted
-------------------------------------------------------
-kworker/u16:2/47 is trying to acquire lock:
-ffff8000827d8968 (prepare_lock){+.+.}-{4:4}, at: clk_prepare_lock (drivers/clk/clk.c:228)
-
-but task is already holding lock:
-c5ff000002bc77c8 (&chip->nonatomic_lock){+.+.}-{4:4}, at: pwm_apply_might_sleep (drivers/pwm/core.c:43 drivers/pwm/core.c:54 drivers/pwm/core.c:747)
-
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #1 (&chip->nonatomic_lock){+.+.}-{4:4}:
-        __mutex_lock (kernel/locking/mutex.c:598 kernel/locking/mutex.c:760)
-        mutex_lock_nested (kernel/locking/mutex.c:812 (discriminator 1))
-        pwm_get_state_hw (drivers/pwm/core.c:43 drivers/pwm/core.c:54 drivers/pwm/core.c:812)
-        clk_pwm_get_duty_cycle (drivers/clk/clk-pwm.c:71)
-        clk_core_update_duty_cycle_nolock (drivers/clk/clk.c:3095)
-        __clk_register (drivers/clk/clk.c:4032 drivers/clk/clk.c:4380)
-        devm_clk_hw_register (drivers/clk/clk.c:4460 (discriminator 1) drivers/clk/clk.c:4684 (discriminator 1))
-        clk_pwm_probe (drivers/clk/clk-pwm.c:152)
-        platform_probe (drivers/base/platform.c:1377)
-        really_probe (drivers/base/dd.c:640 drivers/base/dd.c:718)
-        __driver_probe_device (drivers/base/dd.c:880)
-        driver_probe_device (drivers/base/dd.c:910)
-        __device_attach_driver (drivers/base/dd.c:1038)
-        bus_for_each_drv (drivers/base/bus.c:462)
-        __device_attach (drivers/base/dd.c:1110)
-        device_initial_probe (drivers/base/dd.c:1159)
-        bus_probe_device (drivers/base/bus.c:583)
-        deferred_probe_work_func (drivers/base/dd.c:124)
-        process_one_work (kernel/workqueue.c:3294)
-        worker_thread (kernel/workqueue.c:3377 kernel/workqueue.c:3458)
-        kthread (kernel/kthread.c:432)
-        ret_from_fork (/usr/src/debug/linux-yocto/6.18.52+git/arch/arm64/kernel/entry.S:860)
-
--> #0 (prepare_lock){+.+.}-{4:4}:
-        __lock_acquire (kernel/locking/lockdep.c:3167 kernel/locking/lockdep.c:3286 kernel/locking/lockdep.c:3910 kernel/locking/lockdep.c:5239)
-        lock_acquire (kernel/locking/lockdep.c:5872 kernel/locking/lockdep.c:5829)
-        __mutex_lock (kernel/locking/mutex.c:598 kernel/locking/mutex.c:760)
-        mutex_lock_nested (kernel/locking/mutex.c:812 (discriminator 1))
-        clk_prepare_lock (drivers/clk/clk.c:228)
-        clk_set_rate (drivers/clk/clk.c:2592 drivers/clk/clk.c:2584)
-        meson_pwm_enable.isra.0 (drivers/pwm/pwm-meson.c:235)
-        meson_pwm_apply (drivers/pwm/pwm-meson.c:328)
-        __pwm_apply (drivers/pwm/core.c:707)
-        pwm_apply_might_sleep (drivers/pwm/core.c:761)
-        pwm_adjust_config (drivers/pwm/core.c:897)
-        pwm_regulator_probe (drivers/regulator/pwm-regulator.c:403)
-        platform_probe (drivers/base/platform.c:1377)
-        really_probe (drivers/base/dd.c:640 drivers/base/dd.c:718)
-        __driver_probe_device (drivers/base/dd.c:880)
-        driver_probe_device (drivers/base/dd.c:910)
-        __device_attach_driver (drivers/base/dd.c:1038)
-        bus_for_each_drv (drivers/base/bus.c:462)
-        __device_attach_async_helper (drivers/base/dd.c:1067)
-        async_run_entry_fn (kernel/async.c:129)
-        process_one_work (kernel/workqueue.c:3294)
-        worker_thread (kernel/workqueue.c:3377 kernel/workqueue.c:3458)
-        kthread (kernel/kthread.c:432)
-        ret_from_fork (/usr/src/debug/linux-yocto/6.18.52+git/arch/arm64/kernel/entry.S:860)
-
-other info that might help us debug this:
-
-  Possible unsafe locking scenario:
-
-        CPU0                    CPU1
-        ----                    ----
-   lock(&chip->nonatomic_lock);
-                                lock(prepare_lock);
-                                lock(&chip->nonatomic_lock);
-   lock(prepare_lock);
-
-  *** DEADLOCK ***
-
-4 locks held by kworker/u16:2/47:
-  #0: 81ff0000003dc948 ((wq_completion)async){+.+.}-{0:0}, at: process_one_work (kernel/workqueue.c:3268)
-  #1: 02ff800083a37d10 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: process_one_work (kernel/workqueue.c:3269 (discriminator 1))
-  #2: afff000000a57140 (&dev->mutex){....}-{4:4}, at: __device_attach_async_helper (include/linux/device.h:1013 drivers/base/dd.c:1053)
-  #3: c5ff000002bc77c8 (&chip->nonatomic_lock){+.+.}-{4:4}, at: pwm_apply_might_sleep (drivers/pwm/core.c:43 drivers/pwm/core.c:54 drivers/pwm/core.c:747)
-
-stack backtrace:
-CPU: 3 UID: 0 PID: 47 Comm: kworker/u16:2 Not tainted 6.18.52-yocto-standard-00169-gbc0cb063dbe7-dirty #1 PREEMPT
-Hardware name: Blaze Edge 3.0 (DT)
-Workqueue: async async_run_entry_fn
-Call trace:
-  show_stack (arch/arm64/kernel/stacktrace.c:499) (C)
-  dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-  dump_stack (lib/dump_stack.c:129)
-  print_circular_bug (kernel/locking/lockdep.c:2045)
-  check_noncircular (kernel/locking/lockdep.c:2177)
-  __lock_acquire (kernel/locking/lockdep.c:3167 kernel/locking/lockdep.c:3286 kernel/locking/lockdep.c:3910 kernel/locking/lockdep.c:5239)
-  lock_acquire (kernel/locking/lockdep.c:5872 kernel/locking/lockdep.c:5829)
-  __mutex_lock (kernel/locking/mutex.c:598 kernel/locking/mutex.c:760)
-  mutex_lock_nested (kernel/locking/mutex.c:812 (discriminator 1))
-  clk_prepare_lock (drivers/clk/clk.c:228)
-  clk_set_rate (drivers/clk/clk.c:2592 drivers/clk/clk.c:2584)
-  meson_pwm_enable.isra.0 (drivers/pwm/pwm-meson.c:235)
-  meson_pwm_apply (drivers/pwm/pwm-meson.c:328)
-  __pwm_apply (drivers/pwm/core.c:707)
-  pwm_apply_might_sleep (drivers/pwm/core.c:761)
-  pwm_adjust_config (drivers/pwm/core.c:897)
-  pwm_regulator_probe (drivers/regulator/pwm-regulator.c:403)
-  platform_probe (drivers/base/platform.c:1377)
-  really_probe (drivers/base/dd.c:640 drivers/base/dd.c:718)
-  __driver_probe_device (drivers/base/dd.c:880)
-  driver_probe_device (drivers/base/dd.c:910)
-  __device_attach_driver (drivers/base/dd.c:1038)
-  bus_for_each_drv (drivers/base/bus.c:462)
-  __device_attach_async_helper (drivers/base/dd.c:1067)
-  async_run_entry_fn (kernel/async.c:129)
-  process_one_work (kernel/workqueue.c:3294)
-  worker_thread (kernel/workqueue.c:3377 kernel/workqueue.c:3458)
-  kthread (kernel/kthread.c:432)
-  ret_from_fork (/usr/src/debug/linux-yocto/6.18.52+git/arch/arm64/kernel/entry.S:860)
