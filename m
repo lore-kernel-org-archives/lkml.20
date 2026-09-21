@@ -1,141 +1,47 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C828E3EFD2D;
-	Mon, 21 Sep 2026 08:27:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0573DB62B;
+	Mon, 21 Sep 2026 08:27:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789979226; cv=none; b=RL11E5Pj0wgNTiCnQOahdDmlisKXvx1cV8aBFwoAMKFEjfNbNZa9QxMA8XI0/NPZ4z7cqEZh1VOAAN2BOCGXlLQruR/BAYIHBGLnpqhuetQEE5Noc5Wbap6NinAVGhkaeJ4KUDm/UPBGGrdrqGyJinilyhAupSo16x7elvhvzWM=
+	t=1789979264; cv=none; b=AkjxkaIpPgpKM4vkMu+ZlLdicEORBz7Y6tPuwyM0kPWS71PzacXMxbJBIt58a+POvgrwKf4u+UBoNDu0w8u2MeP1RFA9Bh6mWmDNipaXl/H+pSgIHxZEwFxc3Ae8MzdDtZccyeO/nlu/AUAxXTDGVfkqaSVpxrUEiKFXZRN7Qdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789979226; c=relaxed/simple;
-	bh=DAIFdbL4xzUIu7ZahFa8TI9VqSq7uJsS8lo7ckS9dpo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TVO5As36gT9J7dREmf0vTOi6KD11eFYbhdsk2iNugAcdgTq85uoc4nmNVSYAcHeI5VIZNb/7GAhJQSowtuLyjsvsX5wWCsk08dZOLttjDVDvIx7mf6Em1/2vpOrnKEX4C8HYAl2K+2HaxM8rCXvjdd8hcyXkthRpOvW3ooi0pjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=a1hlKdD8; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="a1hlKdD8"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9B812175A;
-	Mon, 21 Sep 2026 01:27:00 -0700 (PDT)
-Received: from [10.57.83.12] (unknown [10.57.83.12])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E68713F86C;
-	Mon, 21 Sep 2026 01:26:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789979224; bh=DAIFdbL4xzUIu7ZahFa8TI9VqSq7uJsS8lo7ckS9dpo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=a1hlKdD8fyjBw+8gF3G8WZAD/mIi7EKGmaNrH8A7prWIORzqTVcC/DXPhIZ79c7vn
-	 1vU1HYe/zUy8NNZfs3ZXkTmRkRKFCHIJuXnY3zhDPle3JQVTsugXbliOskfQjOZptF
-	 UV56/60hoTzYfzFhV6U3gOs8WqSzLGS6eD578weE=
-Message-ID: <86d4aea6-4272-427e-9229-295489e068d7@arm.com>
-Date: Mon, 21 Sep 2026 09:26:58 +0100
+	s=arc-20240116; t=1789979264; c=relaxed/simple;
+	bh=Ka8UYFubLO+5sv72IXG5mLm8Ypn9O0Je7nBCz/yK93I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j+Mq6Cc3YRvdAxCezxslrYFB8gGAK2bH9by3iYPGO4YNjHBnNsbbEvtcpmpf742Kw/ZqqXSXCA7/7oOGwa3NbnIQIrx11KTYML69MeEHxG4mRaS6GM2WRKem5y+33MLcvzhOeaJP9qMKNn3HKvCcuI1yGiZjTxr+W33bC2c5A1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 6308568B05; Mon, 21 Sep 2026 10:27:37 +0200 (CEST)
+Date: Mon, 21 Sep 2026 10:27:36 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Breno Leitao <leitao@debian.org>, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH v3 2/3] nvmet: avoid recursive configfs open for
+ file-backed namespaces
+Message-ID: <20260921082736.GA20060@lst.de>
+References: <20260902103202.GB8095@lst.de> <20260910045400.1201582-1-runyu.xiao@seu.edu.cn> <20260910045400.1201582-3-runyu.xiao@seu.edu.cn> <20260910052604.GC27133@lst.de> <20260921081745.15699-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] arm64: convert between HW PTEs and SW PTE values
-To: Muhammad Usama Anjum <usama.anjum@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Alexander Potapenko <glider@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-efi@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org
-References: <20260914-pte0_arm-v1-0-bb53b663e396@arm.com>
- <20260914-pte0_arm-v1-3-bb53b663e396@arm.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260914-pte0_arm-v1-3-bb53b663e396@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921081745.15699-1-runyu.xiao@seu.edu.cn>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On 14/09/2026 14:51, Muhammad Usama Anjum wrote:
-> __ptep_get() returns a SW PTE value, and __set_pte_nosync() accepts one.
-> When HW PTEs use a distinct hw_pte_t, directly reading or writing *ptep
-> as a SW PTE value no longer satisfies those interfaces.
-> 
-> Use __pte_from_hw after READ_ONCE() to obtain a SW PTE value and add
-> __hw_pte before WRITE_ONCE() to form an HW PTE.
-> 
-> Define __hw_pte for both the wrapper and alias configurations so the
-> same accessor code works in either case.
-> 
-> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> ---
->  arch/arm64/include/asm/pgtable.h | 4 ++--
->  include/linux/pgtable_types.h    | 2 ++
->  2 files changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-> index 4768ec59de555..67c4a6179e154 100644
-> --- a/arch/arm64/include/asm/pgtable.h
-> +++ b/arch/arm64/include/asm/pgtable.h
-> @@ -360,7 +360,7 @@ static inline pte_t pte_clear_uffd(pte_t pte)
->  
->  static inline void __set_pte_nosync(hw_pte_t *ptep, pte_t pte)
->  {
-> -	WRITE_ONCE(*ptep, pte);
-> +	WRITE_ONCE(*ptep, __hw_pte(pte));
+On Mon, Sep 21, 2026 at 04:17:45PM +0800, Runyu Xiao wrote:
+> I will send v4 in this thread.
 
-Would this work as an alternative? It removes the need for the new __hw_pte()
-helper. In future, converting a pte_t to a hw_pte_t won't be trivial so having a
-generic helper for it doesn't feel like a good fit.
-
-	WRITE_ONCE(hw_pte_val(*ptep), pte_val(pte));
-
-In general, I wonder if we should avoid defining both the __hw_pte() and
-__pte_from_hw() generic helpers. Conversion between sw and hw representations
-will become arch-specific in future and for arm64 that conversion will need
-extra information so it's can't just specialize these interfaces as they are.
-
->  }
->  
->  static inline void __set_pte_complete(pte_t pte)
-> @@ -381,7 +381,7 @@ static inline void __set_pte(hw_pte_t *ptep, pte_t pte)
->  
->  static inline pte_t __ptep_get(hw_pte_t *ptep)
->  {
-> -	return READ_ONCE(*ptep);
-> +	return __pte_from_hw(READ_ONCE(*ptep));
-
-
-...Corresponds with:
-
-	return __pte(READ_ONCE(hw_pte_val(*ptep)));
-
-Thanks,
-Ryan
-
->  }
->  
->  extern void __sync_icache_dcache(pte_t pteval);
-> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
-> index ee4eace5c3e1c..b5862a16aa497 100644
-> --- a/include/linux/pgtable_types.h
-> +++ b/include/linux/pgtable_types.h
-> @@ -9,11 +9,13 @@
->  #ifdef CONFIG_ARCH_HAS_HW_PTE_T
->  typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
->  #define __pte_from_hw(pte)	((pte).__pte)
-> +#define __hw_pte(pte)  ((hw_pte_t) { (pte) })
->  
->  #define hw_pte_val(x)  pte_val((x).__pte)
->  #else
->  #define hw_pte_t pte_t
->  #define __pte_from_hw(pte)	(pte)
-> +#define __hw_pte(pte)  (pte)
->  
->  #define hw_pte_val(x)  pte_val(x)
->  #endif
-> 
+Please always send new version in separate threads.
 
