@@ -1,163 +1,179 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31553C871D
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:55:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2F45172EC
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:55:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790027715; cv=none; b=Gczy8JMyJvtYhVbUy7iikiwBgE2+3Nv9OsbFMzpnt9jbSQxlGZ4VDw7jBBrExQMzl9SE++8eJW3Sg+twxhDpXENIoDUZ2o0FMCXbIiOpmYuJQvIjybwnJuBvpkJCEKhyYd8Td1+kZw2ik9AZiw+JDBR7Hsw+NKjHBS57mM4D4HA=
+	t=1790027741; cv=none; b=BnoTEovwRMutLGqKo+HhQYBHMskY4XLIEy31RHGRU2T2NrT21pm/L2uDxAQ8y8KTYBWzzS5QrOIO68Rq341fXevm80tEzADs3RFQRFEQorw3FDHbrgNLrh22n87/R8Wy0VJTZiVLiJ6xA+gVtZnGs9VUuzDq/a7kNWinHvUN4As=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790027715; c=relaxed/simple;
-	bh=kWlJd8BEWOsRoua0R3YlppLTIwG6Dv2dWS5Q0gC/q5c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IgeDpKd4r3ooZfEr4Fd1KH5stJO2A7eq0o0zGZYLD5ZBWoPrDV+prAaKwB3UAKLTjnFLfw3mh5a5R69SJOHh/s5gBPU0KpeN73XPa3rXcJnWjakwtAZSz/YmWD5AsOClQMnzd7VYAXOZ6KzCoKFYee19Ze4EdgS2DBuZasdm1AY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ebXo44ix; arc=none smtp.client-ip=209.85.221.49
+	s=arc-20240116; t=1790027741; c=relaxed/simple;
+	bh=HCdxYoKJS4JXP84pYdyR7ipBqIPncIEkdtGfKAzM21A=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=OP+BS6Qmz7HFE0RvwZghCuvE1+fwRgpvLIqcTHUY/x1pIpLzcs8GHW18rS45iOwXdviB3CsqgzSpPa5XzCqDwhjX4Nwu8A1+TfojW9Ow1qA+0yWYBTvmjL79Y5aYSa7Oqois2xJe+WHD7H2UUfHhzwvJntY5K2aU0LhkVt4l22M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=at+3b0JI; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ebXo44ix"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4843e397f74so216409f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:55:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="at+3b0JI"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b350c69b4so3053092a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:55:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790027712; x=1790632512; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=18O+tTI1rRDvA6n53KVT0ktfEAZ7emgcAQWAHdf7HXA=;
-        b=ebXo44ixLrzfyM8Qr+rAkGVqbzj/TCitIDIeSU+R98a457mSohpbaE/+pjmL/+qaBe
-         APDNVkkFpl9naqJatMZzCd/0bnMBucNr0xuDKt2C5CWUxx2vNroMX6ND1TwHpbwUad19
-         9FdaCXmV9TM4IkR442DfaEO6+1wn39nfKgPPLpmhagZca7TaJopR8gTJKQQI7Eldjnmm
-         PL39vXXlfb4rEa/7RSoeO9lFJO+OXHeiDeMo7vcm1s0bbV6L+GIICSGFnXSPU7lwKDBM
-         nyWxATMvH9zHU6p4/ehgeBN2Y1h4ZahhWcBZtxdSVIjCvw561v5afacQ7GHkc5FxpnjR
-         Ghfw==
+        d=gmail.com; s=20251104; t=1790027740; x=1790632540; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JR/I8dSNLWX0oO0TxgyXU1KNRLBlNCoS227EjBBu2Z0=;
+        b=at+3b0JIil/2xgXzEBxyhfV7aqGwE4aK81Ne5s4I2/YA4HlkxJ3KflJfq9ExkDNf4O
+         8X0wJeVliAlGeV9j9+GJ1KveSGtg+j1Y5RWFy81NaZ3MHjcpRGV0h0Eqd3HCQbUEl+cu
+         vpmrgc/yFOZzGRIqYipoGVqAUfJ4Fb9EIelikwhY+aWRXiQ0zdX1E6Wf2dgKrHtGWYtT
+         qJqwWKKOgJ6Qdt46zXN+kIaHJjdACVsjgkVfLaLCyR/gCgxLzWI5ep16SzlK7gYubLxp
+         fk1DUWRJk3WoDG6wCLLsmaFxJtZtP2ap9YiGKZ0Lm6/kHuI543nZzeeuuwR5Ja/iq8QI
+         inQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790027712; x=1790632512;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=18O+tTI1rRDvA6n53KVT0ktfEAZ7emgcAQWAHdf7HXA=;
-        b=cV8w1BLFiPo44rWV1AmDAIIqVto7BHSBTjyuWl+ve5/s1mqSoj+n4FlWu07M4yme+h
-         sRIDXr3UZ4u764h6HCtZ3QsxrgPLsd0sodRZC7S7menf+pGFwyGZAc76MX5Octh2eWQV
-         l/rU1qWmaeGFrLIkff68DWUkm/TWVrU+URqg/cYN8KVMkvEOGVsznIzqK/Yroq4Pm331
-         L2TM/dL8RXNBXYgGrr/LlyORCGQHIt3kopmT2M+9HOHxTKi8vUvb1AB7v/AAhyLWJihO
-         eV3OiVa3/M7BdGg1DuAYC7EzPgjSk7ytg4A3FszH/KMtH5KlKaDKys5b6eQY18lS1CyJ
-         mOQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx1VKg1ZDvDw8G8ZXumhf4vVqOYNp6Co7JtQMbOm4duDCsYb7Zvqe8cIPz/8GMr6FHY7cxnGtBIyxEawOA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kp4Y8f66iHWnnZF/rH1zex6aVV8LDAjEgYnOr1+Lvqv+IH4u/F
-	rJH0RUhHRyqRaVX2QT1HGPHeMDI3ytf3M8vs0WP7HM8Suls28HqkjsR8
-X-Gm-Gg: AYBFou2FCqMAtk2d0kqKoOpmf84m5Q9vMnRLWA9ez8YPNQACXGACo2AtuvUNltrmXNO
-	TEB4CFe+l8O3V7w9LB1E2zF/1VkwgfmAd2ls4rk3qY6j+cXRjvmJc23Lqh4aLLj7gq/fBBpgZz7
-	mYELOK5BEfUHu+aQbOSuUfCCfQny5GzheFf7m3AJb3iyvOBu7m4ZUCdy7ZBDIkhajlMw+P0JKWy
-	iThp9dFkXvlq91hHHn4ajvOisYoQUhSPDGXz/wbtAlXFkdWS8YoWRGEZwEXkg7cPbMjSHspBHZJ
-	iklz2cLES7P2GH7MOn6DNcr2FzZO3ztOQxyjYCvqc1qttoYioFcO2OUN719mzulDHtQ8AEN0Mx4
-	PhzMkvkRDa68qOnp8FXPLG8LsEt9hj+0yQO9s3HvFHMdKzW+BHkZpnWZ9zaVHy/aBxdAZWwH6XJ
-	TVbS4ACfsiayphShrGPQ+7xHJ7ZTLGdwzgbXzbBBKe3jCp056huJGJJdI=
-X-Received: by 2002:a05:6000:2309:b0:485:a517:6287 with SMTP id ffacd0b85a97d-48860fd75d6mr1502937f8f.17.1790027711846;
-        Mon, 21 Sep 2026 14:55:11 -0700 (PDT)
-Received: from nobara ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886228be7fsm442767f8f.37.2026.09.21.14.55.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 14:55:11 -0700 (PDT)
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-To: Dennis Zhou <dennis@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	syzbot+a3c71b9db9c11c270f59@syzkaller.appspotmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH] percpu_counter: annotate lockless read in _limited_add()
-Date: Mon, 21 Sep 2026 23:55:04 +0200
-Message-ID: <20260921215508.141641-1-azpijr@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1790027740; x=1790632540;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JR/I8dSNLWX0oO0TxgyXU1KNRLBlNCoS227EjBBu2Z0=;
+        b=LcIB6ZK+0M5zzFBJ5y0SG4ZQvVcpR1yDDFH/fmEOIomOLDi7xeO4qzhEZyttRbeNVO
+         /icjfPWLNQlFeYs5W1jqpq3FfQFnTsHMkiur1q4665fHo0Iv2ygI7NUe77/XJCKSFHni
+         yMAd/4c2w4Ja/Ku6+rHG28flB+aSyyWhJ7NeslyLvNlc2UsKBVmCOALvAaIxH9vRP3Ob
+         14UnCFIrnYCRMkCzUpyzvpEh2RKNLqIu+JmKp+YNt27BaYHZzasfJI+sQUXeQ4iqyCeZ
+         5SKODFyk88aW83TaLWSpzP/XeVqEQq39pdEi/lCrKFMxt9nge/DiKLVjx+DtEzfeuMLP
+         j2Vg==
+X-Forwarded-Encrypted: i=1; AKwUvBxbI3DdKy82xvev4sB5SxAS52pV26kNHst3nTWY9sPvW2FndTME50/Nx7NUVY1KJ1jvbScFK3v/PpYtW5Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqYwQmI8yNrnVmctzJS7ZLGZ8O7tljBN8T5JN9uzCsQlSoCHh8
+	QPwEJKPT/UOLUKlS2MZU1exlbNy/hZ9rNP2Nvp/Zb4zQ504Te+Ts0BGA
+X-Gm-Gg: AYBFou09oUjnV9efEXpxv7y+GY08NmlgkCcB5eUCNitK5lZkmrujRq/GmQGbCn33qBt
+	kU0Eq4VmU2Lv9zjzoMtUeY0fS+aLLtYp/Dt61DTifyPZfjpSq7IpUjlAh2HbJBqwO4DomHJo+B+
+	9LNJjI7KOQFWuAFfKDFb9zP1DPxHAgwuyFTn8wuKiSwB9wE465yCxVpf5zl9iqxbwoNVDf/M8wn
+	f54RPtYLoryAmcw9akuP3vCCCrcoaKgJNJPIIAEKbmYENOVN0NIlRWnetwM71lZqp5LS3q8KPdX
+	PltUqPWit1UbZDQTYiW8MgtT49UsqL1bqI8+0GupWga9DV8Di88KNd7B7X146d3HqkYMypjc1bx
+	Jy4ElQZ2yfJCyZ66p6H0vi6VtmF3lxlMz5u5NgwcUNpRDP2U+nVD0w9aRLEjuz8JCcLcpdPvgMN
+	cGyb7d6a/DKM2T6xAYRN83qg+ftzf3TjqxjtNOJNAYUK6VZEI5hYorCCLWWECmKjbEioQaL7sYf
+	I/+4wNn1G8jIBCAFzEnc30m4Xglqj7yGmIC7hrOKbpFIoRnrpaF3kkR7A/dniOfwyDkDjaoGMFn
+	BNI=
+X-Received: by 2002:a17:90b:3909:b0:39e:3558:f925 with SMTP id 98e67ed59e1d1-39e54d86a97mr17008107a91.24.1790027739732;
+        Mon, 21 Sep 2026 14:55:39 -0700 (PDT)
+Received: from localhost ([153.61.198.249])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0699c5486sm640851a91.14.2026.09.21.14.55.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 14:55:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 21 Sep 2026 21:55:38 +0000
+Message-Id: <DLLBVIU33MLC.ITFPYGMFKWUT@gmail.com>
+To: "Eduard Zingerman" <eddyz87@gmail.com>, "Vineet Gupta"
+ <vineet.gupta@linux.dev>
+Cc: "Alexei Starovoitov" <ast@kernel.org>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>, "Kumar
+ Kartikeya Dwivedi" <memxor@gmail.com>, "Martin KaFai Lau"
+ <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong Song"
+ <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
+ Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, "John Fastabend" <john.fastabend@gmail.com>,
+ "Shuah Khan" <shuah@kernel.org>, "bpf" <bpf@vger.kernel.org>, "LKML"
+ <linux-kernel@vger.kernel.org>, "open list:KERNEL SELFTEST FRAMEWORK"
+ <linux-kselftest@vger.kernel.org>
+Subject: Re: [PATCH bpf-next v2 03/13] bpf: track low-32 scalar equality
+ across zero-extending movs
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+X-Mailer: aerc 0.17.0
+References: <20260910164635.459558-1-vineet.gupta@linux.dev>
+ <20260910164635.459558-4-vineet.gupta@linux.dev>
+ <DLDKI0ZXYI7H.1XQZZE2RCU7IF@gmail.com>
+ <4ab75099-0e95-4fee-81da-6f4198e3e6a0@linux.dev>
+ <CAADnVQ+N9tzBJ0Bbvp8_8QvR+QcCP4ej5CgV_kRHt=iw4BANSQ@mail.gmail.com>
+ <202c45e2-58ba-4ad5-a234-c90703031f91@linux.dev>
+ <CAADnVQ+Si9Au8J_j2nt+ZzFq6WPaz8hpmh0n=_dFysZmSOeipA@mail.gmail.com>
+ <ff18ccb77a554000a030199e8c1fbb7d8d298e18.camel@gmail.com>
+ <DLL84IMPTRQF.3DOQQTN2KCAEW@gmail.com>
+ <e9aad352ba82dadd97a17867108b5db1865fa38d.camel@gmail.com>
+ <DLL8Q69N7BUD.1HI0MKU2M2UGE@gmail.com>
+ <951923920747d8dcba3d56ca8858e106d9c7ba4e.camel@gmail.com>
+In-Reply-To: <951923920747d8dcba3d56ca8858e106d9c7ba4e.camel@gmail.com>
 
-syzbot reports a data race on fbc->count between the lockless read in
-the fast path of __percpu_counter_limited_add() and the locked update
-in percpu_counter_add_batch(), reached via shmem's used_blocks counter:
-the alloc path reads it through percpu_counter_limited_add() while the
-free path updates it through percpu_counter_sub().
+On Mon Sep 21, 2026 at 7:44 PM UTC, Eduard Zingerman wrote:
+> > > > >=20
+> > > > > Where:
+> > > > > - id =3D=3D 0 =3D> no id link
+> > > > > - full =3D> all 64-bits of the register are identical to
+> > > > >           all 64-bits of a scalar value `id' (let's call it X).
+> > > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D full}, rB{X,ful=
+l} =3D> rA =3D=3D rB
+> > > > > - zext =3D> lower 32-bits of the register are identical to
+> > > > >           lower 32-bits of a scalar value X,
+> > > > >           upper 32-bits of the register are null.
+> > > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D ?}, rB{X,zext} =
+=3D> rA % 32 =3D=3D rB % 32
+> > > > > - sext =3D> lower 32-bits of the register are identical to
+> > > > >           lower 32-bits of a scalar value X,
+> > > > >           upper 32-bits of the register are either 0 or 1,
+> > > > >           depending on the bit 31 value.
+> > > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D ?}, rB{X,sext} =
+=3D> sext(rA % 32) =3D=3D sext(rB % 32)
+> > > >=20
+> > > > hmm.
+> > > > there is also 32-bit link with delta, right?
+> > >=20
+> > > My point is that delta is independent of 32-bit/64-bit property.
+> > > `delta' can be used to propagate in both directions:
+> > > - full 64 bit -> 32 bit sign/zero-extened
+> > > - 32 bit sign/zero-extened -> full 64-bit
+> >=20
+> > both? how ?
+> > I was under impression that in 32-bit domain delta is one way.
+> > rX =3D ...
+> > wY =3D wX
+> > wY +=3D 5
+> >=20
+> > if wY =3D=3D 10
+> > We cannot do -5 to rX
+>
+> Why?
+> It is still valid to transfer r32 and tnum_subreg knowledge from wY to rX=
+.
+>
+>   wY + 5 =3D=3D rX % 32 + 5 =3D> hence rX % 32 knowledge can be recovered=
+.
+>
+> If rX itself had some delta, e.g.:
+>
+>   rX =3D ...
+>   rX +=3D 7
+>   wY =3D wX
+>   wY +=3D 5
+>
+> Then it would still be possible:
+>
+>   wY + 5 =3D=3D (rX - 7) % 32 + 5 =3D rX % 32 - 2.
+>
+> Again, in case of this direction, only lower 32-bits of the 'full'
+> register can be inferred.
 
-Annotate the read rather than change the logic: the lockless read is
-deliberate, only the annotation is missing. It is an approximation,
-not a conservative bound. A concurrent flush moves value between
-fbc->count and a per-cpu counter, and other CPUs' locked slow paths add
-to fbc->count too, so a stale low value can let the fast path proceed
-where the slow path would refuse. The error is bounded by the per-cpu
-slack (unknown = batch * num_online_cpus()). This is existing behavior,
-no functional change intended.
+Ok, so we're argeeing that it's not 'full' in your above definition.
+Your enum id_link_kind needs a 4th category : apply-delta-to-lower-32bit-..=
+.
+and it's not bi-directional.
 
-Read it with data_race(READ_ONCE(fbc->count)): data_race() tells KCSAN
-the race is intended (READ_ONCE() alone still triggers the report,
-because KCSAN reports against watchpoints set up by plain accesses),
-while READ_ONCE() stops the compiler from refetching the value, as in
-percpu_counter_read_positive(). The lock-protected accesses stay plain,
-so future buggy lockless writes are still caught.
+rX =3D ...
+wY =3D wX
+wY +=3D 5
+if wY =3D=3D 10
+here can apply -5 to lower 32-bit of rX only.
 
-Reported-by: syzbot+a3c71b9db9c11c270f59@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=a3c71b9db9c11c270f59
-Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
----
-Tested with a KCSAN kernel: defconfig + CONFIG_KCSAN=y, CONFIG_KASAN=n,
-CONFIG_KCSAN_SKIP_WATCH=200, CONFIG_KCSAN_UDELAY_TASK=200, KCSAN left off
-at boot and enabled from init via debugfs; 8 vCPU / 4G QEMU/KVM guest,
-gcc 16.2.1.  Stress: 120 s of concurrent write() and unlink()/ftruncate()
-on one size-limited tmpfs (shmem_inode_acct_blocks vs
-shmem_inode_unacct_blocks), which is the pair from the report.
+rX =3D ...
+wY =3D wX
+wY +=3D 5
+if rX =3D=3D 10
+here can apply +5 to lower 32-bit of wY _and_ do zero extend into full rY.
 
-	base/mm-new:  38x "BUG: KCSAN: data-race in __percpu_counter_limited_add
-		/ percpu_counter_add_batch", first hit ~0.3 s after the
-		workers started
-	this commit:  0 percpu_counter reports in the same 120 s
-		(other, unrelated KCSAN reports remain: d_make_discardable,
-		osq_lock)
-
-Object code (defconfig, CONFIG_KCSAN=n): __percpu_counter_limited_add() is
-the same size (0x23b) with the same four fbc->count loads and identical
-branch targets; .text differs only in register allocation and compare
-operand order (45 of 2171 bytes).  No functional change intended.
-
- lib/percpu_counter.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/lib/percpu_counter.c b/lib/percpu_counter.c
-index 2891f94a11c6..87b261b87b0b 100644
---- a/lib/percpu_counter.c
-+++ b/lib/percpu_counter.c
-@@ -328,6 +328,7 @@ bool __percpu_counter_limited_add(struct percpu_counter *fbc,
- 				  s64 limit, s64 amount, s32 batch)
- {
- 	s64 count;
-+	s64 gcount;
- 	s64 unknown;
- 	unsigned long flags;
- 	bool good = false;
-@@ -338,11 +339,16 @@ bool __percpu_counter_limited_add(struct percpu_counter *fbc,
- 	local_irq_save(flags);
- 	unknown = batch * num_online_cpus();
- 	count = __this_cpu_read(*fbc->counters);
-+	/*
-+	 * Lockless on purpose: gcount may be stale, so this is only an
-+	 * approximation, bounded by the per-cpu slack ("unknown").
-+	 */
-+	gcount = data_race(READ_ONCE(fbc->count));
-
- 	/* Skip taking the lock when safe */
- 	if (abs(count + amount) <= batch &&
--	    ((amount > 0 && fbc->count + unknown <= limit) ||
--	     (amount < 0 && fbc->count - unknown >= limit))) {
-+	    ((amount > 0 && gcount + unknown <= limit) ||
-+	     (amount < 0 && gcount - unknown >= limit))) {
- 		this_cpu_add(*fbc->counters, amount);
- 		local_irq_restore(flags);
- 		return true;
---
-2.55.0
-
+I don't see a value of 'zext' kind alone that doesn't do 'add delta'.
