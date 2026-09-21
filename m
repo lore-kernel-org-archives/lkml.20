@@ -1,178 +1,120 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010027.outbound.protection.outlook.com [52.101.69.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B78FA4BFE72;
-	Mon, 21 Sep 2026 16:10:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790007029; cv=fail; b=uIZjpanEdfGL1rOWPg/rTty7GFfQmn22F6DRgdmSJMAVJN3I5dfwoneU0Bpwdu1MZEA6w65QYQvSb3QdFqlKVmbU6dW+7V67/0TgXIJjd1Vb6W2xLTF5yjtoa3FNOsk4TV3cr31Vnp00EEqjX21LXw6cFx7Czv1MU1b3AaU+OtY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790007029; c=relaxed/simple;
-	bh=8H3ivygizFuKFpQy8n6N0N/zUfqREvdozIP5AIW6Y9o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=iJX+xLLgLOmTbciQS7rU7M9wUZpYmuOYrJvvZL9Cl6TzfHV6Y8SP2gd5BrEM9woGLHvrCnrKmgwxYTU7BrGz7ZAsN4mA8TM8rewiY1XaDEX+WOsran4NptcDcj3hXLorhMkMzwXUYaK7Ii6gSpdJPyOWVwfpgHNzTgwqrBb+p7E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=coM4ejlZ; arc=fail smtp.client-ip=52.101.69.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB954BB293
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:10:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790007055; cv=none; b=lX0YAkdpuQNm/O2Tw8sdTktyM6U8MB0h5hjnGj5skJuOHbgRSyOZYpKxWBTcJi8/TB4TLMmeiI/ku2yDKbTCWPUOnJ0VGaANkQYboJbdOAkC7dGWGYjxcWSNxjYJJTKSRpvnHFYMkU8IrRmQPOPfC2giI2GwMS7kJFk8MqzQhrk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790007055; c=relaxed/simple;
+	bh=KxRGP42jnNZFDQR6TcrefeTptXs4HoXgzM9QUv4IjDg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rbGe32bvJNa6e7ri2KrUq6ewKUuxAWgx8yQk8soQ1MNS1cu9rSX6Ioh1gUP/Kxaj14VGUvXTFWkF187QazEAfWBTGk2KMk3A0lr2ewKmCaCn0oiH8MEK30t6lxFiyIlR5RXP5wk7gGsHNS1o+n9ATh++AMszQVtQfVC6iOKqA+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=DnYor2U6; arc=none smtp.client-ip=74.125.231.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="coM4ejlZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FtCU9VONJLJOBbXnKz1GAyx8PveXUmO9Sevjt6Rn3bs6RmBcIvXleXak/hpQhNIggk3WlGUb3QWpFPJRaOXQYdyUKBLsxXbevTAd9jeYEVE5JvFt4vdwruKA3OJ0cAGxLS24EkQ33XdZndfHKK+gtFio74vneMfDZuGbMW5zZt0K6Gj2DVXPIjAOfuaHsyneyG+9BPShkBjMsgTFz37Oy9Cl00XKahKr4ihx7iVko25pKKkakePPs50Byto8wBAW1eGWgQbQoSLL1UPJGPfRWYzwKbe/itppgIe1cFi3pDtzVheWoZKxGlb9WlvTCWVt7+l5Jq7b3RcfYoYiMTYfDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8H3ivygizFuKFpQy8n6N0N/zUfqREvdozIP5AIW6Y9o=;
- b=dBBDs6fGLdOwhdVoeY/21BKpXag1uQkzb64ofyK4Wi+uX7ZPjm3WBwbQkogaqR4gjPQ07EfW5TixnND6a4uvGsPlbkST5If5mHy+IOflVS/mpLdYj/RSfPpNIU7Q5X8BUrb5jbC68UDZJNgdXOzVFYYPF8mKjZDv3mnRMyCJXky7jyvbE0/6SfGy9S8kP2mz7EOSyC8Z1rx5HP/oB+nYIlitSxNnSazlY/XSDzINTmPclahGQpHUiGwB4tklMP2mU5LUczEaTJIsKYivfG8Vlj8gfMisgM7cDnx4ieohKXQ0OCqaY6BTlyY2Mqfes86Jr2Dy35g2041mpl9XtoLnVQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8H3ivygizFuKFpQy8n6N0N/zUfqREvdozIP5AIW6Y9o=;
- b=coM4ejlZFgmQZF9AhfPdSVS91MrA8invSsKWeq5C4k4huX5NRGh7Y1lBjNyFifXkP1DwS6/CzFzLR7VtRf3LAmNdNpn+Lgf//w149pm8TMH6m4UUm/ILaGz4DG2VzpfY05ymSywYVSSIAh6IqOqdnBY09jY/UDaqlyv84d5JfS6SPNgPoY+FsV9lIhFC2PXg6pWWWcPEgYWTP+EgedzkpW6JhgEQeI3tDaHOloCWk1aT8wPAoFX2g0eIgsEw90T+UltLH0LFpeg4V8w7DEAjYSNZKMD5zlm7sIyglbiy0m1CP+eKEaW7yI9IjCXeCS/QOe3kUNZpDpQx3U2Qw3kB2Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DBBPR04MB7580.eurprd04.prod.outlook.com (2603:10a6:10:1f7::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 16:10:22 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 16:10:22 +0000
-Date: Mon, 21 Sep 2026 11:10:12 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Ming Qian <ming.qian@oss.nxp.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
-	Peng Fan <peng.fan@nxp.com>, Lucas Stach <l.stach@pengutronix.de>,
-	linux-pm@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Zhou Peng <eagle.zhou@nxp.com>, Xiahong Bao <xiahong.bao@nxp.com>,
-	Ming Zhou <ming.zhou@nxp.com>
-Subject: Re: [PATCH v3] pmdomain: imx8m-blk-ctrl: Serialize power on/off
- across sibling domains
-Message-ID: <arFW5FryhHsf48Nu@SMW015318>
-References: <20260921-imx8mp-blk-ctrl-v3-1-c86b0a9d4781@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921-imx8mp-blk-ctrl-v3-1-c86b0a9d4781@oss.nxp.com>
-X-ClientProxiedBy: PH8P221CA0023.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:2d8::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="DnYor2U6"
+Received: by mail-oi2-f12.google.com with SMTP id 46e09a7af769-7f4f0d298caso1335017a34.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:10:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1790007052; x=1790611852; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1u6rjc+Rr+SwD8BBU712UPTVOpOR/jX0N+MPWo4iqcc=;
+        b=DnYor2U6SZltoQ4N3X902xPvhztB7Y+RnSETd+D6axeO9NYwjBYJgJAS9GwZ6IU5zc
+         8t8nPqGQCcwQ01KFgUAyWyGohaFgpC6+Tm9YLQRReBu6FnUQStjVez7EDXtvszDOJywl
+         D2aAQ+hQFrHkA5CGmD9hQaAfn3ryIWAtxOkrGqOfy1MmuJeya7WBzeTOEaf6rkcLTDON
+         NvNKWMf1qnmsmLZJoWqbnbwjBG/gpeO8gYiTAUJNaVXmUk2I4K2QX4kfY7FwkEEDPFiP
+         c1aSLn2WYxcQIpZvxCtkxkDzj3aDxjJlr5vFdDpnBUhBFcLa/z6l0wLM0ry8HlVQLw0M
+         2lSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790007052; x=1790611852;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1u6rjc+Rr+SwD8BBU712UPTVOpOR/jX0N+MPWo4iqcc=;
+        b=AELwcoynju3TuwwOXHchjmieDo8fna+xpeb14a5RY+yRatePEg3e481JTlVDXxOR5Z
+         jAqVg3HyEQgRISw9Rzk1ilypdUv3ZqeQ6qtpei0RrG84dHKqnRMVLEAv0YS+o7Rt9rNh
+         gTQIAVAnYq63sNA2lnJvXef1O2vQFfMciuiIQk4o05BmHe2OzVGiyzFvRQ1bCr9D7cpQ
+         tMV3XBSvVvUZjQem0fTtGBSTosABl1Rp+WB4oiwpig6Rj6pq1NMqZ4SKS+FOyqRDuI4R
+         08T8Q6bBbF2kJp1u2NgmYApR87/+W9vczxfg0GnCX0HoG84eqCBo4nBC084WdzV10S27
+         Yzzg==
+X-Forwarded-Encrypted: i=1; AKwUvBzpJdscwTXdPXgZbqbWwDmNeQJmnA0xXtJIElbB5bDHVI5naPv5TjvbrFQsw7mf+6qtb+GnHEXNFyl0+CE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNKhLu4V8c772AkCcqae5FBH2sV9ikxdir91vtogPCj2dOnXjT
+	x6NvYBFBUX36ZlnkLGR5YYbgbW4vIIwKqwkbATNHgGjxqvB5t5q9K93j1xCTYwrsubo=
+X-Gm-Gg: AYBFou3ushgF7xvd08kLaYvgfv7Rhatx6w6QTfIFgPUXbK33ivPvOsPOo/OBgaHVQaM
+	e1i42RYyjauNJoGONwDi3H5GMhiBqhd3v9bg6TIyc8N1Vr+DjSW2CEkFo+OvlaOIpHdRMJUZMQc
+	hxt9KCxpG+O3PSRyQvLmB17Fa6iehiFuFqrhKM40Pw+mmBDxr8h9FPcUoWGKznJLpbTlMpzk3ok
+	1ihehpAqAL8Oxbh2W1QkbYbTFTaSYVzlDKLfYW4PF5pgxuB3piltry9dFpju1hxvmOPjP+CX18W
+	kwmDopy1qgF64U+Q6xhl+xvVxExRJ++2p0gvTQz6iXyxylurkwUoh7NY8H4mbMJ480qRFORZerL
+	K+Ifs0zKNOb87vjgjZl1kmDm5j1pnlZ6VgkQ5Ux0aUfupj+SZ/fwhNd6EQY8Q9IoO8CjtrRMpFh
+	uPKnz5/jdBcOfg9u+V3vLmdhrgEBGI6i4OoIrgyUNRfYF5wY6NJkSX0peBdmSFA9EOKixAZw13g
+	jyjWhFLn0BpKF71lRn10JR/aNRUuVIQYJA=
+X-Received: by 2002:a05:6830:412a:b0:801:6bec:ff18 with SMTP id 46e09a7af769-80ddfd6c36fmr11244293a34.2.1790007052481;
+        Mon, 21 Sep 2026 09:10:52 -0700 (PDT)
+Received: from [172.19.0.10] ([99.196.129.128])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-81475bbc475sm405170a34.8.2026.09.21.09.10.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 09:10:51 -0700 (PDT)
+Message-ID: <cbdf1ef2-7fe0-4cd9-8ce4-3235478e536b@kernel.dk>
+Date: Mon, 21 Sep 2026 10:10:35 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DBBPR04MB7580:EE_
-X-MS-Office365-Filtering-Correlation-Id: c4b9750d-4c12-47f9-78d1-08df17fad68b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|376014|19092799006|366016|23010399003|6133799003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	V9RNEeqfBVgKaLgE2doOuksPLdYTofjQCoxHjj05ydY0Gv0PkSHQSLh4qS4YPKvg0BinN+WnkkZhpP59j7No43whssZc9/DriE4NCXbmOCXVbqNqCBpcQiw6RC18iMEMujjYsuQpXeLm9zD0U/zM7ITMlEuvniEStzIb7ZsXpsS7a+eUrjSBrdL2NXNGNjVpfBQm4i+fTTkdbnTXVuCTsWj1+QjDsnsR7ON5uTWbDA/ptEhds/H3x7rKM89AmAeBfwtNubLcAs8QeSVRldyZhjt6ZqldWFUNRiwginLuQ37BneOInmaDPG5EfNOuZ/lHpJJKwubBu6+N8xpVoqlIMQbOdkVfRvLqtLfTbdw9rRJCs7AwZkzsV7jzLmRvxU9F/OFJiys1sQ34hkLVwtoxeFF2i4a2IlgwiSkdu9CKZ2XxHG0JNTfuxTVYBTGTxoUvE+CjSygq6nZeUODYIAJ5N9qlXMcnn+6782dasxS0ubZGc0F4IQD7l/Oqeqg7BWbfJ+eph0E/mLY5pCXtaUDQ/DHvF04KVVTIoQPE+cr4qoXXlzxk2hNFHvbiyXQ5wW4rYh1gcQOAkp9WzdlOyllOE9f8b27w/gC5nLs6k0puzAYC05ePdqRAQ4kqvELQOovgxKpL2yWEZWJzPSiAsbB11gi4oTistNZtg+XNWra7zro=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(19092799006)(366016)(23010399003)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?XEaVX2ACAB8ogfhIEUsVqhqlIHwz9x8p6dBuejKWUZ9HHXPgctPB/XwmkK9a?=
- =?us-ascii?Q?pA8APsoviKTeLJtQR0Q+uKjv3fn/wiEiJelR85bAoB0/wI8B29RqbW/VZKdd?=
- =?us-ascii?Q?f0neezsOO3FtDVY20aBr7D7JFYJaa9xGHIGyRy1XQNsPdAiY6lpJ/Hk1T3P9?=
- =?us-ascii?Q?lsxRixYFGoqRetSm9dcpPlvaGRjNY2GRg6fh1RJ+s4QX4bM0cqFUXk/mee+O?=
- =?us-ascii?Q?yEl7bpA1G9e5zKsryQola/NDhCvQSjMEddJmp/PhgyqhPM2HGdzItnxVMEYu?=
- =?us-ascii?Q?guS5CVgC211o3RAupJQ7cIEidoLZtLZ8mgVd/cEGfJw4wZ/PV3yqQGol+Fyh?=
- =?us-ascii?Q?jDHZrk1yd5G+NSnKxAKEjMV4VjVrRhIRE9f1FXvoEYL9IHdwOyZMNGZCMOsU?=
- =?us-ascii?Q?6df35+40ZENzBT3s2YrIVxSBGNK37nbgpDbXLHl7hIYaitSEbzlFgmZGxFyq?=
- =?us-ascii?Q?LqZg/+N3UDfiYTAR+Q85BaXjXSNcCepJ7bYsZBTeeacr53kKu9RcPo4+zdXR?=
- =?us-ascii?Q?3adIhu+njK3lXX1LEBp+ipb1SlPk4MnzHgm3PCCQ3PdlZ2X7D2xmI0bq2Jp+?=
- =?us-ascii?Q?xhtiSWBiTOmZqza30FyD+4mBZw/j9T8guPLkgtrEAcgaNjnc97VJy4M26YIa?=
- =?us-ascii?Q?qE8JxC+LoP6a+peNDDfedhrospJ1kDY/pFBu5WcQ+7oAlbllQR6kZwDknkCn?=
- =?us-ascii?Q?2OK2SRi4OFR/TcQIeU0X/NKy6pu9JihupRdoAS2ckgdNLF9Nndej6Ic8fh43?=
- =?us-ascii?Q?OmP0E4aezxnHrn9yPmOxXtKsQoF8IT3EAUXvlaRCS1VrStE8lWVRq5ThrB7t?=
- =?us-ascii?Q?ak3efk5UWdRaaZ+n0H8M0n2RDjSjRR6VrsAtrX4O7xYWnZCUhAJ0V21EpzM+?=
- =?us-ascii?Q?tQ415sD4G2lK1e76sxe8jx0H4Q8ippSzuwu+7zVimbE5/GalG82EKiVwrqe4?=
- =?us-ascii?Q?ZwooxweT7YZnpvdPssyaYMSc69AiFLH+uCzZwJv3KnhU6kgrC0qGszzz8sOA?=
- =?us-ascii?Q?J2NWM5i5AQyA4RFJ354p71rgJ9N8vOd0lN33J30M3CNMSohuXhByQqRnGadf?=
- =?us-ascii?Q?4cstTqc4iMDa5GMEaVyW3XoKdxMCOVJ9kdCheDv37rjraXMU8pcbo5WMA06l?=
- =?us-ascii?Q?GZU39s+U1Gn6SB37ELBPc68jLpOiJ28HJs2qtl4dYKB6XlSOZyq3BoZ9br7g?=
- =?us-ascii?Q?/nwpVN3afyh8Q7uOu3RBfZKrM8x4sYjel1x+ShuCoW0fWHzO44IXKdzkXrc+?=
- =?us-ascii?Q?dbmnID/ugFPjd+4KEif6M4vqU+rM+5ItVW1ig0UaXS7A+sEUL7wj9fLL+Lrj?=
- =?us-ascii?Q?xL05wGOR2jtLOQEqKBWhGRP93nDBv5Pu2pJj9Cz6WDUWxHf8AwK6X4SDUipB?=
- =?us-ascii?Q?OQnnfuOpOXzSC7RxGXlIqaaI5bdx0PJ5O0f2bUzdh7g4z1YJnmo6etcxI74/?=
- =?us-ascii?Q?khr0YG1VOcaTQlBnfXU0Yhl0tggNjALlFdlJ1wePZBzvQ87Ik0CJAS7vaQdh?=
- =?us-ascii?Q?EOMTjdslJLbz8sUmNXZ0gj2lPE27GEZyYEQ2xCBVGJY3ptTGO9CoJb/DrUUx?=
- =?us-ascii?Q?NYqNKPuqQD0xyGfI+6PJMOEXHmIIBayelEQw/DQMnzS6GSWQITfH1gsnvT2o?=
- =?us-ascii?Q?8f1TIP4AzRTdYeJfmUfa2q5PIoiBYPZRd1oBAzEwdaGdKvffjDIlf9zLJg/l?=
- =?us-ascii?Q?NJc5bqdzA2cw4PoTNZvQNatUI6BBysw1vcRGq+3EIvhxeCQiU9rrIkGwo3H9?=
- =?us-ascii?Q?M2crnXD8bRBBoHR1knIBete66DsX/1g9xppv+90hkYdeGPe7Pa1n?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c4b9750d-4c12-47f9-78d1-08df17fad68b
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 16:10:22.2254
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CsLrfds1DfcOkmdMbcSwGxY7WZLgJ8XSLTTmdOs9Dd47Lqze3jPv9DCf+fluUAXqkLiwq9s9rqgEUGsLBNSEJP61Qn7WU+n1x1EyGQ6/cR9K5bOAanuD6XH51KCDSK5Y
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7580
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] io_uring: fix CQ tail over-commit and CQE32 index
+ corruption in io_cqe_cache_refill()
+To: Hui Peng <benquike@gmail.com>
+Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260919203516.2581409-1-benquike@gmail.com>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <20260919203516.2581409-1-benquike@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 21, 2026 at 07:03:34PM +0900, Ming Qian wrote:
-> On i.MX8MP the VPU blk-ctrl exposes G1, G2 and VC8000E as three separate
-> genpds, each serialized only by its own genpd lock, so their power_on and
-> power_off callbacks can run concurrently on SMP.
->
-> The sequences are not independent: they share the VPUMIX bus domain, the
-> VPU_NOC and the ADB400 handshake. On power up the GPC cannot ack-verify
-> the ADB400 handshake - the ack only completes once blk-ctrl sets the bus
-> clk-en bit - so it just waits a fixed delay instead of polling hskack. A
-> sibling transition landing inside another domain's reset window disturbs
-> that shared clock and handshake timing, the victim's reset does not take
-> effect, and its block registers read back all zeros: the decoder times
-> out or the encoder fails its format check.
->
-> Serialize the blk-ctrl reset sequence with a per-blk-ctrl mutex; the
-> driver deliberately avoids a genpd hierarchy, so the genpd core gives no
-> cross-sibling serialization.
->
-> Fixes: a1a5f15f7f6c ("soc: imx: imx8m-blk-ctrl: add i.MX8MP VPU blk ctrl")
-> Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
-> ---
-> Problem:
-> On i.MX8MP, running the VC8000E encoder and the G1/G2 decoders
-> concurrently rarely and non-deterministically leaves a VPU stuck in
-> reset: its block registers read back all zeros. A decoder then times out
-> or the encoder fails its format check.
->
-> Root cause:
-> The VPU blk-ctrl exposes G1, G2 and VC8000E as three separate genpds,
-> serialized only by the per-genpd lock, so on SMP their power_on/power_off
-> callbacks can run concurrently. The sequences share the VPUMIX bus
-> domain, the VPU_NOC and the ADB400 handshake. On power up the GPC does
-> not ack-verify the ADB400 handshake - the ack only completes once
-> blk-ctrl sets the bus clk-en bit - so it just waits a fixed delay. A
-> sibling transition landing inside another domain's reset window disturbs
-> that shared clock and handshake timing, the victim's reset fails to take
-> effect, and its block is left in reset with registers reading zero.
->
-> Fix:
-> Serialize the blk-ctrl reset sequence with a per-blk-ctrl mutex, so a
-> sibling domain cannot run its sequence while another is inside its reset
-> window. The driver deliberately avoids a genpd hierarchy, so the genpd
-> core provides no cross-sibling serialization.
->
-> Test:
-> i.MX8MP, Android 6.18 kernel, concurrent H.264 decode and encode. Without
-> this patch the failure reproduces within one to two hours. With it the
-> same test ran overnight, over 14 hours, without a single occurrence.
-> ---
+On 9/19/26 2:35 PM, Hui Peng wrote:
+> io_cqe_cache_refill() has three issues when handling 32-byte CQEs on
+> IORING_SETUP_CQE32 and IORING_SETUP_CQE_MIXED rings:
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Don't combine fixes, send 3 separate patches.
+
+> 1. When cqe32 is true and off + 1 == ctx->cq_entries,
+>    io_cqe_cache_refill() posts a 16-byte dummy IORING_CQE_F_SKIP CQE via
+>    io_fill_nop_cqe(ctx, off) even on pure IORING_SETUP_CQE32 rings
+>    (where IORING_SETUP_CQE_MIXED is not set). On a pure CQE32 ring,
+>    ctx->cq_entries is the number of 32-byte CQEs and rings->cqes is
+>    indexed by (off << 1), so writing a 16-byte skip CQE at
+>    &rings->cqes[off] corrupts the middle of the CQ ring and misaligns
+>    all subsequent CQEs. Restrict the wrap-around skip CQE to
+>    IORING_SETUP_CQE_MIXED rings.
+> 
+> 2. On an IORING_SETUP_CQE_MIXED ring, when off + 1 == ctx->cq_entries
+>    and only 1 free CQ slot remains (ctx->cq_entries - io_cqring_queued()
+>    == 1), io_fill_nop_cqe(ctx, off) consumes that last slot and
+>    increments ctx->cached_cq_tail, after which free == 0 causes
+>    io_cqe_cache_refill() to return false without updating
+>    ctx->cqe_cached. Check that at least 2 free CQ slots exist before
+>    posting the dummy skip CQE.
+
+These two look fine.
+
+> 3. On pure IORING_SETUP_CQE32 rings, len is in 32-byte CQE units prior
+>    to `len <<= 1`, so `len < (cqe32 + 1)` falsely requires 2 free
+>    32-byte CQEs instead of 1. Check `!len` before scaling `off` and
+>    `len` on IORING_SETUP_CQE32 rings, and in io_fill_cqe_aux() zero
+>    cqe->big_cqe[0..1] whenever IORING_SETUP_CQE32 is set on the ring.
+
+This part looks wrong.
+
+-- 
+Jens Axboe
+
