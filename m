@@ -1,38 +1,38 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E3C4A499F;
-	Mon, 21 Sep 2026 14:53:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DE593CA483
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:53:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002421; cv=none; b=Hf9ENIPTGoUcNIUarXD8QYHgPzLLelMew26lnS78O3zyvqY84AZ/L+4F4Jtb93EQU8PpSxteiW9OM6UHpfOQYSO0ZJ+ZvewX0mMiWN8jh55CgVsrWSDM8hnvRfeUparqcowIC0N4vAUAvOI2EB6nk8N3n0BWRYhxpMnWI3BaXF8=
+	t=1790002422; cv=none; b=jqwG/1RNuNbt9u82Lyr4kA+mT/g3Pe2i9biODaxD+FAjBPUzdwo2LbxeU4kpOWVhAYqFbk05rzLDZBAHP4EhZC0si7RD0Bn7rPFf1VByGoO4Mt6rPvxc84c2pdSf5A0Vu/MOIi5lk7ecP+G1yz72SO/s1eJxUk21vZQ1EUVmjU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002421; c=relaxed/simple;
-	bh=QTGXIPmcHuM5GiY1m1pIuIOfZWP7jATqjBAuo4XrEy8=;
+	s=arc-20240116; t=1790002422; c=relaxed/simple;
+	bh=rocu/2yiUQErYtrWbo5Fb766lw4uQcZyhJUqnN81NX0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=N3dK76CGnLXpGR3CvMy42u0Tq1qQSWYGqawrSUjlLJsOgqzUkZMX8oZLRUlPqfzOajGZ2eGE62P1YexWVLEhSZzIGkk2KGlgtnTxgVFnVjsbcvR2AZXM+2bD8/J7xOhj8AmsI1nW/JDCieLp7o4JIwIwzP/Nr3u6KLcu/38+rYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=hdEPRSH8; arc=none smtp.client-ip=185.246.84.56
+	 MIME-Version; b=mra4uBl68dG4314yLBu1wd6s0gX1XNECh0IIV+ZakN8OFWcWW1EZ0JroiMbwqi3qJPWsEEp3vnNgEYYA3AHT95uro3Ed77/gkn7BT/YTqtq+LmbTGFQKFC+R8M8cTIGhWYg45ij1PrcljWoR11edCwjLd+K6Vhwfm8wFRzscex0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=CYywDKnD; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="hdEPRSH8"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="CYywDKnD"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id D809B1A0815;
-	Mon, 21 Sep 2026 14:53:37 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 7E5BA4E40D86
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:53:39 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A55D75FFB2;
-	Mon, 21 Sep 2026 14:53:37 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 53A7C10329080;
-	Mon, 21 Sep 2026 16:53:34 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 516145FFB2;
+	Mon, 21 Sep 2026 14:53:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A496410329195;
+	Mon, 21 Sep 2026 16:53:36 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790002416; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1790002418; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=Gco7GK+iV2C1g9gQkUNs9G3U8mloXNXVjk8mlpk2Iwo=;
-	b=hdEPRSH83fM5YEy3/ygfQ1tLabQAX9TlucnsvA7Ot9SVas9UIbyKdi31Kr/xHG9l/Wceuq
-	RxRv36wdzxdwd+jDA/dGe2DxkkKx51nf3mTu8xb180RYct59KoAmNWzLN1vdVR4m5qwWrE
-	infkI1/l3VXND6295w0bvALI17LMaviAJT8c6tcwvm/C//Jk7FRFn6PkEoyH19D3LriXy0
-	lx1Vv6f7GQosH8NzN+e2m9nAYYya/chUiuJDHINxXV5KR6M8EfhqgokHsWZFxg9mhQyOUB
-	N7j74a6EoJw39B/riqOYu63PILOzDwJ00c24vBC9EN9JgCtuUxNDckcxiUqxug==
+	bh=0XfNnwLyPIHZJJHZc9uvlNXqC+VY2k4WOMmJttsUxZQ=;
+	b=CYywDKnDvk9aFqMxlv6rjV8pv7s5pTRKvsjsFHHqklPUkYi4PfsJ7lzV/w71eD6MXdnwLZ
+	boV48QUg5Rn7q3avxt6OJ10X6hMiD4qjRVg6rSK6xg6AjYDk68pO/z3+8Dy4zfmE5V6kqg
+	6gkJNCoeAXZM1p/RTP/7e2IIfPDnwDFgnKJGbBRFGdpCHCSYfuIZjpLlyFBqJoeriwl3Ta
+	wi+x7ybMb8+u20hQvntPNiHsU51HeSFNk4Lr8frWEk603DawjSR0wUk1EHapVGXPSicZg9
+	wyu5xVEo2CAF6haDcVI9psOOV2tEm4lmasUJPTMmxR/SJZK9I6DX/rNvSs6i0g==
 From: "Richard Genoud (TI)" <richard.genoud@bootlin.com>
 To: Nishanth Menon <nm@ti.com>,
 	Vignesh Raghavendra <vigneshr@ti.com>
@@ -50,9 +50,9 @@ Cc: Tero Kristo <kristo@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Richard Genoud <richard.genoud@bootlin.com>
-Subject: [PATCH v4 1/7] dt-bindings: remoteproc: k3-r5f: Add Jacinto LPM memory region
-Date: Mon, 21 Sep 2026 16:53:19 +0200
-Message-ID: <20260921145325.300025-2-richard.genoud@bootlin.com>
+Subject: [PATCH v4 2/7] remoteproc: k3: skip mapping firewalled lpm-metadata memory region
+Date: Mon, 21 Sep 2026 16:53:20 +0200
+Message-ID: <20260921145325.300025-3-richard.genoud@bootlin.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260921145325.300025-1-richard.genoud@bootlin.com>
 References: <20260921145325.300025-1-richard.genoud@bootlin.com>
@@ -65,79 +65,81 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Declare a carveout memory region to store LPM metadata on Jacinto
-devices.
+The region lpm-metadata is firewalled by TIFS on Jacinto devices, so it
+should not be mapped to prevent speculative access crashes
 
-For Jacinto devices, this memory region is needed for saving ATF context
-and the certificate information of ATF and OPTEE and DM image. This LPM
-metadata area is firewalled to be accessed only by TIFS.
-
-U-Boot R5 SPL/TIFS will use this area to save and restore:
-- ATF context
-- ATF certificate information
-- OPTEE certificate information
-- DM image (which has been copied in memory at boot time by U-Boot
-R5-SPL)
-
-At resume, U-Boot R5 SPL is executed and detects that the board is
-resuming (with a flag set in the PMIC), then it:
-- brings out of retention the DDR
-- retrieves the LPM memory region from DTS
-- authenticates certificates from LPM memory region and applies firewalls
-- asks TIFS to restore TFA and its own minimal context
-- starts TFA on remote proc
-- loads back DM image from memory and jumps to DM
-
-https://software-dl.ti.com/tisci/esd/latest/2_tisci_msgs/pm/lpm.html#lpm-msg-lpm-save-addr
-
-NB: This memory region is not part of DM memory (which is not retained
-at suspend)
+Just skip this memory region during initialization.
 
 Signed-off-by: Richard Genoud (TI) <richard.genoud@bootlin.com>
 ---
- .../bindings/remoteproc/ti,k3-r5f-rproc.yaml   | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ drivers/remoteproc/ti_k3_common.c | 36 +++++++++++++++++++++----------
+ 1 file changed, 25 insertions(+), 11 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/remoteproc/ti,k3-r5f-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,k3-r5f-rproc.yaml
-index 14e6b2f817b3..af2acd429974 100644
---- a/Documentation/devicetree/bindings/remoteproc/ti,k3-r5f-rproc.yaml
-+++ b/Documentation/devicetree/bindings/remoteproc/ti,k3-r5f-rproc.yaml
-@@ -155,9 +155,10 @@ patternProperties:
-         description: |
-           phandle to the reserved memory nodes to be associated with the
-           remoteproc device. There should be two reserved memory nodes defined
--          for the basic layout or 6 partitions for a detailed layout. The
--          reserved memory nodes should be carveout nodes, and should be defined
--          with a "no-map" property as per the bindings in
-+          for the basic layout, three for the Jacinto layout or 6 partitions
-+          for a detailed layout. The reserved memory nodes should be carveout
-+          nodes, and should be defined with a "no-map" property as per the
-+          bindings in
-           Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
-         oneOf:
-           - description: Basic layout
-@@ -174,6 +175,12 @@ patternProperties:
-               - description: LPM metadata
-               - description: LPM FS context data and reserved sections
-               - description: DM RM/PM trace and firmware code/data
-+          - description: Jacinto layout
-+            items:
-+              - description: region used for dynamic DMA allocations like vrings and
-+                             vring buffers
-+              - description: region reserved for firmware image sections
-+              - description: LPM metadata
+diff --git a/drivers/remoteproc/ti_k3_common.c b/drivers/remoteproc/ti_k3_common.c
+index 3cb8ae5d72f6..5158e5e7c816 100644
+--- a/drivers/remoteproc/ti_k3_common.c
++++ b/drivers/remoteproc/ti_k3_common.c
+@@ -471,7 +471,7 @@ int k3_reserved_mem_init(struct k3_rproc *kproc)
+ 	struct device *dev = kproc->dev;
+ 	struct device_node *np = dev->of_node;
+ 	int num_rmems;
+-	int ret, i;
++	int ret, i, j;
  
-       memory-region-names:
-         description: |
-@@ -192,6 +199,11 @@ patternProperties:
-               - const: lpm-metadata
-               - const: lpm-context
-               - const: dm-firmware
-+          - description: Jacinto layout
-+            items:
-+              - const: dma
-+              - const: firmware
-+              - const: lpm-metadata
+ 	num_rmems = of_reserved_mem_region_count(np);
+ 	if (num_rmems < 0) {
+@@ -501,30 +501,44 @@ int k3_reserved_mem_init(struct k3_rproc *kproc)
+ 		return -ENOMEM;
  
- # Optional properties:
- # --------------------
+ 	/* use remaining reserved memory regions for static carveouts */
+-	for (i = 0; i < num_rmems; i++) {
++	for (j = 0, i = 0; i < num_rmems; i++) {
+ 		struct resource res;
++		const char *region_name;
+ 
+ 		ret = of_reserved_mem_region_to_resource(np, i + 1, &res);
+ 		if (ret)
+ 			return ret;
+ 
+-		kproc->rmem[i].bus_addr = res.start;
++		ret = of_property_read_string_index(np, "memory-region-names",
++						    i + 1, &region_name);
++		/*
++		 * lpm-metadata is a firewalled region accessible only by TIFS.
++		 * Skip mapping it to avoid speculative access crashes.
++		 */
++		if (!ret && !strcmp(region_name, "lpm-metadata")) {
++			dev_dbg(dev, "Skipping firewalled memory region %s @0x%x\n",
++				region_name, (u32)res.start);
++			continue;
++		}
++
++		kproc->rmem[j].bus_addr = res.start;
+ 		/* 64-bit address regions currently not supported */
+-		kproc->rmem[i].dev_addr = (u32)res.start;
+-		kproc->rmem[i].size = resource_size(&res);
+-		kproc->rmem[i].cpu_addr = devm_ioremap_resource_wc(dev, &res);
+-		if (IS_ERR(kproc->rmem[i].cpu_addr)) {
++		kproc->rmem[j].dev_addr = (u32)res.start;
++		kproc->rmem[j].size = resource_size(&res);
++		kproc->rmem[j].cpu_addr = devm_ioremap_resource_wc(dev, &res);
++		if (IS_ERR(kproc->rmem[j].cpu_addr)) {
+ 			dev_err(dev, "failed to map reserved memory#%d at %pR\n",
+ 				i + 1, &res);
+ 			return -ENOMEM;
+ 		}
+ 
+ 		dev_dbg(dev, "reserved memory%d: bus addr %pa size 0x%zx va %p da 0x%x\n",
+-			i + 1, &kproc->rmem[i].bus_addr,
+-			kproc->rmem[i].size, kproc->rmem[i].cpu_addr,
+-			kproc->rmem[i].dev_addr);
++			j + 1, &kproc->rmem[j].bus_addr,
++			kproc->rmem[j].size, kproc->rmem[j].cpu_addr,
++			kproc->rmem[j].dev_addr);
++		j++;
+ 	}
+-	kproc->num_rmems = num_rmems;
++	kproc->num_rmems = j;
+ 
+ 	return 0;
+ }
