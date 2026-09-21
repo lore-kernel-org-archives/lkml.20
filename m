@@ -1,231 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6A9D44A40B;
-	Mon, 21 Sep 2026 07:50:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D333BD659;
+	Mon, 21 Sep 2026 07:50:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789977029; cv=none; b=AgUfop4VrGLxJOS+7I/QNBbbyqCJ42W6KME1+Ng5lzeI4YgfSAkJacYXFIbkS/7RWBn6t0yJdgabEpNjmO3YVgTMUOAboNEtxmL/ZB8ivtSQI0Gr5wE75/dCOj69YcV5Ew2BDA3n/3JNl2ehmS6EzsOW4lDEfU76r4odqF06/XQ=
+	t=1789977051; cv=none; b=jC34SFwyhOP77Yk9N2V+BGjC7K8+0w6F86oHWMCJtnjoU9qXDL56IU24u3QbRNqljb2W3t9n/8EOgQFTPQp3kOdmpjjG5Hz1JCOZmNjaFGN+XYQxBb/+0S7sNvYLKsh538sCg1pnuSOj2rtS9v6F+m3zQrVMcjJHbNyrqXJER8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789977029; c=relaxed/simple;
-	bh=7eRTuK1J7JLSJe8eP4zoF7OjTxmSHdj6GVl84M2RdZc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oxSq1FxVAYrP/EB4TqxmjsF0ZfHGlFg/ItFEvqfiBgIi1bmXPfd0RjU1TdTUGnpElbf6oFGCeYtAt0+JJuncPrHUOvCcBW3ITN4lbpxxjAmLU/DRy0EU2tv4Fiwh7IOnUXbl2IomJKNPkjDG5lM3ZWUIVg3vOPf2BT6SKbHZLEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gN5PTR9T; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789977051; c=relaxed/simple;
+	bh=Y6kMXdClUc7ZWMjsxAXSNswiVSuHviDLcRAVkJPOItE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jGT15/bLkoZsFIoawzp0gTrDPphVM2VBSovKMg3GrUDqlUDZ7om9ftKAaolvsr/zEYKoIwqJCMkIjQHBTXGtEPfyYxGYU9RkLJN7TfhoH69qaynv7Jvz+NaMs2Mkq4K1lALEUitI0eAb0DoBl/yH5GeG1zdMe24R55eB7RjnOzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=TUMpwzEl; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gN5PTR9T"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 98091C2BCFD;
-	Mon, 21 Sep 2026 07:50:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789977028;
-	bh=7eRTuK1J7JLSJe8eP4zoF7OjTxmSHdj6GVl84M2RdZc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=gN5PTR9TY2UluQhZq6Er4ZQ2vYoqcikXshUATew7F7KEnK03vir5PuIw7iw/LH9bM
-	 M4Sg8SPSilPA0YcdkDvicaLWxRGJFz9bENe6+n3vKfGENzVwmnxXerVeiUWa3/8Gvh
-	 DgaNHhFN/MXlvdZLbZo1DwxlLeHOX1tg8A6ED5O/BLvy3+pgdZXTcS9hrree3orfoB
-	 UDtezWbhMFraEHiJaNmuLhcDzGWbDqnvSMYgcmqC/9jfKQIi0ReVrLEvQn4YzSknt0
-	 Nvt4dBP+PExiP4MUFUjwyraMIaP6GeTw7u955NTsiG5LYhpvhkz/5EjEDayvWXuRST
-	 93hQ8wvEV+V4Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7815CC982EE;
-	Mon, 21 Sep 2026 07:50:28 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Mon, 21 Sep 2026 10:50:03 +0300
-Subject: [PATCH v5 2/3] nvmem: add mt6323 PMIC EFUSE driver
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="TUMpwzEl"
+Received: from PC-202605011814.localdomain (unknown [221.228.238.82])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4e8a87ecf;
+	Mon, 21 Sep 2026 15:50:40 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: William Hubbs <w.d.hubbs@gmail.com>,
+	Chris Brannon <chris@the-brannons.com>,
+	Kirk Reiser <kirk@reisers.ca>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>
+Cc: speakup@linux-speakup.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	jianhao.xu@seu.edu.cn
+Subject: [PATCH] speakup: handle serial IRQ request failure
+Date: Mon, 21 Sep 2026 15:50:35 +0800
+Message-Id: <20260921075035.9393-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-mt6323-nvmem-v5-2-2f5d308369f0@protonmail.com>
-References: <20260921-mt6323-nvmem-v5-0-2f5d308369f0@protonmail.com>
-In-Reply-To: <20260921-mt6323-nvmem-v5-0-2f5d308369f0@protonmail.com>
-To: Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
- Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Srinivas Kandagatla <srini@kernel.org>, 
- Roman Vivchar <rva333@protonmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, linux-pm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Ben Grisdale <bengris32@protonmail.ch>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789977026; l=4983;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=ah8lcn6KNr0dkMxSWN/QXud3pFB++YUj9D6tI73pyGs=;
- b=q+/1KuGDhhtVBOgEHlwUYKHJMl+XGPr+Xbr/3A1cBlOnOUGNffjnuGkRZ1jXRLtfDbki5VIca
- kDWCRxKn3sbAIZKNDiyhenzIxRkiLmc7g/3YK4GvKNWHgf5sudCwbjW
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0c2f216bd03a1kunm56737cc93b327
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGEpLVkwaTUJNGExPT0JDT1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktISk
+	9ITFVKS0tVSkJLS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=TUMpwzEl15pHGF/Zz8nFPKy1IgVTKVDoIJ4wHoKNJFJEI9myG6yrP7mB22QKyT6DiN9jihnGuXOiehci/JwInAC1iqIel7Q2A9ueZL2WrWXA3JiSzvwxS3f7zsrQjZiM5gg9rfejvx3r0znF2OI2ltLiU21nvVWCBk0zQOKJVSQ=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=41t5TtyVu4+QfwAZNULlrsOwlHFLImY5LkU2J2B9cqk=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Roman Vivchar <rva333@protonmail.com>
+start_serial_interrupt() currently logs a failed request_irq() but
+continues enabling UART interrupts and reports a successful serial
+synthesizer probe. A later release then calls free_irq() without a
+matching registration.
 
-Add support for the EFUSE controller found in the Mediatek MT6323 PMIC.
-The MT6323 EFUSE stores 24 bytes of hardware-related data, such as
-thermal sensor calibration values.
+Return the request error to spk_serial_init() and unwind the I/O region
+and serial state when registration fails. This keeps the UART disabled
+and prevents teardown from freeing an IRQ that was never requested.
 
-Tested-by: Ben Grisdale <bengris32@protonmail.ch> # Amazon Echo Dot (2nd Generation)
-Reviewed-by: Andy Shevchenko <andy@kernel.org>
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+A QEMU x86_64 test used a non-shared handler to occupy COM1 IRQ4 before
+the Speakup serial path requested the same IRQ with IRQF_SHARED. On the
+unfixed kernel, the probe continued successfully and release emitted
+"Trying to free already-free IRQ 4". On the fixed kernel, probe failed
+and no unmatched free_irq() warning was emitted. The IRQ conflict was
+deliberately injected to exercise the error path and is not expected
+during normal operation.
+
+Fixes: c6e3fd22cd53 ("Staging: add speakup to the staging directory")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM Codex
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- MAINTAINERS                  |  5 +++
- drivers/nvmem/Kconfig        | 11 ++++++
- drivers/nvmem/Makefile       |  2 ++
- drivers/nvmem/mt6323-efuse.c | 83 ++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 101 insertions(+)
+ drivers/accessibility/speakup/serialio.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..6ec0ed61260c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -16718,6 +16718,11 @@ S:	Maintained
- F:	drivers/iio/adc/mt6323-auxadc.c
- F:	include/dt-bindings/iio/adc/mediatek,mt6323-auxadc.h
+diff --git a/drivers/accessibility/speakup/serialio.c b/drivers/accessibility/speakup/serialio.c
+index 3418ea31d..56efc76a7 100644
+--- a/drivers/accessibility/speakup/serialio.c
++++ b/drivers/accessibility/speakup/serialio.c
+@@ -17,7 +17,7 @@
+ #define SERIAL_PORT_DFNS
+ #endif
  
-+MEDIATEK MT6323 PMIC NVMEM DRIVER
-+M:	Roman Vivchar <rva333@protonmail.com>
-+S:	Maintained
-+F:	drivers/nvmem/mt6323-efuse.c
-+
- MEDIATEK MT6735 CLOCK & RESET DRIVERS
- M:	Yassine Oudjana <y.oudjana@protonmail.com>
- L:	linux-clk@vger.kernel.org
-diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
-index c36c2a4c2a0b..5115c46beb97 100644
---- a/drivers/nvmem/Kconfig
-+++ b/drivers/nvmem/Kconfig
-@@ -328,6 +328,17 @@ config NVMEM_MTK_EFUSE
- 	  This driver can also be built as a module. If so, the module
- 	  will be called efuse-mtk.
+-static void start_serial_interrupt(int irq);
++static int start_serial_interrupt(int irq);
  
-+config NVMEM_MT6323_EFUSE
-+	tristate "MediaTek MT6323 PMIC EFUSE support"
-+	depends on ARCH_MEDIATEK || COMPILE_TEST
-+	depends on MFD_MT6397
-+	help
-+	  This is a driver to access hardware related data like sensor
-+	  calibration, etc.
-+
-+	  This driver can also be built as a module. If so, the module
-+	  will be called efuse-mt6323.
-+
- config NVMEM_MXS_OCOTP
- 	tristate "Freescale MXS On-Chip OTP Memory Support"
- 	depends on ARCH_MXS || COMPILE_TEST
-diff --git a/drivers/nvmem/Makefile b/drivers/nvmem/Makefile
-index 2bbfb9ff1885..5e70bad9f0f9 100644
---- a/drivers/nvmem/Makefile
-+++ b/drivers/nvmem/Makefile
-@@ -53,6 +53,8 @@ obj-$(CONFIG_NVMEM_MESON_MX_EFUSE)	+= nvmem_meson_mx_efuse.o
- nvmem_meson_mx_efuse-y			:= meson-mx-efuse.o
- obj-$(CONFIG_NVMEM_MICROCHIP_OTPC)	+= nvmem-microchip-otpc.o
- nvmem-microchip-otpc-y			:= microchip-otpc.o
-+obj-$(CONFIG_NVMEM_MT6323_EFUSE)	+= nvmem_mt6323-efuse.o
-+nvmem_mt6323-efuse-y			:= mt6323-efuse.o
- obj-$(CONFIG_NVMEM_MTK_EFUSE)		+= nvmem_mtk-efuse.o
- nvmem_mtk-efuse-y			:= mtk-efuse.o
- obj-$(CONFIG_NVMEM_MXS_OCOTP)		+= nvmem-mxs-ocotp.o
-diff --git a/drivers/nvmem/mt6323-efuse.c b/drivers/nvmem/mt6323-efuse.c
-new file mode 100644
-index 000000000000..de5e30215c22
---- /dev/null
-+++ b/drivers/nvmem/mt6323-efuse.c
-@@ -0,0 +1,83 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright (c) 2026 Roman Vivchar <rva333@protonmail.com>
-+ */
-+
-+#include <linux/err.h>
-+#include <linux/mfd/mt6397/core.h>
-+#include <linux/module.h>
-+#include <linux/nvmem-provider.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/types.h>
-+
-+#include <linux/mfd/mt6323/registers.h>
-+
-+#define MT6323_EFUSE_DOUT_BASE	MT6323_EFUSE_DOUT_0_15
-+#define MT6323_EFUSE_SIZE	24
-+
-+static int mt6323_efuse_read(void *context, unsigned int offset, void *val,
-+			     size_t bytes)
-+{
-+	struct regmap *map = context;
-+	u16 *buf = val;
-+	u32 tmp;
-+	int ret;
-+
-+	/*
-+	 * A manual loop using regmap_read is required because PWRAP is not
-+	 * a continuous MMIO space, but rather a FSM that doesn't implement the
-+	 * necessary read callback for the regmap_read_raw and regmap_read_bulk
-+	 * functions.
-+	 */
-+	for (size_t i = 0; i < bytes; i += sizeof(*buf)) {
-+		ret = regmap_read(map, MT6323_EFUSE_DOUT_BASE + offset + i, &tmp);
-+		if (ret)
-+			return ret;
-+
-+		*buf++ = tmp;
+ static const struct old_serial_port rs_table[] = {
+ 	SERIAL_PORT_DFNS
+@@ -106,7 +106,13 @@ const struct old_serial_port *spk_serial_init(int index)
+ 	speakup_info.port_tts = ser->port;
+ 	serstate = ser;
+ 
+-	start_serial_interrupt(ser->irq);
++	err = start_serial_interrupt(ser->irq);
++	if (err) {
++		synth_release_region(ser->port, 8);
++		speakup_info.port_tts = 0;
++		serstate = NULL;
++		return NULL;
 +	}
-+
+ 
+ 	return ser;
+ }
+@@ -125,18 +131,20 @@ static irqreturn_t synth_readbuf_handler(int irq, void *dev_id)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static void start_serial_interrupt(int irq)
++static int start_serial_interrupt(int irq)
+ {
+ 	int rv;
+ 
+ 	if (!synth->read_buff_add)
+-		return;
++		return 0;
+ 
+ 	rv = request_irq(irq, synth_readbuf_handler, IRQF_SHARED,
+ 			 "serial", (void *)synth_readbuf_handler);
+ 
+-	if (rv)
++	if (rv) {
+ 		pr_err("Unable to request Speakup serial I R Q\n");
++		return rv;
++	}
+ 	/* Set MCR */
+ 	outb(UART_MCR_DTR | UART_MCR_RTS | UART_MCR_OUT2,
+ 	     speakup_info.port_tts + UART_MCR);
+@@ -148,6 +156,7 @@ static void start_serial_interrupt(int irq)
+ 	inb(speakup_info.port_tts + UART_IIR);
+ 	inb(speakup_info.port_tts + UART_MSR);
+ 	outb(1, speakup_info.port_tts + UART_FCR);	/* Turn FIFO On */
 +	return 0;
-+}
-+
-+static int mt6323_efuse_probe(struct platform_device *pdev)
-+{
-+	struct mt6397_chip *mt6323 = dev_get_drvdata(pdev->dev.parent);
-+	struct device *dev = &pdev->dev;
-+	struct nvmem_config config = {
-+		.name = "mt6323-efuse",
-+		.stride = 2,
-+		.word_size = 2,
-+		.size = MT6323_EFUSE_SIZE,
-+		.reg_read = mt6323_efuse_read,
-+	};
-+	struct nvmem_device *nvmem;
-+
-+	if (!mt6323 || !mt6323->regmap)
-+		return dev_err_probe(dev, -ENODEV, "failed to get parent\n");
-+
-+	config.dev = dev;
-+	config.priv = mt6323->regmap;
-+
-+	nvmem = devm_nvmem_register(dev, &config);
-+	return PTR_ERR_OR_ZERO(nvmem);
-+}
-+
-+static const struct of_device_id mt6323_efuse_of_match[] = {
-+	{ .compatible = "mediatek,mt6323-efuse" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, mt6323_efuse_of_match);
-+
-+static struct platform_driver mt6323_efuse_driver = {
-+	.probe = mt6323_efuse_probe,
-+	.driver = {
-+		.name = "mt6323-efuse",
-+		.of_match_table = mt6323_efuse_of_match,
-+	},
-+};
-+module_platform_driver(mt6323_efuse_driver);
-+
-+MODULE_DESCRIPTION("MediaTek MT6323 PMIC EFUSE driver");
-+MODULE_LICENSE("GPL");
-
+ }
+ 
+ static void spk_serial_send_xchar(struct spk_synth *synth, char ch)
 -- 
-2.55.0
-
+2.34.1
 
