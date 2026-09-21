@@ -1,77 +1,96 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mta0.migadu.com (out-146.mta0.migadu.com [91.218.175.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96966331EB5;
-	Mon, 21 Sep 2026 03:42:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0315578F3A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789962155; cv=none; b=B/yfUbA4kQVyvwgrcBYpS+uIxj73mIUwQVHSBtnwm8GspeuaFdzx+BSI5wTBs2jyCE4obaMOttJhYxsoJmUQkS27t9xgmXuLXiOVs3o2HJZzPTj0oUjKNVrpXJc0B9DKXs5ylHL3jy1tcT+OxycvybJO6+oml4Jy+eTiUx1duAk=
+	t=1789962245; cv=none; b=c5APWaYARB/ZSjCluQtrCq35ASdAVruo+7hLLuObGadrpWlj4PqqHZ9OPpum7v7kPLuLmVZd4TJExh2Qljwt8Bg0fb8K8+dgDeanfsr0DsYMVzaUrWn4XEcrxd+DuzARyBZqOgp9grAGWPk5FLjcXG+ZDGYIxdJpZrua0FTclI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789962155; c=relaxed/simple;
-	bh=NdSCcVfzkkNGws8HsrAT0no3jlNrDV1Tucu8z3oaBeg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=bC0XcquKtSmnUVatGEYl/lHGt9o465bmZxxAvCipHVsaAO3Lt4CA1e0iBTC9DpRHJZS2HSBBTvtk2bHqXj/3SrGFirWwRYHwaJ944E97dnHwoNRNaI7CAGY9V5VFcH11sC4u2eAfyOolPqcuZtHBg8EihP3B+EMAVGDO69AWIxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn; spf=pass smtp.mailfrom=mails.ucas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
-Received: from fric.. (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACXATyLp7BqpO_RCA--.16449S2;
-	Mon, 21 Sep 2026 11:42:03 +0800 (CST)
-From: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-To: tung.quang.nguyen@est.tech
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	horms@kernel.org,
-	jmaloy@redhat.com,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	tipc-discussion@lists.sourceforge.net,
-	xujiakai24@mails.ucas.ac.cn
-Subject: Re: [PATCH] tipc: refuse to attach a second bearer to a netdevice
-Date: Mon, 21 Sep 2026 03:42:03 +0000
-Message-Id: <20260921034203.2416773-1-xujiakai24@mails.ucas.ac.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <DU4P189MB3750BF183DB76F1E3AF58B79C6842@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
-References: <DU4P189MB3750BF183DB76F1E3AF58B79C6842@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
+	s=arc-20240116; t=1789962245; c=relaxed/simple;
+	bh=OGERyTp5CrbGXz3u1lwBm+Mkoof0KEPSvGD6/69fiBc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PcFb/pR3cOfzm9wpNitGkYl20c1SaSmtO7YfL460NKODUFJ5HuFRIae+EuE1lRAMbZel0QNeOcd5vqR6LTQu9/PpJ4lr5Qdihi5/cJQoBMBa32W+K+3GAGHiLOMD+xvMEAaouSjMeBRyTwbUqxMFedIscTDwzF+6MKLoO+So9as=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=q6i3Cc4v; arc=none smtp.client-ip=91.218.175.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="q6i3Cc4v"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OGERyTp5CrbGXz3u1lwBm+Mkoof0KEPSvGD6/69fiBc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789962241; v=1; x=1790567041;
+ b=q6i3Cc4vPqW2HACNC1Kbcz5AWkNrBAYd+5bKQYabHMNoOlMMuY3LgSJDfb1uNhWzk0yXNWQ/
+ H6nBlVUvtNQacO2ypx/6s3g+F0Qqoq+o8ycUPanwPWEII6LLiBx6wFzMsVCccjETiUbB0bUqndW
+ gxfcR9gm2LW9kj92Cy41XQnA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f06bd7d5875bb714;
+	Mon, 21 Sep 2026 03:44:01 +0000
+X-Mizu-Trace-ID: f06bd7d5875bb714
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <95d326cb-ebb4-492c-9062-5d373609e18b@linux.dev>
+Date: Mon, 21 Sep 2026 11:43:51 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACXATyLp7BqpO_RCA--.16449S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUY_7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E
-	6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28Cjx
-	kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8I
-	cVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87
-	Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvE
-	ncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5McIj6I
-	8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwAC
-	jI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l42xK82IYc2Ij64
-	vIr41l4c8EcI0Ec7CjxVAaw2AFwI0_Jw0_GFyl4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2Iq
-	xVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r
-	1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY
-	6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
-	AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuY
-	vjfUoYLvDUUUU
-X-CM-SenderInfo: 50xmxthndljko6pdxz3voxutnvoduhdfq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] mm/sparse-vmemmap: drop VMEMMAP_POPULATE_DAX
+To: Muchun Song <muchun.song@linux.dev>
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Mike Rapoport <rppt@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>,
+ Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20260913083734.86802-1-songmuchun@bytedance.com>
+ <20260913083734.86802-2-songmuchun@bytedance.com>
+ <186ee2ba-daf3-4120-a3e3-101cac1ff5a1@linux.dev>
+ <4AA6C66B-0FD8-49F3-8447-959A3E438FC2@linux.dev>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <4AA6C66B-0FD8-49F3-8447-959A3E438FC2@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Tung,
 
-Thanks for the review and the suggested patch.
 
-Unfortunately I don't have a reproducer that triggers the crash
-reliably, so I can't do a runtime test.  I did apply your patch and it
-builds cleanly with CONFIG_TIPC enabled, and I agree your fix is
-better: rejecting the bearer in tipc_enable_bearer() before any
-allocation or device reference is taken is cleaner than the rollback I
-proposed, and it reuses the existing "rejected" path with a proper
-netlink extended ack message.
+On 9/19/26 10:07 PM, Muchun Song wrote:
+> 
+> 
+>> On Sep 19, 2026, at 22:01, Qi Zheng <qi.zheng@linux.dev> wrote:
+>> On 9/13/26 4:37 PM, Muchun Song wrote:
+>>> VMEMMAP_POPULATE_DAX currently distinguishes DAX vmemmap population in two
+>>> places: it keeps allocations on the normal path and takes a reference when
+>>> a backing page is supplied for reuse.
+>>> After Device DAX switched to the common per-zone shared tail page, both
+>>> conditions can be determined locally. DAX supplies ptpfn for every shared
+>>> tail mapping and requests an allocation only for compound head mappings,
+>>> whose PFNs are not optimizable. Therefore, vmemmap_optimizable_pfn() alone
+>>> selects the correct allocation path.
+>>> When ptpfn is supplied, the caller is reusing an existing backing page.
+>>> Once the slab allocator is available, take a reference for each reused
+>>
+>> Does the availability of slab mean the buddy allocator is already being
+>> used? Could there be a window where the buddy allocator is functional
+>> but slab hasn't become available yet?
+> 
+> Yes, because the slab allocator is based on buddy allocator. But I want to know
+> what's your concern here?
 
-Regards,
-Jiakai Xu
+The goal here is to check if the buddy allocator is ready, but the code
+actually checks for slab.
+
+I'm concerned there could be a gap between these two:
+
+buddy is ready <-- gap --> slab is ready
+
+Thanks,
+Qi
+
 
