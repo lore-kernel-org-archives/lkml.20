@@ -1,120 +1,140 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BCBA3BBFD8
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:41:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768C143B3F6
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:42:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789976487; cv=none; b=YkBqmFrtnthJ93G/2ioUy3vfWfxpkIzj0IzMo9CoWJm5qnX1icAsvR8V9m+OBLn1L0NCS8lKg66doTNelw6y9DyrFmeKo42NX7X7vzCaG081EzwCe1VYVM5+cWd+5RLC44vDsQmiD7pJFBkQtkQdNAKWafxOonyuVkVRYXRy0H8=
+	t=1789976526; cv=none; b=kBOHwubTu8BQ2EFyiKPZVJXEA5GQEAbI/LCrRzSh/xMdkxgYD/mq/aIH4M93xqgz6oS3H7Ax3JrJX3NDNBXaxlPR2N6qNbglASif551NYWC466boKxq9zZXCLJ3ql6xQmW2hkAG1G5adrlmQNF/JddrB99bE7kVhSqqEc/7sYwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789976487; c=relaxed/simple;
-	bh=nRr2NwONb5MDiY74TwbEFnamWl7CEbEpARCJXKG89CU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=W2HEif3RuszuMNu9pXez9BeGLpaTS8bLj6kzcrh23x2Xnsn5pRJvzyNnN7tzeXyB7GhvaZgD2YVkMqFjvwV10rL6scdb71UhoS+XWN5e48A6sXBTHTuFgmlVw0lB0BZlXyaSQ1BrBT/KDotMsLjO/++gMxUaken7masQLJrY1pY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1789976526; c=relaxed/simple;
+	bh=qC+plKl4jaMAeMv9KFQI5KK5xUjHAIEAMcvOG4NG30k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QFFYWE8lUBXruu9Cq9Z91iKH/5UVW8SG+vef1PXvMd/G7era3zJz3p8hQoX7k1nGHy6Yrtz/GgvJY5xKR6BGB5E4QoG755gjCukQmngOeX+/XUsAfvd9kPsSTtm0m983AWu1baBLkpVrT5SlZHHVjD/DqjzjAhe4g8Pbj0wmlbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ce1d50Q9; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e4d8d8aso1816925e0c.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:41:25 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ce1d50Q9"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea34ef3so2234116a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:42:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789976525; x=1790581325; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m7NI7dmw05ci1upj6wN18SfkuMFDavLQgdb5foGE0c0=;
+        b=ce1d50Q9AfpHujUEdquNoKI6t0v7FvRD/V5yk+InTyQdtlDdyoZp0LJ5xepBSQzNnv
+         uweDpswcar79ScXJRJ8V3hnY5QM1MUm2F8KS1mjOWqbEImRhuDPT7UDh19/3o7kGa1o7
+         h3DEd/uidMyUrqYkjttopiSJrA5znJlHZFlVNqLHrQfMqLglIAJCCwGmnFpBuLEnzFhS
+         ZtztnO091WKMAKdUkxcPBbN+HrU+5//JNx4YUdh03JF3BqkXc9AMyeVCdhyeBC8pD6t2
+         JVt6R0yv6kDkNOTA5kMAxmpZv3Msp6uMRS1BMlaETFPvXtlbOzoxVxxcQavZPia4gN0u
+         XnqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789976485; x=1790581285;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=FDUPsKvRHny4pMpTXrqtNbtll59mp87r5rbb0L/oblw=;
-        b=P8NsOTzJK+yHD+szkljhSVSE2wDdn0DJsg5hD9H6bSz4fMFwLObrQIgtNwzCeeiZ/G
-         S+JK0i7EvcX7JayDI+mzyzdxfugShEDoh8EnYrbopU1j5BfCj+vA7f/Og+6kwfhWz98v
-         J56ITJIlsj+XaCqYVOHbv4h9IGpYr4xPj4cGj2n9KR92G9R4jz/UWmUhauykGCYA0UBr
-         lxDwBBrmDpz0LluufUSmMr/Wof70pRcH3nK65QTjHLGUXf7kO4jQp++Sp/I9194llrhf
-         VA6Ghjt+flAVSGIggW4PCDK5PVbRp9TFYNw+NeChSoL7w8a2SU0kPApY7tJvSw6taMJ4
-         lmMA==
-X-Forwarded-Encrypted: i=1; AKwUvBzfjHH3YJek+2fZfKb01J9R8LIVBm2f6vO93CKfrwl0KVtuMuv11bwedOzZUzz+ZvGGQfv/IJ40DUMV/BA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyk9wDHeeD3oMl8Ep8UMC7/khkK4PnnNUb6FF9hkwb+Rgh/tnX
-	XQ8wfxq6l+3jV6dQI0lEzA83m81ycLfwRJSikEX9Yx/yLlI90/bp9KigS+29DtYA
-X-Gm-Gg: AYBFou3+vefFgOj42kbIeEjc/JuhMq+j+syoD4jpEXn3ysb0cQ4Q1Mvcc5+JYidppVv
-	aLjvMrZxd53VtAVd+1D/9qgIrXAGvRYOVKZFX3DTgnxhmKNGgr0/Jp6GarvpW3p+VqjbuhiOeW4
-	0yiReAc09SoGv+MQhikIB2x+39yfwc7HbNx/md8ZeePBFFbJ/R46Y7kgAhY50klouLTa5+bmjf/
-	0qc+A8QgKa1JKKVTTZjITZ5mDwxj+WYXcNp4r2JSQNjN16fhyZHBN6yuGyJoOxgKoFU74AYwjAx
-	vWJ3vLrygjcneO62okHQHmEG22rrCWhgBmfSkiSTvDS6/r1WwdUrGyn3N/V1ShdT9aA9AHgR2Uw
-	zkU753b34eQ80l98xptqTOBYnUwsVlXkJYYQIUlGmnUW9AYbr9l0o4dSeyj8BtXue9luM8iQh6h
-	tFoRXWClZtryNsmFEu/xDPFxYZ8LbRh4t4d6C5kbWXc9GCRdd2ljr8eDlucaOa9xDK1+MsAIfTE
-	huSZSXtJKbv6WejIdBSQ96q0d/KVIMld2rG
-X-Received: by 2002:a05:6122:d89:b0:5c9:a60c:2735 with SMTP id 71dfb90a1353d-5c9b598e3c8mr4029117e0c.13.1789976484812;
-        Mon, 21 Sep 2026 00:41:24 -0700 (PDT)
-Received: from mail-vs2-f40.google.com (mail-vs2-f40.google.com. [74.125.227.40])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9c17a96c3sm6319820e0c.1.2026.09.21.00.41.23
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 00:41:24 -0700 (PDT)
-Received: by mail-vs2-f40.google.com with SMTP id ada2fe7eead31-7aa0603e450so52028137.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:41:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzXikjYqdR7efx5mEpXY0xIMoXCMdQX1rGWwgY7x+Ea1bJxUYUOf9i7cjLRJsrV0yznhYhV/jkuRMDO6yo=@vger.kernel.org
-X-Received: by 2002:a05:6102:83d5:b0:7aa:17ba:3dfa with SMTP id
- ada2fe7eead31-7aa17ba42bbmr32910137.31.1789976483444; Mon, 21 Sep 2026
- 00:41:23 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789976525; x=1790581325;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m7NI7dmw05ci1upj6wN18SfkuMFDavLQgdb5foGE0c0=;
+        b=YSQ+68b8mkxrhgvB7zcTT5UTvehIeX+vDsQsTx04CJ2YqsYv3259xhhSs1xzR7w2g8
+         tiI/LLZAHzX6myFYXu9oR9zE5eDDFJFbDyVdfwbybNQgK0+ECZIh5YIc077M7Qy3sk+X
+         IdckgFq8K/P+ac3UGBuddfw91gZeAetX8m1nPV4L+zc9pRQfKX3kjdlLVgAVBCU7OW8k
+         rGGM0L8lGA7oiBBhBYO0M7Q4wAbvVeA5DtVZ4AKLA8SzoKvBjbvAgZ8QkNZjxtvE5hnt
+         CN80EdCfK9QaTH43IM7DLEH60187RKtwK7HYOtX/6qmM9nyJSBFg+syI72uXIVs5xSer
+         XbXg==
+X-Forwarded-Encrypted: i=1; AKwUvBzDpByjS1QGqLYRRFlVAsVvV1vg1qSPcj0hFw3LNjRD5WrPyBGoz+XyYlsilT+AkSLd5Noh9xQ/5Z00U3g=@vger.kernel.org
+X-Gm-Message-State: AFuF++k663vK0o5CsehM9TMGUOYbn8Jfu5vsF2cTITnMjjX0act4uelA
+	3BqncNTHPx2q5N7eLAn1KSg4RlivZVAJt1o1aehT3/y17PS7UFCtvXk0
+X-Gm-Gg: AYBFou2gbVJnqMMapjDhW3C1tHLC3I+ReDy6f13gHr/dGJXm9Z7TsP6YIoZ6PJvlR1U
+	ftAQ4knK/MCdnrgszg0nI0C7Ne3GUy7MsZXDQ8VsBQkrclFqLzF83elqTf7FQXhlD234R5ozzZO
+	DjHc8ZE1d6aJdziIAFLf2U/ytGIhN8KQUF9y5o9GLCG3kRghrixYHT6QaaBU/wJwxQojXFpFDi2
+	bQVJDRQvGt1fjxpFzreAhIbHI6CyZJ5x0968B70RSH9okk+ECyhiqDgpszKml14qyBKQAFY2433
+	V8Tb9YQ0IH2jXOlFVrU1fkzoHt2VQ712LLC0PDGAum6zzKZfTSqEc8ifuMPdAhDRuoR2EznqVwW
+	GAUVW/EMY6+ewdEE59U6r4uNsyI4O3FJW2Jnu2ryTTepAnsxU6zy4V/IL1TLlPZIj4xehg/87pj
+	sTdsz8aYhO5cZKXb23u6CTTNzo5834A4b/ELGevdSzxMtn26ESF/u/LJ5bDJggz8gj3HhPMrh5o
+	vuaXbHmjczMi3dLyJPUbQhXpVq4M4Jvx7p40dSF4pm3ogMnHsB3yCzNi9/C1vZsj1hsAWfwfths
+	P5fHepyW6Q==
+X-Received: by 2002:a17:90b:37cb:b0:39e:6c69:9b9a with SMTP id 98e67ed59e1d1-39e6c69b2eamr10004502a91.63.1789976524658;
+        Mon, 21 Sep 2026 00:42:04 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c6dd585sm12396602a91.0.2026.09.21.00.42.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 00:42:04 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: Alexander Aring <alex.aring@gmail.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Stefan Schmidt <stefan@datenfreihafen.org>
+Cc: linux-wpan@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2 1/2] mac802154: rx: fix skb leak in beacon and mac_cmd rx paths
+Date: Mon, 21 Sep 2026 07:42:01 +0000
+Message-ID: <20260921074202.2289040-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+In-Reply-To: <20260919213636.3316565-1-benquike@gmail.com>
+References: <20260919213636.3316565-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com>
-In-Reply-To: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 21 Sep 2026 09:41:10 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVC2vNp2nTHUi3saTZ8UD4ggeB_aBEvN9XP+EToOr7G2w@mail.gmail.com>
-X-Gm-Features: AcwNN1UjZbDPnIaj-fYRvcBoX7YE3K7C7k2z9bWrLFQVkND6DSGXX-e-oumCCsA
-Message-ID: <CAMuHMdVC2vNp2nTHUi3saTZ8UD4ggeB_aBEvN9XP+EToOr7G2w@mail.gmail.com>
-Subject: Re: [PATCH DNI v2 00/11] media: rcar-fcp, vsp1: Enable on R-Car X5H
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-media@vger.kernel.org, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Paul,
+In __ieee802154_rx_handle_packet(), skb_clone() already creates a new
+skb with an initial reference count of 1 before passing it to
+ieee802154_subif_frame(). When handling IEEE802154_FC_TYPE_BEACON and
+IEEE802154_FC_TYPE_MAC_CMD frames, ieee802154_subif_frame() calls
+skb_get(skb) to increment the reference count to 2 before queueing the
+work item, and then returns NET_RX_SUCCESS without freeing the skb.
+When mac802154_rx_beacon_worker() or mac802154_rx_mac_cmd_worker()
+eventually calls kfree_skb(), the reference count only drops to 1,
+leaking the cloned skb on every beacon and MAC command frame received.
 
-On Fri, 18 Sept 2026 at 19:07, Paul Elder
-<paul.elder+renesas@ideasonboard.com> wrote:
-> This series is based on Geert's
-> "topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v3" branch [0]. A
-> branch including this series is available here [1].
->
-> This series enables the FCPV{B,I,D} and the VSP{B,I,D} blocks on the Renesas
-> R-Car X5H SoC.
->
-> This has been tested on an Ironhide with the vsp-tests test suite [2].
-> VSPI:
-> 145 tests: 138 passed, 0 failed, 7 skipped
-> VSPB:
-> 115 tests: 104 passed, 0 failed, 11 skipped
-> VSPD (a):
-> 114 tests: 99 passed, 0 failed, 15 skipped
->
-> VSPD (b) hangs on the tests, so that needs some investigation.
->
-> The first couple patches add clocks that are used by the FCP and VSP,
-> but as the upstream X5H CPG driver is barebones at the moment and we
-> don't yet ensure that the parents are enabled, these are marked as DNI
-> for the moment.
+Remove the redundant skb_get(skb) calls so the worker consumes the
+reference from skb_clone().
 
-The DTS patches use DNI definitions of clocks, so they should be DNI, too.
+Tested in QEMU with mac802154_hwsim by transmitting 2000 IEEE 802.15.4
+beacon and MAC command frames across two linked hwsim virtual radios,
+reducing the SUnreclaim slab delta from +680 kB on the unfixed kernel
+to -80 kB (0 leaked skbs) on the fixed kernel.
 
-Gr{oetje,eeting}s,
+Fixes: 57588c71177f ("mac802154: Handle passive scanning")
+Fixes: d021d218f6d9 ("mac802154: Handle received BEACON_REQ")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v2:
+- Split the beacon/mac_cmd skb leak fix and the IEEE802154_HW_RX_OMIT_CKSUM
+  tailroom expansion into a two-patch series as suggested by Miquel Raynal.
 
-                        Geert
+ net/mac802154/rx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/net/mac802154/rx.c b/net/mac802154/rx.c
+index 19b5382..ad602d2 100644
+--- a/net/mac802154/rx.c
++++ b/net/mac802154/rx.c
+@@ -287,7 +287,7 @@ ieee802154_subif_frame(struct ieee802154_sub_if_data *sdata,
+ 		if (!mac_pkt)
+ 			goto fail;
+ 
+-		mac_pkt->skb = skb_get(skb);
++		mac_pkt->skb = skb;
+ 		mac_pkt->sdata = sdata;
+ 		mac_pkt->page = sdata->local->scan_page;
+ 		mac_pkt->channel = sdata->local->scan_channel;
+@@ -304,7 +304,7 @@ ieee802154_subif_frame(struct ieee802154_sub_if_data *sdata,
+ 		if (!mac_pkt)
+ 			goto fail;
+ 
+-		mac_pkt->skb = skb_get(skb);
++		mac_pkt->skb = skb;
+ 		mac_pkt->sdata = sdata;
+ 		netdev_hold(sdata->dev, &mac_pkt->dev_tracker, GFP_ATOMIC);
+ 		spin_lock(&sdata->local->rx_lock);
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+2.47.3
