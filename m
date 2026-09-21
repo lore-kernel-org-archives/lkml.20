@@ -1,78 +1,83 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A8A274B4A
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:20:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284DF2BE7CD
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:21:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789957224; cv=none; b=HWWdajgpp3nTqinBLcLt75ZM1gq+BN5q+7fCm+xDeeSX+u4qZ6a095V8rdTw7ubnmLVnfgXert3cTe/CKD39F4p4Qjnssr0gzvPcUd5u/gls42BqOfsLdPaoUj1+6lELUJgYkpvNH3kE7ymJUAhffNssTYMTbDvaGFvWDoavmAE=
+	t=1789957281; cv=none; b=cGPnzNLm9M7E1AWouupnIL4ZWrdDte/nTrUoikgtUcxy+onziVWYGUT6QXevsnvDYuQj72nfdnIHcEuSWZHxyrSQqKEsdPfehKMEa+K+LTrH0WA+naxrDThkwyxZcfD9NzmRbSopvi3cs8qbTWode18I6zMMVk/XyZVjXpmlyho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789957224; c=relaxed/simple;
-	bh=vUf7QAanQ5dKq7z/fJvehLlpKSca00cy1tgrEizeFrk=;
+	s=arc-20240116; t=1789957281; c=relaxed/simple;
+	bh=Av2GYvdleMYioKNHbuGmN6mnJbgyWi2BjHDtp6yomiM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L88/Dn4D4vA1+lbKliIXcI2LcHIuNMFmVVPoiCvTrAa/qZ0hFhRWm9OquAToeEiPmCJVW8VqAJnR5L3bapW+V6Wmg4seZPe92CH9l5UlDIt88J1RDz/iY3n+MnW7IORXHjgWMBd05McIuZIZFMVbXxNrGVz7z8e32poC3KfPiJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I0skpZ1p; arc=none smtp.client-ip=74.125.228.42
+	 MIME-Version; b=ZKGOZRVRN9frTvMu7zHNvTKKHIf8pAZJCeKHv76BAs32C21dWhaYzIUK0PwB+NFu3ZrjqsUuLhb1WgWlDtFZliG5SFCqM4xl2BCtRGf4H5JNYTALuKit+4xgwHSd04rgptH1oDlbRwRVr+7wlgIUVmkOVLOMvtfQ3rTJ06tJr80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iLTXpoZC; arc=none smtp.client-ip=74.125.230.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I0skpZ1p"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4bdf8abaaso2000473a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:20:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iLTXpoZC"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cadeb0so200703685a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:21:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789957222; x=1790562022; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789957279; x=1790562079; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FTEAVZypIz1LkNdblYydsxE0PH83Gg7fz01btoAhDQ8=;
-        b=I0skpZ1pJIiIOg5VKbG985MPt0AA6F0R5zFL3/qkDidr2Zbc/6z+2i3syYoSGooqP7
-         p+39zbfeUDa9iz0i0ew0Kk1XR2hBMrrTgtRy1A7mKbnADQ4ByThct2Yhkp0bNMBm9D7w
-         HcBiuSN/5qmdlnfE+f+mVmvUV0OzPqmi1yi8dv2TNaPdZGDdRnROfIPwRh6DCXGnehBy
-         9BqoCEL6cJSOP2k7RKEVzcnyuwvIf+DA9XN8HcNbgd04RvHUcYmp3Z0GnDxMYg6Nzpcy
-         3oeMrdHjMwncV8fwHlq9H05w00MkYxHt6NYP1uteM0ihvL11Mpv4FJDsRmCcc8ZQjIb/
-         xCag==
+        bh=e+LWZyHJvmzCBfQ/7nfECvX2BnZvzVstEnA6IU3FlQ8=;
+        b=iLTXpoZC70h5g83hGB0RpMSEXeuWcGRitdUyJU5FMXkk0838EqxIOoAYm2LXWAOts3
+         0Ez4f8/Npiws5xlW3XK1uId02pAPOAt9kG3kSQVhBZYaHifeeU6Wiq0Zc+G08vftGNgg
+         qLQuoIDAP5VGv7ucfGQ92N4urHeyxSj7undNI3r7mC3Glw6p/+Vz3olheRcsC50/z4B3
+         HHV7ank6FIMSw2rv5Hj9Xg7mdizZgt4kaonyOCTTRQQQ9cS0MPpwoJynKYaZB9wCHByu
+         JH77Ixp5vdGbWF2crBdhhXOHQJH2GGgfxHQF3Zcm3rLSayTnBnSYhzvi2hRbl4nlztMl
+         6+Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789957222; x=1790562022;
+        d=1e100.net; s=20260707; t=1789957279; x=1790562079;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FTEAVZypIz1LkNdblYydsxE0PH83Gg7fz01btoAhDQ8=;
-        b=biSCuvP3HzEtZ83uSEFWQa24QywmWgJWWxNjLsrVrZ9vK+DfUti3k4W+nWnsBwmu4L
-         DEoo9xLqF3OWNFy70ZFe68ulOjL8yOwdd1EuWSxO2koZSpjrgxzB+pSVoRGaKfZost26
-         r6Mq1zXl+NMqb/wIK2KcxRgxXZs4kmC6+GcxjG7hovOecOq5UXSJbceUqzPYuq/wvcaP
-         OuWr+nlHI21aDpNjxlyl5IL54TmNJ8P9/lfPhJMMaj7pLpj8/hA7m4ftcw3zPd+3Oy7E
-         jxIC9nRmnC5ETS1tUWFu9/Ipq5K7rZnPuOpU6MIvNpJzFeLvhiDt3rjgZJP76PJFeGSU
-         xLDg==
-X-Forwarded-Encrypted: i=1; AKwUvBzILR5KoJaYm8R22Le+Rx1FCtvF7gSmoFkVR5WwjPwiLn47vjOK32A33L6bLgFt6mkFRZipGSP+uhcBcNk=@vger.kernel.org
-X-Gm-Message-State: AFuF++llC2Gb+ck3r7moVBC0VAnczH6NB21sZq2fJEw7ckLa5/4pfiaW
-	dtlJ0NdgftRg7SYGsrQ893SbDoa6xauBd4wH5m7NlA6Pqk54LF01dHgjMyqy8+0g
-X-Gm-Gg: AYBFou2NCJbwwbeX/hQ1wuFo6y1woxebkCTY/LeW6Ka3lhX0dtWaMIUkFhdEfHwdcv5
-	mIX3quQYvpwyujIzOWvnclqi5BK6qTThjOYVemd8aW3U//fMXJ8L43LUeWnoXdyBCgbZKuzZHGW
-	PQGYxLWWpczIjMb7TSSMJGKGYatDctMhfsZIJGiK44U+iEL2dAXIVVfEzYOzWtGDIg/gerxjoFl
-	xiM+ZgjOCRbYd1I+VpFi3ZupasR4iZ8S4TA+rW0671r/xO+K53dD0n/DNUpvLwqhoGtbTisH6Ti
-	gNYZWEgKEJ+Oh9zy4V6qui4JKS7PV/1XSBTEMOWnF1WNCXP3Bixij4oqq70KzlZzk9BIAgb2Vg7
-	Aw6NJDK7tWmIiYiOvJzCkEr/C0RzhtMOpbMTZy65ZnG1moY4vWV6KGp4Y3jAouWXxHEAdaL/Txf
-	EL+BYbSQ+5dyZsUh/L1fzLvY6cEQNYHIGV83hiFIanOHhZctT/6jiWa1yKvMMNZzly/gXPyhhtc
-	M0mw/+nSEZns9mTMjASi9fq/JzGWJdaS7H0wRAPn4a0DF2PWrhMZYg163lnQwspsSN3z8XzQ5jZ
-	wREwg/LBSA==
-X-Received: by 2002:a17:90b:17ca:b0:393:19a3:4f1 with SMTP id 98e67ed59e1d1-39e54cb43c7mr14530866a91.6.1789957222045;
-        Sun, 20 Sep 2026 19:20:22 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c5b3932sm11294882a91.13.2026.09.20.19.20.21
+        bh=e+LWZyHJvmzCBfQ/7nfECvX2BnZvzVstEnA6IU3FlQ8=;
+        b=XN+Z7dLjtFlqTTUb1vJqpZLXkjoQ9Pn7t4+H3Kh+EHq02k0k5jWU0z0Ka7Ph0QPIPn
+         vLoxYXl6D6752uq0KcC0RWsGBMt3bXCKeqfcuKcRlopxEUeA+szTbSD9pTAM1MF4pGhh
+         GsrwzAHLurV/ti7ychXqgVvQNCdUvxl57Cl7z8KZe8EmxNaA9REWuGp6U0y+4NHBax/y
+         6K+akKFW4cTOgIuXuQu1IlPz0UJgcAieVEsCZ/wPMiRlPcMFcJhtQsT+sUh+BxmCjtV1
+         WSmL91GrrOvtV+jZ5WaYzJY312Py6VPH4+oU5JxuLw+HV/H3bzqffEZFv0kVmPFe6PTS
+         xJ4g==
+X-Forwarded-Encrypted: i=1; AKwUvBzy8VkBh8+a+XzQ8glp8rD/eWcGxPWuV+d/HGF/hj2vKVXbR6NwbjKhqqs16ODDJ28U6tGbj48FOJ96jo4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlQhINnsAZEFkoSWiLK6xHr0xF2BJbs8Jx3PUMIvu9SDa+E+Ax
+	EwPK/LD1tnf2K67CnTA7u4OyWqeYlU6qEkFDNFfNLCwD0alJpxOEFd3W27arIsE=
+X-Gm-Gg: AYBFou2AJf4OqlhhsrL1OU5PdspVpchHrKV8jAnvHJlXDGy7/hEWG4Y8TdDaDN8raXn
+	8jzp5+DjgGazzoZTB/abFmWoRpci++qXmTBh0/1sShXg8hDEzoUl3c4PXldgTHL4N/HEJG3h6eT
+	oSKEBdQcX0dpCJj7EAfP+a648ItnZuH/ZKqMdOso8UVo9yAxaZKHBEDWHsFOMQEppnhX9qe8vWJ
+	BZp9E0bNpG3AG8a6iNe94byXRvEYaWT3uYuOpDInziftw12KPnGSVrru8WqbSJsEEWpyS+4gi9W
+	GPeEa+6o0+96AlOojiVyBT6QkS4Zt9Mu/gyFYK+UhDVh5STNbgVwM7MeVMGgZxRy+nog4Vv6Pqg
+	yUMi4Z/dfU4TBUxZNhjag1MaU+kfLbnPm+S3St8DR1j7/0DM4LAhkn0WSaSZZbE+RygIbuf+G+o
+	/Jtlw8xancPzEToC9pSBhUMFJHnn57HYJCj4qGY3xE9Q1TxSpqAdEF+DTom22yGPXRmo3VYqJOn
+	iSZVsY/GSR08D60z9N06CPjNFVRG9+ZfOVCHRvjMYBvyLGkuBXuifvLTRZI5UdqVJcSCdlAneV5
+	NBxOodkgSD+WecTd+cxaTHpEQ7L6JGD1wKRlVQ==
+X-Received: by 2002:a05:620a:8008:b0:93b:c537:fdb8 with SMTP id af79cd13be357-93bf5519eaamr801975785a.6.1789957278978;
+        Sun, 20 Sep 2026 19:21:18 -0700 (PDT)
+Received: from localhost.localdomain (ool-18ba9fde.dyn.optonline.net. [24.186.159.222])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93bf0215773sm496204385a.6.2026.09.20.19.21.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 19:20:21 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Clemens Ladisch <clemens@ladisch.de>,
-	Arnd Bergmann <arnd@arndb.de>
-Cc: Hui Peng <benquike@gmail.com>,
+        Sun, 20 Sep 2026 19:21:18 -0700 (PDT)
+From: Justin Vargas <justinyvar@gmail.com>
+To: ilpo.jarvinen@linux.intel.com,
+	hansg@kernel.org,
+	jlee@suse.com,
+	corentin.chary@gmail.com,
+	luke@ljones.dev,
+	denis.benato@linux.dev
+Cc: W_Armin@gmx.de,
+	krishna.chomal108@gmail.com,
+	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] char: hpet: prevent hard-IRQ divide-by-zero in hpet_interrupt() via HPET_IRQFREQ
-Date: Mon, 21 Sep 2026 02:20:19 +0000
-Message-ID: <20260921022019.865442-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <20260919203515.2581203-1-benquike@gmail.com>
-References: <20260919203515.2581203-1-benquike@gmail.com>
+	Justin Vargas <justinyvar@gmail.com>
+Subject: [PATCH v2 3/3] platform/x86: hp-wmi: Remove unused platform_profile_support variable
+Date: Sun, 20 Sep 2026 22:20:01 -0400
+Message-ID: <20260921022001.6020-1-justinyvar@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260921021720.5976-1-justinyvar@gmail.com>
+References: <20260921021720.5976-1-justinyvar@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,86 +86,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In hpet_ioctl_common(), HPET_IRQFREQ computes the timer period as:
+The platform_profile_support variable is assigned during platform
+profile setup but is never read anywhere in the driver. Remove it.
 
-  devp->hd_ireqfreq = hpet_time_div(hpetp, arg);
-
-where hpet_time_div() returns div64_ul(hpetp->hp_tick_freq + (arg >> 1),
-arg). Whenever arg > 2 * hpetp->hp_tick_freq, integer division truncates
-to 0 and stores devp->hd_ireqfreq = 0.
-
-Although hpet_ioctl_ieon() (HPET_IE_ON) checks if (!devp->hd_ireqfreq)
-before enabling the timer interrupt, HPET_IRQFREQ neither rejects
-updates while HPET_IE is already active nor checks whether
-hpet_time_div(hpetp, arg) evaluates to 0. As a result, arming the timer
-with a valid frequency (for example, HPET_IRQFREQ with 1000 Hz followed
-by HPET_IE_ON) and then calling HPET_IRQFREQ with a large frequency (such
-as 0xffffffffUL) overwrites devp->hd_ireqfreq with 0 while the timer
-interrupt is active. When the next interrupt fires, hpet_interrupt()
-reads t = devp->hd_ireqfreq (0) and computes base = mc % t, crashing the
-kernel in hard-IRQ context:
-
-  Oops: divide error: 0000 [#1] SMP KASAN PTI
-  CPU: 0 UID: 0 PID: 0 Comm: swapper/0
-  RIP: 0010:hpet_interrupt+0x20f/0x360
-  Call Trace:
-   <IRQ>
-   __handle_irq_event_percpu+0x102/0x400
-   handle_irq_event+0xa6/0x1c0
-   handle_level_irq+0x205/0x5e0
-   __common_interrupt+0x60/0x130
-   common_interrupt+0x7a/0x90
-   </IRQ>
-  Kernel panic - not syncing: Fatal exception in interrupt
-
-Reject HPET_IRQFREQ with -EBUSY when HPET_IE is set in devp->hd_flags,
-and return -EINVAL when hpet_time_div(hpetp, arg) evaluates to 0.
-
-Tested in QEMU (-global hpet.hpet-intcap=0x0c24 with noapic) by opening
-/dev/hpet and calling ioctl(fd, HPET_IRQFREQ, 1000), ioctl(fd,
-HPET_IE_ON, 0), and ioctl(fd, HPET_IRQFREQ, 0xffffffffUL): on the unfixed
-kernel this immediately triggers the divide error panic in
-hpet_interrupt(), whereas on the fixed kernel HPET_IRQFREQ returns -EBUSY
-while HPET_IE is enabled and -EINVAL when hpet_time_div(hpetp, arg) is 0.
-
-Fixes: ba3f213f8a31 ("[PATCH] HPET: make frequency calculations 32 bit safe")
-Fixes: 273ef9509b79 ("drivers/char/hpet.c: fix periodic-emulation for delayed interrupts")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Justin Vargas <justinyvar@gmail.com>
 ---
-Changes in v2:
-- Add Cc: stable@vger.kernel.org and include the QEMU test procedure and
-  oops trace in the commit description per Greg Kroah-Hartman.
-- Add Fixes: 273ef9509b79 ("drivers/char/hpet.c: fix periodic-emulation
-  for delayed interrupts") for the mc % t division in hpet_interrupt().
+ drivers/platform/x86/hp/hp-wmi.c | 2 --
+ 1 file changed, 2 deletions(-)
 
- drivers/char/hpet.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/char/hpet.c b/drivers/char/hpet.c
-index 285c6037417a..ada95872e148 100644
---- a/drivers/char/hpet.c
-+++ b/drivers/char/hpet.c
-@@ -625,13 +625,18 @@ hpet_ioctl_common(struct hpet_dev *devp, unsigned int cmd, unsigned long arg,
- 		devp->hd_flags &= ~HPET_PERIODIC;
- 		break;
- 	case HPET_IRQFREQ:
-+		if (devp->hd_flags & HPET_IE) {
-+			err = -EBUSY;
-+			break;
-+		}
-+
- 		if ((arg > hpet_max_freq) &&
- 		    !capable(CAP_SYS_RESOURCE)) {
- 			err = -EACCES;
- 			break;
- 		}
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index 7ab81ce5f8d..1f165e8e1a4 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -556,7 +556,6 @@ static struct platform_device *hp_wmi_platform_dev;
+ static struct device *platform_profile_device;
+ static struct notifier_block platform_power_source_nb;
+ static enum platform_profile_option active_platform_profile;
+-static bool platform_profile_support;
+ static bool zero_insize_support;
  
--		if (!arg) {
-+		if (!arg || !hpet_time_div(hpetp, arg)) {
- 			err = -EINVAL;
- 			break;
- 		}
+ static struct rfkill *wifi_rfkill;
+@@ -2531,7 +2530,6 @@ static int thermal_profile_setup(struct platform_device *device)
+ 		return PTR_ERR(platform_profile_device);
+ 
+ 	pr_info("Registered as platform profile handler\n");
+-	platform_profile_support = true;
+ 
+ 	return 0;
+ }
 -- 
-2.49.0
+2.47.3
+
