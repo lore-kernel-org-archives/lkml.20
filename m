@@ -1,243 +1,72 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707FA45D921
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:02:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B8D3BD659
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789981341; cv=none; b=hEXoRfDpLaibf2fGPi2yRS4jo2Sxmas6QmeSG/QjqAIBX8wy7MVnlRj/L0lxICmX5lv5MI6kY8LoBxIUBRLCbky2vtp2gGBqjZWQKsnZyWj176Ju1woXgNT9UMyAdXipQ9OQBDFy1jFCBdprWojWU6kDn9wHVEGRN8nMeVKLFVo=
+	t=1789981384; cv=none; b=JmYNu7ADEgq9f334C2ZpUWophhiffofT1Jy5X5RwugYxquQAECXWyFNObbob85wG7t3+zpbdwOCmmkucH4ogfgvi11Wz7WMscZDuRR+JTRZKjReDzBnlB7IDfZH/NpcPNk4MAZmYDss1iLrLtxQ6m5bo7ik6/Aln/T3DKSirvRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789981341; c=relaxed/simple;
-	bh=ho9oslYS8QwxC5bv+4XQhFJx7pBTM14MwGrBHvKEXiM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QvdSeAs27P5SALoMhglh1QvaviOrEJXdOIaSpySCsQvijNg1iJidL95MOIKyi6+K874dOl5sA1cQpx+/F9iekHtXvR4AoRVHe7N5N34uxzRaALdi2sxCSpV2Mwr5dwnhtTPbISujgFX16oXfvYoJcTnfXgf82FrcuHfX1Bmpae4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=JhhnsZaJ; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JhhnsZaJ"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7ZlNo863477;
-	Mon, 21 Sep 2026 09:02:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=wsR8i4T/yAVaKBPaf
-	7AfWISz4QNuITwiqJ9gP+aFl8s=; b=JhhnsZaJiWM0epFM2OVOQAEMVfELOUTyi
-	9ZXP/gXCjvirJ8luk7Hg6vFI44Ce0RXFobU2YWA+WsjDBiSY1L/xiuqDUtHiQ+Ga
-	DoqfCORVrbEgEctTSYdaktQCnivRjoCXXSWKPo0gjvPhAVhs/SqdWdKijp1Iv6Pe
-	YrsZIsHq0pCSoNTZfP2z8EXwGxfRtFr4Aj1esm9mSAmejzKmWnJkCDZLnUKuzJ7t
-	lLzyLtO7zthl7g33NiR0juC7UWPCBok1Z0cQcF3VeuWkbHO/OzuTSYnAOfAESTVo
-	iazpBDqxu4lRGpKN6aDvAhmmbPapDU2h/ux2mukWtyzn/8wSHn4vw==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskduygga-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 21 Sep 2026 09:02:11 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7HdUb867852;
-	Mon, 21 Sep 2026 09:02:11 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gt53vcnw5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 21 Sep 2026 09:02:11 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68L927AC42074608
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 21 Sep 2026 09:02:07 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 102DF20043;
-	Mon, 21 Sep 2026 09:02:07 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 02ECC2004D;
-	Mon, 21 Sep 2026 09:02:05 +0000 (GMT)
-Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.124.208.199])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 21 Sep 2026 09:02:04 +0000 (GMT)
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-To: maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org
-Cc: sshegde@linux.ibm.com, christophe.leroy@csgroup.eu,
-        linux-kernel@vger.kernel.org, ritesh.list@gmail.com, tglx@kernel.org
-Subject: [PATCH v3 3/3] powerpc/irq: Suppress unlikely interrupt stats by default
-Date: Mon, 21 Sep 2026 14:31:53 +0530
-Message-ID: <20260921090153.54745-4-sshegde@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260921090153.54745-1-sshegde@linux.ibm.com>
-References: <20260921090153.54745-1-sshegde@linux.ibm.com>
+	s=arc-20240116; t=1789981384; c=relaxed/simple;
+	bh=RHmss5sAZlKIkOmdBAmKkXHhPEkg0BxU+QVvCmb4Qps=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=htpGtyZKdLMll47qOMGWHFagNaL8H21RRTAYOr80mHPBpyxe1ISJkwNDLP3h7k97Gd33hi4W5MKdWum2JiHmMNEcXMVRgD75Kx303eHIfWrtMFO1hAAyxag/Q88wClSLoN54c5sWyAkA9uRNcPDkrO48C4CmbKa2TY0TnT01jac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-448d51840c4so3023476fac.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:03:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789981382; x=1790586182;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5JJ4bQWUkIWVABenRZMStxNKhwXm1JvlhHPyX1aQLsI=;
+        b=MCQg1h9RSsgA/zslwMxq5Jo9CFfBd2wE+9csO+timTFRlr04sQ+IiETQBkuHrWAksV
+         UndcBdMz4t9ZIYRbnbfue5HKZYl5v2M1w5Y3GtNZXII79DKyqfB5XVmZsM1uNHwa5VJX
+         sl4o6NfhrGiyXyD32jFJLcV7z/CN5djpzEty/wVNvg7PRG8nypZuNurU/TTAgs8t7skk
+         9uaeDCdWh19aYApMP/bFNgkmtzTuMMnihA9+JpftdQZ2aU4VQpS6sIGbZUAbcOIWU3Iq
+         IXnmajCLoeAjyE8Ld5BytkwFL2NIDyAK4K523nP3em3D/uGUNYTvacCW44i1jJzg6++H
+         QZ9Q==
+X-Forwarded-Encrypted: i=1; AKwUvByYZ+Tgnfgx71Gn3qbqOu4iAS3ifPXLp1LpykjrigiZkpLTptozotsZ7bStd6IzAHdUY305qIxlcwm1ruk=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4f/95EOVuYeMgWKxj5bGIarliBkYEJW15YWzXjNxPw9I/bBj5
+	lkz5gXnyhwOGe9qeA00lAH8QWUpMHPV/+OOIy1NUCireNZj0vrFywEHAQjNV/a61kz10BPqIxZx
+	51Vh6D+rrCPv/gDi5eeyF0PuZEVmgPNre1lIuwwZGtPkrfQhShW0eYh/gS2E=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: qoLIfXWHTEa_n6_c-o5nV5M_lsejku6H
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEyMyBTYWx0ZWRfX8+RHOjlMqwRv
- LXV+McCiumU8t3rAp7jMq1WGGcpMoJCeH7BBm24vjMbXJxXseStnqB7LvJA5OJrVAvnURdneEeg
- rtc1CKNatzTRmfDo15R0RGgsPBajtQY=
-X-Authority-Analysis: v=2.4 cv=FLiOVOos c=1 sm=1 tr=0 ts=6ab0f293 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=HwhMAjjRhnxDVlPREfwA:9
-X-Proofpoint-GUID: 25ebQ2YNnNaIjQtOH07N0uQz3UXBZr0T
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEyMyBTYWx0ZWRfX7JgKSFzvqh5H
- rPC634gnAo9Go1plJsXkmTfTur2ABlVEFhZJmL2xrcMbtN6XuoM7hBJXlKt88NO1IS/q3kScnjb
- IK79g9NM+T5YaO3Hu8hNYijDu2QLsawEm5U8bRDoJ/ohzvOH3GC3hpRUSCGekpkLBGCKJlY8iVr
- wgeEYyPh+hzTHpfx6OvqsTlJMCtWFwkgpuCTWoiGPwtCgc0CgyHzu1xl2CIe7NK41u9K0PoB117
- YlJ8Sr+HvfH0ok4Nr+fYtsfWTVN+cz/hE534fpHBdjdMOSRkIJCHcjixQIlEe5GQKzIG8hHjEzW
- QBdo+SEcgqgmTktVeRjASsi+oqcrKi9skuIjvzIvGygHSoYUPYBA9mixCljnZPSfb5wrE8burSu
- mQl6z/aiwjn/T0yeS77OjIQf89aqLkb5AkWCwAVYr7RI6VRa/WzbwP6YSyJePpSc254dyv0fyvi
- WxsJLcRe+T4ztv/mFXQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
- suspectscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609210123
+X-Received: by 2002:a05:6820:4c0e:b0:6b0:19bc:fd14 with SMTP id
+ 006d021491bc7-6ca9c05bddbmr8724020eaf.32.1789981381953; Mon, 21 Sep 2026
+ 02:03:01 -0700 (PDT)
+Date: Mon, 21 Sep 2026 02:03:01 -0700
+In-Reply-To: <20260921163445.3968563-1-jie.wang@intel.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab0f2c5.71f81b7d.15fa6d.0028.GAE@google.com>
+Subject: Re: [syzbot] [usb?] general protection fault in adsl_state_store
+From: syzbot <syzbot+9b195c4f412ea5c4e56a@syzkaller.appspotmail.com>
+To: jie.wang@intel.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Some interrupts are always zero and that is expected since they occur
-very rarely and are mostly error indications. Don't print them by
-default.
+Hello,
 
-"MCE" -  "Machine check exceptions"
-"NMI" -  "System Reset interrupts"
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Print them if they occur once. Maintain a bitmap to know which
-interrupts are to be printed.
+Reported-by: syzbot+9b195c4f412ea5c4e56a@syzkaller.appspotmail.com
+Tested-by: syzbot+9b195c4f412ea5c4e56a@syzkaller.appspotmail.com
 
-Time taken to read /proc/interrupts 1000 times.
-Base and v6 details can be found in cover-letter.
-Base            :  103us
-v6              :   63us
-v6+patch 1+2    :   57us
-v6+patch 1+2+3  :   54us
+Tested on:
 
-Patch 3 shows an additional 5% gain compared to patch 1+2. So it does
-make sense to print them only if they are ever set.
+commit:         93f51579 Linux 7.3-rc4
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=15a3b005580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
+dashboard link: https://syzkaller.appspot.com/bug?extid=9b195c4f412ea5c4e56a
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=135d1005580000
 
-Note: Since /proc/interrupts depend on kconfig and arch dependent,
-userspace tools don't make explicit assumptions.
-
-Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
----
- arch/powerpc/include/asm/hardirq.h |  1 +
- arch/powerpc/kernel/irq.c          | 37 +++++++++++++++++++++++++++---
- arch/powerpc/kernel/traps.c        |  4 ++--
- 3 files changed, 37 insertions(+), 5 deletions(-)
-
-diff --git a/arch/powerpc/include/asm/hardirq.h b/arch/powerpc/include/asm/hardirq.h
-index 38098e35b241..be6cd5aab016 100644
---- a/arch/powerpc/include/asm/hardirq.h
-+++ b/arch/powerpc/include/asm/hardirq.h
-@@ -31,6 +31,7 @@ DECLARE_PER_CPU(unsigned int, __softirq_pending);
- #define local_softirq_pending_ref       __softirq_pending
- 
- #define inc_irq_stat(index)	__this_cpu_inc(irq_stat.counts[IRQ_COUNT_##index])
-+void inc_irq_stat_and_enable(enum irq_stat_counts which);
- 
- #define __ARCH_IRQ_STAT
- #define __ARCH_IRQ_EXIT_IRQS_DISABLED
-diff --git a/arch/powerpc/kernel/irq.c b/arch/powerpc/kernel/irq.c
-index cfbec8363f99..bce546931a13 100644
---- a/arch/powerpc/kernel/irq.c
-+++ b/arch/powerpc/kernel/irq.c
-@@ -87,9 +87,13 @@ u32 tau_interrupts(unsigned long cpu);
- struct irq_stat_info {
- 	const char	*symbol;
- 	const char	*text;
-+	int		optional;
- };
- 
--#define ISE(idx, sym, txt)[IRQ_COUNT_##idx] = { .symbol = sym, .text = txt}
-+/* ISE - IRQ STAT ENABLED, ISC - IRQ STAT CONDITIONAL */
-+#define ISE(idx, sym, txt)[IRQ_COUNT_##idx] = { .symbol = sym, .text = txt, .optional = 0}
-+#define ISC(idx, sym, txt)[IRQ_COUNT_##idx] = { .symbol = sym, .text = txt, .optional = 1}
-+
- 
- static struct irq_stat_info irq_stat_info[IRQ_COUNT_MAX] __ro_after_init = {
- 	ISE(LOC_TIMER,		"LOC", "  Local timer interrupts for timer event device\n"),
-@@ -97,8 +101,8 @@ static struct irq_stat_info irq_stat_info[IRQ_COUNT_MAX] __ro_after_init = {
- 	ISE(OTHER_TIMER,	"LOC", "  Local timer interrupts for others\n"),
- 	ISE(SPURIOUS,		"SPU", "  Spurious interrupts\n"),
- 	ISE(PMI,		"PMI", "  Performance monitoring interrupts\n"),
--	ISE(MCE,		"MCE", "  Machine check exceptions\n"),
--	ISE(NMI_SRESET,		"NMI", "  System Reset interrupts\n"),
-+	ISC(MCE,		"MCE", "  Machine check exceptions\n"),
-+	ISC(NMI_SRESET,		"NMI", "  System Reset interrupts\n"),
- #ifdef CONFIG_PPC_WATCHDOG
- 	ISE(WATCHDOG,		"WDG", "  Watchdog soft-NMI interrupts\n"),
- #endif
-@@ -107,11 +111,25 @@ static struct irq_stat_info irq_stat_info[IRQ_COUNT_MAX] __ro_after_init = {
- #endif
- };
- 
-+/*
-+ * Used for default disabled counters to increment the stats and to enable the
-+ * entry for /proc/interrupts output.
-+ */
-+static DECLARE_BITMAP(irq_stat_count_show, IRQ_COUNT_MAX) __read_mostly;
-+void inc_irq_stat_and_enable(enum irq_stat_counts which)
-+{
-+	__this_cpu_inc(irq_stat.counts[which]);
-+	set_bit(which, irq_stat_count_show);
-+}
-+
- int arch_show_interrupts(struct seq_file *p, int prec)
- {
- 	const struct irq_stat_info *info = irq_stat_info;
- 
- 	for (unsigned int i = 0; i < ARRAY_SIZE(irq_stat_info); i++, info++) {
-+		if (info->optional && !test_bit(i, irq_stat_count_show))
-+			continue;
-+
- 		seq_printf(p, "%*s:", prec, info->symbol);
- 		irq_proc_emit_counts(p, &irq_stat.counts[i]);
- 		seq_puts(p, info->text);
-@@ -138,6 +156,19 @@ int arch_show_interrupts(struct seq_file *p, int prec)
- 	return 0;
- }
- 
-+static int __init irq_init_stats(void)
-+{
-+	struct irq_stat_info *info = irq_stat_info;
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(irq_stat_info); i++, info++) {
-+		if (info->optional == 0)
-+			set_bit(i, irq_stat_count_show);
-+	}
-+
-+	return 0;
-+}
-+late_initcall(irq_init_stats);
-+
- /*
-  * /proc/stat helpers
-  */
-diff --git a/arch/powerpc/kernel/traps.c b/arch/powerpc/kernel/traps.c
-index 0d605600dee6..3a8f5416e3f6 100644
---- a/arch/powerpc/kernel/traps.c
-+++ b/arch/powerpc/kernel/traps.c
-@@ -459,7 +459,7 @@ DEFINE_INTERRUPT_HANDLER_NMI(system_reset_exception)
- 	}
- 
- 	hv_nmi_check_nonrecoverable(regs);
--	inc_irq_stat(NMI_SRESET);
-+	inc_irq_stat_and_enable(IRQ_COUNT_NMI_SRESET);
- 
- 	/* See if any machine dependent calls */
- 	if (ppc_md.system_reset_exception) {
-@@ -816,7 +816,7 @@ static void __machine_check_exception(struct pt_regs *regs)
- {
- 	int recover = 0;
- 
--	inc_irq_stat(MCE);
-+	inc_irq_stat_and_enable(IRQ_COUNT_MCE);
- 
- 	add_taint(TAINT_MACHINE_CHECK, LOCKDEP_NOW_UNRELIABLE);
- 
--- 
-2.52.0
-
+Note: testing is done by a robot and is best-effort only.
