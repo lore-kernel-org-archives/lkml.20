@@ -1,115 +1,66 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D6A3AC0CD;
-	Mon, 21 Sep 2026 07:06:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8A73AE704;
+	Mon, 21 Sep 2026 07:06:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789974376; cv=none; b=WxK1+cXCljGj0+zXyMX0wfmMS/X/VDqmz5hlOTc8Hs9gWAj6umup4jJuGEi6W306DxlCga2AaonrxO+nakmRJdPTQAOri6nGtyXLB6ji1ESp7qGzMXl2i2hUdgIaJw/ZUyr9ZHRgYk5hU3eQJYOc/FRf5Z/fkLc85W4HTIC14PE=
+	t=1789974380; cv=none; b=RoeBr5YiV4FF7R0m9skTmM4sKhYQavQcc0kPhSgY0EYiXKAkiSS4JF9V4WcBztC0hDolP2bwhca4tpjhUuau19Yh+mJeXfENIn6yawqVhFTcTYWmJ4KY9oiuKksOj7tLvb/Wjn5ngEEm8PjC+67dQ3759+wo7FF9aYLLWaHux9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789974376; c=relaxed/simple;
-	bh=/5m4aZ65LSN4IxjKX08SXAMvhKoumaooVWqP8+wIShc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I2DD2/OlzS5FWyj2ndo5ImlBTTbnss+7aDIt2H07hyp5kLaz3EaFcxMN/fYelxjjdjR6kdnfVPZN0vu/PNjU2BEDTpzGPyni9KaRoeOAZHbyb6GUp1Q2igFt9ewD+hQzDkTI+IQqg2ElQwyx1IlfE/EvG6wKa8ca/Q33NX6kMs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eD4SlotA; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789974380; c=relaxed/simple;
+	bh=TLj8sFutufMJiN3IAaR7TuLNFlZlrMDr3iGF+7yceIU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MNN1BFLzWclnjtXPZwkpad2SpbPCwOspcQSKfxYXE5j6whtLt3IUE58hGzJNtzA396+lH+FSai+aRwKCL3vJzUsMEhSAJJMY/A1eJ2Fj4JF+nWETHIJ8zH2nb6sIK8GbdIc8RJP2/npKL8KgOqHtTOYP4xDAmcl1xDH6ap73y4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=EHQ++RBJ; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eD4SlotA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789974375; x=1821510375;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=/5m4aZ65LSN4IxjKX08SXAMvhKoumaooVWqP8+wIShc=;
-  b=eD4SlotA4p6rlRj8pOy1Q9fNgCr7mIljozRMAGVubNSIqxyTEC1SYYTP
-   WMjOSJ/IDn+bLeS5FnlXWH678o8xWt0SUPeiA+7sHyFKaKHBbtz4CkNKd
-   6xMIlx5elwV8mnD0P/lp685UIDPd0NjeEVNJj94oqq1Qexr1NUMtnmcve
-   OsUodfuJCTC0g45wfSZKEHXfx4THV388pMX2Ze5MFai5ZlsxdQ1MZw+Pe
-   HR2ONP1Ue82DCKrg6aJ4xMxMZ7wyNbNXDqqD508lvq2aPyTkQRGTco+Zf
-   4Wp/GfxnFSMZFMlFtnajo0vK8RxZzDvlH7m0MHryJZ0vYG7S/yehrb88m
-   Q==;
-X-CSE-ConnectionGUID: oJv9ss7TTqCaOIiVGLNPfQ==
-X-CSE-MsgGUID: WiDlbllVTgqANkrNaixB6A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="90485952"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="90485952"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 00:06:14 -0700
-X-CSE-ConnectionGUID: bNJQaRoSQtaGEKTvysCowQ==
-X-CSE-MsgGUID: 9dwpuAJhQgSfjSLJTMuWYw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="3831815"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 00:06:11 -0700
-Message-ID: <76c44332-2a6d-479f-aaf6-fab08e4cb60b@linux.intel.com>
-Date: Mon, 21 Sep 2026 15:06:08 +0800
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="EHQ++RBJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=YruYuHsXYeu0Ni058efk89qmFUmonG8oukMq2C+cDTw=; b=EHQ++RBJi623ATzesXnFByagpi
+	W5zLALfCy+QiWdW/z+K+duVjojGYX96UxIbgdlmdUT8+AsPwrLjleISvAF5tVQdPUK87xg2zOqZb9
+	sCHDyDEKDY53lYG3jMy2IYh2y1kGZFgxdnjbi4Mmf0LbZiT9mSygHFdulVL5dokE0gQJw8kLcddk8
+	Ogr+p44fOnmdCLAlaARb5Rr4/ze/TIe8gBWC/u1xaJLmMlemtg5ZX3q1JfFQobFNJKzgWR1QsUXmw
+	W7KjmiuXX4msXorAOUNTXbQrXxNtZaO2+iV7+Jk7dwGf33IGIT9BVgH2sMR7ZXhGsgK0hPIeAE6re
+	ljewyVmQ==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x8Y6N-000000019eJ-3eau;
+	Mon, 21 Sep 2026 07:06:11 +0000
+Date: Mon, 21 Sep 2026 00:06:11 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Tejun Heo <tj@kernel.org>
+Cc: Tao Cui <cui.tao@linux.dev>, Josef Bacik <josef@toxicpanda.com>,
+	josef@toxicopanda.com, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@infradead.org>, cgroups@vger.kernel.org,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+	cuitao@kylinos.cn
+Subject: Re: [PATCH v2 1/4] blk-iocost: charge flushes as pageless random
+ writes
+Message-ID: <arDXYwNm7rGqB7pg@infradead.org>
+References: <20260916085304.1080271-1-cui.tao@linux.dev>
+ <20260916085304.1080271-2-cui.tao@linux.dev>
+ <9575357186118be214d6377dd80a21e8@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 10/12] perf/x86: Expose number of Topdown metric events
- to KVM
-To: Zide Chen <zide.chen@intel.com>, Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>
-Cc: kvm@vger.kernel.org, Jim Mattson <jmattson@google.com>,
- Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Xudong Hao <xudong.hao@intel.com>
-References: <20260918193937.569414-1-zide.chen@intel.com>
- <20260918193937.569414-11-zide.chen@intel.com>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <20260918193937.569414-11-zide.chen@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9575357186118be214d6377dd80a21e8@kernel.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+On Sat, Sep 19, 2026 at 04:59:51AM -1000, Tejun Heo wrote:
+> Hello, Tao.
+> Pricing a flush as a random write, or as a page where that comes out to
+> zero, is as arbitrary as pricing it at zero,
 
-On 9/19/2026 3:39 AM, Zide Chen wrote:
-> The number of Topdown metric events varies by CPU: ICL/TGL/RKL
-> support 4, while SPR/GNR/DMR and some hybrid CPUs support 8.
->
-> Add num_topdown_events to struct x86_pmu_capability and populate it
-> in perf_get_x86_pmu_capability() so that KVM can determine how many
-> PERF_METRICS fields are valid on the host CPU and correctly identify
-> the reserved bits in IA32_PERF_METRICS.
->
-> Signed-off-by: Zide Chen <zide.chen@intel.com>
-> Cc: Peter Zijlstra <peterz@infradead.org>
-> ---
-> v9: new patch
-> ---
->  arch/x86/events/core.c            | 1 +
->  arch/x86/include/asm/perf_event.h | 1 +
->  2 files changed, 2 insertions(+)
->
-> diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
-> index 8b3ea0adb965..01c1c9447f30 100644
-> --- a/arch/x86/events/core.c
-> +++ b/arch/x86/events/core.c
-> @@ -3164,6 +3164,7 @@ void perf_get_x86_pmu_capability(struct x86_pmu_capability *cap)
->  	cap->events_mask_len	= x86_pmu.events_mask_len;
->  	cap->pebs_ept		= x86_pmu.pebs_ept;
->  	cap->mediated		= !!(pmu.capabilities & PERF_PMU_CAP_MEDIATED_VPMU);
-> +	cap->num_topdown_events	= x86_pmu.num_topdown_events;
->  }
->  EXPORT_SYMBOL_FOR_KVM(perf_get_x86_pmu_capability);
->  
-> diff --git a/arch/x86/include/asm/perf_event.h b/arch/x86/include/asm/perf_event.h
-> index ceb6188e5217..3c02389b2ea6 100644
-> --- a/arch/x86/include/asm/perf_event.h
-> +++ b/arch/x86/include/asm/perf_event.h
-> @@ -306,6 +306,7 @@ struct x86_pmu_capability {
->  	int		bit_width_fixed;
->  	unsigned int	events_mask;
->  	int		events_mask_len;
-> +	int		num_topdown_events;
->  	unsigned int	pebs_ept	:1;
->  	unsigned int	mediated	:1;
->  };
+No, it absolutely is not.  For any flush that actually makes here it
+is extremely expensive, and 0 is the wrongest possible value.  Even
+batching does not change that, as batching is not actually effective
+in any normal file system workload.
+
