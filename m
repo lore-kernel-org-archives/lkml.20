@@ -1,105 +1,73 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0190128C009;
-	Mon, 21 Sep 2026 12:44:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F90549AA41;
+	Mon, 21 Sep 2026 12:44:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789994688; cv=none; b=st2yD20RizZQpnN0rOy+kPjaMzOnZ/mpXzsF3Rdf5Czk53f24VxB92qh+fglxWTfqRQzRXRuIT8S3PwoHWSu+HnNMx9tLzljtdJIsada9/vuVlwHshDKFK13feMrOIJHHdUx3e8KSZd45tQ8YF1jXh4038TaHGMUBeXKhRmd408=
+	t=1789994698; cv=none; b=sJNG5VT85kBM3v58/HewhDnO8IDBp9vwxtwt7M9pknzcNjQE3207UxktQhOiIhz/nBCYYHrygyU9Rj/g1P3rTod7gjcwNieXCgbkfqdt+arrDPfcj6iD9kCOaYF56yPGlsTRY+yGjB9/onwCklFa/uEn59ULrXtwTcxqlQS+mfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789994688; c=relaxed/simple;
-	bh=w1GlDaYjGOLyqTw2T7atvpFGJJuRBmdthAUnufDAhok=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q9ep/CuhVcCPOVUN4I8ltx5C4rOLoclkv7qnAbBDPHKTasF37wLApVTKWVnePZIHOIoqFOeIt2+Cw4xjD/Jbj3zr9DsbbCbQw8HWheIY0HQSWwpUQ6SsOt7lz4h+sIwVS/O/nQGyMNVsX0YMDmY3N1z/p7FaHVnzNp9sKq0ZGeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=yGKHp0In; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789994698; c=relaxed/simple;
+	bh=vQtYCPxHu9lloB/pKbqtzQ6Xj4z+2MciCeAGPstkYJY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WitRgxKfzjhj+VWbRQIyHd6rc9YAZ6lUmoYDBUyIAdPMTWD0FFvik9rTeikPldbV6LuhZlPwgofpcbH5VjQItx8aSxGIBYuRvxgAn5GL5ulq3pXmjUxHex9owbGXviv/rBlc9eSJHA3MCcpXpJvOqPaTyhEACKm4QhukTS9hLxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BStBRHyp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="yGKHp0In"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 184B1A4A18;
-	Mon, 21 Sep 2026 14:44:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789994680; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=CbRBRCnqdsWMFVb2TRFmDEKx0JYd2/g65NfgRA9kBmQ=;
-	b=yGKHp0InIi3Cu0Id+HN3gRHss+CSwJA/4ctTu97cW5Nfmc2GVFupNyw12LjmfpabhiHUKN
-	DyRoZwhX7/EzDMP3JK29sV26+nsIA1vhyXqG7gAqXry8bQwQOcOiHhcQNZ6eHExCc5jPrR
-	+21zHDD6SPMENwcZV9YRY7lZZw9ckJbN19Oo72zqL03wfJcxOmDAN13zcsJsf0PiOCgzSw
-	moGT+L76Mqp3js8H9jZ2PJ5ifW4vPh2Fzd3BxLEgczpNlN+iA0oer8uWG9NfXal44c+Ze5
-	YgaATx0e242iYHP9MUZr+ERgquAVfWRJ2nzI5DmSzPONZiRk2C75yFzch92ZUw==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Doug Berger <opendmb@gmail.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Justin Chen <justin.chen@broadcom.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: bcmgenet: stop Tx NAPI before disabling the queues
-Date: Mon, 21 Sep 2026 14:44:34 +0200
-Message-ID: <20260921124435.974581-1-nb@tipi-net.de>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BStBRHyp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B0091F000FF;
+	Mon, 21 Sep 2026 12:44:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789994694;
+	bh=cfyGQvaB9SBuErp0Qx497sUvEDScukDCHbeDeVfMuYA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BStBRHypPZ/YYbx0kPtXDsf5PXmSvGrqW0923VmAOXlmiG8qxsic8ZQkU+GkEnLgG
+	 IhBIB2Ub5M4414tpHlEWs3N4yMtLHL+jqGFszxYWtmFhVsKc0T073zLj8ZCSNLohhX
+	 76PUUndqlQIc0xfG5c13gye/097PvosVt6rByogZdJkreBN1iT8cKK90K1aVGhnFp3
+	 nqcQhpXVJb1F6XuvJIda71CCjNiNCiiG5XUoJ81nNglsjSzN5662uGltTVEdBdZy7c
+	 RqFGjL2axKNCh7GnTJhZnE9o7DR9aaZceK86SeXlE4c7pkHPCAB/Y+Lf1oCWThP5Wg
+	 TTa2iLbTR9hUg==
+Date: Mon, 21 Sep 2026 12:44:52 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Icenowy Zheng <uwu@icenowy.me>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH 2/3] pmdomain: spacemit: Add power domain driver
+Message-ID: <20260921124452-GKK297024@kernel.org>
+References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
+ <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
+ <56e5f32102c67575ded8af9e81a06dc9f1dcf0ee.camel@icenowy.me>
+ <20260921033540-GKG297024@kernel.org>
+ <e96ddd73ca83f0d8b6f08ff63a14b5f0d1bcee57.camel@icenowy.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <e96ddd73ca83f0d8b6f08ff63a14b5f0d1bcee57.camel@icenowy.me>
 
-bcmgenet_netif_stop() disables the Tx queues first and stops Tx NAPI
-several steps later. A completion in flight calls netif_tx_wake_queue() in
-between, so a transmit can reach the rings after bcmgenet_fini_dma() has
-freed them.
+Hi Icenowy,
 
-Close is safe because dev_deactivate_many() stops the qdisc first.
-bcmgenet_suspend() does not, so stop Tx NAPI before the queues.
-
-KASAN on a Raspberry Pi CM4, driven from an MTU change because suspend
-freezes user space before the callback runs:
-
-  BUG: KASAN: use-after-free in bcmgenet_xmit+0x17f8/0x2258
-  Write of size 8 at addr ffffff8055844a68 by task ksoftirqd/0/14
-   bcmgenet_xmit+0x17f8/0x2258
-   dev_hard_start_xmit+0x13c/0x588
-   sch_direct_xmit+0x108/0x340
-   __dev_queue_xmit+0x1190/0x3848
-
-Fixes: 254f3239dd07 ("net: bcmgenet: revise suspend/resume")
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
----
-Found this, while I was preparing my jumbo frame series for genet.
-The MTU change in my test comes from that series and is not in tree
-yet.
-
- drivers/net/ethernet/broadcom/genet/bcmgenet.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-index b916080f4ff1..0789b60e664a 100644
---- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-+++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-@@ -3441,6 +3441,8 @@ static void bcmgenet_netif_stop(struct net_device *dev, bool stop_phy)
- {
- 	struct bcmgenet_priv *priv = netdev_priv(dev);
+On 11:41 Mon 21 Sep     , Icenowy Zheng wrote:
+> 在 2026-09-21一的 03:35 +0000，Yixun Lan写道：
+..
+> > > (BTW I built it as a module to prevent whole kernel being rebuilt)
+> > > 
+> > that's fine
+> 
+> In this case, do you consider to make the Kconfig option in your patch
+> tristate instead of bool?
+> 
+Sure, will do
  
-+	/* Stop completion polling before it can wake a stopped queue */
-+	bcmgenet_disable_tx_napi(priv);
- 	netif_tx_disable(dev);
- 
- 	/* Disable MAC receive */
-@@ -3455,7 +3457,6 @@ static void bcmgenet_netif_stop(struct net_device *dev, bool stop_phy)
- 	/* Disable MAC transmit. TX DMA disabled must be done before this */
- 	umac_enable_set(priv, CMD_TX_EN, false);
- 
--	bcmgenet_disable_tx_napi(priv);
- 	bcmgenet_disable_rx_napi(priv);
- 	bcmgenet_intr_disable(priv);
- 
+
 -- 
-2.53.0
-
+Yixun Lan (dlan)
