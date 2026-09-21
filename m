@@ -1,100 +1,107 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7AF13EFFC6
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:59:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20CA23EDAB5;
+	Mon, 21 Sep 2026 20:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790020801; cv=none; b=QeTVWKoMRtiSn11ujKQqxY1R+9jgdReJAHfetTpOePiItqFthCRgQbWjGFAspa/bvcsML3ueIGftBQe07oTkuOtPgn7JV85AgTmTXJqkW0ib/mllbHD7HqXcSHrLsbA6xtoTrnL8eTfDfnYxjQ2Z6qVTD43Mpd/ZCLP+NWNaNqA=
+	t=1790020809; cv=none; b=bsl4jZ9o70jVc+sSV/KyiQl7gbb9jLSUWTpWNS2V1OiZ411W2sPtn/79kTt1nDSYCL1hkRDe+1wNagmUe/Eqn3Knhi3afOrtXIZNzDzGnxwQ/AeU2HO1/RG7mFSh8LcFSLvxj9BO96o+57jdWgotaCIWKFimvHpivPf/Hs7oKzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790020801; c=relaxed/simple;
-	bh=pRPVLbv4ZJGnEOtbzrbFm0O+U3obdPrLDdTIquar8GQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EzKAnetZKkzrZRHoKD6jHsBeSupfcPOesuKml19+WsWzmuSAlXKuAmcyxfp559AStwLLvfSrkSJpGvMkKIELWwcSuYzqdWZWahmZRwfAX+diiXucKdrbvxrDHWa+BLTPh/sejno25PO/cFCQ+j+nBpMt/TyOkQVz29oI8vLyBFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MasKEx3g; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790020809; c=relaxed/simple;
+	bh=4Bu7wqp5LPQ6WPOQiawfPpDIShUPnK46ZronN3GEgM8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=txtA52RgPR7Jf3/PZMAYzukzaGXpZSDMx+UA5PGFjR+uMc/uzVUNEHR0yDKphyY5MC+bCnLwsCHI5wVNLvHcrrFBLZxSam+HcNDgF+pt+GdNkvs48FLbETfliay9YDJ+aNxujdlVLcfm3RqZLFm7NrIZmsArD/kIueWvqdg+U5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OSjBem8+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MasKEx3g"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469d20963so2214280b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:59:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790020796; x=1790625596; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oEg+imKpv2AywlAvn/f88uirl1wkSJAtwjFAVjacduQ=;
-        b=MasKEx3gIkKPF975fYGgUU+hfcmptxlyiNVTDX+Uwt0CcHAcYM7dDJCSxxUcYTvyLj
-         gGV/KElRp+Y1O4Etpn32RSnZkjBD2OT42N6d9c9DIDh7/cHJ8OU18kpOXXMGbo2M4W1f
-         bCRypoisjsrz+rrCxMft/t7q+c2CRR1lj+JvhwTXWa9siFtVjCjMmTZYjHR+x6KBZcZC
-         W4tBSXIGvp/FfC6GXmgzan8ThCkJWgTTFwchl7j6R+4OApYzuQF4xuf38GiqM74HDwyj
-         xT2nofk+7xzWF4r39dc7tLLU4AIkp21Hrz4LC1Js7hJGYcospy9HPSWnS0bI6IrL03QS
-         1g5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790020796; x=1790625596;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oEg+imKpv2AywlAvn/f88uirl1wkSJAtwjFAVjacduQ=;
-        b=ixhm7cJi2OcgOM1xQ4xSHl5RilmE+ezv972cam1k8Lx3F6fj9A8dg0R7QH0BjMgbGB
-         CaEzXOIsuaJom28O9zA7VY0OJ/sEMj/Y+akvpj/HyaXT+U9epii01/6AIb40NaTsy6er
-         ZefVDOzLcNcWK5QVCbmUKB6bAlfJePbfdpcoFDZVMIDk5q+ABkDbDN280mG6CYWaE8PP
-         JKIYG8qoObrcjuncO3nmc3NmLHCX8cQBkxU4sn4mX5b6XJ+duDntTJJ/jkMjbN1u2AWT
-         fLnh0T4QzBj2DbtNnU4ycobsGaaJyIYMTsQ0DSaxTvRWctXmx56uG/XLgeIUoy9qrOtk
-         HEhA==
-X-Forwarded-Encrypted: i=1; AKwUvBwQ7slvCIu9Hr4Jw02p44jK/IUbySMYajybCKXVWb24NjKvcQk48DTAkeRfpaAkUuKtKjB0kqc0Ku+PkH8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfFZj9SAi1U4zGHUIq3ExxmxBixSEYyLWVo0QUp4oMXslw4CT4
-	QUlw6IJY+7UtV7l7JAXvGzWGr/ovb4ZLX2Ela+8+nmYfSErBYKNEDjEw
-X-Gm-Gg: AYBFou1+rL0iC/3uKNs8HHIiQwyctw0MuFfG1DaiKLcZqhqYZgU48YfqQJ35WTEILUB
-	eWwW7r5WMtFNrgFYqGhBd7NVREyBAKbl4RNUcM+QD4wA1Z3vGNTfz57qvdQo6kX+iMaMORQJ/5w
-	0QwPnfBAz64iMzlhTKdmaSg0l0bgsD1E+C9MEoseQmfwOSQ/9+Ps+lhy5o09pr9lDDLxPF2KHx8
-	l+dwYty7jz+epL3N+/LQOrzbi89EfDw17wgq5E1DmY5nhKD/8RTiJyloFvv6DlH7+H5SvLWQYeQ
-	UWIyzKkYBLDJWcNHZZh6L2DA1BdwjHUGzapCTmd0/imUt6Wj0qEhABtcZfWLuionl+UNuhOrJcB
-	FcZrAi6To/Hzpc1zif8vZejD9P9wM56U9mcBdTMsEjHDLXZOjN8XxkstnVkuRrfEuqrAR1N6aPy
-	ZXaul3GR3eIWROZNlH12ZCFmQ7UjviezzeTEjkkBqbfD5WV0zZ1Hp7az9uAQsWeQ+h8IwwUAEVI
-	AC0UNNOXSOQ9qQ90OMjrpi6RA4p/Xri5SLjqcd4MQcFQlLiDvGV/0ADRuSY6qna+5eVuUGFcpzS
-	CitbjpinH5uZQkks3tOvWXWQOQ==
-X-Received: by 2002:a05:6a00:2e26:b0:847:99bb:b6d0 with SMTP id d2e1a72fcca58-874dcbf2693mr16386785b3a.15.1790020795965;
-        Mon, 21 Sep 2026 12:59:55 -0700 (PDT)
-Received: from DESKTOP-TJS95SS.tail460ce2.ts.net (36-232-198-121.dynamic-ip.hinet.net. [36.232.198.121])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87bf7aa8635sm18010b3a.25.2026.09.21.12.59.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 12:59:55 -0700 (PDT)
-From: Yuan-Hao Hsu <aa9736195201@gmail.com>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	liam@infradead.org,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Barry Song <baohua@kernel.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] mm/memory: reuse the whole exclusive large folio on a write fault
-Date: Tue, 22 Sep 2026 03:59:49 +0800
-Message-ID: <20260921195950.629-1-aa9736195201@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <arEkcIb7JQFd4zzI@gremlin>
-References: <arEkcIb7JQFd4zzI@gremlin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OSjBem8+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCB861F000FF;
+	Mon, 21 Sep 2026 19:59:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790020803;
+	bh=Pji+QYSqpVzdYzmgiKoCCOu4eSAGWJQKP9RUR89ehLg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=OSjBem8+kNwkxg3Bvo4XRxOymzwX9733IZOf4gdzSAwBDvnhPjONwtPsLSXraRCNR
+	 0s7PpCuNdOSpuu87AcmpoVy4Qg4EhLWp2bKMEJ9QfMc6HeSyalwdDiDde/3j3MjeTg
+	 a7MNs4pRqI4KcPwlb2nSPiH5E9MYyONCxFqDji24j9e01IDiUdnLuNo0RpNLthmZ16
+	 zdnK+h0A0qn09aC/3UZ+HqXs1lUWNhK4cAiumIMY9DtycZzY8kWpCbL9fsWtg6riRm
+	 OT1KR9Mey2IKNe797hS1q+l7MxJ8fVSIgmtrnLdkShDkQNQYRo9hGUjL31NOnB45dN
+	 Awqg81sHr5UHg==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Mon, 21 Sep 2026 21:58:57 +0200
+Subject: [PATCH v2 05/13] mm/sparse: cleanup sparse_init_one_section()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-b4-sparsemem_cleanups-v2-5-54d81d65e125@kernel.org>
+References: <20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org>
+In-Reply-To: <20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Brendan Jackman <brendan.jackman@linux.dev>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+ Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>, 
+ Oscar Salvador <osalvador@suse.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, 
+ linux-fsdevel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1310; i=david@kernel.org;
+ h=from:subject:message-id; bh=4Bu7wqp5LPQ6WPOQiawfPpDIShUPnK46ZronN3GEgM8=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLI29rTesbSdd69Fy4mRefHe5Y16LOYVYoUWf8UFVrAoh
+ i2efY+po5SFQYyDQVZMkSUo+L7By5fraqvd+Jhh5rAygQxh4OIUgInM1WD4Kzb5q0i+l4H29A9t
+ KSKqG4/5OZccfn/yRuPDKbnKpbfFHjP8M77advOK4RTJGoPddqZNl/Py5gUw+8zYVyA4x/P6tI/
+ RPAA=
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On Mon, 21 Sep 2026 13:36:20 +0100, Lorenzo Stoakes (ARM) wrote:
-> Also, and I am struggling to believe I'm having to say this, don't
-> completely ignore feedback you've already received which told you about
-> multiple process fails?
->
-> https://lore.kernel.org/all/aq1CjdaPUg_Fos0t@gremlin/
+Let's avoid the "pnum" terminology.
 
-I'm sorry.  I'll go back and read the process documentation properly
-from the start before I send anything else.  Really sorry for the
-trouble.
+Acked-by: Oscar Salvador <osalvador@suse.de>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ mm/sparse.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/mm/sparse.h b/mm/sparse.h
+index 530692cdd516f..4ee507c34b98d 100644
+--- a/mm/sparse.h
++++ b/mm/sparse.h
+@@ -20,7 +20,7 @@ void sparse_sections_init(void);
+ int sparse_index_init(unsigned long section_nr, int nid);
+ 
+ static inline void sparse_init_one_section(struct mem_section *ms,
+-		unsigned long pnum, struct page *mem_map,
++		unsigned long section_nr, struct page *mem_map,
+ 		struct mem_section_usage *usage, unsigned long flags)
+ {
+ 	unsigned long coded_mem_map;
+@@ -32,7 +32,7 @@ static inline void sparse_init_one_section(struct mem_section *ms,
+ 	 * page_to_pfn() on !CONFIG_SPARSEMEM_VMEMMAP can simply subtract it
+ 	 * from the page pointer to obtain the PFN.
+ 	 */
+-	coded_mem_map = (unsigned long)(mem_map - section_nr_to_pfn(pnum));
++	coded_mem_map = (unsigned long)(mem_map - section_nr_to_pfn(section_nr));
+ 	VM_WARN_ON_ONCE(coded_mem_map & ~SECTION_MAP_MASK);
+ 
+ 	ms->section_mem_map &= ~SECTION_MAP_MASK;
+
+-- 
+2.43.0
+
