@@ -1,152 +1,171 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73DB48FF97
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:33:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5244448F82F
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:34:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789990442; cv=none; b=Qi5dpEEEWgFQdBz0e/tu2RfZoCc8bKuLQW3FlW6uMwKHvvaZuCe2QyQXa+8WvqRpbmAJWDSoOa8U/VOBy74K+3Ah0BVS3/04lydqDcHFXjf/ySEhBj1sm0AqES1TduIQiputwb9E3ogQI8a4AMsxH3b3bGWvUWuwYNd8zsrbOD0=
+	t=1789990450; cv=none; b=e0vkX2xUipKHsUsprq+cLRqxEZy5JuvN1tROs9AIBwgGBhfr9McitWaqSdyOlpMfR1Wgn3MzaKusbYQMjhra0gFwwcXt2p1f3361J9x3XrALvFnqp2Xo+IiePrLLhmGnJlYeIFojMhds/TOVdGFTEMx+bvM9PpFFOY/qAQl67Y8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789990442; c=relaxed/simple;
-	bh=igMMVzyB0kazDBf1FCrnS86fOSdJceOcYZNYKQsRSwE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AKkcCrgDAypiPl/r/ON1RjORcowyiY1xmq6vsvFdcttQs/D/NP3yGgVkHmjnPETCvRvj6U3o90Jdkjd6JjCHrBzNLURm2NvlD7SVYTYm3loVxhAaIawKbBZ26n+H8hgeDEQJykXap0RB+dyhYVPQqLN4wLGewBFE05rjuSWQp/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WF3LwFfF; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789990450; c=relaxed/simple;
+	bh=rhyik7ozJLF/QxQjmQQs4UQBfumoUTwGzzLHwdymBb0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eYZKObVs/sqWH2QRqR/as/Nu2h9uw5s5YwrmGtBJQqz8CKxrta3e+/fnEYQAlH0LUET8Y/67AzjW2BLeGS1LnxdB5BoSfY8ogUZ57DnLu0XxVtc4VyBLmJQWJ3otmikFP62xCfF/aP4v1NyniyMnZdFs9DCeGTgV7PM9Q/aPBdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QAXvOqag; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fqC5XCtg; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WF3LwFfF"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f91so1624585f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:33:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QAXvOqag";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fqC5XCtg"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAdvq22091296
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:34:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	RPLVkzLU2SuROynD8TUPuOv/tuzIzLuttIBJIsnEFG8=; b=QAXvOqagnGQh68q9
+	W0r+t+uE5oZTaAiX8wcbDPKrllhUEqVQ8RPgaVsHN8FBBqhCq8aelA9SPyQcg2FR
+	LXLnEdDJKgMd6Q/28zslS93stIaW5MRQLXSwRCPLJGFZqZht9to3eFnV4o12txNC
+	b0H1eZVOTM2hUrMlavyPVuIQkwF3D24TQXNMfgEMIWljeFkwNlNDbIB8+nH2gk7p
+	VkJ61KhF4c3zBP3y+Yjuw7hi9bpDDAvlbzzWsBMNwnI81LkgTHZFrVO97CO499iM
+	+p8jFBOlShdP6ITtXGtHql7IPITsj0C4iwnR+X/zOniUd4ocYMWHex2bCXH7/7YO
+	zquZxw==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtt3wt4qn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:34:07 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c7d204b40aso71426e0c.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:34:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789990438; x=1790595238; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=AlSfZ5SyLA7gnS311aS5PZjku8Ua3hLuitk3rxSYlQg=;
-        b=WF3LwFfFXyWuYmq2whc2ae97AmMrzq/jDIrAP4kyu+zgmGWXXaSAArmji8OQfhouxb
-         j3HJazSeYnzF5rpOPmuB9EN1p10/5DoUjEy7Dqe8BuoaCvo7R0F73qu0SCX3/7EAsBSh
-         cNwlSIh2Vhqo+RopxNtQxHneUj1rAWY6uLhUa+8EX+tMtarH9z7yp+ucIKylswfkgJzU
-         mfkatn1g5TKgf94WVksalmzhhW05AuzeRJfNNj+kij90ogrhQnbZsjUwDj4nS0ORpBwh
-         T1MtMg6rMJYA+175eLuOcihfaJLpqzjYvXK+sIqTv7Kgkq22dJ5lIewUKwT7J/3OgvCn
-         ZY/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789990438; x=1790595238;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1789990446; x=1790595246; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AlSfZ5SyLA7gnS311aS5PZjku8Ua3hLuitk3rxSYlQg=;
-        b=qCmVfBEQsH8vjEcY4IMNcE9NT88jhfq5HRWaVCH9rr57DiEpH7bfm3JWjdgolAejNu
-         vVd1NaXDHItJoT1Au0VXmfDs3MxhI5AyhwLjv+VZm5kGKuFny1JHcp1Iev3vMrChHQPk
-         2WtoedM3QJx8aw/ovGQlvONXDpuoT3j+ZBTwktlxGWXVvMuB6fS22M7wU1JT3CyhiBwb
-         wkMT/+YOlN7yvZn447mbFldvAggu3sJDKzeeKXmjbOzgcjEYj29grjuFy9VrSMfsscHB
-         fphsqXnMm+CaK8w1yHeSM8pQvfjWKqjZNt9ns+29Yt5msRfUVbyP2yuIcExlDMRnehB2
-         AOeg==
-X-Forwarded-Encrypted: i=1; AKwUvBytoZbCH6KAcYOuyGflPiBnD93/jeEcuXNVzIT/CEu80NPJEIAkjXHS+niF2z0EPOMVOsXE4SPz6l9zOpk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nlYFW3bguTXsU+k3aw9OIbICuuAU1amwA0G7PvktV20feJT3v5
-	zc3gVx8y8O0XFmZNORx7tY68HoXfIjpGLS3ZvO4t2k6/ZRcSpu/08iKT
-X-Gm-Gg: AYBFou1Vx0otN2vQxeQgdi+vZ1zglo8f1xlEJ7DcEeAZB36BYmq/o2/iFxW8SgdlsyP
-	rBVeqcNehlA1i1kb1EO11toplCn+/fBfFeAhPIQiJ66OGxN5HqAqCSvkMf7Bb0fEYEMlY19OAGh
-	Tsex1jjSgj1glotVoU5QTKV90GVIZkKu6j/Ly84+0v2I6ZmKfFGw4HOxNv9qCWZh0GwmQPNysUM
-	P7KSRWvoziJ+anSQs23BGHulN0Ml9MxcwDxnoy6to3ysyboVlTWxyaNrD1qoYAHd/m/gaj7PkOU
-	WctJ8B1X/Dlz/RttKfAwlyY7LMjpYsL03apuOQlyVuuqWYrq2M2jFZ+ZBI8jWBtsPlKcKncd1uH
-	CA7YQZUPTyVpCYAoFSY+1FQ2TMAdKseakmwh9+mQ8MQtIZpmRS7JFccctWqQg1DzqjJZSObyCN0
-	gjiI6GSINOark3QEFQ04Snbq1INo/uXc/8DfFX0mbRkFVdmBVmNofBLqyTh357+WL7BnU4hCxrE
-	fO1/vd1e8KqMg==
-X-Received: by 2002:a05:6000:22c9:b0:486:fe09:6918 with SMTP id ffacd0b85a97d-4871e373ae9mr15558359f8f.56.1789990437762;
-        Mon, 21 Sep 2026 04:33:57 -0700 (PDT)
-Received: from iv-work ([193.43.9.250])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724562bcbsm24047359f8f.16.2026.09.21.04.33.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 04:33:57 -0700 (PDT)
-Sender: "Ivan A. Melnikov" <ivan.a.melnikov@gmail.com>
-Date: Mon, 21 Sep 2026 15:33:55 +0400
-From: "Ivan A. Melnikov" <iv@altlinux.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Jonathan Cameron <Jonathan.Cameron@huawei.com>, 
-	Francesco Lavra <flavra@baylibre.com>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: tools: Use proper macro to detect _Float16 support
-Message-ID: <arEDbA8fIxR6mrZq@iv-work>
-References: <20260918161305.1161852-1-iv@altlinux.org>
- <20260919113945.2bee973b@systembl0wer>
+        bh=RPLVkzLU2SuROynD8TUPuOv/tuzIzLuttIBJIsnEFG8=;
+        b=fqC5XCtgFQ4lDmpI27YcAuRvXIg+IANmSqNhMCOOgSqUyZ/Ng5xA1bxDJdJyO3B2Ig
+         Krvk2X6jBtYyHFECI9lPu0dfS9Wy6E1GBsdoAnqPId6Lw+huAyqnCEsC7de4gl76wtKZ
+         k3vnSFF1zjfZLXeLAjiGqLEVd0cqZikekorqTusCvtqVGKQBhx9IJnB6uIivIC2G9Ccl
+         yZlRqalh1k7QF6irWSEEGiltFLod1BptYRK4XBWfENw7fGwsCEtrOThZsCLT5nhzqfg/
+         i1l6/2Gpi+dRt6bRpCrCMVnTHOiMARKFTih90bp7UM8rBvPkvx4YUmy8PtNKNdEUhlAF
+         +3IQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789990446; x=1790595246;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RPLVkzLU2SuROynD8TUPuOv/tuzIzLuttIBJIsnEFG8=;
+        b=eBadW5dqSiviO8ObONp7Ct3dwdDOwbxh9Yhzlo9f4B3m5n4mt3IPdYnvh55ipVNEhS
+         JcrE/177gTJQr7J2B/7hj6KFxdCKxn/xVjaIrbipzz+raZeLhzsg8mSWO59wvHIz1DLo
+         cMuyMvGPkiRyL52elI4g6Ti9I5ngltgmLjDUwHyrdapc0Xmg40Ma6jdxaCZ6qVbyvEvT
+         csefYKGDn7kq8AoHk8PABIEsWskPWSp4iXvU9i9+jA53HK13XVledlB6YutwwkEDFPIH
+         8nZdLhD3W9hVtB5vmkXzJU12kxSoC3SNo9E8L4/ncfcloA9EBOICnv8wW1ugvS4VkGpf
+         ilfA==
+X-Forwarded-Encrypted: i=1; AKwUvBx89L9XbQFVhZrr6l/oULrlUyTQLUaPDvt3lN+Z0fNBzptnHNsj/HO8pGgnZXz+kT3hpn5f/HWlrOoXQHw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nbdsp6Ux8RHtW+LX8C8t8/qL7FETOPKAnrdc6H2oSxlrZoEz4x
+	fIDbECPKdXgl20zahmgC4VeyJkhxYsLT8JX29lXZbyIHLGL/XLgHcsTrLb5xTTF+bPCOpEqDzqf
+	J2S5qFaK6FbwNpi8vcXMywadKrZiqXftOgK+wQzkesXQd9qEmaVjm+hsLVpAWY1jiIu8=
+X-Gm-Gg: AYBFou0qS14zobrOtf7SHALJ93PqIot/dhOPDHGjxu8Sz2qipBPVXV7t+l9GyMxyOfS
+	R51YTsQEsk8oGQgjdPDAuB/Kgp0WECKuIel+Fvf9GPfxpJSFjSJ8plgPiUwTb/vMi3PhcB1yC2f
+	9EBof3j41nDl69/hVOetYaynzrhZYeVeXXh2IWzX/Voy0aMl3wkW7PkyX0tmZC7wmmamc7N/PI2
+	RtyQJMz2OttGJfq6FSgLohlh5DNJmcGrVk7aVos2zLaLSEHhr1JAcC03h7DJ3/MNwPZTxO2tRSi
+	gJ31RgMCJ+6Sm5yBH6OwpM+MvM31lrVwOHghfswp8g/NNmgj/r1LhyERGFh5XxOlHWjGx0iBQ/M
+	jAseWLv8soB+4s/HD2iYacw==
+X-Received: by 2002:a05:6122:4a03:20b0:5c8:39c7:ba55 with SMTP id 71dfb90a1353d-5c9b5735dc3mr3751962e0c.0.1789990446522;
+        Mon, 21 Sep 2026 04:34:06 -0700 (PDT)
+X-Received: by 2002:a05:6122:4a03:20b0:5c8:39c7:ba55 with SMTP id 71dfb90a1353d-5c9b5735dc3mr3751944e0c.0.1789990446070;
+        Mon, 21 Sep 2026 04:34:06 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67dafe8csm4051196a12.13.2026.09.21.04.34.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 04:34:05 -0700 (PDT)
+Message-ID: <c73b2ae0-e138-4472-8acd-b0ae3dcd742d@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 13:34:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260919113945.2bee973b@systembl0wer>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] i2c: qcom-cci: enable SCL clock stretching in standard
+ mode on CCI v2
+To: Hitesh Patel <hitesh@ebytelogic.com>, Andi Shyti <andi.shyti@kernel.org>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Robert Foss <rfoss@kernel.org>, linux-i2c@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        ravi@ebytelogic.com
+References: <20260914132328.976902-1-hitesh@ebytelogic.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260914132328.976902-1-hitesh@ebytelogic.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE2NyBTYWx0ZWRfX6Ice6jC3peit
+ 9cNnqdSc2CS+y3h6hEUSZGjN6Ar/pnKb18Hda9CkbaivkKJi+cpaqcmY8eO2WJ8hutGf211BQgh
+ 2odUED3sv3W5F9WW0sLdxPCsAa7Vp3XvHIjlymnG5eQ+HO31nO73VJFDCVOyTyTMBuiNYHkn7Hu
+ 7OgttLLe8TsoxB6LRo4Zk98SRgbAPRoqK8B9iKQY7pc9d806yr8AuQ8mDBenJ1sBsPVH1KA8mBC
+ 0DCijBBFprjs9NnXn+zH38AuOCMMDSNuTwpQ3UTxMnbYdrQPlQGzF2guh84pul6HEOKOC1Dh1Zq
+ bvUEwrqvwyQuhpHRiEMnCgfJxoIcWqe6yqBR47xLkDFl6opRsV08csNJU1U/gAEgT98AmRX/YXk
+ y0NNur+lbFxymjuotFXomWfkENHFJgbuQiR3tdYiOmX6g4FS21bQk3xzVON6SFDfKGcCEba+0ud
+ go5AjUfQwdgfeLyLJ+A==
+X-Proofpoint-ORIG-GUID: tYTNb05oUod3ULuSU7DgHPruY92pC0Kx
+X-Proofpoint-GUID: tYTNb05oUod3ULuSU7DgHPruY92pC0Kx
+X-Authority-Analysis: v=2.4 cv=dakVTnXe c=1 sm=1 tr=0 ts=6ab1162f cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=ZovgdgjKAAAA:8 a=JPJhF2pIthm_ftW-UWcA:9 a=QEXdDO2ut3YA:10
+ a=XD7yVLdPMpWraOa8Un9W:22 a=VOxKbm1zgHvARWIDjr3b:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE2NyBTYWx0ZWRfX4R2npkcFqdR8
+ NYTaUGytpxsqRK3BOLvXYLWgMDUqhWjrqkC9fIAvh1adCnZKXzjlp4XPYyiECnS8zbRBopvXKnn
+ E2lcbfMOPVN5fF36cyIsNcKi1oD4ayg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 spamscore=0 adultscore=0 phishscore=0
+ bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210167
 
-On Sat, Sep 19, 2026 at 11:39:45AM +0200, Joshua Crofts wrote:
-> On Fri, 18 Sep 2026 20:13:02 +0400
-> "Ivan A. Melnikov" <iv@altlinux.org> wrote:
+On 9/14/26 3:23 PM, Hitesh Patel wrote:
+> The CCI v2 standard-mode (100 kHz) timing table leaves SCL clock
+> stretching disabled, unlike the fast-plus table for the same block.
+> A slave that holds SCL low is then not waited for: the master keeps
+> its own clock timing and the transfer fails with a NACK or returns
+> corrupt data.
 > 
-> > __FLT16_MAX__ is an internal compiler macro. GCC defines it if
-> > _Float16 is supported by the target in general, but the support
-> > may depend on the exact target options. For example, on i586
-> > without -msse2 I get the following error from GCC15:
-> > 
-> >   iio_generic_buffer.c: In function 'print2byte':
-> >   iio_generic_buffer.c:141:17: error: invalid conversion from type '_Float16' without option '-msse2'
-> >     141 |                 printf("%05f ", ((float)converter.f + info->offset) * info->scale);
-> >         |                 ^~~~~~
-> > 
-> > To fix that, use the public macro without double underscores.
-> > 
-> > Fixes: cdd445d4b2a9 ("iio: tools: Add support for floating-point types in buffer scan elements")
-> > Signed-off-by: Ivan A. Melnikov <iv@altlinux.org>
-> > ---
-> >  tools/iio/iio_generic_buffer.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/tools/iio/iio_generic_buffer.c b/tools/iio/iio_generic_buffer.c
-> > index 000193612aad..9ea93984e0e9 100644
-> > --- a/tools/iio/iio_generic_buffer.c
-> > +++ b/tools/iio/iio_generic_buffer.c
-> > @@ -131,7 +131,7 @@ static void print2byte(uint16_t input, struct iio_channel_info *info)
-> >  		printf("%05f ", ((float)input + info->offset) * info->scale);
-> >  		break;
-> >  	case 'f': {
-> > -#if defined(__FLT16_MAX__)
-> > +#if defined(FLT16_MAX)
-> >  		union {
-> >  			uint16_t u;
-> >  			_Float16 f;
+> This is hit with a camera reached through a GMSL serializer/
+> deserializer I2C tunnel (MAX9296A/MAX96717 on the RB3 Gen2 vision
+> mezzanine). The deserializer acknowledges the address locally, but
+> forwards the transaction over the coax link and stretches SCL until
+> the remote side has completed it, which takes well over one clock
+> period at 100 kHz. Without stretching the register reads of the
+> sensor behind the link intermittently return garbage and writes are
+> dropped, which shows up as random sensor init failures.
 > 
-> One Sashiko issue:
+> Clock stretching is part of the I2C specification for every speed
+> mode and a device that does not stretch is unaffected by enabling it,
+> so enable it for standard mode as it already is for fast-plus.
 > 
-> Does this unintentionally disable _Float16 support for all architectures?
-
-Indeed, it does. Sorry, my patch is incorrect. I must have completely
-messed up all my checks on Friday.
-
-> Since the tools build environment uses gnu11 compilation flags without
-> explicitly defining __STDC_WANT_IEC_60559_TYPES_EXT__, FLT16_MAX is
-> undefined across all architectures. This causes the preprocessor to skip
-> this block entirely, causing the tool to always print 
-> <unsupported 2-byte float> for 16-bit float data, even on platforms where 
-> native support previously worked.
+> Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+> ---
+>  drivers/i2c/busses/i2c-qcom-cci.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> If FLT16_MAX were actually defined, the compiler would still parse the
-> _Float16 block and throw the same missing -msse2 compilation error mentioned
-> in the commit message. Is there an alternative way to check for hardware
-> support without completely disabling the feature?
+> diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
+> index 25b6e4e9e..327efa86f 100644
+> --- a/drivers/i2c/busses/i2c-qcom-cci.c
+> +++ b/drivers/i2c/busses/i2c-qcom-cci.c
+> @@ -723,7 +723,7 @@ static const struct cci_data cci_v2_data = {
+>  		.thd_dat = 22,
+>  		.thd_sta = 162,
+>  		.tbuf = 227,
+> -		.scl_stretch_en = 0,
+> +		.scl_stretch_en = 1,
 
-Apparently, the only correct way to detect _Float16 is to try compiling
-some code that uses it. For that, a feature can be added to tools/build.
+Would it make sense to keep it enabled unconditionally then?
 
-On other hand, x86 without SSE2 is the only platform I could find where
-__FLT16_MAX__ is defined, but _Float16 does not work, so a simple
-platform-specific workaround would also work and would be much less
-elaborate.
-
-WDYT?
-
--- 
-  wbr,
-    iv m.
+Konrad
