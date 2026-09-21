@@ -1,92 +1,144 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+Received: from mta0.migadu.com (out-64.mta0.migadu.com [91.218.175.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6844A2060
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:05:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847B34A2054
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:05:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999557; cv=none; b=mq5SFXlRwqpFY9UaDuyPI4crytd41VI3/F4aAiYHvv6BC8pNzXNROb+Ds4PlWevrlgdLMR1cHEOMnP4A9MSChaAaBfJyQoZGIYzXuDRWuKjpWNYkj4DhCHzG5ueyU2LObBZjSVqARskVP3IqH3AXrkMhl/HsYFNeKAFCSgypVMc=
+	t=1789999557; cv=none; b=m+WypuuIxqxjofTXKXAMewNsDENq+lWeqr9lyIsfTLjNdvZ8nZ4FOj8jWe6imfF2RF09biWU7arvcF2DsJ/17UbNSmfUn3emUkDBDL8Gjp3BJsofdE/YLPl042ek/TSVEFdIlJqESVkTGw6xjfxxwVHh6SEB7Kl+uocJ7khRgyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789999557; c=relaxed/simple;
-	bh=HYGgnNmi3QVtldKOycpSOnTBz70WPgmKQmW8PXNpJz4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ch+Q4mkDpIv34OrtL49POeF4zahPKxqlGEttoE5pUbo8ZfrQ3p23tp5YYYKJ4NewdG51CAwR7cVDyTRSBNC+crUFnIyBM4JQcIuoQc/fgrfWQUXxpk0aqKnJ9pmjYIe6jyLIwMRmvu2ZDkZ9x5c2iIZJIVbAirIQLSHYo72nUb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GK+w1l0u; arc=none smtp.client-ip=209.85.215.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	bh=sv5IypIgEI13ebg5/SpkNFBLXvflcqcFz54Dum5Wb+E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ulea4i7SeXaN7sGmkFoy39W6EK7PkPMsQwrSVjUuBJ5SiRrWLkBTqLXLXXTJFCZ66H6J2pLXOosKHtKXWuGNl/+Erh15U9d5ajpodrohq/looq2pqnU7L+JyxLAr6NRHT/eUdacYUNOi98b7GoaX/IOS8oZvzBUrlWx2sMsW4jc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uKZ5dpER; arc=none smtp.client-ip=91.218.175.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GK+w1l0u"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc52c77089bso4469882a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:05:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789999555; x=1790604355; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kDaByuob3STQywTT3cAOlaBCTEAiWYMVBfjiNkGWQmQ=;
-        b=GK+w1l0uJaNq+va4jdR5MAS9mbzn6Kwjt4hFQYHq4JSHngYoGKw+Z7nPd4QY3xbhir
-         hQzTcyZviFv6qt+KHz+jYo4et0kAXU/b3CZmTWnji7anl6UvzlS3rW58bGch4uq1Gs75
-         Kn2BajGgdEWlFeCXS+A6dHvdmpVwmEj0B3Of0YJ0J6PcnMK1fWeJzjihvEbyPdIkH5kD
-         K9daCtqhlbzHIGJaWkahgTIB+cfR//zGVibVgUVGJqAzsAUgER+Ydl8zt/lcaa0Vm/K6
-         PORUAHOK1cmr+E9OC6YR83f+joshUACvlBPemjsoyZPIQHtg6n59RjYw/+27vsIV0PSh
-         aiKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789999555; x=1790604355;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kDaByuob3STQywTT3cAOlaBCTEAiWYMVBfjiNkGWQmQ=;
-        b=jN/6N1RgbgH1+OvoCPCO/AsCJ2GxJ9QXm/IKTo8gN+ktFmDp/Y64EseoHHh8ZtnHFc
-         DuSsKwALm5CM5QKAJObty4SZbZCVHcC8JtbPXyKqDin5RBB5th+eGRcpXLzzGvf4gpf0
-         8y43/FAZgBCblY2pLXtO4XkUSE46SUMM14o0w6NZPVFxftDkk7Oz5rFuwsxOb8l4jOSC
-         YDBShbQzrKjKwD2bOTfB8vJEpb1drwGMcqyhm1a19xzbKOBFvh3dqsRUYyQXI7O8KUN/
-         HZE1BRkmrcVB2MBUWSgOh+cO6S1rPL0M9a8TwQ332himB+oOlAkSD90koEkflFxAjjvb
-         AL0A==
-X-Forwarded-Encrypted: i=1; AKwUvBxoNMxozMCzA0xmOXRWqAbzPQePNtiCQSfTvLGIuW+ltepjEq3tskmvkHCDVR2qzCnci++DSnjo5BUQ4v0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nnugUDe+MHF5K/REZmiz+64DqNH9b5l/0eksvlJdKw5erlunxe
-	p7yjHTiBGmPnTQ7drEYq3dObSJGbI1Rhc5MSFuNmIKQZgEMcUDkaPwyqBawHfuiaXqAtqvfISxB
-	JHkRQrw==
-X-Received: from pgdt6.prod.google.com ([2002:a05:6a02:3006:b0:cc4:e953:2e4b])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:3d07:b0:3d3:aec2:4dcd
- with SMTP id adf61e73a8af0-3dd8c48ee7amr18530514637.25.1789999555175; Mon, 21
- Sep 2026 07:05:55 -0700 (PDT)
-Date: Mon, 21 Sep 2026 07:05:02 -0700
-In-Reply-To: <20260806214618.82180-1-seanjc@google.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uKZ5dpER"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=sv5IypIgEI13ebg5/SpkNFBLXvflcqcFz54Dum5Wb+E=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789999553; v=1; x=1790604353;
+ b=uKZ5dpERP6wlwP8wM3rTQgQNk1SXr5MqbeOQIzfB0wCzTEZ1VXVrQCHtgisvk82uPCVqDTRG
+ MkZacrBAkHJxRqqegiUu9ZIio8Keup4NySVVGVLakTfsXkSQgI910bJbdG4rWLT9J32ACQytLvI
+ B2iSWC5e5cQpTltVWPm8oQL8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 2392f7eb4c68b734;
+	Mon, 21 Sep 2026 14:05:53 +0000
+X-Mizu-Trace-ID: 2392f7eb4c68b734
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <627a27fc-b025-4bc1-8601-b0fca0e1c4e1@linux.dev>
+Date: Mon, 21 Sep 2026 15:05:48 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260806214618.82180-1-seanjc@google.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <178999694044.717318.4471496122366852907.b4-ty@google.com>
-Subject: Re: [PATCH] KVM: Never clear KVM_REQ_VM_DEAD from a vCPU's requests
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Paolo Bonzini <pbonzini@redhat.com>
-Cc: Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] scsi: libsas: Fix SMP IO deadlock during HA resume
+To: yangxingui <yangxingui@huawei.com>, yanaijie@huawei.com,
+ jejb@linux.ibm.com, mkp@kernel.org
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linuxarm@huawei.com, liuyonglong@huawei.com, kangfenglong@huawei.com
+References: <20260918070307.381207-1-yangxingui@huawei.com>
+ <9a72eeb3-ca32-4241-9e21-74cf894a9bf1@linux.dev>
+ <bab95bba-3091-30e5-91ba-0fd459db0101@huawei.com>
+Content-Language: en-US
+From: John Garry <john.garry@linux.dev>
+In-Reply-To: <bab95bba-3091-30e5-91ba-0fd459db0101@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, 06 Aug 2026 14:46:18 -0700, Sean Christopherson wrote:
-> Use kvm_test_request() instead of kvm_check_request() when querying
-> KVM_REQ_VM_DEAD, i.e. don't clear KVM_REQ_VM_DEAD, as the entire purpose
-> of KVM_REQ_VM_DEAD is to prevent the vCPU from enterring the guest ever
-> again, even if userspace insists on redoing KVM_RUN.
+On 9/21/26 13:21, yangxingui wrote:
+> Hi, John
 > 
-> Ensuring KVM_REQ_VM_DEAD is never cleared will allow relaxing KVM's rule
-> that ioctls can't be invoked on dead VMs, to only disallow ioctls if the
-> VM is bugged, i.e. if KVM hit a KVM_BUG_ON().
+> On 2026/9/21 19:37, John Garry wrote:
+>> On 9/18/26 08:03, Xingui Yang wrote:
+>>> When the controller resumes, sas_resume_ha() -> sas_drain_work()
+>>> processes the DISCE_RESUME work, which restores the ATA ports through
+>>> the libata error handler (ata_sas_port_resume() requests ATA_EH_RESET)
+>>> and waits for it in sas_ata_flush_pm_eh(). For an expander-attached
+>>> ATA device the hard reset in that recovery is an SMP PHY CONTROL
+>>> command sent to the expander:
+>>>
+>>>    ata_eh_recover() -> ata_eh_reset() -> sas_ata_hard_reset()
+>>>      -> lldd_I_T_nexus_reset() -> sas_phy_reset()
+>>>        -> sas_smp_phy_control() -> smp_execute_task_sg()
+>>
+>> This seems like an obvious issue. How come it was not found earlier? 
+>> It is apparently fixing a patch which is 5 years old.
 > 
-> [...]
+> The deadlock was not reachable for most of those 5 years - it is a
+> regression of 3dbbbf656b85 ("scsi: libsas: Fix HA resume deadlock and
+> hisi_sas disk-wake race"), which restored the draining sas_resume_ha()
+> in hisi_sas.
+> 
+> 0da7ca4c4fd9 was part of the same 2021 series as fbefe22811c3 ("Don't
+> always drain event workqueue for HA resume"), which switched hisi_sas
+> to the non-draining sas_resume_ha_no_sync(). The two were designed
+> together: without the drain, nothing in the resume path waits on the
+> ATA error handling, so the pm_runtime_get_sync() in
+> smp_execute_task_sg() could at most delay the EH until the resume
+> callback returned - no circular wait.
+> 
+> 3dbbbf656b85 restored the drain to fix the disk-wake race (the
+> controller autosuspending while disks were still waking up), which for
+> the first time made the resume wait on the ATA EH - and with it the
+> SMP PHY CONTROL for an expander-attached ATA device. So the deadlock
+> window is really since 3dbbbf656b85, not since 0da7ca4c4fd9.
+> 
+> It is also a narrow trigger: a directly-attached ATA device resets its
+> phy via lldd_control_phy() (no SMP IO), so it needs an expander-
+> attached ATA device whose EH lands inside the drain of a runtime
+> resume - which is why the testing of 3dbbbf656b85, whose scenario was
+> the disk-wake race, did not catch it.
 
-Applied to kvm-x86 fixes, thanks!
+uh, the expander-attached SATA disk scenario would be a very common 
+scenario - do you test this always when developing this code?
 
-[1/1] KVM: Never clear KVM_REQ_VM_DEAD from a vCPU's requests
-      https://github.com/kvm-x86/linux/commit/8cd280282d12
+> 
+> Given that, should Fixes: point at 3dbbbf656b85 instead? I kept
+> 0da7ca4c4fd9 as that is where the pm_runtime_get_sync() being fixed
+> comes from, but the deadlock itself only exists where 3dbbbf656b85
+> is.
+> 
+I am just wondering why this needs to be fixed so many times...
 
---
-https://github.com/kvm-x86/linux/tree/next
+
+diff --git a/drivers/scsi/libsas/sas_expander.c 
+b/drivers/scsi/libsas/sas_expander.c
+index 811c9eb4fef1..5a8cdd3682fe 100644
+--- a/drivers/scsi/libsas/sas_expander.c
++++ b/drivers/scsi/libsas/sas_expander.c
+@@ -61,8 +61,22 @@ static int smp_execute_task_sg(struct domain_device *dev,
+  	struct sas_internal *i =
+  		to_sas_internal(dev->port->ha->shost->transportt);
+  	struct sas_ha_struct *ha = dev->port->ha;
+-
+-	pm_runtime_get_sync(ha->dev);
++	bool ha_resuming = test_bit(SAS_HA_RESUMING, &ha->state);
++
++	/*
++	 * While the host is resuming, ha->dev may be RPM_RESUMING and
++	 * the resume blocked in sas_drain_work() waiting for this very
++	 * SMP IO, so waiting for the host to resume here would deadlock.
++	 * Hold the reference without resuming, the hardware is already
++	 * initialized by the LLDD before sas_resume_ha() runs.
++	 */
++	if (ha_resuming) {
++		pm_runtime_get_noresume(ha->dev);
++	} else {
++		res = pm_runtime_resume_and_get(ha->dev);
+
+why change from pm_runtime_get_sync() to pm_runtime_resume_and_get()?
+
++		if (res)
++			return res;
++	}
+
+So when is it required to really do pm_runtime_resume_and_get() (and not 
+pm_runtime_get_noresume())? I mean, when is this called such that we 
+need to resume the ha->dev?
