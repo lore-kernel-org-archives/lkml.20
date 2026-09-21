@@ -1,121 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C86485506;
-	Mon, 21 Sep 2026 10:46:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6A24825B6
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:46:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789987590; cv=none; b=hzltwRQA/caCMe3iJ4UYSKe4wSnZBrFmzGUmclhk4D6haNenBqdPxpt1pu8/L7OiiaCQcfekzjsH81pbC0YfAUiK2mvCAGyvzpwXAG9HxHqozUwoyuE38WyelbxHlOoyYpb920hQ9tatnYdt1pT5tKJiEvh9FLZc6BXMMyPt6rE=
+	t=1789987597; cv=none; b=NRFM98cn07frBFieG31lVLdrUCzi7pE0NnWNDb80V0iIU75f16IBfZkM9+KCZC2h7Ws103OhKSeR93RXERmW3G9tiroaouH5po2KEd+aK3nJdK6f+hyT5lhIgQvTdxDDMvgLWjGrz1bhDILsVrjH/B9bhcCLOzEF1vyuZVjflY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789987590; c=relaxed/simple;
-	bh=V/mTvVL5WpnDPKSgaJv02dNBla2Lmr3Vphd3nWknQhU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kvHCnxMdUfrdGEzL9wjroxGw81bUY1Umt5CJoTEIDcK5If2/x3TwMbxtMcwDSvG6/IzDh6jpRGkG5PIr/qS6bpuN2XadwJ92CPSx6jeNerMgy9GqV2NP7uiZY+25GnAY/zE3yPhIyiY/XalGcMqZmghK2xTaCPQZRJKTocHuXcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LkviZ7he; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789987597; c=relaxed/simple;
+	bh=4ExNL/dyZRTZ8of8W7TIP229I6QEOWpteKGWbxZ72kY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=JKFJ9oOBI2YEfJoA17Pmp8MkJW5G3cFQndgzDfet2HAHAmRqjSWXfONfb3e7zS+QRX3AAKoKfJxUek2HXIN0sPzpmcPmwaFw1+hapboww6CYLxA6Ktmh6WKyyuRGYkBlIqfL2qFHMdbvlMe8w1aLvat5ffWmWTR5NB8iNcSVQ1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PVg80oeE; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LkviZ7he"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 860401F00898;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PVg80oeE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789987595;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xOxCxi0et4Im0QZpiAibCfANf5oH7SZI/BNFkKL+4DA=;
+	b=PVg80oeEvFiioy782BtuvmSf9B/7WWddQvlKSaO21QlAFLKAtItYcZhFFaP5LWkchn5faG
+	gsX7EncHpw9mjTkOU3IYsIywzf/nc/BPbrCRmYCNaSzu8AlTj4ipT2FLnpZy0JirztjlI5
+	3S+YzL79WjahPuPmF5bGi3yu07PoqfE=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-252-q8y1uSteN0-oJqoYVBNtGA-1; Mon,
+ 21 Sep 2026 06:46:31 -0400
+X-MC-Unique: q8y1uSteN0-oJqoYVBNtGA-1
+X-Mimecast-MFC-AGG-ID: q8y1uSteN0-oJqoYVBNtGA_1789987590
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 723F518011E3;
+	Mon, 21 Sep 2026 10:46:29 +0000 (UTC)
+Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DD3BA180056E;
 	Mon, 21 Sep 2026 10:46:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789987588;
-	bh=iihlso6WiedFT9qMOlZdg0soKAXWmysksw94t25MY4M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LkviZ7heVc1DO05y4Xdc+4yXk2tWYp6AE45sX1MwrgPkMHmq68/s3tcsYjHUQAimU
-	 muS5kHjpE4NMl5G32u/qThgI3KmukUE93NHnBZI9Y3CHdY3sTkP8YfJ5T1JcpHSBj7
-	 VqM/qy2pG/aj5GMFzp2thYiWrDvqG46gLlQYE42u15yqGcZb6pk2tnzdkALAEGpSqA
-	 gpIB92OJZy1iC9xL1vIKaMNm9mqMXH8lh0VqXx2j7pXY3NK8Eyg4RxKz5wu8RuwZDc
-	 DS8w3ffAUiTJMA5nc9rLdCnC/nP1wvZKguKQuBdH1fPAzQus+tRE4ixHX3O+r0mmfo
-	 fGb+ohKnEdCLw==
-Date: Mon, 21 Sep 2026 11:46:24 +0100
-From: Simon Horman <horms@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: UNGLinuxDriver@microchip.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	pabeni@redhat.com, vladimir.oltean@nxp.com, stable@vger.kernel.org
-Subject: Re: [PATCH] net: mscc: ocelot: Fix mirror reference leak on VCAP aux
- resource error
-Message-ID: <20260921104624.GI13925@horms.kernel.org>
-References: <20260917113444.2149183-1-vulab@iscas.ac.cn>
+Date: Mon, 21 Sep 2026 12:46:24 +0200 (CEST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Ayoub Zaki <ayoub.zaki@embetrix.com>
+cc: snitzer@kernel.org, agk@redhat.com, bmarzins@redhat.com, 
+    dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org, corbet@lwn.net, 
+    linux-doc@vger.kernel.org
+Subject: Re: [PATCH] dm-verity: add DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE
+In-Reply-To: <20260907171939.355472-1-ayoub.zaki@embetrix.com>
+Message-ID: <a37a63f2-e45d-4e51-0c2d-bd19cca5fe88@redhat.com>
+References: <20260907171939.355472-1-ayoub.zaki@embetrix.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917113444.2149183-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=US-ASCII
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Thu, Sep 17, 2026 at 11:34:44AM +0000, Wentao Liang wrote:
-> When ocelot_vcap_policer_add() fails, the aux resource setup returns
-> without releasing the mirror reference taken earlier by
-> ocelot_mirror_get(). The caller drops the filter without calling
-> ocelot_vcap_filter_del_aux_resources(), so the reference is leaked.
+Hi
+
+The argument can be turned off even with your patch - by specifying 
+dm_verity.require_signatures=0 on the kernel command line (read-only 
+module parameters can be modified on the command line during boot).
+
+I'd like to know what kind of security problem does this patch try to 
+solve. If the attacker can tamper with the kernel command line, he can 
+already gain root (i.e. by using init=/bin/bash).
+
+Mikulas
+
+
+On Mon, 7 Sep 2026, Ayoub Zaki wrote:
+
+> Add DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE Kconfig option.  When enabled,
+> dm-verity always requires a valid root hash signature: require_signatures
+> defaults to true and can no longer be cleared on the command line.  When
+> disabled, the existing require_signatures module parameter controls
+> enforcement.
 > 
-> Release the mirror reference before returning the error.
-> 
-> Fixes: c3d427eac90f ("net: mscc: ocelot: establish functions for handling VCAP aux resources")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> Signed-off-by: Ayoub Zaki <ayoub.zaki@embetrix.com>
 > ---
->  drivers/net/ethernet/mscc/ocelot_vcap.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+>  Documentation/admin-guide/device-mapper/verity.rst |  5 +++++
+>  drivers/md/Kconfig                                 | 14 ++++++++++++++
+>  drivers/md/dm-verity-verify-sig.c                  |  4 ++--
+>  3 files changed, 21 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/net/ethernet/mscc/ocelot_vcap.c b/drivers/net/ethernet/mscc/ocelot_vcap.c
-> index 25e533e91d71..c479af2a423f 100644
-> --- a/drivers/net/ethernet/mscc/ocelot_vcap.c
-> +++ b/drivers/net/ethernet/mscc/ocelot_vcap.c
-> @@ -970,8 +970,11 @@ ocelot_vcap_filter_add_aux_resources(struct ocelot *ocelot,
->  	if (filter->block_id == VCAP_IS2 && filter->action.police_ena) {
->  		ret = ocelot_vcap_policer_add(ocelot, filter->action.pol_ix,
->  					      &filter->action.pol);
-> -		if (ret)
-> +		if (ret) {
-> +			if (filter->action.mirror_ena)
-> +				ocelot_mirror_put(ocelot);
->  			return ret;
-> +		}
->  	}
+> diff --git a/Documentation/admin-guide/device-mapper/verity.rst b/Documentation/admin-guide/device-mapper/verity.rst
+> index eb9475d7e196..bb48c001aeac 100644
+> --- a/Documentation/admin-guide/device-mapper/verity.rst
+> +++ b/Documentation/admin-guide/device-mapper/verity.rst
+> @@ -163,6 +163,11 @@ root_hash_sig_key_desc <key_description>
+>      also gain new certificates at run time if they are signed by a certificate
+>      already in the secondary trusted keyring.
 >  
->  	return 0;
+> +    Whether a signature is required for every dm-verity device is controlled by
+> +    the dm_verity.require_signatures parameter which defaults to off. Setting
+> +    DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE makes it default to on in which case it
+> +    can no longer be turned off.
+> +
+>  try_verify_in_tasklet
+>      If verity hashes are in cache and the IO size does not exceed the limit,
+>      verify data blocks in bottom half instead of workqueue. This option can
+> diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
+> index df27c7d066d2..59098d1f4534 100644
+> --- a/drivers/md/Kconfig
+> +++ b/drivers/md/Kconfig
+> @@ -610,6 +610,20 @@ config DM_VERITY_VERIFY_ROOTHASH_SIG_PLATFORM_KEYRING
+>  
+>  	  If unsure, say N.
+>  
+> +config DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE
+> +	bool "Require dm-verity root hash signature verification"
+> +	depends on DM_VERITY_VERIFY_ROOTHASH_SIG
+> +	help
+> +	  Reject dm-verity devices that are created without a valid root hash
+> +	  signature.  Without this, whether a signature is required is decided
+> +	  at boot time by the dm_verity.require_signatures parameter which
+> +	  defaults to off.
+> +
+> +	  Enabling this makes that parameter default to on and it can then no
+> +	  longer be turned off.
+> +
+> +	  If unsure, say N.
+> +
+>  config DM_VERITY_FEC
+>  	bool "Verity forward error correction support"
+>  	depends on DM_VERITY
+> diff --git a/drivers/md/dm-verity-verify-sig.c b/drivers/md/dm-verity-verify-sig.c
+> index b2b55c41e2cb..aadcf5e4a47c 100644
+> --- a/drivers/md/dm-verity-verify-sig.c
+> +++ b/drivers/md/dm-verity-verify-sig.c
+> @@ -21,8 +21,8 @@ static bool dm_verity_keyring_unsealed __ro_after_init;
+>  module_param_named(keyring_unsealed, dm_verity_keyring_unsealed, bool, 0444);
+>  MODULE_PARM_DESC(keyring_unsealed, "Leave the dm-verity keyring unsealed");
+>  
+> -static bool require_signatures;
+> -module_param(require_signatures, bool, 0444);
+> +static bool require_signatures = IS_ENABLED(CONFIG_DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE);
+> +module_param(require_signatures, bool_enable_only, 0444);
+>  MODULE_PARM_DESC(require_signatures,
+>  		"Verify the roothash of dm-verity hash tree");
+>  
+> 
+> base-commit: df2908090cda368b01ff43709f51890076c56157
+> -- 
+> 2.43.0
+> 
 
-I think this change would be somewhat more robust against future changes to
-this function if it was implemented using a goto-driven unwind ladder,
-which is the generally preferred in Networking code.
-
-Something like this (compile tested only!):
-
-diff --git a/drivers/net/ethernet/mscc/ocelot_vcap.c b/drivers/net/ethernet/mscc/ocelot_vcap.c
-index 25e533e91d71..ce4a3da38c58 100644
---- a/drivers/net/ethernet/mscc/ocelot_vcap.c
-+++ b/drivers/net/ethernet/mscc/ocelot_vcap.c
-@@ -957,7 +957,7 @@ ocelot_vcap_filter_add_aux_resources(struct ocelot *ocelot,
- 				     struct ocelot_vcap_filter *filter,
- 				     struct netlink_ext_ack *extack)
- {
--	struct ocelot_mirror *m;
-+	struct ocelot_mirror *m = NULL;
- 	int ret;
- 
- 	if (filter->block_id == VCAP_IS2 && filter->action.mirror_ena) {
-@@ -971,10 +971,15 @@ ocelot_vcap_filter_add_aux_resources(struct ocelot *ocelot,
- 		ret = ocelot_vcap_policer_add(ocelot, filter->action.pol_ix,
- 					      &filter->action.pol);
- 		if (ret)
--			return ret;
-+			goto err_mirror_put;
- 	}
- 
- 	return 0;
-+
-+err_mirror_put:
-+	if (m)
-+		ocelot_mirror_put(ocelot);
-+	return ret;
- }
- 
- static void
-
--- 
-pw-bot: changes-requested
