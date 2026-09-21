@@ -1,142 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71F73D76;
-	Mon, 21 Sep 2026 00:03:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B65539FCE
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:13:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789949000; cv=none; b=goR2ub1mQpMYJS4q4NJfwEvEpXxIEZK9NO7Jyl25VHKWzsineGmZJzCG1xQmDBTbQ3v0GJoeWPvKXU7PKDSfoWw32ql476uUoFeaChcCT+AzzY2sDuzTD7ed5T5r5m/qZbjP6PPMbm21BXLfa8xi8sXBgpifpeQOZs9Mq04vke4=
+	t=1789949614; cv=none; b=O0qMfV64SnavLCI0RE8q5URU/EWNKqoln0BElRwyolDa7ZSK289JxZUOLp8XsgCiZoqnRXO/dK7R+GOwT88yefnF4KvWBNma8teCm0PPZsi7/m7VkEkL6n4sdbeLyLpLUmIQr3xdQnz/NkEGSWtTUQy3j32wB3X9acwcFeVVMEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789949000; c=relaxed/simple;
-	bh=6a9TAUJLX9j5QQcuWKin1yKPjW7rL3kfM595xz3xJwk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eQYV3myhv3Q13w7iZKDCFTh2Slx8O1B2/cwWvuWUVlUjEGOICrytWdUw3bHyIs4GHAKAL5SuJYzvCATJZL3APSJ7W9aCiqGIPVjcxN2/ftQjgcSVg3ZP2i2v+gYUF3lqtdRDKlr7CNIpbBgBQgdKMYcjJwN6OPMzQfLp3GCtF+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ci5NmWvn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789949614; c=relaxed/simple;
+	bh=HLIBdJTyhNKEU8IfU998eafr8kKCVMQcTkJyIlWnSvY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=m3vBZgkPBInn6RYGvGqEajCzC1iiuoBhm7Z0weCnoS6Z/dbgcf+rmCZKNtGmUQsoxK4zzXt6Zw8ac1bug7oT7EDsQnw44V4NISLj8jmOz/utsJJhcaEkVb5Ch8r2o9lL54slJjiy0H6eL//nbgiZHwKamlaDs+EcLHuXuBeNaOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bdVIkqhM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ci5NmWvn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 022191F000FF;
-	Mon, 21 Sep 2026 00:03:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bdVIkqhM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2A271F00899
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:13:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789948998;
-	bh=S/3h4uG1WsJcJUJEmT1KLuivMFU3+V8UfbgpCp24+A0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ci5NmWvn52JjWvQtKdSgQSq3QuMrxMlKXb9JliSm+ozvZe9Jcuvl7ezSRwxnoyKPN
-	 p49gUVhCPbysq8eNk0Nvhl3bSXvCDkaBtWqaJN/jkCgVB6WiE5ctrVySTtfMCV7ZEY
-	 dVKNdSViZ9b9QAW/zBki8VvRxOvmSlLU7tFgX56lKPCtc0srdLCEDN/KhNpDa4ztn6
-	 QD7TpEUgnKCH2VYzAv26nGKHLNnvO4p+7U9tBGIYv7H4omde86vPNf76Xb+726uGhK
-	 7Yc8akImBsfagGGVPreTA+AD2Iu7XxgQku/TvTQg7/n095C1W3wbF2uo3l0DK84dSY
-	 q27c6vFB5ho2A==
-Date: Sun, 20 Sep 2026 17:03:16 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: haghdoost@uber.com
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] perf script: Add --max-symbol-bytes to bound ELF
- symbol memory
-Message-ID: <arB0RCpi9szb5d_R@z2>
-References: <20260919-perf-symbol-memory-send-v2-0-495b8f00ad7c@uber.com>
- <20260919-perf-symbol-memory-send-v2-2-495b8f00ad7c@uber.com>
+	s=k20260515; t=1789949612;
+	bh=HLIBdJTyhNKEU8IfU998eafr8kKCVMQcTkJyIlWnSvY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=bdVIkqhMFVkB7TVrZddIKlNhMId7CVLPNFOIYhTBvMfZlq/+ND7W699t8IzRKRpgy
+	 Ycn5OZdY4+dgSygoENccSUhU327aIO3bl4msczwgTQNWIz/t2VoI+FRR+ZjqspGr2I
+	 aqguGuBXvR0MA8+3C9cFp1UWTpqxWWYVjEdFQ4Z+huLiaX5wFo1njy1A4BQ1IgdOPH
+	 bOdU0oA+12EaDez8p+g8+VcuyepChvAoZRLc+uexGe0BYlD+wbIecJ1SzaWgfQYkLJ
+	 sM16SDKdXJxCdXHHi0whETmv75bqS3r7Oyz3yUCEXyjs+ZvvGLHeLZ9SKOU6SYTZnD
+	 94E/Xy7BxNenA==
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43ac608dso17138137b3.3
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:13:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzyCggROBdUiJuShY9XIEuGfxIP7UqA+sk+XiLgc00ZMAAqZRB1QNRq4Ag+IgbPB27eEYvQr6k4Od1zJQs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJsODgK2GoaEMeUJtN1ZznBrrqNQ0KqNvI9lGFChX3wnNnpV8Y
+	rqLgA6rCkuXZMauQp/diDB11FlxQ0SO9VaIAruAEWn2weL16kS0BdfTPv0IW8hLIMfjJK+f7Fk+
+	J9NBuAW/HNuL77v2A99CrxRwRa9/gbKhlK36eKNC6Jg==
+X-Received: by 2002:a05:690e:4183:b0:671:27a:df14 with SMTP id
+ 956f58d0204a3-6717fc74349mr2563663d50.20.1789949611648; Sun, 20 Sep 2026
+ 17:13:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260919-perf-symbol-memory-send-v2-2-495b8f00ad7c@uber.com>
+References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+ <aqJXx2vtbKaRLt3x@fedora> <aqLZ5TVDAqEbIeMN@linux.dev> <aqP81aqNbwAbs2P0@fedora>
+ <aqQrPLPXHXiuKup0@linux.dev> <aqjcFb6MFNiA6n4V@fedora> <aqjpYHbZ14A8xRtK@fedora>
+ <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
+ <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
+ <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com> <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
+In-Reply-To: <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
+From: Chris Li <chrisl@kernel.org>
+Date: Sun, 20 Sep 2026 14:13:19 -1000
+X-Gmail-Original-Message-ID: <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
+X-Gm-Features: AcwNN1V4--hMjboOC0TrbzcbPbb8njndB64L4hTOvsdZJ08v_ItIqBCQ_Dg6snk
+Message-ID: <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Rik van Riel <riel@surriel.com>
+Cc: Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 19, 2026 at 07:33:57PM -0700, Alireza Haghdoost via B4 Relay wrote:
-> From: Alireza Haghdoost <haghdoost@uber.com>
-> 
-> perf script eagerly materializes every ELF symbol into an rb-tree kept
-> until process exit. Large profiles can therefore consume substantial
-> anonymous memory, causing perf script to be OOM-killed or forcing the
-> kernel to reclaim memory from co-located workloads.
-> 
-> This patch adds --max-symbol-bytes to bound struct symbol allocations.
-> Once the budget is reached, the ELF loader stops loading symbols, warns
-> once, and lets unresolved addresses appear as [unknown]. This allows
-> users to bound the memory footprint upfront and explicitly choose between
-> complete symbolization and avoiding unbounded host memory pressure. perf
-> record already provides a similar --max-size option to bound disk usage.
-> 
-> The counter includes every symbol__new() allocation, but this patch
-> enforces the limit only in the ELF loader, which is the source of the
-> unbounded memory growth addressed here. In this path, reaching the limit
-> can safely produce [unknown] symbols. Other loaders currently treat a
-> failed symbol allocation as an error. Capping those paths would therefore
-> require separate changes whose complexity may outweigh the potential
-> memory savings.
-> 
-> The cap applies to userspace DSOs, vmlinux-as-ELF, and kernel modules.
-> Sizes require a B/K/M/G suffix, except that a bare 0 and the default mean
-> unlimited. Reservations are atomic so concurrent loaders cannot exceed the
-> limit; accounting retains complete name lengths and partial zero-sized
-> symbol ranges do not cover omitted addresses.
-> 
-> Document the option with the code that introduces it and add focused
-> accounting and concurrent-reservation tests.
-> 
-> Signed-off-by: Alireza Haghdoost <haghdoost@uber.com>
-> ---
-[SNIP] 
-> diff --git a/tools/perf/util/symbol.h b/tools/perf/util/symbol.h
-> index 46b1649c64fc..f7331edf0b71 100644
-> --- a/tools/perf/util/symbol.h
-> +++ b/tools/perf/util/symbol.h
-> @@ -90,7 +90,7 @@ struct symbol {
->  	u64		start;
->  	u64		end;
->  	/** Length of the string name. */
-> -	u16		namelen;
-> +	u32		namelen;
+On Sat, Sep 19, 2026 at 12:50=E2=80=AFPM Rik van Riel <riel@surriel.com> wr=
+ote:
+>
+> On Sat, 2026-09-19 at 11:21 -1000, Chris Li wrote:
+> > On Sat, Sep 19, 2026 at 6:16=E2=80=AFAM Rik van Riel <riel@surriel.com>
+> > wrote:
+> > >
+> >
+> > > However, I believe we do need to take care that
+> > > whatever design we go with is actually able to
+> > > support the end user functionality we want.
+> >
+> > Agree. I want to add that we should support new functionality without
+> > sacrificing existing user functionality.
+> >
+> That means things need to work both for users
+> who want to configure a zswap size, and for
+> those who do not.
 
-Why is this needed?  Do you have symbols with a really long name?
-Anyway, it should be a separate change then.
+Sure, I don't think it needs a syscall like UAPI. But I do want a
+kernel config for the power user who knows exactly what swap VMA limit
+e.g., the % ratio to RAM or the ceiling=E2=80=94they need to use. The rest =
+can
+use MAX. VMA is a resource, I don't want unnecessary waste large
+amount of VMA address. Other use cases legitimately require a large
+VMA. So, power users should be able to set the limit if they know
+exactly what they want.
 
-Thanks,
-Namhyung
+> The cgroup memory.swap.max is an existing
+> interface that does that on a per cgroup
+> basis for swap, though in practice the
+> limit mostly seems to be set to 0 (no swap),
+> or to max (no limit).
 
+Ack.
 
->  	_Atomic uint16_t flags;
->  	/** Architecture specific. Unused except on PPC where it holds st_other. */
->  	u8		arch_sym;
-> @@ -227,6 +227,12 @@ void symbol__elf_init(void);
->  int symbol__annotation_init(void);
->  
->  struct symbol *symbol__new(u64 start, u64 len, u8 binding, u8 type, const char *name);
-> +struct symbol *symbol__new_bounded(u64 start, u64 len, u8 binding, u8 type,
-> +				  const char *name, bool *budget_exceeded);
-> +size_t symbol__bytes_used(void);
-> +void symbol__account_bytes(size_t bytes);
-> +bool symbol__try_account_bytes(size_t bytes);
-> +void symbol__unaccount_bytes(size_t bytes);
->  size_t __symbol__fprintf_symname_offs(const struct symbol *sym,
->  				      const struct addr_location *al,
->  				      bool unknown_as_addr,
-> diff --git a/tools/perf/util/symbol_conf.h b/tools/perf/util/symbol_conf.h
-> index 71f60081a85b..6a16c5badd5e 100644
-> --- a/tools/perf/util/symbol_conf.h
-> +++ b/tools/perf/util/symbol_conf.h
-> @@ -120,6 +120,7 @@ struct symbol_conf {
->  	int		pad_output_len_dso;
->  	int		group_sort_idx;
->  	int		addr_range;
-> +	unsigned long	max_symbol_bytes;
->  	DECLARE_BITMAP(parallelism_filter, MAX_NR_CPUS + 1);
->  };
->  
-> 
-> -- 
-> Git-157)
-> 
-> 
+>
+> memory.zswap.max does the same on the zswap
+> side, again mostly 0 or max are used.
+
+Ack
+
+> Are you saying you rely on having something
+> like that at the system level, too?
+
+That is not what I have in mind. The example I have in mind is that
+zswap is charged to swap counters. Changing that behavior will break
+our current deployment and that of many other. Kairui give some
+example as well. That behavior should not change.
+
+Chris
