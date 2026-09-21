@@ -1,235 +1,166 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76CF4477288;
-	Mon, 21 Sep 2026 10:40:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B38AF477985;
+	Mon, 21 Sep 2026 10:40:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789987205; cv=none; b=OBSvxrCVLIxc70Af2vxQy/9x/PJfFSa7kfq72xx7UtTesHChJCUzXynqpBV3pfOGUR937DXuDGYnNq8cLLX+it0Zy5tv4Zt41312DWjnxfwXV806d2s9hqNfymJp9SaIishs8tIIu3LRHDZ+kHsxQ7ewekNNXsQP6NDGPC9Curg=
+	t=1789987216; cv=none; b=KgJXtZDG5xdTh4usXWwRsg7EZShjuiiSl8ireJSr3+IHSBeS2kVzqRTfkhO+EHtNn7hzBTXONKxe/KvuL/PEqrsfcPGzFn4ztZvDlMg6K61XfWoQSS3e5GBqyPli3Od23lwSrwj3KfAfjAHj10bI8NfxB8TQwksrf3pnDHAZflc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789987205; c=relaxed/simple;
-	bh=Ad6fpYFCwCgyEm0jJN8fMhX4f6iQUwkGcN+NiWPLSVk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=rYAZRhW8uy3Fqf0vPsmmC82dGp4nAo/+OOq7HcOm8N+EeQBYieF/wWjaAEIB0DK3xD4ildfUwG5DR2SbHRsbiCAkuvZQsTIlQcMRNeDxb+YyhaMgR2nddGZINlBBtKl0cQFVHNTVqLiO8Fch6i9KOifzSIQuNDP3dX9rVS/8RSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ir2w5z8T; arc=none smtp.client-ip=192.198.163.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789987216; c=relaxed/simple;
+	bh=eEcKOlvZviz+OS9o/BwOzLKaVMvfJZjmjmnn1tcF9Dk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=iQ/VXYuA/PhTIKY/PQ/oZjAYu5WerodHOSn5moohYNu2sPd+vWQZglBybQfiVbdfOQoO/Avl6tCDtwWsyhOfV9J4Wd/E/E0T3QLt/jYDC6XqScDjI/bnY2SA1Co/649TGpl+ZlR6+Uqr4ZlB/fLbG8v/b4AfL8wdF1xx7zI+Hpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cxFF/tSG; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ir2w5z8T"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789987203; x=1821523203;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=Ad6fpYFCwCgyEm0jJN8fMhX4f6iQUwkGcN+NiWPLSVk=;
-  b=ir2w5z8TgDaPas7SLM6wc8jMMERmefrnYrE5hebZc1ETFnv6Ntlb+85I
-   gbLrSXzGt/TzgQxeSVX3xmY1jQqvjwn5uddHolZAcLoB+j26U0C3/7eKp
-   E3n64edPJlpaRhEGSiBs8PJRbNeQY4yexFcmm63SNyQ53xFX0gv7cDPKZ
-   FhnKE9561sBoAI9DRTSirY7aT3m25Z1XQP69I9hy4+c18L2br4S3V1DQs
-   FRpdPpJlNLqkCOOA9c10zFQxP8nVCX220Ey0HdAzSnRcQmP+qGE7582no
-   oLKDmDyp61RSREnVPGFtAdBsUQQ26MvqJ451QPgmDBql4bWl+y/baTjvi
-   g==;
-X-CSE-ConnectionGUID: WJ0p+OgrRaGD6hY7MKVUWg==
-X-CSE-MsgGUID: qAbrOtEzRbiy4/SStXSD9Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="995193"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="995193"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 03:40:02 -0700
-X-CSE-ConnectionGUID: 8+XazXeCTmuTJA6Wr/tqcA==
-X-CSE-MsgGUID: mZc7qbq5SBS9jMbwFfsXTg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="269116455"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.180])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 03:40:00 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Hui Peng <benquike@gmail.com>, bhelgaas@google.com, airlied@redhat.com
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI/VGA: fix inverted vga_tryget() return check and
- clear removed pci_dev
-In-Reply-To: <20260919222629.3798073-1-benquike@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260919222629.3798073-1-benquike@gmail.com>
-Date: Mon, 21 Sep 2026 13:39:54 +0300
-Message-ID: <21d4bbfe6facdf2f88b09b277bddfe0afff5e5a4@intel.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cxFF/tSG"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 80E08143D;
+	Mon, 21 Sep 2026 03:40:10 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0873E3F86C;
+	Mon, 21 Sep 2026 03:40:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789987214; bh=eEcKOlvZviz+OS9o/BwOzLKaVMvfJZjmjmnn1tcF9Dk=;
+	h=From:Subject:Date:To:Cc:From;
+	b=cxFF/tSGwTcESPt9tUIXLn3H7uhf+uCAjIwP7McoYDbOsQBDRzTAX7SmD6twC8pxs
+	 1HQpTH86CFYuSSZssbRhPF3JgMYwLeueYu2ZAOR3nPTwmksvPSuWQJpuqjYi0+EprN
+	 yaqf0hKMB9bhcmXvgx7E2n44EEdKKo6YC227yiw0=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Subject: [PATCH v7 0/3] kselftest: mm: fix some failure of
+ split_huge_page_test
+Date: Mon, 21 Sep 2026 11:40:06 +0100
+Message-Id: <20260921-fix_split-v7-0-d25ec991159f@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAIYJsWoC/23OwW7DIAwG4FepOI/JGAPOTnuPapoChRZpbSqoo
+ k5V3n2klxGpx9/298sPUWPJsYqP3UOUOOeap0sL7m0nwmm8HKPMh5YFAlpgBJny/btef/JNJqJ
+ BDzEQeRbt/lpiWz679l8tn3K9TeX3WT2rdfqqZVYS5OhJQzAcXEifYzm/h+ks1o5Z9457p5vTj
+ gDRsB3Jbx39uwGwd9QcmwR6AJOcV1tneud6Z1aH6FkBGfZh62znFPXONqdsPDiFmgG6P5dl+QM
+ 5aGsZgAEAAA==
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
+ Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Yeoreum Yun <yeoreum.yun@arm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4056; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=eEcKOlvZviz+OS9o/BwOzLKaVMvfJZjmjmnn1tcF9Dk=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqsQmISXAW5/OuRPdd3iSJezNDNx8zKcSXlaZRY
+ c1lFqUQpAuJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCarEJiAAKCRBt1cPRWsUx
+ M/pUC/4qHK7/4NifLumv1mggmsHkyq908VAh96FDwf0nywEkR8pjtcGnIf/fI2YGpxVdKtBX21L
+ IpYF3NZsWt0nkk3Jgjr5HWuMtLJCkIJS14L6QUWdr5dRbOpSRMHny/zYlAhu2QYQk7XW4vJu9Fz
+ LbuGyQG7Xy/41PPJAROx5cwaZbRuSj21onU4bA8HNvR4yVpU5nSSrIxshpLh6gvn37pAFaxh9q+
+ 1EvqLZRGrDpRRytPx1/Z3fwdAMpgkylG5vvdw0QrSYTlaMn0XYBMOkwxZ8IPbKFydq10LRd3n3X
+ ORDsDjBBTcS5QgLiZaMIgNlv8zi0c62s+mUpIdL20LCdXgulKh1HlnW4tq3eohjnCI9jBwuooWK
+ jL5b1SN9aOMHi0b524cXyrGyx8SfSCxkvPyazjszWXxxpiUoY6/8kELI53Y99d/sIOMsj8Yev/b
+ TRWmuUI1HFUPvwZbhcJINU9BD9ariMxFN0VQjL1Rbbos3vi+6YOtk0Pxf2P1pBXQhPLTw=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-On Sat, 19 Sep 2026, Hui Peng <benquike@gmail.com> wrote:
-> Fix two issues in drivers/pci/vgaarb.c:
+split_huge_page_test can fail for the following reasons:
 
-One change per patch, please.
+  1. During the test, khugepaged may collapse previously split pages again,
+     causing intermittent failures.
 
->
-> 1. In vga_arb_device_init() / vga_arbiter_From_pci_dev(), vga_tryget()
->    returns 0 on success and a negative errno on failure, so checking if
->    (!vga_tryget(...)) is inverted and skips unlocking on success.
-> 2. In vga_arbiter_del_pci_device(), clear any open vga_arb_user_init
->    priv->target references pointing to the removed pci_dev so subsequent
->    writes or close() on /dev/vga_arbiter do not dereference a freed
->    pci_dev.
->
-> Fixes: 1d38fe6ee6a8 ("PCI/VGA: Move vgaarb to drivers/pci")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
-> index 3de05aee7859..4f13e542505a 100644
-> --- a/drivers/pci/vgaarb.c
-> +++ b/drivers/pci/vgaarb.c
-> @@ -818,11 +818,33 @@ static bool vga_arbiter_add_pci_device(struct pci_dev *pdev)
->  	return false;
->  }
->  
-> +#define MAX_USER_CARDS         CONFIG_VGA_ARB_MAX_GPUS
-> +#define PCI_INVALID_CARD       ((struct pci_dev *)-1UL)
-> +
-> +/* Each user has an array of these, tracking which cards have locks */
-> +struct vga_arb_user_card {
-> +	struct pci_dev *pdev;
-> +	unsigned int mem_cnt;
-> +	unsigned int io_cnt;
-> +};
-> +
-> +struct vga_arb_private {
-> +	struct list_head list;
-> +	struct pci_dev *target;
-> +	struct vga_arb_user_card cards[MAX_USER_CARDS];
-> +	spinlock_t lock;
-> +};
-> +
-> +static LIST_HEAD(vga_user_list);
-> +static DEFINE_SPINLOCK(vga_user_lock);
-> +
->  static bool vga_arbiter_del_pci_device(struct pci_dev *pdev)
->  {
->  	struct vga_device *vgadev;
-> +	struct vga_arb_private *priv;
->  	unsigned long flags;
->  	bool ret = true;
-> +	int i;
->  
->  	spin_lock_irqsave(&vga_lock, flags);
->  	vgadev = vgadev_find(pdev);
-> @@ -845,6 +867,21 @@ static bool vga_arbiter_del_pci_device(struct pci_dev *pdev)
->  	wake_up_all(&vga_wait_queue);
->  bail:
->  	spin_unlock_irqrestore(&vga_lock, flags);
-> +	if (ret) {
-> +		spin_lock_irqsave(&vga_user_lock, flags);
-> +		list_for_each_entry(priv, &vga_user_list, list) {
-> +			if (priv->target == pdev)
-> +				priv->target = PCI_INVALID_CARD;
-> +			for (i = 0; i < MAX_USER_CARDS; i++) {
-> +				if (priv->cards[i].pdev == pdev) {
-> +					priv->cards[i].pdev = PCI_INVALID_CARD;
-> +					priv->cards[i].io_cnt = 0;
-> +					priv->cards[i].mem_cnt = 0;
-> +				}
-> +			}
-> +		}
-> +		spin_unlock_irqrestore(&vga_user_lock, flags);
-> +	}
->  	kfree(vgadev);
->  	return ret;
->  }
-> @@ -1025,27 +1062,6 @@ EXPORT_SYMBOL(vga_client_register);
->   * the arbiter.
->   */
->  
-> -#define MAX_USER_CARDS         CONFIG_VGA_ARB_MAX_GPUS
-> -#define PCI_INVALID_CARD       ((struct pci_dev *)-1UL)
-> -
-> -/* Each user has an array of these, tracking which cards have locks */
-> -struct vga_arb_user_card {
-> -	struct pci_dev *pdev;
-> -	unsigned int mem_cnt;
-> -	unsigned int io_cnt;
-> -};
-> -
-> -struct vga_arb_private {
-> -	struct list_head list;
-> -	struct pci_dev *target;
-> -	struct vga_arb_user_card cards[MAX_USER_CARDS];
-> -	spinlock_t lock;
-> -};
-> -
-> -static LIST_HEAD(vga_user_list);
-> -static DEFINE_SPINLOCK(vga_user_lock);
-> -
-> -
->  /*
->   * Take a string in the format: "PCI:domain:bus:dev.fn" and return the
->   * respective values. If the string is not in this format, return 0.
-> @@ -1168,7 +1184,7 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
->  		}
->  
->  		pdev = priv->target;
-> -		if (priv->target == NULL) {
-> +		if (priv->target == NULL || priv->target == PCI_INVALID_CARD) {
->  			ret_val = -ENODEV;
->  			goto done;
->  		}
-> @@ -1215,7 +1231,7 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
->  		}
->  
->  		pdev = priv->target;
-> -		if (priv->target == NULL) {
-> +		if (priv->target == NULL || priv->target == PCI_INVALID_CARD) {
->  			ret_val = -ENODEV;
->  			goto done;
->  		}
-> @@ -1266,12 +1282,12 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
->  		 */
->  
->  		pdev = priv->target;
-> -		if (priv->target == NULL) {
-> +		if (priv->target == NULL || priv->target == PCI_INVALID_CARD) {
->  			ret_val = -ENODEV;
->  			goto done;
->  		}
->  
-> -		if (vga_tryget(pdev, io_state)) {
-> +		if (vga_tryget(pdev, io_state) == 0) {
->  			/* Update the client's locks lists... */
->  			for (i = 0; i < MAX_USER_CARDS; i++) {
->  				if (priv->cards[i].pdev == pdev) {
-> @@ -1335,7 +1351,8 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
->  		for (i = 0; i < MAX_USER_CARDS; i++) {
->  			if (priv->cards[i].pdev == pdev)
->  				break;
-> -			if (priv->cards[i].pdev == NULL) {
-> +			if (priv->cards[i].pdev == NULL ||
-> +			    priv->cards[i].pdev == PCI_INVALID_CARD) {
->  				priv->cards[i].pdev = pdev;
->  				priv->cards[i].io_cnt = 0;
->  				priv->cards[i].mem_cnt = 0;
-> @@ -1366,7 +1383,7 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
->  			goto done;
->  		}
->  		pdev = priv->target;
-> -		if (priv->target == NULL) {
-> +		if (priv->target == NULL || priv->target == PCI_INVALID_CARD) {
->  			ret_val = -ENODEV;
->  			goto done;
->  		}
-> @@ -1429,7 +1446,7 @@ static int vga_arb_release(struct inode *inode, struct file *file)
->  	list_del(&priv->list);
->  	for (i = 0; i < MAX_USER_CARDS; i++) {
->  		uc = &priv->cards[i];
-> -		if (uc->pdev == NULL)
-> +		if (uc->pdev == NULL || uc->pdev == PCI_INVALID_CARD)
->  			continue;
->  		vgaarb_dbg(&uc->pdev->dev, "uc->io_cnt == %d, uc->mem_cnt == %d\n",
->  			uc->io_cnt, uc->mem_cnt);
+  2. Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
+     glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
+     made by memalign(). The underlying VMA may start at a different address
+     from the aligned address returned by memalign(). Moreover, a subsequent
+     madvise(MADV_HUGEPAGE) call does not split the VMA because it already
+     has the same advice.
 
+     This causes the test to fail because the check_huge_xxx() helpers
+     incorrectly require the address returned by memalign() to match the
+     VMA start address reported in /proc/self/smaps.
+
+Address these issues by applying MADV_NOHUGEPAGE after faulting in the
+huge page, preventing khugepaged from collapsing it again, and instead of
+relying on /proc/self/smaps, use /proc/self/pagemap and
+/proc/kpageflags to detect huge-page mappings and large folios:
+
+  1. If hpage_size == pmd_pagesize, check PAGE_IS_HUGE instead of
+     using check_large_folios(), since only the mapping type matters.
+     This identifies PMD-mapped huge pages.
+  2. Otherwise, use check_large_folios() to detect large folios. This
+     covers mTHP cases.
+  3. Check the folio flags according to the type of huge page.
+
+Since check_huge_shmem() was required to distinguish shmem huge pages
+because /proc/self/smaps reports them using a dedicated “ShmemPmdMapped”
+entry, as opposed to “FilePmdMapped” for file-backed huge pages.
+
+Now that /proc/self/smaps is no longer used to detect huge pages and
+/proc/kpageflags is used instead, it is sufficient to distinguish
+ between file-backed and anonymous pages since the ShmemPmdMapped is also
+kind of file-backed.
+
+Therefore, remove check_huge_shmem() and use check_huge_file() instead.
+
+This patch based on mm-unstable
+
+---
+Changes in v7:
+- change khugepaged's check_huge() callback.
+- Link to v6: https://lore.kernel.org/r/20260914-fix_split-v6-0-16ed7123800b@arm.com
+
+Changes in v6:
+- drop alloc_isolated_mem() patch.
+- remove check_huge_shmem().
+- Link to v5: https://lore.kernel.org/r/20260907-fix_split-v5-0-822b810458bc@arm.com
+
+Changes in v5:
+  - rename madv_nohuge() to disable_khugepaged().
+  - Link to v4: https://lore.kernel.org/r/20260902-fix_split-v4-0-85f03905f7b1@arm.com
+
+Changes in v4:
+  - reparse commit message.
+  - introduce alloc_isolated_mem().
+  - make madv_nohuge() helper according to suggestion.
+  - Link to v3: https://lore.kernel.org/r/20260828-fix_split-v3-0-374022586a4b@arm.com
+
+Changes in v3:
+  - change  message in case of failure of madvise() with MADV_NOHUGEPAGE.
+  - fix collapse_single_mthp (mthp_khugepaged:anon) test case failure.
+  - Link to v2: https://lore.kernel.org/all/20260826-fix_split-v2-0-71153c7f579a@arm.com/
+
+Changes in v2:
+  - rebase to mm-unstable.
+  - add message in case of failure of madvise() with MADV_NOHUGEPAGE.
+  - fix wrong setup expected_huge in check_huge_shmem().
+  - Link to v1: https://lore.kernel.org/r/20260820-fix_split-v1-0-ab430c58c7cf@arm.com
+
+---
+Yeoreum Yun (3):
+      kselftest: mm: prevent random failure of huge page split for khugepaged
+      kselftest: mm: replace usage of /proc/self/smaps for check_huge_xxx() helper
+      kselftest: mm: remove check_huge_shmem()
+
+ tools/testing/selftests/mm/folio_split_race_test.c |   2 +-
+ tools/testing/selftests/mm/khugepaged.c            |  38 +-----
+ tools/testing/selftests/mm/split_huge_page_test.c  |  19 +++
+ tools/testing/selftests/mm/uffd-common.c           |   4 +-
+ tools/testing/selftests/mm/vm_util.c               | 134 ++++++++++++---------
+ tools/testing/selftests/mm/vm_util.h               |   1 -
+ 6 files changed, 108 insertions(+), 90 deletions(-)
+---
+base-commit: 8d61431ed2607386b427752505379536eb634ce8
+change-id: 20260820-fix_split-f44939ec44b8
+
+Best regards,
 -- 
-Jani Nikula, Intel
+Sincerely,
+Yeoreum Yun
+
