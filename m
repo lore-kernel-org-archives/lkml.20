@@ -1,149 +1,96 @@
-Received: from mail-pz2-f30.google.com (mail-pz2-f30.google.com [74.125.228.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from 0001.3ffe.de (0001.3ffe.de [159.69.201.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4D749B5C2
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:12:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 490B349B5A8;
+	Mon, 21 Sep 2026 13:16:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.201.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789996333; cv=none; b=TPFq2IY3MzgViRrJ6YqXDJtaBAWzsKcmKEZzHYvj/e41dgZsr2LZ3QEe91dfCF4s0cu4NOspad1m8C4LNtIFDBi3Ggc43pAYpWOlx0ERgTvPbgqDz4kxjet1PFLooj1OeFwsG1sjd1bXJqgAlh7pMlHtUECYhVq4EZ4onaYOcE8=
+	t=1789996593; cv=none; b=QVKF33g7K9vtr/lVw+7hSk87+WfJm0/r8/IV3AwlJ2ONOik3EyrSLC3ioYAX2QT10RKJK8W3UeumdyhL+bLabO94wx4CaV3FuaffPw85NZX/Xl2/hdlAA+vIzqXlXZY0rKKDT9RCgKfUiUpgw14g5DrXFtmi2e3N7z0DawE5C8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789996333; c=relaxed/simple;
-	bh=AFgNBwvwdGEA1hIWTb2ReJBXMJQxyeIVF0mRhsIn2yo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CvqAJQ0/3MbjOtLEAFLxsk5qO38K4bKBTtPdyembJziuT3Qcfs+NggkCD3ddf0z1B3QwVRF0BlWXNYkT99h4EXbe+KUIC2LVbxRGKW2D3yXKW4b7CL4fWHKXosPqrKuzH+uuEGfPpRFo8j+nGD/XdrAfbYptj9QLBwXz2aDBBQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f3Mho3pT; arc=none smtp.client-ip=74.125.228.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789996593; c=relaxed/simple;
+	bh=Vwy7iikQgD3bQ5BZWAePIlG229Fy30hLIygNDM0Q1Rw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
+	 References:In-Reply-To; b=cKuw17a3BllW+dtf8yZ25QYDTbi0xOjT68IXXB+4jAPnrpM7DfWYWEnZtbFdqhrQKOdla3k/bsn3B4eApc64bvXT5TzgdjyB8dFZFCXZZax+IwHGLCWzN0aPhcNVeyvWJqW7g/15BggZDOWqdZ7+FDzhpGjA0yqS5RmDGq3XafA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=walle.cc; spf=pass smtp.mailfrom=walle.cc; dkim=pass (2048-bit key) header.d=walle.cc header.i=@walle.cc header.b=QkziG/3J; arc=none smtp.client-ip=159.69.201.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=walle.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=walle.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f3Mho3pT"
-Received: by mail-pz2-f30.google.com with SMTP id 41be03b00d2f7-cc1cea50dc0so1231616a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:12:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789996331; x=1790601131; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ig7/HqBzfoSVv6fdudTalNiMgAfFIlYLiYgMPPiaeeI=;
-        b=f3Mho3pTrZgkXECxtmiPpJmQJQZ1bToxGgxcFY1lG45JZyl+XBKPJOiT6yASo1CCEQ
-         OQwuYXSRQgNXuArHoJbwrrKgCCncbpkquTlFsrnSAgUlyS1zHnbBeXe8UA2z1RzIZhA0
-         qZksvCQmjzNMTax8hQsMoU4Vp9V86Xqa2TibwD2BTMOG7i3nvvXSTUTPou5qxn6QXrre
-         P+5dJnddPYWERfs/0jyKicUqrBCY9ev2dwMNV8Dl3T9E5vMt8Sg5u0bJFv/HKqSz0cIf
-         rU6eJgk9ek6DGw20UGY/WP6ua6nFXypT04OvTaJ7Dih3Rz3mPZ2wM1pE+GeZ7Ua145hP
-         Yrdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789996331; x=1790601131;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ig7/HqBzfoSVv6fdudTalNiMgAfFIlYLiYgMPPiaeeI=;
-        b=Qhxt1O83HTESNaJWQ0ZvXyijmWHj51gloQl1IePW83U+7/mgzyHfF126QJ78iVs/Ev
-         a2slABbnVLdrr7xfzF86KibmX38SNfmuMYSqg4TtmB9Z7PZjYVEH21u+aHtmCbVeXIcU
-         x2cfM6dT9RTH8oVqOUd0XRfeo7Ycakpe1dtrrgieStLWu7AsRJzD3PxyRbv8UXZNEdnV
-         gmWlkEVVTguZWk2NxpYZDqRuJ4vhTMLSclM/clcqcvYdI+xfnpKsKDoRgksVRrNkKVOa
-         9LakPjGwrCLNq/yomsHWyXCXB2YN/9g4yH/ARI+0UHCS2uaIW2AaeH3lr/zZgHyU4jSY
-         qLew==
-X-Forwarded-Encrypted: i=1; AKwUvByv93DbZ8IRVO8mjdiDF/4YS8AyZnCGkTlfP3yNxIR3+3AFDbnrDNH7Nlwvozmp0jF/AY6Eb2sr7UY/O9w=@vger.kernel.org
-X-Gm-Message-State: AFuF++moQlDJxsoefHt5C8IAquTNBLk6UYd6BRj7fHuNLy+PB0ociqsD
-	4EyKV8fO5zbfaE4GdP475Z4OKtHt4+Mc7NAiIAbuDtvP2k7mIuLoWKqk
-X-Gm-Gg: AYBFou3zmjDTkaAiyx6NaV5wJi1+YVs7HW9kMK1X9XZ7Ki+tBZBx+HIBMlLffc00ovD
-	pxoVbtufRC5+8vEFTWolOdye6tJvhLLVm3mhKv4iRocZfiPCow/5XOOYnGGnIHr2lmt2oKp/x7f
-	Ys80GL9w1wAUgwrq7HOB1dnbXVpwXy36I+5ovxIT8WjlbwWdlkW/c0cdiWoHs+0AEqW6mlgRCQt
-	/o6oi1bC+/beTkE0aysYHrBa3pZ4oc1O0hbsJB3w8WZU2GLMV7L2pLM+T9jSP03zH+ztOgiBeLC
-	7hKLueOInWNB++PWnQS1TA0VE47pN9mnWO8hWZBGxd4ljobxGdHmMtHBG8TZUpOkf0aTcUZ4One
-	7BE4NBf8//CRTsZAjh+lFyU7PdeFEmcBel/Apn/NbKVqD7no6io+f62JyUciVukL8DJzI5HXAaN
-	iG5J3K0/5JO1RM/p/eE+g2G8OgjaCi0f4s/CbhLnigYdxjFb9NCFt7rPQKzmKPcawM
-X-Received: by 2002:a17:90b:554b:b0:39e:6c6a:4b64 with SMTP id 98e67ed59e1d1-39e6c6a5438mr8799720a91.46.1789996330968;
-        Mon, 21 Sep 2026 06:12:10 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a063bcecc6sm80447a91.12.2026.09.21.06.12.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 06:12:07 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	"Nancy.Lin" <nancy.lin@mediatek.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/mediatek: fix ovl adaptor platform device leak
-Date: Mon, 21 Sep 2026 21:11:56 +0800
-Message-ID: <20260921131156.403652-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=walle.cc header.i=@walle.cc header.b="QkziG/3J"
+Received: from localhost (unknown [213.135.10.150])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.3ffe.de (Postfix) with ESMTPSA id 0178042D;
+	Mon, 21 Sep 2026 15:16:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc; s=mail2022082101;
+	t=1789996590;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DetP18Q3F5Qy8qOHacqW0nR2X6Tj/3bujsBkITQAtBA=;
+	b=QkziG/3JtLzslZEjZyidfzcMcsDU1U2gHbWNCUb5Xa0LArR8od+VuLfz19G2/63zzisVJo
+	fmF+OXlCfLPZkjRwHChfxIgq5PKReYjpZ9c3e8xyXgj5317/WFdinzHZOaxK3fC6Wv56Iz
+	w7ArbFfiSHxWX3fASKQ8LHDm/Z9I0yyjz9TyCK5Wxv/ByaB0S3R6Ti2an6D6LzCJ/r2s2Z
+	eaNkGOrZP9WrVqNwgrydhN7EH+D+YpbVRx7eX1YLYAkTM+xvA8ugZOCnNUIK4syKxzPnBp
+	I78cTT1gf400oVtfXVFZlCaflwq5V10SaHwWX1FSm1vS7pEuAsoEw3CG6JEVeQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=c9d24f83f23e2edfc9d90c2c898338cc459c7915a06afe5933f249ce504e;
+ micalg=pgp-sha384; protocol="application/pgp-signature"
+Date: Mon, 21 Sep 2026 15:16:27 +0200
+Message-Id: <DLL0U0B337I6.AI24GMAN59FN@walle.cc>
+Subject: Re: [PATCH v7 10/15] gpio: pl061: convert to gpio-regmap and a
+ custom irqchip
+Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Michael
+ Turquette" <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>,
+ "Jerome Brunet" <jbrunet@baylibre.com>, "Linus Walleij"
+ <linusw@kernel.org>, "Bartosz Golaszewski" <brgl@kernel.org>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "Jiri Slaby"
+ <jirislaby@kernel.org>, "Andy Shevchenko"
+ <andriy.shevchenko@linux.intel.com>, =?utf-8?q?Ilpo_J=C3=A4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>, "Catalin Marinas"
+ <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, "Long Zhao"
+ <zl020895@163.com>, "Lee Jones" <lee@kernel.org>, <mfd@lists.linux.dev>,
+ <devicetree@vger.kernel.org>, <linux-clk@vger.kernel.org>,
+ <linux-gpio@vger.kernel.org>, <linux-serial@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+From: "Michael Walle" <michael@walle.cc>
+To: <longzhao@ambarella.com>, "Arnd Bergmann" <arnd@arndb.de>, "Krzysztof
+ Kozlowski" <krzk@kernel.org>, "Alexandre Belloni"
+ <alexandre.belloni@bootlin.com>, <soc@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>
+X-Mailer: aerc 0.20.0
+References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
+ <20260915-cv75-v5-v7-10-3297d3fbc9c0@ambarella.com>
+In-Reply-To: <20260915-cv75-v5-v7-10-3297d3fbc9c0@ambarella.com>
 
-mtk_drm_probe() creates an OVL adaptor platform device with
-platform_device_register_data() when the display pipeline requires the
-OVL adaptor.
+--c9d24f83f23e2edfc9d90c2c898338cc459c7915a06afe5933f249ce504e
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-If a later initialization step fails, the probe error path releases
-the DRM resources without unregistering the already registered OVL
-adaptor device. The normal remove path likewise leaves the device
-registered after the DRM driver is unbound.
+On Tue Sep 15, 2026 at 1:15 PM CEST, Long Zhao via B4 Relay wrote:
+> +	config.reg_dat_base =3D GPIO_REGMAP_ADDR(regs->dat);
+> +	config.reg_set_base =3D GPIO_REGMAP_ADDR(regs->dat);
+> +	config.reg_dir_out_base =3D regs->dir;
 
-Keep track of whether the OVL adaptor was successfully registered and
-unregister it on probe failure. Also recover the platform device from
-the stored DDP component device and unregister it during normal
-removal.
+config.reg_dir_out_base =3D GPIO_REGMAP_ADDR(regs->dir);
 
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
+--c9d24f83f23e2edfc9d90c2c898338cc459c7915a06afe5933f249ce504e
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Fixes: 0d9eee9118b7 ("drm/mediatek: Add drm ovl_adaptor sub driver for MT8195")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpu/drm/mediatek/mtk_drm_drv.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index c86a3f54f35b..d176e6496aa7 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -1060,7 +1060,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
- 	struct mtk_mmsys_driver_data *mtk_drm_data;
- 	struct device_node *node;
- 	struct component_match *match = NULL;
--	struct platform_device *ovl_adaptor;
-+	struct platform_device *ovl_adaptor = NULL;
- 	int ret;
- 	int i;
- 
-@@ -1205,6 +1205,8 @@ static int mtk_drm_probe(struct platform_device *pdev)
- err_pm:
- 	pm_runtime_disable(dev);
- err_node:
-+	if (ovl_adaptor)
-+		platform_device_unregister(ovl_adaptor);
- 	of_node_put(private->mutex_node);
- 	for (i = 0; i < DDP_COMPONENT_DRM_ID_MAX; i++)
- 		of_node_put(private->comp_node[i]);
-@@ -1214,9 +1216,15 @@ static int mtk_drm_probe(struct platform_device *pdev)
- static void mtk_drm_remove(struct platform_device *pdev)
- {
- 	struct mtk_drm_private *private = platform_get_drvdata(pdev);
-+	struct device *ovl_adaptor_dev;
- 	int i;
- 
-+	ovl_adaptor_dev =
-+		private->ddp_comp[DDP_COMPONENT_DRM_OVL_ADAPTOR].dev;
-+
- 	component_master_del(&pdev->dev, &mtk_drm_ops);
-+	if (ovl_adaptor_dev)
-+		platform_device_unregister(to_platform_device(ovl_adaptor_dev));
- 	pm_runtime_disable(&pdev->dev);
- 	of_node_put(private->mutex_node);
- 	for (i = 0; i < DDP_COMPONENT_DRM_ID_MAX; i++)
--- 
-2.43.0
+iKcEABMJAC8WIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCarEuLBEcbWljaGFlbEB3
+YWxsZS5jYwAKCRASJzzuPgIf+IxAAYCOUetYEj05vb5mcfKxxZcArWJOU9zLHL1r
+Ce1TB0csezyqfYbCaGf0HO6KRvjd3lUBewa2+jLRtEnP71K1v/9VXbPr/fdO49oY
+WoJLneVfRBsoGhZUcSmwv5KuL6L0u+4QRQ==
+=Y/cv
+-----END PGP SIGNATURE-----
 
+--c9d24f83f23e2edfc9d90c2c898338cc459c7915a06afe5933f249ce504e--
