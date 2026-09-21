@@ -1,182 +1,160 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mta1.migadu.com (out-143.mta1.migadu.com [95.215.58.143])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A31635DA6A
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:48:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D763603D8
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:48:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.143
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789969707; cv=none; b=WvoBEEz3f2GjlYOoFV9hfAxgAwm+N4I/Eh4lMfUDUm8rcmst5KnHZWzlIS+1QUCHnd7qyxW5Z88A1U3jP8kqt5QaRCHRM3eu27j8HbdNmfdd7VaHrzmv890zdOIjbQt9YStlWneOOdflkFRru/1i/CsrqOrKr0tUwkPuJfSmoy0=
+	t=1789969722; cv=none; b=BZvJJMcXmjv1Jr+gi0QSSVakKllTvRgHW3+UJo7T2Txez55dZS5f7UQww/47/xGQ6LldjRaUbz8P3uU+z67RL0ASXLO3R1V4tv9C8d6eAqVNJPgdzE2pux2TCmYIizjgrHzOD4BaahxLUhpMYLr+mJIgBCFNiZQ21ZiYl5mhVHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789969707; c=relaxed/simple;
-	bh=8xMxHrMZKCLWCGtEEIoMvriov/njsTTmxt2LdeiMaus=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XtF49QCrqsLcickXzhEE65t92QiWkBlQslczeBvBhoieEpxeH7BNi8PRmKChDotN8aN4Yf5Z0E/PARdHozsxMYj6O7wtBCAdT2OU5Yco1/chQYyf2nlOlDAqFUlixYh8jnMVbMHhzohLzidsepzjCUSGIn0LMew7HLt/GNfONSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TDT/XQ1l; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789969722; c=relaxed/simple;
+	bh=jhV/vw4+vWN8dqMOnDQNzr0Wd/YKWAZ5SZrLjVrKgJI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H0cVQAOF2uo/Hsz/eMWc8KILNfN1RnRXiTVxhiFiIWPWtStJRHWuSuOvzdjgxsnKqAo+/G8JiSPb4e+jCmdgZ5ic3LhArRDAaACWVYvFBM9PmOGeY8U0fa/Y+bNEc9bpJkn1YKIEvpt/CYZDFbgb4Cdzv+5NARcG795HRm4REZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wsWyZ/it; arc=none smtp.client-ip=95.215.58.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TDT/XQ1l"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39dacf053eeso1821256a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:48:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789969706; x=1790574506; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XtXVDzTY65CAD90qKovN60KJ+n6IiEH3Afd2IJ+KCWA=;
-        b=TDT/XQ1lb0FF0Y08AP9AVy6AFcnOfHQIubQinRsgQdDZove8/2McJbXs6PnzK0NpPe
-         g/s8z7IrvuNVYpHjuol1qX/1xrC/vfRWwzq2SXXH7gnfN4Cs1aoCHzPVBXotIYIkVMfo
-         aXYbcFBzxFDPED3j/JSywl590SCu8MRgcdjHElL2vJpWhJ++qfbzexpRsnS3EQm5DMh5
-         sMlgE2MhtiwxvBqjdJInJlN1uG5TaA1gGCFPCmoN+2C3rjnIRYu44ZofJwkh2iEIv6td
-         4j/KA6uRFJ12g9mt6waezdAbjAhSiTmEZS0G2MizFEBEalfJ2B0k6fg0qmzX19JTTox1
-         Ws/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789969706; x=1790574506;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XtXVDzTY65CAD90qKovN60KJ+n6IiEH3Afd2IJ+KCWA=;
-        b=OIOaRlQX87lMMvofKRfKO9FOvd1WLFAzrm9FRk6ks9u1SrFasOW++Ua2o/kDS6yLgz
-         StyaQ3KFFBVYpz2Duud9sYTYgYekKBnwERVdF+waLApmiToYc0IOyiZ8zWf8/cYiKCTL
-         B2MlXinDBF1tw9ctubtCSBCzPJCAnp3PYJii0OoKc0r/bQERsZNetVdQhtE2ChyuH1VM
-         KH5Xt+qRK/DSd34CSkV1LRROUiAPBMznndG5ARZXj4wtSgQ/S/ECjyqcJfktmcbBMT1m
-         mggm5DYK5mOLqhGbzRPohec0LolwIODbU02th75dag2fJHrqF00dRI4M1tDpvOD8S8rF
-         lvpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwbyJOiQ+3fJiTzbAZU2LNkklAMKKmIAVAWu30Pa8emonlD4JZeA7E9IhgU9BwsibY9ilCZGoku/MMR1Eg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGjI6KgFmB/h6bbHXVFuUlyqABYI+xGB6+Ls5jk/TXwseyj3Tf
-	UEleBmEN9EY3Qja6n4t55N9WEIiYXFam0qGSMC6n/FTVF4k74i86WEox
-X-Gm-Gg: AYBFou10XdM2dSLltuwjmxIXnE5x8NowOOL7Eq1zLgyhUBWIVosy11mITYc63XO1z0M
-	pHqydjQJb9zshYytPs6CPBpL5kDRjuwFUZGCbReC5lVQN1IyakTWlzkK94xyAltxefhN8Gj3UGM
-	0NBVqxM3T87l8Ze6qy+3NUi3ph3MKUW4CChls56n8RAJDrsyqivTvkJ5EPjaaTYV8AuIwkh6YpD
-	wgY01wKsYR6p3/YkNFmFX44R2D/TNHE2d1W+TG9332t5EzW3NfRCLYa9ITbwVtApumg6anMvGTX
-	wp0vrVlCsbapI6qNgrjZP4C8cf0ndthnQLBSWuDlBUy5bh3pK5WKD1To8lcuMPYg+sawAmkif7D
-	PtolKLrhz5xPIGz3iDBfkI2BJQf0PXeNmShiruGvhWS/YhYshCqkPHE+FU1J4XdsuM2RfDAmFcA
-	0d5fNcXkjVKewHQVAkgPMLOr4yXzfavuM4oDvjaU9SLTL4FratZKz9TaNXHAv4NKw9d2JGljkQZ
-	NhnNBqOYOo7JBbxkN21QQqLr21GRFUXgqL5LKe7nSoelzhPteowDK24v7qBNaV8D49rD2Pof8IB
-	LoETR3EPFQ==
-X-Received: by 2002:a17:90b:384d:b0:39e:6c6a:4b67 with SMTP id 98e67ed59e1d1-39e6c6a5448mr8150645a91.49.1789969705649;
-        Sun, 20 Sep 2026 22:48:25 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cb372b7sm12640514a91.15.2026.09.20.22.48.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 22:48:25 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: kuniyu@google.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	willemb@google.com,
-	mhal@rbox.co,
-	jakub@cloudflare.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	benquike@gmail.com
-Subject: [PATCH net v2 2/2] af_unix: skip consumed OOB skb and pull consumed bytes in unix_stream_read_skb()
-Date: Mon, 21 Sep 2026 05:48:23 +0000
-Message-ID: <20260921054823.1822122-2-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <20260921054823.1822122-1-benquike@gmail.com>
-References: <CAAVpQUARH-vecUojrXJWHp_C_rCpyxkB-HMBhryfxB-S76BAiw@mail.gmail.com>
- <20260921054823.1822122-1-benquike@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wsWyZ/it"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jhV/vw4+vWN8dqMOnDQNzr0Wd/YKWAZ5SZrLjVrKgJI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789969718; v=1; x=1790574518;
+ b=wsWyZ/itCi6fu86wCCcJ0RZGEFvh1E6p15NlDx9Adkkv4ElC8H2tSzAL4teGcsjDOD6R85qz
+ ElMAx70yL56Y1inpsiwWZHt2hrRRGoQ/lXhLrDGO15qK0CXIIZPbnue43uUKvmPYjDQXRaCwlcP
+ 2RBx/KWVKMVfSuslG0ikOMXY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 417d6ee2dae11de6;
+	Mon, 21 Sep 2026 05:48:38 +0000
+X-Mizu-Trace-ID: 417d6ee2dae11de6
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 21 Sep 2026 13:48:34 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Wandun Chen <chenwandun1@gmail.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
+	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, robh@kernel.org,
+	saravanak@kernel.org, akpm@linux-foundation.org, rppt@kernel.org,
+	pasha.tatashin@soleen.com, pratyush@kernel.org,
+	m.szyprowski@samsung.com, mark.rutland@arm.com, kernel@xen0n.name,
+	alex@ghiti.fr, hpa@zytor.com, ruirui.yang@linux.dev,
+	robin.murphy@arm.com, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+	kexec@lists.infradead.org, linux-mm@kvack.org,
+	iommu@lists.linux.dev
+Subject: Re: [PATCH v6 02/10] riscv: build crash_mem ranges from memblock
+ instead of resource tree
+Message-ID: <arDFMqcUr6xkTn-h@fedora>
+References: <20260902073116.802752-1-chenwandun1@gmail.com>
+ <20260902073116.802752-3-chenwandun1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902073116.802752-3-chenwandun1@gmail.com>
 
-When an OOB byte is consumed via recv(MSG_OOB) in unix_stream_recv_urg(),
-u->oob_skb is cleared to NULL and UNIXCB(oob_skb).consumed is incremented
-to 1, but oob_skb remains on sk->sk_receive_queue (with unix_skb_len(skb)
-== 0) to preserve the OOB mark until normal reads advance past it.
-Similarly, a partial recv() in unix_stream_read_generic() advances
-UNIXCB(skb).consumed without pulling the skb header and leaves the
-partially consumed skb at the head of sk->sk_receive_queue.
+On 09/02/26 at 03:31pm, Wandun Chen wrote:
+> From: Wandun Chen <chenwandun@lixiang.com>
+> 
+> Replace walk_system_ram_res() with for_each_mem_range(). A later patch
+> introduces MEMBLOCK_NODUMP in memblock, the reserved-memory regions
+> marked with MEMBLOCK_NODUMP can be excluded from the vmcore by walking
+> memblock.
+> 
+> for_each_mem_range() iterates memblock.memory, which is freed after
+> init unless ARCH_KEEP_MEMBLOCK is selected. riscv needs ARCH_KEEP_MEMBLOCK
+> to filter reserved memory from the vmcore, so extend its condition
+> (ACPI || KEXEC) with CRASH_DUMP. arm64 and loongarch already select
+> ARCH_KEEP_MEMBLOCK unconditionally.
+> 
+> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
+> ---
+>  arch/riscv/Kconfig                     |  2 +-
+>  arch/riscv/kernel/machine_kexec_file.c | 31 ++++++++++----------------
+>  2 files changed, 13 insertions(+), 20 deletions(-)
 
-If the socket is subsequently read via unix_stream_read_skb() (used by
-BPF sockmap), unix_stream_read_skb() only checks skb == u->oob_skb
-(which is only true for an unconsumed OOB skb) and ignores
-UNIXCB(skb).consumed. As a result, a consumed OOB skb (unix_skb_len(skb)
-== 0) is handed to recv_actor() and re-delivers the already consumed OOB
-byte, and a partially consumed skb re-delivers its already consumed
-prefix.
+This looks good to me, FWIW,
 
-In unix_stream_read_skb(), skip and free zero-length consumed skbs (after
-calling unix_orphan_scm() so SCM_RIGHTS fd accounting remains balanced)
-and pull UNIXCB(skb).consumed bytes via pskb_pull() (which safely handles
-both linear and non-linear paged skbs) before invoking recv_actor().
+Acked-by: Baoquan He <baoquan.he@linux.dev>
 
-Tested in QEMU against Linux 7.3.0-rc3 with BPF_MAP_TYPE_SOCKMAP and a
-BPF_SK_SKB_STREAM_VERDICT program:
-1. Consuming a 1-byte MSG_OOB packet ("Z") before inserting the socket
-   into sockmap and sending "HELLO" re-delivers "ZHELLO" on the unfixed
-   kernel, whereas with this patch applied recv() receives "HELLO!".
-2. Consuming a 3-byte prefix ("123") of "12345678" before inserting the
-   socket into sockmap re-delivers "12345678" on the unfixed kernel,
-   whereas with this patch applied recv() receives "45678".
-
-Fixes: 77462de14a43 ("af_unix: Add read_sock for stream socket types")
-Fixes: 314001f0bf92 ("af_unix: Add OOB support")
-Fixes: 638f32604385 ("af_unix: Disable MSG_OOB handling for sockets in sockmap/sockhash")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
----
-Changes in v2:
-- Split out from the manage_oob() fix into patch 2/2 as requested by
-  Kuniyuki Iwashima.
-- Call unix_orphan_scm(sk, skb) before consume_skb(skb) when dropping a
-  zero-length consumed skb so u->scm_stat.nr_fds is decremented, and use
-  pskb_pull() instead of skb_pull() to safely handle non-linear paged
-  skbs without hitting BUG() in __skb_pull(), as noted by Sashiko.
-
- net/unix/af_unix.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
-
-diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
-index 1770af3c2684..f5d64e7b5c1c 100644
---- a/net/unix/af_unix.c
-+++ b/net/unix/af_unix.c
-@@ -2885,6 +2885,7 @@ static int unix_stream_read_skb(struct sock *sk, skb_read_actor_t recv_actor)
- 		return err;
- 
- 	mutex_lock(&u->iolock);
-+again:
- 	spin_lock(&queue->lock);
- 
- 	skb = __skb_dequeue(queue);
-@@ -2894,6 +2895,13 @@ static int unix_stream_read_skb(struct sock *sk, skb_read_actor_t recv_actor)
- 		return -EAGAIN;
- 	}
- 
-+	if (!unix_skb_len(skb)) {
-+		spin_unlock(&queue->lock);
-+		unix_orphan_scm(sk, skb);
-+		consume_skb(skb);
-+		goto again;
-+	}
-+
- 	WRITE_ONCE(u->inq_len, u->inq_len - unix_skb_len(skb));
- 
- #if IS_ENABLED(CONFIG_AF_UNIX_OOB)
-@@ -2913,6 +2921,14 @@ static int unix_stream_read_skb(struct sock *sk, skb_read_actor_t recv_actor)
- 
- 	mutex_unlock(&u->iolock);
- 
-+	if (UNIXCB(skb).consumed) {
-+		if (!pskb_pull(skb, UNIXCB(skb).consumed)) {
-+			kfree_skb(skb);
-+			return -ENOMEM;
-+		}
-+		UNIXCB(skb).consumed = 0;
-+	}
-+
- 	return recv_actor(sk, skb);
- }
- 
--- 
-2.49.0
+> 
+> diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+> index d6c2dbf8455c..1de14a2d5aba 100644
+> --- a/arch/riscv/Kconfig
+> +++ b/arch/riscv/Kconfig
+> @@ -58,7 +58,7 @@ config RISCV
+>  	select ARCH_HAS_UBSAN
+>  	select ARCH_HAS_VDSO_ARCH_DATA
+>  	select ARCH_HAVE_NMI_SAFE_CMPXCHG
+> -	select ARCH_KEEP_MEMBLOCK if ACPI || KEXEC
+> +	select ARCH_KEEP_MEMBLOCK if ACPI || KEXEC || CRASH_DUMP
+>  	select ARCH_MHP_MEMMAP_ON_MEMORY_ENABLE	if 64BIT && MMU
+>  	select ARCH_OPTIONAL_KERNEL_RWX if ARCH_HAS_STRICT_KERNEL_RWX
+>  	select ARCH_OPTIONAL_KERNEL_RWX_DEFAULT
+> diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
+> index 26cd2a8bd0cd..808e872f4063 100644
+> --- a/arch/riscv/kernel/machine_kexec_file.c
+> +++ b/arch/riscv/kernel/machine_kexec_file.c
+> @@ -37,39 +37,32 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
+>  }
+>  
+>  #ifdef CONFIG_CRASH_DUMP
+> -static int get_nr_ram_ranges_callback(struct resource *res, void *arg)
+> -{
+> -	unsigned int *nr_ranges = arg;
+> -
+> -	(*nr_ranges)++;
+> -	return 0;
+> -}
+> -
+>  unsigned int arch_get_system_nr_ranges(void)
+>  {
+>  	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* For exclusion of crashkernel region */
+> +	u64 i;
+> +	phys_addr_t start, end;
+>  
+> -	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
+> +	for_each_mem_range(i, &start, &end)
+> +		nr_ranges++;
+>  
+>  	return nr_ranges;
+>  }
+>  
+> -static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
+> +int arch_crash_populate_cmem(struct crash_mem *cmem)
+>  {
+> -	struct crash_mem *cmem = arg;
+> +	u64 i;
+> +	phys_addr_t start, end;
+>  
+> -	cmem->ranges[cmem->nr_ranges].start = res->start;
+> -	cmem->ranges[cmem->nr_ranges].end = res->end;
+> -	cmem->nr_ranges++;
+> +	for_each_mem_range(i, &start, &end) {
+> +		cmem->ranges[cmem->nr_ranges].start = start;
+> +		cmem->ranges[cmem->nr_ranges].end = end - 1;
+> +		cmem->nr_ranges++;
+> +	}
+>  
+>  	return 0;
+>  }
+>  
+> -int arch_crash_populate_cmem(struct crash_mem *cmem)
+> -{
+> -	return walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_callback);
+> -}
+> -
+>  static char *setup_kdump_cmdline(struct kimage *image, char *cmdline,
+>  				 unsigned long cmdline_len)
+>  {
+> -- 
+> 2.43.0
+> 
