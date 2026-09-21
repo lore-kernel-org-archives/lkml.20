@@ -1,233 +1,166 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013047.outbound.protection.outlook.com [40.93.201.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB1445041C
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:23:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789979028; cv=none; b=E1O9YBtAvxssP9/Zos5vNX5Hdt1LLi19Kc7MRFCcb0M5OYq/0qCvi0nN/eRosBvd2azZLBeDcHdZDHQaZs2Jf6TBqI2rnBCeG7afXOkqYf3LDD8os5QEoGI1gr50ECkD7XG6xC3zavVgKl1ooHweRMyCWc5QH3jhscBgO1g7mPE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789979028; c=relaxed/simple;
-	bh=xcjHNliDAAlJxE4i6y1GMT1/Vnv55RTh/tAGPwCPNZI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nfrJvmYagfdMOprqWrsdK/2tnurbJ124WEt8onExRY3auJvA+k5jhXbAOJrbcYsDobn4qrsqa8npQnMwD5PrbAZ9RrM4MQQJUz0D8Nphnk7rU3OGIzPc8+75bufnsiePBWTiCBkVvX5GnYidiBxtIgkwgerA3GiWKMIwb1hMbSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=YWpyFxvt; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 815CB371CF8;
+	Mon, 21 Sep 2026 08:25:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789979107; cv=fail; b=lkip5VauVxymYzPssaco18UFKJk0HHkr+H+snly71uZWQE+gIVNdeBKCXrx3vFXGJh6FpChI24oFAWpbmOEcgAKIzUWvL5Iwm2CcGC7vl9KQSr9DtT57fNM3V5jb5EU2uLdgsqMRTIuAnLTxzfLA4jp/x8CBXsdPQiKSHApWBGg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789979107; c=relaxed/simple;
+	bh=w/0NCZU0Mv4mTWAqwjpbSN6osJk1uwUFIZnrdC+94Qo=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=L5ZJmnV2tT8udxaWgCpWpK9WYvYSaesucIdQnlAQGAkryRotJYtPTc91tzv9sF6QG233fs4CAS8MK5WRzbRwCj49cBD4aIXlr586EUz0Dg/NDbKWres0yJJauaQ7igbjFCgfRucFtkb4P/3A8NKCDKtphXJ7zLf6DNSgY/vBmuo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=PILN91OP; arc=fail smtp.client-ip=40.93.201.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="YWpyFxvt"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so26581455e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:23:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789979023; x=1790583823; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qVkcwRd6JhJoKhW863CUio5f3wgxadePOqahgAJN2pE=;
-        b=YWpyFxvt+sELjAun0bQuqBXm0ssS+SSbEx5MFDuBqjuD0DjG+FSBzgNpqc0rOVh4lv
-         XWvkEDjHZgo/j1WVTz3/GofRm0W56ltr8/DHzjsGi+Abv7rEfyYHG1+IS/nYV+VIgbfQ
-         awFclJA3unplq8WWbtMvEitZynvsYp+D/e3qiZZfCEMv2JE26HkeFQeGqDFOI0EdPb7f
-         GbnQ/gEkac1JX3ghQqLOGdJPyBeJCgmdu5E4FD4vBrPsYPENvUuuoj3egc1QqcxVfeMu
-         kTbncY3EspFn5ip0b1ZMW17KFC59RKG+9Tfraop8V0Ljk/B0FQoCL62oRsulLNJqGhMr
-         HF5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789979023; x=1790583823;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=qVkcwRd6JhJoKhW863CUio5f3wgxadePOqahgAJN2pE=;
-        b=k8Wm9i/rDnX9ZkeKFMrYz3w6rIByyNncSgRsba8Pn2xqpiPVn5PRGCS8UY8m+Hq86P
-         gOXDQXbbeWWMQ3vimtscZaZGItoWo95xbWGzFGvj2UFHJtoCjuUi7+5b9FiL87uWtr1Q
-         0n/5xkpGF35vCGM6GaeHOwBeAkjSkLplKnFPRsET1FmMEZxw8Zjd09lunv0rOHR9kD4E
-         i31bW49j//PwUjiruwNI2huGP4ILcN62AibsFg6qbqehPDxH4kUBjc+k5ktTDfap8gjo
-         2pJ8Z0Ezhou0mub2F8ecXn1duQYBc3kgbK+fMOszefYIH1cHToONQjoy6bybmKKe6GgO
-         7LCg==
-X-Forwarded-Encrypted: i=1; AKwUvByMIo8KkTc2hbSyFyKvLwrD/JzCQrach1mndPfz9f2bONKkJOWoGX/1CaRsXoZV+PFEJLEjLd2ot5k8Ovw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmVZA9DeBJbiWqj1WWafO7HdSrerpB0wZRnTmazhR3Fvh/Bin2
-	TfOoC4fr2Q2HuRQb294EcWvAP9BxWHxmlASmfqhOcJaOZOILfnP8br2EJSjipuZ/4iM=
-X-Gm-Gg: AYBFou13r3kLdf5y/MN4K2HkI1Bn2n34EflRwUFWuzeScD5ycznpv/MUlfvIbKLMrQe
-	AB2FTV2DQxYe+9tMWslnBtQRwwkpKOQwbb6QaopQBMRkDkpiAPggxfU6jli5DQQhIeTXn9DsVlb
-	mXSEYp2ADZibABUjlT8TPK51Lqjyi3IZpgXygk4zsM/Eph9/2iQikQ5P6zJz9fF3SQN6/2e0CrB
-	TlheRO/YzUbycKKg6wQ09hl18go+a2/NMUfGXq60Gv82Fy7lrsjYDcMn3S0H2vV2iVvRzrbH3AC
-	z5hsHy94yB5YHY0OG93VPX6ZtvkHLj2RJ1DqnMZgNQBcYX2hUf7+50B+AUl20iw6va/G+KWKr8L
-	Fiev4d1FWt6RyiXWoBn1e1OrTF51H7YCWtmemfQcm8L6gR3JUTC4jmle5gYDfOyUhmWxI+Z5hrN
-	9txBlY8oTJGET7SBLWTH/VhPPjVZPlW6/xCFnQ3IyLapNir9J2c4MJIl3BsOwlRqM8EJ8iNxd80
-	A==
-X-Received: by 2002:a05:600c:4e14:b0:49e:7cfc:a9b7 with SMTP id 5b1f17b1804b1-49fc5735f17mr121597825e9.18.1789979023335;
-        Mon, 21 Sep 2026 01:23:43 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc585920fsm582435985e9.4.2026.09.21.01.23.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 01:23:42 -0700 (PDT)
-Date: Mon, 21 Sep 2026 10:23:40 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>, x86@kernel.org,
-	Joel Granados <joel.granados@kernel.org>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux.dev,
-	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org,
-	John Ogness <john.ogness@linutronix.de>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Kees Cook <kees@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Dave Young <ruirui.yang@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>, Bo Gan <bo.gan@broadcom.com>,
-	Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>,
-	kexec@lists.infradead.org, linux-doc@vger.kernel.org,
-	Stephen Brennan <stephen.s.brennan@oracle.com>
-Subject: Re: [PATCH v1 4/4] x86/vmware: Run panic diagnostics before kdump by
- default
-Message-ID: <arDpjCVbUFcdwq1A@pathway.suse.cz>
-References: <cover.1788414671.git.zack.rusin@broadcom.com>
- <7487011dfb95aadda9515b22a5852680df1982c5.1788414671.git.zack.rusin@broadcom.com>
- <aquttpMVKX8e6zGB@pathway.suse.cz>
- <CABQX2QPJVg-dZB9f4ydRU_5W7nyWwVCQtDoRGoe1+9cA7wyUDw@mail.gmail.com>
- <bc0bdd14-5e6a-0676-cd04-14fb0bb93cd5@igalia.com>
- <CABQX2QMDNHcKotEa_t9Y37L+uHhV-CfqSR2vcRpNT1c2O9C_2Q@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="PILN91OP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iAQExMk6rTR9l4U9ZpsDWLsUkU1OrYuQ8Oyb3az06o6nkNvFO1KQvLUl9xyACvdLURM8mdyvoJxdGLPMIXhsLVFbN/2iWy5zArXipryfpfVcq+Ok5vQXkFy4r9AE+g0wFhZTWiKIqlYn5qRvY7XWdrrvv8BVGkqE65jVD/CVgYqhDpqwqmawuQJ6mF7Y/ybuLxKqIecowmjjTm+2iCAXgwIfw/PcyOFpvXEus2TBcHxHkCtRnMexb4HX7OPWVAJLVV7PHyyJmxagSbD3NjtGRMGdmxwvsfMb5+JuCO6Vk2bCZfr+vNHUMZnwdxvKfh8QiVZajyUvb5BTIW1wZAu7/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1kgEuYGmggYuW7nCrGSpjwGbrvjWHzSAl61UPqvsqQc=;
+ b=bE2I8kVH+TeKPcWmGSj6U0rSKPZuPE7syThs78/yE2zjyXlJyL+vesgqLw2Qe1bkQ7DKNGVbd7Qv59/A5fG0L8OyfaCyZjmSswYUXuNF17Ow5DkzgC/09Hf3tRYl4kpIB53moJBC0ADo8dJBR8MU3L4twW2Y1aE+4y1ltwyE029pY6HlyLvpc16MWeYjYOq/ENLXiC1XioOKdzmAfsJAAcO2dRLimkumzYUjt+ImzvrgLokFX5+nOG78N+O0UuIWWSRgu3AG0sdkkErVnpLTy9m1LHuiy1q+gTY0wHkQKqqh5mkA5UvMxz3kpsz5rFwgFgoNbdK0hPcWesdsMrkmVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1kgEuYGmggYuW7nCrGSpjwGbrvjWHzSAl61UPqvsqQc=;
+ b=PILN91OPgwtX2HR5cd8rZ2q7eHHvA5AYL4bv1d2IJRADXBxDDvXBIpmm962ekvaZNsSJVjN7JrrWsI4gLBcDH6S7UM693fURONgTaP7Bd+PE1ufZhgMWlee+FXsBn6MOzJe+fYVFRxI+w9sUcYt90+LEQxHwg50GXwocHmutFjk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB7771.namprd12.prod.outlook.com (2603:10b6:8:138::6) by
+ PH7PR12MB7968.namprd12.prod.outlook.com (2603:10b6:510:272::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 08:25:01 +0000
+Received: from DS0PR12MB7771.namprd12.prod.outlook.com
+ ([fe80::9a3e:791f:33b6:3d8c]) by DS0PR12MB7771.namprd12.prod.outlook.com
+ ([fe80::9a3e:791f:33b6:3d8c%4]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 08:25:01 +0000
+Message-ID: <34be3233-87a7-4dbd-bf4a-56116f4e8cdb@amd.com>
+Date: Mon, 21 Sep 2026 10:24:51 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dax: use assign_bit() where applicable
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Dan Williams <djbw@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>
+Cc: linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
+ nvdimm@lists.linux.dev, linux-cxl@vger.kernel.org
+References: <20260919130750.3041470-1-peng.fan@oss.nxp.com>
+Content-Language: en-US
+From: "Gupta, Pankaj" <pankaj.gupta@amd.com>
+In-Reply-To: <20260919130750.3041470-1-peng.fan@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN4P287CA0111.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:2ad::8) To DS0PR12MB7771.namprd12.prod.outlook.com
+ (2603:10b6:8:138::6)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABQX2QMDNHcKotEa_t9Y37L+uHhV-CfqSR2vcRpNT1c2O9C_2Q@mail.gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7771:EE_|PH7PR12MB7968:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4fdb01c8-3c37-452f-dd66-08df17b9d462
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|10067099003|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	90nSfKgU0G8MQOqUjgaffiEavGEKYZVs495D77rSz0Ly2KE7NYBfywkhnIGVshdmMMy2+sa50gfYl90X6GaeSPxZjBVTHNndjimqX+cpHMRb6ePX9G2L8tTObIYvumyfruV8FTlnUaZStmRYhlWoeOc7QFS0W8Q4EgomZ8LEifzTtgNsJb+doTYWJ79IGFa0mkmQh0p5ZHkHnepqFaRz7RkwbLZwW9yTvts//fVRzx03qAZwkw5aQdytms1G+sNhAMbjp5mxbs2tq/GwXM32+4L9EdbTF7P8GuHVqAKOnGALBRZrwr2oIOZUipkWsX5PQK0PmVb+U1Y9ev7CO9K39uzkF/e6ts5b6M2ph7EXTCZ6gpTT7Od5J/r7B0Efhhh/5LwI5rl1p4X11v0cLUqnF6okrE24Kc+lUuf3WmlKywNne59ucBu6M7RBWx/osulKGEkGwmrvQOpMYcWxZpCfRcDj0MbmVpNLSUSNgZqgl1vop/UM0o5P36bqoZfc/wOkzvOXpMckpuOePe908xaIr4I/ya5xDBQ0pKxKAADu4ocy1LE+1354pg0/ut0l4Qlizsq0N5Dfw26+989Fm6ljJ3s38MDg4b2nmoQaSJfb63UyqUH0QnQiapwyWF0uyesPRkIAk3l5wTbsPwqfFnYJfH52O7easjk4GyFaRm335hk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7771.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RnJYalFKZDgwcTBYWFYzOG9zaDNVQTU3bHc3dnFyNk9yWTlUMUhPTnJLMFR5?=
+ =?utf-8?B?b3FGV3hvOU8weHdqbXdmQ2c5d0dHWU5USzR4ZFBWTFVlVzZMeWlZSnB6VldU?=
+ =?utf-8?B?TjFYTTlpMXBPcCtvWGc2dTlEWVNPQ1g1SC9EK3JUTnFPWmpFNlJhbDRlZStu?=
+ =?utf-8?B?b05FYUVnaEQrSjk0ME9FOHhaQVZGbEVkblpUNlh1VldxVFE3Q3RoaTI5M25K?=
+ =?utf-8?B?S1FQdkp6dDM1ZTk2VnR5UGdha2c0aXJLa0d0VThEcWJJTUZQS05uQ3A5MlhV?=
+ =?utf-8?B?T1dnODBjVE9NVENiMTZkMkt0NXkzZFBOc3I5Zm1ZQ2FoMUxJZDZjMXJkVlZx?=
+ =?utf-8?B?VTFFZ090aWw1eUtMNGpYa0htb0IzUWdveklLck40ZlBRdkVsVmNBV2Ivbit4?=
+ =?utf-8?B?V08vaWk5Z2FHUnVERFIzN0hFVUlyM0l2T0JFVWZZZnhWSU1oUytnWUJ0Y3Br?=
+ =?utf-8?B?QWFZNUttalBzWkE2Yi92NHUxUUcxNkg0dzR1RFB4eUs2dzVibnFxRnIzc3Vv?=
+ =?utf-8?B?SHMwNmE5R3V4ODFiNU4rZ3JBTkl3WjNCUXZiOVhieGd2WEdtQmtWMTRtTFRy?=
+ =?utf-8?B?QUVLaStDaVZ0dU5tZ2dFYzZHNHVidzFERUgzOXlWWmxzY3NFbngxRUNqdy9E?=
+ =?utf-8?B?L2Z4YitMa0t0aDdMNHBucTcvM2FsYnFSU0Q0aU9OVVJPbGdXZUJ6WDJRRDRX?=
+ =?utf-8?B?NEJQck9PSlFKYzZQbmZvenhRVGUwV0t1bndjODIrUVBpRTJWWHpXb3hYNjgr?=
+ =?utf-8?B?eUhwYlJQNkhSR2NOS0VZbnR6eWFEeWd1bVR6Tml5K0V4bmVqNXdGZ1NTMmlZ?=
+ =?utf-8?B?eVpKeFdZWSt6MEdMd0RVTm9WUFI0ZDlXRnZlUmJValZXSTh4UUhBR0N3UkM1?=
+ =?utf-8?B?S0xTdXp4VEpxdGRmQmpNQ21hUEU4emZBandPNzdkelphVHYrNkQ1b2RXUDIw?=
+ =?utf-8?B?ZWNIZWErK1p4L2FLRzJtbHVvcjNVOTljQmxqZWMxNW9rVXVjcTZrNmJEUzJQ?=
+ =?utf-8?B?d3lPRHhwWG53cTJROG5rd2k4Mkhabm95SEYvVDArS2VUWjZaNXdZQ0xkSExn?=
+ =?utf-8?B?NkpBckplWWhBYTdUMG9vVVFvLzF5Y1NsQ0NqSUlYckxTc29ZQTBydG15c05h?=
+ =?utf-8?B?eTQ2K2I4cmRHOEZoUkg0eFl3QlIyMVFRTlNMNmRVN1JJR3Q4Q3hDZzNkNXdo?=
+ =?utf-8?B?UUV6bUMzOXFXUUVYNTZBSTFpNVREYlhjV1RnVUJlNkdRYlVyaUQ1NjlPaHRq?=
+ =?utf-8?B?RkpmUXI4OFpiSWpzWUtSbmUycHQrcjJrbDY2VXNHd1l4dlFnWUV4WWNKRk9X?=
+ =?utf-8?B?dnFramdxMUtyTTkrK09RZVYyNTBIakZUYzJaVkt0R0FmTGFXU2J1UTBCamU0?=
+ =?utf-8?B?VlNYTEI4cjBCM3V1c3pHSEVFUnE2VEo1RFMrYnpWSit6VEZTaXV5bU5wRldT?=
+ =?utf-8?B?dXFYR0dtbTVEbHhqT2FtbzdWaVZMaGNia2tPc3VjUnU2MkcvaHVTeFhwSXd0?=
+ =?utf-8?B?Nk1KUlBRZ2NneVRtaU1idEJiczZtd1JvRStaY2lHM3YzVE9ZR1ZPLzV4anE3?=
+ =?utf-8?B?Q0NOUmErMURUOXdRRHRmOVVOZWU4bzVUL1NpdVoyMm1lK09udzBLZDJubkt0?=
+ =?utf-8?B?Nkc0Q1pEZE5MeDh1T21FRFNBNm9GcjJIOFZHRGFweEFjMUFja2tGS0dpNmpk?=
+ =?utf-8?B?K3BMR29ETm5yTlFEMlJwYkNMeTZtdWFzZjFZN25TSjF1WDh1KzFCNUpBejU4?=
+ =?utf-8?B?Z283bUQrYmxkMnQ4VHh5aDNaVnd0NFc1OE90UHRZSzBNRGxtdVBrbVpvUXd6?=
+ =?utf-8?B?Tkk2YUh6bmhEOHhoeEtKV09aQUdYeHdydnZTUjZ2TmZtVklwaE4rcklDeWE5?=
+ =?utf-8?B?ZGF4cks4dEx5bW1EZXJKN09WUFhFRVFNQkVxN2h1VFRzTGdQNG9zRnBuQjdi?=
+ =?utf-8?B?TFE4TGZLNitTSVZJWUFxSWd4VjVONlk1eHNXZ3ZNNlpyMGpjVFVObE5KRXZB?=
+ =?utf-8?B?WHBwdklPUW02dHRhSXdlY1h4aFN0ejFuQWVOemkwWXNkb3ZTbWpGRmdQcE5w?=
+ =?utf-8?B?ZmlhM010cU01NTF4UmJiT2hVZGppSkoxZGZ2bFlZTmZyOTZDM2VyTktDZmVk?=
+ =?utf-8?B?RHVnNm1yTVRIa3hldENDYS9SUVpJc284b2dZWlFuOHovL0ttVFJqWjFpUWJj?=
+ =?utf-8?B?YXhCN2s1Yk9IdjZpd1U3Q1NUVUpIUUFIbElRbi9jbDFiUUtGTXRJVzNQYSs1?=
+ =?utf-8?B?ZTI2RnlFN3RoMGhpVm1TN3hDUU5laVBnYisvL0MzMXRkYy90NGVJUGxzcTg0?=
+ =?utf-8?B?bCtPN1NRbklSY2FnSWJOOHZPUUZsZzBqeVppMjVmTCtXcjBHTW1NQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4fdb01c8-3c37-452f-dd66-08df17b9d462
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7771.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 08:25:01.2640
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9WaCA4kurV8w/RFg+kqeA7FoL/iaBMQij9jDrQuN0WFwmf34kv7ACOfHgQR0amLzGhS/hUUi0niFjZndgz4KuA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7968
 
-On Fri 2026-09-18 19:00:13, Zack Rusin wrote:
-> On Fri, Sep 18, 2026 at 10:26 AM Guilherme G. Piccoli
-> <gpiccoli@igalia.com> wrote:
-> >
-> > Hi Petr, Zack - thanks for CCing me!
-> > Some comments below:
-> 
-> Hi, Guilherme.
-> 
-> Thanks for looking at this and for adding Stephen. I'll keep you both copied.
-> 
-> > On 18/09/2026 00:23, Zack Rusin wrote:
-> > >> [...]
-> > >> Maybe, we should start with something simple, and introduce
-> > >> one more panic notifier as a start. It might be called either:
-> > >>
-> > >>   + "panic_hypervisor_list" because "crash_kexec_post_notifiers = true"
-> > >>     seems to be primary set on hypervisors.
-> > >>
-> > >> But I would rather make it more generic and call it
-> > >>
-> > >>   + panic_pre_crash_kexec or panic_pre_kdump because there might be
-> > >>     more notifiers which are either 100% safe and useful or are worth
-> > >>     the risk before calling crash dump.
-> > >>
-> > >> We could put there x86/vmware notifiers as a start. And we could later
-> > >> move there other important notifiers.
-> > >>
-> > >> How does that sound, please?
-> > >
-> >
-> > It's a good idea, IMO. We could start with this, Zach commented some
-> > implementation details below...and after it gets merged, we could move
-> > other hypervisors that currently set "crash_kexec_post_notifiers" to
-> > this list and eventually, unexport this symbol. We should avoid having
-> > code forcing this parameter, as Petr said, many notifiers are executed
-> > if that is set.
-> 
-> Agreed. The v2 I'm working on drops VMware's assignment to
-> crash_kexec_post_notifiers and leaves the existing setting unchanged.
-> 
-> > (I'm CCing Stephen Brennan here, I recall he had problems with this
-> > being auto-set, we talked about that in the panic notifiers big
-> > discussions in the past heh)
-> >
-> > The only thing I'd like to suggest: I think we should have a parameter
-> > that disables running this list, which would be the opposite of
-> > "crash_kexec_post_notifiers".
-> >
-> > I would implement it as something like: "postpone_pre_kexec_notifiers"
-> > or something like that. The parameter would basically "move" this list
-> > execution to the same time as the current notifiers, gating them to
-> > "crash_kexec_post_notifiers". This way, we'd allow users to debug kexec
-> > failures maybe related to the "early" notifiers. WDYT?
-> 
-> I'm happy to add that as a separate patch if Petr agrees. With it set,
-> the new list would follow ordinary panic-notifier ordering relative to
-> kdump: it would run before a successful transition only when
-> crash_kexec_post_notifiers is also set. If panic reaches the late
-> site, the list would remain eligible to run there. I'd keep that site
-> after sys_info() and before the kmsg dumpers so the log includes the
-> additional notifier and panic_print output available at that point.
-> 
-> I've called it panic_pre_kdump_postpone after the list, but I'm fine
-> with whatever name you and Petr prefer.
 
-I do not have strong opinion whether we need the new parameter. It is rather
-a call for kexec/crash_dump maintainers.
+> [You don't often get email from peng.fan@oss.nxp.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> Convert open-coded if/else with set_bit/clear_bit to the assign_bit API.
+>
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
 
-But if we added it, we should make it clear that it is intended for
-debugging of kexec/crash_dump failures. And that it might prevent
-correct handling of the crash on hypervisors side.
+Reviewed-by: Pankaj Gupta <pankaj.gupta@amd.com>
 
-> > > [...]
-> > > I think that without that default though, x86 oops_end() can enter
-> > > crash_kexec(regs) before reaching panic(), for example with
-> > > panic_on_oops=1. To cover that path too, I'd call the chain from
-> > > __crash_kexec() after the image check and register capture, under the
-> > > existing kexec lock. A second call in vpanic(), immediately before
-> > > kmsg_dump_desc(), would cover the fallback path. And I think a
-> > > set-once guard would prevent duplicate or recursive dispatch.
-> > >
-> >
-> > Regarding this, 2 things:
-> >
-> > a) I think you could change kexec_should_crash() to "return 0" also in
-> > case the new list is set to run, the same is done currently for
-> > "crash_kexec_post_notifiers". Makes sense?
-
-Honestly, it does not make sense to me ;-) My understanding is
-that the new list would allow to run kexec/crash_dump a safe
-way under a hypervisor. So, it should be safe to do it
-directly in oops_end().
-
-> I'd prefer to leave kexec_should_crash() unchanged. The direct oops
-> path supplies the exception registers to crash_kexec(regs), while
-> routing it through panic() would capture later state instead. In my
-> early v2 tests, the vmcores from the direct-oops path retain the
-> original fault registers in the crash notes. Some crash callers, for
-> example uv_nmi_kdump(), also bypass kexec_should_crash(). Calling the
-> chain from __crash_kexec() after register capture covers those paths
-> without changing their routing, and the shared once-only guard
-> prevents duplicate or recursive dispatch.
-
-Makes sense to me.
-
-> > b) Well, does this whole panic diag thing you're implementing here aims
-> > only at x86 guests ? Or would it be possible to run, for example, arm64
-> > guests? Asking this because in x86 and some other architectures (but not
-> > arm64[0]), it's possible to override machine_crash_shutdown() handler,
-> > and run things prior to a kexec. Take a look on how Hyper-V does that on
-> > arch/x86 - this could be just what you need, except if you plan to have
-> > it for all architectures heh
-> 
-> I'd like to support arm64 guests in the near future, but I figured
-> especially for review sake to limit our client in this series to x86.
-> So I prefer the common chain Petr proposed: as the thread you linked
-> shows, arm64 deliberately has no such override, and the chain gives
-> other clients a place to migrate away from forcing
-> crash_kexec_post_notifiers.
-
-Sounds good to me. Let's start simple. ;-)
-
-Best Regards,
-Petr
+> ---
+>   drivers/dax/super.c | 5 +----
+>   1 file changed, 1 insertion(+), 4 deletions(-)
+>
+> diff --git a/drivers/dax/super.c b/drivers/dax/super.c
+> index 45f84b0eb909..60c4aec52ae1 100644
+> --- a/drivers/dax/super.c
+> +++ b/drivers/dax/super.c
+> @@ -385,10 +385,7 @@ EXPORT_SYMBOL_GPL(dax_flush);
+>
+>   void dax_write_cache(struct dax_device *dax_dev, bool wc)
+>   {
+> -       if (wc)
+> -               set_bit(DAXDEV_WRITE_CACHE, &dax_dev->flags);
+> -       else
+> -               clear_bit(DAXDEV_WRITE_CACHE, &dax_dev->flags);
+> +       assign_bit(DAXDEV_WRITE_CACHE, &dax_dev->flags, wc);
+>   }
+>   EXPORT_SYMBOL_GPL(dax_write_cache);
+>
+> --
+> 2.51.0
+>
+>
