@@ -1,165 +1,519 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C044D9F77;
-	Mon, 21 Sep 2026 16:57:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790009823; cv=pass; b=GbZ85/qC2tA0N6l0oCg74yD8fpeSACBg2Oc0FASRLJt4PZsHjQbCLLir1MamgshPC6e2xBJsPNbFVW/tG5nxdzugdxLV1kEYwvdqMJZN6WjiFPBb0ZsLbUBLz/SoetTrLzzijwFtkwRd6CROzMMzqD8ghUGbet2HHyrrtBabof4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790009823; c=relaxed/simple;
-	bh=a9JHPLzL8uadT1BYJ5SmI2W45iYhN70ewHYi/XhrxzE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IyNUySb/MLq4bPJx0ZYyyhR3KnO0LECosqwe26/gcckqPQKy2t1wD8wOizZ2uC9Mxen68jcv9/bohqPjb47O3ApDh3Xo9wZrz2gca5w5aif14Dq7hhZqM5o3Wuz9nbNUA6Fl2X7ntv4kWVs3idvyqGW06rCnpFS5tm3dZU64LKo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=PsigL38f; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC2E4C9E1E
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:57:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790009827; cv=none; b=lG4chP2FqCVyXDHf0L9Vg+zyfyWtIulwfAF3Vlr5js+8VbQ11pXq7a8VGrIxHGaVgYippx67lSyD8zu/HeiXjrcqmBMVCqg7MeHh9dGkOhiMyK7LwPrJaGM1wMFOU69Nz43nA3wxDO/nFeF3WhPpTvIkzJLP1TFCLeJfwZlyTRY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790009827; c=relaxed/simple;
+	bh=OP4ttDVoApHivsEs2dRxJXRNpgTqNQ2xZ/gaYUMLeEk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=b2+2S4RUZt1FDMZFNokUh6kmNNmw1OUbg0LwVJwY7Df6eDz4VNDeyLBoQi8Xtj2zh+ZI/g8vOeXqlfSgNc/DdU1Xd7E9YrrI2q6BUi1G0ntSBcC5VYJKRuJiujjTQunYJRA3vuLCVdWmPPk11KNUZz+lgpIoFepA5nSK5hIe7Pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ILMr4Hfj; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="PsigL38f"
-Received: from [192.168.1.195] (unknown [IPv6:2a03:1b20:4:f011::d901])
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ILMr4Hfj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790009823;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=O3izGn7HcWhD3JOmI/cuSL5By5m1gOBvkgkLf8XK894=;
+	b=ILMr4Hfj8+FCIQsqTWGwEXzO569J99UEvTix3ly2gc4IK4BS9GUkcW7+CcuySLElE2Yyc/
+	2XgdW2GXSnClrOJC71Z22jK11VRpOgQ+Hy55yS5rhbUKS+xx8ArbeDEUv6TlCrzmtziAxo
+	7TA9QTAECiTOWvQklOYsm+38ub/czhk=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-26-AfWoa3nqPiWdEPy2iqEBlA-1; Mon,
+ 21 Sep 2026 12:56:58 -0400
+X-MC-Unique: AfWoa3nqPiWdEPy2iqEBlA-1
+X-Mimecast-MFC-AGG-ID: AfWoa3nqPiWdEPy2iqEBlA_1790009817
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: pav@iki.fi)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hpTsW2G1fz49Q7P;
-	Mon, 21 Sep 2026 19:56:47 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1790009809;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=2Uc9fDI+27C4yl9EmZRkeFOxnfPE6pVGIux3WmNo0LQ=;
-	b=PsigL38fzfR9kmGyc+40q+3NmZmSAvGLgFzYeVhhrH2B44H+41yDGzQVhTaTJqLPBlmWOk
-	vHS7ddTuJtNoGMVrFiH1O9EKfMohH/Va822y+LxuE/X+95R1rj8nG9rOtnB908qNNJDs3Y
-	qXxn26HIwHN6CPsveAl9C/JQOPQCzGjjH1XRU/0XgxRwmNtf0psD/tVIHIml9E/a7JgTf8
-	9LSv1La5mV2mRso1QN8E9ruMihG/V8ahwg9x3eMp7avAgYSfUgOZs8hRm+SpS7kUTVw8OZ
-	dJSE+d8LotOsiV5hI3Jb+itUvN1CoQ0f4X7lUm9nCA4i5ei/+garKV7Rtre55Q==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1790009809;
-	b=rr2CT7wlyMgxn6GXdm5J53dfhsnaezbr0TgBtH1N8i+ZfHd915sETWVW3UdT1LhxinxZTo
-	NblHBIDL7ppUK1tB+mlMvU2Jlfx+EABhnWFignEwjbYXlBBhdz0wJ8/Rgs6tD+pM32hcNR
-	wJVYHx0P46W72+ffdWFncE1quku3dNvdY7dLpMcfh3Hk/RQE9xV2rp8MjYLyZW1OEsLOso
-	kj8tHSNyH8bf9c/mUsVnHYZAW8hdyl0icsFAB+ZJbnnytuuy2Mi0DONOt9k4PyU4WBdYq6
-	JB4F0W01o/CFUHzuPppN6UEqgv/Tgh0iGbDbrKtFDnAEi3eeSwYWWBGIbxYYmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1790009809;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=2Uc9fDI+27C4yl9EmZRkeFOxnfPE6pVGIux3WmNo0LQ=;
-	b=u8kbxClr+WR0RVTqu5FQZiZHlHyTiQHNtNk29TjiaTrd/9RmhvkY5Czz1QmFNn5g+d2NWM
-	i/5eb4ot4b/B1knwh3dIVzhZoLv1PMElVcSJCFm9F2G9LIOQmKpUDNYLMBf4YlLZ7+Zhoa
-	yl5Rt5+zitHqon4lyajqR/odcp1ZqpzF1yJoTc/WBwalfPxuZBIeCoGPcj+gA1wU2IAtVY
-	jX/3S65ZfOHhSIeWk5dgBYU2ODh55anT8XIhtty3pWOUg7g1uqbmHPjbfr1MthuPzQMR0G
-	IZaW000CoAt/ukNz1pjX3j11kn32/0u//oJWMablBIP4tX1b60JxodJq14EQGw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pav@iki.fi smtp.mailfrom=pav@iki.fi
-Message-ID: <a0d9ba78f7d3598494f2a6ed31afd789972a1d72.camel@iki.fi>
-Subject: Re: [PATCH 1/5] Bluetooth: L2CAP: ignore close requests for deleted
- channels
-From: Pauli Virtanen <pav@iki.fi>
-To: Cen Zhang <zzzccc427@gmail.com>, Tejun Heo <tj@kernel.org>, Lai
- Jiangshan	 <jiangshanlai@gmail.com>, Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Marco Elver
- <elver@google.com>, Jukka Rissanen	 <jukka.rissanen@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
-	baijiaju1990@gmail.com, jjzuming@gmail.com
-Date: Mon, 21 Sep 2026 19:56:44 +0300
-In-Reply-To: <pm-series-6lowpan-lifecycle-82fab5876048c8c9503c-1@gmail.com>
-References: <pm-series-6lowpan-lifecycle-82fab5876048c8c9503c-0@gmail.com>
-	 <pm-series-6lowpan-lifecycle-82fab5876048c8c9503c-1@gmail.com>
-Autocrypt: addr=pav@iki.fi; prefer-encrypt=mutual;
- keydata=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
- bzyGkKh2h8XdrYhtDjw9LmrprPQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6BA801955F44;
+	Mon, 21 Sep 2026 16:56:57 +0000 (UTC)
+Received: from vkuznets-thinkpadx1carbongen12.rmtcz.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BACCB1956049;
+	Mon, 21 Sep 2026 16:56:55 +0000 (UTC)
+From: Vitaly Kuznetsov <vkuznets@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
+ kvm@vger.kernel.org
+Cc: nsaenz@amazon.com, snambakam@linux.microsoft.com
+Subject: Re: [PATCH 06/31] KVM: x86: Introduce memory fault on invalid
+ hypercalls reads/writes
+In-Reply-To: <20260918135030.171564-7-pbonzini@redhat.com>
+References: <20260918135030.171564-1-pbonzini@redhat.com>
+ <20260918135030.171564-7-pbonzini@redhat.com>
+Date: Mon, 21 Sep 2026 18:56:39 +0200
+Message-ID: <kupv77y5yrc.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Hi,
+Paolo Bonzini <pbonzini@redhat.com> writes:
 
-ma, 2026-09-21 kello 23:38 +0800, Cen Zhang kirjoitti:
-> l2cap_chan_del() keeps chan->conn alive until channel destruction and
-> marks removal with FLAG_DEL, but does not necessarily change the state.
-> A caller retaining a temporary reference can therefore enter
-> l2cap_chan_close_unlocked() after deletion and follow a stale connected
-> state, rearming the channel timer and sending another disconnection
-> request for a channel no longer on the connection list.
->=20
-> Check FLAG_DEL after taking the channel and connection locks so that
-> concurrent deletion is serialized with the decision to close. Return
-> without further timer or signaling work when the channel is deleted.
->=20
-> Fixes: b66774b48dd9 ("Bluetooth: L2CAP: Fix UAF in channel timeout by hol=
-ding conn ref")
-> Assisted-by: LLM
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> Allow userspace to perform arbitrary actions when a hypercall refers to an
+> invalid address, by exiting with KVM_EXIT_MEMORY_FAULT.  This will for
+> example allow userspace to perform a VTL call.
+>
+> Co-developed-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
+> Signed-off-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  net/bluetooth/l2cap_core.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->=20
-> diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-> index 49a998804908..65e957fdc7ae 100644
-> --- a/net/bluetooth/l2cap_core.c
-> +++ b/net/bluetooth/l2cap_core.c
-> @@ -939,8 +939,10 @@ void l2cap_chan_close_unlocked(struct l2cap_chan *ch=
-an, int reason)
-> =20
->  	have_conn =3D l2cap_chan_lock_conn(chan);
-> =20
-> -	/* Context analysis: consider chan->conn->lock held also if conn NULL *=
-/
-> -	context_unsafe(__l2cap_chan_close(chan, reason));
-> +	if (!test_bit(FLAG_DEL, &chan->flags)) {
-> +		/* Consider chan->conn->lock held also if conn NULL */
-> +		context_unsafe(__l2cap_chan_close(chan, reason));
+>  Documentation/virt/kvm/api.rst  |  19 ++++
+>  arch/x86/include/asm/kvm_host.h |   1 +
+>  arch/x86/kvm/hyperv.c           | 157 +++++++++++++++++++++++++-------
+>  arch/x86/kvm/x86.c              |  34 +++++--
+>  include/uapi/linux/kvm.h        |   1 +
+>  5 files changed, 173 insertions(+), 39 deletions(-)
+>
+> diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
+> index 37028ce019e3..abc2ff1f8c84 100644
+> --- a/Documentation/virt/kvm/api.rst
+> +++ b/Documentation/virt/kvm/api.rst
+> @@ -8984,6 +8984,25 @@ enabled, cmma can't be enabled anymore and pfmfi and the storage key
+>  interpretation are disabled. If cmma has already been enabled or the
+>  hpage_2g module parameter is not set to 1, -EINVAL is returned.
+>  
+> +7.48 KVM_CAP_HCALL_FAULT_EXIT
+> +------------------------------------
+> +
+> +:Architectures: x86
+> +:Parameters: args[0] is 0 to disable, 1 to enable
+> +
+> +When enabled, KVM checks the memory that is read or written by
+> +hypercalls (including slow Hyper-V hypercalls and KVM_HC_CLOCK_PAIRING).
+> +An inaccessible input page causes a KVM_EXIT_MEMORY_FAULT with
+> +KVM_MEMORY_EXIT_FLAG_READ.  An inaccessible or read-only output page causes
+> +a KVM_EXIT_MEMORY_FAULT with KVM_MEMORY_EXIT_FLAG_WRITE.  The reported
+> +range identifies the page containing the parameter GPA.
+> +
+> +Hypercall parameters that are unused by the selected hypercall are not checked.
+> +
+> +For Hyper-V, unknown hypercalls are passed to userspace without checking their
+> +parameter pages.  The fault GPA is in the physical address space of the
+> +VM managed by userspace, after nested GPA translation.
 
-This probably would better be further down in __l2cap_chan_close()
-together with the other state check.
+I'm sure you thought it through but since this is going to be a
+hard-to-change API let me ask: would it make any sense to try to keep
+Hyper-V world separate here, i.e. have a dedicated
+KVM_CAP_HYPERV_HCALL_FAULT_EXIT so VMMs can implement and enable/disable
+them separately? (I don't personally see a big benefit from VMM's PoV,
+but still).
 
-> +	}
-> =20
->  	l2cap_chan_unlock_conn(chan, have_conn);
+> +
+>  8. Other capabilities.
+>  ======================
+>  
+> diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+> index 683bb8bf43a9..c08781bb0327 100644
+> --- a/arch/x86/include/asm/kvm_host.h
+> +++ b/arch/x86/include/asm/kvm_host.h
+> @@ -1169,6 +1169,7 @@ struct kvm_arch {
+>  	bool has_protected_eoi;
+>  	bool has_protected_pmu;
+>  	bool pre_fault_allowed;
+> +	bool hcall_fault_exit;
+>  	struct hlist_head *mmu_page_hash;
+>  	struct list_head active_mmu_pages;
+>  	struct kvm_possible_nx_huge_pages possible_nx_huge_pages[KVM_NR_MMU_TYPES];
+> diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
+> index d2921d443fde..e3a8e8236230 100644
+> --- a/arch/x86/kvm/hyperv.c
+> +++ b/arch/x86/kvm/hyperv.c
+> @@ -2033,7 +2033,68 @@ int kvm_hv_vcpu_flush_tlb(struct kvm_vcpu *vcpu)
+>  	return -ENOSPC;
 >  }
->=20
-> base-commit: 019debf20bfd648b40ba10377ee0168db5eb241e
+>  
+> -static u64 kvm_hv_flush_tlb(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *hc)
+> +static int kvm_hv_hypercall_check_gpa(struct kvm_vcpu *vcpu, gpa_t gpa,
+> +				      bool write)
+> +{
+> +	bool writable = true;
+> +	gfn_t gfn = gpa_to_gfn(gpa);
+> +	unsigned long addr;
+> +
+> +	addr = kvm_vcpu_gfn_to_hva_prot(vcpu, gfn, &writable);
+> +	if (!kvm_is_error_hva(addr) && (!write || writable))
+> +		return 0;
+> +
+> +	kvm_prepare_memory_fault_exit(vcpu, gfn_to_gpa(gfn), PAGE_SIZE,
+> +				      write, false, false);
+> +	return -EFAULT;
+> +}
+> +
+> +static unsigned int kvm_hv_hypercall_mem_access(u16 code)
+> +{
+> +	switch (code) {
+> +	case HVCALL_SIGNAL_EVENT:
+> +	case HVCALL_POST_MESSAGE:
+> +	case HVCALL_FLUSH_VIRTUAL_ADDRESS_LIST:
+> +	case HVCALL_FLUSH_VIRTUAL_ADDRESS_LIST_EX:
+> +	case HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE:
+> +	case HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE_EX:
+> +	case HVCALL_SEND_IPI:
+> +	case HVCALL_SEND_IPI_EX:
+> +		return KVM_MEMORY_EXIT_FLAG_READ;
+> +	case HVCALL_POST_DEBUG_DATA:
+> +	case HVCALL_RETRIEVE_DEBUG_DATA:
+> +		return KVM_MEMORY_EXIT_FLAG_READ | KVM_MEMORY_EXIT_FLAG_WRITE;
+> +	case HVCALL_RESET_DEBUG_SESSION:
+> +	case HV_EXT_CALL_QUERY_CAPABILITIES:
+> +		return KVM_MEMORY_EXIT_FLAG_WRITE;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int kvm_hv_hypercall_check_params(struct kvm_vcpu *vcpu,
+> +					 struct kvm_hv_hcall *hc)
+> +{
+> +	unsigned access;
+> +	int r;
+> +
+> +	if (hc->fast || !vcpu->kvm->arch.hcall_fault_exit)
+> +		return 0;
+> +
+> +	access = kvm_hv_hypercall_mem_access(hc->code);
+> +	if (access & KVM_MEMORY_EXIT_FLAG_READ) {
+> +		r = kvm_hv_hypercall_check_gpa(vcpu, hc->ingpa, false);
+> +		if (r)
+> +			return r;
+> +	}
+> +
+> +	if (access & KVM_MEMORY_EXIT_FLAG_WRITE)
+> +		return kvm_hv_hypercall_check_gpa(vcpu, hc->outgpa, true);
+> +
+> +	return 0;
+> +}
+> +
+> +static s64 kvm_hv_flush_tlb(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *hc)
+>  {
+>  	struct kvm_vcpu_hv *hv_vcpu = to_hv_vcpu(vcpu);
+>  	unsigned long *vcpu_mask = hv_vcpu->vcpu_mask;
+> @@ -2053,6 +2114,19 @@ static u64 kvm_hv_flush_tlb(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *hc)
+>  	struct kvm_vcpu *v;
+>  	unsigned long i;
+>  	bool all_cpus;
+> +	int r;
+> +
+> +	/* Slow direct hypercalls from L2 provide a nested GPA. */
+> +	if (!hc->fast) {
+> +		hc->ingpa = kvm_translate_gpa(vcpu, &vcpu->arch.gva_walk, hc->ingpa,
+> +					      PFERR_GUEST_FINAL_MASK, NULL, 0);
+> +		if (unlikely(hc->ingpa == INVALID_GPA))
+> +			return HV_STATUS_INVALID_HYPERCALL_INPUT;
+> +	}
+> +
+> +	r = kvm_hv_hypercall_check_params(vcpu, hc);
+> +	if (r)
+> +		return r;
+>  
+>  	/*
+>  	 * The Hyper-V TLFS doesn't allow more than HV_MAX_SPARSE_VCPU_BANKS
+> @@ -2061,20 +2135,6 @@ static u64 kvm_hv_flush_tlb(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *hc)
+>  	 */
+>  	BUILD_BUG_ON(KVM_HV_MAX_SPARSE_VCPU_SET_BITS > HV_MAX_SPARSE_VCPU_BANKS);
+>  
+> -	/*
+> -	 * 'Slow' hypercall's first parameter is the address in guest's memory
+> -	 * where hypercall parameters are placed. This is either a GPA or a
+> -	 * nested GPA when KVM is handling the call from L2 ('direct' TLB
+> -	 * flush).  Translate the address here so the memory can be uniformly
+> -	 * read with kvm_read_guest().
+> -	 */
+> -	if (!hc->fast) {
+> -		hc->ingpa = kvm_translate_gpa(vcpu, &vcpu->arch.gva_walk, hc->ingpa,
+> -					      PFERR_GUEST_FINAL_MASK, NULL, 0);
+> -		if (unlikely(hc->ingpa == INVALID_GPA))
+> -			return HV_STATUS_INVALID_HYPERCALL_INPUT;
+> -	}
+> -
+>  	if (hc->code == HVCALL_FLUSH_VIRTUAL_ADDRESS_LIST ||
+>  	    hc->code == HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE) {
+>  		if (hc->fast) {
+> @@ -2242,7 +2302,7 @@ static void kvm_hv_send_ipi_to_many(struct kvm *kvm, u32 vector,
+>  	}
+>  }
+>  
+> -static u64 kvm_hv_send_ipi(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *hc)
+> +static int kvm_hv_send_ipi(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *hc)
+>  {
+>  	struct kvm_vcpu_hv *hv_vcpu = to_hv_vcpu(vcpu);
+>  	u64 *sparse_banks = hv_vcpu->sparse_banks;
+> @@ -2252,6 +2312,11 @@ static u64 kvm_hv_send_ipi(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *hc)
+>  	u64 valid_bank_mask;
+>  	u32 vector;
+>  	bool all_cpus;
+> +	int r;
+> +
+> +	r = kvm_hv_hypercall_check_params(vcpu, hc);
+> +	if (r)
+> +		return r;
+>  
+>  	if (!lapic_in_kernel(vcpu))
+>  		return HV_STATUS_INVALID_HYPERCALL_INPUT;
+> @@ -2432,11 +2497,16 @@ static int kvm_hv_hypercall_complete_userspace(struct kvm_vcpu *vcpu)
+>  	return kvm_hv_hypercall_complete(vcpu, vcpu->run->hyperv.u.hcall.result);
+>  }
+>  
+> -static u16 kvm_hvcall_signal_event(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *hc)
+> +static int kvm_hvcall_signal_event(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *hc)
+>  {
+>  	struct kvm_hv *hv = to_kvm_hv(vcpu->kvm);
+>  	struct eventfd_ctx *eventfd;
+>  	u64 conn_id;
+> +	int ret;
+> +
+> +	ret = kvm_hv_hypercall_check_params(vcpu, hc);
+> +	if (ret)
+> +		return ret;
+>  
+>  	if (unlikely(!hc->fast)) {
+>  		int ret;
+> @@ -2550,11 +2620,30 @@ static bool hv_check_hypercall_access(struct kvm_vcpu_hv *hv_vcpu, u16 code)
+>  	return true;
+>  }
+>  
+> +static int kvm_hv_hypercall_userspace_exit(struct kvm_vcpu *vcpu,
+> +					   struct kvm_hv_hcall *hc)
+> +{
+> +	int r;
+> +
+> +	r = kvm_hv_hypercall_check_params(vcpu, hc);
+> +	if (r)
+> +		return r;
+> +
+> +	vcpu->run->exit_reason = KVM_EXIT_HYPERV;
+> +	vcpu->run->hyperv.type = KVM_EXIT_HYPERV_HCALL;
+> +	vcpu->run->hyperv.u.hcall.input = hc->param;
+> +	vcpu->run->hyperv.u.hcall.params[0] = hc->ingpa;
+> +	vcpu->run->hyperv.u.hcall.params[1] = hc->outgpa;
+> +	vcpu->arch.complete_userspace_io = kvm_hv_hypercall_complete_userspace;
+> +	return 0;
+> +}
+> +
+>  int kvm_hv_hypercall(struct kvm_vcpu *vcpu)
+>  {
+>  	struct kvm_vcpu_hv *hv_vcpu = to_hv_vcpu(vcpu);
+>  	struct kvm_hv_hcall hc;
+>  	u64 ret = HV_STATUS_SUCCESS;
+> +	s64 r;
+>  
+>  	/*
+>  	 * hypercall generates UD from non zero cpl and real mode
+> @@ -2622,7 +2711,10 @@ int kvm_hv_hypercall(struct kvm_vcpu *vcpu)
+>  			ret = HV_STATUS_INVALID_HYPERCALL_INPUT;
+>  			break;
+>  		}
+> -		ret = kvm_hvcall_signal_event(vcpu, &hc);
+> +		r = kvm_hvcall_signal_event(vcpu, &hc);
+> +		if (r < 0)
+> +			return r;
+> +		ret = r;
+>  		if (ret != HV_STATUS_INVALID_PORT_ID)
+>  			break;
+>  		fallthrough;	/* maybe userspace knows this conn_id */
+> @@ -2632,7 +2724,7 @@ int kvm_hv_hypercall(struct kvm_vcpu *vcpu)
+>  			ret = HV_STATUS_INVALID_HYPERCALL_INPUT;
+>  			break;
+>  		}
+> -		goto hypercall_userspace_exit;
+> +		return kvm_hv_hypercall_userspace_exit(vcpu, &hc);
+>  	case HVCALL_FLUSH_VIRTUAL_ADDRESS_LIST:
+>  		if (unlikely(hc.var_cnt)) {
+>  			ret = HV_STATUS_INVALID_HYPERCALL_INPUT;
+> @@ -2644,7 +2736,10 @@ int kvm_hv_hypercall(struct kvm_vcpu *vcpu)
+>  			ret = HV_STATUS_INVALID_HYPERCALL_INPUT;
+>  			break;
+>  		}
+> -		ret = kvm_hv_flush_tlb(vcpu, &hc);
+> +		r = kvm_hv_flush_tlb(vcpu, &hc);
+> +		if (r < 0)
+> +			return r;
+> +		ret = r;
+>  		break;
+>  	case HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE:
+>  		if (unlikely(hc.var_cnt)) {
+> @@ -2657,7 +2752,10 @@ int kvm_hv_hypercall(struct kvm_vcpu *vcpu)
+>  			ret = HV_STATUS_INVALID_HYPERCALL_INPUT;
+>  			break;
+>  		}
+> -		ret = kvm_hv_flush_tlb(vcpu, &hc);
+> +		r = kvm_hv_flush_tlb(vcpu, &hc);
+> +		if (r < 0)
+> +			return r;
+> +		ret = r;
+>  		break;
+>  	case HVCALL_SEND_IPI:
+>  		if (unlikely(hc.var_cnt)) {
+> @@ -2670,7 +2768,10 @@ int kvm_hv_hypercall(struct kvm_vcpu *vcpu)
+>  			ret = HV_STATUS_INVALID_HYPERCALL_INPUT;
+>  			break;
+>  		}
+> -		ret = kvm_hv_send_ipi(vcpu, &hc);
+> +		r = kvm_hv_send_ipi(vcpu, &hc);
+> +		if (r < 0)
+> +			return r;
+> +		ret = r;
+>  		break;
+>  	case HVCALL_POST_DEBUG_DATA:
+>  	case HVCALL_RETRIEVE_DEBUG_DATA:
+> @@ -2691,14 +2792,14 @@ int kvm_hv_hypercall(struct kvm_vcpu *vcpu)
+>  			ret = HV_STATUS_OPERATION_DENIED;
+>  			break;
+>  		}
+> -		goto hypercall_userspace_exit;
+> +		return kvm_hv_hypercall_userspace_exit(vcpu, &hc);
+>  	}
+>  	case HV_EXT_CALL_QUERY_CAPABILITIES ... HV_EXT_CALL_MAX:
+>  		if (unlikely(hc.fast)) {
+>  			ret = HV_STATUS_INVALID_PARAMETER;
+>  			break;
+>  		}
+> -		goto hypercall_userspace_exit;
+> +		return kvm_hv_hypercall_userspace_exit(vcpu, &hc);
+>  	default:
+>  		ret = HV_STATUS_INVALID_HYPERCALL_CODE;
+>  		break;
+> @@ -2707,14 +2808,6 @@ int kvm_hv_hypercall(struct kvm_vcpu *vcpu)
+>  hypercall_complete:
+>  	return kvm_hv_hypercall_complete(vcpu, ret);
+>  
+> -hypercall_userspace_exit:
+> -	vcpu->run->exit_reason = KVM_EXIT_HYPERV;
+> -	vcpu->run->hyperv.type = KVM_EXIT_HYPERV_HCALL;
+> -	vcpu->run->hyperv.u.hcall.input = hc.param;
+> -	vcpu->run->hyperv.u.hcall.params[0] = hc.ingpa;
+> -	vcpu->run->hyperv.u.hcall.params[1] = hc.outgpa;
+> -	vcpu->arch.complete_userspace_io = kvm_hv_hypercall_complete_userspace;
+> -	return 0;
+>  }
+>  
+>  void kvm_hv_init_vm(struct kvm *kvm)
+> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+> index 0fbe2d4e685f..3338d85c721f 100644
+> --- a/arch/x86/kvm/x86.c
+> +++ b/arch/x86/kvm/x86.c
+> @@ -2242,6 +2242,7 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
+>  	case KVM_CAP_HYPERV_ENFORCE_CPUID:
+>  	case KVM_CAP_SYS_HYPERV_CPUID:
+>  #endif
+> +	case KVM_CAP_HCALL_FAULT_EXIT:
+>  	case KVM_CAP_PCI_SEGMENT:
+>  	case KVM_CAP_DEBUGREGS:
+>  	case KVM_CAP_X86_ROBUST_SINGLESTEP:
+> @@ -4210,6 +4211,10 @@ int kvm_vm_ioctl_enable_cap(struct kvm *kvm,
+>  		mutex_unlock(&kvm->lock);
+>  		break;
+>  	}
+> +	case KVM_CAP_HCALL_FAULT_EXIT:
+> +		kvm->arch.hcall_fault_exit = cap->args[0];
+> +		r = 0;
+> +		break;
+>  	default:
+>  		r = -EINVAL;
+>  		break;
+> @@ -7191,25 +7196,28 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_x86_vendor_exit);
+>  
+>  #ifdef CONFIG_X86_64
+>  static int kvm_pv_clock_pairing(struct kvm_vcpu *vcpu, gpa_t paddr,
+> -			        unsigned long clock_type)
+> +			        unsigned long clock_type, unsigned long *ret)
+>  {
+>  	struct kvm_clock_pairing clock_pairing;
+>  	struct timespec64 ts;
+>  	size_t offset = 0;
+> +	bool writable;
+> +	unsigned long hva;
+>  	u64 cycle;
+>  
+> +	*ret = -KVM_EOPNOTSUPP;
+>  	if (clock_type != KVM_CLOCK_PAIRING_WALLCLOCK)
+> -		return -KVM_EOPNOTSUPP;
+> +		return 0;
+>  
+>  	/*
+>  	 * When tsc is in permanent catchup mode guests won't be able to use
+>  	 * pvclock_read_retry loop to get consistent view of pvclock
+>  	 */
+>  	if (vcpu->arch.tsc_always_catchup)
+> -		return -KVM_EOPNOTSUPP;
+> +		return 0;
+>  
+>  	if (!kvm_get_walltime_and_clockread(&ts, &cycle))
+> -		return -KVM_EOPNOTSUPP;
+> +		return 0;
+>  
+>  	clock_pairing.sec = ts.tv_sec;
+>  	clock_pairing.nsec = ts.tv_nsec;
+> @@ -7217,6 +7225,7 @@ static int kvm_pv_clock_pairing(struct kvm_vcpu *vcpu, gpa_t paddr,
+>  	clock_pairing.flags = 0;
+>  	memset(&clock_pairing.pad, 0, sizeof(clock_pairing.pad));
+>  
+> +	*ret = -KVM_EFAULT;
+>  	while (offset < sizeof(clock_pairing)) {
+>  		gpa_t gpa = kvm_translate_gpa(vcpu, &vcpu->arch.gva_walk, paddr + offset,
+>  					      PFERR_WRITE_MASK | PFERR_GUEST_FINAL_MASK, NULL, 0);
+> @@ -7224,12 +7233,22 @@ static int kvm_pv_clock_pairing(struct kvm_vcpu *vcpu, gpa_t paddr,
+>  				   PAGE_SIZE - offset_in_page(gpa));
+>  
+>  		if (gpa == INVALID_GPA)
+> -			return -KVM_EFAULT;
+> +			return 0;
+> +		if (vcpu->kvm->arch.hcall_fault_exit) {
+> +			hva = kvm_vcpu_gfn_to_hva_prot(vcpu, gpa_to_gfn(gpa), &writable);
+> +			if (kvm_is_error_hva(hva) || !writable) {
+> +				kvm_prepare_memory_fault_exit(vcpu, gpa & PAGE_MASK, PAGE_SIZE,
+> +							      true, false, false);
+> +				return -EFAULT;
+> +			}
+> +		}
+>  		if (kvm_write_guest(vcpu->kvm, gpa, (u8 *)&clock_pairing + offset, len))
+> -			return -KVM_EFAULT;
+> +			return 0;
+>  
+>  		offset += len;
+>  	}
+> +
+> +	*ret = 0;
+>  	return 0;
+>  }
+>  #endif
+> @@ -7388,7 +7407,8 @@ int ____kvm_emulate_hypercall(struct kvm_vcpu *vcpu, int cpl,
+>  		break;
+>  #ifdef CONFIG_X86_64
+>  	case KVM_HC_CLOCK_PAIRING:
+> -		ret = kvm_pv_clock_pairing(vcpu, a0, a1);
+> +		if (kvm_pv_clock_pairing(vcpu, a0, a1, &ret))
+> +			return -EFAULT;
+>  		break;
+>  #endif
+>  	case KVM_HC_SEND_IPI:
+> diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
+> index 15a3090f067e..c23f1ea62eaf 100644
+> --- a/include/uapi/linux/kvm.h
+> +++ b/include/uapi/linux/kvm.h
+> @@ -1002,6 +1002,7 @@ struct kvm_enable_cap {
+>  #define KVM_CAP_S390_HPAGE_2G 249
+>  #define KVM_CAP_PPC_COMPAT_CAPS 250
+>  #define KVM_CAP_ARM_PMU_V3_STRICT 251
+> +#define KVM_CAP_HCALL_FAULT_EXIT 252
+>  
+>  struct kvm_irq_routing_irqchip {
+>  	__u32 irqchip;
 
---=20
-Pauli Virtanen
+-- 
+Vitaly
+
