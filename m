@@ -1,64 +1,64 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991304FB9D7
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:31:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3554FD7A8
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:31:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790015505; cv=none; b=E65nOxlY3XeMvHYyLncJs5UbZMJmsFZdmWcugjHMi5yk27rJeZk7ExVYrRzsmtj+DXxiSL0E4S/s9C41kIdmm2y+7uUqugipxNTQ25PcZ4562h0wKImXjSWJirGdFVNgZQZuvUhTfFHubpVpfsWp3ohxrMwLxM0nx/F6/JR1Z0E=
+	t=1790015506; cv=none; b=N/ISoXcXMpaduG7m9kcdoki4QIGhaJ2Z1N/1MOdJujq/K8k/nSBoXvaQH1qOHz9oM5RcWZ3QsScsXruLlqLiltnnpvgHHz/rZgz5w1BxsXVxAwXsgWvCcGtc/43gZ77rYMjoVL97yeYTDWa2Q63zo47Xwa7/lVB5X2G1/jyRfCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790015505; c=relaxed/simple;
-	bh=2f3W7ewvZD9vQ7bzg12iNZ75xkP2pWmWjFYvl7E8R3Q=;
+	s=arc-20240116; t=1790015506; c=relaxed/simple;
+	bh=M8fIINHnIxZB6qEGrsAABH8P+wRPzJ0kqqIWTT4CBow=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZmINCxSMlXwK/W/q0mxkYXvzdXShzG6ibsUotvJORrVBEwteUXscLkiXYk3thSxOccL1DaYtqbWutqCAXiQ07sxBDDOOIRSbK6S/CN8S6aob36x6NPTXz9it9DJNA7qftjaH07Tz4juJUZmdFdwm0NPVMh9xbXsf5uD3P38qHLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OSakWhV2; arc=none smtp.client-ip=74.125.230.76
+	 MIME-Version; b=XgE4nwIU4cm+3x4JsEKGydx4KXdGO/K6OynlK+DCU7GLIga28CCOZu7m6hhLi7KS/XuXT7mEvAz7aI8JwJ4BcuVTtUtjs3DtIWomcTEpoa2QyWsEi4L2HbtFb5f35vbEbHTNOiQKuZUFi66N3HL6lvMwG0GgPAuE2C/Xn3KHMiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iYMAXGOW; arc=none smtp.client-ip=209.85.208.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OSakWhV2"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff148dfdso21857481fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:31:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iYMAXGOW"
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3a20f06cce6so1831821fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:31:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790015501; x=1790620301; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790015503; x=1790620303; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2j1Tv4agtRXuOvbEOgkc069No6p6dhHi73ng2NMw2ME=;
-        b=OSakWhV2yLjW3FW1HXrPiz1nWPCmH7q1wgcyraM8zegSxdjbeyr1qIXU4WO5RMcoN5
-         gKaqzU+sdezgoQl1Yqd53vJKwozUfP1Zxef5w/LZVzJD3YdP40GU53pEdITdfoSwhTbn
-         heMbWN+aW62XX/6nU8reP8b4FVQlWmg+Cq998cAoz7ShqtKA/OwVgxAgOIZcVPr/TypO
-         gxtMSLktoHWKcz8b4/IM3cstulCf1GsbWEqStiLxCb470ZlUkMu4jGXMpNQq8PD/o9C1
-         bMABk1qzGAig52PTFZspZCzczgbi80L8Akc63032I2MoTikgrfOUAf61ULG1vHoz91Wy
-         tsdQ==
+        bh=4ceWGBhcz2v2+A70YlsGrXNu+jmKzqHeUxRvhPX+bxg=;
+        b=iYMAXGOWOQdmd0Z/Gtjdd6t3XcDgjiUn1kLCZNgALI9r5nvem/coZXPFrHoCdwoNnz
+         TQWSqQD493hHVA4/AQp+qlXsdfD6w2/ydMzeK90i7ZAKGYmEHepU4GbuUXL8XVM24NcI
+         XeOWjOhjYJNl35i3mJ9I+CBqWT90jlnRs/ZaZRBJEOKut0fMtZAyv+bLHoO8JwzvWjY/
+         XhSB9FUIJ74QtS41w9zDYPbOr7LFmynyQfymCaSKIhCG4VGuiFiVMLzWylGtUiT4RFF+
+         as0QIGzImM2DIUIOvujPJiKIuDBEmhk102seXfbo9CCL51z0eb1omGtNpjadtnizhFbO
+         W4VA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790015501; x=1790620301;
+        d=1e100.net; s=20260707; t=1790015503; x=1790620303;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2j1Tv4agtRXuOvbEOgkc069No6p6dhHi73ng2NMw2ME=;
-        b=V8l6nR/qjIpguh3JiCrfWp3ulRyHern53mgYgCjznnIYeJExC5Rk+SUVRZFk5ss5Xl
-         uXslb+2wN2wSby0J4phv+/Ch7BuM0kyIVOh3Lpcr/9Pz3l1BhdwQDkb6C+ggFVCaJJzZ
-         n4jFdxYSsnRtkmie9opw80Y2jAdf8ov60a9BKOnPuenZSDcIgVMVAlQYrPClwGWbr1TJ
-         1X/XNy397n5bs9Bdv8BG7I7ZcDWWUYWRgWi5CssOIWUhcpWjMSJerov43WnnWCPi6pnA
-         beaCuYafO9DLlNrXjgSdXUSZca4Lo4jrvVtssL54KhSyXm/6gPI1l7OJFaZ32L82fYpn
-         gXEw==
-X-Forwarded-Encrypted: i=1; AKwUvBzQmFEr4f80dWPIjyLYbaRGYzPlY2ZFr9sJTtkh9oZhM+krPxzwyw0FRJDaZWLqA9u8yZvzZ/vmtNDJr+s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUk0tfKCnP1tlLBWONM29uVX14/8qQP1gmjxE5K4cqzoGNFB6/
-	Lf+5Ug4Zs+es6jhxFADSp5o89y8sK7cP8f9d4dfJtCRa2t3IcOyH8hmQ
-X-Gm-Gg: AYBFou2irPecWt+m4BGyZhqJKIRkYa2WKcRTSkqoPhWTZ5RIFX/UvB3pGuFAqWgC01b
-	m6papfcOc71vnOMb8Y0sMmWzsj7ISV+Amf+yj6L1JfTflHtcP3/jP3uV+b2nXhpJ3V2VeGIRmXo
-	O613UiOHUcvUKHKn9hfaPgi1e4jGVpzQ1LpelNGXKtYLN0junvhqWVH+lKJIsjhWqxwCkBRFBGS
-	PPfAU8sQ1Eyg/PT733X4MJGnnDdYkWaIvGrsCim2ZHdJJxwe3TnUw0jndWhVdnAZ3WRfgViI27r
-	u9LMWEbSfDFJTnTpeUp10Jfsy+uIk4DJmQetJFWcWw9FapWsIyaOKy7CdlrDJzyEN9uBXJcGQ5h
-	+K5K1papECpAZJTo5LLSS89qrFRCszCMi2ZUGH/t62WlJqDmfETQb4DLTjRSax2io6ZNqc/Tde1
-	dB8PcWgF+DwfWeu6/exgJcFOLkFCFcfpftn7VaULg6U41UjfTIRLfugrvBHLasC9RS6dh5YNa9I
-	LbGkanHC0VEd0MhVM8QqsVCqxkd8fEfSYrTdqX1yK2SJu+Syvio59suUZ3HZJDlu7TUTw==
-X-Received: by 2002:a05:651c:1508:b0:3a6:74a:53cf with SMTP id 38308e7fff4ca-3a6074a5560mr19625551fa.28.1790015500539;
-        Mon, 21 Sep 2026 11:31:40 -0700 (PDT)
+        bh=4ceWGBhcz2v2+A70YlsGrXNu+jmKzqHeUxRvhPX+bxg=;
+        b=tV8FSIGmohIFQED/c0BqcaEKL0FFzFthx3n7IzZLG9gbtmHKsYR+DiRFiklhqKnvZn
+         WPwXZiHKRtvUY1NyGow1FbY2Envp7y/+tPiTWJ2P9yT75fffwhZlXxNdiGAqRQ0J1YDP
+         0Fn+hyISRzh+ZHS2i3aFYzPeG90U47QbIuUI9HIU9sJoSRWUcZ8Uq8OyNBpdmlBEK9HV
+         EmgqmSzzkuRXMIpV/rnShSxUdQr4DMTOF9fhFWuldP/GWo5YSPw/H3/beGTPPzZIDya7
+         KJSRZ2myMjHgiN5/WO9AHoGAEWigI1Uk+cRHAByzrq8b3t1t9snZJvCpJ0dmNwVrdaVR
+         7ryA==
+X-Forwarded-Encrypted: i=1; AKwUvBz15JeubLXGUeweuM7CRMMSc8dzR48xDsN3rpKIKbGo7XlWQztZSvqgwUUZK+gt13k9/0oz8X7lmsggSNA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nEyYP+4fu89F+fkNLtTEdO3kTQEUxVd4nuDlGAe/CGFujxkVBO
+	z8VNI2QyWoX69ZELOwKY5FCHFNLi2eNJZ2WmUmG8OE1sbIrnV/T166sQ
+X-Gm-Gg: AYBFou1Muf4EiaQDov0UW94U+Tk9eFs/D+LGfVWp0Ummf9ALX0dxbBnIyXn2qn9HltI
+	HtFugDDv32gUqLgH4H5LkC9DRWQvhONs5CCKp5J1evNI7YkEpxv4hF0ntmV1EBtboC3njvdrIea
+	rOc21VjJnO9jF5EKJnJADYia0oqa+OHT39m3snxoPZCvoX1UosLzv7nENfoqIc5fV25HtvaSkY/
+	BrkFkXHZIQ98mHeVdIrxb8Bt/ZXEyWq7DCQ838BCy6yFIU93432F/4mESp4vbmpQs+UWhjJVDAS
+	V0u4wM0KEsNyMcWwIeRrbyyeI9uelCUhQdjCK3OVk8XaAlnrqr2bkBH70ZHv5EWReLHaiAMYPEs
+	MKOU6xR7/QvBKAS/ZUo8IC4icKjGOeu+waPCuDVHr0Hya7c88gq0f6faoG4eaEslQSgmRJ2mAYj
+	QDbyZFaKQts+GkzdTPjZFAr9JvxHPzZhdXjrgvFKlD41bijweJqrBmEtQnIXlR1Dt1UxvIsLy9v
+	sgUkw63RYx2IjOohH5O6LuZqbxhbC7hS4yYRy893J8UGGfwSopCoEeGbU/j7ZK/EAlSQw==
+X-Received: by 2002:a05:651c:198d:b0:3a4:68f1:8bee with SMTP id 38308e7fff4ca-3a624cb3235mr1051791fa.6.1790015502607;
+        Mon, 21 Sep 2026 11:31:42 -0700 (PDT)
 Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a60761e5d6sm24260141fa.29.2026.09.21.11.31.39
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a60761e5d6sm24260141fa.29.2026.09.21.11.31.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 11:31:39 -0700 (PDT)
+        Mon, 21 Sep 2026 11:31:41 -0700 (PDT)
 From: Rupesh Majhi <zoone.rupert@gmail.com>
 To: Andy Shevchenko <andy@kernel.org>,
 	Bill Wendling <morbo@google.com>,
@@ -74,9 +74,9 @@ Cc: linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	llvm@lists.linux.dev,
 	Rupesh Majhi <zoone.rupert@gmail.com>
-Subject: [PATCH v8 03/10] iio: pressure: dps310: use get_unaligned_be24() for the 24-bit results
-Date: Mon, 21 Sep 2026 21:31:25 +0300
-Message-ID: <20260921183132.233136-4-zoone.rupert@gmail.com>
+Subject: [PATCH v8 04/10] iio: pressure: dps310: take the lock once per raw read
+Date: Mon, 21 Sep 2026 21:31:26 +0300
+Message-ID: <20260921183132.233136-5-zoone.rupert@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260921183132.233136-1-zoone.rupert@gmail.com>
 References: <20260921183132.233136-1-zoone.rupert@gmail.com>
@@ -88,64 +88,350 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Pressure and temperature results are big-endian 24-bit values. Build them
-with get_unaligned_be24() instead of open-coded shifts.
+A processed pressure read takes the lock twice: once in the raw read,
+then again when dps310_calculate_pressure() trylocks to refresh the
+temperature. The refresh is skipped whenever the lock is busy.
 
-The coefficients are packed into the bytes rather than byte-aligned, so
-they stay as they are.
+Split the raw reads into variants that expect the lock held and give each
+channel a helper that takes it once for the whole sequence, so the
+temperature refresh is unconditional. Buffered capture later in this
+series needs the same shape.
+
+Mark the functions that need the lock with __must_hold() rather than a
+comment, and include cleanup.h, which ACQUIRE() needs and was coming in
+transitively.
 
 Assisted-by: LLM
 Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
 ---
- drivers/iio/pressure/dps310.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ drivers/iio/pressure/dps310.c | 143 ++++++++++++++++++----------------
+ 1 file changed, 77 insertions(+), 66 deletions(-)
 
 diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-index bd7da4f12749..e7f173e08e01 100644
+index e7f173e08e01..8cefca928077 100644
 --- a/drivers/iio/pressure/dps310.c
 +++ b/drivers/iio/pressure/dps310.c
-@@ -19,6 +19,7 @@
- #include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/regmap.h>
-+#include <linux/unaligned.h>
+@@ -14,6 +14,7 @@
+  *  - Optionally support the FIFO
+  */
  
- #include <linux/iio/iio.h>
- #include <linux/iio/sysfs.h>
-@@ -468,7 +469,6 @@ static int dps310_read_pres_raw(struct dps310_data *data)
++#include <linux/cleanup.h>
+ #include <linux/i2c.h>
+ #include <linux/limits.h>
+ #include <linux/math64.h>
+@@ -287,8 +288,8 @@ static int dps310_get_temp_precision(struct dps310_data *data, int *val)
+ 	return 0;
+ }
+ 
+-/* Called with lock held */
+ static int dps310_set_pres_precision(struct dps310_data *data, int val)
++	__must_hold(&data->lock)
+ {
+ 	int rc;
+ 	u8 shift_en;
+@@ -306,8 +307,8 @@ static int dps310_set_pres_precision(struct dps310_data *data, int val)
+ 				  DPS310_PRS_PRC_BITS, ilog2(val));
+ }
+ 
+-/* Called with lock held */
+ static int dps310_set_temp_precision(struct dps310_data *data, int val)
++	__must_hold(&data->lock)
+ {
+ 	int rc;
+ 	u8 shift_en;
+@@ -325,8 +326,8 @@ static int dps310_set_temp_precision(struct dps310_data *data, int val)
+ 				  DPS310_TMP_PRC_BITS, ilog2(val));
+ }
+ 
+-/* Called with lock held */
+ static int dps310_set_pres_samp_freq(struct dps310_data *data, int freq)
++	__must_hold(&data->lock)
+ {
+ 	u8 val;
+ 
+@@ -339,8 +340,8 @@ static int dps310_set_pres_samp_freq(struct dps310_data *data, int freq)
+ 				  DPS310_PRS_RATE_BITS, val);
+ }
+ 
+-/* Called with lock held */
+ static int dps310_set_temp_samp_freq(struct dps310_data *data, int freq)
++	__must_hold(&data->lock)
+ {
+ 	u8 val;
+ 
+@@ -439,6 +440,7 @@ static int dps310_ready_status(struct dps310_data *data, int ready_bit, int time
+ }
+ 
+ static int dps310_ready(struct dps310_data *data, int ready_bit, int timeout)
++	__must_hold(&data->lock)
+ {
+ 	int rc;
+ 
+@@ -464,40 +466,36 @@ static int dps310_ready(struct dps310_data *data, int ready_bit, int timeout)
+ 	return 0;
+ }
+ 
+-static int dps310_read_pres_raw(struct dps310_data *data)
++static int dps310_read_pres_raw_locked(struct dps310_data *data)
++	__must_hold(&data->lock)
+ {
  	int rc;
  	int rate;
  	int timeout;
--	s32 raw;
  	u8 val[3];
  
- 	if (mutex_lock_interruptible(&data->lock))
-@@ -489,8 +489,7 @@ static int dps310_read_pres_raw(struct dps310_data *data)
+-	if (mutex_lock_interruptible(&data->lock))
+-		return -EINTR;
+-
+ 	rc = dps310_get_pres_samp_freq(data, &rate);
+ 	if (rc)
+-		goto done;
++		return rc;
+ 
+ 	timeout = DPS310_POLL_TIMEOUT_US(rate);
+ 
+ 	/* Poll for sensor readiness; base the timeout upon the sample rate. */
+ 	rc = dps310_ready(data, DPS310_PRS_RDY, timeout);
+ 	if (rc)
+-		goto done;
++		return rc;
+ 
+ 	rc = regmap_bulk_read(data->regmap, DPS310_PRS_BASE, val, sizeof(val));
  	if (rc < 0)
- 		goto done;
+-		goto done;
++		return rc;
  
--	raw = (val[0] << 16) | (val[1] << 8) | val[2];
--	data->pressure_raw = sign_extend32(raw, 23);
-+	data->pressure_raw = sign_extend32(get_unaligned_be24(val), 23);
+ 	data->pressure_raw = sign_extend32(get_unaligned_be24(val), 23);
  
- done:
- 	mutex_unlock(&data->lock);
-@@ -502,14 +501,12 @@ static int dps310_read_temp_ready(struct dps310_data *data)
+-done:
+-	mutex_unlock(&data->lock);
+-	return rc;
++	return 0;
+ }
+ 
+-/* Called with lock held */
+ static int dps310_read_temp_ready(struct dps310_data *data)
++	__must_hold(&data->lock)
  {
  	int rc;
  	u8 val[3];
--	s32 raw;
- 
- 	rc = regmap_bulk_read(data->regmap, DPS310_TMP_BASE, val, sizeof(val));
- 	if (rc < 0)
- 		return rc;
- 
--	raw = (val[0] << 16) | (val[1] << 8) | val[2];
--	data->temp_raw = sign_extend32(raw, 23);
-+	data->temp_raw = sign_extend32(get_unaligned_be24(val), 23);
- 
+@@ -511,31 +509,40 @@ static int dps310_read_temp_ready(struct dps310_data *data)
  	return 0;
  }
+ 
+-static int dps310_read_temp_raw(struct dps310_data *data)
++static int dps310_read_temp_raw_locked(struct dps310_data *data)
++	__must_hold(&data->lock)
+ {
+ 	int rc;
+ 	int rate;
+ 	int timeout;
+ 
+-	if (mutex_lock_interruptible(&data->lock))
+-		return -EINTR;
+-
+ 	rc = dps310_get_temp_samp_freq(data, &rate);
+ 	if (rc)
+-		goto done;
++		return rc;
+ 
+ 	timeout = DPS310_POLL_TIMEOUT_US(rate);
+ 
+ 	/* Poll for sensor readiness; base the timeout upon the sample rate. */
+ 	rc = dps310_ready(data, DPS310_TMP_RDY, timeout);
+ 	if (rc)
+-		goto done;
++		return rc;
++
++	return dps310_read_temp_ready(data);
++}
++
++/* Best effort: on error the previous temperature stands */
++static void dps310_refresh_temp_locked(struct dps310_data *data)
++	__must_hold(&data->lock)
++{
++	int rc;
++	int t_ready;
+ 
+-	rc = dps310_read_temp_ready(data);
++	rc = regmap_read(data->regmap, DPS310_MEAS_CFG, &t_ready);
++	if (rc)
++		return;
+ 
+-done:
+-	mutex_unlock(&data->lock);
+-	return rc;
++	if (t_ready & DPS310_TMP_RDY)
++		dps310_read_temp_ready(data);
+ }
+ 
+ static bool dps310_is_writeable_reg(struct device *dev, unsigned int reg)
+@@ -577,59 +584,47 @@ static int dps310_write_raw(struct iio_dev *iio,
+ 			    struct iio_chan_spec const *chan, int val,
+ 			    int val2, long mask)
+ {
+-	int rc;
+ 	struct dps310_data *data = iio_priv(iio);
+ 
+-	if (mutex_lock_interruptible(&data->lock))
++	ACQUIRE(mutex_intr, lock)(&data->lock);
++	if (ACQUIRE_ERR(mutex_intr, &lock))
+ 		return -EINTR;
+ 
+ 	switch (mask) {
+ 	case IIO_CHAN_INFO_SAMP_FREQ:
+ 		switch (chan->type) {
+ 		case IIO_PRESSURE:
+-			rc = dps310_set_pres_samp_freq(data, val);
+-			break;
++			return dps310_set_pres_samp_freq(data, val);
+ 
+ 		case IIO_TEMP:
+-			rc = dps310_set_temp_samp_freq(data, val);
+-			break;
++			return dps310_set_temp_samp_freq(data, val);
+ 
+ 		default:
+-			rc = -EINVAL;
+-			break;
++			return -EINVAL;
+ 		}
+-		break;
+ 
+ 	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+ 		switch (chan->type) {
+ 		case IIO_PRESSURE:
+-			rc = dps310_set_pres_precision(data, val);
+-			break;
++			return dps310_set_pres_precision(data, val);
+ 
+ 		case IIO_TEMP:
+-			rc = dps310_set_temp_precision(data, val);
+-			break;
++			return dps310_set_temp_precision(data, val);
+ 
+ 		default:
+-			rc = -EINVAL;
+-			break;
++			return -EINVAL;
+ 		}
+-		break;
+ 
+ 	default:
+-		rc = -EINVAL;
+-		break;
++		return -EINVAL;
+ 	}
+-
+-	mutex_unlock(&data->lock);
+-	return rc;
+ }
+ 
+ static int dps310_calculate_pressure(struct dps310_data *data, int *val)
++	__must_hold(&data->lock)
+ {
+ 	int i;
+ 	int rc;
+-	int t_ready;
+ 	int kpi;
+ 	int kti;
+ 	s64 rem = 0ULL;
+@@ -653,15 +648,6 @@ static int dps310_calculate_pressure(struct dps310_data *data, int *val)
+ 	kp = (s64)kpi;
+ 	kt = (s64)kti;
+ 
+-	/* Refresh temp if it's ready, otherwise just use the latest value */
+-	if (mutex_trylock(&data->lock)) {
+-		rc = regmap_read(data->regmap, DPS310_MEAS_CFG, &t_ready);
+-		if (rc >= 0 && t_ready & DPS310_TMP_RDY)
+-			dps310_read_temp_ready(data);
+-
+-		mutex_unlock(&data->lock);
+-	}
+-
+ 	p = (s64)data->pressure_raw;
+ 	t = (s64)data->temp_raw;
+ 
+@@ -707,6 +693,23 @@ static int dps310_calculate_pressure(struct dps310_data *data, int *val)
+ 	return 0;
+ }
+ 
++static int dps310_read_pressure_value(struct dps310_data *data, int *val)
++{
++	int rc;
++
++	ACQUIRE(mutex_intr, lock)(&data->lock);
++	if (ACQUIRE_ERR(mutex_intr, &lock))
++		return -EINTR;
++
++	rc = dps310_read_pres_raw_locked(data);
++	if (rc)
++		return rc;
++
++	dps310_refresh_temp_locked(data);
++
++	return dps310_calculate_pressure(data, val);
++}
++
+ static int dps310_read_pressure(struct dps310_data *data, int *val, int *val2,
+ 				long mask)
+ {
+@@ -721,11 +724,7 @@ static int dps310_read_pressure(struct dps310_data *data, int *val, int *val2,
+ 		return IIO_VAL_INT;
+ 
+ 	case IIO_CHAN_INFO_PROCESSED:
+-		rc = dps310_read_pres_raw(data);
+-		if (rc)
+-			return rc;
+-
+-		rc = dps310_calculate_pressure(data, val);
++		rc = dps310_read_pressure_value(data, val);
+ 		if (rc)
+ 			return rc;
+ 
+@@ -744,6 +743,7 @@ static int dps310_read_pressure(struct dps310_data *data, int *val, int *val2,
+ }
+ 
+ static int dps310_calculate_temp(struct dps310_data *data, int *val)
++	__must_hold(&data->lock)
+ {
+ 	s64 c0;
+ 	s64 t;
+@@ -765,6 +765,21 @@ static int dps310_calculate_temp(struct dps310_data *data, int *val)
+ 	return 0;
+ }
+ 
++static int dps310_read_temp_value(struct dps310_data *data, int *val)
++{
++	int rc;
++
++	ACQUIRE(mutex_intr, lock)(&data->lock);
++	if (ACQUIRE_ERR(mutex_intr, &lock))
++		return -EINTR;
++
++	rc = dps310_read_temp_raw_locked(data);
++	if (rc)
++		return rc;
++
++	return dps310_calculate_temp(data, val);
++}
++
+ static int dps310_read_temp(struct dps310_data *data, int *val, int *val2,
+ 			    long mask)
+ {
+@@ -779,11 +794,7 @@ static int dps310_read_temp(struct dps310_data *data, int *val, int *val2,
+ 		return IIO_VAL_INT;
+ 
+ 	case IIO_CHAN_INFO_PROCESSED:
+-		rc = dps310_read_temp_raw(data);
+-		if (rc)
+-			return rc;
+-
+-		rc = dps310_calculate_temp(data, val);
++		rc = dps310_read_temp_value(data, val);
+ 		if (rc)
+ 			return rc;
+ 
 -- 
 2.43.0
 
