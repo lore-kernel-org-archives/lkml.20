@@ -1,149 +1,116 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 778F151122B
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:13:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414D7511E8F
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:14:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790018021; cv=none; b=W3AZykqhzWqPndeWd3rMM4iN/PeWvo2f+AZvhWo8mCjK90hN8DISqeq32RAl3Xso6XhQqOyYO3flfFxZubmrJnqVkDYiHTUfnB6PB1MFqDhQPTDNj/SrFTY+fSBpBkAvoifPWHqXLbPFakiWMNUegvB/5N8Z+oy5nTypM5aHmaw=
+	t=1790018063; cv=none; b=UBBXbqLJU9nHhXert5vpScMHWSSiEk9A3820r1EbsIq0tgXNfzSg4nlEL/Oj8uZTL1w5EURAnErwR/OR0AjzwW0uNrKL5sUm0hX2sDRiRn/NAqxd7iAeaT2S25l/u592eRKZIOfzjvxbGtev1yngsIGCDXTa/0U6hyf5qwiZx18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790018021; c=relaxed/simple;
-	bh=BQed6cSp6vzZ+hQ7oZzppKqdBjTyFHm3lTjQIjKB3r8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E9x3MCrFXW9593y34v//kDvKgAg1iPIXjhhw2jwGFJrCjPBNLhRSQvY4FJmPtpqYTDvBaPC2xirodCCZFudRZnfVziNkxpXHYhcnHFK2Zv+4+lZ80qbMjKeoVv8H6GFKl7bCRpEgKErEBTwF8AWsR6WOc4T1OOPsHSNEV9Pd1sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=brivo.com; spf=pass smtp.mailfrom=brivo.com; dkim=pass (2048-bit key) header.d=brivo.com header.i=@brivo.com header.b=Kgsg4t1Z; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=brivo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=brivo.com
+	s=arc-20240116; t=1790018063; c=relaxed/simple;
+	bh=vAIXgaa3DfXA+KfQ7T0dYWQlch3LEAa8mJXRZ7psQFE=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=Ijg2I+5eNJ+LdIjjFG/UlcVty85Q3Lz0UmdAZODAf6AqJUOQ5A8KUWpW7801mGGHOUAxUalouR+qqvUxnuwFi8rD1jnj9rGEqK9iciFSC6XNQdMxAPxFqHIbk2BEVfQI+KkJ7S+SV9TqOM+hEIB1C3ukybTglgFx4+ymEl44o0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Cjfmm1cJ; arc=none smtp.client-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brivo.com header.i=@brivo.com header.b="Kgsg4t1Z"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc93e00so18556296d6.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:13:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Cjfmm1cJ"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc435388657so4980369a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:14:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brivo.com; s=google; t=1790018019; x=1790622819; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rgouXHW55aIbAEz+yxgGnRtHE3IVMg92WaPFZm2OsIo=;
-        b=Kgsg4t1Zdkldb8+wEiTC0LBrIoUsPeYpYmPcEJBuB+C62al6TsPDqHrqTR/zABHqGl
-         Vegs3zkbxCmuhnwN+HQmnD3k9G2Rrmnxgli9jWX/m35wbcC11eVyGIVHWp2h4ToI8QtZ
-         5vwwaH1ioQPhozngNOsPB+i+wsNdlgVd5DJKD0vqVMEZCUnZENAUCmovoisCbIQLY0jP
-         ZM4cTLuco2l+1s1iRIQWgGmdD4poIwXv++T5UcCrkrPx4Z1uggeMNhOZ0Kz2g9DT1HWu
-         0ybE3sRPDvX/0+g74l2YhpxoRPMO42QX+kiv32fvFICQksKsWNwUY+MAgjHWqmVbJITV
-         Qz0A==
+        d=google.com; s=20251104; t=1790018062; x=1790622862; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ie4lRRGMB/QtuXR80ZTHBxhVpLqodwwh8z23GPtWOvk=;
+        b=Cjfmm1cJvfCsFtfC/K9TJ9Pa/LZKm2ng0tenSA2FRdLeZ/dD2aP+l6yZQHh7vnfmww
+         0hC2KksVA4MHTmBAyg4RRX2+WaHbYuch9lcdZ4XDkJizYOBHwzL3pw14tg9In3rgM50a
+         9YCrWo6HCTWOU4Q0g9PWVxDMzj3vjj3G4ROYK/n9DMKZ49lyIySWeTGaZtqk4Cqn1G46
+         AMJLLh44tB184TkTTAxlKRMYj5f7TISpqGPWBx2issSxcS4/UUXBR9wSXeCy3u0kIm8g
+         GDNsFwvwkU1I06NLO3vQT9pFo/ulTLtRPEUm/b8IbYUOqNdG7gFInoRGap5nIvMXJhQn
+         HvOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790018019; x=1790622819;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rgouXHW55aIbAEz+yxgGnRtHE3IVMg92WaPFZm2OsIo=;
-        b=x4FuugDCFvMiJ2gxTQ6U2SqcCOVPNhyQO1529NH/p4J2w6BL92REbvQBIZHFDiesut
-         43BbphgOgMBobAjnInfV+7vtD3Zi+FWKUmzEILWEJrzhX4L+c6RjgO2vpCqCBWD9gCcx
-         Ner4PiADK2/dy8ItWN8cN19QkeYM7qHlid9TqdFaJqGYQ101k99ukmW1acTab/V9axUz
-         kUTVNQhxISZFy4dfT4A1YUexTo16cLN2BxEDKRw0kHoM5H3p4ZMIufjR9EI677OY9FDx
-         84O0YRr53KyTqJcQqL02v6XMK5Tts2wT1L59oaepE9e/2MxU0YbFeIgnLBELPKt0lu9n
-         qLYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy7KhzWg432+bl/HknLbrnUGv2lsBH1PtNNfdrIrIZVPXH6IjH/TBjRbJJ68H9k62ESR84WBuwndPmgF/w=@vger.kernel.org
-X-Gm-Message-State: AFuF++mm9Z1MhZARM0VAMvU1KPqGHwdt2MWzLFaLky972Sxvb93Vh7uI
-	O6uv4lTKP6f7G25rjkapqqQNUsF+0COGKIs6fzuNYTikEaq3p58YCOy/6vmdTqba9zXyWBixMBj
-	BNLiMI5aIa+Z4QfzqQDlo4VipPhkQuDk3WfPCClcGgk71DXhQx1wGLcCEgOo=
-X-Gm-Gg: AYBFou0iEobL9SjIkPWd/azSoQ5ggxjiLR7AyK3xe8yQzm8wvLyL4RACoatSpagAAt4
-	A/3F/zU4WoTm4W+s3Gz6xXEfo1l9B9TFAhEmz1HYHAFAedFuf9XstQ8qc3zVfBw1e0M14tPfEsg
-	b+fdvIEkv3WLo1zu5P3q/jcR7/WHfkeeptWhbPMzol9/uPrLYqzF7tlECwA0M4gci69g7b+ro1y
-	iMbcOYXI3QXgoD39fYHtCL1QT/+8/G1ZWUMlsi2dBZzut4QOkZfY+hwLWQLf+aQ3A/Ge5Z6awc9
-	va4WdUHGdeKSweFhBzUf5DFYa7yJq6CUT6RYn+izaItUVY5dgu4D/O7JTgncfF34bXwV+qK3fMt
-	ASvrP4AaBC4/BE1WEmeieRbmfMnJU0TxY+gd7t/2fdlArmCP2lYlglvMO/4pKUbgUE5MMnkw67+
-	kmGEsnKdS7F7q6sFDgfEOMhqrh1YJF/3VUDBNDhjhexKKIy7L/BF3piOt6Nf+/JSVq3DFFHVBd5
-	w==
-X-Received: by 2002:a05:6214:19cc:b0:912:12cf:f6b7 with SMTP id 6a1803df08f44-913fc8a23f8mr21513036d6.7.1790018019138;
-        Mon, 21 Sep 2026 12:13:39 -0700 (PDT)
-Received: from strozzi ([66.193.28.125])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91260a61570sm75443526d6.23.2026.09.21.12.13.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 12:13:38 -0700 (PDT)
-From: Sean Anderson <sanderson@brivo.com>
-To: Ulf Hansson <ulfh@kernel.org>,
-	linux-mmc@vger.kernel.org
-Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	linux-kernel@vger.kernel.org,
-	linux-amlogic@lists.infradead.org,
-	Sean Anderson <sanderson@brivo.com>
-Subject: [PATCH] mmc: meson-gx: Convert host->lock to raw spinlock
-Date: Mon, 21 Sep 2026 15:13:08 -0400
-Message-ID: <20260921191326.2146363-1-sanderson@brivo.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1790018062; x=1790622862;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ie4lRRGMB/QtuXR80ZTHBxhVpLqodwwh8z23GPtWOvk=;
+        b=dxdP0Cxslm+/dL7l2KAs862aZUmZQnMSgLEUYJi5R2H50+/By21Zxisp5IIsUSeI8f
+         oSfFJpygG8PEl2z0zYNh9/BQBlUj+5w1KhzNQuztjEV1RumrPL2jdhFuyCWlY6lPfElE
+         AYiV0i9JaF4+BFdiv31miTy8yG7ZMwhLzfknzkVEY04A5Fnoyl/A09JRaSsAf5OP5uKR
+         tX185x24UM7PeC+1PtnbCdJv0YEF9d9s6pzmQE7UxC77fwovYjO51nv0oUndAbzMP2dR
+         ho197XNu5Y2Pn4uKSe7WM/CwwFPU4Sfc1CwsllJFJKq8SrWJpaxabEscOV1k3yX7mHd2
+         qK1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzArCyctfF3Vuvg5AkutmKH0X1Sg2F5rElV+cdZNopZFXhK6ODweFOFHTqEvKMbUC6CqU4AClibKzVEz2k=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUj+mdcxwlqhfCdj5UQnGMw9NIgD0Jl9zlKHob/AiSkpw8GKKQ
+	nvrHstD9c0FVXMlyuv7unlP1Cw/Q6nXrJzFFtvcvgeFYKfqPkNOTbesd3GGWEXoV5r8owhveT8Y
+	b6iC1rg==
+X-Received: from pgdj21.prod.google.com ([2002:a05:6a02:5215:b0:cc7:4a9d:af5f])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:140a:b0:3dd:a196:69ec
+ with SMTP id adf61e73a8af0-3dda1967806mr11525924637.71.1790018061422; Mon, 21
+ Sep 2026 12:14:21 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Mon, 21 Sep 2026 12:14:09 -0700
+In-Reply-To: <20260921191418.950933-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260921191418.950933-1-seanjc@google.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260921191418.950933-2-seanjc@google.com>
+Subject: [PATCH v4 01/10] perf/x86/intel: Ensure guest PEBS path doesn't set
+ unwanted PERF_GLOBAL_CTRL bits
+From: Sean Christopherson <seanjc@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	Dapeng Mi <dapeng1.mi@linux.intel.com>, Jim Mattson <jmattson@google.com>, 
+	Mingwei Zhang <mizhang@google.com>, Stephane Eranian <eranian@google.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-The primary handler for IRQF_ONESHOT interrupts is always run without
-threading, even on PREEMPT_RT. Therefore, we must use a raw spinlock,
-which will never sleep (even on PREEMPT_RT).
+When reinstating PEBS counters into PERF_GLOBAL_CTRL for a KVM guest, mask
+the value with perf's desired/original PERF_GLOBAL_CTRL value to ensure
+KVM doesn't unintentionally set reserved bits in PERF_GLOBAL_CTRL.  E.g.
+if the guest's PEBS_ENABLE value had bit 63, "Enable Precise Store", set,
+then using the raw guest PEBS value would propagate bit 63 to the guest's
+PERF_GLOBAL_CTRL value (which thankfully would be a failed VM-Entry, not
+a VMX Abort).
 
-Fixes: 066ecde6d826 ("mmc: meson-gx: add SDIO interrupt support")
-Signed-off-by: Sean Anderson <sanderson@brivo.com>
+The only reason this bug isn't reachable is because KVM doesn't support
+"Enable Precise Store" (which is probably a KVM bug?), i.e. bit 63 can't
+be set in kvm_pmu->pebs_enable and thus not in arr[pebs_enable].guest.  In
+other words, this _should_ be a glorified nop in the current code base.
+
+Fixes: c59a1f106f5c ("KVM: x86/pmu: Add IA32_PEBS_ENABLE MSR emulation for extended PEBS")
+Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
+ arch/x86/events/intel/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/mmc/host/meson-gx-mmc.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/mmc/host/meson-gx-mmc.c b/drivers/mmc/host/meson-gx-mmc.c
-index 694bb443d5f3f..d5365c0404cb9 100644
---- a/drivers/mmc/host/meson-gx-mmc.c
-+++ b/drivers/mmc/host/meson-gx-mmc.c
-@@ -176,7 +176,7 @@ struct meson_host {
+diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+index e36f340e2dc2..f4674d93a5e2 100644
+--- a/arch/x86/events/intel/core.c
++++ b/arch/x86/events/intel/core.c
+@@ -5392,7 +5392,7 @@ static struct perf_guest_switch_msr *intel_guest_get_msrs(int *nr, void *data)
+ 		arr[pebs_enable].guest &= ~kvm_pmu->host_cross_mapped_mask;
+ 		arr[global_ctrl].guest &= ~kvm_pmu->host_cross_mapped_mask;
+ 		/* Set hw GLOBAL_CTRL bits for PEBS counter when it runs for guest */
+-		arr[global_ctrl].guest |= arr[pebs_enable].guest;
++		arr[global_ctrl].guest |= intel_ctrl & arr[pebs_enable].guest;
+ 	}
  
- 	bool needs_pre_post_req;
- 
--	spinlock_t lock;
-+	raw_spinlock_t lock;
- };
- 
- #define CMD_CFG_LENGTH_MASK GENMASK(8, 0)
-@@ -953,10 +953,10 @@ static irqreturn_t meson_mmc_irq(int irq, void *dev_id)
- 	cmd = host->cmd;
- 
- 	if (status & IRQ_SDIO) {
--		spin_lock(&host->lock);
-+		raw_spin_lock(&host->lock);
- 		__meson_mmc_enable_sdio_irq(host->mmc, 0);
- 		sdio_signal_irq(host->mmc);
--		spin_unlock(&host->lock);
-+		raw_spin_unlock(&host->lock);
- 		status &= ~IRQ_SDIO;
- 		if (!status)
- 			return IRQ_HANDLED;
-@@ -1112,9 +1112,9 @@ static void meson_mmc_enable_sdio_irq(struct mmc_host *mmc, int enable)
- 	struct meson_host *host = mmc_priv(mmc);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&host->lock, flags);
-+	raw_spin_lock_irqsave(&host->lock, flags);
- 	__meson_mmc_enable_sdio_irq(mmc, enable);
--	spin_unlock_irqrestore(&host->lock, flags);
-+	raw_spin_unlock_irqrestore(&host->lock, flags);
- }
- 
- static void meson_mmc_ack_sdio_irq(struct mmc_host *mmc)
-@@ -1225,7 +1225,7 @@ static int meson_mmc_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_init_clk;
- 
--	spin_lock_init(&host->lock);
-+	raw_spin_lock_init(&host->lock);
- 
- 	if (host->dram_access_quirk) {
- 		/* Limit segments to 1 due to low available sram memory */
----
-base-commit: 587858367581b9c55c3690f4e63382ad622719d4
-branch: meson_mmc_raw
-
+ 	return arr;
 -- 
-2.53.0
+2.55.0.1082.g2b9226bbc0-goog
 
