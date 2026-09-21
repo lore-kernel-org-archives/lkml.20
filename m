@@ -1,173 +1,78 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8688146D0A6
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:53:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C21FD46D0A6;
+	Mon, 21 Sep 2026 09:54:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984409; cv=none; b=iTY19s+ykp7eMxW3QGIhOABTNHifbqxz9BU/n7D7ybdBE98Q/hMBDubb3BptN4LujjAeimyXOOBVdx4fflg8EU+ZGau8rAoj9cYOHWZKQXXD2+7CT5zXG5h+PA70xpp3pUhf0W4YUROtccY+Ik5CmVuJmaFRB6b1Qu7wKAY5/Mg=
+	t=1789984453; cv=none; b=deVvwCOVmDnwo2eDikFck2UudwxGElPrI9Vy++LMbdXZX7UN/593EZIqTsgwEhbIOQk27DLmhw6yPLG9GOmPDJsP7lKIMbzwPBWpTEjSnCvTBgysGM7KqruZppOWmH4dbEjIYDgjJOf6ONG2v2fSRqUSG/cDXZVpmAYt/7q7YNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984409; c=relaxed/simple;
-	bh=PXzXHl6/d5bVoFIIqYQt3bgNTnT7joVzBNSPO0qiPMc=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Xa06tHMXjjdIaP+ckOXV0ET6Y2usnjhghaTF5xFduiIIA9fwOJf1tliUeFHsH6XOCWNIr3toUu/IktZ08BKP0jw95RWqUuvEJpJs9KOMOH56HWUDRxX3wiibVCgkwaB6mq7rUjSXZJMWmlxqpimY3XxdcSWKeKMKgsYbeObgJ78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=MxVx3Tmt; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789984453; c=relaxed/simple;
+	bh=cr7Pr1as3t8xw4ITRgieqkzUSZKvGQCDzGVVxAk8Q8A=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=g22y5QyvUvD5ntYL9xM3LnpTXTL86Uo7sGW3xW6to/kS1r9Gd6S1KvhtvKjmxR57NzqLEnz4m5SvYBun7gqfh88CNqQFZKsygvkhecaZFd3EjC5GYw071pCiS0nTBahnvYnXwQ90ivQ0pTvhtn3c8o7LJjIhG2W32dsB6aeFtdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=dojcZZtD; arc=none smtp.client-ip=159.69.126.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="MxVx3Tmt"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4858bc96fabso2207232f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:53:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789984406; x=1790589206; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HGGQwgupkqrpkHOpj6oDdQyUFG/UOtLeaAkYO1fiXP8=;
-        b=MxVx3TmtDGGRNE7lkzLH5fU+xIgsJ6T59P8AlCrKCLNRtQFjEuEGs3UolDk6WDF3TK
-         cOBYN58CK4GwO/PistMcjVyKe46oi6mvk96sbiW2xhUCM3FxbDFscw+SAj4zszRh2Hiw
-         dcJaNFpollrzY7bVceJt43XYLrYK6rkAxBGwa56ghxicBE04IPfLYGOzCljy+SlIathi
-         wV+g4yUGqL2JEgN7FyzTqtBRIdEeTp2jFD5g3SNdWvRnDCFM6TvwgPM+9h3qO9wSe9+H
-         esww17Mrr4xhe6B2rk/X9F1QHO0egrx2Z6c9NVbR+u31XD4tDp2vpNz/v8W6Bh5/xTBK
-         eU+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789984406; x=1790589206;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HGGQwgupkqrpkHOpj6oDdQyUFG/UOtLeaAkYO1fiXP8=;
-        b=MJV5GntaqwDNTpnaf26P7L0qfSvicqmiuGgBBR+u+xI0VbjempZUw9prJzK11FBTBh
-         suHnH3u0pYEySi7pGi3ytWEDh9RMs2Y3AEfWtzfGxMl19cv/BJJ2T1cn07Hv4tN+XOui
-         pJ1tX6e/4gdH16xFhfA6DhzJ6dvnlyvTpiN11Fwaj1HrnGHWIwTdY8TfXYWZ9h5L3fnO
-         naX6/yZr0ZnGglj4d5fE9K5kQhY4n2CUPBogGHBWqPsIntfSi6/iEtNaGDf/4hL7U8F0
-         wPDnWYQnUmrFLJ5cdIvq/0AS/o9zt9HGCAc1SCL4GJnmbHVp1RnODv2zW5dijFLAKnvo
-         PFRA==
-X-Forwarded-Encrypted: i=1; AKwUvByr6e8YusYpY1Ie4ptInzEYln1tOYlsNdp18amoH/IFUBm0pDjwELNiA6TZ7+XJuJ/hNUulrOyrRNXSBaE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTdiXvI7TztUbPKMClutK45Pub/mi36clqrmmaJH3XgGCWJ2H5
-	IrpqkCm92yPweUtzcZvdvaFmXtllx/RjdQYQMHhCAT8J0eRmx5d6E9NAo5cVXdVMuoc=
-X-Gm-Gg: AYBFou2pB/ZBV+Iv2HsFPkOrgKwYmwCm0PqgSzcVZB0I+lhMrz0s+q5Afn7BlcNjUmt
-	vlf081VFVz6mJYSeaviGzPa7u40cbzGpYONKD6wJuEzLaDnvIbMb2kvpfk7Qxyes4HuOUJGAelr
-	yv+Km5PMD0EA3ciYYEnpxrD9e0T4Wa7r31FuGt5Mfux8iZPmMUTayQRHJJh/OG1kWp0H8SNxYyD
-	53eesW9Cl7j4uOIIzuopMrXr4lYtJ/ZAgzPZhBJ0ANO8mAV/DjWugXMU8wlDMMfvkvfcsGkJncY
-	yKsprrCo70ETDTaYWZ3dFuKy0mJ/aTk4LuklHX9b4Kj2aYUbefjfLvPBfbGgvj7RvzY8bwZc+lQ
-	/jKJwI+GCDv/nfbCBOUvE10rY6UnH8IzfDQcvxXh6pQxb/iOSJVzRi50MgfiDjj03gHQXd6usAg
-	IjrGze1IY1vXhrnmNrzJ2n6Y4O6GtbgEgWbHJhV1aHv+sD2aQuij9jLUVRxk1SL3+XQjO9aXE2Z
-	WVAd66cfiMCzOjW6wkqosQ0O90HhCUks2GYFMWbKMXJ+0ClMUxxGEiab2OR26Nq
-X-Received: by 2002:a05:6000:18a9:b0:486:fe41:804d with SMTP id ffacd0b85a97d-4871e3b6a68mr14522308f8f.47.1789984405602;
-        Mon, 21 Sep 2026 02:53:25 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:ddd5:3880:40aa:e4f9? ([2a01:e0a:106d:1080:ddd5:3880:40aa:e4f9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872459a5d2sm19600201f8f.31.2026.09.21.02.53.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 02:53:25 -0700 (PDT)
-Message-ID: <5ce1688b-e903-4503-85a7-cc0432aa6103@linaro.org>
-Date: Mon, 21 Sep 2026 11:53:24 +0200
+	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="dojcZZtD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1789984449;
+	bh=cr7Pr1as3t8xw4ITRgieqkzUSZKvGQCDzGVVxAk8Q8A=;
+	h=From:Subject:Date:To:Cc:From;
+	b=dojcZZtDHJQvER4Iog2k97V3g3PNoSNM/A+50WoTDjhYrIoR0xgY0a3APtxJbK4JH
+	 NirWWksqzZT4tiH/c3XB1Rsoop+SqLadgK66nMjzIQ80adCqj92YcT1HJQCKq+ObGL
+	 9xR/MZr7y0rvbwUHn+CJuIrT88gjUYDWH0/zIqtM=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Subject: [PATCH 0/3] vdso/gettimeofday: Add support for ALARM clocks
+Date: Mon, 21 Sep 2026 11:53:59 +0200
+Message-Id: <20260921-vdso-alarm-clocks-v1-0-617abb5271c7@weissschuh.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 0/2] drm/msm/a6xx: use correct timestamp counter on
- A750 GPU
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260909-topic-sm8650-gmu-a750-timestamp-reg-v2-0-091d74958951@linaro.org>
- <7128505e-c8c9-4d00-96f9-2576ea2a0fda@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <7128505e-c8c9-4d00-96f9-2576ea2a0fda@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2N0QrCMAxFf2Xk2UBb6EB/RXyIbdToXDXZxmDs3
+ 626xwPnnruAsQobHJoFlCcxKX0Fv2sg3ai/MkquDMGF1u2DxylbQepIn5i6kh6GbXSBYvSUY4K
+ 6eylfZP41j6c/23i+cxq+oc1Qfo/1bNi0df0AlaOXJYoAAAA=
+X-Change-ID: 20260921-vdso-alarm-clocks-6502a551ad5c
+To: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789984448; l=893;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=cr7Pr1as3t8xw4ITRgieqkzUSZKvGQCDzGVVxAk8Q8A=;
+ b=h9SiNGJ6286q1j9mPyZTbyG5v08Qtx7hNBTXld3gghrRxNc7EHKpMrnHLoVMoZRgczA5S4T7g
+ DPycTtEy51zApwy8dktCVNlEcuh9SKbmtIWIO+dR/XPZar8xAUjxk4h
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 
-On 9/15/26 23:20, Akhil P Oommen wrote:
-> 
-> 
-> On 9/9/2026 6:37 PM, Neil Armstrong wrote:
->> The A750 uses a different counter register as used on the downstream
->> driver:
->>
->> static u64 gen7_9_0_read_alwayson(struct adreno_device *adreno_dev)
->> {
->> ...
->> 	/* Always use the GMU AO counter when doing a AHB read */
->> 	gmu_core_regread(device, GEN7_GMU_CX_AO_COUNTER_HI, &hi);
->> 	gmu_core_regread(device, GEN7_GMU_CX_AO_COUNTER_LO, &lo);
->> ...
->> }
->>
->> gen7_reg.h:#define GEN7_GMU_CX_AO_COUNTER_LO		0x1f880
->> gen7_reg.h:#define GEN7_GMU_CX_AO_COUNTER_HI		0x1f881
->>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> 
-> Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> 
-> This is correct. There was a register shuffling in the gmu_cx block in a750 and another shuffling later in gen8 family.
-> 
-> It is a good idea to review other GMU_CX* register offsets with KGSL. Also, please consider including a fixes tag.
+Extend the generic vDSO library to also handle CLOCK_BOOTTIME_ALARM
+and CLOCK_REALTIME_ALARM. This does not introduce any runtime overhead
+in the userspace fast path and only memory copies in the tick update
+path.
 
-OK thanks,
-Neil
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+---
+Thomas Weißschuh (3):
+      selftests: vDSO: vdso_test_abi: Also test ALARM clocks
+      vdso/gettimeofday: Add support for CLOCK_BOOTTIME_ALARM
+      vdso/gettimeofday: Add support for CLOCK_REALTIME_ALARM
 
-> 
-> -Akhil.
-> 
-> 
->> ---
->> Changes in v2:
->> - Fix swapped H/L registers in XML
->> - Link to v1: https://patch.msgid.link/20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-0-284880d6e68b@linaro.org
->>
->> ---
->> Neil Armstrong (2):
->>        drm/msm/a6xx: Add CX AO Counter registers used for a750 GPUs
->>        drm/msm/a6xx: Use CX AO Counter register for timestamp on a750 GPUs
->>
->>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c             | 12 +++++++++---
->>   drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml |  2 ++
->>   2 files changed, 11 insertions(+), 3 deletions(-)
->> ---
->> base-commit: df2908090cda368b01ff43709f51890076c56157
->> change-id: 20260908-topic-sm8650-gmu-a750-timestamp-reg-2e7575e6279d
->>
->> Best regards,
->> --
->> Neil Armstrong <neil.armstrong@linaro.org>
-> 
+ include/vdso/datapage.h                      | 2 ++
+ kernel/time/vsyscall.c                       | 7 +++++++
+ tools/testing/selftests/vDSO/vdso_test_abi.c | 4 +++-
+ 3 files changed, 12 insertions(+), 1 deletion(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260921-vdso-alarm-clocks-6502a551ad5c
+
+Best regards,
+--  
+Thomas Weißschuh <linux@weissschuh.net>
 
