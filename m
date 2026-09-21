@@ -1,143 +1,155 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36B9A26ED3E
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:40:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789965629; cv=none; b=Mk0vwbIPjdnIMjeK1RnhiqcT5GDnlx4FeEizAWgJ++pRqV0MPByTaYOAOhPK+yZW48bMCYZPMUUpzcNod5Bdtfd8oJ+r6uA162LbZx6dOQfSyzEBURCS/oN+iIFJrHIWZcSTkCak+70pY9AeQB5BorF54VwoVpDMqXNoFQ6EtF4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789965629; c=relaxed/simple;
-	bh=jeC4LaMsBa3akjQWVgKWMCdJPuYMgx9lSJHwCRiT4fI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aAMglN29HNXLv5RjVqYXzmxi9DXNIlnYfaJn6RwGxRKDWcgO91Ok8vIPW0AOriiLweAKnVek2neQoOPLX9jTBLmU5bZGKDXElfF/CzzuScgcqMkC9Ola7ZfgvGzmGva6I/3D4SoDfRZ6GfQ50/n+gxXyqwEjXQnmIAtBaZFOWRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GIMjhW0t; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8787918859B
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789965927; cv=pass; b=SgpLrs2yO+xWg/M8e0oAf+QMTBUYU+Ob0Y2ZP3RxaaOP0S62vI6AEmYepEbdpWR6j8TwWeQ37UXr5JiL95wjdesFvTzJOKBXSw9L7ao4IzIQ8aIR46DbL+25QvsBxT8kb1XP5WBA2ksxF2LnrE1jwBEmL+L/MT9o9iTAdRI3KPM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789965927; c=relaxed/simple;
+	bh=3HIETohqPRiYfSTVCCWaaA/j95DFfsx7y+xQJdoYbzY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=m3SjSLMtEQRLYTXqtLg+znXRUWuwGvIDaaqqc/O3N+diyzSXZcx48CFpSQpw3+b7qPJrqRJVPOai777tLCJeidlKrAyCbpj+nADgcvsKWI+1chrSrOW7YCuL6yL6amHQrAA5mUyJch2IiGJDKw3qOYuwYEfDbpY03bOdNV9gBGg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com; spf=fail smtp.mailfrom=uber.com; dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b=3lY+SgFF; arc=pass smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GIMjhW0t"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4d04d73b8so2128175a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:40:27 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b="3lY+SgFF"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e56a1fe83so2086989d50.2
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:45:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789965925; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QFTBRcdVLnPm4w8oy60qWxAis/G8r2X8PwLYGObPEbn8MfDAMmGJYWGndFIrabbwj8
+         WlVUYoVsN+o+sbEf+xoH/WAsUUtxHBg5o5aQPTyi0MDHAmRkBNkMwQkcorTj57ztSGyh
+         KTV58Gj1yeVDYPTQEony67WvWMeEh/zXXU5m3QJrmOF+2AFQkkXwJ61qjRBi0isfADMf
+         gm7QuuwP5+UlPlNZ/ki7+D+f0EiqIfVNmZL8d+Tss/7OT/+UtPjv9tEpyLRqLDgQNmJp
+         7YsVTr1gZ/jgGLW2wWjrrmfH54rC6GFlYSNHNaMFf1yJrbYZR7ShaV2nzf8Hy36V86MB
+         S+WA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BI5PV8JEsmgNBkZ9uF5itWDVqgLrnZZn4wXuURr5w1k=;
+        fh=/vbcQg7W21J9JEfr/w77E6hba+b3bEKgxgTuvAcqsSc=;
+        b=K95NBDZ1/rCTsYyipzPdkskHaZ4SFcAY9p9ZrfV9yooXa6c6NIL2Bk4/E1/fqmiHLe
+         AlSKrZCMUMk6QxPrT/aKvAsEFHfOyK7jKHb+MUK4hwTuP92EO1X/rHKZgY7qBvB+W9Yz
+         sQgMzPb3nDDDAwMs3sYX25ORR59WY6p8KizBHR80Q/yj9kmJz4U2pVnis19fzCFIH1d3
+         81Aa0ifXTVU6AFIUseIpnpyQbrtbc4p4azqODIkjpRm+eWDRKgoDb/FeqaTSAc29M0lI
+         s6WWR606plRu7nMH4kPK/yFgoLwz1TLPUxki2h3pj7ZtLDXg2Ic79iJpdN8UckinRte+
+         ICnw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789965627; x=1790570427; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y2spstPPyYxdRmmq2UEhNRiouajEznMuECBtSYufh90=;
-        b=GIMjhW0tg7wnSBN09CIB+VPoKDSQOr6qvD0MJMQsFfOWZi8lClmTEkK28k8fnV04Vf
-         w9VknH0liSFpmq52cIutcJYLEp684xjO5dgWbglFZKOd6msHT/KgNT1bCrt6UBcd+nny
-         /6Dd79RpibYmPaswrzOXomXPUUFn4UpvSDt2QPoFbW7jHSAzT+rhy7ljR+qUyV2iB/Fg
-         d5uz/A+8FYKIf19I+s4N43/cgWls3lvph99N0EpWdFjuP+JRdp6R81IIXosUuVEyyzlA
-         PXu6mdSOkA8RdOFV+10GjiTU94G0dS6aavPyrCEWLATGmHT+olLSEtFntICFhmXSuW03
-         q7Hw==
+        d=uber.com; s=google; t=1789965925; x=1790570725; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BI5PV8JEsmgNBkZ9uF5itWDVqgLrnZZn4wXuURr5w1k=;
+        b=3lY+SgFFQBwsvGrfy8CaWjC7ilWULy1BDuOPv1rEK2ho9plmgQOumNOHBiIIJieF9Q
+         vx30netqkxm/DebN2WnRLLCYaPK3bjwJKsVZhD+f39WRgLe4sj5bQU6G8DWRNrqENiQi
+         muZDpormgflcF1kNGUgwShoKt6nr0qjXyoW94=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789965627; x=1790570427;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=y2spstPPyYxdRmmq2UEhNRiouajEznMuECBtSYufh90=;
-        b=yXO1777k4Qd0GZcSegtNgAu/MCWv1SXNE9ER+UzPVYogZPrbF02dOpeaXUf+7rxdFq
-         5O7GKDJJHQ7XQAQfDO4XNpOP1L6K7Xvhk7MGqqoW4nsH8rGsoBvQgG9+SVU4rznS3igD
-         GLxGcvGMfC2Bf+npqoOeHseHmLv8NAdqBJd+2dYbO5KI7pa2F5WmEMHJb3mqYL8Y/0sP
-         xLwL1deWn/lGYRfQhnuDzbKiycrTTozE/tBKqIhtiDoYl9eEZ+WhNRLR44Wc4qj0JFVa
-         4X42wcNkTcT//FHymxBRqekJYmd04Y7XYgZJG+rIXMd1oua99VF4W+1uvP/Q6sNB6DgR
-         BqGg==
-X-Forwarded-Encrypted: i=1; AKwUvBwv6tB1hbMZXKEjOwgs1wJy7X4EnTznWN4fQcli2UOPiMzs7N4ASb1Tgu5WNkexj70I9fMGKilHjN8dbCM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTAQ2TgaNnuCV70+VjjzT5+j6eAi8v0joIUf8bEtuFigR5XuOK
-	eJOozqga2YOCKrIL8PIFzQe6FQZBW6OY1OyTrPUNCxTHVeSn/1Ri+kkm
-X-Gm-Gg: AYBFou1tEQS3iZ12elV/0607+cvpVGJwtZJJ1XPzHHX8DaQynfnEPNhwr4rsOkTW8DO
-	eTIfDvWfK1UklltRWu7/mkGbx/dPxnlkrwIu1+ul0WbyCAOswyNe8q1w9loP8o5g+pzkFZ372/e
-	z58wyfVzKF3PRRgqFsxrP1WzqrHZ2U4IRyt/M4M3n57evInVuT3Xfkez4A7kSaxtnfPjTAgIt1A
-	BjIHvoZcT6NKvqRSOb778GSRv/zusRAGDpfaeCCmBCRbGNWeE2F9b55CmlUtYJ2ehDehOqat+e+
-	/oF7daUuDY5UgCGoqPyw7fwuBtlLRRbmCBbDk6Rx0ZAtFbNcvYzI+Oc2/u3TPOh0PQizMkzKp6j
-	ISJSgGamhSgOzgAOQU4PU97RXf7tm04k5k+QAjBTtZr8FJ68EplQIuugAiAJMixylSOsI7LgFW3
-	HxJFB2/R/pf8Nh3lF47I/jVj12YKwIuu2CfmrQksXi5hjLVvUpRbNpvKWFXN1N2/ptyc6Fi3tDV
-	0yJxKIYdPjMZOLDI5t7mSK8XG003368APeN+8+NuUEQe0MZMK4ehcxWYJrHdp4ofaTpfq6IyWou
-	316XcocrXXxG65Z3defv
-X-Received: by 2002:a17:90b:2e0b:b0:39e:6c69:34d6 with SMTP id 98e67ed59e1d1-39e6c693688mr8433324a91.58.1789965627199;
-        Sun, 20 Sep 2026 21:40:27 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a02526e27dsm4604260a91.0.2026.09.20.21.40.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 21:40:26 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Hangbin Liu <hangbin.liu@linux.dev>,
-	Simon Horman <horms@kernel.org>,
-	David Lebrun <david.lebrun@uclouvain.be>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>
-Subject: [PATCH net v2] ipv6: sr: enforce exact attribute length for SEG6_ATTR_DST
-Date: Mon, 21 Sep 2026 04:40:25 +0000
-Message-ID: <20260921044025.1535982-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <aq-E5MPYZS5s9_bk@fedora>
-References: <aq-E5MPYZS5s9_bk@fedora>
+        d=1e100.net; s=20260707; t=1789965925; x=1790570725;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BI5PV8JEsmgNBkZ9uF5itWDVqgLrnZZn4wXuURr5w1k=;
+        b=cbWhGF46SUr4KT6b/yrByW+aK6vLVlyES2Mue2N0ZaVJ/oOAcSguIGyWwRwrUGHbp2
+         AEC9xT60LyvFhCTxr1wsHtrRyxpOB9cNu/peUSmG0RqHsVl3ZKK/A98aSdRkCaItnqsE
+         qj47F0NXxbp5zdulK79G5oPul0GiFaXq9SspHXhXxzujEONnHGQjr1iNCrNvuFXNUCTM
+         Ch9hxj2w2WMR4JbD1k9S7I4HdShUVQCKOXU7jAvYgeuc4Hmepf7gK3cXY5r+QcCkMTD0
+         YGuQYmsFchFEmCrZcseGUYMIjz5EjzUYPJ25JMMTuGWlk6qY0aJQu6uC8TSOlvN2u1EE
+         wXcA==
+X-Forwarded-Encrypted: i=1; AKwUvBzrf+IlnzOq7ZIgl/bD1OF3YzP/rwsjuQH6lJ9iTlX36Qfgceo+0RuqQtPa/CYcOe8RqLVOm5z2jijb0Ds=@vger.kernel.org
+X-Gm-Message-State: AFuF++nIPvg4UF8KuGgrh2hUIZ/CiQJ1qOZe+jBeH0rpAWcFgTRY86wC
+	qs04XARm9Fitn4J/lqXjQiWEduYhfp8ScYO2IEssHIXHTMor7xYT1jqPY/2MTi+MYOcqbS7Jh9E
+	4t2mxWF2uUaE6zN/Vv9hgWWO4faNVIp++2mprDzh4Xw==
+X-Gm-Gg: AYBFou2wXfQFm+CtDuzhHE2maTWkmQfKZRUbq84JAu989wJsZwTL1ZH4sGcCtRbsYeZ
+	6LOWVNEAm3sdCCrXiJzyXsJQlD9fL+iDk3GR8SjAsQ65kZNv9Anwvoy/ZxQwn18D2OgkWpfN5Ur
+	msW3KFe93u2lS5Rr0Mnrajjv4GRZBnGkGBmcZM3KD6QH17a11LH3fa4ViDE68jPlvDcRnz0G3sC
+	8ad6pdBdYyAXw2hD+Wgq4Wj/d0DfBMZIUpbQP0Y35aHq5IiTDG+mAYw6Uw/2y5yiCuJ4cSOKZ+c
+	hEaBElZwFnR9VeJGVLEhU0sQgIOa6ssbvzwKdDtC29vW+F7008GDeyDTs5iZFkskgPPHWQOxtx6
+	PWTlmw/nIFb1d
+X-Received: by 2002:a05:690e:806:20b0:671:631:785c with SMTP id
+ 956f58d0204a3-6717fd9b0d7mr1841359d50.57.1789965923516; Sun, 20 Sep 2026
+ 21:45:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260919-perf-symbol-memory-send-v2-0-495b8f00ad7c@uber.com>
+ <20260919-perf-symbol-memory-send-v2-3-495b8f00ad7c@uber.com> <arB4G744iWiSPAnV@z2>
+In-Reply-To: <arB4G744iWiSPAnV@z2>
+From: Alireza Haghdoost <haghdoost@uber.com>
+Date: Sun, 20 Sep 2026 21:45:07 -0700
+X-Gm-Features: AcwNN1VO_qCFY9m4mP87ZE5UPrksR7jfkJOOvczZnZ-njyecDFIgbzlRdTw4DNI
+Message-ID: <CA+w=M=R-i1+8p7SDLueMHV8Fv5yupXR+ongVCbeAKGyq8UjsQA@mail.gmail.com>
+Subject: Re: [PATCH v2 3/4] perf script: Add --lazy-load-symbols for lazy
+ symbol loading
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In seg6_genl_policy, SEG6_ATTR_DST is defined with .type = NLA_BINARY and
-.len = sizeof(struct in6_addr). For NLA_BINARY, .len only enforces the
-maximum payload length and permits shorter payloads (e.g., 0 bytes).
-When seg6_genl_set_tunsrc() copies sizeof(struct in6_addr) bytes via
-kmemdup(val, sizeof(*val), GFP_KERNEL), a short SEG6_ATTR_DST attribute
-triggers a 16-byte out-of-bounds read past skb->tail into uninitialized
-skb->head memory, which is stored in sdata->tun_src and leaked back to
-userspace via SEG6_CMD_GET_TUNSRC.
+> > +
+> > +     if (!symbol_conf.allow_aliases) {
+> > +             u32 out =3D 0;
+>
+> I think we agreed to factor out this block of code.
+>
 
-Switch SEG6_ATTR_DST in seg6_genl_policy to
-NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)) so that generic netlink
-validation rejects any attribute whose length is not exactly
-sizeof(struct in6_addr) with -ERANGE.
+You=E2=80=99re right. I interpreted the earlier request too narrowly and on=
+ly
+factored out the pairwise selection policy into symbol__choose_best().
+I=E2=80=99ll factor out the complete block in v3.
 
-Tested in QEMU against Linux 7.3.0-rc3 by sending a SEG6_CMD_SET_TUNSRC
-Generic Netlink message with a 0-byte SEG6_ATTR_DST attribute followed
-by SEG6_CMD_GET_TUNSRC. On the unfixed kernel, SEG6_CMD_SET_TUNSRC
-succeeds (err = 0) and SEG6_CMD_GET_TUNSRC leaks 16 bytes of
-uninitialized kernel heap memory (tun_src =
-836a61ecc4d25a1042a8d60411cfb378); with this patch applied,
-SEG6_CMD_SET_TUNSRC is rejected by netlink policy validation with
--ERANGE (-34) and tun_src remains zeroed.
 
-Fixes: 915d7e5e5930 ("ipv6: sr: add code base for control plane support of SR-IPv6")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
----
-Changes in v2:
-- Drop the redundant nla_len(info->attrs[SEG6_ATTR_DST]) !=
-  sizeof(struct in6_addr) check in seg6_genl_set_tunsrc() since
-  NLA_POLICY_EXACT_LEN() in seg6_genl_policy already enforces the exact
-  length, as pointed out by Hangbin Liu.
+> > +
+> > +     /*
+> > +      * Keep an exact-path data DSO for the symbol source.  This may d=
+iffer
+> > +      * from the runtime image (for example, split debuginfo), so usin=
+g the
+> > +      * primary DSO's data cache could read an unrelated string-table =
+offset.
+> > +      * The standard DSO data cache manages descriptor eviction and re=
+opening.
+> > +      */
+>
+> Yes, it's a known problem and I hope to address it soon.  Can you please
+> make the path handling a separate commit?  I think it's an independent
+> fix for split debuginfo.
+>
 
- net/ipv6/seg6.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Ack. I=E2=80=99ll split the exact-path DSO data-cache support into a separa=
+te
+split-debuginfo fix and have the lazy-loading patch build on top
+of it in v3.
 
-diff --git a/net/ipv6/seg6.c b/net/ipv6/seg6.c
-index 62a7eb779202..8c2b156c227a 100644
---- a/net/ipv6/seg6.c
-+++ b/net/ipv6/seg6.c
-@@ -138,8 +138,8 @@ void seg6_icmp_srh(struct sk_buff *skb, struct inet6_skb_parm *opt)
- static struct genl_family seg6_genl_family;
- 
- static const struct nla_policy seg6_genl_policy[SEG6_ATTR_MAX + 1] = {
--	[SEG6_ATTR_DST]				= { .type = NLA_BINARY,
--		.len = sizeof(struct in6_addr) },
-+	[SEG6_ATTR_DST]				=
-+		NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
- 	[SEG6_ATTR_DSTLEN]			= { .type = NLA_S32, },
- 	[SEG6_ATTR_HMACKEYID]		= { .type = NLA_U32, },
- 	[SEG6_ATTR_SECRET]			= { .type = NLA_BINARY, },
--- 
-2.49.0
+> > +static int choose_best_symbol(struct symbol *syma, struct symbol *symb=
+)
+> > +{
+> > +     return symbol__choose_best(syma->end - syma->start,
+> > +                                symbol__type(syma), symbol__binding(sy=
+ma), syma->name,
+> > +                                symb->end - symb->start,
+> > +                                symbol__type(symb), symbol__binding(sy=
+mb), symb->name);
+> >  }
+>
+> To reduce the size of the patch, I think it's better to split this as a
+> separate commit.  Please consider minimize the patch size in general to
+> help reviewers. :)
+>
+
+Ack. I=E2=80=99ll move the shared duplicate-selection refactoring into a
+separate preparatory commit to keep the lazy-loading patch smaller in v3.
