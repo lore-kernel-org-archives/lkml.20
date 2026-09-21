@@ -1,114 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 094F73D0939;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB553EFFC2;
 	Mon, 21 Sep 2026 19:59:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790020787; cv=none; b=f0Xoto9sUopuDyZ3ONtD2O2jXiyj5ea5pabQzQ14zZibNHzn3ODgYiIJMHisFVXxexJ74LPLAMCprtkrcm6YV6CIMz42vYkqI6WU30kqLvP8s72LtwnLN+BAyvl4fIujbQNuHC9P1BvM74AHjOeg+aZPU4pc4axXka3gkHV8q+A=
+	t=1790020787; cv=none; b=V9PvtG+B8y2QTS+9Rg6ePbnPxQkBZnQSW3seCymzSYSy/p9YkNoa14YBP/UPbQ58UtbGSlVH8r3hg5zDDVaPuCNdBROj4e27It5xJuCp04hxeuapKSf9aQADKTqOkHInJJye5OD6K93800we1HoF3lFNWJwiX8xH5XEesRnqsYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790020787; c=relaxed/simple;
-	bh=PgcWBQRWjxL799AC1v8Qwup6Bp05Fv8A5Dq7/5AV9Ag=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SRqcsIPn5kicysunUqh+stj2MQihtvM4g5hTBCa2E+MlBt7JerIRdHZk1TNQd+ZsZJhLJjuVVr3igp/W54vyNfxu5BfYQqVsLgD4b8qoqpvEKObiQifMgfpH9E4tUHa9FVeHIwCupjP82S+Qv65LLJJkBhiOjTeoXJuCSYj1DSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GBNHRgIV; arc=none smtp.client-ip=100.103.45.18
+	bh=3LdazTbWXikkHaUL3kEHoOoL94yCObwwfPuFbE1hFoY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=uTgVIPBEje14mjyvgZf/H8n3lhThua7OY8poOJNjSoqXcFDUSeQFrne9lQXQgcNnMZr1nCqlSZjAFHIVYriZgt4AOF/TKtoiS9mFs3QfDfV/84fvswc7hMHNqMiChiGJ7gx+yZGpJy2WcX/RiKGm2zG+p2pO7GhmRsOe+ACjOjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aiU691py; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GBNHRgIV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3A611F00898;
-	Mon, 21 Sep 2026 19:59:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aiU691py"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAD141F000FF;
+	Mon, 21 Sep 2026 19:59:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790020781;
-	bh=4Gc84nshf57F/O9JNJXpRgG24Hn8rEipfBZo0XmFWJ4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GBNHRgIVmDV+JRar2AXK7q9NmtoXmMqVqeOQ+Zmz9MRMTqdjM9OinEXErDLc9F07D
-	 Cgo204193T83ZK7ugq6VrDNajh35492FawZ7ZxWHDspmr/t1VjVdxyradYr9+XtmLl
-	 Xu+tS6qUixcP5R4eta4rFx4wD22P8BfZXjQ6Th3bNLHe37mgq174PB0Nuz0bosGkwH
-	 qrIOsB6jCvijrcIF8pN7h+OqhoCPORhqjTHwk7TBKXbVwZgDljCqXZZV7x04Ni69Oe
-	 hMu+sWlpcG703QK9FbdiYYTAHgGnYL0XvwabJTfEkKkZHbt+Martqgvfr7sEtN/boP
-	 pLbb0Xy0CeBKg==
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-To: Linux ACPI <linux-acpi@vger.kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo <guohanjun@huawei.com>,
- Sudeep Holla <sudeep.holla@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Ard Biesheuvel <ardb@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, linux-efi@vger.kernel.org,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- "Derek J. Clark" <derekjohn.clark@gmail.com>,
- Hans de Goede <hansg@kernel.org>,
- Ilpo =?UTF-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org, David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, Shenghao Ding <shenghao-ding@ti.com>,
- Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
- Sen Wang <sen@ti.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Binbin Zhou <zhoubinbin@loongson.cn>,
- Andreas Noever <andreas.noever@gmail.com>,
- Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat <YehezkelShB@gmail.com>
-Subject:
- [PATCH v1 03/17] efi/dev-path-parser: Switch to use
- acpi_bus_get_primary_device()
-Date: Mon, 21 Sep 2026 21:47:15 +0200
-Message-ID: <1870567.VLH7GnMWUR@rafael.j.wysocki>
-Organization: Linux Kernel Development - Intel
-In-Reply-To: <7995179.EvYhyI6sBW@rafael.j.wysocki>
-References: <7995179.EvYhyI6sBW@rafael.j.wysocki>
+	s=k20260515; t=1790020783;
+	bh=DMtBSn8yOXnXVar79nWZLJEdBKm3qvESfKRbNGf93Xs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=aiU691pyrUYYyQxU9eU70qvyfBU8JxpmY83EEdT3A/04/6eqGwjXGwdaMTlulVnnf
+	 9HFfooLmHjLrL0gE/kIl2vA1lVlP7vj2TOBdK7Slr35sdJ3fPiZoUYK3Pf3m3P62S0
+	 JC4XZgaDwFcE6sMhmvqcRYR9F5B6CSVLRRsdjLTd4M5SJGc6BrPVNLARqh5yRpEOR2
+	 aXQlz6B7Pxjtfq0dcM2prmQdsj5E66edwcStVbsf8tbBKh/1EQTV4XnxN3cYxJBRHk
+	 paxFBqavHzIYpDYbLZBIM1FZs//LAy6gjSZuVytKFapn7niPNpQ2N8X6wqBYT8lsUv
+	 3l4S/s+BAGQkA==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Mon, 21 Sep 2026 21:58:55 +0200
+Subject: [PATCH v2 03/13] mm/sparse: move initialization of section
+ metadata to sparse_metadata_init()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-b4-sparsemem_cleanups-v2-3-54d81d65e125@kernel.org>
+References: <20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org>
+In-Reply-To: <20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Brendan Jackman <brendan.jackman@linux.dev>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+ Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>, 
+ Oscar Salvador <osalvador@suse.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, 
+ linux-fsdevel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2577; i=david@kernel.org;
+ h=from:subject:message-id; bh=3LdazTbWXikkHaUL3kEHoOoL94yCObwwfPuFbE1hFoY=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLI29rR+PSAo+0AmduX8rVPz3oSf+Dmlz4n5l4XIlOz4y
+ U6PP5q96ihlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAiKmsZ/occ77274PbJD6v0
+ mRKb9fw7RGcvO+l2Re6mxOLm9CdFU5wZ/me/9j3RbrhlwfwTjvzSG5JrMv3bTlisn3dxduFpRYM
+ D0nwA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+Let's move the code responsible for initializing sparse metadata (usemap,
+memmap) into a helper. Cleanup the variable while at it (e.g.,
+"map_count").
 
-Replace acpi_get_first_physical_node() that is slated for removal
-with acpi_bus_get_primary_device() that takes a reference to the
-device it is about to return.
+Drop the rather obvious code comments.
 
-This addresses a potential use-after-free that may occur if the
-device returned by acpi_get_first_physical_node() is removed right
-after dropping its ACPI companion's physical_node_lock in that
-function.
+No functional change intended.
 
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Acked-by: Oscar Salvador <osalvador@suse.de>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- drivers/firmware/efi/dev-path-parser.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ mm/sparse.c | 43 ++++++++++++++++++++++---------------------
+ 1 file changed, 22 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/firmware/efi/dev-path-parser.c b/drivers/firmware/efi/dev-path-parser.c
-index 13ea141c0def..e0f864cbaa8c 100644
---- a/drivers/firmware/efi/dev-path-parser.c
-+++ b/drivers/firmware/efi/dev-path-parser.c
-@@ -37,9 +37,9 @@ static long __init parse_acpi_path(const struct efi_dev_path *node,
- 	if (!adev)
- 		return -ENODEV;
+diff --git a/mm/sparse.c b/mm/sparse.c
+index 2b285653abf1e..71288daeb3665 100644
+--- a/mm/sparse.c
++++ b/mm/sparse.c
+@@ -255,38 +255,39 @@ static void __init sparse_init_nid(int nid, unsigned long pnum_begin,
+ 	}
+ }
  
--	phys_dev = acpi_get_first_physical_node(adev);
-+	phys_dev = acpi_bus_get_primary_device(adev);
- 	if (phys_dev) {
--		*child = get_device(phys_dev);
-+		*child = phys_dev;
- 		acpi_dev_put(adev);
- 	} else
- 		*child = &adev->dev;
++static void __init sparse_metadata_init(void)
++{
++	unsigned long start_section_nr = first_present_section_nr();
++	int nid_begin = sparse_early_nid(__nr_to_section(start_section_nr));
++	unsigned long section_nr, nr_sections = 1;
++
++	for_each_present_section_nr(start_section_nr + 1, section_nr) {
++		const int nid = sparse_early_nid(__nr_to_section(section_nr));
++
++		if (nid == nid_begin) {
++			nr_sections++;
++			continue;
++		}
++		sparse_init_nid(nid_begin, start_section_nr, section_nr, nr_sections);
++		nid_begin = nid;
++		start_section_nr = section_nr;
++		nr_sections = 1;
++	}
++	sparse_init_nid(nid_begin, start_section_nr, section_nr, nr_sections);
++}
++
+ /*
+  * Allocate the accumulated non-linear sections, allocate a mem_map
+  * for each and record the physical to section mapping.
+  */
+ void __init sparse_init(void)
+ {
+-	unsigned long pnum_end, pnum_begin, map_count = 1;
+-	int nid_begin;
+-
+ 	if (compound_info_has_mask()) {
+ 		VM_WARN_ON_ONCE(!IS_ALIGNED((unsigned long) pfn_to_page(0),
+ 				    MAX_FOLIO_VMEMMAP_ALIGN));
+ 	}
+ 
+-	pnum_begin = first_present_section_nr();
+-	nid_begin = sparse_early_nid(__nr_to_section(pnum_begin));
+-
+-	for_each_present_section_nr(pnum_begin + 1, pnum_end) {
+-		int nid = sparse_early_nid(__nr_to_section(pnum_end));
+-
+-		if (nid == nid_begin) {
+-			map_count++;
+-			continue;
+-		}
+-		/* Init node with sections in range [pnum_begin, pnum_end) */
+-		sparse_init_nid(nid_begin, pnum_begin, pnum_end, map_count);
+-		nid_begin = nid;
+-		pnum_begin = pnum_end;
+-		map_count = 1;
+-	}
+-	/* cover the last node */
+-	sparse_init_nid(nid_begin, pnum_begin, pnum_end, map_count);
++	sparse_metadata_init();
+ 	sparse_init_subsection_map();
+ 	vmemmap_populate_print_last();
+ }
+
 -- 
-2.51.0
-
-
-
+2.43.0
 
