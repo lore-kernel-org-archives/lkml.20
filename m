@@ -1,99 +1,93 @@
-Received: from mta0.migadu.com (out-108.mta0.migadu.com [91.218.175.108])
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F91743C7B6
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:15:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7454FD268
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:16:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790025349; cv=none; b=LSOJiQ9kYn9mGXveFIqj8W9MOx9i8Xb/Awa/BvETkgsGYpeKZdOeeXFlp17S7VxXXFw/cZhWEkLMsj/DBl0RlV4bdU+jrrnxEAf+ACRViSIsfCwya+lvL6NPcrjGhMhSCX1/s8c//9+8C0t7ylsNhXaQkjxvXvc3EUsvGAZ5t1o=
+	t=1790025372; cv=none; b=BShVPCyyLR7AhRvuf3L7TqZYuYLOQZFHISBPCBW78wM8fHSvOJlTU9vsVWSxOHg3iiKYjqnWWCfDBj15q7zBNLzdqPSy+4RyxUz43OyAtwk/p9XKxoA0NKF/dLdn/of11kiwdX/LGG7j6rpKx70IPCnrUft5hQ1L4aXHnsaJ9P0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790025349; c=relaxed/simple;
-	bh=fQCb835gnDw0+W2Onz9aDFQLRn4B/BMH7O+wX3/9Sek=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TIighHHOgxy9DDUP2A7tYMyJ5ZRzliES3EgCwgiYKEYc26HBOtjAiZyEZPjCDBwVltSefEspaBXKzvlsRufcRZ9YYrf3Who9rAFlJrcQ5Ft9nvXDz8UOqkY0X27B2LFl4S0v/9kzTVJQS6oIN5IYHoxzu+Y+KYXBj+0KTmAigno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rRpmWb7p; arc=none smtp.client-ip=91.218.175.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790025372; c=relaxed/simple;
+	bh=2B9Jtu3Xm+xPmtxCAMZ3/a/KLxuQpwi4aHU8hpuTsrw=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=dP7XKajCZFFoc1lTApTuJb8u2uT8WlN6oMqQq2wOgDQbtrawyBaFOiCBVeyh79dtwZHHGMMIvcuLpz527zg1Go2dFQpgJXCMejWJoB0k9XNo6wjNmDpnO8Q0YZkoLb1L2bdFRfo+T1giP9QYD7CgB5CEbeJn+6E8ZjOvmbOja+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uFAD0ocF; arc=none smtp.client-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rRpmWb7p"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fQCb835gnDw0+W2Onz9aDFQLRn4B/BMH7O+wX3/9Sek=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790025345; v=1; x=1790630145;
- b=rRpmWb7p4+nzI5ChhO7N3HUz64nE8oPY8u3CHZpsUSqmPX4m5AWDhSKAtDTCwITY3QgkFnbB
- rRWv9xdQ4XzMQAWOqePLnQeyH5ofJ8PKmcipMqLmYw7w6xw2aGZzfjhjy2ZRZsKppF3tnuDswEv
- TNayPGTHdawp+cb7pi92VJ3w=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 75550e44efdad756;
-	Mon, 21 Sep 2026 21:15:19 +0000
-X-Mizu-Trace-ID: 75550e44efdad756
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <9e055710-d607-4a4c-95c8-eb3a0b4aa1a1@linux.dev>
-Date: Mon, 21 Sep 2026 15:15:14 -0600
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uFAD0ocF"
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8710450f731so3384551b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:16:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790025371; x=1790630171; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=n/Pv1RISzwI+jWTE+P0Nc31p7KJ4QnlTFUDF+YmmZBw=;
+        b=uFAD0ocFEaFvY7BRyJDTJIB6Ny07XjYwlq8jZmUwtku7pZsCPVkPr0jEXIh5heyhOg
+         oxCb7agpaKGevGC9990FfSo9pHbNcQpsg56gfKmqDIKxqukUcup5b+8cKs1rJtmdgrxJ
+         q1TLP3sNiR/6WyoL4L+DEq6ywMgJkSZSXzJk6mMIUSfJ8C35m0U9Ye4CiqVJx+DbqWQ/
+         Qi6sxO4qQ+T0RhFPfxr6TkeG1v6cFqJCyBAeCShMclngt9VP3E37/zfLsJe4iaEQlUZM
+         t8jXWk6wLYZMdLyYFCxEJnbK6/E270ThR3/Xm3sVnpU9wb5y4WDW3XdlCdnZOfjxL7iA
+         rcGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790025371; x=1790630171;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=n/Pv1RISzwI+jWTE+P0Nc31p7KJ4QnlTFUDF+YmmZBw=;
+        b=cHNe7djSjalDKLR8puqupwjKYjteHzUSOUADDiS0g5FA7xlGjjap8TznNbIUSozMWD
+         JuwONCymXLjvku8ZAgZfwREkQgOilBNcSblWstlLbals9BW3H/mWhIZqjoJsp5wLh/h1
+         iA64LQmWooUhuNs0KAJDapppL+2K5EbR5vmbwcsIWoqqCYtc2in8N/6WdUgwzMl8vHfi
+         jEOPtx87x8V5vuDMWSod5kVePcx/R35j2Ja9HKFFa+y5B2euUXyfvtTk+CkW037Nmz4+
+         KEIb7PSm4uowS4NkiQpd+4bGuPrYjaNtNp/ADCeOfNBsQoHOffuOhvmChB79blgby6mI
+         PMlA==
+X-Forwarded-Encrypted: i=1; AKwUvBxrmgnvIVsHru/zk7D2Pg0+rah8IdyY367NsS82Age/Ht4psS4WglT/a3TUTIOvA4+Ez7kDOgxHOCP8Oq4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyITRvZG7YUtDuqKxl1TkNqnrPiffQF32uuMCwJdy8xRn7SSQo
+	UCexdOXXyPTOtlb37/ec4urP+7TvFhG3pLHXHilZ8WkBNMV4YUNhYCKTHzZSOmuCb9U1wTVoMNr
+	+God/yg==
+X-Received: from pfbfs7.prod.google.com ([2002:a05:6a00:8187:b0:874:467c:2cd9])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:22c7:b0:874:708d:b632
+ with SMTP id d2e1a72fcca58-874df10529dmr15760385b3a.30.1790025370481; Mon, 21
+ Sep 2026 14:16:10 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Mon, 21 Sep 2026 14:16:06 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] selftests/bpf: Fixes for out-of-tree builds
-To: Eduard Zingerman <eddyz87@gmail.com>,
- =?UTF-8?B?UmljYXJkbyBCLiBNYXJsacOocmUgKFNVU0Up?= <ricardo@marliere.net>,
- ihor.solodrai@linux.dev, nickolay.lysenko@gmail.com
-Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Emil Tsalapatis <emil@etsalapatis.com>, Jiri Olsa <jolsa@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Song Liu <song@kernel.org>,
- Andrii Nakryiko <andrii@kernel.org>, Shuah Khan <shuah@kernel.org>,
- linux-kernel@vger.kernel.org, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Martin KaFai Lau <martin.lau@linux.dev>
-References: <20260728-selftests-bpf_oot-v1-0-05feb15d94db@marliere.net>
- <6f95ec90-194a-4304-9673-c7bb50065223@linux.dev>
- <d3a251acf5131bea732e23bbd135a5fdebec9ad6.camel@gmail.com>
-Content-Language: en-US, en-ZM
-From: "Nico Pache (Red Hat)" <nico.pache@linux.dev>
-In-Reply-To: <d3a251acf5131bea732e23bbd135a5fdebec9ad6.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260921211608.1030158-1-seanjc@google.com>
+Subject: [PATCH v2 0/2] KVM: x86: Ensure userspace can't run L2 with stale PFNs
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Jinwoo Lee <rkskek9254@gmail.com>, Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="UTF-8"
+
+Fix a class of bugs where KVM (a) lets userspace run L2 with potentially stale
+PFNs and (b) fails to set kvm_run appropriately and so could unintentionally
+cause a well-behaved VMM to run afoul of (a).
+
+v2:
+ - Re-pend KVM_REQ_GET_NESTED_STATE_PAGES in the common vcpu_enter_guest()
+   path.
+ - Fix the kvm_run bug(s).
+
+v1: https://lore.kernel.org/all/20260813043932.3214460-1-rkskek9254@gmail.com
+
+Sean Christopherson (2):
+  KVM: x86: Re-pend GET_NESTED_STATE_PAGES if getting said pages fails
+  KVM: x86: Fill kvm_run exit fields in common get_nested_state_pages()
+    error paths
+
+ arch/x86/kvm/svm/nested.c |  7 +------
+ arch/x86/kvm/vmx/nested.c | 15 +++++----------
+ arch/x86/kvm/x86.c        |  4 ++++
+ 3 files changed, 10 insertions(+), 16 deletions(-)
 
 
-
-On 9/21/26 3:04 PM, Eduard Zingerman wrote:
-> On Mon, 2026-09-21 at 14:40 -0600, Nico Pache (Red Hat) wrote:
-> 
-> ...
-> 
->> Given your series was defferred, and there is a "rewrite" coming, what would
->> be the best approach to working together (between us three) to get these
->> fixes in that series too. 
-> 
-> The, "rewrite", as you call it, had landed today.
-
-oh thats great news. I checked on Friday and didnt see it. Thanks for the update :)
-
-> So the series in question can be re-spun.
-> Regarding your patch on top of it, it appears you can just post is separately.
-> However, I am inclined to be confrontational towards changes like this one.
-> The purpose of the selftests makefile is to run selftests as appropriate
-> for current tip of the kernel tree using a very specific kernel configuration.
-> Main users of this makefile are BPF developers and BPF CI.
-
-Yeah we are trying to reincorporate BPF as part of our CI. It has bit rotted in
-the Fedora env, and our large amount of build variant is where things are
-starting to go wrong. We need to build selftests for multiple variants, and be
-able to specify which variant we are building for. Hence the out-of-tree build
-with specific vmlinux.
-
-Is there any other approach you'd suggest? I personally dont work on BPF, but am
-trying to cleanup/fix our selftests builds for Upstream/Fedora CI.
-
-Thanks,
--- Nico
-
-> Support for distros customizing the makefile is a non-goal.
-> The "PERMISSIVE" change done enough damage already.
-> 
-> ...
+base-commit: 70c944caf570fda2d79baa71435589a8db39f048
+-- 
+2.55.0.1082.g2b9226bbc0-goog
 
