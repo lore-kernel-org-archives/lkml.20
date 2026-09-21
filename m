@@ -1,81 +1,33 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E65601DF98F
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:07:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF38B1A683D;
+	Mon, 21 Sep 2026 07:07:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789974456; cv=none; b=QxFPkb+77OaYI+HzhgwyYkIYE6MAMha+jItG04EqFBAWHbkZNdJ3t1Wm5K0g6CUHfGSzy8b85A/iqKl8lhb/3XBLfE+oaKM+Rj6mFWpvBMOI41MlIOWY91dy3AA62Rdkw6cdPLKXiAs11dczKJbIeJUmBHGQp0SP1ZCP82AGEHI=
+	t=1789974480; cv=none; b=hQuVghUm33CuZDHxokbKFMdn5oiJZEeO4MOhSa1GEBr2s8ByEM3ymZncx1XQaO+fT3cTI9ivonq3gibTkH0u/IziF2k85M3yjGdeKYnP/b9dfyjUqreymeYaLEGiwXV2Yg7lV8FPX6JCSkOomHTDl770ATSHupZITKIOTnCzez8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789974456; c=relaxed/simple;
-	bh=1XusipKEArw6LiaZekx6zlNd70HR2ziFzMX/hZTtA4U=;
+	s=arc-20240116; t=1789974480; c=relaxed/simple;
+	bh=rSj8hBcd8ZndQAeqf9fyfCA0DXPFXxCH7MHPGTfWvWo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hw61BQeqYxYFmbqjS6zqodCnbsQAbaCWg0jaleedmLEbFkg/jOVLNM+JBY5XIbFz/bkb1RPClq9oSFRMSyqcgnJIeaksMPmKYOK84u/YO128bFVrIkNLM96MJcxXT59ma1MuzZ8/cH8RfuBKyBBLLELFZrRLwSp9iSPGanEcCMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=rQ0So+yM; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=f7WfZG8u; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=eEhQrdn1; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=94rUgrK9; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 In-Reply-To:Content-Type; b=sESe3eG8TpxLvXAb1aOs0dCZkcBrlGnCq8G4aHE9GA5+Jw4R7naFxq4SR5erT5XQmXAtm/WxH1qN0fII/aBV7E/sJX+yOWB1xMjwq9N2NbMB1v4ktvC/ZfoeEP33x1y32a3dfDr40/B7LE8i8yY02ZSF9D+8T9epKeVhFh/NA0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=adbtzmn5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rQ0So+yM";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="f7WfZG8u";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eEhQrdn1";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="94rUgrK9"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A2D751F795;
-	Mon, 21 Sep 2026 07:07:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789974448; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c5oINzfdj0Aaw8N3SdtMc2I3Ojy8YxehYDPbjFveq0k=;
-	b=rQ0So+yMPkLnZaEK8cpF4OiNKm+PCIcBVZI7UwonedMkUc1tYQkDqZFi2/bJh9RcLWf26K
-	tY4igW1F99Rs7oBpEK4PwWdKeHVDpjOexWwdmfU7kHtnEWmXQRX78fBkF8CRvB/wQXp2ta
-	Swq4OMPMdy4kk2iU3qBfrqvn1fsj3ys=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789974448;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c5oINzfdj0Aaw8N3SdtMc2I3Ojy8YxehYDPbjFveq0k=;
-	b=f7WfZG8ulHnttr70BfGo/FlnCVXAoczi7jHehw+4sSa52SB60bE3expBSwvpojq5Cv980I
-	M8mjkEGyl8JNw9AQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=eEhQrdn1;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=94rUgrK9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789974444; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c5oINzfdj0Aaw8N3SdtMc2I3Ojy8YxehYDPbjFveq0k=;
-	b=eEhQrdn1LaqU979j1KGC54j2TGz3ufhTs35+xEtquUv/PwXFHvfN4+HN4Z8gjUHYSgr1NL
-	4RZPVsHcZXdVPgqIoSWlPcEjOhb0VPI7BY0RqlbiwZKqpuG7TLdNk2joFu4FQhHXnX59EU
-	B+JbFoFGaXpMa77nCpK9beWVx/muXRg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789974444;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c5oINzfdj0Aaw8N3SdtMc2I3Ojy8YxehYDPbjFveq0k=;
-	b=94rUgrK9fo4qhr9Qw/ZvCjoWEVo/roT3M0Om4vM+W6T7f8gYyPZruLgkMXsu7CMapJAB4Y
-	yd4PpBcheQecBlAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 273CA13793;
-	Mon, 21 Sep 2026 07:07:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id FyhCAKzXsGrPWQAAD6G6ig
-	(envelope-from <hare@suse.de>); Mon, 21 Sep 2026 07:07:24 +0000
-Message-ID: <0d787bb1-33c4-46ba-a246-208b1e0ea865@suse.de>
-Date: Mon, 21 Sep 2026 09:07:23 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="adbtzmn5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 870E21F000FF;
+	Mon, 21 Sep 2026 07:07:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789974478;
+	bh=5IdEsVhx0lS/O2gGgfVa6jEzl0SVQ0tM8a9ZKJOim1A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=adbtzmn57qosIzBsOA+jgSEsgbVxQv0jdxISB9HX7GsPwSaRk/IEoa/Zc5Xc+0UW7
+	 QKVjuCKdICWpTTHx/YUhC6rPwt1xXZm0qrbNLjHtwz2aFPk5ZOAfFAswYQv5YADZti
+	 2f2jep2RfpxrEekN5qq0nLIdq7eGsmj7spl5iu0BbNdvgxarCOFv2q9jGAiM0GnPww
+	 Oyp/eYESF3LAnQhUkV1hyJk4ZQ9BCSG2PfHt6MybC0/U9mvSkM8y5pu7rDLCBgpnik
+	 fxfZZIfj+slZdyJBn5t/bITzVvC64wpDOJhQQG5Qn9efsYdy+oOOsqGIwYx7SGEfMw
+	 NYB5/boW1IFww==
+Message-ID: <e8a11c49-a60f-4c08-8599-dadb6101872b@kernel.org>
+Date: Mon, 21 Sep 2026 16:07:55 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,75 +35,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/18] nvme-tcp: Use CCR to recover controller that hits
- an error
-To: Mohamed Khalfella <mkhalfella@purestorage.com>,
- Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
-Cc: Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
- Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
- Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>,
- Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260918181614.3947933-1-mkhalfella@purestorage.com>
- <20260918181614.3947933-11-mkhalfella@purestorage.com>
+Subject: Re: [PATCH v2] ata: libata-scsi: abort multi-sector pass-through
+ commands when multi_count is 0
+To: Hui Peng <benquike@gmail.com>, Niklas Cassel <cassel@kernel.org>
+Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260919222625.3797581-1-benquike@gmail.com>
+ <11314f1d-ee6a-45d1-a7aa-3bc1cca0c82f@kernel.org>
+ <20260921032556.1160734-1-benquike@gmail.com>
 Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20260918181614.3947933-11-mkhalfella@purestorage.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: A2D751F795
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,broadcom.com,kernel.org,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,purestorage.com:email];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -4.51
+From: Damien Le Moal <dlemoal@kernel.org>
+Organization: Western Digital Research
+In-Reply-To: <20260921032556.1160734-1-benquike@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 9/18/26 8:14 PM, Mohamed Khalfella wrote:
-> An alive nvme controller that hits an error now will move to FENCING
-> state instead of RESETTING state. ctrl->fencing_work attempts CCR to
-> terminate inflight IOs. Regardless of the success or failure of CCR
-> operation the controller is transitioned to RESETTING state to continue
-> error recovery process.
+On 9/21/26 12:25, Hui Peng wrote:
+> When an ATA_12, ATA_16, or ATA_32 pass-through command with a
+> multi-sector PIO command opcode (ATA_CMD_READ_MULTI,
+> ATA_CMD_WRITE_MULTI, ATA_CMD_READ_MULTI_EXT, ATA_CMD_WRITE_MULTI_EXT, or
+> ATA_CMD_WRITE_MULTI_FUA_EXT) is submitted via SG_IO on a device where
+> multiple-sector mode is not configured (dev->multi_count == 0),
+> ata_scsi_pass_thru() currently logs a warning and still dispatches the
+> taskfile. When the DRQ interrupt fires, ata_pio_sectors() triggers
+> WARN_ON_ONCE(qc->dev->multi_count == 0) and computes
+> nsect = min((qc->nbytes - qc->curbytes) / qc->sect_size, 0) = 0, failing
+> to transfer any sectors:
 > 
-> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
-> ---
->   drivers/nvme/host/tcp.c | 29 ++++++++++++++++++++++++++++-
->   1 file changed, 28 insertions(+), 1 deletion(-)
+>   ata1.00: invalid multi_count 1 ignored
+>   WARNING: drivers/ata/libata-sff.c:666 at ata_pio_sectors+0x27d/0x300
+>   Call Trace:
+>    <IRQ>
+>    ata_sff_hsm_move+0x211/0x22e0
+>    __ata_sff_port_intr+0x1c8/0x520
+>    ata_bmdma_port_intr+0xa1/0x5b0
+>    ata_bmdma_interrupt+0x1f5/0x550
 > 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+> Per ACS-3 section 7.12.7.21, if IDENTIFY DEVICE word 59 bit 8 is cleared
+> to zero (multi_count == 0) and a READ MULTIPLE or WRITE MULTIPLE command
+> is received without a preceding successful SET MULTIPLE MODE command, the
+> device returns command aborted (ABRT). Per the SAT specification, an ABRT
+> error translates to the ABORTED COMMAND sense key with NO ADDITIONAL SENSE
+> INFORMATION (0x00, 0x00).
+> 
+> Fail multi-sector taskfile commands in ata_scsi_pass_thru() with
+> ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND, 0, 0) when
+> dev->multi_count == 0.
+> 
+> Tested in QEMU against Linux 7.3.0-rc3 (-device ide-cf, where
+> dev->multi_count is 0) by issuing ATA_CMD_SET_MULTI (nsect=1) followed
+> by an SG_IO ATA_16 ATA_CMD_READ_MULTI command: on the unfixed kernel
+> this triggers WARNING: drivers/ata/libata-sff.c:666 in
+> ata_pio_sectors(), whereas on the fixed kernel it immediately completes
+> with sense key ABORTED_COMMAND (0x0b, 0x00, 0x00) and 0 warnings.
+> 
+> Fixes: 1dce589c38c3 ("libata passthru: support PIO multi commands")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
 
-Cheers,
+Looks OK.
 
-Hannes
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+Damien Le Moal
+Western Digital Research
