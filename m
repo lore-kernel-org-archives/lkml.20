@@ -1,64 +1,64 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618FF489FBA
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:14:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F005484238
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:14:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789989262; cv=none; b=cNZn2Yh4SN84tE8sybXbW/bffifBH0HNP/6OElbiazbZORLZ53QxLffKRUbL1r/jBuzG2FhbOxU/3zZUhOXNC7B59Uov1dR8T3jHf9p97nBqjtrza03eSf4GrZiw2FYXELYaI5wTivyklYz/98NEa+tfIR1pl+cMVAxYZjvE4k8=
+	t=1789989268; cv=none; b=e2yJ6TE/OyNgNgzpbEciBpI+fr7e7gVJ6cVbQyyz0K/osWl9Aet8Y9i4Vpg8qPQN0VsFJDIosd+NHbiYSwhZ8De8c2If3T9Vd28J7strSiFDc+YbVdZHJouXS4SJO254OvpXdhg0PXPK+ShFHxV+qSreGKfGtvCOHEkcpkKgNck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789989262; c=relaxed/simple;
-	bh=7P7BJ6r23yYgS++1l6kZcvA8y1BN9I+co7T6D4BrvHc=;
+	s=arc-20240116; t=1789989268; c=relaxed/simple;
+	bh=1jg1XxWMFzFAotXiHpvxbD8wsFp6YWqm9Uxeq0aUeV8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mWyr7M1uW7sq0xJmf0PdSxqcSwDvwiy86EJVTVXV7w+iLde7a6lOS3U++xikBqW5mtd/WdxZ4/qdFNbP6JlEaZ7phplKsdvJNCYkDB3owLPMoqlzUgVzfns3+3sW/p6cyqrxtGwF0MDb8FkK+IN4DUdSvQkoPQFdBsVQ9uRWBN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d/9P10Se; arc=none smtp.client-ip=74.125.227.141
+	 MIME-Version; b=fU/n+0u0s/r/Th2DmEPZNGHzOhHV56uJ74GE0f5UsxYhEaRllmZabi3UhNoQcHY6SiWNI6ELBr3mD0vG2xHoYZKCQl7zF/rRrtnd5m5gBlooVAfn2dNUBES9n6KwA6zFGdUuVKT7KIoTOLYiXf8uCwPDSGBuhaLq0LtrKQlzB4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FBzRnrvp; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d/9P10Se"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ed6d6eso27472205ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:14:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FBzRnrvp"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d91ede8035so33621205ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:14:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789989260; x=1790594060; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789989264; x=1790594064; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=01ra1AO1mSvOrLFVgo6C3hu4ILWJ3jo+KfsYZ5db6+s=;
-        b=d/9P10Se2nOuZrbxgw2stTg3T1B0DVkDqRQsVULRZs+Vkh5kA2iAFXLWaXe25wqYsr
-         Sbp31rWip/KTyGfnHpoKsldelmiG8lfxSVvudPl2NhkwmqrQZ3Nkp1Zm0y/eeEvwD+mF
-         Ow81zSbc008prfcbabE+HeMpcEvwxS0P0EYnHGIuOc0nedJOpxjk/eNdS3NsCYNegm9z
-         kIVLgt8nbWuRbndxDMQ0pxCjgiyuEu7DaV9raJwM48VBt1CavPFa1/GD182G1LMR2naq
-         uH7drKSiZ0hL2U56RMkaiWAMo975sR9nQMzZ6VUrg1bEhdY6OxvvQn7zY6Y/VRgEaDAd
-         Dr9Q==
+        bh=TdOHOI1E8fGa5CU5V13c9pAIdSK9plZJHC6KFQ2NxiI=;
+        b=FBzRnrvp0gBU6Yet5j1nepLE+K8P+GMBuDeoX/06fyykYHBs7XemjVfaELpoRkpv9X
+         CpEmddG4LkZvUz6fBa64Z6Q/GpZeDg/c/+m4wILvIuoaytVxv0RsIpod/lGV9EQqMggn
+         1+eAKjABo/KgpNKOP173d2j9H2V282NjsxehrnBCKGaS02EvBPnVOYnjoYUgepqrIp4i
+         yfmX8BAnMZ/Zm0Jo7CAe+HdT2gphdeQ17s5b/m1Zuv8fvuahfWtVJYk7Dq812gnfayQm
+         jpVmfVU6jgCWvdedZRQNUJYgTH/7+F98jPwiRXKseifZOGnWVIDw02/YUZm7tM6u987Z
+         gqBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789989261; x=1790594061;
+        d=1e100.net; s=20260707; t=1789989264; x=1790594064;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=01ra1AO1mSvOrLFVgo6C3hu4ILWJ3jo+KfsYZ5db6+s=;
-        b=Y4LdHtH7jYmnoMZWmANNqQtFJ9AESFoaZmSVeP+zuuyX5B0DRqEx9JohC6UuDgiVvk
-         ibZd5/UXz3lK/3c8BjEd2lf6/l6beVNLO2gHylvXCUgwSLQDvC7CFT07BX3+9/JyaeGi
-         4NtstokkKXINmuwGQwKSdUT3rRJg2SwvFLkGan111gxBk7We1RgqD9HbKeVIttkn1mGt
-         iq73G7/6NtGlwyDR2xzy1RBTKz979b64Ap8gkeDP2at56JYf0B00Z1x+RbHcFRZHvewp
-         9bBZrnlcI/ClyTzJasUNgGMDjMDsrfkZ04EO+b5JWLjfhHo6gMHTQZWIMJukKCia0JAd
-         9exw==
-X-Forwarded-Encrypted: i=1; AKwUvBxzciOmKJp/e4m17Hv0pckxAvWlEK1Gl9yQHc/d1HQgqAT87ESV35Hnuiiw6iI09JbnI+fITxOr15RwROY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mvhJ2o2ZnY4D4ZnwHDcTs8Ev8X0zWRYdw0xWGKgkWVyL0rxB6c
-	UIcdKLMjb+UWIFat+DiJg7UA10Nvc0+39GYiV/Ui5UHXzhnTyPco0IFQ
-X-Gm-Gg: AYBFou2pVBEpNCjzIV11NxCfMguz6sWM/ad+7pDJCR+Gf3H8aSg5wHztI+PbhkTe1Hd
-	WpoPA/yWw/we7dBoJLutwgIEHxLEp/psB//layBPoPJOA4HQNGX3wJV223+RPm9Zrk+MYhZPabi
-	wFyLjy/AD3nBJt7sLn6UoJidHNGnXOsJUS1+pAMfKo7mF1I+88GO0D1zya8vtlpP13wKrlHBRUC
-	WyGMN4u70QS6N9e7oxZxj0sHX43MHsDSjt0gUNMVi8Qra4hoE9Fk9VApnQzTVjpl4qfQDPafJyu
-	mLRBe22dpv8gHByu26iWc6Xoecnht5itqgMIQzOsL4W7sPnH11MI6hRXErJBqZV2p8opT3o3waP
-	Ukvf3k+l8XeJzdvqWSKxTlwyGVAYgVfsS21TNjfWCUR/9904VQD8g/a+SO2P+9m0EZGgx1HhJDw
-	2avfyRM1kYNF2XstEKdzdlEQkWzguYEbSUOEb/kXgn8Svr4368/E3734uD/6ES80ml9fBWysGyu
-	Lq8jd4TB6QPa5n+ivybYCfXrvgfH409
-X-Received: by 2002:a17:90b:54c4:b0:39e:4c7f:7308 with SMTP id 98e67ed59e1d1-39e55071981mr15415502a91.31.1789989260551;
-        Mon, 21 Sep 2026 04:14:20 -0700 (PDT)
+        bh=TdOHOI1E8fGa5CU5V13c9pAIdSK9plZJHC6KFQ2NxiI=;
+        b=hpbMBl2ESsCFTytQQIXQvp5hjYFMKuoUhWaVkNV7wzq1ItZVxiw8eF35wR9CFbMO0P
+         PhsN4OT/xrMS1VSU+iHku2pYgAjHmm7Xoi37QzyF79N7ulDcsxssz85PKIG9295VpC8T
+         KgGY4FnvaAG//E51kimSxGiUoWxlzlL4yp33wwX0rXrHhL/eBh/iJgr7kbzApRJPADxt
+         l4nHJwL50jK2tbggqtgP6JKNvBE2ktrGp0gFnJOj516MqlGwLQ37hGpjH2bUw4g64ezO
+         88qaB9OqbvUfjP6KxyKIBQ5Cs0apsAHQHbZwOqjqQc40UNVJejlzmmAEm+giq1lpoLjk
+         NaWw==
+X-Forwarded-Encrypted: i=1; AKwUvBwM58CHvPax/XWeSZHqh/PBUyrEi8zWrACTPel0lsKAv5ltyj4Mdgq2MXUDmkzXkNitvguu75TOgSpL8Kc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJK8YOwe92ysTi1mm7a1bjjvsL9WCqk+40KWT6K6QKe811ip7R
+	pfVNTikTVqUMW7oemZXjJQWIPQX/tNeNE1AFCogduyOLeJXImBDMkWpv
+X-Gm-Gg: AYBFou10gX00MTrJr753h/1hHiSOl0TIXgb+rEZjuzj1Or+gnvaCyqj9ERuJQe/YguG
+	W7FwCqI1hnCgXJ20UmrXvE2IiJkdjEASC1fwuBGttvaKaxEuH8mbBZ4qmotbgHVvN/F+ifKK79Z
+	WqD62JPucoWfiL64rJq3l/3FraJl4mvgEHRvwWm4IZRbbTw28elnwa+gyCY9ssJWG430ZrARz4M
+	NDY0rdsm20ttGzr6scmS4vy4DVC/oybCY09DggcB7fOlhfpTlZEoWXLfI7O+mNKrBrOn1MZ3baF
+	oAcYEjLN9qiFgQmonUz0HehKqwTviy7e7dt4g7NOr+aSKgSCI5q2rUF1bKfe7zWDLJDwQvmsIpi
+	27c6AF4kc7/AXIDYdWJwvSUMGlzQ34oWSXKheLzvk8bDiVm+9Z79ybvmZzv8tYxnMbGefZpqrtI
+	lKABBUoHzkzgmAkhj6g/nYZW6wKLPWT+anZuV7Xo2IuBZBQCnKI6645bR16i9FQ3f4pdvfZOfOq
+	zH6OpAFAUjZv9rzCXSZveJgAka7uzAz
+X-Received: by 2002:a17:90b:35c9:b0:39e:6c6a:656c with SMTP id 98e67ed59e1d1-39e6c6a674bmr9093523a91.47.1789989264562;
+        Mon, 21 Sep 2026 04:14:24 -0700 (PDT)
 Received: from fedora ([61.74.238.173])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c6dd585sm13438703a91.0.2026.09.21.04.14.17
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c6dd585sm13438703a91.0.2026.09.21.04.14.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 04:14:20 -0700 (PDT)
+        Mon, 21 Sep 2026 04:14:24 -0700 (PDT)
 From: SeungJu Cheon <suunj1331@gmail.com>
 To: Anup Patel <anup@brainfault.org>
 Cc: Atish Patra <atish.patra@linux.dev>,
@@ -75,9 +75,9 @@ Cc: Atish Patra <atish.patra@linux.dev>,
 	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	SeungJu Cheon <suunj1331@gmail.com>
-Subject: [PATCH v1 1/5] KVM: riscv: Age all G-stage PTEs in a GFN range
-Date: Mon, 21 Sep 2026 20:13:58 +0900
-Message-ID: <20260921111402.120911-2-suunj1331@gmail.com>
+Subject: [PATCH v1 2/5] KVM: riscv: Read G-stage PTEs once when walking page tables
+Date: Mon, 21 Sep 2026 20:13:59 +0900
+Message-ID: <20260921111402.120911-3-suunj1331@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260921111402.120911-1-suunj1331@gmail.com>
 References: <20260921111402.120911-1-suunj1331@gmail.com>
@@ -89,158 +89,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-kvm_age_gfn() and kvm_test_age_gfn() only operate on the G-stage
-leaf covering range->start. They also warn unless the range size is
-exactly 4K, 2M, or 1G.
+gstage_pte_leaf() dereferences the PTE pointer, causing walkers to read
+the same entry multiple times. This is safe under mmu_lock, but a
+lockless walker could observe different values when deciding whether an
+entry is a leaf and which child table to follow.
 
-The MM can pass larger ranges when batching the PTEs of a large folio.
-For example, a 64K mTHP range triggers the warning and only the first
-4K leaf is aged, leaving the Accessed bits of the remaining leaves
-unchanged.
+Make gstage_pte_leaf() take a PTE value and use a single snapshot for
+presence, leaf and child-table checks. Also remove a redundant leaf
+check in kvm_riscv_gstage_set_pte(), where mmu_lock prevents the entry
+from changing.
 
-This can be reproduced on an rv64 host with Svadu by disabling 2M THP,
-enabling 64K mTHP, and running:
-
-access_tracking_perf_test -s anonymous_thp
-
-This results in:
-
-WARNING: arch/riscv/kvm/mmu.c:362 at kvm_age_gfn+0x210/0x370
-...
-[<ffffffff800c8fc8>] kvm_age_gfn+0x210/0x370
-[<ffffffff80095c90>] kvm_mmu_notifier_clear_young+0x250/0x478
-[<ffffffff80ae532e>] __mmu_notifier_clear_young+0xde/0x1a0
-[<ffffffff80932f76>] walk_pud_range+0x86e/0x1688
-[<ffffffff80a18720>] walk_pgd_range+0x518/0x17b0
-[<ffffffff80a19aa2>] __walk_page_range+0xea/0x580
-[<ffffffff80a1a422>] walk_page_range+0x3a/0x80
-[<ffffffff80931dc0>] try_to_inc_max_seq+0x520/0xe68
-[<ffffffff80939dc0>] lru_gen_seq_write+0xd08/0x1310
-
-Walk all G-stage leaves in the requested range. Advance by the leaf
-size when a mapping is found, or by the size of the non-present region
-at the level where the walk stopped. When testing the age, return as
-soon as a young leaf is found.
-
-Remove the range-size warning since arbitrary GFN ranges are valid.
-
-Fixes: 9955371cc014 ("RISC-V: KVM: Implement MMU notifiers")
 Signed-off-by: SeungJu Cheon <suunj1331@gmail.com>
 ---
- arch/riscv/include/asm/kvm_gstage.h |  2 ++
- arch/riscv/kvm/gstage.c             | 34 +++++++++++++++++++++++++++++
- arch/riscv/kvm/mmu.c                | 22 ++++---------------
- 3 files changed, 40 insertions(+), 18 deletions(-)
+ arch/riscv/kvm/gstage.c | 48 +++++++++++++++++++++++------------------
+ 1 file changed, 27 insertions(+), 21 deletions(-)
 
-diff --git a/arch/riscv/include/asm/kvm_gstage.h b/arch/riscv/include/asm/kvm_gstage.h
-index aaf080ba1b77..a03db1a10095 100644
---- a/arch/riscv/include/asm/kvm_gstage.h
-+++ b/arch/riscv/include/asm/kvm_gstage.h
-@@ -81,6 +81,8 @@ bool kvm_riscv_gstage_unmap_range(struct kvm_gstage *gstage,
- 				  gpa_t start, gpa_t size, bool may_block);
- 
- bool kvm_riscv_gstage_wp_range(struct kvm_gstage *gstage, gpa_t start, gpa_t end);
-+bool kvm_riscv_gstage_age_range(struct kvm_gstage *gstage, gpa_t start,
-+				gpa_t end, bool test_only);
- 
- bool kvm_riscv_gstage_wp_pt_masked(struct kvm_gstage *gstage, gfn_t base_gfn,
- 				   unsigned long mask);
 diff --git a/arch/riscv/kvm/gstage.c b/arch/riscv/kvm/gstage.c
-index e5002cb9cbef..f61ba434093c 100644
+index f61ba434093c..944fa4c95aea 100644
 --- a/arch/riscv/kvm/gstage.c
 +++ b/arch/riscv/kvm/gstage.c
-@@ -485,6 +485,40 @@ bool kvm_riscv_gstage_wp_range(struct kvm_gstage *gstage, gpa_t start, gpa_t end
- 	return flush;
- }
+@@ -19,8 +19,8 @@ unsigned long kvm_riscv_gstage_max_pgd_levels __ro_after_init = 3;
+ unsigned long kvm_riscv_gstage_max_pgd_levels __ro_after_init = 2;
+ #endif
  
-+bool kvm_riscv_gstage_age_range(struct kvm_gstage *gstage, gpa_t start,
-+				gpa_t end, bool test_only)
-+{
-+	unsigned long page_size;
-+	bool young = false;
-+	gpa_t addr = start;
-+	pte_t *ptep;
-+	u32 level;
-+	bool found;
-+
-+	while (addr < end) {
-+		found = kvm_riscv_gstage_get_leaf(gstage, addr, &ptep, &level);
-+		if (gstage_level_to_page_size(gstage, level, &page_size))
+-#define gstage_pte_leaf(__ptep)	\
+-	(pte_val(*(__ptep)) & (_PAGE_READ | _PAGE_WRITE | _PAGE_EXEC))
++#define gstage_pte_leaf(__pte)	\
++	(pte_val(__pte) & (_PAGE_READ | _PAGE_WRITE | _PAGE_EXEC))
+ 
+ static inline unsigned long gstage_pte_index(struct kvm_gstage *gstage,
+ 					     gpa_t addr, u32 level)
+@@ -84,14 +84,18 @@ static int gstage_level_to_page_size(struct kvm_gstage *gstage, u32 level,
+ bool kvm_riscv_gstage_get_leaf(struct kvm_gstage *gstage, gpa_t addr,
+ 			       pte_t **ptepp, u32 *ptep_level)
+ {
+-	pte_t *ptep;
++	pte_t *ptep, pte;
+ 	u32 current_level = gstage->pgd_levels - 1;
+ 
+ 	*ptep_level = current_level;
+ 	ptep = (pte_t *)gstage->pgd;
+ 	ptep = &ptep[gstage_pte_index(gstage, addr, current_level)];
+-	while (ptep && pte_val(ptep_get(ptep))) {
+-		if (gstage_pte_leaf(ptep)) {
++	while (ptep) {
++		pte = ptep_get(ptep);
++		if (!pte_val(pte))
 +			break;
 +
-+		if (found) {
-+			if (test_only) {
-+				if (pte_young(ptep_get(ptep)))
-+					return true;
-+			} else {
-+				young |= ptep_test_and_clear_young(NULL, 0, ptep);
-+			}
-+		}
-+
-+		/*
-+		 * Advance past this leaf, or past the non-present region at
-+		 * the level where the walk stopped.
-+		 */
-+		addr = ALIGN_DOWN(addr, page_size) + page_size;
-+	}
-+
-+	return young;
-+}
-+
- static inline void clear_huge_mask(unsigned long *mask, unsigned long page_size,
- 				   gfn_t base_gfn, gpa_t addr)
- {
-diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
-index 3e955d808743..342f606399e5 100644
---- a/arch/riscv/kvm/mmu.c
-+++ b/arch/riscv/kvm/mmu.c
-@@ -351,42 +351,28 @@ bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
++		if (gstage_pte_leaf(pte)) {
+ 			*ptep_level = current_level;
+ 			*ptepp = ptep;
+ 			return true;
+@@ -100,7 +104,7 @@ bool kvm_riscv_gstage_get_leaf(struct kvm_gstage *gstage, gpa_t addr,
+ 		if (current_level) {
+ 			current_level--;
+ 			*ptep_level = current_level;
+-			ptep = (pte_t *)gstage_pte_page_vaddr(ptep_get(ptep));
++			ptep = (pte_t *)gstage_pte_page_vaddr(pte);
+ 			ptep = &ptep[gstage_pte_index(gstage, addr, current_level)];
+ 		} else {
+ 			ptep = NULL;
+@@ -151,10 +155,12 @@ int kvm_riscv_gstage_set_pte(struct kvm_gstage *gstage,
+ 		return -EINVAL;
  
- bool kvm_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
- {
+ 	while (current_level != map->level) {
+-		if (gstage_pte_leaf(ptep))
++		pte_t pte = ptep_get(ptep);
++
++		if (gstage_pte_leaf(pte))
+ 			return -EEXIST;
+ 
+-		if (!pte_val(ptep_get(ptep))) {
++		if (!pte_val(pte)) {
+ 			if (!pcache)
+ 				return -ENOMEM;
+ 			next_ptep = kvm_mmu_memory_cache_alloc(pcache);
+@@ -163,9 +169,7 @@ int kvm_riscv_gstage_set_pte(struct kvm_gstage *gstage,
+ 			set_pte(ptep, pfn_pte(PFN_DOWN(__pa(next_ptep)),
+ 					      __pgprot(_PAGE_TABLE)));
+ 		} else {
+-			if (gstage_pte_leaf(ptep))
+-				return -EEXIST;
+-			next_ptep = (pte_t *)gstage_pte_page_vaddr(ptep_get(ptep));
++			next_ptep = (pte_t *)gstage_pte_page_vaddr(pte);
+ 		}
+ 
+ 		current_level--;
+@@ -175,7 +179,7 @@ int kvm_riscv_gstage_set_pte(struct kvm_gstage *gstage,
+ 	if (pte_val(*ptep) != pte_val(map->pte)) {
+ 		bool was_invalid = !pte_val(*ptep);
+ 		set_pte(ptep, map->pte);
+-		if (gstage_pte_leaf(ptep) &&
++		if (gstage_pte_leaf(map->pte) &&
+ 		    !(was_invalid && riscv_has_extension_unlikely(RISCV_ISA_EXT_SVVPTC)))
+ 			gstage_tlb_flush(gstage, current_level, map->addr);
+ 	}
+@@ -316,7 +320,7 @@ bool kvm_riscv_gstage_split_huge(struct kvm_gstage *gstage,
+ 	unsigned long huge_pte, child_pte;
+ 	unsigned long child_page_size;
+ 	bool need_flush = false;
 -	pte_t *ptep;
--	u32 ptep_level = 0;
--	u64 size = (range->end - range->start) << PAGE_SHIFT;
- 	struct kvm_gstage gstage;
++	pte_t *ptep, pte;
+ 	int i, ret;
  
- 	if (!kvm->arch.pgd)
+ 	if (!pcache)
+@@ -325,16 +329,17 @@ bool kvm_riscv_gstage_split_huge(struct kvm_gstage *gstage,
+ 	while(current_level > target_level) {
+ 		ptep = (pte_t *)&next_ptep[gstage_pte_index(gstage, addr, current_level)];
+ 
+-		if (!pte_val(ptep_get(ptep)))
++		pte = ptep_get(ptep);
++		if (!pte_val(pte))
+ 			break;
+ 
+-		if (!gstage_pte_leaf(ptep)) {
+-			next_ptep = (pte_t *)gstage_pte_page_vaddr(ptep_get(ptep));
++		if (!gstage_pte_leaf(pte)) {
++			next_ptep = (pte_t *)gstage_pte_page_vaddr(pte);
+ 			current_level--;
+ 			continue;
+ 		}
+ 
+-		huge_pte = pte_val(ptep_get(ptep));
++		huge_pte = pte_val(pte);
+ 
+ 		ret = gstage_level_to_page_size(gstage, current_level - 1, &child_page_size);
+ 		if (ret)
+@@ -373,7 +378,7 @@ bool kvm_riscv_gstage_op_pte(struct kvm_gstage *gstage, gpa_t addr,
+ 			     pte_t *ptep, u32 ptep_level, enum kvm_riscv_gstage_op op)
+ {
+ 	int i, ret;
+-	pte_t old_pte, *next_ptep;
++	pte_t old_pte, pte, *next_ptep;
+ 	u32 next_ptep_level;
+ 	unsigned long next_page_size, page_size;
+ 	bool flush = false;
+@@ -384,11 +389,12 @@ bool kvm_riscv_gstage_op_pte(struct kvm_gstage *gstage, gpa_t addr,
+ 
+ 	WARN_ON(addr & (page_size - 1));
+ 
+-	if (!pte_val(ptep_get(ptep)))
++	pte = ptep_get(ptep);
++	if (!pte_val(pte))
  		return false;
  
--	WARN_ON(size != PAGE_SIZE && size != PMD_SIZE && size != PUD_SIZE);
--
- 	kvm_riscv_gstage_init(&gstage, kvm);
--	if (!kvm_riscv_gstage_get_leaf(&gstage, range->start << PAGE_SHIFT,
--				       &ptep, &ptep_level))
--		return false;
- 
--	return ptep_test_and_clear_young(NULL, 0, ptep);
-+	return kvm_riscv_gstage_age_range(&gstage, range->start << PAGE_SHIFT,
-+					  range->end << PAGE_SHIFT, false);
- }
- 
- bool kvm_test_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
- {
--	pte_t *ptep;
--	u32 ptep_level = 0;
--	u64 size = (range->end - range->start) << PAGE_SHIFT;
- 	struct kvm_gstage gstage;
- 
- 	if (!kvm->arch.pgd)
- 		return false;
- 
--	WARN_ON(size != PAGE_SIZE && size != PMD_SIZE && size != PUD_SIZE);
--
- 	kvm_riscv_gstage_init(&gstage, kvm);
--	if (!kvm_riscv_gstage_get_leaf(&gstage, range->start << PAGE_SHIFT,
--				       &ptep, &ptep_level))
--		return false;
- 
--	return pte_young(ptep_get(ptep));
-+	return kvm_riscv_gstage_age_range(&gstage, range->start << PAGE_SHIFT,
-+					  range->end << PAGE_SHIFT, true);
- }
- 
- static bool fault_supports_gstage_huge_mapping(struct kvm_memory_slot *memslot,
+-	if (ptep_level && !gstage_pte_leaf(ptep)) {
+-		next_ptep = (pte_t *)gstage_pte_page_vaddr(ptep_get(ptep));
++	if (ptep_level && !gstage_pte_leaf(pte)) {
++		next_ptep = (pte_t *)gstage_pte_page_vaddr(pte);
+ 		next_ptep_level = ptep_level - 1;
+ 		ret = gstage_level_to_page_size(gstage, next_ptep_level, &next_page_size);
+ 		if (ret)
 -- 
 2.52.0
 
