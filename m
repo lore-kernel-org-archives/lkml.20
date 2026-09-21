@@ -1,159 +1,106 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1942B4A6881;
-	Mon, 21 Sep 2026 14:42:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB0D4A689A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:43:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790001736; cv=none; b=kDZEQqlLeF86e0gxbKVLa96u8sHQOwW14XA8p1wXnXG/63oVloja+pLGOXdIqxPHxcdB4zxXxdvC8ZF3V33UWtPnu9AyHlA9KTKCKU03OYOMjcIIbQSO8FtFOD+ntRBEkhcNfgknZP6d1JKu4FRKLk6wj2YWa7Y16MbLqaHUOns=
+	t=1790001784; cv=none; b=g6e4kGoIgjJrqZ6sd6vWfzr8/L37x+Wj7RmbWf1/Cck4uKr4ujn5yebBbq4w+0SXnH+g6ATdYQtHc7tR9vJslc70eEY3I2BqU0RnuwdveYvoYN7qaCL6vShB0B5WgUkuJFPNhoMtbuPb9ylPlXiIK9/DPWZ1IhqBpwsy6MtZJ78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790001736; c=relaxed/simple;
-	bh=sGruuTORCOH7Md2a1q1vZDJ3XOsnCuOVCxA101Q3I20=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oilkgfomNO4o/u4/oU3f+GpnsDpHUFXPg77bzfvUcViIK2r+mozyxzCbuwamzLvZb3NdFMIQ1T4w8jyk7JzAHwQQpeTXq5ffWB2o4v8yi7Mw4Wo/CHrhMoQIIUM4p/G38Gf0xAm0TPBwGntUZNjk/umyWu5rb3lC7rdO8Ddh87M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=N2RN0ZfN; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790001784; c=relaxed/simple;
+	bh=ee6NNdwpIoJbHKA0a/AD9u5PEHXwKj964nGJAAW3SH4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fIMKFhRqbNWMdiUxb5oWSHBf3BQ4rPhPolilfbsRPZSFE/wHeYsRB45YXh1mgxTi820llgJ8v3erTG5nwvhkH96nrLUd51OjNJa/nGIBrCD74My2C4nRRwJbyJjmfN7ssSS1hys0lP59C6nDTRHstNeXAWSIKma0CIW0Mu+mcVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AqbeFuiC; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="N2RN0ZfN"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e975bd86;
-	Mon, 21 Sep 2026 22:42:07 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: William Hubbs <w.d.hubbs@gmail.com>
-Cc: Chris Brannon <chris@the-brannons.com>,
-	Kirk Reiser <kirk@reisers.ca>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	speakup@linux-speakup.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] speakup: handle serial IRQ request failure
-Date: Mon, 21 Sep 2026 22:42:01 +0800
-Message-Id: <20260921144201.302823-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AqbeFuiC"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-868cfc5c244so1615265b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:43:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790001782; x=1790606582; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ee6NNdwpIoJbHKA0a/AD9u5PEHXwKj964nGJAAW3SH4=;
+        b=AqbeFuiCjU1Z+KffyMiRh8sQuC9I2hgq2u4T1lSTcLdrgP+0pKhDPO+i/+UokhXt0c
+         NkZPID4wtxHd1Tqg3RdRLybgPcdnXHzDHGjWxY6a25pjUCctVtMdvu5+nhPuNw5XcjLT
+         ewcOePPwt68bcg6j8hV9e4jufUTdg1QcB2f18MvILeeF4qlu6wy2YlQwQV6gYUvYae5V
+         f5L6Ry6TSXACqnHZiW81mJJh+4WPHdCRtC7EUCofIgJLQNh/bELw/1Bm+JExTBKJpNNJ
+         e6dLEk9FNFPIDVpoeO0QaZg3AFUXOHrElcVeF8R9kvqld4zEUtIGNC1UyvL9RtLE64g3
+         22Qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790001782; x=1790606582;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ee6NNdwpIoJbHKA0a/AD9u5PEHXwKj964nGJAAW3SH4=;
+        b=oX7FSgFd2D843Rrg2RsL25HEpmYBkgKe0GHcN8Ge5qawxPdqONmHNLUhXJgvu1dNRj
+         iKADIGdXhK1QVXwIiuxcIlwyuSISl1DoOrsKobdzX7TiFiWzLulz1HtueT8GNrvCMlyN
+         0NyclGvdXFmtu/VBH2bXMHMKMVhXzsQkpTJVaeBce7jc3oAsuqNGwN+d22AQhj7Ibg2y
+         iiOqO/+mkwgzn0YLLGoMGVEJ0LyZsQNPo8em/TLQ6OvzRAg8+wge7gByXaEbRLEcY3KN
+         vN2B+aL2UZdhhXITC4wLthgEtYTJsenZ3xM57/TXvilpNMEH3QmLWGZ5r7HA5B0FOk2V
+         /CnA==
+X-Forwarded-Encrypted: i=1; AKwUvBw0uE0dma/vWM4nWSSw53ckiSbJA/Q/a+dbUIQXMeL/lKbID1M09E6s8xx8cOxReTf3a9dSP0tVI4QEXUk=@vger.kernel.org
+X-Gm-Message-State: AFuF++k1EJRafi0pIzWp2+tiN7K3srVANmgy+xHvzdLVVddfJ3Kz4TdZ
+	V8fWn3C+SQO5CsadfiXvvgr6FxQzuBrspuqnC0Su/3nweWbgqx1WjndX
+X-Gm-Gg: AYBFou0fWo9dIgfpnQRfIdapkjiG3a+wbPuhHYFZEG5OHPuN62MIjjtRiu+k/SFokHn
+	U+jfPv0QMHuANJVTjgikhaEDUwO6bXX7ueBSEUZpbl+Ar71bpBK8oW5OzYNIYvdjlodxZm7H5A7
+	KboYC2IJS9qc0ayCqxihEu8JECoxOmb+7vGsW9rUzQRPdV33cK5TspjYUJ1oCcmTwSJ2RgzsF4M
+	CoPNIpPx9nf1d/8sFWj3S2TffeTouQebLT0wro3NJAjFSnjnBcOMSrKeLh3uffnmXzRozMeYfNF
+	atBRAinYS7B5DI/dUdJseMD0PXmec4MUHRmDuNWoynFdCtM+0oGFO2IqF13b1FRuzHe4KjeuHgs
+	Pui8q0ZMtOiMx0H7RFVCaDDSE5quE7Gywd8M0lEeJmaoMlgHcZbZLVXZpxNeaRnmSKOeaBrmKOv
+	wkkwtpUXlQHwt7X6UFWnPsvxmplZ6jhv9PxLtB7TowMcQGcIcZ2XBz6vATeq0qIDwc1Y1OwVADm
+	rD14YW4CLlT7wRgSDOfGTkOFendpibcDOirQXpruVhdVcbqXhV88Q==
+X-Received: by 2002:a05:6a20:3949:b0:3d3:adbf:7784 with SMTP id adf61e73a8af0-3dd8c41a806mr15005040637.25.1790001782204;
+        Mon, 21 Sep 2026 07:43:02 -0700 (PDT)
+Received: from LAPTOP-ULBIJHFK (59-124-193-167.hinet-ip.hinet.net. [59.124.193.167])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72acd26c6sm3704120a12.3.2026.09.21.07.42.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 07:43:01 -0700 (PDT)
+From: Chipang_Kao <prozac2734@gmail.com>
+To: hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	W_Armin@gmx.de
+Cc: corentin.chary@gmail.com,
+	luke@ljones.dev,
+	denis.benato@linux.dev,
+	jprvita@gmail.com,
+	scardracs@disroot.org,
+	bryan.odonoghue@linaro.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] platform/wmi: Move ASUS platform drivers from x86 to wmi/asus
+Date: Mon, 21 Sep 2026 22:43:07 +0800
+Message-ID: <20260921144307.467-1-prozac2734@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <ee3735b5-6f56-4b88-a582-5bb0aaf3eda8@kernel.org>
+References: <ee3735b5-6f56-4b88-a582-5bb0aaf3eda8@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0c46ac5dc03a1kunma0f451da52895
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTB1NVklPTEIeGE9MHU4dGFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=N2RN0ZfNQYf3rnlweQGuBtfuTiOfYuErv1fFwFfxxw8zUh44GOhRsmc+kdy1Q6ghfet+JAgmUAn9HtMrsQUx4UL/ybsbdBo3muJYZZ816flAmzFZZD1n8Wo2ILK8K+7mJASFgnGLGHsAxqDTbnz9NRlC3jlvejQc5YiyrKo7K/o=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=u2wIf+IGyx/+O0OgWCp4shQ0MgaWvz2EtUhSKy/AUig=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: quoted-printable
 
-start_serial_interrupt() currently logs a failed request_irq() but
-continues enabling UART interrupts and reports a successful serial
-synthesizer probe. A later release then calls free_irq() without a
-matching registration.
-
-Return the request error to spk_serial_init() and unwind the I/O region
-and serial state when registration fails. This keeps the UART disabled
-and prevents teardown from freeing an IRQ that was never requested.
-
-Reproducer:
-
-  Build an x86_64 kernel with CONFIG_ACCESSIBILITY=y,
-  CONFIG_SPEAKUP=m, and CONFIG_SERIAL_8250=m. Disable ACPI, PNP, and
-  SERIAL_8250_CONSOLE so that QEMU's COM1 remains available at 0x3f8 on
-  IRQ4. Build an out-of-tree module that first claims IRQ4 with a
-  non-shared handler and then registers a Speakup serial synthesizer for
-  ttyS0. Boot the kernel in QEMU with its default COM1, for example:
-
-    qemu-system-x86_64 -machine pc -m 1024 -smp 2 -no-acpi \
-      -display none -monitor none -serial file:/dev/null \
-      -kernel arch/x86/boot/bzImage -initrd test.cpio.gz \
-      -append 'console=hvc0 rdinit=/init loglevel=7'
-
-  In the guest, load the modules in this order:
-
-    insmod speakup.ko
-    insmod speakup_irq_failure_poc.ko
-
-  The second module keeps the non-shared IRQ4 owner installed, so the
-  Speakup request_irq(..., IRQF_SHARED, ...) fails with -EBUSY. On the
-  unfixed kernel, the probe still returns success and the harness removes
-  the published synthesizer, producing "Trying to free already-free IRQ
-  4". On the fixed kernel, the probe returns an error and no unmatched
-  free_irq() warning is emitted. The IRQ conflict is deliberately
-  injected to exercise the error path and is not expected during normal
-  operation.
-
-Fixes: c6e3fd22cd53 ("Staging: add speakup to the staging directory")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM Codex
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/accessibility/speakup/serialio.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/accessibility/speakup/serialio.c b/drivers/accessibility/speakup/serialio.c
-index 3418ea31d..56efc76a7 100644
---- a/drivers/accessibility/speakup/serialio.c
-+++ b/drivers/accessibility/speakup/serialio.c
-@@ -17,7 +17,7 @@
- #define SERIAL_PORT_DFNS
- #endif
- 
--static void start_serial_interrupt(int irq);
-+static int start_serial_interrupt(int irq);
- 
- static const struct old_serial_port rs_table[] = {
- 	SERIAL_PORT_DFNS
-@@ -106,7 +106,13 @@ const struct old_serial_port *spk_serial_init(int index)
- 	speakup_info.port_tts = ser->port;
- 	serstate = ser;
- 
--	start_serial_interrupt(ser->irq);
-+	err = start_serial_interrupt(ser->irq);
-+	if (err) {
-+		synth_release_region(ser->port, 8);
-+		speakup_info.port_tts = 0;
-+		serstate = NULL;
-+		return NULL;
-+	}
- 
- 	return ser;
- }
-@@ -125,18 +131,20 @@ static irqreturn_t synth_readbuf_handler(int irq, void *dev_id)
- 	return IRQ_HANDLED;
- }
- 
--static void start_serial_interrupt(int irq)
-+static int start_serial_interrupt(int irq)
- {
- 	int rv;
- 
- 	if (!synth->read_buff_add)
--		return;
-+		return 0;
- 
- 	rv = request_irq(irq, synth_readbuf_handler, IRQF_SHARED,
- 			 "serial", (void *)synth_readbuf_handler);
- 
--	if (rv)
-+	if (rv) {
- 		pr_err("Unable to request Speakup serial I R Q\n");
-+		return rv;
-+	}
- 	/* Set MCR */
- 	outb(UART_MCR_DTR | UART_MCR_RTS | UART_MCR_OUT2,
- 	     speakup_info.port_tts + UART_MCR);
-@@ -148,6 +156,7 @@ static void start_serial_interrupt(int irq)
- 	inb(speakup_info.port_tts + UART_IIR);
- 	inb(speakup_info.port_tts + UART_MSR);
- 	outb(1, speakup_info.port_tts + UART_FCR);	/* Turn FIFO On */
-+	return 0;
- }
- 
- static void spk_serial_send_xchar(struct spk_synth *synth, char ch)
--- 
-2.34.1
+=0D
+> Thank you for your answers and this all sounds good to me.=0D
+=0D
+> Based on this I've no objections against this series.=0D
+=0D
+> Regards,=0D
+=0D
+=0D
+Hi Hans,=0D
+=0D
+Please ignore this v2 patch. Only asus-armoury.c, asus-wmi.c, and asus-nb-w=
+mi.c are =0D
+WMI-based drivers. I will move only the pure WMI-based drivers into wmi/asu=
+s folder, =0D
+and follow up with [PATCH v3] shortly.=0D
+=0D
+=0D
+Best regards,=0D
+Chipang Kao=
