@@ -1,36 +1,33 @@
-Received: from mta0.migadu.com (out-167.mta0.migadu.com [91.218.175.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17943BE633
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:27:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E0503CF699
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:28:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789975647; cv=none; b=b4LOK/8X6FQgyNTJml66xLBxiu2/Wmm9tybhopxZhiKsU7LRtEtOZH7ukRiG8hkt0OxwkFysg2229tTKb7IxPYPjiI/Fmr8hyu0PnRriWsn+2MN3dcsdg8lpOX2u1wb0N4b9zBQgv9sW9WFNjzhCviGROEuai3atNQwGL1WKp+s=
+	t=1789975712; cv=none; b=dzeAEANx6CO9SqpbDGShXipCPROQS4qLYHISiuqcljSSq1hG4K+83sXWEgiO4mwcgnDzafBpOHOQ1tIAGTOSwJTY7YARF4d2Y4izGbxb3rQwe+izhXiodpd2jDUz0svx/akA3qVFMeNFjPLbBp3o/KtC4B3AD0TW42HrPcAu2go=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789975647; c=relaxed/simple;
-	bh=IXoexxxwMj9ZHbqMM/S/tzSKGTmKj2ZFLeJiOwKWMgU=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=r7vOGP2W78UpIEdZOwHFj6zpKNPdD3x7WraUmb8OB2wxOFfjpUbXuvMf3cu5rSi1lS6e2gjkS040aIn8ZEPxyAaax6WEi8FEy6FX/vJ+sNZPv3wf6NLzCzJZL+eEYH+ZXWe6W+xAqMrU1OBzMRcE7RPc1fFWt1Lrbvh+YwrZS9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KYZAW2Ba; arc=none smtp.client-ip=91.218.175.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789975712; c=relaxed/simple;
+	bh=rwWzC8MIrlwJNyH0Cq54SAqC1PMKeJO12AO8yCWBlQQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=UEK6/u4xahFtMRpoHaaQ9TuxyjvG/CtTwT+xQL2HBsA91768zKOcVehCjoD/+k0U0OAC7672zTnmrrd41Ab2wKO16/+OhkA+dqH5BVFUVQv9maZ4vxqSu1Y5yFZm0/n8sDSREpKIuLuxHLjOMfx1r4pzSSfrJAmk7FCI9/sg+4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CXvYRLNm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KYZAW2Ba"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IXoexxxwMj9ZHbqMM/S/tzSKGTmKj2ZFLeJiOwKWMgU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789975640; v=1; x=1790580440;
- b=KYZAW2BaT7BOilkJs6DE8Xrqj7Pl+P8wU/ntuSXDngs4dAhuEd3IcQO/o+tC3an4ztPbf0Qs
- W5j/3gIOb4xpd2oxwwKxZFRInNytNJK43PVprtE2G7WtCpOQxZ0Aac1FRXldw3INfSOqCoj7EX9
- /a988H9Z7iBO03z84jGT8IpM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 10294fe07906a545;
-	Mon, 21 Sep 2026 07:27:20 +0000
-X-Mizu-Trace-ID: 10294fe07906a545
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d1509bf3-b56f-4f81-885f-329a5c710c56@linux.dev>
-Date: Mon, 21 Sep 2026 15:27:10 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CXvYRLNm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2420B1F000FF;
+	Mon, 21 Sep 2026 07:28:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789975707;
+	bh=9IeZ8YzYkEbqGx4JiJQgQ/74f9cdXZJykURU1L8RUeE=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=CXvYRLNmRVX3qFBuglutTKJhv2OiJs+5sxXaUEVLENXNjA2NzHSFEPfJpdiIkavhM
+	 gLP8nILXYxhZPjoWePoxZXQOw49GsB6euRP0lLxOhjk5wjkQxmiL9BII6tGHjZnobn
+	 6iMQ/+Vnbo9ApGYARGNzC0onzYFYvZyJuvZ0+1EimMT5qct7n0s7ClJxG8L3q8MWT7
+	 a6OrFc2z/lue81BbSlvzbjvJHEvdIfzRrT+eUuT3hgymENompzim8f7YQWeWXC3aUj
+	 TiQhqCRgoZLdnx3u061WpTgsN6fpukNN+JVxoz31MA3CCdmx50hey0d7uTLhecS1f7
+	 dCf3MRv1v/FZw==
+Message-ID: <3e9ce58a-1316-48a0-9bab-715c70d117f6@kernel.org>
+Date: Mon, 21 Sep 2026 09:28:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,156 +35,96 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, linux-block@vger.kernel.org,
- linux-nvme@lists.infradead.org, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, cuitao@kylinos.cn
-Subject: Re: [RFC PATCH 0/1] block: charge passthrough requests to the
- submitter's cgroup
-To: axboe@kernel.dk, kbusch@kernel.org, tj@kernel.org, hch@lst.de,
- sagi@grimberg.me, yukuai@fygo.io
-References: <20260921070647.1928289-1-cui.tao@linux.dev>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <20260921070647.1928289-1-cui.tao@linux.dev>
+Subject: Re: [PATCH 0/3] MAINTAINERS: rework MEMORY MANAGEMENT - MEMORY POLICY
+ AND MIGRATION
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Rakie Kim <rakie.kim@sk.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
+References: <20260918-maintainers-mempolicy-v1-0-9a94cac6d135@kernel.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260918-maintainers-mempolicy-v1-0-9a94cac6d135@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi,
-
-在 2026/9/21 15:06, Tao Cui 写道:
-> From: Tao Cui <cuitao@kylinos.cn>
+On 9/18/26 18:34, David Hildenbrand (Arm) wrote:
+> Let's rework MEMORY MANAGEMENT - MEMORY POLICY AND MIGRATION.
 > 
-> While looking at cgroup IO control coverage, I stumbled into a hole
-> that is probably familiar to people who have worked on passthrough:
-> SG_IO, bsg, and the NVMe ioctl / uring command paths build requests
-> directly and dispatch them through blk_execute_rq{,_nowait}(),
-> never passing through submit_bio().  The mapped bio carries no blkcg
-> association, so the bytes never show up in cgroup io.stat, and none
-> of the rq_qos policies (iocost, iolatency, wbt) see these commands;
-> blk-throttle, hooking submit_bio_noacct() directly, is equally
-> blind.  On a scsi_debug device with iocost enabled and vrate pinned
-> to its 1% floor, a direct writer in a cgroup is throttled ~10x while
-> the same cgroup issuing sg_dd writes runs at full device speed with
-> io.stat staying at zero.
+> As I can use some maintenance help in that area, add Gregory as
+> a new co-maintainer for the split out MEMORY MANAGEMENT - NUMA PLACEMENT
+> section.
 > 
-> This RFC is a prototype asking for feedback on one possible
-> direction, not a proposal I am attached to: is charging passthrough
-> at dispatch time the right layer and the right semantics at all?
-> 
-> The patch associates the mapped bio with the submitter's blkcg in
-> blk_execute_rq{,_nowait}(), runs the regular bio accounting
-> (blk_cgroup_bio_start()) and the rq_qos throttle path with it, and
-> gates by opcode (READ/WRITE/DRV_IN/DRV_OUT, mapping the latter two
-> to READ/WRITE for io.stat classification) and to queues that already
-> have a gendisk so probing stays exempt.  On linux-next, with
-> scsi_debug + sg_dd and qemu emulated nvme + an NVME_IOCTL_IO64_CMD
-> loop, the transferred bytes are fully accounted in the issuing
-> cgroup, and with vrate clamped the pacing bites: the same 128MB
-> SG_IO run takes 0.025s unthrottled and 31.7s at the 1% floor, with
-> the issuing task sleeping on the iocost waitqueue like any bio
-> submitter.
-> 
-> Questions I am unsure about:
-> 
->  1. Is always-on the right default, or should this hide behind the
->     queue/iostats_passthrough opt-in from the passthrough iostats
->     series, keeping default behavior unchanged?
->  2. The throttle may sleep; all callers I found (ioctl / uring_cmd
->     submit, target and error handling kthreads) are sleepable, and
->     kthread-issued charges land on root and turn into no-ops - but
->     I may have missed paths, and I'd rather ask than assume.
->  3. What should happen on nvme multipath failover, where the bio is
->     re-routed to another queue but carries the original queue's
->     blkg?  Untested; guidance welcome.
->  4. wbt also gains passthrough throttling through the same rq_qos
->     walk - probably benign since wbt targets buffered writeback,
->     but it is a behavior change I did not set out to make.
->  5. blk-throttle does not benefit (it is not an rq_qos policy, and
->     its queue-and-resubmit model does not fit bios already bound to
->     a dispatched request); would a synchronous wait variant there
->     be welcome as follow-up work, or is leaving it alone preferred?
-> 
-> Reproduction notes in case anyone tries: sg_dd coalesces into very
-> large single commands by default (use bpt=1), and a short burst from
-> a single cgroup rides the initial budget, so sustained transfers
-> are what show the pacing.
-> 
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+> David Hildenbrand (Arm) (3):
+>       MAINTAINERS: split up MEMORY MANAGEMENT - MEMORY POLICY AND MIGRATION
+>       MAINTAINERS: move memory tiering under MEMORY MANAGEMENT - NUMA PLACEMENT
+>       MAINTAINERS: make Gregory a co-maintainer of MEMORY MANAGEMENT - NUMA PLACEMENT
 
-The cover letter summarized the motivation briefly, so let me add some
-background on how this came up and what the prototype is trying to
-address.
+Great, thanks David and Gregory!
 
-How this was found
-------------------
-
-This came from stress testing blk-iocost on linux-next with mixed IO
-workloads and cgroup churn. With the known bio-path accounting gaps
-(flush, zone append) already carrying posted fixes, the remaining
-missing cases had one property in common: they build requests directly
-and enter through blk_execute_rq(), bypassing submit_bio() entirely.
-
-The invariant being violated is simple to state: any IO that consumes
-device bandwidth but bypasses submit_bio() currently bypasses blkcg IO
-accounting. Passthrough commands, including SG_IO, bsg, nvme ioctls and
-uring commands, currently fall into this category: they have no blkcg
-association, do not show up in io.stat, and do not participate in
-blkcg-aware rq_qos policies such as iocost and iolatency.
-
-The observable difference
--------------------------
-
-On the same scsi_debug device, with the same cgroup and iocost enabled
-with vrate pinned at its 1% floor:
-
-  bio writer (fio)                 throttled ~10x
-  SG_IO writer (sg_dd)             full device speed,
-                                   io.stat remains zero
-
-The NVMe ioctl path shows the same behavior: passthrough provides a
-path that bypasses the existing accounting boundary.
-
-With the prototype patch
-------------------------
-
-The mapped bio is associated with the submitting blkcg in
-blk_execute_rq{,_nowait}(), and goes through the normal bio accounting
-and rq_qos paths.
-
-With the same setup:
-
-  - a 128MB SG_IO write (bs=1M, bpt=1) is accounted to the issuing
-    cgroup's io.stat, with wbytes/wios matching the transfer;
-  - the same workload takes 0.025s without throttling and 31.7s with
-    vrate at the 1% floor, with the task sleeping in the iocost throttle
-    path.
-
-Two reproduction notes: sg_dd combines transfers into large commands by
-default, so bpt=1 is needed for scsi_debug. Also, short bursts can be
-covered by the initial budget; sustained transfers make the difference
-visible.
-
-Relation to passthrough iostats
--------------------------------
-
-This RFC builds on Keith's passthrough iostats work. That series made
-disk-level passthrough accounting possible and provided block-device
-association for passthrough bios where it is available.
-
-This RFC is about the next layer: whether passthrough IO should also
-participate in blkcg accounting and enforcement.
-
-The questions from the cover letter still stand. In particular, I am
-not sure whether attaching blkcg/accounting at this layer is the right
-abstraction, or whether this should remain an opt-in behavior like
-passthrough iostats.
-
-Thanks,
-Tao
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
 > 
-> Tao Cui (1):
->   block: charge passthrough requests to the submitter's cgroup
+>  MAINTAINERS | 68 ++++++++++++++++++++++++++++++++++++-------------------------
+>  1 file changed, 40 insertions(+), 28 deletions(-)
 > 
->  block/blk-mq.c | 72 ++++++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 72 insertions(+)
+> ---
+> 
+> base-commit: 5dd1818b15d98d4a20806cd00b1b40320b06004f
+> 
+> change-id: 20260918-maintainers-mempolicy-06bf34b59ec3
+> 
+> --
+> 
+> Cheers,
+> 
+> David
 > 
 
