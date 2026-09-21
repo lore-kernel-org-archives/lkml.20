@@ -1,271 +1,323 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94F88371043;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237CE36F90A;
 	Mon, 21 Sep 2026 06:38:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789972697; cv=none; b=V3NXjhYFOnogB9aXYidNItrBYJ1Z02Hfhm6h3bXBa5Rjnpik1NbrQ2u7JuynBZYr8GHa8AdYJZ+vDobzhdwxKzNeSayh4tsW5y8Q2OQ2TYa9GV4mWLt1Pdj7M99DTBksSJEnyfFxnzDyXwLxPqkw0+JugNyXd/eLhfmoJT8nazM=
+	t=1789972698; cv=none; b=q+VVTAlxp8QocYb4RXTTvfB9Lh4Ibix4LBe5WcMys+cnVFqwdboj/fG+or4PptqetmMoGZc1F0i0KPC+F9BpofSOxj/42eP1cU/lh6MEjpSXAV7xZqqd6iWylwM8oL1ST4x2n90FlrG9e6K8pw6bilt1up7wlf+fntexoV6CLa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789972697; c=relaxed/simple;
-	bh=R06oSiCj6amNyStCo6wi3w9t8mqg6DLVroFqZznRK74=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RtlOSKpMNPf3+kiw9INO7KzsIYv3vvLGqvs+UUWAJac2+ex37q1osLC3xFgkURgEZWIUFqzi3CytHWBYhQngenUafQDizIUe/Jacn6aWRvMyy7W5YOfzZH3c3fG+brRnx61CV4aK5qq/MPt2EM5GPNTPC8Yzsoh0WMvRajWGeBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jIq/flJR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789972698; c=relaxed/simple;
+	bh=9jMS24w8T9/Iwx+fDxdj04EaAMFKVFMuy5ao1Ssiw8Q=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=L9i0cDSQtEDuytkGB+Ahr2ODOVJK+kDcNL2ayx+/XShHL5HQQNxvJgP9Dc0N8b6Ok1jJbbiBv9mdYf9Y7iiOsGMavHAO5iHDzSLT0TOrrdL6hgUNtky+P9y7bAMBqSEGn+qHrRg7koKSIXXtS3FqNQCasMsjm14FJ0ZOxxXV+Oc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lxFp/P6t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jIq/flJR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9341A1F000FF;
-	Mon, 21 Sep 2026 06:38:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lxFp/P6t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08B4D1F00899;
+	Mon, 21 Sep 2026 06:38:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789972695;
-	bh=VoCg32Arx4e7KaF2GJEfcwJzh1ShvNusNafOCb8ICO0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jIq/flJRY3S5laEIT+Wa5u9H4XzbVTG73lEvv3r80VBqC4d4gx2R4rPz/4iRfl+FS
-	 T6wvnzWrCYCSrJ9jduv4Hi4hvZmj7+Rp8DdiuCZWhpb4wC2QAk14pe8YwzDbTbzob/
-	 5XsqIPaBZBiYB/OBhqr7ZaFUtIxWNm4rA9fuRNv5aT0GRKaM5P3x7AQzIRdvxQVz5i
-	 vhLUG13WQhfQov1qCVQmey56rKz+067+EwWOoaeLlTRKhqQr22C9XSlq+YNCQKkKj8
-	 X3UFdT52k2baLO2qi5Cs3dBJorRVGHCGxy1fyZqxLbV3Hv3Ix9tQo9SAAn0a4ffJCA
-	 WoE8T/WIg/byg==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Will Deacon <will@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Mostafa Saleh <smostafa@google.com>,
-	Petr Tesarik <ptesarik@suse.com>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	linux-arm-kernel@lists.infradead.org,
-	loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org,
-	linux-s390@vger.kernel.org,
-	x86@kernel.org
-Subject: [PATCH v5 6/6] dma: swiotlb: Remove SWIOTLB_ANY
-Date: Mon, 21 Sep 2026 12:06:28 +0530
-Message-ID: <20260921063628.362078-7-aneesh.kumar@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260921063628.362078-1-aneesh.kumar@kernel.org>
-References: <20260921063628.362078-1-aneesh.kumar@kernel.org>
+	bh=shxNcuWti3/+oQ17+LN5PpSuwNQZGgc8fK6UujU3mLk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=lxFp/P6t9N9BfqQdrWbfbnd5mRBxAEqAHusHgfoHqq2/YLY9RYImSfech6/LcU5Q5
+	 Y9ZbitewLJStUlEKoxQx1k7L5arFRI+XxGVDDB25uwzexIUKhiYj3ssyzRMyQ+iqd8
+	 /Hv8SfATTCnrEzl4Ob1eTySVAE4ywaOZ8+Td0abPF0KFHj/tJXm6pZzAlk2sCrUpW4
+	 B8bRBDGxU9Odl8lPKnYGy1ie6429PoRnV2cIGehQ31NekFOmlW4XXL2rtlFqVk95Ni
+	 YqMYCLzD9HGbW4Xu4bsOsWxrgLKcIVQvZCJTBY81XZ+/9UjhUNU2ztIvGDPiElLfz3
+	 LFcI922NZVIgA==
+Subject: Re: [PATCH net-next 3/6] netlink: specs: rt-route: add lwtunnel encap
+ sub-message support
+From: netdev-bot+sashiko@kernel.org
+To: hangbin.liu@linux.dev
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ donald.hunter@gmail.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, liuhangbin@kylinos.cn
+Date: Mon, 21 Sep 2026 06:38:14 +0000
+Message-ID: <178997269458.2160803.9466830531181053829@kernel.org>
+In-Reply-To: <20260917-ynl_rt_encap-v1-3-fbbe6e680571@kylinos.cn>
+References: <20260917-ynl_rt_encap-v1-3-fbbe6e680571@kylinos.cn>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-swiotlb pools are currently allocated below the architecture's low
-address limit by default. SWIOTLB_ANY overrides this and permits
-allocation anywhere in directly mapped memory.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-SWIOTLB_INIT_ADDRESSING_LIMIT now explicitly identifies callers which
-need a pool that is reachable by devices with limited DMA addressing.
-Use it as the placement constraint and remove SWIOTLB_ANY.
+Critical: 0 · High: 1 · Medium: 1 · Low: 1
 
-This changes the default behavior for callers which do not set either
-flag. Previously, omitting SWIOTLB_ANY placed the default pool below the
-architecture's low address limit and also constrained dynamically
-allocated pools to the same range. After this change, omitting
-SWIOTLB_INIT_ADDRESSING_LIMIT permits both static and dynamic pools to
-use any directly mapped memory.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
----
- Documentation/core-api/swiotlb.rst |  8 ++++----
- arch/powerpc/mm/mem.c              |  6 ++++--
- arch/riscv/mm/init.c               | 16 ----------------
- arch/s390/mm/init.c                |  2 +-
- arch/x86/kernel/pci-dma.c          |  2 +-
- include/linux/swiotlb.h            |  7 +++----
- kernel/dma/swiotlb.c               | 17 ++++++-----------
- 7 files changed, 19 insertions(+), 39 deletions(-)
+- [High] Newly described lwtunnel encap attributes that the kernel
+  puts/gets in network byte order are declared as host-order integers,…
+- [Medium] Generated C parser can dereference a NULL selector string:
+  with RTA_ENCAP modelled as a sub-message selected by the `encap-type`…
+- [Low] The newly added selector enum (`encap-type`), the `encap-data`
+  sub-message and all eleven tunnel-specific attribute sets are added…
 
-diff --git a/Documentation/core-api/swiotlb.rst b/Documentation/core-api/swiotlb.rst
-index 71b4e4c27eb5..06d9f88fdf7b 100644
---- a/Documentation/core-api/swiotlb.rst
-+++ b/Documentation/core-api/swiotlb.rst
-@@ -148,10 +148,10 @@ may also be adjusted
- due to other conditions, such as running in a CoCo VM, as described above. If
- CONFIG_SWIOTLB_DYNAMIC is enabled, additional pools may be allocated later in
- the life of the system. Each pool must be a contiguous range of physical
--memory. The default pool is allocated below the 4 GiB physical address line so
--it works for devices that can only address 32-bits of physical memory (unless
--architecture-specific code provides the SWIOTLB_ANY flag). In a CoCo VM, the
--pool memory must be decrypted before swiotlb is used.
-+memory. The default pool is allocated below the architecture's low address
-+limit when it is needed for devices with limited DMA addressing. Otherwise,
-+it may be allocated anywhere in directly mapped memory. In a CoCo VM, the pool
-+memory must be decrypted before swiotlb is used.
- 
- Each pool is divided into "slots" of size IO_TLB_SIZE, which is 2 KiB with
- current definitions. IO_TLB_SEGSIZE contiguous slots (128 slots) constitute
-diff --git a/arch/powerpc/mm/mem.c b/arch/powerpc/mm/mem.c
-index 006ed41097e9..1bdea6c03848 100644
---- a/arch/powerpc/mm/mem.c
-+++ b/arch/powerpc/mm/mem.c
-@@ -295,9 +295,11 @@ void __init arch_mm_preinit(void)
- 		/*
- 		 * Since the guest memory is inaccessible to the host,
- 		 * devices always need to use the SWIOTLB buffer for DMA
--		 * even if dma_capable() says otherwise.
-+		 * even if dma_capable() says otherwise. The hypervisor has
-+		 * no addressing limitation, so the buffer may be allocated
-+		 * anywhere.
- 		 */
--		ppc_swiotlb_flags |= SWIOTLB_ANY;
-+		ppc_swiotlb_flags &= ~SWIOTLB_INIT_ADDRESSING_LIMIT;
- 	}
- 
- 	/*
-diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
-index 96856114b387..734712230f35 100644
---- a/arch/riscv/mm/init.c
-+++ b/arch/riscv/mm/init.c
-@@ -165,27 +165,11 @@ static void print_vm_layout(void) { }
- 
- void __init arch_mm_preinit(void)
- {
--	bool swiotlb = max_pfn > PFN_DOWN(dma32_phys_limit) &&
--		       memblock_start_of_DRAM() < dma32_phys_limit;
- 	unsigned int swiotlb_flags = SWIOTLB_VERBOSE;
- #ifdef CONFIG_FLATMEM
- 	BUG_ON(!mem_map);
- #endif /* CONFIG_FLATMEM */
- 
--	if (IS_ENABLED(CONFIG_DMA_BOUNCE_UNALIGNED_KMALLOC) && !swiotlb &&
--	    dma_cache_alignment != 1) {
--		/*
--		 * No 32-bit DMA bouncing needed (either all DRAM is within
--		 * the 32-bit limit, or it all starts above it), but
--		 * kmalloc() buffers whose sizes are not cache-line-aligned
--		 * still require bouncing for non-coherent DMA.  Use
--		 * SWIOTLB_ANY so that the buffer can be allocated from high
--		 * memory when DRAM starts above dma32_phys_limit.  Allocate
--		 * ~1 MB per 1 GB of RAM.
--		 */
--		swiotlb_flags |= SWIOTLB_ANY;
--	}
--
- 	if ((max_pfn > PFN_DOWN(dma32_phys_limit)) &&
- 	     (memblock_start_of_DRAM() < dma32_phys_limit))
- 		swiotlb_flags |= SWIOTLB_INIT_ADDRESSING_LIMIT;
-diff --git a/arch/s390/mm/init.c b/arch/s390/mm/init.c
-index 78f507e24ceb..ce10292447f1 100644
---- a/arch/s390/mm/init.c
-+++ b/arch/s390/mm/init.c
-@@ -166,7 +166,7 @@ static void __init pv_init(void)
- 	virtio_set_mem_acc_cb(virtio_require_restricted_mem_acc);
- 
- 	/* make sure bounce buffers are shared */
--	swiotlb_init(SWIOTLB_VERBOSE | SWIOTLB_ANY);
-+	swiotlb_init(SWIOTLB_VERBOSE);
- 	swiotlb_update_mem_attributes();
- }
- 
-diff --git a/arch/x86/kernel/pci-dma.c b/arch/x86/kernel/pci-dma.c
-index ce257b20ea9c..74e92b457758 100644
---- a/arch/x86/kernel/pci-dma.c
-+++ b/arch/x86/kernel/pci-dma.c
-@@ -90,7 +90,7 @@ static void __init pci_xen_swiotlb_init(void)
- 	/* Xen can use a SWIOTLB pool anywhere in directly mapped memory. */
- 	x86_swiotlb_flags &= ~(SWIOTLB_INIT_ADDRESSING_LIMIT |
- 			       SWIOTLB_INIT_DEFAULT_OFF);
--	x86_swiotlb_flags |= SWIOTLB_INIT_REMAP | SWIOTLB_ANY;
-+	x86_swiotlb_flags |= SWIOTLB_INIT_REMAP;
- 	swiotlb_init_remap(x86_swiotlb_flags, xen_swiotlb_fixup);
- 	dma_ops = &xen_swiotlb_dma_ops;
- 	if (IS_ENABLED(CONFIG_PCI))
-diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
-index 466c33795db0..503e1446e0d8 100644
---- a/include/linux/swiotlb.h
-+++ b/include/linux/swiotlb.h
-@@ -15,13 +15,12 @@ struct page;
- struct scatterlist;
- 
- #define SWIOTLB_VERBOSE	(1 << 0) /* verbose initialization */
--#define SWIOTLB_ANY	(1 << 1) /* allow any memory for the buffer */
- /* Initialize a default-sized pool for devices with limited DMA addressing. */
--#define SWIOTLB_INIT_ADDRESSING_LIMIT	(1 << 2)
-+#define SWIOTLB_INIT_ADDRESSING_LIMIT	(1 << 1)
- /* Initialize a default-sized pool that requires architecture remapping. */
--#define SWIOTLB_INIT_REMAP		(1 << 3)
-+#define SWIOTLB_INIT_REMAP		(1 << 2)
- /* Do not initialize a pool unless SWIOTLB is explicitly required. */
--#define SWIOTLB_INIT_DEFAULT_OFF		(1 << 4)
-+#define SWIOTLB_INIT_DEFAULT_OFF	(1 << 3)
- 
- /*
-  * Maximum allowable number of contiguous slabs to map,
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index 46b789eb0806..77d7c320de28 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -450,15 +450,10 @@ static void __init *swiotlb_memblock_alloc(unsigned long nslabs,
- 	size_t bytes = PAGE_ALIGN(nslabs << IO_TLB_SHIFT);
- 	void *tlb;
- 
--	/*
--	 * By default allocate the bounce buffer memory from low memory, but
--	 * allow to pick a location everywhere for hypervisors with guest
--	 * memory encryption.
--	 */
--	if (flags & SWIOTLB_ANY)
--		tlb = memblock_alloc(bytes, PAGE_SIZE);
--	else
-+	if (flags & SWIOTLB_INIT_ADDRESSING_LIMIT)
- 		tlb = memblock_alloc_low(bytes, PAGE_SIZE);
-+	else
-+		tlb = memblock_alloc(bytes, PAGE_SIZE);
- 
- 	if (!tlb) {
- 		pr_warn("%s: Failed to allocate %zu bytes tlb structure\n",
-@@ -604,10 +599,10 @@ void __init swiotlb_init_remap(unsigned int flags,
- #ifdef CONFIG_SWIOTLB_DYNAMIC
- 	if (!remap)
- 		io_tlb_default_mem.can_grow = true;
--	if (flags & SWIOTLB_ANY)
--		io_tlb_default_mem.phys_limit = virt_to_phys(high_memory - 1);
--	else
-+	if (flags & SWIOTLB_INIT_ADDRESSING_LIMIT)
- 		io_tlb_default_mem.phys_limit = ARCH_LOW_ADDRESS_LIMIT;
-+	else
-+		io_tlb_default_mem.phys_limit = virt_to_phys(high_memory - 1);
- #endif
- 
- 	/* if we have host or guest memory encryption */
+--
+
+netlink: specs: rt-route: add lwtunnel encap sub-message support
+
+This adds an encap-type enum to the rt-route spec and turns RTA_ENCAP into
+a sub-message keyed by that enum, with new attribute sets describing the
+mpls, ip, ila, ip6, seg6, bpf, seg6-local, rpl, ioam6 and xfrm payloads.
+It also extends tools/net/ynl/Makefile.deps so the generated rt-route code
+picks up the relevant uapi headers.
+
+> diff --git a/Documentation/netlink/specs/rt-route.yaml b/Documentation/netlink/specs/rt-route.yaml
+> index 253037ea5176a..0e236da140dc5 100644
+> --- a/Documentation/netlink/specs/rt-route.yaml
+> +++ b/Documentation/netlink/specs/rt-route.yaml
+> @@ -99,6 +99,58 @@ definitions:
+>          name: ra-withdrawn
+>          doc: A Router Advertisement withdrew the route with a zero
+>            lifetime.
+> +  -
+> +    name: encap-type
+> +    type: enum
+> +    name-prefix: lwtunnel-encap-
+> +    enum-name:
+> +    entries:
+> +      - none
+> +      - mpls
+> +      - ip
+> +      - ila
+> +      - ip6
+> +      - seg6
+> +      - bpf
+> +      - seg6-local
+> +      - rpl
+> +      - ioam6
+> +      - xfrm
+
+[Severity: Low]
+This isn't a bug, but the new encap-type definition, the encap-data
+sub-message and all eleven new attribute sets (mpls-iptunnel, lwtunnel-ip,
+ila-attrs, lwtunnel-ip6, seg6-iptunnel, lwt-bpf, seg6-local, rpl-iptunnel,
+ioam6-iptunnel, lwt-xfrm) carry no doc properties, while the neighbouring
+rt-route-notify and rt-route-flags definitions in the same file do document
+their entries.
+
+Could a doc be added for at least the selector enum and each attribute set,
+including a note that some members are deliberately left as binary here and
+converted in follow-up patches?
+
+> +
+> +sub-messages:
+> +  -
+> +    name: encap-data
+> +    formats:
+> +      -
+> +        value: mpls
+> +        attribute-set: mpls-iptunnel
+
+[ ... ]
+
+> +      -
+> +        value: xfrm
+> +        attribute-set: lwt-xfrm
+>  
+>  attribute-sets:
+>    -
+> @@ -174,9 +226,12 @@ attribute-sets:
+>        -
+>          name: encap-type
+>          type: u16
+> +        enum: encap-type
+>        -
+>          name: encap
+> -        type: binary  # tunnel specific nest
+> +        type: sub-message
+> +        sub-message: encap-data
+> +        selector: encap-type
+
+[Severity: Medium]
+Can this crash the generated C parser when the peer kernel knows an encap
+type that the spec does not?
+
+The enum here lists values 0..10 (none..xfrm, i.e. today's
+LWTUNNEL_ENCAP_MAX). TypeSubMessage._attr_get() in
+tools/net/ynl/pyynl/ynl_gen_c.py only guards the zero case:
+
+	if (!dst->encap_type)
+		return ynl_submsg_failed(yarg, "encap", "encap-type");
+	if (rt_route_encap_data_parse(&parg, rt_route_encap_type_str(dst->encap_type), attr))
+
+and _put_enum_to_str_helper() generates the lookup as:
+
+	if (value < 0 || value >= (int)YNL_ARRAY_SIZE(rt_route_encap_type_strmap))
+		return NULL;
+
+while the sub-message parser emitted by parse_rsp_submsg() starts with
+
+	if (!strcmp(sel, "mpls"))
+
+with no NULL check on sel. So a binary built from this tree dumping routes
+from a kernel that added LWTUNNEL_ENCAP_* value 11 would call
+strcmp(NULL, "mpls") while parsing an ordinary RTM_GETROUTE reply.
+
+Before this change RTA_ENCAP was type binary, so unknown encap types parsed
+harmlessly. Should the enum-to-string conversion introduced by "tools: ynl:
+convert enum selector to string for sub-message parsing" fall back to
+ynl_submsg_failed() when the lookup returns NULL, given this spec is its
+first consumer?
+
+>        -
+>          name: expires
+>          type: u32
+> @@ -277,6 +332,229 @@ attribute-sets:
+
+[ ... ]
+
+> +  -
+> +    name: lwtunnel-ip
+> +    name-prefix: lwtunnel-ip-
+> +    header: linux/lwtunnel.h
+> +    attributes:
+> +      -
+> +        name: id
+> +        type: u64
+> +      -
+> +        name: dst
+> +        type: u32
+> +        byte-order: big-endian
+> +        display-hint: ipv4
+> +      -
+> +        name: src
+> +        type: u32
+> +        byte-order: big-endian
+> +        display-hint: ipv4
+> +      -
+> +        name: ttl
+> +        type: u8
+> +      -
+> +        name: tos
+> +        type: u8
+> +      -
+> +        name: flags
+> +        type: u16
+
+[Severity: High]
+Do these declarations byte-swap the tunnel id and tunnel flags on
+little-endian hosts?
+
+dst and src above correctly carry byte-order: big-endian, but id and flags
+do not, while the kernel encodes both in network order in
+net/ipv4/ip_tunnel_core.c:
+
+ip_tun_fill_encap_info()
+	nla_put_be64(skb, LWTUNNEL_IP_ID, tun_info->key.tun_id, LWTUNNEL_IP_PAD)
+	nla_put_be16(skb, LWTUNNEL_IP_FLAGS, ip_tunnel_flags_to_be16(...))
+
+ip_tun_build_state()
+	tun_info->key.tun_id = nla_get_be64(tb[LWTUNNEL_IP_ID]);
+
+Without a byte-order property, NlAttr.get_format() in
+tools/net/ynl/pyynl/lib/ynl.py returns format_.native:
+
+	if byte_order:
+	    return format_.big if byte_order == "big-endian" else format_.little
+	return format_.native
+
+and the same format is used by _add_attr() when packing requests, so both
+dumps and route creation would see reversed bytes, including flag bits such
+as TUNNEL_KEY landing in the wrong byte.
+
+The same question applies to the ila-attrs locator, identifier and
+locator-match below, which are __be64 on the wire (note the __force casts in
+net/ipv6/ila/ila_lwt.c):
+
+	p->locator.v64 = (__force __be64)nla_get_u64(tb[ILA_ATTR_LOCATOR]);
+	nla_put_u64_64bit(skb, ILA_ATTR_LOCATOR, (__force u64)p->locator.v64, ILA_ATTR_PAD)
+
+and to lwtunnel-ip6 id and flags, which use nla_put_be64()/nla_put_be16()
+for LWTUNNEL_IP6_ID and LWTUNNEL_IP6_FLAGS in ip6_tun_fill_encap_info().
+
+> +      -
+> +        name: pad
+> +        type: pad
+> +      -
+> +        name: opts
+> +        type: binary  # lwtunnel ip nest options
+> +  -
+> +    name: ila-attrs
+> +    name-prefix: ila-attr-
+> +    header: linux/ila.h
+> +    attributes:
+> +      -
+> +        name: locator
+> +        type: u64
+> +      -
+> +        name: identifier
+> +        type: u64
+> +      -
+> +        name: locator-match
+> +        type: u64
+
+[ ... ]
+
+> +  -
+> +    name: lwtunnel-ip6
+> +    name-prefix: lwtunnel-ip6-
+> +    header: linux/lwtunnel.h
+> +    attributes:
+> +      -
+> +        name: id
+> +        type: u64
+
+[ ... ]
+
+> +      -
+> +        name: flags
+> +        type: u16
+
+[ ... ]
+
+> +  -
+> +    name: seg6-local
+> +    name-prefix: seg6-local-
+> +    header: linux/seg6_local.h
+> +    attributes:
+
+[ ... ]
+
+> +      -
+> +        name: nh4
+> +        type: u32
+> +        display-hint: ipv4
+
+[Severity: High]
+Should nh4 also carry byte-order: big-endian?
+
+SEG6_LOCAL_NH4 is a raw struct in_addr in net/ipv6/seg6_local.c:
+
+	[SEG6_LOCAL_NH4] = NLA_POLICY_EXACT_LEN(sizeof(struct in_addr)),
+	...
+	memcpy(&slwt->nh4, nla_data(attrs[SEG6_LOCAL_NH4]), sizeof(struct in_addr));
+
+With u32 plus display-hint: ipv4 and no byte-order, ynl unpacks and packs it
+natively, so does an END.DX4 route created through ynl end up with a
+byte-reversed next hop (192.0.2.1 written as 1.2.0.192), and dumps rendering
+it reversed?
+
+The affected attributes above (lwtunnel-ip id/flags, lwtunnel-ip6 id/flags,
+ila-attrs locator/identifier/locator-match, seg6-local nh4) appear unchanged
+through the end of the series, so respinning this patch rather than fixing it
+later would keep the spec contract correct from the start.
+
+[ ... ]
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917-ynl_rt_encap-v1-0-fbbe6e680571%40kylinos.cn
