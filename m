@@ -1,308 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1236246783;
-	Mon, 21 Sep 2026 00:26:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 602331A6813
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:30:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789950403; cv=none; b=ptXLls9JYph500a80ihuemFcLCDDcyy1xkzmYCks1UaDxLXRd5qf6Nmnr13nG0w0ILwRjyH2b6zJP+YnRqwIMCUn3scrlHttb6Gkq2R/CboY82aaLLd7D4TDNKebUY03BRzrVje3avvUFePMcfiBT8dmDckyo+LiOFmB6UPf+xM=
+	t=1789950653; cv=none; b=cvrcUwALG4UwxmEjMoa6ZrC7wbU+hIfD21mXwJLZlmGpfXCIva2+QerleA8hcLC/A1qeEcJ49HnxoboRKZpQ9voB3ex+wHRUntuKUUCv8x9KHkU9Qz6YdDZK7ZbqxDsvI0qYKTaZnihUfy7lMoE9oPZoLsAYpYRajWOj+ZTxjl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789950403; c=relaxed/simple;
-	bh=XcuXphc1NoAzr+3izm2WNxf/h73O4syl9fen+5x9GFE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Ly7ZQXcriGxW/vZ2jmcHFIkWWuKg4r2ZDc6h0Nnuvg4AlxA8G/hBEZEFIzQ9smfnZvQvlwGruH+8oo9+/GG0kfmCCqQJoGRliQ+RRHzrInimMjXBgk6Hqw5tkXGgJWzXP64GdYthKkpEpcJlog+b0J8cNEFVghhaweSOUpFsVYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KOVbqPvq; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789950653; c=relaxed/simple;
+	bh=4Dgw1zCRHDEtgIGxmbZQtufHRqGIxj+BJYBhqMcRX9Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oLXv1ODdTl11tgG1yeVI1xhlnJZS2cxqyI8u0cwndHOOuF51kcvl6wnBAUb0oxh3GwKPh3ND7HONhBZV3wQjJZtL6iFo6ojImNFNDzWz+V0/a3gLVXF92WTu9QiBczgAhDxINEbPz5h8KNxs5Rqsk5+r0rgdknjOrwemBeDrB1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d0yTzktC; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KOVbqPvq"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 940D9C2BCFB;
-	Mon, 21 Sep 2026 00:26:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789950402;
-	bh=XcuXphc1NoAzr+3izm2WNxf/h73O4syl9fen+5x9GFE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=KOVbqPvq1vBXyqbdqs7PpMq3ThwcQmdWEHSE9qT9JCf56vNzh5yEdjEc7LfkRAgWF
-	 42wc63sz0Z+ST45zGZFrC8F5cmrLG43LQDzn4oOJycnHz69ocswtX7eAQrL2zOhcCy
-	 qQIDeDbnQX6JVSho6Qlrlitqtvhdbcwy9c/ig4slRzWlfK/F3QVSnOQiZ5lsi2XWVJ
-	 Wny75Z8fE6VAAtw28nuXBSGPUtWH/i+8DqT1Xfj40dxYozXx8hopZbiZG3f3EPiN5p
-	 X6v1DD7BfCVxGSS1jP9YssKxe43O33ZNO2CmoonxgVd1U3y3mDhSfgi/MoYq6gc37u
-	 j2EMGdy32Pqlg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 81FC6C982EE;
-	Mon, 21 Sep 2026 00:26:42 +0000 (UTC)
-From: Nicolo Giuliani via B4 Relay <devnull+nicolo.giuliani6.studio.unibo.it@kernel.org>
-Date: Mon, 21 Sep 2026 02:26:43 +0200
-Subject: [PATCH v2 3/3] arm64: dts: marvell: Add Sophos XGS 107w NPU board
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d0yTzktC"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e83a388f8so14411395e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:30:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789950651; x=1790555451; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9gh1EhGas2z2opfanmdNTY/ZLd4Wr396PDY9OySpgHE=;
+        b=d0yTzktCYHQPjvnkO0dKhoRI8wCCbZoLwk9ws9PckvYM+cqXv1sw4pxxBii8JVxC+i
+         4Y2F0tTwnK8Cr+bhSXITDBRfrcEh5fhPvMwJUGpvZGcY4KpL/bdt3GyI+1nPF+6l4H7L
+         pI0n3/mRnmv2vhix4TbKD0it2rgZBsMPLlOT4OcvH4ovBnXSn88A2bO3z5XkV+9Kmkyk
+         fDsZEDGSvOPohBHnZpSzK6QcsONtOhleFMrNRyhwdBW87tkik7DnD7elF9HRAhTW6ZBh
+         jkBqadqjFr7X9VhNHLNTAv5MbUXfWwC4dXEqd8gGtu2BJOYrNEwHzgTZT7T9mSrCYLXT
+         Fx0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789950651; x=1790555451;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9gh1EhGas2z2opfanmdNTY/ZLd4Wr396PDY9OySpgHE=;
+        b=Ja/g/pThdJ2oWo5k8i31yAZvoj/kHIp2ydEmZEoH8H8O8EitmjbCsdb1QP2epNAxYm
+         S9XgCmKVmEj2DivniDcBYp9UqfiSYjBPbS7BuenvJRPyOHjxSssPi3yjAx9ewKgdIqh6
+         /s0wo7gC/BWoWzNaxM4FyUn/F1I2tT9oHlsYMygNvQAt83Hk/BHITRZ2Tj46N1YLpEZL
+         KDP7bzBSCYYqwge/NDYuoWaC80DaKLRgFck31RhDvZapwgZtOlVBaw/uIgcHC8860/NN
+         cC5bUXp0PGo240lGjN4CU1zixIb2R/HflaAYFuRt3Cwnr97AbM7UfI1qti8Cf7A8BiSj
+         dNMw==
+X-Forwarded-Encrypted: i=1; AKwUvBw6lQZX70iY80D+kOd/PW7GGseLdM0yCzje3SYjM2I/htShGpQYYCd+9GTeEWA/edkl1wlxis4KM2Ok7II=@vger.kernel.org
+X-Gm-Message-State: AFuF++nEJuIeIDeoDq+gzd1Wpij+3z+BbHNbspAP0te77RGhF4V36hgA
+	U5jKtSvr4fR0nCn7GQ9GhlDTh2K7BzvdMNOZhxMD5KiJxcK4VgRjJHWQ
+X-Gm-Gg: AYBFou1PwvLsMu4bP/8nut0qjjbRFN6BJf7zeVuCxxGpdcRQvN3Lix2dJEi1BerHrhE
+	AuKXAcjUMOmymabkJk1FJfSCuz4pXA1P6ZtdEUSpSKHouY6kbtIAHkTqjdKaIrl19pev2SUQWSq
+	ATYx1+CzpBOcAdKb6vziOuBwTEWa404NlZ7YkDFGiD2FQiI675Qdbn8++bvhP3DtYS3jhYbUcRk
+	/u/UQEZYxPiAXEovovupcnU1YmvVtTKrqg9jwr4FWC6z8k1aVZLEaTWA5HRFPif5pv7gBO4GJC4
+	RsHs7vhnHobOufNZsR3gQZsP++vVIoC7lapCrBVmBJm/1C9/oT3KqxCxnxkw2EPinP1PItbXzRo
+	CqnK82jkkJGJmfUF/bJloGVwsr1XQnCs2Xq+NPrXkL6oH1BgYMe5Ht+q3Dr3w4jAGb4aMXRiKWy
+	6KTJxfljsc+GUF1NwJIKGsd4oUp5jne8CR3WMWxysWpzs4Hazh+QjVJlnTojgVVTvIvI3H+Ccj0
+	99PB6ItNJzTqLg5wWn37PhKlrZAvcZrPCUDDcYK7PzGqKX2QMLQj5Jf70jtR/ALKuBPIpZPzehJ
+	5vZfM2lPKNYTwXoOC36356R1Dc6m1FaHJJkTQVNWypyrifmFu40dylT72Ki5q+OaG8znW3JdKmI
+	8sA==
+X-Received: by 2002:a05:600c:8b8b:b0:49e:663c:c69f with SMTP id 5b1f17b1804b1-49fc56d170dmr118923645e9.15.1789950650423;
+        Sun, 20 Sep 2026 17:30:50 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a012-6c01-e0c2-ccc1-7acc-3570.310.pool.telefonica.de. [2a02:3100:a012:6c01:e0c2:ccc1:7acc:3570])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724583fffsm17515695f8f.23.2026.09.20.17.30.49
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 20 Sep 2026 17:30:49 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] mm/damon: preserve quota state when constructing schemes
+Date: Mon, 21 Sep 2026 02:30:45 +0200
+Message-Id: <20260921003047.12041-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-send-dt-v2-3-fb6b81002ad7@studio.unibo.it>
-References: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
-In-Reply-To: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
- Gregory Clement <gregory.clement@bootlin.com>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, 
- Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789950401; l=5800;
- i=nicolo.giuliani6@studio.unibo.it; s=20260919; h=from:subject:message-id;
- bh=8wZTzfWWfxJCcfQhfgPWj+G5wLPzig9U9sVX6n8unng=;
- b=jikZ4TlVOrU/oqutu3YHm0CZ1r9460ZPVE66bWr3bSskobA8LRZJN4NPV3CRfRtuucJkd4C9n
- DnWWhORYFGnD4dYHCg+OdFNdfU9wu74yPg24S2fYvRkVgu7ruj/HC/b
-X-Developer-Key: i=nicolo.giuliani6@studio.unibo.it; a=ed25519;
- pk=D652ecdT01GkA1eoFWNFNX85xIg5ZnFwUWyjfestgQw=
-X-Endpoint-Received: by B4 Relay for
- nicolo.giuliani6@studio.unibo.it/20260919 with auth_id=1040
-X-Original-From: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
-Reply-To: nicolo.giuliani6@studio.unibo.it
+Content-Transfer-Encoding: 8bit
 
-From: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+damon_new_scheme() initializes the caller's quota in place before copying
+it. When damon_commit_ctx() clones the running context for validation,
+the quota pointer belongs to a running scheme. Constructing the temporary
+scheme therefore clears the running scheme's quota state, even if the
+proposed update is later rejected with -EINVAL.
 
-Add a device tree for the network processing unit (NPU) of the Sophos
-XGS 87/107 desktop firewalls. The appliance pairs an AMD x86 host with the
-NPU, a Marvell Armada CN9130 SoC with its own eMMC and SPI NOR flash that
-runs independently of the host and serves the front panel ports.
+Initialize the new scheme's copy instead, and add KUnit tests for the
+constructor and for accepted and rejected context updates.
 
-The eight RJ45 ports and the SFP cage are connected through a Marvell
-88E6193X switch on the MDIO bus of the SoC, at address 2. Switch port 0
-is the CPU port, a 10GBASE-R link to the first mvpp2 port. Ports 1 to 8
-are the RJ45 ports, which use the internal PHYs of the switch, and
-port 9 is the SFP cage, connected over 1000BASE-X.
+In a live test with damo, a scheme with a plain 64 KiB size quota and a
+60-second reset interval uses its quota, and a full "damo tune" with
+unchanged parameters then lets it try another 64 KiB within the same
+window. With the fix, sz_tried stays at 64 KiB.
 
-Describe the UART console, the eMMC, the SPI NOR flash that holds the boot
-loader and its environment (read-only), the SFP cage and the switch with
-its ports. The port LEDs, the PCIe link to the x86 host and the USB ports
-are not described.
+With only patch 2 applied, the two new tests fail on x86-64 and i386.
+With the fix, all 43 DAMON KUnit tests pass on both, and the DAMON
+selftests show no new failures (QEMU TCG guest; the wss_estimation test
+misses its accuracy bounds with and without the fix).
 
-The switch is reset through CP GPIO2 pin 17.
+Karl Mehltretter (2):
+  mm/damon/core: preserve the caller's quota in damon_new_scheme()
+  mm/damon/tests/core-kunit: test preservation of caller quota state
 
-Tested on an XGS 107w with Linux 6.18: boot from eMMC, eMMC and SPI NOR
-access, the mvpp2 link to the switch at 10 Gb/s, the 88E6193X probing with
-its eight user ports, and 936 Mbit/s through a front port. The SFP cage is
-untested.
+ mm/damon/core.c             |   6 +-
+ mm/damon/tests/core-kunit.h | 107 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 110 insertions(+), 3 deletions(-)
 
-Assisted-by: LLM
-Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
----
- arch/arm64/boot/dts/marvell/Makefile               |   1 +
- .../boot/dts/marvell/cn9130-sophos-xgs107w.dts     | 188 +++++++++++++++++++++
- 2 files changed, 189 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/marvell/Makefile b/arch/arm64/boot/dts/marvell/Makefile
-index 09d1544041..3e301c8265 100644
---- a/arch/arm64/boot/dts/marvell/Makefile
-+++ b/arch/arm64/boot/dts/marvell/Makefile
-@@ -32,6 +32,7 @@ dtb-$(CONFIG_ARCH_MVEBU) += ac5x-rd-carrier-cn9131.dtb
- dtb-$(CONFIG_ARCH_MVEBU) += ac5-98dx35xx-rd.dtb
- dtb-$(CONFIG_ARCH_MVEBU) += cn9130-cf-base.dtb
- dtb-$(CONFIG_ARCH_MVEBU) += cn9130-cf-pro.dtb
-+dtb-$(CONFIG_ARCH_MVEBU) += cn9130-sophos-xgs107w.dtb
- dtb-$(CONFIG_ARCH_MVEBU) += cn9131-cf-solidwan.dtb
- dtb-$(CONFIG_ARCH_MVEBU) += cn9132-clearfog.dtb
- 
-diff --git a/arch/arm64/boot/dts/marvell/cn9130-sophos-xgs107w.dts b/arch/arm64/boot/dts/marvell/cn9130-sophos-xgs107w.dts
-new file mode 100644
-index 0000000000..da6a1da1cc
---- /dev/null
-+++ b/arch/arm64/boot/dts/marvell/cn9130-sophos-xgs107w.dts
-@@ -0,0 +1,188 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Device tree for the network processing unit (NPU) of the Sophos XGS 87/107
-+ * firewalls: a Marvell CN9130 SoC with a Marvell 88E6193X switch.
-+ *
-+ * The x86 host on the same board is not described here.
-+ */
-+
-+/dts-v1/;
-+
-+#include "cn9130.dtsi"
-+#include <dt-bindings/gpio/gpio.h>
-+
-+/ {
-+	model = "Sophos XGS 107w (CN9130 NPU)";
-+	compatible = "sophos,xgs107w-npu", "marvell,cn9130";
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	aliases {
-+		ethernet0 = &cp0_eth0;
-+		i2c1 = &cp0_i2c1;
-+	};
-+
-+	memory@0 {
-+		device_type = "memory";
-+		reg = <0x0 0x0 0x0 0x80000000>;
-+	};
-+
-+	reserved-memory {
-+		/* OP-TEE, reserved by the firmware */
-+		tee@4400000 {
-+			reg = <0x0 0x4400000 0x0 0x1000000>;
-+			no-map;
-+		};
-+	};
-+
-+	/* Front-panel SFP cage "F1", wired to switch port 9 */
-+	sfp: sfp {
-+		compatible = "sff,sfp";
-+		i2c-bus = <&cp0_i2c1>;
-+		los-gpios = <&cp0_gpio1 1 GPIO_ACTIVE_HIGH>;
-+		tx-fault-gpios = <&cp0_gpio1 2 GPIO_ACTIVE_HIGH>;
-+		mod-def0-gpios = <&cp0_gpio1 3 GPIO_ACTIVE_LOW>;
-+		tx-disable-gpios = <&cp0_gpio1 7 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-+/* eMMC on the AP */
-+&ap_sdhci0 {
-+	bus-width = <8>;
-+	non-removable;
-+	mmc-ddr-1_8v;
-+	status = "okay";
-+};
-+
-+/*
-+ * The MPP pin muxing is left as configured by the boot loader; the pin
-+ * controller node only exists to back the GPIO banks.
-+ */
-+&cp0_syscon0 {
-+	cp0_pinctrl: pinctrl {
-+		compatible = "marvell,cp115-standalone-pinctrl";
-+	};
-+};
-+
-+&cp0_i2c1 {
-+	/* I2C bus of the SFP cage */
-+	clock-frequency = <100000>;
-+	status = "okay";
-+};
-+
-+/* 4 MB SPI NOR with U-Boot and its environment, read-only on purpose */
-+&cp0_spi0 {
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		spi-max-frequency = <40000000>;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			partition@0 {
-+				label = "u-boot";
-+				reg = <0x0 0x3f0000>;
-+				read-only;
-+			};
-+
-+			partition@3f0000 {
-+				label = "u-boot-env";
-+				reg = <0x3f0000 0x10000>;
-+				read-only;
-+			};
-+		};
-+	};
-+};
-+
-+&cp0_ethernet {
-+	status = "okay";
-+};
-+
-+/* 10G link to switch port 0 */
-+&cp0_eth0 {
-+	phy-mode = "10gbase-r";
-+	phys = <&cp0_comphy4 0>;
-+	managed = "in-band-status";
-+	status = "okay";
-+};
-+
-+&cp0_mdio {
-+	status = "okay";
-+
-+	switch@2 {
-+		compatible = "marvell,mv88e6190";
-+		reg = <2>;
-+		reset-gpios = <&cp0_gpio2 17 GPIO_ACTIVE_LOW>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				ethernet = <&cp0_eth0>;
-+				phy-mode = "10gbase-r";
-+				managed = "in-band-status";
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+				label = "p1";
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+				label = "p2";
-+			};
-+
-+			port@3 {
-+				reg = <3>;
-+				label = "p3";
-+			};
-+
-+			port@4 {
-+				reg = <4>;
-+				label = "p4";
-+			};
-+
-+			port@5 {
-+				reg = <5>;
-+				label = "p5";
-+			};
-+
-+			port@6 {
-+				reg = <6>;
-+				label = "p6";
-+			};
-+
-+			port@7 {
-+				reg = <7>;
-+				label = "p7";
-+			};
-+
-+			port@8 {
-+				reg = <8>;
-+				label = "p8";
-+			};
-+
-+			port@9 {
-+				reg = <9>;
-+				label = "sfp";
-+				phy-mode = "1000base-x";
-+				managed = "in-band-status";
-+				sfp = <&sfp>;
-+			};
-+		};
-+	};
-+};
-
+base-commit: 185111f116aabf202d12ce440c0f6e9bae073514
 -- 
-2.48.1
-
+2.53.0
 
