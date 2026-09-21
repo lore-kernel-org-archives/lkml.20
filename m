@@ -1,110 +1,64 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch [109.224.244.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD7349B473
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:00:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D789E48B37E
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:01:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789995607; cv=none; b=aYgHpN5cCeed5AYIucF9fGLA+7N6ddAKuYbcm58LOVAAIALLMlUhrGj6HB8XKwPgz21eme+awgSyIDet9FittCydx8M40TDzkEmIXdpGBETpUqdFh09Mf5dWYrp2pWtSYNaneXSPBI9HlbTcC4nqSJy76juMvzafddTFzI9IuBo=
+	t=1789995668; cv=none; b=p30StjYH3ZHaNq5JVrVlhwyR7bRUZmHfQw0Ql5+wUEM2NNHKJjwWqisjIoP6Vr4psk3jgZdjeU8AaOjrg+XzMPYUQU7qLcX+jaYTaum7/Sgellnh7Vdi6PqgbEimlJ2rbp66ovF7QQqIuOdLLOn78GcrKl2x50KPLlOW9KmLnhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789995607; c=relaxed/simple;
-	bh=ikNEYMx+B/ce1BP4LhNP2vesUaLw9BeI3qM6wtNhxSA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XmU4LjdKlnlSXeWpencvnq7/GBC7X5liEWm0ooufBYIOw4O9VRcnEm9CWCrzxASplfbeSDm0opt1BBJ68WnyIKnZlm4w5uCg8NMrGCEXECU11e1Kl1f8UtLCD58ywPggs1Fq6DU+9awdI3DNgigiTneVQ9Hd82BNqCrS+IVtv30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jMiCVpqQ; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789995668; c=relaxed/simple;
+	bh=+UwjiZrchWMNmc9IYXnFU9yFxXs1bhtYuw6HbaPEMBo=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LVIBVPDCahNah1ytsCQO7thY1COABsYzV5/0LkdBCyveoelCJ+sbaH+OZPmM2WqqQ1GVtIq4d3SPB4TU4FnYhjUhla8oY7TukXuqhadZA5MNptw33ta9LBmNSBQRRhgn48lUeaxICCyHYE5T2TyVvSe6EhhLiOZ1lf48/ef7vBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Xr1ZySUT; arc=none smtp.client-ip=109.224.244.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jMiCVpqQ"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f705536so546399966b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:00:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789995603; x=1790600403; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gRV8TcWW5ZwNyFZnqA6Ki45Wf1bqD9wRv3NLNzR2dP0=;
-        b=jMiCVpqQVf36pJVxR29Q6I8K7/sLbIt7peFUvCAcykYezqPzZkbUTzexCK7OFA/m9R
-         tnH/2oELxQKtYEMp3QTS7FXg9E4hyjIpCX2xm7xfq6mORHdZ4WKnbZu+c02Hmzj4oAVr
-         98s9NJgpEFzUss9QEGeP01kKYgrUuajFJ0/+/Lf3MQFSm1khhaWZ7jlVpIRapYfJfdeB
-         h+4REURNp09nupRobhviZCbBkYpMMIP37LC6lr5Mylss/UsenNP3BFXaPUXWA093XH6q
-         f3xTj/291D7YcGARjTFvBsG7yUcHV+/i81Fhd5KdtuXs2sJa6nqXccM/1fEKp3EJVl3C
-         js1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789995603; x=1790600403;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gRV8TcWW5ZwNyFZnqA6Ki45Wf1bqD9wRv3NLNzR2dP0=;
-        b=h4A04xcDOR0pgzsQCo8SFSM8dcM6fRgr/rZ2WmldYsOpnntbrLEQhtVyc5nCqaX6wM
-         ViS79WtSS2phGCtcuJtEPRh7d+TOfcayET2ksrFpPWvQn4ibgWB6O402SFb2G4EvYiQH
-         1xqyaEcfr6XqrrvlFfmzraqoytFPAdWxqvIuBolx72fSNgAfynEs8ysZ3imikY0YO7eJ
-         RPYMLt3ZVuVDRNXUr80Rm9pOmyPJYB+AFOwqCYzvCs9lmNFgSsduB0mrNs1hs1xmcC05
-         wJQ6SHS9fh7zrnZ/eX6wKiKXhf4cq2R1A/7Dixew2qExzpZpYeNoVrMK+eaR2k6zk3ni
-         6NmA==
-X-Forwarded-Encrypted: i=1; AKwUvByQkG9uA33u8qEL14zW2gp2domhK+0236Necbm3up0rcrviMO5D3TLRwvg8VeLdctwhHrOaTcGBUKmKltg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrgAZTlHrV0lVX4lcOIZ+6KsN2TXPTyH3B4U0rOjVnOAsHi0t8
-	xrSiNaBRigGe96Sv0i701XD0Y5sY632ZM6OdL9b+wHYDYORvPPaariW1
-X-Gm-Gg: AYBFou1v1AIXL11CrBc4SR96moEN78oOMav7yPugpY8SfuaEBbyE+4JRUgdtI+Eooz1
-	o72mIkoLQ41loRfiB+47TKvX8knWWT7M+eAqnh/mukZT+49jUFqMtR7jN6qt2Ho4o0by/sr7piz
-	RlnDfm/9blJ/vLb0t2rEt5Yv5wW5fzqQiOhkSL99LOpgGCA5p3KRsE8Ob7edzdsHboJNz5GN7WC
-	ogaHMKQs2lme5tLp0pDlrDLZnWQNuAZVZyuilW1d3l9xmt3ZMYqJMpvi3pPfPxW/9DlKbjXDDjx
-	7TJPm0Xt4CT1NqA2KdA1s0Wi8l/l+mond7S+ZGP+AeedyhrvP2rBV7twZkg1mSDq9C/CJjijM8+
-	wV0271msMPtSe23L/NVpAfAGX0rpLxlY5tev5WlBbusbPzd50LI8dvKl/cLAYFujbBK+I+AgDVO
-	uHFNeqOhKwlsbacOFPR7pRXdD9ARSl9FNBASs3+NkYeUBSL5WjdJCDGZdY6vCddRm3rCh9lKU+T
-	ZsR3l4ZHVVmLhc2rQ==
-X-Received: by 2002:a17:906:9fcc:b0:c26:1648:a070 with SMTP id a640c23a62f3a-c2a15ead5ccmr900804566b.43.1789995603107;
-        Mon, 21 Sep 2026 06:00:03 -0700 (PDT)
-Received: from localhost.localdomain ([94.240.182.136])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a355eb33bsm321193766b.15.2026.09.21.06.00.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 06:00:02 -0700 (PDT)
-From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-To: anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>,
-	syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com
-Subject: [PATCH] net: e1000: fix warning in iounmap on probe failure
-Date: Mon, 21 Sep 2026 15:59:32 +0300
-Message-ID: <20260921125932.7943-1-nsvatoslav515@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Xr1ZySUT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1789995659; x=1790254859;
+	bh=z9lx7/98NMh4Z1OM2zipNmgn2bDt5PWUnV9/wJKsrDU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Xr1ZySUTHdMyd/JhSA0Ee6xJwg80DvD77zS/Coti7uJNWesDzbj3rmPB6cCg0BrDh
+	 EVB78TZvWG4N3ROrfkmvSkjG/+I17H+0S0cWiyLDYlxUPqSfNUkYURS/zEuzbZ5x4Z
+	 7L2Bv572+5SBE5VUt1iWu8oOk66maZuHbs95z4P8yGAzx0TPc7uM/9Zwo9qFZxoiEa
+	 m47Fv43Mlc2pn4Pdz+dQV700YVOA018c71WdKh/1HyCSlyiEPGvU9AycngPS8MZ1eA
+	 qpy8fAy4I/HNnNIr49z2qyNPPtJp6Q+vCmT20gZHqa8pBFlrRVYP6RipyzK5128JtN
+	 crXXq6kA1ZGpQ==
+Date: Mon, 21 Sep 2026 13:00:53 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: ov13858: add horizontal and vertical flip controls
+Message-ID: <20260921130046.80552-1-lsa.uz@pm.me>
+In-Reply-To: <arEPu__kIs1SJbg5@kekkonen.localdomain>
+References: <20260921082609.30830-1-lsa.uz@pm.me> <178998112223.1723501.7946524742858282804@ping.linuxembedded.co.uk> <CAPY8ntCLhQH+8nT4jGxnOEWNhnn3=ESPnkip-6Y=zfkaHP5gvw@mail.gmail.com> <arEPu__kIs1SJbg5@kekkonen.localdomain>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: a99a1ccaa8ce3360abb74f32e46771aaa89bc807
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Reported-by: syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com
-Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
----
- drivers/net/ethernet/intel/e1000/e1000_main.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+v2 is posted, as its own thread:
 
-diff --git a/drivers/net/ethernet/intel/e1000/e1000_main.c b/drivers/net/ethernet/intel/e1000/e1000_main.c
-index d7f5c6f16142..156903089fa6 100644
---- a/drivers/net/ethernet/intel/e1000/e1000_main.c
-+++ b/drivers/net/ethernet/intel/e1000/e1000_main.c
-@@ -1227,8 +1227,10 @@ static int e1000_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	kfree(adapter->rx_ring);
- err_dma:
- err_sw_init:
--	iounmap(hw->ce4100_gbe_mdio_base_virt);
--	iounmap(hw->hw_addr);
-+	if (hw->ce4100_gbe_mdio_base_virt)
-+		iounmap(hw->ce4100_gbe_mdio_base_virt);
-+	if (hw->hw_addr)
-+		iounmap(hw->hw_addr);
- err_ioremap:
- 	disable_dev = !test_and_set_bit(__E1000_DISABLED, &adapter->flags);
- 	free_netdev(netdev);
--- 
-2.47.3
+  https://lore.kernel.org/all/20260921124444.79396-1-lsa.uz@pm.me/
+
+Sakari - it does not do the set_selection() part, and the changelog says
+why at length. The short of it: ov13858 has no get_selection or
+set_selection at all, so there is no crop rectangle for the flips to
+move, and ov13b10 writes its window offsets register-side without
+exposing one either. Glad to add selection support as its own patch if
+you would like it here.
+
+Kieran, Dave - everything you both raised is in v2.
+
+Sergey
 
