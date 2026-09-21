@@ -1,120 +1,146 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9D2194C96;
-	Mon, 21 Sep 2026 03:17:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3E2194C96;
+	Mon, 21 Sep 2026 03:17:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789960639; cv=none; b=GBOZWidNf4Hkgoa7KJajyvCu9DjV3gjPZOdq0VzY2pydhcpQONtbrsg/hHzL8FcOMbvAUqhm8r+T7kmTMcCTIMzSd6EC22VAxIkfBbbX2umIfIyZFMm+ngxoiuJlexDF+XucJJdw+CZs03Ik6+EQ+7rHppGhDlZQkoe8oKKm0Xg=
+	t=1789960645; cv=none; b=I+1L1Z0oh4n7UQyHe4L10uQ35r3l1pL+US7FGEGVuUR+DEGO2TKaB4M4EWm4OWsJB+0/O4k0PnKo0zKMtPgtW1WUxpXdbMm3AbU+RcnkDHE8BK8fud9m/R4eZCatdImhiUOzm4OlSadLxNWbZbuJY1LTwDkGtldh/dBDWd6q2gU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789960639; c=relaxed/simple;
-	bh=Hs15HYxGNxqVANaNisUHApsJspGhjqP0fRA347dQl/U=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZyW5/P++z+WDHWmZTi5KCt/C9/Bg7qCWBFsf2m9HHO1iPmxVQzomHGm25GG+nEfna5ZWdASLj5tj4HhOGro1go2edVUmVF1j9ylTt7KPwW7LE+xrNPeHE/C/0nSBu+LYmRmkPEULiz4iHTODVid+1OKSCVHwt3IftHiL8bBsKPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=E5Sxtr9m; arc=none smtp.client-ip=220.197.31.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1789960645; c=relaxed/simple;
+	bh=FbU4u87YBtEtqra4Ro3tZTiAi07OG8qg7CLx6bEEPgw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=I0o8wJdxTnYNz6jdf0t5ONtzwjzX003T7oStYZy5ant/faflbie8IM2dwKr4KUEQEUey6HkNCM6IrqJK4dLCjmyXQOdX4AjVtrz7i2i3QIdl5iSXmgA3Bho4nw/b96a0cKF1FCigHcbPTZcTQhGLj4+8obGIUgT93Sp5MyZfA6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lmKB9wSh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="E5Sxtr9m"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=I7
-	fYR/PDwkxcuXTwn2JWJPrIY5xxFViS+7lj7SyyQ5o=; b=E5Sxtr9mv7TTHc9AAA
-	LrEIXxnJfo5Yvkv5/6raj4FFU0qzpTX8CV3hMt9/4TRlCLMYlEDWB+t+kO4AErj3
-	qiMPan3xkxQiW3rYzB7QwHnA9Nc69H+HueBKRJXjK8nA2hpSDqJYE0CBMJP3+7qq
-	WZyGhI8NI2+JZG7rBdsHroXHo=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDnr6yCobBq+hKqBg--.25902S2;
-	Mon, 21 Sep 2026 11:16:19 +0800 (CST)
-From: Linkui Xiao <xiaolinkui@126.com>
-To: anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH net] ice: detach the VF representor when ice_start_vfs() fails
-Date: Mon, 21 Sep 2026 11:16:16 +0800
-Message-Id: <20260921031616.3390259-1-xiaolinkui@126.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lmKB9wSh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 927911F000FF;
+	Mon, 21 Sep 2026 03:17:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789960644;
+	bh=yz4V0ASGqQx8wQ3hbOXUNjDxyfBR4VVRbKDacNTfN4I=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=lmKB9wSh/TjLvN3BAvUgKjNyy7WkdFLoaN/KSc7GG7NyKKBa9kRzYjYvBycl7L/Qs
+	 QA7Kq9eGQJEJOTuDZXBhPwB9602md9EU+umAny1vyhS9X6E5BkLb3UmIZ6kYjYckHv
+	 hGFR/gq3nJ5dhInNZXS9EeXXazNXw5o/bRBLt6Lnw0oxii/U2Jkb+Yar6rIhmOVcLq
+	 fByizTWWaMFXrhq5+62F+EA92VWKHAobE2dTdxGx0jylkgq5zGCCQP+kmhcIKum4iQ
+	 LpDl1kOhpNPud7Zcc98P2VqOj5zKTrD0ZH+dFdQpvWnQaMhd2/SpBwfGfr/1VFRiR+
+	 1YT2IyuesQGmQ==
+Date: Mon, 21 Sep 2026 04:17:18 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Salah Triki <salah.triki@gmail.com>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, linux@analog.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5] iio: adc: ad4030: fix invalid oversampling_ratio
+ validation
+Message-ID: <20260921041718.568b6b64@jic23-hlaptop>
+In-Reply-To: <20260906191112.7d554140@jic23-huawei>
+References: <20260903114337.63541-1-salah.triki@gmail.com>
+	<20260906191112.7d554140@jic23-huawei>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnr6yCobBq+hKqBg--.25902S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGFy7Jw4kAF4DZF45GF17ZFb_yoW5Xw4rpr
-	Wvq34rGr4kJ3Wagw4Dua18u34ruayrCrWagr10k3WfCF45Jr9Ykr47KFy2yr18C3s7Cr1a
-	va1q9r1ru34DA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UYzuZUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqQNPJmqwoYNTJQAA3N
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
+On Sun, 6 Sep 2026 19:11:12 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-ice_start_vfs() attaches every VF it brings up to the eswitch with
-ice_eswitch_attach_vf(), but the teardown path only undoes the queue
-mappings and the VF VSI. Nothing calls ice_eswitch_detach_vf() for the
-VFs that were attached before the failure, and the caller, ice_ena_vfs(),
-goes straight to ice_free_vf_entries(), which drops its reference to
-every VF.
+> On Thu,  3 Sep 2026 12:43:09 +0100
+> Salah Triki <salah.triki@gmail.com> wrote:
+>=20
+> > In ad4030_set_avg_frame_len(), the logarithm is calculated before input
+> > validation. Passing zero or negative values leads to an undefined result
+> > from ilog2().
+> >=20
+> > Validate that the input is strictly positive prior to computing its
+> > logarithm.
+> >=20
+> > Fixes: 949abd1ca5a4 ("iio: adc: ad4030: add averaging support")
+> > Assisted-by: Claude:claude-sonnet-5
+> > Signed-off-by: Salah Triki <salah.triki@gmail.com> =20
+>=20
+> Given it is an Analog Devices part and Nuno is usually quick to reply
+> I'm going to wait for a tag from them before picking this up.
 
-The port representors created for those VFs therefore outlive the
-failed VF creation:
+Nuno had looked at v4 and I don't think raised any particular
+problems so I've applied this one to the fixes-togreg branch of iio.git
+and marked it for stable.
 
-  - the representor netdev stays registered and its devlink port stays
-    registered too. That port is embedded in struct ice_vf, so it ends
-    up pointing into the memory that ice_sriov_free_vf() releases;
+Thanks
+Jonathan
 
-  - repr->vf keeps pointing at the freed struct ice_vf, and repr->src_vsi
-    at the VF VSI that ice_vf_vsi_release() tore down. The leftover
-    netdev is still visible to the user, so even a plain
-    "ip -s link show" of it reaches ice_repr_get_stats64(), which calls
-    repr->ops.ready() -> ice_check_vf_ready_for_cfg(repr->vf) and then
-    reads repr->src_vsi through ice_update_eth_stats();
-
-  - the virtchnl ops of that VF, which ice_repr_add_vf() replaced with
-    ice_virtchnl_set_repr_ops(), are never handed back to
-    ice_virtchnl_set_dflt_ops();
-
-  - pf->eswitch.reprs never becomes empty, so ice_eswitch_detach() never
-    calls ice_eswitch_disable_switchdev(). pf->eswitch.is_running stays
-    true, with the bridge offloads and the devlink rate topology still
-    up, and ice_eswitch_release_env() is skipped, so the uplink VSI is
-    left in the switchdev configuration that ice_eswitch_setup_env()
-    gave it.
-
-Detach the representor in the teardown loop the way ice_free_vfs() does,
-ahead of ice_vf_vsi_release(), because ice_repr_rem_vf() and
-ice_eswitch_release_repr() both need repr->src_vsi to still be valid.
-Every VF the teardown loop walks completed ice_eswitch_attach_vf()
-successfully, and ice_eswitch_detach_vf() already returns early for a VF
-without a representor, so no extra condition is needed.
-
-Fixes: fff292b47ac1 ("ice: add VF representors one by one")
-Cc: stable@vger.kernel.org
-Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
----
- drivers/net/ethernet/intel/ice/ice_sriov.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/ethernet/intel/ice/ice_sriov.c b/drivers/net/ethernet/intel/ice/ice_sriov.c
-index e04de0215596..1b563aba3bbd 100644
---- a/drivers/net/ethernet/intel/ice/ice_sriov.c
-+++ b/drivers/net/ethernet/intel/ice/ice_sriov.c
-@@ -508,6 +508,7 @@ static int ice_start_vfs(struct ice_pf *pf)
- 		if (it_cnt == 0)
- 			break;
- 
-+		ice_eswitch_detach_vf(pf, vf);
- 		ice_dis_vf_mappings(vf);
- 		ice_vf_vsi_release(vf);
- 		it_cnt--;
--- 
-2.25.1
+>=20
+> Thanks
+>=20
+> Jonathan
+>=20
+> > ---
+> > Changes in v5:
+> >   - Split validation into two distinct checks with explanatory comments
+> >   (per Andy Shevchenko and Nuno S=C3=A1).
+> >   - Used 'avg_val < 1' to explicitly reject invalid values for ilog2()
+> >   (per Andy Shevchenko and Nuno S=C3=A1).
+> >   - Tightened commit log description.
+> >=20
+> > Changes in v4:
+> >   - Reordered local variables to enforce strict reversed Christmas tree=
+ layout
+> >   (per Andy Shevchenko).
+> >   - Rephrased commit log in plain English without C-specific terms
+> >   (per Andy Shevchenko).
+> >   - Converted AI assistance note into a formal Assisted-by tag
+> >   (per Andy Shevchenko).
+> >=20
+> > Changes in v3:
+> >   - Dropped the !is_power_of_2() check to preserve standard IIO attribu=
+te
+> >    rounding behavior, per feedback from David Lechner and Jonathan Came=
+ron.
+> >=20
+> > Changes in v2:
+> >   - Added note stating the issue was identified with assistance from
+> >   Claude AI and verified manually.
+> >   - Removed initialization of avg_log2 at declaration.
+> >=20
+> >  drivers/iio/adc/ad4030.c | 11 +++++++++--
+> >  1 file changed, 9 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/drivers/iio/adc/ad4030.c b/drivers/iio/adc/ad4030.c
+> > index 9c5f19321e3b..f1499b4792b5 100644
+> > --- a/drivers/iio/adc/ad4030.c
+> > +++ b/drivers/iio/adc/ad4030.c
+> > @@ -746,14 +746,21 @@ static int ad4030_set_chan_calibbias(struct iio_d=
+ev *indio_dev,
+> >  static int ad4030_set_avg_frame_len(struct iio_dev *dev, int avg_val)
+> >  {
+> >  	struct ad4030_state *st =3D iio_priv(dev);
+> > -	unsigned int avg_log2 =3D ilog2(avg_val);
+> >  	unsigned int last_avg_idx =3D ARRAY_SIZE(ad4030_average_modes) - 1;
+> > +	unsigned int avg_log2;
+> >  	int freq_hz;
+> >  	int ret;
+> > =20
+> > -	if (avg_val < 0 || avg_val > ad4030_average_modes[last_avg_idx])
+> > +	/* Reject unsupported modes */
+> > +	if (avg_val > ad4030_average_modes[last_avg_idx])
+> > +		return -EINVAL;
+> > +
+> > +	/* Avoid invalid values for logarithm since it's undefined */
+> > +	if (avg_val < 1)
+> >  		return -EINVAL;
+> > =20
+> > +	avg_log2 =3D ilog2(avg_val);
+> > +
+> >  	if (st->offload_trigger) {
+> >  		/*
+> >  		 * The sample averaging and sampling frequency configurations =20
+>=20
+>=20
 
