@@ -1,156 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47071484899;
-	Mon, 21 Sep 2026 12:27:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED251472F8C
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:28:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789993664; cv=none; b=iu42sJligrpuPuKq3Nn2axqv+9ibHnXhMy0CDKs4N48mPYziEdxVubAYTrf+/oUdWKyFyb7mQhROMQtNxPLb87IH2dkRDrHdXh4g+Adt7IzXRYK65z/Nx6u/tUatOpnljy60ztTZ1P5lUwurpRqo+d+WHb0ue7wvkFQCXj5J/yk=
+	t=1789993702; cv=none; b=Rjfe5u+VtyKlSRL1+dWc3Didm9rIHQMqjXsxwxCJbiNO30WHjtGo6q0HH0HFWXMZRygA4ObWE8EGTNgLr5Ffd1lNEFBMiRgS/AskKFrnWlXqKlN6YzYBoodrn9UJfxoZKxfRilx49GM0GpgYRcpjJkaEHo/aXllzq2YnVtbQcI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789993664; c=relaxed/simple;
-	bh=MEga3P4bu82C6YjKMFvOexMcXVFvOgvC/JMkLxQ5GGg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JZWeUWRIqgv3SdRerL0eGVwF4vgOpXkF4BTgV8EkQkCHsGjq8zyCGmLmegxAFEWQy7KtF7CnKto0NPeoPtVvdffu/MDD+aBWYBzkSV2rYw/CQh4mM6Yxris4c4CFBZ0oZQrF7qAG6lX0mJMiMCzVmXlbumNQFf7NM1a/KRrku6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KdhQCyIl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789993702; c=relaxed/simple;
+	bh=5Rjqza4Ls8OXbbe+BmoMXI60lbolQiZNNTkgLD7xAOw=;
+	h=From:To:Cc:Cc:Cc:Cc:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Type; b=lfIC5SJpSnRhZhgebCQ2BKO9AvOBTRDHqHwdxiKebu02uIVjGU+awNM16ZRAjOuHnRE4FofrqidxFx79O6nEjYMTM6hi7G+PznAg4HKkN4Dab5KxFhsuv/+Tm7SsxcfbWAns/CwzjKEh0Kj48CrMNF5BTWYhy2zDJlpmvJ4Dc1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=MCc2mfgx; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KdhQCyIl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE36A1F00898;
-	Mon, 21 Sep 2026 12:27:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789993662;
-	bh=QVGKnIWRxvPTWA2suCoWlo2Ot1kTECvUDXRzzxTCpoM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=KdhQCyIlB9toTwTgP1fKUeF0D9GY67k/HlhBgQCthL9+Bpv51wUpCNkXxQVPmnGdN
-	 Hr9YRZp2g9/na6SQKQQSQwpNDakxuzC6PvKUzI/yjkt90TBSRiae5h1hXQrLn1Sua5
-	 UYjsQ8MLe73HFumUIWh+RPqqaL6cGzwRtneNo5/6AF2qwJMN4SOuJA9yFikStz4eFP
-	 ELYlhNbO9H+Di7qfwuRgYA05o2tCm+GSxzWqcwvoYoRxcRj70c6Mt9JAFy3AioJ7Mf
-	 0MykNXAR/pDFVH2l+LQNtWgUouIC/bW4MAVtmKxnupn3grr2nRE7IR9n/xidfBqFuw
-	 VbQ1rDWaHluVA==
-From: "GUO Ren (XuanTie)" <guoren@kernel.org>
-Date: Mon, 21 Sep 2026 12:27:04 +0000
-Subject: [PATCH RFC v4 4/4] RISC-V: paravirt: Support nopvspin to disable
- PARAVIRT_SPINLOCKS
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="MCc2mfgx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
+	Content-Type; bh=TOxDVeFf3QwNyJm6dh0CmaV+q4E2IDcDNlbZnf72M8k=;
+	b=MCc2mfgxSCZhqer+mZaKGfzCfhIH/G9//ha8/SxPjhSJRV05F5PVB7gW2ZXfb5
+	GR2yvvlD8pci9hyKlQ2JFYdhT1s4JZBtJQBk2fpQZbsZTHJtqAoMWxlmGbsoo8hn
+	73APewhRZmzZcdYWQlRCgIna6WXEPreKXTTlyI4dxZob0=
+Received: from LAPTOP-EGO65D59.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wBn5RevIrFqFWI4CA--.4357S2;
+	Mon, 21 Sep 2026 20:27:30 +0800 (CST)
+From: Lin Junzhe <m18667909625@163.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Petr Mladek <pmladek@suse.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: linux-kernel@vger.kernel.org
+Cc: m18667909625@163.com
+Subject: Re: [PATCH] printk: fold consecutive duplicate messages
+Date: Mon, 21 Sep 2026 22:40:00 +0800
+Message-ID: <20260921224000.1-m18667909625@163.com>
+In-Reply-To: <87ik3yssy0.fsf@jogness.linutronix.de>
+References: <20260921050304.73440-1-m18667909625@163.com>
+ <875wzzoxcd.fsf@jogness.linutronix.de>
+ <20260921183000.1-m18667909625@163.com>
+ <87ik3yssy0.fsf@jogness.linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-pvqspinlock-v4-4-409a22aed6ef@kernel.org>
-References: <20260921-pvqspinlock-v4-0-409a22aed6ef@kernel.org>
-In-Reply-To: <20260921-pvqspinlock-v4-0-409a22aed6ef@kernel.org>
-To: Anup Patel <anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- Fangyu Yu <fangyu.yu@linux.alibaba.com>, 
- CHEN Jiankang <yubin.cjk@alibaba-inc.com>
-Cc: kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, "GUO Ren (XuanTie)" <guoren@kernel.org>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBn5RevIrFqFWI4CA--.4357S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZF4UKr47Ar4fuw4DXw45Awb_yoW8GrWxpF
+	Zaqw10kFs5JrW7A34kCa17uryS9w1ku3ZxCryrArs7Za98Wry7Zr4SgryjvFZF9F18G3Wj
+	vF42vr97Aa4DZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUcBMNUUUUU=
+X-CM-SenderInfo: bpryllixzqmlisv6il2tof0z/xtbC-hO7wWqxIrNSsgAA39
 
-VM guests should fall back to a Test-and-Set spinlock when
-PARAVIRT_SPINLOCKS is disabled, because fair locks suffer from severe
-lock-holder preemption issues. The virt_spin_lock_key shortcuts
-queued_spin_lock_slowpath(), allowing virt_spin_lock() to hijack it.
-See commit 43b3f02899f7 ("locking/qspinlock/x86: Fix performance
-regression under unaccelerated VMs").
+Hi John,
 
-Add a static key controlling whether virt_spin_lock() is called, and
-add nopvspin support mirroring x86.
+Thanks for the detailed follow-up, and for taking the time to check
+each of my examples against the actual source.
 
-Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
----
- Documentation/admin-guide/kernel-parameters.txt |  2 +-
- arch/riscv/include/asm/qspinlock.h              | 24 ++++++++++++++++++++++++
- arch/riscv/kernel/qspinlock_paravirt.c          |  8 ++++++++
- 3 files changed, 33 insertions(+), 1 deletion(-)
+You are right on all counts. In every case I cited, the repeated
+format string is interleaved with other messages, so a "consecutive
+duplicate" check would not have helped. More fundamentally, your
+point that "same format string does not mean same data" exposes a
+real flaw in my implementation: the dedup key hashes only the fmt
+pointer and facility/level, not the arguments (a va_list can only be
+consumed once), so two messages with different argument values would
+be wrongly folded. That alone makes the patch incorrect for exactly
+the scenarios it was meant to address.
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 33cd30996e47..d32bb7db9f91 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -4632,7 +4632,7 @@ Kernel parameters
- 			as generic guest with no PV drivers. Currently support
- 			XEN HVM, KVM, HYPER_V and VMWARE guest.
- 
--	nopvspin	[X86,XEN,KVM,EARLY]
-+	nopvspin	[X86,RISCV,XEN,KVM,EARLY]
- 			Disables the qspinlock slow path using PV optimizations
- 			which allow the hypervisor to 'idle' the guest on lock
- 			contention.
-diff --git a/arch/riscv/include/asm/qspinlock.h b/arch/riscv/include/asm/qspinlock.h
-index 330b714edc44..9c7108baa40a 100644
---- a/arch/riscv/include/asm/qspinlock.h
-+++ b/arch/riscv/include/asm/qspinlock.h
-@@ -12,6 +12,8 @@
- /* How long a lock should spin before we consider blocking */
- #define SPIN_THRESHOLD		(1 << 15)
- 
-+extern bool nopvspin;
-+
- void native_queued_spin_lock_slowpath(struct qspinlock *lock, u32 val);
- void __pv_init_lock_hash(void);
- void __pv_queued_spin_lock_slowpath(struct qspinlock *lock, u32 val);
-@@ -29,5 +31,27 @@ static inline void queued_spin_unlock(struct qspinlock *lock)
- #endif /* CONFIG_PARAVIRT_SPINLOCKS */
- 
- #include <asm-generic/qspinlock.h>
-+#include <asm/jump_label.h>
-+
-+/*
-+ * KVM guests fall back to a Test-and-Set spinlock because fair locks suffer
-+ * from severe lock-holder-preemption issues. When virt_spin_lock_key is
-+ * enabled, virt_spin_lock() shortcuts queued_spin_lock_slowpath() and hijacks
-+ * the lock acquisition.
-+ */
-+DECLARE_STATIC_KEY_FALSE(virt_spin_lock_key);
-+
-+#define virt_spin_lock rv_virt_spin_lock
-+static inline bool rv_virt_spin_lock(struct qspinlock *lock)
-+{
-+	if (!static_branch_likely(&virt_spin_lock_key))
-+		return false;
-+
-+	do {
-+		smp_cond_load_relaxed((s32 *)&lock->val, VAL == 0);
-+	} while (atomic_cmpxchg(&lock->val, 0, _Q_LOCKED_VAL) != 0);
-+
-+	return true;
-+}
- 
- #endif /* _ASM_RISCV_QSPINLOCK_H */
-diff --git a/arch/riscv/kernel/qspinlock_paravirt.c b/arch/riscv/kernel/qspinlock_paravirt.c
-index 04b13994e971..28c6c78d7e84 100644
---- a/arch/riscv/kernel/qspinlock_paravirt.c
-+++ b/arch/riscv/kernel/qspinlock_paravirt.c
-@@ -50,6 +50,8 @@ EXPORT_STATIC_CALL(pv_queued_spin_lock_slowpath);
- DEFINE_STATIC_CALL(pv_queued_spin_unlock, native_queued_spin_unlock);
- EXPORT_STATIC_CALL(pv_queued_spin_unlock);
- 
-+DEFINE_STATIC_KEY_FALSE(virt_spin_lock_key);
-+
- bool __init pv_qspinlock_init(void)
- {
- 	if (num_possible_cpus() == 1)
-@@ -58,6 +60,12 @@ bool __init pv_qspinlock_init(void)
- 	if (!sbi_probe_extension(SBI_EXT_PVLOCK))
- 		return false;
- 
-+	if (nopvspin) {
-+		static_branch_enable(&virt_spin_lock_key);
-+		pr_info("virt_spin_lock enabled by nopvspin\n");
-+		return true;
-+	}
-+
- 	pr_info("PV qspinlocks enabled\n");
- 	__pv_init_lock_hash();
- 
+I also accept the broader point: a message that is spammy enough to
+flood the console should be fixed at its source with a ratelimited
+or once-per-event variant, rather than papered over in printk.
 
--- 
-2.43.0
+So I am withdrawing this patch:
+
+  https://lore.kernel.org/lkml/20260921050304.73440-1-m18667909625@163.com/
+
+Thank you and Petr for the reviews -- the "printk must remain lockless
+and NMI-safe" invariant, and the guidance on where a feature like this
+would have to live (store phase, exact-content match, LOG_CONT-style
+ordering) were valuable lessons.
+
+Best regards,
+Lin Junzhe
+
+--
+Assisted-by: AI coding assistant (disclosed per kernel AI guidelines)
 
