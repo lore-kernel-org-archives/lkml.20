@@ -1,95 +1,117 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFFE3C3F6F;
-	Mon, 21 Sep 2026 12:21:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945CF48EBF6;
+	Mon, 21 Sep 2026 12:21:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789993284; cv=none; b=Xpx3mWMXsjyK6dOw/ueH6FSkJL2hYgwQFsxh4rsHxvGw2UpV3t4ekyGTE93Et5nk24vNKeo5E7mb0eUYgUcZw3mxKmauDuesnio2lu5xI6gZapZE+DjLH8B966cux76q15xoIlJB6mv9JXZUGJCVF0eaPwHMZfkcmQym8g060SU=
+	t=1789993312; cv=none; b=qJGmGP4Q9Zurg9VEYwPXHuUUXYW8d97MLkhncMeIpUEbXWUr1DaKRvfQcEH1iXsmPVNI4SxlI+LAXzzJrolE/twUm/NpbRffLn0wm1+Otgqv+QynFyV9AN1WhmyCGj7RV3PMj0++iZghmm1JnX2XB91e+9XXIoSTFAnA6ucovBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789993284; c=relaxed/simple;
-	bh=x1eBDSEnp8xXV2Qaa6P1kJIKyiMhTWpft8UHmmtwQNU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=YoZplLglQ+A/8DZVKU8+47VdN66BYkO79ufZxWtf7ZSRQyWY6wrA40C37n8WXeAuLiiCjVmQJ1jFO3Rwd38TctVDJf0+1DXHHxaJDscu4h6/Rq9eRDNUDwpcL3mSKg+V3qw1UDS0zZ7rydvruvHdm+xiyG89llcqL6pBPgG7kkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mhq6yoO2; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789993312; c=relaxed/simple;
+	bh=NV4qdg6H+nYZCHCMrKyGhFgQhHvTjqaLdup/kouP4Ac=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=OJDfnRyVzBOyrOOwgSeG3B0brpTnNXxe/VZeUNtcQPA0ZqGL3fdqIY9uVfAHANVgpW1KWNrKDtHRkEjzX2+6fRuRrvF37LO4rPO0Gb53scYJWNDDr+1oahrQn4eQElZID8yvyauMGhbhtrL8hEeFj2jpCQ5fR2yAchaXqVSVIs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=guCSztVJ; arc=none smtp.client-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mhq6yoO2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=x1eBDSEnp8xXV2Qaa6P1kJIKyiMhTWpft8UHmmtwQNU=; b=m
-	hq6yoO27MPQGcxvvmUKswwl0txbqYV7Xm/coLEOybz5sQF7jtjVcmP32p4FhtlDO
-	KnJX7Q455/r91xWQwQ+DiLiJyMftUuzBqmMkmN57F9opD1m/i09br2XcIkME6QEg
-	JYEdapnLO0he7VGKxxH4+lK2NuocPmCiSSpL4E8jGQ=
-Date: Mon, 21 Sep 2026 20:19:49 +0800 (CST)
-From: zl020895  <zl020895@163.com>
-To: "Bartosz Golaszewski" <brgl@kernel.org>
-Cc: longzhao@ambarella.com,
-	"Long Zhao via B4 Relay" <devnull+longzhao.ambarella.com@kernel.org>,
-	"Rob Herring" <robh@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-	"Conor Dooley" <conor+dt@kernel.org>,
-	"Michael Turquette" <mturquette@baylibre.com>,
-	"Stephen Boyd" <sboyd@kernel.org>,
-	"Jerome Brunet" <jbrunet@baylibre.com>,
-	"Linus Walleij" <linusw@kernel.org>,
-	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
-	"Jiri Slaby" <jirislaby@kernel.org>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	"Catalin Marinas" <catalin.marinas@arm.com>,
-	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
-	"Arnd Bergmann" <arnd@arndb.de>,
-	"Krzysztof Kozlowski" <krzk@kernel.org>,
-	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re:Re: [PATCH v8 09/18] gpiolib: regmap: add gpio_regmap_get_chip()
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <CAMRc=Mf7dtxvxBUF1fOuKw0mxdhCYPj=J4ckySPZUvcZ7a6cbQ@mail.gmail.com>
-References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
- <20260921-cv75-v5-v8-9-282ff5d98dda@ambarella.com>
- <CAMRc=Mf7dtxvxBUF1fOuKw0mxdhCYPj=J4ckySPZUvcZ7a6cbQ@mail.gmail.com>
-X-NTES-SC: AL_Qu2TC/WSvEkj7yacY+kcn0wRhug/UMa4u/sm3YNXc+sEvwvN1yAKfXhgLWTM3uu3ORuQqwGKex1g8e9feapSOav+wmljU0SfVFj33va5Mw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="guCSztVJ"
+dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=qki1kFQ6gVLwf8MQ8saLgKHA3ydWA1c2aSG7gxHdc9M=;
+	b=guCSztVJm23fU6fARnnvD1L2TWkdWxoi++z8C527sOPB/twVbS7HNfZm+fxmQD66p9BMWxZqg
+	SX+YioKNwHmh0dqimISu5gE4hvmNKbE2ahaHZk4sTcVAtWwe08MmEjVocNtkzXwW+nOTlc0C0Xt
+	m6hqxbL8CpvTvyCjOVBBY5U=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hpMW04mdGzcb44;
+	Mon, 21 Sep 2026 20:10:20 +0800 (CST)
+Received: from kwepemp200006.china.huawei.com (unknown [7.202.195.217])
+	by mail.maildlp.com (Postfix) with ESMTPS id 7C08240591;
+	Mon, 21 Sep 2026 20:21:41 +0800 (CST)
+Received: from kwepemp500015.china.huawei.com (7.202.195.9) by
+ kwepemp200006.china.huawei.com (7.202.195.217) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 21 Sep 2026 20:21:41 +0800
+Received: from [10.67.120.108] (10.67.120.108) by
+ kwepemp500015.china.huawei.com (7.202.195.9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 21 Sep 2026 20:21:40 +0800
+Message-ID: <bab95bba-3091-30e5-91ba-0fd459db0101@huawei.com>
+Date: Mon, 21 Sep 2026 20:21:40 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <3e3a7197.9e4e.1a0c3e88117.Coremail.zl020895@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:ZCgvCgDnz3XlILFq0Q9MAA--.35W
-X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbCxgVIuWqxIOW++wAA3p
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.1
+Subject: Re: [PATCH v3] scsi: libsas: Fix SMP IO deadlock during HA resume
+Content-Language: en-CA
+To: John Garry <john.garry@linux.dev>, <yanaijie@huawei.com>,
+	<jejb@linux.ibm.com>, <mkp@kernel.org>
+CC: <linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linuxarm@huawei.com>, <liuyonglong@huawei.com>, <kangfenglong@huawei.com>
+References: <20260918070307.381207-1-yangxingui@huawei.com>
+ <9a72eeb3-ca32-4241-9e21-74cf894a9bf1@linux.dev>
+From: yangxingui <yangxingui@huawei.com>
+In-Reply-To: <9a72eeb3-ca32-4241-9e21-74cf894a9bf1@linux.dev>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemp500015.china.huawei.com (7.202.195.9)
 
-SGkgQmFydCwKCkRvbmUsIHNlbnQgYXMgYSBmb2xsb3ctdXA6Cmh0dHBzOi8vbG9yZS5rZXJuZWwu
-b3JnL2FsbC8yMDI2MDkyMS1ncGlvLWRvYy1mb2xsb3d1cC12MS0xLTYxODczODEyNGY0Y0BhbWJh
-cmVsbGEuY29tLwoKQmVzdCByZWdhcmRzLApMb25nIFpoYW8KCkF0IDIwMjYtMDktMjEgMTg6MzU6
-MDgsICJCYXJ0b3N6IEdvbGFzemV3c2tpIiA8YnJnbEBrZXJuZWwub3JnPiB3cm90ZToKPk9uIE1v
-biwgMjEgU2VwIDIwMjYgMDY6MjM6MjggKzAyMDAsIExvbmcgWmhhbyB2aWEgQjQgUmVsYXkKPjxk
-ZXZudWxsK2xvbmd6aGFvLmFtYmFyZWxsYS5jb21Aa2VybmVsLm9yZz4gc2FpZDoKPj4gRnJvbTog
-TG9uZyBaaGFvIDxsb25nemhhb0BhbWJhcmVsbGEuY29tPgo+Pgo+PiBMZXQgZHJpdmVycyB0aGF0
-IGltcGxlbWVudCBhIGN1c3RvbSBpcnFjaGlwIHJldHJpZXZlIHRoZSBncGlvX2NoaXAKPj4gYWZ0
-ZXIgcmVnaXN0cmF0aW9uLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBMb25nIFpoYW8gPGxvbmd6aGFv
-QGFtYmFyZWxsYS5jb20+Cj4+IC0tLQo+PiAgZHJpdmVycy9ncGlvL2dwaW8tcmVnbWFwLmMgIHwg
-NiArKysrKysKPj4gIGluY2x1ZGUvbGludXgvZ3Bpby9yZWdtYXAuaCB8IDEgKwo+PiAgMiBmaWxl
-cyBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKykKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3Bp
-by9ncGlvLXJlZ21hcC5jIGIvZHJpdmVycy9ncGlvL2dwaW8tcmVnbWFwLmMKPj4gaW5kZXggZmJk
-NGM3NTM1MjVhLi4yMWUwOTkzYjg5ZTIgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3Bpby9ncGlv
-LXJlZ21hcC5jCj4+ICsrKyBiL2RyaXZlcnMvZ3Bpby9ncGlvLXJlZ21hcC5jCj4+IEBAIC0yOTUs
-NiArMjk1LDEyIEBAIHZvaWQgKmdwaW9fcmVnbWFwX2dldF9kcnZkYXRhKHN0cnVjdCBncGlvX3Jl
-Z21hcCAqZ3BpbykKPj4gIH0KPj4gIEVYUE9SVF9TWU1CT0xfR1BMKGdwaW9fcmVnbWFwX2dldF9k
-cnZkYXRhKTsKPj4KPj4gK3N0cnVjdCBncGlvX2NoaXAgKmdwaW9fcmVnbWFwX2dldF9jaGlwKHN0
-cnVjdCBncGlvX3JlZ21hcCAqZ3BpbykKPj4gK3sKPj4gKwlyZXR1cm4gJmdwaW8tPmdwaW9fY2hp
-cDsKPj4gK30KPj4gK0VYUE9SVF9TWU1CT0xfR1BMKGdwaW9fcmVnbWFwX2dldF9jaGlwKTsKPgo+
-UGxlYXNlIHByb3ZpZGUgYSBrZXJuZWwgZG9jIGZvciBhbGwgcHVibGljIEFQSXMuIEl0IHNob3Vs
-ZCBleHBsYWluIHRoYXQgdGhpcwo+bXVzdCBub3QgYmUgdXNlZCBvdXRzaWRlIG9mIGEgR1BJTyBj
-b250cm9sbGVyIGRyaXZlciBjb250ZXh0Lgo+Cj5CYXJ0Cg==
+Hi, John
+
+On 2026/9/21 19:37, John Garry wrote:
+> On 9/18/26 08:03, Xingui Yang wrote:
+>> When the controller resumes, sas_resume_ha() -> sas_drain_work()
+>> processes the DISCE_RESUME work, which restores the ATA ports through
+>> the libata error handler (ata_sas_port_resume() requests ATA_EH_RESET)
+>> and waits for it in sas_ata_flush_pm_eh(). For an expander-attached
+>> ATA device the hard reset in that recovery is an SMP PHY CONTROL
+>> command sent to the expander:
+>>
+>>    ata_eh_recover() -> ata_eh_reset() -> sas_ata_hard_reset()
+>>      -> lldd_I_T_nexus_reset() -> sas_phy_reset()
+>>        -> sas_smp_phy_control() -> smp_execute_task_sg()
+> 
+> This seems like an obvious issue. How come it was not found earlier? It 
+> is apparently fixing a patch which is 5 years old.
+
+The deadlock was not reachable for most of those 5 years - it is a
+regression of 3dbbbf656b85 ("scsi: libsas: Fix HA resume deadlock and
+hisi_sas disk-wake race"), which restored the draining sas_resume_ha()
+in hisi_sas.
+
+0da7ca4c4fd9 was part of the same 2021 series as fbefe22811c3 ("Don't
+always drain event workqueue for HA resume"), which switched hisi_sas
+to the non-draining sas_resume_ha_no_sync(). The two were designed
+together: without the drain, nothing in the resume path waits on the
+ATA error handling, so the pm_runtime_get_sync() in
+smp_execute_task_sg() could at most delay the EH until the resume
+callback returned - no circular wait.
+
+3dbbbf656b85 restored the drain to fix the disk-wake race (the
+controller autosuspending while disks were still waking up), which for
+the first time made the resume wait on the ATA EH - and with it the
+SMP PHY CONTROL for an expander-attached ATA device. So the deadlock
+window is really since 3dbbbf656b85, not since 0da7ca4c4fd9.
+
+It is also a narrow trigger: a directly-attached ATA device resets its
+phy via lldd_control_phy() (no SMP IO), so it needs an expander-
+attached ATA device whose EH lands inside the drain of a runtime
+resume - which is why the testing of 3dbbbf656b85, whose scenario was
+the disk-wake race, did not catch it.
+
+Given that, should Fixes: point at 3dbbbf656b85 instead? I kept
+0da7ca4c4fd9 as that is where the pm_runtime_get_sync() being fixed
+comes from, but the deadlock itself only exists where 3dbbbf656b85
+is.
+
+Thanks,
+Xingui
+
+
+
