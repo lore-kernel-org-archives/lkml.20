@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A7F36308F;
-	Mon, 21 Sep 2026 05:16:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF2B352037;
+	Mon, 21 Sep 2026 05:16:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789967772; cv=none; b=MB9pytQYv07TTyDlOCkBaB2mWu5HN7pXRFAybDywux8/nyJzTIr2YFO8XzAzT+A9eypsAyHLE26tceTJGwG+E2XHKHsCTRn1rlMTO/EfAK/h2OQMD+0/3mYNBrLU+/asyz3J16eXZFEOlnT9De0HDTeoEOcFrdKafiWe4sENQA0=
+	t=1789967771; cv=none; b=QUJvSArtpMKSyn/odU+bkZp1y2nkKgflZvj8OQ4eDTTuqEFzFgpixNMvbU3kzXY5XAcZzByXlb0bdnYjsAeliY451yH/ULHE/A0KTW2G949FduinH68u+GfeB9YqQQJ98CxHjKk0LIjsA4sQxTl077oq4WJ4fr0FzxxRM/t7C7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789967772; c=relaxed/simple;
-	bh=bPmW6wqCL/cuG9YCAT2htcCSbOqD3uiz4WQ7EBZgVXA=;
+	s=arc-20240116; t=1789967771; c=relaxed/simple;
+	bh=E0J9wHC77t4UpencBzutAp+L2Z6ppNGrwmHZay+nn4I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aPolry2oynwlbWEPTeLvzdSG/19K1T8+seEuetUxOypaAHViRmxrHH9RyAfbF/4N3UwjRWivnjz9shlqSXQiJECXH7NsuFJPoKMorjdbLlJtxaylZZ8cgpCBsxOJ+x7kSVs/kxKzJdo/y77voVPGiZCuZcXCb07A657K0ou/9W0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mMNlvo4H; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CfEmZX92YsAwVEoPVszkbroi6qwrMtRu40Ay1EN5DaIZ4Yrdxp111peKCHPkDvj6U1fyyhDwrNPZVqXGLf3DDmfoU2SO5SVX4pGOX0EJOu7wRsnlla38z+QGn1CvIvmDfWP9Zd1X2wRR6ZDJ1TfztQXf2QWCBdoyXK6mJx35FmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BINuyM1A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mMNlvo4H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21E141F008A0;
-	Mon, 21 Sep 2026 05:16:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BINuyM1A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34CF01F0089C;
+	Mon, 21 Sep 2026 05:16:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789967769;
-	bh=A0Q4ywSNwm+bmXk82fgsubJuFKPHWy+87PLk05b7EkA=;
+	s=k20260515; t=1789967767;
+	bh=KCaFQVHPwizlKMhoDceW3K55+bEOnSGiOzgLrGQHS1o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mMNlvo4HsVDSxO6tsOLlvbCX8oCQA4G1VYajpXq6dhScvBcMOJRl/d6MD1GgBMYez
-	 Id+wqhS0GV2CUCYazuUWGpf4fsMT692B2b1VWKXHplwMwg0Ok8RzzmkAh4BKxxUGDH
-	 to3vdTBZxClo/BbIsP/ab/4ZMsdGYPI080kFmgqiK6Geb7NepVtbq1I40sHahLEdwd
-	 8lrjHLLYitnCqXgOLJ1AcGN//Jx2sglV8ekGrERbTCoX8KEsE4UuNjg3dN7glIBNuN
-	 lJkOVEaJwqjiPYD4/5QKN83dzEoEQkJNiflyfc4KZCVhDTCwzQOXMWQDteg6oq38JF
-	 UsmaxlrWWJ9jA==
+	b=BINuyM1A2ZumFTiaDfJewtdw72fRb2Zst6tJ+kn7GgKU6Ys6qAOLta7IZRn0RaL9N
+	 T4OGouHjJx1bDcBISGVTPZHpaYv75siMneHZRWRFIsP8ZNHvjG36v/vf394rK2qDgK
+	 GpIGp0J6AFn7eUtDThqqXz2xGn2nvyGx7qZ72pByQ6dRa2F5qKfky/yM46sVzyd5mx
+	 O8UHJjJVWxvtjk+0LqIyNxfti7IhWvyJoK3Dtly6XA5YZCjHlwsaBJh0dvdtn/Ezxi
+	 DQTdD5IuRgf6xdrqXCkXxPgOvSqWeaoYpbb8NV/IfJi8PiqcFW4Mc3nrfm5TZ+eG9G
+	 A0wFGbIz1+8Bw==
 From: Eric Biggers <ebiggers@kernel.org>
 To: linux-crypto@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -35,9 +35,9 @@ Cc: linux-kernel@vger.kernel.org,
 	x86@kernel.org,
 	linux-riscv@lists.infradead.org,
 	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH 16/20] lib/crypto: riscv/aes: Pass key struct to assembly code
-Date: Sun, 20 Sep 2026 22:09:02 -0700
-Message-ID: <20260921050910.296144-17-ebiggers@kernel.org>
+Subject: [PATCH 11/20] crypto: x86/aes-xts - Remove superseded XTS skcipher
+Date: Sun, 20 Sep 2026 22:08:57 -0700
+Message-ID: <20260921050910.296144-12-ebiggers@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260921050910.296144-1-ebiggers@kernel.org>
 References: <20260921050910.296144-1-ebiggers@kernel.org>
@@ -49,156 +49,773 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Make the assembly code take the AES key struct directly, rather than the
-round keys pointer and key length separately.  Make the aes_begin macro
-assume this convention, and remove support for the legacy
-'struct crypto_aes_ctx' from it since that isn't used here.
+Now that the crypto library's AES-XTS support is optimized with AES-NI
+(without AVX), the similar code in aesni-intel is redundant.  Remove it.
 
-This aligns with the convention that is being used (and will continue to
-be used) for the AES modes, it makes the C glue code slightly simpler,
-and it avoids the unnecessary shuffling around of arguments.
+This only affects the non-AVX implementation ("xts-aes-aesni"), not
+aes-xts-avx-x86_64.S which is handled later.
 
 Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- lib/crypto/riscv/aes-macros.S         | 25 ++++++++++---------------
- lib/crypto/riscv/aes-riscv64-zvkned.S | 13 ++++++-------
- lib/crypto/riscv/aes.h                | 12 ++++++++----
- 3 files changed, 24 insertions(+), 26 deletions(-)
+ arch/x86/crypto/aesni-intel_asm.S  | 617 -----------------------------
+ arch/x86/crypto/aesni-intel_glue.c |  69 +---
+ 2 files changed, 1 insertion(+), 685 deletions(-)
 
-diff --git a/lib/crypto/riscv/aes-macros.S b/lib/crypto/riscv/aes-macros.S
-index 1384164621a5..720ad69a41ac 100644
---- a/lib/crypto/riscv/aes-macros.S
-+++ b/lib/crypto/riscv/aes-macros.S
-@@ -44,17 +44,20 @@
- // - RISC-V Vector ('V') with VLEN >= 128
- // - RISC-V Vector AES block cipher extension ('Zvkned')
+diff --git a/arch/x86/crypto/aesni-intel_asm.S b/arch/x86/crypto/aesni-intel_asm.S
+index c4d54c4a2c23..b12a0f2bf006 100644
+--- a/arch/x86/crypto/aesni-intel_asm.S
++++ b/arch/x86/crypto/aesni-intel_asm.S
+@@ -20,30 +20,11 @@
+ #include <linux/objtool.h>
+ #include <asm/frame.h>
  
--// Loads the AES round keys from \keyp into vector registers and jumps to code
--// specific to the length of the key.  Specifically:
-+// Offsets in struct aes_enckey
-+#define OFFSETOF_KEYLEN		0
-+#define OFFSETOF_RNDKEYS	16
-+
-+// Loads the AES round keys from the struct aes_enckey \keyp into vector
-+// registers and jumps to code specific to the length of the key.  Specifically:
- //   - If AES-128, loads round keys into v1-v11 and jumps to \label128.
- //   - If AES-192, loads round keys into v1-v13 and jumps to \label192.
- //   - If AES-256, loads round keys into v1-v15 and continues onwards.
- //
--// Also sets vl=4 and vtype=e32,m1,ta,ma.  Clobbers t0 and t1.
--.macro	aes_begin	keyp, label128, label192, key_len
--.ifb \key_len
--	lwu		t0, 480(\keyp)	// t0 = key length in bytes
+-#define STATE1	%xmm0
+-#define STATE2	%xmm4
+-#define STATE3	%xmm5
+-#define STATE4	%xmm6
+-#define STATE	STATE1
+-#define IN1	%xmm1
+-#define IN2	%xmm7
+-#define IN3	%xmm8
+-#define IN4	%xmm9
+-#define IN	IN1
+-#define KEY	%xmm2
+-#define IV	%xmm3
+-
+-#define GF128MUL_MASK %xmm7
+-
+ #ifdef __x86_64__
+ #define AREG	%rax
+ #define KEYP	%rdi
+ #define OUTP	%rsi
+ #define UKEYP	OUTP
+-#define INP	%rdx
+-#define LEN	%rcx
+-#define IVP	%r8
+-#define KLEN	%r9d
+ #define T1	%r10
+ #define TKEYP	T1
+ #define T2	%r11
+@@ -52,10 +33,6 @@
+ #define KEYP	%edi
+ #define OUTP	AREG
+ #define UKEYP	OUTP
+-#define INP	%edx
+-#define LEN	%esi
+-#define IVP	%ebp
+-#define KLEN	%ebx
+ #define T1	%ecx
+ #define TKEYP	T1
+ #endif
+@@ -241,597 +218,3 @@ SYM_FUNC_START(aesni_set_key)
+ 	FRAME_END
+ 	RET
+ SYM_FUNC_END(aesni_set_key)
+-
+-/*
+- * void aesni_enc(const void *ctx, u8 *dst, const u8 *src)
+- */
+-SYM_FUNC_START(aesni_enc)
+-	FRAME_BEGIN
+-#ifndef __x86_64__
+-	pushl KEYP
+-	pushl KLEN
+-	movl (FRAME_OFFSET+12)(%esp), KEYP	# ctx
+-	movl (FRAME_OFFSET+16)(%esp), OUTP	# dst
+-	movl (FRAME_OFFSET+20)(%esp), INP	# src
+-#endif
+-	movl 480(KEYP), KLEN		# key length
+-	movups (INP), STATE		# input
+-	call _aesni_enc1
+-	movups STATE, (OUTP)		# output
+-#ifndef __x86_64__
+-	popl KLEN
+-	popl KEYP
+-#endif
+-	FRAME_END
+-	RET
+-SYM_FUNC_END(aesni_enc)
+-
+-/*
+- * _aesni_enc1:		internal ABI
+- * input:
+- *	KEYP:		key struct pointer
+- *	KLEN:		round count
+- *	STATE:		initial state (input)
+- * output:
+- *	STATE:		finial state (output)
+- * changed:
+- *	KEY
+- *	TKEYP (T1)
+- */
+-SYM_FUNC_START_LOCAL(_aesni_enc1)
+-	movaps (KEYP), KEY		# key
+-	mov KEYP, TKEYP
+-	pxor KEY, STATE		# round 0
+-	add $0x30, TKEYP
+-	cmp $24, KLEN
+-	jb .Lenc128
+-	lea 0x20(TKEYP), TKEYP
+-	je .Lenc192
+-	add $0x20, TKEYP
+-	movaps -0x60(TKEYP), KEY
+-	aesenc KEY, STATE
+-	movaps -0x50(TKEYP), KEY
+-	aesenc KEY, STATE
+-.align 4
+-.Lenc192:
+-	movaps -0x40(TKEYP), KEY
+-	aesenc KEY, STATE
+-	movaps -0x30(TKEYP), KEY
+-	aesenc KEY, STATE
+-.align 4
+-.Lenc128:
+-	movaps -0x20(TKEYP), KEY
+-	aesenc KEY, STATE
+-	movaps -0x10(TKEYP), KEY
+-	aesenc KEY, STATE
+-	movaps (TKEYP), KEY
+-	aesenc KEY, STATE
+-	movaps 0x10(TKEYP), KEY
+-	aesenc KEY, STATE
+-	movaps 0x20(TKEYP), KEY
+-	aesenc KEY, STATE
+-	movaps 0x30(TKEYP), KEY
+-	aesenc KEY, STATE
+-	movaps 0x40(TKEYP), KEY
+-	aesenc KEY, STATE
+-	movaps 0x50(TKEYP), KEY
+-	aesenc KEY, STATE
+-	movaps 0x60(TKEYP), KEY
+-	aesenc KEY, STATE
+-	movaps 0x70(TKEYP), KEY
+-	aesenclast KEY, STATE
+-	RET
+-SYM_FUNC_END(_aesni_enc1)
+-
+-/*
+- * _aesni_enc4:	internal ABI
+- * input:
+- *	KEYP:		key struct pointer
+- *	KLEN:		round count
+- *	STATE1:		initial state (input)
+- *	STATE2
+- *	STATE3
+- *	STATE4
+- * output:
+- *	STATE1:		finial state (output)
+- *	STATE2
+- *	STATE3
+- *	STATE4
+- * changed:
+- *	KEY
+- *	TKEYP (T1)
+- */
+-SYM_FUNC_START_LOCAL(_aesni_enc4)
+-	movaps (KEYP), KEY		# key
+-	mov KEYP, TKEYP
+-	pxor KEY, STATE1		# round 0
+-	pxor KEY, STATE2
+-	pxor KEY, STATE3
+-	pxor KEY, STATE4
+-	add $0x30, TKEYP
+-	cmp $24, KLEN
+-	jb .L4enc128
+-	lea 0x20(TKEYP), TKEYP
+-	je .L4enc192
+-	add $0x20, TKEYP
+-	movaps -0x60(TKEYP), KEY
+-	aesenc KEY, STATE1
+-	aesenc KEY, STATE2
+-	aesenc KEY, STATE3
+-	aesenc KEY, STATE4
+-	movaps -0x50(TKEYP), KEY
+-	aesenc KEY, STATE1
+-	aesenc KEY, STATE2
+-	aesenc KEY, STATE3
+-	aesenc KEY, STATE4
+-#.align 4
+-.L4enc192:
+-	movaps -0x40(TKEYP), KEY
+-	aesenc KEY, STATE1
+-	aesenc KEY, STATE2
+-	aesenc KEY, STATE3
+-	aesenc KEY, STATE4
+-	movaps -0x30(TKEYP), KEY
+-	aesenc KEY, STATE1
+-	aesenc KEY, STATE2
+-	aesenc KEY, STATE3
+-	aesenc KEY, STATE4
+-#.align 4
+-.L4enc128:
+-	movaps -0x20(TKEYP), KEY
+-	aesenc KEY, STATE1
+-	aesenc KEY, STATE2
+-	aesenc KEY, STATE3
+-	aesenc KEY, STATE4
+-	movaps -0x10(TKEYP), KEY
+-	aesenc KEY, STATE1
+-	aesenc KEY, STATE2
+-	aesenc KEY, STATE3
+-	aesenc KEY, STATE4
+-	movaps (TKEYP), KEY
+-	aesenc KEY, STATE1
+-	aesenc KEY, STATE2
+-	aesenc KEY, STATE3
+-	aesenc KEY, STATE4
+-	movaps 0x10(TKEYP), KEY
+-	aesenc KEY, STATE1
+-	aesenc KEY, STATE2
+-	aesenc KEY, STATE3
+-	aesenc KEY, STATE4
+-	movaps 0x20(TKEYP), KEY
+-	aesenc KEY, STATE1
+-	aesenc KEY, STATE2
+-	aesenc KEY, STATE3
+-	aesenc KEY, STATE4
+-	movaps 0x30(TKEYP), KEY
+-	aesenc KEY, STATE1
+-	aesenc KEY, STATE2
+-	aesenc KEY, STATE3
+-	aesenc KEY, STATE4
+-	movaps 0x40(TKEYP), KEY
+-	aesenc KEY, STATE1
+-	aesenc KEY, STATE2
+-	aesenc KEY, STATE3
+-	aesenc KEY, STATE4
+-	movaps 0x50(TKEYP), KEY
+-	aesenc KEY, STATE1
+-	aesenc KEY, STATE2
+-	aesenc KEY, STATE3
+-	aesenc KEY, STATE4
+-	movaps 0x60(TKEYP), KEY
+-	aesenc KEY, STATE1
+-	aesenc KEY, STATE2
+-	aesenc KEY, STATE3
+-	aesenc KEY, STATE4
+-	movaps 0x70(TKEYP), KEY
+-	aesenclast KEY, STATE1		# last round
+-	aesenclast KEY, STATE2
+-	aesenclast KEY, STATE3
+-	aesenclast KEY, STATE4
+-	RET
+-SYM_FUNC_END(_aesni_enc4)
+-
+-/*
+- * _aesni_dec1:		internal ABI
+- * input:
+- *	KEYP:		key struct pointer
+- *	KLEN:		key length
+- *	STATE:		initial state (input)
+- * output:
+- *	STATE:		finial state (output)
+- * changed:
+- *	KEY
+- *	TKEYP (T1)
+- */
+-SYM_FUNC_START_LOCAL(_aesni_dec1)
+-	movaps (KEYP), KEY		# key
+-	mov KEYP, TKEYP
+-	pxor KEY, STATE		# round 0
+-	add $0x30, TKEYP
+-	cmp $24, KLEN
+-	jb .Ldec128
+-	lea 0x20(TKEYP), TKEYP
+-	je .Ldec192
+-	add $0x20, TKEYP
+-	movaps -0x60(TKEYP), KEY
+-	aesdec KEY, STATE
+-	movaps -0x50(TKEYP), KEY
+-	aesdec KEY, STATE
+-.align 4
+-.Ldec192:
+-	movaps -0x40(TKEYP), KEY
+-	aesdec KEY, STATE
+-	movaps -0x30(TKEYP), KEY
+-	aesdec KEY, STATE
+-.align 4
+-.Ldec128:
+-	movaps -0x20(TKEYP), KEY
+-	aesdec KEY, STATE
+-	movaps -0x10(TKEYP), KEY
+-	aesdec KEY, STATE
+-	movaps (TKEYP), KEY
+-	aesdec KEY, STATE
+-	movaps 0x10(TKEYP), KEY
+-	aesdec KEY, STATE
+-	movaps 0x20(TKEYP), KEY
+-	aesdec KEY, STATE
+-	movaps 0x30(TKEYP), KEY
+-	aesdec KEY, STATE
+-	movaps 0x40(TKEYP), KEY
+-	aesdec KEY, STATE
+-	movaps 0x50(TKEYP), KEY
+-	aesdec KEY, STATE
+-	movaps 0x60(TKEYP), KEY
+-	aesdec KEY, STATE
+-	movaps 0x70(TKEYP), KEY
+-	aesdeclast KEY, STATE
+-	RET
+-SYM_FUNC_END(_aesni_dec1)
+-
+-/*
+- * _aesni_dec4:	internal ABI
+- * input:
+- *	KEYP:		key struct pointer
+- *	KLEN:		key length
+- *	STATE1:		initial state (input)
+- *	STATE2
+- *	STATE3
+- *	STATE4
+- * output:
+- *	STATE1:		finial state (output)
+- *	STATE2
+- *	STATE3
+- *	STATE4
+- * changed:
+- *	KEY
+- *	TKEYP (T1)
+- */
+-SYM_FUNC_START_LOCAL(_aesni_dec4)
+-	movaps (KEYP), KEY		# key
+-	mov KEYP, TKEYP
+-	pxor KEY, STATE1		# round 0
+-	pxor KEY, STATE2
+-	pxor KEY, STATE3
+-	pxor KEY, STATE4
+-	add $0x30, TKEYP
+-	cmp $24, KLEN
+-	jb .L4dec128
+-	lea 0x20(TKEYP), TKEYP
+-	je .L4dec192
+-	add $0x20, TKEYP
+-	movaps -0x60(TKEYP), KEY
+-	aesdec KEY, STATE1
+-	aesdec KEY, STATE2
+-	aesdec KEY, STATE3
+-	aesdec KEY, STATE4
+-	movaps -0x50(TKEYP), KEY
+-	aesdec KEY, STATE1
+-	aesdec KEY, STATE2
+-	aesdec KEY, STATE3
+-	aesdec KEY, STATE4
+-.align 4
+-.L4dec192:
+-	movaps -0x40(TKEYP), KEY
+-	aesdec KEY, STATE1
+-	aesdec KEY, STATE2
+-	aesdec KEY, STATE3
+-	aesdec KEY, STATE4
+-	movaps -0x30(TKEYP), KEY
+-	aesdec KEY, STATE1
+-	aesdec KEY, STATE2
+-	aesdec KEY, STATE3
+-	aesdec KEY, STATE4
+-.align 4
+-.L4dec128:
+-	movaps -0x20(TKEYP), KEY
+-	aesdec KEY, STATE1
+-	aesdec KEY, STATE2
+-	aesdec KEY, STATE3
+-	aesdec KEY, STATE4
+-	movaps -0x10(TKEYP), KEY
+-	aesdec KEY, STATE1
+-	aesdec KEY, STATE2
+-	aesdec KEY, STATE3
+-	aesdec KEY, STATE4
+-	movaps (TKEYP), KEY
+-	aesdec KEY, STATE1
+-	aesdec KEY, STATE2
+-	aesdec KEY, STATE3
+-	aesdec KEY, STATE4
+-	movaps 0x10(TKEYP), KEY
+-	aesdec KEY, STATE1
+-	aesdec KEY, STATE2
+-	aesdec KEY, STATE3
+-	aesdec KEY, STATE4
+-	movaps 0x20(TKEYP), KEY
+-	aesdec KEY, STATE1
+-	aesdec KEY, STATE2
+-	aesdec KEY, STATE3
+-	aesdec KEY, STATE4
+-	movaps 0x30(TKEYP), KEY
+-	aesdec KEY, STATE1
+-	aesdec KEY, STATE2
+-	aesdec KEY, STATE3
+-	aesdec KEY, STATE4
+-	movaps 0x40(TKEYP), KEY
+-	aesdec KEY, STATE1
+-	aesdec KEY, STATE2
+-	aesdec KEY, STATE3
+-	aesdec KEY, STATE4
+-	movaps 0x50(TKEYP), KEY
+-	aesdec KEY, STATE1
+-	aesdec KEY, STATE2
+-	aesdec KEY, STATE3
+-	aesdec KEY, STATE4
+-	movaps 0x60(TKEYP), KEY
+-	aesdec KEY, STATE1
+-	aesdec KEY, STATE2
+-	aesdec KEY, STATE3
+-	aesdec KEY, STATE4
+-	movaps 0x70(TKEYP), KEY
+-	aesdeclast KEY, STATE1		# last round
+-	aesdeclast KEY, STATE2
+-	aesdeclast KEY, STATE3
+-	aesdeclast KEY, STATE4
+-	RET
+-SYM_FUNC_END(_aesni_dec4)
+-
+-.pushsection .rodata
+-.align 16
+-.Lcts_permute_table:
+-	.byte		0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80
+-	.byte		0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80
+-	.byte		0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+-	.byte		0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+-	.byte		0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80
+-	.byte		0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80
+-.popsection
+-
+-.section	.rodata.cst16.gf128mul_x_ble_mask, "aM", @progbits, 16
+-.align 16
+-.Lgf128mul_x_ble_mask:
+-	.octa 0x00000000000000010000000000000087
+-.previous
+-
+-/*
+- * _aesni_gf128mul_x_ble: Multiply in GF(2^128) for XTS IVs
+- * input:
+- *	IV:	current IV
+- *	GF128MUL_MASK == mask with 0x87 and 0x01
+- * output:
+- *	IV:	next IV
+- * changed:
+- *	KEY:	== temporary value
+- */
+-.macro _aesni_gf128mul_x_ble
+-	pshufd $0x13, IV, KEY
+-	paddq IV, IV
+-	psrad $31, KEY
+-	pand GF128MUL_MASK, KEY
+-	pxor KEY, IV
+-.endm
+-
+-.macro	_aesni_xts_crypt	enc
+-	FRAME_BEGIN
+-#ifndef __x86_64__
+-	pushl IVP
+-	pushl LEN
+-	pushl KEYP
+-	pushl KLEN
+-	movl (FRAME_OFFSET+20)(%esp), KEYP	# ctx
+-	movl (FRAME_OFFSET+24)(%esp), OUTP	# dst
+-	movl (FRAME_OFFSET+28)(%esp), INP	# src
+-	movl (FRAME_OFFSET+32)(%esp), LEN	# len
+-	movl (FRAME_OFFSET+36)(%esp), IVP	# iv
+-	movdqa .Lgf128mul_x_ble_mask, GF128MUL_MASK
+-#else
+-	movdqa .Lgf128mul_x_ble_mask(%rip), GF128MUL_MASK
+-#endif
+-	movups (IVP), IV
+-
+-	mov 480(KEYP), KLEN
+-.if !\enc
+-	add $240, KEYP
+-
+-	test $15, LEN
+-	jz .Lxts_loop4\@
+-	sub $16, LEN
 -.endif
-+// Also sets vl=4 and vtype=e32,m1,ta,ma.  Clobbers keyp, t0, and t1.
-+.macro	aes_begin	keyp, label128, label192
-+	lwu		t0, OFFSETOF_KEYLEN(\keyp) // t0 = key length in bytes
-+	addi		\keyp, \keyp, OFFSETOF_RNDKEYS
- 	li		t1, 24		// t1 = key length for AES-192
- 	vsetivli	zero, 4, e32, m1, ta, ma
- 	vle32.v		v1, (\keyp)
-@@ -78,20 +81,12 @@
- 	vle32.v		v10, (\keyp)
- 	addi		\keyp, \keyp, 16
- 	vle32.v		v11, (\keyp)
--.ifb \key_len
- 	blt		t0, t1, \label128	// If AES-128, goto label128.
+-
+-.Lxts_loop4\@:
+-	sub $64, LEN
+-	jl .Lxts_1x\@
+-
+-	movdqa IV, STATE1
+-	movdqu 0x00(INP), IN
+-	pxor IN, STATE1
+-	movdqu IV, 0x00(OUTP)
+-
+-	_aesni_gf128mul_x_ble
+-	movdqa IV, STATE2
+-	movdqu 0x10(INP), IN
+-	pxor IN, STATE2
+-	movdqu IV, 0x10(OUTP)
+-
+-	_aesni_gf128mul_x_ble
+-	movdqa IV, STATE3
+-	movdqu 0x20(INP), IN
+-	pxor IN, STATE3
+-	movdqu IV, 0x20(OUTP)
+-
+-	_aesni_gf128mul_x_ble
+-	movdqa IV, STATE4
+-	movdqu 0x30(INP), IN
+-	pxor IN, STATE4
+-	movdqu IV, 0x30(OUTP)
+-
+-.if \enc
+-	call _aesni_enc4
 -.else
--	blt		\key_len, t1, \label128	// If AES-128, goto label128.
+-	call _aesni_dec4
 -.endif
- 	addi		\keyp, \keyp, 16
- 	vle32.v		v12, (\keyp)
- 	addi		\keyp, \keyp, 16
- 	vle32.v		v13, (\keyp)
--.ifb \key_len
- 	beq		t0, t1, \label192	// If AES-192, goto label192.
+-
+-	movdqu 0x00(OUTP), IN
+-	pxor IN, STATE1
+-	movdqu STATE1, 0x00(OUTP)
+-
+-	movdqu 0x10(OUTP), IN
+-	pxor IN, STATE2
+-	movdqu STATE2, 0x10(OUTP)
+-
+-	movdqu 0x20(OUTP), IN
+-	pxor IN, STATE3
+-	movdqu STATE3, 0x20(OUTP)
+-
+-	movdqu 0x30(OUTP), IN
+-	pxor IN, STATE4
+-	movdqu STATE4, 0x30(OUTP)
+-
+-	_aesni_gf128mul_x_ble
+-
+-	add $64, INP
+-	add $64, OUTP
+-	test LEN, LEN
+-	jnz .Lxts_loop4\@
+-
+-.Lxts_ret_iv\@:
+-	movups IV, (IVP)
+-
+-.Lxts_ret\@:
+-#ifndef __x86_64__
+-	popl KLEN
+-	popl KEYP
+-	popl LEN
+-	popl IVP
+-#endif
+-	FRAME_END
+-	RET
+-
+-.Lxts_1x\@:
+-	add $64, LEN
+-	jz .Lxts_ret_iv\@
+-.if \enc
+-	sub $16, LEN
+-	jl .Lxts_cts4\@
+-.endif
+-
+-.Lxts_loop1\@:
+-	movdqu (INP), STATE
+-.if \enc
+-	pxor IV, STATE
+-	call _aesni_enc1
 -.else
--	beq		\key_len, t1, \label192	// If AES-192, goto label192.
+-	add $16, INP
+-	sub $16, LEN
+-	jl .Lxts_cts1\@
+-	pxor IV, STATE
+-	call _aesni_dec1
 -.endif
- 	// Else, it's AES-256.
- 	addi		\keyp, \keyp, 16
- 	vle32.v		v14, (\keyp)
-diff --git a/lib/crypto/riscv/aes-riscv64-zvkned.S b/lib/crypto/riscv/aes-riscv64-zvkned.S
-index 7a52ea6c669d..374fc4dba11b 100644
---- a/lib/crypto/riscv/aes-riscv64-zvkned.S
-+++ b/lib/crypto/riscv/aes-riscv64-zvkned.S
-@@ -50,10 +50,9 @@
+-	pxor IV, STATE
+-	_aesni_gf128mul_x_ble
+-
+-	test LEN, LEN
+-	jz .Lxts_out\@
+-
+-.if \enc
+-	add $16, INP
+-	sub $16, LEN
+-	jl .Lxts_cts1\@
+-.endif
+-
+-	movdqu STATE, (OUTP)
+-	add $16, OUTP
+-	jmp .Lxts_loop1\@
+-
+-.Lxts_out\@:
+-	movdqu STATE, (OUTP)
+-	jmp .Lxts_ret_iv\@
+-
+-.if \enc
+-.Lxts_cts4\@:
+-	movdqa STATE4, STATE
+-	sub $16, OUTP
+-.Lxts_cts1\@:
+-.else
+-.Lxts_cts1\@:
+-	movdqa IV, STATE4
+-	_aesni_gf128mul_x_ble
+-
+-	pxor IV, STATE
+-	call _aesni_dec1
+-	pxor IV, STATE
+-.endif
+-#ifndef __x86_64__
+-	lea .Lcts_permute_table, T1
+-#else
+-	lea .Lcts_permute_table(%rip), T1
+-#endif
+-	add LEN, INP		/* rewind input pointer */
+-	add $16, LEN		/* # bytes in final block */
+-	movups (INP), IN1
+-
+-	mov T1, IVP
+-	add $32, IVP
+-	add LEN, T1
+-	sub LEN, IVP
+-	add OUTP, LEN
+-
+-	movups (T1), %xmm4
+-	movaps STATE, IN2
+-	pshufb %xmm4, STATE
+-	movups STATE, (LEN)
+-
+-	movups (IVP), %xmm0
+-	pshufb %xmm0, IN1
+-	pblendvb IN2, IN1
+-	movaps IN1, STATE
+-
+-.if \enc
+-	pxor IV, STATE
+-	call _aesni_enc1
+-	pxor IV, STATE
+-.else
+-	pxor STATE4, STATE
+-	call _aesni_dec1
+-	pxor STATE4, STATE
+-.endif
+-
+-	movups STATE, (OUTP)
+-	jmp .Lxts_ret\@
+-.endm
+-
+-/*
+- * void aesni_xts_enc(const struct crypto_aes_ctx *ctx, u8 *dst,
+- *		      const u8 *src, unsigned int len, le128 *iv)
+- */
+-SYM_FUNC_START(aesni_xts_enc)
+-	_aesni_xts_crypt	1
+-SYM_FUNC_END(aesni_xts_enc)
+-
+-/*
+- * void aesni_xts_dec(const struct crypto_aes_ctx *ctx, u8 *dst,
+- *		      const u8 *src, unsigned int len, le128 *iv)
+- */
+-SYM_FUNC_START(aesni_xts_dec)
+-	_aesni_xts_crypt	0
+-SYM_FUNC_END(aesni_xts_dec)
+diff --git a/arch/x86/crypto/aesni-intel_glue.c b/arch/x86/crypto/aesni-intel_glue.c
+index 7d248f2719c2..6acb1fa32c6e 100644
+--- a/arch/x86/crypto/aesni-intel_glue.c
++++ b/arch/x86/crypto/aesni-intel_glue.c
+@@ -60,13 +60,6 @@ static inline void *aes_align_addr(void *addr)
  
- #include "aes-macros.S"
+ asmlinkage void aesni_set_key(struct crypto_aes_ctx *ctx, const u8 *in_key,
+ 			      unsigned int key_len);
+-asmlinkage void aesni_enc(const void *ctx, u8 *out, const u8 *in);
+-
+-asmlinkage void aesni_xts_enc(const struct crypto_aes_ctx *ctx, u8 *out,
+-			      const u8 *in, unsigned int len, u8 *iv);
+-
+-asmlinkage void aesni_xts_dec(const struct crypto_aes_ctx *ctx, u8 *out,
+-			      const u8 *in, unsigned int len, u8 *iv);
  
--#define RNDKEYS		a0
--#define KEY_LEN		a1
--#define OUTP		a2
--#define INP		a3
-+#define KEYP		a0
-+#define OUTP		a1
-+#define INP		a2
- 
- .macro	__aes_crypt_zvkned	enc, keybits
- 	vle32.v		v16, (INP)
-@@ -63,7 +62,7 @@
- .endm
- 
- .macro	aes_crypt_zvkned	enc
--	aes_begin	RNDKEYS, 128f, 192f, KEY_LEN
-+	aes_begin	KEYP, 128f, 192f
- 	__aes_crypt_zvkned	\enc, 256
- 128:
- 	__aes_crypt_zvkned	\enc, 128
-@@ -71,13 +70,13 @@
- 	__aes_crypt_zvkned	\enc, 192
- .endm
- 
--// void aes_encrypt_zvkned(const u32 rndkeys[], int key_len,
-+// void aes_encrypt_zvkned(const struct aes_enckey *key,
- //			   u8 out[AES_BLOCK_SIZE], const u8 in[AES_BLOCK_SIZE]);
- SYM_FUNC_START(aes_encrypt_zvkned)
- 	aes_crypt_zvkned	1
- SYM_FUNC_END(aes_encrypt_zvkned)
- 
--// void aes_decrypt_zvkned(const u32 rndkeys[], int key_len,
-+// void aes_decrypt_zvkned(const struct aes_key *key,
- //			   u8 out[AES_BLOCK_SIZE], const u8 in[AES_BLOCK_SIZE]);
- SYM_FUNC_START(aes_decrypt_zvkned)
- 	aes_crypt_zvkned	0
-diff --git a/lib/crypto/riscv/aes.h b/lib/crypto/riscv/aes.h
-index 0b26f58faf2b..a288b4c5b493 100644
---- a/lib/crypto/riscv/aes.h
-+++ b/lib/crypto/riscv/aes.h
-@@ -10,9 +10,13 @@
- 
- static __ro_after_init DEFINE_STATIC_KEY_FALSE(have_zvkned);
- 
--void aes_encrypt_zvkned(const u32 rndkeys[], int key_len,
-+/* The assembly code assumes the following offsets. */
-+static_assert(offsetof(struct aes_enckey, len) == 0);
-+static_assert(offsetof(struct aes_enckey, k.rndkeys) == 16);
-+
-+void aes_encrypt_zvkned(const struct aes_enckey *key,
- 			u8 out[AES_BLOCK_SIZE], const u8 in[AES_BLOCK_SIZE]);
--void aes_decrypt_zvkned(const u32 rndkeys[], int key_len,
-+void aes_decrypt_zvkned(const struct aes_key *key,
- 			u8 out[AES_BLOCK_SIZE], const u8 in[AES_BLOCK_SIZE]);
- 
- static void aes_preparekey_arch(union aes_enckey_arch *k,
-@@ -29,7 +33,7 @@ static void aes_encrypt_arch(const struct aes_enckey *key,
+ static inline struct crypto_aes_ctx *aes_ctx(void *raw_ctx)
  {
- 	if (static_branch_likely(&have_zvkned) && likely(may_use_simd())) {
- 		kernel_vector_begin();
--		aes_encrypt_zvkned(key->k.rndkeys, key->len, out, in);
-+		aes_encrypt_zvkned(key, out, in);
- 		kernel_vector_end();
- 	} else {
- 		aes_encrypt_generic(key->k.rndkeys, key->nrounds, out, in);
-@@ -46,7 +50,7 @@ static void aes_decrypt_arch(const struct aes_key *key,
- 	 */
- 	if (static_branch_likely(&have_zvkned) && likely(may_use_simd())) {
- 		kernel_vector_begin();
--		aes_decrypt_zvkned(key->k.rndkeys, key->len, out, in);
-+		aes_decrypt_zvkned(key, out, in);
- 		kernel_vector_end();
- 	} else {
- 		aes_decrypt_generic(key->inv_k.inv_rndkeys, key->nrounds,
+@@ -228,56 +221,6 @@ xts_crypt(struct skcipher_request *req, xts_encrypt_iv_func encrypt_iv,
+ 	return xts_crypt_slowpath(req, crypt_func);
+ }
+ 
+-static void aesni_xts_encrypt_iv(const struct crypto_aes_ctx *tweak_key,
+-				 u8 iv[AES_BLOCK_SIZE])
+-{
+-	aesni_enc(tweak_key, iv, iv);
+-}
+-
+-static void aesni_xts_encrypt(const struct crypto_aes_ctx *key,
+-			      const u8 *src, u8 *dst, int len,
+-			      u8 tweak[AES_BLOCK_SIZE])
+-{
+-	aesni_xts_enc(key, dst, src, len, tweak);
+-}
+-
+-static void aesni_xts_decrypt(const struct crypto_aes_ctx *key,
+-			      const u8 *src, u8 *dst, int len,
+-			      u8 tweak[AES_BLOCK_SIZE])
+-{
+-	aesni_xts_dec(key, dst, src, len, tweak);
+-}
+-
+-static int xts_encrypt_aesni(struct skcipher_request *req)
+-{
+-	return xts_crypt(req, aesni_xts_encrypt_iv, aesni_xts_encrypt);
+-}
+-
+-static int xts_decrypt_aesni(struct skcipher_request *req)
+-{
+-	return xts_crypt(req, aesni_xts_encrypt_iv, aesni_xts_decrypt);
+-}
+-
+-static struct skcipher_alg aesni_skciphers[] = {
+-	{
+-		.base = {
+-			.cra_name		= "xts(aes)",
+-			.cra_driver_name	= "xts-aes-aesni",
+-			.cra_priority		= 401,
+-			.cra_blocksize		= AES_BLOCK_SIZE,
+-			.cra_ctxsize		= XTS_AES_CTX_SIZE,
+-			.cra_module		= THIS_MODULE,
+-		},
+-		.min_keysize	= 2 * AES_MIN_KEY_SIZE,
+-		.max_keysize	= 2 * AES_MAX_KEY_SIZE,
+-		.ivsize		= AES_BLOCK_SIZE,
+-		.walksize	= 2 * AES_BLOCK_SIZE,
+-		.setkey		= xts_setkey_aesni,
+-		.encrypt	= xts_encrypt_aesni,
+-		.decrypt	= xts_decrypt_aesni,
+-	}
+-};
+-
+ #ifdef CONFIG_X86_64
+ asmlinkage void aes_xts_encrypt_iv(const struct crypto_aes_ctx *tweak_key,
+ 				   u8 iv[AES_BLOCK_SIZE]);
+@@ -1314,15 +1257,10 @@ static int __init aesni_init(void)
+ 	if (!x86_match_cpu(aesni_cpu_id))
+ 		return -ENODEV;
+ 
+-	err = crypto_register_skciphers(aesni_skciphers,
+-					ARRAY_SIZE(aesni_skciphers));
+-	if (err)
+-		return err;
+-
+ 	err = crypto_register_aeads(aes_gcm_algs_aesni,
+ 				    ARRAY_SIZE(aes_gcm_algs_aesni));
+ 	if (err)
+-		goto unregister_skciphers;
++		return err;
+ 
+ 	err = register_avx_algs();
+ 	if (err)
+@@ -1334,9 +1272,6 @@ static int __init aesni_init(void)
+ 	unregister_avx_algs();
+ 	crypto_unregister_aeads(aes_gcm_algs_aesni,
+ 				ARRAY_SIZE(aes_gcm_algs_aesni));
+-unregister_skciphers:
+-	crypto_unregister_skciphers(aesni_skciphers,
+-				    ARRAY_SIZE(aesni_skciphers));
+ 	return err;
+ }
+ 
+@@ -1344,8 +1279,6 @@ static void __exit aesni_exit(void)
+ {
+ 	crypto_unregister_aeads(aes_gcm_algs_aesni,
+ 				ARRAY_SIZE(aes_gcm_algs_aesni));
+-	crypto_unregister_skciphers(aesni_skciphers,
+-				    ARRAY_SIZE(aesni_skciphers));
+ 	unregister_avx_algs();
+ }
+ 
 -- 
 2.55.0
 
