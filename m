@@ -1,76 +1,104 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8CC48C402
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:00:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A5C4915A1
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:00:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789992021; cv=none; b=j/V9ggQ800r06p1cdDpyW9Z4PmZJurmRnnhpanGj1yODqLjD1jmLVQN0h55c0t3rtEW1NadZTQl7quw083o/DUZJLIxsAjsPx3IJtEFh6ib6BYtwKtCYn3fLmHXP/Shr8uzYgw1GGcxrdrHt9ER/esrw7rZxN0e9021ATk8Ej6A=
+	t=1789992033; cv=none; b=i85zqtxw1W0M+xRmTAc/gnAhZnhkt0GAmR8s4qu3picXMVe6ZZCwPw0MSLQOQyXHZ2sxl2X4fIEPKU+NFKQpgQjHxZqft3AmqQa2sLcU+gO+UsIHv3pMq+rUOZy9OQMsRJuTiwBE2I7S9ulWtelePd+mIBv5Vid7VjdtvANv/uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789992021; c=relaxed/simple;
-	bh=HgscCTdIhqbObj5IdkVWP+i1xbMxe2IH9fAHraLgLyM=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VOSzo7s0guwfEI3qSIf4tXjwB5btCwySNxSTepDnhMKAB2QaGeKMhC5zR3rxP+gjBEp1lvDmy9CmKctfM3ccw1fvLBOpy75uZ6aKG5Sq/u/Re43VzZvbw3wC0ikhUvAq+xQRDJJFupuCQyU/egQLTpK1FnaNIwCkIEv3qV3suk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aCLcEXhc; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789992033; c=relaxed/simple;
+	bh=28oo7UN8FZcgTrgLbSVyQctwz3dUuWC1rnC1t2Tx1Y0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GjbZCpFsfowXKGgH0eGvjUUxPS4oPsEoUQnTiMDMIlAuiEQEBsJuGmiNodVDC3eVMbrCTbPfp0PeZoVvNt3WAZpXE2vVPL7WAw/U+US2MOum43W+9ac8HanlWkQJHCm4OSpG2Nxc8W46vZW5gyFoUlxBLAgLznKp/D7q8TXvC3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eJcKXguN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TgONr9aP; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aCLcEXhc"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4858bc96fabso2314215f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:00:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eJcKXguN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TgONr9aP"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAeEeA838021
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:00:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=5hds0TdhjMv2BFxmZw8drlMG
+	gZASdjiaOg7eKPpN1Ss=; b=eJcKXguNAJYFDldZqwNECB0yy45dEqxPmprFFhyw
+	05fQbLK9cBtdu32Q35kGSJOVDproPqldruARFjP+oiTFJB/oxDp12TX4vdCmlFOb
+	ga9TNKnrJbTB9iNFbSF72HMTuh4JJMLOY2+DUGiRCAHFiNtAeeadV6Df6CZfCdHC
+	S3YHP/edD3Me1L+AvcBJCGEmSbRci031VMJnvroWxyO3RVH/vWQRuIf0KER5unpg
+	MdnpO5WTNE07qZIjbbWjSCCvDTJsQFawjBhK6UHrw9kkOnvR8B5QC4aRhQQWy7g7
+	v0zXvjhWfMc3HaZuOs7Q3xSL3Dupy7gEp4xW2kkzRI2gKw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtwf5hpc2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:00:29 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-936708f129aso470388785a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:00:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789992018; x=1790596818; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1789992029; x=1790596829; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=QA57d0MWfONjf/OW7F8GGaeRDnISGbQSvosg5yrwN8E=;
-        b=aCLcEXhcAcbruGw8fngH97iYAZg4T/nAdF6IhqfxlkoUZFCgLUMZL6FZL2CQDxD3p5
-         +d1s0Rt0Q4+SujN76o8o74w1oCyA7y1WFwY77LkyB417b4Y+lpTMBNBnXs5LWveJTP+U
-         Yb4r93f3aJHuqi8xtHFcNmzcMfX00ieRXSHaCg5aBTO+Hzy1HCFpU+P0NPLYZ/CBuG13
-         tfdVQX+Zy52TI36f20hVDPctyfHG7NoDwU/1A/AbuNniPzHPEqguKCvbKEb4HPElzWwo
-         F9uQ7PBfe6qI0xaWFD74tAutuJ00cbXyKqTqwZcziq9603v6nzthLOsWmfQ4LBz1riDw
-         PgOg==
+        bh=5hds0TdhjMv2BFxmZw8drlMGgZASdjiaOg7eKPpN1Ss=;
+        b=TgONr9aPiz33ybgKkXP3NLBj2folFfhIDmCG2Kk3iYC/c9yjT4GG91YSqh5c/Phm/k
+         FojbWvAgg0ALdxqhDMXUNI3SuVMr0lKNtj5m5pQIUUklpXSnO5hQSB7f6//UjEjGSU42
+         TTjRiPIlufRE0/hNzoq3xf8M740PEUVk6mZtEntsEMQQ4mG8KX2QBe59NW5L/7kiQJfs
+         h03W+R6RlnE+eQ1BTQzupgkN7MVflART9j8W5ppW0DcQD6wgdyGbbjjbMN5N7+rAjUCu
+         SVvpINfg8PRoRLf2hENql+yMFvSbpVr2UDIbPLPYmTuhvQzh262mk+cZ+m6lYSBbzyX6
+         Zz+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789992018; x=1790596818;
+        d=1e100.net; s=20260707; t=1789992029; x=1790596829;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QA57d0MWfONjf/OW7F8GGaeRDnISGbQSvosg5yrwN8E=;
-        b=y/MwpPiaznmogHiKL+hVH2LBSrgigDxw8FXM9NqL7KkaoCIxnWSRzwtppriPwu3sse
-         AQdcrNJ51mWM1YAwZ47Ozn1bg3iGAHI0HrhB7tARv18FkSh6/+aGpSGqd36bpaWW5tX4
-         jAPx4BbqFkdqmYeV53NxbrukwTC+wvG54+seNoJLo5maennRskE4G+jG56yCwTNPnpNP
-         kTPPzZH8rssfcSFa1V5PkBE+0E4bissNFqnC8vvK6SuK+0fqMTmwEQN3Piyj/dOh5b4m
-         VNE++DDc/M7BP0rWPQrTs5nKba0cO0JT4JLCnecXT2yBXNB//H6icRU+roCkpgXLBRu0
-         sNCw==
-X-Forwarded-Encrypted: i=1; AKwUvBzUknNXMAhoReMjPOQphRAjLPyehbS4RdIpJ6dVUps55RostJdoXdA3xJz7/9qgKIh36Z7hgaW9D5hRl9c=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgtauvfvXm1MNDgizkZ7OO4SvUIXAK2Vvmxh6aUxChJi6Gkj/h
-	Fv4L6wyK2wpffvSiQYlgoly90W3kwzN7u1CGgnt+ZQAdW7g6LQEpIlBw
-X-Gm-Gg: AYBFou3wmS/KX/QG1qteSxn6MpedhcRAfizGa60IUVLpwOkVT+3Og2I5ZXZZCS+2cEb
-	V9BUgEwbQpBGjLhwuTyWLBsmXnGwbF3ubXwPnFcfn5fwTLHE+F6voukbtHj5VMEuUtP9kgsfeCo
-	GYcsOrl+aCC6mnbafcpQySTQP1KqeKkgaAfORCgyuWEOas8NWE4EVrsdiR2lV0oO5wpVBu5RSsm
-	mwglWivNGqziv12IfrT/CFCzxqHmZe/FtDdBZIVXbjETSAdmgZQEzQoLTW+cD5Ocaf5s5Q7ciPm
-	TwGtyadbR3iqd0Gkpx0knbq3FEYkNEU8ANi2MBmDV3bU1rrUr7wBUUDKppDfXOZu4i7WTSfFzCz
-	ZeBFlzc4gRO5AmDOC2/BDLA7jehTEV57IEufcVj/fcl/ex9twTLVrlR5kBfqnp+OiPsU7zkxYtT
-	Fl2aK6nNYp6wntUHhuTdMLJndKHr3CiKUbXFrGhz2y2EqexpQ3bTY5F5IM5yVdqXmZwniL
-X-Received: by 2002:a05:6000:18a9:b0:486:fe41:804d with SMTP id ffacd0b85a97d-4871e3b6a68mr15005637f8f.47.1789992018016;
-        Mon, 21 Sep 2026 05:00:18 -0700 (PDT)
-Received: from krava ([176.74.159.170])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487245a58a0sm20252895f8f.36.2026.09.21.05.00.17
+        bh=5hds0TdhjMv2BFxmZw8drlMGgZASdjiaOg7eKPpN1Ss=;
+        b=isVaoV6ACVjrO5B450yR2xh8ZyxY97IcbvMT3amzEz5bCEiAcbzPFHNaz6ZyDISFgc
+         ja4sZiELCRP2E8/HY+hR7QXiMXtOQkGvlVLUkXeuGVA1NCl7KL7Iw3SasKoSn0vGkhIV
+         ZqaSEFNiw44wNyUoeuLrRyVQwv3o/SVZL9hEzLNSffJj/hrQDPxvjEBp5hUsNWTMV6qv
+         PdeAHjPuui9bM6BiQq5/GPxmtZrhVQi1OeppVUkl8LDfSQbjiUw37tFAxlLI/x04nxmy
+         S8tjUkgX5g013qzjOa7hkCFXQVUsxuV6idBvSdrhMaOWKyuByv3D0cv6offLmU4tDSKA
+         m36A==
+X-Forwarded-Encrypted: i=1; AKwUvBwWB72e6GH9AVxUuA4UL3RBnsijJR3rMTgWDgMxMFVCxSd5xjNvlJEL4r2t5/iEhCG0UEC4YoYLpsSt7Ns=@vger.kernel.org
+X-Gm-Message-State: AFuF++mazzzsbgVhdhhazebHagDglEMwoqU+7cI7Dns8MDxJlNAvkfGc
+	12UDR9NArgcGAh+mFa6goai6NTr651oU3flYVEk0kA89hdlzWYEU3RIVfru6KfHxPWiJV+TE5gt
+	KhzhoRRsMJz2Hj0aS09BFyiRw+nl+dubPdQQ0Mex/tumQBVACC1aSdho3y+TiPYNf3ZI=
+X-Gm-Gg: AYBFou3sOOasPKsHqBaJFwURpLPMoVGp2s4yBeuqnuCMUhsEF7eDYaa+32NEy8qyLoD
+	qTCP9PZPFEzPvU+HV6lCfwbaezW09iAREvvDgEX01kGPvRrRh9q9+QFpCBimuoiuDoC9y1cyT7x
+	GdzUKOA0LLw71P7t3PeTkdoBvNYMELIejSbSmrXNVa4XMylNOO+bG0O+Gw6Qh4odR9nqMT7QwdS
+	iwbdfcGlrunWk6oAiSqCn9lN990oy0vTcbO9XSQDuj+PAtFb75MFDbkriHCzspvmn8i/k1R8HsE
+	w6GfvQxXMqbYc/ZQ8qYc4gWkNtmTPpUZwX6rWfFX6acHlbi9YnaQJamnpZsebPXZAZ/g8hV0nEk
+	2xFqjamCBnHh8wg==
+X-Received: by 2002:a05:620a:460f:b0:93b:d79a:c45f with SMTP id af79cd13be357-93c15ea1ef8mr20045685a.55.1789992028816;
+        Mon, 21 Sep 2026 05:00:28 -0700 (PDT)
+X-Received: by 2002:a05:620a:460f:b0:93b:d79a:c45f with SMTP id af79cd13be357-93c15ea1ef8mr20035385a.55.1789992028117;
+        Mon, 21 Sep 2026 05:00:28 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724422790sm21382516f8f.5.2026.09.21.05.00.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 05:00:17 -0700 (PDT)
-From: Jiri Olsa <olsajiri@gmail.com>
-X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Mon, 21 Sep 2026 14:00:15 +0200
-To: Jim Cromie <jim.cromie@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: Re: [PATCH 0/3] kallsyms: Accelerate symbol name lookups by ~19x
-Message-ID: <arEcT1iyMl0tFiIJ@krava>
-References: <20260919-ksyms-tune-v1-0-d85c97da1a32@gmail.com>
+        Mon, 21 Sep 2026 05:00:26 -0700 (PDT)
+Date: Mon, 21 Sep 2026 15:00:24 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Douglas Anderson <dianders@chromium.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 2/3] drm/panel-edp: add CSOT MNE007QB1-1 entry
+Message-ID: <wgj5qfghiglcwzg5ouhjr4hv7mgsb5zlerwrmouq4kt2o3ywsl@wkt7trsfjygh>
+References: <20260918120515.595782-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260918120515.595782-3-srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,142 +107,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260919-ksyms-tune-v1-0-d85c97da1a32@gmail.com>
+In-Reply-To: <20260918120515.595782-3-srinivas.kandagatla@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=SJLXx+vH c=1 sm=1 tr=0 ts=6ab11c5d cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=-iAOE1hZoH9ZQyiuzH4A:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: WDqNGxA3N3MoKto8lS1yo6dnJuAPM9sq
+X-Proofpoint-ORIG-GUID: WDqNGxA3N3MoKto8lS1yo6dnJuAPM9sq
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE3NCBTYWx0ZWRfX7ujk1l+os3n5
+ QdWQP1xO4/Nri0W2hzUYTcIbkompv5Tso+u8MtYLozc6YH+j8Kl4/2gr9kldI8u81h7FsEg5nf8
+ a05zMPJGY7HFiRTzHzUMR+vKzv+1Jxc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE3NCBTYWx0ZWRfXzvuncwawAIWo
+ dHeyfU/fQtqkqTv9URs8FR23MEgeGbBfxg1TPxX9YHsBaiCzvSpXoD3Z3yYuo2yCYlrylsyqr9Z
+ TptRQQ/y/hF0JPbDWF2qQZrSC4fAbWsEQz51/VEVZ41zlheG63MI7ABmoL3XaARIPEicwLK4Z1W
+ cra4b8TLgLIoU28zMSRn5B3eoIYeqIZFlCCu7Xdx08wLpuIPSYc8pOa7KP6XPe2E5lCohAift25
+ F+niR1DT291EdgO5HeJwHQC234tpuoTKvTSX0sMJrczru4yKdp1iNvb/BBsYaUx68iecFoMaZE2
+ gUQcoI2+xCpNa5K/ns80zjAeFV94VQ1CLGooo13ye0sj/a0j87HaEMbxXC+OTgTsRJapND1WaJg
+ 68/X0l6oF4Q0Gg4H729fcbwT1BpXxJfLBTAupw+YKyvnbMPdfJXCkfb5uH3FDxErWv0IyXyP58/
+ fqWAKooS85StEabuqMw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210174
 
-On Sat, Sep 19, 2026 at 09:58:54PM -0600, Jim Cromie wrote:
-> kallsyms_lookup_names() resolves symbol names to addresses using a
-> 17-step binary search over kallsyms_names[] (~191k symbols on x86_64).
-> At each step of the search, two bottlenecks compound to create
-> substantial lookup latency:
+On 26-09-18 13:05:14, Srinivas Kandagatla wrote:
+> 14" 1920x1200 IPS panel used on Lenovo ThinkPad T14s Gen 7 (Mahua).
+> The panel identifies as CSW 0x1465 over eDP AUX and is not in
+> edp_panels[] today, so probe falls back to conservative timings.
 > 
-> 0. Marker scanning: get_symbol_offset() scans sequentially from the
->    nearest 256-symbol marker, decoding an average of ~128 ULEB128 record
->    headers per probe (~2,176 header decodes per lookup).
+> EDID, read over the panel's DP AUX DDC bus:
 > 
-> 1. Redundant string expansion: kallsyms_expand_symbol() decompresses
->    the entire candidate symbol into a 512-byte stack buffer (namebuf)
->    before calling strcmp(), even though ~94% of binary search probes
->    mismatch on the first 1-2 characters.
+>   00 ff ff ff ff ff ff 00 0e 77 65 14 00 00 00 00
+>   00 23 01 04 a5 1e 13 78 07 37 3a a3 55 4d 9c 25
+>   0c 50 55 00 00 00 01 01 01 01 01 01 01 01 01 01
+>   01 01 01 01 01 01 35 3c 80 a0 70 b0 23 40 30 20
+>   66 00 2d bc 10 00 00 18 00 00 00 fd 00 1e 3c 4a
+>   4a 10 01 0a 20 20 20 20 20 20 00 00 00 fe 00 43
+>   53 4f 54 20 54 33 0a 20 20 20 20 20 00 00 00 fc
+>   00 4d 4e 45 30 30 37 51 42 31 2d 31 0a 20 01 6a
 > 
-> Together, these bottlenecks impose a ~4.3 us latency penalty per hit and
-> ~3.8 us per miss.
+>   70 20 79 02 00 20 00 0c 40 8b f6 65 14 00 00 00
+>   00 00 19 00 21 00 1d c8 0b 5d 07 80 07 b0 04 00
+>   3d 7a 54 cc 94 99 66 52 0f 02 35 54 00 80 00 80
+>   00 80 12 78 26 00 09 02 00 00 00 00 00 01 00 00
+>   22 00 14 0f 5a 02 05 7f 07 9f 00 2f 00 1f 00 af
+>   04 22 00 05 00 05 00 81 00 15 74 1a 00 00 03 51
+>   1e 3c 00 00 00 00 00 00 3c 00 00 00 00 8d 00 00
+>   00 00 00 00 00 00 00 00 00 00 00 00 00 00 11 90
 > 
-> This 3-patch series eliminates both overheads while keeping the symbol
-> table strictly in sequential address order:
+>   Manufacturer: CSW
+>   Model: 0x1465
+>   Made in: 2025
+>   Display Product Name: 'MNE007QB1-1'
+>   ASCII String: 'CSOT T3'
+>   DTD 1: 1920x1200 60.006199 Hz 16:10 (302 mm x 189 mm)
 > 
-> 0. Patch 1 adds lib/test_kallsyms_perf.ko, a microbenchmark module to
->    measure name hits, name misses, sprint_symbol(), and table iteration
->    latency, with built-in correctness validation and a sysfs trigger.
+> Datasheet was not available, so timings are not datasheet-derived.
+> The delay_200_500_e50 preset matches the sibling CSOT MNE007QB/QS
+> entries already in the file.
 > 
-> 1. Patch 2 introduces kallsyms_names_offsets, a build-time 3-byte direct
->    index into kallsyms_names[].  This turns get_symbol_offset() into an
->    O(1) table lookup, dropping the ~2,176 marker hops per lookup and
->    eliminating the legacy kallsyms_markers[] table.
-> 
-> 2. Patch 3 introduces kallsyms_strcmp_symbol() to compare ASCII queries
->    against compressed tokens incrementally on the fly, bailing out on
->    the first mismatched character without expanding subsequent tokens.
->    This drops the 512-byte namebuf buffer from the kernel stack.
-> 
-> Context & Lineage:
-> 
-> This series was originally developed and benchmarked on mainline (v7.3-rc3).
-> To ensure compatibility with Lorenzo Stoakes' kbuild speedup series (v3),
-> it has been rebased on top of commit c1c0fd58e281 ("kbuild: compress the
-> kernel with pigz if available").
-> 
-> Rebasing required only a trivial mechanical fix in scripts/kallsyms.c to
-> align Patch 2 ("Add 3-byte index into compressed symbols") with Lorenzo's
-> direct binary streaming path (write_incbin).
-> 
-> Glomming onto Lorenzo's build-time acceleration push extends the speedup
-> theme into runtime: his series speeds up the compile and link, and this
-> series speeds up runtime symbol lookups by ~18x.
-> 
-> Live Microbenchmark Results (via test_kallsyms_perf, 100k iters):
-> 
-> Metric                    Baseline      Patched       Speedup
-> -----------------------------------------------------------------
-> Name Search Hit           4,370 ns      247 ns        17.7x
-> Name Search Miss          3,860 ns      195 ns        19.8x
-> sprint_symbol               440 ns      441 ns        parity
-> sprint_symbol_no_offset     315 ns      307 ns        parity
-> Table Full Walk           14,500 us   14,437 us       parity
-> 
-> Address-to-name resolution (sprint_symbol) and sequential table walks
-> (/proc/kallsyms) remain completely unaffected, maintaining full L1/L2
-> hardware prefetching.
-> 
-> Hardware PMU Event Counters (perf stat via sysfs run_test trigger):
-> 
-> $ perf stat -e cycles,instructions,branches,branch-misses,cache-misses \
->     sh -c 'echo 1 > /sys/module/test_kallsyms_perf/parameters/run_test'
-> 
-> Counter                 Baseline          Patched           Delta
-> ------------------------------------------------------------------------
-> Wall-clock elapsed      1.746 s           0.852 s           -51.2%
-> CPU cycles              7,320,048,030     3,628,523,081     -50.4%
-> Instructions            9,943,172,792     5,034,260,318     -49.4%
-> Branches                2,391,663,821     1,173,258,010     -51.0%
-> Branch-misses             117,241,513        99,805,938     -14.9%
-> Cache-misses               84,996,149           731,025     -99.1%
-> 
-> Dropping marker scans and avoiding redundant string expansions cuts
-> 4.91 billion instructions (-49.4%) and drops 84.2 million cache misses
-> (-99.1%) across the test workload.
-> 
-> Memory footprint: +573 KiB .rodata for kallsyms_names_offsets (191k
-> symbols * 3 bytes on x86_64 defconfig), minus ~2 KiB from dropping
-> kallsyms_markers[].
-> 
-> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> Assisted-by: Claude:claude-opus-4-7
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-nice, fyi I checked on tracing_multi benchmark and got bit of
-speedup as well
-
-before:
-
-serial_test_tracing_multi_bench_attach: found 64021 functions
-serial_test_tracing_multi_bench_attach: attached in   2.884s
-serial_test_tracing_multi_bench_attach: detached in   1.149s
-
-    16,515,655,329      cycles:k
-    41,935,382,635      instructions:k
-
-after:
-
-serial_test_tracing_multi_bench_attach: found 64021 functions
-serial_test_tracing_multi_bench_attach: attached in   2.633s
-serial_test_tracing_multi_bench_attach: detached in   1.159s
-#558     tracing_multi_bench_attach:OK
-
-    15,880,929,751      cycles:k
-    40,444,002,354      instructions:k
-
-we call kallsyms_lookup_name for each attached symbol
-
-jirka
-
-
-> ---
-> Jim Cromie (3):
->       kallsyms: Add test_kallsyms_perf module to benchmark lookup latency
->       kallsyms: Add 3-byte index into compressed symbols to replace marker scans
->       kallsyms: Match compressed tokens on the fly during binary search
-> 
->  kernel/kallsyms.c          | 138 ++++++++++++++-------------
->  kernel/kallsyms_internal.h |   2 +-
->  lib/Kconfig.debug          |  10 ++
->  lib/Makefile               |   1 +
->  lib/test_kallsyms_perf.c   | 228 +++++++++++++++++++++++++++++++++++++++++++++
->  scripts/kallsyms.c         |  30 +++---
->  6 files changed, 322 insertions(+), 87 deletions(-)
-> ---
-> base-commit: c1c0fd58e28143fd10071f51f4dcc8249a331513
-> change-id: 20260919-ksyms-tune-e22a42d8a31a
-> 
-> Best regards,
-> -- 
-> Jim Cromie <jim.cromie@gmail.com>
-> 
-> 
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
