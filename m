@@ -1,124 +1,144 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 380C5470EA8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD3B475348
 	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:25:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789986348; cv=none; b=Z7+lW7Y/Nfq8zGdzL3OksCVgzq7TW039I6L8Qs5v2NOtTieEvkADt5QmTBGXy9u80CrFkZOy5GvSxmYxicF8B2fYcSmX2sjy3zJ+psOiOlZIypIbcC4wby3lB3EMbA8pETUCfaN0Pe9J9mzuVmXanJj19920hopclUhaFSCJkHo=
+	t=1789986349; cv=none; b=Wu2dhU7qqKXUhXg136pNEB0PIN9jlhmHgZ/Ie6Ks4zXUIMlF2pPp8Fn/jpTsSplItPiwpVX5Nrk8pm4hnmd9h1kL2zGlntMEW8KQFhkRzqmqhOFIApEBaHkVvVqJO1XQomtoop5XDKLXibDpyBnwhAZaJfDLT3p/WX/58QcF8hc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789986348; c=relaxed/simple;
-	bh=UrnuOQDF3Rlf7YDhO1FbPPEjfZZuOk0ueh2Uyejiap8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dmrN3eBb0HgSso2JREHHBjpQQrWEjH9+0H0Tc8J0YG/A0fg+sGyeLuR4fwdbEPC42d73x9uWbT3/nxDsWvXHcUPLzfMA2WbrrdniyZSVXfqMOMSV52Jj4UPtXI8+BF722AxQUVZNEKOay1ySTPjBuHlxsxv2jk9MHi6SWa4W3o8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QWX+ODpJ; arc=none smtp.client-ip=74.125.228.41
+	s=arc-20240116; t=1789986349; c=relaxed/simple;
+	bh=jB61ulPo4+2OXOWbLsMqmY+bgBX8tMYEW3pXzpN0lAI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Cu1F+YEW7mfdJJG0zvlzTdOmDcdssj5p3BEAV4Iv9kJIP29OZlsIWTQN661vrAf1EhO6zYGHJbabNCGKOXRZjzuX+rG/nUVonPLYaGVZP130xrGlzMdFLlrbzS0K2ALSB0UBHKDKLjGRGQ9uFHzTz4RTfNHhkYNJ1nEu6f5i9mM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ElP/c9ue; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QWX+ODpJ"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-8693af0d7c4so3036984b3a.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ElP/c9ue"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so13408715e9.0
         for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:25:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789986347; x=1790591147; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h7tYSkJ6lOcONG+Kk7MS1jRgYa+E91ac/ILJT9gEeSM=;
-        b=QWX+ODpJamICGmba5SZEGpavYPMsVg5CaEBRh3TmxHOk6e/DpSKiwE6BlrfE7sGIE4
-         C285HWZr7D38EP1TcnnAUlKXqAM25YzUBkQLf1rQZU8/+hZjTdiFI39MCzeSG48XLWct
-         N6ggxJOZWbxuuxpaCmoBLrQgnNx4Sb46AqRTorKlab1WLVyfheTXN2kUSukssgfdN0Xp
-         0L1DK8/jK/WKC9DYh2cduy7WGuR+03cA9ZLcn+GJ4d7YRZZSMTD+eSbm4x9elU+HSSRY
-         hnWz4Y2Rn0JDts8RI0HMxNDcl9HVcAaMwpo2ofgQCkFNe+7fe8FPVvMx2WJyNvnS2f77
-         RJ1g==
+        d=gmail.com; s=20251104; t=1789986346; x=1790591146; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q7p3QHD6gpRm3mxOZTPCZ9KfFr3tYnokBkqHdCAaLmw=;
+        b=ElP/c9ue+yJsk2teQtO4yB7NXhbYne+K+YJbGjHpt0JHuPq4vyDYfg4BQYdYRKoH1m
+         er8UQilLfbHdsDAuyOFeQC2fbx9ufYuejcVIZaehSOpUm5ye9oZmTSA+ucr8OtCXnQpQ
+         vpmYZDRNkoNXxZA0DZlwdS+SIQ6F8s6qWjUJiDSSzlhksi+WOZvKQ9gdBjJRBI6sLvya
+         mRbq7wrmbpDnGOFyuD6Hp5EtNtlnaHy0++bKjPKML0qNRqkH/iOR19W2GcoDQSxF8XR7
+         n2butbkgYkb5urKswsWLyXMQX0TeJi9JUNK5hm1Xs4aCwNVMj1cVkmxjRQ5Ymgb5fI7e
+         zmyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789986347; x=1790591147;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h7tYSkJ6lOcONG+Kk7MS1jRgYa+E91ac/ILJT9gEeSM=;
-        b=0XefhDK/kg6uK6ezvDcQGpMIRCX2uRx/qVtcznXLeDsCrwQqm5Q6IMrk/zR4XBr7u3
-         52nZnNS8/DUciJ4KvSz16IAct5X+GX9m7TlrJgtiue9kA+AZPqbA4PTJ01Yirm9mJGWH
-         ML/7hFBsoC1O9LwyeAzkpPtkG4Hqgje8cRnPE5yGbrF0bL7a7vBWA9cqQlMahqgmFleW
-         bIepw1IyGq8WfpuJJK/S5+Fk38fWvVpOSHt7vU0QXo/C1bypyeDEDD0j3peulNqjGvSS
-         HtqdMujaS3QH5Fg+GdwmYseRWqKxT7S+Ny43Tg7WR2eb2xsHNo0zgWAk47kQjBzit3CH
-         /U9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzIJ+hW1s/FnmelD+WrM+raa2568/2UYaZEXltF16Vy7OV2+sC7cr3npA9VlYlXVbI2UDU8O3MHzBi+cC0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kE/SVvQ5jdL1nrpLGl8PWfsrl5Ycya/go3AN/qrojdJwZmLW2N
-	CikK+8gbTF/ek6dBFvdyQeTqtCc7K/T/t5PkGLyDSS4MRXbH9pBX+HZy
-X-Gm-Gg: AYBFou0jVYRhR7ghStiGMuVNC4yPRZoEFMCcn+qZL1Op2SxVV/E5qvOMyVtwwYnw6QY
-	anhTeLKkZiqMUF7cOHlXrJIzdVNQapececDE1kxodkHw9aA6wqbAHEtp7nkdVnUd1OnKyrXZZXJ
-	NaLWd0EH5OUbNFpOgcRtrty8yccIchh7Byt31bTGSlCAI5I22jSgzfujK05JGpNm8j0Cuwb25wX
-	4n3olpE5HrJhzC7vdsDXFDVNvG/QqwSJw9tw9sB8fyTMDTjWjLNj4Jbd6KA8p3An7MNN85g2ggq
-	j1FR0AzCPkHT7Y81P1oI/In8kMx8LBb0K/y359svfV6txZWRtaPcj2+t5xVT6mCF6spJbBHYXtu
-	IT+at65BYISI/rcar7dXJwwCag7nqlgtCdYLSkWSUPaQXXHeR+RDMChx7ngCnfQYyvJ6YJwmtMw
-	T0Q3QrrjojqQG4yLObImzAd7GksWtna4FrU//VqtCV5QDfrl2ZqSaOn/+MuLG3MxjXVclPzKWtZ
-	nyazXy/oIFcQX53RT9Equnh3qHP2bhgKUm9NPI=
-X-Received: by 2002:a05:6a00:159b:b0:878:34e7:9a40 with SMTP id d2e1a72fcca58-87834e7a3c9mr6176607b3a.57.1789986346569;
-        Mon, 21 Sep 2026 03:25:46 -0700 (PDT)
-Received: from buffalo-ssd.taila54753.ts.net ([240b:253:4760:f400:1ebf:ceff:fe7f:5e0b])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a94f238csm2909174b3a.21.2026.09.21.03.25.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 03:25:46 -0700 (PDT)
-From: Akari Tsuyukusa <akkun11.open@gmail.com>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Danilo Krummrich <dakr@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Akari Tsuyukusa <akkun11.open@gmail.com>,
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Laura Nao <laura.nao@collabora.com>,
-	Sjoerd Simons <sjoerd@collabora.com>,
-	linux-clk@vger.kernel.org (open list:COMMON CLK FRAMEWORK),
-	linux-kernel@vger.kernel.org (open list:ARM/Mediatek SoC support),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
-	linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC support)
-Subject: [PATCH 6/6] clk: mediatek: Reserve missing MT8516 top clock IDs
-Date: Mon, 21 Sep 2026 19:25:22 +0900
-Message-ID: <20260921102522.1640072-7-akkun11.open@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260921102522.1640072-1-akkun11.open@gmail.com>
-References: <20260921102522.1640072-1-akkun11.open@gmail.com>
+        d=1e100.net; s=20260707; t=1789986346; x=1790591146;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Q7p3QHD6gpRm3mxOZTPCZ9KfFr3tYnokBkqHdCAaLmw=;
+        b=OoxQy7xbZuVe8kxmuO/9jxU2NWqT6ZlI3jvRg5oz0cw98B2bNvjpMvlftUCIYmW8y7
+         hIoJYTU8rwjN68fIUPbWebuntwL1Tf3jgY5Qw1TZcUfymBf2XUoTA+GXAipGibebHqci
+         LM3LFq0cbmSDXGStMRttW+mRdVbLIRM13DK3o2rtTOPOsasGmvDAfSdVVTEXsQ+lo0Xp
+         g7WzzxNzab0MWE7Mz9L8hFrOYzyUHDK1aO506EgBmp/GokiBj8v6LKhHH7IIf5I7LBPf
+         iOEalXIQ4MTRyZ/C4d68R4ZFJOZs7S3Fjo49gF9EjycnP4BajJ0EFZrSak2BX55i0Dg9
+         zpuw==
+X-Forwarded-Encrypted: i=1; AKwUvBxZqXjzoS87O9WHLPaHWTA5JleUJkmcHbGY8/BG4WTDAPUxyxsSoZ4hFZG7rMbnaNAJuo0aMjMTFZffWMc=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1eDnHnyq7HUCJb2vYkb7OiBEj5NEQPkgWkexnxvRtk/e1R7eV
+	L0Lxa9so/lVn+5UXDl8MsuXHlNf9fjupYvzjbsMULXYQsFA56A4WT8+n
+X-Gm-Gg: AYBFou1UceAeWUPIAXNqWvX6DpxNB+uehKUf/T6L3qIll+ArVribblrxA6nbR6ibCbY
+	DvQEVgviXQjgqpTh36wwZSabYreclW06dWBMgjGeD/TotVrQdVM9+BX+aw+ssuB0gDgcZA4z0sC
+	slCPFvQgdq7rGi7G9fnF6NJXb+CZMlEz8Mirl2gQbrRGc8jZTjKvLJOx8SXQC+THD6Z+22W+ASD
+	x7o+zO7SThk6+CmhB+YBDE8Zg+SE3rhBRaI9OtCJ/xCAwzi5TGSkLxlkSqRpHzagNuTmRQPT0mS
+	KX4FUc/d5mZxpG4JmWvtC6lzfa5EC1gW0DcJCwlIMTZbXtDy5ltE8hiNv6MsOYlnx1cEfjo9Hcr
+	JaT9X4KKaOptbQXgM2pk6plymbjmWuWvyisgw7NpilKljBPtz6JV+oGBzfTwnKfSnsS3XNNd01u
+	YC6iebMD59j25J/Xdad4ioa/REsQjy2E9RZLIJ1Xd3NuUY0xoZO5sa9gaMu87+wV+kUCJmsUDtx
+	x4mZwxMt7t47oPEJTEU4XC08nnFnzTcR+qs/zW31CJ9kd0l+Z5u5Wj4nFayqp4cuPc=
+X-Received: by 2002:a05:600c:4f8c:b0:49f:c18a:61c8 with SMTP id 5b1f17b1804b1-49fc573f858mr140670845e9.29.1789986345436;
+        Mon, 21 Sep 2026 03:25:45 -0700 (PDT)
+Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd068124sm213889965e9.3.2026.09.21.03.25.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 03:25:44 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <c3ed62e7-732c-40fe-ba1e-f820b9473cc9@gmail.com>
+Date: Mon, 21 Sep 2026 11:25:41 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] kconfig: Add "def_string", "def_int" and "def_hex"
+To: Kees Cook <kees@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Masahiro Yamada
+ <masahiroy@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Nicolas Pitre <nico@fluxnic.net>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Andrew Jones <andrew.jones@linux.dev>, linux-kbuild@vger.kernel.org,
+ linux-doc@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Vegard Nossum <vegard.nossum@oracle.com>,
+ Nauman Sabir <officialnaumansabir@gmail.com>, Tejun Heo <tj@kernel.org>,
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+ Matthew Maurer <mmaurer@google.com>, Graham Roff <grahamr@qti.qualcomm.com>,
+ Miguel Ojeda <ojeda@kernel.org>, "Borislav Petkov (AMD)" <bp@alien8.de>,
+ Gary Guo <gary@garyguo.net>, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org, conor.dooley@microchip.com
+References: <20260919005923.i.879-kees@kernel.org>
+ <20260919005929.4077729-1-kees@kernel.org>
+ <cdebaad4-00c2-4b80-b688-0f5a723d6009@gmail.com>
+ <202609191431.C3BCBCD@keescook>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <202609191431.C3BCBCD@keescook>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Reserve the binding-defined CLK_TOP_EMI_DDRPHY_SEL and
-CLK_TOP_DDRPHYCFG_SEL slots in the MT8516 top clock provider
-with dummy clocks.
+On 9/20/26 04:40, Kees Cook wrote:
 
-These muxes are not implemented by the Linux MT8516 clock
-driver, but their binding IDs must remain represented in the
-onecell data to preserve a valid ID-to-slot mapping.
+>> The second problem, is that since the order of defaults matters and
+>> conditions can shadow each other, def_<type> makes it harder for users
+>> to get defaults right. In the past, I've seen several config options
+>> with bugged defaults due to 'default' + 'def_<type>' [2][3][4].
+> 
+> This is the one I, too, got worried about. From your example:
+> 
+>  config GUEST_STATE_BUFFER_TEST
+> -	def_tristate n
+> +	def_tristate KUNIT_ALL_TESTS
+>  	prompt "Enable Guest State Buffer unit tests"
+>  	depends on KUNIT
+>  	depends on KVM_BOOK3S_HV_POSSIBLE
+> -	default KUNIT_ALL_TESTS
+>  	help
+> 
+> Is there a way to detect this state? (I assume as a follow-up; it's a
+> general problem.)
 
-Assisted-by: GPT-5.6 Luna
-Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
----
- drivers/clk/mediatek/clk-mt8516.c | 2 ++
- 1 file changed, 2 insertions(+)
+Unfortunately there's no way to avoid some false alarms when checking
+these due to macros.
 
-diff --git a/drivers/clk/mediatek/clk-mt8516.c b/drivers/clk/mediatek/clk-mt8516.c
-index 342a59019fea..b64674559878 100644
---- a/drivers/clk/mediatek/clk-mt8516.c
-+++ b/drivers/clk/mediatek/clk-mt8516.c
-@@ -545,6 +545,8 @@ static const struct mtk_gate_regs top5_cg_regs = {
- 	GATE_MTK(_id, _name, _parent, &top5_cg_regs, _shift, &mtk_clk_gate_ops_setclr)
- 
- static const struct mtk_gate top_clks[] = {
-+	GATE_DUMMY(CLK_TOP_EMI_DDRPHY_SEL, "emi_ddrphy_sel_dummy"),
-+	GATE_DUMMY(CLK_TOP_DDRPHYCFG_SEL, "ddrphycfg_sel_dummy"),
- 	/* TOP1 */
- 	GATE_TOP1(CLK_TOP_THEM, "them", "ahb_infra_sel", 1),
- 	GATE_TOP1(CLK_TOP_APDMA, "apdma", "ahb_infra_sel", 2),
--- 
-2.55.0
+Example:
 
+    config TUNE_CPU
+        string
+        depends on POWERPC64_CPU
+        default "-mtune=power10" if $(cc-option,-mtune=power10)
+        default "-mtune=power9"  if $(cc-option,-mtune=power9)
+        default "-mtune=power8"  if $(cc-option,-mtune=power8)
+
+These macros get evaluated during preprocessing, which is ahead of when
+the parse tree is finished and analysis can run.
+
+Though a check for it is included in kconfirm (if merged) [1], and I've
+also been thinking about making this part of an optional KCONFIG_LINT
+setting, where some false positives could be acceptable.
+
+[1]
+https://lore.kernel.org/all/20260727001623.2794156-1-julianbraha@gmail.com/
+
+- Julian Braha
