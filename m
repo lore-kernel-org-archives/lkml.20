@@ -1,37 +1,39 @@
 Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net [217.70.183.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D313B8950;
-	Mon, 21 Sep 2026 10:53:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72AD547F795;
+	Mon, 21 Sep 2026 10:53:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789987991; cv=none; b=RscOmI1trq6Xy4+AwisTxY/Wnpb3zVA3d8kLa1XXMa08GRm49XxpA+S+vLEP4obKk4QBzXrIRtrrX8R9/e6h4qOMY2avhgVNClcSnKeaZ7Oxxnhojlk3ceWPxVZDpqQHsSVPAZDnJoDhnzMbVXlWHSbh3+UzOAmgpYMXpyKo9Kc=
+	t=1789987992; cv=none; b=FnuUtfbFI8pcgXuZ4VcrF1nhjA+wtrGEECwXckwK1l5RgiCw43Bb3I+KyhAoPy2cfmY1MLoOSTNPln/V867cZbTr5yidahmbrRXgxZmHtgvDSrFhHr3jUprbFT8USfX/pTexCfqqCsG3OJtukgNa48BOlajUzHzuWq8p/L8y35A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789987991; c=relaxed/simple;
-	bh=RrJGYdKkxTQlz72pG9pht7EpKJzAaKC1XCSf3BCO5VM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=DdUzUxWltzql/osvIKVdkeRaMaFWQ8PC8+vE0u2FtV6nLM5qsI609w1Xun+L7F5xM/J/dhXvNxWzJy+dKvP+UCo0yoFcYN5CrLFXEgmuJHzJbo6iGRZaW7a/kIgRX4GE8DcC9mHAXFAqyeOTXBmVYwtLna+Np0c8xOBSs1Ftj1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=lQHFfhIm; arc=none smtp.client-ip=217.70.183.198
+	s=arc-20240116; t=1789987992; c=relaxed/simple;
+	bh=BJ75lLlSgyzM2wQO3tYd2McRyKiY2W1uYmMLQx7kr9I=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=EZ4NhGDycTDozyJyeReWMe01/5ceKxWUKRSrnlCCGEKWT9MBMd/qHqBwFmgwDOKJ5yQirVsvi/NYzy6RoHLaGR6ExFSRYjQ+yCV1zeqOmSikiBCC6X7As47g5/7d4/zQ9DgKb9UPlJdm8R8CbxHB3xP9tN8m1CDpYb1t1S4G2dg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=dbt1IvLm; arc=none smtp.client-ip=217.70.183.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="lQHFfhIm"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id D992F3EC3A;
-	Mon, 21 Sep 2026 10:52:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="dbt1IvLm"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 9324D3E97F;
+	Mon, 21 Sep 2026 10:53:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1789987981;
+	s=gm1; t=1789987983;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=KNCZjlfW/DFoOfMy9njTLqync4si8qX2FR/TAuNZUXk=;
-	b=lQHFfhImy1Au/8yk3vhs3EWoZt9wL7WnsJjhdSChXLGI9AX7jVpQ7YVO6Ve/svqkwtqd6m
-	NAf/QAKZCgeVo6NUwXTCDk5JMDm2DjwMZ4Kp2gfFDD8zWhZ57FVkTOhhEeOJjgB5aKJALy
-	u5+MDCsrrU5/1Vd+8RheiqUoZ4vimzfELtM7KKAz3gBnVrVj3f1sm1h34PgzMNd/8UU8ma
-	0mXEnNyea5RjO+ecIYSDWrZThQTzrx6e7bHdrtA/xaZCowT1EWpHX2TIVVIalP9tNUUU6G
-	laPUjfhHE95hQCpersHkPT9tgg7Jt7xMV7zZ2rQts8UuPp70NMfN5X/fZnbYDA==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=82QfXG8nmblaTFz/6ZibSdV+IL12FMTks3/El8TvZ+o=;
+	b=dbt1IvLmyQ6oYvu6CgxIkibEv8XQ69pPNI5bGxXu1dVrIU4UREHey9YvyobM4UXKjBuGTD
+	0W12dcYPj+/shXpoO0C28yPVRhpxEPongn1Naw83Zcu3RVGZcwTg4AfantgzMwf6kx+GIW
+	PCUEi+0pZpnYgE1/P09ieOTj/P7Dr7JcxLn19cog48mvm+3w9u8GRc/etqDdZ9oxQ/ZhI4
+	wm4TjRJ/9dqPLu9o+8v2N4oxwleZNWE5kemRZ+QfYPbfb+OFnUUixZK7K6pn4OVuvcQm1P
+	nuH/0WZuHA2Nl71zYW4zhp7GRx6veJD3NPRibuxlw1JmJmP8jRzFnnkiC1XdQA==
 From: Arthur Crepin Leblond <arthur@marmottus.net>
-Subject: [PATCH net-next v10 0/3] w5100: restore GPIO-based link detection
-Date: Mon, 21 Sep 2026 12:52:48 +0200
-Message-Id: <20260921-wiznet-link-gpio-v10-0-5874a7a147a2@marmottus.net>
+Date: Mon, 21 Sep 2026 12:52:49 +0200
+Subject: [PATCH net-next v10 1/3] dt-bindings: net: wiznet,w5100: convert
+ to DT schema
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,14 +41,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAIAMsWoC/4XRzVLDIBAH8FfpcBaH5WMBT76H4yHho0Vt0knSW
- O303SXxYMZZxyPw39/CcmVjGkoa2cPuyoY0l7H0XV2AuNuxcGi6feIl1g0mhUThhObv5bNLE38
- r3Svfn0rPrcesMETQ2bNadhpSLpfVfGJLtEuXiT1/n4zn9iWFaRGX7KGMUz98rO1nWCv+bjQDB
- 96ixBx1tiG0j8dmOPbTdB7va3JtMcv/EMkFVy1EEZwVWRkKUVsECURVxCgZdQNaOUEieoMAEIi
- uiI4m29g4ZxpHIWaLKAIxFWlCfSpmqTUoCsENoqib4IK0KWEwwSMmCrE/iCcHayuCPgtorahKp
- hC3QcAQiKtIBKtQSm11CBTit4gjEL/8jlHLRKKLGH8jt9vtC4J8s7b5AgAA
-X-Change-ID: 20260804-wiznet-link-gpio-796f36cd14f9
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260921-wiznet-link-gpio-v10-1-5874a7a147a2@marmottus.net>
+References: <20260921-wiznet-link-gpio-v10-0-5874a7a147a2@marmottus.net>
+In-Reply-To: <20260921-wiznet-link-gpio-v10-0-5874a7a147a2@marmottus.net>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
@@ -60,176 +58,199 @@ X-Mailer: b4 0.15.2
 X-GND-Sasl: arthur@marmottus.net
 X-GND-State: clean
 X-GND-Score: -100
-X-GND-Cause: dmFkZTF6b6jgYhyLS1AMsjs3SUF00ycLJG+3ieVql2Kn6qdvxDGf4rTyaSbhAqnwuGsjZ+WJOX/RpUHNPAXw8XKKkZ0KNTXxMTbyh1ZPeLZ/qDIQ7zQj799wFeDFqub8XcxckvuSUxxiBAdBRkbrJE9XHLO58FjG+8nOB+AxI++RzKQrqnmKb3pZEkkmHAA+2m/ZbgRJ7V52Z61a5S70xs3cs1YT95mw5ihF7Av3KbXYeMtfVUMvj9MBJ3vXM+JI4uGUtG2RywLSdFAKmgsJkJo7zgM5jDRsCsm02CYlSfELfbPydAL5xfFMHamzz8rvCADlcg88DIPeXJBwoVlZsuzk2jv2pWUUTvpJCI9sT8v1sGHObRWXCPYv64Pq+NTyZuMIluS5qLuJGEOADqIJYWBO5plZE+rY9LVIG2E43POFlBK0xrH0RNDLaIDE898yi6ucoP9He2T7Ktk1XF46D5F/+7FFFO3JsPwKWdOzYBPCRPx8OUfGf6RRfbOhy3Iuh1GANa89Hfgg3+xKmbtWkJpHGPqTBlQda7vwP+ZicY8LMmHEA/oJKjE1dmF9/Yea9coMbpNFrOoUVhoRMuZybAcOsETdP7/8OnB3uYhiwEXHGFvaZj46sAp7GXo2ETbgPm36hwfQgcNo4mE4IRPlqcXwGkl1QMa7kDc5qUofC8tllUPKyA
+X-GND-Cause: dmFkZTGAJpSSaGTA23Lngg1tcRHEbmQGfC3Ghn+7BkMDldmKnWfpH3UI9/TOsTCM9NdW7JL0yl/FBFk2mjsZJmeH15QClcg1bSVpkT+whu6LHKWRp82wOJVIgBM30rLrlpkNBfvqjAuSdKwNBT6GdyToqvZPYS8Jkbys2+jMYFcQfA1BUkQauCsj9WFkm4SaihXKTz54p4JydoDtzKVLzXZDR4hqA/QmVHtMrljr2ylwza1is/b58DqPEVUsCPJfwY0rF4bzE0MP9SV18pLqvFZ3huLNwuSF/fiHs2imRfcFeSGlRTTjdkbFSlSTEPs1tsJAcOgFPQgHkN7RO4lIJI2i49H8jDpJHc2JEspjyCRRuJhcOmhbFeNhebbVOKxtF6pw3tY/LDVYxkbeDWf4gmNCo18cK/MjicW5nRYYBxZNLrtgjrHwewjCCZdHCjEl5wdfnV56oArs68jOrKFZINED7EJ3vW0QArAXNfTWdvmpxA3BRfJo9SEVR1Dgy4Q7bOLFHUP0QhWyWC1KiFHEEZIOWt6Vsw3Rs8XPLu9wSoL5B8/PIFGwmKRqiHFISVSDppVYnHp480F/WtcelV2deHhuwB/LE3vScRh9tsDXudf1TJvKG2ggFQpWTs2jcpRPrXzadLXdDJYEFo7ZTIfos/iV8Rcuj5GQ0CW+VuwsXbdjWgnJ4A
 
-Hi,
+Convert the Wiznet w5x00 SPI Ethernet controller binding from
+plain text to DT schema.
 
-In the previous version of the w5100 driver, the LINKLED pin could be
-wired to a GPIO to detect the link status changes via an interrupt.
-This only works on w5500 as it is the only one documenting its LINKLED
-pin to hold the link status (on w5100 the LINKLED pin is changing with
-RX/TX activity).
-
-This series of patches is bringing back the link status detection on
-w5500 using the Link Status bit of the PHY Configuration Register.
-Additionally, the LINKLED pin can also be wired to detect link status
-changes and read the register in the interrupt handler.
-
-Arthur Crepin Leblond
+Change the trigger type from edge-falling to low to match the driver
+implementation.
 
 Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
-v9 -> v10:
- - Address Sashiko review
-  - Always schedule the restart work to avoid atomic context
-  - Move netif_device_detach before disabling irq in w5100_suspend
-  - Flush rx/tx queues in w5100_remove
+v9:
+ - Add edge-falling->low in commit message
 
-Link to v9: https://patch.msgid.link/20260918-wiznet-link-gpio-v9-0-5536f24d8d6d@marmottus.net
-Sashiko: https://sashiko.dev/#/patchset/20260918-wiznet-link-gpio-v9-0-5536f24d8d6d@marmottus.net
-
-v8 -> v9:
- - Address Sashiko review
-  - Rework commit message
-  - Disable the link irq first in w5100_stop()
-  - Call w5100_hw_close earlier in w5100_stop()
-  - Flush rx/tx work and cancel restart in w5100_stop()
-  - Call cancel_work_sync() after unregister_netdev in w5100_remove()
-  - Call cancel_work_sync before netif_carrier_off in w5100_suspend()
-  - Enable/Disable main irq in open()/stop() and suspend()/resume()
-  - Check the number of irqs defined in DT
-  - enable the link irq after checking PHYCFGR
-  - Ignore fwnode_irq_get errors other than EPROBE_DEFER
-
- - DT binding: Simplify the interrupts description:
-  - Describe the 2 interrupts in the top-level properties
-  - Limit the maximum number to 1 on non-w5500 with a condition
-  - Somehow only adding minItems in the top-level and then describing
-    2 items in the if block led to dt checks errors.
-
-Link to v8: https://patch.msgid.link/20260915-wiznet-link-gpio-v8-0-d173622474cc@marmottus.net
-Sashiko: https://sashiko.dev/#/patchset/20260915-wiznet-link-gpio-v8-0-d173622474cc%40marmottus.net
-Clashiko: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915-wiznet-link-gpio-v8-0-d173622474cc%40marmottus.net
-
-v7 -> v8:
-- dt-bindings: net: wiznet,w5100: convert to DT schema
+v8:
  - Add a myself in MAINTAINERS
  - Address Sashiko reviews
   - Change edge-falling to level-low
   - Clarify the spi max frequency for all devices
   - Add main interrupt description
 
-- dt-bindings: net: wiznet,w5100: add link status interrupt
- - Remove Krzysztof Kozlowski reviewed-by tag after Sashiko review changes
-  - Make the interrupts property conditional
+v7:
+ - No changes
 
-- w5100: detect carrier state using link status bit and optional
-  interrupt
- - Add myself in the MAINTAINERS file
- - Address Sashiko reviews from online bot and locally run
-  - Add a mutex to synchronize the link state read and interrupt
-  - Return last known carrier state (netif_carrier_ok) in
-    w5500_get_link on SPI error or if the device is not present
-  - Only set ops .get_link on w5500
-  - Check the netif state, disable/enable the irq and re-check the
-    carrier state in w5100_restart
-  - Cancel the restart work on stop/suspend
-  - Only set carrier state to off in w5100_stop/suspend  when a link
-    irq is present
-  - Warn on fwnode_irq_get errors for the link irq
-  - Free the main irq and flush queues before resetting the hardware
-    in w5100_remove
+v6:
+ - Put back the reviewed by tag from Krzysztof Kozlowski from v4
 
-Link to v7: https://patch.msgid.link/20260904-wiznet-link-gpio-v7-0-69f01b70c96f@marmottus.net
-Sashiko : https://sashiko.dev/#/patchset/20260904-wiznet-link-gpio-v7-0-69f01b70c96f%40marmottus.net
-Netdev Sashiko : https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904-wiznet-link-gpio-v7-0-69f01b70c96f%40marmottus.net
+v5:
+ - Remove gpio/gpio.h include from DT example
+ - Fix DT bindings errors
 
-v6 -> v7:
-- Address Sashiko reviews
- - Propagate spi read error to the caller
- - Do not change the state of the carrier on SPI read error
- - Enable the link IRQ before reading the PHYCFGR bit
- - Call unregister_netdev before reset
- - Update commit message
+v4:
+ - Update interrupts in DT bindings
 
-Link to v6: https://patch.msgid.link/20260831-wiznet-link-gpio-v6-0-abee6c5c966e@marmottus.net
+v3:
+ - Fix DT binding errors
 
-v5 -> v6:
-- Fix DT error: use minItems
-- Remove conditional properties
-- Put back the reviewed by tag from Krzysztof Kozlowski from v4
-- Revert to the reviewed v4 version by Arnd Bergmann with a few
-  changes based on Sashiko's review
-- Address Sashiko reviews
- - call netif_carrier_off in open if there is no link_irq or  get_link
-   returns false
- - call register_netdev at the very end of probe
- - call unregister_netdev before destroying work queue
- - handle link irq probe defer error
- - call netif_device_attach in resume before re enabling the link irq
- - disable the link irq first in suspend
- - log netif_err when PHYCFGR cannot be read
- - enable link irq in open
- - disable link irq in stop
- - free irq and invalidate it in remove
-
-Link to v5: https://patch.msgid.link/20260813-wiznet-link-gpio-v5-0-ac8046f24413@marmottus.net
-
-v4 -> v5:
-- Remove gpio/gpio.h include from DT example
-- Make the DT interrupts property dynamic from the compatible one
-- Fix DT bindings errors
-- Address Sashiko review
- - Read the link status register only on w5500 instead of checking
-   link_irq
- - call netif_carrier_off on w5500 link status off in open
- - enable/disable the link irq in open/stop
- - enable/disable the link irq in resume/suspend
- - handle link irq probe defer error
- - register the netdev last
-
-Link to v4: https://patch.msgid.link/20260811-wiznet-link-gpio-v4-0-4d5f7da885a8@marmottus.net
-
-v3 -> v4:
-- Update interrupts in DT bindings
-- Use directly an interrupt line instead of gpio -> irq
-- Address Sashiko reviews
- - drop devm_ on request_threaded_irq to avoid use after free
- - disable/enable the link_irq in the suspend/resume
- - only call netif_carrier_on|off if the link interrupt is present
-
-Link to v3: https://patch.msgid.link/20260806-wiznet-link-gpio-v3-0-532d4a143805@marmottus.net
-
-v2 -> v3:
-- Fix DT binding errors
-- Use the Link Status bit of the PHY Configuration Register
-- Use the LINKLED gpio binding for change detection only
-
-Link to v2: https://patch.msgid.link/20260804-wiznet-link-gpio-v2-0-3b1d0c870f35@marmottus.net
-
-v1 -> v2:
-- Convert device tree binding to YAML
-- Use devm_request_threaded_irq instead of request_any_context_irq
-- Use devm_gpiod_get_optional instead of gpiod_get_optional
-- Call dev_err_probe on gpiod_to_irq failure
-- Remove link_irq from priv
-- Use a fixed string for the IRQ name
-- Remove empty new lines
-
-Link to v1: https://patch.msgid.link/20260804-wiznet-link-gpio-v1-1-b626fd4f7ccb@marmottus.net
-
+v2:
+ - Convert device tree binding to YAML
 ---
-Arthur Crepin Leblond (3):
-      dt-bindings: net: wiznet,w5100: convert to DT schema
-      dt-bindings: net: wiznet,w5100: add link status interrupt
-      w5100: detect carrier state using link status bit and optional interrupt
+ .../devicetree/bindings/net/wiznet,w5100.yaml      | 68 ++++++++++++++++++++++
+ .../devicetree/bindings/net/wiznet,w5x00.txt       | 50 ----------------
+ MAINTAINERS                                        |  6 ++
+ 3 files changed, 74 insertions(+), 50 deletions(-)
 
- .../devicetree/bindings/net/wiznet,w5100.yaml      |  88 ++++++++
- .../devicetree/bindings/net/wiznet,w5x00.txt       |  50 -----
- MAINTAINERS                                        |   7 +
- drivers/net/ethernet/wiznet/w5100.c                | 227 ++++++++++++++++++---
- 4 files changed, 296 insertions(+), 76 deletions(-)
----
-base-commit: 8830e65ed46de41f849eefb8ba227d4852c460f6
-change-id: 20260804-wiznet-link-gpio-796f36cd14f9
+diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+new file mode 100644
+index 000000000000..25098308eb6e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+@@ -0,0 +1,68 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/wiznet,w5100.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Wiznet w5100/w5200/w5500 SPI Ethernet Controller
++
++maintainers:
++  - Arthur Crepin Leblond <arthur@marmottus.net>
++
++description: |
++  This is a standalone 10/100 MBit Ethernet controller with SPI interface.
++
++allOf:
++  - $ref: /schemas/net/ethernet-controller.yaml#
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++
++properties:
++  compatible:
++    enum:
++      - wiznet,w5100
++      - wiznet,w5200
++      - wiznet,w5500
++
++  interrupts:
++    maxItems: 1
++    description: Main interrupt (INT pin on the device).
++
++  reg:
++    maxItems: 1
++
++  spi-max-frequency:
++    description:
++      According to the datasheets, w5500 and w5200 allow a maximum of 80 MHz
++      while w5100 is reported by users to allow a maximum of 14 MHz. However,
++      board designs may need to limit this value.
++    maximum: 80000000
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    /* Example (for Raspberry Pi with pin control stuff for GPIO irq) */
++
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        ethernet@0 {
++            compatible = "wiznet,w5500";
++            reg = <0>;
++            pinctrl-names = "default";
++            pinctrl-0 = <&eth1_pins>;
++            interrupt-parent = <&gpio>;
++            interrupts = <25 IRQ_TYPE_LEVEL_LOW>;
++            spi-max-frequency = <30000000>;
++            local-mac-address = [ a0 b0 c0 d0 e0 f0 ];
++        };
++    };
++...
+diff --git a/Documentation/devicetree/bindings/net/wiznet,w5x00.txt b/Documentation/devicetree/bindings/net/wiznet,w5x00.txt
+deleted file mode 100644
+index e9665798c4be..000000000000
+--- a/Documentation/devicetree/bindings/net/wiznet,w5x00.txt
++++ /dev/null
+@@ -1,50 +0,0 @@
+-* Wiznet w5x00
+-
+-This is a standalone 10/100 MBit Ethernet controller with SPI interface.
+-
+-For each device connected to a SPI bus, define a child node within
+-the SPI master node.
+-
+-Required properties:
+-- compatible: Should be one of the following strings:
+-	      "wiznet,w5100"
+-	      "wiznet,w5200"
+-	      "wiznet,w5500"
+-- reg: Specify the SPI chip select the chip is wired to.
+-- interrupts: Specify the interrupt index within the interrupt controller (referred
+-              to above in interrupt-parent) and interrupt type. w5x00 natively
+-              generates falling edge interrupts, however, additional board logic
+-              might invert the signal.
+-- pinctrl-names: List of assigned state names, see pinctrl binding documentation.
+-- pinctrl-0: List of phandles to configure the GPIO pin used as interrupt line,
+-             see also generic and your platform specific pinctrl binding
+-             documentation.
+-
+-Optional properties:
+-- spi-max-frequency: Maximum frequency of the SPI bus when accessing the w5500.
+-  According to the w5500 datasheet, the chip allows a maximum of 80 MHz, however,
+-  board designs may need to limit this value.
+-- local-mac-address: See ethernet.txt in the same directory.
+-
+-
+-Example (for Raspberry Pi with pin control stuff for GPIO irq):
+-
+-&spi {
+-	ethernet@0: w5500@0 {
+-		compatible = "wiznet,w5500";
+-		reg = <0>;
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&eth1_pins>;
+-		interrupt-parent = <&gpio>;
+-		interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
+-		spi-max-frequency = <30000000>;
+-	};
+-};
+-
+-&gpio {
+-	eth1_pins: eth1_pins {
+-		brcm,pins = <25>;
+-		brcm,function = <0>; /* in */
+-		brcm,pull = <0>; /* none */
+-	};
+-};
+diff --git a/MAINTAINERS b/MAINTAINERS
+index df8ab9b82402..9f84e4c8163e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -29450,6 +29450,12 @@ M:	Miloslav Trmac <mitr@volny.cz>
+ S:	Maintained
+ F:	drivers/input/misc/wistron_btns.c
+ 
++WIZNET W5100 ETHERNET DRIVER
++M:	Arthur Crepin Leblond <arthur@marmottus.net>
++L:	netdev@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/net/wiznet,w5100.yaml
++
+ WMI BINARY MOF DRIVER
+ M:	Armin Wolf <W_Armin@gmx.de>
+ R:	Thomas Weißschuh <linux@weissschuh.net>
+
+-- 
+2.55.0
 
