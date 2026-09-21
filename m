@@ -1,492 +1,228 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA36A4908D4
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:40:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C2A4A8424
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:40:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789998016; cv=none; b=iqZRvZhN0b0vQx22nKRMFj3VABKFUfEobERomrgZWfRx7t3svrju0Nx1fPyIe+mjvbEB7QAkW2DRb/DBNXPUUJba/SeBEf3aUnc08Us5PDhoHYZq3ymdyJ2Q7nLLWS6Ayj53PBiBiXDKgCdblMsIgZmw1/ZhhIT491Yafmc/1HM=
+	t=1789998020; cv=none; b=uViyQuHG+8ga79nyeuB6FEH7LB7zW5mH8Ri60HyQeu7zZQJ6y2eYfQH34QEr14VS7PwHWfhgWaCewGmjpntru8FtAwbcQxBg05c81G3VNg7zQCVRkaSHgjNItjxUxHWysIEl/Uz8cySfRwFO8rcWgc+DBkCKqZJGsfbDkBZcL98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789998016; c=relaxed/simple;
-	bh=rQeme4mOWh7F18Z9nPG3uk3qctIZf5OLv1gSfE+PgWg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lzcDrlPgzPXVWlljl8pB+7J7HI+c8oETXQLs070P2/MgbqWQsZKNoax3OIIEQpw1oU2iL8Whx0pLMMCVMCeBLFqWDHyqPzbNkbQ3rtHlJp30p6EVnvJ21jN2tyUdcICmTolS4qDdWgNKyUHIcefCBQ0N+KvxjOdzMeJNnAhEF8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jxIZy9jf; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789998020; c=relaxed/simple;
+	bh=/iK5tspmMe5BLiH9VQ8TvVl5j0mL+s0vIMp7F58jSuY=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=FTC59d76gOY7j0of98BYLh8Zos4Lvbm1J07nQdnnCs6Q2sn9auoLsmF3UrIWr/oiALpmhfOnqaaProPhTa1w//5BHEG5oH5EKBVxZrXjAtSqHzHxsdM2QCmCPF96w4MRL44AYemgTp7o92YLU5EBXvkjOJzYQf1i+RI6CidkRek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LmRSnMid; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jxIZy9jf"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so16750535e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:40:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LmRSnMid"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e8e864ef0so5578703a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:40:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789998007; x=1790602807; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NH6ys1CTIdRnJg9xiwn6C8F70peAM9vhMfijPWQg7aQ=;
-        b=jxIZy9jfmpn4opY9FjkyRZdXTyPXCrh0HQMs+fGII8epOkWnlFgPrv/UUagLaxzrWk
-         xm762F2oaq3WFcGFyYyVcHxv+34epuI4mFuF5GfYp4pzcyLcEhSykNjopO09ZLHJGBIq
-         gkUbqZEQVchoIL0xI7uFqcUIqlxKsLHmr77rfvEIeAI0LYs2cVaEiscvinV2a8oIhqQi
-         hCvCtkODR5hFQq0RJgSwe+8LWRNqg79rYiOWfQ+nNbNH0txiHg9eR4R0xN2J6dCDgRfn
-         UGYkURYXsEf5Am7WobG1QJbC7uggr4f6gleG9EYWDwPGUL7aeuAlR4uEs7ANT20FSRGy
-         NN/w==
+        d=google.com; s=20251104; t=1789998016; x=1790602816; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kha/TosCiMrk/VRiX69ZYAyIdODbozYl6Tc1z7Ph1q8=;
+        b=LmRSnMidsXeVyWjAzek4Db7V0oNB8u3CsBS5DlBJMT1Bb3ppFCWbXB1k3kfrOB5tHp
+         qHM4yElnzRDxipQXdR0RTYmguQmKXO4roj82Wc/kJ4YweVmml5vc7nU49yNC8bX9inoV
+         DtO4tU3oRvc1HRUtJ8CEVGGG0ixaBApYGDJ46qlpMm8oNNYnf/v+9NEojNtw9outLNhn
+         JK0Z8tG6xXmCwmsSlGnHrg3cRyiBOPZ4fVW8KtI3eUFK5Y9HcP8+jCTa+X/0NwAgJCMk
+         r9681P23pdWAOfMpegi1gRfxTlkkbT2LpjfyYqKF1ewbefCU+LtvRoA5+lNC/UcS7YAW
+         BhTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789998007; x=1790602807;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NH6ys1CTIdRnJg9xiwn6C8F70peAM9vhMfijPWQg7aQ=;
-        b=DnSR8UhXKjvbFLt8JvQuV95//EWvnqjuTyTT8Ravz2w+YmzVefaLSztpSLNg7m21HK
-         XtYDJvKBpIo+HqwZSxAuT81Zi5saBr3PV91RDzlE3fBbPu0l/aRtWE9/tNyoq2MUFEeN
-         37+jue3Gl3Wbflx4yhSDEES2h98143Fnb1Z3Tix1uGBh0c25wB/QnPwKCJnIKqisDD8l
-         kmC++ibPsTQIzgMYrg0UkyfTu1D10IGHwusz5vyfPlfJ9DRMo1UOQdNObTosV5U/DJf8
-         8dX4uJcp6YLtTAcFzam3LAqxiDKqTK3ObLjELwcLjWGK1mAUdMdafBSgDnUj+BrvL9mn
-         vJog==
-X-Forwarded-Encrypted: i=1; AKwUvBwZfpF9/rg6UVQ3gQA9nXKTHcCoW+sPl7UMtS1diohKcmNMVBdIW2ag/+KbuI6iC9idICXIU/v1uJJ9jCc=@vger.kernel.org
-X-Gm-Message-State: AFuF++m37jj0CuIbIHP3CHJ68hh5m8GUrzkSc+pA8Ve5VnNHCbrZsx6X
-	Kvy90J371qW1N2+Zj24IT7cD7Daa7MTouZPypiVHhl3jY7cOhnyoTTap
-X-Gm-Gg: AYBFou368zY9ZNv43KP3YXHeELTh01pT3Fjfxdgq5mhi/aDTz7Tl1D3QHgOGuEfGJUU
-	htws3SmjiCYLBcWI94WxJkc4iU4ERMkRFJ3LNRulYgrPm9iEYL54IRwx9uT6UG2V39dPXazU+Pl
-	aZdSn5ZWmlnoycM51VSB6aoWVmHN4KbSjAbmFdQFMdMAPI9vnCdAvoXxWSE2AJhA0wn1e8q730A
-	o+3iEzMBHjWM8sJXxefWrc96uqsghQEmcf5KEheNyft1nDATqqAgfEdFNi8ATZN8/u1lr+XT55W
-	fcfpaT2ErS4hxSO+c6qoj9UYAuGk2VutkhEXN2RqlEWxhQkBRJ5zxRCx9NsuNNm0WF3iZTAFJN8
-	oznJp9C/m69h6M9K5iFoazyV4L3max9fpsLvYA2XO2UOqQe8i1WYxEieSsB3ABKTTMyiZvZ+ajB
-	UHGyNCKQ5SXLTeMwvYYRUD8kToWB5T97bSvsK99LeDP33G2R/qvZs2p2vZD+sm9Jj7MbIOyO8M1
-	WJcJF11cQPLeSe4ILC4FKR/tekBfdcmTZ/ZFVFPBlbiwKLRbqHu1eUTSZ6G5MRqY+0Ilgw95g7O
-	/XgcwFWZJvH+YIQoxaWeR38VR7SyYQ==
-X-Received: by 2002:a05:600c:8709:b0:49d:870:7a69 with SMTP id 5b1f17b1804b1-49fc573514bmr197593185e9.12.1789998007283;
-        Mon, 21 Sep 2026 06:40:07 -0700 (PDT)
-Received: from 127.0.0.1localhost (82-132-213-26.dab.02.net. [82.132.213.26])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc585920fsm617171605e9.4.2026.09.21.06.40.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 06:40:06 -0700 (PDT)
-From: Pavel Begunkov <asml.silence@gmail.com>
-To: linux-block@vger.kernel.org
-Cc: asml.silence@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-nvme@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	io-uring@vger.kernel.org,
-	Christoph Hellwig <hch@lst.de>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Keith Busch <kbusch@kernel.org>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Nitesh Shetty <nj.shetty@samsung.com>,
-	Kanchan Joshi <joshi.k@samsung.com>,
-	Anuj Gupta <anuj20.g@samsung.com>,
-	Tushar Gohad <tushar.gohad@intel.com>,
-	William Power <william.power@intel.com>,
-	Phil Cayton <phil.cayton@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	dm-devel@lists.linux.dev
-Subject: [PATCH v6 13/13] io_uring/rsrc: add dmabuf backed registered buffers
-Date: Mon, 21 Sep 2026 14:38:57 +0100
-Message-ID: <0d82253d5e930981e6a21503e145a1ebd280f995.1789997898.git.asml.silence@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1789997898.git.asml.silence@gmail.com>
-References: <cover.1789997898.git.asml.silence@gmail.com>
+        d=1e100.net; s=20260707; t=1789998016; x=1790602816;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kha/TosCiMrk/VRiX69ZYAyIdODbozYl6Tc1z7Ph1q8=;
+        b=Ux+xZuTrYHGexJ9WjtCyBWRA3/xjmD+GoUcj+v0y89SeLBHcV+Ts2y54/qmW/PLlKT
+         NHCaR6NQ1yntatbsM6BO1zyH9qtLtEITAdE7Uy5wE0l64lEvXaewyXNHOBwQ+rRu9y37
+         PjoBsJ0t0CR3k/Gi7DJ2cXqrumYZ9/xMXlpmLzAIng907Lv05bD9gknCRUWVs5Ev7nb7
+         Sh1zx7Jh9HZAvsYzfhy5W4WZ+TE09mtGz2qTNiFKf2vSizqZ1W9WzWBRR4yVU0B96zrU
+         fFgmbhu3VQ7Fqm9vEFWcCjArQo6iPg0wCCzAvAotip6IX09CxMkq2lyee8IX5rQRhGzh
+         lEcg==
+X-Forwarded-Encrypted: i=1; AKwUvBw/izojB38HYEA2tPlZ3bX7UnzA2JAEpX4TECJXPGvxZVnN+HKFuKG8LLNuG4DYQr88vBi65xJfZHOHR5w=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTVFV+TO8GDo0L2/8sZjag6ppl2s48FWUz6DMCjeu/9FYbJk5l
+	Dg1ExiTzrCbps9PaJm9+EKZA9UBKJEZw+lPaWWKKDjoYiVIdCK6dCdiuVbi4Ygp5BJhu8/ZyGWJ
+	kfIvgVQ==
+X-Received: from pjbmm23.prod.google.com ([2002:a17:90b:3597:b0:39e:6e02:bf60])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:57e8:b0:39e:6c69:7774
+ with SMTP id 98e67ed59e1d1-39e6c697961mr11605726a91.29.1789998015789; Mon, 21
+ Sep 2026 06:40:15 -0700 (PDT)
+Date: Mon, 21 Sep 2026 06:40:15 -0700
+In-Reply-To: <aq/XwK71uNfLvUux@yzhao56-desk.sh.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260826165647.769231-1-seanjc@google.com> <aq/XwK71uNfLvUux@yzhao56-desk.sh.intel.com>
+Message-ID: <arEzv8b2IMHYcHsZ@google.com>
+Subject: Re: [PATCH v2] KVM: guest_memfd: Elaborate on how release() vs.
+ get_pfn() is safe against UAF
+From: Sean Christopherson <seanjc@google.com>
+To: Yan Zhao <yan.y.zhao@intel.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Vishal Annapurve <vannapurve@google.com>
+Content-Type: text/plain; charset="us-ascii"
 
-Implement dmabuf backed registered buffers. To register them, the user
-should specify IO_REGBUF_TYPE_DMABUF for the regitration and pass the
-desired dmabuf fd and a file for which it should be registered.
+On Sun, Sep 20, 2026, Yan Zhao wrote:
+> On Wed, Aug 26, 2026 at 09:56:47AM -0700, Sean Christopherson wrote:
+> > Add more context and information to the comment in kvm_gmem_release() that
+> > explains why there's no synchronization on RCU _or_ kvm->srcu.  Point (b)
+> > from commit 67b43038ce14 ("KVM: guest_memfd: Remove RCU-protected attribute
+> > from slot->gmem.file")
+> > 
+> >       b) kvm->srcu ensures that kvm_gmem_unbind() and freeing of a memslot
+> >          occur after the memslot is no longer visible to kvm_gmem_get_pfn().
+> > 
+> > is especially difficult to fully grok, particularly in light of commit
+> > ae431059e75d ("KVM: guest_memfd: Remove bindings on memslot deletion when
+> > gmem is dying"), which addressed a race between unbind() and release().
+> > 
+> > See the extended on-list discussion[*] for more details about exactly what
+> > KVM guards against, and how.
+> > 
+> > No functional change intended.
+> > 
+> > Link: https://lore.kernel.org/all/CAEvNRgGmyd1yqQXsnz5hWRZpBZUs%3DpiEWbEaqP9%2Bcz9ZqEMQ6g@mail.gmail.com [*]
+> > Cc: Yan Zhao <yan.y.zhao@intel.com>
+> > Cc: Vishal Annapurve <vannapurve@google.com>
+> > Signed-off-by: Sean Christopherson <seanjc@google.com>
+> > ---
+> > 
+> > v2: Explain how this all works in even gorier detail. [Yan]
+> > 
+> > v1: https://lore.kernel.org/all/20251113232229.1698886-1-seanjc@google.com
+> > 
+> >  virt/kvm/guest_memfd.c | 50 +++++++++++++++++++++++++++++++++++++-----
+> >  1 file changed, 44 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+> > index b596486d184c..7f1c6a0f8039 100644
+> > --- a/virt/kvm/guest_memfd.c
+> > +++ b/virt/kvm/guest_memfd.c
+> > @@ -300,17 +300,55 @@ static int kvm_gmem_release(struct inode *inode, struct file *file)
+> >  	 * dereferencing the slot for existing bindings needs to be protected
+> >  	 * against memslot updates, specifically so that unbind doesn't race
+> >  	 * and free the memslot (kvm_gmem_get_file() will return NULL).
+> > -	 *
+> > -	 * Since .release is called only when the reference count is zero,
+> > -	 * after which file_ref_get() and get_file_active() fail,
+> > -	 * kvm_gmem_get_pfn() cannot be using the file concurrently.
+> > -	 * file_ref_put() provides a full barrier, and get_file_active() the
+> > -	 * matching acquire barrier.
+> >  	 */
+> >  	mutex_lock(&kvm->slots_lock);
+> >  
+> >  	filemap_invalidate_lock(inode->i_mapping);
+> >  
+> > +	/*
+> > +	 * Note!  synchronize_srcu() is _not_ needed after nullifying memslot
+> > +	 * bindings as slot->gmem.file cannot be set back to a non-null value
+> > +	 * without the memslot first being deleted.  I.e. this relies on the
+> > +	 * synchronize_srcu_expedited() in kvm_swap_active_memslots() to ensure
+> > +	 * kvm_gmem_get_pfn() (which runs with kvm->srcu held for read) can't
+> > +	 * grab a reference to slot->gmem.file even if the struct file object
+> > +	 * is reallocated.
+> 
+> Nit:
+> 
+> Do we need to update the code comment in __kvm_gmem_unbind() from
+> 	/*
+> 	 * synchronize_srcu(&kvm->srcu) ensured that kvm_gmem_get_pfn()
+> 	 * cannot see this memslot.
+> 	 */
+> to
+> 	/*
+> 	 * synchronize_srcu_expedited() in kvm_swap_active_memslots() ensured
+> 	 * that kvm_gmem_get_pfn() cannot see this memslot.
+> 	 */
+> 
+> to align with the above comment.
 
-From there, it can be used with io_uring read/write requests
-IORING_OP_{READ,WRITE}_FIXED) as normal. The requests should be issued
-against the file specified during registration, and otherwise they'll be
-failed. The user should also be prepared to handle spurious -EAGAIN by
-reissuing the request.
+How about this?  Because the "rule" is that kvm_gmem_unbind() can only be called
+on a memslot that is unreachable, either by synchronizing SRCU after uninstalling
+the memslot *or* because the memslot was never installed.  Simply stating that
+synchronize_srcu_expedited() makes everything safe isn't the whole story, as it's
+specifically synchronzing after removing/deleting/deactivating the slot that
+makes this safe.
 
-Internally, dmabuf registered buffers is an optin feature for io_uring
-request opcodes and they should pass a special flag on import to use it.
+	/*
+	 * Note, the caller is responsible for ensuring the slot is unreachable
+	 * before unbinding, e.g. by synchronizing SRCU after deleting the slot.
+	 */
 
-Suggested-by: David Wei <dw@davidwei.uk>
-Suggested-by: Vishal Verma <vishal1.verma@intel.com>
-Suggested-by: Tushar Gohad <tushar.gohad@intel.com>
-Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
----
- include/linux/io_uring_types.h |   5 +
- include/uapi/linux/io_uring.h  |   6 +-
- io_uring/io_uring.c            |   3 +-
- io_uring/rsrc.c                | 161 ++++++++++++++++++++++++++++++++-
- io_uring/rsrc.h                |  18 ++++
- io_uring/rw.c                  |   6 +-
- 6 files changed, 191 insertions(+), 8 deletions(-)
+> > +	 *
+> > +	 * file_ref_put() provides a full barrier, and __get_file_rcu() the
+> > +	 * matching acquire barrier, to ensure that kvm_gmem_get_file() (via
+> > +	 * __get_file_rcu()) sees refcount==0 or fails the "file reloaded"
+> > +	 * check (file != NULL due to nullifying the file pointer here).
+> > +	 *
+> > +	 * Unlike most other users of get_file_rcu(), where callers don't care
+> > +	 * if they race with a write, only that they have a reference to _a_
+> > +	 * live file, kvm_gmem_get_pfn() needs to get the exact file that is
+> > +	 * associated with the memslot.  Without the aforementioned SRCU
+> > +	 * synchronization, the following could happen:
+> > +	 *
+> > +	 *  CPU0				CPU1
+> > +	 *  kvm_gmem_get_pfn()
+> > +	 *    f = X (from slot->gmem.file)
+> > +	 *					kvm_gmem_release())
+> > +	 *					  slot->gmem.file = NULL
+> > +	 *
+> > +	 *					kvm_set_memory_region()
+> > +	 *					  slot deleted
+> > +	 *
+> > +	 *					kvm_set_memory_region()
+> > +	 *					  slot created
+> > +	 *					  slot->gmem.file = f (alloc the same object)
+> > +	 *
+> > +	 *  get_file_active()
+> > +	 *    file = f
+> > +	 *    file_reloaded = f
+> > +	 *
+> > +	 * <KVM does weird things with an old memslot+file>
+> > +	 *
+> > +	 * Obviously KVM would be broken in many places if the synchronization
+> > +	 * were omitted, but it's important to note that get_file_active() does
+> > +	 * NOT guarantee a reference to the correct file was obtained, only
+> > +	 * that the file doesn't point at a reallocated object.
+> reallocated -> reloaded?
 
-diff --git a/include/linux/io_uring_types.h b/include/linux/io_uring_types.h
-index 90fea94ad202..3d41ca622114 100644
---- a/include/linux/io_uring_types.h
-+++ b/include/linux/io_uring_types.h
-@@ -11,6 +11,7 @@
- 
- struct iou_loop_params;
- struct io_uring_bpf_ops;
-+struct dma_buf_io_map;
- 
- enum {
- 	/*
-@@ -610,6 +611,7 @@ enum {
- 	REQ_F_IMPORT_BUFFER_BIT,
- 	REQ_F_SQE_COPIED_BIT,
- 	REQ_F_IOPOLL_BIT,
-+	REQ_F_DROP_DMABUF_BIT,
- 
- 	/* not a real bit, just to check we're not overflowing the space */
- 	__REQ_F_LAST_BIT,
-@@ -705,6 +707,8 @@ enum {
- 	REQ_F_SQE_COPIED	= IO_REQ_FLAG(REQ_F_SQE_COPIED_BIT),
- 	/* request must be iopolled to completion (set in ->issue()) */
- 	REQ_F_IOPOLL		= IO_REQ_FLAG(REQ_F_IOPOLL_BIT),
-+	/* there is a dma map attached to request that needs to be dropped */
-+	REQ_F_DROP_DMABUF	= IO_REQ_FLAG(REQ_F_DROP_DMABUF_BIT),
- };
- 
- struct io_tw_req {
-@@ -827,6 +831,7 @@ struct io_kiocb {
- 	/* custom credentials, valid IFF REQ_F_CREDS is set */
- 	const struct cred		*creds;
- 	struct io_wq_work		work;
-+	struct dma_buf_io_map		*dmabuf_map;
- 
- 	struct io_big_cqe {
- 		u64			extra1;
-diff --git a/include/uapi/linux/io_uring.h b/include/uapi/linux/io_uring.h
-index 98b259901185..c39297e8beb6 100644
---- a/include/uapi/linux/io_uring.h
-+++ b/include/uapi/linux/io_uring.h
-@@ -810,6 +810,7 @@ enum io_uring_rsrc_reg_flags {
- enum io_uring_regbuf_type {
- 	IO_REGBUF_TYPE_EMPTY,
- 	IO_REGBUF_TYPE_UADDR,
-+	IO_REGBUF_TYPE_DMABUF,
- 
- 	__IO_REGBUF_TYPE_MAX,
- };
-@@ -819,7 +820,10 @@ struct io_uring_regbuf_desc {
- 	__u32 flags;
- 	__u64 size;
- 	__u64 uaddr;
--	__u64 __resv[7];
-+
-+	__s32 dmabuf_fd;
-+	__s32 target_fd;
-+	__u64 __resv[6];
- };
- 
- /* Skip updating fd indexes set to this value in the fd table */
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index a67b2adeda36..267b2a43131a 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -109,7 +109,7 @@
- 
- #define IO_REQ_CLEAN_SLOW_FLAGS (REQ_F_REFCOUNT | IO_REQ_LINK_FLAGS | \
- 				 REQ_F_REISSUE | REQ_F_POLLED | \
--				 IO_REQ_CLEAN_FLAGS)
-+				 IO_REQ_CLEAN_FLAGS | REQ_F_DROP_DMABUF)
- 
- #define IO_TCTX_REFS_CACHE_NR	(1U << 10)
- 
-@@ -1134,6 +1134,7 @@ static void io_free_batch_list(struct io_ring_ctx *ctx,
- 				io_queue_next(req);
- 			if (unlikely(req->flags & IO_REQ_CLEAN_FLAGS))
- 				io_clean_op(req);
-+			io_req_drop_dmabuf(req);
- 		}
- 		io_put_file(req);
- 		io_req_put_rsrc_nodes(req);
-diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
-index 79e3c686ecc1..cb7495df13b7 100644
---- a/io_uring/rsrc.c
-+++ b/io_uring/rsrc.c
-@@ -10,6 +10,7 @@
- #include <linux/compat.h>
- #include <linux/io_uring.h>
- #include <linux/io_uring/cmd.h>
-+#include <linux/dma-buf-io.h>
- 
- #include <uapi/linux/io_uring.h>
- 
-@@ -881,6 +882,93 @@ bool io_check_coalesce_buffer(struct page **page_array, int nr_pages,
- 	return true;
- }
- 
-+struct io_regbuf_dma {
-+	struct dma_buf_io_ctx		*ctx;
-+	struct file			*target_file;
-+};
-+
-+static void io_release_reg_dmabuf(void *priv)
-+{
-+	struct io_regbuf_dma *db = priv;
-+
-+	fput(db->target_file);
-+	dma_buf_io_ctx_release(db->ctx);
-+}
-+
-+static struct io_rsrc_node *io_register_dmabuf(struct io_ring_ctx *ctx,
-+						struct io_uring_regbuf_desc *desc)
-+{
-+	struct io_rsrc_node *node = NULL;
-+	struct io_mapped_ubuf *imu = NULL;
-+	struct io_regbuf_dma *regbuf = NULL;
-+	struct file *target_file = NULL;
-+	struct dma_buf *dmabuf = NULL;
-+	int ret;
-+
-+	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-+		return ERR_PTR(-EOPNOTSUPP);
-+	if (ctx->flags & IORING_SETUP_IOPOLL)
-+		return ERR_PTR(-EOPNOTSUPP);
-+	if (desc->uaddr || desc->size)
-+		return ERR_PTR(-EINVAL);
-+
-+	ret = -ENOMEM;
-+	node = io_rsrc_node_alloc(ctx, IORING_RSRC_BUFFER);
-+	if (!node)
-+		return ERR_PTR(-ENOMEM);
-+	imu = io_alloc_imu(ctx, 0);
-+	if (!imu)
-+		goto err;
-+	regbuf = kzalloc(sizeof(*regbuf), GFP_KERNEL);
-+	if (!regbuf)
-+		goto err;
-+
-+	ret = -EBADF;
-+	target_file = fget(desc->target_fd);
-+	if (!target_file)
-+		goto err;
-+
-+	dmabuf = dma_buf_get(desc->dmabuf_fd);
-+	if (IS_ERR(dmabuf)) {
-+		ret = PTR_ERR(dmabuf);
-+		dmabuf = NULL;
-+		goto err;
-+	}
-+	ret = io_validate_user_buf_range(0, dmabuf->size);
-+	if (ret)
-+		goto err;
-+
-+	ret = dma_buf_io_ctx_create(target_file, dmabuf, DMA_BIDIRECTIONAL,
-+				    &regbuf->ctx);
-+	if (ret)
-+		goto err;
-+
-+	regbuf->target_file = target_file;
-+	imu->nr_bvecs = 0;
-+	imu->ubuf = 0;
-+	imu->len = dmabuf->size;
-+	imu->folio_shift = 0;
-+	imu->release = io_release_reg_dmabuf;
-+	imu->priv = regbuf;
-+	imu->flags = IO_REGBUF_F_DMABUF;
-+	imu->dir = IO_BUF_DEST | IO_BUF_SOURCE;
-+	refcount_set(&imu->refs, 1);
-+	node->buf = imu;
-+	dma_buf_put(dmabuf);
-+	return node;
-+err:
-+	kfree(regbuf);
-+	if (imu)
-+		io_free_imu(ctx, imu);
-+	if (node)
-+		io_cache_free(&ctx->node_cache, node);
-+	if (target_file)
-+		fput(target_file);
-+	if (dmabuf)
-+		dma_buf_put(dmabuf);
-+	return ERR_PTR(ret);
-+}
-+
- static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
- 						   struct io_uring_regbuf_desc *desc)
- {
-@@ -899,6 +987,12 @@ static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
- 	if (!mem_is_zero(&desc->__resv, sizeof(desc->__resv)) || desc->flags)
- 		return ERR_PTR(-EINVAL);
- 
-+	if (desc->type == IO_REGBUF_TYPE_DMABUF)
-+		return io_register_dmabuf(ctx, desc);
-+
-+	if (desc->dmabuf_fd || desc->target_fd)
-+		return ERR_PTR(-EINVAL);
-+
- 	if (desc->type == IO_REGBUF_TYPE_EMPTY) {
- 		if (uaddr || size)
- 			return ERR_PTR(-EFAULT);
-@@ -1223,9 +1317,59 @@ static int io_import_kbuf(int ddir, struct iov_iter *iter,
- 	return 0;
- }
- 
--static int io_import_fixed(int ddir, struct iov_iter *iter,
-+void io_drop_dmabuf_node(struct io_kiocb *req)
-+{
-+	struct io_mapped_ubuf *imu;
-+
-+	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-+		return;
-+	if (WARN_ON_ONCE(req->buf_node->type != IORING_RSRC_BUFFER))
-+		return;
-+	imu = req->buf_node->buf;
-+	if (WARN_ON_ONCE(!(imu->flags & IO_REGBUF_F_DMABUF)))
-+		return;
-+	dma_buf_io_map_drop(req->dmabuf_map);
-+	req->flags &= ~REQ_F_DROP_DMABUF;
-+}
-+
-+static int io_import_dmabuf(struct io_kiocb *req,
-+			   int ddir, struct iov_iter *iter,
-+			   struct io_mapped_ubuf *imu,
-+			   size_t len, size_t offset,
-+			   unsigned issue_flags)
-+{
-+	bool nowait = issue_flags & IO_URING_F_NONBLOCK;
-+	struct io_regbuf_dma *db = imu->priv;
-+	struct dma_buf_io_map *map;
-+
-+	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-+		return -EOPNOTSUPP;
-+	if (!len)
-+		return -EFAULT;
-+	if (req->file != db->target_file)
-+		return -EBADF;
-+
-+	if (req->flags & REQ_F_DROP_DMABUF) {
-+		map = req->dmabuf_map;
-+		goto init_iter;
-+	}
-+
-+	map = dma_buf_io_get_map(db->ctx, nowait);
-+	if (unlikely(IS_ERR(map)))
-+		return PTR_ERR(map);
-+	req->dmabuf_map = map;
-+	req->flags |= REQ_F_DROP_DMABUF;
-+init_iter:
-+	iov_iter_dmabuf_map(iter, ddir, map, offset, len);
-+	return 0;
-+}
-+
-+static int io_import_fixed(struct io_kiocb *req,
-+			   int ddir, struct iov_iter *iter,
- 			   struct io_mapped_ubuf *imu,
--			   u64 buf_addr, size_t len)
-+			   u64 buf_addr, size_t len,
-+			   unsigned issue_flags,
-+			   unsigned import_flags)
- {
- 	const struct bio_vec *bvec;
- 	size_t folio_mask;
-@@ -1245,6 +1389,12 @@ static int io_import_fixed(int ddir, struct iov_iter *iter,
- 
- 	offset = buf_addr - imu->ubuf;
- 
-+	if (imu->flags & IO_REGBUF_F_DMABUF) {
-+		if (!(import_flags & IO_REGBUF_IMPORT_ALLOW_DMABUF))
-+			return -EFAULT;
-+		return io_import_dmabuf(req, ddir, iter, imu, len, offset,
-+					issue_flags);
-+	}
- 	if (imu->flags & IO_REGBUF_F_KBUF)
- 		return io_import_kbuf(ddir, iter, imu, len, offset);
- 
-@@ -1307,7 +1457,8 @@ int __io_import_reg_buf(struct io_kiocb *req, struct iov_iter *iter,
- 	node = io_find_buf_node(req, issue_flags);
- 	if (!node)
- 		return -EFAULT;
--	return io_import_fixed(ddir, iter, node->buf, buf_addr, len);
-+	return io_import_fixed(req, ddir, iter, node->buf, buf_addr, len,
-+				issue_flags, import_flags);
- }
- 
- static int io_buffer_acct_cloned_hpages(struct io_ring_ctx *ctx,
-@@ -1729,7 +1880,9 @@ int __io_import_reg_vec(int ddir, struct iov_iter *iter,
- 	iovec_off = vec->nr - nr_iovs;
- 	iov = vec->iovec + iovec_off;
- 
--	if (imu->flags & IO_REGBUF_F_KBUF) {
-+	if (imu->flags & IO_REGBUF_F_DMABUF) {
-+		return -EOPNOTSUPP;
-+	} else if (imu->flags & IO_REGBUF_F_KBUF) {
- 		int ret = io_kern_bvec_size(iov, nr_iovs, imu, &nr_segs);
- 
- 		if (unlikely(ret))
-diff --git a/io_uring/rsrc.h b/io_uring/rsrc.h
-index 351995b61e68..8e36a954169e 100644
---- a/io_uring/rsrc.h
-+++ b/io_uring/rsrc.h
-@@ -28,6 +28,11 @@ struct io_rsrc_node {
- enum {
- 	IO_REGBUF_F_KBUF		= 1 << 0,
- 	IO_REGBUF_F_UNCLONEABLE		= 1 << 1,
-+	IO_REGBUF_F_DMABUF		= 1 << 3,
-+};
-+
-+enum {
-+	IO_REGBUF_IMPORT_ALLOW_DMABUF		= 1 << 1,
- };
- 
- struct io_mapped_ubuf {
-@@ -170,4 +175,17 @@ static inline void io_alloc_cache_vec_kasan(struct iou_vec *iv)
- 		io_vec_free(iv);
- }
- 
-+void io_drop_dmabuf_node(struct io_kiocb *req);
-+
-+static inline void io_req_drop_dmabuf(struct io_kiocb *req)
-+{
-+	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-+		return;
-+	if (!(req->flags & REQ_F_DROP_DMABUF))
-+		return;
-+	if (WARN_ON_ONCE(!(req->flags & REQ_F_BUF_NODE)))
-+		return;
-+	io_drop_dmabuf_node(req);
-+}
-+
- #endif
-diff --git a/io_uring/rw.c b/io_uring/rw.c
-index 0c9494fd21be..a13dd2138c06 100644
---- a/io_uring/rw.c
-+++ b/io_uring/rw.c
-@@ -367,8 +367,8 @@ static int io_init_rw_fixed(struct io_kiocb *req, unsigned int issue_flags,
- 	if (io->bytes_done)
- 		return 0;
- 
--	ret = io_import_reg_buf(req, &io->iter, rw->addr, rw->len, ddir,
--				issue_flags);
-+	ret = __io_import_reg_buf(req, &io->iter, rw->addr, rw->len, ddir,
-+				  issue_flags, IO_REGBUF_IMPORT_ALLOW_DMABUF);
- 	iov_iter_save_state(&io->iter, &io->iter_state);
- 	return ret;
- }
-@@ -583,6 +583,8 @@ static void io_complete_rw(struct kiocb *kiocb, long res)
- 	struct io_rw *rw = container_of(kiocb, struct io_rw, kiocb);
- 	struct io_kiocb *req = cmd_to_io_kiocb(rw);
- 
-+	io_req_drop_dmabuf(req);
-+
- 	/* ring owner may block in freeze_super() before task_work runs */
- 	if (kiocb->ki_flags & IOCB_WRITE)
- 		io_req_end_write(req);
--- 
-2.54.0
+No, "reallocated" is correct.  From the comment for SLAB_TYPESAFE_BY_RCU:
 
+  * This delays freeing the SLAB page by a grace period, it does _NOT_
+  * delay object freeing. This means that if you do kmem_cache_free()
+  * that memory location is free to be reused at any time. Thus it may
+  * be possible to see another object there in the same RCU grace period.
+  *
+  * This feature only ensures the memory location backing the object
+  * stays valid, the trick to using this is relying on an independent
+  * object validation pass. Something like:
+  *
+  * ::
+  *
+  *  begin:
+  *   rcu_read_lock();
+  *   obj = lockless_lookup(key);
+  *   if (obj) {
+  *     if (!try_get_ref(obj)) // might fail for free objects
+  *       rcu_read_unlock();
+  *       goto begin;
+  *
+  *     if (obj->key != key) { // not the object we expected
+  *       put_ref(obj);
+  *       rcu_read_unlock();
+  *       goto begin;
+  *     }
+  *   }
+  *  rcu_read_unlock();
+
+The above pseudocode is what get_file_active() is doing; it verifies the found
+file ("obj" above) is the correct file.  Specifically, from __get_file_rcu():
+
+	 * If the pointers don't match the file has been reallocated by
+	 * SLAB_TYPESAFE_BY_RCU.
