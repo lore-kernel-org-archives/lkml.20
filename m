@@ -1,147 +1,68 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46DE4B826E
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC533BED35;
+	Mon, 21 Sep 2026 15:50:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790005745; cv=none; b=QRQNvcFRXN2ey+LC70OVQTvzjGMGbVWnUkTxq1V8MwEPweMCG5FbsaT0zda+5ajpW+BgZLN9A8EXdh+jh1dIRkXKqYqr+9qAlVv0My0tFs9s36s+fbrHNCQjcVDkJDyCKBFQOVCrWkL7zfqzFcwuxCqmW8qAOR0OL/YjI1V0V2s=
+	t=1790005813; cv=none; b=bOi/ybU7B2rhvpLUimYMB40NuSP6RNksVXiWKq54RoTrsRZCAIZaMm4j/c7HPVY1N8vLXjMt6HvCuFOw2HtYo/dqdA5gUj6o6txJtq1C8cdBq24YnRMnh/sManYA/pq9TSCwaiPsZikPxUwQwvGJI6TNtywjk8vQUq0vDVuiCXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790005745; c=relaxed/simple;
-	bh=7X8DglpYoKyJvznThs0j4mHe4fvO4f+WYWYfsETxoTw=;
+	s=arc-20240116; t=1790005813; c=relaxed/simple;
+	bh=HHOV2sHuKbO7q1y40mnJ3BBAhf3V7+LoKvNJ49goYcw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sFwCUA7fVfSqxUIc6xaugwQeciFCc2E9EvgL+FvJSckjyoDL+hqZdgAAu9DZ8NAyDVSVZzSdsMCZQjvi+3gK64Bcvy3AaHwjNmhgmEo4ZBrfyyNRVEYEdWpfamKfXoJK9j6KDpk3dqzUQA5yRygdVW3MzjAuwj1PSXmZF/CqWTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=BIZAXQEY; arc=none smtp.client-ip=74.125.230.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=NVu6qhTI/dT9v1wcDSYIQG1vzn4tDfmGPmpwNltUFiOj8aYECDe+3YQGmt/Mb6Hm7R9QGUzbg90bh/VD9jTxWTT3dUbAjQYydlg6UfAW9286MacH341rQfLaBocWbfiFZUluNz/e6K9u1/pYarPmfLhft4FVn2plRPSo+SjQyr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oh6mIuQh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="BIZAXQEY"
-Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-5329fc7b325so21026071cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:49:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790005742; x=1790610542; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/s9qiYogYW6WNzZt1dtpYbULGoaZUSl75Lwvowk+5Ug=;
-        b=BIZAXQEY/Wt5INkxOWj6lymS27vi7/z1sa0MgKHnqBoqUzHhK8b4bl38ZaoOrKcU6A
-         O1DPes8GpyzoWexQY/RMIT455kXxs/n1GFqSWa0q5JBeEKq1rqWJ6NN0TkZ6W5OE13zc
-         ipNmI3SstNNExVm3Lqr0c4MDYRI69JsuSQvDyqe8hkf3GJUB4bGpk4NfKg5vIyJ1u1MI
-         T52Qjsh3sAvaSJkowkdS1RRabwCSK+HxelWuvSfhcsG4dytku/EMUh4/MCfkDET3m1Z8
-         b8MjxsApOlDfcpVd28m1Oy/ly6TDn7B/g6eINj3lebGSX0LUZOUlI6cHtDIckQdvKOm9
-         +Gug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790005742; x=1790610542;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/s9qiYogYW6WNzZt1dtpYbULGoaZUSl75Lwvowk+5Ug=;
-        b=h9zDoM9skH2CB2WF14wCibs1N2aNDCpwG6fPcVkE9wJ+IZTo3Ul11n7ObzK29nxMiv
-         8rSHdX8GZVL4VeaT9HwD4ND3hRzR2080gZQIQ1RwJUBC1D9rqI/Y23vK7TGdbBVcgLk+
-         eLWNu8/nlCAtMscMkcI8CD4ndJWKrD9m8gCbE956+19t4wYaLtNs7Vayt0Z4otHke/Uz
-         gsQguMcLyjfPsI28hEc3XHXXX5z6YOCuyFLwenGhJ8mhcuUk5Yq2bKpP8lGD2rozpGF3
-         8SQWE0819OcCgHRlJPvxfnqoGIgek2qls9CayPGzPBGbI7cNJA3T/0ELVjBLFKDsVdeV
-         I31Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz1ungd1uPnZBmFf5lYKYEo1FN5WMKC57M03Awr4dLgg3I58/gdNSktHlAt1aCFISjvgLToFnhMtEjWyog=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQvSxq+LawDTP+gi7sPgmIXwq5QBWbw896brO7F9DS2xS38GKC
-	ZeFSThqfjLtJhOEIZaNFcpIlA6tnoMtzS7zLlRoSm3S+4bbineeMn1YkQNvRM4C4NQM=
-X-Gm-Gg: AYBFou3S3D+UuXSuwf8+2l0oOa1jfVfHO+QUon2T7ZPTmuTjAVhIFoGHkh6lV5TTQgk
-	Y5PvJyWXhxgpAipF/I0ddlWJSc3M+m24JUZcYJLS8ogMMet9LzdQNCK6aRYzHYyOD+kuy/jD4TL
-	+3LROIUkycJ7GeKNID38WmmtDc3ql3ut/LUXghrFJSZ+cIm0AjU4HU+x/k6ehBmFSx2aWCmSspj
-	LqVu4rBmMrKNUM+jooqtGzk18zWChlWcCu2UsFNvZgQ6VfKDUfCobMVuz9LlCX9QOQxcng74hon
-	w9pytudYvhW2a9hy48Yr6T7vk5GSzcNYQM5YBLEW0j+2/RPDmeuKBa9LrMwVGBgtiyy4D57sD4r
-	kSmG/pgddd7Ew2gKrT1qPtITnbk0P4eesDRUhknDnDIGsQQ+XHv1fYntSCr5B/uGI6Fjob7/8bu
-	1FHoOOfGY16vafVU6Pn2YHpGk46U+O1HKU7uItq7o0YDQ/09IUvFA25JLQz2OYv2nXOvQeujx4N
-	DQHugaDM0E=
-X-Received: by 2002:ac8:5a8b:0:b0:532:a5f4:df25 with SMTP id d75a77b69052e-532d8e4f628mr13379251cf.57.1790005741711;
-        Mon, 21 Sep 2026 08:49:01 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F ([50.193.156.113])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532ae512550sm66992481cf.1.2026.09.21.08.48.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 08:49:01 -0700 (PDT)
-Date: Mon, 21 Sep 2026 11:48:57 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Rik van Riel <riel@surriel.com>
-Cc: Kairui Song <ryncsn@gmail.com>, Chris Li <chrisl@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Tejun Heo <tj@kernel.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <arFP7YNzB1RMUKuc@gourry-fedora-PF4VCD3F>
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <aqJXx2vtbKaRLt3x@fedora>
- <aqLi6cIjD2wJwk0B@cmpxchg.org>
- <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
- <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F>
- <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
- <CAMgjq7CJBHkoZmg9oKNgGA8czL0djyBTCAkPz8ETm-tX=Qci4g@mail.gmail.com>
- <arEotFqE7ZZoxMHd@gourry-fedora-PF4VCD3F>
- <f3af5902412b9ff1c1a37211eeeb9c0ffc22f814.camel@surriel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oh6mIuQh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A2DE1F000FF;
+	Mon, 21 Sep 2026 15:50:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790005809;
+	bh=zNJc6l1eT2arkxwpoV3EiLXIzBNXwmByVmOhj8b7aKs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Oh6mIuQhm2v+ty5d/2r34B8sYcPUN24dGLKtnmIw7d9PnyuTtkUJ3yk11orWgNjJs
+	 H9VGZxSAxkHL5pwAj48a7zPo17bSZSNRLJTe3qYpMx0G4rYK7yI5EtRd2HH1iUC0Gj
+	 egaWhIDMDkPWE8YTVUaFwwVPDl91LyGeXYrxF2I9cB9imgatjFfjFRglRVmUD4tEAI
+	 504DfX5RF/T8GUooJ4o4dkeh1DlXaBlZlnQYX4nYtVZ3txwNyhcmYSKld8xl0bFVzw
+	 GtR++9gvWM0T1ZllGKUFwQ1Og11M/eONSGjVWzZAOVRSyl6Mlz1rP/2lcqcfYgw6by
+	 p0EtdZu0S8kSw==
+Date: Mon, 21 Sep 2026 08:50:08 -0700
+From: Wei Liu <wei.liu@kernel.org>
+To: Sahil Chandna <sahilchandna@linux.microsoft.com>
+Cc: kys@microsoft.com, haiyangz@microsoft.com, namjain@linux.microsoft.com,
+	mhklinux@outlook.com, hamzamahfooz@linux.microsoft.com,
+	wei.liu@kernel.org, decui@microsoft.com, longli@microsoft.com,
+	lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+	robh@kernel.org, bhelgaas@google.com, linux-hyperv@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] PCI: hv: Warn when wait_for_response() waits
+ indefinitely
+Message-ID: <20260921155008.GA1566687@liuwe-devbox-debian-v2.local>
+References: <20260914103918.3125157-1-sahilchandna@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f3af5902412b9ff1c1a37211eeeb9c0ffc22f814.camel@surriel.com>
+In-Reply-To: <20260914103918.3125157-1-sahilchandna@linux.microsoft.com>
 
-On Mon, Sep 21, 2026 at 11:27:53AM -0400, Rik van Riel wrote:
-> On Mon, 2026-09-21 at 09:27 -0400, Gregory Price wrote:
-> > 
-> > In short:
-> > 
-> >   memory.swap   = logical swap       - workload/SLO limit
-> >   memory.pswap  = physical swap      - storage limit
-> >   memory.zswap  = compressed memory  - RAM limit
-> > 
-> > This would preserve the existing memory.swap semantics while allowing
-> > both backing resources to be constrained independently.
-> > 
-> My first thought was "this is confusing", but
-> after a minute I realized that most users will 
-> never set those options to anything other than 
-> "0" or "max", and the few who do only need to
-> touch one of them.
+On Mon, Sep 14, 2026 at 03:39:09AM -0700, Sahil Chandna wrote:
+> A guest can wait indefinitely in wait_for_response() for the host to
+> send either a rescind message or a packet completion. If the
+> host does not send either, the guest can remain blocked with no
+> diagnostic indicating a reason.
+> This was observed during a guest kernel upgrade in which the
+> host-side application handling the PCI channel faulted, causing the
+> guest to never receive the completion request.
+> Add a warning in wait_for_response() when the wait exceeds
+> a timeout so that such a hang is visible in the guest's kernel log
+> and can be correlated with host-side state.
 > 
+> Suggested-by: Michael Kelley <mhklinux@outlook.com>
+> Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
+> Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
 
-In practice, at most two (zswap + pswap) with swap=max.
-
-There's not much of a reason to set swap to anything other
-than max if you already have zswap and pswap limits.
-
-But for existing users where they're using it as an SLO
-signal, they could continue getting the existing behavior
-by just using swap.max.
-
-That said:
-
-I'm not convinced this is actually required, because the swap
-counter was never an SLO mechanism - it is a physical swap
-provisioning mechanism.  If it's being used as an SLO mechanism,
-those users have misinterpreted its documented meaning.
-
-memory.min / memory.low already provide you this logical limit
-mechanism - so I would argue the parties that want such a split
-(rather than treating zswap / swap *as* the split) need to prove
-their use case cannot be supported by existing counters.
-
-~Gregory
+Applied. Thanks.
