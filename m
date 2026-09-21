@@ -1,359 +1,144 @@
-Received: from mta1.migadu.com (out-113.mta1.migadu.com [95.215.58.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A4939768F
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F97393DF9;
+	Mon, 21 Sep 2026 19:26:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790018798; cv=none; b=fNVHdt27K3smLnG9xv9E4Nab1jj4RbSlzDauNWMgnUVD5IzZhrlfPUWlxIapA47wPWeWJWgGOAqH44WofWMSDsxJRN0+3k2x+e5+J4QLyfmG/Hjzmq77DfGw+Z+tqG4/Ohv2OQuq+Bl4LcrHYMmvlFi+lbbEKOaEK7CMyB0m4Kk=
+	t=1790018818; cv=none; b=fsor+CXeuGnNpXmjZlDKGGu88VtSukG9uV+j56qcI70E2WVyx/kgRGO83dM09q3ZKigSEWP8JSqsUF/ti25FaMbezCfd9BXZdDZk4Rz+ski/vnjQALHgF9Cr84KbvwS7pKzRICqyPWbyPFVs7/lRckdHd45yvi0PMkL3vOSVeps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790018798; c=relaxed/simple;
-	bh=S4IiI0QtQMZJ6UHYEdTwEsQ4SJWFZYS+fNpb6Z0WBxU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BaX7dhAvcw/W0o27xTZ6bsbu4iBqH2F/xdY84965U8NEKh6+J3bphjMs3xP+aAfD4NAZS6xy9q339l2s0IcRc+8VBjNMdL4wDMXhEcGgd4XLTmVMvMcxsWebx92PJV3CbjOM1OZjrEOnLFC7cny+HEt/Ayx9codS3lgsZG/201M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=h1YidvtP; arc=none smtp.client-ip=95.215.58.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790018818; c=relaxed/simple;
+	bh=qJLZuq6oAKYSgk0uQ2rXXPYSBjR3EEGDlaGy9xqzv0Q=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=Jt5ZPjlNyrdvliOC5zlN7QP9ULWXj6lIgJEmHD2lIAlbcEKIsI65JwOQxP8dZae9f8+bZeGng0QnkAlWQ/8LTbUcPOZXUbOeX4tmXmHKQ0RqPI+3CurKexpL9LaQhbdjXRn+b/f9CTW2+EfuCjE++kY+lTuuQybI2g/+h4W40LM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=KFvf9Wf2; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=xJAtRNKH; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="h1YidvtP"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=S4IiI0QtQMZJ6UHYEdTwEsQ4SJWFZYS+fNpb6Z0WBxU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790018794; v=1; x=1790623594;
- b=h1YidvtPF/BMmhACJVDlhSVdqZR0Q2VpuuiNocO/6hDPxq3TbMfAZsyzHS1mMv8uIcDu7FX/
- OeDmh4XubtmXU/C1LU2QJPuaMSjAbnN+uFgJtv4ekidvhKwYEUsT/T1FsOp1IukiRrHag+7jU+a
- /GKyASDiqCEPLOz2n1qqBQVs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 923039e922c66b75;
-	Mon, 21 Sep 2026 19:26:34 +0000
-X-Mizu-Trace-ID: 923039e922c66b75
-X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Alexei Starovoitov <ast@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	JP Kobryn <jp.kobryn@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
-	Michal Koutny <mkoutny@suse.com>,
-	Amery Hung <ameryhung@gmail.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	hui.zhu@linux.dev,
-	Donet Tom <donettom@linux.ibm.com>,
-	Greg Thelen <gthelen@google.com>,
-	Meta kernel team <kernel-team@meta.com>,
-	linux-mm@kvack.org,
-	bpf@vger.kernel.org,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 4/4] selftests/bpf: add a cgroupfs lock-holder bpf_memcg_ops sample
-Date: Mon, 21 Sep 2026 12:25:59 -0700
-Message-ID: <20260921192559.2619635-5-shakeel.butt@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260921192559.2619635-1-shakeel.butt@linux.dev>
-References: <20260921192559.2619635-1-shakeel.butt@linux.dev>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="KFvf9Wf2";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="xJAtRNKH"
+Date: Mon, 21 Sep 2026 19:26:51 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790018813;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TII1CVaV7BwFL3gqAnn/KjVqhARTZYzJnCV7H/QysIo=;
+	b=KFvf9Wf23rINSxGiBjT8fjs3+5MHkqpoeDxwoGRFHRVgNcQywmlslBoM57YIUEU4GPXilh
+	GJsZu8H5T+cpAKgKe4NR4AYJ51wxUXSlAQMrZ4ikrWcOHSaoIIOqkxTe3TpenvXy4ISpKE
+	sWQLCQNYMpob5MUU9Nly1UfkuOgkwrj/bYIzXJISlhyOJbqziYcfjGqgCOOFb6TATvoyzL
+	wbbnBnyVfLDiZfDpv9j9hQExOEjG6jp4w81TSRs0H9Nos89+fs4cL9t5GVpzUx8QhmnHyZ
+	8bsCOE8On4F0aji2kW31M2zU1+WFf8hRdfNNIORdHtwOC49c9M1dio/pWS61sA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790018813;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TII1CVaV7BwFL3gqAnn/KjVqhARTZYzJnCV7H/QysIo=;
+	b=xJAtRNKHoloL6Q+ih9/+tmAYMsQsgOnlAO7QNoJQSTEbge6HvLa0RMAEK01ouUpKNlri9n
+	2uCrZ5qpxpkFA+CA==
+From: "tip-bot2 for Mike Rapoport (Microsoft)" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/mm] x86/mm/pat: Use pr_warn() for early W^X warnings
+Cc: Nathan Chancellor <nathan@kernel.org>,
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260913-fixes-verify-rwx-v3-1-5e1d6a08bd02@kernel.org>
+References: <20260913-fixes-verify-rwx-v3-1-5e1d6a08bd02@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <179001881134.2819794.17652991935036294067.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-A bpf_memcg_ops policy that keeps tasks holding a cgroupfs kernfs lock out
-of inline memory.high enforcement.
+The following commit has been merged into the x86/mm branch of tip:
 
-About forty functions take that lock, one of them through guard(rwsem_read),
-so the sample tracks the lock rather than its callers.  A SEC("syscall")
-program finds kernfs_rwsem and kernfs_supers_rwsem inside
-cgrp_dfl_root.kf_root, and fentry/fexit on the rwsem primitives keeps a
-per-task depth for those two addresses.  Every other kernfs user has its own
-kernfs_root, so its own locks, which keeps this to cgroupfs.
+Commit-ID:     ea6fd393cb9e6811a748c7551de0dd3090f9dcde
+Gitweb:        https://git.kernel.org/tip/ea6fd393cb9e6811a748c7551de0dd3090f=
+9dcde
+Author:        Mike Rapoport (Microsoft) <rppt@kernel.org>
+AuthorDate:    Sun, 13 Sep 2026 10:37:27 +03:00
+Committer:     Dave Hansen <dave.hansen@linux.intel.com>
+CommitterDate: Mon, 21 Sep 2026 12:23:22 -07:00
 
-down_*() return once the lock is held, so an acquire is counted on their
-exit and a release on the entry of up_*().  The killable, interruptible and
-trylock forms are covered too, checking the return so a failed acquire does
-not count.  downgrade_write() needs no hook.  The depth is clamped at zero
-for tasks already holding the lock when the hooks went on.
+x86/mm/pat: Use pr_warn() for early W^X warnings
 
-Two counters guard against passing for the wrong reason: one counts a holder
-that reached inline enforcement anyway, and one counts a holder that could
-not be tracked.  Both must be 0.
+Nathan Chancellor reports the following warning:
 
-Measured with a reproducer [1] for the bug fixed by the patch proposed
-in [2], on a kernel without that fix:
+  CPA detected W^X violation: 8000000000000123 -> 0000000000000123 range: 0xf=
+fffffffc0400000 - 0xffffffffc0400fff PFN 100e00
 
-                                      baseline    policy    upstream fix
-  max kernfs_rwsem hold, worker        2.049 s     199 us   not taken
-  max kernfs_supers_rwsem hold         2.049 s     4.8 ms   2.056 s
-  max kernfs_rwsem write wait          4.096 s     6.2 ms   8.7 ms
-  walker passes over /sys/fs/cgroup        352       5711   6700
-  churn mkdir+rmdir ops                 13 059    364 832   415 488
-  churn max latency                     30.7 s    15.1 ms   12.7 ms
+from its_alloc() doing set_memory_x() during early retpoline setup.
 
-The policy does better than the fix on kernfs_supers_rwsem, which the fix
-does not help: it drops kernfs_rwsem from the delivery loop, while the
-policy stops the worker stalling at all.
+The warning is not factually wrong but it is unproductive. First, the RWX
+permission is temporary and fixed up by execmem_restore_rox(). Second,
+at the time of the warning, all kernel text is mapped RWX. So there is not
+even a transient actual security issue.
 
-The throughput columns are about 8% under what the same policy reaches
-hooking one function.  That is the cost of the tracking and motivates
-more optimized way to track the shared locks which can cause isolation
-issues between unrelated workloads.
+The right way to fix this up is to relax RWX detection during boot but
+make a final verification pass over all kernel page tables before running
+userspace.  There is code to do that today (debug_checkwx()) but it
+must be enabled explicitly in Kconfig.
 
-There is no harness yet, so these numbers come from the reproducer and not
-from the test suite.
+For now, retain the warning even if it's unproductive, but make it
+scream less loudly: use pr_warn_once() rather than WARN_ONCE().
 
-[1] https://github.com/shakeelb/mempressure-repros/tree/main/kernfs-notify-memcg
-[2] https://lore.kernel.org/20260910045406.485295-1-shakeel.butt@linux.dev/
+Remove the warning once debug_checkwx() behavior becomes unconditional.
 
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+Closes: https://lore.kernel.org/all/20260905044253.GA3816371@ax162
+Reported-by: Nathan Chancellor <nathan@kernel.org>
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
+Tested-by: Nathan Chancellor <nathan@kernel.org>
+Tested-by: Ihor Solodrai <ihor.solodrai@linux.dev>
+Link: https://patch.msgid.link/20260913-fixes-verify-rwx-v3-1-5e1d6a08bd02@ke=
+rnel.org
 ---
- .../bpf/progs/memcg_ops_lockholder.c          | 222 ++++++++++++++++++
- 1 file changed, 222 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/progs/memcg_ops_lockholder.c
+ arch/x86/mm/pat/set_memory.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/tools/testing/selftests/bpf/progs/memcg_ops_lockholder.c b/tools/testing/selftests/bpf/progs/memcg_ops_lockholder.c
-new file mode 100644
-index 000000000000..09a74f21f3da
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/memcg_ops_lockholder.c
-@@ -0,0 +1,222 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Keep tasks holding a cgroupfs kernfs lock out of inline memory.high
-+ * enforcement.
-+ */
-+
-+#include "vmlinux.h"
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
-+#include <bpf/bpf_core_read.h>
-+
-+char _license[] SEC("license") = "GPL";
-+
-+/* cgrp_dfl_root has no BTF variable, so take it as an untyped ksym. */
-+extern const void cgrp_dfl_root __ksym;
-+
-+/* Set by resolve_locks() below, before any of the hooks are attached. */
-+__u64 kernfs_rwsem_addr;
-+__u64 kernfs_supers_rwsem_addr;
-+
-+struct lock_state {
-+	__s32 depth;
-+};
-+
-+struct {
-+	__uint(type, BPF_MAP_TYPE_TASK_STORAGE);
-+	__uint(map_flags, BPF_F_NO_PREALLOC);
-+	__type(key, int);
-+	__type(value, struct lock_state);
-+} lock_state SEC(".maps");
-+
-+/* Charges from a task holding one of the locks: each is a stall avoided. */
-+__u64 deferrals;
-+/* Charges from everyone else, where we said nothing. */
-+__u64 passthroughs;
-+/* A holder reached inline enforcement anyway.  Must stay zero. */
-+__u64 violations;
-+/*
-+ * A holder went untracked because task storage could not be created.  That
-+ * looks just like a pass, and gets likelier under the pressure we are
-+ * testing.  Must stay zero too.
-+ */
-+__u64 mark_failures;
-+
-+/*
-+ * Find the two rw_semaphores in the cgroup2 kernfs_root.  The loader runs this
-+ * once before attaching the hooks, so none of them sees a zero address.  Every
-+ * other kernfs user has its own kernfs_root, hence its own locks, which is
-+ * what keeps this to cgroupfs.
-+ */
-+SEC("syscall")
-+int resolve_locks(void *ctx)
-+{
-+	struct cgroup_root *root = (struct cgroup_root *)&cgrp_dfl_root;
-+	struct kernfs_root *kf;
-+
-+	kf = BPF_CORE_READ(root, kf_root);
-+	if (!kf)
-+		return 1;
-+
-+	kernfs_rwsem_addr = (__u64)kf +
-+		bpf_core_field_offset(struct kernfs_root, kernfs_rwsem);
-+	kernfs_supers_rwsem_addr = (__u64)kf +
-+		bpf_core_field_offset(struct kernfs_root, kernfs_supers_rwsem);
-+	return 0;
-+}
-+
-+static __always_inline bool is_cgroup_kernfs_lock(const void *sem)
-+{
-+	__u64 addr = (__u64)sem;
-+
-+	return addr && (addr == kernfs_rwsem_addr ||
-+			addr == kernfs_supers_rwsem_addr);
-+}
-+
-+static __always_inline void note_acquire(const void *sem)
-+{
-+	struct lock_state *st;
-+
-+	if (!is_cgroup_kernfs_lock(sem))
-+		return;
-+
-+	st = bpf_task_storage_get(&lock_state, bpf_get_current_task_btf(), NULL,
-+				  BPF_LOCAL_STORAGE_GET_F_CREATE);
-+	if (!st) {
-+		__sync_fetch_and_add(&mark_failures, 1);
-+		return;
-+	}
-+	st->depth++;
-+}
-+
-+static __always_inline void note_release(const void *sem)
-+{
-+	struct lock_state *st;
-+
-+	if (!is_cgroup_kernfs_lock(sem))
-+		return;
-+
-+	st = bpf_task_storage_get(&lock_state, bpf_get_current_task_btf(), NULL, 0);
-+	if (!st)
-+		return;
-+	/* A task already holding it when we attached has no acquire to match. */
-+	if (st->depth > 0)
-+		st->depth--;
-+}
-+
-+/*
-+ * down_*() return once the lock is held, so the hold runs from their exit to
-+ * the entry of up_*().  That excludes the wait.
-+ *
-+ * downgrade_write() needs no hook: the lock stays held, and the up_read()
-+ * after it pairs with the original down_write().
-+ */
-+
-+SEC("fexit/down_read")
-+int BPF_PROG(down_read_exit, struct rw_semaphore *sem)
-+{
-+	note_acquire(sem);
-+	return 0;
-+}
-+
-+SEC("fexit/down_write")
-+int BPF_PROG(down_write_exit, struct rw_semaphore *sem)
-+{
-+	note_acquire(sem);
-+	return 0;
-+}
-+
-+/* The killable and interruptible forms return 0 when they got the lock. */
-+SEC("fexit/down_read_killable")
-+int BPF_PROG(down_read_killable_exit, struct rw_semaphore *sem, int ret)
-+{
-+	if (!ret)
-+		note_acquire(sem);
-+	return 0;
-+}
-+
-+SEC("fexit/down_read_interruptible")
-+int BPF_PROG(down_read_interruptible_exit, struct rw_semaphore *sem, int ret)
-+{
-+	if (!ret)
-+		note_acquire(sem);
-+	return 0;
-+}
-+
-+SEC("fexit/down_write_killable")
-+int BPF_PROG(down_write_killable_exit, struct rw_semaphore *sem, int ret)
-+{
-+	if (!ret)
-+		note_acquire(sem);
-+	return 0;
-+}
-+
-+/* The trylocks return 1 when they got the lock. */
-+SEC("fexit/down_read_trylock")
-+int BPF_PROG(down_read_trylock_exit, struct rw_semaphore *sem, int ret)
-+{
-+	if (ret == 1)
-+		note_acquire(sem);
-+	return 0;
-+}
-+
-+SEC("fexit/down_write_trylock")
-+int BPF_PROG(down_write_trylock_exit, struct rw_semaphore *sem, int ret)
-+{
-+	if (ret == 1)
-+		note_acquire(sem);
-+	return 0;
-+}
-+
-+SEC("fentry/up_read")
-+int BPF_PROG(up_read_enter, struct rw_semaphore *sem)
-+{
-+	note_release(sem);
-+	return 0;
-+}
-+
-+SEC("fentry/up_write")
-+int BPF_PROG(up_write_enter, struct rw_semaphore *sem)
-+{
-+	note_release(sem);
-+	return 0;
-+}
-+
-+/* If a holder gets here, the policy did not work. */
-+SEC("fentry/__mem_cgroup_handle_over_high")
-+int BPF_PROG(over_high_enter)
-+{
-+	struct lock_state *st;
-+
-+	st = bpf_task_storage_get(&lock_state, bpf_get_current_task_btf(), NULL, 0);
-+	if (st && st->depth > 0)
-+		__sync_fetch_and_add(&violations, 1);
-+	return 0;
-+}
-+
-+/* BPF_PROG() uses "ctx" for the raw argument array, hence "mctx" here. */
-+SEC("struct_ops")
-+__u32 BPF_PROG(kernfs_high_policy, const struct bpf_memcg_ctx *mctx)
-+{
-+	struct lock_state *st;
+diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+index b306000..a799f53 100644
+--- a/arch/x86/mm/pat/set_memory.c
++++ b/arch/x86/mm/pat/set_memory.c
+@@ -697,6 +697,21 @@ static inline pgprot_t verify_rwx(pgprot_t old, pgprot_t=
+ new, unsigned long star
+ 		return new;
+=20
+ 	end =3D start + npg * PAGE_SIZE - 1;
 +
 +	/*
-+	 * mctx->task is the charging task.  No F_CREATE, so this is just an
-+	 * RCU read, and the counters are atomics on .bss.  Both are fine here.
++	 * If the kernel text is still RWX, gently complain, this could be a
++	 * false positive.
++	 * Once debug_checkwx() becomes mandatory for CONFIG_STRICT_KERNEL_RWX,
++	 * the warning can be removed completely.
 +	 */
-+	st = bpf_task_storage_get(&lock_state, mctx->task, NULL, 0);
-+	if (!st || st->depth <= 0) {
-+		__sync_fetch_and_add(&passthroughs, 1);
-+		return BPF_MEMCG_HIGH_NO_OPINION;
++	if (!kernel_set_to_readonly) {
++		pr_warn_once("CPA detected W^X violation: %016llx -> %016llx range: 0x%016=
+lx - 0x%016lx PFN %lx\n",
++		  (unsigned long long)pgprot_val(old),
++		  (unsigned long long)pgprot_val(new),
++		  start, end, pfn);
++		return new;
 +	}
 +
-+	__sync_fetch_and_add(&deferrals, 1);
-+
-+	/* The kernel ORs this with what the other policies return. */
-+	return BPF_MEMCG_HIGH_DEFER_INLINE;
-+}
-+
-+SEC(".struct_ops.link")
-+struct bpf_memcg_ops kernfs_lockholder = {
-+	.high_policy = (void *)kernfs_high_policy,
-+};
--- 
-2.53.0-Meta
-
+ 	WARN_ONCE(1, "CPA detected W^X violation: %016llx -> %016llx range: 0x%016l=
+x - 0x%016lx PFN %lx\n",
+ 		  (unsigned long long)pgprot_val(old),
+ 		  (unsigned long long)pgprot_val(new),
