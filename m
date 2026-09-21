@@ -1,90 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425EE3C09F5;
-	Mon, 21 Sep 2026 12:19:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BEDC48A2B5;
+	Mon, 21 Sep 2026 12:20:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789993193; cv=none; b=A4/U6Ev4QzCu79dnwXgpQgm/3AhTeT4smlKwgW6U7jv/jRamfrDTmTBdUMgqkipvQP/xo5vZ9BjXc1Po0LYEOPx/IqYlWE/0kE8R/w+f+lXExTp3K6AQE1GDoSN8Tc2ezwsSRbrl/1yEgAIZh93Q/cyBd1NIcMjo0rcoL/6Hr1s=
+	t=1789993213; cv=none; b=M7Wr+IsWJGaKcKVL40btqfvgoy6xaXshMjTNulTBOxVyeilMHglNjaIrVCtZkxz7woS2xQ1FiUvsoFZLtxn7s5ipkcSc8dZmI+0syLr/6yz6RjM/aVOwV9mo+WvnJaFFUfnCYzqra5tlW02KdeUdBDNFVtgBhP9eNKsAd0E6wfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789993193; c=relaxed/simple;
-	bh=vC35KO3UjRrxzqN3EeVAi3JMuO4wdCcHWMImDy9EXvA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=qU5gzRSr3YIXt8vxFcoUMwsoW91IgrYM3Pfz0KUmOfNxNNWYrOcTiyyh4kUcW+6XsZ3p76B11f/oE6uFaFO/4hvzCIKv9LHHGMha6ZSxPFwyZb3J8nT9OTXnvUkgmBX4CthtwcIcE3oc/7r/2tUwuGpMSxXJDHJESz1G4JMkTxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JEgjXiND; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789993213; c=relaxed/simple;
+	bh=4HIejzb3u16Cr5ANljdLvK4OezxqZVkl2qfAaCbJ5TE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C9xOmqY/qkjZmvdi6ko+N3DmNLEtN/Kf/r3kH22mcatAc2NAyWeRMxk3NPG/vO7aUCM4UQNxV9toOvCIA4GbmI6IelOmRXd+Q6LcXi2Pu8gOEGCzedYcLXDbsVTcHTPoMYJTF3yWFZpmvuoXYxtMl7sF9g9U9UWIuV+RRLF5VqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=wKXegHR6; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=9j3GrqTZ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=owCSAm65; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=cjRPmOoD; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JEgjXiND"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B3071F00893;
-	Mon, 21 Sep 2026 12:19:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789993191;
-	bh=2NQ2AaL4l6+GvUtAEeoWWeF3dsc1rLkw49vQFA3SbuE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=JEgjXiNDdFi/KIHNSbNictmCf6VoRzb0nZVN4d8xEDve9HSzAtZWbFE7BfeCVmiwq
-	 X9YGnsKea0PoZ/+BVvKGvV8n2iBvP7vljP2JqGJsoRa+ckc0sqCkxz7baK73mvdFR8
-	 JPVnZ5kNpIHqWNE5fqlcLoYSQQeu4drnLcb5b9kBnD68kdg3Vppn0BPfwgwqaNVEtE
-	 xLHIqNcIdn+FiqbJf7hzsyy7Z1EfFmZOtQkgwn2i42oPLMosqx7LgIpO6sGmzClHHG
-	 OV6HhWCZzi2uQtOb5vJHzZMCPW0awVi2EV0Qj86KQqSm7t69WuMVKyzNhSEN+77Fvj
-	 kWwdOfhvnmAKg==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, HyeongJun An <sammiee5311@gmail.com>
-Cc: perex@perex.cz, tiwai@suse.com, ckeepax@opensource.cirrus.com, 
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260920135327.3628704-1-sammiee5311@gmail.com>
-References: <20260920135327.3628704-1-sammiee5311@gmail.com>
-Subject: Re: [PATCH] ASoC: wm8903: Move the DRC QR threshold to the
- register that holds it
-Message-Id: <178998560893.221626.8235922322553520682.b4-ty@b4>
-Date: Mon, 21 Sep 2026 12:13:28 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wKXegHR6";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9j3GrqTZ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="owCSAm65";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cjRPmOoD"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 2C07B1F38C;
+	Mon, 21 Sep 2026 12:20:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789993206; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XwpiFYC8NMjfTNhwfCkZOAGpc1v1XoGkGw35BrG8hpQ=;
+	b=wKXegHR6kxTz1Lqx/J3GfHYDZmqL3jyhBAacSx4Isuwwhm/hU9EWVNMUN1vi7Vs0u6aDJl
+	fd1tWXSZFZhavy9Cc2p52ciuW+2JCi8I5C8SSyETKVqT9lzcKLI9+af9JTi1OwTbEFBW0Z
+	p3RBJzSOJVXavRjU5ssdevcCXEpR1vQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789993206;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XwpiFYC8NMjfTNhwfCkZOAGpc1v1XoGkGw35BrG8hpQ=;
+	b=9j3GrqTZDb7bHIw/XXhROstdcbXytLej3Sv/U39qdEzVtT78BoHsAXYkbfnpbM/RkPR/uq
+	YG5cWDyP19dir3CQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=owCSAm65;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=cjRPmOoD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789993202; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XwpiFYC8NMjfTNhwfCkZOAGpc1v1XoGkGw35BrG8hpQ=;
+	b=owCSAm65JD1DRw02PtJYDOZOX8Y648G5VHj+Ignxs2xFKotf6jv8hRWPG0Af3x4WoP/FQJ
+	JkySIXii+U1+WOEVcX1Z4xrv96DMF2VYNN5Z8N0CFN72FBCAdw+5eOaPr0vkuR+mgbAxzK
+	XPgGiFOxLGCBHlJDGBdDJxL0Szdap9s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789993202;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XwpiFYC8NMjfTNhwfCkZOAGpc1v1XoGkGw35BrG8hpQ=;
+	b=cjRPmOoD8Rf3WLLtRrq24Zb/COpxv4FGicalqFo4xKgILEh1BtB2E0GowOiWtLl/rk1kAp
+	OSXk+IJxhd/okiCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E2A4313793;
+	Mon, 21 Sep 2026 12:20:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id f+xMLfEgsWo1NgAAD6G6ig
+	(envelope-from <dwagner@suse.de>); Mon, 21 Sep 2026 12:20:01 +0000
+Date: Mon, 21 Sep 2026 14:20:00 +0200
+From: Daniel Wagner <dwagner@suse.de>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Ram Vegesna <ram.vegesna@broadcom.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen" <martin.petersen@oracle.com>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Thomas Gleixner <tglx@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Hannes Reinecke <hare@suse.de>, James Smart <jsmart2021@gmail.com>, linux-scsi@vger.kernel.org, 
+	target-devel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] scsi: efct: clear MWI on remove
+Message-ID: <6e80e9b4-231a-4299-a90d-a2181ea49261@flourine.local>
+References: <20260918181326.3633765-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1156; i=broonie@kernel.org;
- h=from:subject:message-id; bh=vC35KO3UjRrxzqN3EeVAi3JMuO4wdCcHWMImDy9EXvA=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqsSDiwa8J+xWhKsrjHZgtoLQVtHTu1o0jwnLZO
- HDaRI5R6wuJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarEg4gAKCRAk1otyXVSH
- 0DHHB/43+dC0xkGt05FTsHb6ZVuSIWpPOgwxLWCCZiVQ8aGiv0nt+w4/bV9lT2+XVh4bJH8JXpn
- nzcOMActm0lLgVD90JdfdbsuKYBxIcqzvZogeZn2EjaJd5r7LrdmGl7YQ8AsgT5K0JJz+6Lgen7
- s7b5OXXDk8hxU8D7bYsmYcE5dRztLW7vFQURSLJzf1iHXHwhp3XFEpSvuwYzZ7IZxZ8GsJ4zVoF
- uRAxRLSeE7Mp2TfhDEUHuZIOJojS51UHJJLe/9uMrjZe7G0r8tnQhVlSP43Gr5nimtE/cOKsjos
- lF+TgL7D6E+tHLSDm273ehneaKR1ThBcTIlWQI8/UD9TsuRK
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918181326.3633765-1-lgs201920130244@gmail.com>
+X-Spam-Score: -4.51
+X-Rspamd-Queue-Id: 2C07B1F38C
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[broadcom.com,hansenpartnership.com,oracle.com,linutronix.de,kernel.org,suse.de,gmail.com,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,flourine.local:mid,suse.de:dkim,suse.de:email];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
 
-On Sun, 20 Sep 2026 22:53:27 +0900, HyeongJun An wrote:
-> ASoC: wm8903: Move the DRC QR threshold to the register that holds it
+On Sat, Sep 19, 2026 at 02:13:26AM +0800, Guangshuo Li wrote:
+> efct_pci_probe() enables PCI Memory-Write-Invalidate with pci_set_mwi().
+> The probe failure path clears this state with pci_clear_mwi(), but the
+> normal remove path does not perform the corresponding cleanup.
+> 
+> pci_disable_device() only disables PCI bus mastering and does not clear
+> the PCI_COMMAND_INVALIDATE bit. As a result, the MWI configuration can
+> remain enabled after the driver is removed.
+> 
+> Call pci_clear_mwi() in efct_pci_remove(), matching the probe error
+> path.
+> 
+> This issue was found by manual code inspection.
+> 
+> Fixes: 4df84e8466242 ("scsi: elx: efct: Driver initialization routines")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
-
-Thanks!
-
-[1/1] ASoC: wm8903: Move the DRC QR threshold to the register that holds it
-      https://git.kernel.org/broonie/sound/c/e31ae4aeb049
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Reviewed-by: Daniel Wagner <dwagner@suse.de>
