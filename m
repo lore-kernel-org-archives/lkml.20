@@ -1,249 +1,302 @@
-Received: from mail-pz2-f31.google.com (mail-pz2-f31.google.com [74.125.228.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0899D3C416A
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:50:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3918450415;
+	Mon, 21 Sep 2026 11:50:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789991410; cv=none; b=tNpqthePkondCw0eNrGgHMvr9EHDXB0o5aqpqJKbFv/hl4dFwjDMewjEatz3TI5+MK6l+gk2dZ1yaiG3d7puhkRK3qLpbsuP/n8Itmjs1OPIH4+3PmNTU5CIZ1Ear4iVCtfn+/xxKw/l4TkM8Ge4Otv+GiLmccJouhKiGTGDNXg=
+	t=1789991413; cv=none; b=OtcgumG+rXSKIdMv+7Z3bpT6VRdx0aHKqvZbsP7UsSVlmlhDT7KG3LsFLWFjsFmWde+/JsROk3Ew/2K7IxOY4KkSXhLE63GVlp6/VhrPJJNQ1avxf3XfR+t0/uEomjifMMvXYW+fb3gkKgreDTuALMbwSCfDH6F9wNoZ7ZYs9aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789991410; c=relaxed/simple;
-	bh=pJtthfdXGcEngam82KC8Q9jE9Eya+A3LvHojQ4SiYCs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=QTujNnJj89xblTy9L6Kt4Mn0RtE5atXnICqfPKo7UZgVXwkfUWC18snAa9obaqhsfmv9pwxZqNM7zDQwCAS7VAbc+2mmeBGN6TRMUUQ6kelbTqtqIrT7U2tB5CSqKzRbZXL1AiATwrzV8PYqsck5Yf4Zwf2ss8DEaI9/QXP2LSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z1LsjOq3; arc=none smtp.client-ip=74.125.228.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789991413; c=relaxed/simple;
+	bh=BuYCbG4609uclEMiwwu1T1LUi0se/44kkBsJzTS6KKI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ot+Q+AfivfkzNRZFGzAfwFf2ff0c3pRZeZX0nDQ0SdJbkDVWYOrKj7at1Zi7IxN+AxHIv9MLLzg3+QPnMVhppnVW1bCuSXF3j993T3zOhCUv7Qpz7Fw7RT3NgLVNz+bMVo1tUFfTRqfreGob60w92aPdVSXlF7cdTDsk8swifhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ChroMDjY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z1LsjOq3"
-Received: by mail-pz2-f31.google.com with SMTP id 41be03b00d2f7-cc1ceb47d55so494899a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:50:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789991408; x=1790596208; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OmeBMZqJtALHoE/5S4vqtP4zKqKZeq0+0/6mbWy8ZBQ=;
-        b=Z1LsjOq3kaz8za17JVXfg7JAwpIPU9d6zpiCOjMo+xwFqw8kWpQMwIyL8AmQyZBNn/
-         LPULb61Qfj+3dN7Wt1x09mQRY4l+Sh+B+APc025DlGfdxdDLj7rydN5NvUWroAeiHd8M
-         71xj64gzsf/2km4VgXx6ODAzvrCP7DWTo3bKexNRpvoRmM9V3NuW9whSg8BGcamUkCZJ
-         59oxiJ+NG4tEqM0/nW7ZwdMXJivAH+C9bJujJZKFOUoNjzC9Lnzl2Xr+wMMK1O5prD+Q
-         uWgO2YcVgg1npdnqCkuaWqd8RJh6FSjqmEh/rjcMUltcHBpnR1I0TyufYpMEtDQk/5W2
-         sxqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789991408; x=1790596208;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OmeBMZqJtALHoE/5S4vqtP4zKqKZeq0+0/6mbWy8ZBQ=;
-        b=MpaPCu8d72Yh6AJOhIYP4njorqNL3eQ/1yUBr2EQLdoRJlCcfzRUjMcM1E5smdWCUV
-         SQrMwKF4QXPv+7jSS6iXI7KsRRfyWrEN86j95UtrD+JDcz4recYY7uGbLM1lCcsZNy7W
-         BXcktKaVDeLE/MGyusAIzD59YTrKVzK53mt0nwjVHDz6fhmlktfZQTfcP8ZeUilTsZb/
-         w7TItafoyS0nDY9UmvYaN3jYuQ1jkhL8cEy6J1quprVqhAKN918Q4mMIATUe5+jALF8b
-         XNMglJDcqxxdKXgtUrrKoywTynFOs64YqTXHat8nshIZZFt3Mx1FLdKjg9cXOnJqKPwX
-         IedA==
-X-Gm-Message-State: AFuF++l6lsYa5xYwgqU2FUtPF32d49dMH9Qmc9ceb1nkySx0nRVPPkTh
-	rph8H6bKVVS/85gvWCFQBuxUignpPOqoCsXpcvcde3G5IKe3Es0S5R/g
-X-Gm-Gg: AYBFou0lPok9ViyiukdP71PrS1WbO2LPXNasNNGyhu/i0Fi58P+pt3nXor5RQt/nrQM
-	9FMlxvp6Mx+xPYC/F1vpaLOAn3RbWU6TOsBNztyrZE5BDGHoc4UkM68Fez9QWqXIKvZQ/mFBl6A
-	/gvoizuCmIaxr+f56pNfNCxpiFFkDI5Kddac3kEEJYKcc6uOWk5rESNbxmccdEfBQTmGXkKJu/l
-	RqWG8MRufYMniSSCJ5knScVTa7DdjO+qNwFY8TwzVFKFlDIPVGhWL10wxplP31mnFURWpxB4gzA
-	doNdzE/s6J0NpxI84UrwsNljj3hnmWRLhzU6ORxDbnuwcrLiW4Tlh+cC1a37X9PzFM6giSj67S6
-	33xF8VrV7rExpOCMPcrFjuPpXuk+NcMMg6CVRoB7AaYed/N8A+Nh7RxnR/5I0DKqmbIVtHDz1dM
-	dyAPDJ5vvL+20eydU85IzJYWFtqeorDZFKS+BeJzD5fZqFqtbaL4AAP94m84Gyg5ge7GFAAd12w
-	Zw=
-X-Received: by 2002:a17:90a:fc4b:b0:3a0:2900:f55e with SMTP id 98e67ed59e1d1-3a02900f85dmr5227403a91.29.1789991408058;
-        Mon, 21 Sep 2026 04:50:08 -0700 (PDT)
-Received: from server225.. ([39.170.101.209])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a03bcecdd2sm3237277a91.1.2026.09.21.04.50.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 04:50:07 -0700 (PDT)
-From: Ping Li <leeonion.muyu@gmail.com>
-To: james.morse@arm.com,
-	ben.horgan@arm.com
-Cc: linux-kernel@vger.kernel.org,
-	reinette.chatre@intel.com,
-	fenghuay@nvidia.com,
-	Ping Li <leeonion.muyu@gmail.com>
-Subject: [PATCH v5] arm_mpam: Use an atomic counter to schedule mpam_enable_once()
-Date: Mon, 21 Sep 2026 19:49:57 +0800
-Message-Id: <20260921114957.3382350-1-leeonion.muyu@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260915115646.54113-1-leeonion.muyu@gmail.com>
-References: <20260915115646.54113-1-leeonion.muyu@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ChroMDjY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBB501F000FF;
+	Mon, 21 Sep 2026 11:50:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789991411;
+	bh=11cfo609n2zF2bKHSoLIybH1BMS+6xWU1lGWi8txzk0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ChroMDjY3X4zE9Pd/uKNUTiIFatEPF/yJ134c+PDVNorxj8i5rvRC57BSQO1Z+14Y
+	 TKF4XAjauGcGnU/kFLufTPulb+8rT9i0tUeVDAooswlB4JtNm6yWo2sk4gD/P5lU1k
+	 H0BBo3rHzHiiQ9RfLROjCrcYO0wPX7Z9VtAlfcu4C8BjWeuLDRrRAc9dVjMsVfUE3N
+	 gqg1InkdxMut4fd7FVf3CjUVGU85jpan2OUnKC0qC524YMA4op246TdagphfcZTTM1
+	 LDf+6iTH19r9sNev+/8SRZdUGyTqXJ8ft7F1tmNyzN6r2jRTpHu+iAqh2QNghF5l1e
+	 WU14HLKpEPREw==
+Date: Mon, 21 Sep 2026 13:50:08 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Sheetal <sheetal@nvidia.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Sameer Pujar <spujar@nvidia.com>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mohan Kumar <mkumard@nvidia.com>, linux-sound@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 2/3] ASoC: tegra: Update ASRC ratio controls
+Message-ID: <arEYfjIHa4w--rTE@orome>
+References: <20260921085704.1248920-1-sheetal@nvidia.com>
+ <20260921085704.1248920-3-sheetal@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pjqavvxthiz3kxji"
+Content-Disposition: inline
+In-Reply-To: <20260921085704.1248920-3-sheetal@nvidia.com>
 
-mpam_discovery_cpu_online() scheduled mpam_enable() after each MSC
-probe, and mpam_enable() walked the whole MSC list taking each probe
-lock in turn to check if all the MSCs had been probed.
 
-Count the MSCs that have had their hardware probed with
-mpam_num_msc_probed, and schedule mpam_enable_once() directly when the
-count reaches fw_num_msc, the number of MSCs reported by firmware.
-MSCs that were already probed no longer cause work to be scheduled.
+--pjqavvxthiz3kxji
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC PATCH 2/3] ASoC: tegra: Update ASRC ratio controls
+MIME-Version: 1.0
 
-Suggested-by: Ben Horgan <ben.horgan@arm.com>
-Signed-off-by: Ping Li <leeonion.muyu@gmail.com>
----
-Changes in v5:
-- Schedule mpam_broken_work at the error site and return early,
-  removing the duplicate err check at the end of the function.
+On Mon, Sep 21, 2026 at 08:57:03AM +0000, Sheetal wrote:
+> Replace the separate integer and fractional ASRC ratio controls with a
+> single two-value control for each stream. This is a userspace-visible
+> control ABI change, but:
+>=20
+> 1. Keeping writable compatibility controls would preserve the non-atomic
+>    update path that can expose a transient mixed ratio to hardware.
+> 2. This is limited to only the Tegra ASRC driver.
+>=20
+> Validate both values before programming hardware. The fractional field
+> keeps the existing 32-bit maximum, while the integer field is rejected
+> when it exceeds the hardware field width.
+>=20
+> ALSA exposes one min and max range for all values in an integer-array
+> control, so the paired ratio controls advertise the fractional field's
+> full 32-bit range. The put callback validates the integer part separately
+> against the hardware field width.
+>=20
+> Serialize ratio-source changes, stream setup, and ratio updates with a
+> driver mutex so cached ratio state and paired hardware programming remain
+> consistent.
+>=20
+> Unlock and re-lock the ASRC stream before programming a software ratio
+> when the new ratio differs from the cached ratio by more than 20%.
+> Large ratio jumps require the hardware lock to be refreshed around the
+> paired integer/fractional update.
+>=20
+> Roll back the previous hardware pair and lock state if a paired ratio
+> update fails after partially programming the hardware.
+>=20
+> Signed-off-by: Sheetal <sheetal@nvidia.com>
+> ---
+>  sound/soc/tegra/tegra186_asrc.c | 443 ++++++++++++++++++++------------
+>  sound/soc/tegra/tegra186_asrc.h |   4 +
+>  2 files changed, 276 insertions(+), 171 deletions(-)
+>=20
+> diff --git a/sound/soc/tegra/tegra186_asrc.c b/sound/soc/tegra/tegra186_a=
+src.c
+> index d8ae5d997615..2b67d23f5fa7 100644
+> --- a/sound/soc/tegra/tegra186_asrc.c
+> +++ b/sound/soc/tegra/tegra186_asrc.c
+> @@ -19,6 +19,9 @@
+>  #include "tegra186_asrc.h"
+>  #include "tegra_cif.h"
+> =20
+> +#define TEGRA186_ASRC_RATIO_PERCENT_SCALE		100
+> +#define TEGRA186_ASRC_RATIO_UNLOCK_THRESHOLD_PERCENT	20
+> +
+>  #define ASRC_STREAM_SOURCE_SELECT(id)					       \
+>  	(TEGRA186_ASRC_CFG + ((id) * TEGRA186_ASRC_STREAM_STRIDE))
+> =20
+> @@ -65,13 +68,125 @@ static const struct reg_default tegra186_asrc_reg_de=
+faults[] =3D {
+>  	{ TEGRA186_ASRC_CYA, 0x0},
+>  };
+> =20
+> -static void tegra186_asrc_lock_stream(struct tegra186_asrc *asrc,
+> -				      unsigned int id)
+> +static int tegra186_asrc_set_stream_lock(struct tegra186_asrc *asrc,
+> +					 unsigned int id, bool lock)
+>  {
+> -	regmap_write(asrc->regmap,
+> -		     ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_LOCK_STATUS,
+> -				     id),
+> -		     1);
+> +	return regmap_write(asrc->regmap,
+> +			    ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_LOCK_STATUS,
+> +					    id),
+> +			    lock);
+> +}
+> +
+> +static int tegra186_asrc_write_ratio_pair(struct tegra186_asrc *asrc,
+> +					  unsigned int id,
+> +					  unsigned int int_part,
+> +					  unsigned int frac_part)
+> +{
+> +	int ret;
+> +
+> +	ret =3D regmap_write(asrc->regmap,
+> +			   ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_INT_PART, id),
+> +			   int_part);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_write(asrc->regmap,
+> +			    ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_FRAC_PART, id),
+> +			    frac_part);
+> +}
+> +
+> +static int tegra186_asrc_read_ratio_pair(struct tegra186_asrc *asrc,
+> +					 unsigned int id, unsigned int *int_part,
+> +					 unsigned int *frac_part)
+> +{
+> +	int ret;
+> +
+> +	ret =3D regmap_read(asrc->regmap,
+> +			  ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_INT_PART, id),
+> +			  int_part);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_read(asrc->regmap,
+> +			   ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_FRAC_PART, id),
+> +			   frac_part);
+> +}
+> +
+> +static void tegra186_asrc_cache_ratio(struct tegra186_asrc *asrc,
+> +				      unsigned int id, unsigned int int_part,
+> +				      unsigned int frac_part)
+> +{
+> +	asrc->lane[id].int_part =3D int_part;
+> +	asrc->lane[id].frac_part =3D frac_part;
+> +}
+> +
+> +static int tegra186_asrc_apply_ratio(struct tegra186_asrc *asrc,
+> +				     unsigned int id, unsigned int int_part,
+> +				     unsigned int frac_part, bool unlock)
+> +{
+> +	unsigned int old_int_part, old_frac_part, old_lock;
+> +	int ret, restore_ret;
+> +
+> +	ret =3D tegra186_asrc_read_ratio_pair(asrc, id, &old_int_part,
+> +					    &old_frac_part);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_read(asrc->regmap,
+> +			  ASRC_STREAM_REG(TEGRA186_ASRC_RATIO_LOCK_STATUS, id),
+> +			  &old_lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (unlock) {
+> +		ret =3D tegra186_asrc_set_stream_lock(asrc, id, false);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	ret =3D tegra186_asrc_write_ratio_pair(asrc, id, int_part, frac_part);
+> +	if (ret)
+> +		goto restore_ratio;
+> +
+> +	ret =3D tegra186_asrc_set_stream_lock(asrc, id, true);
+> +	if (!ret)
+> +		return 0;
+> +
+> +restore_ratio:
+> +	restore_ret =3D tegra186_asrc_write_ratio_pair(asrc, id,
+> +						     old_int_part,
+> +						     old_frac_part);
+> +	if (!restore_ret) {
+> +		if (old_lock)
+> +			restore_ret =3D tegra186_asrc_set_stream_lock(asrc, id,
+> +								    true);
+> +		else
+> +			restore_ret =3D tegra186_asrc_set_stream_lock(asrc, id,
+> +								    false);
+> +	}
+> +
+> +	return ret ?: restore_ret;
+> +}
+> +
+> +static int tegra186_asrc_apply_cached_ratio(struct tegra186_asrc *asrc,
+> +					    unsigned int id)
+> +{
+> +	return tegra186_asrc_apply_ratio(asrc, id, asrc->lane[id].int_part,
+> +					asrc->lane[id].frac_part, false);
+> +}
+> +
+> +static bool tegra186_asrc_need_unlock(u64 old_ratio, u64 new_ratio)
+> +{
+> +	u64 ratio_diff;
+> +
+> +	if (!old_ratio || !new_ratio)
+> +		return false;
+> +
+> +	ratio_diff =3D (old_ratio > new_ratio) ?
+> +		     (old_ratio - new_ratio) : (new_ratio - old_ratio);
+> +
+> +	return ((ratio_diff * TEGRA186_ASRC_RATIO_PERCENT_SCALE) >
+> +		(old_ratio * TEGRA186_ASRC_RATIO_UNLOCK_THRESHOLD_PERCENT));
+>  }
 
- drivers/resctrl/mpam_devices.c  | 69 +++++++++++----------------------
- drivers/resctrl/mpam_internal.h |  2 -
- 2 files changed, 22 insertions(+), 49 deletions(-)
+There's a fair bit of complication introduced by the concept of locking
+here, so I wonder what the impact of this is. The function name implies
+that sometimes unlocking is needed and sometimes it isn't.
 
-diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-index 2f09f4b78bd3..4fc82acd854e 100644
---- a/drivers/resctrl/mpam_devices.c
-+++ b/drivers/resctrl/mpam_devices.c
-@@ -49,12 +49,20 @@ static LIST_HEAD(mpam_all_msc);
- 
- struct srcu_struct mpam_srcu;
- 
-+/* Number of MSCs reported by firmware */
-+static int fw_num_msc;
-+
- /*
-  * Number of MSCs that have been probed. Once all MSCs have been probed MPAM
-  * can be enabled.
-  */
- static atomic_t mpam_num_msc;
- 
-+/* Number of MSCs that have had their hardware probed */
-+static atomic_t mpam_num_msc_probed;
-+
-+static void mpam_enable_once(struct work_struct *work);
-+
- static int mpam_cpuhp_state;
- static DEFINE_MUTEX(mpam_cpuhp_state_lock);
- 
-@@ -72,7 +80,7 @@ static DEFINE_SPINLOCK(partid_max_lock);
-  * scheduled via this work_struct. If access to an MSC depends on a CPU that
-  * was not brought online at boot, this can happen surprisingly late.
-  */
--static DECLARE_WORK(mpam_enable_work, &mpam_enable);
-+static DECLARE_WORK(mpam_enable_work, &mpam_enable_once);
- 
- /*
-  * All mpam error interrupts indicate a software bug. On receipt, disable the
-@@ -1854,7 +1862,6 @@ static int mpam_discovery_cpu_online(unsigned int cpu)
- {
- 	int err = 0;
- 	struct mpam_msc *msc;
--	bool new_device_probed = false;
- 
- 	if (mpam_is_enabled())
- 		return 0;
-@@ -1865,24 +1872,22 @@ static int mpam_discovery_cpu_online(unsigned int cpu)
- 		if (!cpumask_test_cpu(cpu, &msc->accessibility))
- 			continue;
- 
--		mutex_lock(&msc->probe_lock);
--		if (!msc->probed)
--			err = mpam_msc_hw_probe(msc);
--		mutex_unlock(&msc->probe_lock);
-+		guard(mutex)(&msc->probe_lock);
-+		if (msc->probed)
-+			continue;
- 
--		if (err)
--			break;
--		new_device_probed = true;
--	}
-+		err = mpam_msc_hw_probe(msc);
-+		if (err) {
-+			mpam_disable_reason = "error during probing";
-+			schedule_work(&mpam_broken_work);
-+			return err;
-+		}
- 
--	if (new_device_probed && !err)
--		schedule_work(&mpam_enable_work);
--	if (err) {
--		mpam_disable_reason = "error during probing";
--		schedule_work(&mpam_broken_work);
-+		if (atomic_add_return(1, &mpam_num_msc_probed) == fw_num_msc)
-+			schedule_work(&mpam_enable_work);
- 	}
- 
--	return err;
-+	return 0;
- }
- 
- static int mpam_cpu_offline(unsigned int cpu)
-@@ -2106,8 +2111,6 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
- 	return msc;
- }
- 
--static int fw_num_msc;
--
- static int mpam_msc_drv_probe(struct platform_device *pdev)
- {
- 	int err;
-@@ -2713,7 +2716,7 @@ static int mpam_allocate_config(void)
- 	return 0;
- }
- 
--static void mpam_enable_once(void)
-+static void mpam_enable_once(struct work_struct *work)
- {
- 	int err;
- 
-@@ -2867,34 +2870,6 @@ void mpam_disable(struct work_struct *ignored)
- 	pr_err_once("MPAM disabled due to %s\n", mpam_disable_reason);
- }
- 
--/*
-- * Enable mpam once all devices have been probed.
-- * Scheduled by mpam_discovery_cpu_online() once all devices have been created.
-- * Also scheduled when new devices are probed when new CPUs come online.
-- */
--void mpam_enable(struct work_struct *work)
--{
--	static atomic_t once;
--	struct mpam_msc *msc;
--	bool all_devices_probed = true;
--
--	/* Have we probed all the hw devices? */
--	guard(srcu)(&mpam_srcu);
--	list_for_each_entry_srcu(msc, &mpam_all_msc, all_msc_list,
--				 srcu_read_lock_held(&mpam_srcu)) {
--		mutex_lock(&msc->probe_lock);
--		if (!msc->probed)
--			all_devices_probed = false;
--		mutex_unlock(&msc->probe_lock);
--
--		if (!all_devices_probed)
--			break;
--	}
--
--	if (all_devices_probed && !atomic_fetch_inc(&once))
--		mpam_enable_once();
--}
--
- #define maybe_update_config(cfg, feature, newcfg, member, changes) do { \
- 	if (mpam_has_feature(feature, newcfg) &&			\
- 	    (newcfg)->member != (cfg)->member) {			\
-diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
-index 04d1a59f02af..085f086e2b2d 100644
---- a/drivers/resctrl/mpam_internal.h
-+++ b/drivers/resctrl/mpam_internal.h
-@@ -452,8 +452,6 @@ extern struct list_head mpam_classes;
- extern u16 mpam_partid_max;
- extern u8 mpam_pmg_max;
- 
--/* Scheduled work callback to enable mpam once all MSC have been probed */
--void mpam_enable(struct work_struct *work);
- void mpam_disable(struct work_struct *work);
- 
- /* Reset all the RIS in a class under cpus_read_lock() */
--- 
-2.34.1
+What if we unlock unconditionally? That doesn't get rid of all the
+locking and unlocking, but at least it would avoid the need to track the
+current locking status.
 
+The unlock operation doesn't seem overly expensive, so maybe it isn't
+worth trying to avoid it?
+
+[...]
+> diff --git a/sound/soc/tegra/tegra186_asrc.h b/sound/soc/tegra/tegra186_a=
+src.h
+> index 0c98e26d5e72..9cc8cec6c204 100644
+> --- a/sound/soc/tegra/tegra186_asrc.h
+> +++ b/sound/soc/tegra/tegra186_asrc.h
+> @@ -7,6 +7,8 @@
+>  #ifndef __TEGRA186_ASRC_H__
+>  #define __TEGRA186_ASRC_H__
+> =20
+> +#include <linux/mutex.h>
+> +
+>  /* ASRC stream related offset */
+>  #define TEGRA186_ASRC_CFG				0x0
+>  #define TEGRA186_ASRC_RATIO_INT_PART			0x4
+> @@ -111,6 +113,8 @@ struct tegra186_asrc {
+>  	const struct tegra_asrc_soc_data *soc_data;
+>  	struct tegra186_asrc_lane lane[TEGRA186_ASRC_STREAM_MAX];
+>  	struct regmap *regmap;
+> +	/* Serializes ratio source, cache, and paired register updates. */
+> +	struct mutex ratio_lock;
+
+All of the operations that are serialized by this lock seem to be non-
+sleeping register or cache updates. Could the lock be turned into a
+spinlock instead?
+
+Thierry
+
+--pjqavvxthiz3kxji
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqxGe4ACgkQ3SOs138+
+s6Hglw/+ML3dqtWuuEXPljPWWKlU5V6CxzKflHbjTE2wgyj5x4/Bl6tqpeAtFiQG
+pROG5x+CfLnvYzQ7FpJumlJb0w6oIjj3jfDgtmfVSVmkeQXu/dBG8uwJ4G2u6Ryq
+vqle7nonPNOUfZFyRbG4WRKOvsOEbRqp5ZLmrHqNRByIWpt3e4/jE3NtFVS2NBgj
+lFRxJpHubHh9q0/qys9ZqCBy1YDWb3ToteVDKC9mHcrIswB4FUic1nsbPb/QJbX1
+fYA+A9i21I84TpGg/AXnyT5oWPi9rmBfjjvPWnOLd/1i2GQLM4WYXlGdb5Rcnev3
+fCja6odKZezfEJBk/Bp3u4khtYff311PZZ4cdwwNUl8SzcMJi6IUzbyyxV+OXz+Z
+x/rLFV4Ih2vnLw14MlUnNBrsZdZjf74kaVyppINvdvcUOVlLlJLstI8ThEA/tOoO
+/9TPWZlmFqSKRGPTZCTH0nAG8yilAEW4nkK8M254v5aHyd+iBKRM1+uvu8N11Khr
+q0c6HSjd0KcsxongHCcPo+I+rQlQxi8u+TPnsh73K1ESh7VZjXw770dE/I3SAGTD
+UoGTMAhWP4Xr/nmaf8RkWMmp+31FD/PDfM5iJghP2MBOownIIEzv80itADESBK/L
+rBVwhiSASYOLeFjU4iaJ79yfpaWXHomMiVkDDhXkaFLW+REJDaE=
+=JBb1
+-----END PGP SIGNATURE-----
+
+--pjqavvxthiz3kxji--
