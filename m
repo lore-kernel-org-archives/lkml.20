@@ -1,189 +1,94 @@
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B5344A3E6
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:51:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600A844E046;
+	Mon, 21 Sep 2026 07:51:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789977103; cv=none; b=FU5FX9iHVMv8Eo96ZapAl2CZDpu3NrjLdo7rgp7S681AJAPh774H7ldTsY4gD8ebx1rt0as2AKQaJtAhBvclM19V3VQz383WiAbsa8qQKlUQuJurFL1VlW5GCQUjT0QfOPVwU/cjNMoPzkcZ+PgTp+6W//03nyShkdHsONEP60M=
+	t=1789977107; cv=none; b=Wr38JXUy3G+/1ij7BTH399vX6Uh8YXImOg8Zd+h4sXgrzxxhLsK8OGsY7EldTfVyNLUtLETfduDPTp1l1iE0YErilZBmv5DyOQn7qoOEu1SthiGesf+PEpo69lVyF1tb8HWan6WPfgYu9YFzLwS0njYfUDGuMZqR6va1boPy3xI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789977103; c=relaxed/simple;
-	bh=1sPWSo/ze+34c6q6DLdKEF4oZ9Qog3eBvO+2iEs87JY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=A7ogF9/6Nhvm+L8rgt7Hl95JDgr0W7wGBUEM6ubfHggr1nS8EcwAIlMhxw+HltCD4RmJXXBT6L3hH5IRV1U/5byKqsPnkMEQdbdSZyLex0d4I0qEP2ux5MCNy/coee1walwtufXGDAD1wiPiG+zlD0JVyqXgaeJaR9350Utxhdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=HUVRPP9A; arc=none smtp.client-ip=113.46.200.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789977107; c=relaxed/simple;
+	bh=sZlS+5hBTeYamg0dI6hO+fZLWCFBhpnY6tKiaHd8tMY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=btNTEfa0o4ujZ2I/i7iRwJo8wjvmCq4PQqKkNCPStd+wDYljxJTXYB++uaRm5MZpSG22QKMUqaARDjJlnXIHz/kWamAL1qpY2e8+EolOBv6PFJA5AKJYyk4DVwD5J581j1uFSO/UuL76b3tbltk4im2wx/wKyqFyde8MPG78HCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=L+sK7M1R; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="HUVRPP9A"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=3OMOKHpD7ulr2m9IDnPxpFfRC91YhtYm/2SLkFlgfTA=;
-	b=HUVRPP9A8UFsCVT9tT3c543xKpKNeC+y2zYTwidWFsARx9xRk0iRSEEw2ZNdhsDMIrKLVA+S+
-	XfumiSLokoIHDpsscgBEQn0fjQuwkieZ1mOfj+QSoha2/y7TTYsh6NDD6p3APmArq6fF+PGvC1K
-	jj451b3Hw6UdTMT4XHak5R4=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hpFWf6XdszmV8f;
-	Mon, 21 Sep 2026 15:40:30 +0800 (CST)
-Received: from kwepemf200011.china.huawei.com (unknown [7.202.181.237])
-	by mail.maildlp.com (Postfix) with ESMTPS id CCB7540573;
-	Mon, 21 Sep 2026 15:51:32 +0800 (CST)
-Received: from localhost.localdomain (10.50.163.32) by
- kwepemf200011.china.huawei.com (7.202.181.237) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 21 Sep 2026 15:51:32 +0800
-From: Weili Qian <qianweili@huawei.com>
-To: <gregkh@linuxfoundation.org>, <--to=herbert@gondor.apana.org.au>,
-	<--to=zhangfei.gao@linaro.org>, <--to=wangzhou1@hisilicon.com>,
-	<--cc=linux-crypto@vger.kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <--cc=huangchenghai2@huawei.com>,
-	<--cc=liulongfang@huawei.com>
-Subject: [PATCH 2/2] crypto: hisilicon/qm - implement uacce get_dev_usage callback
-Date: Mon, 21 Sep 2026 15:51:31 +0800
-Message-ID: <20260921075131.1062155-3-qianweili@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260921075131.1062155-1-qianweili@huawei.com>
-References: <20260921075131.1062155-1-qianweili@huawei.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="L+sK7M1R"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 282A7153F;
+	Mon, 21 Sep 2026 09:49:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789976998;
+	bh=sZlS+5hBTeYamg0dI6hO+fZLWCFBhpnY6tKiaHd8tMY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=L+sK7M1R0d3rjmIkUs23v4Y91mzJ9bHr8jjSxwK4aS2qXXoFtQHYCrGWRjnz0Byzx
+	 vNNimR4pBTHeG7SeHma/holVeUOWYrcU/oa6HMGMPLxwPNoAXKe5uYt2P4THeDt+p7
+	 QcgTtPmdb0AhxJaj4n835+aHRKYh3D1CTLc0YuqE=
+Date: Mon, 21 Sep 2026 10:51:41 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Paul Elder <paul.elder+renesas@ideasonboard.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH DNI v2 00/11] media: rcar-fcp, vsp1: Enable on R-Car X5H
+Message-ID: <20260921075141.GF24505@killaraus.ideasonboard.com>
+References: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com>
+ <CAMuHMdVC2vNp2nTHUi3saTZ8UD4ggeB_aBEvN9XP+EToOr7G2w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemf200011.china.huawei.com (7.202.181.237)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdVC2vNp2nTHUi3saTZ8UD4ggeB_aBEvN9XP+EToOr7G2w@mail.gmail.com>
 
-The HiSilicon QM driver does not implement the get_dev_usage callback,
-so the dev_usage sysfs attribute is hidden on its UACCE devices and
-userspace cannot query per-channel usage through sysfs.
+Hi Geert,
 
-Implement hisi_qm_get_dev_usage and register it in uacce_qm_ops. For
-each channel the callback reads the channel-usage register and derives
-the usage via the existing qm_usage_percent() helper, moved to qm.c
-with a shared declaration in qm_common.h to avoid duplication.
+On Mon, Sep 21, 2026 at 09:41:10AM +0200, Geert Uytterhoeven wrote:
+> On Fri, 18 Sept 2026 at 19:07, Paul Elder wrote:
+> > This series is based on Geert's
+> > "topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v3" branch [0]. A
+> > branch including this series is available here [1].
+> >
+> > This series enables the FCPV{B,I,D} and the VSP{B,I,D} blocks on the Renesas
+> > R-Car X5H SoC.
+> >
+> > This has been tested on an Ironhide with the vsp-tests test suite [2].
+> > VSPI:
+> > 145 tests: 138 passed, 0 failed, 7 skipped
+> > VSPB:
+> > 115 tests: 104 passed, 0 failed, 11 skipped
+> > VSPD (a):
+> > 114 tests: 99 passed, 0 failed, 15 skipped
+> >
+> > VSPD (b) hangs on the tests, so that needs some investigation.
+> >
+> > The first couple patches add clocks that are used by the FCP and VSP,
+> > but as the upstream X5H CPG driver is barebones at the moment and we
+> > don't yet ensure that the parents are enabled, these are marked as DNI
+> > for the moment.
+> 
+> The DTS patches use DNI definitions of clocks, so they should be DNI, too.
 
-The channel-usage registers exist only on QM_HW_V5 and later, so the
-callback returns -ENODEV on older revisions.
+Can we add non-DNI clock definitions in v3, or is that too early in the
+grand scheme of MDLC and SCMI development ?
 
-Signed-off-by: Weili Qian <qianweili@huawei.com>
----
- drivers/crypto/hisilicon/debugfs.c   | 17 ---------
- drivers/crypto/hisilicon/qm.c        | 52 ++++++++++++++++++++++++++++
- drivers/crypto/hisilicon/qm_common.h |  1 +
- 3 files changed, 53 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/crypto/hisilicon/debugfs.c b/drivers/crypto/hisilicon/debugfs.c
-index 3ee6de16e3f1..83dfbe74e704 100644
---- a/drivers/crypto/hisilicon/debugfs.c
-+++ b/drivers/crypto/hisilicon/debugfs.c
-@@ -1040,23 +1040,6 @@ void hisi_qm_show_last_dfx_regs(struct hisi_qm *qm)
- 	}
- }
- 
--static int qm_usage_percent(struct hisi_qm *qm, int chan_num)
--{
--	u32 val, used_bw, total_bw;
--
--	val = readl(qm->io_base + QM_CHANNEL_USAGE_OFFSET +
--				chan_num * QM_CHANNEL_ADDR_INTRVL);
--	used_bw = lower_16_bits(val);
--	total_bw = upper_16_bits(val);
--	if (!total_bw)
--		return -EIO;
--
--	if (total_bw <= used_bw)
--		return QM_MAX_DEV_USAGE;
--
--	return (used_bw * QM_DEV_USAGE_RATE) / total_bw;
--}
--
- static int qm_usage_show(struct seq_file *s, void *unused)
- {
- 	struct hisi_qm *qm = s->private;
-diff --git a/drivers/crypto/hisilicon/qm.c b/drivers/crypto/hisilicon/qm.c
-index c01966a4a33f..6cd1e98dd9e3 100644
---- a/drivers/crypto/hisilicon/qm.c
-+++ b/drivers/crypto/hisilicon/qm.c
-@@ -2884,6 +2884,57 @@ static u32 hisi_qm_isolate_threshold_read(struct uacce_device *uacce)
- 	return qm->isolate_data.err_threshold;
- }
- 
-+int qm_usage_percent(struct hisi_qm *qm, int chan_idx)
-+{
-+	u32 val, used_bw, total_bw;
-+
-+	val = readl(qm->io_base + QM_CHANNEL_USAGE_OFFSET +
-+		    chan_idx * QM_CHANNEL_ADDR_INTRVL);
-+	used_bw = lower_16_bits(val);
-+	total_bw = upper_16_bits(val);
-+	if (!total_bw)
-+		return -EIO;
-+
-+	if (total_bw <= used_bw)
-+		return QM_MAX_DEV_USAGE;
-+
-+	return (used_bw * QM_DEV_USAGE_RATE) / total_bw;
-+}
-+
-+static int hisi_qm_get_dev_usage(struct uacce_device *uacce, char *buf, int size)
-+{
-+	struct hisi_qm *qm = uacce->priv;
-+	struct qm_channel *channel_data = &qm->channel_data;
-+	const char *sep = "";
-+	int ret, i, len = 0;
-+
-+	if (qm->ver < QM_HW_V5)
-+		return -ENODEV;
-+
-+	ret = qm_pm_get_sync(qm);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < channel_data->channel_num; i++) {
-+		ret = qm_usage_percent(qm, i);
-+		if (ret < 0)
-+			goto out;
-+
-+		if (len >= size)
-+			break;
-+
-+		len += scnprintf(buf + len, size - len, "%s%s: %d",
-+				 sep, channel_data->channel_name[i], ret);
-+		sep = "\n";
-+	}
-+
-+	ret = len;
-+out:
-+	qm_pm_put_sync(qm);
-+
-+	return ret;
-+}
-+
- static const struct uacce_ops uacce_qm_ops = {
- 	.get_available_instances = hisi_qm_get_available_instances,
- 	.get_queue = hisi_qm_uacce_get_queue,
-@@ -2896,6 +2947,7 @@ static const struct uacce_ops uacce_qm_ops = {
- 	.get_isolate_state = hisi_qm_get_isolate_state,
- 	.isolate_err_threshold_write = hisi_qm_isolate_threshold_write,
- 	.isolate_err_threshold_read = hisi_qm_isolate_threshold_read,
-+	.get_dev_usage = hisi_qm_get_dev_usage,
- };
- 
- static void qm_remove_uacce(struct hisi_qm *qm)
-diff --git a/drivers/crypto/hisilicon/qm_common.h b/drivers/crypto/hisilicon/qm_common.h
-index 0760bf55f13e..78bcf40bd851 100644
---- a/drivers/crypto/hisilicon/qm_common.h
-+++ b/drivers/crypto/hisilicon/qm_common.h
-@@ -75,5 +75,6 @@ struct qm_aeqc {
- int qm_set_and_get_xqc(struct hisi_qm *qm, u8 cmd, void *xqc, u32 qp_id, bool op);
- void hisi_qm_show_last_dfx_regs(struct hisi_qm *qm);
- void hisi_qm_set_algqos_init(struct hisi_qm *qm);
-+int qm_usage_percent(struct hisi_qm *qm, int chan_idx);
- 
- #endif
 -- 
-2.43.0
+Regards,
 
+Laurent Pinchart
