@@ -1,154 +1,323 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 018314949FA
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:13:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533B7493D38;
+	Mon, 21 Sep 2026 12:15:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789992827; cv=none; b=sV0G6JikIIa0WaHDOqwkuubnditnAB71fL6dgHDEQfXWvvf8SaExeVAkRHBnOdJbwHGPSwUK80D8MSNVtVM7wOPySCIHYzJ7D99WNsijIb8Y7gIND/1eY07vP51Zq+o/E/4V3FUQ9+vIbJT8NNCHX86a7Taju5x6cUD5Tg8ems8=
+	t=1789992921; cv=none; b=fRfTIHQGCBQc9a+moKrxzRzQk21rJUUR35bEiW8wS01oru2X4PKP7B/mCQhclnxNxmNUpAJrgKBIvKCE2ASEroPmzUAnn0f9cD5s7YYu3e9Aq/ZBvXSyPdNfx2JdcVIgjO86fsGmVC7BcJcZvNYikZlSVgpOk1YoDFCPfemipWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789992827; c=relaxed/simple;
-	bh=m63S1tDkytIt2CeDM5UL0KOmZILF8KJMh4kvg49OBu0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Nf7fmC2vwo7fcDLvRkZOldTjv9BBFViPkua/jwefThko9PgD6zX7gdP4ak/aTaJD+tyVBBD7BGWcD59P2R9o3kmVANLz7511Uk7qVahPCS7MV4X3zESjG+1qkFqjQghqyUSMVWG/V8L+t56+dNdjdrmFuS2vE4UeGdmW84i4v2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=1EssTxzL; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=hnHeWKT3; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1789992921; c=relaxed/simple;
+	bh=iWZdsl+xqjXJi07BT/5/PGctt7tq53qCbq75i1fxwj8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cS0x8g8Amx5cT0VQsCsoGuiAF9WJBId1kwpPDKGoPAC2e6cVt3Q8gIqP0zUJWiti1ETuOcc5ce68kMeukGse/irXk9gD5fQp+xH54P/i9pE+EMt4hkoc1UX7IiDaEfTAj8Ci0DQWkGZDwukK12EK97SnwSIvyHRoaVJE2dVMFm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=fJCZXQ79; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="1EssTxzL";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="hnHeWKT3"
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789992823;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xgu36wPsKJb7zws7FdWwPj1iq8KSafmu0xDhZYDQ8AE=;
-	b=1EssTxzLSqbqUMwqRdshghXvIcuvXCiRezDSu+OQ1fB8lQ8o2MyfDBPHyo8b1ZXCUlT0FW
-	WvgO7Ehjj8lG3mBKe5G7uL8jbhL2ZzWEjhyUmg7xa9dq8UqfYG9BTOuPUwtp6fKKQ/Iat7
-	CqZx18rp+F/9OvT8g2QuG5FdU7JtKsCgc8qQLlMjHt8/ladvKh+MljdZy4KAY7sQ+eHvSy
-	3G0RBtgqgz7Z/5FMG1DYj2RjJBAtuiNodAjSwOin81egFxiRQ5bfbNfbzF89ZE8FPvXmcj
-	aaGFx4btUj4sClktXla9EEmIOhTczNIvvIhbUoFezM0l43f3WzDpGQ0CUk18Iw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789992823;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xgu36wPsKJb7zws7FdWwPj1iq8KSafmu0xDhZYDQ8AE=;
-	b=hnHeWKT3DrCckm+spTouE5B01OUvOIANk05jWMRkGuB1SeRZ/sxwpgbLCB6PjjkTLQon91
-	3vddBIC8ddpcZZCA==
-To: Lin Junzhe <m18667909625@163.com>
-Cc: Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- linux-kernel@vger.kernel.org, m18667909625@163.com
-Subject: Re: [PATCH] printk: fold consecutive duplicate messages
-In-Reply-To: <20260921183000.1-m18667909625@163.com>
-References: <20260921050304.73440-1-m18667909625@163.com>
- <875wzzoxcd.fsf@jogness.linutronix.de>
- <20260921183000.1-m18667909625@163.com>
-Date: Mon, 21 Sep 2026 14:19:43 +0206
-Message-ID: <87ik3yssy0.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="fJCZXQ79"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LB5adW1169471;
+	Mon, 21 Sep 2026 12:14:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=KlIoX8DBbrVxuzYYmhCQQ/DoPkWrTF
+	diYOjF+pELcfk=; b=fJCZXQ79ieQVcrQPOL8zbas6wGRJlhyScxap+PX1miFbXh
+	ItKRot8eF2h+H/V0XtE5KPolvKnIG7JOBwJpuvammHO/GLF/sYN+XeYuuLO97dhS
+	p+rwJok8pQGMRcDTa46sEpo4VMpzKbgOjAB3wCV78YKr0PnP3FNuXjFPTITeCinn
+	QLwE6ExlhMaeRmnqksR3GLlZ3FABcWe6QIQQOqwvYqFJ+CEYuaWRCFK8V0VWRgso
+	HcAMRctefKp02WgwaYFmp+K9kvqBpP4m0yjLNNWSFiAh7h6MHpmQh9iI8j/HyNNu
+	eJEVSMMWjlujK+NmZJOvW4CeSL5EC59KVxyAU9aQ==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1892j-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 12:14:37 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAlkhF1072449;
+	Mon, 21 Sep 2026 12:14:37 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gt5qjn5rx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 12:14:36 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68LCEYwu43647276
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 21 Sep 2026 12:14:35 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CF0E620043;
+	Mon, 21 Sep 2026 12:14:34 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2A1732004B;
+	Mon, 21 Sep 2026 12:14:29 +0000 (GMT)
+Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.39.16.92])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon, 21 Sep 2026 12:14:28 +0000 (GMT)
+Date: Mon, 21 Sep 2026 17:44:26 +0530
+From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: "Darrick J . Wong" <djwong@kernel.org>, Carlos Maiolino <cem@kernel.org>,
+        Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+        Matthew Wilcox <willy@infradead.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
+        Christoph Hellwig <hch@lst.de>, Dave Chinner <dchinner@redhat.com>,
+        Daniel Gomez <da.gomez@kernel.org>,
+        Pankaj Raghav <pankaj.raghav@linux.dev>, Theodore Tso <tytso@mit.edu>,
+        linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-mm@kvack.org
+Subject: Re: [RFC PATCH v3 10/11] iomap: Avoid folio dirtying in case of
+ RWF_WRITETHROUGH
+Message-ID: <arEfolC7StyEwYDW@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+References: <cover.1785908600.git.ojaswin@linux.ibm.com>
+ <a6fcdf05d11c954d2d277844b6db3b11d97d63e0.1785908600.git.ojaswin@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a6fcdf05d11c954d2d277844b6db3b11d97d63e0.1785908600.git.ojaswin@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: pHmRxKGPlRzG52mO4DLBalc284_Ad0VR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE3NSBTYWx0ZWRfX7z0asys1bpIq
+ x8FK84wv1uFNJXF6duI/6t5NM5AvmeoV9QPqQkjZ6kfpTVx7d7e4CCJ9/ExmmCe9TFzuFPV8HYu
+ h0AQQsuSuhlfC1ZLQPeY0KH2n9pG1/rmobnIiFgpqC8kQMq8+uPlISvuwXiaPiTcW6ysfiI89d5
+ 47piWFuF6zBSUrWT2f3QxGGC2i1svuzh+wWeGlnTUX3f/MqxFH5IhTO+E2TDkAbpyhdzMjty/A7
+ E7ZNPrCxmqYSY9XG/IIG48D7UBiCqh912ETAM+SDqgkUShdMH0JRSevB43gj0cyE+xVC04fh5L+
+ Npkdjd3J7E4jE/uEviva1u2Yv9Exs6isNu+dYe9ooxWzvDv+eTw3EfR9u/CrY9i/StrdVJLhdBm
+ i3ctyGRODKkRwtahUmcXOPZTLZSpbt4pOsdpizLnLcS6YlioiBS99ZjmYTvcmDLh6SG/vbNMlT4
+ kDGsSl7aYDf1GXdPOww==
+X-Authority-Analysis: v=2.4 cv=O/KsLx9W c=1 sm=1 tr=0 ts=6ab11fae cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=pGLkceISAAAA:8
+ a=VnNF1IyMAAAA:8 a=F_nSmi8lrBEryJAH2XgA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE3NSBTYWx0ZWRfX0+H0I/XXrF9g
+ JYQuigv9yIl79q1BgGtlhcYmv15jXZlCyAyOllPweGC5JmMrAh73nqKOIim13gUEWLd3TeeznaF
+ 8/D0ooX1Un10sjMcfsGMUdxoCPNiBkI=
+X-Proofpoint-GUID: yWRbclxixGgcZ_Rz6wGgD5ncCMWYPLlu
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
+ bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210175
 
-Hi Lin,
+On Wed, Aug 05, 2026 at 11:58:16AM +0530, Ojaswin Mujoo wrote:
+> RWF_WRITETHROUGH dirties the folio only to send it for IO immediately,
+> in the same context. Due to this, we can optimize away the folio
+> dirtying and clearing step usually seen in buffered IO. Althrough we can
+> do away with most of the accounting there are a couple of counters we
+> need to take care of which we do during IO submission/completion.
+> 
+> Co-developed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> Signed-off-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+> ---
+>  fs/iomap/buffered-io.c  | 64 +++++++++++++++++++++++++++++++++--------
+>  include/linux/pagemap.h |  1 +
+>  mm/filemap.c            | 21 ++++++++++++++
+>  3 files changed, 74 insertions(+), 12 deletions(-)
+> 
+> diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+> index d16694dd9995..0844361fe0f1 100644
+> --- a/fs/iomap/buffered-io.c
+> +++ b/fs/iomap/buffered-io.c
+> @@ -11,6 +11,9 @@
+>  #include <linux/fserror.h>
+>  #include <linux/fsverity.h>
+>  #include <linux/rmap.h>
+> +#include <linux/task_io_accounting_ops.h>
+> +#include "linux/pagemap.h"
+> +#include "linux/page-flags.h"
+>  #include "internal.h"
+>  #include "trace.h"
+>  
+> @@ -1162,6 +1165,34 @@ static bool iomap_write_end_inline(const struct iomap_iter *iter,
+>  	return true;
+>  }
+>  
+> +/*
+> + * __iomap_writethrough_end() is almost same as __iomap_write_end() but with the difference
+> + * that we don't mark folio dirty since we are about to issue it for IO anyways.
+> + * Consequently, most of the accounting is skipped.
+> + */
+> +static bool __iomap_writethrough_end(struct inode *inode, loff_t pos, size_t len,
+> +		size_t copied, struct folio *folio)
+> +{
+> +	flush_dcache_folio(folio);
+> +
+> +	/*
+> +	 * The blocks that were entirely written will now be up-to-date, so we
+> +	 * don't have to worry about a read_folio reading them and overwriting a
+> +	 * partial write.  However, if we've encountered a short write and only
+> +	 * partially written into a block, it will not be marked up-to-date, so a
+> +	 * read_folio might come in and destroy our partial write.
+> +	 *
+> +	 * Do the simplest thing and just treat any short write to a
+> +	 * non-uptodate page as a zero-length write, and force the caller to
+> +	 * redo the whole thing.
+> +	 */
+> +	if (unlikely(copied < len && !folio_test_uptodate(folio)))
+> +		return false;
+> +	iomap_set_range_uptodate(folio, offset_in_folio(folio, pos), len);
+> +	return true;
+> +}
+> +
+> +
+>  /*
+>   * Returns true if all copied bytes have been written to the pagecache,
+>   * otherwise return false.
+> @@ -1183,7 +1214,10 @@ static bool iomap_write_end(struct iomap_iter *iter, size_t len, size_t copied,
+>  		return bh_written == copied;
+>  	}
+>  
+> -	return __iomap_write_end(iter->inode, pos, len, copied, folio);
+> +	if (iter->flags & IOMAP_WRITETHROUGH)
+> +		return __iomap_writethrough_end(iter->inode, pos, len, copied, folio);
+> +	else
+> +		return __iomap_write_end(iter->inode, pos, len, copied, folio);
+>  }
+>  
+>  static ssize_t iomap_writethrough_complete(struct iomap_writethrough_ctx *wt_ctx)
+> @@ -1254,7 +1288,7 @@ static void iomap_writethrough_bio_end_io(struct bio *bio)
+>  		cmpxchg(&wt_ctx->error, 0,
+>  			blk_status_to_errno(bio->bi_status));
+>  	bio_for_each_folio_all(fi, bio)
+> -		folio_end_writeback(fi.folio);
+> +		folio_end_writethrough(fi.folio, wt_ctx->error);
+>  
+>  	bio_put(bio);
+>  	if (atomic_dec_and_test(&wt_ctx->ref))
+> @@ -1299,9 +1333,11 @@ iomap_writethrough_submit_bio(struct iomap_writethrough_ctx *wt_ctx,
+>  
+>  	/*
+>  	 * In case of error we still need the I/O completion to run so we can
+> -	 * release references and end writeback on the folios.
+> +	 * release references, handle accounting and end writeback on the
+> +	 * folios.
+>  	 */
+>  	if (error) {
+> +		task_io_account_cancelled_write(len);
+>  		bio->bi_status = errno_to_blk_status(error);
+>  		bio_endio(bio);
+>  		return error;
+> @@ -1351,6 +1387,7 @@ static void iomap_folio_prepare_writethrough(struct folio *folio, size_t off,
+>  {
+>  	bool fully_written;
+>  	u64 zero = 0;
+> +	u64 tmp_off = off;
+>  
+>  	if (folio_test_writeback(folio))
+>  		folio_wait_writeback(folio);
+> @@ -1359,17 +1396,20 @@ static void iomap_folio_prepare_writethrough(struct folio *folio, size_t off,
+>  		folio_mark_dirty(folio);
+>  
+>  	/*
+> -	 * We might either write through the complete folio or a partial folio
+> -	 * writethrough might result in all blocks becoming non-dirty, so we need to
+> -	 * check and mark the folio clean if that is the case.
+> +	 * For writethrough, we don't mark the write range dirty but we still
+> +	 * need clear the dirty range if someone else has dirtied it before.
+> +	 * Further, if the clearing results in folio becoming completely clean,
+> +	 * then we need to take care of accounting.
+>  	 */
+> -	fully_written = (off == 0 && len == folio_size(folio));
+> -	iomap_clear_range_dirty(folio, off, len);
+> -	if (fully_written ||
+> -	    !iomap_find_dirty_range(folio, &zero, folio_size(folio)))
+> -		folio_clear_dirty_for_writethrough(folio);
+> +	if (iomap_find_dirty_range(folio, &tmp_off, tmp_off + len)) {
+> +		iomap_clear_range_dirty(folio, off, len);
 
-On 2026-09-21, Lin Junzhe <m18667909625@163.com> wrote:
-> Real cases I have seen in the field and in bug reports:
->
-> 1. GPU faults (nouveau): a misbehaving userspace program or a dying
->    GPU can trigger a stream of identical fault reports from the
->    in-tree nouveau driver, e.g. repeated "fifo: fault at ..." lines
->    while the offending context keeps being rescheduled. Similar
->    spam exists for other GPU drivers when a fence or scheduler
->    loop misbehaves.
+   Does this fail to clear the dirty flag for filesystems without sub-folio state?
+   When the filesystem lacks sub-folio state (for example, when block size equals
+   page size and ifs is NULL), iomap_find_dirty_range() unconditionally returns
+   the queried range length.
+   This means !iomap_find_dirty_range() will evaluate to !(folio_size(folio)),
+   which is always false. The folio_clear_dirty_for_writethrough() call is then
+   bypassed, leaving fully overwritten folios dirty in the page cache.
 
-There are several such "fault at" messages. However, the ones I looked
-at have other printk messages following in the same context, so your
-patch would not even help in these cases.
+Right, this is true, we need to also consider if a folio doesn't have
+ifs. Will fix this.
 
-Please specify the exact message (file + line number) you are talking
-about. Perhaps it would be enough to change it to use a printk
-ratelimited variant.
+>  
+> -	folio_start_writeback(folio);
+> +		if (!iomap_find_dirty_range(folio, &zero, folio_size(folio)))
+> +			folio_clear_dirty_for_writethrough(folio);
+> +	}
+> +
+> +	task_io_account_write(folio_nr_pages(folio) * PAGE_SIZE);
+> +	folio_test_set_writeback(folio);
 
-> 2. Failing storage: a dying SATA disk produces endless identical
->    "ata1.00: failed command" / "ata1: SError" storms. This is a
->    classic dmesg flood that buries everything else on machines
->    with a serial console and no syslogd.
+  Does this bypass setting PAGECACHE_TAG_WRITEBACK in the mapping's xarray?
+  Using folio_test_set_writeback() directly sets the PG_writeback flag on the
+  folio but skips the xarray tagging performed by __folio_start_writeback().
+  If fsync() or filemap_fdatawait_range() is called later, they iterate over
+  the xarray looking for this tag to wait for in-flight IO. Because the tag
+  is missing, they will return immediately while the IO is still in progress,
+  breaking data durability guarantees.
 
-The "failed command" ata printk is also followed by further printk's, so
-your patch would not help.
+Hmm, looking into it, yes I think this is correct, the WRITEBACK tag is
+definitely needed. So I think we might not be able to use just the
+master bit here.
 
-Please specify the exact message you are concerned about.
+Regards,
+ojaswin
 
-> 3. USB reset loops: a flaky cable or port makes the USB stack
->    repeatedly print the identical "usb X-Y: reset <speed> USB
->    device number N using <hcd>" line, sometimes for minutes.
-
-I could not find this pattern. Please specify the exact message.
-
-> 4. IRQ storms: an unhandled level-triggered interrupt prints the
->    identical "irq N: nobody cared" report for every retrigger
->    until the IRQ is disabled.
-
-This message also follows with more messages, so your patch would not
-help.
-
->> printk is NMI safe and lockless. It needs to remain so.
->
-> Fully agreed, and thank you for the clear statement. My
-> implementation takes a raw spinlock in vprintk_emit(), which
-> violates exactly that invariant -- the in_nmi() guard only avoids
-> the deadlock by disabling the feature where it would be most
-> dangerous, which is not acceptable either.
->
-> Given this, I see two options:
->
-> a) I drop the patch entirely; or
->
-> b) I rework the idea as lockless per-CPU/per-console state at the
->    console output layer (or on top of nbcon), so the printk
->    fast path stays lock- and NMI-safe.
->
-> Please tell me whether (b) is worth exploring or whether the
-> consensus is that deduplication belongs in userspace and (a) is
-> the right outcome. Either way is fine with me.
-
-I am against a patch that drops messages just because a format string
-repeats. The _data_ is not the same and that is important (particularly
-with your GPU and SATA examples).
-
-I am also skeptical that these are real-world issues as all of your
-examples (that I could find) had different printk messages following,
-which would lead to no drops.
-
-There is also the ratelimited variant of printk. If there are indeed
-messages that are not useful and can flood the kernel log, perhaps those
-messages should be either removed or ratelimited.
-
-If such a feature were to exist, I would prefer it is implemented such
-that:
-
-1. A duplicate message means contents are identical (except for the
-timestamp of course).
-
-2. It is implemented using flows similar to LOG_CONT to be certain that
-the message being dropped is really the next message.
-
-3. Records could be extended to include a counter for how often they
-repeat (so that deferred consoles can print the "repeated" line).
-
-Honestly, I do not see a real value for this feature. In my experience,
-even if a console is being flooded with messages, I still want all those
-messages. If a console is unable to keep up with the flood of incoming
-records, I need to use a faster console and/or reduce my console
-loglevel. And if there really are printk messages that can flood the
-kernel log and are useless when repeated output, they should be make to
-use the once or ratelimited variants.
-
-John
+>  }
+>  
+>  /**
+> diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
+> index b20e38cc0fa0..774a2e57a9e0 100644
+> --- a/include/linux/pagemap.h
+> +++ b/include/linux/pagemap.h
+> @@ -1257,6 +1257,7 @@ void folio_wait_writeback(struct folio *folio);
+>  int folio_wait_writeback_killable(struct folio *folio);
+>  void end_page_writeback(struct page *page);
+>  void folio_end_writeback(struct folio *folio);
+> +void folio_end_writethrough(struct folio *folio, bool error);
+>  void folio_end_writeback_no_dropbehind(struct folio *folio);
+>  void folio_end_dropbehind(struct folio *folio);
+>  void folio_wait_stable(struct folio *folio);
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index 58eb9d240643..a1a5f8837e03 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -1695,6 +1695,27 @@ void folio_end_writeback(struct folio *folio)
+>  }
+>  EXPORT_SYMBOL(folio_end_writeback);
+>  
+> +/**
+> + * folio_end_writethrough - End writethrough against a folio
+> + * @folio: The folio.
+> + * error: Was there an error in IO.
+> + *
+> + * Context: May be called from process or interrupt context.
+> + */
+> +void folio_end_writethrough(struct folio *folio, bool error)
+> +{
+> +	long nr = folio_nr_pages(folio);
+> +
+> +	VM_BUG_ON_FOLIO(!folio_test_writeback(folio), folio);
+> +
+> +	if (!error)
+> +		node_stat_mod_folio(folio, NR_WRITTEN, nr);
+> +
+> +	if (folio_xor_flags_has_waiters(folio, 1 << PG_writeback))
+> +		folio_wake_bit(folio, PG_writeback);
+> +}
+> +EXPORT_SYMBOL(folio_end_writethrough);
+> +
+>  /**
+>   * __folio_lock - Get a lock on the folio, assuming we need to sleep to get it.
+>   * @folio: The folio to lock
+> -- 
+> 2.55.0
+> 
+> 
