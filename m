@@ -1,33 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8803749EB
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:48:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 061E136212C;
+	Mon, 21 Sep 2026 08:48:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789980508; cv=none; b=l3HAvP6e/40P67meCja1EyPXolodqtw42cHp86k01PRseTY0J8MRlpDHTaYzmQIrcvF+1386pCtUqZTsU0sdflbmlqZlX6e9nSLVjvpM2rFm35L3cpEwizySiMhd5gT8WksDkuyuw233xHKbasY8a1ID6Wo6ZFN8i0iwluDzDIw=
+	t=1789980519; cv=none; b=fgR9gkNAuH/IKeCTa8P2KHcJy+E21w/E6NQwJIZiDM1GS9I87WeUkU2Nnd1j3WoSK4mMXAGbLyYDDFkHzdfoziIBbCyA42LYLQxvEP6dyuAickzqGFYM39euwzdZjO4YDL3FG4lylCyqjPyrMc9pAfLzrFAsG/+4p3j2fzD2wc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789980508; c=relaxed/simple;
-	bh=zRvUKmO+Djoxhsu9cNPD1xlTyXL/dJlbdvj0F4fWcsg=;
+	s=arc-20240116; t=1789980519; c=relaxed/simple;
+	bh=iNcD90TOEC4up8mJomSEGrqN8iDhcW+0IhnuQe1zqzU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VPN1ymcTXJhDgg5/yRSGP62HbDF/vm6Feq64d6QlaDAzZdzX8MhunPEQ0pQd9VsoFDvSSl9lS4qH4HHeOOadIa9EPqudDqwI0txODtJ8Ogfz4tQWxB62CC9w/MUXxfkFSJ99FKtEoyaGLUvxDRrWNjwny2cZamjjG4KpvMSpV20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=an1bAAGy; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=XHYfc8g/7aeW4dR0cTEa24RhxCIjdKumwOC98bS6mWV6aFN4os52qQQbfsOjQphYpSCJ3/MNYS/RTcPBV77CnkMX1dTSbiVeLRPan3E6GezmKnhpnjRpwCuK151uWuVfJs3czNg7wjitDfhH5wRRbNTiGQSTDtQ9w1wHZgOslec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ICEwSlGN; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=mJf0rSx8; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=UCL//Dwm; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=3UiEHUj2; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="an1bAAGy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A57771F000FF;
-	Mon, 21 Sep 2026 08:48:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789980506;
-	bh=9iL1YWW2QYK9+llrDkhB96CA/vzi9wc36AEnvExuoNs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=an1bAAGyCXfni6gi1cL7qJB6SN4oBe80+IcnVmh1bAzaMpH3wQXShiOZgYMBeuZa0
-	 NSFV6UdmLrrUx/YdVfg2hKwosmpSXF657FdrpJeU30QC4ha47g3lWvbmJ0zfHjaQsn
-	 x9REz7/M0rMboflN2yX0IdDrUJDlRiTl363tT0/hzGQM0YrzITLbQ6MUdGTp3s48bt
-	 1wmE7Z6Mp4lJ4q21aUi8+2kwl/dJD+RuzRglVEJxcNrNJ5ePuqkAp0JLPs8mFe9U11
-	 qroytOZzpEOKp1Ks7neHHcmvksHPmBiazLT6puspACI/3UdGOq+JaEmGGjCC3d80bi
-	 mEZkBopVMzRFQ==
-Message-ID: <7c9f04bb-8c0e-4176-b44d-55304e7359c8@kernel.org>
-Date: Mon, 21 Sep 2026 10:48:21 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ICEwSlGN";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mJf0rSx8";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="UCL//Dwm";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3UiEHUj2"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 569B41F74A;
+	Mon, 21 Sep 2026 08:48:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789980511; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=delK6S1uyACp4+jf+Vgb66XpupmK4x7dstB7NGDmOn4=;
+	b=ICEwSlGNTckXIgC5ijJ+X7n7UOMaVq2dhWXdAfG8+6ELnruYjetScCpZ7QuxBAP6H8YExZ
+	aWli/v1KmC56ak8hldg+qTSUD0wCoK9ya3uZea6L68Wbi1qm6s4yKFw9ZRED40qss5aFiz
+	m4vtyFWivMBeqnsiAKYlZVHIMnC4lcw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789980511;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=delK6S1uyACp4+jf+Vgb66XpupmK4x7dstB7NGDmOn4=;
+	b=mJf0rSx8l7acXlaNG+dLgebq44mJ4zkjSTnq+a8Hd2FWtoBl5MfeBvWsVb93Zw0Yhoky9Q
+	0tdPuqG2AIOhh3CQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="UCL//Dwm";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3UiEHUj2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789980507; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=delK6S1uyACp4+jf+Vgb66XpupmK4x7dstB7NGDmOn4=;
+	b=UCL//DwmnYPfRPKT0CkG2T4L+VF1ecYTHeiYyajj2giNusk8apOXncAjd7t3vtXd4T7TW0
+	6nOucIXJTZAg4/3elXISb9sAGWEVX1zddAsMoYaDHg9XxuZ21DlEFT3D/x33adx05lboRI
+	AVKD8H8PVQCRWUvn0/Es+J01qSVpIc8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789980507;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=delK6S1uyACp4+jf+Vgb66XpupmK4x7dstB7NGDmOn4=;
+	b=3UiEHUj2OiMg7fqLEPr70btHSi2RG72dZHFeV6g7OxV4RtoEwj5zLuVVqzFfCQgzaT9HmF
+	48qrHqv7qvm7EWBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E6BA01368D;
+	Mon, 21 Sep 2026 08:48:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ngbKKVrvsGrlTAAAD6G6ig
+	(envelope-from <hare@suse.de>); Mon, 21 Sep 2026 08:48:26 +0000
+Message-ID: <4ca4f5c5-5021-4a63-bb14-4b7d0502eef6@suse.de>
+Date: Mon, 21 Sep 2026 10:48:26 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,111 +83,123 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] powerpc/ftrace: Don't restore r13 during
- ftrace_regs_caller
-To: Shrikanth Hegde <sshegde@linux.ibm.com>, maddy@linux.ibm.com,
- linuxppc-dev@lists.ozlabs.org
-Cc: mpe@ellerman.id.au, npiggin@gmail.com, linux-kernel@vger.kernel.org,
- msuchanek@suse.de, ritesh.list@gmail.com, hbathini@linux.ibm.com
-References: <20260921072151.35531-1-sshegde@linux.ibm.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <20260921072151.35531-1-sshegde@linux.ibm.com>
+Subject: Re: [PATCH] scsi: libfc: fix directory server rport memory leak
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Robert Love <robert.w.love@intel.com>,
+ James Bottomley <James.Bottomley@suse.de>, Joe Eykholt <jeykholt@cisco.com>,
+ linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20260919173405.3718408-1-lgs201920130244@gmail.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20260919173405.3718408-1-lgs201920130244@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 569B41F74A
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,HansenPartnership.com,oracle.com,intel.com,suse.de,cisco.com,vger.kernel.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_TLS_ALL(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.51
 
-
-
-Le 21/09/2026 à 09:21, Shrikanth Hegde a écrit :
-> Michal reported a stack-protector failure and subsequent panic when
-> running kernel builds. This was observed with full/lazy preemption.
-> Initially it was suspected as KVM, but later turned out to be due
-> to a bcc tool running in parallel.
+On 9/19/26 7:34 PM, Guangshuo Li wrote:
+> fc_rport_recv_plogi_req() creates an rport before allocating the frame
+> used for the PLOGI LS_ACC response.
 > 
-> Issue was recreated using a bcc tool.
-> For example, running below in parallel leads to crash.
-> ./funccount sched* -d 100 and make -j 64
+> fc_rport_create() does not add FC_FID_DIR_SERV rports to the discovery
+> rport list. If fc_frame_alloc() fails while handling a PLOGI from the
+> directory server, the function returns without starting the rport state
+> machine or dropping the initial rport reference.
 > 
-> The same crash was observed when running kprobe for schedule() function,
-> while simpler function tracer for schedule() didn't cause the crash.
-> This helped to narrow it down to ftrace backed kprobes area.
+> Since the directory server rport is not present in the discovery list,
+> there is no later teardown path that can find the object and release
+> that reference. The allocated fc_rport_priv is therefore leaked.
 > 
-> The crash occurs as follows:
+> Record when the failed frame allocation leaves an unlisted directory
+> server rport behind and drop its initial reference after releasing the
+> rport mutex. Keep the existing lifetime unchanged for ordinary rports,
+> which remain owned by the discovery list.
 > 
-> ftrace_regs_caller entry on CPU A
->      |
->      +-> save r13 = CPU A PACA into pt_regs
->      |
->      +-> call kprobe_ftrace_handler()
->              |
->              +-> ftrace_test_recursion_unlock()
->                      |
->                      +-> preempt_enable
->                      +-> task can schedule and migrate to CPU B
->                      +-> task resumes with live r13 = CPU B PACA
->      |
->      +-> REST_GPRS(2, 31)
->              |
->              +-> restore saved r13 = CPU A PACA
->      |
->      |-> The task then continues running on CPU B with r13 pointing
->      |   to CPU A's PACA.
+> The issue was identified by a static analysis tool I developed and
+> confirmed by manual review.
 > 
-> The stack-protector canary is accessed through the PACA. After the task
-> migrates, CPU A may run a different task and update its PACA with that
-> task's canary. Restoring the saved r13 then causes the migrated task's
-> saved stack canary to be compared against the canary in CPU A's PACA,
-> resulting in a stack-protector failure.
-> 
-> Similarly, current is resolved through the PACA. With a stale r13,
-> preempt_count() can access the state of the task referenced by CPU A's
-> PACA instead of the task running on CPU B. This results in corrupted
-> preempt-count warnings and scheduling-while-atomic failures.
-> 
-> This path for example is called when using kprobes and parallel kernel
-> builds can cause preemptions during ftrace_test_recursion_unlock.
-> 
-> Do not restore r13 from the saved register frame. If the task did not
-> migrate, the live r13 already has the saved value. If it migrated, the
-> live r13 contains the correct PACA pointer for the CPU on which the task
-> resumed.
-> 
-> On PPC32, r13 is regular register. So do this fix only for PPC64
-> 
-> Fixes: 153086644fd1 ("powerpc/ftrace: Add support for -mprofile-kernel ftrace ABI")
-> Reported-by: Michal Suchánek <msuchanek@suse.de>
-> Closes: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fall%2FaqKfsVArHHaIK6M9%40kunlun.suse.cz%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C3e7a545b53d440a2e67608df17b108e4%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639255721258018023%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=Wq%2FROZrTgs9UQsuUqNhFpts90JVwEpgxcNI60HlXqmQ%3D&reserved=0
-> Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-> Reviewed-by: Hari Bathini <hbathini@linux.ibm.com>
-> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+> Fixes: 3ac6f98f4113 ("[SCSI] libfc: correctly handle incoming PLOGI request.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
-> v1->v2:
-> - On PPC32 r13 is regular register. So continue to restore it.
-
-Oh I missed that while reviewing. Thank you Hari for spotting it.
-
-> - Picked up the tags.
-> v1: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fall%2F20260918150811.1743769-1-sshegde%40linux.ibm.com%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C3e7a545b53d440a2e67608df17b108e4%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639255721258040669%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=J9tBTYidx4ZNPZDK66CdicI64HV5naHau%2BYnNnf4XPo%3D&reserved=0
+>   drivers/scsi/libfc/fc_rport.c | 7 ++++++-
+>   1 file changed, 6 insertions(+), 1 deletion(-)
 > 
->   arch/powerpc/kernel/trace/ftrace_entry.S | 6 ++++++
->   1 file changed, 6 insertions(+)
-> 
-> diff --git a/arch/powerpc/kernel/trace/ftrace_entry.S b/arch/powerpc/kernel/trace/ftrace_entry.S
-> index 6599fe3c6234..5eb8eee32549 100644
-> --- a/arch/powerpc/kernel/trace/ftrace_entry.S
-> +++ b/arch/powerpc/kernel/trace/ftrace_entry.S
-> @@ -220,7 +220,13 @@
+> diff --git a/drivers/scsi/libfc/fc_rport.c b/drivers/scsi/libfc/fc_rport.c
+> index c25979d96808..884b233c2f72 100644
+> --- a/drivers/scsi/libfc/fc_rport.c
+> +++ b/drivers/scsi/libfc/fc_rport.c
+> @@ -1848,6 +1848,7 @@ static void fc_rport_recv_plogi_req(struct fc_lport *lport,
+>   	struct fc_els_flogi *pl;
+>   	struct fc_seq_els_data rjt_data;
+>   	u32 sid;
+> +	bool drop_rdata = false;
 >   
->   	/* Restore gprs */
->   	.if \allregs == 1
-> +#ifdef CONFIG_PPC64
-> +	REST_GPRS(2, 12, r1)
-> +	/* Do not restore a stale PACA pointer if the task migrated */
-> +	REST_GPRS(14, 31, r1)
-> +#else
->   	REST_GPRS(2, 31, r1)
-> +#endif
->   	.else
->   	REST_GPRS(3, 10, r1)
->   #if defined(CONFIG_LIVEPATCH_64) || defined(CONFIG_PPC_FTRACE_OUT_OF_LINE)
+>   	lockdep_assert_held(&lport->lp_mutex);
+>   
+> @@ -1940,8 +1941,10 @@ static void fc_rport_recv_plogi_req(struct fc_lport *lport,
+>   	 * Send LS_ACC.	 If this fails, the originator should retry.
+>   	 */
+>   	fp = fc_frame_alloc(lport, sizeof(*pl));
+> -	if (!fp)
+> +	if (!fp) {
+> +		drop_rdata = sid == FC_FID_DIR_SERV;
+>   		goto out;
+> +	}
+>   
+>   	fc_plogi_fill(lport, fp, ELS_LS_ACC);
+>   	fc_fill_reply_hdr(fp, rx_fp, FC_RCTL_ELS_REP, 0);
+> @@ -1949,6 +1952,8 @@ static void fc_rport_recv_plogi_req(struct fc_lport *lport,
+>   	fc_rport_enter_prli(rdata);
+>   out:
+>   	mutex_unlock(&rdata->rp_mutex);
+> +	if (drop_rdata)
+> +		kref_put(&rdata->kref, fc_rport_destroy);
+>   	fc_frame_free(rx_fp);
+>   	return;
+>   
 
+Wouldn't it be better to always create an rport for the directory
+server?
+That would make the teardown path far easier.
+
+Cheers,
+
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
