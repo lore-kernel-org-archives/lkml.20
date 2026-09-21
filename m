@@ -1,345 +1,284 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F3D0C4F85DA;
-	Mon, 21 Sep 2026 18:48:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2973372618;
+	Mon, 21 Sep 2026 18:49:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790016491; cv=none; b=V5EGZ+237FwMeuBbwVyfsLFlHkHUDKaENPE+QGjfnUKRksHF/PfYG5cUevvYC52HyfHaAmLQasa3JNbChJh6vTcpIDp8bkXlF/O36sbEVWZ8Xk0Yt1R1Mrsh24C/n+Il705v8oruEIFEON1gFDGin0XdyGo0gFOXobAx1G3SDjk=
+	t=1790016545; cv=none; b=CMdNU/biXTDp//B4MjprsGqkOc5PShL2sZ243tALu4nLbbjRkt1z/BdNqyJKuEfsp5yaBP102BkOJYb79U9LZg9+tlTX4SHjuggVlhrbxcuxgqCgMaHUADijZbQ2SubuN7gzUGoa4Qu8rh0iFVj99MMK3t4BEv/yGhAfu95h6VM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790016491; c=relaxed/simple;
-	bh=YM+1/gq/RepS0kNvZW6wyJeC+DF4kRB26NAW1AqaE/Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vp1vne9HhBP362eHDRZgPQrn125QI5ch2RRfkWkcueMXmL65y96SjyCTYvmoYoyV1gzJP21t0guwbCLkJZ7gMXSWNKGtqykpIHavsnhgt0dLHHjQi30DiXnEEhjUMRQ2DTU9VeSPs8NsExr+7/2yJdMFO8tDHEmlFN50loy/6nA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=oBY+bShy; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790016545; c=relaxed/simple;
+	bh=bYoV4ac+ByHFszr44RZZsqVOqcCekHPJCFcuRTvwiTQ=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Dsfw5iNNmDhAq97e06XtYehGG8iuHzChLyx/XQeCQoUsa0rxF7K+hNxlBqVD27fXmug8TydOz8p9Nn0hklTO2r5q0hNgnkNRkvcyLnWo1RCGmt4s0e/fSgpSNdwh/tX01neUxvL8kJ7PJB228VpvLp+Jj+lR9kd9ONgZKpiM5T4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dxYwtnIq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="oBY+bShy"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4A0CA19F6;
-	Mon, 21 Sep 2026 11:48:03 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9D60F3F632;
-	Mon, 21 Sep 2026 11:48:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790016486; bh=YM+1/gq/RepS0kNvZW6wyJeC+DF4kRB26NAW1AqaE/Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=oBY+bShyQ0bNQXjP9gdX3fGwrvgGQUATU3gQFGVgJL8mqL/TR5oDrVz6XFqEM6e5M
-	 e8gi6bfUu5XP2aG42ZazcEmUx29v5KoYyD5jHSzMeCvBe6UIFVP6wh1J8cmptFQGYD
-	 lVo6z5RIXnADfgqudL07n/iGDMQ1W7KVwSECXDHM=
-Date: Mon, 21 Sep 2026 19:48:01 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 2/3] kselftest: mm: replace usage of /proc/self/smaps
- for check_huge_xxx() helper
-Message-ID: <arF74QGjx6oCIBnR@e129823.arm.com>
-References: <20260921-fix_split-v7-0-d25ec991159f@arm.com>
- <20260921-fix_split-v7-2-d25ec991159f@arm.com>
- <36465f31-59e2-43a5-8cd8-f8bb1844da3c@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dxYwtnIq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CE461F00898;
+	Mon, 21 Sep 2026 18:49:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790016543;
+	bh=i0g5jY5uAgqSTPkkPjTSAM5Pp+ApHo0ckOc9B9VGkHM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=dxYwtnIq2SoTET15zvYXk8WWSO9u5SFPMoPJ0po7WESGzUHvbEhHoEXnifeAo8mgr
+	 8AIabNdILh4RgAG/SHFbDOnP6gCjPJL+BOSDhkw6G3pEVbJFhn/JbF1MqTHCmlt87o
+	 we1GbDFjX2ieib5YmZEiDNAmki+t8cYTWrayt+XLW3BiIEMgMUGYP0vLRr9LbAyDC0
+	 0Is5jgoWrLomAxSWXqRQTVgFXmY2Ed7F9W1aIAK2ilL1+GCJLHS8H9MqUtrbL9UKYw
+	 r/iq8rcTsnT/LZKmf61CpYFi4PIxSvTkMfEemmvC7sdUD1KjnKE+t9kNrzIZvRhEf6
+	 N91tM5n2Jbleg==
+Subject: Re: [PATCH net 1/7] net/mlx5e: ipsec: Block eswitch mode changes
+ during policy creation
+From: netdev-bot+sashiko@kernel.org
+To: tariqt@nvidia.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
+ sd@queasysnail.net, borisp@nvidia.com, cjubran@nvidia.com, cratiu@nvidia.com,
+ daniel.zahka@gmail.com, dtatulea@nvidia.com, ehakim@nvidia.com,
+ gal@nvidia.com, jianbol@nvidia.com, leon@kernel.org,
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, liorna@nvidia.com,
+ mbloch@nvidia.com, parav@nvidia.com, raeds@nvidia.com, rrameshbabu@nvidia.com,
+ roid@nvidia.com, saeedm@nvidia.com, steffen.klassert@secunet.com
+Date: Mon, 21 Sep 2026 18:49:01 +0000
+Message-ID: <179001654155.2160803.10642575868860131608@kernel.org>
+In-Reply-To: <20260917175433.4090878-2-tariqt@nvidia.com>
+References: <20260917175433.4090878-2-tariqt@nvidia.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <36465f31-59e2-43a5-8cd8-f8bb1844da3c@kernel.org>
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-> On 9/21/26 12:40, Yeoreum Yun wrote:
-> > Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
-> > glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
-> > made by memalign().
-> > 
-> > The underlying VMA may start at a different address from the aligned
-> > address returned by memalign(). Furthermore, a subsequent
-> > madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
-> > already set.
-> > 
-> > This causes split_huge_page_test to fail because the check_huge_xxx()
-> > helpers incorrectly require the address returned by memalign() to
-> > match the VMA start address reported in /proc/self/smaps.
-> > 
-> > Instead of relying on /proc/self/smaps, use /proc/self/pagemap and
-> > /proc/kpageflags to detect huge-page mappings and large folios:
-> > 
-> >   1. If hpage_size == pmd_pagesize, check PAGE_IS_HUGE instead of
-> >      using check_large_folios(), since only the mapping type matters.
-> >      This identifies PMD-mapped huge pages.
-> >   2. Otherwise, use check_large_folios() to detect large folios. This
-> >      covers mTHP cases.
-> >   3. Check the folio flags according to the type of huge page.
-> > 
-> > Since shmem pages are also file-backed, simply check whether the page
-> > is file-backed.
-> > 
-> > Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> > Suggested-by: Zi Yan <ziy@nvidia.com>
-> 
-> Do we need a Fixes: tag?
+Critical: 0 · High: 0 · Medium: 1 · Low: 0 (1)
 
-Since this change is required for the chaning of behavior of glibc,
-I don't think we don't need to add Fixes tag in here?
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> 
-> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> > ---
-> >  tools/testing/selftests/mm/vm_util.c | 137 +++++++++++++++++++++--------------
-> >  1 file changed, 84 insertions(+), 53 deletions(-)
-> > 
-> > diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-> > index 4821a35630363..a7c5caf6925e0 100644
-> > --- a/tools/testing/selftests/mm/vm_util.c
-> > +++ b/tools/testing/selftests/mm/vm_util.c
-> > @@ -351,31 +351,13 @@ char *__get_smap_entry(void *addr, const char *pattern, char *buf, size_t len)
-> >  	return entry;
-> >  }
-> >  
-> > -static bool __check_pmd_huge(void *addr, char *pattern, int nr_hpages,
-> > -		  uint64_t hpage_size)
-> > -{
-> > -	char buffer[MAX_LINE_LENGTH];
-> > -	uint64_t thp = -1;
-> > -	char *entry;
-> > -
-> > -	entry = __get_smap_entry(addr, pattern, buffer, sizeof(buffer));
-> > -	if (!entry)
-> > -		goto err_out;
-> > -
-> > -	if (sscanf(entry, "%9" SCNu64 " kB", &thp) != 1)
-> > -		ksft_exit_fail_msg("Reading smap error\n");
-> > -
-> > -err_out:
-> > -	return thp == (nr_hpages * (hpage_size >> 10));
-> > -}
-> > -
-> > -static bool check_large_folios(void *addr, size_t len, int nr_hpages,
-> > -		uint64_t hpage_size)
-> > +static bool check_large_folios(int pagemap_fd, int kpageflags_fd,
-> > +			       void *addr, size_t len, int nr_hpages,
-> > +			       uint64_t hpage_size)
-> 
-> The function used two tab indent for a reason ;)
-> 
-> Use two tabs also in the functions you change below.
+- [Medium] `mlx5e_xfrm_add_policy()`
+  (drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.c:1268-1274)…
 
-Okay.
+Pre-existing issues:
+- [Low] Incomplete-fix concern: at this commit `mlx5e_xfrm_add_state()`
+  (drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.c:781-813)…
 
-> 
-> >  
-> > -bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
-> > +static bool __check_huge(void *addr, size_t len, int nr_hpages,
-> > +			 uint64_t hpage_size, enum check_huge_type type)
-> 
-> 
-> >  {
-> > -	uint64_t pmd_pagesize = read_pmd_pagesize();
-> > +	bool ret = false;
-> > +	int pagemap_fd, kpageflags_fd;
-> > +	int nr_pmd_mappings = 0;
-> > +	uint64_t pmd_pagesize, scan_mapping_size;
-> > +	uint64_t categories, kpf;
-> > +	unsigned long pfn;
-> > +	bool check_pmd_mapping, allow_nonpresent;
-> > +	char *start = addr;
-> > +	char *end = start + len;
-> >  
-> > +	pmd_pagesize = read_pmd_pagesize();
-> >  	if (!pmd_pagesize)
-> >  		ksft_exit_fail_msg("reading PMD pagesize failed\n");
-> >  
-> > -	if (hpage_size == pmd_pagesize)
-> > -		return __check_pmd_huge(addr, "FilePmdMapped:", nr_hpages, hpage_size);
-> > +	check_pmd_mapping = (hpage_size == pmd_pagesize);
-> 
-> No need for ()
+--
 
-I see.
+net/mlx5e: ipsec: Block eswitch mode changes during policy creation
 
-> 
-> > +	scan_mapping_size = (nr_hpages > 0) ? hpage_size : psize();
-> > +	/* Some mTHP tests check a partially populated PMD-sized range. */
-> > +	allow_nonpresent = (uint64_t)nr_hpages * hpage_size < len;
-> >  
-> > -	return check_large_folios(addr, len, nr_hpages, hpage_size);
-> > +	pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
-> > +	if (pagemap_fd < 0)
-> > +		ksft_exit_fail_msg("open pagemap fail\n");
-> > +
-> > +	kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
-> > +	if (kpageflags_fd < 0)
-> > +		ksft_exit_fail_msg("open kpageflags fail\n");
-> > +
-> > +	if (!check_pmd_mapping &&
-> > +	    !check_large_folios(pagemap_fd, kpageflags_fd,
-> > +				addr, len, nr_hpages, hpage_size))
-> > +		goto out;
-> > +
-> > +	for (; start < end; start += scan_mapping_size) {
-> > +		categories = pagemap_scan_get_categories(pagemap_fd, start);
-> > +		pfn = pagemap_get_pfn(pagemap_fd, start);
-> > +		if (pfn == -1UL) {
-> > +			if (!allow_nonpresent)
-> > +				goto out;
-> > +			else
-> > +				continue;
-> > +		}
-> > +		if (pageflags_get(pfn, kpageflags_fd, &kpf))
-> > +			ksft_exit_fail_msg("read kpageflags: %s\n", strerror(errno));
-> > +		if (check_pmd_mapping && (categories & PAGE_IS_HUGE))
-> > +			nr_pmd_mappings++;
-> > +		if (kpf & KPF_COMPOUND_TAIL)
-> > +			continue;
-> > +		if (!check_huge_type(categories, kpf, type))
-> > +			goto out;
-> > +	}
-> > +
-> > +	if (check_pmd_mapping && (nr_pmd_mappings != nr_hpages))
-> > +		goto out;
-> 
-> 
-> There is way too much happening here, which makes this rather hard to review.
-> 
-> Why can't we just focus on the smaps change for now?
+This moves the eswitch mode block in mlx5e_xfrm_add_policy() to the top of
+the function, before priv->ipsec is checked and the policy is validated, and
+releases it once the flow table holds its own block or after unwinding.
+A check_users argument is added to mlx5_eswitch_block_mode() /
+mlx5_esw_try_lock() so the new temporary block does not reject policies while
+TC users are present.
 
-Yeap. I think we can simplify as your suggestion with a little bit
-change. I'll spin again.
-
-Thanks.
-
-> 
-> I.e., something like the following (untested)
-> 
-> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-> index 4821a35630363..5d348d6985026 100644
-> --- a/tools/testing/selftests/mm/vm_util.c
-> +++ b/tools/testing/selftests/mm/vm_util.c
-> @@ -351,24 +351,6 @@ char *__get_smap_entry(void *addr, const char *pattern, char *buf, size_t len)
->  	return entry;
->  }
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.c
+> index db260e3d1412f..841ecdc2c4d9e 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.c
+> @@ -806,7 +806,7 @@ static int mlx5e_xfrm_add_state(struct net_device *dev,
+>  		goto err_xfrm;
+>  	}
 >  
-> -static bool __check_pmd_huge(void *addr, char *pattern, int nr_hpages,
-> -		  uint64_t hpage_size)
-> -{
-> -	char buffer[MAX_LINE_LENGTH];
-> -	uint64_t thp = -1;
-> -	char *entry;
-> -
-> -	entry = __get_smap_entry(addr, pattern, buffer, sizeof(buffer));
-> -	if (!entry)
-> -		goto err_out;
-> -
-> -	if (sscanf(entry, "%9" SCNu64 " kB", &thp) != 1)
-> -		ksft_exit_fail_msg("Reading smap error\n");
-> -
-> -err_out:
-> -	return thp == (nr_hpages * (hpage_size >> 10));
-> -}
-> -
->  static bool check_large_folios(void *addr, size_t len, int nr_hpages,
->  		uint64_t hpage_size)
->  {
-> @@ -410,20 +392,34 @@ static bool check_large_folios(void *addr, size_t len, int nr_hpages,
->  	return ret;
->  }
+> -	err = mlx5_eswitch_block_mode(priv->mdev);
+> +	err = mlx5_eswitch_block_mode(priv->mdev, true);
+>  	if (err)
+>  		goto unblock_ipsec;
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but as of this commit
+mlx5e_xfrm_add_state() still has the ordering the changelog describes as
+unsafe: priv->ipsec is tested, cached into ipsec and sa_entry->ipsec, and
+dereferenced through mlx5e_ipsec_fs_tunnel_allowed(sa_entry) before the
+mode block above is taken.
+
+	priv = netdev_priv(dev);
+	if (!priv->ipsec)
+		return -EOPNOTSUPP;
+
+	ipsec = priv->ipsec;
+	...
+	err = mlx5_eswitch_block_mode(priv->mdev, true);
+
+The immediately following patch in the series, "net/mlx5e: ipsec: Block
+eswitch mode changes before accessing priv->ipsec", moves the block to the
+top of mlx5e_xfrm_add_state() and adds the matching unblock_mode: unwind, so
+the ordering is consistent again at the end of the series. Would it be worth
+mentioning in this changelog that the SA path is handled in the next patch,
+so this intermediate state is not read as an oversight?
+
+> @@ -1266,18 +1266,28 @@ static int mlx5e_xfrm_add_policy(struct xfrm_policy *x,
+>  	int err;
 >  
-> -bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
-> +static bool __check_pmds(void *start, size_t len, int expected_file_pmds,
-> +		int expected_anon_pmds, uint64_t pmd_pagesize)
->  {
-> -	uint64_t pmd_pagesize = read_pmd_pagesize();
-> +	int found_anon_pmds = 0, found_file_pmds = 0;
-> +	int pagemap_fd;
-> +	void *addr;
->  
-> -	if (!pmd_pagesize)
-> -		ksft_exit_fail_msg("reading PMD pagesize failed\n");
-> +	pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
-> +	if (pagemap_fd < 0)
-> +		ksft_exit_fail_msg("open pagemap fail\n");
->  
-> -	if (hpage_size == pmd_pagesize)
-> -		return __check_pmd_huge(addr, "AnonHugePages: ", nr_hpages, hpage_size);
-> +	for (addr = start; addr < start + len; addr += pmd_pagesize) {
-> +		const uint64_t categories = pagemap_scan_get_categories(pagemap_fd, addr);
->  
-> -	return check_large_folios(addr, len, nr_hpages, hpage_size);
-> +		if (!(categories & PAGE_IS_HUGE))
-> +			continue;
-> +		if (categories & PAGE_IS_FILE)
-> +			found_file_pmds++;
-> +		else
-> +			found_anon_pmds++;
+>  	priv = netdev_priv(netdev);
+> +	/* Block esw mode changes until the policy holds its own block. */
+> +	err = mlx5_eswitch_block_mode(priv->mdev, false);
+> +	if (err) {
+> +		NL_SET_ERR_MSG_MOD(extack, "Eswitch busy, can't add policy");
+> +		return err;
 > +	}
 > +
-> +	close(pagemap_fd);
-> +	return found_anon_pmds == expected_anon_pmds &&
-> +	       found_file_pmds == expected_file_pmds;
+
+[Severity: Medium]
+Can this make policy adds fail spuriously with -EINVAL?
+
+The new block is taken on every policy add, and mlx5_esw_try_lock() bails out
+before the check_users test:
+
+drivers/net/ethernet/mellanox/mlx5/core/eswitch.c:mlx5_esw_try_lock() {
+	if (down_write_trylock(&esw->mode_lock) == 0)
+		return -EINVAL;
+	...
+}
+
+So passing check_users=false does not help when the mode_lock is simply held
+by someone else at that moment. A concrete reader is the TC path, which holds
+the read side across the whole flow creation:
+
+drivers/net/ethernet/mellanox/mlx5/core/en_tc.c:mlx5e_configure_flower() {
+	if (!mlx5_esw_hold(priv->mdev))
+		return -EBUSY;
+	...
+	err = mlx5e_tc_add_flow(priv, f, flags, dev, &flow);
+	...
+	mlx5_esw_release(priv->mdev);
+}
+
+mlx5e_ipsec_block_tc_offload(), mlx5_eswitch_unblock_mode() and
+mlx5_devlink_switchdev_active_mode_change() take the write side with a
+blocking down_write().
+
+The errno is passed straight to userspace:
+
+net/xfrm/xfrm_device.c:xfrm_dev_policy_add() {
+	err = dev->xfrmdev_ops->xdo_dev_policy_add(xp, extack);
+	if (err) {
+		...
+		return err;
+	}
+}
+
+Before this change, a policy add that reused already-created tables never ran
+a trylock at all:
+
+drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_fs.c:rx_get() {
+	if (rx->ft.refcnt)
+		goto skip;
+
+	err = mlx5_eswitch_block_mode(mdev, true);
+	...
+}
+
+which is the same "TC rule on a VF representor" case the changelog wants to
+keep working. Would an ip xfrm policy add now fail immediately, with no wait
+and no retry, whenever it overlaps a tc filter add on a representor?
+
+Also, the extack text says "Eswitch busy" while the returned errno can be
+-EINVAL, which the kernel-doc updated by this patch defines as "lock is
+already held" rather than a busy/retriable condition. Should the transient
+trylock collision be reported as -EBUSY so userspace can tell it apart from a
+permanent validation rejection?
+
+>  	if (!priv->ipsec) {
+>  		NL_SET_ERR_MSG_MOD(extack, "Device doesn't support IPsec packet offload");
+> -		return -EOPNOTSUPP;
+> +		err = -EOPNOTSUPP;
+> +		goto unblock_mode;
+>  	}
+>  
+>  	err = mlx5e_xfrm_validate_policy(priv->mdev, x, extack);
+>  	if (err)
+> -		return err;
+> +		goto unblock_mode;
+>  
+>  	pol_entry = kzalloc_obj(*pol_entry);
+> -	if (!pol_entry)
+> -		return -ENOMEM;
+> +	if (!pol_entry) {
+> +		err = -ENOMEM;
+> +		goto unblock_mode;
+> +	}
+>  
+>  	pol_entry->x = x;
+>  	pol_entry->ipsec = priv->ipsec;
+> @@ -1293,6 +1303,7 @@ static int mlx5e_xfrm_add_policy(struct xfrm_policy *x,
+>  		goto err_fs;
+>  
+>  	x->xdo.offload_handle = (unsigned long)pol_entry;
+> +	mlx5_eswitch_unblock_mode(priv->mdev);
+>  	return 0;
+>  
+> err_fs:
+> @@ -1300,6 +1311,8 @@ static int mlx5e_xfrm_add_policy(struct xfrm_policy *x,
+> ipsec_busy:
+>  	kfree(pol_entry);
+>  	NL_SET_ERR_MSG_MOD(extack, "Device failed to offload this policy");
+> +unblock_mode:
+> +	mlx5_eswitch_unblock_mode(priv->mdev);
+>  	return err;
 >  }
->  
-> -bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
-> +bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/eswitch.c b/drivers/net/ethernet/mellanox/mlx5/core/eswitch.c
+> index fc197d1dc9dfe..0b48cc7a67343 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/eswitch.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/eswitch.c
+> @@ -3005,21 +3005,22 @@ void mlx5_esw_put(struct mlx5_core_dev *mdev)
+>  /**
+>   * mlx5_esw_try_lock() - Take a write lock on esw mode lock.
+>   * @esw: eswitch device.
+> + * @check_users: reject the lock if eswitch users exist.
+>   *
+>   * Should be called by esw mode change routine.
+>   *
+>   * Return:
+> - * * 0       - esw mode if successfully locked and refcount is 0.
+> - * * -EBUSY  - refcount is not 0.
+> - * * -EINVAL - In the middle of switching mode or lock is already held.
+> + * * >= 0    - esw mode if successfully locked.
+> + * * -EBUSY  - mode change in progress or users exist with check_users set.
+> + * * -EINVAL - lock is already held.
+>   */
+> -int mlx5_esw_try_lock(struct mlx5_eswitch *esw)
+> +int mlx5_esw_try_lock(struct mlx5_eswitch *esw, bool check_users)
 >  {
->  	uint64_t pmd_pagesize = read_pmd_pagesize();
+>  	if (down_write_trylock(&esw->mode_lock) == 0)
+>  		return -EINVAL;
 >  
-> @@ -431,12 +427,12 @@ bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
->  		ksft_exit_fail_msg("reading PMD pagesize failed\n");
+>  	if (esw->eswitch_operation_in_progress ||
+> -	    atomic64_read(&esw->user_count) > 0) {
+> +	    (check_users && atomic64_read(&esw->user_count) > 0)) {
+>  		up_write(&esw->mode_lock);
+>  		return -EBUSY;
+>  	}
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
+> index eb74b62601682..996490e116253 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
+> @@ -4351,8 +4351,7 @@ int mlx5_eswitch_block_mode(struct mlx5_core_dev *dev)
+>  	if (!mlx5_esw_allowed(esw))
+>  		return 0;
 >  
->  	if (hpage_size == pmd_pagesize)
-> -		return __check_pmd_huge(addr, "FilePmdMapped:", nr_hpages, hpage_size);
-> +		return __check_pmds(addr, len, 0, nr_hpages, pmd_pagesize);
->  
->  	return check_large_folios(addr, len, nr_hpages, hpage_size);
->  }
->  
-> -bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
-> +bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
->  {
->  	uint64_t pmd_pagesize = read_pmd_pagesize();
->  
-> @@ -444,11 +440,16 @@ bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size
->  		ksft_exit_fail_msg("reading PMD pagesize failed\n");
->  
->  	if (hpage_size == pmd_pagesize)
-> -		return __check_pmd_huge(addr, "ShmemPmdMapped:", nr_hpages, hpage_size);
-> +		return __check_pmds(addr, len, nr_hpages, 0, pmd_pagesize);
->  
->  	return check_large_folios(addr, len, nr_hpages, hpage_size);
->  }
->  
-> +bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
-> +{
-> +	return check_huge_file(addr, len, nr_hpages, hpage_size);
-> +}
-> +
->  int64_t allocate_transhuge(void *ptr, int pagemap_fd)
->  {
->  	uint64_t ent[2];
-> -- 
-> 2.43.0
-> -- 
-> Cheers,
-> 
-> David
-> 
+> -	/* Take TC into account */
+> -	err = mlx5_esw_try_lock(esw);
+> +	err = mlx5_esw_try_lock(esw, check_users);
+>  	if (err < 0)
+>  		return err;
+
+[ ... ]
 
 -- 
-Sincerely,
-Yeoreum Yun
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917175433.4090878-1-tariqt%40nvidia.com
