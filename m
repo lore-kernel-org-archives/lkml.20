@@ -1,94 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC97463B7C;
-	Mon, 21 Sep 2026 09:27:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0205D46A61D
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:27:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982828; cv=none; b=j54F9nBMCJ0oj14OkwjaIvegoyqZnYtNOs0H51Wqxl5E5P9F34sZFgJlDCDOyTS2rEt8njhmPTAdumYwOIEVtOmaEttQrH2qTimv+hKY0fcO5fOxmQ5K+3pWO6soEm8J6LiapU816t012D0fNKuxo9Rf2hQKWlH+srDXxcgOXQ0=
+	t=1789982840; cv=none; b=kYSNE7Df7RJWsmnnXkOFq6UQe3CC/jVLkdnfb0/oSl7gv+KWKmqMIy6gBuFYJuTvZf19uiy/fAMZVfjVx6qmPQGkLGac4vHa9C3PJMuhBlnDH1a7XzF6o3/L/ucQjFj721glLlQAYpkc+L30lrZaYJ5nZZ7jprPdEuK0CKEbHeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982828; c=relaxed/simple;
-	bh=v6JpBp3AArOdnsctwqjfY3ZCGJR9JA0h+WUyTMdr+WI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Lu/0q62QMKvnEHPFB/dbFp+ZQRij6V1cIBlla0vZ4UeCpLiwY6Rb8rzbmGcEn15AN8m2D6E+MhWn1OrXlX+oj22q9vBk4muI2fk0MmU+zsk00fXvCVxns2AgBk3BHf3gTbo9fZ8XCLeJhh59ilmmSQaluUw/Jeu+Ev0jjmeblvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SCPakuZ0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789982840; c=relaxed/simple;
+	bh=Asf/dU31grHkNHrzQyCfjhst4dnrBQcKT8Rz+AEsbUo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=c8rL+sLBIpQdNtn98a4P0kH4Dv6qnhyeV3FjacpGce9Hgw71pC2omcHzWl19F1jvL6vyzEUcI15MQhfnlKnhBrGOomtFzsHCipeOpMZ9SwyFIuYjc0XgFMtw+B032wTHh9AhbXvvgfTVtkut4rfEd3g0JtjFyfEW35lY/qK4pkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aaceTT7R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SCPakuZ0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C1B31F000FF;
-	Mon, 21 Sep 2026 09:26:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aaceTT7R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D554F1F000FF;
+	Mon, 21 Sep 2026 09:27:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789982826;
-	bh=HDN5tiTALp2HjdaynTUWOVRoE4KJy7qUfZYfcVAfO6M=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=SCPakuZ00OQvwOBru74VDnsKgxqtvVnrpR4I4DTicBqplzKxQ1/JHVYalVOy+fBXi
-	 phx16fde0X+tPcXeoa0K3HI7/4FErzYLoUE19z7668esyTacgyXRl2vi0aqLXzrzny
-	 xE3I9ulze6NBKfB8UUyrdOi+/sNT/7ZKDg+Yj4RTK2u9fr8JYKuMo1E5yCg0K9LYcX
-	 9kFWWkaRbnDDmv8uANkCdutrg7zm6ZK2w1zE5nXsd6D3TjbJUPJmmDupo0zzl94mcR
-	 vTNy3USx3CuoctNsxdOYI2NHDisLrB/u7y1ol6g+vlVg4HRks82m8D8b3NVJK4T08o
-	 8wktRkjTt4ZAQ==
-From: Srinivas Kandagatla <srini@kernel.org>
-To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
- Johannes Berg <johannes@sipsolutions.net>, 
- Jeff Johnson <jjohnson@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
- Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- Balakrishna Godavarthi <quic_bgodavar@quicinc.com>, 
- Rocky Liao <quic_rjliao@quicinc.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
- Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- Saravana Kannan <saravanak@kernel.org>, 
- Christian Marangi <ansuelsmth@gmail.com>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-block@vger.kernel.org, linux-wireless@vger.kernel.org, 
- ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org, 
- netdev@vger.kernel.org, daniel@makrotopia.org, 
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Christoph Hellwig <hch@lst.de>, 
- Piotr Kwapulinski <piotr.kwapulinski@intel.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260806-block-as-nvmem-v10-0-be598b2a5606@oss.qualcomm.com>
-References: <20260806-block-as-nvmem-v10-0-be598b2a5606@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v10 00/10] Support for block device NVMEM
- providers
-Message-Id: <178998281449.889291.7893229102394463283.b4-ty@kernel.org>
-Date: Mon, 21 Sep 2026 10:26:54 +0100
+	s=k20260515; t=1789982838;
+	bh=AQUCskKpKTBWKi4kkPNprWNPfV/anObyTDr0xY2sgRE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aaceTT7R/zCfIk4fbYgpMXkYmI9gOhWSMIWraMlPw5GPsrzfaEyo3Ss9KxkK/HJTo
+	 nDsCfzHppkwwwd1MvTKPiNn1VJ7NDmlXu7VY1DfrfrXTOtVJgsniyx+aYcR0Q7lPd3
+	 4nX6b+Bc3M1Zrd4AVhtPYHjN/X18d4Oim7mqH2zKOTV2jjAjc7WpRk9z4AKiBevqAQ
+	 +28g9U+H0rbaV7HI5HnbsqBRaKq9WK5I2ndCMoBS8SqBk8dNvXJBIn7wvhE1FvKe1U
+	 hXVswDIEPcxYnytq9GXmo4UEr1IhF3COC+erLSGuXlD9aG+PdWxvE0hSTJ09IjOEUm
+	 RMc5mtcLK4gwg==
+Message-ID: <6aaa02a7-29fd-4cff-aa4d-d8e63476ff92@kernel.org>
+Date: Mon, 21 Sep 2026 11:27:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] mm: disallow raw PFN mappings of huge/shared
+ zeropage
+To: Lance Yang <lance.yang@linux.dev>, akpm@linux-foundation.org
+Cc: ziy@nvidia.com, baolin.wang@linux.alibaba.com, liam@infradead.org,
+ nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org, ljs@kernel.org,
+ vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260921054225.28537-1-lance.yang@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260921054225.28537-1-lance.yang@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
 
-
-On Thu, 06 Aug 2026 16:38:33 +0200, Loic Poulain wrote:
-> On embedded devices, it is common for factory provisioning to store
-> device-specific information, such as Ethernet or WiFi MAC addresses,
-> in a dedicated area of an eMMC partition. This avoids the need for
-> and additional EEPROM/OTP and leverages the persistence of eMMC.
+On 9/21/26 07:42, Lance Yang wrote:
+> From: Lance Yang <lance.yang@linux.dev>
 > 
-> One example is the Arduino UNO-Q, where the WiFi MAC address and the
-> Bluetooth Device address are stored in the eMMC Boot1 partition.
+> Handling the huge/shared zeropage correctly in vmf_insert_pfn_pmd() and
+> vmf_insert_pfn_prot() is more involved. We would need to check whether the
+> VMA allows it and keep the mapping read-only, similar to the checks in
+> vm_mixed_ok().
 > 
-> [...]
+> No in-tree user needs that support, so reject these mappings with
+> VM_FAULT_SIGBUS rather than complicate the code for now.
+> 
+> Link: https://lore.kernel.org/all/20260917121010.60966-1-lance.yang@linux.dev/
+> Suggested-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+> ---
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Applied, thanks!
-
-[04/10] nvmem: layouts: Support fixed-layout as the nvmem device node itself
-        commit: 9c6cab93dcd47c3075d896c777567b9d8f813d18
-
-Best regards,
 -- 
-Srinivas Kandagatla <srini@kernel.org>
+Cheers,
 
+David
