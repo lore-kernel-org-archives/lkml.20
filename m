@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 156935187F9;
-	Mon, 21 Sep 2026 23:27:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27FC4F3EDE;
+	Mon, 21 Sep 2026 23:28:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790033293; cv=none; b=sQv1K9wvhHxgNjlwUlnVxYh2c67P1v6hB1qqABzmdNCjgiJNl/u8o0xXgvvSqtKS6Gzy+LI94UpjZ1HUVPfp7a7NQTRb2AbOTE+BWLXnitaevDPiBE04mEAcfN903XleeJENufI4H/w3bmVna2wQPSq67wRGALG8IOnMxCrppoI=
+	t=1790033298; cv=none; b=GpKEP/2AwUxoN3uOAKs84NdjIHkm2gRCoDJdojs7cOjhcKVAgw9hHSg4J9UP33UfcEeHtmsZMeVno//7zYgZ4zNJB+Ey8TnO7eLkWCPNcZAhyeTH6rNeQXikRImbdpa6iN/xUD1BdepT4xgpRJRfj4N9LC6TGZhCQCNbD60k88E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790033293; c=relaxed/simple;
-	bh=WsLSf+qnHq0yGR6VmDwK8Wr3TjmpvTXaFFLSt/oyEMI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Zemkqb17C3k78fnqnHDTuupDcDR9cm7Zda/S57zs0xJ37RCs6HXvQMdLsxRChHA36FBKzLwQPCl7CP1L83TNRfQNd+XXibIW034pmRYF4RJlJNFJ/38LHPqVtAmDPjC7b7nt7Wa3ps4YRE7njf+di290wycrHRwkHPP4XabfF8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IkUwtSYP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790033298; c=relaxed/simple;
+	bh=OhE7HP1ED6ouM/A0A8HzsX/EDG2EJeUmthFB9sdoZEw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cn2ETISoNHPKsxE8yEuPxG5qS8EhipJyqEJvYU1ty15ICgib0T4fsICeZvqLDtlo57D6LtGHAAokd4MxpGpAPEZmNbIgx0kKs8D2jiDJJh2W4IITOKuNEKxWC9XcntxmXVfGismHAHBHzRXtdNK8wX0YkSaXU1nuLmbIcIlV6FM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EziB2wZY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IkUwtSYP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE3301F00893;
-	Mon, 21 Sep 2026 23:27:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EziB2wZY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7E6F1F00899;
+	Mon, 21 Sep 2026 23:28:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790033275;
-	bh=Ml9KxPG2/iFwRpn7Lwg7J4zJT5THTLC34N1bTCQkm5Y=;
+	s=k20260515; t=1790033283;
+	bh=EkOF2OKm9prgMnT5W8OmhhbFvcCajkN61ox3piMn6x8=;
 	h=From:To:Cc:Subject:Date;
-	b=IkUwtSYP8uC4JZMSnwmogAZtGS2GK3IoX4q6gl9ylDPbtPbMwruHJD8Rl3G/1tw2y
-	 iTdaTXRTZWVT717KTnKLwccfVDidLo/QV+4gvPWEWug027vxyFw7HmklaXVjbVOChG
-	 X0cGc1QSUHTCiOzxDHhD8Rr8+1To8Zhy0xwjw4cP486TMl/QR+t1LqmEIhQHHJUVF3
-	 qP//Tg6fO7e2hVI9a3b2D044lC0tyQkN3mGruFUmFDmnyFYJJTz7Fvs+ZoeEDb+xWh
-	 d0hAPo+AAwxWQFmDqifK/lCpVNRlvYEnAxf5fQ9mgiD097v14nQ6AgRt2IuPd9TAgE
-	 ZOcQ/WAkWMWlg==
+	b=EziB2wZY5ldb6jGtQfjR5xqLKJW8nUkve3p0mr5LX8lubAJxvPMN7Yt48G9NkbaA0
+	 PcEGdUKG1Q/jUDGSbx7GfDUR2PBEdFcNu7K1SYXRMXW0oOYSsDheBnDsoYdnzvIpjw
+	 d2roMLD8emkcB7flPaJA2/G6PHqRmfr35b8zZC7nOXE2za+ELroihhZkmshW1mfHmR
+	 yb5J17j+HpaT+5O8+qb25JVN5XzFU8qxU901x+hmFmKwMHs0R6hoLHo18f0prJ42at
+	 i86kCaAhTrCBAyQxpWTnv6n1Rz0skOlAttZ9m0aQCrskh/m1++TxuwTfal9ytVKSr8
+	 3kipa4sxzlIXw==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
+To: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Kevin Tsai <ktsai@capellamicro.com>
-Cc: linux-iio@vger.kernel.org,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: iio: Add dedicated CM32181 schema
-Date: Mon, 21 Sep 2026 18:27:51 -0500
-Message-ID: <20260921232752.3136129-1-robh@kernel.org>
+Subject: [PATCH] dt-bindings: gpu: Allow Hi6220 Mali resets
+Date: Mon, 21 Sep 2026 18:27:58 -0500
+Message-ID: <20260921232758.3136548-1-robh@kernel.org>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -48,82 +49,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a dedicated Capella CM32181 ambient light sensor schema. The device
-has optional vdd-supply and interrupt properties, so it no longer fits
-in trivial-devices. Include both optional properties in the binding
-example.
+Hi6220 Mali nodes provide both ao_g3d and media_g3d resets. Require
+those two resets and their names for the Hi6220 compatible. Other Mali
+Utgard nodes have at most one reset and do not use reset names.
 
 Assisted-by: LLM
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- .../bindings/iio/light/capella,cm32181.yaml   | 44 +++++++++++++++++++
- .../devicetree/bindings/trivial-devices.yaml  |  2 -
- 2 files changed, 44 insertions(+), 2 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/iio/light/capella,cm32181.yaml
+ .../bindings/gpu/arm,mali-utgard.yaml         | 25 ++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/light/capella,cm32181.yaml b/Documentation/devicetree/bindings/iio/light/capella,cm32181.yaml
-new file mode 100644
-index 000000000000..63212e3ec96b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/light/capella,cm32181.yaml
-@@ -0,0 +1,44 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/light/capella,cm32181.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml
+index c8d0d9192d92..d68fe8c7d010 100644
+--- a/Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml
++++ b/Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml
+@@ -112,7 +112,13 @@ properties:
+     maxItems: 1
+ 
+   resets:
+-    maxItems: 1
++    minItems: 1
++    maxItems: 2
 +
-+title: Capella CM32181 ambient light sensor
++  reset-names:
++    items:
++      - const: ao_g3d
++      - const: media_g3d
+ 
+   operating-points-v2: true
+ 
+@@ -130,6 +136,23 @@ required:
+ additionalProperties: false
+ 
+ allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: hisilicon,hi6220-mali
++    then:
++      properties:
++        resets:
++          minItems: 2
++      required:
++        - reset-names
++    else:
++      properties:
++        resets:
++          maxItems: 1
++        reset-names: false
 +
-+maintainers:
-+  - Kevin Tsai <ktsai@capellamicro.com>
-+
-+properties:
-+  compatible:
-+    const: capella,cm32181
-+
-+  reg:
-+    maxItems: 1
-+
-+  vdd-supply: true
-+
-+  interrupts:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        light-sensor@10 {
-+            compatible = "capella,cm32181";
-+            reg = <0x10>;
-+            vdd-supply = <&vdd_3v3>;
-+            interrupt-parent = <&gpio>;
-+            interrupts = <17 IRQ_TYPE_EDGE_RISING>;
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
-index b7ddbeb40a27..1778bf9fe17d 100644
---- a/Documentation/devicetree/bindings/trivial-devices.yaml
-+++ b/Documentation/devicetree/bindings/trivial-devices.yaml
-@@ -81,8 +81,6 @@ properties:
-           - atmel,atsha204a
-             # BPA-RS600: Power Supply
-           - blutek,bpa-rs600
--            # CM32181: Ambient Light Sensor
--          - capella,cm32181
-             # CM3232: Ambient Light Sensor
-           - capella,cm3232
-             # CM3323: Ambient Light Sensor
+   - if:
+       properties:
+         compatible:
 -- 
 2.53.0
 
