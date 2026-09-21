@@ -1,504 +1,248 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E666490C04
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:39:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C243C457D;
+	Mon, 21 Sep 2026 11:41:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789990778; cv=none; b=g0+j7xAijTTREttVh4Y6/Wt+9KSrKpZDX4XlF7C6r/jjelSLikWEBncpqYzWky2fE/tSxdNvuk9SQWXTGgOhNQ2WjtdxRQl3JU7mabWbN+3Fjv5eznDH39nspUcFv0jsCMLcq8/v2A0oZzQRO3CN/JXJ/akwxWbMkbLjPzwgIlo=
+	t=1789990895; cv=none; b=QNq59SLXDjsmYhSsf8bd60r3V+sBGLy4PqAyy3EMpXHlcL2eiXu6Lvy3kmjqZa2iD7pBUTOE5bVqEZSVsYtphx3n6wlOYzAuK72Ti6Zm4khb0+JYuA0CSy2fsb8HYSHa/9c+uE1Tb2mwAsKf+5WjOY5saeV6svMWSQEbNNhea1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789990778; c=relaxed/simple;
-	bh=tMJz1+vrXxlV+iIx2MC+pnlK4y75NFmi/2Xu0C2q9V8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VAAgyv4+64jQiWK2+cUPHxNOpybq0W+H2ReR5UGIYAoo20Ry9RhBez86pV2Hh+UlEcR3Ig//T40D4mTNWCwgCUT5HddSQLNp4qUsCyDhlaMz4rldQvwYmDOAzaippAv4P47gX9L0Wson9TW81fvH8Kva9PeYZDgDiIWXyKuai6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lZyKOQhx; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789990895; c=relaxed/simple;
+	bh=wCTfyqrrLLpIFt886tE9fryUGMspN1xZ0sz+gIix1ZE=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=SITyjgJekzOdj6QPphuHLmnbp3mmLN3hCAZpGCtDILOjX6XfMsAzRQoHw7PvC5LVX/ZmPoQo7IQXSJVzfI/kA1AMqmFjUAs4GfgDJcTJqNCEOOVbg8DnPE7bGhistvjf70XLj0zIQq2Ia3WD+mG5EGlxPeNKe8UVUt5PK5hX/fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V8PRNcwT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lZyKOQhx"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so15638385e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:39:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789990773; x=1790595573; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sAooB32uAcG0QWvFzgpqh3sQmn2wrC5rrQIephimC1Q=;
-        b=lZyKOQhx0uJYLJIPH2mvx6NcQt4zIFF/WNbis2zLspDhnCMQeMemc8hpEeRd2M06ej
-         LSzOTyrKYVZLTBiSE48Yq17KqpdstaUrX01CrxOCrazIa9WrAM1ocOP2nyPs5kZalq3h
-         x0wq25o+ozn3O5fxow7XNpwbMkfqUn0T/Dkpcz4jAhZtkGW1R6DIwpgCuYdMF2WTkQCO
-         KCoCuwd+4YsUwc2852Rw5Cojvy3x5JUMP3QzZISbB7Mv4bJNe0UdCdOGFR53B8rPKMyY
-         M3ZOmkBVr9RadV7sOqDudvxK9Xg9P/rREu3SzNHdAWa182ECKH33uB0OOWKpF5ZIR/4R
-         Q8cQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789990773; x=1790595573;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sAooB32uAcG0QWvFzgpqh3sQmn2wrC5rrQIephimC1Q=;
-        b=rASdnXKY5bRHHGKaWto4VrTLiVX40IByb/B54nKsxKPd5juIY2q9Vq75SuscT6hVdO
-         e4bRO/iUg7H1d1iz1AdJ03/RvG2DGjmH7ONRI82byDc7ugH8mEvIcBWo1n0DQT5Q0CxS
-         ucL/oRgWb4K6q7xXVkFpXzs6gIkIfCW3LQ50nat6B+bPM8v6XMxLSvdj6tkQzjphE8ds
-         KGx3DYtITXfzTFKcxY3Woa5hrg/bfsVj0lXaILnVGTC6Av8r+H0bjj3R7ZyccSMErznw
-         HMq+EE93jJGdy8wbau8PJ/NZo4Dfz87Z0x+tmuWHMq57AeOIpdnU1wy7iXbSFqAygvoo
-         oqqw==
-X-Forwarded-Encrypted: i=1; AKwUvBzMGIB+NTlyva6GtuWNVJgDPFIS0ZAvN856ttcBeG5BFY53aE/wUU6cDS3ZL/E+l6NjQvblwQuTJBM2Isg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZAQpwk6GyGc/1u9P1lvnOwH2zBOu/DppqZHO9gVRJ6h5Gpj65
-	4mvN+bvpeslE39MXpm100FFiM9+dpM1LtbjK0z6iXYKQL915tyALO/Bl
-X-Gm-Gg: AYBFou35I6d/SaO8y4jPmfTUzaJ9qsB33PIgREY7DJ9wsa4drsSee3nLq1w42GRFAXD
-	Zpcm74Pc/awsVjSfxRwVaS7FEoRFNhSodMJBmD2yYbshutG5likT/JxxflSKdxvRpK4vQn4Ixlz
-	B9ES/eejRPwfKWvnnEJ7xKZ44gv4uHwwYx5p+/cCmfNhmW8ZCwsYH6ed9XiNU1EhapwSRFWA1D1
-	Fey7j20/BrRUrYKef1a1quiwFJrZOKhSf2k871qkMuHNAPsSC1MqHwsAwDNr16ujUAMtCW7Eg1U
-	2VbXp4l6Ppt4pWnM6sYy91ofSBg9VORYNK9DlPyB6l1yfHfrsXEHXAEg+/rbbh+geZ6Al3MY43O
-	BAoTMgj1sOqemPIi4QUDoARedJ1nJKXPDTO+qFA93gkYS1dlGTf1z7KuzcrtSaRU+C77VUbw08L
-	ZLwXcWPyjfRzV9pzVFid/IBIK7DS9YTDO6f1ohkc2kbixX0aUW33e3rKdrsqk8eJiohyo=
-X-Received: by 2002:a05:600c:4e46:b0:49e:642a:4f6f with SMTP id 5b1f17b1804b1-49fc585e9edmr142186555e9.33.1789990773333;
-        Mon, 21 Sep 2026 04:39:33 -0700 (PDT)
-Received: from luca-vm.lan ([154.61.61.58])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc57547easm244273865e9.3.2026.09.21.04.39.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 04:39:32 -0700 (PDT)
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-To: linux-mediatek@lists.infradead.org
-Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	CK Hu <ck.hu@mediatek.com>,
-	Jitao shi <jitao.shi@mediatek.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v2 4/4] arm64: dts: mediatek: mt8167: Add DRM nodes
-Date: Mon, 21 Sep 2026 13:38:58 +0200
-Message-ID: <20260921113914.779393-5-l.scorcia@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260921113914.779393-1-l.scorcia@gmail.com>
-References: <20260921113914.779393-1-l.scorcia@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V8PRNcwT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D1CB1F000FF;
+	Mon, 21 Sep 2026 11:41:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789990893;
+	bh=G7AZyWFFz2rKjcjfqSXQCHZ3fs2m/7gEOmYA4bsts4Q=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=V8PRNcwTxcAVRmE3DMX7vs3HFJOrFJGDWfnhgxuWIKYPiUDF5BWE9U9v8YFfb1CGd
+	 AieHw6jH3vzGs3hx/GmwFq5qavEOuZcubvWfo+211Mcp2rvAW0onp5IzV0zjf4FKNF
+	 zJrHHz38IeUlqnhLrEMuwoTNJeFsae5EBqhulmN7IN55RW59Lldka7w7o1HPQBpfDT
+	 3ZREKJUiJq6lI2RaqdNmgGLtXhfWk9xy2ABY4c0C3BrcusA/YKVQRT4Bb/7Hp6uo6t
+	 afbxtjzGZrJK3X2+AQZ98aqExFm/WzvayvcfMSpFAcH5fcaMNs+cdkTVBS9ElecKiE
+	 c2/x5Sc2m0NAw==
+Subject: Re: [PATCH] cxgb4: Fix ptp_tx_skb reference leak in cxgb4_eth_xmit()
+From: netdev-bot+sashiko@kernel.org
+To: vulab@iscas.ac.cn
+Cc: andrew+netdev@lunn.ch, atul.gupta@chelsio.com, bharat@chelsio.com,
+ davem@davemloft.net, edumazet@google.com, ganeshgr@chelsio.com,
+ kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ pabeni@redhat.com, richardcochran@gmail.com, stable@vger.kernel.org
+Date: Mon, 21 Sep 2026 11:41:32 +0000
+Message-ID: <178999089271.2160803.8514797299048887268@kernel.org>
+In-Reply-To: <20260917105713.2147903-1-vulab@iscas.ac.cn>
+References: <20260917105713.2147903-1-vulab@iscas.ac.cn>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add all the DRM nodes required to get DSI and DPI to work on MT8167 SoC.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- arch/arm64/boot/dts/mediatek/mt8167.dtsi | 369 +++++++++++++++++++++++
- 1 file changed, 369 insertions(+)
+Critical: 1 · High: 1 · Medium: 0 · Low: 1
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8167.dtsi b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-index 27cf32d7ae35..a50bae4307c1 100644
---- a/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-@@ -16,6 +16,22 @@
- / {
- 	compatible = "mediatek,mt8167";
- 
-+	aliases {
-+		aal0 = &aal;
-+		ccorr0 = &ccorr;
-+		color0 = &color;
-+		dither0 = &dither;
-+		dpi0 = &dpi0;
-+		dpi1 = &dpi1;
-+		dsi0 = &dsi;
-+		gamma0 = &gamma;
-+		ovl0 = &ovl0;
-+		pwm0 = &disp_pwm;
-+		rdma0 = &rdma0;
-+		rdma1 = &rdma1;
-+		wdma0 = &wdma;
-+	};
-+
- 	soc {
- 		topckgen: topckgen@10000000 {
- 			compatible = "mediatek,mt8167-topckgen", "syscon";
-@@ -120,10 +136,325 @@ iommu: m4u@10203000 {
- 			#iommu-cells = <1>;
- 		};
- 
-+		disp_pwm: pwm@1100f000 {
-+			compatible = "mediatek,mt8167-disp-pwm", "mediatek,mt8173-disp-pwm";
-+			reg = <0 0x1100f000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_PWM_26M>, <&mmsys CLK_MM_DISP_PWM_MM>;
-+			clock-names = "main", "mm";
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+			#pwm-cells = <2>;
-+			status = "disabled";
-+		};
-+
- 		mmsys: syscon@14000000 {
- 			compatible = "mediatek,mt8167-mmsys", "syscon";
- 			reg = <0 0x14000000 0 0x1000>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
- 			#clock-cells = <1>;
-+
-+			port {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				mmsys_main: endpoint@0 {
-+					reg = <0>;
-+					remote-endpoint = <&ovl0_in>;
-+				};
-+
-+				mmsys_ext: endpoint@1 {
-+					reg = <1>;
-+					remote-endpoint = <&rdma1_in>;
-+				};
-+			};
-+		};
-+
-+		ovl0: ovl0@14007000 {
-+			compatible = "mediatek,mt8167-disp-ovl";
-+			reg = <0 0x14007000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_OVL0>;
-+			interrupts = <GIC_SPI 160 IRQ_TYPE_LEVEL_LOW>;
-+			iommus = <&iommu M4U_PORT_DISP_OVL0>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					ovl0_in: endpoint {
-+						remote-endpoint = <&mmsys_main>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					ovl0_out: endpoint {
-+						remote-endpoint = <&color_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		rdma0: rdma0@14009000 {
-+			compatible = "mediatek,mt8167-disp-rdma", "mediatek,mt2701-disp-rdma";
-+			reg = <0 0x14009000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_RDMA0>;
-+			interrupts = <GIC_SPI 162 IRQ_TYPE_LEVEL_LOW>;
-+			iommus = <&iommu M4U_PORT_DISP_RDMA0>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					rdma0_in: endpoint {
-+						remote-endpoint = <&dither_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					rdma0_out: endpoint { };
-+				};
-+			};
-+		};
-+
-+		rdma1: rdma1@1400a000 {
-+			compatible = "mediatek,mt8167-disp-rdma", "mediatek,mt2701-disp-rdma";
-+			reg = <0 0x1400a000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_RDMA1>;
-+			interrupts = <GIC_SPI 163 IRQ_TYPE_LEVEL_LOW>;
-+			iommus = <&iommu M4U_PORT_DISP_RDMA1>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					rdma1_in: endpoint {
-+						remote-endpoint = <&mmsys_ext>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					rdma1_out: endpoint { };
-+				};
-+			};
-+		};
-+
-+		wdma: wdma0@1400b000 {
-+			compatible = "mediatek,mt8167-disp-wdma", "mediatek,mt8173-disp-wdma";
-+			reg = <0 0x1400b000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_WDMA>;
-+			interrupts = <GIC_SPI 164 IRQ_TYPE_LEVEL_LOW>;
-+			iommus = <&iommu M4U_PORT_DISP_WDMA0>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+		};
-+
-+		color: color@1400c000 {
-+			compatible = "mediatek,mt8167-disp-color";
-+			reg = <0 0x1400c000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_COLOR>;
-+			interrupts = <GIC_SPI 165 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					color_in: endpoint {
-+						remote-endpoint = <&ovl0_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					color_out: endpoint {
-+						remote-endpoint = <&ccorr_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		ccorr: ccorr@1400d000 {
-+			compatible = "mediatek,mt8167-disp-ccorr", "mediatek,mt8183-disp-ccorr";
-+			reg = <0 0x1400d000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_CCORR>;
-+			interrupts = <GIC_SPI 166 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					ccorr_in: endpoint {
-+						remote-endpoint = <&color_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					ccorr_out: endpoint {
-+						remote-endpoint = <&aal_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		aal: aal@1400e000 {
-+			compatible = "mediatek,mt8167-disp-aal", "mediatek,mt8173-disp-aal";
-+			reg = <0 0x1400e000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_AAL>;
-+			interrupts = <GIC_SPI 167 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					aal_in: endpoint {
-+						remote-endpoint = <&ccorr_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					aal_out: endpoint {
-+						remote-endpoint = <&gamma_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		gamma: gamma@1400f000 {
-+			compatible = "mediatek,mt8167-disp-gamma", "mediatek,mt8173-disp-gamma";
-+			reg = <0 0x1400f000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_GAMMA>;
-+			interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					gamma_in: endpoint {
-+						remote-endpoint = <&aal_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					gamma_out: endpoint {
-+						remote-endpoint = <&dither_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		dither: dither@14010000 {
-+			compatible = "mediatek,mt8167-disp-dither", "mediatek,mt8183-disp-dither";
-+			reg = <0 0x14010000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_DITHER>;
-+			interrupts = <GIC_SPI 169 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					dither_in: endpoint {
-+						remote-endpoint = <&gamma_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					dither_out: endpoint {
-+						remote-endpoint = <&rdma0_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		dsi: dsi@14012000 {
-+			compatible = "mediatek,mt8167-dsi";
-+			reg = <0 0x14012000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DSI_ENGINE>, <&mmsys CLK_MM_DSI_DIGITAL>,
-+				 <&mipi_tx>;
-+			clock-names = "engine", "digital", "hs";
-+			interrupts = <GIC_SPI 171 IRQ_TYPE_LEVEL_LOW>;
-+			phys = <&mipi_tx>;
-+			phy-names = "dphy";
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+			status = "disabled";
-+
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					dsi_in: endpoint { };
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					dsi_out: endpoint { };
-+				};
-+			};
-+		};
-+
-+		dpi0: dpi@14013000 {
-+			compatible = "mediatek,mt8167-dpi";
-+			reg = <0 0x14013000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DPI0_PXL>, <&mmsys CLK_MM_DPI0_ENGINE>,
-+				 <&apmixedsys CLK_APMIXED_LVDSPLL>;
-+			clock-names = "pixel", "engine", "pll";
-+			interrupts = <GIC_SPI 172 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					dpi0_in: endpoint { };
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					dpi0_out: endpoint { };
-+				};
-+			};
-+		};
-+
-+		mutex: mutex@14015000 {
-+			compatible = "mediatek,mt8167-disp-mutex";
-+			reg = <0 0x14015000 0 0x1000>;
-+			interrupts = <GIC_SPI 153 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
- 		};
- 
- 		larb0: larb@14016000 {
-@@ -145,6 +476,44 @@ smi_common: smi@14017000 {
- 			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
- 		};
- 
-+		mipi_tx: dsi-phy@14018000 {
-+			compatible = "mediatek,mt8167-mipi-tx", "mediatek,mt2701-mipi-tx";
-+			reg = <0 0x14018000 0 0x90>;
-+			clocks = <&topckgen CLK_TOP_MIPI_26M_DBG>;
-+			clock-output-names = "mipi_tx0_pll";
-+			#clock-cells = <0>;
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+
-+		dpi1: dpi1@14019000 {
-+			compatible = "mediatek,mt8167-dpi";
-+			reg = <0 0x14019000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DPI1_PXL>, <&mmsys CLK_MM_DPI1_ENGINE>,
-+				 <&apmixedsys CLK_APMIXED_TVDPLL>;
-+			clock-names = "pixel", "engine", "pll";
-+			interrupts = <GIC_SPI 174 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					dpi1_in: endpoint { };
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					dpi1_out: endpoint { };
-+				};
-+			};
-+		};
-+
- 		imgsys: syscon@15000000 {
- 			compatible = "mediatek,mt8167-imgsys", "syscon";
- 			reg = <0 0x15000000 0 0x1000>;
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Critical] cxgb4_eth_xmit() releases the PTP reference based only on
+  the pointer identity `adap->ptp_tx_skb == skb`, without knowing…
+- [High] Holding adap->ptp_lock in cxgb4_eth_xmit() gives the new
+  dev_kfree_skb_any(adap->ptp_tx_skb) calls no exclusion against the…
+- [Low] The PTP arming step sets two pieces of state together at
+  sge.c:1528-1529 - skb_shinfo(skb)->tx_flags |= SKBTX_IN_PROGRESS and…
+
+--
+
+cxgb4: Fix ptp_tx_skb reference leak in cxgb4_eth_xmit()
+
+The patch moves the netdev_priv()/pi->adapter lookup to the top of
+cxgb4_eth_xmit() and then releases adap->ptp_tx_skb on the NETDEV_TX_BUSY
+path and on the out_free path.  Both new blocks decide whether to drop the
+extra reference by comparing adap->ptp_tx_skb against skb.
+
+> diff --git a/drivers/net/ethernet/chelsio/cxgb4/sge.c b/drivers/net/ethernet/chelsio/cxgb4/sge.c
+> index 9fccb8ea9bcd1..5d4c63d9a937a 100644
+> --- a/drivers/net/ethernet/chelsio/cxgb4/sge.c
+> +++ b/drivers/net/ethernet/chelsio/cxgb4/sge.c
+
+[ ... ]
+
+> @@ -1553,6 +1554,10 @@ static netdev_tx_t cxgb4_eth_xmit(struct sk_buff *skb, struct net_device *dev)
+>  		dev_err(adap->pdev_dev,
+>  			"%s: Tx ring %u full while queue awake!\n",
+>  			dev->name, qidx);
+> +		if (adap->ptp_tx_skb == skb) {
+> +			dev_kfree_skb_any(adap->ptp_tx_skb);
+> +			adap->ptp_tx_skb = NULL;
+> +		}
+>  		return NETDEV_TX_BUSY;
+>  	}
+
+[Severity: Critical]
+Can this release a reference that this invocation no longer owns?
+
+The reference is taken in exactly one place in cxgb4_eth_xmit():
+
+	if (ptp_enabled) {
+		if (!(adap->ptp_tx_skb)) {
+			skb_shinfo(skb)->tx_flags |= SKBTX_IN_PROGRESS;
+			adap->ptp_tx_skb = skb_get(skb);
+		} else {
+			goto out_free;
+		}
+
+but the new cleanup infers ownership from the pointer comparison
+adap->ptp_tx_skb == skb.  Note the else branch also reaches out_free
+without owning a reference.
+
+The completion side drops the reference before it clears the field:
+
+drivers/net/ethernet/chelsio/cxgb4/cxgb4_ptp.c:cxgb4_ptp_read_hwstamp() {
+	...
+	skb_tstamp_tx(adapter->ptp_tx_skb, skb_ts);
+	dev_kfree_skb_any(adapter->ptp_tx_skb);
+	spin_lock(&adapter->ptp_lock);
+	adapter->ptp_tx_skb = NULL;
+	spin_unlock(&adapter->ptp_lock);
+}
+
+t4_start_xmit() holds ptp_lock across the whole of cxgb4_eth_xmit() for PTP
+frames, so the receive-side thread can sit blocked on that spin_lock() with
+the reference already dropped while adap->ptp_tx_skb still equals skb:
+
+CPU0, t4_ethrx_handler() -> t4_tx_hststamp() -> cxgb4_ptp_read_hwstamp()
+	dev_kfree_skb_any(adapter->ptp_tx_skb);	/* refcount 2 -> 1 */
+	spin_lock(&adapter->ptp_lock);		/* blocks, CPU1 holds it */
+
+CPU1, t4_start_xmit() -> spin_lock(&adap->ptp_lock) -> cxgb4_eth_xmit()
+	if (adap->ptp_tx_skb == skb) {		/* still true */
+		dev_kfree_skb_any(adap->ptp_tx_skb);	/* 1 -> 0, freed */
+
+Here the skb is then handed back to the qdisc with NETDEV_TX_BUSY and
+retransmitted, so can this become a use-after-free?  On out_free the
+following dev_kfree_skb_any(skb) would free it a second time.
+
+The window is the whole xmit call, not a few instructions, and the
+completion path is entered for any inbound UDP frame with source and
+destination port 319 (cxgb4_ptp_is_ptp_rx()) without checking that it is
+the loopback of the pending skb.  The ptptxq is allocated with 8
+descriptors, so credits < 0 is readily reachable.
+
+Would recording ownership locally, for example a bool set where skb_get()
+succeeds, and dropping the reference only under that condition and under
+ptp_lock, be a safer form of this fix?
+
+Separately, t4_start_xmit() takes ptp_lock only for PTP frames:
+
+	if (is_ptp_enabled(skb, dev)) {
+		struct adapter *adap = netdev2adap(dev);
+		netdev_tx_t ret;
+
+		spin_lock(&adap->ptp_lock);
+		ret = cxgb4_eth_xmit(skb, dev);
+		spin_unlock(&adap->ptp_lock);
+		return ret;
+	}
+
+	return cxgb4_eth_xmit(skb, dev);
+
+so for ordinary traffic the new read and store of adap->ptp_tx_skb run with
+no lock at all, against a field documented in struct adapter as covered by
+ptp_lock.  Should these accesses be gated on ptp_enabled?
+
+[Severity: Low]
+The arming step sets two pieces of state together:
+
+			skb_shinfo(skb)->tx_flags |= SKBTX_IN_PROGRESS;
+			adap->ptp_tx_skb = skb_get(skb);
+
+Should this abort path also clear SKBTX_IN_PROGRESS?  The skb goes back to
+the qdisc with the flag still set, while no work request with
+TXPKT_TSTAMP_F was written to adap->sge.ptptxq and adap->ptp_tx_skb has
+just been cleared, so t4_tx_hststamp()/cxgb4_ptp_read_hwstamp() can no
+longer produce a completion for that frame.
+
+If userspace disables transmit timestamping between the abort and the retry
+(cxgb_hwtstamp_set() clearing pi->ptp_enable), the retry takes the ordinary
+path, and the stale flag then also suppresses the software timestamp:
+
+net/core/skbuff.c:__skb_tstamp_tx() {
+	...
+	if (!hwtstamps && !(tsflags & SOF_TIMESTAMPING_OPT_TX_SWHW) &&
+	    skb_shinfo(orig_skb)->tx_flags & SKBTX_IN_PROGRESS)
+		return;
+	...
+}
+
+so the SO_TIMESTAMPING consumer gets neither a hardware nor a software
+timestamp for that frame.
+
+> @@ -1723,6 +1728,10 @@ static netdev_tx_t cxgb4_eth_xmit(struct sk_buff *skb, struct net_device *dev)
+>  	return NETDEV_TX_OK;
+>  
+>  out_free:
+> +	if (adap->ptp_tx_skb == skb) {
+> +		dev_kfree_skb_any(adap->ptp_tx_skb);
+> +		adap->ptp_tx_skb = NULL;
+> +	}
+>  	dev_kfree_skb_any(skb);
+>  	return NETDEV_TX_OK;
+>  }
+
+[Severity: High]
+Does holding ptp_lock in cxgb4_eth_xmit() actually exclude the racing user
+of this field?  cxgb4_ptp_read_hwstamp() dereferences the skb, reports the
+timestamp and drops the reference entirely outside ptp_lock, taking the
+lock only to store NULL:
+
+drivers/net/ethernet/chelsio/cxgb4/cxgb4_ptp.c:cxgb4_ptp_read_hwstamp() {
+	skb_ts = skb_hwtstamps(adapter->ptp_tx_skb);
+	...
+	skb_tstamp_tx(adapter->ptp_tx_skb, skb_ts);
+	dev_kfree_skb_any(adapter->ptp_tx_skb);
+	spin_lock(&adapter->ptp_lock);
+	adapter->ptp_tx_skb = NULL;
+	...
+}
+
+and the non-NULL test is done with no lock either:
+
+drivers/net/ethernet/chelsio/cxgb4/sge.c:t4_tx_hststamp() {
+	if (!is_t4(adapter->params.chip) && adapter->ptp_tx_skb) {
+		cxgb4_ptp_read_hwstamp(adapter, pi);
+	...
+}
+
+Before this patch the transmit path never stored NULL into
+adap->ptp_tx_skb, so this hunk and the NETDEV_TX_BUSY hunk add a second
+writer.  Can that produce a NULL dereference?
+
+CPU0, t4_tx_hststamp()
+	if (... && adapter->ptp_tx_skb)		/* non-NULL */
+
+CPU1, cxgb4_eth_xmit() out_free
+	adap->ptp_tx_skb = NULL;
+
+CPU0, cxgb4_ptp_read_hwstamp()
+	skb_ts = skb_hwtstamps(adapter->ptp_tx_skb);	/* NULL skb */
+
+Would extending ptp_lock over the whole read_hwstamp sequence, including
+the non-NULL test, or not touching the shared pointer from these error
+paths at all, address both this and the reference-drop race above?
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917105713.2147903-1-vulab%40iscas.ac.cn
