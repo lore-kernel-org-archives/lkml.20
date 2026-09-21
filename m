@@ -1,132 +1,102 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DE2283AF66E;
-	Mon, 21 Sep 2026 10:14:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C7B43B2FDF;
+	Mon, 21 Sep 2026 10:14:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789985670; cv=none; b=gryTX7h+5fZ/98RU7YVE8EeBME1AkoWuItVNaAxkl8mH5Hm7PNI5k393t8PZxGYSMQ3eCpOrF4JXwDfwfcIieIurwiVhEF9//wuV/4ywApHT5Z0LDNPfvswCplCSuwb5iTFUQNEI9IsGv3zHnAcxAzSlYJvFpn5M5TAyJ8IC/xA=
+	t=1789985694; cv=none; b=kdvxFOICklGkC1pj5XiKcgIHfLUPFvPrLpBY8X+HGn4n6D5ew7Re4QOPC4bNuNr7A67QP8rtuaCdOMjc6F8PgS3GyaxKA8vins0VDN4n4AiNFvX5fEL5AIIkABSBifTFQNBWqBw1EqBUPHwD7IlzBikpPT7cZbvgBkZIJ66JrqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789985670; c=relaxed/simple;
-	bh=X21Q+N08xUOyF31kxvte0qv2v56innxWRBgC11u9YPg=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Rq7RfQt+t81UWyKsvXhgyZIrPrCoCNZE8V16+vcVqU2Ew7w90B+V2GpSXKPA1NLFSeqdav1muSj5QRkK9OH5FL3nV40HJINMgO644yiC/DVZhlHU8jwT0P2ZGkUtoXX8ObKSUQkhHboySFdueYv9ivNQVN5eSTkSC6uQVZjVRnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bi8wj6lS; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789985694; c=relaxed/simple;
+	bh=Aqcq9aL88BNS0cECLzkTksUWHdYdimF8T4Db+anjypQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uNiBl87do0MlNib5wF0pS2UAcNSfCpJyrLF5hrnwqckPPSp3SEPi+SSSuefCf8nO67I6A+fuB4I1W5uv2XpFem3CmuYfEwpB6/5pwZ99WAiKCRiLZ8u83TPgV3Y9ziOqB50ma+wjvBBWbAsiynzqfLkAJv8RgX05Vi9wXJBHbpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j8BpV7B7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bi8wj6lS"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7ED0A1CE0;
-	Mon, 21 Sep 2026 03:14:23 -0700 (PDT)
-Received: from [10.0.128.141] (unknown [10.0.128.141])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 173203F86C;
-	Mon, 21 Sep 2026 03:14:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789985667; bh=X21Q+N08xUOyF31kxvte0qv2v56innxWRBgC11u9YPg=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=bi8wj6lSXbc+slgPhtQo8H+KMor5M5yzY0r8RQQqFvDPPtgRm0RMutnIRxaToRdTG
-	 YWI+Jnobq16nw+PjJSrqSjkJr7INZTwpehy3S8gXoDGcYoHz2kHClYB+y772yLyN7Z
-	 EPCugkdEQQwCspBynGN7LkS+G00+KuamtoSo/uq0=
-Message-ID: <eb4a30a0-abd2-4334-b5f3-62621ec5a19e@arm.com>
-Date: Mon, 21 Sep 2026 11:14:22 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j8BpV7B7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 341BB1F000FF;
+	Mon, 21 Sep 2026 10:14:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789985693;
+	bh=Aqcq9aL88BNS0cECLzkTksUWHdYdimF8T4Db+anjypQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=j8BpV7B7EaLh0TRBdDEWhu1XlQA814ENsQgkEUZU6Fo4T6WiA/dznBTq+R1y00xn4
+	 ljJFaQ656/qRmIpgMd6I0LfEq1Ho0m3pZdFh2QMWA7g15O7hqh4MRgaH7dRs/E36IZ
+	 NpHcd8uOzpaJ1YJnUZ636VglI0i7TtWyjMUIsekqdyx7fcVIKTNgzinK4wd7VbTri3
+	 cWvaMw0GlGmwKzZlEN9BaYHGegwDkCUTOdAR/QbH4zdAbEtJzcfph9Qugp/mi3h93r
+	 tODcjhH/iRmFgA7nLDLBgWJeQa8LoTUkyCI9QXrXz/Pzx1vH7VjGpDXloLp9GK8hX3
+	 gtCZ20wJFqxKQ==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 2DC201AC52F5; Mon, 21 Sep 2026 11:14:49 +0100 (BST)
+Date: Mon, 21 Sep 2026 12:14:49 +0200
+From: Mark Brown <broonie@kernel.org>
+To: "Xu, Baojun" <baojun.xu@ti.com>
+Cc: "tiwai@suse.de" <tiwai@suse.de>,
+	"andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+	"13916275206@139.com" <13916275206@139.com>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"Ding, Shenghao" <shenghao-ding@ti.com>,
+	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"Yi, Ken" <k-yi@ti.com>, "Lo, Henry" <henry.lo@ti.com>,
+	"Chen, Robin" <robinchen@ti.com>,
+	"Holalu Yogendra, Niranjan" <niranjan.hy@ti.com>,
+	"pin-hao.huang@hp.com" <pin-hao.huang@hp.com>,
+	"Syed.SabaKareem@amd.com" <Syed.SabaKareem@amd.com>
+Subject: Re: [EXTERNAL] Re: [PATCH v5] ASoC: tas2783-sdw: add firmware
+ download status check
+Message-ID: <arEDmZ76qb3eLiwk@sirena.co.uk>
+References: <20260921064053.932-1-baojun.xu@ti.com>
+ <arDujlvvKixE6ifp@sirena.co.uk>
+ <1c8da29a1fac4435a59783ab9fe7f68b@ti.com>
+ <arD4k6hCZyqycYYW@sirena.co.uk>
+ <4d1f121c8ac348dcbb16b554e4ed2b9c@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 1/7] firmware: arm_rmm: Add SMC definitions for
- calling the RMM
-Content-Language: en-GB
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
- <20260912083611.2513845-2-suzuki.poulose@arm.com>
- <178978126540.2352296.16845657485139032765.b4-review@b4>
- <d7ccaf22-5bde-4344-8bf0-a5a17dcac0f3@arm.com>
-In-Reply-To: <d7ccaf22-5bde-4344-8bf0-a5a17dcac0f3@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-On 21/09/2026 10:27, Suzuki K Poulose wrote:
-> On 19/09/2026 02:27, Jonathan Cameron wrote:
->>> The RMM (Realm Management Monitor) provides functionality that can be
->>> accessed by SMC calls from the host.
->>>
->>> The SMC definitions are based on DEN0137[1] version 2.0-bet3
->>>
->>> [1] https://developer.arm.com/documentation/den0137/2-0bet3/
->>>
->>> Signed-off-by: Steven Price <steven.price@arm.com>
->>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->>
->> With Gavin's nitpicks and the GENMASK_ULL() from sashiko, just a few
->> comments inline.  Mostly on subtle inconsistencies that really don't
->> matter that much.
->>
->>>   include/linux/arm-smccc-rmi.h | 497 ++++++++++++++++++++++++++++++++++
->>>   1 file changed, 497 insertions(+)
->>>   create mode 100644 include/linux/arm-smccc-rmi.h
->>>
->>> diff --git a/include/linux/arm-smccc-rmi.h b/include/linux/arm-smccc- 
->>> rmi.h
->>> new file mode 100644
->>> index 000000000000..214d6228dfc2
->>> --- /dev/null
->>> +++ b/include/linux/arm-smccc-rmi.h
-
-..
-
->>> +
->>> +struct rec_exit {
->>> +    union { /* 0x000 */
->>> +        u8 exit_reason;
->>> +        u8 padding0[0x100];
-
-...
-
->>
->>> +    };
->>> +    union { /* 0x400 */
->>> +        struct {
->>> +            u64 cntp_ctl;
->>> +            u64 cntp_cval;
->>> +            u64 cntv_ctl;
->>> +            u64 cntv_cval;
->>> +        };
->>> +        u8 padding4[0x100];
->>> +    };
->>> +    union { /* 0x500 */
->>> +        struct {
->>> +            u64 ripas_base;
->>> +            u64 ripas_top;
->>> +            u8 ripas_value;
->>> +            u8 padding5[0xf];
->>
->> In various other places you just use a u64 for a u8
->> + padding. Why is this one special? And for that matter
->> various other fields later in this particular structure?
-> 
-> Please feel free to point out, if you spot any. I am happy
-> to fix them.
-
-I took a look and the padding is for extra "u64" bits in there.
-e.g, ripas_value offset = 0x510 and the s2ap_base is really at 0x520
-not 0x518. Same applies for the pmu_ovf_status and vsmmu.
-
-So, I would leave them as they are. The rest are consistent.
-e.g, num_bps and num_wps. in realm_parameter
-
-Cheers
-Suzuki
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Nnf9EGSfCSnJfaGN"
+Content-Disposition: inline
+In-Reply-To: <4d1f121c8ac348dcbb16b554e4ed2b9c@ti.com>
+X-Cookie: Too clever is dumb.
 
 
->
+--Nnf9EGSfCSnJfaGN
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Mon, Sep 21, 2026 at 10:08:54AM +0000, Xu, Baojun wrote:
+
+> Previously, a local variable tracked the AMP reset state to determine if a
+> firmware download was required. However, we observed that the AMP resets
+> during SoundWire bus stop/start sequences, causing the variable to become
+> stale. To improve stability, the driver now directly reads the register
+> value instead of relying on the cached variable.
+
+It should just need an assignment to set the download flag when you
+decide to skip?
+
+> This version has been verified to work correctly on the current platform.
+
+Are you sure there are no users with other systems who might be broken
+by skipping the download?
+
+--Nnf9EGSfCSnJfaGN
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxA5gACgkQJNaLcl1U
+h9Ce+gf/Tk4xSnpcXTJeZWcbSj5JbxXk2JzDAwBUFxoiTU81EYI9M+1U8ZwMjKcE
+Q+bohZFKf0g7MhxDTrLZMS5h8X5UeEwONHXf5nS+P6gEldpFol8rv3fY7pwKn6AD
+NPV6+5w9gv98a17rIpXitX2odoC8/V6Cg4kEuVLqP5Wqbu96AbRVsk0/t7YfN9Cl
+WpOHdRvfEVLF1I4qGvHZ2CdcmMPmV+m1PaHnMDI3wCzB+KGr99PGM0QYuz+ZQ8TI
+ppbPKwc8MP7+r9BTbX/isjJf14MOOm5bZNNNFPQ2ElUfsHC8SmIEgOOHEQe6gZrU
+seAHlha+5N5UQgDHcyZF+++pKGQU+Q==
+=YwsF
+-----END PGP SIGNATURE-----
+
+--Nnf9EGSfCSnJfaGN--
