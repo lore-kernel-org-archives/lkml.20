@@ -1,143 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.auroraos.dev (unknown [95.181.193.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1C83C456B;
-	Mon, 21 Sep 2026 19:59:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2E84078D7;
+	Mon, 21 Sep 2026 19:59:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.181.193.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790020764; cv=none; b=BP1vNRQlwfgjzGuZWk+LmFQ0PTPB0/xaM7zQiTnJVjHmjJ1kruyQaAisg3PmELjT6i18o81RxrggM9kvVCY7UJHbLhkTDnITZWBXBHKx7cuTBjKpgGIjrmuEFQdpwFW3aIT8YVOdvEQHAyBRWWJbLh0coi0jNCwOyUiGFKCxkcs=
+	t=1790020766; cv=none; b=YH2/TcHFdze7m6OxnNER9z1HFuY9k3pE2bLzWPYqJTK7jiyehgvK11HhIZkY9TwXqYnyUjsbpLK30LIp/IctZu+h1OdGPogtMMgDs+CgHxGc3iAQ+P5uXdck75t48UIW05e5mVnxw1PzWuTVSzYZ9cf2zt/Yq7tWUEEgx4EK7p4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790020764; c=relaxed/simple;
-	bh=RDUKgR4Zh55foA1PVaXPqBWcOHxguZt1tds+dCAcB5o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oiiy013jrT7Z9UY2n/TRr2r4qcPtKspMLt7eJh9lJXvdH6T0b5tpsTPt4SBaULK1BsDQD7uCtYv9kszo8j3/s9BDRjZYxEVfYE2y21UAo4IqxA2xuqIEba0iwBqbTkCkyGcIj5Qi26PdG1CGI2AkxTxAHZxqLuUE0bjYEOHgN1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=goOJO+Ju; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="goOJO+Ju"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 907511F00898;
-	Mon, 21 Sep 2026 19:59:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790020762;
-	bh=f3OLDjTedsbgC3rcZhdOQN0X2zBug4ET6xkZFH6DZFY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=goOJO+JucOQyVJhwBfpMh557Mt7X9EpUqiE/EPsXm4eYLVfpDHY4Sz7us7rwrdmnQ
-	 Bfe9PXXPxI2rtkVy5TKC1kpPBhNLS0Dfks+8osZBKG+2uxCn93k+LsvLN55gPfnomd
-	 4HcmAsTeQgH22E7n2fE/ONBJ6/4uD9CmmdAep74u34s6N+wXG4C7Wx7N0YyhxML3nn
-	 nHXmHNHxzhBBZCOy63EBsxd4Sq90Vlm7Vfz/L/J2QJTZenlQBdgLulgN1JQQDYH3fP
-	 U9RH3bGbIYac9um1zcYtRfW35E3dnGxbfY5n/IBwFi+RPzRAEMMBRrUOaGCqgxviVb
-	 B2Z/oHF0sdVVg==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Mon, 21 Sep 2026 21:58:53 +0200
-Subject: [PATCH v2 01/13] mm/sparse: move mem_section init to
- sparse_extreme_init()
+	s=arc-20240116; t=1790020766; c=relaxed/simple;
+	bh=hZBaJieRUltWL78Xa6YSzSqoN1Erz4TgkJc8CyvQ4Vo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=kPJV1x9IMY8xtYVgZWX84wUMx5rVs+YvGUbs+sjFz4OIdUfZ/34RxxpOQDCpYALDinvN7FVRUxpeqOnBnNbC0m30tRXlXxfTpq80yg/e7YhtdSk8FoF726CvX1GtgLjHRvyY1DsmRJ2aYgU4LSJ4lj3jyMWPODcZwc+BXqtTyHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev; spf=pass smtp.mailfrom=auroraos.dev; arc=none smtp.client-ip=95.181.193.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
+Received: from [192.168.2.104] (91.79.36.28) by exch16.corp.auroraos.dev
+ (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Mon, 21 Sep
+ 2026 22:59:10 +0300
+Message-ID: <354d72f6-35bc-49f0-a4f4-3555b03f0ad8@auroraos.dev>
+Date: Mon, 21 Sep 2026 22:59:10 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2] ch9200: do return USB errors from
+ control_write()
+To: Jakub Kicinski <kuba@kernel.org>
+CC: <netdev-bot+sashiko@kernel.org>, <andrew+netdev@lunn.ch>,
+	<davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
+	<linux-usb@vger.kernel.org>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20260915185805.38712-1-s.shtylyov@auroraos.dev>
+ <178954341078.22033.8722936070498955076@kernel.org>
+ <b43350d5-09d7-4fc4-9791-16bb4322d794@auroraos.dev>
+ <20260918182124.487edd13@kernel.org>
+Content-Language: en-US
+From: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+In-Reply-To: <20260918182124.487edd13@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-b4-sparsemem_cleanups-v2-1-54d81d65e125@kernel.org>
-References: <20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org>
-In-Reply-To: <20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Brendan Jackman <brendan.jackman@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
- Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>, 
- Oscar Salvador <osalvador@suse.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, 
- linux-fsdevel@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2075; i=david@kernel.org;
- h=from:subject:message-id; bh=RDUKgR4Zh55foA1PVaXPqBWcOHxguZt1tds+dCAcB5o=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLI29rQqTbnO8DPl8RKB1sUK0hNk3s8y2fL9/Szpe6K7H
- Nadqok61FHKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBEkvwY/kr/UXzOzb2/r9fs
- yu09Wm8rfa8/a+vamDFbU0OUfd+FlemMDP+jP+p8mDLpZB93zpJFEi3mBRu03Q1VzZ0Fj9xLrq4
- tZwIA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
+ exch16.corp.auroraos.dev (10.189.209.38)
 
-Let's just avoid another pair of ifdef inside a function. While at it,
-switch to INTERNODE_CACHE_BYTES by just defining a fallback in cache.h
-as well, given that the x86 variant already provides one.
+On 9/19/26 4:21 AM, Jakub Kicinski wrote:
+[...]
 
-Acked-by: Oscar Salvador <osalvador@suse.de>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- include/linux/cache.h |  1 +
- mm/sparse.c           | 19 ++++++++++++-------
- 2 files changed, 13 insertions(+), 7 deletions(-)
+>>> There is a second point about the resulting contract.  On success
+>>> usb_control_msg() returns the transferred length, so control_write() now
+>>> returns a positive value (2 for these register writes) rather than 0:
+>>>
+>>>         err = usb_control_msg(dev->udev, ...);
+>>>         if (err >= 0 && err < size)
+>>>                 err = -EINVAL;
+>>>
+>>> Would the obvious caller-side follow-up "if (retval) return retval;" then
+>>> treat every successful 2-byte register write as a failure?  Would it be
+>>> better to normalize success to 0 in control_write(), or to check
+>>> "retval < 0" in each caller and update the callers in the same patch so
+>>> the errors being returned are actually acted upon?
+>>    That's what the patch I linked to does...
+> 
+> Please fix the issues in one series or not at all.
 
-diff --git a/include/linux/cache.h b/include/linux/cache.h
-index e69768f50d532..b6e857b985bca 100644
---- a/include/linux/cache.h
-+++ b/include/linux/cache.h
-@@ -89,6 +89,7 @@
-  */
- #ifndef INTERNODE_CACHE_SHIFT
- #define INTERNODE_CACHE_SHIFT L1_CACHE_SHIFT
-+#define INTERNODE_CACHE_BYTES (1 << INTERNODE_CACHE_SHIFT)
- #endif
- 
- #if !defined(____cacheline_internodealigned_in_smp)
-diff --git a/mm/sparse.c b/mm/sparse.c
-index b75921c622ede..8cd2b06b231ac 100644
---- a/mm/sparse.c
-+++ b/mm/sparse.c
-@@ -103,11 +103,22 @@ int __meminit sparse_index_init(unsigned long section_nr, int nid)
- 
- 	return 0;
- }
-+
-+static void __init sparse_extreme_init(void)
-+{
-+	const unsigned long size = sizeof(struct mem_section *) * NR_SECTION_ROOTS;
-+
-+	mem_section = memblock_alloc_or_panic(size, INTERNODE_CACHE_BYTES);
-+}
- #else /* !SPARSEMEM_EXTREME */
- int __meminit sparse_index_init(unsigned long section_nr, int nid)
- {
- 	return 0;
- }
-+
-+static void __init sparse_extreme_init(void)
-+{
-+}
- #endif
- 
- /*
-@@ -196,13 +207,7 @@ void __init sparse_sections_init(void)
- 	unsigned long start, end;
- 	int i, nid;
- 
--#ifdef CONFIG_SPARSEMEM_EXTREME
--	unsigned long size, align;
--
--	size = sizeof(struct mem_section *) * NR_SECTION_ROOTS;
--	align = 1 << (INTERNODE_CACHE_SHIFT);
--	mem_section = memblock_alloc_or_panic(size, align);
--#endif
-+	sparse_extreme_init();
- 
- 	for_each_mem_pfn_range(i, MAX_NUMNODES, &start, &end, &nid)
- 		memory_present(nid, start, end);
+   OK. Series against net-next, right?
 
--- 
-2.43.0
+> We have too many patches in flight these days to be chasing people's
+> linked series. Too many LLM-happy "helpers".
+
+   IMHO these 2 patches are not so heavily linked, that's why I posted
+them separately... And no AI was involved, of course. :-)
+
+> Please explain how you discovered the issue and how you tested the fix.
+
+   As I noted in the description of the patch [1], the issue was reported
+by the static analyzer. For the patch [2], I saw a problem with my own eyes.
+   I don't have the hardware, so no testing; there was some hope that e.g.
+Matthew Garret (the driver's original submitter) could be able to test but
+his email bounced...
+
+[1] https://lore.kernel.org/all/20260914202503.52920-1-s.shtylyov@auroraos.dev/
+[2] https://lore.kernel.org/all/20260915185805.38712-1-s.shtylyov@auroraos.dev/
+
+MBR, Sergey
 
