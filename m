@@ -1,205 +1,121 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 061E136212C;
-	Mon, 21 Sep 2026 08:48:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF94635F163;
+	Mon, 21 Sep 2026 08:48:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789980519; cv=none; b=fgR9gkNAuH/IKeCTa8P2KHcJy+E21w/E6NQwJIZiDM1GS9I87WeUkU2Nnd1j3WoSK4mMXAGbLyYDDFkHzdfoziIBbCyA42LYLQxvEP6dyuAickzqGFYM39euwzdZjO4YDL3FG4lylCyqjPyrMc9pAfLzrFAsG/+4p3j2fzD2wc4=
+	t=1789980521; cv=none; b=txmhq+i2PnRF7KaCtVNucWRh2pK0xWSV6Ij8reaomwEv7oK7s23vDn/ukI/J+IvwnDF/4hakvvTnqcnier8+oly6d+EH1MlCuocQjVq+zs8a1rAjfZSlDwB0s3Y4b1cKJi2clqRZsBB0Mwn9ledIfvMU3nfPGg7BAPK3i1LMNU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789980519; c=relaxed/simple;
-	bh=iNcD90TOEC4up8mJomSEGrqN8iDhcW+0IhnuQe1zqzU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XHYfc8g/7aeW4dR0cTEa24RhxCIjdKumwOC98bS6mWV6aFN4os52qQQbfsOjQphYpSCJ3/MNYS/RTcPBV77CnkMX1dTSbiVeLRPan3E6GezmKnhpnjRpwCuK151uWuVfJs3czNg7wjitDfhH5wRRbNTiGQSTDtQ9w1wHZgOslec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ICEwSlGN; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=mJf0rSx8; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=UCL//Dwm; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=3UiEHUj2; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ICEwSlGN";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mJf0rSx8";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="UCL//Dwm";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3UiEHUj2"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 569B41F74A;
-	Mon, 21 Sep 2026 08:48:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789980511; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=delK6S1uyACp4+jf+Vgb66XpupmK4x7dstB7NGDmOn4=;
-	b=ICEwSlGNTckXIgC5ijJ+X7n7UOMaVq2dhWXdAfG8+6ELnruYjetScCpZ7QuxBAP6H8YExZ
-	aWli/v1KmC56ak8hldg+qTSUD0wCoK9ya3uZea6L68Wbi1qm6s4yKFw9ZRED40qss5aFiz
-	m4vtyFWivMBeqnsiAKYlZVHIMnC4lcw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789980511;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=delK6S1uyACp4+jf+Vgb66XpupmK4x7dstB7NGDmOn4=;
-	b=mJf0rSx8l7acXlaNG+dLgebq44mJ4zkjSTnq+a8Hd2FWtoBl5MfeBvWsVb93Zw0Yhoky9Q
-	0tdPuqG2AIOhh3CQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="UCL//Dwm";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3UiEHUj2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789980507; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=delK6S1uyACp4+jf+Vgb66XpupmK4x7dstB7NGDmOn4=;
-	b=UCL//DwmnYPfRPKT0CkG2T4L+VF1ecYTHeiYyajj2giNusk8apOXncAjd7t3vtXd4T7TW0
-	6nOucIXJTZAg4/3elXISb9sAGWEVX1zddAsMoYaDHg9XxuZ21DlEFT3D/x33adx05lboRI
-	AVKD8H8PVQCRWUvn0/Es+J01qSVpIc8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789980507;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=delK6S1uyACp4+jf+Vgb66XpupmK4x7dstB7NGDmOn4=;
-	b=3UiEHUj2OiMg7fqLEPr70btHSi2RG72dZHFeV6g7OxV4RtoEwj5zLuVVqzFfCQgzaT9HmF
-	48qrHqv7qvm7EWBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E6BA01368D;
-	Mon, 21 Sep 2026 08:48:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ngbKKVrvsGrlTAAAD6G6ig
-	(envelope-from <hare@suse.de>); Mon, 21 Sep 2026 08:48:26 +0000
-Message-ID: <4ca4f5c5-5021-4a63-bb14-4b7d0502eef6@suse.de>
-Date: Mon, 21 Sep 2026 10:48:26 +0200
+	s=arc-20240116; t=1789980521; c=relaxed/simple;
+	bh=yPW2dZAxEbH0+g92u4hCAhJCZWv/yfUo0ZYM9OdlpBM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=rdqAgi662+8ufaPJAOCqMks8hx2ubxFHSO98EDXWDgJAaf54iOSMlZOkHvtcB8/8H0AkciSXWmdwf2isGKC84pbJqk/eqV8/AkGKLttXRqfGKNZl5h8qKufFKN0MzlpdnuJ93QcNt1Cz3o0uPVILJnBvwKAPEwU52+CyvY5Qo9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
+	by APP-03 (Coremail) with SMTP id rQCowADX2zlW77BqMptFCA--.6452S2;
+	Mon, 21 Sep 2026 16:48:22 +0800 (CST)
+Message-ID: <0da2ef7f08b23e916869d5c08267b3802d5a631d.camel@iscas.ac.cn>
+Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane
+ disable clearing FB_EN
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Mon, 21 Sep 2026 16:48:22 +0800
+In-Reply-To: <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
+References: <20260918030125.315978-1-a0987203069@gmail.com>
+	 <20260918030125.315978-8-a0987203069@gmail.com>
+	 <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
+	 <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
+	 <cb30f57c0ac124aac85efad32626e6182b9f1369.camel@iscas.ac.cn>
+	 <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] scsi: libfc: fix directory server rport memory leak
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Robert Love <robert.w.love@intel.com>,
- James Bottomley <James.Bottomley@suse.de>, Joe Eykholt <jeykholt@cisco.com>,
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20260919173405.3718408-1-lgs201920130244@gmail.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20260919173405.3718408-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 569B41F74A
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,HansenPartnership.com,oracle.com,intel.com,suse.de,cisco.com,vger.kernel.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_TLS_ALL(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -4.51
+X-CM-TRANSID:rQCowADX2zlW77BqMptFCA--.6452S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KFyfCFW8JFyDXFWkKw4fAFb_yoW8Cw15pa
+	9rKas0kr4kXr1Ik397Cw48tayFgrWrJ3y7JryrGr1vk398tr1xJFyrKayfuFW8Grs3Gw1a
+	qF4qyr98CFWDCw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+	67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+	UI43ZEXa7IU56yI5UUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On 9/19/26 7:34 PM, Guangshuo Li wrote:
-> fc_rport_recv_plogi_req() creates an rport before allocating the frame
-> used for the PLOGI LS_ACC response.
-> 
-> fc_rport_create() does not add FC_FID_DIR_SERV rports to the discovery
-> rport list. If fc_frame_alloc() fails while handling a PLOGI from the
-> directory server, the function returns without starting the rport state
-> machine or dropping the initial rport reference.
-> 
-> Since the directory server rport is not present in the discovery list,
-> there is no later teardown path that can find the object and release
-> that reference. The allocated fc_rport_priv is therefore leaked.
-> 
-> Record when the failed frame allocation leaves an unlisted directory
-> server rport behind and drop its initial reference after releasing the
-> rport mutex. Keep the existing lifetime unchanged for ordinary rports,
-> which remain owned by the discovery list.
-> 
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
-> 
-> Fixes: 3ac6f98f4113 ("[SCSI] libfc: correctly handle incoming PLOGI request.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->   drivers/scsi/libfc/fc_rport.c | 7 ++++++-
->   1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/scsi/libfc/fc_rport.c b/drivers/scsi/libfc/fc_rport.c
-> index c25979d96808..884b233c2f72 100644
-> --- a/drivers/scsi/libfc/fc_rport.c
-> +++ b/drivers/scsi/libfc/fc_rport.c
-> @@ -1848,6 +1848,7 @@ static void fc_rport_recv_plogi_req(struct fc_lport *lport,
->   	struct fc_els_flogi *pl;
->   	struct fc_seq_els_data rjt_data;
->   	u32 sid;
-> +	bool drop_rdata = false;
->   
->   	lockdep_assert_held(&lport->lp_mutex);
->   
-> @@ -1940,8 +1941,10 @@ static void fc_rport_recv_plogi_req(struct fc_lport *lport,
->   	 * Send LS_ACC.	 If this fails, the originator should retry.
->   	 */
->   	fp = fc_frame_alloc(lport, sizeof(*pl));
-> -	if (!fp)
-> +	if (!fp) {
-> +		drop_rdata = sid == FC_FID_DIR_SERV;
->   		goto out;
-> +	}
->   
->   	fc_plogi_fill(lport, fp, ELS_LS_ACC);
->   	fc_fill_reply_hdr(fp, rx_fp, FC_RCTL_ELS_REP, 0);
-> @@ -1949,6 +1952,8 @@ static void fc_rport_recv_plogi_req(struct fc_lport *lport,
->   	fc_rport_enter_prli(rdata);
->   out:
->   	mutex_unlock(&rdata->rp_mutex);
-> +	if (drop_rdata)
-> +		kref_put(&rdata->kref, fc_rport_destroy);
->   	fc_frame_free(rx_fp);
->   	return;
->   
+=E5=9C=A8 2026-09-21=E4=B8=80=E7=9A=84 15:49 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
+>=20
+> Icenowy Zheng =E6=96=BC 2026/9/21 =E4=B8=8B=E5=8D=88 03:30 =E5=AF=AB=E9=
+=81=93:
+> > Maybe it's better to just make it the 2nd patch in this patchset,
+> > just
+> > after the binding change.
+> >=20
+> > Waiting for something into drm-misc-fixes again will need another
+> > fixes
+> > pull and another RC back merge, which can consume weeks and miss
+> > the
+> > current merging window.
+> >=20
+> > In addition, it's possible that `drm/verisilicon: introduce per-
+> > variant
+> > hardware ops table` also gets backported for a more clean primary
+> > plane
+> > atomic_update disabling fix.
+> Understood. I'll fold the FB_EN fix in as patch 2, right after the
+> dt-bindings patch, targeting the current vs_primary_plane.c directly,
+> so the ops-table patch just carries the already-corrected code
+> forward
+> into vs_dc8200.c. Agreed that's faster than round-tripping.
+>=20
+> On primary_plane_disable_ex - I'll keep the "_ex" suffix. DC8200
+> still
+> has a real per-variant operation there (clearing FB_EN + commit),
 
-Wouldn't it be better to always create an rport for the directory
-server?
-That would make the teardown path far easier.
+Well I propose to remove _ex because there's no real non-per-variant
+operation.
 
-Cheers,
+Thanks,
+Icenowy
 
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+> while
+> DC8000 leaves it NULL and does nothing, so the suffix still reflects
+> an actual per-variant difference, not just structure introduced by
+> the
+> refactor.
+>=20
+> While testing the cursor plane, I found the same class of bug there:
+> the disable register write was being triggered from the plane's
+> atomic_update() invisible-branch using the old plane state to look up
+> the CRTC/output, which can be stale or NULL on a plane's very first
+> commit if it's already invisible then. I've fixed it locally by
+> having
+> atomic_update() derive the CRTC/output from the state it already
+> holds
+> before checking visibility, instead of falling through to the
+> old-state-based disable path. Just flagging it here for now -
+> vs_cursor_plane.c isn't touched by any of my patches.
+>=20
+> Thanks.
+
