@@ -1,119 +1,148 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mail-oi2-f8.google.com (mail-oi2-f8.google.com [74.125.231.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF22491581
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:06:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422CE484238
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:07:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789988819; cv=none; b=aX8r2BpfQhWhS4sWmf3/Kw24x0jtSgb9ct7+TPzX9Xr9lJNN72SAiPaiGxswoeyMAkSd2nzFp3PXsf2xzf+ZZWMD/x3lYTRJcbngmKra9ehK4RgJu5Oyumv5mqI+xsk4xAg9jKlQucEtH6q+WaNtzXzVNSnIYQKewS6Jrdtjwgg=
+	t=1789988868; cv=none; b=RQj1d43ZT7w/vUM7uPmBQ/7Pm+BtGiOTQZBVgMtcC3B6RPTTXwsNMZJGZOaruSfCsYx0jCrFkvCC0tWS5xbLGRkDTQJcYOsS2Qe+k3X5Wr4CqF7btioOA2Tab2Y0moV785Au8NCOF33sVbvhUMjWS21aNKtY6rjsLOZLx8VfCaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789988819; c=relaxed/simple;
-	bh=UUOINDD93jJS+LUcebWPI3js4hVCQibaR3IC0U7k49c=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=H30n4bCLutLM3DAtzr8O0I9SbgkpvfdYu/35XJ8CN7So16bNe8TkBd0Qa2wWvaXR6L2EswfpCh6ERUISclgjXfwto0kT7Zf6zWnLNXBwSBokaWrjvic1pS3EZLrQIEwc2A1YjsJOS8+jS0YPqRThJKXZl2slxS2sjmyDLa+Tobk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kmd4dzw7; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kmd4dzw7"
-Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2ddaa08c890so25282355ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:06:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789988815; x=1790593615; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ycnprV0l+QiM05HZAYzXXqeG9wnBaUsBNe37TTIlwsM=;
-        b=kmd4dzw7YZwUGOpAohpIZBA84zGfg7XBW2MOXiu/6PtAIAey7CGoejz0Zx3N/LAUQY
-         hFXz0jGOkd74aCYP98iga4k3O8w5+pl6eeik3e6AgCWKaNYVNkL0KJ49+QuGXt2TOM/s
-         /JHmiVKtrRmdFk10TkJzqzwvM4DA3c65JItDPe7ALCMyGcfHUZ7IKfuvW9BuYSq5v4YU
-         5wep9KIJutpDUF7a8BqfsG3nRWCmXCfuNK+qLGffBqgpR6zEmK4431v0FSYTS42e2/CL
-         USWzYRVdteKi6yadRWl0nFHsuyfd4szDleMnlgzO+1zis8tdTbWLsol2SHHHcRvzcnT8
-         GC6g==
+	s=arc-20240116; t=1789988868; c=relaxed/simple;
+	bh=nFA1kLxPFD6DXL7JegHDVi+dyMdIf8B9BDVi9szT22o=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=dmLr4AyEP5EJBs78RVfzzynD/CTJ0p5fY3hVgG8E4FN9oex0k/0Z1ZPEv+LFVWIwzReWnsxb90pXlxaj3cixVNYX21EEqSsGDlr4ubowIoEsyBV+B0vB+hDu7qWXzymYvdp0tA0BBt+FhfTdcJpmidJ1akFnsdUT4Tu8NZ36jrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f8.google.com with SMTP id 46e09a7af769-804d58d09e9so912878a34.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:07:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789988815; x=1790593615;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ycnprV0l+QiM05HZAYzXXqeG9wnBaUsBNe37TTIlwsM=;
-        b=LcYalUPGYMmWKpusXuVhrKc0nGEsRkYPHuKQ83+9o9IMJuzgPb9dp1BnVyRhn/V+p7
-         ECu2ya+y+p17Vntw8AWC/Rq9OtSLJaUZul0Amdl3oo6RhgE8qk+D0HazmOji1lljRGz5
-         pGtH/1+BJscQ0k2C/H4zDELnbSb196MZVzF8wJBGs4hDoDoMZNDXzqHMPzcgAimb52/B
-         xmRYqqgCCfKLqzX2ofm/lwOpIqZL492NhU4l5vvNB3bVCwBJQR70F0Z9LHKOvnrBVKj2
-         rhiHyEUurNZlcEw1t1n6u2SoAt4bvmcYPVjVoH36u5r+JTsWsM8n48UAmIO5gXshccpO
-         6CDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwClXK4VA0p8cgtUIuC2PaTHCEQcCWGhFPO3gb9gTJNB3OBbgO+ACDeMBT65OWgTTOseIrs4j0+Y9Z7/fI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kE9sEdDL0p6R1aMlofAbkr/NXAWmsS8tyonnyotg2EMWBsI8wg
-	rVzWL7u/lZBmfvsjAxGsFLKDJ3PAlw/1+s0BH/ztf+75P1MhNsGGEvV/
-X-Gm-Gg: AYBFou3yBzXfHwCcErcYQX0nUwLHblGhTAOIxsAmnRa4eT9ix9fHu0Tg6BRniCBn+wg
-	vteGMOJq4Gy7qBGJIvK7NaPqchjmoGT58E91/SwKa2cBAfrxHKdiSG3Vs6XVDAbIiEbwkZF4A6L
-	Lo8PYvF96bLgCfKEcOvcEXe8Dis6/nxZZjdADbVFfh3IDh83vkMiet5wPFiJRA+93Qc/kJWeixc
-	3nesrl6RiBBq55CQ+7apR0aNPvsfTmFMZ5HpzNdEj3KKbHV7+jRFJ55We4Wjt/aFE+RDClM6FSz
-	oOHC56FDdpT81Ee+Smv1zzLudaw89mXLCBxRP5uRvafPXRDijVTg49Xt5a0atgBBpxS2X0W1V5P
-	/fuLJMSQkLgFg0ocFRrlsB55EYuOItcc7oKC6h63S0KzfVv9EUYgs4HNm+Vpa10NaHrkR+w4tvz
-	RppDVPKfTAna6U+5OmJna+B7HjOnZ/ZY5fzMt3FwnaRUWlEEawhK2sxRvQOmE0RUPtXWCWU4MSv
-	MZ4Jxw/kuQThxi04v8gw+IPYedncsscb7uLdncC2lR6naEGO2f1x3P/bC8CjQ==
-X-Received: by 2002:a17:903:2447:b0:2d9:43f5:b462 with SMTP id d9443c01a7336-2ddb1b79df8mr144230985ad.5.1789988815140;
-        Mon, 21 Sep 2026 04:06:55 -0700 (PDT)
-Received: from [192.168.151.214] (222-228-113-186.aichi.fdn.vectant.ne.jp. [222.228.113.186])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17ba719sm31428165ad.56.2026.09.21.04.06.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 04:06:54 -0700 (PDT)
-Message-ID: <17a74e90-27d1-4954-86a8-491267f00cb8@gmail.com>
-Date: Mon, 21 Sep 2026 20:06:47 +0900
+        d=1e100.net; s=20260707; t=1789988858; x=1790593658;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X4NPzwFFH/PIySvIe6MuM8xYH8txyEHUbV+e+2t0RMs=;
+        b=YzHztSnX1kB2vJYGSCzBuF3m6x1vAIqhbIr2gtHB0MCN4rAMN8+75VuJZ5eYbs3UZX
+         EJRxfcqEnE7SbkCu79RbXgq46pDmrrUI565X/jlmbLgwwBO4k4ewiWh3Oqn5zpKPT1IZ
+         xDc5ENJlcPG/AaoR7Ji7Lr9nVhbCcjuZ8poQZw/M14o7dHzUSAhoOmSUHdMv9pKv7fHe
+         hm+rUtS285GthyfvedBtQS2ewdVcUfoyBH2c/OWdn985bCz4PYIdLmJIpbl0FqMjFYvz
+         +Y3nPGVdeML89YDMjkUyKHM6u9tuS90iw4AWqboZ+mo9DSubvz1FPa1xkN0nULsjfjAC
+         1/IA==
+X-Gm-Message-State: AFuF++lPokX8BzVnkMdLsDCuiGitDtdTV1a/7esMiYZMrTLMKjh5tnN0
+	G+7Fp4mYLKSYXTFvh9ZkuzqOoSgOz13WraECKl3N+H6qUU3/nBZzuofb+NemYnt1O+SUJYa2blW
+	eSo6IKnuUyZzMiHt48+3Twc5H0PwmtJvHGL0mueR00iUgjPa+b5D3nMAyAVPkhQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Yoshifumi SHU <envzhu@gmail.com>
-Subject: Re: [PATCH v2 00/14] ARM: deprecated platform removal
-To: arnd@kernel.org
-Cc: Frank.Li@nxp.com, aaro.koskinen@iki.fi, alexander.sverdlin@siemens.com,
- alexandre.belloni@bootlin.com, alexandre.torgue@foss.st.com,
- andreas@kemnade.info, andrew@lunn.ch, arnd@arndb.de,
- claudiu.beznea@tuxon.dev, conor+dt@kernel.org, david@kernel.org,
- devicetree@vger.kernel.org, enelsonmoore@gmail.com, festevam@gmail.com,
- geert@linux-m68k.org, gregory.clement@bootlin.com, imx@lists.linux.dev,
- kernel@pengutronix.de, khilman@baylibre.com, kmehltretter@gmail.com,
- kristoffer.ericson@gmail.com, krzk@kernel.org, linusw@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux@armlinux.org.uk,
- liviu.dudau@arm.com, lpieralisi@kernel.org, mcoquelin.stm32@gmail.com,
- nicolas.ferre@microchip.com, npitre@baylibre.com, robert.jarzmik@free.fr,
- robh@kernel.org, rogerq@kernel.org, s.hauer@pengutronix.de,
- sebastian.hesselbarth@gmail.com, shawnguo@kernel.org, soc@lists.linux.dev,
- stefan@agner.ch, sudeep.holla@kernel.org, tony@atomide.com, vz@mleia.com,
- thehajime@gmail.com
-References: <20260914140821.1805449-1-arnd@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20260914140821.1805449-1-arnd@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:3403:20b0:6cd:3fcc:96d9 with SMTP id
+ 006d021491bc7-6cd3fdbde06mr4054540eaf.87.1789988858742; Mon, 21 Sep 2026
+ 04:07:38 -0700 (PDT)
+Date: Mon, 21 Sep 2026 04:07:38 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab10ffa.a6af0033.177e91.0014.GAE@google.com>
+Subject: [syzbot] [raid?] WARNING in free_conf
+From: syzbot <syzbot+6a132745caefcf42cb0d@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
+	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
+	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Arnd and all,
+Hello,
 
-I would like to request that the core Arm Cortex-M support be retained, specifically for v8-M.
+syzbot found the following issue on:
 
-I'm heavily using Arm Cortex-M / NOMMU Linux for academic research.
-In particular, I frequently run Linux on newer Arm v8-M (Cortex-M33/M55/M85) processors.
-However, dropping CONFIG_CPU_V7M also removes support for these newer CPUs.
-Because v8-M is highly compatible with the older v7-M (Cortex-M3/M4/M7), the v8-M support is tightly coupled with CONFIG_CPU_V7M, despite the name. 
-The major differences are essentially CPU IDs and PMSAv8 MPU support.
-So I need the majority of CONFIG_CPU_V7M to support Arm v8-M. 
+HEAD commit:    5dd1818b15d9 Merge tag 'for-next-keys-v7.3-rc4' of git://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1074e7f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c3be6e434b07ebb6
+dashboard link: https://syzkaller.appspot.com/bug?extid=6a132745caefcf42cb0d
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-Regarding platform support, I don't need Linux-side device drivers.
-In my current setup, Linux runs in a virtualized environment hosted by an RTOS (like Zephyr) and accesses devices through virtio served by the RTOS.
-I also understand that maintaining legacy MCU platform support is a significant burden.
-Therefore, I don't object to removing the platform support, though the MPS platform remains convenient for bare-metal testing.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-I am willing to help maintain this support, including modernizing the relevant code. I can regularly test kernels on real Armv8-M hardware.
-If an active maintainer is required to keep the support, I am willing to take on that responsibility.
-Please let me know how I can help keep the support.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/ecb73b95440b/disk-5dd1818b.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/e90eba3671c9/vmlinux-5dd1818b.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ea031fa7db3f/bzImage-5dd1818b.xz
 
-Thanks,
-Yoshifumi
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+6a132745caefcf42cb0d@syzkaller.appspotmail.com
+
+-----------------------------------------------------------------------------
+Object 0xffff88808b840000 @offset=0
+Object 0xffff88808b8404d8 @offset=1240
+Object 0xffff88808b8409b0 @offset=2480
+Object 0xffff88808b840e88 @offset=3720
+Slab 0xffffea00022e1000 objects=13 used=4 fp=0xffff88808b841360 flags=0xfff00000000240(workingset|head|node=0|zone=1|lastcpupid=0x7ff)
+Disabling lock debugging due to kernel taint
+------------[ cut here ]------------
+1
+WARNING: mm/slub.c:1268 at __slab_err+0x15/0x20 mm/slub.c:1268, CPU#0: syz.5.636/7760
+Modules linked in:
+CPU: 0 UID: 0 PID: 7760 Comm: syz.5.636 Tainted: G    B               syzkaller #0 PREEMPT(full) 
+Tainted: [B]=BAD_PAGE
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/26/2026
+RIP: 0010:__slab_err+0x15/0x20 mm/slub.c:1268
+Code: 00 00 00 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 e8 2b 00 00 00 bf 05 00 00 00 be 01 00 00 00 e8 7c 0f 5f 00 90 <0f> 0b 90 e9 5e 04 e8 ff cc 66 90 90 90 90 90 90 90 90 90 90 90 90
+RSP: 0018:ffffc9000527f840 EFLAGS: 00010083
+RAX: ffffffff81874cba RBX: ffff88801f7fb280 RCX: 0000000000080000
+RDX: ffffc9000ddd2000 RSI: 000000000000eef7 RDI: 000000000000eef8
+RBP: 0000000000000000 R08: ffffffff939990a7 R09: 1ffffffff2733214
+R10: dffffc0000000000 R11: fffffbfff2733215 R12: ffffea00022e8c10
+R13: ffffea00022e1000 R14: ffffc9000527f858 R15: ffff88805445e3c0
+FS:  00007f088e6396c0(0000) GS:ffff888124cce000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffca4261db0 CR3: 000000003121e000 CR4: 0000000000350ef0
+Call Trace:
+ <TASK>
+ free_partial mm/slub.c:8122 [inline]
+ __kmem_cache_shutdown+0x1a5/0x2b0 mm/slub.c:8165
+ kmem_cache_destroy+0x9d/0x180 mm/slab_common.c:576
+ shrink_stripes drivers/md/raid5.c:2719 [inline]
+ free_conf+0x1fc/0x5d0 drivers/md/raid5.c:7553
+ setup_conf+0x1720/0x2ad0 drivers/md/raid5.c:7885
+ raid5_takeover_raid1 drivers/md/raid5.c:8934 [inline]
+ raid5_takeover+0x641/0x8d0 drivers/md/raid5.c:9045
+ level_store+0x83b/0x1d10 drivers/md/md.c:4134
+ md_attr_store+0x3b7/0x640 drivers/md/md.c:6158
+ kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x612/0xba0 fs/read_write.c:687
+ ksys_write+0x150/0x270 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f088d79e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f088e639028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007f088da25fa0 RCX: 00007f088d79e159
+RDX: 0000000000000005 RSI: 0000200000000300 RDI: 0000000000000004
+RBP: 00007f088d83506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f088da26038 R14: 00007f088da25fa0 R15: 00007ffc30f7c868
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
