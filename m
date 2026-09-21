@@ -1,89 +1,163 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5761C695;
-	Mon, 21 Sep 2026 06:42:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70FF237205D;
+	Mon, 21 Sep 2026 06:42:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789972943; cv=none; b=Ps6VkAf8Si4uSyE1a6Wv6PPh4vWcKu7bEm6faJUNeqUV2TsZ6/kq/xD0A7pApNyGxBJOHaWFNUmflB3z2EHqa/S7VmcLypdgtZ3DNird+doPreWhiPHoEYtdvNoP/fbQcrNqq8ajHJCTWvxrsDeKPCGMPq7TNeWFzQmwOC92tbA=
+	t=1789972959; cv=none; b=gl5wfO+fcru/qwwSlcfMoCmabJh6E7MtzMI2b8U+60t9OWPCgr4UG9nge5qfZ0fNEXf30CqpCY0h8v4BJGi+8t7yGJx0IUaHoHEZcBmX6odf5RUY6H5wZ04lmtxzSfLwE5EPv/CUKfF4W74CaZzg+vcWBL+pMr2Yz+Yzr4X86mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789972943; c=relaxed/simple;
-	bh=zYD0KpVOxyQHzjtHpV3fSNt9jpDyXWVzvsBzMnMRGa0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gjUMmXT1FrAXWBNk2Gc8OOHqu3J1ZrmZJIM5ixsNtOW1jiL7GV0lZF0Ub7xlrDTOw3VGpDWqtbC446H085NRFMN7zVJY4j9/yJ3xGPwnGmQSAXtmzQuxVuoFxtnkFw35gZkEGjQ2Etcg2kF8HGnuMt0MiDKmMNJcbXDroxdzcqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=dn8R9lKf; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789972959; c=relaxed/simple;
+	bh=miUmxWQklUiHOs7CsGOCY/6HHEzzMWEgrUBNCkciLNw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tITMrf2/L8ZbKX+INBkHBK56M99pc7nkaAOMzZTQA08jffbII7NlAIF/MBOBusfsbW0LghknujueIwTC33lrsCD3U0C+42OeO5DXwNOdAfWZoWXua1id4khZrgPnDte10mcZ59K7TIvmkCxbSeDOwaZa0HzDCCGArNt+5qjIFSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n3nTytDy; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="dn8R9lKf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=sl25kRquHhvqNSb5l8LQ//OWRtYtvBBZ8PbfLgJLckU=;
-	b=dn8R9lKfA2SdwDZhkSbTeYjLOsVrOk9cO8keDWvNKA79e/QOcrZbe3VVIzbOkO
-	I9SWpvV5V8dr3WFx/pb3NxeIX+wR6lGVoi3b16OPAnMnGGaCHXmtnrhfsPw3bt5g
-	k19rlgt27DwzXwL1TFrvxNVzjMwmKL9DxaaZwLCzj4Hts=
-Received: from LAPTOP-EGO65D59.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3H36r0bBq6sFTCA--.45496S2;
-	Mon, 21 Sep 2026 14:41:51 +0800 (CST)
-From: =?UTF-8?q?=E6=9E=97=E6=BF=AC=E5=93=B2?= <m18667909625@163.com>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>
-Cc: Guenter Roeck <linux@roeck-us.net>,
-	linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	m18667909625@163.com
-Subject: [PATCH 1/2] watchdog: use kstrtouint to parse softlockup_panic=
-Date: Mon, 21 Sep 2026 14:41:43 +0800
-Message-ID: <20260921064143.81420-1-m18667909625@163.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n3nTytDy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789972957; x=1821508957;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=miUmxWQklUiHOs7CsGOCY/6HHEzzMWEgrUBNCkciLNw=;
+  b=n3nTytDyi4+IgWhs5bW7fq8r36jdrL7owc8v5FGi2J4RQBbLiYBzNu+Y
+   u0x3hmGU2AD6Z+CwGBEmeqWBFcKEQcCmQhmStf0r2FsJvXhAYiS5sKIzu
+   iOwAwHaBjmyydN7uD2PLJGSRswG6dftibhK9Yia5KzcpchiSXqY3KbEDq
+   C5CspLzuY6l8jsYnfMs1BmfM51vbgvF5J96dhJu4Z+xg0fuJ8VSroJxF9
+   YGcitq4BIyNmH25RvCTToWJ+Wqz7zmlsUq0hCvHdGpXoARNHIXnukR2fM
+   TQ3M1gYInov+xP9c0Mqk9vvSyOHkB+BuUt0rw8rfQwsslZpzhez369gox
+   A==;
+X-CSE-ConnectionGUID: HoVP95RkTJWgGnNBPfldCQ==
+X-CSE-MsgGUID: dCX5RNCBQyCFqPRtT+XVaQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="115994983"
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="115994983"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Sep 2026 23:42:35 -0700
+X-CSE-ConnectionGUID: Rfd4HpQqR8CCQPq3Ik35mg==
+X-CSE-MsgGUID: trtZ2uZIRQqIOnQit5+YKw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="271991207"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Sep 2026 23:42:31 -0700
+Message-ID: <024fd251-a4ba-443f-8aff-f5b1cdb062a3@linux.intel.com>
+Date: Mon, 21 Sep 2026 14:42:28 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] perf alsr: Add missing SIMD handling in
+ aslr_tool__process_sample()
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Zide Chen <zide.chen@intel.com>, Falcon Thomas <thomas.falcon@intel.com>,
+ Dapeng Mi <dapeng1.mi@intel.com>, Xudong Hao <xudong.hao@intel.com>
+References: <20260915091112.333308-1-dapeng1.mi@linux.intel.com>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <20260915091112.333308-1-dapeng1.mi@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3H36r0bBq6sFTCA--.45496S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7Jry8GrW5ur47trWrZF1DZFb_yoWkJwb_uw
-	1I9r4UWFyjyr12qF42vwsxXF9Iqw45JF1UuFn5tFZrJF1DA398W393Jas5JF93Wa4vyr1S
-	9FyUGrsagr1qkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRt7KIDUUUUU==
-X-CM-SenderInfo: bpryllixzqmlisv6il2tof0z/xtbC-g9mbGqw0a934QAA3J
+Content-Transfer-Encoding: 7bit
 
-simple_strtoul() is deprecated. Replace it with kstrtouint(), which
-also reports parse errors back to the boot process instead of
-silently accepting garbage.
+Kindly ping ...
 
-Signed-off-by: 林濬哲 <m18667909625@163.com>
-Assisted-by: AI coding assistant (disclosed per kernel AI guidelines)
----
- kernel/watchdog.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+@Arnaldo, @Namhyung, @Ian, not sure if you have bandwidth to review this
+small patchset which fixes the Sashiko found minor issues for the "Perf
+tools: Support eGPRs/SSP/SIMD registers sampling" patchset?
 
-diff --git a/kernel/watchdog.c b/kernel/watchdog.c
-index e5134ad7b663..420f08140713 100644
---- a/kernel/watchdog.c
-+++ b/kernel/watchdog.c
-@@ -17,6 +17,7 @@
- #include <linux/irq.h>
- #include <linux/irqdesc.h>
- #include <linux/kernel_stat.h>
-+#include <linux/kstrtox.h>
- #include <linux/kvm_para.h>
- #include <linux/math64.h>
- #include <linux/mm.h>
-@@ -422,8 +423,10 @@ static unsigned long soft_lockup_nmi_warn;
- 
- static int __init softlockup_panic_setup(char *str)
- {
--	softlockup_panic = simple_strtoul(str, NULL, 0);
--	return 1;
-+	int ret;
-+
-+	ret = kstrtouint(str, 0, &softlockup_panic);
-+	return ret ? ret : 1;
- }
- __setup("softlockup_panic=", softlockup_panic_setup);
- 
--- 
-2.53.0
+If possible, it's better to be queued in this cycle, then we don't need
+extra backporting. Thanks.
 
+
+On 9/15/2026 5:11 PM, Dapeng Mi wrote:
+> Currently the SIMD register sampling is supported, but the corresponding
+> handling is missed in aslr_tool__process_sample(). This can break parsing
+> of the sample record.
+>
+> Add the missing SIMD register handling in aslr_tool__process_sample().
+>
+> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+> ---
+>
+> These two patches fix Sashiko reported defects for the patchset:
+> "Perf tools: Support eGPRs/SSP/SIMD registers sampling"
+> https://lore.kernel.org/all/20260914014049.2061519-1-dapeng1.mi@linux.intel.com/
+>
+>  tools/perf/util/aslr.c | 31 +++++++++++++++++++++++++++++++
+>  1 file changed, 31 insertions(+)
+>
+> diff --git a/tools/perf/util/aslr.c b/tools/perf/util/aslr.c
+> index 027695d96779..a097084201a0 100644
+> --- a/tools/perf/util/aslr.c
+> +++ b/tools/perf/util/aslr.c
+> @@ -19,6 +19,7 @@
+>  #include <internal/lib.h>  /* page_size */
+>  #include <linux/compiler.h>
+>  #include <linux/zalloc.h>
+> +#include <linux/overflow.h>
+>  #include <errno.h>
+>  #include <inttypes.h>
+>  #include <unistd.h>
+> @@ -992,6 +993,34 @@ static int aslr_tool__process_sample(const struct perf_tool *tool,
+>  				COPY_U64();
+>  		}
+>  	}
+> +
+> +#define CHECK_SIMD() \
+> +	do { \
+> +		if (abi & PERF_SAMPLE_REGS_ABI_SIMD) { \
+> +			u64 nr_vector, vec_qwords; \
+> +			u64 nr_pred, pred_qwords; \
+> +			u64 header_len, vec_len, pred_len, simd_len; \
+> +			if (CHECK_BOUNDS(nr + 4, nr + 4)) { \
+> +				ret = -EFAULT; \
+> +				goto out_put; \
+> +			} \
+> +			header_len = 4;	\
+> +			nr_vector = in_array[i + nr]; \
+> +			vec_qwords = in_array[i + nr + 1]; \
+> +			nr_pred = in_array[i + nr + 2]; \
+> +			pred_qwords = in_array[i + nr + 3]; \
+> +			if (check_mul_overflow(nr_vector, vec_qwords, &vec_len) || \
+> +			    check_mul_overflow(nr_pred, pred_qwords, &pred_len) || \
+> +			    check_add_overflow(vec_len, pred_len, &simd_len) || \
+> +			    check_add_overflow(header_len, simd_len, &simd_len) || \
+> +			    check_add_overflow(nr, simd_len, &nr) || \
+> +			    nr > max_i - i) { \
+> +				ret = -EFAULT; \
+> +				goto out_put; \
+> +			} \
+> +		} \
+> +	} while (0)
+> +
+>  	if (orig_sample_type & PERF_SAMPLE_REGS_USER) {
+>  		u64 abi;
+>  
+> @@ -1007,6 +1036,7 @@ static int aslr_tool__process_sample(const struct perf_tool *tool,
+>  				ret = -EFAULT;
+>  				goto out_put;
+>  			}
+> +			CHECK_SIMD();
+>  			i += nr;
+>  		}
+>  	}
+> @@ -1061,6 +1091,7 @@ static int aslr_tool__process_sample(const struct perf_tool *tool,
+>  				ret = -EFAULT;
+>  				goto out_put;
+>  			}
+> +			CHECK_SIMD();
+>  			i += nr;
+>  		}
+>  	}
+>
+> base-commit: 91b0782fc9e9d2f0a40b5256146e014802fdbb36
