@@ -1,112 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BA431283E
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:15:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82429427FBF;
+	Mon, 21 Sep 2026 16:16:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790007357; cv=none; b=U9GH1J0/f/qbW/w9yjOyhWIMgXRb99+XzyGZPNas9HYkW9sWcJZC/RyrlU5DLyC0BD53j9lya8IxcJAJhPlob3VldCKXVxogrtIS9oHlBwQBOimDMy58Sd0yYzw6DKZm64GCreomgIHQ4q9g+6UHnkAak3bhPLBNy3/AhQqnpmU=
+	t=1790007408; cv=none; b=mVQF6itlNeXXsPmo7gQicypyqjkyRpGOTW3v5I4xz0lbp4l69nPRORIC2GcY0d81lwP3mgUAV3qmUk1HpiHNj0MRVj3ODSqHhoqSfKqqzWUY/p0FFRT2chVSmlXrwDqgiGcfqecXOyzyuHsOt1gTgQTvMBcivoGvcpeM87SEyAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790007357; c=relaxed/simple;
-	bh=RnjPwsEVrL0EEWBJRE+0kD8MJrEzZaGBETohThm6qHU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NUunqOaDiRNrYkAmjmRLeaRuIqUr+q8Xol/JZlE1VEoU8baKthjfBzXNB5DwD9kwOLBT+LJrm8kihVgRYeliMId5ZJ52r90w3ZmsPDVtW0ELqbwEO59Q7OyHOPEnOJ1DkgJTpI1o0JtAW56fV2RQOHyXkSjrP3O5mzwxftM4hVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dufKpdJ/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790007408; c=relaxed/simple;
+	bh=cNe5L5MX5LoDLPc5OihQdaBpPRF4FFUfvt2Vw/QdvPA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Tx1xLWQAAVxpBt6OAsHysSyc8Y2FyDbm8WoRqxZRuUd4DNj1g/whqu7GJAwztjOnx+Fep+8+GJ0DQBk36f3H2AbKvUcumyB0/YDu/QOW0yEyoF3m0c27eXKOJBiiRbOWkRb2pWJ4cFxDBXnJ1yOcIk4CVyzpVgolNDhGsyjaPKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IbSN74N8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dufKpdJ/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2D341F00921
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:15:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IbSN74N8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0B041F000FF;
+	Mon, 21 Sep 2026 16:16:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790007355;
-	bh=25PUFMzN+ZwMXSXb/vhne9pPnPAWuE3XEt3wmLQ38d8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=dufKpdJ/rQ4gKIXM/G3xCw5pwf4pfFQnAtEJliObPYwFM/9DjNoosgdCSY9gorEA5
-	 vcItnrzgE7+MDpjixc0o3V0VONjTsm1duPbSyUiSMmwcvRQ2sOKHkYFkxC4JNkzg9r
-	 Os5+enVYwDusZ1qWs+FinAKKM/oGHJr6bb5rx7e81JYBzS6pso8PEf7yQIKuSWOgpp
-	 ID4JwCnlnp1wTsy6aIwqexqglsixOS6t/weUAdiKKQaqHtYT2JfDNpfQUK1SLM/ufl
-	 1pG4Anz1GHBB/Q1SDidJRen5R1lMYQNjp668uwriJBYafUfoj1Q6L/t6DgHt4GJcmb
-	 3hr+kWdpgcWvw==
-Received: by mail-qv2-f35.google.com with SMTP id 6a1803df08f44-9104e54b1abso44488166d6.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:15:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzk70mF0VuR3e30Hy2OO82PY9W/p7/kO+00/aZEEdVmcFdlAGXfhJwIfLzTkEMTOStiP72+IRIRLiMjKUA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kXLCs2bJAngcqC79ZinWwni3Kl67U2oNfBgD71sHPCOYo15UZx
-	z2ahU7m0T0tpIy7LuPNi4M5fK1rvHUskQ640DdkEfRfTPYY2KP7Dy9VVeYBZaDaREIQ4+jXtYRj
-	aL6fiuuPOsANy7Ow5N/tBdKkyoZKD61ObHhFEWQjx/w==
-X-Received: by 2002:a05:6214:5703:b0:912:590b:a49f with SMTP id
- 6a1803df08f44-913fc8991c5mr12910046d6.5.1790007354933; Mon, 21 Sep 2026
- 09:15:54 -0700 (PDT)
+	s=k20260515; t=1790007404;
+	bh=FCqhJfHBwtnt+ArdJPd6pfJGUhne2cByOUsf8aYDl6w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IbSN74N8BFRWC5rRFESnXuWvAGp5AHg+z0yZHOOgkbj9mLevqMgwzOcjMtbd6kNI5
+	 EI0iVEQGf4WSrClfyNdxou/+v4wxs/zVpjJM04R07Eumtn/bXGoqu0KT5oSUxdZLSn
+	 7vT8n/rT2hQcgjOQYa6e0OlMCtBAoGI4xEsWzMx0TOYw4Z3fX+IUcb8F4hF+FMfdBw
+	 kSYMpyLfu9URAx5Ok7zt70GoC4lUeCjAGMsd2/w69pHeMFC1jBY16Gy8SAhV06Y0OZ
+	 gaNCgWQKGvFVg5F9AgFcFNmzMtQCL1xMuoEDGaFKcRppQZFr6BVdekMbN/Cn6AjHuJ
+	 faztjyj0BeVcw==
+Date: Mon, 21 Sep 2026 06:16:43 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Marco Elver <elver@google.com>,
+	Jukka Rissanen <jukka.rissanen@linux.intel.com>,
+	linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+	baijiaju1990@gmail.com, jjzuming@gmail.com
+Subject: Re: [PATCH 2/5] workqueue: add support for module-owned work
+Message-ID: <arFYa6WFbADfftCv@slm.duckdns.org>
+References: <pm-series-6lowpan-lifecycle-82fab5876048c8c9503c-0@gmail.com>
+ <pm-series-6lowpan-lifecycle-82fab5876048c8c9503c-2@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <aqJXx2vtbKaRLt3x@fedora> <aqLi6cIjD2wJwk0B@cmpxchg.org> <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
- <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F> <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
- <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F> <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
- <8aaf1f8101c9e45514af442aaf1969e3aafec4d0.camel@surriel.com>
-In-Reply-To: <8aaf1f8101c9e45514af442aaf1969e3aafec4d0.camel@surriel.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Mon, 21 Sep 2026 06:15:42 -1000
-X-Gmail-Original-Message-ID: <CACePvbU0OabajPHyxnzBK_bApdg-dLt7PLwg6T_MgTK2Nk-aZQ@mail.gmail.com>
-X-Gm-Features: AcwNN1X6zO48QTCAvGgUYKcds-r_VPR1bmrKxceiJWPap4v_TAW9E70LnkZ53qg
-Message-ID: <CACePvbU0OabajPHyxnzBK_bApdg-dLt7PLwg6T_MgTK2Nk-aZQ@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Rik van Riel <riel@surriel.com>
-Cc: Gregory Price <gourry@gourry.net>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
-	Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <pm-series-6lowpan-lifecycle-82fab5876048c8c9503c-2@gmail.com>
 
-On Mon, Sep 21, 2026 at 4:07=E2=80=AFAM Rik van Riel <riel@surriel.com> wro=
-te:
->
-> On Sun, 2026-09-20 at 23:43 -1000, Chris Li wrote:
-> > On Sat, Sep 19, 2026 at 3:53=E2=80=AFPM Gregory Price <gourry@gourry.ne=
-t>
-> > wrote:
-> >
-> > >
-> > > I want:
-> >
-> > >
-> > >   1) zswap on machines with no swapfile
-> > >
-> > >   2) without being asked "how big?" - there is no number I can give
-> > >      that stays correct, and
-> >
-> > Because you can't answer a question, we have to bend over backwards
-> > for you? That does not make sense.
->
-> There are millions of users for who the system
-> should just work, without having to first answer
-> your questions.
->
-> Their use case is legitimate.
+On Mon, Sep 21, 2026 at 11:38:59PM +0800, Cen Zhang wrote:
+> Queueing a callback on a system workqueue does not take a reference to
+> the module containing that callback. A caller which releases its last
+> module reference after queueing work can therefore leave a callback in
+> unloaded text. Releasing the reference from the callback itself also
+> leaves its return path unprotected.
+> 
+> Add module_work and schedule_module_work() to hold the callback's owner
+> from queueing until the callback returns. Run the dispatch and final
+> module_put() in workqueue core, which remains present when the callback's
+> module is unloaded. Cache the function and owner before invoking the
+> callback so that it can free the containing work item.
+> 
+> 6LoWPAN needs this for deferred network-device deletion after removing
+> the last peer.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 
-That is why I want you to provide an example where people zswap 200%
-of the RAM and still get reasonale SLO.
+Please provide justification on why this needs to be done this way when
+everyone else can flush delayed items before unloading.
 
-I question how you back up your claim that this is true?
+Thanks.
 
-
-Chris
+-- 
+tejun
