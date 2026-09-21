@@ -1,68 +1,106 @@
-Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE65A4A3861;
-	Mon, 21 Sep 2026 14:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB1D64AA1EB;
+	Mon, 21 Sep 2026 14:08:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999736; cv=none; b=l0podO2/i7xnCj+iomNa+evufYyLnIf4aHUo00z6fHXcBq+/C7fgjfjuzoT0lBU4YNoaNV4DH9MYzIFGIpA8sfDUKKkXjpKNrtqt9EZr3FGRYZbraMC3798uPGJdABv0TSd0YksbjLbDOBTQXfwNWzDSRtiYqmN8FMpG2gPxfi4=
+	t=1789999738; cv=none; b=dQZdVHpdikSrhPHjIEd1uyZJB17d0zM2wBBczrVYwyJEqSoX1jvTGtxYklZs/B75nYc7VUfsT2NxwPJAourfH/4JbAuYMJkwJIwRYEShNiL0q0VJ/MaWYHLW1RkvUIYNkbEuN2WAN7ZJ4J6try5LVSA4S6KzCvNo2iSKoe1xjdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999736; c=relaxed/simple;
-	bh=Gn+BmxhD/JNcuU4fD1WWhF+MIRk2TooarfAtYG79tHg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WmUPDgEEhPIigMNQnokbjuzEvdycJlPr0oID1glayS41lIkZU/unTBcXjcAftWZqCpJx3CamCqcweKy8WeumHU1/axKdHA8acvW4mZXjHmysQACcH92Hd6tR9N4aWQyIkKgJIx6z4WMKQiRssLEcpgsr5n+cTS4SlmnFZtisIhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=DukIcoa6; arc=none smtp.client-ip=216.40.44.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1789999738; c=relaxed/simple;
+	bh=G9q3i7tqWsB3HK9OoAQ8A3g/zpnIoUQKiZ8DEPL3MOM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bWyRE37529uo0XBD2NomQJOJvpeNFQt2gSCDA5fOvEDRbPxEt4YQgCi+oDyMd710wKeGAEZ21b7lieWyK9Es8mfOtb0b1OynkJYOt6Z69oiO5nn389BNaJu87YTMCYk+jC+KOlZBt/WVlxfFGjUEKnc5gzChC5khpIJrb/bz+nA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YlA5biMh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="DukIcoa6"
-Received: from omf03.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay03.hostedemail.com (Postfix) with ESMTP id B11CCA01AC;
-	Mon, 21 Sep 2026 14:08:45 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf03.hostedemail.com (Postfix) with ESMTPA id 911BC60012;
-	Mon, 21 Sep 2026 14:08:42 +0000 (UTC)
-Date: Mon, 21 Sep 2026 10:08:40 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: Vladimir Murzin <vladimir.murzin@arm.com>, paulmck@kernel.org, Chunfeng
- Yun <chunfeng.yun@mediatek.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [BUG/PATCH] drivers/usb/mtu3: Work around mtu3_log_ep
- double-indirection issue
-Message-ID: <20260921100840.06ed9a5c@fedora>
-In-Reply-To: <arE4jcn4dCD9gos_@J2N7QTR9R3.cambridge.arm.com>
-References: <a3ee0655-d818-48e0-84d1-475e6c16c991@paulmck-laptop>
-	<d7bb2cf4-11c3-468c-8749-99cc408299c7@arm.com>
-	<b6c621eb-6d20-4e00-ac05-af122b630ca5@paulmck-laptop>
-	<aae79c1c-8738-4b97-b1b9-d82d19d82d49@arm.com>
-	<20260909093524.249c2a1a@gandalf.local.home>
-	<arE4jcn4dCD9gos_@J2N7QTR9R3.cambridge.arm.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YlA5biMh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1FD11F000FF;
+	Mon, 21 Sep 2026 14:08:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789999736;
+	bh=cbB+ulRwWthQ5iQQXII3rLWdyEpsPLITlFYeU+SNDgA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YlA5biMhBOfZeFi5Yj/ukPxV5f84tQ+VnDekgm20U+L7ge7eMkjVc+fU7seNWV7Cd
+	 pI53zMhWIs8MBkR7ULxtuVIOC5S8e7KPAq3R+dsstPRvkTisu8yiZJt28/tuDu5aBj
+	 24CL5HIbJ/8dyG/8D08PPj7AlLr6UUhjtmSFttP2Ypv4KzpFG9wSxzQhhl0gjht2ls
+	 OtcFj6efkmspj5CPE18/13H38Pnvu2Ihn085V66iYH/3zy5BUKpFcgPNVQzmYEB5It
+	 AFZ9tucnpEXyIHWppyIOLjoFwCqDKJ5ScWUxzlfmDCcy0kWNU2b0vX4VbAppIWg2dn
+	 FHbgWsvNZj2xA==
+Date: Mon, 21 Sep 2026 15:08:52 +0100
+From: Simon Horman <horms@kernel.org>
+To: Yuchao Zhang <ndaugoing@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] nfc: llcp: reject connect() on sockets not in
+ LLCP_CLOSED state
+Message-ID: <20260921140852.GR13925@horms.kernel.org>
+References: <20260918033920.85025-1-ndaugoing@gmail.com>
+ <20260918033920.85025-2-ndaugoing@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: 911BC60012
-X-Stat-Signature: 114cow448kn3jskn8mcbahpqgk5q1zjp
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+6iX7aw+AEdsz8I3D5gPEpnh6FMY2CMew=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=Gn+BmxhD/JNcuU4fD1WWhF+MIRk2TooarfAtYG79tHg=; b=DukIcoa6v7phdTMf6m5UVnW7+KyYEKz1hd5/etXi3bA7DJLpluAbt6f1C5jOCeFSIjn5wvc0+NRD4n83WHv98TUeHkYEybnxFaA4Ldzz60o+hYaxcFBBgLqKHiUHgALA59/muXLwTKcI6zbqsSj0UIXoP+EMlwbWH1rq4ZM/QEo=
-X-HE-Tag: 1789999722-481411
-X-HE-Meta: U2FsdGVkX19/UFDGGX0R7hJOl0eqhLN4z3Xyqo57qVxjhBGGJ8+irxELNoUvgRrhav0zZUuXGG6f0hqs0Ec7fzx6Gi8T20QLjXTE4R15eMV4KCrkB+iohyXm7j5VxMQkMDRRnfGvGp/Kvy34UHyyCB2LzmPCfltK5x+BV2rAu6eCUaH4u1iepzldFqm3aFvdwkeIUJli7LjN05X9JigVskE8QEKtl0Y7dHRvbldbJVrKNQKCacDAnGNXFgqX+BidWR5uBi1tjIBduCi9B9spQk+I7UD/BEKN8kZMeL65eYXlxOnc7xBSrQTKR59gsDt2GLpKhbYLevRkIbFTiih/WexqbJnkE0iN+/Sk99u2kq1M1hN2FFn7vLLnv6zadATPKFfFReoWhxgIMSCH+sjOsg==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918033920.85025-2-ndaugoing@gmail.com>
 
-On Mon, 21 Sep 2026 15:00:45 +0100
-Mark Rutland <mark.rutland@arm.com> wrote:
+On Fri, Sep 18, 2026 at 11:39:20AM +0800, Yuchao Zhang wrote:
+> When a socket is bound via llcp_sock_bind(), its state transitions to
+> LLCP_BOUND and it is linked into the local->sockets hlist via
+> nfc_llcp_sock_link().
+> 
+> Currently, llcp_sock_connect() only checks if the socket is already
+> connected (LLCP_CONNECTED) or in progress (LLCP_CONNECTING):
+> 
+> 	if (sk->sk_state == LLCP_CONNECTED) {
+> 		ret = -EISCONN;
+> 		goto error;
+> 	}
+> 	if (sk->sk_state == LLCP_CONNECTING) {
+> 		ret = -EINPROGRESS;
+> 		goto error;
+> 	}
+> 
+> Crucially, it does not check for the LLCP_BOUND (or LLCP_LISTEN) state.
+> Previous fixes addressing CVE-2020-25670 / CVE-2020-25673 added the check
+> for LLCP_CONNECTING to prevent duplicate in-flight connection attempts
+> from corrupting the connecting_sockets list. However, they assumed any
+> other non-connected socket was in LLCP_CLOSED, leaving the LLCP_BOUND
+> state window unhandled.
+> 
+> If connect() is invoked on a socket that has already been bound:
+> 1. llcp_sock_connect() silently overwrites llcp_sock->dev and
+>    llcp_sock->local without releasing previous references or freeing the
+>    bound service_name, leading to refcount and memory leaks.
+> 2. The socket remains linked in local->sockets, while llcp_sock_connect()
+>    links it again into local->connecting_sockets via nfc_llcp_sock_link().
+> 3. When connection confirmation (CC) arrives, nfc_llcp_recv_cc() executes:
+> 
+> 	nfc_llcp_sock_unlink(&local->connecting_sockets, sk);
+> 	nfc_llcp_sock_link(&local->sockets, sk);
+> 
+>    Because sk was never unlinked from local->sockets, the head.first of
+>    local->sockets still points to &sk->sk_node. The second
+>    hlist_add_head() sets sk->sk_node.next = sk->sk_node, producing a
+>    self-referential loop. Subsequent traversals of local->sockets
+>    (e.g. nfc_llcp_sock_get(), nfc_llcp_socket_release()) enter an
+>    infinite loop with spinlocks held, resulting in kernel soft-lockups.
+> 4. Furthermore, if connect() specifies a different NFC device index than
+>    bind(), the socket remains linked on device A's socket list while
+>    being assigned to device B, causing cross-device socket confusion.
+> 
+> Fix this by ensuring that llcp_sock_connect() only accepts sockets in the
+> LLCP_CLOSED state, returning -EBADFD otherwise, matching the state check
+> behavior in llcp_sock_bind().
+> 
+> Fixes: d646960f7986 ("NFC: Initial LLCP support")
+> Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
 
-> Steve, I assume you were expecting someone to send the above as a full
-> patch.
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-Yes.
-
--- Steve
