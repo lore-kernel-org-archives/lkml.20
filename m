@@ -1,172 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577AE44D031
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:44:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 700A2136351;
+	Mon, 21 Sep 2026 09:44:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789983853; cv=none; b=TJzBfpzEnU2Eew+5DR9S47cUU5u1xZ328xnnlvMMGG3a2pqeBKhtM3YF1PF9dLpkJydtfzEWF400rLEcB6Ze/igMFIZAChUpUcY+wgYFAQvn0SFi5rlIDBzMj8RcYgV8GuRFy6YEFBDRgKRkS+dRhNfipafCgWvUsi6GodRkmLs=
+	t=1789983864; cv=none; b=aNvkmSw5BBR+lVdRJzWv2IT0sUyES7YGj7A1P1qym7DOs6zgx+8fgf2ZiWRMCVYBjupLgNf3rTq6PtFh3g+sgPXop2YP6MQsyrWSS6tOluVebzrCpeeiRbNy5aP9kHhTwK6ErpnGOOLkxMmWaLFQDFpkVfGR/QmeHdTsIM76BtI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789983853; c=relaxed/simple;
-	bh=e8UbLM76z0pEEVd3kFwvexh1litq+aFnA/e+aZEDGOM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lKa6tL1GLptT+yDRPwwP3ymjDrxAD2AMwG1YtFhY3+52fkF94b7wng1p0Qo0c5V9jp6wr5XezvUofTY3xjJQjZBT53/tvdVG4UTi1tZphpNtkmoaCN14cFjPAsderGWmi5CM+r2fBuW3nL8uVCr1EfHnRsLv4QtXb1J/d6GaRA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l0WzrlNe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789983864; c=relaxed/simple;
+	bh=QGwc+dAkTPXAJc9o4T5hZxy9BZq11nu1Z0f1P5saI/Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Vb+1PhLCIXCogOszJaqt2eTdh7uT9yNkPQYtNy+W5PrRwNwr28j3oA4ySe9bFEoGteCkIltCW+PT+6ZewhkLNNArm5J3frTKHmx/Sq8BYkSX+bLJo+eNBkyai6E2iXrq+chq2AUVaQvSnyxyatgUIbA4yQe5ILpFe7nU24S+tdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qwUc8yek; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l0WzrlNe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDB171F000FF
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:44:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789983851;
-	bh=iT8if2mD/aPImn8Sm68Z/gW49Co1dlEv8RYUDg0WoK4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=l0WzrlNeFwS35n4gD5mWRMLGPAYWMSYHLNUgBqszppDslumljtwnzJCATFfAxhlTv
-	 3vP8gEA4yIAFU4MKa9qwitfabtnstPyXxfTTCTZcxlqaXxwij/lrm+rq4W9nxqB7B1
-	 5QOSXr7J6whdBgyS8PgRyKnVveY41m8wF4eO4f4D+sWe3UbmLEnlEORhFqt1TbAvMQ
-	 b0vsWPUQbVdydRtevpYz45puCriu7BKH6N5iMC5nZt6iC26FE9VSmadsIl6kfTY1Pl
-	 5KTu037fLirhUYa9/ZvahySuWL/y9Bv1j+UgbkQwJcSHS/0ASPeUDTzGeJZHzdYtgf
-	 icnBxmjjxFXKQ==
-Received: by mail-yx2-f39.google.com with SMTP id 956f58d0204a3-66f7a9afe43so2087920d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:44:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwxmpph7YzNtYaHufxFoZo5Y7mXmKpnQYQgB0WCe1A+WZ84/eumsunwnwXo0/BcS4ZCvZ1g+m6/+DNC1LI=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6YX+/Xl79M6xGDCVjJua1okAdvKIOoawQ4gNispYF7u77CAdM
-	Y14uvh+Jl5m5xUanSLeth/qP5jLEzLqt8eP+zpRGAxb3EKnXQ7X2FA/zQ/A7ifRLJleGFNdOGu/
-	LrOW4MAmv1fSPL1eLV8/ft4vH28pog5PaJFChQgPfeA==
-X-Received: by 2002:a05:690e:1206:b0:672:aad4:3ff5 with SMTP id
- 956f58d0204a3-672aad4408amr1095386d50.62.1789983850636; Mon, 21 Sep 2026
- 02:44:10 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qwUc8yek"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2998F153B;
+	Mon, 21 Sep 2026 02:44:18 -0700 (PDT)
+Received: from [10.57.83.12] (unknown [10.57.83.12])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7468D3F86F;
+	Mon, 21 Sep 2026 02:44:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789983861; bh=QGwc+dAkTPXAJc9o4T5hZxy9BZq11nu1Z0f1P5saI/Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qwUc8yekPnle5iyolREB22nxPCxek0508Oh9aZKHTFLruu7FqF8h71LWhAgNuw5e8
+	 QO8MRf3saEnhCc9HduCxILbEzWErOEEfJEa25crNaoG3YkHcqnb9MTAiu+kCe9UwNQ
+	 wWUie9GNe6r5o8kHoxX5FXP83fHJqGFNHbtOiC5c=
+Message-ID: <89d44eaa-2ea8-478a-8a39-af91373485fb@arm.com>
+Date: Mon, 21 Sep 2026 10:44:15 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <aqJXx2vtbKaRLt3x@fedora> <aqLi6cIjD2wJwk0B@cmpxchg.org> <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
- <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F> <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
- <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F>
-In-Reply-To: <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F>
-From: Chris Li <chrisl@kernel.org>
-Date: Sun, 20 Sep 2026 23:43:59 -1000
-X-Gmail-Original-Message-ID: <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
-X-Gm-Features: AcwNN1UvMXXPXLi0GhVBjP_wTYqT1-_o3r1PAGjjggfPSSuKF_y4-p-b05lQBwE
-Message-ID: <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Gregory Price <gourry@gourry.net>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Baoquan He <baoquan.he@linux.dev>, 
-	Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/6] arm64: use HW PTE accessors in early map_range()
+To: Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Alexander Potapenko <glider@google.com>,
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-efi@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org
+References: <20260914-pte0_arm-v1-0-bb53b663e396@arm.com>
+ <20260914-pte0_arm-v1-5-bb53b663e396@arm.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260914-pte0_arm-v1-5-bb53b663e396@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 19, 2026 at 3:53=E2=80=AFPM Gregory Price <gourry@gourry.net> w=
-rote:
->
-> On Sat, Sep 19, 2026 at 09:02:28AM -1000, Chris Li wrote:
-> > On Sat, Sep 19, 2026 at 6:08=E2=80=AFAM Gregory Price <gourry@gourry.ne=
-t> wrote:
-> > >
-> > >                         Memory Post-Compression
-> > >  |[CD][CD][CD][CD][CD][CD][CD][CD]-------- free space ------------|
-> > >    ^----------------------------^
-> > >          Compression Space
-> >
-> > Thanks for the explanation. So the compression space is just the
-> > actual data store backing the zswap/xswap/zram.
->
-> No.  That is not what I said.
->
-> I said
->
->    It's the *amount* of memory consumed by compressed data,
->          including the metadata associated with it.
->
-> I do not know how to be clearer than this. It is an amount of memory.
+On 14/09/2026 14:51, Muhammad Usama Anjum wrote:
+> map_range() uses HW PTE pointers to build early translation tables at
+> each level. Directly testing, decoding, or assigning *tbl treats an
+> HW PTE as a SW PTE value, which requires explicit conversion once
+> hw_pte_t becomes distinct.
+> 
+> Use __ptep_get() to load a SW PTE value for the empty-entry check and
+> child-table address, and __set_pte_nosync() to convert SW PTE values to
+> HW PTEs on stores. The no-sync helper performs WRITE_ONCE() without
+> adding the completion barriers used by __set_pte().
+> 
+> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 
-Sure the amount, that is what I have in mind as well. That is why I
-said swap counter.
->
-> It is not the memory itself or an abstraction to describe how much
-> memory, it is literally the active amount of consumption - a number.
+Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
 
-Yes, compress zswap counter.
->
-> > Maybe we need a separate counter to track actual memory usage,
-> > regardless of compression status.
->
-> the separate counter is... the existing memory and zswap counters.
+> ---
+>  arch/arm64/kernel/pi/map_range.c | 13 ++++++++-----
+>  1 file changed, 8 insertions(+), 5 deletions(-)
+> 
+> diff --git a/arch/arm64/kernel/pi/map_range.c b/arch/arm64/kernel/pi/map_range.c
+> index 94f06da76e333..9c4c8060c5df4 100644
+> --- a/arch/arm64/kernel/pi/map_range.c
+> +++ b/arch/arm64/kernel/pi/map_range.c
+> @@ -51,19 +51,21 @@ void __init map_range(phys_addr_t *pte, u64 start, u64 end, phys_addr_t pa,
+>  
+>  	while (start < end) {
+>  		u64 next = min((start | lmask) + 1, PAGE_ALIGN(end));
+> +		pte_t entry = __ptep_get(tbl);
+>  
+>  		if (level < 2 || (level == 2 && (start | next | pa) & lmask)) {
+>  			/*
+>  			 * This chunk needs a finer grained mapping. Create a
+>  			 * table mapping if necessary and recurse.
+>  			 */
+> -			if (pte_none(*tbl)) {
+> -				*tbl = __pte(__phys_to_pte_val(*pte) |
+> +			if (pte_none(entry)) {
+> +				entry = __pte(__phys_to_pte_val(*pte) |
+>  					     PMD_TYPE_TABLE | PMD_TABLE_UXN);
+> -				*pte += PTRS_PER_PTE * sizeof(pte_t);
+> +				__set_pte_nosync(tbl, entry);
+> +				*pte += PTRS_PER_PTE * sizeof(hw_pte_t);
+>  			}
+>  			map_range(pte, start, next, pa, prot, level + 1,
+> -				  (hw_pte_t *)(__pte_to_phys(*tbl) + va_offset),
+> +				  (hw_pte_t *)(__pte_to_phys(entry) + va_offset),
+>  				  may_use_cont, va_offset);
+>  		} else {
+>  			/*
+> @@ -81,7 +83,8 @@ void __init map_range(phys_addr_t *pte, u64 start, u64 end, phys_addr_t pa,
+>  				protval &= ~PTE_CONT;
+>  
+>  			/* Put down a block or page mapping */
+> -			*tbl = __pte(__phys_to_pte_val(pa) | protval);
+> +			entry = __pte(__phys_to_pte_val(pa) | protval);
+> +			__set_pte_nosync(tbl, entry);
+>  		}
+>  		pa += next - start;
+>  		start = next;
+> 
 
-Exactly. So, did that solve your problem? If not, why not?
-
->
-> > I want to add support for your usage case as well. Please clearly
-> > specify what user usage you want, what the expected outcome
-> > is, and why you want that.
-> >
->
-> I want:
-
-I am sorry, that is not actual user usage. You need to start from an
-actual usage case: I have a workload X, only want to give limit Y for
-the cgroup jobs but with Z SLO requirement. That kind of actual usage
-requirement.
-
-You are basically saying you want a pony. I also want an antimatter
-pony. Let's battle with our ponies.
-
->
->   1) zswap on machines with no swapfile
->
->   2) without being asked "how big?" - there is no number I can give
->      that stays correct, and
-
-Because you can't answer a question, we have to bend over backwards
-for you? That does not make sense. There are a lot of questions I
-can't answer either; that does not make my pony request more legit.
-Apparently, you can't even answer what max(%) of RAM you swap out to
-zswap in your fleet. One way to get that answer is to find out what
-that % number in the fleet across different years, then you can pick
-up the trend and leave a safe margin. FYI, in our case, that number
-has been stable for our deployment over many years.
-
->   3) the bound should be the memory limit that already exists,
->      not a number guessed at boot that hotplug invalidates or
->      guessed at swapon time that different workloads invalidate.
-
-I am sorry, that feels like a rule you invented.
-
-Let's start with the real question: on your fleet what is the max % of
-zswap memory compared to total RAM?
-
-I am not designing the swap system for hypothetical situations. I
-design it for actual usage. Hypothetical solutions suffice for
-hypothetical usage. No patches needed.
-
-As you can tell, I am less interested in the hypothetical solutions
-discussion. It is not the best use of my time.
-
->
-> This requires decoupling swap *file* accounting from zswap accounting.
-
-What are your thoughts on current deployment usage depending on the
-zswap charge to the swap counters? Changing that will be a
-user-visible behavior change and could break other existing
-deployments.
-
-Chris
