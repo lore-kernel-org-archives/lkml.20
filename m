@@ -1,108 +1,68 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F0044BB5AA
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:08:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE65A4A3861;
+	Mon, 21 Sep 2026 14:08:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999724; cv=none; b=uPfz9v+VhH00yURQHqVr/kFsf1dEofMtoopQvg2qcVfl2prfjJGXFawe/B8aQnhTPwerJS3G8ZcW/UVznswYkDi7yfLuG4joJG7y6TYn3cBWA3UPqCIwWBZ9XTZhjvqdj89h6DTWNeIoYoBdewcuUFL2aOxKqDsit+x48voTUtU=
+	t=1789999736; cv=none; b=l0podO2/i7xnCj+iomNa+evufYyLnIf4aHUo00z6fHXcBq+/C7fgjfjuzoT0lBU4YNoaNV4DH9MYzIFGIpA8sfDUKKkXjpKNrtqt9EZr3FGRYZbraMC3798uPGJdABv0TSd0YksbjLbDOBTQXfwNWzDSRtiYqmN8FMpG2gPxfi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999724; c=relaxed/simple;
-	bh=8xT+GzOJLxfUBILySpIuyhu8B0aQwVSLd13zyLaekXE=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=AVLf8ZoOMBfZP/+6KKFgNFXGZGW7/GrOdZt/pKp341WR1fDksgTHlsKEmVRmkQG96xcthqWM4OiGtBOsH9G+agS2lsluHpgLh5lUp7Li2yuTZx7oHi1h+TMg/7GHbi+YwgGcpAAMWZan8BgoY1jpuCa6eZWQElhIL8d+H+lqq+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dkESoyy2; arc=none smtp.client-ip=209.85.214.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789999736; c=relaxed/simple;
+	bh=Gn+BmxhD/JNcuU4fD1WWhF+MIRk2TooarfAtYG79tHg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WmUPDgEEhPIigMNQnokbjuzEvdycJlPr0oID1glayS41lIkZU/unTBcXjcAftWZqCpJx3CamCqcweKy8WeumHU1/axKdHA8acvW4mZXjHmysQACcH92Hd6tR9N4aWQyIkKgJIx6z4WMKQiRssLEcpgsr5n+cTS4SlmnFZtisIhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=DukIcoa6; arc=none smtp.client-ip=216.40.44.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dkESoyy2"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2dd753a52bbso56748905ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:08:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789999723; x=1790604523; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R+qBlq8BnUbUU+3sQzihzuChI//oTMLdvd1/u4oZi5w=;
-        b=dkESoyy2BeGJ+Mz8uftEY3FgIaqLNsMxMRwuBLVnug8S+UUaPZBStbkB9FhuaqC3mj
-         kvuQH016pWhPmOOmD433YeDYizeeeY2Y/1qGn9SN9KoCfCeEsXrXKtl4A2sY9lU2E9/M
-         y75WtscObSdUXIj/eFMVZ7jjfOuGzn+HRz/q2n5N25K++MnilYG9bI61wlmaG/qV1G3N
-         h+U0YalRWOiMs+6k73dK2leWn2v6Hi9YlBC2SjCX9hVB8Z1iLbVJQheDseaMz5Zxaqcd
-         TTZ0tl8xkrCJaydebxOp2zsqcn5egUbYDOil5jxxxmFnixTjpOq4lkOSsUlr0zFXsaio
-         cslg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789999723; x=1790604523;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R+qBlq8BnUbUU+3sQzihzuChI//oTMLdvd1/u4oZi5w=;
-        b=B2xqNgBWnVFx+4Ul/FC6nITAbkh1ZynlPZWxSFFubFnHTil4SFEewQdakWtBFUOYlh
-         8sVA73Nw4y/PM7tHiLLcz0jTe19rT8z/Vs5IbJQH8SNNWcM6Addfn2YCERWz0BlMjy3/
-         p9c7T5QWwOWtr6Y3FRjLaillfvgHO3tVC35i8A8snNm7Mo+At+Er+nV5UO5gFkft6PnT
-         l6ZROqso4QFS89AbudWEu7luSzxqjdcbyU40aDznwcyDh6/dYE5MxHTOQauFeVJ0kaZi
-         AUyNijE72wH0TjYEmhXoqV+pUpD3vjjbzM1HVTZgVKzQg9jOYZRllJyZHxWdnL7T7djR
-         bN9A==
-X-Forwarded-Encrypted: i=1; AKwUvBwOpU4EzbFxS4G0Jj5T4SHHpEI8d+xXlXTIhb3s9xib4zzMaJZjKyX/H0axuQVobkyobgJwgjWP/1uEnz8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTyZGCrB6MKZdHUkJ5mSi+2O2EVHdgXzsmEr1Nedh7J1Y2cq8Q
-	xsXQdEe6ElgpRyKVWnTdK9DCiWknwnhLse6p7s6o6OzbIWPCgxBK1zFgyTqkGhwvGsXEPwhlcLe
-	b9TW45Q==
-X-Received: from plsm1.prod.google.com ([2002:a17:902:bb81:b0:2dd:c160:878b])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:3c05:b0:2dd:4070:8eb
- with SMTP id d9443c01a7336-2ddb1b97f0amr166391375ad.20.1789999722721; Mon, 21
- Sep 2026 07:08:42 -0700 (PDT)
-Date: Mon, 21 Sep 2026 07:05:56 -0700
-In-Reply-To: <20260904010353.3175819-1-seanjc@google.com>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="DukIcoa6"
+Received: from omf03.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay03.hostedemail.com (Postfix) with ESMTP id B11CCA01AC;
+	Mon, 21 Sep 2026 14:08:45 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf03.hostedemail.com (Postfix) with ESMTPA id 911BC60012;
+	Mon, 21 Sep 2026 14:08:42 +0000 (UTC)
+Date: Mon, 21 Sep 2026 10:08:40 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Mark Rutland <mark.rutland@arm.com>
+Cc: Vladimir Murzin <vladimir.murzin@arm.com>, paulmck@kernel.org, Chunfeng
+ Yun <chunfeng.yun@mediatek.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [BUG/PATCH] drivers/usb/mtu3: Work around mtu3_log_ep
+ double-indirection issue
+Message-ID: <20260921100840.06ed9a5c@fedora>
+In-Reply-To: <arE4jcn4dCD9gos_@J2N7QTR9R3.cambridge.arm.com>
+References: <a3ee0655-d818-48e0-84d1-475e6c16c991@paulmck-laptop>
+	<d7bb2cf4-11c3-468c-8749-99cc408299c7@arm.com>
+	<b6c621eb-6d20-4e00-ac05-af122b630ca5@paulmck-laptop>
+	<aae79c1c-8738-4b97-b1b9-d82d19d82d49@arm.com>
+	<20260909093524.249c2a1a@gandalf.local.home>
+	<arE4jcn4dCD9gos_@J2N7QTR9R3.cambridge.arm.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260904010353.3175819-1-seanjc@google.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <178999918502.750661.11881169009752034088.b4-ty@google.com>
-Subject: Re: [PATCH v3 0/8] KVM: VMX: Harden against interpreting TDX vCPU as vcpu_vmx
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Xiaoyao Li <xiaoyao.li@intel.com>, Kai Huang <kai.huang@intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>, 
-	Yan Zhao <yan.y.zhao@intel.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: 911BC60012
+X-Stat-Signature: 114cow448kn3jskn8mcbahpqgk5q1zjp
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+6iX7aw+AEdsz8I3D5gPEpnh6FMY2CMew=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=Gn+BmxhD/JNcuU4fD1WWhF+MIRk2TooarfAtYG79tHg=; b=DukIcoa6v7phdTMf6m5UVnW7+KyYEKz1hd5/etXi3bA7DJLpluAbt6f1C5jOCeFSIjn5wvc0+NRD4n83WHv98TUeHkYEybnxFaA4Ldzz60o+hYaxcFBBgLqKHiUHgALA59/muXLwTKcI6zbqsSj0UIXoP+EMlwbWH1rq4ZM/QEo=
+X-HE-Tag: 1789999722-481411
+X-HE-Meta: U2FsdGVkX19/UFDGGX0R7hJOl0eqhLN4z3Xyqo57qVxjhBGGJ8+irxELNoUvgRrhav0zZUuXGG6f0hqs0Ec7fzx6Gi8T20QLjXTE4R15eMV4KCrkB+iohyXm7j5VxMQkMDRRnfGvGp/Kvy34UHyyCB2LzmPCfltK5x+BV2rAu6eCUaH4u1iepzldFqm3aFvdwkeIUJli7LjN05X9JigVskE8QEKtl0Y7dHRvbldbJVrKNQKCacDAnGNXFgqX+BidWR5uBi1tjIBduCi9B9spQk+I7UD/BEKN8kZMeL65eYXlxOnc7xBSrQTKR59gsDt2GLpKhbYLevRkIbFTiih/WexqbJnkE0iN+/Sk99u2kq1M1hN2FFn7vLLnv6zadATPKFfFReoWhxgIMSCH+sjOsg==
 
-On Thu, 03 Sep 2026 18:03:45 -0700, Sean Christopherson wrote:
-> Move and rename "all" (read: everything I could find) common helpers out of
-> vmx.c and/or replace their vmx_ prefix with vt_, and then poison to_vmx() for
-> all common .c files to harden KVM against misinterpreting a TDX vCPU as a VMX
-> vCPU, i.e. consuming to_vmx() on a TDX vCPU.  Spotted when working through
-> the bus lock series.
-> 
-> v3:
->  - Collect tags. [Kai, Xiaoyao, Binbin]
->  - Move the poisoning to patch 1. [Xiaoyao]
->  - s/Disallowing/Disallow. [Binbin, Kai]
->  - s/vmx_needs_pi_wakeup/vt_needs_pi_wakeup. [Xiaoyao]
-> 
-> [...]
+On Mon, 21 Sep 2026 15:00:45 +0100
+Mark Rutland <mark.rutland@arm.com> wrote:
 
-Applied to kvm-x86 vmx, thanks!
+> Steve, I assume you were expecting someone to send the above as a full
+> patch.
 
-[1/8] KVM: VMX: Disallow using to_vmx() in common VT code
-      https://github.com/kvm-x86/linux/commit/05a0c1e2a525
-[2/8] KVM: VMX: Move the shared "IRQs off" exit handler(s) to common code
-      https://github.com/kvm-x86/linux/commit/903420c26086
-[3/8] KVM: VMX: Move the shared NMI handler/trampoline to common code
-      https://github.com/kvm-x86/linux/commit/81fbafddf6e5
-[4/8] KVM: VMX: Rename posted interrupt prefixes from "vmx" to "vt"
-      https://github.com/kvm-x86/linux/commit/09c6f74ecb86
-[5/8] KVM: VMX: Rename EPT violation handler prefix from "vmx" to "vt"
-      https://github.com/kvm-x86/linux/commit/96a113536fa0
-[6/8] KVM: VMX: Use dummy pseudo-overlay struct for to_vt() and vt_to_vcpu()
-      https://github.com/kvm-x86/linux/commit/881455777a02
-[7/8] KVM: VMX: Move common VT getters/converters to common.h
-      https://github.com/kvm-x86/linux/commit/d238df58b1e1
-[8/8] KVM: VMX: Rename common exit info getters prefixes from "vmx" to "vt"
-      https://github.com/kvm-x86/linux/commit/decbd448b05e
+Yes.
 
---
-https://github.com/kvm-x86/linux/tree/next
+-- Steve
