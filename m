@@ -1,106 +1,183 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8097B4FDA5A
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:51:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485BA4FDA7E
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:52:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790016689; cv=none; b=My7+ObVGaTtoRGoeNh9Nhy1FgaChcJZZigaCfIUyE3zx+otpN8zzRWz/V1uA9ACV+81wFfNn19m96RF5L6QJxMLQiZ27KbJyz6EXBq0i2rpjp7CBXtcpkgQ4ZMGS+cUS2p9dDVeY0InsXtbczvLHHl3Hr1qPx/Y9DQd9CahivzE=
+	t=1790016778; cv=none; b=Wlk1X7JUqT4vBEHklBwB+s5mF2tEVZf3pUDX0NatlxXMK39aRCRmkwnrP9hZJ4zZYsDjES/XMSG9vED566eI/uOY8XNhCUsBYXTeknntr1PKiTb2CnVg52KsG3fNyI3h5rIuUO38ZMYsHSKhH5V3EaaZU62Eju6TszNCokFd8e0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790016689; c=relaxed/simple;
-	bh=gIA613t/TlSvmEDck9oaSUALamHs4wc+Ga8slxlZoho=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NkR5ORl2rPXgH7RKnorEfC1bw2i70jj/ajEPKpxpEdMuX8izgdo2wjQ1fe2FfB8ZqBj+Esv8gsssAEVLAwnbwh3pqh1+GJJc8km8oNmalbZTJ32yvupLUTzvAswNu5A5VvrZL7DZLdD03PEMBAVb7q1FFay+jADg/OLpcm4rY+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PpYCt6aY; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790016778; c=relaxed/simple;
+	bh=vQ0nZdsZsVFHtvmiQLlrZD6T+6Pbos1zWUSSaUXa1SE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YVGw83qK01owj9gVfr08TCgOIsuJg83Bv5ro4/N+n/h4CDtfbm4muyRdH8OcmHFvkGvm8cwN53vzYh562jgHxFiSAuRXOhLydM2Hnr6aNkgd63TtWq+b+i/TVQxXmO5pMQdAwdmOraXmSdLRMs/KoCyyo05QC4Lda/FRiKS8WCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jnq63Tuv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PpYCt6aY"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e4ad9so19531355e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:51:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790016687; x=1790621487; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tE3Tr4gm4tvb6Rbj5+pcpfeQlxZsP6Od7O86P+CMJdo=;
-        b=PpYCt6aYElzcQJdSAzt81g13Pf5lN/R733eux3GMQXjzeLnpPoudANzPMvzxrprI9H
-         az3g72xCAlOC1KoQ0pwiiBUsoE0XDs9L6DQDXP6iKDE9RUgsFyYLQfF2vRyBNseNrhzy
-         2s9wqFFQO0Vz7aaeygqdoYvb/CFQ9I3Qt81sj6ZLaqjOCKQ5wfpuVdP2247kPbxRERaS
-         6ZVd5ErDq6dKYE9NpGK22C3I5iipjQOKjwBJZgC8lW77+kzfM1X6U3z5sww3W6AM4kpz
-         U/DlJ9yp8ClFfM8BdfmiOA3Z7WmJkwsDzhH3lpfGagDV0cmHielSsq8iGKOXEJgvLbpJ
-         gQQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790016687; x=1790621487;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tE3Tr4gm4tvb6Rbj5+pcpfeQlxZsP6Od7O86P+CMJdo=;
-        b=sxZb7TvEXhHPNpdFAseFJEGP967UQXzany9bOxo+UlR/4ckW9log5yGjWvGGIriinh
-         O+UMeSgWkxYBqGMQtZneqriwWKZbEQNgWMfWLq2AxEng/fPA7kyotN7GPuAMImOeHnbA
-         XuuaoxpnBbpUWWyzb5g2gseJjzhwXfGXlAcLfEaA1b25r1/PKXAoyAgpIa3F6MLMuNjy
-         YsI6k8sn2E0eY+M31bQPCDB6PhhfnINum6uobSVl8u3JcROIKg8vtaeQqgTYUoV1bPLe
-         Tb849DYiTmCu+g9XOleJh8fMKTOXMWAzhv4xmL7H9rndTXpNKlXs505JgbwtkS7KA8u4
-         qT7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzUhnvha3wRPtz86H5S1JIvfXyIw4Fkxg8x7BXHLFUtQLRvNgkwXcoiA1g/pLjduImm+jv+2wMmKFNiK8I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGq5mJs1gjnTgLdTJcKFwVvt2HcZ0rhQn7bybj/9sAzs4flUVc
-	TXOPMjqX/WmzumVvsmQgUU38kmk8Rh5nedhU6+fT12pAqldkChI/P3Fb
-X-Gm-Gg: AYBFou2Dz6ruvg+hcqbmOSwYEl6Qj3bP9xXQDFXNzYQKTOibl/KJ6/MkoSqG3nefXn1
-	A9WqowHq2RoOdfmEs+oB+hwmslRGr4ZYs8iDldb/KxAHgGqj5tbRCI3XUqdyhAyS17xzBN9JWU1
-	M6HgsTDm4RS4jsBDYUegq6i1376EjJbRQerXurqoNMn3VbG8dNWpx0iquB8XJ91iBFTSDE/paVX
-	5aQuGxGgSjTj66mWnhFfvvaZKaU1Y1dbQydAEEDn/t80Z4mzW49os5KyiXMhRz9IGw1Wr2Z3p+j
-	1FXXqhBh7WBTmIhY3r6p1FVr8TE2DgBKiUhprlM51QnAk+W8gaOvqDeWaCPxEffg2Jya6skuEnp
-	H/QqTiVAyggqlsu9DqAqrZC5w4K+l+N5TWmUn0sD1eje93qJHbzKFoh4sjigQOhGyMja/ObOgjd
-	OQ1nJrZYUxmQfZ2glrtnez4fhHYv1pegDAaQm8Rgox3wkBkI4JrIkTMKa5R1at1OVydgw4s7bGL
-	p416VOfaiqrlmChIvvgUX7hWcLGPgpS1r3P/tNC59qqMThAdoinjdsNMBVmo1IgkLjzrP5sGcfL
-	uO3QuamVsTIDAau42YMAs2FiNdL/eorzo6CkgL8oNT/BR1zbhEkSyVDHvUouHoC7SZbCY1RP/2l
-	Jf91v9PGNAHpa6qeWCzlaWYs=
-X-Received: by 2002:a05:600c:310d:b0:49d:15b9:2a2a with SMTP id 5b1f17b1804b1-49fc5721b9dmr177099205e9.10.1790016686303;
-        Mon, 21 Sep 2026 11:51:26 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a8e9-c501-45ee-6f60-3fc5-4072.310.pool.telefonica.de. [2a02:3100:a8e9:c501:45ee:6f60:3fc5:4072])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd8b9fc5asm11550875e9.5.2026.09.21.11.51.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 11:51:25 -0700 (PDT)
-Date: Mon, 21 Sep 2026 20:51:24 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Lian Wang <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>, damon@lists.linux.dev, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] mm/damon/core: score an unmeasured PSI goal as not
- achieved for the temporal tuner
-Message-ID: <arF7t_kmisrx0_WF@gmail.com>
-References: <aq4g5W58PgWLqJ8p@gmail.com>
- <20260919155342.85699-1-sj@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jnq63Tuv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D1981F000FF;
+	Mon, 21 Sep 2026 18:52:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790016776;
+	bh=OfpxOT295Cqy5dFG4ckdzBDycmvuVGEuSlnWiQ/SQeg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Jnq63TuvJEI9WpDbfOjntptRn/RdFpP+Zjx3XXhcutv4efWciRNs/gDn9y2frz8nf
+	 /YIQN8T3B1Mk8g5fnsB6WYtYjPQs3Cn7fIqkVN0yVN51i84XW8wK3ZrnKR/FHhdf01
+	 /OyI8bEh8LoSfsTFORhVaPNaU9KLKaLbi+NL67LPNJLTeSIHvunJ9k/3fN4gHapstO
+	 0G/YCEHOc4LhJUkU08axdyME58tgh7J2/CY7z93TD9E6MtaRPoFwNF1ErPedXl0Pkb
+	 RYXHnOiPnFnMDbbZmuvQx7jIIzPYK0JUvPN53RLXpxIrjPwpFv/y8GD7uZQ5E49VGo
+	 zJuKbwJH/+kdA==
+Message-ID: <bc3703c3-5798-40a8-88ae-98e1a9ea4bf0@kernel.org>
+Date: Mon, 21 Sep 2026 20:52:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260919155342.85699-1-sj@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] mm/khugepaged: Never install PMDs in
+ uffd-minor-registered VMAs
+To: James Houghton <jthoughton@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, liam@infradead.org,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Yang Shi <shy828301@gmail.com>, zokeefe@google.com, hughd@google.com,
+ Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20260910023411.514987-1-jthoughton@google.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260910023411.514987-1-jthoughton@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 19, 2026 at 08:53:41AM +0100, SJ Park wrote:
-> And the apply interval (or, next_apply_sis) is extended for each commit, in
-> damon_set_attrs().  Hence, the problem can still happen.
+On 9/10/26 04:34, James Houghton wrote:
+> Userfaultfd minor faults provides userspace with the ability to manually
+> install PTEs with UFFDIO_CONTINUE. Right now, MADV_COLLAPSE can map
+> holes in the VMA when a naturally-aligned THP is present. This is not
+> true for khugepaged collapse: the PTEs will be retracted, but a PMD will
+> not be installed.
+
+You might want to add a breadcrumb here that collapse_file() never returns
+SCAN_PTE_MAPPED_HUGEPAGE for khugepaged.
+
+The whole thing makes me wonder why that khugepaged check is buried so deep down
+in that function. Makes me wonder whether that check can actually get pulled
+further out (maybe Kiryl's patches do that).
+
+try_collapse_pte_mapped_thp(mm, addr, !cc->is_khugepaged);
+
+is rather confusing when we never end up there with khugepaged ...
+
 > 
-
-Thank you for explaining the apply interval. So the PSI measurement
-period can exceed the quota reset interval.
-
-> > full commit zeroes esz, esz_bp and the charge state of the running
-> > schemes. Please correct me if I read this wrong. I can send a
-> > separate patch for that.
+> When MADV_COLLAPSE installs a PMD that mapped holes in the VMA,
+> userspace is likely to expect UFFDIO_CONTINUE to succeed on the
+> should-be holes. UFFDIO_CONTINUE will fail and return EEXIST.
 > 
-> I don't really understand the problem.  Could you please further elaborate?
+> This is not inherently a problem, as MADV_COLLAPSE is an explicit
+> userspace action. But, especially because MADV_COLLAPSE can be invoked
+> by an external process via process_madvise(), a rogue caller could break
+> a userfaultfd-minor resolver thread. If khugepaged is later updated to
+> install PMDs for khugepaged collapsing, that would be a genuine problem.
 > 
+> Userspace cannot generally use MADV_COLLAPSE to resolve userfault minor
+> faults, as MADV_COLLAPSE will only resolve such faults if a
+> naturally-aligned THP is present.
+> 
+> The naturally-aligned THP case is the only case where this quirk exists.
+> Collapsing otherwise requires all PTEs to be present for
+> userfaultfd-registered VMAs (i.e., max none PTEs is 0), which is
+> correct. This check is essentially bypassed for naturally-aligned THPs.
+> 
+> Suggested-by: Lance Yang <lance.yang@linux.dev>
+> Tested-by: Lance Yang <lance.yang@linux.dev>
+> Signed-off-by: James Houghton <jthoughton@google.com>
+> ---
+> v2: https://lore.kernel.org/linux-mm/20260828222640.1638457-1-jthoughton@google.com/
+> Changes since v2:
+>  - Drop cc:stable and update the changelog for the main patch.
+>    khugepaged doesn't actually install PMDs, so it is impossible for the
+>    kernel to silently install mappings that userspace didn't ask for.
+>    Therefore this patch does not need to be backported.
+>  - Update the uffd-unit-tests selftest to account for the new behavior
+>    (new patch). This patched selftest is equivalent to the reproducer I
+>    provided in v1.
+> 
+> v1: https://lore.kernel.org/linux-mm/20260828005004.2870750-1-jthoughton@google.com/
+> ---
+>  mm/khugepaged.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> index 75639298efc2..e6947fe142ee 100644
+> --- a/mm/khugepaged.c
+> +++ b/mm/khugepaged.c
+> @@ -1894,6 +1894,13 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
+>  	if (userfaultfd_protected(vma))
+>  		return SCAN_PTE_UFFD;
+>  
+> +	/*
+> +	 * Userfaultfd-minor-registered VMAs should not be collapsed, as
+> +	 * userspace is expecting to explicitly install PTEs.
+> +	 */
+> +	if (userfaultfd_minor(vma))
+> +		return SCAN_PTE_UFFD;
 
-I posted this as a separate patch series with KUnit tests:
+Can we just combine the two uffd checks to have less uffd noise? :)
 
-https://lore.kernel.org/r/20260921003047.12041-1-kmehltretter@gmail.com/
+"Don't collapse if we might have UFFD markers or if userspace fills the page
+tables through uffd minor faults".
 
-Thanks,
-Karl
+Overall LGTM
+
+-- 
+Cheers,
+
+David
