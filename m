@@ -1,108 +1,136 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57FE6286D5E
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:57:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D799B2110E
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:03:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789952268; cv=none; b=YOOky7TNdeTCbvRQ1vRgTqVxSyFfAihJC7WUk+dtpJjBsScxw7cCQMAvMHW7nCivqfPBiI1llifejG9nYwHYcVoBSCmciKBGAJvB3sKJWJxKyzEPChitKBiFpKZ5jRPhBy+XaJY7iivuwrjyCOa29R46foUX+Fav0ORRv/oliW0=
+	t=1789952616; cv=none; b=pdtLjdRmxabHn67OHc9ym/HtzbBlm3Bw3vmPhqHWyk09dU0zsU7EwjyTzkHRcPcOnfgEwdRfPXHg0/hlhOJZE0WS6VIiDk1K7oyvZlU4mBygLnrBjXjK2TJAzvymRK5pLD5eFc4yZhjM62omREV0aXdvZLhe3Kj1BW0Gf+4TBSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789952268; c=relaxed/simple;
-	bh=C60AjUAEpXim1Lx1Qg54EvmPDrGaeVF56MRd17p2Mhg=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:MIME-Version; b=DM1J6ETk1BzZEbLQVM1DdguM2oN7LrrCIb+za2NssajlKXjB4H7ymLTZh4JfZpq8QWMF0k25x/NGBATLUp7wMVuDOaYLtOM71p8c9WAc/89P60seXOFFQergGoxJ5GziWysXbpnYHS3ac2Q96GXZGPVo31OOFJuV/e01Xxbuha8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tGx/2mpm; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tGx/2mpm"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396cccbba91so1626746a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:57:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789952267; x=1790557067; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=roGaqM7NVQofKofPOYKwFYhGCB8RP3HE83QmkgW8dwo=;
-        b=tGx/2mpm6DLNIb89ROHoLk1IHMN817JS9Cmppow7JhJ/TXF8uCICn8fCp/iFYhPvAW
-         p8u4Vv9Qm7dLb2+6SxkEf6pxZeHRpjv96iKkyUh/pRlLbeEmJGEeRnXza4/l14JuYeoa
-         y8WomtMS/vUj37OVPaaU+0otbvNd1kyxOY1NPgPoz5/mFrfohNGAV4u0Wo7TctVfmi0P
-         0T/dhuNCdc9vb9UKD2e6TOypaP9J2OkFqpk22eRdGZZbSkVFYK1pc06LTY+M2+DHAkad
-         CAk4vOHDPldzE8xJoNkb93VozLsTgvB6L9DbEGpz5yDp2oFdNPdIoE57dgndKJk7r8pm
-         0J0A==
+	s=arc-20240116; t=1789952616; c=relaxed/simple;
+	bh=PgeuqQTq9W1vWB7P0kp7Q+m+/JUt7Stg6tA7IteQVL4=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=TKz9b+UrLKzq7EBM0ZPaOlXPDNl5El4YpOlnyTVo2A0SzRtZ4GJ7Gzp5SvXvQ1yjj6SMbMNpc5n6ntqbimg7NeUHRtewfyNFa2uDCKsdlqqo7eAULOBh5aqpLHbdyiplR+v9ZDX7AvJTCe9IVLE8yhq/SMZ9VyzO61djhsUoWkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f7.google.com with SMTP id 006d021491bc7-6b1bebb3ae8so1236575eaf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 18:03:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789952267; x=1790557067;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
+        d=1e100.net; s=20260707; t=1789952613; x=1790557413;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=roGaqM7NVQofKofPOYKwFYhGCB8RP3HE83QmkgW8dwo=;
-        b=ECpp34bu5qipRrhtxbGaSfhb1d/uPwLP0gkEg+RxFQl3E5EYASgo9h/kE46yO5X4zB
-         xZr6F5dfdSJfsQtC3r7d5SPk0Pw6yQzRWpIJGZ3Lklw9ZlD58MMzWDiPWvboE9Kbn5fV
-         ZMffOv9K0WNj2Qx4wQRxz5Ff9TyscACKbpXjTgJLdW+wadCEQW8/Az/vsHYQwYGbUS36
-         rX38tcoL9vuR53TMluQH7/fmgi+k7PAgdoiQw8Owsmy+eIiNlJ+/t9NwBfcobkQUaDZT
-         QPyR9HGxOmeD1EtCC76Youht5+ElZ+Scgx/8z/LFX5P/gjU4LVMvpX9HadSpWu7vc44E
-         3ECw==
-X-Forwarded-Encrypted: i=1; AKwUvBx0EQsYmbtJO7+M1yPgZKKnBJx5G0g4JP9qCEV2NH/uP29cu9kBC1hYMW5rl+YUXNpn0tCSGCjVbBiqIms=@vger.kernel.org
-X-Gm-Message-State: AFuF++mnV0e652+t/6kvZkYAJIGdceHidG4w2j0PTsVpDwj+alinc3Ci
-	GQb54dOT2p/Cl2d9pDO0+bhF5LavzTE4ZNMvPC9an0flGmlJXiJx5dxI
-X-Gm-Gg: AYBFou2bFjWIDYfC/YaRG/HKG8Lcvw0jf2KWxst6qy2PUYLBjPXcoQfjR9rrHwMpOmC
-	uuUpvuru2stxeAbLBNGJiijGe2noI/VYI5RQvsExHJNRAnon/wEHHDDShe4fI4ydw/NAsCq7VMp
-	0PSGE0E9ems7ccAoGIVJ0scMvISQ/jb4ltf+0VY+ebNYpTGUY8ExNIHdFo4kIBLSZfkvKbAkTS1
-	gsw7OWGO6ALXt/yIvNrOvBOB0I9KydxnnwZnMSIrUjcSzjFFDarK4KUW/fRGcooZ65gCOTY6/SQ
-	tANggf4lt8Z3Z8CsUQDk1K5SF4wiJepXToJpV/IXdLoju21qa3IxKezycIwSDgVQQ0Pf0Rhx0+W
-	yiAxpj6vQaNz4spHWev+Iq6vEPfJNgMGVpXU6qzn2C4Cvuf7Pfh3GKkKwu+9L50rNVsqp6uL7nS
-	3NXShdAA1iCi+ukr85dsRGM8w1ddadj5goY1vqgerCja2DjRvtnzoOS9KNgs1WWK9KRO4W/bTOT
-	cHPabVxboOAahRMsHy+PVaT+aLUeEdGYidixiZafvMw6E8UexNvlpeviGQ5DDDXgxLl7FBfKUo9
-	8Zg=
-X-Received: by 2002:a17:90b:56c5:b0:39e:4c81:6c66 with SMTP id 98e67ed59e1d1-39e54dc1a3emr14850525a91.33.1789952266591;
-        Sun, 20 Sep 2026 17:57:46 -0700 (PDT)
-Received: from localhost ([153.61.198.252])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c4ba12csm11280817a91.11.2026.09.20.17.57.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 20 Sep 2026 17:57:46 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 21 Sep 2026 00:57:45 +0000
-Message-Id: <DLKL4EZY63IU.V6E077SCBT1S@gmail.com>
-Cc: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH bpf-next v5 2/2] bpf: htab: Reduce elem_size by 8 bytes
- for small key sizes
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "T.J. Mercier" <tjmercier@google.com>, <daniel@iogearbox.net>,
- <andrii@kernel.org>, <eddyz87@gmail.com>, <memxor@gmail.com>,
- <martin.lau@linux.dev>, <song@kernel.org>, <yonghong.song@linux.dev>,
- <jolsa@kernel.org>, <emil@etsalapatis.com>, <ihor.solodrai@linux.dev>,
- <mykyta.yatsenko5@gmail.com>
-In-Reply-To: <20260921002206.184660-3-tjmercier@google.com>
-References: <20260921002206.184660-1-tjmercier@google.com> <20260921002206.184660-3-tjmercier@google.com>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+        bh=h/JWRPDnmTzkO48RL49AOEHMRmvJYjnSTPOTUHlxfVU=;
+        b=qnoTleX7D1AW0GHh4SCCKaBSz4JOVtXIhcCvGrYLT0M2xrBAbpnswA0UOoN3kGx6//
+         DUKYSYTparumUVyrBAyco7pkBNJsqbdlgJpVm9e7uCmLkJDsHvolrSCVx4TOwjUTTC3e
+         mzFA9kCBvyOzCrp/Jya6VSEGn2WkU/liWDHMkSzCywyvTer1LWtyT4Vnmslz/96Tg5sn
+         UW6rW12IovARB1c0Upu3tFnb7e6FtA7wlM17S2kZfOUBjx061RaPppEKLihQVbKQ6L2R
+         /jDKYDEdtqq3uMNJGmmYPNeRLan4H5Doke91k3Zy6oPW0sEKA0J+ydb6N1NwSRR+MwwY
+         dbMw==
+X-Forwarded-Encrypted: i=1; AKwUvBzNfsGyj07ChG5BxE55+juX8yf9+V9NF7aStW++1GgJpGZOvBYwA2iOb9Lg4LwTEtzhIOyfVBsRYzZ9Ue0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5TmNpCNKpZzfvb3LDyqdC4a42Rcvib6DWVY9PWhKTMZcuFmPU
+	Kk/chVgteKc9CqbCTTvI409dYQZ4VqG3R+80pYK4unSzTZKnP3uAlSPVX+pIO+YkyNj4ygfTBRB
+	r9wqEKAICJKL6jW83paJmvjck2koPt3Q/RD4lubjwIihrZpA9s+zT+j/55t0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Received: by 2002:a05:6820:f036:b0:6b1:2f12:6c0c with SMTP id
+ 006d021491bc7-6ca9bf4f83amr8557844eaf.34.1789952613686; Sun, 20 Sep 2026
+ 18:03:33 -0700 (PDT)
+Date: Sun, 20 Sep 2026 18:03:33 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab08265.71f81b7d.15fa6d.001d.GAE@google.com>
+Subject: [syzbot] [mm?] KCSAN: data-race in copy_mm / lru_gen_del_mm (3)
+From: syzbot <syzbot+c6e1b1b32ff2fc3b7d60@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, axelrasmussen@google.com, baohua@kernel.org, 
+	david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, 
+	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
+	syzkaller-bugs@googlegroups.com, weixugc@google.com, yuanchu@google.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Sep 20, 2026 at 05:22 PM T.J. Mercier <tjmercier@google.com> wrote:
-> +	l = __lookup_elem_raw(htab, head, hash, key, key_size, &n);
-> +	if (l) {
-> +		/*
-> +		 * Pairs with smp_wmb() in alloc_htab_elem() to ensure
-> +		 * value/pptr reads happen after key/hash match on
-> +		 * recycled elements.
-> +		 */
-> +		smp_rmb();
-> +		return l;
-> +	}
+Hello,
 
-Is this AI suggestion to add barriers?
-I think it should be on the program side.
-If users really care then they will add such barriers.
-Doing it unconditionally will cost performance for everyone.
-Especially on arm64.
+syzbot found the following issue on:
 
-If you disagree, please provide ./bench bpf-hashmap-lookup numbers on arm64
-to demonstrate that perf is the same.
+HEAD commit:    17e7b8eacf4c Merge tag 'cifs-fixes-7.3-rc4' of https://git..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=11d6c525580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8372e2cd52628d4f
+dashboard link: https://syzkaller.appspot.com/bug?extid=c6e1b1b32ff2fc3b7d60
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-pw-bot: cr
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/60ea54622289/disk-17e7b8ea.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/675e38c8bebf/vmlinux-17e7b8ea.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/1006b8efd827/bzImage-17e7b8ea.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+c6e1b1b32ff2fc3b7d60@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KCSAN: data-race in copy_mm / lru_gen_del_mm
+
+write to 0xffff8881077eb088 of 8 bytes by task 7336 on cpu 0:
+ __list_del include/linux/list.h:241 [inline]
+ __list_del_entry include/linux/list.h:264 [inline]
+ list_del_init include/linux/list.h:333 [inline]
+ lru_gen_del_mm+0x299/0x3e0 mm/vmscan.c:2998
+ __mmput+0x17a/0x1c0 kernel/fork.c:1203
+ mmput+0x40/0x50 kernel/fork.c:1216
+ exit_mm+0x113/0x1a0 kernel/exit.c:617
+ do_exit+0x438/0x1510 kernel/exit.c:999
+ do_group_exit+0x138/0x140 kernel/exit.c:1154
+ __do_sys_exit_group kernel/exit.c:1165 [inline]
+ __se_sys_exit_group kernel/exit.c:1163 [inline]
+ __x64_sys_exit_group+0x1f/0x20 kernel/exit.c:1163
+ x64_sys_call+0x254f/0x2550 arch/x86/include/generated/asm/syscalls_64.h:232
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x112/0x360 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+read to 0xffff8881077eaa00 of 1728 bytes by task 7337 on cpu 1:
+ dup_mm kernel/fork.c:1537 [inline]
+ copy_mm+0xd6/0x340 kernel/fork.c:1595
+ copy_process+0x10ad/0x2340 kernel/fork.c:2310
+ kernel_clone+0x1c0/0x5f0 kernel/fork.c:2769
+ __do_sys_clone kernel/fork.c:2911 [inline]
+ __se_sys_clone kernel/fork.c:2895 [inline]
+ __x64_sys_clone+0x143/0x180 kernel/fork.c:2895
+ x64_sys_call+0x2479/0x2550 arch/x86/include/generated/asm/syscalls_64.h:57
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x112/0x360 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Reported by Kernel Concurrency Sanitizer on:
+CPU: 1 UID: 0 PID: 7337 Comm: dhcpcd-run-hook Not tainted syzkaller #0 PREEMPT(lazy) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+==================================================================
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
