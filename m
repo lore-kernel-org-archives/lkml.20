@@ -1,122 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3A73F927B
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:52:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415EC3B9DA6
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:53:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789977164; cv=none; b=UKVxa7RxaJkjW2TKfkaxFf7oqan3ypvo382GUzdncWnzguPBfJ90/AUX0mkTCoudT5jqRfJimhQnKLhJxcUxOdI3upZ7OeLXRzcS4JOuRwjVfVZlcCm/RN0h8tkdzRb1BmwlH1DMWG6+5bSP97Wb1BUGfl1R+oesnHpz620J8Mg=
+	t=1789977205; cv=none; b=PibMclC3oN93ZPELgOs/E1ay436EMmADxtA+OPoXwscYGNsTBuQ2nrKbkt4DQ3WdwEG2eIUXSCcKrhClQQpTSZJ0OKqAiC/n2vDG8DN1Gk2/SRDmizKYuXm9GTCZkrPPO77rkwmP9meqpO0jewy57f4AosOk3L1LYBcYs64Nagw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789977164; c=relaxed/simple;
-	bh=6eMSWF5rKkymzEikNODWvKreapXDjdVr1PgxWIjFRw0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ZubxRfgOEMhINuid6RrcjUZAL3Q5AZDKcK4zwx0JWk/Q9YfHNO4RMY6GPGoZ7GWDHvtWSdwiRZvomfuAv56gcGauFTF/ERC1QIW9l+6YaWnw2C3qcZZrZrECzp9j82V2JseEW7D7vkPhTPZ0ZHBiCxotj3/PzfchLcBjK85xxVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e61YYWJ6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789977205; c=relaxed/simple;
+	bh=9jVvDTNMlifeWHalrehEJ9MSMBp7ROdLwpLKuSgTo60=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QiVXul73U4Z/nYBs82lDJOv72dI0D7rvMdn32jCpnnWgwLPBGTNgsfAs+wepQ4+x9zfb47ydyxlzp55NXYhF61OKpdCe6wa7GDYRbriwtDaulhzySkkXmkLMMmzb2KTnKCacm0Kz910cydoN7DR85ooCAaDDXBVXhWrztbjOchw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=adPkZDyu; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e61YYWJ6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D82761F000FF;
-	Mon, 21 Sep 2026 07:52:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789977162;
-	bh=U7DD0xHw7espI4/AnC7KJkdaffmkOcl1dyECwif58s4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=e61YYWJ6AYV/TOnS7KPTiAWp9tyjgmCpVboJIUrpMeeDehRlGlDx7RkTQc0tH5vQr
-	 Q9ISacvKRlRCzGw40FWvIHQZ8A8ZTIqdUWXZHjUBeFPx2xNMEIwZFqu2+TmYfWYr0E
-	 kiwnSxxWxxb/qQdsvV8KSxWWgo9IXjCfp4VFXZ1CbPhqlf8vfRAFGbzf9uti1qFRfD
-	 7diACnUzwA6wsUZ1UgNq3cdv4f4Vc1wnu0dmRGBDuWMaTmkrQaKoz1w4nooud+NKyZ
-	 D14Dy2Kt98hJm0obju2xWEj1LtsRXiVHzm08ZF6FtHdrg9x85L4SOLp9ob7nDZYXWn
-	 wacg7ubgpLnOw==
-From: Michael Walle <mwalle@kernel.org>
-To: Pratyush Yadav <pratyush@kernel.org>, 
- Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-mtd@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260921-winbond-master-spi-nor-jw-cleanup-pw-addition-v3-0-38eef3b6a7db@bootlin.com>
-References: <20260921-winbond-master-spi-nor-jw-cleanup-pw-addition-v3-0-38eef3b6a7db@bootlin.com>
-Subject: Re: [PATCH v3 00/25] mtd: spi-nor: winbond: Cleanup JW family, add
- support for PW chips
-Message-Id: <178997716061.3543798.10663289831575576446.b4-ty@b4>
-Date: Mon, 21 Sep 2026 09:52:40 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="adPkZDyu"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4afso1863097a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:53:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789977203; x=1790582003; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XL6pKrFrkkzHRuFW00rA0h4XTY4p2ooSEMR1SrVlXM0=;
+        b=adPkZDyuQBkAi9YeL/0AzuuADoZeEjtZUdrZwEoGF7xvzd0XyNwW2QJFX+ELYhEAzC
+         nqRUrRzFXjfmVGZYLobkL+5gqJ2zfhqzFLitlYPZIJlEMW00kS0JhFsOkVD6ZqSq+tO7
+         imS3jCLqoMAxRC3KqUe2OWzpZfNOmUC4bK2TxugfmHx9h3iFeTkkM7Qm09WqNcOwX2jV
+         Lh2rz0oqusL2jZ31VYeSuOOcgXG/mkrWdl6IanfcFi2Y6vsOleirwR16lXdxaQ34Y3KL
+         3/RZEtmUclPxOjZYAOnaHtCn8zsHJfIg7GrxHc64aNULi5VZTbFQUQ1hxvmK90nYktlB
+         Uo7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789977203; x=1790582003;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XL6pKrFrkkzHRuFW00rA0h4XTY4p2ooSEMR1SrVlXM0=;
+        b=tw7b4vOA8B7Pmc6riVNHAu3G4797vWYcyxbw92TlO6+vFm8HobSSQ0Tq4JIeKSI2vn
+         y2Lf58QrnahRWKjbr7VEjK3+efRfIEex+WtR6/+pAV1V1UHBzlLhSEqt3szA1OiOl5Qr
+         AV2c/Zu29JrzZbl3n6vvh53Fq4DMnfeMY26erRuiHMr9/XC8TWbKkkywYAt9izLMtM0k
+         kVf6DgZeGLMQBn4hjdMisTPsMm7XazL8LTwn3i9h6Urst856zMOxjXidSn12l7CFh9WF
+         fE9lvQj6v2AMoelNYFTO5fEpuBhvOc/nay2Z2/MpYGav/h/QUAtXeVB2WINIllkCJ5Y3
+         TzAA==
+X-Forwarded-Encrypted: i=1; AKwUvBywF59c39zY894HsyzbgBEDrU5SHcpTITsSPDSxdOOkNTUjE5TvAji431JLwgqjEdtkBB39hL99+mE7j44=@vger.kernel.org
+X-Gm-Message-State: AFuF++kReXzn2UQR4exqcxmdewTxG9uFdTxHtwTJBnrpCdQKQC17XXAS
+	z0KhdP144fjkwpJ6L1gSJaRGujdaAHcgSw0tVTfRNEe8aankVzzeuTPy
+X-Gm-Gg: AYBFou07xLCARpDjjmuGp6JMAG2OczSsZGOBShaAL9O6dI3K1Zfi4fQ0Q7HQ2Nw1Zkx
+	vZFMI0y/MriFM+SSwaLuVQDZ7HOz0rgMgi++n9uzXk3b7IJKNBAT1j7dbtTbmiZtKPczoyREweF
+	KnY6HCyVCrGodFrYLDHJ/LVK1/U+SnTbk4AHf2P7F1nbbCu/Ok+7IoqDfYCjjxZTXF6wx2PDZrW
+	gzNZ9AyG7dUl/t+mOIwLffQvMg+7p7/PtkxmaX+gz2Rt3UcM6OEStM6MvgVoXtXd06orcIFFTLg
+	sAJVTRe3dtA4Dl+Yttv9GH2U6uyaj/SN+CLsRhGoZscxRByFNNqi/Wq4RxA4a7qmozJFMdaBJ+2
+	9V5d4fL3LPu6HDKadgxkfQwZUOobcPDehlJmXTtGBFYkNwPAMNgNa+dhGO621rbOpeFOewR23HH
+	DBiP0zTlJOUPOVskp/Fm9uqy2X2YCiidKpSb6uSRpG9Gea4I3DD0j6cQ==
+X-Received: by 2002:a17:90b:17c5:b0:39d:ecc8:73b1 with SMTP id 98e67ed59e1d1-39e54df9c06mr20858242a91.7.1789977203496;
+        Mon, 21 Sep 2026 00:53:23 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6bd191aesm13132465a91.0.2026.09.21.00.53.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 00:53:23 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Bao Cheng Su <baocheng.su@siemens.com>,
+	Benedikt Niedermayr <benedikt.niedermayr@siemens.com>,
+	Tobias Schaffner <tobias.schaffner@siemens.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Henning Schild <henning.schild@siemens.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] platform/x86: simatic-ipc: fix platform device leak on registration failure
+Date: Mon, 21 Sep 2026 15:53:12 +0800
+Message-ID: <20260921075312.120983-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 
+register_platform_devices() creates multiple platform devices using
+platform_device_register_data(), but returns directly when a later
+platform device registration fails.
 
-On Mon, 21 Sep 2026 08:43:31 +0200, Miquel Raynal wrote:
-> Compared to the previous ones, this series is super straightforward
-> since it leverages all the core changes that have already been done for
-> the JV/RV families. Like the former JV/RV series, it first cleans up the
-> table for JW chips. As I have access to a lot of devices, I made test
-> runs with almost all of them. This way I could extract the SFDP data,
-> the capabilities of the chips, proof that they passed all the tests,
-> etc. I then add support for the PW parts, also showing a full test run
-> in each case.
-> 
-> [...]
+If LED or watchdog platform device registration fails, previously
+registered platform devices are left registered. Since module init
+failure does not invoke the module exit cleanup path, these platform
+devices remain allocated and their backing platform_object memory is
+leaked.
 
-Applied, thanks!
+Unregister successfully created platform devices on registration failure
+paths to restore the missing cleanup.
 
-[01/25] mtd: spi-nor: winbond: W25Q32xW-Q/N: Enhance identification of the chips
-        commit: b1c987abe26f6b8614888c93dfb088193eebcdcc
-[02/25] mtd: spi-nor: winbond: W25Q64xW-Q/N: Enhance identification of the chips
-        commit: 96601905963b030a82b9ba4b0df98d8681c6a002
-[03/25] mtd: spi-nor: winbond: W25Q32xW-Q/N: Fill locking information
-        commit: a0d9dedd3423efd069bad9f181cf69c7dda76464
-[04/25] mtd: spi-nor: winbond: W25Q64xW-Q/N: Fill locking information
-        commit: a13c9bf62caa62a4cb96d7b85394346cabb73496
-[05/25] mtd: spi-nor: winbond: W25Q128JW-Q/N: Fill locking information
-        commit: acaacdb1e75d7ebca7ffb1fa97f149b08ea0fd3e
-[06/25] mtd: spi-nor: winbond: W25Q32JW-M: Fill locking information
-        commit: f81793c87530d45e96c5a012fd35d87457328cd1
-[07/25] mtd: spi-nor: winbond: W25Q64JW-M: Fill locking information
-        commit: 6af98fcf79a5d86822d3863802ad063a7ad6ca7d
-[08/25] mtd: spi-nor: winbond: W25Q128JW-M: Fill locking information
-        commit: 9780e26196039d7a67c915409e22c87db6b721d3
-[09/25] mtd: spi-nor: winbond: W25Q256JW-Q/N/M: Fill locking information
-        commit: f5e252b178066ecf4efe5abf2b0438242199a1ea
-[10/25] mtd: spi-nor: winbond: W25Q32JW-Q/N: Add quad page program capability
-        commit: efb7901c6b4d039d4a9a995c0710517b7217cbf0
-[11/25] mtd: spi-nor: winbond: W25Q64JW-Q/N: Add quad page program capability
-        commit: 016d9512933789a5e23608cf0839288f894b73a1
-[12/25] mtd: spi-nor: winbond: W25Q128JW-Q/N: Add quad page program capability
-        commit: d83b5c1df429b5df707046fc6562c60432445b32
-[13/25] mtd: spi-nor: winbond: W25Q32JW-M: Add quad page program capability
-        commit: afdf4a8c316bba78d8e72a2e113c63427504ca85
-[14/25] mtd: spi-nor: winbond: W25Q64JW-M: Add quad page program capability
-        commit: 34d7f1f5f1aab0c7b08599f0b77611d79b1377a9
-[15/25] mtd: spi-nor: winbond: W25Q128JW-M: Add quad page program capability
-        commit: 3520931436ee2ac2720f097c856aea01541ded60
-[16/25] mtd: spi-nor: winbond: Prepare introduction of W25QxxPW-Q/N parts
-        commit: a95136c1c4756885e4d333c7968b716f9008ee99
-[17/25] mtd: spi-nor: winbond: Add support for W25Q33PW-Q/N
-        commit: 93a72776acb954814940af8b915e609e1b18893d
-[18/25] mtd: spi-nor: winbond: Add support for W25Q64PW-Q/N
-        commit: c0f1355cece2e2bd19d62a35ba1b66bd09e89bde
-[19/25] mtd: spi-nor: winbond: Add support for W25Q12PW-Q/N
-        commit: b8a959f55f9f1806865aa38304289d2abaceacf4
-[20/25] mtd: spi-nor: winbond: Add support for W25Q25PW-Q/N
-        commit: 136588c583adc2c73934bb0e89877fd1a8b91305
-[21/25] mtd: spi-nor: winbond: Prepare introduction of W25QxxPW-M parts
-        commit: b60627be8faf82b2c64d86c83c27c730423d0524
-[22/25] mtd: spi-nor: winbond: Add support for W25Q33PW-M
-        commit: 03613e40f15d704013f90b2405c4a3bc6b751207
-[23/25] mtd: spi-nor: winbond: Add support for W25Q64PW-M
-        commit: d96b00b230d0512844d0e9c9bc391cdc30ab653b
-[24/25] mtd: spi-nor: winbond: Add support for W25Q12PW-M
-        commit: 8df89f0fe8e8ecc345c5a9e3ce49e41139eb4a0c
-[25/25] mtd: spi-nor: winbond: Add support for W25Q25PW-M
-        commit: ceedf3193cac49ddb488518616587484093d66e4
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
 
-Best regards,
+Fixes: dd123e62bded ("platform/x86: simatic-ipc: add main driver for Siemens devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/platform/x86/siemens/simatic-ipc.c | 40 ++++++++++++++++++----
+ 1 file changed, 34 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/platform/x86/siemens/simatic-ipc.c b/drivers/platform/x86/siemens/simatic-ipc.c
+index 7039874d8f11..9bf8b2d8248c 100644
+--- a/drivers/platform/x86/siemens/simatic-ipc.c
++++ b/drivers/platform/x86/siemens/simatic-ipc.c
+@@ -92,6 +92,7 @@ static int register_platform_devices(u32 station_id)
+ 	u8 wdtmode = SIMATIC_IPC_DEVICE_NONE;
+ 	u8 battmode = SIMATIC_IPC_DEVICE_NONE;
+ 	char *pdevname;
++	int ret;
+ 	int i;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(device_modes); i++) {
+@@ -118,8 +119,11 @@ static int register_platform_devices(u32 station_id)
+ 			platform_device_register_data(NULL, pdevname,
+ 				PLATFORM_DEVID_NONE, &platform_data,
+ 				sizeof(struct simatic_ipc_platform));
+-		if (IS_ERR(ipc_batt_platform_device))
+-			return PTR_ERR(ipc_batt_platform_device);
++		if (IS_ERR(ipc_batt_platform_device)) {
++			ret = PTR_ERR(ipc_batt_platform_device);
++			ipc_batt_platform_device = NULL;
++			goto err_unregister;
++		}
+ 
+ 		pr_debug("device=%s created\n",
+ 			 ipc_batt_platform_device->name);
+@@ -139,8 +143,11 @@ static int register_platform_devices(u32 station_id)
+ 				pdevname, PLATFORM_DEVID_NONE,
+ 				&platform_data,
+ 				sizeof(struct simatic_ipc_platform));
+-		if (IS_ERR(ipc_led_platform_device))
+-			return PTR_ERR(ipc_led_platform_device);
++		if (IS_ERR(ipc_led_platform_device)) {
++			ret = PTR_ERR(ipc_led_platform_device);
++			ipc_led_platform_device = NULL;
++			goto err_unregister;
++		}
+ 
+ 		pr_debug("device=%s created\n",
+ 			 ipc_led_platform_device->name);
+@@ -153,8 +160,11 @@ static int register_platform_devices(u32 station_id)
+ 				KBUILD_MODNAME "_wdt", PLATFORM_DEVID_NONE,
+ 				&platform_data,
+ 				sizeof(struct simatic_ipc_platform));
+-		if (IS_ERR(ipc_wdt_platform_device))
+-			return PTR_ERR(ipc_wdt_platform_device);
++		if (IS_ERR(ipc_wdt_platform_device)) {
++			ret = PTR_ERR(ipc_wdt_platform_device);
++			ipc_wdt_platform_device = NULL;
++			goto err_unregister;
++		}
+ 
+ 		pr_debug("device=%s created\n",
+ 			 ipc_wdt_platform_device->name);
+@@ -169,6 +179,24 @@ static int register_platform_devices(u32 station_id)
+ 	}
+ 
+ 	return 0;
++
++err_unregister:
++	if (ipc_wdt_platform_device) {
++		platform_device_unregister(ipc_wdt_platform_device);
++		ipc_wdt_platform_device = NULL;
++	}
++
++	if (ipc_led_platform_device) {
++		platform_device_unregister(ipc_led_platform_device);
++		ipc_led_platform_device = NULL;
++	}
++
++	if (ipc_batt_platform_device) {
++		platform_device_unregister(ipc_batt_platform_device);
++		ipc_batt_platform_device = NULL;
++	}
++
++	return ret;
+ }
+ 
+ static void request_additional_modules(u32 station_id)
 -- 
-Michael Walle <mwalle@kernel.org>
+2.43.0
 
