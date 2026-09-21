@@ -1,97 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CABD1A681C;
-	Mon, 21 Sep 2026 01:06:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3670F1A268;
+	Mon, 21 Sep 2026 01:17:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789952809; cv=none; b=CgZZ37M/O+Xb2D1o98Mb/zUS2ky+XOcdx0OCOpNdAMyEBDysJJhw1vr04O59ltDs1gJirwOWoEzKFrhWfWMe5ppn4TH/cdWtxWYTitu//Qn71WULKiCliLEpjivqTeZI24ZUrYSoJ8vLwWpRoddmJInsZQQFzESWl+D4NXCQtcE=
+	t=1789953462; cv=none; b=cMbVrJw4S4bGQg3fRHBBTOMLdLjE9ib472H6dfEzodxDSSEYg2p1fC9ISsENgDPvwl678k7gS4LuuZZJdE7DrU+Z0nCHb0Staoipf6Sm0lwC8H3G85HpRNxvyb940gtwpy7P6/Yns9ExeV62zYq5QpuZO0NMJvEYSdq5XnF0h3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789952809; c=relaxed/simple;
-	bh=kSeIPaZnSdLwk48BLT3A2cLYFdAdm89k0wI0JXNhWu4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=PEEVHhFwyMDNg+FTmNjUbHAsnzMT62BtOc1RhYYfEu8v/WzMYI4/Za+W11ZNCX5JzoM/3M+zSU9HetXy5Z0muuOyaAW7RCMZ5sMRzpdTkhHwBaq30LcwBDoExQWLgMnlDu7/weJDP/QqLsYDJbnX18oMGXrUSXmKow9pqADsqLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TwGARmwq; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789953462; c=relaxed/simple;
+	bh=UQ8NBmTMd0E4UPS6zoz9vKry1PH3VwbAwCx0NIVupjM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D5/dYbWZNHnlRd/JfdtN/ZMEhVtrN9uKNFGQ83CdB1EE0Q2KBR9UtKdvCzcjFcmAC/rQaG/luOt9xH756A1mDdQzJsdvRSDHG2sXHx0rxLuYKO8MqYUHik5B3x9f05pfkZ6b/M9x2eyNFmFwo0zy+iKJ1yrDeymVYguL6mGW5nQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OKkp+pe9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TwGARmwq"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 85F53C2BCC7;
-	Mon, 21 Sep 2026 01:06:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789952808;
-	bh=kSeIPaZnSdLwk48BLT3A2cLYFdAdm89k0wI0JXNhWu4=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=TwGARmwqxjmLsL226LmUhuaPpRBhVqTBAcxJCyYeLV0e7+I3uAOAMxoYtLmSgsTq3
-	 +vYKhHxsjFYtcY9a90PixfHalVrkorszbcqZDUsFT40ZuQQLSqbT8xashJduqdnvjG
-	 HF+d2m4ZSBja11hQHt+5Sh8ZIqLcL9BLEkY3QMTqRgVr11SeP6w+V30fjYQ0SvIlck
-	 IBvGiMMIwwZNQzJSYLea3FVOrlzG+cJaO9QwypzEfcIjBwOn9w644jOTQHVfXKTQTr
-	 RnJijviM4N4N9KYugLF3nT+yTYC32cGqUNZV/VUG54h8k6ionfP93IcPUFp89dhPTw
-	 cQGbn9VwkHsSA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D7A9C982ED;
-	Mon, 21 Sep 2026 01:06:48 +0000 (UTC)
-From: Carlos Casadiego via B4 Relay <devnull+cdcp206.gmail.com@kernel.org>
-Date: Sun, 20 Sep 2026 20:06:45 -0500
-Subject: [PATCH] iio: accel: kx022a: fix typo in comment
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OKkp+pe9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AACAB1F000FF;
+	Mon, 21 Sep 2026 01:17:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789953460;
+	bh=YDur6IwTSE7iTR0vxd9Zd48PXGF6FvROWSLYkOLIWkQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OKkp+pe9xIpMgy2kIuEbPoZqVzeihqLQ6TA3Wyi8ZDStD+EeeVhcqIHBZahTRwweH
+	 gDuQGyJGgLjdjZeKSS1Q1f/mP/OAt00rp2UnpAd8x9JboiDWnWQRIXUlUpiKJF8xN2
+	 uwHi13TBks7vz1/jjQsf0kCMQguuDYhC7VISMQd34V/5j5d83h08IBRVk/3IwZOjm/
+	 A8Pk14VPuIQQgNsaq7jLHuIEtYcAs06ZD/uSm3S8MeS0erbL1pOp+iBVErmRdMfHUt
+	 vNURY/YTmu91VgAouiUqxw1RtA0ZShQcdOlUB40TQr1GYpNY2/Hla0iTqYRb6KzyPs
+	 uwzcExwxuI3ag==
+Date: Mon, 21 Sep 2026 03:17:24 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Cc: "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jeff Johnson <jjohnson@kernel.org>, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
+	ath12k@lists.infradead.org, Bjorn Andersson <andersson@kernel.org>, 
+	Chris Lew <christopher.lew@oss.qualcomm.com>, Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>, 
+	Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>, Juha-Matti Tilli <juha-matti.tilli@iki.fi>, 
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+Subject: Re: [PATCH 0/4] net: qrtr: Add support for using identical MHI
+ endpoint devices
+Message-ID: <j22jk53fhr7nkbb5vcjgp3xw6zoklbt7afzvfetmoh3om3ttsl@pobyf4t3zcsv>
+References: <20260918-qrtr-multi-ep-v1-0-8a06caa368d3@oss.qualcomm.com>
+ <4e0481c1-9288-42d4-94c9-e18da5cf8e5d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-iio-kx022a-fix-comment-typo-v1-1-9fc233272712@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB1IBqm0Vyku7DjqtJhIEosi3
- r2xLh98/g5RgkqER7FDkK9G9S7DlgXw2LpBULtsIEM3cyeDqh4/qyFqsdcV2U+TuIRpmz2y7Sw
- L1VVNPeTDHCQ3//uzuRyX11s4nUs4jh/VuvWYfwAAAA==
-X-Change-ID: 20260920-iio-kx022a-fix-comment-typo-c1d1ce27472f
-To: Matti Vaittinen <mazziesaccount@gmail.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Carlos Casadiego <cdcp206@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789952807; l=1081;
- i=cdcp206@gmail.com; s=20260921; h=from:subject:message-id;
- bh=mvcHymTttESoKzke8JCk3w2u0GZpHklCZh7R9jCyH3U=;
- b=EEMBuBP1D6LozTGVw47+ODRdmdkOqJiA328/LP37/Gq1hWFkEorZkg5w8eQm+qF3azdvJ/xsg
- EEJUTQGiqJ6A/XNlc7/a++YeeQh+pZEUQ7OpoSz9oM8NT2ieZtjjnIO
-X-Developer-Key: i=cdcp206@gmail.com; a=ed25519;
- pk=Vr3c2AUi1oYbgVkQtRSsWin33frZn0vGGq5g04VWmH8=
-X-Endpoint-Received: by B4 Relay for cdcp206@gmail.com/20260921 with
- auth_id=1041
-X-Original-From: Carlos Casadiego <cdcp206@gmail.com>
-Reply-To: cdcp206@gmail.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4e0481c1-9288-42d4-94c9-e18da5cf8e5d@oss.qualcomm.com>
 
-From: Carlos Casadiego <cdcp206@gmail.com>
+On Fri, Sep 18, 2026 at 11:13:42AM -0700, Jeff Johnson wrote:
+> On 9/18/2026 9:28 AM, Manivannan Sadhasivam via B4 Relay wrote:
+> > Hi,
+> > 
+> > This series reworks the QRTR driver to add support for using identical MHI
+> > endpoint devices at the same time. Currently, QRTR driver has a limitation on
+> > using more than one identical MHI endpoint devices like QCS6490 or any Qcom
+> > Endpoint device making use of QRTR at the same time. Because of the fact that
+> > these devices will have the identical QRTR node id, they cannot be used at the
+> > same time, on the same host machine.
+> > 
+> > This limitation is a blocker for running upstream kernel on devices like Qcom
+> > based routers as they often have multiple identical WLAN Endpoint devices
+> > connected to the Router SoC.
+> > 
+> > This series supersedes the following 2 series from Juha:
+> > https://lore.kernel.org/all/20260915054207.2513877-1-juha-matti.tilli@iki.fi
+> > https://lore.kernel.org/all/20260915074135.2567411-1-juha-matti.tilli@iki.fi
+> > 
+> > Compared to the series from Juha, this series simplifies the multi-endpoint
+> > support by computing a unique node id for each MHI endpoint and uses it for the
+> > internal QRTR book keeping. This ensures that even if the MHI endpoint devices
+> > have same node ids, the host QRTR will always use a unique node id for each one
+> > of them.
+> > 
+> > More details can be found in the individual patches.
+> > 
+> > Testing
+> > =======
+> > 
+> > Juha tested this series on multi ath11k setup by backporting this series to
+> > 6.6.156 kernel. I'd appreciate a formal tested-by tag from Juha and other folks
+> > CCed to this series.
+> > 
+> > Merge Strategy
+> > ==============
+> > 
+> > Since both QRTR and ath drivers are falling under the networking tree, the whole
+> > series can be merged through netdev tree.
+> > 
+> > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> > ---
+> > Manivannan Sadhasivam (4):
+> >       net: qrtr: Allow the host QRTR to assign a unique node id
+> >       net: qrtr: Assign unique node id for MHI endpoints
+> >       wifi: ath11k: Connect to the QMI server belonging to the device owned by this driver
+> >       wifi: ath12k: Connect to the QMI server belonging to the device owned by this driver
+> > 
+> >  MAINTAINERS                           |  1 +
+> >  drivers/net/wireless/ath/ath11k/hif.h |  9 ++++++
+> >  drivers/net/wireless/ath/ath11k/pci.c |  9 ++++++
+> >  drivers/net/wireless/ath/ath11k/qmi.c | 10 ++++++
+> >  drivers/net/wireless/ath/ath12k/hif.h |  9 ++++++
+> >  drivers/net/wireless/ath/ath12k/pci.c |  9 ++++++
+> >  drivers/net/wireless/ath/ath12k/qmi.c | 11 +++++++
+> >  include/net/qrtr.h                    | 21 ++++++++++++
+> >  net/qrtr/af_qrtr.c                    | 61 +++++++++++++++++++++++++++++++----
+> >  net/qrtr/mhi.c                        |  4 ++-
+> >  10 files changed, 136 insertions(+), 8 deletions(-)
+> > ---
+> > base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> 
+> I see this is based upon v7.3-rc1 (current release tree).
+> This series doesn't cleanly apply on the net-next tree.
+> 
 
-Fix "usng" to "using" in a comment.
+Ah, that's bad.
 
-Signed-off-by: Carlos Casadiego <cdcp206@gmail.com>
----
- drivers/iio/accel/kionix-kx022a.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> Are you planning on netdev taking this through current or next?
+> 
 
-diff --git a/drivers/iio/accel/kionix-kx022a.c b/drivers/iio/accel/kionix-kx022a.c
-index 8f2810c8ffeb..a3d80e4e7f1e 100644
---- a/drivers/iio/accel/kionix-kx022a.c
-+++ b/drivers/iio/accel/kionix-kx022a.c
-@@ -809,7 +809,7 @@ static int __kx022a_fifo_flush(struct iio_dev *idev, unsigned int samples,
- 		 * the timestamps. If we are ran from IRQ, then the
- 		 * IRQF_ONESHOT has us covered - but if we are ran by the
- 		 * user-space read we need to disable the IRQ to be on a safe
--		 * side. We do this usng synchronous disable so that if the
-+		 * side. We do this using synchronous disable so that if the
- 		 * IRQ thread is being ran on other CPU we wait for it to be
- 		 * finished.
- 		 */
+-next only. I will respin.
 
----
-base-commit: 61718ed183599e5162496b5306c3377a925d21cd
-change-id: 20260920-iio-kx022a-fix-comment-typo-c1d1ce27472f
+> And an alternate merge strategy would be for netdev to take the first two
+> patches and then after wireless fast-forwards and ath fast-forwards, I could
+> take the last two though the ath tree.
+> 
 
-Best regards,
---  
-Carlos Casadiego <cdcp206@gmail.com>
+Unfortunately, ath patches depend on API introduced by the 2nd patch. So they
+can't be applied independently.
 
+I will respin this series on top of ath-next so that the series can be applied
+through netdev next.
 
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
