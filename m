@@ -1,106 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5E54B3364;
-	Mon, 21 Sep 2026 15:17:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB4E4ABBB1;
+	Mon, 21 Sep 2026 15:17:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003842; cv=none; b=VckbiUk4lnU4RTID551SJsKU8ydogTu2gBNCKldU0XlZie+79IAnF6L6WMLMR2UekLOi30279zbfm0egasx7EJ59dtKbXRJzl18I7FsLNYq8sfn2KJOEoJWSbyuPMrOkLKRgBPVGbcya4sWbgV9k79Y1m2msFV75xNUOUihCCFY=
+	t=1790003853; cv=none; b=dH2FxkkpJnNtztaXY4gsgX7Xo8xJbpQ6UXxKRcPCPVaUxdN5hj2daCuXSObDQEjkgEltJZztWReEgIY/xo1fmgBobNg7HaIaaT93O/Ry5RvkekhqCLWROdhfAcD4SYpHA8apwCA8KFk7R/vaNu8zJFG0Tz76vlXL8jRHq8Hhy28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003842; c=relaxed/simple;
-	bh=JTFzjY4vgzT/AnxSG3N3xG5/wFSXqfIGgLm9CghDl5Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H6GFzKbCYHbhF6ev8NQwh4CsrTTmSn0l6SKj9J3UM0mXu0Z8PoXOzTFL7Ps9fOeqiLxDx6uiXOd3byl0x6tvNp6TQgC+x2CGi1NI7eVT4yuTM86EocYoRPR+6g71nW7UNd/nmlaURgW/eDxopRb+M9RxIPqrdp6RN+ZoirceD3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TOV1zOe3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790003853; c=relaxed/simple;
+	bh=W2+G+uyaywvTjosHHXQQCOH8WG7Itl4tMszraMzJ8Ss=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=naQwsnhRFzu3naDrlWsPC8tbwNo8tnABHTAr9eTgtE5eMB9eLUyiCYfPQ8OWcQnKxAQP26OH+zPEenJGbEV+waV3B1lhaVhvO/slzITZx1B3lYtv2ttajBJ1/+5iaGxv223tBzGQn4l9WBQfPT9eZ1gFyS6R/7dDxnXQnjZNp04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=jfCP2IUN; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TOV1zOe3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A39D11F000FF;
-	Mon, 21 Sep 2026 15:17:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003841;
-	bh=08OdX+yksKIdesxlWgroB9wwvCpB2/2SsKbyedTQ3/w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TOV1zOe3OkjEI9ot5xW3UGA1tGpZ3PJDdg+AlWZdMVpOCeq3dCZg2D77BAwrg5jIU
-	 cPlmU0FI8pYxCMNNav2AeICCyYmHsUrfi435wnv8y8zx+o6X79zEhTxesUOr+cdJpU
-	 iOXgfXOeFVLd/gPmEaZh+Fm1DOJB/xeZpbF+hT2ZA7d4lkPOeUA4ranX3vAPxdDDTg
-	 M/ckfSbDOtYkmTihM/wM3nIr5KEvVCAvppBfp/JcmL0XhKDcwPiolYxlZs+wHMwFGx
-	 R+xVovDgFgRFSLRvEz0VkxXEpgogtmN/1+DgjpUiJkxdynhmQYMW4CXarZ3ODg5tGt
-	 dBRDCWDoM5Ijg==
-Date: Mon, 21 Sep 2026 17:17:17 +0200
-From: krzk@kernel.org
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: linux-edac@vger.kernel.org, Borislav Petkov <bp@alien8.de>, 
-	Tony Luck <tony.luck@intel.com>, Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>, 
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] EDAC/versalnet: fix memory leak on device registration
- failure
-Message-ID: <arFKfCLKbfAT2iZC@quoll>
-References: <20260920055519.3778269-1-lgs201920130244@gmail.com>
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="jfCP2IUN"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=W2+G+uyaywvTjosHHXQQCOH8WG7Itl4tMszraMzJ8Ss=; b=jfCP2I
+	UNOb0CUFjSlH8xD3YQYIQR9UCBcVQgmXPkbNVSQ11bZTMujdHnzgiP2EhpeDGg/7r0zlt3EAt/VOF
+	3DzTuKZJZE3rga59XuztNvS/rLI0vmGbwMEck5RHyf/80WN2O25yCkSTDFNdY8MORT9yZbuewnZbs
+	vSyP/zWbNgOuplhVnp6oHvh1NfE6hMIk6RaDfsW4CKOLnjfZ2rrOeqhecunTfKhGhxn12Xrn67Ggk
+	XhQRHbfgoaFGhcIYiOrWmJ53RRRnZoQ0ZDOiHHH9ZHTgoYbiR5+GKXICfJwLZ5s7qSM01f2SOudih
+	imoBUxxwNDeXpHLIG7/Es1+ge+Uw==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1x8fkX-0000000D3NB-3H4d;
+	Mon, 21 Sep 2026 15:16:09 +0000
+Message-ID: <e879ac65cb0940325736df7984c737edf1c6be94.camel@surriel.com>
+Subject: Re: Path forward for Virtualized Swap?
+From: Rik van Riel <riel@surriel.com>
+To: Chris Li <chrisl@kernel.org>, Gregory Price <gourry@gourry.net>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Baoquan He <baoquan.he@linux.dev>,
+  Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>, Michal
+ Hocko <mhocko@kernel.org>,  Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+ David Hildenbrand	 <david@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Kemeng Shi	 <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>,
+ YoungJun Park	 <youngjun.park@lge.com>, Chengming Zhou
+ <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)"	 <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)"
+ <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
+ =?UTF-8?Q?Baghdasaryan=EF=BF=BC?=	 <surenb@google.com>, Qi Zheng
+ <qi.zheng@linux.dev>, Axel Rasmussen	 <axelrasmussen@google.com>, Yuanchu
+ Xie <yuanchu@google.com>, Wei Xu	 <weixugc@google.com>, Wenchao Hao
+ <haowenchao22@gmail.com>, Jonathan Corbet	 <corbet@lwn.net>, Hugh Dickins
+ <hughd@google.com>, Baolin Wang	 <baolin.wang@linux.alibaba.com>, Tejun Heo
+ <tj@kernel.org>, Michal =?ISO-8859-1?Q?Koutn=FD?=	 <mkoutny@suse.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan	 <kunwu.chan@linux.dev>,
+ Meta kernel team <kernel-team@meta.com>, Linux Memory Management List	
+ <linux-mm@kvack.org>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, 	linux-doc@vger.kernel.org, "open
+ list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Kairui Song <ryncsn@gmail.com>,  Joshua Hahn <joshua.hahnjy@gmail.com>
+Date: Mon, 21 Sep 2026 11:16:09 -0400
+In-Reply-To: <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
+References: 
+	<CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+	 <aqJXx2vtbKaRLt3x@fedora> <aqLi6cIjD2wJwk0B@cmpxchg.org>
+	 <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
+	 <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F>
+	 <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
+	 <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F>
+	 <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260920055519.3778269-1-lgs201920130244@gmail.com>
 
+On Sun, 2026-09-20 at 23:43 -1000, Chris Li wrote:
+>=20
+> I am sorry, that is not actual user usage. You need to start from an
+> actual usage case: I have a workload X, only want to give limit Y for
+> the cgroup jobs but with Z SLO requirement. That kind of actual usage
+> requirement.
 
-On Sun, 20 Sep 2026 13:55:19 +0800, Guangshuo Li wrote:
-> init_one_mc() allocates dev with kzalloc() and registers it with
-> device_register(). If device_register() fails, the device has already
-> been initialized and holds its initial device reference.
-> 
-> The current error path eventually frees dev directly with kfree().
-> This bypasses the device release path and can leak driver-core
-> resources associated with the initialized device. The existing
-> versal_edac_release() callback is responsible for freeing dev once the
-> device reference reaches zero.
-> 
-> Call put_device() when device_register() fails so the initialized
-> device reference is dropped and versal_edac_release() performs the
-> proper cleanup. Return after freeing mci to avoid falling through to
-> the direct kfree() path, which remains necessary for failures that
-> occur before device_register() is called.
-> 
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
-> 
-> Fixes: d5fe2fec6c40 ("EDAC: Add a driver for the AMD Versal NET DDR controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/edac/versalnet_edac.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
+Limiting how much anonymous memory can be zswapped
+does not guarantee an SLO, though.
 
+We have seen plenty of examples in practice of
+workloads that have swap DISABLED, and are still
+thrashing, because part of the working set of
+that program is in the page cache, and that still
+gets evicted.
 
-You sent multiple independent patches, to multiple independent
-subsystems. The amount of these patches clearly suggest this was
-AI generated and most likely not tested.
+The way you can guarantee the workload is not
+thrashing is to limit the total (anon + file
+cache) address space of the program to within
+some size.
 
-More importantly, you sent all this work without properly organizing
-relevant patches into patchsets. This makes reviewing difficult
-and might cause multiple reviewers to address the same issue.
-Replying to the entire set is impossible and requires handling each
-patch independently, instead of applying or discarding the set.
-Maintainers also won't see the bigger picture of your work. Quite
-worrying.
+Anything else is not a guarantee.
 
-This is on the verge of hostile patch: bomb us with so many
-contributions, we won't be able to handle them in efficient manner,
-like responding ONCE to ask you to slow down.  Considering all this
-is untested and LLM generated, I have even more doubts whether this
-should be considered for review.
+What is it you are actually asking for?
 
-Please read kernel documentation BEFORE posting more work. It will
-explain you how to identify subsystems, how to organize your work per
-subsystem, how to document usage of LLM and how what you should not
-do if this was posted in a good faith.
-
-Best regards,
-Krzysztof
-
-
-
+--=20
+All Rights Reversed.
