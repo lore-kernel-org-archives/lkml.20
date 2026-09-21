@@ -1,105 +1,111 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B7986483BF6;
-	Mon, 21 Sep 2026 09:30:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E20459AD2;
+	Mon, 21 Sep 2026 09:30:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789983015; cv=none; b=cIBE8lYZeCextfCOf7ZktZBCgixxLwf4v29mOpz2FGvO63nbvX+jE6xQmTcEukO9JP3yXT1oTP5xlVvhXXWAQToMRbarpv0FvKGM1qGLhOClchT25sgNdArOdWGppnQ84Ppziun5tVTWYUwRBYz+STWq43G+G5KgmQxJ24KPA4k=
+	t=1789983048; cv=none; b=SZcxKUP/FdgZgxtbh+1wuz6DZSNSreGJYso7o3rglmjqME+nAzif1HVS1wwxuFPuYS5tJEp35GrjVuWF0QuJg4njurDhCbVgQRzgwL7HHl5xUDzKT5aZ5ZYU0OJ6N/6yu3NHQ3LSvAr4/h9T6kxuyAlal2wrdutUgCNY6Wi7H6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789983015; c=relaxed/simple;
-	bh=Nx4WZlKJnXSyg8EFFohhZy2iio9HDYgvdXDUkRHuHFk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WEprram+/EZchm4Up0FPYYB4s7HIY/NMbMC5fsm/P9VP624uD8XT2XPHfAqAgKknKCmufja14JUw9/y3MG1F/hUx49mrO/O+dFKLy77/95G8Pe4KnTif5pu5IscS2c+eeLzqPdpBGk3svNE1dKVPzkEWPYbruW34UqkGbe8TG6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=TA2OKI2R; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789983048; c=relaxed/simple;
+	bh=bUd3GiTpnhfgbcYbF9HySykorWn8SmLQXEhcIQykk+k=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=aW48reTvBnxZa9vJfQp2TFem+pd61txGpChie7l55TeeY6UxtT8d64/Jq4kET5ZF03BAf9isE85Wn7Ee07hyjaSE/n7c9d3opGiQuavp4Q/pEOsdnMyE5jn+Tdwv9HlpJBXCJD4DaEt1ew6witlmJiyQpvloCUeP1w6j8n7bjWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=eWVm43RU; arc=none smtp.client-ip=117.135.210.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="TA2OKI2R"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A35391476;
-	Mon, 21 Sep 2026 02:30:09 -0700 (PDT)
-Received: from [10.0.128.141] (unknown [10.0.128.141])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F2EDF3F86F;
-	Mon, 21 Sep 2026 02:30:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789983013; bh=Nx4WZlKJnXSyg8EFFohhZy2iio9HDYgvdXDUkRHuHFk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=TA2OKI2R90zeFDEYscKNv8cKQQLZqlW9boTf2WEPyQACBeBtIk/4kWBcMSYfj11Ta
-	 thnG2OttsvgBkI/LGT02+e0GOC2V7FMXXy0A5co47CyyZzaUYaajQ7Pk9XV/Fp6o2I
-	 Q/zAfD9Z3CLDuBrRFxdUP6C7NRpPAVCz+MYTKf4o=
-Message-ID: <ae243947-9d82-4b08-8e24-df0411a61a0e@arm.com>
-Date: Mon, 21 Sep 2026 10:30:08 +0100
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="eWVm43RU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=bUd3GiTpnhfgbcYbF9HySykorWn8SmLQXEhcIQykk+k=; b=e
+	WVm43RUXjo8+C+DsxCkz2chfcr79mFru1RtghP8+E6xVPwtsvwdkG6yTCTE4lQww
+	+qX7Qgl2za2cLr64jbv0pljlItitl8smkKND57C+f0JEa0bGuWQID2ZpR2y81SPt
+	/lVKMZ27Auo/FvqMya/yZ0u1nVTbAN2NGbW9OeUAMU=
+Date: Mon, 21 Sep 2026 17:30:11 +0800 (CST)
+From: dd  <zhongling0719@126.com>
+To: "Hyunchul Lee" <hyc.lee@gmail.com>
+Cc: liubaolin <liubaolin12138@163.com>,
+	"Hongling Zeng" <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+	ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re:Re: [PATCH v5] ntfs: mount hibernated volumes read-only
+ regardless of errors=
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 126com
+In-Reply-To: <CANFS6bYLBPr+FmE_MVWxBBMw+Qz55EFfy1u6UmBgkTak2CMyvA@mail.gmail.com>
+References: <20260920025955.31209-1-zenghongling@kylinos.cn>
+ <04255390-4133-4e8e-81ad-4d2402498431@163.com>
+ <CANFS6bYLBPr+FmE_MVWxBBMw+Qz55EFfy1u6UmBgkTak2CMyvA@mail.gmail.com>
+X-NTES-SC: AL_Qu2TC/WTvEgq5yScbOkWk00RgOk9WsG1vfQi24NQP500qi71ywAdfHpgMl3N2vqrKD+PmTmqeR1S+/xKV4RbWZzjx+UPUw7GSyImymhDfuTr
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 6/7] firmware: arm_rmm: Ensure the RMM has GPT entries
- for memory
-Content-Language: en-GB
-To: Alper Gun <alpergun@google.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
- lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
- <20260912083611.2513845-7-suzuki.poulose@arm.com>
- <CABpDEum16ZzLSjd7Yg2Ge6VjwL8S8xxtSs_AsqOeNT9-9FNKKQ@mail.gmail.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <CABpDEum16ZzLSjd7Yg2Ge6VjwL8S8xxtSs_AsqOeNT9-9FNKKQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Message-ID: <4e70c6d0.7644.1a0c34d327f.Coremail.zhongling0719@126.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:bykvCgCnF4kj+bBqEGdEAA--.29918W
+X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBrgNNHmqw+SNP9QAA3E
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On 16/09/2026 19:23, Alper Gun wrote:
-> On Sat, Sep 12, 2026 at 1:37 AM Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
-> [...]
->> +static int rmi_init_metadata(void)
->> +{
->> +       phys_addr_t start, end;
->> +       struct memblock_region *r;
->> +
->> +       for_each_mem_region(r) {
->> +               int ret;
->> +
->> +               /* Firmware-reserved NOMAP regions are not usable system RAM */
->> +               if (memblock_is_nomap(r))
->> +                       continue;
->> +
->> +               start = memblock_region_memory_base_pfn(r) << PAGE_SHIFT;
->> +               end = memblock_region_memory_end_pfn(r) << PAGE_SHIFT;
->> +
->> +               ret = rmi_prepare_memory(start, end);
->> +               if (ret)
->> +                       return ret;
->> +       }
-> 
-> Hi Suzuki,
-> 
-> What happens if a system has memory regions in memblock that are not
-> tracked by RMM (e.g. CXL memory)?
-> 
-> Currently, rmi_verify_memory_tracking() returns -ENODEV for untracked
-> regions, causing rmi_init_metadata() to abort and disable CCA
-> system-wide.
-> 
-> Shouldn't rmi_init_metadata() skip untracked regions (continue) with a
-> warning/info log instead of aborting? That would allow Realm support
-> for conventional DRAM while leaving untracked memory for the host.
-
-No. We can't handle RMI_ERROR_TRACKING if the Host tries to back the
-Realm memory by the memory that we haven't verified. So, it is safer
-to give up KVM support for now. We plan to address this in future
-by introducing the dynamic tracking.
-
-Cheers
-Suzuki
-
-> 
-> Thanks,
-> Alper
-
+SGkgYmFvbGluLAogVGhhbmtzIGZvciBjYXRjaGluZyB0aGlzLiBJIGFncmVlIHRoYXQgdGVtcG9y
+YXJpbHkgc2V0dGluZwogICAgU0JfUkRPTkxZCiAgICBtYWtlcyBpdCBpbXBvc3NpYmxlIHRvIGRp
+c3Rpbmd1aXNoIGFuIGVycm9yIHN1cHByZXNzZWQgYnkKICAgIG50ZnNfaGFuZGxlX2Vycm9yKCkK
+ICAgIGZyb20gYSBzdWNjZXNzZnVsIGNoZWNrLiBJbiBwYXJ0aWN1bGFyLCBlcnJvcnMgZnJvbSBv
+cHRpb25hbCBXU0wgRUEgbG9hZGluZyBtYXkgbmVpdGhlciBwcm9wYWdhdGUgdGhyb3VnaCB0aGUg
+aGliZXJuYXRpb24gY2hlY2sgbm9yIHNldAogICAgTlZvbEVycm9ycygpCiAgICAsIGFsbG93aW5n
+IHRoZSBmbGFnIHRvIGJlIGNsZWFyZWQgaW5jb3JyZWN0bHkuCgpIaSBhbGw6CiAgIE9uZSBxdWVz
+dGlvbjogd2l0aCBlcnJvcnM9cGFuaWMsIGEgY29ycnVwdCAkTG9nRmlsZSBjYW4gc3RpbGwgcGFu
+aWMKZHVyaW5nIGxvYWRfc3lzdGVtX2ZpbGVzKCksIGJlZm9yZSB0aGUgaGliZXJuYXRpb24gZmFs
+bGJhY2sgaXMgcmVhY2hlZC4KRm9yIGV4YW1wbGUsIG50ZnNfY2hlY2tfbG9nZmlsZSgpIHBhbmlj
+cyBvbiAiTG9nRmlsZSBpcyB0b28gc21hbGwiLgoKICAgU2hvdWxkIG1vdW50LXRpbWUgbWV0YWRh
+dGEgZXJyb3JzIGdlbmVyYWxseSBhdm9pZCBlcnJvcnM9cGFuaWMgYmVmb3JlCnRoZSBzdXBlcmJs
+b2NrIGlzIHB1Ymxpc2hlZD8gSWYgc28sIHRoYXQgc2VlbXMgbGlrZSBhIHNlcGFyYXRlIGZvbGxv
+dy11cAp0byBleHRlbmQgdGhlIHRlbXBvcmFyeSBwb2xpY3kgc3Vic3RpdHV0aW9uIG92ZXIgbG9h
+ZF9zeXN0ZW1fZmlsZXMoKS4KClRoYW5rcyEKCkF0IDIwMjYtMDktMjEgMTU6NTc6MjksICJIeXVu
+Y2h1bCBMZWUiIDxoeWMubGVlQGdtYWlsLmNvbT4gd3JvdGU6Cj5IaSBCYW9saW4sIEhvbmdsaW5n
+Cj4KPj4gICAgSWYgeW91IGFncmVlIHdpdGggdGhpcyBhcHByb2FjaCwgY291bGQgeW91IHBsZWFz
+ZSBpbmNvcnBvcmF0ZSBpdCBhbmQKPj4gc2VuZCBhbm90aGVyIHJldmlzaW9uPyBJJ2QgYXBwcmVj
+aWF0ZSBmZWVkYmFjayBmcm9tIHlvdSwgTmFtamFlLCBhbmQKPj4gSHl1bmNodWwuCj4KPkkgYWdy
+ZWUgd2l0aCB0aGlzIGFwcHJvYWNoLiBJdCBsb29rcyBzb3VuZCB0byBtZS4KPgo+Pgo+PiBmZWVs
+IGZyZWUgdG8gYWRkOgo+PiBTdWdnZXN0ZWQtYnk6IEJhb2xpbiBMaXUgPGxpdWJhb2xpbkBreWxp
+bm9zLmNuPgo+Pgo+PiBUaGFua3MsCj4+IEJhb2xpbi4KPj4KPj4KPj4KPj4KPj4KPj4KPj4KPj4g
+PiAgICAgICBpZiAodW5saWtlbHkoZXJyKSkgewo+PiA+ICAgICAgICAgICAgICAgc3RhdGljIGNv
+bnN0IGNoYXIgKmVzMWEgPSAiRmFpbGVkIHRvIGRldGVybWluZSBpZiBXaW5kb3dzIGlzIGhpYmVy
+bmF0ZWQiOwo+PiA+ICAgICAgICAgICAgICAgc3RhdGljIGNvbnN0IGNoYXIgKmVzMWIgPSAiV2lu
+ZG93cyBpcyBoaWJlcm5hdGVkIjsKPj4gPiBAQCAtMTU4MSwxMiArMTU5NCwyNSBAQCBzdGF0aWMg
+Ym9vbCBsb2FkX3N5c3RlbV9maWxlcyhzdHJ1Y3QgbnRmc192b2x1bWUgKnZvbCkKPj4gPiAgICAg
+ICAgICAgICAgIGNvbnN0IGNoYXIgKmVzMTsKPj4gPgo+PiA+ICAgICAgICAgICAgICAgZXMxID0g
+ZXJyIDwgMCA/IGVzMWEgOiBlczFiOwo+PiA+IC0gICAgICAgICAgICAgLyogSWYgYSByZWFkLXdy
+aXRlIG1vdW50LCBjb252ZXJ0IGl0IHRvIGEgcmVhZC1vbmx5IG1vdW50LiAqLwo+PiA+IC0gICAg
+ICAgICAgICAgaWYgKCFzYl9yZG9ubHkoc2IpICYmIHZvbC0+b25fZXJyb3JzID09IE9OX0VSUk9S
+U19SRU1PVU5UX1JPKSB7Cj4+ID4gLSAgICAgICAgICAgICAgICAgICAgIHNiLT5zX2ZsYWdzIHw9
+IFNCX1JET05MWTsKPj4gPiAtICAgICAgICAgICAgICAgICAgICAgbnRmc19lcnJvcihzYiwgIiVz
+LiAgTW91bnRpbmcgcmVhZC1vbmx5JXMiLCBlczEsIGVzMik7Cj4+ID4gLSAgICAgICAgICAgICB9
+Cj4+ID4gKyAgICAgICAgICAgICAvKgo+PiA+ICsgICAgICAgICAgICAgICogQSBXaW5kb3dzIGhp
+YmVybmF0aW9uIGltYWdlIGlzIG5vdCBhIGZpbGVzeXN0ZW0gZXJyb3IsIHNvCj4+ID4gKyAgICAg
+ICAgICAgICAgKiB0aGlzIGlzIGEgc2FmZXR5IGludGVybG9jayByYXRoZXIgdGhhbiBzb21ldGhp
+bmcgdGhlCj4+ID4gKyAgICAgICAgICAgICAgKiBlcnJvcnM9IHBvbGljeSBtYXkgZG93bmdyYWRl
+LiAgVGhlIHN1cGVyIGJsb2NrIGlzIGFscmVhZHkKPj4gPiArICAgICAgICAgICAgICAqIHJlYWQt
+b25seSBoZXJlOiB0aGUgdGVtcG9yYXJ5IGZsYWcgdGFrZW4gZm9yIHRoZSBjaGVjawo+PiA+ICsg
+ICAgICAgICAgICAgICogYWJvdmUgaXMgbm90IHJlc3RvcmVkIHdoZW4gdGhlIGNoZWNrIGZhaWxl
+ZC4KPj4gPiArICAgICAgICAgICAgICAqLwo+PiA+ICsgICAgICAgICAgICAgbnRmc19lcnJvcihz
+YiwgIiVzLiAgTW91bnRpbmcgcmVhZC1vbmx5JXMiLCBlczEsIGVzMik7Cj4+ID4gICAgICAgICAg
+ICAgICBOVm9sU2V0RXJyb3JzKHZvbCk7Cj4+ID4gKyAgICAgfSBlbHNlIGlmICh1bmxpa2VseSh0
+ZW1wb3Jhcnlfcm8gJiYgc2JfcmRvbmx5KHNiKSkpIHsKPj4gPiArICAgICAgICAgICAgIHN0YXRp
+YyBjb25zdCBjaGFyICplczEgPSAiRXJyb3JzIHdlcmUgcmVjb3JkZWQgZHVyaW5nIG1vdW50IjsK
+Pj4gPiArICAgICAgICAgICAgIHN0YXRpYyBjb25zdCBjaGFyICplczIgPSAiLiAgUnVuIGNoa2Rz
+ay4iOwo+PiA+ICsKPj4gPiArICAgICAgICAgICAgIC8qCj4+ID4gKyAgICAgICAgICAgICAgKiBF
+cnJvcnMgd2VyZSByZWNvcmRlZCBkdXJpbmcgdGhlIGNoZWNrIG9yIGVhcmxpZXIsIGUuZy4gd2hl
+bgo+PiA+ICsgICAgICAgICAgICAgICogbG9hZGluZyB0aGUgTG9nRmlsZS4gIFN0YXkgcmVhZC1v
+bmx5LCBsaWtlIG50ZnNfcmVjb25maWd1cmUoKQo+PiA+ICsgICAgICAgICAgICAgICogZG9lcyBm
+b3Igdm9sdW1lcyB3aXRoIHJlY29yZGVkIGVycm9ycy4KPj4gPiArICAgICAgICAgICAgICAqLwo+
+PiA+ICsgICAgICAgICAgICAgbnRmc19lcnJvcihzYiwgIiVzLiAgTW91bnRpbmcgcmVhZC1vbmx5
+JXMiLCBlczEsIGVzMik7Cj4+ID4gICAgICAgfQo+PiA+Cj4+ID4gICAgICAgLyogSWYgKHN0aWxs
+KSBhIHJlYWQtd3JpdGUgbW91bnQsIGVtcHR5IHRoZSBsb2dmaWxlLiAqLwo+Pgo+Cj4KPi0tIAo+
+VGhhbmtzLAo+SHl1bmNodWwK
