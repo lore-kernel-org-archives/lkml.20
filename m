@@ -1,161 +1,148 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94AD214883F
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:58:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789977518; cv=none; b=PLHJaPnW8sgFTwKEEc3Ie3ryC2VnHXOEV0iakAQISw6t0A8v1CNIzUicq3xtSb4VkaBVqqtidOupPkjr9Aq7gJtdk7zGtZz1rMo1rwc1Jc4vLTxX/Qh4NwQl+tMwVt/ILW85WEYhbC+nOVpadULAKIi5iP0+IYiiJvFW100bqvc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789977518; c=relaxed/simple;
-	bh=wNJEVjvDhDeyUZ+24cyJGPOxbwpnTdhWCGw7IrC0l/g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HEc9hRThUV2uZthnbnlf34KJOWw+Yq/pp6FPnjLhDnYt7bXJzQH3RU+5Nv0VLnr6M+tvAdHahCxhYcVlF++FfrfbIpeXF7DTa3dh0NZyKbq+O+MlGIbsZqPicYcDxQjRRc1r+rI8/l4wN3gZctx2HLTQJscyWxvFOE3jNct6c+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=U++02eu4; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA50A44C66A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:59:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789977545; cv=pass; b=r+T1V/qxnI74kEudH6puyN8cJGHW7Au2M3EpW30YqY+VxCJHY0gSeDfQ0ZDRl/YqCRokuihgzFPcW6z1xMPBC0piAtLcL5zaIBDeHx2C3Pg259JK+1dqZnV28niL3ULJaWmeI5rjy8z8WEeDcC4X8eQjWmA+53rejvUvhc569zU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789977545; c=relaxed/simple;
+	bh=NegY6gtmqum1Gxdq8ZWRKydUtJDoGcrkBSunDsp63z8=;
+	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lWV8xqMLlYRjQNHLZ0+LAMVvp090Z982zbMPTcRM3sizNSyLw6P1C3YTnyVgyutWbmVeLgKTBtihfkMsiFEl3EJF0QjGKPT5SqBR5wH2SDN+K8NWr3RSRYbTUOVxUmPviGd5ZznrW05ejTvzgWwcVdmqvlJSWngHOe1RmVMq7HI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=BOtt60UA; arc=pass smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="U++02eu4"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48436686a40so236499f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:58:35 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="BOtt60UA"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f15so2758566e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:59:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789977540; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fDnV+jcMdWHd3tg65H5H7AbdFWu/3M0cZ3p/AOHPCcQIpDKDDJAw0s6rX1D7k45dt7
+         HBaew/rZvKk32Ye3twt6nDIEQIvyQjaH27j3HpSqIW2x8KW2CHj2XH7y7H4WQpm+GlVw
+         KhFus/I3SpHceG/l1mP5WC94wF3jMIsabFzUcOWBjELBq7ISjV8DKksLJZ+bXNyZ1Z4h
+         RcbnRD6GgVeLWUKB2205HxGAe+vHe3nIbStB9C0aUu1FM6JTh2ux42MgBlD52cGtssFi
+         1DtBoMbApPe0i4RPZSbwkGgHUngXKmm9IgmODXeQrjpj5Cmd4neRrKI0aOKanv/+Oifo
+         jaiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:references:in-reply-to:from
+         :mime-version:dkim-signature;
+        bh=NegY6gtmqum1Gxdq8ZWRKydUtJDoGcrkBSunDsp63z8=;
+        fh=7jW+kIcmIhaqyamAQ8XzHDNMeNnNyAn2ChK/PRL1gTU=;
+        b=czTeBFQLoLD0MZ+/OfyiTZNOBFlLQHU4x+4y94k7pUuBC2HtHpDyhH1jYnLtRsepws
+         9+6VvwuzhbWM9QfAmwGWPlDmrM6glKvvtuSnzdirFchwxiMUvER9speBXepfBvcqrSIk
+         aRtMIAX/UteQ1RaU+fdaqPfOxeoCekEyq0U2wsynGLScJE9dcjPgRFo07EU8g9powFKp
+         Zoq6v40CdmkxJj5vnyAC8IA+idhjz71XQUoGEucEiZ+WPoAdh5o68bnpe4cv268J/UTC
+         PPih+6U+3R9lQ7qVJAqbSkI3zGfdY3eg6Ko+btYM5mGMNQPAklA7Zfk7B9hNl3sqFLdM
+         eCWQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789977514; x=1790582314; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :references:cc:to:content-language:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=khu.ac.kr; s=google; t=1789977540; x=1790582340; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=o4anFBGndO5Gr9SeLCAQmirqhf92DuQgimCIluGITj8=;
-        b=U++02eu4UULYJI4nl9iNPvIoLsabBZJuY9vlx1wixjewvdo3QPGwBOWXCN3vzTvWiQ
-         YoJhMD1xkTZ3WYDjOsBZe47xL7xOx2D+cihLLhEH//+zAJjka/0bfPox/mfZWz56lOfj
-         NcdBOwP1qeatikTpcSvPqUtoPDEhol5JCfotla7lOd2R1WQ5T8/IMWlCrIpflYyDJ4lf
-         2sebb7UG/3eyb/Pg6qxri1z3nzxqocY4k3DwcL6pm5JFZl81KtO2TxYHv8KV1UJDfBIv
-         ZVpFZEe7HUgPMeoSNQVwTkTt0yCVuVgeML8orPNypMGeumuOWTozpblDVu3fDEBIPfWs
-         pZ0w==
+        bh=NegY6gtmqum1Gxdq8ZWRKydUtJDoGcrkBSunDsp63z8=;
+        b=BOtt60UAtoDcImNOpXkwQWOZyvVNQHqDiWriaisV717UFMRyOPZwd+xdWWXf+xPA0l
+         M5vkSB00/m5dHCAVM+F+7M2avl0LsHgKy1L/EfrlIGe1c6wFlSzGnw5BUYtvd+jgcvEq
+         ljnnDbbdANsgQ09hNEwaG1EXLmEJMaPh6kC60=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789977514; x=1790582314;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :references:cc:to:content-language:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o4anFBGndO5Gr9SeLCAQmirqhf92DuQgimCIluGITj8=;
-        b=R3gYbUWmirir70NDscY9o6ZWJeEfvE3urP2YkA+y6XEY2WvgyQPMSjYwCNNnKhewm7
-         EM9QqliifFM1yVql6ZkBILOmfwn4F3yrnYbgOs965g6sWjTEt3fQt5/KJucWYGipwAsW
-         sq698BPZ2FlstMAEUxfLLkVIMJhMmxQNthHMyciZbip8NmCwt9iGwx6vmvvuhmmHJieD
-         exjajbN9QuCoFpVG0wqgpUufDk6LpbmeXAM5SFb1hMEbxQbxBwVKoKgRDgD/2DhHXs/+
-         NFPgX8Ab8ZI3kt1+bo2/GnDHRPi01C7CMOxAA9pzcq8RRrSAHOjGV1m3N4qAehalrHt3
-         2tCw==
-X-Forwarded-Encrypted: i=1; AKwUvByETRqkQbaLNGtJTJ96EgfIF0xurwKGrH4GoOp23wgDDF7Lgm1KYjXK+h9z1qrqsAEWEUFwohaN8+gkE4I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZrodKkSRkFIsWTyyM1P1yHGXlfrHfO5n5Kfh4AkNk3r9TCd6l
-	a5eJ8QPcq5EpOvZMPH8Fu19H5yef5gwKWxdg+G1dEp0l6D4QTtEpVs29YAU0P+YPuOU=
-X-Gm-Gg: AYBFou0Is/Wtk2tUQLqNF7xTaHt8OzLEq2pPK8KAEJwQECJ87qPkYJe3JRz2IB0bnQq
-	ZFANaXsBxki4GDtcujXePqYQqJyb7gLd6IrAIdnTVyIPkasXL0s++IMFgnU+6DQ2LtWqwFTYnBr
-	OVNiO8/swZf4QcmG4n9e96aykLwwY6cEKHKnKNkJDwAFin0lni1W10H5XlkSIhsXhdu8YcyUYTp
-	klgVE1G+pWzvo/r3CS0f/ol27+OZvzCqiQfgOsSdiV5yMIIm3eCWMWAnlWBvGbQK0+bcdEVhMb7
-	0lzZ2T7uw019yS9zg4Xb/By9ScA+Uw88j1Q7rnF+VTF8CRdu6a4YDjBgQ5HDxYu5c3rcjwEeovv
-	AObxjWeDj+84uFRFmoqXEuDIBwJD4cacmjXo86cJ/pJw/QeF93Gp/dBaQeI9A6yoCZ5y7HHwJxC
-	Yxi7YQQknTwt13SFoaFjqk6ki++o1gOOgVZI++08kb3E3JofOlVHXmOrFoP3jhPao0XtGty3ens
-	+o=
-X-Received: by 2002:a5d:5c03:0:b0:487:1488:d200 with SMTP id ffacd0b85a97d-4871fa41688mr12776133f8f.3.1789977513799;
-        Mon, 21 Sep 2026 00:58:33 -0700 (PDT)
-Received: from ?IPV6:2001:1a48:8:903::e14? ([2001:1a48:8:903::e14])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724593f5asm20453529f8f.28.2026.09.21.00.58.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 00:58:33 -0700 (PDT)
-Message-ID: <71362ec5-ba7f-411f-b2d8-6913a08be8af@suse.com>
-Date: Mon, 21 Sep 2026 09:58:32 +0200
+        d=1e100.net; s=20260707; t=1789977540; x=1790582340;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NegY6gtmqum1Gxdq8ZWRKydUtJDoGcrkBSunDsp63z8=;
+        b=Roms1rTFY47GEzvpiMQ9TnlL7rDsjMufUEaGpnEuS87Tl48+QdcgmSRXA/gp3p4v5O
+         dtqJNFi8a+QF7VnD/ebJ1WHtQTsp/TeG9JezirWHQFCbqKX2H4/zCvApoPqe9ZS9honm
+         xOw/29Hz37GyPvF1PRzq4giWwmCOdXdcXQ0vYqFTNPtp/nkKcDVbkawgdvX0LQJAldIU
+         xWPj67XylXQ2Oq0tddqmX0uJfQT8WKMYUj7Rl1JPr6YdQOWK7CDSiMDujEzlDDqFDuGX
+         UC+3PkiT3UKA6J7eyJihjFqsSNe9exgV5HK/adAz9nOniQ/ZNwnfHJbSklkfEzfSiyty
+         tUIA==
+X-Forwarded-Encrypted: i=1; AKwUvBztdKPThM1sFgtHQw7JSuY7pwwu9NN8NpvwKKB3+CGuBN1vt4ioWU5+c+Jx/+/DteHsVuRW8Lj9w+WCn4k=@vger.kernel.org
+X-Gm-Message-State: AFuF++k1heuMZtdacXfg9wTI97aY8OQph0Saa7gYXlV2K6Nfwgvsqp7K
+	kTY6Tp/jviXkQA8xsU0NLxcCvhkCXzAi3qSpFcp2oYbD6/KObf4sajIwGXlwF+2V1gbcM71Nfjp
+	KlCGSd4HLADcbtJtBpDMqfey4wyVbIZzwJl/W51zPfA==
+X-Gm-Gg: AYBFou2wKAuTpNpYOAmh1RHSCzm+SazrDd7CET3fuIO7hS62bs3YNsMIRS5CvPeogO/
+	eRFyBlMfuJ2LChCEBUhADLbJDCNCcFl63u/2z/Ddy83MCPXrAoT+T5V8jWMInrLIzQb3IP11nna
+	aVOtimxDt9v0uipHsRUolRhoCEfMaSjWGYJ435es30z/KCjE57UpvyO9SLu+FmXoCNs/aq7q+so
+	RHgRJZHkUyb+jpVc/XEFSTR9m1OMGMDEZWJKAvwQXIlOWe1phvESZ5zqLnolTWxEGqheFJ19Zxh
+	a3RUuFRjRDcWlOb6UiTk4RO53NycHdZPVmFCD0qwyL4KJh1muaTxUfsCCfL6CsrsXW84l73r6eN
+	LKAck3gSh7txfrEp5JdXrR8Aiub2rJ7lU
+X-Received: by 2002:a05:6512:669a:20b0:5b8:c230:1192 with SMTP id
+ 2adb3069b0e04-5b8c2301450mr1851316e87.31.1789977540085; Mon, 21 Sep 2026
+ 00:59:00 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Mon, 21 Sep 2026 00:58:58 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Mon, 21 Sep 2026 00:58:58 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] net: qrtr: resend HELLO on MHI resume
-Content-Language: en-US
-To: Manivannan Sadhasivam <mani@kernel.org>,
- Daniel J Blueman <daniel@quora.org>, netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Chris Lew <christopher.lew@oss.qualcomm.com>,
- Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>,
- Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260909055846.16539-1-daniel@quora.org>
- <nhbc6epjziyb455l6z4xqunfb74bdboycuq52vt6nrr7fqjo3z@ruh4isxdkyom>
-From: Vlastimil Babka <vbabka@suse.com>
-Autocrypt: addr=vbabka@suse.com; keydata=
- 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
- pYekxJujNeEDkUlky0Y=
-In-Reply-To: <nhbc6epjziyb455l6z4xqunfb74bdboycuq52vt6nrr7fqjo3z@ruh4isxdkyom>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Kim Wooseok <5mghybrid@khu.ac.kr>
+In-Reply-To: <8d8e60e260254dc2a2cc1f37cd1b3832@realtek.com>
+References: <20260920-codex-rtl-rx-v3-submit-v3-0-883d11351963@khu.ac.kr>
+ <20260920-codex-rtl-rx-v3-submit-v3-3-883d11351963@khu.ac.kr>
+ <9b5c31541fc8430b9d4205dcdff9e76e@realtek.com> <CAH1Bc_yTizX4Cex+GRLeRUtaBdp8jEc2XEyawMzkQsZFpj1QGw@mail.gmail.com>
+ <8d8e60e260254dc2a2cc1f37cd1b3832@realtek.com>
+Date: Mon, 21 Sep 2026 00:58:58 -0700
+X-Gm-Features: AcwNN1Uwfsw7ISFdbAgxmEh6c9ozvNd2-hswQt1dlcyjf0ujJ_bdW0MXQ2mOb6g
+Message-ID: <CAH1Bc_xo+ubx97jGXdR4_d8duO+9x3ACs22eG-SaXHiCbzKTMw@mail.gmail.com>
+Subject: Re: [PATCH rtw-next v3 3/3] wifi: rtl8xxxu: preserve RX requests
+ across recoverable transfer errors
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org, Jes Sorensen <Jes.Sorensen@gmail.com>, 
+	Kalle Valo <kvalo@kernel.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/18/26 19:05, Manivannan Sadhasivam wrote:
-> + netdev
-> 
-> On Wed, Sep 09, 2026 at 01:58:44PM +0800, Daniel J Blueman wrote:
->> Since the MHI HELLO exchange was relocated, it is sent only at device
->> registration. During a suspend-resume cycle, the firmware in WiFi
->> cards such as WCN7850 indefinitely waits for another HELLO,
->> triggering:
->> 
->>   ath12k_wifi7_pci 0004:01:00.0: timeout while waiting for restart complete
->>   ath12k_wifi7_pci 0004:01:00.0: failed to resume core: -110
->> 
->> Fix this by triggering the handshake from resume_early in the MHI
->> transport.
->> 
->> Validated on Qualcomm X1E-801800 on Lenovo Slim 7x across 10
->> suspend-resume cycles.
->> 
->> Fixes: 544d85de4dc2 ("net: qrtr: Send HELLO message on endpoint register")
->> Signed-off-by: Daniel J Blueman <daniel@quora.org>
-> 
-> Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> 
-> Since this patch fixes a regression in linux-next, it'd be good to get it merged
-> asap.
+Yes. I want to preserve normal RX replenishment once the batching
+threshold is reached. The 100 ms delay is intended to limit retries
+when normal progress is absent.
 
-Linus merged it directly for rc4 as 6a5719cc3ef2 ("net: qrtr: resend HELLO
-on MHI resume")
+In the mixed-traffic test, normal progress brought the worker execution
+forward to 18.773 ms after the retry was queued. I would let that refill
+proceed instead of holding the available URBs for the remaining delay.
 
-> - Mani
-> 
+For repeated errors, I want to keep the first retry deadline rather
+than restart the delay with each error. That is why I would keep
+schedule_delayed_work() for errors and mod_delayed_work() for normal
+completions.
 
+Thanks,
+Wooseok
+
+
+On Mon, 21 Sep 2026 00:24:47 +0000, Ping-Ke Shih <pkshih@realtek.com> wrote:
+> Kim Wooseok <5mghybrid@khu.ac.kr> wrote:
+> > > Not prefer using bare system_wq.
+> > > Can both use schedule_delayed_work()?
+> >
+> > In v3, the error path uses queue_delayed_work(system_wq, ..., delay),
+> > while normal completions use mod_delayed_work(system_wq, ..., 0).
+> >
+> > I can replace the error-path call with schedule_delayed_work().
+> > However, the normal-completion path is intended to bring an existing
+> > delayed retry forward when the pending count exceeds the batching
+> > threshold, which schedule_delayed_work(..., 0) cannot do because it
+> > leaves an already pending timer unchanged.
+>
+> I knew this point. Does it matter to schedule a normal case immediately
+> after an error case (defer to schedule) happened within 100ms?
+> (Just an open question)
+>
+> >
+> > Would it be OK to retain mod_delayed_work() for normal completions,
+> > changing its queue argument to system_percpu_wq?
+>
+> OK if above question is yes.
+>
+> Or both change to use mod_delayed_work()?
+>
+> >
+> > With that change, schedule_delayed_work() would select system_percpu_wq
+> > internally, and mod_delayed_work() would use the same queue explicitly.
+> >
