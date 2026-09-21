@@ -1,156 +1,115 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F1E2147F9
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:09:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A865749B458;
+	Mon, 21 Sep 2026 13:09:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789996184; cv=none; b=O2Z7SWnldmED99Rj8J5ALetqjBs7XpwPwZExeDrhXWZRnxC4L2esCS294Kx1f97fNogx8xs1A4g6TWTZ7Hs/vJtkQSliVo5wrXHhAA9/vkgjxuOq/FVzhtKQ0HMHfuxEwvPxIIAw/A8BT0dN5XAwLV1blngw0xuxodie4vPmuNw=
+	t=1789996184; cv=none; b=mSAjecBDVWHSG2ItTV92KkRN9/T2B7Lq5Srgtiukmkbz+CzaShqCgBcoRhmE0yFkTw+zS+P6lbkNuX+X13cc/OqCey0knXnqrzE5j3Gdl17+RIzhodWBTQJQn//Vg+MK0NsOWrIJsBq/qSvL+LIWUdFo5IiroS3wO2r195Q0RBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789996184; c=relaxed/simple;
-	bh=eiuWmlpWIrVmvRukmtMzZVNhvzYKEvXfj3/9QCPxu5Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OCRk4IWGSPR2WnbDQ/Ng4BxJFdsYAs1f2bZYyK/Dy7aNrKd9rsv+nqLw4GOBCp9abz1Jjs7y9sZZO9zlOyY8Ck5pa4oXaX3e40KMJk2DXhjnf80bySf3TsyLqetIDYqms1fjUCobqDw9oDBvuF3Xgncm7yNG2pW6/kQ/QKKlYxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gbH46PJU; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=F559ocMlket3wrii61B/hX+vnT8hvF0tI9aaDMoyuvQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b9eXfFyq6PrSUg/MlfflcIuM2IlhIpDHiLjDoYZrEobdMpnx7xonU0+ZXMjfXkzVqxusCRd71RggrO/B+5CCJ9n6b8ase2XYOdFvFz/Vj3wq500x7Eavb17vyB/FKkiVc5LfrAB6T0UXZ1QNIkDRaKXYRyS5ZvIrX3feBRxnomo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e13sQNVB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gbH46PJU"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1ceb47d55so533662a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:09:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789996182; x=1790600982; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=snQf0hJkQsH7Jj4aS5id74hgw0NIowrU4G8FGq6/9fI=;
-        b=gbH46PJURVM7ZTREuV2r1oNue8DRiPFq/kT5g7aJL3XK4lYzByd8eOkTSgiiB7jnpj
-         yQDsXEZXreurjXy/ZoNr1+ONL802AjHj7Gy5kEiP1t8/hJAnRp63CCQWzhaGFo5L6sv8
-         CTEzWr1vfh9Dx/HSYjTHUhHbIz6gXR3CB2eaPug6/0RyHeXHCvVNby/EouSqxEpocaUd
-         dYmz5PBMW9SooxNapP4pl7MriU+wEGI49pN/wxKRVNVBBzq5pLs9SggDkDplycfIrC27
-         F63d7oFB61q0NFezBPL0d3YYRcNdC6TLu0wIVcQ5+AUbTzUJu56hMrMNPZJ1A7bNs8rj
-         icHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789996182; x=1790600982;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=snQf0hJkQsH7Jj4aS5id74hgw0NIowrU4G8FGq6/9fI=;
-        b=lpAvIcnhBYBOMAokJccaiTg1b7wY/S0Vbu+NGiyIYhKOpBPYmPkAqENZBguD/fzhNN
-         3RNgt05V0x7ok3xeK6sKe+Nhx4Q5g4yTmSBOeUK9/JsIaxPAayLSWjcLWN0bLVhmlmDt
-         6dE4C5/U2cwroFRrSQb4neJL+/neT6f0mpK4IAhzoXhz0k2ubKs2jJoR1V/hB/6oDPE4
-         CGA37DUop/vKCgGCcWNcnme9xDrcUI/odSkKwdOYKV7zGaLUKxHsRMMADSi9hQquBCfC
-         9xJS3CYLyvWmNPzcdn0ZJH8ikHaSOc8ydHKxhTbfwHG65+dq9MvMlHyGJae8VYxkr4Qr
-         yI0g==
-X-Forwarded-Encrypted: i=1; AKwUvBwUUUkBRtJ2qd34B4OR4qG1pd28U0IzMN77Ee43379kORBHbfdqI+goKr9YfIfBVskVlWnmBPCxfSHf1Vo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nIqfmAUlbpZME8/goyiRGPNS7qLphS1HmNfPDhwIXmWKDwAmW2
-	tyArX1YWjmxeNS3MmaghMyHtm+j6o3rsbiIdst6F9R9eZfTycgytvEmL
-X-Gm-Gg: AYBFou3temrHtXKgQbRqV+VE+TCa4K02alQd7WvPqEhlJG+5RqKysu8ZFBz9Bzzeb6u
-	UjRkU3Wuj4c3DJZRvATz+9j92gda6grlPL/5yiA/Sq5KWou8BqIPEuBHGrOVycTHRfFM7sDm4xT
-	Ec3qK/+dtFqTQcmiQjB2l0LkQDosOcBStC3yDSGIPOawWHqSQeLrG7AE0og2MbBKBk+GpFDuJ0A
-	J68yrxkrCaqtg9fU9o4ncu1doEvH9DXc4fMCHp7LIdKRoqCFhznOyALiXWALw34zH/Zn/dH9EHb
-	U2qFTEsHkwF24mTqGk50jE07votbUIHlk5txoBerOqT8b8xXBPaocsE8twUpA75B/JJPS3Wr+WJ
-	Qn24dLcIUt1AAa0fgV1s6k7IhaTHTkNjRc/cnDktpDLzjZ1nsqfxX7S37ws2hlHGw+9wzLtTbZr
-	mwbkdDyKb3OBTVJTaZHYQ79Wm7qAyhSUfY3lOaYDyZdANsc/F2pnvsnQ==
-X-Received: by 2002:a17:90b:2890:b0:39e:3dad:684f with SMTP id 98e67ed59e1d1-39e5546c89dmr10847172a91.4.1789996182395;
-        Mon, 21 Sep 2026 06:09:42 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a023e44854sm5275079a91.4.2026.09.21.06.09.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 06:09:41 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Justin Chen <justin.chen@broadcom.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	bcm-kernel-feedback-list@broadcom.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] net: bcmasp: fix MDIO child device leaks
-Date: Mon, 21 Sep 2026 21:09:29 +0800
-Message-ID: <20260921130929.403129-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e13sQNVB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28B921F0089A;
+	Mon, 21 Sep 2026 13:09:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789996183;
+	bh=7BEi9bnupk2tGkEwUZeOZfddlvvx1uRhC2R2hXlT/kw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e13sQNVBQ80LOFKn6Ix6ZyO14nn7uPNK5BQjitRo7n3ax1ueKz8MjZiX0bZgbrBvP
+	 fG4Xp5Ni9rypjZmCg7K7CGkosry3KmKqDILW1r97oHAD49pakCTY7H8Gwr3ekRb8pj
+	 rT9KFIaqi44ROkVlFjypQNYXkpe9f/liIPbG/ks3gnOGLQ5oMSp+jkNNOGaAPJTRXH
+	 M+HRGr9xRrl47i3MBwIGAwc9nhhyNvfwQkWGujxMsJIOiBSasO862KfnqxhXQUCjUe
+	 exKEzyygUfkJLu/WDJms7Lh7z4TZHd5PsREH4VkR81sfgud3+g1MKCrZH5udQlUbko
+	 jcju+hpfy8+iw==
+Date: Mon, 21 Sep 2026 15:09:35 +0200
+From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+To: Muchun Song <songmuchun@bytedance.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Dan Williams <djbw@kernel.org>,
+	David Hildenbrand <david@kernel.org>, linux-mm@kvack.org,
+	nvdimm@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-cxl@vger.kernel.org,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Mike Rapoport <rppt@kernel.org>, Oscar Salvador <osalvador@suse.de>,
+	Ira Weiny <iweiny@kernel.org>, Jan Kara <jack@suse.cz>,
+	Matthew Wilcox <willy@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>, Michal Hocko <mhocko@suse.com>,
+	Qi Zheng <qi.zheng@linux.dev>, muchun.song@linux.dev
+Subject: Re: [PATCH 3/4] mm: add shared read-only vmemmap support for FS-DAX
+Message-ID: <arEsjy0QwLekLVbf@localhost.localdomain>
+References: <20260903122128.12264-1-songmuchun@bytedance.com>
+ <20260903122128.12264-4-songmuchun@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903122128.12264-4-songmuchun@bytedance.com>
 
-bcmasp_probe() populates MDIO child platform devices using
-of_platform_populate(). If initialization later fails, the probe error
-paths clean up interfaces and clock state without depopulating those
-child devices.
+On Thu, Sep 03, 2026 at 08:21:26PM +0800, Muchun Song wrote:
+> FS-DAX registers persistent-memory ranges as ZONE_DEVICE memory, and the
+> kernel normally allocates and initializes vmemmap storage for every
+> advertised PFN up front. Sparse pmem images and workloads that only use the
+> DAX direct-access path may never need writable per-PFN state for most of
+> that range, but still pay the memory and initialization cost.
+> 
+> Add an opt-in dev_pagemap mode that populates FS-DAX vmemmap PTEs from a
+> shared read-only metadata page. The shared page is initialized with the
+> common ZONE_DEVICE and dev_pagemap state, so every PFN still has a valid
+> struct page representation while private metadata allocation is deferred.
+> 
+> This relies on sizeof(struct page) being a power of two, so each vmemmap
+> page contains a naturally aligned and repeatable set of struct page slots.
+> It also requires architecture support for runtime vmemmap remapping,
+> because shared mappings must be replaced with private writable pages before
+> a PFN can enter userspace mappings.
+> 
+> The initial implementation is deliberately limited to a single
+> memory-block-aligned range. That is not a fundamental requirement, but keeps
+> the registration and teardown paths simple; support for multiple ranges or
+> less strict alignment can be added later.
+> 
+> Provide vmemmap_materialize_page() to replace shared mappings in the
+> requested metadata range with private writable copies. A later patch will
+> call it from the FS-DAX fault path.
+> 
+> No caller enables the mode yet.
+...  
+> +static int pgmap_vmemmap_shared_page_alloc(struct dev_pagemap *pgmap, int nid)
+> +{
+> +	const struct range *range = &pgmap->range;
+> +
+> +	if (!is_power_of_2(sizeof(struct page)) ||
+> +	    !IS_ENABLED(CONFIG_ARCH_SUPPORTS_VMEMMAP_REMAP) ||
+> +	    !(pgmap->flags & PGMAP_VMEMMAP_OPTIMIZATION))
+> +		return 0;
+> +
+> +	if (pgmap->nr_range != 1 ||
+> +	    !IS_ALIGNED(range->start | range_len(range), MIN_MEMORY_BLOCK_SIZE))
+> +		return 0;
+> +
+> +	pgmap->vmemmap_shared_page = alloc_pages_node(nid, GFP_KERNEL, 0);
+> +
+> +	return pgmap->vmemmap_shared_page ? 0 : -ENOMEM;
 
-The normal remove path has the same issue and leaves the populated
-MDIO devices registered after the ASP driver is unbound.
+I yet have to look into this with more detail, but this caught my eye.
+Should not this be a best-efford mode optimization? So, if we were
+unable to allocate the page, could not we treat this as a normal "cannot
+be optimized, follow by-default procedure" ?
 
-Add a separate error path for failures that occur after the MDIO
-devices have been populated, and call of_platform_depopulate() there.
-Also depopulate the child devices during normal driver removal.
 
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
 
-Fixes: 490cb412007d ("net: bcmasp: Add support for ASP2.0 Ethernet controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/net/ethernet/broadcom/asp2/bcmasp.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/ethernet/broadcom/asp2/bcmasp.c b/drivers/net/ethernet/broadcom/asp2/bcmasp.c
-index 972474893a6b..c4087408a822 100644
---- a/drivers/net/ethernet/broadcom/asp2/bcmasp.c
-+++ b/drivers/net/ethernet/broadcom/asp2/bcmasp.c
-@@ -1309,14 +1309,14 @@ static int bcmasp_probe(struct platform_device *pdev)
- 					 sizeof(*priv->mda_filters), GFP_KERNEL);
- 	if (!priv->mda_filters) {
- 		ret = -ENOMEM;
--		goto err_clock_disable;
-+		goto err_depopulate;
- 	}
- 
- 	priv->net_filters = devm_kcalloc(dev, priv->num_net_filters,
- 					 sizeof(*priv->net_filters), GFP_KERNEL);
- 	if (!priv->net_filters) {
- 		ret = -ENOMEM;
--		goto err_clock_disable;
-+		goto err_depopulate;
- 	}
- 
- 	bcmasp_core_init_filters(priv);
-@@ -1327,7 +1327,7 @@ static int bcmasp_probe(struct platform_device *pdev)
- 	if (!ports_node) {
- 		dev_warn(dev, "No ports found\n");
- 		ret = -EINVAL;
--		goto err_clock_disable;
-+		goto err_depopulate;
- 	}
- 
- 	i = 0;
-@@ -1369,6 +1369,8 @@ static int bcmasp_probe(struct platform_device *pdev)
- 
- err_cleanup:
- 	bcmasp_remove_intfs(priv);
-+err_depopulate:
-+	of_platform_depopulate(dev);
- err_clock_disable:
- 	clk_disable_unprepare(priv->clk);
- 
-@@ -1383,6 +1385,7 @@ static void bcmasp_remove(struct platform_device *pdev)
- 		return;
- 
- 	bcmasp_remove_intfs(priv);
-+	of_platform_depopulate(&pdev->dev);
- }
- 
- static void bcmasp_shutdown(struct platform_device *pdev)
 -- 
-2.43.0
-
+Oscar Salvador
+SUSE Labs
