@@ -1,133 +1,72 @@
-Received: from e3i491.smtp2go.com (e3i491.smtp2go.com [158.120.85.235])
+Received: from gentwo.org (gentwo.org [62.72.0.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77AED4E73D8
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:56:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.120.85.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81CB39734A;
+	Mon, 21 Sep 2026 17:57:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790013391; cv=none; b=GEkST9WegPpaK1JdpLSoWEDPHe2y0JVquECCoD1LswJs/lqO9Fv8mGvzUzt4YwfFSC6va0onCy0VZzyGz9cK6LELoY/t0OLu5N0IwmcIh9bhsUWBKBTFAXUJZ22uxEyyDTs3srnREGoE81AdVmj26e+HVMlYEpfP1GsCurW66Dg=
+	t=1790013436; cv=none; b=CipGWFylV3EqCHlcK6PqwxXtcZPZETCzXcjjT21rBWlBbL20yiYkfFLtuSGKaDb/7WUzZ+8/NgzdK3lZxO4XF+KHdkSNN1D5PBpcsltnvHDcFzATqJhDTE81mwdly3Yb6LcTB4uH1VUvu6ch6bIxR61NBKbNiu9WfMaBy3bKQMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790013391; c=relaxed/simple;
-	bh=fngXC7lgpUnXEi4onVVu/b/uD1YFFBdkY+MSr0dIkpQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QsHGZqWWjDH2Nl998eRXVJDatLF3J12N2MJ1e2cv2FG3tGYt1fMKbwBbw1TDnYI/yTD1mpDR15IJ1JjCmGvxUOPWNyvgyJwGT0tfE/uGmVZDSiid849T6dynpDgBBCHvm5Go5IvVSxiFjTyfjOxaT5LCk5ecjLV9iBqEunz9r68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fkr.dev; spf=pass smtp.mailfrom=em1020969.fkr.dev; arc=none smtp.client-ip=158.120.85.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fkr.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em1020969.fkr.dev
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fkr.dev;
- i=@fkr.dev; q=dns/txt; s=s1020969; t=1790013160; h=from : subject : to
- : message-id : date : list-unsubscribe : list-unsubscribe-post;
- bh=mW9HJEvCMULkvoto60bp8qOsfgJWX894wKqY8BXR+Ms=;
- b=NJOE7AXCE0QfsxzGjzh/nRmqD6fkN4sTtr3YGvvroQLB3BTVpq5azj0aPIBOW7UCa+evG
- 2Hp4Ix3JuRozYKE6mj3cMl2flkMtL5nyUwAOVBeys6zWUYXIlZQp0Y/Fwf9KREGJYlWsDtO
- lGGBHuZ+IedVDCYHI3IS9/vpURIQShSY9usTQG2rSB9FuHINTr9EHfR+70aDTNVElD0MN3N
- eD87UMJ6IB0VeKU5tnLE1gTj+ZvINdvV+iDnOvaJ+IEz2lAiI5wS/HzYl22lUhXSfOpm5Ox
- 1yY89IaDRRgGQxmbI0We83/WCez+QLE5eBrm/U65s+zAcGqR0T9YPhaeqYlA==
-Received: from [10.244.246.9] (helo=fkr.dev)
-	by smtpcorp.com with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128:X25519)
-	(Exim 4.100)
-	(envelope-from <florian.krischer@fkr.dev>)
-	id 1x8iBw-AIkwcC8xzM1-KReL;
-	Mon, 21 Sep 2026 17:52:37 +0000
-DKIM-Signature: a=rsa-sha256; bh=mW9HJEvCMULkvoto60bp8qOsfgJWX894wKqY8BXR+Ms=; c=relaxed/relaxed; d=fkr.dev; 
- =?utf-8?q?h=3DSubject=3ASubject=3ASender=3ATo=3ATo=3ACc=3ACc=3AFrom=3AFrom=3ADate=3ADate=3AMIME-Version=3AMIME-Versio?=
- =?utf-8?q?n=3AContent-Type=3AContent-Type=3AContent-Transfer-Encoding=3AContent-Transfer-Encoding=3AReply-To=3AIn-Rep?=
- =?utf-8?q?ly-To=3AIn-Reply-To=3AMessage-Id=3AMessage-Id=3AReferences=3AReferences=3AAutocrypt=3AOpenpgp=3B?=
- i=@fkr.dev; s=default; t=1790013156; v=1; x=1790445156;
- b=VRHFyCuPcMIM2qcA6JZvqz7pgOo/COL/QaQ/x8GkS4yLo3eto/DOmKuj59XWeRGdvkGT5zv8
- 5SKZvJSp+5w5uXlVvGTNKIA6jvZx75lDHAz3IvouJ7xM05wTtekuQ9oCYGSwR49nOVfhdf5sXHC
- e1GJ9R2vltCISK8pClqFJxZTNMPjtiuqe/WCiAKN4jPj+bFNvp0MHlw1u9h/KHWcwhAQyjKxMtB
- yntFYNKypkz27WiZ2jP/AkDIj9XVSk45eH958vaCHL4yyVaHQJbI+CHxYunM9g4v04om5ZGz3P4
- 7KUcHrV2Bwfz5lf25feXbDtdWYNE1hgWXZiG5fyuIgdzw==
-Received: by fkr.dev (envelope-sender <florian.krischer@fkr.dev>) with
- ESMTPS id fc545454; Mon, 21 Sep 2026 17:52:36 +0000
-From: Florian Krischer <florian.krischer@fkr.dev>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Florian Krischer <florian.krischer@fkr.dev>
-Subject: [PATCH v10 fixup 0/2] ASUS Transformer EC: SL101 keyboard
- event/response fixes
-Date: Mon, 21 Sep 2026 19:52:35 +0200
-Message-ID: <20260921175234.3137985-1-florian.krischer@fkr.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721095233.420823-1-clamor95@gmail.com>
-References: <20260721095233.420823-1-clamor95@gmail.com>
+	s=arc-20240116; t=1790013436; c=relaxed/simple;
+	bh=XW2kMLggkRWNkVt6ExhJhc6qzBTBSihv+LUgIX5RMcA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=RivnL9I70PG7Jjm0kZLD8uMmlzbYsUMY1DP4bWyqeI1uL6FI0u0Wlf27TCvXmyLXWI7Vi21SCeZRSvVLcj+0kx+8XLaTERuZxRsMqpkxbjyLNUn6pEbqVGSBEjXq0g3RwYfDKxyz676Gqvc8Sx23KoXKvO2jUqguq8RSWBd0WjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=DsymiE1M; arc=none smtp.client-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="DsymiE1M"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1790012833;
+	bh=XW2kMLggkRWNkVt6ExhJhc6qzBTBSihv+LUgIX5RMcA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=DsymiE1MQAtmEN6uUB15xdAYVJDZfNgJnj2uprYa57YqGKxBPw/trT1vR1DDzhUmO
+	 mG9CZX/7ouqOPVy1PfkrG6LJZR68SWo47gb09EdLmAGiAeSYTe398ITRq5Z08JDXrL
+	 1zi94uzbdB0Ko5/ITaTybb562kwpWXK8p179l0Rc=
+Received: by gentwo.org (Postfix, from userid 1003)
+	id 85E8E406E1; Mon, 21 Sep 2026 10:47:13 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTP id 82BF2406DE;
+	Mon, 21 Sep 2026 10:47:13 -0700 (PDT)
+Date: Mon, 21 Sep 2026 10:47:13 -0700 (PDT)
+From: "Christoph Lameter (Ampere)" <cl@gentwo.org>
+To: Ankur Arora <ankur.a.arora@oracle.com>
+cc: Haris Okanovic <harisokn@amazon.com>, linux-kernel@vger.kernel.org, 
+    linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+    linux-pm@vger.kernel.org, bpf@vger.kernel.org, arnd@arndb.de, 
+    catalin.marinas@arm.com, will@kernel.org, peterz@infradead.org, 
+    akpm@linux-foundation.org, mark.rutland@arm.com, ast@kernel.org, 
+    rafael@kernel.org, daniel.lezcano@linaro.org, memxor@gmail.com, 
+    zhenglifeng1@huawei.com, xueshuai@linux.alibaba.com, rdunlap@infradead.org, 
+    david.laight.linux@gmail.com, broonie@kernel.org, 
+    joao.m.martins@oracle.com, boris.ostrovsky@oracle.com, 
+    konrad.wilk@oracle.com, ashok.bhat@arm.com
+Subject: Re: [PATCH v15 12/16] cpuidle/poll_state: Wait for need-resched via
+ tif_need_resched_relaxed_wait()
+In-Reply-To: <878q58z2ej.fsf@oracle.com>
+Message-ID: <3e8bda45-0aa7-d0be-8aad-dab95902dcde@gentwo.org>
+References: <20260831202251.305046-1-ankur.a.arora@oracle.com> <20260831202251.305046-13-ankur.a.arora@oracle.com> <178908146776.2725577.2613699832033292946.b4-review@b4> <878q58z2ej.fsf@oracle.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Report-Abuse: Please forward a copy of this message, including all headers, to <abuse-report@smtp2go.com>
-Feedback-ID: 1020969m:1020969amTSgpp:1020969sLnWE1pO7r
-X-smtpcorp-track: KMmz29nFam-k.u-J6RU-cV8mF.8YEjuwyVgaV
+Content-Type: text/plain; charset=US-ASCII
 
-Hi,
+On Fri, 11 Sep 2026, Ankur Arora wrote:
 
-I tested the v10 ASUS Transformer EC series on a physical ASUS Eee Pad
-Slider SL101 while bringing up its built-in sliding keyboard.
+>
+> Thanks for retesting.
+>
+> > The new unit tests all pass on both metal and virt variants of the same machines.
+> >
+> > I hope we can merge this soon.
+>
+> Yes indeed. I'll send out one more version which addresses a few minor
+> bot comments (and patch-1 needs a re-review because of changes.)
+>
+> But other than that this is as mergeable as it will ever be.
 
-The EC probes successfully as:
+I dont see it anywhere. Is this patchset scheduled to be merged?
 
-  Model         : ASUS-EP102-DOCK
-  FW version    : SL101-0202
-  Config format : ECFG-0001
-  HW version    : PCBA-EP102
-
-and the KBC child creates an AT Raw Set 2 serio keyboard, but v10-style
-behavior does not complete atkbd initialization on the SL101.
-
-Real-hardware tracing exposed three details:
-
-1. The SL101 EC event window at 0x6a uses the 8-byte SMBus block reads
-   found in ASUS's downstream driver. The generic 32-byte event read
-   loses the keyboard command-response path on this device.
-
-2. Keyboard command replies can be valid OBF-only packets without
-   KEY/KBC set. Non-AUX, non-SMI/SCI OBF responses therefore need to be
-   routed to keyboard serio0 so PS/2 ACKs reach atkbd.
-
-3. The observed keyboard reset response is:
-
-     03 09 fa aa
-
-   where 03 counts the following status + payload bytes, 09 is status,
-   fa is the PS/2 ACK and aa is BAT success. v9's data[0] - 1 payload
-   count matches this framing. v10's data[0] - 2 drops the BAT byte.
-   The fix keeps v10's upper-bound check while restoring data[0] - 1.
-
-With these fixes and the SL101 EC DT node at 0x19/0x1b, Linux 6.18.45
-boots through RAM-only kexec and the physical sliding keyboard works.
-
-The two patches in this fixup set are intended to be folded into v10
-patches 2/7 and 3/7 respectively, rather than merged as a competing
-driver series.
-
-The dependent Tegra SL101 DT patch is prepared separately and should be
-submitted after/with the EC binding dependency.
-
-Hardware:
-  ASUS Eee Pad Slider SL101
-  EC model ASUS-EP102-DOCK
-  EC firmware SL101-0202
-
-Validation:
-  - physical keyboard PASS on real SL101 hardware
-  - cleaned MFD and serio objects compile successfully
-  - cleaned SL101 DTB compiles successfully
-  - checkpatch: 0 errors, 0 warnings
-
-Florian Krischer (2):
-  mfd: asus-transformer-ec: use 8-byte event reads on SL101
-  input: serio: asus-transformer-ec: fix keyboard response framing
-
- drivers/mfd/asus-transformer-ec.c             | 19 +++++++++++++++----
- drivers/input/serio/asus-transformer-ec-kbc.c | 16 +++++++++++-----
- 2 files changed, 26 insertions(+), 9 deletions(-)
-
---
