@@ -1,106 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A454F4032;
-	Mon, 21 Sep 2026 18:41:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EFF047B43B;
+	Mon, 21 Sep 2026 18:41:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790016077; cv=none; b=UCIlRpGR20XDv5LqyMOlTtoqHevF7TQsQd5Kk3cTdhRZomijtPsf3gERoUpZ3QngFyFP/Criq88Pkdrl13cYogpGY4gW6SDrGZrL/OBvdKj1HwYtPhZshAHkXmHUlGWckmjiLEoAURQTV7EwZPWFVjWBS1HyKHTIx+B7XmwAhIM=
+	t=1790016078; cv=none; b=ud3IA+XZRwh5x3N2ZFFZQSG+xQJzKGx6NMi5cBqNNVkl3ceHnGPqe8qA0eUQWEQzOfHmKM0jno0v5uz7Z9P/h608jGmjkWizb4kFaTgp1TmLznHYljC1HjS6DtLxhnIQCvIf02YKFhrHJksNO/NiOYEep1VQgQSD6ol05k/kuJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790016077; c=relaxed/simple;
-	bh=erDUfccdx9b1ae8tfdpzQo24LmbknARaiyYGluhC+9Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a4yOEI/THAZ9Ro2MRcgt6/+1Dw2/xHZ9cBMi/eLUo8Lf9HdZjQpHNgeCwtqZ/sXwuBnl+FBDqn99cb3Am2fxMJc4qevlUDwqycnm1OmXIGlyNrI1hp2EEmKSwtw7Ojt9fNmbbJJTql43yfY9AvQBVtXRVxayI8IpHjYcQ6RjCCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QU+QQFzw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790016078; c=relaxed/simple;
+	bh=7w5YobZ4XBmdbOX4FISTGzM+7PrIIyHWz+pHyJGncPs=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=NIFQNa2rNmrrkMmsXuYYWCfSNjBBayVT6zCQgw3Mz7fV4NNE8ti8O1nMFa6+zbv2Aw6Wzt5I2+nv8bbV3Q4qiUm+JInAa5ITK4+CFeHXHxGV4e0O8O0Y4O1r+QUsK4sYcAwr0y3TSuXWXy0q/euLOkkITRi60nPw5kjjYa+aExE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LdInN+YE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QU+QQFzw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ACB31F000FF;
-	Mon, 21 Sep 2026 18:41:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LdInN+YE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5CC91F00893;
+	Mon, 21 Sep 2026 18:41:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790016075;
-	bh=qcGY65hS+6BY3CDr/NBRDjfgtOdWVX7qh93GVRRkDmU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QU+QQFzwL2DzW81MiDQ21qaNETIZnN3LdiRsJ9XVYMQ7ujd4MhD0UDWdWcIIllIp+
-	 7J7eoTHRSPfDu5xKz1fo2PeUb+bFLiy5f6THkYrua7NOgEyAmX5icuMeJSpnDq8xrx
-	 g2dKUDtLRsLfZ636SdjsD14KqUGI8U94YjrUDnA84LvwyX34YE9rc7wVXlKADGS+U+
-	 WP8I2nzLRlBKMPmfC1uBt5A5Y6BOPNK1+jRpoUtOte0hmYLMtPVgUIhyWtlHoqD9wI
-	 d2hr+5yIE6JABNsXeD85oNbR7RgK+EO1J8ffhVIgNtm6hIN9CuATryz6k8WZ7v5zsu
-	 lRHXe2SRtaaOA==
-Date: Mon, 21 Sep 2026 13:41:13 -0500
-From: Rob Herring <robh@kernel.org>
-To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>,
-	Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	John Stultz <john.stultz@linaro.org>,
-	Moritz Fischer <moritz.fischer@ettus.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-	Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Andre Draszik <andre.draszik@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, mfd@lists.linux.dev,
-	Srinivas Kandagatla <srini@kernel.org>
-Subject: Re: [PATCH v25 05/10] dt-bindings: arm: Document reboot mode magic
-Message-ID: <20260921184113.GA1250850-robh@kernel.org>
-References: <20260914-arm-psci-system_reset2-vendor-reboots-v25-0-4aaf5c09b5c2@oss.qualcomm.com>
- <20260914-arm-psci-system_reset2-vendor-reboots-v25-5-4aaf5c09b5c2@oss.qualcomm.com>
- <20260918220634.GA2441717-robh@kernel.org>
- <0e6877df-0306-474f-bc25-aa7d3fd2f53c@oss.qualcomm.com>
+	s=k20260515; t=1790016076;
+	bh=orlWzdJhQKuC8O40EXsYgdzLtw4tS7YImxxkerXGWsM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LdInN+YE1gfJLEsn1SQsezO3RiawM/+JYyf1jX3cx0rDqN3nuFchISHKoxwrdZ59j
+	 VWoHvSP0Rw238KGihtd+h43kCkB4BbxbmrUu5KEmzELVDDxexYrYedoUzfAFe4/7yE
+	 6pm5lQzhrIIu8W1I8SktaxOmIFuWAQFpggfvIGRwHDug4ACKy0/WZOYyjmeLH2TWNa
+	 HgAbkK1h539A3UO2JPspDZuJBm/okef9mArTH6aqGeVWraQONF/pcfQFsIoAGo0yMb
+	 M6BxXuBWohsmZlG7cSiPb1hcjFIA/7z3Ur495QOwUtinqzMwWy1eJ/+X3TeTh8iXV8
+	 3xyTx/+TdNjBA==
+Date: Mon, 21 Sep 2026 08:41:16 -1000
+Message-ID: <8d777202a64f3a02f7d13d90ee97c4e7@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Tao Cui <cui.tao@linux.dev>
+Cc: Josef Bacik <josef@toxicpanda.com>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@infradead.org>, cgroups@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ cuitao@kylinos.cn, tj@kernel.org
+Subject: Re: [PATCH v3 0/4] blk-iocost: charge flushes and zone appends
+In-Reply-To: <20260921033453.1912971-1-cui.tao@linux.dev>
+References: <20260921033453.1912971-1-cui.tao@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0e6877df-0306-474f-bc25-aa7d3fd2f53c@oss.qualcomm.com>
 
-On Mon, Sep 21, 2026 at 03:59:22PM +0530, Shivendra Pratap wrote:
-> 
-> 
-> On 9/19/2026 3:36 AM, Rob Herring wrote:
-> > > +            minimum: 0x80000000
-> > > +          - description:
-> > > +              arg2 (cookie_lo in 2-cell form, cookie_hi in 3-cell form)
-> > > +            $ref: /schemas/types.yaml#/definitions/uint32
-> > Drop. Types are per property, not per item.
-> 
-> Ack.
-> 
-> > > +          - description: arg3 (cookie_lo in 3-cell form)
-> > > +            $ref: /schemas/types.yaml#/definitions/uint32
-> > Drop.
-> 
-> something like this?
-> 
->   items:
->     - description: arg1 (vendor-specific SYSTEM_RESET2 reset_type)
->       minimum: 0x80000000
->     - description: arg2 (cookie_lo in 2-cell form, cookie_hi in 3-cell form)
->     - description: arg3 (cookie_lo in 3-cell form)
+Hello, Tao.
 
-Yes.
+On Mon, Sep 21, 2026 at 11:34:49AM +0800, Tao Cui wrote:
+> While testing iocost's weight-based throttling under concurrent IO, we
+> observed that a cgroup limited to 1% weight could issue an unbounded
+> number of flushes without being throttled: an fsync loop produced ~510k
+> flushes in 12s with cost.usage staying at zero the entire time.  The
+> device was monopolized while iocost reported no activity.  Zone appends
+> were in the same position: the builtin linear cost model defines
+> coefficients only for READ and WRITE, so REQ_OP_ZONE_APPEND is priced
+> at zero and excluded from the latency statistics as well.
 
-Rob
+Looks good to me. A few nits:
+
+- 1/4: REQ_PREFLUSH and REQ_FUA are in REQ_NOMERGE_FLAGS, so !is_merge is
+  always true there. Can you drop the wrapper and the separate flush_cost
+  accumulator? Adding to cost before the empty bio check gives the same
+  result, and the FUA condition fits on one line.
+
+- 1/4: The comment mostly restates the two ifs and the coefficient
+  formula. The FUA condition is the only non-obvious part. Can it be
+  trimmed to that?
+
+- 1/4: Pending pre-flushes get coalesced into one device flush, so the
+  charge doesn't quite mirror what the block layer issues. It's a
+  per-request policy charge, which the description already says. The
+  other iops coefficients also have the page cost subtracted, so they
+  aren't translated the same way. There's also a short broken line in
+  that paragraph.
+
+- 1/4: cgroup-v2.rst doesn't use REQ_* names anywhere else. Maybe
+  describe them as a write with a preceding cache flush and a FUA write?
+  The table row could follow its siblings too ("The maximum ... per
+  second").
+
+For the series,
+
+Acked-by: Tejun Heo <tj@kernel.org>
+
+Thanks.
+
+-- 
+tejun
