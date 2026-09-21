@@ -1,64 +1,64 @@
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E4C4F93D9
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:31:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB35B4B1D0E
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:31:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790015464; cv=none; b=snqy1O8FALqN7Ygnv09uWi4r3o3lITidjp1H0C6YD+B6JhvJpmD7NJBCemiH2AVbzezIoAsw4Zkeymd2VN3vtrgYmMvzrYadXIgdV3KftMI4t063s93j1/vcoPmwTIh7PmIH5A9sjdoBduSdqjAw73ufM5R7bHezhK+MGb3lZ4w=
+	t=1790015472; cv=none; b=mWGz4Z+9E0bwYq687JR8I2LLeWHvFktatmFzr6oO9rqzh2luf9y1nyWKHX/fLtk11wkcE+j3v94OA6WM5YN4TP4aYXR5eiMsEALH+A32xD2pJekMQajnE+lU2xaN/vZSXb7vyfolJlOl+ehDyxMmM6yYF4eD2i8AfBCx5YFdhIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790015464; c=relaxed/simple;
-	bh=TTaDVJxvd23TMPUHinu1BvIxlfSLR9eQbV5/IV4Szh4=;
+	s=arc-20240116; t=1790015472; c=relaxed/simple;
+	bh=aw6CVi2nbRv8fPDaXOaXSEjR9geXXb4sm8diUOqavKU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Fcc+hvyklva1zAZguzN7FyeZqO41DqXKp0btacf5jVi/BE+q9JJ00A7TISdJ3WfLMnQAjnSM0SXOaV1hJMuNzB7h2EV+zpJ6ixjI5Gb/nQDjB9bREqymQ3L0S+OcUO5iIpPMRf5fts1oEfAbwMUZo5h5r8Wo7Qyd6Rnv+w0w8hY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pEyLUGer; arc=none smtp.client-ip=209.85.208.176
+	 MIME-Version; b=d6ysM88P7X6W7ATMmZMwsPLRVH7SkUfyjtPvkCdzz65HsLL77XFSZgWcdDo2Nk3+/OwYM2W8IuGPxEQLi24SnphcbPTKo87t0fI42ru1liZ3ED/4rzuLd09PYsrPWA7U7OqWOjtl58kzIdQcVx3YeyniCCgGqf6+YS63wLOp2Pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VtBfCPQX; arc=none smtp.client-ip=209.85.208.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pEyLUGer"
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a20f06cce6so1823611fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:31:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VtBfCPQX"
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3a5a0703ae7so1387581fa.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:31:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790015461; x=1790620261; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790015468; x=1790620268; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cK98X0r3BDRCEVKy2aZh2DV2AxA23p29nMm/EUx3t08=;
-        b=pEyLUGera5obyGqCVkZxERmBe387Qro3tAC2anEbF8GrILs4AyahMo1GNp143DPK0Z
-         t85itCgNDErCbn+10oPaJ7mGPMBDXs0dWtwsLRD0zjv6bL44/yYM7Jd6m8xV0PzMSFJ+
-         KTtJH0fT8JzUgwwS+1/ea8iln4BIbXZTY7rYMRxvAXvPdgIItucFjI9Sv+HNuuyaupZu
-         3/eBeeC6V0gtq2PTxofhLNoGrOUemCLIsHqMdYUbIApvsRSDDwEHR4DFapL2Owu7WEai
-         BkZivpZkHVLnpXnh5loCFOvsuqWU1hPvI9qVG+Uwct6N+x9sDC11MbgafZhlVTU66Gai
-         B0og==
+        bh=4eVGrW6waYffaGCq/np4EMOiip9V2YcfYQGrJdZIZj0=;
+        b=VtBfCPQXicF7YIddKqbMJJmuFIHx8IDaDGQQYzTBTj/q3qSjAaUryQmFbuPQUoQirI
+         +grW2Izl0BnCrx6Pawqer+zMXP/JxKMG3nNEvFo7fWVykqTbvzkr9iICTud0i8ak0sfZ
+         iN/M22Aikm5w2tYVKtErrmUmaxzXkhrK/A1zQuTa2uV06qjya0evpmr/Ld9hjB29pQsT
+         SVuOJePjCDGQ+hkOl4JlLrZjzIzySnqziNAmf5LKatbKsdiklafquPPfHYxPw2vWL8mC
+         a/KPA3fkAX/J8Q4QOhAnooF9OulCpRFCrNlfC0zK2AOzarU5vScU/UbKeq/g2OYemNj7
+         njIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790015461; x=1790620261;
+        d=1e100.net; s=20260707; t=1790015468; x=1790620268;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cK98X0r3BDRCEVKy2aZh2DV2AxA23p29nMm/EUx3t08=;
-        b=1g0nATGswlGkwB3uiIn7HOdqmYlKC24POGwiYUGUujXIXlElCP+ehuyLw2pPlKh/wI
-         qckmlMrYY9yecGPESCY1STQcvn3iiIBK5aB9LGBIbuYE9HwB9o6FltaogoSFBkyER0X1
-         d4QMiVK46VvYup5958ou72kD/fQyvgZSMQOeuAtLT9Ai/ya+Ta2KDdZ0Z21sziFT8zZa
-         +NbEdAdEcQFjOXCgIaCNSdA/SrGCnLvFCDdKzK2pL8Iom5YAFsW82KP3MGwwhU/P/IVR
-         jWAvHvGr0LU/GSZW0ZIduJ4wcARi+e/BoYahci/Dbxb5ka7Ga9wO8hL52kHhr5KUKRt1
-         SUPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBywTxnyL2x3WMOVzQr4sN3o9jEDqFigECOw8L06GgLJi9L11ZEbhhbA6OJgZttAG6Eu7pnbbkW2kmqbpeI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkUnBeI7WhOP2MPuFiUeJKZ1hu6wO8K10BbA1uxUFK4+ZEivPX
-	AufkqHj8YqkAGCrlJw8z2ty8e8gx9iHSJMUF9/oJGvIV1a8lk4q1vgdu
-X-Gm-Gg: AYBFou00CHzTsrtHdrYBTR6mXb38ZONo+0ardhwDbj3u9/fwzh8Ni2thxLWfCQU1a3F
-	DnC7HPavVGyy76iv847e7n3EBuvLPxsXEBvpF6PEXMGgEavHodVH2FQYrey9SHWSVrQTMnZ5hR2
-	2m9lfs8wC17k9XHErCFAnGkh1gyuHuGMY8onQXZiyWoudZHbgDZLZc49TTHoJ6gojO0JC16Lpgh
-	kF38QDv4tQqfrRLdJ3MDmK8R2TGmpmrphuSCUkUlKqWbkyni+p9xWHz67SAkjJt/FFJlGBXHN/9
-	k52PEBycaDeuy2MDW3/kotIZaZrcB4sq3ngFafdrbeH129LD9O05KOgXWoSlyOOxxHi/8gRpeJC
-	Xx3skwJ5XnaA/A5Gkh4aF08cRJc16zGYMQIvOr6/4WhuRnfd6Rrb3lknivTjvhgmtB37AHNGVfK
-	oMmVuzqmobCys3HRIKTbKcrNijZQYNl7gXbRnhDodxp2Zk3DJMNPMWP7xq/65RO1ubpZpGwFobw
-	1TYVfPDxYO46PqNS8eI2VRozyEUk6+ssp+s4Lt5N2HAuRYx3UyGewRrAG/F63H49eFouoU=
-X-Received: by 2002:a05:651c:1474:b0:3a5:d31c:71a8 with SMTP id 38308e7fff4ca-3a624c8eb8bmr1246471fa.3.1790015460867;
-        Mon, 21 Sep 2026 11:31:00 -0700 (PDT)
+        bh=4eVGrW6waYffaGCq/np4EMOiip9V2YcfYQGrJdZIZj0=;
+        b=2DyXnm8Sa45BjqOqZz29v8++5aK4iVlcEmjnMEd+OMUHUTDPfmv4rKB5RvnZ/u36Gm
+         HY8WuQZJHmDUkVc5jzx+yXBRfE3HUcMxxhmP5J/oOSzCA+5L77yTQXwbl+E+Ct2yyH+n
+         oTDEr4xHxOwQppjTYB/BxHLR5MBNSmUNk928U3fO+vqjA18zfRJlxi+hAM13i8BaKYwj
+         ongsSOCnu+WqTnwa1Au+quCE0CGF5hOcNCv3dFlcaDZ6xpF+g85JUMKjrSkh5gUjgKdV
+         A8SterNrmMptjPKBTIPlpwmpVJWhR9dgeAgLVBrH9h0boIKdfEIk8Hhi/zTrbecjh7AE
+         t4BQ==
+X-Forwarded-Encrypted: i=1; AKwUvByBXze1Gt3EYf5ymjGwHvN7EL0bf04I94asjnBtiRfp3TBPQNkOsHUMNa3XU0gXOvuR5Oxzu91VJb6qZWk=@vger.kernel.org
+X-Gm-Message-State: AFuF++m57QRHd+x71sIoMicHaYWEPy4DHFFM81sHOHzOnIkv8WM4Vlc5
+	fl4Z74a9U8vBVZdjBXgCkeZZw5mn+YXqnsMBinnMfX98sr77PGyLELzK
+X-Gm-Gg: AYBFou0V1eC8T+c8dZPOAzUGitvldXbpri1RHPZ0+XnWZrw9aetNJNnj9ppSQKbh/UK
+	7UchSFvUlj2UlyayjvVcdzNUQ4Y2ez9nQKH2E+04ltesyhH3AZOP+lj3kbMY+i0LC8BlvQ4uWdx
+	UM8XUWpjmX30yufXmY3iUiUeKLR8MxSMHNP7VhbEs5BvTVIHrLYLRGqrtCzNYWYOOSdnM1BAq1H
+	uRi447HFVoeffLjtBDOP45Py9Ym06SE+O875nq6coFeQPt31sn1Osdvyy9F8siThB207Hmi0U/m
+	eHXJ/lmJHAL3lvhYWH9q7MaoGX1bcUh8RqsxmH25XRKhSa3FdKPvNC211JPiJmv7LLU+bZb84y0
+	yY4Be3pzJjweKnKBp9tHs47e5BwH/H8iPTyFuylEyhaKnHYmgq/lrexatncYhcSD++gKcWjI2Kt
+	U7lKu8P2aieyPssv9+WY5IIP1oEwL91AnSoQwJfDWLPiYcRFlA0aQXM3+FM7hg9NL5unA1IXClP
+	DEJKNQjmv7QFSN3ZuVPEIwX06fF8kuKa3q7Z7SBlBxNmMTU2QPGqTIcOoVpGdBAr97FvA==
+X-Received: by 2002:a05:651c:a332:b0:3a3:61ec:43c0 with SMTP id 38308e7fff4ca-3a624d968c7mr1134591fa.17.1790015467447;
+        Mon, 21 Sep 2026 11:31:07 -0700 (PDT)
 Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a6075fcafbsm23739241fa.27.2026.09.21.11.30.59
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a6075e3522sm26102611fa.21.2026.09.21.11.31.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 11:31:00 -0700 (PDT)
+        Mon, 21 Sep 2026 11:31:06 -0700 (PDT)
 From: Rupesh Majhi <zoone.rupert@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>
 Cc: Andy Shevchenko <andy@kernel.org>,
@@ -73,12 +73,12 @@ Cc: Andy Shevchenko <andy@kernel.org>,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	llvm@lists.linux.dev
-Subject: Re: [PATCH v7 07/10] iio: pressure: dps310: read buffered samples from the hardware FIFO
-Date: Mon, 21 Sep 2026 21:30:59 +0300
-Message-ID: <20260921183059.231935-1-zoone.rupert@gmail.com>
+Subject: Re: [PATCH v7 09/10] iio: pressure: dps310: implement .hwfifo_flush_to_buffer()
+Date: Mon, 21 Sep 2026 21:31:06 +0300
+Message-ID: <20260921183106.231972-1-zoone.rupert@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <178992913316.706584.7705975324672941059.b4-review@b4>
-References: <20260918122517.377565-1-zoone.rupert@gmail.com> <20260918122517.377565-8-zoone.rupert@gmail.com> <178992913316.706584.7705975324672941059.b4-review@b4>
+In-Reply-To: <178992913316.706584.1446996024286841775.b4-review@b4>
+References: <20260918122517.377565-1-zoone.rupert@gmail.com> <20260918122517.377565-10-zoone.rupert@gmail.com> <178992913316.706584.1446996024286841775.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,20 +90,20 @@ Content-Transfer-Encoding: 8bit
 On Sun, 20 Sep 2026 19:32:13 +0100
 Jonathan Cameron <jic23@kernel.org> wrote:
 
-> Given n is used in a couple of places, I'd keep the handling simple
-> by doing it as
-> 	for (i = 0, n = 0; i < DPS310_FIFO_DEPTH; i++, n++)
+> As talked abotu above, I think iio_device_claim_buffer_mode()
+> will do the job here as it stops the IIO core transitioning between
+> modes until afte this is done with the active_scan_mask.
 
-Gone down to one counter, since n only ever tracked i here. Patch 9 adds
-a max_scans break after the store, where that form would lose the last
-entry read, so there the test moved to the top of the loop.
+It does, but patch 10 then warns on it:
 
-> > +	data->fifo_hold = NULL;  
-> 
-> Why clear fifo_hold?  Nothing ever checks if it is NULL.
+  dps310.c:1233:2: warning: releasing mutex 'iio' that was not held
+                   [-Wthread-safety-analysis]
 
-Nothing does, so the function had nothing left to do and both callers
-just kfree() now. The clearing moved to the alloc side, otherwise a
-pressure session followed by a temperature-only one double frees.
+clang 23.1.2, CONFIG_WARN_CONTEXT_ANALYSIS=y. There is a
+DEFINE_GUARD_COND for direct mode but none for buffer mode, so clang
+cannot follow the conditional claim. v8 holds the same lock over the
+same span with IIO_DEV_GUARD_CURRENT_MODE() and the mode check that was
+already there. If you would rather have the named API, say so and I
+will add the buffer mode guard and ACQUIRE macro to the core first.
 
 Rupesh
