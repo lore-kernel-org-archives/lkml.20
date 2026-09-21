@@ -1,175 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE7A37DE87;
-	Mon, 21 Sep 2026 19:19:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B66D93803DE
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:20:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790018356; cv=none; b=Zm+pFHfCPQiRRQAo9Gtt5pGh7VnStySlQEAqd0yjg6k2odQicrLplDaXMq4UtaArsaB88Y6g6L099W1kd3UvjsiBcR0+Hxo0FjhhWd3471cxkiM53I3P5i5AAsOwgV6OShHhSoRf8gmJ7dVRKZ9CA1YpnZwGZA0tSBksGtLCNNE=
+	t=1790018459; cv=none; b=R1pyZ8fYZh7vI51K5AXm8Dqnjr+DUjklc2eWV4KFlqdnmgmH0YActWm3z/2Cko49ownQB9kBaOtXSwguwARwY2tqHKnTFmqA5TCH7qNbRwB44TqhRtHwbtJffNZLTOGXdAcISXsQn6oAGTjvLeY/aS44C82v1ozrt21U/baJdbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790018356; c=relaxed/simple;
-	bh=Mfe/YPoBIvIFMdg6DNCNmmzwv6iEWWgKp3lCu04jjJ8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Aatevnxy0NyijQnNmXYSu0CtLrgL/vlEqul/OZgadWOn/xmtdUoEkOrHFhTnG8IF3t9j9t3G8XqbJg1B2zOSRHYKc9zdKB+2PSvRY1cULz1JVc3enr0x7ikHEZbHVxM6r4V8QYZstkkBvj/xt840rhpVXtEiWprO3y8/hWEUlbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SzmWiG3S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790018459; c=relaxed/simple;
+	bh=H6djcj6gGlgvhCR/e9r7QIs1i/RCtQkZviYnfxCDYXM=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Bul8bdu7qQfsUrxj7kgson9G7zVlqsn8FNzwfJ6fsDTWxsWzHSETAyAEGydgDzFoyTz6A71B+t5554gdiCshu/uhPlZvLXXuCFf/+qQcVBzvigncLMfYYDyhy31xOTu/XJ+6TClzVLxnalvLgWPxLs8cIQP5kA8Tc+NJhfTz9vA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Dhqb/BmT; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SzmWiG3S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 016851F0089A;
-	Mon, 21 Sep 2026 19:19:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790018354;
-	bh=rme2RDXE0Q3i+onTTofchJv1V8gBFZbfhEbeCgEfq9Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SzmWiG3SmFH7M3s3lLVcUKfmQo3Ww+onl5w9ohFXBzj+EVEfdROsbKrtKeLddN+Xr
-	 FEyA7Nbm05zot5WbqU+ttloINInr8EpDxaXM3Aj3HJpzrLtc8J0CPsp2Zd9PM9BTBw
-	 tcVqPxcqyM+URfyV+gZujTkx5dZSvfbF4xOupkcJlZ7qJBjC5eI/tjQCU/8u9Rw2BW
-	 XibVsi/JFiiIkSgUznBTVRMACnoAUnvSu1abhdN+9qjBfSxcsZsOZ/UrbtbiH5tf4i
-	 Avg75rJ288nc/ltEPmRIg/bYvZxjlqPKl5iUp2eX8opMg2Zs5L5x6KEcxRYaBhvlS9
-	 RLClV/Am+Cpow==
-Message-ID: <7feb56df-15d4-4821-99c7-b8c96ce66b81@kernel.org>
-Date: Mon, 21 Sep 2026 14:19:11 -0500
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Dhqb/BmT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790018456; x=1821554456;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=H6djcj6gGlgvhCR/e9r7QIs1i/RCtQkZviYnfxCDYXM=;
+  b=Dhqb/BmTgp+Td2iA3yzT6X92I6y4jHMw+STi4ZOzbCsekC/vtmLhGfcN
+   sdArTAbpAAN9/CT02OEatXd1SGPJ+Y3CqOCe+2t587hAM88LiZjwi+zWL
+   vsdxMPNqpW34WkLEAi9fkDF7iZ6qKtdGbcrUS+xdKseTVzGLF3d1+pVrV
+   yUaKJdL6EqjVgv12lzygEKzTIgAesXH346pkzvb6S53zca+43nxDB7Ntg
+   eAXheDThPb/0QJFXOyT/eVHNABa89AbhUXZ9lzzG1gKHPLTMhV1ejlMwF
+   iHmzFLXin77bCRrZqJDvp2KMO17kveEtERtFFLvbktdvZ6AqwCMq/vO8J
+   Q==;
+X-CSE-ConnectionGUID: SLMLFzNoTB6f8v9prOG4Sg==
+X-CSE-MsgGUID: crAMQCOsQOGiIAPKkY6oSg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="89490337"
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="89490337"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 12:20:55 -0700
+X-CSE-ConnectionGUID: q057aMx/TJeR2gexbcSgFQ==
+X-CSE-MsgGUID: lJMV0ONwRYeP53A1heS4Rg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="300743416"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa001.fm.intel.com with ESMTP; 21 Sep 2026 12:20:53 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x8jZK-00000000EHF-3MuL;
+	Mon, 21 Sep 2026 19:20:50 +0000
+Date: Tue, 22 Sep 2026 03:19:56 +0800
+From: kernel test robot <lkp@intel.com>
+To: Gaghik Khachatrian <gaghik.khachatrian@amd.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>, James Lin <pinglei.lin@amd.com>
+Subject: ld.lld: warning:
+ =?us-ascii?Q?src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/di?=
+ =?us-ascii?Q?splay=5Fmode=5Fvba=5F314.c:3893:0:?= stack frame size (2176)
+ exceeds limit (2048) in function
+ 'dml314_ModeSupportAndSystemConfigurationFull'
+Message-ID: <202609220317.3Z72hVrQ-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PM: hibernate: Freeze kernel threads after image
- preallocation
-Content-Language: en-US
-To: flo@geekplace.eu, "Rafael J. Wysocki" <rafael@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
- Matthew Leach <matthew.leach@collabora.com>
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260920-fix-hibernation-v1-1-f9940c2d7d7f@geekplace.eu>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260920-fix-hibernation-v1-1-f9940c2d7d7f@geekplace.eu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
 
-On 9/20/26 09:35, Florian Schmaus via B4 Relay wrote:
-> From: Florian Schmaus <flo@geekplace.eu>
-> 
-> Commit 783c81098445 ("PM: hibernate: call preallocate_image() after freeze
-> prepare") moved hibernate_preallocate_memory() after dpm_prepare() so
-> that device drivers have the opportunity to release pinned/unswappable
-> memory during their ->prepare() callback before memory is preallocated
-> for the snapshot image.
-> 
-> However, that commit also placed hibernate_preallocate_memory() after
-> freeze_kernel_threads(). While it was assumed during review that swap
-> I/O submitted via submit_bio() is synchronous and would not depend on
-> frozen kernel threads, this does not hold in practice. Calling
-> hibernate_preallocate_memory() with kernel threads frozen leads to
-> intermittent deadlocks during hibernation.
-> 
-> Inside hibernate_preallocate_memory(), shrink_all_memory() is invoked with
-> .may_writepage = 1 and .may_swap = 1 to aggressively reclaim and swap out
-> pages. Any writeback or swap I/O that relies on freezable kernel threads,
-> block device helpers, or WQ_FREEZABLE workqueues (such as those in storage
-> drivers, device mapper, or filesystems) deadlocks waiting on tasks that
-> are stuck in the refrigerator.
-> 
-> Fix this by reordering hibernation_snapshot():
-> 1. Call dpm_prepare(PMSG_FREEZE) first, allowing device drivers to release
->     pinned resources while kernel threads are still active.
-> 2. Call hibernate_preallocate_memory() second, performing page reclaim and
->     swapout while storage layers, workqueues, and kernel threads are alive.
-> 3. Call freeze_kernel_threads() third, only after all memory preallocation
->     and swap I/O have completed.
-> 
-> Additionally, restore the call to swsusp_free() in the cleanup path so
-> that preallocated image memory is properly freed if freeze_kernel_threads()
-> fails or if TEST_FREEZER is enabled.
-> 
-> Fixes: 783c81098445 ("PM: hibernate: call preallocate_image() after freeze prepare")
-> Signed-off-by: Florian Schmaus <flo@geekplace.eu>
-> ---
-> During the review of commit 783c81098445 ("PM: hibernate: call
-> preallocate_image() after freeze prepare") [1], concerns were raised
-> regarding whether memory reclaim and swap I/O could deadlock if kernel
-> threads were already frozen.
-> 
-> At the time, it was thought that pageout to swap would not depend on
-> frozen threads. However, on Linux 7.2, I ran into reliable issues with
-> suspend-to-disk hanging during hibernation. Reordering the sequence so
-> that kernel threads are frozen after image preallocation (as done in
-> this patch) fixes the issue for me.
-> 
-> This patch restores the ordering where kernel threads are frozen only after
-> memory preallocation and swap I/O have completed, while keeping the
-> benefit of calling dpm_prepare() beforehand so drivers can release pinned
-> pages.
-> 
-> [1] https://patch.msgid.link/20260403-hibernation-fixes-v3-1-31bc9fa3ba2d@collabora.com
-> ---
->   kernel/power/hibernate.c | 26 ++++++++++++++------------
->   1 file changed, 14 insertions(+), 12 deletions(-)
-> 
-> diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
-> index d2479c69d71a..c13f68ab7f6e 100644
-> --- a/kernel/power/hibernate.c
-> +++ b/kernel/power/hibernate.c
-> @@ -408,9 +408,18 @@ int hibernation_snapshot(int platform_mode)
->   	if (error)
->   		goto Close;
->   
-> +	error = dpm_prepare(PMSG_FREEZE);
-> +	if (error)
-> +		goto Complete;
-> +
-> +	/* Preallocate image memory before freezing kernel threads and shutting down devices. */
-> +	error = hibernate_preallocate_memory();
-> +	if (error)
-> +		goto Complete;
-> +
->   	error = freeze_kernel_threads();
->   	if (error)
-> -		goto Close;
-> +		goto Cleanup;
->   
->   	if (hibernation_test(TEST_FREEZER)) {
->   
-> @@ -422,15 +431,6 @@ int hibernation_snapshot(int platform_mode)
->   		goto Thaw;
->   	}
->   
-> -	error = dpm_prepare(PMSG_FREEZE);
-> -	if (error)
-> -		goto Complete;
-> -
-> -	/* Preallocate image memory before shutting down devices. */
-> -	error = hibernate_preallocate_memory();
-> -	if (error)
-> -		goto Complete;
-> -
->   	console_suspend_all();
->   	pm_restrict_gfp_mask();
->   
-> @@ -464,10 +464,12 @@ int hibernation_snapshot(int platform_mode)
->   	platform_end(platform_mode);
->   	return error;
->   
-> - Complete:
-> -	dpm_complete(PMSG_RECOVER);
->    Thaw:
->   	thaw_kernel_threads();
-> + Cleanup:
-> +	swsusp_free();
-> + Complete:
-> +	dpm_complete(PMSG_RECOVER);
->   	goto Close;
->   }
->   
-> 
-> ---
-> base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
-> change-id: 20260915-fix-hibernation-aad94ce17506
-> 
-> Best regards,
-> --
-> Florian Schmaus <flo@geekplace.eu>
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   f259f446f5198d98e13756d2cd531812a0ad3064
+commit: faaeeecef94ad312b051dbe628d6e3f016ba5263 drm/amd/display: Fix type mismatches in DML and normalize loop bounds
+date:   5 months ago
+config: x86_64-rhel-9.4-rust (https://download.01.org/0day-ci/archive/20260922/202609220317.3Z72hVrQ-lkp@intel.com/config)
+compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260922/202609220317.3Z72hVrQ-lkp@intel.com/reproduce)
 
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: faaeeecef94a ("drm/amd/display: Fix type mismatches in DML and normalize loop bounds")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609220317.3Z72hVrQ-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> ld.lld: warning: src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_mode_vba_314.c:3893:0: stack frame size (2176) exceeds limit (2048) in function 'dml314_ModeSupportAndSystemConfigurationFull'
+>> ld.lld: warning: src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c:3801:0: stack frame size (2192) exceeds limit (2048) in function 'dml31_ModeSupportAndSystemConfigurationFull'
+   ld.lld: warning: src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn30/display_mode_vba_30.c:3382:0: stack frame size (2272) exceeds limit (2048) in function 'dml30_ModeSupportAndSystemConfigurationFull'
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
