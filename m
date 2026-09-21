@@ -1,92 +1,104 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15943182D6;
-	Mon, 21 Sep 2026 00:24:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12EA247280;
+	Mon, 21 Sep 2026 00:26:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789950299; cv=none; b=CqGCLXiY8qF+JkoH93+M9GR+xpeDgajdXWE5Y1CsTy/keiDAWb3Ey65hxSItXGQIz12YJ85RaDhDsul9FaiWo5Of/hZ/2G6jkGx4SnTfI5AT124UgIgl4htOqYvsNkPPHa+ZGJYwkpyPs6jKM3bvk6siPDJtPlW4LUWH6KaRpso=
+	t=1789950403; cv=none; b=aESP0uSQ6xGzZMLg4NE8koaB9Gnaz5VBqv59dYB9uCSOWeZ79s3v1XC1lAizOPGq05b4pTE18QhEQp9OsBv2y+AQg/DJ+LpjuGSyfr/391NylV0R2QdeioJbLa2XOk0maflMBwFTcppLwLjjCc7iyJYWUceyO/iOEjWCFrXaTbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789950299; c=relaxed/simple;
-	bh=RTps4b7AgCDUzJ6XTlVnLeDVbfPbV1Q4UVbT5Frtu/E=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=jV0DDG/ULMMU4Liy7HK9t5bUXhLXsYjoqb4JuMHKW8J6xlgU280cR9ULGwwlv2OzXcVnUoJi48erpcem2wrmOZbTFZkK8tJGTbu5sU1Hnh1HWpoNZA603fYM7s+kU5IWkYNRADDMruEJ7GxKzT6xBStDtmgXIBCaiTv6wpPICUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=TyhtAqQ5; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1789950403; c=relaxed/simple;
+	bh=xE4iQ0PrzGa2C9UPEClrIlu7Uo4/8EFZTS/HoDiSOJU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=rgH0+liEMVpREqxMrDmS4kSj0SLynNlD5q2lvMVLqxeJwhdFxhOlSyeZvFu0sOAqg79p7ONkQ+EaCS6dDSN420e2i0OPGNZlUCYoCo9a2qcVkj0INRBoQ47MQIegiAJ781qxteqAk9c8EgcNRs5xi87yQ5zVvAP9lla120jXhRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pcL0WDjj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="TyhtAqQ5"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68L0Oli862112443, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1789950287; bh=RTps4b7AgCDUzJ6XTlVnLeDVbfPbV1Q4UVbT5Frtu/E=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=TyhtAqQ5HfDosoK/ZhaU1lQ1Cp1D0xmbStY90zjU0LefPp6dMNE2HgWZwcog24jkP
-	 7CsIG58XQLzyf07ZbHxJX/CkUbFOYVJKes+jlK+gvSBzdsFdrVZvYJPSBe9TC5L9By
-	 lUMOcrFdtCmbKA++58192HDJI4MczZAIDSfbfk+QOqDlRuTeTMgzYVfmLjJMWW6mMN
-	 +Z3i/yRxoDRn9dq8B22Uc/9R67MjsOliXnqOBaUwCBT3YJUm6s/MZWnXTWsSytL8G+
-	 hYIh0xo+Pc5E221h5n9ztdJwj85/fu0Ry0dwGudfghlioJHsIo7ArtAotOQVgXXDw5
-	 BKUgx7PErSDJg==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68L0Oli862112443
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 21 Sep 2026 08:24:47 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 21 Sep 2026 08:24:47 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 21 Sep 2026 08:24:47 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Mon, 21 Sep 2026 08:24:47 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Kim Wooseok <5mghybrid@khu.ac.kr>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, "Jes
- Sorensen" <Jes.Sorensen@gmail.com>, Kalle Valo <kvalo@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next v3 3/3] wifi: rtl8xxxu: preserve RX requests
- across recoverable transfer errors
-Thread-Topic: [PATCH rtw-next v3 3/3] wifi: rtl8xxxu: preserve RX requests
- across recoverable transfer errors
-Thread-Index: AQHdSHefc/MCcPjZN023IjBlQWSIu7bW0LzQ///JSYCAAZIJUA==
-Date: Mon, 21 Sep 2026 00:24:47 +0000
-Message-ID: <8d8e60e260254dc2a2cc1f37cd1b3832@realtek.com>
-References: <20260920-codex-rtl-rx-v3-submit-v3-0-883d11351963@khu.ac.kr>
- <20260920-codex-rtl-rx-v3-submit-v3-3-883d11351963@khu.ac.kr>
- <9b5c31541fc8430b9d4205dcdff9e76e@realtek.com>
- <CAH1Bc_yTizX4Cex+GRLeRUtaBdp8jEc2XEyawMzkQsZFpj1QGw@mail.gmail.com>
-In-Reply-To: <CAH1Bc_yTizX4Cex+GRLeRUtaBdp8jEc2XEyawMzkQsZFpj1QGw@mail.gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pcL0WDjj"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8405BC2BCC7;
+	Mon, 21 Sep 2026 00:26:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789950402;
+	bh=xE4iQ0PrzGa2C9UPEClrIlu7Uo4/8EFZTS/HoDiSOJU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=pcL0WDjjlOTmxNTeTMmYeqior8sRZ8hh/cp7PPmru5W4RgaygzG/Lo3YngNmzWe+B
+	 /4kCoTRskG2Wdc1TALZ7tTKhKwJidCnyx+4jyOW3cDg/6Wh2v2pCNntaHAlF4RAKRU
+	 5OCfkMu0EWRGEl13OG7FZpBAV8P9DOqW+OeNyDiL9Ic6eH8yiZTvLfiRuXvFI4V1dQ
+	 or/szAhbfpxqBBHRmUEO3jSbEpILrqENxjiwzNxsv3cEuLyMBa46LF1frFWRP8mLfH
+	 iyMvwbdC7m6IQ+Iazf7dPRrUQdYl/ADHVKRkzCz4NvXLqiLWlX7SYaBnQSnk5N1NjI
+	 I0IVCIm3iiNYw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 72D0FC982D8;
+	Mon, 21 Sep 2026 00:26:42 +0000 (UTC)
+From: Nicolo Giuliani via B4 Relay <devnull+nicolo.giuliani6.studio.unibo.it@kernel.org>
+Date: Mon, 21 Sep 2026 02:26:42 +0200
+Subject: [PATCH v2 2/3] dt-bindings: arm: marvell: Add Sophos XGS 107w NPU
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-send-dt-v2-2-fb6b81002ad7@studio.unibo.it>
+References: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
+In-Reply-To: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+ Gregory Clement <gregory.clement@bootlin.com>, 
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789950401; l=1394;
+ i=nicolo.giuliani6@studio.unibo.it; s=20260919; h=from:subject:message-id;
+ bh=lyDMMre6EWQH7CiEprIS9UxuPjln7GFy4OUwneOalSI=;
+ b=XH+pUXfYOL6RW3KhZLUS9vw02g1QOZ+Wz32F90LYLT2qMP4KyByADqVmYEIGFa+Qe97WHG1ga
+ XawU60uusXPAG7FuzKQHL2L5NiNGzRHI9893tueFqx6qbKkK7RiRPSd
+X-Developer-Key: i=nicolo.giuliani6@studio.unibo.it; a=ed25519;
+ pk=D652ecdT01GkA1eoFWNFNX85xIg5ZnFwUWyjfestgQw=
+X-Endpoint-Received: by B4 Relay for
+ nicolo.giuliani6@studio.unibo.it/20260919 with auth_id=1040
+X-Original-From: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+Reply-To: nicolo.giuliani6@studio.unibo.it
 
-S2ltIFdvb3Nlb2sgPDVtZ2h5YnJpZEBraHUuYWMua3I+IHdyb3RlOg0KPiA+IE5vdCBwcmVmZXIg
-dXNpbmcgYmFyZSBzeXN0ZW1fd3EuDQo+ID4gQ2FuIGJvdGggdXNlIHNjaGVkdWxlX2RlbGF5ZWRf
-d29yaygpPw0KPiANCj4gSW4gdjMsIHRoZSBlcnJvciBwYXRoIHVzZXMgcXVldWVfZGVsYXllZF93
-b3JrKHN5c3RlbV93cSwgLi4uLCBkZWxheSksDQo+IHdoaWxlIG5vcm1hbCBjb21wbGV0aW9ucyB1
-c2UgbW9kX2RlbGF5ZWRfd29yayhzeXN0ZW1fd3EsIC4uLiwgMCkuDQo+IA0KPiBJIGNhbiByZXBs
-YWNlIHRoZSBlcnJvci1wYXRoIGNhbGwgd2l0aCBzY2hlZHVsZV9kZWxheWVkX3dvcmsoKS4NCj4g
-SG93ZXZlciwgdGhlIG5vcm1hbC1jb21wbGV0aW9uIHBhdGggaXMgaW50ZW5kZWQgdG8gYnJpbmcg
-YW4gZXhpc3RpbmcNCj4gZGVsYXllZCByZXRyeSBmb3J3YXJkIHdoZW4gdGhlIHBlbmRpbmcgY291
-bnQgZXhjZWVkcyB0aGUgYmF0Y2hpbmcNCj4gdGhyZXNob2xkLCB3aGljaCBzY2hlZHVsZV9kZWxh
-eWVkX3dvcmsoLi4uLCAwKSBjYW5ub3QgZG8gYmVjYXVzZSBpdA0KPiBsZWF2ZXMgYW4gYWxyZWFk
-eSBwZW5kaW5nIHRpbWVyIHVuY2hhbmdlZC4NCg0KSSBrbmV3IHRoaXMgcG9pbnQuIERvZXMgaXQg
-bWF0dGVyIHRvIHNjaGVkdWxlIGEgbm9ybWFsIGNhc2UgaW1tZWRpYXRlbHkNCmFmdGVyIGFuIGVy
-cm9yIGNhc2UgKGRlZmVyIHRvIHNjaGVkdWxlKSBoYXBwZW5lZCB3aXRoaW4gMTAwbXM/DQooSnVz
-dCBhbiBvcGVuIHF1ZXN0aW9uKQ0KDQo+IA0KPiBXb3VsZCBpdCBiZSBPSyB0byByZXRhaW4gbW9k
-X2RlbGF5ZWRfd29yaygpIGZvciBub3JtYWwgY29tcGxldGlvbnMsDQo+IGNoYW5naW5nIGl0cyBx
-dWV1ZSBhcmd1bWVudCB0byBzeXN0ZW1fcGVyY3B1X3dxPw0KDQpPSyBpZiBhYm92ZSBxdWVzdGlv
-biBpcyB5ZXMuIA0KDQpPciBib3RoIGNoYW5nZSB0byB1c2UgbW9kX2RlbGF5ZWRfd29yaygpPw0K
-DQo+IA0KPiBXaXRoIHRoYXQgY2hhbmdlLCBzY2hlZHVsZV9kZWxheWVkX3dvcmsoKSB3b3VsZCBz
-ZWxlY3Qgc3lzdGVtX3BlcmNwdV93cQ0KPiBpbnRlcm5hbGx5LCBhbmQgbW9kX2RlbGF5ZWRfd29y
-aygpIHdvdWxkIHVzZSB0aGUgc2FtZSBxdWV1ZSBleHBsaWNpdGx5Lg0KPiANCg0K
+From: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+
+The Sophos XGS 87/107 desktop firewalls combine an AMD x86 host with a
+separate network processing unit (NPU). The NPU is a Marvell Armada CN9130
+SoC with its own eMMC and SPI NOR flash, connected to the x86 host over
+PCIe. It serves the front panel ports through a Marvell 88E6193X switch.
+
+Document the compatible string of the NPU board, with the CN9130 SoC
+compatibles as fallbacks.
+
+Assisted-by: LLM
+Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+---
+ Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml b/Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml
+index 7e77310da6..130128c462 100644
+--- a/Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml
++++ b/Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml
+@@ -118,6 +118,13 @@ properties:
+           - const: marvell,armada-ap807-quad
+           - const: marvell,armada-ap807
+ 
++      - description:
++          Sophos XGS 87/107 network processing unit (Armada CN9130 SoC
++          with an 88E6193X switch)
++        items:
++          - const: sophos,xgs107w-npu
++          - const: marvell,cn9130
++
+       - description:
+           SolidRun CN9130 SoM based single-board computers
+         items:
+
+-- 
+2.48.1
+
+
