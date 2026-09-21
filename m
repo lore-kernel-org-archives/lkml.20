@@ -1,167 +1,149 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pz2-f30.google.com (mail-pz2-f30.google.com [74.125.228.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 566904973AE
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:12:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4D749B5C2
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:12:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789996326; cv=none; b=n6LcW/98kHAgyzw4us8zv/qn+ghJWTQZxFQ43cKK4QaOFqoRS+y2D0s8OZrwMir++FlL8PRv20P6IXvNzXelG2ul1AhVHAXzMDK6rLaWHcpZbRft4UU9pC55JsAIJeNpUVQUg9158rDDV43jIHWPVx58GtXpEhomZpvvgZtt75w=
+	t=1789996333; cv=none; b=TPFq2IY3MzgViRrJ6YqXDJtaBAWzsKcmKEZzHYvj/e41dgZsr2LZ3QEe91dfCF4s0cu4NOspad1m8C4LNtIFDBi3Ggc43pAYpWOlx0ERgTvPbgqDz4kxjet1PFLooj1OeFwsG1sjd1bXJqgAlh7pMlHtUECYhVq4EZ4onaYOcE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789996326; c=relaxed/simple;
-	bh=KtA6CCgEGQ3a4yGA8b1nCQGctfJ7eca30X6UAxq4SCU=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LCDyzzrHx1rJ3JOBl9nkfz8+gzjC6pF0fYJdKI12fSbyftY31WVvCjWRINxXSVmUPPg2AG5zfOkBEbOr2BBIOhtYqkDz/zYGvmAFVFbxvFnMX7qv+VnUKF/O5xz7ICoQ1LOMeU30rKdxytD9WAhWdaQAnbNx5RbToRU12kbn4NA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IL4AucZ2; arc=none smtp.client-ip=74.125.227.171
+	s=arc-20240116; t=1789996333; c=relaxed/simple;
+	bh=AFgNBwvwdGEA1hIWTb2ReJBXMJQxyeIVF0mRhsIn2yo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CvqAJQ0/3MbjOtLEAFLxsk5qO38K4bKBTtPdyembJziuT3Qcfs+NggkCD3ddf0z1B3QwVRF0BlWXNYkT99h4EXbe+KUIC2LVbxRGKW2D3yXKW4b7CL4fWHKXosPqrKuzH+uuEGfPpRFo8j+nGD/XdrAfbYptj9QLBwXz2aDBBQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f3Mho3pT; arc=none smtp.client-ip=74.125.228.30
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IL4AucZ2"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccb1a98dso2262322a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:12:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f3Mho3pT"
+Received: by mail-pz2-f30.google.com with SMTP id 41be03b00d2f7-cc1cea50dc0so1231616a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:12:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789996324; x=1790601124; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5oybhTT8x8wzwm9sXDQfRxO2voeNpjpX34zHsWmu+2w=;
-        b=IL4AucZ2W1FKt726U0Llfpi6vvYQljpUQpO24I+AePHBGltZ9X+F6K1SxOW4ivCOaO
-         zEwb9U3K0chq6uIXiHcnDXwVfVBlMIsahm9XUvR63MMdXb0x60fxKEa53K48ZHd7TV73
-         avUicnGfjk/1fO3n065EeYFap1WuKj6A1bLeSRgh/YpQtjTwfY93v87uzcw6UCfaOUi8
-         6caZSI4nfyekafS9N7Jt4oN0Eldd0MXNt46pM56nMw1e/ndeVU9JDQ0JBTOI9buWZgP6
-         6YhgwejhXE9oDiNwWYcT23NTV0n6mKwCm5bUrFHt7Rku7NbzNzB/ZWJ3DtH0DGzUJPX0
-         P1cg==
+        d=gmail.com; s=20251104; t=1789996331; x=1790601131; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ig7/HqBzfoSVv6fdudTalNiMgAfFIlYLiYgMPPiaeeI=;
+        b=f3Mho3pTrZgkXECxtmiPpJmQJQZ1bToxGgxcFY1lG45JZyl+XBKPJOiT6yASo1CCEQ
+         OQwuYXSRQgNXuArHoJbwrrKgCCncbpkquTlFsrnSAgUlyS1zHnbBeXe8UA2z1RzIZhA0
+         qZksvCQmjzNMTax8hQsMoU4Vp9V86Xqa2TibwD2BTMOG7i3nvvXSTUTPou5qxn6QXrre
+         P+5dJnddPYWERfs/0jyKicUqrBCY9ev2dwMNV8Dl3T9E5vMt8Sg5u0bJFv/HKqSz0cIf
+         rU6eJgk9ek6DGw20UGY/WP6ua6nFXypT04OvTaJ7Dih3Rz3mPZ2wM1pE+GeZ7Ua145hP
+         Yrdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789996324; x=1790601124;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5oybhTT8x8wzwm9sXDQfRxO2voeNpjpX34zHsWmu+2w=;
-        b=Azfgzq9s+3cxAC1prmEl9k5FJHN19MQxwhFaJ6Ngt682grrCD5IQ1lePBbuNEYoeZS
-         qdZAUEgB8WnJnfxwikluNW9HcTge7KLnuZJ2czd+0PYYKj4mLek/LuRw3Yr5a/xUd7Vl
-         hjbHTUPSp2Nklh9Be8mJGAn7Wvip2+rRN+EFKEKPIhkqY3yj0rr2t0c26jBdddWWdOFE
-         uJQCYxvn9hSqlEjtTaUNcvefUoGcS5QGiSloeGKhvajrJ4k00uETYAFyZ4RDT/ogWU0n
-         dLhzrkBJVuAAmm8/FIkx2QHKc8jmQsQzOBRWA+RyFMRP9jyk0TEcpwiezRbueJT/Enrh
-         wXdQ==
-X-Gm-Message-State: AFuF++m1QpR1YL7vQrzljtsYDL6UoTFimIVk/PE+nzoCk+bLDoT5uq8f
-	N36zCT/yjgczsehxGX8VPOC1RyxG0Gc8qbLuCgZHzBKBZkH4uoTQLTG/
-X-Gm-Gg: AYBFou0BBMhcX19Q8Es60UyFjHNAlbgZBoCYPWZk3seJAwwqlc04rAjLWfV8USZJSWk
-	hvKfoiRLBdwyDv46ICw96TYG2QdtT5H/JsQGnqM022ACa+FBzRMtzdsZbBJrC52sYJMGbKWp+TZ
-	9d7G2oL1xPyRO5Mi0GLdgx0co3F3wX33tXUgG3ottrW+NOIRb7Q80zME0qI7H9D+x5qegz7D0yX
-	Q34oVIlsEi1A96Eghe7kdYcNQwnVYh2weBC3dIElK3zv9yyWd/zg1MSOEXvfmauogm5YKk5F42t
-	gk4s52KKps+lAtzJQtG5zBlL81xeOt81EfTpjOsSnbzbpOgG29fwXWkd5K7njrgXDEVXmAza7H9
-	BPzxbdfXLvD5QTqHLd103zlV+56PC4ulsD/aFSeUc4zJIrd4+fV3YfyHFEtjmFP9gHcsActuB3X
-	j6XCn1188wDGrd265CTJwY47ZWzCmFhXm09OkZQbHyvwvTvNktrwfENUCqqZ/znF1wOUGb6gOuJ
-	4EElnwyhTytfeN7DKg=
-X-Received: by 2002:a17:90a:da90:b0:39e:6a80:b796 with SMTP id 98e67ed59e1d1-39e6a80b849mr10966388a91.38.1789996324410;
-        Mon, 21 Sep 2026 06:12:04 -0700 (PDT)
-Received: from localhost (madb688426.ap.nuro.jp. [219.104.132.38])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6d83e253sm5812738a91.1.2026.09.21.06.12.03
+        d=1e100.net; s=20260707; t=1789996331; x=1790601131;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ig7/HqBzfoSVv6fdudTalNiMgAfFIlYLiYgMPPiaeeI=;
+        b=Qhxt1O83HTESNaJWQ0ZvXyijmWHj51gloQl1IePW83U+7/mgzyHfF126QJ78iVs/Ev
+         a2slABbnVLdrr7xfzF86KibmX38SNfmuMYSqg4TtmB9Z7PZjYVEH21u+aHtmCbVeXIcU
+         x2cfM6dT9RTH8oVqOUd0XRfeo7Ycakpe1dtrrgieStLWu7AsRJzD3PxyRbv8UXZNEdnV
+         gmWlkEVVTguZWk2NxpYZDqRuJ4vhTMLSclM/clcqcvYdI+xfnpKsKDoRgksVRrNkKVOa
+         9LakPjGwrCLNq/yomsHWyXCXB2YN/9g4yH/ARI+0UHCS2uaIW2AaeH3lr/zZgHyU4jSY
+         qLew==
+X-Forwarded-Encrypted: i=1; AKwUvByv93DbZ8IRVO8mjdiDF/4YS8AyZnCGkTlfP3yNxIR3+3AFDbnrDNH7Nlwvozmp0jF/AY6Eb2sr7UY/O9w=@vger.kernel.org
+X-Gm-Message-State: AFuF++moQlDJxsoefHt5C8IAquTNBLk6UYd6BRj7fHuNLy+PB0ociqsD
+	4EyKV8fO5zbfaE4GdP475Z4OKtHt4+Mc7NAiIAbuDtvP2k7mIuLoWKqk
+X-Gm-Gg: AYBFou3zmjDTkaAiyx6NaV5wJi1+YVs7HW9kMK1X9XZ7Ki+tBZBx+HIBMlLffc00ovD
+	pxoVbtufRC5+8vEFTWolOdye6tJvhLLVm3mhKv4iRocZfiPCow/5XOOYnGGnIHr2lmt2oKp/x7f
+	Ys80GL9w1wAUgwrq7HOB1dnbXVpwXy36I+5ovxIT8WjlbwWdlkW/c0cdiWoHs+0AEqW6mlgRCQt
+	/o6oi1bC+/beTkE0aysYHrBa3pZ4oc1O0hbsJB3w8WZU2GLMV7L2pLM+T9jSP03zH+ztOgiBeLC
+	7hKLueOInWNB++PWnQS1TA0VE47pN9mnWO8hWZBGxd4ljobxGdHmMtHBG8TZUpOkf0aTcUZ4One
+	7BE4NBf8//CRTsZAjh+lFyU7PdeFEmcBel/Apn/NbKVqD7no6io+f62JyUciVukL8DJzI5HXAaN
+	iG5J3K0/5JO1RM/p/eE+g2G8OgjaCi0f4s/CbhLnigYdxjFb9NCFt7rPQKzmKPcawM
+X-Received: by 2002:a17:90b:554b:b0:39e:6c6a:4b64 with SMTP id 98e67ed59e1d1-39e6c6a5438mr8799720a91.46.1789996330968;
+        Mon, 21 Sep 2026 06:12:10 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a063bcecc6sm80447a91.12.2026.09.21.06.12.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 06:12:04 -0700 (PDT)
-Message-ID: <6ab12d24.a3d4836d.3b68e.d0f8@mx.google.com>
-X-Google-Original-Message-ID: <20260921131201.u2sxphwziumenyfh@DESKTOP-1P5QNTF.>
-Date: Mon, 21 Sep 2026 22:12:01 +0900
-From: Kohei Ito <koheiito.dev@gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-gpio@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>
-Subject: Re: [PATCH 3/3] sample: rust: Add GPIO consumer sample driver
-References: <20260906-add-rust-gpio-consumer-v1-0-24d192f93760@gmail.com>
- <20260906-add-rust-gpio-consumer-v1-3-24d192f93760@gmail.com>
- <CAMRc=Meei7Z1f1n0M_Hy1LdxG=NVhkFeEiT3=p5QVpw6BTv3EA@mail.gmail.com>
- <6aa662d7.0ca013b1.1575e3.0a60@mx.google.com>
- <DLENO35F39LL.2YNA66D9FCXYH@nvidia.com>
- <CAMRc=McV2YKgbmnknLZTSGoSa_9eCHDiOLzuPPyPHHnj=vRuvw@mail.gmail.com>
+        Mon, 21 Sep 2026 06:12:07 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	"Nancy.Lin" <nancy.lin@mediatek.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/mediatek: fix ovl adaptor platform device leak
+Date: Mon, 21 Sep 2026 21:11:56 +0800
+Message-ID: <20260921131156.403652-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAMRc=McV2YKgbmnknLZTSGoSa_9eCHDiOLzuPPyPHHnj=vRuvw@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Bartosz, Alexandre,
+mtk_drm_probe() creates an OVL adaptor platform device with
+platform_device_register_data() when the display pipeline requires the
+OVL adaptor.
 
-Thanks both for the feedback.
+If a later initialization step fails, the probe error path releases
+the DRM resources without unregistering the already registered OVL
+adaptor device. The normal remove path likewise leaves the device
+registered after the DRM driver is unbound.
 
-On Mon, Sep 14, 2026 at 04:36:48AM -0400, Bartosz Golaszewski wrote:
-> On Mon, 14 Sep 2026 03:41:29 +0200, Alexandre Courbot
-> <acourbot@nvidia.com> said:
-> > On Sun Sep 13, 2026 at 5:46 PM JST, Kohei Ito wrote:
-> >> Hi, Bartosz,
-> >>
-> >> On Thu, Sep 10, 2026 at 12:37:17AM -0700, Bartosz Golaszewski wrote:
-> >>> On Sun, 6 Sep 2026 10:45:51 +0200, Kohei Ito <koheiito.dev@gmail.com> said:
-> >>> > Add a sample driver to demonstrate the use of the Rust GPIO APIs.
-> >>> >
-> >>> > Signed-off-by: Kohei Ito <koheiito.dev@gmail.com>
-> >>> > ---
-> >>>
-> >>> I don't like samples as they rarely get built or tested. We seem to already
-> >>> have kunit support for rust, wouldn't it make more sense to implement a kunit
-> >>> module for rust GPIO abstractions? If we don't have provider abstractions, you
-> >>> should be able to reuse gpio-sim as the GPIO controller for testing just by
-> >>> instantiating simulated GPIO devices.
-> >>
-> >> Thank you for your suggestion.
-> >>
-> >> I assume the kunit module you have in mind would be implemented like
-> >> `gpiolib-kunit.c`. Based on your comment, I agree that a kunit-based
-> >> approach is more appropriate than a sample driver.
-> >>
-> >> However, as far as I know, we don't yet have Rust abstractions for
-> >> platform_device registration and software_node, which are required to
-> >> implement a kunit-based module for testing GPIO consumer APIs. Given the
-> >> current state of Rust for Linux, I think creating a sample driver is a
-> >> more practical approach for now. I would like to consider migrating to a
-> >> kunit-based module as future work.
-> >
-> > The problem is that this sample driver never probes, so in effect it is
-> > only ever compile-tested. Without support for the provider API, you need
-> > to include a small C fixture providing a GPIO chip for it to be actually
-> > runtime-tested.
-> >
-> > Doing the same using KUnit would involve building the `gpio_chip` using a
-> > bunch of unsafe statements working with the C bindings (which would then
-> > in turn require `gpio/driver.h` to be added), so I guess we'll want to
-> > wait until we have a proper Rust provider API to go that direction.
-> >
-> 
-> No, I was thinking about the gpio-sim module which is implemented as a platform
-> driver which you can describe with a software node and then register to create
-> a simulated GPIO provider against which the consumer APIs in rust could be
-> tested.
-> 
-> To that end, we'd need to just register a platform device from rust and AFAICT,
-> there are already APIs for that, except for the software nodes.
-> 
-> Bart
+Keep track of whether the OVL adaptor was successfully registered and
+unregister it on probe failure. Also recover the platform device from
+the stored DDP component device and unregister it during normal
+removal.
 
-I looked into this further, but couldn't find any Rust abstraction for
-registering a new `platform_device` (no file contains a platform device
-registration function such as `platform_device_register()`,
-`platform_device_register_*()`, or `platform_device_alloc()`/
-`platform_device_add()`). So, we can't write a fully Rust kunit module
-for the GPIO consumer API, at least for v7.3-rc3.
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
 
-The best approach I think is a combination of a Rust consumer driver and
-a C kunit module dedicated to testing the consumer driver. This is
-almost the same as `drivers/gpio/gpiolib-kunit.c`, except that instead
-of directly exercising the GPIO consumer APIs, the module I'm suggesting
-exercises them indirectly, through the Rust consumer driver.
+Fixes: 0d9eee9118b7 ("drm/mediatek: Add drm ovl_adaptor sub driver for MT8195")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-Best regards,
-Kohei Ito
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+index c86a3f54f35b..d176e6496aa7 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
++++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+@@ -1060,7 +1060,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
+ 	struct mtk_mmsys_driver_data *mtk_drm_data;
+ 	struct device_node *node;
+ 	struct component_match *match = NULL;
+-	struct platform_device *ovl_adaptor;
++	struct platform_device *ovl_adaptor = NULL;
+ 	int ret;
+ 	int i;
+ 
+@@ -1205,6 +1205,8 @@ static int mtk_drm_probe(struct platform_device *pdev)
+ err_pm:
+ 	pm_runtime_disable(dev);
+ err_node:
++	if (ovl_adaptor)
++		platform_device_unregister(ovl_adaptor);
+ 	of_node_put(private->mutex_node);
+ 	for (i = 0; i < DDP_COMPONENT_DRM_ID_MAX; i++)
+ 		of_node_put(private->comp_node[i]);
+@@ -1214,9 +1216,15 @@ static int mtk_drm_probe(struct platform_device *pdev)
+ static void mtk_drm_remove(struct platform_device *pdev)
+ {
+ 	struct mtk_drm_private *private = platform_get_drvdata(pdev);
++	struct device *ovl_adaptor_dev;
+ 	int i;
+ 
++	ovl_adaptor_dev =
++		private->ddp_comp[DDP_COMPONENT_DRM_OVL_ADAPTOR].dev;
++
+ 	component_master_del(&pdev->dev, &mtk_drm_ops);
++	if (ovl_adaptor_dev)
++		platform_device_unregister(to_platform_device(ovl_adaptor_dev));
+ 	pm_runtime_disable(&pdev->dev);
+ 	of_node_put(private->mutex_node);
+ 	for (i = 0; i < DDP_COMPONENT_DRM_ID_MAX; i++)
+-- 
+2.43.0
+
