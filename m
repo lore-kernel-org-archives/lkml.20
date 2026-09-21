@@ -1,111 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DFEA4B1B24;
-	Mon, 21 Sep 2026 15:12:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D326A2FD696;
+	Mon, 21 Sep 2026 15:12:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003549; cv=none; b=mtNwQqf9vxSCU11Ox97jiut01mwpI1pneXjCIPK7rZRTEOKZaZKgM8WdpBmOmalZqkU22NzfRaC4pkXD7ENXpJwXi6dGUd02u8k/nKX/JlH0tVQsIPDMswXZSlRX/OWgnVDk+T3JroPeVA8LlHhqY5x8H7APlXlHAtx9SdinC+0=
+	t=1790003562; cv=none; b=GOe6u5q7NumUJtcE2KC6JLKdgWwsb0jqE1dA/eSLQkDjW59ATzj50BC/U5JL11T6q9hh0Kc0hOg6XXkzmWVe3WWET30oTXhZg74blnj5Pjse7fUeJBT5PLbvnlSwvHi+2+P5KbsuOBLI3WsoILE5rGBvLdlVBxQQ268LxqvtNYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003549; c=relaxed/simple;
-	bh=LAciJTKpRwJnWObq9nGHD5XkrGVwEpdzJh+RGirshCw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pOx9f6gKL+3qZAZ8AZdBS6Y7MUFoyPC3PkBnOR3Zt4UAc6QHy0TkaN7jCC0uTufRAdBX3I3+ptjvV4xw8P/v5xkKRZ58kQW5AfbG/WbRnRVxywV1JgqRKqv/og/Rja4gofNtNE9LMbe8pnxC+9q0+occTX6Ac1VNN7ArWRrF1wI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kkkem6Rz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790003562; c=relaxed/simple;
+	bh=L1k9f7vkeT52DG7Y+OjdDgIYQ2gAK8//N6IDgUdTzzc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hGGeBJtvW+gsBVhIvNIjIZNwOoMcF9FQ1u39o5c3M8EGdjrCLvcW7PR7fQf+liEK3HhVcsziTm03ttZGds9WGB2VkfRqMV7dNGnhFeWdc9vK/l93MX7NyOqZWLp07rPQzpcW/4fc6D9wCHhI68K4rNGlPZ67ejBytrvHB5iEaf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=5Px6qTLE; arc=none smtp.client-ip=216.40.44.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kkkem6Rz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD8D1F00893;
-	Mon, 21 Sep 2026 15:12:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003547;
-	bh=o8UxhF58k+iaCX3wK6PvC//NB+h9K2uQAHX4G8biYo8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Kkkem6Rz9nbgHhsk0FSU+V9gPTTVQZRitviKsPNgWsaxtrEErBZcTRzDrsFTY9c8F
-	 onBFOHeg2t0A0daT87XeW0TM3rs9J6765xgWyQdCd9zXLVMze4CIGxM+zU5gM7Eh2q
-	 U9O3MMmjTwxOQQgZgHwhbc93J4+fxJmnGrVWfRrLExYJViCo9xW1TxpkYs/OshOfnd
-	 VAq4jHfh0VvOyP95xgMYTxe7RN010zPv4vzZTaxJCIJ1wCgr5orBBQA4hWbJbLBPUE
-	 +1IBXBOoMFHdh9UxACogvjjakparQpSzYfAlKC2XNUcpoicDHYSzpHysWlX0MAoZf/
-	 sOsDUE4UnC3Pw==
-Date: Mon, 21 Sep 2026 17:12:24 +0200
-From: krzk@kernel.org
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
-	Thorsten Blum <thorsten.blum@linux.dev>, Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
-	Takashi Iwai <tiwai@suse.com>, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
-	Cezary Rojewski <cezary.rojewski@intel.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>, 
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Bard Liao <yung-chuan.liao@linux.intel.com>, stable@vger.kernel.org, Jaroslav Kysela <perex@perex.cz>, 
-	Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: Intel: SST: fix platform device leak on probe
- failure
-Message-ID: <arFJVyhJK57m5oyd@quoll>
-References: <20260921073847.63505-1-lgs201920130244@gmail.com>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="5Px6qTLE"
+Received: from omf12.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay03.hostedemail.com (Postfix) with ESMTP id EF92CA01A8;
+	Mon, 21 Sep 2026 15:12:37 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf12.hostedemail.com (Postfix) with ESMTPA id 00D2C19;
+	Mon, 21 Sep 2026 15:12:34 +0000 (UTC)
+Date: Mon, 21 Sep 2026 11:12:30 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: "syzbot" <syzbot@kernel.org>
+Cc: syzkaller-bugs@googlegroups.com, Krystian Kaniewski
+ <krystianmkaniewski@gmail.com>, <linux-trace-kernel@vger.kernel.org>,
+ "Masami Hiramatsu" <mhiramat@kernel.org>, "Vincent Donnefort"
+ <vdonnefort@google.com>, linux-kernel@vger.kernel.org,
+ mathieu.desnoyers@efficios.com, syzbot@lists.linux.dev
+Subject: Re: [PATCH] ring-buffer: Fix false warning in
+ ring_buffer_map_get_reader()
+Message-ID: <20260921111230.14e63f21@fedora>
+In-Reply-To: <15bc282f-669e-4a94-911d-bb435513461f@mail.kernel.org>
+References: <15bc282f-669e-4a94-911d-bb435513461f@mail.kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260921073847.63505-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 00D2C19
+X-Stat-Signature: 93nwfsx97nnh3u3cugw3kp5f6tumi7xa
+X-Rspamd-Server: rspamout07
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/bdBg0U17YeAEOXfPAURYXfcHu+dLRz08=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=8f4T7+Damq2l2zK/FtKO3n2t+I4EG3XWjXxLgMJAFZA=; b=5Px6qTLEZfQPt5FWsc5kAkIs6IcUSnqmGmBkvdVbZJQfF3m/FeFdsike29nhK13yuDqczn0brUZSqqVX48sDmZ7H8xXWSxSvOeGKdZP3nIt4cmAxwUxf2+t6hVIqMaFkB++Ld9oxCXSd77B9aJpHpCA0MGf7RvCLxq6f21m4BPw=
+X-HE-Tag: 1790003554-467562
+X-HE-Meta: U2FsdGVkX19dVyJzjnbIFVA7COY5xjnLgZIqCNfpbKyS+GXJ5H8+V/E75bmr5sw3YoExrsltt8qRuOFRwkfLoCXP6j1bCwoZRj2D7DQ92hbn5JWaGk+FDFt5cnLdvLlJ062q+STKVfYhe3yOCytgl0CvBKfHMP1T01DQ1jin/ks+10iVhYSaso8b4g2j47F9ian/Gqj03nc4DmZsY9T4RCH2Owl0NEdqJ+lb767A2/EmvpDDXgwWGon1ZB5Nvj91sK0LZdUQFJ7D5iHchEnRoV8OCIdo51akmJirA5l5XCj0n+P93t3TIj7yLD3YhG4C0+dj6gnN6K35WUYG/n1/IEXx01TSQ3FxSxh9qndTDq75ew1WLxwoY8svS+XysOkGdx5l04PYRFJyoHNxKQ0m87FDbMHN+KuyTlSRJ29besMNP0goT/IHCYtU8GY3p56PYWf0h3VLHVBjytqTj1B7CkaCnAmooNpl5t4/0lKlYSc=
 
+On Fri, 18 Sep 2026 14:34:25 +0000 (UTC)
+"syzbot" <syzbot@kernel.org> wrote:
 
-On Mon, 21 Sep 2026 15:38:47 +0800, Guangshuo Li wrote:
-> sst_acpi_probe() registers platform devices for the SST platform and
-> machine drivers using platform_device_register_data(), but does not
-> unregister them when later probe steps fail.
+> From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
 > 
-> If machine device registration fails, the already registered SST platform
-> device is left registered. The same leak happens when
-> sst_platform_get_resources() or sst_context_init() fails after both
-> platform devices have been successfully registered.
+> In ring_buffer_map_get_reader(), an unconditional WARN_ON(!reader) is
+> triggered when rb_get_reader_page() returns NULL:
 > 
-> A registered platform device owns resources allocated by the platform
-> device core and must be released with platform_device_unregister() so
-> that the device reference is dropped and platform_device_release() can
-> free the backing platform_object.
+> WARNING: CPU: 1 PID: 5906 at kernel/trace/ring_buffer.c:7998
+> ring_buffer_map_get_reader+0x940/0x9d0
+> CPU: 1 UID: 0 PID: 5906 Comm: task Not tainted
+> RIP: 0010:ring_buffer_map_get_reader+0x940/0x9d0
+> kernel/trace/ring_buffer.c:7998
+> Call Trace:
+>  <TASK>
+>  tracing_buffers_ioctl+0x258/0x300 kernel/trace/trace.c:7381
+>  __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+>  do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>  </TASK>
 > 
-> Unregister the created platform devices on all failure paths to restore
-> the missing cleanup.
+> This warning is triggered due to a race between a writer committing events
+> and a reader mapping the ring buffer via TRACE_MMAP_IOCTL_GET_READER. When
+> a writer commits an event in rb_set_commit_to_write(), it advances
+> cpu_buffer->commit_page to cpu_buffer->tail_page in its first loop before
+> updating the commit counter (commit_page->page->commit) in the second loop.
+> If a reader invokes ring_buffer_map_get_reader() at this moment, the
+> initial check cpu_buffer->reader_page == cpu_buffer->commit_page is false,
+> and it calls rb_get_reader_page(). Inside __rb_get_reader_page(), the
+> reader swaps reader_page with the head page (which is the new commit_page).
+> Because the writer has not yet updated the commit count on the new page,
+> rb_page_size() is zero and reader_page->read < rb_page_size() evaluates to
+> false. __rb_get_reader_page() then checks if cpu_buffer->commit_page ==
+> cpu_buffer->reader_page. Since both now point to the swapped page, the
+> condition evaluates to true and rb_get_reader_page() legitimately returns
+> NULL to indicate the reader caught up to the writer.
+
+The above looks like AI output. Please summarize the issue in a human
+readable format. The above is not acceptable as a change log.
+
 > 
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
+> Furthermore, rb_get_reader_page() can legitimately return NULL when there
+> is no data to read. Re-checking mutable writer state such as
+> cpu_buffer->reader_page != cpu_buffer->commit_page is insufficient because
+> a writer on another CPU can advance commit_page before the check is
+> evaluated without being stopped by reader_lock.
+
+The above can use some loving too.
+
+-- Steve
+
 > 
-> Fixes: caf94ed8629a ("ASoC: Intel: bytcr_rt5640: fixup DAI codec_name with HID")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  sound/soc/intel/atom/sst/sst_acpi.c | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
+> Because WARN_ON must not be used for conditions that can legitimately
+> happen, and pr_err should be used instead if necessary, remove the
+> WARN_ON() entirely since returning NULL here is an expected condition.
 > 
-
-
-You sent multiple independent patches, to multiple independent
-subsystems. The amount of these patches clearly suggest this was
-AI generated and most likely not tested.
-
-More importantly, you sent all this work without properly organizing
-relevant patches into patchsets. This makes reviewing difficult
-and might cause multiple reviewers to address the same issue.
-Replying to the entire set is impossible and requires handling each
-patch independently, instead of applying or discarding the set.
-Maintainers also won't see the bigger picture of your work. Quite
-worrying.
-
-This is on the verge of hostile patch: bomb us with so many
-contributions, we won't be able to handle them in efficient manner,
-like responding ONCE to ask you to slow down.  Considering all this
-is untested and LLM generated, I have even more doubts whether this
-should be considered for review.
-
-Please read kernel documentation BEFORE posting more work. It will
-explain you how to identify subsystems, how to organize your work per
-subsystem, how to document usage of LLM and how what you should not
-do if this was posted in a good faith.
-
-Best regards,
-Krzysztof
-
-
-
+> Fixes: 117c39200d9d ("ring-buffer: Introducing ring-buffer mapping functions")
+> Assisted-by: Gemini:gemini-3.8-flash syzbot
+> Reported-by: syzbot+de3d7f9bcc9212f3fae1@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=de3d7f9bcc9212f3fae1
+> Link: https://syzkaller.appspot.com/ai_job?id=488adc18-a10e-42d2-a205-25327c38837f
+> Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+> 
