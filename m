@@ -1,95 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A14489FC0;
-	Mon, 21 Sep 2026 13:43:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8DF201278
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:43:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789998216; cv=none; b=fEbPbKYSU0849hlHaL1I+ewzdfVD3/VBEEYoED6fCCuMYJ+V2tsVglALWn8VFIi1IOJTzokGFwKrwSHE4dfwlgn+5z/Kmc6+bFo3mVQQh0Mm8g+e/uY1NiFigxgyKqQ9hWibt3uXOQmZ4qztffU4WYqpjxMSVHGBJfCrkXAjiPY=
+	t=1789998235; cv=none; b=afQgb5CHhFP++9sMGjbAcjji0jE17kqPX7mN8YRZu7lcmhYabjmZOuAzL6gqyK28vgfmhRuu/nwF/KRwkuptwfrZ2vX6INtU2IaPRN/DGSvKDRce2eidyjBdy7PwOK0FHmq33NvD6fVxUFGps/zZIE8pmEchPiqo0ZMQHrlzu/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789998216; c=relaxed/simple;
-	bh=z6GXpVUOIolbv6op5mUTLouphlPpgs+Daf5RUJl/7Ss=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bRktQC7kNo3EcDHU+w+seHIXP0DzIbPWd0K6kvMSXySj0MzMwOPBRNjZPVOXxkMscG6BWtFtuL/5i/3wLlZTbXmrrMnjyIGlH1JTwO6VTlX2oB3yd4Vzqy/c1N3XDvHPCdbyTyufbe/PefoGoI3UYOGD75KRYCknowt7Tr5pLmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ofXNvX/J; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789998235; c=relaxed/simple;
+	bh=5tx5XizZncVVrjtJjf25GLTO3kI5sA2X0Tbettr4tWY=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=MinmJiLjU/TVJ+kKcIZrr01G+SU25nntCVLa7J4vBo7x++YtROJ/XtN+mLt348CuuCFG58QYPJ6Qcve2J9z0rld5CHGtfL7m6VbqN/lT3hT2hk9q6YQNrycA0lpobRMLmgeMjLdEfMWzwbQCFRdCg1tmBx6D7Lge6qXONBndVYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=l61FUIpm; arc=none smtp.client-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ofXNvX/J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A91BE1F000FF;
-	Mon, 21 Sep 2026 13:43:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789998215;
-	bh=OPMCj1O9GfQ79/EIaX3D3WpPzFtAZfDF8PGCRQy9UUU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ofXNvX/JK+qywD6hx7nOICFrThBZGiRyFK7rNxsuXeik+RkXTY2s4+RaLRuIOixH8
-	 agzKLey2VFfZKVRLGOejjFSuPCBJyiIVpFjdnpTdx9EQ9sF0iYgntKvdxxlzeEFbJY
-	 o7bMA2yTxRnKPscZObENvK5ibwnTyqz3RNZ/IWVZhoDwSvIBxxXR+q7/vdcqMpgOh1
-	 0AwZikH6gGn8nMJRanzqejxb8PiFc3+qHKqKv/I8Znd3l5Vf/T9rdQwesrRDnKcppq
-	 MKrwzmjso3w3tUVPYsxajLbgNsMFSkb14Svy/kkiQ+qDBfdHHkW6UmqmR9e4u2JzML
-	 gXm7xXCM+Dtxg==
-Message-ID: <ebdcd24a-dbca-4195-a9f1-ba224596b7d7@kernel.org>
-Date: Mon, 21 Sep 2026 08:43:32 -0500
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="l61FUIpm"
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8663802b58fso3273244b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:43:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789998234; x=1790603034; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DGToDF/wkFG2nzRyC/j2VVCnqjpnpN119KpUk0dOnOc=;
+        b=l61FUIpmbdLjhbydYiR/5wv9Nn7gE1MLcBF18HTJCM+tZdATUHNXR7K5Y149wVQyCm
+         qqVRqVi7qn3q8DlzYCCHgSHTPPL7s+OoRfpTPW5zeYosZiCHltcgyfOVTGHNbTSU5cDE
+         Xd7xqddeY2LtdhGQakIhMHZhvZt0fNIEX/IiCId6BqPHmjb89RZM+zaRkWJRQ+GkyDRi
+         EnmUw95fI+K1NCPUPXEdXdDxapZ+FbDr4KIxKj9Nx//XZpm3husb7ozSAHyfP6F1zHkI
+         NCzMkRldaPEmpZ6YCzgQDYvd22b04EJTBbeHOgxFuxCDZYNd6lk+oU6DQVWbmji5YFQX
+         r+7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789998234; x=1790603034;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DGToDF/wkFG2nzRyC/j2VVCnqjpnpN119KpUk0dOnOc=;
+        b=b4kgvi9a3yJtwFqRVvZePBn9K4rILCuUue9KOOi8zK1HXav607RLZ+rm/ke0l59CiP
+         bvEoJuG11wakwWIaz5vtLTy28b2EdHunldEPf0Y2vrsDt1ApxXyCSMIUBatQq/ssMq4X
+         HTROM/0ahV3rrFhMEEbXFgCtTfFkIVJ4j3O5n4OJFGjDjDWAvlXmetDXwSJ3Urqm1fKl
+         KNithue6kXHYG8yDCKRuYarUXzWoun/LGIY5pAEr7X3hiMo684kvvSM2LdEa9UNQNLrp
+         9Iq3OxqJlE9TvVidlEozzQpmKp1waaNy22wED1wYgmN35qaSRqSQsgQ8+2tAFmZVOSsZ
+         ilxQ==
+X-Forwarded-Encrypted: i=1; AKwUvByXSp4InMCOYSS7Hp31k29LPSiJzXPVLHdj2fOE+GR90sLX87IVDNV1qm+ugVMp60nUmkQAdRuXoopvsbs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQ4+S5U3Y5OgS6luy/0fTdndd2AtFpJMo+VyBINGLpsufUMEtb
+	2Eb49Ghb9Jc5QxEsJcYSllbBulsyemlTwzxA1GUK5CmpmH3Egpp1GuPaUPTpPFhfBWugyDYfB5U
+	ohNu0cg==
+X-Received: from pfpk17.prod.google.com ([2002:aa7:9d11:0:b0:86b:a074:218a])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:90a9:b0:874:705d:f64a
+ with SMTP id d2e1a72fcca58-874decf71f5mr14455216b3a.44.1789998233584; Mon, 21
+ Sep 2026 06:43:53 -0700 (PDT)
+Date: Mon, 21 Sep 2026 06:43:52 -0700
+In-Reply-To: <arEzv8b2IMHYcHsZ@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/x86/amd/hfi: fix platform device leak on init
- failure
-Content-Language: en-US
-To: Guangshuo Li <lgs201920130244@gmail.com>, Perry Yuan
- <perry.yuan@amd.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "Gautham R. Shenoy" <gautham.shenoy@amd.com>,
- "Borislav Petkov (AMD)" <bp@alien8.de>, platform-driver-x86@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20260921082609.244774-1-lgs201920130244@gmail.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260921082609.244774-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20260826165647.769231-1-seanjc@google.com> <aq/XwK71uNfLvUux@yzhao56-desk.sh.intel.com>
+ <arEzv8b2IMHYcHsZ@google.com>
+Message-ID: <arE0mEJaW44HA39e@google.com>
+Subject: Re: [PATCH v2] KVM: guest_memfd: Elaborate on how release() vs.
+ get_pfn() is safe against UAF
+From: Sean Christopherson <seanjc@google.com>
+To: Yan Zhao <yan.y.zhao@intel.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Vishal Annapurve <vannapurve@google.com>
+Content-Type: text/plain; charset="us-ascii"
 
+On Mon, Sep 21, 2026, Sean Christopherson wrote:
+> On Sun, Sep 20, 2026, Yan Zhao wrote:
+> > On Wed, Aug 26, 2026 at 09:56:47AM -0700, Sean Christopherson wrote:
+> > Do we need to update the code comment in __kvm_gmem_unbind() from
+> > 	/*
+> > 	 * synchronize_srcu(&kvm->srcu) ensured that kvm_gmem_get_pfn()
+> > 	 * cannot see this memslot.
+> > 	 */
+> > to
+> > 	/*
+> > 	 * synchronize_srcu_expedited() in kvm_swap_active_memslots() ensured
+> > 	 * that kvm_gmem_get_pfn() cannot see this memslot.
+> > 	 */
+> > 
+> > to align with the above comment.
+> 
+> How about this?  Because the "rule" is that kvm_gmem_unbind() can only be called
+> on a memslot that is unreachable, either by synchronizing SRCU after uninstalling
+> the memslot *or* because the memslot was never installed.  Simply stating that
+> synchronize_srcu_expedited() makes everything safe isn't the whole story, as it's
+> specifically synchronzing after removing/deleting/deactivating the slot that
+> makes this safe.
+> 
+> 	/*
+> 	 * Note, the caller is responsible for ensuring the slot is unreachable
+> 	 * before unbinding, e.g. by synchronizing SRCU after deleting the slot.
+> 	 */
 
+Hmm, though it's probably a good idea to preserve the connection to kvm_gmem_get_pfn():
 
-On 9/21/26 03:26, Guangshuo Li wrote:
-> amd_hfi_init() registers the HFI platform device before registering
-> the platform driver. If platform_driver_register() fails, the function
-> returns the error without unregistering the already registered platform
-> device.
-> 
-> Since the failed init path does not run amd_hfi_exit(), the platform
-> device remains registered and its reference is never dropped, preventing
-> the associated platform object from being released.
-> 
-> Unregister the platform device when platform driver registration fails
-> to properly unwind the successful device registration.
-> 
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
-> 
-> Fixes: 5d902ee5609a ("platform/x86: hfi: Introduce AMD Hardware Feedback Interface Driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> ---
->   drivers/platform/x86/amd/hfi/hfi.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/platform/x86/amd/hfi/hfi.c b/drivers/platform/x86/amd/hfi/hfi.c
-> index e0ebcb0c4acd..449aad914ad1 100644
-> --- a/drivers/platform/x86/amd/hfi/hfi.c
-> +++ b/drivers/platform/x86/amd/hfi/hfi.c
-> @@ -530,8 +530,10 @@ static int __init amd_hfi_init(void)
->   	}
->   
->   	ret = platform_driver_register(&amd_hfi_driver);
-> -	if (ret)
-> +	if (ret) {
->   		pr_err("failed to register HFI driver\n");
-> +		platform_device_unregister(device);
-> +	}
->   
->   	return ret;
->   }
+	/*
+	 * Note, the caller is responsible for ensuring the slot is unreachable
+	 * before unbinding, e.g. by synchronizing SRCU after deleting the slot,
+	 * to guarantee kvm_gmem_get_pfn() can't see the slot+file.
+	 */
