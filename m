@@ -1,143 +1,122 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-66.mta1.migadu.com [95.215.58.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865D93AC0CD;
-	Mon, 21 Sep 2026 07:06:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97040367F25
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:07:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789974402; cv=none; b=r0Gs8CaSpmRIIWur8LvCtPBwWISdyYovx/7ZK7RDwik6bcKe+eYXSvX3/OzmnAA16RZ6WfYPLaA7IFGPwPYhR4EbLdbo3kwIXoRF/IDPomqbok+RdVyviLfuggAuaHfFkAQ3isytJYj67VhpawtNV4163cZoTtxVgUR4vkWsE6U=
+	t=1789974423; cv=none; b=Ljiwlw3UFM+JsQ1e9OAhOS5stLC07zmfe1Uvrs8OtSXuq8IIg4g4t9J6KC+wgyOwTn0TCCNANCkLfGB3rZ4Jw0n9etuPP6ABR+mGjAaJlwy4xIzbZV3uMVBZ/iVLCM2Zls6AQvEVwSEH1TD1JqDIyiatCTfuCFn9xvn+ap2f5Cg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789974402; c=relaxed/simple;
-	bh=bPFctwbE6NbE958TS53SJjhUXr8bObgY2FGH1qFcCEU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WqfQR3SmZDlpZWoPVyk5lzPDIMgTwr7EnWBiAcPvVjFnCUQ0Euu07BOfV6XACyGc/Zc6RnqCVRqfFu5N4UqsHKoC7lQ5JdycExY9Cnh4QIIi5iVgCv8MwV3hOpS0Rwd4KprKZBYERYNildEk5t+eEEd5ngGG6h5zOzFmVVNB1Cc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=S2n/r1UD; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789974423; c=relaxed/simple;
+	bh=uDT0ATYSKthF666srJ0UipySpgzzQDPQH/7dLSLIUMw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JM4nc5Y8fbfHz9wNQ/DoXUd9moE5EZiPPdSEaM/0oXYv6KgrnFRuSqGwvUsGqj7x0PXfchjGaG5EdugUNUVdEL6jo5KhGqARZsfQ1ama51CSRvFdaI2iLFV9ABn1LBYaZMHsFtJprZAEVkjV4LlvdvnLmKPClJ+UuoO3CqlgB5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=H2iU+pMb; arc=none smtp.client-ip=95.215.58.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="S2n/r1UD"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L3ZgYa265483;
-	Mon, 21 Sep 2026 07:06:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=mJp+DU
-	vQW3PJ0dBQYyzLoX9Z1L7YVSe7JJAr6wex5kc=; b=S2n/r1UDmm13k8Fu8BgFPk
-	GVhiKaUvXGR4j8JRSIQ6PJOOwOqiRyGtUpvFHL8cq7dkYjbVhbhP85imMFUzb2Jh
-	GzZ8tryenMz7OhCM4rbBd31rZFoB1oqDzYv0gxcK60Q8lUo5X7sTkFS6RnBTMQBy
-	V0d+2k1Y00IVV2ixCNh68m7Eyv43pE6hxrCVfTt/pIhE4Uw/qSjdiWsKizH8ZfgP
-	i6xxWmpmCK1BCP4eCVycrK4oNBaDHAEeTKZ0atRLBAtxSXYVlL/jOcBrBBjuP3Nc
-	z6lIm3cQ8nBd+vNibEAw1xv+KYM6exF5BVfIsf4IatRe3+9+mGakM+mhbGK515Mg
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskg277pq-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 21 Sep 2026 07:06:32 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68L3XYYE1596418;
-	Mon, 21 Sep 2026 07:06:31 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gt7dy3yf2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 21 Sep 2026 07:06:31 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68L76ROq51118422
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 21 Sep 2026 07:06:27 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CC2B82004B;
-	Mon, 21 Sep 2026 07:06:27 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 45B8320040;
-	Mon, 21 Sep 2026 07:06:27 +0000 (GMT)
-Received: from [9.87.147.142] (unknown [9.87.147.142])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 21 Sep 2026 07:06:27 +0000 (GMT)
-Message-ID: <06158c64-6d2c-4dda-a742-0ef7b2cd0583@linux.ibm.com>
-Date: Mon, 21 Sep 2026 09:06:26 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="H2iU+pMb"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=uDT0ATYSKthF666srJ0UipySpgzzQDPQH/7dLSLIUMw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789974419; v=1; x=1790579219;
+ b=H2iU+pMb+Q8nDOrleSC/ZtQil13XSkISiu+GdZGKtiZ7au90SJw/Rl5l1PCPtyXpJbHyzwVX
+ T6rWuEa0B4GECs2zdLIBfi7FsKwI61bzAJf13XGF7ANfTXfYFmwoq2S8rzTE0r9Ab8zvVEAo4ph
+ l0ESaoWyxz55/HLy0FLxnyTE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0634c950bb179c52;
+	Mon, 21 Sep 2026 07:06:59 +0000
+X-Mizu-Trace-ID: 0634c950bb179c52
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: axboe@kernel.dk,
+	kbusch@kernel.org,
+	tj@kernel.org,
+	hch@lst.de,
+	sagi@grimberg.me,
+	yukuai@fygo.io
+Cc: linux-block@vger.kernel.org,
+	linux-nvme@lists.infradead.org,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cui.tao@linux.dev,
+	cuitao@kylinos.cn
+Subject: [RFC PATCH 0/1] block: charge passthrough requests to the submitter's cgroup
+Date: Mon, 21 Sep 2026 15:06:46 +0800
+Message-ID: <20260921070647.1928289-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] KVM: s390: gmap: use assign_bit() where applicable
-To: Heiko Carstens <hca@linux.ibm.com>,
-        "Peng Fan (OSS)"
- <peng.fan@oss.nxp.com>
-Cc: Janosch Frank <frankja@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Steffen Eiden <seiden@linux.ibm.com>,
-        Christoph Schlameuss <schlameuss@linux.ibm.com>,
-        linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
-        kvm@vger.kernel.org, linux-s390@vger.kernel.org
-References: <20260920022642.3145674-1-peng.fan@oss.nxp.com>
- <20260920161808.18515Ba3-hca@linux.ibm.com>
-Content-Language: en-US
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
-In-Reply-To: <20260920161808.18515Ba3-hca@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: Z-Jv3k5KItJsQIGYjSeI0Z4-iqq8Q86W
-X-Authority-Analysis: v=2.4 cv=I43w19gg c=1 sm=1 tr=0 ts=6ab0d778 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=8AirrxEcAAAA:8
- a=RxYoiiObWgdx8EDIwDoA:9 a=QEXdDO2ut3YA:10 a=ST-jHhOKWsTCqRlWije3:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEwMCBTYWx0ZWRfX7iTHgGr9/FYz
- 2lsHuS/ZWLgpa+kyzt4FP51ZzDkKImS7LTnxp/c9vP6d2JwKk+BiJoEhUx/ls8ZkcYMpWvOkpUm
- hf20HP1WB71BD6JWg8DbcR+dfqxoFIy/7uxJ6+0uv/84ZfAu5EtE4/7V6UYEnC3pkzC6itRH6sA
- 7FetI4DIj4zpJYquTONfonHxX0ReU8s15pCR9IwrbxWttdJsyW767lkh7Cm0xAsZzG2V8784Xba
- 2tZu4fLB1hXdbh1x0Oeqm/wJF3ry/gfF8BT0sPrpYIS7NXTgoGi3U5lASc/O9Bu5KVUxNex3foU
- CzTCRmaFwgqL1/LZ2WlO9x5EIXksvKJuCaMIsQKNQyKmnbOnPFB/Ety75+krt4y2EO86+Zhfsy7
- bg1Vi8afW73pk++ohuF9IQWnf5xFOf/pubLT9JovqZoG/iWbL2J/9tQNJS7rzcy4XmEHNhucwTr
- 3fECrgk9YKzzHo/uxiQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEwMCBTYWx0ZWRfX5pfWzPXQ6n79
- mPFSm7oihYJfib50oLRDAyH21tsqSgM4u5iTJK1yvDWqwE5/zZOOLH6CC1smHBF9nn8gk1p4z/E
- ekkzlNHV/ylhDShV578bGJ4slH5x034=
-X-Proofpoint-GUID: Z-Jv3k5KItJsQIGYjSeI0Z4-iqq8Q86W
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1011 adultscore=0 suspectscore=0 impostorscore=0
- lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210100
+Content-Transfer-Encoding: 8bit
+
+From: Tao Cui <cuitao@kylinos.cn>
+
+While looking at cgroup IO control coverage, I stumbled into a hole
+that is probably familiar to people who have worked on passthrough:
+SG_IO, bsg, and the NVMe ioctl / uring command paths build requests
+directly and dispatch them through blk_execute_rq{,_nowait}(),
+never passing through submit_bio().  The mapped bio carries no blkcg
+association, so the bytes never show up in cgroup io.stat, and none
+of the rq_qos policies (iocost, iolatency, wbt) see these commands;
+blk-throttle, hooking submit_bio_noacct() directly, is equally
+blind.  On a scsi_debug device with iocost enabled and vrate pinned
+to its 1% floor, a direct writer in a cgroup is throttled ~10x while
+the same cgroup issuing sg_dd writes runs at full device speed with
+io.stat staying at zero.
+
+This RFC is a prototype asking for feedback on one possible
+direction, not a proposal I am attached to: is charging passthrough
+at dispatch time the right layer and the right semantics at all?
+
+The patch associates the mapped bio with the submitter's blkcg in
+blk_execute_rq{,_nowait}(), runs the regular bio accounting
+(blk_cgroup_bio_start()) and the rq_qos throttle path with it, and
+gates by opcode (READ/WRITE/DRV_IN/DRV_OUT, mapping the latter two
+to READ/WRITE for io.stat classification) and to queues that already
+have a gendisk so probing stays exempt.  On linux-next, with
+scsi_debug + sg_dd and qemu emulated nvme + an NVME_IOCTL_IO64_CMD
+loop, the transferred bytes are fully accounted in the issuing
+cgroup, and with vrate clamped the pacing bites: the same 128MB
+SG_IO run takes 0.025s unthrottled and 31.7s at the 1% floor, with
+the issuing task sleeping on the iocost waitqueue like any bio
+submitter.
+
+Questions I am unsure about:
+
+ 1. Is always-on the right default, or should this hide behind the
+    queue/iostats_passthrough opt-in from the passthrough iostats
+    series, keeping default behavior unchanged?
+ 2. The throttle may sleep; all callers I found (ioctl / uring_cmd
+    submit, target and error handling kthreads) are sleepable, and
+    kthread-issued charges land on root and turn into no-ops - but
+    I may have missed paths, and I'd rather ask than assume.
+ 3. What should happen on nvme multipath failover, where the bio is
+    re-routed to another queue but carries the original queue's
+    blkg?  Untested; guidance welcome.
+ 4. wbt also gains passthrough throttling through the same rq_qos
+    walk - probably benign since wbt targets buffered writeback,
+    but it is a behavior change I did not set out to make.
+ 5. blk-throttle does not benefit (it is not an rq_qos policy, and
+    its queue-and-resubmit model does not fit bios already bound to
+    a dispatched request); would a synchronous wait variant there
+    be welcome as follow-up work, or is leaving it alone preferred?
+
+Reproduction notes in case anyone tries: sg_dd coalesces into very
+large single commands by default (use bpt=1), and a short burst from
+a single cgroup rides the initial budget, so sustained transfers
+are what show the pacing.
 
 
+Tao Cui (1):
+  block: charge passthrough requests to the submitter's cgroup
 
-Am 20.09.26 um 18:18 schrieb Heiko Carstens:
-> On Sun, Sep 20, 2026 at 10:26:25AM +0800, Peng Fan (OSS) wrote:
->> From: Peng Fan <peng.fan@nxp.com>
->>
->> Convert open-coded if/else with set_bit/clear_bit to the assign_bit API.
->>
->> Signed-off-by: Peng Fan <peng.fan@nxp.com>
->> ---
->>   arch/s390/kvm/gmap/gmap.c | 17 +++++------------
->>   1 file changed, 5 insertions(+), 12 deletions(-)
-> ...
->> -	if (test_bit(GMAP_FLAG_ALLOW_HPAGE_1M, &parent->flags))
->> -		set_bit(GMAP_FLAG_ALLOW_HPAGE_1M, &child->flags);
->> -	else
->> -		clear_bit(GMAP_FLAG_ALLOW_HPAGE_1M, &child->flags);
->> +	assign_bit(GMAP_FLAG_ALLOW_HPAGE_1M, &child->flags,
->> +		   test_bit(GMAP_FLAG_ALLOW_HPAGE_1M, &parent->flags));
->>   
->> -	if (test_bit(GMAP_FLAG_ALLOW_HPAGE_2G, &parent->flags))
->> -		set_bit(GMAP_FLAG_ALLOW_HPAGE_2G, &child->flags);
->> -	else
->> -		clear_bit(GMAP_FLAG_ALLOW_HPAGE_2G, &child->flags);
->> +	assign_bit(GMAP_FLAG_ALLOW_HPAGE_2G, &child->flags,
->> +		   test_bit(GMAP_FLAG_ALLOW_HPAGE_2G, &parent->flags));
-> 
-> This turns something which was easily readable into an unreadable mess.
+ block/blk-mq.c | 72 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 72 insertions(+)
 
-I agree, this is not a good use for the assign_bit helper.
+-- 
+2.43.0
+
