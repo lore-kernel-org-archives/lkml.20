@@ -1,87 +1,33 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1086733F589
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:38:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3DF5B4718E9
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:39:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789994313; cv=none; b=i71GD4h+WfEr1qapY5SrtRcppXW8APye71VDM5Yrh1nbTCc55YBb2WP06Li/9MKAFs9tOIcIkLLd4pu/34HtWylUwVV+wPuLntdtnVuK92gIxURZJoJv6O57gi9Oj0XyfFH02aqZHd+g6CHHRYxDuDOg9oTEV9UY3N9edTJjfJE=
+	t=1789994361; cv=none; b=FS33zMD/42dKxivs8/1tthRuGzILKpDo0p7c3qFFs+1VktIJGxDWW+p6s2d2kKxAMBTVT0ja92wJ1uYy/Is3719ltwqCuRGMjuCIwzjEWumwp4ncfmPgNB9slZAvju1Q2RQSjIdXCm5ejptHYCJvV+g22x6vHEUYDW8OAwC/VD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789994313; c=relaxed/simple;
-	bh=YxuXzWHDam+cuHCgh8Iwx9qoxWf2tukZ52/V+Oq8Xf8=;
+	s=arc-20240116; t=1789994361; c=relaxed/simple;
+	bh=5Lbhx6JBnNO5/RF3ECKwLNQ3548X6W4VlpUH5tW70Mk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d+mOMb+nNXYslePpOlTIYOQ0o2kb4tFMgudQPF2HDlhVVoo6a1yqXstTULT9T0Ffm15tRkpHbrNmqnhvUkSIOGWdJlatq80uCr1KEHCg+4JMH6u/Ou0na581IfGYWlq0xlSV7yoJiH1KDXyOn8eMayhnP2yvSpPfvSK7TM68Rn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MbQcBQ3L; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V4MN3o3g; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=S5rgJCsBJTeGLdiMTZyqrwHzIMr1d8gdJB6eW16dTuwPpPmJvFJGehM9WLbPSR/W2GU1sePvRNclFOzvwJGKih7OeKT6Lv/dwbR2IbiNYvWqi8SSI4Qvu2+7vq1xyON9wGwVMiMlEzx+Hqi8+E+QhpV5kHepTnuOHpjRTPAqWdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Ng8zSTmv; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MbQcBQ3L";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V4MN3o3g"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LB4jx41129584
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:38:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PvIZxmuE15GlVG+Q4wvYNTHDEd1Gz/i8y/bSrvtg4rU=; b=MbQcBQ3L8hl7v/O+
-	yGvXJuRxZUpZs2h1b20swVmcTg4Gc5tI5e0nhcU3E0Gniwp3V4fkMXqnVlTdMx7g
-	KtpofB0o4MtfGBUrYn+rHcg2elUz5K1uYCz2MnRTM43KUQlVqHDubT2ikKZegKrA
-	jhiqJherUM3LMTYHCM0teQzFBIMCtJ+mo4+kIXJW3BLB4cmEGKgBhsss692lw1QG
-	vTQBYVxgTo0l4UquoWWHXBvaWehJUIiPqbN8uoJjHrf0R8KSssZL/3wScCeCBnrs
-	dIGg6xfLDQhRGlnXUb7MFIsBBQRQEoo/8+CKSr/sI4LvDoe02ILNoGmgGExNISD8
-	lEwNuQ==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu3csgaxu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:38:31 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-530a0a18108so4081391cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:38:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789994310; x=1790599110; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PvIZxmuE15GlVG+Q4wvYNTHDEd1Gz/i8y/bSrvtg4rU=;
-        b=V4MN3o3g8DgDm6y5UxVXvq4r/xmnAKbzK7P6CGCTkQxV/iXZMFaKqvVKN3e+9uKjRp
-         WIesl9wDN6HxVH2hnmNxuRzRaSgcCOKYc1pvd2Me/Qd2/P6FKulSoPEJviMETAG3wy8+
-         33jsSfru13TIHMYXj2UjA13RyOnnoCxt12L3nYMlOSiAJuQR00xm7CrBsL+qJg7mF9U8
-         CC4U1xz63ugulng0eFitiGSCenRZkLKGhEJlQAEmoNvZ7oZlveV+gJAzNtutsuFdaxdd
-         +LWA4dWeZsVOEGu4fSd08bwB5O84MqI3Tlklkr/T4UFCuXsaOwygK++ZXxeOvA9pfH0y
-         xS4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789994310; x=1790599110;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PvIZxmuE15GlVG+Q4wvYNTHDEd1Gz/i8y/bSrvtg4rU=;
-        b=GEUoZ8thNqPA3zBVt8ZfFJA18xGzW4DtOeDkFY6jFf4jfZz6JszMOswVePxvCs+JEp
-         ICb2OuftCh+feBTDFRFLb1PhiU1CRw3la6O9CM1tgSKT7vUtUAVgZn4WGgN5eo1gE8NE
-         E/LxwznIyh4i2PpGIu1Gs/nvWMT7V5/6fOqP5KdORVYYBxmXp71PfBoZIhzFr9F+zSXU
-         K0iKxzAaY/QVT7SWg6tCa2wmKe88d5f63PqzQpnTDZOK5iID4wM2KxXpRyfi8X4+wNTv
-         T79FjvEPloqYgPuCTzU19Z1TZLO1VWh+v7jWnswqyHAeOBBz/SjCQSm6qHxRZX4WuISb
-         vLyg==
-X-Forwarded-Encrypted: i=1; AKwUvBzWN4hA8JsatOPdRATbGkan0Yk5quY4T4VRHc2zMGT/9CAOpWJdIyd1ld173AYFMJneRW5OdNCCQ8Qfhl0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mn7Gk3ZVVLuhosD/cy3ER8w9gkGIuEf9f5PH9veLEvuEJmcBtG
-	rglfCKokTFIZhVbA4vVd4etTdID+I2jYOyJ7SnOj9jqV7akTxjlTU5892c0zrxi6Sbe7h3k9+7A
-	GbliACEdNVG/GNJYYLgg7vSYEmuEoQF6Gleceyxd1YBW3iYBRVZSgGlPJ1EQSVXN1cpk=
-X-Gm-Gg: AYBFou0Bo4OZQw2R/7/OUs3Q2N8vPvJywcavNu79IfV+XRG7Tob6l/vv22C8PtWs/7m
-	8FI8RMLGGARSfQ7otWo0CV+KFccQRLNegrqvC9fsbPIkzFj+nKC6Ju5cltB5tza+Uglj6aRGgXg
-	/woCzFOeSOPA8lEKjSdhm4tIRA0mwUp8k4+qwQLWvL6N8ZIemfXYi0LBJCA/oZmjaw3Oa1JJBpb
-	vPzM140NNA7qF4dSzdOvnBDNlF6QcIYT6aYxaQhxk26Ryf6FKn99H3g11cjFBVYlzCRGxaNRJJl
-	fwyviTvUkVr9GHdYyB1YLe89CkvuvUAr7dIkz+VQ8tYXjI/WdAJXkin31wxgHBgmhjlRUAN747b
-	U8oH8X7zacIQM59uqgbFl9w==
-X-Received: by 2002:a05:622a:50a:b0:531:c5bd:3014 with SMTP id d75a77b69052e-532d8f46a54mr3898951cf.5.1789994310246;
-        Mon, 21 Sep 2026 05:38:30 -0700 (PDT)
-X-Received: by 2002:a05:622a:50a:b0:531:c5bd:3014 with SMTP id d75a77b69052e-532d8f46a54mr3898381cf.5.1789994309616;
-        Mon, 21 Sep 2026 05:38:29 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a60762de03sm21616271fa.31.2026.09.21.05.38.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 05:38:28 -0700 (PDT)
-Message-ID: <83b67ab2-ab68-427a-94aa-881454f457ba@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 14:38:25 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Ng8zSTmv"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D68D41595;
+	Mon, 21 Sep 2026 05:39:07 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 857DD3F86C;
+	Mon, 21 Sep 2026 05:39:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789994351; bh=5Lbhx6JBnNO5/RF3ECKwLNQ3548X6W4VlpUH5tW70Mk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Ng8zSTmvcfVmk0lOTejir6GhScEYY4Gk37zoqBG3CZ9GWprzs/7Kadx5wrziP5LCd
+	 Ksvh0nvBg+ycu6UXY9NTNtgPpCLYAeTa3xGXMTU4KjJjcXDBlsg/pQdbey8vQQXYus
+	 0DdJPXDEnGTli2IODOlczSbbWzxWGWUubKkDp8D0=
+Message-ID: <b85e2d57-13f2-4c24-b880-e6dde5a69a29@arm.com>
+Date: Mon, 21 Sep 2026 13:39:09 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,98 +35,125 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: monaco-evk: Describe the PCIe M.2
- Key E connector
-To: Manivannan Sadhasivam <mani@kernel.org>,
-        Wei Deng <wei.deng@oss.qualcomm.com>
-Cc: loic.poulain@oss.qualcomm.com, andersson@kernel.org,
-        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, linux-bluetooth@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, quic_chezhou@quicinc.com,
-        cheng.jiang@oss.qualcomm.com, shuai.zhang@oss.qualcomm.com,
-        jinwang.li@oss.qualcomm.com, xiuzhuo.shang@oss.qualcomm.com,
-        mengshi.wu@oss.qualcomm.com
-References: <0303224f-4c2c-46ec-9866-5ea1fd0fb4a3@oss.qualcomm.com>
- <20260825092715.5794-1-wei.deng@oss.qualcomm.com>
- <isbrpaztfrgwfcleujrn4w26cshbi2mgn57tbh5bubvsegn6lc@jh3ab6htvd24>
+Subject: Re: [PATCH v2] arm_mpam: Only schedule mpam_enable work after first
+ successful MSC probe
+To: Yin Li <yin.li@oss.qualcomm.com>, "ping.li" <leeonion.muyu@gmail.com>,
+ james.morse@arm.com
+Cc: linux-kernel@vger.kernel.org, reinette.chatre@intel.com,
+ fenghuay@nvidia.com, Andre Przywara <andre.przywara@arm.com>
+References: <20260818130646.663778-1-ping.li@horizon.auto>
+ <20260908024846.2063161-1-ping.li@horizon.auto>
+ <558c0816-604a-49b6-8843-66ea5df28d3e@arm.com>
+ <5f3f2dba-17c0-49e6-a0cc-df92436d26e7@oss.qualcomm.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <isbrpaztfrgwfcleujrn4w26cshbi2mgn57tbh5bubvsegn6lc@jh3ab6htvd24>
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <5f3f2dba-17c0-49e6-a0cc-df92436d26e7@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE4MiBTYWx0ZWRfX+IWI0hr7GMvU
- gSLwPnp8q96B6uNnVfYwoXvEQsDXEU4lQdVGOAjQ/EnW8JaK68uRDUQQNGkEDNS4v7dEg6cNoF+
- x62CfNRjnk+TaYlYopOXH1rHdMI3p5w=
-X-Proofpoint-GUID: 1TDrEhCW1eRSJo6r9SbXhUbjkDAnxVeU
-X-Authority-Analysis: v=2.4 cv=QovLTlyd c=1 sm=1 tr=0 ts=6ab12547 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Me9BlI2ErCU43xmxp9EA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE4MiBTYWx0ZWRfX0DbfkzgaSMtU
- VtJ6zgm6r+qYvzUjjYFxpV0dgPJJthiaOZPmmIkqv71XKO6lb+JzuTOhw0Aq3ByvXwWyVbevLxn
- cSlJyyr/MYToyON8QMc79ewMZ8VgTIVVASy8YhkjDHHvoD6YmH3mcEGAppbjczYexaBXVKkH8WP
- 5hzYLKHZcxFFS+HeomU8lghdOC8ybsPECcVPIlaQEEFkxAamTOvE7ujzRu+dpD5RmmyWTWE54UV
- YUPhdf9Pl0N7EFlTAyhS18Ap0vq8nV18I/3oT7hO2gUcxxJRvFgHTZvLUiz+2QO+j7dnKnC5Ze0
- L/CEFOCAOGKl6bDNCU0MwOERwNbV6i+rkL80HQ1rqZw8KaDoTwGlrDDVVNJBO6LoYw9TQDRMeSE
- tW0x+6PBYzi+GdEE4fqIC1vkNsJ4KneCGv6pOvD4/oxBXR/yQEcCyjaiGV6043psPM3+IQNVpws
- ukN4QAf2tl8sDwnGsmg==
-X-Proofpoint-ORIG-GUID: 1TDrEhCW1eRSJo6r9SbXhUbjkDAnxVeU
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 bulkscore=0 impostorscore=0 priorityscore=1501
- spamscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210182
+Content-Transfer-Encoding: 8bit
 
-On 9/2/26 3:48 PM, Manivannan Sadhasivam wrote:
-> On Tue, Aug 25, 2026 at 02:57:15PM +0530, Wei Deng wrote:
->> Hi Konrad,
+Hi Yin,
+
+On 17/09/2026 10:19, Yin Li wrote:
+> 
+> 
+> On 9/10/2026 5:25 PM, Ben Horgan wrote:
+>> Hi Ping,
 >>
->> On Wed, 19 Aug 2026 16:24:35 +0200, Konrad Dybcio wrote:
->>> On 8/19/26 4:13 PM, Wei Deng wrote:
->>>> On Wed, 29 Jul 2026 08:06:54 +0530, Wei Deng wrote:
->>>>> Fair point. I will move the port/endpoint anchors to monaco.dtsi in v2.
->>>>
->>>> After testing v2 on qcs8300-ride-sx, BT init broke. qcs8300-ride-sx has a
->>>> soldered WCN6855 and no M.2 Key E connector, but the pending series [1]
->>>> uses of_graph_is_present() to detect whether an M.2 connector is present.
->>>> Since of_graph_is_present() only checks for a 'port' child node, the empty
->>>> anchors in monaco.dtsi caused hci_qca to incorrectly enter the M.2 pwrseq
->>>> path on all monaco boards.
->>>>
->>>> v3 moves the port/endpoint nodes back to monaco-evk.dts. Please review.
->>>>
->>>> [1] https://lore.kernel.org/all/20260720-monza-wireless-v5-1-69ec6743543c@oss.qualcomm.com/
+>> On 08/09/2026 03:48, ping.li wrote:
+>>> From: Ping Li <leeonion.muyu@gmail.com>
 >>>
->>> The series should test of_graph_get_remote_endpoint() instead
->>>
->>> Konrad
+>>> mpam_discovery_cpu_online() sets new_device_probed unconditionally after
+>>> processing each reachable MSC. Once an MSC has already been probed
+>>> (msc->probed is true), later CPUs sharing it skip
+>>> mpam_msc_hw_probe() but still leave err at its default value of 0.
+>>> As a result, new_device_probed is still set to true, causing
+>>> mpam_enable_work to be scheduled again even though no new hardware was
+>>> probed.
 >>
->> Hi Konrad,
->>
->> Tested: replacing of_graph_is_present() with of_graph_get_remote_endpoint()
->> in hci_qca.c works correctly. The M.2 pwrseq path is only entered when a
->> remote-endpoint is actually populated, so boards like qcs8300-ride (soldered
->> WCN6855, no M.2 connector) are no longer affected.
->>
->> Hi Mani, Loic,
->>
->> We are adding M.2 Key E connector support for monaco-evk [2]. Konrad
->> suggested moving the port/endpoint anchor nodes to the SoC DTSI
->> (monaco.dtsi) for clean DTS layering, so that board files only need to
->> fill in remote-endpoint for boards that actually have an M.2 connector.
+>> This patch is an improvement but, thinking again, it looks there is scope getting rid of
+>> mpam_enable() altogether. Rather than walking the list after each hw probe we could increment an
+>> atomic variable, similar to what is done in mpam_msc_drv_probe(), and then just schedule
+>> mpam_enable_once(). What do you think?
 >>
 > 
-> This means, the dummy port/endpoint node will always be present even when the
-> M.2 connector is not used. I don't see a compelling reason to do so.
+> Hi Ben,
+> 
+> Seeing another atomic-counter based sequencing mechanism in this patch reminded me of a similar
+> issue I explored while working on MPAM DT support.
+> 
+> At the time, I experimented with removing the fw_num_msc pre-counting logic and moving the discovery
+> callback registration to a late_initcall() stage. The motivation was to avoid separate DT/ACPI
+> counting paths and allow discovery to proceed based on successfully probed MSCs.
+> 
+> However, I eventually dropped that approach because it relied on synchronous probing and would not
+> behave correctly in deferred-probe or future asynchronous-probe scenarios.
+> 
+> That made me curious about the motivation behind this change:
+>   - Is MPAM intentionally designed around the assumption that all firmware-described MSCs must probe
+> successfully before discovery can proceed?
 
-I don't really see a compelling reason to defer re-defining them to each
-device DT either..
+James wrote the code but here's how I see it. The important point of synchronization is for MPAM
+enabling after the h/w probe rather than before discovery. This allows the number of usable PARTID
+and PMG to be calculated and allows the ris/comp/class lists to be considered read only after this
+point (except if MPAM is being disabled). For discovery I expect the MSC still be considered
+independently. However, the synchronization is convenient at discovery as it allows for cpu hotplug
+callbacks to do the initialisation, first for all MSC that have online affine CPUs and then as those
+CPUs come online.
 
-Konrad
+>   - Is the count-and-compare model primarily retained to guarantee correct ordering under deferred/
+> asynchronous probing?
+
+Deferred probing for the discovery will possibly be required for enabling interrupts with GICv5.
+
+Thanks,
+
+Ben
+
+> 
+> I'm not suggesting changing the implementation, just interested in understanding the design rationale.
+> 
+> Thanks,
+> Yin
+> 
+> 
+>> Thanks,
+>>
+>> Ben
+>>
+>>>
+>>> Set new_device_probed only when mpam_msc_hw_probe() is called and
+>>> succeeds.
+>>>
+>>> Signed-off-by: Ping Li <leeonion.muyu@gmail.com>
+>>> ---
+>>> Changes in v2:
+>>> - Drop the Fixes: tag, as the extra mpam_enable() calls cause no real
+>>>    harm: schedule_work() merges the duplicate work, and mpam_enable()
+>>>    is a no-op until all MSCs have been probed. This is a cleanup, not a
+>>>    bug fix.
+>>>
+>>>   drivers/resctrl/mpam_devices.c | 6 ++++--
+>>>   1 file changed, 4 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+>>> index 2f09f4b78bd3..fefdcf588932 100644
+>>> --- a/drivers/resctrl/mpam_devices.c
+>>> +++ b/drivers/resctrl/mpam_devices.c
+>>> @@ -1866,13 +1866,15 @@ static int mpam_discovery_cpu_online(unsigned int cpu)
+>>>               continue;
+>>>             mutex_lock(&msc->probe_lock);
+>>> -        if (!msc->probed)
+>>> +        if (!msc->probed) {
+>>>               err = mpam_msc_hw_probe(msc);
+>>> +            if (!err)
+>>> +                new_device_probed = true;
+>>> +        }
+>>>           mutex_unlock(&msc->probe_lock);
+>>>             if (err)
+>>>               break;
+>>> -        new_device_probed = true;
+>>>       }
+>>>         if (new_device_probed && !err)
+>>
+> 
 
