@@ -1,103 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD21047534A
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:35:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4886647534A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:35:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789986913; cv=none; b=mx2VgOBJnJeiEU6nRrqNK6S+ImBgbp8cmKuXIb1Q3CWYXilIEs3dITRCwGx5TA6+2mc3VZPny1Fc8V3glqE8GtfIGtDka9ECtReXC5COA2bcpiaPRTtIwSQK87zMnooQjMeLYoGvTLwzTiV5pwrycdNHZRxxUQyh45jtX74lfOg=
+	t=1789986921; cv=none; b=sX4uGSqOZ0dTVTJbIYqi/7IGOo9Q1rbA8NZer3IGzBB6fjibPTDDk8Zw4wHi64QuqF5ZVTbm6kkZ5L51EuoyaRv6F6tXJkI35DmEYyGaVncQ3iSzsWU7vy2QutVithpAIkgVqNvzX0RDjxvVz1k+V77NMGPQ7LB3GnNkWjx2QUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789986913; c=relaxed/simple;
-	bh=EOrTycvPaTgtJNwbvItqQE20ImaT9FxfEnEhBk/abZg=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pLZLiAnchragFBrUF9srfuCnrNNtQvELSGSl2myE43NSzQCh2V2vZzzHhBN5Dajan3t9ZAwpfXumSbHYmq6nOhUSUpHlSmhB+BgUHM73n59WmIU2PNx3sCtIECcZ868bR/xMU9SdZpwvjf5t1IKNAoDyYkftjwNIynlYbftHELw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=orNUCASL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789986921; c=relaxed/simple;
+	bh=3SjuJ5yprBdHbNPy6ISdGcdm2v0uG7IMdK+ejrfWX2U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ST8z9O8bs2TQB6vQFlOItH+7jvtuK6LsRH0cD7mJH/pSSAqhpxP+o3G303mFS+vXdv7sGXQhC219eAH1C72MumUzszEv0d6idz6laA8cRPm9zgclzK5e8xFk7C1tDLPqZfe0k6x/J74vdw/IbePulY5wU7hlPPQtPP8a/iYMsqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ito3l6fM; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="orNUCASL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B2D61F008A4
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:35:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789986911;
-	bh=uf7K0+ckYfZ1RE4IQEUJIKlulg/YWQPSFrPzeeWpU08=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=orNUCASLJXrta2jQAt3DZfNJXG64yPkECzsZxCKUcdNrEr8sYKbeFrvYhVt6pvxRn
-	 XPaVfFVj0LFVmn5txFq7ujldG6HlnD1PJchdDGytX3zXACi0HoHW8G1xpjuJMcFjpw
-	 g5lFmheLNbd2i0jgKrnpoOmOHqlX9qQXBTw+plQvtCN2xAIQ6yXieA8FnmBr2ziQuN
-	 o5rtdr/TamlhcRr+eXDKTARMiyUoClUwvTp6zljHDD+uU4/6YMMhcu9AQtD2CmS3nz
-	 mxqFNI2wO1mm3TUpmUi6agq2nTJmbuj6wOQ+ND6sa/5ghz8haPxdfrt1ZSAhIvkz3V
-	 XBCHb0kNekbZg==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff00b8d8so22101121fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:35:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz2tepVvyeJNcquahLJl8NFnhpCjrp2AAKwwTb3x5DPqZN1MfLKH1GAilhp4GnvVL2cGAcrArzGyZ/59AM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kXLTdPSeNp2b6OhR2IvvxCgjmpJcp34paZKsspdeWh4T1+6kE3
-	wlbgsikH2W4TpWdST3fChG6rCpSUNfWcVpNhQ9k3faImgW34w/VHl3bWLSSStOm+7DQZRstIvhN
-	b4eWa6s4mKXMrNcphddATCva0e9u2FV3is3jDlvBHIw==
-X-Received: by 2002:a05:6512:3e1a:b0:5b8:b419:b90 with SMTP id
- 2adb3069b0e04-5b8c197b251mr2961808e87.67.1789986910027; Mon, 21 Sep 2026
- 03:35:10 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 06:35:08 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 06:35:08 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260921-cv75-v5-v8-9-282ff5d98dda@ambarella.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ito3l6fM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=D4Ns8s2IYd8NANDTYOdlaFRflLTwoK0uQVGyZdkFNsI=;
+	b=ito3l6fMy9BSDe1bWO3qXKC7LpX6EkwK+rydqnC5fMg+/XUYGASCJPObLAHamC
+	jYSQGnkz8kXl8fSZWPOjSKCdIjgJKMdhDCknY8UOtSKytnI8cdFSlYY6Eg+RjQbc
+	s3icfDdS2Q6Al25rp0RcEVHyl64uZ6FxJHvu7uByMoLkQ=
+Received: from [IPV6:2409:8900:1ee3:222c:3c21:ce3b:b986:2f34] (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgDX32FACLFqOgpsAg--.14968S2;
+	Mon, 21 Sep 2026 18:34:41 +0800 (CST)
+Message-ID: <4afe1b4d-7fbf-4fb6-866e-71bff3bbea6f@163.com>
+Date: Mon, 21 Sep 2026 18:34:40 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com> <20260921-cv75-v5-v8-9-282ff5d98dda@ambarella.com>
-Date: Mon, 21 Sep 2026 06:35:08 -0400
-X-Gmail-Original-Message-ID: <CAMRc=Mf7dtxvxBUF1fOuKw0mxdhCYPj=J4ckySPZUvcZ7a6cbQ@mail.gmail.com>
-X-Gm-Features: AcwNN1VMqVgF7bm9abckTPi2_jaxdRsIFb-CjJ1kvLYDiK7JhcmYHE-hjU9EtD0
-Message-ID: <CAMRc=Mf7dtxvxBUF1fOuKw0mxdhCYPj=J4ckySPZUvcZ7a6cbQ@mail.gmail.com>
-Subject: Re: [PATCH v8 09/18] gpiolib: regmap: add gpio_regmap_get_chip()
-To: longzhao@ambarella.com
-Cc: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/10] ntfs: validate EA chains and link
+ zero-terminated tails
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ chenxiaosong@chenxiaosong.com, Baolin Liu <liubaolin@kylinos.cn>
+References: <20260920083131.1880061-1-liubaolin12138@163.com>
+ <20260920083131.1880061-3-liubaolin12138@163.com>
+ <CAKYAXd80AqEnzUvad2Od8fLh4yh20X8G7CVN1EcQCg1Vj1iJQw@mail.gmail.com>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <CAKYAXd80AqEnzUvad2Od8fLh4yh20X8G7CVN1EcQCg1Vj1iJQw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgDX32FACLFqOgpsAg--.14968S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tFWDGryftr1rur1UCr4DArb_yoW8Xw1fpF
+	WUJ3Wjgw4kGr1UAF92yw4kJ34rXw1xWw17JFnIgw1vkF90gF4ayFWfKayI9a95Cr97Wr17
+	Xa1UKFZxuF15Aa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2iiDUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6gEZ42qxCEGdsQAA3v
 
-On Mon, 21 Sep 2026 06:23:28 +0200, Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> said:
-> From: Long Zhao <longzhao@ambarella.com>
->
-> Let drivers that implement a custom irqchip retrieve the gpio_chip
-> after registration.
->
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
-> ---
->  drivers/gpio/gpio-regmap.c  | 6 ++++++
->  include/linux/gpio/regmap.h | 1 +
->  2 files changed, 7 insertions(+)
->
-> diff --git a/drivers/gpio/gpio-regmap.c b/drivers/gpio/gpio-regmap.c
-> index fbd4c753525a..21e0993b89e2 100644
-> --- a/drivers/gpio/gpio-regmap.c
-> +++ b/drivers/gpio/gpio-regmap.c
-> @@ -295,6 +295,12 @@ void *gpio_regmap_get_drvdata(struct gpio_regmap *gpio)
->  }
->  EXPORT_SYMBOL_GPL(gpio_regmap_get_drvdata);
->
-> +struct gpio_chip *gpio_regmap_get_chip(struct gpio_regmap *gpio)
-> +{
-> +	return &gpio->gpio_chip;
-> +}
-> +EXPORT_SYMBOL_GPL(gpio_regmap_get_chip);
 
-Please provide a kernel doc for all public APIs. It should explain that this
-must not be used outside of a GPIO controller driver context.
 
-Bart
+在 2026/9/21 14:17, Namjae Jeon 写道:
+> On Sun, Sep 20, 2026 at 5:31 PM Baolin Liu <liubaolin12138@163.com> wrote:
+>>
+>> From: Baolin Liu <liubaolin@kylinos.cn>
+>>
+>> A zero next-entry offset terminates an EA list. Appending an entry
+>> without linking the old tail makes the new entry unreachable. Invalid
+>> entries are also treated as missing names, allowing setters to proceed
+>> on corrupt metadata.
+>>
+>> Validate the entire chain before modifying it and connect a zero tail
+>> to the append position. Check name terminators and retain the full tail
+>> span when removing an entry. Return EUCLEAN for malformed EA structures
+>> and inconsistent information lengths, preserving that error through the
+>> get and set paths. Keep ENOENT for a missing name and translate it to
+>> ENODATA only at the xattr read boundary. Preserve lower-level read errors.
+> Could ntfs_listxattr() reuse the same chain validation and return
+> -EUCLEAN for malformed EA structures? And you can send only this patch
+> for v3.
+> Thanks.
+
+Hi Namjae,
+
+   Thanks for your feedback. I've updated ntfs_listxattr() to reuse the 
+full-chain validation and return -EUCLEAN for malformed EA 
+structures,while preserving lower-level read errors.
+   I've submitted only this revised patch as v3, as requested. I 
+verified that patches 3-10 of v2 still apply cleanly without 
+modification, and completed build checks and QEMU tests covering normal 
+and malformed EA lists.
+
+Please see:
+   "[PATCH v3 02/10] ntfs: validate EA chains and link zero-terminated 
+tails"
+
+Thanks,
+Baolin.
+
