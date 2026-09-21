@@ -1,240 +1,271 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011026.outbound.protection.outlook.com [52.101.57.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA32FC0A
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:47:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789958851; cv=none; b=TnmvevdWy28zabNPAzVJaXs6shmAkE+O4WNlnwF7Qd5Obt9uFoBby01JN+yA8q6aep/0CsyKmYT+w5qBmnGn5zHV2LFC3EldnHM2tIIru2ZbJooqP8f6qTEemTIFLTt9lkwUuMBlH6qF/fAS+LgCOmcRt0NnoZkw/AeJRL3TJaI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789958851; c=relaxed/simple;
-	bh=EnpwLLfoXtFV3vYxnNqPP3WzznAu9yOBj9IRsZlS6vY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o6BUbAb6TxQDEzeLgZ8ADyKJ6L1Cqz0nzhjXxicBub9KEectEHY6dERJh8Ah0XxFVwTPkHsqPy7EKZr/8jUAFH0qAuOHNoO0SIOy87/s3lH1uX/Fh8071Rg/ucm+lhfBlIUtuI+cskS8vyLDxIvI8GePLdB8koKAb+UdswirKNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fAqy3aeZ; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA7B146D5A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:49:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789958954; cv=fail; b=GRh+qUsQpO2RHlawj/fzLKISXYwrkuu/0C8kVbPdyOX3ybWICMEJaTJ0GjoCxcRLAfVDnzUL3Ocld1mRNrFHafuHWOxT6/mk+TuD2tUuGZOkFUqfcUm0c8UybBFF3j4SHeGcRjWp/gkKyl8qc/kswxtItpva/IdSL+XO6VuV8eg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789958954; c=relaxed/simple;
+	bh=oyrTSyONuCjGQ2/JZilMtuXIKU3ii9cm+34ab/K8MkQ=;
+	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To:MIME-Version; b=eUQg290RmMaOuKRe9IIo8YteyGVCcjDiLS4HgP1SfAbOR8quM31hg7TE/ovdy0cI8TvpXDjVjRiAEMmMAutiHJ8+ZZW/t1Nl5hm16+RCCx4f3PwtjkJ7zUIJNFLBMTanafPoE1cee/aaIZSXaskTX85U1AzqtTirkUKfBhOhcds=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=f37NWxdT; arc=fail smtp.client-ip=52.101.57.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fAqy3aeZ"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed1368so30090435ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:47:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789958849; x=1790563649; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+O5egBgvsUIuHoGJAoHI3ORXx+xU1etkOpoJliWaQik=;
-        b=fAqy3aeZAXHWu+A9BnrYoyVRo8HrYWxZpsoC4kDDcTPTRqT9+pQ176qusBXR6Qey65
-         uTNr9Owu6q1QcvxF6opUjbyGDNhbfROAOnpNZ0EMFeuI9yiJYKT1ZXjGArEK0BShom5Z
-         lJFQFnRKwbWBAwQWLvvCUg0IxB3v6eXCsuyE40GkHFHAAv54PmE7bkeDS/eoorN2+l8y
-         uPLuZekC5HFcXOa3tds07XyNcbHagR36X2YIfWcHkOL1jEq6dQ9fyrNF4BBIEcvkoRgY
-         sbQGJkBGViGWOgsogAIJ381Este4MLXnriTGa0l0uzVz34KCBMJf99TVeFgOPp9D3yUH
-         J1fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789958849; x=1790563649;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+O5egBgvsUIuHoGJAoHI3ORXx+xU1etkOpoJliWaQik=;
-        b=GHJc9u9wHbWm13YYR3kvbwtJONxJj2n/MDmNHRb6yxYn8Xh3oY+j9wF7sgiyyOG3GU
-         PlZd9dO09OVDXHJKihiTgxr+wY3Vhcp+sbEy5bOY/7WO6XkmhlcdiFEbs1PvIqcrJ2lI
-         LjrQBHx/cW/JU6rsyplqhhGiRGaoJK2kTv0PWSpNiW2epp4z6P2hqv4ZVN9XUWgM/UQA
-         fEDpKNV9jIUuNBZip/HA1HTPvW3YbdqRtoj9m4ZcHZsF66uxl9VmdHShzueV+rZ+lNAc
-         6JOafGxa2VDH4t0J0feOBtAfrGTJeqt1B4CGSyosC9sNTGOzWah5Cb1QJHBLTHrI8hN7
-         BHCw==
-X-Forwarded-Encrypted: i=1; AKwUvByRBE9VbAyubq4Y+tQiOusKgBT9gUA3Let1b6r+MxIru/5Ccx1rCaco69nqFId3kndyrI+N9wuWrHeBBqI=@vger.kernel.org
-X-Gm-Message-State: AFuF++klff33vBUy9zBGjWxPEDz6UgqCOUtnqk0FnCVQFQsy8Efq+N/z
-	021/RhvsjVloHvMgbbFUw3L6/Y+9YqTLYAH+7WxTduYoQrMzNePtcntW
-X-Gm-Gg: AYBFou1Db1jtjYCb+e0fQFa036mLmyDMOCYf4INbUa8MEl2GoyMYFXGqQRS48udl+nD
-	2UAWyBFbboCvTXJC77Wl9EYIDQdpcchn9Veb7J+McuLu18hZj+dnuCpzc+cEE32/ELF0Pn76NPu
-	JKsmX3Eyi/DQ0qBFhWN3SO8azViJC6zPVIfzPLwtG7XebuqeWVvDqitlfdSz5TfHVv/KwvB6Voe
-	Rce1Bhbbd88/2vU6tJnJQlpnnOAMHyFSW0Aqdpx6JyWdBerOWzsjj5cLiVO7PWomVFbVgMaxGTN
-	Pr5tlOhvXrnA2tyDoGeDGjreYB/3ceJjZVtcGjXvIBCLED3tm39y29BapwFevc4EoYNuEMs1UNs
-	LBr6hNkPEMBTDPGUj0oktnKTKxx3rjc235L9VcbVuh/EPj/1GaTWIcAozWKGgqsGOS1gxYBSrdx
-	5xWxfAqRiIoxCV5N5XQhX50bCGGHsKbzt+GnpgN7OCpR2xxKCVuSBXOD9KZX/68EFXwkPDdfvFK
-	9gH8iIPc+WGhIxBwZ0Z1T6psuVBtMzmdnlr8rHaTEkUs8VLj+BQDdc=
-X-Received: by 2002:a17:903:2349:b0:2dd:c100:b2c6 with SMTP id d9443c01a7336-2ddc100b360mr85279055ad.49.1789958849031;
-        Sun, 20 Sep 2026 19:47:29 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc16b4a99sm25390025ad.5.2026.09.20.19.47.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 20 Sep 2026 19:47:28 -0700 (PDT)
-Message-ID: <7b5c7095-e086-45de-bdc2-9063e8229222@gmail.com>
-Date: Mon, 21 Sep 2026 10:47:24 +0800
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="f37NWxdT"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bdb4DqomIquX3fni1se5DXdllT8yO8UYksO3Fm3If4TWsUp04wKmGsNnANZNr3ZuFl8pFeYxwLyb7gGDFLhHRQOz+ChNfxhnZqXOCTQP73VAqWGhEr3u0q3iacNjWby3gpJOUFAh9+HVDFRpw6VhWXO9Wy/UXPwWQwbUNRnK1CkuPebTED144mAqcH7U6+SORGCJadjijXjIdlwVZGCMNfsFtWkAPM7ygzz30Z6w6bYXaVg3rKFQa4JQ6lzgbV0x0etkE7pXAXkn3QpdV2jug5iPMNDVUfpyn7cpLXKNw44RNzFN6NYkYlsmumfgzUMIktu+jMSGOIIViEpZlCkoMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Hij/2KKCNlote51muLwx013HrVJyOsi46bc0NJ825Qw=;
+ b=Kz/fLtoTIF5iYML4qFvWY+Y5FFdI+2GqSMA09mPaT4TaSQxqrsv+OUSxSgLu5mO//hcQZyxpPHVcjFuf2/3B7Xn1wiiV5jeb5TUtLwOTo4IxpeNCIokt0Rld/MWEFGMdXq7tYrU+G/S92vu6NPnYtrNdvV/hTKyxc3+na2hhpllhME4tn+2JdwSWSu/u2DzST5IE7GfcSQpft5MCwpf4sok596mpeQY5OvbLNS3CdUPzEH3eKFm6g2ixUXVLPB7EJAiq1OjEf5Z2/vghQVNjcQE7IXwOlCYmN4a6Yv8SqhHGRk7p80d/qGGSt+FQbpKJnUBpdHchWg79FLfCQYOySg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Hij/2KKCNlote51muLwx013HrVJyOsi46bc0NJ825Qw=;
+ b=f37NWxdT/m9flf4zObwnELjNshtURZEr8c9Yy8P6JloK4tBwHf3GbhdlSBoyv/v7JinAKqnj+ybG+KxFJ5ww67J8B8PIIjlDBd0FB4uHGkSxE5V/6IrSV4WyigsvOfH1mA071RmTReuQC+oK8iUKL8RhisCkF3PKkevcP1Pd6qseyGb1cgRlcSNo+9wRBQTgFdI5x4C65e0QZmjr83e/atjZzktptMuXJO4Re0Qe/FoPpMEUbz3dKYQGbnZCey3A6e8Tep/IeTbIZ8HtSatUj8C/7RTmR4d77VCee3u+zJm/qKaMOEyiiMtNPOUB1JNyUCcrQQbJzSgxnu04y0Zxig==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by DM4PR12MB5843.namprd12.prod.outlook.com (2603:10b6:8:66::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.15; Mon, 21 Sep
+ 2026 02:49:06 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0428.014; Mon, 21 Sep 2026
+ 02:49:06 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 20 Sep 2026 22:49:05 -0400
+Message-Id: <DLKNHNP6LH59.3MEEBCAJGFEVK@nvidia.com>
+Subject: Re: [PATCH v2 2/2] mm/page_alloc: refactor build_node_zonelist()
+ out of build_zonelists()
+Cc: <linux-kernel@vger.kernel.org>, <kernel-team@meta.com>,
+ <akpm@linux-foundation.org>, <david@kernel.org>, <ljs@kernel.org>,
+ <liam@infradead.org>, <vbabka@kernel.org>, <rppt@kernel.org>,
+ <surenb@google.com>, <mhocko@suse.com>, <brendan.jackman@linux.dev>,
+ <hannes@cmpxchg.org>
+To: "Gregory Price" <gourry@gourry.net>, <linux-mm@kvack.org>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20260912030424.2889731-1-gourry@gourry.net>
+ <20260912030424.2889731-3-gourry@gourry.net>
+In-Reply-To: <20260912030424.2889731-3-gourry@gourry.net>
+X-ClientProxiedBy: BLAPR05CA0032.namprd05.prod.outlook.com
+ (2603:10b6:208:335::13) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/7] dt-bindings: display: verisilicon,dc: add support
- for nuvoton,ma35d1-dcu
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Conor Dooley <conor.dooley@microchip.com>
-References: <20260918030125.315978-1-a0987203069@gmail.com>
- <20260918030125.315978-2-a0987203069@gmail.com>
- <ea18c92ce2af08a65bfd8834ea7f262d1bcb4bf2.camel@iscas.ac.cn>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <ea18c92ce2af08a65bfd8834ea7f262d1bcb4bf2.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DM4PR12MB5843:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b40c5ea-e76a-48f1-03b4-08df178ae76b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10067099003|11063799006|18002099003|22082099003|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	g1omLhHN8RmBKkADzInPPvw485V7b+d/IFaX3oi8ng+HO/yafJSqmspMbHKDCfMP/i5fjLZKkd/jXw34MEO1CNt97WF5EZ0kUA6F2wWG3MfK5+ZD0y0xoTtB9UDxAU7ZsmMlvIS3dYAFzBPgefedaOeMF0QEBb2qIW+iKva9PInC/uu2i7CPKkCEkkceL3oDMsHT8X82hDklFT0F8f+JQvEITLFBniToout5NONWE9Y8ryAO69qgbPCn/WhwP3TC8ZIs8h0PEd4KkcZTGmwFkIISLfzD/O7K+UaVC8IkQaSUGgFtNWtAaWl0zM5Vhwa8Ie4xh8kJhOP44rLF5LIQ85ijS/GK/2KLuZdOoAJemvrR8A9B/o08Xkjtsxhirjvfs8eVT6qQjUJzZa156R8HsRJu3AIEWJKR+p6PEWBY25xEqp/XTFFB4B9MJM2A+Vsr9On1xLhg23tP7tQIf/keOo6h0ZVCiVG5TMNpJqvH1oKy7+4j+r+SawExFIs5kBzEN+hvJYfPZa+Hh4KeZ3qF9CFNa3txeYBvT5SAxV9G7NPd2elsyROwdheqLn9fXnIb5h1S+WkyppdMf/B2VkkSBr68CsUfC4X0eQgG+x5tODbGd0aCIb/XFISpSzGiEAI9Dx2jzikCaSGpHJ1QS5DjFjOULDzdAr/8yG48NgGsB3s=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10067099003)(11063799006)(18002099003)(22082099003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QnBIMEFnQ2w3YkswUkdvYjJwTTVYOHBYMkp4SHlCdUVUeU5RdExjelN1ZDFH?=
+ =?utf-8?B?dXJNSUs2ZG55ZXBjTkJYT2NTeUIvMk1OTng1ZkFKeGNEbnJuU3BsKytSQnF5?=
+ =?utf-8?B?K1dyNDUwL0JIdjkwckFyRjRYOEhTc3NsMTNZY2NlYTRJT0I2bENFSVUvNjk1?=
+ =?utf-8?B?RUNHRHFIV29zb0IxQ2xDb3Z0R01BMHhKN3hrRDNhOVhKQ1lSeUUvSlQxMzBU?=
+ =?utf-8?B?S0tHOVIydjc0clA3SnNvQ05NTnJMenl4UU9DNk5pa0hsWG12TSs0Q3dXckE1?=
+ =?utf-8?B?UkFnRmQ3djRjV1NVRkR5SVhqeHZpbCttZ09tWG1TL2JkZjdlSE1SY1dQQVEr?=
+ =?utf-8?B?VklFd2FxbXpIZFU1TTBsQWovaXBEczhoZ2Nzc0xhT04rSXBSTUxaTGZKU3dx?=
+ =?utf-8?B?VTlOSXh0dmtidThqWGk2aFZmTlFvRE9UTzdHNW1uc0dnWUlaUXc1bzcwMUZi?=
+ =?utf-8?B?MGQ3aEMwcTN4eUJoVGpOc2t2VUhudFJxOE83WkdjTmwyZG9yZ1lMUWpOdXU3?=
+ =?utf-8?B?NVA0TWR4MDdXazJhM1BVODRCdndudVV2MzgzcW1QbVA5RVFNNFkxRFM0SXQz?=
+ =?utf-8?B?VWRGMzVjQk5iYi83ZUE0SkpSM0dRaU43MDBSRXRCbFRqWittdlp1Q3doRk1k?=
+ =?utf-8?B?WFhnQks0NUprOUw3NTU4VVhYMTdETW1uOHRPN0E4NUNGSTNKd3VyVkZ5MUFs?=
+ =?utf-8?B?NWNNcmFnUXF6cDlicFNwS0hiUmhsZWFNNWJXR1VZd1dUYXBxa2ZMQ2NzbVN4?=
+ =?utf-8?B?bGUvZTAyUkIyTnVYUFFoeE5DWDFFbjZXT2JiSkxBdU0xWG9PK3pyQkFST2lK?=
+ =?utf-8?B?RmMxY1JDV0x5clBGOXhWMnRhMVBGajBlRTg2UmU3LzM5Y3oreDMxOXFBWEx5?=
+ =?utf-8?B?TFVTbVpsUWdvOXJRbFRxTVQvSE9vRDk4b3crbi9MeUFORDlkM2NNaE5ZU2tV?=
+ =?utf-8?B?UDMxMUNKcUl5c1c1RE5NSFJ1ZlJET2V2UHhYQmVITFd0UzZkd3VxVkFmajRZ?=
+ =?utf-8?B?OUlWb3NGMUFWK3FhekQzYzZqcGVUMW9UOGw1anM0ZWVCT2lIZVcrdFJGSlNT?=
+ =?utf-8?B?WUY1ZXRiR3dMMjFxMC94d2ZqUC9aMlFxdU02UjhKblcvS1V4UXFIdGR4RVNU?=
+ =?utf-8?B?Qk9aMEZmUEc3cWNZaXdWS25uY2xaRER0OFRLbFNhQ21aa3N2WFRzdElRUTVo?=
+ =?utf-8?B?MHczY3JHNUpVZWErdUs0d2ZBK1NJRGVFcjJZQURTZGVWQ0gweGI4SmpaVHo3?=
+ =?utf-8?B?K2p4anlnbXlzMkUrd0poYnB1NjZzOVY3bzhkZ1BnWjdRWFVHaTB5TGN5clVL?=
+ =?utf-8?B?YlBBWmdzbHFLTlZkV0NKVm45VzM0QmdrZ3NEcllKN2pxZ3I2OFZiTWlFT3Rx?=
+ =?utf-8?B?WEJ0VkdJOEx5S0M4ODJwNzRCeFpDamE5QmtUWHhVZElMTGVpSWxBb0ZyVG9R?=
+ =?utf-8?B?MTR5VXQ1K3ZHYWI3T1JBeCtJUDRhRmZUZXlrWUVzZVVla0d1Z3hKbTB0amhW?=
+ =?utf-8?B?dzdaZUxFZG1wYzZ6N0ZIUUlWTTh2MGhTZk5SdHU2Wmh3K0NmYUVKbnJBTTQx?=
+ =?utf-8?B?TCtiU3lZbzBCR2d0N3pubWcwQnBBbC96VVgyb212ZDZPQ0llTm1sbTVLcDEy?=
+ =?utf-8?B?V3gzNFQxc3E4TGFEUUhySlRxM3FTVDNWdzVCK0hJSElDbGY4bHlRUEVGaDFH?=
+ =?utf-8?B?VGxjbW9GdkduRngvMWVWSzRXa0toVXZYNnl1YmloNGVUK2VrRTUrNncxY2RZ?=
+ =?utf-8?B?U2RFQ0V4OGp0UDJzaFZFWnVsMVdtVFJhTEU5OEc0MGN5WThyMktMd3BvaG0x?=
+ =?utf-8?B?K0E0R2YzWGtaVXJIVzJIWk1MRHlZRHpYMXBpeUNFV0pRUnp4NG56czdLb1po?=
+ =?utf-8?B?Y2M4ZTFjYXM2WXV6cjhmTHZEbE44bHcvdGtDNGUwR1NhWTRjRyt1SS9iR2hK?=
+ =?utf-8?B?OSt1VFk4VVFuRmhsb2hvcDJVTWJuWjBmNlpyOHNYa3hCU2ZDZVdmRzJzd2h4?=
+ =?utf-8?B?S0FoSXFoYzV3ak5IRHEwY3d2SllUMkxSQ2YvNkNaYzlLT2xOVmd2VWxNS2xI?=
+ =?utf-8?B?bjZqQ3FTaVQ2TVlpNFFVd1ZQU2pKdEQrMVlFclE1dWdqWGtONmUyN0lMRjF5?=
+ =?utf-8?B?d0V2ZUNWZ2lKUjRGcDBDSkpCc3U1Y1FsOEdDcFVSeXR6MXBkckJ5MHU2YnZH?=
+ =?utf-8?B?NUwxeU9FK29sYlNnYy9PdWdKZHR0VUZ6M3lpMHA1V3h6czFodjhiaWt0TG1p?=
+ =?utf-8?B?LzZRenlvdWFyMU4xSkRwbWMvQlhHbUhVNDJCcDIreUV6QmRrM0RxalV1SmRJ?=
+ =?utf-8?Q?iGe9DN+rHzxinIuX6v?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b40c5ea-e76a-48f1-03b4-08df178ae76b
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 02:49:06.7183
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AmhrljpGLGSQ6oOf36zXZMWH4SWA1WMNloZIg+jgX5ssbvBsYDxMCff6A+cuks5G
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5843
 
-
-Icenowy Zheng 於 2026/9/18 下午 06:50 寫道:
-> 在 2026-09-18五的 11:01 +0800，Joey Lu写道：
->> Add the Nuvoton MA35D1 DCUltraLite (nuvoton,ma35d1-dcu) to the
->> binding.
->> The DCUltraLite uses only four clocks (core, axi, ahb, pix0) and one
->> reset (core), with a single output port.
->>
->> The MA35D1 clock controller gates the core, AXI and AHB clocks with a
->> single bit, but each remains a distinct clock line feeding the IP
->> with
->> its own rate constraints, so all four must still be listed
->> individually
->> in the devicetree; core, axi and ahb happen to share the same clock
->> phandle.
->>
->> Move the clocks/clock-names minItems to 4 and resets/reset-names
->> minItems to 1 at the top level, since that is the lowest count any
->> supported variant needs.  Add an allOf/if block that tightens the
->> constraint back up to the fixed 5-clock/3-reset topology required by
->> the existing thead,th1520-dc8200 compatible, and another one that
->> caps
->> the new nuvoton,ma35d1-dcu compatible at the 4-clock/1-reset count it
->> actually wires up.
->>
->> Restrict the same nuvoton,ma35d1-dcu if block to a single port@0,
->> since the DCUltraLite only has one output port.
-> By the way, when will the MA35D1 device tree sources be updated? I saw
-> a lot of drivers being merged but w/o corresponding DT nodes: sdhci-of-
-> ma35d1, nuvoton-ma35d1-nand-controller, phy-ma35d1-usb2, rtc-ma35d1,
-> spi-ma35d1-qspi, ma35d1_wdt.
+On Fri Sep 11, 2026 at 11:04 PM EDT, Gregory Price wrote:
+> Extract per-node fallback-list construction into build_node_zonelist().
+> Build each selected node directly into the destination zonelist so no
+> intermediate node_order array or node count is needed. Print the fallback
+> order as each node is added.
 >
-> Thanks,
-> Icenowy
-We are currently reviewing several peripheral device tree updates, 
-including USB/PHY, CAN, and other related blocks.
+> This lets us build new zonelists from candidate nodemasks instead of just
+> the default N_MEMORY node state list.
+>
+> No functional change: build_zonelists() builds and prints the same FALLBA=
+CK
+> list over N_MEMORY with node_load updates as before.
+>
+> Signed-off-by: Gregory Price <gourry@gourry.net>
+> ---
+>  mm/page_alloc.c | 63 ++++++++++++++++++-------------------------------
+>  1 file changed, 23 insertions(+), 40 deletions(-)
+>
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 7efce139d562..d1888d5630e0 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -5857,31 +5857,6 @@ int find_next_best_node_in(int node, nodemask_t *u=
+sed_node_mask,
+>  }
+> =20
+> =20
+> -/*
+> - * Build zonelists ordered by node and zones within node.
+> - * This results in maximum locality--normal zone overflows into local
+> - * DMA zone, if any--but risks exhausting DMA zone.
+> - */
+> -static void build_zonelists_in_node_order(pg_data_t *pgdat, int *node_or=
+der,
+> -		unsigned nr_nodes)
+> -{
+> -	struct zoneref *zonerefs;
+> -	int i;
+> -
+> -	zonerefs =3D pgdat->node_zonelists[ZONELIST_FALLBACK]._zonerefs;
+> -
+> -	for (i =3D 0; i < nr_nodes; i++) {
+> -		int nr_zones;
+> -
+> -		pg_data_t *node =3D NODE_DATA(node_order[i]);
+> -
+> -		nr_zones =3D build_zonerefs_node(node, zonerefs);
+> -		zonerefs +=3D nr_zones;
+> -	}
+> -	zonerefs->zone =3D NULL;
+> -	zonerefs->zone_idx =3D 0;
+> -}
+> -
+>  /*
+>   * Build __GFP_THISNODE zonelists
+>   */
+> @@ -5897,20 +5872,24 @@ static void build_thisnode_zonelists(pg_data_t *p=
+gdat)
+>  	zonerefs->zone_idx =3D 0;
+>  }
+> =20
+> -static void build_zonelists(pg_data_t *pgdat)
+> +/*
+> + * Build one zonelist ordered by node and zones within node. This result=
+s in
+> + * maximum locality--normal zone overflows into local DMA zone, if any--=
+but
+> + * risks exhausting DMA zone.
+> + */
+> +static void build_node_zonelist(pg_data_t *pgdat, const nodemask_t *cand=
+idates,
+> +				int zlidx)
+>  {
+> -	static int node_order[MAX_NUMNODES];
+> -	int node, nr_nodes =3D 0;
+> +	struct zoneref *zonerefs =3D pgdat->node_zonelists[zlidx]._zonerefs;
 
-Once the core driver support is in place, we plan to do a more thorough 
-review and update of the MA35D1 device tree
-sources to ensure the corresponding DT nodes are properly added and 
-aligned with the upstream drivers.
+Why does build_node_zonelist() need to have a new zlidx instead of using
+ZONELIST_FALLBACK like build_zonelists_in_node_order() did?
 
-Thanks for your patience and feedback.
->> Signed-off-by: Joey Lu <a0987203069@gmail.com>
->> Acked-by: Conor Dooley <conor.dooley@microchip.com>
->> ---
->>   .../bindings/display/verisilicon,dc.yaml      | 51
->> +++++++++++++++++++
->>   1 file changed, 51 insertions(+)
->>
->> diff --git
->> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> index 919a900122012..e1e6a3a953646 100644
->> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> @@ -17,6 +17,7 @@ properties:
->>       items:
->>         - enum:
->>             - thead,th1520-dc8200
->> +          - nuvoton,ma35d1-dcu
->>         - const: verisilicon,dc # DC IPs have discoverable ID/revision
->> registers
->>   
->>     reg:
->> @@ -26,6 +27,7 @@ properties:
->>       maxItems: 1
->>   
->>     clocks:
->> +    minItems: 4
->>       items:
->>         - description: DC Core clock
->>         - description: DMA AXI bus clock
->> @@ -34,6 +36,7 @@ properties:
->>         - description: Pixel clock of output 1
->>   
->>     clock-names:
->> +    minItems: 4
->>       items:
->>         - const: core
->>         - const: axi
->> @@ -42,12 +45,14 @@ properties:
->>         - const: pix1
->>   
->>     resets:
->> +    minItems: 1
->>       items:
->>         - description: DC Core reset
->>         - description: DMA AXI bus reset
->>         - description: Configuration AHB bus reset
->>   
->>     reset-names:
->> +    minItems: 1
->>       items:
->>         - const: core
->>         - const: axi
->> @@ -79,6 +84,52 @@ required:
->>     - reset-names
->>     - ports
->>   
->> +allOf:
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: thead,th1520-dc8200
->> +    then:
->> +      properties:
->> +        clocks:
->> +          minItems: 5
->> +
->> +        clock-names:
->> +          minItems: 5
->> +
->> +        resets:
->> +          minItems: 3
->> +
->> +        reset-names:
->> +          minItems: 3
->> +
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: nuvoton,ma35d1-dcu
->> +    then:
->> +      properties:
->> +        clocks:
->> +          maxItems: 4
->> +
->> +        clock-names:
->> +          maxItems: 4
->> +
->> +        resets:
->> +          maxItems: 1
->> +
->> +        reset-names:
->> +          maxItems: 1
->> +
->> +        ports:
->> +          properties:
->> +            port@1: false
->> +
->> +          required:
->> +            - port@0
->> +
->>   additionalProperties: false
->>   
->>   examples:
+>  	nodemask_t used_mask =3D NODE_MASK_NONE;
+> -	int local_node, prev_node;
+> +	int local_node =3D pgdat->node_id;
+> +	int prev_node =3D local_node;
+> +	int node;
+> =20
+> -	/* NUMA-aware ordering of nodes */
+> -	local_node =3D pgdat->node_id;
+> -	prev_node =3D local_node;
+> +	pr_info("Fallback order for Node %d: ", local_node);
+> =20
+> -	memset(node_order, 0, sizeof(node_order));
+>  	while ((node =3D find_next_best_node_in(local_node, &used_mask,
+> -					      &node_states[N_MEMORY])) >=3D 0) {
+> +					      candidates)) >=3D 0) {
+>  		/*
+>  		 * We don't want to pressure a particular node.
+>  		 * So adding penalty to the first node in same
+> @@ -5920,18 +5899,22 @@ static void build_zonelists(pg_data_t *pgdat)
+>  		    node_distance(local_node, prev_node))
+>  			node_load[node] +=3D 1;
+> =20
+> -		node_order[nr_nodes++] =3D node;
+> +		zonerefs +=3D build_zonerefs_node(NODE_DATA(node), zonerefs);
+> +		pr_cont("%d ", node);
+>  		prev_node =3D node;
+>  	}
+> =20
+> -	build_zonelists_in_node_order(pgdat, node_order, nr_nodes);
+> -	build_thisnode_zonelists(pgdat);
+> -	pr_info("Fallback order for Node %d: ", local_node);
+> -	for (node =3D 0; node < nr_nodes; node++)
+> -		pr_cont("%d ", node_order[node]);
+> +	zonerefs->zone =3D NULL;
+> +	zonerefs->zone_idx =3D 0;
+>  	pr_cont("\n");
+>  }
+> =20
+> +static void build_zonelists(pg_data_t *pgdat)
+> +{
+> +	build_node_zonelist(pgdat, &node_states[N_MEMORY], ZONELIST_FALLBACK);
+> +	build_thisnode_zonelists(pgdat);
+
+If build_thisnode_zonelists() means ZONELIST_NOFALLBACK, why
+cannot build_node_zonelist() imply ZONELIST_FALLBACK?
+
+> +}
+> +
+>  #ifdef CONFIG_HAVE_MEMORYLESS_NODES
+>  /*
+>   * Return node id of node used for "local" allocations.
+
+
+--=20
+Best Regards,
+Yan, Zi
+
