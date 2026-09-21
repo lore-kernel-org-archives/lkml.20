@@ -1,104 +1,110 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D124C9DF5
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:52:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B284DF4DC;
+	Mon, 21 Sep 2026 16:52:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790009527; cv=none; b=mNYnGSU6UG0gtMhuTGqsMxuppzjzlI4SCT56+CNC+JrGWpjCYwTrYr62YcWcWMi5N/CsZspuIf36Odj6JGqzWqRkPzUu/xfP2k6SMVbp/llPL1jK5TDuMQg+DSTyrcRaUfR3lVPvRaWn+MDJAav3+/XYwb2I08nKgFUaeg4Xc2Q=
+	t=1790009530; cv=none; b=PM1kvk/9PTFKS8An4TOsVNpyvIofdaHFyE1Fg+5DQ1KnlEnmRK87/DQulYWPnflMnPjDhq2YU28gDDjssWc71yByIpIIyCA2pflrmdyczDo064fNp1VlbN4R4NskNwj2E8NdeOgjOsy5imL/C+nTxPukzoZYMPSQdN9or6Z3VRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790009527; c=relaxed/simple;
-	bh=8qpYRBQlVULXYBwXUjPqr/j/KUQsqav5QY98Ap0DELo=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
-	 References:In-Reply-To; b=TmE5VGAmbE7OIj7E3Z93OTRNsHXSNYum7khKGl7FbM3Ro4WZ8whPob58aNbf1AMQZdwXP05PB7Z/wXoBULHsWgedMAofyRH4adlH+CXsEgyfa2xyYiNiurqK8m9Ygerq/jKGe41PvSzv2DZAcSYrxpXui4sjLUY4W5xbAbcF+Eg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=DOj1Y41g; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790009530; c=relaxed/simple;
+	bh=AATHp7deUCWcwH5lHNkmFOR+IuafxS0XxzQYwEOHKyU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fLb0CJZnKBeXWUuC2+f6YPqcb+oRVIqdbI7wVgjs0S8+wft2WDCtkllwtOr0KB/i1sP/9OeAW3+5jV5fbihGrYLlMmQkdqGOf+U1S8F5Wiv8a8UmqBzfYjILf53HYicIQFaoiet87IT94iXPLP/cZvR1Srcwg+peLN5bRlTXlA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jgypbrc/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="DOj1Y41g"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id BACB91A0D88;
-	Mon, 21 Sep 2026 16:52:03 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8CF895FFB2;
-	Mon, 21 Sep 2026 16:52:03 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C859C1032913F;
-	Mon, 21 Sep 2026 18:51:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790009517; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=E8+TuwKUE2XBa2SuyOFw2XhfA4p/VrA5lusEOG2wO70=;
-	b=DOj1Y41gnblEuUbAcpP3/m5HMMS+8CCXjkY0nVms96dcQJVAg6eDcUo/6D1ViLtXTvg/t6
-	dHQ7g26/B+Pl8hrOF9+FnEzM5qlsuFK/Qpep/KPqvJrDNIsGzH497zB30KindqOD11tjQU
-	sVWzDA/oXW+BOeMjwphAXxrivYUOp7/mV0KOP+uqH+upCyq8Ed6J8v95Zu+EatW8JEmDya
-	EzYiR1FyK+9ONJTnTx+Ho5A5MA+ZZdNDlSTWwXpMDgv3vhSYT2XghlFtBaVDM5Du/0Vp9s
-	nKPzT/Qx4U8tvu2vyp1PkjsWu18hnjG7QKoc6NyrPox5y8/8QrUygXcs4LqaSw==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jgypbrc/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00D881F000FF;
+	Mon, 21 Sep 2026 16:52:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790009529;
+	bh=CYjSYVRuUZeh6x6H9bY3TnL7LmKRvQQGc31KUTEZw1E=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=jgypbrc/AQ1B8n50Ksn199fxeyIqHkjVEtO/PLpwpExs8H60hRL6gIk9Asf6iaOHF
+	 g2W3CscjwY9/nLQjE5LniHBNpEYp6CTKz+d2odc3cwMFI9PN6B8+Cs7dmlLf/h9hPg
+	 1WYE5xa7sByNHh2TfrJL8Wh9d6V9kwWmVYBV4uiDgK8X+rDh9WZql5qD+YpZ/nREgq
+	 KMFkCsJH3C5p1OZoc4eIwBts8496Nmfw82T5Z//FSGjr+P11RiOxkh0jWCwZSIlX4m
+	 ld+EtxYRoaH///pPPJkATf2gDssI66lA7gpYRQg1NpDA6xuXidxkuXePh2u2fAt64b
+	 ssvy0eo+SPN0A==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id C22C4CE0E8C; Mon, 21 Sep 2026 09:52:08 -0700 (PDT)
+Date: Mon, 21 Sep 2026 09:52:08 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH] dcache: report a Tasks-RCU quiescent state in
+ dentry_kill()
+Message-ID: <a388f09f-153c-4175-a8cd-f54e70262da8@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260918-dcache-task-rcu-qa-v1-1-963ec83e6d0b@debian.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 21 Sep 2026 18:51:49 +0200
-Message-Id: <DLL5EWC41AQ4.ZVQI9FO4EEVN@bootlin.com>
-Cc: <kernel@collabora.com>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-sunxi@lists.linux.dev>, <linux-rockchip@lists.infradead.org>,
- <linux-fbdev@vger.kernel.org>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Cristian Ciocaltea"
- <cristian.ciocaltea@collabora.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Dave Stevenson"
- <dave.stevenson@raspberrypi.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Chen-Yu
- Tsai" <wens@kernel.org>, "Samuel Holland" <samuel@sholland.org>,
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, "Raspberry Pi Kernel
- Maintenance" <kernel-list@raspberrypi.com>, "Raphael Gallais-Pou"
- <rgallaispou@gmail.com>, "Sandy Huang" <hjc@rock-chips.com>,
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, "Andy Yan"
- <andy.yan@rock-chips.com>, "Algea Cao" <algea.cao@rock-chips.com>, "Daniel
- Stone" <daniels@collabora.com>, "Liu Ying" <victor.liu@nxp.com>, "Phong LE"
- <ple@baylibre.com>, "Helge Deller" <deller@gmx.de>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v11 14/74] drm/bridge: Fix unlocked list access in
- drm_bridge_attach()
-X-Mailer: aerc 0.22.0
-References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
- <20260901-dw-hdmi-qp-scramb-v11-14-bc12954a0688@collabora.com>
- <DLKTC338JONX.CQ6L7JYQ4UDD@bootlin.com>
-In-Reply-To: <DLKTC338JONX.CQ6L7JYQ4UDD@bootlin.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918-dcache-task-rcu-qa-v1-1-963ec83e6d0b@debian.org>
 
-On Mon Sep 21, 2026 at 9:23 AM CEST, Luca Ceresoli wrote:
-> On Tue Sep 1, 2026 at 8:50 PM CEST, Cristian Ciocaltea wrote:
->> drm_bridge_attach() inspects bridge->list to warn about bridges being
->> attached without a previous drm_bridge_add() call, but it does so
->> without holding bridge_lock.
->>
->> The list head can be concurrently written by drm_bridge_add(),
->> drm_bridge_remove() and __drm_bridge_free() while they operate on
->> neighbouring entries of bridge_list or bridge_lingering_list, all of
->> them under bridge_lock.  Hence the unlocked read is a data race, even
->> though it is unlikely to change the outcome of list_empty() in practice.
->>
->> Perform the check with bridge_lock held.
->>
->> Fixes: 76f1a9711b83 ("drm/bridge: add warning for bridges attached witho=
-ut being added")
->> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->
-> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+On Fri, Sep 18, 2026 at 04:01:57AM -0700, Breno Leitao wrote:
+> I am constantly seeing the following warning on Meta's fleet:
+> 
+>   INFO: rcu_tasks detected stalls on tasks:
+>     native_queued_spin_lock_slowpath
+>     locked_inode_to_wb_and_lock_list
+>     inode_io_list_del
+>     evict
+>     __dentry_kill
+>     shrink_dentry_list
+>     shrink_dcache_tree
+>     d_invalidate
+>     btrfs_delete_subvolume
+>     btrfs_ioctl_snap_destroy
+>     btrfs_ioctl
+>     do_syscall_64
+> 
+> dentry_kill() is the common funnel for dentry teardown: dput(),
+> shrink_dentry_list() and shrink_dcache_tree() all reach it, once per
+> dentry, and its cond_resched() is the only reschedule point on that path.
+> 
+> cond_resched() is not an RCU-tasks quiescent state.
+> 
+> Use cond_resched_tasks_rcu_qs() so the teardown reports an RCU-tasks
+> quiescent state as it proceeds.
+> 
+> Fixes: 9c5f1d30199d ("dcache: move cond_resched() into the end of __dentry_kill()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Breno Leitao <leitao@debian.org>
 
-And tested with bridge hotplug:
-Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> ---
+>  fs/dcache.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/dcache.c b/fs/dcache.c
+> index 1b1a81f10da67..b89c8480b655b 100644
+> --- a/fs/dcache.c
+> +++ b/fs/dcache.c
+> @@ -830,7 +830,7 @@ static struct dentry *dentry_kill(struct dentry *dentry)
+>  	if (dentry->d_op && dentry->d_op->d_release)
+>  		dentry->d_op->d_release(dentry);
+>  
+> -	cond_resched();
+> +	cond_resched_tasks_rcu_qs();
+>  	/* now that it's negative, ->d_parent is stable */
+>  	if (!IS_ROOT(dentry)) {
+>  		parent = dentry->d_parent;
+> 
+> ---
+> base-commit: 5dd1818b15d98d4a20806cd00b1b40320b06004f
+> change-id: 20260918-dcache-task-rcu-qa-b4bcb13f1524
+> 
+> Best regards,
+> --  
+> Breno Leitao <leitao@debian.org>
+> 
