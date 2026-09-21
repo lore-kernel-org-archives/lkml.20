@@ -1,170 +1,274 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 525E64A2632
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:19:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB2746F4BB;
+	Mon, 21 Sep 2026 14:20:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790000352; cv=none; b=dZ8AY3f7WeSGGw3A8tm7KImn0OZGUTtj++oEpBvHny384cCxDZDmyU1neJLRtomelTgGwnOpBYDRyRu5d/ZSmE7VwOLhxDi/XzWaJ71g1OQgzl6bPrQeLdcfzDYCzJkTx8YDLOo2OOjir68MbB/D1agTBKsbm3zyZjKa+DtDn0I=
+	t=1790000414; cv=none; b=XJSG89pVPnWoOn9eeTMVPk8sfU80/XX+3GNSNlLA6bcu98LZr+3hREcpIbybaR/YxEEYaQUvFGCRchVWRfQIM+gEl2m9zYvvMdIvkVk2Hv8a6qksIp27aZe/R4AD2OaPuTQB5Pc+5/T2ZCYVR10zM2HFxGqWBgP7hoZg6uSpzr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790000352; c=relaxed/simple;
-	bh=7NQB7CbqeJhBU0gwoZAcCCwGqFylrf3yNUA3KAuTKWc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=A9twLRlCtMOeYzmSLhEszSvwJzRtdyq2BfMcd3DTDEHHhTLTkw2UgI2NetnsFoNOcrLZ/a8whv+KGCnhuLwDeKQ9TWUcJB1nJ6kl2knNneJ+XQmZFKSH5eHhAp9OUnkC0WqRdxB41ZqmN7IaP6/RL1TIJiRU7ZdvxdFyoE+wClI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=SQlD9sHl; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790000414; c=relaxed/simple;
+	bh=FtKQKIebSLhQ1pvRZxKy2tSAVnHeMRVUgHf+F6/BDBg=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Vfx4dOdEhpum5GAJOnS6RPe2PUgXRu+yYZh4p2kXDcKWiD56akb5++ajJgYLllI3etTsNH1ossk+wQqDXMGRvj45ZcYdemJKa+F/kqTaWd+tlK9g+PIdGmXDBpx2dPJEdW9yBmEwPNvllVAqFBhwzHI8Q0zNNOv0sqK0YzfQe5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X1qlUZSL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="SQlD9sHl"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso43022945e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:19:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790000348; x=1790605148; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pGr9PNK8A3HIW2FQblW4kHC8jz59SbhsDctVzKss3rc=;
-        b=SQlD9sHlpMF885fT5c+sjeik+QVnPKZNN65UvN+FKvqnf1UgxU0Ec0KPHIqGkWPdOF
-         5tjlCF0AlGkBcyf9HpZAymn2VMNJinJaRfBPJ+oOJ6Ga4CoXKLBw8BxQPqkixlZIsul+
-         U6Ql83zp0dSuDoIN22hdt1pgqGDtYzQ4310wQLeX0uW2R0DsTZ6OZUVL9XRfGvGlpJc4
-         Y7z/pcmvqUQmF73NAQUavHpQEHkJRLVTGhA82Yy1exthqGhBUfXGWiOCzdIXLh0fj8wL
-         0+NUqfbYU0M8MgEP7d1g6IZEcCrO0WpkzF8JaqlZU0zJW4voW3l3wqgshcF2pJl6fzJu
-         6eJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790000348; x=1790605148;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pGr9PNK8A3HIW2FQblW4kHC8jz59SbhsDctVzKss3rc=;
-        b=HjlzeXZqSZXt6YPXEmClJzU1H7NI86jYtUnDLja8t63UHY/TkqCmpsvQnBIZx7FW7E
-         dQi0BdWd5/fAZKgB+F0SYLlLMeqOV6O4nc8fcK8VBofE2xtuebG2EziQXhrUAIhZXsMi
-         NfyUhu+HZvo6CQvxKizFLS4S/VN7BC0QUO6uAGMiW2Y2vgve2uT99LiLNeIkUFvm9Chr
-         TT0AcRchRc3ApBYb+lR4lPPDO7i0l5YCeuZ2xivIXeC8i6NQkn03DowtdmwCJsyejipo
-         EevO1wsxBkfTTWW/sulLzeIvm6zbcIEaK/h6AKhqSGUjV5tmi4+YEhMHrUULFUNxgGbu
-         Cjrg==
-X-Forwarded-Encrypted: i=1; AKwUvBxceUHYNlK6ogqPN9glhld8aOj85BriwT4PVwXc9zaaZmMvUgrIj+uTiHDbGt9oHi0fDX3VvSyIh1ZIZ4s=@vger.kernel.org
-X-Gm-Message-State: AFuF++knElY9du4rCa9+6sEDhFoQZPxTldws2MzM1jGVKpIBgWuM3HD8
-	Z9yxlESTe/0Pp9FUwWUzIU1iwQgrBKQTev3/tulTRcbCZ8qeE2rigZZ82uZQd11KKNw=
-X-Gm-Gg: AYBFou0aKixkRHAJzNHSmxNgBYoLB4oz7X86KvrRA++vUs8PY9b/09KPNBafiyoFiiC
-	jI4w9Kwmc9gZ1TM0S7B5RsuWEbJ53tPKM+UMYiMg8WP2NneDYI5klGV83NrsPZaDaAWfehFd/4x
-	Wod+L/qiYTGNRUA0yjDP/qMyKl90Fuxm4cK6/5ZU3lK2Cd1hlgfY5lN/KCs2c9vcPwhVSItzQS4
-	EZPSIvP91Bs1UI+cGgcprihyYzw8P3DzM85Hv/OOd1qife19iD8dAJ0mIgjAWmK5WxRHOXZDXMN
-	kzadEvxbaLMiv0K5k/6zqmVo47xC/V8mr3gQH/7RbpMCqOh4nT0XLapmsNsvrgNEDSy25n+1/wR
-	U8lElTnErthD3/14cQlQqO1xhF+26WTEI9WQvKUS0jG5DW0uKDTMt8PqunD5nkwXMm2qygyzel6
-	4zH6rmoubdyXQMlrgfZoV18FZJBk0r/Ta6/BFDEM3biXiZoSVXsFUT8EcFQarmiJ4hNNJ8rAx+2
-	olCc/T5PkMSdIRVtP1/5lXr/ALa5sxMbBl1bFVdCkKMJ67ib3s9XLI1n1LsxQ==
-X-Received: by 2002:a05:600c:3493:b0:49f:bd3c:bc21 with SMTP id 5b1f17b1804b1-49fc573b55emr149417615e9.28.1790000348476;
-        Mon, 21 Sep 2026 07:19:08 -0700 (PDT)
-Received: from localhost (p200300f65f19a904d4f76eed31f2ef79.dip0.t-ipconnect.de. [2003:f6:5f19:a904:d4f7:6eed:31f2:ef79])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fcd0f8563sm266149915e9.6.2026.09.21.07.19.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 07:19:07 -0700 (PDT)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
-To: Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Alexey Gladkov <legion@kernel.org>,
-	=?utf-8?q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	=?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Armin Wolf <W_Armin@gmx.de>,
-	Hugh Dickins <hughd@google.com>,
-	Jose Javier Rodriguez Barbarin <dev-josejavier.rodriguez@duagon.com>,
-	Hasan Basbunar <basbunarhasan@gmail.com>
-Cc: linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sudeep Holla <sudeep.holla@kernel.org>
-Subject: [PATCH v1 3/3] file2alias: Include the needed device-id headers instead of the catch-all
-Date: Mon, 21 Sep 2026 16:18:51 +0200
-Message-ID:  <6259139da4f8181c7b6ca01128ba7c645335850d.1789988540.git.u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.56.0.rc1
-In-Reply-To: <cover.1789988540.git.u.kleine-koenig@baylibre.com>
-References: <cover.1789988540.git.u.kleine-koenig@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X1qlUZSL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACB931F000FF;
+	Mon, 21 Sep 2026 14:20:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790000413;
+	bh=rCx3Ged42YqopxfbC6N0eUsafreZfHrJEe1VG/QdqjI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=X1qlUZSLjxWN2hrPf5R5ngE1lq/MkbRU1UntXx/EWSrm+M7oDP4SrrW1zIenV7Lgy
+	 AfipOE9qn06w3EspE8akL+/lVMgWiyAa/gVSW9qfEzPTO5nsmNxdMBqN2OlTHoRnpB
+	 gKVAtxwcZ7BYHQYuKN85NiuGKWzVNlonjCZ79lCoH+eEWK6pqVHD8lgBsl6CWjIJqX
+	 9eQ7r7qTlgO9q7c/Yhc9Rsw6OLfaL6TEyNROupDw2loFZCmMMlKpu8AGdneWKbMymL
+	 rS57w5P9xjSh0yzw48Uwh6swOsLfzZpzw+7cW6z7lvHAPLnD1tnjKVfIKCKREw0xCj
+	 v1T1qg55zwGlg==
+Subject: Re: [PATCH 2/2] net/sched: sch_cake: check negative transport offset
+ in cake_overhead()
+From: netdev-bot+sashiko@kernel.org
+To: ndaugoing@gmail.com
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, toke@toke.dk, jhs@mojatatu.com,
+ jiri@resnulli.us, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Mon, 21 Sep 2026 14:20:12 +0000
+Message-ID: <179000041222.2160803.11108326722307773525@kernel.org>
+In-Reply-To: <20260917122153.62722-3-ndaugoing@gmail.com>
+References: <20260917122153.62722-3-ndaugoing@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3655; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=7NQB7CbqeJhBU0gwoZAcCCwGqFylrf3yNUA3KAuTKWc=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqsTzPV1jgeWLSkidYVaR74w/TcNnjTpQgpxto8 AHidD6Gt/6JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCarE8zwAKCRCPgPtYfRL+ TgL/CAC1AVwnpLLgxTrLAkF2GH4zPzt2M0FNmNlVmNzxzunjhXlffDkyWlJaD2wTrB5vItEgsTa Xll2BQ800pyZfkhqWvUbQJC9bNtEOBl1vvIgAvfWsKovISkQxHa8vgrYOogoGWqIMpd1XF/eNbm SEQ3Et68nzemxPwr47YlVQjEAzx+f1Ezo+H6goaAk742lDhIjnd8tsQ9Qz/2VV4+dRpEb6CQkI8 QgiOZ1CDDhVRD2i113b3VMh8+xa0/LRwtcHVJt62Z5ZE9l3vMMxbnmDMoHRYINwL+O1GQLk3jf/ xbGUUHXJkv1s2f2o/qMhvTnJVeboUUDvQztol5XI8slkE/ZV
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
 
-<linux/mod_devicetable.h> is planned to go away. Include just the needed
-bits in scripts/mod/devicetable-offsets.c which reduces dependencies as
-<linux/mod_devicetable.h> includes several headers not needed here.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
----
- scripts/mod/file2alias.c | 55 +++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 54 insertions(+), 1 deletion(-)
+Critical: 0 · High: 0 (1) · Medium: 2 · Low: 0
 
-diff --git a/scripts/mod/file2alias.c b/scripts/mod/file2alias.c
-index 88bff3207277..7d76233a8d5d 100644
---- a/scripts/mod/file2alias.c
-+++ b/scripts/mod/file2alias.c
-@@ -122,7 +122,60 @@ typedef struct {
-  * even potentially has different endianness and word sizes, since
-  * we handle those differences explicitly below */
- #include "../../include/linux/cpufeature.h"
--#include "../../include/linux/mod_devicetable.h"
-+#include "../../include/linux/device-id/acpi.h"
-+#include "../../include/linux/device-id/amba.h"
-+#include "../../include/linux/device-id/ap.h"
-+#include "../../include/linux/device-id/auxiliary.h"
-+#include "../../include/linux/device-id/bcma.h"
-+#include "../../include/linux/device-id/ccw.h"
-+#include "../../include/linux/device-id/cdx.h"
-+#include "../../include/linux/device-id/coreboot.h"
-+#include "../../include/linux/device-id/css.h"
-+#include "../../include/linux/device-id/dfl.h"
-+#include "../../include/linux/device-id/dmi.h"
-+#include "../../include/linux/device-id/eisa.h"
-+#include "../../include/linux/device-id/fsl_mc.h"
-+#include "../../include/linux/device-id/hda.h"
-+#include "../../include/linux/device-id/hid.h"
-+#include "../../include/linux/device-id/hv_vmbus.h"
-+#include "../../include/linux/device-id/i2c.h"
-+#include "../../include/linux/device-id/i3c.h"
-+#include "../../include/linux/device-id/ieee1394.h"
-+#include "../../include/linux/device-id/input.h"
-+#include "../../include/linux/device-id/ipack.h"
-+#include "../../include/linux/device-id/isapnp.h"
-+#include "../../include/linux/device-id/ishtp.h"
-+#include "../../include/linux/device-id/mcb.h"
-+#include "../../include/linux/device-id/mdio.h"
-+#include "../../include/linux/device-id/mei_cl.h"
-+#include "../../include/linux/device-id/mhi.h"
-+#include "../../include/linux/device-id/mips_cdmm.h"
-+#include "../../include/linux/device-id/of.h"
-+#include "../../include/linux/device-id/parisc.h"
-+#include "../../include/linux/device-id/pci.h"
-+#include "../../include/linux/device-id/pcmcia.h"
-+#include "../../include/linux/device-id/platform.h"
-+#include "../../include/linux/device-id/pnp.h"
-+#include "../../include/linux/device-id/rio.h"
-+#include "../../include/linux/device-id/rpmsg.h"
-+#include "../../include/linux/device-id/sdio.h"
-+#include "../../include/linux/device-id/sdw.h"
-+#include "../../include/linux/device-id/serio.h"
-+#include "../../include/linux/device-id/slim.h"
-+#include "../../include/linux/device-id/spi.h"
-+#include "../../include/linux/device-id/ssam.h"
-+#include "../../include/linux/device-id/ssb.h"
-+#include "../../include/linux/device-id/tb.h"
-+#include "../../include/linux/device-id/tee_client.h"
-+#include "../../include/linux/device-id/typec.h"
-+#include "../../include/linux/device-id/ulpi.h"
-+#include "../../include/linux/device-id/usb.h"
-+#include "../../include/linux/device-id/vchiq.h"
-+#include "../../include/linux/device-id/vio.h"
-+#include "../../include/linux/device-id/virtio.h"
-+#include "../../include/linux/device-id/wmi.h"
-+#include "../../include/linux/device-id/x86_cpu.h"
-+#include "../../include/linux/device-id/zorro.h"
- 
- struct devtable {
- 	const char *device_id;
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] Commit message asserts a memory-safety bug that the cited code
+  path cannot produce: "can lead to an out-of-bounds pointer (skb->data…
+- [Medium] cake_overhead() (net/sched/sch_cake.c:1427-1434) copies the
+  header-length computation from qdisc_pkt_len_segs_init() but imports…
+
+Pre-existing issues:
+- [High] cake_overhead() only special-cases `segs == 1`
+  (net/sched/sch_cake.c:1424); `segs == 0` falls into the multi-segment…
+
+--
+
+net/sched: sch_cake: check negative transport offset in cake_overhead()
+
+The patch changes hdr_len in cake_overhead() from unsigned int to int and
+returns the plain cake_calc_overhead() result when the computed transport
+offset is negative.  A couple of questions about the reasoning in the
+changelog and about the completeness of the new guard.
+
+Quoting from the changelog:
+
+>     If an encapsulated or stripped packet has a negative transport offset,
+>     hdr_len is converted to a huge positive integer near UINT_MAX. When
+>     passed to skb_header_pointer(skb, hdr_len, ...), the signed offset argument
+>     in skb_header_pointer() becomes negative, which can lead to an
+>     out-of-bounds pointer (skb->data + negative_offset) and an OOB read.
+
+[Severity: Medium]
+Can this path really produce a read outside the allocation?
+
+The offset ends up in __skb_header_pointer(), whose offset parameter is
+already an int, so the unsigned conversion is undone:
+
+include/linux/skbuff.h:__skb_header_pointer() {
+	if (likely(hlen - offset >= len))
+		return (void *)data + offset;
+	...
+}
+
+The negative value comes from skb_transport_offset() /
+skb_inner_transport_offset(), which are head-relative:
+
+	return skb->head + skb->transport_header - skb->data;
+
+So skb->data + hdr_len == skb->head + skb->transport_header, which is at
+or after skb->head and still inside the skb head buffer.  The
+skb_copy_bits() fallback reads from the same allocation.  Is the actual
+pre-patch consequence garbage header-length accounting rather than an OOB
+read?
+
+Relatedly, could the changelog say how a negative offset reaches
+cake_overhead() at all?  __dev_queue_xmit() already rejects such GSO skbs
+before any ->enqueue() runs:
+
+net/core/dev.c:__dev_queue_xmit() {
+	reason = qdisc_pkt_len_segs_init(skb);
+	if (unlikely(reason)) {
+		dev_core_stats_tx_dropped_inc(dev);
+		kfree_skb_reason(skb, reason);
+		return -EINVAL;
+	}
+	...
+}
+
+which leaves header mangling done after that point (nf_hook_egress(),
+sch_handle_egress(), e.g. bpf_skb_adjust_room() ->
+bpf_skb_net_shrink()) as the remaining route.  With Fixes: and
+Cc: stable on the patch, spelling out the reachable trigger would help
+backporters decide whether this is a memory-safety fix or accounting
+hardening.
+
+> diff --git a/net/sched/sch_cake.c b/net/sched/sch_cake.c
+> index dc93267029e70..ce9e85f9571e6 100644
+> --- a/net/sched/sch_cake.c
+> +++ b/net/sched/sch_cake.c
+> @@ -1413,10 +1413,11 @@ static u32 cake_calc_overhead(struct cake_sched_data *qd, u32 len, u32 off)
+>  static u32 cake_overhead(struct cake_sched_data *q, const struct sk_buff *skb)
+>  {
+>  	const struct skb_shared_info *shinfo = skb_shinfo(skb);
+> -	unsigned int hdr_len, last_len = 0;
+> +	unsigned int last_len = 0;
+>  	u32 off = skb_network_offset(skb);
+>  	u16 segs = qdisc_pkt_segs(skb);
+>  	u32 len = qdisc_pkt_len(skb);
+> +	int hdr_len;
+>  
+>  	WRITE_ONCE(q->avg_netoff, cake_ewma(q->avg_netoff, off << 16, 8));
+>  
+> @@ -1429,6 +1430,9 @@ static u32 cake_overhead(struct cake_sched_data *q, const struct sk_buff *skb)
+>  	else
+>  		hdr_len = skb_inner_transport_offset(skb);
+>  
+> +	if (unlikely(hdr_len < 0))
+> +		return cake_calc_overhead(q, len, off);
+> +
+
+[Severity: Medium]
+Should the companion guard from qdisc_pkt_len_segs_init() be imported as
+well?  That function has two tests, not one:
+
+net/core/dev.c:qdisc_pkt_len_segs_init() {
+	if (!skb->encapsulation) {
+		if (unlikely(!skb_transport_header_was_set(skb)))
+			return SKB_NOT_DROPPED_YET;
+		hdr_len = skb_transport_offset(skb);
+	} else {
+		hdr_len = skb_inner_transport_offset(skb);
+	}
+	if (unlikely(hdr_len < 0))
+		return SKB_DROP_REASON_SKB_BAD_GSO;
+	...
+}
+
+When the transport header was never set it holds the sentinel installed by
+__finalize_skb_around():
+
+	skb->transport_header = (typeof(skb->transport_header))~0U;
+
+so skb_transport_offset() returns 65535 - (skb->data - skb->head), a large
+positive number that the new hdr_len < 0 test does not catch.
+skb_header_pointer() then returns NULL for that offset, hdr_len stays at
+roughly 65471, and cake_overhead() computes len = shinfo->gso_size +
+hdr_len (about 66 KB) for each of segs - 1 segments.
+
+That value is stored by cake_enqueue():
+
+	get_cobalt_cb(skb)->adjusted_len = cake_overhead(q, skb);
+
+and later charged in cake_advance_shaper():
+
+	u32 len = get_cobalt_cb(skb)->adjusted_len;
+	...
+		u64 tin_dur = (len * b->tin_rate_ns) >> b->tin_rate_shft;
+
+so one GSO skb can be charged many times its real size, and the u16
+max_netlen/max_adjlen statistics are truncated.  On CONFIG_DEBUG_NET=y
+skb_transport_header() also has a DEBUG_NET_WARN_ON_ONCE() for the unset
+case.
+
+Is the sentinel state reachable at enqueue?  qdisc_pkt_len_segs_init()
+returns SKB_NOT_DROPPED_YET for it rather than dropping, after having
+already stored pkt_segs, and the rx path only papers it over when
+CONFIG_DEBUG_NET is unset:
+
+net/core/dev.c:__netif_receive_skb_core() {
+#if !defined(CONFIG_DEBUG_NET)
+	/* We plan to no longer reset the transport header here. */
+	if (!skb_transport_header_was_set(skb))
+		skb_reset_transport_header(skb);
+#endif
+	...
+}
+
+Producers of that state include gro_cells_receive(), which calls
+skb_unset_transport_header(skb), and the non-NEEDS_CSUM
+else if (gso_type) branch of __virtio_net_hdr_to_skb(), which sets
+gso_size without touching the transport header.  On a CONFIG_DEBUG_NET=n
+kernel the rx-path reset above closes the route that could be verified,
+so this may be limited to debug kernels.
+
+[Severity: High]
+This is a pre-existing issue and not something this patch introduces, but
+while adding a guard here, would a segs <= 1 test be worth folding in?
+cake_overhead() only special-cases one segment:
+
+	if (segs == 1)
+		return cake_calc_overhead(q, len, off);
+
+With segs == 0, execution falls into the multi-segment arithmetic where
+segs - 1 is the int -1:
+
+	last_len = skb->len - shinfo->gso_size * (segs - 1);
+
+	return (cake_calc_overhead(q, len, off) * (segs - 1) +
+		cake_calc_overhead(q, last_len, off));
+
+Does the u32 multiplication by -1 wrap to roughly 4.29e9 here, with
+last_len becoming skb->len + gso_size?  That value reaches
+cake_advance_shaper() through get_cobalt_cb(skb)->adjusted_len:
+
+		u64 tin_dur = (len * b->tin_rate_ns) >> b->tin_rate_shft;
+	...
+		q->time_next_packet = ktime_add_ns(q->time_next_packet, global_dur);
+
+which would push time_next_packet far into the future and stall dequeue
+for the whole qdisc.
+
+qdisc_pkt_segs() returns qdisc_skb_cb(skb)->pkt_segs verbatim, and
+qdisc_pkt_len_segs_init() stores it before any fixup:
+
+	qdisc_skb_cb(skb)->pkt_segs = gso_segs = shinfo->gso_segs;
+
+gso_segs == 0 is a legitimate DODGY state, for example:
+
+include/linux/virtio_net.h:__virtio_net_hdr_to_skb() {
+			shinfo->gso_type |= SKB_GSO_DODGY;
+			shinfo->gso_segs = 0;
+	...
+}
+
+and the DODGY recomputation at the end of qdisc_pkt_len_segs_init() is
+skipped by the unset-transport-header early return without dropping the
+skb.  Note that the same virtio branch that sets gso_segs = 0 is also the
+one that never sets the transport header, so both preconditions can arrive
+together; as above, the CONFIG_DEBUG_NET=n rx-path reset closes the route
+that could be verified, so reachability on non-debug kernels is not
+established.
+
+>  	/* + transport layer */
+>  	if (likely(shinfo->gso_type & (SKB_GSO_TCPV4 |
+>  						SKB_GSO_TCPV6))) {
+
 -- 
-2.56.0.rc1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917122153.62722-1-ndaugoing%40gmail.com
