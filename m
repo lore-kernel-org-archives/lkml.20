@@ -1,108 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from e3i491.smtp2go.com (e3i491.smtp2go.com [158.120.85.235])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F282A314D1F;
-	Mon, 21 Sep 2026 17:51:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775873B7752
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:52:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.120.85.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790013117; cv=none; b=kJAMaksYUs43ai36AJcM1Wii9xK92qJT7RnQwmNxLSZBvzdw7Gov752sw6/RqeOPZg/EaIEoRvxZ55VSmhGZiyhVIYVC7ybCqo99C8pHKsHvkWMtqSHDrFNZf/U1HnQ9cEbik1Zcq0uAnnOQQgQCPZ0+ZUXbGbjKyg/F2u6pHEo=
+	t=1790013175; cv=none; b=oxGQLeO/vj6LhzelFqkThKoO/uE3c7KdAK3/ws/dZvrLo8Ow9c7HjEllIUvSoaJ6vLgj+zBNqdkKMDawBhYsIJRK+5721BybRa7hTRegyvIvKkIdfFjeD32Qd44bCD0lgr7m/BcNwsE6p+hhGw40/pTH3YoFp+Jz+0xLwUQkUew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790013117; c=relaxed/simple;
-	bh=6tDBzR4H1xE4m2xLqsm21QLM8P8gafVuKFMP2Nop5cw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=hbE2qnM+kGr09/97GjGRr2ieC/PYJO5u3ca8Ip48CGmROBNKlq8lgPWAojAA6ECB5/BGD5uizE+jiVNoZUSxQA8kcNikuH8IV2BEETudKmVRwfdU3Gb2CxiFyyUXVOQWOz2rs/fA6zrGnLoj9GW4OkwZODEAAXxDlleSJVM30Js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fd/qdGZn; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fd/qdGZn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50CE71F000FF;
-	Mon, 21 Sep 2026 17:51:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790013115;
-	bh=ana627ztu3RItLtifDY6xX7vGyPnvHAMGPbYSwJWVOg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=fd/qdGZnnN2whBp8D6u4PkgmjVICnc2XdFfieocS60nAcHo5v9EAh2LwQYNj+Nq5P
-	 3+vXNuHF0UwdCz9lIbuwDf8kF9al5tkX9l0zc3E+B09HbcE4omcTARyWBOkh1iOshH
-	 vYg70/WbW0t3PSt8yLhznh4dXMT7xE3KZja0yhMdk+B8JF/7dgMogAtwkg5NAGT4aQ
-	 CnlQFf5xZrfnv1jVodOHOq58w1J7DHaOGVIvRY3Zdrn0y01ebdfIVib1hfcimUiVgd
-	 Iio0LbvCsAtilS2E/CP//8H86HvxEWM/jAwe/UQWiidl41u5dLmq9GAHZMWXckWXZh
-	 808FrB7UN8mUw==
-Date: Mon, 21 Sep 2026 12:51:54 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Kristen Carlson Accardi <kristen.c.accardi@intel.com>,
-	Kenji Kaneshige <kaneshige.kenji@jp.fujitsu.com>,
-	Jesse Barnes <jbarnes@virtuousgeek.org>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] PCI: pciehp: Make poll mode parameter read-only
-Message-ID: <20260921175154.GA1332331@bhelgaas>
+	s=arc-20240116; t=1790013175; c=relaxed/simple;
+	bh=tCJWX0WracxP8pjI4qmQXvWmBQDBN66OmCnP+zwr9Eg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SM/EC8wxZv8DrWgF7sjwLvMGkttZxXQZwUxA7sBpSKCSPSsNgdxWHegvxmg6zEUfHSh1ruTWEgNHYgAWzlUdG4lsdgxJTIKHR90O4iOKPevIHHinrA4qkH+eSzg5YOU5jFKdE2Ii2SSJTb2A4R+ndzV4ZspRbMumY1tCG2FHcWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fkr.dev; spf=pass smtp.mailfrom=em1020969.fkr.dev; arc=none smtp.client-ip=158.120.85.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fkr.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em1020969.fkr.dev
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fkr.dev;
+ i=@fkr.dev; q=dns/txt; s=s1020969; t=1790013171; h=from : subject : to
+ : message-id : date : list-unsubscribe : list-unsubscribe-post;
+ bh=TZwFOmmSArQRPmf1NzL9L+rXlgVE8BdwjiePmWC50vc=;
+ b=bQG7CpMercLJlrBhT85mEfQeN5j1kRzZXbbN0fMlNzupQ+kFI+Mef1eeOZxmNMuimp7Bx
+ M8lC6PNeSSPQjSF/6CxGUpLrbQtCY4QW7GTuEQeW+fZAZoyWPERsOSFxsAQgS2WusOdE6lo
+ n0AkaoCfMKtXB5Xo/+6aRsM4ROmx4qiGZXk2dQBbeQ7bzH9vZ+q0u6fIj42olGy+DbAEkcu
+ 181AVFCA3atebJHAKSsfqlrWf1YGs5P/YBNudqQpMApsV2JAXYPQbOMzCAn9hqlRAaesnn9
+ RdpW/zWCm++sJZs5o2j5kmDLiA2ILEBBQkEplD8oBESgIgLSilNOoXWBVNIg==
+Received: from [10.244.246.9] (helo=fkr.dev)
+	by smtpcorp.com with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128:X25519)
+	(Exim 4.100)
+	(envelope-from <florian.krischer@fkr.dev>)
+	id 1x8iC0-AIkwcC8xzRd-KFlS;
+	Mon, 21 Sep 2026 17:52:40 +0000
+DKIM-Signature: a=rsa-sha256; bh=TZwFOmmSArQRPmf1NzL9L+rXlgVE8BdwjiePmWC50vc=; c=relaxed/relaxed; d=fkr.dev; 
+ =?utf-8?q?h=3DSubject=3ASubject=3ASender=3ATo=3ATo=3ACc=3ACc=3AFrom=3AFrom=3ADate=3ADate=3AMIME-Version=3AMIME-Versio?=
+ =?utf-8?q?n=3AContent-Type=3AContent-Type=3AContent-Transfer-Encoding=3AContent-Transfer-Encoding=3AReply-To=3AIn-Rep?=
+ =?utf-8?q?ly-To=3AIn-Reply-To=3AMessage-Id=3AMessage-Id=3AReferences=3AReferences=3AAutocrypt=3AOpenpgp=3B?=
+ i=@fkr.dev; s=default; t=1790013160; v=1; x=1790445160;
+ b=XuGCYailnBbZD/UGHg7YJlvMD/Kby+WybgBcT5klDwtFPGfSWGmBs8V25uZSc14vOW9xn0jW
+ aTJAsryXpWIiShjsxUGfhlsoFD4Eeh+kzh4ifY8oYckKi0Eb5kFsiP+atMLRrYfMZFfWic2lSbN
+ p5gcNMAYKV4LpQkSqmeFyYZMb4qkb4FcvcnjoIrWQ5JHd2/tETZVATvuL6N5Or9jM1n1XUOheAV
+ I/z/+Ajrtl+O7KjCfyMX51WP9xR60j1IjCVlgu/RhxaqL0cDGwSzNeGBY9y7GDWCeGA70MHUrvS
+ FZU6rKnrMdW11mO5yLyuxS97G8/QlXe5dkbhGd018DMaA==
+Received: by fkr.dev (envelope-sender <florian.krischer@fkr.dev>) with
+ ESMTPS id dfda7693; Mon, 21 Sep 2026 17:52:40 +0000
+From: Florian Krischer <florian.krischer@fkr.dev>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Florian Krischer <florian.krischer@fkr.dev>
+Subject: [PATCH v10 fixup 2/2] input: serio: asus-transformer-ec: fix keyboard
+ response framing
+Date: Mon, 21 Sep 2026 19:52:38 +0200
+Message-ID: <20260921175234.3137985-3-florian.krischer@fkr.dev>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721095233.420823-1-clamor95@gmail.com>
+References: <20260721095233.420823-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921142608.270312-1-runyu.xiao@seu.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Report-Abuse: Please forward a copy of this message, including all headers, to <abuse-report@smtp2go.com>
+Feedback-ID: 1020969m:1020969amTSgpp:1020969shEazlBhSv
+X-smtpcorp-track: ElqlcfQeulEQ.4Bi5v0VZH-NI.oagLCAZnfUr
 
-On Mon, Sep 21, 2026 at 10:26:08PM +0800, Runyu Xiao wrote:
-> pciehp_request_irq() and pciehp_free_irq() select different resources
-> based on the global pciehp_poll_mode parameter. The parameter is
-> currently writable through sysfs, so changing it while a controller is
-> active can make teardown stop a nonexistent polling thread or call
-> free_irq() for an IRQ that was not requested.
-> 
-> Keep the parameter available for boot and module configuration, but
-> prevent runtime changes to the registration mode.
-> 
-> Reproducer:
-> Boot an x86_64 guest in QEMU with a native PCIe hotplug root port and an
-> e1000 device, using these device options:
-> 
->     -device pcie-root-port,id=rp1,chassis=1,slot=1
->     -device e1000,bus=rp1
-> 
-> Pass pcie_ports=native pciehp.pciehp_poll_mode=1 to the guest kernel.
-> As root in the guest, replace the device name below with a bound pciehp
-> service device and run:
-> 
->     dev=0000:00:1c.0:pcie004
->     driver=/sys/bus/pci_express/drivers/pciehp
->     echo 0 > /sys/module/pciehp/parameters/poll_mode
->     echo "$dev" > "$driver/unbind"
->     dmesg | grep 'Trying to free already-free IRQ'
-> 
-> The unfixed kernel accepts the runtime mode change and reports the warning
-> when the service device is removed. The fixed kernel rejects the write and
-> removes the device without the warning. The mode change is a deliberate
-> privileged test action and is not expected during ordinary operation.
-> 
-> Fixes: 2aeeef119995 ("pciehp: Clean up pcie_init()")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM Codex
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Real SL101 hardware exposes two issues in the v10 keyboard response
+handling.
 
-Applied to pci/hotplug for v7.4, thanks!
+First, keyboard command responses may carry OBF without KEY or KBC.
+The downstream ASUS driver treats valid non-AUX OBF responses as
+keyboard data. Dropping these packets prevents PS/2 ACK responses from
+reaching atkbd.
 
-> ---
->  drivers/pci/hotplug/pciehp_core.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/pci/hotplug/pciehp_core.c b/drivers/pci/hotplug/pciehp_core.c
-> index 2cafd3b26f344..5ce32dc7e178f 100644
-> --- a/drivers/pci/hotplug/pciehp_core.c
-> +++ b/drivers/pci/hotplug/pciehp_core.c
-> @@ -38,7 +38,7 @@ int pciehp_poll_time;
->   * not really modular, but the easiest way to keep compat with existing
->   * bootargs behaviour is to continue using module_param here.
->   */
-> -module_param(pciehp_poll_mode, bool, 0644);
-> +module_param(pciehp_poll_mode, bool, 0444);
->  module_param(pciehp_poll_time, int, 0644);
->  MODULE_PARM_DESC(pciehp_poll_mode, "Using polling mechanism for hot-plug events or not");
->  MODULE_PARM_DESC(pciehp_poll_time, "Polling mechanism frequency, in seconds");
-> -- 
-> 2.34.1
-> 
+Second, the EC count byte is the number of bytes following the count
+byte, not the total packet size. For example, the SL101 returns the
+keyboard reset response:
+
+  03 09 fa aa
+
+where 03 counts status 09, ACK fa and BAT-success aa.
+
+v9 used data[0] - 1 after skipping the count and status bytes. v10
+changed this to data[0] - 2 while tightening the packet bound, which
+drops the final payload byte. Keep the v10 bound but restore the
+correct payload count.
+
+Tested on an ASUS Eee Pad Slider SL101 with EC firmware SL101-0202.
+Together with the SL101 8-byte event-read fixup, the physical sliding
+keyboard completes atkbd initialization and works.
+
+Signed-off-by: Florian Krischer <florian.krischer@fkr.dev>
+---
+ drivers/input/serio/asus-transformer-ec-kbc.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
+
+--- a/drivers/input/serio/asus-transformer-ec-kbc.c
++++ b/drivers/input/serio/asus-transformer-ec-kbc.c
+@@ -26,20 +26,26 @@
+ 		return NOTIFY_DONE;
+ 	else if (action & ASUSEC_AUX_MASK)
+ 		port_idx = 1;
+-	else if (action & (ASUSEC_KBC_MASK | ASUSEC_KEY_MASK))
++	else if (action & ASUSEC_OBF_MASK)
++		/*
++		 * Keyboard command responses can carry only OBF, without KEY or
++		 * KBC set. The original SL101 driver treated every valid non-AUX,
++		 * non-SMI/SCI OBF packet as keyboard data, including PS/2 ACKs.
++		 */
+ 		port_idx = 0;
+ 	else
+ 		return NOTIFY_DONE;
+
+ 	/*
+-	 * The data[0] is the length of the packet including itself. The data[]
+-	 * buffer has to be at least 3 bytes (length + ctrl + 1 data byte) and
+-	 * must not exceed the EC entry size.
++	 * data[0] is the number of bytes following the count byte: one status
++	 * byte plus the payload. The SL101 EC, for example, reports keyboard
++	 * reset as 03 09 fa aa (status 09, ACK fa, BAT aa). Skip the count and
++	 * status bytes and forward every payload byte to serio.
+ 	 */
+ 	if (data[0] < 2 || data[0] > ASUSEC_ENTRY_SIZE)
+ 		return NOTIFY_BAD;
+
+-	n = data[0] - 2;
++	n = data[0] - 1;
+ 	data += 2;
+
+ 	if (port_idx == 0) {
+--
