@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-20.mta1.migadu.com [95.215.58.20])
+Received: from mta1.migadu.com (out-7.mta1.migadu.com [95.215.58.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E7A83FD137
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:30:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 950813F5BC5
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:30:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789975818; cv=none; b=GN2SLWGcLdGsS4BGNkoEK+oca8B/r7QR6p6bOZHO81jWtPtjyNY286GIyJ7+L/3SczFENkVTkzp6Hv6iLGDWiZ4oSEAKS4MYVURFdqlwPRDw7kQnMb0m4QhZIXkn+BTMS3q1D3lAXTZOsYiEM5NSu853TI9OJ5Fj5yn//zpqCSM=
+	t=1789975817; cv=none; b=DuT8zEIoACTR8Ipl/hruY3U1L1aRnQN1lTeqJxzvGIk8BXfOWvAgYBVq3Py8SW9w7bWoXxFz09WkBwdwhVskVhcRvDkCQH5agiGLVjisCxachGV4EvuQm575c1x36QqkwaQhPESDspCfI8LsDCn6T+aVEwDLVzj8rm3aaPwVrk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789975818; c=relaxed/simple;
-	bh=YRjrdcXSvz0c+tqwc5MA976Iks7cA0z99Etwh6VpwMA=;
+	s=arc-20240116; t=1789975817; c=relaxed/simple;
+	bh=nEDmvpsFQHvopfMtsbrOfCA7ee7FniKC/B0/dYc8A2o=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=IFXTMRtAnEFcP/Jxb8VAh7TPgZuZC1l+mj52u2bHtNAVWnS1FbBRB3Ia3xRzCDdwvDe+oaQWzcxG4ejx1V15DrfAS/05n/emFZkuNSjWQgwqyRWqKGCnuaXTYxFzK2AhIkLobhdgLWp4vY4y/BK9gfROaT2mJsxiue2WEIL0C+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xMAiMtOr; arc=none smtp.client-ip=95.215.58.20
+	 MIME-Version; b=tA+vpux3dKBJbxJZTpV1KfjjT3QaVoKdqkZcttwyhyEIn9q1TKhhMqzFWsXaFutK3prMCaH/LnqEZRAnPB87Qdz+hWx+8zKvIwMulGnJ5UMQ8Wn7X38/L8JRgBFPdEMCBMF4PTcQIdmU582NCMZM8ip7WYtkbXW8hBzbk1xzfzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ubvVi5R+; arc=none smtp.client-ip=95.215.58.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xMAiMtOr"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ubvVi5R+"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=YRjrdcXSvz0c+tqwc5MA976Iks7cA0z99Etwh6VpwMA=;
+DKIM-Signature: a=rsa-sha256; bh=nEDmvpsFQHvopfMtsbrOfCA7ee7FniKC/B0/dYc8A2o=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789975811; v=1; x=1790580611;
- b=xMAiMtOrSud9SSi2GLPjPG3elstbMhdL9nCAPFyvdUne9/7gFhCWYgRXeb8vbgtmiQAhG5pk
- xIvryYs6wYWYkf4FBqxB4Lii4zbvAsJAErqPs8z8jkz4+50GeJfU4RX7o3swktiCWrU6YmxL802
- oiR+sPGP50ldSJUZbE+yomzs=
+ t=1789975807; v=1; x=1790580607;
+ b=ubvVi5R+NB+iYRZtTal3qSDzr/K3LN+cXUHRIfl/UvOZuixg9ZUBQXwcipNDH+zNDwwuztPh
+ +dxrYvze5acyUbgeTMIY1+M8JF5NOQZt0K5zuZ7rMZrn5884QabwEqpHyV1ko7xujdbPBXgM1f+
+ Qs2EEHn+mjgmFS9ArsLQBbzE=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5b3602680922a617;
-	Mon, 21 Sep 2026 07:30:07 +0000
-X-Mizu-Trace-ID: 5b3602680922a617
+Received: by smtp.migadu.com with ESMTPS id a323088f969dfdb3;
+	Mon, 21 Sep 2026 07:30:04 +0000
+X-Mizu-Trace-ID: a323088f969dfdb3
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -46,9 +46,9 @@ Cc: Thomas Gleixner <tglx@kernel.org>,
 	kvmarm@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/4] irqchip/gic-v4: Unwind what its_alloc_vcpu_irqs() allocated on failure
-Date: Mon, 21 Sep 2026 08:29:56 +0100
-Message-Id: <20260921072958.2918477-3-fuad.tabba@linux.dev>
+Subject: [PATCH v3 1/4] irqchip/gic-v4: Clear the domain and fwnode pointers after freeing them
+Date: Mon, 21 Sep 2026 08:29:55 +0100
+Message-Id: <20260921072958.2918477-2-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260921072958.2918477-1-fuad.tabba@linux.dev>
 References: <20260921072958.2918477-1-fuad.tabba@linux.dev>
@@ -60,69 +60,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A failure in the its_alloc_vcpu_sgis() loop leaves behind both the SGI
-domains created for the vPEs below the failing index and the vPE irqs
-allocated before the loop, since irq_domain_remove() frees neither. Each
-leaked vPE takes its ITS state with it, a vpe_id and an LPI pending
-table.
+The GICv4 allocation and teardown paths free their irq domains and
+fwnodes but leave the pointers set, and the allocation error paths test
+those pointers before removing them. struct its_vm and struct its_vpe
+are embedded in KVM's per-VM and per-vCPU state, so nothing re-zeroes
+them between two attempts, and an error path taken after an earlier one
+already freed the domain calls irq_domain_remove() on freed memory.
 
-Free both from a second label before the existing unwind. With the
-freed pointers now cleared, its_free_sgi_irqs() can skip a vPE with no
-SGI domain and be reused there. The check has to precede the lookup:
-irq_find_mapping(NULL, 0) falls back to irq_default_domain, and the
-live irq it returns would then be freed.
+Reaching this takes two allocation failures, one to leave the stale
+pointer behind and one to send the next attempt down the error path.
 
+Fixes: 7de5c0af9c7c ("irqchip/gic-v4: Add per-VM VPE domain creation")
 Fixes: 6d31b6ff985d ("irqchip/gic-v4.1: Add VSGI allocation/teardown")
 Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- drivers/irqchip/irq-gic-v4.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ drivers/irqchip/irq-gic-v4.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/irqchip/irq-gic-v4.c b/drivers/irqchip/irq-gic-v4.c
-index 754839e409f88..f707a3cb281aa 100644
+index 8455b4a5fbb0d..754839e409f88 100644
 --- a/drivers/irqchip/irq-gic-v4.c
 +++ b/drivers/irqchip/irq-gic-v4.c
-@@ -159,6 +159,8 @@ static int its_alloc_vcpu_sgis(struct its_vpe *vpe, int idx)
- 	return -ENOMEM;
- }
- 
-+static void its_free_sgi_irqs(struct its_vm *vm);
-+
- int its_alloc_vcpu_irqs(struct its_vm *vm)
- {
- 	int vpe_base_irq, i;
-@@ -189,11 +191,14 @@ int its_alloc_vcpu_irqs(struct its_vm *vm)
- 		vm->vpes[i]->irq = vpe_base_irq + i;
- 		ret = its_alloc_vcpu_sgis(vm->vpes[i], i);
- 		if (ret)
--			goto err;
-+			goto err_free_irqs;
- 	}
- 
+@@ -147,10 +147,14 @@ static int its_alloc_vcpu_sgis(struct its_vpe *vpe, int idx)
  	return 0;
  
-+err_free_irqs:
-+	its_free_sgi_irqs(vm);
-+	irq_domain_free_irqs(vpe_base_irq, vm->nr_vpes);
  err:
- 	if (vm->domain) {
+-	if (vpe->sgi_domain)
++	if (vpe->sgi_domain) {
+ 		irq_domain_remove(vpe->sgi_domain);
+-	if (vpe->fwnode)
++		vpe->sgi_domain = NULL;
++	}
++	if (vpe->fwnode) {
+ 		irq_domain_free_fwnode(vpe->fwnode);
++		vpe->fwnode = NULL;
++	}
+ 	kfree(name);
+ 	return -ENOMEM;
+ }
+@@ -191,10 +195,14 @@ int its_alloc_vcpu_irqs(struct its_vm *vm)
+ 	return 0;
+ 
+ err:
+-	if (vm->domain)
++	if (vm->domain) {
  		irq_domain_remove(vm->domain);
-@@ -215,8 +220,13 @@ static void its_free_sgi_irqs(struct its_vm *vm)
- 		return;
+-	if (vm->fwnode)
++		vm->domain = NULL;
++	}
++	if (vm->fwnode) {
+ 		irq_domain_free_fwnode(vm->fwnode);
++		vm->fwnode = NULL;
++	}
  
- 	for (i = 0; i < vm->nr_vpes; i++) {
--		unsigned int irq = irq_find_mapping(vm->vpes[i]->sgi_domain, 0);
-+		unsigned int irq;
+ 	return -ENOMEM;
+ }
+@@ -215,6 +223,8 @@ static void its_free_sgi_irqs(struct its_vm *vm)
+ 		irq_domain_free_irqs(irq, 16);
+ 		irq_domain_remove(vm->vpes[i]->sgi_domain);
+ 		irq_domain_free_fwnode(vm->vpes[i]->fwnode);
++		vm->vpes[i]->sgi_domain = NULL;
++		vm->vpes[i]->fwnode = NULL;
+ 	}
+ }
  
-+		/* irq_find_mapping() falls back to the default domain on NULL. */
-+		if (!vm->vpes[i]->sgi_domain)
-+			continue;
-+
-+		irq = irq_find_mapping(vm->vpes[i]->sgi_domain, 0);
- 		if (WARN_ON(!irq))
- 			continue;
+@@ -224,6 +234,8 @@ void its_free_vcpu_irqs(struct its_vm *vm)
+ 	irq_domain_free_irqs(vm->vpes[0]->irq, vm->nr_vpes);
+ 	irq_domain_remove(vm->domain);
+ 	irq_domain_free_fwnode(vm->fwnode);
++	vm->domain = NULL;
++	vm->fwnode = NULL;
+ }
  
+ static int its_send_vpe_cmd(struct its_vpe *vpe, struct its_cmd_info *info)
 -- 
 2.39.5
 
