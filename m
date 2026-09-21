@@ -1,372 +1,187 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011064.outbound.protection.outlook.com [40.93.194.64])
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021079.outbound.protection.outlook.com [52.101.95.79])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 697802C15A0;
-	Mon, 21 Sep 2026 10:05:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A538445FFAB;
+	Mon, 21 Sep 2026 10:05:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.79
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789985141; cv=fail; b=NNmfHL9dSXniPdslyO6hBNXTmlDlz3fymPFxq8CQPm9pfiIHHmKBsQCgVLN4Wa7urcggOiw7M2ajkjkLg0vKsECm3krNyEdSYhZRjtsVzHbZf5UcEKq6q4gXV+ywLlCgNDHvQvOG8PNQ0dmrfQPFFFdu5BlVz5ck9kW/1tTRQis=
+	t=1789985159; cv=fail; b=fV/IkytDO3shQoKxgs/aku3FqXQ39cjF422Z/gETcIDpMpFBNx0QXFMDIt1TMEMGqj6NIDLYR63g+6kUj163jiTvkJFoR5TINAKIi15ID1nAHKZt5fZ0rM8K0Fq7YO3cnvgcqN+Hl9+OYJtvafZooDUl+SpBEfBSnq7PzqDIU94=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789985141; c=relaxed/simple;
-	bh=Q9tWzS38fD/uR7ywjALnCkIquTLQ5tJpywlBiOuPePs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=XS8azfw+7Z9tQpLsNTvN47cmEp+N5NB5uFXJTCRG4GYJZ1t/Y/99pDxFSJqvedmBYLDjsWicjpJxmVLeH/saGdJgKcG+xhywVqJtlyf90Saz7H2OcCb5jYfsNbM8dynumFSbZ9dd/VJb25ovMz7SpXWKTFMQCnI3Y5tgTDjq+w0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=CWJ/bzO2; arc=fail smtp.client-ip=40.93.194.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1789985159; c=relaxed/simple;
+	bh=pWz/X6EapOuNzQBrCDq1KMqkRpf9xzPlBkaDhEH4FdQ=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=bmhRDq8IintC0AGs+Vx5tms80Jv8bu5O9qNeKAj50GeM+SDEb6xiyYRKzEuEgfxqBtsRMjvvANlpXeX2UsK4W6QdIB872RZjRv3y5rW7mV0F8OdMId/RlDXvTg1TNJWS0OuA+2x2mubSLnyMFg5jsw9hUHyVMuaqb/ZTcld8nmk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=za7ndFsr; arc=fail smtp.client-ip=52.101.95.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="CWJ/bzO2"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="za7ndFsr"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m9Hl/CtGbmg8fjdZuvGY2ba9UehksQJ84lX+zTFPX+UACHICP/m4unEEVhuRGfckJh2OjUBHfRolSR3oh4oDWupFL8T3E3FrILkp5YUbCS/QD3Q/3cQAN/nNprOjjEA7k20IZ24OdrxrUFDx9wrpdtSC9joDWOoGiF2WNT66EVOsa6uT0P5q1RvDxrwDrU2TBGrAva1k9gMcjNUyQcjyPEQqnGHRSdhWJ1PSOrzG66QfihWyTvLaLSXtg+dEts+w/OvTfcbsSS4DO5pT/2o9KzgQSokcutiAKUIEuCRz5A8YrslFbyL7u2ie1VT2hVvUqfpa3GJVv0lVboAiosk8mQ==
+ b=tcRONmc0/1E+qjRpvlsC8HTnnGsHV1wpgNo86l5h+e+WlZ0Gfkh/ys/cwXI/62wzpJumnJIGt4nipq3DyW12B3WtfBjOnG8ZVGzZxS3EHzXc8QjWkvmowQDjQmg+jcW/UidYTTHFGfkeLFiCY7MWL8z8bIQETi/hbo6CrYT9gwMu8ZEdgI8vLvvmtFsOmP77R1u2oVKnasy90U5zdS/8gyNXrYTe0Qf06gfAcDVTNM9qnGM/X8lun4nQmQIpCwAZXlW/THBcisyjRSeCmkE3P+9oswE6lP/hH1ZO+N5IjWW7jx97sjmmFOhbick/MU8/cgOppUHMNe927T2FDA8a1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jCW0yeCmAK+bmUUx0AD10/BHvXx/CfSpw1xvTgeF1h4=;
- b=sYCqQ7Hd+HEEHBJIgpH7qNNjrTusxnt8Lc/HcdhlGRu89l56kOrzOtbFs6hos5CS2/zzNcNWRNjvV1W9YNYmMA+BYJD0sLuqBk5Ax3X8xI/VbeIso2nEadOxj65uW+oK9h6dUcpotDuoqlF592aDSANIPQvPDrOhNv6i05+7qHQijHjNTQwtNtKUNxnex+6qonCkYtO7RC8xboqZ9bq8vbZEeruR23KUiILrjOEsabgxdGzm0TByWoEeSn/+ux6y8qG4Wkq3XKIDPzZ9xREQ5hdFpql41we0zVGlIfE6fmE/N+UxRJvHbqtWX22oqz2do+xAqJ+bE58pPY+qyTHIiA==
+ bh=82BiEODa1WI1B4Vkz+uIHF99U91GvVVBRtANMh7QcPU=;
+ b=R+aWF6GtRG0iNwB7CHXpn6flAODeAKSvPWcE/nn1IdLfwfrIjn26x/0Rhu9ZaKsKqLIa5LA62NNvLmZ9fxnuCCkPrPhPTSy29DNUsz/X1HBAQOQqNojD5/bp1isEwTLe/zFfg50aZqVPg3tc70pPpDOQei8esYy1yJ85UUnuAKYuVswfA/EI8URh8K4fPOieRdNkpCU5j1J4BCxmfU/uh7Yk8jNDO1ODKq6BrVkq72j8g+SErNHHMpUVhdJX7K3HJh4rUR/eGCxZC6XUvaInnloWQ6W4zOnPAoXccu9ryGavto+lIWoztHWk9hSfPMT/KtrAnnULSVJvFv6ULdvQ9Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jCW0yeCmAK+bmUUx0AD10/BHvXx/CfSpw1xvTgeF1h4=;
- b=CWJ/bzO2feXV5Xz2DPSHPV3KQmRZBWBOkYvFe9SJbVB+9u6LYBM9l/EjxkULgeYQdBhHb+L/1JzcB1y+pIYvRtrEtSAgoFSvKZ5aC3JqHAo2MRr/15GPwRtGEykWmeNlpeKzkV776ilRXwHcD8QWzUlWvYeKeHvnpoF6RLINrUI/SlJ+XUvcHA5hYu+kHo73KzGn+O+w1XXSmByB2z9IUFXrvKLeMq15a0f9sJH8NZACCiw9Peu6xrcM5aXww9c3dLfwuPy3kCMj07s02qnNpSegS1HL1WEzZRrWr2DRaBiAPGMisE2hNL1Af+4gAByYOnueWB/8dWHkkeyc91aZog==
-Received: from IA1PR12MB9030.namprd12.prod.outlook.com (2603:10b6:208:3f2::22)
- by IA0PR12MB8974.namprd12.prod.outlook.com (2603:10b6:208:488::21) with
+ bh=82BiEODa1WI1B4Vkz+uIHF99U91GvVVBRtANMh7QcPU=;
+ b=za7ndFsrTe3vnNPnBE4nn0APSCCk5mFPceOzQUqzvzeUwp8HE8qLuPaJN4KkbxfbdaadKnhpiEeb7ZDBr/KTJTqmcgtQWd1ImH73i3aKxt+EVML3WWYeXAW7+FUPE+e46ZoYXJsRsaSyKrVNo0bhY5wA/MLJ+UiEfRR/F5f2tcg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO0P265MB3193.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:15d::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 10:05:30 +0000
-Received: from IA1PR12MB9030.namprd12.prod.outlook.com
- ([fe80::2c1d:ed27:b53a:97d2]) by IA1PR12MB9030.namprd12.prod.outlook.com
- ([fe80::2c1d:ed27:b53a:97d2%7]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 10:05:30 +0000
-From: Manish Honap <mhonap@nvidia.com>
-To: Richard Cheng <icheng@nvidia.com>
-CC: "alex@shazbot.org" <alex@shazbot.org>, "jgg@ziepe.ca" <jgg@ziepe.ca>,
-	Ankit Agrawal <ankita@nvidia.com>, "jic23@kernel.org" <jic23@kernel.org>,
-	"dave.jiang@intel.com" <dave.jiang@intel.com>,
-	"alejandro.lucero-palau@amd.com" <alejandro.lucero-palau@amd.com>, Srirangan
- Madhavan <smadhavan@nvidia.com>, "corbet@lwn.net" <corbet@lwn.net>,
-	"skhan@linuxfoundation.org" <skhan@linuxfoundation.org>, "dave@stgolabs.net"
-	<dave@stgolabs.net>, "alison.schofield@intel.com"
-	<alison.schofield@intel.com>, "vishal.l.verma@intel.com"
-	<vishal.l.verma@intel.com>, "iweiny@kernel.org" <iweiny@kernel.org>,
-	"ming.li@zohomail.com" <ming.li@zohomail.com>, Yishai Hadas
-	<yishaih@nvidia.com>, Shameer Kolothum Thodi <skolothumtho@nvidia.com>,
-	"kevin.tian@intel.com" <kevin.tian@intel.com>, "bhelgaas@google.com"
-	<bhelgaas@google.com>, "dmatlack@google.com" <dmatlack@google.com>,
-	"kees@kernel.org" <kees@kernel.org>, "gustavoars@kernel.org"
-	<gustavoars@kernel.org>, Neo Jia <cjia@nvidia.com>, Krishnakant Jaju
-	<kjaju@nvidia.com>, Vikram Sethi <vsethi@nvidia.com>, Zhi Wang
-	<zhiw@nvidia.com>, "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-cxl@vger.kernel.org"
-	<linux-cxl@vger.kernel.org>, "linux-pci@vger.kernel.org"
-	<linux-pci@vger.kernel.org>, "linux-kselftest@vger.kernel.org"
-	<linux-kselftest@vger.kernel.org>, "linux-hardening@vger.kernel.org"
-	<linux-hardening@vger.kernel.org>, Manish Honap <mhonap@nvidia.com>
-Subject: RE: [PATCH v5 06/27] vfio/pci: Detect CXL devices and load the CXL
- provider on demand
-Thread-Topic: [PATCH v5 06/27] vfio/pci: Detect CXL devices and load the CXL
- provider on demand
-Thread-Index: AQHdRgp0IN2H5fI/1U+81S1A1Zc0qLbSdnEAgAZeFtA=
-Date: Mon, 21 Sep 2026 10:05:30 +0000
-Message-ID:
- <IA1PR12MB9030D0A74FE0BABC769DCCDBBD842@IA1PR12MB9030.namprd12.prod.outlook.com>
-References: <20260916183540.3813685-1-mhonap@nvidia.com>
- <20260916183540.3813685-7-mhonap@nvidia.com> <aqun1vZcE3gQzXD9@MWDK4CY14F>
-In-Reply-To: <aqun1vZcE3gQzXD9@MWDK4CY14F>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA1PR12MB9030:EE_|IA0PR12MB8974:EE_
-x-ms-office365-filtering-correlation-id: a6c3da83-7f45-43af-017e-08df17c7de57
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|10067099003|4143699003|38070700021|56012099006|5023799004|11063799006|22082099003|18002099003|6133799003;
-x-microsoft-antispam-message-info:
- Uf85updehh3XL0I2JeIVVSa0Tfsj1LJb/r4ONHdLdciWp/vWqD9JsPNqUrVlSm0Wv2Z3zwurLPVA1hwzjDwTiUswUDMWFI6APqX13VMf07OUgk6iDq7xaSvpakWsc4OSpstBOo7qwg/bhuguqy0IOqI0lDOEb1oYSp5KUNWiuHrnJVYPApIwjSnmEKkrOOWVj565KO93I7n5fjAxwecp3buLHNrFhwqaexic2C57zWSo6dMEirMPQoE3iqLJszeYBVSSGagfWgqj/zF9d2alVitfOJk4OUSjG05AEDyIlwjdmQ6x3u1PbPvjCN6iCZnuMVzOavx19JZY6BWX9E7kBDEN80fuI0brFGpmI1EvsW+mz9S24T3KaJW7uga79e+3v27w7/jFZPaZO501oebslvIcmNo/f4EXsev4+QN9Fn59hfaZmDVHGNTANu8tfJY8kYOEp3Kem9JYnYEB82mOXlzH/4P5rLM5X/gOAjVpGPDFEK657Iszngi8D+o4LBuuv+Z+oLf6Qu8HevFn5S2w9OH5a0LWpZ+RHlWL5AkXFsLQYw0uFg8RfE1uV0rNdhJ9B1PKS95izSLqJaTZuqqGn5gSRgrSFo+nhCWXcsMSJu8VfPZK/Vkt4VTjDqwrdthBQ064GkOmb3fUY5RIfvMqLlbYMXkyVFaujafK6nioxAPR2QTBFTdy5nXUBso8VYIkDueCxPpzUjNbUKD1+RhWga4MYsJKicbuUhGnfboc5no=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB9030.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(10067099003)(4143699003)(38070700021)(56012099006)(5023799004)(11063799006)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?hyy8kErxscK8nM9svWXXf6o5ifFGKhv8D4Wm4AzVdENYczg5JEOkJvvgUkMS?=
- =?us-ascii?Q?WEXVD56wGJ9eSFOJT0aIZ+X2q4ON5m4jX5SpXYkW2Wcq7hYc7ixMKdvsE844?=
- =?us-ascii?Q?51smS3EmLatzyuut+SvOhzW6Y05magIEatiqOOvMr9j4aEGAdhzMwHvP24OL?=
- =?us-ascii?Q?4gF25xji45CGLxIvv2fVDdlNYnkQjzWIbRCisuD841TUtI4Hur7SfWdMfROM?=
- =?us-ascii?Q?MolMshZeQTko8vroYg+rHei5+K0V2uJHsu8rmrs2PtKcNwdOxp7Msi8W7b1C?=
- =?us-ascii?Q?5ImAnFVInknqrBglHC1AmV6uA41cAkVYAxldtIqE/5yxhfAdnDxFvj1eMKp1?=
- =?us-ascii?Q?mxYdqxSKqJLbvVRR/ueKzp2jcmN/P7k4ghvjVmXZTpI5gCfL9QfNqIAu709a?=
- =?us-ascii?Q?g757N8PDFnmh49NtN5nJh91eWIEGAxvlePt6EYFW/gZkwuMgnznBiZ4dIvS7?=
- =?us-ascii?Q?sbgd9lPKotuQdetyg247+3WfOlckYT4HdKf8HuALG31r1HDVPDrT6GS/zdlB?=
- =?us-ascii?Q?rsmMKUGeGpfYRXqOu7bfcIuXlt2nIwZoBlIPrI3RRvFl94WhF1v7O7pZ0Py0?=
- =?us-ascii?Q?uhPg5OtauBKlnO+u/rsyWvTf431XYinNsaMMYnkcI3MhSboby24IZ1Me6R6N?=
- =?us-ascii?Q?PimLfLcXNl8zV6iwtrHEd24gx1ursXq8eqg8oiC83rEjTiKxyZm5N3Xod0M7?=
- =?us-ascii?Q?f8d98CCX8eudixBi+8xF4+5qjbaUJI6/QvYiLRr2qdJoyKGQMAmKY/eUWFxv?=
- =?us-ascii?Q?z1T096ZDpmuKnzLKWzOBKGmVFAWbkc74i8WfCrQ9Ej8CWrhReJplkV8fM4zZ?=
- =?us-ascii?Q?Xaaq2ZX4KKz5Sg5QTmePfG2Z2zsKxcsCSbr8snUv0ifY0COXtsU6wWJJOQUx?=
- =?us-ascii?Q?4iZJe9tbnTwUMgub1dyPMLmCPjzfcyvJT5sG/8ALiQ4DM6N01bB2JuMhfKMA?=
- =?us-ascii?Q?0wbvoDt1ruDC8EhM9Is51EBbTBaviXriVrhet35Vt7Vgyor6fCxb0a3c+waA?=
- =?us-ascii?Q?hoDvDE3/08oZLxs0RPR1lGs/8vMX2Mu99haC5Gownt6KqwcNAEgmMxVvv22f?=
- =?us-ascii?Q?/h84tgif4toKC596CYSefGtR5Antdt42HBW5HdlPwoX9NcKKPDCrPeGoanUO?=
- =?us-ascii?Q?jUZMCqLI1OaDT8ciao2yBMIuDIU4Hh3CmI4G98qsgqw8a9C0Bl7y4BqC2Ve0?=
- =?us-ascii?Q?iPfaCCT8F1jquGonIsqc4+9YOQYPkQHbbjZOIiQwZkIcmQnFTZXLnmwFAYYD?=
- =?us-ascii?Q?lMCkrjA4ANG1GxtlubFf4mdrrMDxwgs/T59g5ReqKSDB353XfebIVqsEZo+4?=
- =?us-ascii?Q?DqSZg6X12ZE8evMHNzTBtLNsKDP0mH7IP+siyQtftam/shD963wvZj3y6L6h?=
- =?us-ascii?Q?MksRvyvYb1ZrOpCP/1xD59wyqqwYeO/Dfgv3I+i31TJ5e+M4Ccl8re/7x/Y+?=
- =?us-ascii?Q?9lKv6xsA7BhUMNphcluWamKf2h8QRLbvT9GRy7ha3IsGAbVlsa3MXAaHz6aL?=
- =?us-ascii?Q?5dRLTNB4zIqHuIKjo/a8tp4S4nEN+jhDnt+iClxImPffzi153FjiJr4kkf+W?=
- =?us-ascii?Q?Pvij+3cE+sb4Z5+khm0dWKK/86pUM1/sr6Hh94tSbz/QS8+RJWzx3SWPiN0i?=
- =?us-ascii?Q?2bLyH/ZdPk/t3j/2IAZQK6GkcxuT3FZZwmUPh6hxLar/aR0A7xupeyEjE5ho?=
- =?us-ascii?Q?V7CH9m5hECUC4hMTUt4pLLE9j18/fEyUEi6PoHA+8eRHRcEG?=
-Content-Type: text/plain; charset="us-ascii"
+ 2026 10:05:53 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 10:05:53 +0000
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 21 Sep 2026 11:05:53 +0100
+Message-Id: <DLKWS377R3K0.1XFDX36YZWRQU@garyguo.net>
+Cc: "Gary Guo" <gary@garyguo.net>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <yury.norov@gmail.com>, <ojeda@kernel.org>
+Subject: Re: [PATCH] rust: bitfield: require Zeroable storage for Zeroable
+ impl
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Yilin Chen"
+ <1479826151@qq.com>
+X-Mailer: aerc 0.22.0
+References: <tencent_AA30574AC78ECFD88D7E042A49371119ED08@qq.com>
+ <DLEFXN8E20PU.3GJN24VECD90Z@garyguo.net>
+ <tencent_BECF7D8D0F045D49DE115EED535736C7EB08@qq.com>
+ <DLKT85RM6XFH.1FHCL3Q40L1I7@nvidia.com>
+In-Reply-To: <DLKT85RM6XFH.1FHCL3Q40L1I7@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0134.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:193::13) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO0P265MB3193:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7aceaec-9e0b-43fd-6dd5-08df17c7ebf2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|10070799003|1800799024|366016|376014|10067099003|56012099006|18002099003|22082099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	w4n34Saib/qDr2Vy5ikrWXsy0T16tnnqWisgTW11WEBIF6pZNtAI9fLzPf5n/cdx8ES5NoPJX3vZXLlS/WO5ygXDULEDfSObsMXKxlewzu00TmZwGEYqgPqocm8iSe/fsMBDUBTd1UDmfvWRawSnABYlfskE0BGsOy/CTCCC8FuWHuNt3VU1PFdYAEJcELrsYU7yth3doaBHdOQNgDkPptSV3mdY3AXgQ/tIot/tth42mc0cmr2zF/BoeON6/v4yZkVIM2v6sefJPmj/c9tj/f/DIpDKJ9dXItB7qfXmpHsAAxGHblwrdvHeCbbpZejdnPlEeB7oCaZmIgZ/Xo32ZeO62m2A6h38VoiUkebkKEBWrbKILX7H8cPPZk+YbuLL/+oi1k8SO5ftQdjgCANW6WJX4+kAJJ836ds3jhC6rW/9oTnQmIAbUj+NCbcvkdeoODEVUFFjvn/Kq+RXjycQvDJeYjMlbQfHcl+N0tYAyd/c7OyHl5vs2/UZxkYwdAYiXBmH2KTOS3ZHdsATRgUN2SFxN2K7jzM86Oav65Y1hX8Kyx4tw/lHBwLYomussvkUEKc/E4f0Ke4mLtSPwFxZyB2THomj2VfMDqAo/cLrU9CyhrFnh9gE/cPZ+J8JYom2FNtVYK1lXjihQqaqVkmIWeJgauuMjLlflPVtZphr/D0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(1800799024)(366016)(376014)(10067099003)(56012099006)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dmszSStNWm9PeVhza2xFTkVGM1QvRGFsTTZLaXpMbVkrWGc2bEVTcWtCV0NU?=
+ =?utf-8?B?M0o5QmJLNzJ0L201UHpxZ04yVHlTd0VmWFJxdU5uWTcwZ28vRjhDM08rc2ov?=
+ =?utf-8?B?NEZDR3F0UUVoYkJmVmt2YTNoS3hxbmU0NVFFeDg4LzJpdGlHZ2laWEZDU05r?=
+ =?utf-8?B?Y0tGaFp4blBvaDRadXoxZHMwc2NkY2p3Q25rdFNzR3hrYi9UdVpIYVJMdUhC?=
+ =?utf-8?B?S0hvaGtpMWkzcURhQ1k1Sk4zQmFHb1VvZFYrb0lNL0VWYkhyU2o2S25aYTlB?=
+ =?utf-8?B?ZFlTNjBtQU03MGxJeE1aVFVUQitlSVhLQXZWakx2bzhpaHhtekZidHF1SWtl?=
+ =?utf-8?B?bk1SQ0daTk4wN3RzZ0lLNTY0UlFucmRGZXN2Wmw5WE5oV1VLZlhLOUhZekd4?=
+ =?utf-8?B?RkJUM25NTXV6VzFvWjM5MStMMnE0dXovbnhLKzJ0MHNlY1JZdGE3VXRyVEx4?=
+ =?utf-8?B?Mktwb29tSGRsRktwYlkzcVdzTVlqeVB4dTJhNTYrd2I2Nlg2cUpGOW5KWUVt?=
+ =?utf-8?B?Wm9TWUllcjNTbkp6S2FzTFNuUGYvVy9mZ1BBTlh0OVNtRktXYWVzd29lQTEr?=
+ =?utf-8?B?Y2pyV2RWR0NNTjVvZXV1QWY4R1ZudWo0em5KYTU3amtDcHVMbXhXeS9TQytu?=
+ =?utf-8?B?RWxaQ2NaQUNaU2JTSkcreVZ6Q21HNkV4Z2xULzZlUFJSenNNUHF3Y3RYMWUv?=
+ =?utf-8?B?Q2xlMGZFblZRdWwyMzRSNWlRa0NId2w5YWZtVjBZWVg5TUdjWkxSbGdwZWxR?=
+ =?utf-8?B?Tmx6eDhHRlprWnJPbVFXazdiZldOZ0dySDlSYjc5QmlSVVVlK1pISVhoSnVT?=
+ =?utf-8?B?ZTlCa1JlS2lIN2Jjemw1Q2RzQlo4amgwbWt0WDNtSUtTaDhjNEM0VzM0Rzhk?=
+ =?utf-8?B?V09WMEFWQVA4Q1BsdTB2MWl2Tnlrc21BNUlickNLZ1J3R1B5WkNWS2xkZ3A0?=
+ =?utf-8?B?cWdZY0VIY1lTUzR2TEdGTHlkMFNIUWRkcGs4emxQM2J1bzMzRWpFMjNQZ2dx?=
+ =?utf-8?B?ejdET3NrNmxlaEFHREoyMWdXRG12eXgxN0JPQVNNYVh0bmdONkt6Z1NTc3B0?=
+ =?utf-8?B?Y0tEaUd1M2dBb09XMk5VT0tEQzNnMy9Sd0YvaVd2STV2UUFKejRFRXJGRVh3?=
+ =?utf-8?B?MVlwSyswQzRDSEtKS3JiSGdJbEorV2R1QXUweXJWMGVjTklob3QrVUdTUXRH?=
+ =?utf-8?B?d3FkYUgxS2RVb09iU01RZmVXRjlkVzRKdmNiaUxVc1NKUUpERUVCekFHQWZl?=
+ =?utf-8?B?MlhmLzFGQjB3R2JmNTg1WS90RnZlZGtnampaSjdtSC9idEdydThWSU05QzZh?=
+ =?utf-8?B?N2FicFEzbHlOcnphVnlVSHNIV21QeWpUeEl2MG5iKzVqTTN0VTFhSGtXQTll?=
+ =?utf-8?B?TTVKM29iUk9IWHVlVUg3cm90ejM5aC9Xa1NDRFhHUWZ4akpYaG5jL2ZibWhM?=
+ =?utf-8?B?U3phbDVXNFdhSDFoakh1SEcxcFBYaitJNGNNb3VhTGptRGN4RDJrZks5a1VJ?=
+ =?utf-8?B?RGp4akw4KzRGM3Q5ZFFDSTVTZzh2eEdQZmhFWm1sMnUwcml0YkVRdGZvS3Ry?=
+ =?utf-8?B?TG8wd283SHZFQ1FDc0FudXZKS1JLdmR2U1RrOGN1aFZvUnovMUtJNnVidVZx?=
+ =?utf-8?B?VHRMcDdUNFlJZFpFZEFuR1BiTVdHTWxHYWNrTUo3SS9ucnpHUG5UeVhwVCtq?=
+ =?utf-8?B?SFpyYTBHaEJxcDF1TFl3bVNNQmZmUElsb3BLQ2l6Sys0dmRYVVRsdG5nOVUy?=
+ =?utf-8?B?M3ZwbHZ1R1pFc2o2Qld2MXVZd0ZUYUFtd2owMTZFWFZLRjFGclZZUnpIbVpl?=
+ =?utf-8?B?R09mRHpmbXR3ZkM1RTRiZ3ExYjZ3dWJaTndFajhLMkNiMm5YUWZKOUV3OWdX?=
+ =?utf-8?B?R2NYcE9lZGZNbkhTV1p0Uk9oc3lLcEFpY1NOS1pjd21lOUJzajNFdWxzV3dF?=
+ =?utf-8?B?UkJPbjYyM29sVGFINUpkcUVlWjk1R1FxNDB5aDNVbmZHZGxsQUtIQm1uVjlG?=
+ =?utf-8?B?SUd0cC9JWm5Yc2Q5UFltL2t5bVBhMkpYd0NSdElqcjZqZkEwQWcvUTJGMDVF?=
+ =?utf-8?B?TGNMYW1rN2EyNlFLeE94SWU0UytwVy9VQkhIdFFRd0lqTXNKcHRmMkpBeWNk?=
+ =?utf-8?B?bTM4ZWd5Sm1rTXo2VHpRMGtHQmt3SkRzaHNnRUgvcFFXNmpHcEwxenYydnZL?=
+ =?utf-8?B?SFFHU0o4akxua3BSOVE2d1RhRVVnVytzbCtUZFZCTkRkVTFGeDNMMjJIdTM0?=
+ =?utf-8?B?N045V0wrOCtyTGdRNjVSV0RPUm11c3daTy9EZi9kQitkb1QwYWFOVEk1ZWRY?=
+ =?utf-8?B?bUVyMks3UmN4a0crSTQ2d2N1cXZlVTFmc1pYNC9TdDRVemdwYTNsZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7aceaec-9e0b-43fd-6dd5-08df17c7ebf2
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB9030.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6c3da83-7f45-43af-017e-08df17c7de57
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Sep 2026 10:05:30.5535
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 10:05:53.5433
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: cdxGbPy43sF4xZT7DaCXkqKPiXlG5NbRbmXVfqqVcuXX/EtUFT1PgCP7ZcmfuaRw4f4ufGLo7rlzNMLbRsAthw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8974
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: P6TdF+f47LzUfdo7UGiLcZkBQz0DdQWzFOadsw+GuKu/Y1ICtbR6YnWgBMGnbfp3HvtVPFesMrPy8/2do1c8zQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB3193
 
+On Mon Sep 21, 2026 at 8:18 AM BST, Alexandre Courbot wrote:
+> On Mon Sep 21, 2026 at 3:32 PM JST, Yilin Chen wrote:
+>> Hi Gary,
+>>
+>> Resending my reply for visibility on the mailing list.
+>>
+>> You are right that a bitfield with at least one field generates a use of
+>> `Bounded<$storage, ...>`, which requires the storage type to implement
+>> `Integer`. However, `bitfield!` also accepts an empty field list. In tha=
+t
+>> case, no `Bounded` use is generated, so the `Integer` requirement is
+>> absent, while the macro still generates the unconditional `Zeroable`
+>> implementation.
+>>
+>> For example:
+>>
+>>     use core::num::NonZeroU32;
+>>     use pin_init::Zeroable;
+>>
+>>     bitfield! {
+>>         struct Bad(NonZeroU32) {}
+>>     }
+>>
+>>     fn check_bad_zeroable() {
+>>         let _: Bad =3D <Bad as Zeroable>::zeroed();
+>>     }
+>>
+>> This currently compiles.
+>
+> No it doesn't.
+>
+> error[E0277]: the trait bound `core::num::NonZero<u32>: kernel::mem::AsRe=
+pr` is not satisfied
+> 364 | /         bitfield! {
+> 365 | |             struct Bad(NonZeroU32) {}
+> 366 | |         }
+>     | |_________^ the trait `kernel::mem::AsRepr` is not implemented for =
+`core::num::NonZero<u32>`
 
+On the other hand, it makes sense for `NonZero<u32>` to implement
+`AsRepr<Repr =3D u32>`. So I think we do need better defense.
 
-> -----Original Message-----
-> From: Richard Cheng <icheng@nvidia.com>
-> Sent: Thursday, September 17, 2026 2:18 PM
-> To: Manish Honap <mhonap@nvidia.com>
-> Cc: alex@shazbot.org; jgg@ziepe.ca; Ankit Agrawal <ankita@nvidia.com>;
-> jic23@kernel.org; dave.jiang@intel.com; alejandro.lucero-palau@amd.com;
-> Srirangan Madhavan <smadhavan@nvidia.com>; corbet@lwn.net;
-> skhan@linuxfoundation.org; dave@stgolabs.net; alison.schofield@intel.com;
-> vishal.l.verma@intel.com; iweiny@kernel.org; ming.li@zohomail.com; Yishai
-> Hadas <yishaih@nvidia.com>; Shameer Kolothum Thodi
-> <skolothumtho@nvidia.com>; kevin.tian@intel.com; bhelgaas@google.com;
-> dmatlack@google.com; kees@kernel.org; gustavoars@kernel.org; Neo Jia
-> <cjia@nvidia.com>; Krishnakant Jaju <kjaju@nvidia.com>; Vikram Sethi
-> <vsethi@nvidia.com>; Zhi Wang <zhiw@nvidia.com>; linux-
-> doc@vger.kernel.org; linux-kernel@vger.kernel.org; kvm@vger.kernel.org;
-> linux-cxl@vger.kernel.org; linux-pci@vger.kernel.org; linux-
-> kselftest@vger.kernel.org; linux-hardening@vger.kernel.org
-> Subject: Re: [PATCH v5 06/27] vfio/pci: Detect CXL devices and load the C=
-XL
-> provider on demand
->=20
-> On Thu, Sep 17, 2026 at 12:05:19AM +0800, mhonap@nvidia.com wrote:
-> > From: Manish Honap <mhonap@nvidia.com>
-> >
-> > A CXL device needs the vfio-cxl callbacks, but pulling vfio-cxl and
-> > the CXL core in unconditionally would bloat every vfio-pci setup.
-> > Detect a CXL Type-2 device at bind and request_module("vfio-cxl") only
-> > then, then hand the device to the registered ops.
-> >
-> > Each bound CXL device pins the provider through
-> > vfio_pci_get_cxl_ops() (try_module_get) and drops it with
-> > vfio_pci_put_cxl_ops() at release, so vfio-cxl can unload once no CXL
-> > device is bound.
-> >
-> > If the provider is absent the device is driven as plain vfio-pci. A
-> > built-in provider whose initcall has not run yet is waited for with
-> > -EPROBE_DEFER; the deferred-probe machinery will retry the bind once
-> > the provider registers.
-> >
-> > Assisted-by: LLM
-> > Signed-off-by: Manish Honap <mhonap@nvidia.com>
-> > ---
-> >  drivers/vfio/pci/vfio_pci_core.c | 84
-> ++++++++++++++++++++++++++++++++
-> >  include/linux/vfio_pci_core.h    |  3 ++
-> >  2 files changed, 87 insertions(+)
-> >
-> > diff --git a/drivers/vfio/pci/vfio_pci_core.c
-> > b/drivers/vfio/pci/vfio_pci_core.c
-> > index 2cc5dd20396c..9eede1e56ab5 100644
-> > --- a/drivers/vfio/pci/vfio_pci_core.c
-> > +++ b/drivers/vfio/pci/vfio_pci_core.c
-> > @@ -2202,6 +2202,84 @@ void vfio_pci_core_unregister_cxl_ops(const
-> > struct vfio_cxl_ops *ops)  }
-> > EXPORT_SYMBOL_GPL(vfio_pci_core_unregister_cxl_ops);
-> >
-> > +static const struct vfio_cxl_ops *vfio_pci_get_cxl_ops(void) {
-> > +	guard(rwsem_read)(&vfio_pci_cxl_ops_rwsem);
-> > +
-> > +	if (vfio_pci_cxl_ops && try_module_get(vfio_pci_cxl_ops->owner))
-> > +		return vfio_pci_cxl_ops;
-> > +
-> > +	return NULL;
-> > +}
-> > +
-> > +static void vfio_pci_put_cxl_ops(const struct vfio_cxl_ops *ops) {
-> > +	module_put(ops->owner);
-> > +}
-> > +
->=20
-> Anything guarantees that we can finish devres cleanup before dropping
-> module ref ?
->=20
-> This function drops the module ref during vfio_pci_remove(), while devres
-> might still pending.
->=20
-> I see in patch 18 it register vfio_cxl_release_hpa() as a devres callback=
-, and it
-> lives in vfio-cxl.
-> If this drops the last module ref, another process could unload vfio-cxl =
-before
-> devres invokes that callback.
->=20
-> Best regards,
-> Richard Cheng.
->=20
+Given that fundamental `bitfield!` needs a plain integer type, I don't thin=
+k we
+want a `Zeroable` bound, but rather just enforce it has to be integer
+primitives.
 
-Yes, I think it is possible that a concurrent unload can free the module te=
-xt
-the callback points at.
+Given the recent `Integer` sealing, ad a check that $storage implements
+`Integer` is probably the best check.
 
-For v6, I dropped the devm action entirely and released the exclusive HDM r=
-ange
-in the provider .release op instead.
+Best,
+Gary
 
-vfio_pci_core_cxl_release() calls ->release() and then vfio_pci_put_cxl_ops=
-(),
-so the range is released synchronously before the module_put; this way no
-vfio-cxl callback outlives the module reference.
-
-Thanks,
-Manish
-
->=20
->=20
->=20
-> > +/*
-> > + * A CXL Type-2 device advertises both CXL.cache and CXL.mem in its CX=
-L
-> DVSEC.
-> > + * pcie_is_cxl() is also true for Type-1 (cache only) and Type-3 (mem
-> > +only)
-> > + * devices, which the vfio-cxl provider does not handle, so confirm
-> > +the Type-2
-> > + * identity before engaging it.
-> > + */
-> > +static bool vfio_pci_is_cxl_type2(struct pci_dev *pdev) {
-> > +	u16 dvsec, cap;
-> > +
-> > +	if (!pcie_is_cxl(pdev))
-> > +		return false;
-> > +
-> > +	dvsec =3D pci_find_dvsec_capability(pdev, PCI_VENDOR_ID_CXL,
-> > +					  PCI_DVSEC_CXL_DEVICE);
-> > +	if (!dvsec)
-> > +		return false;
-> > +
-> > +	if (pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CAP, &cap))
-> > +		return false;
-> > +
-> > +	return (cap & PCI_DVSEC_CXL_CACHE_CAPABLE) &&
-> > +		(cap & PCI_DVSEC_CXL_MEM_CAPABLE);
-> > +}
-> > +
-> > +/*
-> > + * Load vfio-cxl on demand for a CXL Type-2 device and hand the
-> > +device to its
-> > + * ops. If the provider is absent the device is driven as plain
-> > +vfio-pci; a
-> > + * built-in provider whose initcall has not run yet is waited for
-> > +with
-> > + * -EPROBE_DEFER.
-> > + */
-> > +static int vfio_pci_core_cxl_init(struct vfio_pci_core_device *vdev)
-> > +{
-> > +	const struct vfio_cxl_ops *ops;
-> > +	int ret;
-> > +
-> > +	if (!vfio_pci_is_cxl_type2(vdev->pdev))
-> > +		return 0;
-> > +
-> > +	request_module("vfio-cxl");
-> > +	ops =3D vfio_pci_get_cxl_ops();
-> > +	if (!ops)
-> > +		return IS_BUILTIN(CONFIG_VFIO_CXL) ? -EPROBE_DEFER : 0;
-> > +
-> > +	ret =3D ops->init(vdev);
-> > +	if (ret) {
-> > +		vfio_pci_put_cxl_ops(ops);
-> > +		return ret;
-> > +	}
-> > +
-> > +	vdev->cxl_ops =3D ops;
-> > +	return 0;
-> > +}
-> > +
-> > +static void vfio_pci_core_cxl_release(struct vfio_pci_core_device
-> > +*vdev) {
-> > +	if (!vdev->cxl_ops)
-> > +		return;
-> > +
-> > +	vdev->cxl_ops->release(vdev);
-> > +	vfio_pci_put_cxl_ops(vdev->cxl_ops);
-> > +}
-> > +
-> >  int vfio_pci_core_init_dev(struct vfio_device *core_vdev)  {
-> >  	struct vfio_pci_core_device *vdev =3D
-> > @@ -2223,6 +2301,10 @@ int vfio_pci_core_init_dev(struct vfio_device
-> *core_vdev)
-> >  	init_rwsem(&vdev->memory_lock);
-> >  	xa_init(&vdev->ctx);
-> >
-> > +	ret =3D vfio_pci_core_cxl_init(vdev);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> >  	return 0;
-> >  }
-> >  EXPORT_SYMBOL_GPL(vfio_pci_core_init_dev);
-> > @@ -2232,6 +2314,8 @@ void vfio_pci_core_release_dev(struct
-> vfio_device *core_vdev)
-> >  	struct vfio_pci_core_device *vdev =3D
-> >  		container_of(core_vdev, struct vfio_pci_core_device, vdev);
-> >
-> > +	vfio_pci_core_cxl_release(vdev);
-> > +
-> >  	mutex_destroy(&vdev->igate);
-> >  	mutex_destroy(&vdev->ioeventfds_lock);
-> >  	kfree(vdev->region);
-> > diff --git a/include/linux/vfio_pci_core.h
-> > b/include/linux/vfio_pci_core.h index 9fe0d1a3a370..7f3a2bcb5830
-> > 100644
-> > --- a/include/linux/vfio_pci_core.h
-> > +++ b/include/linux/vfio_pci_core.h
-> > @@ -29,6 +29,7 @@ struct vfio_pci_core_device;  struct
-> > vfio_pci_region;  struct p2pdma_provider;  struct dma_buf_attachment;
-> > +struct vfio_cxl_state;
-> >
-> >  struct vfio_pci_eventfd {
-> >  	struct eventfd_ctx	*ctx;
-> > @@ -109,6 +110,8 @@ struct vfio_pci_core_device {
-> >  	struct vfio_device	vdev;
-> >  	struct pci_dev		*pdev;
-> >  	const struct vfio_pci_device_ops *pci_ops;
-> > +	const struct vfio_cxl_ops *cxl_ops;
-> > +	struct vfio_cxl_state   *cxl;
-> >  	void __iomem		*barmap[PCI_STD_NUM_BARS];
-> >  	bool
-> 	bar_mmap_supported[PCI_STD_NUM_BARS];
-> >  	/* Flags modified at runtime - dedicated storage unit */
-> > --
-> > 2.25.1
-> >
-> >
