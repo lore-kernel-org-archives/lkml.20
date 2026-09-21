@@ -1,41 +1,85 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C3947011C;
-	Mon, 21 Sep 2026 10:25:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E24F372ECB
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:25:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789986319; cv=none; b=jGXB8cPRcs5BSxo+lQbYC7IgCjvmUTZ7jLV6/T77YW20/JRA1ERVFsBjmXQm28KbOBnWapWQkTGieXohGk1wnnjSw65fKc5ibKgw1Jf6mCAWi7iTr8IHultxypyXADK7b6yjM1TxjET58q1ffAdT8zm2xVl5b3ET06B7q5UdJEc=
+	t=1789986330; cv=none; b=N+tF+R86IoUnhLbySumKlgG53wvU9krgu+ObuDUzrUI+upvF5U3P889D2aVfok1tj7lNNjwbXoPu/eo9c8sjGbTB5LXm7fabX7/fW0wv02Rd9m6sNsC9ssxGNI1RdiOBfTc8zAHH8wnBnCFzAiL9F9681Jb6IgUbCicvW5QDH4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789986319; c=relaxed/simple;
-	bh=Now0Qpi2foNjf/cfFRimz5v9RXKlErVsVE3KJdhDivE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=L9J5yZSOxPPV1SJv1T99fwNAerKt6AhLuG/+ShyaXcr3iifsXDZ41C5vrljNzZbYa0UiEquY3yLkbfpW6V7FQx1ZC4rqtHkH7SdupYKUafVEp5iagBAd4xdGGVKAQd3aYOZguP2a2JaAsVGe5uLGwCGOyayyLSHBGQ8rvhbeTF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=V67Sce65; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789986330; c=relaxed/simple;
+	bh=2eomYsKhtyUjg78mXiDsoL3CzLp2fP0U1GQBuUbeoJM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CbyAYu2Bj4fDSsBglPAmHaBiQ3CC8tBIpGik9dhY8mY8Tlo+hW9LgUlBX6TNLt94Fku4rFxq6e3hUAeU2pYt6xhope0UlzqR6gfh0Yk8IoiIF72hCqLv0XAmmkxgesnSuz4pUnP8DQOQPhPLksfFDNBfOJAK2xiVSLDrCZQLlbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eXpvxE8s; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="V67Sce65"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=wx
-	wZYCeDLl+p5Y5j0iGX/sMKQABMGkScHGtuKNgNBpY=; b=V67Sce65EGuVzYJ1kl
-	01eraDdvUN54eUmqKZN21b1l688D+d23k3dZH/EWeX2iSCSem3EhmcZHFW8Us0IN
-	TbhQnfko4+5uNF1cqAa0sR57e7d/6e2yawyJqqtpKapfoDwZo1rS8uUy6fJhbqPj
-	mwSRH54MaKvQRUgKhKs2TW7/U=
-Received: from zengchi (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wA3a9ntBbFqcIbHBw--.46549S2;
-	Mon, 21 Sep 2026 18:24:47 +0800 (CST)
-From: Zeng Chi <zeng_chi911@163.com>
-To: pbonzini@redhat.com,
-	seanjc@google.com
-Cc: chao.p.peng@linux.intel.com,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zengchi@kylinos.cn,
-	David Ballesteros <davimaba.v@proton.me>
-Subject: [PATCH v3] KVM: Don't treat reserved xarray entries as having memory attributes
-Date: Mon, 21 Sep 2026 18:24:42 +0800
-Message-Id: <20260921102442.1232375-1-zeng_chi911@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eXpvxE8s"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8692a856865so2558171b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:25:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789986328; x=1790591128; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TT5lRmym0T1mzXaOaX/8a6/gNfD3HTc1xl19TrAEELM=;
+        b=eXpvxE8sBD4ik3g/WHokPk6zdAIubfdm/S+e1wlUY+AjGnsaKXmwiJ+g4A9C0iBjQ8
+         kRR2X+hCX0A6sI0Qgwra4Mu1O/ComapYzd+CBMv3aYJ0OE9F4x5O5V/8m8Tm1NSWPM62
+         D/DfnudoHRslKf6bdso/0Oh4hwNjhpKK0pLiXls5wX6bC7ww/S+Y9/DpBRqq151ikxKz
+         GOliGE8XVzgt0Xiy2/pb7jehsZytoSwcnrSyM0phGDQHB29cfTyNJ1N72kEtVfOMsJvx
+         DeKHJMZDXhHGHaVWAjiX9+/Iph3yl9cYKj6/QcOmMEsMQc2YmdzMglH+RtDOoGl7EmTb
+         OyeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789986328; x=1790591128;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TT5lRmym0T1mzXaOaX/8a6/gNfD3HTc1xl19TrAEELM=;
+        b=BfpmfkvgHHIi9TzdoBVEgkDtzhlD8HpdEH6SwW9+56nMy/iXA0HdTHnz2nZizJCUpX
+         t9HMg26UCVA13oDIepNYFlD9tICF+o3HTMeA0a0s4BrAC5tsrQVXVZmsZXQToLfVmkon
+         4d2bgQ0DYl8eqFDRgBwVTkXE2FyUHNHbf//zLleplqAsPQEUvJEFUzbqB0gFpDev+6v4
+         ONt5DZmrA+opclv9Aw1uKtXW2C00wQes+mnBsFT96S6H5CxzBAgJbWrlRn4Qo9qGvlzw
+         2MLEJLkFnukBlMdxjgLqsC0Yo6exF5+VddtuA4knfOeT2s6KayqvIYGgda9DCI00hUPp
+         n99A==
+X-Forwarded-Encrypted: i=1; AKwUvBxslm9tCHLyjnDa+ufkBwhRBBtZCELC6pc46L5uC7C32S5SGSwcR11F6K/uRSZNPwp3f6BpTeYjIFr3KwI=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/wbcUXT90xrd2+zzqHLKoa78uDfZr72qlZWSEbfwOjWq1q/UX
+	opLoVTxfrVdSwgA3KsMfPofHTDhSgufzMs+6Zf/vulqlPVPL8HJiZH/E
+X-Gm-Gg: AYBFou0/MbKiVX/++D66QmoPjheBe+283CsQnUl6aSHDDB0cHOrAda5/nWUkz8LAxRS
+	I9ttH/WBC7n1sX3T0hKnt5Awg1q4cjn8z5GTmjPM3wEBOkAOLYQ5txnAQY5AvJxDCeiVrU2C0R3
+	blza9QW7Wyq4mlnASCVOD0Bb6KrVhWa70xLbyV/gHO3EcxaDdI6dqO85ysEGWAPkzDXu1gyh5B3
+	MMc00JOY094RKuJS/mvud4Rz1I4lTl/P1ss6fC5GuDjd3MqidVM+WLTBw2q86C6VOof4UX5CGNg
+	RinqZIbLzwtIz68BwPmsV7408lu4/gz1FpSfOZ1a3HGNtNeiDCDzRGgw9fPLORsFqQinSPHpr78
+	o8ZQEfd/0rpCwRT/zJJ5VUI/GHsnBypfzHCOkDvnaAdz4/5K4AkaqjXdBdpdWOWHtYEF7avK4aa
+	22S7yE6FBwT/M7YhtIAJLrKM/YRZL86XNx3iNC3buR50wLvMdDFYvMjGkU1W0ccd9dI1iC1Z7KT
+	RYWz+dJr45siymoMApjp1gfEvKr
+X-Received: by 2002:a05:6a00:1911:b0:878:34e7:9a3c with SMTP id d2e1a72fcca58-87834e7a3a3mr7459656b3a.53.1789986328468;
+        Mon, 21 Sep 2026 03:25:28 -0700 (PDT)
+Received: from buffalo-ssd.taila54753.ts.net ([240b:253:4760:f400:1ebf:ceff:fe7f:5e0b])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a94f238csm2909174b3a.21.2026.09.21.03.25.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 03:25:28 -0700 (PDT)
+From: Akari Tsuyukusa <akkun11.open@gmail.com>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Danilo Krummrich <dakr@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Akari Tsuyukusa <akkun11.open@gmail.com>,
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Laura Nao <laura.nao@collabora.com>,
+	Sjoerd Simons <sjoerd@collabora.com>,
+	linux-clk@vger.kernel.org (open list:COMMON CLK FRAMEWORK),
+	linux-kernel@vger.kernel.org (open list:ARM/Mediatek SoC support),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
+	linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC support)
+Subject: [PATCH 0/6] clk: mediatek: Fix descriptor clock ID allocation
+Date: Mon, 21 Sep 2026 19:25:16 +0900
+Message-ID: <20260921102522.1640072-1-akkun11.open@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,109 +87,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wA3a9ntBbFqcIbHBw--.46549S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWw4DtryfXrW3WF43uF18Grg_yoWrXF1rpF
-	95GryUKws5tr1xZFZaya1DZ3Wruw1Sqw45JrWDKw1DZw15JasaqryrKr1YvrW3ArWkW3Wj
-	qF4jva48u3yDZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07joGQDUUUUU=
-X-CM-SenderInfo: 52hqws5fklmiqr6rljoofrz/xtbCvw+DP2qxBe-MqAAA3Z
 
-From: Zeng Chi <zengchi@kylinos.cn>
+Several MediaTek clock providers have clock IDs that do not match the
+size of the clock array allocated by the common descriptor-based probe.
 
-kvm_vm_set_mem_attributes() reserves an xarray entry for every gfn in
-the range before storing the new attributes, so that the store loop
-can't fail partway through.  If one of the reservations fails, e.g. with
--ENOMEM, the entries that were already reserved are left in the array.
-That is harmless as far as xa_reserve() is concerned, as the reserved
-entries read back as NULL via xa_load(), but it confuses the "does this
-range have no attributes at all" check:
+Add dummy entries for missing IDs so that the allocated onecell data
+covers the complete clock ID space used by each provider.
 
-	if (!attrs)
-		return !xas_find(&xas, end - 1);
+Akari Tsuyukusa (6):
+  clk: mediatek: Fix MT6779 clock onecell IDs
+  clk: mediatek: Fix MT6797 clock onecell IDs
+  clk: mediatek: Reserve missing MT8167 clock ID
+  clk: mediatek: Reserve missing MT8173 topckgen IDs
+  clk: mediatek: Reserve missing MT8196 MDP clock IDs
+  clk: mediatek: Reserve missing MT8516 top clock IDs
 
-A reserved entry is XA_ZERO_ENTRY, not NULL, and xas_find() returns it
-as present.  So a leftover reservation makes KVM report that a fully
-shared range has attributes even though kvm_get_memory_attributes()
-returns none for every gfn in the range.  On x86, the next time
-mixed-attribute tracking is recomputed for the range (memslot creation,
-or a later attribute change that straddles the 2MiB page),
-hugepage_has_attrs() treats a fully shared 2MiB range as mixed and
-refuses to map it with a hugepage, until userspace happens to set
-attributes on the range again.
+ drivers/clk/mediatek/clk-mt6779-aud.c      | 1 +
+ drivers/clk/mediatek/clk-mt6779-cam.c      | 1 +
+ drivers/clk/mediatek/clk-mt6779-img.c      | 1 +
+ drivers/clk/mediatek/clk-mt6779-ipe.c      | 1 +
+ drivers/clk/mediatek/clk-mt6779-mfg.c      | 1 +
+ drivers/clk/mediatek/clk-mt6779-mm.c       | 2 ++
+ drivers/clk/mediatek/clk-mt6779-vdec.c     | 1 +
+ drivers/clk/mediatek/clk-mt6779-venc.c     | 1 +
+ drivers/clk/mediatek/clk-mt6779.c          | 1 +
+ drivers/clk/mediatek/clk-mt6797-img.c      | 1 +
+ drivers/clk/mediatek/clk-mt6797-mm.c       | 1 +
+ drivers/clk/mediatek/clk-mt6797-vdec.c     | 1 +
+ drivers/clk/mediatek/clk-mt6797-venc.c     | 1 +
+ drivers/clk/mediatek/clk-mt8167.c          | 1 +
+ drivers/clk/mediatek/clk-mt8173-topckgen.c | 7 +++++++
+ drivers/clk/mediatek/clk-mt8196-mdpsys.c   | 2 ++
+ drivers/clk/mediatek/clk-mt8516.c          | 2 ++
+ 17 files changed, 26 insertions(+)
 
-Drop the shortcut and handle the !attrs case in the per-index loop,
-using xas_next_entry() to find the next non-NULL entry.  xas_next_entry()
-is essentially an optimized xas_find(), so the effective change is that
-the !attrs lookup now goes through xas_retry() like the attrs != 0 case,
-i.e. reserved entries are skipped and retry entries restart the walk.
-Don't check the index when no entry is found, as the xarray leaves the
-xas index in a bogus state in that case; no entry simply means the rest
-of the range has no attributes.
-
-KVM never stores a non-NULL entry with a value of zero (clearing stores
-NULL), but such an entry would be returned by xas_next_entry() and trip
-the index check, so WARN if one is ever seen.
-
-While at it, skip the reservation loop entirely when clearing attributes,
-as storing NULL only erases the entry and never needs to allocate, so no
-reservation (and no cleanup of a failed one) is required in that case.
-
-Fixes: 5a475554db1e ("KVM: Introduce per-page memory attributes")
-Suggested-by: Sean Christopherson <seanjc@google.com>
-Cc: David Ballesteros <davimaba.v@proton.me>
-Signed-off-by: Zeng Chi <zengchi@kylinos.cn>
----
- virt/kvm/kvm_main.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
-
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 108d42c5c1d6..c0b00c8ad2ea 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -2457,14 +2457,23 @@ bool kvm_range_has_memory_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
- 		return (kvm_get_memory_attributes(kvm, start) & mask) == attrs;
- 
- 	guard(rcu)();
--	if (!attrs)
--		return !xas_find(&xas, end - 1);
- 
-+	/*
-+	 * xas_retry() skips reserved (zero) entries.  For !attrs, find the
-+	 * next non-NULL entry; not finding one means the range is clear, and
-+	 * the xas index is bogus in that case, so don't check it.
-+	 */
- 	for (index = start; index < end; index++) {
- 		do {
--			entry = xas_next(&xas);
-+			entry = attrs ? xas_next(&xas) :
-+					xas_next_entry(&xas, end - 1);
- 		} while (xas_retry(&xas, entry));
- 
-+		if (!entry)
-+			return !attrs;
-+
-+		WARN_ON_ONCE(!xa_to_value(entry));
-+
- 		if (xas.xa_index != index ||
- 		    (xa_to_value(entry) & mask) != attrs)
- 			return false;
-@@ -2581,9 +2590,10 @@ static int kvm_vm_set_mem_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
- 
- 	/*
- 	 * Reserve memory ahead of time to avoid having to deal with failures
--	 * partway through setting the new attributes.
-+	 * partway through setting the new attributes.  Storing NULL never
-+	 * allocates, so no reservations are needed when clearing.
- 	 */
--	for (i = start; i < end; i++) {
-+	for (i = start; entry && i < end; i++) {
- 		r = xa_reserve(&kvm->mem_attr_array, i, GFP_KERNEL_ACCOUNT);
- 		if (r)
- 			goto out_unlock;
 -- 
-2.25.1
-
-
-No virus found
-		Checked by Hillstone Network AntiVirus
+2.55.0
 
