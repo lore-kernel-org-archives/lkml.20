@@ -1,232 +1,217 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010021.outbound.protection.outlook.com [52.101.56.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4154CB8C8;
-	Mon, 21 Sep 2026 16:14:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790007289; cv=none; b=ud1Kj4y+j6wkDaSx1Ij6cT66/fdpy+94rvR+CvW/KkzC/vDmqlaGiiM4bigCYachSCrJh8IoCmN9SZYYLVxROHiwgmetMfuwKz3KLyIIwnrATCZc8QEzp6kqII22xn8oBONj8avhAkCEg3I8cKsuKyCiJLXQxL/3BWhwplngY8c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790007289; c=relaxed/simple;
-	bh=hjXbafy4rxZkXAf8mVKHOJ22dxFdhpv4unxVTvmtffw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zjf0kH2qXUgIdvuqUm0lBB2lwhgpp+n6g0XfAQ5bfxv8qQ44grPjzJmfBOZulSZ/SmhqKqQlGwERzbj9nyuai9DJT9GqwGCAKTTc2GXf5Sn8eDxP4MuIq86Pp18lmebtwy8J90mRkmRrZZhr7Dct1pI37uYD+1aScpisxLnZ1xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DmMSZhTs; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D7C34CC635
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:14:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790007291; cv=fail; b=injhhI7Xux3cscoH78ASdiVgur72/wpbfkYTcU5QLqzfwTtQkKWTkYnpJJsiZxF51RnsAx4FcEnY6YTgh8gwaK9w/ij0AodKejcyyYoKUIHTPCi9P/aJ9MNFL8OtmC8oNxzI6Kts5mzrJ8YoUKHvuYXnbsTzKeHmLXgl8Kq5fw0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790007291; c=relaxed/simple;
+	bh=8za191T2BT8yqp67VW0nTBUQ8cb4SGy1ZKEWwdvOhLo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=VupXbxOGubpu9FRI79bciggSh9fVDwXKZKdXG6kW8KsUDi+9/eOht1IO/lQawmtA9SH5ot27QEUu9BPcg6ZKgk+qPAyGJdwXKLgwT0l93YzDUfuoQKtGuT6ZguJrQfzhTjqtL5Vsz05Td28IjQCH2wyWHpxGpRpZk6q4AhqcZ58=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fd2s1r9t; arc=fail smtp.client-ip=52.101.56.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DmMSZhTs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8BF61F000FF;
-	Mon, 21 Sep 2026 16:14:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790007274;
-	bh=ua+CeTf8EeH5BmbofI0sGMgT7vQHm+wg0hsM+OpZO+I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DmMSZhTs56oa06SLaeij4alikNuHGjOhr5f4rIV1oMS5IXas0rbrAvC3V2tsntp7o
-	 F0S9XOP0ThUYjPxJGHzXkXz+QmVYkEN9inRYxS9UciXXXAAVqHxoMsuIvTbxPDEz9k
-	 Z2ETx7ivELdGQnyyYQ/6P3MR2+zFoLuBSCTBYOHqtsioeVO1Wbv0F+7mPokAYXSwoM
-	 Wz65RGQbeexV5f2KuvtPjIVU+PaJNvD/ljZIAzid/g5bMQgg3z/KgHivqR0bhKysRt
-	 a+QkawJE4CfYDnXCWWrw+HNUSku6RVTZoBJqE1VJ2ZZgGtWjqEMaJlXWxIjsuG3NFx
-	 bcgGOIw+eyqnA==
-Date: Mon, 21 Sep 2026 18:14:31 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] pwm: tegra: Make use of dev_err_probe()
-Message-ID: <arFVjZ7bE2-lgnqm@orome>
-References: <cover.1789741839.git.u.kleine-koenig@baylibre.com>
- <641219a7d76bbcd8fe98b5955f2355ed45f55986.1789741839.git.u.kleine-koenig@baylibre.com>
- <arD6ILv1sd8YBUXj@orome>
- <arEiVZG7UqxpqAPZ@monoceros>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fd2s1r9t"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A6bjn2Dt53Hiy64R8Q1numgrGOFeKrR/AdU8LEMh0lz3PaRagd4zDC6y5myITf9yLieUGEPmmx/C5RBVp0QRCNkt4EZzAaf0ltTt32M+51+Vd7+4URUHP4whvkWgUsIqIs2o/PaKfwcqSPtqFdcVXz6iMOhZ6JY0lw7ljbVoRg2hshwJjyiST4BwIPRdq1nlC5Xj4LV/gD5cELAKF4nH8sOL3WZPPWJgNQZO3DPWsdZ3yVLxgRdUYmD41cR2o3Hb+TX5Hw43mIReSZvpf7Dzv9PvSwv2o5wqonakh9BC+eaTIo9QLHQ8ipX9ci1aNtvcgn8l5GPRGXmsqMoYT7ARRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=41P3gI6m19CMST9NxSVmilX2LLcr92tNyUnongMrNE8=;
+ b=YTtpcF8hi/BxJ9IiMyvF97vdcCoxTAr+2YO/z5NNnNMkX3XRtyzFjSQrKw+1QCjRU4I8nNV710HI7NuiyH+nhc+q+p8FrzDxupkOaNwQT86jwlkgxyaFQeGZiac901x4gPsgtr58TeTZOxF4o2FE/CaF2H9FQXxra3Z6/HruMjKBobnajGfMppAhEcEB4Te1Mv4gal1Uy2sLi40IyYsq/+5IALBuS4DmczyViSFGezdh1vVO1YRUe0pL9o4haqgF1lTU/g1/W0wEU0EtBsD7HfW2unWtQDNZvhp/BQlDEC+aoz7TXgIBJZMStysfomJFMIGuySqkcpf5zcLxcQqbzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=41P3gI6m19CMST9NxSVmilX2LLcr92tNyUnongMrNE8=;
+ b=fd2s1r9tzulMuwBF5OfOlh3wy+VdpHcompIIo578m7RvMgQQbinBwMznaN/J1qI3AViOHiPjCR2FQc2scjt+GxHO2BPcpnTrBabFt5hipod2sx7ubhai9tSx9QYp3fa2DVXPtVamQEi1pDAit3RDGUPurMEneSU9TsLMbRuwqZSKUll1I7cNMnSQPVnPXHdboYROHji7zhFfp2/YhcLD3Gk6hDYeJYJg4kIbwxBSuu1ZJho0tUCg8nVkgo1zuCQDNa+y9DXsao0MgeT1ADHxJxz5qpO17BNbo317XRFC+HvAai8ZHFX6Iw+zwT/AYRvW1fA/7kuzbwBYMfHRpTHrZQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by BY5PR12MB4113.namprd12.prod.outlook.com (2603:10b6:a03:207::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 16:14:33 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 16:14:33 +0000
+Date: Mon, 21 Sep 2026 12:14:30 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Yury Norov <yury.norov@gmail.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sched/fair: Rework pick_task_fair() control flow
+Message-ID: <arFX5lm1QRmLJSZj@yury>
+References: <20260909181712.1050224-1-ynorov@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909181712.1050224-1-ynorov@nvidia.com>
+X-ClientProxiedBy: SJ0PR13CA0125.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c6::10) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="txouqlewv4ubh273"
-Content-Disposition: inline
-In-Reply-To: <arEiVZG7UqxpqAPZ@monoceros>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|BY5PR12MB4113:EE_
+X-MS-Office365-Filtering-Correlation-Id: cf549c11-a242-4971-3b3a-08df17fb6c2e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|10070799003|23010399003|366016|7416014|376014|10067099003|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	MbZNse0g+SG/J6I7L36uiMMvFhpxKZMQN/S7Ruyf2sdUIptWCoLyEAH2r6ASCEYybLWQNj3U4bfSyq+J1vcPpCo27FS+KDCc27GEx+7GD0T6Ws6NpuPjRfC6l6BGoTXfyxyv1Q3W2NlZxr9nrXmg6rU1BvA9paVmulgMPll0wzH6CiSGAJDyKMBg6U7zInIor41EU3Hb2u3oHXOoHMo0MLtYYX7cUeqw+nvCqXi1hTxYvl2cnx6GbBH0FSVcxK/inDXWdbRmhsxs7OIVPLHyqkpDJEy3yH6PFj0Q3H+5ftHKc+l4XpZ57x8lU2QeTJxMv++4jcLlpnkszNVjR71KMT+BrfgbW3j73Zn6kjGRcq+QU/KOsgYNOpzQ6mdimnfB8Yu489p1h15HpjhnBSBip7L810FS36qpZVV+wG/uq57X83tLIWjhoW/ClFNdCwK6CbVC9rCRd+PBydqcX901qR40LzHgmdYyVMDyk4ydDWwc4hbMfPqxD1GFiHWoH8/oMV+fgfQZzEBMtpMM+qYUKQ0rtJUX2Bi+fSVdyo6FQ3WeQeE0NYsiQPH4/zmKtcdtRNlSSF93Pl3Q1mlsCAgxSxKEPuIojHyJiV5CuAeQHDD3eo3aq/3yKwBJgYiNBLP2iWc/a+syw9Vcp2kchN3hT7o2OQd+gjdUJWQiEaCFKoo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(23010399003)(366016)(7416014)(376014)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?tY8hfX7X6FYVB9ZSo+dkxVBqBtNSbGlXDrncTpWWSQlIxoC6iZVb7tQvVPj9?=
+ =?us-ascii?Q?rrLXRR+BQBkSPUixopDruJSKQebDTsUCRRkdPquNO4b1/rXeMnx3yt3OtCfk?=
+ =?us-ascii?Q?V5EdNnFSV5HelKU12Zqp/c076N7PELQ1dyscpt9q+Su6932gwKtVhFnzFggx?=
+ =?us-ascii?Q?bBxuh7mZit3o+Ia/7rvotd4FDk/asTo+vNy2k0hqY1IKBG5rEKBn+YYSWLQF?=
+ =?us-ascii?Q?JcLuxAc72zBJVI5gVOAQ5q0wlJIXOKfs+v8impUSkTmCBErKzQT9NK8ro5qq?=
+ =?us-ascii?Q?nCvZSyT8FgoDiZLB3fJE++ENJ2+traipQWYpCVbMgN0MKMvKa6dLuK4gww5L?=
+ =?us-ascii?Q?sYS5d8ZZjpgplWHn1MV2f+rujnnViPEn7d1uTzDD2GFP143JVKpI9E99NEAI?=
+ =?us-ascii?Q?vumbP1v+c9ku2hqm6VKfWzo1wbc3zvetnXQicqMeUi/SbULf0aiSflXFicr8?=
+ =?us-ascii?Q?y/C7fclAjxVmpF5wJMJTmgfRGIaZ77cFSkse8o0DYGcX0xnpKhYkWBJM08fk?=
+ =?us-ascii?Q?4d9rdsS3t7IvuNqBfU8uGe2i4vUJSBukK2C4Cy1nB5yZ2h7ZOFdajo++MSr0?=
+ =?us-ascii?Q?5Wh+3rdtrxy97bN1vPGoPE+zwtZ1t5TOSsuXnKRcykgxEHPRwbU9ArgOfqJP?=
+ =?us-ascii?Q?dkPj+JDX5aARV6bt08M45JubIKfewp42Tqf0ejxTTkC7eXQ83t0KeLFL5lAk?=
+ =?us-ascii?Q?p7sZNiix1VKVPRrPrGbXmHH9nmZNkHJ6AFjsKpkkNdRq+BaMPSRV8ABakAWv?=
+ =?us-ascii?Q?1fv9bk4mXDFd2XL+dAL1MbO1HUOdLr3mLYzXFkmbDhyPcyfOcbH1NtyD0r4z?=
+ =?us-ascii?Q?J8RWtcY+tzaI8BTUsON9RmHJgeJLBtIfiS+zLXLbOUrTNdJ+eFNJ2FpsYSZE?=
+ =?us-ascii?Q?xDxNBd5CVizdpUHg+XWnabd+lDK2GtBaZjJqrG0r+giLK3F0IFHViLkmDJSq?=
+ =?us-ascii?Q?dXYZD0fBmNCimr05EePnAXe7t9I2sLTu5X5Jdl2EQSgDbaAzvtbsQyKzRc4C?=
+ =?us-ascii?Q?glW3zlKVlsJ9UG8SDfRFwTIpy0jNALAjhdpEKpDnMteK+/TBy40OteERhmpO?=
+ =?us-ascii?Q?FoTjo1UilqyyoYDxC2HnsTBqu+iszC44FVJWnFKkYwEgQ4zRWg31FmencQsI?=
+ =?us-ascii?Q?RKRo/AVj2uwutd5fyJl9mQPAN35dWV1ChGi32Zmh9oea9ivfJxxPZmUr+yQP?=
+ =?us-ascii?Q?FYpUxbm23myvjfj9hPwPOXKlhtbux47X44ky0V8QXtWpXJsYaIAOadd37ZZL?=
+ =?us-ascii?Q?GqvnbwT2khhVCr+VZ2dyMHyu57o4MypJoOnHT6Ft/oiPD0SYHq7qWUWygfn3?=
+ =?us-ascii?Q?NlUX+A8pdwOf2OG3CWPM8iJbGAuTXF6hdw4BTe3Om4sEOZ6quyMLEaXEyqxG?=
+ =?us-ascii?Q?9kv93k5wEYoJioZa5jMZDBzxAAyJq5DVvOIHyg9iEwHliUTpvYGJQrW9WgfS?=
+ =?us-ascii?Q?5TKE9CW033C2BX5Lo4y6ugMvPns27EiizkCmTOltSvGbN0fwKdeio1YB1MHQ?=
+ =?us-ascii?Q?iYYT+YJ42FZ74/1otPigU9TkjVEEOfiKPRadKZGvto/I8B3XQU8Mvcq7e8qC?=
+ =?us-ascii?Q?9cjYDh3ftIQqeh61m3AVFZsfWmNJc/tfnXDt9j4DZY0q2v7a7gvB1WEEFvl1?=
+ =?us-ascii?Q?9uhOB+n0m1S5xVyRIofRM0e5+1jMLVkTN3u6I7M3aOFpqsx1CO+bRtMt+WQj?=
+ =?us-ascii?Q?UYEtQ7BtlBHbgNW03KMvZlqS92XI2JbRaPi9SPPlH59wLuqQoxvZVHDRwEFH?=
+ =?us-ascii?Q?LVJGleRCUgLbQ/GaJd031B5uCfDRltooA0GI+rLDu70JJmDh7uIBJqCHuOWm?=
+X-MS-Exchange-AntiSpam-MessageData-1: HQGjmFLiAPecdw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf549c11-a242-4971-3b3a-08df17fb6c2e
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 16:14:33.1743
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mu6ol2hXk3YaCqAQAIXqJcOlIb+EY5CR3yIG+w8/OWLajb7Z+QjCxGnwXQPYoKA40unS/hyuIcU0WA2r5D01GA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4113
 
+Ping?
 
---txouqlewv4ubh273
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 1/3] pwm: tegra: Make use of dev_err_probe()
-MIME-Version: 1.0
-
-On Mon, Sep 21, 2026 at 02:46:03PM +0200, Uwe Kleine-K=C3=B6nig wrote:
-> Hello Thierry,
->=20
-> On Mon, Sep 21, 2026 at 11:38:41AM +0200, Thierry Reding wrote:
-> > On Fri, Sep 18, 2026 at 04:33:45PM +0200, Uwe Kleine-K=C3=B6nig wrote:
-> > > Usage of dev_err_probe() is more compact than dev_err()'s, emits the
-> > > error code and handles -ENOMEM and -EPROBE_DEFER properly. Benefit fr=
-om
-> > > these improvements.
-> > >=20
-> > > Also add a few messages in error paths that lacked an output before.
-> > >=20
-> > > Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
-> > > Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com>
-> > > ---
-> > >  drivers/pwm/pwm-tegra.c | 52 ++++++++++++++++++++++++---------------=
---
-> > >  1 file changed, 31 insertions(+), 21 deletions(-)
-> > >=20
-> > > diff --git a/drivers/pwm/pwm-tegra.c b/drivers/pwm/pwm-tegra.c
-> > > index 5cdbe120ba2d..efb7ab60f602 100644
-> > > --- a/drivers/pwm/pwm-tegra.c
-> > > +++ b/drivers/pwm/pwm-tegra.c
-> > > @@ -316,14 +316,15 @@ static const struct pwm_ops tegra_pwm_ops =3D {
-> > > =20
-> > >  static int tegra_pwm_probe(struct platform_device *pdev)
-> > >  {
-> > > +	struct device *dev =3D &pdev->dev;
-> > >  	struct pwm_chip *chip;
-> > >  	struct tegra_pwm_chip *pc;
-> > >  	const struct tegra_pwm_soc *soc;
-> > >  	int ret;
-> > > =20
-> > > -	soc =3D of_device_get_match_data(&pdev->dev);
-> > > +	soc =3D of_device_get_match_data(dev);
-> > > =20
-> > > -	chip =3D devm_pwmchip_alloc(&pdev->dev, soc->num_channels, sizeof(*=
-pc));
-> > > +	chip =3D devm_pwmchip_alloc(dev, soc->num_channels, sizeof(*pc));
-> > >  	if (IS_ERR(chip))
-> > >  		return PTR_ERR(chip);
-> > >  	pc =3D to_tegra_pwm_chip(chip);
-> > > @@ -331,28 +332,39 @@ static int tegra_pwm_probe(struct platform_devi=
-ce *pdev)
-> > >  	pc->soc =3D soc;
-> > > =20
-> > >  	pc->regs =3D devm_platform_ioremap_resource(pdev, 0);
-> > > -	if (IS_ERR(pc->regs))
-> > > +	if (IS_ERR(pc->regs)) {
-> > > +		/*
-> > > +		 * devm_platform_ioremap_resource() already emits an error
-> > > +		 * message with CONFIG_HAS_IOMEM, so don't emit another message
-> > > +		 * here.
-> > > +		 */
-> >=20
-> > Seems a bit counter-productive to leave comments like this. Function
-> > comments should document what the function does and then people should
-> > read those comments. Then we don't need to mention it every time we call
-> > these functions.
->=20
-> I often deal with bug reports by users where things fail without an
-> error message[1]. So a usual thing I do is checking probe (and other)
-> functions for silent error paths. As I fail to follow the (continously
-> changing) set of functions that emit an error message, this comment is
-> very useful for a me at least and I'd wish others would add such
-> comments, too. (An IMHO fine thing here would be to let no generic
-> resource getter function emit an error message, but that ship has
-> sailed.)
-
-I seem to remember that we discussed both options at the time and the
-general concensus was that these functions should provide canonical
-error messages since their whole purpose was to remove boilerplate and
-about a quarter or so of the boilerplate was the error message, with the
-added issue that error messages were all over the place. All of these
-callsites are going to print an message for these errors, so might as
-well add standard messages for these types of situations and save a
-bunch of text. I think overall it's a win, but it comes at the cost of
-people having to know that these already print errors.
-
-> I'd be open for a shorter marker, that might even be machine-parsable.
-
-I don't know if an extra marker would be all that helpful over a
-comment. The beauty of the current solution is that the error handling
-is reduced to just the check and the return value, everything else is
-encapsulated into the helper.
-
-There are semantic patches that check for these situations, but I
-suspect not everyone runs those. I don't know if we can somehow make the
-compiler warn about these situations.
-
-> > >  		return PTR_ERR(pc->regs);
-> > > +	}
-> > > =20
-> > >  	platform_set_drvdata(pdev, chip);
-> > > =20
-> > > -	pc->clk =3D devm_clk_get(&pdev->dev, NULL);
-> > > +	pc->clk =3D devm_clk_get(dev, NULL);
-> > >  	if (IS_ERR(pc->clk))
-> > > -		return PTR_ERR(pc->clk);
-> > > +		return dev_err_probe(dev, PTR_ERR(pc->clk), "Failed to get clock\n=
-");
-> > > =20
-> > > -	ret =3D devm_tegra_core_dev_init_opp_table_common(&pdev->dev);
-> > > -	if (ret)
-> > > +	ret =3D devm_tegra_core_dev_init_opp_table_common(dev);
-> > > +	if (ret) {
-> > > +		/*
-> > > +		 * devm_tegra_core_dev_init_opp_table_common() emits an error
-> > > +		 * message most of the time, so don't add another.
-> > > +		 */
-> >=20
-> > Same here.
-> >=20
-> > > @@ -385,17 +395,17 @@ static int tegra_pwm_probe(struct platform_devi=
-ce *pdev)
-> > > =20
-> > >  	ret =3D pwmchip_add(chip);
-> > >  	if (ret < 0) {
-> > > -		dev_err(&pdev->dev, "pwmchip_add() failed: %d\n", ret);
-> > > +		dev_err_probe(dev, ret, "Adding pwmchip failed\n");
-> >=20
-> > This stands out as very different from other error messages, so maybe
-> > change this to something like "Failed to add PWM chip" for consistency?
->=20
-> Fine for me, will fix in the next submission.
->=20
-> Thanks for your feedback,
-> Uwe
->=20
-> [1] last instance was just today, where on a bananapi USB didn't work
->     and /sys/kernel/debug/devices_deferred ended up containing:
->=20
-> 	1c13000.usb     platform: supplier 1c13400.phy not ready
-> 	1c1c000.usb     platform: supplier 1c13400.phy not ready
-> 	1c14400.usb     platform: supplier 1c13400.phy not ready
-> 	1c13400.phy     platform: supplier axp20x-usb-power-supply not ready
-> 	1c14000.usb     platform: supplier 1c13400.phy not ready
-> 	1c1c400.usb     platform: supplier 1c13400.phy not ready
-> 	axp20x-usb-power-supply
->=20
->     It would be so easy[2] to add a useful debugging hint here
->=20
-> [2] https://lore.kernel.org/all/b699f8251afed736af454a981630926e45eb7da7.=
-1789983244.git.ukleinek@debian.org/
-
-I see. Yeah, I find it increasingly difficult to remember all the
-context of a function call, whether it is that it prints an error
-message or needs some lock to be held, sleeps or not. Sashiko has
-been really good about pointing some of those things out.
-
-Thierry
-
---txouqlewv4ubh273
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqxV+QACgkQ3SOs138+
-s6HNoRAAgmI2ZiLP12EH1r2UHrED9HjWYRfSeR9ci+2l2B+V3RePnm7bigCLLLNJ
-25NqRe/9mcjMt2f4o+r/2dIePPYHiI/4p+G35Jlz1HRsNt1tdcKfBOx4KngpBb8A
-/QJJgjuI3TAWXkApJUs9eiyZxDdqZcb6kHFBc2eemYslUSPTTNTcYH0+Fh/IxL3N
-Pn9VFlT9KdExN9dluSQmGyvy6L79KO0rHh1Gz84E9lYTGjGOjfNjDtYn/6ty8/ku
-rBB5mISZ+W1Lap5cndnGxHEJmo0wsXMjRX4E6SvOXQ9I+k50MZEX52qCBl8cmaVI
-XkiNmyUV2uuvREclt7NY4Mz3b4yYrB4osO8leVAATF3YXbuoE3/o6XVsA5DX538x
-Ii61rQOTKnAaGZypkvX0HLlbmw3XpQ07x3rLA1RYIu8nAs6lCGZ+rZkv+YpOdYMz
-TjF2IumAF6cnDB0HMf+BPLIIuvQpogy2oGzVPNnbtsJi5vszklcqHyTlnDksnlnd
-aD83rVOwnhdi1hANL8laiEpI6oy+JWNZLpzNjY1PrlS3d4yJiYn73xzio3GJR1i4
-gbiYc6DqtZgOT0UIXMUtic2whkPV4PHlbxMCdTl1Kl8BQeeqGGM/MTCslsBH0FXr
-QK3O20XZe71KV3aT2SjRag3riGVoPppqqyOdEad2axDUe763DvI=
-=tQNN
------END PGP SIGNATURE-----
-
---txouqlewv4ubh273--
+On Wed, Sep 09, 2026 at 02:17:12PM -0400, Yury Norov wrote:
+> Split out the logic picking a task from rq to a separate helper,
+> and get rid of the gotos.
+> 
+> With GCC 15.2.0 and x86_64_defconfig, the new version saves 96 bytes,
+> and with defconfig + CONFIG_SCHED_CORE + CONFIG_CFS_BANDWIDTH it saves
+> 124 bytes.
+> 
+> No functional changes intended.
+> 
+> Signed-off-by: Yury Norov <ynorov@nvidia.com>
+> ---
+>  kernel/sched/fair.c | 51 ++++++++++++++++++++++++---------------------
+>  1 file changed, 27 insertions(+), 24 deletions(-)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index ade1eceb39b8..ad0c477e58a8 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -10043,39 +10043,42 @@ static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_f
+>  	resched_curr_lazy(rq);
+>  }
+>  
+> -struct task_struct *pick_task_fair(struct rq *rq, struct rq_flags *rf)
+> -	__must_hold(__rq_lockp(rq))
+> +static struct task_struct *pick_task_fair_rq(struct rq *rq)
+>  {
+>  	struct cfs_rq *cfs_rq = &rq->cfs;
+>  	struct sched_entity *se;
+> -	struct task_struct *p;
+> -	int new_tasks;
+>  
+> -again:
+> -	if (!cfs_rq->h_nr_queued)
+> -		goto idle;
+> +	while (cfs_rq->h_nr_queued) {
+> +		/* Might not have done put_prev_entity() */
+> +		if (cfs_rq->curr && cfs_rq->curr->on_rq)
+> +			update_curr_eevdf(cfs_rq);
+>  
+> -	/* Might not have done put_prev_entity() */
+> -	if (cfs_rq->curr && cfs_rq->curr->on_rq)
+> -		update_curr_eevdf(cfs_rq);
+> +		se = pick_next_entity(rq, true);
+> +		if (se)
+> +			return task_of(se);
+> +	}
+>  
+> -	se = pick_next_entity(rq, true);
+> -	if (!se)
+> -		goto again;
+> +	return NULL;
+> +}
+>  
+> -	p = task_of(se);
+> -	return p;
+> +struct task_struct *pick_task_fair(struct rq *rq, struct rq_flags *rf)
+> +	__must_hold(__rq_lockp(rq))
+> +{
+> +	struct task_struct *p;
+> +	int new_tasks;
+>  
+> -idle:
+> -	if (sched_core_enabled(rq))
+> -		return NULL;
+> +	do {
+> +		p = pick_task_fair_rq(rq);
+> +		if (p)
+> +			return p;
+>  
+> -	new_tasks = sched_balance_newidle(rq, rf);
+> -	if (new_tasks < 0)
+> -		return RETRY_TASK;
+> -	if (new_tasks > 0)
+> -		goto again;
+> -	return NULL;
+> +		if (sched_core_enabled(rq))
+> +			return NULL;
+> +
+> +		new_tasks = sched_balance_newidle(rq, rf);
+> +	} while (new_tasks > 0);
+> +
+> +	return new_tasks ? RETRY_TASK : NULL;
+>  }
+>  
+>  static struct task_struct *
+> -- 
+> 2.53.0
