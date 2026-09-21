@@ -1,309 +1,115 @@
-Received: from mta0.migadu.com (out-93.mta0.migadu.com [91.218.175.93])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A433EE1E4
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:36:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.93
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789986989; cv=none; b=FNqxA/FjrduDWOUl9UEd2k4vpdF08titZaDSdYnZ/0XoMTd12lSo5DtxNQCTKhVIOmtqPtv655LLgrrp1rZP6mKqdrCGFAqB+ys+uHqXGFYHSzEgrSs3zYpggSbVlmBX4sYTC85wdgtPf/EcS1STnRXdgUlt+PERzXHwyrwtX6I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789986989; c=relaxed/simple;
-	bh=+tmcq41FscUEr4r2n07BCtdn1qbwdVSJKS+ZPfTMX8U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DghObdWgbtTV+z40f9IQ7go2dgyAr0QVbznxOtOg4ceV5AaY0DfFagw4w+478+jXuGHg0KXz+7zzSO6cgIivL9PABvqYK8S2+gmMrI3IDo3fLDPCwgO0mWQiizq7eJVzNSejlZ6Hgdl9CrHYs2owR6eYAjgqEXKtK19w6e5n9go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SnFIJP5M; arc=none smtp.client-ip=91.218.175.93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B064746CC
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:36:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789986996; cv=pass; b=TVnFXHcM+i4gvIy4JVAPMT0iFPVqveTMqLmbMFd0Z/KC4+muH8RUZCf7H5KPlaQTJbdIw+uNwE0DKp0Z+T3DUvG8aPW8xuI7Jxng4wKZ9oWWIUNmh3NaxNX5iGKITyfR2qcdFkLkaIvLsZHOw/6pcPEFdIWxTjqYLxrsBWlqLsE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789986996; c=relaxed/simple;
+	bh=tgcbeSCZ60V4Uq3SzPkVuSOvbwuE+Wldbt8NJtFM49w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mI6Qgn3/0jjF91GcJ2RiEqoYWgyVFRz7Gbn2iUz4JZpydHtuYJWmBFi1d/jN3tZt1fv2qhL9l9mJnxZLmRhbeVKT/Z/zK0Ft512gEaC1JE56550Xn00bFPvWNOux5yXdeYuvr+8CnAYfy27QSZD2OGirpmGkwQ1LXzhBqQa5pfU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Sd+6JFXq; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SnFIJP5M"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+tmcq41FscUEr4r2n07BCtdn1qbwdVSJKS+ZPfTMX8U=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789986985; v=1; x=1790591785;
- b=SnFIJP5M5XU2N3+JURQRMWxbDOwGpyD++IS6l974XOzBNZERVX6dd1zuqsA2ZdaFNTrKALQM
- mHWjAynAMzJKDDC3gw1KkZRb3XlQLKomiuYzdTqHUANCo8XZGxR6g0YqgnpUCP8gTzDwJ4ktxBw
- XDznnOqDTKN93cvicaMyURN4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id ea87f986f0d8cc08;
-	Mon, 21 Sep 2026 10:36:25 +0000
-X-Mizu-Trace-ID: ea87f986f0d8cc08
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Luiz Capitulino <luizcap@redhat.com>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	david@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	ziy@nvidia.com,
-	lance.yang@linux.dev,
-	corbet@lwn.net,
-	tsbogend@alpha.franken.de,
-	maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	agordeev@linux.ibm.com,
-	gerald.schaefer@linux.ibm.com,
-	hca@linux.ibm.com,
-	gor@linux.ibm.com,
-	x86@kernel.org,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	hughd@google.com,
-	dave.hansen@linux.intel.com,
-	djbw@kernel.org,
-	vishal.l.verma@intel.com,
-	dave.jiang@intel.com,
-	akpm@linux-foundation.org,
-	yintirui@huawei.com,
-	dev.jain@arm.com
-Subject: Re: [PATCH v8 00/14] mm: thp: always enable mTHP support
-Date: Mon, 21 Sep 2026 03:36:18 -0700
-Message-ID: <20260921103620.3431087-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <970c8f34-3cf4-4c6c-931c-b132e3bc6838@redhat.com>
-References: 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Sd+6JFXq"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6056be4d2so2274668a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 03:36:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789986993; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bml5uBh7G6n1/GH1MX4WP2JJv5RhE+DQgi/MEny+HGr4O3p08WVJ8TaM3UZDCIGpBr
+         vQzvl+uSjF3PaN0uk/pc2pSy92iXKKTKQXHpel5gx7xyRRk3mzy4rgC1jsIyr5pukkW1
+         cYQQ/EHiUMy7Dd/LWD/mQI/N4kWRcYZABsoGvsIm/t60NxM9EpkCYYw/D8Cpk0vBco+h
+         nO9bOWJRT6bDAdAk+QCGOqAnuAKPINDFVV5ypAAfNowqeSDBWOdEoav3Dmu5DUr7jHzp
+         Ee5rHojQu0cmVPY3olfApmCTA9/ndacZCWf04t23IZ7fynDflRe1Y/UIf2oW3ocETK+N
+         kGwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=h/tDLQ7kiHFPBmC66BABbwtjlpncgEgg8G3PARGPN7c=;
+        fh=mF881Vkh6wtwXd/9zbFK+6S8hxgJGXgdDEuHTSifQz4=;
+        b=GYBSZhdQ2D5RN4C6D3oIFbNq2w20eb40JgrVZFLfOoz/VjPtgnmRiYAge/Y/Skaz5t
+         VkFHMM4GkEW4BPwogPreGfOGFYXE/UN2hX0QRjHrBO/+iE7IeiAWthWzxaRj79IhmNgm
+         9jjwqAQ8KSIl/12Yvo+rH7BqGduT/pld2R+9usTT2YMg5Wy+B9z7m/vPOeVqIwRkxTjO
+         MauEv7zSnkgcjlN2o12+r47NIqpH5p7NhRPP5I4UqTgndVmK5Wq8W/7zoyvHNJicNIx8
+         9wKYzJtZezACwYChWIFYgM85+n+TiOIyEEixK+jiQ411ylLW1a5mRTdgvob10/XMnEY7
+         FHuw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789986993; x=1790591793; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h/tDLQ7kiHFPBmC66BABbwtjlpncgEgg8G3PARGPN7c=;
+        b=Sd+6JFXqGyBFMEWfi+fEPY4u9Dp9u6tdPWZjrQa1b4oyWG4vVy/tHid3sWNRjKbhzR
+         mJt/q1cnfu45peb8OyZsWdgYrZlfiWelKFywkibA4xFeBbnoXnoPhFsDD3u70QcuJa9R
+         /fmSEuUZiovgFLf1RZtbueIax0vY0a+QSi72a2belA1XYUo4Q0SaV5uCxjdRGdRQCzWT
+         GD621IWI+DGJ20dEHSSDtXRbfvDH2W8ZP+4ptCkaTlpfIuM6g4/F6RWTd2G73punhYSI
+         4whdi4sbDv3FYeshDeWtmYPbO9RY1GzhHKPEJbDbzRWC5C1csDjzrSW2/7HqBZp/eQq8
+         sElg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789986993; x=1790591793;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=h/tDLQ7kiHFPBmC66BABbwtjlpncgEgg8G3PARGPN7c=;
+        b=Lye69sW4k5jjIBlK4dOJgM7nTJKTpvD+Sue32jyF23vFefNYW6gIAstrGIHP+w0xnJ
+         cRwBwGEAadnYI6pzwZrf3vnG7DaE7CE4l+y6BM+Tg9/U8Mu04sezOKrrcAfp9Hr9vBoQ
+         WwzPGktnXMGoEneGEVJEGShGg28+722Nih7MvjpLXzsq25/ECj3OGOj4+5HhgS5gnreS
+         ngA2MaibsCPUzFzy2PK4R0zVhc49VAVoUcCukqMdMbrMCTsMrjK6jb/Jh/vXNv1qf3Y4
+         9MabFx/sp4Eal+QhhnLnXYfwfQWnQmS3RtDHslrrlm6eh2ME/vL3Lrtreq+6QXZ0m0EW
+         O98w==
+X-Forwarded-Encrypted: i=1; AKwUvBxIBX4vPcBYvQpua+g+vUBIk2+Ujw4DTWZZ65DY1MXiXmHIoZxQScfn8yWodoQsU9XB5aXXkNyCR5rWrao=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFvSGF5jg+nM77FK34F2myjyixk2cH2GaIhQZI6bhCTMjhVTxP
+	8oL7ZTA0YlVhXfFrsETODN3f3PfyIodWRQuxdobfXMem0EI7u7FOEAfJomDI0/qhLb33KvxT2gp
+	f63viQFzWExRrA5V+gHnz3SsFyj6oCLI9P0XM8GA=
+X-Gm-Gg: AYBFou2FAwax1aofL7TvB+fM3TGUjkOCOJhjPFvk7M8wbMRL1QFAwyuavY/bop50EXd
+	KHWEL6kWp8eAJmv5tXgNmOD0m09mmmCrt4vfIl9m66q4WDeaBnqDcxGr1YE5IuyMInjo07RvjYz
+	qwrJMl4Efzt9KodwNbliKlxVpkKgF+qoPZ0q0qRhrPMTuksbWK6u6F84Yr5NPVYFQkBA89V3H+w
+	EDMdzL6E8scip4nZR3AX8bidU7qjLFhlV6/jU/lFnBwIOVvxbXhPNUaUwRPSsZqN7PbrQKx6RJa
+	jT00hxywiaqIuI4vaSLrul48ED597DguU6IHRth/wzMuXZJrSww8sw==
+X-Received: by 2002:a05:6402:4547:b0:6a9:f88b:14dd with SMTP id
+ 4fb4d7f45d1cf-6aa4f97d7cfmr6238277a12.1.1789986992392; Mon, 21 Sep 2026
+ 03:36:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260918175736.355305-1-l.scorcia@gmail.com> <178998607025.21155.9680834242820851509.b4-ty@b4>
+In-Reply-To: <178998607025.21155.9680834242820851509.b4-ty@b4>
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Date: Mon, 21 Sep 2026 12:36:20 +0200
+X-Gm-Features: AcwNN1VQ6S9fCy63ty823Nyxcerwh9XF-bIr0lhnPcmyyBWQe3Ulp9EvTrhD9Cw
+Message-ID: <CAORyz2+E9LY+6sb+0G-deR8ZVZK_xu+p_hvp8aKteVVhHpeBRQ@mail.gmail.com>
+Subject: Re: (subset) [PATCH 0/4] Add support for the mt8167 display pipeline
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-mediatek@lists.infradead.org, 
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>, 
+	Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 18 Sep 2026 10:01:35 -0400 Luiz Capitulino <luizcap@redhat.com> wrote:
+> Applied to v7.3-next/soc, thanks!
+>
+> [3/4] soc: mediatek: mt8167-mmsys: add routes for all display paths
+>       commit: ae0968038f994d6e275f5dc94a27325ee751fe58
 
-> 
-> 
-> On 9/18/26 6:37 AM, Usama Arif wrote:
-> > 
-> > 
-> > On 18/09/2026 02:45, Luiz Capitulino wrote:
-> >> Introduction
-> >> ============
-> >>
-> >> Today, if an architecture implements has_transparent_hugepage() and the CPU
-> >> lacks support for PMD-sized pages, the THP code disables all THP, including
-> >> mTHP.
-> > 
-> > 
-> > Hi Luiz,
-> > 
-> > Sorry for asking this so late in the series, but which CPUs lack support for
-> > PMD sized pages?
-> > 
-> > Is this series mainly for PowerPC?
-> 
-> No :)
-> 
-> The architectures that have conditional PMD page support (ie. discovered
-> at run-time via has_transparent_hugepage()) are x86, s390, powerpc and
-> mips.
-> 
-> For x86 for example, even on 64-bit there are cases where the PSE bit
-> may not be present (eg. some errata and by hypervisor CPUID masking).
-> 
-> That being said, the main goal of the series is that
-> has_transparent_hugepage() is overloaded: it has different semantics on
-> those architectures and is used to gate all THP support (which is not
-> the right thing to do for mTHP).
+I'm sorry Angelo, please revert this - I'll post a v2 with the
+corrections spotted by Sashiko [1] later today.
+Thank you
 
-Thanks for clearing that and the patches.
-
-They all look good to me, apart from the the comment in the last patch.
-
-Feel free to add
-
-Acked-by: Usama Arif <usama.arif@linux.dev>
-
-to all of them apart from last.
-
-One nit: I would put the above goal of clean up at the start of the
-coverletter, instead of starting with adding mTHP support for CPUs
-that lack PMD.
-
-Thanks,
-Usama
-
-> 
-> > 
-> > Thanks,
-> > Usama
-> > 
-> >>
-> >> This happens because the has_transparent_hugepage() helper is overloaded:
-> >> its name implies it checks whether THP is enabled, but on some architectures
-> >> it actually checks whether the CPU supports PMD-sized pages. In addition,
-> >> the THP and shmem code have a big switch on has_transparent_hugepage().
-> >>
-> >> This series solves this by decoupling THP availability checking from
-> >> querying CPU support for PMD-sized pages. THP availability can be checked
-> >> with IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE). For querying PMD-sized page
-> >> support, this series introduces a new helper called pgtable_has_pmd_leaves(),
-> >> which is independent of THP, has well defined semantics and can be used
-> >> in fast paths.
-> >>
-> >> Core THP code and shmem can use pgtable_has_pmd_leaves() to determine
-> >> PMD-sized THP support at page fault time (or folio allocation time for
-> >> shmem), leaving THP and shmem always enabled for other THP sizes. For
-> >> architectures and CPUs that do support PMD-sized pages there's no
-> >> intended change in behavior.
-> >>
-> >> We also convert each user of has_transparent_hugepage(), and the related
-> >> helper thp_disabled_by_hw(), to IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)
-> >> and/or pgtable_has_pmd_leaves() according to the call site's check semantics.
-> >> On s390, powerpc, mips and x86 the arch has_transparent_hugepage()
-> >> implementation is moved out of the CONFIG_TRANSPARENT_HUGEPAGE guard and
-> >> renamed to arch_has_pmd_leaves().
-> >>
-> >> Thanks to David Hildenbrand for suggesting this improvement and for
-> >> providing initial guidance (all bugs and misconceptions are mine).
-> >>
-> >> This applies to mm-new 93f615a22169 ("mm/swap, PM: hibernate: atomically
-> >> replace hibernation pin").
-> >>
-> >> Reporting availability of PMD-sized pages to user-space
-> >> =======================================================
-> >>
-> >> Before this series, not having PMD pages available would shut down THP support
-> >> meaning that /sys/kernel/mm/transparent_hugepage would not be available.
-> >> After this series, /sys/kernel/mm/transparent_hugepage and hpage_pmd_size are
-> >> always available but hugepages-<PMD-size>kB is only available if PMD-sized
-> >> pages are supported.
-> >>
-> >> To me this seems logical, as hugepages-<size>kB is only available if <size>
-> >> is supported. If this is correct, then MM kselftests that depend on PMD-sized
-> >> pages will need to be updated to check for it as they fail with this series
-> >> applied when PMD-sized pages are not available.
-> >>
-> >> The alternative is changing hpage_pmd_size: either don't create the file
-> >> when PMD-sized pages are not available or set hpage_pmd_size=0. My concern
-> >> is that this could be considered an ABI breakage as this file was never
-> >> reported to be optional or report a zero value.
-> >>
-> >> Testing
-> >> =======
-> >>
-> >> - Ran MM kselftests on x86_64 and s390
-> >> - Tested all mTHP sizes allocation on x86_64 (with and without PMD-sized
-> >>    pages available)
-> >> - Tested shmem with within_size w/ mTHP on x86_64 (with and without
-> >>    PMD-sized pages available)
-> >> - Performed defconfig build on x86_64, s390, arm64, powerpc, and mips
-> >>
-> >> NOTES:
-> >>    * I'm forcing arch_has_pmd_leaves() off on x86 to simulate not having
-> >>      PMD-sized pages available
-> >>
-> >>    * Running the MM kselftests when PMD pages are not available causes some
-> >>      tests that depend on PMD-sized THP pages to fail as noted earlier
-> >>
-> >> Changelog
-> >> =========
-> >>
-> >> v8
-> >> --
-> >> - Fixed build breakage on MIPS (Lance)
-> >> - Rebased on top of mm-new (fixed conflicts in include/linux/pgtable.h and
-> >>    mm/shmem.c - dropped a Reviewed-by as a result)
-> >>
-> >> v7
-> >> --
-> >> - Applied on top of latest mm-new
-> >> - Improved various changelogs including cover-letter
-> >> - Changed arch_has_pmd_leaves() default implementation to use IS_ENABLED()
-> >>    instead of IS_BUILTIN()
-> >>
-> >> v6
-> >> --
-> >> - Rebased on top of mm-unstable (required a minor conflict resolution)
-> >> - Added more Reviewed-by and Acked-by tags
-> >>
-> >> v5
-> >> --
-> >> - Moved init_arch_has_pmd_leaves() to mm_core_init() (David)
-> >> - Renamed init_arch_has_pmd_leaves() to pgtable_leaf_support_init() (Lance)
-> >> - Added new patch changing shmem_getattr() to set blksize according to
-> >>    highest supported THP order (Baolin)
-> >> - Added new patches to move has_transparent_hugepage() out of
-> >>    CONFIG_TRANSPARENT_HUGEPAGE guards
-> >> - shmem_allowable_huge_orders(): rename variable and only disable
-> >>    PMD_ORDER (David)
-> >> - Added <linux/jmp_label.h> to include/linux/pgtable.h
-> >> - Added new tags and removed Reviewed-by from changed patches
-> >>
-> >> v4
-> >> --
-> >> - Used static key for pgtable_has_pmd_leaves() API (Lance)
-> >> - Moved shmem pgtable_has_pmd_leaves() check to
-> >>    shmem_allowable_huge_orders() (Baolin)
-> >> - Default pgtable_has_pmd_leaves() implementation to
-> >>    IS_ENABLED(CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE) (Zi)
-> >> - Dropped patch “mm: thp: x86: cleanup PSE feature bit usage” (Dave)
-> >>
-> >> v3
-> >> --
-> >> - Rebased on top of latest Linus tree
-> >> - Removed i915 patch as driver dropped has_transparent_hugepage() usage
-> >> - Moved init_arch_has_pmd_leaves() call in start_kernel() to avoid conflict
-> >>    with early_param handlers clearing CPU feature flags
-> >> - Fixed build error with CONFIG_MMU=n (kernel test robot)
-> >> - Fixed huge_anon_orders_inherit default setting when !pgtable_has_pmd_leaves() (Baolin)
-> >> - Small commit changelog improvements
-> >>
-> >> v2
-> >> --
-> >> - Added support for always enabling mTHPs for shmem (Baolin)
-> >> - Improved commits changelog & added reviewed-by
-> >>
-> >> v1
-> >> --
-> >> - Call init_arch_has_pmd_leaves() from start_kernel()
-> >> - Keep pgtable_has_pmd_leaves() calls tied to CONFIG_TRANSPARENT_HUGEPAGE (David)
-> >> - Clear PUD_ORDER when clearing PMD_ORDER (David)
-> >> - Small changelog improvements (David)
-> >> - Rebased on top of latest mm-new
-> >>
-> >> Luiz Capitulino (14):
-> >>    docs: tmpfs: remove implementation detail reference
-> >>    mm: shmem: shmem_getattr(): set blksize to highest supported THP order
-> >>    mm: introduce pgtable_has_pmd_leaves()
-> >>    drivers: dax: use pgtable_has_pmd_leaves()
-> >>    drivers: nvdimm: use pgtable_has_pmd_leaves()
-> >>    mm: debug_vm_pgtable: use pgtable_has_pmd_leaves()
-> >>    mm: shmem: allow THP support determination at folio allocation time
-> >>    s390: move has_transparent_hugepage() out of THP guard
-> >>    powerpc: move has_transparent_hugepage() out of THP guard
-> >>    mips: move has_transparent_hugepage() out of THP guard
-> >>    x86: move has_transparent_hugepage() out of THP guard
-> >>    treewide: introduce arch_has_pmd_leaves()
-> >>    mm: replace thp_disabled_by_hw() with pgtable_has_pmd_leaves()
-> >>    mm: thp: always enable mTHP support
-> >>
-> >>   Documentation/filesystems/tmpfs.rst           |  5 ++--
-> >>   arch/mips/include/asm/pgtable.h               |  6 ++--
-> >>   arch/mips/mm/pgtable.c                        | 25 ++++++++++++++++
-> >>   arch/mips/mm/tlb-r4k.c                        | 22 --------------
-> >>   arch/powerpc/include/asm/book3s/64/hash-4k.h  |  2 +-
-> >>   arch/powerpc/include/asm/book3s/64/hash-64k.h |  2 +-
-> >>   arch/powerpc/include/asm/book3s/64/pgtable.h  | 18 ++++++------
-> >>   arch/powerpc/include/asm/book3s/64/radix.h    | 14 ++++-----
-> >>   arch/powerpc/mm/book3s64/hash_pgtable.c       |  8 ++---
-> >>   arch/s390/include/asm/pgtable.h               |  6 ++--
-> >>   arch/x86/include/asm/pgtable.h                | 12 ++++----
-> >>   drivers/dax/dax-private.h                     |  2 +-
-> >>   drivers/nvdimm/pfn_devs.c                     |  6 ++--
-> >>   include/linux/huge_mm.h                       |  7 -----
-> >>   include/linux/pgtable.h                       | 21 ++++++++++++--
-> >>   mm/debug_vm_pgtable.c                         | 20 ++++++-------
-> >>   mm/huge_memory.c                              | 27 ++++++++++++-----
-> >>   mm/memory.c                                   | 11 ++++++-
-> >>   mm/mm_init.c                                  |  1 +
-> >>   mm/shmem.c                                    | 29 ++++++++++++-------
-> >>   20 files changed, 144 insertions(+), 100 deletions(-)
-> >>
-> > 
-> 
-> 
+[1] https://lore.kernel.org/linux-mediatek/CAORyz2KEfzcJ_2AphkPU6o-YhLAqudCXVdY+LDoynUx_FsTMJg@mail.gmail.com/
+--
+Luca Leonardo Scorcia
+l.scorcia@gmail.com
