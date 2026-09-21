@@ -1,33 +1,40 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 14AFE480348
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:49:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3803147B43F;
+	Mon, 21 Sep 2026 10:49:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789987777; cv=none; b=n2sK1Ch10mBd32ONcatYuVy6RlLc5Z66y9OpLMh04AnPna3N3Pxp98+tsds6bpxMEHTAWInaM4YOq5hob4pN7BTL3lHZFpgJGWmFUY/BYYVVsZk5w6iZJw+Q25S+3bTvwzpWYtaazvuxgIZ3/kLE16ew7BVGMiX78rVCaiI0WOA=
+	t=1789987785; cv=none; b=c9uPbDGvkL6PeMBcR2PtXEeV1mxvi4MBIhphOdaci+oLM4HAjBARkU32n6qhpErk7LsWuAy0YecJyLEm+ngGYwSRFnYC3CNxRy6Vf9WaTWbLBogo7UpTanbbVSmIHE1mNbhoTJgUtHssqGMxQcrJOE2a/89qk+yz/O+2mHH9y38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789987777; c=relaxed/simple;
-	bh=Sh52A48MJo14bixZqGSha3srEquqn/DYNl7bZAm7A1E=;
+	s=arc-20240116; t=1789987785; c=relaxed/simple;
+	bh=jcQ0uXCTQN6WFOE+Jcx1zQyWym5Bv44C6LobbdOSxxE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tl4AOB1++/SoiOwAcIAFBMGC48Uq6pWJp/JeZDeoe/jHrZqW+UOTBqu4AL0oXybRxHiYpl35J3ThGe5+CW5szsOj90lh5qeibSl5PR8B5rsC7MSO3yVxRla1oXibw/SFVu0AdgOhpsJnF/Qcch/yJ7OkeAFIfeKcMp1eldxgTBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=erV4TueH; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=TJHjYa1ydwak6cMiwoWyeP5F7ig0/eoNx4+oghKl3LoLnVvL+sHrYaSkjYaNxKP6RTaDGXi5FMe82ydu2os7794Fls7kHOpWgvK+lkCMzWevFBhmj488tTpoZ2t+8+zPFlNFab786I9Hr8da5JSKm6uOeYJCPL3BLAGqnl9zrek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=f6Y+EDzE; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="erV4TueH"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F32FD1570;
-	Mon, 21 Sep 2026 03:49:29 -0700 (PDT)
-Received: from [10.57.83.12] (unknown [10.57.83.12])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B56643F86C;
-	Mon, 21 Sep 2026 03:49:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789987773; bh=Sh52A48MJo14bixZqGSha3srEquqn/DYNl7bZAm7A1E=;
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="f6Y+EDzE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789987782;
+	bh=jcQ0uXCTQN6WFOE+Jcx1zQyWym5Bv44C6LobbdOSxxE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=erV4TueHzMTKU7EV61dmBcEuKYzA1op4hwcZB7VEFgaJWmKI5FE7ugnqJLu5ERObj
-	 Q50JhfvJ6lkvid/bPPod28UwjH6vdEo+d+vjjz43+VycruIntOw4hXFlZ850Oh67Co
-	 N6iKAnN/H18buKKpap1r1rQzAeicQUyvZ1ACH5b4=
-Message-ID: <c1ca2256-2516-4f4d-ba08-a2f584fc812b@arm.com>
-Date: Mon, 21 Sep 2026 11:49:28 +0100
+	b=f6Y+EDzEKTe5O68Ni67Q2wB9Fs0lexT5YJDL9btkq5KPtqIwQQPVrf0QZKaSWEtSV
+	 8RKuOF2gk0eGIXr6coKQZuVjfPZvnt3RW7HhcLxyu870oHSepRmhJVolVTXRPMQcP6
+	 aVvmE9o4r7cU6i+A+x0NbcoYCcMYmxSUlt2HyCLZ7c90XDXBD4Vw4w02gEkH4b3/L3
+	 11xxy3asNsHFhz2ksOm3CfTRS4Ihuu1T8bJL4LvNASKDvx2IQeYS/wuPNrphQVYyp5
+	 8UF/W6a223fSoHKLIPS5wuP7q/gHsHSPk3klzsRTcKvAn1y3tD1VDvCkyM8oJom796
+	 gXPFyPkTn1Bcw==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8750017E020C;
+	Mon, 21 Sep 2026 12:49:41 +0200 (CEST)
+Message-ID: <ba4fe17c-ee29-4739-a14e-87b39e5efcc5@collabora.com>
+Date: Mon, 21 Sep 2026 12:49:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,298 +42,127 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] arm64/mm: Convert READ_ONCE() as pmdp_get() while
- accessing PMD
-To: Anshuman Khandual <anshuman.khandual@arm.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Linu Cherian <linu.cherian@arm.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, Mark Rtland <mark.rtland@arm.com>,
- linx-arm-kernel@lists.infradead.org, linx-kernel@vger.kernel.org,
- kasan-dev@googlegrops.com
-References: <20260903060657.2717457-1-anshuman.khandual@arm.com>
- <20260903060657.2717457-2-anshuman.khandual@arm.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260903060657.2717457-2-anshuman.khandual@arm.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v4 2/3] drivers: gpu: drm: panel: Add BOE NT51021 driver
+To: Nickolay Goppen <setotau@mainlining.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>,
+ Alexey Minnekhanov <alexeymin@minlexx.ru>,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+References: <20260917-qcom-novatek-nt51021-panels-v4-0-30afbc35d70c@mainlining.org>
+ <20260917-qcom-novatek-nt51021-panels-v4-2-30afbc35d70c@mainlining.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260917-qcom-novatek-nt51021-panels-v4-2-30afbc35d70c@mainlining.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 03/09/2026 07:06, Anshuman Khandual wrote:
-> Convert all READ_ONCE() based PMD accesses as pmdp_get() instead which will
-> support both D64 and D128 translation regime going forward. That is because
-> READ_ONCE() would need 128 bit single copy atomic guarantees, while reading
-> 128 bit page table entries which is currently not supported on arm64. Build
-> fails for READ_ONCE() while accessing beyond 64 bits.
+On 9/17/26 14:51, Nickolay Goppen wrote:
+> Add driver for BOE NT51021-based 8-inch and 10-inch DSI video mode
+> panels used in Xiaomi Mi Pad 4, Mi Pad 4 Plus (xiaomi-clover)
+> and Amazon Fire HD 10 (2017) (amazon-suez) tablets.
 > 
-> Load Pair/Store Pair (ldp/stp) are only single copy atomic if FEAT_LSE1
-> is supported (which is required when FEAT_D128 is supported). Currently 128
-> bit pgtables is a compile time decision - so we could have chosen to extend
-> READ_ONCE()/WRITE_ONCE() to allow 128 bit for this configuration. But then
-> it's a general purpose API and we were concerned that other users might
-> eventually creep in that expect 128 and then fail to compile in the other
-> configs.
+> NT51021-based panels also support content-adaptive brightness control by
+> generating a PWM signal for backlight driver IC. Content adaptation
+> means that content grey level scale can be increased while
+> simultaneously decreasing brightness of the backlight to achieve
+> same perceived brightness. This makes the power consumption of
+> backlight be reduced with keeping acceptable display quality.
 > 
-> But worse, we are considering eventually making D128 a boot time option, at
-> which point we'd have to make READ_ONCE() always allow 128 bit at compile
-> time but then it might silently tear at runtime.
+> Both panels are very similar, differences are only in init sequence
+> and resolution.
 > 
-> So our preference is to standardize on these existing helpers, which we can
-> override in arm64 to give the 128 bit single copy guarantee when required.
-
-Perhaps something like this conveys the justification a bit more clearly?:
-
----8<---
-arm64/mm: Use pmdp_get() for PMD accesses
-
-Replace READ_ONCE() with pmdp_get() for PMD accesses in preparation for
-supporting both D64 and D128 translation table formats.
-
-READ_ONCE() cannot currently be used for 128-bit page table entries on arm64
-because it does not provide the required 128-bit single-copy atomicity, causing
-builds to fail for accesses wider than 64 bits.
-
-Although LDP/STP provide the required atomicity when FEAT_LSE is available (as
-required by FEAT_D128), extending READ_ONCE() to support 128-bit accesses is
-undesirable. READ_ONCE() is a general-purpose API, so doing so could encourage
-other 128-bit users that would either fail to build in configurations without
-D128 support or, if D128 becomes a runtime option, silently permit tearing on
-systems without the required hardware support.
-
-Instead, standardize PMD accesses on the existing page-table helpers. These can
-be overridden on arm64 to provide 128-bit single-copy atomicity when required.
----8<---
-
-With that:
-
-Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
-
-
+> The register sequence of the TV101WUM-NM0 is the BOE branch of
+> init_lcm_registers() in drivers/misc/mediatek/lcm/nt51021_wuxga_dsi_vdo/
+> in the Fire OS 3.18 tree, command for command, with only a 120 ms wait
+> after sleep-out added where the vendor waits its trailing 5 ms.
+> The 0x8f 0xa5 and 0x8f 0x00 that bracket it are the vendor's command
+> interface selection, sent on every board that is not an early proto or
+> HVT unit.
 > 
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> Cc: Mark Rtland <mark.rtland@arm.com>
-> Cc: linx-arm-kernel@lists.infradead.org
-> Cc: linx-kernel@vger.kernel.org
-> Cc: kasan-dev@googlegrops.com
-> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
-> ---
->  arch/arm64/include/asm/pgtable.h |  3 ++-
->  arch/arm64/mm/fault.c            |  2 +-
->  arch/arm64/mm/fixmap.c           |  2 +-
->  arch/arm64/mm/hugetlbpage.c      |  2 +-
->  arch/arm64/mm/kasan_init.c       |  4 ++--
->  arch/arm64/mm/mmu.c              | 22 +++++++++++-----------
->  arch/arm64/mm/pageattr.c         |  2 +-
->  arch/arm64/mm/trans_pgd.c        |  2 +-
->  8 files changed, 20 insertions(+), 19 deletions(-)
+> It is much shorter than boe_tv101wum_nx0_init() because this module is
+> left on its own factory trim. NT51021 R8CH selects whether V1/V14, gamma
+> and HAOP come from the panel's OTP memory or from control registers, and
+> the 0x8c 0x80 here leaves all three on OTP, where the NX0's 0x8e
+> switches
+> them to registers so that the three pages of gamma it then writes take
+> effect. So the absent gamma is deliberate rather than an omission, and
+> the differing 0x8c is its consequence. CABC is likewise untouched
+> because
+> the vendor drives it over I2C from the backlight path. What is left is
+> 0xc0 and 0xc8, which the public NT51021 specification does not describe;
+> everything else this sequence touches carries the same value as the
+> other
+> two panels, including the terminal resistor, TP_SYNC, the MIPI Rx drive
+> strength and all three test modes.
 > 
-> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-> index 61fbfab3e06e..51f55498d43d 100644
-> --- a/arch/arm64/include/asm/pgtable.h
-> +++ b/arch/arm64/include/asm/pgtable.h
-> @@ -805,7 +805,8 @@ static inline unsigned long pmd_page_vaddr(pmd_t pmd)
->  }
->  
->  /* Find an entry in the third-level page table. */
-> -#define pte_offset_phys(dir,addr)	(pmd_page_paddr(READ_ONCE(*(dir))) + pte_index(addr) * sizeof(pte_t))
-> +#define pte_offset_phys(dir, addr)	(pmd_page_paddr(pmdp_get(dir)) + \
-> +					 pte_index(addr) * sizeof(pte_t))
->  
->  #define pte_set_fixmap(addr)		((pte_t *)set_fixmap_offset(FIX_PTE, addr))
->  #define pte_set_fixmap_offset(pmd, addr)	pte_set_fixmap(pte_offset_phys(pmd, addr))
-> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-> index c75bab3c2f4b..cb25cb130e83 100644
-> --- a/arch/arm64/mm/fault.c
-> +++ b/arch/arm64/mm/fault.c
-> @@ -188,7 +188,7 @@ static void show_pte(unsigned long addr)
->  			break;
->  
->  		pmdp = pmd_offset(pudp, addr);
-> -		pmd = READ_ONCE(*pmdp);
-> +		pmd = pmdp_get(pmdp);
->  		ptval_to_str(pmd_str, pmd_val(pmd));
->  		pr_cont(", pmd=%s", pmd_str);
->  		if (pmd_none(pmd) || pmd_bad(pmd))
-> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
-> index f66a0016dd02..3cdac8021d4f 100644
-> --- a/arch/arm64/mm/fixmap.c
-> +++ b/arch/arm64/mm/fixmap.c
-> @@ -42,7 +42,7 @@ static inline pte_t *fixmap_pte(unsigned long addr)
->  
->  static void __init early_fixmap_init_pte(pmd_t *pmdp, unsigned long addr)
->  {
-> -	pmd_t pmd = READ_ONCE(*pmdp);
-> +	pmd_t pmd = pmdp_get(pmdp);
->  	pte_t *ptep;
->  
->  	if (pmd_none(pmd)) {
-> diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-> index 8e799c1fe0aa..cdaa4500faf9 100644
-> --- a/arch/arm64/mm/hugetlbpage.c
-> +++ b/arch/arm64/mm/hugetlbpage.c
-> @@ -304,7 +304,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
->  		addr &= CONT_PMD_MASK;
->  
->  	pmdp = pmd_offset(pudp, addr);
-> -	pmd = READ_ONCE(*pmdp);
-> +	pmd = pmdp_get(pmdp);
->  	if (!(sz == PMD_SIZE || sz == CONT_PMD_SIZE) &&
->  	    pmd_none(pmd))
->  		return NULL;
-> diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
-> index 45fbdce684c8..7ca833c5de5e 100644
-> --- a/arch/arm64/mm/kasan_init.c
-> +++ b/arch/arm64/mm/kasan_init.c
-> @@ -62,7 +62,7 @@ static phys_addr_t __init kasan_alloc_raw_page(int node)
->  static pte_t *__init kasan_pte_offset(pmd_t *pmdp, unsigned long addr, int node,
->  				      bool early)
->  {
-> -	if (pmd_none(READ_ONCE(*pmdp))) {
-> +	if (pmd_none(pmdp_get(pmdp))) {
->  		phys_addr_t pte_phys = early ?
->  				__pa_symbol(kasan_early_shadow_pte)
->  					: kasan_alloc_zeroed_page(node);
-> @@ -138,7 +138,7 @@ static void __init kasan_pmd_populate(pud_t *pudp, unsigned long addr,
->  	do {
->  		next = pmd_addr_end(addr, end);
->  		kasan_pte_populate(pmdp, addr, next, node, early);
-> -	} while (pmdp++, addr = next, addr != end && pmd_none(READ_ONCE(*pmdp)));
-> +	} while (pmdp++, addr = next, addr != end && pmd_none(pmdp_get(pmdp)));
->  }
->  
->  static void __init kasan_pud_populate(p4d_t *p4dp, unsigned long addr,
-> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-> index b5de4095d650..32daaa547d09 100644
-> --- a/arch/arm64/mm/mmu.c
-> +++ b/arch/arm64/mm/mmu.c
-> @@ -200,7 +200,7 @@ static int alloc_init_cont_pte(pmd_t *pmdp, unsigned long addr,
->  			       int flags)
->  {
->  	unsigned long next;
-> -	pmd_t pmd = READ_ONCE(*pmdp);
-> +	pmd_t pmd = pmdp_get(pmdp);
->  	pte_t *ptep;
->  
->  	BUG_ON(pmd_leaf(pmd));
-> @@ -257,7 +257,7 @@ static int init_pmd(pmd_t *pmdp, unsigned long addr, unsigned long end,
->  	unsigned long next;
->  
->  	do {
-> -		pmd_t old_pmd = READ_ONCE(*pmdp);
-> +		pmd_t old_pmd = pmdp_get(pmdp);
->  
->  		next = pmd_addr_end(addr, end);
->  
-> @@ -272,7 +272,7 @@ static int init_pmd(pmd_t *pmdp, unsigned long addr, unsigned long end,
->  			 * only allow updates to the permission attributes.
->  			 */
->  			BUG_ON(!pgattr_change_is_safe(pmd_val(old_pmd),
-> -						      READ_ONCE(pmd_val(*pmdp))));
-> +						      pmd_val(pmdp_get(pmdp))));
->  		} else {
->  			int ret;
->  
-> @@ -282,7 +282,7 @@ static int init_pmd(pmd_t *pmdp, unsigned long addr, unsigned long end,
->  				return ret;
->  
->  			VM_WARN_ON_ONCE(pmd_val(old_pmd) != 0 &&
-> -					pmd_val(old_pmd) != READ_ONCE(pmd_val(*pmdp)));
-> +					pmd_val(old_pmd) != pmd_val(pmdp_get(pmdp)));
->  		}
->  		phys += next - addr;
->  	} while (pmdp++, addr = next, addr != end);
-> @@ -293,7 +293,7 @@ static int init_pmd(pmd_t *pmdp, unsigned long addr, unsigned long end,
->  static bool pmd_range_has_valid_noncont(pmd_t *pmdp)
->  {
->  	for (int i = 0; i < CONT_PMDS; i++) {
-> -		pte_t pte = pmd_pte(READ_ONCE(pmdp[i]));
-> +		pte_t pte = pmd_pte(pmdp_get(pmdp + i));
->  
->  		if (pte_valid(pte) && !pte_cont(pte))
->  			return true;
-> @@ -1553,7 +1553,7 @@ static void unmap_hotplug_pmd_range(pud_t *pudp, unsigned long addr,
->  	do {
->  		next = pmd_addr_end(addr, end);
->  		pmdp = pmd_offset(pudp, addr);
-> -		pmd = READ_ONCE(*pmdp);
-> +		pmd = pmdp_get(pmdp);
->  		if (pmd_none(pmd))
->  			continue;
->  
-> @@ -1708,7 +1708,7 @@ static void free_empty_pmd_table(pud_t *pudp, unsigned long addr,
->  	do {
->  		next = pmd_addr_end(addr, end);
->  		pmdp = pmd_offset(pudp, addr);
-> -		pmd = READ_ONCE(*pmdp);
-> +		pmd = pmdp_get(pmdp);
->  		if (pmd_none(pmd))
->  			continue;
->  
-> @@ -1729,7 +1729,7 @@ static void free_empty_pmd_table(pud_t *pudp, unsigned long addr,
->  	 */
->  	pmdp = pmd_offset(pudp, 0UL);
->  	for (i = 0; i < PTRS_PER_PMD; i++) {
-> -		if (!pmd_none(READ_ONCE(pmdp[i])))
-> +		if (!pmd_none(pmdp_get(pmdp + i)))
->  			return;
->  	}
->  
-> @@ -1881,7 +1881,7 @@ int pmd_set_huge(pmd_t *pmdp, phys_addr_t phys, pgprot_t prot)
->  	pmd_t new_pmd = pfn_pmd(__phys_to_pfn(phys), mk_pmd_sect_prot(prot));
->  
->  	/* Only allow permission changes for now */
-> -	if (!pgattr_change_is_safe(READ_ONCE(pmd_val(*pmdp)),
-> +	if (!pgattr_change_is_safe(pmd_val(pmdp_get(pmdp)),
->  				   pmd_val(new_pmd)))
->  		return 0;
->  
-> @@ -1906,7 +1906,7 @@ int pud_clear_huge(pud_t *pudp)
->  
->  int pmd_clear_huge(pmd_t *pmdp)
->  {
-> -	if (!pmd_leaf(READ_ONCE(*pmdp)))
-> +	if (!pmd_leaf(pmdp_get(pmdp)))
->  		return 0;
->  	pmd_clear(pmdp);
->  	return 1;
-> @@ -1917,7 +1917,7 @@ int pmd_free_pte_page(pmd_t *pmdp, unsigned long addr)
->  	pte_t *table;
->  	pmd_t pmd;
->  
-> -	pmd = READ_ONCE(*pmdp);
-> +	pmd = pmdp_get(pmdp);
->  
->  	if (!pmd_table(pmd)) {
->  		VM_WARN_ON(1);
-> diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-> index bbe98ac9ad8c..0ca07bd5ded9 100644
-> --- a/arch/arm64/mm/pageattr.c
-> +++ b/arch/arm64/mm/pageattr.c
-> @@ -414,7 +414,7 @@ bool kernel_page_present(struct page *page)
->  		return pud_valid(pud);
->  
->  	pmdp = pmd_offset(pudp, addr);
-> -	pmd = READ_ONCE(*pmdp);
-> +	pmd = pmdp_get(pmdp);
->  	if (pmd_none(pmd))
->  		return false;
->  	if (pmd_leaf(pmd))
-> diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
-> index cca9706a875c..b27b2d2c20c3 100644
-> --- a/arch/arm64/mm/trans_pgd.c
-> +++ b/arch/arm64/mm/trans_pgd.c
-> @@ -74,7 +74,7 @@ static int copy_pmd(struct trans_pgd_info *info, pud_t *dst_pudp,
->  
->  	src_pmdp = pmd_offset(src_pudp, start);
->  	do {
-> -		pmd_t pmd = READ_ONCE(*src_pmdp);
-> +		pmd_t pmd = pmdp_get(src_pmdp);
->  
->  		next = pmd_addr_end(addr, end);
->  		if (pmd_none(pmd))
+> The timings are the vendor's lcm_get_params(): hsync 1, hbp 32, hfp 110,
+> vsync 1, vbp 14, vfp 11, so htotal 1343 and vtotal 1946. The pixel clock
+> follows the vendor's PLL_CLOCK = 490, which after DDR is 980 Mbps per
+> lane and over four lanes at 24bpp is 163.33 MHz, so 62.5 Hz. The
+> bootloader leaves the MIPI TX PLL at that rate: read back before the
+> kernel touches it, this board's PLL decodes to exactly 980 Mbps per
+> lane, so the panel is already there when the kernel takes over.
+> 
+> The front porch is the vendor's declared 110 rather than the smaller
+> value its own DSI driver ends up running. That driver also sets
+> clk_lp_per_line_enable, which makes ddp_dsi_config() overwrite HFP_WC
+> after the declared timing is programmed, shrinking it to leave just
+> enough room to take the clock lane to LP and back. That is a
+> controller-side workaround rather than a panel property, and it
+> contradicts the cont_clock = 1 set beside it, which disables the very LP
+> transition it makes room for. Mainline mtk_dsi handles the clock lane
+> itself, so the panel's declared timing is the right thing to carry here.
+> 
+> The vendor asks for SYNC_EVENT_VDO_MODE with cont_clock = 1 rather than
+> burst, so make mode_flags per variant instead of fixed in probe(). The
+> two existing panels keep the flags they had. Burst was also tried on
+> this hardware and worked, but the vendor configuration is the one the
+> module is characterised for.
+> 
+> The physical size is the datasheet active area, 216.576 x 135.36 mm,
+> which measures 216 x 135 on the glass. The vendor's declared a
+> physical_width = 136 and physical_height = 221, which appears to be an
+> error. The size of the test unit was physically measured. 1200/136 and
+> 1920/221 disagree by 1.5%.
+> 
+> The vendor's bootloader and kernel both carry a second register sequence
+> for the Innolux module this board second-sources against, selected from
+> two board ID straps. No Innolux unit was available, so that sequence is
+> left out rather than carried untested; however, the Innolux part number
+> was identified as "P101KDA-AB0", should someone with that glass need to
+> upstream support in the future.
+> 
+> Tested on the Amazon Fire HD 10 (2017) driven by mediatek-drm: 1200x1920
+> at 62.5 Hz across a cold boot, display off and on cycles and a
+> suspend/resume, with the MIPI TX PLL reading back at the intended rate
+> every time.
+> 
+> Assisted-by: LLM
+> Tested-by: Ryan Brue <ryanbrue.dev@gmail.com> # Amazon Fire HD 10 (2017), boe,tv101wum-nm0
+> Co-developed-by: Ryan Brue <ryanbrue.dev@gmail.com>
+> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+> Co-developed-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
 
+Though I would've preferred to see the commands put in arrays instead of
+multiple function calls with all of those values, the only improvement
+would be slightly lower code size... and I don't think it's worth it to
+request a v5 for just that.
+
+After all, it's anyway the same "mess" of unknown data going out to the
+panel's DriverIC - be it in one form or the other, it's not changing much.
+
+So
+
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+
+Cheers,
+Angelo
