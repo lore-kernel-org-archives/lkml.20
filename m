@@ -1,74 +1,43 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4AB3515EA
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:14:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2653537F8;
+	Mon, 21 Sep 2026 05:16:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789967663; cv=none; b=mfQleCevekXjxHjjKjhnlocv2IlOB8a1fKF8DzLS8nkWEdWBRmVCqChklrny2MCU/CYkpvktCffyQkMUQLv/9VQk9Cq05OrSs6+ZWylxdpgVLt7oDpUewuk9YpDnjKsXeFsDCynJb9r5TpUyH/FnOfABT32TfpStvK7w4lwNCGw=
+	t=1789967765; cv=none; b=a6TEFlCgFpAiFpciAdVwYzNALq51oGS8BR4U0pXfLus2UKtPJ+G38SxXRQB7dxri4sFeavKE1TQ8GtbEYSZwoYMhF1hG84d2yQl5E2nhHkt0hHIKAgn0Wot6xPn958GogJotPBYrwFQVWzX3ZpHVTanWvHhMtkWKZlQl5lxaP5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789967663; c=relaxed/simple;
-	bh=YsJeicI+sUiMq44dJSu9w6TxdTn99RxrThcitzMwXUw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SHTaoumjX0Fn+UiVvs20BDw9JzvaeNGLlhLqB+arIDQjTp0I+aE8Mi0mcphe587oojj7b8lLlv5NX3rZSsxtfUinxplcKSESs7Qd5gwGkzi2vF1SVUohzJW90TdqfN1sPj9CTxiphJm1W2fm7+hDeYY7Sv9XoAKwHJ/3C5+URIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tK1btjsP; arc=none smtp.client-ip=74.125.227.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789967765; c=relaxed/simple;
+	bh=RwxCBj7ekpK4lIJCz+FRLVi2BM5o8rtZWYTF5vkL+eU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U4JdVz8Q8IcbvuOghCA3h9jfeUqcUFkSja8z7/OZUokTlzCybn7v1vpNgEdAsbWCVdIEmDh0CLl672v9CFp7ubxCeg4wHMuVR/TOPI3BuU1HOb2xeI8QEW1d0sdSQGew30KMxP9lgNbs9yZ7gWOkS7V8nu32BsR9Fn/LSGJmptA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SzHFdbW5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tK1btjsP"
-Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2d91a931f66so16493445ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:14:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789967661; x=1790572461; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YsJeicI+sUiMq44dJSu9w6TxdTn99RxrThcitzMwXUw=;
-        b=tK1btjsPaknSm4yD9RMpuxh5vXle+iwySJPp2/N+bSwg9iiQEL+yYffEK2zG0WPq+k
-         fQLhVbYWu1ATbEm9/C4on8D/sMhL0Yg/R27O/yralTJNX7y8MqMn9ERxmAicHpHme4M+
-         1wS9PIf2/Wjb8kADSHBRUoDibdjY7ScNZM3MthUD93gCQRpUiMECSKiclx0rnQBagyiH
-         cBmNkT9xrrc3KwLiyvZnkmvKZexG4xegLcKDWIhlRPDJzFjzdu87+AxSzRQZ+xlmfqZp
-         wX2pnfezJvxjOs3bxfdTynpLk2C6wk8s1h9tSgGYPEN29bmRcesZKr59G0oCmMLi+15i
-         R5vQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789967661; x=1790572461;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YsJeicI+sUiMq44dJSu9w6TxdTn99RxrThcitzMwXUw=;
-        b=u9WdZWd8tlGE9ckQcD24JVajdQa2OKRMLkhrrAJrzvNWDJZvGlXm0iujV15/CbK0DX
-         KY8K+QyGs3S1dskLxvVqHpFx9zOUjmjSg5wIEDmMSucuJ6qfXyEAiiAuo6WomyrDaAMs
-         R+QJ5iO1wVkTXsN7IEHgETE3xgaSxa3OjXDwB6U65x5jPua7pBCpE76T3NLCDJspBjcE
-         QENAEmPqvQ3CVEadaNMrcI0+EXEvldZ24GJ069fxAGCVWbp5/8eyXWhOYDpwRXCSXDnh
-         tzl2e80qXvhHhGShasaQlEEbEGxksRVVQ2Mc7jsC9+FW9we6+xX+9ymwdV2HotpQYixr
-         7unA==
-X-Forwarded-Encrypted: i=1; AKwUvBwDna+ynZthoVBeDquBIxDAw5sY2AGvnoWA/aPI8b/xK3HdNQumG+zClNKsAGdp9R50Z39NTxYnDlwCPJA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMm0MwHMFzLtd0JPv58uIzlSJD2VZkguz2W71yTyxqqU2tS9ES
-	JlOs70QDn8ptbkG7Iz8KPXN2JFK1oga9wf6QE16bw+oeA7jBcuZk2F18
-X-Gm-Gg: AYBFou0eCzivzLqsxxvXueCM9UGPwhnGd3JVLDNEZ1QL2kLtnOzYewCA7orcil+JkFN
-	GiQaYEJVTVOV2XeDu8+WqvdX14xCsUOp3OftmJvdw5r9atKarNZaqivQhbIPSrbre/2TPqNt/UQ
-	ofQpbgE2aYCND1lM5SEhkCi5tMatGxblOxi4ElwEcefQIktXdGqJ/HngqK3/cfkbYq4a/9UYxOl
-	VbcF5UBb1xJUFpMf1H2i7Sy86FR5OdN+L1wMCgQMmVEb4faiOSDz77MHHvIK2oLtqiwOEdpfiE8
-	vH+uPU1x9+JdwrCsDOAlb2fqJuVe7vs3o01Z1KzWsB1jzNPyGoiEuv8hcBv+DN011lrPBk3Upgm
-	4AR+yXoZyYPAuOnV6v2JGPRTuvZUtelSmnv9shPm13KQKvV+azfi2hoi6cDWbvWwb1cC9uJkcxQ
-	2u5Ti0txW4G7RVESit9zJCmDIRUkUrPoivBuq4IBSTUCgyvlvvv56IvR8nsznlSF8ZWaLVnqSJ
-X-Received: by 2002:a17:90b:2d0c:b0:39e:6c6a:4b77 with SMTP id 98e67ed59e1d1-39e6c6a5492mr9009542a91.65.1789967661087;
-        Sun, 20 Sep 2026 22:14:21 -0700 (PDT)
-Received: from adi.. ([122.171.22.53])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c33142a37sm17698440eec.15.2026.09.20.22.14.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 22:14:20 -0700 (PDT)
-From: Adi Prasan <itsadi2409@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	error27@gmail.com
-Subject: Re: [PATCH] staging: rtl8723bs: fix ie_length bound check in rtw_cfg80211_inform_bss
-Date: Mon, 21 Sep 2026 05:13:34 +0000
-Message-ID: <20260921051334.1143-1-itsadi2409@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026092053-rentable-affair-bfce@gregkh>
-References: <2026092053-rentable-affair-bfce@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SzHFdbW5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2319E1F000FF;
+	Mon, 21 Sep 2026 05:16:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789967763;
+	bh=qA1Ngc5R1c/XW8ryKGj2jFVjIRydVBq4U46bwGQ8ckw=;
+	h=From:To:Cc:Subject:Date;
+	b=SzHFdbW5HhOKhEH0gK7x4kemk2gUkrJzUQibnxaxO3vR04CVAhvkLwkhskDsL2tep
+	 4TJu77VCIkbRexn3pWixdiZPuP4hOngzzwCPAqvSVRhFxfqnO/SojTI9yYrfAkRgGY
+	 mTtA2K86p6HAonE/z7Dv0ba5RfqYOgxPMs3kIvjJYX5iUOU9KWFoUiiDjMk9lashYD
+	 CoXgRsOCF1GlcSiZtBgVeTvR9LGFY86q+TfLOKwCfpn3qh40r9RbRUHXJN0QtcUxqJ
+	 Lm3A+EDD9nWEzhdyuGIGsZbKN1ylnjmly1p2Y7YVQBo4MjQyR3vCnW3/wkFojQ2FDq
+	 9Ir89ZxwUXDEw==
+From: Eric Biggers <ebiggers@kernel.org>
+To: linux-crypto@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	"Jason A . Donenfeld" <Jason@zx2c4.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	x86@kernel.org,
+	linux-riscv@lists.infradead.org,
+	Eric Biggers <ebiggers@kernel.org>
+Subject: [PATCH 00/20] Migrate x86 and RISC-V accelerated AES modes into library
+Date: Sun, 20 Sep 2026 22:08:46 -0700
+Message-ID: <20260921050910.296144-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,26 +46,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Greg,
+This series applies to v7.3-rc3.  It can also be retrieved from:
 
-I ran smatch over drivers/staging and it flagged this
-function - the check here allows ie_length up to ~976 bytes (1000
-minus the 24-byte header), but network.ies[] is only MAX_IE_SZ (768)
-bytes, so the memcpy() a few lines down can read past the end of
-that array.
+    git fetch https://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/linux.git aes-lib-x86-riscv-v1
 
-I went and checked every place that sets ie_length before it reaches
-here - collect_bss_info() in rtw_mlme_ext.c, and the two
-H2C_PARAMETERS_ERROR checks nearby - and all of them already clamp it
-to MAX_IE_SZ. So this isn't reachable through any current caller, it
-was just the local check not matching the actual buffer size. Wanted
-to fix it directly rather than rely on every caller continuing to
-enforce that cap.
+Patch 1 is intended to be taken through libcrypto-fixes for 7.3.
+Patches 2-20 are intended to be taken through libcrypto-next for 7.4.
 
-For testing I have build-tested with make M=drivers/staging/rtl8723bs, clean
-checkpatch. I don't have the actual hardware to test at runtime, and
-since this only tightens a bound that's already unreachable in
-practice, there's no behavior change for any existing valid input.
+This series migrates the x86 and RISC-V accelerated implementations of
+the AES modes ECB, CBC, CTS, CTR, XCTR, and XTS into lib/crypto/.
 
-Thanks,
-Adi
+This makes the corresponding library APIs be properly accelerated on
+these architectures, while still accelerating crypto_skcipher as well
+(via the library-based code in crypto/aes.c).
+
+It removes a lot of redundant glue code, since crypto API boilerplate no
+longer needs to be duplicated per-architecture.
+
+Finally, it fixes the longstanding issue where these optimizations were
+disabled by default.
+
+In the case of RISC-V, this series handles all remaining AES code in
+arch/riscv/crypto/.  In the case of x86, AES-GCM is still left in
+arch/x86/crypto/ for now; it will be handled later.  Other architectures
+will be handled later as well.
+
+For various reasons, aesni-intel_asm.S (i.e. the x86-accelerated ECB,
+CBC, CTS, CTR, and XTS code that doesn't use AVX or VAES) is replaced
+with new functions written from scratch.  The other assembly functions
+are kept but are modified slightly for integration into the library.
+
+Eric Biggers (20):
+  crypto: aes - Fix undesired override of some optimized AES modes
+  lib/crypto: aes-xctr: Pass counter by value to aes_xctr_arch()
+  lib/crypto: x86/aes: Clean up aes-aesni.S in preparation for AES modes
+  lib/crypto: x86/aes-ecb: Add AES-NI optimization
+  lib/crypto: x86/aes-cbc: Add AES-NI optimization
+  lib/crypto: x86/aes-ctr: Add AES-NI optimization
+  lib/crypto: x86/aes-xts: Add AES-NI optimization
+  crypto: x86/aes-ecb - Remove superseded ECB skcipher
+  crypto: x86/aes-cbc - Remove superseded CBC skciphers
+  crypto: x86/aes-ctr - Remove superseded CTR skcipher
+  crypto: x86/aes-xts - Remove superseded XTS skcipher
+  lib/crypto: x86/aes-ctr: Migrate AVX-optimized code into library
+  lib/crypto: x86/aes-xts: Migrate AVX-optimized code into library
+  crypto: x86/aes - Drop superseded 32-bit build support
+  lib/crypto: riscv/aes: Copy aes-macros.S to library
+  lib/crypto: riscv/aes: Pass key struct to assembly code
+  lib/crypto: riscv/aes-ecb: Migrate optimized code into library
+  lib/crypto: riscv/aes-cbc: Migrate optimized code into library
+  lib/crypto: riscv/aes-ctr: Migrate optimized code into library
+  lib/crypto: riscv/aes-xts: Migrate optimized code into library
+
+ arch/riscv/crypto/Kconfig                     |   15 -
+ arch/riscv/crypto/Makefile                    |    4 -
+ arch/riscv/crypto/aes-riscv64-glue.c          |  566 -------
+ arch/riscv/crypto/aes-riscv64-zvkned.S        |  312 ----
+ arch/x86/crypto/Kconfig                       |   11 +-
+ arch/x86/crypto/Makefile                      |    8 +-
+ arch/x86/crypto/aesni-intel_asm.S             | 1338 -----------------
+ arch/x86/crypto/aesni-intel_glue.c            |  789 +---------
+ crypto/aes.c                                  |   53 +-
+ lib/crypto/Makefile                           |   14 +
+ lib/crypto/aes.c                              |    6 +-
+ .../crypto => lib/crypto/riscv}/aes-macros.S  |   25 +-
+ .../riscv}/aes-riscv64-zvkned-zvbb-zvkg.S     |   96 +-
+ .../crypto/riscv}/aes-riscv64-zvkned-zvkb.S   |   23 +-
+ lib/crypto/riscv/aes-riscv64-zvkned.S         |  311 +++-
+ lib/crypto/riscv/aes.h                        |  235 ++-
+ lib/crypto/x86/aes-aesni.S                    |  823 +++++++++-
+ .../crypto/x86}/aes-ctr-avx-x86_64.S          |   75 +-
+ .../crypto/x86}/aes-xts-avx-x86_64.S          |  172 +--
+ lib/crypto/x86/aes.h                          |  371 ++++-
+ 20 files changed, 1824 insertions(+), 3423 deletions(-)
+ delete mode 100644 arch/riscv/crypto/aes-riscv64-glue.c
+ delete mode 100644 arch/riscv/crypto/aes-riscv64-zvkned.S
+ delete mode 100644 arch/x86/crypto/aesni-intel_asm.S
+ rename {arch/riscv/crypto => lib/crypto/riscv}/aes-macros.S (90%)
+ rename {arch/riscv/crypto => lib/crypto/riscv}/aes-riscv64-zvkned-zvbb-zvkg.S (75%)
+ rename {arch/riscv/crypto => lib/crypto/riscv}/aes-riscv64-zvkned-zvkb.S (93%)
+ rename {arch/x86/crypto => lib/crypto/x86}/aes-ctr-avx-x86_64.S (92%)
+ rename {arch/x86/crypto => lib/crypto/x86}/aes-xts-avx-x86_64.S (81%)
+
+
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+-- 
+2.55.0
+
