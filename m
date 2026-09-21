@@ -1,190 +1,128 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E47F4BA1F4
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:23:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862214252A0
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:23:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790004183; cv=none; b=GCZjGtHKh45GhVIueGZdeKEw6kcL5xHTZm4rDWeoHLD6PNcBqPVu6FY/Nw9rzNMjG0pkTm6WfkR1GI97J0EwaR54WHWsgogz6znh+KUW1b3RVeMZiWv9nLQ/1pgZ7n7Qz/ZPk7tG2uH7imA4qSsyM1nMMAUnbTW76MKSzOuZonY=
+	t=1790004205; cv=none; b=OXadMUb6H4FTW22clt3xltM/uhHi+nmnL+4ISsKmFbynLJdJVM5YJbRSwfMDKp2mQHpRV0DvTdNcIeyb/ifOyIDoceJsGkD22SxWKge2kOwGIQIqE1YJS+DbJjPWIkt9OQ5PGJWhG61xZnIpNTf8685U5ZhtCo0gxLdvx30pUWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790004183; c=relaxed/simple;
-	bh=C6F+Fmk3tTihtf08pXapvACKxjH2ct8OvBSqTK4plhU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KZltmqrmMPRzFNhAP7zoqJibZzu9lh+F6F1FZ0/rk9jCiQrbK7T/tuUIWF+5QimE+eBYMlf3sSqUiWRV79L2UTOhVjqCH5EHc/JW+hf4k2RyT89zG9IiCUgHxFGpoGlvmeO4GVle7W4Nr87+6FRkG/tGmh+JcJ2RTVdBl2F5z5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=onx5Omux; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790004205; c=relaxed/simple;
+	bh=OscC8DrQb9ORVJ8oYAGZZEW+xZwE9Iz53Q4Np9Y2sXk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EwuW6PFEkdr5i43Om54Hv/IpmzGwN+b4Pptb8CaOwfw3Fx1eMkyZtnPNWRcORxan1aXojhTnglyEldKmlRsn799BvFAfL5mjGVmwMoUmdQh688fRkHeclNvw1afmzaG6uwRIdO58da6cwLTh+1FEI+MN0NVMN1sSArJdGQPR5cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ijJImQmZ; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="onx5Omux"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so16802155e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:23:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ijJImQmZ"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso8497375e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:23:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790004180; x=1790608980; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/uhUsAanGewnh2bM3AvBeAQ7knN/46rOtFLZpMDn/lo=;
-        b=onx5OmuxhPuINRBgcBZp5x6O/H09XEJXtVTPwu13q5HEREoJwrnCZn5BQw7Yb1TGUK
-         ofIzLE3tCc9x5LOHVAEXcRxSK7++vM/BXmCssDLOEfBa2uqs6esBJIe0mcGeESq44cr/
-         KUz+Iuk1bPqZT0sDgLRGzZAvqiU/VHKLk2diHjjFlGqYX6ufoRNSH+nffsGNPZWt6snf
-         0zrxQJwJHWFv/oneLSfMC2Cs4pNlSViPzvTfaTESkb7+inysmMHcfK3pxvMkDK5EngLv
-         GUbgLXcS4E77jP8aQwqINkwCe/KLB/bopSjA5YIQe/+3EZ+Ftzr9KKEwQngllVcD0I7D
-         aV2w==
+        d=gmail.com; s=20251104; t=1790004202; x=1790609002; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qq+7QrXS/k7a5MVGzG9IfQdtOA6kqjAnM3OlZxIizdc=;
+        b=ijJImQmZP3O4NE8p929lyiEk0H6tiPlp7Y/8+9YzhxIU6hEuxzMk+S4Q0a2LokUHAT
+         WMbdl1JiC3RwGEhagP+AbVQ2aLrvp+Mj0fcDXr+TdkVmJ/1YaIlK2d2MpLVM9LHIf67T
+         tQGgyvVPYbOuxjp+W+ciljrLbIwcqSNwaczLsXBqUCjeWh/EjedadBLDgPfWfYTr4M2t
+         0+RpHx4Hcens6B7xvoen8ZQ54kco8r1yikDmVDRtTgrqcV05yAMLbqfYOP+ZcvchW54h
+         gE2jFux6uiVJgGIK44PQf0CJTo+p4BI89cKkRH0T62EfbLTIi+ruOGRRyIP6TGiNREfS
+         tzfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790004180; x=1790608980;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/uhUsAanGewnh2bM3AvBeAQ7knN/46rOtFLZpMDn/lo=;
-        b=aEPh1ePharA5VqKi5vjn7iRL+zsVBhpwyCE+JHWFS6nBAnmebV2D9q2jxEwfu268Rf
-         ubUltcz2dpwlQLgGMd2iu3bq3clIhGxiZIr1YIHCnQo6Kj7r/68m0yXJ9baI/1J1OXGB
-         J1T6PjY41PGH4j79rttLqCOTGepTTXRFLjdF8dWr5T0YhOOkubtP+NHjGtOA4QQ8es7c
-         NMaSQSHiEf6DXGrBg974aEPboI8dULmPcvxkXLzfYLHKGpvLOb1Z4N5VN//jgO8CWC4E
-         /yX6yHRsp4SnosI/hC2FK4K5MMxsqMJ6e1jSxLHvk6OBSybdgnr7+KTkUKzqAodY3Qri
-         AAqw==
-X-Forwarded-Encrypted: i=1; AKwUvBxMf1c0uOAZTJQpIsE9MWNgLkx/jrpO0DSdxUKfvRKZ+2jmBU3TLAsMj9kCVg0F6XYUZoloOeX+tgRA2oM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQ4bJQV1HtpddQv0vWS899JE6/zDAtyIqmnXVo4NDx+kL4mrUF
-	tB8JZkKWX7cSYXMER7wRT1Py9QpBtirJzJQgA9F9mmwv0OIdLFpKP3Hpcz89R5ldBqA=
-X-Gm-Gg: AYBFou2HDISIsYVh2HEuduE3Z7klFs4pgmi7ygqPICo2osY9NA9VpYV1hnZtXXT0Vci
-	9uaqGRIKLsv6LozYZ7CL6N970EL98MU+bqyWvoqr/F422qoh7TDrxLWO5LDnihn2woTlP+1URSb
-	0lUf5aj4mKeJBPBIgl0n/3p1xctZKsN9awu8V1uvht/j+kUWS6SvxzdCQ2jdtO5jvbfoDNoZPwL
-	F/E2bZ+kgG3PTw8Zja5lGIJP8yDGfxps4QA9mcyf9iBTDFrslyLIC1v1NjjZX0QxRDlOL8nvb6N
-	5ALXZWVDpOYkHbOCqc3EKDrkRewhglGXs27EiD8aAvvDO+UQ0S7cc449ZxCGT1Becw9MwB24iX4
-	+mUwUdUAsTHyG5S7vvs/ygcSIECacTujGoCIWxdhupIiFYhvQq+nY2vrHy/BdpLSmUXq5MfF6jt
-	TCRqfS7rKZBb/7nUa4RKJuovCuINxT/01uJa+uVfbmGYbWTvEjz7PuSqaeWoIRQvpSJq1ycnorV
-	GM53WAXo7Hnr38=
-X-Received: by 2002:a05:600c:6305:b0:49f:c2ef:cfb9 with SMTP id 5b1f17b1804b1-49fc56719a8mr123284685e9.4.1790004179612;
-        Mon, 21 Sep 2026 08:22:59 -0700 (PDT)
-Received: from vingu-cube.home ([2a01:e0a:11f4:3020:df5:e9a4:98b5:65d1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd8bf159sm223745675e9.10.2026.09.21.08.22.58
+        d=1e100.net; s=20260707; t=1790004202; x=1790609002;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qq+7QrXS/k7a5MVGzG9IfQdtOA6kqjAnM3OlZxIizdc=;
+        b=I7AgX6FgJY8ps2wTY3D8Y1Nha+4FMMPkHjTBfe4luytwSh6vp+axCJig2F3PszVMJo
+         LK7LKwhEFAyxy0K5yb7show89yheErtnw838KHPeer0Hn3ebcABQDaIa5IJOv+mGtVkJ
+         VJUZcrJOFbyDSHydPlkp1k6CodaXE8n7/rCQY6+AauOuPhmWbL7bFMs4OHSm9xnxTIbI
+         geBna7ddTvzajV9gdFWXtb7ZxGVNyJ74fs0Or78kDPYYAjl3OuAE/RMpH2TZqj3gUJPp
+         F1y7Tb7UJMtfhfgloA7d470kqJgi7l+DVDRq3ktuYIJi9+edcSarJpBA0rJd8iPkm9K5
+         79Rg==
+X-Forwarded-Encrypted: i=1; AKwUvBwTwumfDwKci79WDMeZxn0xSpcdIgwn+0uEYSJgfIPDrRIyFPbZrHlTDPcdEjenGPkiGlhY89qTGb5Nwkk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwDY6U/GB92t2R8I6b6eoVpfEQVea1BdyJk3no0N5K4PC1+nRG
+	qZXcUJEtUgIYo+hxobh/vQd5U4Y32YsS6fljk/UQp8tPiKPduyyKYHbI2UNoZp+6U8lLXQ==
+X-Gm-Gg: AYBFou2KO0icOUo0Taefu9riz6HrixJmc/0koh+MrPvwhR+y5gwQWBsI7G7paiLckw8
+	n6x1HVF7/k43A1A5o4olxUyVWC7XRlVPikwjMNTVhe9tz1IyqHGqoeBTjpeblT45Z/yucquf+mv
+	a9d7KbeqK7GdgKXiwprhRN7Y9FhQA0I4+FSHa2GdCgRd6OM2dh7YITu/qtRx9fQU99piJr868eZ
+	F2j0ZLrJLbPPbwbSshdWR8eCdR80vyKhG5TSPumeELueJziAL7zvnE+UInKxVDWmfF/n3Dr9pB1
+	HbEtP/gpO5O9uSStcqy+G9nME8mc2qmVIrPSpLjNO6f1cpPPx3hUYpF3ofYDV6Z0b9KrsfvKgwt
+	HyIDtrh2l92Wfun98twQ/llodhawaicJwQUnHwgYyjJZnJpv323Ml1zqJVZnHI1Z5hZb4hnsZJk
+	1tJ/rz68V9QFhFBuF7tRZwRNQnMKvNpdeegam0eI6tyo8atXZ18wqXs+1TKp9NNk1NmNI=
+X-Received: by 2002:a05:600c:310d:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-49fc4f85891mr183159525e9.5.1790004201571;
+        Mon, 21 Sep 2026 08:23:21 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc6ec1e63sm206536025e9.0.2026.09.21.08.23.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 08:22:59 -0700 (PDT)
-From: Vincent Guittot <vincent.guittot@linaro.org>
-To: mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
+        Mon, 21 Sep 2026 08:23:20 -0700 (PDT)
+Date: Mon, 21 Sep 2026 18:23:17 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Adi Prasan <itsadi2409@gmail.com>
+Cc: gregkh@linuxfoundation.org, linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Cc: qyousef@layalina.io,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: [PATCH 8/8] sched/eevdf: Add min slice check when selecting CPU
-Date: Mon, 21 Sep 2026 17:22:38 +0200
-Message-ID: <20260921152238.3804392-9-vincent.guittot@linaro.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260921152238.3804392-1-vincent.guittot@linaro.org>
-References: <20260921152238.3804392-1-vincent.guittot@linaro.org>
+Subject: Re: [PATCH] staging: rtl8723bs: fix ie_length bound check in
+ rtw_cfg80211_inform_bss
+Message-ID: <arFL5SLHwLflaONc@stanley.mountain>
+References: <20260920142849.294162-1-itsadi2409@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260920142849.294162-1-itsadi2409@gmail.com>
 
-Add a new level for selecting CPU when select_task_rq_fair() fails to find
-an idle CPU. This last level will compare the slice to select a CPU where
-the task could run 1st.
-This helps a waking task to select a CPU where a longer slice runs
-instead of one where a task with the same or shorter slice already runs.
+On Sun, Sep 20, 2026 at 02:28:49PM +0000, Adi Prasan wrote:
+> The buffer bound check in rtw_cfg80211_inform_bss() only verifies
+> that bssinf_len (ie_length + header size) does not exceed
+> MAX_BSSINFO_LEN (1000 bytes), but network.ies[] is only MAX_IE_SZ
+> (768) bytes. This allows ie_length values up to ~976 bytes to pass
+> the check while a subsequent memcpy() from network.ies still reads
+> only 768 valid bytes, and other paths that write to network.ies
+> consistently cap ie_length to MAX_IE_SZ.
+> 
+> Add an explicit check against MAX_IE_SZ so the bound matches the
+> actual size of network.ies.
+> 
+> Signed-off-by: Adi Prasan <itsadi2409@gmail.com>
 
-Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
----
- kernel/sched/fair.c | 63 ++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 62 insertions(+), 1 deletion(-)
+This needs a Fixes tag.
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 452da94289fe..5c9add3e853c 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -9023,6 +9023,59 @@ static inline bool asym_fits_cpu(unsigned long util,
- 	return true;
- }
- 
-+static int select_slice_cpu(struct task_struct *p, struct sched_domain *sd, int target)
-+{
-+	unsigned long task_util, util_min, util_max;
-+	int cpu, nr = INT_MAX;
-+	u64 slice = p->se.slice;
-+	struct cpumask *cpus;
-+
-+	if (sched_feat(SIS_UTIL) && sd->shared) {
-+		/*
-+		 * Same nr_idle_scan hint as select_idle_cpu(), nr only limits
-+		 * the scan when not preferring an idle core.
-+		 */
-+		nr = READ_ONCE(sd->shared->nr_idle_scan) + 1;
-+		/* overloaded domain is unlikely to have idle cpu/core */
-+		if (nr == 1)
-+			return -1;
-+	}
-+
-+	cpus = this_cpu_cpumask_var_ptr(select_rq_mask);
-+	cpumask_and(cpus, sched_domain_span(sd), p->cpus_ptr);
-+
-+	if (sched_asym_cpucap_active()) {
-+		task_util = task_util_est(p);
-+		util_min = uclamp_eff_value(p, UCLAMP_MIN);
-+		util_max = uclamp_eff_value(p, UCLAMP_MAX);
-+	}
-+
-+	/* Those CPUs have been tested not being idle and fiting */
-+	for_each_cpu_wrap(cpu, cpus, target) {
-+		/*
-+		 * Stop when the nr_idle_scan is exhausted (mirrors
-+		 * select_idle_cpu() logic).
-+		 */
-+		if (--nr <= 0)
-+			return -1;
-+
-+		if (slice >= get_rq_min_slice(cpu_rq(cpu)))
-+			continue;
-+
-+		if (sched_asym_cpucap_active()) {
-+			int fits = util_fits_cpu(task_util, util_min, util_max, cpu);
-+
-+			/* Perfect fit: capacity satisfies util + uclamp */
-+			if (fits > 0)
-+				return cpu;
-+		} else {
-+			return cpu;
-+		}
-+	}
-+
-+	return -1;
-+}
-+
- /*
-  * Try and locate an idle core/thread in the LLC cache domain.
-  */
-@@ -9117,7 +9170,10 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
- 		 */
- 		if (sd) {
- 			i = select_idle_capacity(p, sd, target);
--			return ((unsigned)i < nr_cpumask_bits) ? i : target;
-+			if ((unsigned int)i < nr_cpumask_bits)
-+				return i;
-+
-+			goto select_slice;
- 		}
- 	}
- 
-@@ -9150,6 +9206,11 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
- 	if ((unsigned int)recent_used_cpu < nr_cpumask_bits)
- 		return recent_used_cpu;
- 
-+select_slice:
-+	i = select_slice_cpu(p, sd, target);
-+	if ((unsigned int)i < nr_cpumask_bits)
-+		return i;
-+
- 	return target;
- }
- 
--- 
-2.53.0
+The original code seems like a bounds check on the destination.
+Your code adds a separate bounds check on the read buffer.
+
+Why do we even have the MAX_BSSINFO_LEN limit?  What's that based
+on?  1000 seems like a very suspicious number to me.  It's a normal
+enough number for humans, but it's a strange number when we're adding
+up struct sizes.  Do we ever need the whole buffer?  (These questions
+are basically rephrasing the same question.  I'm assuming everyone
+just feeds them to AI, and I'm trying to learn who to do prompt
+engineering).
+
+It wouldn't surprise me if there was a different read check on the
+source buffer.
+
+The other question for me is:
+
+   304          memcpy(pbuf, pnetwork->network.ies, pnetwork->network.ie_length);
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+We copy the network.ies entries to pbuf
+
+   305          len += pnetwork->network.ie_length;
+   306  
+   307          *((__le64 *)pbuf) = cpu_to_le64(notify_timestamp);
+                ^^^^^^^^^^^^^^^^^
+And then scribble over the first entry.  That doesn't make sense.
+Should the timestamp go before or after the entries?  Review the
+git log and other implementations of the the realtek wireless drivers
+to check.
+
+regards,
+dan carpenter
 
