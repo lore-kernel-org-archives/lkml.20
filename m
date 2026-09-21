@@ -1,137 +1,189 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E6AC397B1B;
-	Mon, 21 Sep 2026 07:30:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789975860; cv=none; b=VQ4Z4lra6T5+/QlIflUNbFXHt6fj9LeHaApIRkZl/FLnXKuBdzFYypEsQYSTIrBZ8RS6Z43NyUL0bRTQVmDpRAdDm0H7AouZrKyAL3n8sPFN+5nrUhfmWYWnbS+tSqH8EnRuTjLX76ywICCHuPBOOG/6TrEulxTxvPmQD8dwYBg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789975860; c=relaxed/simple;
-	bh=yAUZPoWamQ3ScSCM0xZZhjNbl2icEgrIDbGQzfUsYu0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ga7m0E0CAkEOnmWQyamP91jnNBNo+C0p+g2DqFXT3FVgicNkS2V5yDFGyZYC0hajMYGbxsD55ufQ9lzv1ruOPpFOlhlhvipj1RioPvGU7UvUxTjynQvPJHCzX7DugyrXFbRtsNwuPiRx3CA9da/OB+Ckr6fBgZqtVoanCYYeabk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
-	by APP-03 (Coremail) with SMTP id rQCowAA3Pz0W3bBqLVZECA--.3651S2;
-	Mon, 21 Sep 2026 15:30:31 +0800 (CST)
-Message-ID: <cb30f57c0ac124aac85efad32626e6182b9f1369.camel@iscas.ac.cn>
-Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane
- disable clearing FB_EN
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 21 Sep 2026 15:30:30 +0800
-In-Reply-To: <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
-References: <20260918030125.315978-1-a0987203069@gmail.com>
-	 <20260918030125.315978-8-a0987203069@gmail.com>
-	 <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
-	 <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6B14078DE
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:31:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789975864; cv=pass; b=o7UnpL1jLWOVUC/4+fgR2jy6xAaV1pPgTtcsqGKpvsgG3JSBPlW1RZFzp6MY8pDpKPdOICWuBr+O5XHvof8z1MJNvy32y98VQmfEgQhx8c/z3p4PWnUKfPW0j0klTEOCMFjoIItzOrUnesefSKK4Cs/zU60rme32gIDHLHBLP2k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789975864; c=relaxed/simple;
+	bh=+kodcrZ7Rfq3RbtOm64zvOegmrBogr+8Wwr1ekULfyY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZEZuM6Q11z+wjJ2+4McM+9vX7ipZnwUPQ6Xg8EbTZx2WUs3a0i9VLce9jyMfPL/OgLNsXp25D5ZRAhR3FiubLLOjhLqTm3s1V06hVc/yocU18CctVEiA3k9bShGs6/VgTM2fC0Gc+vKnhrnKq7eC7cBiBofEhkBYcsK+c3Kq/lw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jD1gc/W/; arc=pass smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jD1gc/W/"
+Received: by mail-pz2-f41.google.com with SMTP id 41be03b00d2f7-cc1cea4bfb6so1111295a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:31:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789975862; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dMQPo9UU3LuE96mAB9+ME4T/Sed/gnavoc4ZwPJUhXgHIoaIga/mcFEaxbFZwQKC8W
+         9xXj/0l/m601WkxolqI+tGnAQ0Cn9ZEHmAo9QJfGuUm25i5IFGGBjqQZxivmm4CyQJa+
+         JtaLkSELa7XP2RMrGNVykZpXQOjfnNi820BVeZi5Yc/m743ABUmb/dFhZveW4Zkfo7gO
+         byY06Wt9y7VjIiAzpIdzvLVSDtRspfZyl/ytUG9a7CAaMjaTpfb50Krl/Q+768vTcWjU
+         LrXAS7hwXh/aUXGlKlUYKhJrPCs8ptRO9jJLIga7sXqBk9Y9zZuvMw3n8y7P5zM6Shoy
+         oSHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=q1BZ6sJCmqeFIahqjVQKO9ObElEe/vXNKUx/QqdQ6iE=;
+        fh=g6lHzBAF5j7vW5dxcA7lDRS4Ue2QIOUpMpYu8JiR10g=;
+        b=r6L78FPnUXvCKjucpaFvMKPg6Dk+GOeB35l/wyrdfNw1YoDOZ4ghEMzSavp1kpTZFP
+         lyEUTWu4RYjqcGsKNj8DuR9G7Elfq1Bw+QNy1jDWdI/FMkGzPV+PMDcKV4I0zZz1NmM3
+         U+K0WMGKO539tGVNZrZhoD/EH7sEIzxTHZpQNgJ8WOro8fPEMWCj2Orsbvs0mpZhzrGE
+         AdWkAbenKC2ZqZQSHVe/cU0WNxiAfcK9YSR9acdlkdwK5Ibk+hKG3EOlR/tfGi7VG7u4
+         AnvtF/+JJZRbH4U8DLapvo8uJ3xtgx9UUSQPPXfBdCFlyClYzHgbS6o9dsQ69KigHTPz
+         Q2Qg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789975862; x=1790580662; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=q1BZ6sJCmqeFIahqjVQKO9ObElEe/vXNKUx/QqdQ6iE=;
+        b=jD1gc/W/eQYVqx+yirVe2qcyxe+donWRgWllTIa+7VE9+YQJpmeal1Rk0LOgaDcry3
+         CuOI/JxJJI52Wsmu7eYoX1vkz5XJvFN+BfSEzY0Gn5YGMnZZ+WpXeMtv/PCNa3YpWlo8
+         s9hlAknJ3Qs1c0R42qcLm2LyzNL24XghGRMB1PXSn54MvoQOde6Cud7hsfyOlSGdMN9n
+         8FJXDNTZlmmR79EqWzI6FBGzPfCGDgiRg9UWmYQl9dgfe0NzixXKlHk5TC/12PLNK4zS
+         RbqumxQSe17kO1x8LDxXCTnnBqvxMkz+ipuP2SCD7m6l6cbkmTgd4ow7pTU+7NgWu8UD
+         wPvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789975862; x=1790580662;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=q1BZ6sJCmqeFIahqjVQKO9ObElEe/vXNKUx/QqdQ6iE=;
+        b=cJDP6o6tpyEzaCDQicNhsgnC+J+W5xDsIq5FL3j26YZvEHaMIdau8ObHDV2obSFjuF
+         XLC9YjdvlGFkypgTZeIXuk0SKiwBNZBkhecWp0zIfyAyzcNd3k9Qhdt3OBC64AbegNrG
+         EXcc53olaPltQ6DzFLKIG5BCKUO4hiqxr4VZNdepQTOgNI96c9R7BKwfkIyfdQL++5S8
+         US2c59K653ZbKQjf2fKm++niuPl/5PO63lhR2zHVdPirHC+KsizjogyIf1aGGb03aqjN
+         JVStAXwPIPWLd5BoH8dTzLMsHhoqyVf/ZwV2+rH35xTqyhoYGQVw3w4ZOzvwHt1E0h/n
+         B6bA==
+X-Forwarded-Encrypted: i=1; AKwUvBwtEmJ12iOHfe4EOGaf5MVGlu/o9LsDKI//Rf+z9y7rVF35IfoIsKhsCCvbdq32iVZvcP+WLihuAAro8Kc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nY2jz4ytFDeb66rUkp/O8d2VOrzxGF3JSooSPeg62YhykPqYWp
+	2VHMUq4D0Tz+TadGMJ9Cr8+YL6VMtJRfrCSvKBOkPv00c9mKjb6l9IT0gWzu39Qk/Hnbym72r0j
+	P5ar7I6Ek44rNRQiLyXrQ12p1Tt7ujsw=
+X-Gm-Gg: AYBFou33X7bj68EoQzTyOYAP4YPskOeASWr4uVEBj/pbdL/XQ6kTpub1ziPRHtBRyy8
+	s5y+0+k4zeJkS1j1h5v/i5SP65xmM28jux2HaP0xhOYbS4puAS4V/3bLjJtdKDkxi/oJUj7GGWW
+	7lh94y4uXvidVDmtQLH7G8P3OIZ+fmDWGXHInin/gugY8UNMeMWsfFH76sXCEYsfMyvjBDS2A4O
+	HZuMdkTdapmXeWPjNLg5mUvt6teZWuayEulhWPzaKWR+VEOCjU3Ez/ouKHMplMFgVe59YEulb5D
+	U/sAsh35JPUriJQ+f4Huh+bvyMnyg/CUO79Sz5zZ2VIbyIXuSAUT31l33pIc1RMzdQVnlAHTV5o
+	LfphAM54EA4oQ
+X-Received: by 2002:a05:6a21:6b05:b0:3da:c2f5:a2aa with SMTP id
+ adf61e73a8af0-3dd8c3323a9mr17128224637.18.1789975862197; Mon, 21 Sep 2026
+ 00:31:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowAA3Pz0W3bBqLVZECA--.3651S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCw43uFWrXry3Jw47Zr4xJFb_yoW5GrW7pF
-	4DtFWUKFs5X3yIka4IyFyqga4Yv3W7t395Jry8G34jvrs8ta9rWFy8Jr95Za4DWrWxGF4S
-	vF4v939xCryUAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
-	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
-	14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
-	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
-	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
-	IFyTuYvjxU2VbyDUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+References: <20260721095654.429346-1-clamor95@gmail.com> <20260721095654.429346-2-clamor95@gmail.com>
+ <178463529533.2776661.17291216407355479584.robh@kernel.org>
+ <20260909162654.GK2133376@google.com> <CAPVz0n2zLd2SPrHGb5vSX3AvRrofbA7Q54YFpmcPP6032MUw+Q@mail.gmail.com>
+In-Reply-To: <CAPVz0n2zLd2SPrHGb5vSX3AvRrofbA7Q54YFpmcPP6032MUw+Q@mail.gmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Mon, 21 Sep 2026 10:30:50 +0300
+X-Gm-Features: AcwNN1Xwan51ardBlULGfF9_kTLOoiJJ0xUxr2pfFDkGmuB0AEVFXrA3aSj0HMQ
+Message-ID: <CAPVz0n2o0OYFWsoXrYXcoAPNz2L4sKi2=JvXPdQzfvha1mOm_A@mail.gmail.com>
+Subject: Re: [PATCH v7 1/6] dt-bindings: leds: leds-cpcap: convert to DT schema
+To: Lee Jones <lee@kernel.org>
+Cc: "Rob Herring (Arm)" <robh@kernel.org>, Pavel Machek <pavel@kernel.org>, devicetree@vger.kernel.org, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-=E5=9C=A8 2026-09-21=E4=B8=80=E7=9A=84 10:43 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
->=20
-> Icenowy Zheng =E6=96=BC 2026/9/18 =E4=B8=8B=E5=8D=88 01:52 =E5=AF=AB=E9=
-=81=93:
-> > =E5=9C=A8 2026-09-18=E4=BA=94=E7=9A=84 11:01 +0800=EF=BC=8CJoey Lu=E5=
-=86=99=E9=81=93=EF=BC=9A
-> > > vs_dc8200_primary_plane_disable_ex() calls regmap_set_bits() on
-> > > VSDC_FB_CONFIG_EX_FB_EN instead of regmap_clear_bits(), so
-> > > disabling
-> > > the primary plane on DC8200-family hardware actually leaves the
-> > > framebuffer enable bit instead of clearing it.
-> > >=20
-> > > This bug predates this series: it was carried over unchanged from
-> > > vs_primary_plane_atomic_disable() when patch "drm/verisilicon:
-> > > introduce per-variant hardware ops table" split the DC8200-
-> > > specific
-> > > implementation out into vs_dc8200.c.
-> > >=20
-> > > Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for
-> > > Verisilicon
-> > > display controllers")
-> > Maybe it'd be better to fix this before adding DC variant
-> > abstraction,
-> > for easier backporting.
-> >=20
-> > Thanks,
-> > Icenowy
-> Makes sense. Should I send it as a standalone patch targeting
-> drm-misc-fixes (separate from this series), or do you have a
-> different preference for how to split it?
+=D1=81=D1=80, 9 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 19:50 Svyat=
+oslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> =D1=81=D1=80, 9 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 19:27 Lee=
+ Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > On Tue, 21 Jul 2026, Rob Herring (Arm) wrote:
+> >
+> > >
+> > > On Tue, 21 Jul 2026 12:56:48 +0300, Svyatoslav Ryhel wrote:
+> > > > Convert LEDs devicetree bindings for the Motorola CPCAP MFD from TX=
+T to
+> > > > YAML format. This patch does not change any functionality; the bind=
+ings
+> > > > remain the same.
+> > > >
+> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> > > > ---
+> > > >  .../devicetree/bindings/leds/leds-cpcap.txt   | 29 -------------
+> > > >  .../bindings/leds/motorola,cpcap-leds.yaml    | 42 +++++++++++++++=
+++++
+> > > >  2 files changed, 42 insertions(+), 29 deletions(-)
+> > > >  delete mode 100644 Documentation/devicetree/bindings/leds/leds-cpc=
+ap.txt
+> > > >  create mode 100644 Documentation/devicetree/bindings/leds/motorola=
+,cpcap-leds.yaml
+> > > >
+> > >
+> > > My bot found errors running 'make dt_binding_check' on your patch:
+> > >
+> > > yamllint warnings/errors:
+> > >
+> > > dtschema/dtc warnings/errors:
+> > >
+> > >
+> > > doc reference errors (make refcheckdocs):
+> > > Warning: Documentation/devicetree/bindings/leds/motorola,cpcap-leds.y=
+aml references a file that doesn't exist: Documentation/devicetree/bindings=
+/mfd/motorola,cpcap.yaml
+> > > Warning: Documentation/devicetree/bindings/mfd/motorola-cpcap.txt ref=
+erences a file that doesn't exist: Documentation/devicetree/bindings/leds/l=
+eds-cpcap.txt
+> > > Documentation/devicetree/bindings/leds/motorola,cpcap-leds.yaml: Docu=
+mentation/devicetree/bindings/mfd/motorola,cpcap.yaml
+> > > Documentation/devicetree/bindings/mfd/motorola-cpcap.txt: Documentati=
+on/devicetree/bindings/leds/leds-cpcap.txt
+> > >
+> > > See https://patchwork.kernel.org/project/devicetree/patch/20260721095=
+654.429346-2-clamor95@gmail.com
+> > >
+> > > The base for the series is generally the latest rc1. A different depe=
+ndency
+> > > should be noted in *this* patch.
+> > >
+> > > If you already ran 'make dt_binding_check' and didn't see the above
+> > > error(s), then make sure 'yamllint' is installed and dt-schema is up =
+to
+> > > date:
+> > >
+> > > pip3 install dtschema --upgrade
+> > >
+> > > Please check and re-submit after running the above command yourself. =
+Note
+> > > that DT_SCHEMA_FILES can be set to your schema file to speed up check=
+ing
+> > > your schema. However, it must be unset to test all examples with your=
+ schema.
+> >
+> > This one.
+> >
+>
+> As you can see only complain is that reference in the leds yaml to
+> Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml does not
+> exist. All cpcap cell bindings were converted one by one as separate
+> commits, so this is natural since motorola,cpcap.yaml will be
+> converted last and patch doing this is included in the series. It does
+> not bring any regressions in yaml and dt schema checks.
+>
 
-Maybe it's better to just make it the 2nd patch in this patchset, just
-after the binding change.
+Hello Lee!
 
-Waiting for something into drm-misc-fixes again will need another fixes
-pull and another RC back merge, which can consume weeks and miss the
-current merging window.
+Is this explanation sufficient? Rob left his Reviewed-by to all DT
+related patches of this series.
 
-In addition, it's possible that `drm/verisilicon: introduce per-variant
-hardware ops table` also gets backported for a more clean primary plane
-atomic_update disabling fix.
-
-Thanks,
-Icenowy
-
-> >=20
-> > > Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> > > ---
-> > > =C2=A0=C2=A0drivers/gpu/drm/verisilicon/vs_dc8200.c | 4 ++--
-> > > =C2=A0=C2=A01 file changed, 2 insertions(+), 2 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> > > b/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> > > index f72da10295e1b..25b5906a1c5fc 100644
-> > > --- a/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> > > +++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> > > @@ -70,8 +70,8 @@ static void
-> > > vs_dc8200_primary_plane_enable_ex(struct vs_dc *dc, unsigned int
-> > > out
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0static void vs_dc8200_primary_plane_disable_ex(struct vs_=
-dc
-> > > *dc,
-> > > unsigned int output)
-> > > =C2=A0=C2=A0{
-> > > -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > > -			VSDC_FB_CONFIG_EX_FB_EN);
-> > > +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > > +			=C2=A0 VSDC_FB_CONFIG_EX_FB_EN);
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0	vs_dc8200_plane_commit(dc, output);
-> > > =C2=A0=C2=A0}
-
+> > --
+> > Lee Jones
