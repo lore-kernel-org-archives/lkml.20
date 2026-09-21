@@ -1,50 +1,50 @@
-Received: from mail-wm2-f9.google.com (mail-wm2-f9.google.com [74.125.225.137])
+Received: from mail-wm2-f5.google.com (mail-wm2-f5.google.com [74.125.225.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC564A64F0
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:57:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D64D4AB1CF
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002645; cv=none; b=SyCPTXqRQrkWkESgsJA9UBU2txTyNyoKqcgePUH3vtCmcstAon9FUjru8q4W8SYK3/Ehyvqg+ewjxV0o3IfctNH4ULvb8+UFQDF8xX2nwLYZYP+9k3H0b1g9Za1c0luvKJoI5y6GcqN7QAzy9IdwnqhufcP9e2vZkQ/F9DdJPT8=
+	t=1790002646; cv=none; b=lqJj/OJ27BtvCWhjIgW0f+FcUUEJno1KLbp/0D2aiW2nNMBmvwEY8heSVKkv21O639GZwcULtlBhaKRa6DZHA61heI9rfUzQlvUQ2IEBGm2ENp9XCpxVuunDOlWZEZey9kDDn5EboGdqQWnIEIiduxGfUg7hHoBytqra/XaYSmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002645; c=relaxed/simple;
-	bh=GewYnmEL4DmNXoNcMZj/SIhw9+Nkv+8Qj+/vw7RBrBE=;
+	s=arc-20240116; t=1790002646; c=relaxed/simple;
+	bh=h/e4AULhjSmntZab1cGdfq7OkJUisqf0YdE9X03GDLM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eQ+1hM5Ie3Fxl4PIJoZ0NcO0F+5TOm4rkAwcVimg7c48nyI9us9TlzSIbdHOck0kRyfKUTKrvjmnrhhTLIRqQFksMZks0jw2ET5UILeyHd1KlwVnVls2SHeAto8YwJ0bZMo6cgQuPfPChmwsxAGLIPitE6ptkJrNaPtTcZ20OvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.137
+	 MIME-Version; b=gyD9UgzPfQu+vJm6RADoZNlrWS/OWZPvNSWa03xkjEjAjiDmrKsElAffYyBc1gj4kFZ3cxEF8uHeVFUaehtJyKW/VEZZaEppaQ7Z+T2w49ZEjDkLMWk6aEkQZ+NgcrLdZHdEAr+W726+YqQThNHZGe9kDqxsiyjhfGA9iXL0yXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.133
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm2-f9.google.com with SMTP id 5b1f17b1804b1-49e6e43b9d8so11352075e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:57:17 -0700 (PDT)
+Received: by mail-wm2-f5.google.com with SMTP id 5b1f17b1804b1-49e66652cc3so16719675e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:57:19 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790002634; x=1790607434;
+        d=1e100.net; s=20260707; t=1790002637; x=1790607437;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pQTMqBWHnIAoQBjOra2YMizNpxK4ySQgVrZe7YnTaiY=;
-        b=N70MJj8MYXHe74CEXLmLnToGyJHQxCtqv7VEUAkRA3Ci/keIBUvECKL8SMcPCagf1x
-         9dnpDvP94XteziNir90zJDG6jnoaBpoesLP8m1Lx9jaYw35IgWHczL2I9MknqKIFQ0Cx
-         c6siF7bLM2EaoitHamXzVfOgIiesSjGv3nNuptjdTjtrIa57wZtP2NKFP9MRsKa0/91t
-         G0bEmA2rfe+oThLhhHdSMiUpqb1TQlEg55UJ7Fncyci1cZ50SQw3yg7pmbLRmfi1ZX3y
-         ltoZKs1783OMOISoyKHjhOSfw5HjiDSvf0wj0HaOUm2dXy43gr9bTWn/LNsmFQjXaaFY
-         9vrw==
-X-Forwarded-Encrypted: i=1; AKwUvBxo4X1YQK45KbT3J6W3lPl1qjA2UWebgRoc7DuV3d8mP2kod/pEon6Z282YoYMMKPgQyZExR2B8oaDuyDM=@vger.kernel.org
-X-Gm-Message-State: AFuF++msUt9UENe4LKaNMXg5NEECSSi8c/VwbBbVRrottRRyikTZ4qoN
-	yXXRgBxirXwatSNbUVDUi4g+NnFkMtDZ/qTGR52hnWjLTBPKcoienT3A
-X-Gm-Gg: AYBFou0f90KIbmrD8+z0QIKq2NzlxWi1YLsLj94eXkemMAoVp8wX/Ij2OqH1oLCm0JI
-	o9JgASRuYVNfbBxJyFpbkj27aMwNj+fKZI4O2+SQ/5zfwKZPhqLUKjtvFDE/xuTljiG1JYm9QJ6
-	YChyYlwHemNU5fjNeHFkJ6namYDOYnqOd4/glWkEsVhYSJzgWNqbwWSZuVC50C6c9NVQTxPh6g5
-	3Ymjg3IbH/dK4aSwcVnMI8yvFQ9LCyeavBEolasPJGZ/gDORDWyZOh4dfpLEHCv/hSYd//moOKT
-	kXfHq2zt37dMaUnJoj1MnICim9soqLtPiAjET+X8ibnz9zFCt035SF32Js8dGQ8zq4UIZmwJXMc
-	Jda+SbVRe73SllarITLd7CzWCW2PvapNnxjINFCsQ5y2RqM9mAKWgF8lImYRo+ASD4wtlGAD2Nd
-	YdacK0g3ifhxSlW1aLTApd4Q3xx79xaGq4dPr+lZvlFiZQLOkXCwkHpKsJ9CvMQK1JsTgIZw56n
-	GGe9/BpmGDV0fOBoSboZrkZgJ90o+npHZjpdLj91yxNzJOWJG8t
-X-Received: by 2002:a05:600c:4e86:b0:49c:d52e:d0ea with SMTP id 5b1f17b1804b1-49fc566e6efmr144949645e9.4.1790002634076;
-        Mon, 21 Sep 2026 07:57:14 -0700 (PDT)
+        bh=VXSW6q1NZ2VUKtjXQJBrCrLariG7HqyHLR8Ed7NC5Gs=;
+        b=U7iMBVcysn+pBQ8FN3dR7zssdtBGtcv1q0TxG5O1p9gmVDmlswIlX/6V86ZZeGAPPi
+         T5WiN37fvk/U+72321EnL5FG8dSkhvQrbu2O4vdLuX95OeLhg3PkjDLsrCUMNDZrRcbI
+         mv9Grw6nwBwH7KnQjcaplrl5Anv81qD12fggR1kUp0dsoPyAQ+uTAMyTxREvXQ4IJ+tS
+         pDNmFo28UaBwedclb+s3PziVvc5qs9PVtPBHQJlKZ/F4rVZAN03lxP720oZ3j4N600Rl
+         HJmsz4s8vL0kNQR15WogGOTHHpA4xpHjG+bjWxLDQntaV2rfu6AEhzdOSjJO6DPeIxXe
+         7x9w==
+X-Forwarded-Encrypted: i=1; AKwUvBy0KnwSe8NjfBmwwJS/C3zWhcsSn+mdYKIz60ExJwjLLv1jrTAe63BxzKg1BmEsfqVLPzmpLc+Exa2MKqg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJd7W4vVC0nR6CgSCFRcLVAsrj58IyJgUy8iQochBKc86AJyCs
+	9OGL7Ofps7BT01XtRvKzJ0ddwKUrflDG+XLZMwV+tMFSj6DGVD95dhde
+X-Gm-Gg: AYBFou3zYIMs5WMgg/1rklIE+vxokGjsKmofmv7V2p8sy69B7/s6tBs/YR0bynYRr9R
+	u9aBp8YNOtCWSN49AOWRcktvXjANvxEgSXW1s3ZstG/w3jJlxRbI+JDQ0TJjmcsSRdJMe0LVaY2
+	jaMdfZm+nP19MClnFSFpLzkGquL841fWZ04Q7gIBanbGRpP1KgfLpcdlpZLDiiLT0XCKDuueMim
+	i550N/3RXjvtapRhoRJxYJI3gKFluMJGaqvlnMzLzkyN1SElnIqUiM+5EGPFtFpHBsEjpnYYlFv
+	VfKZ7M4kGCFw3kzdizX3jHdtnLSJIikg9EssG0sa6+MG/g2aj//1NmrkdTIPLiSSKW+ihln1VFV
+	X1/7m55D0dZMTO1Juf9tMpEEBEn5cSZS1KCrVDa9TTsekrBlRmCi9xbJUWxVgLbdNk+aF2WBIde
+	ZTjUmISD9HwX8wvXe27oz2Y49CXn2asQy/lwToTYj+khdNN8Er9EQYpqmgMZSZrD2k7PZdGCZdj
+	yyY0UV3olMhq0TKCMoD38x+Z7RjBapQkveT2xTGSQ9dEwYa/hiJ
+X-Received: by 2002:a05:600d:4453:10b0:49f:cbf1:e77b with SMTP id 5b1f17b1804b1-49fcbf1e9eamr90041305e9.10.1790002636893;
+        Mon, 21 Sep 2026 07:57:16 -0700 (PDT)
 Received: from im-t490s.redhat.corp (78-80-107-225.customers.tmcz.cz. [78.80.107.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0eabfcsm243153905e9.3.2026.09.21.07.57.12
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0eabfcsm243153905e9.3.2026.09.21.07.57.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 07:57:13 -0700 (PDT)
+        Mon, 21 Sep 2026 07:57:16 -0700 (PDT)
 From: Ilya Maximets <i.maximets@ovn.org>
 To: netdev@vger.kernel.org
 Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
@@ -66,11 +66,10 @@ Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
 	linux-kernel@vger.kernel.org,
 	dev@openvswitch.org,
 	Ilya Maximets <i.maximets@ovn.org>,
-	stable@vger.kernel.org,
-	Axel Mierczuk <axel.mierczuk@1password.com>
-Subject: [PATCH net 1/6] net: openvswitch: conntrack: avoid modifying shared unconfirmed ct entry
-Date: Mon, 21 Sep 2026 16:55:43 +0200
-Message-ID: <20260921145655.3167436-2-i.maximets@ovn.org>
+	stable@vger.kernel.org
+Subject: [PATCH net 2/6] net: openvswitch: conntrack: remove 'add_helper' dead code
+Date: Mon, 21 Sep 2026 16:55:44 +0200
+Message-ID: <20260921145655.3167436-3-i.maximets@ovn.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260921145655.3167436-1-i.maximets@ovn.org>
 References: <20260921145655.3167436-1-i.maximets@ovn.org>
@@ -82,76 +81,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In a case where skb with an unconfirmed ct entry gets cloned, we may
-end up committing both but with different sets of extensions.
+This variable can only become 'true' when the connection is not
+confirmed, but it is only checked when it is confirmed.  So, it can be
+treated as being always false and just removed.
 
-The series of events:
-
- 1. The first clone wants to commit and runs the helpers wiring up
-    the extension pointer into the expectation list.
- 2. Then it looses the confirmation keeping the entry unconfirmed.
- 3. Second clone now wants to commit labels and adds the new extension
-    for that breaking the pointer in the expectation list causing
-    UAF on the destruction path later.
-
-While this is possible to trigger, there should be no practical
-network pipeline where committing both clones without modifications
-into the same zone is needed.  So, let's just reset the entry in case
-for some reason we got an skb with a shared one during commit.  This
-doesn't affect any known use cases, but avoids any potential problems
-with sharing and modification of the unconfirmed ct entry.
-
-The fixes tag points to the introduction of helpers, since that's the
-main UAF trigger for the sharing.
-
-Fixes: cae3a2627520 ("openvswitch: Allow attaching helpers to ct action")
+Fixes: 3c1860543fcc ("openvswitch: add nf_ct_is_confirmed check before assigning the helper")
 Cc: stable@vger.kernel.org
-Reported-by: Axel Mierczuk <axel.mierczuk@1password.com>
 Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
 ---
- include/net/netfilter/nf_conntrack.h |  5 +++++
- net/openvswitch/conntrack.c          | 12 ++++++++++++
- 2 files changed, 17 insertions(+)
+ net/openvswitch/conntrack.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-diff --git a/include/net/netfilter/nf_conntrack.h b/include/net/netfilter/nf_conntrack.h
-index bc42dd0e10e65..c39425e54d87d 100644
---- a/include/net/netfilter/nf_conntrack.h
-+++ b/include/net/netfilter/nf_conntrack.h
-@@ -185,6 +185,11 @@ static inline void nf_ct_put(struct nf_conn *ct)
- 		nf_ct_destroy(&ct->ct_general);
- }
- 
-+static inline bool nf_ct_shared(const struct nf_conn *ct)
-+{
-+	return refcount_read(&ct->ct_general.use) > 1;
-+}
-+
- /* load module; enable/disable conntrack in this namespace */
- int nf_ct_netns_get(struct net *net, u8 nfproto);
- void nf_ct_netns_put(struct net *net, u8 nfproto);
 diff --git a/net/openvswitch/conntrack.c b/net/openvswitch/conntrack.c
-index 0f433688e17b9..a733029c28dd0 100644
+index a733029c28dd0..c20f096eef40e 100644
 --- a/net/openvswitch/conntrack.c
 +++ b/net/openvswitch/conntrack.c
-@@ -734,6 +734,18 @@ static int __ovs_ct_lookup(struct net *net, struct sw_flow_key *key,
- 	enum ip_conntrack_info ctinfo;
- 	struct nf_conn *ct;
+@@ -778,8 +778,6 @@ static int __ovs_ct_lookup(struct net *net, struct sw_flow_key *key,
  
-+	/* If the ct entry is not confirmed and shared with some other skb,
-+	 * e.g., a cloned one, we can't just modify it with the commit as we
-+	 * must not modify the extension set.  Reset.
-+	 */
-+	if (cached && info->commit) {
-+		ct = nf_ct_get(skb, &ctinfo);
-+		if (ct && !nf_ct_is_confirmed(ct) && nf_ct_shared(ct)) {
-+			nf_reset_ct(skb);
-+			cached = false;
-+		}
-+	}
-+
- 	if (!cached) {
- 		struct nf_hook_state state = {
- 			.hook = NF_INET_PRE_ROUTING,
+ 	ct = nf_ct_get(skb, &ctinfo);
+ 	if (ct) {
+-		bool add_helper = false;
+-
+ 		/* Packets starting a new connection must be NATted before the
+ 		 * helper, so that the helper knows about the NAT.  We enforce
+ 		 * this by delaying both NAT and helper calls for unconfirmed
+@@ -811,7 +809,6 @@ static int __ovs_ct_lookup(struct net *net, struct sw_flow_key *key,
+ 							    GFP_ATOMIC);
+ 			if (err)
+ 				return err;
+-			add_helper = true;
+ 
+ 			/* helper installed, add seqadj if NAT is required */
+ 			if (info->nat && !nfct_seqadj(ct)) {
+@@ -821,13 +818,10 @@ static int __ovs_ct_lookup(struct net *net, struct sw_flow_key *key,
+ 		}
+ 
+ 		/* Call the helper only if:
+-		 * - nf_conntrack_in() was executed above ("!cached") or a
+-		 *   helper was just attached ("add_helper") for a confirmed
+-		 *   connection, or
++		 * - nf_conntrack_in() was executed above ("!cached"), or
+ 		 * - When committing an unconfirmed connection.
+ 		 */
+-		if ((nf_ct_is_confirmed(ct) ? !cached || add_helper :
+-					      info->commit)) {
++		if ((nf_ct_is_confirmed(ct) ? !cached : info->commit)) {
+ 			int err = nf_ct_helper(skb, ct, ctinfo, info->family);
+ 
+ 			err = verdict_to_errno(err);
 -- 
 2.55.0
 
