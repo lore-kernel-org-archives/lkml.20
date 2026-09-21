@@ -1,120 +1,113 @@
-Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB954BB293
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:10:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332CF4B44B2
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:11:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790007055; cv=none; b=lX0YAkdpuQNm/O2Tw8sdTktyM6U8MB0h5hjnGj5skJuOHbgRSyOZYpKxWBTcJi8/TB4TLMmeiI/ku2yDKbTCWPUOnJ0VGaANkQYboJbdOAkC7dGWGYjxcWSNxjYJJTKSRpvnHFYMkU8IrRmQPOPfC2giI2GwMS7kJFk8MqzQhrk=
+	t=1790007121; cv=none; b=ejVkhW7BcYSbKfyF+YO+l0XievLtHmv6jdPgfQZRVfWVJPffMQ3rqqeUeOvzVooieFxj4Ki7v5mkHnh9t9SWwQ19MgARWGQkCs7UGR6iU8pAKbAmG1Z0s72vueeo3r4iz+SscKJteVww74CWW79uImqyrCkBc+V+m8Pqz4aqXoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790007055; c=relaxed/simple;
-	bh=KxRGP42jnNZFDQR6TcrefeTptXs4HoXgzM9QUv4IjDg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rbGe32bvJNa6e7ri2KrUq6ewKUuxAWgx8yQk8soQ1MNS1cu9rSX6Ioh1gUP/Kxaj14VGUvXTFWkF187QazEAfWBTGk2KMk3A0lr2ewKmCaCn0oiH8MEK30t6lxFiyIlR5RXP5wk7gGsHNS1o+n9ATh++AMszQVtQfVC6iOKqA+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=DnYor2U6; arc=none smtp.client-ip=74.125.231.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1790007121; c=relaxed/simple;
+	bh=MDXf4pN9TxBovN9ogrsp8I2hmcVR+PhSHUrds8gcYDM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JdE4Eus2jE61z+j3bhVVEvBkWI5lIP6u+xJaxh5u6x6f1V8hp408bXqDpkdn+qyJ8IsjFfU04bbcvms7yA8iDW2GWuJQz9QKdLavmOhpXLl4UNzopzfZCjhzgfcigtnSACqcbOoZHsZxfinEc6q2ojbzbeIv0Y+teFHfYfa3jko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RgdVCj8Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="DnYor2U6"
-Received: by mail-oi2-f12.google.com with SMTP id 46e09a7af769-7f4f0d298caso1335017a34.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:10:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1790007052; x=1790611852; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1u6rjc+Rr+SwD8BBU712UPTVOpOR/jX0N+MPWo4iqcc=;
-        b=DnYor2U6SZltoQ4N3X902xPvhztB7Y+RnSETd+D6axeO9NYwjBYJgJAS9GwZ6IU5zc
-         8t8nPqGQCcwQ01KFgUAyWyGohaFgpC6+Tm9YLQRReBu6FnUQStjVez7EDXtvszDOJywl
-         D2aAQ+hQFrHkA5CGmD9hQaAfn3ryIWAtxOkrGqOfy1MmuJeya7WBzeTOEaf6rkcLTDON
-         NvNKWMf1qnmsmLZJoWqbnbwjBG/gpeO8gYiTAUJNaVXmUk2I4K2QX4kfY7FwkEEDPFiP
-         c1aSLn2WYxcQIpZvxCtkxkDzj3aDxjJlr5vFdDpnBUhBFcLa/z6l0wLM0ry8HlVQLw0M
-         2lSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790007052; x=1790611852;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1u6rjc+Rr+SwD8BBU712UPTVOpOR/jX0N+MPWo4iqcc=;
-        b=AELwcoynju3TuwwOXHchjmieDo8fna+xpeb14a5RY+yRatePEg3e481JTlVDXxOR5Z
-         jAqVg3HyEQgRISw9Rzk1ilypdUv3ZqeQ6qtpei0RrG84dHKqnRMVLEAv0YS+o7Rt9rNh
-         gTQIAVAnYq63sNA2lnJvXef1O2vQFfMciuiIQk4o05BmHe2OzVGiyzFvRQ1bCr9D7cpQ
-         tMV3XBSvVvUZjQem0fTtGBSTosABl1Rp+WB4oiwpig6Rj6pq1NMqZ4SKS+FOyqRDuI4R
-         08T8Q6bBbF2kJp1u2NgmYApR87/+W9vczxfg0GnCX0HoG84eqCBo4nBC084WdzV10S27
-         Yzzg==
-X-Forwarded-Encrypted: i=1; AKwUvBzpJdscwTXdPXgZbqbWwDmNeQJmnA0xXtJIElbB5bDHVI5naPv5TjvbrFQsw7mf+6qtb+GnHEXNFyl0+CE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNKhLu4V8c772AkCcqae5FBH2sV9ikxdir91vtogPCj2dOnXjT
-	x6NvYBFBUX36ZlnkLGR5YYbgbW4vIIwKqwkbATNHgGjxqvB5t5q9K93j1xCTYwrsubo=
-X-Gm-Gg: AYBFou3ushgF7xvd08kLaYvgfv7Rhatx6w6QTfIFgPUXbK33ivPvOsPOo/OBgaHVQaM
-	e1i42RYyjauNJoGONwDi3H5GMhiBqhd3v9bg6TIyc8N1Vr+DjSW2CEkFo+OvlaOIpHdRMJUZMQc
-	hxt9KCxpG+O3PSRyQvLmB17Fa6iehiFuFqrhKM40Pw+mmBDxr8h9FPcUoWGKznJLpbTlMpzk3ok
-	1ihehpAqAL8Oxbh2W1QkbYbTFTaSYVzlDKLfYW4PF5pgxuB3piltry9dFpju1hxvmOPjP+CX18W
-	kwmDopy1qgF64U+Q6xhl+xvVxExRJ++2p0gvTQz6iXyxylurkwUoh7NY8H4mbMJ480qRFORZerL
-	K+Ifs0zKNOb87vjgjZl1kmDm5j1pnlZ6VgkQ5Ux0aUfupj+SZ/fwhNd6EQY8Q9IoO8CjtrRMpFh
-	uPKnz5/jdBcOfg9u+V3vLmdhrgEBGI6i4OoIrgyUNRfYF5wY6NJkSX0peBdmSFA9EOKixAZw13g
-	jyjWhFLn0BpKF71lRn10JR/aNRUuVIQYJA=
-X-Received: by 2002:a05:6830:412a:b0:801:6bec:ff18 with SMTP id 46e09a7af769-80ddfd6c36fmr11244293a34.2.1790007052481;
-        Mon, 21 Sep 2026 09:10:52 -0700 (PDT)
-Received: from [172.19.0.10] ([99.196.129.128])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-81475bbc475sm405170a34.8.2026.09.21.09.10.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 09:10:51 -0700 (PDT)
-Message-ID: <cbdf1ef2-7fe0-4cd9-8ce4-3235478e536b@kernel.dk>
-Date: Mon, 21 Sep 2026 10:10:35 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RgdVCj8Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0CC71F00899
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 16:11:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790007119;
+	bh=Bp3IBrDxSg3j2mpmgJ6jbKGXoqJCAZK/XpOEiySiNrk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=RgdVCj8Y8MEZpnY8Ynmtz5Dy2UDP7d9xzKnUit65T6xk8+YMxnlM7DSiiYU1AOpBR
+	 zvWmmx/kpNPrEVC3+dkPUlbTSKUBrMFc4ZXp95XtAlJPh4JJw1/U/vjJiKx1N5IYmX
+	 zlPLV+yHk5U49q14WR5l0zjfqYYW3OTrPp4bOCWFyv6a7UtVjfKNC70fnTTvYnoCq1
+	 0vbvbfWNLVfS6U4cWKSFf5HBZQKiOxDqOVIvkjcb9Vui3oPDdPCOzkzSdH9s20LCGn
+	 JVgWNC0h3NP3RpXUOHAGfajyXdsgDKXaOL8ztYwgAbjK8lb6758XnPMpoAtLJUp/th
+	 u1ZKVFeYiv9Eg==
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfbd3208so30176746d6.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:11:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzCXdYiSW3CBnMAZdnAQV5YY8+KWlYdbnWs/E4NNxQ6+GnfwBdcIkrQoVCzvpw7GEKA2NXAztMQflqM0T4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kk6NIu6R6wO7a3VsA1/BLaqPCTl5FsHf2RdlG+VBn6C5E9O9Ds
+	MNLcOKm85CWbxC7be/8T01yKQEkSoJBuKQSvEZQcEUysLibGxlsZX/l5WOmH4Kr7PxmC+u2XCXV
+	j3ztFtM5Lq4NajSZAy21wq7fxWM9RBfVLdiXaArVvaw==
+X-Received: by 2002:a05:6214:d88:b0:912:517b:7bc7 with SMTP id
+ 6a1803df08f44-913fc9691bamr12933946d6.38.1790007118678; Mon, 21 Sep 2026
+ 09:11:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] io_uring: fix CQ tail over-commit and CQE32 index
- corruption in io_cqe_cache_refill()
-To: Hui Peng <benquike@gmail.com>
-Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260919203516.2581409-1-benquike@gmail.com>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20260919203516.2581409-1-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+ <aqJXx2vtbKaRLt3x@fedora> <aqLi6cIjD2wJwk0B@cmpxchg.org> <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
+ <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F> <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
+ <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F> <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
+ <arEVDBlfsUYKK004@gourry-fedora-PF4VCD3F>
+In-Reply-To: <arEVDBlfsUYKK004@gourry-fedora-PF4VCD3F>
+From: Chris Li <chrisl@kernel.org>
+Date: Mon, 21 Sep 2026 06:11:46 -1000
+X-Gmail-Original-Message-ID: <CACePvbXG5kjZmRsdd0a4HfbnNa6w5s9b_1OCySbwvY+HuCqOVg@mail.gmail.com>
+X-Gm-Features: AcwNN1XW2qPwRKFrDJtBwtgJeNORhYpDb8TYjJkQ0_71FBj_TGhnmFQwOxcat7E
+Message-ID: <CACePvbXG5kjZmRsdd0a4HfbnNa6w5s9b_1OCySbwvY+HuCqOVg@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Gregory Price <gourry@gourry.net>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Baoquan He <baoquan.he@linux.dev>, 
+	Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
+	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/19/26 2:35 PM, Hui Peng wrote:
-> io_cqe_cache_refill() has three issues when handling 32-byte CQEs on
-> IORING_SETUP_CQE32 and IORING_SETUP_CQE_MIXED rings:
+On Mon, Sep 21, 2026 at 2:53=E2=80=AFAM Gregory Price <gourry@gourry.net> w=
+rote:
+>
+> On Sun, Sep 20, 2026 at 11:43:59PM -1000, Chris Li wrote:
+> > On Sat, Sep 19, 2026 at 3:53=E2=80=AFPM Gregory Price <gourry@gourry.ne=
+t> wrote:
+> >
+> > Let's start with the real question: on your fleet what is the max % of
+> > zswap memory compared to total RAM?
+> >
+>
+> You're asking me to predict the future.  Any number I give you today
+> will be wrong 3 seconds from now.
 
-Don't combine fixes, send 3 separate patches.
+No, I am not asking you to predict the future. I am asking about your
+history. What is your current trend.
 
-> 1. When cqe32 is true and off + 1 == ctx->cq_entries,
->    io_cqe_cache_refill() posts a 16-byte dummy IORING_CQE_F_SKIP CQE via
->    io_fill_nop_cqe(ctx, off) even on pure IORING_SETUP_CQE32 rings
->    (where IORING_SETUP_CQE_MIXED is not set). On a pure CQE32 ring,
->    ctx->cq_entries is the number of 32-byte CQEs and rings->cqes is
->    indexed by (off << 1), so writing a 16-byte skip CQE at
->    &rings->cqes[off] corrupts the middle of the CQ ring and misaligns
->    all subsequent CQEs. Restrict the wrap-around skip CQE to
->    IORING_SETUP_CQE_MIXED rings.
-> 
-> 2. On an IORING_SETUP_CQE_MIXED ring, when off + 1 == ctx->cq_entries
->    and only 1 free CQ slot remains (ctx->cq_entries - io_cqring_queued()
->    == 1), io_fill_nop_cqe(ctx, off) consumes that last slot and
->    increments ctx->cached_cq_tail, after which free == 0 causes
->    io_cqe_cache_refill() to return false without updating
->    ctx->cqe_cached. Check that at least 2 free CQ slots exist before
->    posting the dummy skip CQE.
+You can not even provide a single historical or current data point.
+Do you have historical data points to back up the claim of this max(%)
+large swing?
+>
+> You can't know the compressibility of memory until after you compress
+> it, and requiring a user to predict the future by forcing them to limit
+> the total amount of workload compressibility does not scale with the
+> number of workloads of variable compressibility of data.
 
-These two look fine.
+You likely just need to pull a SQL query on your fleet to get that number.
 
-> 3. On pure IORING_SETUP_CQE32 rings, len is in 32-byte CQE units prior
->    to `len <<= 1`, so `len < (cqe32 + 1)` falsely requires 2 free
->    32-byte CQEs instead of 1. Check `!len` before scaling `off` and
->    `len` on IORING_SETUP_CQE32 rings, and in io_fill_cqe_aux() zero
->    cqe->big_cqe[0..1] whenever IORING_SETUP_CQE32 is set on the ring.
+> That should tell you that your model of reasoning about this issue is
+> ill-suited to address the problem.
 
-This part looks wrong.
+That is what I'm suspecting. Nobody in a sane mind would want to zswap
+100% of the RAM and maintain reasonable SLO.
 
--- 
-Jens Axboe
-
+Chris
