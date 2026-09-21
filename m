@@ -1,152 +1,219 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011058.outbound.protection.outlook.com [52.101.65.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6A24825B6
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 10:46:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789987597; cv=none; b=NRFM98cn07frBFieG31lVLdrUCzi7pE0NnWNDb80V0iIU75f16IBfZkM9+KCZC2h7Ws103OhKSeR93RXERmW3G9tiroaouH5po2KEd+aK3nJdK6f+hyT5lhIgQvTdxDDMvgLWjGrz1bhDILsVrjH/B9bhcCLOzEF1vyuZVjflY0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789987597; c=relaxed/simple;
-	bh=4ExNL/dyZRTZ8of8W7TIP229I6QEOWpteKGWbxZ72kY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=JKFJ9oOBI2YEfJoA17Pmp8MkJW5G3cFQndgzDfet2HAHAmRqjSWXfONfb3e7zS+QRX3AAKoKfJxUek2HXIN0sPzpmcPmwaFw1+hapboww6CYLxA6Ktmh6WKyyuRGYkBlIqfL2qFHMdbvlMe8w1aLvat5ffWmWTR5NB8iNcSVQ1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PVg80oeE; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B3447FB10;
+	Mon, 21 Sep 2026 10:46:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.58
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789987613; cv=fail; b=u4QVYKwptAzsP8B2aBcdCq1oVf7nX2atW7h3du8zYF/WzfXXhoOBmM4Zj2sx59qMetGxdd98aDTgDoK2oXfMVsgZ26eULSyF6yhYyUI0wfpqhN5QNSsfcIo+irEggwxN7VJbPGrf7Ok13wG+MP71+0ESeqtLJ0MG+8Tu6nF591c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789987613; c=relaxed/simple;
+	bh=K9+5X//Un8/t2PRlvYTRAuAWbx+SWMeTK18dikc8+7E=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=cBjSklxOqgMEvd50n71lUIrFa0NQPctAsftFs9rN/Oz/oIe4qrFOUH5LGpQ5zrQKk80rbTC4kLFIhRa/maT/tp60Ant4GcDuTQl03yvQvNDQUwQ8itoE6T40UZDARTIV4Zf0AL52UEIj4elVxNbIW4N7c+jAhr9vbQtr+k1uQwY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=pjOaqCh/; arc=fail smtp.client-ip=52.101.65.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PVg80oeE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789987595;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xOxCxi0et4Im0QZpiAibCfANf5oH7SZI/BNFkKL+4DA=;
-	b=PVg80oeEvFiioy782BtuvmSf9B/7WWddQvlKSaO21QlAFLKAtItYcZhFFaP5LWkchn5faG
-	gsX7EncHpw9mjTkOU3IYsIywzf/nc/BPbrCRmYCNaSzu8AlTj4ipT2FLnpZy0JirztjlI5
-	3S+YzL79WjahPuPmF5bGi3yu07PoqfE=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-252-q8y1uSteN0-oJqoYVBNtGA-1; Mon,
- 21 Sep 2026 06:46:31 -0400
-X-MC-Unique: q8y1uSteN0-oJqoYVBNtGA-1
-X-Mimecast-MFC-AGG-ID: q8y1uSteN0-oJqoYVBNtGA_1789987590
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 723F518011E3;
-	Mon, 21 Sep 2026 10:46:29 +0000 (UTC)
-Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DD3BA180056E;
-	Mon, 21 Sep 2026 10:46:26 +0000 (UTC)
-Date: Mon, 21 Sep 2026 12:46:24 +0200 (CEST)
-From: Mikulas Patocka <mpatocka@redhat.com>
-To: Ayoub Zaki <ayoub.zaki@embetrix.com>
-cc: snitzer@kernel.org, agk@redhat.com, bmarzins@redhat.com, 
-    dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org, corbet@lwn.net, 
-    linux-doc@vger.kernel.org
-Subject: Re: [PATCH] dm-verity: add DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE
-In-Reply-To: <20260907171939.355472-1-ayoub.zaki@embetrix.com>
-Message-ID: <a37a63f2-e45d-4e51-0c2d-bd19cca5fe88@redhat.com>
-References: <20260907171939.355472-1-ayoub.zaki@embetrix.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="pjOaqCh/"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eJCdLnub37o3gXolYmnCgtusYTHlHpVoxhqPqKZIDIKNMmhkCRm1LjVH2m4WPgV8IsULgEnnCp45jbGf+YU2GbXGn1vijo8WgdbhS7L45WaIEqSuHdrFL7iKPkD5TsVUItXftxULTUg5oMrRBF9tYsLD86hEhOgcNXo/aiQgdyF5M3zO2uLiopTonkHUSwfMRamba6gvBikoBtiUUqafUfGB3gy/HKCkXguPXxNSJtCdswgRoy3f5948pJ2MKlx7rFlE80kVHySB+3LElNY38y1C4rH9NY/JD5cnYOBaU/3tgwAVss81/bm6KPq6sIjbpDoBIG/5TF8rctRA19ehPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xdkCxLJo2mrqWtwupTv7WE+X2EGbg2klql+zvTZ+TdI=;
+ b=pQRfils1EPac6b4MBQBo6I4t/11PETXBEJ6QvY37XvBh3aELCqx2cPIvf1O8Ie4jamk+FEEyegMeqWbMFiBtyRWO1eiw3F4F2ulocjgVF2BABqF+Ih9qy4pWDTyHEa+kvk0IbJm0EumFbWkPyuFpoVc56+8ldukhMWt4Df9NEQA7CinFOkH6WAoZoaDn+trr3ii5qYvkfFo5xn1H3dS0vqqAJzhJ60E+pnU1cI8akafPIq13GbpKOQqnrBH29oSxs/9ojrtdvl9wVJeuTlDqwXOmWsVNgRwwEpQjg5fbw+orMzE/IaC9q9dxKUsNymo8eS3+pOa+RAhGRIs31G/EVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xdkCxLJo2mrqWtwupTv7WE+X2EGbg2klql+zvTZ+TdI=;
+ b=pjOaqCh/EcW908DYwbZPxGnQSMjjxi0nk3TWeCPwuAvk02U3Jy6sJ9s/SW4gj6SWMfzyXv0dBLDa0hbSpIBfrLdmIrl/VrlL4U2daxNkPtqM1dEAi9Z8Svc6Vq8hOdsC9InBNh6p+2Ak2T4jhsfug7+aRDVrz8pnOYZvk1h5vfgV/AAHGKGsE1kg7WlQE4NbOidtcOfVAXsH7lwb5HZ4YaDllmHJfOlLF55jBxWNffnc4tEaYi6dv6mhX1djYvsEenW/nWHVTRDfVR/0EYIU1AF6Aw7OyRjzbSy5T9zz0PKvLSvvPRmwEg+lqPIO1/1q72GyrmrF7pBbjuslyBFlFQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
+ (2603:10a6:150:112::20) by FRWPR04MB11198.eurprd04.prod.outlook.com
+ (2603:10a6:d10:171::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 10:46:48 +0000
+Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
+ ([fe80::d247:853:3e16:1994]) by GVXPR04MB10021.eurprd04.prod.outlook.com
+ ([fe80::d247:853:3e16:1994%5]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 10:46:48 +0000
+From: Chancel Liu <chancel.liu@oss.nxp.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Oder Chiou <oder_chiou@realtek.com>
+Cc: Support Opensource <support.opensource@diasemi.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	patches@opensource.cirrus.com
+Subject: [PATCH 00/21] ASoC: codecs: Fix resource leaks across card bind/unbind
+Date: Mon, 21 Sep 2026 19:46:19 +0900
+Message-ID: <20260921104640.1941554-1-chancel.liu@oss.nxp.com>
+X-Mailer: git-send-email 2.50.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SEWP216CA0123.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2b9::12) To GVXPR04MB10021.eurprd04.prod.outlook.com
+ (2603:10a6:150:112::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GVXPR04MB10021:EE_|FRWPR04MB11198:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8f258d5f-aa01-47ad-9cdb-08df17cda28c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|1800799024|366016|19092799006|376014|10067099003|56012099006|3023799007|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	TEHZ/cFpwuyi4JEgiabzPWo4VdFGWpqNUm7G/cDTtAMIzlivvqLRUGGnKYP1KrZ287RHUFgjhgH+eW+ipIuz0Ksv8SZPloKls3XRRtUldCBjPi3naLwSAfQbgwKs+DB+MpNCod5+acCsAHx0u1RRI1nebgckt9hvxq4R1DOlF8oVZNOmbSGsuB4JDkQJPOqU5OGcEfTIn/iqqIiJkqziMCS1ZoXSQlIOSRp/hQz8EUlEFdCMfYuIOtGey5fCye51Hr7jpduj0/9p7aUSBx1vjHcEq34JTFxPs1IGhmrJZZXlKYJJYtiSraU654cy+rZ/Q3TTYjqgS6Lr92BxB3T78HCv7sq8QifDPCCtEUiPiY3ogFcd3wsORaiaDjcsDSedhiFVZl0sLP3Vdoy60L/uvGHoYWEmoHSPdzO0c5MjUz1b5YP1EzLFyUoF6eDn5u6fH9dHVMKeSFTbxVYofc/FBktUZ/5Yy0nbQBrKCrZvOUE98FHdtX8yxIQyAsa+5TD3fIdZhAKj8DJMpBcnspkOg1zFVVl7SrSvn9IQgKglkC3tjCu9mr+o+VNIK8BqseYPywO3JgPyzOBk6tT5V/fcWG3MbXQwstnYxyegIAk2Z64NB51EEmVAV42kh3Kny6UV
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB10021.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(366016)(19092799006)(376014)(10067099003)(56012099006)(3023799007)(18002099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?wWszUauPIYNngVYLdbsyl4HP4alUrUXaxqHNY5nZ3w9lYjctucS+s9CryPS9?=
+ =?us-ascii?Q?Xnn88kqaGURKY1orMNd0g2uzswd3AGXMAtDH+h6lw69wWl0GHAaXGfAwJhwm?=
+ =?us-ascii?Q?0rG6SH6XgySMTx8YtplYqnMEOm0x/UYXEnGqtCDfz2CXAGNT9hzJEwM/fR+k?=
+ =?us-ascii?Q?tLQuS7uvCmwJwGWK5wx9hJ+hPccWNaLUhXkPCDwQtl9urtqA7eR0gRwX0lbW?=
+ =?us-ascii?Q?1GgiLsZLPjKibx6PdMzkc0itp43ZhvniEI2j82SlmaAAokrWmLZ2Hdkmosj2?=
+ =?us-ascii?Q?+25OUUvn4F3JU6Gc0mxmga8uZG1SNcTdI4IBAMp0zMfzw03BVqoF/LcNtP7c?=
+ =?us-ascii?Q?dej19jq+DxZ/3NXuRA1lvr7nKmg21pYZJa0j/Nw0AZ/pJBizaciZTKZ/QHA9?=
+ =?us-ascii?Q?QoF4iWdovvkRW1h2y0T0XppIFigVTv7lpZgjubK2OlPdS6AVOZ+H6TfXOuQg?=
+ =?us-ascii?Q?GUqCtwT3W2co+ZZTB0P2o/ixtM9SZ1SzsJLnrihRl/DHbjdbmEv/uSwvbOUA?=
+ =?us-ascii?Q?kyZNpc8UsDfe02emyT4PnMY6UF53BBdnG5KtsYnB9dgqZZUKHcf+wHatejD2?=
+ =?us-ascii?Q?Bj8uTSeBvRWcoBel8M0IKmxbilMzeVCrUgKF3zRCkYwwBT6gqqyCbjmsSpWi?=
+ =?us-ascii?Q?Cv+CpYjW3GdQNoZyzfQCllkbBnucYZR0t4IumkPmy3C3yLnsHyUo1um5ohal?=
+ =?us-ascii?Q?BenonzB+ewFDTX0o6+67w5Z/1Qakvia59K/dG6vlFnQrIv3sS8ALmirgZBPi?=
+ =?us-ascii?Q?TtYmz9qXgrelt9lzD1KCQWOgvmPtHxx4N7ndLX/MsAiMON1nHt4qxWD8V6CB?=
+ =?us-ascii?Q?j/tj4AK1NrvuDRup2htQy6y5hw9yfb2Skl04Fei5bvvQ0HkldaZKqf09IaC9?=
+ =?us-ascii?Q?PcYO7ioq4HCAz7zl1WcziLHPwIjqVamajYVESRgDDFlz2/VODotyQSeVxGdl?=
+ =?us-ascii?Q?fOUtdmUUXzYylUXoc/ia7Rz1oNmkCCvKX1J8TU6eyN6ug8KF5Vjo9BaFWGNI?=
+ =?us-ascii?Q?slDN9NxJvYVhj+VWQg3Xa7WIinyao8s0D5lD4bTvsE0zQDpPWXfjrEIajW5g?=
+ =?us-ascii?Q?EYDYJ2jl+DTvGmoY8YJUJrOemSXqWOIx+lKCsaO72UeWEBxIoEfzEXkuxTVq?=
+ =?us-ascii?Q?4lKZRu803EcBCHQNMIdYPSJSpv4TOToUlF982tZJTV65PRyFnePtZkrXWWRf?=
+ =?us-ascii?Q?m4W3HmyMaoLGVvdtr9uPtrSY5R1Maxr+QyuqNNQjoVDn9ZQZpFs4zC93B+HE?=
+ =?us-ascii?Q?XXLgY1s7EatE1CxfWuLQ6Fhy3+eLoiwfAqNlpvXQeJo0mBCAOkhkT1I2EIAD?=
+ =?us-ascii?Q?ktTlxpSd3qbrsRnaFzO7OLxQ1fcnGfP66aDtQrvtCQeu6BTBrjv8DjzszY/Q?=
+ =?us-ascii?Q?GvPCLaicgZ0ij1ZOM7ikIy6K6wa1h9J/vJkyP035wz7vQtTdJTJJ1S5pQpnE?=
+ =?us-ascii?Q?Iw4AdITjIz3GWJqqY2cJruUrzr9UlQXJyKrJcD8GXa69M7WqJ6zfSXVmHZVl?=
+ =?us-ascii?Q?CzXL4Wj4HxqUkuB2fGkVc+HXgf/I59yH+5BcO7WMOZyxTMfa3dGMH/CwLJMo?=
+ =?us-ascii?Q?+5fqVI++1tXmBQwEpcqCpMYkewS9grpoLPB1s7JEzrBM5XxHM7WN0TxYTo99?=
+ =?us-ascii?Q?GYwrGjpVm24G+tB3A7gCzxdkK2xkFkc19n2VL1Iv7UKuYh23rG0UN7+KN11z?=
+ =?us-ascii?Q?grLHPvaG/vtwR9B6F10hf6uJAiJ6bX3b2gEESZt3JWO0jjzAdyBelWQ2v9e+?=
+ =?us-ascii?Q?1usAB6rHva/bGrz45nUdpl/qpZyclXTvmiSq8wcI2Zbb3nZ9XTvw?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f258d5f-aa01-47ad-9cdb-08df17cda28c
+X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB10021.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 10:46:47.9930
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: m5mT91Yqdt3kNjGoy8yQa3IgO35vlNMWafweJRsyte3YJVVHRNKI2xMYJrOGrKDIFkM2xar9cwhJvA7fta4ki1bkHUzi1QMCkcqJEpXgvGkJmMI2oby4UaSrQrxFMNGH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR04MB11198
 
-Hi
+From: Chancel Liu <chancel.liu@nxp.com>
 
-The argument can be turned off even with your patch - by specifying 
-dm_verity.require_signatures=0 on the kernel command line (read-only 
-module parameters can be modified on the command line during boot).
+For an ASoC component, component->dev is the underlying bus device
+(I2C / SPI / platform). Its devres lifetime is tied to the physical
+device's probe/remove, not to the ASoC card's bind/unbind.
 
-I'd like to know what kind of security problem does this patch try to 
-solve. If the attacker can tamper with the kernel command line, he can 
-already gain root (i.e. by using init=/bin/bash).
+A card bind (snd_soc_bind_card()) / unbind (snd_soc_unbind_card())
+runs the component .probe / .remove callbacks, but the bus device
+itself stays bound across the cycle. Resources requested from the
+component .probe (or from a runtime DAI callback) with
+devm_*(component->dev, ...), or allocated there and only released when
+the bus device is removed, therefore outlive a card unbind and
+accumulate one extra copy on every bind/unbind cycle.
 
-Mikulas
+Each codec is fixed following one of two principles, chosen by what the
+resource actually depends on:
 
+1. Pure hardware resources (clk / regulator / regmap / GPIO / board
+   description) only depend on the physical device, not on the ASoC
+   component.
 
-On Mon, 7 Sep 2026, Ayoub Zaki wrote:
+   Their acquisition is moved to the bus probe (i2c / spi / platform probe)
+   using devm_*(&client->dev, ...), so their devres lifetime correctly
+   follows the device and they are not re-requested on every bind.
 
-> Add DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE Kconfig option.  When enabled,
-> dm-verity always requires a valid root hash signature: require_signatures
-> defaults to true and can no longer be cleared on the command line.  When
-> disabled, the existing require_signatures module parameter controls
-> enforcement.
-> 
-> Signed-off-by: Ayoub Zaki <ayoub.zaki@embetrix.com>
-> ---
->  Documentation/admin-guide/device-mapper/verity.rst |  5 +++++
->  drivers/md/Kconfig                                 | 14 ++++++++++++++
->  drivers/md/dm-verity-verify-sig.c                  |  4 ++--
->  3 files changed, 21 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/device-mapper/verity.rst b/Documentation/admin-guide/device-mapper/verity.rst
-> index eb9475d7e196..bb48c001aeac 100644
-> --- a/Documentation/admin-guide/device-mapper/verity.rst
-> +++ b/Documentation/admin-guide/device-mapper/verity.rst
-> @@ -163,6 +163,11 @@ root_hash_sig_key_desc <key_description>
->      also gain new certificates at run time if they are signed by a certificate
->      already in the secondary trusted keyring.
->  
-> +    Whether a signature is required for every dm-verity device is controlled by
-> +    the dm_verity.require_signatures parameter which defaults to off. Setting
-> +    DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE makes it default to on in which case it
-> +    can no longer be turned off.
-> +
->  try_verify_in_tasklet
->      If verity hashes are in cache and the IO size does not exceed the limit,
->      verify data blocks in bottom half instead of workqueue. This option can
-> diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
-> index df27c7d066d2..59098d1f4534 100644
-> --- a/drivers/md/Kconfig
-> +++ b/drivers/md/Kconfig
-> @@ -610,6 +610,20 @@ config DM_VERITY_VERIFY_ROOTHASH_SIG_PLATFORM_KEYRING
->  
->  	  If unsure, say N.
->  
-> +config DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE
-> +	bool "Require dm-verity root hash signature verification"
-> +	depends on DM_VERITY_VERIFY_ROOTHASH_SIG
-> +	help
-> +	  Reject dm-verity devices that are created without a valid root hash
-> +	  signature.  Without this, whether a signature is required is decided
-> +	  at boot time by the dm_verity.require_signatures parameter which
-> +	  defaults to off.
-> +
-> +	  Enabling this makes that parameter default to on and it can then no
-> +	  longer be turned off.
-> +
-> +	  If unsure, say N.
-> +
->  config DM_VERITY_FEC
->  	bool "Verity forward error correction support"
->  	depends on DM_VERITY
-> diff --git a/drivers/md/dm-verity-verify-sig.c b/drivers/md/dm-verity-verify-sig.c
-> index b2b55c41e2cb..aadcf5e4a47c 100644
-> --- a/drivers/md/dm-verity-verify-sig.c
-> +++ b/drivers/md/dm-verity-verify-sig.c
-> @@ -21,8 +21,8 @@ static bool dm_verity_keyring_unsealed __ro_after_init;
->  module_param_named(keyring_unsealed, dm_verity_keyring_unsealed, bool, 0444);
->  MODULE_PARM_DESC(keyring_unsealed, "Leave the dm-verity keyring unsealed");
->  
-> -static bool require_signatures;
-> -module_param(require_signatures, bool, 0444);
-> +static bool require_signatures = IS_ENABLED(CONFIG_DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE);
-> +module_param(require_signatures, bool_enable_only, 0444);
->  MODULE_PARM_DESC(require_signatures,
->  		"Verify the roothash of dm-verity hash tree");
->  
-> 
-> base-commit: df2908090cda368b01ff43709f51890076c56157
-> -- 
-> 2.43.0
-> 
+2. Resources that genuinely depend on the card/component (they are bound
+   to the component, or must be torn down when the card is unbound)
+
+   They are kept in the component .probe, but switched from devm to
+   plain allocation and released in a paired component .remove:
+   memory (kzalloc/kcalloc + kfree), IRQ (request_irq + free_irq),
+   delayed work (cancel), wakeup source and mutex.
+
+While working on the card re-bind resource leaks fixed in
+https://lore.kernel.org/linux-sound/20260913101531.2787654-1-chancel.liu@oss.nxp.com/
+
+I noticed that the same devm-on-component->dev pattern is present in
+many other codecs, leaking resources in the same way.
+
+This series is the result of code analysis only, based on the same
+devm-without-remove leak pattern I confirmed by repeated card bind/unbind
+with wm8962. The individual fixes have not been tested on hardware, as I
+do not have access to these codecs; review of the resource lifetimes
+is therefore appreciated.
+
+Chancel Liu (21):
+  ASoC: cpcap: Fix devm resource leaks across card bind/unbind
+  ASoC: da7218: Fix devm resource leaks across card bind/unbind
+  ASoC: tlv320aic32x4: Fix clock leak from runtime callbacks
+  ASoC: twl4030: Acquire board params and hs_extmute GPIO in the
+    platform probe
+  ASoC: es8316: Move mclk acquisition to the i2c probe
+  ASoC: es8323: Move mclk acquisition to the i2c probe
+  ASoC: es8311: Move mclk acquisition to the i2c probe
+  ASoC: es8328: Move clk acquisition to the bus probe
+  ASoC: rt5640: Move mclk acquisition to the i2c probe
+  ASoC: rt5616: Move mclk acquisition to the i2c probe
+  ASoC: rt5514: Move clk acquisition to the i2c probe
+  ASoC: rt5682s: Move mclk acquisition to the i2c probe
+  ASoC: max98090: Move mclk acquisition to the i2c probe
+  ASoC: max98095: Move mclk acquisition to the i2c probe
+  ASoC: wm8985: Move regulator acquisition to the bus probe
+  ASoC: wm8955: Move regulator acquisition to the i2c probe
+  ASoC: es8389: Move regulator and mclk acquisition to the i2c probe
+  ASoC: rt5677-spi: Free the DSP context on component remove
+  ASoC: rt1011: Free the bq/drc coefficient arrays on component remove
+  ASoC: rt5645: Free the hardware EQ parameters on component remove
+  ASoC: rt5514-spi: Free the DSP context on component remove
+
+ sound/soc/codecs/cpcap.c         | 74 +++++++++++++++----------
+ sound/soc/codecs/da7218.c        | 49 +++++++++--------
+ sound/soc/codecs/es8311.c        | 10 ++--
+ sound/soc/codecs/es8316.c        | 14 ++---
+ sound/soc/codecs/es8323.c        | 15 ++---
+ sound/soc/codecs/es8328.c        | 13 ++---
+ sound/soc/codecs/es8389.c        | 34 ++++++------
+ sound/soc/codecs/max98090.c      | 10 ++--
+ sound/soc/codecs/max98095.c      | 10 ++--
+ sound/soc/codecs/rt1011.c        | 30 +++++++---
+ sound/soc/codecs/rt5514-spi.c    | 37 ++++++++++---
+ sound/soc/codecs/rt5514.c        | 23 ++++----
+ sound/soc/codecs/rt5616.c        | 10 ++--
+ sound/soc/codecs/rt5640.c        | 10 ++--
+ sound/soc/codecs/rt5645.c        | 11 ++--
+ sound/soc/codecs/rt5677-spi.c    | 16 +++++-
+ sound/soc/codecs/rt5682s.c       | 12 ++--
+ sound/soc/codecs/tlv320aic32x4.c | 94 +++++++++++++++-----------------
+ sound/soc/codecs/twl4030.c       | 63 ++++++++++++++-------
+ sound/soc/codecs/wm8955.c        | 24 ++++----
+ sound/soc/codecs/wm8985.c        | 34 ++++++++----
+ 21 files changed, 340 insertions(+), 253 deletions(-)
+
+--
+2.50.1
 
