@@ -1,243 +1,147 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9484A1A680A
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:51:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 364653B3884;
+	Mon, 21 Sep 2026 19:53:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790020267; cv=none; b=ajFbY+hhDco4mWz7YIUuQfEvKQiqFI/jGNAMTmME/cR6pmg/gwxAEVPBStB2H+VHO1nQLtH+KIoIneLzXaaFLWnC4t/mgvnKZ9p2ZhfLXrLtMbvGgewglrGYLz0fGFIIpJ57CqQGVUzJnm6gWRJmjBiEjxddV57tKLIoS4Qew/k=
+	t=1790020383; cv=none; b=OvhiR1jKOVjZ+tUN4KBMHmtXWpPsU17XOFgrfImBOQPP4ViOfhEN7GlzLXy5Q3bKdH+5SDFGJvjBb1oxr72TMmfkiqnXkFgKGWRQ24ICDVt3ULr7J7qlmpJ05Ld7U6qKNqufQA1VFlaoNA/xr5OkYN+DH7Yn2zScH38hbEmiZKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790020267; c=relaxed/simple;
-	bh=0SJlxijAjMEU/gwLY5Hytz/SAIXClGwn/jgRfOYMYVw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=YMn8k/ReKTw4Y08mmIxzBe0/uP4Jas4bihhVYTwIalwguQFAYR4ToK4cwqlelc8Sgo+/zarQrSHqdlOGB3b1n/rgMhYdF8AopNaZukjVgTaxdKkIBNEnKmM/V/4LMrnJ85l4MgG6CxcYcSeu5hMea4qvszyQcWwVGEUDz0/Lw1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=JPa/3NRO; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1790020383; c=relaxed/simple;
+	bh=bkhJSl1Cq62EQXSMdVznURMEBI25uS+zoGaB+7oBFpM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=E1a4Vf8fLuAAwsoXFjlBHiKEs30uibTvBLFZXVpdc93Bj6JoPmdahGEVq7xC78gW/0AItlVrlE4Kxn8IKFgdHqQWiKNjD+j+JO350z++oz0lRx7jVyyiot5PuI8cd4nuxmbMHmDeqFoDr+vRQZG3N2QASEroOOyklyVKJoBAbvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VOThC040; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="JPa/3NRO"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc433d52421so1953450a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:51:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790020264; x=1790625064; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aAoY/TRHMuFiMQq8k2l2Ct0YAPpsILvo9Udm0ZyA3Bk=;
-        b=JPa/3NROAKqJbY764g4n7nMXOy6/UobZC/0ebUkBqBrY7e5cA0dRM9juebAaCoGbDT
-         BtAkIrcraXzBDi9nZf0M/kxsfeJsKJB7RV/F3N24gU4vavCzzgFMP1KKx7wfDQjX1pe/
-         XgdWxoJNKaHP2GbpzIY+V2M3oDCgoIlxV6K/5FO5u9GvUD/8ZWn94vk+SlSS33rNCH8S
-         eft58p6Vgcx11vIJGBtDn4FpeEKN1BZ/XBqpa9KBwzQ1hVpdB+fys5yuqalk/OW85hWS
-         kx7N69sbKOvz5m1c66NrudIUkTV4wGDtRNvaWVAXrSPRQfJ0oivk5J0RSvipg2CgG94Z
-         7bTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790020264; x=1790625064;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=aAoY/TRHMuFiMQq8k2l2Ct0YAPpsILvo9Udm0ZyA3Bk=;
-        b=EDv4+2vCbnSeVAyqqrLPr90SCGuha0wDBWLGoTvEQzmV9ut0PcvRb5wYs6a0i7IU0W
-         vy2tV/iCGglbLzE3gjh8A/IaCYMVQOQ7BefVOzvhoQ/cKkQjuJzn4xCB89Irfp3ZDV5F
-         TXFd6NfKBSQ6a4qhrZVrzZBBEcTrX71owQWt8EMcZ3gYeEDbS3A9+/uVTKxcCvIPzz4N
-         TVLGmclioqzhWFYzojNkb+Irr4EDeOIyiZwsGl4A8b9jhM/Dk6OtnggYFoFFgwlCfsKB
-         BKoGLnfqu8r2x5VWNwVcufcxnJtiA2bt3B+UX5gdH4iPYQD+euSLMgvmqHFjX1tWSNp1
-         Fcsw==
-X-Forwarded-Encrypted: i=1; AKwUvBwMmbfha4QDkw+lYKhXx9WANstGYdKdtAlwLK8aSOaeOy1xMKSMkXoyVE/sPjoaT/fJ4TTmgtPnncBTiKM=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5ubDaGIcgfh+dyiPDd8A9FC42KqhE1O764V/ZO7C7PCzPCHwv
-	6aAUOGjp2rwgI9sOo3ZpaH7FP078OvL0qw/aQ+xXhOGBZ8pYdpcum2Lkw0TPMg7i67A=
-X-Gm-Gg: AYBFou3sfqFOOXFeP+hleOBfpZlZUWkZu61o8+dxnqFo0T4V/9RV/C/XynK+GWe5JwA
-	7mQ6imaEFG3d1f5vgjOT8pkvPePTxQc20YBAlvGLer+EzAand+mPja+a09k49/75gxsmjSWHrvN
-	Mln6fGsySe3W990e7XSuQkEEdDoL79lkKhB69vSRL231yqWcEhKhJwahSw66XzBZw87VrsbDm2z
-	lRwHWaxgf9J/AAIYakqyQd7IxwVlzg0CBN5ib/7HYjlrckqPq7O68EVYhOK7zG5qM18/VY85JQJ
-	zwQCMqzVkJIWAqdevasrZXqPGpmYvrOipGLiHaTxsT2mwjLvJeRTj3tIxI0Ebn1YYyYjQkx0yqN
-	zfnt8ghsxDhAYmIHLlSgOQvP0EfQDCWwfeIT4c3EJqiKPXlHYFRaob6txxLDi421Bu3UNY9iyI4
-	YQM2XFxOMHaJzKWR9esp+dlolm+1iNfU25SVJKqbRalXfwBv31AuLCQb7zU/+OLe6F6O8x5pyYZ
-	pj2cMKyq5kRE71VOTvqQ6LToyKqKaNZ3n4t+88XC/+U2hgTfSVN7zqsjdMzVYIGMzKjIpbbQchY
-	PRxPZyYHT4lYjxzYy1wnqSZRxAd9yQlreW1D41mkXrd2tjCl7TYrEX3U1Mwcy6o+
-X-Received: by 2002:a05:6a21:517:b0:3dd:a195:fa19 with SMTP id adf61e73a8af0-3dda195fce5mr12612968637.62.1790020263620;
-        Mon, 21 Sep 2026 12:51:03 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:8475:e6ce:2d2c:ddc2? ([2600:1700:6476:1430:8475:e6ce:2d2c:ddc2])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e5ec6e974sm195883eec.29.2026.09.21.12.51.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 12:51:03 -0700 (PDT)
-Message-ID: <d094915db6225a50936d6a59b7cfd7b6604ef30a.camel@dubeyko.com>
-Subject: Re: [PATCH v2] hfs/hfsplus: serialize B-tree close against folio
- release
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Bruno Produit <bruno.produit@trailofbits.com>, John Paul Adrian Glaubitz
-	 <glaubitz@physik.fu-berlin.de>, Yangtao Li <frank.li@vivo.com>
-Cc: Kyle Zeng <kylebot@openai.com>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Dominik Czarnota
- <dominik.czarnota@trailofbits.com>, 	stable@vger.kernel.org,
- syzbot+d729df28d933979e017a@syzkaller.appspotmail.com, 
-	syzbot+2eac7d175baf21e6a5d5@syzkaller.appspotmail.com, 
-	syzbot+7155b2fe09e033c91381@syzkaller.appspotmail.com, 
-	syzbot+adeb387cede15eb11607@syzkaller.appspotmail.com, 
-	syzbot+ae7f2423f3648100506d@syzkaller.appspotmail.com
-Date: Mon, 21 Sep 2026 12:51:01 -0700
-In-Reply-To: <20260921153729.600313-1-bruno.produit@trailofbits.com>
-References: <20260921153729.600313-1-bruno.produit@trailofbits.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VOThC040"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790020381; x=1821556381;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=bkhJSl1Cq62EQXSMdVznURMEBI25uS+zoGaB+7oBFpM=;
+  b=VOThC040Up1iY2rbHbJyph03PgW0KV/Yjmdli/hW9NycC3EvtqLa9OHw
+   kJfdSjnHVRHO5rPlgvOJc1Cpn3dREWRxpNuXzXBLDWHSTpcO4fez4MW8U
+   kAwVpzAsdJWsjRTIWnvd4c70nnrfpi2PEEJqUjfDugvhiZxg62eavhod/
+   cYX7ra2APOFlF9EcRDK0H1fvNB5nN0f7L1jTVWIwPbBFKlJ+INQQp8ZKX
+   JW4VWtUiVTxsdEcVGVMI5dULbrU3PU99rWAJR6472xH/Shc1bg/qNrP1Z
+   g0eQRSLCl+UTdhtibFnXEv1ExoM4a8YeWy+RkDkU41F2VQB3R6or2hlrJ
+   Q==;
+X-CSE-ConnectionGUID: 98g0tni8S22UYnZ1W4fuuQ==
+X-CSE-MsgGUID: TKFzQiGqS0G9zWkxMQgU6Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="90435100"
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="90435100"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 12:53:00 -0700
+X-CSE-ConnectionGUID: kVAB7FAIRx6Pa2Mi4sNwAw==
+X-CSE-MsgGUID: wVj6mPwoR+CLcaeEZXTcMA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="299041222"
+Received: from vverma7-desk1.amr.corp.intel.com (HELO [192.168.1.200]) ([10.125.109.250])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 12:52:59 -0700
+From: Vishal Verma <vishal.l.verma@intel.com>
+Subject: [PATCH v2 0/2] x86/tdx: Use TDVMCALLs directly for earlyprintk
+Date: Mon, 21 Sep 2026 13:52:36 -0600
+Message-Id: <20260921-b4-tdx_earlyprintk_tdcalls-v2-0-ad1fde3f25fd@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NwQ6CMBAFf4X0bM22EiOe/A9CSLddpFqBtJVAC
+ P9uQc8eJ+9lZmGBvKXArtnCPI022L5LIA8Z063q7sStScwkyDMUcOKY82immpR38+BtF591NFo
+ 5F3gORqAU6oJKsiQYPDV22uVl9eXwxgfpuBm3R2tD7P2810ex/X4hAf9Co+DAc5QosCkABN7ST
+ O6o+xer1nX9AFd0CWjWAAAA
+X-Change-ID: 20260903-b4-tdx_earlyprintk_tdcalls-40d1b21a8ba2
+To: x86@kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, 
+ Kiryl Shutsemau <kas@kernel.org>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, 
+ kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Vishal Verma <vishal.l.verma@intel.com>
+X-Mailer: b4 0.16-dev-62088
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2437;
+ i=vishal.l.verma@intel.com; h=from:subject:message-id;
+ bh=bkhJSl1Cq62EQXSMdVznURMEBI25uS+zoGaB+7oBFpM=;
+ b=owGbwMvMwCXGf25diOft7jLG02pJDFkbu6VZjsVWifA3mFZtWLTV93T2D5uC1aFPTf4sun1eV
+ SJhRYhvRykLgxgXg6yYIsvfPR8Zj8ltz+cJTHCEmcPKBDKEgYtTACbCJ8rI8Ntc9rjooUzXA3dO
+ tGtrHzspHmayP52LOf4rM1/yW9u0Rob/GYuPp/F6pYamNNvOXB3xQlE3vr6s2ya+VsjFUtzU4DU
+ PAA==
+X-Developer-Key: i=vishal.l.verma@intel.com; a=openpgp;
+ fpr=F8682BE134C67A12332A2ED07AFA61BEA3B84DFF
 
-On Mon, 2026-09-21 at 17:37 +0200, Bruno Produit wrote:
-> B-tree nodes with a zero reference count remain in the node hash
-> until
-> folio reclaim or tree teardown frees them.=C2=A0 The folio release
-> callbacks
-> remove nodes while holding hash_lock, but hfs_btree_close() walks and
-> frees the same hash without that lock.=C2=A0 Reclaim can therefore unhash
-> and
-> free a node after close has loaded its pointer, causing a use-after-
-> free
-> or double-free.=20
->=20
-> The following syzkaller crashes seem to be the same UAF in=20
-> {hfs,hfsplus}_btree_close() (or {hfs,hfsplus}_bnode_unhash()) and
-> follow=20
-> the same pattern, but do not contain a reproducer to confirm.=20
->=20
-> Detach each node with hfs_bnode_unhash() while holding hash_lock
-> before
-> inspecting and freeing it.=C2=A0 Drop the lock before hfs_bnode_free() so
-> a
-> large tree is not freed while holding a spinlock.=C2=A0 Apply the same fi=
-x
-> to
-> the matching HFS+ implementation.
->=20
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Reported-by: syzbot+d729df28d933979e017a@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3Dd729df28d933979e017a
-> Reported-by: syzbot+2eac7d175baf21e6a5d5@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D2eac7d175baf21e6a5d5
-> Reported-by: syzbot+7155b2fe09e033c91381@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D7155b2fe09e033c91381
-> Reported-by: syzbot+adeb387cede15eb11607@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3Dadeb387cede15eb11607
-> Reported-by: syzbot+ae7f2423f3648100506d@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3Dae7f2423f3648100506d
+Background
+==========
 
-I still don't see Cc: stable@vger.kernel.org here.
+TDX guests have early_printk support, but it is through a roundabout way
+using a #VE exception as a functional mechanism. The exception handler
+has to use TDG.VP.VEINFO.GET to find out what faulted, and then issue
+the TDVMCALL. Simplify this by using a TDVMCALL from the guest which can
+directly perform the port I/O.
 
-> Assisted-by: Codex:gpt-5.6-sol
-> Reported-by: Kyle Zeng <kylebot@openai.com>
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
-> Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
-> ---
-> =C2=A0fs/hfs/btree.c=C2=A0=C2=A0=C2=A0=C2=A0 | 7 +++++--
-> =C2=A0fs/hfsplus/btree.c | 7 +++++--
-> =C2=A02 files changed, 10 insertions(+), 4 deletions(-)
->=20
-> diff --git a/fs/hfs/btree.c b/fs/hfs/btree.c
-> index 41b4e8fc9..4f0ddc76e 100644
-> --- a/fs/hfs/btree.c
-> +++ b/fs/hfs/btree.c
-> @@ -310,14 +310,17 @@ void hfs_btree_close(struct hfs_btree *tree)
-> =C2=A0		return;
-> =C2=A0
-> =C2=A0	for (i =3D 0; i < NODE_HASH_SIZE; i++) {
-> +		spin_lock(&tree->hash_lock);
-> =C2=A0		while ((node =3D tree->node_hash[i])) {
-> -			tree->node_hash[i] =3D node->next_hash;
-> +			hfs_bnode_unhash(node);
-> +			spin_unlock(&tree->hash_lock);
-> =C2=A0			if (atomic_read(&node->refcnt))
-> =C2=A0				pr_err("node %d:%d still has %d
-> user(s)!\n",
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 node->tree->cnid, node->th=
-is,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 atomic_read(&node->refcnt)=
-);
-> =C2=A0			hfs_bnode_free(node);
-> -			tree->node_hash_cnt--;
-> +			spin_lock(&tree->hash_lock);
-> =C2=A0		}
-> +		spin_unlock(&tree->hash_lock);
-> =C2=A0	}
-> =C2=A0	iput(tree->inode);
-> diff --git a/fs/hfsplus/btree.c b/fs/hfsplus/btree.c
-> index 2ea8cd565..bd4dbdbc8 100644
-> --- a/fs/hfsplus/btree.c
-> +++ b/fs/hfsplus/btree.c
-> @@ -417,15 +417,18 @@ void hfs_btree_close(struct hfs_btree *tree)
-> =C2=A0		return;
-> =C2=A0
-> =C2=A0	for (i =3D 0; i < NODE_HASH_SIZE; i++) {
-> +		spin_lock(&tree->hash_lock);
-> =C2=A0		while ((node =3D tree->node_hash[i])) {
-> -			tree->node_hash[i] =3D node->next_hash;
-> +			hfs_bnode_unhash(node);
-> +			spin_unlock(&tree->hash_lock);
-> =C2=A0			if (atomic_read(&node->refcnt))
-> =C2=A0				pr_crit("node %d:%d "
-> =C2=A0						"still has %d
-> user(s)!\n",
-> =C2=A0					node->tree->cnid, node-
-> >this,
-> =C2=A0					atomic_read(&node->refcnt));
-> =C2=A0			hfs_bnode_free(node);
-> -			tree->node_hash_cnt--;
-> +			spin_lock(&tree->hash_lock);
-> =C2=A0		}
-> +		spin_unlock(&tree->hash_lock);
-> =C2=A0	}
-> =C2=A0	iput(tree->inode);
+Patch details
+=============
 
-I haven't any comments for the fix. But let me run xfstests for the
-patch (at minimum for HFS+).
+Patch 1 is a prep patch that moves the port I/O direction constants to
+arch/x86/include/asm/shared/tdx.h.
 
-Thanks,
-Slava.
+Patch 2: Add a new earlyprintk=tdx option (with sub-options to select
+the serial port - same as earlyprintk=serial - tdx[,ttySN[,baud]]).
+This calls new tdx_inb() / tdx_outb() helpers, which perform the port
+I/O directly using TDVMCALLs.
+
+The serial earlyprintk path is left as is - TD guests using this will
+still take a #VE exception, and the exception handler will perform the
+I/O.
+
+Testing
+=======
+
+Added a counter for the number of COM1 port I/O #VEs handled:
+
+  no earlyprintk     -  ~63000
+  earlyprintk=ttyS0  -  ~61000
+  earlyprintk=tdx    -  ~35000
+
+The new tdx option nearly halves the number of #VEs handled.
+
+Additionally, ran the usual suite of CI testing, which covers KVM self
+tests, KVM unit tests, and Avocado KVM tests without any regressions.
+
+Signed-off-by: Vishal Verma <vishal.l.verma@intel.com>
+---
+Changes in v2:
+- Rebase to v7.3-rc4
+- Move the TDX hypercall helpers into coco/tdx/tdx.c (Kiryl)
+- Add a new earlyprintk=tdx option that implements the direct TDVMCALL
+  path (Dave Hansen)
+- Link to v1: https://patch.msgid.link/20260910-b4-tdx_earlyprintk_tdcalls-v1-0-4b2b1bf9001b@intel.com
+
+---
+Vishal Verma (2):
+      x86/tdx: Move port I/O definitions to a shared header
+      x86/early_printk: Add earlyprintk=tdx to drive the UART with TDVMCALLs
+
+ Documentation/admin-guide/kernel-parameters.txt |  9 +++++
+ arch/x86/include/asm/shared/tdx.h               |  6 ++++
+ arch/x86/include/asm/tdx.h                      |  3 ++
+ arch/x86/boot/compressed/tdx.c                  |  4 +--
+ arch/x86/coco/tdx/tdx.c                         | 47 +++++++++++++++++++++----
+ arch/x86/kernel/early_printk.c                  | 37 +++++++++++++++++++
+ 6 files changed, 98 insertions(+), 8 deletions(-)
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+change-id: 20260903-b4-tdx_earlyprintk_tdcalls-40d1b21a8ba2
+
+Best regards,
+--  
+Vishal Verma <vishal.l.verma@intel.com>
+
