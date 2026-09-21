@@ -1,143 +1,79 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2BD44FDA6C
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:45:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC9774CEE47
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:47:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790016356; cv=none; b=MNDTh+VpnRS/zxdkWP6B0hPZn8HoPSKRUjTg1iizkdJdO04u/IOiB9yopWqe5SvqyP2F9chJhseR1NpPp+JgCpd/gT7Iy+Z1iSW1zsgI+Ev/HQlAYd13m7Y6lARYueOOASHqFbvsJmqjDaTRMI/pBcHYCKD+Hs0R1Zt6HB7zirk=
+	t=1790016474; cv=none; b=Ap8rFYHh8tzAMyj1gh4moVIi5HpUPsDTJ3Lg/gBSWnLsqHP8njSd4qO1JWB8pRhk2nbkdhgfVIevKVA+22EYFy1iv7gH5xgg5Z9Bin6/WcDjsOL0WnTQMzxwKjcnJJc6u0UoSr354poaKbtO+LssopqDtHam21surx1cN27zJfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790016356; c=relaxed/simple;
-	bh=mU3SJQj/Ljuf4rusWj3TAk8ojCBaQTagmgHF5316+EQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MyndekmUOkpucdDfEn4lITVPKG6R41B4dJLcM6qvolfen7hmh3V03HuKXjHpSVqqLyY20CqfPpXdirFI+RdrDJqnUBtqYd2l05P43WE3Dzt49yxtUxQhot2SphM7odXqrROhzrBLm/3JJAkh75IialjQTam/SxTN9KlkcGCTNxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Xb47BrxU; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Xb47BrxU"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d3920so23041735e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:45:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790016352; x=1790621152; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=STMR9cPkSJS6c7hhUU9aRGO6TIwHhxC6csGMBSs/0OA=;
-        b=Xb47BrxUvpSucOSOwf9eZK1Av+rUwagEHsQk1s0QxGqVImIuipls+pQvlT4MgfJMKC
-         LL37RSXkQ/2lCphsvvWRRDXz+BN6HAr2dldJ9ac6xZ40SW2+HzOx3JjJbkY01GLVhOq+
-         qqLd9M/LQ9qKZcO2qxVq/DgWpUxWRj0ls7EdykXgUpyIIiy3kgfejXeiIF5r9V7oRMqp
-         fDAI+gFa3UsN3JhHSJ+uOapJ/WPDPATn9nbSL7e1/LP+s15q7ope4nZ0N0Fi/lEdGENJ
-         7SRYSQ5wFvQd2fIz0ZpHGpHgez7HJoEOXa7H2ziULm2w2fQDL8ONdKwPtPBUmy0ggaB1
-         lGGQ==
+	s=arc-20240116; t=1790016474; c=relaxed/simple;
+	bh=OlViH/mKLqResLQvZhJ/ir+drLOf2g0Hor5oPIMQuoA=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Bwbb0+OaAU3gQRf3saMmcVeSShJail6ai0aa2NbGCnOY94WsTQQvtCWSB6ZST7saN7yvmXSmzVQ0ctmuZhserUZtCKb3o0WorM7ZTQv8DH0GcdFAs2LwcXA+uSQ0dtAZo0KyZax/07gHKYHFYjZTWCMFtClUOYUab3F43tBtRWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-4519ef1babeso3898612fac.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:47:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790016352; x=1790621152;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=STMR9cPkSJS6c7hhUU9aRGO6TIwHhxC6csGMBSs/0OA=;
-        b=KVZpPP+Kd26156ur3wPy18Kn2Gpsy9PyQWAeA8l1Cquf/xmfYhsSZ/sacqrRxkP60f
-         +LrTPKgJM4eJqi+t6qIZLZFYHEF/QXlxyNeeH4lN+8gMsFK9ZCeq1BxAzWY2qE045CMo
-         iTQzn1IRZn6kIRsK1RNdVTTC1fEZn0qTVlMmtPD//mbusu3/Ayg3myKT1tKRx24rNE8O
-         sbkaHHwvrJmcqnv5xguTmKoSx5PZEnAMo6uMOgVfIQ8xR8x/8At86bSFdtLWNK3g5g/W
-         GBjC4ZSXXaYqXr/7sH08c83vGasvOGTa7m6LgFduwfyHR6SWas26rSzAtmjAFLG2+6S4
-         L1oQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxoEw+Olpwk3nu73w7URvsak5Qy7RMEQDr3IaJCZ9MILuIt68PYSM8GGmE5obVGPjoRBfJWSlLJrW5hCYc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmY4ndgeJBrKH7xdGQZ3qkzG0S8bTedYhmSARmcd9vy1jCbeC4
-	k/Np/90YqFo9Tl9GmGdYwFvdz9FedkoVKMhYtkAXbktGoHyk4fSLJ/rZjguA6YZrUyc=
-X-Gm-Gg: AYBFou1PBavwZMAZtmOycQMYic62IO9jzitktN3bksXVswzmiyqDa0vDRFmLR9Az4YS
-	hzRYYto+JjpvDnoikuWIiFRio2mzU8w5OMMq11Isp1H/9KakqxdfYD9d23hctvPagdiTQ6z57JY
-	0p1WWsxO+fCqKNFTWKPUlLI0D+rptmpQMn4SU9NcM+v4J5ZkFka/kY6rRFojOkegzJlOgK/XrIx
-	NfbzgNiW5ZoZt9XufAoY373M0KAxKfm/n55Qt+UXRv1NNMfohm5SE228PlrCF/vBhIclGw1xTf8
-	G++v82wQNaqMY6kr21ekYyl5Kid9ftylsI2qH9SuxG3Ttnqw/kA020HQnIFP9O550L7jwv+YgmD
-	+TwdOOuKK7Rq+1cqQgjcxDbjSG+e8v8xj83zbDE0eDB0f5K/63S4bRPyg9xX+oxt+XRzGxE0/bl
-	BrbzjtvS9PbXmfomEQ8NJ0dDVVfgY8QwdhNXSXm/esSVacp7XdMnx/868FgybIylyBpstdcAp1u
-	PSniPlvaoB9Dnk=
-X-Received: by 2002:a05:600c:8b35:b0:49c:fc6c:be0d with SMTP id 5b1f17b1804b1-49fc573602fmr153846395e9.19.1790016351932;
-        Mon, 21 Sep 2026 11:45:51 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fc585920fsm660931585e9.4.2026.09.21.11.45.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 11:45:50 -0700 (PDT)
-Date: Mon, 21 Sep 2026 20:45:49 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Link Mauve <linkmauve@linkmauve.fr>
-Cc: linux-media@vger.kernel.org, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Bradford Love <brad@nextdimension.cc>, 
-	Kees Cook <kees@kernel.org>, Deepanshu Kartikey <kartikey406@gmail.com>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] media: ts2020: put regmap_config on the stack
-Message-ID: <arF61V7vW3EWZxG8@monoceros>
-References: <20260804114625.2314430-1-linkmauve@linkmauve.fr>
- <20260804114625.2314430-4-linkmauve@linkmauve.fr>
- <arA3TaFiFOx7ubjj@monoceros>
- <arFixwvATR2hkp68@desktop>
+        d=1e100.net; s=20260707; t=1790016471; x=1790621271;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0gWuR9+t+u+i4XSSsnUX2MmPcJSj85k7+RQDQYDUOTY=;
+        b=xtDkAhsyd5FNRpVAeZhKTNRPHb3fSkiN1t63IUgfL20YCPvOtv87SLofej8XsKIxvx
+         fCzYxx/vjoLlkiypmd2VDdyyEeyhFHm/eQbIKIRlnaGFU5iGvAuLKmKv096eoKACuiW8
+         4HC7E2JeLtlG9Gm+K1Jc0NS/0MZ86UxApvows09H1PG6Ce2acPjb4hvWlyd0GUPbrPzh
+         V/jnrgMRNzDLQmMJl5SP4kkUx98Yc/BvxdMdJqqjyWbv2yKnd0SnDgnikZYB4d3m2YvE
+         QZySijGzLeHpjr4kSTteF0N4LYIpxBxu3bPEFvCyGOBjSz/dN6mOMvCScQmmOyG3ivCB
+         ciOg==
+X-Gm-Message-State: AFuF++l+J3PH65n/rFX48dOiISHx1JOaoLhKOt6O5VESilTXN/g/aDfz
+	lkhDCAMFup2HXg8mxHvYHQtDC/RhGn7A5XQ+a5U+nq6XZI995NGGDrAv2zQ2fhZrZyxggkmCRDO
+	1Jiu3ywyM5JcDaBoXLFir/gtcohMBDXouHAs/Ihe39Rzgx6ye2JPXQlPP7/Y=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bnkrf5vqwa353ko3"
-Content-Disposition: inline
-In-Reply-To: <arFixwvATR2hkp68@desktop>
+X-Received: by 2002:a05:6820:208b:b0:6bd:5506:aadc with SMTP id
+ 006d021491bc7-6ca9c058e28mr10626138eaf.35.1790016471634; Mon, 21 Sep 2026
+ 11:47:51 -0700 (PDT)
+Date: Mon, 21 Sep 2026 11:47:51 -0700
+In-Reply-To: <6aa86682.f81106d8.2ab401.0056.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab17bd7.3179f8cd.1e36b2.0024.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [block?] WARNING: suspicious RCU usage in
+ mas_start (2)
+From: syzbot <syzbot+b48868c46e62c1c4cb2c@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
---bnkrf5vqwa353ko3
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 3/3] media: ts2020: put regmap_config on the stack
-MIME-Version: 1.0
+***
 
-Hello,
+Subject: Re: [syzbot] [block?] WARNING: suspicious RCU usage in mas_start (2)
+Author: paolobertinetti200f4@proton.me
 
-On Mon, Sep 21, 2026 at 07:00:55PM +0200, Link Mauve wrote:
-> On Sun, Sep 20, 2026 at 09:46:42PM +0200, Uwe Kleine-K=C3=B6nig wrote:
-> > If desired you can keep all the assignments here using:
-> >=20
-> > 	regmap_config =3D (typeof(regmap_config)){
-> > 		.reg_bits =3D 8,
-> > 		.val_bits =3D 8,
-> > 		.lock =3D ts2020_regmap_lock,
-> > 		.unlock =3D ts2020_regmap_unlock,
-> > 		.lock_arg =3D dev,
-> > 	};
-> >=20
-> > > +	dev->regmap =3D regmap_init_i2c(client, &regmap_config);
->=20
-> I think I still prefer my approach, there is very little usage of the
-> typeof() pattern in the kernel, the only benefit would be to keep
-> lock_arg in the same location as the rest of the initial values.
+#syz test: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-If it's just the typeof you don't like, you can also use:
+diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+index 66eb55e71..7a64745e1 100644
+--- a/drivers/block/ublk_drv.c
++++ b/drivers/block/ublk_drv.c
+@@ -5628,6 +5628,8 @@ static bool ublk_try_buf_match(struct ublk_device *ub,
+ 	unsigned long expected_offset = 0;
+ 	bool first = true;
+ 
++	guard(rcu)();
++
+ 	rq_for_each_bvec(bv, rq, iter) {
+ 		unsigned long pfn = page_to_pfn(bv.bv_page);
+ 		unsigned long end_pfn = pfn +
 
-	regmap_config =3D (struct regmap_config){
-		.reg_bits =3D 8,
-		...
-	};
+base-commit: 93f51579e7df248780214094418f205253383cc5
 
-=F0=9F=A4=B7
-
-Best regards
-Uwe
-
---bnkrf5vqwa353ko3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqxe1IACgkQj4D7WH0S
-/k5gJgf8DOeDLdq5H+KaWBbvCYrLvFFtm262RF24rQw0QA48ypLMv2avfJ+JvYVI
-IILIVFl82+x/PUKioml6DEpGoeRMQkr/BTCeMFOrKUBgxaoUjt5pCrtkelvfwMAu
-gJxqT4sI/68tmGqiQ5ArCaEwPySjnKxDdhEGSBXBhyUmFNgf9BsPeKpPrw6hPL/f
-rQf2SsDlbeNm2FJvGejmwlYuZT/51+/TtQmlzuZbBakKann13BiHs0AbRXPhy9xW
-8qxzD3iIBd6wA9bKY4NNpYL0WCjw1z5z3ZEvD4qwGZ2gDr0vIydPeSmSrhZqGi/f
-6UpNlgAcqxLN7HmTgjuRrJzeXHcaaA==
-=b5nS
------END PGP SIGNATURE-----
-
---bnkrf5vqwa353ko3--
