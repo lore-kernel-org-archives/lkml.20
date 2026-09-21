@@ -1,107 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F1E40B10C;
-	Tue, 22 Sep 2026 08:09:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F6A3C9EE8;
+	Tue, 22 Sep 2026 08:09:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064581; cv=none; b=UjBvV1uKFuvcyJuxhsaXo2Yw2s77+QYAus0SuJHqfRXZhyzTrn7C1GNNTHTI9HYTDPc2Dyw0SFQh1MlD+CKkG1lxQ6ksaOyPNT/9J0DdIBUg0GsNeAYQUh57DXnlXp5cm63KP4sYvK//4STa//DgdZwVY1YW1+OTb9yR5WHJXLU=
+	t=1790064588; cv=none; b=Rd3MUJhSyVfZ/xevtcKsP4j6MPwU7idDpOun1AVUFuTG4RkNMnv7Cz9PmXkJRKRPMyOz4Zslc0NUZWEzk3cljntqW09W/SAld0DeoPMY5V12JkNqiPNI2p9kW3epyzVrmcC+52sXX/x6FLqsYW6LnyBoBqwWaC9bBem+OSlDzpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064581; c=relaxed/simple;
-	bh=Dz9IwbZu3OKgYqy1hNfLGMSmOzUloJte22ImO5hx94M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L7jQfshOHhn488qVYURCTtmvCSC3O981QDfTSqAXN+OYlM95GZJDsN19VJnVNMF+hHojAKsBX4nbwkPVBr+zcB+9M5CQ5mtOUB9x878SiUt+Na6XhwFe+ghUd6R9lZ+UUc7sCvo5OIPSt0COODeI58LOni/FJo6C/vkpX1LOp2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DZbbCPoT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790064588; c=relaxed/simple;
+	bh=PE3GG0Zq5GHW1YBmDAj2j/TtiioAoG1QPWaJakB70KI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=uoBI8o7qa5/W4UFxruXuVZ9FWl4ogowXeRGm/VUto0mru1F/4AvxYY1Iu9C373Yyad8+aZwTpEXr0i5bQgCxMa08I550XRrIOnAmFM+B1xfFk1ZMuVskSPfRVAtZO12ajp6i1acyI+aQJdTXgQAH0F8CuC1n6AJZrFwAvKFopyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=evuoaw48; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DZbbCPoT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CCF51F000FF;
-	Tue, 22 Sep 2026 08:09:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="evuoaw48"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D0831F00893;
+	Tue, 22 Sep 2026 08:09:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790064548;
-	bh=OrvI0lS5iedsIuWwFJtRVpqvsYUQdMp/dmyITNGxSg8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DZbbCPoTSBcurUYk2bz1VDxkNWDMV02RvhWrWaiMNpPz6ljb/j9YGOTwoSVab/b0a
-	 N6G9FFCwypeOzY92+k7EwJLGDxA4l1FrS/oE8wrhv5oT19CwwEJzHzGyleT25NEG7J
-	 QragPj5OgzHOHobEPQY28YnPMIUb3mLuULNFeKa5LUn69I2dhr/faKLe+JTiWXicwF
-	 VdXenJ3YXYc//eoor40OzvZ2yBtIdA6SG3/zPi6aKuDJuB4NxtqMx9C3bOt9uLsJqO
-	 dZcqz3FayH52g5YJkxpReTDqATZD3kUvaiaovKoI9t3mKoGCPEtOJ7484u3md+1eyj
-	 AGnX/+OzQnHNw==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 44B461AC56A7; Tue, 22 Sep 2026 09:09:05 +0100 (BST)
-Date: Tue, 22 Sep 2026 10:09:05 +0200
+	s=k20260515; t=1790064571;
+	bh=yuzBlTjpEw8mcDMgWo8yHHOE5R9PctYKJSKemWLS04M=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=evuoaw48sjHqCwQlD3Ol7VFjPdSkgHkxnFzwDxdm1YXsK3pFPs8S+y0NBfcCOCnt4
+	 g98JL90GICOz+PQbNClb9/Os6k7Jl5lXE1YaTY5+8bnREdDYY9tTDn1ts+nSaVU75I
+	 WCx9oqNk+L97vTImmWGpUfvCMgXynB9BZb5n2b2mJuFAe0OfjUQEfP+hzf4GBNeONv
+	 Tx7yNqS85gVL86bxjz/IrfIkj1PwrTQSmeHsSlito38v7N8bBdLr2SfefUpGxw7KVW
+	 pTm7iM2d922r/BpOwsOivVO9+sg8mKTXr0Z8BF0v4O500WxfDOXaJ3KkdGQK5ATzmd
+	 UXZvtUHJBn6ew==
 From: Mark Brown <broonie@kernel.org>
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>,
-	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Amit Kucheria <amit.kucheria@linaro.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Lars-Peter Clausen <lars@metafoo.de>, Vinod Koul <vkoul@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
-	James Schulman <james.schulman@cirrus.com>, asahi@lists.linux.dev,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.de>,
-	linux-mediatek@lists.infradead.org,
-	Hector Martin <marcan@marcan.st>
-Subject: Re: [PATCH 05/28] alsa: pcm: Remove the qos request only if active
-Message-ID: <arI3ofru4is-jDF_@sirena.co.uk>
-References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
- <20260920-macaudio-v1-5-741cc20a74e5@gmail.com>
+To: Baojun Xu <baojun.xu@ti.com>
+Cc: tiwai@suse.de, andriy.shevchenko@linux.intel.com, 13916275206@139.com, 
+ alsa-devel@alsa-project.org, shenghao-ding@ti.com, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, k-yi@ti.com, 
+ henry.lo@ti.com, robinchen@ti.com, niranjan.hy@ti.com, pin-hao.huang@hp.com, 
+ Syed.SabaKareem@amd.com
+In-Reply-To: <20260921111930.1040-1-baojun.xu@ti.com>
+References: <20260921111930.1040-1-baojun.xu@ti.com>
+Subject: Re: [PATCH v7] ASoC: tas2783-sdw: add firmware download status
+ check
+Message-Id: <178999389109.228132.12605131138902969199.b4-ty@b4>
+Date: Mon, 21 Sep 2026 14:31:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="VcZRb/AbZTZ33dvh"
-Content-Disposition: inline
-In-Reply-To: <20260920-macaudio-v1-5-741cc20a74e5@gmail.com>
-X-Cookie: Too clever is dumb.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1121; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=PE3GG0Zq5GHW1YBmDAj2j/TtiioAoG1QPWaJakB70KI=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqsje0e7FPCt+5+tqc+eXlGl4kmMsdq3TR96zFC
+ LXnjfICPyGJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarI3tAAKCRAk1otyXVSH
+ 0MJvB/4uPQyONX2riqUi9iJZDL6jxuXRvigUM1Qpsul9XOf20m8Fpvt1NWd36oHNLZUANXhjg1V
+ cQsFnpJcDfbL8mNZjj32Pmw4xoU17ubgWzCDtDsWP5VOWXUYSDdXlgYreN6uTCK8SwWEVd8Rsbk
+ zrs56ZJamOE/AXQGLtm+dL5/rXTJpSbT5yNMLhS0fgYGMVH6M7EkhvSNj/PEj6JnGQ6pZZNWwZ8
+ yaOLKEtY+ZVnRr3BgurwCLzZgU22n34+as4Pa5M8mP8AOVWOGlrDKQnigrfJG3Fa9iVw3cqos7c
+ Ad1ucXsfcRo6QJo3rEAbx8jE7z1Mcd+vEsTyGLEJDY2oQV6a
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
+On Mon, 21 Sep 2026 19:19:30 +0800, Baojun Xu wrote:
+> ASoC: tas2783-sdw: add firmware download status check
 
---VcZRb/AbZTZ33dvh
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Sun, Sep 20, 2026 at 02:53:44PM +1000, James Calligeros wrote:
-> From: Hector Martin <marcan@marcan.st>
->=20
-> Fixes warning:
->=20
-> [    8.502802] ------------[ cut here ]------------
-> [    8.503445] cpu_latency_qos_remove_request called for unknown object
-> [    8.504269] WARNING: CPU: 5 PID: 2790 at kernel/power/qos.c:322 cpu_la=
-tency_qos_remove_request+0x48/0x98
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-Do we know why this is being triggered?  It makes me a bit nervous to
-just shut up a warning without an commentary on why whatever the warning
-is telling us about isn't an issue.
+Thanks!
 
---VcZRb/AbZTZ33dvh
-Content-Type: application/pgp-signature; name="signature.asc"
+[1/1] ASoC: tas2783-sdw: add firmware download status check
+      https://git.kernel.org/broonie/sound/c/f42fbd560cd8
 
------BEGIN PGP SIGNATURE-----
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqyN6AACgkQJNaLcl1U
-h9Dq1Af/Rvn6BWUaXoit9+fIWsqMQTQahObIGVt9y9ZaK4eU5kRQZDy4XXcqXGj7
-guQpBstVggAYk0rrNXsGwPkKcibW446LRRrT5dPYXr5XMXcz5S7UYFnOZQrP41U/
-nJwjC5LLzJZkCcogV8Y+UDBda2ny2XMHgQYHFaRYRnVn0P4cfCckgTPbqRBNT9rd
-mJDM0h2B8n1CNvoAKxL8NJyozqmtO/u+M9ks3TLQ7rRpP0BhngvBEFQ3L8/auQm5
-9LThLXY908JZXJUCDVmT9OxhQk57RbY6tnXZ6QufWM2LvVG5BcQplu/maBqwSTVf
-bgv6QOlSelzI1sx1m+fvlFPwkh5NTg==
-=v+bB
------END PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---VcZRb/AbZTZ33dvh--
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
