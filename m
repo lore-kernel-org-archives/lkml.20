@@ -1,248 +1,145 @@
-Received: from mail-oi2-f43.google.com (mail-oi2-f43.google.com [74.125.231.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2184A4826
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:29:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.235
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790000993; cv=pass; b=ZF32hKV7GxICOuqr+RjO6aRqwYG2VsgkeeRgH0sPYinN/3hztqHPUFC3Kw8lo1uF6FbPjbG29QKO5OY9NTPNBWBZm7y4J3aAL/Mnnv/BEVnJxl/VvxmqheY2FYhUVi9T2LbmzlOoUgeKbqBI4ooDbaXZ7m19QgaMEK3EaXjAfZ0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790000993; c=relaxed/simple;
-	bh=nhZAhT6Xf3UYOMAXe+xBhzJdhzWUHNF7HVnNwVEr5t8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=foGZl7o76WcaDdY9CsmfKz19AQ6wlUIZkfmmxuDkuUYkm9Le1npj1GfwA1Oo80nPuRTMw0yAgrNMIKbVBgnLg6x/nJR/ic0HJvFgBza6TJspHJrrcmC8YRXs9EzYMLh2W46GhoXLrYe9U3PvklicKZex0F7B9F+TBIoHz/Vvx4g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=hsmzMPaY; arc=pass smtp.client-ip=74.125.231.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6BA64A499F
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:29:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790000997; cv=none; b=I+lBMXreDI6s7Hz3Bf+OGxmBYdsn/euIXloiIKtCf/MMWdOzJMd5CAd1mBEMofx/8sYmpK4ZISungZhtatZjSQufXZyyOsyNOzLooWqTaD5iqLovpa6O4XXsftztQf41GzyFIzuNIVLltSPaaqNUWBWM7Qd57xP5V0HxASYbyEo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790000997; c=relaxed/simple;
+	bh=aHmSDEox5unyo5rBT5HswPBoY3cjScx7iK573f2E5hg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Dc7LtSIDq40hmVLivCPHd46oBUwwivO6dzRYJnxcR5TqU/pYuAnXyBUCAV4Ge/4HFz1Th1yRXBJ8zKoqpsNcEEB7YX1PbvrcK+SEDOfDpEKPllzQ4oCJgDlpE8tu6+RReQB372eGZmvSB4KNxYkOfhr9yIi9MczEyW41puqyGig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Q3FryyNK; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="hsmzMPaY"
-Received: by mail-oi2-f43.google.com with SMTP id 46e09a7af769-805bf8c2661so2141246a34.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:29:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790000989; cv=none;
-        d=google.com; s=arc-20260327;
-        b=brFtZIrYQ5cx6FIRLK8g9TI/yN1nCutjVlc07orDEAPsnaRi52RFTYb+H+7jnni2Ts
-         QDZjttpS62hy/8w4B5c/W6/c+PqYxyOwiH4qCchTLbqPC7VAbDF+m5TOZiMXxUFzaNR3
-         dPKlNesSz+txGl+0voSCyItHktEBRxOA5Wx/IQK45910zzU7dkHneNwfk8DJcYzMAAdk
-         COpHDeTuFDazMwCKpPKP8/YWpgHc3C5mJz8gOQQh5+c0457MplplHl2xe+uIEyieKzUU
-         sSJAiiIZ1OrlrGYLnqxGNjGWRt3cDwiE2uoY/EFFSrqXrfUNiWr9zt50dnnNVJwRIldI
-         hCJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=8XN4vBfS9vmMaAbxJqiihHdmePkcL2PHUXmsVj1n1po=;
-        fh=9ZYsAdyNiZtPMEwuhibVADunuBDIvXxZzG/FfVA3k9A=;
-        b=C0qTHDZsCIaKj00EbjKwUZmpgIQg9odmEQvF8vhCckF58ZeTxWBtEelwxs54mlyphQ
-         6R97TdI78KnmUWJD9DDbhbjwm/sI9fwbPgHbXV19eWOC+u/fd1VEySxXiFuQCvcGKrIy
-         vWOqUWjBaVYURq9gfpKuWC42tPTNitvaOL8MVNSUo4qknR6j6FY31QzKdEGeC/BI7PHl
-         9fUw7C5FvWKBpxKbCvG/yz4jpTChpvQFLLGGLPGuq9JTKoxfFXA6u59Ni3Z2AnIjGIQx
-         lcevywh9rOFq6Dl4gEBs9M8wt+VAMnN3worSyGi/MZPGUGVStAF2eXHHHc5gBTNMFaKR
-         U16g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790000989; x=1790605789; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8XN4vBfS9vmMaAbxJqiihHdmePkcL2PHUXmsVj1n1po=;
-        b=hsmzMPaYPCiCsYP8QpDExJC7q2kp8QGpZgUZ6xBxGY1JL6xgD1tHFjVrzmeD3tiBJ4
-         MiGyz04jynYCjuvixEHlxYqgD7hIPlPepBeqc6KeCPOcWC9uJ5QtUbNqwrcdNOwJrlid
-         7vx4TSLAprKoKOZs0izlZL1CwPHzRDfJ5IZxKAyWpq/GDulGhtwjNqaJOpXI2e6rQd/Z
-         KguD+crOc0cTSnoFk7hvixw05qvXr8BJ+z8UBQ3W+9Y5SFehMBFD8sd7S8t1i1s/Onuy
-         KX9uBcDFnCfQeLVa8xJ5Z/Xk3ap/9XbxZFg37TrjWyW2iQjPeTHPzUiaI1p93Vq81DBH
-         G83w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790000989; x=1790605789;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8XN4vBfS9vmMaAbxJqiihHdmePkcL2PHUXmsVj1n1po=;
-        b=Myu/0qaSDDUqbYvJlFKss4duqkaCi6EQg+GfowRpW2ExqI/izv689AGM5iXAdkjRoG
-         6NYpe7l3ewj7+VUQIhIupUR56cODggMMDNxjiGX8JMQsltp/mDZF3Ed8hPjnI2xgh97Y
-         gIKlxHnrq7/g8mIull5b7VCGP0x+/Md/Wt5/3n5vo+iGf/zAU5xG9vka8R6/33vY+r7c
-         L+MZT/33nsui0gD3i/ZbbpJekffhJ474qCu++1a+8Af3qiwp49RvRhaOkz9xkVyyjPnw
-         B0rMMXtxBReiFsVyZ/TIyrOtNvwtTWsZXvydfwOlTzcxzoxecNt2UzT1QfRh/AKirsUH
-         zeUw==
-X-Forwarded-Encrypted: i=1; AKwUvByjIpysiD73KTtXvjfmJ2IwGd1+aEo1RxKzYg7xacII+ofRkC3H6kEg2GMsL6FHqy19wloNLs0IWpaQ4FU=@vger.kernel.org
-X-Gm-Message-State: AFuF++ln7Xk/0UeL+P10KENtqcKmu1HyPTM0Paxql2SMMEGKF9582Ax+
-	jm5UEZb0y9D6j6fabEHBYVVotBlLJA9IutLHFMeUxtiZ5vrexG8mCzRZrHaNtdGxi17hWLoYegy
-	lrWtAphVZsd8426TkkLgoGZiXVd2ZP9Q2d0RgqiaBVQ==
-X-Gm-Gg: AYBFou27KcgrwS3Mksfb+X42mAj5jRoFlC4jlcwYa+PRhWBw2dq1NCo6FTrqol21Mqu
-	/BKDezYlpOZBwoKMmx599nWUdGwKoPylNsz63EoYXJtkC7MDdAsQFZhpueZikVGtCcqWiw8JwWW
-	lNCL+xmrKkqH2LQhEV29DQLE8OJbCRo9MpITISSNgi3Y6hkxZFoSLjZcg6D5IWzmlAAacBPOjI6
-	esQo5619vQ2a8rfEcUYotBgYYbXJ5EwHVJANXdT3qFCdvYskmnNuPl4rcfRWAc9yuUpyj3XRbSR
-	ARrZP3KHi+tc89+AJ146X/flxOH9Qn5+gHrhmB75SD01B7FD6aIRr8qHXnVFXBbLY01C0aEmcp5
-	I4ZZibwTawg==
-X-Received: by 2002:a05:6830:67e4:b0:805:2f63:2fa0 with SMTP id
- 46e09a7af769-80de0d5681emr10524460a34.8.1790000989605; Mon, 21 Sep 2026
- 07:29:49 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Q3FryyNK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790000994;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2SPlmkLvWk9PpLgPSN8V3xc5g1sWFhg/iDECwVzzJ4c=;
+	b=Q3FryyNKIzJ7vee9FKISGK2KfkJ3d6q+lwb9Tw5VOrEqOGpm8uuyXdHjxNYh44ITCVB+fE
+	Qzrqe6M013Fo1vTU5jwRa2BxM4N+ulmkDco33sDnXAck35pR3sOBdytIwQDFjiS4oebThX
+	4yaEzM1bX45thYIvz5Rjx7yFp4+or4w=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-564-2wbglG7APSmlHI_acoQYzw-1; Mon,
+ 21 Sep 2026 10:29:51 -0400
+X-MC-Unique: 2wbglG7APSmlHI_acoQYzw-1
+X-Mimecast-MFC-AGG-ID: 2wbglG7APSmlHI_acoQYzw_1790000989
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 832A318011D4;
+	Mon, 21 Sep 2026 14:29:49 +0000 (UTC)
+Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2849641B;
+	Mon, 21 Sep 2026 14:29:45 +0000 (UTC)
+Date: Mon, 21 Sep 2026 16:29:43 +0200 (CEST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Palla Raghunath <raghunathpalla.0209@gmail.com>
+cc: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
+    Benjamin Marzinski <bmarzins@redhat.com>, Milan Broz <mbroz@redhat.com>, 
+    dm-devel@lists.linux.dev, Shuah Khan <shuah@kernel.org>, 
+    Brigham Campbell <me@brighamcampbell.com>, linux-kernel@vger.kernel.org, 
+    linux-kernel-mentees@lists.linux.dev, 
+    syzbot+48d935cf48a4a76be346@syzkaller.appspotmail.com
+Subject: Re: [PATCH] dm ioctl: don't let data_start run past the buffer
+In-Reply-To: <20260918234339.54105-1-raghunathpalla.0209@gmail.com>
+Message-ID: <956ce83b-ef24-56f1-d70a-f7378f55cdf8@redhat.com>
+References: <20260918234339.54105-1-raghunathpalla.0209@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918130853.216497-1-bruno.produit@trailofbits.com> <5da11ad3c9c7954ad52b04880b61d9cdcdd0211a.camel@dubeyko.com>
-In-Reply-To: <5da11ad3c9c7954ad52b04880b61d9cdcdd0211a.camel@dubeyko.com>
-From: Bruno Produit <bruno.produit@trailofbits.com>
-Date: Mon, 21 Sep 2026 16:29:38 +0200
-X-Gm-Features: AcwNN1WfPjTcVdluttCCfBvVkT5EnAROfq9c-2jOiHvrDxLSOVhYuPDvQIkk-hM
-Message-ID: <CAN3w+PMEuRuYVsR9P+Hf9aCd-dJih24OVkd2j5xuAgODJ2f7LA@mail.gmail.com>
-Subject: Re: [PATCH] hfs/hfsplus: serialize B-tree close against folio release
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li <frank.li@vivo.com>, 
-	Kyle Zeng <kylebot@openai.com>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Dominik Czarnota <dominik.czarnota@trailofbits.com>, 
-	syzbot+d729df28d933979e017a@syzkaller.appspotmail.com, 
-	syzbot+2eac7d175baf21e6a5d5@syzkaller.appspotmail.com, 
-	syzbot+7155b2fe09e033c91381@syzkaller.appspotmail.com, 
-	syzbot+adeb387cede15eb11607@syzkaller.appspotmail.com, 
-	syzbot+ae7f2423f3648100506d@syzkaller.appspotmail.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Sep 18, 2026 at 9:57=E2=80=AFPM Viacheslav Dubeyko <slava@dubeyko.c=
-om> wrote:
->
-> On Fri, 2026-09-18 at 15:08 +0200, Bruno Produit wrote:
-> > From: Kyle Zeng <kylebot@openai.com>
-> >
-> > From: Kyle Zeng <kylebot@openai.com>
->
-> Why do we have the same email two times here? :)
->
-
-Sorry for the mix-up, I was unsure about git send-email.
-
-> >
-> > B-tree nodes with a zero reference count remain in the node hash
-> > until
-> > folio reclaim or tree teardown frees them.  The folio release
-> > callbacks
-> > remove nodes while holding hash_lock, but hfs_btree_close() walks and
-> > frees the same hash without that lock.  Reclaim can therefore unhash
-> > and
-> > free a node after close has loaded its pointer, causing a use-after-
-> > free
-> > or double-free.
-> >
-> > Detach each node with hfs_bnode_unhash() while holding hash_lock
-> > before
-> > inspecting and freeing it.  Drop the lock before hfs_bnode_free() so
-> > a
-> > large tree is not freed while holding a spinlock.  Apply the same fix
-> > to
-> > the matching HFS+ implementation.
-> >
-> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
->
-> I think we need to have Cc: stable@vger.kernel.org here too.
->
-
-Added to CC
-
-> > Reported-by: syzbot+d729df28d933979e017a@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=3Dd729df28d933979e017a
-> > Reported-by: syzbot+2eac7d175baf21e6a5d5@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=3D2eac7d175baf21e6a5d5
-> > Reported-by: syzbot+7155b2fe09e033c91381@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=3D7155b2fe09e033c91381
-> > Reported-by: syzbot+adeb387cede15eb11607@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=3Dadeb387cede15eb11607
-> > Reported-by: syzbot+ae7f2423f3648100506d@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=3Dae7f2423f3648100506d
->
-> Does this fix really eliminates these reported issues? Have you tested
-> all of these cases? It will be great to have this clarification in the
-> commit message.
->
-
-These crashes do not have test cases to reproduce as far as i
-understand (nothing in the repro columns). They do all seem to be the
-same UAF in the {hfs,hfsplus}_btree_close() (or
-{hfs,hfsplus}_bnode_unhash()) and follow the same pattern, which is
-why I included them. Let me know if I should remove this :)
-
-> > Assisted-by: Codex:gpt-5.6-sol
-> > Signed-off-by: Kyle Zeng <kylebot@openai.com>
-> > Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
-> > ---
-> >  fs/hfs/btree.c     | 11 ++++++++---
-> >  fs/hfsplus/btree.c | 11 ++++++++---
-> >  2 files changed, 16 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/fs/hfs/btree.c b/fs/hfs/btree.c
-> > index 41b4e8fc9..d85a1df9f 100644
-> > --- a/fs/hfs/btree.c
-> > +++ b/fs/hfs/btree.c
-> > @@ -310,14 +310,19 @@ void hfs_btree_close(struct hfs_btree *tree)
-> >               return;
-> >
-> >       for (i =3D 0; i < NODE_HASH_SIZE; i++) {
-> > -             while ((node =3D tree->node_hash[i])) {
-> > -                     tree->node_hash[i] =3D node->next_hash;
-> > +             for (;;) {
->
-> I really dislike this infinite loop pattern. Could we have a loop is
-> limited by some value?
->
-
-I'll send a new patch removing this pattern and keeping the while loop.
+Content-Type: text/plain; charset=US-ASCII
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
 
-> > +                     spin_lock(&tree->hash_lock);
-> > +                     node =3D tree->node_hash[i];
-> > +                     if (node)
-> > +                             hfs_bnode_unhash(node);
-> > +                     spin_unlock(&tree->hash_lock);
-> > +                     if (!node)
-> > +                             break;
-> >                       if (atomic_read(&node->refcnt))
-> >                               pr_err("node %d:%d still has %d
-> > user(s)!\n",
-> >                                      node->tree->cnid, node->this,
-> >                                      atomic_read(&node->refcnt));
-> >                       hfs_bnode_free(node);
-> > -                     tree->node_hash_cnt--;
-> >               }
-> >       }
-> >       iput(tree->inode);
-> > diff --git a/fs/hfsplus/btree.c b/fs/hfsplus/btree.c
-> > index 2ea8cd565..a90c9f416 100644
-> > --- a/fs/hfsplus/btree.c
-> > +++ b/fs/hfsplus/btree.c
-> > @@ -417,15 +417,20 @@ void hfs_btree_close(struct hfs_btree *tree)
-> >               return;
-> >
-> >       for (i =3D 0; i < NODE_HASH_SIZE; i++) {
-> > -             while ((node =3D tree->node_hash[i])) {
-> > -                     tree->node_hash[i] =3D node->next_hash;
-> > +             for (;;) {
->
-> Ditto.
->
-> Thanks,
-> Slava.
->
-> > +                     spin_lock(&tree->hash_lock);
-> > +                     node =3D tree->node_hash[i];
-> > +                     if (node)
-> > +                             hfs_bnode_unhash(node);
-> > +                     spin_unlock(&tree->hash_lock);
-> > +                     if (!node)
-> > +                             break;
-> >                       if (atomic_read(&node->refcnt))
-> >                               pr_crit("node %d:%d "
-> >                                               "still has %d
-> > user(s)!\n",
-> >                                       node->tree->cnid, node-
-> > >this,
-> >                                       atomic_read(&node->refcnt));
-> >                       hfs_bnode_free(node);
-> > -                     tree->node_hash_cnt--;
-> >               }
-> >       }
-> >       iput(tree->inode);
->
+
+On Sat, 19 Sep 2026, Palla Raghunath wrote:
+
+> struct dm_ioctl has seven bytes of trailing padding, so the smallest
+> buffer userspace is allowed to ask for, offsetof(struct dm_ioctl, data),
+> is seven bytes shorter than sizeof(struct dm_ioctl).
+> 
+> get_result_buffer() sets data_start to sizeof(struct dm_ioctl) without
+> looking at how big the buffer actually is. Ask for the minimum and
+> data_start ends up seven bytes past the end. Callers add it to
+> data_size, and ctl_ioctl() copies that much back to userspace:
+> 
+>   BUG: KASAN: slab-out-of-bounds in _copy_to_user+0xad/0xd0
+>   Read of size 312 at addr ffff8880169e4c00 by task repro-dm/140
+>    ctl_ioctl+0x5e3/0xcb0
+>    dm_ctl_ioctl+0x25/0x40
+>   allocated 305-byte region [ffff8880169e4c00, ffff8880169e4d31)
+> 
+> A DM_LIST_DEVICES with data_size set to 305 is enough to hit it, and the
+> seven bytes that leak are whatever sat next to the allocation.
+> 
+> Clamp data_start to the buffer size.
+> 
+> Reported-by: syzbot+48d935cf48a4a76be346@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=48d935cf48a4a76be346
+> Fixes: 76c072b48e39 ("dm ioctl: move compat code")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
+> ---
+>  drivers/md/dm-ioctl.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
+> index a6b8e97755cd..211569dd3c54 100644
+> --- a/drivers/md/dm-ioctl.c
+> +++ b/drivers/md/dm-ioctl.c
+> @@ -656,6 +656,13 @@ static void *get_result_buffer(struct dm_ioctl *param, size_t param_size,
+>  {
+>  	param->data_start = align_ptr(param + 1) - (void *) param;
+>  
+> +	/*
+> +	 * The buffer can be as small as offsetof(*param, data), which is
+> +	 * less than sizeof(*param), so don't run off the end of it.
+> +	 */
+> +	if (param->data_start > param_size)
+> +		param->data_start = param_size;
+> +
+>  	if (param->data_start < param_size)
+>  		*len = param_size - param->data_start;
+>  	else
+> -- 
+> 2.34.1
+
+Hi
+
+I accepted the patch, but I changed it slightly, so that there is just one 
+condition in get_result_buffer. The resulting function is:
+
+static void *get_result_buffer(struct dm_ioctl *param, size_t param_size,
+                               size_t *len)
+{
+        param->data_start = align_ptr(param + 1) - (void *) param;
+
+        if (param->data_start < param_size) {
+                *len = param_size - param->data_start;
+        } else {
+                /*
+                 * The buffer can be as small as offsetof(*param, data), which
+                 * is less than sizeof(*param), so don't run off the end of it.
+                 */
+                *len = 0;
+                param->data_start = param_size;
+        }
+
+        return ((void *) param) + param->data_start;
+}
+
+Mikulas
+
