@@ -1,142 +1,186 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39BD34534A8
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:04:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D432E44C51F
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:04:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789977863; cv=none; b=a3j7l6i1peraTOyHNuqC3KRICLV2/KBAIgSA3uD6Ts+YBiTkJ5DeASTNZA1wueR8r4QXwLwG/5VmxD95bAksb/4iVwo4qOOp3wpBQ8YEhBgQNGZFIoTFLTmDbkNwu2Mmf2SV6xWt8XGTn6Dd2w7WcdbAqNFLGTT5uS5ZW3wjMAQ=
+	t=1789977876; cv=none; b=QGAxh1SEAo6RtYUf2MiWZ8kCFXeasGH5ZY4uRFGEt3kWuKd7yz86sXi2SrHSyqKQHrHSxKytZJGOHID2Pj3qskAaP1hHbAgbMtdOSIJRcRSt4gK6ECt7ByQ5TAFpat9rZmhq1Oi/0XHTvYZBkcqSmed+FEkKRaantgflts6wNcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789977863; c=relaxed/simple;
-	bh=b/XfElmrg0PZz/9GmZOtZ6MsUFfU44t+Ljf1eSJeiyQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=A72O5sQMU3f6pKvuEfjsYVR0rrpGXv9xlHd9Z79BXjaJ013ntuDUqzHhnnr3XUQFoQCXb6eVzhGxGNwIJYMPrhT/zcUkVeQskSUvsGx2gpbnkkydIB3TzWRoL0IrFLPXx1Hi4cgM2mWDcAb59zUKs/LIcktcfavvs1NsI0fdpN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VB57gxky; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fv67QSBM; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789977876; c=relaxed/simple;
+	bh=C7mMnFJQB3qempjHrlBdVTOUGGgoRYdjU5+sL3G1+ns=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=spltSLK38T8h0AdTs+bnBwezAb0nJzCEfpWy8QEdtfWSX0e6Frsa/klffMxbnmBl5NhLf1SSr4Pz228ZPJgCTbrf/xAB63E+M5F6hRARm475QAZx1W1nMIPc8yEpiwKYiwM+gOlYzF5229Dyagq66C/QY1s+zgjEtXBPSrtYkE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HxbgWhiK; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VB57gxky";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fv67QSBM"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7A2s64143566
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:04:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pc/Gagg8gfQKPvLUu6IsK89H4wLrEEXFNiyIxsT21Qg=; b=VB57gxkyymWJ6a/n
-	n7EOThVu6Z9wDailqRDUPT2W6NZdbGH+2A2pDAUx6HHcEevrB1hx9CRE9FcnC5ZH
-	3eEYmpGAMgNrRPvD+Yg9/5KfmLLlCPrcIysg09CcMsFduPwQBLzj4h5RZx1SR9rT
-	ZlY85en97ofEeZUxUVx25O3X7Zys1JN/rQVKGVsOzDbsrvyiJFnCPe0MItWah43Y
-	acpjzdG1pxH7ZPtzPjFmBny7AqeSNIeq0iZmqqRJC/WVV7O4btGIUFRNNdzUdh38
-	wc/BNtxyc5kSGfa1lF68iMTpuIFUgPUezdRCi/u21+aUdSs2SWGl0Prd8XTlfNX+
-	IgLEug==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtyxq872f-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:04:19 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9392788b3f8so81791885a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:04:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HxbgWhiK"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e2406so13245845e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:04:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789977859; x=1790582659; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pc/Gagg8gfQKPvLUu6IsK89H4wLrEEXFNiyIxsT21Qg=;
-        b=fv67QSBM99G26sRQU+4JBsr5YkbmVBYOj4CsGLJwR2W1o1n0bgOfg1FYmF7dqnqg5u
-         AJFnZiLRxL4urEod2VZTQWRu3Zn/RP8WM1zgi83vp3BawdXHarHvlJ3kBHls3gPvV4gM
-         xprfpCGNEa+RA/mm7iI/67WhIvBVH0EyihfkZ3VG0LyTTsnw5Oh6y3nbVKtvToIhJ1Li
-         qL8Sc/vFipcxRYn3iIlfmtK0goiOadlRtP9+3xSI27oK7Aqi1V2d2yyqifJs1vlTeXZE
-         o86OY0zewh4MWbYI21D7I3d/4+tl0QTOMO93isUEhWzZFitwTKIDjnI55gbx/zWaEW4g
-         f/SA==
+        d=google.com; s=20251104; t=1789977872; x=1790582672; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VkcfJuXNZITCOn3dUrvlxZ3BtWVxpJZeQyLT04gvHjg=;
+        b=HxbgWhiKAYcgLIkszVr5ZGrOCAqxBSsGMkjBHpqYSMypy6yyWU7DSbZjXGwJK/anD5
+         pNy8GBUBw3E8kYGc6UHvGNv6HUGynd/usbk8YXVqnpdoklBY/SgJ4FFyX63Be/EIun08
+         qf+U/zuChe5pkIDWCuF6tq1OAO+7L+X9JdAV8AHRAf1g6tavRSqFELI/0YYTNzeKyIBm
+         tSVz2ouluyF1/K4JTL14YKc5Vemca119lL3pd+S/bkl7H4cr9K09IuoKYUxO4bm8aUCJ
+         Wp9igXA/Bwfs5ZE18p3UB8shTkPBWGGPRxDov9uXcqprEkRZfKZiDWEV37nDGpSGHjxf
+         drLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789977859; x=1790582659;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pc/Gagg8gfQKPvLUu6IsK89H4wLrEEXFNiyIxsT21Qg=;
-        b=L6A/Vf7LX8s4gDeuWNOiMgmc01q8g8S+FGuHsDZ03U44r6T+T0MVSzPIjrsDzPoJ+j
-         MGaaWLwNJbm6Yf2mWzJfcEG0I1WiiuF8DCqssuO8eA3cPMV5Ih1wyLCdZV5rjP3o60H0
-         /XBuMzF097pciUiNliTAB1RZpS7Qk1pMx32bGcHcL+7y0xzeP1UsD/azG99TXZlC9cu+
-         8Jr7P3LzA9lF5ZqE8tXowT9oyr7JRRqnH6fXhvg0Qrhrd5E6+A03XeUZdHpKdzAh6nxg
-         xvkdB2Kt6W7pjw7VIGnnSARTLWCyCuFMRVda+bJ8vcxg5gVE5NsMv90ZqY7pQQcG3Kjz
-         E64Q==
-X-Gm-Message-State: AFuF++lzoTchjTAJAy3xEjcUO7hklg8sfdMfuG85qfSFZ1foJDQLF9bs
-	NdysTWtQwpZYLtd4MRk6NIkKRtAjWXtBpBUhSgkIKHEls1r1R02V/DBF2VEXNbBUVW3XYBolekU
-	2z3y98/O7hRjG+JnYi5rPuWXcHA4FCPEwy84c3+xEkIGkF0KNH6k0xZqEiG0pGgHIlxE=
-X-Gm-Gg: AYBFou26e7bWvmAdZpA24a8f9FTZCa6Lj5S/X5Kqyl4pfaC4Xtk9iY1RWbB5FxPU+zN
-	qDe2ABsEd8S4SOIEAI5aFri4jJ9+W6ApjcJ9nKUZzddT6Sa1FBnqjTGtsaBxy8IS0oVHQm2a6oJ
-	XYZdBXnV+mZxJfWuro/r0i17BPH79MUzoE/hLdSZqgK8oDOktTLAvQhksiVLU16CSDRmM8BVlsT
-	kCAbRh9uk0x/pdXGDbwadhitehA9l6ue6h5Jq0SjcSIsJXCSChMXYiGsOMLqkN6JZFHp53R1bfi
-	2zrd3EAJ+NZg1VHeBalzx6Px/sGT5VV0LfD+Zq0wxjsdAkTDo20ZZEKfXENAkgBDtu/pa8eCYXl
-	xM7nioH8EBpoXumoR2bvO/w==
-X-Received: by 2002:a05:620a:6499:b0:939:8bc:8826 with SMTP id af79cd13be357-93bf5568447mr909256285a.2.1789977858804;
-        Mon, 21 Sep 2026 01:04:18 -0700 (PDT)
-X-Received: by 2002:a05:620a:6499:b0:939:8bc:8826 with SMTP id af79cd13be357-93bf5568447mr909254385a.2.1789977858424;
-        Mon, 21 Sep 2026 01:04:18 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67e11071sm3732647a12.23.2026.09.21.01.04.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 01:04:17 -0700 (PDT)
-Message-ID: <27b70cf0-3c99-4e1f-b1ca-69a228f92e66@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 10:04:15 +0200
+        d=1e100.net; s=20260707; t=1789977872; x=1790582672;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VkcfJuXNZITCOn3dUrvlxZ3BtWVxpJZeQyLT04gvHjg=;
+        b=a83sUlQm2aDBOSRZYNBDciRgwG6bpaxYD9LfcWMvkqRjALOpzb2d2P2qkiYkBhsoVg
+         eTdDAE2IhDqnHIgbnnemsTK7m15YR3Od83zj3QDGuk+fj3LyZ3kfw5n1XtFVtX00gdPx
+         rwqAJGqvlxREoZp+W+e0jNSRVdL7G7vSsXxBfnJzVBzW/xjgJh8UZcuA2+uMKkzXgMje
+         6MEv/Iu/sLjULOwOz01QOMwJWOMF7KPigs3fOwvRCEV2rfKhRGtCptGgWA/uNey5Neq7
+         Wz2zhIMFmJF4HVgeOi9MyYJ6HKcT7ssnRvS9+1Yl8JqjyTPCh5q8kSvhkjLyuhud4NJN
+         dPOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwSgtWmNskIDnps4MofrJVL6nWwWHtEBNAOsaP16hsOWkTZhMqchgpAotCpi6Okx8xDm9BLJRbrQjthvf8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUpKtVWk51qwg56/oAII5E24mN+UBQ2qh3xK+CM+FLylQBa48d
+	PF1QrJfG3t9r1c2XKT69Q2PMFecQSpSLubdt8mQ5VRrab62yN8FY+f3yb06y68Pyyw==
+X-Gm-Gg: AYBFou01pZwk4TplMTGilNjLTu7k6G6k3P+QnwY6bJ18NCyA6XqGueGEfbbCVVStOpi
+	JmRVhl9tCL5+UinFCusXNwok9ktIS7y6FjNAi6xLUrIUVFEVDN6HZrkRPhPy5FpdoeV+mSkRxJJ
+	60fHkSZY1fRdFr7V/C96mHfvw6YxSD89HY5rfLfeSGXhx9DrQavBcy5pk2GW31W0PG1Sn8tinAl
+	Fe4v0ivbh00o8MmLu8VVXF8iBL9dqzV2Cxb8uPipPQq7LqmaaU/B2mNCVo6j3/jT8Q5ljAl/ZRV
+	2fBUT9ozGDLtLWL6Dt7QEoitB3KIWoLT8lga2vilBdGzh02FqS0ykUOFqU0N6JE5A8mJybym6VY
+	QS8FsUx0lELFKUVmczkembpZUO8/FjXFg5ih81G4KpK2fOxmw51H5hdxbedjl7wtqBxaUdj7h1q
+	9FHChQIdUfna3SHSVvmzfRUMytohpS+TjLtbvUg5vrYYsaCwk69gSW+srRQW/Zq+as+1hizPSAv
+	ZAAl3TkVrw3O27Lz+EQbimUVDOvhQ+v3vnTGJamG4g=
+X-Received: by 2002:a05:600c:83c9:b0:49c:f13e:e4d with SMTP id 5b1f17b1804b1-49fc4ff402cmr146994445e9.10.1789977871433;
+        Mon, 21 Sep 2026 01:04:31 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd115dcbsm208413135e9.15.2026.09.21.01.04.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 01:04:30 -0700 (PDT)
+Date: Mon, 21 Sep 2026 09:04:26 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v1] ring-buffer: Fix the sub-buffer array base in
+ rb_meta_subbuf_idx()
+Message-ID: <arDlCou_U1nV9Zqq@google.com>
+References: <20260918071507.1019251-1-donggeunyoo.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] soc: qcom: use assign_bit() where applicable
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
-        linux-arm-msm@vger.kernel.org
-References: <20260918141833.3023124-1-peng.fan@oss.nxp.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260918141833.3023124-1-peng.fan@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: QezbbZ1Hd8zRCIlrQTT6NJGChDwdc_OF
-X-Proofpoint-ORIG-GUID: QezbbZ1Hd8zRCIlrQTT6NJGChDwdc_OF
-X-Authority-Analysis: v=2.4 cv=OtraWC/t c=1 sm=1 tr=0 ts=6ab0e503 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=8AirrxEcAAAA:8 a=EUspDBNiAAAA:8 a=nSpsjYtsPra2AegJnUsA:9 a=QEXdDO2ut3YA:10
- a=3Sv76qktopEA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=ST-jHhOKWsTCqRlWije3:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDExNSBTYWx0ZWRfX8M3SayZqrM0M
- jWzt8EUHYcdqgtmq6YLDjGv6XNsl3dLl29JCUdPojAEGxumIUBavlB7/GTWRaaco9pqhnozZW+i
- YiP/2KxJCNoww7RayBMnJEwEfJ5U7REpEzJ7Ryo7FnPb5Yg6xZNrHHyq7549S93S8sJxdYJP/hD
- P8tNdu8Fm+peKjhVqi0oU7p4zj5oKSGSeAmEDxLU6YmMt/lhK8UyW2r+2OCZquRNROxL2s/68cb
- 1Co6N85GyWF0Ldn/gyvvpGZ2NwqfJ5wYQ54wQyItBmLgk0PNztIpYGWmITRA8+86j7CrlodMVfW
- 8nM36StL3LtNvhT+sGmRz3bBLvw5eVApeEwCqCMudDUUQaiTEYqX7OWrKtJUVmKJLdQDrv04Mwq
- YjsrmLaO/2BLVXJNkkx55C/w7cQ+n3K2uAp7oQYDvqMpymk6kQJAP0+itqbwCr0MTpNwikepo6n
- dUybutNhnL85m49ES3A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDExNSBTYWx0ZWRfX5T2pXQNAcLkd
- pn4dzdTaEJOTTn+0Y5Y8TfW0Fk9hUKyJN/5Ow1wfEdnDCgmSthbiM4KcbcdBVnNMOZdelVpWGYm
- 7WLhdBsPqYwwAzTnCauZ57Cn635rsHc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0
- malwarescore=0 adultscore=0 phishscore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210115
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918071507.1019251-1-donggeunyoo.kernel@gmail.com>
 
-On 9/18/26 4:18 PM, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
+On Fri, Sep 18, 2026 at 04:15:07PM +0900, Donggeun Yoo wrote:
+> On a persistent ring buffer, rb_meta_subbuf_idx() can return an index one
+> sub-buffer too high.  rb_setup_ids_meta_page() then fills subbuf_ids[]
+> shifted by one and leaves subbuf_ids[0] NULL, which __rb_map_vma()
+> dereferences when userspace maps trace_pipe_raw.  rb_update_meta_reader()
+> writes two such indices into meta->buffers[], which rb_cpu_meta_valid()
+> would reject on the next boot, discarding the previous boot's trace.
 > 
-> Convert open-coded if/else with set_bit/clear_bit and their
-> non-atomic __set_bit/__clear_bit variants to the assign_bit/__assign_bit
-> API.
+> A CPU's sub-buffer array starts after its meta header and the nr_subbufs
+> integers that follow, aligned up to a sub-buffer.  rb_meta_subbuf_idx()
+> inverts that calculation but skips only the integers, not the header, so
+> its base is one sub-buffer low whenever the omitted header size crosses
+> the alignment boundary.
+> 
+> Invert the calculation with rb_subbufs_from_meta() rather than repeating
+> it.  rb_range_buffer() maps an index back to an address through the same
+> helper, so the two directions can no longer disagree.
 
+Looking at the delta between rb_meta_subbuf_idx() and rb_range_align_subbuf, it
+seems it's just the former didn't include that struct ring_buffer_cpu_meta
+isn't?
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+That is quite long commit description just to say that :) 
 
-Konrad
+Otherwise the code looks good.
+
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+
+> 
+> Cc: <stable@vger.kernel.org>
+> Fixes: b14d032973d4 ("ring-buffer: Add ring_buffer_meta data")
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+> ---
+> x86_64_defconfig plus KASAN, FTRACE, TRACING and TRACER_SNAPSHOT, on
+> 5dd1818b15d9, booted with reserve_mem=<size>:0x1000:trace
+> trace_instance=boot_mapped@trace.  head_buffer is from
+> instances/boot_mapped/per_cpu/cpuN/buffer_meta, the map of that CPU's
+> trace_pipe_raw.
+> 
+> nr_cpus=1, 24 reserved sizes 4096 bytes apart:
+> 
+>   nr_subbufs      head_buffer  map      head_buffer  map
+>                   unpatched             patched
+>   997 .. 1004     1            ok       1            ok
+>   1005 .. 1012    2            oops     1            ok
+>   1013 .. 1019    1            ok       1            ok
+> 
+> nr_cpus=4, nr_subbufs 1017, one boot:
+> 
+>   cpu 0           1            ok       1            ok
+>   cpu 1, 2, 3     2            oops     1            ok
+> 
+> cpu 0's meta sits after the buffer-wide header and the scratch area and is not
+> sub-buffer aligned; every other cpu's is, so the affected nr_subbufs differ
+> between them.
+> 
+> Unpatched oops:
+> 
+>   Oops: general protection fault, probably for non-canonical address 0xdffffc0000000007: 0000 [#1] SMP KASAN NOPTI
+>   KASAN: null-ptr-deref in range [0x0000000000000038-0x000000000000003f]
+>   RIP: 0010:__rb_map_vma+0x418/0xa20
+> 
+> With no reserved range at all, both kernels map the global buffer.  On both
+> arms, tools/testing/selftests/ring-buffer passes 6/6 with no skips and
+> CONFIG_RING_BUFFER_STARTUP_TEST reports "Ring buffer PASSED!".  ftracetest
+> gives identical per-test verdicts on the two arms -- 153 pass, 6 fail, 6
+> unresolved, 10 unsupported, 2 xfail.  The six failures are the same on both
+> arms and their cause was not established; the unresolved and unsupported ones
+> need pahole, a hypervisor trace remote, or userspace this initramfs does not
+> have.
+> 
+> The discarded-trace path is not measured: a fresh QEMU boot gets fresh guest
+> memory, so this harness cannot carry a persistent buffer across a reboot.
+> 
+>  kernel/trace/ring_buffer.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+> 
+> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> index 04bb94c29f58..fa2e2ce683aa 100644
+> --- a/kernel/trace/ring_buffer.c
+> +++ b/kernel/trace/ring_buffer.c
+> @@ -3627,10 +3627,8 @@ static void rb_inc_iter(struct ring_buffer_iter *iter)
+>  /* Return the index into the sub-buffers for a given sub-buffer */
+>  static int rb_meta_subbuf_idx(struct ring_buffer_cpu_meta *meta, void *subbuf)
+>  {
+> -	void *subbuf_array;
+> +	void *subbuf_array = rb_subbufs_from_meta(meta);
+>  
+> -	subbuf_array = (void *)meta + sizeof(int) * meta->nr_subbufs;
+> -	subbuf_array = (void *)ALIGN((unsigned long)subbuf_array, meta->subbuf_size);
+>  	return (subbuf - subbuf_array) / meta->subbuf_size;
+>  }
+>  
+> 
+> base-commit: 5dd1818b15d98d4a20806cd00b1b40320b06004f
+> -- 
+> 2.53.0
+> 
+> 
+
+-- 
+Vincent
