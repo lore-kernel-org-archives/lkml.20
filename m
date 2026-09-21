@@ -1,128 +1,135 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862214252A0
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:23:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790004205; cv=none; b=OXadMUb6H4FTW22clt3xltM/uhHi+nmnL+4ISsKmFbynLJdJVM5YJbRSwfMDKp2mQHpRV0DvTdNcIeyb/ifOyIDoceJsGkD22SxWKge2kOwGIQIqE1YJS+DbJjPWIkt9OQ5PGJWhG61xZnIpNTf8685U5ZhtCo0gxLdvx30pUWw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790004205; c=relaxed/simple;
-	bh=OscC8DrQb9ORVJ8oYAGZZEW+xZwE9Iz53Q4Np9Y2sXk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EwuW6PFEkdr5i43Om54Hv/IpmzGwN+b4Pptb8CaOwfw3Fx1eMkyZtnPNWRcORxan1aXojhTnglyEldKmlRsn799BvFAfL5mjGVmwMoUmdQh688fRkHeclNvw1afmzaG6uwRIdO58da6cwLTh+1FEI+MN0NVMN1sSArJdGQPR5cg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ijJImQmZ; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 323E34B44B0
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:23:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790004212; cv=pass; b=MNCiYTBa4MWrUTnCth8L7JPV6Y+RrKHlcvheQ6Tnn3N1faLshh9Q/So4yCrbkJA8wnBko+J3WmeJq3itUDzoac+FgNDUqzYMWC/5KCStSlgnWqCykhd3RgAK+cR/78QpB8B34O6/kIjm0whlU4CsPPtiJ6dFssXdUBD4dlGU9ng=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790004212; c=relaxed/simple;
+	bh=Qvro5yCQlNCOhITq/IgfziBeqn/uBwkhHPkGycI5TvQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=e1Ix7rpkcFrW4/3E1OVKyXGfB70xwgq84USubEqhvsRpA12kmdHki0QRRwJWQbyiRT1diBKGRSnr1r8o27aX4abyFK3XmR1LHBvmcat/kBlJO2GdhztF1A4gXV0Ur267Vi3YABB8W1WTi5DqssLhhJwoeCULvLe4e2Q1d1OuBAQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RMIjwpvC; arc=pass smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ijJImQmZ"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso8497375e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:23:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RMIjwpvC"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ed9866so29235795ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:23:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790004210; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mZEXr0dwC5qr4mE3nC3CRs4iiMkYvhMUIk3KVTykI2QziDECpkD+YsHyFA1EhKITfa
+         yHz6f2oPnclwNSfBeNgG2sYQ4DNNNM7SPz0OHC8AvVO1CXC3LSgi5A4iLPSuCysKbjLR
+         4Pg1h2m+hvPpAQV+94rh9iVcFtBpf3O6T97cUx7j9FoKmrEOYfASYoLt7ZtN8SNvAQke
+         ZRzUkJYXU7lqVChIlgmNWTQymyfjj6xjc6H/JynErWzfY1ARtNGJM+UqegclBJIEYAxX
+         tsgCgP75uoGreZosaidGYusNMvipGBZ6KZO7TUdOXMs2LIoVjkkssEy+saakhItaZXsI
+         gQCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=INq7XmDF4W6s4uqXjWWhutx+bhm3j3Ixyq53lQ+50kg=;
+        fh=YDPukBKsDvFYl8bfbqlvGzKLtKsDprd9UWyAdE1bV1Y=;
+        b=f2iHR/MK+RTaIlpx0oLXpnAmPFvZbJyqd1xbaoK77N27eZrvmOvsDnNI2F9CTPlbt4
+         KQ1xIRz4T/w4lGd3oEsj0Nbw17D2QArLhdFmQK2NCLIqG7NfBWlvOBVUQCij7PZ0uwPe
+         gKNyUaPamgUVtBuvCzCn17dNJz2awYVQLcY7pZoLdZMPrpRjyait01lYdy8KjxGnShKl
+         k6d6PID4bV1IyNd/iMvgXy6HwQdZH6QUWroCLmf6YXNUImHXixvP3Bx9upxSDmmmTSST
+         5DY8+s4B320cBiEk2WTnXoSPLLX1ZSpaYgE/aWt9MSHWVzSq/0K/ZxXYKPipMVwClFJo
+         3ZwA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790004202; x=1790609002; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qq+7QrXS/k7a5MVGzG9IfQdtOA6kqjAnM3OlZxIizdc=;
-        b=ijJImQmZP3O4NE8p929lyiEk0H6tiPlp7Y/8+9YzhxIU6hEuxzMk+S4Q0a2LokUHAT
-         WMbdl1JiC3RwGEhagP+AbVQ2aLrvp+Mj0fcDXr+TdkVmJ/1YaIlK2d2MpLVM9LHIf67T
-         tQGgyvVPYbOuxjp+W+ciljrLbIwcqSNwaczLsXBqUCjeWh/EjedadBLDgPfWfYTr4M2t
-         0+RpHx4Hcens6B7xvoen8ZQ54kco8r1yikDmVDRtTgrqcV05yAMLbqfYOP+ZcvchW54h
-         gE2jFux6uiVJgGIK44PQf0CJTo+p4BI89cKkRH0T62EfbLTIi+ruOGRRyIP6TGiNREfS
-         tzfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790004202; x=1790609002;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790004210; x=1790609010; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qq+7QrXS/k7a5MVGzG9IfQdtOA6kqjAnM3OlZxIizdc=;
-        b=I7AgX6FgJY8ps2wTY3D8Y1Nha+4FMMPkHjTBfe4luytwSh6vp+axCJig2F3PszVMJo
-         LK7LKwhEFAyxy0K5yb7show89yheErtnw838KHPeer0Hn3ebcABQDaIa5IJOv+mGtVkJ
-         VJUZcrJOFbyDSHydPlkp1k6CodaXE8n7/rCQY6+AauOuPhmWbL7bFMs4OHSm9xnxTIbI
-         geBna7ddTvzajV9gdFWXtb7ZxGVNyJ74fs0Or78kDPYYAjl3OuAE/RMpH2TZqj3gUJPp
-         F1y7Tb7UJMtfhfgloA7d470kqJgi7l+DVDRq3ktuYIJi9+edcSarJpBA0rJd8iPkm9K5
-         79Rg==
-X-Forwarded-Encrypted: i=1; AKwUvBwTwumfDwKci79WDMeZxn0xSpcdIgwn+0uEYSJgfIPDrRIyFPbZrHlTDPcdEjenGPkiGlhY89qTGb5Nwkk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwDY6U/GB92t2R8I6b6eoVpfEQVea1BdyJk3no0N5K4PC1+nRG
-	qZXcUJEtUgIYo+hxobh/vQd5U4Y32YsS6fljk/UQp8tPiKPduyyKYHbI2UNoZp+6U8lLXQ==
-X-Gm-Gg: AYBFou2KO0icOUo0Taefu9riz6HrixJmc/0koh+MrPvwhR+y5gwQWBsI7G7paiLckw8
-	n6x1HVF7/k43A1A5o4olxUyVWC7XRlVPikwjMNTVhe9tz1IyqHGqoeBTjpeblT45Z/yucquf+mv
-	a9d7KbeqK7GdgKXiwprhRN7Y9FhQA0I4+FSHa2GdCgRd6OM2dh7YITu/qtRx9fQU99piJr868eZ
-	F2j0ZLrJLbPPbwbSshdWR8eCdR80vyKhG5TSPumeELueJziAL7zvnE+UInKxVDWmfF/n3Dr9pB1
-	HbEtP/gpO5O9uSStcqy+G9nME8mc2qmVIrPSpLjNO6f1cpPPx3hUYpF3ofYDV6Z0b9KrsfvKgwt
-	HyIDtrh2l92Wfun98twQ/llodhawaicJwQUnHwgYyjJZnJpv323Ml1zqJVZnHI1Z5hZb4hnsZJk
-	1tJ/rz68V9QFhFBuF7tRZwRNQnMKvNpdeegam0eI6tyo8atXZ18wqXs+1TKp9NNk1NmNI=
-X-Received: by 2002:a05:600c:310d:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-49fc4f85891mr183159525e9.5.1790004201571;
-        Mon, 21 Sep 2026 08:23:21 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc6ec1e63sm206536025e9.0.2026.09.21.08.23.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 08:23:20 -0700 (PDT)
-Date: Mon, 21 Sep 2026 18:23:17 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Adi Prasan <itsadi2409@gmail.com>
-Cc: gregkh@linuxfoundation.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: rtl8723bs: fix ie_length bound check in
- rtw_cfg80211_inform_bss
-Message-ID: <arFL5SLHwLflaONc@stanley.mountain>
-References: <20260920142849.294162-1-itsadi2409@gmail.com>
+        bh=INq7XmDF4W6s4uqXjWWhutx+bhm3j3Ixyq53lQ+50kg=;
+        b=RMIjwpvCSnEId6iLqqzpVweOuPEhmX1L+Tyr4Zz8O4OoKvZsfMUg9mCUiJbpa+uXBj
+         N+gFFQ2TQIjV5LoHWXs+7fstuuvcCxCLBXFh7cnKrt5NfNsv3Ha4Fb8l5Id0PvqH/J4m
+         ch761hTNk4r/QmVt+ht2v+JxUB3/GQftp52qqqMJnV+GyREll5VMIF+AMySfJuKaofbv
+         NXQxD4VkvwCtzzUwCQoB0+In7Rhl8vJv9wKf85Lqash/c+SotgbIHx7KFaiIP9Ph8Jxv
+         FrBPPYYNgsc4bVkj1pbGWtk2LzBoBd0B6xlMISvgZoq9NMcnR+FeTEbcHs6AG1rQROBv
+         TXiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790004210; x=1790609010;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=INq7XmDF4W6s4uqXjWWhutx+bhm3j3Ixyq53lQ+50kg=;
+        b=XaOt0Qc1vCbbP3etkamNPY/r4v0GrWBHpCy+aGS2Teq3MDxQCqinX8HVlPlGS7NP5B
+         yiq4FjBKxTGfYgRPn3uwLCWX0CO8CH9vChAa5eLlV/MqHnyO4vP/JagzlMidb0tMGY3p
+         k/R64gjzHI7pOWAmfRnZ7Qp916gcj0M3zBKb2a4zmkL6sU9Ov5sCo510HIa3ZTFL99z0
+         hygy/hXsqZDHHDHJDUuQlSOX3aFy07FJstQy8X+iS9B1vyeLviAanOzusxR4/TnOdPvw
+         aoWE/JZ+PCR4IKi4xQd073dkjeL30ueIYr5Y4TRKvRrrKCmLQhT0GFU/ptQWeSCRbgwe
+         QaGw==
+X-Forwarded-Encrypted: i=1; AKwUvBzTYdyYzeSS/ts5CobwYmCpjsG1wJkOisCCVXTkk0/l+KIaGjwSrmkKKEBUWGUdYhnypAFP/uDsCX/LvXw=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/AsoVgwl+p5ewdc7/VTLglFyUMzfWrYRhjgTTs+vmclDgsExy
+	LxHAk8xQqvffT7IaifmSoHa3eMYtxbywC9SMKD/ek2JtZxxP6coD6UjkIQsCxq4jQB2YJbacgRr
+	VGIotrDcvzAU7yEBwxcZoaCIb+2D3Xq0=
+X-Gm-Gg: AYBFou0M0En+RzC2FP6xrWBSzG7NuBi4yk+k6FGwKiCl509aqS6ae9IMV/c2sk1+4dT
+	3ZtBbXlPeRvthMblgL3fLSKRfeOvatkBkvCXB9089jk5M8nc6GlzTGQblZi+604z8HsyKAr1Wgm
+	a9YJllck60UIr9KqGkWA4raA01hciTb23j0Z7tbdAwdYgjBxdog+CZu1dQ7G48D+e5ghtj+mkRv
+	d0f3T8dRW7+YG1htsHOfweZmK9sfdXJU2QFWnoTt+HcLNXzUnozE2QJPWRuirl9HVrCFl7t/fyK
+	BxVrNNyIAAvq1vL/cxeyYilfz+p/q4IuDDwYnE59e9VEAFBWi/2dnFP5YQ==
+X-Received: by 2002:a17:90a:d445:b0:3a0:2817:1fcf with SMTP id
+ 98e67ed59e1d1-3a0281720f7mr8496428a91.11.1790004210586; Mon, 21 Sep 2026
+ 08:23:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260920142849.294162-1-itsadi2409@gmail.com>
+References: <20260916022954.2690322-1-lgs201920130244@gmail.com> <178953744017.13037.8123570146284827976.b4-review@b4>
+In-Reply-To: <178953744017.13037.8123570146284827976.b4-review@b4>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Mon, 21 Sep 2026 23:23:16 +0800
+X-Gm-Features: AcwNN1VTUBM-S9HR0eeeidh2kablCG-BVFJX7Z6YN2-YKoW6ujal7wVJmjF5B58
+Message-ID: <CANUHTR_pjrYXHkMZH_QheAUr86=dJ4WFC+DNMgzUYsm+MsEXPg@mail.gmail.com>
+Subject: Re: [PATCH] net: ena: fix PHC cleanup on probe failure
+To: Arthur Kiyanovski <akiyano@amazon.com>
+Cc: David Arinzon <darinzon@amazon.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Sang-Heon Jeon <ekffu200098@gmail.com>, 
+	=?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
+	Dawei Feng <dawei.feng@seu.edu.cn>, Amit Bernstein <amitbern@amazon.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Sep 20, 2026 at 02:28:49PM +0000, Adi Prasan wrote:
-> The buffer bound check in rtw_cfg80211_inform_bss() only verifies
-> that bssinf_len (ie_length + header size) does not exceed
-> MAX_BSSINFO_LEN (1000 bytes), but network.ies[] is only MAX_IE_SZ
-> (768) bytes. This allows ie_length values up to ~976 bytes to pass
-> the check while a subsequent memcpy() from network.ies still reads
-> only 768 valid bytes, and other paths that write to network.ies
-> consistently cap ie_length to MAX_IE_SZ.
-> 
-> Add an explicit check against MAX_IE_SZ so the bound matches the
-> actual size of network.ies.
-> 
-> Signed-off-by: Adi Prasan <itsadi2409@gmail.com>
+Hi Arthur,
 
-This needs a Fixes tag.
+Thanks for the review.
 
-The original code seems like a bounds check on the destination.
-Your code adds a separate bounds check on the read buffer.
+On Wed, 16 Sept 2026 at 13:44, Arthur Kiyanovski <akiyano@amazon.com> wrote:
+>
+> On Wed, 16 Sep 2026 10:29:54 +0800, Guangshuo Li <lgs201920130244@gmail.com> wrote:
+> > diff --git a/drivers/net/ethernet/amazon/ena/ena_netdev.c b/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> > index ea89619039d8..5f0864d16dd3 100644
+> > --- a/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> > +++ b/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> > @@ -4122,6 +4122,7 @@ static int ena_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+> >  err_device_destroy:
+> >       ena_com_delete_host_info(ena_dev);
+> >       ena_com_admin_destroy(ena_dev);
+> > +     ena_phc_destroy(adapter);
+> >  ena_devlink_destroy:
+> >       ena_devlink_free(devlink);
+> >  err_metrics_destroy:
+>
+> Thank you for the patch.
+> It looks correct.
+>
+> Please resend this together with "net: ena: fix MMIO read buffer leak on
+> probe failure" as one two-patch series - both insert a line into the same
+> hunk, so they conflict with each other.
+>
+> --
+> Arthur Kiyanovski <akiyano@amazon.com>
 
-Why do we even have the MAX_BSSINFO_LEN limit?  What's that based
-on?  1000 seems like a very suspicious number to me.  It's a normal
-enough number for humans, but it's a strange number when we're adding
-up struct sizes.  Do we ever need the whole buffer?  (These questions
-are basically rephrasing the same question.  I'm assuming everyone
-just feeds them to AI, and I'm trying to learn who to do prompt
-engineering).
+Sure, I'll resend both fixes as a two-patch series, with the PHC cleanup
+as 1/2 and the MMIO read buffer cleanup as 2/2.
 
-It wouldn't surprise me if there was a different read check on the
-source buffer.
-
-The other question for me is:
-
-   304          memcpy(pbuf, pnetwork->network.ies, pnetwork->network.ie_length);
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-We copy the network.ies entries to pbuf
-
-   305          len += pnetwork->network.ie_length;
-   306  
-   307          *((__le64 *)pbuf) = cpu_to_le64(notify_timestamp);
-                ^^^^^^^^^^^^^^^^^
-And then scribble over the first entry.  That doesn't make sense.
-Should the timestamp go before or after the entries?  Review the
-git log and other implementations of the the realtek wireless drivers
-to check.
-
-regards,
-dan carpenter
-
+Thanks,
+Guangshuo
