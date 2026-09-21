@@ -1,89 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C49248820E;
-	Mon, 21 Sep 2026 15:26:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C764908CB;
+	Mon, 21 Sep 2026 15:27:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790004411; cv=none; b=uD2dwOyeiaHtfLqUju87Vv026QPpQynknMp5yDLUPnfHzZtYNDlppVeBlDfMNpwQADLfgL1sPBSUsRXIvNY/nTCQJfaw4+ix/ZuO1m2eGljsev/cRmA6XLBEeHZmY9KvsnubQN/JYymd4wsskv04SiObXhly9JyJlzYmiOzAJt0=
+	t=1790004458; cv=none; b=OgcVMdU5POH8OybBIyekWFFDrYuaCOXZJjSYxAfVsY/Z6GGKzf2GzalN9ewthqK2PWdyFz4pdbpFREzib254EJk6ZbOSIjJeJmNkctNFetK2K6ak1y65SEp4Yt1K+aVolt7181CTeC18F4gtrauOZNaOTdX5+5L5u+yBT5HKDJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790004411; c=relaxed/simple;
-	bh=crAu+rO/8jjpMeszBXQph4x7yIoYqyBep9PV7qmQuK8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=hAJWDQK9ezaRTUdod/q3/ZhRt5RHfHJ/yASD+Ic5SuW1aWqw3ouBIPKk0eoduiGyQRZcmNffydfzbdjB85N4OdqdbvKu8jsn0qwXPFXEQpeHami0ZPrLZe851iY5CMIm15ziHAvt+g7AvmjvNa4sUQh7cSlA7NMl6WU5h15KNJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kXOCMPeO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790004458; c=relaxed/simple;
+	bh=KJL6qrJEYWDTW06lL7uDWewZqJ12jjgFwJH9pMNPMEc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=N1DPj1vjkvSvwQ3gWEwT10LVarcdWa8xuaYO/ILrge4GE1Lyp+EtSsolY7jnX+3rSPOKpRq28YxEiJqVkd+G9ZiERUE12kJeXQtYgrv0QyNhBTXJcAZ1zoTaniB9HWT0mpPKbmgfIKS88Iii4++7RI0VO0u1OL7tdduIOYg1JfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=clldXVd1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kXOCMPeO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71B931F000FF;
-	Mon, 21 Sep 2026 15:26:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="clldXVd1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBD601F000FF;
+	Mon, 21 Sep 2026 15:27:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790004409;
-	bh=crAu+rO/8jjpMeszBXQph4x7yIoYqyBep9PV7qmQuK8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=kXOCMPeOABC3WIWc0m2aMa53Wy1vci2Ph1we34tBe20fflS/kwx9hhp/Bh2Uo+id5
-	 e6dy3zdJ14+pNdpep6sBKlIMjn3Khyu9Fehxt5yHD/bXdzQ+/hUEwmutBQ88ho5LXl
-	 9OPClu0cxwjagvWcavMP05o/JjEt3lVfuRCHGM0taw3BZXgz/On7tIzHebY2HeJ9q+
-	 EMbKmUEBXIWCO++8CrCDYqtnvfwS9etcFOBXWgmLW2TFA3sVnOSVHEy/Oxl26bbs9y
-	 A4Jxo92CBcSprJG84NCdVoSDEbokDxtFGJwV4uc7ucTkSfhbPPRtSbgjRca+9MgtQY
-	 qJVNPaTSiDWrw==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>,
-	Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-	Marc Zyngier <maz@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	"T.J. Mercier" <tjmercier@google.com>
-Subject: Re: [PATCH v6 7/9] dma-buf: system_heap: Enforce shared-granule
- alignment for cc-shared buffers
-In-Reply-To: <20260921123725.GN11599@ziepe.ca>
-References: <aq1V3oeDdvXobt8J@arm.com>
- <97c30fce-9bda-4c61-b1b9-10297b89c8d9@amd.com>
- <20260918153642.GD11599@ziepe.ca>
- <d8123f21-d5ce-415b-a05a-392d97b8b57d@amd.com>
- <20260918165315.GF11599@ziepe.ca>
- <6115eaf7-21bc-49ce-8a74-08fd37a1e2c9@amd.com>
- <20260921115141.GJ11599@ziepe.ca>
- <45dd7a2f-8474-4388-b383-2dee3ee62206@amd.com>
- <20260921121739.GM11599@ziepe.ca>
- <cd2b32dc-5a80-4ef5-82bc-dd41ea96dc01@amd.com>
- <20260921123725.GN11599@ziepe.ca>
-Date: Mon, 21 Sep 2026 20:56:41 +0530
-Message-ID: <yq5a1pam4ocu.fsf@kernel.org>
+	s=k20260515; t=1790004457;
+	bh=PR3QlLkpOllF17ylDcNIQRMmZtuCsB9dWNGolTVMx54=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=clldXVd1qt5JTqeAkuX3EX4mIWHnlMOgEnnMh+oY/nrA318cmAhD5LHyTIc5y2Wbd
+	 //bnRA5kAnB6W8JMUS3dmlaIMqgsPMSkZRnBhR8FLjdXu6zzEmylQbDEqFnvs5Kegd
+	 B4R67LRz7A2CFXy5oBhEW+5vwa3gwzBB+wCZ0h3n2nNV0r3VAyatsbrKGDs5N6KmJl
+	 nVQiXY+jA/6TGI0eQgyN+DPKU9uU0dtSFAbUCmV95QTbJo8vluO6q+yE2CNI49ShaG
+	 nxnSwxj7a3Rl8cjTBM/reYdHFLjBsNJ/jFncfOFzTrPYnNKyNFP8eNQFaZv2ozOqJW
+	 7iIyz1/esJB3A==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 09D661AC56A7; Mon, 21 Sep 2026 16:27:34 +0100 (BST)
+Date: Mon, 21 Sep 2026 17:27:33 +0200
+From: Mark Brown <broonie@kernel.org>
+To: James Calligeros <jcalligeros99@gmail.com>
+Cc: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>,
+	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Amit Kucheria <amit.kucheria@linaro.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Lars-Peter Clausen <lars@metafoo.de>, Vinod Koul <vkoul@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+	James Schulman <james.schulman@cirrus.com>, asahi@lists.linux.dev,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.de>,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 10/28] ASoC: ops: Accept patterns in snd_soc_limit_volume
+Message-ID: <arFM5QGrJx1aYhGK@sirena.co.uk>
+References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
+ <20260920-macaudio-v1-10-741cc20a74e5@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qy1Q+x+0xkGVmW14"
+Content-Disposition: inline
+In-Reply-To: <20260920-macaudio-v1-10-741cc20a74e5@gmail.com>
+X-Cookie: Too clever is dumb.
+
+
+--qy1Q+x+0xkGVmW14
 Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Jason Gunthorpe <jgg@ziepe.ca> writes:
+On Sun, Sep 20, 2026 at 02:53:49PM +1000, James Calligeros wrote:
+> From: Martin Povi=C5=A1er <povik+lin@cutebit.org>
+>=20
+> In snd_soc_limit_volume, instead of looking up a single control by name,
+> also understand wildcard-starting patterns like '* Amp Gain Volume' to
+> touch many controls at one.
 
-> On Mon, Sep 21, 2026 at 02:24:21PM +0200, Christian K=C3=B6nig wrote:
->
->> I also don't see where mem_cc_shared_granule_size is added?
->
-> Patch 1:
->
-> https://lore.kernel.org/all/20260904103452.1197239-2-aneesh.kumar@kernel.=
-org/
->
-> Aneesh, please be sure to use get_maintainers on series like this so
-> everyone gets cc'd.
->
+> -	return soc_limit_volume(kctl, max);
+> +	return hits;
+>  }
+>  EXPORT_SYMBOL_GPL(snd_soc_limit_volume);
 
-For v7, I included only the maintainer entries because the recipient
-list was getting too long, but I added the mailing lists.
+This will break the existing Cirrus and TI users which treat non-zero
+values as errors, most users ignore the return value but they check.
 
--aneesh
+--qy1Q+x+0xkGVmW14
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxTOUACgkQJNaLcl1U
+h9Dkuwf/e+9+p51dk6ApJjuQ0eXbD7tKMLOu2OSHbM26owrg0ihRHT55cBX3KJ9a
+YXR3LUhWCtuE3nZLpD15aYVuH8Ix8zzDg7S8e+0X8TIwppv3PJoGL3RFQS8/TMh/
+fUwbXTB8oMMTHLZnbJS0L0G6ptXZxb+qYxQj4Sa54U3F3hxla3fMfXfaLPNs0hw/
+b/VWJgr72b30FphSIcZDwLs9PIgLWl3sUA2MLNigqhvcyY882sDZmCYlpvmBR0FL
+f6q1qYUUd+5Sg0AXe/BqCJGnetxnaM3kfQ4FTgRjbHqx9WahPIj9vORlshRbTzCv
+SCf1emZJ+s7LB9sfqe7izn+xljAPrw==
+=LUax
+-----END PGP SIGNATURE-----
+
+--qy1Q+x+0xkGVmW14--
