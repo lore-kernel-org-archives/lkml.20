@@ -1,64 +1,63 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B28446D091;
-	Mon, 21 Sep 2026 09:28:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37A51490BEA;
+	Mon, 21 Sep 2026 09:28:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982896; cv=none; b=L+enXvssnGneuK5hI5Q3t2TWeHkJvaWSlLoByzxgBYcCLJcUzXjAE2YZEgWRbeBVaWl6u9vpK7X2gC0hN6WbvBxdLmxannNouOFVerpDduD/qTtQTa/q2Q4KFdhIGdXve8T8Dyi1v1kH/AFOQsQqjStE1GKDUuJ4zMNy45FNukE=
+	t=1789982898; cv=none; b=tFz+K4W/JEXq44e0qE8IQf3WLt1anr72zYQi0URz1808dBxtUBr+NM/1HtPdQcUb9sdABZUUQemhsz5WOz7qDHSFgtvF1yw5cIoP5AsY8XctX7+C8mwSWGvo457RwldKsnvZoaChAvl6b55E63B/KB1qCkX13f2TSfRvymg3Ros=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982896; c=relaxed/simple;
-	bh=R2v7dfu2j0+BH4sUDFRpOTwt8pHnHahcqLDdXLNtPdU=;
+	s=arc-20240116; t=1789982898; c=relaxed/simple;
+	bh=U+8msZrF2xt0r7dFpv2sR5geM6Mjl4hFWVEMtxsvG8A=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=uXPp3jSeuh7G95NCIfL4JGjcxONQ10rDf9MNR4Mm0yXYHNly62r5y02feukP9iyAwFueaT16EfZvyLKvB5IW2oPn8HFN3bOtLx6ISntGRIPzGZerPZ624jXzZhK8a8kHCXicWHfkkwTS3n+ZZo1ejuovsxQhL3jxeze5rZuq9ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Xlf3r/lx; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=SbOtqaAR; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=lDMXgLmIqP4mIyUTISDD8TUdWRBJhqViDGbtImzBtxO8ggZAy0bHHiApvXEmo0MPn7rEY4vXqw8GfULbVuliNVYNI9o2Gk3ac17fpWq/wg7brYWjhppt1ax6AWc9tjqVQUbeECokSaKFG6ZQkk79eg2TBOx2DxwApUs+BOKApCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=YKyaTGVw; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=pYsz3/RL; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Xlf3r/lx";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="SbOtqaAR"
-Date: Mon, 21 Sep 2026 09:28:10 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="YKyaTGVw";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pYsz3/RL"
+Date: Mon, 21 Sep 2026 09:28:12 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789982892;
+	s=2020; t=1789982893;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xQrilU2B6lOS41uZFFNcDQx5Ay3lwoAOreqr1DiuMTw=;
-	b=Xlf3r/lxQ0P5hpoGil8xEuHsDzsgE4uT5wWrlNyPgrgm9bdJgpmzhEoszhGfksSA6+GZ5T
-	UOjMVDxZRUw2N76UKgg9lTW4sL9sTjArsd78QiGq7KKe6/hBCIca8y93ZumQtW+bWniNFC
-	frDVVvit6kUgIMaKkv4SrauQGxJBZMc/FxEJ/1hIy2j2cDpbKXs3GnQTRIDk0oxnhzLFLF
-	YpPNrATyGQ16FwrnwpEiKEaci0fmOoOPbb83e0uiuozJpLHINiWOV3fAvQtQk4sm8EIFtz
-	pCPYunn49X48gAZHrHu0w2lGp31ojdoQS6TI2VOmXvfcIpv2U99sGNEeBylX5Q==
+	bh=Y+9/S8q5K78LSy2OJLbENFdyMu99TZVvc3X1/KhWzt4=;
+	b=YKyaTGVw6orPSo/I6/54X7AyWSkt9A7yxiID2XAtc4IP7qW00PLU6LFOTmR1B0y30BtQOC
+	XjPZealvoS+ZEDDE8gFIEZNJaA24GKMRy7nO8vZdjdz0imTANykl1IUqJJBnFL+VOySl0o
+	haJUxaOwSyVkqkbZQ7xVNBa6D8/sXTXnghVGuDvMMOcXCkokbPpKoPoOy2wWTuB+bpIQyh
+	qtnik2Empbmn2JEs2AGadVSKsM+YH6l28LosB01S75K3FLqpJGbiQ6YtrMpwp8/HLE+Tv5
+	8hJo9aS18bGA17li6lJacu4gEIkmb5uv40t/L2JUHu2hV8sivKqy6htiYbqgQg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789982892;
+	s=2020e; t=1789982893;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xQrilU2B6lOS41uZFFNcDQx5Ay3lwoAOreqr1DiuMTw=;
-	b=SbOtqaARDMm5e5CAmJtV2HFA5XgH641656ruNyRJO5aRyKk4XkY7asPo7ueXEzFVxvFOCp
-	5cKMOPQb5jfcMXDw==
+	bh=Y+9/S8q5K78LSy2OJLbENFdyMu99TZVvc3X1/KhWzt4=;
+	b=pYsz3/RLO3tg7U3cD+yzbu9t8goynBubBthopYzURzUFS4sCrWNOgMcc1VsDBExf65/m+3
+	RR8cBVNacI7GOKBA==
 From: "tip-bot2 for Song Liu" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: objtool/core] objtool/klp: Add test for vmlinux relocs in a
- patched module
-Cc: Dylan Hatch <dylanbhatch@google.com>, Song Liu <song@kernel.org>,
- Josh Poimboeuf <jpoimboe@kernel.org>, Ingo Molnar <mingo@kernel.org>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260916184351.2720310-30-song@kernel.org>
-References: <20260916184351.2720310-30-song@kernel.org>
+Subject: [tip: objtool/core] objtool/klp: Add test for klp reloc section
+ naming in module objects
+Cc: Song Liu <song@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ Ingo Molnar <mingo@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260916184351.2720310-29-song@kernel.org>
+References: <20260916184351.2720310-29-song@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178998289077.2819794.15064171930393824596.tip-bot2@tip-bot2>
+Message-ID: <178998289237.2819794.4289918903567595594.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -68,86 +67,112 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the objtool/core branch of tip:
 
-Commit-ID:     65b0aac4125c18280efbda38174ec14bcef887b2
-Gitweb:        https://git.kernel.org/tip/65b0aac4125c18280efbda38174ec14bcef=
-887b2
+Commit-ID:     2d17a35f6c9489884e6a5ff7cb0d6b150d413371
+Gitweb:        https://git.kernel.org/tip/2d17a35f6c9489884e6a5ff7cb0d6b150d4=
+13371
 Author:        Song Liu <song@kernel.org>
-AuthorDate:    Wed, 16 Sep 2026 11:43:22 -07:00
+AuthorDate:    Wed, 16 Sep 2026 11:43:21 -07:00
 Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Mon, 21 Sep 2026 11:11:36 +02:00
+CommitterDate: Mon, 21 Sep 2026 11:06:08 +02:00
 
-objtool/klp: Add test for vmlinux relocs in a patched module
+objtool/klp: Add test for klp reloc section naming in module objects
 
-The kernel refuses a module-targeted klp relocation which names a vmlinux
-symbol.  An EXPORT_SYMBOL_FOR_MODULES() symbol needs a klp relocation, so
-patching a module function that references one only loads if klp diff files
-that relocation under vmlinux rather than under the patched module.
+klp diff names the intermediate __klp_relocs section after the object the
+relocation belongs to, and post-link turns that into
+.klp.rela.<object>.<sec>. Name it after the wrong object and the kernel
+applies the relocation when the wrong module loads, or never.
 
-This fails at load, not at build: klp-build produces a module and static
-checks of it find nothing wrong.  Hence the assertion on which object the
-relocation is filed against.
+The fixture is the first here to honour MODNAME: most hardcode
+name=3Dvmlinux, so passing -DMODNAME to them silently does nothing and the
+test quietly becomes a vmlinux test.
 
-Reported by Dylan Hatch, whose mod-ns-lp branch carries the kernel-side
-half of this case.
+This tests the behavior of commit 07f14d6af9d7 ("objtool/klp: Fix
+cross-module klp relocation section naming").
 
-Co-developed-by: Dylan Hatch <dylanbhatch@google.com>
-Signed-off-by: Dylan Hatch <dylanbhatch@google.com>
+Assisted-by: Claude:claude-opus-4
+Based-on-test-by: Joe Lawrence <joe.lawrence@redhat.com>
+Assisted-by: Claude:claude-opus-5
 Signed-off-by: Song Liu <song@kernel.org>
 Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Assisted-by: Claude:claude-opus-5
-Link: https://patch.msgid.link/20260916184351.2720310-30-song@kernel.org
+Link: https://patch.msgid.link/20260916184351.2720310-29-song@kernel.org
 ---
- tools/objtool/tests/generic/test-module-vmlinux-reloc.sh | 40 +++++++-
- 1 file changed, 40 insertions(+)
- create mode 100755 tools/objtool/tests/generic/test-module-vmlinux-reloc.sh
+ tools/objtool/tests/generic/fixtures/cross_module.c | 25 ++++++++++-
+ tools/objtool/tests/generic/test-module-object.sh   | 31 ++++++++++++-
+ 2 files changed, 56 insertions(+)
+ create mode 100644 tools/objtool/tests/generic/fixtures/cross_module.c
+ create mode 100755 tools/objtool/tests/generic/test-module-object.sh
 
-diff --git a/tools/objtool/tests/generic/test-module-vmlinux-reloc.sh b/tools=
-/objtool/tests/generic/test-module-vmlinux-reloc.sh
-new file mode 100755
-index 0000000..635a75f
+diff --git a/tools/objtool/tests/generic/fixtures/cross_module.c b/tools/objt=
+ool/tests/generic/fixtures/cross_module.c
+new file mode 100644
+index 0000000..c170bde
 --- /dev/null
-+++ b/tools/objtool/tests/generic/test-module-vmlinux-reloc.sh
-@@ -0,0 +1,40 @@
++++ b/tools/objtool/tests/generic/fixtures/cross_module.c
+@@ -0,0 +1,25 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * A function which calls out to another object.  MODNAME selects which obje=
+ct
++ * this one is, so a test can make the caller a module and the callee's owner
++ * something else.
++ */
++
++#ifndef MODNAME
++#define MODNAME "vmlinux"
++#endif
++
++/* klp diff takes the object's module name from .modinfo */
++static const char __modinfo[]
++	__attribute__((section(".modinfo"), used, aligned(1))) =3D "\0name=3D" MODN=
+AME;
++
++extern int other_mod_func(int x);
++
++int target(int x)
++{
++#ifdef PATCHED
++	return other_mod_func(x) + 2;
++#else
++	return other_mod_func(x) + 1;
++#endif
++}
+diff --git a/tools/objtool/tests/generic/test-module-object.sh b/tools/objtoo=
+l/tests/generic/test-module-object.sh
+new file mode 100755
+index 0000000..95c8402
+--- /dev/null
++++ b/tools/objtool/tests/generic/test-module-object.sh
+@@ -0,0 +1,31 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
 +#
-+# Patching a module, where the patched code references a vmlinux symbol which
-+# needs a klp relocation.
-+#
-+# The kernel does not allow a module-targeted klp relocation to reference a
-+# vmlinux symbol, and a symbol exported with EXPORT_SYMBOL_FOR_MODULES gets a
-+# klp relocation.  Put together, filing that relocation under the patched
-+# module produces a patch the kernel refuses to apply to its target.
-+#
-+# So it goes under vmlinux instead, and is applied when the patch module loa=
-ds
-+# rather than when the patched module does.  That is the opposite of the rule
-+# for a reference to a module's symbol, which test-module-object covers; this
-+# is the other branch of the same decision.
++# A klp relocation section is named for the object being patched, not for the
++# object which happens to own the symbol being referenced.  Deriving it from
++# the symbol means a cross-module reference lands in a section for an object
++# the patch may not even touch, so the relocation is never applied and the c=
+all
++# goes somewhere arbitrary.
 +
 +. "$(dirname "$0")/../lib.sh"
 +
 +setup
-+# The object being patched is a module ...
 +build_module_pair cross_module.c klp_testmod
 +
-+# ... and the symbol it references belongs to vmlinux, exported in a way that
-+# still requires a klp relocation.
-+export_syms
-+add_exports_ns vmlinux module:kvm other_mod_func
++# The fixture has to have built as a module for any of this to mean anything.
++in_sections orig.o | grep -q '\.modinfo' ||
++	fail "fixture has no .modinfo"
++
++# other_mod_func belongs to a different module than the one being patched.
++add_exports other_mod other_mod_func
 +run_diff
 +
-+# Filed against vmlinux, applied when the patch loads.
-+assert_section __klp_relocs.vmlinux
-+assert_klp_sym other_mod_func vmlinux
-+
-+# Not against the patched module: that is the relocation the kernel rejects.
-+assert_no_section __klp_relocs.klp_testmod
++# Named for the patched object ...
++assert_section __klp_relocs.klp_testmod
++# ... not for the object owning the symbol.
++assert_no_section __klp_relocs.other_mod
 +
 +run_post_link
-+assert_klp_rela vmlinux .text.target
-+assert_no_section ".klp.rela.klp_testmod..text.target"
++assert_klp_rela klp_testmod .text.target
 +
-+pass "klp relocation to a vmlinux symbol filed under vmlinux, not the patche=
-d module"
++pass "klp relocation section named for the patched object"
