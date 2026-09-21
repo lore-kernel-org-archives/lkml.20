@@ -1,331 +1,131 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A64412264
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:12:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FCC83F1AC0
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:12:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790021540; cv=none; b=J8ZD2/hVDhwXodMFuce2/vG11qusMuuEZB8kYDpxaLgsGh2ZM1lqNtDsfY4brAgLaynXx40SiAiPYfqfZcc7mT0CvQntqrPHDJuCPnotEdfgptOQyJ7W37vdBUHYfUbTYdvk1uCxDk1+1kqN42WwS4Up2gIu0a+G6HdgxUGt2Pk=
+	t=1790021576; cv=none; b=lp54n1QtI7hpYTSCc2ShpzMeIGIO8IpqD1NG3mcA6/PY/Mbn6fIJ314N7lrsncgc3rzvSVQdiCY7zdds1jKm1ZLtClZn9bCGiawLha1QqgjxtT2ofkls2tjyz/qrkO6e7X8q5GmAocpIIu6r7gQy4zXq9NJu+jIyj8A+9C5wtbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790021540; c=relaxed/simple;
-	bh=5T4lbni0PCLYd4q7QXK+iCi30F7GifM33dUtGAiz8DI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GEgR2K7GqTPj1vMFghgTV/kifdsXeAbOMHLtoWfCwGMsWDbnRdt1E6tSkcuAVAHAv1BDKUXpG/NoxNXc0W6Rgy81xPGi1ZEZxgKtu1utgrq0uxZ1HpqJm3fHahrq6kY3qoeWcI8QiftGbwCU8gRMbPDtR8E2YUcK/5KNEz/UmZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b4nXtMe8; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790021576; c=relaxed/simple;
+	bh=w6yJUW/RNzqEWgUPynuPUDsNWhvDhUuH0mK5X7pIDs8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LIDPg/XMaIGrf5mpZUeV/rqXCLr19ahoDVKGvitnT0n5iKsYT1z/x9IVaBPBrfrWHCdZVfmkceu2t8O4CHoq3/hoM7M/0Z4lxzmCAXfdUiZgH1n7drDBnXlBXQN84myGwtcQNm/hZ0XGPiLQBUeATrN0Lnhkwi9ykvXO3ZYtJfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=daSpjMMk; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b4nXtMe8"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469a33c9cso4519215b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:12:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790021538; x=1790626338; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pO39sZ0nSfGxxtiUdD70gv53e2K+kwH/We90AH1SI04=;
-        b=b4nXtMe8IDvMXSNRRjRSodAqZ+72bpPQpdXmcp2mFGlnzKRHzTHLcUHUF3uidu67Oz
-         3U6i66jvvk0C9dqwF3DDkajwz+kVomKCorWmYyClkfcCKIBZrv6xtoR+vML2knovqy/T
-         nQoTQVizEe3fQEIdfdrn0wuiZSmVI+WQzziyrXt3UxnAolJhHtRqxT2jvO0FjNwu7Hxc
-         BwN53+VrsGAGXcRGLlkDOkDvDvYqWGc/lDuMP7XQ7oGUviEJni61kqK6a/43Hgdt22C4
-         ViSc+C0TbJN3Vgy7mHv2/WmIAlFNveHLypZKLFneM8NvO7CKInT6l5f+tGByHEZus5ht
-         JhWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790021538; x=1790626338;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pO39sZ0nSfGxxtiUdD70gv53e2K+kwH/We90AH1SI04=;
-        b=bFVmZDiNjzBwwpO0N4YphvTvPA4jlp5ihbssW31ga1fkSAn7Ai/JeUAmmKpjwR/XcA
-         jynMAGdC00dAXp24NlosxPfiDIRshWQ4TbWPW1NDFmm0aR7IlAytvTpYUMDb0Z8i0vzW
-         CJynjWs+byBGg69vJu0awj+Tf5JhmoZ07Od5f2JL+amBvvgZdNOHiNo2jLWC85GiD1dR
-         QWXQoI6FXOVBsDYS6LwkD7gbWHeMPu0n7M3ONTFgR1olEz73+hWq/L1ZBR1/DY+3/vqy
-         VQnBLc+y5fnI0Zo6pxiAt+IGg1bvJmbmIY08R5PcHH3bITbCFXw3zOmjHlX0CDl86TrB
-         yLOw==
-X-Forwarded-Encrypted: i=1; AKwUvByGNBQC+qJYF7UE+lXEMcQA+SmsbhbE+uEBjviybWVlW3j7EUCl/Q43R+UvG6VHayThLz1rSF0pAa9GKLY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOLBofAtr2quhf6BKYQspj8LlYyPDaiHqTYgbG2qM08xbvobop
-	tx3hhoHRRc7xNHTUGueqp5NzjQ2tRawZ6iX44b3hOuhzXpd33rTqVI4C
-X-Gm-Gg: AYBFou0B320EkJTh+ld5+kiqlgmKKEteBbTosskHKJDU+MMUF0qksWhdKhV+A1vzaVv
-	gwLDOm3337jBx1AwBD8klhtbOv03lgu0xsPgb/sm/iXKirmPrpaothQJ5gqBMIKBYJUEpTeqg2b
-	t+iQuqJQelHIJvX4FPqlO+mAI+qtXxF3HdR4MW1vDhBaIvvzY9uXoD9CjsaT2Aa+Jbj2De0CtjH
-	sZy+I5Lop6QA7UlbLTTmSW5JKv1q4nSPQR1FCETK/9wgo5RSnQ6qUgbnA8P6RMFijvcLVnIA+TY
-	P5ze95PO5kA0tDMYgauNqYGmNo+ojlAFqMSDjQDG/ZqxN/unPeKxFSbIreLylM/u5eldyCgL9x5
-	qG4MVS3ZUDFz+rFv3UA3J8FfpYDlosp8Ls5RiFHea7VcAyC/k0e2luKhzMOngMZdIQcbkymMyMZ
-	q+fPcJKFy4+HBWyFRUt+oKqR9INmXK9KUefJAp5a9Vx3HOo9wtwpMK+zbe4Wws3I9DJdYyRBm2B
-	AUFq7MSFpzobtEXJ8sINm741F4us1F/LxF6
-X-Received: by 2002:a05:6a20:748f:b0:3dd:85aa:452d with SMTP id adf61e73a8af0-3dd8c59d659mr17356044637.31.1790021538200;
-        Mon, 21 Sep 2026 13:12:18 -0700 (PDT)
-Received: from narcisav-mac.thefacebook.com ([2620:10d:c090:400::5:a2c])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e5ec60d1fsm297025eec.28.2026.09.21.13.12.16
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 21 Sep 2026 13:12:17 -0700 (PDT)
-From: Narcisa Vasile <narcisav.kernel@gmail.com>
-To: netdev@vger.kernel.org,
-	kuba@kernel.org,
-	daniel.zahka@gmail.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Petr Vorel <pvorel@suse.cz>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>
-Cc: linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	narcisav.kernel@gmail.com
-Subject: [PATCH net-next] selftests: drv-net: add BIG TCP coverage to TSO test
-Date: Mon, 21 Sep 2026 13:11:45 -0700
-Message-ID: <20260921201145.49875-1-narcisav.kernel@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="daSpjMMk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790021574;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6chaT+lC13U/LIehoKCT6qfQE0dkbiIKm2cvcaiwV9I=;
+	b=daSpjMMkTXYnFnNlxt8I5uFCBMaQvdZ5lHGCx8PTxlLoe7BN7irjnjvCNcecW5PHQh/q8y
+	hbxZkyKwBBQFhXD4Oh6pNnjuyKYBXQb3yRuv9gAOP87vJpTBDxDDuOkttrzu+N5hvYkCro
+	RZaudtnLnfumF1CaHw7AeSQ3x2Omuoc=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-294-AS_6cO67OZy8F3Vz2U-O_g-1; Mon,
+ 21 Sep 2026 16:12:52 -0400
+X-MC-Unique: AS_6cO67OZy8F3Vz2U-O_g-1
+X-Mimecast-MFC-AGG-ID: AS_6cO67OZy8F3Vz2U-O_g_1790021571
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 689551955F79;
+	Mon, 21 Sep 2026 20:12:50 +0000 (UTC)
+Received: from fedora (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id BCA221956042;
+	Mon, 21 Sep 2026 20:12:33 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Mon, 21 Sep 2026 22:12:50 +0200 (CEST)
+Date: Mon, 21 Sep 2026 22:12:32 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Ye Liu <ye.liu@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Ye Liu <liuye@kylinos.cn>,
+	Michal Hocko <mhocko@suse.com>, Lorenzo Stoakes <ljs@kernel.org>,
+	Gregory Price <gourry@gourry.net>, SJ Park <sj@kernel.org>,
+	peterz@infradead.org, paulmck@kernel.org, mingo@redhat.com,
+	rostedt@goodmis.org, jpoimboe@kernel.org, mic@digikod.net,
+	tglx@kernel.org, david@kernel.org, linmiaohe@huawei.com,
+	nao.horiguchi@gmail.com, rafael@kernel.org, gnoack3000@gmail.com,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org, rcu@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-security-module@vger.kernel.org, rientjes@google.com,
+	shakeel.butt@linux.dev, xu.xin16@zte.com.cn,
+	chengming.zhou@linux.dev, will@kernel.org, boqun@kernel.org,
+	frederic@kernel.org, neeraj.upadhyay@kernel.org,
+	joelagnelf@nvidia.com, josh@joshtriplett.org, urezki@gmail.com,
+	juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	tony.luck@intel.com, reinette.chatre@intel.com, x86@kernel.org,
+	paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com,
+	pavel@kernel.org, lance.yang@linux.dev, mhiramat@kernel.org,
+	pmladek@suse.com, longman@redhat.com,
+	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev, dietmar.eggemann@arm.com, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	mark.rutland@arm.com, Dave.Martin@arm.com, james.morse@arm.com,
+	babu.moger@amd.com
+Subject: Re: [PATCH v4 14/15] lib: convert process iterator to
+ for_each_process_rculock
+Message-ID: <arGPsIWUJXVshwqY@redhat.com>
+References: <20260921092101.89285-1-ye.liu@linux.dev>
+ <20260921093311.104814-1-ye.liu@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921093311.104814-1-ye.liu@linux.dev>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Add IPv4 and IPv6 test cases that exercise GSO packets under BIG TCP
-size limits.
+On 09/21, Ye Liu wrote:
+>
+> diff --git a/lib/is_single_threaded.c b/lib/is_single_threaded.c
+> index 8c98b20bfc41..4e7fe85454ab 100644
+> --- a/lib/is_single_threaded.c
+> +++ b/lib/is_single_threaded.c
+> @@ -26,8 +26,7 @@ bool current_is_single_threaded(void)
+>  		return true;
+>
+>  	ret = false;
+> -	rcu_read_lock();
+> -	for_each_process(p) {
+> +	for_each_process_rculock(p) {
+>  		if (unlikely(p->flags & PF_KTHREAD))
+>  			continue;
+>  		if (unlikely(p == task->group_leader))
+> @@ -48,7 +47,5 @@ bool current_is_single_threaded(void)
+>  	}
+>  	ret = true;
+>  found:
+> -	rcu_read_unlock();
+> -
 
-1..2
-ok 1 tso.big_tcp_ipv4
-ok 2 tso.big_tcp_ipv6
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
 
-Both of them run the existing tx-tcp-segmentation
-and tx-tcp6-segmentation tests at the increased TSO maximum.
 
-Additionally, reserve a hugepage and transmit its content using
-MSG_ZEROCOPY to produce skb fragments larger than 65536.
-Check that the number of retransmissions represents a small
-percentage of the total packets sent. Record the number of drops
-before and after the send to catch issues with large frag
-handling during segmentation.
 
-Signed-off-by: Narcisa Vasile <narcisav.kernel@gmail.com>
----
- tools/testing/selftests/drivers/net/hw/tso.py | 161 ++++++++++++++++++
- 1 file changed, 161 insertions(+)
+but I think that the "found" label and "int ret" can now be removed,
+the for_each_thread() loop can just do
 
-diff --git a/tools/testing/selftests/drivers/net/hw/tso.py b/tools/testing/selftests/drivers/net/hw/tso.py
-index 67f6c9ca9a64..176ddf97fabb 100755
---- a/tools/testing/selftests/drivers/net/hw/tso.py
-+++ b/tools/testing/selftests/drivers/net/hw/tso.py
-@@ -4,6 +4,7 @@
- """A simple test for TSO."""
- 
- import fcntl
-+import mmap
- import socket
- import struct
- import termios
-@@ -15,6 +16,87 @@ from lib.py import EthtoolFamily, NetdevFamily, NetDrvEpEnv
- from lib.py import bkg, cmd, defer, ethtool, ip, rand_port, wait_port_listen
- 
- 
-+MAP_HUGETLB = getattr(mmap, "MAP_HUGETLB", 0x40000)
-+MSG_ZEROCOPY = getattr(socket, "MSG_ZEROCOPY", 0x4000000)
-+SO_ZEROCOPY = getattr(socket, "SO_ZEROCOPY", 60)
-+
-+GSO_LEGACY_MAX_SIZE = 65536
-+
-+# Pool of the default hugepage size, the one /proc/meminfo reports on.
-+NR_HUGEPAGES = "/proc/sys/vm/nr_hugepages"
-+
-+
-+def default_huge_page_size():
-+    """Return the hugepage size in bytes"""
-+    try:
-+        with open("/proc/meminfo", encoding="utf-8") as meminfo:
-+            for line in meminfo:
-+                if line.startswith("Hugepagesize:"):
-+                    return int(line.split()[1]) * 1024
-+    except OSError:
-+        pass
-+
-+    return 2 * 1024 * 1024
-+
-+
-+def hugepages_free():
-+    """Return the number of unused hugepages of the default size."""
-+    try:
-+        with open("/proc/meminfo", encoding="utf-8") as meminfo:
-+            for line in meminfo:
-+                if line.startswith("HugePages_Free:"):
-+                    return int(line.split()[1])
-+    except OSError:
-+        pass
-+    return 0
-+
-+
-+def set_nr_hugepages(count):
-+    with open(NR_HUGEPAGES, "w", encoding="utf-8") as sysctl:
-+        sysctl.write(f"{count}\n")
-+
-+
-+def tx_dropped(ifname):
-+    with open(f"/sys/class/net/{ifname}/statistics/tx_dropped",
-+              encoding="utf-8") as counter:
-+        return int(counter.read())
-+
-+
-+def setup_hugepage():
-+    """Reserve one hugepage, and put the pool back afterwards."""
-+    if hugepages_free() >= 1:
-+        return
-+
-+    try:
-+        with open(NR_HUGEPAGES, encoding="utf-8") as sysctl:
-+            old_count = int(sysctl.read())
-+        set_nr_hugepages(old_count + 1)
-+    except OSError as error:
-+        raise KsftSkipEx(f"Unable to reserve a hugepage: {error}") from error
-+
-+    defer(set_nr_hugepages, old_count)
-+
-+    if hugepages_free() < 1:
-+        raise KsftSkipEx("Unable to reserve a hugepage")
-+
-+
-+def mmap_large_buffer():
-+    """Allocate a buffer backed by one huge page."""
-+    size = default_huge_page_size()
-+
-+    setup_hugepage()
-+
-+    try:
-+        return mmap.mmap(-1, size,
-+                         flags=mmap.MAP_PRIVATE |
-+                               mmap.MAP_ANONYMOUS |
-+                               MAP_HUGETLB,
-+                         prot=mmap.PROT_READ)
-+    except OSError as e:
-+        raise KsftSkipEx(f"Unable to allocate a {size >> 20}MB hugepage "
-+                         f"buffer: {e}") from e
-+
-+
- def sock_wait_drain(sock, max_wait=1000):
-     """Wait for all pending write data on the socket to get ACKed."""
-     for _ in range(max_wait):
-@@ -33,6 +115,32 @@ def tcp_sock_get_retrans(sock):
-     return struct.unpack("I", info[100:104])[0]
- 
- 
-+def setup_big_tcp(cfg):
-+    """Lift the GSO ceiling to what the device advertises for TSO."""
-+    if cfg.dev["tso_max_size"] <= GSO_LEGACY_MAX_SIZE:
-+        raise KsftSkipEx("Device does not support BIG TCP")
-+
-+    ip(f"link set dev {cfg.ifname} "
-+       f"gso_max_size {cfg.dev['tso_max_size']} "
-+       f"gso_ipv4_max_size {cfg.dev['tso_max_size']}")
-+
-+    defer(ip, f"link set dev {cfg.ifname} "
-+              f"gso_max_size {cfg.dev['gso_max_size']} "
-+              f"gso_ipv4_max_size {cfg.dev['gso_ipv4_max_size']}")
-+
-+
-+def sock_send_zerocopy(sock):
-+    """Send with MSG_ZEROCOPY, return the bytes queued."""
-+    try:
-+        sock.setsockopt(socket.SOL_SOCKET, SO_ZEROCOPY, 1)
-+    except OSError as e:
-+        raise KsftSkipEx(f"SO_ZEROCOPY not supported: {e}") from e
-+
-+    with mmap_large_buffer() as tx_buf:
-+        sock.sendall(tx_buf, MSG_ZEROCOPY)
-+        return len(tx_buf)
-+
-+
- def run_one_stream(cfg, ipver, remote_v4, remote_v6, should_lso):
-     cfg.require_cmd("socat", local=False, remote=True)
- 
-@@ -96,6 +204,46 @@ def run_one_stream(cfg, ipver, remote_v4, remote_v6, should_lso):
-                         500, comment="Number of LSO wire-packets with LSO disabled")
- 
- 
-+def run_big_tcp_stream(cfg, ipver, remote_v4, remote_v6):
-+    """Send with MSG_ZEROCOPY out of a huge page, so the frags exceed 64kB."""
-+    cfg.require_cmd("socat", local=False, remote=True)
-+
-+    # No clamping, as it would keep the frags under 64kB
-+    port = rand_port()
-+    listen_opts = f"{port},reuseport"
-+    listen_cmd = f"socat -{ipver} -t 2 -u TCP-LISTEN:{listen_opts} /dev/null,ignoreeof"
-+
-+    with bkg(listen_cmd, host=cfg.remote, exit_wait=True):
-+        wait_port_listen(port, host=cfg.remote)
-+
-+        if ipver == "4":
-+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-+            sock.connect((remote_v4, port))
-+        else:
-+            sock = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
-+            sock.connect((remote_v6, port))
-+
-+        # Small send to make sure the connection is working.
-+        sock.send("ping".encode())
-+        sock_wait_drain(sock)
-+
-+        retrans_old = tcp_sock_get_retrans(sock)
-+        drops_old = tx_dropped(cfg.ifname)
-+
-+        sent = sock_send_zerocopy(sock)
-+        sock_wait_drain(sock)
-+
-+        drops = tx_dropped(cfg.ifname) - drops_old
-+        retrans = tcp_sock_get_retrans(sock) - retrans_old
-+        sock.close()
-+
-+        ksft_eq(drops, 0, comment="Driver TX drops during BIG TCP send")
-+
-+        # Same best effort bound as the plain stream.
-+        total_lso_wire = sent * 0.90 // cfg.dev["mtu"]
-+        ksft_lt(retrans, total_lso_wire / 16)
-+
-+
- def build_tunnel(cfg, outer_ipver, tun_info):
-     local_v4  = NetDrvEpEnv.nsim_v4_pfx + "1"
-     local_v6  = NetDrvEpEnv.nsim_v6_pfx + "1"
-@@ -147,6 +295,11 @@ def test_builder(name, cfg, outer_ipver, feature, tun=None, inner_ipver=None):
-         if feature not in cfg.hw_features:
-             raise KsftSkipEx(f"Device does not support {feature}")
- 
-+        # Run non-tunnel test cases under the BIG TCP limits too.
-+        big_tcp = "big_tcp" in name
-+        if big_tcp:
-+            setup_big_tcp(cfg)
-+
-         ipver = outer_ipver
-         if tun:
-             remote_v4, remote_v6 = build_tunnel(cfg, ipver, tun)
-@@ -159,6 +312,9 @@ def test_builder(name, cfg, outer_ipver, feature, tun=None, inner_ipver=None):
-         ethtool(f"-K {cfg.ifname} {feature} off")
-         run_one_stream(cfg, ipver, remote_v4, remote_v6, should_lso=False)
- 
-+        if big_tcp:
-+            run_big_tcp_stream(cfg, ipver, remote_v4, remote_v6)
-+
-         ethtool(f"-K {cfg.ifname} tx-gso-partial off")
-         ethtool(f"-K {cfg.ifname} tx-tcp-mangleid-segmentation off")
-         if feature in cfg.partial_features:
-@@ -171,6 +327,9 @@ def test_builder(name, cfg, outer_ipver, feature, tun=None, inner_ipver=None):
-         ethtool(f"-K {cfg.ifname} {feature} on")
-         run_one_stream(cfg, ipver, remote_v4, remote_v6, should_lso=True)
- 
-+        if big_tcp:
-+            run_big_tcp_stream(cfg, ipver, remote_v4, remote_v6)
-+
-     f.__name__ = name + ((outer_ipver + "_") if tun else "") + "ipv" + inner_ipver
-     return f
- 
-@@ -230,6 +389,8 @@ def main() -> None:
-             # name,       v4/v6  ethtool_feature               tun:(type, args, inner ip versions)
-             ("",           "4", "tx-tcp-segmentation",         None),
-             ("",           "6", "tx-tcp6-segmentation",        None),
-+            ("big_tcp_",   "4", "tx-tcp-segmentation",         None),
-+            ("big_tcp_",   "6", "tx-tcp6-segmentation",        None),
-             ("vxlan",      "4", "tx-udp_tnl-segmentation",     ("vxlan", "id 100 dstport 4789 noudpcsum", ("4", "6"))),
-             ("vxlan",      "6", "tx-udp_tnl-segmentation",     ("vxlan", "id 100 dstport 4789 udp6zerocsumtx udp6zerocsumrx", ("4", "6"))),
-             ("vxlan_csum", "", "tx-udp_tnl-csum-segmentation", ("vxlan", "id 100 dstport 4789 udpcsum", ("4", "6"))),
--- 
-2.53.0-Meta
+	...
+	if (unlikely(t->mm == mm))
+		return false;
+
+and current_is_single_threaded() can simply return true after
+the main for_each_process_rculock() loop.
+
+But again, I agree with this patch, it looks simple and "obviously correct".
+Even if I am right, the simplifications above need a separate change.
+
+Oleg.
 
