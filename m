@@ -1,349 +1,119 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B199548A2D1
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:18:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9DF548E0DE
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:18:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789989483; cv=none; b=JT28phq+aqnksE8eh7v87MWfmaYQlYb0lOe1L9610m2v8v7CYy0vo2q7euVPiKyvsCIaipGYmeRP7OmReXvv+qR9LL2XwODX4Ie3phakz0ZAlXqjCHI/Puk42ZiE/irFwGBqfFoJaU4gLiYZtkJqe+TxqaDu3sjIAl/FWRxGDzs=
+	t=1789989512; cv=none; b=KF/Mn6Zh6EkUhlApWnj3zSO1EufX+oknkCVMdF7noCOch6aKa35wqEcBONoQoSQuEM6K+qmqZ3DVYhRCT/PdLQz7H7pnTxZfjMmr3ibx3DDPvdGvDQ8zMX57RLvtJ/L9jDQQjYRC+AazcrgTXQ6uBpPp3UBAeDNmeIlJsKMzzzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789989483; c=relaxed/simple;
-	bh=l9cbhsR6oIcRYl+I2g1jCIa/WhsXA/dARjMt3kDigl0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BXA0NvaGtjd9xGQ+fKUYPh7KBpViq5LvDCoJcmSa+2YbT5i0b6H5ycWhGOH9KI/UhjMAtSVCEBmeFO0uyVfoEAYp8t8eiZvdQXle8ANETs7UuxWrrx8f6YgrfFQwVtemey5DfC0FAZsaUEL/Hm9zSSCZp37xM0pngeB9GhKSHg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=jenZNvHq; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1789989512; c=relaxed/simple;
+	bh=0lhdK++H52V7C+9/x/WAXf/65wpHuCIWIjfoxP6pJTc=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eedX4pC8BTZVYU65IL7HAOtVI9zY2KX6qcDaTpn+D7x4bsXSXQ25DnhaM/TR9nkSQ7RQXIds7eYNsWB9Mkrwzvj1LWMVgCqdCVgjDvr4v8K5qtYv9/gtIVOmMpusosRwY9QSJPeZc2XY3m0dp0LR4u5x6juHwWdJrf272KOnM3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jSmonRtc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="jenZNvHq"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed1368so33830545ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:18:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1789989480; x=1790594280; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jS32Dx5IynGZ/Y/2aGGAGztAdcoBdPlUNApcd4RXZUY=;
-        b=jenZNvHqVOq7BaieRqOS48emO4JyrhHQYVA7mvNKIVsRb9xdgaFAuGWgOJ0jtPM/fz
-         CDWx2AzGibPiBkf061LwHxisZe3a5er5mhYD5O/SkFdRSrTQqb+AlSC1MeXgsrudt8tZ
-         l6WDHrPlKNKPQs2rOrrbq26ULBR5NrniVkaLoyCqASd3DcQlJnmQzTJUtK1irRf9uykt
-         yFJhseZWPbkOgJEc9Wk+LIi18irvlwcoDUgo+bYys+cXGDemJseATnaJzPjN5slYCA4b
-         zG6l/cBs/OoyR3mN0q3LhlPWvP8uN29mfufGnxdQQYjEM3qnt1eaKONzCK26SMzNZ6IR
-         xHkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789989480; x=1790594280;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jS32Dx5IynGZ/Y/2aGGAGztAdcoBdPlUNApcd4RXZUY=;
-        b=gcCGJekeKPMToaO+gRJNV3B5uBBtmfg5XJI73oc13UQtoEdSVNb2iRCKHqTutg0Cqx
-         2gqibjl5u/7a6cLtAcn8Myg7gOzrNbu8jDEbETT05YOKJt/bBvusoyzuHHkGRYqBMxXQ
-         ZX+mGFNfVMAhzhWw6BmUwh0N4/V3YRTLA4BxpKF7mzZ0iCMVd9By75YTROTfEEGp6dAS
-         i3nPKtdv0R865DKVIN0nae83uNTr9ohqPYgE7unZ6n6tD1V78r3+Cd5H7lQx7mod/jrF
-         XL8uT6K0LTyHQQylNeRPUgq+p8w13h9bNVL22L7oUeTo2TG1tLrMIKXXaI8D0IinZHXg
-         MF8g==
-X-Forwarded-Encrypted: i=1; AKwUvBxWlJAumlE/VFLDP3GFbwYU+pVURjd/x+CefLxk04GwgMXEnVzSB3QhSddJs1wRStQM+aPX+x1ttHS1eOw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kORNqhM0jumuqQSBYWGqjIFMSNWUF8yMoEIEiiNDD6Ab7TX/MG
-	BR5XyQkfe+/mFUEqduVZwsi0r4iWUGRMbxITxeOmsp6AuFLi4F1Bo2EZMWL2HIZzFwk=
-X-Gm-Gg: AYBFou14Zs+cAd2ge91c78t2h7CBW/TLiWb7NRyppSqLge9al7Td7PRZ9RnYLl7AkuH
-	SNH2jhbg8XxKotjQDE9Bsk1zg16c1j2lwBbMDwnagreGyps6wYI6R9XaNeacL8aJxvMeOlM8R3O
-	nVj9Psgg5W081HzQ6RP8Yv7ZYw9a//KHuc8xSkuYBZK/2RhxolEeT9EStw9Ry2adag4r1xQ6Zvz
-	J3J65ErOIEH5+zDz83FLy4wZdd0MtAhS1aMuPASTKPhau81wyhpHva84JIWB9nGlNA70et0m44G
-	560m8ZTPd5Dmv2OY5567PQSclH+io7r2aCxWyT8bzZ+b2lLhU/jAGYhtpvRvxBr87zrAJtHSa9B
-	XTOvKLJJv5+D37X62OaKCdFttXBEGBuwhiQ+w1wUGllj2XUIsUydDvxFgrR3xzxNkOdGBYsFoFu
-	yR/4zr1E86YdQsZSQfgmFLQblOvAP8RV5h17SGAE5yCJoUcMhoSPW1NMjW2vi2d1XqZ0InCCdbV
-	QCUH4nLtXy3A4ZWupc3VMIRyekMdRuFo94=
-X-Received: by 2002:a17:903:1112:b0:2dd:c053:c20a with SMTP id d9443c01a7336-2ddc053c2a1mr103690755ad.38.1789989479599;
-        Mon, 21 Sep 2026 04:17:59 -0700 (PDT)
-Received: from FJ7FR2JRQ3.bytedance.net ([240e:694:e20:401::8])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17ba651sm31831125ad.53.2026.09.21.04.17.38
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 21 Sep 2026 04:17:59 -0700 (PDT)
-From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>,
-	Conor Dooley <conor@kernel.org>,
-	Anup Patel <anup@brainfault.org>
-Cc: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <cleger@rivosinc.com>,
-	Yunhui Cui <cuiyunhui@bytedance.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Will Deacon <will@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Yuanzhu <yuanzhu@bytedance.com>,
-	Yicong Yang <yang.yicong@picoheart.com>,
-	Susheng Yang <yang.susheng@zte.com.cn>,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-Subject: [PATCH v10 RESEND 6/9] perf: RISC-V: support callchains with SSE delivery
-Date: Mon, 21 Sep 2026 19:15:03 +0800
-Message-ID: <270f3bcd3a9933c8be59492ae4d7c6ff2414d7d7.1789974241.git.zhangzhanpeng.jasper@bytedance.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <cover.1789974241.git.zhangzhanpeng.jasper@bytedance.com>
-References: <cover.1789974241.git.zhangzhanpeng.jasper@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jSmonRtc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0F691F008A1
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:18:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789989510;
+	bh=UAYY1SKAjfvrtU2FyE9SAIxYBApmyvXhnLVQf2IeOzQ=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=jSmonRtcUHOLrHqyI6wdYl+qQvF6gDNIfJ8u3K8x/xjkOeehQgoKAPZ7QdM5MnzAI
+	 6KhTX2mCbFBgyRi9BBd2wSd5j158Z/AuYe1/I4+RerK4ceYFvbedU0O5dnbjgJgkTd
+	 LafYoUTH3gJyDNZjvOyVjfY8TLDRpWP7s3cJWEG9PfzIilkhY0OTz1lfGwj2iWkaSj
+	 lJZ4FPzBmABSnu0z+KhLjraXl0zs//rfEeBxHromHaA1EbKh3vXBkiQ4hJg3uU4rWz
+	 ApVF+iGcLYxCmc97jnrx7RiqGDmuakgVSXCjFfV3mDq4aWfuvEENXUOiDgnjlfm3GN
+	 7QMNtC7VjXnMw==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b8997bc6e6so1765693e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:18:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxEMwQyz6aVueAXY0K6CTcJehM+BvhNQRIYMxtqmdhwYSRr+8jjlU3KsqI9ZyEy1Vznexl++l4RfH9SZLo=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/WLWIeJKElXV7hpGOcDufF1qWcPYnpkCFeGD+JU1iu+VsFXPP
+	aKfCAGDU9cTyEBrDJSH2jpGJBKDq4aW1iwTys827cnPNTiwRs4pFIeEDgLTq9AWk3jSTnFdRDcb
+	snTPzvsTuYx6sAUk+/oXFgOmeDv/UAWHijuErG0cpXg==
+X-Received: by 2002:a05:6512:220e:b0:5b8:c326:7a4f with SMTP id
+ 2adb3069b0e04-5b8c3267b91mr2872421e87.35.1789989509300; Mon, 21 Sep 2026
+ 04:18:29 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 21 Sep 2026 07:18:27 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 21 Sep 2026 07:18:27 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <157aa2cc-65b3-4d89-aa5e-eccd87296293@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
+ <7e1b4800-258b-4410-8e88-2ce49505689e@gmail.com> <CAMRc=Mdd-_t4HniR0k-xhyS4aMD1gnqJPYgS2cEY81b0dwDZGA@mail.gmail.com>
+ <157aa2cc-65b3-4d89-aa5e-eccd87296293@gmail.com>
+Date: Mon, 21 Sep 2026 07:18:27 -0400
+X-Gmail-Original-Message-ID: <CAMRc=McHLjU5Fk8fr94jHy4=F_6vbj2dGkyA6azvv9OGH_qA2g@mail.gmail.com>
+X-Gm-Features: AcwNN1WQVPgZRz06Xz-84UQd5zPX8aR-SdtsdHb1A5-uJBJBK1nBSycVRXt6zWw
+Message-ID: <CAMRc=McHLjU5Fk8fr94jHy4=F_6vbj2dGkyA6azvv9OGH_qA2g@mail.gmail.com>
+Subject: Re: [PATCH v7 00/12] crypto: qce - Fix crypto self-test failures
+To: Demi Marie Obenour <demiobenour@gmail.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Thara Gopinath <thara.gopinath@gmail.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S. Miller" <davem@davemloft.net>, Stanimir Varbanov <svarbanov@mm-sol.com>, 
+	Eneas U de Queiroz <cotequeiroz@gmail.com>, Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, 
+	Eric Biggers <ebiggers@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-crypto@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-PMU overflow delivery through SSE enters Linux with a synthetic supervisor
-context on a dedicated event stack. The perf unwinder must use the context
-interrupted by the overflow rather than treating the SSE handler frame as
-the sampled frame.
+On Wed, 16 Sep 2026 18:45:40 +0200, Demi Marie Obenour
+<demiobenour@gmail.com> said:
+> On 9/15/26 05:42, Bartosz Golaszewski wrote:
+>> On Fri, 11 Sep 2026 20:34:39 +0200, Demi Marie Obenour
+>> <demiobenour@gmail.com> said:
+>>> On 9/10/26 09:00, Bartosz Golaszewski wrote:
+>>>> This iteration - in addition to the previous fixes - proposes to split
+>>>> the QCE driver into a core part necessary to bind to the QCE DT node and
+>>>> enable runtime power management in order to allow to drop the
+>>>> interconnect votes, and the crypto part registering the crypto
+>>>> algorithms. The core module is then enabled in arm64 defconfig while the
+>>>> crypto part stays disabled by default.
+>>>>
+>>>> The QCE hardware crypto engine has several limitations that cause it to
+>>>> produce incorrect results or stall on certain inputs. This series fixes
+>>>> several bugs and adds workaround allowing the deiver to pass crypto
+>>>> self-tests.
+>>>>
+>>>> The failures addressed are:
+>>>>
+>>>> - HMAC self-test failures for empty messages
+>>>> - AES-XTS returning success on zero-length input (should be -EINVAL)
+>>>> - AES-CTR: partial final block causes the engine to stall, output IV
+>>>>   derivation was incorrect
+>>>> - AES-XTS with key1 == key2 is not supported by the CE
+>>>> - AES-CCM: partial final block and fragmented payload both stall the
+>>>>   engine
+>>>>
+>>>> All fixes were tested on an SM8650 QRD board with
+>>>> CONFIG_CRYPTO_SELFTESTS=y and CONFIG_CRYPTO_SELFTESTS_FULL=y.
+>>>>
+>>>> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+>>> For stable, would it be better to not register the algorithms, thus
+>>> preventing their use?  Another option would be to replace the whole
+>>> driver with an always-on stub driver that just does power management.
+>>
+>> A module parameter called: really_register_algos that's disabled by default?
+>>
+>> Bart
+>
+> Works for me!  If you add that and fix the tests, go ahead and revert
+> my patch that marked it as BROKEN.  I suggest reverting the defconfig
+> changes too, for power management reasons.
+>
+> While the driver is buggy, you might want to add a kernel taint if
+> the option is set.  There's precedent for that in other parts of the
+> kernel.
 
-Use the interrupted pt_regs published by the RISC-V SSE entry path. Walk a
-kernel callchain only when the interrupted PC, SP, and frame pointer are
-consistent with the current task stack. For sensitive entry windows and
-IRQ stacks whose bounds cannot be proven, retain the interrupted PC without
-following an unsafe frame chain.
+I'd prefer not to. I hope gating the algos behind a module parameter is enough.
 
-User callchains continue through the existing nofault RISC-V user unwinder.
-If hstatus.SPV says the interrupted context was a guest, do not interpret
-the guest stack through the host address space.
-
-DWARF callchains additionally copy a raw user stack. The generic
-arch_perf_out_copy_user() implementation can take an exception-table
-handled fault when a source page is not resident. Repeated nested faults
-from the SSE handler can corrupt the interrupted kernel context under load.
-
-Provide an SSE-specific RISC-V copy path. Verify that the active page table
-belongs to current, use fast-only GUP to acquire each resident source page
-without falling back to a faulting slow path, and copy through the kernel
-mapping while holding the page reference. Stop at the first unavailable
-page and preserve perf's existing truncated-user-stack semantics. Keep the
-generic in-atomic user copy unchanged outside an SSE handler.
-
-Susheng Yang reported this failure with perf callchain workloads.
-
-Reported-by: Susheng Yang <yang.susheng@zte.com.cn>
-Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
----
- arch/riscv/include/asm/perf_event.h |  10 ++
- arch/riscv/kernel/perf_callchain.c  | 142 ++++++++++++++++++++++++++++
- 2 files changed, 152 insertions(+)
-
-diff --git a/arch/riscv/include/asm/perf_event.h b/arch/riscv/include/asm/perf_event.h
-index bcc928fd3785..ddc404794751 100644
---- a/arch/riscv/include/asm/perf_event.h
-+++ b/arch/riscv/include/asm/perf_event.h
-@@ -18,6 +18,16 @@
- 	(regs)->sp = current_stack_pointer; \
- 	(regs)->status = SR_PP; \
- }
-+
-+#ifdef CONFIG_RISCV_SBI_SSE
-+/*
-+ * Raw user-stack sampling can run in the NMI-like SSE context. Route it
-+ * through an implementation that does not fault on a non-resident page.
-+ */
-+unsigned long riscv_perf_out_copy_user(void *dst, const void *src,
-+				       unsigned long n);
-+#define arch_perf_out_copy_user riscv_perf_out_copy_user
-+#endif
- #endif
- 
- #endif /* _ASM_RISCV_PERF_EVENT_H */
-diff --git a/arch/riscv/kernel/perf_callchain.c b/arch/riscv/kernel/perf_callchain.c
-index b465bc9eb870..ec75689c7aec 100644
---- a/arch/riscv/kernel/perf_callchain.c
-+++ b/arch/riscv/kernel/perf_callchain.c
-@@ -1,9 +1,15 @@
- // SPDX-License-Identifier: GPL-2.0
- /* Copyright (C) 2019 Hangzhou C-SKY Microsystems co.,ltd. */
- 
-+#include <linux/kallsyms.h>
-+#include <linux/mm.h>
- #include <linux/perf_event.h>
-+#include <linux/sched/task_stack.h>
-+#include <linux/thread_info.h>
- #include <linux/uaccess.h>
- 
-+#include <asm/csr.h>
-+#include <asm/sse.h>
- #include <asm/stacktrace.h>
- 
- static bool fill_callchain(void *entry, unsigned long pc)
-@@ -11,6 +17,128 @@ static bool fill_callchain(void *entry, unsigned long pc)
- 	return perf_callchain_store(entry, pc) == 0;
- }
- 
-+#ifdef CONFIG_RISCV_SBI_SSE
-+static bool sse_addr_on_task_stack(unsigned long addr, unsigned long size)
-+{
-+	unsigned long end = addr + size;
-+	unsigned long stack;
-+
-+	if (end < addr)
-+		return false;
-+
-+	stack = (unsigned long)task_stack_page(current);
-+	if (addr >= stack && end <= stack + THREAD_SIZE)
-+		return true;
-+
-+	return false;
-+}
-+
-+static bool sse_kernel_regs_safe(struct pt_regs *regs)
-+{
-+	unsigned long fp = frame_pointer(regs);
-+	unsigned long pc = instruction_pointer(regs);
-+	unsigned long sp = user_stack_pointer(regs);
-+
-+	if (!__kernel_text_address(pc))
-+		return false;
-+	if (!sse_addr_on_task_stack(sp, sizeof(unsigned long)))
-+		return false;
-+	if (fp < sizeof(struct stackframe))
-+		return false;
-+
-+	return sse_addr_on_task_stack(fp - sizeof(struct stackframe),
-+				      sizeof(struct stackframe));
-+}
-+
-+static bool sse_callchain_is_guest(const struct riscv_sse_interrupted_context *context)
-+{
-+	return context && (context->hstatus & HSTATUS_SPV);
-+}
-+
-+static bool sse_callchain_kernel(struct perf_callchain_entry_ctx *entry,
-+				 struct pt_regs *regs)
-+{
-+	const struct riscv_sse_interrupted_context *context;
-+	unsigned long pc;
-+
-+	context = riscv_sse_get_interrupted_context();
-+	if (!context || context->regs != regs)
-+		return false;
-+
-+	/* A guest stack cannot be walked using the host kernel address space. */
-+	if (sse_callchain_is_guest(context))
-+		return true;
-+
-+	if (user_mode(regs))
-+		return true;
-+
-+	if (sse_kernel_regs_safe(regs)) {
-+		walk_stackframe(NULL, regs, fill_callchain, entry);
-+		return true;
-+	}
-+
-+	/*
-+	 * Keep the sample useful for sensitive entry paths and IRQ stacks. The
-+	 * generic walker does not take explicit IRQ stack bounds, and its
-+	 * THREAD_SIZE alignment assumption fails for non-vmapped IRQ stacks.
-+	 * Conservatively avoid walking IRQ stacks in every configuration.
-+	 */
-+	pc = instruction_pointer(regs);
-+	if (__kernel_text_address(pc))
-+		perf_callchain_store(entry, pc);
-+
-+	return true;
-+}
-+
-+unsigned long riscv_perf_out_copy_user(void *dst, const void *src,
-+				       unsigned long n)
-+{
-+	unsigned long addr = (unsigned long)src;
-+	unsigned long copied = 0;
-+
-+	/* Keep the generic fast path unchanged outside an SSE handler. */
-+	if (!riscv_sse_get_interrupted_context()) {
-+		unsigned long ret;
-+
-+		pagefault_disable();
-+		ret = __copy_from_user_inatomic(dst, src, n);
-+		pagefault_enable();
-+		return ret;
-+	}
-+
-+	if (!access_ok(src, n))
-+		return n;
-+
-+	/* Do not sample user memory through an unrelated active page table. */
-+	if (!current->mm ||
-+	    (csr_read(CSR_SATP) & SATP_PPN) != virt_to_pfn(current->mm->pgd))
-+		return n;
-+
-+	while (copied < n) {
-+		unsigned long offset = offset_in_page(addr);
-+		unsigned long chunk = min(n - copied, PAGE_SIZE - offset);
-+		struct page *page;
-+
-+		/*
-+		 * Fast-only GUP cannot fault. This follows perf_virt_to_phys():
-+		 * local interrupts remain disabled throughout SSE processing, so a
-+		 * concurrent unmap cannot complete its TLB teardown before this
-+		 * temporary reference is put.
-+		 */
-+		if (!get_user_page_fast_only(addr, 0, &page))
-+			break;
-+
-+		memcpy((char *)dst + copied,
-+		       (char *)page_address(page) + offset, chunk);
-+		put_page(page);
-+		addr += chunk;
-+		copied += chunk;
-+	}
-+
-+	return n - copied;
-+}
-+#endif
-+
- /*
-  * This will be called when the target is in user mode
-  * This function will only be called when we use
-@@ -28,6 +156,15 @@ static bool fill_callchain(void *entry, unsigned long pc)
- void perf_callchain_user(struct perf_callchain_entry_ctx *entry,
- 			 struct pt_regs *regs)
- {
-+#ifdef CONFIG_RISCV_SBI_SSE
-+	const struct riscv_sse_interrupted_context *context;
-+
-+	context = riscv_sse_get_interrupted_context();
-+	/* A guest stack cannot be walked using the host address space. */
-+	if (sse_callchain_is_guest(context))
-+		return;
-+#endif
-+
- 	if (perf_guest_state()) {
- 		/* TODO: We don't support guest os callchain now */
- 		return;
-@@ -39,6 +176,11 @@ void perf_callchain_user(struct perf_callchain_entry_ctx *entry,
- void perf_callchain_kernel(struct perf_callchain_entry_ctx *entry,
- 			   struct pt_regs *regs)
- {
-+#ifdef CONFIG_RISCV_SBI_SSE
-+	if (sse_callchain_kernel(entry, regs))
-+		return;
-+#endif
-+
- 	if (perf_guest_state()) {
- 		/* TODO: We don't support guest os callchain now */
- 		return;
--- 
-2.50.1 (Apple Git-155)
-
+Bart
