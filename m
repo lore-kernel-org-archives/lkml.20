@@ -1,154 +1,359 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11022085.outbound.protection.outlook.com [52.101.66.85])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 129582E739C;
-	Mon, 21 Sep 2026 10:50:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.85
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789987858; cv=fail; b=ENSr+rhxFV13IY3Q9zUFmYPjAjTk7/+mbXhkRsY81WpCrqnz48LhLU6lReR3gBqvHXWO3yEROgqKxxijrUjcLl84BZKhMgPgGfZNlUF66FUc9dUGaDeHGBtZaKwd1afzOUwozH+bWYw6YQt5zRqrLT+R8dEzB6SdNZ9PWLNkDpY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789987858; c=relaxed/simple;
-	bh=jM6iBeJw8ya9IK2YQfpt/7ZZS95cLGeqdx74NA0BxiU=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=TcCNABT9aSpgRbFFOQOK+L9H0yu4JHVj5M1NWz9F/aElGRom3HALEHGJBQM+39mWl78Yqa/5Hv76MVdxtcBBbrEUgcioPWObI2tjgNd0kliAikpebm3HHygNndJoe8JO/LaKVbjHGCawD5HPCyT6bTlnDlAeYyxkNKC1oSrFwWE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de; spf=pass smtp.mailfrom=kontron.de; dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b=xVFKQ1hB; arc=fail smtp.client-ip=52.101.66.85
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kontron.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A83D47A0C2;
+	Mon, 21 Sep 2026 10:51:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789987911; cv=none; b=S8ULib+N7RD9ejgMHameBOsXUPspF7cyysf8RD9CgxlpHosW14Dsz9byqEKKksUL0TW7HnqjKMfY0sigFEDyhgkSimvWQxLgmavyi9ggAry9fa590HS/ROJ3oKrFgFRJuKPdCDZZPrFxcPoFsrx7uP8qLCWADzrc4ytjuDa4vfw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789987911; c=relaxed/simple;
+	bh=B7xAGKbm+zUqgFqse1/7beuuqa6SMNRQ6ULAavpm9uA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=D7G6qKicnbjfsinH0xTGGt8V68k/Vpo/VmMeVZe7Cn4LMKQP3uCzrkonVzWdeow6zYO91tF25lN1vl2T/JJwgJlbcVAWfsbPq1uVFMJ9a1iQMPZmdCELekYrdac99aNlpPjUADK0ek8JtjgG6ND7ud/sdZfcTNpyyMYuSTQiobI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=g2eF+tgh; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b="xVFKQ1hB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BAApaB17+Eme5QVQhh4BanFgvIH7YoZ63MvGZng2KhJ2a3mJpLVPazCW6FJJS/UCa95MCQnSS8kgguEItus7gnNSKzdlb93Zg0fWqoTM9jN1KwBdVM4vSWGBhGuLNmdS8AcLEmdLeAv03sw2g8A2l/1kh7rssMs/x4Xf2svPTkaTx+qUM42uqdS9RDws23NVwydeSJ7x5MPiKmAPOn9a1p3On2jeHZGRm1+/h++mqTRy+dnubxXI+LyXY9kMT8egkMAQdlh6mLKN9zvvV/HBOxRpsNpjNnWkPIvhf/ZgjjcTMS1zH9BBLEz0XboD5lim0Y0IKFw3Hlj0f16Tsv6reA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Fm1CbCcffzTt+zV3VZmiW/pBuGEHaStk9jwweHUwyxI=;
- b=F/QYsSL2tB0jLY0I4xDa0e2OJ2wldowmV4FfDIsw+9IOrCcuStSqlKOeOFSxBHqSST+S5PHavf1MhP8pgMZuiyBd4wIBLTAX5BHvpn4+LPv5EZFQCjoYJfgR4qGtQzzKb6fY3smsgJwTG8x/cUMVMeRoJIenc0GR0PLgEkUsIOc2Bi+CrFaKRUmZw5SBG35KACPg01ovemXfbf+S23FsbieTcXO7U3Hhi5roDpzGYIETKKRa7p8m3n86zIbp6JPUIjVXcek3rPEhZ2P93WUfP1LIoI7k1yzyb/o/89feWt0p9Naxl97m6w+aFSTj+1mNS8F7QG6BIH/4vfgHlh5bSg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=kontron.de; dmarc=pass action=none header.from=kontron.de;
- dkim=pass header.d=kontron.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kontron.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Fm1CbCcffzTt+zV3VZmiW/pBuGEHaStk9jwweHUwyxI=;
- b=xVFKQ1hBFq1ZtgxdmFM3dmhTIg3wmA+Oq74xwJd19556Kshjadu4cHhM9ZEuvckfN+9RXpZFZnJseaz285an1kRx1Mh3AnQafC9yE3dJ34y3F5xZgIHWrbq11ok9S4XcGnasWP5TRfI7AbK1f7oRry1VOQfpEtTBFV23LEsD6og7uSb5ElofIPTZsFb/Skl1E3LmXF/Z4a3jJqSaOZmMbfV56DrKZ4DPGf8Huyr6cqCcbl01TBAL/dL4qIxKpMj8I5LVUxj/bvltTM1JTLj1oG3ZwoIETQ3WDeD5/Mm5Qz0HQ8bU6TO4zd+apSPnXVhFZ4UuhqN5jJzVc1watoaiKA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=kontron.de;
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1fb::23)
- by AM0PR10MB306277.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:7fe::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 10:50:53 +0000
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22]) by AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22%6]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 10:50:53 +0000
-Message-ID: <3b23d050-07f4-40de-ae2c-608da69e0ebb@kontron.de>
-Date: Mon, 21 Sep 2026 12:50:52 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: spi: Clarify what rx-sample-delay-ns
- describes
-To: Mark Brown <broonie@kernel.org>, Frieder Schrempf <frieder@fris.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-References: <20260917-spi-sample-delay-cleanup-v1-0-0e4eddbfb1ce@kontron.de>
- <20260917-spi-sample-delay-cleanup-v1-1-0e4eddbfb1ce@kontron.de>
- <c0c4645b-a51c-409f-82a3-a6e6bbd7962b@sirena.org.uk>
-Content-Language: en-US, de-DE
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
-In-Reply-To: <c0c4645b-a51c-409f-82a3-a6e6bbd7962b@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0164.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ba::11) To AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:1fb::23)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="g2eF+tgh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789987907;
+	bh=B7xAGKbm+zUqgFqse1/7beuuqa6SMNRQ6ULAavpm9uA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=g2eF+tghtShQlmNjeFmqjYC+9ICEz6zMeUMFuAAzj72BOBbXpaKD3xXYm0PY4zwqF
+	 Zqzq+mrP/dLj0yPzxYlTael9GD+uRYOEC6sqTCGrx2d74JpcQrxWnwqeIfz5CvDlU9
+	 u5iEiz3aEI636MIYcXz+d0eK2CjII3nTLlNy45xqUV6g6aPysCgfpjtQsl/FnNYEwI
+	 E0Fe/hyw2jWUn1QbF0lvfjcYnokgaVIMZm137OQD2GYH0ESOLy3sinO9MppOEWAwd9
+	 tnF3utAoDi9BV8EhQD3lZ5bGgsGPl0UCOZNJVcYeY1kTjLA01CycD/rDqV0jddI1/q
+	 BZc8aE1sPBbGg==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id F0F7C17E03B6;
+	Mon, 21 Sep 2026 12:51:46 +0200 (CEST)
+Message-ID: <0133cf19-709b-41f0-8f2e-e7ffede3ac1c@collabora.com>
+Date: Mon, 21 Sep 2026 12:51:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR10MB4277:EE_|AM0PR10MB306277:EE_
-X-MS-Office365-Filtering-Correlation-Id: e95a5cf8-87ea-4dd9-5635-08df17ce3517
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|10067099003|56012099006|18002099003|22082099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	uwSNntvyuiCTUtHyaFYuxFu2v3lJ2fyPOzjTi4nTzCrNEAq0hxBalt/Z3YBVrY9vINlNyHvykkJejdx/BzoqoelzbySXvUltK9ty34JAV6TIxdaLDMtBq4/IfObnzPbNL4TZteKVoxDpskirSfgbuXLswZ6aeONaX7RMYBlenDZpQNROIwO8Ot6ugXgRXoEmWQImhPLlw3X94SHUlp2llzGvxG6MbVDODFNCen2nIYmWkCBQREB6f7eDHt10d/rYp3Of4xku7J5r6MJzgyw5ClHSwRHsWHZuIxsvJZsfztOw2j82LlCC4aUivjNziZEyNnQMscxxiwkqjsl3fyxWDGTtqpuTy7Hr/htRgYONr7H9nwSI70J5FY+jpXUi9MWiWP2NwDjSi/9OjUJUECYiBaIGJAUkmOk6K+CECZu+4DzjM0NyYk2/N87PZ2EGpM2Qj88EFI7zkfDFWHjSlVjrPTeP2MnuEmGAedMKoPrxWdzQq6fUDOvvfxHTjO4wBw+6U0m+6WpSvVOz1HaTaJiczVu3JjRKccYffwdS/ewYoZKFLyYnQouBZuk81q3h3qAsys8J3yemJCcsxlYlGVWCS80yioWQQ4OUhpbIMAC0CObitFVab5gQWEFh9cB/l2QEcKEYxwzVVdIE7LgTrXUQxlH9iTY5WS/gSnfr7Arv+10=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(10067099003)(56012099006)(18002099003)(22082099003)(4143699003)(11063799006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MEVkWnFSZXVEdzRqTkpYajB0NFR2eU1MVzk1WThkQXhNMHdUcXZ0SWlkT0VF?=
- =?utf-8?B?NUNtTE54NWVURVdSUUdNRVZjdXI5Uk5GYUt3Lzh2OWl4MlRzMjBYTml5YU15?=
- =?utf-8?B?czZGZDhveVQ5NDFYelQzV0pYRzNRUTNpZnVGL0xydFliWDRGWWlBcEdySHBt?=
- =?utf-8?B?UkxPRmJlRnM5L3g4UDFlTkxrNmZSQUovQzRDT1NDWXRteHlCbmlRMzg5R25D?=
- =?utf-8?B?WnNCTjhDQVJiMEJuUm1mTVFiM0JGc1B2MllxUTFMbm1lVEo4Q0RMc2pQQWhN?=
- =?utf-8?B?cThtLzN2WTNGTjlBTWJPeDBxK0lLQTFFT1lhYVZNVDZJOFN0c1BwQ1RLRW0x?=
- =?utf-8?B?NEVJUDhEV1Zzb3N4WGk3N3pxUFZTV2pQMXFLN1pJWnBpU2crdHZRMVhyWGpU?=
- =?utf-8?B?bkt5ZVBENFdBZXlDcm9OajBCMUcxYy9ZVFBDakRNd09BS2lJdTFTRngrU3lP?=
- =?utf-8?B?RkhoMTNBNmRPM1JOQTJ4bVhlUkZVa3BrRC9lZ1o1M0NNQUl1anRYQ3MvVWd6?=
- =?utf-8?B?dE5GSlUvbVhRa3o0RzRKNklESmp1TFQ5YXNIOHhyRWUyaWVQNUM1cVhjdk1z?=
- =?utf-8?B?TkJTNjN5cU82Ui9OVzVVOVNTSmpzdi9JMUwyZXRTN1BhY2tJQU4xNjgwYmtn?=
- =?utf-8?B?Q1U2N0xMd0FXemVxZktRZUhod2s4eHFITGlWcE42Wks3eHRWVG02NDJqcjVx?=
- =?utf-8?B?UGlybGwyODBQeW9mNmFyNC9PbWVGMUNNaG8vNFRtdlZkRjU4cm9Xd2U3ZVJk?=
- =?utf-8?B?MjZFREUvODJpRTEzanNDdWVOSFZWR1ovNVdhRTR1VzF4ZmxkbHBYR21FeVVQ?=
- =?utf-8?B?VDdseCtwbDdjVDlHTTd0QjNvZ1ZKQUNsWW5jcjVXb3lsYnRGaW1QK2tpRWVh?=
- =?utf-8?B?NGhCUUI0ZnlZQWluRTl4Z2J3M3k5dHhuTVV1UHZFYzBMY2hCR0kvZUdmMEFp?=
- =?utf-8?B?bmJmdHhKZTA3c1BGSENYYkJVMWl5TStvaTFWQ1A2alNQc3htYkJrVVJUd0Iv?=
- =?utf-8?B?RXl1eU5IcmFZUHUwRGZ5WVByeDZVZVVPcmtpVitrWXJFNEZnVEtPVjZRWTJB?=
- =?utf-8?B?S2p3STFKa2FMc3VlZDRIQjdScEhKQ1NPOUgwcUpQeGFvR1QxUTRpdS90UW1D?=
- =?utf-8?B?bVNSN1M0aFdHVUdWSytJdDBkcnNrMVBkbCtyVGhOU2MySzE3Zld0d2pPcjNo?=
- =?utf-8?B?V1RsTWJHL1UvYkg5L2pxWXFRTVl5d2RvYmxDOHI5QW5mSFN2MklkSjQxRTFO?=
- =?utf-8?B?NUYycDJKUDdlSzFNSXRPR0pCUmFhUjFtVHl6QnliTFgybDdVK1NteVZFV1lD?=
- =?utf-8?B?WmZFYU5KRTlPdnJ3Rk9nU2RGdG5lc3c3WWhWQlQ1SG5tVWJIWjRjMkRGZ25X?=
- =?utf-8?B?N25GTGovSCtDU2N1b200TjE1VGJVc2VkaFlpS1Q0V0h6STgzU1B4aTJLZnpu?=
- =?utf-8?B?TW96QldiMXpCK1BFMUNJYzNnRkhDUkFYWjA4d21FUFVwUE9kL29QQi9SQUpZ?=
- =?utf-8?B?UTVSWTNiRU1sV2lVVTMwSzNRYzJFOCt3WEEzQWoyZkR3d2N3RTFnMXN0cWdn?=
- =?utf-8?B?WTRPeENObG93Yitjbi85TTEvVXRVbEVyL3lRK251TDNEWHZUWm5zdHM5UDE2?=
- =?utf-8?B?K3U0V3Z3U01nSWxDZ3NzeVplWVhkZFVYYWlCYjl4R2xHWVRyM3RScFhMOXFW?=
- =?utf-8?B?a0loUEdtZmNzazlId2Y2K2V6TEszNnhwS0ZWaFJyN0h4U2JvSGdnVis4U3NY?=
- =?utf-8?B?cHFFQjZBbk9yY0t0ek9BNGpNYklLeGhaRFg3V2tpYVVOakNIZlhOQVl6aFUy?=
- =?utf-8?B?cnZicnh5NDJKK1JlRnpKY2dic3lkcE5ic3VsbVhzMXhCVU9GcHJoOVIrRkxy?=
- =?utf-8?B?UEplQjk0eExXUzJDbUdOMzc5dFVoL3A2K3BsMk5wTGxFTklBcDhOZDlvT3V1?=
- =?utf-8?B?b2NYTkNMaEluUUxYM0x3ZWFoT0dDN3RMdmZHU3hEWGk4dEtJRk9hNUxsRDJH?=
- =?utf-8?B?ekgvb0xjM2NXMTYvTUlTRmxEN3NKdjZ2R3c3ZW9tMitjZ3NrazhWRWI1aVFF?=
- =?utf-8?B?QlN4VitSV2ZQV0szRm1xSGJmTXVTV3NwcmpSTXNkMlpkdGFPdU1jVk4rQmNV?=
- =?utf-8?B?QXdCVnJEOFF6Tk1QOUN6THhqbDVubi92d3BrMFRnMWxZeHIyTUwzeVVBdGxV?=
- =?utf-8?B?SlI1K0I5dFJ0VzVpWEFIcE44Nk5oeWNnKzRJMm9YKzA3R3l2YWIxaDB3Ynhs?=
- =?utf-8?B?aEFkbGduNG1BMDZkR25SVGZ6SnhxTE1JK3NBY0F1TXdzYzgzWnhERjZNeHhx?=
- =?utf-8?B?U2RlL1FKeW1SWVc4aWJSbnllVElRKzlUcFRsVmFUNGRvUzVyWkxZa0ZZZGZH?=
- =?utf-8?Q?Vp2fncoOzB6NkTQY=3D?=
-X-OriginatorOrg: kontron.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: e95a5cf8-87ea-4dd9-5635-08df17ce3517
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 10:50:53.3247
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8c9d3c97-3fd9-41c8-a2b1-646f3942daf1
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AriXi8qAwgqwKSTFp8Bd77Ptk8kcjwy8ezUtAwjfy47YVwPHyPrTXo999SoEFjUInM1xDOWh627pCR0UKPDl6YzPWzUlTGW/k/+xR/4uUEQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR10MB306277
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 00/15] usb: enable M.2 E-key slot USB with pwrseq
+To: Chen-Yu Tsai <wenst@chromium.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Daniel Scally <djrscally@gmail.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>
+Cc: linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+ linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Alan Stern <stern@rowland.harvard.edu>
+References: <20260916075745.3549953-1-wenst@chromium.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260916075745.3549953-1-wenst@chromium.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 18.09.26 00:23, Mark Brown wrote:
-> On Thu, Sep 17, 2026 at 05:37:35PM +0200, Frieder Schrempf wrote:
->> From: Frieder Schrempf <frieder.schrempf@kontron.de>
->>
->> The property is documented as an offset from the controller's default
->> sampling time. That says what the value does, but not what it is meant to
+On 9/16/26 09:57, Chen-Yu Tsai wrote:
+> Hi everyone,
 > 
-> Please submit patches using subject lines reflecting the style for the
-> subsystem, this makes it easier for people to identify relevant patches.
-> Look at what existing commits in the area you're changing are doing and
-> make sure your subject lines visually resemble what they're doing.
-> There's no need to resubmit to fix this alone.
+> This is v9 of my attempt at integrating the power sequencing API into
+> the USB core to support the USB connection on M.2 E-key slots. M.2
+> This series was previously titled "arm64: mediatek: Add M.2 E-key slot
+> on Chromebooks", which caused it to be missed by the USB maintainers.
+> E-key was enabled in v7.1-rc1 with just PCIe and UART supported [1].
+> Hopefully this is the last revision. The fwnode patches need a reviewed-by
+> from the fwnode owners.
+> 
+> As for Sashiko's comment about fwnode_get_next_*() not putting the
+> reference to @prev when @node is NULL, I plan to update the kernel-doc
+> for all the functions in a separate patch later.
+> 
+> Another one of Sashiko's comments is related to dropping the wakeup-source
+> property from the PCIe node. AFAIK there is no alternative as there is
+> no longer a node to put it in.
+> 
+> Last, one comment from Qualcomm folks is that the port numbering
+> conflicts with what the dwc3 bindings specify. IMHO the dwc3 bindings
+> should be fixed, as the dwc3 controller embeds a XHCI for host mode,
+> and XHCI port numbering should follow standard USB host hardware port
+> numbering. I will send separate RFC patches for this.
+> 
+> Changes since v8:
+> - Moved Sashiko-related comments from commit message body to footer
+> - Collected tags from Sakari
+> - Dropped USB port related code movement to usb/core/port.[ch]
+> - Link to v8:
+>    https://lore.kernel.org/all/20260904084158.1341550-1-wenst@chromium.org/
+> 
+> Changes since v7:
+> - Mention in kernel-doc that the function does not return ports that
+>    have no endpoints (Sakari) (patch 1)
+> - Adapted to pwrseq_enable/disable() rename
+> - Link to v7:
+>    https://lore.kernel.org/all/20260724084328.3943997-1-wenst@chromium.org/
+> 
+> Changes since v6:
+> - Patch 3 (power: sequencing: Add pwrseq_get_state())
+>    - Adopted enum for valid return codes (Bartosz)
+> - Patch 10 (usb hub pwrseq integration)
+>    - Added braces ("{}") to for loop in hub_is_port_power_switchable() (Andy)
+>    - Adapted usb_port_is_power_on() to new pwrseq_get_state() function
+>      return values (Bartosz)
+> - Link to v6:
+>    https://lore.kernel.org/all/20260721065413.2306137-1-wenst@chromium.org/
+> 
+> Changes since v5:
+> - Patch 1 (device property: Add fwnode_graph_get_port_by_id())
+>    - Dropped left-over declaration in header (Sashiko)
+> - Patch 3 (power: sequencing: Add pwrseq_power_is_on())
+>    - Reverted back to returning -EINVAL if descriptor is NULL (Andy /
+>      Bartosz)
+> - Patch 6 (usb: hub: Associate port@ fwnode with USB port device)
+>    - Added extra |struct fwnode_handle *| local variables to shorten lines (Andy)
+>    - Added comment about passing fwnode_graph_get_port_by_id() return value
+>      directly to device_set_node() (Andy)
+> - Patch 10 (usb hub pwrseq integration)
+>    - Only assign port_dev->pwrseq if successfully retrieved pwrseq
+>      descriptor (Andy)
+>    - Dropped the pwrseq error pointer check in the release function
+>      (Andy)
+>    - Added check for port->pwrseq != NULL before calling
+>      pwrseq_is_power_on() (API change from patch 3)
+> - Link to v5:
+>    https://lore.kernel.org/all/20260715085348.3457359-1-wenst@chromium.org/
+> 
+> Changes since v4:
+> - Added flags parameter to fwnode_graph_get_port_by_id() so users can
+>    specify whether incomplete ports are returned or not (Sashiko)
+> - Made pwrseq_power_is_on() return 1 if descriptor is NULL, i.e. if
+>    the descriptor is optional, matching the other pwrseq consumer APIs
+> - Added patch to swap out conditional set_bit()/clear_bit() with
+>    assign_bit() (split out from "usb: hub: Power on connected M.2 E-key
+>    connectors with power sequencing API") (Andy)
+> - Call fwnode_graph_get_port_by_id() with FWNODE_GRAPH_DEVICE_DISABLED
+>    so that even incomplete ports can be connected (Sashiko)
+> - Dropped unused |hdev| variable from usb_hub_remove_port_device()
+>    (Greg / Sashiko)
+> - Dropped 'extern' from usb_port_is_power_on() header declaration (Andy)
+> 
+> - Patch 10 (usb hub pwrseq integration)
+>    - Rewrote usb_port_is_power_on() to better express intent and
+>      restrictions of pwrseq API (Andy)
+>    - Switched to dev_fwnode() in port_pwrseq_is_supported() (Andy)
+>    - Added blank line separating normal variable declarations and __free()
+>      type declarations (Andy)
+>    - Split out assign_bit() rewrite (Andy)
+>    - Moved pwrseq_put() to release function to avoid UAF (Sashiko)
+>    - Added back pwrseq_power_off() call in usb_hub_remove_port_device();
+>      otherwise power off could be delayed to object release
+>    - Don't clear hub->ports[port1 - 1] in main error path;
+>      by that time the port device is registered and sysfs attributes are
+>      available to userspace (Sashiko)
+> 
+> - Dropped blank line between __free() variable declaration and
+>    subsequent use of the variable in conditional (Andy)
+> - Added patch to split Bluetooth pwrseq units (Wei)
+> - Link to v4:
+>    https://lore.kernel.org/all/20260709095726.704448-1-wenst@chromium.org/
+> 
+> Changes since v3:
+> - Added missing stub function for !POWER_SEQUENCING (patch 3) (Sashiko)
+> - Added missing fwnode_handle_put() (patch 5) (Sashiko)
+> - Added new patch to move |struct usb_port| related declarations to
+>    separate header (patch 6) (Andy)
+> - Patch 9 (usb hub pwrseq integration)
+>    - Adapted to move of usb_port_is_power_on() to port.c and port.h
+>    - Simplified usb_hub_set_port_pwrseq() (Andy)
+>    - Renamed usb_hub_set_port_pwrseq()'s "set" parameter to "on"
+>    - Dropped usb_hub_restore_port_pwrseq() (use usb_hub_set_port_pwrseq()
+>      with inverted argument)
+>    - Fixed off-by-one access in hub_is_port_power_switchable() (Sashiko)
+>    - Assign retval from dev_err_probe() instead of the other way around (Andy)
+>    - Clear hub->ports[port1 - 1] in USB port error and remove paths to
+>      avoid other threads from accidental UAF while the USB hub device is
+>      being unwound (Sashiko)
+>    - Short-circuit out of helpers if !IS_ENABLED(CONFIG_POWER_SEQUENCING)
+>      to avoid errors from stub functions (Sashiko)
+> - Drop redundant device node validity check; device_match_of_node()
+>    does it internally (patch 11) (Andy)
+> - Link to v3:
+>    https://lore.kernel.org/all/20260703110317.1283411-1-wenst@chromium.org/
+> 
+> Major changes since v2:
+> - Removed changes for MT8192 Asurada family: one of the device is
+>    shipped with RTL8822CE-VR, which is PCIe + UART and needs more work.
+> - Removed changes for USB A ports: VBUS one the type A ports on
+>    Chromebooks are not directly controllable from the OS and VBUS is
+>    modeled as always on. As such the changes I made don't actually
+>    change how the system works.
+> - Added new pwrseq_power_is_on() function
+> - Make new pwrseq integration effectively OF only by not assigning the
+>    port fwnode if the hub's fwnode is an ACPI node
+> - Added patch to convert remaining instances of directly setting/clearing
+>    USB_PORT_FEAT_POWER to usb_hub_set_port_power()
+> - Power sequencing state removed again in favor of state tracking by
+>    pwrseq subsystem
+> - Power sequencing descriptor again separately requested for HS and SS
+>    ports
+> - Dropped pwrseq_power_off() call before pwrseq_put(); the latter calls
+>    the former implicitly if the power state was left on
+> - Squashed DT binding revert and addition into one patch
+> - Link to v2:
+>    https://lore.kernel.org/all/20260610084053.2059858-1-wenst@chromium.org/
+> 
+> 
+> Major changes since v1:
+> - No longer adding the "index" parameter the power sequencing API
+> - Switched from OF graph to fwnode graph APIs
+> - Tie "port@" node to usb_port device, and use this device as consumer
+>    to acquire power sequencing descriptor
+> - Power sequencing descriptor now only tied to USB 2.0 port to avoid
+>    double reference
+> - Power sequencing state tracking added
+> - Link to v1
+>    https://lore.kernel.org/all/20260515090149.3169406-1-wenst@chromium.org/
+> 
+> The series is based on next-20260901.
+> 
+> 
+> Patch 1 and 2 add new fwnode graph helpers. These are used by the patch
+> 5 and 8, respectively.
+> 
+> Patch 3 adds a new pwrseq_get_state() for power sequencer consumers
+> to query the current request state. Note that this is not the _actual_
+> state.
+> 
+> Patch 4 swaps out the existing conditional set_bit()/clear_bit() with
+> assign_bit(), which does the same thing.
+> 
+> Patch 5 reworks the USB hub driver to return the actual error code from
+> hub_configure() in hub_probe(). This is needed in the next patch to
+> correctly return -EPROBE_DEFER returned by pwrseq_get() in patch 9.
+> 
+> Patch 6 makes the USB port device associated with a "port@" fwnode if
+> available. This depends on patch 1.
+> 
+> Patch 7 changes usb_port_is_power_on() so that |struct usb_port*| is
+> passed in instead of |struct usb_hub*|. This patch does not change any
+> functionality.
+> 
+> Patch 8 changes some USB hub port power control code that directly
+> toggles USB_PORT_FEAT_POWER to use usb_hub_set_port_power().
+> 
+> Patch 9 lets the USB hub driver look for power sequencers for each port.
+> Currently this only works for M.2 E-key connections, but it could be
+> extended to cover other cases. It should also make port reset via turning
+> off the port VBUS work, even when VBUS is not directly controlled by the
+> hub. This depends on patch 2 and 3 for the new helpers.
+> 
+> Patch 10 reverts an incorrectly modeled OF graph connection for the
+> MediaTek XHCI controller and adds a proper representation.
+> 
+> Patch 11 adds matching pwrseq consumer by "port@" node to the M.2 slot
+> driver. This is only used for the USB target, but there is no attempt
+> to differentiate the connection type. The driver simply tries matching
+> the "port@" node first, then falling back to the port parent or device's
+> node.
+> 
+> Patch 12 reworks the power sequencing targets for the E-key connector in
+> the pcie-m2 driver to add targets for USB and SDIO. The former is used
+> later on in this series.
+> 
+> Patch 13 splits the Bluetooth power sequencing unit so that the USB and
+> serdev consumers can separately toggle the actual state of W_DISABLE#2.
+> This patch is purposefully not squashed into the previous one to provide
+> a clear target for discussions.
+> 
+> Patches 14 and 15 enable the M.2 E-key slots (or slot-like integration)
+> found on MT8195 and MT8188 MediaTek-based Chromebooks.
+> 
+> 
+> This series unfortunately spans multiple trees. The way I see it:
+> 
+>    - Patches 1 and 2 go through the driver core, and an immutable tag is
+>      provided to be merged together with the USB patches.
+> 
+>    - Patch 3 has an ack from Bartosz, and goes through the USB tree. But
+>      Bartosz also wants an immutable branch/tag to have a copy in the
+>      pwrseq tree.
+> 
+>    - Patches 4 through 10 (all the USB related ones) go through the USB
+>      tree, along with the dependencies above.
+> 
+>    - Patches 11 through 13 go through the power sequencing tree.
+> 
+>    - Patches 14 and 15 (device tree only) go through the soc tree via the
+>      mediatek tree.
+> 
+> Some of us discussed v1 at Embedded Recipes, and I believe Bartosz, Mani
+> and I agree on this approach. The debate is likely going to be on
+> whether this should be integrated into the USB core or not. I believe it
+> should, so that the power sequencing timing is tied to the USB port
+> being brought up. I do have a fallback option of just enabling the USB
+> power sequencing target inside the M.2 slot driver if a valid OF graph
+> connection is seen. But this is less desired for the reason given above.
+> 
+> I hope we can get this merged in this cycle for v7.4.
+> 
 
-Sorry, fixed in v2. But I have to mention that this mix of "dt-bindings:
-subsystem:" vs. "subsystem: dt-bindings:" across subsystems is somewhat
-annoying for contributors. Has anyone ever thought about aligning this
-across subsystems?
+Series is
+
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+
+Cheers,
+Angelo
+
+> 
+> Thanks
+> ChenYu
+> 
+> 
+> [1] https://lore.kernel.org/all/20260326-pci-m2-e-v7-0-43324a7866e6@oss.qualcomm.com/
+> 
+> Chen-Yu Tsai (15):
+>    device property: Add fwnode_graph_get_port_by_id()
+>    device property: Add fwnode_graph_get_next_port_endpoint()
+>    power: sequencing: Add pwrseq_get_state()
+>    usb: hub: Use assign_bit() in usb_hub_set_port_power()
+>    usb: hub: Return actual error from hub_configure() in hub_probe()
+>    usb: hub: Associate port@ fwnode with USB port device
+>    usb: hub: Pass |struct usb_port*| to usb_port_is_power_on()
+>    usb: hub: Use usb_hub_set_port_power() to control port power
+>      everywhere
+>    usb: hub: Power on connected M.2 E-key connectors with power
+>      sequencing API
+>    dt-bindings: usb: mediatek,mtk-xhci: Switch to ports for USB
+>      connections
+>    power: sequencing: pcie-m2: support matching on remote "port" node
+>    power: sequencing: pcie-m2: Add usb and sdio targets for E-key
+>      connector
+>    power: sequencing: pcie-m2: Split Bluetooth unit based on interface
+>    arm64: dts: mediatek: mt8195-cherry: Add M.2 E-key slot
+>    arm64: dts: mediatek: mt8188-geralt: Add WiFi/BT as M.2 E-key slot
+> 
+>   .../bindings/usb/mediatek,mtk-xhci.yaml       | 17 +++-
+>   .../boot/dts/mediatek/mt8188-geralt.dtsi      | 92 ++++++++++++++++++-
+>   .../boot/dts/mediatek/mt8195-cherry.dtsi      | 73 ++++++++++++++-
+>   drivers/base/property.c                       | 56 +++++++++++
+>   drivers/power/sequencing/core.c               | 19 ++++
+>   drivers/power/sequencing/pwrseq-pcie-m2.c     | 64 ++++++++++---
+>   drivers/usb/Kconfig                           |  1 +
+>   drivers/usb/core/hub.c                        | 69 +++++++++-----
+>   drivers/usb/core/hub.h                        | 14 ++-
+>   drivers/usb/core/port.c                       | 80 +++++++++++++++-
+>   include/linux/property.h                      |  4 +
+>   include/linux/pwrseq/consumer.h               | 12 +++
+>   12 files changed, 447 insertions(+), 54 deletions(-)
+> 
