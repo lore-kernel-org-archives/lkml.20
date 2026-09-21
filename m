@@ -1,129 +1,249 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f31.google.com (mail-pz2-f31.google.com [74.125.228.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74040491595
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:48:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0899D3C416A
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:50:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.31
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789991332; cv=none; b=oGMomgcezjiFUfosr4QLC1ZdU+5b2WhVFidQXqvDSNyI6MNuyPVIjY4a4hjhvAqfZsPrgbcbdn96SoA6SXV3BgMLJ6VI7rTSm8uNJRODU0tqdQwD26XX4ihuw/fdVMaDJP6h3fGGLbaW0OfRaYfPd6LCpNuZsPwB+pFxMc02hs8=
+	t=1789991410; cv=none; b=tNpqthePkondCw0eNrGgHMvr9EHDXB0o5aqpqJKbFv/hl4dFwjDMewjEatz3TI5+MK6l+gk2dZ1yaiG3d7puhkRK3qLpbsuP/n8Itmjs1OPIH4+3PmNTU5CIZ1Ear4iVCtfn+/xxKw/l4TkM8Ge4Otv+GiLmccJouhKiGTGDNXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789991332; c=relaxed/simple;
-	bh=qfLSwLN6Ol+jXm3x5LONEa89ry6IeI3Z+Thv5Do35kg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=GHqfAIpCjg3fADPixAtqSAz1tTHXr8Uw7b1YNERTmWn22PkC1waXWgxmGs+QSCVgt774K1pOc1zcnHCBx5X2WJZqTbCFhmMA3yKGKDMG1a7sbR9ppvgIpuFby83qSovuJ53P2W7zXeWlMQATt5rpvcLcQldDUgggqce560ppNfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gP4429zJ; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789991410; c=relaxed/simple;
+	bh=pJtthfdXGcEngam82KC8Q9jE9Eya+A3LvHojQ4SiYCs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=QTujNnJj89xblTy9L6Kt4Mn0RtE5atXnICqfPKo7UZgVXwkfUWC18snAa9obaqhsfmv9pwxZqNM7zDQwCAS7VAbc+2mmeBGN6TRMUUQ6kelbTqtqIrT7U2tB5CSqKzRbZXL1AiATwrzV8PYqsck5Yf4Zwf2ss8DEaI9/QXP2LSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z1LsjOq3; arc=none smtp.client-ip=74.125.228.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gP4429zJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789991322;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MDDstnukHO3fXB3QQzZGwwQPB6jN0uwfpA+IQdz63lI=;
-	b=gP4429zJEIusDBs/kKWgwiXc/y1rxdWbb1aS+khDdFTn+ym34B1y/29kWjOUnxEPIinxF9
-	6Ld/P96u/t7IS/9GcM0jUMnvxFf8gA5Jz0Br8a+AzN1xmBLwHkAtVwvg42ML+RiqmVHyDU
-	GZOoAH3ln6XRJ1vw1BX+tJOiEuI/uGU=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-414-xbZwO6_MPkmQltWAbZRu5A-1; Mon,
- 21 Sep 2026 07:48:39 -0400
-X-MC-Unique: xbZwO6_MPkmQltWAbZRu5A-1
-X-Mimecast-MFC-AGG-ID: xbZwO6_MPkmQltWAbZRu5A_1789991318
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 350711843AD4;
-	Mon, 21 Sep 2026 11:48:38 +0000 (UTC)
-Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1C51A41B;
-	Mon, 21 Sep 2026 11:48:35 +0000 (UTC)
-Date: Mon, 21 Sep 2026 13:48:33 +0200 (CEST)
-From: Mikulas Patocka <mpatocka@redhat.com>
-To: Ben Cressey <ben@cressey.dev>
-cc: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
-    Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev, 
-    linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] dm-integrity: fix buffer overflow in inline mode with
- large tag size
-In-Reply-To: <20260915-dm-integrity-inline-tag-v1-1-3076b1b27454@cressey.dev>
-Message-ID: <5e7d601a-4119-e798-2a3d-cbfe80da1a0c@redhat.com>
-References: <20260915-dm-integrity-inline-tag-v1-1-3076b1b27454@cressey.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z1LsjOq3"
+Received: by mail-pz2-f31.google.com with SMTP id 41be03b00d2f7-cc1ceb47d55so494899a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:50:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789991408; x=1790596208; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OmeBMZqJtALHoE/5S4vqtP4zKqKZeq0+0/6mbWy8ZBQ=;
+        b=Z1LsjOq3kaz8za17JVXfg7JAwpIPU9d6zpiCOjMo+xwFqw8kWpQMwIyL8AmQyZBNn/
+         LPULb61Qfj+3dN7Wt1x09mQRY4l+Sh+B+APc025DlGfdxdDLj7rydN5NvUWroAeiHd8M
+         71xj64gzsf/2km4VgXx6ODAzvrCP7DWTo3bKexNRpvoRmM9V3NuW9whSg8BGcamUkCZJ
+         59oxiJ+NG4tEqM0/nW7ZwdMXJivAH+C9bJujJZKFOUoNjzC9Lnzl2Xr+wMMK1O5prD+Q
+         uWgO2YcVgg1npdnqCkuaWqd8RJh6FSjqmEh/rjcMUltcHBpnR1I0TyufYpMEtDQk/5W2
+         sxqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789991408; x=1790596208;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OmeBMZqJtALHoE/5S4vqtP4zKqKZeq0+0/6mbWy8ZBQ=;
+        b=MpaPCu8d72Yh6AJOhIYP4njorqNL3eQ/1yUBr2EQLdoRJlCcfzRUjMcM1E5smdWCUV
+         SQrMwKF4QXPv+7jSS6iXI7KsRRfyWrEN86j95UtrD+JDcz4recYY7uGbLM1lCcsZNy7W
+         BXcktKaVDeLE/MGyusAIzD59YTrKVzK53mt0nwjVHDz6fhmlktfZQTfcP8ZeUilTsZb/
+         w7TItafoyS0nDY9UmvYaN3jYuQ1jkhL8cEy6J1quprVqhAKN918Q4mMIATUe5+jALF8b
+         XNMglJDcqxxdKXgtUrrKoywTynFOs64YqTXHat8nshIZZFt3Mx1FLdKjg9cXOnJqKPwX
+         IedA==
+X-Gm-Message-State: AFuF++l6lsYa5xYwgqU2FUtPF32d49dMH9Qmc9ceb1nkySx0nRVPPkTh
+	rph8H6bKVVS/85gvWCFQBuxUignpPOqoCsXpcvcde3G5IKe3Es0S5R/g
+X-Gm-Gg: AYBFou0lPok9ViyiukdP71PrS1WbO2LPXNasNNGyhu/i0Fi58P+pt3nXor5RQt/nrQM
+	9FMlxvp6Mx+xPYC/F1vpaLOAn3RbWU6TOsBNztyrZE5BDGHoc4UkM68Fez9QWqXIKvZQ/mFBl6A
+	/gvoizuCmIaxr+f56pNfNCxpiFFkDI5Kddac3kEEJYKcc6uOWk5rESNbxmccdEfBQTmGXkKJu/l
+	RqWG8MRufYMniSSCJ5knScVTa7DdjO+qNwFY8TwzVFKFlDIPVGhWL10wxplP31mnFURWpxB4gzA
+	doNdzE/s6J0NpxI84UrwsNljj3hnmWRLhzU6ORxDbnuwcrLiW4Tlh+cC1a37X9PzFM6giSj67S6
+	33xF8VrV7rExpOCMPcrFjuPpXuk+NcMMg6CVRoB7AaYed/N8A+Nh7RxnR/5I0DKqmbIVtHDz1dM
+	dyAPDJ5vvL+20eydU85IzJYWFtqeorDZFKS+BeJzD5fZqFqtbaL4AAP94m84Gyg5ge7GFAAd12w
+	Zw=
+X-Received: by 2002:a17:90a:fc4b:b0:3a0:2900:f55e with SMTP id 98e67ed59e1d1-3a02900f85dmr5227403a91.29.1789991408058;
+        Mon, 21 Sep 2026 04:50:08 -0700 (PDT)
+Received: from server225.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a03bcecdd2sm3237277a91.1.2026.09.21.04.50.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 04:50:07 -0700 (PDT)
+From: Ping Li <leeonion.muyu@gmail.com>
+To: james.morse@arm.com,
+	ben.horgan@arm.com
+Cc: linux-kernel@vger.kernel.org,
+	reinette.chatre@intel.com,
+	fenghuay@nvidia.com,
+	Ping Li <leeonion.muyu@gmail.com>
+Subject: [PATCH v5] arm_mpam: Use an atomic counter to schedule mpam_enable_once()
+Date: Mon, 21 Sep 2026 19:49:57 +0800
+Message-Id: <20260921114957.3382350-1-leeonion.muyu@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260915115646.54113-1-leeonion.muyu@gmail.com>
+References: <20260915115646.54113-1-leeonion.muyu@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Transfer-Encoding: 8bit
 
-Hi
+mpam_discovery_cpu_online() scheduled mpam_enable() after each MSC
+probe, and mpam_enable() walked the whole MSC list taking each probe
+lock in turn to check if all the MSCs had been probed.
 
-Accepted into the dm-7.3 branch.
+Count the MSCs that have had their hardware probed with
+mpam_num_msc_probed, and schedule mpam_enable_once() directly when the
+count reaches fw_num_msc, the number of MSCs reported by firmware.
+MSCs that were already probed no longer cause work to be scheduled.
 
-Mikulas
+Suggested-by: Ben Horgan <ben.horgan@arm.com>
+Signed-off-by: Ping Li <leeonion.muyu@gmail.com>
+---
+Changes in v5:
+- Schedule mpam_broken_work at the error site and return early,
+  removing the duplicate err check at the end of the function.
 
+ drivers/resctrl/mpam_devices.c  | 69 +++++++++++----------------------
+ drivers/resctrl/mpam_internal.h |  2 -
+ 2 files changed, 22 insertions(+), 49 deletions(-)
 
-On Tue, 15 Sep 2026, Ben Cressey wrote:
-
-> In inline mode, dm_integrity_check and dm_integrity_inline_recheck
-> compute the checksum of each block into an on-stack buffer of
-> HASH_MAX_DIGESTSIZE bytes. integrity_sector_checksum pads its result
-> with zeroes up to the tag size, so if the tag size is larger than
-> HASH_MAX_DIGESTSIZE, the padding runs past the end of the buffer. With
-> CONFIG_STACKPROTECTOR the kernel panics in dm_integrity_check on the
-> first read.
-> 
-> Enlarge both buffers to hold MAX_TAG_SIZE bytes, as commit b93b6643e9b5
-> ("dm integrity: fix a crash with unusually large tag size") did for
-> integrity_metadata.
-> 
-> Fixes: fb0987682c62 ("dm-integrity: introduce the Inline mode")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ben Cressey <ben@cressey.dev>
-> Assisted-by: LLM
-> ---
-> To reproduce: QEMU nvme-ns with ms=128 and 4096-byte blocks, table
-> "0 8192 integrity /dev/nvme0n1 0 100 I 3
-> internal_hash:hmac(sha256):<key> fix_hmac block_size:4096", then read
-> the device.
-> 
-> For stable: before commit 5076d4599ce1 ("dm-integrity: enable
-> asynchronous hash interface") in 6.18, the dm_integrity_check buffer
-> was in dm_integrity_end_io.
-> ---
->  drivers/md/dm-integrity.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-> index 92970e12267ab..0862f31b8498d 100644
-> --- a/drivers/md/dm-integrity.c
-> +++ b/drivers/md/dm-integrity.c
-> @@ -2721,7 +2721,7 @@ static void dm_integrity_inline_recheck(struct work_struct *w)
->  	outgoing_data = dio->integrity_payload + PAGE_SIZE;
->  
->  	while (dio->bio_details.bi_iter.bi_size) {
-> -		char digest[HASH_MAX_DIGESTSIZE];
-> +		char digest[MAX_T(size_t, HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
->  		int r;
->  		struct bio_integrity_payload *bip;
->  		struct bio_vec bv;
-> @@ -2788,7 +2788,7 @@ static inline bool dm_integrity_check(struct dm_integrity_c *ic, struct dm_integ
->  	unsigned pos = 0;
->  
->  	while (dio->bio_details.bi_iter.bi_size) {
-> -		char digest[HASH_MAX_DIGESTSIZE];
-> +		char digest[MAX_T(size_t, HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
->  		struct bio_vec bv = bio_iter_iovec(bio, dio->bio_details.bi_iter);
->  		char *mem = integrity_kmap(ic, bv.bv_page);
->  		integrity_sector_checksum(ic, &dio->ahash_req, dio->bio_details.bi_iter.bi_sector, mem, bv.bv_offset, digest);
-> 
-> ---
-> base-commit: df2908090cda368b01ff43709f51890076c56157
-> change-id: 20260915-dm-integrity-inline-tag-645e17849955
-> 
+diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+index 2f09f4b78bd3..4fc82acd854e 100644
+--- a/drivers/resctrl/mpam_devices.c
++++ b/drivers/resctrl/mpam_devices.c
+@@ -49,12 +49,20 @@ static LIST_HEAD(mpam_all_msc);
+ 
+ struct srcu_struct mpam_srcu;
+ 
++/* Number of MSCs reported by firmware */
++static int fw_num_msc;
++
+ /*
+  * Number of MSCs that have been probed. Once all MSCs have been probed MPAM
+  * can be enabled.
+  */
+ static atomic_t mpam_num_msc;
+ 
++/* Number of MSCs that have had their hardware probed */
++static atomic_t mpam_num_msc_probed;
++
++static void mpam_enable_once(struct work_struct *work);
++
+ static int mpam_cpuhp_state;
+ static DEFINE_MUTEX(mpam_cpuhp_state_lock);
+ 
+@@ -72,7 +80,7 @@ static DEFINE_SPINLOCK(partid_max_lock);
+  * scheduled via this work_struct. If access to an MSC depends on a CPU that
+  * was not brought online at boot, this can happen surprisingly late.
+  */
+-static DECLARE_WORK(mpam_enable_work, &mpam_enable);
++static DECLARE_WORK(mpam_enable_work, &mpam_enable_once);
+ 
+ /*
+  * All mpam error interrupts indicate a software bug. On receipt, disable the
+@@ -1854,7 +1862,6 @@ static int mpam_discovery_cpu_online(unsigned int cpu)
+ {
+ 	int err = 0;
+ 	struct mpam_msc *msc;
+-	bool new_device_probed = false;
+ 
+ 	if (mpam_is_enabled())
+ 		return 0;
+@@ -1865,24 +1872,22 @@ static int mpam_discovery_cpu_online(unsigned int cpu)
+ 		if (!cpumask_test_cpu(cpu, &msc->accessibility))
+ 			continue;
+ 
+-		mutex_lock(&msc->probe_lock);
+-		if (!msc->probed)
+-			err = mpam_msc_hw_probe(msc);
+-		mutex_unlock(&msc->probe_lock);
++		guard(mutex)(&msc->probe_lock);
++		if (msc->probed)
++			continue;
+ 
+-		if (err)
+-			break;
+-		new_device_probed = true;
+-	}
++		err = mpam_msc_hw_probe(msc);
++		if (err) {
++			mpam_disable_reason = "error during probing";
++			schedule_work(&mpam_broken_work);
++			return err;
++		}
+ 
+-	if (new_device_probed && !err)
+-		schedule_work(&mpam_enable_work);
+-	if (err) {
+-		mpam_disable_reason = "error during probing";
+-		schedule_work(&mpam_broken_work);
++		if (atomic_add_return(1, &mpam_num_msc_probed) == fw_num_msc)
++			schedule_work(&mpam_enable_work);
+ 	}
+ 
+-	return err;
++	return 0;
+ }
+ 
+ static int mpam_cpu_offline(unsigned int cpu)
+@@ -2106,8 +2111,6 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
+ 	return msc;
+ }
+ 
+-static int fw_num_msc;
+-
+ static int mpam_msc_drv_probe(struct platform_device *pdev)
+ {
+ 	int err;
+@@ -2713,7 +2716,7 @@ static int mpam_allocate_config(void)
+ 	return 0;
+ }
+ 
+-static void mpam_enable_once(void)
++static void mpam_enable_once(struct work_struct *work)
+ {
+ 	int err;
+ 
+@@ -2867,34 +2870,6 @@ void mpam_disable(struct work_struct *ignored)
+ 	pr_err_once("MPAM disabled due to %s\n", mpam_disable_reason);
+ }
+ 
+-/*
+- * Enable mpam once all devices have been probed.
+- * Scheduled by mpam_discovery_cpu_online() once all devices have been created.
+- * Also scheduled when new devices are probed when new CPUs come online.
+- */
+-void mpam_enable(struct work_struct *work)
+-{
+-	static atomic_t once;
+-	struct mpam_msc *msc;
+-	bool all_devices_probed = true;
+-
+-	/* Have we probed all the hw devices? */
+-	guard(srcu)(&mpam_srcu);
+-	list_for_each_entry_srcu(msc, &mpam_all_msc, all_msc_list,
+-				 srcu_read_lock_held(&mpam_srcu)) {
+-		mutex_lock(&msc->probe_lock);
+-		if (!msc->probed)
+-			all_devices_probed = false;
+-		mutex_unlock(&msc->probe_lock);
+-
+-		if (!all_devices_probed)
+-			break;
+-	}
+-
+-	if (all_devices_probed && !atomic_fetch_inc(&once))
+-		mpam_enable_once();
+-}
+-
+ #define maybe_update_config(cfg, feature, newcfg, member, changes) do { \
+ 	if (mpam_has_feature(feature, newcfg) &&			\
+ 	    (newcfg)->member != (cfg)->member) {			\
+diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
+index 04d1a59f02af..085f086e2b2d 100644
+--- a/drivers/resctrl/mpam_internal.h
++++ b/drivers/resctrl/mpam_internal.h
+@@ -452,8 +452,6 @@ extern struct list_head mpam_classes;
+ extern u16 mpam_partid_max;
+ extern u8 mpam_pmg_max;
+ 
+-/* Scheduled work callback to enable mpam once all MSC have been probed */
+-void mpam_enable(struct work_struct *work);
+ void mpam_disable(struct work_struct *work);
+ 
+ /* Reset all the RIS in a class under cpus_read_lock() */
+-- 
+2.34.1
 
