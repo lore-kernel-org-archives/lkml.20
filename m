@@ -1,37 +1,37 @@
 Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAEB94EDCC8;
-	Mon, 21 Sep 2026 17:43:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A204EF121;
+	Mon, 21 Sep 2026 17:43:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790012602; cv=none; b=hcg/Zc24zomcI10suX9G8ySBVRaH8tZokffo3sNbxDOznwoV0J0YBStYDUWbzNtVl0gitWZ9W2eQJr6ZJF07arfxPRF6q5onrqv7nz17TVO2JqIxM88CXf8y/SyErX3drrUt+vB4SnJgITh02k5oY59e2nZ9Kt0SjLs1rrGGW8g=
+	t=1790012602; cv=none; b=DOibd8FwDXijiuOcsrgMFIlyq1DI7hVL0rzCpoMCuejJsB9Pd8D8/fA/m/NjX6+wvXDrZgRFOjJxOSjcRqhpFkJUsZdZb5NnvsGtjBUis/JIl5N1/erpMVFcrkTsfgDjxeP/4k8QhuHUDjQdVrJBzQgIYvcht4q1iddB6LaLtDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790012602; c=relaxed/simple;
-	bh=P++/C3omP5oXTxehlSkghnlzlWs44iaAHu1PLIfmpZA=;
+	bh=dHTybrL+RMP1hKkMN9c0Iz7OJiE275d2OWdGdUab7ak=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kMI8nk1YxmWAVBlYXYOhdYSLQTjEbzYuQY69jsnkiJK4IQWKVdxZUoPfZ3adGOsdsh35N6FG2lNI2+zs3GHKyloJinU414Lnd/4iM5OJK6jzPG6FAnMgoAU2XiEdYZ9tt9Xe8lwdnZUvRa7CywrGvFjDvZIV8T1Cgp/nyimkx1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=lxS3teYB; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=E9H+lHZN; arc=none smtp.client-ip=5.75.144.95
+	 In-Reply-To:To:Cc; b=TGdzhFNpOypt1GUBTjGre4hztRTgm05MjoHFfxl8Rtp9hmVuhBq9GadT0IkvWvXRbsiGUEArsqPf+yzdkVJsxaHho2jDNuGFNmAPL06jZKDiASHfJXjq3L3ljY02gNIwM+R2Jr6fGTSUVyRfQyx7xBYnI7KDQUEh3P67sB+jV+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=OUCmQzJE; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=dBeniGXQ; arc=none smtp.client-ip=5.75.144.95
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="lxS3teYB";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="E9H+lHZN"
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="OUCmQzJE";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="dBeniGXQ"
 DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1790012591; bh=RjxwbYex8GEzjt1av++2E9e
-	ONQiJ+25wVtZoQz33Ttg=; b=lxS3teYB2afCO2QpKtkoZgADLl7hq0223rP+xlueXLv6apKAoI
-	pw3VSet+FRPvb65/roCTvH6ytjeOxbZ5JHrTRe1jc5FP4NzGrZhVTQouXA/NEXL4hFeej3R8OSQ
-	eMtsY5agK7y4ZUvJt6tz6WYShaDA5dyd7Xg0tJAkIqa/Lz1yJGo5/bHM2rtn/CvPYrz4FpJijGr
-	4P8V/pg8bwYwHK9p7SLekh5CYbUBnBIjPMFL4PXWbFiO9cCoBvXzP9Rh21kYKweJBcmhNQR+6dc
-	umSJR1HpYBAP1WuwpBfPD09xxf9Xixq95VZQ8k1aCYyBxOiEOt2GBBGQ/+ATW2DMhnA==;
+	h=To:Message-Id:Subject:Date:From; t=1790012588; bh=RZqRdr1U5nr/ovFdxgKlGjo
+	2cPnR/81TfxbwVC4+jic=; b=OUCmQzJE058oW/2R8CJgGVYE9MzbXAWtjTeAh7qFnU9BGjGH2W
+	188PAYpaR8ar48seCPHIFfs6PmaKJQ63lnnzkfsclsUzd1Qp22jno2rqdjS/a5vCDf4aWdH6esA
+	/SnmS24rHBZL5OOqpCQfIb7Fvj+2xlCtlizwuGaVAwygaVOYXt/2DbLGLieh3VwhxBllQn170r6
+	4ddzXodflbM6eA74eFgsjmo7lw/AK4id+kT1+F6pKmwPfqA+2cw2aCHMgPQk4gRQsaKmkSL7hvj
+	avBNUnwgWNq47VpOjgZ9d1hibvlnYqapMLRQpG2ItBhbVkZQTYjuPa8K+AV8lBnO+8g==;
 DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1790012591; bh=RjxwbYex8GEzjt1av++2E9e
-	ONQiJ+25wVtZoQz33Ttg=; b=E9H+lHZNQ50K0M2mb9PCTrLIPE3+zxlBxC6vrfYAEbdN9cRU3x
-	SLg2eczvuVIrIu96+Yqx4AwKw9ZeDzIO2GDg==;
+	h=To:Message-Id:Subject:Date:From; t=1790012588; bh=RZqRdr1U5nr/ovFdxgKlGjo
+	2cPnR/81TfxbwVC4+jic=; b=dBeniGXQC3090uUQqTaXg5UOVUXz8qIFgJtLgsE+j4Od/mwB60
+	cEAs0fkI2ygw1vqxtIFtLN5xOfq4goQO19DQ==;
 From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
-Date: Mon, 21 Sep 2026 19:43:05 +0200
-Subject: [PATCH 4/4] arm64: dts: qcom: msm8917-xiaomi-wingtech: move GPIO
- haptic vibrator
+Date: Mon, 21 Sep 2026 19:43:03 +0200
+Subject: [PATCH 2/4] arm64: dts: qcom: msm8917-xiaomi-rolex: enable
+ notification led
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260921-xiaomi-aw2013-v1-4-a0c3084076de@mainlining.org>
+Message-Id: <20260921-xiaomi-aw2013-v1-2-a0c3084076de@mainlining.org>
 References: <20260921-xiaomi-aw2013-v1-0-a0c3084076de@mainlining.org>
 In-Reply-To: <20260921-xiaomi-aw2013-v1-0-a0c3084076de@mainlining.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -51,57 +51,65 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790012584; l=1479;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790012584; l=1324;
  i=barnabas.czeman@mainlining.org; s=20240730; h=from:subject:message-id;
- bh=P++/C3omP5oXTxehlSkghnlzlWs44iaAHu1PLIfmpZA=;
- b=Ti2LT5phN9L0USssmr9ppclC5IZdYgcQ9020QVJojXFFxkMiwdWOF05W+aRBOAmT73GISiR26
- Pbl8T8N2pCTCK99dwOhWb8pJJ64sOOp9WIhgdkvaMXQ0+Fm8pSTVR9X
+ bh=dHTybrL+RMP1hKkMN9c0Iz7OJiE275d2OWdGdUab7ak=;
+ b=owpw/NoZuGnhCUmgT9bKZVAMUkw9B3KYKiioDFSOBpsiG3wbSwAv/pC8wiC5JSnALMRw1dZ6N
+ bZ3JcVcxvnJCOladrpnbuT7jKUp4Fm3iJs9zc1tVH7ubC7DdtnTTmUu
 X-Developer-Key: i=barnabas.czeman@mainlining.org; a=ed25519;
  pk=TWUSIGgwW/Sn4xnX25nw+lszj1AT/A3bzkahn7EhOFc=
 
-Move out vibrator node from Redmi 5A devicetree because
-Redmi 4A and GO are also using the same GPIO haptic vibrator.
+Enable aw2013 notfication led. Redmi 4A have RGB notification
+led since aw2013 driver is not supporting multi color grouping
+use leds-group-multicolor for it.
 
 Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
 ---
- arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts      | 6 ------
- arch/arm64/boot/dts/qcom/msm8917-xiaomi-wingtech.dtsi | 6 ++++++
- 2 files changed, 6 insertions(+), 6 deletions(-)
+ arch/arm64/boot/dts/qcom/msm8917-xiaomi-rolex.dts | 33 +++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-index 8ea8ef80fb38..253ae479bd16 100644
---- a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-+++ b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-@@ -27,12 +27,6 @@ battery: battery {
- 		charge-term-current-microamp = <60000>;
- 		voltage-min-design-microvolt = <3400000>;
- 	};
--
--	vibrator {
--		compatible = "gpio-vibrator";
--		enable-gpios = <&tlmm 97 GPIO_ACTIVE_HIGH>;
--		vcc-supply = <&vph_pwr>;
--	};
- };
+diff --git a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-rolex.dts b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-rolex.dts
+index f0b72d9878c4..a8dba85cb352 100644
+--- a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-rolex.dts
++++ b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-rolex.dts
+@@ -12,4 +12,37 @@ / {
+ 	compatible = "xiaomi,rolex", "qcom,msm8917";
  
- &aw2013 {
-diff --git a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-wingtech.dtsi b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-wingtech.dtsi
-index cdbf2d4fa92c..1b067c43b9c1 100644
---- a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-wingtech.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-wingtech.dtsi
-@@ -85,6 +85,12 @@ framebuffer_mem: memory@90001000 {
- 			no-map;
- 		};
- 	};
+ 	qcom,board-id = <0x1000b 1>;
 +
-+	vibrator {
-+		compatible = "gpio-vibrator";
-+		enable-gpios = <&tlmm 97 GPIO_ACTIVE_HIGH>;
-+		vcc-supply = <&vph_pwr>;
++	multi-led {
++		compatible = "leds-group-multicolor";
++		color = <LED_COLOR_ID_RGB>;
++		function = LED_FUNCTION_STATUS;
++		leds = <&led0>, <&led1>, <&led2>;
 +	};
++};
++
++&aw2013 {
++	status = "okay";
++
++	led0: led@0 {
++		reg = <0>;
++		led-max-microamp = <5000>;
++		color = <LED_COLOR_ID_RED>;
++	};
++
++	led1: led@1 {
++		reg = <1>;
++		led-max-microamp = <5000>;
++		color = <LED_COLOR_ID_GREEN>;
++	};
++
++	led2: led@2 {
++		reg = <2>;
++		led-max-microamp = <5000>;
++		color = <LED_COLOR_ID_BLUE>;
++	};
++};
++
++&blsp1_i2c2 {
++	status = "okay";
  };
- 
- &blsp1_i2c2 {
 
 -- 
 2.55.0
