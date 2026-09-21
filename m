@@ -1,64 +1,63 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E96C496D5D;
-	Mon, 21 Sep 2026 09:28:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56FD2497B61;
+	Mon, 21 Sep 2026 09:28:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982918; cv=none; b=XIcnFeHPWUTlklj2ENvK9V+hjGRGviC+68qWMGRYCECSQc/y86eGpvREBL+HMowVuhV9it3UJzFdyXYuxQXE4h24p/UDyjkyRCClg5fa9KG30rI/VPLzAh1i+K/VryOnpz97k6MHkz7peb1APxVK1Ja6Ksylet2FkZF2PvTkm7U=
+	t=1789982920; cv=none; b=SDxeMjGV4dZX9W28TsUNyn0rjbTkoK7HcBLOuDukObuTAF0jk+7LmZduK1gT6t2KWaO00TW/45MRd8sBRgZpvtVExL2FGGzh9ukBLhW5Y0nKJMnL+y6HPwkFq4d/sRKAmYNpMaPgg0I0jxl5EFTOWnf5Ck0Byt+V463FZ6XDibQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982918; c=relaxed/simple;
-	bh=IFPcT3S7Op2ZOG8yh+CRZV1QiLVGGgnYu5ICwRhY33I=;
+	s=arc-20240116; t=1789982920; c=relaxed/simple;
+	bh=KiPsTc37Tl7J+V8b5rIbxNbq8NRUSQ6q5Az/h++sG5k=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=IZN1K9jUAAPCCgqq61yHhKd0cbwb/ZMfyb97WYIB7nxxbih4xwKPSrS465TUGSbfEykC/jjaMUQdQfRSP13qXbuwg4IDJFcPLnMNFSDu+e26iHag07aJFDrO612m4HiO1LxxLdzhNLQpKG1CVspvGs6LLqgz/lF1Jtt6szeq9sY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=lqZV724G; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=CHtp7S5H; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=cpygliPUDlY/dP4nnX3vYKdVetUswKnrHt/hHfhP3AUvwgvQ+dOsB4t336ZtyB58tiotdfc0+dtEhV7WykZ+hUuR7m1i9BFtwQOtm5sJAWUVkTsRDrBIHNNZbJMKQAUgsMHkeSBYJyPe/hu+8oKu1FPyRAQnE1F8yY4LfDDMh6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ot76Cp4z; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=aqkAFCHB; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="lqZV724G";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="CHtp7S5H"
-Date: Mon, 21 Sep 2026 09:28:33 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ot76Cp4z";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="aqkAFCHB"
+Date: Mon, 21 Sep 2026 09:28:34 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789982914;
+	s=2020; t=1789982916;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=vLr3nk4FzohKBh3vvgRGSTCSM3GQv8RCB0tYiEpkYUs=;
-	b=lqZV724GlXq6OCVnwpBQy+oj8TyVvXEzdxlyuB6Iw3it1CtmawWUnZ1I6ZmNFUX58pKnHs
-	HOyyXKf3/T+z+i4pGX0yj7MaR+8qX0+CWw3AFGYwrQUn4LxoCGG8rJZAjqszCB48xR+jH0
-	ve2fZE+X4Gs5qwLXOkf735Mwrl9j32foYcbbq4JRtQdMgh43NCmSYmf/sZ/F2Od2vVRWyg
-	IFpP1ROCOvP4RP8seU3UTrCsJxK4+epE/yLIhTzS2UA9/Q2e11LMhq9j9OAf/CcMJojJ7E
-	czI6Puo8IH7VF76lQjO/1bp3wheQmlx1rRizW2fWKqpHYhw41RAyu+qVEMoNpg==
+	bh=vqmPmcrHXvT6ER++VzTbRGJdONjB8ALW7ag2H5ctN4E=;
+	b=ot76Cp4zIIK4ue2MQd9robuhCSTiORDUJ9SYlTnWOyZEewshpFp4CEJYEDIsGfoalIQNjz
+	LlSVkm97zIiUe5g+htU9+wpm5/1l8dgGKME9OZc56kQ3oDK787qYOMgIaRw7QZeF+RVquV
+	f5ieMQXyDEfxknEYB9WYl9sH2OIEADm4Vp2f+H8W1lkLGjA1f3hAMblOXF4pAmAyI89uuD
+	9Cf8zWDU2lx5n0SM3Wuzsv8g84ByiHMI+mOfzcVNXCfUN+OHPBXvYC/92LvQRPyt4PbCoP
+	9/Z10bJoqFBADY6vRkFnSjApYTdnRPVzGDB160+XxcaEQH5/xnd5687ZAJA0kg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789982914;
+	s=2020e; t=1789982916;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=vLr3nk4FzohKBh3vvgRGSTCSM3GQv8RCB0tYiEpkYUs=;
-	b=CHtp7S5H4bxpgfS8EjT4RjOJScuhHzphtlvY3jLcmg7Au8RiG92ht6OlAcLkBAMExFkCKo
-	r92ziPREp9NaZ/Cw==
+	bh=vqmPmcrHXvT6ER++VzTbRGJdONjB8ALW7ag2H5ctN4E=;
+	b=aqkAFCHBBNTA8Ktgec0oVDPNibmdzPVrr+to3ztfudaNJX0A7oiT2Hb013/wbbv/U1Z5SL
+	TbElCfIpvR01+kBQ==
 From: "tip-bot2 for Puranjay Mohan" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: objtool/core] objtool/klp: Add test for newly introduced functions
+Subject: [tip: objtool/core] objtool/klp: Add test for newly introduced data
 Cc: Puranjay Mohan <puranjay@kernel.org>, Song Liu <song@kernel.org>,
  Josh Poimboeuf <jpoimboe@kernel.org>, Ingo Molnar <mingo@kernel.org>,
  x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260916184351.2720310-15-song@kernel.org>
-References: <20260916184351.2720310-15-song@kernel.org>
+In-Reply-To: <20260916184351.2720310-14-song@kernel.org>
+References: <20260916184351.2720310-14-song@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178998291309.2819794.4768328941057971683.tip-bot2@tip-bot2>
+Message-ID: <178998291479.2819794.8879884908331767856.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -68,85 +67,98 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the objtool/core branch of tip:
 
-Commit-ID:     960c3e352bac749c35041d683f32bdde467a2960
-Gitweb:        https://git.kernel.org/tip/960c3e352bac749c35041d683f32bdde467=
-a2960
+Commit-ID:     f4b8bfb1285992a6ab6f3d7cd25186d64f0773ee
+Gitweb:        https://git.kernel.org/tip/f4b8bfb1285992a6ab6f3d7cd25186d64f0=
+773ee
 Author:        Puranjay Mohan <puranjay@kernel.org>
-AuthorDate:    Wed, 16 Sep 2026 11:43:07 -07:00
+AuthorDate:    Wed, 16 Sep 2026 11:43:06 -07:00
 Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Mon, 21 Sep 2026 11:02:40 +02:00
+CommitterDate: Mon, 21 Sep 2026 11:02:20 +02:00
 
-objtool/klp: Add test for newly introduced functions
+objtool/klp: Add test for newly introduced data
 
-A function added by the patch has no original to correlate against, and
-still has to be carried into the livepatch or the changed caller ends up
-referencing something which does not exist.
-
-The helper is noinline so the case survives the optimiser; otherwise the
-compiler folds it into its only caller and the test covers nothing.
+Adding data differs from changing it: nothing in the running kernel refers
+to a new variable, so it is safe and has to travel into the livepatch with
+the function using it.
 
 Signed-off-by: Puranjay Mohan <puranjay@kernel.org>
 Signed-off-by: Song Liu <song@kernel.org>
 Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
 Assisted-by: Claude:claude-opus-5
-Link: https://patch.msgid.link/20260916184351.2720310-15-song@kernel.org
+Link: https://patch.msgid.link/20260916184351.2720310-14-song@kernel.org
 ---
- tools/objtool/tests/generic/fixtures/new_function.c | 21 ++++++++++++-
- tools/objtool/tests/generic/test-new-function.sh    | 16 +++++++++-
- 2 files changed, 37 insertions(+)
- create mode 100644 tools/objtool/tests/generic/fixtures/new_function.c
- create mode 100755 tools/objtool/tests/generic/test-new-function.sh
+ tools/objtool/tests/generic/fixtures/new_data.c | 23 ++++++++++++++-
+ tools/objtool/tests/generic/test-new-data.sh    | 27 ++++++++++++++++-
+ 2 files changed, 50 insertions(+)
+ create mode 100644 tools/objtool/tests/generic/fixtures/new_data.c
+ create mode 100755 tools/objtool/tests/generic/test-new-data.sh
 
-diff --git a/tools/objtool/tests/generic/fixtures/new_function.c b/tools/objt=
-ool/tests/generic/fixtures/new_function.c
+diff --git a/tools/objtool/tests/generic/fixtures/new_data.c b/tools/objtool/=
+tests/generic/fixtures/new_data.c
 new file mode 100644
-index 0000000..e7886ea
+index 0000000..ac36462
 --- /dev/null
-+++ b/tools/objtool/tests/generic/fixtures/new_function.c
-@@ -0,0 +1,21 @@
++++ b/tools/objtool/tests/generic/fixtures/new_data.c
+@@ -0,0 +1,23 @@
 +// SPDX-License-Identifier: GPL-2.0
-+/* Function introduced by the patch.  noinline keeps it from being folded. */
++/* Data introduced by the patch. */
 +
 +static const char __modinfo[]
 +	__attribute__((section(".modinfo"), used, aligned(1))) =3D "\0name=3Dvmlinu=
 x";
 +
 +#ifdef PATCHED
-+static __attribute__((noinline)) int klp_new_helper(int x)
-+{
-+	return x * 7;
-+}
++/*
++ * Not an arithmetic progression: { 1, 2, 3, 4 } indexed by x & 3 is somethi=
+ng
++ * a compiler can compute instead of load, and then target() has no reference
++ * to the array and there is nothing for klp diff to carry.
++ */
++static const int klp_new_data[4] __attribute__((used)) =3D { 7, 3, 11, 5 };
 +#endif
 +
 +int target(int x)
 +{
 +#ifdef PATCHED
-+	return klp_new_helper(x);
++	return x + klp_new_data[x & 3];
 +#else
 +	return x;
 +#endif
 +}
-diff --git a/tools/objtool/tests/generic/test-new-function.sh b/tools/objtool=
-/tests/generic/test-new-function.sh
+diff --git a/tools/objtool/tests/generic/test-new-data.sh b/tools/objtool/tes=
+ts/generic/test-new-data.sh
 new file mode 100755
-index 0000000..b0b7f64
+index 0000000..acb68ff
 --- /dev/null
-+++ b/tools/objtool/tests/generic/test-new-function.sh
-@@ -0,0 +1,16 @@
++++ b/tools/objtool/tests/generic/test-new-data.sh
+@@ -0,0 +1,27 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
 +#
-+# A function added by the patch has no original to correlate against and must
-+# still be carried into the livepatch.
++# Data added by the patch has no counterpart in the running kernel and must =
+be
++# carried into the livepatch.
 +
 +. "$(dirname "$0")/../lib.sh"
 +
 +setup
-+build_pair new_function.c
++build_pair new_data.c
++
++# State the premise on both sides.  The array is new in the patched build and
++# absent from the original; if the compiler folded it into the code instead =
+of
++# emitting it, the assertion below would fail without saying why.
++has_input_symbol "$orig_obj" klp_new_data &&
++	fail "fixture put klp_new_data in the original; nothing new to carry"
++has_input_symbol "$patched_obj" klp_new_data ||
++	fail "compiler did not emit klp_new_data; the fixture tests nothing"
++in_relocs "$patched_obj" | grep -q 'klp_new_data' ||
++	fail "target() does not reference klp_new_data; the fixture tests nothing"
++
 +run_diff
 +
 +assert_patched target
-+assert_symbol klp_new_helper
++assert_symbol klp_new_data
 +
-+pass "new function carried into the patch with its caller"
++pass "new data carried into the patch"
